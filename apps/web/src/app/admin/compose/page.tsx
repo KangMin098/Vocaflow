@@ -18,10 +18,15 @@ import { requireAdmin } from '@/lib/auth/require-admin'
 
 import {
   ComposeConsoleClient,
+  type AttestationRow,
   type BatchRow,
   type ComposeCounts,
+  type ComposedRow,
+  type FactRow,
   type FeedRow,
+  type GateRow,
   type JobRow,
+  type SourceRow,
   type TrackRow,
 } from './ComposeConsoleClient'
 
@@ -95,6 +100,11 @@ export default async function AdminComposePage() {
   let feeds: FeedRow[] = []
   let batches: BatchRow[] = []
   let jobs: JobRow[] = []
+  let sources: SourceRow[] = []
+  let facts: FactRow[] = []
+  let attestations: AttestationRow[] = []
+  let composed: ComposedRow[] = []
+  let gates: GateRow[] = []
 
   if (url && key) {
     const client = createServiceClient(url, key, {
@@ -114,6 +124,41 @@ export default async function AdminComposePage() {
       'created_at',
       50,
     )
+    sources = await safeRows<SourceRow>(
+      client,
+      'article_compose_sources',
+      'id, batch_id, publisher, url, published_at, access_basis, wire',
+      'fetched_at',
+      200,
+    )
+    facts = await safeRows<FactRow>(
+      client,
+      'article_fact_ledger',
+      'id, batch_id, claim, kind, quote, quote_is_public, created_at',
+      'created_at',
+      200,
+    )
+    attestations = await safeRows<AttestationRow>(
+      client,
+      'article_fact_attestation',
+      'fact_id, source_id, ordinal',
+      'ordinal',
+      500,
+    )
+    composed = await safeRows<ComposedRow>(
+      client,
+      'library_articles',
+      'id, title, status, register, cefr_level, article_v_level, word_count, audio_url, compose_batch_id, content_hash',
+      'created_at',
+      100,
+    )
+    gates = await safeRows<GateRow>(
+      client,
+      'article_compose_gates',
+      'article_id, invariant, severity, verdict, detail, content_hash',
+      'checked_at',
+      500,
+    )
     jobs = await safeRows<JobRow>(
       client,
       'article_compose_jobs',
@@ -125,7 +170,7 @@ export default async function AdminComposePage() {
       feedCount,
       feedsEnabled,
       batchCount,
-      facts,
+      factCount,
       jobsPending,
       jobsClaimed,
       jobsDone,
@@ -144,7 +189,7 @@ export default async function AdminComposePage() {
       feeds: feedCount,
       feedsEnabled,
       batches: batchCount,
-      facts,
+      facts: factCount,
       jobsPending,
       jobsClaimed,
       jobsDone,
@@ -182,6 +227,11 @@ export default async function AdminComposePage() {
       feeds={feeds}
       batches={batches}
       jobs={jobs}
+      sources={sources}
+      facts={facts}
+      attestations={attestations}
+      composed={composed.filter((a) => a.compose_batch_id !== null)}
+      gates={gates}
       feedSourceOptions={feedSourceOptions}
       envMissing={!url || !key}
     />

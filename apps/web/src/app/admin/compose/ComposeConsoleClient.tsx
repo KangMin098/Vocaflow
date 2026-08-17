@@ -12,15 +12,32 @@ import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { COMPOSE_TABS, COMPOSE_TAB_BACKING, type ComposeTab } from '@/lib/admin/compose-tabs'
 
 import {
+  addAttestation,
+  addFactCard,
   addFeed,
   createBatch,
   createComposeJob,
   deleteComposeJob,
+  deleteFactCard,
   deleteFeed,
+  discoverFeedsForSource,
+  publishComposedArticle,
   releaseComposeJob,
+  runDiscovery,
   setFeedEnabled,
+  startCoverage,
   type ActionResult,
+  type DiscoveryRunResult,
 } from './actions'
+
+/** discoverFeedsForSource 가 돌려주는 항목 (패키지 타입을 화면까지 끌고 오지 않는다). */
+interface DiscoveredFeedView {
+  url: string
+  title: string | null
+  via: 'autodiscovery' | 'convention'
+  verified: boolean
+  itemCount: number
+}
 
 export interface ComposeCounts {
   feeds: number | null
@@ -71,6 +88,54 @@ export interface JobRow {
   article_id: string | null
 }
 
+export interface SourceRow {
+  id: string
+  batch_id: string
+  publisher: string
+  url: string
+  published_at: string | null
+  access_basis: string
+  wire: string | null
+}
+
+export interface FactRow {
+  id: string
+  batch_id: string
+  claim: string
+  kind: string
+  quote: string | null
+  quote_is_public: boolean | null
+  created_at: string
+}
+
+export interface AttestationRow {
+  fact_id: string
+  source_id: string
+  ordinal: number
+}
+
+export interface ComposedRow {
+  id: string
+  title: string
+  status: string
+  register: string | null
+  cefr_level: string | null
+  article_v_level: number | null
+  word_count: number | null
+  audio_url: string | null
+  compose_batch_id: string | null
+  content_hash: string | null
+}
+
+export interface GateRow {
+  article_id: string
+  invariant: string
+  severity: string
+  verdict: string
+  detail: string
+  content_hash: string
+}
+
 export interface FeedSourceOption {
   key: string
   publisher: string
@@ -108,18 +173,31 @@ export function ComposeConsoleClient({
   feeds,
   batches,
   jobs,
+  sources,
+  facts,
+  attestations,
+  composed,
+  gates,
   feedSourceOptions,
   envMissing,
+  initialTab,
 }: {
   counts: ComposeCounts
   tracks: TrackRow[]
   feeds: FeedRow[]
   batches: BatchRow[]
   jobs: JobRow[]
+  sources: SourceRow[]
+  facts: FactRow[]
+  attestations: AttestationRow[]
+  composed: ComposedRow[]
+  gates: GateRow[]
   feedSourceOptions: FeedSourceOption[]
   envMissing: boolean
+  /** 렌더 스모크에서 각 면을 그려 보기 위한 진입 탭. 화면에서는 쓰지 않는다. */
+  initialTab?: Tab
 }) {
-  const [tab, setTab] = useState<Tab>('소스')
+  const [tab, setTab] = useState<Tab>(initialTab ?? '소스')
 
   return (
     <div className="flex flex-col gap-s-5 p-s-5">
@@ -188,8 +266,18 @@ export function ComposeConsoleClient({
 
       {tab === '소스' && <TrackTable tracks={tracks} />}
       {tab === '피드' && <FeedPanel feeds={feeds} options={feedSourceOptions} />}
+      {tab === '발견' && <DiscoverPanel feedCount={counts.feedsEnabled ?? 0} />}
+      {tab === '원장' && (
+        <LedgerPanel
+          batches={batches}
+          sources={sources}
+          facts={facts}
+          attestations={attestations}
+        />
+      )}
       {tab === '작성' && <JobPanel batches={batches} jobs={jobs} tracks={tracks} />}
-      {tab !== '소스' && tab !== '피드' && tab !== '작성' && <NotBuiltYet tab={tab} />}
+      {tab === '가공' && <ActivityPanel composed={composed} jobs={jobs} tracks={tracks} />}
+      {tab === '발행' && <PublishPanel composed={composed} gates={gates} />}
     </div>
   )
 }
@@ -238,12 +326,18 @@ const BTN =
 const BTN_GHOST =
   'rounded-md border border-bd bg-bg px-s-2 py-s-1 font-mono text-xs text-t2 transition-colors hover:text-t1 hover:border-t3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p disabled:opacity-50'
 
-/** ② 피드 — 주소 등록과 활성화. 등록은 항상 꺼진 채로 들어온다. */
+/**
+ * ② 피드 — 발행사만 고르면 시스템이 찾아 준다.
+ *
+ * 주소를 직접 입력하게 두지 않는다. 발행사 사이트를 뒤져 RSS 링크를 찾아오는 것은
+ * 사람의 일이 아니고, 주소가 바뀌면 조용히 0건이 되는데 왜인지도 알 수 없다.
+ */
 function FeedPanel({ feeds, options }: { feeds: FeedRow[]; options: FeedSourceOption[] }) {
   const act = useAction()
   const [sourceKey, setSourceKey] = useState(options[0]?.key ?? '')
-  const [url, setUrl] = useState('')
-  const [label, setLabel] = useState('')
+  const [found, setFound] = useState<DiscoveredFeedView[] | null>(null)
+  const [notes, setNotes] = useState<string[]>([])
+  const registered = new Set(feeds.map((f) => f.url))
 
   return (
     <section aria-label="수집 피드" className="flex flex-col gap-s-4">
@@ -253,13 +347,13 @@ function FeedPanel({ feeds, options }: { feeds: FeedRow[]; options: FeedSourceOp
         className="flex flex-wrap items-end gap-s-3 rounded-lg border border-bd bg-bg2 p-s-4"
         onSubmit={(e) => {
           e.preventDefault()
+          setFound(null)
+          setNotes([])
           act.run(async () => {
-            const r = await addFeed({ sourceKey, url, label })
-            if (r.ok) {
-              setUrl('')
-              setLabel('')
-            }
-            return r
+            const r = await discoverFeedsForSource(sourceKey)
+            setFound(r.feeds ?? [])
+            setNotes((r.skipped ?? []).map((s) => `${s.url} — ${s.reason}`))
+            return { ok: r.ok, error: r.error }
           })
         }}
       >
@@ -268,7 +362,11 @@ function FeedPanel({ feeds, options }: { feeds: FeedRow[]; options: FeedSourceOp
           <select
             className={INPUT}
             value={sourceKey}
-            onChange={(e) => setSourceKey(e.target.value)}
+            onChange={(e) => {
+              setSourceKey(e.target.value)
+              setFound(null)
+              setNotes([])
+            }}
             disabled={act.pending || options.length === 0}
           >
             {options.map((o) => (
@@ -278,32 +376,79 @@ function FeedPanel({ feeds, options }: { feeds: FeedRow[]; options: FeedSourceOp
             ))}
           </select>
         </label>
-        <label className="flex min-w-[18rem] flex-1 flex-col gap-s-1">
-          <span className="font-body text-xs text-t2">피드 주소 (https)</span>
-          <input
-            className={INPUT}
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="https://…/rss"
-            disabled={act.pending}
-          />
-        </label>
-        <label className="flex flex-col gap-s-1">
-          <span className="font-body text-xs text-t2">피드 이름</span>
-          <input
-            className={INPUT}
-            value={label}
-            onChange={(e) => setLabel(e.target.value)}
-            placeholder="세계 뉴스"
-            disabled={act.pending}
-          />
-        </label>
         <button type="submit" className={BTN} disabled={act.pending || !sourceKey}>
-          {act.pending ? '등록 중…' : '등록'}
+          {act.pending ? '찾는 중…' : '피드 찾기'}
         </button>
+        <p className="w-full font-body text-xs text-t2">
+          발행사가 스스로 알린 피드를 찾아 실제로 열어 본 뒤 목록으로 보여 줍니다. 주소를 직접
+          찾아오실 필요가 없습니다.
+        </p>
       </form>
+
+      {found !== null && (
+        <div className="flex flex-col gap-s-3 rounded-lg border border-bd bg-bg p-s-4">
+          <h2 className="font-display text-sm font-bold text-t1">
+            찾은 피드 {found.length}개
+          </h2>
+          {found.length === 0 && (
+            <p className="font-body text-sm text-t2">
+              이 발행사에서 열 수 있는 피드를 찾지 못했습니다.
+            </p>
+          )}
+          <ul className="flex flex-col gap-s-2">
+            {found.map((f) => (
+              <li
+                key={f.url}
+                className="flex flex-wrap items-center gap-s-3 rounded-md border border-bd px-s-3 py-s-2"
+              >
+                <span className="min-w-0 flex-1">
+                  <span className="font-display text-sm font-bold text-t1">
+                    {f.title ?? '(제목 없음)'}
+                  </span>
+                  <span className="ml-s-2 font-mono text-[11px] text-t3">
+                    {f.via === 'autodiscovery' ? '발행사 알림' : '관습 경로'} · 항목{' '}
+                    {f.itemCount}
+                  </span>
+                  <span className="block truncate font-mono text-[11px] text-t2">{f.url}</span>
+                </span>
+                {registered.has(f.url) ? (
+                  <span className="font-mono text-xs text-t3">등록됨</span>
+                ) : (
+                  <button
+                    type="button"
+                    className={BTN_GHOST}
+                    disabled={act.pending}
+                    onClick={() =>
+                      act.run(() =>
+                        addFeed({
+                          sourceKey,
+                          url: f.url,
+                          label: f.title ?? `${sourceKey} 피드`,
+                        }),
+                      )
+                    }
+                  >
+                    추가
+                  </button>
+                )}
+              </li>
+            ))}
+          </ul>
+          {notes.length > 0 && (
+            <details className="font-body text-xs text-t2">
+              <summary className="cursor-pointer">열지 못한 주소 {notes.length}건</summary>
+              <ul className="mt-s-2 flex flex-col gap-s-1 font-mono text-[11px] text-t3">
+                {notes.map((n) => (
+                  <li key={n}>{n}</li>
+                ))}
+              </ul>
+            </details>
+          )}
+        </div>
+      )}
+
       <p className="font-body text-xs text-t2">
-        등록해도 수집은 시작되지 않습니다. 활성으로 바꾼 뒤 다음 수집부터 포함됩니다.
+        추가해도 수집은 시작되지 않습니다. 활성으로 바꾼 뒤 다음 수집부터 포함됩니다.
       </p>
 
       {feeds.length === 0 ? (
@@ -667,19 +812,514 @@ function TrackTable({ tracks }: { tracks: TrackRow[] }) {
   )
 }
 
-/** 아직 안 만든 면 — 무엇이 준비돼 있고 무엇이 없는지 말한다. 빈 화면으로 두지 않는다. */
-function NotBuiltYet({ tab }: { tab: Tab }) {
+/** ③ 발견 — 피드를 훑어 사건 묶음을 제안한다. 본문은 읽지 않는다. */
+function DiscoverPanel({ feedCount }: { feedCount: number }) {
+  const act = useAction()
+  const [result, setResult] = useState<DiscoveryRunResult | null>(null)
+
   return (
-    <section
-      aria-label={`${tab} 준비 상태`}
-      className="rounded-lg border border-dashed border-bd bg-bg2 p-s-5"
-    >
-      <h2 className="font-display text-sm font-bold text-t1">{tab} — 화면 미구현</h2>
-      <p className="mt-s-2 max-w-[52rem] font-body text-sm text-t2">
-        데이터 계층과 절차는 준비돼 있고 화면만 없습니다. 지금은 &ldquo;화면 도움말&rdquo;에서
-        이 단계의 순서·전제·되돌리기 가능 여부를 읽을 수 있습니다.
+    <section aria-label="사건 발견" className="flex flex-col gap-s-4">
+      <ErrorNote error={act.error} onClose={act.clear} />
+
+      <div className="flex flex-wrap items-center gap-s-3 rounded-lg border border-bd bg-bg2 p-s-4">
+        <button
+          type="button"
+          className={BTN}
+          disabled={act.pending || feedCount === 0}
+          onClick={() =>
+            act.run(async () => {
+              const r = await runDiscovery()
+              setResult(r)
+              return { ok: r.ok, error: r.error }
+            })
+          }
+        >
+          {act.pending ? '수집 중…' : '수집 실행'}
+        </button>
+        <p className="min-w-0 flex-1 font-body text-xs text-t2">
+          활성 피드 {feedCount}개를 훑습니다. 이 단계는 기사 본문을 읽지 않고 피드와 robots 만
+          묻습니다 — 실제로 읽는 것은 &ldquo;취재 시작&rdquo;을 누른 사건뿐입니다.
+        </p>
+      </div>
+
+      {result?.ok && (
+        <>
+          <p className="font-mono text-xs text-t2">
+            요청 {result.requests}건 · 취재 후보 {result.pursue?.length ?? 0} · 단독{' '}
+            {result.singleLine?.length ?? 0} · 48시간 미달 {result.holdingCount ?? 0}
+          </p>
+
+          {(result.pursue ?? []).length === 0 ? (
+            <p className="rounded-lg border border-dashed border-bd bg-bg2 p-s-5 font-body text-sm text-t2">
+              독립 계통 2개 이상인 사건이 없습니다. 서로 다른 취재 계통의 피드를 더 켜면
+              같은 사건이 묶일 확률이 올라갑니다.
+            </p>
+          ) : (
+            <ul className="flex flex-col gap-s-3">
+              {result.pursue!.map((c) => (
+                <li key={c.headline} className="rounded-lg border border-bd bg-bg p-s-4">
+                  <div className="flex flex-wrap items-start gap-s-3">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="font-display text-sm font-bold text-t1">{c.headline}</h3>
+                      <p className="font-mono text-[11px] text-t3">
+                        독립 계통 {c.independentLines} · 최초 보도{' '}
+                        {c.earliestAt ? new Date(c.earliestAt).toLocaleString('ko-KR') : '—'}
+                      </p>
+                      <ul className="mt-s-2 flex flex-col gap-s-1">
+                        {c.members.map((m) => (
+                          <li key={m.url} className="font-mono text-[11px] text-t2">
+                            <span className="text-t1">{m.publisher}</span>
+                            {m.wire && <span className="text-t3"> ({m.wire} 계통)</span>} —{' '}
+                            {m.title}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <button
+                      type="button"
+                      className={BTN}
+                      disabled={act.pending}
+                      onClick={() => act.run(() => startCoverage(c))}
+                    >
+                      취재 시작
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {(result.skipped ?? []).length > 0 && (
+            <details className="font-body text-xs text-t2">
+              <summary className="cursor-pointer">건너뛴 항목 {result.skipped!.length}건</summary>
+              <ul className="mt-s-2 flex flex-col gap-s-1 font-mono text-[11px] text-t3">
+                {result.skipped!.map((s, i) => (
+                  <li key={`${s.url}-${i}`}>
+                    {s.url} — {s.reason}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
+        </>
+      )}
+    </section>
+  )
+}
+
+/** ④ 원장 — 사실 카드와 확인 표시. 등장 순서는 지금 안 적으면 복원할 수 없다. */
+function LedgerPanel({
+  batches,
+  sources,
+  facts,
+  attestations,
+}: {
+  batches: BatchRow[]
+  sources: SourceRow[]
+  facts: FactRow[]
+  attestations: AttestationRow[]
+}) {
+  const act = useAction()
+  const [batchId, setBatchId] = useState(batches[0]?.id ?? '')
+  const [claim, setClaim] = useState('')
+  const [kind, setKind] = useState<FactRow['kind']>('event')
+  const [quote, setQuote] = useState('')
+  const [quotePublic, setQuotePublic] = useState(true)
+
+  const batchSources = sources.filter((s) => s.batch_id === batchId)
+  const batchFacts = facts.filter((f) => f.batch_id === batchId)
+  const linesOf = (factId: string): number => {
+    const ids = attestations.filter((a) => a.fact_id === factId).map((a) => a.source_id)
+    const lines = new Set(
+      ids
+        .map((id) => sources.find((s) => s.id === id))
+        .filter((s): s is SourceRow => !!s)
+        .map((s) => s.wire ?? s.publisher.toLowerCase()),
+    )
+    return lines.size
+  }
+
+  if (batches.length === 0) {
+    return (
+      <p className="rounded-lg border border-dashed border-bd bg-bg2 p-s-5 font-body text-sm text-t2">
+        취재 묶음이 없습니다. ③ 발견에서 사건을 골라 취재를 시작하세요.
       </p>
-      <p className="mt-s-2 font-mono text-xs text-t3">{COMPOSE_TAB_BACKING[tab]}</p>
+    )
+  }
+
+  return (
+    <section aria-label="사실 원장" className="flex flex-col gap-s-4">
+      <ErrorNote error={act.error} onClose={act.clear} />
+
+      <label className="flex max-w-[28rem] flex-col gap-s-1">
+        <span className="font-body text-xs text-t2">취재 묶음</span>
+        <select
+          className={INPUT}
+          value={batchId}
+          onChange={(e) => setBatchId(e.target.value)}
+          disabled={act.pending}
+        >
+          {batches.map((b) => (
+            <option key={b.id} value={b.id}>
+              {b.topic} ({b.status})
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <div className="rounded-lg border border-bd bg-bg p-s-4">
+        <h3 className="font-display text-sm font-bold text-t1">
+          이 묶음의 소스 {batchSources.length}건
+        </h3>
+        <ul className="mt-s-2 flex flex-col gap-s-1 font-mono text-[11px] text-t2">
+          {batchSources.map((s, i) => (
+            <li key={s.id}>
+              <span className="text-t3">#{i + 1}</span> {s.publisher}
+              {s.wire && <span className="text-t3"> ({s.wire} 계통)</span>} · {s.access_basis}
+            </li>
+          ))}
+          {batchSources.length === 0 && <li className="text-t3">본문을 읽어 온 소스가 없습니다</li>}
+        </ul>
+      </div>
+
+      <form
+        className="flex flex-wrap items-end gap-s-3 rounded-lg border border-bd bg-bg2 p-s-4"
+        onSubmit={(e) => {
+          e.preventDefault()
+          act.run(async () => {
+            const r = await addFactCard({
+              batchId,
+              claim,
+              kind: kind as 'event' | 'figure' | 'utterance' | 'background',
+              quote: kind === 'utterance' ? quote : undefined,
+              quoteIsPublic: kind === 'utterance' ? quotePublic : undefined,
+            })
+            if (r.ok) {
+              setClaim('')
+              setQuote('')
+            }
+            return r
+          })
+        }}
+      >
+        <label className="flex min-w-[20rem] flex-1 flex-col gap-s-1">
+          <span className="font-body text-xs text-t2">사실 (우리 말로 · 원문 복사 금지)</span>
+          <input
+            className={INPUT}
+            value={claim}
+            onChange={(e) => setClaim(e.target.value)}
+            placeholder="3명이 경상으로 치료를 받았다"
+            disabled={act.pending}
+          />
+        </label>
+        <label className="flex flex-col gap-s-1">
+          <span className="font-body text-xs text-t2">종류</span>
+          <select
+            className={INPUT}
+            value={kind}
+            onChange={(e) => setKind(e.target.value)}
+            disabled={act.pending}
+          >
+            <option value="event">사건</option>
+            <option value="figure">수치</option>
+            <option value="utterance">발언</option>
+            <option value="background">배경</option>
+          </select>
+        </label>
+        {kind === 'utterance' && (
+          <>
+            <label className="flex min-w-[16rem] flex-1 flex-col gap-s-1">
+              <span className="font-body text-xs text-t2">인용문 (25어절 이하)</span>
+              <input
+                className={INPUT}
+                value={quote}
+                onChange={(e) => setQuote(e.target.value)}
+                disabled={act.pending}
+              />
+            </label>
+            <label className="flex items-center gap-s-2 pb-s-2 font-body text-xs text-t2">
+              <input
+                type="checkbox"
+                checked={quotePublic}
+                onChange={(e) => setQuotePublic(e.target.checked)}
+                disabled={act.pending}
+              />
+              공개 석상 발언
+            </label>
+          </>
+        )}
+        <button type="submit" className={BTN} disabled={act.pending || !batchId}>
+          사실 추가
+        </button>
+      </form>
+
+      {batchFacts.length === 0 ? (
+        <p className="rounded-lg border border-dashed border-bd bg-bg2 p-s-5 font-body text-sm text-t2">
+          사실 카드가 없습니다. 소스에서 읽은 사실을 우리 말로 적어 주세요.
+        </p>
+      ) : (
+        <ul className="flex flex-col gap-s-2">
+          {batchFacts.map((f) => {
+            const lines = linesOf(f.id)
+            const mine = attestations.filter((a) => a.fact_id === f.id)
+            return (
+              <li
+                key={f.id}
+                className={`rounded-lg border p-s-3 ${
+                  lines >= 2 ? 'border-bd bg-bg' : 'border-error bg-error-light'
+                }`}
+              >
+                <div className="flex flex-wrap items-start gap-s-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-body text-sm text-t1">{f.claim}</p>
+                    <p className="font-mono text-[11px] text-t3">
+                      {f.kind} · 독립 계통 {lines}
+                      {lines < 2 && <span className="text-error"> — 2 미만이면 쓸 수 없습니다</span>}
+                    </p>
+                    <ul className="mt-s-1 flex flex-wrap gap-s-2 font-mono text-[11px] text-t2">
+                      {mine.map((a) => {
+                        const s = sources.find((x) => x.id === a.source_id)
+                        return (
+                          <li key={a.source_id}>
+                            {s?.publisher ?? a.source_id} #{a.ordinal}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                  <AttestForm
+                    factId={f.id}
+                    sources={batchSources.filter(
+                      (s) => !mine.some((a) => a.source_id === s.id),
+                    )}
+                    disabled={act.pending}
+                    onSubmit={(sourceId, ordinal) =>
+                      act.run(() => addAttestation({ factId: f.id, sourceId, ordinal }))
+                    }
+                  />
+                  <button
+                    type="button"
+                    className={BTN_GHOST}
+                    disabled={act.pending}
+                    onClick={() => act.run(() => deleteFactCard(f.id))}
+                  >
+                    삭제
+                  </button>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </section>
+  )
+}
+
+function AttestForm({
+  factId,
+  sources,
+  disabled,
+  onSubmit,
+}: {
+  factId: string
+  sources: SourceRow[]
+  disabled: boolean
+  onSubmit: (sourceId: string, ordinal: number) => void
+}) {
+  const [sourceId, setSourceId] = useState(sources[0]?.id ?? '')
+  const [ordinal, setOrdinal] = useState(0)
+  if (sources.length === 0) return null
+  return (
+    <form
+      className="flex items-end gap-s-2"
+      onSubmit={(e) => {
+        e.preventDefault()
+        onSubmit(sourceId || sources[0]!.id, ordinal)
+      }}
+    >
+      <label className="flex flex-col gap-s-1">
+        <span className="font-body text-[11px] text-t2">확인 소스</span>
+        <select
+          className={`${INPUT} py-s-1 text-xs`}
+          value={sourceId}
+          onChange={(e) => setSourceId(e.target.value)}
+          disabled={disabled}
+          aria-label={`사실 ${factId} 확인 소스`}
+        >
+          {sources.map((s) => (
+            <option key={s.id} value={s.id}>
+              {s.publisher}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label className="flex flex-col gap-s-1">
+        <span className="font-body text-[11px] text-t2">등장 순서</span>
+        <input
+          className={`${INPUT} w-16 py-s-1 text-xs`}
+          type="number"
+          min={0}
+          value={ordinal}
+          onChange={(e) => setOrdinal(Number(e.target.value))}
+          disabled={disabled}
+        />
+      </label>
+      <button type="submit" className={BTN_GHOST} disabled={disabled}>
+        확인 표시
+      </button>
+    </form>
+  )
+}
+
+/** ⑥ 가공 — 지문마다 어떤 활동이 열려 있는지. 기계 변환은 재생성 무료다. */
+function ActivityPanel({
+  composed,
+  jobs,
+  tracks,
+}: {
+  composed: ComposedRow[]
+  jobs: JobRow[]
+  tracks: TrackRow[]
+}) {
+  if (composed.length === 0) {
+    return (
+      <p className="rounded-lg border border-dashed border-bd bg-bg2 p-s-5 font-body text-sm text-t2">
+        아직 작성된 지문이 없습니다. ⑤ 작성에서 발주를 만들고 Claude Code 드레인으로 큐를
+        비우면 여기에 나타납니다.
+      </p>
+    )
+  }
+  return (
+    <section aria-label="활동 파생" className="flex flex-col gap-s-3">
+      <p className="font-body text-sm text-t2">
+        기계 변환 활동은 지문을 고쳐도 다시 만들면 되므로 비용이 들지 않습니다. 유료 호출은
+        이해 문항·토론 질문 둘뿐입니다.
+      </p>
+      <ul className="flex flex-col gap-s-2">
+        {composed.map((a) => {
+          const job = jobs.find((j) => j.article_id === a.id)
+          const track = tracks.find((t) => t.track === job?.track)
+          const hasAudio = !!a.audio_url?.trim()
+          const planned = track?.activities ?? []
+          return (
+            <li key={a.id} className="rounded-lg border border-bd bg-bg p-s-3">
+              <div className="font-display text-sm font-bold text-t1">{a.title}</div>
+              <div className="font-mono text-[11px] text-t3">
+                {job?.track ?? '유형 미상'} · {a.register ?? '—'} ·{' '}
+                {a.article_v_level !== null ? `V${a.article_v_level}` : '—'} ·{' '}
+                {a.word_count ?? '—'}어
+              </div>
+              <ul className="mt-s-2 flex flex-wrap gap-s-2">
+                {planned.map((k) => {
+                  const needsAudio = k === 'dictation' || k === 'shadowing'
+                  const open = !needsAudio || hasAudio
+                  return (
+                    <li
+                      key={k}
+                      className={`rounded px-s-2 py-s-1 font-mono text-[11px] ${
+                        open
+                          ? 'bg-success-light text-success'
+                          : 'bg-warning-light text-warning'
+                      }`}
+                    >
+                      {k}
+                      {!open && ' · 음성 필요'}
+                    </li>
+                  )
+                })}
+              </ul>
+            </li>
+          )
+        })}
+      </ul>
+    </section>
+  )
+}
+
+/** ⑦ 발행 — 게이트 판정과 본문을 함께 보고 사람이 결정한다. */
+function PublishPanel({ composed, gates }: { composed: ComposedRow[]; gates: GateRow[] }) {
+  const act = useAction()
+  const ready = composed.filter((a) => a.status !== 'published')
+
+  if (composed.length === 0) {
+    return (
+      <p className="rounded-lg border border-dashed border-bd bg-bg2 p-s-5 font-body text-sm text-t2">
+        검수할 지문이 없습니다.
+      </p>
+    )
+  }
+
+  return (
+    <section aria-label="검수와 발행" className="flex flex-col gap-s-4">
+      <ErrorNote error={act.error} onClose={act.clear} />
+      <p className="font-body text-sm text-t2">
+        게이트 통과는 발행 조건이지 발행 이유가 아닙니다. 목표 레벨에 맞는 문장인지, 학습자가
+        읽어도 되는 사건인지는 여기서 사람이 봅니다.
+      </p>
+      <ul className="flex flex-col gap-s-3">
+        {composed.map((a) => {
+          const mine = gates.filter((g) => g.article_id === a.id)
+          const stale = mine.filter((g) => g.content_hash !== a.content_hash)
+          const failed = mine.filter((g) => g.severity === 'critical' && g.verdict === 'FAIL')
+          const blocked = mine.length === 0 || stale.length > 0 || failed.length > 0
+          return (
+            <li key={a.id} className="rounded-lg border border-bd bg-bg p-s-4">
+              <div className="flex flex-wrap items-start gap-s-3">
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-display text-sm font-bold text-t1">{a.title}</h3>
+                  <p className="font-mono text-[11px] text-t3">
+                    {a.status} · {a.register ?? '—'} · {a.cefr_level ?? '—'} ·{' '}
+                    {a.word_count ?? '—'}어 · 음성 {a.audio_url ? '있음' : '없음'}
+                  </p>
+                  <ul className="mt-s-2 flex flex-col gap-s-1">
+                    {mine.length === 0 && (
+                      <li className="font-body text-xs text-error">
+                        게이트 판정이 없습니다 — 드레인에서 게이트를 실행해야 발행할 수 있습니다.
+                      </li>
+                    )}
+                    {mine.map((g) => (
+                      <li key={g.invariant} className="font-body text-xs">
+                        <span
+                          className={`font-mono font-bold ${
+                            g.verdict === 'FAIL'
+                              ? 'text-error'
+                              : g.verdict === 'WARN'
+                                ? 'text-warning'
+                                : 'text-success'
+                          }`}
+                        >
+                          {g.verdict}
+                        </span>{' '}
+                        <span className="text-t1">{g.invariant}</span>{' '}
+                        <span className="text-t2">{g.detail}</span>
+                      </li>
+                    ))}
+                    {stale.length > 0 && (
+                      <li className="font-body text-xs text-error">
+                        본문이 판정 이후에 바뀌었습니다 — 게이트를 다시 실행해야 합니다.
+                      </li>
+                    )}
+                  </ul>
+                </div>
+                {a.status !== 'published' && (
+                  <button
+                    type="button"
+                    className={BTN}
+                    disabled={act.pending || blocked}
+                    onClick={() => act.run(() => publishComposedArticle(a.id))}
+                    title={blocked ? '게이트를 통과해야 발행할 수 있습니다' : '되돌릴 수 없습니다'}
+                  >
+                    발행
+                  </button>
+                )}
+              </div>
+            </li>
+          )
+        })}
+      </ul>
+      <p className="font-mono text-xs text-t3">
+        검수 대기 {ready.length} · 발행됨 {composed.length - ready.length}
+      </p>
     </section>
   )
 }

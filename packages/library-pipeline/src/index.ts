@@ -247,6 +247,18 @@ export {
   sameEvent,
 } from './compose/cluster'
 export type { StoryCluster } from './compose/cluster'
+// 피드 자동 발견 — 관리자가 주소를 찾아 오지 않게 한다.
+export {
+  FEED_CONVENTIONS,
+  discoverFeeds,
+  looksLikeFeed,
+  parseFeedLinks,
+} from './compose/feed-discovery'
+export type {
+  DiscoverFeedsOptions,
+  DiscoverFeedsResult,
+  DiscoveredFeed,
+} from './compose/feed-discovery'
 export { collectStories, toBatchRow } from './compose/collect'
 export type { CollectOptions, CollectReport, FeedConfig } from './compose/collect'
 // 가공 — 지문 1편 → 활동 N개. 기계 변환은 재생성 무료·멱등.
