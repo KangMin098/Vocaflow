@@ -249,6 +249,23 @@ export {
 export type { StoryCluster } from './compose/cluster'
 export { collectStories, toBatchRow } from './compose/collect'
 export type { CollectOptions, CollectReport, FeedConfig } from './compose/collect'
+// 가공 — 지문 1편 → 활동 N개. 기계 변환은 재생성 무료·멱등.
+export {
+  COMPOSE_ACTIVITIES,
+  GAPFILL_DEFAULTS,
+  buildGapFill,
+  buildSpellingItems,
+  mechanicalActivities,
+  planActivities,
+} from './compose/activities'
+export type {
+  ActivityAvailability,
+  ActivityCost,
+  ActivitySpec,
+  GapBlank,
+  GapFillItem,
+  SpellingItem,
+} from './compose/activities'
 
 // Phase 7 에서 활성화
 // export { decideCuration } from './curate/auto-decision'
