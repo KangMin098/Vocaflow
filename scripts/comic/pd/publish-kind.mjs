@@ -56,8 +56,14 @@ if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_
 const { createClient } = await import('@supabase/supabase-js')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 
+// `--redo` 없이는 **이미 업로드된 호를 건너뛴다.**
+// 안 그러면 누락 몇 건을 채우려고 돌린 패스가 이미 끝난 수십 호를 통째로 다시 올린다
+// (실측: 5건 채우려다 90건 재업로드 시작 — 수천 장을 다시 보내고, 그 사이 발행본은
+//  컷 행이 지워졌다 다시 들어가는 창이 생긴다). 재업로드가 필요하면 명시적으로 --redo.
+const REDO = has('redo')
+
 let q = db.from('pd_comic_issues')
-  .select('id, slug, title, status, qc, pd_basis, pd_checked_at, source_url, panels_total, issue_no, series_key')
+  .select('id, slug, title, status, qc, pd_basis, pd_checked_at, source_url, panels_total, issue_no, series_key, cover_url')
   .in('status', ['ocr', 'review'])
 if (KIND) q = q.eq('kind', KIND)
 if (SERIES) q = q.eq('series_key', SERIES)
@@ -76,7 +82,13 @@ const run = (script, args) => spawnSync(process.execPath, [path.join(HERE, scrip
 let modernized = 0, uploaded = 0, failed = 0
 const blocked = []
 
+let skipped = 0
 for (const iss of issues) {
+  // 공개 URL 이 이미 박혀 있으면 업로드가 끝난 호다.
+  if (!REDO && typeof iss.cover_url === 'string' && /^https?:\/\//.test(iss.cover_url)) {
+    skipped++
+    continue
+  }
   const wd = iss.qc?.workDir
   if (!wd || !fs.existsSync(wd)) {
     console.log(`  ⊘ ${iss.title} — work 디렉터리 없음(드레인 먼저)`); failed++; continue
@@ -134,7 +146,7 @@ for (const iss of issues) {
 }
 
 console.log(`\n── 요약 ─────────────────────────────`)
-console.log(`  현대화 ${modernized} · 업로드 ${uploaded} · 실패 ${failed}`)
+console.log(`  현대화 ${modernized} · 업로드 ${uploaded} · 건너뜀(이미 업로드) ${skipped} · 실패 ${failed}`)
 
 if (blocked.length) {
   console.log(`\n⚠️ PD 근거 미확정 ${blocked.length}건 — **이 상태로는 발행되지 않습니다**(DB 게이트).`)
