@@ -450,6 +450,12 @@ export default function PricingPage() {
               교과서 지문이든 선생님이 준 프린트든 붙여넣으면, 지금 내 어휘로 몇 %가 읽히는지
               바로 나옵니다. 그리고 몇 개를 더 익히면 편하게 읽히는지까지.
             </p>
+            <Link
+              href="/fit"
+              className="mt-4 inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+            >
+              지금 지문 넣어 보기 — 가입 없이
+            </Link>
           </header>
           <ul className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {DIFFERENTIATORS.map((d) => (

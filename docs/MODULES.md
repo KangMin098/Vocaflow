@@ -87,6 +87,32 @@ Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라
 **정직성 장치** — 레벨 추정에 기댄 질량만큼 하한/상한을 벌리고 `confidence` 를 깎는다.
 `confidence < 0.85` 면 단일 숫자 대신 범위를 표시한다(있지도 않은 정밀도를 주장하지 않는다).
 
+### v06.38 — 공개 레벨 프로파일 (`/fit`)
+
+같은 엔진의 **익명 모드**. 개인 기억이 없으므로 학년(V-Level) 기준으로 잰다 —
+교사에게는 이쪽이 열화판이 아니라 정확한 모드다("내가 아는가" 가 아니라 "우리 반에 맞나").
+
+| | |
+|---|---|
+| 엔진 | [`lib/textfit/profile.ts`](../apps/web/src/lib/textfit/profile.ts) · [`inflect.ts`](../apps/web/src/lib/textfit/inflect.ts) — 순수 |
+| 데이터 | [`lib/textfit/public-queries.ts`](../apps/web/src/lib/textfit/public-queries.ts) — **anon 권한만** (`shared_words`·`lexicon_clean`) |
+| 화면 | [`LevelProfilePanel`](../apps/web/src/components/textfit/LevelProfilePanel.tsx) · [`PublicFitClient`](../apps/web/src/components/textfit/PublicFitClient.tsx) |
+| 라우트 | `(marketing)/fit` — 학습자 표면 아님 |
+
+**출력**: 지문 하나 → V3~V10 **8개 학년의 커버리지 곡선** + 적정 레벨 + 가장 어려운 단어(V-Level 동반).
+`textVLevel` 은 `extract_vocabulary_for_user_v2` 와 **같은 통계**(percentile_disc 0.75)를 쓴다 —
+다르면 같은 지문을 두고 추출 화면과 공개 화면이 서로 다른 난도를 말한다.
+
+**RLS 를 우회하지 않는다** — `shared_dictionary` 는 authenticated 전용이고 `service_role` 은
+"requireAdmin 뒤에서만" 이 규약이라 둘 다 후보가 아니었다. anon 이 읽는 `shared_words`(20,776 표제어)로 푼다.
+
+**사각지대 공개** — 실측 적중 91.5%(내용어 토큰). 레벨 미상 8.4% 는 각 줄의 하한~상한 띠로 표시하고,
+적정 레벨은 낙관 상한이 아니라 **중앙 추정**으로 판정한다.
+
+**굴절 처리** — `inflect.ts` 가 후보만 만들고 판정은 DB 가 한다(오탐 유출 경로 없음).
+⚠️ `-ly/-ily` 만 어간 4자 하한이 있다 — 이 규칙의 과생성은 실재하는 다른 단어를 만든다
+(apply→app · only→on · family→fam · reply→rep).
+
 **미적용 의존** — `textfit_resolve_levels` RPC
 (승인 대기, `supabase/migrations/_pending_20260817_textfit_resolve_levels.sql`).
 없으면 정확 일치 폴백으로 내려가 굴절형이 미지어로 남는다 → 커버리지를 **낮게** 잡는 방향이며,

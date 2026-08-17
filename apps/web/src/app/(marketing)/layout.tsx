@@ -22,6 +22,10 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
         </Link>
 
         <nav className="ml-auto flex items-center gap-s-4 font-display text-sm">
+          {/* 가입 전에 써볼 수 있는 유일한 기능 — 헤더 첫 자리에 둔다. */}
+          <Link href="/fit" className="text-t2 hover:text-t1">
+            지문 진단
+          </Link>
           <Link href="/pricing" className="text-t2 hover:text-t1">
             요금제
           </Link>

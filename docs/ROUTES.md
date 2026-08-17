@@ -11,7 +11,7 @@
 | 그룹 | URL | 인증 | 레이아웃 |
 |---|---|---|---|
 | `(auth)` | `/login` / `/signup` / `/reset-password` / `/verify-email` | 미인증 | 헤더 없음 |
-| `(marketing)` | `/about` / `/pricing` / `/privacy` / `/terms` | 공개 | 랜딩 |
+| `(marketing)` | `/about` / `/fit` / `/pricing` / `/privacy` / `/terms` | 공개 | 랜딩 + 지문 진단 |
 | `(main)` | `/hub` / `/text/*` / `/wordvault/*` 등 | 인증 필요 | Sidebar + FlowNav + SessionFrame |
 | `(app)` | `/play/wordblitz` / `/play/pirate-quest` | 인증 | 풀스크린 (Sidebar X · SessionFrame ✓) |
 | `admin/*` | `/admin/*` | admin/curator only | AdminSidebar |
@@ -122,11 +122,12 @@
 
 ---
 
-## (marketing) 공개 페이지 (4)
+## (marketing) 공개 페이지 (5)
 
 | 경로 | 비고 |
 |---|---|
 | `/about` | 소개 |
+| **`/fit`** | **지문 난이도 진단** — 로그인 없이 학년별 어휘 커버리지 곡선. 가입 전 가치 노출(교사 채널 CAC 0). anon 권한만 사용(`shared_words`·`lexicon_clean`) · 입력 지문 미저장 · 학습자 표면 아님(F5 분모 제외) |
 | `/pricing` | 요금 |
 | `/privacy` | 개인정보 |
 | `/terms` | 약관 |
