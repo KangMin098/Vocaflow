@@ -16,6 +16,7 @@ import {
   acpOverlap,
   allTopics,
   isAlsoAcpSource,
+  isPublisherHost,
   feasibleTopics,
   isCollectable,
   lineOf,
@@ -147,6 +148,36 @@ describe('ACP 와의 겹침 — 규칙이 있어야 사고가 안 난다', () =>
     expect(isAlsoAcpSource('noaa')).toBe(true)
     expect(isAlsoAcpSource('reuters')).toBe(false)
     expect(isAlsoAcpSource('없는소스')).toBe(false)
+  })
+})
+
+describe('isPublisherHost — 피드가 다른 호스트에 있어도 거부하지 않는다', () => {
+  it('발행사 도메인과 하위 도메인은 인정', () => {
+    const bbc = FACT_SOURCES['bbc']!
+    expect(isPublisherHost(bbc, 'bbc.co.uk')).toBe(true)
+    expect(isPublisherHost(bbc, 'www.bbc.co.uk')).toBe(true)
+  })
+
+  it('BBC 실제 피드 호스트(feeds.bbci.co.uk)를 인정한다', () => {
+    // 상위 도메인부터 다르다(bbci vs bbc). 발행사 도메인만 검사하면
+    // **발행사가 스스로 알린 피드를 우리가 거부한다** — 2026-08-17 설계 점검에서 발견.
+    expect(isPublisherHost(FACT_SOURCES['bbc']!, 'feeds.bbci.co.uk')).toBe(true)
+  })
+
+  it('피드 전용 호스트를 가진 발행사들이 등록돼 있다', () => {
+    for (const [k, host] of [
+      ['cnn', 'rss.cnn.com'],
+      ['npr', 'feeds.npr.org'],
+      ['washingtonpost', 'feeds.washingtonpost.com'],
+    ] as const) {
+      expect(isPublisherHost(FACT_SOURCES[k]!, host)).toBe(true)
+    }
+  })
+
+  it('무관한 호스트는 여전히 거부한다', () => {
+    expect(isPublisherHost(FACT_SOURCES['bbc']!, 'evil.example')).toBe(false)
+    // 접미사만 같은 호스트로 우회하는 것도 막는다
+    expect(isPublisherHost(FACT_SOURCES['bbc']!, 'notbbc.co.uk')).toBe(false)
   })
 })
 

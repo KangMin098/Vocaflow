@@ -145,6 +145,17 @@ export interface GateRow {
   content_hash: string
 }
 
+/**
+ * 콘텐츠 품질 게이트 판정 — 재저작 게이트(I12~I17)와 **다른 계열**이다.
+ * 재저작 게이트가 전부 통과여도 이쪽이 막으면 발행이 안 된다(어휘 추출 0 등).
+ */
+export interface ContentGateRow {
+  article_id: string
+  invariant: string
+  severity: string
+  verdict: string
+}
+
 export interface FeedSourceOption {
   key: string
   publisher: string
@@ -222,6 +233,7 @@ export function ComposeConsoleClient({
   gates,
   feedSourceOptions,
   acpOverlap,
+  contentGates,
   envMissing,
   initialTab,
 }: {
@@ -238,6 +250,8 @@ export function ComposeConsoleClient({
   feedSourceOptions: FeedSourceOption[]
   /** ACP(본문 수집)에도 있는 소스 키 — 표 옆에 "겹치는데?" 의 답을 둔다. */
   acpOverlap: string[]
+  /** 콘텐츠 품질 게이트 — 재저작 게이트와 **별개로** 발행을 막는다. */
+  contentGates: ContentGateRow[]
   envMissing: boolean
   /** 렌더 스모크에서 각 면을 그려 보기 위한 진입 탭. 화면에서는 쓰지 않는다. */
   initialTab?: Tab
@@ -322,7 +336,9 @@ export function ComposeConsoleClient({
       )}
       {tab === '작성' && <JobPanel batches={batches} jobs={jobs} tracks={tracks} />}
       {tab === '가공' && <ActivityPanel composed={composed} jobs={jobs} tracks={tracks} />}
-      {tab === '발행' && <PublishPanel composed={composed} gates={gates} />}
+      {tab === '발행' && (
+        <PublishPanel composed={composed} gates={gates} contentGates={contentGates} />
+      )}
     </div>
   )
 }
@@ -1359,7 +1375,15 @@ function ActivityPanel({
 }
 
 /** ⑦ 발행 — 게이트 판정과 본문을 함께 보고 사람이 결정한다. */
-function PublishPanel({ composed, gates }: { composed: ComposedRow[]; gates: GateRow[] }) {
+function PublishPanel({
+  composed,
+  gates,
+  contentGates,
+}: {
+  composed: ComposedRow[]
+  gates: GateRow[]
+  contentGates: ContentGateRow[]
+}) {
   const act = useAction()
   const ready = composed.filter((a) => a.status !== 'published')
 
@@ -1383,7 +1407,14 @@ function PublishPanel({ composed, gates }: { composed: ComposedRow[]; gates: Gat
           const mine = gates.filter((g) => g.article_id === a.id)
           const stale = mine.filter((g) => g.content_hash !== a.content_hash)
           const failed = mine.filter((g) => g.severity === 'critical' && g.verdict === 'FAIL')
-          const blocked = mine.length === 0 || stale.length > 0 || failed.length > 0
+          // 발행을 막는 게이트는 두 계열이다. 재저작 게이트만 보여 주면 "전부 통과인데
+          // 발행이 안 된다" 가 된다 — 실제로 막는 건 콘텐츠 품질 게이트인 경우가 많다
+          // (2026-08-17 E2E 점검에서 재현: 어휘 추출 0 이면 트리거가 조용히 막는다).
+          const contentFailed = contentGates.filter(
+            (g) => g.article_id === a.id && g.severity === 'critical' && g.verdict === 'FAIL',
+          )
+          const blocked =
+            mine.length === 0 || stale.length > 0 || failed.length > 0 || contentFailed.length > 0
           return (
             <li key={a.id} className="rounded-lg border border-bd bg-bg p-s-4">
               <div className="flex flex-wrap items-start gap-s-3">
@@ -1421,6 +1452,23 @@ function PublishPanel({ composed, gates }: { composed: ComposedRow[]; gates: Gat
                         본문이 판정 이후에 바뀌었습니다 — 게이트를 다시 실행해야 합니다.
                       </li>
                     )}
+                    {(a.article_v_level === null || a.cefr_level === null) && (
+                      <li className="font-body text-xs text-warning">
+                        난이도가 아직 산출되지 않았습니다 — 이대로 발행하면 학습자 화면에서
+                        추천 순위(i+1)가 매겨지지 않습니다. 드레인의 처리 단계를 먼저 실행하세요.
+                      </li>
+                    )}
+                    {contentFailed.map((g) => (
+                      <li key={g.invariant} className="font-body text-xs">
+                        <span className="font-mono font-bold text-error">막힘</span>{' '}
+                        <span className="text-t1">{g.invariant}</span>{' '}
+                        <span className="text-t2">
+                          {g.invariant.includes('추출')
+                            ? '— 어휘 추출이 아직 안 됐습니다. 드레인의 처리 단계를 먼저 실행하세요.'
+                            : '— 콘텐츠 품질 게이트가 막고 있습니다.'}
+                        </span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
                 {a.status !== 'published' && (

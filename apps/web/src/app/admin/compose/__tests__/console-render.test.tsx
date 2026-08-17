@@ -252,6 +252,15 @@ const GATES: GateRow[] = [
   },
 ]
 
+const CONTENT_GATES = [
+  {
+    article_id: 'a2',
+    invariant: '추출 비어있음(0단어)',
+    severity: 'critical',
+    verdict: 'FAIL',
+  },
+]
+
 function render(tab: string, filled: boolean): string {
   return renderToString(
     <ComposeConsoleClient
@@ -267,6 +276,7 @@ function render(tab: string, filled: boolean): string {
       gates={filled ? GATES : []}
       feedSourceOptions={[{ key: 'bbc', publisher: 'bbc.co.uk', tier: 'corroborating' }]}
       acpOverlap={['noaa', 'voa']}
+      contentGates={filled ? CONTENT_GATES : []}
       envMissing={false}
       initialTab={tab as never}
     />,
@@ -320,6 +330,14 @@ describe('Compose 콘솔 렌더', () => {
     const html = render('발행', true)
     expect(html).toContain('I14 구조 독립성')
     expect(html).toContain('게이트를 통과해야 발행할 수 있습니다')
+  })
+
+  it('재저작 게이트가 전부 통과여도 콘텐츠 품질 게이트가 막으면 그 사유를 보여 준다', () => {
+    // a2 는 재저작 게이트 판정이 아예 없고 콘텐츠 게이트가 FAIL 이다.
+    // 이 조합에서 "전부 통과인데 발행이 안 된다" 가 되던 것이 실제 사용 시 가장 답답한 지점이었다.
+    const html = render('발행', true)
+    expect(html).toContain('추출 비어있음(0단어)')
+    expect(html).toContain('드레인의 처리 단계를 먼저 실행하세요')
   })
 
   it('데이터가 비어도 다음에 무엇을 하라고 말한다 (빈 화면 금지)', () => {

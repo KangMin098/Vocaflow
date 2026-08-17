@@ -17,6 +17,7 @@ import {
   buildJobSpec,
   collectStories,
   discoverFeeds,
+  isPublisherHost,
   primeRobots,
   readStoryForFacts,
   verifyFeedUrl,
@@ -150,8 +151,10 @@ export async function addFeed(input: {
   if (parsed.protocol !== 'https:') {
     return { ok: false, error: 'https 주소만 등록합니다' }
   }
-  // 발행사와 다른 호스트를 등록하면 그 소스의 접근 정책·계통 표시가 거짓이 된다.
-  if (!parsed.host.toLowerCase().endsWith(spec.publisher.toLowerCase())) {
+  // 발행사와 무관한 호스트를 등록하면 그 소스의 접근 정책·계통 표시가 거짓이 된다.
+  // 다만 피드는 별도 호스트에서 서비스되는 일이 흔하므로(BBC → feeds.bbci.co.uk)
+  // 레지스트리의 feedHosts 도 함께 인정한다.
+  if (!isPublisherHost(spec, parsed.host)) {
     return {
       ok: false,
       error: `${spec.publisher} 의 피드가 아닙니다 (입력 호스트: ${parsed.host})`,
@@ -451,14 +454,62 @@ export async function deleteFactCard(id: string): Promise<ActionResult> {
  * 실패하면 트리거의 메시지를 그대로 보여 준다 — 무엇이 막았는지가 거기 적혀 있다.
  */
 export async function publishComposedArticle(articleId: string): Promise<ActionResult> {
-  const { error } = await (await db())
+  const client = await db()
+  const { error } = await client
     .from('library_articles')
     .update({ status: 'published', published_at: new Date().toISOString() })
     .eq('id', articleId)
     .eq('source', 'original')
-  if (error) return { ok: false, error: error.message }
-  revalidatePath(PATH)
-  return { ok: true }
+
+  if (!error) {
+    revalidatePath(PATH)
+    return { ok: true }
+  }
+
+  // 발행을 막는 게이트는 두 종류다 — 재저작 게이트(I12~I17)와 **콘텐츠 품질 게이트**.
+  // 후자가 막으면 트리거가 "품질 게이트 FAIL" 이라고만 말해서, 화면에서 재저작 게이트가
+  // 전부 통과로 보이는데 발행만 안 되는 상황이 된다(2026-08-17 E2E 점검에서 재현).
+  // 그래서 실패하면 어느 불변식이 막았는지 조회해 그대로 알려 준다.
+  const { data } = await client.rpc('run_content_quality_gates', {
+    p_scope: 'article',
+    p_id: articleId,
+  })
+  const failed = ((data ?? []) as Array<{ invariant: string; severity: string; verdict: string }>)
+    .filter((g) => g.severity === 'critical' && g.verdict === 'FAIL')
+    .map((g) => g.invariant)
+
+  if (failed.length > 0) {
+    return {
+      ok: false,
+      error: `콘텐츠 품질 게이트가 막았습니다 — ${failed.join(' · ')}. ${
+        failed.some((f) => f.includes('추출'))
+          ? '어휘 추출이 아직 안 됐습니다. 드레인의 처리 단계를 먼저 실행하세요.'
+          : '해당 항목을 고친 뒤 다시 시도하세요.'
+      }`,
+    }
+  }
+  return { ok: false, error: error.message }
+}
+
+/** ⑦ 발행 화면이 "왜 아직 못 내보내는지" 를 보여 주기 위한 조회. */
+export interface ContentGateRow {
+  article_id: string
+  invariant: string
+  severity: string
+  verdict: string
+}
+
+export async function fetchContentGates(articleIds: string[]): Promise<ContentGateRow[]> {
+  if (articleIds.length === 0) return []
+  const client = await db()
+  const out: ContentGateRow[] = []
+  for (const id of articleIds) {
+    const { data } = await client.rpc('run_content_quality_gates', { p_scope: 'article', p_id: id })
+    for (const g of (data ?? []) as Array<{ invariant: string; severity: string; verdict: string }>) {
+      out.push({ article_id: id, invariant: g.invariant, severity: g.severity, verdict: g.verdict })
+    }
+  }
+  return out
 }
 
 // ── 취재 묶음 ────────────────────────────────────────────────────────

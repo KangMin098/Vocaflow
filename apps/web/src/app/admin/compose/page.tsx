@@ -18,6 +18,8 @@ import {
 
 import { requireAdmin } from '@/lib/auth/require-admin'
 
+import { fetchContentGates } from './actions'
+
 import {
   ComposeConsoleClient,
   type AttestationRow,
@@ -228,9 +230,17 @@ export default async function AdminComposePage() {
     .map((s) => ({ key: s.key, publisher: s.publisher, tier: s.tier }))
     .sort((a, b) => a.key.localeCompare(b.key))
 
+  // 발행을 막는 게이트는 재저작 게이트만이 아니다 — 콘텐츠 품질 게이트가 막는 경우가 많아
+  // 화면에서 "전부 통과인데 발행이 안 된다" 가 된다. 검수 대기분만 조회한다(비용 절약).
+  const pendingIds = composed
+    .filter((a) => a.compose_batch_id !== null && a.status !== 'published')
+    .map((a) => a.id)
+  const contentGates = await fetchContentGates(pendingIds.slice(0, 20))
+
   return (
     <ComposeConsoleClient
       counts={counts}
+      contentGates={contentGates}
       tracks={tracks}
       feeds={feeds}
       batches={batches}

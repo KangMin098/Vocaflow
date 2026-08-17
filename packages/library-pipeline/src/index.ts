@@ -202,6 +202,7 @@ export {
   feasibleTopics,
   isAlsoAcpSource,
   isCollectable,
+  isPublisherHost,
   lineOf,
   planFactSources,
   topicsUnlockedByPlanned,

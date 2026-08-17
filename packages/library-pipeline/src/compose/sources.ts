@@ -141,6 +141,14 @@ export interface FactSourceSpec {
    *   안 되면 사유와 함께 버려진다. 그래서 틀린 후보가 있어도 잘못된 피드가 등록되지 않는다.
    */
   feedHints?: ReadonlyArray<string>
+  /**
+   * 피드가 **다른 호스트에서** 서비스되는 경우의 허용 목록.
+   *
+   * 예: BBC 의 실제 피드는 `feeds.bbci.co.uk` 에 있는데 발행사 도메인은 `bbc.co.uk` 라
+   * 상위 도메인조차 다르다. 호스트를 발행사 도메인으로만 검사하면 **발행사가 스스로 알린
+   * 피드를 우리가 거부하는** 일이 생긴다(2026-08-17 설계 점검에서 발견).
+   */
+  feedHosts?: ReadonlyArray<string>
   /** 왜 이 등급인지 — 판단 근거를 남긴다 */
   note: string
 }
@@ -320,6 +328,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       'the-natural-world-the-environment',
       'sport',
     ],
+    feedHosts: ['feeds.bbci.co.uk'],
     feedHints: [
       '/news/rss.xml',
       '/news/world/rss.xml',
@@ -374,6 +383,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       'the-natural-world-the-environment',
       'sport',
     ],
+    feedHosts: ['rss.cnn.com'],
     feedHints: ['/services/rss/', '/rss/edition.rss', '/rss/edition_world.rss'],
     note: '미국 상업 방송. 자체 취재 비중이 높고 주제 폭이 넓다.',
   },
@@ -408,6 +418,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       'science-and-technology',
       'work-and-business-business',
     ],
+    feedHosts: ['feeds.washingtonpost.com'],
     feedHints: ['/arcio/rss/category/world/', '/arcio/rss/category/climate-environment/', '/rss/world'],
     // 초판에서 "유료벽 때문에" 제외했는데 그건 **측정이 아니라 예측**이었다.
     // 피드는 제목+요약을 주므로 사건 발견과 사실 교차 확인에는 쓸 수 있는 경우가 많다.
@@ -440,6 +451,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       'health-health-and-fitness',
       'people-education',
     ],
+    feedHosts: ['feeds.npr.org'],
     feedHints: ['/rss/rss.php?id=1001', '/rss/rss.php?id=1007', '/rss/rss.php'],
     note: '미국 공영 라디오. 문체가 평이하고 교육·사회 주제가 두터워 학습 지문 재료로 좋다.',
   },
@@ -610,6 +622,23 @@ export function acpOverlap(): string[] {
 /** 이 주제를 덮는 소스인가. `'*'` 는 모든 주제(배경 사실용). */
 function covers(spec: FactSourceSpec, category: string): boolean {
   return spec.topics.includes('*') || spec.topics.includes(category)
+}
+
+/**
+ * 이 호스트가 그 발행사의 것인가.
+ *
+ * 발행사 도메인의 하위 도메인이거나, `feedHosts` 에 명시된 피드 전용 호스트면 인정한다.
+ * 발행사 도메인만으로 검사하면 **발행사가 스스로 알린 피드를 우리가 거부한다**
+ * (BBC 의 피드는 `feeds.bbci.co.uk` — 상위 도메인부터 다르다).
+ */
+export function isPublisherHost(spec: FactSourceSpec, host: string): boolean {
+  const h = host.toLowerCase()
+  const pub = spec.publisher.toLowerCase()
+  if (h === pub || h.endsWith(`.${pub}`)) return true
+  return (spec.feedHosts ?? []).some((f) => {
+    const fh = f.toLowerCase()
+    return h === fh || h.endsWith(`.${fh}`)
+  })
 }
 
 /** 취재 계통 식별자 — wire 가 있으면 그것, 없으면 발행사 자신이 하나의 계통이다. */
