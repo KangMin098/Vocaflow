@@ -8,6 +8,7 @@
 
 import { createClient as createServiceClient } from '@supabase/supabase-js'
 import {
+  FACT_SOURCES,
   LEARNING_TYPES,
   trackCoverage,
   type LearningTrack,
@@ -15,7 +16,14 @@ import {
 
 import { requireAdmin } from '@/lib/auth/require-admin'
 
-import { ComposeConsoleClient, type ComposeCounts, type TrackRow } from './ComposeConsoleClient'
+import {
+  ComposeConsoleClient,
+  type BatchRow,
+  type ComposeCounts,
+  type FeedRow,
+  type JobRow,
+  type TrackRow,
+} from './ComposeConsoleClient'
 
 export const dynamic = 'force-dynamic'
 
@@ -23,9 +31,33 @@ type CountResult = { count: number | null; error: unknown }
 type CountQuery = PromiseLike<CountResult> & {
   eq(column: string, value: string | boolean): PromiseLike<CountResult>
 }
+type RowsResult<T> = { data: T[] | null; error: unknown }
+type RowsQuery<T> = PromiseLike<RowsResult<T>> & {
+  order(column: string, opts: { ascending: boolean }): RowsQuery<T>
+  limit(n: number): RowsQuery<T>
+}
 /** supabase-js 제네릭과 싸우지 않도록 필요한 모양만 구조적으로 받는다. */
 interface CountableClient {
-  from(table: string): { select(cols: string, opts: { count: 'exact'; head: true }): CountQuery }
+  from(table: string): {
+    select(cols: string, opts: { count: 'exact'; head: true }): CountQuery
+    select<T>(cols: string): RowsQuery<T>
+  }
+}
+
+/** 표가 없으면 빈 배열 — 화면은 '없음'을 counts 의 `—` 로 이미 구별해 보여 준다. */
+async function safeRows<T>(
+  client: CountableClient,
+  table: string,
+  cols: string,
+  order: string,
+  limit = 100,
+): Promise<T[]> {
+  const { data, error } = await client
+    .from(table)
+    .select<T>(cols)
+    .order(order, { ascending: false })
+    .limit(limit)
+  return error ? [] : (data ?? [])
 }
 
 /**
@@ -60,12 +92,45 @@ export default async function AdminComposePage() {
     published: null,
   }
 
+  let feeds: FeedRow[] = []
+  let batches: BatchRow[] = []
+  let jobs: JobRow[] = []
+
   if (url && key) {
     const client = createServiceClient(url, key, {
       auth: { persistSession: false, autoRefreshToken: false },
     }) as unknown as CountableClient
-    const [feeds, feedsEnabled, batches, facts, jobsPending, jobsClaimed, jobsDone, published] =
-      await Promise.all([
+
+    feeds = await safeRows<FeedRow>(
+      client,
+      'article_compose_feeds',
+      'id, source_key, url, label, enabled, robots_status, robots_at, last_polled_at, last_found, last_note',
+      'created_at',
+    )
+    batches = await safeRows<BatchRow>(
+      client,
+      'article_compose_batches',
+      'id, topic, event_occurred_at, status, created_at',
+      'created_at',
+      50,
+    )
+    jobs = await safeRows<JobRow>(
+      client,
+      'article_compose_jobs',
+      'id, batch_id, track, register, target_v_level, skill_focus, words_min, words_max, status, claimed_by, claimed_at, attempts, last_error, article_id',
+      'created_at',
+      100,
+    )
+    const [
+      feedCount,
+      feedsEnabled,
+      batchCount,
+      facts,
+      jobsPending,
+      jobsClaimed,
+      jobsDone,
+      published,
+    ] = await Promise.all([
         safeCount(client, 'article_compose_feeds'),
         safeCount(client, 'article_compose_feeds', ['enabled', true]),
         safeCount(client, 'article_compose_batches'),
@@ -75,7 +140,16 @@ export default async function AdminComposePage() {
         safeCount(client, 'article_compose_jobs', ['status', 'done']),
         safeCount(client, 'library_articles', ['source', 'original']),
       ])
-    counts = { feeds, feedsEnabled, batches, facts, jobsPending, jobsClaimed, jobsDone, published }
+    counts = {
+      feeds: feedCount,
+      feedsEnabled,
+      batches: batchCount,
+      facts,
+      jobsPending,
+      jobsClaimed,
+      jobsDone,
+      published,
+    }
   }
 
   // 유형별 소스 커버리지는 DB 가 아니라 레지스트리 계산 — 어떤 유형이 지금 발주 가능한지.
@@ -94,7 +168,22 @@ export default async function AdminComposePage() {
     }
   })
 
+  // 피드 등록 폼의 선택지 — 승인된 소스만. 승인 전 소스를 고를 수 있으면
+  // 등록해 놓고 왜 수집이 안 되는지 묻게 된다.
+  const feedSourceOptions = Object.values(FACT_SOURCES)
+    .filter((s) => s.access.termsReviewed && s.tier !== 'background')
+    .map((s) => ({ key: s.key, publisher: s.publisher, tier: s.tier }))
+    .sort((a, b) => a.key.localeCompare(b.key))
+
   return (
-    <ComposeConsoleClient counts={counts} tracks={tracks} envMissing={!url || !key} />
+    <ComposeConsoleClient
+      counts={counts}
+      tracks={tracks}
+      feeds={feeds}
+      batches={batches}
+      jobs={jobs}
+      feedSourceOptions={feedSourceOptions}
+      envMissing={!url || !key}
+    />
   )
 }
