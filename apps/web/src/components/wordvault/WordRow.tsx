@@ -82,9 +82,7 @@ export function WordRow({
       {/* ── 메인 행 (8 column grid) ── */}
       <div
         onClick={() => onPlayWord(word.id)}
-        className={cn(
-          'grid cursor-pointer items-center gap-3 px-4 py-2.5 md:gap-4'
-        )}
+        className={cn('grid cursor-pointer items-center gap-3 px-4 py-2.5 md:gap-4')}
         style={{
           gridTemplateColumns:
             'auto auto minmax(0, 200px) minmax(0, 130px) minmax(0, 1fr) auto auto',
@@ -102,8 +100,8 @@ export function WordRow({
           className={cn(
             'flex h-[14px] w-[14px] shrink-0 items-center justify-center rounded-[3px] border-[1.5px] transition-all duration-fast',
             isSelected
-              ? 'bg-learn-mastered border-learn-mastered'
-              : 'border-bd-strong hover:border-learn-mastered bg-bg'
+              ? 'border-learn-mastered bg-learn-mastered'
+              : 'border-bd-strong bg-bg hover:border-learn-mastered'
           )}
         >
           {isSelected && (
@@ -117,18 +115,33 @@ export function WordRow({
           )}
         </button>
 
-        {/* 2. 재생 버튼 (행 클릭과 동일 동작 — 시각 단서 보존) */}
-        <span
-          aria-hidden
+        {/*
+          2. 재생 — **진짜 버튼이다.**
+
+          이전에는 `<span aria-hidden>` 장식이었고 재생은 행 `div` 의 `onClick` 하나뿐이었다.
+          그런데 단어·뜻·예문 열은 텍스트 선택을 위해 `stopPropagation` 을 건다. 결과:
+            · 키보드·스크린리더로는 **단어를 재생할 방법이 아예 없었다**(행에 role·tabIndex 없음)
+            · 마우스로도 학습자가 가장 누를 법한 **단어 글자를 누르면 아무 일도 안 났다**
+          실측 2026-08-17 — TTS 회귀 스펙을 붙이다 드러났다(자동화가 아니었으면 계속 몰랐다).
+          행 클릭은 편의로 남기고, 이 버튼이 정식 경로가 된다.
+        */}
+        <button
+          type="button"
+          onClick={(e) => {
+            stopBubble(e)
+            onPlayWord(word.id)
+          }}
+          aria-label={`${word.word} 발음 듣기`}
           className={cn(
             'flex h-7 w-7 shrink-0 items-center justify-center rounded-md transition-all duration-fast',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-learn-fresh',
             isPlaying
-              ? 'bg-learn-fresh text-white shadow-sm ring-2 ring-learn-fresh/20'
+              ? 'ring-learn-fresh/20 bg-learn-fresh text-white shadow-sm ring-2'
               : 'text-t3 group-hover:bg-learn-fresh-light group-hover:text-learn-fresh'
           )}
         >
-          <Play size={10} fill="currentColor" />
-        </span>
+          <Play size={10} fill="currentColor" aria-hidden />
+        </button>
 
         {/* 3. 영단어 + Memory dot + POS */}
         <div className="flex min-w-0 items-baseline gap-1.5">
@@ -161,10 +174,7 @@ export function WordRow({
         </div>
 
         {/* 5. 예문 — 우측 정렬 (Lora italic + ❝❞) */}
-        <div
-          className="hidden min-w-0 md:block"
-          onClick={stopBubble}
-        >
+        <div className="hidden min-w-0 md:block" onClick={stopBubble}>
           {word.exampleEn ? (
             <p
               className={cn(
@@ -176,9 +186,7 @@ export function WordRow({
               {word.exampleEn}
             </p>
           ) : (
-            <span className="block text-right font-body text-[12px] text-t4">
-              —
-            </span>
+            <span className="block text-right font-body text-[12px] text-t4">—</span>
           )}
         </div>
 
