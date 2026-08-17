@@ -17,7 +17,11 @@ import { FileText, RotateCcw } from 'lucide-react'
 
 import { LevelProfilePanel } from '@/components/textfit/LevelProfilePanel'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
-import { analyzePublicText, PUBLIC_TEXT_LIMIT } from '@/lib/textfit/public-queries'
+import {
+  analyzePublicText,
+  FitRateLimitError,
+  PUBLIC_TEXT_LIMIT,
+} from '@/lib/textfit/public-queries'
 import { buildShareUrl, isShareable } from '@/lib/textfit/share'
 import type { LevelProfile } from '@/lib/textfit/profile'
 
@@ -68,10 +72,13 @@ export function PublicFitClient({ initialShared = null }: Props) {
     }
 
     let alive = true
+    // 입력이 바뀌면 이전 요청을 취소한다 — 늦게 온 옛 응답이 새 결과를 덮지 않게.
+    const controller = new AbortController()
     setLoading(true)
+
     // 입력 중 매 글자마다 조회하지 않는다 — 화면이 흔들리면 읽을 수 없다(Calm UI).
     const timer = setTimeout(() => {
-      analyzePublicText(tokenization.counts, tokenization.totalWords)
+      analyzePublicText(tokenization.counts, tokenization.totalWords, controller.signal)
         .then((p) => {
           if (!alive) return
           setProfile(p)
@@ -80,10 +87,14 @@ export function PublicFitClient({ initialShared = null }: Props) {
           setViewingShared(false)
           setCopied(false)
         })
-        .catch(() => {
-          if (!alive) return
+        .catch((err: unknown) => {
+          if (!alive || (err instanceof DOMException && err.name === 'AbortError')) return
           setProfile(null)
-          setError('지금은 분석이 어려워요. 잠시 뒤 다시 시도해 주세요.')
+          setError(
+            err instanceof FitRateLimitError
+              ? `요청이 너무 잦아요. ${err.retryAfterSeconds}초 뒤 다시 시도해 주세요.`
+              : '지금은 분석이 어려워요. 잠시 뒤 다시 시도해 주세요.',
+          )
         })
         .finally(() => {
           if (alive) setLoading(false)
@@ -92,6 +103,7 @@ export function PublicFitClient({ initialShared = null }: Props) {
 
     return () => {
       alive = false
+      controller.abort()
       clearTimeout(timer)
     }
   }, [tokenization, analysed, viewingShared])
