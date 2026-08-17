@@ -84,9 +84,28 @@ export function parseTedTranscriptHtml(html: string, url: string): TedTranscript
     throw new TedTranscriptError(`__NEXT_DATA__ JSON 파싱 실패: ${url}`, 'no-next-data')
   }
 
-  const pageProps = (data as Record<string, any>)?.props?.pageProps ?? {}
+  // 남의 페이지 내부 구조라 언제든 바뀐다 — 필요한 가지만 좁게 선언한다.
+  // (`any` 로 받으면 아래 접근이 전부 무검사가 되고, 프로덕션 빌드의 lint 게이트도 막힌다.)
+  const pageProps =
+    (
+      data as {
+        props?: {
+          pageProps?: {
+            transcriptData?: { translation?: { paragraphs?: NextDataParagraph[] } }
+            videoData?: {
+              slug?: string
+              title?: string
+              presenterDisplayName?: string
+              duration?: number
+              publishedAt?: unknown
+              topics?: { nodes?: unknown[] }
+            }
+          }
+        }
+      }
+    )?.props?.pageProps ?? {}
   const paragraphs: NextDataParagraph[] =
-    pageProps?.transcriptData?.translation?.paragraphs ?? []
+    pageProps.transcriptData?.translation?.paragraphs ?? []
 
   const text = paragraphs
     .flatMap((p) => p.cues ?? [])

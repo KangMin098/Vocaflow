@@ -66,8 +66,12 @@ export function parseTedTopicHtml(html: string, topicKey: string): DiscoverResul
     throw new TedDiscoverError(`__NEXT_DATA__ JSON 파싱 실패: ${topicKey}`)
   }
 
-  const pageProps = (data as Record<string, any>)?.props?.pageProps ?? {}
-  const rawTalks: unknown[] = Array.isArray(pageProps?.talks) ? pageProps.talks : []
+  // 남의 페이지 내부 구조라 언제든 바뀐다 — 필요한 가지만 좁게 선언하고 나머지는 unknown 으로 둔다.
+  // (`any` 로 받으면 아래 접근이 전부 무검사가 되고, 프로덕션 빌드의 lint 게이트도 막힌다.)
+  const pageProps =
+    (data as { props?: { pageProps?: { talks?: unknown; talksTotalCount?: unknown } } })?.props
+      ?.pageProps ?? {}
+  const rawTalks: unknown[] = Array.isArray(pageProps.talks) ? pageProps.talks : []
 
   const seen = new Set<string>()
   const talks: DiscoveredTalk[] = []

@@ -31,7 +31,12 @@ const USER_AGENT = 'Vocaflow-LCP/2.0 (research; https://vocaflow.app)'
  * 구조적 인터페이스로 좁게 받으려다 실패했다 — supabase-js 의 `PostgrestBuilder` 는
  * thenable 이지 `Promise` 가 아니라서 구조 매칭이 깨지고, 제네릭이 깊어 TS2589
  * (excessively deep) 까지 났다. 실제 타입을 그대로 받는 편이 정직하고 단순하다.
+ *
+ * ⚠️ 이 `any` 3개는 위 이유로 의도된 것이다. 다만 억제 주석이 없어 **프로덕션 빌드의 lint
+ *    게이트를 막고 있었다**(2026-08-17 실측 — `next build` 가 여기서 멈춰 BUILD_ID 를 못 만들었다).
+ *    좁히는 것이 불가능하다는 판단이 위에 적혀 있으므로 근거를 달아 명시적으로 억제한다.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- 위 docblock: PostgrestBuilder 구조 매칭 불가 + TS2589
 export type SeedCoverClient = SupabaseClient<any, any, any>
 
 /**
