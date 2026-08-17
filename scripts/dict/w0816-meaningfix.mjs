@@ -104,7 +104,7 @@ if (MODE === 'apply') {
 
   const { files, rows } = readOuts(DIR)
   const updates = new Map()
-  let bad = 0, senseLost = 0, mismatchHead = 0, skipped = 0, reverted = 0
+  let bad = 0, senseLost = 0, mismatchHead = 0, skipped = 0, reverted = 0, posFixed = 0
   for (const e of rows) {
     if (!e || typeof e.word !== 'string') { bad++; continue }
     const w = e.word.toLowerCase().trim()
@@ -137,7 +137,11 @@ if (MODE === 'apply') {
     //   sense 문자열은 `(화학) 납 (Pb) — 무겁고 부드러운 …` 처럼 설명이 붙는 긴 형식이고
     //   meaning_ko 는 카드 앞면용 짧은 글이다. 전문 포함을 요구하면 meaning_ko 가 비대해진다 —
     //   설명부(— 이후)와 선행 괄호 라벨을 걷어낸 **핵심어**만 비교한다.
-    const core = (s) => s.split(/[—–]/)[0].replace(/^\s*\([^)]*\)\s*/, '').split(/[,;]/)[0].trim()
+    //   ⚠️ 후행 괄호도 걷어야 한다 — `환자들 (patient의 복수형)` 처럼 **문법 메타데이터가 뒤에 붙는** 형식이
+    //   흔한데, 앞쪽 괄호만 벗기면 core 가 통째로 남아 head 와 절대 일치하지 않는다(T13 에서 10건 헛되이 탈락).
+    const core = (s) => s.split(/[—–]/)[0]
+      .replace(/^\s*\([^)]*\)\s*/, '').replace(/\s*\([^)]*\)\s*$/, '')
+      .split(/[,;]/)[0].trim()
     const c0 = core(senses[0].meaning)
     if (c0 && !head.includes(c0)) { mismatchHead++; continue }
 
@@ -148,6 +152,15 @@ if (MODE === 'apply') {
       .map((s) => s.split(/[—–]/)[0].trim())
       .filter(Boolean).slice(0, 3).join('; ').slice(0, 90).replace(/[;,\s]+$/, '')
     const patch = { meaning_ko: shortHead || head.slice(0, 90), meanings_ko: senses, primary_pos: senses[0].pos }
+    // ⚠️ 게이트 (5) `pos` 교정 — 이 백로그의 큰 갈래가 "`pos`=noun 인데 뜻은 동사부터"(`lead`·`hide`·`high`·`lay`)다.
+    //   에이전트가 `pos` 를 보내면 **새 sense 목록에 실제로 존재하는 품사일 때만** 받는다(임의 변경 차단).
+    //   `pos_set` 은 합집합으로 다시 만든다 — 셋을 따로 쓰면 조용히 어긋난다(2026-08-16 실제 사고).
+    if (typeof e.pos === 'string' && POS_OK.has(e.pos) && senses.some((s) => s.pos === e.pos)) {
+      patch.pos = e.pos
+      patch.primary_pos = e.pos
+      patch.pos_set = [...new Set(senses.map((s) => s.pos).concat(e.pos))]
+      posFixed++
+    }
     // ⚠️ 게이트 (4) 예문 되돌리기
     if (e.revert_example === true) {
       const o = origEx.get(w)
@@ -156,7 +169,7 @@ if (MODE === 'apply') {
     updates.set(w, patch)
   }
   console.log(`files: ${files} · 적용 대상: ${updates.size} · 기존 sense 소실(거부): ${senseLost} · head 불일치(거부): ${mismatchHead} · malformed: ${bad} · agent-skip: ${skipped}`)
-  console.log(`예문 되돌림: ${reverted}`)
+  console.log(`예문 되돌림: ${reverted} · pos 교정: ${posFixed}`)
 
   if (!COMMIT) {
     console.log('DRY-RUN (--commit 로 적용). 샘플:')
