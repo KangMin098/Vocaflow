@@ -6,7 +6,7 @@
 
 'use client'
 
-import { Check, Crown, Heart, Sparkles, Star, Users, Zap, type LucideIcon } from 'lucide-react'
+import { Check, Crown, Heart, Sparkles, Users, Zap, type LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
 
@@ -101,31 +101,36 @@ const TIERS: Tier[] = [
 ]
 
 // ── 신뢰 시그널 ──
+//
+// ⚠️ 여기에는 **검증 가능한 사실만** 둔다.
+//   2026-08-16 진단에서 이 배열은 "학습자 12,000+ / 평점 4.8 / 학교 34곳" 을 표시하고 있었고,
+//   같은 시각 실측은 3 / 0 / 0 이었다. 이용자 수·평점·도입 기관 수는 표시광고법이 정면으로
+//   다루는 항목이라 개발용 플레이스홀더로도 공개 라우트에 둘 수 없다.
+//   → 이용자 규모 대신 **콘텐츠 자산**으로 교체했다. 아래 수치는 전부 DB 실측(2026-08-17)이고,
+//     경쟁 제품이 따라 적을 수 없다는 점에서 신뢰 시그널로도 더 강하다.
+//   갱신 절차: docs/PLATFORM_AUDIT.md §4 목업 수치 감사에서 분기마다 재확인.
 const TRUST_SIGNALS = [
-  { value: '12,000+', label: '학습자', sub: '누적 가입' },
-  { value: '4.8 / 5', label: '평점', sub: '사용자 리뷰' },
-  { value: '34', label: '학교·기관', sub: 'Team 도입' },
+  { value: '47,137', label: '표제어', sub: '한국어 뜻 100%' },
+  { value: '1,678,478', label: '도서–어휘 연결', sub: '지문 어휘 자동 분해' },
+  { value: '1,374', label: '수능 유형 문항', sub: '순서·삽입' },
 ]
 
-// ── 사용자 후기 (3) ──
-const TESTIMONIALS = [
+// ── 다른 점 — 지어낸 후기 대신 검증 가능한 동작을 말한다 ──
+const DIFFERENTIATORS = [
   {
-    quote:
-      '단어가 진짜 머리에 남는 느낌. 다른 앱은 단어를 보여주지만 Vocaflow는 만나게 해줘요.',
-    name: '김유진',
-    role: '취준생 · 7개월째',
+    title: '내 기준 커버리지',
+    body: '글의 난이도가 아니라 "내가 아는 비율"을 잽니다. 같은 글도 사람마다 다른 숫자가 나와요.',
+    basis: '근거 · Hu & Nation (2000) 읽기 이해 임계 98/95%',
   },
   {
-    quote:
-      '집중 모드 들어갈 때 사이드바가 흐려지는 그 순간이 좋아요. "지금부터 영어 시간이구나" 하고 머리가 정리됨.',
-    name: 'David Park',
-    role: '직장인 · TOEIC 980',
+    title: '숫자가 시간에 따라 변합니다',
+    body: '복습을 미루면 커버리지가 내려갑니다. 2주 뒤 이 글이 얼마나 어려워지는지 미리 보여줘요.',
+    basis: '근거 · FSRS 기억 안정도 R(t) = exp(ln 0.9 · t / S)',
   },
   {
-    quote:
-      '학생들이 매일 알아서 들어와요. "오답"이라는 단어를 안 쓰는 게 큰 차이를 만듭니다.',
-    name: '이혜원 선생님',
-    role: '고등학교 영어교사',
+    title: '"몇 개만 하면 되는지"',
+    body: '막연히 단어를 외우는 대신, 이 글이 편하게 읽히는 최소 단어 수를 계산해 줍니다.',
+    basis: '근거 · 출현 빈도 기여도 순 최소 집합',
   },
 ]
 
@@ -429,35 +434,34 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* ── Testimonials ── */}
-      <section aria-label="사용자 후기" className="border-t border-[var(--bd)] bg-[var(--bg)]">
+      {/* ── 이 제품만 하는 것 ──
+          지어낸 후기가 있던 자리. 후기는 실증자료 없이 게재할 수 없으므로,
+          실제 학습자가 생기기 전까지는 **검증 가능한 동작**으로 대신한다. */}
+      <section aria-label="다른 점" className="border-t border-[var(--bd)] bg-[var(--bg)]">
         <div className="mx-auto max-w-6xl px-6 py-16">
-          <header className="mb-8 max-w-xl">
+          <header className="mb-8 max-w-2xl">
             <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
-              Voices
+              What&apos;s different
             </p>
             <h2 className="mt-2 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)]">
-              먼저 시작한 학습자들
+              읽기 전에, 이 글이 나에게 맞는지 먼저 알려줍니다
             </h2>
+            <p className="mt-3 font-body text-[14px] leading-[1.7] text-[var(--t2)]">
+              교과서 지문이든 선생님이 준 프린트든 붙여넣으면, 지금 내 어휘로 몇 %가 읽히는지
+              바로 나옵니다. 그리고 몇 개를 더 익히면 편하게 읽히는지까지.
+            </p>
           </header>
           <ul className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {TESTIMONIALS.map((t, i) => (
+            {DIFFERENTIATORS.map((d) => (
               <li
-                key={i}
+                key={d.title}
                 className="flex flex-col rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
               >
-                <div className="flex items-center gap-1 text-[var(--active)]">
-                  {[...Array(5)].map((_, j) => (
-                    <Star key={j} size={12} fill="currentColor" strokeWidth={0} aria-hidden />
-                  ))}
-                </div>
-                <p className="mt-3 font-english text-[14px] italic leading-[1.7] text-[var(--t1)]">
-                  &ldquo;{t.quote}&rdquo;
+                <p className="font-display text-[14px] font-[700] text-[var(--t1)]">{d.title}</p>
+                <p className="mt-2 font-body text-[13px] leading-[1.7] text-[var(--t2)]">{d.body}</p>
+                <p className="mt-3 border-t border-[var(--bd)] pt-3 font-mono text-[11px] leading-[1.6] text-[var(--t2)]">
+                  {d.basis}
                 </p>
-                <div className="mt-4 border-t border-[var(--bd)] pt-3">
-                  <p className="font-display text-[13px] font-[600] text-[var(--t1)]">{t.name}</p>
-                  <p className="font-body text-[11px] text-[var(--t2)]">{t.role}</p>
-                </div>
               </li>
             ))}
           </ul>

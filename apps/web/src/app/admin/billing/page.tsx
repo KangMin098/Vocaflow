@@ -4,6 +4,7 @@
 'use client'
 
 import {
+  AlertTriangle,
   ArrowDownRight,
   ArrowUpRight,
   CreditCard,
@@ -196,6 +197,21 @@ export default function AdminBillingPage() {
       />
 
       <AdminScreenHelp screen="billing" className="-mt-3 mb-6" />
+
+      {/* 이 화면의 모든 수치는 데모 상수다 — PG 미연동(2026-08-17 실측: 결제 연동 0).
+          경고를 화면 밖(대시보드 링크의 "목업" 태그)에만 두면, 이 화면만 열어 본 사람은
+          MRR ₩1.84M 을 실적으로 읽는다. 자기 대시보드가 거짓을 말하면 지표로 판단하는
+          습관이 만들어지지 않는다. 연동 시 이 배너와 상수를 함께 제거한다. */}
+      <p
+        role="status"
+        className="mb-6 flex items-start gap-2 rounded-[var(--r-md)] border border-[var(--warning)] bg-[var(--warning-light)] px-4 py-3 font-body text-[13px] leading-[1.6] text-[var(--t1)]"
+      >
+        <AlertTriangle size={15} aria-hidden className="mt-0.5 shrink-0 text-[var(--warning)]" />
+        <span>
+          <b>데모 데이터입니다.</b> 결제 PG가 아직 연동되지 않아 아래 MRR·구독·거래 내역은 모두
+          고정 상수예요. 실제 매출로 읽지 마세요.
+        </span>
+      </p>
 
       <AdminKpiGrid kpis={KPIS} />
 

@@ -19,6 +19,9 @@ import { createClient } from '@/lib/supabase/client'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 import { buildSentenceIndex, firstSentenceContaining } from '@/lib/text-extract/source-sentence'
 import { TokenizationSummary } from '@/components/text-extract/TokenizationSummary'
+import { TextFitVerdict } from '@/components/textfit/TextFitVerdict'
+import { analyzeText } from '@/lib/textfit/queries'
+import type { TextFitReport } from '@/lib/textfit/types'
 
 interface ExtractedWord {
   text_v_level: number
@@ -163,6 +166,57 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
   const [savedCount, setSavedCount] = useState<number | null>(null)
 
   const tokenization = useMemo(() => tokenizeText(text), [text])
+
+  // ── 지문 적합도(TextFit) ──
+  // 추출 버튼을 누르기 **전에** 답해야 하는 질문이 하나 있다: "이 글, 지금 나에게 맞나?"
+  // 추출은 "무엇을 배울까" 지만 TextFit 은 "지금 읽을 글이 맞나" 라서 순서가 앞선다.
+  // 토크나이저 결과를 그대로 넘긴다 — 추출과 커버리지가 같은 토큰 집합에서 나와야 두 숫자가 갈라지지 않는다.
+  const [fit, setFit] = useState<TextFitReport | null>(null)
+  const [fitLoading, setFitLoading] = useState(false)
+
+  useEffect(() => {
+    if (tokenization.uniqueFinal === 0) {
+      setFit(null)
+      return
+    }
+    // 입력 중 매 글자마다 서버를 때리지 않는다(Calm UI — 화면이 계속 흔들리면 읽을 수 없다).
+    let alive = true
+    setFitLoading(true)
+    const timer = setTimeout(() => {
+      void analyzeText(tokenization.counts, tokenization.totalWords)
+        .then((r) => {
+          if (alive) setFit(r)
+        })
+        .catch(() => {
+          // 판정 실패는 추출을 막지 않는다 — 부가 정보이지 관문이 아니다.
+          if (alive) setFit(null)
+        })
+        .finally(() => {
+          if (alive) setFitLoading(false)
+        })
+    }, 600)
+
+    return () => {
+      alive = false
+      clearTimeout(timer)
+    }
+  }, [tokenization])
+
+  /** 처방 단어(표제어)를 기존 선택에 얹는다 — 저장 경로는 하나로 유지한다. */
+  const collectPrescribed = useMemo(() => {
+    if (!results || results.length === 0) return undefined
+    return (lemmas: string[]) => {
+      const want = new Set(lemmas.map((l) => l.toLowerCase()))
+      setSelected((prev) => {
+        const next = new Set(prev)
+        for (const r of results) {
+          const lemma = (r.matched_via_surface ?? r.word).toLowerCase()
+          if (want.has(lemma)) next.add(r.word)
+        }
+        return next
+      })
+    }
+  }, [results])
 
   // 상위 displayPct% 슬라이스 (results 는 composite_score DESC 정렬됨)
   const displayedResults = useMemo(() => {
@@ -416,6 +470,21 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
           diagnostics={tokenization.diagnostics}
         />
       </header>
+
+      {/* 지문 적합도 — 무엇을 배울지 고르기 전에 "이 글이 맞나" 부터 답한다 */}
+      {fit && (
+        <div className="mb-4">
+          <TextFitVerdict report={fit} onCollectWords={collectPrescribed} />
+        </div>
+      )}
+      {!fit && fitLoading && (
+        <p
+          role="status"
+          className="mb-4 flex items-center gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[13px] text-[var(--t2)]"
+        >
+          <Loader2 size={14} className="animate-spin" aria-hidden />이 글이 지금 나에게 맞는지 재는 중…
+        </p>
+      )}
 
       {/* Level strategy selector */}
       <div className="mb-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">

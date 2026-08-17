@@ -47,6 +47,51 @@
 
 집계: [`useTexts.ts`](../apps/web/src/hooks/useTexts.ts) `aggregateUserBookChapters` — 그룹 → 1 LibraryText 카드 (category="내 책").
 
+### v06.37 — TextFit (지문 적합도 판정)
+
+`/text/new` 에서 **추출 패널보다 위**에 붙는다. 순서에 의미가 있다 — 추출은 "무엇을 배울까" 고
+TextFit 은 "이 글이 지금 나에게 맞나" 라서 뒤가 앞선다.
+
+| | |
+|---|---|
+| 엔진 | [`lib/textfit/coverage.ts`](../apps/web/src/lib/textfit/coverage.ts) — 순수 계산(DB·시계 접근 0, `now` 주입) |
+| 데이터 | [`lib/textfit/queries.ts`](../apps/web/src/lib/textfit/queries.ts) — **기존 테이블만 읽음. 새 테이블·쓰기 0** |
+| 화면 | [`components/textfit/TextFitVerdict.tsx`](../apps/web/src/components/textfit/TextFitVerdict.tsx) |
+| 회귀 | 엔진 34 + 렌더 11 |
+
+**판정 신호 3중** (강한 순 — 앞이 뒤를 이긴다):
+
+| 근거 | 출처 | 가중치 |
+|---|---|---|
+| 자기보고 known | `word_familiarity.verdict` | 1.0 |
+| 학습 중 | `vocabularies` FSRS | **R(t) = exp(ln 0.9 × t / S)** |
+| 자기보고 unknown | `word_familiarity.verdict` | 0.0 |
+| 레벨 추정 | `user_profiles.current_v_level` ≥ 사전 `v_level` | 0.85 (보수값) |
+
+FSRS 가 자기보고 unknown 을 이긴다 — 그 뒤로 학습을 시작했다는 뜻이라 최신 사실이 FSRS 쪽이다.
+
+**대역** — 임계는 `csat_stage_gates` 값을 그대로 쓴다(코드에 다시 적지 않는다):
+
+| 대역 | coverage | 지원 단계 | 학습자에게 |
+|---|---|---|---|
+| flow | ≥ 0.98 | S1 | 사전 없이 읽힘 — 다독 |
+| growth | 0.95~0.98 | S2 | **i+1 최적 구간** |
+| study | 0.90~0.95 | S3 | 정독 — 논증 지문 |
+| hard | 0.85~0.90 | S4 | 문항 훈련용 |
+| overload | < 0.85 | — | 읽기가 아니라 해독이 된다 |
+
+**이 모듈만의 성질** — 커버리지가 **시간에 따라 내려간다**. 같은 지문·같은 학습자라도 복습을 미루면
+R(t) 가 감쇠해 커버리지가 떨어지고, 화면은 14일 뒤 위치를 고스트 마커로 함께 그린다.
+Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라 이 성질을 가진 도구가 없다.
+
+**정직성 장치** — 레벨 추정에 기댄 질량만큼 하한/상한을 벌리고 `confidence` 를 깎는다.
+`confidence < 0.85` 면 단일 숫자 대신 범위를 표시한다(있지도 않은 정밀도를 주장하지 않는다).
+
+**미적용 의존** — `textfit_resolve_levels` RPC
+(승인 대기, `supabase/migrations/_pending_20260817_textfit_resolve_levels.sql`).
+없으면 정확 일치 폴백으로 내려가 굴절형이 미지어로 남는다 → 커버리지를 **낮게** 잡는 방향이며,
+화면 근거 패널이 그 사실을 밝힌다.
+
 ### 컴포넌트 (`components/textviewer/`)
 - `TextCard.tsx` — 3-way 카드 (도서 library_book / 사용자 책 user_book_group / 단일 텍스트)
 - `TextStatusBadge.tsx` — 4단계 상태 (미시작/진행중/정복/완성)
