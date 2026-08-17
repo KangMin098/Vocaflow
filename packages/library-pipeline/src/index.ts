@@ -222,6 +222,33 @@ export {
   readForFacts,
 } from './compose/access'
 export type { AccessDecision, FactRead, Robots, RobotsGroup, RobotsRule } from './compose/access'
+// 상업 뉴스 수집 — 발견(피드) · 사건 묶기 · 읽기(지문만)
+export {
+  countIndependentLines,
+  discoverStories,
+  primeRobots,
+  readStoryForFacts,
+} from './compose/news-feed'
+export type {
+  ComposeSourceRow,
+  DiscoverOptions,
+  DiscoverResult,
+  FetchDeps,
+  FetchResult,
+  ReadStoryResult,
+  RobotsOutcome,
+  StoryCandidate,
+} from './compose/news-feed'
+export {
+  CLUSTER_THRESHOLDS,
+  clusterStories,
+  diceCoefficient,
+  headlineTokens,
+  sameEvent,
+} from './compose/cluster'
+export type { StoryCluster } from './compose/cluster'
+export { collectStories, toBatchRow } from './compose/collect'
+export type { CollectOptions, CollectReport, FeedConfig } from './compose/collect'
 
 // Phase 7 에서 활성화
 // export { decideCuration } from './curate/auto-decision'

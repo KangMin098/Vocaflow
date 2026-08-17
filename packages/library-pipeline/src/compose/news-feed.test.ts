@@ -126,9 +126,14 @@ describe('discoverStories', () => {
   }
 
   it('약관 확인 전에는 요청 자체를 보내지 않는다', async () => {
+    // 레지스트리의 승인 상태와 무관하게 성립해야 하는 불변식이므로 잠긴 사본을 쓴다.
+    const locked: FactSourceSpec = {
+      ...FACT_SOURCES['reuters']!,
+      access: { ...FACT_SOURCES['reuters']!.access, termsReviewed: false },
+    }
     const g = new CrawlGate()
     const d = deps({ [FEED_URL]: OK(FEED) })
-    const res = await discoverStories(FACT_SOURCES['reuters']!, FEED_URL, g, d)
+    const res = await discoverStories(locked, FEED_URL, g, d)
     expect(res.ready).toEqual([])
     expect(res.skipped[0]!.reason).toContain('약관 확인 전에는 수집하지 않는다')
     expect(d.seen).toEqual([]) // 네트워크 접촉 0
@@ -259,9 +264,13 @@ describe('readStoryForFacts', () => {
   })
 
   it('약관 미확인이면 읽지 않는다', async () => {
+    const locked: FactSourceSpec = {
+      ...FACT_SOURCES['ap']!,
+      access: { ...FACT_SOURCES['ap']!.access, termsReviewed: false },
+    }
     const g = new CrawlGate()
     const d = deps({})
-    const r = await readStoryForFacts(FACT_SOURCES['ap']!, URL_A, g, d, () => null)
+    const r = await readStoryForFacts(locked, URL_A, g, d, () => null)
     expect(r.ok).toBe(false)
     expect(d.seen).toEqual([])
   })

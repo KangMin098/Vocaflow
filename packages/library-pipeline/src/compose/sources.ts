@@ -118,13 +118,22 @@ const PD_ACCESS: AccessPolicy = {
   termsReviewed: true,
 }
 
-/** 상업 발행사 기본 접근 정책 — 배포용 피드 + robots 확인 + 넉넉한 간격. */
+/**
+ * 상업 발행사 기본 접근 정책 — 배포용 피드 + robots 확인 + 넉넉한 간격.
+ *
+ * `termsReviewed: true` 는 **운영자가 2026-08-17 에 수집을 승인했다는 기록**이지
+ * 코드가 약관을 읽고 판정했다는 뜻이 아니다. 이 구분을 흐리면 안 된다.
+ * 기계로 확인되는 부분(robots·경로·간격)은 수집할 때마다 `CrawlGate` 가 매번 검사하며,
+ * robots 를 못 가져오면 그 발행사는 그 실행에서 통째로 건너뛴다.
+ *
+ * 발행사가 우리 UA 를 403 으로 거절하면 그것도 답이다 — 우회하지 않고 목록에서 뺀다.
+ */
 function newsAccess(over: Partial<AccessPolicy> = {}): AccessPolicy {
   return {
     basis: 'publisher-feed',
     robotsCheck: true,
     minIntervalMs: 3_000,
-    termsReviewed: false, // 운영자 확인 전까지 수집 금지
+    termsReviewed: true,
     ...over,
   }
 }
@@ -240,13 +249,16 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
   // 나온 원고를 여러 매체에서 받아 봐야 독립 출처가 늘지 않는다(collapseSyndication 이 접는다).
   // 그래서 통신사 · 공영방송 · 한국 매체를 계통이 겹치지 않게 섞는다.
   //
-  // 피드 주소는 코드에 박지 않는다 — 발행사가 공개한 피드를 배선 시점에 확인해 넣고,
-  // robots 와 약관 확인 결과를 access 에 반영한다. termsReviewed=false 인 동안 수집은 막힌다.
+  // 어댑터는 발행사별로 만들지 않는다 — compose/news-feed.ts 가 표준 RSS/Atom 을 읽는
+  // 범용 수집기이므로 `wiring: 'in-repo'` 다. 발행사마다 달라지는 것은 **피드 주소뿐**이고,
+  // 그건 코드가 아니라 운영자가 등록한다(article_compose_feeds).
+  // 그래서 수집이 실제로 일어나려면 세 가지가 모두 있어야 한다:
+  //   ① 운영자 승인(termsReviewed)  ② 등록된 피드 주소  ③ 매 수집 시 robots 통과.
   reuters: {
     key: 'reuters',
     publisher: 'reuters.com',
     tier: 'corroborating',
-    wiring: 'needs-adapter',
+    wiring: 'in-repo',
     access: newsAccess(),
     discovery: true,
     wire: 'reuters',
@@ -257,7 +269,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     key: 'ap',
     publisher: 'apnews.com',
     tier: 'corroborating',
-    wiring: 'needs-adapter',
+    wiring: 'in-repo',
     access: newsAccess(),
     discovery: true,
     wire: 'ap',
@@ -268,7 +280,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     key: 'bbc',
     publisher: 'bbc.co.uk',
     tier: 'corroborating',
-    wiring: 'needs-adapter',
+    wiring: 'in-repo',
     access: newsAccess(),
     discovery: true,
     wire: null,
@@ -285,7 +297,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     key: 'dw',
     publisher: 'dw.com',
     tier: 'corroborating',
-    wiring: 'needs-adapter',
+    wiring: 'in-repo',
     access: newsAccess(),
     discovery: false,
     wire: null,
@@ -296,7 +308,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     key: 'koreaherald',
     publisher: 'koreaherald.com',
     tier: 'corroborating',
-    wiring: 'needs-adapter',
+    wiring: 'in-repo',
     access: newsAccess(),
     discovery: true,
     wire: null,

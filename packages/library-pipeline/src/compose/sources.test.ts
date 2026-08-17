@@ -47,13 +47,16 @@ describe('FACT_SOURCES 레지스트리', () => {
     }
   })
 
-  it('상업 발행사는 약관 확인 전까지 수집이 막힌다', () => {
+  it('상업 발행사는 운영자 승인(2026-08-17) 후에도 런타임 게이트를 유지한다', () => {
+    // termsReviewed 는 "운영자가 승인했다"는 기록이지 코드가 약관을 판정했다는 뜻이 아니다.
+    // 기계로 확인되는 것(robots·간격)은 승인과 무관하게 매 수집마다 검사된다.
     for (const k of ['reuters', 'ap', 'bbc', 'dw', 'koreaherald']) {
       const s = FACT_SOURCES[k]!
-      expect(s.access.termsReviewed).toBe(false)
-      expect(isCollectable(s)).toBe(false)
+      expect(s.access.termsReviewed).toBe(true)
+      expect(isCollectable(s)).toBe(true)
       expect(s.access.robotsCheck).toBe(true)
       expect(s.access.minIntervalMs).toBeGreaterThanOrEqual(3_000)
+      expect(s.access.basis).toBe('publisher-feed')
     }
   })
 
@@ -98,22 +101,24 @@ describe('planFactSources', () => {
   })
 
   it('Wikipedia 는 모든 주제를 덮지만 독립 출처로 세지 않는다', () => {
-    const p = planFactSources('sport')
+    // 지질은 1차원(USGS)만 있고 어느 뉴스도 상시로 다루지 않는다 —
+    // 백과를 교차원으로 인정했다면 여기가 통과해 버렸을 자리다.
+    const p = planFactSources('the-natural-world-geography')
     expect(p.background.map((s) => s.key)).toContain('wikipedia')
     expect(p.corroborating).toEqual([])
-    expect(p.independentLines).toBe(0)
+    expect(p.independentLines).toBe(1) // usgs 하나
     expect(p.feasible).toBe(false)
+    expect(p.blocker).toContain('교차 확인원이 없다')
   })
 
   it('1차원이 없어도 독립 계통 2개 이상의 보도가 있으면 성립한다', () => {
-    // sport 는 기관 1차원이 없다. AP·BBC 를 배선하면 계통 2개로 발주가 선다 —
+    // sport 는 기관 1차원이 없다. AP·BBC 두 계통만으로 발주가 선다 —
     // 이게 상업 뉴스 층이 여는 자리다.
-    const now = planFactSources('sport')
-    expect(now.feasible).toBe(false)
-    const planned = planFactSources('sport', { includePlanned: true })
-    expect(planned.corroborating.map((s) => s.key).sort()).toEqual(['ap', 'bbc'])
-    expect(planned.independentLines).toBe(2)
-    expect(planned.feasible).toBe(true)
+    const p = planFactSources('sport')
+    expect(p.primary).toEqual([])
+    expect(p.corroborating.map((s) => s.key).sort()).toEqual(['ap', 'bbc'])
+    expect(p.independentLines).toBe(2)
+    expect(p.feasible).toBe(true)
   })
 
   it('수집 실적 0인 소스(wikinews)는 기본 계획에서 빠진다', () => {
@@ -131,26 +136,22 @@ describe('planFactSources', () => {
 })
 
 describe('feasibleTopics — 능력 스냅샷', () => {
-  it('지금(PD 소스만) 발주 가능한 주제 = 5개', () => {
+  it('발주 가능 주제 = 9개 (상업 뉴스 승인 후 · PD 만일 때는 5개였다)', () => {
     expect(feasibleTopics()).toEqual([
       'health-health-and-fitness',
+      'people-education', // ← 상업 뉴스가 연 칸. TED(재사용 불가)로만 덮여 있었다
       'politics-and-society-social-issues',
       'science-and-technology',
+      'sport', // ←
       'the-natural-world-the-environment',
       'the-natural-world-weather',
+      'work-and-business-business', // ←
+      'work-and-business-working-life', // ←
     ])
   })
 
-  it('상업 뉴스를 배선하면 열리는 주제 — 이게 이 층의 값이다', () => {
-    const unlocked = topicsUnlockedByPlanned()
-    expect(unlocked).toEqual([
-      'people-education',
-      'sport',
-      'work-and-business-business',
-      'work-and-business-working-life',
-    ])
-    // 5 → 9. TED 로만 덮여 있던 사람·직업 칸이 여기서 열린다.
-    expect(feasibleTopics({ includePlanned: true })).toHaveLength(9)
+  it('아직 배선 대기 중인 소스는 없다 — 계획과 현재가 같다', () => {
+    expect(topicsUnlockedByPlanned()).toEqual([])
   })
 
   it('그래도 못 여는 칸이 남는다 — 과장하지 않는다', () => {
