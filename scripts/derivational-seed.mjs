@@ -18,6 +18,11 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { makeClient, arg } from './dict-common.mjs'
+import { gateHeadwords, writeHold } from './dict/headword-gate.mjs'
+import nodeFs from 'node:fs'
+
+/** 게이트 보류분 격리 파일 — 자동 삭제하지 않는다. */
+const HOLD_PATH = 'data/lexicon/derivational-seed.hold.json'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, '..')
@@ -139,6 +144,20 @@ async function main() {
     }
     rows.push(r.row)
   }
+
+  // ⛔ 표제어 유효성 게이트 (2026-08-17) — 만들어낸 파생형이 **실재 낱말인지** 확인한다.
+  //   접미사 규칙만으로 형태를 합성하면 `brustly` 같은 비단어가 나온다. 사전·렉시콘에 근거가
+  //   없으면 넣지 않고 격리 파일로 뺀다. 공통 게이트: scripts/dict/headword-gate.mjs
+  const gate = await gateHeadwords(makeClient(), rows.map((r) => r.word))
+  const held = new Set(gate.hold.map((h) => String(h.word).toLowerCase()))
+  const kept = rows.filter((r) => !held.has(String(r.word).toLowerCase()))
+  if (gate.hold.length) {
+    writeHold(nodeFs, HOLD_PATH, gate.hold, { script: 'derivational-seed', at: new Date().toISOString() })
+    const by = gate.hold.reduce((m, h) => ((m[h.reason] = (m[h.reason] ?? 0) + 1), m), {})
+    console.log(`⛔ 표제어 게이트 보류 ${gate.hold.length} ${JSON.stringify(by)} → ${HOLD_PATH}`)
+  }
+  rows.length = 0
+  rows.push(...kept)
 
   const withMeaning = rows.filter((r) => r.meaning_ko != null).length
   const stats = {

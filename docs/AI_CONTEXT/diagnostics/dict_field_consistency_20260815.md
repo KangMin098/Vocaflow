@@ -674,22 +674,46 @@ PD 문서에 재생성 시점("표제어 삭제·대량 추가 후")을 명시�
 gitignore 안에 있으면 낡아도 눈에 띄지 않는다. 사전 정리 배치의 완료 조건에 **파생 스냅샷 재생성**을
 넣어야 한다.
 
-### 아직 열려 있는 구멍 — 사전 쓰기 지점에 표제어 게이트가 없다
+### ✅ 사전 쓰기 지점 표제어 게이트 (2026-08-17 배선 완료)
 
-이번 12건은 추출이 아니라 **import** 로 들어왔으므로 `extract-lemmas.ts` 를 아무리 고쳐도 안 막힌다.
-검증 없이 `shared_dictionary` 에 쓰는 경로 셋:
+이번 12건은 **추출이 아니라 import 로** 들어왔으므로 `extract-lemmas.ts` 를 아무리 고쳐도 안 막힌다.
+공통 게이트 `scripts/dict/headword-gate.mjs` 를 만들어 **새 표제어를 쓰는 세 경로 전부**에 세웠다.
 
-| 경로 | 무엇을 넣나 |
-|---|---|
-| `scripts/seed-dictionary.mjs:198` | Anki 데크 word 필드 그대로 (이번 12건의 근인) |
-| `scripts/lexicon/oov-orphan-import.ts:160` | lbv/lav 미해소 토큰 → `source='ai-generated'`. **파편이 사전으로 승격되는 역류로** |
-| `scripts/derivational-seed.mjs:100-124` | 만들어낸 파생형이 실재 단어인지 확인 안 함 (`brustly` 계열) |
+| 경로 | 무엇을 넣던 곳인가 | 배선 |
+|---|---|---|
+| `scripts/seed-dictionary.mjs` | Anki 데크 word 필드 그대로 — **이번 12건의 근인** | upsert 직전, 통계 뒤 |
+| `scripts/lexicon/oov-orphan-import.ts` | lbv/lav 미해소 토큰 → 사전 승격(**파편 역류로**) | INSERT 대상만. UPDATE 는 기존 표제어 보강이라 제외 |
+| `scripts/derivational-seed.mjs` | 접미사로 합성한 파생형(`brustly`) | 행 조립 직후 |
 
-제안 게이트: `lexicon_clean`(**`lang='en'` 조건 필수** — `dre` 가 `lang='fr'`, `le` 가 WordNet
-의학 약어로 들어 있다) 또는 `shared_dictionary` 에 없는 신규 표제어는 **보류 큐로** 보내고 자동 INSERT 금지.
+**판정 규칙 3단**:
+1. **형태** — 빈 값 · 60자 초과 · 숫자 포함 · `™®©` · 제어문자(U+FFF1 실제 발견) · 문자셋 위반
+2. **절단 의심** — `w + <꼬리>` 가 이미 사전에 있고 `w` 자신은 근거 없음. **꼬리 목록 맨 앞이 `ad`** 다
+   (이번 사고의 패턴). 추정 원형을 `hint` 로 함께 남긴다
+3. **3글자 이하 특칙** — 이번 세션 실측에서 짧은 표제어는 약어 충돌 적중률이 사실상 100%였고
+   (`tb`·`ms`·`or`·`pc`…), `lexicon_clean` 이 WordNet 약어를 `lang='en'` 으로 담고 있어
+   (**`le` = lupus erythematosus**) 언어 필터만으로는 안 걸러진다.
+   이미 `shared_dictionary` 에 있는 것만 통과시키고 나머지는 사람이 본다
 
-DB 쪽 확인: `library_book_vocabularies` 에 INSERT 하는 함수는 `insert_book_analysis` 하나뿐이고
-`v_word->>'word'` 를 **검증 없이** 넣는다(길이·문자·사전 존재 확인 0). 판정이 전부 TS 쪽에 있다.
+⚠️ `lexicon_clean` 대조에 **`lang='en'` 조건 필수** — 455k·다국어라 조건 없이 대조하면
+`dre`(`lang='fr'`)가 통과한다. 그리고 이 테이블의 `frequency_rank` 는 **전부 NULL** 이라 신호로 못 쓴다.
+
+**실측 검증** — 사고 12건 + 정상 대조군으로 돌렸다:
+`railro`→`railroad` · `overlo`→`overload` · `proofre`→`proofread` · `sidelo`→`sidelong` ·
+`behe`→`behead` · `relo`→`reload`(절단 의심, 원형 추정 정확) · `le`→`lead` · `dre`→`dread` ·
+`kne`→`knead` · `ple`→`plead`(3글자 특칙) · `sce`·`brustly`(근거 없음) — **12/12 보류**.
+정상어 `railroad`·`overload`·`decision`·`arrogant`·`risk`·`cat`·`run`·`the`·`sea` — **전부 통과**.
+
+**보류는 삭제가 아니다.** 격리 JSON(`*.hold.json`)으로 빼서 사람이 본다 — 자동 삭제 경로는 없다.
+
+### 아직 열려 있는 구멍 (게이트가 못 막는 것)
+
+- **`library_book_vocabularies` 쪽은 그대로다.** INSERT 하는 함수는 `insert_book_analysis` 하나뿐이고
+  `v_word->>'word'` 를 **검증 없이** 넣는다(길이·문자·사전 존재 확인 0). 판정이 전부 TS 쪽에 있다.
+  다만 이번 12건은 여기로 들어온 게 아니라 우선순위는 낮다.
+- **reflow 수정이 도서 경로에만 적용됐다** — 기사 `ingest-article/_helpers.ts` · 학습자 입력
+  `apps/web/src/lib/text-extract/tokenize.ts`(별도 구현) · VCB `scripts/vcb/03-extract.ts`
+  (하이픈·파편 가드 **전무**) 는 그대로다.
+- **구텐베르크 재추출 미실행** — 현 lbv 168만 행은 전부 재결합 없이 뽑힌 것이다.
 
 ## 남은 것 — 배치 설계 제안
 
