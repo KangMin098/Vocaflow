@@ -267,6 +267,7 @@ async function cmdDrainCatalog(limit: number) {
           p_title: transcript.title,
           p_speaker: transcript.speaker,
           p_published_at: transcript.publishedAt,
+          p_proper_nouns: tokens.properNounCandidates,
         })
         if (ingErr) {
           failed += 1
@@ -359,6 +360,7 @@ async function cmdProbeYears(sample: number) {
           p_title: transcript.title,
           p_speaker: transcript.speaker,
           p_published_at: transcript.publishedAt,
+          p_proper_nouns: tokens.properNounCandidates,
         })
       }
       got += 1

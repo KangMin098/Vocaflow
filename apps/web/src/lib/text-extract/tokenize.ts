@@ -141,6 +141,22 @@ export interface TokenizationResult {
    * 한쪽에서만 고쳐지는 순간 두 숫자는 영원히 안 맞는다. 그래서 같은 통과에서 함께 센다.
    */
   counts: Record<string, number>
+  /**
+   * 고유명사 후보 — **문장 중간에서 대문자로만 나타난** 단어.
+   *
+   * 왜 필요한가 (실측 2026-08-16): 코퍼스 수확이 만든 사전 갭 9,879건을 표본 200건으로
+   * 분류하니 **약 60%가 인명·지명·기관명**이었다. 기존 필터가 있는데도 못 걸렀다 —
+   * `noise_blacklist` 24,347건이 잡아낸 게 709건뿐이다.
+   *
+   * 원인은 이 모듈이 전처리에서 **모두 소문자로 내려 버린** 것이었다. 문장 중간의 대문자는
+   * 영어에서 고유명사를 가리키는 가장 강한 신호인데, 갭으로 기록될 때는 그 정보가 이미 없다.
+   * 소문자화 자체는 표제어 조회에 필요하므로 유지하되, **대문자였다는 사실을 따로 남긴다.**
+   *
+   * 판정: 문장 첫머리 대문자는 근거로 세지 않는다(모든 문장이 그렇다). 문장 중간에서
+   * 대문자로 나타난 적이 있고 **소문자로는 한 번도 안 나타난** 단어만 후보로 올린다 —
+   * 같은 글에 두 형태가 섞이면 후보에서 뺀다. 덜 잡는 쪽이 안전하다.
+   */
+  properNounCandidates: string[]
   /** 본문의 running word 수 (단어를 1개 이상 만들어낸 표면 토큰 수) */
   totalWords: number
   /** unique 수 (dedupe 후, stopword 제외 전) */
@@ -216,7 +232,10 @@ function preprocess(text: string, d: TokenizationDiagnostics): string {
   s = s.normalize('NFD').replace(/[̀-ͯ]/g, '')
   if (s !== beforeNfd) d.diacriticsFolded += 1
 
-  return s.toLowerCase()
+  // **소문자화하지 않고 돌려준다.** 대문자 여부가 고유명사 판정의 유일한 신호이고,
+  // 여기서 내려 버리면 뒤에서는 복구할 방법이 없다(`properNounCandidates` 주석 참조).
+  // 소문자화는 토큰을 실제로 내보내는 지점에서 한다.
+  return s
 }
 
 /**
@@ -295,46 +314,83 @@ export function tokenizeText(text: string): TokenizationResult {
   const diagnostics = emptyDiagnostics()
 
   if (!text || text.trim().length === 0) {
-    return { words: [], counts: {}, totalWords: 0, uniqueRaw: 0, uniqueFinal: 0, diagnostics }
+    return {
+      words: [],
+      counts: {},
+      properNounCandidates: [],
+      totalWords: 0,
+      uniqueRaw: 0,
+      uniqueFinal: 0,
+      diagnostics,
+    }
   }
 
   const cleaned = preprocess(text, diagnostics)
-
-  // 단어 구성 문자만 남긴다 — 알파벳 · 숫자 · 아포스트로피 · 하이픈.
-  //   숫자를 이 단계에서 지우지 않는 이유: "co2"→"co" 같은 **파편 위조**를 막으려면
-  //   숫자가 붙어 있었다는 사실을 토큰 단위로 알아야 하기 때문이다.
-  const masked = cleaned.replace(/[^a-z0-9'\-\s]/g, ' ')
-
-  const surfaces = masked.split(/\s+/).filter((t) => t.length > 0)
 
   // Map 은 삽입 순서를 보존한다 — `words` 의 "원문 등장 순서" 계약이 여기에 걸려 있다.
   const ordered = new Map<string, number>()
   let totalWords = 0
 
-  for (const surface of surfaces) {
-    // 토큰 양끝의 아포스트로피·하이픈은 구두점 — 인용부호, 줄표 잔재
-    const tok = surface.replace(/^['\-]+/, '').replace(/['\-]+$/, '')
-    if (tok.length === 0) continue
+  // 대소문자 근거 — 문장 첫머리는 세지 않는다(모든 문장이 대문자로 시작한다).
+  const capMidSentence = new Map<string, number>()
+  const seenLowercase = new Map<string, number>()
 
-    // 숫자가 섞인 토큰은 통째로 제외 — 알파벳 앞부분만 남기면 없던 단어를 만든다
-    if (/[0-9]/.test(tok)) {
-      diagnostics.numericDropped += 1
-      continue
-    }
+  // 문장 단위로 자른다. 각 조각의 **첫 토큰만** 문장 첫머리다.
+  //   여기서 마스킹 전에 잘라야 한다 — 마스킹은 문장부호를 공백으로 지워 버리므로,
+  //   순서를 바꾸면 문장 경계를 영영 알 수 없다.
+  const chunks = cleaned.split(/(?<=[.!?…])[\s"')\]]+|\n+/)
 
-    const contracted = resolveContraction(tok, diagnostics)
-    const bases = contracted ?? [tok]
+  for (const chunk of chunks) {
+    // 단어 구성 문자만 남긴다 — 알파벳 · 숫자 · 아포스트로피 · 하이픈.
+    //   숫자를 이 단계에서 지우지 않는 이유: "co2"→"co" 같은 **파편 위조**를 막으려면
+    //   숫자가 붙어 있었다는 사실을 토큰 단위로 알아야 하기 때문이다.
+    const masked = chunk.replace(/[^A-Za-z0-9'\-\s]/g, ' ')
+    const surfaces = masked.split(/\s+/).filter((t) => t.length > 0)
 
-    let emitted = 0
-    for (const base of bases) {
-      for (const w of expandHyphen(base, diagnostics)) {
-        if (w.length < 2) continue
-        if (!PLAIN_WORD.test(w) && !HYPHEN_WORD.test(w) && !APOSTROPHE_WORD.test(w)) continue
-        ordered.set(w, (ordered.get(w) ?? 0) + 1)
-        emitted += 1
+    for (let si = 0; si < surfaces.length; si += 1) {
+      const surface = surfaces[si]!
+      // 토큰 양끝의 아포스트로피·하이픈은 구두점 — 인용부호, 줄표 잔재
+      const rawTok = surface.replace(/^['\-]+/, '').replace(/['\-]+$/, '')
+      if (rawTok.length === 0) continue
+
+      // 숫자가 섞인 토큰은 통째로 제외 — 알파벳 앞부분만 남기면 없던 단어를 만든다
+      if (/[0-9]/.test(rawTok)) {
+        diagnostics.numericDropped += 1
+        continue
       }
+
+      // 조각별 대문자 여부를 원형에서 먼저 뽑아 둔다 (하이픈·아포스트로피 분해 전).
+      const capByPart = new Map<string, boolean>()
+      capByPart.set(rawTok.toLowerCase(), /^[A-Z]/.test(rawTok))
+      for (const part of rawTok.split(/['-]/)) {
+        if (part.length > 0) capByPart.set(part.toLowerCase(), /^[A-Z]/.test(part))
+      }
+
+      const isSentenceStart = si === 0
+      const tok = rawTok.toLowerCase()
+
+      const contracted = resolveContraction(tok, diagnostics)
+      const bases = contracted ?? [tok]
+
+      let emitted = 0
+      for (const base of bases) {
+        for (const w of expandHyphen(base, diagnostics)) {
+          if (w.length < 2) continue
+          if (!PLAIN_WORD.test(w) && !HYPHEN_WORD.test(w) && !APOSTROPHE_WORD.test(w)) continue
+          ordered.set(w, (ordered.get(w) ?? 0) + 1)
+
+          const wasCap = capByPart.get(w) ?? false
+          if (wasCap) {
+            // 문장 첫머리 대문자는 근거가 못 된다 — 소문자 근거로도 세지 않고 그냥 버린다.
+            if (!isSentenceStart) capMidSentence.set(w, (capMidSentence.get(w) ?? 0) + 1)
+          } else {
+            seenLowercase.set(w, (seenLowercase.get(w) ?? 0) + 1)
+          }
+          emitted += 1
+        }
+      }
+      if (emitted > 0) totalWords += 1
     }
-    if (emitted > 0) totalWords += 1
   }
 
   const uniqueRaw = ordered.size
@@ -363,9 +419,17 @@ export function tokenizeText(text: string): TokenizationResult {
   const counts: Record<string, number> = {}
   for (const w of capped) counts[w] = ordered.get(w) ?? 1
 
+  // 문장 중간에서 대문자로 나타난 적이 있고, 소문자로는 **한 번도** 안 나타난 것만 후보다.
+  // 두 형태가 섞여 나오면(회사명 Apple 과 과일 apple) 판정을 포기한다 — 잘못 거르면
+  // 배워야 할 단어가 사전 갭에서 사라지고, 그 손실은 화면 어디에도 드러나지 않는다.
+  const properNounCandidates = capped.filter(
+    (w) => (capMidSentence.get(w) ?? 0) > 0 && (seenLowercase.get(w) ?? 0) === 0,
+  )
+
   return {
     words: capped,
     counts,
+    properNounCandidates,
     totalWords,
     uniqueRaw,
     uniqueFinal: capped.length,

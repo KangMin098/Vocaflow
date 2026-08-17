@@ -110,6 +110,7 @@ export async function harvestLocalArticle(
     p_title: article.title,
     p_speaker: null,
     p_published_at: article.published_at,
+    p_proper_nouns: tokens.properNounCandidates,
   })
 
   if (error) {

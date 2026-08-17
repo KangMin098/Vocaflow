@@ -222,6 +222,45 @@ describe('상용구 제거 — 과하게 지우면 본문이 조용히 사라진
   })
 })
 
+describe('고유명사 후보 — 사전 갭의 60%를 만들던 원인', () => {
+  it('문장 중간 대문자는 후보로 잡고, 문장 첫머리 대문자는 잡지 않는다', () => {
+    const r = tokenizeText(
+      'Researchers travelled to Kyoto last spring. Later they visited Prague and met Baldwin there. ' +
+        'Travel changes how people think about distance.',
+    )
+    expect(r.properNounCandidates).toContain('kyoto')
+    expect(r.properNounCandidates).toContain('prague')
+    expect(r.properNounCandidates).toContain('baldwin')
+    // 'Researchers'·'Later'·'Travel' 은 문장 첫머리라 근거가 못 된다.
+    expect(r.properNounCandidates).not.toContain('researchers')
+    expect(r.properNounCandidates).not.toContain('later')
+    expect(r.properNounCandidates).not.toContain('travel')
+  })
+
+  it('소문자로도 나타나면 후보에서 뺀다', () => {
+    // 회사 Apple 과 과일 apple 이 섞이면 판정을 포기한다 — 잘못 거르면 배워야 할 단어가
+    // 사전 갭에서 조용히 사라진다.
+    const r = tokenizeText('She joined Apple in spring. Later she ate an apple by the river.')
+    expect(r.properNounCandidates).not.toContain('apple')
+  })
+
+  it('후보는 words 의 부분집합이다', () => {
+    const r = tokenizeText('The team met Hiroshi near Osaka. They discussed climate policy.')
+    for (const w of r.properNounCandidates) expect(r.words).toContain(w)
+  })
+
+  it('일반 소문자 본문에서는 후보가 나오지 않는다', () => {
+    const r = tokenizeText(
+      'the climate is changing faster than models predicted. scientists measure the change yearly.',
+    )
+    expect(r.properNounCandidates).toEqual([])
+  })
+
+  it('빈 입력', () => {
+    expect(tokenizeText('').properNounCandidates).toEqual([])
+  })
+})
+
 describe('원문 미저장 계약', () => {
   it('content hash 는 원문 없이 동일성을 판정한다', () => {
     expect(contentHash('Hello World')).toBe(contentHash('hello world'))

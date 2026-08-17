@@ -118,6 +118,7 @@ export async function harvestTedTalk(
       p_title: meta.title,
       p_speaker: meta.speaker,
       p_published_at: meta.publishedAt,
+      p_proper_nouns: tokens.properNounCandidates,
     })
 
     if (error) {
