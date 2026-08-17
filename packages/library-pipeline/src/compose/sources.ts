@@ -288,19 +288,10 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
   // 그건 코드가 아니라 운영자가 등록한다(article_compose_feeds).
   // 그래서 수집이 실제로 일어나려면 세 가지가 모두 있어야 한다:
   //   ① 운영자 승인(termsReviewed)  ② 등록된 피드 주소  ③ 매 수집 시 robots 통과.
-  reuters: {
-    key: 'reuters',
-    publisher: 'reuters.com',
-    tier: 'corroborating',
-    wiring: 'in-repo',
-    access: newsAccess(),
-    discovery: true,
-    wire: 'reuters',
-    topics: ['politics-and-society-social-issues', 'work-and-business-business', 'science-and-technology'],
-    // 후보일 뿐 — 열어서 항목이 파싱되는 것만 목록에 오른다.
-    feedHints: ['/tools/rss', '/rssFeed/world', '/rssFeed/businessNews', '/arc/outboundfeeds/rss/'],
-    note: '국제 통신사. 자체 취재 계통이므로 AP·AFP 와 독립. 다만 이 원고를 받아 쓰는 매체가 많아 wire 표시가 필수다.',
-  },
+  // ⚠ Reuters 는 제외했다 — 2026-08-17 실측에서 robots.txt 가 우리 수집기에게 `/` 전체를
+  //   막았다. 일부 경로가 아니라 전면 차단이므로 어떤 URL 도 읽을 수 없고, 사실 증인으로도
+  //   쓸 수 없다. 우회는 하지 않는다는 것이 이 파이프라인의 규칙이므로 목록에서 뺀다.
+  //   (통신사 계통은 AP 가 대신한다.)
   ap: {
     key: 'ap',
     publisher: 'apnews.com',
@@ -310,8 +301,9 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: true,
     wire: 'ap',
     topics: ['politics-and-society-social-issues', 'the-natural-world-the-environment', 'sport'],
-    feedHints: ['/index.rss', '/hub/ap-top-news.rss', '/rss', '/apf-topnews.rss'],
-    note: '미국 통신사. Reuters 와 계통이 다르므로 이 둘을 함께 쓰면 독립 2곳이 성립한다.',
+    // /index.rss 는 실측에서 robots 가 막았다(2026-08-17) — 뺀다.
+    feedHints: ['/hub/ap-top-news.rss', '/hub/world-news.rss', '/hub/ap-fact-check.rss'],
+    note: '미국 통신사. 자체 취재 계통이라 공영방송과 독립. robots 가 /index.rss 를 막으므로 hub 경로만 시도한다.',
   },
   bbc: {
     key: 'bbc',
@@ -346,7 +338,8 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: false,
     wire: null,
     topics: ['politics-and-society-social-issues', 'work-and-business-working-life', 'people-education'],
-    feedHints: ['/atom/rss-en-all', '/rdf/rss-en-all', '/atom/rss-en-eu', '/atom/rss-en-bus'],
+    // 2026-08-17 실측: 이전 후보 4종이 모두 404. DW 는 언어·주제별 rdf 경로를 쓴다.
+    feedHints: ['/rdf/rss-en-all', '/rdf/rss-en-top', '/rss/en', '/en/rss'],
     note: '독일 공영 국제방송. 유럽 시각 + 영미권과 다른 취재 계통. people-education 을 덮는 몇 안 되는 후보.',
   },
   koreaherald: {
@@ -360,6 +353,134 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     topics: ['politics-and-society-social-issues', 'people-education', 'work-and-business-working-life'],
     feedHints: ['/rss/020000000000.xml', '/rss/010000000000.xml', '/common/rss_xml.php', '/rss'],
     note: '한국 영자지 — 학습자에게 맥락이 가까운 사건을 영어로 확인할 수 있다. 국내 주제에서 영미 매체가 못 주는 각도.',
+  },
+
+  // ── 계통 확충 (2026-08-17) ────────────────────────────────────────
+  // 초판 5곳은 너무 적었다. Reuters 가 전면 차단으로 빠지자 통신사 계통이 AP 하나만
+  // 남았고, 한 곳이 막히면 교차 확인이 통째로 무너지는 구조가 됐다.
+  // 발행사는 인지도가 아니라 **취재 계통·지역·소유구조가 겹치지 않는 순서**로 고른다.
+  cnn: {
+    key: 'cnn',
+    publisher: 'cnn.com',
+    tier: 'corroborating',
+    wiring: 'in-repo',
+    access: newsAccess(),
+    discovery: true,
+    wire: null,
+    topics: [
+      'politics-and-society-social-issues',
+      'science-and-technology',
+      'health-health-and-fitness',
+      'the-natural-world-the-environment',
+      'sport',
+    ],
+    feedHints: ['/services/rss/', '/rss/edition.rss', '/rss/edition_world.rss'],
+    note: '미국 상업 방송. 자체 취재 비중이 높고 주제 폭이 넓다.',
+  },
+  npr: {
+    key: 'npr',
+    publisher: 'npr.org',
+    tier: 'corroborating',
+    wiring: 'in-repo',
+    access: newsAccess(),
+    discovery: true,
+    wire: null,
+    topics: [
+      'politics-and-society-social-issues',
+      'science-and-technology',
+      'health-health-and-fitness',
+      'people-education',
+    ],
+    feedHints: ['/rss/rss.php?id=1001', '/rss/rss.php?id=1007', '/rss/rss.php'],
+    note: '미국 공영 라디오. 문체가 평이하고 교육·사회 주제가 두터워 학습 지문 재료로 좋다.',
+  },
+  guardian: {
+    key: 'guardian',
+    publisher: 'theguardian.com',
+    tier: 'corroborating',
+    wiring: 'in-repo',
+    access: newsAccess(),
+    discovery: true,
+    wire: null,
+    topics: [
+      'politics-and-society-social-issues',
+      'the-natural-world-the-environment',
+      'science-and-technology',
+      'work-and-business-business',
+      'sport',
+    ],
+    feedHints: ['/international/rss', '/world/rss', '/environment/rss', '/science/rss'],
+    note: '영국 일간. 환경·사회 보도가 두텁고 피드를 섹션별로 공개한다.',
+  },
+  aljazeera: {
+    key: 'aljazeera',
+    publisher: 'aljazeera.com',
+    tier: 'corroborating',
+    wiring: 'in-repo',
+    access: newsAccess(),
+    discovery: true,
+    wire: null,
+    topics: ['politics-and-society-social-issues', 'the-natural-world-the-environment'],
+    feedHints: ['/xml/rss/all.xml', '/rss'],
+    note: '카타르 국제방송. 영미권과 다른 시각 — 같은 사건의 서술이 달라 교차 확인의 값이 크다.',
+  },
+  cbc: {
+    key: 'cbc',
+    publisher: 'cbc.ca',
+    tier: 'corroborating',
+    wiring: 'in-repo',
+    access: newsAccess(),
+    discovery: true,
+    wire: null,
+    topics: [
+      'politics-and-society-social-issues',
+      'science-and-technology',
+      'the-natural-world-the-environment',
+      'health-health-and-fitness',
+    ],
+    feedHints: ['/webfeed/rss/rss-world', '/webfeed/rss/rss-topstories', '/cmlink/rss-topstories'],
+    note: '캐나다 공영방송. 미·영과 또 다른 계통이라 통신사 의존을 줄인다.',
+  },
+  abcnet: {
+    key: 'abcnet',
+    publisher: 'abc.net.au',
+    tier: 'corroborating',
+    wiring: 'in-repo',
+    access: newsAccess(),
+    discovery: true,
+    wire: null,
+    topics: [
+      'politics-and-society-social-issues',
+      'the-natural-world-the-environment',
+      'science-and-technology',
+      'sport',
+    ],
+    feedHints: ['/news/feed/51120/rss.xml', '/news/feed/45910/rss.xml', '/news/feed/1948/rss.xml'],
+    note: '호주 공영방송. 남반구 기후·환경 사건에서 북반구 매체가 못 주는 각도.',
+  },
+  yonhap: {
+    key: 'yonhap',
+    publisher: 'en.yna.co.kr',
+    tier: 'corroborating',
+    wiring: 'in-repo',
+    access: newsAccess(),
+    discovery: true,
+    wire: 'yonhap',
+    topics: ['politics-and-society-social-issues', 'work-and-business-business', 'sport'],
+    feedHints: ['/RSS/news.xml', '/RSS/northkorea.xml', '/rss/news.xml'],
+    note: '한국 통신사 영문. 국내 사건을 영어로 확인하는 1차 계통 — 한국 매체 다수가 이 원고를 받아 쓰므로 wire 표시가 필수다.',
+  },
+  koreatimes: {
+    key: 'koreatimes',
+    publisher: 'koreatimes.co.kr',
+    tier: 'corroborating',
+    wiring: 'in-repo',
+    access: newsAccess(),
+    discovery: true,
+    wire: null,
+    topics: ['politics-and-society-social-issues', 'people-education', 'work-and-business-working-life'],
+    feedHints: ['/www/rss/nation.xml', '/www/rss/rss.xml', '/rss/nation.xml'],
+    note: '한국 영자지. Korea Herald 와 다른 편집 계통이라 국내 주제에서 독립 2계통을 만들 수 있다.',
   },
 
   // ── 배경 ──────────────────────────────────────────────────────────
@@ -378,6 +499,21 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
 
 /** 명시적 제외 — "쓸 수 있는데 안 쓰는" 것들. 이유를 남기지 않으면 반드시 다시 논의된다. */
 export const EXCLUDED_FACT_SOURCES: ReadonlyArray<{ key: string; reason: string }> = [
+  {
+    key: 'reuters',
+    reason:
+      '2026-08-17 실측 — robots.txt 가 우리 수집기에게 `/` 전체를 막았다. 일부 경로가 아니라 전면 차단이라 어떤 URL 도 읽을 수 없다. 브라우저인 척 우회하지 않는다는 것이 이 파이프라인의 규칙이므로 목록에서 뺀다. 통신사 계통은 AP·연합뉴스가 대신한다.',
+  },
+  {
+    key: 'washingtonpost',
+    reason:
+      '유료벽이 본문 대부분을 가려 사실 추출이 안 되고, 무료로 보이는 부분만으로는 교차 확인이 성립하지 않는다. 라이선스가 아니라 **읽어도 사실이 안 나오는 것**이 이유다.',
+  },
+  {
+    key: 'mbc',
+    reason:
+      '한국어 방송이라 영어 사실 출처로 쓸 수 없다. 국내 사건의 영어 계통은 연합뉴스 영문·Korea Herald·Korea Times 가 맡는다.',
+  },
   {
     key: 'ted',
     reason:

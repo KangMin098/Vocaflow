@@ -128,8 +128,8 @@ describe('discoverStories', () => {
   it('약관 확인 전에는 요청 자체를 보내지 않는다', async () => {
     // 레지스트리의 승인 상태와 무관하게 성립해야 하는 불변식이므로 잠긴 사본을 쓴다.
     const locked: FactSourceSpec = {
-      ...FACT_SOURCES['reuters']!,
-      access: { ...FACT_SOURCES['reuters']!.access, termsReviewed: false },
+      ...FACT_SOURCES['ap']!,
+      access: { ...FACT_SOURCES['ap']!.access, termsReviewed: false },
     }
     const g = new CrawlGate()
     const d = deps({ [FEED_URL]: OK(FEED) })
@@ -258,9 +258,9 @@ describe('readStoryForFacts', () => {
       [URL_A]: OK(ARTICLE_HTML),
     })
     await primeRobots('news.example', g, d)
-    const r = await readStoryForFacts(reviewed(FACT_SOURCES['reuters']!), URL_A, g, d, () => null)
+    const r = await readStoryForFacts(reviewed(FACT_SOURCES['ap']!), URL_A, g, d, () => null)
     if (!r.ok) throw new Error(r.reason)
-    expect(r.row.wire).toBe('reuters')
+    expect(r.row.wire).toBe('ap')
   })
 
   it('약관 미확인이면 읽지 않는다', async () => {

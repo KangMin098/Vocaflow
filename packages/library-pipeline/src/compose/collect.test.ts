@@ -47,7 +47,7 @@ function locked(spec: FactSourceSpec): FactSourceSpec {
 }
 
 const REGISTRY: Record<string, FactSourceSpec> = {
-  reuters: open(FACT_SOURCES['reuters']!, 'wire.example'),
+  reuters: open(FACT_SOURCES['ap']!, 'wire.example'),
   bbc: open(FACT_SOURCES['bbc']!, 'bbc.example'),
   locked: locked(FACT_SOURCES['ap']!),
 }

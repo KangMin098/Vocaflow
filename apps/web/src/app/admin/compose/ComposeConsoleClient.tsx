@@ -6,7 +6,7 @@
 
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { COMPOSE_TABS, COMPOSE_TAB_BACKING, type ComposeTab } from '@/lib/admin/compose-tabs'
@@ -176,6 +176,39 @@ function num(n: number | null): string {
   return n === null ? '—' : String(n)
 }
 
+const TAB_STORE = 'vocaflow-compose-tab'
+
+/**
+ * 활성 단계를 세션에 남긴다.
+ *
+ * 서버 액션이 끝나면 `revalidatePath` 로 서버 컴포넌트가 다시 그려지고, 그때 이 컴포넌트의
+ * 상태가 초기화되면서 **② 피드에서 피드를 추가했는데 ① 소스로 튕기는** 일이 있었다
+ * (2026-08-17 사용자 보고). 작업하던 자리에서 튕기면 무엇이 반영됐는지도 알 수 없다.
+ */
+function usePersistedTab(initial?: Tab): [Tab, (t: Tab) => void] {
+  const [tab, setTab] = useState<Tab>(initial ?? '소스')
+
+  useEffect(() => {
+    if (initial) return // 렌더 스모크 등 진입 탭이 지정된 경우는 그대로 둔다
+    try {
+      const saved = sessionStorage.getItem(TAB_STORE)
+      if (saved && (COMPOSE_TABS as ReadonlyArray<string>).includes(saved)) setTab(saved as Tab)
+    } catch {
+      /* private mode — 세션 한정으로만 동작 */
+    }
+  }, [initial])
+
+  const set = (t: Tab): void => {
+    setTab(t)
+    try {
+      sessionStorage.setItem(TAB_STORE, t)
+    } catch {
+      /* private mode */
+    }
+  }
+  return [tab, set]
+}
+
 export function ComposeConsoleClient({
   counts,
   tracks,
@@ -209,7 +242,7 @@ export function ComposeConsoleClient({
   /** 렌더 스모크에서 각 면을 그려 보기 위한 진입 탭. 화면에서는 쓰지 않는다. */
   initialTab?: Tab
 }) {
-  const [tab, setTab] = useState<Tab>(initialTab ?? '소스')
+  const [tab, setTab] = usePersistedTab(initialTab)
 
   return (
     <div className="flex flex-col gap-s-5 p-s-5">

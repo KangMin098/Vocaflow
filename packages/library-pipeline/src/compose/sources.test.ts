@@ -37,10 +37,29 @@ describe('FACT_SOURCES 레지스트리', () => {
     // 바로 여러 상업 뉴스를 읽고 사실만 뽑는 것이므로 그건 요청을 좁힌 것이었다.
     const excluded = EXCLUDED_FACT_SOURCES.map((e) => e.key)
     expect(excluded).not.toContain('commercial-news')
-    for (const k of ['reuters', 'ap', 'bbc', 'dw', 'koreaherald']) {
+    for (const k of ['ap', 'bbc', 'dw', 'koreaherald', 'cnn', 'npr', 'guardian']) {
       expect(FACT_SOURCES[k]).toBeDefined()
       expect(FACT_SOURCES[k]!.tier).toBe('corroborating')
     }
+  })
+
+  it('Reuters 는 실측 거절로 제외됐다 — 우회하지 않는다', () => {
+    // 2026-08-17 실측: robots 가 `/` 전체를 막았다. 일부 경로가 아니라 전면 차단이라
+    // 어떤 URL 도 읽을 수 없다. 규칙대로 목록에서 뺀다.
+    expect(FACT_SOURCES['reuters']).toBeUndefined()
+    const reason = EXCLUDED_FACT_SOURCES.find((e) => e.key === 'reuters')!.reason
+    expect(reason).toContain('전면 차단')
+    expect(reason).toContain('우회하지 않는다')
+  })
+
+  it('한 계통이 막혀도 무너지지 않도록 계통을 늘렸다', () => {
+    // Reuters 가 빠지자 통신사 계통이 AP 하나만 남았다. 한 곳이 막히면 교차 확인이
+    // 통째로 무너지는 구조라 지역·소유구조가 다른 발행사를 확충했다.
+    const news = Object.values(FACT_SOURCES).filter((s) => !isAlsoAcpSource(s.key))
+    expect(news.length).toBeGreaterThanOrEqual(10)
+    // 미국·영국·독일·카타르·캐나다·호주·한국 — 계통이 한 나라에 쏠려 있지 않다
+    const lines = new Set(news.map(lineOf))
+    expect(lines.size).toBeGreaterThanOrEqual(10)
   })
 
   it('page-fetch 는 robots 확인이 강제된다', () => {
@@ -52,7 +71,7 @@ describe('FACT_SOURCES 레지스트리', () => {
   it('상업 발행사는 운영자 승인(2026-08-17) 후에도 런타임 게이트를 유지한다', () => {
     // termsReviewed 는 "운영자가 승인했다"는 기록이지 코드가 약관을 판정했다는 뜻이 아니다.
     // 기계로 확인되는 것(robots·간격)은 승인과 무관하게 매 수집마다 검사된다.
-    for (const k of ['reuters', 'ap', 'bbc', 'dw', 'koreaherald']) {
+    for (const k of ['ap', 'bbc', 'dw', 'koreaherald', 'cnn', 'npr', 'guardian', 'yonhap']) {
       const s = FACT_SOURCES[k]!
       expect(s.access.termsReviewed).toBe(true)
       expect(isCollectable(s)).toBe(true)
@@ -85,9 +104,22 @@ describe('ACP 와의 겹침 — 규칙이 있어야 사고가 안 난다', () =>
     ])
   })
 
-  it('상업 뉴스 5곳만 Compose 전용 — ACP 는 본문을 못 가져오는 곳이다', () => {
+  it('Compose 전용은 전부 상업 뉴스 — ACP 는 본문을 못 가져오는 곳이다', () => {
     const composeOnly = Object.keys(FACT_SOURCES).filter((k) => !isAlsoAcpSource(k)).sort()
-    expect(composeOnly).toEqual(['ap', 'bbc', 'dw', 'koreaherald', 'reuters'])
+    expect(composeOnly).toEqual([
+      'abcnet',
+      'aljazeera',
+      'ap',
+      'bbc',
+      'cbc',
+      'cnn',
+      'dw',
+      'guardian',
+      'koreaherald',
+      'koreatimes',
+      'npr',
+      'yonhap',
+    ])
   })
 
   it('겹침 판정을 손으로 적지 않고 ACP 레지스트리에 물어본다', () => {
@@ -100,15 +132,15 @@ describe('ACP 와의 겹침 — 규칙이 있어야 사고가 안 난다', () =>
 
 describe('취재 계통 — 독립성은 발행사가 아니라 계통으로 센다', () => {
   it('통신사 소속은 wire 로 묶이고, 자체 취재 매체는 자기 자신이 계통이다', () => {
-    expect(lineOf(FACT_SOURCES['reuters']!)).toBe('reuters')
     expect(lineOf(FACT_SOURCES['ap']!)).toBe('ap')
+    expect(lineOf(FACT_SOURCES['yonhap']!)).toBe('yonhap')
     expect(lineOf(FACT_SOURCES['bbc']!)).toBe('bbc.co.uk')
   })
 
   it('같은 계통만 여럿이면 독립 2개가 안 된다', () => {
     // 가상의 재게재 매체 — 발행사는 다르지만 wire 가 같다.
-    const syndicated = { ...FACT_SOURCES['reuters']!, key: 'localpaper', publisher: 'local.example' }
-    const lines = new Set([FACT_SOURCES['reuters']!, syndicated].map(lineOf))
+    const syndicated = { ...FACT_SOURCES['ap']!, key: 'localpaper', publisher: 'local.example' }
+    const lines = new Set([FACT_SOURCES['ap']!, syndicated].map(lineOf))
     expect(lines.size).toBe(1)
   })
 })
@@ -146,8 +178,15 @@ describe('planFactSources', () => {
     // 이게 상업 뉴스 층이 여는 자리다.
     const p = planFactSources('sport')
     expect(p.primary).toEqual([])
-    expect(p.corroborating.map((s) => s.key).sort()).toEqual(['ap', 'bbc'])
-    expect(p.independentLines).toBe(2)
+    expect(p.corroborating.map((s) => s.key).sort()).toEqual([
+      'abcnet',
+      'ap',
+      'bbc',
+      'cnn',
+      'guardian',
+      'yonhap',
+    ])
+    expect(p.independentLines).toBe(6)
     expect(p.feasible).toBe(true)
   })
 
@@ -160,7 +199,7 @@ describe('planFactSources', () => {
 
   it('발견원과 교차원을 따로 돌려준다', () => {
     const p = planFactSources('politics-and-society-social-issues', { includePlanned: true })
-    expect(p.discovery.map((s) => s.key)).toContain('reuters')
+    expect(p.discovery.map((s) => s.key)).toContain('ap')
     expect(p.discovery.map((s) => s.key)).not.toContain('owid') // 지표는 사건을 발견해 주지 않는다
   })
 })

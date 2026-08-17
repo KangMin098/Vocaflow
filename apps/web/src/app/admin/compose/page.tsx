@@ -11,6 +11,7 @@ import {
   FACT_SOURCES,
   LEARNING_TYPES,
   acpOverlap,
+  isAlsoAcpSource,
   trackCoverage,
   type LearningTrack,
 } from '@vocaflow/library-pipeline'
@@ -214,10 +215,16 @@ export default async function AdminComposePage() {
     }
   })
 
-  // 피드 등록 폼의 선택지 — 승인된 소스만. 승인 전 소스를 고를 수 있으면
-  // 등록해 놓고 왜 수집이 안 되는지 묻게 된다.
+  // 피드 등록 선택지 — **ACP 겹침 소스는 뺀다**. 이게 "소스가 겹치는데?" 에 대한 실무 답이다.
+  //   · 피드는 **사건을 발견**하는 자리다. 기관 발표(NASA·NOAA·USGS·NIH·eLife·OWID)는
+  //     ACP 가 이미 자기 피드로 수집하고 있어 여기서 또 폴링할 이유가 없다.
+  //   · 기관 소스는 재저작에서 **사실 증인**으로 쓰인다 — 발견이 아니라 확인 단계에서,
+  //     특정 사건의 URL 을 직접 읽는 방식이다. 그래서 ① 소스 표에는 남고 피드 목록에는 없다.
+  // 승인 전 소스도 뺀다 — 등록해 놓고 왜 수집이 안 되는지 묻게 된다.
   const feedSourceOptions = Object.values(FACT_SOURCES)
-    .filter((s) => s.access.termsReviewed && s.tier !== 'background')
+    .filter(
+      (s) => s.access.termsReviewed && s.discovery && s.tier !== 'background' && !isAlsoAcpSource(s.key),
+    )
     .map((s) => ({ key: s.key, publisher: s.publisher, tier: s.tier }))
     .sort((a, b) => a.key.localeCompare(b.key))
 
