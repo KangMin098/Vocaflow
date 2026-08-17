@@ -25,7 +25,7 @@ import { detectBoilerplateLines } from '../src/lib/topic-corpus/boilerplate'
 import { tokenizeText } from '../src/lib/text-extract/tokenize'
 import { contentHash } from '../src/lib/topic-corpus/harvest'
 import { curlFetcher } from '../src/lib/topic-corpus/http-fetch'
-import { fetchAllTedTalkSlugs } from '../src/lib/topic-corpus/ted-sitemap'
+import { fetchAllTedTalkSlugs, fetchTedTalkSlugsByYear } from '../src/lib/topic-corpus/ted-sitemap'
 import { harvestTedTalk } from '../src/lib/topic-corpus/harvest'
 import { harvestLocalArticle, type LocalArticle } from '../src/lib/topic-corpus/local-corpus'
 import { discoverTedTopic, talkUrlFromSlug } from '../src/lib/topic-corpus/ted-discover'
@@ -289,6 +289,98 @@ async function cmdDrainCatalog(limit: number) {
   console.log(`\n수확 ${harvested} · 주제 배정 ${attributed} · 건너뜀 ${skipped} · 실패 ${failed}`)
 }
 
+/**
+ * 연도별 수율 실측 — 연도마다 N 편씩만 돌려 "자막 보유율이 연도에 따라 다른가" 를 잰다.
+ *
+ * 전량 실측(4,000편)에서 수율 4.1% · 건너뜀 전부 "영어 자막 없음" 이었다. 96%가 헛도는데,
+ * 최근 강연일수록 자막이 많다는 것은 **아직 가정일 뿐**이다. 57시간을 감으로 태우기 전에
+ * 연도별로 재서 근거를 만든다. 표본은 각 연도의 앞에서 자르지 않고 **균등 간격**으로 뽑는다
+ * (사이트맵 정렬이 알파벳순이라 앞부분만 보면 특정 화자·행사에 쏠린다).
+ */
+async function cmdProbeYears(sample: number) {
+  const topicRows = await sources('ted')
+  const byTopic = new Map<string, string>()
+  for (const r of topicRows) {
+    if (r.category_id && r.topic_key !== '__catalog__') byTopic.set(r.topic_key, r.id)
+  }
+
+  console.log('사이트맵 열거 중...')
+  const byYear = await fetchTedTalkSlugsByYear()
+  const years = [...byYear.keys()].sort((a, b) => b - a)
+  console.log(`연도 ${years.length}개 · 표본 연도당 ${sample}편\n`)
+
+  const table: Array<{ year: number; tried: number; got: number; words: number }> = []
+
+  for (const year of years) {
+    const slugs = byYear.get(year)!
+    // 균등 간격 표본 — 앞에서 자르면 알파벳 앞쪽에 쏠린다.
+    const step = Math.max(1, Math.floor(slugs.length / sample))
+    const picked = slugs.filter((_, i) => i % step === 0).slice(0, sample)
+
+    let got = 0
+    let words = 0
+    for (const slug of picked) {
+      const url = talkUrlFromSlug(slug)
+      let transcript
+      try {
+        transcript = await fetchTedTranscript(url, undefined, curlFetcher)
+      } catch (err) {
+        const permanent =
+          err instanceof TedTranscriptError &&
+          (err.reason === 'no-transcript' || err.reason === 'too-short')
+        await db
+          .from('topic_corpus_queue')
+          .update({
+            status: permanent ? 'skipped' : 'pending',
+            last_error: err instanceof Error ? err.message : String(err),
+            claimed_at: null,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('source_id', 'ted:catalog')
+          .eq('external_id', slug)
+        await sleep(POLITE_MS)
+        continue
+      }
+
+      const tokens = tokenizeText(transcript.text)
+      const hash = contentHash(transcript.text)
+      const matched = [
+        ...new Set(transcript.tedTopics.map(normalizeTopic).filter((t) => byTopic.has(t))),
+      ]
+      for (const sourceId of ['ted:catalog', ...matched.map((t) => byTopic.get(t)!)]) {
+        await db.rpc('ingest_topic_corpus_doc', {
+          p_source_id: sourceId,
+          p_external_id: transcript.externalId,
+          p_url: transcript.url,
+          p_content_hash: hash,
+          p_counts: tokens.counts,
+          p_running_words: tokens.totalWords,
+          p_truncated: tokens.diagnostics.truncated,
+          p_title: transcript.title,
+          p_speaker: transcript.speaker,
+          p_published_at: transcript.publishedAt,
+        })
+      }
+      got += 1
+      words += tokens.totalWords
+      await sleep(POLITE_MS)
+    }
+
+    table.push({ year, tried: picked.length, got, words })
+    const pct = picked.length ? ((100 * got) / picked.length).toFixed(1) : '0.0'
+    console.log(
+      `${year}  전체 ${String(slugs.length).padStart(6)}편 · 표본 ${String(picked.length).padStart(3)} · ` +
+        `수확 ${String(got).padStart(3)} · 수율 ${pct.padStart(5)}% · ${words.toLocaleString('ko-KR')}어`,
+    )
+  }
+
+  console.log('\n── 연도별 수율 (높은 순) ──')
+  for (const r of [...table].sort((a, b) => b.got / (b.tried || 1) - a.got / (a.tried || 1))) {
+    const pct = r.tried ? ((100 * r.got) / r.tried).toFixed(1) : '0.0'
+    console.log(`  ${r.year}  ${pct.padStart(5)}%  (${r.got}/${r.tried})`)
+  }
+}
+
 async function cmdEnqueue() {
   let totalNew = 0
   let totalGap = 0
@@ -398,6 +490,7 @@ try {
   if (cmd === 'enqueue') await cmdEnqueue()
   else if (cmd === 'drain') await cmdDrain()
   else if (cmd === 'enqueue-catalog') await cmdEnqueueCatalog(limitArg)
+  else if (cmd === 'probe-years') await cmdProbeYears(limitArg ?? 200)
   else if (cmd === 'drain-catalog') await cmdDrainCatalog(limitArg ?? 100)
   else if (cmd === 'ingest-local') await cmdIngestLocal(process.argv.includes('--reset'))
   else if (cmd === 'promote') await cmdPromote(apply)

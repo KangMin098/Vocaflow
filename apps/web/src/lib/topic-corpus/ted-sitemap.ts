@@ -83,12 +83,34 @@ export function talkSlugsFromSitemapXml(xml: string): string[] {
 export async function fetchAllTedTalkSlugs(
   onProgress?: (done: number, total: number, slugs: number) => void,
 ): Promise<string[]> {
-  const maps = await fetchTedTalkSitemaps()
+  const byYear = await fetchTedTalkSlugsByYear(onProgress)
   const all = new Set<string>()
-  for (let i = 0; i < maps.length; i += 1) {
-    const xml = decode(await curlBuffer(maps[i]!), maps[i]!)
-    for (const s of talkSlugsFromSitemapXml(xml)) all.add(s)
-    onProgress?.(i + 1, maps.length, all.size)
-  }
+  for (const slugs of byYear.values()) for (const s of slugs) all.add(s)
   return [...all]
+}
+
+/**
+ * 연도별 slug. 사이트맵 파일명이 `talks-YYYY` 라 연도가 그대로 드러난다.
+ *
+ * 왜 연도가 필요한가: 전량(97,020편) 실측 수율이 **4.1%** 였고 건너뜀은 전부 "영어 자막 없음"
+ * 이었다. 즉 96%가 헛돈다. 자막 보유가 연도에 따라 다르다면 도는 순서만 바꿔도 같은 시간에
+ * 훨씬 많이 건진다 — 그 가정을 **감으로 믿지 않고 연도별 표본으로 재기 위한** 분해다.
+ * 앞선 순서(사이트맵 나열 순)는 우연히 자막 없는 구간을 먼저 훑고 있었다.
+ */
+export async function fetchTedTalkSlugsByYear(
+  onProgress?: (done: number, total: number, slugs: number) => void,
+): Promise<Map<number, string[]>> {
+  const maps = await fetchTedTalkSitemaps()
+  const out = new Map<number, string[]>()
+  let count = 0
+  for (let i = 0; i < maps.length; i += 1) {
+    const url = maps[i]!
+    const year = Number(/talks-(\d{4})/.exec(url)?.[1] ?? 0)
+    const xml = decode(await curlBuffer(url), url)
+    const slugs = talkSlugsFromSitemapXml(xml)
+    out.set(year, slugs)
+    count += slugs.length
+    onProgress?.(i + 1, maps.length, count)
+  }
+  return out
 }
