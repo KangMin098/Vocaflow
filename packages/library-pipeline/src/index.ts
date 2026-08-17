@@ -192,18 +192,36 @@ export type {
   SourceRecord,
 } from './compose/gates'
 export {
+  BODY_RETENTION,
   EXCLUDED_FACT_SOURCES,
   FACT_SOURCES,
+  allTopics,
   feasibleTopics,
+  isCollectable,
+  lineOf,
   planFactSources,
+  topicsUnlockedByPlanned,
 } from './compose/sources'
 export type {
+  AccessBasis,
+  AccessPolicy,
   FactSourcePlan,
   FactSourceSpec,
   FactSourceTier,
   FactSourceWiring,
-  TermsRisk,
+  PlanOptions,
 } from './compose/sources'
+// 접근 규율 — robots·요청 간격·본문 비보관. 상업 뉴스를 읽는 절차의 정본.
+export {
+  COMPOSE_USER_AGENT,
+  CrawlGate,
+  DEFAULT_MIN_INTERVAL_MS,
+  groupFor,
+  isPathAllowed,
+  parseRobots,
+  readForFacts,
+} from './compose/access'
+export type { AccessDecision, FactRead, Robots, RobotsGroup, RobotsRule } from './compose/access'
 
 // Phase 7 에서 활성화
 // export { decideCuration } from './curate/auto-decision'

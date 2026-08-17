@@ -10,6 +10,32 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP §20 — 상업 뉴스를 사실 출처로 (초판 제외 판단 정정 · v06.39)
+
+초판 레지스트리는 상업 뉴스를 **약관 위험을 이유로 통째로 제외**했다. 틀린 판단이었다 —
+모델 4 의 원형(Breaking News English · News in Levels)이 하는 일이 바로 여러 상업 뉴스를 읽고
+사실만 뽑아 새로 쓰는 것이고, 그걸 빼면 남는 건 기관 발표 요약뿐이다. 게다가 직전 턴에 스스로
+지목한 병목(교차 확인원이 VOA 한 곳)을 푸는 것이 정확히 이 층이었다.
+
+- **약관·robots 는 배제 사유가 아니라 설계할 층** — 저작권과 다른 축이며 절차로 지킬 수 있다.
+  `compose/access.ts` 가 강제: ① robots.txt 실제 파싱(그룹·와일드카드·`$`·최장매치·Crawl-delay)
+  ② 호스트별 요청 간격 ③ **본문 비보관을 함수 시그니처로** — `readForFacts()` 는 지문과 추출
+  결과만 돌려주고 본문에 접근할 방법을 주지 않는다. **기본값은 차단**: robots 미확인·가져오기
+  실패는 허용으로 해석하지 않는다. UA 로 우리를 밝힌다(익명 위장 금지).
+- **독립성을 발행사가 아니라 취재 계통(`wire`)으로 센다** — 통신사 원고를 받아 쓰는 매체를
+  여럿 넣어도 독립 출처는 늘지 않는다. 지문 포함도 접기가 2차 방어선.
+- **채택 5곳** — reuters·ap(계통이 다른 두 통신사) · bbc·dw(공영, 자체 취재) ·
+  koreaherald(국내 주제의 다른 각도). 인지도가 아니라 **계통 다양성**으로 골랐다.
+  피드 주소는 코드에 박지 않는다 — 배선 시점에 확인. `termsReviewed=false` 인 동안 수집이 막힌다
+  (코드가 대신 판단할 수 없는 유일한 항목이라 사람이 확인하고 올린다).
+- **효과** 발주 가능 주제 **5 → 9**. 열리는 칸: people-education · sport ·
+  work-and-business-business · work-and-business-working-life — TED(재사용 불가)로만 덮여 있던
+  사람·직업 주제다. 그래도 **6칸은 여전히 막힌다**(전문 연구·지질·우주 등) — 회귀가 그것도 못 박는다.
+- **마이그레이션** `20260817055500_acp_compose_source_access_record` — `access_basis` ·
+  `robots_checked_at` · `wire` + `chk_compose_source_robots`(page-fetch 는 robots 확인 기록 없으면
+  INSERT 자체가 막힘) + `acp_batch_independent_lines()`. 지켰다는 말이 아니라 지킨 기록을 남긴다.
+- **회귀** `access.test.ts` 17 + `sources.test.ts` 17 · 패키지 **155 통과**.
+
 ### ACP §20 — 취재 계통 설계 + 스키마 적용 (v06.39)
 
 마이그레이션 2건 적용 (`20260817052824_acp_compose_foundation` · `20260817053009_acp_compose_batch_regroup`).
