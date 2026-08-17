@@ -316,8 +316,10 @@ describe('discoverFeeds — 관리자는 발행사만 고른다', () => {
       'https://news.example/feeds/business.atom': { ok: false, status: 404, text: '' },
     })
     const r = await discoverFeeds(spec, new CrawlGate(), d)
-    const kinds = r.skipped.map((s) => s.kind).sort()
-    expect(kinds).toEqual(['not-a-feed', 'not-found'])
+    const kinds = new Set(r.skipped.map((s) => s.kind))
+    // 알림 후보가 전부 실패하면 힌트로 되돌아가므로(AP 실측 대응) 그쪽 실패도 함께 쌓인다.
+    expect(kinds.has('not-a-feed')).toBe(true)
+    expect(kinds.has('not-found')).toBe(true)
     expect(r.skipped.every((s) => s.nextAction.length > 10)).toBe(true)
   })
 

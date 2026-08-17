@@ -119,7 +119,6 @@ describe('ACP 와의 겹침 — 규칙이 있어야 사고가 안 난다', () =>
       'guardian',
       'koreaherald',
       'koreatimes',
-      'nhk',
       'npr',
       'washingtonpost',
       'yonhap',
@@ -138,7 +137,7 @@ describe('ACP 와의 겹침 — 규칙이 있어야 사고가 안 난다', () =>
     // 미국·영국·독일·카타르·캐나다·호주·일본·한국 — 같은 사건도 서술이 달라
     // 교차 확인의 값이 커진다.
     const news = Object.keys(FACT_SOURCES).filter((k) => !isAlsoAcpSource(k))
-    for (const k of ['bbc', 'dw', 'aljazeera', 'cbc', 'abcnet', 'nhk', 'yonhap']) {
+    for (const k of ['bbc', 'dw', 'aljazeera', 'cbc', 'abcnet', 'yonhap']) {
       expect(news).toContain(k)
     }
   })
@@ -250,8 +249,11 @@ describe('planFactSources', () => {
 
   it('발견원과 교차원을 따로 돌려준다', () => {
     const p = planFactSources('politics-and-society-social-issues', { includePlanned: true })
-    expect(p.discovery.map((s) => s.key)).toContain('ap')
+    expect(p.discovery.map((s) => s.key)).toContain('bbc')
     expect(p.discovery.map((s) => s.key)).not.toContain('owid') // 지표는 사건을 발견해 주지 않는다
+    // AP 는 교차원으로는 남지만 발견원에서는 빠진다 — 자기 robots 가 자기 피드를 막는다.
+    expect(p.corroborating.map((s) => s.key)).toContain('ap')
+    expect(p.discovery.map((s) => s.key)).not.toContain('ap')
   })
 })
 

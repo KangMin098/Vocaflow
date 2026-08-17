@@ -305,7 +305,11 @@ export async function discoverFeeds(
     robotsByHost[host] = r
     if (r !== 'failed') anyRobots = true
   }
-  if (!anyRobots) {
+  // 발행사 도메인의 robots 를 못 읽어도 **다른 호스트의 피드까지 포기하지는 않는다**.
+  // robots 는 우리가 실제로 읽는 호스트의 것을 보면 되고, 그 확인은 아래 verify() 가 한다.
+  // (2026-08-18 실측: npr.org robots 는 안 열리는데 feeds.npr.org 피드는 정상이었다.)
+  const absoluteHints = (spec.feedHints ?? []).filter((h) => h.startsWith('http'))
+  if (!anyRobots && absoluteHints.length === 0) {
     return {
       feeds: [],
       skipped: hosts.map((h) =>
@@ -324,8 +328,10 @@ export async function discoverFeeds(
   // ① autodiscovery — 홈페이지가 막혀도 여기서 끝내지 않는다.
   const candidates: Array<{ url: string; title: string | null; via: DiscoveredFeed['via'] }> = []
   const homeUrl = `https://${primary}/`
-  const homeRes = await guardedFetch(homeUrl, gate, deps)
-  requests++
+  const homeRes = anyRobots
+    ? await guardedFetch(homeUrl, gate, deps)
+    : { fail: skip(homeUrl, 'robots-unavailable', 'robots.txt 를 못 읽어 홈페이지는 건너뜁니다') }
+  if (anyRobots) requests++
   if ('fail' in homeRes) {
     skipped.push({ ...homeRes.fail, reason: `홈페이지를 읽지 못했습니다 — ${homeRes.fail.reason}` })
   } else {
@@ -341,13 +347,16 @@ export async function discoverFeeds(
     }
   }
 
+  /** 힌트를 후보로 — 절대주소면 그대로, 경로면 기본 호스트에 붙인다. */
+  const hintCandidates = (): typeof candidates =>
+    (spec.feedHints ?? []).map((h) => ({
+      url: h.startsWith('http') ? h : `https://${primary}${h}`,
+      title: null,
+      via: 'convention' as const,
+    }))
+
   // ② 알려진 피드 경로 — 홈페이지가 자동 수집기를 막아도 피드는 배포용이라 열리는 일이 흔하다.
-  //    주소를 아는 것은 시스템의 일이라는 원칙이 여기서 실제로 작동한다.
-  if (candidates.length === 0) {
-    for (const path of spec.feedHints ?? []) {
-      candidates.push({ url: `https://${primary}${path}`, title: null, via: 'convention' })
-    }
-  }
+  if (candidates.length === 0) candidates.push(...hintCandidates())
 
   // ③ 일반 관습 경로 — 위 둘이 모두 비었을 때만
   if (candidates.length === 0 && (opts.tryConventions ?? true)) {
@@ -356,27 +365,64 @@ export async function discoverFeeds(
     }
   }
 
-  // ③ 실제로 열어 확인 — 목록에 "아마 될 것" 을 올리지 않는다
-  const feeds: DiscoveredFeed[] = []
-  for (const cand of candidates.slice(0, maxCandidates)) {
-    const r = await guardedFetch(cand.url, gate, deps)
-    requests++
-    if ('fail' in r) {
-      skipped.push(r.fail)
-      continue
+  /**
+   * 후보를 실제로 열어 확인한다. 목록에 "아마 될 것" 을 올리지 않는다.
+   *
+   * 후보가 **다른 호스트**에 있으면 그 호스트의 robots 를 먼저 확인한다 —
+   * 발행사가 피드를 별도 호스트(feed.·rss.·feeds.)에 두는 일이 흔한데, 안 그러면
+   * "robots 미확인" 으로 전부 버려진다(2026-08-18 실측에서 Korea Times 가 이 경우였다).
+   */
+  const primed = new Set(hosts)
+  const verify = async (list: typeof candidates): Promise<DiscoveredFeed[]> => {
+    const out: DiscoveredFeed[] = []
+    for (const cand of list.slice(0, maxCandidates)) {
+      let candHost: string
+      try {
+        candHost = new URL(cand.url).host.toLowerCase()
+      } catch {
+        skipped.push(skip(cand.url, 'http-error', '주소 형식 오류'))
+        continue
+      }
+      if (!primed.has(candHost)) {
+        primed.add(candHost)
+        const r = await primeRobots(candHost, gate, deps)
+        requests++
+        if (r === 'failed') {
+          skipped.push(
+            skip(cand.url, 'robots-unavailable', `${candHost} robots.txt 를 가져오지 못했습니다`),
+          )
+          continue
+        }
+      }
+      const r = await guardedFetch(cand.url, gate, deps)
+      requests++
+      if ('fail' in r) {
+        skipped.push(r.fail)
+        continue
+      }
+      const check = looksLikeFeed(r.res.text)
+      if (!check.ok) {
+        skipped.push(skip(cand.url, 'not-a-feed', '열렸지만 피드가 아닙니다(항목 0)'))
+        continue
+      }
+      out.push({
+        url: cand.url,
+        title: cand.title ?? check.title,
+        via: cand.via,
+        verified: true,
+        itemCount: check.itemCount,
+      })
     }
-    const check = looksLikeFeed(r.res.text)
-    if (!check.ok) {
-      skipped.push(skip(cand.url, 'not-a-feed', '열렸지만 피드가 아닙니다(항목 0)'))
-      continue
-    }
-    feeds.push({
-      url: cand.url,
-      title: cand.title ?? check.title,
-      via: cand.via,
-      verified: true,
-      itemCount: check.itemCount,
-    })
+    return out
+  }
+
+  let feeds = await verify(candidates)
+
+  // ④ 알림을 따라갔는데 전부 실패했으면 힌트로 되돌아간다.
+  //    발행사가 **자기 robots 가 막는 피드를 알리는** 경우가 실제로 있다(AP, 2026-08-18 실측).
+  //    그때 힌트를 시도조차 안 하면 멀쩡한 다른 경로를 놓친다.
+  if (feeds.length === 0 && candidates.every((c) => c.via === 'autodiscovery')) {
+    feeds = await verify(hintCandidates())
   }
 
   // 발행사가 스스로 알린 것을 먼저, 그다음 항목이 많은 것.

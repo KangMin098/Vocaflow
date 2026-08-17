@@ -306,12 +306,14 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     tier: 'corroborating',
     wiring: 'in-repo',
     access: newsAccess(),
-    discovery: true,
+    // 2026-08-18 실측 — AP 는 홈페이지에서 `/index.rss` 를 알리는데 **자기 robots 가 그 경로를
+    // 막는다**. hub 경로는 전부 404. 즉 쓸 수 있는 발견 피드가 없다.
+    // 다만 Reuters 와 달리 전면 차단은 아니라서, 다른 경로로 얻은 기사 URL 을 **사실 증인**
+    // 으로 읽는 것은 가능하다. 그래서 목록에는 남기되 발견원에서만 뺀다.
+    discovery: false,
     wire: 'ap',
     topics: ['politics-and-society-social-issues', 'the-natural-world-the-environment', 'sport'],
-    // /index.rss 는 실측에서 robots 가 막았다(2026-08-17) — 뺀다.
-    feedHints: ['/hub/ap-top-news.rss', '/hub/world-news.rss', '/hub/ap-fact-check.rss'],
-    note: '미국 통신사. 자체 취재 계통이라 공영방송과 독립. robots 가 /index.rss 를 막으므로 hub 경로만 시도한다.',
+    note: '미국 통신사. 발견 피드는 없다(자기 robots 가 자기 피드를 막고 hub 경로는 404). 사실 증인으로만 쓴다.',
   },
   bbc: {
     key: 'bbc',
@@ -347,8 +349,9 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: false,
     wire: null,
     topics: ['politics-and-society-social-issues', 'work-and-business-working-life', 'people-education'],
-    // 2026-08-17 실측: 이전 후보 4종이 모두 404. DW 는 언어·주제별 rdf 경로를 쓴다.
-    feedHints: ['/rdf/rss-en-all', '/rdf/rss-en-top', '/rss/en', '/en/rss'],
+    // 2026-08-18 실측: DW 피드는 apex 가 아니라 rss.dw.com 에 있다(138항목 확인).
+    feedHosts: ['rss.dw.com'],
+    feedHints: ['https://rss.dw.com/rdf/rss-en-all', 'https://rss.dw.com/atom/rss-en-all'],
     note: '독일 공영 국제방송. 유럽 시각 + 영미권과 다른 취재 계통. people-education 을 덮는 몇 안 되는 후보.',
   },
   koreaherald: {
@@ -418,24 +421,16 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       'science-and-technology',
       'work-and-business-business',
     ],
+    // 2026-08-18 실측: apex 는 연결이 끊기고, 피드는 feeds.washingtonpost.com 에서 열린다.
     feedHosts: ['feeds.washingtonpost.com'],
-    feedHints: ['/arcio/rss/category/world/', '/arcio/rss/category/climate-environment/', '/rss/world'],
+    feedHints: [
+      'https://feeds.washingtonpost.com/rss/world',
+      'https://feeds.washingtonpost.com/rss/national',
+    ],
     // 초판에서 "유료벽 때문에" 제외했는데 그건 **측정이 아니라 예측**이었다.
     // 피드는 제목+요약을 주므로 사건 발견과 사실 교차 확인에는 쓸 수 있는 경우가 많다.
     // 실제로 본문이 안 열리면 취재 시작 단계에서 사유와 함께 걸러진다 — 미리 뺄 이유가 없다.
     note: '미국 일간. 유료벽이 있어 본문이 안 열릴 수 있으나, 그 판단은 실행이 하지 예측이 하지 않는다.',
-  },
-  nhk: {
-    key: 'nhk',
-    publisher: 'www3.nhk.or.jp',
-    tier: 'corroborating',
-    wiring: 'in-repo',
-    access: newsAccess(),
-    discovery: true,
-    wire: null,
-    topics: ['politics-and-society-social-issues', 'the-natural-world-the-environment', 'science-and-technology'],
-    feedHints: ['/nhkworld/en/news/rss/', '/rss/news/cat0.xml'],
-    note: '일본 공영 국제방송. 아시아 계통이 연합뉴스 하나뿐이라 지역 편중을 줄이려 넣었다(한국 학습자에게 지역 관련성도 높다).',
   },
   npr: {
     key: 'npr',
@@ -451,8 +446,9 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       'health-health-and-fitness',
       'people-education',
     ],
+    // 2026-08-18 실측: npr.org 는 robots 조회가 실패하고, 피드는 feeds.npr.org 에 있다.
     feedHosts: ['feeds.npr.org'],
-    feedHints: ['/rss/rss.php?id=1001', '/rss/rss.php?id=1007', '/rss/rss.php'],
+    feedHints: ['https://feeds.npr.org/1001/rss.xml', 'https://feeds.npr.org/1004/rss.xml'],
     note: '미국 공영 라디오. 문체가 평이하고 교육·사회 주제가 두터워 학습 지문 재료로 좋다.',
   },
   guardian: {
@@ -500,7 +496,10 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       'health-health-and-fitness',
     ],
     feedHints: ['/webfeed/rss/rss-world', '/webfeed/rss/rss-topstories', '/cmlink/rss-topstories'],
-    note: '캐나다 공영방송. 미·영과 또 다른 계통이라 통신사 의존을 줄인다.',
+    // ⚠ 2026-08-18 실측: 개발 환경에서 cbc.ca 로의 연결 자체가 실패했다(robots·피드 모두).
+    //   차단인지 망 문제인지 여기서는 구별할 수 없어 **제거하지 않았다** — 운영 환경에서는
+    //   열릴 수 있고, 안 열리면 화면이 사유와 함께 알려 준다.
+    note: '캐나다 공영방송. 미·영과 또 다른 계통이라 통신사 의존을 줄인다. (개발 환경에서는 연결 실패 — 운영 환경에서 재확인 필요)',
   },
   abcnet: {
     key: 'abcnet',
@@ -540,7 +539,9 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: true,
     wire: null,
     topics: ['politics-and-society-social-issues', 'people-education', 'work-and-business-working-life'],
-    feedHints: ['/www/rss/nation.xml', '/www/rss/rss.xml', '/rss/nation.xml'],
+    // 2026-08-18 실측: 홈페이지가 feed.koreatimes.co.kr 를 알린다(별도 호스트).
+    feedHosts: ['feed.koreatimes.co.kr'],
+    feedHints: ['https://feed.koreatimes.co.kr/k/allnews.xml'],
     note: '한국 영자지. Korea Herald 와 다른 편집 계통이라 국내 주제에서 독립 2계통을 만들 수 있다.',
   },
 
@@ -564,6 +565,11 @@ export const EXCLUDED_FACT_SOURCES: ReadonlyArray<{ key: string; reason: string 
     key: 'reuters',
     reason:
       '2026-08-17 실측 — robots.txt 가 우리 수집기에게 `/` 전체를 막았다. 일부 경로가 아니라 전면 차단이라 어떤 URL 도 읽을 수 없다. 브라우저인 척 우회하지 않는다는 것이 이 파이프라인의 규칙이므로 목록에서 뺀다. 통신사 계통은 AP·연합뉴스가 대신한다.',
+  },
+  {
+    key: 'nhk',
+    reason:
+      '2026-08-18 실측 — 열리는 피드(`/rss/news/cat0.xml`)가 **일본어**이고 영어 피드 경로는 404 였다. 아시아 계통을 늘리려 넣었으나 영어 사실 출처라는 전제를 못 채운다. MBC 를 뺀 것과 같은 이유다.',
   },
   {
     key: 'mbc',
