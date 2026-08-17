@@ -389,6 +389,25 @@ async function layoutMetrics(page: Page) {
           }))
           .filter((b) => b.px > 0)
       })(),
+      /**
+       * 지면 계측이 **페이지의 몇 %를 실제로 덮었는가**.
+       *
+       * ⚠️ 이 값이 없으면 계측은 조용히 거짓말한다. `blocks` 는 `section[aria-label]` 만 보는데,
+       * 그 관례를 안 따르는 화면(`/wordvault` — 3.14화면인데 라벨 섹션은 368px 하나)에서는
+       * **측정한 한 조각을 "100%" 로 인쇄**한다. 카드 0개를 "균질하다" 로 읽으면 안 된다는
+       * 이 하네스의 기존 교훈과 정확히 같은 함정이다(실측 2026-08-17).
+       *
+       * 분모는 본문 높이다. 낮으면 그 화면의 배분은 **아직 못 잰 것**이지 잘 배분된 것이 아니다.
+       */
+      blockCoverage: (() => {
+        const main = document.querySelector('main') as HTMLElement | null
+        const total = main?.offsetHeight || document.body.offsetHeight || 0
+        if (total <= 0) return 0
+        const all = Array.from(document.querySelectorAll<HTMLElement>('main section[aria-label]'))
+        const tops = all.filter((el) => !all.some((o) => o !== el && o.contains(el)))
+        const covered = tops.reduce((s, el) => s + el.offsetHeight, 0)
+        return Math.round((covered / total) * 100)
+      })(),
       overflowCulprits: (() => {
         const limit = document.documentElement.clientWidth
         const out: { tag: string; cls: string; right: number; text: string }[] = []
@@ -512,11 +531,18 @@ test.describe('허브 디자인 캡처', () => {
             (more > 0 ? ` … 외 ${more}개` : '')
         )
       }
-      if (m.blocks.length > 0) {
+      // 덮은 비중이 낮으면 배분을 말할 수 없다 — 조각을 100% 로 읽는 것을 막는다.
+      if (m.blockCoverage < 60) {
+        // eslint-disable-next-line no-console
+        console.log(
+          `  [지면] ⚠ 본문의 ${m.blockCoverage}% 만 이름 붙은 섹션이다 — **배분 측정 안 됨**. ` +
+            `구성 단위를 보려면 그 화면의 최상위 블록에 <section aria-label> 을 달 것`,
+        )
+      } else if (m.blocks.length > 0) {
         const total = m.blocks.reduce((s, b) => s + b.px, 0) || 1
         // eslint-disable-next-line no-console
         console.log(
-          `  [지면] ${m.blocks
+          `  [지면] (본문 ${m.blockCoverage}% 덮음) ${m.blocks
             .map((b) => `${b.label} ${b.px}px(${Math.round((b.px / total) * 100)}%)`)
             .join(' · ')}`,
         )
