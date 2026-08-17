@@ -1,0 +1,353 @@
+// packages/library-pipeline/src/compose/gates.test.ts
+// ACP §20 — 재저작 게이트 회귀.
+//
+// 이 테스트가 지키는 것은 임계값이 아니라 **각 게이트가 막기로 한 침해 유형**이다.
+// 판례별로 하나씩: 단일 출처 의존(Feist) · 표현 복제(Harper & Row) ·
+// 구조 추종(Wainwright/Comline) · 속보 무임승차(hot-news) · 심장부 인용.
+
+import { describe, expect, it } from 'vitest'
+
+import {
+  buildFingerprint,
+  containment,
+  findVerbatimRuns,
+  jaccard,
+  tokenize,
+} from './fingerprint'
+import {
+  checkExpressionIndependence,
+  checkPublicationDelay,
+  checkQuotePolicy,
+  checkSourceIndependence,
+  checkStructureIndependence,
+  collapseSyndication,
+  isComposePublishable,
+  runComposeGates,
+  spearman,
+  type ComposeDraft,
+  type FactCard,
+  type SourceRecord,
+} from './gates'
+
+// ── 픽스처 ───────────────────────────────────────────────────────────
+// 같은 사건(지진)을 서로 다르게 쓴 기사 2편 + 그중 하나의 통신사 재게재본 1편.
+
+const REUTERS = `A magnitude 5.2 earthquake struck the central coast of California on Tuesday
+morning, and county officials said three people were treated for minor injuries at a regional
+hospital. The shaking lasted about twenty seconds and was felt as far north as San Jose.
+State geologists reported no damage to major bridges or highways in the affected region.
+Schools in two districts closed for the remainder of the day while inspectors checked buildings.
+The United States Geological Survey placed the epicenter about eight kilometers below the surface.`
+
+// 같은 원고를 지역지가 축약 게재 — 문장은 그대로, 뒤 문단만 잘렸다.
+const LOCAL_WIRE_COPY = `A magnitude 5.2 earthquake struck the central coast of California on
+Tuesday morning, and county officials said three people were treated for minor injuries at a
+regional hospital. The shaking lasted about twenty seconds and was felt as far north as San Jose.`
+
+// 독립 취재 — 같은 사실을 완전히 다른 문장으로.
+const INDEPENDENT = `Residents along California's central coast felt a moderate quake early
+Tuesday. Emergency crews confirmed that three residents received treatment for light wounds.
+Engineers who inspected highway overpasses through the afternoon found none that required
+closure, though two school districts sent students home while classrooms were surveyed.
+Federal seismologists put the origin roughly eight kilometers underground.`
+
+function src(id: string, publisher: string, text: string, published_at: string): SourceRecord {
+  return {
+    id,
+    publisher,
+    url: `https://${publisher}/story/${id}`,
+    published_at,
+    fingerprint: buildFingerprint(text),
+  }
+}
+
+const SOURCES: SourceRecord[] = [
+  src('s1', 'reuters.com', REUTERS, '2026-08-14T09:00:00Z'),
+  src('s2', 'coastdaily.example', LOCAL_WIRE_COPY, '2026-08-14T11:00:00Z'),
+  src('s3', 'kqed.example', INDEPENDENT, '2026-08-14T14:00:00Z'),
+]
+
+/** 사실 카드 — attestations.ordinal = 그 소스 안에서의 등장 순서. */
+const FACTS: FactCard[] = [
+  {
+    id: 'f1',
+    claim: '2026년 8월 화요일 아침 캘리포니아 중부 해안에서 규모 5.2 지진이 발생했다',
+    kind: 'event',
+    attestations: [
+      { source_id: 's1', ordinal: 0 },
+      { source_id: 's2', ordinal: 0 },
+      { source_id: 's3', ordinal: 0 },
+    ],
+  },
+  {
+    id: 'f2',
+    claim: '3명이 경상으로 치료를 받았다',
+    kind: 'figure',
+    attestations: [
+      { source_id: 's1', ordinal: 1 },
+      { source_id: 's2', ordinal: 1 },
+      { source_id: 's3', ordinal: 1 },
+    ],
+  },
+  {
+    id: 'f3',
+    claim: '흔들림은 약 20초 지속됐고 산호세까지 감지됐다',
+    kind: 'event',
+    attestations: [
+      { source_id: 's1', ordinal: 2 },
+      { source_id: 's2', ordinal: 2 },
+    ],
+  },
+  {
+    id: 'f4',
+    claim: '주요 교량·고속도로 피해는 보고되지 않았다',
+    kind: 'event',
+    attestations: [
+      { source_id: 's1', ordinal: 3 },
+      { source_id: 's3', ordinal: 2 },
+    ],
+  },
+  {
+    id: 'f5',
+    claim: '2개 학군이 건물 점검을 위해 휴교했다',
+    kind: 'event',
+    attestations: [
+      { source_id: 's1', ordinal: 4 },
+      { source_id: 's3', ordinal: 3 },
+    ],
+  },
+  {
+    id: 'f6',
+    claim: '진원 깊이는 지하 약 8km 로 측정됐다',
+    kind: 'figure',
+    attestations: [
+      { source_id: 's1', ordinal: 5 },
+      { source_id: 's3', ordinal: 4 },
+    ],
+  },
+]
+
+/** 독립 출처 2그룹을 모두 갖춘 사실만 골라, s1 전개 순서 그대로 나열한 것. */
+const S1_ORDER: string[] = ['f1', 'f2', 'f4', 'f5', 'f6']
+
+/** 사실만 보고 학습 순서로 새로 쓴 초안 (안전 경로). */
+const GOOD_DRAFT: ComposeDraft = {
+  text: `Two school districts in central California sent their students home on Tuesday. Their
+buildings had to be checked first. Earlier that morning, the ground moved under the coast.
+Scientists measured the quake at magnitude 5.2. Three people went to a hospital with small
+injuries. Engineers looked at the bridges and the roads, and they found no damage.`,
+  fact_order: ['f5', 'f1', 'f2', 'f4'],
+  event_occurred_at: '2026-08-14T08:00:00Z',
+}
+
+const NOW = new Date('2026-08-17T00:00:00Z')
+
+// ── 지문 ─────────────────────────────────────────────────────────────
+
+describe('fingerprint', () => {
+  it('토큰화가 구두점·대소문자를 지우고 어절만 남긴다', () => {
+    expect(tokenize('The "quake," they said — it\'s over.')).toEqual([
+      'the', 'quake', 'they', 'said', 'it\'s', 'over',
+    ])
+  })
+
+  it('지문에서 원문을 복원할 수 없다 (해시만 남는다)', () => {
+    const fp = buildFingerprint(REUTERS)
+    expect(fp.hashes.every((h) => /^[0-9a-f]{8}$/.test(h))).toBe(true)
+    expect(JSON.stringify(fp)).not.toContain('earthquake')
+  })
+
+  it('n 어절 미만 텍스트는 빈 지문', () => {
+    expect(buildFingerprint('too short here').hashes).toEqual([])
+  })
+
+  it('연속 일치는 하나의 구간으로 병합되고 어절 수로 보고된다', () => {
+    const fp = buildFingerprint(REUTERS)
+    const runs = findVerbatimRuns(
+      'Officials noted a magnitude 5.2 earthquake struck the central coast of California on Tuesday morning again.',
+      fp,
+    )
+    expect(runs).toHaveLength(1)
+    expect(runs[0]!.wordCount).toBeGreaterThanOrEqual(12)
+    expect(runs[0]!.text).toContain('magnitude 5 2 earthquake struck the central coast')
+  })
+
+  it('독립 취재본과는 겹치는 구간이 없다', () => {
+    expect(findVerbatimRuns(INDEPENDENT, buildFingerprint(REUTERS))).toEqual([])
+  })
+
+  it('포함도는 비대칭 — 축약본은 원본에 거의 통째로 들어간다', () => {
+    const a = buildFingerprint(REUTERS)
+    const b = buildFingerprint(LOCAL_WIRE_COPY)
+    expect(containment(b, a)).toBeGreaterThan(0.9)
+    expect(containment(a, b)).toBeLessThan(containment(b, a))
+    expect(jaccard(a, b)).toBeGreaterThan(0)
+    expect(jaccard(a, buildFingerprint(INDEPENDENT))).toBe(0)
+  })
+})
+
+// ── I12 출처 독립성 (Feist) ──────────────────────────────────────────
+
+describe('I12 출처 독립성', () => {
+  it('통신사 재게재본은 발행사가 달라도 하나로 접힌다', () => {
+    const groups = collapseSyndication(SOURCES)
+    expect(groups).toHaveLength(2)
+    const wire = groups.find((g) => g.includes('s1'))!
+    expect(wire.sort()).toEqual(['s1', 's2'])
+  })
+
+  it('접힌 뒤 독립 2그룹이면 통과', () => {
+    expect(checkSourceIndependence(GOOD_DRAFT, FACTS, SOURCES).verdict).toBe('PASS')
+  })
+
+  it('재게재본만 두 곳이면 실질 단일 출처로 차단', () => {
+    const wireOnly = SOURCES.filter((s) => s.id !== 's3')
+    const draft: ComposeDraft = { ...GOOD_DRAFT, fact_order: ['f1', 'f3'] }
+    const r = checkSourceIndependence(draft, FACTS, wireOnly)
+    expect(r.verdict).toBe('FAIL')
+    expect(r.detail).toContain('독립 1')
+  })
+
+  it('원장에 없는 사실을 참조하면 차단', () => {
+    const draft: ComposeDraft = { ...GOOD_DRAFT, fact_order: ['f1', 'f99'] }
+    expect(checkSourceIndependence(draft, FACTS, SOURCES).detail).toContain('원장에 없는 사실')
+  })
+})
+
+// ── I13 표현 독립성 (Harper & Row) ───────────────────────────────────
+
+describe('I13 표현 독립성', () => {
+  it('사실만 보고 쓴 초안은 통과', () => {
+    expect(checkExpressionIndependence(GOOD_DRAFT, SOURCES).verdict).toBe('PASS')
+  })
+
+  it('10어절 이상 연속 복제는 차단하고 그 문구를 짚어 준다', () => {
+    const copied: ComposeDraft = {
+      ...GOOD_DRAFT,
+      text: 'Students went home early. The shaking lasted about twenty seconds and was felt as far north as San Jose. Nobody was hurt badly.',
+    }
+    const r = checkExpressionIndependence(copied, SOURCES)
+    expect(r.verdict).toBe('FAIL')
+    expect(r.detail).toContain('the shaking lasted about twenty seconds')
+  })
+
+  it('짧은 일치는 검수자 판단으로 남긴다 (기관명·상투 서술 오탐 여지)', () => {
+    // REUTERS 의 7어절 한 구간만 포함 — 하드 차단선(10) 미만.
+    const borderline: ComposeDraft = {
+      ...GOOD_DRAFT,
+      text: 'Reports said inspectors checked buildings. State geologists reported no damage to major roads nearby afterward.',
+    }
+    const r = checkExpressionIndependence(borderline, SOURCES)
+    expect(r.verdict).toBe('WARN')
+    expect(isComposePublishable([r])).toBe(true)
+  })
+})
+
+// ── I14 구조 독립성 (Wainwright · Comline) ───────────────────────────
+
+describe('I14 구조 독립성', () => {
+  it('Spearman — 동일 순서 1, 역순 -1, 동순위 처리', () => {
+    expect(spearman([0, 1, 2, 3], [0, 1, 2, 3])).toBeCloseTo(1)
+    expect(spearman([0, 1, 2, 3], [3, 2, 1, 0])).toBeCloseTo(-1)
+    expect(spearman([0, 1, 2], [5, 5, 5])).toBe(0)
+  })
+
+  it('학습 순서로 재배열한 초안은 통과', () => {
+    expect(checkStructureIndependence(GOOD_DRAFT, FACTS, SOURCES).verdict).toBe('PASS')
+  })
+
+  it('원문 문단 순서를 그대로 따라가면 단어를 다 바꿔도 차단', () => {
+    // 표현은 GOOD_DRAFT 그대로(=I13 통과)이고 출처도 전부 독립 2그룹(=I12 통과)인데,
+    // 사실 순서만 s1 전개를 복제했다. I14 만 단독으로 떨어져야 한다.
+    const followsLede: ComposeDraft = { ...GOOD_DRAFT, fact_order: S1_ORDER }
+    const r = checkStructureIndependence(followsLede, FACTS, SOURCES)
+    expect(r.verdict).toBe('FAIL')
+    expect(r.detail).toContain('전개를 따라가면')
+    expect(checkExpressionIndependence(followsLede, SOURCES).verdict).toBe('PASS')
+    expect(checkSourceIndependence(followsLede, FACTS, SOURCES).verdict).toBe('PASS')
+  })
+
+  it('공통 사실이 5건 미만이면 순서를 재지 않는다', () => {
+    const few: ComposeDraft = { ...GOOD_DRAFT, fact_order: ['f1', 'f2'] }
+    expect(checkStructureIndependence(few, FACTS, SOURCES).verdict).toBe('PASS')
+  })
+})
+
+// ── I15 발행 지연 (hot-news) ─────────────────────────────────────────
+
+describe('I15 발행 지연', () => {
+  it('48시간 경과분은 통과', () => {
+    expect(checkPublicationDelay(GOOD_DRAFT, NOW).verdict).toBe('PASS')
+  })
+
+  it('속보는 차단하고 남은 시간을 알려 준다', () => {
+    const fresh: ComposeDraft = { ...GOOD_DRAFT, event_occurred_at: '2026-08-16T20:00:00Z' }
+    const r = checkPublicationDelay(fresh, NOW)
+    expect(r.verdict).toBe('FAIL')
+    expect(r.detail).toContain('시간 뒤 재시도')
+  })
+
+  it('사건 시각이 없는 주제글은 면제', () => {
+    expect(checkPublicationDelay({ ...GOOD_DRAFT, event_occurred_at: null }, NOW).verdict).toBe('PASS')
+  })
+
+  it('사건 시각이 깨졌으면 통과시키지 않는다', () => {
+    expect(checkPublicationDelay({ ...GOOD_DRAFT, event_occurred_at: 'yesterday' }, NOW).verdict).toBe('FAIL')
+  })
+})
+
+// ── I16 인용 정책 ────────────────────────────────────────────────────
+
+describe('I16 인용 정책', () => {
+  const quote = (over: Partial<FactCard>): FactCard[] => [
+    ...FACTS,
+    {
+      id: 'q1',
+      claim: '주지사가 피해 조사를 지시했다',
+      kind: 'utterance',
+      quote: 'We will inspect every bridge.',
+      quote_is_public: true,
+      attestations: [
+        { source_id: 's1', ordinal: 5 },
+        { source_id: 's3', ordinal: 4 },
+      ],
+      ...over,
+    },
+  ]
+  const withQuote: ComposeDraft = { ...GOOD_DRAFT, fact_order: [...GOOD_DRAFT.fact_order, 'q1'] }
+
+  it('짧은 공개 발언은 통과', () => {
+    expect(checkQuotePolicy(withQuote, quote({})).verdict).toBe('PASS')
+  })
+
+  it('독점 인터뷰 인용은 차단 (심장부)', () => {
+    expect(checkQuotePolicy(withQuote, quote({ quote_is_public: false })).verdict).toBe('FAIL')
+  })
+
+  it('25어절 초과 인용은 차단', () => {
+    const long = Array.from({ length: 30 }, (_, i) => `word${i}`).join(' ')
+    expect(checkQuotePolicy(withQuote, quote({ quote: long })).verdict).toBe('FAIL')
+  })
+})
+
+// ── 통합 ─────────────────────────────────────────────────────────────
+
+describe('runComposeGates', () => {
+  it('안전 경로는 5게이트 전부 통과하고 발행 가능', () => {
+    const results = runComposeGates({ draft: GOOD_DRAFT, facts: FACTS, sources: SOURCES, now: NOW })
+    expect(results).toHaveLength(5)
+    expect(results.map((r) => r.verdict)).toEqual(['PASS', 'PASS', 'PASS', 'PASS', 'PASS'])
+    expect(isComposePublishable(results)).toBe(true)
+  })
+
+  it('critical FAIL 이 하나라도 있으면 발행 불가', () => {
+    const results = runComposeGates({
+      draft: { ...GOOD_DRAFT, fact_order: S1_ORDER },
+      facts: FACTS,
+      sources: SOURCES,
+      now: NOW,
+    })
+    expect(isComposePublishable(results)).toBe(false)
+    expect(results.find((r) => r.verdict === 'FAIL')!.invariant).toBe('I14 구조 독립성')
+  })
+})

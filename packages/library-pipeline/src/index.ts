@@ -160,5 +160,37 @@ export type {
 export { vLevelWeightFor, classifyLV } from './analyze/learning-value'
 export type { ComputeLvOptions, UserSegment } from './analyze/learning-value'
 
+// ACP §20 COMPOSE — 사실 재저작. 소스 본문을 저장·복제하지 않고 지문으로만 대조한다.
+export {
+  DEFAULT_SHINGLE_N,
+  buildFingerprint,
+  containment,
+  findVerbatimRuns,
+  jaccard,
+  sharedCount,
+  tokenize,
+} from './compose/fingerprint'
+export type { Fingerprint, VerbatimRun } from './compose/fingerprint'
+export {
+  COMPOSE_THRESHOLDS,
+  checkExpressionIndependence,
+  checkPublicationDelay,
+  checkQuotePolicy,
+  checkSourceIndependence,
+  checkStructureIndependence,
+  collapseSyndication,
+  isComposePublishable,
+  runComposeGates,
+  spearman,
+} from './compose/gates'
+export type {
+  ComposeDraft,
+  ComposeGateInput,
+  FactCard,
+  GateResult,
+  GateVerdict,
+  SourceRecord,
+} from './compose/gates'
+
 // Phase 7 에서 활성화
 // export { decideCuration } from './curate/auto-decision'

@@ -10,6 +10,31 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP §20 — 사실 재저작 게이트 기본 설계 (v06.39)
+
+빈 칸(register×CEFR)을 발주로 받아 사실 기반 지문을 자체 저작하는 경로. 법리 검토를
+**측정 가능한 불변식**으로 옮긴 것이 설계의 본체다 — "조심하자"는 검수자가 피곤한 날 무너진다.
+
+- **설계 축 3개**
+  1. **소스 본문 미보관** — 7-gram 단방향 지문만 남긴다. 해시에서 문장은 복원되지 않지만
+     "이 표현이 원문에 있었나"는 정확히 답한다. 복제물이 아니라 **대조 계측기**.
+  2. **구조 추종은 n-gram 으로 원리적으로 못 잡는다** — Wainwright/Comline 이 잡아낸 것은
+     단어가 아니라 사실의 서술 순서다. 수집 시점에 사실별 `ordinal`(그 소스 안 등장 순서)을
+     적어 두고 Spearman 순위상관을 잰다. **안 적으면 나중에 복원 불가**(본문을 안 남기므로).
+  3. **같은 지문 기계가 통신사 재게재도 접는다** — 독립 취재본끼리는 7-gram 을 사실상
+     공유하지 않으므로, 포함도 ≥0.25 면 같은 원고로 보고 독립 출처 1로 계산.
+- **게이트 5종** (`compose/gates.ts`) — I12 출처 독립성(독립 2곳) · I13 표현 독립성(10어절 연속
+  일치 차단, 7–9어절 검수자 판단) · I14 구조 독립성(|ρ|≥0.8 차단, 공통 5건 미만 미판정) ·
+  I15 발행 지연(48h · 시각 파손 시 차단) · I16 인용(공개 발언 25어절 이하).
+  독점 인터뷰 인용은 정의상 단일 출처라 **I12 가 이미 배제**한다.
+- **구현** — `packages/library-pipeline/src/compose/{fingerprint,gates}.ts` + 회귀 26
+  (판례별 1건씩 · **I13 은 통과하는데 I14 만 떨어지는 케이스** 포함). 패키지 전체 121 통과.
+- **스키마 미적용** — `supabase/migrations/_pending_20260817_acp_compose_foundation.sql`
+  (source CHECK += `original` · `composed_spec` · 원장 3테이블 · 게이트 결과 + 발행 강제 트리거
+  `trg_la_require_compose_gates` · RLS). **라이선스 enum 확장 불필요** —
+  `'CC0-1.0 (Vocaflow Original)'` 로 적으면 DB·TS 분류기가 양쪽 다 `cc0` → `copyright_safe_in_kr=true`.
+  설계: <https://claude.ai/code/artifact/676e9571-b05c-468c-ad52-c9f34a97541b>
+
 ### ACP 정책층이 NC 라이선스를 못 읽던 것 (v06.39)
 
 DB `acp_classify_license` 는 NC 를 첫 분기에서 `restricted` 로 거르는데, TS
