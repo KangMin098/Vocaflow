@@ -16,6 +16,8 @@ import { sourceMeta } from '@/lib/articles/source-meta'
 import { startArticleLearning } from '@/lib/articles/start-learning'
 import type { PublishedArticle } from '@/lib/articles/types'
 import { judgeArticleIPlusOne } from '@/lib/library/i-plus-one'
+import { mediaFormSpec, resolveMediaForm } from '@/lib/library/media-form'
+import { MediaCover, MediaCoverSrLabel } from '@/components/library/MediaCover'
 
 const CEFR_COLOR: Record<string, string> = {
   A1: '#15803D',
@@ -52,6 +54,26 @@ export function ArticleCard({
   const hasAudio = !!(article.audio_url && article.audio_url.trim())
   const mins = readMinutes(article)
   const tags = (article.category_tags ?? []).slice(0, featured ? 3 : 2)
+
+  // 매체 형식 — 이 글이 "어떤 종류의 인쇄물" 인지. 도서만 표지를 갖고 나머지는 이모지 하나였던
+  // 자리를 조판 문법 표지로 채운다(근거·형식 목록은 lib/library/media-form.ts).
+  // register 를 source 보다 먼저 보는 판정이라 VOA 단신이 어학 강의 표지를 달지 않는다.
+  const form = resolveMediaForm({
+    kind: 'article',
+    source: article.source,
+    register: article.register ?? null,
+    hasAudio,
+  })
+  const formSpec = mediaFormSpec(form)
+  /** 형식 칩 — 색만으로 구분하지 않는다(형태 + 라벨 + 아래 SR 텍스트 3중). */
+  const FormChip = (
+    <span
+      className="inline-flex items-center rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9.5px] font-[800] tracking-[0.04em]"
+      style={{ color: formSpec.accent, background: `color-mix(in srgb, ${formSpec.accent} 12%, transparent)` }}
+    >
+      {formSpec.label}
+    </span>
+  )
 
   function handleLearn() {
     startTransition(async () => {
@@ -118,13 +140,21 @@ export function ArticleCard({
           style={{ borderColor: `color-mix(in srgb, ${src.color} 28%, var(--bd))`, backgroundColor: `color-mix(in srgb, ${src.color} 4%, var(--bg))` }}
         >
           <div className="flex items-center justify-between gap-2">
-            {SourceBadge}
+            <span className="inline-flex items-center gap-1.5">
+              {SourceBadge}
+              {FormChip}
+            </span>
             <span className="inline-flex items-center gap-1 font-display text-[10px] font-[800] uppercase tracking-[0.08em] text-[var(--p)]">
               먼저 읽어볼 글
             </span>
           </div>
+          {/* lead 는 지면이 넓으니 표지를 띠로 눕혀 넣는다 — 유형이 제목보다 먼저 눈에 든다 */}
+          <span className="block h-[104px] w-full overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)]">
+            <MediaCover form={form} title={article.title} />
+          </span>
           <h3 className="font-english text-[21px] font-[600] leading-[1.25] text-[var(--t1)] md:text-[23px]">
             {article.title}
+            <MediaCoverSrLabel form={form} readingMinutes={mins} />
           </h3>
           {article.author && (
             <p className="line-clamp-1 font-body text-[12px] text-[var(--t2)]">{article.author}</p>
@@ -151,10 +181,20 @@ export function ArticleCard({
         disabled={pending}
         className="group flex h-full w-full flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 pr-9 text-left shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--p)_50%,var(--bd))] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-60"
       >
-        {SourceBadge}
-        <h3 className="line-clamp-3 font-english text-[15.5px] font-[600] leading-[1.32] text-[var(--t1)]">
-          {article.title}
-        </h3>
+        <span className="flex items-center gap-1.5">
+          {SourceBadge}
+          {FormChip}
+        </span>
+        {/* 타일은 좁아서 표지를 제목 옆 작은 판으로 — 60px 이하에서도 조판 표식이 읽힌다 */}
+        <span className="flex items-start gap-2.5">
+          <span className="block h-[56px] w-[42px] shrink-0 overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)]">
+            <MediaCover form={form} title={article.title} />
+          </span>
+          <h3 className="line-clamp-3 font-english text-[15.5px] font-[600] leading-[1.32] text-[var(--t1)]">
+            {article.title}
+            <MediaCoverSrLabel form={form} readingMinutes={mins} />
+          </h3>
+        </span>
         <div className="mt-auto flex flex-col gap-2 pt-0.5">
           {Meta}
           {Tags}

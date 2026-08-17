@@ -14,6 +14,8 @@ import Link from 'next/link'
 import { ArrowRight, ChevronRight, Info, Sparkles, Volume2 } from 'lucide-react'
 
 import { useUserVLevel } from '@/hooks/useUserVLevel'
+import { dominantMediaForm } from '@/lib/library/media-form'
+import { MediaCover, MediaCoverSrLabel } from '@/components/library/MediaCover'
 import {
   TRACK_FIT_META,
   bandGuidance,
@@ -140,6 +142,7 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
 function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => void; onEnter: () => void }) {
   const { track, fit, cefrLabel, count, hasAudio } = stat
   const fitMeta = TRACK_FIT_META[fit]
+  const heroForm = dominantMediaForm(track.sources)
   return (
     <div
       className="group overflow-hidden rounded-[var(--r-lg)] border shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
@@ -170,15 +173,16 @@ function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => 
         </div>
 
         <div className="flex items-start gap-3">
-          <span
-            aria-hidden
-            className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--r-lg)] text-[24px]"
-            style={{ backgroundColor: `color-mix(in srgb, ${track.accent} 16%, transparent)` }}
-          >
-            {track.icon}
+          {/* 이모지 한 글자였던 자리 — 이 시리즈가 어떤 종류의 인쇄물인지를 조판으로 말한다.
+              (도서만 표지를 갖고 나머지는 전부 같은 색 사각형이던 문제. lib/library/media-form.ts) */}
+          <span className="block h-16 w-12 shrink-0 overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)]">
+            <MediaCover form={heroForm} title={track.title} />
           </span>
           <div className="flex min-w-0 flex-1 flex-col gap-1">
-            <h3 className="font-display text-[17px] font-[800] leading-[1.2] text-[var(--t1)]">{track.title}</h3>
+            <h3 className="font-display text-[17px] font-[800] leading-[1.2] text-[var(--t1)]">
+              {track.title}
+              <MediaCoverSrLabel form={heroForm} />
+            </h3>
             <p className="font-body text-[13px] leading-[1.45] text-[var(--t2)]">{track.oneLine}</p>
             {stat.sources.length > 0 && (
               <p className="truncate font-mono text-[10.5px] font-[600] text-[var(--t2)]">출처 · {sourceHint(stat)}</p>
@@ -225,6 +229,7 @@ function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => 
 // ── 나머지 시리즈 — 조용한 row (왼쪽=학습안내 팝업 · 오른쪽=바로 둘러보기) ──
 function SeriesRow({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => void; onEnter: () => void }) {
   const { track, cefrLabel, count } = stat
+  const rowForm = dominantMediaForm(track.sources)
   return (
     <li className="flex min-h-[60px] items-stretch overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)]">
       {/* 왼쪽 = 학습 안내 팝업 */}
@@ -234,15 +239,14 @@ function SeriesRow({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => v
         aria-label={`${track.title} — 학습 안내 보기`}
         className="flex flex-1 items-center gap-3 px-3.5 py-2.5 text-left transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
       >
-        <span
-          aria-hidden
-          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[18px]"
-          style={{ backgroundColor: `color-mix(in srgb, ${track.accent} 12%, transparent)` }}
-        >
-          {track.icon}
+        <span className="block h-11 w-8 shrink-0 overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)]">
+          <MediaCover form={rowForm} title={track.title} />
         </span>
         <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <span className="truncate font-display text-[14px] font-[700] text-[var(--t1)]">{track.title}</span>
+          <span className="truncate font-display text-[14px] font-[700] text-[var(--t1)]">
+            {track.title}
+            <MediaCoverSrLabel form={rowForm} />
+          </span>
           {stat.sources.length > 0 && (
             <span className="truncate font-mono text-[10px] font-[500] text-[var(--t2)]">{sourceHint(stat)}</span>
           )}
