@@ -23,6 +23,8 @@ import {
   PUBLIC_TEXT_LIMIT,
 } from '@/lib/textfit/public-queries'
 import { buildShareUrl, isShareable } from '@/lib/textfit/share'
+import { track } from '@/lib/analytics/client'
+import { resolvedDecile, sizeBucket } from '@/lib/analytics/events'
 import type { LevelProfile } from '@/lib/textfit/profile'
 
 /** 분석을 시작하는 최소 길이 — 한두 문장으로는 커버리지가 통계적 의미를 갖지 못한다. */
@@ -53,6 +55,16 @@ export function PublicFitClient({ initialShared = null }: Props) {
   const [copied, setCopied] = useState(false)
   // 공유받은 결과를 보고 있는가 — 본인이 지문을 넣는 순간 해제된다.
   const [viewingShared, setViewingShared] = useState(initialShared !== null)
+
+  // 퍼널 분모 — 이 화면에 몇 명이 왔는가. 공유 링크로 온 진입은 확산 계수의 분자다.
+  useEffect(() => {
+    track({ name: 'fit_viewed', props: { shared: initialShared !== null } })
+    if (initialShared !== null) {
+      track({ name: 'fit_share_opened', props: { valid: true } })
+    }
+    // 진입 1회만 — 의존성 없음이 의도다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const truncated = text.length > PUBLIC_TEXT_LIMIT
   const analysed = useMemo(() => text.slice(0, PUBLIC_TEXT_LIMIT), [text])
@@ -86,6 +98,16 @@ export function PublicFitClient({ initialShared = null }: Props) {
           // 내 지문으로 다시 계산됐으므로 더 이상 남의 결과가 아니다.
           setViewingShared(false)
           setCopied(false)
+
+          // "실제로 써 봤다" — 지문은 보내지 않는다(버킷·레벨만).
+          track({
+            name: 'fit_analyzed',
+            props: {
+              fitLevel: p.fitLevel,
+              sizeBucket: sizeBucket(p.totalTokens),
+              resolvedDecile: resolvedDecile(p.resolvedShare),
+            },
+          })
         })
         .catch((err: unknown) => {
           if (!alive || (err instanceof DOMException && err.name === 'AbortError')) return
@@ -118,6 +140,9 @@ export function PublicFitClient({ initialShared = null }: Props) {
     if (!isShareable(profile) || typeof window === 'undefined') return
 
     const url = buildShareUrl(window.location.origin, profile)
+    // 확산의 시작점 — 이 수 대비 `fit_share_opened` 가 교사 채널의 확산 계수다.
+    track({ name: 'fit_shared', props: { fitLevel: profile.fitLevel } })
+
     try {
       await navigator.clipboard.writeText(url)
       setCopied(true)

@@ -165,6 +165,39 @@ test.describe('공개 지문 진단 — /fit (로그아웃)', () => {
     expect((await res.body()).length).toBeGreaterThan(10_000);
   });
 
+  test('계측이 지문을 밖으로 내보내지 않는다 — 화면의 약속이 네트워크에서도 지켜진다', async ({
+    page,
+  }) => {
+    test.setTimeout(150_000);
+
+    // 나가는 **모든** 요청의 본문·URL 을 모은다. 분석 도구만 보는 게 아니라 전부 본다 —
+    // "어디로 새는지" 를 미리 정해 두면 정작 다른 곳으로 새는 걸 못 잡는다.
+    const outbound: string[] = [];
+    page.on('request', (req) => {
+      const url = req.url();
+      // 우리 분석 API 는 토큰 빈도표를 보내는 게 정상이라 제외한다(그건 지문이 아니라 집계다).
+      if (url.includes('/api/fit')) return;
+      outbound.push(url);
+      const body = req.postData();
+      if (body) outbound.push(body);
+    });
+
+    await page.goto('/fit', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    await page.locator('#fit-input').fill(PASSAGE);
+    await expect(page.getByRole('region', { name: '레벨 프로파일' })).toBeVisible({
+      timeout: 40_000,
+    });
+    await page.getByRole('button', { name: '결과 링크 복사' }).click();
+    // 이벤트가 실제로 나갈 시간을 준다
+    await page.waitForTimeout(2_500);
+
+    const haystack = outbound.join('\n');
+    // 지문에만 있는 특징어들 — 하나라도 나가면 약속이 깨진 것이다.
+    for (const secret of ['Scientists', 'rehearsal', 'disproportionately', 'curriculum']) {
+      expect(haystack, `"${secret}" 가 외부 요청에 실렸다`).not.toContain(secret);
+    }
+  });
+
   test('마케팅 헤더에서 한 번에 닿는다 — 묻혀 있으면 없는 것과 같다', async ({ page }) => {
     await page.goto('/pricing', { waitUntil: 'domcontentloaded', timeout: 30_000 });
     await page.getByRole('link', { name: '지문 진단' }).first().click();

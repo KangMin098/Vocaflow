@@ -18,6 +18,7 @@
 import { ArrowRight, Check, Link2, Loader2, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 
+import { track } from '@/lib/analytics/client'
 import { BAND_COPY, BAND_THRESHOLDS } from '@/lib/textfit/coverage'
 import { LEVEL_LABEL, profileHeadline } from '@/lib/textfit/profile'
 import type { LevelProfile, LevelReading } from '@/lib/textfit/profile'
@@ -211,6 +212,9 @@ export function LevelProfilePanel({
           )}
           <Link
             href="/signup"
+            // 공개 화면 → 제품으로 넘어가는 유일한 문. 이 클릭 수가 없으면
+            // "교사가 와서 써 봤지만 가입은 안 했다" 와 "애초에 안 왔다" 를 구분할 수 없다.
+            onClick={() => track({ name: 'fit_signup_clicked', props: {} })}
             className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
           >
             <Sparkles size={15} aria-hidden />내 기준으로 보기
