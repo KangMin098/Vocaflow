@@ -377,6 +377,55 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     feedHints: ['/services/rss/', '/rss/edition.rss', '/rss/edition_world.rss'],
     note: '미국 상업 방송. 자체 취재 비중이 높고 주제 폭이 넓다.',
   },
+  abcnews: {
+    key: 'abcnews',
+    publisher: 'abcnews.go.com',
+    tier: 'corroborating',
+    wiring: 'in-repo',
+    access: newsAccess(),
+    discovery: true,
+    wire: null,
+    topics: [
+      'politics-and-society-social-issues',
+      'health-health-and-fitness',
+      'science-and-technology',
+      'the-natural-world-the-environment',
+    ],
+    feedHints: ['/abcnews/topstories', '/abcnews/internationalheadlines', '/abcnews/usheadlines'],
+    note: '미국 상업 방송(ABC News). CNN·NPR 과 편집 계통이 달라 미국 내 교차 확인에 쓴다.',
+  },
+  washingtonpost: {
+    key: 'washingtonpost',
+    publisher: 'washingtonpost.com',
+    tier: 'corroborating',
+    wiring: 'in-repo',
+    access: newsAccess(),
+    discovery: true,
+    wire: null,
+    topics: [
+      'politics-and-society-social-issues',
+      'the-natural-world-the-environment',
+      'science-and-technology',
+      'work-and-business-business',
+    ],
+    feedHints: ['/arcio/rss/category/world/', '/arcio/rss/category/climate-environment/', '/rss/world'],
+    // 초판에서 "유료벽 때문에" 제외했는데 그건 **측정이 아니라 예측**이었다.
+    // 피드는 제목+요약을 주므로 사건 발견과 사실 교차 확인에는 쓸 수 있는 경우가 많다.
+    // 실제로 본문이 안 열리면 취재 시작 단계에서 사유와 함께 걸러진다 — 미리 뺄 이유가 없다.
+    note: '미국 일간. 유료벽이 있어 본문이 안 열릴 수 있으나, 그 판단은 실행이 하지 예측이 하지 않는다.',
+  },
+  nhk: {
+    key: 'nhk',
+    publisher: 'www3.nhk.or.jp',
+    tier: 'corroborating',
+    wiring: 'in-repo',
+    access: newsAccess(),
+    discovery: true,
+    wire: null,
+    topics: ['politics-and-society-social-issues', 'the-natural-world-the-environment', 'science-and-technology'],
+    feedHints: ['/nhkworld/en/news/rss/', '/rss/news/cat0.xml'],
+    note: '일본 공영 국제방송. 아시아 계통이 연합뉴스 하나뿐이라 지역 편중을 줄이려 넣었다(한국 학습자에게 지역 관련성도 높다).',
+  },
   npr: {
     key: 'npr',
     publisher: 'npr.org',
@@ -503,11 +552,6 @@ export const EXCLUDED_FACT_SOURCES: ReadonlyArray<{ key: string; reason: string 
     key: 'reuters',
     reason:
       '2026-08-17 실측 — robots.txt 가 우리 수집기에게 `/` 전체를 막았다. 일부 경로가 아니라 전면 차단이라 어떤 URL 도 읽을 수 없다. 브라우저인 척 우회하지 않는다는 것이 이 파이프라인의 규칙이므로 목록에서 뺀다. 통신사 계통은 AP·연합뉴스가 대신한다.',
-  },
-  {
-    key: 'washingtonpost',
-    reason:
-      '유료벽이 본문 대부분을 가려 사실 추출이 안 되고, 무료로 보이는 부분만으로는 교차 확인이 성립하지 않는다. 라이선스가 아니라 **읽어도 사실이 안 나오는 것**이 이유다.',
   },
   {
     key: 'mbc',

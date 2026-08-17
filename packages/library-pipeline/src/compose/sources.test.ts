@@ -108,6 +108,7 @@ describe('ACP 와의 겹침 — 규칙이 있어야 사고가 안 난다', () =>
     const composeOnly = Object.keys(FACT_SOURCES).filter((k) => !isAlsoAcpSource(k)).sort()
     expect(composeOnly).toEqual([
       'abcnet',
+      'abcnews',
       'aljazeera',
       'ap',
       'bbc',
@@ -117,9 +118,28 @@ describe('ACP 와의 겹침 — 규칙이 있어야 사고가 안 난다', () =>
       'guardian',
       'koreaherald',
       'koreatimes',
+      'nhk',
       'npr',
+      'washingtonpost',
       'yonhap',
     ])
+  })
+
+  it('워싱턴포스트는 예측으로 빼지 않는다 — 판단은 실행이 한다', () => {
+    // 초판에서 "유료벽 때문에" 제외했는데 그건 측정이 아니라 예측이었다.
+    // 피드는 제목+요약을 주므로 발견·교차 확인에 쓸 수 있는 경우가 많고,
+    // 본문이 정말 안 열리면 취재 시작 단계에서 사유와 함께 걸러진다.
+    expect(FACT_SOURCES['washingtonpost']).toBeDefined()
+    expect(EXCLUDED_FACT_SOURCES.map((e) => e.key)).not.toContain('washingtonpost')
+  })
+
+  it('지역이 한쪽에 쏠려 있지 않다', () => {
+    // 미국·영국·독일·카타르·캐나다·호주·일본·한국 — 같은 사건도 서술이 달라
+    // 교차 확인의 값이 커진다.
+    const news = Object.keys(FACT_SOURCES).filter((k) => !isAlsoAcpSource(k))
+    for (const k of ['bbc', 'dw', 'aljazeera', 'cbc', 'abcnet', 'nhk', 'yonhap']) {
+      expect(news).toContain(k)
+    }
   })
 
   it('겹침 판정을 손으로 적지 않고 ACP 레지스트리에 물어본다', () => {
