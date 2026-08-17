@@ -359,8 +359,17 @@ function useAction(): {
     run: (fn) =>
       start(async () => {
         setError(null)
-        const r = await fn()
-        if (!r.ok) setError(r.error ?? '알 수 없는 오류')
+        try {
+          const r = await fn()
+          if (!r.ok) setError(r.error ?? '알 수 없는 오류')
+        } catch (e) {
+          // 서버 액션이 **던지면** 트랜지션 안에서 조용히 사라진다 — 화면은 아무 반응도
+          // 하지 않고, 운영자는 버튼이 고장 났다고 생각한다(2026-08-18 "반응 없음" 보고).
+          // 실패는 반드시 보이게 한다.
+          setError(
+            `요청이 실패했습니다 — ${e instanceof Error ? e.message : String(e)}. 잠시 뒤 다시 시도하고, 반복되면 서버 로그를 확인하세요.`,
+          )
+        }
       }),
   }
 }
@@ -959,11 +968,24 @@ function DiscoverPanel({ feedCount }: { feedCount: number }) {
     <section aria-label="사건 발견" className="flex flex-col gap-s-4">
       <ErrorNote error={act.error} onClose={act.clear} />
 
+      {feedCount === 0 && (
+        <div
+          role="status"
+          className="rounded-lg border border-warning bg-warning-light px-s-4 py-s-3 font-body text-sm text-warning"
+        >
+          활성 피드가 없어 수집할 곳이 없습니다. ② 피드에서 발행사를 고르고 &ldquo;피드
+          찾기&rdquo; → 추가 → <b>활성으로 전환</b>까지 하셔야 합니다. 추가만 해서는 수집에
+          포함되지 않습니다.
+        </div>
+      )}
+
       <div className="flex flex-wrap items-center gap-s-3 rounded-lg border border-bd bg-bg2 p-s-4">
+        {/* 버튼을 잠그지 않는다 — 눌렀는데 아무 일도 없으면 고장으로 읽힌다.
+            누를 수 있게 두고 액션이 "활성 피드가 없습니다" 라고 답하게 한다. */}
         <button
           type="button"
           className={BTN}
-          disabled={act.pending || feedCount === 0}
+          disabled={act.pending}
           onClick={() =>
             act.run(async () => {
               const r = await runDiscovery()
@@ -977,6 +999,10 @@ function DiscoverPanel({ feedCount }: { feedCount: number }) {
         <p className="min-w-0 flex-1 font-body text-xs text-t2">
           활성 피드 {feedCount}개를 훑습니다. 이 단계는 기사 본문을 읽지 않고 피드와 robots 만
           묻습니다 — 실제로 읽는 것은 &ldquo;취재 시작&rdquo;을 누른 사건뿐입니다.
+          <br />
+          뉴스 피드는 최근 1~2일치만 싣는데 사건 후 48시간이 지나야 쓸 수 있으므로,{' '}
+          <b>오늘 받은 것 대부분은 보류로 저장됩니다.</b> 목록에 뜨는 것은 그동안 모아 둔 후보 중
+          48시간이 지난 사건입니다 — 처음 며칠은 비어 보이는 것이 정상입니다.
         </p>
       </div>
 

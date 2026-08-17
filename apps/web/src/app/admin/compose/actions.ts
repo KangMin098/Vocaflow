@@ -15,6 +15,7 @@ import {
   CrawlGate,
   FACT_SOURCES,
   buildJobSpec,
+  clusterStories,
   collectStories,
   discoverFeeds,
   isPublisherHost,
@@ -242,14 +243,24 @@ export async function runDiscovery(): Promise<DiscoveryRunResult> {
     return { ok: false, error: '활성 피드가 없습니다. ② 피드에서 먼저 켜 주세요.' }
   }
 
-  const report = await collectStories(
-    feeds.map((f) => ({ sourceKey: f.source_key, url: f.url, label: f.label, enabled: true })),
-    nodeFetchDeps(),
-  )
+  // 수집은 외부 네트워크를 탄다 — 예외가 밖으로 나가면 화면에서 "반응 없음" 으로 보인다.
+  let report: Awaited<ReturnType<typeof collectStories>>
+  try {
+    report = await collectStories(
+      feeds.map((f) => ({ sourceKey: f.source_key, url: f.url, label: f.label, enabled: true })),
+      nodeFetchDeps(),
+    )
+  } catch (e) {
+    return {
+      ok: false,
+      error: `수집 중 오류가 났습니다 — ${e instanceof Error ? e.message : String(e)}`,
+    }
+  }
 
   // 피드별 결과를 표에 남긴다 — 조용한 0건과 차단을 구별할 수 있어야 한다.
+  // 기록 실패가 수집 결과를 통째로 날리면 안 되므로 개별로 삼킨다.
   const now = new Date().toISOString()
-  await Promise.all(
+  await Promise.allSettled(
     feeds.map((f) => {
       const host = (() => {
         try {
@@ -275,6 +286,57 @@ export async function runDiscovery(): Promise<DiscoveryRunResult> {
     }),
   )
 
+  // 후보를 보관한다 — 피드는 최근분만 싣고 I15 는 48시간을 요구하므로, 저장하지 않으면
+  // 오늘 보류된 기사가 이틀 뒤엔 피드에서 내려가 영영 못 쓴다. 저장해 두면 저절로 익는다.
+  const seen = [
+    ...report.pursue.flatMap((c) => c.members),
+    ...report.singleLine.flatMap((c) => c.members),
+    ...report.holding,
+  ]
+  if (seen.length > 0) {
+    await client.from('article_compose_candidates').upsert(
+      seen
+        .filter((m) => m.published_at)
+        .map((m) => ({
+          source_key: m.sourceKey,
+          publisher: m.publisher,
+          wire: m.wire,
+          title: m.title,
+          url: m.url,
+          published_at: m.published_at,
+        })),
+      { onConflict: 'url', ignoreDuplicates: true },
+    )
+  }
+
+  // 이번에 받은 것만이 아니라 **보관된 후보 전체**에서 48시간이 지난 것을 다시 묶는다.
+  const { data: ripeRows } = await client
+    .from('article_compose_candidates')
+    .select('source_key, publisher, wire, title, url, published_at')
+    .eq('status', 'open')
+    .lt('published_at', new Date(Date.now() - 48 * 3_600_000).toISOString())
+    .order('published_at', { ascending: false })
+    .limit(400)
+
+  const ripe = ((ripeRows ?? []) as Array<{
+    source_key: string
+    publisher: string
+    wire: string | null
+    title: string
+    url: string
+    published_at: string
+  }>).map((r) => ({
+    sourceKey: r.source_key,
+    publisher: r.publisher,
+    wire: r.wire,
+    title: r.title,
+    url: r.url,
+    published_at: r.published_at,
+    holdMs: 0,
+  }))
+
+  const storedClusters = clusterStories(ripe)
+
   const toView = (c: (typeof report.pursue)[number]): ClusterView => ({
     headline: c.headline,
     earliestAt: c.earliestAt,
@@ -292,8 +354,9 @@ export async function runDiscovery(): Promise<DiscoveryRunResult> {
   revalidatePath(PATH)
   return {
     ok: true,
-    pursue: report.pursue.map(toView),
-    singleLine: report.singleLine.map(toView),
+    // 보관 후보에서 다시 묶은 결과가 실질 목록이다(이번 수집분만 보면 거의 늘 0이다).
+    pursue: storedClusters.filter((c) => c.worthPursuing).map(toView),
+    singleLine: storedClusters.filter((c) => !c.worthPursuing).slice(0, 30).map(toView),
     holdingCount: report.holding.length,
     skipped: report.skipped,
     requests: report.requests,

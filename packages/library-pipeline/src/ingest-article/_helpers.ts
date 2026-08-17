@@ -41,7 +41,15 @@ export function parseRssFeed(xml: string): RssListItem[] {
     const link =
       extractTag(block, 'link') ?? block.match(/<link[^>]+href="([^"]+)"/i)?.[1] ?? null
     const guid = extractTag(block, 'guid') ?? extractTag(block, 'id') ?? null
-    const pubDate = extractTag(block, 'pubDate') ?? extractTag(block, 'published') ?? null
+    // RSS 2.0 = pubDate · Atom = published/updated · RSS 1.0(RDF) = dc:date.
+    // ⚠ dc:date 를 안 보면 RDF 피드의 **모든 항목이 발행 시각 없음으로 버려진다**
+    //   (2026-08-18 실측: DW 의 rss-en-all 137항목이 전부 그렇게 빠졌다).
+    const pubDate =
+      extractTag(block, 'pubDate') ??
+      extractTag(block, 'published') ??
+      extractTag(block, 'dc:date') ??
+      extractTag(block, 'updated') ??
+      null
     // v06.70 — The Conversation atom 의 <summary>(짧은 요약) vs <content>(풀 본문) 우선순위 수정.
     //   summary 우선 시 minDescriptionLen 가드 통과 못함 → content 가 있으면 우선.
     //   여러 후보 중 가장 긴 것 선택 (description/content/summary 모두 후보).
