@@ -179,6 +179,7 @@ export function ComposeConsoleClient({
   composed,
   gates,
   feedSourceOptions,
+  acpOverlap,
   envMissing,
   initialTab,
 }: {
@@ -193,6 +194,8 @@ export function ComposeConsoleClient({
   composed: ComposedRow[]
   gates: GateRow[]
   feedSourceOptions: FeedSourceOption[]
+  /** ACP(본문 수집)에도 있는 소스 키 — 표 옆에 "겹치는데?" 의 답을 둔다. */
+  acpOverlap: string[]
   envMissing: boolean
   /** 렌더 스모크에서 각 면을 그려 보기 위한 진입 탭. 화면에서는 쓰지 않는다. */
   initialTab?: Tab
@@ -264,7 +267,7 @@ export function ComposeConsoleClient({
         ))}
       </nav>
 
-      {tab === '소스' && <TrackTable tracks={tracks} />}
+      {tab === '소스' && <TrackTable tracks={tracks} acpOverlap={acpOverlap} />}
       {tab === '피드' && <FeedPanel feeds={feeds} options={feedSourceOptions} />}
       {tab === '발견' && <DiscoverPanel feedCount={counts.feedsEnabled ?? 0} />}
       {tab === '원장' && (
@@ -741,12 +744,39 @@ function JobPanel({
 }
 
 /** ① 소스 — 유형별로 무엇을 쓸 수 있고 무엇이 막혔는지. 레지스트리 계산이라 DB 없이도 뜬다. */
-function TrackTable({ tracks }: { tracks: TrackRow[] }) {
+function TrackTable({ tracks, acpOverlap }: { tracks: TrackRow[]; acpOverlap: string[] }) {
   return (
     <section aria-label="학습 유형별 소스 커버리지" className="flex flex-col gap-s-3">
       <p className="font-body text-sm text-t2">
         학습 유형이 나머지를 결정합니다 — 어느 소스를 볼지, 몇 어절로 쓸지, 어떤 활동을 붙일지.
       </p>
+
+      {/* 표에 ACP 소스가 함께 보이므로 "겹치는데?" 라는 물음이 반드시 나온다. 표 옆에 답을 둔다. */}
+      <div className="rounded-lg border border-bd bg-bg2 p-s-4">
+        <h3 className="font-display text-sm font-bold text-t1">
+          ACP 와 같은 소스가 {acpOverlap.length}곳 있습니다 — 겹치는 것은 소스이지 산출물이
+          아닙니다
+        </h3>
+        <p className="mt-s-2 max-w-[60rem] font-body text-sm text-t2">
+          같은 기관이 두 파이프라인에서 다른 역할을 합니다. <b>ACP</b> 는 그 소스의{' '}
+          <b>본문이 그 자체로 학습 지문</b>일 때 씁니다(NOAA 기후 해설, VOA 기사).{' '}
+          <b>재저작</b> 은 그 소스가 <b>사건에 대한 사실을 제공</b>할 때 씁니다(USGS 지진 속보,
+          OWID 지표 발표) — 본문이 지문감은 아니지만 사실의 1차 출처인 자료들입니다.
+        </p>
+        <p className="mt-s-2 max-w-[60rem] font-body text-sm text-t1">
+          갈릴 때의 기준은 하나입니다 — <b>본문을 그대로 가져와 발행할 수 있으면 ACP 로 갑니다.</b>{' '}
+          재저작은 본문을 못 가져올 때 쓰는 우회로지 더 나은 경로가 아닙니다.
+        </p>
+        <ul className="mt-s-3 flex flex-col gap-s-1 font-body text-xs text-t2">
+          <li>
+            같은 사건이 서가에 두 번 오르는 것은 <b>I17 서가 중복</b> 게이트가 발행 시 막습니다.
+          </li>
+          <li>
+            ACP 가 이미 본문으로 가져간 기사는 <b>취재 시작에서 자동으로 제외</b>됩니다.
+          </li>
+        </ul>
+        <p className="mt-s-2 font-mono text-[11px] text-t3">{acpOverlap.join(', ')}</p>
+      </div>
       <div className="overflow-x-auto rounded-lg border border-bd bg-bg">
         <table className="w-full border-collapse text-left">
           <thead>

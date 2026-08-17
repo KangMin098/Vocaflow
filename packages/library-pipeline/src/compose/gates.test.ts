@@ -18,6 +18,7 @@ import {
   checkExpressionIndependence,
   checkPublicationDelay,
   checkQuotePolicy,
+  checkShelfDuplication,
   checkSourceIndependence,
   checkStructureIndependence,
   collapseSyndication,
@@ -330,13 +331,72 @@ describe('I16 인용 정책', () => {
   })
 })
 
+// ── I17 서가 중복 (ACP 와 소스가 9곳 겹치는 데서 오는 위험) ──────────
+
+describe('I17 서가 중복', () => {
+  // ACP 가 이미 본문 그대로 발행해 둔 글이라고 가정한다.
+  const shelf: SourceRecord[] = [
+    src('own1', 'vocaflow(acp:noaa)', REUTERS, '2026-08-14T09:00:00Z'),
+  ]
+
+  it('대조할 발행 글이 없으면 통과', () => {
+    expect(checkShelfDuplication(GOOD_DRAFT, []).verdict).toBe('PASS')
+  })
+
+  it('새로 쓴 글은 기존 발행 글과 겹치지 않는다', () => {
+    expect(checkShelfDuplication(GOOD_DRAFT, shelf).verdict).toBe('PASS')
+  })
+
+  it('이미 발행한 글과 길게 겹치면 차단하고 처방이 다르다', () => {
+    const dup: ComposeDraft = {
+      ...GOOD_DRAFT,
+      text: 'Students went home early. The shaking lasted about twenty seconds and was felt as far north as San Jose. Nobody was hurt badly.',
+    }
+    const r = checkShelfDuplication(dup, shelf)
+    expect(r.verdict).toBe('FAIL')
+    // 저작권이 아니라 "같은 사건이 이미 서가에 있다" 가 처방이다
+    expect(r.detail).toContain('이미 서가에 있다면')
+  })
+
+  it('서가를 shelf 로 넘기면 I12 판정에 영향이 없다', () => {
+    const wireOnly = SOURCES.filter((s) => s.id !== 's3')
+    const draft: ComposeDraft = { ...GOOD_DRAFT, fact_order: ['f1', 'f3'] }
+    const r = runComposeGates({ draft, facts: FACTS, sources: wireOnly, shelf, now: NOW })
+    expect(r.find((g) => g.invariant === 'I12 출처 독립성')!.verdict).toBe('FAIL')
+  })
+
+  it('우리 글을 확인 소스로 적으면 독립 출처가 부풀려진다 — 원장 작성의 실제 위험', () => {
+    // I12 는 sources 배열이 아니라 **attestation** 을 센다. 그래서 위험은 "서가를 sources 에
+    // 섞는 것" 이 아니라 **우리 글에 확인 표시를 다는 것** 이다.
+    // ACP 가 이미 발행한 NOAA 글을 보고 "여기서도 봤다" 며 확인 표시를 달면,
+    // 실제로는 한 곳에서만 나온 사실이 독립 2계통으로 보인다.
+    const wireOnly = SOURCES.filter((s) => s.id !== 's3')
+    const draft: ComposeDraft = { ...GOOD_DRAFT, fact_order: ['f1'] }
+
+    const honest = checkSourceIndependence(draft, FACTS, wireOnly)
+    expect(honest.verdict).toBe('FAIL') // s1·s2 는 같은 통신사 계통
+
+    // 서가 글이 통신사 원고를 그대로 실은 것이면 지문 접기가 같은 계통으로 묶어 준다.
+    // 위험한 것은 **문면이 다른** 우리 글이다 — 접히지 않으므로 계통이 하나 는다.
+    const ownIndependent = src('own2', 'vocaflow(acp:usgs)', INDEPENDENT, '2026-08-14T15:00:00Z')
+    const inflatedFacts: FactCard[] = FACTS.map((f) =>
+      f.id === 'f1'
+        ? { ...f, attestations: [...f.attestations, { source_id: 'own2', ordinal: 0 }] }
+        : f,
+    )
+    const inflated = checkSourceIndependence(draft, inflatedFacts, [...wireOnly, ownIndependent])
+    expect(inflated.verdict).toBe('PASS')
+    // → 그래서 ④ 원장의 확인 소스 선택지에는 **그 취재 묶음의 소스만** 올린다.
+  })
+})
+
 // ── 통합 ─────────────────────────────────────────────────────────────
 
 describe('runComposeGates', () => {
-  it('안전 경로는 5게이트 전부 통과하고 발행 가능', () => {
+  it('안전 경로는 6게이트 전부 통과하고 발행 가능', () => {
     const results = runComposeGates({ draft: GOOD_DRAFT, facts: FACTS, sources: SOURCES, now: NOW })
-    expect(results).toHaveLength(5)
-    expect(results.map((r) => r.verdict)).toEqual(['PASS', 'PASS', 'PASS', 'PASS', 'PASS'])
+    expect(results).toHaveLength(6)
+    expect(results.map((r) => r.verdict)).toEqual(['PASS', 'PASS', 'PASS', 'PASS', 'PASS', 'PASS'])
     expect(isComposePublishable(results)).toBe(true)
   })
 

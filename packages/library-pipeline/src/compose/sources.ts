@@ -31,7 +31,30 @@
 // people-personal-qualities · work-and-business-* · sport 등.
 // 즉 사람·사회·직업 주제 절반은 본문 수집으로 도달할 수 없고, 재저작만이 연다.
 
+import { isSourceKey } from '../ingest-article/_curation-spec'
+
 // ── 접근 규율 ────────────────────────────────────────────────────────
+
+// ── ACP 와의 겹침 ────────────────────────────────────────────────────
+//
+// 사실 출처 14곳 중 **9곳이 ACP(본문 수집) 소스와 같다**
+// (usgs·noaa·nasa·nih·elife·owid·voa·wikinews·wikipedia).
+// 이건 실수가 아니지만, 규칙이 없으면 반드시 사고가 난다.
+//
+// **겹치는 것은 소스이지 산출물이 아니다.** 같은 기관이 두 파이프라인에서 서로 다른 역할을 한다:
+//
+//   ACP     — 그 소스의 **본문이 그 자체로 학습 지문**일 때. NOAA 기후 explainer, VOA 기사.
+//   Compose — 그 소스가 **사건에 대한 사실을 제공**할 때. USGS 지진 속보, OWID 지표 발표.
+//             이 자료들은 본문이 학습 지문감이 아니지만 사실의 1차 출처다.
+//
+// 갈림길에서의 판정 기준은 하나다:
+//   **본문을 그대로 가져와 발행할 수 있으면 ACP 로 간다.**
+//   재저작은 본문을 못 가져올 때(라이선스·문체·길이) 쓰는 우회로지, 더 나은 경로가 아니다.
+//   PD 기관 글을 굳이 재저작하는 것은 그냥 가져오면 될 것에 LLM 비용과 게이트를 쓰는 일이다.
+//
+// 이 규칙을 어기면 생기는 두 가지 사고와, 그것을 막는 장치:
+//   ① 같은 사건이 서가에 두 번 → **I17 서가 중복** 게이트(gates.ts)가 발행 시 잡는다.
+//   ② 같은 URL 을 양쪽에서 처리 → 취재 시작 시 발행 이력을 조회해 막는다(Admin 액션).
 
 /** 무엇을 통해 읽는가. 발행사가 배포 의도로 내놓은 경로일수록 위쪽. */
 export type AccessBasis =
@@ -365,6 +388,20 @@ export interface FactSourcePlan {
   feasible: boolean
   /** feasible=false 일 때 무엇이 부족한지 */
   blocker: string | null
+}
+
+/**
+ * ACP(본문 수집)에도 등록된 소스인가.
+ *
+ * 하드코딩하지 않고 ACP 레지스트리에 물어본다 — 손으로 적으면 한쪽이 늘어날 때 조용히 어긋난다.
+ */
+export function isAlsoAcpSource(key: string): boolean {
+  return isSourceKey(key)
+}
+
+/** 두 파이프라인에 함께 있는 소스 (Admin ① 소스 화면 표시원). */
+export function acpOverlap(): string[] {
+  return Object.keys(FACT_SOURCES).filter(isAlsoAcpSource).sort()
 }
 
 /** 이 주제를 덮는 소스인가. `'*'` 는 모든 주제(배경 사실용). */

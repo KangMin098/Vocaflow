@@ -13,7 +13,9 @@ import {
   BODY_RETENTION,
   EXCLUDED_FACT_SOURCES,
   FACT_SOURCES,
+  acpOverlap,
   allTopics,
+  isAlsoAcpSource,
   feasibleTopics,
   isCollectable,
   lineOf,
@@ -65,6 +67,34 @@ describe('FACT_SOURCES 레지스트리', () => {
     expect(ted!.reason).toContain('단일 출처')
     const agg = EXCLUDED_FACT_SOURCES.find((e) => e.key === 'aggregator')
     expect(agg!.reason).toContain('독립 출처가 아니다')
+  })
+})
+
+describe('ACP 와의 겹침 — 규칙이 있어야 사고가 안 난다', () => {
+  it('9곳이 두 파이프라인에 함께 있다 (실수가 아니라 역할 분리)', () => {
+    expect(acpOverlap()).toEqual([
+      'elife',
+      'nasa',
+      'nih',
+      'noaa',
+      'owid',
+      'usgs',
+      'voa',
+      'wikinews',
+      'wikipedia',
+    ])
+  })
+
+  it('상업 뉴스 5곳만 Compose 전용 — ACP 는 본문을 못 가져오는 곳이다', () => {
+    const composeOnly = Object.keys(FACT_SOURCES).filter((k) => !isAlsoAcpSource(k)).sort()
+    expect(composeOnly).toEqual(['ap', 'bbc', 'dw', 'koreaherald', 'reuters'])
+  })
+
+  it('겹침 판정을 손으로 적지 않고 ACP 레지스트리에 물어본다', () => {
+    // 하드코딩했다면 한쪽이 늘어날 때 조용히 어긋난다.
+    expect(isAlsoAcpSource('noaa')).toBe(true)
+    expect(isAlsoAcpSource('reuters')).toBe(false)
+    expect(isAlsoAcpSource('없는소스')).toBe(false)
   })
 })
 

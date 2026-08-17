@@ -10,6 +10,7 @@ import { createClient as createServiceClient } from '@supabase/supabase-js'
 import {
   FACT_SOURCES,
   LEARNING_TYPES,
+  acpOverlap,
   trackCoverage,
   type LearningTrack,
 } from '@vocaflow/library-pipeline'
@@ -233,6 +234,7 @@ export default async function AdminComposePage() {
       composed={composed.filter((a) => a.compose_batch_id !== null)}
       gates={gates}
       feedSourceOptions={feedSourceOptions}
+      acpOverlap={acpOverlap()}
       envMissing={!url || !key}
     />
   )

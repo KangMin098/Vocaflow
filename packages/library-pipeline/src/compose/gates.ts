@@ -254,6 +254,70 @@ export function checkExpressionIndependence(
   }
 }
 
+// ── I17 서가 중복 ────────────────────────────────────────────────────
+
+/**
+ * 우리가 이미 발행한 글과 겹치는지.
+ *
+ * 왜 별도 게이트인가: Compose 의 사실 출처 14곳 중 **9곳이 ACP(본문 수집) 소스와 같다**
+ * (usgs·noaa·nasa·nih·elife·owid·voa·wikinews·wikipedia). 그래서 ACP 가 NOAA explainer 를
+ * 본문 그대로 발행해 둔 사건을 Compose 가 다시 재저작하면, **우리 서가 안에 같은 내용이
+ * 두 편** 생긴다. I13 은 외부 소스와만 대조하므로 이 경우를 보지 못한다.
+ *
+ * ⚠ **우리 아티클을 `sources` 배열에 넣어 I13 으로 대신 잡으려 하면 안 된다.**
+ *   그러면 I12(출처 독립성)가 우리 글을 독립 출처로 세어, 한 곳에서만 나온 사실이
+ *   "확인됨" 으로 통과한다. 측정은 같아도 **넣는 자리가 다르면 결과가 위험해진다.**
+ *
+ * 위반의 성격도 다르다 — 외부 겹침은 저작권 위험이고, 서가 겹침은 학습자가 같은 글을
+ * 두 번 읽는 문제다. 그래서 판정문과 처방을 따로 쓴다.
+ */
+export function checkShelfDuplication(
+  draft: ComposeDraft,
+  shelf: ReadonlyArray<SourceRecord>,
+): GateResult {
+  const invariant = 'I17 서가 중복'
+  if (shelf.length === 0) {
+    return {
+      invariant,
+      severity: 'critical',
+      verdict: 'PASS',
+      detail: '대조할 기존 발행 글이 없다.',
+    }
+  }
+
+  let worst: { run: VerbatimRun; source: SourceRecord } | null = null
+  for (const s of shelf) {
+    for (const run of findVerbatimRuns(draft.text, s.fingerprint)) {
+      if (!worst || run.wordCount > worst.run.wordCount) worst = { run, source: s }
+    }
+  }
+
+  if (!worst) {
+    return {
+      invariant,
+      severity: 'critical',
+      verdict: 'PASS',
+      detail: `기존 발행 글 ${shelf.length}편과 겹치는 구간 없음.`,
+    }
+  }
+
+  const where = `${worst.source.publisher} · "${worst.run.text}"`
+  if (worst.run.wordCount >= COMPOSE_THRESHOLDS.verbatimHardRunWords) {
+    return {
+      invariant,
+      severity: 'critical',
+      verdict: 'FAIL',
+      detail: `이미 발행한 글과 ${worst.run.wordCount}어절 겹친다 — ${where}. 같은 사건이 이미 서가에 있다면 재저작하지 말고 그 글을 쓰거나, 다른 각도의 사실로 새로 쓴다.`,
+    }
+  }
+  return {
+    invariant,
+    severity: 'critical',
+    verdict: 'WARN',
+    detail: `기존 발행 글과 ${worst.run.wordCount}어절 겹친다 — ${where}. 같은 사건을 다루고 있는지 확인한다.`,
+  }
+}
+
 // ── I14 구조 독립성 ──────────────────────────────────────────────────
 
 /** 순위 상관계수(Spearman ρ). 동순위는 평균 순위로 처리. */
@@ -437,23 +501,30 @@ export function checkQuotePolicy(draft: ComposeDraft, facts: FactCard[]): GateRe
 export interface ComposeGateInput {
   draft: ComposeDraft
   facts: FactCard[]
+  /** 외부 취재 소스. **여기에 우리 글을 넣지 않는다** (I12 가 독립 출처로 세어 버린다). */
   sources: SourceRecord[]
+  /**
+   * 우리가 이미 발행한 글의 지문 — I17 전용.
+   * ACP 와 소스가 9곳 겹치므로 같은 사건이 서가에 이미 있을 수 있다.
+   */
+  shelf?: SourceRecord[]
   /** 지연 판정 기준 시각 (테스트 주입용) */
   now?: Date
 }
 
 /**
- * 재저작 5게이트 일괄 실행. 순서는 비용순 — 싼 검사(지연·인용)가 먼저 떨어지게 한다.
- * critical FAIL 이 하나라도 있으면 발행 불가이며, DB 게이트(I12~I16)가 최종 권위다.
+ * 재저작 6게이트 일괄 실행. 순서는 비용순 — 싼 검사(지연·인용)가 먼저 떨어지게 한다.
+ * critical FAIL 이 하나라도 있으면 발행 불가이며, DB 게이트가 최종 권위다.
  */
 export function runComposeGates(input: ComposeGateInput): GateResult[] {
-  const { draft, facts, sources, now } = input
+  const { draft, facts, sources, shelf, now } = input
   return [
     checkPublicationDelay(draft, now ?? new Date()),
     checkQuotePolicy(draft, facts),
     checkSourceIndependence(draft, facts, sources),
     checkStructureIndependence(draft, facts, sources),
     checkExpressionIndependence(draft, sources),
+    checkShelfDuplication(draft, shelf ?? []),
   ]
 }
 

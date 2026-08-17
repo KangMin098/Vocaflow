@@ -266,6 +266,7 @@ function render(tab: string, filled: boolean): string {
       composed={filled ? COMPOSED : []}
       gates={filled ? GATES : []}
       feedSourceOptions={[{ key: 'bbc', publisher: 'bbc.co.uk', tier: 'corroborating' }]}
+      acpOverlap={['noaa', 'voa']}
       envMissing={false}
       initialTab={tab as never}
     />,
@@ -285,6 +286,14 @@ describe('Compose 콘솔 렌더', () => {
     const html = render('소스', true)
     expect(html).toContain('대상 아님')
     expect(html).toContain('수능 국내')
+  })
+
+  it('소스 면은 ACP 겹침에 대한 답을 표 옆에 둔다', () => {
+    // 표에 ACP 소스가 함께 보이므로 "겹치는데?" 라는 물음이 반드시 나온다.
+    const html = render('소스', true)
+    expect(html).toContain('겹치는 것은 소스이지 산출물이 아닙니다')
+    expect(html).toContain('본문을 그대로 가져와 발행할 수 있으면 ACP')
+    expect(html).toContain('I17 서가 중복')
   })
 
   it('피드 면은 robots 실패를 눈에 띄게 알린다', () => {

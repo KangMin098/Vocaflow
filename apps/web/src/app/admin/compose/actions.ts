@@ -295,12 +295,25 @@ export async function startCoverage(cluster: ClusterView): Promise<ActionResult 
   if (batchErr) return { ok: false, error: batchErr.message }
   const batchId = (batch as { id: string }).id
 
+  // ACP 와 소스가 9곳 겹친다 — 같은 기사를 ACP 가 이미 본문으로 발행해 뒀다면
+  // 재저작할 이유가 없다(그냥 가져올 수 있는 것에 LLM 비용과 게이트를 쓰는 일이다).
+  const urls = cluster.members.map((m) => m.url)
+  const { data: already } = await client
+    .from('library_articles')
+    .select('source_url, title')
+    .in('source_url', urls)
+  const taken = new Set(((already ?? []) as Array<{ source_url: string }>).map((a) => a.source_url))
+
   const gate = new CrawlGate()
   const deps = nodeFetchDeps()
   const failures: string[] = []
   let saved = 0
 
   for (const m of cluster.members) {
+    if (taken.has(m.url)) {
+      failures.push(`${m.publisher}: ACP 가 이미 본문으로 가져간 기사입니다`)
+      continue
+    }
     const spec = FACT_SOURCES[m.sourceKey]
     if (!spec) {
       failures.push(`${m.publisher}: 알 수 없는 소스`)
