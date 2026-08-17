@@ -53,6 +53,7 @@ export function PublicFitClient({ initialShared = null }: Props) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  const [wordsCopied, setWordsCopied] = useState(false)
   // 공유받은 결과를 보고 있는가 — 본인이 지문을 넣는 순간 해제된다.
   const [viewingShared, setViewingShared] = useState(initialShared !== null)
 
@@ -129,6 +130,33 @@ export function PublicFitClient({ initialShared = null }: Props) {
       clearTimeout(timer)
     }
   }, [tokenization, analysed, viewingShared])
+
+  /**
+   * 어려운 단어를 **단어⇥뜻** 형식으로 클립보드에 담는다.
+   *
+   * 왜 이 형식인가: 탭 구분은 클래스카드·퀴즐렛·엑셀이 공통으로 받는 import 형식이다.
+   * 우리는 아직 학급에 단어를 배달하지 못한다(`classes` 는 명부일 뿐 전달 경로가 없다).
+   * 그렇다면 최소한 **교사가 이미 쓰는 도구에 물려줄** 형태로는 내주는 게 맞다 —
+   * 그게 "수업 준비 30분을 30초로" 를 오늘 지킬 수 있는 유일한 방법이다.
+   */
+  async function handleCopyWords() {
+    if (!profile || typeof window === 'undefined') return
+
+    const rows = profile.hardestWords
+      .filter((w) => w.vLevel !== null)
+      // 뜻에 탭·줄바꿈이 들어가면 붙여넣는 쪽에서 **열과 행이 밀린다**(단어와 뜻이 어긋난 채
+      // 학생에게 나간다). 구분자로 쓰는 문자는 값에서 공백으로 접는다.
+      .map((w) => `${w.surface}\t${(w.meaningKo ?? '').replace(/[\t\r\n]+/g, ' ').trim()}`)
+    if (rows.length === 0) return
+
+    try {
+      await navigator.clipboard.writeText(rows.join('\n'))
+      setWordsCopied(true)
+      window.setTimeout(() => setWordsCopied(false), 2400)
+    } catch {
+      setError('클립보드를 쓸 수 없어요. 단어를 직접 선택해 복사해 주세요.')
+    }
+  }
 
   /**
    * 결과 링크를 클립보드에 담는다.
@@ -219,6 +247,8 @@ export function PublicFitClient({ initialShared = null }: Props) {
         shared={viewingShared}
         onShare={isShareable(profile) ? handleShare : undefined}
         shareCopied={copied}
+        onCopyWords={profile && profile.hardestWords.length > 0 ? handleCopyWords : undefined}
+        wordsCopied={wordsCopied}
       />
     </div>
   )

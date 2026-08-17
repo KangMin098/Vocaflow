@@ -15,7 +15,7 @@
 
 'use client'
 
-import { ArrowRight, Check, Link2, Loader2, Sparkles } from 'lucide-react'
+import { ArrowRight, Check, ClipboardList, Link2, Loader2, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 
 import { track } from '@/lib/analytics/client'
@@ -65,6 +65,10 @@ interface Props {
   onShare?: () => void
   /** 방금 복사했는가 — 버튼 라벨을 잠깐 바꾼다. */
   shareCopied?: boolean
+  /** 어려운 단어를 단어⇥뜻 형식으로 복사. 없으면 버튼을 그리지 않는다. */
+  onCopyWords?: () => void
+  /** 방금 단어를 복사했는가. */
+  wordsCopied?: boolean
 }
 
 export function LevelProfilePanel({
@@ -74,6 +78,8 @@ export function LevelProfilePanel({
   shared = false,
   onShare,
   shareCopied = false,
+  onCopyWords,
+  wordsCopied = false,
 }: Props) {
   if (loading && !profile) {
     return (
@@ -163,9 +169,36 @@ export function LevelProfilePanel({
       {/* ── 어려운 단어 ── */}
       {profile.hardestWords.length > 0 && (
         <div className="flex flex-col gap-2.5">
-          <h3 className="m-0 font-display text-[13px] font-[700] text-[var(--t1)]">
-            이 지문에서 가장 어려운 단어
-          </h3>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h3 className="m-0 font-display text-[13px] font-[700] text-[var(--t1)]">
+              이 지문에서 가장 어려운 단어
+            </h3>
+            {onCopyWords && (
+              <button
+                type="button"
+                onClick={onCopyWords}
+                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+              >
+                {wordsCopied ? (
+                  <>
+                    <Check size={14} aria-hidden style={{ color: 'var(--memory-stable)' }} />
+                    복사됨
+                  </>
+                ) : (
+                  <>
+                    <ClipboardList size={14} aria-hidden />
+                    단어·뜻 복사
+                  </>
+                )}
+              </button>
+            )}
+          </div>
+          {onCopyWords && (
+            <p className="m-0 font-body text-[12px] leading-[1.6] text-[var(--t3)]">
+              단어와 뜻이 탭으로 구분돼 복사돼요 — 클래스카드·퀴즐렛·엑셀에 그대로 붙여넣을 수
+              있습니다.
+            </p>
+          )}
           <ul className="flex flex-wrap gap-1.5">
             {profile.hardestWords.slice(0, 16).map((w) => (
               <li

@@ -15,7 +15,7 @@
 
 import { NextResponse } from 'next/server'
 
-import { getLevelMap, checkRealWords } from '@/lib/textfit/level-map'
+import { getLevelMap, checkRealWords, loadMeanings } from '@/lib/textfit/level-map'
 import { collectCandidates } from '@/lib/textfit/inflect'
 import { buildLevelProfile } from '@/lib/textfit/profile'
 import type { PublicWord } from '@/lib/textfit/profile'
@@ -109,7 +109,14 @@ export async function POST(request: Request): Promise<NextResponse> {
       else merged.set(lemma, { surface, lemma, count, status, vLevel })
     }
 
-    return NextResponse.json(buildLevelProfile([...merged.values()], totalTokens), {
+    const profile = buildLevelProfile([...merged.values()], totalTokens)
+
+    // 가장 어려운 단어에만 뜻을 붙인다 — 교사가 결과를 그대로 가져가 쓸 수 있게.
+    // (전체에 붙이면 응답이 몇 배가 되는데 화면은 상위 24 개만 보여준다.)
+    const meanings = await loadMeanings(profile.hardestWords.map((w) => w.lemma))
+    for (const w of profile.hardestWords) w.meaningKo = meanings.get(w.lemma) ?? null
+
+    return NextResponse.json(profile, {
       headers: {
         // 같은 지문을 다시 보내면 CDN/브라우저가 받아 준다. 개인 데이터가 없어 공개 캐시 가능.
         'Cache-Control': 'public, max-age=60',

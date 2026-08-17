@@ -202,3 +202,55 @@ export async function checkRealWords(candidates: string[]): Promise<Set<string>>
 
   return found
 }
+
+/**
+ * 표제어들의 한국어 뜻을 가져온다 — **가장 어려운 단어 몇 개에만** 쓴다.
+ *
+ * 뜻까지 메모리에 담지 않는 이유: 레벨 맵은 20 만 자 남짓이지만 뜻을 붙이면 몇 MB 가 된다.
+ * 그리고 화면이 실제로 보여주는 건 상위 24 개뿐이라, 그때 한 번 조회하는 편이 싸다.
+ *
+ * 같은 표제어가 여러 세트에 있으면 **가장 낮은 레벨 쪽 뜻**을 쓴다 — 레벨 판정과 같은 기준이라
+ * "V6 이라면서 고급 세트의 뜻을 보여주는" 어긋남이 생기지 않는다.
+ */
+export async function loadMeanings(lemmas: string[]): Promise<Map<string, string>> {
+  const out = new Map<string, string>()
+  if (lemmas.length === 0) return out
+
+  const supabase = anonClient()
+  const { data, error } = await supabase
+    .from('shared_words')
+    .select('word, lemma, meaning_ko, v_level')
+    .in('lemma', lemmas)
+    .not('meaning_ko', 'is', null)
+    .order('v_level', { ascending: true })
+
+  // 뜻은 부가 정보다 — 실패해도 판정은 그대로 나간다.
+  if (error) return out
+
+  type Row = { word: string | null; lemma: string | null; meaning_ko: string | null; v_level: number | null }
+  for (const row of (data ?? []) as Row[]) {
+    const key = (row.lemma ?? row.word ?? '').trim().toLowerCase()
+    if (!key || !row.meaning_ko) continue
+    // 정렬이 v_level 오름차순이므로 먼저 온 것이 가장 낮은 레벨이다.
+    if (!out.has(key)) out.set(key, row.meaning_ko)
+  }
+
+  // `lemma` 가 NULL 인 행(20%)은 위 `.in('lemma', …)` 에 안 걸린다 — `word` 로 한 번 더 훑는다.
+  const missing = lemmas.filter((l) => !out.has(l))
+  if (missing.length > 0) {
+    const { data: byWord } = await supabase
+      .from('shared_words')
+      .select('word, lemma, meaning_ko, v_level')
+      .in('word', missing)
+      .not('meaning_ko', 'is', null)
+      .order('v_level', { ascending: true })
+
+    for (const row of (byWord ?? []) as Row[]) {
+      const key = (row.lemma ?? row.word ?? '').trim().toLowerCase()
+      if (!key || !row.meaning_ko || out.has(key)) continue
+      out.set(key, row.meaning_ko)
+    }
+  }
+
+  return out
+}

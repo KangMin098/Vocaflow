@@ -198,6 +198,39 @@ test.describe('공개 지문 진단 — /fit (로그아웃)', () => {
     }
   });
 
+  test('어려운 단어를 교사가 이미 쓰는 도구에 바로 물릴 수 있다 (단어⇥뜻)', async ({
+    page,
+    context,
+  }) => {
+    test.setTimeout(150_000);
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+
+    await page.goto('/fit', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    await page.locator('#fit-input').fill(PASSAGE);
+
+    const panel = page.getByRole('region', { name: '레벨 프로파일' });
+    await expect(panel).toBeVisible({ timeout: 40_000 });
+
+    await panel.getByRole('button', { name: '단어·뜻 복사' }).click();
+    await expect(panel.getByRole('button', { name: '복사됨' })).toBeVisible();
+
+    const copied = await page.evaluate(() => navigator.clipboard.readText());
+    const lines = copied.split('\n').filter(Boolean);
+
+    expect(lines.length, '복사된 단어 수').toBeGreaterThan(5);
+    for (const line of lines) {
+      const parts = line.split('\t');
+      // 정확히 두 칸이어야 한다 — 뜻에 탭이 섞이면 붙여넣는 쪽에서 열이 밀린다.
+      expect(parts, `행 형식: ${line}`).toHaveLength(2);
+      expect(parts[0]!.length, '단어가 비었다').toBeGreaterThan(0);
+      expect(parts[1]!.length, `뜻이 비었다: ${parts[0]}`).toBeGreaterThan(0);
+    }
+
+    // 지문 문장이 아니라 **낱말**만 나간다 — 저작권 계약과 같은 선.
+    expect(copied).not.toContain('Scientists have');
+    expect(copied).not.toContain('memory decays');
+  });
+
   test('마케팅 헤더에서 한 번에 닿는다 — 묻혀 있으면 없는 것과 같다', async ({ page }) => {
     await page.goto('/pricing', { waitUntil: 'domcontentloaded', timeout: 30_000 });
     await page.getByRole('link', { name: '지문 진단' }).first().click();

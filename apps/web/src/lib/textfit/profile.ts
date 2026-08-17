@@ -59,6 +59,13 @@ export interface PublicWord {
   status: PublicWordStatus
   /** `leveled` 일 때만 채워진다 */
   vLevel: number | null
+  /**
+   * 한국어 뜻 — **가장 어려운 단어에만** 붙는다(전체에 붙이면 응답이 커지고 쓰이지도 않는다).
+   *
+   * 이게 있어야 교사가 결과를 그대로 가져가 쓸 수 있다. 우리는 아직 학급에 단어를
+   * 배달하지 못하므로(=`classes` 는 명부뿐), 최소한 **이미 쓰는 도구에 물려줄** 형태로는 준다.
+   */
+  meaningKo?: string | null
 }
 
 /** 레벨 하나에서의 판정. */
