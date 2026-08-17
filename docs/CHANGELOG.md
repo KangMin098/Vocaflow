@@ -10,6 +10,36 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP §20 — 취재 계통 설계 + 스키마 적용 (v06.39)
+
+마이그레이션 2건 적용 (`20260817052824_acp_compose_foundation` · `20260817053009_acp_compose_batch_regroup`).
+
+- **닫힌 주제 절반이 근거** — `topic_corpus_sources` 활성 19 카테고리 중 **11개가 재사용 불가
+  소스(TED · CC BY-NC-ND · `text_reusable=false`)로만 덮여 있다**: health-* · people-education ·
+  people-feelings · people-personal-qualities · work-and-business-* · sport ·
+  the-natural-world-the-environment 등. 나머지 8개는 이미 PD 기관 소스로 덮인, 서가가 포화된 쪽이다.
+  **재저작이 여는 것은 같은 주제 한 겹이 아니라 수집으로 도달 불가한 주제 절반**이다.
+- **소스 판정 축 교체** (`compose/sources.ts`) — 사실에는 저작권이 없으므로 라이선스가 기준에서
+  빠지고 **이용약관·robots(`termsRisk`)** 가 들어온다. 두 축을 한 칸에 적으면 반드시 혼동된다.
+  4축 = 1차성 · 독립성 · 접근성 · 주제.
+- **병목은 1차원이 아니라 교차원** — 1차 사실원 6곳(usgs·noaa·nasa·nih·elife·owid) vs 교차
+  확인원 **VOA 1곳**. 발주 가능 주제가 5개뿐이고 전부 교차원이 `['voa']` 다. 지리·우주·정신건강·
+  생물·경제는 1차원이 있어도 막혀 있다. **다음 소스는 또 다른 기관이 아니라 두 번째 교차원** —
+  가장 싼 수는 Wikinews 배선 복구(어댑터 존재 · CC-BY · 실적 0행).
+  Wikipedia 는 `tier='background'` 로 **독립 출처에서 제외**(백과는 보도를 인용하므로 독립 취재가 아니다).
+  TED 제외 사유는 라이선스가 아니라 **강연 1건 = 단일 출처**라 I12 를 못 넘는 것.
+- **원장을 batch 소속으로 재구성** — 사실 원장 1개 → 난이도별 아티클 N개(A2판·B1판).
+  수집이 가장 비싼 단계인데 그 비용을 여러 판이 나눠 쓴다. 커버리지 매트릭스에서 한 칸이 아니라
+  **한 열**을 채우게 된다. `article_compose_batches` + `chk_original_needs_batch`.
+- **재저작만 오디오를 붙일 수 있다** — 발행 160편 중 오디오 30편 전량 VOA(정지 아카이브).
+  재저작물은 우리 저작이라 Piper TTS(`lib/echo/piper-tts.ts`, EchoMatch용 기배선) 부착이 자유롭고,
+  지문 1편이 읽기·단어장에서 멈추지 않고 **듣기·EchoMatch·Dictation** 까지 연다.
+- **회귀** `compose/sources.test.ts` 11 (발주 가능 5주제 스냅샷 · 교차원 병목 단언 포함) ·
+  compose 37 · 패키지 132 통과.
+- ⚠ **미해결** — `source-map.ts`/`source-meta.ts` 에 `original` 미등록. 첫 발행 전에 배선하지 않으면
+  발행은 성공하고 **학습자 트랙에는 안 뜬다**(v06.66 에서 5소스 8편이 같은 방식으로 증발했다).
+  설계: <https://claude.ai/code/artifact/22a64cf7-48bf-4897-98c9-795bf253afe0>
+
 ### ACP §20 — 사실 재저작 게이트 기본 설계 (v06.39)
 
 빈 칸(register×CEFR)을 발주로 받아 사실 기반 지문을 자체 저작하는 경로. 법리 검토를

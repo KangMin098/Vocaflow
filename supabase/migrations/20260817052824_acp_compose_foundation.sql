@@ -1,9 +1,10 @@
--- supabase/migrations/_pending_20260817_acp_compose_foundation.sql
+-- supabase/migrations/20260817052824_acp_compose_foundation.sql
 --
 -- ACP §20 — 사실 재저작(compose) 기본 설계 · 스키마 토대.
 --
--- ⚠ _pending_ 접두사 = 미적용. CLAUDE.md 규약상 마이그레이션 자동 적용 금지 —
---    사용자 승인 후 정식 타임스탬프로 rename 하여 apply_migration.
+-- ⚠ 적용됨 (2026-08-17 · version 20260817052824). 사실 원장의 소속은 직후
+--    20260817053009_acp_compose_batch_regroup 에서 article_id → batch_id 로 재구성됐다
+--    (원장 1개 → 난이도별 아티클 N개). 현재 스키마는 그쪽이 정본이다.
 --
 -- 이 마이그레이션이 만드는 것:
 --   1. source='original' 허용 (CHECK 확장)

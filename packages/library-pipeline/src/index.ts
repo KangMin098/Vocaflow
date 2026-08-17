@@ -191,6 +191,19 @@ export type {
   GateVerdict,
   SourceRecord,
 } from './compose/gates'
+export {
+  EXCLUDED_FACT_SOURCES,
+  FACT_SOURCES,
+  feasibleTopics,
+  planFactSources,
+} from './compose/sources'
+export type {
+  FactSourcePlan,
+  FactSourceSpec,
+  FactSourceTier,
+  FactSourceWiring,
+  TermsRisk,
+} from './compose/sources'
 
 // Phase 7 에서 활성화
 // export { decideCuration } from './curate/auto-decision'
