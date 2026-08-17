@@ -323,8 +323,13 @@ psm4→psm11 교체 근거 중 "clean 개수가 34→33 으로 같다"는 **신�
 
 #### 채택하지 않은 것 — 사전 대조
 
-`shared_dictionary`(word + inflected_forms, 64,029단어)로 비실단어 비율을 재봤다.
+`shared_dictionary`(word + inflected_forms, 65,487단어)로 비실단어 비율을 재봤다.
 `build-wordlist.mjs` 로 생성하고 `--lexicon` 으로 켠다. **기본은 꺼둔다:**
+
+> ⚠️ `tools/en-wordlist.txt` 는 **DB 스냅샷이고 `/tools/` 가 gitignore 대상이라 낡아도 안 보인다.**
+> 2026-08-17 에 사전에서 지운 비단어 12건(`railro`·`overlo`·`sidelo` 등)이 8/11자 스냅샷에
+> 그대로 남아 있었다 — `--lexicon` 을 켰다면 그 조각들을 정상 단어로 승인했을 것이다.
+> **사전 표제어를 지우거나 대량 추가한 뒤에는 `node scripts/comic/pd/build-wordlist.mjs` 를 다시 돌릴 것.**
 
 | 입력 | 결과 |
 |---|---|
