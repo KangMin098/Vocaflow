@@ -15,7 +15,7 @@
 
 'use client'
 
-import { ArrowRight, Loader2, Sparkles } from 'lucide-react'
+import { ArrowRight, Check, Link2, Loader2, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 
 import { BAND_COPY, BAND_THRESHOLDS } from '@/lib/textfit/coverage'
@@ -53,9 +53,27 @@ interface Props {
   loading: boolean
   /** 입력이 상한을 넘어 잘렸는가 — 잘렸으면 숫자가 전체 지문의 것이 아니다. */
   truncated?: boolean
+  /**
+   * 공유 링크로 들어와서 보고 있는 결과인가.
+   *
+   * 링크는 서명하지 않으므로 **위조 가능**하다. 그래서 남의 결과를 내 분석처럼 보여주지 않고
+   * 출처를 명시한 뒤, 받은 사람이 자기 지문으로 다시 돌릴 수 있게 한다.
+   */
+  shared?: boolean
+  /** 공유 버튼 — 없으면 버튼을 그리지 않는다(죽은 버튼 금지). */
+  onShare?: () => void
+  /** 방금 복사했는가 — 버튼 라벨을 잠깐 바꾼다. */
+  shareCopied?: boolean
 }
 
-export function LevelProfilePanel({ profile, loading, truncated = false }: Props) {
+export function LevelProfilePanel({
+  profile,
+  loading,
+  truncated = false,
+  shared = false,
+  onShare,
+  shareCopied = false,
+}: Props) {
   if (loading && !profile) {
     return (
       <p
@@ -77,6 +95,19 @@ export function LevelProfilePanel({ profile, loading, truncated = false }: Props
       aria-label="레벨 프로파일"
       className="flex flex-col gap-6 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-5 md:p-6"
     >
+      {/* ── 공유된 결과 출처 명시 ──
+          링크는 서명하지 않는다. 남의 숫자를 내 분석처럼 보여주면 그때부터 이 화면은
+          검증 도구가 아니라 주장 전달자가 된다. */}
+      {shared && (
+        <p className="m-0 flex items-start gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg3)] px-3.5 py-2.5 font-body text-[12.5px] leading-[1.6] text-[var(--t2)]">
+          <Link2 size={14} aria-hidden className="mt-0.5 shrink-0 text-[var(--t3)]" />
+          <span>
+            <b>공유받은 결과</b>예요 — 다른 사람이 분석한 지문입니다. 아래에 직접 지문을 넣으면 내
+            기준으로 다시 계산돼요.
+          </span>
+        </p>
+      )}
+
       {/* ── 한 줄 답 ── */}
       <header className="flex flex-col gap-2">
         <p
@@ -159,6 +190,25 @@ export function LevelProfilePanel({ profile, loading, truncated = false }: Props
           계산하고, 복습을 미뤘을 때 이 지문이 2주 뒤 얼마나 어려워지는지까지 보여드려요.
         </p>
         <div className="flex flex-wrap gap-2.5">
+          {onShare && (
+            <button
+              type="button"
+              onClick={onShare}
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+            >
+              {shareCopied ? (
+                <>
+                  <Check size={15} aria-hidden style={{ color: 'var(--memory-stable)' }} />
+                  링크 복사됨
+                </>
+              ) : (
+                <>
+                  <Link2 size={15} aria-hidden />
+                  결과 링크 복사
+                </>
+              )}
+            </button>
+          )}
           <Link
             href="/signup"
             className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"

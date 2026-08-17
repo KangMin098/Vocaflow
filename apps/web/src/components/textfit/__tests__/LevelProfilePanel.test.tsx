@@ -108,6 +108,40 @@ describe('LevelProfilePanel — 렌더', () => {
     expect(html).toContain('앞부분만 분석했어요')
   })
 
+  // ── 공유 ──
+  it('공유 핸들러가 없으면 버튼을 그리지 않는다 (죽은 버튼 금지)', () => {
+    const p = buildLevelProfile([lv('a', 5, 6)], 100)
+    expect(renderToString(<LevelProfilePanel profile={p} loading={false} />)).not.toContain(
+      '결과 링크 복사',
+    )
+    expect(
+      renderToString(<LevelProfilePanel profile={p} loading={false} onShare={() => {}} />),
+    ).toContain('결과 링크 복사')
+  })
+
+  it('복사 직후에는 라벨이 바뀐다 — 눌렀는지 알 수 있어야 한다', () => {
+    const p = buildLevelProfile([lv('a', 5, 6)], 100)
+    const html = renderToString(
+      <LevelProfilePanel profile={p} loading={false} onShare={() => {}} shareCopied />,
+    )
+    expect(html).toContain('링크 복사됨')
+    expect(html).not.toContain('결과 링크 복사')
+  })
+
+  it('공유받은 결과는 출처를 밝힌다 — 남의 숫자를 내 분석처럼 보여주지 않는다', () => {
+    const p = buildLevelProfile([lv('a', 5, 6)], 100)
+    const html = renderToString(<LevelProfilePanel profile={p} loading={false} shared />)
+    expect(html).toContain('공유받은 결과')
+    expect(html).toContain('다른 사람이 분석한 지문')
+  })
+
+  it('내 분석에는 공유 고지를 붙이지 않는다', () => {
+    const p = buildLevelProfile([lv('a', 5, 6)], 100)
+    expect(renderToString(<LevelProfilePanel profile={p} loading={false} />)).not.toContain(
+      '공유받은 결과',
+    )
+  })
+
   it('교육과정을 넘는 지문은 그렇게 말한다 — 억지로 학년을 붙이지 않는다', () => {
     const p = buildLevelProfile([lv('a', 30, 11)], 100)
     const html = renderToString(<LevelProfilePanel profile={p} loading={false} />)

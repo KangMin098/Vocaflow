@@ -73,6 +73,59 @@ test.describe('공개 지문 진단 — /fit (로그아웃)', () => {
     await expect(page.getByRole('region', { name: '레벨 프로파일' })).toBeHidden();
   });
 
+  test('결과 링크 복사 → 새 세션에서 열면 같은 판정이 보인다', async ({ page, context }) => {
+    test.setTimeout(150_000);
+    // 클립보드 읽기 권한 — 복사된 URL 을 실제로 꺼내 온다(중간 단계를 가정하지 않는다).
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+
+    await page.goto('/fit', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    await page.locator('#fit-input').fill(PASSAGE);
+
+    const panel = page.getByRole('region', { name: '레벨 프로파일' });
+    await expect(panel).toBeVisible({ timeout: 40_000 });
+
+    // 원본 판정의 한 줄 답을 기억해 둔다
+    const headline = (await panel.locator('p').first().innerText()).trim();
+    expect(headline.length).toBeGreaterThan(5);
+
+    await panel.getByRole('button', { name: '결과 링크 복사' }).click();
+    await expect(panel.getByRole('button', { name: '링크 복사됨' })).toBeVisible();
+
+    const shareUrl = await page.evaluate(() => navigator.clipboard.readText());
+    expect(shareUrl).toContain('/fit?r=');
+    // 지문이 링크에 실리지 않는다 — 저작권 계약(share.ts §지문 유출 금지)
+    expect(shareUrl).not.toContain('Scientists');
+    expect(shareUrl).not.toContain('memory');
+
+    // 주소창도 함께 바뀐다 (새로고침·북마크에도 결과가 남는다)
+    expect(page.url()).toContain('/fit?r=');
+
+    // 새 세션(쿠키·상태 없음)에서 링크를 연다
+    const fresh = await context.newPage();
+    await fresh.goto(shareUrl, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+
+    const sharedPanel = fresh.getByRole('region', { name: '레벨 프로파일' });
+    await expect(sharedPanel).toBeVisible({ timeout: 30_000 });
+    // 출처를 밝힌다 — 남의 숫자를 내 분석처럼 보여주지 않는다
+    await expect(sharedPanel.getByText('공유받은 결과')).toBeVisible();
+    // 같은 판정이 보인다
+    await expect(sharedPanel.locator('p').filter({ hasText: headline }).first()).toBeVisible();
+
+    await fresh.close();
+  });
+
+  test('망가진 공유 링크는 화면을 죽이지 않는다', async ({ page }) => {
+    test.setTimeout(90_000);
+    await page.goto('/fit?r=!!!not-a-real-payload!!!', {
+      waitUntil: 'domcontentloaded',
+      timeout: 30_000,
+    });
+
+    // 평소 화면이 그대로 뜬다 (에러 페이지가 아니다)
+    await expect(page.getByRole('heading', { name: '이 지문, 우리 반에 맞을까?' })).toBeVisible();
+    await expect(page.getByRole('region', { name: '레벨 프로파일' })).toBeHidden();
+  });
+
   test('마케팅 헤더에서 한 번에 닿는다 — 묻혀 있으면 없는 것과 같다', async ({ page }) => {
     await page.goto('/pricing', { waitUntil: 'domcontentloaded', timeout: 30_000 });
     await page.getByRole('link', { name: '지문 진단' }).first().click();

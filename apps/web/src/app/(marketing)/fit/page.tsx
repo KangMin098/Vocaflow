@@ -15,15 +15,57 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { PublicFitClient } from '@/components/textfit/PublicFitClient'
+import { LEVEL_LABEL, profileHeadline } from '@/lib/textfit/profile'
+import { SHARE_PARAM, decodeProfile } from '@/lib/textfit/share'
 
-export const metadata: Metadata = {
-  title: '지문 난이도 진단 · Vocaflow',
-  description:
-    '영어 지문을 붙여넣으면 중1부터 학술 원서까지 학년별로 몇 %가 읽히는지 바로 보여드립니다. 로그인 없이, 저장하지 않고.',
-  openGraph: {
-    title: '이 지문, 우리 반에 맞을까? · Vocaflow',
-    description: '지문을 붙여넣으면 학년별 어휘 커버리지가 바로 나옵니다. 로그인 불필요.',
-  },
+const BASE_TITLE = '지문 난이도 진단 · Vocaflow'
+const BASE_DESC =
+  '영어 지문을 붙여넣으면 중1부터 학술 원서까지 학년별로 몇 %가 읽히는지 바로 보여드립니다. 로그인 없이, 저장하지 않고.'
+
+type SearchParams = { [key: string]: string | string[] | undefined }
+
+/** `?r=` 값을 문자열 하나로 — 배열로 오면(중복 파라미터) 첫 번째만 본다. */
+function readShareParam(sp: SearchParams | undefined): string | null {
+  const raw = sp?.[SHARE_PARAM]
+  if (typeof raw === 'string') return raw
+  if (Array.isArray(raw)) return raw[0] ?? null
+  return null
+}
+
+/**
+ * 공유 링크는 **미리보기에서 결과가 보여야** 퍼진다.
+ *
+ * 메신저·SNS 에 붙였을 때 "지문 난이도 진단" 이라는 같은 제목만 뜨면 링크를 눌러야만
+ * 내용을 알 수 있고, 그 한 번의 마찰이 교사 채널의 확산 계수를 그대로 깎는다.
+ * → 해독된 결과가 있으면 제목·설명을 그 결과로 바꾼다.
+ *   해독 실패·위조 링크는 조용히 기본값으로 떨어진다(디코더는 throw 하지 않는다).
+ */
+export function generateMetadata({ searchParams }: { searchParams?: SearchParams }): Metadata {
+  const shared = decodeProfile(readShareParam(searchParams))
+
+  if (!shared) {
+    return {
+      title: BASE_TITLE,
+      description: BASE_DESC,
+      openGraph: { title: '이 지문, 우리 반에 맞을까? · Vocaflow', description: BASE_DESC },
+    }
+  }
+
+  const headline = profileHeadline(shared)
+  const fitPart = shared.fitLevel !== null ? `${LEVEL_LABEL[shared.fitLevel]} 수준` : '고등 교육과정 이상'
+  const title = `이 지문은 ${fitPart} · Vocaflow`
+  const detail = shared.readings
+    .filter((r) => [6, 7, 8].includes(r.level))
+    .map((r) => `${LEVEL_LABEL[r.level]} ${(r.coverage * 100).toFixed(0)}%`)
+    .join(' · ')
+
+  return {
+    title,
+    description: `${headline} ${detail}`,
+    openGraph: { title, description: `${headline} ${detail}` },
+    // 공유 링크는 매번 다른 파생 결과다 — 색인 대상이 아니다(원본 화면만 색인한다).
+    robots: { index: false, follow: true },
+  }
 }
 
 /** 이 화면이 답하는 질문들 — 교사가 실제로 쓰는 말로 적는다. */
@@ -42,7 +84,10 @@ const QUESTIONS = [
   },
 ]
 
-export default function FitPage() {
+export default function FitPage({ searchParams }: { searchParams?: SearchParams }) {
+  // 해독은 서버에서 한 번만 — 메타와 화면이 같은 값을 써야 미리보기와 실제가 갈라지지 않는다.
+  const shared = decodeProfile(readShareParam(searchParams))
+
   return (
     <div className="mx-auto max-w-3xl px-6 py-12 md:py-16">
       <header className="mb-9 flex flex-col gap-3">
@@ -58,7 +103,7 @@ export default function FitPage() {
         </p>
       </header>
 
-      <PublicFitClient />
+      <PublicFitClient initialShared={shared} />
 
       {/* ── 이 화면이 답하는 것 ── */}
       <section aria-label="자주 쓰는 방법" className="mt-14 flex flex-col gap-4">

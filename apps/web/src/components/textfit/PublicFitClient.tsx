@@ -18,6 +18,7 @@ import { FileText, RotateCcw } from 'lucide-react'
 import { LevelProfilePanel } from '@/components/textfit/LevelProfilePanel'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 import { analyzePublicText, PUBLIC_TEXT_LIMIT } from '@/lib/textfit/public-queries'
+import { buildShareUrl, isShareable } from '@/lib/textfit/share'
 import type { LevelProfile } from '@/lib/textfit/profile'
 
 /** 분석을 시작하는 최소 길이 — 한두 문장으로는 커버리지가 통계적 의미를 갖지 못한다. */
@@ -31,11 +32,23 @@ massed drilling may be considerably less efficient than distributing the same ef
 Nevertheless, the prevailing curriculum still favours concentrated review, largely because it is
 easier to administer and to measure.`
 
-export function PublicFitClient() {
+interface Props {
+  /**
+   * 공유 링크(`?r=`)로 들어왔을 때 서버가 미리 해독해 넘긴 결과.
+   * 해독은 서버에서 한 번만 한다 — OG 메타(`generateMetadata`)와 화면이 같은 값을 써야
+   * 링크 미리보기와 실제 화면이 갈라지지 않는다.
+   */
+  initialShared?: LevelProfile | null
+}
+
+export function PublicFitClient({ initialShared = null }: Props) {
   const [text, setText] = useState('')
-  const [profile, setProfile] = useState<LevelProfile | null>(null)
+  const [profile, setProfile] = useState<LevelProfile | null>(initialShared)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
+  // 공유받은 결과를 보고 있는가 — 본인이 지문을 넣는 순간 해제된다.
+  const [viewingShared, setViewingShared] = useState(initialShared !== null)
 
   const truncated = text.length > PUBLIC_TEXT_LIMIT
   const analysed = useMemo(() => text.slice(0, PUBLIC_TEXT_LIMIT), [text])
@@ -45,8 +58,12 @@ export function PublicFitClient() {
 
   useEffect(() => {
     if (analysed.trim().length < MIN_CHARS || tokenization.uniqueFinal === 0) {
-      setProfile(null)
-      setError(null)
+      // 공유받은 결과를 보고 있는 중이면 지우지 않는다 — 링크로 들어온 사람의 화면이
+      // 입력을 시작하기도 전에 비어 버린다.
+      if (!viewingShared) {
+        setProfile(null)
+        setError(null)
+      }
       return
     }
 
@@ -59,6 +76,9 @@ export function PublicFitClient() {
           if (!alive) return
           setProfile(p)
           setError(null)
+          // 내 지문으로 다시 계산됐으므로 더 이상 남의 결과가 아니다.
+          setViewingShared(false)
+          setCopied(false)
         })
         .catch(() => {
           if (!alive) return
@@ -74,7 +94,30 @@ export function PublicFitClient() {
       alive = false
       clearTimeout(timer)
     }
-  }, [tokenization, analysed])
+  }, [tokenization, analysed, viewingShared])
+
+  /**
+   * 결과 링크를 클립보드에 담는다.
+   *
+   * 지문은 담지 않는다 — `share.ts` 가 커버리지 숫자와 단어 목록만 인코딩한다.
+   * 주소창도 함께 바꿔서(`replaceState`) 새로고침·북마크에도 결과가 남게 한다.
+   */
+  async function handleShare() {
+    if (!isShareable(profile) || typeof window === 'undefined') return
+
+    const url = buildShareUrl(window.location.origin, profile)
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 2400)
+      window.history.replaceState(null, '', url)
+    } catch {
+      // 클립보드 권한이 없을 수 있다(비보안 컨텍스트·브라우저 정책).
+      // 그때도 주소창은 바꿔 준다 — 사용자가 직접 복사할 수 있어야 한다.
+      window.history.replaceState(null, '', url)
+      setError('클립보드를 쓸 수 없어요. 주소창의 링크를 복사해 주세요.')
+    }
+  }
 
   return (
     <div className="flex flex-col gap-5">
@@ -132,7 +175,14 @@ export function PublicFitClient() {
         </p>
       )}
 
-      <LevelProfilePanel profile={profile} loading={loading} truncated={truncated} />
+      <LevelProfilePanel
+        profile={profile}
+        loading={loading}
+        truncated={truncated}
+        shared={viewingShared}
+        onShare={isShareable(profile) ? handleShare : undefined}
+        shareCopied={copied}
+      />
     </div>
   )
 }
