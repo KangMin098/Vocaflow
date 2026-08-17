@@ -266,6 +266,25 @@ export type {
   GapFillItem,
   SpellingItem,
 } from './compose/activities'
+// 학습 유형 — 발주의 1급 축. 소스·처리·결과물을 전부 가른다.
+export {
+  LEARNING_TYPES,
+  buildJobSpec,
+  composableTracks,
+  renderJobBrief,
+  sourcesForType,
+  trackCoverage,
+  validateLearningTypes,
+} from './compose/learning-types'
+export type {
+  ComposeConstraints,
+  ComposeJobSpec,
+  LearningTrack,
+  LearningTypeSpec,
+  LexicalSkill,
+  Register,
+  TypeSourcePlan,
+} from './compose/learning-types'
 
 // Phase 7 에서 활성화
 // export { decideCuration } from './curate/auto-decision'

@@ -10,6 +10,31 @@
 
 ## Unreleased (v06.34 → next)
 
+### ACP §20 — 학습 유형이 파이프라인을 가른다 + Claude Code drain 큐 (v06.39)
+
+발주서가 `register × CEFR` 두 축이던 것을 **학습 유형(Track × Skill × V밴드)** 1급 축으로 올렸다.
+그 두 축은 *서가의 빈 칸*만 말하고 *학습자가 무엇을 하러 왔는지*는 말하지 않는다 — 수능 준비
+학습자와 회화 학습자에게 같은 글을 주면 둘 다에게 조금씩 맞지 않는 글이 된다.
+
+- **축 값은 VRL 실측** (2026-08-17) — Track 6(`shared_dictionary.track_levels`) ·
+  Skill 5(`skill_type`) · Domain 8(`domain_levels`). 새 분류를 만들지 않았다.
+- **`compose/learning-types.ts`** — 유형이 정해지면 나머지가 따라 정해진다:
+  ① 어느 소스에서 사실을 모을지(`sourcesForType`) ② 어떻게 쓸지(길이·문장길이·작성 지시)
+  ③ 무엇을 붙일지(활동 세트). 유형별로 **실제로 다른 것이 나오는지**를 회귀가 강제한다 —
+  수능 130–190어 vs 학술 250–450어 · 수능만 order/insert(=수능 문항 유형) ·
+  회화만 shadowing+discussion · 회화 idiom / 비즈니스 collocation / 수능 polysemy.
+- **`literary` 는 재저작 대상이 아니다**(`composable: false`) — 사실에는 저작권이 없지만
+  **서사는 사실이 아니다**. 사실 원장에서 소설을 지어내면 학습 자료가 아니라 창작이고,
+  그 자리는 LCP(PD 도서)가 이미 채우고 있다. DB CHECK 에서도 빠져 있다.
+- **밴드 밖 레벨은 조용히 보정하지 않고 거부** — 보정하면 "수능 유형인데 V2" 발주가 성공한
+  것처럼 보이고 산출물이 어디에도 안 맞는다.
+- **마이그레이션** `20260817064000_acp_compose_jobs` — 원문 작성은 앱의 LLM 호출이 아니라
+  **Claude Code 배치 drain**(ScriptQuiz 1,292문항과 같은 경로). `acp_claim_compose_jobs()` 가
+  `FOR UPDATE SKIP LOCKED` 로 병렬 세션 충돌을 막고 30분 stale claim 을 회수한다.
+  `UNIQUE(batch_id, track, target_v_level)` 로 **drain 재실행이 안전**하다.
+  실측 검증: 세션 A claim 1건 → 세션 B(limit 5)가 A 의 것을 집지 않고 남은 1건만 가져감.
+- **회귀** learning-types 24 · 패키지 **240 통과**.
+
 ### ACP §20 — 6축 재설계 + 가공 축 착수 (v06.39)
 
 5개 플랫폼(Engoo·Newsela·News-O-Matic·Breaking News English·CommonLit)을 6축
