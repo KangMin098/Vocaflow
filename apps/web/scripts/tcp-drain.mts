@@ -408,8 +408,10 @@ async function cmdDrainYears(years: number[], limit: number) {
   const todo: string[] = []
   for (const y of years) {
     const slugs = byYear.get(y) ?? []
-    for (let i = 0; i < slugs.length; i += 1000) {
-      const chunk = slugs.slice(i, i + 1000)
+    // 청크 200 — `.in()` 은 GET 쿼리스트링으로 나가므로 1,000개면 URL 길이 한계를 넘어
+    // "Bad Request" 가 난다 (실측 2026-08-17). 조용한 실패가 아니라 즉시 에러라 다행이었다.
+    for (let i = 0; i < slugs.length; i += 200) {
+      const chunk = slugs.slice(i, i + 200)
       const { data, error } = await db
         .from('topic_corpus_queue')
         .select('external_id')
@@ -598,6 +600,16 @@ const cmd = process.argv[2]
 const apply = process.argv.includes('--apply')
 const limitFlag = process.argv.find((a) => a.startsWith('--limit='))
 const limitArg = limitFlag ? Number(limitFlag.split('=')[1]) : null
+
+/** `--years=2022,2021,2023`. 생략 시 실측 고수율 3개 연도 (README 및 커밋 메시지 참조). */
+const yearsFlag = process.argv.find((a) => a.startsWith('--years='))
+const yearsArg = yearsFlag
+  ? yearsFlag
+      .slice('--years='.length)
+      .split(',')
+      .map(Number)
+      .filter((n) => Number.isFinite(n))
+  : [2022, 2021, 2023]
 
 try {
   if (cmd === 'enqueue') await cmdEnqueue()
