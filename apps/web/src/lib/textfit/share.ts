@@ -33,8 +33,18 @@ const MAX_WORD_LEN = 32
 /** 디코딩을 시도할 최대 길이 — 이보다 길면 우리가 만든 링크가 아니다. */
 const MAX_PAYLOAD_LEN = 4000
 
-/** 쿼리 파라미터 이름. */
+/**
+ * 쿼리 파라미터 이름 — **구버전 링크 호환용으로만 남는다.**
+ *
+ * 처음에는 `/fit?r=<payload>` 였다. 그런데 Next 의 `opengraph-image.tsx` 는
+ * **라우트 세그먼트(`params`)만 받고 `searchParams` 는 받지 못한다** — 크롤러가 가져가는
+ * og:image URL 에 페이로드가 실리지 않아 미리보기에 결과 곡선을 그릴 수 없었다(2026-08-17 실측).
+ * → 공유 주소를 `/fit/s/<payload>` 로 옮겼다. 새 링크는 전부 이쪽이다.
+ */
 export const SHARE_PARAM = 'r'
+
+/** 공유 경로 접두사 — `/fit/s/<payload>`. */
+export const SHARE_PATH = '/fit/s'
 
 /**
  * 압축 배열 형식 — 키 이름을 빼서 URL 을 짧게 유지한다.
@@ -211,7 +221,12 @@ export function isShareable(profile: LevelProfile | null): profile is LevelProfi
   return profile !== null && profile.uniqueContentWords > 0
 }
 
-/** 공유 URL 을 만든다. origin 은 호출부가 준다(SSR 안전). */
+/**
+ * 공유 URL 을 만든다. origin 은 호출부가 준다(SSR 안전).
+ *
+ * 페이로드는 base64url(A–Z a–z 0–9 - _)이라 **경로 세그먼트에 그대로 넣어도 안전**하다 —
+ * 인코딩이 필요 없고, 링크가 메신저에서 잘려도 형태가 망가지지 않는다.
+ */
 export function buildShareUrl(origin: string, profile: LevelProfile): string {
-  return `${origin}/fit?${SHARE_PARAM}=${encodeProfile(profile)}`
+  return `${origin}${SHARE_PATH}/${encodeProfile(profile)}`
 }

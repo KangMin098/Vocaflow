@@ -13,10 +13,12 @@
 
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 import { PublicFitClient } from '@/components/textfit/PublicFitClient'
-import { LEVEL_LABEL, profileHeadline } from '@/lib/textfit/profile'
-import { SHARE_PARAM, decodeProfile } from '@/lib/textfit/share'
+import { absoluteUrl } from '@/lib/seo/site'
+
+import { SHARE_PARAM, SHARE_PATH, decodeProfile } from '@/lib/textfit/share'
 
 const BASE_TITLE = '지문 난이도 진단 · Vocaflow'
 const BASE_DESC =
@@ -33,39 +35,27 @@ function readShareParam(sp: SearchParams | undefined): string | null {
 }
 
 /**
- * 공유 링크는 **미리보기에서 결과가 보여야** 퍼진다.
- *
- * 메신저·SNS 에 붙였을 때 "지문 난이도 진단" 이라는 같은 제목만 뜨면 링크를 눌러야만
- * 내용을 알 수 있고, 그 한 번의 마찰이 교사 채널의 확산 계수를 그대로 깎는다.
- * → 해독된 결과가 있으면 제목·설명을 그 결과로 바꾼다.
- *   해독 실패·위조 링크는 조용히 기본값으로 떨어진다(디코더는 throw 하지 않는다).
+ * 이 화면은 **도구 자체**다 — 검색으로 들어오는 문이라 색인 대상이다.
+ * 공유받은 결과는 `/fit/s/[payload]` 가 따로 담당한다(그쪽은 noindex + 결과 미리보기 이미지).
  */
-export function generateMetadata({ searchParams }: { searchParams?: SearchParams }): Metadata {
-  const shared = decodeProfile(readShareParam(searchParams))
-
-  if (!shared) {
-    return {
-      title: BASE_TITLE,
-      description: BASE_DESC,
-      openGraph: { title: '이 지문, 우리 반에 맞을까? · Vocaflow', description: BASE_DESC },
-    }
-  }
-
-  const headline = profileHeadline(shared)
-  const fitPart = shared.fitLevel !== null ? `${LEVEL_LABEL[shared.fitLevel]} 수준` : '고등 교육과정 이상'
-  const title = `이 지문은 ${fitPart} · Vocaflow`
-  const detail = shared.readings
-    .filter((r) => [6, 7, 8].includes(r.level))
-    .map((r) => `${LEVEL_LABEL[r.level]} ${(r.coverage * 100).toFixed(0)}%`)
-    .join(' · ')
-
-  return {
-    title,
-    description: `${headline} ${detail}`,
-    openGraph: { title, description: `${headline} ${detail}` },
-    // 공유 링크는 매번 다른 파생 결과다 — 색인 대상이 아니다(원본 화면만 색인한다).
-    robots: { index: false, follow: true },
-  }
+export const metadata: Metadata = {
+  title: BASE_TITLE,
+  description: BASE_DESC,
+  keywords: [
+    '영어 지문 난이도',
+    '수능 영어 지문 수준',
+    '영어 지문 몇 학년',
+    '어휘 커버리지',
+    '내신 영어 지문 분석',
+    '영어 단어 수준 측정',
+  ],
+  alternates: { canonical: absoluteUrl('/fit') },
+  openGraph: {
+    type: 'website',
+    url: absoluteUrl('/fit'),
+    title: '이 지문, 우리 반에 맞을까? · Vocaflow',
+    description: BASE_DESC,
+  },
 }
 
 /** 이 화면이 답하는 질문들 — 교사가 실제로 쓰는 말로 적는다. */
@@ -84,12 +74,56 @@ const QUESTIONS = [
   },
 ]
 
+/**
+ * 구조화 데이터 — 화면에 이미 있는 문답을 검색엔진이 읽을 수 있는 형태로 한 번 더 낸다.
+ *
+ * ⚠️ `QUESTIONS` 배열을 그대로 쓴다. 여기 답을 따로 적으면 화면과 구조화 데이터가 갈라지고,
+ *    그건 검색엔진이 "페이지에 없는 내용을 마크업했다" 로 보는 위반이다.
+ */
+function structuredData(): string {
+  return JSON.stringify([
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: '지문 난이도 진단',
+      url: absoluteUrl('/fit'),
+      applicationCategory: 'EducationalApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'ko',
+      description: BASE_DESC,
+      // 무료이고 가입도 필요 없다 — 이게 이 화면의 핵심 성질이라 명시한다.
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
+      featureList: [
+        '영어 지문 학년별 어휘 커버리지 분석',
+        '적정 학년 판정',
+        '지문 내 고난도 단어 추출',
+      ],
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: QUESTIONS.map(({ q, a }) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    },
+  ])
+}
+
 export default function FitPage({ searchParams }: { searchParams?: SearchParams }) {
-  // 해독은 서버에서 한 번만 — 메타와 화면이 같은 값을 써야 미리보기와 실제가 갈라지지 않는다.
-  const shared = decodeProfile(readShareParam(searchParams))
+  // 구버전 공유 링크(`/fit?r=`) 호환 — 이미 복사돼 돌아다니는 주소를 죽이지 않는다.
+  // 새 링크는 `/fit/s/<payload>` 이고, 그쪽에만 미리보기 이미지가 붙는다.
+  const legacyShared = decodeProfile(readShareParam(searchParams))
+  if (legacyShared) redirect(`${SHARE_PATH}/${readShareParam(searchParams)}`)
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-12 md:py-16">
+      <script
+        type="application/ld+json"
+        // 내용이 코드에서 만든 JSON 문자열이라 사용자 입력이 섞이지 않는다.
+        dangerouslySetInnerHTML={{ __html: structuredData() }}
+      />
       <header className="mb-9 flex flex-col gap-3">
         <p className="m-0 font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
           지문 난이도 진단
@@ -103,7 +137,7 @@ export default function FitPage({ searchParams }: { searchParams?: SearchParams 
         </p>
       </header>
 
-      <PublicFitClient initialShared={shared} />
+      <PublicFitClient />
 
       {/* ── 이 화면이 답하는 것 ── */}
       <section aria-label="자주 쓰는 방법" className="mt-14 flex flex-col gap-4">
@@ -142,8 +176,8 @@ export default function FitPage({ searchParams }: { searchParams?: SearchParams 
             <b>구간</b>으로 표시합니다.
           </li>
           <li>
-            학년별 어휘는 자체 학습 어휘 목록(표제어 <b>20,776</b>개, V-Level 1~11)을 씁니다. 레벨을
-            확인할 수 없는 단어는 <b>감추지 않고</b> 범위로 표시합니다.
+            학년별 어휘는 자체 학습 어휘 목록(공개 표제어 <b>18,271</b>개, V-Level 1~11)을 씁니다.
+            레벨을 확인할 수 없는 단어는 <b>감추지 않고</b> 범위로 표시합니다.
           </li>
           <li>
             영영 사전 <b>47,137</b> 표제어와 도서–어휘 연결 <b>1,678,478</b>건 위에서 동작합니다.

@@ -109,6 +109,36 @@ DB `acp_classify_license` 는 NC 를 첫 분기에서 `restricted` 로 거르는
   **학습자 시사 트랙이 렌더되지 않음**(`source-map.ts` news→wikinews 단독 매핑).
   리포트: <https://claude.ai/code/artifact/58629948-da57-48bd-a78d-78c7fced85b5>
 
+### 검색·공유 인프라 — 문이 실제로는 하나였다 (v06.41)
+
+유입을 늘리기 전에 실측했더니 문이 거의 닫혀 있었다.
+
+| 항목 | 실측(2026-08-17) | 조치 |
+|---|---|---|
+| `metadataBase` | **없음** | 설정. 없으면 Next 가 OG·canonical 을 **상대경로**로 내보내고, 상대 OG URL 은 대부분의 메신저·SNS 미리보기에서 무시된다 — **지난 세션에 만든 공유 링크가 절반쯤 무효였다** |
+| `sitemap.xml` | 정적 파일 · **URL 1개**(루트만) | `app/sitemap.ts` — 공개 9개. `requiresAuth` 로 걸러 보호 경로가 못 들어간다 |
+| `robots.txt` | 정적 `Allow: /` | `app/robots.ts` — **`PROTECTED_PREFIXES` 에서 파생**. 새 보호 화면이 생기면 자동으로 따라온다 |
+| 구조화 데이터 | 없음 | `/fit` 에 `WebApplication` + `FAQPage`. 화면의 `QUESTIONS` 배열을 그대로 써서 마크업과 본문이 갈라지지 않게 |
+| canonical | 없음 | `/fit` 하나로 모은다 — 공유 링크가 색인을 쪼개지 않게 |
+
+- **공유 주소를 경로로 옮겼다** — `/fit?r=` → **`/fit/s/<payload>`**.
+  Next 의 `opengraph-image.tsx` 는 **라우트 세그먼트(`params`)만 받고 `searchParams` 는 못 받는다.**
+  쿼리로 두면 크롤러가 가져가는 og:image URL 에 페이로드가 실리지 않아 미리보기에 결과를 못 그린다
+  (실측 — 생성된 og:image URL 에 `r=` 이 없었다). 구버전 링크는 `redirect` 로 살려 둔다
+- **동적 OG 이미지** — 공유 링크 미리보기에 **학년별 곡선을 그대로 그린다**(1200×630 · 46 KB).
+  지문은 그리지 않는다 — 페이로드에 애초에 없다
+- **한글 폰트 문제 두 개를 실측으로 물었다**:
+  ① Satori 기본 폰트는 **라틴 전용**이라 한글이 빈칸으로 나온다 → Google Fonts `text=` 서브셋을
+  런타임에 받아 명시 주입(수 KB · 하루 캐시 · 실패해도 폰트 없이 렌더).
+  woff2 는 Satori 가 못 읽으므로 구형 UA 로 **ttf** 를 받는다
+  ② Node 런타임에서는 Next 번들 기본 폰트를 `ERR_INVALID_URL` 로 못 읽어 이미지가 통째로 500
+  (`fonts` 를 주입해도 마찬가지) → **`runtime = 'edge'`** 로 해소
+- **Satori 는 넘친 텍스트를 잘라 주지 않고 겹쳐 그린다** — 화면용 문장을 그대로 썼더니 제목이
+  첫 행과 겹쳤다. 카드 전용 짧은 문구로 분리
+- **회귀 11 + e2e 6** — sitemap/robots 11(보호 경로 미노출 · 절대 URL · 우선순위 · 파생 유지) ·
+  e2e 에 OG 이미지 실응답 검증 추가(200 · image/png · 10 KB 초과).
+  ⚠️ 복사 버튼은 `replaceState` 라 그 상태에는 og 메타가 없다 — 크롤러처럼 **새로 열어야** 검증된다
+
 ### `/fit` 을 DB 경로에서 뺐다 — 레이트리밋을 붙일 자리부터 만들기 (v06.40)
 
 "공개 API에 레이트리밋을 붙이자" 로 시작했는데, 측정해 보니 **붙일 자리가 없었다.**

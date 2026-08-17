@@ -11,6 +11,7 @@ import {
   JetBrains_Mono,
 } from "next/font/google";
 import { ToastProvider } from "@/components/ui/Toast";
+import { SITE_URL } from "@/lib/seo/site";
 import "./globals.css";
 
 const fontDisplay = Plus_Jakarta_Sans({
@@ -43,6 +44,9 @@ const fontMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  // 이게 없으면 Next 는 OG·canonical 을 **상대경로**로 내보내고, 상대 OG URL 은 대부분의
+  // 메신저·SNS 미리보기에서 무시된다 — 공유 링크에 제목을 붙여 놔도 안 보인다(2026-08-17 실측).
+  metadataBase: SITE_URL,
   title: {
     default: "Vocaflow — 영어 스크립트 기반 종합 학습",
     template: "%s | Vocaflow",

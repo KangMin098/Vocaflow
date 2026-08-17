@@ -2,7 +2,7 @@
 
 > Next.js 14 App Router. 모든 page.tsx · route.ts · layout.tsx 직접 파일 스캔으로 검증. 작성 시점: 2026-06-08.
 >
-> **카운트**: page.tsx 77 · route.ts 24 · layout.tsx 11.
+> **카운트**: page.tsx 123 · route.ts 75 · layout.tsx 11 (2026-08-17 실측). 이 밖에 `robots.ts`·`sitemap.ts`·`opengraph-image.tsx` 메타 라우트 3.
 
 ---
 
@@ -11,7 +11,7 @@
 | 그룹 | URL | 인증 | 레이아웃 |
 |---|---|---|---|
 | `(auth)` | `/login` / `/signup` / `/reset-password` / `/verify-email` | 미인증 | 헤더 없음 |
-| `(marketing)` | `/about` / `/fit` / `/pricing` / `/privacy` / `/terms` | 공개 | 랜딩 + 지문 진단 |
+| `(marketing)` | `/about` / `/fit` / `/fit/s/[payload]` / `/pricing` / `/privacy` / `/terms` | 공개 | 랜딩 + 지문 진단 |
 | `(main)` | `/hub` / `/text/*` / `/wordvault/*` 등 | 인증 필요 | Sidebar + FlowNav + SessionFrame |
 | `(app)` | `/play/wordblitz` / `/play/pirate-quest` | 인증 | 풀스크린 (Sidebar X · SessionFrame ✓) |
 | `admin/*` | `/admin/*` | admin/curator only | AdminSidebar |
@@ -122,12 +122,13 @@
 
 ---
 
-## (marketing) 공개 페이지 (5)
+## (marketing) 공개 페이지 (6)
 
 | 경로 | 비고 |
 |---|---|
 | `/about` | 소개 |
-| **`/fit`** | **지문 난이도 진단** — 로그인 없이 학년별 어휘 커버리지 곡선. 가입 전 가치 노출(교사 채널 CAC 0). anon 권한만 사용(`shared_words`·`lexicon_clean`) · 입력 지문 미저장 · 학습자 표면 아님(F5 분모 제외) |
+| **`/fit`** | **지문 난이도 진단** — 로그인 없이 학년별 어휘 커버리지 곡선. 가입 전 가치 노출(교사 채널 CAC 0). 분석은 `/api/fit`(서버 메모리 맵 + IP 레이트리밋) · 입력 지문 미저장 · 학습자 표면 아님(F5 분모 제외) · 색인 대상 |
+| **`/fit/s/[payload]`** | **공유받은 결과** — 결과가 URL 에 통째로 담긴다(서버 저장 0). `opengraph-image.tsx` 가 학년별 곡선을 그린 미리보기 PNG 생성(edge 런타임). `noindex` + canonical→`/fit`. ⚠️ 쿼리(`?r=`)가 아니라 **경로 세그먼트**인 이유: `opengraph-image` 는 `searchParams` 를 못 받는다 |
 | `/pricing` | 요금 |
 | `/privacy` | 개인정보 |
 | `/terms` | 약관 |

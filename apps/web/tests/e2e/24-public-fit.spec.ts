@@ -22,6 +22,26 @@ scarce time to massed drilling may be considerably less efficient than distribut
 across weeks. Nevertheless, the prevailing curriculum still favours concentrated review, largely
 because it is easier to administer and to measure.`;
 
+/**
+ * 지문 → 결과 → 공유 URL 을 얻고, 그 주소를 **새로 연다**.
+ *
+ * ⚠️ 복사 버튼은 `history.replaceState` 로 주소만 바꾼다 — `<head>` 는 서버가 다시 만들지
+ *    않으므로 그 상태에는 og:image 메타가 없다. 크롤러는 언제나 URL 을 새로 여니,
+ *    미리보기를 검증하려면 테스트도 새로 열어야 한다.
+ */
+async function openSharedPage(page: import('@playwright/test').Page): Promise<string> {
+  await page.goto('/fit', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+  await page.locator('#fit-input').fill(PASSAGE);
+  await expect(page.getByRole('region', { name: '레벨 프로파일' })).toBeVisible({ timeout: 40_000 });
+
+  await page.getByRole('button', { name: '결과 링크 복사' }).click();
+  await page.waitForURL(/\/fit\/s\//, { timeout: 15_000 });
+
+  const shareUrl = page.url();
+  await page.goto(shareUrl, { waitUntil: 'domcontentloaded', timeout: 30_000 });
+  return shareUrl;
+}
+
 test.describe('공개 지문 진단 — /fit (로그아웃)', () => {
   test.use({ storageState: { cookies: [], origins: [] } });
 
@@ -92,13 +112,13 @@ test.describe('공개 지문 진단 — /fit (로그아웃)', () => {
     await expect(panel.getByRole('button', { name: '링크 복사됨' })).toBeVisible();
 
     const shareUrl = await page.evaluate(() => navigator.clipboard.readText());
-    expect(shareUrl).toContain('/fit?r=');
+    expect(shareUrl).toContain('/fit/s/');
     // 지문이 링크에 실리지 않는다 — 저작권 계약(share.ts §지문 유출 금지)
     expect(shareUrl).not.toContain('Scientists');
     expect(shareUrl).not.toContain('memory');
 
     // 주소창도 함께 바뀐다 (새로고침·북마크에도 결과가 남는다)
-    expect(page.url()).toContain('/fit?r=');
+    expect(page.url()).toContain('/fit/s/');
 
     // 새 세션(쿠키·상태 없음)에서 링크를 연다
     const fresh = await context.newPage();
@@ -114,16 +134,35 @@ test.describe('공개 지문 진단 — /fit (로그아웃)', () => {
     await fresh.close();
   });
 
-  test('망가진 공유 링크는 화면을 죽이지 않는다', async ({ page }) => {
+  test('망가진 공유 링크는 빈 결과를 결과처럼 보여주지 않는다', async ({ page }) => {
     test.setTimeout(90_000);
-    await page.goto('/fit?r=!!!not-a-real-payload!!!', {
+    await page.goto('/fit/s/not-a-real-payload', {
       waitUntil: 'domcontentloaded',
       timeout: 30_000,
     });
 
-    // 평소 화면이 그대로 뜬다 (에러 페이지가 아니다)
-    await expect(page.getByRole('heading', { name: '이 지문, 우리 반에 맞을까?' })).toBeVisible();
+    // not-found 로 끝난다 — 0% 짜리 빈 프로파일을 그리느니 없다고 말한다.
     await expect(page.getByRole('region', { name: '레벨 프로파일' })).toBeHidden();
+    await expect(page.locator('body')).toContainText(/찾을 수 없|404/);
+  });
+
+  test('공유 링크에 결과 미리보기 이미지가 붙는다 — 안 보이면 눌러야 아는 링크가 된다', async ({
+    page,
+    request,
+  }) => {
+    test.setTimeout(180_000);
+    await openSharedPage(page);
+
+    const ogUrl = await page.getAttribute('meta[property="og:image"]', 'content');
+    expect(ogUrl, 'og:image 메타').toBeTruthy();
+    // 페이로드가 **이미지 URL 안에** 있어야 한다 — 쿼리로 두면 크롤러가 결과를 못 본다.
+    expect(ogUrl!).toContain('/fit/s/');
+
+    const res = await request.get(ogUrl!);
+    expect(res.status(), 'OG 이미지 응답').toBe(200);
+    expect(res.headers()['content-type']).toContain('image/png');
+    // 빈 이미지가 아니다 (곡선과 한글이 실제로 그려졌다는 최소 신호)
+    expect((await res.body()).length).toBeGreaterThan(10_000);
   });
 
   test('마케팅 헤더에서 한 번에 닿는다 — 묻혀 있으면 없는 것과 같다', async ({ page }) => {

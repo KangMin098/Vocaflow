@@ -14,6 +14,7 @@ import { buildLevelProfile } from '../profile'
 import type { PublicWord } from '../profile'
 import {
   SHARE_PARAM,
+  SHARE_PATH,
   buildShareUrl,
   decodeProfile,
   encodeProfile,
@@ -191,7 +192,18 @@ describe('왕복 — 보내는 사람과 받는 사람이 같은 숫자를 본�
     const many = Array.from({ length: 40 }, (_, i) => lv(`polysyllabic${i}`, 2, 10))
     const url = buildShareUrl('https://vocaflow.app', buildLevelProfile(many, 2000))
     expect(url.length).toBeLessThan(2000)
-    expect(url).toContain(`/fit?${SHARE_PARAM}=`)
+  })
+
+  // 쿼리(`?r=`)가 아니라 **경로 세그먼트**여야 한다 — `opengraph-image.tsx` 는 `searchParams` 를
+  // 받지 못해서, 쿼리로 두면 크롤러가 가져가는 미리보기 이미지가 결과를 볼 수 없다.
+  it('공유 주소는 경로 세그먼트다 — 미리보기 이미지가 결과를 보려면 그래야 한다', () => {
+    const url = buildShareUrl('https://vocaflow.app', sample())
+    expect(url.startsWith(`https://vocaflow.app${SHARE_PATH}/`)).toBe(true)
+    expect(url).not.toContain(`?${SHARE_PARAM}=`)
+  })
+
+  it('페이로드가 URL 안전 문자만 쓴다 — 경로에 그대로 넣어도 인코딩이 필요 없다', () => {
+    expect(encodeProfile(sample())).toMatch(/^[A-Za-z0-9\-_]+$/)
   })
 })
 
