@@ -208,6 +208,38 @@ describe('R7 profanity', () => {
     expect(checkR7Profanity(item, ['ass'])).toHaveLength(0)
   })
 
+  it('대문자 브랜드는 대소문자를 구분한다 — SAT(시험) vs sat(sit 과거형)', () => {
+    // 실측 2026-08-17: 호출부가 브랜드 목록과 금칙어 목록을 합쳐 이 규칙에 넘기는데,
+    // 브랜드 목록의 시험명 `SAT` 가 소문자 비교 탓에 `sat` 를 잡아 멀쩡한 항목이
+    // reject 됐다(사유는 "profanity detected" 로 표시돼 원인 추적도 어려웠다).
+    const sat: QaItem = {
+      ...baseItem,
+      examples: [
+        { en: 'She sat amongst her colleagues.', ko: '그녀는 동료들 사이에 앉았다.' },
+        baseItem.examples[1]!,
+      ],
+    }
+    expect(checkR7Profanity(sat, ['SAT'])).toHaveLength(0)
+
+    // 진짜 시험명은 여전히 잡아야 한다.
+    const exam: QaItem = {
+      ...baseItem,
+      examples: [
+        { en: 'He studied for the SAT last year.', ko: '그는 작년에 SAT 를 준비했다.' },
+        baseItem.examples[1]!,
+      ],
+    }
+    expect(checkR7Profanity(exam, ['SAT']).length).toBeGreaterThan(0)
+  })
+
+  it('소문자 금칙어는 대소문자 무관하게 잡는다', () => {
+    const item: QaItem = {
+      ...baseItem,
+      examples: [{ en: 'What the FUCK.', ko: '이런.' }, baseItem.examples[1]!],
+    }
+    expect(checkR7Profanity(item, ['fuck']).length).toBeGreaterThan(0)
+  })
+
   it('empty denylist returns empty', () => {
     expect(checkR7Profanity(baseItem, [])).toHaveLength(0)
   })
