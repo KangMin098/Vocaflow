@@ -139,11 +139,16 @@ if (MODE === 'apply') {
     //   설명부(— 이후)와 선행 괄호 라벨을 걷어낸 **핵심어**만 비교한다.
     //   ⚠️ 후행 괄호도 걷어야 한다 — `환자들 (patient의 복수형)` 처럼 **문법 메타데이터가 뒤에 붙는** 형식이
     //   흔한데, 앞쪽 괄호만 벗기면 core 가 통째로 남아 head 와 절대 일치하지 않는다(T13 에서 10건 헛되이 탈락).
+    //   괄호는 **위치를 가리지 않고 전부** 걷는다. `활인화(설명) (tableau의 복수형)` 처럼 두 개가
+    //   연달아 붙는 형식이 있어 한 번만 벗기면 여전히 남는다.
     const core = (s) => s.split(/[—–]/)[0]
-      .replace(/^\s*\([^)]*\)\s*/, '').replace(/\s*\([^)]*\)\s*$/, '')
+      .replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ')
       .split(/[,;]/)[0].trim()
+    //   비교는 **양쪽을 같은 방식으로 정규화한 뒤** 한다. core 만 괄호를 벗기면 `달(月)` ↔ `달 (月)` 처럼
+    //   공백 차이 하나로 어긋난다(T13 `mes` 에서 발생).
+    const norm = (s) => s.replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim()
     const c0 = core(senses[0].meaning)
-    if (c0 && !head.includes(c0)) { mismatchHead++; continue }
+    if (c0 && !norm(head).includes(norm(c0))) { mismatchHead++; continue }
 
     // `meaning_ko` 정규화 — 카드 앞면은 짧아야 한다(Calm UI · 인지 부하).
     //   sense 문자열의 설명부(`— …`)가 head 로 딸려 들어오면 정의문 덤프가 된다.
