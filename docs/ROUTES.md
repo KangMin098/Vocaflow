@@ -223,6 +223,7 @@
 | 라우트 | 설명 |
 |---|---|
 | `GET/POST /api/pdcp/bulk-ingest` | **원본 전체 소스 GET** — 컬렉션 전량을 검색 응답만으로 훑어 유형·시리즈 분류까지 적재. GET=계획(DB 쓰기 0) · POST=실행. 재실행 멱등. enqueue(상한 50건)와 달리 969건을 IA 요청 11회로 넣는다 |
+| `GET/POST /api/pdcp/pd-check` | **PD 근거 확인** — GET=시리즈별 확인 대상 + 갱신 확인 창(발행 27~28년 뒤) + 조회처. POST=**시리즈 단위** 근거 기록(갱신은 호가 아니라 간행물 단위로 등록됨). `no-renewal`·`explicit-license` 는 **근거 URL 없이 저장 거부** |
 | `GET /api/pdcp/sources` | 어댑터 능력표 (`scripts/comic/pd/sources` 를 동적 import — 앱에 복제하지 않음) |
 | `POST /api/pdcp/search` | 소스별 검색 + 필터(컬렉션·연도·정렬·페이지) + **PD 위험도 랭킹** + 기적재 표시. bulk 미지원 어댑터는 400 |
 | `POST /api/pdcp/enqueue` | 대량 적재 → `status='queued'`. `pages` 로 테스트 모드(앞 N장) |

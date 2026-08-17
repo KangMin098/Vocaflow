@@ -10,7 +10,6 @@
 import { describe, expect, it } from 'vitest'
 
 import { foldShelf } from '../queries'
-import { pdBasisLabel } from '../model'
 
 /** RPC 가 돌려주는 모양 그대로 — kind_sort 오름차순, 같은 유형 안에서는 발행수 내림차순. */
 const ROWS = [
@@ -74,17 +73,5 @@ describe('foldShelf', () => {
   })
 })
 
-describe('pdBasisLabel — 저작권 근거 문구는 한 곳에서만 정한다', () => {
-  it('알려진 근거를 한국어로 옮긴다', () => {
-    expect(pdBasisLabel('no-renewal')).toContain('갱신')
-    expect(pdBasisLabel('pre-1929')).toContain('1929')
-  })
-
-  it('근거가 없으면 빈칸이 아니라 상태를 말한다', () => {
-    expect(pdBasisLabel(null)).toBe('근거 확인 중')
-  })
-
-  it('모르는 값은 그대로 보여준다 (조용히 삼키면 잘못된 안심을 준다)', () => {
-    expect(pdBasisLabel('some-new-basis')).toBe('some-new-basis')
-  })
-})
+// 근거 토큰·문구 회귀는 `pd-basis.test.ts` 로 옮겼다 — 같은 계약을 두 파일이 단언하면
+// 한쪽만 고쳐지고 다른 쪽이 낡는다(실제로 학습자 문구에서 연도를 뺄 때 여기가 먼저 깨졌다).

@@ -15,13 +15,15 @@ import path from 'node:path'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { PD_BASES, pdBasisSpec } from '@/lib/pd-comic/model'
 import { runPipeline } from '@/lib/pd-comic/pipeline-bridge'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const PD_BASES = new Set(['pre-1929', 'no-renewal', 'explicit-license'])
+// 토큰 목록은 model.ts 가 정본 — 여기에 또 적으면 갈린다(실제로 갈려 있었다:
+// 파이프라인이 내는 'term-expired' 를 이 화이트리스트가 400 으로 거부했다).
 
 // 컷 image_url 이 공개 URL(http)인지 — work 상대경로면 학습자에게 서빙 불가.
 async function contentServable(client: SupabaseClient, issueId: string): Promise<boolean> {
@@ -50,7 +52,21 @@ export async function POST(request: Request): Promise<NextResponse> {
   // ── PD 근거 확정 (법적 게이트 메타) — 항상 안전 ──
   if (body.action === 'confirm-pd') {
     const pdBasis = String(body.pdBasis || '')
-    if (!PD_BASES.has(pdBasis)) return NextResponse.json({ error: `pdBasis 는 ${[...PD_BASES].join('/')} 중 하나` }, { status: 400 })
+    const spec = pdBasisSpec(pdBasis)
+    if (!spec) {
+      return NextResponse.json(
+        { error: `pdBasis 는 ${PD_BASES.map((b) => b.key).join('/')} 중 하나` },
+        { status: 400 },
+      )
+    }
+    // "갱신 기록이 없다"는 **어딘가를 찾아봤다는 주장**이다. 어디를 봤는지 없이는 기록하지 않는다 —
+    // 근거 URL 없는 확정은 나중에 아무도 재확인할 수 없고, 그 순간 게이트는 형식만 남는다.
+    if (spec.needsEvidence && !body.pdEvidenceUrl) {
+      return NextResponse.json(
+        { error: `'${spec.label}' 는 근거 URL 이 필요합니다 — 어디서 확인했는지 없이는 기록할 수 없습니다` },
+        { status: 400 },
+      )
+    }
     const patch: Record<string, unknown> = {
       pd_basis: pdBasis,
       pd_checked_at: new Date().toISOString(),

@@ -109,21 +109,104 @@ export interface PdComicInfo {
 }
 
 /**
- * PD 근거 → 학습자에게 보여줄 한국어 한 줄.
+ * PD 근거 토큰 — **DB CHECK(`pd_issues_basis_chk`) 와 같은 집합이어야 한다.**
  *
- * 이걸 화면마다 적지 않는 이유: 저작권 근거는 **틀리게 적으면 법적 진술이 틀리는 문구**다.
- * 한 곳에서만 정한다. 근거가 없으면(null) 발행 게이트가 막으므로 학습자 화면에는 원래 안 뜬다 —
- * 그래도 방어적으로 문구를 둔다(게이트가 뚫렸을 때 조용히 빈칸이 되는 것보다 낫다).
+ * 왜 한 곳에 모으나: 저작권 근거는 틀리게 적으면 **법적 진술이 틀리는 값**이다.
+ * 그리고 실제로 갈려 있었다 — `usPdHint()` 는 1930년 이전에 `term-expired` 를 내고 DB 도
+ * 허용하는데, 발행 API 의 화이트리스트에는 그 토큰이 없어서 **확정이 400 으로 거부됐다**.
+ * 파이프라인이 만들어 낸 값을 API 가 받지 못하는 상태였다.
+ *
+ * `needsEvidence` 가 계약의 핵심이다. "갱신 기록이 없다"는 **어딘가를 찾아봤다는 주장**이므로
+ * 어디를 봤는지 없이는 기록될 수 없다. 연도만으로 결정되는 `term-expired` 만 예외다.
  */
-export const PD_BASIS_LABEL: Record<string, string> = {
-  'pre-1929': '1929년 이전 발행 — 미국 저작권 보호기간 만료',
-  'term-expired': '보호기간 만료',
-  'no-renewal': '저작권 갱신 기록 없음 — 1964년 이전 발행물은 갱신하지 않으면 소멸',
-  'explicit-license': '권리자가 명시적으로 공개한 자료',
+export interface PdBasisSpec {
+  key: string
+  label: string
+  /** 이 근거를 쓸 수 있는 조건 — 화면이 그대로 보여준다 */
+  when: string
+  /** 근거 URL 없이 확정할 수 있는가 (연도만으로 판정되는 것만 false) */
+  needsEvidence: boolean
+  /** 학습자에게 보여줄 한 줄 */
+  learnerText: string
+}
+
+export const PD_BASES: PdBasisSpec[] = [
+  {
+    key: 'term-expired',
+    label: '보호기간 만료',
+    when: '1930년 이전 발행 — 발행연도만으로 확정된다(갱신 여부와 무관).',
+    needsEvidence: false,
+    learnerText: '미국 저작권 보호기간이 만료된 자료입니다',
+  },
+  {
+    key: 'no-renewal',
+    label: '갱신 기록 없음',
+    when: '1930~1963 발행 — 발행 27~28년 뒤 갱신 등록이 없었음을 확인해야 한다.',
+    needsEvidence: true,
+    learnerText: '저작권이 갱신되지 않아 공유 자산이 된 자료입니다',
+  },
+  {
+    key: 'explicit-license',
+    label: '권리자 공개',
+    when: '권리자가 퍼블릭도메인·공개 라이선스로 명시한 경우.',
+    needsEvidence: true,
+    learnerText: '권리자가 공개한 자료입니다',
+  },
+  {
+    key: 'pre-1929',
+    label: '(레거시) 1929년 이전',
+    when: '옛 토큰. 신규 확정에는 쓰지 말고 term-expired 를 쓴다.',
+    needsEvidence: false,
+    learnerText: '미국 저작권 보호기간이 만료된 자료입니다',
+  },
+]
+
+export const PD_BASIS_KEYS = new Set(PD_BASES.map((b) => b.key))
+
+export function pdBasisSpec(basis: string | null): PdBasisSpec | null {
+  return basis ? (PD_BASES.find((b) => b.key === basis) ?? null) : null
 }
 
 export function pdBasisLabel(basis: string | null): string {
-  return basis ? (PD_BASIS_LABEL[basis] ?? basis) : '근거 확인 중'
+  return pdBasisSpec(basis)?.learnerText ?? (basis ?? '근거 확인 중')
+}
+
+/**
+ * 갱신 확인 연도 — 미국 1909년법상 갱신은 **발행 27~28년째**에 등록해야 했다.
+ * 1952년 발행물이면 1979~1980년 갱신 목록을 본다. 이 범위를 모르면 운영자가
+ * 60년치 목록을 뒤지게 되므로, 어디를 볼지 계산해서 알려준다.
+ */
+export function renewalWindow(publishedYear: number | null): [number, number] | null {
+  if (!publishedYear) return null
+  return [publishedYear + 27, publishedYear + 28]
+}
+
+/**
+ * 갱신 기록 조회처 — **만화는 Stanford 판권갱신 DB 에 없다.**
+ * 그 DB 는 Class A(도서)만 담고 있고, 만화책은 정기간행물(Class B)이라
+ * `Catalog of Copyright Entries` 의 정기간행물 갱신 편을 봐야 한다.
+ * 잘못된 조회처를 안내하면 "찾아봤는데 없더라" 라는 **틀린 확신**을 만든다.
+ */
+export function renewalLookups(seriesTitle: string | null, publishedYear: number | null) {
+  const w = renewalWindow(publishedYear)
+  const q = encodeURIComponent(seriesTitle ?? '')
+  return [
+    {
+      label: 'Catalog of Copyright Entries (UPenn)',
+      note: w ? `${w[0]}~${w[1]}년 갱신 편 — 정기간행물(Class B)` : '갱신 편 — 정기간행물(Class B)',
+      url: 'https://onlinebooks.library.upenn.edu/cce/',
+    },
+    {
+      label: 'CCE 전문 검색 (Google Books)',
+      note: seriesTitle ? `"${seriesTitle}" + renewal` : '시리즈명으로 검색',
+      url: `https://www.google.com/search?q=${q}+%22catalog+of+copyright+entries%22+renewal`,
+    },
+    {
+      label: 'Stanford 판권갱신 DB',
+      note: '⚠️ 도서(Class A) 전용 — 만화는 여기 없다. 참고용',
+      url: 'https://exhibits.stanford.edu/copyrightrenewals',
+    },
+  ]
 }
 
 export interface PdComicPanel {

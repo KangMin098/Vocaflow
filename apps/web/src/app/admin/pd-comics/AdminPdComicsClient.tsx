@@ -12,6 +12,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { PdBasisPanel } from '@/components/admin/PdBasisPanel'
 import { PD_STAGES, stageIndex, type PdComicAdminRow, type PdPanelAdmin } from '@/lib/pd-comic/model'
 
 const ACCENT = '#8B5CF6'
@@ -65,7 +66,7 @@ const RISK_UI: Record<string, { label: string; fg: string; bg: string }> = {
   high: { label: '위험', fg: 'var(--error)', bg: 'var(--error-light)' },
 }
 
-type Tab = 'source' | 'queue' | 'monitor' | 'tools'
+type Tab = 'source' | 'queue' | 'pd' | 'monitor' | 'tools'
 
 /**
  * 탭 라벨 — 화면 표시와 화면도움말 조회 키가 같은 문자열이어야 한다
@@ -74,6 +75,8 @@ type Tab = 'source' | 'queue' | 'monitor' | 'tools'
 const TABS: Array<[Tab, string]> = [
   ['source', '소스 · 대량 적재'],
   ['queue', '큐 · 드레인'],
+  // 드레인 다음이 발행이 아니라 **PD 근거 확인**이다 — 순서대로 놓아야 다음 할 일이 보인다.
+  ['pd', 'PD 근거 확인'],
   ['monitor', '테스트 · 모니터'],
   ['tools', '도구'],
 ]
@@ -129,6 +132,7 @@ export function AdminPdComicsClient({
 
       {tab === 'source' && <SourceTab onMsg={setMsg} onEnqueued={refresh} schemaReady={schemaReady} />}
       {tab === 'queue' && <QueueTab rows={rows} onMsg={setMsg} onRefresh={refresh} />}
+      {tab === 'pd' && <PdBasisPanel onMsg={setMsg} />}
       {tab === 'monitor' && <MonitorTab rows={rows} onMsg={setMsg} onRefresh={refresh} active={tab === 'monitor'} />}
       {tab === 'tools' && <ToolsTab />}
     </>
