@@ -207,7 +207,9 @@ if (has('process')) {
     await db.from('library_articles').update({ content: body }).eq('id', articleId)
   }
 
-  const bodyText = reflowSoftHyphens(normalizePunctuation(body))
+  // 해시는 발행되는 본문 전체, 분석은 표기를 뺀 본문 — 표기가 단어장에 실리면 안 된다.
+  const fullText = reflowSoftHyphens(normalizePunctuation(body))
+  const bodyText = stripAttribution(fullText)
   const result = await analyzeArticle(
     articleId,
     {
@@ -224,7 +226,7 @@ if (has('process')) {
         fetched_at: new Date(),
       },
       body: bodyText,
-      body_hash: sha256(bodyText),
+      body_hash: sha256(fullText),
     },
     { skipLlm: true },
   )
@@ -239,7 +241,7 @@ if (has('process')) {
       llm_cost_usd: result.llm_cost_usd,
       lexical_noise: computeLexicalNoise(bodyText),
       status: 'ready',
-      content_hash: sha256(bodyText),
+      content_hash: sha256(fullText),
     })
     .eq('id', articleId)
 

@@ -31,7 +31,7 @@ const bi = process.argv.indexOf('--batch')
 const batchId = bi >= 0 ? process.argv[bi + 1] : null
 
 const { createClient } = await import('@supabase/supabase-js')
-const { analyzeArticle, computeLexicalNoise, normalizePunctuation, reflowSoftHyphens, LEARNING_TYPES, withAttribution } =
+const { analyzeArticle, computeLexicalNoise, normalizePunctuation, reflowSoftHyphens, LEARNING_TYPES, withAttribution, stripAttribution, bandForVLevel } =
   await import('@vocaflow/library-pipeline')
 
 const db = createClient(
@@ -89,7 +89,11 @@ for (const a of rows) {
     if (aErr) throw new Error('출처 표기 실패: ' + aErr.message)
     console.log(`  출처 표기: ${publishers.join(", ")}`)
   }
-  const bodyText = reflowSoftHyphens(normalizePunctuation(withAttr))
+  // 해시는 **발행되는 본문 전체**다 — 출처 표기가 바뀌면 게이트 판정도 낡아야 한다.
+  const fullText = reflowSoftHyphens(normalizePunctuation(withAttr))
+  // 분석은 표기를 뺀 본문으로 — 표기가 어휘 추출에 들어가면 학습자 단어장에
+  //   bbc·com·dw 같은 것이 실린다(실측으로 확인).
+  const bodyText = stripAttribution(fullText)
   const norm = {
     raw: {
       source: 'original',
@@ -105,7 +109,7 @@ for (const a of rows) {
       fetched_at: new Date(),
     },
     body: bodyText,
-    body_hash: sha256(bodyText),
+    body_hash: sha256(fullText),
   }
 
   const result = await analyzeArticle(a.id, norm, { skipLlm: true })
@@ -125,7 +129,10 @@ for (const a of rows) {
       register: spec.register ?? a.register ?? null,
       lexical_noise: noise,
       status: 'ready',
-      content_hash: norm.body_hash,
+      // 학령을 사양에 박는다 — 없으면 스크립트마다 다시 유도하다 서로 다른 답을 낸다
+      //   (실측: spine-report 는 중등, drain-review 는 초등이라고 했다).
+      composed_spec: { ...spec, grade_band: spec.grade_band ?? bandForVLevel(spec.target_v_level) },
+      content_hash: sha256(fullText),
     })
     .eq('id', a.id)
   if (upErr) throw new Error('갱신 실패: ' + upErr.message)

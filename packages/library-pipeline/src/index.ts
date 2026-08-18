@@ -182,6 +182,10 @@ export {
   withAttribution,
 } from './compose/attribution'
 
+// 초안 검수 — 게이트가 보지 않는 것. 잰 것과 판단이 필요한 것을 나눠 돌려준다.
+export { REVIEW_JUDGE_CHECKLIST, reviewDraft } from './compose/review'
+export type { ReviewFinding, ReviewInput, ReviewMetrics, ReviewReport } from './compose/review'
+
 // 레벨 적응 — 라이선스 보유 글의 쉬운 판. 게이트가 재저작과 다르다.
 export { isAdaptationPublishable, runAdaptationGates } from './compose/adaptation'
 export type { AdaptationInput } from './compose/adaptation'

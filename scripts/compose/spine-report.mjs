@@ -24,7 +24,7 @@ const bi = process.argv.indexOf('--batch')
 const batchId = bi >= 0 ? process.argv[bi + 1] : null
 
 const { createClient } = await import('@supabase/supabase-js')
-const { GRADE_BANDS, LEARNING_TYPES, bandForVRange, profileBand, evaluateBand } =
+const { GRADE_BANDS, LEARNING_TYPES, bandForVLevel, bandForVRange, profileBand, evaluateBand } =
   await import('@vocaflow/library-pipeline')
 
 const db = createClient(
@@ -104,7 +104,9 @@ for (const a of arts) {
     console.log(`▸ ${a.title}\n  유형을 알 수 없어 밴드를 고를 수 없습니다.\n`)
     continue
   }
-  const band = bandForVRange(spec.vBand)
+  // 학령의 정본은 발주가 싣는다. 없으면 목표 레벨에서 유도한다 —
+  //   유형의 밴드 전체(bandForVRange)로 유도하면 V2 발주와 V5 발주가 같은 학령으로 뭉개진다.
+  const band = spec.grade_band ?? bandForVLevel(spec.target_v_level ?? spec.targetVLevel ?? 0)
 
   // 이 글의 어휘와 V-Level — 처리 단계가 이미 뽑아 둔 것을 쓴다(다시 토큰화하지 않는다).
   const { data: vocab } = await db
