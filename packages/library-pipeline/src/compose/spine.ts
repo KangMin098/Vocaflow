@@ -290,9 +290,9 @@ export const BAND_CONSTRAINT: Record<GradeBandKey, BandConstraint> = {
   },
   high: {
     kind: 'ceiling',
-    value: 0.03,
+    value: 0.05,
     basis:
-      'News in Levels Level 3 실측 2편: 1.1 · 2.2% (최대 2.2). 표본이 얇으므로 더 재서 조정한다',
+      'News in Levels Level 3 실측 5편: 0.0 · 0.0 · 1.1 · 2.2 · 4.6% (중앙 1.1 · 최대 4.6). 표본 2편일 때 3% 로 잡았다가 5편으로 늘리니 **정상 글(4.6%)을 막는 값**이었다 — 얇은 표본으로 조이면 그 자체가 오탐이 된다',
     calibrated: true,
   },
   exam: {
