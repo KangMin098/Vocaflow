@@ -339,6 +339,17 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
           .select('word, meaning_ko, part_of_speech, cefr_level, example_en, source_sentence')
           .eq('set_id', set.id)
           .order('sort_order', { ascending: true });
+        // 단어별 V-Level — shared_words 에는 없으므로 사전에서 한 번에 조회한다.
+        const swWords = ((swData ?? []) as Array<{ word: string }>).map((w) => w.word.toLowerCase());
+        const { data: vRows } = swWords.length
+          ? await client.from('shared_dictionary').select('word, v_level').in('word', swWords)
+          : { data: [] };
+        const vByWord = new Map(
+          ((vRows ?? []) as Array<{ word: string; v_level: number | null }>).map((r) => [
+            r.word,
+            r.v_level,
+          ]),
+        );
         chapterWords = (
           (swData ?? []) as Array<{
             word: string;
@@ -353,7 +364,9 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
           meaning: w.meaning_ko,
           pos: w.part_of_speech,
           cefrLevel: w.cefr_level,
-          vLevel: null,
+          // 아티클 단어장은 shared_words 에서 오는데 v_level 컬럼이 없다 — 사전에서 채운다.
+          //   이 값이 없으면 학습자가 '지금 단계보다 어려운 단어' 를 알 방법이 없다.
+          vLevel: vByWord.get(w.word.toLowerCase()) ?? null,
           exampleSentence: w.source_sentence ?? w.example_en,
           baseLearningValue: 0,
           frequencyInChapter: 0,

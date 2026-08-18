@@ -91,6 +91,13 @@ export interface Word {
   pos: string
   status: MemoryStatus
   exampleSentence: string
+  /**
+   * VRL V-Level 0~11. 지문의 학령 밴드보다 높으면 '지금 단계보다 어려운 단어' 다.
+   *
+   * ⚠️ 본문에 **색을 더하지 않는다** — Memory Decay 4색이 이미 본문 표시를 쓰고 있고,
+   *   다섯 번째 시각 상태를 만들면 그 체계가 무너진다. 이 값은 팝업에서 말로 알린다.
+   */
+  vLevel?: number | null
 }
 
 export interface Sentence {
