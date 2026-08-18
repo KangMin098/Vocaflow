@@ -238,9 +238,10 @@ export interface BandConstraint {
 export const BAND_CONSTRAINT: Record<GradeBandKey, BandConstraint> = {
   elementary: {
     kind: 'ceiling',
-    value: 0.2,
-    basis: '초등용 지문이 코퍼스에 0편 — V2 지문의 p50(20.0%)을 임시로 놓았을 뿐이다',
-    calibrated: false,
+    value: 0.33,
+    basis:
+      'VOA Learning English 30편(저레벨 학습자용으로 **일부러 쓴** 콘텐츠) V>3 비율 p50 27.3%·p90 33.2%. 지문에는 주제어가 필요해서(화산 기사의 volcano·lava) 저레벨 콘텐츠도 이 정도는 넘는다. V5 지문 44.8%·V6 53.8% 와는 갈린다',
+    calibrated: true,
   },
   middle: {
     kind: 'ceiling',

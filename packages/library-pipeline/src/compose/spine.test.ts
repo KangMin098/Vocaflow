@@ -33,9 +33,9 @@ describe('스파인 축', () => {
     }
   })
 
-  it('보정 안 된 밴드는 판정하지 않는다 — 없는 근거로 막지 않는다', () => {
-    // 초등만 미보정 — 초등용 지문이 코퍼스에 0편이라 정상 분포를 알 수 없다.
-    expect(BAND_CONSTRAINT.elementary.calibrated).toBe(false)
+  it('모든 밴드가 실측 근거를 갖는다 — 근거 없는 임계로 막지 않는다', () => {
+    // 네 밴드 모두 실측 근거를 갖는다. 근거 문자열이 비면 그때부터 임계는 짐작이다.
+    expect(BAND_CONSTRAINT.elementary.calibrated).toBe(true) // VOA 30편으로 보정됨
     expect(BAND_CONSTRAINT.exam.calibrated).toBe(true) // 소스군 분리로 보정됨
     expect(BAND_CONSTRAINT.middle.calibrated).toBe(true)
     expect(BAND_CONSTRAINT.high.calibrated).toBe(true)
@@ -105,13 +105,28 @@ describe('evaluateBand', () => {
     expect(r.detail).toContain('밴드 초과')
   })
 
-  it('보정 안 된 밴드는 통과도 실패도 아닌 UNCALIBRATED 로 남긴다', () => {
-    const any = words([['river', 2], ['coolant', 9]])
-    for (const band of ['elementary'] as const) {
-      const r = evaluateBand(profileBand(any, band))
-      expect(r.verdict).toBe('UNCALIBRATED')
-      expect(r.detail).toContain('기준이 없다')
-    }
+  it('저레벨 콘텐츠도 주제어 때문에 밴드를 넘는다 — 초등 기준이 넉넉한 이유', () => {
+    // VOA Learning English 30편(학습자용으로 일부러 쓴 글) 실측 V>3 = p50 27.3% · p90 33.2%.
+    // 화산 기사에 volcano·lava 가 없을 수 없다. 그래서 초등 천장이 다른 밴드보다 훨씬 높다.
+    expect(BAND_CONSTRAINT.elementary.value).toBeGreaterThan(BAND_CONSTRAINT.middle.value)
+    expect(BAND_CONSTRAINT.middle.value).toBeGreaterThan(BAND_CONSTRAINT.high.value)
+
+    // 쉬운 글 + 주제어 몇 개 → 초등 통과. 같은 글이 중등 밴드에서는 훨씬 여유롭다.
+    const easyWithTopicWords = words([
+      ['water', 1], ['river', 2], ['plant', 3], ['low', 1], ['stop', 1], ['day', 1],
+      ['reactor', 8], ['coolant', 9],
+    ])
+    const el = profileBand(easyWithTopicWords, 'elementary')
+    expect(el.aboveShare).toBeCloseTo(0.25) // 8개 중 2개
+    expect(evaluateBand(el).verdict).toBe('PASS')
+
+    // V5~6 수준의 글은 초등 천장을 넘는다 — 기준이 넉넉해도 판별력은 있다(실측 44.8~53.8%).
+    const harder = words([
+      ['water', 1], ['reactor', 8], ['coolant', 9], ['regime', 7], ['phenomenon', 7],
+    ])
+    expect(profileBand(harder, 'elementary').aboveShare).toBeGreaterThan(
+      BAND_CONSTRAINT.elementary.value,
+    )
   })
 
   it('하한 밴드는 심화 어휘가 모자라면 걸린다 (천장 논리로 보면 절대 안 걸린다)', () => {
