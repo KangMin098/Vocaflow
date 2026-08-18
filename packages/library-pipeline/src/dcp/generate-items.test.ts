@@ -3,7 +3,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { generateDcpItems } from './generate-items'
+import { generateDcpItems, explainDcpEligibility } from './generate-items'
 
 // 적격 문단(5문장 · 각 6단어+ · 앵커 양호) + 부적격(3문장/heading) 혼합.
 const CONTENT = [
@@ -63,5 +63,65 @@ describe('generateDcpItems', () => {
       'All rights reserved to the respective original data providers globally.'
     const only = generateDcpItems(boiler, 'boiler-ref')
     expect(only).toHaveLength(0)
+  })
+})
+
+// ── 적격 진단 (실측 2026-08-18) ─────────────────────────────────────────
+//
+// 재저작 드레인 첫 판이 문항 0 을 냈는데, 그때는 "왜" 를 말할 방법이 없었다. 원인은
+// 콘텐츠가 아니라 **줄바꿈**이었다 — 문단을 단일 개행으로 나눠 놓아 189어 글 전체가
+// 한 문단(21문장)으로 잡혔다. 0 이 "안 맞음" 인지 "안 돌았음" 인지 구별되지 않으면
+// 운영자는 손쓸 데가 없다.
+describe('explainDcpEligibility', () => {
+  it('빈 줄이 없으면 전체가 한 문단으로 잡혀 문항이 0 이 된다', () => {
+    // 실측 사례: 189어 글을 단일 개행으로 나눠 놨더니 21문장 한 문단이 됐다.
+    const sentences = [
+      'Romania shut down its only nuclear power plant on Thursday.',
+      'Hot dry weather had pushed the river far below its usual level.',
+      'The plant takes water from that river to cool its reactors.',
+      'It has no other source of cooling water nearby.',
+      'A reactor cannot run safely without enough cooling water.',
+      'So the company stopped the plant entirely that day.',
+      'The station usually makes about twenty percent of the electricity.',
+      'That is a large share for a single power plant.',
+    ]
+    const oneLinePerSentence = sentences.join('\n')
+    const d = explainDcpEligibility(oneLinePerSentence)
+    expect(d).toHaveLength(1)
+    expect(d[0]!.sentences).toBe(sentences.length)
+    expect(d[0]!.eligible).toBe(false)
+    expect(d[0]!.reason).toContain('4~6')
+    expect(generateDcpItems(oneLinePerSentence, 'ref')).toHaveLength(0)
+
+    // 같은 문장을 빈 줄로 4+4 로 나누면 두 문단 모두 적격이 된다 — 줄바꿈 하나의 차이다.
+    const split = sentences.slice(0, 4).join(' ') + '\n\n' + sentences.slice(4).join(' ')
+    expect(explainDcpEligibility(split).every((x) => x.eligible)).toBe(true)
+    expect(generateDcpItems(split, 'ref')).toHaveLength(4)
+  })
+
+  it('빈 줄로 나누면 문단별로 판정한다', () => {
+    const doc = [
+      'A nuclear station needs a steady supply of cool water for its reactors.',
+      'This dependence became a liability when the river fell far below its usual level.',
+      'The operator had already idled one of the two reactors the previous month.',
+      'On Thursday it powered down the second unit as well.',
+    ].join(' ')
+    const d = explainDcpEligibility(doc + '\n\n' + doc)
+    expect(d).toHaveLength(2)
+    expect(d.every((x) => x.eligible)).toBe(true)
+    expect(generateDcpItems(doc + '\n\n' + doc, 'ref').length).toBe(4)
+  })
+
+  it('사유는 실제 생성 결과와 어긋나지 않는다', () => {
+    // 규칙을 두 번 적으면 갈린다 — 진단이 적격이라고 한 문단 수 × 2 가 문항 수여야 한다.
+    const docs = [
+      'Alpha beta gamma delta epsilon zeta.\n\nOne two three four five six seven.',
+      'A nuclear station needs a steady supply of cool water for its reactors. This dependence became a liability when the river fell far below its usual level. The operator had already idled one of the two reactors the previous month. On Thursday it powered down the second unit as well.',
+      'It has no other source of cooling water at all. The plant takes water from that river to cool its reactors. A reactor cannot run safely without enough cooling water. So the company stopped the plant entirely on Thursday.',
+    ]
+    for (const doc of docs) {
+      const eligible = explainDcpEligibility(doc).filter((d) => d.eligible).length
+      expect(generateDcpItems(doc, 'seed').length).toBe(eligible * 2)
+    }
   })
 })

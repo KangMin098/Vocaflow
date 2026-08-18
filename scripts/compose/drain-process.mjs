@@ -132,7 +132,10 @@ for (const a of rows) {
     .single()
   const measured = after?.article_v_level ?? null
   const target = spec.target_v_level ?? null
-  const band = LEARNING_TYPES[spec.track]?.constraints?.vBand ?? null
+  const band = LEARNING_TYPES[spec.track]?.vBand ?? null
+  // 사양 조회가 비면 검사가 조용히 안 돈다 — 실제로 그렇게 한 번 놓쳤다(경로를 잘못 적었는데
+  //   옵셔널 체이닝이 undefined 로 삼켰고, 출력에 밴드 줄이 없다는 것만으로는 아무도 몰랐다).
+  if (spec.track && !band) console.log(`     ⚠ 유형 '${spec.track}' 의 밴드를 찾지 못했습니다 — 밴드 검사를 건너뜁니다.`)
   const outOfBand = measured != null && band != null && (measured < band.min || measured > band.max)
   const c = after?.vrl_components ?? {}
 

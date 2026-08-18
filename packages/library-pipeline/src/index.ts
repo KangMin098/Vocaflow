@@ -83,7 +83,8 @@ export type { UsgsListItem } from './ingest-article/usgs'
 export { ingestNoaaArticle, listNoaaFeed, NOAA_FEEDS } from './ingest-article/noaa'
 export type { NoaaListItem } from './ingest-article/noaa'
 // CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
-export { generateDcpItems } from './dcp/generate-items'
+export { generateDcpItems, explainDcpEligibility } from './dcp/generate-items'
+export type { DcpParagraphDiagnosis } from './dcp/generate-items'
 export type { DcpItem, DcpItemType } from './dcp/generate-items'
 // ACP §18 §4-C — 텍스트 청결(어휘 노이즈) 산출
 export { computeLexicalNoise } from './ingest-article/_helpers'

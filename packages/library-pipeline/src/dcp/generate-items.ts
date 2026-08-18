@@ -128,3 +128,32 @@ export function generateDcpItems(content: string, ref: string): DcpItem[] {
 
   return items
 }
+
+/** 문단별 적격 판정 사유 — 0문항이 나왔을 때 "왜" 를 말하기 위한 진단. */
+export interface DcpParagraphDiagnosis {
+  paragraph_idx: number
+  sentences: number
+  eligible: boolean
+  reason: string | null
+}
+
+/**
+ * `generateDcpItems` 가 왜 그 문항 수를 냈는지 설명한다.
+ *
+ * 왜 필요한가: 적격 필터가 조용해서, 문항 0건이 "콘텐츠가 안 맞음" 인지 "생성이 안 돌았음"
+ * 인지 화면에서 구별되지 않았다. 규칙을 두 번 적으면 반드시 갈리므로 **같은 파일에서**
+ * 같은 `isEligible` 을 불러 판정 사유만 덧붙인다.
+ */
+export function explainDcpEligibility(content: string): DcpParagraphDiagnosis[] {
+  return splitParagraphs(content).map((para, paragraph_idx) => {
+    const sentences = splitSentences(para)
+    const n = sentences.length
+    let reason: string | null = null
+    if (n < 4 || n > 6) reason = `문장 ${n}개 (4~6 필요)`
+    else if (sentences.some((s) => wordCount(s) < 6))
+      reason = `6단어 미만 문장 ${sentences.filter((s) => wordCount(s) < 6).length}개`
+    else if (ANCHOR_BAD.test(sentences[0]!)) reason = '첫 문장이 대명사·접속사로 시작 (복원 단서 부족)'
+    else if (BOILERPLATE.test(sentences.join(' '))) reason = '보일러플레이트 (산문 아님)'
+    return { paragraph_idx, sentences: n, eligible: reason === null, reason }
+  })
+}
