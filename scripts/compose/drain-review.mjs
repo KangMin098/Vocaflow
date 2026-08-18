@@ -30,7 +30,8 @@ const arg = (k) => {
 }
 
 const { createClient } = await import('@supabase/supabase-js')
-const { reviewDraft, bandForVLevel, GRADE_BANDS } = await import('@vocaflow/library-pipeline')
+const { reviewDraft, bandForVLevel, GRADE_BANDS, tokenizeForBand, stripAttribution } =
+  await import('@vocaflow/library-pipeline')
 
 const db = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -75,13 +76,9 @@ for (const a of arts) {
     .eq('article_id', a.id)
     .maybeSingle()
 
-  const { data: vocab } = await db
-    .from('library_article_vocabularies')
-    .select('word,lemma')
-    .eq('library_article_id', a.id)
-  const keys = [
-    ...new Set((vocab ?? []).map((v) => (v.lemma ?? v.word ?? '').toLowerCase())),
-  ].filter(Boolean)
+  // 밴드는 **읽는 사람이 만나는 단어**로 잰다 — 추출 어휘로 재면 기능어가 빠져 분모가
+  //   작아지고 초과 비율이 부풀며(같은 글 26.8% vs 14.8%), 외부 플랫폼과 비교가 안 된다.
+  const keys = tokenizeForBand(stripAttribution(a.content ?? ''))
   const { data: dict } = keys.length
     ? await db.from('shared_dictionary').select('word,v_level').in('word', keys)
     : { data: [] }

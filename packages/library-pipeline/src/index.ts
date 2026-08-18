@@ -330,6 +330,7 @@ export {
   bandForVRange,
   evaluateBand,
   profileBand,
+  tokenizeForBand,
 } from './compose/spine'
 export type {
   BandConstraint,

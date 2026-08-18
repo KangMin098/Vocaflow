@@ -105,27 +105,24 @@ describe('evaluateBand', () => {
     expect(r.detail).toContain('밴드 초과')
   })
 
-  it('저레벨 콘텐츠도 주제어 때문에 밴드를 넘는다 — 초등 기준이 넉넉한 이유', () => {
-    // VOA Learning English 30편(학습자용으로 일부러 쓴 글) 실측 V>3 = p50 27.3% · p90 33.2%.
-    // 화산 기사에 volcano·lava 가 없을 수 없다. 그래서 초등 천장이 다른 밴드보다 훨씬 높다.
-    expect(BAND_CONSTRAINT.elementary.value).toBeGreaterThan(BAND_CONSTRAINT.middle.value)
-    expect(BAND_CONSTRAINT.middle.value).toBeGreaterThan(BAND_CONSTRAINT.high.value)
+  it('허용치는 밴드마다 근거가 다르다 — 단조가 아니다', () => {
+    // 초등은 News in Levels Level 1 실측(0~9.5%)에서, 중등·고등은 발행 코퍼스에서 왔다.
+    // 초등 천장이 중등보다 낮은 것은 이상하지 않다 — Level 1 은 애초에 흔한 단어로 쓸 수 있는
+    // 주제를 고르고, 중등 뉴스는 주제어를 피할 수 없기 때문이다.
+    for (const c of Object.values(BAND_CONSTRAINT)) {
+      if (c.kind !== 'ceiling') continue
+      expect(c.value).toBeLessThanOrEqual(0.15) // 어떤 밴드도 글의 1/6 이상을 넘기지 않는다
+      expect(c.basis.length).toBeGreaterThan(20)
+    }
+    expect(BAND_CONSTRAINT.elementary.basis).toContain('News in Levels')
+  })
 
-    // 쉬운 글 + 주제어 몇 개 → 초등 통과. 같은 글이 중등 밴드에서는 훨씬 여유롭다.
-    const easyWithTopicWords = words([
-      ['water', 1], ['river', 2], ['plant', 3], ['low', 1], ['stop', 1], ['day', 1],
-      ['reactor', 8], ['coolant', 9],
-    ])
-    const el = profileBand(easyWithTopicWords, 'elementary')
-    expect(el.aboveShare).toBeCloseTo(0.25) // 8개 중 2개
-    expect(evaluateBand(el).verdict).toBe('PASS')
-
-    // V5~6 수준의 글은 초등 천장을 넘는다 — 기준이 넉넉해도 판별력은 있다(실측 44.8~53.8%).
-    const harder = words([
-      ['water', 1], ['reactor', 8], ['coolant', 9], ['regime', 7], ['phenomenon', 7],
-    ])
-    expect(profileBand(harder, 'elementary').aboveShare).toBeGreaterThan(
-      BAND_CONSTRAINT.elementary.value,
+  it('밴드가 높을수록 같은 글이 덜 걸린다는 성질은 유지된다', () => {
+    const words = [
+      { word: 'water', v: 1 }, { word: 'reactor', v: 8 }, { word: 'coolant', v: 9 },
+    ]
+    expect(profileBand(words, 'elementary').aboveShare).toBeGreaterThan(
+      profileBand(words, 'high').aboveShare,
     )
   })
 

@@ -144,6 +144,28 @@ export const SPINE_AXIS = {
   distrusted: 'cefr_level',
 } as const
 
+/**
+ * 밴드 판정용 토큰화 — **읽는 사람이 만나는 단어**를 센다.
+ *
+ * 왜 추출 어휘가 아니라 원문 토큰인가: 두 방법이 같은 글에 다른 답을 냈다(우리 초등판이
+ * 추출 어휘 기준 26.8% · 원문 토큰 기준 14.8%). 추출 어휘는 "가르칠 만한 후보" 라 기능어를
+ * 걸러 분모가 작아지고, 그래서 초과 비율이 부풀려진다.
+ *
+ * 밴드는 **읽기 부담**을 재는 축이므로 글에 실제로 나오는 서로 다른 단어를 센다. 외부
+ * 플랫폼과 비교할 때도 이쪽만 성립한다 — 남의 글에는 우리 추출 파이프라인을 돌릴 수 없다.
+ */
+export function tokenizeForBand(text: string): string[] {
+  return [
+    ...new Set(
+      text
+        .toLowerCase()
+        .replace(/[^a-z' ]/g, ' ')
+        .split(/\s+/)
+        .filter((w) => w.length >= 2),
+    ),
+  ]
+}
+
 /** 한 단어의 스파인 위치. v 가 null 이면 사전에 없는 단어다(모르는 것을 쉽다고 하지 않는다). */
 export interface SpineWord {
   word: string
@@ -254,9 +276,9 @@ export interface BandConstraint {
 export const BAND_CONSTRAINT: Record<GradeBandKey, BandConstraint> = {
   elementary: {
     kind: 'ceiling',
-    value: 0.33,
+    value: 0.1,
     basis:
-      'VOA Learning English 30편(저레벨 학습자용으로 **일부러 쓴** 콘텐츠) V>3 비율 p50 27.3%·p90 33.2%. 지문에는 주제어가 필요해서(화산 기사의 volcano·lava) 저레벨 콘텐츠도 이 정도는 넘는다. V5 지문 44.8%·V6 53.8% 와는 갈린다',
+      'News in Levels Level 1 실측 5편(같은 계측기·원문 토큰 기준): 0.0 · 3.0 · 7.3 · 8.3 · 9.5% (중앙 7.3 · 최대 9.5). 앞서 VOA 발행 기사로 33% 를 잡았던 것은 **대조군이 틀렸다** — VOA 기사는 Level 1 텍스트가 아니라 B1 뉴스다',
     calibrated: true,
   },
   middle: {

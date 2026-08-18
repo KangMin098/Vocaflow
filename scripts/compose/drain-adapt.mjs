@@ -38,6 +38,7 @@ const {
   GRADE_BANDS,
   bandForVLevel,
   profileBand,
+  tokenizeForBand,
   shelfRecordFrom,
   buildAdaptationAttribution,
   stripAttribution,
@@ -279,13 +280,9 @@ if (has('gates')) {
     .neq('id', art.id)
   const shelf = (siblings ?? []).map((o) => shelfRecordFrom(o))
 
-  const { data: vocab } = await db
-    .from('library_article_vocabularies')
-    .select('word,lemma')
-    .eq('library_article_id', art.id)
-  const keys = [
-    ...new Set((vocab ?? []).map((v) => (v.lemma ?? v.word ?? '').toLowerCase())),
-  ].filter(Boolean)
+  // 밴드는 읽는 사람이 만나는 단어로 잰다 — 추출 어휘로 재면 분모가 작아져 부풀고,
+  //   외부 플랫폼(News in Levels)과 같은 기준으로 비교할 수 없다.
+  const keys = tokenizeForBand(stripAttribution(art.content ?? ''))
   const { data: dict } = keys.length
     ? await db.from('shared_dictionary').select('word,v_level').in('word', keys)
     : { data: [] }
