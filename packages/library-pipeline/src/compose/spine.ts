@@ -145,6 +145,85 @@ export const SPINE_AXIS = {
 } as const
 
 /**
+ * 문체 하한 — **"너무 쉬움" 을 잡는 축.**
+ *
+ * ── 왜 필요한가 ─────────────────────────────────────────────────────
+ * 밴드 초과 비율은 **천장만** 본다. 그래서 지문을 쉽게 만들수록 점수가 좋아지고, 수능 대비
+ * 지문처럼 *어려워야 하는* 글에서는 방향이 거꾸로다. 실제로 중등 발주로 쓴 글이 밴드 초과
+ * 2.1%(표본 중앙값보다 좋음)를 받았는데, 문체는 초등 수준이었다 — 천장 지표로는 보이지 않는다.
+ *
+ * ── 왜 평균 낱말 길이인가 (실측 2026-08-19) ─────────────────────────
+ * 파서 없이 계산 가능한 후보 다섯을 News in Levels 15편(L1·L2·L3 각 5)에 돌려, **레벨 순으로
+ * 단조이고 레벨 안에서 좁은** 것만 남겼다:
+ *
+ *   지표                     L1 평균   L2 평균   L3 평균   판정
+ *   L 문장 길이               9.1      13.5      16.2     단조 ✓ (밴드 words 로 이미 잡는다)
+ *   C 쉼표/문장              0.62      1.23      1.61     단조 ✓
+ *   W 평균 낱말 길이(문자)     4.44      4.87      5.40     단조 ✓ **범위가 거의 안 겹친다**
+ *   S 종속 표지/100어         3.16      2.98      3.79     비단조 ✗
+ *   V aux/문장               0.66      0.66      0.81     비단조 ✗
+ *
+ * W 는 라틴계 어휘·명사화 경향의 대리지표이고, 이것이 곧 "수능 register" 가 뜻하는 바다.
+ * 범위: L1 4.09~4.85 · L2 4.60~5.12 · L3 5.16~5.93.
+ *
+ * ⚠️ 초등에는 하한을 두지 않는다 — 그 밴드에서 "너무 쉬움" 은 결함이 아니다.
+ */
+export const REGISTER_FLOOR: Partial<Record<GradeBandKey, { minWordChars: number; basis: string }>> = {
+  middle: {
+    minWordChars: 4.6,
+    basis: 'News in Levels Level 2 실측 5편의 평균 낱말 길이 최소 4.60 (범위 4.60~5.12)',
+  },
+  high: {
+    minWordChars: 5.16,
+    basis: 'News in Levels Level 3 실측 5편의 평균 낱말 길이 최소 5.16 (범위 5.16~5.93)',
+  },
+  exam: {
+    minWordChars: 5.16,
+    basis: '고등과 같은 값을 임시로 쓴다 — 대입 수준 외부 표본이 아직 없다',
+  },
+}
+
+/** 본문의 평균 낱말 길이(문자). 문체 하한 판정의 입력. */
+export function meanWordChars(text: string): number {
+  const words = text
+    .toLowerCase()
+    .split(/\s+/)
+    .map((w) => w.replace(/[^a-z']/g, ''))
+    .filter(Boolean)
+  if (words.length === 0) return 0
+  return words.reduce((s, w) => s + w.length, 0) / words.length
+}
+
+/**
+ * 이 글이 목표 밴드의 문체에 닿았는가.
+ *
+ * 하한이 없는 밴드(초등)는 판정하지 않는다 — 없는 기준으로 합격도 실패도 시키지 않는다.
+ */
+export function checkRegisterFloor(
+  band: GradeBandKey,
+  text: string,
+): { verdict: 'PASS' | 'WARN' | 'UNCALIBRATED'; detail: string } {
+  const floor = REGISTER_FLOOR[band]
+  const w = meanWordChars(text)
+  if (!floor) {
+    return {
+      verdict: 'UNCALIBRATED',
+      detail: `${GRADE_BANDS[band].label} 밴드는 문체 하한을 두지 않는다 — 그 수준에서 '너무 쉬움' 은 결함이 아니다 (평균 낱말 ${w.toFixed(2)}자).`,
+    }
+  }
+  return w >= floor.minWordChars
+    ? {
+        verdict: 'PASS',
+        detail: `평균 낱말 ${w.toFixed(2)}자 ≥ 하한 ${floor.minWordChars} (${floor.basis}).`,
+      }
+    : {
+        verdict: 'WARN',
+        detail: `평균 낱말 ${w.toFixed(2)}자 < 하한 ${floor.minWordChars} — 목표 밴드의 문체에 못 미친다. 어휘 밴드는 통과해도 **글이 너무 쉽다**. (${floor.basis})`,
+      }
+}
+
+
+/**
  * 밴드 판정용 토큰화 — **읽는 사람이 만나는 단어**를 센다.
  *
  * 왜 추출 어휘가 아니라 원문 토큰인가: 두 방법이 같은 글에 다른 답을 냈다(우리 초등판이

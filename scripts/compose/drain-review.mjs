@@ -30,7 +30,7 @@ const arg = (k) => {
 }
 
 const { createClient } = await import('@supabase/supabase-js')
-const { reviewDraft, bandForVLevel, GRADE_BANDS, tokenizeForBand, stripAttribution, compareToBenchmark } =
+const { reviewDraft, bandForVLevel, GRADE_BANDS, tokenizeForBand, stripAttribution, compareToBenchmark, checkRegisterFloor } =
   await import('@vocaflow/library-pipeline')
 
 const db = createClient(
@@ -121,8 +121,12 @@ for (const a of arts) {
 
   // 외부 플랫폼 기준선과 견준다 — 목표가 '글로벌 수준 이상' 이므로 매 검수에서 답한다.
   const bench = compareToBenchmark(band, m.band.aboveShare)
+  // 천장(밴드 초과)만 보면 쉽게 쓸수록 점수가 좋아진다 — 하한도 함께 본다.
+  const floor = checkRegisterFloor(band, stripAttribution(a.content ?? ''))
   const mark = bench.verdict === 'above' ? '↑' : bench.verdict === 'par' ? '=' : bench.verdict === 'below' ? '↓' : '?'
   console.log('  ' + mark + ' 기준선 — ' + bench.detail)
+  const fmark = floor.verdict === 'PASS' ? '↑' : floor.verdict === 'WARN' ? '↓' : '?'
+  console.log('  ' + fmark + ' 문체 하한 — ' + floor.detail)
 
   if (report.findings.length === 0) {
     console.log('  잰 항목에는 지적 없음.')
