@@ -275,6 +275,53 @@ describe('I14 구조 독립성', () => {
   })
 })
 
+// ── I14 — 실측에서 나온 회귀 (2026-08-18 다뉴브강 원전 정지 취재) ────────
+//
+// 위 합성 테스트는 "원문 순서를 **그대로** 복제" 라는 극단만 덮고 있었다.
+// 실제 드레인 첫 판에서 걸린 것은 그보다 훨씬 미묘했다 — 원문 전개에서 **한 사실만
+// 맨 뒤로 옮긴** 초안이 ρ=0.84 로 차단됐다. 리드 문장을 그대로 두면(뉴스 첫 문장 =
+// 사건 자체) 나머지가 자동으로 원문 순서를 따라간다.
+//
+// 아래 순서는 dw.com 기사에서 실제로 잰 등장 순서다.
+describe('I14 — 한 항목만 뒤로 미루는 것으로는 독립이 되지 않는다 (실측)', () => {
+  // 사실 8건: 정지(D) · 저수위(B) · 유일냉각원(A) · 20%(E) · 헝가리(H) · 전월정지(C) · 10일(F) · 대체전력(G)
+  const KEYS = ['D', 'B', 'A', 'E', 'H', 'C', 'F', 'G'] as const
+  // dw.com 실측 등장 순서(동시 등장은 동순위)
+  const DW_ORDINAL: Record<string, number> = { D: 0, B: 0, A: 1, E: 1, H: 3, C: 5, F: 10, G: 11 }
+
+  const facts: FactCard[] = KEYS.map((k) => ({
+    id: k,
+    claim: `fact ${k}`,
+    kind: 'event',
+    attestations: [
+      { source_id: 'dw', ordinal: DW_ORDINAL[k] },
+      // 독립 2계통이라 I12 는 통과한다 — I14 만 단독으로 판정되는지 보기 위함.
+      { source_id: 'bbc', ordinal: DW_ORDINAL[k] },
+    ],
+  }))
+  const sources: SourceRecord[] = [
+    { id: 'dw', publisher: 'dw.com', url: 'https://dw.com/a', published_at: '', fingerprint: buildFingerprint('x') },
+    { id: 'bbc', publisher: 'bbc.co.uk', url: 'https://bbc.co.uk/a', published_at: '', fingerprint: buildFingerprint('y') },
+  ]
+  const draft = (order: string[]): ComposeDraft => ({
+    text: 'irrelevant for this gate',
+    fact_order: order,
+    event_occurred_at: '2026-08-13T12:00:00Z',
+  })
+
+  it('헝가리(H) 하나만 맨 뒤로 옮긴 초안은 차단된다', () => {
+    const r = checkStructureIndependence(draft(['D', 'B', 'A', 'E', 'C', 'F', 'G', 'H']), facts, sources)
+    expect(r.verdict).toBe('FAIL')
+    expect(r.detail).toContain('0.8')
+  })
+
+  it('학습 순서(배경 → 구조 → 사건 → 규모 → 대응 → 함의)로 다시 짜면 통과한다', () => {
+    // 뉴스는 사건(D)으로 열지만 학습 지문은 배경(B)으로 연다 — 이 한 수가 전개를 갈랐다.
+    const r = checkStructureIndependence(draft(['B', 'A', 'C', 'D', 'F', 'E', 'G', 'H']), facts, sources)
+    expect(r.verdict).toBe('PASS')
+  })
+})
+
 // ── I15 발행 지연 (hot-news) ─────────────────────────────────────────
 
 describe('I15 발행 지연', () => {
