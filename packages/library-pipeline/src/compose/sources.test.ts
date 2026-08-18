@@ -22,6 +22,9 @@ import {
   lineOf,
   planFactSources,
   topicsUnlockedByPlanned,
+  roleViolations,
+  rolesOf,
+  isFeedCollectable,
 } from './sources'
 
 describe('FACT_SOURCES 레지스트리', () => {
@@ -289,5 +292,46 @@ describe('feasibleTopics — 능력 스냅샷', () => {
       'the-natural-world-geography',
       'time-and-space-space',
     ])
+  })
+})
+
+describe('소스 역할 — ACP 와 Compose 의 경계', () => {
+  it('라이선스 보유 소스와 수집 소스는 겸직하지 않는다', () => {
+    // 라이선스가 있는데 재저작하면 순손실이다 — 원문을 버리고 게이트 비용만 치른다.
+    expect(roleViolations()).toEqual([])
+  })
+
+  it('ACP 공급원은 피드를 등록해도 걷지 않는다', () => {
+    // 실수로 등록되는 경로가 화면·스크립트 둘 다 있으므로 레지스트리에서 막는다.
+    for (const key of ['nasa', 'voa', 'usgs', 'noaa']) {
+      const spec = FACT_SOURCES[key]
+      if (!spec) continue
+      expect(rolesOf(spec)).toContain('supply')
+      expect(rolesOf(spec)).not.toContain('collect')
+      expect(isFeedCollectable(spec)).toBe(false)
+    }
+  })
+
+  it('상업 뉴스는 걷을 수 있어야 한다 — 역할 규칙이 실수집을 끊으면 안 된다', () => {
+    // 실측 후보 수가 있는 소스들. `discovery` 로 판정했다가 dw(152건)를 끊은 적이 있다.
+    for (const key of ['bbc', 'dw', 'guardian', 'yonhap', 'npr', 'abcnews', 'aljazeera']) {
+      const spec = FACT_SOURCES[key]
+      if (!spec) continue
+      expect(rolesOf(spec)).toContain('collect')
+      expect(isFeedCollectable(spec)).toBe(true)
+    }
+  })
+
+  it('배경 전용(백과)은 교차확인 출처로 세지 않는다', () => {
+    const wiki = FACT_SOURCES['wikipedia']
+    if (wiki) expect(rolesOf(wiki)).not.toContain('corroborate')
+  })
+
+  it('모든 소스는 supply 아니면 collect 중 정확히 하나를 갖는다', () => {
+    for (const spec of Object.values(FACT_SOURCES)) {
+      const r = rolesOf(spec)
+      const n = (r.includes('supply') ? 1 : 0) + (r.includes('collect') ? 1 : 0)
+      expect(n, `${spec.key}: ${r.join('+')}`).toBe(1)
+    }
   })
 })

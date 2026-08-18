@@ -19,7 +19,7 @@ import { parseRssFeed } from '../ingest-article/_helpers'
 import { CrawlGate } from './access'
 import { primeRobots, type FetchDeps, type FetchResult } from './news-feed'
 import { COMPOSE_USER_AGENT } from './access'
-import { isCollectable, type FactSourceSpec } from './sources'
+import { isFeedCollectable, type FactSourceSpec } from './sources'
 
 // ── 실패 분류 ────────────────────────────────────────────────────────
 //
@@ -263,7 +263,7 @@ export async function verifyFeedUrl(
   gate: CrawlGate,
   deps: FetchDeps,
 ): Promise<{ feed: DiscoveredFeed } | { fail: FeedSkip }> {
-  if (!isCollectable(spec)) {
+  if (!isFeedCollectable(spec)) {
     return {
       fail: skip(url, 'terms-unreviewed', `${spec.key}: 이용약관 확인 전에는 조회하지 않습니다`),
     }
@@ -324,7 +324,7 @@ export async function discoverFeeds(
   const hosts = apex.startsWith('www.') ? [apex] : [apex, `www.${apex}`]
   const home = `https://${apex}/`
 
-  if (!isCollectable(spec)) {
+  if (!isFeedCollectable(spec)) {
     return {
       feeds: [],
       skipped: [skip(home, 'terms-unreviewed', `${spec.key}: 이용약관 확인 전에는 조회하지 않습니다`)],

@@ -20,7 +20,7 @@ import {
   type RobotsOutcome,
   type StoryCandidate,
 } from './news-feed'
-import { FACT_SOURCES, isCollectable, type FactSourceSpec } from './sources'
+import { FACT_SOURCES, isFeedCollectable, type FactSourceSpec } from './sources'
 
 /** 운영자가 등록하는 피드 1건. 주소는 코드가 아니라 설정에서 온다. */
 export interface FeedConfig {
@@ -102,7 +102,7 @@ export async function collectStories(
       skipped.push({ url: feed.url, reason: `알 수 없는 소스 키: ${feed.sourceKey}` })
       continue
     }
-    if (!isCollectable(spec)) {
+    if (!isFeedCollectable(spec)) {
       skipped.push({
         url: feed.url,
         reason: `${spec.key}: 수집 조건 미충족 (배선=${spec.wiring} · 약관확인=${spec.access.termsReviewed})`,

@@ -620,6 +620,79 @@ export function isAlsoAcpSource(key: string): boolean {
   return isSourceKey(key)
 }
 
+// ── 소스 역할 — ACP 와 Compose 의 경계 ───────────────────────────────
+//
+// 두 파이프라인이 같은 소스를 두고 다투는 것처럼 보였으나, 실측하면 **실제 겹침은 0건**이다
+// (2026-08-18: ACP 발행 81편의 소스는 compose 후보 0 · compose 후보 852건의 소스는 ACP 발행 0).
+// 자연스럽게 갈린 이유가 있고, 그 이유를 규칙으로 굳힌다.
+//
+//   **라이선스가 있으면 그대로 준다. 없으면 사실만 가져와 우리가 쓴다.**
+//
+// 라이선스가 있는데 재저작하는 것은 순손실이다 — 원어민이 쓴 좋은 문장을 버리고, 게이트 6종
+// 비용을 치르고, 결과물은 더 나빠진다. 반대로 라이선스 없이 본문을 가져오면 침해다.
+// 그래서 `supply` 와 `collect` 를 **한 소스가 겸할 수 없게** 한다.
+
+export type SourceRole =
+  /** ACP 가 본문을 그대로 가져다 발행한다 (라이선스 보유) */
+  | 'supply'
+  /** Compose 가 피드를 걷어 사건을 발견한다 (라이선스 없음 — 사실만 쓴다) */
+  | 'collect'
+  /** 사실 교차확인에만 쓴다. 수집 대상은 아니다 */
+  | 'corroborate'
+
+/**
+ * 소스의 역할 — **손으로 적지 않고 기존 사실에서 파생한다.**
+ * 별도 필드로 두면 반드시 다른 필드와 어긋난다(이 저장소가 여러 번 겪은 실패다).
+ */
+export function rolesOf(spec: FactSourceSpec): SourceRole[] {
+  const roles: SourceRole[] = []
+  // ACP 에 어댑터가 있다 = 그 소스를 본문째 쓸 권리를 이미 확보했다는 뜻이다.
+  //   반대로 라이선스가 없으면 쓸 방법이 사실 수집뿐이다 — 그래서 둘은 배타이자 전부다.
+  //   ⚠ `discovery`(사건 발견원인가)로 판정하면 안 된다. 그건 "무엇을 쓸지 고르는 자리"를
+  //   가리키는 별개 축이고, 교차확인 전용으로 걷는 소스(dw — 실측 후보 152건)가 조용히
+  //   수집 불가가 된다. 실제로 그렇게 한 번 끊어 봤다.
+  if (isAlsoAcpSource(spec.key)) roles.push('supply')
+  else roles.push('collect')
+  // 배경 전용(백과)은 독립 취재가 아니므로 교차확인 출처로 세지 않는다.
+  if (spec.tier !== 'background') roles.push('corroborate')
+  return roles
+}
+
+/**
+ * 금지 조합을 어긴 소스 목록. 비어 있어야 한다.
+ *
+ * `rolesOf` 가 `else if` 로 배타를 강제하므로 정상적으로는 비지만, 파생 규칙이 바뀌었을 때
+ * 조용히 겸직이 생기는 것을 막는 감시선이다.
+ */
+export function roleViolations(): string[] {
+  const bad: string[] = []
+  for (const spec of Object.values(FACT_SOURCES)) {
+    const r = rolesOf(spec)
+    if (r.includes('supply') && r.includes('collect')) {
+      bad.push(`${spec.key}: supply 와 collect 를 겸한다 — 라이선스가 있으면 재저작하지 않는다`)
+    }
+  }
+  return bad
+}
+
+/** 이 소스에서 피드를 걷어도 되는가 — 역할이 `collect` 일 때만. */
+export function isCollectRole(spec: FactSourceSpec): boolean {
+  return rolesOf(spec).includes('collect')
+}
+
+/**
+ * **피드를 걷어도 되는가** — 수집 경로 전용 판정.
+ *
+ * ⚠️ (사실 출처로 쓸 수 있는가)과 **다른 질문**이다. 둘을 하나로 합쳤다가
+ * ACP 공급원(nasa·noaa·usgs·wikipedia)이 **교차확인 출처에서까지 빠졌다** — 주제 커버리지가
+ * 통째로 무너졌다. NASA 페이지가 뉴스 기사의 수치를 뒷받침하는 것은 완전히 정상이고,
+ * 막아야 하는 것은 NASA **피드를 걷어 사건을 발견하는 것**뿐이다(그건 ACP 가 할 일이다).
+ */
+export function isFeedCollectable(spec: FactSourceSpec): boolean {
+  return isCollectRole(spec) && isCollectable(spec)
+}
+
+
 /** 두 파이프라인에 함께 있는 소스 (Admin ① 소스 화면 표시원). */
 export function acpOverlap(): string[] {
   return Object.keys(FACT_SOURCES).filter(isAlsoAcpSource).sort()

@@ -23,7 +23,7 @@ import {
   type FactRead,
 } from './access'
 import { COMPOSE_THRESHOLDS } from './gates'
-import { isCollectable, lineOf, type FactSourceSpec } from './sources'
+import { isFeedCollectable, lineOf, type FactSourceSpec } from './sources'
 
 // ── 주입 ─────────────────────────────────────────────────────────────
 
@@ -130,7 +130,7 @@ export async function discoverStories(
   const maxItems = opts.maxItems ?? 20
   const minDelayMs = (opts.minDelayHours ?? COMPOSE_THRESHOLDS.minDelayHours) * 3_600_000
 
-  if (!isCollectable(spec)) {
+  if (!isFeedCollectable(spec)) {
     return {
       ready: [],
       holding: [],
@@ -247,7 +247,7 @@ export async function readStoryForFacts<T>(
   deps: FetchDeps,
   extract: (body: string) => T | Promise<T>,
 ): Promise<ReadStoryResult<T>> {
-  if (!isCollectable(spec)) {
+  if (!isFeedCollectable(spec)) {
     return { ok: false, reason: `${spec.key}: 약관 확인 전에는 수집하지 않는다` }
   }
 
