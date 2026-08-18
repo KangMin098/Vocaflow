@@ -19,6 +19,7 @@
 
 import { COMPOSE_ACTIVITIES } from './activities'
 import { FACT_SOURCES, planFactSources, type FactSourceSpec } from './sources'
+import { bandForVRange, type GradeBandKey } from './spine'
 
 /** VRL 학습 트랙 — 학습자가 선언한 목표. user_profiles.target_track_levels 와 같은 어휘. */
 export type LearningTrack =
@@ -281,6 +282,14 @@ export function sourcesForType(track: LearningTrack): TypeSourcePlan {
 /** drain 작업 1건의 사양. article_compose_jobs 행이 되고, 그대로 프롬프트가 된다. */
 export interface ComposeJobSpec {
   track: LearningTrack
+  /**
+   * 학령 밴드 — 어휘 스파인(V축) 위에서 이 발주가 서는 구간.
+   *
+   * 유형(track)에서 파생되며 새 결정이 아니다. 발주에 실어 두는 이유는, 같은 사실 원장에서
+   * 초·중·고 판을 파생시킬 때 **드레인이 어느 어휘 범위로 써야 하는지**를 알아야 하기 때문이다.
+   * 지금은 정보로만 싣고 어휘를 강제하지 않는다 — 임계는 분포를 본 뒤에 정한다(spine.ts 참조).
+   */
+  gradeBand: GradeBandKey
   register: Register
   /** 목표 V-Level (유형 vBand 안) */
   targetVLevel: number
@@ -321,6 +330,7 @@ export function buildJobSpec(
 
   return {
     track,
+    gradeBand: bandForVRange(spec.vBand),
     register,
     targetVLevel,
     skillFocus,

@@ -201,4 +201,14 @@ describe('trackCoverage — Admin 소스 화면 표시원', () => {
     expect(rows.find((r) => r.track === 'literary')!.feasible).toBe(false)
     expect(rows.find((r) => r.track === 'csat_korean')!.sources).toContain('noaa')
   })
+
+  it('발주는 학령 밴드를 함께 싣는다 — 같은 원장에서 초·중·고 판을 파생시키기 위한 축', () => {
+    const csat = buildJobSpec('csat_korean', 6)
+    const gen = buildJobSpec('general_proficiency', 3)
+    const acad = buildJobSpec('academic_english', 9)
+    expect('error' in csat).toBe(false)
+    expect((csat as { gradeBand: string }).gradeBand).toBe('high')
+    expect((gen as { gradeBand: string }).gradeBand).toBe('middle')
+    expect((acad as { gradeBand: string }).gradeBand).toBe('exam')
+  })
 })
