@@ -340,6 +340,13 @@ describe('Compose 콘솔 렌더', () => {
     expect(html).toContain('드레인의 처리 단계를 먼저 실행하세요')
   })
 
+  it('발견 면은 피드가 없어도 URL 직접 취재 경로를 준다', () => {
+    // 피드는 최근분만 싣고 어떤 발행사는 쓸 만한 피드가 아예 없다 — 우회로가 없으면 막힌다.
+    const html = render('발견', false)
+    expect(html).toContain('기사 주소로 바로 취재 시작하기')
+    expect(html).toContain('서로 다른 발행사 기사 2개 이상')
+  })
+
   it('데이터가 비어도 다음에 무엇을 하라고 말한다 (빈 화면 금지)', () => {
     expect(render('발견', false)).toContain('활성 피드')
     expect(render('원장', false)).toContain('③ 발견에서 사건을 골라')

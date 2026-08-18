@@ -269,6 +269,15 @@ export type {
   FeedFailureKind,
   FeedSkip,
 } from './compose/feed-discovery'
+// 기사 URL -> 본문 추출. 피드가 없거나 어려운 발행사의 우회로.
+export {
+  MIN_ARTICLE_WORDS,
+  extractArticle,
+  fromJsonLd,
+  splitSentences,
+  trimBoilerplate,
+} from "./compose/extract"
+export type { ExtractVia, ExtractedArticle } from "./compose/extract"
 export { collectStories, toBatchRow } from './compose/collect'
 export type { CollectOptions, CollectReport, FeedConfig } from './compose/collect'
 // 가공 — 지문 1편 → 활동 N개. 기계 변환은 재생성 무료·멱등.

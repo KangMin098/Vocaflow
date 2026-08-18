@@ -12,8 +12,12 @@
 import { revalidatePath } from 'next/cache'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import {
+  COMPOSE_USER_AGENT,
   CrawlGate,
   FACT_SOURCES,
+  MIN_ARTICLE_WORDS,
+  buildFingerprint,
+  extractArticle,
   buildJobSpec,
   clusterStories,
   collectStories,
@@ -23,6 +27,7 @@ import {
   readStoryForFacts,
   verifyFeedUrl,
   type DiscoveredFeed,
+  type FactSourceSpec,
   type FeedSkip,
   type FetchDeps,
   type LearningTrack,
@@ -676,4 +681,181 @@ export async function releaseComposeJob(id: string): Promise<ActionResult> {
   if (error) return { ok: false, error: error.message }
   revalidatePath(PATH)
   return { ok: true }
+}
+
+// ── ③-B URL 직접 취재 ────────────────────────────────────────────────
+//
+// 피드가 없거나(AP·CBC) 최근분만 실어(대부분) 발견으로 안 잡히는 사건이 많다.
+// 운영자가 아는 기사 주소를 넣으면 그 자리에서 취재를 시작한다.
+//
+// ⚠ 규율은 피드 경로와 **완전히 같다** — robots 를 보고, 간격을 지키고, 본문은 저장하지
+//   않는다(지문만 남는다). URL 입력은 검증을 건너뛰는 뒷문이 아니다.
+
+export interface ScrapedSource {
+  url: string
+  publisher: string
+  /** 레지스트리에 있는 발행사인가 — 없으면 계통·약관을 우리가 보증하지 못한다 */
+  known: boolean
+  wire: string | null
+  title: string | null
+  wordCount: number
+  /** 어디서 건졌는가 — density 는 신뢰도가 낮다 */
+  via: string
+  publishedAt: string | null
+  /** 사실 카드를 적을 때 훑을 문장 목록. **저장하지 않는다** */
+  sentences: string[]
+}
+
+export interface ScrapeResult extends ActionResult {
+  sources?: ScrapedSource[]
+  failed?: Array<{ url: string; reason: string }>
+  independentLines?: number
+  batchId?: string
+}
+
+/** 호스트로 레지스트리 소스를 찾는다. 없으면 미등록으로 처리한다. */
+function specForUrl(host: string): { spec: FactSourceSpec | null; publisher: string; wire: string | null } {
+  for (const s of Object.values(FACT_SOURCES)) {
+    if (isPublisherHost(s, host)) return { spec: s, publisher: s.publisher, wire: s.wire }
+  }
+  return { spec: null, publisher: host, wire: null }
+}
+
+/**
+ * 기사 URL 목록 → 취재 묶음.
+ *
+ * 독립 계통 2개를 못 채우면 **묶음을 만들지 않는다** — 빈 껍데기를 남기면 나중에
+ * "왜 사실이 확인 안 되지" 를 원장에서 다시 묻게 된다.
+ */
+export async function startCoverageFromUrls(input: {
+  urls: string[]
+  topic: string
+  eventOccurredAt: string | null
+}): Promise<ScrapeResult> {
+  const topic = input.topic.trim()
+  if (topic.length < 4) return { ok: false, error: '사건/주제를 4자 이상 적어 주세요' }
+
+  const urls = [...new Set(input.urls.map((u) => u.trim()).filter(Boolean))]
+  if (urls.length < 2) {
+    return { ok: false, error: '서로 다른 발행사의 기사 주소가 2개 이상 필요합니다 (독립 확인)' }
+  }
+
+  const gate = new CrawlGate()
+  const deps = nodeFetchDeps()
+  const ok: ScrapedSource[] = []
+  const failed: Array<{ url: string; reason: string }> = []
+
+  for (const url of urls) {
+    let host: string
+    try {
+      const u = new URL(url)
+      if (u.protocol !== 'https:') {
+        failed.push({ url, reason: 'https 주소만 읽습니다' })
+        continue
+      }
+      host = u.host.toLowerCase()
+    } catch {
+      failed.push({ url, reason: '주소 형식이 올바르지 않습니다' })
+      continue
+    }
+
+    const { spec, publisher, wire } = specForUrl(host)
+    const robots = await primeRobots(host, gate, deps)
+    if (robots === 'failed') {
+      failed.push({ url, reason: `${host} robots.txt 를 가져오지 못했습니다 — 읽지 않습니다` })
+      continue
+    }
+    const decision = gate.check(url, Date.now())
+    if (!decision.allowed) {
+      failed.push({ url, reason: decision.reason ?? '접근이 허용되지 않습니다' })
+      continue
+    }
+    if (decision.waitMs > 0) await deps.sleep(decision.waitMs)
+
+    let html = ''
+    try {
+      gate.markFetched(url, Date.now())
+      const res = await deps.fetchText(url, {
+        'User-Agent': COMPOSE_USER_AGENT,
+        Accept: 'text/html,application/xhtml+xml',
+      })
+      if (res.status === 403) {
+        failed.push({ url, reason: '발행사가 우리 수집기를 거절했습니다(403). 우회하지 않습니다.' })
+        continue
+      }
+      if (!res.ok) {
+        failed.push({ url, reason: `응답 ${res.status}` })
+        continue
+      }
+      html = res.text
+    } catch (e) {
+      failed.push({ url, reason: `요청 실패: ${e instanceof Error ? e.message : String(e)}` })
+      continue
+    }
+
+    const art = extractArticle(html)
+    if (art.wordCount < MIN_ARTICLE_WORDS) {
+      failed.push({
+        url,
+        reason: `본문을 찾지 못했습니다(${art.wordCount}어). 기사 페이지가 맞는지 확인하세요.`,
+      })
+      continue
+    }
+
+    ok.push({
+      url,
+      publisher,
+      known: spec !== null,
+      wire,
+      title: art.title,
+      wordCount: art.wordCount,
+      via: art.via,
+      publishedAt: art.publishedAt,
+      sentences: art.sentences.slice(0, 40),
+    })
+  }
+
+  const lines = new Set(ok.map((s) => s.wire ?? s.publisher.toLowerCase()))
+  if (lines.size < 2) {
+    return {
+      ok: false,
+      error: `독립 취재 계통이 ${lines.size}개뿐입니다 — 서로 다른 발행사의 기사가 2곳 이상 필요합니다.`,
+      sources: ok,
+      failed,
+      independentLines: lines.size,
+    }
+  }
+
+  // 여기서부터 저장 — 본문이 아니라 **지문과 서지 정보만** 남긴다.
+  const client = await db()
+  const { data: batch, error: batchErr } = await client
+    .from('article_compose_batches')
+    .insert({
+      topic,
+      event_occurred_at: input.eventOccurredAt,
+      status: 'ledger_ready',
+    })
+    .select('id')
+    .single()
+  if (batchErr) return { ok: false, error: batchErr.message, sources: ok, failed }
+  const batchId = (batch as { id: string }).id
+
+  for (const s of ok) {
+    const html = '' // 본문은 이미 스코프를 벗어났다 — 지문은 아래에서 문장으로 다시 뜬다
+    void html
+    const { error } = await client.from('article_compose_sources').insert({
+      batch_id: batchId,
+      publisher: s.publisher,
+      url: s.url,
+      published_at: s.publishedAt,
+      fingerprint: buildFingerprint(s.sentences.join(' ')),
+      access_basis: 'page-fetch',
+      robots_checked_at: new Date().toISOString(),
+      wire: s.wire,
+    })
+    if (error) failed.push({ url: s.url, reason: `저장 실패: ${error.message}` })
+  }
+
+  revalidatePath(PATH)
+  return { ok: true, sources: ok, failed, independentLines: lines.size, batchId }
 }

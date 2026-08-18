@@ -26,9 +26,11 @@ import {
   runDiscovery,
   setFeedEnabled,
   startCoverage,
+  startCoverageFromUrls,
   verifyFeedUrlAction,
   type ActionResult,
   type DiscoveryRunResult,
+  type ScrapeResult,
 } from './actions'
 
 /** discoverFeedsForSource 가 돌려주는 항목 (패키지 타입을 화면까지 끌고 오지 않는다). */
@@ -959,6 +961,123 @@ function TrackTable({ tracks, acpOverlap }: { tracks: TrackRow[]; acpOverlap: st
   )
 }
 
+/**
+ * ③-B URL 직접 취재 — 피드로는 안 잡히는 사건의 우회로.
+ *
+ * 피드는 최근분만 싣고 어떤 발행사는 쓸 만한 피드가 아예 없다. 운영자가 아는 기사 주소를
+ * 넣으면 그 자리에서 취재가 시작된다. **규율은 피드 경로와 같다** — robots 를 보고,
+ * 본문은 저장하지 않는다.
+ */
+function UrlCoveragePanel() {
+  const act = useAction()
+  const [topic, setTopic] = useState('')
+  const [urls, setUrls] = useState('')
+  const [res, setRes] = useState<ScrapeResult | null>(null)
+
+  return (
+    <details className="rounded-lg border border-bd bg-bg2 p-s-4">
+      <summary className="cursor-pointer font-display text-sm font-bold text-t1">
+        기사 주소로 바로 취재 시작하기
+      </summary>
+      <p className="mt-s-2 max-w-[62rem] font-body text-xs text-t2">
+        피드에 안 잡히는 사건은 주소를 직접 넣으면 됩니다. <b>서로 다른 발행사 기사 2개 이상</b>이
+        필요합니다 — 한 곳만으로는 사실을 확인할 수 없습니다. 본문은 읽고 나서 지문만 남기고
+        버립니다.
+      </p>
+      <form
+        className="mt-s-3 flex flex-col gap-s-3"
+        onSubmit={(e) => {
+          e.preventDefault()
+          act.run(async () => {
+            const r = await startCoverageFromUrls({
+              urls: urls.split(/\s+/).filter(Boolean),
+              topic,
+              eventOccurredAt: null,
+            })
+            setRes(r)
+            if (r.ok) {
+              setUrls('')
+              setTopic('')
+            }
+            return { ok: r.ok, error: r.error }
+          })
+        }}
+      >
+        <label className="flex flex-col gap-s-1">
+          <span className="font-body text-xs text-t2">사건 / 주제</span>
+          <input
+            className={INPUT}
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+            placeholder="캘리포니아 중부 지진"
+            disabled={act.pending}
+          />
+        </label>
+        <label className="flex flex-col gap-s-1">
+          <span className="font-body text-xs text-t2">기사 주소 (한 줄에 하나)</span>
+          <textarea
+            className={`${INPUT} min-h-[6rem] font-mono text-xs`}
+            value={urls}
+            onChange={(e) => setUrls(e.target.value)}
+            placeholder={'https://www.bbc.com/news/...\nhttps://www.theguardian.com/...'}
+            disabled={act.pending}
+          />
+        </label>
+        <div>
+          <button type="submit" className={BTN} disabled={act.pending || !topic || !urls}>
+            {act.pending ? '읽는 중…' : '읽고 취재 시작'}
+          </button>
+        </div>
+      </form>
+
+      {res && (
+        <div className="mt-s-3 flex flex-col gap-s-2">
+          {(res.sources ?? []).map((s) => (
+            <div key={s.url} className="rounded-md border border-bd bg-bg p-s-3">
+              <div className="font-display text-sm font-bold text-t1">{s.title ?? '(제목 없음)'}</div>
+              <div className="font-mono text-[11px] text-t3">
+                {s.publisher}
+                {!s.known && <span className="text-warning"> · 미등록 발행사</span>}
+                {s.wire && <span> · {s.wire} 계통</span>} · {s.wordCount}어 · 추출 {s.via}
+                {s.via === 'density' && <span className="text-warning"> (신뢰도 낮음 — 확인 필요)</span>}
+              </div>
+              <details className="mt-s-1">
+                <summary className="cursor-pointer font-body text-xs text-t2">
+                  읽어 온 문장 {s.sentences.length}개 — 사실 카드를 적을 때 참고 (저장되지 않음)
+                </summary>
+                <ul className="mt-s-1 flex flex-col gap-s-1 font-body text-xs text-t2">
+                  {s.sentences.slice(0, 12).map((x, i) => (
+                    <li key={i}>· {x}</li>
+                  ))}
+                </ul>
+                <p className="mt-s-1 font-body text-xs text-warning">
+                  이 문장을 그대로 사실 카드에 옮기지 마세요 — 표현을 복사하면 발행 때 표현
+                  독립성 게이트가 막습니다. 사실만 우리 말로 적습니다.
+                </p>
+              </details>
+            </div>
+          ))}
+          {(res.failed ?? []).length > 0 && (
+            <ul className="flex flex-col gap-s-1 font-body text-xs text-error">
+              {res.failed!.map((f, i) => (
+                <li key={i}>
+                  {f.url} — {f.reason}
+                </li>
+              ))}
+            </ul>
+          )}
+          {res.ok && (
+            <p className="font-body text-sm text-success">
+              취재 묶음을 만들었습니다 (독립 계통 {res.independentLines}). ④ 원장에서 사실 카드를
+              적어 주세요.
+            </p>
+          )}
+        </div>
+      )}
+    </details>
+  )
+}
+
 /** ③ 발견 — 피드를 훑어 사건 묶음을 제안한다. 본문은 읽지 않는다. */
 function DiscoverPanel({ feedCount }: { feedCount: number }) {
   const act = useAction()
@@ -966,6 +1085,7 @@ function DiscoverPanel({ feedCount }: { feedCount: number }) {
 
   return (
     <section aria-label="사건 발견" className="flex flex-col gap-s-4">
+      <UrlCoveragePanel />
       <ErrorNote error={act.error} onClose={act.clear} />
 
       {feedCount === 0 && (
