@@ -5,10 +5,11 @@
 import { describe, expect, it } from 'vitest'
 
 import {
-  BAND_TOLERANCE_DRAFT,
+  BAND_CONSTRAINT,
   GRADE_BANDS,
   SPINE_AXIS,
   bandForVRange,
+  evaluateBand,
   profileBand,
   type SpineWord,
 } from './spine'
@@ -32,10 +33,20 @@ describe('스파인 축', () => {
     }
   })
 
-  it('밴드가 올라갈수록 허용 초과 비율도 올라간다', () => {
-    expect(BAND_TOLERANCE_DRAFT.elementary).toBeLessThan(BAND_TOLERANCE_DRAFT.middle)
-    expect(BAND_TOLERANCE_DRAFT.middle).toBeLessThan(BAND_TOLERANCE_DRAFT.high)
-    expect(BAND_TOLERANCE_DRAFT.high).toBeLessThan(BAND_TOLERANCE_DRAFT.exam)
+  it('보정 안 된 밴드는 판정하지 않는다 — 없는 근거로 막지 않는다', () => {
+    // 초등: 초등용 지문이 코퍼스에 0편. 대입: V>11 초과가 구조적으로 0%.
+    expect(BAND_CONSTRAINT.elementary.calibrated).toBe(false)
+    expect(BAND_CONSTRAINT.exam.calibrated).toBe(false)
+    expect(BAND_CONSTRAINT.middle.calibrated).toBe(true)
+    expect(BAND_CONSTRAINT.high.calibrated).toBe(true)
+    for (const c of Object.values(BAND_CONSTRAINT)) expect(c.basis.length).toBeGreaterThan(10)
+  })
+
+  it('최상위 밴드는 제약이 뒤집힌다 — 천장이 아니라 하한이다', () => {
+    // V>11 초과는 축의 끝이라 언제나 0% 다. 천장으로 두면 아무것도 걸러내지 못한다.
+    expect(BAND_CONSTRAINT.exam.kind).toBe('floor')
+    expect(BAND_CONSTRAINT.middle.kind).toBe('ceiling')
+    expect(BAND_CONSTRAINT.high.kind).toBe('ceiling')
   })
 })
 
@@ -78,6 +89,41 @@ describe('profileBand', () => {
     expect(p.offenders).toEqual([])
   })
 })
+
+describe('evaluateBand', () => {
+  const words = (spec: Array<[string, number]>) => spec.map(([w, v]) => ({ word: w, v }))
+
+  it('보정된 밴드는 기준으로 판정한다', () => {
+    const easy = words([['river', 2], ['water', 1], ['plant', 3], ['reactor', 7]])
+    expect(evaluateBand(profileBand(easy, 'high')).verdict).toBe('PASS')
+  })
+
+  it('보정된 밴드에서 초과가 크면 경고한다', () => {
+    const hard = words([['river', 2], ['coolant', 9], ['repertoire', 10], ['nuance', 9]])
+    const r = evaluateBand(profileBand(hard, 'high'))
+    expect(r.verdict).toBe('WARN')
+    expect(r.detail).toContain('밴드 초과')
+  })
+
+  it('보정 안 된 밴드는 통과도 실패도 아닌 UNCALIBRATED 로 남긴다', () => {
+    const any = words([['river', 2], ['coolant', 9]])
+    for (const band of ['elementary', 'exam'] as const) {
+      const r = evaluateBand(profileBand(any, band))
+      expect(r.verdict).toBe('UNCALIBRATED')
+      expect(r.detail).toContain('기준이 없다')
+    }
+  })
+
+  it('하한 밴드는 심화 어휘가 모자라면 걸린다 (천장 논리로 보면 절대 안 걸린다)', () => {
+    // 보정되면 이렇게 동작해야 한다는 계약. 지금은 exam 이 미보정이라 직접 검사한다.
+    const shallow = profileBand(words([['river', 2], ['water', 1], ['plant', 3]]), 'exam')
+    expect(shallow.aboveShare).toBe(0) // 천장으로는 영원히 통과
+    expect(shallow.deepShare).toBe(0) // 하한으로는 걸린다
+    const deep = profileBand(words([['river', 2], ['coolant', 9], ['nuance', 10]]), 'exam')
+    expect(deep.deepShare).toBeCloseTo(2 / 3)
+  })
+})
+
 
 describe('bandForVRange — 학습 유형과 학령을 잇는 지점', () => {
   it('실제 유형 vBand 가 뜻이 통하는 학령으로 간다', () => {

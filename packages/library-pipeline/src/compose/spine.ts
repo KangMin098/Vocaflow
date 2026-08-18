@@ -110,6 +110,8 @@ export interface BandProfile {
   aboveBand: number
   /** 밴드 위 단어 비율 (0~1). 판정 불가 단어는 분모에서 뺀다. */
   aboveShare: number
+  /** 심화 어휘(V≥9) 비율 — 최상위 밴드는 이걸 **하한**으로 본다 */
+  deepShare: number
   /** 밴드를 넘는 단어들 (V 높은 순) */
   offenders: ReadonlyArray<{ word: string; v: number }>
 }
@@ -127,6 +129,7 @@ export function profileBand(words: ReadonlyArray<SpineWord>, band: GradeBandKey)
   let known = 0
   let unknown = 0
   let above = 0
+  let deep = 0
   const offenders: Array<{ word: string; v: number }> = []
 
   const seen = new Set<string>()
@@ -139,6 +142,7 @@ export function profileBand(words: ReadonlyArray<SpineWord>, band: GradeBandKey)
       continue
     }
     known++
+    if (w.v >= 9) deep++
     if (w.v > max) {
       above++
       offenders.push({ word: key, v: w.v })
@@ -153,22 +157,105 @@ export function profileBand(words: ReadonlyArray<SpineWord>, band: GradeBandKey)
     inBand: known - above,
     aboveBand: above,
     aboveShare: known === 0 ? 0 : above / known,
+    deepShare: known === 0 ? 0 : deep / known,
     offenders,
   }
 }
 
+/** 밴드 제약의 방향. 최상위 밴드에서는 **뒤집힌다**. */
+export type BandConstraintKind = 'ceiling' | 'floor'
+
+export interface BandConstraint {
+  kind: BandConstraintKind
+  /** ceiling: 밴드 초과 어휘 비율의 상한 · floor: 심화 어휘(V≥9) 보유 비율의 하한 */
+  value: number
+  /** 이 값이 어디서 나왔는가. 근거 없이 임계를 두면 정상 산출물을 실패로 부른다. */
+  basis: string
+  /** 실측으로 보정됐는가. false 면 **막는 데 쓰면 안 된다**. */
+  calibrated: boolean
+}
+
 /**
- * 밴드별 허용 초과 비율.
+ * 밴드별 제약 — 발행 아티클 160편 실측(2026-08-18)에서 나왔다.
  *
- * ⚠️ **이 값은 아직 근거가 없다.** 지금은 초안을 재기만 하고 막지 않는다 —
- * 오늘 V-Level 점 목표를 ±2 로 막았다가 정상 글을 실패로 부른 일이 있었다. 실제 지문을
- * 충분히 재서 분포를 본 뒤에 임계로 승격시킨다. 그때까지 이 상수는 **보고용 기준선**이다.
+ * 측정 방법: 글마다 서로 다른 lemma 의 V 분포를 구해 밴드 초과 비율을 낸 뒤,
+ * **글 자신의 측정 레벨(`article_v_level`)로 묶어** 백분위를 봤다. 그 레벨에 실제로 있는
+ * 글이 통과해야 하기 때문이다.
+ *
+ *   avl  n    초등초과 p50/p90   중등초과 p50/p90   고등초과 p50/p90   V9+보유 p50
+ *   2    5    20.0 / 21.9        2.3 / 3.3          0.0 / 1.5          0.8
+ *   3    8    23.2 / 25.0        5.4 / 9.2          1.8 / 3.9          2.1
+ *   4   42    31.1 / 35.1        6.3 / 10.1         1.7 / 4.6          2.1
+ *   5   67    44.8 / 52.5       12.0 / 15.4         3.7 / 5.9          4.1
+ *   6   37    53.8 / 60.4       17.3 / 20.0         5.3 / 9.1          5.8
+ *   7    1    65.7 / 66.7       25.4 / 25.4        10.6 / 10.6        13.4
+ *
+ * 여기서 두 가지가 드러났고 둘 다 설계를 바꿨다:
+ *
+ *  ① **대입 밴드는 천장이 무의미하다.** V>11 초과가 전 구간 0.00% 다 — V11 이 축의 끝이라
+ *     넘을 수가 없다. 최상위에서 제약은 뒤집힌다: 어려운 말을 막는 게 아니라 **충분히
+ *     넣었는지**를 본다(수능·학술 지문의 성격 자체가 그렇다).
+ *  ② **초등 밴드는 보정할 수 없다.** 가장 쉬운 V2 지문조차 V3 초과가 20~22% 다. 초등용으로
+ *     쓴 글이 코퍼스에 **0편**이라 "정상인 초등 지문" 의 분포를 알 방법이 없다. 그래서
+ *     `calibrated: false` 로 두고, 초등 판을 실제로 써 본 뒤에 채운다. 없는 근거로 막지 않는다.
  */
-export const BAND_TOLERANCE_DRAFT: Record<GradeBandKey, number> = {
-  elementary: 0.03,
-  middle: 0.05,
-  high: 0.08,
-  exam: 0.12,
+export const BAND_CONSTRAINT: Record<GradeBandKey, BandConstraint> = {
+  elementary: {
+    kind: 'ceiling',
+    value: 0.2,
+    basis: '초등용 지문이 코퍼스에 0편 — V2 지문의 p50(20.0%)을 임시로 놓았을 뿐이다',
+    calibrated: false,
+  },
+  middle: {
+    kind: 'ceiling',
+    value: 0.12,
+    basis: 'V3~4 지문 50편의 밴드 초과 p90 = 9.2~10.1%. 여유를 두어 12%',
+    calibrated: true,
+  },
+  high: {
+    kind: 'ceiling',
+    value: 0.1,
+    basis: 'V5~6 지문 104편의 밴드 초과 p90 = 5.9~9.1%. 여유를 두어 10%',
+    calibrated: true,
+  },
+  exam: {
+    kind: 'floor',
+    value: 0.04,
+    basis: 'V5~6 지문의 V9+ 보유 p50 = 4.1~5.8%. 대입 표본이 1편뿐이라 그 아래로 잡았다',
+    calibrated: false,
+  },
+}
+
+/**
+ * 프로파일이 밴드 제약을 만족하는가.
+ *
+ * ⚠️ `calibrated: false` 인 밴드는 **판정하지 않는다**. 근거 없는 임계로 막으면 정상 산출물이
+ * 실패로 불린다 — 같은 실수를 이미 한 번 했다(V-Level 점 목표 ±2).
+ */
+export function evaluateBand(p: BandProfile): {
+  verdict: 'PASS' | 'WARN' | 'UNCALIBRATED'
+  detail: string
+} {
+  const c = BAND_CONSTRAINT[p.band]
+  const label = GRADE_BANDS[p.band].label
+  if (!c.calibrated) {
+    return {
+      verdict: 'UNCALIBRATED',
+      detail: `${label} 밴드는 아직 기준이 없다 — ${c.basis}. 측정값만 남긴다(초과 ${(p.aboveShare * 100).toFixed(1)}% · 심화 ${(p.deepShare * 100).toFixed(1)}%).`,
+    }
+  }
+  if (c.kind === 'ceiling') {
+    const ok = p.aboveShare <= c.value
+    return {
+      verdict: ok ? 'PASS' : 'WARN',
+      detail: `밴드 초과 ${(p.aboveShare * 100).toFixed(1)}% (기준 ${(c.value * 100).toFixed(0)}% · ${c.basis})`,
+    }
+  }
+  const ok = p.deepShare >= c.value
+  return {
+    verdict: ok ? 'PASS' : 'WARN',
+    detail: `심화 어휘 ${(p.deepShare * 100).toFixed(1)}% (최소 ${(c.value * 100).toFixed(0)}% · ${c.basis})`,
+  }
 }
 
 /** 학습 유형의 vBand 로 가장 가까운 학령 밴드를 고른다 — 두 축을 잇는 유일한 지점. */

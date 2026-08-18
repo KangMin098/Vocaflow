@@ -24,7 +24,7 @@ const bi = process.argv.indexOf('--batch')
 const batchId = bi >= 0 ? process.argv[bi + 1] : null
 
 const { createClient } = await import('@supabase/supabase-js')
-const { GRADE_BANDS, LEARNING_TYPES, bandForVRange, profileBand, BAND_TOLERANCE_DRAFT } =
+const { GRADE_BANDS, LEARNING_TYPES, bandForVRange, profileBand, evaluateBand } =
   await import('@vocaflow/library-pipeline')
 
 const db = createClient(
@@ -119,17 +119,16 @@ for (const a of arts) {
   const words = keys.map((w) => ({ word: w, v: vByWord.get(w) ?? null }))
 
   const p = profileBand(words, band)
-  const tol = BAND_TOLERANCE_DRAFT[band]
-  const over = p.aboveShare > tol
+  const e = evaluateBand(p)
 
   console.log(`▸ ${a.title}`)
   console.log(
     `  유형 ${track} (V${spec.vBand.min}~${spec.vBand.max}) → 학령 ${GRADE_BANDS[band].label} (V≤${GRADE_BANDS[band].vRange.max})`,
   )
   console.log(
-    `  어휘 ${p.known}개 판정 · 사전에 없음 ${p.unknown} · 밴드 초과 ${p.aboveBand} (${(p.aboveShare * 100).toFixed(1)}%)` +
-      `  기준선 ${(tol * 100).toFixed(0)}%${over ? '  ← 기준선 초과 (참고용 · 아직 막지 않음)' : ''}`,
+    `  어휘 ${p.known}개 판정 · 사전에 없음 ${p.unknown} · 밴드 초과 ${p.aboveBand} · 심화(V≥9) ${(p.deepShare * 100).toFixed(1)}%`,
   )
+  console.log(`  [${e.verdict}] ${e.detail}`)
   if (p.offenders.length) {
     console.log(`  넘는 단어: ${p.offenders.slice(0, 10).map((o) => `${o.word}(V${o.v})`).join(' · ')}`)
   }

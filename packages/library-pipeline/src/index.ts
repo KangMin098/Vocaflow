@@ -301,13 +301,21 @@ export type {
 } from './compose/activities'
 // 어휘 스파인 — 초등부터 대입까지 하나의 난이도 축(V-Level). 학령 밴드는 그 축의 구간이다.
 export {
-  BAND_TOLERANCE_DRAFT,
+  BAND_CONSTRAINT,
   GRADE_BANDS,
   SPINE_AXIS,
   bandForVRange,
+  evaluateBand,
   profileBand,
 } from './compose/spine'
-export type { BandProfile, GradeBand, GradeBandKey, SpineWord } from './compose/spine'
+export type {
+  BandConstraint,
+  BandConstraintKind,
+  BandProfile,
+  GradeBand,
+  GradeBandKey,
+  SpineWord,
+} from './compose/spine'
 // 학습 유형 — 발주의 1급 축. 소스·처리·결과물을 전부 가른다.
 export {
   LEARNING_TYPES,
