@@ -34,9 +34,9 @@ describe('스파인 축', () => {
   })
 
   it('보정 안 된 밴드는 판정하지 않는다 — 없는 근거로 막지 않는다', () => {
-    // 초등: 초등용 지문이 코퍼스에 0편. 대입: V>11 초과가 구조적으로 0%.
+    // 초등만 미보정 — 초등용 지문이 코퍼스에 0편이라 정상 분포를 알 수 없다.
     expect(BAND_CONSTRAINT.elementary.calibrated).toBe(false)
-    expect(BAND_CONSTRAINT.exam.calibrated).toBe(false)
+    expect(BAND_CONSTRAINT.exam.calibrated).toBe(true) // 소스군 분리로 보정됨
     expect(BAND_CONSTRAINT.middle.calibrated).toBe(true)
     expect(BAND_CONSTRAINT.high.calibrated).toBe(true)
     for (const c of Object.values(BAND_CONSTRAINT)) expect(c.basis.length).toBeGreaterThan(10)
@@ -107,7 +107,7 @@ describe('evaluateBand', () => {
 
   it('보정 안 된 밴드는 통과도 실패도 아닌 UNCALIBRATED 로 남긴다', () => {
     const any = words([['river', 2], ['coolant', 9]])
-    for (const band of ['elementary', 'exam'] as const) {
+    for (const band of ['elementary'] as const) {
       const r = evaluateBand(profileBand(any, band))
       expect(r.verdict).toBe('UNCALIBRATED')
       expect(r.detail).toContain('기준이 없다')

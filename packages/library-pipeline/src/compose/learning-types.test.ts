@@ -202,13 +202,28 @@ describe('trackCoverage — Admin 소스 화면 표시원', () => {
     expect(rows.find((r) => r.track === 'csat_korean')!.sources).toContain('noaa')
   })
 
-  it('발주는 학령 밴드를 함께 싣는다 — 같은 원장에서 초·중·고 판을 파생시키기 위한 축', () => {
-    const csat = buildJobSpec('csat_korean', 6)
-    const gen = buildJobSpec('general_proficiency', 3)
-    const acad = buildJobSpec('academic_english', 9)
-    expect('error' in csat).toBe(false)
-    expect((csat as { gradeBand: string }).gradeBand).toBe('high')
-    expect((gen as { gradeBand: string }).gradeBand).toBe('middle')
-    expect((acad as { gradeBand: string }).gradeBand).toBe('exam')
+  it('학령 밴드는 유형이 아니라 그 판의 목표 레벨에서 나온다', () => {
+    // 팩트시트 1개 → 학령별 N판의 전제. 같은 유형이 목표 레벨에 따라 다른 밴드를 서야 한다 —
+    // 유형의 vBand 전체로 정하면 V2 발주와 V5 발주가 같은 학령으로 뭉개지고, 학령 확장이
+    // 곧 유형 추가가 돼 버린다(그렇게 만들려다 VRL 축과 갈려서 되돌렸다).
+    const band = (t: LearningTrack, v: number) =>
+      (buildJobSpec(t, v) as { gradeBand: string }).gradeBand
+
+    expect(band('general_proficiency', 2)).toBe('elementary')
+    expect(band('general_proficiency', 5)).toBe('middle')
+    expect(band('csat_korean', 6)).toBe('middle')
+    expect(band('csat_korean', 8)).toBe('high')
+    expect(band('academic_english', 9)).toBe('exam')
+  })
+
+  it('학령 지시가 유형 지시에 더해지고 중복은 걸러진다', () => {
+    const el = buildJobSpec('general_proficiency', 2) as { directives: string[] }
+    const mi = buildJobSpec('general_proficiency', 5) as { directives: string[] }
+    // 초등 판에만 안전성 규칙이 붙는다.
+    expect(el.directives.some((d) => d.includes('사건사고'))).toBe(true)
+    expect(mi.directives.some((d) => d.includes('사건사고'))).toBe(false)
+    // 같은 문장이 두 번 들어가지 않는다.
+    expect(new Set(el.directives).size).toBe(el.directives.length)
+    expect(new Set(mi.directives).size).toBe(mi.directives.length)
   })
 })

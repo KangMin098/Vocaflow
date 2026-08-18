@@ -26,7 +26,14 @@
 //
 // 그래서 이 모듈은 축을 새로 만들지 않고 **V-Level 위에 학령 밴드를 정의**한다.
 
-/** 학령 밴드 — 하나의 V 축을 학령으로 자른 구간. 경계는 겹친다(진급이 계단이 아니므로). */
+/**
+ * 학령 밴드 — 하나의 V 축을 학령으로 자른 구간. 경계는 겹친다(진급이 계단이 아니므로).
+ *
+ * ⚠️ **미해결**: 이 밴드는 엄밀히 말하면 *어휘* 밴드이지 독자 연령이 아니다. 둘은 상관이
+ * 높지만 같지 않다 — 성인 학습자를 위한 V2 회화 지문도 '초등' 밴드로 잡힌다. 지금은
+ * 이 제품의 V1–3 독자가 실제로 초등이라 기본값으로 성립하지만, 성인 입문 과정을 열면
+ * 안전성 지시(사건사고 배제)가 엉뚱한 곳에 붙는다. 그때는 독자 축을 따로 뽑아야 한다.
+ */
 export interface GradeBand {
   key: GradeBandKey
   label: string
@@ -34,6 +41,14 @@ export interface GradeBand {
   vRange: { min: number; max: number }
   /** 대응 CEFR-J 밴드 — 위 실측 매핑에서 나온다 */
   cefrj: ReadonlyArray<string>
+  /**
+   * 학령 집필 지시 — **유형이 아니라 밴드가 갖는다.**
+   *
+   * 같은 유형(예: 일반 영어)이 초등판과 중등판을 모두 쓰므로, 학령에 따라 달라지는 규칙은
+   * 유형 쪽에 둘 수 없다. 특히 초등의 안전성 규칙(사건사고 배제)이 그렇다 — 사실 원장은
+   * 하드뉴스를 담고 있어도 초등판은 거기서 그 사실을 쓰지 않아야 한다.
+   */
+  directives: ReadonlyArray<string>
   note: string
 }
 
@@ -50,6 +65,13 @@ export const GRADE_BANDS: Record<GradeBandKey, GradeBand> = {
     label: '초등',
     vRange: { min: 1, max: 3 },
     cefrj: ['A1', 'A2'],
+    directives: [
+      '한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.',
+      '눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.',
+      '사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.',
+      '숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.',
+      '같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다.',
+    ],
     note: '흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.',
   },
   middle: {
@@ -57,6 +79,12 @@ export const GRADE_BANDS: Record<GradeBandKey, GradeBand> = {
     label: '중등',
     vRange: { min: 3, max: 6 },
     cefrj: ['A2', 'B1'],
+    directives: [
+      // ⚠️ '역피라미드로 쓰라' 고 지시하지 않는다 — 그것이 곧 원 기사의 전개라
+      //   I14(구조 독립성)를 정면으로 밀어 올린다. 학령 지시는 **문단 단위**만 정한다.
+      '한 문단은 4~6문장으로 끊는다 — 문단이 이해 단위이자 구문 연습 문항의 생성 단위다.',
+      '한 문단에 사실을 두세 개까지만 담는다.',
+    ],
     note: '하드뉴스 리라이트 최적 구간. 역피라미드 축약이 5W1H 문항과 맞는다.',
   },
   high: {
@@ -64,6 +92,10 @@ export const GRADE_BANDS: Record<GradeBandKey, GradeBand> = {
     label: '고등',
     vRange: { min: 5, max: 8 },
     cefrj: ['B1', 'B2'],
+    directives: [
+      '지시어로 문장 간 결속을 만든다 — 순서·삽입 문항의 단서가 된다.',
+      '한 문단에 논지 하나. 주제문을 문단 앞이나 끝에 분명히 둔다.',
+    ],
     note: '수능 register 진입. 논증형·학술형 explainer.',
   },
   exam: {
@@ -71,6 +103,10 @@ export const GRADE_BANDS: Record<GradeBandKey, GradeBand> = {
     label: '대입·학술',
     vRange: { min: 7, max: 11 },
     cefrj: ['B2'],
+    directives: [
+      '한정 표현(may·suggests·is associated with)으로 단정을 피한다.',
+      '심화 어휘를 일부러 넣는다 — 이 밴드의 제약은 천장이 아니라 하한이다.',
+    ],
     note: '대학 전공서 인용 수준. 뉴스 리라이트가 아니라 자체 집필 영역.',
   },
 }
@@ -221,8 +257,9 @@ export const BAND_CONSTRAINT: Record<GradeBandKey, BandConstraint> = {
   exam: {
     kind: 'floor',
     value: 0.04,
-    basis: 'V5~6 지문의 V9+ 보유 p50 = 4.1~5.8%. 대입 표본이 1편뿐이라 그 아래로 잡았다',
-    calibrated: false,
+    basis:
+      '소스군별 V9+ 보유 실측 — 학술(plos·elife·wikipedia, n=10) p10 5.0%·최소 3.8% vs 학습자용(voa·simple_wikipedia, n=64) p50 2.3%. 두 군을 가르는 자리에 4%',
+    calibrated: true,
   },
 }
 
@@ -258,7 +295,29 @@ export function evaluateBand(p: BandProfile): {
   }
 }
 
-/** 학습 유형의 vBand 로 가장 가까운 학령 밴드를 고른다 — 두 축을 잇는 유일한 지점. */
+/**
+ * 이 판이 서는 학령 — **발주의 목표 레벨**에서 정한다.
+ *
+ * ⚠️ 유형(track)이 아니라 목표 레벨에서 정하는 것이 핵심이다. 팩트시트 1개에서 학령별 N판을
+ * 파생시키려면 **같은 유형이 여러 학령을 서야** 하기 때문이다 — `general_proficiency`(V1–6)를
+ * V2 로 발주하면 초등판, V5 로 발주하면 중등판이다. 유형의 밴드 전체로 정하면 둘이 같은
+ * 학령으로 뭉개져서, 학령 확장이 곧 **유형 추가**가 돼 버린다.
+ *
+ * 실제로 그렇게 만들려다 되돌렸다: 초등용 유형을 새로 넣었더니 VRL 학습자 축
+ * (`shared_dictionary.track_levels` — 실측 6종, 35k행)에 없는 7번째 키가 생겨 **두 레지스트리가
+ * 갈렸다**. 학령은 렌더링 파라미터이지 학습자가 선언하는 목표가 아니다.
+ *
+ * 경계는 CEFR-J ↔ V 중앙값에서 온다(A1→1 · A2→3 · B1→5 · B2→7). `GradeBand.vRange` 가 서로
+ * 겹치는 것은 **읽기 허용치**이고, 이 함수는 **집필 배정**이라 겹치지 않는다.
+ */
+export function bandForVLevel(v: number): GradeBandKey {
+  if (v <= 3) return 'elementary'
+  if (v <= 6) return 'middle'
+  if (v <= 8) return 'high'
+  return 'exam'
+}
+
+/** 유형이 **설 수 있는** 학령(대표값). 집필 배정은  을 쓴다. */
 export function bandForVRange(range: { min: number; max: number }): GradeBandKey {
   let best: GradeBandKey = 'high'
   let bestOverlap = -1

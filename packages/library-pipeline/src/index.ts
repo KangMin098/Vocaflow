@@ -304,6 +304,7 @@ export {
   BAND_CONSTRAINT,
   GRADE_BANDS,
   SPINE_AXIS,
+  bandForVLevel,
   bandForVRange,
   evaluateBand,
   profileBand,

@@ -19,7 +19,7 @@
 
 import { COMPOSE_ACTIVITIES } from './activities'
 import { FACT_SOURCES, planFactSources, type FactSourceSpec } from './sources'
-import { bandForVRange, type GradeBandKey } from './spine'
+import { GRADE_BANDS, bandForVLevel, type GradeBandKey } from './spine'
 
 /** VRL 학습 트랙 — 학습자가 선언한 목표. user_profiles.target_track_levels 와 같은 어휘. */
 export type LearningTrack =
@@ -323,6 +323,9 @@ export function buildJobSpec(
   if (!spec.registers.includes(register)) {
     return { error: `${spec.label} 은 ${register} 를 쓰지 않는다 (${spec.registers.join('·')})` }
   }
+  // 학령은 **이 판의 목표 레벨**에서 나온다 — 같은 유형이 학령별 N판을 서기 위한 전제다.
+  //   유형의 밴드 전체로 정하면 V2 발주와 V5 발주가 같은 학령으로 뭉개진다.
+  const band = bandForVLevel(targetVLevel)
   const skillFocus = opts.skillFocus ?? spec.skills[0]!
   if (!spec.skills.includes(skillFocus)) {
     return { error: `${spec.label} 의 어휘 기능은 ${spec.skills.join('·')} 이다` }
@@ -330,13 +333,15 @@ export function buildJobSpec(
 
   return {
     track,
-    gradeBand: bandForVRange(spec.vBand),
+    gradeBand: band,
     register,
     targetVLevel,
     skillFocus,
     words: spec.compose.words,
     avgSentenceWords: spec.compose.avgSentenceWords,
-    directives: spec.compose.directives,
+    // 유형 지시 + 학령 지시. 학령 규칙(안전성·문단 단위)은 유형이 아니라 밴드가 갖는다.
+    //   중복은 걸러 낸다 — 프롬프트에 같은 말이 두 번 들어가면 지시가 아니라 잡음이다.
+    directives: [...new Set([...spec.compose.directives, ...GRADE_BANDS[band].directives])],
     activities: spec.activities,
   }
 }
