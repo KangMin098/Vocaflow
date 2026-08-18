@@ -31,7 +31,7 @@ const bi = process.argv.indexOf('--batch')
 const batchId = bi >= 0 ? process.argv[bi + 1] : null
 
 const { createClient } = await import('@supabase/supabase-js')
-const { analyzeArticle, computeLexicalNoise, normalizePunctuation, reflowSoftHyphens, LEARNING_TYPES } =
+const { analyzeArticle, computeLexicalNoise, normalizePunctuation, reflowSoftHyphens, LEARNING_TYPES, withAttribution } =
   await import('@vocaflow/library-pipeline')
 
 const db = createClient(
@@ -72,7 +72,24 @@ for (const a of rows) {
     continue
   }
 
-  const bodyText = reflowSoftHyphens(normalizePunctuation(a.content))
+  // 사실 출처를 본문에 박아 넣는다 — 없이 발행되면 재저작 글이 출처 없는 글이 된다.
+  const { data: srcRows } = await db
+    .from('article_compose_sources')
+    .select('publisher')
+    .eq('batch_id', a.compose_batch_id)
+  const publishers = [...new Set((srcRows ?? []).map((r) => r.publisher))].sort()
+  if (publishers.length === 0) {
+    console.log(`  ⚠ 취재 소스가 없어 출처를 표기할 수 없습니다 — 건너뜁니다.
+`)
+    continue
+  }
+  const withAttr = withAttribution(a.content, publishers)
+  if (withAttr !== a.content) {
+    const { error: aErr } = await db.from('library_articles').update({ content: withAttr }).eq('id', a.id)
+    if (aErr) throw new Error('출처 표기 실패: ' + aErr.message)
+    console.log(`  출처 표기: ${publishers.join(", ")}`)
+  }
+  const bodyText = reflowSoftHyphens(normalizePunctuation(withAttr))
   const norm = {
     raw: {
       source: 'original',
@@ -83,7 +100,7 @@ for (const a of rows) {
       language: 'en',
       license: 'original',
       published_at: null,
-      content: a.content,
+      content: withAttr,
       estimated_cefr: null,
       fetched_at: new Date(),
     },

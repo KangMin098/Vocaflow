@@ -20,6 +20,7 @@
 // ⚠ 게이트는 면책이 아니다. 침해 위험이 큰 알려진 경로를 자동으로 막을 뿐이고,
 //   상용화 시점의 전문가 검토를 대체하지 않는다.
 
+import { stripAttribution } from './attribution'
 import {
   buildFingerprint,
   containment,
@@ -227,7 +228,7 @@ export function checkExpressionIndependence(
   let worst: { run: VerbatimRun; source: SourceRecord } | null = null
   let total = 0
   for (const s of sources) {
-    for (const run of findVerbatimRuns(draft.text, s.fingerprint)) {
+    for (const run of findVerbatimRuns(stripAttribution(draft.text), s.fingerprint)) {
       total++
       if (!worst || run.wordCount > worst.run.wordCount) worst = { run, source: s }
     }
@@ -293,7 +294,7 @@ export function checkShelfDuplication(
 
   let worst: { run: VerbatimRun; source: SourceRecord } | null = null
   for (const s of shelf) {
-    for (const run of findVerbatimRuns(draft.text, s.fingerprint)) {
+    for (const run of findVerbatimRuns(stripAttribution(draft.text), s.fingerprint)) {
       if (!worst || run.wordCount > worst.run.wordCount) worst = { run, source: s }
     }
   }
@@ -342,7 +343,9 @@ export function shelfRecordFrom(article: {
     publisher: `vocaflow:${article.source}`,
     url: `internal://article/${article.id}`,
     published_at: '',
-    fingerprint: buildFingerprint(article.content),
+    // 우리가 붙인 출처 표기는 떼고 잰다 — 형제 판끼리 그 상용구가 22어절 겹쳐 I17 이
+    //   두 판을 모두 차단한 적이 있다. 우리 문장은 표절의 증거가 아니다.
+    fingerprint: buildFingerprint(stripAttribution(article.content)),
   }
 }
 
