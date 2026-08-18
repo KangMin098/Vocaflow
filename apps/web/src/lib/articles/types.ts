@@ -88,6 +88,13 @@ export interface PublishedArticle {
   register: string | null
   /** P4 — 음성 배지 (VOA 등 듣기 정체성 · audio 연결 여부) */
   audio_url: string | null
+  /**
+   * 이 글이 다른 글의 **쉬운 판**인가 (ACP §20 레벨 적응).
+   *
+   * 적응 글은 출처를 원본 그대로 쓰므로(nasa 등) 카탈로그에서 원본 바로 옆에 선다.
+   * 표시가 없으면 학습자에게는 **같은 글이 두 개**로 보인다.
+   */
+  adapted_from_id?: string | null
 }
 
 export const ARTICLE_IN_PROGRESS_STATUSES: ArticleStatus[] = [

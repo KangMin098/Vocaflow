@@ -25,6 +25,7 @@ import {
   type MyLibraryView,
 } from '@/lib/library/tabs'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
+import { ArticleCover } from '@/components/library/shared/ArticleCover'
 import { workspaceHref } from '@/lib/text-viewer/workspace-href'
 import type { LibraryText } from '@/types/library'
 import type { SubscribedSet } from '@/hooks/useSubscribedSets'
@@ -501,43 +502,33 @@ function ScriptCard({
   isCenter: boolean
   onClick: () => void
 }) {
-  const cover = bookCover({
-    title: item.title,
-    bookVLevel: cefrToVLevel(item.cefrLevel),
-    coverFrom: null,
-    coverTo: null,
-  })
+  // ⚠️ `coverGradient` 를 반드시 넘긴다. `lib/articles/start-learning.ts` 가 기사를 책과
+  //   **시각적으로 구분하려고** 일부러 시안(#38BDF8→#0E7490)을 심는데, 여기서 null 을 넘기면
+  //   제목 해시 팔레트로 떨어진다 — 그 팔레트는 도서와 **완전히 같은 8색**이라 구분이 사라진다.
+  //   바로 위 `BookCard` 는 제대로 넘기고 있었다.
   return (
-    <CardWrap
-      onClick={onClick}
-      ariaLabel={item.title}
-    >
-      <CoverShell
-        from={cover.from}
-        to={cover.to}
+    <CardWrap onClick={onClick} ariaLabel={item.title}>
+      {/* 기사는 **책 표지도 책 셸도 쓰지 않는다** — 가로 4:3 평면 + 신문 네임플레이트.
+          학습자가 카드만 보고 기사인지 책인지 구분할 수 있어야 한다. */}
+      <ArticleShell
         isCenter={isCenter}
         coverSlot={
-          <GradientBookCover
+          <ArticleCover
             title={item.title}
-            author={item.author && item.author !== '저자 미상' ? item.author : null}
+            source={item.articleSource}
+            level={item.cefrLevel}
           />
         }
       >
-        <span
-          aria-hidden
-          className="absolute left-3.5 top-3.5 inline-flex items-center gap-1 rounded-[3px] bg-black/55 px-2 py-0.5 font-display text-[10.5px] font-[700] text-white backdrop-blur-sm"
-        >
-          <FileText size={10} /> {item.category}
-        </span>
         {item.progressPercent > 0 && (
           <span
             aria-hidden
-            className="absolute right-3.5 top-3.5 inline-flex items-center rounded-[3px] bg-white/95 px-2 py-0.5 font-mono text-[10.5px] font-[700] text-[var(--t1)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
+            className="absolute bottom-3 right-4 inline-flex items-center font-editorial text-[10.5px] font-[600] tabular-nums text-white/75"
           >
             {item.progressPercent}%
           </span>
         )}
-      </CoverShell>
+      </ArticleShell>
     </CardWrap>
   )
 }
@@ -642,6 +633,42 @@ function CoverShell({
       {/* 실제 책 입체 — 입체 책등(좌) + 페이지 단면(우). 모든 표지 공통 (커버 위 overlay) */}
       <div aria-hidden className="book-spine3d" />
       <div aria-hidden className="book-foreedge" />
+      {children}
+    </div>
+  )
+}
+
+/**
+ * 기사 전용 셸 — **가로 4:3 · 평면**.
+ *
+ * `CoverShell` 을 쓰면 안 되는 이유: 그건 3D 책 오브젝트다(`book-cover-premium` 의
+ * `border-radius: 2px 7px 7px 2px` = 책등 날카롭고 페이지 단면 둥근 모서리 · 갈색 캐스트
+ * 섀도 · `book-spine3d` · `book-foreedge` · 바닥 반사). 기사에 그걸 씌우면 신문이 양장본이 된다.
+ *
+ * 편집 레퍼런스 실측(Economist·New Yorker·Monocle): 기사 카드에 **`border-radius`·
+ * `box-shadow`·입체 프레임이 전부 0**이고, 구분은 1px 괘선이나 여백이 맡는다.
+ * 다만 이 캐러셀은 Coverflow 라 카드가 공중에 떠 있어야 해서, 최소한의 평면 그림자만 남긴다.
+ *
+ * 탭이 갈려 있어(Books · Texts · Decks) 기사 탭만 다른 비율을 가져도 레이아웃이 어긋나지 않는다.
+ */
+function ArticleShell({
+  isCenter,
+  children,
+  coverSlot,
+}: {
+  isCenter: boolean
+  children?: React.ReactNode
+  coverSlot: React.ReactNode
+}) {
+  return (
+    <div
+      className={`relative aspect-[4/3] w-[344px] overflow-hidden rounded-[3px] transition-shadow duration-[var(--dur-slow)] ${
+        isCenter
+          ? 'shadow-[0_2px_4px_rgba(12,14,20,0.14),0_18px_38px_-12px_rgba(12,14,20,0.34)]'
+          : 'shadow-[0_1px_2px_rgba(12,14,20,0.10),0_8px_18px_-8px_rgba(12,14,20,0.22)]'
+      }`}
+    >
+      {coverSlot}
       {children}
     </div>
   )

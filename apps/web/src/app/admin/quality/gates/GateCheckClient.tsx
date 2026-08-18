@@ -198,10 +198,10 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
                     <span className={`rounded-[var(--r-sm)] px-2 py-0.5 font-mono text-[10px] font-[700] ${V[r.verdict].bg} ${V[r.verdict].fg}`}>
                       {r.verdict}
                     </span>
-                    <span className="font-mono text-[10px] text-[var(--t3)]">{r.pipeline}</span>
+                    <span className="font-mono text-[10px] text-[var(--t2)]">{r.pipeline}</span>
                     <span className="font-body text-[13px] text-[var(--t1)]">{r.invariant}</span>
                   </div>
-                  <span className="font-mono text-[11px] text-[var(--t3)]">
+                  <span className="font-mono text-[11px] text-[var(--t2)]">
                     {r.verdict === 'PASS' ? '0' : `${r.fail_count}건`}
                   </span>
                 </li>
@@ -222,7 +222,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
                   상세 원인 보기 (문제 단어)
                 </button>
               ) : details.length === 0 ? (
-                <p className="font-body text-[12px] text-[var(--t3)]">
+                <p className="font-body text-[12px] text-[var(--t2)]">
                   단어 레벨 상세 없음 — 파이프라인 레벨 FAIL(레벨·register·드리프트)은 상단 요약과
                   §5 대응표(런북) 참조.
                 </p>
@@ -241,7 +241,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
                       </div>
                       <p className="mt-0.5 font-body text-[12px] text-[#9C3A30]">{d.issue}</p>
                       {d.fix_hint && (
-                        <p className="font-mono text-[10px] text-[var(--t3)]">→ 고침: {d.fix_hint}</p>
+                        <p className="font-mono text-[10px] text-[var(--t2)]">→ 고침: {d.fix_hint}</p>
                       )}
                     </li>
                   ))}

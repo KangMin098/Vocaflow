@@ -82,7 +82,7 @@ export function CriticalDefectsSection({ defects }: CriticalDefectsSectionProps)
             <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
               Critical Defects
             </h2>
-            <p className="font-body text-[12px] text-[var(--t3)]">
+            <p className="font-body text-[12px] text-[var(--t2)]">
               자동 탐지 — P0 {summary.byPriority.P0} · P1 {summary.byPriority.P1} · P2 {summary.byPriority.P2}
             </p>
           </div>
@@ -153,7 +153,7 @@ function ImpactSummary({
       className="flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1.5"
       aria-label="affects per responsibility"
     >
-      <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t3)]">
+      <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         affects
       </p>
       {(['R1', 'R2', 'R3', 'R4'] as const).map((r) => {

@@ -51,7 +51,7 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
             {item.id}
           </span>
           {item.schemaTier && (
-            <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9px] font-[700] text-[var(--t3)]">
+            <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9px] font-[700] text-[var(--t2)]">
               Tier {item.schemaTier}
             </span>
           )}
@@ -78,7 +78,7 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
           )}
           {item.isCorePain && (
             <span
-              className="inline-flex items-center gap-0.5 rounded-full bg-[var(--error-light)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-[var(--error)]"
+              className="inline-flex items-center gap-0.5 rounded-full bg-[var(--error-light)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-[var(--error-ink)]"
               aria-label="core pain"
               title="본질 페인"
             >
@@ -108,7 +108,7 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
           </span>
         ))}
         {item.defectId && (
-          <span className="font-mono text-[9px] text-[var(--t3)]">
+          <span className="font-mono text-[9px] text-[var(--t2)]">
             ↳ {item.defectId}
           </span>
         )}
@@ -120,9 +120,9 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
         </p>
       ) : (
         <dl className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-0.5 border-t border-[var(--bd)] pt-2 font-body text-[10px] text-[var(--t2)]">
-          <dt className="font-mono text-[var(--t3)]">effort</dt>
+          <dt className="font-mono text-[var(--t2)]">effort</dt>
           <dd>{item.effort}</dd>
-          <dt className="font-mono text-[var(--t3)]">value</dt>
+          <dt className="font-mono text-[var(--t2)]">value</dt>
           <dd className="font-[600] text-[var(--t1)]">{item.value}</dd>
         </dl>
       )}

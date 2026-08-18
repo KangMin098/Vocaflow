@@ -135,12 +135,12 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
             📻 VOA Learning English
           </h2>
-          <span className="font-mono text-[12px] text-[var(--t3)]">
+          <span className="font-mono text-[12px] text-[var(--t2)]">
             U.S. federal government · Public Domain
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <label htmlFor="voa-feed-select" className="font-mono text-[11px] text-[var(--t3)]">
+          <label htmlFor="voa-feed-select" className="font-mono text-[11px] text-[var(--t2)]">
             카테고리
           </label>
           <select
@@ -186,7 +186,7 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
             type="button"
             onClick={handleUrlEnqueue}
             disabled={urlEnqueuing || !urlInput.trim()}
-            className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {urlEnqueuing ? (
               <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -215,7 +215,7 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
         )}
       </div>
 
-      <div className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+      <div className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
         RSS 카테고리 (자동 목록)
       </div>
 
@@ -240,7 +240,7 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
                     <h3 className="line-clamp-1 font-display text-[14px] font-[600] text-[var(--t1)]">
                       {item.title}
                     </h3>
-                    <p className="mt-0.5 line-clamp-2 font-body text-[12px] text-[var(--t3)]">
+                    <p className="mt-0.5 line-clamp-2 font-body text-[12px] text-[var(--t2)]">
                       {item.description || '(설명 없음)'}
                     </p>
                   </div>
@@ -264,7 +264,7 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
                         type="button"
                         onClick={() => handleEnqueue(item)}
                         disabled={isEnqueuing}
-                        className="inline-flex min-h-[32px] items-center gap-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="inline-flex min-h-[32px] items-center gap-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         {isEnqueuing ? (
                           <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -322,8 +322,8 @@ function ErrorBox({ message }: { message: string }) {
 function EmptyBox() {
   return (
     <div className="flex flex-col items-center justify-center gap-1 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center">
-      <Radio size={28} className="text-[var(--t3)]" aria-hidden />
-      <p className="font-body text-[12px] text-[var(--t3)]">
+      <Radio size={28} className="text-[var(--t2)]" aria-hidden />
+      <p className="font-body text-[12px] text-[var(--t2)]">
         이 카테고리에서 가져올 기사가 없어요.
       </p>
     </div>

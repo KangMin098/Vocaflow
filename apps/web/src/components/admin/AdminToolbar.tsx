@@ -37,7 +37,7 @@ export function AdminToolbar({
       <div className="relative min-w-0 flex-1">
         <Search
           size={14}
-          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+          className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t2)]"
           aria-hidden
         />
         <input
@@ -45,14 +45,14 @@ export function AdminToolbar({
           placeholder={searchPlaceholder}
           value={searchValue ?? ''}
           onChange={(e) => onSearchChange?.(e.target.value)}
-          className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t3)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+          className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
         />
       </div>
 
       {/* 필터 칩 */}
       {chips && chips.length > 0 && (
         <div className="flex items-center gap-1.5">
-          <Filter size={13} className="text-[var(--t3)]" aria-hidden />
+          <Filter size={13} className="text-[var(--t2)]" aria-hidden />
           {chips.map((c, i) => (
             <button
               key={i}

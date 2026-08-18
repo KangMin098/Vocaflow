@@ -100,7 +100,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
       {/* ── Overall Score (큰 표시) ── */}
       <div className="flex flex-wrap items-end gap-4">
         <div>
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)]">
+          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
             Overall Health
           </p>
           <p
@@ -108,7 +108,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
             style={{ color: status.fg }}
           >
             {snapshot.overallScore}
-            <span className="ml-1 font-body text-[18px] font-[500] text-[var(--t3)]">
+            <span className="ml-1 font-body text-[18px] font-[500] text-[var(--t2)]">
               / 100
             </span>
           </p>
@@ -195,7 +195,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
               className="flex items-center justify-between gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2"
             >
               <div className="min-w-0">
-                <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+                <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
                   {d.label}
                 </p>
                 <p

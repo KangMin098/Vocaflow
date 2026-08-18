@@ -118,7 +118,7 @@ export function VocabularyBrowserClient({
     <div className="flex flex-col gap-4">
       {/* ── KPI 띠 ── */}
       <div className="flex flex-wrap items-center justify-between gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2">
-        <p className="font-mono text-[11px] text-[var(--t3)]">
+        <p className="font-mono text-[11px] text-[var(--t2)]">
           <span className="font-display font-[700] text-[var(--t1)]">
             {result.total.toLocaleString()}
           </span>{' '}
@@ -143,7 +143,7 @@ export function VocabularyBrowserClient({
           <Search
             size={14}
             strokeWidth={2}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t3)]"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--t2)]"
             aria-hidden
           />
           <input
@@ -151,7 +151,7 @@ export function VocabularyBrowserClient({
             value={qLocal}
             onChange={(e) => setQLocal(e.target.value)}
             placeholder="word · meaning_ko · lemma_band 검색 (2자 이상)"
-            className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t3)] focus:border-[#8B5CF6] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/30"
+            className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[#8B5CF6] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/30"
           />
         </div>
 

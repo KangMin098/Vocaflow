@@ -129,6 +129,19 @@ export function CuratedArticlesTab({
     admin_revert_published_article: '/api/admin/articles/revert',
     admin_delete_article: '/api/admin/articles/delete',
   }
+  type LooseRpcClient = {
+    rpc: (n: string, p: Record<string, unknown>) => Promise<{ error: { message: string } | null }>
+  }
+
+  // 라우트를 타지 않고 브라우저에서 바로 부르는 RPC — **이름을 리터럴로 적어 둔다**.
+  // 예전엔 `client.rpc(name, …)` 처럼 변수를 넘겨서, RPC 권한 감사가 코드에서 호출자를
+  // 정적으로 모을 때 이 두 개를 놓쳤다("아무도 안 부르는 함수" 로 오분류 → 회수 대상이 됨).
+  // 회귀 락: src/lib/auth/__tests__/rpc-call-sites.test.ts
+  const DIRECT_RPC: Record<string, (c: LooseRpcClient, id: string) => Promise<{ error: { message: string } | null }>> = {
+    admin_requeue_article: (c, id) => c.rpc('admin_requeue_article', { p_article_id: id }),
+    admin_archive_article: (c, id) => c.rpc('admin_archive_article', { p_article_id: id }),
+  }
+
   async function rpcAction(name: string, id: string, actionLabel: string) {
     await runAction(actionLabel, async () => {
       const route = RPC_ROUTE[name]
@@ -142,10 +155,10 @@ export function CuratedArticlesTab({
         if (!res.ok || !data.ok) throw new Error(data.message ?? data.error ?? `HTTP ${res.status}`)
         return
       }
-      const client = createClient() as unknown as {
-        rpc: (n: string, p: Record<string, unknown>) => Promise<{ error: { message: string } | null }>
-      }
-      const { error } = await client.rpc(name, { p_article_id: id })
+      const call = DIRECT_RPC[name]
+      // 모르는 액션을 조용히 통과시키면 "눌렀는데 아무 일도 없음" 이 된다
+      if (!call) throw new Error(`알 수 없는 액션: ${name}`)
+      const { error } = await call(createClient() as unknown as LooseRpcClient, id)
       if (error) throw new Error(error.message)
     })
   }
@@ -268,7 +281,7 @@ export function CuratedArticlesTab({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-baseline gap-2">
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">{heading}</h2>
-          <span className="font-mono text-[12px] text-[var(--t3)]">
+          <span className="font-mono text-[12px] text-[var(--t2)]">
             {visible.length === articles.length ? `${articles.length}건` : `${visible.length} / ${articles.length}건`}
           </span>
         </div>
@@ -278,7 +291,7 @@ export function CuratedArticlesTab({
               type="button"
               onClick={runDrain}
               disabled={drain?.running}
-              className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {drain?.running ? <Loader2 size={12} className="animate-spin" aria-hidden /> : <Play size={12} aria-hidden />}
               큐 처리 (dev · {queuedCount})
@@ -312,7 +325,7 @@ export function CuratedArticlesTab({
                     type="button"
                     onClick={toggleAll}
                     aria-label={allSelected ? '전체 선택 해제' : '전체 선택'}
-                    className="inline-flex rounded-[var(--r-sm)] text-[var(--t3)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                    className="inline-flex rounded-[var(--r-sm)] text-[var(--t2)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                   >
                     {allSelected ? <CheckSquare size={15} /> : <Square size={15} />}
                   </button>
@@ -350,7 +363,7 @@ export function CuratedArticlesTab({
                         onClick={() => toggleOne(a.id)}
                         aria-label={isSel ? '선택 해제' : '선택'}
                         aria-pressed={isSel}
-                        className="inline-flex rounded-[var(--r-sm)] text-[var(--t3)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                        className="inline-flex rounded-[var(--r-sm)] text-[var(--t2)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                       >
                         {isSel ? (
                           <CheckSquare size={15} style={{ color: 'var(--learn-known)' }} />
@@ -368,7 +381,7 @@ export function CuratedArticlesTab({
                           {a.title}
                         </Link>
                         {a.author && (
-                          <span className="line-clamp-1 font-body text-[11px] text-[var(--t3)]">{a.author}</span>
+                          <span className="line-clamp-1 font-body text-[11px] text-[var(--t2)]">{a.author}</span>
                         )}
                         {a.status_message && (
                           <span className="line-clamp-1 font-mono text-[10px] text-[var(--learn-error)]">
@@ -390,12 +403,12 @@ export function CuratedArticlesTab({
                       <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
                         {a.cefr_level ?? '—'}
                         {a.article_v_level != null && (
-                          <span className="ml-1 text-[var(--t3)]">· V{a.article_v_level}</span>
+                          <span className="ml-1 text-[var(--t2)]">· V{a.article_v_level}</span>
                         )}
                       </span>
                     </Td>
                     <Td align="center">
-                      <span className="font-mono text-[10px] text-[var(--t3)]">{a.register ?? '—'}</span>
+                      <span className="font-mono text-[10px] text-[var(--t2)]">{a.register ?? '—'}</span>
                     </Td>
                     {showGate && (
                       <Td align="center">
@@ -408,7 +421,7 @@ export function CuratedArticlesTab({
                       </span>
                     </Td>
                     <Td align="right">
-                      <span className="font-mono text-[10px] text-[var(--t3)]">
+                      <span className="font-mono text-[10px] text-[var(--t2)]">
                         {a.published_at ? a.published_at.slice(0, 10) : '—'}
                       </span>
                     </Td>
@@ -416,7 +429,7 @@ export function CuratedArticlesTab({
                       <div className="flex items-center justify-end gap-1">
                         <Link
                           href={`/admin/articles/preview/${a.id}${previewSuffix}`}
-                          className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] px-2 font-display text-[10px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p)] hover:text-[var(--ti)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                          className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] px-2 font-display text-[10px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                           aria-label="글 검수 페이지 열기"
                         >
                           <SearchCheck size={11} aria-hidden />
@@ -537,7 +550,7 @@ function BulkToolbar({
           type="button"
           onClick={onDev}
           disabled={bulk != null}
-          className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {bulk === 'dev' ? <Loader2 size={12} className="animate-spin" aria-hidden /> : <Play size={12} aria-hidden />}
           Dev 일괄 처리
@@ -648,11 +661,11 @@ function FilterChips({
             className={[
               'rounded-[var(--r-sm)] px-3 py-1 font-display text-[11px] font-[600] transition-colors duration-[var(--dur-normal)]',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
-              active ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]' : 'text-[var(--t3)] hover:text-[var(--t2)]',
+              active ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]' : 'text-[var(--t2)] hover:text-[var(--t2)]',
             ].join(' ')}
           >
             {opt.label}
-            {count > 0 && <span className="ml-1 font-mono text-[10px] text-[var(--t3)]">{count}</span>}
+            {count > 0 && <span className="ml-1 font-mono text-[10px] text-[var(--t2)]">{count}</span>}
           </button>
         )
       })}
@@ -720,7 +733,7 @@ function Th({ children, align = 'left', srOnly }: { children: React.ReactNode; a
       className={[
         'px-3 py-2',
         align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left',
-        'font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]',
+        'font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]',
       ].join(' ')}
     >
       {srOnly ? <span className="sr-only">{children}</span> : children}
@@ -749,12 +762,12 @@ function EmptyBox({ onReset, hasAny }: { onReset: () => void; hasAny: boolean })
         <button
           type="button"
           onClick={onReset}
-          className="rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--ti)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          className="rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--on-p)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           필터 초기화
         </button>
       ) : (
-        <p className="font-body text-[12px] text-[var(--t3)]">소스 GET 에서 기사를 골라 큐에 추가하세요.</p>
+        <p className="font-body text-[12px] text-[var(--t2)]">소스 GET 에서 기사를 골라 큐에 추가하세요.</p>
       )}
     </div>
   )

@@ -63,6 +63,12 @@ export interface LibraryText {
   coverImageUrl?: string | null
   /** 도서 단위 카드일 때 — 그림책 여부 (i+1 임계 삽화 보정) */
   isPictureBook?: boolean
+  /** ACP 기사에서 시작한 글일 때 — `library_articles.source` 키 (voa · nasa · the_conversation …).
+   *  표지를 **책이 아니라 기사**로 그리는 근거다. 이 값이 없으면 출처를 알 수 없어
+   *  `ArticleCover` 가 회색 폴백으로 떨어진다. `texts.source_url = 'article:{uuid}'` 마커로 잇는다. */
+  articleSource?: string | null
+  /** ACP 기사에서 시작한 글일 때 — 원문 읽기 시간(분). 표지 데이트라인에 쓴다. */
+  articleReadingMinutes?: number | null
 }
 
 export interface CategoryItem {

@@ -26,7 +26,20 @@ const CATEGORY_MAP: Record<string, string> = {
   'shared-set': '공용 단어장',
 }
 
-function mapDbToLibraryText(row: TextsRow): LibraryText {
+/**
+ * `texts.source_url` 의 ACP 마커에서 기사 id 를 뽑는다.
+ * `lib/articles/start-learning.ts` 가 `article:{uuid}` 로 심는다(중복 학습 방지용 키).
+ * 이 마커가 **기사 표지를 그릴 수 있는 유일한 단서**다 — `texts` 자체에는 출처 컬럼이 없다.
+ */
+export function articleIdFromMarker(sourceUrl: string | null | undefined): string | null {
+  const m = /^article:([0-9a-f-]{36})$/i.exec((sourceUrl ?? '').trim())
+  return m ? m[1] : null
+}
+
+/** 기사 id → 표지에 필요한 최소 메타. `fetchTexts` 가 한 번에 채운다. */
+type ArticleCoverMeta = { source: string | null; readingMinutes: number | null }
+
+function mapDbToLibraryText(row: TextsRow, articleMeta?: Map<string, ArticleCoverMeta>): LibraryText {
   const content = row.content ?? ''
   const wordCount = content.split(/\s+/).filter(Boolean).length
   const totalPages = Math.max(1, Math.ceil(wordCount / 250))
@@ -53,6 +66,9 @@ function mapDbToLibraryText(row: TextsRow): LibraryText {
     lastStudiedAt: row.last_opened ? new Date(row.last_opened) : null,
     isBookmarked: row.is_bookmarked ?? false,
     bookId: null,
+    articleSource: articleMeta?.get(articleIdFromMarker(row.source_url) ?? '')?.source ?? null,
+    articleReadingMinutes:
+      articleMeta?.get(articleIdFromMarker(row.source_url) ?? '')?.readingMinutes ?? null,
   }
 }
 
@@ -322,8 +338,28 @@ async function fetchTexts(userId: string): Promise<LibraryText[]> {
   for (const [groupId, chapters] of userBookGroups) {
     out.push(aggregateUserBookChapters(groupId, chapters))
   }
+  // ACP 기사에서 시작한 글의 표지 메타 — `texts` 에 출처 컬럼이 없어 한 번 더 조회한다.
+  //   조회는 마커가 있을 때만 일어난다(기사를 하나도 안 담은 사용자는 추가 왕복 0).
+  const articleIds = standalone
+    .map((r) => articleIdFromMarker(r.source_url))
+    .filter((v): v is string => !!v)
+  const articleMeta = new Map<string, ArticleCoverMeta>()
+  if (articleIds.length) {
+    const { data: arts } = await supabase
+      .from('library_articles')
+      .select('id, source, reading_minutes')
+      .in('id', [...new Set(articleIds)])
+    for (const a of (arts ?? []) as Array<{
+      id: string
+      source: string | null
+      reading_minutes: number | null
+    }>) {
+      articleMeta.set(a.id, { source: a.source, readingMinutes: a.reading_minutes })
+    }
+  }
+
   for (const r of standalone) {
-    out.push(mapDbToLibraryText(r))
+    out.push(mapDbToLibraryText(r, articleMeta))
   }
   // lastStudiedAt DESC, null 마지막
   out.sort((a, b) => {

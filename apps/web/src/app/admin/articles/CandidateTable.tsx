@@ -96,7 +96,7 @@ export function CandidateTable({ source, onImported }: Props) {
     <section aria-label="수집 후보" className="flex flex-col gap-2">
       {/* cbar — 후보 수 + supply 뱃지 (정렬 규칙 분기) */}
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <span className="font-mono text-[11px] text-[var(--t3)]">
+        <span className="font-mono text-[11px] text-[var(--t2)]">
           후보 {items.length}건 · score 순
         </span>
         <span
@@ -123,14 +123,14 @@ export function CandidateTable({ source, onImported }: Props) {
           {error}
         </div>
       ) : items.length === 0 ? (
-        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 py-8 text-center font-body text-[12px] text-[var(--t3)]">
+        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 py-8 text-center font-body text-[12px] text-[var(--t2)]">
           이 소스의 미import 후보가 없어요. 아래 라이브 RSS 또는 대량 GET 으로 수집하세요.
         </div>
       ) : (
         <div className="overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)]">
           {/* 헤더행 */}
           <div
-            className={`${GRID} border-b border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]`}
+            className={`${GRID} border-b border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]`}
           >
             <span aria-hidden />
             <span>제목 · feed</span>
@@ -172,14 +172,14 @@ export function CandidateTable({ source, onImported }: Props) {
                       <span className="line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)]">
                         {it.title}
                       </span>
-                      <span className="line-clamp-1 font-mono text-[10px] text-[var(--t4)]">
+                      <span className="line-clamp-1 font-mono text-[10px] text-[var(--t2)]">
                         {it.feed_label ?? it.feed_id ?? '—'}
                       </span>
                     </span>
                     {/* register — 분석 전 */}
-                    <span className="font-mono text-[10px] text-[var(--t4)]">분석 전</span>
+                    <span className="font-mono text-[10px] text-[var(--t2)]">분석 전</span>
                     {/* CEFR · V — 분석 전 */}
-                    <span className="font-mono text-[11px] tabular-nums text-[var(--t4)]">—</span>
+                    <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">—</span>
                     {/* score 막대 */}
                     <ScoreBar value={it.score_total ?? 0} />
                     {/* audio (policy.media) */}
@@ -200,7 +200,7 @@ export function CandidateTable({ source, onImported }: Props) {
           type="button"
           onClick={importSelected}
           disabled={selectedCount === 0 || importing}
-          className="inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {importing ? <Loader2 size={13} className="animate-spin" aria-hidden /> : <Plus size={13} aria-hidden />}
           큐에 추가 ({selectedCount})
@@ -212,7 +212,7 @@ export function CandidateTable({ source, onImported }: Props) {
 
 function AudioCell({ hasAudio, media }: { hasAudio: boolean; media: 'audio' | 'text' }) {
   if (media !== 'audio') {
-    return <span className="font-mono text-[11px] text-[var(--t4)]" aria-label="audio 비대상">—</span>
+    return <span className="font-mono text-[11px] text-[var(--t2)]" aria-label="audio 비대상">—</span>
   }
   return hasAudio ? (
     <Volume2 size={15} className="text-[var(--learn-known)]" aria-label="audio 있음" />
@@ -230,7 +230,7 @@ function ScoreBar({ value }: { value: number }) {
       <span className="block h-1.5 flex-1 overflow-hidden rounded-[var(--r-full)] bg-[var(--bg2)]">
         <span className="block h-full rounded-[var(--r-full)]" style={{ width: `${pct}%`, backgroundColor: color }} />
       </span>
-      <span className="w-[30px] text-right font-mono text-[10px] tabular-nums text-[var(--t3)]">
+      <span className="w-[30px] text-right font-mono text-[10px] tabular-nums text-[var(--t2)]">
         {v.toFixed(2)}
       </span>
     </span>

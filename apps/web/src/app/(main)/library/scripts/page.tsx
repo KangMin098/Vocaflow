@@ -29,7 +29,7 @@ export default async function LibraryScriptsPage() {
     client
       .from('library_articles')
       .select(
-        'id, title, author, source, source_url, cefr_level, word_count, reading_minutes, category_tags, published_at, article_v_level, register, audio_url',
+        'id, title, author, source, source_url, cefr_level, word_count, reading_minutes, category_tags, published_at, article_v_level, register, audio_url, adapted_from_id',
       ),
   ).order('published_at', { ascending: false, nullsFirst: false })
 

@@ -140,13 +140,29 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
           }
           return
         }
-        const client = createClient() as unknown as {
+        type LooseRpcClient = {
           rpc: (
             n: string,
             p: Record<string, unknown>,
           ) => Promise<{ error: { message: string } | null }>
         }
-        const { error: rpcErr } = await client.rpc(name, { p_article_id: article.id })
+        const client = createClient() as unknown as LooseRpcClient
+        const p = { p_article_id: article.id }
+
+        // ⚠️ rpc() 이름은 리터럴로 — 변수로 넘기면 RPC 권한 감사의 정적 수집에서 빠진다
+        //    (그 결과 "아무도 안 부르는 함수" 로 오분류돼 EXECUTE 회수 대상이 된다).
+        //    회귀 락: src/lib/auth/__tests__/rpc-call-sites.test.ts
+        const rpcErr =
+          name === 'admin_requeue_article'
+            ? (await client.rpc('admin_requeue_article', p)).error
+            : name === 'admin_archive_article'
+              ? (await client.rpc('admin_archive_article', p)).error
+              : null
+
+        // 모르는 액션을 조용히 성공 처리하면 "눌렀는데 아무 일도 없음" 이 된다
+        if (!['admin_requeue_article', 'admin_archive_article'].includes(name)) {
+          throw new Error(`알 수 없는 액션: ${name}`)
+        }
         if (rpcErr) throw new Error(rpcErr.message)
       },
       after,

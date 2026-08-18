@@ -174,18 +174,18 @@ export function RoundHistorySection({ snapshot }: RoundHistorySectionProps) {
             <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
               Round History (rule_v1 → v_level reclassification)
             </h2>
-            <p className="font-body text-[12px] text-[var(--t3)]">
+            <p className="font-body text-[12px] text-[var(--t2)]">
               6 Rounds 완료 · 4 Rounds 잔여 — 5 패턴 매트릭스 (rule_v1 systematic noisy 확정)
             </p>
           </div>
         </div>
         <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 text-right">
-          <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+          <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
             Classified
           </p>
           <p className="font-display text-[18px] font-[800] leading-none text-[var(--t1)]">
             {v.totalClassified.toLocaleString()}
-            <span className="ml-1 font-body text-[11px] font-[500] text-[var(--t3)]">
+            <span className="ml-1 font-body text-[11px] font-[500] text-[var(--t2)]">
               ({classifiedRatioPct.toFixed(1)}%)
             </span>
           </p>
@@ -198,7 +198,7 @@ export function RoundHistorySection({ snapshot }: RoundHistorySectionProps) {
         aria-label="overall reclassification progress"
       >
         <div className="mb-1.5 flex items-baseline justify-between gap-2">
-          <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+          <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
             Reclassification Progress
           </p>
           <p className="font-mono text-[10px] text-[var(--t2)]">
@@ -257,13 +257,13 @@ export function RoundHistorySection({ snapshot }: RoundHistorySectionProps) {
                 </span>
               </div>
               <p className="font-mono text-[10px] text-[var(--t2)]">{r.ruleLevel}</p>
-              <p className="font-mono text-[10px] text-[var(--t3)]">
+              <p className="font-mono text-[10px] text-[var(--t2)]">
                 ~{r.estimatedRows.toLocaleString()} rows
               </p>
             </li>
           ))}
         </ul>
-        <p className="mt-2 font-body text-[10px] text-[var(--t3)]">
+        <p className="mt-2 font-body text-[10px] text-[var(--t2)]">
           잔여 estimated: {remainingRows.toLocaleString()} rows (
           {((remainingRows / totalEstimated) * 100).toFixed(1)}% of total)
         </p>
@@ -290,7 +290,7 @@ function RoundCard({ round }: { round: RoundEntry }) {
           <span className="font-display text-[14px] font-[800] text-[var(--t1)]">
             {round.id}
           </span>
-          <span className="font-mono text-[10px] font-[700] text-[var(--t3)]">
+          <span className="font-mono text-[10px] font-[700] text-[var(--t2)]">
             rule {round.ruleLevel}
           </span>
         </div>
@@ -310,7 +310,7 @@ function RoundCard({ round }: { round: RoundEntry }) {
         >
           {round.retentionPct.toFixed(1)}%
         </p>
-        <p className="font-mono text-[10px] text-[var(--t3)]">retention</p>
+        <p className="font-mono text-[10px] text-[var(--t2)]">retention</p>
       </div>
 
       <div className="h-1.5 overflow-hidden rounded-full bg-[var(--bg3)]">
@@ -328,7 +328,7 @@ function RoundCard({ round }: { round: RoundEntry }) {
         {round.oneLine}
       </p>
 
-      <p className="font-mono text-[9px] text-[var(--t3)]">
+      <p className="font-mono text-[9px] text-[var(--t2)]">
         {round.rows.toLocaleString()} rows
       </p>
     </article>

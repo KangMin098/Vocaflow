@@ -41,7 +41,7 @@ function PageHeader() {
       <h1 className="font-display text-[24px] font-[700] text-[var(--t1)]">
         📰 Article Curation Pipeline
       </h1>
-      <p className="font-body text-[13px] text-[var(--t3)]">
+      <p className="font-body text-[13px] text-[var(--t2)]">
         ACP v1.0 — 짧은 글 (VOA · NASA · NIH · Simple Wikipedia · Wikinews · The Conversation) 큐레이션. 책(LCP) 과 별개 파이프라인.
       </p>
     </header>

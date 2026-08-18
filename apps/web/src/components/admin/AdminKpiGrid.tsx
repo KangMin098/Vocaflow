@@ -51,13 +51,13 @@ export function AdminKpiGrid({ kpis, cols = 4 }: AdminKpiGridProps) {
                 </span>
               )}
             </div>
-            <p className="mt-3 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <p className="mt-3 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               {k.label}
             </p>
             <p className="mt-1 font-display text-[24px] font-[800] tabular-nums leading-none text-[var(--t1)]">
               {k.value}
             </p>
-            {k.hint && <p className="mt-1.5 font-body text-[11px] text-[var(--t3)]">{k.hint}</p>}
+            {k.hint && <p className="mt-1.5 font-body text-[11px] text-[var(--t2)]">{k.hint}</p>}
           </li>
         )
       })}

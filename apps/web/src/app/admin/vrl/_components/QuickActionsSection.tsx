@@ -101,7 +101,7 @@ export function QuickActionsSection() {
           <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
             Quick Actions
           </h2>
-          <p className="font-body text-[12px] text-[var(--t3)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             즉시 시작 가능한 5 액션 (SQL preview · navigate · refresh)
           </p>
         </div>
@@ -127,7 +127,7 @@ export function QuickActionsSection() {
               <ExternalLink
                 size={11}
                 strokeWidth={2}
-                className="text-[var(--t3)] transition-transform group-hover:translate-x-0.5"
+                className="text-[var(--t2)] transition-transform group-hover:translate-x-0.5"
                 aria-hidden
               />
             </p>
@@ -149,7 +149,7 @@ export function QuickActionsSection() {
             <AlertTriangle size={15} strokeWidth={2} />
           </span>
           <div className="min-w-0 flex-1">
-            <p className="flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--error)]">
+            <p className="flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--error-ink)]">
               QA4 · VCB-VRL 통합 (B1) — 본질 페인
               <ExternalLink
                 size={11}
@@ -216,7 +216,7 @@ export function QuickActionsSection() {
         </button>
       </div>
 
-      <p className="flex items-center gap-1.5 font-body text-[10px] text-[var(--t3)]">
+      <p className="flex items-center gap-1.5 font-body text-[10px] text-[var(--t2)]">
         <Sparkles size={10} strokeWidth={2} aria-hidden />
         SQL Preview 는 readonly — apply 전 사용자 confirm 필수 (Supabase MCP 또는 Studio).
       </p>

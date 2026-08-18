@@ -42,13 +42,13 @@ export function SourceFeedList({ feedHealth, onPickSource }: Props) {
     >
       <header className="flex items-baseline justify-between gap-2">
         <h2 className="font-display text-[13px] font-[700] text-[var(--t1)]">소스 피드 현황</h2>
-        <span className="font-mono text-[10px] text-[var(--t3)]">
+        <span className="font-mono text-[10px] text-[var(--t2)]">
           {feedHealth.reduce((n, f) => n + f.candidates, 0)} 후보 · {sources.length} 소스
         </span>
       </header>
 
       {sources.length === 0 ? (
-        <p className="rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 py-6 text-center font-body text-[12px] text-[var(--t3)]">
+        <p className="rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 py-6 text-center font-body text-[12px] text-[var(--t2)]">
           수집된 후보가 없어요. 소스 GET 에서 대량 수집을 먼저 실행하세요.
         </p>
       ) : (
@@ -96,7 +96,7 @@ function SourceBlock({
           <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{label}</span>
         )}
         {cefr && (
-          <span className="font-mono text-[10px] text-[var(--t3)]">
+          <span className="font-mono text-[10px] text-[var(--t2)]">
             {cefr.min}–{cefr.max}
           </span>
         )}
@@ -130,7 +130,7 @@ function SourceBlock({
               </span>
             )}
             <ScoreBar value={f.avgScore} />
-            <span className="w-[58px] text-right font-mono text-[10px] tabular-nums text-[var(--t3)]">
+            <span className="w-[58px] text-right font-mono text-[10px] tabular-nums text-[var(--t2)]">
               {f.pending}/{f.candidates}
             </span>
           </li>
@@ -169,7 +169,7 @@ function ScoreBar({ value }: { value: number }) {
       <span className="block h-1.5 w-[44px] overflow-hidden rounded-[var(--r-full)] bg-[var(--bg2)]">
         <span className="block h-full rounded-[var(--r-full)]" style={{ width: `${pct}%`, backgroundColor: color }} />
       </span>
-      <span className="w-[26px] font-mono text-[9px] tabular-nums text-[var(--t4)]">
+      <span className="w-[26px] font-mono text-[9px] tabular-nums text-[var(--t2)]">
         {value.toFixed(2)}
       </span>
     </span>

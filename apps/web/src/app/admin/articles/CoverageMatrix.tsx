@@ -53,7 +53,7 @@ export function CoverageMatrix({ articles, onCellClick }: Props) {
         <h2 className="font-display text-[13px] font-[700] text-[var(--t1)]">
           레지스터 × CEFR 발행 커버리지
         </h2>
-        <span className="font-mono text-[10px] text-[var(--t3)]">
+        <span className="font-mono text-[10px] text-[var(--t2)]">
           GAP(빗금) = 발행 0 · 셀 클릭 → 소스 GET
           {unclassified > 0 ? ` · 미분류 ${unclassified}` : ''}
         </span>
@@ -61,7 +61,7 @@ export function CoverageMatrix({ articles, onCellClick }: Props) {
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-center">
           <thead>
-            <tr className="text-[10px] uppercase tracking-wider text-[var(--t3)]">
+            <tr className="text-[10px] uppercase tracking-wider text-[var(--t2)]">
               <th className="px-2 py-1 text-left font-[600]">register \ CEFR</th>
               {MATRIX_CEFRS.map((c) => (
                 <th key={c} className="px-2 py-1 font-mono font-[700]">

@@ -124,14 +124,14 @@ export function ArticleAudioPanel({ articleId, audioUrl, source }: Props) {
                 연결 해제
               </button>
             </div>
-            <p className="font-body text-[11px] text-[var(--t3)]">
+            <p className="font-body text-[11px] text-[var(--t2)]">
               소스가 제공한 원어민 낭독 — 학습자 스크립트 재생에 사용됩니다 (단일 스트림 · 문장 단위 듣기는 브라우저 TTS).
             </p>
           </div>
         ) : (
           // ── 미연결 ──
           <div className="flex flex-col gap-2.5">
-            <p className="font-body text-[12px] text-[var(--t3)]">
+            <p className="font-body text-[12px] text-[var(--t2)]">
               이 글에 연결된 보이스가 없어요. 소스(VOA 등)의 오디오 URL 을 직접 연결할 수 있어요.
             </p>
             <div className="flex flex-wrap items-center gap-2">
@@ -140,7 +140,7 @@ export function ArticleAudioPanel({ articleId, audioUrl, source }: Props) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="https://… (mp3 등 오디오 URL)"
-                className="min-w-0 flex-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-mono text-[12px] text-[var(--t1)] placeholder:text-[var(--t4)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                className="min-w-0 flex-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-mono text-[12px] text-[var(--t1)] placeholder:text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
               />
               <button
                 type="button"

@@ -28,7 +28,7 @@ export function DimensionsGrid({ dimensions }: DimensionsGridProps) {
           <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
             9 Quality Dimensions
           </h2>
-          <p className="font-body text-[12px] text-[var(--t3)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             Volume · Coverage · Linguistic · Learning · VRL · Integrity · Pipeline · Freshness · Schema (가중치 합 100%)
           </p>
         </div>

@@ -781,7 +781,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
             LCP 대량 GET
           </h2>
-          <span className="font-body text-[12px] text-[var(--t3)]">
+          <span className="font-body text-[12px] text-[var(--t2)]">
             여러 소스 · 모든 카테고리 한 번에
           </span>
         </div>
@@ -798,7 +798,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
               type="button"
               onClick={() => applyPreset(p)}
               disabled={fetching}
-              className="inline-flex h-7 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-display text-[10.5px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--p-light)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex h-7 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-display text-[10.5px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {PRESET_LABEL[p]}
             </button>
@@ -807,7 +807,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
         {/* 학습자 수준 — 소스 자동 정렬 기준 */}
         <div className="mb-4 flex flex-wrap items-center gap-2">
-          <GraduationCap size={13} className="text-[var(--t3)]" />
+          <GraduationCap size={13} className="text-[var(--t2)]" />
           <span className="font-display text-[11.5px] font-[600] text-[var(--t2)]">
             학습자 수준 (소스 정렬 기준):
           </span>
@@ -819,8 +819,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 onClick={() => setLearnerLevel(lv)}
                 className={`rounded-[var(--r-sm)] px-2.5 py-0.5 font-display text-[11px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                   learnerLevel === lv
-                    ? 'bg-[var(--p)] text-[var(--ti)]'
-                    : 'text-[var(--t3)] hover:text-[var(--t1)]'
+                    ? 'bg-[var(--p)] text-[var(--on-p)]'
+                    : 'text-[var(--t2)] hover:text-[var(--t1)]'
                 }`}
               >
                 {lv === 'beginner' ? '입문 (A1-A2)' : lv === 'intermediate' ? '중급 (B1-B2)' : '고급 (C1+)'}
@@ -837,7 +837,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             className="flex w-full items-center justify-between gap-2 rounded-[var(--r-sm)] px-3 py-2 text-left font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <span>🎚 결과 조건 (글로벌 필터 override)</span>
-            <span className="font-mono text-[10px] text-[var(--t3)]">
+            <span className="font-mono text-[10px] text-[var(--t2)]">
               {globalFilters.minScoreOverride != null
                 ? `min★${Math.round(globalFilters.minScoreOverride * 100)}`
                 : 'spec'}
@@ -851,7 +851,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             <div className="grid gap-3 border-t border-[var(--bd)] p-3 sm:grid-cols-2">
               {/* minScore override */}
               <label className="flex flex-col gap-1">
-                <span className="font-mono text-[10.5px] uppercase tracking-wider text-[var(--t3)]">
+                <span className="font-mono text-[10.5px] uppercase tracking-wider text-[var(--t2)]">
                   최소 점수 (★ override · 비우면 spec 기본)
                 </span>
                 <div className="flex items-center gap-2">
@@ -880,7 +880,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
               {/* recencyDays override */}
               <label className="flex flex-col gap-1">
-                <span className="font-mono text-[10.5px] uppercase tracking-wider text-[var(--t3)]">
+                <span className="font-mono text-[10.5px] uppercase tracking-wider text-[var(--t2)]">
                   신선도 cutoff (일 · 비우면 spec 기본)
                 </span>
                 <div className="flex items-center gap-2">
@@ -911,7 +911,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 onClick={() =>
                   setGlobalFilters({ minScoreOverride: null, recencyDaysOverride: null })
                 }
-                className="font-display text-[11px] font-[600] text-[var(--t3)] hover:text-[var(--p)] sm:col-span-2"
+                className="font-display text-[11px] font-[600] text-[var(--t2)] hover:text-[var(--p)] sm:col-span-2"
               >
                 spec 기본값으로 초기화
               </button>
@@ -920,8 +920,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
         </div>
 
         {/* v06.47 — 수준 선택의 실제 의미를 화면에서 명시 (오해 방지) */}
-        <p className="mb-3 flex items-start gap-1.5 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-2 font-body text-[10.5px] leading-relaxed text-[var(--t3)]">
-          <Info size={12} className="mt-0.5 shrink-0 text-[var(--t3)]" aria-hidden />
+        <p className="mb-3 flex items-start gap-1.5 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-2 font-body text-[10.5px] leading-relaxed text-[var(--t2)]">
+          <Info size={12} className="mt-0.5 shrink-0 text-[var(--t2)]" aria-hidden />
           <span>
             <strong className="text-[var(--t2)]">수준 선택은 소스 우선순위·추천만 바꿉니다</strong> — 기사 내용을 레벨로 골라오지는
             않아요. 각 소스는 아래의 <strong className="text-[var(--t2)]">고정 CEFR 밴드</strong>로 묶이고,{' '}
@@ -933,7 +933,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
         <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
           <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">
             소스 명세 (multi · 학습자 수준 기반 순위)
-            <span className="ml-2 font-mono text-[10.5px] font-[500] text-[var(--t3)]">
+            <span className="ml-2 font-mono text-[10.5px] font-[500] text-[var(--t2)]">
               {selectedSources.size}/{SOURCES.length} 선택
             </span>
           </h3>
@@ -978,7 +978,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                   {active ? (
                     <CheckSquare size={14} aria-hidden style={{ color: s.color }} />
                   ) : (
-                    <Square size={14} aria-hidden className="text-[var(--t4)]" />
+                    <Square size={14} aria-hidden className="text-[var(--t2)]" />
                   )}
                   <span
                     className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full font-mono text-[9px] font-[700]"
@@ -996,7 +996,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                   >
                     {s.label}
                   </span>
-                  <span className="font-mono text-[9.5px] text-[var(--t3)]">
+                  <span className="font-mono text-[9.5px] text-[var(--t2)]">
                     {selectedFeedCount}/{s.feeds.length} feed · 최대 {userMaxItems}
                   </span>
                   {(() => {
@@ -1022,7 +1022,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 </button>
 
                 {/* 2행 — target CEFR + 라이선스 */}
-                <div className="flex flex-wrap items-center gap-1.5 font-mono text-[9.5px] text-[var(--t3)]">
+                <div className="flex flex-wrap items-center gap-1.5 font-mono text-[9.5px] text-[var(--t2)]">
                   <span>CEFR {spec.targetCefr.min}–{spec.targetCefr.max}</span>
                   <span aria-hidden>·</span>
                   <span>{spec.license}</span>
@@ -1036,7 +1036,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                   <span>min ★{Math.round(spec.minScore * 100)}</span>
                 </div>
                 {/* 3행 — 문체 */}
-                <div className="line-clamp-1 font-body text-[10.5px] text-[var(--t3)]">
+                <div className="line-clamp-1 font-body text-[10.5px] text-[var(--t2)]">
                   {spec.styleGuide}
                 </div>
 
@@ -1065,7 +1065,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                   type="button"
                   onClick={() => toggleExpand(s.key)}
                   disabled={fetching}
-                  className="inline-flex items-center gap-1 self-start rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-1 self-start rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed"
                   aria-expanded={expanded}
                 >
                   {expanded ? <ChevronDown size={11} /> : <ChevronRight size={11} />}
@@ -1076,7 +1076,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                   <div className="mt-1 flex flex-col gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2">
                     {/* maxItems */}
                     <label className="flex flex-wrap items-center gap-1.5">
-                      <span className="font-mono text-[9.5px] uppercase tracking-wider text-[var(--t3)]">
+                      <span className="font-mono text-[9.5px] uppercase tracking-wider text-[var(--t2)]">
                         가져올 최대 개수
                       </span>
                       <input
@@ -1101,7 +1101,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                     </label>
                     {/* feed checkboxes */}
                     <div className="flex flex-col gap-1">
-                      <span className="font-mono text-[9.5px] uppercase tracking-wider text-[var(--t3)]">
+                      <span className="font-mono text-[9.5px] uppercase tracking-wider text-[var(--t2)]">
                         Feed 선택 ({selectedFeedCount}/{s.feeds.length})
                       </span>
                       {s.feeds.map((f) => {
@@ -1141,7 +1141,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             type="button"
             onClick={handleBulkFetch}
             disabled={fetching || selectedSources.size === 0}
-            className="inline-flex h-9 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
+            className="inline-flex h-9 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
           >
             {fetching ? (
               <Loader2 size={12} className="animate-spin" />
@@ -1207,7 +1207,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                   <span className="font-display font-[700]">{s.label}</span>
                   <span className="ml-auto">
                     <strong className="text-[var(--t1)]">{st.capped}</strong>
-                    <span className="text-[var(--t3)]"> / {st.fetched}</span>
+                    <span className="text-[var(--t2)]"> / {st.fetched}</span>
                     {dropped > 0 && (
                       <span
                         className="ml-1 text-[var(--memory-shaky)]"
@@ -1216,13 +1216,13 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                         −{dropped}
                       </span>
                     )}
-                    <span className="ml-1 text-[var(--t4)]">({st.feeds} feed)</span>
+                    <span className="ml-1 text-[var(--t2)]">({st.feeds} feed)</span>
                   </span>
                 </li>
               )
             })}
           </ul>
-          <p className="mt-1.5 font-body text-[9.5px] text-[var(--t3)]">
+          <p className="mt-1.5 font-body text-[9.5px] text-[var(--t2)]">
             형식: <strong>최종/원본</strong> (−드롭). 드롭은 spec 가드(점수·길이·기간) 미통과. 소스
             카드 클릭으로 spec 확인 가능.
           </p>
@@ -1345,10 +1345,10 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
               />
               전체
             </label>
-            <span className="text-[var(--t3)]">
+            <span className="text-[var(--t2)]">
               <strong className="text-[var(--t1)]">{displayRows.length}</strong>건
               {rows.length > displayRows.length && (
-                <span className="text-[var(--t3)]">
+                <span className="text-[var(--t2)]">
                   {' '}
                   (필터로 {rows.length - displayRows.length} 숨김 / 전체 {rows.length})
                 </span>
@@ -1364,8 +1364,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 onClick={() => setSortBy('score')}
                 className={`rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                   sortBy === 'score'
-                    ? 'bg-[var(--p)] text-[var(--ti)]'
-                    : 'text-[var(--t3)] hover:text-[var(--t1)]'
+                    ? 'bg-[var(--p)] text-[var(--on-p)]'
+                    : 'text-[var(--t2)] hover:text-[var(--t1)]'
                 }`}
                 title="학습 친화도 순 (recency + source + length + level)"
               >
@@ -1376,8 +1376,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 onClick={() => setSortBy('date')}
                 className={`rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                   sortBy === 'date'
-                    ? 'bg-[var(--p)] text-[var(--ti)]'
-                    : 'text-[var(--t3)] hover:text-[var(--t1)]'
+                    ? 'bg-[var(--p)] text-[var(--on-p)]'
+                    : 'text-[var(--t2)] hover:text-[var(--t1)]'
                 }`}
                 title="발행일 내림차순"
               >
@@ -1405,7 +1405,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 if (listFilters.recencyDays != null) n++
                 if (listFilters.articleStatuses.size > 0) n++
                 return n > 0 ? (
-                  <span className="ml-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1.5 font-mono text-[9px] text-[var(--ti)]">
+                  <span className="ml-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1.5 font-mono text-[9px] text-[var(--on-p)]">
                     {n}
                   </span>
                 ) : null
@@ -1432,7 +1432,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 type="button"
                 onClick={handleBulkEnqueue}
                 disabled={enqueuing || selected.size === 0}
-                className="inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[700] text-[var(--ti)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
+                className="inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[700] text-[var(--on-p)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
               >
                 {enqueuing ? (
                   <Loader2 size={11} className="animate-spin" />
@@ -1449,7 +1449,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             <div className="grid gap-3 border-b border-[var(--bd)] bg-[var(--bg)] p-3 sm:grid-cols-2">
               {/* 검색 */}
               <label className="flex flex-col gap-1">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
                   검색 (제목 · 설명)
                 </span>
                 <input
@@ -1465,7 +1465,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
               {/* 소스 다중 선택 */}
               <div className="flex flex-col gap-1">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
                   소스 ({listFilters.sources.size === 0 ? '전체' : `${listFilters.sources.size} 선택`})
                 </span>
                 <div className="flex flex-wrap gap-1">
@@ -1501,7 +1501,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
               {/* 점수 minScore */}
               <label className="flex flex-col gap-1">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
                   최소 점수 (★ 0 = 전체)
                 </span>
                 <div className="flex items-center gap-2">
@@ -1527,7 +1527,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
               {/* CEFR 다중 선택 */}
               <div className="flex flex-col gap-1">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
                   CEFR (소스 기준 · {listFilters.cefrLevels.size === 0 ? '전체' : `${listFilters.cefrLevels.size} 선택`})
                 </span>
                 <div className="flex flex-wrap gap-1">
@@ -1547,8 +1547,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                         }
                         className={`inline-flex items-center rounded-[var(--r-sm)] border px-2 py-0.5 font-mono text-[10px] font-[700] ${
                           checked
-                            ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--p)]'
-                            : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t3)]'
+                            ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
+                            : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)]'
                         }`}
                       >
                         {lv}
@@ -1560,7 +1560,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
               {/* 발행 상태 */}
               <div className="flex flex-col gap-1">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
                   발행 상태
                 </span>
                 <div className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-0.5">
@@ -1571,8 +1571,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                       onClick={() => setListFilters((f) => ({ ...f, publishStatus: opt }))}
                       className={`flex-1 rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10.5px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                         listFilters.publishStatus === opt
-                          ? 'bg-[var(--p)] text-[var(--ti)]'
-                          : 'text-[var(--t3)] hover:text-[var(--t1)]'
+                          ? 'bg-[var(--p)] text-[var(--on-p)]'
+                          : 'text-[var(--t2)] hover:text-[var(--t1)]'
                       }`}
                     >
                       {opt === 'all' ? '전체' : opt === 'unpublished' ? '미발행' : '발행됨'}
@@ -1583,7 +1583,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
               {/* audio 상태 */}
               <div className="flex flex-col gap-1">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
                   🎧 audio 보유
                 </span>
                 <div className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-0.5">
@@ -1594,8 +1594,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                       onClick={() => setListFilters((f) => ({ ...f, audioStatus: opt }))}
                       className={`flex-1 rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10.5px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                         listFilters.audioStatus === opt
-                          ? 'bg-[var(--p)] text-[var(--ti)]'
-                          : 'text-[var(--t3)] hover:text-[var(--t1)]'
+                          ? 'bg-[var(--p)] text-[var(--on-p)]'
+                          : 'text-[var(--t2)] hover:text-[var(--t1)]'
                       }`}
                     >
                       {opt === 'all' ? '전체' : opt === 'with' ? '있음만' : '없음만'}
@@ -1606,7 +1606,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
               {/* v06.74 — article 단계 상태 다중 선택 */}
               <div className="flex flex-col gap-1 sm:col-span-2">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
                   큐 단계 ({listFilters.articleStatuses.size === 0 ? '전체' : `${listFilters.articleStatuses.size} 선택`})
                 </span>
                 <div className="flex flex-wrap gap-1">
@@ -1641,7 +1641,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
               {/* 기간 recencyDays */}
               <label className="flex flex-col gap-1 sm:col-span-2">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t3)]">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
                   발행일 — 최근 N일 (0 = 전체)
                 </span>
                 <div className="flex items-center gap-2">
@@ -1678,7 +1678,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                     articleStatuses: new Set(),
                   })
                 }
-                className="font-display text-[10.5px] font-[600] text-[var(--t3)] hover:text-[var(--p)] sm:col-span-2"
+                className="font-display text-[10.5px] font-[600] text-[var(--t2)] hover:text-[var(--p)] sm:col-span-2"
               >
                 필터 초기화
               </button>
@@ -1720,7 +1720,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                           {sourceCfg.label}
                         </span>
                       )}
-                      <span className="font-mono text-[9.5px] text-[var(--t3)]">
+                      <span className="font-mono text-[9.5px] text-[var(--t2)]">
                         {r.feed_label}
                       </span>
                       {scorePct !== null && (
@@ -1748,7 +1748,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                         const d = r.published_at ? new Date(r.published_at) : null
                         if (!d || Number.isNaN(d.getTime())) return null
                         return (
-                          <span className="inline-flex items-center gap-0.5 font-mono text-[9.5px] text-[var(--t3)]">
+                          <span className="inline-flex items-center gap-0.5 font-mono text-[9.5px] text-[var(--t2)]">
                             <Calendar size={9} />
                             {d.toISOString().slice(0, 10)}
                           </span>
@@ -1788,7 +1788,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                       {r.title}
                     </div>
                     {r.description && (
-                      <p className="mt-0.5 font-body text-[11px] leading-relaxed text-[var(--t3)] line-clamp-2">
+                      <p className="mt-0.5 font-body text-[11px] leading-relaxed text-[var(--t2)] line-clamp-2">
                         {r.description}
                       </p>
                     )}
@@ -1799,7 +1799,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                       target="_blank"
                       rel="noopener noreferrer"
                       title="원문"
-                      className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+                      className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
                     >
                       <ExternalLink size={11} />
                     </a>
@@ -1823,7 +1823,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                             ? 'library_articles 영구 삭제'
                             : 'seed_catalog 에서 숨김 (다음 GET 시 재노출 안 됨)'
                       }
-                      className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t3)] hover:bg-[var(--learn-error-light)] hover:text-[var(--learn-error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--learn-error)] disabled:cursor-not-allowed disabled:opacity-40"
+                      className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--learn-error-light)] hover:text-[var(--learn-error)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--learn-error)] disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       <Trash2 size={11} />
                     </button>
@@ -1838,7 +1838,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
 
       {/* 빈 상태 */}
       {rows.length === 0 && !fetching && failedFeeds.length === 0 && (
-        <div className="rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] p-8 text-center font-body text-[12px] text-[var(--t3)]">
+        <div className="rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] p-8 text-center font-body text-[12px] text-[var(--t2)]">
           소스를 선택하고 <strong className="text-[var(--t1)]">&ldquo;일괄 가져오기&rdquo;</strong> 를 누르세요.
           <br />
           여러 소스의 모든 카테고리를 한 번에 가져온 후 체크박스로 선택해 큐에 추가합니다.

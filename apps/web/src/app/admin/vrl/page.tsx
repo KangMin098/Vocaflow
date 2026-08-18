@@ -100,7 +100,7 @@ async function DashboardContent() {
                 <li key={i}>{e}</li>
               ))}
               {fetchErrors.length > 4 && (
-                <li className="text-[var(--t3)]">...외 {fetchErrors.length - 4}건</li>
+                <li className="text-[var(--t2)]">...외 {fetchErrors.length - 4}건</li>
               )}
             </ul>
           </div>
@@ -150,7 +150,7 @@ async function DashboardContent() {
       </section>
 
       {/* footer — v3 진행 표시 */}
-      <footer className="border-t border-[var(--bd)] pt-4 text-center font-mono text-[10px] text-[var(--t3)]">
+      <footer className="border-t border-[var(--bd)] pt-4 text-center font-mono text-[10px] text-[var(--t2)]">
         Dictionary DB Health v3 · 8 sections · Overall {snapshot.overallScore} /
         100 · revalidate 60s
       </footer>

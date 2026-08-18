@@ -83,8 +83,8 @@ export function DimensionCard({ dimension: d }: DimensionCardProps) {
         >
           {d.score}
         </p>
-        <p className="mb-0.5 font-body text-[10px] text-[var(--t3)]">/ 100</p>
-        <p className="ml-auto mb-0.5 rounded-full bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9px] font-[700] text-[var(--t3)]">
+        <p className="mb-0.5 font-body text-[10px] text-[var(--t2)]">/ 100</p>
+        <p className="ml-auto mb-0.5 rounded-full bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9px] font-[700] text-[var(--t2)]">
           w={weightPct}%
         </p>
       </div>

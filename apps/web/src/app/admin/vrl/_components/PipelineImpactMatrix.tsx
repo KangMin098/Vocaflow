@@ -77,7 +77,7 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
             <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
               Pipeline Impact Matrix
             </h2>
-            <p className="font-body text-[12px] text-[var(--t3)]">
+            <p className="font-body text-[12px] text-[var(--t2)]">
               4 책임 × {defects.length} 결함 — 가장 많이 영향받는 책임 = 본질 페인
             </p>
           </div>
@@ -87,7 +87,7 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
             className="rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-2"
             style={{ backgroundColor: 'var(--error-light)' }}
           >
-            <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               본질 페인
             </p>
             <p
@@ -110,7 +110,7 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
           <thead>
             <tr className="border-b border-[var(--bd)] bg-[var(--bg2)]">
               <th className="px-3 py-2 text-left align-top">
-                <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+                <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
                   Defect
                 </p>
               </th>
@@ -142,7 +142,7 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
                     >
                       {readiness?.score ?? '—'}
                     </p>
-                    <p className="font-mono text-[8px] text-[var(--t3)]">
+                    <p className="font-mono text-[8px] text-[var(--t2)]">
                       {impactCounts[r]} hit
                     </p>
                   </th>
@@ -166,7 +166,7 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
                     >
                       {d.priority}
                     </span>
-                    <span className="font-mono text-[10px] text-[var(--t3)]">
+                    <span className="font-mono text-[10px] text-[var(--t2)]">
                       {d.id}
                     </span>
                   </div>
@@ -217,7 +217,7 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
       </div>
 
       {/* ── 범례 ── */}
-      <div className="flex flex-wrap items-center gap-3 font-mono text-[10px] text-[var(--t3)]">
+      <div className="flex flex-wrap items-center gap-3 font-mono text-[10px] text-[var(--t2)]">
         <span>범례:</span>
         <span className="inline-flex items-center gap-1">
           <span

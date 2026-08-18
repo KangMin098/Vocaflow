@@ -79,7 +79,7 @@ export function PendingWordActions({ id, currentStatus }: PendingWordActionsProp
   return (
     <div className="flex items-center gap-1">
       {pending && (
-        <Loader2 size={11} className="animate-spin text-[var(--t3)]" aria-hidden />
+        <Loader2 size={11} className="animate-spin text-[var(--t2)]" aria-hidden />
       )}
       {ACTIONS.map((a) => {
         const isCurrent = currentStatus === a.to

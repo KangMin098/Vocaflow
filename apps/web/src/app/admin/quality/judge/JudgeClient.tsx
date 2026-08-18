@@ -257,7 +257,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                   className={`rounded-[var(--r-full)] border px-3 py-1 font-body text-[12px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] ${
                     mode === m
                       ? 'border-[#8B5CF6]/50 bg-[#8B5CF6]/10 text-[#8B5CF6]'
-                      : 'border-[var(--bd)] text-[var(--t3)] hover:text-[var(--t2)]'
+                      : 'border-[var(--bd)] text-[var(--t2)] hover:text-[var(--t2)]'
                   }`}
                 >
                   {m === 'absolute' ? '절대 판정' : '쌍대 비교'}
@@ -288,10 +288,10 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <p className="font-body text-[13px] text-[var(--t2)]">
-              <span className="font-mono text-[var(--t3)]">{sourceLabel}</span> — 이 챕터를 공부하는
+              <span className="font-mono text-[var(--t2)]">{sourceLabel}</span> — 이 챕터를 공부하는
               학습자에게 <strong className="text-[var(--t1)]">가치 있는 단어</strong>를 고르세요.
             </p>
-            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-2.5 py-1 font-mono text-[11px] text-[var(--t3)]">
+            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-2.5 py-1 font-mono text-[11px] text-[var(--t2)]">
               {mode === 'absolute' ? '절대 판정' : '쌍대 비교'}
             </span>
           </div>
@@ -315,7 +315,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                       <div className="min-w-0">
                         <p className="font-display text-[15px] font-[700] text-[var(--t1)]">{w.word}</p>
                         <p className="font-body text-[13px] text-[var(--t2)]">{w.meaning_ko}</p>
-                        <p className="mt-0.5 font-mono text-[10px] text-[var(--t3)]">
+                        <p className="mt-0.5 font-mono text-[10px] text-[var(--t2)]">
                           {w.pos} · V{w.v_level}
                         </p>
                       </div>
@@ -328,7 +328,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                           className={`grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2E7D5A] ${
                             v === 'valuable'
                               ? 'border-[#2E7D5A] bg-[#2E7D5A] text-white'
-                              : 'border-[var(--bd)] text-[var(--t3)] hover:border-[#2E7D5A]/50 hover:text-[#2E7D5A]'
+                              : 'border-[var(--bd)] text-[var(--t2)] hover:border-[#2E7D5A]/50 hover:text-[#2E7D5A]'
                           }`}
                         >
                           <Check size={15} />
@@ -341,7 +341,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                           className={`grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B5803A] ${
                             v === 'uncertain'
                               ? 'border-[#B5803A] bg-[#B5803A] text-white'
-                              : 'border-[var(--bd)] text-[var(--t3)] hover:border-[#B5803A]/50 hover:text-[#B5803A]'
+                              : 'border-[var(--bd)] text-[var(--t2)] hover:border-[#B5803A]/50 hover:text-[#B5803A]'
                           }`}
                         >
                           <HelpCircle size={15} />
@@ -349,7 +349,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                       </div>
                     </div>
                     {w.first_sentence && (
-                      <p className="mt-2 border-t border-[var(--bd)] pt-2 font-body text-[12px] italic leading-[1.5] text-[var(--t3)]">
+                      <p className="mt-2 border-t border-[var(--bd)] pt-2 font-body text-[12px] italic leading-[1.5] text-[var(--t2)]">
                         “{w.first_sentence}”
                       </p>
                     )}
@@ -361,7 +361,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
             <ul className="space-y-2.5">
               {pairs.map(([a, b], i) => (
                 <li key={a.word + b.word} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
-                  <p className="mb-2 text-center font-body text-[12px] text-[var(--t3)]">
+                  <p className="mb-2 text-center font-body text-[12px] text-[var(--t2)]">
                     이 챕터에 더 가치 있는 쪽은?
                   </p>
                   <div className="flex items-stretch gap-2">
@@ -394,7 +394,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
             <button
               type="button"
               onClick={reset}
-              className="font-body text-[13px] text-[var(--t3)] underline-offset-2 hover:text-[var(--t2)] hover:underline"
+              className="font-body text-[13px] text-[var(--t2)] underline-offset-2 hover:text-[var(--t2)] hover:underline"
             >
               다른 표본
             </button>
@@ -443,7 +443,7 @@ function RevealPanel({
     <section className="space-y-4">
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6">
         <p className="font-body text-[13px] text-[var(--t2)]">
-          <span className="font-mono text-[var(--t3)]">{sourceLabel}</span> — 판정 저장 완료. 시스템
+          <span className="font-mono text-[var(--t2)]">{sourceLabel}</span> — 판정 저장 완료. 시스템
           선택(in-cap)과 비교했어요.
         </p>
         <div className="mt-4 grid grid-cols-3 gap-3">
@@ -473,13 +473,13 @@ function RevealPanel({
                   {match ? <Check size={12} /> : <X size={12} />}
                 </span>
                 <span className="font-display text-[14px] font-[600] text-[var(--t1)]">{w.word}</span>
-                <span className="font-body text-[12px] text-[var(--t3)]">{w.meaning_ko}</span>
+                <span className="font-body text-[12px] text-[var(--t2)]">{w.meaning_ko}</span>
               </div>
               <div className="flex shrink-0 items-center gap-2 font-mono text-[10px]">
-                <span className={`rounded-[var(--r-sm)] px-1.5 py-0.5 ${youKept ? 'bg-[#2E7D5A]/12 text-[#2E7D5A]' : 'bg-[var(--bg3)] text-[var(--t3)]'}`}>
+                <span className={`rounded-[var(--r-sm)] px-1.5 py-0.5 ${youKept ? 'bg-[#2E7D5A]/12 text-[#2E7D5A]' : 'bg-[var(--bg3)] text-[var(--t2)]'}`}>
                   나: {youKept ? '가치' : v === 'uncertain' ? '애매' : '제외'}
                 </span>
-                <span className={`rounded-[var(--r-sm)] px-1.5 py-0.5 ${r.in_cap ? 'bg-[#8B5CF6]/12 text-[#8B5CF6]' : 'bg-[var(--bg3)] text-[var(--t3)]'}`}>
+                <span className={`rounded-[var(--r-sm)] px-1.5 py-0.5 ${r.in_cap ? 'bg-[#8B5CF6]/12 text-[#8B5CF6]' : 'bg-[var(--bg3)] text-[var(--t2)]'}`}>
                   시스템: {r.in_cap ? 'in-cap' : `#${r.sort_order_at}`}
                 </span>
               </div>
@@ -506,7 +506,7 @@ function Stat({ label, hint, value }: { label: string; hint: string; value: stri
     <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3 text-center">
       <p className="font-display text-[24px] font-[800] tracking-tight text-[var(--t1)]">{value}</p>
       <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.06em] text-[#8B5CF6]">{label}</p>
-      <p className="mt-0.5 font-body text-[10px] text-[var(--t3)]">{hint}</p>
+      <p className="mt-0.5 font-body text-[10px] text-[var(--t2)]">{hint}</p>
     </div>
   )
 }

@@ -53,12 +53,12 @@ export function CollectNowButton() {
         {status === 'loading' ? '수집 중…' : '지금 수집'}
       </button>
       {status === 'done' && (
-        <p role="status" className="font-body text-[11px] text-[var(--t3)]">
+        <p role="status" className="font-body text-[11px] text-[var(--t2)]">
           새 스냅샷을 수집했어요
         </p>
       )}
       {status === 'error' && (
-        <p role="alert" className="font-body text-[11px] text-[var(--t3)]">
+        <p role="alert" className="font-body text-[11px] text-[var(--t2)]">
           수집하지 못했어요 — admin 세션인지 확인해 주세요
         </p>
       )}

@@ -106,7 +106,7 @@ export function DistributionAnalysisSection({
         className="flex items-center gap-2.5 rounded-[var(--r-xl)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-5"
         aria-label="distribution analysis unavailable"
       >
-        <BarChart3 size={18} className="text-[var(--t3)]" aria-hidden />
+        <BarChart3 size={18} className="text-[var(--t2)]" aria-hidden />
         <p className="font-body text-[12px] text-[var(--t2)]">
           dict_categorical_distributions RPC 결과 없음 — Distribution Analysis 표시 불가.
         </p>
@@ -129,7 +129,7 @@ export function DistributionAnalysisSection({
           <h2 className="font-display text-[18px] font-[800] leading-tight text-[var(--t1)]">
             Distribution Analysis
           </h2>
-          <p className="font-body text-[12px] text-[var(--t3)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             6 차원 분포 — Critical Defects P2 evidence + 학습자 분포 통찰
           </p>
         </div>
@@ -192,7 +192,7 @@ function DistributionChart({
         <h3 className="font-display text-[12px] font-[700] text-[var(--t1)]">
           {cfg.label}
         </h3>
-        <p className="font-body text-[10px] text-[var(--t3)]">{cfg.description}</p>
+        <p className="font-body text-[10px] text-[var(--t2)]">{cfg.description}</p>
       </header>
 
       <ul className="flex flex-col gap-1.5" aria-label={`${cfg.label} bars`}>
@@ -217,16 +217,16 @@ function DistributionChart({
                   aria-hidden
                 />
               </div>
-              <span className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+              <span className="font-mono text-[10px] tabular-nums text-[var(--t2)]">
                 {n.toLocaleString()}
-                <span className="ml-1 text-[var(--t4)]">({sharePct}%)</span>
+                <span className="ml-1 text-[var(--t2)]">({sharePct}%)</span>
               </span>
             </li>
           )
         })}
       </ul>
 
-      <footer className="border-t border-[var(--bd)] pt-1.5 font-mono text-[9px] text-[var(--t3)]">
+      <footer className="border-t border-[var(--bd)] pt-1.5 font-mono text-[9px] text-[var(--t2)]">
         sum: {sumCount.toLocaleString()} / total {total.toLocaleString()}
       </footer>
     </article>

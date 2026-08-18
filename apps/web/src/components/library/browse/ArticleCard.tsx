@@ -10,7 +10,7 @@
 
 import { useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, Clock, ExternalLink, Loader2, Target, Volume2 } from 'lucide-react'
+import { ArrowRight, Clock, ExternalLink, Loader2, Target, Volume2, Sparkles } from 'lucide-react'
 
 import { sourceMeta } from '@/lib/articles/source-meta'
 import { startArticleLearning } from '@/lib/articles/start-learning'
@@ -52,6 +52,9 @@ export function ArticleCard({
   const cefrColor = cefr ? CEFR_COLOR[cefr] ?? 'var(--t3)' : null
   const fit = judgeArticleIPlusOne(article.article_v_level, userVLevel)
   const hasAudio = !!(article.audio_url && article.audio_url.trim())
+  // ACP §20 — 쉬운 판은 출처를 원본 그대로 쓰므로 카탈로그에서 원본 옆에 선다.
+  //   표시가 없으면 학습자에게는 같은 글이 두 개로 보인다.
+  const isEasier = !!article.adapted_from_id
   const mins = readMinutes(article)
   const tags = (article.category_tags ?? []).slice(0, featured ? 3 : 2)
 
@@ -110,6 +113,14 @@ export function ArticleCard({
       {hasAudio && (
         <span className="inline-flex items-center gap-1" title="원어민 음성 포함">
           <Volume2 size={11} aria-hidden /> 음성
+        </span>
+      )}
+      {isEasier && (
+        <span
+          className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 text-[var(--p)]"
+          title="같은 글을 쉬운 영어로 다시 쓴 판이에요"
+        >
+          <Sparkles size={11} aria-hidden /> 쉬운 판
         </span>
       )}
     </div>

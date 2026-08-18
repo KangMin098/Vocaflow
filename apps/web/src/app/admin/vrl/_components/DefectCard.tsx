@@ -85,7 +85,7 @@ export function DefectCard({ defect }: DefectCardProps) {
             >
               {defect.priority}
             </span>
-            <span className="font-mono text-[10px] text-[var(--t3)]">{defect.id}</span>
+            <span className="font-mono text-[10px] text-[var(--t2)]">{defect.id}</span>
           </div>
           <h3 className="mt-0.5 font-display text-[13px] font-[700] leading-snug text-[var(--t1)]">
             {defect.title}
@@ -107,11 +107,11 @@ export function DefectCard({ defect }: DefectCardProps) {
           aria-label="defect metric"
         >
           <div className="flex items-baseline justify-between gap-2">
-            <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t3)]">
+            <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               current vs target
             </p>
             {defect.metrics.target != null && (
-              <p className="font-mono text-[10px] text-[var(--t3)]">
+              <p className="font-mono text-[10px] text-[var(--t2)]">
                 → {defect.metrics.target}
                 {defect.metrics.unit}
               </p>
@@ -122,7 +122,7 @@ export function DefectCard({ defect }: DefectCardProps) {
             style={{ color: sev.dot }}
           >
             {defect.metrics.current}
-            <span className="ml-0.5 font-body text-[10px] font-[500] text-[var(--t3)]">
+            <span className="ml-0.5 font-body text-[10px] font-[500] text-[var(--t2)]">
               {defect.metrics.unit}
             </span>
           </p>
@@ -130,7 +130,7 @@ export function DefectCard({ defect }: DefectCardProps) {
       )}
 
       {/* ── evidence ── */}
-      <p className="font-mono text-[10px] leading-snug text-[var(--t3)]">
+      <p className="font-mono text-[10px] leading-snug text-[var(--t2)]">
         {defect.evidence}
       </p>
 
@@ -147,7 +147,7 @@ export function DefectCard({ defect }: DefectCardProps) {
           </span>
         ))}
         {defect.pipelines && defect.pipelines.length > 0 && (
-          <span className="inline-flex items-center gap-1 rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[9px] text-[var(--t3)]">
+          <span className="inline-flex items-center gap-1 rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[9px] text-[var(--t2)]">
             pipelines: {defect.pipelines.join(' · ')}
           </span>
         )}
@@ -186,9 +186,9 @@ export function DefectCard({ defect }: DefectCardProps) {
             {defect.improvement.action}
           </p>
           <dl className="mt-1 grid grid-cols-[auto_1fr] gap-x-2 gap-y-0.5 font-body text-[10px] text-[var(--t2)]">
-            <dt className="font-mono text-[var(--t3)]">cost</dt>
+            <dt className="font-mono text-[var(--t2)]">cost</dt>
             <dd>{defect.improvement.cost}</dd>
-            <dt className="font-mono text-[var(--t3)]">effect</dt>
+            <dt className="font-mono text-[var(--t2)]">effect</dt>
             <dd>{defect.improvement.effect}</dd>
           </dl>
         </section>
