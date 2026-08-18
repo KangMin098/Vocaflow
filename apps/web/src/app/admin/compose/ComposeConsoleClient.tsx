@@ -236,6 +236,7 @@ export function ComposeConsoleClient({
   feedSourceOptions,
   acpOverlap,
   contentGates,
+  derived,
   envMissing,
   initialTab,
 }: {
@@ -254,6 +255,7 @@ export function ComposeConsoleClient({
   acpOverlap: string[]
   /** 콘텐츠 품질 게이트 — 재저작 게이트와 **별개로** 발행을 막는다. */
   contentGates: ContentGateRow[]
+  derived: Record<string, DerivedCounts>
   envMissing: boolean
   /** 렌더 스모크에서 각 면을 그려 보기 위한 진입 탭. 화면에서는 쓰지 않는다. */
   initialTab?: Tab
@@ -337,7 +339,9 @@ export function ComposeConsoleClient({
         />
       )}
       {tab === '작성' && <JobPanel batches={batches} jobs={jobs} tracks={tracks} />}
-      {tab === '가공' && <ActivityPanel composed={composed} jobs={jobs} tracks={tracks} />}
+      {tab === '가공' && (
+        <ActivityPanel composed={composed} jobs={jobs} tracks={tracks} derived={derived} />
+      )}
       {tab === '발행' && (
         <PublishPanel composed={composed} gates={gates} contentGates={contentGates} />
       )}
@@ -1458,15 +1462,60 @@ function AttestForm({
   )
 }
 
-/** ⑥ 가공 — 지문마다 어떤 활동이 열려 있는지. 기계 변환은 재생성 무료다. */
+/** ⑥ 가공에서 실제로 만들어진 것 — 계획(트랙)과 대비해 보여 준다. */
+export interface DerivedCounts {
+  /** csat_dcp_items — 구문 재배열(order/insert) 문항 수 */
+  dcp: number
+  /** library_article_vocabularies — 어휘 추출 수 */
+  vocab: number
+  /** 공개 단어장이 실제로 발행돼 있는가 */
+  wordSet: boolean
+}
+
+/** 활동이 서려면 무엇이 있어야 하는가 — 화면이 "붙는다" 고만 말하지 않게 하는 표. */
+function activityState(
+  key: string,
+  d: DerivedCounts,
+  hasAudio: boolean,
+): { ok: boolean; note: string } {
+  switch (key) {
+    case 'read':
+      return { ok: true, note: '본문' }
+    case 'word_set':
+      if (d.wordSet) return { ok: true, note: '세트 발행됨' }
+      return { ok: false, note: d.vocab > 0 ? `어휘 ${d.vocab} · 발행 시 생성` : '어휘 없음' }
+    case 'gapfill':
+    case 'spelling':
+      return d.vocab > 0 ? { ok: true, note: `어휘 ${d.vocab}` } : { ok: false, note: '어휘 없음' }
+    case 'order':
+    case 'insert':
+      // 0 이면 대개 문단 문제다 — 단일 개행은 문단 구분이 아니라 글 전체가 한 문단으로 잡힌다.
+      return d.dcp > 0
+        ? { ok: true, note: `문항 ${d.dcp}` }
+        : { ok: false, note: '미생성 — 가공 스크립트' }
+    case 'dictation':
+    case 'shadowing':
+      return hasAudio ? { ok: true, note: '음성 있음' } : { ok: false, note: '음성 필요' }
+    case 'comprehension':
+    case 'discussion':
+      // 유일한 유료 경로 — 자동으로 만들지 않는다. "아직 없음" 을 숨기지 않는다.
+      return { ok: false, note: '유료 생성 · 미구현' }
+    default:
+      return { ok: false, note: '미상' }
+  }
+}
+
+/** ⑥ 가공 — 지문마다 어떤 활동이 실제로 만들어졌는지. 기계 변환은 재생성 무료다. */
 function ActivityPanel({
   composed,
   jobs,
   tracks,
+  derived,
 }: {
   composed: ComposedRow[]
   jobs: JobRow[]
   tracks: TrackRow[]
+  derived: Record<string, DerivedCounts>
 }) {
   if (composed.length === 0) {
     return (
@@ -1479,8 +1528,8 @@ function ActivityPanel({
   return (
     <section aria-label="활동 파생" className="flex flex-col gap-s-3">
       <p className="font-body text-sm text-t2">
-        기계 변환 활동은 지문을 고쳐도 다시 만들면 되므로 비용이 들지 않습니다. 유료 호출은
-        이해 문항·토론 질문 둘뿐입니다.
+        칸에 적힌 것은 계획이 아니라 지금 있는 것입니다. 기계 변환은 지문을 고쳐도 다시 만들면
+        되므로 비용이 들지 않습니다 — 유료 호출은 이해 문항·토론 질문 둘뿐입니다.
       </p>
       <ul className="flex flex-col gap-s-2">
         {composed.map((a) => {
@@ -1488,6 +1537,7 @@ function ActivityPanel({
           const track = tracks.find((t) => t.track === job?.track)
           const hasAudio = !!a.audio_url?.trim()
           const planned = track?.activities ?? []
+          const d = derived[a.id] ?? { dcp: 0, vocab: 0, wordSet: false }
           return (
             <li key={a.id} className="rounded-lg border border-bd bg-bg p-s-3">
               <div className="font-display text-sm font-bold text-t1">{a.title}</div>
@@ -1498,8 +1548,7 @@ function ActivityPanel({
               </div>
               <ul className="mt-s-2 flex flex-wrap gap-s-2">
                 {planned.map((k) => {
-                  const needsAudio = k === 'dictation' || k === 'shadowing'
-                  const open = !needsAudio || hasAudio
+                  const { ok: open, note } = activityState(k, d, hasAudio)
                   return (
                     <li
                       key={k}
@@ -1509,8 +1558,7 @@ function ActivityPanel({
                           : 'bg-warning-light text-warning'
                       }`}
                     >
-                      {k}
-                      {!open && ' · 음성 필요'}
+                      {k} · {note}
                     </li>
                   )
                 })}

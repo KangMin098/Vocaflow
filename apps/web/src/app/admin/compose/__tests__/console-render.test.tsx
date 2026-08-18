@@ -17,6 +17,7 @@ import {
   type BatchRow,
   type ComposeCounts,
   type ComposedRow,
+  type DerivedCounts,
   type FactRow,
   type FeedRow,
   type GateRow,
@@ -49,7 +50,7 @@ const TRACKS: TrackRow[] = [
     vBand: { min: 4, max: 8 },
     registers: ['expository'],
     skills: ['single_word'],
-    activities: ['read', 'word_set', 'order', 'insert'],
+    activities: ['read', 'word_set', 'order', 'insert', 'gapfill', 'comprehension'],
     note: '가장 짧고 밀도 높은 유형',
   },
   {
@@ -252,6 +253,12 @@ const GATES: GateRow[] = [
   },
 ]
 
+// a1 은 활동 산출물이 갖춰졌고 a2 는 하나도 없다 — 화면이 이 둘을 구별해야 한다.
+const DERIVED: Record<string, DerivedCounts> = {
+  a1: { dcp: 4, vocab: 61, wordSet: true },
+  a2: { dcp: 0, vocab: 0, wordSet: false },
+}
+
 const CONTENT_GATES = [
   {
     article_id: 'a2',
@@ -277,6 +284,7 @@ function render(tab: string, filled: boolean): string {
       feedSourceOptions={[{ key: 'bbc', publisher: 'bbc.co.uk', tier: 'corroborating' }]}
       acpOverlap={['noaa', 'voa']}
       contentGates={filled ? CONTENT_GATES : []}
+      derived={filled ? DERIVED : {}}
       envMissing={false}
       initialTab={tab as never}
     />,
@@ -324,6 +332,17 @@ describe('Compose 콘솔 렌더', () => {
   it('가공 면은 음성이 없으면 듣기 계열이 잠긴 것으로 표시한다', () => {
     const html = render('가공', true)
     expect(html).toContain('음성 필요')
+  })
+
+  it('가공 면은 계획이 아니라 실제로 만들어진 것을 말한다', () => {
+    // 계획만 칩으로 띄우던 동안, 활동 파생기에 실행 경로가 아예 없다는 것을 이 화면은
+    // 끝내 알려 주지 못했다. 있는 것과 없는 것이 눈으로 갈려야 한다.
+    const html = render('가공', true)
+    expect(html).toContain('문항 4') // order/insert 가 실제로 생성됨
+    expect(html).toContain('세트 발행됨') // 단어장이 실제로 서 있음
+    expect(html).toContain('어휘 61')
+    expect(html).toContain('어휘 없음') // 산출물이 없는 쪽은 없다고 말한다
+    expect(html).toContain('유료 생성 · 미구현')
   })
 
   it('발행 면은 게이트 실패를 보여 주고 발행 버튼을 잠근다', () => {

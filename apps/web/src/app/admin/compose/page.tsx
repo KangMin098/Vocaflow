@@ -26,6 +26,7 @@ import {
   type BatchRow,
   type ComposeCounts,
   type ComposedRow,
+  type DerivedCounts,
   type FactRow,
   type FeedRow,
   type GateRow,
@@ -44,6 +45,8 @@ type RowsResult<T> = { data: T[] | null; error: unknown }
 type RowsQuery<T> = PromiseLike<RowsResult<T>> & {
   order(column: string, opts: { ascending: boolean }): RowsQuery<T>
   limit(n: number): RowsQuery<T>
+  eq(column: string, value: string | boolean): RowsQuery<T>
+  in(column: string, values: readonly string[]): RowsQuery<T>
 }
 /** supabase-js 제네릭과 싸우지 않도록 필요한 모양만 구조적으로 받는다. */
 interface CountableClient {
@@ -109,6 +112,7 @@ export default async function AdminComposePage() {
   let attestations: AttestationRow[] = []
   let composed: ComposedRow[] = []
   let gates: GateRow[] = []
+  let derived: Record<string, DerivedCounts> = {}
 
   if (url && key) {
     const client = createServiceClient(url, key, {
@@ -189,6 +193,38 @@ export default async function AdminComposePage() {
         safeCount(client, 'article_compose_jobs', ['status', 'done']),
         safeCount(client, 'library_articles', ['source', 'original']),
       ])
+    // ⑥ 가공 — **계획**만 보여 주면 화면이 "붙는다" 고 말하는데 실제로 만들어졌는지는
+    //    아무도 모른다. 실제 산출물 수를 함께 싣는다(드레인 세 단계에 실행 경로가 없던 것을
+    //    이 화면이 끝내 알려 주지 못했던 이유이기도 하다).
+    const composeIds = composed.filter((a) => a.compose_batch_id !== null).map((a) => a.id)
+    for (const id of composeIds) derived[id] = { dcp: 0, vocab: 0, wordSet: false }
+    if (composeIds.length > 0) {
+      const [dcpRes, vocabRes, setRes] = await Promise.all([
+        client.from('csat_dcp_items').select<{ ref_id: string }>('ref_id').eq('kind', 'article').in('ref_id', composeIds),
+        client
+          .from('library_article_vocabularies')
+          .select<{ library_article_id: string }>('library_article_id')
+          .in('library_article_id', composeIds),
+        client
+          .from('shared_word_sets')
+          .select<{ curation_query: { article_id?: string } | null }>('curation_query')
+          .eq('category', 'library_article')
+          .eq('is_published', true),
+      ])
+      for (const r of (dcpRes.data ?? []) as Array<{ ref_id: string }>) {
+        const d = derived[r.ref_id]
+        if (d) d.dcp++
+      }
+      for (const r of (vocabRes.data ?? []) as Array<{ library_article_id: string }>) {
+        const d = derived[r.library_article_id]
+        if (d) d.vocab++
+      }
+      for (const r of (setRes.data ?? []) as Array<{ curation_query: { article_id?: string } | null }>) {
+        const aid = r.curation_query?.article_id
+        if (aid && derived[aid]) derived[aid]!.wordSet = true
+      }
+    }
+
     counts = {
       feeds: feedCount,
       feedsEnabled,
@@ -249,6 +285,7 @@ export default async function AdminComposePage() {
       facts={facts}
       attestations={attestations}
       composed={composed.filter((a) => a.compose_batch_id !== null)}
+      derived={derived}
       gates={gates}
       feedSourceOptions={feedSourceOptions}
       acpOverlap={acpOverlap()}
