@@ -257,6 +257,7 @@ export type { StoryCluster } from './compose/cluster'
 export {
   FEED_CONVENTIONS,
   FEED_FAILURE_ACTION,
+  FEED_MAX_AGE_DAYS,
   discoverFeeds,
   looksLikeFeed,
   parseFeedAnchors,

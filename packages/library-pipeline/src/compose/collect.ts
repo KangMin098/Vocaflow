@@ -46,6 +46,14 @@ export interface CollectReport {
   skipped: Array<{ url: string; reason: string }>
   /** 실제로 보낸 요청 수 — 부하를 스스로 계측한다 */
   requests: number
+  /**
+   * 피드 URL → 이 피드가 실제로 내놓은 항목 수 (**보류분 포함**).
+   *
+   * 왜 따로 세는가: 화면의 "찾음" 을 묶음에 들어간 항목만으로 세면, 갓 올라온 기사는
+   * 48시간 보류에 걸려 빠지므로 **잘 도는 피드가 0 으로 보인다**. 실측에서 DW 는 137항목을
+   * 내놓고도 0 으로 표시됐다 — 운영자에게는 죽은 피드와 구별되지 않는다.
+   */
+  perFeed: Record<string, number>
 }
 
 export interface CollectOptions extends DiscoverOptions {
@@ -81,6 +89,7 @@ export async function collectStories(
   const skipped: Array<{ url: string; reason: string }> = []
   const candidates: StoryCandidate[] = []
   const holding: StoryCandidate[] = []
+  const perFeed: Record<string, number> = {}
   let requests = 0
 
   for (const feed of feeds) {
@@ -120,6 +129,7 @@ export async function collectStories(
     candidates.push(...res.ready)
     holding.push(...res.holding)
     skipped.push(...res.skipped)
+    perFeed[feed.url] = res.ready.length + res.holding.length
   }
 
   const clusters = clusterStories(candidates)
@@ -128,6 +138,7 @@ export async function collectStories(
     singleLine: clusters.filter((c) => !c.worthPursuing),
     holding,
     robots,
+    perFeed,
     skipped,
     requests,
   }

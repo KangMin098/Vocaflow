@@ -275,9 +275,9 @@ export async function runDiscovery(): Promise<DiscoveryRunResult> {
         }
       })()
       const note = report.skipped.find((s) => s.url === f.url)?.reason ?? null
-      const found = [...report.pursue, ...report.singleLine]
-        .flatMap((c) => c.members)
-        .filter((m) => m.sourceKey === f.source_key).length
+      // 이 피드가 실제로 내놓은 항목 수 — **보류분 포함**. 묶음에 들어간 것만 세면
+      //   갓 올라온 기사가 48시간 보류에 걸려 빠져서 잘 도는 피드가 0 으로 보인다.
+      const found = report.perFeed[f.url] ?? 0
       return client
         .from('article_compose_feeds')
         .update({

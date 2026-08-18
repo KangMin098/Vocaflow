@@ -175,6 +175,29 @@ describe('collectStories', () => {
     // 이미 규칙을 갖고 있어 차단으로 떨어지지 않는다는 것이 요점이다.
     expect(d2.seen).toContain('https://wire.example/feed.xml')
   })
+
+  it('피드별 항목 수는 보류분을 포함한다 — 잘 도는 피드가 0 으로 보이면 안 된다', async () => {
+    // 실측 2026-08-18: DW 는 137항목을 내놓고도 화면에 "찾음 0" 으로 표시됐다. 묶음
+    // (pursue/singleLine)에 들어간 것만 세면 48시간 보류에 걸린 최신 기사가 전부 빠지고,
+    // 운영자에게는 **죽은 피드와 구별되지 않는다**.
+    const FRESH = feedXml([
+      { title: 'Storm forms offshore near the coast', path: 's1', hoursAgo: 2 },
+      { title: 'Ferries cancelled as winds pick up', path: 's2', hoursAgo: 3 },
+    ])
+    const r = await collectStories(
+      [{ sourceKey: 'reuters', url: 'https://wire.example/feed.xml', label: 'wire', enabled: true }],
+      deps({
+        'https://wire.example/robots.txt': ALLOW_ALL,
+        'https://wire.example/feed.xml': OK(FRESH),
+      }),
+      { registry: REGISTRY },
+    )
+    expect(r.pursue).toHaveLength(0)
+    expect(r.singleLine).toHaveLength(0)
+    expect(r.holding).toHaveLength(2)
+    expect(r.perFeed['https://wire.example/feed.xml']).toBe(2)
+  })
+
 })
 
 describe('toBatchRow', () => {
@@ -186,4 +209,5 @@ describe('toBatchRow', () => {
     // 72시간 전 보도가 가장 이르다 → 실제 사건은 그보다 앞이므로 I15 를 짧게 잡는 쪽으로 틀린다
     expect(Date.parse(row.event_occurred_at!)).toBe(NOW - 72 * H)
   })
+
 })

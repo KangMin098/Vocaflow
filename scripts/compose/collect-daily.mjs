@@ -109,7 +109,7 @@ for (const f of feedRows) {
       robots_status: report.robots[host] ?? null,
       robots_at: now,
       last_polled_at: now,
-      last_found: members.filter((m) => m.sourceKey === f.source_key).length,
+      last_found: report.perFeed[f.url] ?? 0,
       last_note: report.skipped.find((s) => s.url === f.url)?.reason ?? null,
     })
     .eq('id', f.id)

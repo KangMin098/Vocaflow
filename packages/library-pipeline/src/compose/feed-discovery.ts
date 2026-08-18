@@ -39,6 +39,8 @@ export type FeedFailureKind =
   | 'not-found'
   /** 열렸지만 피드가 아니다(대개 HTML 페이지) */
   | 'not-a-feed'
+  /** 형식은 멀쩡한데 내용이 낡았다 — 옮겨 간 주소의 잔해 */
+  | 'stale-feed'
   /** 네트워크 오류·타임아웃 */
   | 'network'
   /** 그 외 HTTP 오류 */
@@ -55,6 +57,8 @@ export const FEED_FAILURE_ACTION: Record<FeedFailureKind, string> = {
     '우리 수집기를 거절했다. 브라우저인 척 우회하지 않는다 — 이 발행사는 목록에서 빼는 것이 맞다.',
   'not-found': '주소가 바뀌었을 수 있다. 발행사 RSS 안내 페이지의 주소를 직접 넣어 확인해 본다.',
   'not-a-feed': '피드가 아니라 일반 페이지다. 그 페이지에 링크된 실제 피드 주소를 넣어 본다.',
+  'stale-feed':
+    '주소는 살아 있지만 발행사가 피드를 옮겼다. 발행사 RSS 안내에서 현재 주소를 찾아 넣는다.',
   network: '연결이 실패했다. 잠시 뒤 다시 시도한다.',
   'http-error': '발행사 서버가 오류를 냈다. 잠시 뒤 다시 시도한다.',
 }
@@ -150,12 +154,35 @@ export const FEED_CONVENTIONS: ReadonlyArray<string> = [
 ]
 
 /** 응답이 실제로 피드인지 — 항목이 하나라도 파싱되면 피드로 본다. */
-export function looksLikeFeed(text: string): { ok: boolean; itemCount: number; title: string | null } {
+/**
+ * 피드가 살아 있다고 볼 최대 경과일.
+ *
+ * 왜 필요한가: HTTP 200 + 항목 파싱 + 발행시각 존재를 모두 통과하고도 **죽은 피드**가 있다.
+ * 실측 2026-08-18 — cnn.com/rss/edition_world.rss 는 10항목을 정상적으로 내놓았지만 전부
+ * **2012년** 기사였다. 발행사가 피드를 옮기면서 옛 주소에 잔해가 남은 것이다. 형식만 보면
+ * 통과하므로 화면에는 정상 등록으로 보이고, 그 소스는 영원히 아무것도 기여하지 않는다.
+ */
+export const FEED_MAX_AGE_DAYS = 30
+
+export function looksLikeFeed(text: string): {
+  ok: boolean
+  itemCount: number
+  title: string | null
+  /** 가장 최근 항목의 경과일. 발행시각이 하나도 없으면 null */
+  newestAgeDays: number | null
+} {
   const items = parseRssFeed(text)
-  if (items.length === 0) return { ok: false, itemCount: 0, title: null }
+  if (items.length === 0) return { ok: false, itemCount: 0, title: null, newestAgeDays: null }
   const t = text.match(/<title(?:\s[^>]*)?>\s*(?:<!\[CDATA\[([\s\S]*?)\]\]>|([\s\S]*?))\s*<\/title>/i)
   const title = (t?.[1] ?? t?.[2] ?? '').trim() || null
-  return { ok: true, itemCount: items.length, title }
+  let newest = -Infinity
+  for (const it of items) {
+    const ts = it.published_at ? Date.parse(it.published_at) : NaN
+    if (!Number.isNaN(ts) && ts > newest) newest = ts
+  }
+  const newestAgeDays =
+    newest === -Infinity ? null : Math.floor((Date.now() - newest) / 86_400_000)
+  return { ok: true, itemCount: items.length, title, newestAgeDays }
 }
 
 function headers(): Record<string, string> {
@@ -255,6 +282,15 @@ export async function verifyFeedUrl(
   if ('fail' in r) return r
   const check = looksLikeFeed(r.res.text)
   if (!check.ok) return { fail: skip(url, 'not-a-feed', '열렸지만 피드가 아닙니다(항목 0)') }
+  if (check.newestAgeDays !== null && check.newestAgeDays > FEED_MAX_AGE_DAYS) {
+    return {
+      fail: skip(
+        url,
+        'stale-feed',
+        `형식은 피드가 맞지만 가장 최근 항목이 ${check.newestAgeDays}일 전입니다`,
+      ),
+    }
+  }
   return {
     feed: { url, title: check.title, via: 'convention', verified: true, itemCount: check.itemCount },
   }

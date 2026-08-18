@@ -15,6 +15,8 @@ import {
   parseFeedAnchors,
   parseFeedLinks,
   verifyFeedUrl,
+  FEED_MAX_AGE_DAYS,
+  FEED_FAILURE_ACTION,
 } from './feed-discovery'
 import type { FetchDeps, FetchResult } from './news-feed'
 import { FACT_SOURCES, type FactSourceSpec } from './sources'
@@ -332,5 +334,38 @@ describe('discoverFeeds — 관리자는 발행사만 고른다', () => {
     })
     const r = await discoverFeeds(spec, new CrawlGate(), d)
     expect(r.requests).toBe(5) // robots ×2(apex·www) + home + 후보 2
+  })
+})
+
+describe('죽은 피드 (실측 2026-08-18 · cnn.com/rss/edition_world.rss)', () => {
+  // HTTP 200 · 항목 10 · 발행시각 100% — 형식 검사는 전부 통과했는데 전부 2012년 기사였다.
+  // 발행사가 피드를 옮기면서 옛 주소에 잔해가 남은 것이다. 형식만 보면 정상 등록으로 보이고,
+  // 그 소스는 슬롯을 차지한 채 영원히 아무것도 기여하지 않는다.
+  const feedWith = (iso: string): string =>
+    `<?xml version="1.0"?><rss version="2.0"><channel><title>Old</title>` +
+    `<item><title>Some world story</title><link>https://x/a</link><pubDate>${iso}</pubDate></item>` +
+    `</channel></rss>`
+
+  it('낡은 피드는 항목이 있어도 살아 있다고 보지 않는다', () => {
+    const r = looksLikeFeed(feedWith('Mon, 12 Mar 2012 11:20:52 GMT'))
+    expect(r.ok).toBe(true) // 형식은 맞다
+    expect(r.newestAgeDays).toBeGreaterThan(FEED_MAX_AGE_DAYS)
+  })
+
+  it('최근 피드는 경과일이 기준 안에 든다', () => {
+    const r = looksLikeFeed(feedWith(new Date(Date.now() - 2 * 86_400_000).toUTCString()))
+    expect(r.ok).toBe(true)
+    expect(r.newestAgeDays).toBeLessThanOrEqual(FEED_MAX_AGE_DAYS)
+  })
+
+  it('발행시각이 하나도 없으면 낡음을 판정하지 않는다 (없는 근거로 막지 않는다)', () => {
+    const noDate =
+      '<?xml version="1.0"?><rss version="2.0"><channel><title>T</title>' +
+      '<item><title>No date here</title><link>https://x/a</link></item></channel></rss>'
+    expect(looksLikeFeed(noDate).newestAgeDays).toBeNull()
+  })
+
+  it('낡은 피드에는 옮겨 간 주소를 찾으라고 말한다', () => {
+    expect(FEED_FAILURE_ACTION['stale-feed']).toContain('옮겼')
   })
 })
