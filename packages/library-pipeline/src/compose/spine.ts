@@ -283,14 +283,16 @@ export const BAND_CONSTRAINT: Record<GradeBandKey, BandConstraint> = {
   },
   middle: {
     kind: 'ceiling',
-    value: 0.12,
-    basis: 'V3~4 지문 50편의 밴드 초과 p90 = 9.2~10.1%. 여유를 두어 12%',
+    value: 0.06,
+    basis:
+      'News in Levels Level 2 실측 5편: 0.0 · 1.7 · 4.2 · 4.7 · 5.5% (중앙 4.2 · 최대 5.5). 발행 코퍼스(V3~4 p90 7.5~11.4%)로 12% 를 잡았던 것은 **레벨용으로 쓴 글이 아닌 것을 기준 삼은 것**이다',
     calibrated: true,
   },
   high: {
     kind: 'ceiling',
-    value: 0.1,
-    basis: 'V5~6 지문 104편의 밴드 초과 p90 = 5.9~9.1%. 여유를 두어 10%',
+    value: 0.03,
+    basis:
+      'News in Levels Level 3 실측 2편: 1.1 · 2.2% (최대 2.2). 표본이 얇으므로 더 재서 조정한다',
     calibrated: true,
   },
   exam: {

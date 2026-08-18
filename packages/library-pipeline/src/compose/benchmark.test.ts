@@ -34,12 +34,16 @@ describe('기준선 표본', () => {
     }
   })
 
-  it('초등 허용치는 기준선 표본의 최대와 어긋나지 않는다', () => {
-    // 허용치가 표본 최대보다 헐거우면, 기준선을 넘는 글이 게이트를 통과한다.
-    const bar = benchmarkBar('elementary')!
-    expect(bar.n).toBeGreaterThanOrEqual(5)
-    expect(BAND_CONSTRAINT.elementary.value).toBeGreaterThanOrEqual(bar.maxAboveShare)
-    expect(BAND_CONSTRAINT.elementary.value - bar.maxAboveShare).toBeLessThan(0.03)
+  it('허용치가 기준선보다 헐거워지지 않는다 — 헐거우면 미달 글이 통과한다', () => {
+    for (const band of ['elementary', 'middle', 'high'] as const) {
+      const bar = benchmarkBar(band)
+      if (!bar) continue
+      const c = BAND_CONSTRAINT[band]
+      if (c.kind !== 'ceiling') continue
+      // 표본 최대는 넘겨 주되(그 정도는 글로벌 수준이므로), 그 이상 헐거우면 안 된다.
+      expect(c.value, band).toBeGreaterThanOrEqual(bar.maxAboveShare)
+      expect(c.value - bar.maxAboveShare, band).toBeLessThan(0.02)
+    }
   })
 })
 
@@ -53,7 +57,7 @@ describe('견주기', () => {
   })
 
   it('표본이 없는 밴드는 판정하지 않는다 — 없는 기준으로 합격시키지 않는다', () => {
-    const r = compareToBenchmark('middle', 0.001)
+    const r = compareToBenchmark('exam', 0.001)
     expect(r.verdict).toBe('no-baseline')
     expect(r.detail).toContain('표본이 없어')
   })
