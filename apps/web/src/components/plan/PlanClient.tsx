@@ -132,7 +132,8 @@ export function PlanClient({
       ? ['csat', 'eng_test', 'elementary', 'middle', 'high', 'themed', 'library_article', 'library_book']
       : activeTab === 'script'
         ? ['library', 'direct-script', 'direct-file', 'shared-set']
-        : ['voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation']
+        : // 재저작(original)이 앞에 선다 — 학습자 레벨에 맞춰 쓴 유일한 소스이고 가장 최근이다.
+        ['original', 'voa', 'nasa', 'nih', 'simple_wikipedia', 'wikinews', 'the_conversation']
   const articleNav = buildArticleNav(
     isSourceTab ? candidates : materials.articles,
     artSrc,

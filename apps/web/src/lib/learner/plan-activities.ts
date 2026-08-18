@@ -5,6 +5,8 @@
 // P1 재설계: 학습 계획 = 플랫폼 자료(도서/스크립트/공용단어장/내 스크립트) × 활동 (리틀팍스형).
 //   book=library_books · article=library_articles(공개 스크립트) · word_set=shared_word_sets · script=texts(개인)
 
+import { SOURCE_META } from '@/lib/articles/source-meta'
+
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 
 export type MaterialType = 'book' | 'article' | 'word_set' | 'script'
@@ -230,25 +232,29 @@ export function weekdayLabel(value: number): string {
   return WEEKDAYS.find((d) => d.value === value)?.label ?? String(value)
 }
 
-/** library_articles.source + texts.source(text_source) → 표시 라벨 (소스별 분류 레일).
- *  키가 겹치지 않아 한 맵으로 스크립트(공개)·내 스크립트(개인) 모두 커버. */
-export const ARTICLE_SOURCE_LABEL: Record<string, string> = {
-  voa: 'VOA',
-  nasa: 'NASA',
-  nih: 'NIH',
-  simple_wikipedia: 'Simple Wikipedia',
-  wikinews: 'Wikinews',
-  the_conversation: 'The Conversation',
-  // texts.source (내 스크립트 origin) — 출처 레일의 항목명이라 피드 이름(VOA·NASA…)과 한 줄에 선다.
+/** texts.source(내가 넣은 본문의 출처) 전용 라벨.
+ *
+ *  ⚠️ **발행사 이름은 여기 적지 않는다** — 정본은 `SOURCE_META`(lib/articles/source-meta.ts)다.
+ *  이 맵이 발행사까지 들고 있던 동안 두 레지스트리가 조용히 갈렸다: 소스가 9개 늘어나는 사이
+ *  이쪽은 6개에 멈춰 있었고, 재저작(`original`) 글은 레일에 **"original"** 이라는 내부 키가
+ *  그대로 찍혔다(`??` 폴백이라 터지지도 않아 아무도 몰랐다). 이제 발행사는 아래에서 위임한다. */
+export const TEXT_ORIGIN_LABEL: Record<string, string> = {
   library: 'From a Book',
   'direct-script': 'Typed In',
   'direct-file': 'File Upload',
   'shared-set': 'Shared Deck',
 }
 
+/** library_articles.source + texts.source(text_source) → 표시 라벨 (소스별 분류 레일).
+ *  키가 겹치지 않아 한 함수로 스크립트(공개)·내 스크립트(개인) 모두 커버. */
 export function articleSourceLabel(source: string | null | undefined): string {
   if (!source) return 'Other'
-  return ARTICLE_SOURCE_LABEL[source] ?? source.replace(/[_-]/g, ' ')
+  const origin = TEXT_ORIGIN_LABEL[source]
+  if (origin) return origin
+  // 레일 항목은 칩 한 칸이라 긴 정식명 대신 `short` 를 쓴다.
+  const meta = SOURCE_META[source]
+  if (meta) return meta.short
+  return source.replace(/[_-]/g, ' ')
 }
 
 /** CEFR → 대표 V-Level (V밴드 폴백 — 단어장 등 v_level 컬럼 부재 시). */
