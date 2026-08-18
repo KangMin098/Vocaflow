@@ -18,6 +18,21 @@
 /** 표기 문장의 고정 머리. 이 문자열로 기존 표기를 찾아 갈아 끼운다. */
 export const ATTRIBUTION_PREFIX = 'Facts in this story were confirmed in reporting by'
 
+/**
+ * 적응(쉬운 판) 표기의 머리.
+ *
+ * 재저작과 **다른 말을 해야 한다** — 재저작은 사실만 가져와 우리가 쓴 글이고, 적응은
+ * 그 발행사의 글을 쉽게 고쳐 쓴 글이다. 같은 문구를 쓰면 학습자에게 거짓을 말하는 것이다.
+ */
+export const ADAPTATION_PREFIX = 'This is an easier version of an article by'
+
+/** 원본 발행사 → 적응 표기 한 줄. */
+export function buildAdaptationAttribution(publisher: string, url?: string): string {
+  if (!publisher.trim()) return ''
+  const where = url && /^https?:/i.test(url) ? ` (${url})` : ''
+  return `${ADAPTATION_PREFIX} ${publisher}${where}. Vocaflow rewrote it for easier reading.`
+}
+
 /** 발행사 목록 → 표기 문단 한 줄. */
 export function buildAttribution(publishers: ReadonlyArray<string>): string {
   if (publishers.length === 0) return ''
@@ -36,7 +51,10 @@ export function buildAttribution(publishers: ReadonlyArray<string>): string {
 export function stripAttribution(body: string): string {
   return body
     .split(/\n\s*\n/)
-    .filter((p) => !p.trim().startsWith(ATTRIBUTION_PREFIX))
+    .filter((p) => {
+      const t = p.trim()
+      return !t.startsWith(ATTRIBUTION_PREFIX) && !t.startsWith(ADAPTATION_PREFIX)
+    })
     .join('\n\n')
     .trimEnd()
 }

@@ -42,6 +42,14 @@ export interface GradeBand {
   /** 대응 CEFR-J 밴드 — 위 실측 매핑에서 나온다 */
   cefrj: ReadonlyArray<string>
   /**
+   * 이 학령 독자가 한 번에 읽는 분량과 문장 길이.
+   *
+   * **길이는 독자의 것이지 목적의 것이 아니다** — 같은 '일반 영어' 유형이라도 초등 독자에게
+   * 180어는 한 자리에서 못 읽는다. 유형(track)은 무엇을 쓰는지를, 밴드는 얼마나 쓰는지를 정한다.
+   */
+  words: { min: number; max: number }
+  avgSentenceWords: number
+  /**
    * 학령 집필 지시 — **유형이 아니라 밴드가 갖는다.**
    *
    * 같은 유형(예: 일반 영어)이 초등판과 중등판을 모두 쓰므로, 학령에 따라 달라지는 규칙은
@@ -65,6 +73,8 @@ export const GRADE_BANDS: Record<GradeBandKey, GradeBand> = {
     label: '초등',
     vRange: { min: 1, max: 3 },
     cefrj: ['A1', 'A2'],
+    words: { min: 90, max: 170 },
+    avgSentenceWords: 9,
     directives: [
       '한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.',
       '눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.',
@@ -79,6 +89,8 @@ export const GRADE_BANDS: Record<GradeBandKey, GradeBand> = {
     label: '중등',
     vRange: { min: 3, max: 6 },
     cefrj: ['A2', 'B1'],
+    words: { min: 180, max: 320 },
+    avgSentenceWords: 14,
     directives: [
       // ⚠️ '역피라미드로 쓰라' 고 지시하지 않는다 — 그것이 곧 원 기사의 전개라
       //   I14(구조 독립성)를 정면으로 밀어 올린다. 학령 지시는 **문단 단위**만 정한다.
@@ -92,6 +104,8 @@ export const GRADE_BANDS: Record<GradeBandKey, GradeBand> = {
     label: '고등',
     vRange: { min: 5, max: 8 },
     cefrj: ['B1', 'B2'],
+    words: { min: 130, max: 260 },
+    avgSentenceWords: 20,
     directives: [
       '지시어로 문장 간 결속을 만든다 — 순서·삽입 문항의 단서가 된다.',
       '한 문단에 논지 하나. 주제문을 문단 앞이나 끝에 분명히 둔다.',
@@ -103,6 +117,8 @@ export const GRADE_BANDS: Record<GradeBandKey, GradeBand> = {
     label: '대입·학술',
     vRange: { min: 7, max: 11 },
     cefrj: ['B2'],
+    words: { min: 250, max: 450 },
+    avgSentenceWords: 24,
     directives: [
       '한정 표현(may·suggests·is associated with)으로 단정을 피한다.',
       '심화 어휘를 일부러 넣는다 — 이 밴드의 제약은 천장이 아니라 하한이다.',

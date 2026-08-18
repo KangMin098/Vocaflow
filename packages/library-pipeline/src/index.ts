@@ -172,6 +172,20 @@ export {
   tokenize,
 } from './compose/fingerprint'
 export type { Fingerprint, VerbatimRun } from './compose/fingerprint'
+// 재저작·적응 글의 출처 표기 — 본문에 넣되 지문 대조에서는 뺀다.
+export {
+  ADAPTATION_PREFIX,
+  ATTRIBUTION_PREFIX,
+  buildAdaptationAttribution,
+  buildAttribution,
+  stripAttribution,
+  withAttribution,
+} from './compose/attribution'
+
+// 레벨 적응 — 라이선스 보유 글의 쉬운 판. 게이트가 재저작과 다르다.
+export { isAdaptationPublishable, runAdaptationGates } from './compose/adaptation'
+export type { AdaptationInput } from './compose/adaptation'
+
 export {
   COMPOSE_THRESHOLDS,
   checkExpressionIndependence,
