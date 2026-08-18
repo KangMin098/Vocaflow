@@ -180,7 +180,9 @@ if (has('process')) {
         source: src.source,
         source_id: 'adapt:' + src.id + ':v' + job.target_v_level,
         source_url: src.source_url,
-        title: src.title + ' (easier)',
+        // 제목에 학령을 넣는다 — 같은 원본에서 여러 레벨을 파생하면 '(easier)' 만으로는
+        //   학습자에게 같은 글 두 개로 보인다(실측으로 확인).
+        title: src.title + ' (' + GRADE_BANDS[band].label + ' 쉬운 판)',
         content: body,
         status: 'queued',
         register: job.register,
