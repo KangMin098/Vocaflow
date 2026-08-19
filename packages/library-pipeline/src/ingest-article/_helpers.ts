@@ -15,6 +15,8 @@ export interface RssListItem {
   title: string
   url: string
   published_at: string | null
+  /** 발행 시각의 출처. 피드가 퇴화해 주소에서 되찾았으면 `'url'` (하루 단위). */
+  date_source?: 'feed' | 'url'
   /** plain-text 짧은 설명 (CDATA + HTML stripped + entity decoded, 최대 400자) */
   description: string
 }
@@ -73,7 +75,72 @@ export function parseRssFeed(xml: string): RssListItem[] {
       description: stripTags(decodeEntities(desc)).replace(/\s+/g, ' ').trim().slice(0, 400),
     })
   }
+  // 발행 시각이 퇴화한 피드는 주소에 박힌 날짜로 되살린다.
+  //   되살릴 수 없는 항목은 그대로 둔다 — 거짓 시각이라도 없는 것보다 낫다(늦게 익을 뿐이다).
+  if (degenerateDates(items)) {
+    for (const it of items) {
+      const fromUrl = dateFromUrl(it.url)
+      if (fromUrl) {
+        it.published_at = fromUrl
+        it.date_source = 'url'
+      }
+    }
+  }
   return items
+}
+
+/**
+ * 피드가 **모든 항목에 같은 발행 시각**(= 피드를 만든 시각)을 찍고 있는가.
+ *
+ * 실측 2026-08-19: `feed.koreatimes.co.kr/k/allnews.xml` 37항목의 pubDate 가 전부
+ * `Wed, 19 Aug 2026 02:32:03 GMT` 하나였다 — 우리가 받기 6분 전. 같은 시각 코리아헤럴드는
+ * 50항목 중 45개가 서로 다른 분이었다. 즉 파서 탓이 아니라 그 피드의 결함이다.
+ *
+ * 못 보고 지나가면 조용히 두 가지가 망가진다:
+ *   ① 발행 지연 48시간이 **우리가 처음 본 시각**부터 세어진다 — 사흘 전 기사도 이틀 더 묵는다.
+ *   ② 같은 사건을 다룬 다른 매체 기사와 **함께 익지 않아** 독립 2계통이 성립하지 않는다.
+ *      한국 매체끼리 국내 사건을 각자 보도해 2계통을 만드는 경로가 여기서 끊긴다.
+ *
+ * 얇은 표본으로 단정하지 않는다(5건 미만 판정 보류). 정상 피드의 실측 최저가 87% 였으므로
+ * **10% 이하만** 퇴화로 본다 — 그 사이는 넓게 비워 둔다.
+ */
+function degenerateDates(items: ReadonlyArray<RssListItem>): boolean {
+  const dated = items.filter((i) => i.published_at)
+  if (dated.length < 5) return false
+  const distinct = new Set(dated.map((i) => i.published_at!.slice(0, 16)))
+  return distinct.size <= Math.max(1, Math.floor(dated.length * 0.1))
+}
+
+/**
+ * 주소에 박힌 발행일 되찾기 — `/20260819/` · `/2026/08/19/` · `/2026-08-19/`.
+ *
+ * **하루 단위이므로 그날의 끝(23:59:59.999Z)을 돌려준다.** 시작이 아니다.
+ * 발행 지연 게이트(I15)는 "사건 후 48시간" 을 요구하는데 실제 발행 시각은 그날 어딘가다.
+ * 끝으로 잡으면 우리가 세는 경과 시간이 실제보다 **짧게** 나와 절대 일찍 풀리지 않는다.
+ * 시작(00:00)으로 잡으면 최대 24시간 일찍 풀린다 — 그쪽이 위험하다.
+ *
+ * 내일 이후와 1990년 이전은 거절한다 — 주소에 우연히 섞인 숫자다.
+ */
+export function dateFromUrl(url: string, nowMs: number = Date.now()): string | null {
+  const patterns = [
+    /\/(\d{4})(\d{2})(\d{2})(?:\/|$|\?)/,
+    /\/(\d{4})\/(\d{2})\/(\d{2})(?:\/|$|\?)/,
+    /\/(\d{4})-(\d{2})-(\d{2})(?:\/|$|\?)/,
+  ]
+  for (const re of patterns) {
+    const m = url.match(re)
+    if (!m) continue
+    const y = Number(m[1])
+    const mo = Number(m[2])
+    const d = Number(m[3])
+    if (y < 1990 || mo < 1 || mo > 12 || d < 1 || d > 31) continue
+    const back = new Date(Date.UTC(y, mo - 1, d, 23, 59, 59, 999))
+    // 2026-02-31 같은 조합은 다음 달로 굴러간다 — 그런 건 날짜가 아니다.
+    if (back.getUTCMonth() !== mo - 1 || back.getUTCDate() !== d) continue
+    if (back.getTime() > nowMs + 86_400_000) continue
+    return back.toISOString()
+  }
+  return null
 }
 
 /**

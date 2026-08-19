@@ -722,9 +722,15 @@ export function isCollectRole(spec: FactSourceSpec): boolean {
  * ACP 공급원(nasa·noaa·usgs·wikipedia)이 **교차확인 출처에서까지 빠졌다** — 주제 커버리지가
  * 통째로 무너졌다. NASA 페이지가 뉴스 기사의 수치를 뒷받침하는 것은 완전히 정상이고,
  * 막아야 하는 것은 NASA **피드를 걷어 사건을 발견하는 것**뿐이다(그건 ACP 가 할 일이다).
+ *
+ * 본문이 안 열리는 소스(`bodyAccess: 'blocked'`)도 여기서 막는다 — 이건 취향이 아니라 산술이다.
+ * 발행은 **읽을 수 있는 독립 2계통**을 요구하는데 blocked 는 그 둘 중 하나가 될 수 없으므로,
+ * 그 피드를 걷어 봐야 사건 후보만 늘고 발행은 한 건도 늘지 않는다. 실측(2026-08-19, 30일):
+ * npr·washingtonpost 후보 64건 · **기여 0건**. 반면 교차확인 자격(`isCollectable`)은 건드리지
+ * 않는다 — 제목·요약으로 사실을 대조하는 쓰임까지 막을 이유는 없다.
  */
 export function isFeedCollectable(spec: FactSourceSpec): boolean {
-  return isCollectRole(spec) && isCollectable(spec)
+  return isCollectRole(spec) && isCollectable(spec) && spec.bodyAccess !== 'blocked'
 }
 
 

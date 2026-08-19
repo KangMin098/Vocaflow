@@ -25,7 +25,8 @@ const di = process.argv.indexOf('--days')
 const DAYS = di >= 0 ? Number(process.argv[di + 1]) : 30
 
 const { createClient } = await import('@supabase/supabase-js')
-const { clusterStories, classifyTopic } = await import('@vocaflow/library-pipeline')
+const { clusterStories, classifyTopic, hasKoreaContext, isKoreaRelevant } =
+  await import('@vocaflow/library-pipeline')
 
 const db = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -33,10 +34,8 @@ const db = createClient(
   { auth: { persistSession: false } },
 )
 
-/** 한국 학습자에게 배경 지식이 있는 소재인가 — 한국·한국어권·인접 아시아. */
-const KOREA =
-  /\b(korea\w*|seoul|busan|incheon|jeju|hanbok|kimchi|k-pop|kpop|hallyu|samsung|hyundai|lg|sk hynix|kia|naver|kakao|bts|blackpink|taekwondo|chuseok|seollal|dmz|pyongyang|north korean|yonhap)\b/i
-
+// 한국 관련성 판정은 topic-fitness 한곳에서 온다 — 여기 사본을 두었더니 토큰이 갈라져
+//   (lg·sk hynix·kia 누락) LG 전자 국내 사건이 "한국 관련 아님" 으로 집계됐다(2026-08-19).
 const since = new Date(Date.now() - DAYS * 86_400_000).toISOString()
 const rows = []
 for (let from = 0; ; from += 1000) {
@@ -71,7 +70,7 @@ for (const r of rows) contrib.set(r.source_key, { cands: 0, usable: 0, korea: 0 
 for (const r of rows) {
   const e = contrib.get(r.source_key)
   e.cands++
-  if (KOREA.test(r.title)) e.korea++
+  if (hasKoreaContext(r.title)) e.korea++
 }
 for (const c of usable) {
   for (const key of new Set(c.members.map((m) => m.sourceKey))) {
@@ -100,7 +99,7 @@ console.log(`\n쓸 수 있는 사건에 한 번도 기여 못 한 소스 ${dead.
 for (const [k, v] of dead) console.log(`  · ${k} (후보 ${v.cands} · 한국관련 ${v.korea})`)
 
 // ② 한국 관련 소재의 학습 적합성 — 친숙한 소재가 실제로 쓸 만한가
-const koreaCands = rows.filter((r) => KOREA.test(r.title))
+const koreaCands = rows.filter((r) => hasKoreaContext(r.title))
 const koreaFit = koreaCands.filter((r) => classifyTopic(r.title) === 'fit').length
 const koreaUnfit = koreaCands.filter((r) => classifyTopic(r.title) === 'unfit').length
 const allFit = rows.filter((r) => classifyTopic(r.title) === 'fit').length
@@ -110,6 +109,8 @@ console.log(`    · 학습 적합 ${koreaFit} (${((100 * koreaFit) / (koreaCands
 console.log(`    · 학습 부적합 ${koreaUnfit} (${((100 * koreaUnfit) / (koreaCands.length || 1)).toFixed(1)}%)`)
 console.log(`  전체 적합률 ${((100 * allFit) / rows.length).toFixed(1)}% 와 견줄 것`)
 
-const koreaUsable = usable.filter((c) => c.members.some((m) => KOREA.test(m.title)))
+const koreaUsable = usable.filter((c) =>
+  isKoreaRelevant(c.headline, c.members.map((m) => m.publisher)),
+)
 console.log(`  쓸 수 있는 사건 중 한국 관련 ${koreaUsable.length} / ${usable.length}`)
 for (const c of koreaUsable.slice(0, 6)) console.log(`    · ${c.headline.slice(0, 70)}`)

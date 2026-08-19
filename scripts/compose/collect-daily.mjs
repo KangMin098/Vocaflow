@@ -36,7 +36,7 @@ const commit = process.argv.includes('--commit')
 const TIMEOUT_MS = 12_000
 
 const { createClient } = await import('@supabase/supabase-js')
-const { collectStories, clusterStories, learnerPriority, hasKoreaContext, classifyTopic } =
+const { collectStories, clusterStories, learnerPriority, isKoreaRelevant, classifyTopic } =
   await import('@vocaflow/library-pipeline')
 
 const db = createClient(
@@ -167,7 +167,7 @@ const stored_clusters = clusterStories(
 //   배경 지식이 있는 소재라 진입 장벽이 낮다(학습원칙5 Context-Dependent).
 const pursuable = stored_clusters
   .filter((c) => c.worthPursuing)
-  .map((c) => ({ c, p: learnerPriority(c.headline) }))
+  .map((c) => ({ c, p: learnerPriority(c.headline, c.members.map((m) => m.publisher)) }))
   .sort((a, b) => b.p - a.p)
   .map((x) => x.c)
 
@@ -176,7 +176,7 @@ console.log(`피드 건강 기록 ${feedRows.length - healthFail}/${feedRows.len
 console.log(`\n■ 지금 취재 가능한 사건 ${pursuable.length}건 (독립 2계통 이상)`)
 for (const c of pursuable.slice(0, 12)) {
   const mark = classifyTopic(c.headline) === 'unfit' ? '✗' : classifyTopic(c.headline) === 'fit' ? '★' : '·'
-  const kr = hasKoreaContext(c.headline) ? ' [한국]' : ''
+  const kr = isKoreaRelevant(c.headline, c.members.map((m) => m.publisher)) ? ' [한국]' : ''
   console.log(`  ${mark} ${c.headline}${kr}`)
   console.log(
     `      계통 ${c.readableLines}/${c.independentLines} · ${c.members.map((m) => m.publisher).join(', ')}`,
@@ -184,7 +184,9 @@ for (const c of pursuable.slice(0, 12)) {
 }
 
 const fitCount = pursuable.filter((c) => classifyTopic(c.headline) === 'fit').length
-const krCount = pursuable.filter((c) => hasKoreaContext(c.headline)).length
+const krCount = pursuable.filter((c) =>
+  isKoreaRelevant(c.headline, c.members.map((m) => m.publisher)),
+).length
 console.log(`\n  ★ 학습 적합 ${fitCount} · [한국] 관련 ${krCount} · 전체 ${pursuable.length}`)
 if (!pursuable.length) {
   console.log('  없음. 고장이 아니라 재료가 모자란 것이다 — 매일 돌면 저절로 늘어난다.')

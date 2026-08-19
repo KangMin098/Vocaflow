@@ -23,6 +23,10 @@ const UNFIT_PATTERNS = [
   /\b(dead|deadly|death|deaths|died|dies|dying|fatal|casualt\w*|victim\w*)\b/i,
   // 분쟁·군사
   /\b(war|wars|troop\w*|missile\w*|airstrike\w*|militant\w*|invasion|ceasefire|hostage\w*)\b/i,
+  // 군사 기관·훈련. `exercise` 가 적합 신호(운동)에 있어서 **군사 훈련 기사가 적합으로 샜다** —
+  //   실측 2026-08-19: "(URGENT) Pentagon: S. Korea-U.S. exercise adjustments…" 가 그렇게 올라왔다.
+  //   부적합을 먼저 보므로 여기 걸리면 적합 신호가 있어도 빠진다.
+  /\b(pentagon|military|militar\w+|drill|drills|navy|army|air force|warhead\w*|nuclear weapon\w*)\b/i,
   // 사법·정치 다툼
   /\b(court|trial|lawsuit|prison|jail|scandal|impeach\w*|sanction\w*|tariff\w*|election\w*|referendum)\b/i,
   // 특정 인물·분쟁 지역 (정치 쟁점 신호)
@@ -78,11 +82,47 @@ export function fitnessRatio(titles: ReadonlyArray<string>): number | null {
  * ⚠️ 제목 기반이라 거칠다. **순위용**이고 개별 채택 판정용이 아니다.
  */
 const KOREA_CONTEXT =
-  /\b(korea\w*|seoul|busan|incheon|jeju|hanbok|kimchi|k-pop|kpop|hallyu|samsung|hyundai|naver|kakao|bts|blackpink|taekwondo|chuseok|seollal|dmz|pyongyang|yonhap)\b/i
+  /\b(korea\w*|seoul|busan|incheon|jeju|hanbok|kimchi|k-pop|kpop|hallyu|samsung|hyundai|lg|sk hynix|kia|naver|kakao|bts|blackpink|taekwondo|chuseok|seollal|dmz|pyongyang|yonhap)\b/i
 
 /** 이 제목이 한국 학습자에게 친숙한 배경을 갖는가. */
 export function hasKoreaContext(title: string): boolean {
   return KOREA_CONTEXT.test(title ?? '')
+}
+
+/**
+ * 한국 영문 매체 — `FACT_SOURCES` 의 `publisher` 값과 같아야 한다(테스트가 지킨다).
+ *
+ * 여기 적힌 것은 "한국에서 한국 독자를 향해 영어로 쓰는 곳" 이다. 서구 매체의 서울 특파원
+ * 기사는 포함하지 않는다 — 그건 한국 사건을 **바깥에서** 설명한 글이라 배경 전제가 다르다.
+ */
+export const KOREAN_PUBLISHERS: ReadonlySet<string> = new Set([
+  'en.yna.co.kr',
+  'koreatimes.co.kr',
+  'koreaherald.com',
+])
+
+/** 이 발행사 목록 중 한국 매체가 몇 곳인가. */
+export function koreanOutlets(publishers: ReadonlyArray<string>): number {
+  return new Set(publishers.map((p) => p.toLowerCase()).filter((p) => KOREAN_PUBLISHERS.has(p))).size
+}
+
+/**
+ * 사건 단위 한국 관련성 — **제목 키워드보다 발행사가 더 확실한 근거다.**
+ *
+ * 왜 축을 하나 더 두는가 (실측 2026-08-19): 쓸 수 있는 사건 6건 중 5건이 한국 매체끼리의
+ * 짝이었는데 제목 키워드로는 3건만 잡혔다. `Nvidia executive to visit LG Electronics
+ * robotics hub` 와 `Heavy rainfall offers drought relief...` 는 명백히 국내 사건인데
+ * 키워드가 안 걸렸다. 키워드는 **추측**이고 발행사는 **사실**이다.
+ *
+ * 한국 매체 **2곳 이상**을 요구한다. 한 곳만이면 부족하다 — 연합·코리아타임스도 국제 뉴스를
+ * 그대로 싣기 때문에, 한 곳 보도만으로는 그 사건이 한국 사건이라는 근거가 되지 못한다.
+ * 두 곳이 각자 다루었다는 것은 그 편집국들이 국내 독자에게 중요하다고 판단했다는 뜻이다.
+ */
+export function isKoreaRelevant(
+  headline: string,
+  publishers: ReadonlyArray<string> = [],
+): boolean {
+  return hasKoreaContext(headline) || koreanOutlets(publishers) >= 2
 }
 
 /**
@@ -91,10 +131,13 @@ export function hasKoreaContext(title: string): boolean {
  * 적합성과 한국 관련성은 **다른 축**이다. 둘 다 있으면 가장 좋고, 부적합은 한국 관련이어도
  * 쓰지 않는다(사건사고는 친숙해도 학습 지문이 아니다).
  */
-export function learnerPriority(title: string): 0 | 1 | 2 | 3 {
+export function learnerPriority(
+  title: string,
+  publishers: ReadonlyArray<string> = [],
+): 0 | 1 | 2 | 3 {
   const fit = classifyTopic(title)
   if (fit === 'unfit') return 0
-  const kr = hasKoreaContext(title)
+  const kr = isKoreaRelevant(title, publishers)
   if (fit === 'fit') return kr ? 3 : 2
   return kr ? 1 : 0
 }

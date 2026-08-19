@@ -25,6 +25,7 @@ import {
   roleViolations,
   rolesOf,
   isFeedCollectable,
+  isCollectRole,
 } from './sources'
 
 describe('FACT_SOURCES 레지스트리', () => {
@@ -314,7 +315,9 @@ describe('소스 역할 — ACP 와 Compose 의 경계', () => {
 
   it('상업 뉴스는 걷을 수 있어야 한다 — 역할 규칙이 실수집을 끊으면 안 된다', () => {
     // 실측 후보 수가 있는 소스들. `discovery` 로 판정했다가 dw(152건)를 끊은 적이 있다.
-    for (const key of ['bbc', 'dw', 'guardian', 'yonhap', 'npr', 'abcnews', 'aljazeera']) {
+    // npr·washingtonpost 는 여기서 뺐다 — 역할이 아니라 **본문이 안 열려서** 빠진다.
+    //   사유가 다르면 테스트도 나눠 둔다. 안 그러면 나중에 역할 규칙을 의심하게 된다.
+    for (const key of ['bbc', 'dw', 'guardian', 'yonhap', 'abcnews', 'aljazeera']) {
       const spec = FACT_SOURCES[key]
       if (!spec) continue
       expect(rolesOf(spec)).toContain('collect')
@@ -333,5 +336,26 @@ describe('소스 역할 — ACP 와 Compose 의 경계', () => {
       const n = (r.includes('supply') ? 1 : 0) + (r.includes('collect') ? 1 : 0)
       expect(n, `${spec.key}: ${r.join('+')}`).toBe(1)
     }
+  })
+})
+
+describe('본문이 안 열리는 소스는 피드를 걷지 않는다', () => {
+  it('blocked 소스는 수집 대상에서 빠진다 — 2계통 중 하나가 될 수 없다', () => {
+    const blocked = Object.values(FACT_SOURCES).filter((s) => s.bodyAccess === 'blocked')
+    expect(blocked.length).toBeGreaterThan(0)
+    for (const s of blocked) expect(isFeedCollectable(s), s.key).toBe(false)
+  })
+
+  it('그래도 교차확인 자격은 유지한다 — 두 질문을 다시 합치지 않는다', () => {
+    const blocked = Object.values(FACT_SOURCES).filter((s) => s.bodyAccess === 'blocked')
+    for (const s of blocked) expect(isCollectable(s), s.key).toBe(true)
+  })
+
+  it('본문이 열리는 수집 소스는 그대로 걷는다', () => {
+    const ok = Object.values(FACT_SOURCES).filter(
+      (s) => s.bodyAccess === 'ok' && isCollectRole(s),
+    )
+    expect(ok.length).toBeGreaterThan(0)
+    for (const s of ok) expect(isFeedCollectable(s), s.key).toBe(true)
   })
 })

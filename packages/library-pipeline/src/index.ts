@@ -187,7 +187,15 @@ export { BENCHMARK_SAMPLES, benchmarkBar, compareToBenchmark } from './compose/b
 export type { BenchmarkBar, BenchmarkResult, BenchmarkSample, BenchmarkVerdict } from './compose/benchmark'
 
 // 제목 기반 학습 적합성 — 피드 순위·천장 측정용(개별 판정용 아님).
-export { classifyTopic, fitnessRatio, hasKoreaContext, learnerPriority } from './compose/topic-fitness'
+export {
+  KOREAN_PUBLISHERS,
+  classifyTopic,
+  fitnessRatio,
+  hasKoreaContext,
+  isKoreaRelevant,
+  koreanOutlets,
+  learnerPriority,
+} from './compose/topic-fitness'
 export type { TopicFitness } from './compose/topic-fitness'
 
 // 초안 검수 — 게이트가 보지 않는 것. 잰 것과 판단이 필요한 것을 나눠 돌려준다.

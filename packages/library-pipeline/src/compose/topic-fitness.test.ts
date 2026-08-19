@@ -5,11 +5,15 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  KOREAN_PUBLISHERS,
   classifyTopic,
   fitnessRatio,
   hasKoreaContext,
+  isKoreaRelevant,
+  koreanOutlets,
   learnerPriority,
 } from './topic-fitness'
+import { FACT_SOURCES } from './sources'
 
 describe('학습 적합성 분류', () => {
   it('굴절형을 잡는다 — \\bshoot\\b 는 "shooting" 을 못 잡았다', () => {
@@ -79,5 +83,85 @@ describe('한국 관련성 — 목표의 축인데 재지 않고 있었다', () 
   it('중립 + 한국 관련은 무관 중립보다 앞선다', () => {
     expect(learnerPriority('Korea reports quarterly figures')).toBe(1)
     expect(learnerPriority('Company reports quarterly figures')).toBe(0)
+  })
+})
+
+describe('사건 단위 한국 관련성 — 발행사가 키워드보다 확실하다', () => {
+  it('한국 매체 2곳이 다루면 제목에 키워드가 없어도 한국 관련이다', () => {
+    // 실측 2026-08-19: 이 두 건은 명백한 국내 사건인데 키워드로는 안 잡혔다.
+    for (const t of [
+      'Nvidia executive to visit LG Electronics robotics hub on Tuesday',
+      'Heavy rainfall offers drought relief, causes damage in southern regions',
+    ]) {
+      expect(isKoreaRelevant(t, ['en.yna.co.kr', 'koreatimes.co.kr']), t).toBe(true)
+    }
+  })
+
+  it('한국 매체 한 곳만이면 근거로 삼지 않는다 — 국제 뉴스를 그대로 싣는다', () => {
+    expect(isKoreaRelevant('Bus crash in Hungary kills 12 people', ['en.yna.co.kr', 'dw.com'])).toBe(
+      false,
+    )
+  })
+
+  it('제목에 키워드가 있으면 발행사와 무관하게 한국 관련이다', () => {
+    expect(isKoreaRelevant('BTS lands 2 MTV VMA nominations', ['bbc.co.uk'])).toBe(true)
+    expect(isKoreaRelevant('Seoul subway extends late-night service', [])).toBe(true)
+  })
+
+  it('발행사 대소문자를 가리지 않고, 같은 곳을 두 번 세지 않는다', () => {
+    expect(koreanOutlets(['EN.YNA.CO.KR', 'en.yna.co.kr'])).toBe(1)
+    expect(koreanOutlets(['en.yna.co.kr', 'koreaherald.com', 'bbc.co.uk'])).toBe(2)
+  })
+
+  it('예전에 놓치던 기업 이름을 이제 잡는다', () => {
+    for (const t of ['LG unveils new display', 'SK Hynix expands plant', 'Kia opens design center']) {
+      expect(hasKoreaContext(t), t).toBe(true)
+    }
+  })
+
+  it('한국 매체 2곳이어도 부적합이면 우선순위 0 — 친숙해도 사건사고는 쓰지 않는다', () => {
+    expect(
+      learnerPriority('Man arrested over assault in Seoul', ['en.yna.co.kr', 'koreatimes.co.kr']),
+    ).toBe(0)
+  })
+
+  it('적합 + 한국 매체 2곳이면 최우선(3)', () => {
+    expect(
+      learnerPriority('Heavy rainfall offers drought relief', [
+        'en.yna.co.kr',
+        'koreatimes.co.kr',
+      ]),
+    ).toBe(3)
+  })
+
+  it('발행사를 안 넘기면 예전 그대로 동작한다 — 기존 호출부가 조용히 바뀌지 않는다', () => {
+    expect(learnerPriority('Scientists discover new coral species')).toBe(2)
+    // 한국 관련이지만 적합 신호가 없어 중립(1). 'MTV'·'VMA' 는 적합 패턴이 아니다 —
+    //   친숙하다고 학습 지문이 되지는 않는다는 규칙이 여기서도 그대로 적용된다.
+    expect(learnerPriority('BTS lands 2 MTV VMA nominations')).toBe(1)
+  })
+})
+
+describe('KOREAN_PUBLISHERS 는 소스 레지스트리와 어긋나면 안 된다', () => {
+  it('적힌 발행사가 실제로 레지스트리에 있다', () => {
+    const known = new Set(Object.values(FACT_SOURCES).map((s) => s.publisher.toLowerCase()))
+    for (const p of KOREAN_PUBLISHERS) expect(known.has(p), p).toBe(true)
+  })
+})
+
+describe('군사 훈련이 운동으로 새지 않는다', () => {
+  it('exercise 가 있어도 군사 기사면 부적합', () => {
+    // 실측 2026-08-19: FIT 의 `exercise`(운동)에 걸려 국방부 훈련 기사가 적합으로 올라왔다.
+    expect(
+      classifyTopic("(URGENT) Pentagon: S. Korea-U.S. exercise adjustments preserve 'essential' readiness"),
+    ).toBe('unfit')
+    expect(classifyTopic('Military drills begin near the border')).toBe('unfit')
+    expect(classifyTopic('Navy launches new vessel')).toBe('unfit')
+  })
+
+  it('평범한 운동·건강 기사는 그대로 적합이다 — 축을 통째로 깎지 않았는지 본다', () => {
+    expect(classifyTopic('Daily exercise improves memory in older adults')).toBe('fit')
+    expect(classifyTopic('How sleep and nutrition shape the brain')).toBe('fit')
+    expect(classifyTopic('Marathon runners gather for the annual race')).toBe('fit')
   })
 })
