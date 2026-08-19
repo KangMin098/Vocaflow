@@ -243,3 +243,29 @@ describe('trackCoverage — Admin 소스 화면 표시원', () => {
     expect(new Set(mi.directives).size).toBe(mi.directives.length)
   })
 })
+
+describe('발주 지시는 서로 모순되면 안 된다', () => {
+  it('한 유형 안에 문단 수를 두고 다투는 지시가 없다', () => {
+    // 실측 2026-08-19: csat_korean 이 "한 문단으로 쓴다" 와 학령 밴드의 "한 문단은 4~6문장"
+    //   을 동시에 지시하고 있었다. 180~190어를 평균 14어절로 쓰면 13문장이라 둘 다 지킬
+    //   방법이 없고, 실제로 그 문구를 지킨 초안은 구문 연습 문항이 0개 나왔다.
+    for (const track of Object.keys(LEARNING_TYPES)) {
+      for (const level of [2, 4, 6, 8, 10]) {
+        const spec = buildJobSpec(track as never, level)
+        if ('error' in spec) continue
+        const joined = spec.directives.join(' ')
+        const forcesSingle = /한 문단으로 쓴다/.test(joined)
+        const forcesSplit = /한 문단은 \d+~\d+문장/.test(joined)
+        expect(forcesSingle && forcesSplit, `${track} V${level}`).toBe(false)
+      }
+    }
+  })
+
+  it('수능 유형은 논지 전개 순서를 여전히 지시한다 — 모순만 걷어냈지 본질은 남긴다', () => {
+    const spec = buildJobSpec('csat_korean', 6)
+    expect('error' in spec).toBe(false)
+    if ('error' in spec) return
+    expect(spec.directives.join(' ')).toContain('주제문')
+    expect(spec.directives.join(' ')).toContain('함의')
+  })
+})
