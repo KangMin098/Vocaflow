@@ -171,7 +171,21 @@ export const MIN_ARTICLE_WORDS = 60
  * 되어 버린다.** 문장처럼 안 생긴 짧은 줄만 걷어 낸다 — 긴 문장은 건드리지 않는다.
  */
 const EDGE_NOISE =
-  /^(by\s|share\b|print\b|email\b|facebook\b|twitter\b|whatsapp\b|telegram\b|kakao\b|copy link|url is copied|advertisement\b|listen\b|read more\b|sign up\b|follow us\b|related\b|watch\b|published\b|updated\b|source:|photo:|image:|getty\b|comments?\b)/i
+  /^(by\s|share\b|print\b|email\b|facebook\b|twitter\b|whatsapp\b|telegram\b|kakao\b|copy link|url is copied|advertisement\b|listen\b|read more\b|sign up\b|subscribe\b|follow us\b|related\b|more from\b|most read\b|recommended\b|you may also like|trending\b|sponsored\b|watch\b|published\b|updated\b|source:|photo:|image:|getty\b|comments?\b)/i
+
+/**
+ * 기사 끝에 딸려 오는 **다른 기사 제목**을 알아보는 최대 길이.
+ *
+ * 실측 2026-08-19 (코리아헤럴드 기사 1건): 추출된 45문장 중 **25문장이 본문이 아니었다** —
+ * 기자 메일 주소, `Related Stories`, 그 아래 다른 기사 제목 여러 줄, 반응 카운터(`good` `0`
+ * `sad` `0`), `More from Headlines`, 또 다른 제목들. 그런데 이전 규칙은 마침표가 없는 줄을
+ * **2단어 이하일 때만** 걷어 내서, `Big Bang to release new single 'Biiig' on 20th anniversary`
+ * 같은 제목 줄에서 다듬기가 멈췄고 그 뒤 24줄이 전부 살아남았다.
+ *
+ * 구분의 근거는 문장부호다 — 기사 문장은 `.`·`?`·`!` 로 끝나고 **제목 줄은 끝나지 않는다.**
+ * 가장자리에서만 적용하므로 본문 중간의 짧은 문장은 그대로 둔다.
+ */
+const HEADLINE_MAX_WORDS = 20
 
 /** `17 August 2026` · `August 17, 2026` · `2026-08-17` 처럼 날짜만 있는 줄. */
 const DATE_ONLY =
@@ -184,7 +198,8 @@ function isEdgeNoise(s: string): boolean {
   if (/^https?:\/\/\S+$/i.test(t)) return true
   if (DATE_ONLY.test(t)) return true
   const words = t.split(/\s+/).length
-  if (words <= 2 && !/[.!?]$/.test(t)) return true
+  // 마침표로 끝나지 않는 짧은 줄 — 다른 기사 제목·위젯 라벨·메일 주소다.
+  if (words <= HEADLINE_MAX_WORDS && !/[.!?]$/.test(t)) return true
   // 상투 표지는 마침표가 붙어 있어도 걷어 낸다("URL is copied." 같은 위젯 문구).
   if (words <= 8 && EDGE_NOISE.test(t)) return true
   return false
@@ -195,11 +210,38 @@ function isEdgeNoise(s: string): boolean {
  * 사실일 수 있고, 잘못 지우면 사실이 사라진다. 가장자리만 보수적으로 다듬는다.
  */
 export function trimBoilerplate(sentences: string[]): string[] {
+  let b = cutAtSectionHeader(sentences)
   let a = 0
-  let b = sentences.length
   while (a < b && isEdgeNoise(sentences[a]!)) a++
   while (b > a && isEdgeNoise(sentences[b - 1]!)) b--
   return sentences.slice(a, b)
+}
+
+/**
+ * 발행사가 붙이는 **섹션 머리** — 여기부터는 본문이 아니다.
+ *
+ * 왜 문장부호만으로는 부족한가 (실측 2026-08-19): 연합뉴스 꼬리의 관련 기사 제목이
+ * `BIGBANG to release new single on 20th anniv.` 처럼 **약어 마침표로 끝난다.** 문장처럼
+ * 보이므로 "마침표 없는 줄" 규칙을 그냥 지나가고, 그 뒤 목록이 통째로 본문에 남는다.
+ * 그런데 그 앞에는 발행사가 **`Related Articles` 라고 스스로 적어 두었다** — 그것이 더
+ * 확실한 근거다.
+ */
+const SECTION_HEADER =
+  /^(related\b|more from\b|most read\b|recommended\b|you may also like|trending\b|editor'?s? picks?\b|read next\b|latest\b)/i
+
+/**
+ * 섹션 머리가 나오는 자리를 찾아 본문의 끝으로 삼는다.
+ *
+ * **뒤쪽 절반에서만** 찾는다 — 본문 첫머리에 우연히 걸리면 기사 전체가 사라진다.
+ * 머리글은 짧다(6단어 이하). 못 찾으면 원래 길이를 그대로 돌려준다.
+ */
+function cutAtSectionHeader(sentences: string[]): number {
+  const from = Math.floor(sentences.length / 2)
+  for (let i = sentences.length - 1; i >= from; i--) {
+    const t = sentences[i]!.trim()
+    if (t.split(/\s+/).length <= 6 && SECTION_HEADER.test(t)) return i
+  }
+  return sentences.length
 }
 
 /**

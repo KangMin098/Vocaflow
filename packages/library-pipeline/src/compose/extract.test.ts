@@ -168,3 +168,96 @@ describe('trimBoilerplate — 가장자리 잡음만 걷어 낸다', () => {
     expect(trimBoilerplate(['Share', 'Facebook', 'Print'])).toEqual([])
   })
 })
+
+describe('기사 끝에 딸려 오는 다른 기사 제목 (실측 2026-08-19 · 코리아헤럴드)', () => {
+  // 추출 45문장 중 25문장이 본문이 아니었다. 이전 규칙은 마침표 없는 줄을 2단어 이하일
+  //   때만 걷어 내서, 제목 줄 하나에서 다듬기가 멈추고 그 뒤 24줄이 전부 살아남았다.
+  const tail = [
+    'The release will also coincide with the 20th anniversary of its debut.',
+    'lee.jungjoo@heraldcorp.com',
+    'Related Stories',
+    "Big Bang to release new single 'Biiig' on 20th anniversary",
+    'Big Bang unveils new teaser images as 20th anniversary merchandise goes on sale',
+    'Lee Jung-joo',
+    'Subscribe +',
+    'good',
+    '0',
+    'sad',
+    '0',
+    'More from Headlines',
+    'Jennie to return with new EP this month',
+  ]
+
+  it('본문 마지막 문장까지만 남긴다', () => {
+    const out = trimBoilerplate(tail)
+    expect(out).toEqual(['The release will also coincide with the 20th anniversary of its debut.'])
+  })
+
+  it('연합뉴스 꼬리(메일 주소 · (END) · 관련 기사)도 걷어 낸다', () => {
+    const out = trimBoilerplate([
+      'The group is set to release the digital single next week.',
+      'mlee@yna.co.kr',
+      '(END)',
+      'Related Articles',
+      'BIGBANG to release new single on 20th anniv.',
+      "Taeyang kicks off BIGBANG's 20th anniv.",
+    ])
+    expect(out).toEqual(['The group is set to release the digital single next week.'])
+  })
+
+  it('본문 가운데의 짧은 문장은 건드리지 않는다 — 사실이 사라지면 안 된다', () => {
+    const out = trimBoilerplate([
+      'The agency opened in 2024.',
+      'It is new.',
+      'The group will speak for it.',
+    ])
+    expect(out).toHaveLength(3)
+  })
+
+  it('마침표로 끝나는 긴 문장은 가장자리에서도 남긴다', () => {
+    const out = trimBoilerplate([
+      'KASA named the group as its first honorary ambassador on Friday afternoon.',
+    ])
+    expect(out).toHaveLength(1)
+  })
+
+  it('스무 단어가 넘는 마침표 없는 줄은 제목으로 보지 않는다 — 잘린 문장일 수 있다', () => {
+    const long =
+      'the agency said that the group would help the public understand its plans about rockets and satellites in the coming years'
+    expect(trimBoilerplate([long])).toEqual([long])
+  })
+})
+
+describe('섹션 머리 자르기 — 본문을 통째로 날리지 않는다', () => {
+  it('앞쪽 절반의 섹션 머리는 자르기 기준으로 삼지 않는다', () => {
+    // 뒤쪽 절반에서만 찾는다 — 앞에서 찾으면 기사 전체가 사라진다.
+    //   (가장자리 규칙과 섞이지 않게 문제의 줄을 첫 자리가 아닌 곳에 둔다.)
+    const out = trimBoilerplate([
+      'The agency opened its doors in 2024.',
+      'Related coverage',
+      'The agency named the group as ambassador.',
+      'The members will speak for it in public.',
+      'The tour starts next month in Goyang.',
+      'The single arrives on the same week.',
+    ])
+    expect(out).toHaveLength(6)
+  })
+
+  it('긴 문장은 섹션 머리로 보지 않는다', () => {
+    const out = trimBoilerplate([
+      'The agency opened in 2024 and began its work.',
+      'The group accepted the role this week.',
+      'Related agencies in other countries have tried the same idea with singers.',
+    ])
+    expect(out).toHaveLength(3)
+  })
+
+  it('섹션 머리가 없으면 아무것도 자르지 않는다', () => {
+    const body = [
+      'The agency opened in 2024.',
+      'The group accepted the role.',
+      'The tour starts next month.',
+    ]
+    expect(trimBoilerplate(body)).toEqual(body)
+  })
+})
