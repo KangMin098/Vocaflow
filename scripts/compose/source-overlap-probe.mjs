@@ -69,6 +69,71 @@ if (urlArgs.length >= 2) {
   process.exit(0)
 }
 
+// `--clusters` 는 **아직 취재하지 않은 사건들**을 훑어 짝이 실제로 독립인지 센다.
+//
+// 왜 이걸 재야 하는가 (2026-08-19): 이 파이프라인의 한국 학습자 전략은 "한국 매체 두 곳이
+//   같은 국내 사건을 각자 보도한다" 는 관찰 위에 서 있다. 그런데 로카르노·포항 두 건이 전재로
+//   드러났다. 만약 그 짝의 대부분이 전재라면 전략의 전제가 무너진 것이고, 소수라면 거르면 된다.
+//   **어느 쪽인지는 세어 봐야 안다.**
+if (process.argv.includes('--clusters')) {
+  const li = process.argv.indexOf('--limit')
+  const LIMIT = li >= 0 ? Number(process.argv[li + 1]) : 8
+  const { COMPOSE_USER_AGENT, buildFingerprint, classifyTopic, clusterStories, extractArticle, isKoreaRelevant } =
+    await import('@vocaflow/library-pipeline')
+
+  const { data: cands } = await db
+    .from('article_compose_candidates')
+    .select('source_key, publisher, wire, title, url, published_at')
+    .eq('status', 'open')
+    .order('published_at', { ascending: false })
+    .limit(600)
+
+  const pursuable = clusterStories(
+    (cands ?? []).map((r) => ({
+      sourceKey: r.source_key,
+      publisher: r.publisher,
+      wire: r.wire,
+      title: r.title,
+      url: r.url,
+      published_at: r.published_at,
+      holdMs: 0,
+    })),
+  ).filter(
+    (c) =>
+      c.worthPursuing &&
+      classifyTopic(c.headline) !== 'unfit' &&
+      isKoreaRelevant(c.headline, c.members.map((m) => m.publisher)),
+  )
+
+  console.log(`한국 관련 취재 가능 사건 ${pursuable.length} · 앞의 ${Math.min(LIMIT, pursuable.length)}건을 잰다\n`)
+  const body = async (u) => {
+    const r = await fetch(u, { headers: { 'User-Agent': COMPOSE_USER_AGENT }, redirect: 'follow' })
+    return r.ok ? extractArticle(await r.text()).text : null
+  }
+  let independent = 0
+  let copied = 0
+  for (const c of pursuable.slice(0, LIMIT)) {
+    const texts = []
+    for (const m of c.members.slice(0, 2)) texts.push({ p: m.publisher, t: await body(m.url) })
+    if (texts.some((x) => !x.t)) {
+      console.log(`  ? ${c.headline.slice(0, 58)}\n      본문을 못 읽어 판정 보류`)
+      continue
+    }
+    const [a, b] = texts.map((x) => buildFingerprint(x.t))
+    const cv = Math.max(containment(a, b), containment(b, a))
+    const copy = cv >= 0.1
+    copy ? copied++ : independent++
+    console.log(`  ${copy ? '✗' : '★'} ${c.headline.slice(0, 58)}`)
+    console.log(`      ${texts.map((x) => x.p).join(' ↔ ')} · 담김 ${(100 * cv).toFixed(1)}%${copy ? ' — 전재' : ''}`)
+  }
+  const n = independent + copied
+  console.log(
+    `\n판정 ${n}건 · 독립 ${independent} · 전재 ${copied}` +
+      (n ? ` · 독립 비율 ${((100 * independent) / n).toFixed(0)}%` : ''),
+  )
+  process.exit(0)
+}
+
 let q = db
   .from('article_compose_sources')
   .select('batch_id, publisher, url, fingerprint, wire')

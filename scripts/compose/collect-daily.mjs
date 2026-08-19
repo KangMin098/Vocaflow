@@ -188,6 +188,14 @@ const krCount = pursuable.filter((c) =>
   isKoreaRelevant(c.headline, c.members.map((m) => m.publisher)),
 ).length
 console.log(`\n  ★ 학습 적합 ${fitCount} · [한국] 관련 ${krCount} · 전체 ${pursuable.length}`)
+// 이 숫자를 그대로 믿으면 안 된다는 것을 화면이 스스로 말한다.
+//   실측 2026-08-19: 한국 매체 짝 10건을 본문까지 읽어 보니 **6건이 전재**였다.
+//   연합뉴스는 통신사이고 코리아헤럴드·코리아타임스가 그 원고를 자주 싣는다.
+//   제목만으로는 갈리지 않으므로 여기서 미리 걸러 낼 수 없다 — 취재 시작이 그때 잡는다.
+console.log(
+  '  ⚠ 계통 수는 제목 기준이다. 한국 매체 짝은 실측에서 60%가 전재였다 — 본문을 읽는',
+)
+console.log('    취재 시작(drain-coverage)에서 걸러지므로 이 목록의 절반쯤은 줄어든다.')
 if (!pursuable.length) {
   console.log('  없음. 고장이 아니라 재료가 모자란 것이다 — 매일 돌면 저절로 늘어난다.')
 }
