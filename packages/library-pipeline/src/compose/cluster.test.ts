@@ -15,6 +15,7 @@ import {
   sameEvent,
 } from './cluster'
 import type { StoryCandidate } from './news-feed'
+import { FACT_SOURCES, type FactSourceSpec } from './sources'
 
 const BASE = Date.parse('2026-08-14T09:00:00Z')
 const H = 3_600_000
@@ -145,5 +146,61 @@ describe('clusterStories', () => {
     const [top] = clusterStories([QUAKE_BBC, QUAKE_R])
     expect(top!.headline).toBe(QUAKE_R.title)
     expect(top!.earliestAt).toBe(QUAKE_R.published_at)
+  })
+})
+
+describe('본문을 못 읽는 소스는 계통으로 세지 않는다 (실측 2026-08-19)', () => {
+  // Solar eclipse 사건이 dw+npr 2계통으로 올라왔는데 NPR 본문이 45초 재시도에도 안 열려
+  // 취재 단계에서 무너졌다. 발견이 약속한 것을 취재가 지킬 수 있어야 한다.
+  const REG: Record<string, FactSourceSpec> = {
+    good: { ...FACT_SOURCES['bbc']!, key: 'good', publisher: 'good.example', bodyAccess: 'ok' },
+    mute: { ...FACT_SOURCES['npr']!, key: 'mute', publisher: 'mute.example', bodyAccess: 'blocked' },
+    unknown: { ...FACT_SOURCES['dw']!, key: 'unknown', publisher: 'unk.example', bodyAccess: undefined },
+  }
+  const cand = (sourceKey: string, publisher: string, title: string): StoryCandidate => ({
+    sourceKey,
+    publisher,
+    wire: null,
+    title,
+    url: `https://${publisher}/a`,
+    published_at: '2026-08-12T00:00:00Z',
+    holdMs: 0,
+  })
+  const TITLE_A = 'Total solar eclipse darkens skies across northern Europe'
+  const TITLE_B = 'Northern Europe skies darkened by total solar eclipse'
+
+  it('읽을 수 있는 계통이 하나뿐이면 취재 대상이 아니다', () => {
+    const r = clusterStories(
+      [cand('good', 'good.example', TITLE_A), cand('mute', 'mute.example', TITLE_B)],
+      REG,
+    )
+    expect(r).toHaveLength(1)
+    expect(r[0]!.independentLines).toBe(2) // 제목상으로는 2계통이지만
+    expect(r[0]!.readableLines).toBe(1) // 사실을 줄 수 있는 것은 1곳
+    expect(r[0]!.worthPursuing).toBe(false)
+  })
+
+  it('둘 다 읽을 수 있으면 취재 대상이다', () => {
+    const r = clusterStories(
+      [cand('good', 'good.example', TITLE_A), cand('unknown', 'unk.example', TITLE_B)],
+      REG,
+    )
+    expect(r[0]!.readableLines).toBe(2)
+    expect(r[0]!.worthPursuing).toBe(true)
+  })
+
+  it('기록이 없는 소스는 읽을 수 있다고 본다 — 모르는 것을 막으면 새 소스가 조용히 배제된다', () => {
+    const r = clusterStories(
+      [cand('unknown', 'unk.example', TITLE_A), cand('good', 'good.example', TITLE_B)],
+      REG,
+    )
+    expect(r[0]!.worthPursuing).toBe(true)
+  })
+
+  it('실제 레지스트리에서 npr·washingtonpost 가 blocked 로 기록돼 있다', () => {
+    // 값이 조용히 되돌아가면 같은 사고가 재발한다.
+    expect(FACT_SOURCES['npr']!.bodyAccess).toBe('blocked')
+    expect(FACT_SOURCES['washingtonpost']!.bodyAccess).toBe('blocked')
+    expect(FACT_SOURCES['bbc']!.bodyAccess).toBe('ok')
   })
 })

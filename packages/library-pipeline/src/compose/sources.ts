@@ -149,6 +149,18 @@ export interface FactSourceSpec {
    * 피드를 우리가 거부하는** 일이 생긴다(2026-08-17 설계 점검에서 발견).
    */
   feedHosts?: ReadonlyArray<string>
+  /**
+   * 본문을 실제로 읽을 수 있는가 — **실측으로 기록한다**(`termsReviewed` 와 같은 성격).
+   *
+   * 왜 필요한가: 발견 단계는 제목만 보고 "독립 2계통" 을 판정하는데, 그중 한 소스의 본문을
+   * 못 읽으면 취재 단계에서 사실 원장을 못 채워 묶음이 통째로 무너진다. 실제로 Solar eclipse
+   * 사건이 dw+npr 2계통으로 올라왔으나 NPR 은 45초 재시도에도 본문이 안 열려, BBC 를 급히
+   * 찾아 대체해야 했다(2026-08-19).
+   *
+   * `blocked` 인 소스는 **교차확인 계통으로 세지 않는다** — 제목은 주지만 사실은 못 준다.
+   * 값은 `scripts/compose/probe-body-access.mjs` 로 다시 재서 갱신한다.
+   */
+  bodyAccess?: 'ok' | 'blocked' | 'unknown'
   /** 왜 이 등급인지 — 판단 근거를 남긴다 */
   note: string
 }
@@ -197,6 +209,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: true,
     wire: null,
     topics: ['the-natural-world-geography'],
+    bodyAccess: 'ok',
     note: '지진·화산·지질 — 사건의 계측 주체 자체. 보도가 USGS 수치를 인용하므로 1차성이 가장 높다.',
   },
   noaa: {
@@ -208,6 +221,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: true,
     wire: null,
     topics: ['the-natural-world-weather', 'the-natural-world-the-environment'],
+    bodyAccess: 'ok',
     note: '기후·해양·대기. CSAT 최빈출 주제이며 the-environment 는 재사용 소스가 0인 칸이다.',
   },
   nasa: {
@@ -219,6 +233,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: true,
     wire: null,
     topics: ['time-and-space-space', 'science-and-technology'],
+    bodyAccess: 'ok',
     note: '발사·관측·탐사. 사건 시각이 명확해 I15(48시간) 판정이 깔끔하다.',
   },
   nih: {
@@ -230,6 +245,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: false,
     wire: null,
     topics: ['health-health-and-fitness', 'health-mental-health'],
+    bodyAccess: 'ok',
     note: 'MedlinePlus 는 환자 대상 평이 문체라 사실 추출이 쉽다. health-* 두 칸은 TED 로만 덮인 곳.',
   },
   elife: {
@@ -241,6 +257,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: false,
     wire: null,
     topics: ['science-and-technology-scientific-research', 'science-and-technology-biology'],
+    bodyAccess: 'ok',
     note: '편집자 저작 plain-language digest — 연구 사실이 이미 사실 카드에 가까운 형태로 정리돼 있다.',
   },
   owid: {
@@ -252,6 +269,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: false,
     wire: null,
     topics: ['politics-and-society-social-issues', 'work-and-business-business'],
+    bodyAccess: 'ok',
     note: '지표·통계. 수치 사실(kind=figure)의 공급원으로, 사회·경제 주제의 1차원.',
   },
 
@@ -272,6 +290,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       'the-natural-world-weather',
       'the-natural-world-the-environment',
     ],
+    bodyAccess: 'ok',
     note: '미 연방 PD 뉴스 — 약관 위험이 0이고 이미 30편 배선. 문체가 평이해 사실 추출 오류가 적다.',
   },
   wikinews: {
@@ -283,6 +302,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: false,
     wire: null,
     topics: ['politics-and-society-social-issues'],
+    bodyAccess: 'ok',
     note: '어댑터는 있으나 수집 실적 0행(2026-08-17 실측) — 교차원으로 쓰려면 배선 점검이 선행돼야 한다.',
   },
 
@@ -313,6 +333,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: false,
     wire: 'ap',
     topics: ['politics-and-society-social-issues', 'the-natural-world-the-environment', 'sport'],
+    bodyAccess: 'ok',
     note: '미국 통신사. 발견 피드는 없다(자기 robots 가 자기 피드를 막고 hub 경로는 404). 사실 증인으로만 쓴다.',
   },
   bbc: {
@@ -338,6 +359,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       '/news/health/rss.xml',
       '/news/business/rss.xml',
     ],
+    bodyAccess: 'ok',
     note: '영국 공영방송. 자체 취재 비중이 높고 주제 폭이 넓어 통신사와 다른 각도의 확인을 준다.',
   },
   dw: {
@@ -352,6 +374,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     // 2026-08-18 실측: DW 피드는 apex 가 아니라 rss.dw.com 에 있다(138항목 확인).
     feedHosts: ['rss.dw.com'],
     feedHints: ['https://rss.dw.com/rdf/rss-en-all', 'https://rss.dw.com/atom/rss-en-all'],
+    bodyAccess: 'ok',
     note: '독일 공영 국제방송. 유럽 시각 + 영미권과 다른 취재 계통. people-education 을 덮는 몇 안 되는 후보.',
   },
   koreaherald: {
@@ -364,6 +387,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     wire: null,
     topics: ['politics-and-society-social-issues', 'people-education', 'work-and-business-working-life'],
     feedHints: ['/rss/020000000000.xml', '/rss/010000000000.xml', '/common/rss_xml.php', '/rss'],
+    bodyAccess: 'ok',
     note: '한국 영자지 — 학습자에게 맥락이 가까운 사건을 영어로 확인할 수 있다. 국내 주제에서 영미 매체가 못 주는 각도.',
   },
 
@@ -388,6 +412,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     ],
     feedHosts: ['rss.cnn.com'],
     feedHints: ['/services/rss/', '/rss/edition.rss', '/rss/edition_world.rss'],
+    bodyAccess: 'ok',
     note: '미국 상업 방송. 자체 취재 비중이 높고 주제 폭이 넓다.',
   },
   abcnews: {
@@ -405,6 +430,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       'the-natural-world-the-environment',
     ],
     feedHints: ['/abcnews/topstories', '/abcnews/internationalheadlines', '/abcnews/usheadlines'],
+    bodyAccess: 'ok',
     note: '미국 상업 방송(ABC News). CNN·NPR 과 편집 계통이 달라 미국 내 교차 확인에 쓴다.',
   },
   washingtonpost: {
@@ -430,6 +456,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     // 초판에서 "유료벽 때문에" 제외했는데 그건 **측정이 아니라 예측**이었다.
     // 피드는 제목+요약을 주므로 사건 발견과 사실 교차 확인에는 쓸 수 있는 경우가 많다.
     // 실제로 본문이 안 열리면 취재 시작 단계에서 사유와 함께 걸러진다 — 미리 뺄 이유가 없다.
+    bodyAccess: 'blocked',
     note: '미국 일간. 유료벽이 있어 본문이 안 열릴 수 있으나, 그 판단은 실행이 하지 예측이 하지 않는다.',
   },
   npr: {
@@ -449,6 +476,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     // 2026-08-18 실측: npr.org 는 robots 조회가 실패하고, 피드는 feeds.npr.org 에 있다.
     feedHosts: ['feeds.npr.org'],
     feedHints: ['https://feeds.npr.org/1001/rss.xml', 'https://feeds.npr.org/1004/rss.xml'],
+    bodyAccess: 'blocked',
     note: '미국 공영 라디오. 문체가 평이하고 교육·사회 주제가 두터워 학습 지문 재료로 좋다.',
   },
   guardian: {
@@ -467,6 +495,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       'sport',
     ],
     feedHints: ['/international/rss', '/world/rss', '/environment/rss', '/science/rss'],
+    bodyAccess: 'ok',
     note: '영국 일간. 환경·사회 보도가 두텁고 피드를 섹션별로 공개한다.',
   },
   aljazeera: {
@@ -479,6 +508,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     wire: null,
     topics: ['politics-and-society-social-issues', 'the-natural-world-the-environment'],
     feedHints: ['/xml/rss/all.xml', '/rss'],
+    bodyAccess: 'ok',
     note: '카타르 국제방송. 영미권과 다른 시각 — 같은 사건의 서술이 달라 교차 확인의 값이 크다.',
   },
   cbc: {
@@ -499,6 +529,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     // ⚠ 2026-08-18 실측: 개발 환경에서 cbc.ca 로의 연결 자체가 실패했다(robots·피드 모두).
     //   차단인지 망 문제인지 여기서는 구별할 수 없어 **제거하지 않았다** — 운영 환경에서는
     //   열릴 수 있고, 안 열리면 화면이 사유와 함께 알려 준다.
+    bodyAccess: 'ok',
     note: '캐나다 공영방송. 미·영과 또 다른 계통이라 통신사 의존을 줄인다. (개발 환경에서는 연결 실패 — 운영 환경에서 재확인 필요)',
   },
   abcnet: {
@@ -516,6 +547,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
       'sport',
     ],
     feedHints: ['/news/feed/51120/rss.xml', '/news/feed/45910/rss.xml', '/news/feed/1948/rss.xml'],
+    bodyAccess: 'ok',
     note: '호주 공영방송. 남반구 기후·환경 사건에서 북반구 매체가 못 주는 각도.',
   },
   yonhap: {
@@ -528,6 +560,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     wire: 'yonhap',
     topics: ['politics-and-society-social-issues', 'work-and-business-business', 'sport'],
     feedHints: ['/RSS/news.xml', '/RSS/northkorea.xml', '/rss/news.xml'],
+    bodyAccess: 'ok',
     note: '한국 통신사 영문. 국내 사건을 영어로 확인하는 1차 계통 — 한국 매체 다수가 이 원고를 받아 쓰므로 wire 표시가 필수다.',
   },
   koreatimes: {
@@ -542,6 +575,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     // 2026-08-18 실측: 홈페이지가 feed.koreatimes.co.kr 를 알린다(별도 호스트).
     feedHosts: ['feed.koreatimes.co.kr'],
     feedHints: ['https://feed.koreatimes.co.kr/k/allnews.xml'],
+    bodyAccess: 'ok',
     note: '한국 영자지. Korea Herald 와 다른 편집 계통이라 국내 주제에서 독립 2계통을 만들 수 있다.',
   },
 
@@ -555,6 +589,7 @@ export const FACT_SOURCES: Record<string, FactSourceSpec> = {
     discovery: false,
     wire: null,
     topics: ['*'],
+    bodyAccess: 'ok',
     note: '개념·지명·역사 등 맥락 제공. 사건의 교차 확인원으로는 쓰지 않는다 — 백과는 보도를 인용해 쓰이므로 독립 취재가 아니다.',
   },
 }

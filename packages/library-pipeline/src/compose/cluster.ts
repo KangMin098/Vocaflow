@@ -13,6 +13,7 @@
 //   놓친 묶음은 다음 수집에서 다시 만나지만, 잘못된 묶음은 게이트를 우회시킨다.
 
 import type { StoryCandidate } from './news-feed'
+import { FACT_SOURCES, type FactSourceSpec } from './sources'
 
 /** 헤드라인에서 의미를 지지 않는 말. 이것들이 겹쳤다고 같은 사건이 되지 않는다. */
 const HEADLINE_STOPWORDS: ReadonlySet<string> = new Set([
@@ -91,12 +92,30 @@ export interface StoryCluster {
   independentLines: number
   /** 가장 이른 발행 시각 (사건 시각의 대용치 — batch.event_occurred_at 후보) */
   earliestAt: string
-  /** 취재를 시작할 만한가 = 독립 계통 2개 이상 */
+  /**
+   * 취재를 시작할 만한가 = **본문을 읽을 수 있는** 독립 계통 2개 이상.
+   *
+   * 제목만으로 세면 안 된다 — 본문이 안 열리는 소스는 사실을 못 준다. 실제로 Solar
+   * eclipse 사건이 dw+npr 2계통으로 올라왔는데 NPR 본문이 안 열려 취재 단계에서
+   * 무너졌다(2026-08-19). 발견이 약속한 것을 취재가 지킬 수 있어야 한다.
+   */
   worthPursuing: boolean
+  /** 본문을 읽을 수 있는 계통 수 — worthPursuing 의 근거 */
+  readableLines: number
 }
 
 function lineKey(c: StoryCandidate): string {
   return c.wire ?? c.publisher.toLowerCase()
+}
+
+/**
+ * 이 후보의 본문을 읽을 수 있는가.
+ *
+ * 레지스트리에 'blocked' 로 **실측 기록**된 소스만 뺀다. 기록이 없으면(unknown) 읽을 수
+ * 있다고 본다 — 모르는 것을 막으면 새 소스가 조용히 배제된다.
+ */
+function isReadable(c: StoryCandidate, registry: Record<string, FactSourceSpec>): boolean {
+  return registry[c.sourceKey]?.bodyAccess !== 'blocked'
 }
 
 /**
@@ -105,7 +124,12 @@ function lineKey(c: StoryCandidate): string {
  * 같은 계통(통신사) 안에서는 묶지 않는다 — 한 계통 안의 원고 여러 건을 묶어 봐야
  * 독립 출처가 늘지 않고, 오히려 "회원이 많은 묶음" 처럼 보여 판단을 흐린다.
  */
-export function clusterStories(candidates: StoryCandidate[]): StoryCluster[] {
+export function clusterStories(
+  candidates: StoryCandidate[],
+  /** 본문 접근 기록을 담은 레지스트리. 테스트가 주입할 수 있게 열어 둔다. */
+  registry: Record<string, FactSourceSpec> = FACT_SOURCES,
+): StoryCluster[] {
+  const reg = registry
   const sorted = [...candidates].sort((a, b) => {
     const at = a.published_at ? Date.parse(a.published_at) : Infinity
     const bt = b.published_at ? Date.parse(b.published_at) : Infinity
@@ -130,6 +154,7 @@ export function clusterStories(candidates: StoryCandidate[]): StoryCluster[] {
   return clusters
     .map((members) => {
       const lines = new Set(members.map(lineKey))
+      const readable = new Set(members.filter((m) => isReadable(m, reg)).map(lineKey))
       const earliest = members.reduce((min, m) =>
         !min.published_at || (m.published_at && m.published_at < min.published_at) ? m : min,
       )
@@ -138,7 +163,8 @@ export function clusterStories(candidates: StoryCandidate[]): StoryCluster[] {
         members,
         independentLines: lines.size,
         earliestAt: earliest.published_at ?? '',
-        worthPursuing: lines.size >= 2,
+        readableLines: readable.size,
+        worthPursuing: readable.size >= 2,
       }
     })
     .sort((a, b) => b.independentLines - a.independentLines || a.earliestAt.localeCompare(b.earliestAt))
