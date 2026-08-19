@@ -72,6 +72,24 @@ export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url
     level: 2,
     url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=955',
   },
+  // 아래 둘은 2026-08-19 프로브로 확정한 것이다(`scripts/acp/feed-probe.mjs`).
+  //   VOA 는 z-코드가 곧 RSS 라 스크래핑이 필요 없다 — 병목이 없는 쪽이다.
+  //   ⚠️ 같이 검토한 z/1574(Technology Report)는 **넣지 않았다.** HTTP 200 이지만
+  //     항목이 0이다. 200 을 받았다고 살아 있는 피드가 아니다.
+  {
+    id: 'education',
+    // 실측 적합 73.3% · 부적합 0% — 후보 19개 중 2위. 한국 학습자 소재로 가장 좋은 축이다.
+    label: 'Education (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=959',
+  },
+  {
+    id: 'arts-culture',
+    // 실측 적합 40.0% · 부적합 0%. 주간 프로그램이라 신선도는 낮지만 소재가 안전하다.
+    label: 'Arts & Culture (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=986',
+  },
 ]
 
 /**

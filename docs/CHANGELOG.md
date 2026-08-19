@@ -10,6 +10,41 @@
 
 ## Unreleased (v06.34 → next)
 
+### 소스 — The Conversation 피드 4개 중 3개가 엉뚱한 주제였다 (v06.303)
+
+후보 섹션 19개를 실제로 두드려(`scripts/acp/feed-probe.mjs`) 4판정으로 나눴다 —
+**rss 17 · dead 2 · blocked 0**. 그 과정에서 배선된 피드의 조용한 드리프트를 찾았다.
+
+주소가 `topics/<슬러그>-<번호>` 형태인데 해소되는 것은 번호이고 슬러그는 장식이다.
+그 번호의 주제명이 바뀌자 301 로 다른 곳에 도착했다:
+
+| 배선된 라벨 | 실제로 오던 것 |
+|---|---|
+| Science + Tech (`science-1391`) | molecular-biology |
+| Health + Medicine (`health-39`) | **transport** |
+| Politics + Society (`politics-127`) | **nbn**(광대역망) |
+
+**아무 경보도 안 울렸다** — 기사는 계속 들어오고, 영어이고, 라이선스도 같고, 형식도 맞다.
+틀린 것은 "무엇에 관한 글인가" 뿐이라 사람이 읽어야 보인다. 고친 뒤 재수집하니
+science·health·education 이 **20건 전부 "새 것"** 으로 나왔다 — 드리프트의 직접 증거다.
+
+- 섹션 경로로 교체 — `us/technology`(스스로를 "Science + Tech" 라 부른다) · `us/health` ·
+  `us/education`(적합 65.0% · 부적합 0%). politics 는 되살리지 않았다(사건·정치 제외 방침).
+- 회귀 `feed-urls.test.ts` 5종 — 번호 토픽 주소 **형태 자체를 금지**한다. 살아 있는지는
+  프로브가 실측으로 보고, 테스트는 드리프트에 취약한 형태인지만 본다(네트워크 안 탄다).
+- VOA 신규 2개 — `education` z959(적합 73.3% · 부적합 0%) · `arts-culture` z986(40.0% · 0%).
+  ⚠️ z1574(Technology Report)는 **넣지 않았다** — HTTP 200 이지만 항목 0이다.
+- 새 배선으로 밀려 있는 PD 글 **114건**(VOA 38 + The Conversation 76).
+
+**■ 판정 잣대가 소스 종류마다 다르다.** VOA Learning English 는 애초에 전부 학습자용으로
+쓰인 글이라 `적합률`이 낮게 나와도(Words and Their Stories 10%) 쓸 수 있다 — 분류기의
+fit 패턴이 교육·과학 키워드를 찾기 때문이다. **PD 등급물의 잣대는 부적합률**(사건·정치가
+섞였는가)이고, 일반 뉴스의 잣대가 적합률이다. 프로브가 fit·neutral·unfit 셋을 다 찍는다.
+
+**■ ND 는 단어세트가 안 나온다.** The Conversation 은 CC-BY-ND → `display_only=true` →
+발행 트리거가 단어세트를 건너뛴다(`NOT display_only AND lexical_noise≤0.08` 일 때만).
+즉 **본문 읽기 자료로만 쓰인다.** VOA(PD-Government)만 전 모듈 학습 대상이다.
+
 ### 사전 — Claude Code 드레인으로 채우고, 앞 두 항목의 수치를 정정한다 (v06.302)
 
 **■ 아래 v06.301·v06.300 의 "사전 적중 95%→72%" 는 틀린 수치다.** 두 겹으로 틀렸다.

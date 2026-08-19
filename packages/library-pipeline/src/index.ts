@@ -192,6 +192,10 @@ export {
 // 외부 플랫폼 기준선 — "글로벌 수준 이상" 을 숫자로 고정한다(숫자만 보관, 본문 비보관).
 // RSS 가 없는 섹션에서 기사 목록 — RSS 와 같은 모양을 돌려준다.
 export { MAX_SECTION_ITEMS, inspectSectionPage, parseSectionPage } from './compose/section-page'
+// 후보 피드 프로브가 파이프라인과 **같은 파서**를 써야 한다 — 따로 만들면 프로브가
+//   통과시킨 피드를 파이프라인이 못 읽는 일이 생긴다.
+export { parseRssFeed } from './ingest-article/_helpers'
+export type { RssListItem } from './ingest-article/_helpers'
 
 // 발주 어수와 원장 사실 수의 짝 — 판정이 아니라 예보다.
 export { OBSERVED_FACT_DENSITY, assessFactDensity } from './compose/review'

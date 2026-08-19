@@ -822,6 +822,8 @@ export const FEED_REGISTER: Record<string, string> = {
   'voa:words-and-their-stories': 'expository', // 관용구 어원 설명
   'voa:science-technology': 'expository', // 과학·기술 설명
   'voa:health-lifestyle': 'expository', // 건강·생활 설명
+  'voa:education': 'expository', // 교육 뉴스·유학 피처 (2026-08-19 추가)
+  'voa:arts-culture': 'expository', // 음악·대중문화 주간 (2026-08-19 추가)
   // voa:as-it-is = 시사 → source 기본값('news')
 }
 
