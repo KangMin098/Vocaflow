@@ -163,6 +163,22 @@ describe('buildJobSpec', () => {
     expect(r.skillFocus).toBe('single_word')
   })
 
+it('길이는 형식과 독자의 좁은 쪽 — 충돌하면 독자가 이긴다', () => {
+    // 수능 지문 길이는 시험 형식이 정한다(130~190). 중등 밴드(180~320)와 겹치는 구간을 취한다.
+    const csat = buildJobSpec('csat_korean', 6)
+    expect('error' in csat).toBe(false)
+    if ('error' in csat) return
+    expect(csat.words).toEqual({ min: 180, max: 190 })
+
+    // 초등 독자에게 180어 하한은 한 자리에서 못 읽는다. 겹치지 않으므로 독자가 이긴다.
+    const el = buildJobSpec('general_proficiency', 2)
+    expect('error' in el).toBe(false)
+    if ('error' in el) return
+    expect(el.words).toEqual({ min: 90, max: 170 })
+    expect(el.gradeBand).toBe('elementary')
+  })
+
+
   it('밴드 밖 레벨은 조용히 보정하지 않고 거부한다', () => {
     // 보정하면 "수능 유형인데 V2" 발주가 성공한 것처럼 보이고 산출물이 어디에도 안 맞는다.
     const r = buildJobSpec('csat_korean', 2)

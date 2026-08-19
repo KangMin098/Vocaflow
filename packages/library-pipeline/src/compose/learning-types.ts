@@ -337,13 +337,30 @@ export function buildJobSpec(
     register,
     targetVLevel,
     skillFocus,
-    words: spec.compose.words,
-    avgSentenceWords: spec.compose.avgSentenceWords,
+    // 길이는 **형식(유형)과 독자(밴드)의 좁은 쪽**을 취한다.
+    //   수능 지문 길이(130~190)는 독자가 아니라 시험 형식이 정하므로 유형 쪽이 옳고,
+    //   초등 독자에게 180어 하한은 한 자리에서 못 읽는 분량이라 밴드 쪽이 옳다.
+    //   충돌하면(min > max) **독자가 이긴다** — 끝까지 못 읽는 글은 형식을 지켜도 소용없다.
+    //   배선 전에는 유형 값만 써서 초등(V2) 발주가 180~320어를 요구했다.
+    words: narrowerWords(spec.compose.words, GRADE_BANDS[band].words),
+    avgSentenceWords: GRADE_BANDS[band].avgSentenceWords,
     // 유형 지시 + 학령 지시. 학령 규칙(안전성·문단 단위)은 유형이 아니라 밴드가 갖는다.
     //   중복은 걸러 낸다 — 프롬프트에 같은 말이 두 번 들어가면 지시가 아니라 잡음이다.
     directives: [...new Set([...spec.compose.directives, ...GRADE_BANDS[band].directives])],
     activities: spec.activities,
   }
+}
+
+/**
+ * 형식 길이와 독자 길이의 좁은 교집합. 겹치지 않으면 독자(밴드) 쪽을 그대로 쓴다.
+ */
+function narrowerWords(
+  format: { min: number; max: number },
+  reader: { min: number; max: number },
+): { min: number; max: number } {
+  const min = Math.max(format.min, reader.min)
+  const max = Math.min(format.max, reader.max)
+  return min <= max ? { min, max } : reader
 }
 
 /** 발주 사양 → drain 프롬프트에 넣을 사람 읽는 사양서. */
