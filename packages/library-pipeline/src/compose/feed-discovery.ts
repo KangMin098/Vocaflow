@@ -81,8 +81,15 @@ export interface DiscoveredFeed {
   url: string
   /** 피드가 스스로 밝힌 제목 (autodiscovery 의 title 또는 피드 <title>) */
   title: string | null
-  /** 어떻게 찾았는가 — 관습 경로는 발행사가 알린 것이 아니므로 구분해 둔다. */
-  via: 'autodiscovery' | 'convention'
+  /**
+   * 어떻게 찾았는가 — 세 갈래를 구분한다.
+   *   autodiscovery : 발행사가 <link rel="alternate"> 로 알린 RSS
+   *   convention    : 우리가 알려진 주소를 두드려 찾은 RSS (예고 없이 사라질 수 있다)
+   *   section       : RSS 가 아닌 **섹션 목록 페이지**. 발행 시각을 기사 주소에서 얻으므로
+   *                   주소에 날짜가 없는 발행사에서는 성립하지 않는다 — 운영자가 이 차이를
+   *                   알아야 0건일 때 무엇을 의심할지 안다.
+   */
+  via: 'autodiscovery' | 'convention' | 'section'
   /** 실제로 열어 보고 항목이 있는 피드임을 확인했는가 */
   verified: boolean
   /** 확인 시 파싱된 항목 수 */
@@ -290,7 +297,7 @@ export async function verifyFeedUrl(
     const section = inspectSectionPage(r.res.text, url, deps.now())
     if (section.ok) {
       return {
-        feed: { url, title: null, via: 'convention', verified: true, itemCount: section.itemCount },
+        feed: { url, title: null, via: 'section', verified: true, itemCount: section.itemCount },
       }
     }
     return { fail: skip(url, 'not-a-feed', `피드가 아닙니다 — ${section.reason}`) }

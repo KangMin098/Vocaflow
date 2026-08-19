@@ -37,7 +37,7 @@ import {
 interface DiscoveredFeedView {
   url: string
   title: string | null
-  via: 'autodiscovery' | 'convention'
+  via: 'autodiscovery' | 'convention' | 'section'
   verified: boolean
   itemCount: number
 }
@@ -483,7 +483,11 @@ function FeedPanel({ feeds, options }: { feeds: FeedRow[]; options: FeedSourceOp
                     {f.title ?? '(제목 없음)'}
                   </span>
                   <span className="ml-s-2 font-mono text-[11px] text-t3">
-                    {f.via === 'autodiscovery' ? '발행사 알림' : '관습 경로'} · 항목{' '}
+                    {f.via === 'autodiscovery'
+                      ? '발행사 알림'
+                      : f.via === 'section'
+                        ? '섹션 목록'
+                        : '관습 경로'}{' · 항목 '}
                     {f.itemCount}
                   </span>
                   <span className="block truncate font-mono text-[11px] text-t2">{f.url}</span>
@@ -535,8 +539,11 @@ function FeedPanel({ feeds, options }: { feeds: FeedRow[]; options: FeedSourceOp
           찾지 못했을 때 — 주소를 직접 확인하기
         </summary>
         <p className="mt-s-2 font-body text-xs text-t2">
-          발행사 RSS 안내 페이지에서 본 주소를 넣으면 똑같이 열어서 확인한 뒤에만 추가합니다.
-          robots 를 어기거나 피드가 아닌 주소는 여기서도 거부됩니다.
+          발행사 RSS 안내 페이지에서 본 주소를 넣으면 똑같이 열어서 확인한 뒤에만 추가합니다.{' '}
+          <strong className="text-t1">RSS 가 아닌 섹션 목록 페이지 주소도 됩니다</strong> — 학습에
+          적합한 섹션(생활·문화·교육)이 RSS 를 안 주는 경우가 흔합니다. 그때는 기사 주소에 박힌
+          날짜로 발행 시각을 채우고, 날짜를 못 찾은 기사는 제외합니다(48시간 보류를 검증할 수
+          없기 때문). robots 를 어기는 주소는 여기서도 거부됩니다.
         </p>
         <form
           className="mt-s-3 flex flex-wrap items-end gap-s-3"
@@ -1462,49 +1469,49 @@ function AttestForm({
   )
 }
 
-/** ⑥ 가공에서 실제로 만들어진 것 — 계획(트랙)과 대비해 보여 준다. */
-export interface DerivedCounts {
-  /** csat_dcp_items — 구문 재배열(order/insert) 문항 수 */
-  dcp: number
-  /** library_article_vocabularies — 어휘 추출 수 */
-  vocab: number
-  /** 공개 단어장이 실제로 발행돼 있는가 */
-  wordSet: boolean
-}
-
-/** 활동이 서려면 무엇이 있어야 하는가 — 화면이 "붙는다" 고만 말하지 않게 하는 표. */
-function activityState(
-  key: string,
-  d: DerivedCounts,
-  hasAudio: boolean,
-): { ok: boolean; note: string } {
-  switch (key) {
-    case 'read':
-      return { ok: true, note: '본문' }
-    case 'word_set':
-      if (d.wordSet) return { ok: true, note: '세트 발행됨' }
-      return { ok: false, note: d.vocab > 0 ? `어휘 ${d.vocab} · 발행 시 생성` : '어휘 없음' }
-    case 'gapfill':
-    case 'spelling':
-      return d.vocab > 0 ? { ok: true, note: `어휘 ${d.vocab}` } : { ok: false, note: '어휘 없음' }
-    case 'order':
-    case 'insert':
-      // 0 이면 대개 문단 문제다 — 단일 개행은 문단 구분이 아니라 글 전체가 한 문단으로 잡힌다.
-      return d.dcp > 0
-        ? { ok: true, note: `문항 ${d.dcp}` }
-        : { ok: false, note: '미생성 — 가공 스크립트' }
-    case 'dictation':
-    case 'shadowing':
-      return hasAudio ? { ok: true, note: '음성 있음' } : { ok: false, note: '음성 필요' }
-    case 'comprehension':
-    case 'discussion':
-      // 유일한 유료 경로 — 자동으로 만들지 않는다. "아직 없음" 을 숨기지 않는다.
-      return { ok: false, note: '유료 생성 · 미구현' }
-    default:
-      return { ok: false, note: '미상' }
-  }
-}
-
+/** ⑥ 가공에서 실제로 만들어진 것 — 계획(트랙)과 대비해 보여 준다. */
+export interface DerivedCounts {
+  /** csat_dcp_items — 구문 재배열(order/insert) 문항 수 */
+  dcp: number
+  /** library_article_vocabularies — 어휘 추출 수 */
+  vocab: number
+  /** 공개 단어장이 실제로 발행돼 있는가 */
+  wordSet: boolean
+}
+
+/** 활동이 서려면 무엇이 있어야 하는가 — 화면이 "붙는다" 고만 말하지 않게 하는 표. */
+function activityState(
+  key: string,
+  d: DerivedCounts,
+  hasAudio: boolean,
+): { ok: boolean; note: string } {
+  switch (key) {
+    case 'read':
+      return { ok: true, note: '본문' }
+    case 'word_set':
+      if (d.wordSet) return { ok: true, note: '세트 발행됨' }
+      return { ok: false, note: d.vocab > 0 ? `어휘 ${d.vocab} · 발행 시 생성` : '어휘 없음' }
+    case 'gapfill':
+    case 'spelling':
+      return d.vocab > 0 ? { ok: true, note: `어휘 ${d.vocab}` } : { ok: false, note: '어휘 없음' }
+    case 'order':
+    case 'insert':
+      // 0 이면 대개 문단 문제다 — 단일 개행은 문단 구분이 아니라 글 전체가 한 문단으로 잡힌다.
+      return d.dcp > 0
+        ? { ok: true, note: `문항 ${d.dcp}` }
+        : { ok: false, note: '미생성 — 가공 스크립트' }
+    case 'dictation':
+    case 'shadowing':
+      return hasAudio ? { ok: true, note: '음성 있음' } : { ok: false, note: '음성 필요' }
+    case 'comprehension':
+    case 'discussion':
+      // 유일한 유료 경로 — 자동으로 만들지 않는다. "아직 없음" 을 숨기지 않는다.
+      return { ok: false, note: '유료 생성 · 미구현' }
+    default:
+      return { ok: false, note: '미상' }
+  }
+}
+
 /** ⑥ 가공 — 지문마다 어떤 활동이 실제로 만들어졌는지. 기계 변환은 재생성 무료다. */
 function ActivityPanel({
   composed,

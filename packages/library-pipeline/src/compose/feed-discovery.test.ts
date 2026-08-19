@@ -430,3 +430,45 @@ describe('알림 하나가 섹션 목록을 가리던 것 (실측 2026-08-19 · 
     expect(d.seen.filter((u) => u.includes('/rss/more'))).toHaveLength(1)
   })
 })
+
+describe('섹션 목록 페이지도 등록할 수 있다', () => {
+  // 학습에 적합한 섹션(생활·문화·교육)이 RSS 를 안 주는 경우가 흔한데, 예전에는
+  //   "피드가 아닙니다" 로 거부해 그 섹션을 영영 못 썼다.
+  const SECTION_HTML = `<!doctype html><html><body>
+    <a href="/lifestyle/20260817/why-cities-plant-more-trees"><h3>Why cities plant more trees</h3></a>
+    <a href="/lifestyle/20260816/what-a-quiet-street-teaches"><h3>What a quiet street teaches us</h3></a>
+  </body></html>`
+
+  it('RSS 가 아니어도 기사 목록이 있으면 받아들인다', async () => {
+    const d = deps({
+      'https://kt.example/robots.txt': ALLOW,
+      'https://kt.example/lifestyle': OK(SECTION_HTML),
+    })
+    const r = await verifyFeedUrl(at('koreatimes', 'kt.example'), 'https://kt.example/lifestyle', new CrawlGate(), d)
+    expect('feed' in r).toBe(true)
+    if (!('feed' in r)) return
+    expect(r.feed.itemCount).toBe(2)
+  })
+
+  it('갈래를 section 으로 표시한다 — 운영자가 RSS 와 구별해야 한다', async () => {
+    // 0건일 때 무엇을 의심할지가 다르다(RSS 는 주소 이동, 섹션은 주소에 날짜가 없는 발행사).
+    const d = deps({
+      'https://kt.example/robots.txt': ALLOW,
+      'https://kt.example/lifestyle': OK(SECTION_HTML),
+    })
+    const r = await verifyFeedUrl(at('koreatimes', 'kt.example'), 'https://kt.example/lifestyle', new CrawlGate(), d)
+    if (!('feed' in r)) throw new Error('등록됐어야 한다')
+    expect(r.feed.via).toBe('section')
+  })
+
+  it('기사도 피드도 아니면 사유를 나눠 준다', async () => {
+    const d = deps({
+      'https://kt.example/robots.txt': ALLOW,
+      'https://kt.example/about': OK('<html><body><p>회사 소개</p></body></html>'),
+    })
+    const r = await verifyFeedUrl(at('koreatimes', 'kt.example'), 'https://kt.example/about', new CrawlGate(), d)
+    if ('feed' in r) throw new Error('거부됐어야 한다')
+    expect(r.fail.kind).toBe('not-a-feed')
+    expect(r.fail.reason).toContain('목록 페이지가 아니다')
+  })
+})
