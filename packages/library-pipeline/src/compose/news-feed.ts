@@ -15,6 +15,8 @@
 //   403 은 재시도 대상이 아니라 **그 발행사를 목록에서 빼는 근거**다.
 
 import { parseRssFeed, type RssListItem } from '../ingest-article/_helpers'
+import { extractArticle } from './extract'
+import { buildFingerprint } from './fingerprint'
 import {
   COMPOSE_USER_AGENT,
   CrawlGate,
@@ -270,7 +272,20 @@ export async function readStoryForFacts<T>(
   }
   if (!res.ok) return { ok: false, reason: `응답 ${res.status}` }
 
+  // 지문은 **추출한 본문**에서 뜬다. 원본 HTML 로 뜨면 안 되는 이유는 실측이다(2026-08-19):
+  //   코리아헤럴드가 연합 원고를 실은 두 기사가 HTML 기준으로는 담김 **0.7%** 였고
+  //   추출 본문 기준으로는 **31.3%** 였다. 메뉴·스크립트·다른 기사 제목이 7어절 조각의
+  //   대부분을 차지해 본문의 일치를 그만큼 희석한 것이다.
+  //
+  //   그래서 `collapseSyndication`(I12 가 쓰는 전재 접기)이 **작동하지 않고 있었다** —
+  //   장치는 처음부터 있었는데 재는 대상이 틀려서 언제나 "서로 다른 원고" 로 나왔다.
+  //   추출 본문으로 뜨면 I13(표현 독립성)도 같이 정확해진다: 초안과 기사 본문 사이의
+  //   연속 구간만 보게 되고, 사이트 틀에 우연히 걸리는 일이 없어진다.
+  //
+  //   ⚠️ 콜백에는 **원본 HTML 을 그대로 넘긴다.** 호출부마다 필요한 추출이 다르고,
+  //     여기서 미리 자르면 그 선택지를 뺏는다. 그래서 지문만 따로 뜬다.
   const read = await readForFacts(async () => res.text, extract)
+  const contentFingerprint = buildFingerprint(extractArticle(res.text).text)
 
   return {
     ok: true,
@@ -279,7 +294,7 @@ export async function readStoryForFacts<T>(
       publisher: spec.publisher,
       url,
       published_at: null, // 호출부가 후보의 published_at 을 넣는다
-      fingerprint: read.fingerprint,
+      fingerprint: contentFingerprint,
       access_basis: spec.access.basis,
       // page-fetch 는 DB CHECK(chk_compose_source_robots)가 이 값을 요구한다.
       robots_checked_at: spec.access.robotsCheck ? read.readAt.toISOString() : null,

@@ -506,3 +506,48 @@ describe('I14 — 순서를 뒤집는 것은 독립이 아니다', () => {
     expect(r.verdict).toBe('PASS')
   })
 })
+
+describe('전재 접기 임계값 — 실측으로 정한 자리 (2026-08-19)', () => {
+  // 처음 값 0.25 는 근거 없이 적혀 있었고 **부분 전재를 통과시켰다.**
+  //   각자 취재 4쌍: 0.0 · 1.1 · 1.3 · 1.3% / 부분 전재 2쌍: 19.3% · 31.3%
+  //   그 사이에 0.25 가 있어 19.3% 짜리가 "독립" 으로 통과했고, 그 위에 지문 1편이
+  //   발행 대기까지 갔다. 0.10 은 양쪽에서 멀다.
+  const src = (id: string, publisher: string, text: string): SourceRecord => ({
+    id,
+    publisher,
+    url: `https://${publisher}/${id}`,
+    published_at: '',
+    fingerprint: buildFingerprint(text),
+  })
+
+  const SHARED =
+    'the club said the fan suffered a minor hand injury and watched the rest of the match from another area of the stadium instead of going to a local hospital for a further checkup'
+
+  it('실측한 부분 전재 수준(약 20%)을 한 계통으로 접는다', () => {
+    const a = src('a', 'yna.co.kr', SHARED + ' The league opened its own review on Thursday morning.')
+    const b = src(
+      'b',
+      'koreaherald.com',
+      'The league banned matches at the ground until further notice on Friday afternoon. ' +
+        'Officials in the city said they would help the club find another venue for the coming weeks. ' +
+        SHARED,
+    )
+    expect(collapseSyndication([a, b])).toHaveLength(1)
+    // 옛 임계값이었다면 통과했다 — 값 하나가 판정을 갈랐다는 것을 남긴다.
+    expect(collapseSyndication([a, b], 0.25).length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('각자 쓴 두 기사는 그대로 두 계통이다', () => {
+    const a = src(
+      'a',
+      'yna.co.kr',
+      'An upcoming tournament match has been moved out of a stadium in the southeastern city because of safety concerns raised this week.',
+    )
+    const b = src(
+      'b',
+      'koreaherald.com',
+      'The top league announced that it has banned games at the ground until an extensive inspection confirms the building is safe again.',
+    )
+    expect(collapseSyndication([a, b])).toHaveLength(2)
+  })
+})

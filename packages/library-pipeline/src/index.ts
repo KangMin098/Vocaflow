@@ -186,15 +186,6 @@ export {
 export { BENCHMARK_SAMPLES, benchmarkBar, compareToBenchmark } from './compose/benchmark'
 export type { BenchmarkBar, BenchmarkResult, BenchmarkSample, BenchmarkVerdict } from './compose/benchmark'
 
-// 선언된 계통이 아니라 **측정된** 계통 — 전재를 두 번 세지 않는다.
-export {
-  SAME_COPY_CONTAINMENT,
-  describeCopyGroups,
-  groupByCopy,
-  measuredLineCount,
-} from './compose/copy-lines'
-export type { CopyCandidate, CopyGroup } from './compose/copy-lines'
-
 // 제목 기반 학습 적합성 — 피드 순위·천장 측정용(개별 판정용 아님).
 export {
   KOREAN_PUBLISHERS,

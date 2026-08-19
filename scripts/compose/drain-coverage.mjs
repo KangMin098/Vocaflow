@@ -45,10 +45,8 @@ const {
   CrawlGate,
   FACT_SOURCES,
   classifyTopic,
-  buildFingerprint,
   clusterStories,
-  describeCopyGroups,
-  groupByCopy,
+  collapseSyndication,
   extractArticle,
   isKoreaRelevant,
   primeRobots,
@@ -180,25 +178,24 @@ if (rows.length < 2) {
 //   코리아헤럴드가 연합 원고의 문단을 그대로 실은 것이다. 발행사가 둘이라는 이유로 2계통으로
 //   세면, 실제로는 **한 매체의 기사 하나를 바꿔 쓴 것**이 된다. 그건 재저작이 아니라 2차 저작물이고,
 //   게이트 여섯을 다 통과해도 전제가 무너져 있으면 통과가 의미를 잃는다.
-// ⚠️ 저장된 지문(`row.fingerprint`)으로 견주면 **안 된다.** 그것은 원본 HTML 로 뜬 것이라
-//   메뉴·스크립트 같은 사이트 틀이 7어절 조각의 대부분을 차지하고, 본문이 통째로 같아도
-//   겹침이 1% 대로 희석된다(실측 2026-08-19: 같은 쌍이 저장 지문 0.7% vs 추출 본문 31.3%).
-//   그래서 **추출한 본문**으로 다시 뜬다. 저장 지문은 그대로 둔다 — I13 은 초안과 소스 본문
-//   사이의 연속 구간을 찾는 것이라 희석의 영향을 받지 않고, 바꾸면 이미 저장된 판정이 낡는다.
-const groups = groupByCopy(
-  rows.map(({ row, sentences }) => ({
-    key: row.publisher,
-    fingerprint: buildFingerprint(sentences.join(' ')),
+// 판정은 **게이트가 쓰는 것과 같은 함수**로 한다(`collapseSyndication`). 여기서 따로 세면
+//   취재 단계와 발행 게이트가 서로 다른 답을 내고, 그러면 어느 쪽을 믿어야 할지 알 수 없다.
+//   (처음엔 같은 일을 하는 함수를 새로 만들었다가 지웠다 — 장치는 처음부터 있었고,
+//    작동하지 않은 이유는 **재는 대상**이 원본 HTML 이었기 때문이다.)
+const groups = collapseSyndication(
+  rows.map(({ row }, i) => ({
+    id: String(i),
+    publisher: row.publisher,
+    url: row.url,
+    published_at: '',
+    fingerprint: row.fingerprint,
   })),
 )
-const merged = describeCopyGroups(groups)
-if (merged.length) {
-  console.log('')
-  for (const m of merged) console.log(`  ⚠ ${m}`)
-}
 if (groups.length < 2) {
+  const names = groups.map((g) => g.map((i) => rows[Number(i)].row.publisher).join(' · '))
+  console.log(`\n  ⚠ ${names.join(' / ')} — 본문이 같은 원고에서 왔다.`)
   console.log(
-    `\n측정된 독립 계통이 ${groups.length}건이라 취재를 시작하지 않는다 — 발행사는 ${rows.length}곳이지만 원고는 하나다.`,
+    `측정된 독립 계통이 ${groups.length}건이라 취재를 시작하지 않는다 — 발행사는 ${rows.length}곳이지만 원고는 하나다.`,
   )
   process.exit(1)
 }
