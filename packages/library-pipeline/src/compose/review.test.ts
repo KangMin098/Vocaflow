@@ -5,7 +5,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { withAttribution } from './attribution'
-import { REVIEW_JUDGE_CHECKLIST, reviewDraft } from './review'
+import { assessFactDensity, OBSERVED_FACT_DENSITY, REVIEW_JUDGE_CHECKLIST, reviewDraft } from './review'
 import type { SpineWord } from './spine'
 
 const W = (spec: Array<[string, number | null]>): SpineWord[] =>
@@ -114,5 +114,44 @@ describe('검수 — 판단이 필요한 것', () => {
   it('판단 항목은 검수 보고서와 같은 목록이다 — 두 벌이면 갈린다', () => {
     const r = reviewDraft({ text: EASY, spec: SPEC, words: [] })
     expect(r.judgeChecklist).toEqual([...REVIEW_JUDGE_CHECKLIST])
+  })
+})
+
+describe('사실 밀도 — 판정이 아니라 예보', () => {
+  it('실측 범위 안쪽은 편안하다고 말한다', () => {
+    // 실제로 쓴 글들: 149어/8사실=18.6 · 188/8=23.5
+    expect(assessFactDensity(149, 8).verdict).toBe('comfortable')
+    expect(assessFactDensity(188, 8).verdict).toBe('comfortable')
+  })
+
+  it('범위 위쪽이면 늘려 쓰는 자리라고 알린다', () => {
+    // 실측 35.8·36.6 — 내가 어수를 채우려 애썼던 두 편이다.
+    const a = assessFactDensity(180, 5)
+    expect(a.verdict).toBe('stretch')
+    expect(a.detail).toContain('두 번 말하지 않도록')
+  })
+
+  it('해낸 적 없는 밀도는 따로 표시한다', () => {
+    // 사실 5개로 320어 = 64어/사실. 실측 최대(36.6)의 두 배에 가깝다.
+    const a = assessFactDensity(320, 5)
+    expect(a.verdict).toBe('beyond-observed')
+    expect(a.detail).toContain('사실을 더 넣거나')
+  })
+
+  it('사실이 없으면 밀도가 아니라 근거가 없는 것이다', () => {
+    const a = assessFactDensity(180, 0)
+    expect(a.verdict).toBe('beyond-observed')
+    expect(a.detail).toContain('쓸 근거가 없')
+  })
+
+  it('기준은 어수 하한이다 — 채우기 어려운 쪽이 하한이다', () => {
+    // 같은 사실 수라도 하한이 높으면 더 빡빡하다.
+    expect(assessFactDensity(90, 5).density).toBeLessThan(assessFactDensity(180, 5).density)
+  })
+
+  it('관측 분포를 값으로 남긴다 — 범위만 남기면 모양을 알 수 없다', () => {
+    expect(OBSERVED_FACT_DENSITY.values).toHaveLength(OBSERVED_FACT_DENSITY.samples)
+    expect(Math.min(...OBSERVED_FACT_DENSITY.values)).toBe(OBSERVED_FACT_DENSITY.min)
+    expect(Math.max(...OBSERVED_FACT_DENSITY.values)).toBe(OBSERVED_FACT_DENSITY.max)
   })
 })

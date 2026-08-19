@@ -236,3 +236,76 @@ export function reviewDraft(input: ReviewInput): ReviewReport {
 
   return { metrics, findings, judgeChecklist: [...REVIEW_JUDGE_CHECKLIST] }
 }
+
+// ── 사실 밀도 ────────────────────────────────────────────────────────
+//
+// 발주 어수와 원장의 사실 수는 **짝이 맞아야 한다.** 사실 5개로 320어를 쓰라고 하면
+// 쓰는 쪽은 같은 사실을 다른 말로 반복하게 되고, 그건 게이트가 못 잡는다(표현이 다르므로
+// I13 도 안 걸린다). 검수의 판단 목록에 "같은 사실을 두 번 말하지 않는가" 가 있는 이유다.
+//
+// ⚠️ **임계값을 정하지 않는다.** 실측 6편의 밀도는 18.6~36.6어/사실로 흩어져 있고,
+//   밀도만으로 결함이 난 사례는 아직 없다(가장 높은 두 편도 검수를 통과했다).
+//   그래서 이 함수는 판정하지 않고 **관측 범위 안 어디쯤인지**를 말한다 — 쓰는 쪽이
+//   "지금 늘려 써야 하는 자리" 임을 알고 시작하는 것이 목적이다.
+//
+//   관측을 넘어서는 값(36.6 초과)만 따로 표시한다. 그건 우리가 해낸 적 없는 밀도다.
+
+/** 실측 밀도 분포 (2026-08-19 · 재저작 6편). 새 글이 쌓이면 갱신한다. */
+export const OBSERVED_FACT_DENSITY = {
+  samples: 6,
+  min: 18.6,
+  max: 36.6,
+  /** 편별 값 — 범위만 남기면 분포가 어떤 모양인지 알 수 없다. */
+  values: [18.6, 21.3, 23.5, 27.0, 35.8, 36.6] as const,
+} as const
+
+export type FactDensityVerdict = 'comfortable' | 'stretch' | 'beyond-observed'
+
+export interface FactDensityAssessment {
+  /** 어수 ÷ 사실 수 */
+  density: number
+  verdict: FactDensityVerdict
+  /** 사람이 읽는 한 줄 */
+  detail: string
+}
+
+/**
+ * 이 발주를 이 원장으로 쓸 수 있는가 — **판정이 아니라 예보**다.
+ *
+ * 기준 어수는 하한을 쓴다. 하한을 채우는 것이 어려운 쪽이고, 상한은 안 채워도 되기 때문이다.
+ */
+export function assessFactDensity(wordsMin: number, factCount: number): FactDensityAssessment {
+  if (factCount <= 0) {
+    return {
+      density: Infinity,
+      verdict: 'beyond-observed',
+      detail: '원장에 사실이 없다 — 쓸 근거가 없으므로 발주를 채울 수 없다.',
+    }
+  }
+  const density = wordsMin / factCount
+  const { min, max, samples } = OBSERVED_FACT_DENSITY
+  if (density > max) {
+    return {
+      density,
+      verdict: 'beyond-observed',
+      detail:
+        `사실 ${factCount}개로 ${wordsMin}어를 채우려면 사실당 ${density.toFixed(1)}어가 필요하다. ` +
+        `실측 ${samples}편의 최대가 ${max}어/사실이었다 — 해낸 적 없는 밀도다. ` +
+        `사실을 더 넣거나(다른 소스에서 확인) 더 짧은 유형으로 발주한다.`,
+    }
+  }
+  if (density > (min + max) / 2) {
+    return {
+      density,
+      verdict: 'stretch',
+      detail:
+        `사실당 ${density.toFixed(1)}어 — 실측 범위(${min}~${max})의 위쪽이다. ` +
+        `늘려 써야 하는 자리이므로 **같은 사실을 다른 말로 두 번 말하지 않도록** 특히 조심한다.`,
+    }
+  }
+  return {
+    density,
+    verdict: 'comfortable',
+    detail: `사실당 ${density.toFixed(1)}어 — 실측 범위(${min}~${max}) 안쪽이다.`,
+  }
+}

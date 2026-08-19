@@ -35,7 +35,8 @@ if (!batchId || !track || !Number.isFinite(level)) {
 }
 
 const { createClient } = await import('@supabase/supabase-js')
-const { LEARNING_TYPES, buildJobSpec } = await import('@vocaflow/library-pipeline')
+const { LEARNING_TYPES, assessFactDensity, buildJobSpec } =
+  await import('@vocaflow/library-pipeline')
 
 if (!LEARNING_TYPES[track]) {
   console.error(`알 수 없는 유형: ${track}`)
@@ -88,3 +89,16 @@ console.log(`  ${spec.track} · ${spec.register} · V${spec.targetVLevel} · ${s
 console.log('\n작성 지시:')
 for (const d of spec.directives) console.log(`  · ${d}`)
 console.log(`\n붙일 활동: ${spec.activities.join(', ')}`)
+
+// 원장이 이 발주를 받칠 수 있는지 **쓰기 전에** 알린다.
+//   사실 5개로 320어를 쓰라고 하면 쓰는 쪽은 같은 사실을 다른 말로 반복하게 되고,
+//   그건 어떤 게이트도 못 잡는다 — 표현이 다르므로 I13 에도 안 걸린다. 검수의 판단 목록에
+//   "같은 사실을 두 번 말하지 않는가" 가 있는 이유이고, 실제로 한 편에서 걸렸다(2026-08-19).
+//   다 쓰고 나서 아는 것보다 발주할 때 아는 편이 낫다.
+const { count: factCount } = await db
+  .from('article_fact_ledger')
+  .select('*', { count: 'exact', head: true })
+  .eq('batch_id', batchId)
+const density = assessFactDensity(spec.words.min, factCount ?? 0)
+const mark = density.verdict === 'comfortable' ? '·' : density.verdict === 'stretch' ? '△' : '⚠'
+console.log(`\n${mark} 사실 밀도 — 원장 ${factCount ?? 0}건 · ${density.detail}`)
