@@ -137,6 +137,30 @@ for (const a of rows) {
     .eq('id', a.id)
   if (upErr) throw new Error('갱신 실패: ' + upErr.message)
 
+  // 발주를 닫는다 — 아티클이 생겼는데 발주가 대기로 남아 있으면 큐가 영원히 안 빈다.
+  //
+  // 왜 여기서 하는가: 이 단계까지 왔다는 것은 그 발주의 산출물이 실제로 생겼다는 뜻이다.
+  //   절차서에는 "각 발주에 article_id 가 붙는다" 고 적혀 있었지만 **그걸 하는 코드가 없어서**
+  //   사람이 기억해야 했고, 실제로 2026-08-19 에 두 건 연속으로 잊었다(BIGBANG·포항).
+  //   사람이 기억해야 하는 절차는 결국 빠진다.
+  //
+  // 짝짓기는 묶음+유형+목표레벨 — 이 셋은 발주 테이블에 유일키가 걸려 있어 하나만 맞는다.
+  // ⚠️ 이 코드가 없던 동안 큐가 **거짓말을 하고 있었다.** 2026-08-19 점검에서 "대기 4" 였는데
+  //   넷 다 이미 글이 있었다 — 내가 잊은 둘뿐 아니라 이전 세션의 둘도 그랬다. 즉 이 파이프라인은
+  //   발주를 한 번도 닫은 적이 없다. 운영자는 없는 일을 있다고 보고 있었다.
+  if (a.compose_batch_id && spec.track && spec.target_v_level != null) {
+    const { data: closed, error: jErr } = await db
+      .from('article_compose_jobs')
+      .update({ article_id: a.id, status: 'done' })
+      .eq('batch_id', a.compose_batch_id)
+      .eq('track', spec.track)
+      .eq('target_v_level', spec.target_v_level)
+      .neq('status', 'done')
+      .select('id')
+    if (jErr) console.error(`  ⚠ 발주 닫기 실패: ${jErr.message}`)
+    else if (closed?.length) console.log(`  발주 ${closed.length}건 닫음`)
+  }
+
   // 측정 난이도 보고.
   //
   // ⚠️ 발주의 `target_v_level` 과 측정된 `article_v_level` 은 **같은 양이 아니다.**

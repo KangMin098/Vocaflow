@@ -46,7 +46,7 @@ export const COMPOSE_HELP: HelpRegistry = {
           title: 'Claude Code 로 큐 비우기',
           detail:
             '작성은 화면 버튼이 아니라 배치 작업이다. 아래 드레인 절차를 따른다.',
-          done: 'pending·claimed 가 0, 각 발주에 article_id 가 붙는다',
+          done: 'pending·claimed 가 0, 각 발주에 article_id 가 붙는다 (처리 단계가 자동으로 닫는다 — 2026-08-19 이전에는 이 코드가 없어 큐가 늘 "대기" 로 보였다)',
         },
         {
           title: '검수하고 발행',
