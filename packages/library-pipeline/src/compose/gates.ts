@@ -184,15 +184,31 @@ export function checkSourceIndependence(
   }
 
   const weak: string[] = []
+  const backgroundSingle: string[] = []
   for (const f of used) {
     const distinct = new Set<number>()
     for (const a of f.attestations) {
       const g = groupOf.get(a.source_id)
       if (g !== undefined) distinct.add(g)
     }
-    if (distinct.size < COMPOSE_THRESHOLDS.minIndependentSources) {
-      weak.push(`${f.id}(독립 ${distinct.size})`)
+    if (distinct.size >= COMPOSE_THRESHOLDS.minIndependentSources) continue
+
+    // 배경 사실은 **일반 지식**이라 한 곳에서만 확인돼도 된다.
+    //
+    // I12 가 지키려는 것은 hot-news 원리다 — 한 곳이 발로 뛰어 얻은 시의성 있는 정보를
+    // 가로채지 않는 것. "달이 지구와 해 사이를 지나면 일식이 된다" 는 누구의 취재 성과도
+    // 아니고 교과서에 있다. 여기에까지 2계통을 요구하면 소프트뉴스가 통째로 막힌다 —
+    // 실측 2026-08-19: 학습 적합한데 단일계통이라 못 쓰는 사건이 152건이었고, 묶기 임계값
+    // 조정과 희귀 토큰 가중치는 **측정으로 기각**됐다(진짜 쌍과 가짜 쌍이 같은 구간에 섞였고,
+    // 코퍼스가 작아 토큰의 98.4%가 문서빈도 1% 미만이라 희귀도가 판별력을 못 낸다).
+    //
+    // 다만 **사건·수치·발언은 면제하지 않는다** — 그것이 취재 성과다.
+    // 출처가 아예 없는 배경 사실도 통과시키지 않는다(어디서 왔는지 못 대는 주장이다).
+    if (f.kind === 'background' && distinct.size >= 1) {
+      backgroundSingle.push(f.id)
+      continue
     }
+    weak.push(`${f.id}(독립 ${distinct.size})`)
   }
 
   if (weak.length > 0) {
@@ -207,12 +223,16 @@ export function checkSourceIndependence(
     }
   }
 
-  return {
-    invariant,
-    severity: 'critical',
-    verdict: 'PASS',
-    detail: `사실 ${used.length}건 전부 독립 ${groups.length}그룹 중 2곳 이상에서 확인.`,
-  }
+  // 배경 면제를 쓴 건은 **숨기지 않고 세어서 보고한다** — 검수자가 "이 글이 실제로 몇 개의
+  // 취재에 기대고 있는지" 를 알아야 한다. 면제가 조용하면 남용을 못 본다.
+  const detail =
+    backgroundSingle.length === 0
+      ? `사실 ${used.length}건 전부 독립 ${groups.length}그룹 중 2곳 이상에서 확인.`
+      : `사실 ${used.length}건 중 ${used.length - backgroundSingle.length}건은 독립 2계통 이상, ` +
+        `${backgroundSingle.length}건은 **배경 사실**이라 1계통으로 통과(일반 지식 — 취재 성과가 아니다). ` +
+        `사건·수치·발언에는 면제가 없다.`
+
+  return { invariant, severity: 'critical', verdict: 'PASS', detail }
 }
 
 // ── I13 표현 독립성 ──────────────────────────────────────────────────
