@@ -467,3 +467,42 @@ describe('runComposeGates', () => {
     expect(results.find((r) => r.verdict === 'FAIL')!.invariant).toBe('I14 구조 독립성')
   })
 })
+
+describe('I14 — 순서를 뒤집는 것은 독립이 아니다', () => {
+  // 실측 2026-08-19: 초안을 쓰면서 "ρ 가 음수면 낮은 것" 으로 읽고 소스 순서를 거꾸로
+  //   배열했다가 ρ=-0.87 로 막혔다. 게이트는 **절대값**을 본다 — 역순은 같은 전개를
+  //   거꾸로 따라가는 것이고, 그것도 그 기사의 구조를 쓴 것이다.
+  const SOURCES: SourceRecord[] = [
+    { id: 's1', publisher: 'a.com', url: 'https://a.com/1', published_at: '', fingerprint: buildFingerprint('one') },
+    { id: 's2', publisher: 'b.com', url: 'https://b.com/1', published_at: '', fingerprint: buildFingerprint('two') },
+  ]
+  const facts: FactCard[] = ['f1', 'f2', 'f3', 'f4', 'f5'].map((id, i) => ({
+    id,
+    claim: `fact ${id}`,
+    kind: 'event',
+    attestations: [
+      { source_id: 's1', ordinal: i + 1 },
+      { source_id: 's2', ordinal: i + 1 },
+    ],
+  }))
+  const draft = (order: string[]): ComposeDraft => ({
+    text: 'irrelevant for this gate',
+    fact_order: order,
+    event_occurred_at: '2026-08-12T00:00:00Z',
+  })
+
+  it('그대로 따라간 순서를 막는다 (ρ=+1)', () => {
+    const r = checkStructureIndependence(draft(['f1', 'f2', 'f3', 'f4', 'f5']), facts, SOURCES)
+    expect(r.verdict).toBe('FAIL')
+  })
+
+  it('거꾸로 뒤집은 순서도 막는다 (ρ=-1)', () => {
+    const r = checkStructureIndependence(draft(['f5', 'f4', 'f3', 'f2', 'f1']), facts, SOURCES)
+    expect(r.verdict).toBe('FAIL')
+  })
+
+  it('섞은 순서는 통과한다 — 재배열이 진짜 재배열일 때', () => {
+    const r = checkStructureIndependence(draft(['f3', 'f1', 'f5', 'f2', 'f4']), facts, SOURCES)
+    expect(r.verdict).toBe('PASS')
+  })
+})
