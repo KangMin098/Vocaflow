@@ -20,6 +20,39 @@ const { COMPOSE_USER_AGENT, classifyTopic, inspectSectionPage, parseSectionPage 
   '@vocaflow/library-pipeline'
 )
 
+// ── `--nav <홈페이지>` — 섹션 주소를 **짐작하지 않고 발행사에게 묻는다** ────────────
+//
+// 실측 2026-08-19: 섹션 주소를 짐작해 11개를 두드렸더니 9개가 404/400 이었다.
+// 같은 실수를 앞서 두 번 했다(한국 매체 섹션 피드 · 코리아헤럴드 RSS 안내).
+// 답은 늘 같았다 — **발행사가 내비게이션에 적어 둔 것을 읽으면 된다.**
+if (process.argv.includes('--nav')) {
+  const home = process.argv[process.argv.indexOf('--nav') + 1]
+  const res = await fetch(home, { headers: { 'User-Agent': COMPOSE_USER_AGENT }, redirect: 'follow' })
+  const html = await res.text()
+  const base = new URL(home)
+  const paths = new Set()
+  for (const m of html.matchAll(/<a\b[^>]*\bhref\s*=\s*("([^"]*)"|'([^']*)'|([^\s>]+))/gi)) {
+    const href = m[2] ?? m[3] ?? m[4]
+    if (!href) continue
+    let u
+    try {
+      u = new URL(href, base)
+    } catch {
+      continue
+    }
+    if (u.host !== base.host) continue
+    const segs = u.pathname.split('/').filter(Boolean)
+    // 섹션은 짧은 경로다. 날짜나 숫자 id 가 있으면 기사다.
+    if (segs.length === 0 || segs.length > 2) continue
+    if (segs.some((s) => /^\d{4,}$/.test(s))) continue
+    paths.add('/' + segs.join('/'))
+  }
+  console.log(`${home} 내비게이션에서 찾은 섹션 후보 ${paths.size}`)
+  for (const p of [...paths].sort()) console.log(`  ${base.origin}${p}`)
+  process.exit(0)
+}
+
+
 for (const url of urls) {
   let res
   try {
@@ -49,3 +82,4 @@ for (const url of urls) {
     console.log(`   ${c === 'fit' ? '★' : c === 'unfit' ? '✗' : '·'} ${i.title.slice(0, 70)}`)
   }
 }
+

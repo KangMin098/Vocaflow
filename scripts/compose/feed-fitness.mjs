@@ -24,7 +24,8 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
 }
 
 const { createClient } = await import('@supabase/supabase-js')
-const { COMPOSE_USER_AGENT, classifyTopic } = await import('@vocaflow/library-pipeline')
+const { COMPOSE_USER_AGENT, classifyTopic, parseSectionPage } =
+  await import('@vocaflow/library-pipeline')
 
 const db = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -45,7 +46,16 @@ const get = async (url, ms = 15000) => {
   }
 }
 
-function titles(xml) {
+// ⚠️ RSS 만 세면 **섹션 페이지 피드가 0건으로 잡히고 합계에서 조용히 빠진다.**
+//   수집기는 RSS 실패 시 섹션 파서로 넘어가는데 이 계측기가 안 따라가면, 화면의 적합률이
+//   실제로 걷는 것과 달라진다 — 계측기가 새 경로를 못 보면 합계가 거짓말한다.
+function titles(xml, url) {
+  const rss = titlesFromRss(xml)
+  if (rss.length) return rss
+  return parseSectionPage(xml, url).map((i) => i.title)
+}
+
+function titlesFromRss(xml) {
   const blocks = xml.match(/<(item|entry)[\s>][\s\S]*?<\/\1>/gi) ?? []
   const out = []
   for (const b of blocks) {
@@ -85,7 +95,7 @@ for (const f of feeds ?? []) {
     rows.push({ ...f, n: 0, fit: 0, unfit: 0, pct: null, upct: null, note: 'HTTP' + (r.err || r.status) })
     continue
   }
-  const ts = titles(r.text)
+  const ts = titles(r.text, f.url)
   let fit = 0
   let unfit = 0
   for (const t of ts) {
