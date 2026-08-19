@@ -64,7 +64,9 @@ export function parseRssFeed(xml: string): RssListItem[] {
     items.push({
       guid,
       title: decodeEntities(title ?? '(제목 없음)').trim(),
-      url: link.trim(),
+      // URL 도 디코딩한다 — 안 하면 &amp; 가 남아 **같은 기사가 두 주소로 저장된다**
+      //   (실측 2026-08-19: compose 후보 1,296건 중 90건이 이 이유의 중복).
+      url: decodeEntities(link).trim(),
       published_at: safeDateISO(pubDate),
       // v06.70 — entity-encoded HTML(&lt;p&gt;...&lt;/p&gt;) 처리:
       //   decodeEntities 먼저 → stripTags. 이전 순서는 stripTags 가 entity 못 풀어 HTML 태그 잔존.
@@ -113,7 +115,24 @@ export function stripTags(html: string): string {
   return html.replace(/<[^>]+>/g, '')
 }
 
+/**
+ * HTML 엔티티 디코딩.
+ *
+ * **안정될 때까지 반복한다(최대 3회)** — 이중 인코딩된 피드가 있다. NPR 은 제목을
+ * `&amp;apos;` 로 내보내서 1회 디코딩으로는 `&apos;` 가 그대로 남는다(실측 2026-08-19).
+ * 무한 반복을 막기 위해 횟수를 묶고, 더 안 바뀌면 즉시 멈춘다.
+ */
 export function decodeEntities(s: string): string {
+  let out = s
+  for (let i = 0; i < 3; i++) {
+    const next = decodeOnce(out)
+    if (next === out) break
+    out = next
+  }
+  return out
+}
+
+function decodeOnce(s: string): string {
   return s
     .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&')

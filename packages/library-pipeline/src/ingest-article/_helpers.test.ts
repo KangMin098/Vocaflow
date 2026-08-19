@@ -3,7 +3,8 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { decodeEntities, parseRssFeed } from './_helpers'
+import { decodeEntities, parseRssFeed 
+} from './_helpers'
 
 describe('decodeEntities', () => {
   it('hex 수치 엔티티(&#x27;)를 아포스트로피로 디코드 (회귀: owid/voa 제목 잔존 버그)', () => {
@@ -50,5 +51,43 @@ describe('parseRssFeed — 발행 시각', () => {
 
   it('시각 태그가 아예 없으면 null', () => {
     expect(parseRssFeed(item(''))[0]!.published_at).toBeNull()
+  })
+})
+
+describe('엔티티 디코딩 — 이중 인코딩과 URL (실측 2026-08-19)', () => {
+  it('이중 인코딩된 제목을 끝까지 푼다', () => {
+    // NPR 피드가 &amp;apos; 로 내보낸다. 1회 디코딩으로는 &apos; 가 그대로 남아
+    // 학습자에게 보이는 제목에 엔티티가 찍힌다.
+    expect(decodeEntities('Musk&amp;apos;s Starbase')).toBe("Musk's Starbase")
+    expect(decodeEntities('a &amp;amp; b')).toBe('a & b')
+  })
+
+  it('반복이 끝나는 것을 보장한다 — 안 바뀌면 멈춘다', () => {
+    expect(decodeEntities('plain text')).toBe('plain text')
+    expect(decodeEntities('')).toBe('')
+  })
+
+  it('피드 항목의 URL 도 디코딩한다 — 안 하면 같은 기사가 두 주소로 저장된다', () => {
+    // 실측: compose 후보 1,296건 중 90건(7%)이 &amp; 하나 때문에 중복이었다.
+    const xml =
+      '<?xml version="1.0"?><rss><channel><item>' +
+      '<title>Test story</title>' +
+      '<link>https://x.example/a?at_medium=RSS&amp;at_campaign=rss</link>' +
+      '<pubDate>Mon, 18 Aug 2026 05:19:43 GMT</pubDate>' +
+      '</item></channel></rss>'
+    const items = parseRssFeed(xml)
+    expect(items).toHaveLength(1)
+    expect(items[0]!.url).toBe('https://x.example/a?at_medium=RSS&at_campaign=rss')
+    expect(items[0]!.url).not.toContain('&amp;')
+  })
+
+  it('같은 기사가 한 주소로만 나온다 — 인코딩 차이가 중복을 만들지 않는다', () => {
+    const mk = (link: string) =>
+      '<?xml version="1.0"?><rss><channel><item><title>T</title><link>' +
+      link +
+      '</link><pubDate>Mon, 18 Aug 2026 05:19:43 GMT</pubDate></item></channel></rss>'
+    const a = parseRssFeed(mk('https://x.example/a?b=1&amp;c=2'))[0]!.url
+    const b = parseRssFeed(mk('https://x.example/a?b=1&c=2'))[0]!.url
+    expect(a).toBe(b)
   })
 })
