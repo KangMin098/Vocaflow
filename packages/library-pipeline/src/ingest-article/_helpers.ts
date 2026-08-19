@@ -25,7 +25,7 @@ export interface RssListItem {
  * 표준 RSS 2.0 / Atom feed XML 을 파싱하여 item 배열 반환.
  * <item> 또는 <entry> 모두 지원 — 단순 정규식 기반 (의존성 0).
  */
-export function parseRssFeed(xml: string): RssListItem[] {
+export function parseRssFeed(xml: string, nowMs: number = Date.now()): RssListItem[] {
   const items: RssListItem[] = []
   // RSS 2.0
   const rssItem = /<item\b[^>]*>([\s\S]*?)<\/item>/g
@@ -77,9 +77,9 @@ export function parseRssFeed(xml: string): RssListItem[] {
   }
   // 발행 시각이 퇴화한 피드는 주소에 박힌 날짜로 되살린다.
   //   되살릴 수 없는 항목은 그대로 둔다 — 거짓 시각이라도 없는 것보다 낫다(늦게 익을 뿐이다).
-  if (degenerateDates(items)) {
+  if (degenerateDates(items, nowMs)) {
     for (const it of items) {
-      const fromUrl = dateFromUrl(it.url)
+      const fromUrl = dateFromUrl(it.url, nowMs)
       if (fromUrl) {
         it.published_at = fromUrl
         it.date_source = 'url'
@@ -101,14 +101,23 @@ export function parseRssFeed(xml: string): RssListItem[] {
  *   ② 같은 사건을 다룬 다른 매체 기사와 **함께 익지 않아** 독립 2계통이 성립하지 않는다.
  *      한국 매체끼리 국내 사건을 각자 보도해 2계통을 만드는 경로가 여기서 끊긴다.
  *
- * 얇은 표본으로 단정하지 않는다(5건 미만 판정 보류). 정상 피드의 실측 최저가 87% 였으므로
- * **10% 이하만** 퇴화로 본다 — 그 사이는 넓게 비워 둔다.
+ * 정상 피드의 실측 최저가 87% 였으므로 **10% 이하만** 퇴화로 본다 — 그 사이는 넓게 비워 둔다.
+ *
+ * 표본이 얇을 때(5건 미만) 뭉침만으로는 단정하지 않는다. 기사 넷이 정말 같은 분에 나갔을 수도
+ * 있기 때문이다. 대신 **근거를 하나 더 요구한다 — 그 시각이 지금과 붙어 있는가.** 피드를 만들며
+ * 찍은 시각이면 우리가 받는 순간과 몇 분 차이가 안 난다. 이 갈래가 필요한 이유는 실측이다:
+ * 코리아타임스 섹션 피드는 항목이 4~6건뿐이라(lifestyle 4 · entertainment 6) 건수 기준만으로는
+ * **같은 결함을 가진 같은 발행사의 피드가 그냥 통과한다**(2026-08-19).
  */
-function degenerateDates(items: ReadonlyArray<RssListItem>): boolean {
+function degenerateDates(items: ReadonlyArray<RssListItem>, nowMs: number = Date.now()): boolean {
   const dated = items.filter((i) => i.published_at)
-  if (dated.length < 5) return false
+  if (dated.length < 2) return false
+  const stamps = dated.map((i) => new Date(i.published_at!).getTime())
   const distinct = new Set(dated.map((i) => i.published_at!.slice(0, 16)))
-  return distinct.size <= Math.max(1, Math.floor(dated.length * 0.1))
+  if (distinct.size > Math.max(1, Math.floor(dated.length * 0.1))) return false
+  if (dated.length >= 5) return true
+  // 얇은 표본 — 뭉친 그 시각이 지금으로부터 30분 안이면 피드를 만든 시각으로 본다.
+  return Math.abs(nowMs - Math.max(...stamps)) <= 30 * 60_000
 }
 
 /**
@@ -138,7 +147,10 @@ export function dateFromUrl(url: string, nowMs: number = Date.now()): string | n
     // 2026-02-31 같은 조합은 다음 달로 굴러간다 — 그런 건 날짜가 아니다.
     if (back.getUTCMonth() !== mo - 1 || back.getUTCDate() !== d) continue
     if (back.getTime() > nowMs + 86_400_000) continue
-    return back.toISOString()
+    // **오늘 날짜면 그날의 끝은 아직 오지 않았다.** 그대로 두면 미래 시각이 저장돼
+    //   화면에서 자료 오류처럼 보이고 숙성도 하루 더 밀린다. 지금으로 자른다 —
+    //   방금 받아 온 글이므로 발행은 늦어도 지금이고, 잘라도 여전히 상한이다.
+    return new Date(Math.min(back.getTime(), nowMs)).toISOString()
   }
   return null
 }

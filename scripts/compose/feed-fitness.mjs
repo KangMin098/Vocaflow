@@ -13,6 +13,7 @@
 //
 // 실행: pnpm dlx tsx scripts/compose/feed-fitness.mjs [--all]
 //   --all 을 주면 비활성 피드도 잰다(후보 피드를 견줄 때).
+//   --url <주소> 를 주면 등록하지 않은 주소를 잰다(반복 가능).
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -55,10 +56,25 @@ function titles(xml) {
   return out
 }
 
-let q = db.from('article_compose_feeds').select('source_key,url,label,enabled').order('source_key')
-if (!process.argv.includes('--all')) q = q.eq('enabled', true)
-const { data: feeds, error } = await q
-if (error) throw new Error('피드 조회 실패: ' + error.message)
+// `--url <주소>` 는 **아직 등록하지 않은 주소**를 잰다(여러 번 반복 가능).
+//   등록해 두고 끄기를 반복하면 피드 표가 지저분해지고, 무엇을 왜 껐는지 흐려진다.
+//   먼저 재고 나서 올린다.
+const urlArgs = process.argv.filter((_, i) => process.argv[i - 1] === '--url')
+let feeds
+if (urlArgs.length) {
+  feeds = urlArgs.map((u) => ({
+    source_key: '(미등록)',
+    url: u,
+    label: u.split('/').pop(),
+    enabled: false,
+  }))
+} else {
+  let q = db.from('article_compose_feeds').select('source_key,url,label,enabled').order('source_key')
+  if (!process.argv.includes('--all')) q = q.eq('enabled', true)
+  const { data, error } = await q
+  if (error) throw new Error('피드 조회 실패: ' + error.message)
+  feeds = data
+}
 
 const rows = []
 for (const f of feeds ?? []) {
@@ -106,12 +122,16 @@ for (const r of rows) {
   )
 }
 
+// `--url` 로 재는 동안에는 활성 피드가 하나도 없다 — 0 으로 나누면 NaN 이 찍힌다.
+//   없는 것을 0.0% 로 보고하지 않는다는 규칙은 여기에도 적용된다.
 const on = rows.filter((r) => r.enabled && r.n > 0)
 const totN = on.reduce((s, r) => s + r.n, 0)
 const totFit = on.reduce((s, r) => s + r.fit, 0)
 const totUnfit = on.reduce((s, r) => s + r.unfit, 0)
 console.log(
-  `\n활성 합계 ${totN}항목 · 적합 ${((100 * totFit) / totN).toFixed(1)}% · 부적합 ${((100 * totUnfit) / totN).toFixed(1)}%`,
+  totN
+    ? `\n활성 합계 ${totN}항목 · 적합 ${((100 * totFit) / totN).toFixed(1)}% · 부적합 ${((100 * totUnfit) / totN).toFixed(1)}%`
+    : '\n활성 피드에서 잰 항목이 없다 (--url 측정이거나 전부 비어 있다).',
 )
 const dead = on.filter((r) => (r.pct ?? 0) < 10)
 if (dead.length) {
