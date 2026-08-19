@@ -33,6 +33,30 @@ const MAX_ITEMS_PER_FEED = 20
  *  P2 — register gap 보강 2종 (zoneid 라이브 검증):
  *    1581 = American Stories (서사/narrative) · 955 = Health & Lifestyle (설명문/expository)
  */
+/**
+ * VOA 피드 목록.
+ *
+ * ⚠️ **`level` 을 텍스트 난이도로 쓰지 말 것.** 2026-08-20 에 그렇게 썼다가 틀렸다.
+ *
+ * VOA 의 Level 은 **프로그램 편성 등급**(대상 청취자·말하기 속도)이고, 글의 읽기 난이도가
+ * 아니다. 실측하면 오히려 **뒤집혀 있다**:
+ *
+ *   VOA 선언   편수   평균 CEFR 지수(0=A1)   평균 어수   평균 통사점수
+ *   Level 2     47          2.38              701          61.1
+ *   Level 3     20          1.85            1,166          57.6
+ *
+ * 더 어렵다고 선언한 Level 3 이 텍스트로는 더 쉽다. 이유는 `american-stories` 가
+ * **원문이 아니라 학습자용 각색**이기 때문이다:
+ *
+ *   "Our story today is called "The Purloined Letter." It was written by Edgar Allan Poe.
+ *    Poe is generally known for his horror stories. ... The story is about a stolen letter."
+ *
+ * 문장이 짧고 낱말이 흔하다. 어려운 것은 문장이 아니라 **문학·문화 배경지식**인데,
+ * 그건 우리가 재는 축이 아니다.
+ *
+ * 한때 이 `level` 을 정답표 삼아 CEFR 추정을 교차검증하는 모듈을 만들었다가, 위 실측을
+ * 보고 **철회했다**(오탐 6/6). 같은 것을 다시 만들지 말 것 — 두 축은 비교 가능한 눈금이 아니다.
+ */
 export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url: string }> = [
   {
     id: 'as-it-is',
