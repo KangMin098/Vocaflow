@@ -10,6 +10,43 @@
 
 ## Unreleased (v06.34 → next)
 
+### 정규화 — 표가 납작해진 자리에서 없는 낱말이 생기고 있었다 (v06.309)
+
+앞 사이클에 "별도 실측 후 처리" 로 미뤄 둔 것이다. 재고 나서 고쳤다.
+
+VOA 어근 수업의 원문은 HTML 표(Root · Meaning)가 텍스트로 납작해진 형태다:
+
+    Root
+    Meaning
+    bio-
+    life
+    auto-
+    self
+    photo-
+    light
+
+`reflowSoftHyphens` 가 `bio-\nlife` 를 줄바꿈 하이픈으로 보고 이어 붙여
+**`biolife`·`autoself`·`photolight`** 를 만들고, 그대로 학습자 어휘 목록에 들어갔다.
+
+**322편 전수 조사** — 줄 끝 하이픈 **11건이 전부 이 기사 하나**에서 나왔고,
+**진짜 줄바꿈 하이픈은 0건**이었다. 기사는 전부 HTML/API 라 생길 이유가 없다.
+
+- 판별 휴리스틱을 만들지 않고 **경로로 나눴다**. 후보였던 "하이픈 줄에 앞선 낱말이 있으면
+  진짜" 규칙은 `scrib-, script-\nwrite` 를 못 걸렀다. 휴리스틱은 양쪽에서 틀릴 수 있지만
+  경로 구분은 실측된 사실에 기댄다 — 책(PDF·구텐베르크)은 켜고, 기사는 끈다.
+- `reflowSoftHyphens(s, { joinHyphenLineBreaks })` — **기본값은 그대로 true**(책 동작).
+  회귀가 기본값 유지까지 확인한다(누가 바꿔도 조용히 지나가지 않도록).
+- 배치(`process-queue.mjs`)와 화면(`dev-process`) 양쪽에 같은 설정. 갈리면 처리 경로에 따라
+  같은 글의 어휘가 달라진다.
+- `scripts/acp/reprocess.mjs` 신설 — `process-queue` 는 `queued` 만 집으므로 이미 `ready`/
+  `published` 인 글은 규칙을 고쳐도 낡은 결과를 들고 있다. 발행 상태는 건드리지 않는다.
+- 해당 기사 재분석: **유령 낱말 11 → 0**, 그 자리에 실제 낱말 9개
+  (life · self · light · carry · earth · sound · empty · write · feel).
+- 회귀 11종 · 501 통과.
+
+⚠️ 나중에 **PDF 에서 뽑는 기사 소스**를 붙이면 이 판단을 다시 재야 한다. 현재 ACP 소스 12곳은
+전부 HTML/API 다.
+
 ### ACP — 백로그 66편 통과, 큐 0 (v06.308)
 
 새 게이트를 만들지 않고 밀린 것을 끝까지 밀었다.

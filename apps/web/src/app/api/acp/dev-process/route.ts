@@ -84,7 +84,11 @@ export async function POST(request: Request): Promise<NextResponse> {
 
     // 2) normalize (구두점 통일 + reflow — article 은 boundary/TOC 단계 불필요)
     await updateStatus('normalizing')
-    const body_text = reflowSoftHyphens(normalizePunctuation(article.content as string))
+    // ⚠️ 기사는 HTML 이라 줄바꿈 하이픈이 없다(322편 전수 실측 0건). 배치 경로와 같은 설정이어야
+    //   화면으로 처리한 글과 배치로 처리한 글의 어휘가 갈리지 않는다 — reflow.ts 주석 참조.
+    const body_text = reflowSoftHyphens(normalizePunctuation(article.content as string), {
+      joinHyphenLineBreaks: false,
+    })
     const norm: NormalizedArticle = {
       raw: {
         source: article.source,

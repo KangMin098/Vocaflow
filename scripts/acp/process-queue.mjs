@@ -107,7 +107,11 @@ for (const a of list.slice(0, LIMIT)) {
   try {
     await setStatus('normalizing')
     // 정규화는 라우트와 같은 두 단계 — 구두점 통일 + 소프트하이픈 되돌리기.
-    const bodyText = reflowSoftHyphens(normalizePunctuation(a.content ?? ''))
+    // ⚠️ 기사는 HTML 이라 줄바꿈 하이픈이 없다(322편 전수 실측 0건). 켜 두면 표가 납작해진
+    //   자리에서 bio-+life = biolife 같은 없는 낱말이 생긴다 — reflow.ts 주석 참조.
+    const bodyText = reflowSoftHyphens(normalizePunctuation(a.content ?? ''), {
+      joinHyphenLineBreaks: false,
+    })
     const norm = {
       raw: {
         source: a.source,
