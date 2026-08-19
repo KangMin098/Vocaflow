@@ -369,3 +369,64 @@ describe('죽은 피드 (실측 2026-08-18 · cnn.com/rss/edition_world.rss)', (
     expect(FEED_FAILURE_ACTION['stale-feed']).toContain('옮겼')
   })
 })
+
+describe('알림 하나가 섹션 목록을 가리던 것 (실측 2026-08-19 · 코리아헤럴드)', () => {
+  // 거의 모든 발행사가 "전체 뉴스" 피드 하나는 <link rel="alternate"> 로 알린다.
+  //   예전 규칙은 "알림이 하나도 없을 때만 안내 페이지를 본다" 여서, 그 하나가 있으면
+  //   섹션 피드 목록을 영영 못 봤다. 코리아헤럴드는 그렇게 사흘 동안 전체 피드 하나만 썼다.
+  //   섹션 주소는 `kh_` 접두사라 관습 경로 추측으로는 찾을 수 없다.
+  const HOME = `<!doctype html><html><head>
+    <link rel="alternate" type="application/rss+xml" href="https://kh.example/rss/newsAll">
+    </head><body><a href="https://kh.example/rss">RSS 안내</a></body></html>`
+  const INDEX_PAGE = `<!doctype html><html><body>
+    <a href="/rss/newsAll">전체</a>
+    <a href="/rss/kh_LifenCulture">생활·문화</a>
+    <a href="/rss/kh_Sports">스포츠</a>
+    </body></html>`
+
+  const routes = {
+    'https://kh.example/robots.txt': ALLOW,
+    'https://kh.example/': OK(HOME),
+    'https://kh.example/rss': OK(INDEX_PAGE),
+    'https://kh.example/rss/newsAll': OK(FEED_XML),
+    'https://kh.example/rss/kh_LifenCulture': OK(FEED_XML),
+    'https://kh.example/rss/kh_Sports': OK(FEED_XML),
+  }
+
+  it('알림이 있어도 안내 페이지를 따라가 섹션 피드를 찾는다', async () => {
+    const d = deps(routes)
+    const r = await discoverFeeds(at('koreaherald', 'kh.example'), new CrawlGate(), d)
+    const urls = r.feeds.map((f) => f.url)
+    expect(urls).toContain('https://kh.example/rss/newsAll')
+    expect(urls).toContain('https://kh.example/rss/kh_LifenCulture')
+    expect(urls).toContain('https://kh.example/rss/kh_Sports')
+  })
+
+  it('안내 페이지 자체는 피드 목록에 오르지 않는다', async () => {
+    const d = deps(routes)
+    const r = await discoverFeeds(at('koreaherald', 'kh.example'), new CrawlGate(), d)
+    expect(r.feeds.map((f) => f.url)).not.toContain('https://kh.example/rss')
+  })
+
+  it('같은 주소를 두 번 열지 않는다 — 발행사 서버에 헛되이 묻지 않는다', async () => {
+    const d = deps(routes)
+    await discoverFeeds(at('koreaherald', 'kh.example'), new CrawlGate(), d)
+    const dupes = d.seen.filter((u, i) => d.seen.indexOf(u) !== i)
+    expect(dupes).toEqual([])
+  })
+
+  it('목록이 또 목록을 가리켜도 한 단계에서 멈춘다 — 크롤이 되면 안 된다', async () => {
+    const LOOP_PAGE = '<html><body><a href="/rss/more">더</a></body></html>'
+    const d = deps({
+      'https://kh.example/robots.txt': ALLOW,
+      'https://kh.example/': OK(HOME),
+      'https://kh.example/rss': OK(LOOP_PAGE),
+      'https://kh.example/rss/more': OK(LOOP_PAGE),
+      'https://kh.example/rss/newsAll': OK(FEED_XML),
+    })
+    const r = await discoverFeeds(at('koreaherald', 'kh.example'), new CrawlGate(), d)
+    expect(r.feeds.map((f) => f.url)).toEqual(['https://kh.example/rss/newsAll'])
+    // /rss/more 까지는 열어 보지만 그 안의 링크는 더 따라가지 않는다.
+    expect(d.seen.filter((u) => u.includes('/rss/more'))).toHaveLength(1)
+  })
+})

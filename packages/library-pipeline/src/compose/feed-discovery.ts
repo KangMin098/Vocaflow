@@ -374,10 +374,17 @@ export async function discoverFeeds(
     for (const link of parseFeedLinks(homeRes.res.text, homeUrl)) {
       candidates.push({ ...link, via: 'autodiscovery' })
     }
-    // 알림이 없으면 같은 페이지의 링크에서 피드처럼 보이는 것을 줍는다.
-    // 발행사는 "RSS 안내" 페이지에 목록만 두는 경우가 많다.
-    if (candidates.length === 0) {
-      for (const url of parseFeedAnchors(homeRes.res.text, homeUrl).slice(0, maxCandidates)) {
+    // 같은 페이지의 링크에서 피드처럼 보이는 것도 **항상** 줍는다.
+    //
+    // ⚠️ 예전에는 `알림이 하나도 없을 때만` 주웠다. 그런데 거의 모든 발행사가 "전체 뉴스"
+    //   피드 하나는 `<link rel="alternate">` 로 알린다 — 그 하나가 있으면 섹션 피드 목록을
+    //   영영 안 보게 된다. 실측 2026-08-19: 코리아헤럴드는 알림이 `newsAll` 하나뿐이지만
+    //   `/rss` 안내 페이지에 **섹션 8개**(kh_LifenCulture · kh_Sports · kh_Kpop …)를
+    //   적어 두고 있었고, 우리는 사흘 동안 전체 피드 하나만 쓰고 있었다. 그 8개는
+    //   `kh_` 접두사라 관습 경로 추측으로는 절대 찾을 수 없다 — 발행사가 적어 둔 것을
+    //   읽는 길 말고는 방법이 없다.
+    for (const url of parseFeedAnchors(homeRes.res.text, homeUrl)) {
+      if (!candidates.some((c) => c.url === url)) {
         candidates.push({ url, title: null, via: 'convention' })
       }
     }
@@ -409,6 +416,8 @@ export async function discoverFeeds(
    * "robots 미확인" 으로 전부 버려진다(2026-08-18 실측에서 Korea Times 가 이 경우였다).
    */
   const primed = new Set(hosts)
+  /** 안내 페이지에서 새로 주운 주소 — 확인은 한 단계만 더 한다(무한히 따라가지 않는다). */
+  const harvested: typeof candidates = []
   const verify = async (list: typeof candidates): Promise<DiscoveredFeed[]> => {
     const out: DiscoveredFeed[] = []
     for (const cand of list.slice(0, maxCandidates)) {
@@ -438,7 +447,23 @@ export async function discoverFeeds(
       }
       const check = looksLikeFeed(r.res.text)
       if (!check.ok) {
-        skipped.push(skip(cand.url, 'not-a-feed', '열렸지만 피드가 아닙니다(항목 0)'))
+        // 피드가 아니면 **안내 페이지일 수 있다.** 발행사는 `/rss` 에 섹션 목록만 두는 일이
+        //   흔한데(코리아헤럴드 8개), 여기서 그냥 버리면 그 목록을 영영 못 본다.
+        //   한 단계만 따라간다 — 주운 주소는 다음 판에서 똑같이 열어 확인하므로,
+        //   잘못 주워도 목록에는 오르지 않는다.
+        const nested = parseFeedAnchors(r.res.text, cand.url).filter(
+          (u) => u !== cand.url && !list.some((c) => c.url === u),
+        )
+        if (nested.length) harvested.push(...nested.map((u) => ({ url: u, title: null, via: 'convention' as const })))
+        skipped.push(
+          skip(
+            cand.url,
+            'not-a-feed',
+            nested.length
+              ? `열렸지만 피드가 아닙니다 — 안내 페이지로 보고 링크 ${nested.length}개를 확인합니다`
+              : '열렸지만 피드가 아닙니다(항목 0)',
+          ),
+        )
         continue
       }
       out.push({
@@ -453,6 +478,14 @@ export async function discoverFeeds(
   }
 
   let feeds = await verify(candidates)
+
+  // 안내 페이지를 만났으면 거기 적힌 주소를 한 판 더 확인한다. **한 번만** 한다 —
+  //   목록 페이지가 또 목록 페이지를 가리키면 끝없이 따라가게 되고, 그건 발견이 아니라 크롤이다.
+  if (harvested.length) {
+    const more = harvested.filter((h) => !feeds.some((f) => f.url === h.url))
+    harvested.length = 0
+    if (more.length) feeds = [...feeds, ...(await verify(more))]
+  }
 
   // ④ 알림을 따라갔는데 전부 실패했으면 힌트로 되돌아간다.
   //    발행사가 **자기 robots 가 막는 피드를 알리는** 경우가 실제로 있다(AP, 2026-08-18 실측).

@@ -80,7 +80,9 @@ const rows = []
 for (const f of feeds ?? []) {
   const r = await get(f.url)
   if (!r.ok) {
-    rows.push({ ...f, n: 0, fit: 0, unfit: 0, pct: null, note: 'HTTP' + (r.err || r.status) })
+    // ⚠ upct 를 빼면 아래 표에서 undefined.toFixed 로 **보고 전체가 죽는다.**
+    //   피드 하나가 안 열리는 것은 그 피드의 문제이지 측정의 문제가 아니다 — 행으로 남긴다.
+    rows.push({ ...f, n: 0, fit: 0, unfit: 0, pct: null, upct: null, note: 'HTTP' + (r.err || r.status) })
     continue
   }
   const ts = titles(r.text)
@@ -114,8 +116,8 @@ for (const r of rows) {
       r.source_key.padEnd(15),
       String(r.label).slice(0, 26).padEnd(26),
       String(r.n).padStart(4),
-      (r.pct === null ? '  -' : r.pct.toFixed(1)).padStart(6),
-      (r.upct === null ? '  -' : r.upct.toFixed(1)).padStart(7),
+      (r.pct == null ? '  -' : r.pct.toFixed(1)).padStart(6),
+      (r.upct == null ? '  -' : r.upct.toFixed(1)).padStart(7),
       r.enabled ? '' : ' (비활성)',
       r.note,
     ].join(' '),
