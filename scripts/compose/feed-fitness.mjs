@@ -23,30 +23,13 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
 }
 
 const { createClient } = await import('@supabase/supabase-js')
-const { COMPOSE_USER_AGENT } = await import('@vocaflow/library-pipeline')
+const { COMPOSE_USER_AGENT, classifyTopic } = await import('@vocaflow/library-pipeline')
 
 const db = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY,
   { auth: { persistSession: false } },
 )
-
-/**
- * 학습 지문으로 쓸 수 있는가 — 제목 기반 거친 분류.
- *
- * `unfit` 이 먼저 걸린다. 사망·분쟁이 들어간 과학 기사는 과학 기사가 아니라 사건 기사다.
- */
-const UNFIT =
-  /\b(kill|killed|dead|death|died|deadly|crash|murder|shot|shoot|gun|attack|war|troops|missile|strike|bomb|blast|arrest|court|trial|prison|jail|scandal|protest|riot|coup|sanction|tariff|election|vote|poll|impeach|lawsuit|abuse|assault|rape|suicide)\b|trump|putin|netanyahu|hamas|hezbollah|ukraine|gaza|israel|russia/i
-
-const FIT =
-  /\b(animal|bird|whale|dolphin|fish|insect|ant|bee|butterfly|dinosaur|fossil|species|volcano|earthquake|ocean|coral|forest|tree|river|lake|glacier|climate|weather|storm|rain|snow|drought|space|planet|moon|mars|star|galaxy|telescope|orbit|rocket|nasa|scientist|science|research|study|discover|invention|robot|energy|solar|recycle|museum|art|music|film|festival|travel|tourist|recipe|food|sleep|exercise|health|vitamin|brain|memory|school|student|teacher|university|learning|language|sport|olympic|football|soccer|marathon|swim)\b/i
-
-function classify(title) {
-  if (UNFIT.test(title)) return 'unfit'
-  if (FIT.test(title)) return 'fit'
-  return 'neutral'
-}
 
 const get = async (url, ms = 15000) => {
   const c = new AbortController()
@@ -88,7 +71,7 @@ for (const f of feeds ?? []) {
   let fit = 0
   let unfit = 0
   for (const t of ts) {
-    const c = classify(t)
+    const c = classifyTopic(t)
     if (c === 'fit') fit++
     else if (c === 'unfit') unfit++
   }

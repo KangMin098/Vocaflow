@@ -20,14 +20,7 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
 }
 
-const { COMPOSE_USER_AGENT } = await import('@vocaflow/library-pipeline')
-
-const UNFIT =
-  /\b(kill|killed|dead|death|died|deadly|crash|murder|shot|shoot|gun|attack|war|troops|missile|strike|bomb|blast|arrest|court|trial|prison|jail|scandal|protest|riot|coup|sanction|tariff|election|vote|poll|impeach|lawsuit|abuse|assault|rape|suicide)\b|trump|putin|netanyahu|hamas|hezbollah|ukraine|gaza|israel|russia/i
-const FIT =
-  /\b(animal|bird|whale|dolphin|fish|insect|ant|bee|butterfly|dinosaur|fossil|species|volcano|earthquake|ocean|coral|forest|tree|river|lake|glacier|climate|weather|storm|rain|snow|drought|space|planet|moon|mars|star|galaxy|telescope|orbit|rocket|nasa|scientist|science|research|study|discover|invention|robot|energy|solar|recycle|museum|art|music|film|festival|travel|tourist|recipe|food|sleep|exercise|health|vitamin|brain|memory|school|student|teacher|university|learning|language|sport|olympic|football|soccer|marathon|swim)\b/i
-
-const classify = (t) => (UNFIT.test(t) ? 'unfit' : FIT.test(t) ? 'fit' : 'neutral')
+const { COMPOSE_USER_AGENT, classifyTopic } = await import('@vocaflow/library-pipeline')
 
 const get = async (url, ms = 15000) => {
   const c = new AbortController()
@@ -73,8 +66,8 @@ for (const u of urls) {
     continue
   }
   const ts = titles(r.text)
-  const fit = ts.filter((t) => classify(t) === 'fit').length
-  const unfit = ts.filter((t) => classify(t) === 'unfit').length
+  const fit = ts.filter((t) => classifyTopic(t) === 'fit').length
+  const unfit = ts.filter((t) => classifyTopic(t) === 'unfit').length
   rows.push({
     u,
     n: ts.length,

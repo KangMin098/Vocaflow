@@ -186,6 +186,10 @@ export {
 export { BENCHMARK_SAMPLES, benchmarkBar, compareToBenchmark } from './compose/benchmark'
 export type { BenchmarkBar, BenchmarkResult, BenchmarkSample, BenchmarkVerdict } from './compose/benchmark'
 
+// 제목 기반 학습 적합성 — 피드 순위·천장 측정용(개별 판정용 아님).
+export { classifyTopic, fitnessRatio } from './compose/topic-fitness'
+export type { TopicFitness } from './compose/topic-fitness'
+
 // 초안 검수 — 게이트가 보지 않는 것. 잰 것과 판단이 필요한 것을 나눠 돌려준다.
 export { REVIEW_JUDGE_CHECKLIST, reviewDraft } from './compose/review'
 export type { ReviewFinding, ReviewInput, ReviewMetrics, ReviewReport } from './compose/review'
