@@ -36,7 +36,8 @@ const commit = process.argv.includes('--commit')
 const TIMEOUT_MS = 12_000
 
 const { createClient } = await import('@supabase/supabase-js')
-const { collectStories, clusterStories } = await import('@vocaflow/library-pipeline')
+const { collectStories, clusterStories, learnerPriority, hasKoreaContext, classifyTopic } =
+  await import('@vocaflow/library-pipeline')
 
 const db = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -160,15 +161,31 @@ const stored_clusters = clusterStories(
     holdMs: 0,
   })),
 )
-const pursuable = stored_clusters.filter((c) => c.worthPursuing)
+// 학습자 관점 우선순위로 세운다 — 운영자가 위에서부터 고르면 된다.
+//   적합 + 한국 관련(3) > 적합(2) > 한국 관련 중립(1) > 나머지(0).
+//   한국 매체끼리 같은 국내 사건을 각자 보도해 2계통이 잘 성립하고, 한국 학습자에게는
+//   배경 지식이 있는 소재라 진입 장벽이 낮다(학습원칙5 Context-Dependent).
+const pursuable = stored_clusters
+  .filter((c) => c.worthPursuing)
+  .map((c) => ({ c, p: learnerPriority(c.headline) }))
+  .sort((a, b) => b.p - a.p)
+  .map((x) => x.c)
 
 console.log(`\n저장: 새 후보 ${stored} (수집 ${withDate.length}) · 익은 후보 ${(ripeRows ?? []).length}`)
 console.log(`피드 건강 기록 ${feedRows.length - healthFail}/${feedRows.length}`)
 console.log(`\n■ 지금 취재 가능한 사건 ${pursuable.length}건 (독립 2계통 이상)`)
 for (const c of pursuable.slice(0, 12)) {
-  console.log(`  · ${c.headline}`)
-  console.log(`      계통 ${c.independentLines} · ${c.members.map((m) => m.publisher).join(', ')}`)
+  const mark = classifyTopic(c.headline) === 'unfit' ? '✗' : classifyTopic(c.headline) === 'fit' ? '★' : '·'
+  const kr = hasKoreaContext(c.headline) ? ' [한국]' : ''
+  console.log(`  ${mark} ${c.headline}${kr}`)
+  console.log(
+    `      계통 ${c.readableLines}/${c.independentLines} · ${c.members.map((m) => m.publisher).join(', ')}`,
+  )
 }
+
+const fitCount = pursuable.filter((c) => classifyTopic(c.headline) === 'fit').length
+const krCount = pursuable.filter((c) => hasKoreaContext(c.headline)).length
+console.log(`\n  ★ 학습 적합 ${fitCount} · [한국] 관련 ${krCount} · 전체 ${pursuable.length}`)
 if (!pursuable.length) {
   console.log('  없음. 고장이 아니라 재료가 모자란 것이다 — 매일 돌면 저절로 늘어난다.')
 }
