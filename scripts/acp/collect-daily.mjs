@@ -94,14 +94,25 @@ const SOURCES = [
     feeds: lib.WIKINEWS_FEEDS.map((f) => ({ id: f.id, run: () => lib.listWikinewsFeed(f.url, f.id) })),
     ingest: (u) => lib.ingestWikinewsArticle(u),
   },
+  // ⚠️ 위키미디어 계열 셋은 **카테고리**를 첫 인자로 받는다(`listXFeed(category, feedId)`).
+  //   여기서 `f.id` 를 넘기거나 아무것도 안 넘기면 `gcmtitle` 이 'featured'/undefined 가 되어
+  //   API 가 **빈 결과를 정상 응답으로** 돌려준다 — 오류도 경고도 없이 0건이다.
+  //   2026-08-20 까지 그렇게 돌고 있었고, 그중 `simple_wikipedia` 는 **초중급(B1) 공급의
+  //   절반**이라(실측 34편 중 27편 B1 · 신뢰도 0.84) 진입 밴드가 통째로 멈춰 있었다.
   {
     key: 'wikipedia',
-    feeds: lib.WIKIPEDIA_FEEDS.map((f) => ({ id: f.id, run: () => lib.listWikipediaFeed(f.id) })),
+    feeds: lib.WIKIPEDIA_FEEDS.map((f) => ({
+      id: f.id,
+      run: () => lib.listWikipediaFeed(f.category, f.id),
+    })),
     ingest: (u) => lib.ingestWikipediaArticle(u),
   },
   {
     key: 'wikivoyage',
-    feeds: lib.WIKIVOYAGE_FEEDS.map((f) => ({ id: f.id, run: () => lib.listWikivoyageFeed(f.id) })),
+    feeds: lib.WIKIVOYAGE_FEEDS.map((f) => ({
+      id: f.id,
+      run: () => lib.listWikivoyageFeed(f.category, f.id),
+    })),
     ingest: (u) => lib.ingestWikivoyageArticle(u),
   },
   {
@@ -115,8 +126,13 @@ const SOURCES = [
     ingest: (u) => lib.ingestNoaaArticle(u),
   },
   {
+    // 하드코딩된 `default` 하나를 쓰느라 `SIMPLE_WIKIPEDIA_FEEDS` 두 개를 통째로 무시했다.
+    //   VOA 에서 겪은 것과 같은 실수다 — 소스당 첫 피드만 쓰면 나머지가 조용히 사라진다.
     key: 'simple_wikipedia',
-    feeds: [{ id: 'default', run: () => lib.listSimpleWikipediaFeed() }],
+    feeds: lib.SIMPLE_WIKIPEDIA_FEEDS.map((f) => ({
+      id: f.id,
+      run: () => lib.listSimpleWikipediaFeed(f.category, f.id),
+    })),
     ingest: (u) => lib.ingestSimpleWikipediaArticle(u),
   },
   { key: 'owid', feeds: [{ id: 'default', run: () => lib.listOwidFeed() }], ingest: (u) => lib.ingestOwidArticle(u) },
@@ -141,6 +157,7 @@ console.log(`ACP 수집 ${commit ? '' : '(읽기 전용 — --commit 을 붙이�
 console.log(['소스/피드'.padEnd(34), '목록', '새 것', ' 적합%', '부적합%'].join(' '))
 
 let totalNew = 0
+const emptyFeeds = []
 let saved = 0
 const failures = []
 
@@ -158,6 +175,12 @@ for (const s of targets) {
     }
     const fresh = items.filter((i) => i.url && !have.has(i.url))
     totalNew += fresh.length
+
+    // ⚠️ **목록 0건은 "다 담았다" 와 다르다.** 이번(2026-08-20) 결함이 정확히 여기 숨었다 —
+    //   위키미디어 셋에 카테고리를 안 넘겨 API 가 빈 결과를 200 으로 돌려줬고, 표에는
+    //   `· 0 0` 으로만 찍혀 "새 것이 없구나" 로 읽혔다. 초중급 공급이 멈춘 걸 아무도 몰랐다.
+    //   그래서 둘을 말로 구분한다. 조용한 0건을 만들지 않는다.
+    if (items.length === 0) emptyFeeds.push(label)
 
     // 학습 적합률 — 어느 피드를 켤지 정하는 근거. 비PD 쪽 계측기와 같은 분류기를 쓴다.
     const n = items.length || 1
@@ -224,6 +247,13 @@ for (const s of targets) {
 }
 
 console.log(`\n밀려 있는 새 글 ${totalNew}${commit ? ` · 담은 것 ${saved} (피드당 최대 ${PER_FEED})` : ''}`)
+if (emptyFeeds.length) {
+  console.log(
+    `\n⚠ 목록이 0건인 피드 ${emptyFeeds.length} — "새 것 없음" 과 다르다.` +
+      ` 피드가 죽었거나 인자가 틀렸다(둘 다 오류를 안 낸다):`,
+  )
+  for (const f of emptyFeeds) console.log(`  · ${f}`)
+}
 if (failures.length) {
   console.log(`\n실패 ${failures.length}:`)
   for (const f of failures.slice(0, 12)) console.log(`  · ${f}`)
