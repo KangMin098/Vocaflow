@@ -58,15 +58,19 @@ const sha256 = (s) => crypto.createHash('sha256').update(s, 'utf8').digest('hex'
 
 // 조용한 저하를 막는 판단은 **라이브러리 한 곳**에 있다(`checkAnalysisReadiness`).
 //   스크립트마다 각자 검사하면 한쪽만 고쳐진다 — 이 저장소는 그 사본 문제를 여러 번 겪었다.
+// ⚠️ 2026-08-19 정정 — 여기서 키가 없다고 **막던 것을 걷었다.**
+//   막은 근거였던 "사전 적중 95%→72%" 는 정확 일치 값이라 학습자가 겪는 값이 아니었고
+//   (해소기 통과 후 95.6%), 애초에 키를 넣어도 사전은 안 채워졌다 —
+//   `enrich_shared_dictionary` 가 제약이 금지하는 `source='lcp_llm'` 을 하드코딩해
+//   103일 동안 한 행도 못 넣었다. 자세한 경위는 `analyze/readiness.ts` 주석.
+//
+//   사전은 Claude Code 드레인이 채운다. 이 배치는 그 뒤에 돌리는 것이 맞다 —
+//   `base_learning_value` 와 CEFR 은 분석 시점의 사전으로 계산돼 행에 박히기 때문이다.
 const readiness = checkAnalysisReadiness()
-const allowDegraded = process.argv.includes('--allow-degraded')
-if (commit && !readiness.ready && !allowDegraded) {
-  console.error(readiness.reason)
-  console.error('\n  apps/web/.env.local 에 키를 넣거나, 알고도 돌리려면 --allow-degraded 를 붙인다.')
-  process.exit(1)
-}
-if (commit && !readiness.ready) {
-  console.log('⚠ 저하 상태로 진행한다 — 이 배치의 어휘 약 4분의 1은 뜻이 비게 된다.\n')
+for (const d of readiness.degraded) console.log(`⚠ ${d}`)
+if (commit) {
+  console.log('먼저 돌릴 것: pnpm dlx tsx scripts/dict/drain-article-lemmas.mjs --export')
+  console.log('             (빠진 낱말이 0 이면 그대로 진행하면 된다)\n')
 }
 
 const { data: queued, error } = await db

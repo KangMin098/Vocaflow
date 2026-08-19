@@ -2,34 +2,46 @@
 //
 // **분석을 돌려도 되는 상태인가** — 조용한 저하를 막는 한 곳.
 //
-// ── 왜 필요한가 (실측 2026-08-19) ─────────────────────────────────────
-// `analyzeArticle` 은 `ANTHROPIC_API_KEY` 가 없으면 **경고만 찍고 계속 돈다.** 사전에 없는
-// 낱말을 채우는 lookup-enrich 와 CEFR 의 LLM 시그널이 건너뛰어진다. 로그는 흘러가고 아무도
-// 못 본다.
+// ── 2026-08-19 정정: 앞선 판단이 틀렸다 ──────────────────────────────
+// 이 파일은 원래 "ANTHROPIC_API_KEY 가 없으면 사전 적중이 95%→72% 로 떨어진다" 며
+// 배치를 **막았다**. 두 군데가 틀렸다.
 //
-// 그날 키 없이 처리한 두 파이프라인을 기존과 견주니:
+// ① 72% 는 **정확 일치** 값이었다 — 학습자가 겪는 값이 아니다.
+//    추출기는 본문에 표제어가 없으면 표면형을 남긴다(`keepLemmaOnlyIfInText`, v06.35
+//    유령 어휘 차단). 짧은 기사에서는 단수형이 본문에 안 나오는 일이 흔해
+//    countries·years·hours 가 통째로 "미등재" 로 보인다. 그러나 학습자 경로
+//    (`select_article_vocab` → `resolve_dict_headword`)는 그걸 푼다.
+//    실측(43편·5,386낱말): 정확 일치 64.2% · **해소기 통과 후 95.6%**.
 //
-//   | | 어휘 | 사전 적중 |
-//   |---|---|---|
-//   | ACP 기존(키 있음) | 48,071 | **95.2%** |
-//   | ACP 오늘(키 없음) | 1,338 | **72.0%** |
-//   | 재저작 오늘(키 없음) | 331 | **75.2%** |
+// ② 키를 넣어도 사전은 안 채워졌다. 보강 결과를 되돌려 넣는
+//    `enrich_shared_dictionary` 는 본문에 `source='lcp_llm'` 을 하드코딩하는데
+//    (마이그레이션 20260508120200), 그 **나흘 전**에 생긴 제약
+//    `shared_dictionary_source_check`(20260504160708)이 그 값을 금지한다.
+//    호출부는 오류를 `console.warn` 으로 삼켰다(`lookup-enrich.ts`).
+//    → 103일 동안 한 행도 안 들어갔다. `source='lcp_llm'` 행 0개가 그 증거다.
 //
-// 학습자가 단어를 눌렀을 때 뜻이 안 나오는 비율이 **5% → 25~28%** 로 뛴다.
+// 즉 **키는 사전 구멍의 원인이 아니었고, 키를 넣어도 안 막혔다.**
+// 사전은 Claude Code 드레인이 채운다(`scripts/dict/drain-article-lemmas.mjs`).
+// 첫 드레인 실측: 진짜 빠진 낱말 239 → 197 등재 → **적중 99.2%**.
 //
-// ⚠️ **겉으로는 정상으로 보인다는 것이 이 결함의 핵심이다.** CEFR 신뢰도(0.732→0.725)와
-//   어휘 밀도(23.7%→26.3%)는 거의 안 변한다. 흔히 보는 지표만으로는 못 알아챈다.
-//
-// 그래서 판단을 **한 곳에** 둔다. 스크립트마다 각자 검사하면 한쪽만 고쳐지고, 이 저장소는
-// 그 사본 문제를 이미 여러 번 겪었다.
+// ⚠️ 그래서 이 함수는 **더 이상 막지 않는다.** 키가 없을 때 실제로 빠지는 것은
+//   CEFR 의 LLM 시그널 하나뿐이고, 그 영향은 실측상 신뢰도 0.732 → 0.725 다.
+//   근거 없이 막는 게이트는 "안전" 이 아니라 **가짜 안전**이다 — 진짜 구멍(사전)을
+//   가린 채 배치만 세웠다.
 
-/** 키 없이 돌렸을 때의 실측 사전 적중률(2026-08-19 · ACP 6편 + 재저작 6편). */
-export const DEGRADED_DICTIONARY_HIT = { withKey: 0.952, withoutKey: 0.72 } as const
+/**
+ * 키 없이 돌렸을 때의 CEFR 신뢰도 (2026-08-19 실측 · ACP 6편 + 재저작 6편).
+ * 사전 적중이 아니다 — 사전은 키와 무관하다(위 ② 참조).
+ */
+export const DEGRADED_CEFR_CONFIDENCE = { withKey: 0.732, withoutKey: 0.725 } as const
 
 export interface AnalysisReadiness {
+  /** 배치를 돌려도 되는가. 사전은 드레인 소관이므로 키 유무로 막지 않는다. */
   ready: boolean
-  /** 사람이 읽는 사유. `ready` 면 null. */
+  /** `ready` 가 false 일 때만 채워지는 차단 사유. */
   reason: string | null
+  /** 키 없이 돌 때 실제로 빠지는 것. 비어 있으면 온전한 분석이다. */
+  degraded: string[]
 }
 
 /**
@@ -41,16 +53,16 @@ export function checkAnalysisReadiness(
   env: Record<string, string | undefined> = process.env,
 ): AnalysisReadiness {
   if (!env.ANTHROPIC_API_KEY) {
-    const a = Math.round(100 * DEGRADED_DICTIONARY_HIT.withKey)
-    const b = Math.round(100 * DEGRADED_DICTIONARY_HIT.withoutKey)
+    const a = DEGRADED_CEFR_CONFIDENCE.withKey
+    const b = DEGRADED_CEFR_CONFIDENCE.withoutKey
     return {
-      ready: false,
-      reason:
-        `ANTHROPIC_API_KEY 가 없다. 이 키가 없으면 사전에 없는 낱말을 채우지 못한다 — ` +
-        `실측 사전 적중률 ${a}% → ${b}%, 즉 학습자가 단어를 눌렀을 때 뜻이 안 나오는 비율이 ` +
-        `${100 - a}% 에서 ${100 - b}% 로 뛴다. CEFR 신뢰도·어휘 밀도는 거의 안 변해서 ` +
-        `겉으로는 정상으로 보인다.`,
+      ready: true,
+      reason: null,
+      degraded: [
+        `CEFR 의 LLM 시그널이 빠진다 (신뢰도 실측 ${a} → ${b}). 어휘 사전은 영향받지 않는다 — ` +
+          `사전은 Claude Code 드레인이 채운다(scripts/dict/drain-article-lemmas.mjs).`,
+      ],
     }
   }
-  return { ready: true, reason: null }
+  return { ready: true, reason: null, degraded: [] }
 }
