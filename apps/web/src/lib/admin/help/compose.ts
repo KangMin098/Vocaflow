@@ -290,6 +290,7 @@ export const COMPOSE_HELP: HelpRegistry = {
           what: '대기 중인 발주마다 지문 1편을 써서 처리·게이트까지 마치고, 검수 대기(ready) 상태로 올린다.',
           prerequisites: [
             '취재 묶음이 ledger_ready — 사실 카드가 있고 모든 카드가 독립 2계통 이상에서 확인됨',
+            '취재 시작과 발주도 스크립트로 할 수 있다 — scripts/compose/drain-coverage.mjs(익은 사건 목록 → 소스 읽기 → 묶음 생성) · scripts/compose/queue-job.mjs(유형·레벨로 발주 사양 생성). 화면 없이 드레인 전 구간을 돌릴 수 있다는 뜻이다.',
             '사건 발생 후 48시간 경과 (미달이면 게이트에서 막히므로 미리 확인)',
             '발주 큐에 대기 항목이 있음',
             'Supabase 서비스 키가 apps/web/.env.local 에 있음 (드레인 두 단계는 스크립트라 dev 서버가 필요 없다)',
