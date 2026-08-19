@@ -45,7 +45,10 @@ const {
   CrawlGate,
   FACT_SOURCES,
   classifyTopic,
+  buildFingerprint,
   clusterStories,
+  describeCopyGroups,
+  groupByCopy,
   extractArticle,
   isKoreaRelevant,
   primeRobots,
@@ -156,11 +159,11 @@ for (const m of cluster.members) {
     failures.push(`${m.publisher}: ${read.reason}`)
     continue
   }
-  rows.push({ member: m, row: read.row })
+  const sentences = read.read.extracted ?? []
+  rows.push({ member: m, row: read.row, sentences })
 
   console.log(`── ${m.publisher} ${'─'.repeat(Math.max(0, 60 - m.publisher.length))}`)
   console.log(`   ${m.url}`)
-  const sentences = read.read.extracted ?? []
   sentences.forEach((s, i) => console.log(`   ${String(i + 1).padStart(2)}. ${s}`))
   console.log('')
 }
@@ -171,6 +174,35 @@ if (rows.length < 2) {
   console.log(`\n읽어 온 소스가 ${rows.length}건뿐이라 취재를 시작하지 않는다 (독립 2계통 필요).`)
   process.exit(1)
 }
+
+// ── 계통은 발행사 수가 아니라 **원고 수**다 ──────────────────────────
+// 실측 2026-08-19: 연합뉴스 로카르노 기사와 코리아헤럴드 기사가 담김 31.3% 였다 —
+//   코리아헤럴드가 연합 원고의 문단을 그대로 실은 것이다. 발행사가 둘이라는 이유로 2계통으로
+//   세면, 실제로는 **한 매체의 기사 하나를 바꿔 쓴 것**이 된다. 그건 재저작이 아니라 2차 저작물이고,
+//   게이트 여섯을 다 통과해도 전제가 무너져 있으면 통과가 의미를 잃는다.
+// ⚠️ 저장된 지문(`row.fingerprint`)으로 견주면 **안 된다.** 그것은 원본 HTML 로 뜬 것이라
+//   메뉴·스크립트 같은 사이트 틀이 7어절 조각의 대부분을 차지하고, 본문이 통째로 같아도
+//   겹침이 1% 대로 희석된다(실측 2026-08-19: 같은 쌍이 저장 지문 0.7% vs 추출 본문 31.3%).
+//   그래서 **추출한 본문**으로 다시 뜬다. 저장 지문은 그대로 둔다 — I13 은 초안과 소스 본문
+//   사이의 연속 구간을 찾는 것이라 희석의 영향을 받지 않고, 바꾸면 이미 저장된 판정이 낡는다.
+const groups = groupByCopy(
+  rows.map(({ row, sentences }) => ({
+    key: row.publisher,
+    fingerprint: buildFingerprint(sentences.join(' ')),
+  })),
+)
+const merged = describeCopyGroups(groups)
+if (merged.length) {
+  console.log('')
+  for (const m of merged) console.log(`  ⚠ ${m}`)
+}
+if (groups.length < 2) {
+  console.log(
+    `\n측정된 독립 계통이 ${groups.length}건이라 취재를 시작하지 않는다 — 발행사는 ${rows.length}곳이지만 원고는 하나다.`,
+  )
+  process.exit(1)
+}
+console.log(`\n측정된 독립 계통 ${groups.length} (발행사 ${rows.length})`)
 if (!commit) {
   console.log('\n위 문장으로 사실 카드를 짤 수 있다. --commit 을 붙이면 취재 묶음을 만든다.')
   process.exit(0)
