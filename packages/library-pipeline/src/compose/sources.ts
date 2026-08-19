@@ -841,3 +841,43 @@ export function topicsUnlockedByPlanned(): string[] {
   const now = new Set(feasibleTopics())
   return feasibleTopics({ includePlanned: true }).filter((t) => !now.has(t))
 }
+
+/**
+ * **조합별 독립 실측** — 두 발행사가 같은 사건을 다뤘을 때 실제로 각자 쓴 비율.
+ *
+ * ── 왜 이 표가 필요한가 (실측 2026-08-19, 한국 관련 사건 20건의 본문 대조) ──────
+ * | 조합 | 건수 | 독립 | 전재 | 독립률 |
+ * |---|---|---|---|---|
+ * | 연합 ↔ 코리아타임스 | 12 | 1 | 11 | **8%** |
+ * | 연합 ↔ 코리아헤럴드 | 8 | 5 | 3 | **63%** |
+ *
+ * 연합뉴스는 통신사다. 코리아타임스는 그 원고를 **거의 항상** 싣고, 코리아헤럴드는 대체로
+ * 자기 기사를 쓴다. 제목만 보면 둘 다 똑같이 "독립 2계통" 으로 보이지만 수율은 8배 다르다.
+ *
+ * ⚠️ **이 표는 판정이 아니라 기대치다.** 개별 사건의 독립 여부는 본문 지문을 견줘야 알 수
+ *   있고(`collapseSyndication`), 8% 짜리 조합에서도 진짜 독립 보도가 나온다. 그래서 이 값으로
+ *   무엇을 막지 않는다 — 운영자가 목록을 볼 때 어디에 기대를 걸지 알려 줄 뿐이다.
+ *
+ * ⚠️ 표본이 20건이다. 조합이 늘거나 발행사 관행이 바뀌면 다시 재고 이 표를 갱신할 것
+ *   (`scripts/compose/source-overlap-probe.mjs --clusters`).
+ */
+export const MEASURED_PAIR_INDEPENDENCE: ReadonlyArray<{
+  publishers: readonly [string, string]
+  samples: number
+  independent: number
+}> = [
+  { publishers: ['en.yna.co.kr', 'koreatimes.co.kr'], samples: 12, independent: 1 },
+  { publishers: ['en.yna.co.kr', 'koreaherald.com'], samples: 8, independent: 5 },
+]
+
+/**
+ * 이 발행사 조합의 실측 독립률(0~1). 재 본 적 없는 조합은 null — **모르는 것을 0 이나 1 로
+ * 보고하지 않는다.**
+ */
+export function measuredIndependence(publishers: ReadonlyArray<string>): number | null {
+  const set = new Set(publishers.map((p) => p.toLowerCase()))
+  for (const row of MEASURED_PAIR_INDEPENDENCE) {
+    if (row.publishers.every((p) => set.has(p))) return row.independent / row.samples
+  }
+  return null
+}

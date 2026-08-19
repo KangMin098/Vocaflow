@@ -110,6 +110,12 @@ if (process.argv.includes('--clusters')) {
     const r = await fetch(u, { headers: { 'User-Agent': COMPOSE_USER_AGENT }, redirect: 'follow' })
     return r.ok ? extractArticle(await r.text()).text : null
   }
+  // 짝의 **조합별**로 센다. 실측 2026-08-19 에 전재 6건이 전부 연합(통신사)이 낀 짝이었다 —
+  //   그렇다면 연합 없는 짝은 독립일 수 있고, 그쪽을 우선하면 수율이 오른다.
+  //   조합을 안 나누고 전체 비율만 보면 이 갈래가 안 보인다.
+  const byPair = new Map()
+  const pairKey = (a, b) => [a, b].sort().join(' ↔ ')
+
   let independent = 0
   let copied = 0
   for (const c of pursuable.slice(0, LIMIT)) {
@@ -123,6 +129,9 @@ if (process.argv.includes('--clusters')) {
     const cv = Math.max(containment(a, b), containment(b, a))
     const copy = cv >= 0.1
     copy ? copied++ : independent++
+    const key = pairKey(texts[0].p, texts[1].p)
+    if (!byPair.has(key)) byPair.set(key, { ok: 0, copy: 0 })
+    byPair.get(key)[copy ? 'copy' : 'ok']++
     console.log(`  ${copy ? '✗' : '★'} ${c.headline.slice(0, 58)}`)
     console.log(`      ${texts.map((x) => x.p).join(' ↔ ')} · 담김 ${(100 * cv).toFixed(1)}%${copy ? ' — 전재' : ''}`)
   }
@@ -131,6 +140,11 @@ if (process.argv.includes('--clusters')) {
     `\n판정 ${n}건 · 독립 ${independent} · 전재 ${copied}` +
       (n ? ` · 독립 비율 ${((100 * independent) / n).toFixed(0)}%` : ''),
   )
+  console.log('\n■ 조합별')
+  for (const [k, v] of [...byPair.entries()].sort((a, b) => b[1].ok + b[1].copy - a[1].ok - a[1].copy)) {
+    const t = v.ok + v.copy
+    console.log(`  ${k.padEnd(34)} ${t}건 · 독립 ${v.ok} · 전재 ${v.copy} (${((100 * v.ok) / t).toFixed(0)}%)`)
+  }
   process.exit(0)
 }
 

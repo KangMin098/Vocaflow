@@ -26,6 +26,8 @@ import {
   rolesOf,
   isFeedCollectable,
   isCollectRole,
+  MEASURED_PAIR_INDEPENDENCE,
+  measuredIndependence,
 } from './sources'
 
 describe('FACT_SOURCES 레지스트리', () => {
@@ -357,5 +359,40 @@ describe('본문이 안 열리는 소스는 피드를 걷지 않는다', () => {
     )
     expect(ok.length).toBeGreaterThan(0)
     for (const s of ok) expect(isFeedCollectable(s), s.key).toBe(true)
+  })
+})
+
+describe('조합별 독립 실측 — 판정이 아니라 기대치', () => {
+  it('재 본 조합은 실측 비율을 돌려준다', () => {
+    expect(measuredIndependence(['en.yna.co.kr', 'koreatimes.co.kr'])).toBeCloseTo(1 / 12, 3)
+    expect(measuredIndependence(['en.yna.co.kr', 'koreaherald.com'])).toBeCloseTo(5 / 8, 3)
+  })
+
+  it('순서를 가리지 않는다', () => {
+    expect(measuredIndependence(['koreaherald.com', 'en.yna.co.kr'])).toBeCloseTo(5 / 8, 3)
+  })
+
+  it('대소문자를 가리지 않는다', () => {
+    expect(measuredIndependence(['EN.YNA.CO.KR', 'KoreaHerald.com'])).toBeCloseTo(5 / 8, 3)
+  })
+
+  it('재 본 적 없는 조합은 null — 모르는 것을 0 이나 1 로 말하지 않는다', () => {
+    expect(measuredIndependence(['bbc.co.uk', 'dw.com'])).toBeNull()
+    expect(measuredIndependence(['en.yna.co.kr'])).toBeNull()
+    expect(measuredIndependence([])).toBeNull()
+  })
+
+  it('표에 적힌 발행사는 레지스트리에 실제로 있다 — 이름이 갈리면 조용히 null 이 된다', () => {
+    const known = new Set(Object.values(FACT_SOURCES).map((s) => s.publisher.toLowerCase()))
+    for (const row of MEASURED_PAIR_INDEPENDENCE) {
+      for (const p of row.publishers) expect(known.has(p), p).toBe(true)
+    }
+  })
+
+  it('독립 건수가 표본을 넘지 않는다 — 표를 손으로 고칠 때의 실수를 막는다', () => {
+    for (const row of MEASURED_PAIR_INDEPENDENCE) {
+      expect(row.independent).toBeLessThanOrEqual(row.samples)
+      expect(row.samples).toBeGreaterThan(0)
+    }
   })
 })

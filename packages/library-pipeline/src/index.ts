@@ -241,6 +241,8 @@ export {
   isFeedCollectable,
   roleViolations,
   rolesOf,
+  MEASURED_PAIR_INDEPENDENCE,
+  measuredIndependence,
   isPublisherHost,
   lineOf,
   planFactSources,
