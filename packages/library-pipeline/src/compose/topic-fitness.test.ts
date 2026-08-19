@@ -4,7 +4,12 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { classifyTopic, fitnessRatio } from './topic-fitness'
+import {
+  classifyTopic,
+  fitnessRatio,
+  hasKoreaContext,
+  learnerPriority,
+} from './topic-fitness'
 
 describe('학습 적합성 분류', () => {
   it('굴절형을 잡는다 — \\bshoot\\b 는 "shooting" 을 못 잡았다', () => {
@@ -43,5 +48,36 @@ describe('학습 적합성 분류', () => {
   it('빈 입력의 적합률은 0%가 아니라 null — 없는 것을 0으로 보고하지 않는다', () => {
     expect(fitnessRatio([])).toBeNull()
     expect(fitnessRatio(['Hubble sees a swarm of galaxies', 'Two killed in crash'])).toBe(0.5)
+  })
+})
+
+describe('한국 관련성 — 목표의 축인데 재지 않고 있었다', () => {
+  it('한국 소재를 알아본다', () => {
+    for (const t of [
+      'Heavy rainfall hits southeastern Korea',
+      'Seoul students win robotics contest',
+      'Yonhap reports record heat in Busan',
+      'Samsung unveils a new display',
+    ]) {
+      expect(hasKoreaContext(t), t).toBe(true)
+    }
+    expect(hasKoreaContext('Colombia begins recovery after earthquake')).toBe(false)
+  })
+
+  it('적합성과 한국 관련성은 다른 축이다', () => {
+    // 실측 2026-08-19: 적합률만 보고 연합뉴스를 껐는데, 기여도 1위 소스였다.
+    expect(learnerPriority('Seoul students test a robot they built at school')).toBe(3)
+    expect(learnerPriority('Students test a robot they built at school')).toBe(2)
+    expect(learnerPriority('Korean court hears the case on Tuesday')).toBe(0)
+  })
+
+  it('부적합은 한국 관련이어도 쓰지 않는다 — 친숙해도 학습 지문이 아니다', () => {
+    expect(learnerPriority('Two killed in Seoul bus crash')).toBe(0)
+    expect(classifyTopic('Two killed in Seoul bus crash')).toBe('unfit')
+  })
+
+  it('중립 + 한국 관련은 무관 중립보다 앞선다', () => {
+    expect(learnerPriority('Korea reports quarterly figures')).toBe(1)
+    expect(learnerPriority('Company reports quarterly figures')).toBe(0)
   })
 })

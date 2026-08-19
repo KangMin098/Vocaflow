@@ -62,3 +62,39 @@ export function fitnessRatio(titles: ReadonlyArray<string>): number | null {
   if (titles.length === 0) return null
   return titles.filter((t) => classifyTopic(t) === 'fit').length / titles.length
 }
+
+/**
+ * 한국 학습자에게 **배경 지식이 있는 소재**인가.
+ *
+ * ── 왜 별도 축인가 (실측 2026-08-19) ────────────────────────────────
+ * 학습 적합성(소프트뉴스 여부)만 재던 동안 이 축을 놓쳤다. 그 결과 연합뉴스 영문을
+ * "적합률 3.9%" 만 보고 껐는데, 기여도를 재 보니 **쓸 수 있는 사건 4건 중 3건에 참여한
+ * 1위 소스**였다. 한국 매체 3곳이 같은 국내 사건을 각자 보도해 독립 2계통이 자연스럽게
+ * 성립하는데, 서구 매체는 각자 다른 것을 보도해 계통이 안 붙는다.
+ *
+ * 학습 근거: Context-Dependent(학습원칙5) — 같은 난이도면 아는 배경이 있는 글이 낫다.
+ * 한국 학습자에게 '서울 폭우' 는 'Colombia earthquake' 보다 진입 장벽이 낮다.
+ *
+ * ⚠️ 제목 기반이라 거칠다. **순위용**이고 개별 채택 판정용이 아니다.
+ */
+const KOREA_CONTEXT =
+  /\b(korea\w*|seoul|busan|incheon|jeju|hanbok|kimchi|k-pop|kpop|hallyu|samsung|hyundai|naver|kakao|bts|blackpink|taekwondo|chuseok|seollal|dmz|pyongyang|yonhap)\b/i
+
+/** 이 제목이 한국 학습자에게 친숙한 배경을 갖는가. */
+export function hasKoreaContext(title: string): boolean {
+  return KOREA_CONTEXT.test(title ?? '')
+}
+
+/**
+ * 학습자 관점 우선순위 — 높을수록 먼저 쓴다.
+ *
+ * 적합성과 한국 관련성은 **다른 축**이다. 둘 다 있으면 가장 좋고, 부적합은 한국 관련이어도
+ * 쓰지 않는다(사건사고는 친숙해도 학습 지문이 아니다).
+ */
+export function learnerPriority(title: string): 0 | 1 | 2 | 3 {
+  const fit = classifyTopic(title)
+  if (fit === 'unfit') return 0
+  const kr = hasKoreaContext(title)
+  if (fit === 'fit') return kr ? 3 : 2
+  return kr ? 1 : 0
+}
