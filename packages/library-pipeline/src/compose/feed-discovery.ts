@@ -20,6 +20,7 @@ import { CrawlGate } from './access'
 import { primeRobots, type FetchDeps, type FetchResult } from './news-feed'
 import { COMPOSE_USER_AGENT } from './access'
 import { isFeedCollectable, type FactSourceSpec } from './sources'
+import { inspectSectionPage } from './section-page'
 
 // ── 실패 분류 ────────────────────────────────────────────────────────
 //
@@ -281,7 +282,19 @@ export async function verifyFeedUrl(
   const r = await guardedFetch(url, gate, deps)
   if ('fail' in r) return r
   const check = looksLikeFeed(r.res.text)
-  if (!check.ok) return { fail: skip(url, 'not-a-feed', '열렸지만 피드가 아닙니다(항목 0)') }
+  if (!check.ok) {
+    // RSS 가 아니면 **섹션 목록 페이지**인지 본다. 학습에 가장 적합한 섹션(생활·문화·과학)이
+    //   RSS 를 안 주는 경우가 흔한데, 여기서 그냥 거부하면 그 섹션은 영영 등록할 수 없다.
+    //   0건이어도 사유를 나눠 준다 — "목록 페이지가 아니다" 와 "기사에 날짜가 없다" 는
+    //   운영자가 할 일이 다르다.
+    const section = inspectSectionPage(r.res.text, url, deps.now())
+    if (section.ok) {
+      return {
+        feed: { url, title: null, via: 'convention', verified: true, itemCount: section.itemCount },
+      }
+    }
+    return { fail: skip(url, 'not-a-feed', `피드가 아닙니다 — ${section.reason}`) }
+  }
   if (check.newestAgeDays !== null && check.newestAgeDays > FEED_MAX_AGE_DAYS) {
     return {
       fail: skip(

@@ -26,6 +26,7 @@ import {
 } from './access'
 import { COMPOSE_THRESHOLDS } from './gates'
 import { isFeedCollectable, lineOf, type FactSourceSpec } from './sources'
+import { parseSectionPage } from './section-page'
 
 // ── 주입 ─────────────────────────────────────────────────────────────
 
@@ -180,7 +181,16 @@ export async function discoverStories(
   const skipped: Array<{ url: string; reason: string }> = []
   const now = deps.now()
 
-  for (const item of parseRssFeed(res.text).slice(0, maxItems)) {
+  // RSS 가 아니면 **섹션 목록 페이지**로 한 번 더 시도한다.
+  //
+  // 왜 여기서 갈래를 두는가: 학습 적합률은 발행사보다 **그 안의 섹션**으로 갈리는데
+  //   (섹션 25.0% vs 전체 14.2% · 1.76배 · 실측 2026-08-19), RSS 를 안 주는 섹션이 많다.
+  //   등록 경로를 RSS 로만 열어 두면 **발행사가 RSS 를 안 준다는 이유로 가장 적합한 섹션이
+  //   빠진다.** 두 파서 모두 `RssListItem[]` 을 돌려주므로 아래 코드는 갈리지 않는다.
+  const parsed = parseRssFeed(res.text)
+  const items = parsed.length > 0 ? parsed : parseSectionPage(res.text, feedUrl, now)
+
+  for (const item of items.slice(0, maxItems)) {
     const cand = toCandidate(spec, item, now, minDelayMs)
     if ('reason' in cand) skipped.push({ url: item.url, reason: cand.reason })
     else if (cand.holdMs > 0) holding.push(cand)
