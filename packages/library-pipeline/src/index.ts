@@ -133,6 +133,9 @@ export type {
   LicenseClass,
 } from './ingest-article/_curation-spec'
 export * from './types-article'
+// 조용한 저하를 막는 판단 — 분석 전에 묻는다.
+export { DEGRADED_DICTIONARY_HIT, checkAnalysisReadiness } from './analyze/readiness'
+export type { AnalysisReadiness } from './analyze/readiness'
 export { analyzeArticle } from './analyze/analyze-article'
 export type { AnalyzeArticleOptions } from './analyze/analyze-article'
 

@@ -31,7 +31,16 @@ const bi = process.argv.indexOf('--batch')
 const batchId = bi >= 0 ? process.argv[bi + 1] : null
 
 const { createClient } = await import('@supabase/supabase-js')
-const { analyzeArticle, computeLexicalNoise, normalizePunctuation, reflowSoftHyphens, LEARNING_TYPES, withAttribution, stripAttribution, bandForVLevel } =
+const {
+  analyzeArticle,
+  computeLexicalNoise,
+  normalizePunctuation,
+  reflowSoftHyphens,
+  LEARNING_TYPES,
+  withAttribution,
+  stripAttribution,
+  bandForVLevel,
+} =
   await import('@vocaflow/library-pipeline')
 
 const db = createClient(
@@ -41,6 +50,18 @@ const db = createClient(
 )
 
 const sha256 = (s) => crypto.createHash('sha256').update(s, 'utf8').digest('hex')
+
+// ⚠️ 여기에는 `checkAnalysisReadiness` 가드를 두지 않는다 — 그 판단이 이 경로에는 적용되지
+//   않기 때문이다. 아래 분석 호출이 `skipLlm: true` 라서 **키가 있어도 LLM 을 안 쓴다.**
+//
+//   2026-08-19 에 이 가드를 여기에도 붙이려 했다. ACP 처리에서 "키 없으면 사전 적중이
+//   95%→72% 로 떨어진다" 를 발견했고, 재저작 글도 75.2% 라 같은 원인으로 보였기 때문이다.
+//   **틀린 추론이었다** — 재저작의 75.2%는 키가 없어서가 아니라 `skipLlm: true` 로 설계된
+//   상태다. 가드를 붙였으면 키를 넣어도 아무것도 나아지지 않는데 실행만 막았을 것이다.
+//
+//   남는 진짜 질문은 따로 있다: **재저작 글은 어휘의 4분의 1이 뜻 없이 학습자에게 간다.**
+//   `skipLlm: true` 에는 기록된 사유가 없다(비용으로 짐작될 뿐이다). 재저작 글은 130~320어로
+//   짧아 보강 비용이 작으므로, 켜는 편이 맞는지 별도로 판단할 것.
 
 let q = db
   .from('library_articles')
