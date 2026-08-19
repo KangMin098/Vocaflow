@@ -46,6 +46,7 @@ const {
   reflowSoftHyphens,
   resolveArticleRegister,
   checkAnalysisReadiness,
+  assessReadingLoad,
 } = await import('@vocaflow/library-pipeline')
 
 const db = createClient(
@@ -147,8 +148,17 @@ for (const a of list.slice(0, LIMIT)) {
         register: resolveArticleRegister(a.source, a.feed_id ?? null),
         lexical_noise: noise,
         status: 'ready',
-        // noise > 0.08 이면 발행 트리거가 단어세트를 건너뛴다(읽기용만) — 그 사유를 남긴다.
-        status_message: noise > 0.08 ? `lexical_noise ${noise} > 0.08 — 단어세트 미발행(읽기용)` : null,
+        // 표시할 것이 둘 이상일 수 있다 — 앞의 것만 남기면 뒤의 것이 조용히 사라진다.
+        //   ① noise > 0.08 이면 발행 트리거가 단어세트를 건너뛴다(읽기용만).
+        //   ② 발행분 p90 을 넘는 길이는 검수자에게 알린다(버리지 않는다 — 판단은 사람 몫).
+        //   길이 판단은 `assessReadingLoad` 한 곳에 있다 — dev-process 라우트와 같은 답.
+        status_message:
+          [
+            noise > 0.08 ? `lexical_noise ${noise} > 0.08 — 단어세트 미발행(읽기용)` : null,
+            assessReadingLoad(result.word_count).note,
+          ]
+            .filter(Boolean)
+            .join(' · ') || null,
         content_hash: norm.body_hash,
       })
       .eq('id', a.id)

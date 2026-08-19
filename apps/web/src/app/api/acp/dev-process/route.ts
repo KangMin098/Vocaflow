@@ -11,6 +11,7 @@ import { NextResponse } from 'next/server'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
 import {
   analyzeArticle,
+  assessReadingLoad,
   computeLexicalNoise,
   normalizePunctuation,
   reflowSoftHyphens,
@@ -142,10 +143,17 @@ export async function POST(request: Request): Promise<NextResponse> {
         ),
         lexical_noise: lexicalNoise,
         status: 'ready',
+        // 표시할 것이 둘 이상일 수 있다 — 앞의 것만 남기면 뒤의 것이 조용히 사라진다.
+        //   길이 판단은 `assessReadingLoad` 한 곳에 있다(배치 경로와 같은 답을 내야 한다).
         status_message:
-          lexicalNoise > 0.08
-            ? `lexical_noise ${lexicalNoise} > 0.08 — 단어세트 미발행(읽기용)`
-            : null,
+          [
+            lexicalNoise > 0.08
+              ? `lexical_noise ${lexicalNoise} > 0.08 — 단어세트 미발행(읽기용)`
+              : null,
+            assessReadingLoad(result.word_count).note,
+          ]
+            .filter(Boolean)
+            .join(' · ') || null,
         content_hash: norm.body_hash,
       })
       .eq('id', body.article_id)

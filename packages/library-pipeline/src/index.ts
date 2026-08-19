@@ -136,6 +136,8 @@ export * from './types-article'
 // 조용한 저하를 막는 판단 — 분석 전에 묻는다.
 export { DEGRADED_CEFR_CONFIDENCE, checkAnalysisReadiness } from './analyze/readiness'
 export type { AnalysisReadiness } from './analyze/readiness'
+export { ACCEPTED_WORDS_P90, ARTICLE_WPM, assessReadingLoad } from './analyze/reading-load'
+export type { ReadingLoad } from './analyze/reading-load'
 // lemma 추출 — Claude Code 사전 드레인이 기사와 **같은 추출기**를 써야 한다.
 //   따로 만들면 드레인이 채운 낱말과 파이프라인이 찾는 낱말이 어긋난다.
 export { extractBookLemmas } from './analyze/extract-lemmas'
