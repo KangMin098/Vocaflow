@@ -106,9 +106,20 @@ describe('핵심 분기 불변식', () => {
 })
 
 describe('resolveArticleRegister — feed-level 우선 (VOA 오분류 교정)', () => {
-  it('VOA american-stories/lets-learn-english → narrative (서사 register 보강)', () => {
+  it('VOA american-stories → narrative (고전 단편 각색)', () => {
     expect(resolveArticleRegister('voa', 'american-stories')).toBe('narrative')
-    expect(resolveArticleRegister('voa', 'lets-learn-english')).toBe('narrative')
+  })
+
+  it('VOA lets-learn-english(z/952) → expository — 서사가 아니다', () => {
+    // 2026-08-20 정정. 이 테스트는 원래 'narrative' 를 못 박고 있었는데, 그 믿음이 틀렸다.
+    //   z/952 는 Anna 연속 드라마가 아니라 그날의 학습 자료 모음("Lessons of the Day")이고
+    //   실제 내용은 일반 피처다 — Ice Ages · Goodyear Blimp · Golden Gate Bridge ·
+    //   Methods for Protecting Earth against an Asteroid Strike (실측 13편).
+    //   서사로 두면 학습자에게 이야기글로 안내되는데 설명문이 나온다.
+    //
+    //   ⚠️ 이 오류를 찾아낸 것은 `crossCheckDeclaredLevel` 이다 — "선언 Level 1 인데 추정
+    //     B2" 로 5편을 잡았고, 확인하니 틀린 쪽은 추정이 아니라 **우리 라벨**이었다.
+    expect(resolveArticleRegister('voa', 'lets-learn-english')).toBe('expository')
   })
   it('VOA science-technology/health-lifestyle → expository (source 기본 news 교정)', () => {
     expect(resolveArticleRegister('voa', 'science-technology')).toBe('expository')

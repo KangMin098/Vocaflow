@@ -47,6 +47,8 @@ const {
   resolveArticleRegister,
   checkAnalysisReadiness,
   assessReadingLoad,
+  crossCheckDeclaredLevel,
+  VOA_FEEDS,
 } = await import('@vocaflow/library-pipeline')
 
 const db = createClient(
@@ -156,6 +158,10 @@ for (const a of list.slice(0, LIMIT)) {
           [
             noise > 0.08 ? `lexical_noise ${noise} > 0.08 — 단어세트 미발행(읽기용)` : null,
             assessReadingLoad(result.word_count).note,
+            crossCheckDeclaredLevel(
+              VOA_FEEDS.find((f) => f.id === a.feed_id)?.level ?? null,
+              result.cefr_level,
+            ).note,
           ]
             .filter(Boolean)
             .join(' · ') || null,

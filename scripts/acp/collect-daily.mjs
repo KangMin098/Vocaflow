@@ -232,6 +232,12 @@ for (const s of targets) {
           license: article.license,
           content: article.content ?? '',
           audio_url: article.audio_url ?? null,
+          // ⚠️ 이걸 빠뜨려 37편이 NULL 로 들어갔다(2026-08-20 실측). `feed_id` 가 없으면
+          //   `resolveArticleRegister(source, feed_id)` 가 피드별 register 를 못 찾고
+          //   소스 기본값으로 떨어진다 — VOA 의 `lets-learn-english`(narrative)·
+          //   `words-and-their-stories`(expository) 가 전부 'news' 가 된다.
+          //   게다가 피드별로 무엇이 들어왔는지 나중에 셀 수 없게 된다.
+          feed_id: feed.id,
           status: 'queued',
         })
         if (error) failures.push(`${label} ${item.url}: ${error.message}`)

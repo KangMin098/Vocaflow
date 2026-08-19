@@ -817,7 +817,10 @@ export function getSourceSpec(source: SourceKey): SourceSpec {
 
 /** feed(`source:feedId`) → register override. 없는 feed 는 SOURCE_REGISTER_DEFAULT 폴백. */
 export const FEED_REGISTER: Record<string, string> = {
-  'voa:lets-learn-english': 'narrative', // Anna 연속 드라마 (Level 1 · 서사)
+  // ⚠️ 2026-08-20 정정 — 'narrative' 가 아니다. z/952 를 Anna 연속 드라마로 알았으나
+  //   실제 내용은 일반 피처다(Ice Ages · Goodyear Blimp · Golden Gate Bridge).
+  //   서사로 두면 학습자에게 이야기글로 안내되는데 설명문이 나온다.
+  'voa:lets-learn-english': 'expository', // Lessons of the Day — 종합 피처 (z/952)
   'voa:american-stories': 'narrative', // 고전 단편 각색 (서사)
   'voa:words-and-their-stories': 'expository', // 관용구 어원 설명
   'voa:science-technology': 'expository', // 과학·기술 설명

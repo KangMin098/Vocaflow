@@ -53,9 +53,20 @@ export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url
     url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=1579',
   },
   {
+    // ⚠️ 2026-08-20 정정 — `Level 1` 도 `Let's Learn English` 도 **틀린 라벨이었다.**
+    //   z/952 는 그날의 학습 자료 모음("Lessons of the Day")이고 실제 내용은 일반 피처다:
+    //     Study Shows How Earth's Orbit Affects Ice Ages · The Goodyear Blimp ·
+    //     The Golden Gate Bridge · Methods for Protecting Earth against an Asteroid Strike
+    //   초급 강좌인 줄 알고 `level: 1` 을 달아 뒀는데, 실측 CEFR 은 B1 7 · B2 5 다.
+    //
+    //   교차검증기(`crossCheckDeclaredLevel`)가 이 5편을 "Level 1 인데 B2" 로 잡아 냈고,
+    //   확인해 보니 **틀린 쪽은 추정이 아니라 우리 라벨**이었다. 그게 교차검증의 값이다.
+    //
+    //   `id` 는 그대로 둔다 — DB 의 `feed_id` 13행이 이 값을 가리키고 있어서, 바꾸면
+    //   연결이 끊어지고 register 도 같이 날아간다. 라벨과 레벨만 사실에 맞춘다.
     id: 'lets-learn-english',
-    label: "Let's Learn English (Level 1) — Lessons of the Day",
-    level: 1,
+    label: 'Lessons of the Day (종합 피처 · z/952)',
+    level: 2,
     url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=952',
   },
   // P2 — register gap 보강: 서사(American Stories) + 설명문(Health & Lifestyle).
