@@ -105,7 +105,20 @@ if (process.argv.includes('--clusters')) {
       isKoreaRelevant(c.headline, c.members.map((m) => m.publisher)),
   )
 
-  console.log(`한국 관련 취재 가능 사건 ${pursuable.length} · 앞의 ${Math.min(LIMIT, pursuable.length)}건을 잰다\n`)
+  // `--pair a,b` 는 **그 두 발행사가 함께 다룬 사건만** 고르고 그 둘을 견준다.
+  //   조합별 수율이 8배까지 갈리므로(2026-08-19 실측) "어느 둘인지" 를 지정할 수 있어야
+  //   특정 조합을 판정할 수 있다. 지정하지 않으면 예전처럼 묶음의 앞 두 곳을 본다.
+  const pi = process.argv.indexOf('--pair')
+  const wantPair = pi >= 0 ? process.argv[pi + 1].split(',').map((x) => x.trim().toLowerCase()) : null
+  const targets = wantPair
+    ? pursuable.filter((c) => wantPair.every((p) => c.members.some((m) => m.publisher.toLowerCase() === p)))
+    : pursuable
+
+  console.log(
+    `한국 관련 취재 가능 사건 ${pursuable.length}` +
+      (wantPair ? ` · 그중 ${wantPair.join(' ↔ ')} 가 함께 다룬 것 ${targets.length}` : '') +
+      ` · 앞의 ${Math.min(LIMIT, targets.length)}건을 잰다\n`,
+  )
   const body = async (u) => {
     const r = await fetch(u, { headers: { 'User-Agent': COMPOSE_USER_AGENT }, redirect: 'follow' })
     return r.ok ? extractArticle(await r.text()).text : null
@@ -118,9 +131,13 @@ if (process.argv.includes('--clusters')) {
 
   let independent = 0
   let copied = 0
-  for (const c of pursuable.slice(0, LIMIT)) {
+  for (const c of targets.slice(0, LIMIT)) {
+    // 짝을 지정했으면 그 둘만 본다 — 다른 발행사가 묶음에 있어도 견주는 것은 지정한 둘이다.
+    const members = wantPair
+      ? wantPair.map((p) => c.members.find((m) => m.publisher.toLowerCase() === p))
+      : c.members.slice(0, 2)
     const texts = []
-    for (const m of c.members.slice(0, 2)) texts.push({ p: m.publisher, t: await body(m.url) })
+    for (const m of members) texts.push({ p: m.publisher, t: await body(m.url) })
     if (texts.some((x) => !x.t)) {
       console.log(`  ? ${c.headline.slice(0, 58)}\n      본문을 못 읽어 판정 보류`)
       continue

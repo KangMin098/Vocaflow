@@ -850,9 +850,20 @@ export function topicsUnlockedByPlanned(): string[] {
  * |---|---|---|---|---|
  * | 연합 ↔ 코리아타임스 | 12 | 1 | 11 | **8%** |
  * | 연합 ↔ 코리아헤럴드 | 8 | 5 | 3 | **63%** |
+ * | 코리아타임스 ↔ 코리아헤럴드 | 7 | 4 | 3 | **57%** |
  *
  * 연합뉴스는 통신사다. 코리아타임스는 그 원고를 **거의 항상** 싣고, 코리아헤럴드는 대체로
  * 자기 기사를 쓴다. 제목만 보면 둘 다 똑같이 "독립 2계통" 으로 보이지만 수율은 8배 다르다.
+ *
+ * ── 그래서 코리아타임스를 끄면 안 된다 ──────────────────────────────
+ * 8%만 보면 "쓸모없는 소스" 로 읽히지만, 그건 **연합과 짝지었을 때**의 값이다. 헤럴드와
+ * 짝지으면 57% 다. 그리고 셋이 함께 다루면 **어느 한 짝이 무너져도 다른 짝이 살린다** —
+ * 실측 예: `(URGENT) Seoul shares open nearly 5 pct lower` 는 타임스↔헤럴드가 35.7%(전재)
+ * 인데 연합↔타임스는 0.0%(독립)라 사건 자체는 살았다.
+ *
+ * `collapseSyndication` 은 짝이 아니라 **집합**을 접으므로 이 구조를 이미 옳게 처리한다
+ * (셋 중 둘이 접혀도 남은 하나와 합쳐 2그룹이면 통과). 즉 한국 매체는 많을수록 좋고,
+ * 조합별 수율은 **어느 소스를 끌지가 아니라 무엇을 기대할지**를 알려 주는 값이다.
  *
  * ⚠️ **이 표는 판정이 아니라 기대치다.** 개별 사건의 독립 여부는 본문 지문을 견줘야 알 수
  *   있고(`collapseSyndication`), 8% 짜리 조합에서도 진짜 독립 보도가 나온다. 그래서 이 값으로
@@ -868,6 +879,7 @@ export const MEASURED_PAIR_INDEPENDENCE: ReadonlyArray<{
 }> = [
   { publishers: ['en.yna.co.kr', 'koreatimes.co.kr'], samples: 12, independent: 1 },
   { publishers: ['en.yna.co.kr', 'koreaherald.com'], samples: 8, independent: 5 },
+  { publishers: ['koreatimes.co.kr', 'koreaherald.com'], samples: 7, independent: 4 },
 ]
 
 /**

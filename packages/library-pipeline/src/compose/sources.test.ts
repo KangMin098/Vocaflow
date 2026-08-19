@@ -396,3 +396,19 @@ describe('조합별 독립 실측 — 판정이 아니라 기대치', () => {
     }
   })
 })
+
+describe('한국 매체는 많을수록 좋다 — 짝이 아니라 집합으로 접힌다', () => {
+  it('세 조합이 모두 실측돼 있다', () => {
+    expect(measuredIndependence(['en.yna.co.kr', 'koreatimes.co.kr'])).not.toBeNull()
+    expect(measuredIndependence(['en.yna.co.kr', 'koreaherald.com'])).not.toBeNull()
+    expect(measuredIndependence(['koreatimes.co.kr', 'koreaherald.com'])).not.toBeNull()
+  })
+
+  it('가장 나쁜 조합(연합↔타임스)도 0 이 아니다 — 끄는 근거가 되지 않는다', () => {
+    // 8% 만 보면 "쓸모없는 소스" 로 읽히지만 그건 연합과 짝지었을 때의 값이다.
+    //   헤럴드와 짝지으면 57% 이고, 셋이 함께 다루면 한 짝이 무너져도 다른 짝이 살린다.
+    const worst = measuredIndependence(['en.yna.co.kr', 'koreatimes.co.kr'])!
+    expect(worst).toBeGreaterThan(0)
+    expect(measuredIndependence(['koreatimes.co.kr', 'koreaherald.com'])!).toBeGreaterThan(worst)
+  })
+})
