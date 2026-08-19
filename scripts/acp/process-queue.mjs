@@ -55,6 +55,34 @@ const db = createClient(
 
 const sha256 = (s) => crypto.createHash('sha256').update(s, 'utf8').digest('hex')
 
+// ── 조용한 저하를 막는다 ──────────────────────────────────────────────
+//
+// `ANTHROPIC_API_KEY` 가 없으면 분석이 **경고만 찍고 계속 돈다** — 사전에 없는 낱말을
+// 채우는 lookup-enrich 와 CEFR 의 LLM 시그널이 건너뛰어진다. 로그가 흘러가면 아무도 못 본다.
+//
+// 실측 2026-08-19 — 키 없이 처리한 6편과 기존 143편의 **사전 적중률**:
+//     기존  어휘 48,206개 · 95.1%
+//     오늘  어휘  1,338개 · **72.0%**
+//   학습자가 단어를 눌렀을 때 뜻이 안 나오는 비율이 5% → 28% 로 뛴다. CEFR 신뢰도와 어휘
+//   밀도는 거의 안 변해서(0.732→0.725 · 23.7%→26.3%) **겉으로는 정상으로 보인다** —
+//   그래서 더 위험하다.
+//
+// 그러니 기본은 **멈춘다**. 그래도 돌리려면 뜻 없는 어휘가 생긴다는 것을 알고 명시해야 한다.
+const hasKey = Boolean(process.env.ANTHROPIC_API_KEY)
+const allowDegraded = process.argv.includes('--allow-degraded')
+if (commit && !hasKey && !allowDegraded) {
+  console.error('ANTHROPIC_API_KEY 가 없다 — 처리하지 않는다.\n')
+  console.error('  이 키가 없으면 사전에 없는 낱말을 채우지 못한다. 실측(2026-08-19):')
+  console.error('    사전 적중률  키 있음 95.1%  →  키 없음 72.0%')
+  console.error('    학습자가 단어를 눌렀을 때 뜻이 안 나오는 비율 5% → 28%')
+  console.error('  CEFR 신뢰도·어휘 밀도는 거의 안 변해서 겉으로는 정상으로 보인다.\n')
+  console.error('  apps/web/.env.local 에 키를 넣거나, 알고도 돌리려면 --allow-degraded 를 붙인다.')
+  process.exit(1)
+}
+if (commit && !hasKey) {
+  console.log('⚠ ANTHROPIC_API_KEY 없이 진행한다 — 이 배치의 어휘 약 28%는 뜻이 비게 된다.\n')
+}
+
 const { data: queued, error } = await db
   .from('library_articles')
   .select('id, source, source_id, source_url, title, author, language, license, content, published_at, feed_id')
