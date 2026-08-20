@@ -89,11 +89,14 @@ describe('explainDcpEligibility', () => {
     const d = explainDcpEligibility(oneLinePerSentence)
     expect(d).toHaveLength(1)
     expect(d[0]!.sentences).toBe(sentences.length)
-    expect(d[0]!.eligible).toBe(false)
-    expect(d[0]!.reason).toContain('4~6')
-    expect(generateDcpItems(oneLinePerSentence, 'ref')).toHaveLength(0)
+    // 2026-08-21 — 8문장 한 덩어리는 **순서는 못 만들지만 삽입은 만든다.**
+    //   실제 수능 삽입 지문이 6~8문장이라, 상한을 10까지 열었다(재고 병목이었다).
+    expect(d[0]!.order).toBe(false)
+    expect(d[0]!.insert).toBe(true)
+    expect(d[0]!.reason).toContain('삽입만')
+    expect(generateDcpItems(oneLinePerSentence, 'ref')).toHaveLength(1)
 
-    // 같은 문장을 빈 줄로 4+4 로 나누면 두 문단 모두 적격이 된다 — 줄바꿈 하나의 차이다.
+    // 같은 문장을 빈 줄로 4+4 로 나누면 두 문단 모두 **순서·삽입 둘 다** 나온다 — 줄바꿈 하나의 차이다.
     const split = sentences.slice(0, 4).join(' ') + '\n\n' + sentences.slice(4).join(' ')
     expect(explainDcpEligibility(split).every((x) => x.eligible)).toBe(true)
     expect(generateDcpItems(split, 'ref')).toHaveLength(4)

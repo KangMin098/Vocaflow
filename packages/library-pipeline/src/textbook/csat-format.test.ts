@@ -87,10 +87,39 @@ describe('toCsatInsert', () => {
     }
   })
 
-  it('자리가 5곳이 아니면 만들지 않는다 — ①~③ 을 연습시키지 않는다', () => {
+  it('자리를 5곳 못 만들면 거부한다 — ①~③ 을 연습시키지 않는다', () => {
     expect(toCsatInsert(['A.', 'B.', 'C.'], 'X.', 2)).toBeNull()
     expect(toCsatInsert(['A.', 'B.', 'C.', 'D.'], 'X.', 2)).toBeNull()
-    expect(toCsatInsert([...body, 'F.'], 'X.', 2)).toBeNull()
+    // 상한 밖(10문장)도 거부 — 지문이 너무 길면 수능 지문이 아니다.
+    expect(toCsatInsert(Array.from({ length: 10 }, (_, i) => `S${i}.`), 'X.', 2)).toBeNull()
+  })
+
+  it('지문이 6~9문장이어도 자리는 5곳이다 — 실제 수능 지문이 그렇다', () => {
+    for (const n of [6, 7, 8, 9]) {
+      const long = Array.from({ length: n }, (_, i) => `S${i}.`)
+      const item = toCsatInsert(long, 'X.', 3)
+      expect(item, `n=${n}`).not.toBeNull()
+      expect(item!.slots, `n=${n}`).toHaveLength(5)
+      expect(item!.body, `n=${n}`).toHaveLength(n)
+    }
+  })
+
+  it('정답 자리는 언제나 답지 안에 있다', () => {
+    for (const n of [5, 6, 7, 8, 9]) {
+      const long = Array.from({ length: n }, (_, i) => `S${i}.`)
+      for (let pos = 1; pos <= n; pos++) {
+        const item = toCsatInsert(long, 'X.', pos)!
+        expect(item.slots, `n=${n} pos=${pos}`).toContain(pos)
+        expect(item.slots[item.answer - 1], `n=${n} pos=${pos}`).toBe(pos)
+      }
+    }
+  })
+
+  it('자리를 지문에 고르게 퍼뜨린다 — 정답만 외따로면 위치로 찍는다', () => {
+    const nine = Array.from({ length: 9 }, (_, i) => `S${i}.`)
+    const slots = toCsatInsert(nine, 'X.', 5)!.slots
+    expect(slots[0]).toBe(1)
+    expect(slots[slots.length - 1]).toBe(9)
   })
 
   it('범위 밖 정답은 거부한다', () => {

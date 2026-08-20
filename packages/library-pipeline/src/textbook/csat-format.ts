@@ -71,7 +71,29 @@ export interface CsatInsertItem {
   answer: number
 }
 
-/** 삽입 문항이 수능 형식(①~⑤)이 되려면 지문에 남아야 하는 문장 수. */
+/**
+ * 삽입 문항 지문의 문장 수 범위.
+ *
+ * ── 2026-08-21 확장 ─────────────────────────────────────────────────
+ * 처음엔 **정확히 5문장**만 받았다. 자리가 문장마다 하나씩 생겨 5곳이 되기 때문이다.
+ * 그런데 **실제 수능 지문은 6~8문장이고 자리는 그중 5곳**이다 — 문장마다 번호가
+ * 붙지 않는다.
+ *
+ * 5문장 고정이 얼마나 비쌌는지 재 봤다. `isEligible` 이 7문장 이상 문단을 통째로
+ * 버리고 있었는데, 그중 길이 규격(90~200어)에 드는 것만 세도:
+ *
+ *   V4  새 삽입 원글 15 → **+7단원** (지금은 0단원)
+ *   V5  새 삽입 원글 29 → **+14단원**
+ *   V6  새 삽입 원글 19 → **+9단원**
+ *
+ * 19단원 → **42단원**. 1권 미달이 2권으로 바뀐다.
+ */
+export const CSAT_INSERT_BODY = { min: 5, max: 9 } as const
+
+/** 수능 답지 자리 수 — ①~⑤. 지문이 길어도 자리는 다섯이다. */
+export const CSAT_INSERT_SLOTS = 5
+
+/** @deprecated `CSAT_INSERT_BODY.min` 을 쓸 것. 남겨 둔 이유는 회귀가 참조하기 때문. */
 export const CSAT_INSERT_BODY_SENTENCES = 5
 
 /**
@@ -137,17 +159,34 @@ export function toCsatInsert(
   insertSentence: string,
   position: number,
 ): CsatInsertItem | null {
-  if (remaining.length !== CSAT_INSERT_BODY_SENTENCES) return null
+  const n = remaining.length
+  if (n < CSAT_INSERT_BODY.min || n > CSAT_INSERT_BODY.max) return null
   if (hasCitationResidue(remaining.join(' ') + ' ' + insertSentence)) return null
-  // position 은 원문에서 제거된 인덱스(1..n-1). n=6 이므로 1~5 가 그대로 ①~⑤ 다.
-  if (position < 1 || position > CSAT_INSERT_BODY_SENTENCES) return null
+  // position 은 원문에서 뺀 문장의 자리다(1..n). "remaining[position-1] 뒤" 를 뜻한다.
+  if (position < 1 || position > n) return null
+  const slots = pickSlots(n, position)
   return {
     kind: 'insert',
     sentence: insertSentence,
     body: [...remaining],
-    slots: [1, 2, 3, 4, 5],
-    answer: position,
+    slots,
+    answer: slots.indexOf(position) + 1,
   }
+}
+
+/**
+ * 자리 5곳을 고른다 — **정답을 반드시 포함**하고 나머지는 지문에 고르게 퍼뜨린다.
+ *
+ * 정답만 외따로 떨어져 있으면 위치만 보고 찍을 수 있으므로, 후보를 균등 간격으로
+ * 잡은 뒤 정답을 끼워 넣는다. 결정론이라 같은 지문은 늘 같은 자리를 얻는다.
+ */
+export function pickSlots(bodySentences: number, answer: number): number[] {
+  const picked = new Set<number>([answer])
+  for (let k = 0; k < CSAT_INSERT_SLOTS && picked.size < CSAT_INSERT_SLOTS; k++) {
+    picked.add(1 + Math.round((k * (bodySentences - 1)) / (CSAT_INSERT_SLOTS - 1)))
+  }
+  for (let i = 1; i <= bodySentences && picked.size < CSAT_INSERT_SLOTS; i++) picked.add(i)
+  return [...picked].sort((a, b) => a - b)
 }
 
 /** 수능 답지 5개 — 3! 순열에서 원순서 (A)(B)(C) 를 뺀 것. 실제 시험지와 같은 나열이다. */

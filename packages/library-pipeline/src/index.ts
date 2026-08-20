@@ -146,7 +146,10 @@ export { UNIT_MINUTES, scoreVolume } from './textbook/scorecard'
 export type { Audience, AutoCheck, HumanCheck, Scorecard } from './textbook/scorecard'
 // 수능 인쇄 형식 변환 — 저장 형식·학습 화면은 그대로 두고 표현만 바꾼다.
 export {
+  CSAT_INSERT_BODY,
   CSAT_INSERT_BODY_SENTENCES,
+  CSAT_INSERT_SLOTS,
+  pickSlots,
   ORDER_PERMS,
   splitIntoThree,
   toCsatInsert,

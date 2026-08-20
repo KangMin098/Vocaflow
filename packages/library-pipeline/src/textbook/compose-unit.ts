@@ -21,7 +21,7 @@
 // 그래서 단원은 "지문에서 뽑는" 것이 아니라 **"풀에서 고르는"** 것이다.
 
 import { type UnitVocab, pickVocabulary } from './assemble-unit'
-import { CSAT_INSERT_BODY_SENTENCES, hasCitationResidue } from './csat-format'
+import { CSAT_INSERT_BODY, hasCitationResidue } from './csat-format'
 
 export type UnitItemType = 'order' | 'insert'
 
@@ -40,8 +40,8 @@ export interface PoolItem {
   /**
    * 문항이 품은 지문의 문장 수.
    *
-   * **삽입은 이 값이 5 여야 수능 ①~⑤ 가 된다**(6문장 문단에서 1개를 뺀 것).
-   * 4·5문장 문단은 자리가 3·4곳이라 실전과 다른 형식을 연습시키게 된다.
+   * **삽입은 5~9문장이어야 자리 5곳을 고를 수 있다.** 4문장 이하는 자리가 모자라
+   * 실전과 다른 형식(①~③)을 연습시키게 된다. 지문이 길면 자리를 골라 쓴다.
    */
   body_sentences: number
   payload: Record<string, unknown>
@@ -127,7 +127,10 @@ export function composeUnits(
     }
     // 수능 인쇄 형식으로 바꿀 수 없는 것은 여기서 뺀다 — 조합한 뒤에 발견하면
     //   단원에 "변환 불가" 자리가 생기고, 그건 교재로 나갈 수 없다.
-    if (p.type === 'insert' && p.body_sentences !== CSAT_INSERT_BODY_SENTENCES) {
+    if (
+      p.type === 'insert' &&
+      (p.body_sentences < CSAT_INSERT_BODY.min || p.body_sentences > CSAT_INSERT_BODY.max)
+    ) {
       wrongFormat++
       return false
     }

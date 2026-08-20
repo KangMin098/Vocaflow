@@ -56,6 +56,21 @@ const BOILERPLATE =
 //   확실히 잡히는 것은 이 패턴 하나뿐이다.
 const CITATION_RESIDUE = /\[\s*\]|\[\s*\d+\s*[,\-–]?\s*\d*\s*\]/
 
+/**
+ * 삽입 문항이 받을 수 있는 문단 문장 수.
+ *
+ * ⚠️ 순서(order)는 4~6문장이어야 한다 — 도입문 1 + (A)(B)(C) 세 덩어리다.
+ *   그런데 **삽입은 지문이 길어도 자리만 5곳이면 된다**(실제 수능 지문이 6~8문장).
+ *   같은 상한을 쓰는 동안 7문장 이상 문단을 통째로 버렸고, 그게 재고 병목이었다.
+ *   길이 규격(90~200어)에 드는 것만 세도: V5 +14단원 · V6 +9단원 ·
+ *   **V4 +7단원(지금 0단원)**.
+ */
+// ⚠️ 하한은 **4 그대로** 둔다. 5로 올리면 4문장 문단의 삽입 문항이 사라지는데,
+//   그건 교재에는 못 써도(자리 3곳) **학습 화면의 구문 연습에는 유효한 재고**다.
+//   교재를 위해 이미 돌고 있는 기능을 깎지 않는다 — 교재 쪽에서만 5~9를 요구한다
+//   (`CSAT_INSERT_BODY`). 여기서 늘리는 것은 상한뿐이다.
+const INSERT_PARAGRAPH_SENTENCES = { min: 4, max: 10 } as const
+
 /** 문단 적격 — 4~6문장 · 각 문장 6단어+ · 첫 문장 앵커 양호 · 보일러플레이트 아님. */
 function isEligible(sentences: string[]): boolean {
   if (sentences.length < 4 || sentences.length > 6) return false
@@ -110,41 +125,64 @@ export function generateDcpItems(content: string, ref: string): DcpItem[] {
 
   paragraphs.forEach((para, pIdx) => {
     const sentences = splitSentences(para)
-    if (!isEligible(sentences)) return
     const n = sentences.length
+    // 유형마다 적격이 다르다 — 순서는 4~6문장, 삽입은 5~10문장.
+    const orderOk = isEligible(sentences)
+    const insertOk = isEligibleForInsert(sentences)
+    if (!orderOk && !insertOk) return
 
     // order — presented[k] = sentences[perm[k]] (셔플 순). 정답 = source_order(각 presented 의 원본 인덱스).
-    const perm = shuffledIndices(n, `${ref}:${pIdx}:order`)
-    items.push({
-      type: 'order',
-      paragraph_idx: pIdx,
-      payload: { presented: perm.map((i) => sentences[i]!) },
-      answer_key: { source_order: perm },
-    })
+    if (orderOk) {
+      const perm = shuffledIndices(n, `${ref}:${pIdx}:order`)
+      items.push({
+        type: 'order',
+        paragraph_idx: pIdx,
+        payload: { presented: perm.map((i) => sentences[i]!) },
+        answer_key: { source_order: perm },
+      })
+    }
 
     // insert — 중간 문장(1..n-1) 1개 제거. 정답 = 제거 위치.
-    const removeIdx = 1 + (hashSeed(`${ref}:${pIdx}:insert`) % (n - 1))
-    const remaining = sentences.filter((_, i) => i !== removeIdx)
-    items.push({
-      type: 'insert',
-      paragraph_idx: pIdx,
-      payload: {
-        remaining,
-        insert_sentence: sentences[removeIdx]!,
-        gap_count: n, // 삽입 가능 위치 0..n-1
-      },
-      answer_key: { position: removeIdx },
-    })
+    if (insertOk) {
+      const removeIdx = 1 + (hashSeed(`${ref}:${pIdx}:insert`) % (n - 1))
+      const remaining = sentences.filter((_, i) => i !== removeIdx)
+      items.push({
+        type: 'insert',
+        paragraph_idx: pIdx,
+        payload: {
+          remaining,
+          insert_sentence: sentences[removeIdx]!,
+          gap_count: n, // 삽입 가능 위치 0..n-1
+        },
+        answer_key: { position: removeIdx },
+      })
+    }
   })
 
   return items
+}
+
+/** 삽입 전용 적격 — 문장 수 상한만 다르고 나머지 조건은 같다. */
+function isEligibleForInsert(sentences: string[]): boolean {
+  const n = sentences.length
+  if (n < INSERT_PARAGRAPH_SENTENCES.min || n > INSERT_PARAGRAPH_SENTENCES.max) return false
+  if (sentences.some((s) => wordCount(s) < 6)) return false
+  if (ANCHOR_BAD.test(sentences[0]!)) return false
+  if (BOILERPLATE.test(sentences.join(' '))) return false
+  if (CITATION_RESIDUE.test(sentences.join(' '))) return false
+  return true
 }
 
 /** 문단별 적격 판정 사유 — 0문항이 나왔을 때 "왜" 를 말하기 위한 진단. */
 export interface DcpParagraphDiagnosis {
   paragraph_idx: number
   sentences: number
+  /** 둘 중 하나라도 나오는가. `order || insert`. */
   eligible: boolean
+  /** 순서 문항이 나오는가 (4~6문장). */
+  order: boolean
+  /** 삽입 문항이 나오는가 (5~10문장). */
+  insert: boolean
   reason: string | null
 }
 
@@ -159,12 +197,26 @@ export function explainDcpEligibility(content: string): DcpParagraphDiagnosis[] 
   return splitParagraphs(content).map((para, paragraph_idx) => {
     const sentences = splitSentences(para)
     const n = sentences.length
+    // ⚠️ 유형마다 적격이 다르다. 한쪽 기준으로만 설명하면 **진단이 실제와 어긋난다** —
+    //   실제로 그렇게 어긋났고 회귀가 잡았다(문항 1개가 나오는데 "0개" 라고 설명했다).
+    const order = isEligible(sentences)
+    const insert = isEligibleForInsert(sentences)
+
     let reason: string | null = null
-    if (n < 4 || n > 6) reason = `문장 ${n}개 (4~6 필요)`
-    else if (sentences.some((s) => wordCount(s) < 6))
-      reason = `6단어 미만 문장 ${sentences.filter((s) => wordCount(s) < 6).length}개`
-    else if (ANCHOR_BAD.test(sentences[0]!)) reason = '첫 문장이 대명사·접속사로 시작 (복원 단서 부족)'
-    else if (BOILERPLATE.test(sentences.join(' '))) reason = '보일러플레이트 (산문 아님)'
-    return { paragraph_idx, sentences: n, eligible: reason === null, reason }
+    if (!order && !insert) {
+      if (n < 4) reason = `문장 ${n}개 — 순서는 4~6, 삽입은 5~10 필요`
+      else if (n > 10) reason = `문장 ${n}개 — 삽입 상한 10 초과`
+      else if (sentences.some((s) => wordCount(s) < 6))
+        reason = `6단어 미만 문장 ${sentences.filter((s) => wordCount(s) < 6).length}개`
+      else if (ANCHOR_BAD.test(sentences[0]!))
+        reason = '첫 문장이 대명사·접속사로 시작 (복원 단서 부족)'
+      else if (BOILERPLATE.test(sentences.join(' '))) reason = '보일러플레이트 (산문 아님)'
+      else if (CITATION_RESIDUE.test(sentences.join(' '))) reason = '학술 인용 잔해'
+    } else if (!order) {
+      reason = `삽입만 — 문장 ${n}개라 순서(4~6)에는 안 맞는다`
+    } else if (!insert) {
+      reason = `순서만 — 문장 ${n}개라 삽입(5~10)에는 안 맞는다`
+    }
+    return { paragraph_idx, sentences: n, eligible: order || insert, order, insert, reason }
   })
 }
