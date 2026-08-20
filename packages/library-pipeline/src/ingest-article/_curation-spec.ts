@@ -827,6 +827,12 @@ export const FEED_REGISTER: Record<string, string> = {
   'voa:health-lifestyle': 'expository', // 건강·생활 설명
   'voa:education': 'expository', // 교육 뉴스·유학 피처 (2026-08-19 추가)
   'voa:arts-culture': 'expository', // 음악·대중문화 주간 (2026-08-19 추가)
+  // /radio/programs 인덱스 발굴분 (2026-08-20). 본문 어수까지 재고 넣은 5개.
+  'voa:everyday-grammar': 'expository', // 문법 설명
+  'voa:ask-a-teacher': 'expository', // 학습자 질문 답변
+  'voa:education-tips': 'expository', // 학습법 안내
+  'voa:all-about-america': 'expository', // 미국 생활·문화 설명
+  'voa:us-history': 'narrative', // 역사 서사 — 사건을 이야기로 푼다
   // voa:as-it-is = 시사 → source 기본값('news')
 }
 

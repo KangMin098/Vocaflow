@@ -125,6 +125,53 @@ export const VOA_FEEDS: Array<{ id: string; label: string; level: 1 | 2 | 3; url
     level: 2,
     url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=986',
   },
+
+  // ── 2026-08-20 · `/radio/programs` 인덱스에서 발굴 ────────────────────
+  // 그 인덱스에 z-코드가 **20개**인데 우리는 8개만 쓰고 있었다. VOA 는 본문을 그대로
+  // 쓸 수 있는 유일한 소스이므로(PD), 안 쓰는 피드는 그대로 공급 손실이다.
+  //
+  // 12개를 두드려 **본문 어수까지 재고** 5개만 배선했다. 나머지는 근거를 남긴다:
+  //   z/1689 Podcast              본문 없음(오디오 전용) — 3건 전부 ingest 실패
+  //   z/4716 Everyday Grammar Video · z/3619 English in a Minute · z/3620 News Words
+  //                               RSS 는 30건인데 큐레이션 필터 통과 0 — 설명이 너무 짧다
+  //   z/4691 English @ the Movies 본문 184어 — 학습 지문으로 쓰기엔 얇다
+  //   z/5091 America's Presidents 3건 중 2건 ingest 실패 — 안정되면 다시 본다
+  //   z/1574 Technology Report    HTTP 200 인데 항목 0 (두 번 확인)
+  {
+    id: 'everyday-grammar',
+    // 실측 본문 916·1164·798어 · 부적합 0%. 문법 설명문이라 소재가 안전하다.
+    label: 'Everyday Grammar (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=4456',
+  },
+  {
+    id: 'ask-a-teacher',
+    // 학습자 질문에 답하는 코너 — 부적합 0%. 실측 본문 490어.
+    label: 'Ask a Teacher (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=5535',
+  },
+  {
+    id: 'education-tips',
+    // 실측 적합 50.0% · 부적합 0% — 발굴분 중 적합률 1위. 본문 381~1,043어.
+    label: 'Education Tips (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=7468',
+  },
+  {
+    id: 'all-about-america',
+    // 미국 생활·문화 — 부적합 0%. 본문 388~679어로 짧아 진입 밴드에 맞는다.
+    label: 'All About America (Level 2)',
+    level: 2,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=8133',
+  },
+  {
+    id: 'us-history',
+    // 역사 서사 — 본문 594~1,120어. 부적합 3.3%(전쟁 소재가 간간이 섞인다).
+    label: 'U.S. History (Level 3)',
+    level: 3,
+    url: 'https://learningenglish.voanews.com/rss/?count=20&zoneid=979',
+  },
 ]
 
 /**
