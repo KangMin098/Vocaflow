@@ -154,6 +154,8 @@ export function composeUnits(
   }
 
   const used = new Set<string>()
+  // 권 전체에서 이미 실은 낱말 — 단원 간 중복을 막는다.
+  const usedWords = new Set<string>()
   const units: Unit[] = []
   let stoppedBecause: string | null = null
 
@@ -192,12 +194,30 @@ export function composeUnits(
     //   실측: 단원 1의 어휘 12개가 전부 'Black hole'(위키백과) 에서 나왔고
     //   나머지 세 글의 낱말은 하나도 안 실렸다. 학습자는 네 지문을 읽는데
     //   어휘 목록은 한 지문 것만 준 셈이다.
+    // ⚠️ 앞 단원에서 쓴 낱말은 다시 싣지 않는다. 우리 풀은 원글이 적어 같은 글이 여러
+    //   단원에 재등장하는데(실측: 'Black hole' 이 7단원 중 4개에), 단원마다 독립으로
+    //   상위 낱말을 뽑으면 **늘 같은 낱말이 나온다.** 분량만 채우고 새로 배우는 것이 없다.
+    const notUsed = (ref: string): UnitVocab[] =>
+      (vocabByRef.get(ref) ?? []).filter((v) => !usedWords.has(v.word))
+
     const perRef = Math.ceil(wantVocab / Math.max(1, refsInUnit.size))
     const quota: UnitVocab[] = []
-    for (const ref of refsInUnit) {
-      quota.push(...pickVocabulary(vocabByRef.get(ref) ?? [], perRef, options.band))
+    for (const ref of refsInUnit) quota.push(...pickVocabulary(notUsed(ref), perRef, options.band))
+
+    let vocabulary = pickVocabulary(dedupeWords(quota), wantVocab, options.band)
+    // 쿼터로 못 채우면(글마다 밴드 맞는 낱말 수가 다르다) 같은 단원의 글들에서 더 가져온다.
+    //   실측: 쿼터만 쓰면 뒤 단원이 5개까지 줄었다 — 목표는 20 이다.
+    if (vocabulary.length < wantVocab) {
+      // 쿼터에 이미 담은 낱말은 빼고 모은다 — 겹쳐 담으면 `dedupeWords` 가 빈도를
+      //   두 번 더해 목록의 빈도가 실제의 두 배가 된다(회귀가 이걸 잡았다).
+      const inQuota = new Set(quota.map((v) => v.word))
+      const rest: UnitVocab[] = []
+      for (const ref of refsInUnit) {
+        rest.push(...notUsed(ref).filter((v) => !inQuota.has(v.word)))
+      }
+      vocabulary = pickVocabulary(dedupeWords([...quota, ...rest]), wantVocab, options.band)
     }
-    const vocabulary = pickVocabulary(dedupeWords(quota), wantVocab, options.band)
+    for (const v of vocabulary) usedWords.add(v.word)
 
     units.push({
       no: n,

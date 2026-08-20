@@ -139,6 +139,20 @@ describe('composeUnits', () => {
     expect(owners.size).toBeGreaterThan(1)
   })
 
+  it('앞 단원에서 쓴 낱말을 다시 싣지 않는다 — 권 전체에서 중복 없음', () => {
+    // 실측: 원글이 적어 같은 글이 여러 단원에 재등장하는데, 단원마다 독립으로 뽑으면
+    //   늘 같은 낱말이 나온다. 분량만 채우고 새로 배우는 것이 없다.
+    const { units } = composeUnits(pool(8, 5), vocabFor(8), { band: 5, unitCount: 4 })
+    expect(units.length).toBeGreaterThanOrEqual(2)
+    const seen = new Set<string>()
+    for (const u of units) {
+      for (const v of u.vocabulary) {
+        expect(seen.has(v.word), `${v.word} 가 두 번 실렸다`).toBe(false)
+        seen.add(v.word)
+      }
+    }
+  })
+
   it('같은 낱말이 여러 글에 나오면 한 번만 싣고 빈도를 합친다', () => {
     const shared: UnitVocab[] = [
       { word: 'shared', meaning_ko: '뜻', v_level: 5, first_sentence: null, frequency_in_article: 3 },
