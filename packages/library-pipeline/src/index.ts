@@ -150,6 +150,21 @@ export type { AnswerMode, SchoolBand, SchoolCoverage, SchoolType, SourceNeed } f
 export { PASSAGE_ORIGINS, measureOrigins } from './textbook/passage-origin'
 export type { OriginKey, OriginReport, OriginRight, PassageOrigin } from './textbook/passage-origin'
 export type { ProductionStage, StageReport, StageState } from './textbook/production-stages'
+export {
+  contentWords,
+  evidenceFor,
+  explainInsert,
+  explainOrder,
+  findConnective,
+  findDemonstrative,
+  findFirstMention,
+  findPronoun,
+  insertEvidenceBySlot,
+  isPositional,
+  measureExplainCoverage,
+  orderEvidenceByChoice,
+} from './textbook/explain'
+export type { Evidence, EvidenceKind, ExplainCoverage, Explanation, Relation } from './textbook/explain'
 // 학습자·교사·학부모 3관점 채점표 — 못 재는 것에는 점수를 붙이지 않는다.
 export { UNIT_MINUTES, scoreVolume } from './textbook/scorecard'
 export type { Audience, AutoCheck, HumanCheck, Scorecard } from './textbook/scorecard'

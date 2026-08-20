@@ -74,8 +74,10 @@ describe('PRODUCTION_STAGES', () => {
     }
   })
 
-  it('빠진 세 단계가 상업 교재와의 실제 격차다', () => {
+  it('빠진 단계가 상업 교재와의 실제 격차다', () => {
+    // 해답·해설은 2026-08-21 에 `missing` → `partial` 로 옮겼다(실측 커버리지 6.9%).
+    // "일부라도 있으면 없는 것이 아니다" — 그러나 6.9% 를 `done` 이라 부르지도 않는다.
     const missing = measureStages().missingStages.map((s) => s.label)
-    expect(missing).toEqual(['교정 (초교·재교·삼교)', '해답·해설', '평가·개정'])
+    expect(missing).toEqual(['교정 (초교·재교·삼교)', '평가·개정'])
   })
 })
