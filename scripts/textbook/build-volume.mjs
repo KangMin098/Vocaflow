@@ -27,7 +27,7 @@ const UNITS = Number(arg('units') ?? 20)
 const SHOW = Number(arg('show') ?? 0)
 
 const { createClient } = await import('@supabase/supabase-js')
-const { composeUnits, toCsatOrder, toCsatInsert } = await import('@vocaflow/library-pipeline')
+const { composeUnits, toCsatOrder, toCsatInsert, scoreVolume } = await import('@vocaflow/library-pipeline')
 
 const db = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -133,6 +133,26 @@ if (units.length) {
         u.sources.map((s) => s.slice(0, 16)).join(' · ').slice(0, 74),
       ].join('  '),
     )
+  }
+}
+
+// ── 3관점 채점 ──────────────────────────────────────────────────────
+if (units.length) {
+  const sc = scoreVolume(units)
+  console.log(`
+${'─'.repeat(74)}
+채점 — 자동 ${sc.auto.filter((c) => c.pass).length}/${sc.auto.length} 통과
+`)
+  for (const a of ['learner', 'teacher', 'parent']) {
+    const label = { learner: '학습자', teacher: '교사', parent: '학부모' }[a]
+    for (const c of sc.auto.filter((x) => x.audience === a)) {
+      console.log(`  ${c.pass ? '✅' : '❌'} [${label}] ${c.label.padEnd(30)} ${c.detail}`)
+    }
+  }
+  console.log('\n사람이 봐야 하는 것 (점수 없음):')
+  for (const h of sc.human) {
+    const label = { learner: '학습자', teacher: '교사', parent: '학부모' }[h.audience]
+    console.log(`  ? [${label}] ${h.label} — ${h.question}`)
   }
 }
 
