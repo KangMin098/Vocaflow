@@ -1,0 +1,81 @@
+// packages/library-pipeline/src/textbook/csat-types.test.ts
+//
+// 커버리지 분모의 계약. **분모가 흔들리면 "100%" 가 아무 뜻이 없다.**
+
+import { describe, expect, it } from 'vitest'
+
+import { CSAT_READING_TYPES, measureCoverage } from './csat-types'
+import { PRODUCTION_STAGES, measureStages } from './production-stages'
+
+describe('CSAT_READING_TYPES', () => {
+  it('읽기 28문항을 빠짐없이 덮는다 — 18~45번', () => {
+    const nums = CSAT_READING_TYPES.flatMap((t) => t.numbers).sort((a, b) => a - b)
+    expect(nums).toHaveLength(28)
+    expect(nums[0]).toBe(18)
+    expect(nums[nums.length - 1]).toBe(45)
+    // 번호가 겹치면 커버리지 분모가 부풀려진다.
+    expect(new Set(nums).size).toBe(28)
+  })
+
+  it('번호에 빠진 자리가 없다', () => {
+    const nums = new Set(CSAT_READING_TYPES.flatMap((t) => t.numbers))
+    for (let n = 18; n <= 45; n++) expect(nums.has(n), `${n}번`).toBe(true)
+  })
+
+  it('모든 유형이 근거를 남긴다 — "쉬워 보이는데 왜 없지" 를 막는다', () => {
+    for (const t of CSAT_READING_TYPES) {
+      expect(t.note.length, t.key).toBeGreaterThan(20)
+      expect(t.key).toMatch(/^[a-z_]+$/)
+    }
+  })
+
+  it('구현된 것은 순서·삽입 둘뿐이다 — 실측 기준선', () => {
+    const impl = CSAT_READING_TYPES.filter((t) => t.implemented).map((t) => t.key)
+    expect(impl.sort()).toEqual(['insert', 'order'])
+  })
+})
+
+describe('measureCoverage', () => {
+  it('유형 수와 문항 수를 둘 다 낸다 — 빈칸 4문항과 목적 1문항은 무게가 다르다', () => {
+    const c = measureCoverage()
+    expect(c.types.total).toBe(18)
+    expect(c.types.implemented).toBe(2)
+    expect(c.questions.total).toBe(28)
+    expect(c.questions.implemented).toBe(4) // 순서 2 + 삽입 2
+    expect(c.questions.ratio).toBeCloseTo(4 / 28, 5)
+  })
+
+  it('결정론으로 가능한데 아직 없는 것을 따로 낸다 — 다음에 만들 것', () => {
+    const gap = measureCoverage().deterministicGap.map((t) => t.key)
+    expect(gap.sort()).toEqual(['grammar', 'irrelevant', 'vocabulary'])
+  })
+
+  it('생성 방식별 집계가 총계와 맞는다', () => {
+    const c = measureCoverage()
+    const sum = Object.values(c.byGeneration).reduce((n, g) => n + g.total, 0)
+    expect(sum).toBe(c.types.total)
+  })
+})
+
+describe('PRODUCTION_STAGES', () => {
+  it('출판 실무 8단계를 순서대로 담는다', () => {
+    expect(PRODUCTION_STAGES).toHaveLength(8)
+    expect(PRODUCTION_STAGES.map((s) => s.order)).toEqual([1, 2, 3, 4, 5, 6, 7, 8])
+  })
+
+  it('없는 단계는 대응물이 비어 있고 사유가 있다', () => {
+    for (const s of PRODUCTION_STAGES) {
+      if (s.state === 'missing') {
+        expect(s.ours, s.label).toHaveLength(0)
+        expect(s.gap, s.label).not.toBeNull()
+      }
+      if (s.state === 'done') expect(s.gap, s.label).toBeNull()
+      if (s.state !== 'done') expect(s.gap, s.label).toBeTruthy()
+    }
+  })
+
+  it('빠진 세 단계가 상업 교재와의 실제 격차다', () => {
+    const missing = measureStages().missingStages.map((s) => s.label)
+    expect(missing).toEqual(['교정 (초교·재교·삼교)', '해답·해설', '평가·개정'])
+  })
+})
