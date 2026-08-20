@@ -52,11 +52,21 @@ const items = []
 for (let i = 0; i < ids.length; i += 10) {
   const { data } = await db
     .from('csat_dcp_items')
-    .select('id, type, ref_id, payload, answer_key')
+    .select('id, type, ref_id, paragraph_idx, payload, answer_key')
     .in('ref_id', ids.slice(i, i + 10))
     .limit(20000)
   items.push(...(data ?? []))
 }
+
+// ⚠️ Supabase 는 `.in()` 결과 순서를 보장하지 않는다. 정렬하지 않으면 **같은 재료로
+//   실행할 때마다 다른 교재**가 나온다 — 실측: "어휘 미달 0" 과 "미달 2" 가 번갈아 나왔다.
+//   교재는 재현 가능해야 한다(같은 판이 같은 내용이어야 한다).
+items.sort(
+  (a, b) =>
+    a.ref_id.localeCompare(b.ref_id) ||
+    a.type.localeCompare(b.type) ||
+    (a.paragraph_idx ?? 0) - (b.paragraph_idx ?? 0),
+)
 
 /** 문항이 품은 지문. order 는 presented, insert 는 remaining 이 지문이다. */
 const bodyOf = (it) => {
@@ -97,6 +107,14 @@ for (let i = 0; i < words.length; i += 500) {
     .in('word', words.slice(i, i + 500))
   for (const r of data ?? []) dict.set(r.word, r)
 }
+// 어휘도 같은 이유로 정렬한다 — 같은 빈도일 때 어느 낱말이 먼저 뽑히는지가 갈린다.
+vocabRows.sort(
+  (a, b) =>
+    a.library_article_id.localeCompare(b.library_article_id) ||
+    (b.frequency_in_article ?? 0) - (a.frequency_in_article ?? 0) ||
+    a.word.localeCompare(b.word),
+)
+
 const vocabByRef = new Map()
 for (const v of vocabRows) {
   const d = dict.get(v.word)

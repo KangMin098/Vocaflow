@@ -78,6 +78,15 @@ export const CSAT_ITEM_WORDS = { min: 90, max: 200 } as const
 /** 단원 기본 구성 — 순서 2 + 삽입 2. 실제 수능 배점 비율과 같다. */
 export const DEFAULT_SLOTS = { order: 2, insert: 2 } as const
 
+/**
+ * 한 낱말이 한 권에서 실릴 수 있는 최대 횟수.
+ *
+ * 1(=완전 금지)로 두면 뒤 단원의 어휘가 마른다(실측: 20단원 중 2개가 **0개**).
+ * 2로 두는 근거는 둘이다 — ① 학습원칙 2(Spaced Repetition)상 재등장이 오히려 맞고
+ * ② 실질 재고가 필요량의 9배가 되어 마르지 않는다(1,844×2 vs 400).
+ */
+export const MAX_WORD_APPEARANCES = 2
+
 /** 문항 1개 소요(분). 지문을 읽고 순서를 맞춰야 해서 짧지 않다. */
 export const MINUTES_PER_ITEM = 3
 /** 어휘 1개 소요(분). */
@@ -157,8 +166,8 @@ export function composeUnits(
   }
 
   const used = new Set<string>()
-  // 권 전체에서 이미 실은 낱말 — 단원 간 중복을 막는다.
-  const usedWords = new Set<string>()
+  // 권 전체에서 낱말이 몇 번 실렸는지. **금지가 아니라 상한**이다 — 아래 주석 참조.
+  const wordCount = new Map<string, number>()
   const units: Unit[] = []
   let stoppedBecause: string | null = null
 
@@ -197,11 +206,22 @@ export function composeUnits(
     //   실측: 단원 1의 어휘 12개가 전부 'Black hole'(위키백과) 에서 나왔고
     //   나머지 세 글의 낱말은 하나도 안 실렸다. 학습자는 네 지문을 읽는데
     //   어휘 목록은 한 지문 것만 준 셈이다.
-    // ⚠️ 앞 단원에서 쓴 낱말은 다시 싣지 않는다. 우리 풀은 원글이 적어 같은 글이 여러
-    //   단원에 재등장하는데(실측: 'Black hole' 이 7단원 중 4개에), 단원마다 독립으로
-    //   상위 낱말을 뽑으면 **늘 같은 낱말이 나온다.** 분량만 채우고 새로 배우는 것이 없다.
+    // ⚠️ 낱말 재등장은 **금지가 아니라 상한**이다(`MAX_WORD_APPEARANCES`).
+    //
+    //   처음엔 권 전체에서 한 번만 싣도록 완전히 막았다. 그랬더니 **뒤 두 단원의 어휘가
+    //   0개**가 됐다 — 원글이 적어 뒤 단원은 이미 많이 쓴 글을 다시 받는데, 그 글의
+    //   낱말이 전부 소진돼 있었다.
+    //
+    //   그리고 완전 금지는 이 저장소의 학습 원칙과도 어긋난다 — **Spaced Repetition**
+    //   (학습원칙 2). 같은 낱말이 다른 지문에서 다시 나오는 것은 결함이 아니라 설계다.
+    //   막아야 할 것은 "한 글에서 늘 상위 5개만 나오는 것" 이었지 재등장 자체가 아니었다.
+    //
+    //   실측 근거(V5): 필요 400개(20단원×20) · 밴드±1 재고 1,844개.
+    //   낱말당 2회까지면 실질 재고가 3,688개라 충분하다.
     const notUsed = (ref: string): UnitVocab[] =>
-      (vocabByRef.get(ref) ?? []).filter((v) => !usedWords.has(v.word))
+      (vocabByRef.get(ref) ?? []).filter(
+        (v) => (wordCount.get(v.word) ?? 0) < MAX_WORD_APPEARANCES,
+      )
 
     const perRef = Math.ceil(wantVocab / Math.max(1, refsInUnit.size))
     const quota: UnitVocab[] = []
@@ -220,7 +240,7 @@ export function composeUnits(
       }
       vocabulary = pickVocabulary(dedupeWords([...quota, ...rest]), wantVocab, options.band)
     }
-    for (const v of vocabulary) usedWords.add(v.word)
+    for (const v of vocabulary) wordCount.set(v.word, (wordCount.get(v.word) ?? 0) + 1)
 
     units.push({
       no: n,

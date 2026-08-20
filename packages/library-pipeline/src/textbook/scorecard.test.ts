@@ -50,12 +50,22 @@ describe('scoreVolume', () => {
     expect(s.autoPassRate).toBe(1)
   })
 
-  it('단원 간 어휘 중복을 잡는다', () => {
+  it('낱말이 상한(2회)을 넘으면 잡는다 — 두 번까지는 설계다', () => {
     const dup = words('same', 20)
-    const s = scoreVolume([unit(1, ['a', 'b'], dup), unit(2, ['c', 'd'], dup)])
-    const c = s.auto.find((x) => x.label.includes('두 번 외우게'))!
+    // 2회는 통과 — Spaced Repetition.
+    expect(
+      scoreVolume([unit(1, ['a', 'b'], dup), unit(2, ['c', 'd'], dup)]).auto.find((x) =>
+        x.label.includes('번을 넘지 않는다'),
+      )!.pass,
+    ).toBe(true)
+    // 3회는 실패.
+    const c = scoreVolume([
+      unit(1, ['a', 'b'], dup),
+      unit(2, ['c', 'd'], dup),
+      unit(3, ['e', 'f'], dup),
+    ]).auto.find((x) => x.label.includes('번을 넘지 않는다'))!
     expect(c.pass).toBe(false)
-    expect(c.detail).toContain('중복 20')
+    expect(c.detail).toContain('상한 초과 20')
   })
 
   it('한 단원 안 같은 글 반복을 잡는다', () => {
@@ -67,6 +77,27 @@ describe('scoreVolume', () => {
     const u1 = unit(1, ['a', 'b'], words('x', 20))
     const u2 = { ...unit(2, ['c', 'd'], words('y', 20)), band: 6 }
     expect(scoreVolume([u1, u2]).auto.find((x) => x.label.includes('한 레벨'))!.pass).toBe(false)
+  })
+
+  it('어휘 기준을 **발명하지 않는다** — 목표치는 달성된 최대값이다', () => {
+    // 처음엔 `< 15` 로 판정했는데 그 15에 근거가 없었다(내가 정한 숫자다).
+    //   목표치를 밖에서 가져오면 또 짐작이 되므로, 이 권이 실제로 도달한 값을 기준 삼는다.
+    const s = scoreVolume([
+      unit(1, ['a', 'b'], words('x', 20)),
+      unit(2, ['c', 'd'], words('y', 12)),
+    ])
+    const c = s.auto.find((x) => x.label.includes('어휘가 고르다'))!
+    expect(c.pass).toBe(false)
+    expect(c.detail).toContain('목표(20개) 미달 1')
+    expect(c.detail).toContain('최소 12개')
+  })
+
+  it('모든 단원이 같으면 통과한다 — 적어도 고르다', () => {
+    const s = scoreVolume([
+      unit(1, ['a', 'b'], words('x', 12)),
+      unit(2, ['c', 'd'], words('y', 12)),
+    ])
+    expect(s.auto.find((x) => x.label.includes('어휘가 고르다'))!.pass).toBe(true)
   })
 
   it('20단원 미만은 시중 분량에 못 닿았다고 말한다', () => {

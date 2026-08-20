@@ -8,6 +8,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   CSAT_ITEM_WORDS,
+  MAX_WORD_APPEARANCES,
   DEFAULT_SLOTS,
   composeUnits,
   roundRobinByRef,
@@ -139,17 +140,26 @@ describe('composeUnits', () => {
     expect(owners.size).toBeGreaterThan(1)
   })
 
-  it('앞 단원에서 쓴 낱말을 다시 싣지 않는다 — 권 전체에서 중복 없음', () => {
-    // 실측: 원글이 적어 같은 글이 여러 단원에 재등장하는데, 단원마다 독립으로 뽑으면
-    //   늘 같은 낱말이 나온다. 분량만 채우고 새로 배우는 것이 없다.
+  it('낱말 재등장은 금지가 아니라 상한이다 — 권 전체에서 최대 2회', () => {
+    // 완전 금지로 뒀더니 뒤 두 단원의 어휘가 **0개**가 됐다(실측 V5 20단원).
+    //   그리고 완전 금지는 학습원칙 2(Spaced Repetition)와도 어긋난다 —
+    //   같은 낱말이 다른 지문에서 다시 나오는 것은 결함이 아니라 설계다.
     const { units } = composeUnits(pool(8, 5), vocabFor(8), { band: 5, unitCount: 4 })
     expect(units.length).toBeGreaterThanOrEqual(2)
-    const seen = new Set<string>()
+    const seen = new Map<string, number>()
     for (const u of units) {
-      for (const v of u.vocabulary) {
-        expect(seen.has(v.word), `${v.word} 가 두 번 실렸다`).toBe(false)
-        seen.add(v.word)
-      }
+      for (const v of u.vocabulary) seen.set(v.word, (seen.get(v.word) ?? 0) + 1)
+    }
+    for (const [w, n] of seen) {
+      expect(n, `${w} 가 ${n}번 실렸다`).toBeLessThanOrEqual(MAX_WORD_APPEARANCES)
+    }
+  })
+
+  it('한 단원 안에서는 같은 낱말이 두 번 나오지 않는다', () => {
+    const { units } = composeUnits(pool(8, 5), vocabFor(8), { band: 5, unitCount: 3 })
+    for (const u of units) {
+      const w = u.vocabulary.map((v) => v.word)
+      expect(new Set(w).size, `단원 ${u.no}`).toBe(w.length)
     }
   })
 

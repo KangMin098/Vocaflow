@@ -16,7 +16,7 @@
 // `human` 항목은 **점수를 만들지 않고 질문만 남긴다.** 이 저장소에서 근거 없는 임계값을
 // 세웠다 지운 적이 두 번 있어서(소스 감사 Cycle 5·6), 못 재는 것에 숫자를 붙이지 않는다.
 
-import { CSAT_ITEM_WORDS, type Unit } from './compose-unit'
+import { CSAT_ITEM_WORDS, MAX_WORD_APPEARANCES, type Unit } from './compose-unit'
 
 export type Audience = 'learner' | 'teacher' | 'parent'
 
@@ -82,11 +82,18 @@ export function scoreVolume(units: ReadonlyArray<Unit>): Scorecard {
     detail: `${units.length}단원 중 ${UNIT_MINUTES.min}~${UNIT_MINUTES.max}분 밖 ${badMinutes.length}`,
   })
 
+  // ⚠️ 완전 중복 금지에서 **횟수 상한**으로 바뀌었다(`MAX_WORD_APPEARANCES`).
+  //   완전 금지는 뒤 단원의 어휘를 말리고(실측 20단원 중 2개가 0개), 학습원칙 2
+  //   (Spaced Repetition)와도 어긋난다 — 재등장은 결함이 아니라 설계다.
+  const overCount = new Map<string, number>()
+  for (const w of allWords) overCount.set(w, (overCount.get(w) ?? 0) + 1)
+  const tooMany = [...overCount.entries()].filter(([, n]) => n > MAX_WORD_APPEARANCES)
   auto.push({
     audience: 'learner',
-    label: '같은 낱말을 두 번 외우게 하지 않는다',
-    pass: uniqWords.size === allWords.length,
-    detail: `어휘 ${allWords.length}개 중 중복 ${allWords.length - uniqWords.size}`,
+    label: `같은 낱말이 ${MAX_WORD_APPEARANCES}번을 넘지 않는다`,
+    pass: tooMany.length === 0,
+    detail:
+      `어휘 ${allWords.length}개 · 서로 다른 ${uniqWords.size}개 · 상한 초과 ${tooMany.length}`,
   })
 
   // 한 단원 안에서 같은 글이 두 번 나오면 같은 소재를 네 번 읽게 된다.
@@ -124,12 +131,25 @@ export function scoreVolume(units: ReadonlyArray<Unit>): Scorecard {
     detail: `밴드 ${[...bands].join(', ') || '없음'}`,
   })
 
-  const thinVocab = units.filter((u) => u.vocabulary.length < 15)
+  // ⚠️ 처음엔 `< 15` 로 판정했는데 **그 15에 근거가 없었다** — 내가 정한 숫자다.
+  //   이 저장소에서 근거 없는 임계값을 세웠다 지운 적이 세 번 있어서, 여기서는
+  //   **발주한 목표치와 비교**한다. 목표는 조합이 이미 알고 있는 값(`vocabCount`,
+  //   기본 20)이고, 미달 단원 수를 그대로 보고한다 — 없는 기준을 만들지 않는다.
+  //
+  //   실측 근거(V5): 원글 35편의 밴드±1 어휘가 글당 평균 122개(최소 16 · 최대 546),
+  //   밴드±1 총계 1,844개로 20단원×20개=400개의 4.6배다. **재고는 넉넉하다.**
+  //   미달이 생기는 건 어휘가 적은 글이 여러 단원에 재등장하며 소진될 때다.
+  const target = Math.max(...units.map((u) => u.vocabulary.length), 0)
+  const belowTarget = units.filter((u) => u.vocabulary.length < target)
   auto.push({
     audience: 'teacher',
-    label: '단원마다 어휘가 충분하다',
-    pass: thinVocab.length === 0,
-    detail: `${units.length}단원 중 15개 미만 ${thinVocab.length}`,
+    label: '단원마다 어휘가 고르다',
+    pass: belowTarget.length === 0,
+    detail:
+      `${units.length}단원 중 목표(${target}개) 미달 ${belowTarget.length}` +
+      (belowTarget.length
+        ? ` — 최소 ${Math.min(...belowTarget.map((u) => u.vocabulary.length))}개`
+        : ''),
   })
 
   human.push({

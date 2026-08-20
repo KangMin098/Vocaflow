@@ -160,6 +160,7 @@ export type { CsatInsertItem, CsatOrderItem } from './textbook/csat-format'
 export {
   CSAT_ITEM_WORDS,
   DEFAULT_SLOTS,
+  MAX_WORD_APPEARANCES,
   composeUnits,
   roundRobinByRef,
 } from './textbook/compose-unit'
