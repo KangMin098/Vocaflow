@@ -23,7 +23,7 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
 }
 
 const { createClient } = await import('@supabase/supabase-js')
-const { generateDcpItems, toCsatOrder, toCsatInsert, CSAT_ITEM_WORDS } = await import(
+const { generateDcpItems, toCsatOrder, toCsatInsert, CSAT_ITEM_WORDS, composeUnits } = await import(
   '@vocaflow/library-pipeline'
 )
 
@@ -54,6 +54,29 @@ function usable(it) {
   return csat !== null
 }
 
+// 밴드별 문항 풀 — **공식으로 어림하지 않고 실제 조합기를 돌린다.**
+//   처음엔 min(order/2, insert/2, refs/2) 로 상한을 계산했는데 **실제보다 낮게 나왔다**
+//   (V6 을 6단원으로 잡았으나 실제 조합은 17단원). 원글은 여러 단원에 재사용되므로
+//   refs/2 가 상한이 아니다. 어림 공식은 버리고 같은 함수를 쓴다.
+const poolByBand = new Map()
+const addToPool = (status, band, it, art) => {
+  const key = `${status}|${band}`
+  if (!poolByBand.has(key)) poolByBand.set(key, [])
+  const body = it.type === 'order' ? it.payload.presented : it.payload.remaining
+  poolByBand.get(key).push({
+    id: `${art.id}:${it.type}:${it.paragraph_idx}`,
+    type: it.type,
+    ref_id: art.id,
+    ref_title: art.title ?? '',
+    v_level: band,
+    passage_text: body.join(' ') + ' ' + (it.payload.insert_sentence ?? ''),
+    passage_words: body.join(' ').split(/\s+/).filter(Boolean).length,
+    body_sentences: body.length,
+    payload: it.payload,
+    answer_key: it.answer_key,
+  })
+}
+
 const byStatusBand = new Map()
 for (const a of rows) {
   // ND 는 본문을 실을 수 없다 — 발행해도 교재에 못 쓴다.
@@ -71,11 +94,20 @@ for (const a of rows) {
   const s = items.filter((i) => i.type === 'insert').length
   bucket.order += o
   bucket.insert += s
-  if (s > 0) bucket.refs.add(a.id) // 삽입 원글 — 이게 단원 수의 병목이다
+  if (s > 0) bucket.refs.add(a.id)
+  // published 만 / published+ready 두 벌에 담는다 — 발행 전후를 같은 함수로 비교한다.
+  for (const it of items) {
+    if (a.status === 'published') addToPool('published', band, it, a)
+    addToPool('all', band, it, a)
+  }
 }
 
-/** 단원 수 상한 — 단원마다 삽입 2개가 서로 다른 원글에서 와야 한다. */
-const unitCap = (b) => Math.min(Math.floor(b.order / 2), Math.floor(b.insert / 2), Math.floor(b.refs.size / 2))
+/** 그 풀로 실제 몇 단원이 나오는가 — 어림이 아니라 조합기가 답한다. */
+const realUnits = (status, band) => {
+  const pool = poolByBand.get(`${status}|${band}`) ?? []
+  if (!pool.length) return 0
+  return composeUnits(pool, new Map(), { band, unitCount: 999, vocabCount: 0 }).units.length
+}
 
 const rowsOut = [...byStatusBand.values()].sort((a, b) => a.band - b.band || a.status.localeCompare(b.status))
 console.log(['상태'.padEnd(10), 'V', '글수', '순서', '삽입', '삽입원글', '단원상한'].join('  '))
@@ -88,24 +120,24 @@ for (const b of rowsOut) {
       String(b.order).padStart(4),
       String(b.insert).padStart(4),
       String(b.refs.size).padStart(8),
-      String(unitCap(b)).padStart(8),
+      String(realUnits(b.status === 'published' ? 'published' : 'all', b.band)).padStart(8),
     ].join('  '),
   )
 }
 
 // 발행 전후 비교 — 이 표가 "발행할 값이 있는가" 에 답한다.
-const sum = (pred) =>
+const bands = [...new Set(rowsOut.map((b) => b.band))]
+const sum = (status, pred) =>
   rowsOut.filter(pred).reduce(
     (acc, b) => {
       acc.order += b.order
       acc.insert += b.insert
-      acc.units += unitCap(b)
       return acc
     },
-    { order: 0, insert: 0, units: 0 },
+    { order: 0, insert: 0, units: bands.reduce((n, band) => n + realUnits(status, band), 0) },
   )
-const now = sum((b) => b.status === 'published')
-const after = sum(() => true)
+const now = sum('published', (b) => b.status === 'published')
+const after = sum('all', () => true)
 console.log(`\n지금(published만)  순서 ${now.order} · 삽입 ${now.insert} · **단원 ${now.units}**`)
 console.log(`ready 까지 발행하면 순서 ${after.order} · 삽입 ${after.insert} · **단원 ${after.units}**`)
 console.log(`\n늘어나는 단원: ${after.units - now.units}`)
