@@ -16,13 +16,19 @@ import {
 import { type UnitVocab } from './assemble-unit'
 
 let seq = 0
-const item = (type: 'order' | 'insert', ref: string, words = 114): PoolItem => ({
+const item = (
+  type: 'order' | 'insert',
+  ref: string,
+  words = 114,
+  sentences = type === 'insert' ? 5 : 5,
+): PoolItem => ({
   id: `i${seq++}`,
   type,
   ref_id: ref,
   ref_title: `글 ${ref}`,
   v_level: 5,
   passage_words: words,
+  body_sentences: sentences,
   payload: {},
   answer_key: {},
 })
@@ -82,6 +88,14 @@ describe('composeUnits', () => {
     expect(rejected.tooShort).toBe(1)
     expect(rejected.tooLong).toBe(1)
     expect(CSAT_ITEM_WORDS.min).toBe(90)
+  })
+
+  it('수능 형식으로 못 바꾸는 삽입은 조합 전에 뺀다', () => {
+    // 삽입은 지문이 5문장이어야 ①~⑤ 가 된다. 4문장짜리를 넣으면 단원에 "변환 불가"
+    //   자리가 생기고, 그건 교재로 나갈 수 없다 — 조합한 뒤가 아니라 **앞에서** 거른다.
+    const p = [...pool(8, 2), item('insert', 'rZ', 114, 4)]
+    const { rejected } = composeUnits(p, vocabFor(8), { band: 5, unitCount: 1 })
+    expect(rejected.wrongFormat).toBe(1)
   })
 
   it('원글이 모자라면 멈추고 **이유를 말한다**', () => {

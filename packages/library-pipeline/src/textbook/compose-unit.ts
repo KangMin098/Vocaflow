@@ -21,6 +21,7 @@
 // 그래서 단원은 "지문에서 뽑는" 것이 아니라 **"풀에서 고르는"** 것이다.
 
 import { type UnitVocab, pickVocabulary } from './assemble-unit'
+import { CSAT_INSERT_BODY_SENTENCES } from './csat-format'
 
 export type UnitItemType = 'order' | 'insert'
 
@@ -34,6 +35,13 @@ export interface PoolItem {
   v_level: number | null
   /** 문항이 품은 지문의 낱말 수. */
   passage_words: number
+  /**
+   * 문항이 품은 지문의 문장 수.
+   *
+   * **삽입은 이 값이 5 여야 수능 ①~⑤ 가 된다**(6문장 문단에서 1개를 뺀 것).
+   * 4·5문장 문단은 자리가 3·4곳이라 실전과 다른 형식을 연습시키게 된다.
+   */
+  body_sentences: number
   payload: Record<string, unknown>
   answer_key: Record<string, unknown>
 }
@@ -53,7 +61,7 @@ export interface ComposeResult {
   /** 왜 더 못 만들었는지. 조용히 짧은 권을 내지 않는다. */
   stoppedBecause: string | null
   /** 규격 밖이라 쓰지 않은 문항 수 — 유형별. */
-  rejected: { tooShort: number; tooLong: number }
+  rejected: { tooShort: number; tooLong: number; wrongFormat: number }
 }
 
 /**
@@ -104,6 +112,7 @@ export function composeUnits(
 
   let tooShort = 0
   let tooLong = 0
+  let wrongFormat = 0
   const fit = pool.filter((p) => {
     if (p.passage_words < CSAT_ITEM_WORDS.min) {
       tooShort++
@@ -111,6 +120,16 @@ export function composeUnits(
     }
     if (p.passage_words > CSAT_ITEM_WORDS.max) {
       tooLong++
+      return false
+    }
+    // 수능 인쇄 형식으로 바꿀 수 없는 것은 여기서 뺀다 — 조합한 뒤에 발견하면
+    //   단원에 "변환 불가" 자리가 생기고, 그건 교재로 나갈 수 없다.
+    if (p.type === 'insert' && p.body_sentences !== CSAT_INSERT_BODY_SENTENCES) {
+      wrongFormat++
+      return false
+    }
+    if (p.type === 'order' && p.body_sentences < 4) {
+      wrongFormat++
       return false
     }
     return true
@@ -185,7 +204,7 @@ export function composeUnits(
   if (!stoppedBecause && units.length < wantUnits) {
     stoppedBecause = `${units.length}단원만 만들었다.`
   }
-  return { units, stoppedBecause, rejected: { tooShort, tooLong } }
+  return { units, stoppedBecause, rejected: { tooShort, tooLong, wrongFormat } }
 }
 
 /**

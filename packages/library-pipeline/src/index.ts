@@ -141,6 +141,15 @@ export type { ReadingLoad } from './analyze/reading-load'
 // lemma 추출 — Claude Code 사전 드레인이 기사와 **같은 추출기**를 써야 한다.
 //   따로 만들면 드레인이 채운 낱말과 파이프라인이 찾는 낱말이 어긋난다.
 // 독해 교재 단원 조립 — 지문 + 문항 + 어휘를 하나로 묶는다.
+// 수능 인쇄 형식 변환 — 저장 형식·학습 화면은 그대로 두고 표현만 바꾼다.
+export {
+  CSAT_INSERT_BODY_SENTENCES,
+  ORDER_PERMS,
+  splitIntoThree,
+  toCsatInsert,
+  toCsatOrder,
+} from './textbook/csat-format'
+export type { CsatInsertItem, CsatOrderItem } from './textbook/csat-format'
 // 풀 기반 단원 조합 — 문항 자체가 수능 규격 지문이다(실측 중앙값 114어).
 export {
   CSAT_ITEM_WORDS,

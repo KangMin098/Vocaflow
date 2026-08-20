@@ -27,7 +27,7 @@ const UNITS = Number(arg('units') ?? 20)
 const SHOW = Number(arg('show') ?? 0)
 
 const { createClient } = await import('@supabase/supabase-js')
-const { composeUnits } = await import('@vocaflow/library-pipeline')
+const { composeUnits, toCsatOrder, toCsatInsert } = await import('@vocaflow/library-pipeline')
 
 const db = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -58,12 +58,12 @@ for (let i = 0; i < ids.length; i += 10) {
   items.push(...(data ?? []))
 }
 
-/** 문항이 품은 지문의 낱말 수. order 는 presented, insert 는 remaining 이 지문이다. */
-const passageWords = (it) => {
+/** 문항이 품은 지문. order 는 presented, insert 는 remaining 이 지문이다. */
+const bodyOf = (it) => {
   const arr = it.type === 'order' ? it.payload?.presented : it.payload?.remaining
-  if (!Array.isArray(arr)) return 0
-  return arr.join(' ').split(/\s+/).filter(Boolean).length
+  return Array.isArray(arr) ? arr : []
 }
+const passageWords = (it) => bodyOf(it).join(' ').split(/\s+/).filter(Boolean).length
 
 const pool = items.map((it) => ({
   id: it.id,
@@ -72,6 +72,7 @@ const pool = items.map((it) => ({
   ref_title: titleById.get(it.ref_id) ?? '(제목 없음)',
   v_level: BAND,
   passage_words: passageWords(it),
+  body_sentences: bodyOf(it).length,
   payload: it.payload ?? {},
   answer_key: it.answer_key ?? {},
 }))
@@ -114,7 +115,7 @@ const { units, stoppedBecause, rejected } = composeUnits(pool, vocabByRef, {
 })
 
 console.log(`V${BAND} — 원글 ${ids.length}편 · 문항 풀 ${pool.length}`)
-console.log(`규격 밖으로 거른 문항: 짧음 ${rejected.tooShort} · 김 ${rejected.tooLong}`)
+console.log(`거른 문항: 짧음 ${rejected.tooShort} · 김 ${rejected.tooLong} · 수능형식불가 ${rejected.wrongFormat}`)
 console.log(`\n**조합된 단원 ${units.length} / 목표 ${UNITS}**`)
 if (stoppedBecause) console.log(`  ${stoppedBecause}`)
 
@@ -137,20 +138,40 @@ if (units.length) {
 if (SHOW > 0 && units[SHOW - 1]) {
   const u = units[SHOW - 1]
   console.log(`\n${'─'.repeat(74)}\n[단원 ${u.no}] V${u.band} · 약 ${u.estimated_minutes}분\n`)
+  const circled = '①②③④⑤'
   u.items.forEach((it, i) => {
-    const label = it.type === 'order' ? '순서' : '삽입'
-    console.log(`${i + 1}. ${label} — ${it.ref_title} (${it.passage_words}어)`)
-    if (it.type === 'order') {
-      const p = it.payload.presented ?? []
-      p.forEach((s, k) => console.log(`   (${'ABCDE'[k] ?? k}) ${String(s).slice(0, 68)}`))
-      console.log(`   정답 순서: ${JSON.stringify(it.answer_key.source_order ?? it.answer_key)}`)
-    } else {
-      console.log(`   [넣을 문장] ${String(it.payload.insert_sentence ?? '').slice(0, 68)}`)
-      const r = it.payload.remaining ?? []
-      r.forEach((s, k) => console.log(`   (${k}) ${String(s).slice(0, 68)}`))
-      console.log(`   정답 위치: ${JSON.stringify(it.answer_key.position ?? it.answer_key)}`)
+    // 수능 인쇄 형식으로 바꾼다 — 저장 형식과 학습 화면은 그대로 두고 표현만 바꾼다.
+    const csat =
+      it.type === 'order'
+        ? toCsatOrder(it.payload.presented ?? [], it.answer_key.source_order ?? [])
+        : toCsatInsert(
+            it.payload.remaining ?? [],
+            it.payload.insert_sentence ?? '',
+            it.answer_key.position ?? -1,
+          )
+
+    if (csat && csat.kind === 'order') {
+      console.log(`${i + 1}. 글의 순서 — ${it.ref_title} (${it.passage_words}어)`)
+      console.log(`   [도입] ${String(csat.intro).slice(0, 66)}`)
+      for (const b of csat.blocks) {
+        console.log(`   (${b.label}) ${b.sentences.join(' ').slice(0, 64)}`)
+      }
+      csat.choices.forEach((c, k) => console.log(`     ${circled[k]} (${c.join(')-(')})`))
+      console.log(`   정답: ${circled[csat.answer - 1]}\n`)
+      return
     }
-    console.log('')
+
+    if (csat && csat.kind === 'insert') {
+      console.log(`${i + 1}. 문장 삽입 — ${it.ref_title} (${it.passage_words}어)`)
+      console.log(`   [넣을 문장] ${String(csat.sentence).slice(0, 64)}`)
+      csat.body.forEach((b, k) => console.log(`   ${circled[k]} ${String(b).slice(0, 64)}`))
+      console.log(`   정답: ${circled[csat.answer - 1]}\n`)
+      return
+    }
+
+    // 변환 실패는 조용히 넘기지 않는다 — 자리 수가 5곳이 아니면 교재에 실을 수 없다.
+    const why = it.type === 'insert' ? '자리가 5곳이 아니다(6문장 문단만 가능)' : '문장이 4개 미만'
+    console.log(`${i + 1}. ${it.type} — **수능 형식 변환 불가**: ${why}\n`)
   })
   console.log('[어휘]')
   u.vocabulary.slice(0, 12).forEach((v) =>
