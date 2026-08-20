@@ -21,7 +21,7 @@
 // 그래서 단원은 "지문에서 뽑는" 것이 아니라 **"풀에서 고르는"** 것이다.
 
 import { type UnitVocab, pickVocabulary } from './assemble-unit'
-import { CSAT_INSERT_BODY_SENTENCES } from './csat-format'
+import { CSAT_INSERT_BODY_SENTENCES, hasCitationResidue } from './csat-format'
 
 export type UnitItemType = 'order' | 'insert'
 
@@ -33,6 +33,8 @@ export interface PoolItem {
   ref_id: string
   ref_title: string
   v_level: number | null
+  /** 문항이 품은 지문. 인용 잔해 검사에 쓴다. */
+  passage_text: string
   /** 문항이 품은 지문의 낱말 수. */
   passage_words: number
   /**
@@ -61,7 +63,7 @@ export interface ComposeResult {
   /** 왜 더 못 만들었는지. 조용히 짧은 권을 내지 않는다. */
   stoppedBecause: string | null
   /** 규격 밖이라 쓰지 않은 문항 수 — 유형별. */
-  rejected: { tooShort: number; tooLong: number; wrongFormat: number }
+  rejected: { tooShort: number; tooLong: number; wrongFormat: number; residue: number }
 }
 
 /**
@@ -113,6 +115,7 @@ export function composeUnits(
   let tooShort = 0
   let tooLong = 0
   let wrongFormat = 0
+  let residue = 0
   const fit = pool.filter((p) => {
     if (p.passage_words < CSAT_ITEM_WORDS.min) {
       tooShort++
@@ -130,6 +133,12 @@ export function composeUnits(
     }
     if (p.type === 'order' && p.body_sentences < 4) {
       wrongFormat++
+      return false
+    }
+    // 학술 인용 잔해(`[]`·`[12]`)가 있으면 교재에 인쇄될 수 없다.
+    //   실측 758개 중 64개(8.4%) — 전부 PLOS 논문이었다.
+    if (hasCitationResidue(p.passage_text)) {
+      residue++
       return false
     }
     return true
@@ -204,7 +213,7 @@ export function composeUnits(
   if (!stoppedBecause && units.length < wantUnits) {
     stoppedBecause = `${units.length}단원만 만들었다.`
   }
-  return { units, stoppedBecause, rejected: { tooShort, tooLong, wrongFormat } }
+  return { units, stoppedBecause, rejected: { tooShort, tooLong, wrongFormat, residue } }
 }
 
 /**

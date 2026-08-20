@@ -25,6 +25,29 @@
 // ⚠️ 이 제약을 지키지 않으면 자리 수가 문항마다 달라지고, 학습자는 실전에서 만나는
 //   ①~⑤ 대신 ①~③ 을 연습하게 된다. 형식이 다르면 연습 효과가 반감된다.
 
+/**
+ * 학술 인용 잔해 — 교재 지문에 그대로 인쇄되면 안 되는 흔적.
+ *
+ * ── 실측 2026-08-21 ─────────────────────────────────────────────────
+ * 문항 758개 중 **64개(8.4%)** 에 이런 잔해가 있었고 **전부 PLOS**(논문)였다.
+ * 실물:
+ *
+ *     [넣을 문장] [] trained the model using a sample set and 71 features
+ *
+ * `[]` 는 논문의 `[12]` 같은 인용 번호에서 링크 텍스트만 사라진 자국이다(62건).
+ * 나머지는 `[3]` 형태(2건)와 연도 괄호다.
+ *
+ * ⚠️ **어휘 난이도로는 논문을 못 가른다.** 고난도 어휘(V9+·미등재) 비율을 재 봤더니
+ *   plos 13.6%(최소 8.4) 인데 wikipedia 23.5% · nasa 9.9% · usgs 8.7% 로 **분포가 겹친다.**
+ *   지표를 세우려다 실측으로 기각했다. 확실히 잡히는 것은 이 패턴 하나뿐이다.
+ */
+const CITATION_RESIDUE = /\[\s*\]|\[\s*\d+\s*[,\-–]?\s*\d*\s*\]/
+
+/** 인용 잔해가 있으면 교재에 실을 수 없다. */
+export function hasCitationResidue(text: string): boolean {
+  return CITATION_RESIDUE.test(text)
+}
+
 /** 수능 순서 문항 — 도입문 + (A)(B)(C) + 5지선다. */
 export interface CsatOrderItem {
   kind: 'order'
@@ -63,6 +86,8 @@ export function toCsatOrder(
 ): CsatOrderItem | null {
   const n = presented.length
   if (n < 4 || n !== sourceOrder.length) return null
+  // 인용 잔해가 있으면 교재에 실을 수 없다 — 변환 자체를 막는다.
+  if (hasCitationResidue(presented.join(' '))) return null
 
   // 원문 복원 — 원문[i] 는 presented 에서 sourceOrder 가 i 인 자리에 있다.
   const original: string[] = new Array(n)
@@ -113,6 +138,7 @@ export function toCsatInsert(
   position: number,
 ): CsatInsertItem | null {
   if (remaining.length !== CSAT_INSERT_BODY_SENTENCES) return null
+  if (hasCitationResidue(remaining.join(' ') + ' ' + insertSentence)) return null
   // position 은 원문에서 제거된 인덱스(1..n-1). n=6 이므로 1~5 가 그대로 ①~⑤ 다.
   if (position < 1 || position > CSAT_INSERT_BODY_SENTENCES) return null
   return {

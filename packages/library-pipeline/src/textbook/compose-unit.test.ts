@@ -27,6 +27,7 @@ const item = (
   ref_id: ref,
   ref_title: `글 ${ref}`,
   v_level: 5,
+  passage_text: 'Clean prose sentence.',
   passage_words: words,
   body_sentences: sentences,
   payload: {},

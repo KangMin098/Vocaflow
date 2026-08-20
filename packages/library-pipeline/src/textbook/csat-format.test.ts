@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   CSAT_INSERT_BODY_SENTENCES,
+  hasCitationResidue,
   ORDER_PERMS,
   splitIntoThree,
   toCsatInsert,
@@ -95,6 +96,32 @@ describe('toCsatInsert', () => {
   it('범위 밖 정답은 거부한다', () => {
     expect(toCsatInsert(body, 'X.', 0)).toBeNull()
     expect(toCsatInsert(body, 'X.', 6)).toBeNull()
+  })
+})
+
+describe('hasCitationResidue', () => {
+  it('논문 인용 잔해를 잡는다 — 실물 사례', () => {
+    // 실측: 문항 758개 중 64개에 있었고 전부 PLOS 였다.
+    expect(hasCitationResidue('[] trained the model using a sample set and 71 features')).toBe(true)
+    expect(hasCitationResidue('as shown by earlier work [12].')).toBe(true)
+    expect(hasCitationResidue('see [3, 4] for details')).toBe(true)
+  })
+
+  it('평범한 문장은 통과시킨다', () => {
+    for (const s of [
+      'Bees pollinate most of the crops we eat.',
+      'The bracket [ was never closed.',
+      'He said "wait" and left.',
+    ]) {
+      expect(hasCitationResidue(s), s).toBe(false)
+    }
+  })
+
+  it('잔해가 있으면 변환 자체를 막는다 — 교재에 인쇄될 수 없다', () => {
+    const body = ['A [] b.', 'B.', 'C.', 'D.', 'E.']
+    expect(toCsatInsert(body, 'X.', 3)).toBeNull()
+    const presented = ['P [12] q.', 'Q.', 'R.', 'S.']
+    expect(toCsatOrder(presented, [0, 1, 2, 3])).toBeNull()
   })
 })
 

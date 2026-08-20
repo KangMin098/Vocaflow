@@ -71,6 +71,7 @@ const pool = items.map((it) => ({
   ref_id: it.ref_id,
   ref_title: titleById.get(it.ref_id) ?? '(제목 없음)',
   v_level: BAND,
+  passage_text: bodyOf(it).join(' ') + ' ' + (it.payload?.insert_sentence ?? ''),
   passage_words: passageWords(it),
   body_sentences: bodyOf(it).length,
   payload: it.payload ?? {},
@@ -115,7 +116,7 @@ const { units, stoppedBecause, rejected } = composeUnits(pool, vocabByRef, {
 })
 
 console.log(`V${BAND} — 원글 ${ids.length}편 · 문항 풀 ${pool.length}`)
-console.log(`거른 문항: 짧음 ${rejected.tooShort} · 김 ${rejected.tooLong} · 수능형식불가 ${rejected.wrongFormat}`)
+console.log(`거른 문항: 짧음 ${rejected.tooShort} · 김 ${rejected.tooLong} · 수능형식불가 ${rejected.wrongFormat} · 인용잔해 ${rejected.residue}`)
 console.log(`\n**조합된 단원 ${units.length} / 목표 ${UNITS}**`)
 if (stoppedBecause) console.log(`  ${stoppedBecause}`)
 

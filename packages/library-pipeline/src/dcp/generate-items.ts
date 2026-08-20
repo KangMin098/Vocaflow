@@ -46,12 +46,23 @@ const ANCHOR_BAD =
 const BOILERPLATE =
   /\b(cited as|retrieved from|published online|licensed under|creative ?commons|ourworldindata|https?:\/\/|www\.|doi:|all rights reserved|figure \d|table \d|source:|data source|see chart|image credit)\b/i
 
+// 학술 인용 잔해 — 논문 본문의 `[12]` 에서 링크 텍스트만 사라지면 `[]` 가 남는다.
+//   실측 2026-08-21: 저장된 문항 758개 중 **64개(8.4%)** 에 있었고 **전부 PLOS** 였다.
+//   교재에 그대로 인쇄되면 학습자가 무엇인지 알 수 없고, 순서·삽입 판단에도 방해가 된다.
+//   실물: "[] trained the model using a sample set and 71 features"
+//
+// ⚠️ 논문을 어휘 난이도로 가르려다 실패했다 — 고난도 어휘(V9+·미등재) 비율이
+//   plos 13.6%(최소 8.4) · wikipedia 23.5% · nasa 9.9% · usgs 8.7% 로 분포가 겹친다.
+//   확실히 잡히는 것은 이 패턴 하나뿐이다.
+const CITATION_RESIDUE = /\[\s*\]|\[\s*\d+\s*[,\-–]?\s*\d*\s*\]/
+
 /** 문단 적격 — 4~6문장 · 각 문장 6단어+ · 첫 문장 앵커 양호 · 보일러플레이트 아님. */
 function isEligible(sentences: string[]): boolean {
   if (sentences.length < 4 || sentences.length > 6) return false
   if (sentences.some((s) => wordCount(s) < 6)) return false
   if (ANCHOR_BAD.test(sentences[0]!)) return false
   if (BOILERPLATE.test(sentences.join(' '))) return false
+  if (CITATION_RESIDUE.test(sentences.join(' '))) return false
   return true
 }
 
