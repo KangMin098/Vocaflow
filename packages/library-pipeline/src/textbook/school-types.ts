@@ -181,8 +181,15 @@ export const SCHOOL_TYPES: readonly SchoolType[] = [
     generation: 'deterministic',
     answerMode: 'short',
     sourceNeed: 'any',
-    implemented: false,
-    note: '본문에서 낱말 하나를 지운다. 정답이 원문이라 확정된다.',
+    implemented: true,
+    note:
+      '`buildBlankWord` — 본문에서 낱말 하나를 지운다. 정답이 원문이라 확정된다. ' +
+      '⚠️ **지우기만 하면 확정되지 않는다** — "She ___ the door" 는 opened·closed·locked 가 다 된다. ' +
+      '그래서 **첫 글자 + 우리말 뜻**을 단서로 준다. 둘이 붙어야 답이 하나로 좁혀지고, ' +
+      '단서 없이 내면 채점이 갈려 문항이 아니라 함정이 된다. ' +
+      '기능어는 지우지 않고(문법이 자리를 정해 주거나 다른 기능어도 들어간다), ' +
+      '같은 낱말이 두 번 나오는 문장도 버린다(다른 자리도 답이 된다). ' +
+      '실측 수율 **19,177/34,337 문장 = 55.8%** (밴드별 V2 74.1% → V7 41.9%, 2026-08-21).',
   },
   {
     key: 'grammar_fix',
@@ -191,8 +198,12 @@ export const SCHOOL_TYPES: readonly SchoolType[] = [
     generation: 'deterministic',
     answerMode: 'short',
     sourceNeed: 'any',
-    implemented: false,
-    note: '규칙으로 문장을 망가뜨리고 되돌리게 한다. 망가뜨린 쪽을 우리가 알므로 정답이 확정된다.',
+    implemented: true,
+    note:
+      '`buildGrammarFix` — 규칙으로 문장을 망가뜨리고 되돌리게 한다. 망가뜨린 쪽을 우리가 알므로 정답이 확정된다. ' +
+      '규칙 판정은 어법 선택(29번)의 `candidateAt` 을 **그대로 재사용**한다 — 재구현하면 두 유형의 판정이 조용히 갈라진다. ' +
+      '⚠️ **망가뜨릴 자리가 정확히 하나일 때만** 낸다. 둘 이상이면 학습자가 다른 쪽을 고쳐도 맞는 답인데 채점은 틀렸다고 한다. ' +
+      '실측 수율 **6,373/34,337 문장 = 18.6%** (2026-08-21).',
   },
 
   // ── 고등 내신 — 교과서·부교재 지문 변형 ─────────────────────────

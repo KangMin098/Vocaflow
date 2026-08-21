@@ -87,6 +87,14 @@ export type { FuturityListItem } from './ingest-article/futurity'
 export type { NoaaListItem } from './ingest-article/noaa'
 // CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
 export { generateDcpItems, explainDcpEligibility } from './dcp/generate-items'
+// 교재 — 중등 내신 단답 2종 (빈칸에 낱말 쓰기 · 어법 틀린 것 고쳐 쓰기). 결정론·자동채점.
+export {
+  buildBlankWord,
+  buildGrammarFix,
+  BLANK_WORD_LEN,
+  MIDDLE_SENTENCE_WORDS,
+} from './textbook/middle-short'
+export type { MiddleShortItem } from './textbook/middle-short'
 export type { DcpParagraphDiagnosis } from './dcp/generate-items'
 export type { DcpItem, DcpItemType } from './dcp/generate-items'
 // ACP §18 §4-C — 텍스트 청결(어휘 노이즈) 산출

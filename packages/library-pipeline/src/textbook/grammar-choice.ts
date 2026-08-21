@@ -127,7 +127,7 @@ export function looksPlural(noun: string): boolean | null {
   return false
 }
 
-interface Candidate {
+export interface Candidate {
   sentenceIdx: number
   tokenIdx: number
   token: string
@@ -137,7 +137,7 @@ interface Candidate {
 }
 
 /** 이 자리를 반드시 틀리게 만들 수 있는가. 확인이 안 되면 null. */
-function candidateAt(
+export function candidateAt(
   tokens: ReadonlyArray<string>,
   ti: number,
   sentenceIdx: number,
