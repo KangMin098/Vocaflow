@@ -12,14 +12,25 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 
 import type { DcpErrorCause, DcpGradeResult, DcpItem } from './dcp'
+import { isPlayableDcpType } from './dcp-types'
 
 const ALLOWED_CAUSES: readonly DcpErrorCause[] = ['vocab', 'parsing', 'structure', 'inference', 'timing']
 
-/** prescribe_today practice 블록의 raw 문항 하나를 DcpItem 으로 검증·정규화. 부적격이면 null. */
+/**
+ * prescribe_today practice 블록의 raw 문항 하나를 DcpItem 으로 검증·정규화. 부적격이면 null.
+ *
+ * ⚠️ `csat_dcp_items` 에는 **교재(인쇄물)에만 쓰는 유형도 함께 저장된다**
+ *   (`irrelevant`·`word_order`·`vocab_choice`). 처방이 그것을 뽑아 오면 여기서 `null` 이
+ *   되어 학습자가 조용히 문항을 잃는다 — 2026-08-21 에 실제로 그랬다(발행 카탈로그 안
+ *   42.5%). 막는 쪽은 `prescribe_today` 의 허용 목록이고, 여기서는 **어느 갈래인지 먼저
+ *   확인해** 의도를 코드에 남긴다.
+ */
 function parseItem(raw: unknown): DcpItem | null {
   const r = raw as Record<string, unknown> | null
   if (!r || typeof r.id !== 'string') return null
   const type = r.type
+  // 교재용 유형은 화면이 그리지 못한다 — 여기서 걸러 낸 것이 곧 처방이 새고 있다는 뜻이다.
+  if (!isPlayableDcpType(type)) return null
   const payload = r.payload as Record<string, unknown> | null
   if (!payload) return null
 
