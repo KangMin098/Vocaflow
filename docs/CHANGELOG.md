@@ -486,6 +486,26 @@ V6 고2 · V7 고3/수능). 시리즈는 그 위에 얹는다. **눈금이 둘�
 잡는 자리라 **경쟁이 가장 센 곳**인데 우리가 가장 얇다. 4단(중3) 411 도 최소다.
 원인은 V3~V4 지문 재고가 얇은 것이고, 그건 ACP 수집 밴드 편중에서 온다.
 
+### 사전 — 코퍼스 작업이 남긴 격차를 검사로 고정 (v06.331)
+
+기출 드레인이 넣은 205행이 `primary_pos`·`pos_set`·`v_level`·`field_provenance` 를 **전부 비운 채**였다.
+그리고 더 조용한 쪽 — `calc_v_level` 이 `lexicon_frequencies.frequency_tier`(kice)를 읽는데,
+v06.330 이 그 tier 를 실측으로 고치면서 **`v_level_rule_v1` 1,943행이 룰과 어긋난 채 남았다.**
+오류가 안 나므로 아무도 모른다.
+
+- `scripts/dict/csat-dict-health.mjs` — 정합성 검사 7항목. 읽기 전용 · 종료 코드 반환 · 22초.
+  **임계값을 하드코딩하지 않는다** — 전체 사전 채움률과 kice 밖 대조군 drift 를 매번 재서 기준으로 쓴다
+  (짐작으로 정한 임계값은 목표가 아니다)
+- 205행 파생 컬럼 채움 (`primary_pos`=`pos` — 실측 99.6% 일치하는 기존 규약 · `pos_set`=`[pos]` ·
+  `v_level`/`v_level_rule_v1`=`calc_v_level` · `field_provenance.kice_csat_drain`)
+- kice 5,446 낱말 `v_level_rule_v1` 재계산 (1,943행 변경 · 501 NULL 채움 · 상향 1,040 · 하향 402 ·
+  평균 +0.12). **학습자에게 보이는 `v_level` 과 Claude 분류는 건드리지 않았다** — 대조군에서 두 값이
+  64.8% 어긋나므로 통일하면 분류 결과가 지워진다
+- `DB_SCHEMA` 의 `senses/primary_pos/pos_set/ipa_uk/us 100%` 주장 정정 —
+  실측 senses 81.3% · **ipa_uk 0행 · ipa_us 0행**. 낡은 100% 주장은 "이미 다 됐다" 로 읽혀 보강을 건너뛰게 만든다
+
+검사 14% → **100%** (7/7). 회귀 66/66 통과(compose sweep 55조합 포함) · typecheck 통과.
+`ipa` 는 `data/cmudict/` 가 없어 채울 수 없어 분모에서 제외 — 외부 데이터 확보 시 별건.
 ### 사전 — 수능 기출 13개년을 **처음으로 실제로 세었다** (v06.330)
 
 `lexicon_frequencies` 의 `kice_csat`(3,369행)은 이름이 전부 빈도였는데 **빈도가 아니었다.**

@@ -96,11 +96,19 @@ async function driftSample(inKice) {
   pool.sort((a, b) => a.word.localeCompare(b.word))
   const step = Math.max(1, Math.floor(pool.length / SAMPLE))
   const picked = pool.filter((_, i) => i % step === 0).slice(0, SAMPLE)
+  // 왕복이 표본 수만큼 필요하므로 묶어서 동시에 보낸다 — 순차 호출은 500개에 80초가 걸렸다.
   let drifted = 0
-  for (const r of picked) {
-    const { data, error } = await db.rpc('calc_v_level', { p_word: r.word })
-    if (error) throw new Error('calc_v_level 실패: ' + error.message)
-    if ((data ?? null) !== (r.v_level_rule_v1 ?? null)) drifted += 1
+  const CONC = 25
+  for (let i = 0; i < picked.length; i += CONC) {
+    const batch = picked.slice(i, i + CONC)
+    const results = await Promise.all(
+      batch.map((r) => db.rpc('calc_v_level', { p_word: r.word })),
+    )
+    for (let j = 0; j < batch.length; j++) {
+      const { data, error } = results[j]
+      if (error) throw new Error('calc_v_level 실패: ' + error.message)
+      if ((data ?? null) !== (batch[j].v_level_rule_v1 ?? null)) drifted += 1
+    }
   }
   return { n: picked.length, drifted, pct: picked.length ? (100 * drifted) / picked.length : 0 }
 }
