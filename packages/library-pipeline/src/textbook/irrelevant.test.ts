@@ -11,25 +11,39 @@ import {
   MIN_NATIVE_COHESION,
 } from './irrelevant'
 
+/**
+ * 지문을 규격 안으로 늘린다.
+ *
+ * 완성본이 **90~200어**여야 문항이 만들어진다(실측 45개 중 5개가 규격을 넘겨 탈락했다).
+ *
+ * ⚠️ 꼬리는 **내용어를 하나도 들여오면 안 된다.** 처음엔 `according to the regional
+ *   planning office …` 를 붙였다가 그 낱말들이 모든 문장에 공유되어 **결속도가 8로 치솟았고**,
+ *   "결속이 약하면 만들지 않는다" 회귀가 반대 이유로 실패했다. `contentWords` 는 5자 이상만
+ *   세므로 **전부 4자 이하인 꼬리**를 쓴다.
+ */
+const PAD = 'as of the same date in that town by the old mill site'
+const long = (ss: readonly string[]): string[] => ss.map((s) => s.replace(/\.$/, ` ${PAD}.`))
+
 // 결속이 뚜렷한 문단 — 낱말이 서로를 받는다.
-const paragraph = [
+const paragraph = long([
   'Coastal towns along the northern shore rebuilt their harbour walls after the storm.',
   'The harbour walls had stood since the fishing boom of the previous century.',
   'Engineers found that the older harbour walls rested on shifting sand.',
   'The rebuilt walls now reach three metres deeper into the seabed.',
   'Fishing crews returned to the harbour within a single season.',
-]
+])
 
-const candidates = [
-  // 좋은 무관 문장 — 겉모습이 맞고, "storm" 하나만 겹쳐 주제 근처에 있되 논지에는 안 붙는다.
-  { text: 'Another storm crossed the mountain valleys later that same autumn evening.', ref: 'other-1' },
+// 후보도 같은 꼬리를 달아야 본문 문장들과 **낱말 수가 비슷해진다**(겉모습 규칙).
+const candidates = long([
+  // 좋은 무관 문장 — "storm" 하나만 겹쳐 주제 근처에 있되 논지에는 안 붙는다.
+  'Another storm crossed the mountain valleys later that autumn evening.',
   // 한 낱말도 안 겹친다 — 읽지 않고도 골라낸다. 받으면 안 된다.
-  { text: 'Russell formed his side project group with another singer that winter.', ref: 'other-3' },
-  // 너무 짧다 — 겉모습으로 골라낸다.
-  { text: 'Nobody moved.', ref: 'other-2' },
+  'Russell formed his side project group with another singer that winter.',
   // 같은 글이다 — 써서는 안 된다.
-  { text: 'The harbour lights burned through the fog every night that winter.', ref: 'self' },
-]
+  'The harbour lights burned through the fog every night that winter.',
+]).map((text, i) => ({ text, ref: ['other-1', 'other-3', 'self'][i]! }))
+// 너무 짧다 — 겉모습으로 골라낸다. 꼬리를 달지 않는다.
+candidates.push({ text: 'Nobody moved.', ref: 'other-2' })
 
 describe('흐름 무관 문항', () => {
   it('다섯 자리에 남의 문장 하나가 들어가고 그것이 정답이다', () => {
@@ -72,13 +86,13 @@ describe('흐름 무관 문항', () => {
   })
 
   it('본문에 이미 동떨어진 문장이 있으면 만들지 않는다', () => {
-    const loose = [
+    const loose = long([
       'Coastal towns rebuilt their harbour walls after the storm.',
       'The harbour walls had stood for a century.',
       'Kettles whistled somewhere in an empty kitchen.', // 아무것도 안 받는다
       'Engineers found the walls rested on sand.',
       'Fishing crews returned to the harbour.',
-    ]
+    ])
     expect(buildIrrelevant(loose, candidates, 'self')).toBeNull()
   })
 
@@ -100,13 +114,13 @@ describe('흐름 무관 문항', () => {
 
   it('본문 최소 결속이 2 미만이면 만들지 않는다 — 산술로 따라 나온다', () => {
     expect(MIN_NATIVE_COHESION).toBe(MIN_FOREIGN_COHESION + 1)
-    const weak = [
+    const weak = long([
       'Coastal towns rebuilt their harbour walls after the storm.',
       'The harbour walls had stood for a century.',
       'Engineers measured the seabed with sonar equipment.', // 하나만 걸린다
       'Fishing crews returned to the harbour within a season.',
       'The rebuilt walls reach deeper into the seabed.',
-    ]
+    ])
     const rest = (i) => weak.filter((_, j) => j !== i).join(' ')
     const minNative = Math.min(...weak.slice(1).map((s, i) => cohesionWith(s, rest(i + 1))))
     expect(minNative).toBeLessThan(MIN_NATIVE_COHESION)

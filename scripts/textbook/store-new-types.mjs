@@ -43,6 +43,7 @@ const {
   buildVocabChoice,
   buildGrammarChoice,
   isPrintablePassage,
+  CSAT_ITEM_WORDS,
   GRAMMAR_UNDERLINES,
   VOCAB_UNDERLINES,
 } = await import('@vocaflow/library-pipeline')
@@ -296,6 +297,13 @@ for (let i = 0; i < ids.length; i += 20) {
     const text = [r.payload?.intro, ...(r.payload?.sentences ?? [])].filter(Boolean).join(' ')
     if (text && !isPrintablePassage(text)) {
       stale.push({ id: r.id, type: r.type, why: '인쇄 불가' })
+      continue
+    }
+    // 교재용 유형은 완성본이 수능 지문 규격(90~200어) 안이어야 한다.
+    // `irrelevant` 는 재생성 대조를 못 한다(후보 풀이 그때그때 다르다) — 규격으로만 본다.
+    const n = text ? text.split(/\s+/).filter(Boolean).length : 0
+    if (n && (n < CSAT_ITEM_WORDS.min || n > CSAT_ITEM_WORDS.max)) {
+      stale.push({ id: r.id, type: r.type, why: `지문 규격 밖 (${n}어)` })
       continue
     }
     const rebuild = rebuilders[r.type]

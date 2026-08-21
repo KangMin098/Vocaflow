@@ -138,10 +138,16 @@ const flags = []
 for (const t of health.byType) {
   console.log(`  ── ${t.type}  (${t.count}) ${'─'.repeat(Math.max(0, 46 - t.type.length))}`)
 
+  // **겸용 유형은 규격 밖이 결함이 아니다.**
+  // `order`·`insert` 는 DCP 가 학습 화면(구문 연습)을 위해 만든 것이기도 하다.
+  // 그쪽은 문단 4문장부터 받으므로 수능 지문 규격(90~200어)을 벗어나는 재고가 **의도된 것**이다.
+  // 교재는 그중 규격에 드는 것만 쓴다 — 매번 "고칠 것" 으로 세면 리포트가 늑대를 부른다.
+  const dual = t.type === 'order' || t.type === 'insert'
   const bad = unprintable.get(t.type) ?? 0
   if (bad) {
-    console.log(`     인쇄 변환  실패 ${bad} / ${t.count} = ${pct(bad, t.count)}  ⚠️ 교재에 못 싣는다`)
-    flags.push(`${t.type}: 인쇄 변환 실패 ${bad}건 (${pct(bad, t.count)})`)
+    const mark = dual ? 'ℹ️ 학습 화면 전용 재고' : '⚠️ 교재에 못 싣는다'
+    console.log(`     인쇄 변환  실패 ${bad} / ${t.count} = ${pct(bad, t.count)}  ${mark}`)
+    if (!dual) flags.push(`${t.type}: 인쇄 변환 실패 ${bad}건 (${pct(bad, t.count)})`)
   }
 
   if (t.answerBias) {
@@ -158,11 +164,14 @@ for (const t of health.byType) {
   }
 
   if (t.outOfSpecPassage != null) {
-    const bad = t.outOfSpecPassage
+    const out = t.outOfSpecPassage
+    const mark = out === 0 ? '✅' : dual ? 'ℹ️ 학습 화면 전용 재고' : '⚠️'
+    const usable = t.count - out
     console.log(
-      `     지문 규격  밖 ${bad} / ${t.count}  = ${pct(bad, t.count)}  ${bad === 0 ? '✅' : '⚠️'}`,
+      `     지문 규격  밖 ${out} / ${t.count}  = ${pct(out, t.count)}  ${mark}` +
+        (dual ? `   교재에 쓸 수 있는 것 ${usable}` : ''),
     )
-    if (bad > 0) flags.push(`${t.type}: 지문 규격 밖 ${bad}건 (${pct(bad, t.count)})`)
+    if (out > 0 && !dual) flags.push(`${t.type}: 지문 규격 밖 ${out}건 (${pct(out, t.count)})`)
   }
 
   const levels = Object.entries(t.byLevel).sort((a, b) => a[0].localeCompare(b[0], 'en', { numeric: true }))

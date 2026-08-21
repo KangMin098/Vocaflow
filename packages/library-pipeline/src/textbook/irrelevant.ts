@@ -23,6 +23,7 @@
 // 그리고 본문 문장 중 하나라도 아예 안 겹치면(`minNative === 0`) **문항을 만들지 않는다** —
 // 그 문단은 원래 결속이 약해서 무엇을 넣어도 답이 갈린다.
 
+import { CSAT_ITEM_WORDS } from './compose-unit'
 import { isPrintablePassage } from './csat-format'
 import { contentWords } from './explain'
 
@@ -194,6 +195,11 @@ export function buildIrrelevant(
   const minimum = Math.min(...finalCohesion)
   if (finalCohesion[at] !== minimum) return null
   if (finalCohesion.filter((c) => c === minimum).length > 1) return null
+
+  // 지문 규격도 **완성본 기준으로** 본다. 본문 다섯 문장이 규격 안이어도 무관 문장이
+  // 들어가면 넘칠 수 있다 — 실측 45개 중 5개가 그랬다. 교재에 못 실을 것은 만들지 않는다.
+  const passageWords = [intro, ...sentences].join(' ').split(/\s+/).filter(Boolean).length
+  if (passageWords < CSAT_ITEM_WORDS.min || passageWords > CSAT_ITEM_WORDS.max) return null
 
   return {
     kind: 'irrelevant',
