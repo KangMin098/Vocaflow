@@ -100,6 +100,12 @@ export const TBP_HELP: HelpRegistry = {
             done: '청크마다 `.out.json` 이 생긴다. 130~190어 · 8문장 이상이어야 적재된다.',
           },
           {
+            title: '**적재 전에 밴드를 잰다**',
+            detail:
+              '`pnpm dlx tsx scripts/textbook/write-drain-verify.mjs --band 3` — 채점 경로를 그대로 재현해(`extractBookLemmas` → 사전 등급 → 75분위) 편마다 어느 계단에 떨어질지 미리 낸다. **읽기만 하고 아무것도 고치지 않는다** — 기계가 낱말을 바꾸면 글이 망가지므로 방향만 알려 준다. 집필하는 쪽이 이걸 보고 고쳐서 다시 돌린다. 없이 적재하면 적중이 5~6할에 머문다: 집필하는 쪽은 어휘 표본 목록과 겹치는 낱말만 셀 수 있는데 실제 등급은 모든 낱말이 정하기 때문이다(배치가 "꼬리 4개" 라고 보고한 글이 실측 11~17개였다).',
+            done: '"목표 V3 적중 N/M" 과 빗나간 편의 방향(⬆ 어려운 낱말을 줄인다 / ⬇ 늘린다). 예측이 실제와 2%p 안에서 맞는다.',
+          },
+          {
             title: '지문 적재 → 분석 → 문항',
             detail:
               '`… write-drain-import.mjs --band 3 --commit` 이 `library_articles` 에 넣는다(`source=original` · CC0 · **`ready` 로 넣고 발행은 사람 판단**). 6문장·60어 미만은 넣지 않고 건너뛴 수를 찍는다. 이어서 `scripts/acp/reprocess.mjs --missing-vocab --commit`(어휘·CEFR·밴드) → `store-new-types.mjs --commit`(문항) 을 돌려야 재료가 된다. **셋을 한 스위치에 묶지 않은 이유는 무엇이 실패했는지 알기 위해서다.**',
