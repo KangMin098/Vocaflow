@@ -46,6 +46,10 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
   // ② 고른 것이 없음 — 링크 하나만 두고 비우지 않는다. 고를 것을 **눈앞에** 놓는다.
   if (picked.length === 0) {
     const preview = previewVolumes(shelf, mine.steps)
+    // ⚠️ `previewVolumes` 는 ready 가 모자라면 **나머지로 칸을 채운다**(빈 매대보다 낫다).
+    //    그때도 "지금 바로 펼칠 수 있는 권" 이라고 적으면 그 문장이 거짓이 된다 —
+    //    지금은 7/7 이라 우연히 참이지만, 재고가 줄면 조용히 틀린다.
+    const allReady = preview.every((v) => v.status === 'ready')
     return (
       <Section>
         <p className="max-w-[46ch] font-editorial text-[19px] font-[500] leading-[1.35] text-[var(--t1)] [word-break:keep-all]">
@@ -53,7 +57,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
         </p>
         <p className="mt-2 max-w-[52ch] font-body text-[12.5px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
           학년을 잇는 {shelf.volumes.length}권 가운데 지금 수준에 맞는 것을 담아 두면 여기에 쌓여요.
-          아래는 지금 바로 펼칠 수 있는 권입니다.
+          {allReady ? ' 아래는 지금 바로 펼칠 수 있는 권입니다.' : ' 아래는 시리즈의 앞 계단입니다.'}
         </p>
 
         {/* 매대 — 서점은 빈 책장을 보여주지 않는다. 고를 것을 진열한다. */}

@@ -18,6 +18,12 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, BookOpen, ChevronsDown, ChevronsUp } from 'lucide-react'
 
+import {
+  COMPOSE_MINUTES_PER_ITEM,
+  DEFAULT_SLOTS,
+  MINUTES_PER_ITEM,
+} from '@vocaflow/library-pipeline'
+
 import { Screen } from '@/components/ui/ios'
 import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickButton'
 import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
@@ -123,7 +129,14 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
   const v = shelf.volumes.find((x) => x.step === step)
   if (!v) notFound()
 
-  const minutes = v.maxUnits * 4 * 3 // 단원당 4문항 × 3분(compose-unit.MINUTES_PER_ITEM)
+  // ⚠️ 여기 `3` 이 **손으로 적혀** 있었고 주석은 `compose-unit.MINUTES_PER_ITEM` 을 가리켰다.
+  //    확인해 보니 패키지 안에 같은 이름의 상수가 **둘**이고 값이 다르다(실측 2026-08-22):
+  //      assemble-unit 2분(지문에 문항을 붙이는 모델) · compose-unit 3분(문항이 곧 지문인 모델)
+  //    어느 하나를 골라 단일 숫자로 인쇄하면 **근거 없는 정밀함**이 된다. 범위로 말한다.
+  const itemsPerUnit = Object.values(DEFAULT_SLOTS).reduce((a, b) => a + b, 0)
+  const totalItems = v.maxUnits * itemsPerUnit
+  const minMinutes = totalItems * MINUTES_PER_ITEM
+  const maxMinutes = totalItems * COMPOSE_MINUTES_PER_ITEM
   const { prev, next } = neighborsOf(shelf.volumes, v.step)
   const stage = stageOf(v.schoolBand)
 
@@ -195,16 +208,20 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
               최대 {v.maxUnits.toLocaleString()}
             </span>
             <span className="font-body text-[13px] text-[var(--t2)]">단원</span>
-            {minutes > 0 && (
+            {maxMinutes > 0 && (
               <span className="ml-2 font-mono text-[11.5px] tabular-nums text-[var(--t2)]">
-                약 {Math.round(minutes / 60)}시간
+                약 {Math.round(minMinutes / 60)}~{Math.round(maxMinutes / 60)}시간
               </span>
             )}
           </p>
           {/* 상한을 예측처럼 보이게 두지 않는다 — 그 순간 과장 광고가 된다. */}
           <p className="mt-3 max-w-[58ch] font-body text-[12.5px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
-            한 단원은 <strong className="font-display text-[var(--t1)]">문항 4개(약 12분)</strong>로
-            짭니다. 위 숫자는 <strong className="font-display text-[var(--t1)]">상한</strong>이에요 —
+            한 단원은{' '}
+            <strong className="font-display text-[var(--t1)]">
+              문항 {itemsPerUnit}개(약 {itemsPerUnit * MINUTES_PER_ITEM}~
+              {itemsPerUnit * COMPOSE_MINUTES_PER_ITEM}분)
+            </strong>
+            로 짭니다. 위 숫자는 <strong className="font-display text-[var(--t1)]">상한</strong>이에요 —
             실제로는 지문 길이(90~200어)와 “한 단원의 문항은 서로 다른 글에서” 규칙을 더 걸기 때문에
             이보다 적게 나옵니다.
           </p>

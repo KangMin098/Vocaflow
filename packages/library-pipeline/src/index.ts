@@ -228,6 +228,13 @@ export {
 } from './textbook/csat-format'
 export type { CsatInsertItem, CsatOrderItem } from './textbook/csat-format'
 // 풀 기반 단원 조합 — 문항 자체가 수능 규격 지문이다(실측 중앙값 114어).
+// ⚠️ 소요 시간 상수가 **둘**이다 — 같은 이름, 다른 값, 다른 모델.
+//   `assemble-unit.MINUTES_PER_ITEM` = 2 (지문 하나에 문항을 붙이는 모델)
+//   `compose-unit.MINUTES_PER_ITEM`  = 3 (문항 자체가 지문인 풀 조합 모델)
+// 어느 쪽도 틀리지 않았지만 **이름이 같아서** 밖에서는 하나만 있는 것처럼 보인다.
+// 화면이 "약 N시간" 을 인쇄할 때 어느 모델인지 모르면 그 숫자는 근거가 없다.
+// 정리는 이 패키지 소유자의 결정이므로, 우선 **구별되는 이름으로 둘 다 내보낸다.**
+export { MINUTES_PER_ITEM as COMPOSE_MINUTES_PER_ITEM } from './textbook/compose-unit'
 export {
   CSAT_ITEM_WORDS,
   DEFAULT_SLOTS,

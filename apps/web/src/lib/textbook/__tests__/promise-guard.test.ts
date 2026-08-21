@@ -93,3 +93,20 @@ describe('담기가 오늘의 학습을 바꾸는가 — 아직 아니다', () =
     expect(rendered).toContain('담기가 오늘의 학습을 바꾸지는')
   })
 })
+
+describe('숫자를 손으로 적지 않는다', () => {
+  // 권 상세의 "약 N시간" 은 한동안 `3` 을 손으로 적어 계산했고, 주석은 라이브러리 상수를
+  // 가리켰다. 확인해 보니 그 패키지 안에 같은 이름의 상수가 **둘**이고 값이 다르다
+  // (assemble-unit 2분 · compose-unit 3분). 손으로 적은 숫자는 어느 쪽과도 묶여 있지 않았다.
+  it('권 상세가 소요 시간 상수를 import 한다', () => {
+    const src = readFileSync(VOLUME_PAGE, 'utf8')
+    expect(src, '소요 시간 상수를 import 하지 않는다').toContain('MINUTES_PER_ITEM')
+    expect(src, '단원 구성 상수를 import 하지 않는다').toContain('DEFAULT_SLOTS')
+  })
+
+  it('두 모델이 다르므로 단일 숫자로 인쇄하지 않는다 — 범위로 말한다', () => {
+    const rendered = stripComments(readFileSync(VOLUME_PAGE, 'utf8'))
+    expect(rendered, '시간을 범위가 아니라 한 숫자로 적고 있다').toContain('~')
+    expect(rendered).toContain('COMPOSE_MINUTES_PER_ITEM')
+  })
+})

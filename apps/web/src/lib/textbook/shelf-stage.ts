@@ -29,7 +29,10 @@ export const STAGE_LABEL: Record<SchoolStage, string> = {
 
 /** 매대가 무엇을 시키는 곳인지 — 라벨이 말하지 않는 것만 적는다. */
 export const STAGE_SAYS: Record<SchoolStage, string> = {
-  elementary: '소리와 낱말부터. 문장을 통째로 다루지 않습니다',
+  // ⚠️ "문장을 통째로 다루지 않습니다" 였다 — **틀렸다**(실측 2026-08-22).
+  //    step 2(초등 고학년)에 `word_order`(영작 배열)가 있고, `SERIES_SPINE` 스스로
+  //    "영작 배열이 **첫 문장 단위 과제**" 라고 적어 두었다. 매대 팻말이 사다리와 어긋났다.
+  elementary: '소리와 낱말에서 시작해 첫 문장까지',
   middle: '문장 단위로. 어휘와 어법을 같이 봅니다',
   high: '글 전체를 봅니다. 순서·삽입처럼 글의 짜임을 다루는 유형이 들어옵니다',
 }

@@ -23,6 +23,7 @@
 // ─────────────────────────────────────────────────────────────
 
 import {
+  DEFAULT_SLOTS,
   SERIES_SPINE,
   measureSeriesFill,
   type Inventory,
@@ -42,9 +43,14 @@ export const SHELF_MIN_ITEMS = 60
  *    (실측 2026-08-22: 로그인 7/7 vs 비로그인 5/7).
  *    이 화면이 `unmeasured` 를 만든 이유와 **똑같은 사고**를 한 겹 아래에서 반복한 것이다.
  */
-/** 단원 기본 구성 — 순서 2 + 삽입 2(compose-unit.DEFAULT_SLOTS 와 같은 값).
- *  ⚠️ 두 곳에 적히면 갈린다. 라이브러리가 상수를 export 하면 그것을 import 할 것. */
-const SLOTS: Record<string, number> = { order: 2, insert: 2 }
+/**
+ * 단원 기본 구성 — 정본은 `compose-unit.DEFAULT_SLOTS`.
+ *
+ * ⚠️ 여기 값을 **복사해 두고** 주석에 "export 하면 import 할 것" 이라고 적어 뒀었다.
+ *    확인해 보니 **이미 export 되고 있었다**(실측 2026-08-22). 주석이 스스로를 유예시킨 셈이다 —
+ *    "나중에 고치자" 는 메모는 고쳐지지 않는다. 지금 import 한다.
+ */
+const SLOTS: Record<string, number> = DEFAULT_SLOTS
 
 /** 슬롯을 쓰지 않는 계단(초등·중등)은 문항 4개를 한 단원으로 본다. */
 const FALLBACK_ITEMS_PER_UNIT = 4
