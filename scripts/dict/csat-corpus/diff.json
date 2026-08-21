@@ -1,28 +1,28 @@
 {
  "report": {
   "코퍼스": {
-   "원시_lemma": 5993,
-   "접은_뒤": 5706,
-   "굴절형_접기": 346,
-   "그중_규칙fallback": 59,
-   "토큰": 29876,
+   "원시_lemma": 6076,
+   "접은_뒤": 5779,
+   "굴절형_접기": 357,
+   "그중_규칙fallback": 60,
+   "토큰": 31359,
    "연도": 13
   },
   "사전대조": {
-   "사전에_있음": 5192,
-   "인명_후보": 389,
-   "사전_결손": 125
+   "사전에_있음": 5254,
+   "인명_후보": 392,
+   "사전_결손": 133
   },
   "기존_kice_csat": {
-   "행수": 5300,
-   "원문에_없음": 254,
-   "원문에만_있음": 660,
-   "등장연도_불일치": 0
+   "행수": 5446,
+   "원문에_없음": 234,
+   "원문에만_있음": 567,
+   "등장연도_불일치": 291
   },
   "분포": {
-   "전연도_등장": 58,
-   "6개년이상": 793,
-   "1개년만": 2940
+   "전연도_등장": 65,
+   "6개년이상": 822,
+   "1개년만": 2957
   }
  },
  "사전_결손_목록": [
@@ -46,12 +46,13 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 664
+   "rank": 699
   },
   {
    "lemma": "org",
-   "total": 6,
+   "total": 8,
    "by_year": {
+    "2014": 2,
     "2015": 1,
     "2016": 2,
     "2018": 1,
@@ -59,18 +60,19 @@
     "2025": 1
    },
    "years_appeared": [
+    2014,
     2015,
     2016,
     2018,
     2023,
     2025
    ],
-   "years_n": 5,
+   "years_n": 6,
    "appears_every_year": false,
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 1228
+   "rank": 977
   },
   {
    "lemma": "maker",
@@ -90,7 +92,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 1454
+   "rank": 1517
   },
   {
    "lemma": "advertiser",
@@ -106,7 +108,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 1587
+   "rank": 1648
   },
   {
    "lemma": "jason",
@@ -124,7 +126,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 1779
+   "rank": 1837
   },
   {
    "lemma": "discoverer",
@@ -140,7 +142,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2080
+   "rank": 2147
   },
   {
    "lemma": "eater",
@@ -156,7 +158,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2089
+   "rank": 2156
   },
   {
    "lemma": "forager",
@@ -174,7 +176,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2133
+   "rank": 2201
   },
   {
    "lemma": "gatherer",
@@ -192,7 +194,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2144
+   "rank": 2211
   },
   {
    "lemma": "plato",
@@ -208,7 +210,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2279
+   "rank": 2348
   },
   {
    "lemma": "provider",
@@ -228,7 +230,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2298
+   "rank": 2365
   },
   {
    "lemma": "sportscaster",
@@ -244,7 +246,7 @@
    "propn_ratio": 0.333,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2370
+   "rank": 2436
   },
   {
    "lemma": "uk",
@@ -264,7 +266,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2412
+   "rank": 2481
   },
   {
    "lemma": "ben",
@@ -280,7 +282,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2535
+   "rank": 2603
   },
   {
    "lemma": "della",
@@ -296,7 +298,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2698
+   "rank": 2762
   },
   {
    "lemma": "dick",
@@ -312,7 +314,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2714
+   "rank": 2779
   },
   {
    "lemma": "donato",
@@ -328,7 +330,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2745
+   "rank": 2810
   },
   {
    "lemma": "eastland",
@@ -344,7 +346,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2759
+   "rank": 2826
   },
   {
    "lemma": "esthetically",
@@ -360,7 +362,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2791
+   "rank": 2859
   },
   {
    "lemma": "evelyn",
@@ -376,7 +378,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2792
+   "rank": 2860
   },
   {
    "lemma": "experimenter",
@@ -392,7 +394,23 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2804
+   "rank": 2872
+  },
+  {
+   "lemma": "hiker",
+   "total": 2,
+   "by_year": {
+    "2014": 2
+   },
+   "years_appeared": [
+    2014
+   ],
+   "years_n": 1,
+   "appears_every_year": false,
+   "propn_ratio": 0,
+   "folded_from": [],
+   "in_dict": false,
+   "rank": 2968
   },
   {
    "lemma": "invader",
@@ -410,7 +428,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2967
+   "rank": 3035
   },
   {
    "lemma": "jake",
@@ -426,7 +444,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2979
+   "rank": 3046
   },
   {
    "lemma": "katie",
@@ -442,7 +460,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 2989
+   "rank": 3057
   },
   {
    "lemma": "marjorie",
@@ -458,7 +476,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3043
+   "rank": 3115
   },
   {
    "lemma": "massiveness",
@@ -474,7 +492,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3045
+   "rank": 3117
   },
   {
    "lemma": "max",
@@ -490,7 +508,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3048
+   "rank": 3120
   },
   {
    "lemma": "niklas",
@@ -506,7 +524,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3104
+   "rank": 3174
   },
   {
    "lemma": "scott",
@@ -524,7 +542,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3325
+   "rank": 3401
   },
   {
    "lemma": "se",
@@ -540,7 +558,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3329
+   "rank": 3404
   },
   {
    "lemma": "synchronously",
@@ -556,7 +574,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3435
+   "rank": 3510
   },
   {
    "lemma": "watcher",
@@ -572,7 +590,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3515
+   "rank": 3597
   },
   {
    "lemma": "adaptively",
@@ -588,7 +606,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3565
+   "rank": 3648
   },
   {
    "lemma": "advertisers",
@@ -604,7 +622,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3578
+   "rank": 3661
   },
   {
    "lemma": "avenger",
@@ -620,7 +638,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3692
+   "rank": 3774
   },
   {
    "lemma": "becak",
@@ -636,7 +654,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3724
+   "rank": 3807
   },
   {
    "lemma": "blackhills",
@@ -652,7 +670,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3749
+   "rank": 3832
   },
   {
    "lemma": "bradford",
@@ -668,7 +686,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3764
+   "rank": 3847
   },
   {
    "lemma": "charlie",
@@ -684,7 +702,23 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3839
+   "rank": 3924
+  },
+  {
+   "lemma": "christopher",
+   "total": 1,
+   "by_year": {
+    "2014": 1
+   },
+   "years_appeared": [
+    2014
+   ],
+   "years_n": 1,
+   "appears_every_year": false,
+   "propn_ratio": 1,
+   "folded_from": [],
+   "in_dict": false,
+   "rank": 3939
   },
   {
    "lemma": "cicero",
@@ -700,7 +734,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3857
+   "rank": 3943
   },
   {
    "lemma": "cm",
@@ -716,7 +750,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3879
+   "rank": 3964
   },
   {
    "lemma": "commoditise",
@@ -732,7 +766,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3909
+   "rank": 3994
   },
   {
    "lemma": "commoditised",
@@ -748,7 +782,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3910
+   "rank": 3995
   },
   {
    "lemma": "counter-examples",
@@ -764,7 +798,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3970
+   "rank": 4055
   },
   {
    "lemma": "customize",
@@ -780,7 +814,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 3996
+   "rank": 4083
   },
   {
    "lemma": "darken",
@@ -796,7 +830,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4002
+   "rank": 4089
   },
   {
    "lemma": "deepen",
@@ -812,7 +846,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4017
+   "rank": 4105
   },
   {
    "lemma": "denmark",
@@ -828,7 +862,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4032
+   "rank": 4120
   },
   {
    "lemma": "digitize",
@@ -844,7 +878,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4060
+   "rank": 4146
   },
   {
    "lemma": "earbuds",
@@ -860,7 +894,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4127
+   "rank": 4214
   },
   {
    "lemma": "edu",
@@ -876,7 +910,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4136
+   "rank": 4223
   },
   {
    "lemma": "effortful",
@@ -892,7 +926,23 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4141
+   "rank": 4228
+  },
+  {
+   "lemma": "eighteenth",
+   "total": 1,
+   "by_year": {
+    "2014": 1
+   },
+   "years_appeared": [
+    2014
+   ],
+   "years_n": 1,
+   "appears_every_year": false,
+   "propn_ratio": 0,
+   "folded_from": [],
+   "in_dict": false,
+   "rank": 4232
   },
   {
    "lemma": "eleventh",
@@ -908,7 +958,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4153
+   "rank": 4240
   },
   {
    "lemma": "elinor",
@@ -924,7 +974,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4154
+   "rank": 4241
   },
   {
    "lemma": "eraser",
@@ -940,7 +990,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4189
+   "rank": 4272
   },
   {
    "lemma": "eugene",
@@ -956,7 +1006,23 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4202
+   "rank": 4285
+  },
+  {
+   "lemma": "eva",
+   "total": 1,
+   "by_year": {
+    "2014": 1
+   },
+   "years_appeared": [
+    2014
+   ],
+   "years_n": 1,
+   "appears_every_year": false,
+   "propn_ratio": 1,
+   "folded_from": [],
+   "in_dict": false,
+   "rank": 4287
   },
   {
    "lemma": "exline",
@@ -972,7 +1038,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4218
+   "rank": 4302
   },
   {
    "lemma": "eypcap",
@@ -988,7 +1054,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4233
+   "rank": 4317
   },
   {
    "lemma": "fffbg",
@@ -1004,7 +1070,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4261
+   "rank": 4345
   },
   {
    "lemma": "filler",
@@ -1020,7 +1086,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4265
+   "rank": 4349
   },
   {
    "lemma": "finkenauer",
@@ -1036,7 +1102,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4268
+   "rank": 4352
   },
   {
    "lemma": "finland",
@@ -1052,7 +1118,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4269
+   "rank": 4353
   },
   {
    "lemma": "flockmates",
@@ -1068,7 +1134,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4285
+   "rank": 4370
   },
   {
    "lemma": "flyingeaglezip",
@@ -1084,7 +1150,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4287
+   "rank": 4372
   },
   {
    "lemma": "fremontart",
@@ -1100,7 +1166,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4308
+   "rank": 4392
   },
   {
    "lemma": "giver",
@@ -1116,7 +1182,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4342
+   "rank": 4424
   },
   {
    "lemma": "goer",
@@ -1132,7 +1198,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4351
+   "rank": 4432
   },
   {
    "lemma": "goldbeachseaworld",
@@ -1148,7 +1214,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4353
+   "rank": 4434
   },
   {
    "lemma": "greenhills",
@@ -1164,7 +1230,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4367
+   "rank": 4448
   },
   {
    "lemma": "greenville",
@@ -1180,7 +1246,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4368
+   "rank": 4449
   },
   {
    "lemma": "hearer",
@@ -1196,7 +1262,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4396
+   "rank": 4476
   },
   {
    "lemma": "herbert",
@@ -1212,7 +1278,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4405
+   "rank": 4485
   },
   {
    "lemma": "holland",
@@ -1228,7 +1294,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4416
+   "rank": 4496
   },
   {
    "lemma": "horace",
@@ -1244,7 +1310,23 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4423
+   "rank": 4503
+  },
+  {
+   "lemma": "hyo",
+   "total": 1,
+   "by_year": {
+    "2014": 1
+   },
+   "years_appeared": [
+    2014
+   ],
+   "years_n": 1,
+   "appears_every_year": false,
+   "propn_ratio": 0,
+   "folded_from": [],
+   "in_dict": false,
+   "rank": 4525
   },
   {
    "lemma": "imprecisely",
@@ -1260,7 +1342,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4468
+   "rank": 4551
   },
   {
    "lemma": "improvisers",
@@ -1276,7 +1358,23 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4473
+   "rank": 4556
+  },
+  {
+   "lemma": "incorrectness",
+   "total": 1,
+   "by_year": {
+    "2014": 1
+   },
+   "years_appeared": [
+    2014
+   ],
+   "years_n": 1,
+   "appears_every_year": false,
+   "propn_ratio": 0,
+   "folded_from": [],
+   "in_dict": false,
+   "rank": 4572
   },
   {
    "lemma": "inexpensively",
@@ -1292,7 +1390,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4506
+   "rank": 4590
   },
   {
    "lemma": "irrationally",
@@ -1308,7 +1406,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4571
+   "rank": 4656
   },
   {
    "lemma": "jan",
@@ -1324,7 +1422,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4586
+   "rank": 4672
   },
   {
    "lemma": "jekyll",
@@ -1340,7 +1438,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4588
+   "rank": 4674
   },
   {
    "lemma": "joachim",
@@ -1356,7 +1454,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4591
+   "rank": 4676
   },
   {
    "lemma": "kant",
@@ -1372,7 +1470,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4604
+   "rank": 4689
   },
   {
    "lemma": "kindergartener",
@@ -1388,7 +1486,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4613
+   "rank": 4698
   },
   {
    "lemma": "krebs",
@@ -1404,7 +1502,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4625
+   "rank": 4710
   },
   {
    "lemma": "laurence",
@@ -1420,7 +1518,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4639
+   "rank": 4724
   },
   {
    "lemma": "ldsnow",
@@ -1436,7 +1534,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4644
+   "rank": 4729
   },
   {
    "lemma": "letterfrom",
@@ -1452,7 +1550,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4660
+   "rank": 4745
   },
   {
    "lemma": "marcus",
@@ -1468,7 +1566,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4719
+   "rank": 4799
   },
   {
    "lemma": "marilyn",
@@ -1484,7 +1582,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4721
+   "rank": 4801
   },
   {
    "lemma": "maturer",
@@ -1500,7 +1598,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4732
+   "rank": 4812
   },
   {
    "lemma": "mini-turnarounds",
@@ -1516,7 +1614,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4762
+   "rank": 4841
   },
   {
    "lemma": "misprints",
@@ -1532,7 +1630,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4771
+   "rank": 4850
   },
   {
    "lemma": "missible",
@@ -1548,7 +1646,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4773
+   "rank": 4852
   },
   {
    "lemma": "motorness",
@@ -1564,7 +1662,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4795
+   "rank": 4875
   },
   {
    "lemma": "motorspace",
@@ -1580,7 +1678,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4796
+   "rank": 4876
   },
   {
    "lemma": "napoleon",
@@ -1596,7 +1694,23 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4808
+   "rank": 4888
+  },
+  {
+   "lemma": "naturefoundation",
+   "total": 1,
+   "by_year": {
+    "2014": 1
+   },
+   "years_appeared": [
+    2014
+   ],
+   "years_n": 1,
+   "appears_every_year": false,
+   "propn_ratio": 0,
+   "folded_from": [],
+   "in_dict": false,
+   "rank": 4891
   },
   {
    "lemma": "non-english",
@@ -1612,7 +1726,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4838
+   "rank": 4920
   },
   {
    "lemma": "non-experts",
@@ -1628,7 +1742,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4840
+   "rank": 4922
   },
   {
    "lemma": "non-members",
@@ -1644,7 +1758,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4844
+   "rank": 4926
   },
   {
    "lemma": "non-scientists",
@@ -1660,7 +1774,23 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4848
+   "rank": 4930
+  },
+  {
+   "lemma": "nonproductive",
+   "total": 1,
+   "by_year": {
+    "2014": 1
+   },
+   "years_appeared": [
+    2014
+   ],
+   "years_n": 1,
+   "appears_every_year": false,
+   "propn_ratio": 0,
+   "folded_from": [],
+   "in_dict": false,
+   "rank": 4933
   },
   {
    "lemma": "nostalgically",
@@ -1676,7 +1806,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4856
+   "rank": 4939
   },
   {
    "lemma": "overstructuring",
@@ -1692,7 +1822,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4913
+   "rank": 4997
   },
   {
    "lemma": "persuasiveness",
@@ -1708,7 +1838,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4956
+   "rank": 5041
   },
   {
    "lemma": "philip",
@@ -1724,7 +1854,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 4962
+   "rank": 5047
   },
   {
    "lemma": "purchaser",
@@ -1740,7 +1870,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5077
+   "rank": 5157
   },
   {
    "lemma": "reframes",
@@ -1756,7 +1886,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5128
+   "rank": 5206
   },
   {
    "lemma": "rudolf",
@@ -1772,7 +1902,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5223
+   "rank": 5300
   },
   {
    "lemma": "sanjo",
@@ -1788,7 +1918,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5237
+   "rank": 5313
   },
   {
    "lemma": "schooler",
@@ -1804,7 +1934,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5246
+   "rank": 5322
   },
   {
    "lemma": "seventeenth",
@@ -1820,7 +1950,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5267
+   "rank": 5343
   },
   {
    "lemma": "shakuhachi",
@@ -1836,7 +1966,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5270
+   "rank": 5346
   },
   {
    "lemma": "shorten",
@@ -1852,7 +1982,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5279
+   "rank": 5354
   },
   {
    "lemma": "siberia",
@@ -1868,7 +1998,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5283
+   "rank": 5358
   },
   {
    "lemma": "singapore",
@@ -1884,7 +2014,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5293
+   "rank": 5368
   },
   {
    "lemma": "snorkelingti",
@@ -1900,7 +2030,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5304
+   "rank": 5379
   },
   {
    "lemma": "spinoza",
@@ -1916,7 +2046,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5341
+   "rank": 5414
   },
   {
    "lemma": "sub-saharan",
@@ -1932,7 +2062,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5386
+   "rank": 5458
   },
   {
    "lemma": "sunnyvale",
@@ -1948,7 +2078,7 @@
    "propn_ratio": 1,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5403
+   "rank": 5475
   },
   {
    "lemma": "superconductors",
@@ -1964,7 +2094,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5406
+   "rank": 5478
   },
   {
    "lemma": "tiinprogrammers",
@@ -1980,7 +2110,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5478
+   "rank": 5550
   },
   {
    "lemma": "tiistea",
@@ -1996,7 +2126,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5479
+   "rank": 5551
   },
   {
    "lemma": "transcriber",
@@ -2012,7 +2142,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5501
+   "rank": 5573
   },
   {
    "lemma": "tumbler",
@@ -2028,7 +2158,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5525
+   "rank": 5597
   },
   {
    "lemma": "virginiaartshow",
@@ -2044,7 +2174,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5633
+   "rank": 5707
   },
   {
    "lemma": "vtco",
@@ -2060,7 +2190,7 @@
    "propn_ratio": 0,
    "folded_from": [],
    "in_dict": false,
-   "rank": 5643
+   "rank": 5715
   }
  ],
  "인명_후보_목록": [
@@ -2125,6 +2255,11 @@
    "propn_ratio": 1
   },
   {
+   "lemma": "american",
+   "total": 12,
+   "propn_ratio": 1
+  },
+  {
    "lemma": "cora",
    "total": 12,
    "propn_ratio": 1
@@ -2140,12 +2275,12 @@
    "propn_ratio": 1
   },
   {
-   "lemma": "american",
+   "lemma": "jane",
    "total": 11,
    "propn_ratio": 1
   },
   {
-   "lemma": "jane",
+   "lemma": "paul",
    "total": 11,
    "propn_ratio": 1
   },
@@ -2157,11 +2292,6 @@
   {
    "lemma": "hannah",
    "total": 10,
-   "propn_ratio": 1
-  },
-  {
-   "lemma": "paul",
-   "total": 9,
    "propn_ratio": 1
   },
   {
@@ -2182,6 +2312,11 @@
   {
    "lemma": "jeremy",
    "total": 8,
+   "propn_ratio": 1
+  },
+  {
+   "lemma": "america",
+   "total": 7,
    "propn_ratio": 1
   },
   {
@@ -2226,11 +2361,6 @@
   },
   {
    "lemma": "adenville",
-   "total": 6,
-   "propn_ratio": 1
-  },
-  {
-   "lemma": "america",
    "total": 6,
    "propn_ratio": 1
   },
@@ -2376,6 +2506,11 @@
   },
   {
    "lemma": "canada",
+   "total": 4,
+   "propn_ratio": 1
+  },
+  {
+   "lemma": "canadian",
    "total": 4,
    "propn_ratio": 1
   },
@@ -2685,11 +2820,6 @@
    "propn_ratio": 1
   },
   {
-   "lemma": "canadian",
-   "total": 2,
-   "propn_ratio": 1
-  },
-  {
    "lemma": "carl",
    "total": 2,
    "propn_ratio": 1
@@ -2716,6 +2846,11 @@
   },
   {
    "lemma": "columbia",
+   "total": 2,
+   "propn_ratio": 1
+  },
+  {
+   "lemma": "columbus",
    "total": 2,
    "propn_ratio": 1
   },
@@ -2805,6 +2940,11 @@
    "propn_ratio": 1
   },
   {
+   "lemma": "jennifer",
+   "total": 2,
+   "propn_ratio": 1
+  },
+  {
    "lemma": "jim",
    "total": 2,
    "propn_ratio": 1
@@ -2851,6 +2991,11 @@
   },
   {
    "lemma": "london",
+   "total": 2,
+   "propn_ratio": 1
+  },
+  {
+   "lemma": "lovers",
    "total": 2,
    "propn_ratio": 1
   },
@@ -3015,6 +3160,11 @@
    "propn_ratio": 1
   },
   {
+   "lemma": "spain",
+   "total": 2,
+   "propn_ratio": 1
+  },
+  {
    "lemma": "swiss",
    "total": 2,
    "propn_ratio": 1
@@ -3050,12 +3200,22 @@
    "propn_ratio": 1
   },
   {
+   "lemma": "visitors",
+   "total": 2,
+   "propn_ratio": 1
+  },
+  {
    "lemma": "vitruvius",
    "total": 2,
    "propn_ratio": 1
   },
   {
    "lemma": "vuenna",
+   "total": 2,
+   "propn_ratio": 1
+  },
+  {
+   "lemma": "weekends",
    "total": 2,
    "propn_ratio": 1
   },
@@ -3166,6 +3326,11 @@
   },
   {
    "lemma": "belgium",
+   "total": 1,
+   "propn_ratio": 1
+  },
+  {
+   "lemma": "betty",
    "total": 1,
    "propn_ratio": 1
   },
@@ -3510,11 +3675,6 @@
    "propn_ratio": 1
   },
   {
-   "lemma": "jennifer",
-   "total": 1,
-   "propn_ratio": 1
-  },
-  {
    "lemma": "jiyung",
    "total": 1,
    "propn_ratio": 1
@@ -3625,11 +3785,6 @@
    "propn_ratio": 1
   },
   {
-   "lemma": "lovers",
-   "total": 1,
-   "propn_ratio": 1
-  },
-  {
    "lemma": "mabel",
    "total": 1,
    "propn_ratio": 1
@@ -3681,6 +3836,11 @@
   },
   {
    "lemma": "monty",
+   "total": 1,
+   "propn_ratio": 1
+  },
+  {
+   "lemma": "morocco",
    "total": 1,
    "propn_ratio": 1
   },
@@ -3855,11 +4015,6 @@
    "propn_ratio": 1
   },
   {
-   "lemma": "spain",
-   "total": 1,
-   "propn_ratio": 1
-  },
-  {
    "lemma": "stacy",
    "total": 1,
    "propn_ratio": 1
@@ -3960,11 +4115,6 @@
    "propn_ratio": 1
   },
   {
-   "lemma": "visitors",
-   "total": 1,
-   "propn_ratio": 1
-  },
-  {
    "lemma": "walt",
    "total": 1,
    "propn_ratio": 1
@@ -3976,11 +4126,6 @@
   },
   {
    "lemma": "weber",
-   "total": 1,
-   "propn_ratio": 1
-  },
-  {
-   "lemma": "weekends",
    "total": 1,
    "propn_ratio": 1
   },
@@ -4012,8 +4157,16 @@
  ],
  "굴절형_접기": [
   {
-   "surface": "algorithms",
-   "head": "algorithm"
+   "surface": "friends",
+   "head": "friend"
+  },
+  {
+   "surface": "stones",
+   "head": "stone"
+  },
+  {
+   "surface": "tips",
+   "head": "tip"
   },
   {
    "surface": "participants",
@@ -4038,6 +4191,14 @@
   {
    "surface": "students",
    "head": "student"
+  },
+  {
+   "surface": "hours",
+   "head": "hour"
+  },
+  {
+   "surface": "sports",
+   "head": "sport"
   },
   {
    "surface": "pricing",
@@ -4072,32 +4233,76 @@
    "head": "detail"
   },
   {
-   "surface": "stones",
-   "head": "stone"
+   "surface": "dates",
+   "head": "date"
   },
   {
    "surface": "testing",
    "head": "test"
   },
   {
-   "surface": "tips",
-   "head": "tip"
-  },
-  {
    "surface": "hands",
    "head": "hand"
+  },
+  {
+   "surface": "monitoring",
+   "head": "monitor"
   },
   {
    "surface": "caterpillars",
    "head": "caterpillar"
   },
   {
-   "surface": "soaked",
-   "head": "soak"
-  },
-  {
    "surface": "oscars",
    "head": "oscar"
+  },
+  {
+   "surface": "auditions",
+   "head": "audition"
+  },
+  {
+   "surface": "humans",
+   "head": "human"
+  },
+  {
+   "surface": "places",
+   "head": "place"
+  },
+  {
+   "surface": "goals",
+   "head": "goal"
+  },
+  {
+   "surface": "areas",
+   "head": "area"
+  },
+  {
+   "surface": "kids",
+   "head": "kid"
+  },
+  {
+   "surface": "cities",
+   "head": "city"
+  },
+  {
+   "surface": "parks",
+   "head": "park"
+  },
+  {
+   "surface": "minds",
+   "head": "mind"
+  },
+  {
+   "surface": "messaging",
+   "head": "message"
+  },
+  {
+   "surface": "communicating",
+   "head": "communicate"
+  },
+  {
+   "surface": "algorithms",
+   "head": "algorithm"
   },
   {
    "surface": "editing",
@@ -4106,6 +4311,10 @@
   {
    "surface": "parsons",
    "head": "parson"
+  },
+  {
+   "surface": "carpenters",
+   "head": "carpenter"
   },
   {
    "surface": "consuming",
@@ -4136,6 +4345,14 @@
    "head": "guest"
   },
   {
+   "surface": "fees",
+   "head": "fee"
+  },
+  {
+   "surface": "benefits",
+   "head": "benefit"
+  },
+  {
    "surface": "contracting",
    "head": "contract"
   },
@@ -4148,24 +4365,12 @@
    "head": "principle"
   },
   {
-   "surface": "humans",
-   "head": "human"
-  },
-  {
-   "surface": "places",
-   "head": "place"
-  },
-  {
    "surface": "grouping",
    "head": "group"
   },
   {
    "surface": "processing",
    "head": "process"
-  },
-  {
-   "surface": "hours",
-   "head": "hour"
   },
   {
    "surface": "arts",
@@ -4176,40 +4381,8 @@
    "head": "class"
   },
   {
-   "surface": "areas",
-   "head": "area"
-  },
-  {
-   "surface": "friends",
-   "head": "friend"
-  },
-  {
-   "surface": "cities",
-   "head": "city"
-  },
-  {
    "surface": "ideas",
    "head": "idea"
-  },
-  {
-   "surface": "minds",
-   "head": "mind"
-  },
-  {
-   "surface": "sets",
-   "head": "set"
-  },
-  {
-   "surface": "parks",
-   "head": "park"
-  },
-  {
-   "surface": "skills",
-   "head": "skill"
-  },
-  {
-   "surface": "goals",
-   "head": "goal"
   },
   {
    "surface": "desired",
@@ -4228,20 +4401,8 @@
    "head": "novel"
   },
   {
-   "surface": "dates",
-   "head": "date"
-  },
-  {
-   "surface": "messaging",
-   "head": "message"
-  },
-  {
    "surface": "balancing",
    "head": "balance"
-  },
-  {
-   "surface": "communicating",
-   "head": "communicate"
   },
   {
    "surface": "extended",
@@ -4272,6 +4433,10 @@
    "head": "fascinate"
   },
   {
+   "surface": "empowered",
+   "head": "empower"
+  },
+  {
    "surface": "apartments",
    "head": "apartment"
   },
@@ -4282,10 +4447,6 @@
   {
    "surface": "mending",
    "head": "mend"
-  },
-  {
-   "surface": "scanning",
-   "head": "scan"
   },
   {
    "surface": "genes",
@@ -4304,32 +4465,28 @@
    "head": "congest"
   },
   {
-   "surface": "trustees",
-   "head": "trustee"
+   "surface": "cases",
+   "head": "case"
   },
   {
-   "surface": "carpenters",
-   "head": "carpenter"
+   "surface": "soaked",
+   "head": "soak"
   },
   {
-   "surface": "confusing",
-   "head": "confuse"
+   "surface": "sets",
+   "head": "set"
   },
   {
-   "surface": "coding",
-   "head": "code"
+   "surface": "bodied",
+   "head": "body"
   },
   {
-   "surface": "couples",
-   "head": "couple"
+   "surface": "timing",
+   "head": "time"
   },
   {
-   "surface": "corresponding",
-   "head": "correspond"
-  },
-  {
-   "surface": "diversified",
-   "head": "diversify"
+   "surface": "boards",
+   "head": "board"
   },
   {
    "surface": "tempting",
@@ -4344,6 +4501,42 @@
    "head": "cart"
   },
   {
+   "surface": "corresponding",
+   "head": "correspond"
+  },
+  {
+   "surface": "aging",
+   "head": "age"
+  },
+  {
+   "surface": "convincing",
+   "head": "convince"
+  },
+  {
+   "surface": "cultures",
+   "head": "culture"
+  },
+  {
+   "surface": "trustees",
+   "head": "trustee"
+  },
+  {
+   "surface": "allergies",
+   "head": "allergy"
+  },
+  {
+   "surface": "confusing",
+   "head": "confuse"
+  },
+  {
+   "surface": "coding",
+   "head": "code"
+  },
+  {
+   "surface": "couples",
+   "head": "couple"
+  },
+  {
    "surface": "cherished",
    "head": "cherish"
   },
@@ -4352,16 +4545,12 @@
    "head": "condense"
   },
   {
-   "surface": "convincing",
-   "head": "convince"
-  },
-  {
    "surface": "calming",
    "head": "calm"
   },
   {
-   "surface": "benefits",
-   "head": "benefit"
+   "surface": "conditions",
+   "head": "condition"
   },
   {
    "surface": "damaged",
@@ -4376,14 +4565,6 @@
    "head": "decade"
   },
   {
-   "surface": "destinations",
-   "head": "destination"
-  },
-  {
-   "surface": "timing",
-   "head": "time"
-  },
-  {
    "surface": "changes",
    "head": "change"
   },
@@ -4392,24 +4573,8 @@
    "head": "value"
   },
   {
-   "surface": "aging",
-   "head": "age"
-  },
-  {
-   "surface": "sports",
-   "head": "sport"
-  },
-  {
-   "surface": "cultures",
-   "head": "culture"
-  },
-  {
    "surface": "challenges",
    "head": "challenge"
-  },
-  {
-   "surface": "cases",
-   "head": "case"
   },
   {
    "surface": "countries",
@@ -4424,16 +4589,16 @@
    "head": "conflict"
   },
   {
+   "surface": "skills",
+   "head": "skill"
+  },
+  {
    "surface": "adults",
    "head": "adult"
   },
   {
    "surface": "birds",
    "head": "bird"
-  },
-  {
-   "surface": "bodied",
-   "head": "body"
   },
   {
    "surface": "consequences",
@@ -4446,10 +4611,6 @@
   {
    "surface": "customers",
    "head": "customer"
-  },
-  {
-   "surface": "differences",
-   "head": "difference"
   },
   {
    "surface": "tickets",
@@ -4468,20 +4629,8 @@
    "head": "cooperate"
   },
   {
-   "surface": "boards",
-   "head": "board"
-  },
-  {
-   "surface": "dilemmas",
-   "head": "dilemma"
-  },
-  {
    "surface": "warming",
    "head": "warm"
-  },
-  {
-   "surface": "dominating",
-   "head": "dominate"
   },
   {
    "surface": "sweets",
@@ -4492,20 +4641,20 @@
    "head": "cater"
   },
   {
-   "surface": "dresses",
-   "head": "dress"
-  },
-  {
    "surface": "bullying",
    "head": "bully"
+  },
+  {
+   "surface": "coworkers",
+   "head": "coworker"
   },
   {
    "surface": "correlated",
    "head": "correlate"
   },
   {
-   "surface": "disasters",
-   "head": "disaster"
+   "surface": "chattering",
+   "head": "chatter"
   },
   {
    "surface": "commanding",
@@ -4520,12 +4669,60 @@
    "head": "coup"
   },
   {
-   "surface": "helmets",
-   "head": "helmet"
+   "surface": "scanning",
+   "head": "scan"
+  },
+  {
+   "surface": "games",
+   "head": "game"
+  },
+  {
+   "surface": "keeping",
+   "head": "keep"
+  },
+  {
+   "surface": "insider",
+   "head": "inside"
+  },
+  {
+   "surface": "fed",
+   "head": "feed"
+  },
+  {
+   "surface": "elephants",
+   "head": "elephant"
   },
   {
    "surface": "edited",
    "head": "edit"
+  },
+  {
+   "surface": "jamming",
+   "head": "jam"
+  },
+  {
+   "surface": "helmets",
+   "head": "helmet"
+  },
+  {
+   "surface": "foraging",
+   "head": "forage"
+  },
+  {
+   "surface": "gaps",
+   "head": "gap"
+  },
+  {
+   "surface": "garments",
+   "head": "garment"
+  },
+  {
+   "surface": "elements",
+   "head": "element"
+  },
+  {
+   "surface": "frustrating",
+   "head": "frustrate"
   },
   {
    "surface": "encompassing",
@@ -4544,20 +4741,12 @@
    "head": "hill"
   },
   {
-   "surface": "elephants",
-   "head": "elephant"
-  },
-  {
-   "surface": "garments",
-   "head": "garment"
-  },
-  {
    "surface": "hundreds",
    "head": "hundred"
   },
   {
-   "surface": "jamming",
-   "head": "jam"
+   "surface": "diversified",
+   "head": "diversify"
   },
   {
    "surface": "elaborated",
@@ -4568,28 +4757,16 @@
    "head": "exaggerate"
   },
   {
-   "surface": "foraging",
-   "head": "forage"
-  },
-  {
    "surface": "fragmented",
    "head": "fragment"
-  },
-  {
-   "surface": "knives",
-   "head": "knife"
-  },
-  {
-   "surface": "fees",
-   "head": "fee"
   },
   {
    "surface": "framed",
    "head": "frame"
   },
   {
-   "surface": "kids",
-   "head": "kid"
+   "surface": "destinations",
+   "head": "destination"
   },
   {
    "surface": "experts",
@@ -4598,14 +4775,6 @@
   {
    "surface": "individuals",
    "head": "individual"
-  },
-  {
-   "surface": "games",
-   "head": "game"
-  },
-  {
-   "surface": "latest",
-   "head": "late"
   },
   {
    "surface": "effects",
@@ -4628,36 +4797,20 @@
    "head": "establish"
   },
   {
-   "surface": "elements",
-   "head": "element"
+   "surface": "differences",
+   "head": "difference"
   },
   {
-   "surface": "keeping",
-   "head": "keep"
+   "surface": "dilemmas",
+   "head": "dilemma"
   },
   {
-   "surface": "fed",
-   "head": "feed"
-  },
-  {
-   "surface": "gaps",
-   "head": "gap"
-  },
-  {
-   "surface": "insider",
-   "head": "inside"
-  },
-  {
-   "surface": "leaps",
-   "head": "leap"
+   "surface": "dominating",
+   "head": "dominate"
   },
   {
    "surface": "infants",
    "head": "infant"
-  },
-  {
-   "surface": "larger",
-   "head": "large"
   },
   {
    "surface": "invasions",
@@ -4676,20 +4829,8 @@
    "head": "endure"
   },
   {
-   "surface": "empowered",
-   "head": "empower"
-  },
-  {
-   "surface": "liberated",
-   "head": "liberate"
-  },
-  {
    "surface": "humiliated",
    "head": "humiliate"
-  },
-  {
-   "surface": "kits",
-   "head": "kit"
   },
   {
    "surface": "heated",
@@ -4700,12 +4841,24 @@
    "head": "idle"
   },
   {
+   "surface": "dresses",
+   "head": "dress"
+  },
+  {
    "surface": "jackets",
    "head": "jacket"
   },
   {
+   "surface": "disasters",
+   "head": "disaster"
+  },
+  {
    "surface": "fireworks",
    "head": "firework"
+  },
+  {
+   "surface": "fences",
+   "head": "fence"
   },
   {
    "surface": "foes",
@@ -4720,24 +4873,60 @@
    "head": "enlarge"
   },
   {
-   "surface": "pictograms",
-   "head": "pictogram"
-  },
-  {
    "surface": "rackets",
    "head": "racket"
-  },
-  {
-   "surface": "sculpted",
-   "head": "sculpt"
   },
   {
    "surface": "publicizing",
    "head": "publicize"
   },
   {
+   "surface": "lives",
+   "head": "life"
+  },
+  {
+   "surface": "posted",
+   "head": "post"
+  },
+  {
+   "surface": "lighting",
+   "head": "light"
+  },
+  {
+   "surface": "lit",
+   "head": "light"
+  },
+  {
+   "surface": "reports",
+   "head": "report"
+  },
+  {
+   "surface": "rocks",
+   "head": "rock"
+  },
+  {
+   "surface": "prizes",
+   "head": "prize"
+  },
+  {
+   "surface": "nations",
+   "head": "nation"
+  },
+  {
+   "surface": "pouring",
+   "head": "pour"
+  },
+  {
    "surface": "obsessed",
    "head": "obsess"
+  },
+  {
+   "surface": "pictograms",
+   "head": "pictogram"
+  },
+  {
+   "surface": "observed",
+   "head": "observe"
   },
   {
    "surface": "migrants",
@@ -4752,20 +4941,12 @@
    "head": "opposite"
   },
   {
-   "surface": "rooms",
-   "head": "room"
-  },
-  {
    "surface": "robots",
    "head": "robot"
   },
   {
    "surface": "primates",
    "head": "primate"
-  },
-  {
-   "surface": "secrets",
-   "head": "secret"
   },
   {
    "surface": "polluted",
@@ -4776,12 +4957,8 @@
    "head": "protagonist"
   },
   {
-   "surface": "pouring",
-   "head": "pour"
-  },
-  {
-   "surface": "rocks",
-   "head": "rock"
+   "surface": "knives",
+   "head": "knife"
   },
   {
    "surface": "nodding",
@@ -4796,24 +4973,16 @@
    "head": "perception"
   },
   {
-   "surface": "lives",
-   "head": "life"
-  },
-  {
-   "surface": "seeing",
-   "head": "see"
-  },
-  {
    "surface": "prices",
    "head": "price"
   },
   {
-   "surface": "reasons",
-   "head": "reason"
+   "surface": "latest",
+   "head": "late"
   },
   {
-   "surface": "rules",
-   "head": "rule"
+   "surface": "reasons",
+   "head": "reason"
   },
   {
    "surface": "mapping",
@@ -4836,32 +5005,12 @@
    "head": "recognize"
   },
   {
-   "surface": "posted",
-   "head": "post"
-  },
-  {
    "surface": "noted",
    "head": "note"
   },
   {
-   "surface": "observed",
-   "head": "observe"
-  },
-  {
-   "surface": "lighting",
-   "head": "light"
-  },
-  {
-   "surface": "lit",
-   "head": "light"
-  },
-  {
    "surface": "losses",
    "head": "loss"
-  },
-  {
-   "surface": "reports",
-   "head": "report"
   },
   {
    "surface": "perceived",
@@ -4872,40 +5021,28 @@
    "head": "road"
   },
   {
-   "surface": "saturdays",
-   "head": "saturday"
-  },
-  {
    "surface": "mistakes",
    "head": "mistake"
-  },
-  {
-   "surface": "prizes",
-   "head": "prize"
-  },
-  {
-   "surface": "nations",
-   "head": "nation"
   },
   {
    "surface": "raining",
    "head": "rain"
   },
   {
-   "surface": "rounding",
-   "head": "round"
+   "surface": "leaps",
+   "head": "leap"
   },
   {
    "surface": "partitioning",
    "head": "partition"
   },
   {
-   "surface": "personalities",
-   "head": "personality"
+   "surface": "larger",
+   "head": "large"
   },
   {
-   "surface": "satellites",
-   "head": "satellite"
+   "surface": "personalities",
+   "head": "personality"
   },
   {
    "surface": "norms",
@@ -4920,20 +5057,16 @@
    "head": "mediate"
   },
   {
+   "surface": "liberated",
+   "head": "liberate"
+  },
+  {
    "surface": "outraged",
    "head": "outrage"
   },
   {
-   "surface": "rusting",
-   "head": "rust"
-  },
-  {
-   "surface": "seeds",
-   "head": "seed"
-  },
-  {
-   "surface": "seminars",
-   "head": "seminar"
+   "surface": "kits",
+   "head": "kit"
   },
   {
    "surface": "pitches",
@@ -4956,24 +5089,48 @@
    "head": "poison"
   },
   {
-   "surface": "rushing",
-   "head": "rush"
+   "surface": "sculpted",
+   "head": "sculpt"
   },
   {
-   "surface": "snorkeling",
-   "head": "snorkel"
+   "surface": "thundering",
+   "head": "thunder"
   },
   {
-   "surface": "validated",
-   "head": "validate"
+   "surface": "seeing",
+   "head": "see"
   },
   {
-   "surface": "twisted",
-   "head": "twist"
+   "surface": "sharing",
+   "head": "share"
   },
   {
-   "surface": "singing",
-   "head": "sing"
+   "surface": "systems",
+   "head": "system"
+  },
+  {
+   "surface": "tools",
+   "head": "tool"
+  },
+  {
+   "surface": "saturdays",
+   "head": "saturday"
+  },
+  {
+   "surface": "slowing",
+   "head": "slow"
+  },
+  {
+   "surface": "rounding",
+   "head": "round"
+  },
+  {
+   "surface": "topics",
+   "head": "topic"
+  },
+  {
+   "surface": "wheels",
+   "head": "wheel"
   },
   {
    "surface": "shaded",
@@ -4986,6 +5143,46 @@
   {
    "surface": "sides",
    "head": "side"
+  },
+  {
+   "surface": "sparring",
+   "head": "spar"
+  },
+  {
+   "surface": "statistics",
+   "head": "statistic"
+  },
+  {
+   "surface": "validated",
+   "head": "validate"
+  },
+  {
+   "surface": "spots",
+   "head": "spot"
+  },
+  {
+   "surface": "snorkeling",
+   "head": "snorkel"
+  },
+  {
+   "surface": "rooms",
+   "head": "room"
+  },
+  {
+   "surface": "secrets",
+   "head": "secret"
+  },
+  {
+   "surface": "twisted",
+   "head": "twist"
+  },
+  {
+   "surface": "singing",
+   "head": "sing"
+  },
+  {
+   "surface": "villages",
+   "head": "village"
   },
   {
    "surface": "stimulates",
@@ -5016,10 +5213,6 @@
    "head": "year"
   },
   {
-   "surface": "sharing",
-   "head": "share"
-  },
-  {
    "surface": "sporting",
    "head": "sport"
   },
@@ -5030,10 +5223,6 @@
   {
    "surface": "watering",
    "head": "water"
-  },
-  {
-   "surface": "systems",
-   "head": "system"
   },
   {
    "surface": "words",
@@ -5056,6 +5245,10 @@
    "head": "stop"
   },
   {
+   "surface": "rules",
+   "head": "rule"
+  },
+  {
    "surface": "subjects",
    "head": "subject"
   },
@@ -5066,10 +5259,6 @@
   {
    "surface": "sources",
    "head": "source"
-  },
-  {
-   "surface": "tools",
-   "head": "tool"
   },
   {
    "surface": "surprises",
@@ -5088,20 +5277,12 @@
    "head": "white"
   },
   {
-   "surface": "slowing",
-   "head": "slow"
-  },
-  {
-   "surface": "thrilling",
-   "head": "thrill"
-  },
-  {
    "surface": "tracking",
    "head": "track"
   },
   {
-   "surface": "spots",
-   "head": "spot"
+   "surface": "thrilling",
+   "head": "thrill"
   },
   {
    "surface": "trends",
@@ -5112,24 +5293,32 @@
    "head": "strategy"
   },
   {
-   "surface": "topics",
-   "head": "topic"
-  },
-  {
    "surface": "traits",
    "head": "trait"
-  },
-  {
-   "surface": "wheels",
-   "head": "wheel"
   },
   {
    "surface": "soured",
    "head": "sour"
   },
   {
+   "surface": "satellites",
+   "head": "satellite"
+  },
+  {
    "surface": "sundays",
    "head": "sunday"
+  },
+  {
+   "surface": "rusting",
+   "head": "rust"
+  },
+  {
+   "surface": "seeds",
+   "head": "seed"
+  },
+  {
+   "surface": "seminars",
+   "head": "seminar"
   },
   {
    "surface": "swam",
@@ -5148,16 +5337,12 @@
    "head": "sow"
   },
   {
-   "surface": "sparring",
-   "head": "spar"
+   "surface": "rushing",
+   "head": "rush"
   },
   {
    "surface": "stinging",
    "head": "sting"
-  },
-  {
-   "surface": "thundering",
-   "head": "thunder"
   },
   {
    "surface": "preferred",
@@ -5194,6 +5379,10 @@
   {
    "surface": "psychologists",
    "head": "psychologist"
+  },
+  {
+   "surface": "remaining",
+   "head": "remain"
   },
   {
    "surface": "repeated",
@@ -5276,6 +5465,10 @@
    "head": "investigation"
   },
   {
+   "surface": "invitations",
+   "head": "invitation"
+  },
+  {
    "surface": "managers",
    "head": "manager"
   },
@@ -5330,10 +5523,6 @@
   {
    "surface": "regulations",
    "head": "regulation"
-  },
-  {
-   "surface": "remaining",
-   "head": "remain"
   },
   {
    "surface": "remedied",
@@ -5399,10 +5588,7 @@
  "원문에_없는_목록어": [
   "bring about",
   "intended",
-  "archaeologist",
-  "humility",
   "annoyed",
-  "distraction",
   "account for",
   "archaeological",
   "artefact",
@@ -5410,14 +5596,11 @@
   "disappoint",
   "exclusive",
   "exhausted",
-  "fixed",
   "former",
   "fossil fuel",
   "further",
   "instant",
   "dormitory",
-  "excite",
-  "experienced",
   "make it",
   "means",
   "nevertheless",
@@ -5442,7 +5625,6 @@
   "beyond",
   "bio",
   "birding",
-  "bored",
   "bronze age",
   "build up",
   "by-product",
@@ -5450,46 +5632,35 @@
   "check up on",
   "chronic",
   "close-knit",
-  "come over",
   "committed",
   "commons",
   "comparative",
   "cream cheese",
   "credit card",
-  "crosswalk",
   "current affairs",
   "cut down",
   "demanding",
   "dialogue",
   "dining room",
-  "disadvantage",
   "disengage",
-  "disgust",
-  "disorder",
-  "dispose of",
   "drop off",
   "dust",
   "dynamics",
   "ethnic group",
   "ethnocentric",
   "even",
-  "evoke",
   "fender bender",
   "field trip",
   "figurative",
   "first",
   "fly high",
   "garbage disposal",
-  "gaze",
   "get around",
   "hierarchy",
   "high-minded",
   "high-tech",
   "ill",
-  "immigrant",
   "in effect",
-  "in the end",
-  "in vain",
   "intensive care",
   "into",
   "iron age",
@@ -5506,7 +5677,6 @@
   "mitochondria",
   "mother-in-law",
   "narrow down",
-  "notify",
   "offence",
   "offend",
   "on board",
@@ -5514,21 +5684,14 @@
   "get through",
   "gift card",
   "hold on",
-  "irritated",
   "judgement",
   "natural disaster",
-  "nervous system",
-  "open-mouthed",
   "pierce",
   "please",
   "point out",
-  "point to",
   "prevailing",
   "proximate",
   "public relations",
-  "put aside",
-  "put forward",
-  "qualified",
   "radiocarbon dating",
   "rehearsal",
   "restricted",
@@ -5544,37 +5707,30 @@
   "speeding",
   "stem from",
   "stone age",
-  "storm",
-  "strive",
-  "subordinate",
-  "subsequent",
   "swing for the fences",
   "take off",
   "telling",
   "trade unionism",
-  "truthful",
   "turn to",
   "undoubtedly",
   "upsetting",
   "value chain",
   "warn",
-  "warranty",
   "wash up",
   "weekday",
   "yearly",
   "opposed",
   "pamphlet",
-  "pass away",
-  "performing arts",
-  "associate with",
   "climate change",
   "complicated",
   "consist of",
+  "subsequent",
   "contribute to",
+  "pass away",
+  "performing arts",
   "personal best",
   "value-laden",
   "victory",
-  "visiting",
   "discouraged",
   "end up",
   "get rid of",
@@ -5589,33 +5745,12 @@
   "take advantage of",
   "take over",
   "various",
-  "global warming",
-  "go along with",
   "go down",
-  "homework",
-  "humidity",
-  "humour",
-  "indecisive",
-  "index finger",
   "industrial revolution",
   "infect",
   "infrastructure",
   "pretend",
   "philanthropy",
-  "pottery",
-  "ribbon",
-  "self-portrait",
-  "self-referential",
-  "whereas",
-  "win out",
-  "wind turbine",
-  "wipe out",
-  "bakery",
-  "balloon",
-  "bargain",
-  "conductor",
-  "full-time",
-  "servicing",
   "set off",
   "settle down",
   "severely",
@@ -5625,7 +5760,6 @@
   "hence",
   "interfere with",
   "astronomical",
-  "audition",
   "authentic",
   "not necessarily",
   "bottom",
@@ -5641,10 +5775,45 @@
   "catch up with",
   "cesium",
   "cut off",
-  "decorate",
   "front",
   "frozen",
   "in and of itself",
+  "archaeologist",
+  "fixed",
+  "excite",
+  "experienced",
+  "bored",
+  "come over",
+  "disgust",
+  "dispose of",
+  "evoke",
+  "in the end",
+  "in vain",
+  "nervous system",
+  "open-mouthed",
+  "point to",
+  "put aside",
+  "put forward",
+  "qualified",
+  "strive",
+  "associate with",
+  "visiting",
+  "global warming",
+  "go along with",
+  "homework",
+  "humour",
+  "indecisive",
+  "index finger",
+  "ribbon",
+  "self-portrait",
+  "self-referential",
+  "whereas",
+  "win out",
+  "wind turbine",
+  "wipe out",
+  "balloon",
+  "bargain",
+  "full-time",
   "conform to",
   "give up",
   "in contrast",

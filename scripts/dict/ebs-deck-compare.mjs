@@ -203,5 +203,53 @@ console.log('덱이 놓친 기출 핵심어(4개년 이상) 상위 30:')
 console.log(coreMissing.slice(0, 30).map((f) => `${f.lemma}(${f.raw_count}y)`).join(', '))
 console.log('')
 console.log('→ scripts/dict/csat-corpus/ebs-deck.json')
+
+// ── 태깅 (--tag --commit) ───────────────────────────────────────────
+// 덱 **수록 여부**만 사전에 남긴다(뜻·예문 등 덱 내용은 복사하지 않는다).
+// 출처가 불명확한 제3자 배포본이므로 그 사실을 `frequency_data_sources.citation` 에 적는다 —
+// `csat-prep-*` 가 근거 없이 남아 오해를 부른 전례가 있다(2026-08-21 실측 37%/39% 무근거).
+const TAG = 'ebs-voca-1306'
+if (process.argv.includes('--tag')) {
+  const commit = process.argv.includes('--commit')
+  // 굴절형으로 들어온 카드는 **표제어로 바꿔** 태그한다 — 굴절형을 표제어로 만들지 않는다.
+  const targets = [...new Set(single.map((w) => (inDict.has(w) ? w : (resolved.get(w) ?? null))).filter(Boolean))]
+  console.log(`태그 대상 ${targets.length} (사전 표제어 ${inDict.size} + 굴절형 해소 ${resolved.size})`)
+  if (!commit) {
+    console.log('dry-run — 쓰지 않았다. 반영하려면 --tag --commit')
+  } else {
+    const { error: srcErr } = await db.from('frequency_data_sources').upsert(
+      {
+        source_key: TAG,
+        citation:
+          'EBS 보카 Anki 덱 (제3자 배포본 · 원출처 미확인 · 파일명은 1800 이나 실제 1,306장). ' +
+          '2026-08-21 기출 13개년 원문 대조: 덱→기출 커버리지 57.5%(749/1,303) · ' +
+          '기출 4개년+ 학습대상 192개 중 30.2%(58)만 수록',
+        license: 'unverified — 재배포 금지, 수록 여부만 참조',
+      },
+      { onConflict: 'source_key' },
+    )
+    if (srcErr) throw new Error('출처 기록 실패: ' + srcErr.message)
+
+    let tagged = 0
+    for (let i = 0; i < targets.length; i += 200) {
+      const slice = targets.slice(i, i + 200)
+      const { data, error } = await db.from('shared_dictionary').select('word, list_tags').in('word', slice)
+      if (error) throw new Error('태그 조회 실패: ' + error.message)
+      const need = data.filter((r) => !(r.list_tags ?? []).includes(TAG))
+      for (const r of need) {
+        const { error: uErr } = await db
+          .from('shared_dictionary')
+          .update({ list_tags: [...(r.list_tags ?? []), TAG], updated_at: new Date().toISOString() })
+          .eq('word', r.word)
+        if (uErr) throw new Error(`${r.word} 태그 실패: ` + uErr.message)
+        tagged += 1
+      }
+      process.stdout.write(`태그 ${Math.min(i + 200, targets.length)}/${targets.length}`)
+    }
+    console.log(`
+새로 붙인 태그 ${tagged} · 이미 있던 것 ${targets.length - tagged}`)
+  }
+}
+
 anki.close()
 try { fs.rmSync(TMP, { recursive: true, force: true }) } catch { /* 임시 폴더는 남아도 무해 */ }

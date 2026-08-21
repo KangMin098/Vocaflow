@@ -92,9 +92,16 @@ function assertOneExam(text, label) {
   if (q18 !== 1 || q45 !== 1) throw new Error(`${label}: 회분 분리 실패 (18번 ${q18}회 · 45번 ${q45}회)`)
 }
 
-const files = fs.readdirSync(SRC_DIR).filter((f) => /^\d{4}(_[AB])?\.txt$/.test(f)).sort()
+const files = fs.readdirSync(SRC_DIR).filter((f) => /^\d{4}(_[A-Za-z]+)?\.txt$/.test(f)).sort()
 
-// 2014_B 는 2014_A 와 내용이 같으면 제외한다(추출 사고). 다르면 정상 자료이므로 쓴다.
+// ── 2014 는 수준별 A/B 두 회분이 있는 유일한 해다 (2015학년도부터 통합) ────────────
+// **원본 .txt 두 개가 모두 B형이다** — 어휘 일치도로 확인했다(2026-08-21 실측):
+//   기존 `2014_A.txt` ↔ B형 PDF = **99.8%** · ↔ A형 PDF = 25.3%
+// 즉 파일 이름과 달리 A형은 한 번도 추출된 적이 없었고, A형에만 있는 낱말 521종이
+// 코퍼스에서 통째로 빠져 있었다. `2014_Aform.txt`(A형 PDF 에서 pdftotext 로 추출)를 더해 메운다.
+//   ⚠️ 파일 이름을 근거로 쓰지 말 것 — 여기서는 이름이 내용과 반대였다.
+// 두 회분을 2014 한 해로 합친다(둘 다 2014학년도 수능 영어다). 그래서 2014 는 다른 해보다
+// 토큰이 많다 — 등장 **연도 수**에는 영향이 없고 토큰 빈도에만 반영된다.
 const skipped = []
 const usable = []
 for (const f of files) {
