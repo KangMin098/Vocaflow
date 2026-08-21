@@ -222,6 +222,49 @@ const { fetchAllIn } = await import('./volume-pool.mjs')
   }
 }
 
+// ── 이미 넣었는데 파일이 그 뒤에 고쳐진 것 ──────────────────────────
+//
+// ⚠️ **집필 배치가 끝나기 전에 적재하면 낡은 판이 DB 에 남는다.** 실제로 그랬다 —
+//   적재 시점 실측이 8/13 이라 "배치 보고가 틀렸다" 고 결론냈는데, 배치가 완료 보고를 한 뒤
+//   같은 파일을 다시 재니 **13/13** 이었다. 배치는 정직했고 **내가 먼저 적재한 것**이다.
+//   `source_id` 유일키가 재적재를 막으므로, 고쳐진 본문은 이 경로로만 반영된다.
+//
+// 본문이 바뀌면 문단 번호가 바뀌어 **이미 붙은 문항이 낡는다** — 그래서 되돌릴 수 없고,
+// `--commit` 없이는 미리보기만 한다. 뒤에 `refresh-dcp-items` 를 다시 돌려야 한다.
+if (process.argv.includes('--update-existing')) {
+  const ids = ok.map((r) => `original:v${BAND}-${r.slot}`)
+  const cur = new Map(
+    (await fetchAllIn(db, 'library_articles', 'source_id, content', 'source_id', ids, ['source_id'])).map((d) => [
+      d.source_id,
+      d.content,
+    ]),
+  )
+  const stale = ok.filter((r) => {
+    const c = cur.get(`original:v${BAND}-${r.slot}`)
+    if (c == null) return false
+    return String(c).replace(/\s+/g, ' ').trim() !== String(r.content).replace(/\s+/g, ' ').trim()
+  })
+  console.log(`\n이미 넣은 것 중 **파일이 더 새로운 것 ${stale.length}편** — 슬롯: ${stale.map((r) => r.slot).join(' · ') || '없음'}`)
+  if (!commit) {
+    console.log('--commit 을 붙이면 본문을 갱신한다. **문단 번호가 바뀌어 기존 문항이 낡는다.**')
+    process.exit(0)
+  }
+  let n = 0
+  for (const r of stale) {
+    const { error: ue } = await db
+      .from('library_articles')
+      .update({ content: r.content, content_hash: sha256(r.content) })
+      .eq('source', 'original')
+      .eq('source_id', `original:v${BAND}-${r.slot}`)
+    if (ue) console.log(`  ✗ 슬롯 ${r.slot}: ${ue.message}`)
+    else n++
+  }
+  console.log(`\n갱신 ${n}편. 이어서 돌릴 것:`)
+  console.log('  1. pnpm dlx tsx scripts/acp/reprocess.mjs --missing-vocab --commit  (어휘가 비었으면)')
+  console.log('  2. pnpm dlx tsx scripts/textbook/refresh-dcp-items.mjs --commit     (문항 재생성)')
+  process.exit(0)
+}
+
 // ── 이미 있는 것 ────────────────────────────────────────────────────
 const sourceIds = ok.map((r) => `original:v${BAND}-${r.slot}`)
 const existing = new Set()
