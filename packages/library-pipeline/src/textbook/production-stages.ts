@@ -115,9 +115,18 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
     order: 8,
     label: '평가·개정',
     purpose: '출간 후 오류 신고와 사용 결과를 모아 다음 쇄에 반영한다.',
-    state: 'missing',
-    ours: [],
-    gap: '피드백을 받는 곳이 없다. csat_item_attempts 테이블은 있으나 0행이라, 어느 문항이 너무 쉽거나 어려운지 알 수 없다.',
+    state: 'partial',
+    ours: [
+      'item-health.ts — 정답 번호 쏠림(카이제곱) · 지문 규격 · 밴드 분포 · 관측 유무',
+      'scripts/textbook/item-health-report.mjs — 저장 문항 전체 상시 점검',
+      '관측이 들어오면 난이도(P)·변별도(D)가 자동으로 붙는 자리',
+    ],
+    gap:
+      '**학습자 관측이 0건**이라 난이도·변별도는 아직 못 낸다 — 지금 보는 것은 "만들어진 모양" 이지 ' +
+      '"가르쳐 본 결과" 가 아니다. 그래도 만들자마자 값을 했다(2026-08-21 첫 실행, 4,838문항): ' +
+      '**정답 번호 쏠림 2종**(insert χ²=208.6 — ④⑤가 현저히 적다 · vocab χ²=52.7) + ' +
+      '**지문 규격 밖 1,936건**(order 41.4% · insert 39.5% · vocab 58.2% · grammar 78.6%). ' +
+      '문단을 그대로 지문으로 쓴 탓이다 — 수능 지문은 90~200어인데 우리 문단은 그보다 길다.',
   },
 ] as const
 

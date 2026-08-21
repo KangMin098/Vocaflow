@@ -512,3 +512,12 @@ export {
   pickDeterministic,
 } from './textbook/elementary'
 export type { ElementaryItem, ElementaryWord } from './textbook/elementary'
+// 문항 건강 점검 — 상업 교재 제작 8단계 중 8번(평가·개정)
+export {
+  assessAnswerBias,
+  assessStock,
+  CHI2_CRITICAL_05,
+  difficulty,
+  discrimination,
+} from './textbook/item-health'
+export type { AnswerBias, HealthInput, ItemAttemptStats, StockHealth, TypeHealth } from './textbook/item-health'
