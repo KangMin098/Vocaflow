@@ -238,9 +238,23 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
           className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8"
         >
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">어떻게 학습하나요</h2>
+          {/* ⚠️ 여기 있던 문장은 **사실이 아니었다** (실측 2026-08-22).
+              "이 권의 문항은 오늘의 학습에 섞여 나옵니다. 지금 수준에 맞는 단원부터 자동으로 배정돼요."
+              `prescribe_today` 를 읽어 보니 셋 다 틀렸다:
+                ① 담은 교재를 **보지 않는다** — `user_textbook_selections` 를 읽는 곳이 조회·쓰기뿐이다.
+                ② '단원' 이라는 단위가 배정에 없다 — stage_band 로 거르고 무작위 5문항이다.
+                ③ 유형이 `order`·`insert` 로 제한된다 — 문항 5,952개 중 **오늘의 학습이 닿는 건 895개(15%)**.
+                   어휘 추론·어법·흐름 무관은 이 경로로는 한 번도 안 나온다(2,830개).
+              화면이 시스템보다 앞서 말하면 그건 광고지 안내가 아니다. 지금 참인 것만 적는다.
+              배정이 실제로 담은 교재를 보게 되면 그때 이 문단을 되돌린다. */}
           <p className="mt-3 max-w-[58ch] font-body text-[13px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
-            이 권의 문항은 <strong className="font-display text-[var(--t1)]">오늘의 학습</strong>에
-            섞여 나옵니다. 지금 수준에 맞는 단원부터 자동으로 배정돼요.
+            담아 두면 <strong className="font-display text-[var(--t1)]">내 교재</strong>에 쌓입니다 —
+            어디까지 왔는지 한자리에서 보기 위한 것이에요.
+          </p>
+          <p className="mt-2 max-w-[58ch] font-body text-[12.5px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
+            아직 <strong className="font-display text-[var(--t1)]">담기가 오늘의 학습을 바꾸지는
+            않습니다.</strong> 오늘의 학습에는 글 순서·문장 삽입 문항이 진단 단계에 맞춰 섞여 나오고,
+            그 밖의 유형은 각 모듈에서 따로 만납니다.
           </p>
           <div className="mt-4 flex flex-wrap items-center gap-2.5">
             <Link
