@@ -39,6 +39,27 @@ export const TEXTBOOK_ONLY_DCP_TYPES = [
   // 2026-08-21 적재. **이 회귀가 실제로 잡아 냈다** — 580행을 넣은 직후 통합 테스트가
   // "분류되지 않은 유형 grammar_choice" 로 실패했고, 그래서 이 줄이 생겼다.
   'grammar_choice',
+
+  // ── 수능 대표 유형 9종 (232문항, 실측 2026-08-22) ──────────────────────
+  // 같은 회귀가 **다시** 잡아 냈다. 여기 넣는 이유는 하나뿐이다:
+  // **학습자 화면에 나갈 방법이 없다.** 재생하려면 `parseItem`·`DcpPlayer`·
+  // `grade_dcp_item`·`prescribe_today` 넷을 함께 만들어야 하는데 지금은 하나도 없다.
+  // 분류하지 않고 두면 이 회귀가 계속 빨간 채로 남아 **다음 진짜 누락을 가린다.**
+  //
+  // ⚠️ 다만 "교재 전용" 이라는 이름이 지금은 절반만 맞다 — **어느 권도 이 유형을 쓰지 않는다.**
+  //    `SERIES_SPINE` 7권의 types 에 이 9종이 하나도 없어서, 서가에도 안 보이고
+  //    오늘의 학습에도 안 나온다. 즉 **만들어졌지만 아무 데도 닿지 않는 232문항**이다.
+  //    고3/수능 권이 빈칸·주제·제목·요약 없이 순서·삽입·어휘·어법·흐름무관만 담고 있다는 뜻이라,
+  //    시리즈 구성을 바꿀지는 커리큘럼 결정이다(CHANGELOG v06.356 에 수치와 함께 기록).
+  'topic',
+  'blank',
+  'main_point',
+  'title',
+  'summary',
+  'purpose',
+  'implication',
+  'content_match',
+  'claim',
 ] as const
 
 export type PlayableDcpType = (typeof PLAYABLE_DCP_TYPES)[number]

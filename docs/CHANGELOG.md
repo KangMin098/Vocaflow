@@ -219,6 +219,39 @@ My Library 는 Books·Texts·Decks 세 면뿐이라 교재가 들어갈 자리�
 - 회귀 15: 필터 10(`shelf-filter.test`) + 교재 면 5(`MyTextbooks.test` — 세 상태 구별 · 계단 순서 ·
   사라진 계단 무시). 캡처 하네스에 `/text?view=textbooks` 추가.
 
+### 유형 설명은 맞았다 — 대신 **수능 대표 유형이 어느 권에도 없다** (v06.356)
+
+`TYPE_GUIDE` 9종의 설명을 실제 `payload` 와 대조했다. **DB 에 실재하는 6종은 전부 맞다**:
+
+| 유형 | payload | 설명 |
+|---|---|---|
+| 글 순서 | `presented` | 토막 난 글을 원래 순서로 ✓ |
+| 문장 삽입 | `gap_count, insert_sentence, remaining` | 빠진 문장이 들어갈 자리 ✓ |
+| 영작 배열 | `bank, context, sentence_idx` | 흩어진 낱말을 문장으로 ✓ |
+| 어휘 추론 / 어법 | `sentences, underlines` | 밑줄 중에서 고른다 ✓ |
+| 흐름 무관 | `intro, sentences` | 논지에서 벗어난 문장 ✓ |
+
+(`rhyme`·`word_meaning`·`spell_blank` 는 DB 에 없다 — 사전에서 생성한다는 설명도 맞다.)
+
+⚠️ **대신 다른 것이 나왔다. DB 에 15유형이 있는데 시리즈는 9종만 쓴다.**
+
+`topic` 47 · `blank` 44 · `main_point` 31 · `title` 30 · `summary`·`purpose`·
+`implication`·`content_match`·`claim` 각 16 — **합 232문항**이 `SERIES_SPINE` 7권 어디에도
+없다. 서가에도 안 보이고 오늘의 학습에도 안 나온다. **만들어졌지만 아무 데도 닿지 않는다.**
+빈칸·주제·제목·요약은 수능 대표 유형이라, 고3/수능 권이 순서·삽입·어휘·어법·흐름무관만
+담고 있다는 뜻이다.
+
+**이 상황을 잡으려고 만든 회귀가 이미 있었고, 빨간 채로 있었다.**
+`dcp-playable-types.integration` 이 "분류되지 않은 유형 9종" 으로 실패하고 있었다 —
+세션 초에 "기존 실패 4건" 으로 넘겨 둔 것 중 하나다. 분류하지 않고 두면
+**이 회귀가 계속 빨간 채로 남아 다음 진짜 누락을 가린다.**
+
+- 9종을 `TEXTBOOK_ONLY_DCP_TYPES` 로 분류 — 재생하려면 `parseItem`·`DcpPlayer`·
+  `grade_dcp_item`·`prescribe_today` 넷을 함께 만들어야 하는데 **지금은 하나도 없다.**
+  회귀 초록 복귀(5/5).
+- ⚠️ 이름이 절반만 맞다는 사실을 코드 주석에 남겼다 — "교재 전용" 인데 **어느 교재도 안 쓴다.**
+  시리즈에 넣을지는 **커리큘럼 결정**이라 하지 않았다.
+
 ### 나머지 문구도 전수로 대조했다 — 셋 더 나왔다 (v06.355)
 
 한 문단이 거짓이었으면 나머지도 봐야 한다. 교재 4화면의 **사실 주장**을 하나씩 원본과 맞췄다.
