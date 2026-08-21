@@ -33,6 +33,14 @@ export interface CsatType {
   /** 지금 이 저장소에서 만들 수 있는가. */
   implemented: boolean
   /**
+   * `csat_dcp_items.type` 에 들어가는 값. **키와 다를 수 있다.**
+   *
+   * 이 표는 *수능 유형*의 이름이고 DB 는 *문항 종류*의 이름이라 원래 다른 축인데,
+   * 같은 것을 가리키면서 이름이 다르면 언젠가 한쪽만 고친다(실제로 요지는 `gist` ↔ `main_point` 로
+   * 갈려 있었다). 다르면 여기 적어 다리를 놓는다. 같으면 생략한다.
+   */
+  dbType?: string
+  /**
    * 왜 그 방식이고 왜 (안) 되는가. **판단의 근거를 여기 적는다** —
    * 적지 않으면 다음 사람이 "쉬워 보이는데 왜 없지" 로 시간을 쓴다.
    */
@@ -83,24 +91,34 @@ export const CSAT_READING_TYPES: readonly CsatType[] = [
     numbers: [22],
     label: '요지',
     generation: 'generative',
-    implemented: false,
-    note: '한국어 답지. 오답이 "지문의 부분 진술" 이어야 해서 요약 능력과 오답 설계가 함께 필요하다.',
+    implemented: true,
+    // ⚠️ **DB 의 `type` 값은 `main_point` 다.** 여기 키(`gist`)와 다르다 —
+    //   이 표는 수능 유형의 이름이고 DB 는 문항 종류의 이름이라 원래 다른 축인데,
+    //   같은 것을 가리키면서 이름이 다르면 언젠가 한쪽만 고친다. 아래 `dbType` 이 다리다.
+    dbType: 'main_point',
+    note:
+      '한국어 답지. Claude Code 드레인이 쓴다(`item-drain`). ⚠️ 첫 파일럿에서 **정답이 최장인 비율 16/16 = 100%** ' +
+      '였다 — 지문을 안 읽고 가장 긴 것을 고르면 다 맞았다. 길이 균등 지침 + 적재기 양방향 가드로 6.3% 까지 내렸다.',
   },
   {
     key: 'topic',
     numbers: [23],
     label: '주제',
     generation: 'generative',
-    implemented: false,
-    note: '영어 답지. 요지와 형식만 다르고 오답 설계 성질은 같다.',
+    implemented: true,
+    dbType: 'topic',
+    note: '영어 답지. 요지와 형식만 다르고 오답 설계 성질은 같다. 드레인 실측 — 정답 최장 6.3% · 최단 25%.',
   },
   {
     key: 'title',
     numbers: [24],
     label: '제목',
     generation: 'generative',
-    implemented: false,
-    note: '비유·대구를 쓴 제목이 정답인 경우가 많아 기계 생성이 특히 어렵다.',
+    implemented: true,
+    dbType: 'title',
+    note:
+      '비유·대구를 쓴 제목이 정답인 경우가 많아 기계 생성이 특히 어렵다 — 그래서 사람이 쓰지 않고 ' +
+      'Claude Code 가 지문을 읽고 쓴다. 첫 파일럿에서 길이 편향 37.5% 로 유일하게 임계를 통과한 유형이었다.',
   },
   {
     key: 'chart',
@@ -156,8 +174,12 @@ export const CSAT_READING_TYPES: readonly CsatType[] = [
     numbers: [31, 32, 33, 34],
     label: '빈칸 추론 (단어·구·절)',
     generation: 'generative',
-    implemented: false,
-    note: '**수능 최고 난도이자 배점 최다(4문항).** 난이도가 전적으로 오답 매력도에서 나와 기계 생성이 가장 어렵다.',
+    implemented: true,
+    dbType: 'blank',
+    note:
+      '**수능 최고 난도이자 배점 최다(4문항).** 난이도가 전적으로 오답 매력도에서 나와 기계 생성이 가장 어렵다 — ' +
+      '그래서 Claude Code 가 지문을 읽고 **요지가 걸리는 자리**에 빈칸을 뚫는다(세부 사실 자리면 앞뒤만 보고 풀린다). ' +
+      '드레인 실측 — 정답 최장 0% · 최단 12.5%.',
   },
   {
     key: 'irrelevant',

@@ -29,11 +29,35 @@ describe('CSAT_READING_TYPES', () => {
     }
   })
 
-  it('구현된 것은 결정론 다섯이다 — 실측 기준선', () => {
-    // 흐름 무관은 2026-08-21 추가(`buildIrrelevant`). 늘어날 때마다 여기를 고친다 —
-    // 커버리지 숫자가 조용히 바뀌면 어디서 늘었는지 알 수 없다.
+  it('구현된 것은 결정론 5 + 생성형 4 = 아홉이다 — 실측 기준선', () => {
+    // 늘어날 때마다 여기를 고친다 — 커버리지 숫자가 조용히 바뀌면 어디서 늘었는지 알 수 없다.
+    // 2026-08-21: 생성형 넷(요지·주제·제목·빈칸)이 Claude Code 드레인으로 들어왔다.
     const impl = CSAT_READING_TYPES.filter((t) => t.implemented).map((t) => t.key)
-    expect(impl.sort()).toEqual(['grammar', 'insert', 'irrelevant', 'order', 'vocabulary'])
+    expect(impl.sort()).toEqual([
+      'blank',
+      'gist',
+      'grammar',
+      'insert',
+      'irrelevant',
+      'order',
+      'title',
+      'topic',
+      'vocabulary',
+    ])
+  })
+
+  it('DB 타입 이름이 키와 다르면 `dbType` 으로 다리를 놓는다', () => {
+    // 이 표는 *수능 유형*의 이름이고 DB 는 *문항 종류*의 이름이라 원래 다른 축인데,
+    // 같은 것을 가리키면서 이름이 갈리면 언젠가 한쪽만 고친다 — 요지가 실제로 그랬다
+    // (`gist` ↔ `main_point`). 구현된 생성형 유형은 반드시 `dbType` 을 갖는다.
+    const generativeDone = CSAT_READING_TYPES.filter((t) => t.implemented && t.generation === 'generative')
+    expect(generativeDone.length).toBeGreaterThan(0)
+    for (const t of generativeDone) {
+      expect(t.dbType, `${t.key} 에 dbType 이 없다`).toBeTruthy()
+      expect(t.dbType).toMatch(/^[a-z_]+$/)
+    }
+    // 요지는 이름이 갈린 실제 사례라 값까지 못 박는다.
+    expect(CSAT_READING_TYPES.find((t) => t.key === 'gist')?.dbType).toBe('main_point')
   })
 })
 
@@ -41,10 +65,13 @@ describe('measureCoverage', () => {
   it('유형 수와 문항 수를 둘 다 낸다 — 빈칸 4문항과 목적 1문항은 무게가 다르다', () => {
     const c = measureCoverage()
     expect(c.types.total).toBe(18)
-    expect(c.types.implemented).toBe(5)
+    expect(c.types.implemented).toBe(9)
     expect(c.questions.total).toBe(28)
-    expect(c.questions.implemented).toBe(7) // 순서 2 + 삽입 2 + 흐름무관 1 + 어휘 1 + 어법 1
-    expect(c.questions.ratio).toBeCloseTo(7 / 28, 5)
+    // 결정론 7 (순서 2 + 삽입 2 + 흐름무관 1 + 어휘 1 + 어법 1)
+    //   + 생성형 7 (요지 1 + 주제 1 + 제목 1 + **빈칸 4**) = 14
+    // 빈칸 하나가 유형 수로는 1 인데 문항 수로는 4 다 — 그래서 두 축을 따로 센다.
+    expect(c.questions.implemented).toBe(14)
+    expect(c.questions.ratio).toBeCloseTo(14 / 28, 5)
   })
 
   it('결정론으로 가능한 것은 이제 다 만들었다 — 남은 13유형은 생성형·외부재료다', () => {
