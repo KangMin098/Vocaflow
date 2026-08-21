@@ -675,6 +675,8 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 ## 최근 마이그레이션 (20개)
 
 ```
+20260821140000  user_textbook_selections                   ← 내가 고른 교재(step 번호만). RLS 본인 전용
+20260821120000  textbook_shelf_inventory                   ← 학습자용 재고 집계 RPC (테이블은 admin 전용 유지)
 20260815020000  close_client_writable_gaps                 ← 🔴 고아 테이블 anon 개방 + 초대코드 우회 (아래 참조)
 20260814150000  user_profiles_privilege_escalation_guard   ← 🔴 권한 상승 차단 (아래 참조)
 20260813090000  scores_content_ref                         ← v07 "어떤 자료로 학습했나" (프레임워크 Phase 1)
@@ -715,6 +717,27 @@ v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([202608
 19초가 37.9초가 된다(`EXPLAIN ANALYZE` 로 SubPlan 2개 확인).
 
 ---
+
+### 내가 고른 교재 ([20260821140000](../supabase/migrations/20260821140000_user_textbook_selections.sql))
+
+```
+user_textbook_selections (user_id uuid, step smallint, selected_at timestamptz)
+  PK (user_id, step) · FK user_id → auth.users ON DELETE CASCADE
+  CHECK step BETWEEN 1 AND 99
+  RLS ON · 정책 1개: "own textbook selections" FOR ALL USING/WITH CHECK (auth.uid() = user_id)
+```
+
+**step 번호 하나만 저장한다.** 권의 제목·학령·V레벨·유형은 `SERIES_SPINE`(코드,
+`packages/library-pipeline`)이 소유하므로 복사하지 않는다 — 복사하면 시리즈를 고칠 때
+DB 가 낡은 이름을 계속 말한다("눈금이 둘이면 갈린다").
+
+기존 표를 재사용하지 않은 이유(먼저 재 봤다):
+- `study_plan_items` — `material_type` CHECK 가 `book|article|word_set|script` 4종이고
+  `material_id` 가 **uuid** 다. 교재 권은 DB 행이 아니라 step 번호라 넣을 uuid 가 없다.
+- V-Level 자동 매칭 — 실측(2026-08-21) 전 계정 `current_v_level` 이 0(미진단) 2명 · 11 1명.
+  **V1~V7 에 아무도 없고** 시리즈는 V8+(성인)을 일부러 제외한다. 동작하지도 않고 "선택" 도 아니다.
+
+되돌리기: `DROP TABLE public.user_textbook_selections;` 하나. 다른 표를 건드리지 않는다.
 
 ## DB 사이즈 현황 (v06.34 VACUUM FULL 후, 2026-06-08)
 

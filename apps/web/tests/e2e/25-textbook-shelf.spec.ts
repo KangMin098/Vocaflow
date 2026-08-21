@@ -1,0 +1,137 @@
+// apps/web/tests/e2e/25-textbook-shelf.spec.ts
+//
+// 교재 서가 ↔ My Library **왕복** 회귀.
+//
+// ── 왜 이 spec 이 필요한가 ─────────────────────────────────────────────
+// "담기" 는 DB 쓰기라, 화면 단언 없이는 **눌렀는데 아무 일도 안 일어나는 상태**를 알 수 없다.
+// 이 저장소가 지배적 결함으로 못 박은 종류이고, 이 화면에서 이미 한 번 밟았다 —
+// 서가의 "지금 펼치기" 가 `<span>` 이라 보이는데 눌리지 않았다(v06.337).
+// 게다가 담기의 저장소(`user_textbook_selections`)는 **RLS 로 본인만** 읽을 수 있어서,
+// 정책이 잘못되면 쓰기는 성공하고 조회만 0건이 된다 — 그러면 화면은 조용히 "담은 게 없어요" 다.
+// 그래서 **쓰고 → 다른 화면에서 읽고 → 되돌린다**.
+//
+// ⚠️ 검증 계정의 담은 목록을 남기지 않는다. finally 에서 반드시 원복한다 —
+//    남기면 다음 실행의 "0권 빈 상태" 단언이 영구히 깨진다.
+
+import { test, expect, type Page } from '@playwright/test'
+
+const RUNTIME_USER = {
+  email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
+  password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
+}
+const STATE_PATH = 'playwright-auth/.auth-textbook-shelf.json'
+
+/** 고등 계단 — 재고가 가장 두꺼워 'ready' 가 확실한 자리(실측 V6 1,241문항). */
+const STEP = 6
+
+async function login(page: Page) {
+  await page.goto('/login', { waitUntil: 'networkidle' })
+  await page.waitForTimeout(800) // hydration
+  await page.fill('input[type="email"]', RUNTIME_USER.email)
+  await page.fill('input[type="password"]', RUNTIME_USER.password)
+  await page.click('button[type="submit"]')
+  await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 20_000 })
+}
+
+function fatalErrors(errors: string[]): string[] {
+  return errors.filter(
+    (e) => !/favicon|404 \(Not Found\)|auth-js|auth\/v1\/token|Failed to fetch|ChunkLoadError/.test(e),
+  )
+}
+
+test.describe('교재 서가', () => {
+  test.beforeAll(async ({ browser }) => {
+    const page = await browser.newPage({ storageState: undefined })
+    await login(page)
+    await page.context().storageState({ path: STATE_PATH })
+    await page.close()
+  })
+  test.use({ storageState: STATE_PATH })
+
+  test('세 축 필터가 실제로 목록을 줄이고, 되돌아갈 길이 있다', async ({ page }) => {
+    test.setTimeout(120_000)
+    const errors: string[] = []
+    page.on('console', (m) => {
+      if (m.type() === 'error') errors.push(m.text().slice(0, 200))
+    })
+    page.on('pageerror', (e) => errors.push(`PAGEERROR: ${String(e).slice(0, 200)}`))
+
+    await page.goto('/library/textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+
+    const shelf = page.getByRole('region', { name: '교재 서가' })
+    await expect(shelf).toBeVisible({ timeout: 30_000 })
+
+    const volumes = shelf.locator('ol > li')
+    const total = await volumes.count()
+    expect(total, '서가에 권이 하나도 없다 — 재고 조회가 막혔거나 사다리가 비었다').toBeGreaterThan(0)
+
+    // 축 칩 하나를 켠다. 어느 축이든 "전체보다 적어져야" 필터가 실제로 동작하는 것이다.
+    const firstChip = page.getByRole('button', { name: /^학령 / }).first()
+    await expect(firstChip).toBeVisible()
+    await firstChip.click()
+    await expect(firstChip).toHaveAttribute('aria-pressed', 'true')
+
+    const filtered = await volumes.count()
+    expect(filtered, '칩을 켰는데 목록이 그대로다 — 필터가 표시만 하고 있다').toBeLessThan(total)
+
+    // ⚠️ 되돌아갈 길 — 이게 없으면 조건을 걸어 0건이 된 학습자는 막힌다.
+    const reset = page.getByRole('button', { name: /조건 \d+개 해제/ })
+    await expect(reset).toBeVisible()
+    await reset.click()
+    await expect(volumes).toHaveCount(total)
+
+    expect(fatalErrors(errors), `콘솔 에러: ${fatalErrors(errors).join(' | ')}`).toEqual([])
+  })
+
+  test('담으면 My Library 교재 면에 나타난다 (쓰기 → 다른 화면에서 읽기 → 원복)', async ({
+    page,
+  }) => {
+    test.setTimeout(150_000)
+
+    await page.goto(`/library/textbooks/${STEP}`, {
+      waitUntil: 'domcontentloaded',
+      timeout: 60_000,
+    })
+
+    const pick = page.getByRole('button', { name: /내 교재에 담기$/ })
+    await expect(
+      pick,
+      '담기 버튼이 없다 — 저장소를 못 읽었거나(마이그레이션 미적용) 배선이 끊겼다',
+    ).toBeVisible({ timeout: 30_000 })
+
+    // 권 제목은 서가(SERIES_SPINE)가 소유한다 — 여기서 짓지 않고 화면에서 읽어 온다.
+    const title = (await page.locator('h1').first().innerText()).trim()
+    expect(title.length).toBeGreaterThan(0)
+
+    try {
+      await pick.click()
+      // 낙관적 갱신을 하지 않으므로, 라벨이 바뀌었다 = **서버가 확인해 줬다**.
+      await expect(page.getByRole('button', { name: /내 교재에서 빼기$/ })).toBeVisible({
+        timeout: 20_000,
+      })
+
+      // 다른 화면에서 읽는다 — 쓰기는 성공하고 조회만 0건이 되는 RLS 사고를 잡는 유일한 방법.
+      await page.goto('/text?view=textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+      const mine = page.getByRole('region', { name: '내 교재' })
+      await expect(mine).toBeVisible({ timeout: 30_000 })
+      await expect(mine.getByText(title, { exact: false })).toBeVisible({ timeout: 20_000 })
+
+      // 못 읽었을 때의 문장이 떠 있으면 안 된다 — 그건 담긴 것을 못 본 것이다.
+      await expect(mine.getByText('확인하지 못했어요')).toHaveCount(0)
+      await expect(mine.getByText('아직 담은 교재가 없어요')).toHaveCount(0)
+    } finally {
+      // ⚠️ 반드시 원복 — 남기면 다음 실행의 빈 상태 단언이 영구히 깨진다.
+      await page.goto(`/library/textbooks/${STEP}`, {
+        waitUntil: 'domcontentloaded',
+        timeout: 60_000,
+      })
+      const unpick = page.getByRole('button', { name: /내 교재에서 빼기$/ })
+      if (await unpick.isVisible().catch(() => false)) {
+        await unpick.click()
+        await expect(page.getByRole('button', { name: /내 교재에 담기$/ })).toBeVisible({
+          timeout: 20_000,
+        })
+      }
+    }
+  })
+})
