@@ -39,25 +39,22 @@ export async function fetchTextbookShelf(): Promise<Shelf> {
   const inventory: Array<{ type: string; vLevel: number | null; count: number }> = []
 
   // ① DB 저장 유형 — 유형×V레벨 실측
-  // ⚠️ 이 조회는 **막힐 수 있다.** csat_dcp_items 의 RLS 정책은 admin 하나뿐이라
-  //    학습자·비로그인은 빈 배열을 받는다(실측 2026-08-21). 빈 배열을 '재료 없음' 으로
-  //    읽으면 문항 1,241개를 가진 계단이 화면에 '근간 예정' 으로 나온다.
-  //    그래서 오류·미조회를 구별해 화면까지 올려 보낸다.
-  const { data: items, error: itemsError } = await lc
-    .from('csat_dcp_items')
-    .select('type, v_level')
-    .limit(50_000)
+  // 재고는 **집계 전용 RPC** 로 읽는다(20260821120000).
+  //
+  // ⚠️ 테이블을 직접 조회하면 안 된다. csat_dcp_items 의 RLS 정책은 dcp_admin 하나뿐이라
+  //    학습자·비로그인은 **빈 배열**을 받고, 그걸 재료 없음으로 읽으면 문항 1,241개를 가진
+  //    계단이 근간 예정 으로 나온다(실측 2026-08-21 — 이 화면이 실제로 그렇게 거짓말했다).
+  //    RPC 는 SECURITY DEFINER 로 개수만 돌려준다 — 지문·선지·정답은 나가지 않는다.
+  const { data: items, error: itemsError } = await lc.rpc('textbook_shelf_inventory')
   const measured = !itemsError && Array.isArray(items) && items.length > 0
 
-  const counted = new Map<string, number>()
-  for (const r of (items ?? []) as Array<{ type: string | null; v_level: number | null }>) {
-    if (!r.type || r.v_level == null) continue
-    const key = `${r.type}::${r.v_level}`
-    counted.set(key, (counted.get(key) ?? 0) + 1)
-  }
-  for (const [key, count] of counted) {
-    const [type, lv] = key.split('::')
-    inventory.push({ type, vLevel: Number(lv), count })
+  for (const r of (items ?? []) as Array<{
+    item_type: string | null
+    v_level: number | null
+    item_count: number | null
+  }>) {
+    if (!r.item_type || r.v_level == null) continue
+    inventory.push({ type: r.item_type, vLevel: r.v_level, count: Number(r.item_count ?? 0) })
   }
 
   // ② 초등 3종 — 생성 가능 수(교육과정 어휘 보유량)

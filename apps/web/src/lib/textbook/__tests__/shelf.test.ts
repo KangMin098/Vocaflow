@@ -9,17 +9,19 @@
 
 import { describe, expect, it } from 'vitest'
 
+import type { Inventory } from '@vocaflow/library-pipeline'
+
 import { SHELF_MIN_ITEMS, buildShelf } from '../shelf'
 
 /** DB 저장 유형만으로 채운 재고 — 고등 계단(V5~7)에 해당한다. */
-function dbInventory(vLevel: number, count: number) {
+function dbInventory(vLevel: number, count: number): Inventory {
   return [
     { type: 'vocab_choice', vLevel, count },
     { type: 'grammar_choice', vLevel, count },
     { type: 'order', vLevel, count },
     { type: 'insert', vLevel, count },
     { type: 'irrelevant', vLevel, count },
-  ]
+  ] as Inventory
 }
 
 describe('못 잼 ≠ 없음 (이 화면의 첫 결함)', () => {
@@ -47,7 +49,7 @@ describe('못 잼 ≠ 없음 (이 화면의 첫 결함)', () => {
         { type: 'rhyme', vLevel: 1, count: 400 },
         { type: 'word_meaning', vLevel: 1, count: 400 },
         { type: 'spell_blank', vLevel: 1, count: 400 },
-      ],
+      ] as Inventory,
       false, // DB 조회는 실패했지만
     )
     const step1 = shelf.volumes.find((v) => v.step === 1)!
@@ -93,7 +95,7 @@ describe('사다리 정본을 다시 만들지 않는다', () => {
 
   it('쓰지 않는 유형의 재고는 그 계단에 세지 않는다', () => {
     // V1 에 order 를 넣어도 step1 은 그것을 쓰지 않으므로 0 이어야 한다.
-    const shelf = buildShelf([{ type: 'order', vLevel: 1, count: 999 }], true)
+    const shelf = buildShelf([{ type: 'order', vLevel: 1, count: 999 }] as Inventory, true)
     const step1 = shelf.volumes.find((v) => v.step === 1)!
     expect(step1.itemCount).toBe(0)
   })
