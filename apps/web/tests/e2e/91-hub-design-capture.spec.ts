@@ -100,6 +100,8 @@ const ALL_ROUTES: { slug: string; url: string; label: string; nocards?: string }
   { slug: 'library-books', url: '/library/books', label: '서가 — Books' },
   { slug: 'library-scripts', url: '/library/scripts', label: '서가 — Dispatches' },
   { slug: 'library-vocab', url: '/library/vocab', label: '서가 — Decks' },
+  // 교재 서가 — 파이프라인 산출물이 학습자에게 닿는 유일한 면(v06.337 신설).
+  { slug: 'library-textbooks', url: '/library/textbooks', label: '서가 — Textbooks' },
 ]
 
 /**
