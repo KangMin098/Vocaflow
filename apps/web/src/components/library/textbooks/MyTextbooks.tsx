@@ -90,7 +90,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
   return (
     <Section>
       {/* 합계 — 단원은 상한임을 반드시 밝힌다(권 상세와 같은 규칙). 상한을 예측처럼 보이면 과장 광고다. */}
-      <p className="flex flex-wrap items-baseline gap-x-2.5 font-mono text-[11px] tabular-nums text-[var(--t3)]">
+      <p className="flex flex-wrap items-baseline gap-x-2.5 font-mono text-[11px] tabular-nums text-[var(--t2)]">
         <span>{totals.volumes}권</span>
         <span>· 문항 {totals.items.toLocaleString()}</span>
         <span>· 최대 {totals.maxUnits.toLocaleString()}단원</span>
@@ -112,7 +112,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
               >
                 {v.title}
               </Link>
-              <span className="mt-0.5 block font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+              <span className="mt-0.5 block font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
                 {v.schoolBand} · 문항 {v.itemCount.toLocaleString()} · 최대 {v.maxUnits}단원
               </span>
             </span>
@@ -155,7 +155,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
           <ArrowRight
             size={15}
             aria-hidden
-            className="shrink-0 text-[var(--t3)] motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5"
+            className="shrink-0 text-[var(--t2)] motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5"
           />
         </Link>
       )}
@@ -185,7 +185,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
 function PreviewCard({ volume: v }: { volume: ShelfVolume }) {
   return (
     <article className="flex h-full flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3.5">
-      <p className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.14em] text-[var(--t3)]">
+      <p className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
         STEP {v.step} · {v.schoolBand}
       </p>
       <h3 className="font-editorial text-[16px] font-[500] leading-snug text-[var(--t1)]">
@@ -206,7 +206,7 @@ function PreviewCard({ volume: v }: { volume: ShelfVolume }) {
           </span>
         ))}
       </p>
-      <p className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+      <p className="font-mono text-[10px] tabular-nums text-[var(--t2)]">
         문항 {v.itemCount.toLocaleString()} · 최대 {v.maxUnits}단원
       </p>
       <span className="mt-auto pt-1">
@@ -222,7 +222,7 @@ function Section({ children }: { children: React.ReactNode }) {
       aria-label="내 교재"
       className="rounded-ios-2xl bg-[var(--bg)] px-5 py-5 shadow-ios-2 md:px-8"
     >
-      <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+      <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
         내 교재
       </p>
       <div className="mt-3">{children}</div>

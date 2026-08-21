@@ -337,7 +337,7 @@ export function MyLibraryCarousel({
               {t.label}
               <span
                 className={`rounded-[var(--r-full)] px-1.5 text-[10px] tabular-nums ${
-                  isActive ? 'bg-white/25' : 'bg-[var(--bg3)] text-[var(--t2)]'
+                  isActive ? 'bg-black/25' : 'bg-[var(--bg3)] text-[var(--t2)]'
                 }`}
               >
                 {t.count}

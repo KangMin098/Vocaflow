@@ -75,13 +75,13 @@ export function TextbookShelf({
       className="flex flex-col gap-4 rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8 md:py-7"
     >
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+        <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
           {shelf.brand}
         </p>
         <h2 className="font-editorial text-[24px] font-[500] leading-[1.2] tracking-[-0.014em] text-[var(--t1)] md:text-[28px]">
           학년을 잇는 일곱 권
         </h2>
-        <p className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t3)]">
+        <p className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">
           펼칠 수 있는 권 {shelf.readyCount}/{shelf.volumes.length}
         </p>
       </header>
@@ -127,7 +127,7 @@ export function TextbookShelf({
                 <span className="font-editorial text-[19px] font-[500] leading-none text-[var(--t1)]">
                   {g.label}
                 </span>
-                <span className="font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+                <span className="font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
                   {g.volumes.length}권
                 </span>
                 {/* 매대 팻말은 라벨이 말하지 않는 것만 말한다 — 이 매대가 무엇을 시키는지. */}
@@ -175,7 +175,7 @@ function VolumeRow({
         className={`flex h-[62px] w-[46px] shrink-0 flex-col items-center justify-center rounded-[var(--r-sm)] font-display ${
           ready
             ? 'bg-[var(--p)] text-[var(--on-p)]'
-            : 'bg-[var(--bg3)] text-[var(--t3)]'
+            : 'bg-[var(--bg3)] text-[var(--t2)]'
         }`}
       >
         <span className="font-mono text-[9px] font-[700] uppercase tracking-[0.1em] opacity-80">
@@ -188,7 +188,7 @@ function VolumeRow({
         <h3 className="font-editorial text-[19px] font-[500] leading-snug text-[var(--t1)] md:text-[21px]">
           {v.title}
         </h3>
-        <p className="mt-1 flex flex-wrap items-center gap-x-2.5 font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+        <p className="mt-1 flex flex-wrap items-center gap-x-2.5 font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
           <span>{v.schoolBand}</span>
           <span>· V{v.vLevels.join('·V')}</span>
           <span>· 문항 {v.itemCount.toLocaleString()}</span>
@@ -203,7 +203,7 @@ function VolumeRow({
                 key={t}
                 className={`inline-flex items-center gap-1 rounded-[var(--r-full)] px-2.5 py-1 font-display text-[11px] font-[700] ${
                   missing
-                    ? 'bg-[var(--bg3)] text-[var(--t3)] line-through'
+                    ? 'bg-[var(--bg3)] text-[var(--t2)] line-through'
                     : 'bg-[var(--p-light)] text-[var(--on-p-tint)]'
                 }`}
                 title={missing ? '아직 준비되지 않은 유형' : undefined}
@@ -275,11 +275,11 @@ function FilterBar({
   return (
     <div className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3.5">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t2)]">
           <SlidersHorizontal size={12} aria-hidden />
           찾기
         </span>
-        <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+        <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
           {active > 0 ? `${shown} / ${total}권` : `${total}권 전체`}
         </span>
         {active > 0 && (
@@ -296,7 +296,7 @@ function FilterBar({
 
       {SHELF_AXES.map((axis) => (
         <div key={axis} className="flex flex-wrap items-baseline gap-x-2 gap-y-1.5">
-          <span className="min-w-[34px] font-display text-[11px] font-[700] text-[var(--t3)]">
+          <span className="min-w-[34px] font-display text-[11px] font-[700] text-[var(--t2)]">
             {AXIS_LABEL[axis]}
           </span>
           {facets[axis].map((f) => {
@@ -316,7 +316,7 @@ function FilterBar({
               >
                 {f.label}
                 <span
-                  className={`font-mono text-[10px] tabular-nums ${on ? 'opacity-75' : 'text-[var(--t3)]'}`}
+                  className={`font-mono text-[10px] tabular-nums ${on ? 'opacity-75' : 'text-[var(--t2)]'}`}
                 >
                   {f.count}
                 </span>

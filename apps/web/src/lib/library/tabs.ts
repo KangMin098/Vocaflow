@@ -86,6 +86,14 @@ export const LIBRARY_TABS: readonly LibraryTab[] = [
 
 export type MyLibraryView = 'books' | 'scripts' | 'vocab' | 'textbooks'
 
+/**
+ * 탭 강조색 — **흰 글자가 얹히므로 AA(4.5:1)를 넘어야 한다.**
+ *
+ * ⚠️ 실측 2026-08-22: 원래 값 넷이 **전부 미달**이었다 —
+ *    #6366F1 4.47 · #3B82F6 3.68 · #0EA5E9 2.77 · #8B5CF6 4.23.
+ *    한 톤씩 내려 5.9~7.1:1 로 맞췄다(색상은 유지 — 면을 구별하는 것이 이 색의 일이다).
+ *    새 면을 더할 때 색부터 고르지 말고 **흰 글자 대비를 먼저 계산할 것.**
+ */
 export interface MyLibraryTab extends LibraryTab {
   view: MyLibraryView
   /** 캐러셀 탭 강조색 — 화면이 다시 정하지 않도록 여기서 준다 */
@@ -102,7 +110,7 @@ export const MY_LIBRARY_TABS: readonly MyLibraryTab[] = [
     href: `${MY_LIBRARY_ROOT}?${MY_LIBRARY_VIEW_PARAM}=books`,
     icon: BookOpen,
     says: '챕터로 나뉜 내 책',
-    accent: '#6366F1',
+    accent: '#4F46E5',
   },
   {
     view: 'scripts',
@@ -111,7 +119,7 @@ export const MY_LIBRARY_TABS: readonly MyLibraryTab[] = [
     href: `${MY_LIBRARY_ROOT}?${MY_LIBRARY_VIEW_PARAM}=scripts`,
     icon: FileText,
     says: '낱개 본문',
-    accent: '#3B82F6',
+    accent: '#1D4ED8',
   },
   {
     view: 'vocab',
@@ -119,7 +127,7 @@ export const MY_LIBRARY_TABS: readonly MyLibraryTab[] = [
     href: `${MY_LIBRARY_ROOT}?${MY_LIBRARY_VIEW_PARAM}=vocab`,
     icon: Layers,
     says: '내가 구독한 단어장',
-    accent: '#0EA5E9',
+    accent: '#0369A1',
   },
   {
     view: 'textbooks',
@@ -127,7 +135,7 @@ export const MY_LIBRARY_TABS: readonly MyLibraryTab[] = [
     href: `${MY_LIBRARY_ROOT}?${MY_LIBRARY_VIEW_PARAM}=textbooks`,
     icon: GraduationCap,
     says: '내가 담은 교재',
-    accent: '#8B5CF6',
+    accent: '#6D28D9',
   },
 ]
 

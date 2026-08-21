@@ -456,6 +456,133 @@ async function layoutMetrics(page: Page) {
         const covered = tops.reduce((s, el) => s + el.offsetHeight, 0)
         return Math.round((covered / total) * 100)
       })(),
+      /**
+       * **실제로 렌더된 글자 대비.** WCAG AA (일반 4.5:1 · 큰 글자 3:1).
+       *
+       * ⚠️ 왜 필요한가: 지금까지 이 축을 재는 것은 `on-p-contrast` 정적 래칫뿐이었는데,
+       *    그건 **클래스 문자열**을 본다(`text-white` 가 `bg-[var(--p)]` 위에 있나).
+       *    토큰으로만 칠한 화면은 그 검사를 전부 통과하면서도 다크에서 흐릴 수 있다 —
+       *    `--t3` 를 `--bg2` 위에 얹는 식의 조합은 문자열로는 안 보인다.
+       *    그래서 브라우저가 계산한 색을 그대로 읽는다.
+       *
+       * ⚠️ 배경은 조상을 타고 올라가 **불투명한 색**을 찾는다. 그라디언트·이미지 위의 글자는
+       *    한 색으로 환원되지 않으므로 **재지 않고 건너뛴다** — 억지로 재면 틀린 숫자가
+       *    맞는 숫자처럼 인쇄된다(이 하네스가 반복해서 피해 온 실패).
+       */
+      lowContrast: (() => {
+        /**
+         * `rgb()`/`rgba()` → [r,g,b,a]. 알파를 **버리지 않는다.**
+         *
+         * ⚠️ 첫 판이 알파를 버렸다가 틀린 숫자를 인쇄했다(실측 2026-08-22):
+         *    다크 `--p-light` 는 `rgba(107,155,209,0.18)` 인데 이걸 불투명 `rgb(107,155,209)`
+         *    로 읽어 "1.67:1 AA 미달" 이라고 8건을 보고했다. 실제로는 그 tint 가 어두운 지면
+         *    위에 얹혀 7.24:1 이다(tokens.css 가 그렇게 적어 뒀다).
+         *    **계측기가 틀린 숫자를 맞는 숫자처럼 인쇄하는 것**이 이 하네스에서 가장 나쁜 실패다.
+         */
+        const toRgba = (c: string): [number, number, number, number] | null => {
+          const m = /rgba?\(([^)]+)\)/.exec(c)
+          if (!m) return null
+          const parts = m[1].split(/[,\s/]+/).filter(Boolean).map((x) => parseFloat(x))
+          if (parts.length < 3 || parts.some((n) => Number.isNaN(n))) return null
+          const a = parts.length >= 4 ? parts[3] : 1
+          return [parts[0], parts[1], parts[2], a]
+        }
+        /** 위 색을 아래 색에 얹는다(단순 소스오버). */
+        const over = (
+          top: [number, number, number, number],
+          bottom: [number, number, number],
+        ): [number, number, number] => [
+          Math.round(top[0] * top[3] + bottom[0] * (1 - top[3])),
+          Math.round(top[1] * top[3] + bottom[1] * (1 - top[3])),
+          Math.round(top[2] * top[3] + bottom[2] * (1 - top[3])),
+        ]
+        const lum = ([r, g, b]: [number, number, number]) => {
+          const f = (v: number) => {
+            const s = v / 255
+            return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4)
+          }
+          return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b)
+        }
+        const ratio = (a: [number, number, number], b: [number, number, number]) => {
+          const l1 = lum(a)
+          const l2 = lum(b)
+          return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05)
+        }
+
+        const out: { text: string; ratio: number; need: number; color: string; bg: string }[] = []
+        const main = document.querySelector('main') || document.body
+
+        for (const el of Array.from(main.querySelectorAll<HTMLElement>('*'))) {
+          // 직접 가진 글자만 본다 — 컨테이너까지 세면 같은 글자를 여러 번 센다.
+          const own = Array.from(el.childNodes)
+            .filter((n) => n.nodeType === 3)
+            .map((n) => (n.textContent || '').trim())
+            .join(' ')
+            .trim()
+          if (!own) continue
+
+          const r = el.getBoundingClientRect()
+          if (r.width === 0 || r.height === 0) continue
+
+          const cs = getComputedStyle(el)
+          if (cs.visibility === 'hidden' || cs.opacity === '0') continue
+          const fgRaw = toRgba(cs.color)
+          if (!fgRaw || fgRaw[3] === 0) continue
+
+          // 배경 — 반투명 층을 **쌓아 두었다가** 불투명 바닥 위에 순서대로 합성한다.
+          // 그라디언트·이미지를 만나면 포기한다(한 색으로 환원되지 않는다).
+          const layers: [number, number, number, number][] = []
+          let node: HTMLElement | null = el
+          let base: [number, number, number] | null = null
+          let skip = false
+          while (node) {
+            const s = getComputedStyle(node)
+            if (s.backgroundImage && s.backgroundImage !== 'none') {
+              skip = true
+              break
+            }
+            const c = toRgba(s.backgroundColor)
+            if (c && c[3] > 0) {
+              if (c[3] >= 1) {
+                base = [c[0], c[1], c[2]]
+                break
+              }
+              layers.push(c)
+            }
+            node = node.parentElement
+          }
+          if (skip) continue
+          // 바닥을 못 찾으면 페이지 배경으로 본다. 그것도 없으면 재지 않는다.
+          if (!base) {
+            const bodyBg = toRgba(getComputedStyle(document.body).backgroundColor)
+            if (!bodyBg || bodyBg[3] < 1) continue
+            base = [bodyBg[0], bodyBg[1], bodyBg[2]]
+          }
+          // 바깥쪽부터 안쪽으로 덮는다.
+          let bg: [number, number, number] = base
+          for (let i = layers.length - 1; i >= 0; i--) bg = over(layers[i], bg)
+
+          // 글자색도 반투명일 수 있다(opacity-70 등은 별개지만 rgba 글자색은 흔하다).
+          const fg: [number, number, number] =
+            fgRaw[3] >= 1 ? [fgRaw[0], fgRaw[1], fgRaw[2]] : over(fgRaw, bg)
+
+          const px = parseFloat(cs.fontSize)
+          const weight = parseInt(cs.fontWeight, 10) || 400
+          const large = px >= 24 || (px >= 18.66 && weight >= 700)
+          const need = large ? 3 : 4.5
+          const got = ratio(fg, bg)
+          if (got + 0.05 < need) {
+            out.push({
+              text: own.slice(0, 32),
+              ratio: Math.round(got * 100) / 100,
+              need,
+              color: cs.color,
+              bg: `rgb(${bg.join(',')})`,
+            })
+          }
+        }
+        return out.slice(0, 8)
+      })(),
       overflowCulprits: (() => {
         const limit = document.documentElement.clientWidth
         const out: { tag: string; cls: string; right: number; text: string }[] = []
@@ -593,6 +720,12 @@ test.describe('허브 디자인 캡처', () => {
           `  [지면] (본문 ${m.blockCoverage}% 덮음) ${m.blocks
             .map((b) => `${b.label} ${b.px}px(${Math.round((b.px / total) * 100)}%)`)
             .join(' · ')}`,
+        )
+      }
+      for (const c of m.lowContrast) {
+        // eslint-disable-next-line no-console
+        console.log(
+          `  [대비] ${c.ratio}:1 (필요 ${c.need}:1) "${c.text}" — ${c.color} on ${c.bg}`,
         )
       }
       for (const c of m.overflowCulprits) {

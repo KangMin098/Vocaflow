@@ -78,7 +78,7 @@ function NeighborCard({
 
   if (!v) {
     return (
-      <p className="flex items-center gap-2.5 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[12px] leading-[1.6] text-[var(--t3)] [word-break:keep-all]">
+      <p className="flex items-center gap-2.5 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[12px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
         <Icon size={15} aria-hidden className="shrink-0" />
         {direction === 'down' ? '시리즈의 첫 권이에요.' : '시리즈의 마지막 권이에요.'}
       </p>
@@ -97,19 +97,19 @@ function NeighborCard({
         <Icon size={15} />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block font-display text-[11.5px] font-[700] text-[var(--t3)]">{lead}</span>
+        <span className="block font-display text-[11.5px] font-[700] text-[var(--t2)]">{lead}</span>
         {/* 조사를 붙이지 않는 형태로 잇는다 — 영문 권명에 한국어 조사를 붙일 수 없다. */}
         <span className="mt-0.5 block font-editorial text-[15px] font-[500] leading-snug text-[var(--t1)]">
           {v.title}
         </span>
-        <span className="mt-0.5 block font-mono text-[10px] tabular-nums text-[var(--t3)]">
+        <span className="mt-0.5 block font-mono text-[10px] tabular-nums text-[var(--t2)]">
           STEP {v.step} · {v.schoolBand}
         </span>
       </span>
       <ArrowRight
         size={15}
         aria-hidden
-        className="shrink-0 text-[var(--t3)] motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5"
+        className="shrink-0 text-[var(--t2)] motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5"
       />
     </Link>
   )
@@ -142,13 +142,13 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
           aria-label="교재 표지"
           className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8 md:py-8"
         >
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t3)]">
+          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
             {shelf.brand} · STEP {v.step}
           </p>
           <h1 className="mt-2 font-editorial text-[30px] font-[500] leading-[1.1] tracking-[-0.018em] text-[var(--t1)] md:text-[38px]">
             {v.title}
           </h1>
-          <p className="mt-2 flex flex-wrap items-center gap-x-3 font-mono text-[11.5px] tabular-nums text-[var(--t3)]">
+          <p className="mt-2 flex flex-wrap items-center gap-x-3 font-mono text-[11.5px] tabular-nums text-[var(--t2)]">
             <span>{v.schoolBand}</span>
             <span>· V{v.vLevels.join('·V')}</span>
             <span>· 수록 문항 {v.itemCount.toLocaleString()}</span>
@@ -196,7 +196,7 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
             </span>
             <span className="font-body text-[13px] text-[var(--t2)]">단원</span>
             {minutes > 0 && (
-              <span className="ml-2 font-mono text-[11.5px] tabular-nums text-[var(--t3)]">
+              <span className="ml-2 font-mono text-[11.5px] tabular-nums text-[var(--t2)]">
                 약 {Math.round(minutes / 60)}시간
               </span>
             )}
