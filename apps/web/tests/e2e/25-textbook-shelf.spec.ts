@@ -134,4 +134,22 @@ test.describe('교재 서가', () => {
       }
     }
   })
+
+  test('매대가 초등·중등·고등 세 칸으로 갈린다 (평평한 일곱 줄이 아니다)', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+
+    // 시중 교재 코너의 1차 분류. 이게 없으면 고1 학습자가 초등 두 권을 지나쳐야 자기 자리에 닿는다.
+    for (const name of ['초등 매대', '중등 매대', '고등 매대']) {
+      await expect(page.getByRole('region', { name }), `${name}가 없다`).toBeVisible({
+        timeout: 30_000,
+      })
+    }
+
+    // 필터로 한 매대만 남기면 나머지 팻말은 사라져야 한다 — 빈 칸에 팻말을 세우지 않는다.
+    await page.getByRole('button', { name: /^학령 초등 저학년/ }).click()
+    await expect(page.getByRole('region', { name: '초등 매대' })).toBeVisible()
+    await expect(page.getByRole('region', { name: '고등 매대' })).toHaveCount(0)
+  })
 })

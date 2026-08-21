@@ -94,15 +94,45 @@ const ALL_ROUTES: { slug: string; url: string; label: string; nocards?: string }
   // My Library 3면 — 공용 서가와 **대칭이되 한 칸이 다르다**(Books · Texts · Decks).
   // 서가를 형제로 보는 것과 같은 이유로 셋을 함께 찍는다. 여기가 비어 있던 동안
   // "Decks 면에 스크립트가 보인다" 같은 신고를 캡처로 확인할 방법이 없었다.
-  { slug: 'my-books', url: '/text?view=books', label: 'My Library — Books' },
-  { slug: 'my-texts', url: '/text?view=scripts', label: 'My Library — Texts' },
-  { slug: 'my-decks', url: '/text?view=vocab', label: 'My Library — Decks' },
-  { slug: 'my-textbooks', url: '/text?view=textbooks', label: 'My Library — Textbooks' },
+  // 이 네 면은 **3D 코버플로 무대 하나**다. 카드가 겹쳐 서고 옆 카드는 원근으로 축소되므로
+  // 격자 균질도(카드 폭·높이의 분산)를 재면 뜻이 없다 — 재는 순간 "불균질" 이 정상값이 된다.
+  {
+    slug: 'my-books',
+    url: '/text?view=books',
+    label: 'My Library — Books',
+    nocards: '3D 코버플로 무대 하나 — 옆 카드는 원근 축소가 정상. 격자 균질도는 뜻이 없다',
+  },
+  {
+    slug: 'my-texts',
+    url: '/text?view=scripts',
+    label: 'My Library — Texts',
+    nocards: '3D 코버플로 무대 하나 — 옆 카드는 원근 축소가 정상. 격자 균질도는 뜻이 없다',
+  },
+  {
+    slug: 'my-decks',
+    url: '/text?view=vocab',
+    label: 'My Library — Decks',
+    nocards: '3D 코버플로 무대 하나 — 옆 카드는 원근 축소가 정상. 격자 균질도는 뜻이 없다',
+  },
+  {
+    slug: 'my-textbooks',
+    url: '/text?view=textbooks',
+    label: 'My Library — Textbooks',
+    // 코버플로 자리를 서버 노드가 대신 쓴다(담은 권 목록 또는 매대 3칸).
+    nocards: '담은 권은 목록, 0권일 때는 매대 3칸 — 균질도를 잴 반복 격자가 아니다',
+  },
   { slug: 'library-books', url: '/library/books', label: '서가 — Books' },
   { slug: 'library-scripts', url: '/library/scripts', label: '서가 — Dispatches' },
   { slug: 'library-vocab', url: '/library/vocab', label: '서가 — Decks' },
   // 교재 서가 — 파이프라인 산출물이 학습자에게 닿는 유일한 면(v06.337 신설).
-  { slug: 'library-textbooks', url: '/library/textbooks', label: '서가 — Textbooks' },
+  {
+    slug: 'library-textbooks',
+    url: '/library/textbooks',
+    label: '서가 — Textbooks',
+    // 카드 격자가 아니라 **매대별 계단 행**이다. 행 높이는 수록 유형 수에 따라 다른 것이 정상이고,
+    // 균질하게 맞추면 유형이 적은 권이 빈 자리를 갖게 된다.
+    nocards: '매대별 계단 행 — 행 높이는 수록 유형 수에 따라 다른 것이 정상',
+  },
   // 권 상세 — 서가의 '지금 펼치기' 목적지. 이 자리가 비어 있던 동안 그 버튼은 죽어 있었다.
   {
     slug: 'textbook-volume',

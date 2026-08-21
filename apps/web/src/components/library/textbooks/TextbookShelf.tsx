@@ -34,6 +34,7 @@ import {
   type Facets,
   type Selection,
 } from '@/lib/textbook/shelf-filter'
+import { groupByStage } from '@/lib/textbook/shelf-stage'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 
 
@@ -65,6 +66,8 @@ export function TextbookShelf({
   // 축 값은 **재고에서** 뽑는다 — 손으로 적은 목록은 시리즈가 바뀌면 갈린다.
   const facets = useMemo(() => buildFacets(shelf.volumes), [shelf.volumes])
   const shown = useMemo(() => filterVolumes(shelf.volumes, sel), [shelf.volumes, sel])
+  // 1차 진열은 매대다 — 시중 교재 코너가 초등/중등/고등을 먼저 나누고 그 안에 계단을 세운다.
+  const groups = useMemo(() => groupByStage(shown), [shown])
 
   return (
     <section
@@ -117,13 +120,33 @@ export function TextbookShelf({
           고른 조건에 맞는 권이 없어요. 위에서 조건을 하나 풀어 보세요.
         </p>
       ) : (
-        <ol className="flex flex-col gap-3">
-          {shown.map((v) => (
-            <li key={v.step}>
-              <VolumeRow volume={v} picked={picked.includes(v.step)} canPick={canPick} />
-            </li>
+        <div className="flex flex-col gap-6">
+          {groups.map((g) => (
+            <section key={g.label} aria-label={`${g.label} 매대`} className="flex flex-col gap-2.5">
+              <h3 className="flex flex-wrap items-baseline gap-x-2.5 border-b border-[var(--bd)] pb-1.5">
+                <span className="font-editorial text-[19px] font-[500] leading-none text-[var(--t1)]">
+                  {g.label}
+                </span>
+                <span className="font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+                  {g.volumes.length}권
+                </span>
+                {/* 매대 팻말은 라벨이 말하지 않는 것만 말한다 — 이 매대가 무엇을 시키는지. */}
+                {g.says && (
+                  <span className="min-w-0 flex-1 font-body text-[11.5px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
+                    {g.says}
+                  </span>
+                )}
+              </h3>
+              <ol className="flex flex-col gap-3">
+                {g.volumes.map((v) => (
+                  <li key={v.step}>
+                    <VolumeRow volume={v} picked={picked.includes(v.step)} canPick={canPick} />
+                  </li>
+                ))}
+              </ol>
+            </section>
           ))}
-        </ol>
+        </div>
       )}
     </section>
   )
