@@ -206,7 +206,10 @@ export type { ForeignSentence, IrrelevantItem, Rarity } from './textbook/irrelev
 export { buildWordOrder, deterministicShuffle, WORD_ORDER_WORDS } from './textbook/word-order'
 export type { WordOrderItem } from './textbook/word-order'
 // 학습자·교사·학부모 3관점 채점표 — 못 재는 것에는 점수를 붙이지 않는다.
-export { hasNonProse, isPrintablePassage } from './textbook/csat-format'
+// `selectPassageWindow` 는 **긴 글에서 수능 규격(90~200어) 구간을 잘라 내는 자**다.
+// 문항을 만드는 쪽은 전부 이 자를 써야 한다 — 안 쓰면 창 밖 지문으로 문항을 만들게 되고,
+// 그런 문항은 적재는 되는데 조합기가 걸러서 **책에는 영영 안 실린다**(실측: V5 30문항 중 26개).
+export { hasNonProse, isPrintablePassage, selectPassageWindow } from './textbook/csat-format'
 export { UNIT_MINUTES, scoreVolume } from './textbook/scorecard'
 export type { Audience, AutoCheck, HumanCheck, Scorecard } from './textbook/scorecard'
 // 수능 인쇄 형식 변환 — 저장 형식·학습 화면은 그대로 두고 표현만 바꾼다.

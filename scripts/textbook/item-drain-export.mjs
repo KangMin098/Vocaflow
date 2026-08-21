@@ -157,7 +157,43 @@ const { data: arts, error } = await db
   .eq('article_v_level', BAND)
   .order('id')
 if (error) throw new Error('기사 조회 실패: ' + error.message)
-const usable = (arts ?? []).filter((a) => !a.display_only && String(a.content ?? '').trim())
+// ⚠️ **지문이 창(90~200어) 안이어야 한다.** 조합기가 문항 지문을 그 창으로 거르므로,
+//   창 밖 글로 문항을 만들면 **적재는 되는데 책에는 영영 안 실린다.**
+//   실측(2026-08-21): V5 에 생성형 30문항을 만들었는데 26개가 이 이유로 걸려 4개만 실렸다.
+//   V5 원글은 외부 장문 기사라 중앙값이 952어였다(최대 14,420어).
+//   여기서 미리 거르지 않으면 배치가 헛일을 한다 — 못 쓸 것을 만들게 두지 않는다.
+// ⚠️ **긴 글은 통째로 주지 않는다 — 창에 맞는 구간을 잘라 준다.**
+//   조합기가 문항 지문을 90~200어로 거르므로, 글 전체를 지문으로 삼으면 긴 글은
+//   **적재는 되는데 책에는 영영 안 실린다.** 실측(2026-08-21): V5 에 생성형 30문항을
+//   만들었는데 26개가 이 이유로 걸려 4개만 실렸다(지문 중앙값 952어 · 최대 14,420어).
+//
+//   순서·삽입은 처음부터 **문단**을 지문으로 쓴다. 생성형만 글 전체를 쓰고 있었던 것이
+//   문제였다 — 같은 자를 대야 한다. `selectPassageWindow` 가 그 자다(이미 어법 생성기가 쓴다).
+const { CSAT_ITEM_WORDS, selectPassageWindow, isPrintablePassage } = await import('@vocaflow/library-pipeline')
+/** 이 유형이 성립하려면 지문에 문장이 최소 몇 개 있어야 하는가. */
+const MIN_PASSAGE_SENTENCES = 5
+
+const withBody = (arts ?? []).filter((a) => !a.display_only && String(a.content ?? '').trim())
+/** 글 → 창 안 지문. 못 자르면 null 이고, 그런 글은 이 유형을 못 만든다. */
+function passageOf(a) {
+  const sentences = String(a.content)
+    .replace(/\n\s*\n+/g, ' ')
+    .split(/(?<=[.!?])\s+/)
+    .map((s) => s.replace(/\s+/g, ' ').trim())
+    .filter((s) => s.length > 1)
+  const win = selectPassageWindow(sentences, CSAT_ITEM_WORDS, MIN_PASSAGE_SENTENCES)
+  if (!win) return null
+  const text = win.join(' ')
+  // 인쇄할 수 없는 자국(각주 잔해·용어풀이 등)이 섞인 지문은 교재에 못 낸다.
+  return isPrintablePassage(text) ? text : null
+}
+const passages = new Map()
+for (const a of withBody) {
+  const p = passageOf(a)
+  if (p) passages.set(a.id, p)
+}
+const outOfWindow = withBody.filter((a) => !passages.has(a.id))
+const usable = withBody.filter((a) => passages.has(a.id))
 
 // 이미 이 유형이 붙은 글은 건너뛴다 — 재실행 안전.
 const existing = new Set(
@@ -179,7 +215,8 @@ const tasks = todo.slice(0, need).map((a) => ({
   choice_language: spec.choiceLang,
   guide: spec.guide,
   source_title: a.title,
-  passage: String(a.content).replace(/\n\s*\n+/g, ' ').replace(/\s+/g, ' ').trim(),
+  // **글 전체가 아니라 창(90~200어)에 맞게 자른 구간**이다 — 위 `passageOf` 주석 참조.
+  passage: passages.get(a.id),
   // ↓ 여기를 채운다
   choices: [],
   answer: 0,
@@ -197,7 +234,12 @@ for (let i = 0; i < tasks.length; i += SIZE) {
 }
 
 console.log(`${spec.label}(${spec.number}번) · V${BAND}`)
-console.log(`  쓸 수 있는 원글 ${usable.length}편 · 이미 이 유형이 붙은 것 ${existing.size}편`)
+console.log(`  본문 있는 원글 ${withBody.length}편`)
+console.log(
+  `  그중 창(${CSAT_ITEM_WORDS.min}~${CSAT_ITEM_WORDS.max}어)으로 자를 수 있는 것 ${usable.length}편 · ` +
+    `**못 자름 ${outOfWindow.length}편**  ← 문장이 모자라거나 인쇄 불가 자국이 있는 글`,
+)
+console.log(`  이미 이 유형이 붙은 것 ${existing.size}편`)
 console.log(`  **배치가 쓸 몫 ${tasks.length}편**  → 청크 ${chunks.length}개 (${SIZE}편씩)`)
 console.log(`\n  ${path.relative(process.cwd(), DIR)}/chunk-NN.json`)
 console.log(`  각 항목의 choices(5개)·answer(1~5)·rationale_ko 를 채운 뒤 같은 이름 + .out.json 으로 저장하면`)
