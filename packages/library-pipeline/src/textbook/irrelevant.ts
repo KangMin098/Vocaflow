@@ -23,7 +23,7 @@
 // 그리고 본문 문장 중 하나라도 아예 안 겹치면(`minNative === 0`) **문항을 만들지 않는다** —
 // 그 문단은 원래 결속이 약해서 무엇을 넣어도 답이 갈린다.
 
-import { hasCitationResidue } from './csat-format'
+import { isPrintablePassage } from './csat-format'
 import { contentWords } from './explain'
 
 /** ①~⑤ — 수능과 같은 다섯 자리. */
@@ -144,7 +144,7 @@ export function buildIrrelevant(
 ): IrrelevantItem | null {
   if (paragraph.length < IRRELEVANT_SOURCE_SENTENCES) return null
   const used = paragraph.slice(0, IRRELEVANT_SOURCE_SENTENCES)
-  if (hasCitationResidue(used.join(' '))) return null
+  if (!isPrintablePassage(used.join(' '))) return null
 
   const intro = used[0]!
   const natives = used.slice(1) // 4개
@@ -166,7 +166,7 @@ export function buildIrrelevant(
   // 겉모습이 맞고, 본문 어느 문장보다 덜 붙어 있는 후보만.
   const eligible = candidates
     .filter((c) => c.ref !== selfRef)
-    .filter((c) => !hasCitationResidue(c.text))
+    .filter((c) => isPrintablePassage(c.text))
     .filter((c) => words(c.text) >= shape.min && words(c.text) <= shape.max)
     .map((c) => ({ c, cohesion: cohesionWith(c.text, context, rarity, bar) }))
     // 본문 어느 문장보다 덜 붙어 있되, **아주 딴 얘기여서도 안 된다**.

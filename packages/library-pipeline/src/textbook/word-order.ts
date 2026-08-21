@@ -26,7 +26,7 @@
 // 내리면 고유명사(`Prague`)가 망가진다. 그래서 **흔한 낱말일 때만** 내린다 —
 // 판단은 사전에 맡기고(`isCommonWord`) 이 모듈은 순수하게 둔다.
 
-import { hasCitationResidue } from './csat-format'
+import { isPrintablePassage } from './csat-format'
 
 /** 배열 문항이 받는 낱말 수. 위 주석의 실측에서 나왔다. */
 export const WORD_ORDER_WORDS = { min: 6, max: 12 } as const
@@ -60,7 +60,7 @@ export function buildWordOrder(
   isCommonWord: (word: string) => boolean,
 ): WordOrderItem | null {
   const answer = sentence.trim()
-  if (!answer || hasCitationResidue(answer)) return null
+  if (!answer || !isPrintablePassage(answer)) return null
   if (INTERNAL_PUNCT.test(answer)) return null
   if (!TERMINAL.test(answer)) return null
 

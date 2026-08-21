@@ -27,6 +27,8 @@
 //     V1 54.7% · V2 44.5% · V3 45.5% · V4 51.0% · V5 43.9%
 //     V6 41.5% · V7 46.6% · V8 38.2% · V9 40.8% · V10 33.8% · V11 21.0%
 
+import { isPrintablePassage } from './csat-format'
+
 /** 사전에서 필요한 것만. 순수 함수로 두려고 주입받는다. */
 export interface VocabLexicon {
   /** 표제어의 반대말들. 없으면 빈 배열. */
@@ -119,6 +121,8 @@ export function buildVocabChoice(
   lex: VocabLexicon,
 ): VocabChoiceItem | null {
   if (sentences.length < VOCAB_UNDERLINES) return null
+  // 인용 잔해·용어풀이가 섞인 문단은 교재에 실을 수 없다.
+  if (!isPrintablePassage(sentences.join(' '))) return null
 
   // 글 전체의 낱말 빈도 — 사슬을 찾는 데 쓴다.
   const freq = new Map<string, number>()

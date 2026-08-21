@@ -1,6 +1,6 @@
 // scripts/textbook/store-new-types.mjs
 //
-// **흐름 무관 · 영작 배열 문항을 `csat_dcp_items` 에 넣는다.**
+// **교재용 문항(흐름 무관 · 어휘 · 어법 · 영작 배열)을 `csat_dcp_items` 에 넣는다.**
 //
 // ── 유일키가 문단당 하나를 강제한다 ──────────────────────────────────
 // 유일키는 `(kind, ref_id, type, paragraph_idx)` 다. 순서·삽입은 원래 문단당 하나라
@@ -15,9 +15,15 @@
 // 유일키가 중복을 막는다. 이미 있는 조합은 건너뛴다. 기존 문항의 id 를 바꾸지 않으므로
 // 학습 기록이 끊기지 않는다. `--commit` 없이는 아무것도 쓰지 않는다.
 //
+// ── 규칙이 엄해지면 먼저 넣은 것이 낡는다 ────────────────────────────
+// 인쇄 가능 판정(`isPrintablePassage`)이 나중에 엄해지면 **그 전에 넣은 문항은 새 규칙을
+// 못 받는다.** 그래서 매 실행이 기존 문항도 다시 재고, 지금 규칙으로 못 실을 것을 센다.
+// **세는 것과 지우는 것은 다른 스위치다** — 지우기는 `--prune` 을 줬을 때만 한다.
+//
 // 실행:
-//   pnpm dlx tsx scripts/textbook/store-new-types.mjs            # 몇 개 늘지만 본다
-//   pnpm dlx tsx scripts/textbook/store-new-types.mjs --commit
+//   pnpm dlx tsx scripts/textbook/store-new-types.mjs            # 몇 개 늘고 몇 개 낡았는지만 본다
+//   pnpm dlx tsx scripts/textbook/store-new-types.mjs --commit   # 새 문항 적재
+//   pnpm dlx tsx scripts/textbook/store-new-types.mjs --prune    # 낡은 문항 삭제 (되돌릴 수 없다)
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -27,11 +33,19 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
 }
 const commit = process.argv.includes('--commit')
+// 지우기는 별도 플래그다 — 되돌릴 수 없는 동작을 적재와 같은 스위치에 묶지 않는다.
+const prune = process.argv.includes('--prune')
 
 const { createClient } = await import('@supabase/supabase-js')
-const { buildIrrelevant, buildWordOrder, buildVocabChoice, VOCAB_UNDERLINES } = await import(
-  '@vocaflow/library-pipeline'
-)
+const {
+  buildIrrelevant,
+  buildWordOrder,
+  buildVocabChoice,
+  buildGrammarChoice,
+  isPrintablePassage,
+  GRAMMAR_UNDERLINES,
+  VOCAB_UNDERLINES,
+} = await import('@vocaflow/library-pipeline')
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
@@ -172,7 +186,27 @@ for (const a of usable) {
       }
     }
 
-    // ③ 영작 배열 — 문단 안 후보 중 하나만 (유일키 제약)
+    // ③ 어법 — 문단당 하나
+    if (ss.length >= GRAMMAR_UNDERLINES) {
+      const item = buildGrammarChoice(ss)
+      if (item) {
+        const key = `${a.id}|grammar_choice|${pi}`
+        if (existing.has(key)) skipped++
+        else
+          rows.push({
+            kind: 'article',
+            ref_id: a.id,
+            type: 'grammar_choice',
+            item_role: 'practice',
+            paragraph_idx: pi,
+            v_level: a.article_v_level,
+            payload: { sentences: item.sentences, underlines: item.underlines },
+            answer_key: { position: item.answer, original: item.original, rule: item.rule },
+          })
+      }
+    }
+
+    // ④ 영작 배열 — 문단 안 후보 중 하나만 (유일키 제약)
     const cands = []
     for (let si = 0; si < ss.length; si++) {
       const item = buildWordOrder(ss[si], si > 0 ? ss[si - 1] : null, isCommon)
@@ -220,10 +254,52 @@ console.log(
     `\n    한 지문에 서술형 하나는 교재로서 자연스럽다. 더 필요해지면 유일키를 넓혀야 한다.`,
 )
 
-if (!commit) {
+// ── 이미 넣은 것 중 지금 규칙으로는 실을 수 없는 것 ─────────────────
+//
+// 규칙이 나중에 엄해지면 **먼저 넣은 것이 그 규칙을 못 받는다.** 2026-08-21 에
+// 용어풀이 필터(`isPrintablePassage`)를 넣었는데, 그 전에 적재한 어휘 문항 중 일부가
+// VOA 기사 끝 용어풀이를 지문에 달고 있었다. 교재에 그대로 인쇄되면 안 된다.
+//
+// 여기서는 **세기만** 한다. 지우는 것은 `--prune` 을 줬을 때뿐이다.
+const stale = []
+for (let i = 0; i < ids.length; i += 20) {
+  const { data } = await db
+    .from('csat_dcp_items')
+    .select('id, type, payload')
+    .eq('kind', 'article')
+    .in('type', ['irrelevant', 'vocab_choice', 'grammar_choice'])
+    .in('ref_id', ids.slice(i, i + 20))
+    .limit(20000)
+  for (const r of data ?? []) {
+    const text = [r.payload?.intro, ...(r.payload?.sentences ?? [])].filter(Boolean).join(' ')
+    if (text && !isPrintablePassage(text)) stale.push({ id: r.id, type: r.type })
+  }
+}
+if (stale.length) {
+  const byStaleType = {}
+  for (const s of stale) byStaleType[s.type] = (byStaleType[s.type] ?? 0) + 1
+  console.log(
+    `\n  ⚠️ 지금 규칙으로는 실을 수 없는 기존 문항 ${stale.length}건 — ` +
+      Object.entries(byStaleType).map(([t, n]) => `${t} ${n}`).join(' · '),
+  )
+  console.log('     --prune 을 주면 지운다 (되돌릴 수 없다).')
+}
+
+if (!commit && !prune) {
   console.log('\n  --commit 없이 실행했다. 아무것도 쓰지 않았다.')
   process.exit(0)
 }
+
+if (prune && stale.length) {
+  for (let i = 0; i < stale.length; i += 200) {
+    const chunk = stale.slice(i, i + 200).map((s) => s.id)
+    const { error: e } = await db.from('csat_dcp_items').delete().in('id', chunk)
+    if (e) throw new Error(`삭제 실패: ${e.message}`)
+  }
+  console.log(`\n  삭제 완료 ${stale.length}건`)
+}
+
+if (!commit) process.exit(0)
 
 let inserted = 0
 for (let i = 0; i < rows.length; i += 200) {

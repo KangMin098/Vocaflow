@@ -179,6 +179,7 @@ export type { ForeignSentence, IrrelevantItem, Rarity } from './textbook/irrelev
 export { buildWordOrder, deterministicShuffle, WORD_ORDER_WORDS } from './textbook/word-order'
 export type { WordOrderItem } from './textbook/word-order'
 // 학습자·교사·학부모 3관점 채점표 — 못 재는 것에는 점수를 붙이지 않는다.
+export { hasNonProse, isPrintablePassage } from './textbook/csat-format'
 export { UNIT_MINUTES, scoreVolume } from './textbook/scorecard'
 export type { Audience, AutoCheck, HumanCheck, Scorecard } from './textbook/scorecard'
 // 수능 인쇄 형식 변환 — 저장 형식·학습 화면은 그대로 두고 표현만 바꾼다.
@@ -491,3 +492,12 @@ export {
   VOCAB_UNDERLINES,
 } from './textbook/vocab-choice'
 export type { Underline, VocabChoiceItem, VocabLexicon } from './textbook/vocab-choice'
+// 어법 — 어법상 틀린 것 (수능 29번)
+export {
+  buildGrammarChoice,
+  GRAMMAR_UNDERLINES,
+  looksPlural,
+  pickSpread,
+  standardArticle,
+} from './textbook/grammar-choice'
+export type { GrammarChoiceItem, GrammarRule, GrammarUnderline } from './textbook/grammar-choice'

@@ -48,6 +48,32 @@ export function hasCitationResidue(text: string): boolean {
   return CITATION_RESIDUE.test(text)
 }
 
+/**
+ * 산문이 아닌 자국 — 교재 지문으로 실을 수 없는 것.
+ *
+ * ── 실측 2026-08-21 ─────────────────────────────────────────────────
+ * 어법 문항 표본을 눈으로 보다 발견했다. VOA Learning English 기사 끝에는 **용어풀이**가
+ * 본문과 같은 문단으로 붙어 있다:
+ *
+ *     _____________________________________________________ stimulate – v.
+ *     to make (something) more active implant – n.
+ *
+ * `generate-items.ts` 의 DCP 는 이런 보일러플레이트를 오래전부터 걸렀는데,
+ * 나중에 만든 유형들(흐름무관·어휘·어법)이 그 필터를 안 물려받았다. 규칙이 한 파일에만
+ * 있으면 다음에 만드는 사람이 또 빠뜨린다 — 그래서 인쇄 가능 판정을 여기 모은다.
+ */
+const NON_PROSE = /_{4,}|[–—-]\s*(?:v|n|adj|adv|prep|conj|pron)\.\s/i
+
+/** 용어풀이·구분선 같은 비산문 자국이 있는가. */
+export function hasNonProse(text: string): boolean {
+  return NON_PROSE.test(text)
+}
+
+/** 교재 지문으로 인쇄할 수 있는가 — 인용 잔해도 비산문 자국도 없어야 한다. */
+export function isPrintablePassage(text: string): boolean {
+  return !hasCitationResidue(text) && !hasNonProse(text)
+}
+
 /** 수능 순서 문항 — 도입문 + (A)(B)(C) + 5지선다. */
 export interface CsatOrderItem {
   kind: 'order'
