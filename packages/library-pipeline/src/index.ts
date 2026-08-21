@@ -527,3 +527,11 @@ export type { Inventory, RungFill, SeriesFill, SeriesItemType, SeriesRung } from
 // 평가 요소 대조표 — "시중 교재보다 낫다" 를 말하려면 분모가 있어야 한다
 export { CATEGORY_KO, EVAL_DIMENSIONS, measureEvaluation } from './textbook/evaluation'
 export type { EvalCategory, EvalDimension, EvalReport, Standing } from './textbook/evaluation'
+// 편향·차별 검사 — 판정하지 않는다. 사람의 눈이 갈 자리를 좁힌다
+export {
+  GENDERED_OCCUPATIONS,
+  measurePronounBalance,
+  reviewPassage,
+  reviewStock,
+} from './textbook/bias-review'
+export type { BiasFinding, BiasKind, BiasReport, PronounBalance } from './textbook/bias-review'
