@@ -64,6 +64,9 @@ const {
   FACTBOOK_COUNTRIES, listFactbookFeed,
   listElifeFeed,
   listPlosFeed,
+  FUTURITY_FEEDS,
+  listFuturityFeed,
+  PLOS_FEEDS,
   resolveArticleRegister,
 } = lib
 
@@ -101,11 +104,14 @@ for (const f of WIKIVOYAGE_FEEDS)
   add('wikivoyage', f.id, f.label, () => listWikivoyageFeed(f.category, f.id))
 for (const f of USGS_FEEDS) add('usgs', f.id, f.label, () => listUsgsFeed(f.id))
 for (const f of NOAA_FEEDS) add('noaa', f.id, f.label, () => listNoaaFeed(f.id))
+// Futurity — 2026-08-21 배선. CC BY 4.0 대학 연구 기사.
+for (const f of FUTURITY_FEEDS)
+  add('futurity', f.id, f.label, () => listFuturityFeed(f.url, f.id), f.url)
 // 목록이 코드 안에 있는 소스 — 네트워크 없이 즉답이지만 GET 대상인 것은 같다.
 add('factbook', 'all', `국가 개요 ${FACTBOOK_COUNTRIES.length}개국`, async () => listFactbookFeed())
 // 질의형 소스 — 피드가 아니라 검색이다. 상류 총량은 아래에서 따로 잰다.
 add('elife', 'recent', 'eLife digest (최신)', () => listElifeFeed(20))
-add('plos', 'recent', 'PLOS 최신', () => listPlosFeed('recent', 20))
+for (const f of PLOS_FEEDS) add('plos', f.id, f.label, () => listPlosFeed(f.id, 20))
 
 const targets = onlySource ? TARGETS.filter((t) => t.source === onlySource) : TARGETS
 

@@ -25,6 +25,35 @@ export interface PlosListItem {
 
 const SOLR = 'https://api.plos.org/search'
 
+/**
+ * PLOS 피드 — **같은 소스인데 글의 결이 다르다.**
+ *
+ * ── 왜 나누는가 (실측 2026-08-21) ───────────────────────────────────
+ * 교재 재고 실측에서 **논증문 교재 가용분이 0** 이었다. 신규 논증문이 전부
+ * The Conversation(CC-BY-ND → `display_only`)에서 와 문항 생성기가 통째로 건너뛰기 때문이다.
+ * 그래서 "논증문 소스를 더 붙이자" 로 갔는데 후보(Aeon·Quanta·Knowable)가 **전부 ND/NC** 라
+ * 붙여도 결과가 같았다 — 즉 **소스 수 문제가 아니라 라이선스 문제**였다.
+ *
+ * 답은 이미 배선된 PLOS 안에 있었다. PLOS 는 연구논문만 내는 곳이 아니라
+ * **Essay · Perspective · Opinion · Unsolved Mystery** 라는 논증 지면을 따로 갖고 있고,
+ * 그것들도 다른 논문과 똑같이 CC BY 다. 실측(`doc_type:full` 기준):
+ *   Perspective 1,362 · Opinion 710 · Essay 644 · Unsolved Mystery 67 = **2,783편**
+ *
+ * `recent` 피드가 `article_type` 을 안 집어서 이 2,783편이 최근순 뒤로 묻혀 있었다.
+ * 새 소스가 아니라 **피드 하나**면 되는 일이었다.
+ *
+ * ⚠️ `Editorial`·`Review` 는 넣지 않는다. Editorial 은 저널 운영 공지가 섞이고,
+ *   Review 는 논증이 아니라 문헌 종합이라 결이 설명문에 가깝다.
+ */
+export const PLOS_FEEDS: Array<{ id: string; label: string; articleTypes: readonly string[] }> = [
+  { id: 'recent', label: 'Recent (오픈 학술)', articleTypes: [] },
+  {
+    id: 'essay',
+    label: 'Essay · Perspective · Opinion (논증문)',
+    articleTypes: ['Essay', 'Perspective', 'Opinion', 'Unsolved Mystery'],
+  },
+]
+
 interface SolrDoc {
   id?: string
   title_display?: string
@@ -82,9 +111,16 @@ function extractProse(articleHtml: string): string {
 
 /** 최근 PLOS 기사 목록 (solr API — full 문서). 대량 GET picker. */
 export async function listPlosFeed(feedId: string = 'recent', rows: number = 20): Promise<PlosListItem[]> {
+  const feed = PLOS_FEEDS.find((f) => f.id === feedId) ?? PLOS_FEEDS[0]!
+  // 유형을 지정한 피드는 그 유형만, 아니면 정정문만 제외하고 전부.
+  // 인용부호를 solr 에 그대로 넘겨야 두 단어짜리 유형('Unsolved Mystery')이 한 값으로 잡힌다.
+  const typeClause = feed.articleTypes.length
+    ? ` AND article_type:(${feed.articleTypes.map((t) => `"${t}"`).join(' OR ')})`
+    : ' AND !article_type:"Correction"'
+
   const url = new URL(SOLR)
   url.searchParams.set('q', '*:*')
-  url.searchParams.set('fq', 'doc_type:full AND !article_type:"Correction"')
+  url.searchParams.set('fq', `doc_type:full${typeClause}`)
   url.searchParams.set('fl', 'id,title_display,journal,abstract,publication_date')
   url.searchParams.set('rows', String(Math.min(rows, 50)))
   url.searchParams.set('sort', 'publication_date desc')

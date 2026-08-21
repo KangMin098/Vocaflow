@@ -29,6 +29,10 @@ export type SourceKey =
   | 'wikivoyage'
   | 'usgs'
   | 'noaa'
+  // ACP — Futurity (대학 컨소시엄 연구 기사 · CC BY 4.0). 2026-08-21 추가.
+  //   학술 소재 × 읽히는 문장. 기존 재고가 "쉬운데 학술 아님(VOA·NASA)" 과
+  //   "학술인데 C1–C2(PLOS·위키)" 로 양극화돼 있어 그 사이를 메운다.
+  | 'futurity'
   // ACP §20 — 사실 재저작. 외부 본문을 가져오지 않으므로 수집 대상이 아니지만,
   // 발행 후에는 다른 소스와 같은 자리(정책·트랙·표시)에 서야 하므로 SourceKey 를 갖는다.
   // ⚠ SOURCE_RANKINGS_BY_LEVEL 에는 넣지 않는다 — 대량 GET 화면의 선택지가 아니다.
@@ -194,6 +198,22 @@ export const FEED_SPECS: Record<string, FeedSpec> = {
     maxItems: 10,
   },
 
+  // ─── PLOS 논증 지면 — 유일한 CC BY 논증문 공급선 (실측 2026-08-21) ──
+  // 소스 기본 spec 보다 **느슨하게** 잡는다. Essay·Perspective 는 abstract 가
+  // 짧거나 아예 없는 경우가 연구논문보다 흔한데(논증문은 초록을 안 쓰는 지면이 있다),
+  // 소스 기본값(minDescriptionLen 100)을 그대로 쓰면 논증문을 우선 걸러 내
+  // **메우려는 구멍을 spec 이 도로 막는다.**
+  'plos:essay': {
+    recencyDays: 3650, // 논증은 연구보다 더 오래 유효하다
+    minDescriptionLen: 40,
+    minTitleLen: 20,
+    sourceWeight: 0.80, // recent(0.75)보다 높다 — 교재에 더 쓸모 있는 결
+    levelBonus: -0.05, // C1 — 연구논문(C2)보다는 읽힌다
+    idealDescLen: 260,
+    noiseKeywords: ['correction', 'retraction', 'erratum', 'in memoriam'],
+    maxItems: 20,
+  },
+
   // v06.69 — arXiv 관련 FEED_SPECS 6종 제거 (소스 자체가 플랫폼에서 삭제됨).
 }
 
@@ -307,6 +327,19 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 250,
     noiseKeywords: ['disambiguation', 'list of'],
     maxItems: 30,
+  },
+  // Futurity: 대학 공보가 자기 연구를 풀어 쓴 기사(B2). CC BY 4.0. 워드프레스 RSS.
+  //   실측 평균 585단어·15문단(표본 6편) — VOA(881)보다도 짧다.
+  //   한 편이 한 단원 크기라 조합기가 원글을 덜 쪼갠다.
+  futurity: {
+    recencyDays: 540,      // 연구 소개는 시의성이 약하다 — 1.5년까지 유효
+    minDescriptionLen: 60, // RSS description 이 요약 한 문단
+    minTitleLen: 18,
+    sourceWeight: 0.88,    // 학술 소재 × 접근형 문체 — VOA 다음으로 높다
+    levelBonus: 0.00,      // B2
+    idealDescLen: 240,
+    noiseKeywords: ['listen:', 'watch:', 'podcast'], // 오디오/영상 포스트는 본문이 짧다
+    maxItems: 20,
   },
   // PLOS: CC-BY 오픈 학술 논문(C1-C2), S4 킬러급. solr API list.
   plos: {
@@ -699,6 +732,21 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'good', weight: 0.45 },
     ],
   },
+  // Futurity: 대학 컨소시엄이 CC BY 4.0 으로 개방하는 연구 기사. 원문이 논문인 소재를
+  //   대학 공보가 기자용으로 풀어 쓴 것 — 수능 지문의 소재-문체 조합에 가장 가깝다.
+  //   ⚠️ 라이선스 근거는 **기사 페이지**에 있다. about 페이지에는 "All rights reserved"(사이트 크롬).
+  futurity: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 20,
+    minScore: 0.40,
+    bulkPriority: 3,
+    license: 'CC-BY-4.0',
+    attributionRequired: true,
+    topicDomain: ['science', 'health', 'psychology', 'society', 'technology', 'research'],
+    styleGuide: '대학 공보의 연구 소개 기사 (B1-B2) · 학술 소재를 일반 독자용으로 재서술',
+    preferredFeedMix: [{ feedId: 'all', weight: 1.00 }],
+  },
   // PLOS: CC-BY 오픈 학술 논문, C1-C2 심화(S4 킬러급). abstract+본문 산문(methods/refs 스트립).
   plos: {
     targetLevels: ['advanced'],
@@ -710,8 +758,11 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
     attributionRequired: true,
     topicDomain: ['science', 'biology', 'medicine', 'research', 'genetics'],
     styleGuide: 'CC-BY 오픈 학술 논문 산문 (C1-C2) · S4 킬러급 심화 다독 (methods/refs 제외)',
+    // essay 쪽에 무게를 더 준다 — 논증문은 이 소스 말고 CC BY 공급선이 없고,
+    // 연구논문(recent)은 이미 재고가 쌓여 있다(실측 2026-08-21: plos 15편 → 546문항).
     preferredFeedMix: [
-      { feedId: 'recent', weight: 1.00 },
+      { feedId: 'essay', weight: 0.60 },
+      { feedId: 'recent', weight: 0.40 },
     ],
   },
   // Wikivoyage: 여행 목적지 가이드, CC-BY-SA(파생 허용), B1-B2. reference 밴드 보강(흥미↑).
@@ -795,8 +846,8 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
   beginner:     ['voa', 'simple_wikipedia', 'wikivoyage', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
-  intermediate: ['voa', 'simple_wikipedia', 'wikivoyage', 'factbook', 'nasa', 'usgs', 'noaa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
-  advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'nih', 'nasa', 'usgs', 'noaa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
+  intermediate: ['voa', 'simple_wikipedia', 'futurity', 'wikivoyage', 'factbook', 'nasa', 'usgs', 'noaa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
+  advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'futurity', 'nih', 'nasa', 'usgs', 'noaa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
 
 /**
@@ -834,6 +885,11 @@ export const FEED_REGISTER: Record<string, string> = {
   'voa:all-about-america': 'expository', // 미국 생활·문화 설명
   'voa:us-history': 'narrative', // 역사 서사 — 사건을 이야기로 푼다
   // voa:as-it-is = 시사 → source 기본값('news')
+
+  // PLOS 논증 지면 (2026-08-21). 소스 기본값은 'expository'(연구논문)지만
+  // Essay·Perspective·Opinion 은 주장하는 글이다. 이 한 줄이 논증문 재고 0 을 푼다 —
+  // 나머지 논증 후보는 전부 ND/NC 라 붙여도 display_only 로 죽는다.
+  'plos:essay': 'argumentative',
 }
 
 /** source → register 기본값 (feed override 없을 때). */
@@ -853,6 +909,7 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   wikivoyage: 'reference', // 여행 목적지 가이드 (참고 — Factbook 동류)
   usgs: 'expository', // 지구과학·자연재해 과학 저널리즘 (설명문)
   noaa: 'expository', // 기후과학 explainer (설명문)
+  futurity: 'expository', // 대학 연구 소개 — 주장이 아니라 설명이다
   // ACP §20 — 재저작 기본은 시사. 발주가 다른 register 를 지정하면 dev-process 가 아니라
   //   composed_spec 이 권위이므로, 이 값은 발주 없이 들어온 경우의 안전 기본값이다.
   original: 'news',
@@ -1074,6 +1131,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   factbook: getSourcePolicy('factbook'),
   elife: getSourcePolicy('elife'),
   wikipedia: getSourcePolicy('wikipedia'),
+  futurity: getSourcePolicy('futurity'),
   plos: getSourcePolicy('plos'),
   wikivoyage: getSourcePolicy('wikivoyage'),
   usgs: getSourcePolicy('usgs'),

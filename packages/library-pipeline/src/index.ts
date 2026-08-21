@@ -71,7 +71,7 @@ export type { ElifeListItem } from './ingest-article/elife'
 export { ingestWikipediaArticle, listWikipediaFeed, WIKIPEDIA_FEEDS } from './ingest-article/wikipedia'
 export type { WikipediaListItem } from './ingest-article/wikipedia'
 // ACP §18 — PLOS (CC-BY 오픈 학술 논문 · C1-C2 심화 · 발행 허용).
-export { ingestPlosArticle, listPlosFeed } from './ingest-article/plos'
+export { ingestPlosArticle, listPlosFeed, PLOS_FEEDS } from './ingest-article/plos'
 export type { PlosListItem } from './ingest-article/plos'
 // ACP §18 — Wikivoyage (여행 가이드 · B1-B2 · CC-BY-SA · reference 밴드 보강).
 export { ingestWikivoyageArticle, listWikivoyageFeed, WIKIVOYAGE_FEEDS } from './ingest-article/wikivoyage'
@@ -81,6 +81,9 @@ export { ingestUsgsArticle, listUsgsFeed, USGS_FEEDS } from './ingest-article/us
 export type { UsgsListItem } from './ingest-article/usgs'
 // ACP §18 — NOAA Climate.gov (기후과학 explainer · B2-C1 · PD US Gov · climate 신규 도메인 · CSAT 최빈출).
 export { ingestNoaaArticle, listNoaaFeed, NOAA_FEEDS } from './ingest-article/noaa'
+// ACP — Futurity (대학 컨소시엄 연구 기사 · CC BY 4.0 · B1-B2 · 학술 소재 × 접근형 문체).
+export { ingestFuturityArticle, listFuturityFeed, stripFuturityChrome, FUTURITY_FEEDS } from './ingest-article/futurity'
+export type { FuturityListItem } from './ingest-article/futurity'
 export type { NoaaListItem } from './ingest-article/noaa'
 // CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
 export { generateDcpItems, explainDcpEligibility } from './dcp/generate-items'

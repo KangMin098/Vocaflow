@@ -19,6 +19,7 @@ export type ArticleSource =
   | 'wikivoyage' // ACP §18 — B1~B2 여행 가이드 (CC-BY-SA → 발행 허용, reference 밴드 보강)
   | 'usgs' // ACP §18 — B2 지구과학·자연재해 과학 저널리즘 (PD US Gov → 발행 허용, 신규 도메인)
   | 'noaa' // ACP §18 — B2-C1 기후과학 explainer (PD US Gov → 발행 허용, climate 신규 도메인·CSAT 최빈출)
+  | 'futurity' // ACP — B1~B2 대학 연구 기사 (CC-BY 4.0 → 발행·변형 허용). 학술 소재 × 접근형 문체, PLOS(C1-C2)와 VOA(A2-B1) 사이를 메운다
   | 'openstax' // ACP §19 (설계) — C1 학술 교재 모듈 (CNXML · 현행 CC-BY-NC-SA → 게이트 차단, 라이선스 결정 선행)
   | 'original' // ACP §20 — 사실 재저작 (CC0 자체 저작 · 외부 본문 미사용 · compose 게이트 통과 필수)
   | 'manual'
