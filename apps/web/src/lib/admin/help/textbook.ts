@@ -130,6 +130,12 @@ export const TBP_HELP: HelpRegistry = {
             done: '"적재 완료 N건". 같은 청크로 다시 돌려도 같은 값을 덮어쓸 뿐 손실이 없다.',
           },
           {
+            title: '**집필했으면 해설을 다시 돌린다**',
+            detail:
+              '지문을 새로 넣으면 그 밴드의 조합이 바뀌어 **전에 완비했던 권에 해설 구멍이 다시 생긴다.** 실제로 V4 를 채우려고 쓴 글 9편이 V5 로 떨어지면서 80/80 이던 V5 가 68/80 으로 내려갔다. 조판이 "없음 N" 으로 알려 주므로 그 수가 0 이 아니면 해설 드레인을 다시 돌린다.',
+            done: '건드린 밴드와 **그 이웃 밴드**까지 조판해 "없음 0" 을 확인한다.',
+          },
+          {
             title: '책으로 조판',
             detail:
               '`pnpm dlx tsx scripts/textbook/render-volume.mjs --band 6 --units 20 --out volume-v6.html` — 문제편·정답편·해설을 한 HTML 로 낸다. 지정한 파일을 **덮어쓴다.** 고를 문항은 `volume-pool.mjs` 가 정하므로 위 export 가 겨냥한 그 책과 같다.',
