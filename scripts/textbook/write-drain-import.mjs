@@ -245,6 +245,12 @@ for (const r of fresh) {
       shape: r.shape ?? null,
       words_min: r.words_min ?? null,
       words_max: r.words_max ?? null,
+      // **이번 실행의 어휘 조건.** 밴드 조준은 아직 미해결이라 조건을 바꿔 가며 재고 있다.
+      // 이 값이 없으면 "어떤 지침으로 쓴 글인지" 를 알 수 없어 조건별 적중률을 못 낸다.
+      tail_min: r.tail_min ?? null,
+      tail_max: r.tail_max ?? null,
+      at_band_min: r.at_band_min ?? null,
+      at_band_max: r.at_band_max ?? null,
     },
   })
   if (error) console.log(`  ✗ 슬롯 ${r.slot}: ${error.message}`)
