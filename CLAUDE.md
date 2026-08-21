@@ -135,8 +135,37 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 - 파일 첫 줄에 경로 주석 (`// apps/web/src/components/ui/Button.tsx`)
 - 코드 완성형만 — TODO·생략·placeholder 절대 금지
 - 마이그레이션 자동 적용 금지 — SQL 보여주고 사용자 승인 후 `apply_migration`
+- **LLM 판단이 필요한 일은 Claude Code 배치로 직접 한다** — 아래 §🤖 참조
 
 상세 + PR 체크리스트: [docs/CONVENTIONS.md](./docs/CONVENTIONS.md)
+
+---
+
+## 🤖 LLM 작업 = Claude Code 배치 (사용자 명시 · 반복 지시)
+
+**`ANTHROPIC_API_KEY` 를 기다리며 "막혔다" 고 보고하지 않는다. Claude Code(= 나)가 그 LLM이다.**
+
+이 저장소의 주요 산출물이 이미 그렇게 만들어졌다 — ScriptQuiz 챕터 퀴즈 **1,292문항** ·
+사전 드레인 **466낱말** · PDCP 만화 현대화. "LLM이 필요하다" 는 **작업 시작 신호**이지
+차단 사유가 아니다.
+
+### 3단 구조 (드레인)
+
+| 단계 | 하는 일 |
+|---|---|
+| `*-drain-export.mjs` | 할 몫을 청크로 뽑는다 → `scripts/<pipeline>/<work>/chunk-NN.json` |
+| **Claude Code** | 청크를 읽고 채워 `chunk-NN.out.json` 으로 저장 |
+| `*-drain-import.mjs --commit` | DB 적재 |
+
+### 반드시 지킬 것
+
+- **export 는 이미 채워진 것을 건너뛴다** — 재실행 안전. 몇 번 돌려도 결과가 같아야 한다.
+- **import 는 빈 값·너무 짧은 값을 넣지 않는다** — 빈 값이 들어가면 다음 export 가
+  "완료" 로 세어 **구멍이 영영 남는다.** 건너뛴 수를 반드시 출력한다.
+- **jsonb 컬럼에 키를 더하면 마이그레이션이 필요 없다**(`answer_key.explanation_ko` 등).
+  통째로 덮지 말고 기존 값을 읽어 키 하나만 더한다 — 덮으면 정답 키가 날아간다.
+- 절차를 `lib/admin/help/<pipeline>.ts` 의 `drain` 에 적는다 — **재실행 안전 여부를
+  단계마다 명시**(위 §3️⃣ 화면도움말 동반 갱신).
 
 ---
 

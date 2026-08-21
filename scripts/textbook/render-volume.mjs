@@ -136,6 +136,23 @@ const esc = (s) =>
   String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
 const CIRCLED = ['①', '②', '③', '④', '⑤']
 
+/**
+ * 해설을 고른다 — **배치가 쓴 것이 우선**이다.
+ *
+ * 결정론 해설(`explain.ts`)은 근거가 지문에서 확정될 때만 나오고 실측 6.9% 에서 멈춘다.
+ * 나머지는 Claude Code 배치가 `answer_key.explanation_ko` 에 채운다.
+ * 둘 다 없으면 **빈 자리에 없다고 적는다** — 지어내지 않는다.
+ */
+function pickExplanation(item, deterministic) {
+  const batch = item.answer_key?.explanation_ko
+  if (typeof batch === 'string' && batch.trim()) return { text: batch.trim(), from: 'batch' }
+  if (deterministic?.body) {
+    // 결정론 해설의 첫 두 줄은 "정답 ③ (B)-(A)-(C)" 와 빈 줄이라 본문에서는 뺀다.
+    return { text: deterministic.body.split('\n').slice(2).join('\n'), from: 'rule' }
+  }
+  return null
+}
+
 /** 문항 하나를 수능 인쇄 형식으로. 못 바꾸면 null. */
 function renderItem(item, no) {
   if (item.type === 'order') {
@@ -155,7 +172,7 @@ function renderItem(item, no) {
     .join('')}</ol>
 </div>`,
       answer: q.answer,
-      explanation: ex.body,
+      explanation: pickExplanation(item, ex),
       source: item.ref_title,
     }
   }
@@ -176,7 +193,7 @@ function renderItem(item, no) {
   <div class="passage">${body}</div>
 </div>`,
     answer: q.answer,
-    explanation: ex.body,
+    explanation: pickExplanation(item, ex),
     source: item.ref_title,
   }
 }
@@ -257,6 +274,7 @@ h1{font-size:2.1rem;margin:.6rem 0 .3rem;letter-spacing:-.01em;text-wrap:balance
 .ano{font-weight:700;color:var(--accent)}
 .expl{margin:.35rem 0 0;font-size:.86rem;color:var(--sub);white-space:pre-wrap}
 .noexpl{font-size:.82rem;color:var(--sub);font-style:italic}
+.efrom{margin:.25rem 0 0;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);opacity:.7}
 .tablewrap{overflow-x:auto}
 @media print{body{background:#fff}.wrap{max-width:none}}
 </style>
@@ -281,7 +299,8 @@ ${unitHtml.join('')}
     <span class="ano">${a.no}.</span> ${CIRCLED[a.answer - 1] ?? a.answer}
     ${
       a.explanation
-        ? `<div class="expl">${esc(a.explanation.split('\n').slice(2).join('\n'))}</div>`
+        ? `<div class="expl">${esc(a.explanation.text)}</div>` +
+          `<p class="efrom">${a.explanation.from === 'batch' ? '해설' : '규칙 근거'}</p>`
         : '<div class="noexpl">근거를 지문에서 확정하지 못해 해설을 싣지 않았다.</div>'
     }
   </div>`,
@@ -295,6 +314,10 @@ fs.writeFileSync(path.resolve(OUT), html, 'utf8')
 console.log(`V${BAND} — 원글 ${ids.length}편 · 문항 풀 ${pool.length}`)
 console.log(`조합 ${units.length}단원 · 인쇄 ${qNo}문항${stoppedBecause ? ` (${stoppedBecause})` : ''}`)
 console.log(`자동 검수 ${passed}/${card.auto.length} 통과`)
-const withExpl = answerRows.filter((a) => a.explanation).length
-console.log(`해설 ${withExpl}/${answerRows.length} — 나머지는 근거를 못 찾아 싣지 않았다`)
+const byBatch = answerRows.filter((a) => a.explanation?.from === 'batch').length
+const byRule = answerRows.filter((a) => a.explanation?.from === 'rule').length
+console.log(
+  `해설 ${byBatch + byRule}/${answerRows.length} — 배치 ${byBatch} · 규칙 ${byRule} · ` +
+    `없음 ${answerRows.length - byBatch - byRule}`,
+)
 console.log(`\n→ ${path.resolve(OUT)}`)
