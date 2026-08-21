@@ -42,10 +42,52 @@ const DIR = path.resolve(arg('dir') ?? `scripts/textbook/write-drain/v${BAND}`)
  * 넣을 수 있는 글의 하한.
  *
  * `order` 문항은 도입문 + 세 덩어리를 만들어야 하고 `insert` 는 자리 다섯을 만들어야 한다.
- * **문장이 여섯 미만이면 둘 다 못 만든다** — 그런 글은 원글 수만 늘리고 단원은 못 늘린다.
+ * 게다가 순서 문항은 **4~6문장 문단**에서만 나오므로, 두 문단을 만들려면 최소 여덟 문장이다.
+ * **그 아래는 원글 수만 늘리고 단원은 못 늘린다.**
  */
-const MIN_SENTENCES = 6
+const MIN_SENTENCES = 8
 const MIN_WORDS = 60
+
+/**
+ * 문단을 4~6문장으로 다시 나눈다.
+ *
+ * ⚠️ **이게 없으면 순서 문항이 한 개도 안 나온다.** 생성기(`generateDcpItems`)는 본문을
+ *   **빈 줄로** 문단을 가르고, 순서 문항은 **4~6문장 문단**에서만 만든다(도입문 1 + (A)(B)(C)).
+ *   집필 지침에 "한 덩어리 평문" 이라고 적었더니 52편이 전부 1문단 9~13문장이 됐고,
+ *   결과는 **순서 0 · 삽입 28** 이었다. 단원은 순서와 삽입이 둘 다 있어야 만들어지므로
+ *   글을 52편이나 써 놓고 단원은 하나도 못 늘렸다.
+ *
+ * 이미 4~6문장으로 나뉘어 있으면 그대로 둔다 — 글쓴이가 의도한 단락을 함부로 깨지 않는다.
+ */
+function repaginate(content) {
+  const paras = content
+    .split(/\n\s*\n+/)
+    .map((p) => p.replace(/\s+/g, ' ').trim())
+    .filter(Boolean)
+  const sentsOf = (p) => p.split(/(?<=[.!?])\s+/).filter((s) => s.trim().length > 1)
+  if (paras.length > 1 && paras.every((p) => { const n = sentsOf(p).length; return n >= 4 && n <= 6 })) {
+    return paras.join('\n\n')
+  }
+  const all = paras.flatMap(sentsOf)
+  // **고르게 나눈다.** 5문장씩 잘라 나가면 꼬리에 3문장 조각이 남는데(12문장 → 5·5·2),
+  // 3문장 문단은 순서 문항을 못 만들어 그 자리가 통째로 버려진다.
+  // 그래서 문단 수를 먼저 정하고(모든 문단이 4~6문장이 되도록) 균등 배분한다.
+  const n = all.length
+  let k = Math.max(1, Math.round(n / 5))
+  // 7문장처럼 4~6 으로 딱 안 떨어지는 수가 있다. 한 덩어리로 두면 순서 문항이 아예 안 나오므로
+  // 둘로 가른다 — 4문장 문단 하나라도 건지는 편이 낫다(뒤 3문장은 삽입 쪽에서 쓰인다).
+  if (k === 1 && n > 6) k = 2
+  while (k > 1 && n / k > 6) k++ // 문단이 너무 두꺼우면 더 쪼갠다
+  while (k > 1 && n / k < 4) k-- // 너무 얇으면 합친다
+  const out = []
+  let taken = 0
+  for (let i = 0; i < k; i++) {
+    const size = Math.round((n - taken) / (k - i))
+    out.push(all.slice(taken, taken + size))
+    taken += size
+  }
+  return out.filter((p) => p.length).map((p) => p.join(' ')).join('\n\n')
+}
 
 const sha256 = (s) => crypto.createHash('sha256').update(s, 'utf8').digest('hex')
 /** 문장 세기 — 마침표·물음표·느낌표 뒤 공백. 약어(Dr. 등)를 완벽히 가르지는 않는다(하한 판정용). */
@@ -55,6 +97,50 @@ const { createClient } = await import('@supabase/supabase-js')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 })
+
+// ── 이미 넣은 글의 문단 고치기 ──────────────────────────────────────
+//
+// `--repaginate` 는 **이 드레인이 넣은 글만** 손댄다(`written_by=claude_code_drain`).
+// 1문단짜리로 들어간 글은 순서 문항을 한 개도 못 만들기 때문이다.
+//
+// ⚠️ 본문이 바뀌면 문단 번호가 바뀌므로 **이미 붙은 문항이 낡는다.** 그래서 고친 글을
+//   목록으로 찍고, 이어서 `store-new-types.mjs --prune` 으로 낡은 것을 정리하라고 안내한다.
+//   되돌릴 수 없는 일이라 `--commit` 없이는 미리보기만 한다.
+if (process.argv.includes('--repaginate')) {
+  const { data, error } = await db
+    .from('library_articles')
+    .select('id, title, content, source_id')
+    .eq('source', 'original')
+    .eq('composed_spec->>written_by', 'claude_code_drain')
+  if (error) throw new Error('조회 실패: ' + error.message)
+  const need = []
+  for (const a of data ?? []) {
+    const next = repaginate(String(a.content ?? ''))
+    if (next !== a.content) need.push({ ...a, next })
+  }
+  console.log(`드레인 집필분 ${data?.length ?? 0}편 · **문단을 고쳐야 할 것 ${need.length}편**`)
+  const paras = (t) => t.split(/\n\s*\n+/).length
+  for (const a of need.slice(0, 5)) console.log(`  · ${paras(a.content)}문단 → ${paras(a.next)}문단  ${String(a.title).slice(0, 46)}`)
+  if (need.length > 5) console.log(`  … 외 ${need.length - 5}편`)
+  if (!commit) {
+    console.log('\n--commit 을 붙이면 고친다. **문단 번호가 바뀌어 기존 문항이 낡는다.**')
+    process.exit(0)
+  }
+  let fixed = 0
+  for (const a of need) {
+    const { error: ue } = await db
+      .from('library_articles')
+      .update({ content: a.next, content_hash: sha256(a.next) })
+      .eq('id', a.id)
+    if (ue) console.log(`  ✗ ${a.source_id}: ${ue.message}`)
+    else fixed++
+  }
+  console.log(`\n고친 글 ${fixed}편`)
+  console.log('이어서 돌릴 것:')
+  console.log('  1. pnpm dlx tsx scripts/textbook/store-new-types.mjs --prune   (낡은 문항 정리)')
+  console.log('  2. pnpm dlx tsx scripts/textbook/refresh-dcp-items.mjs --commit (순서·삽입 재생성)')
+  process.exit(0)
+}
 
 if (!fs.existsSync(DIR)) {
   console.log(`청크 디렉터리가 없다: ${path.relative(process.cwd(), DIR)}`)
@@ -89,7 +175,8 @@ for (const r of rows) {
   else if (seenTitle.has(title.toLowerCase())) skipped.push([r.slot, '같은 청크 안에 제목이 겹친다'])
   else {
     seenTitle.add(title.toLowerCase())
-    ok.push({ ...r, title, content, words, sentences })
+    // **문단을 여기서 나눈다** — 안 나누면 순서 문항이 0 이 된다(위 `repaginate` 주석 참조).
+    ok.push({ ...r, title, content: repaginate(content), words, sentences })
   }
 }
 console.log(`  넣을 수 있는 것 ${ok.length} · **건너뛴 것 ${skipped.length}**`)
