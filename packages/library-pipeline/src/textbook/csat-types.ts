@@ -139,8 +139,12 @@ export const CSAT_READING_TYPES: readonly CsatType[] = [
     numbers: [30],
     label: '어휘',
     generation: 'deterministic',
-    implemented: false,
-    note: '문맥상 반대·유사어로 바꿔치기. 사전(shared_dictionary)에 반의어·유의어가 있으면 결정론으로 만들 수 있다.',
+    implemented: true,
+    note:
+      '`buildVocabChoice` — 반대말로 바꿔 놓으면 답을 안다. 다만 **문장 하나만 보면 반대말도 자연스러워** ' +
+      '틀렸다는 게 안 드러난다. 그래서 **글 안에서 두 번 이상 나오는 낱말**만 바꾼다 — 나머지 자리에 ' +
+      '원래 낱말이 남아 지문 안에서 모순이 보인다. 굴절형은 안 건드린다(수일치가 깨지면 어법 문항이 된다). ' +
+      '실측 수율 **1,315/1,565 문단 = 84.0%** · 정답 번호 최다 비중 24.6%(고르면 20%) (2026-08-21).',
   },
   {
     key: 'blank',

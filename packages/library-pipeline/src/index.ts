@@ -482,3 +482,12 @@ export type {
 
 // Phase 7 에서 활성화
 // export { decideCuration } from './curate/auto-decision'
+// 어휘 — 문맥에 맞지 않는 낱말 (수능 30번)
+export {
+  buildVocabChoice,
+  countWord,
+  MIN_CHAIN_OCCURRENCES,
+  pickUnderlines,
+  VOCAB_UNDERLINES,
+} from './textbook/vocab-choice'
+export type { Underline, VocabChoiceItem, VocabLexicon } from './textbook/vocab-choice'

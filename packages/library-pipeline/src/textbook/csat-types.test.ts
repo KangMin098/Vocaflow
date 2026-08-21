@@ -29,11 +29,11 @@ describe('CSAT_READING_TYPES', () => {
     }
   })
 
-  it('구현된 것은 순서·삽입·흐름무관 셋이다 — 실측 기준선', () => {
+  it('구현된 것은 순서·삽입·흐름무관·어휘 넷이다 — 실측 기준선', () => {
     // 흐름 무관은 2026-08-21 추가(`buildIrrelevant`). 늘어날 때마다 여기를 고친다 —
     // 커버리지 숫자가 조용히 바뀌면 어디서 늘었는지 알 수 없다.
     const impl = CSAT_READING_TYPES.filter((t) => t.implemented).map((t) => t.key)
-    expect(impl.sort()).toEqual(['insert', 'irrelevant', 'order'])
+    expect(impl.sort()).toEqual(['insert', 'irrelevant', 'order', 'vocabulary'])
   })
 })
 
@@ -41,17 +41,19 @@ describe('measureCoverage', () => {
   it('유형 수와 문항 수를 둘 다 낸다 — 빈칸 4문항과 목적 1문항은 무게가 다르다', () => {
     const c = measureCoverage()
     expect(c.types.total).toBe(18)
-    expect(c.types.implemented).toBe(3)
+    expect(c.types.implemented).toBe(4)
     expect(c.questions.total).toBe(28)
-    expect(c.questions.implemented).toBe(5) // 순서 2 + 삽입 2 + 흐름무관 1
-    expect(c.questions.ratio).toBeCloseTo(5 / 28, 5)
+    expect(c.questions.implemented).toBe(6) // 순서 2 + 삽입 2 + 흐름무관 1 + 어휘 1
+    expect(c.questions.ratio).toBeCloseTo(6 / 28, 5)
   })
 
   it('결정론으로 가능한데 아직 없는 것을 따로 낸다 — 다음에 만들 것', () => {
     const gap = measureCoverage().deterministicGap.map((t) => t.key)
-    // 흐름무관이 빠졌다. 남은 둘은 재료가 반쯤만 있다 —
-    // 실측: `pos` 100% · `antonyms` 33.1% · `inflected_forms` 32.0% (2026-08-21).
-    expect(gap.sort()).toEqual(['grammar', 'vocabulary'])
+    // 흐름무관·어휘가 빠지고 어법만 남았다.
+    // 어법의 재료 실측(2026-08-21): `pos` 100% · `inflected_forms` 32.0%.
+    // 반대말은 전체 33.1% 지만 **대상 밴드는 훨씬 낫다** — V1 54.7% ~ V9 40.8%,
+    // 전체를 끌어내린 것은 V11(17,981개 · 21.0%)이었다.
+    expect(gap.sort()).toEqual(['grammar'])
   })
 
   it('생성 방식별 집계가 총계와 맞는다', () => {
