@@ -11,6 +11,7 @@
 
 import { Screen } from '@/components/ui/ios'
 import { TextbookShelf } from '@/components/library/textbooks/TextbookShelf'
+import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
 
 export const metadata = {
@@ -19,12 +20,12 @@ export const metadata = {
 }
 
 export default async function TextbooksPage() {
-  const shelf = await fetchTextbookShelf()
+  const [shelf, mine] = await Promise.all([fetchTextbookShelf(), fetchMyTextbooks()])
 
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-4 py-6 md:py-8">
-        <TextbookShelf shelf={shelf} />
+        <TextbookShelf shelf={shelf} picked={mine.steps} canPick={mine.available} />
       </div>
     </Screen>
   )

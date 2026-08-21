@@ -59,6 +59,8 @@
 | `/library/vocab` | `(main)/library/vocab/page.tsx` | 공용 단어장 (8 카테고리) |
 | `/library/scripts` | `(main)/library/scripts/page.tsx` | redirect → `/library/books` (v06.34) |
 | `/library/scripts/[bookId]` | `(main)/library/scripts/[bookId]/page.tsx` | redirect → `/library/books/[bookId]` |
+| `/library/textbooks` | `(main)/library/textbooks/page.tsx` | 교재 서가 — 7계단 진열 + 3축 필터(학령·수준·유형) + 담기 |
+| `/library/textbooks/[step]` | `(main)/library/textbooks/[step]/page.tsx` | 교재 한 권 상세 (수록 구성 · 분량 상한 · 담기) |
 
 ### 내 자산
 

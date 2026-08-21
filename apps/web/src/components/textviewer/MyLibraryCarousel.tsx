@@ -47,6 +47,16 @@ interface Props {
   userVLevel?: number
   /** `?view=` 로 지정된 면. null 이면 항목이 가장 많은 면으로 착지(기존 동작). */
   view?: MyLibraryView | null
+  /** 담은 교재 수 — 탭 뱃지에만 쓴다. 조회는 서버가 한다(RLS). */
+  textbookCount?: number
+  /**
+   * Textbooks 면의 본문 — **서버가 그려서 넘긴 노드**.
+   *
+   * 이 면은 코버플로가 아니다. 교재는 "고르고 쌓아 두는" 것이라 낱개 카드를 넘기는 동작이
+   * 뜻을 갖지 않는다. 그래서 탭줄만 공유하고 무대는 통째로 바꾼다 —
+   * 탭줄을 복제하면 그 순간 두 번째 내비 표면이 생긴다(이 저장소가 반복해 겪은 실패).
+   */
+  textbooksSlot?: React.ReactNode
 }
 
 /** progressPercent → 학습 상태 */
@@ -100,6 +110,8 @@ export function MyLibraryCarousel({
   vocabSets,
   userVLevel = 0,
   view = null,
+  textbookCount = 0,
+  textbooksSlot = null,
 }: Props) {
   const router = useRouter()
   const pathname = usePathname()
@@ -131,6 +143,7 @@ export function MyLibraryCarousel({
     books: 0,
     scripts: 0,
     vocab: 0,
+    textbooks: 0,
   })
   const [detail, setDetail] = useState<DetailVariant | null>(null)
   const touchStartX = useRef<number | null>(null)
@@ -213,8 +226,9 @@ export function MyLibraryCarousel({
     }
   }
 
+  // Textbooks 면은 넘길 카드가 없다 — 무대 자리를 서버 노드가 통째로 쓴다.
   const items: Array<LibraryText | SubscribedSet> =
-    tab === 'books' ? books : tab === 'scripts' ? scripts : vocabSets
+    tab === 'books' ? books : tab === 'scripts' ? scripts : tab === 'vocab' ? vocabSets : []
   const active = activeMap[tab]
   const last = items.length - 1
 
@@ -260,6 +274,7 @@ export function MyLibraryCarousel({
     books: books.length,
     scripts: scripts.length,
     vocab: vocabSets.length,
+    textbooks: textbookCount,
   }
   const tabs = MY_LIBRARY_TABS.map((t) => ({
     key: t.view,
@@ -271,14 +286,21 @@ export function MyLibraryCarousel({
   }))
   const currentTabAccent = tabs.find((t) => t.key === tab)!.accent
 
-  if (items.length === 0 && tabs.every((t) => t.count === 0)) return null
+  // ⚠️ Textbooks 면에서는 사라지면 안 된다 — 0권이어도 그 면의 할 일은 "서가로 보내기" 다.
+  if (tab !== 'textbooks' && items.length === 0 && tabs.every((t) => t.count === 0)) return null
 
   return (
-    <section className="flex flex-col items-center gap-5">
-      {/* 3 탭 */}
+    <section aria-label="내 라이브러리 목록" className="flex flex-col items-center gap-5">
+      {/* 면 탭 — 목록은 레지스트리(MY_LIBRARY_TABS)가 소유한다 */}
       {/* aria-label 이 '라이브러리 탭' 이었다 — `LibraryTabs`(공용 서가)와 **같은 이름**이라
           스크린리더 사용자에게는 두 화면의 다른 탭줄이 같은 것으로 불렸다. */}
-      <div role="tablist" aria-label="내 라이브러리 탭" className="flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] p-1">
+      {/* ⚠️ 390px 에서 탭이 넷이면 화면을 넘는다 — 넘침은 **이 줄 안에서** 처리한다.
+          페이지가 가로로 밀리면 학습자는 본문을 읽다가 옆으로 흔들린다(실측 2026-08-21: 51px). */}
+      <div
+        role="tablist"
+        aria-label="내 라이브러리 탭"
+        className="flex max-w-full items-center gap-1.5 overflow-x-auto rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
         {tabs.map((t) => {
           const isActive = t.key === tab
           const Icon = t.icon
@@ -289,8 +311,9 @@ export function MyLibraryCarousel({
               aria-selected={isActive}
               aria-label={`${t.label} — ${t.says}`}
               onClick={() => selectTab(t.key)}
-              disabled={t.count === 0}
-              className={`inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700] transition-all disabled:cursor-not-allowed disabled:opacity-40 ${
+              // 0권이어도 Textbooks 탭은 눌려야 한다 — 그 면이 서가로 가는 통로다.
+              disabled={t.count === 0 && t.key !== 'textbooks'}
+              className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700] transition-all disabled:cursor-not-allowed disabled:opacity-40 ${
                 isActive
                   ? 'text-white shadow-[var(--sh-sm)]'
                   : 'text-[var(--t2)] hover:bg-[var(--bg)]'
@@ -311,8 +334,10 @@ export function MyLibraryCarousel({
         })}
       </div>
 
-      {/* Coverflow stage */}
-      {items.length > 0 ? (
+      {/* Coverflow stage — Textbooks 면만 무대를 통째로 바꾼다(탭줄은 공유). */}
+      {tab === 'textbooks' ? (
+        <div className="w-full max-w-[1280px]">{textbooksSlot}</div>
+      ) : items.length > 0 ? (
         <>
           <div className="relative w-full overflow-hidden">
             <div

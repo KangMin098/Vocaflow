@@ -5,8 +5,9 @@
 
 'use client'
 
-import { BookOpen, FileText, Layers } from 'lucide-react'
+import { BookOpen, FileText, GraduationCap, Layers } from 'lucide-react'
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 
 import { ContinueRow } from '@/components/hub/ContinueRow'
 import { ModuleHero } from '@/components/hub/ModuleHero'
@@ -17,7 +18,7 @@ import { useSubscribedSets } from '@/hooks/useSubscribedSets'
 import { useTexts } from '@/hooks/useTexts'
 import { useUserVLevel } from '@/hooks/useUserVLevel'
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
-import { MY_LIBRARY_TABS, type MyLibraryView } from '@/lib/library/tabs'
+import { MY_LIBRARY_TABS, TEXTBOOK_LABEL, type MyLibraryView } from '@/lib/library/tabs'
 import { workspaceHref } from '@/lib/text-viewer/workspace-href'
 
 // v06.34 — 보라 saturate 폐기. 슬레이트 인디고 계열로 — Lora 영문 자료 정합 + Calm UI
@@ -45,7 +46,22 @@ function TextHubLoadingSkeleton() {
   )
 }
 
-export function TextHubContent({ view = null }: { view?: MyLibraryView | null }) {
+export function TextHubContent({
+  view = null,
+  textbookCount = 0,
+  textbooksSlot = null,
+}: {
+  view?: MyLibraryView | null
+  /** 담은 교재 수 — 히어로 지표와 탭 뱃지용. 조회는 서버가 한다(RLS). */
+  textbookCount?: number
+  /**
+   * Textbooks 면의 본문 — **서버가 그려서 넘긴다.**
+   *
+   * 담은 교재는 RLS 가 걸린 서버 조회라 이 클라이언트 컴포넌트가 직접 읽을 수 없다.
+   * 그래서 면의 골격(히어로·탭)은 여기가, 내용은 서버 컴포넌트가 소유한다.
+   */
+  textbooksSlot?: ReactNode
+}) {
   const { texts, isLoading, stats, continueText } = useTexts()
   const { sets: subscribedSets } = useSubscribedSets()
   const userVLevel = useUserVLevel()
@@ -54,7 +70,9 @@ export function TextHubContent({ view = null }: { view?: MyLibraryView | null })
     return <TextHubLoadingSkeleton />
   }
 
-  if (stats.total === 0 && subscribedSets.length === 0) {
+  // ⚠️ Textbooks 면은 내 본문·구독 세트와 **무관한 축**이다. 이 빈 상태에 걸리면
+  //    교재를 담아 둔 학습자도 "아직 아무것도 없어요" 를 보게 된다.
+  if (view !== 'textbooks' && stats.total === 0 && subscribedSets.length === 0) {
     return (
       <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
         <EmptyState />
@@ -78,7 +96,9 @@ export function TextHubContent({ view = null }: { view?: MyLibraryView | null })
       ? books.length
       : effectiveView === 'scripts'
         ? scripts.length
-        : subscribedSets.length
+        : effectiveView === 'vocab'
+          ? subscribedSets.length
+          : textbookCount
   const faceLabel = MY_LIBRARY_TABS.find((t) => t.view === effectiveView)!.label
 
   return (
@@ -87,8 +107,10 @@ export function TextHubContent({ view = null }: { view?: MyLibraryView | null })
         eyebrow={`My Library · ${faceLabel}`}
         title="My Library"
         note={
-          // 진도(진행 중/정복)는 **읽는 자료**에만 뜻이 있다 — 구독 단어장에는 '정복한 권수' 가 없다.
-          effectiveView === 'vocab'
+          // 진도(진행 중/정복)는 **읽는 자료**에만 뜻이 있다 — 구독 단어장·교재에는 '정복한 권수' 가 없다.
+          effectiveView === 'textbooks'
+            ? `담은 교재 ${faceCount}권`
+            : effectiveView === 'vocab'
             ? `구독한 단어장 ${faceCount}개`
             : stats.inProgress > 0
               ? `진행 중 ${stats.inProgress}권 · 정복 ${stats.conquered}권`
@@ -103,12 +125,39 @@ export function TextHubContent({ view = null }: { view?: MyLibraryView | null })
           { label: MATERIAL_LABEL.book, value: books.length, unit: '권', emphasis: true },
           { label: MATERIAL_LABEL.script, value: scripts.length, unit: '개' },
           { label: MATERIAL_LABEL.word_set, value: subscribedSets.length, unit: '개' },
+          { label: TEXTBOOK_LABEL, value: textbookCount, unit: '권' },
         ]}
       />
 
       {/* 다음 행동은 **면마다 다르다**. Decks 면에 "새 스크립트 추가하기" 를 두면
           이 면이 무엇을 모으는 곳인지 잘못 가르친다(구독 단어장은 내가 쓰는 게 아니라 고르는 것). */}
-      {effectiveView === 'vocab' ? (
+      {effectiveView === 'textbooks' ? (
+        <Link
+          href="/library/textbooks"
+          className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[var(--p)]/5 to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[var(--p)]/10 hover:shadow-[var(--sh-sm)]"
+        >
+          <span
+            className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#C4B5FD] to-[#8B5CF6] text-white shadow-[var(--sh-xs)]"
+            aria-hidden="true"
+          >
+            <GraduationCap size={18} strokeWidth={2} />
+          </span>
+          <div className="flex-1">
+            <p className="font-display text-[14px] font-[700] text-[var(--t1)]">
+              교재 서가 둘러보기
+            </p>
+            <p className="font-body text-[12px] text-[var(--t2)]">
+              학년을 잇는 일곱 권 — 담으면 여기에 쌓여요
+            </p>
+          </div>
+          <span
+            className="font-display text-[18px] font-[700] text-[var(--p)] transition-transform duration-[var(--dur-normal)] group-hover:translate-x-1"
+            aria-hidden="true"
+          >
+            →
+          </span>
+        </Link>
+      ) : effectiveView === 'vocab' ? (
         <Link
           href="/library/vocab"
           className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[var(--p)]/5 to-[var(--bg)] p-4 transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:from-[var(--p)]/10 hover:shadow-[var(--sh-sm)]"
@@ -182,6 +231,8 @@ export function TextHubContent({ view = null }: { view?: MyLibraryView | null })
         userVLevel={userVLevel}
         // 헤더와 **같은 값**을 넘긴다 — 각자 기본 면을 고르면 헤더와 캐러셀이 다른 면을 말한다.
         view={effectiveView}
+        textbookCount={textbookCount}
+        textbooksSlot={textbooksSlot}
       />
 
       <DiscoveryFooter view={effectiveView} />

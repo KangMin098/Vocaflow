@@ -18,6 +18,8 @@ import Link from 'next/link'
 import { ArrowLeft, BookOpen } from 'lucide-react'
 
 import { Screen } from '@/components/ui/ios'
+import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickButton'
+import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 
@@ -29,7 +31,7 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
   const step = Number(params.step)
   if (!Number.isInteger(step)) notFound()
 
-  const shelf = await fetchTextbookShelf()
+  const [shelf, mine] = await Promise.all([fetchTextbookShelf(), fetchMyTextbooks()])
   const v = shelf.volumes.find((x) => x.step === step)
   if (!v) notFound()
 
@@ -127,13 +129,19 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
             이 권의 문항은 <strong className="font-display text-[var(--t1)]">오늘의 학습</strong>에
             섞여 나옵니다. 지금 수준에 맞는 단원부터 자동으로 배정돼요.
           </p>
-          <Link
-            href="/hub"
-            className="group mt-4 inline-flex min-h-[48px] w-fit items-center gap-2 rounded-ios-pill bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-          >
-            <BookOpen size={15} aria-hidden />
-            오늘의 학습으로
-          </Link>
+          <div className="mt-4 flex flex-wrap items-center gap-2.5">
+            <Link
+              href="/hub"
+              className="group inline-flex min-h-[48px] w-fit items-center gap-2 rounded-ios-pill bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+            >
+              <BookOpen size={15} aria-hidden />
+              오늘의 학습으로
+            </Link>
+            {/* 담기는 서가와 **같은 버튼**을 쓴다 — 두 곳에서 다르게 생기면 같은 동작으로 안 읽힌다. */}
+            {mine.available && (
+              <TextbookPickButton step={v.step} title={v.title} picked={mine.steps.includes(v.step)} />
+            )}
+          </div>
         </section>
       </div>
     </Screen>

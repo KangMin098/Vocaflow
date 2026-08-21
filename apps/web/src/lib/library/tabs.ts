@@ -1,6 +1,6 @@
 // apps/web/src/lib/library/tabs.ts
 //
-// Library 하위 3면의 **단일 출처** — 페이지 탭(`components/library/LibraryTabs`)과
+// Library 하위 면의 **단일 출처** — 페이지 탭(`components/library/LibraryTabs`)과
 // 사이드바 서브메뉴(`components/layout/sidebar-config`)가 **같은 배열**을 읽는다.
 //
 // 왜 배열을 여기로 뺐나:
@@ -14,9 +14,19 @@
 // 라벨은 여기서도 짓지 않는다 — `MATERIAL_LABEL`(자료 유형 이름의 단일 출처)에서 가져온다.
 // 라우트 URL 은 고정이다(딥링크·북마크·e2e `12-navigation` 이 이 주소를 쓴다).
 
-import { BookOpen, FileText, Layers, type LucideIcon } from 'lucide-react'
+import { BookOpen, FileText, GraduationCap, Layers, type LucideIcon } from 'lucide-react'
 
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
+
+/**
+ * 교재 시리즈 면의 이름 — 이 파일이 단일 출처.
+ *
+ * ⚠️ 왜 `MATERIAL_LABEL` 이 아닌가: 그 표의 키는 `MaterialType` 이고, 그것은
+ * `study_plan_items.material_type` 의 CHECK(`book|article|word_set|script`)와 **같은 눈금**이다.
+ * 교재 한 권은 DB 행이 아니라 `SERIES_SPINE` 의 계단 번호라 그 CHECK 에 들어갈 수 없다.
+ * 없는 유형을 그 표에 끼워 넣으면 Plan 이 **저장할 수 없는 유형**을 팔게 된다.
+ */
+export const TEXTBOOK_LABEL = 'Textbooks'
 
 export interface LibraryTab {
   /** 학습자가 읽는 이름 — MATERIAL_LABEL 파생 */
@@ -49,22 +59,32 @@ export const LIBRARY_TABS: readonly LibraryTab[] = [
     icon: Layers,
     says: '발행 단어장',
   },
+  {
+    // ⚠️ 반드시 **끝**에 둔다 — `DiscoveryFooter` 가 이 배열을 인덱스로 참조한다.
+    //    가운데 끼워 넣으면 그 화면이 조용히 다른 면을 가리킨다.
+    label: TEXTBOOK_LABEL,
+    href: '/library/textbooks',
+    icon: GraduationCap,
+    says: '학년을 잇는 교재 시리즈',
+  },
 ]
 
 // ── My Library (/text) — 같은 자료 축의 "내 것" 판 ────────────────────────────
 //
 // 공용 Library 와 **대칭**이되 한 칸이 다르다:
-//   Library    = Books · Dispatches · Decks   (공용 카탈로그)
-//   My Library = Books · Texts      · Decks   (내 것)
+//   Library    = Books · Dispatches · Decks · Textbooks   (공용 카탈로그)
+//   My Library = Books · Texts      · Decks · Textbooks   (내 것)
+// `Textbooks` 만 양쪽에 다 있다 — 공용 쪽은 **고르는 서가**, 내 것 쪽은 **담은 것을 관리**하는 곳.
+// 서점과 책장의 관계라 같은 이름이 두 층위에 있는 것이 오히려 정확하다.
 // `Dispatches`(ACP 공개 짧은 글)는 내 것 공간에 존재하지 않는다. 그 자리에 있는 것은
 // **내가 구독한 세트**(Decks)이고, 낱개 본문이 `Texts` 다. 없는 것을 대칭으로 만들어 팔면
 // 그건 빈 링크를 파는 것이다.
 //
-// ⚠️ 이 세 면은 라우트가 아니라 `/text` 한 화면의 **탭**이다. 그래서 `?view=` 로 주소화한다 —
+// ⚠️ 이 면들은 라우트가 아니라 `/text` 한 화면의 **탭**이다. 그래서 `?view=` 로 주소화한다 —
 // 주소가 없으면 사이드바에서 특정 면으로 곧장 갈 수 없고(그게 이 서브메뉴의 존재 이유다),
 // 뒤로가기·북마크·공유도 성립하지 않는다.
 
-export type MyLibraryView = 'books' | 'scripts' | 'vocab'
+export type MyLibraryView = 'books' | 'scripts' | 'vocab' | 'textbooks'
 
 export interface MyLibraryTab extends LibraryTab {
   view: MyLibraryView
@@ -100,6 +120,14 @@ export const MY_LIBRARY_TABS: readonly MyLibraryTab[] = [
     icon: Layers,
     says: '내가 구독한 단어장',
     accent: '#0EA5E9',
+  },
+  {
+    view: 'textbooks',
+    label: TEXTBOOK_LABEL,
+    href: `${MY_LIBRARY_ROOT}?${MY_LIBRARY_VIEW_PARAM}=textbooks`,
+    icon: GraduationCap,
+    says: '내가 담은 교재',
+    accent: '#8B5CF6',
   },
 ]
 

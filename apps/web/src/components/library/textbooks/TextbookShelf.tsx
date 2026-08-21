@@ -15,10 +15,25 @@
 // ⚠️ `empty`(재료 없음)를 숨기지 않는다 — 숨기면 사다리가 끊긴 것을 학습자가 모르고,
 //    그 학년 학습자는 "내 학년이 없다" 가 아니라 "이 브랜드는 이상하다" 로 읽는다.
 
-import { BookOpen, Layers } from 'lucide-react'
-import Link from 'next/link'
+'use client'
 
+import { BookOpen, Layers, SlidersHorizontal, X } from 'lucide-react'
+import Link from 'next/link'
+import { useMemo, useState } from 'react'
+
+import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickButton'
 import type { Shelf, ShelfVolume } from '@/lib/textbook/shelf'
+import {
+  AXIS_LABEL,
+  EMPTY_SELECTION,
+  SHELF_AXES,
+  buildFacets,
+  filterVolumes,
+  selectionCount,
+  toggleValue,
+  type Facets,
+  type Selection,
+} from '@/lib/textbook/shelf-filter'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 
 
@@ -30,7 +45,27 @@ const STATUS_LABEL: Record<ShelfVolume['status'], string> = {
   unmeasured: '재고 확인 중',
 }
 
-export function TextbookShelf({ shelf }: { shelf: Shelf }) {
+export function TextbookShelf({
+  shelf,
+  picked = [],
+  canPick = false,
+}: {
+  shelf: Shelf
+  /** 내가 이미 담은 계단 번호들 */
+  picked?: readonly number[]
+  /**
+   * 담기를 걸어도 되는가.
+   *
+   * ⚠️ 저장소를 못 읽었으면 false 다. 눌러도 반드시 실패할 버튼을 그려 두는 것은
+   *    죽은 버튼과 같은 부류의 거짓이라, 그럴 때는 아예 내지 않는다.
+   */
+  canPick?: boolean
+}) {
+  const [sel, setSel] = useState<Selection>(EMPTY_SELECTION)
+  // 축 값은 **재고에서** 뽑는다 — 손으로 적은 목록은 시리즈가 바뀌면 갈린다.
+  const facets = useMemo(() => buildFacets(shelf.volumes), [shelf.volumes])
+  const shown = useMemo(() => filterVolumes(shelf.volumes, sel), [shelf.volumes, sel])
+
   return (
     <section
       aria-label="교재 서가"
@@ -65,18 +100,44 @@ export function TextbookShelf({ shelf }: { shelf: Shelf }) {
         </p>
       )}
 
-      <ol className="flex flex-col gap-3">
-        {shelf.volumes.map((v) => (
-          <li key={v.step}>
-            <VolumeRow volume={v} />
-          </li>
-        ))}
-      </ol>
+      <FilterBar
+        facets={facets}
+        sel={sel}
+        onChange={setSel}
+        shown={shown.length}
+        total={shelf.volumes.length}
+      />
+
+      {shown.length === 0 ? (
+        // 0건을 빈 화면으로 두지 않는다 — 무엇을 풀어야 다시 보이는지 말해 준다.
+        <p
+          role="status"
+          className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-5 font-body text-[13px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]"
+        >
+          고른 조건에 맞는 권이 없어요. 위에서 조건을 하나 풀어 보세요.
+        </p>
+      ) : (
+        <ol className="flex flex-col gap-3">
+          {shown.map((v) => (
+            <li key={v.step}>
+              <VolumeRow volume={v} picked={picked.includes(v.step)} canPick={canPick} />
+            </li>
+          ))}
+        </ol>
+      )}
     </section>
   )
 }
 
-function VolumeRow({ volume: v }: { volume: ShelfVolume }) {
+function VolumeRow({
+  volume: v,
+  picked,
+  canPick,
+}: {
+  volume: ShelfVolume
+  picked: boolean
+  canPick: boolean
+}) {
   const ready = v.status === 'ready'
 
   return (
@@ -143,7 +204,9 @@ function VolumeRow({ volume: v }: { volume: ShelfVolume }) {
       {/* 상태 — 색만으로 가르지 않는다(라벨 + 위치 + 아이콘).
           ⚠️ ready 는 **반드시 링크**여야 한다. 처음 만들었을 때 이 자리가 span 이라
           "지금 펼치기" 가 보이는데 눌리지 않았다 — 이 저장소가 가장 나쁜 결함으로 못 박은 종류다. */}
-      <div className="col-span-2 flex items-center md:col-span-1 md:justify-end">
+      <div className="col-span-2 flex flex-wrap items-center gap-2 md:col-span-1 md:justify-end">
+        {/* 담기는 **아직 못 펼치는 권에도** 뜬다 — 근간 예정을 찜해 두는 것이 서점의 예약과 같다. */}
+        {canPick && <TextbookPickButton step={v.step} title={v.title} picked={picked} size="sm" />}
         {ready ? (
           <Link
             href={`/library/textbooks/${v.step}`}
@@ -161,5 +224,84 @@ function VolumeRow({ volume: v }: { volume: ShelfVolume }) {
         )}
       </div>
     </article>
+  )
+}
+
+/**
+ * 세 축 필터 — 학령 · 수준 · 유형.
+ *
+ * ⚠️ 칩을 **끄는 방법**을 화면에 남긴다. 조건을 걸어 0건이 된 학습자가 되돌아갈 길이
+ *    없으면 그 화면은 막힌 것과 같다(이 저장소가 죽은 버튼과 같은 부류로 취급하는 결함).
+ * ⚠️ 축 이름을 칩 옆에 계속 적어 둔다 — 칩만 있으면 'V3' 이 무엇의 3인지 알 수 없다.
+ */
+function FilterBar({
+  facets,
+  sel,
+  onChange,
+  shown,
+  total,
+}: {
+  facets: Facets
+  sel: Selection
+  onChange: (next: Selection) => void
+  shown: number
+  total: number
+}) {
+  const active = selectionCount(sel)
+
+  return (
+    <div className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3.5">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+          <SlidersHorizontal size={12} aria-hidden />
+          찾기
+        </span>
+        <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">
+          {active > 0 ? `${shown} / ${total}권` : `${total}권 전체`}
+        </span>
+        {active > 0 && (
+          <button
+            type="button"
+            onClick={() => onChange(EMPTY_SELECTION)}
+            className="ml-auto inline-flex min-h-[44px] items-center gap-1 font-display text-[11.5px] font-[700] text-[var(--p)] transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          >
+            <X size={12} aria-hidden />
+            조건 {active}개 해제
+          </button>
+        )}
+      </div>
+
+      {SHELF_AXES.map((axis) => (
+        <div key={axis} className="flex flex-wrap items-baseline gap-x-2 gap-y-1.5">
+          <span className="min-w-[34px] font-display text-[11px] font-[700] text-[var(--t3)]">
+            {AXIS_LABEL[axis]}
+          </span>
+          {facets[axis].map((f) => {
+            const on = sel[axis].includes(f.value)
+            return (
+              <button
+                key={f.value}
+                type="button"
+                aria-pressed={on}
+                aria-label={`${AXIS_LABEL[axis]} ${f.label} — ${f.count}권`}
+                onClick={() => onChange(toggleValue(sel, axis, f.value))}
+                className={`inline-flex min-h-[32px] items-center gap-1 rounded-[var(--r-full)] border px-2.5 font-display text-[11.5px] font-[700] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                  on
+                    ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
+                    : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
+                }`}
+              >
+                {f.label}
+                <span
+                  className={`font-mono text-[10px] tabular-nums ${on ? 'opacity-75' : 'text-[var(--t3)]'}`}
+                >
+                  {f.count}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      ))}
+    </div>
   )
 }

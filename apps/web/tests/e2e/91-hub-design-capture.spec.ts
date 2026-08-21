@@ -97,6 +97,7 @@ const ALL_ROUTES: { slug: string; url: string; label: string; nocards?: string }
   { slug: 'my-books', url: '/text?view=books', label: 'My Library — Books' },
   { slug: 'my-texts', url: '/text?view=scripts', label: 'My Library — Texts' },
   { slug: 'my-decks', url: '/text?view=vocab', label: 'My Library — Decks' },
+  { slug: 'my-textbooks', url: '/text?view=textbooks', label: 'My Library — Textbooks' },
   { slug: 'library-books', url: '/library/books', label: '서가 — Books' },
   { slug: 'library-scripts', url: '/library/scripts', label: '서가 — Dispatches' },
   { slug: 'library-vocab', url: '/library/vocab', label: '서가 — Decks' },
