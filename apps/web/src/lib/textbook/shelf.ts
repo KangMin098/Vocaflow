@@ -33,6 +33,22 @@ import {
 export const SHELF_MIN_ITEMS = 60
 
 /** DB 에 저장되지 않고 사전에서 생성되는 유형 — 조회 실패와 무관하다(elementary.ts). */
+/** 단원 기본 구성 — 순서 2 + 삽입 2(compose-unit.DEFAULT_SLOTS 와 같은 값).
+ *  ⚠️ 두 곳에 적히면 갈린다. 라이브러리가 상수를 export 하면 그것을 import 할 것. */
+const SLOTS: Record<string, number> = { order: 2, insert: 2 }
+
+/** 슬롯을 쓰지 않는 계단(초등·중등)은 문항 4개를 한 단원으로 본다. */
+const FALLBACK_ITEMS_PER_UNIT = 4
+
+function maxUnitsOf(byType: Record<string, number>, types: readonly string[]): number {
+  const slotted = types.filter((t) => t in SLOTS)
+  if (slotted.length > 0) {
+    return Math.min(...slotted.map((t) => Math.floor((byType[t] ?? 0) / SLOTS[t])))
+  }
+  const total = types.reduce((s, t) => s + (byType[t] ?? 0), 0)
+  return Math.floor(total / FALLBACK_ITEMS_PER_UNIT)
+}
+
 const ELEMENTARY_ONLY = new Set(['rhyme', 'word_meaning', 'spell_blank'])
 
 /**
@@ -75,6 +91,15 @@ export interface ShelfVolume {
   /** 쓰기로 했는데 재고가 0인 유형 — 반쪽인 이유를 밝힌다 */
   emptyTypes: string[]
   status: ShelfStatus
+  /**
+   * 이 권으로 만들 수 있는 **단원 수의 상한**.
+   *
+   * ⚠️ 상한이지 예측이 아니다. 실제 조합은 두 규칙을 더 건다 —
+   *    ① 문항 지문이 수능 규격(90~200어)일 것 ② 한 단원의 문항은 서로 다른 원글에서 올 것
+   *    (compose-unit.ts). 그래서 실제 단원 수는 이 값보다 **적다.**
+   *    화면은 반드시 '최대' 라고 적어야 한다 — 상한을 예측처럼 보이면 그 순간 과장 광고가 된다.
+   */
+  maxUnits: number
 }
 
 export interface Shelf {
@@ -129,6 +154,7 @@ export function buildShelf(
     byType: r.byType,
     emptyTypes: [...r.emptyTypes],
     // 초등 3종만 쓰는 계단은 DB 조회와 무관하므로 못 잰 것이 아니다.
+    maxUnits: maxUnitsOf(r.byType, r.rung.types),
     status: statusOf(
       r.total,
       r.emptyTypes,

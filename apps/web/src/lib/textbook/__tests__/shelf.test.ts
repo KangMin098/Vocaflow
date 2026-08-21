@@ -100,3 +100,41 @@ describe('사다리 정본을 다시 만들지 않는다', () => {
     expect(step1.itemCount).toBe(0)
   })
 })
+
+describe('단원 상한 — 예측이 아니라 상한이다', () => {
+  it('슬롯(순서2·삽입2)이 있는 계단은 부족한 쪽이 상한을 정한다', () => {
+    // 순서 100 · 삽입 10 이면 삽입이 병목이라 5단원이 상한이다.
+    const shelf = buildShelf(
+      [
+        { type: 'order', vLevel: 7, count: 100 },
+        { type: 'insert', vLevel: 7, count: 10 },
+        { type: 'vocab_choice', vLevel: 7, count: 500 },
+      ] as Inventory,
+      true,
+    )
+    const v = shelf.volumes.find((x) => x.vLevels.includes(7))!
+    expect(v.maxUnits).toBe(5)
+  })
+
+  it('한쪽이 0이면 단원을 만들 수 없다', () => {
+    const shelf = buildShelf(
+      [{ type: 'order', vLevel: 7, count: 100 }] as Inventory,
+      true,
+    )
+    const v = shelf.volumes.find((x) => x.vLevels.includes(7))!
+    expect(v.maxUnits).toBe(0)
+  })
+
+  it('슬롯을 안 쓰는 계단(초등)은 문항 4개를 한 단원으로 센다', () => {
+    const shelf = buildShelf(
+      [
+        { type: 'rhyme', vLevel: 1, count: 4 },
+        { type: 'word_meaning', vLevel: 1, count: 4 },
+        { type: 'spell_blank', vLevel: 1, count: 4 },
+      ] as Inventory,
+      true,
+    )
+    const step1 = shelf.volumes.find((v) => v.step === 1)!
+    expect(step1.maxUnits).toBe(3) // 12문항 / 4
+  })
+})

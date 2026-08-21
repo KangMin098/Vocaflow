@@ -102,6 +102,13 @@ const ALL_ROUTES: { slug: string; url: string; label: string; nocards?: string }
   { slug: 'library-vocab', url: '/library/vocab', label: '서가 — Decks' },
   // 교재 서가 — 파이프라인 산출물이 학습자에게 닿는 유일한 면(v06.337 신설).
   { slug: 'library-textbooks', url: '/library/textbooks', label: '서가 — Textbooks' },
+  // 권 상세 — 서가의 '지금 펼치기' 목적지. 이 자리가 비어 있던 동안 그 버튼은 죽어 있었다.
+  {
+    slug: 'textbook-volume',
+    url: '/library/textbooks/5',
+    label: '교재 상세 — STEP 5',
+    nocards: '한 권을 펼친 화면 — 반복 카드 격자 없음',
+  },
 ]
 
 /**

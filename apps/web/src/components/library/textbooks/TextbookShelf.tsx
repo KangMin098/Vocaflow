@@ -16,21 +16,11 @@
 //    그 학년 학습자는 "내 학년이 없다" 가 아니라 "이 브랜드는 이상하다" 로 읽는다.
 
 import { BookOpen, Layers } from 'lucide-react'
+import Link from 'next/link'
 
 import type { Shelf, ShelfVolume } from '@/lib/textbook/shelf'
+import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 
-/** 유형 코드 → 학습자가 읽는 이름. 화면이 아니라 여기 한 곳에서만 짓는다. */
-const TYPE_LABEL: Record<string, string> = {
-  rhyme: '소리·운율',
-  word_meaning: '낱말 뜻',
-  spell_blank: '철자 완성',
-  word_order: '영작 배열',
-  vocab_choice: '어휘 추론',
-  grammar_choice: '어법',
-  order: '글 순서',
-  insert: '문장 삽입',
-  irrelevant: '흐름 무관',
-}
 
 const STATUS_LABEL: Record<ShelfVolume['status'], string> = {
   ready: '지금 펼치기',
@@ -134,7 +124,7 @@ function VolumeRow({ volume: v }: { volume: ShelfVolume }) {
                 }`}
                 title={missing ? '아직 준비되지 않은 유형' : undefined}
               >
-                {TYPE_LABEL[t] ?? t}
+                {TYPE_GUIDE[t]?.label ?? t}
                 {!missing && (
                   <span className="font-mono text-[10px] tabular-nums opacity-70">
                     {(v.byType[t] ?? 0).toLocaleString()}
@@ -150,18 +140,25 @@ function VolumeRow({ volume: v }: { volume: ShelfVolume }) {
         </p>
       </div>
 
-      {/* 상태 — 색만으로 가르지 않는다(라벨 + 위치 + 아이콘) */}
+      {/* 상태 — 색만으로 가르지 않는다(라벨 + 위치 + 아이콘).
+          ⚠️ ready 는 **반드시 링크**여야 한다. 처음 만들었을 때 이 자리가 span 이라
+          "지금 펼치기" 가 보이는데 눌리지 않았다 — 이 저장소가 가장 나쁜 결함으로 못 박은 종류다. */}
       <div className="col-span-2 flex items-center md:col-span-1 md:justify-end">
-        <span
-          className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-ios-pill px-4 font-display text-[12.5px] font-[700] ${
-            ready
-              ? 'bg-[var(--p)] text-[var(--on-p)]'
-              : 'border border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)]'
-          }`}
-        >
-          {ready ? <BookOpen size={14} aria-hidden /> : <Layers size={14} aria-hidden />}
-          {STATUS_LABEL[v.status]}
-        </span>
+        {ready ? (
+          <Link
+            href={`/library/textbooks/${v.step}`}
+            aria-label={`${v.title} 펼쳐 보기`}
+            className="group inline-flex min-h-[44px] items-center gap-1.5 rounded-ios-pill bg-[var(--p)] px-4 font-display text-[12.5px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          >
+            <BookOpen size={14} aria-hidden />
+            {STATUS_LABEL[v.status]}
+          </Link>
+        ) : (
+          <span className="inline-flex min-h-[44px] items-center gap-1.5 rounded-ios-pill border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12.5px] font-[700] text-[var(--t2)]">
+            <Layers size={14} aria-hidden />
+            {STATUS_LABEL[v.status]}
+          </span>
+        )}
       </div>
     </article>
   )
