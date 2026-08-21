@@ -285,7 +285,7 @@ function FilterBar({
                 aria-pressed={on}
                 aria-label={`${AXIS_LABEL[axis]} ${f.label} — ${f.count}권`}
                 onClick={() => onChange(toggleValue(sel, axis, f.value))}
-                className={`inline-flex min-h-[32px] items-center gap-1 rounded-[var(--r-full)] border px-2.5 font-display text-[11.5px] font-[700] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                className={`inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-full)] border px-3 font-display text-[11.5px] font-[700] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                   on
                     ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
                     : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'

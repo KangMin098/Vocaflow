@@ -81,7 +81,6 @@ const TOUCH_BASELINE: Record<string, number> = {
   '/library/books': 3,
   '/library/vocab': 3,
   '/text/new': 3,
-  '/text': 3,
   '/pairflip': 2,
   '/wordvault': 1,
   '/library/scripts': 1,
@@ -89,6 +88,8 @@ const TOUCH_BASELINE: Record<string, number> = {
   //   /diagnostic 7 → 0 (안내 4종 32px · 레벨 안내 20px · 기록 보기 18px · 시작 34px)
   //   /flashcard·/spellforge 각 4 → 0 (HubStartCard 공유 칩 30px — 세 허브가 함께 해소)
   //   /dictate·/dictate/setup 각 3 → 0 · /library/vocab 18 → 3 (점 6x6 · 카테고리 칩 32px)
+  //   /text 3 → 0 : My Library 면 탭이 30px 이었다(px-3.5 py-1.5). 네 번째 면을 더하면서
+  //                 악화로 잡혔고, 하나를 되돌리는 대신 넷 다 44px 로 올렸다.
   // 17회차에 0 으로 만든 화면 — 항목을 지우면 기본값 0 이라 되살아나는 즉시 잡힌다.
   //   `/settings` 18 → 0 : `Toggle` 래퍼가 52x32 였다(주석은 "44×44 보장" 이라고 적혀 있었다)
   //                        + Segment 87x30 + 계정 버튼 2종

@@ -7,15 +7,22 @@
 //
 // ⚠️ 세 상태를 반드시 구별한다:
 //   · 저장소를 못 읽음(`available: false`) → "확인 중". 고른 것이 없다고 말하면 거짓이다.
-//   · 고른 것이 없음                        → 서가로 보낸다
-//   · 고른 것이 있음                        → 권을 관리한다
+//   · 고른 것이 없음                        → **매대를 세운다**(빈 책장을 보여주지 않는다)
+//   · 고른 것이 있음                        → 권을 관리한다 + 다음 계단을 제안한다
 // 앞의 둘을 한 문장으로 뭉개는 것이 이 저장소의 지배적 결함 유형이다(CONVENTIONS).
+//
+// ⚠️ **진도를 그리지 않는다.** 교재 문항은 오늘의 학습에 섞여 나오므로 "이 권의 몇 %" 라는
+//    수치가 존재하지 않는다. 없는 진도 막대를 그리면 그 화면은 그 순간 거짓말이 된다.
+//
+// 판정·정렬·합계는 전부 `lib/textbook/my-shelf.ts`(순수)가 소유한다 — 여기서 다시 짜지 않는다.
 
 import { ArrowRight, BookOpen, Library, Plus } from 'lucide-react'
 import Link from 'next/link'
 
-import type { Shelf } from '@/lib/textbook/shelf'
+import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickButton'
 import type { MySelection } from '@/lib/textbook/my-shelf-query'
+import { nextRung, pickedTotals, pickedVolumes, previewVolumes } from '@/lib/textbook/my-shelf'
+import type { Shelf, ShelfVolume } from '@/lib/textbook/shelf'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 
 export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }) {
@@ -23,7 +30,10 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
   if (!mine.available) {
     return (
       <Section>
-        <p role="status" className="font-body text-[13px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
+        <p
+          role="status"
+          className="font-body text-[13px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]"
+        >
           담은 교재를 <strong className="font-display text-[var(--t1)]">확인하지 못했어요</strong> —
           없다는 뜻이 아닙니다. 잠시 뒤 다시 열어 보세요.
         </p>
@@ -31,50 +41,59 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
     )
   }
 
-  const picked = shelf.volumes.filter((v) => mine.steps.includes(v.step))
+  const picked = pickedVolumes(shelf, mine.steps)
 
-  // ② 고른 것이 없음 — 서가로 보낸다.
+  // ② 고른 것이 없음 — 링크 하나만 두고 비우지 않는다. 고를 것을 **눈앞에** 놓는다.
   if (picked.length === 0) {
+    const preview = previewVolumes(shelf, mine.steps)
     return (
       <Section>
         <p className="max-w-[46ch] font-editorial text-[19px] font-[500] leading-[1.35] text-[var(--t1)] [word-break:keep-all]">
           아직 담은 교재가 없어요.
         </p>
         <p className="mt-2 max-w-[52ch] font-body text-[12.5px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
-          학년을 잇는 일곱 권 중 지금 수준에 맞는 것을 고르면 여기에 쌓여요.
+          학년을 잇는 {shelf.volumes.length}권 가운데 지금 수준에 맞는 것을 담아 두면 여기에 쌓여요.
+          아래는 지금 바로 펼칠 수 있는 권입니다.
         </p>
+
+        {/* 매대 — 서점은 빈 책장을 보여주지 않는다. 고를 것을 진열한다. */}
+        {preview.length > 0 && (
+          <ul className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+            {preview.map((v) => (
+              <li key={v.step}>
+                <PreviewCard volume={v} />
+              </li>
+            ))}
+          </ul>
+        )}
+
         <Link
           href="/library/textbooks"
           className="group mt-4 inline-flex min-h-[44px] w-fit items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p-light)] px-4 font-display text-[12.5px] font-[700] text-[var(--on-p-tint)] no-underline transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <Library size={14} aria-hidden />
           교재 서가 둘러보기
-          <ArrowRight size={13} aria-hidden className="motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5" />
+          <ArrowRight
+            size={13}
+            aria-hidden
+            className="motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5"
+          />
         </Link>
       </Section>
     )
   }
 
-  // ③ 관리 — 담은 권을 계단 순서로.
-  //
-  // ⚠️ 여기서 **진도를 그리지 않는다.** 교재 문항은 오늘의 학습에 섞여 나오므로 "이 권의 몇 %"
-  //    라는 수치가 존재하지 않는다. 없는 진도 막대를 그리면 그 화면은 그 순간 거짓말이 된다.
-  //    대신 실제로 아는 것만 말한다 — 합계와 **다음 계단**.
-  const totalItems = picked.reduce((s, v) => s + v.itemCount, 0)
-  const totalUnits = picked.reduce((s, v) => s + v.maxUnits, 0)
-
-  // 다음 계단 = 담은 것 중 가장 높은 권 **바로 다음**의, 아직 안 담은 권.
-  // 시리즈의 존재 이유가 "학년을 잇는" 것이므로, 이 한 줄이 이 면의 다음 행동이다.
-  const highest = picked[picked.length - 1]!.step
-  const nextUp = shelf.volumes.find((v) => v.step > highest && !mine.steps.includes(v.step))
+  // ③ 관리 — 담은 권을 계단 순서로. 아는 것만 말한다: 합계와 다음 계단.
+  const totals = pickedTotals(picked)
+  const up = nextRung(shelf, mine.steps)
 
   return (
     <Section>
-      {/* 합계 — 상한임을 반드시 밝힌다(권 상세와 같은 규칙). 상한을 예측처럼 보이면 과장 광고다. */}
+      {/* 합계 — 단원은 상한임을 반드시 밝힌다(권 상세와 같은 규칙). 상한을 예측처럼 보이면 과장 광고다. */}
       <p className="flex flex-wrap items-baseline gap-x-2.5 font-mono text-[11px] tabular-nums text-[var(--t3)]">
-        <span>{picked.length}권</span>
-        <span>· 문항 {totalItems.toLocaleString()}</span>
-        <span>· 최대 {totalUnits.toLocaleString()}단원</span>
+        <span>{totals.volumes}권</span>
+        <span>· 문항 {totals.items.toLocaleString()}</span>
+        <span>· 최대 {totals.maxUnits.toLocaleString()}단원</span>
       </p>
 
       <ol className="mt-1 flex flex-col divide-y divide-[var(--bd)]">
@@ -107,15 +126,15 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
                 </span>
               ))}
             </span>
+            <TextbookPickButton step={v.step} title={v.title} picked size="sm" />
           </li>
         ))}
       </ol>
 
-      {/* 다음 계단 — 시리즈의 존재 이유가 "학년을 잇는" 것이라 이 자리가 이 면의 다음 행동이다.
-          없으면(마지막 권까지 담았으면) 내지 않는다. 빈 제안을 파는 것보다 아무 말도 안 하는 게 낫다. */}
-      {nextUp && (
+      {/* 다음 계단 — 없으면(마지막 권까지 담았으면) 내지 않는다. 빈 제안을 파는 것보다 침묵이 낫다. */}
+      {up && (
         <Link
-          href={`/library/textbooks/${nextUp.step}`}
+          href={`/library/textbooks/${up.step}`}
           className="group mt-4 flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 no-underline transition-colors hover:border-[var(--p)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <span
@@ -128,9 +147,9 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
             <span className="block font-display text-[12.5px] font-[700] text-[var(--t1)]">
               다음 계단
             </span>
-            {/* 제목과 학령을 조사 없이 잇는다 — 영문 권명에 한국어 조사를 붙일 수 없다. */}
+            {/* 제목·학령을 조사 없이 잇는다 — 영문 권명에 한국어 조사를 붙일 수 없다. */}
             <span className="mt-0.5 block font-body text-[12px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
-              STEP {nextUp.step} · {nextUp.title} · {nextUp.schoolBand}
+              STEP {up.step} · {up.title} · {up.schoolBand}
             </span>
           </span>
           <ArrowRight
@@ -147,9 +166,53 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
       >
         <BookOpen size={13} aria-hidden />
         교재 더 고르기
-        <ArrowRight size={12} aria-hidden className="motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5" />
+        <ArrowRight
+          size={12}
+          aria-hidden
+          className="motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5"
+        />
       </Link>
     </Section>
+  )
+}
+
+/**
+ * 매대 한 칸 — 표지 대신 **계단 번호 + 권명 + 학령 + 수록 유형 + 담기**.
+ *
+ * 서점 매대가 표지로 파는 것을 여기서는 정보로 판다. 가짜 표지 이미지를 만들지 않는 이유는
+ * 이 교재에 표지가 없기 때문이다 — 없는 것을 그리면 그 순간 화면이 물건을 지어낸다.
+ */
+function PreviewCard({ volume: v }: { volume: ShelfVolume }) {
+  return (
+    <article className="flex h-full flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3.5">
+      <p className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.14em] text-[var(--t3)]">
+        STEP {v.step} · {v.schoolBand}
+      </p>
+      <h3 className="font-editorial text-[16px] font-[500] leading-snug text-[var(--t1)]">
+        <Link
+          href={`/library/textbooks/${v.step}`}
+          className="text-[var(--t1)] no-underline hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          {v.title}
+        </Link>
+      </h3>
+      <p className="flex flex-wrap gap-1">
+        {v.types.slice(0, 3).map((t) => (
+          <span
+            key={t}
+            className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]"
+          >
+            {TYPE_GUIDE[t]?.label ?? t}
+          </span>
+        ))}
+      </p>
+      <p className="font-mono text-[10px] tabular-nums text-[var(--t3)]">
+        문항 {v.itemCount.toLocaleString()} · 최대 {v.maxUnits}단원
+      </p>
+      <span className="mt-auto pt-1">
+        <TextbookPickButton step={v.step} title={v.title} picked={false} size="sm" />
+      </span>
+    </article>
   )
 }
 

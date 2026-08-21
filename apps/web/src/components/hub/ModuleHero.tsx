@@ -64,7 +64,12 @@ export function ModuleHero({
   const subText = note ?? tagline ?? null
 
   return (
-    <header
+    // 이름 붙은 구역이다 — `<header>` 였을 때는 스크린리더에서 이름 없는 덩어리였고,
+    // 지면 배분 계측(`91-hub-design-capture`)도 이 블록을 통째로 놓쳤다. 그 결과 화면마다
+    // **측정된 한 조각이 "100%"로 인쇄**됐다 — 하네스가 스스로 함정으로 못 박은 바로 그 패턴이다.
+    // (`<main>` 안의 `<header>` 는 banner 랜드마크가 아니므로 잃는 의미가 없다.)
+    <section
+      aria-label={title}
       className={
         quiet
           ? 'relative overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 text-[var(--t1)] md:px-5 md:py-3.5'
@@ -169,6 +174,6 @@ export function ModuleHero({
           ))}
         </ul>
       )}
-    </header>
+    </section>
   )
 }

@@ -313,7 +313,7 @@ export function MyLibraryCarousel({
               onClick={() => selectTab(t.key)}
               // 0권이어도 Textbooks 탭은 눌려야 한다 — 그 면이 서가로 가는 통로다.
               disabled={t.count === 0 && t.key !== 'textbooks'}
-              className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700] transition-all disabled:cursor-not-allowed disabled:opacity-40 ${
+              className={`inline-flex min-h-[44px] shrink-0 items-center gap-1.5 whitespace-nowrap rounded-[var(--r-full)] px-3.5 font-display text-[13px] font-[700] transition-all disabled:cursor-not-allowed disabled:opacity-40 ${
                 isActive
                   ? 'text-white shadow-[var(--sh-sm)]'
                   : 'text-[var(--t2)] hover:bg-[var(--bg)]'
