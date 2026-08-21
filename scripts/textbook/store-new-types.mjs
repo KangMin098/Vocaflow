@@ -29,7 +29,9 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
 const commit = process.argv.includes('--commit')
 
 const { createClient } = await import('@supabase/supabase-js')
-const { buildIrrelevant, buildWordOrder } = await import('@vocaflow/library-pipeline')
+const { buildIrrelevant, buildWordOrder, buildVocabChoice, VOCAB_UNDERLINES } = await import(
+  '@vocaflow/library-pipeline'
+)
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
@@ -57,20 +59,31 @@ const sents = (p) =>
 
 // ── 사전 ────────────────────────────────────────────────────────────
 const vLevelOf = new Map()
+const antOf = new Map()
+const posOf = new Map()
 for (let from = 0; ; from += 1000) {
   const { data, error: e } = await db
     .from('shared_dictionary')
-    .select('word, v_level')
+    .select('word, v_level, antonyms, primary_pos')
     .order('word')
     .range(from, from + 999)
   if (e) throw new Error('사전 조회 실패: ' + e.message)
   if (!data?.length) break
-  for (const r of data) vLevelOf.set(String(r.word).toLowerCase(), r.v_level)
+  for (const r of data) {
+    const w = String(r.word).toLowerCase()
+    vLevelOf.set(w, r.v_level)
+    if (Array.isArray(r.antonyms) && r.antonyms.length) antOf.set(w, r.antonyms.map(String))
+    if (r.primary_pos) posOf.set(w, String(r.primary_pos))
+  }
   if (data.length < 1000) break
 }
 const MAX_V = Math.max(...[...vLevelOf.values()].filter((v) => v != null))
 const isCommon = (w) => vLevelOf.has(w.toLowerCase())
 const rarity = (w) => vLevelOf.get(w.toLowerCase()) ?? MAX_V
+const lex = {
+  antonymsOf: (w) => antOf.get(w.toLowerCase()) ?? [],
+  posOf: (w) => posOf.get(w.toLowerCase()) ?? null,
+}
 
 // ── 이미 있는 조합 ──────────────────────────────────────────────────
 // 1,000행 조용한 절단에 두 번 당했다 — 나눠 받는다.
@@ -139,7 +152,27 @@ for (const a of usable) {
       }
     }
 
-    // ② 영작 배열 — 문단 안 후보 중 하나만 (유일키 제약)
+    // ② 어휘 — 문단당 하나
+    if (ss.length >= VOCAB_UNDERLINES) {
+      const item = buildVocabChoice(ss, lex)
+      if (item) {
+        const key = `${a.id}|vocab_choice|${pi}`
+        if (existing.has(key)) skipped++
+        else
+          rows.push({
+            kind: 'article',
+            ref_id: a.id,
+            type: 'vocab_choice',
+            item_role: 'practice',
+            paragraph_idx: pi,
+            v_level: a.article_v_level,
+            payload: { sentences: item.sentences, underlines: item.underlines },
+            answer_key: { position: item.answer, original: item.original },
+          })
+      }
+    }
+
+    // ③ 영작 배열 — 문단 안 후보 중 하나만 (유일키 제약)
     const cands = []
     for (let si = 0; si < ss.length; si++) {
       const item = buildWordOrder(ss[si], si > 0 ? ss[si - 1] : null, isCommon)
