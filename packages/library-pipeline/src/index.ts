@@ -144,12 +144,19 @@ export type { ReadingLoad } from './analyze/reading-load'
 // 수능 읽기 유형 정본 + 상업 교재 제작 단계 대응표 — 커버리지의 분모다.
 export { CSAT_READING_TYPES, measureCoverage } from './textbook/csat-types'
 export type { CoverageReport, CsatGeneration, CsatType } from './textbook/csat-types'
-export { PRODUCTION_STAGES, measureStages } from './textbook/production-stages'
+export { PRODUCTION_STAGES, measureStages, measureClaudeStages } from './textbook/production-stages'
 export { SCHOOL_TYPES, measureSchoolCoverage } from './textbook/school-types'
 export type { AnswerMode, SchoolBand, SchoolCoverage, SchoolType, SourceNeed } from './textbook/school-types'
 export { PASSAGE_ORIGINS, measureOrigins } from './textbook/passage-origin'
 export type { OriginKey, OriginReport, OriginRight, PassageOrigin } from './textbook/passage-origin'
-export type { ProductionStage, StageReport, StageState } from './textbook/production-stages'
+export type {
+  ClaudeDrain,
+  ClaudeStageReport,
+  ProductionStage,
+  StageReport,
+  StageState,
+  StageWorker,
+} from './textbook/production-stages'
 export {
   contentWords,
   evidenceFor,

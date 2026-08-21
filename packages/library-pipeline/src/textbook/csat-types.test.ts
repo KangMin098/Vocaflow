@@ -5,7 +5,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { CSAT_READING_TYPES, measureCoverage } from './csat-types'
-import { PRODUCTION_STAGES, measureStages } from './production-stages'
+import { PRODUCTION_STAGES, measureClaudeStages, measureStages } from './production-stages'
 
 describe('CSAT_READING_TYPES', () => {
   it('읽기 28문항을 빠짐없이 덮는다 — 18~45번', () => {
@@ -77,6 +77,31 @@ describe('PRODUCTION_STAGES', () => {
       if (s.state === 'done') expect(s.gap, s.label).toBeNull()
       if (s.state !== 'done') expect(s.gap, s.label).toBeTruthy()
     }
+  })
+
+  it('**Claude Code 몫이 단계마다 적혀 있다** — "LLM 필요" 는 차단이 아니라 시작 신호다', () => {
+    // 이 저장소의 다른 파이프라인은 단계·탭마다 드레인을 따로 둔다(VCB 3 · PDCP 2).
+    // 교재만 전부를 묶은 드레인 하나로 두면 "지금 어느 단계를 돌려야 하나" 를 알 수 없다.
+    const r = measureClaudeStages()
+    expect(r.stages.length).toBeGreaterThan(1)
+    for (const s of r.stages) {
+      expect(s.claude, s.label).not.toBeNull()
+      expect(s.claude!.role.length, s.label).toBeGreaterThan(20)
+      expect(s.claude!.progress.length, s.label).toBeGreaterThan(5)
+    }
+    // `claude` 가 아닌 단계는 몫이 비어 있어야 한다 — 섞이면 목록이 거짓말이 된다.
+    for (const s of PRODUCTION_STAGES.filter((x) => x.worker !== 'claude')) {
+      expect(s.claude, s.label).toBeNull()
+    }
+  })
+
+  it('드레인이 이미 있는 단계와 아직 없는 단계를 나눠 낸다 — 없는 쪽이 할 일 목록이다', () => {
+    const r = measureClaudeStages()
+    expect(r.wired.length + r.unwired.length).toBe(r.stages.length)
+    // 해답·해설은 2026-08-21 에 드레인이 생겼다.
+    expect(r.wired.map((s) => s.label)).toContain('해답·해설')
+    // 나머지는 아직 없다 — 늘어나면 여기를 고친다.
+    expect(r.unwired.length).toBeGreaterThan(0)
   })
 
   it('없는 단계는 이제 없다 — 다만 **다섯**이 아직 반쪽이다', () => {

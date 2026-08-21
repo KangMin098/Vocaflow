@@ -19,6 +19,37 @@
 
 export type StageState = 'done' | 'partial' | 'missing'
 
+/**
+ * 그 단계에서 **누가 일하는가.**
+ *
+ * ── 왜 단계마다 적는가 ──────────────────────────────────────────────
+ * 이 저장소의 다른 파이프라인은 **단계·탭마다** Claude Code 드레인을 따로 둔다
+ * (VCB 3개 · PDCP 2개 · LCP·CCP·TCP·Compose 각 1개). 교재만 전부를 묶은 드레인
+ * 하나로 두면 "지금 어느 단계에서 Claude Code 를 돌려야 하는가" 를 알 수 없다.
+ *
+ * ⚠️ **"LLM 이 필요하다" 는 차단 사유가 아니라 작업 시작 신호다**(루트 CLAUDE.md §🤖).
+ *   그래서 `claude` 인 단계는 드레인이 있어야 하고, 없으면 그게 곧 할 일 목록이다.
+ */
+export type StageWorker =
+  /** 스크립트가 결정론으로 한다 — 사람도 LLM 도 필요 없다. */
+  | 'script'
+  /** **Claude Code 배치** — 글을 읽고 써야 하는 일. */
+  | 'claude'
+  /** 사람이 판단한다 — 발행 여부·교육적 적합성. */
+  | 'human'
+
+/** 그 단계의 Claude Code 몫. `worker` 가 `claude` 가 아니면 null. */
+export interface ClaudeDrain {
+  /** 무엇을 쓰는가. */
+  role: string
+  /** 뽑기·적재 스크립트 짝. 아직 없으면 null — **그게 할 일이라는 뜻이다.** */
+  scripts: { exportScript: string; importScript: string } | null
+  /** 어디에 저장되는가. 마이그레이션이 필요 없으면 그 사실을 적는다. */
+  storage: string
+  /** 실측 진척 — 분자/분모. 아직 안 시작했으면 그렇게 적는다. */
+  progress: string
+}
+
 export interface ProductionStage {
   order: number
   /** 출판 실무에서 부르는 이름. */
@@ -30,6 +61,10 @@ export interface ProductionStage {
   ours: string[]
   /** 무엇이 모자란가. `done` 이면 null. */
   gap: string | null
+  /** 이 단계에서 누가 일하는가. */
+  worker: StageWorker
+  /** Claude Code 몫. `worker !== 'claude'` 면 null. */
+  claude: ClaudeDrain | null
 }
 
 export const PRODUCTION_STAGES: readonly ProductionStage[] = [
@@ -38,8 +73,13 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
     label: '기획',
     purpose: '대상 학년·수준·유형 구성과 단원 수를 정한다. 여기서 교재의 정체가 결정된다.',
     state: 'done',
-    ours: ['article_compose_jobs (발주: track + target_v_level)', 'vocaflow_levels (학년 축 V0~11)'],
+    ours: [
+      'series.ts 계단 7단 (학령 사다리 = vocaflow_levels)',
+      'article_compose_jobs (발주: track + target_v_level)',
+    ],
     gap: null,
+    worker: 'script',
+    claude: null,
   },
   {
     order: 2,
@@ -47,7 +87,18 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
     purpose: '기획에 맞는 지문을 쓴다. 상업 교재는 저자를 섭외한다.',
     state: 'partial',
     ours: ['csat_korean 유형 명세 (130~190어 · 주제문→근거→함의)', 'PD 소스 재고 328편'],
-    gap: '생성 지문의 산출 레벨이 목표보다 2~3밴드 낮게 나온다(실측 csat_korean 2건: 목표 V6·V8 → 산출 V3·V4).',
+    gap:
+      '생성 지문의 산출 레벨이 목표보다 2~3밴드 낮게 나온다(실측 csat_korean 2건: 목표 V6·V8 → 산출 V3·V4). ' +
+      '그리고 **사다리 3·4단(중1-2·중3)이 가장 얇다** — V3~V4 지문 재고가 ACP 수집 편중으로 비어 있다.',
+    worker: 'claude',
+    claude: {
+      role:
+        '사실에서 수능형 주제글을 새로 쓴다(`csat_korean` — 130~190어 · 주제문→근거→함의). ' +
+        '**지문 재고가 얇은 밴드를 겨냥해서** 쓴다 — 지금은 V3~V4 다.',
+      scripts: null,
+      storage: 'article_compose_candidates → 게이트 6종 → library_articles',
+      progress: '드레인 없음. 지금까지 2편만 있고 둘 다 목표 레벨을 못 맞췄다.',
+    },
   },
   {
     order: 3,
@@ -63,14 +114,29 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
       '수능 읽기 18유형 중 **5유형**(문항 7/28). 남은 13유형은 결정론으로 못 만든다 — ' +
       '**지문을 새로 써야 하거나**(요지·주제·빈칸·함의 …) 도표·안내문 같은 **지문 밖 재료**가 필요하다. ' +
       '즉 여기서부터는 지금까지와 다른 종류의 작업이다.',
+    worker: 'claude',
+    claude: {
+      role:
+        '결정론으로 못 만드는 **생성형 11유형**을 쓴다 — 요지·주제·제목·주장·목적·심경·함의·빈칸(4문항)·요약. ' +
+        '이 유형들은 오답의 매력도가 난이도를 만들기 때문에 **오답 4개를 함께 써야** 한다.',
+      scripts: null,
+      storage: 'csat_dcp_items — 유형 추가 시 `type` CHECK 확장 필요(마이그레이션 · 승인)',
+      progress: '드레인 없음. 결정론 5유형(7문항)만 있고 생성형은 0/11 이다.',
+    },
   },
   {
     order: 4,
     label: '원고 검토',
     purpose: '난이도·분량·오류를 본다. 페이지별 원고 양과 난이도가 적절한지 확인한다.',
     state: 'done',
-    ours: ['게이트 6종 (법적 안전)', 'scorecard 자동 9항목 (분량·형식·중복·출처)', 'assessReadingLoad (길이)'],
+    ours: [
+      '게이트 6종 (법적 안전)',
+      'scorecard 자동 9항목 (분량·형식·중복·출처)',
+      'item-health-report (쏠림·규격·밴드) · bias-review (편향 검토 표시)',
+    ],
     gap: null,
+    worker: 'script',
+    claude: null,
   },
   {
     order: 5,
@@ -88,6 +154,15 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
       '본문과 같은 문단으로 붙어 어법 113문항·어휘 220문항에 인쇄되고 있었고, ' +
       '**표본을 눈으로 보다 발견**했다. 기계가 봤어야 할 일이다. ' +
       '다음은 표기 일관성(같은 글 안에서 -ise/-ize · 숫자 표기 · 인용부호 종류가 섞이는 것).',
+    worker: 'claude',
+    claude: {
+      role:
+        '오탈자와 표기 일관성을 본다 — 기계가 잡는 것은 "인쇄하면 안 되는 자국" 뿐이고, ' +
+        '`-ise/-ize` 혼용 · 숫자 표기 · 인용부호 종류처럼 **한 권 안에서 일관돼야 하는 것**은 읽어야 안다.',
+      scripts: null,
+      storage: '지문 수정은 원문 개작이라 조심스럽다 — 표시만 하고 사람이 정하는 편이 맞다',
+      progress: '드레인 없음.',
+    },
   },
   {
     order: 6,
@@ -106,15 +181,34 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
       '무관 문장 고르기는 후보를 **거르는** 일이라 잡음을 빼면 정확해지지만, 해설은 정답이 오답보다 ' +
       '근거가 **많아야** 성립하므로 잡음을 빼면 정답 쪽 근거도 같이 사라진다. ' +
       '진짜 문제는 필터가 아니라 **표면 단서로는 결속을 못 읽는다**는 것이다(오답을 더 가리키는 34.4%가 그 증거). ' +
-      '올리려면 의미 유사도(임베딩)나 LLM 이 필요하고, 그건 이 파이프라인이 지금까지 피해 온 종류의 도구다.',
+      '**그래서 나머지는 Claude Code 배치가 쓴다**(아래 `claude`). 규칙 해설은 근거가 확정된 것이라 그대로 두고, ' +
+      '배치 해설이 우선 실린다.',
+    worker: 'claude',
+    claude: {
+      role:
+        '결정론이 못 쓴 문항의 해설을 쓴다 — 정답 근거를 지문에서 인용하고, **왜 다른 자리가 아닌지**까지 밝힌다. ' +
+        '시장이 고르는 기준이 "해설의 깊이" 이므로 오답 배제까지 적는다.',
+      scripts: {
+        exportScript: 'scripts/textbook/explain-drain-export.mjs',
+        importScript: 'scripts/textbook/explain-drain-import.mjs',
+      },
+      storage: '`answer_key.explanation_ko` (jsonb) — **마이그레이션 없음.** 기존 정답 키를 덮지 않고 키만 더한다',
+      progress: 'V5 실측 — 배치가 쓸 몫 337 중 **10건 적재**(첫 청크). 결정론 18 + 배치 10 = 28.',
+    },
   },
   {
     order: 7,
     label: '내부 검수',
     purpose: '인쇄 전 마지막 확인. 사람이 본다.',
     state: 'done',
-    ours: ["status='ready' → 사람이 검수 → 'published'", 'csat_stage_catalog 가 published 만 노출'],
+    ours: [
+      "status='ready' → 사람이 검수 → 'published'",
+      'csat_stage_catalog 가 published 만 노출',
+      'render-volume.mjs — 한 권을 실제로 조판해 사람이 눈으로 볼 수 있게 한다',
+    ],
     gap: null,
+    worker: 'human',
+    claude: null,
   },
   {
     order: 8,
@@ -131,9 +225,45 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
       '"가르쳐 본 결과" 가 아니다. 그래도 만들자마자 값을 했다(2026-08-21 첫 실행, 4,838문항): ' +
       '**정답 번호 쏠림 2종**(insert χ²=208.6 — ④⑤가 현저히 적다 · vocab χ²=52.7) + ' +
       '**지문 규격 밖 1,936건**(order 41.4% · insert 39.5% · vocab 58.2% · grammar 78.6%). ' +
-      '문단을 그대로 지문으로 쓴 탓이다 — 수능 지문은 90~200어인데 우리 문단은 그보다 길다.',
+      '문단을 그대로 지문으로 쓴 탓이다 — 수능 지문은 90~200어인데 우리 문단은 그보다 길다. ' +
+      '(둘 다 고쳤다 — 지금은 고칠 것 0.)',
+    worker: 'claude',
+    claude: {
+      role:
+        '기계가 **표시한 것**을 사람 대신 1차로 읽는다 — 편향 검토 표시(`colored glass` 같은 오탐 걸러내기) · ' +
+        '오답 매력도 판단. 관측이 쌓이면 난이도·변별도가 낮은 문항의 **원인**을 지문에서 찾는다.',
+      scripts: null,
+      storage: '판단 결과는 사람에게 넘긴다 — 발행 여부를 기계가 정하지 않는다',
+      progress: '드레인 없음. 편향 검토 표시 45건이 판단을 기다린다.',
+    },
   },
 ] as const
+
+export interface ClaudeStageReport {
+  /** Claude Code 가 일해야 하는 단계. */
+  stages: ProductionStage[]
+  /** 그중 드레인(뽑기·적재 스크립트)이 이미 있는 것. */
+  wired: ProductionStage[]
+  /** **드레인이 없는 단계 — 이게 할 일 목록이다.** */
+  unwired: ProductionStage[]
+}
+
+/**
+ * Claude Code 몫을 단계별로 낸다.
+ *
+ * "LLM 이 필요하다" 는 차단 사유가 아니라 **작업 시작 신호**다(루트 CLAUDE.md §🤖).
+ * 그러므로 `claude` 인데 스크립트가 없는 단계는 **막힌 곳이 아니라 아직 안 만든 곳**이다.
+ */
+export function measureClaudeStages(
+  stages: readonly ProductionStage[] = PRODUCTION_STAGES,
+): ClaudeStageReport {
+  const mine = stages.filter((s) => s.worker === 'claude')
+  return {
+    stages: mine,
+    wired: mine.filter((s) => s.claude?.scripts != null),
+    unwired: mine.filter((s) => s.claude?.scripts == null),
+  }
+}
 
 export interface StageReport {
   done: number

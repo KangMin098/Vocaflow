@@ -22,6 +22,7 @@ const {
   measureSchoolCoverage,
   PASSAGE_ORIGINS,
   measureOrigins,
+  measureClaudeStages,
 } = await import('@vocaflow/library-pipeline')
 
 const line = (n = 76) => '─'.repeat(n)
@@ -85,4 +86,34 @@ for (const st of PRODUCTION_STAGES) {
   console.log(`  ${STATE[st.state]} ${st.order}. ${st.label}`)
   if (st.ours.length) console.log(`        우리: ${st.ours.join(' · ')}`)
   if (st.gap) console.log(`        갭:  ${st.gap}`)
+}
+
+// ── ⑤ Claude Code 가 일해야 하는 단계 ───────────────────────────────
+//
+// 이 저장소의 다른 파이프라인은 **단계·탭마다** 드레인을 따로 둔다(VCB 3 · PDCP 2).
+// 교재도 그래야 "지금 어느 단계를 돌려야 하는가" 를 알 수 있다.
+// **"LLM 이 필요하다" 는 차단 사유가 아니라 작업 시작 신호다**(CLAUDE.md §🤖).
+const cs = measureClaudeStages()
+const WORKER_KO = { script: '스크립트', claude: 'Claude Code', human: '사람' }
+
+console.log(`\n${line()}\n⑤ 단계별 담당 — 누가 일하는가\n`)
+for (const s of PRODUCTION_STAGES) {
+  const mark = s.worker === 'claude' ? (s.claude?.scripts ? '🤖 배치 있음' : '🤖 배치 없음') : `   ${WORKER_KO[s.worker]}`
+  console.log(`  ${STATE[s.state]} ${s.order}. ${s.label.padEnd(18)} ${mark}`)
+}
+
+console.log(`\n  Claude Code 몫 ${cs.stages.length}단계 — 드레인 있음 ${cs.wired.length} · **없음 ${cs.unwired.length}**\n`)
+for (const s of cs.stages) {
+  console.log(`  ${s.claude.scripts ? '✅' : '⬜'} ${s.order}. ${s.label}`)
+  console.log(`       할 일: ${s.claude.role}`)
+  console.log(`       저장:  ${s.claude.storage}`)
+  console.log(`       진척:  ${s.claude.progress}`)
+  if (s.claude.scripts) {
+    console.log(`       뽑기:  pnpm dlx tsx ${s.claude.scripts.exportScript}`)
+    console.log(`       적재:  pnpm dlx tsx ${s.claude.scripts.importScript} --commit`)
+  }
+  console.log()
+}
+if (cs.unwired.length) {
+  console.log(`  ⬜ 인 단계는 **막힌 곳이 아니라 아직 안 만든 곳**이다 — ${cs.unwired.map((s) => s.label).join(' · ')}`)
 }
