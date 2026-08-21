@@ -54,9 +54,15 @@ describe('measureEvaluation', () => {
   it('지고 있는 요소를 따로 낸다 — 다음에 할 일이다', () => {
     const r = measureEvaluation()
     expect(r.losing.length).toBe(r.byStanding.inferior + r.byStanding.absent)
-    // 지금 크게 지는 둘은 반드시 목록에 있어야 한다.
+    // 지금 크게 지는 것은 반드시 목록에 있어야 한다.
     expect(r.losing.map((d) => d.key)).toContain('type_coverage')
-    expect(r.losing.map((d) => d.key)).toContain('explanation')
+    // 관측이 0행인 한 난이도·변별도는 계속 열위다 — 학습 기록이 쌓여야 풀린다.
+    expect(r.losing.map((d) => d.key)).toContain('difficulty_data')
+    // ⚠️ `explanation` 은 2026-08-21 에 열위에서 빠졌다 — 발행 대상 다섯 권이 모두 80/80
+    //   이 됐기 때문이다(결정론 6.9% + Claude Code 배치). **재고 전체가 아니라 발행 대상
+    //   기준**이라 다시 나빠질 수 있다: 집필로 재고가 늘면 권 조합이 바뀌어 구멍이 다시 생긴다.
+    //   실제로 그 일이 두 번 있었다. 그래서 `parity` 이지 `superior` 가 아니다.
+    expect(r.losing.map((d) => d.key)).not.toContain('explanation')
   })
 
   it('범주별 집계가 총계와 맞는다', () => {

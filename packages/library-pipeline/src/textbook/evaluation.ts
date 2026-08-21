@@ -174,9 +174,14 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
     category: 'pedagogy',
     label: '해설',
     market: '전 문항에 해설이 붙는다. **해설의 깊이가 곧 경쟁력**이다(오답 분석·어휘·독해 전략까지).',
-    ours: '**6.9%.** 근거를 못 찾으면 쓰지 않는다 — 지어낸 해설이 없는 해설보다 나쁘기 때문이다.',
-    howMeasured: '`explain-probe` 실측 91/1,316. 희귀어 문턱·근거 다중화 두 실험 모두 실패했다.',
-    standing: 'inferior',
+    ours:
+      '**발행 대상 다섯 권 전부 80/80.** 규칙으로 근거를 확정할 수 있는 것은 기계가 쓰고(전체의 6.9%), ' +
+      '나머지는 Claude Code 배치가 지문을 읽고 쓴다 — 정답 근거를 인용하고 왜 다른 자리가 아닌지까지 밝힌다.',
+    howMeasured:
+      '`render-volume` 실측 — V2·V3·V4·V5·V6 각 80/80(없음 0). ' +
+      '결정론만으로는 6.9%(`explain-probe` 91/1,316)에서 멈췄고, 희귀어 문턱·근거 다중화 두 실험이 모두 실패했다. ' +
+      '⚠️ **재고 전체가 아니라 발행 대상 기준이다** — 권에 실리지 않은 문항은 아직 해설이 없다.',
+    standing: 'parity',
   },
   {
     key: 'distractor_quality',
