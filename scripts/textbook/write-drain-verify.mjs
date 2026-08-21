@@ -44,6 +44,13 @@ const DIR = path.resolve(arg('dir') ?? `scripts/textbook/write-drain/v${BAND}`)
 const { createClient } = await import('@supabase/supabase-js')
 const { extractBookLemmas } = await import('@vocaflow/library-pipeline')
 
+// ⚠️ **채점기와 한 글자도 다르면 안 된다.** 1차 검사기는 원시 추출어를 그대로 등급 매겼는데
+//   `compute_article_vrl` 은 `library_article_vocabularies` 를 쓰고 **`v_level = 11` 을 뺀다.**
+//   그 차이로 검사기가 실제보다 **낮게** 나왔고, 배치들이 검사기에 맞춰 어려운 낱말을 덜어내자
+//   실제 배정이 위로 떠서 **적중률이 오히려 떨어졌다**(V3 58.5% → 44.0% · V2 75% → 70.6%).
+//   검사기에 맞추는 것이 채점기에 맞추는 것과 달라지는 순간, 검사기는 도움이 아니라 함정이 된다.
+const V_LEVEL_EXCLUDED = 11
+
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 })
@@ -69,11 +76,13 @@ for (const f of files) {
 
 // ── 낱말 → 등급 ─────────────────────────────────────────────────────
 // 채점기와 **같은 추출기**를 쓴다. 다른 토크나이저를 쓰면 여기서 통과한 글이 적재 뒤에 떨어진다.
+// `analyzeArticle` 이 만드는 것과 **같은 낱말 집합**이어야 한다 — 그것이 그대로
+// `library_article_vocabularies` 에 들어가고 채점기가 그 표를 읽는다.
 const perDoc = rows.map((r) => {
   const content = String(r.content ?? '')
   const index = extractBookLemmas([
     {
-      chapter_idx: 0,
+      chapter_idx: 1,
       content,
       word_count: content.split(/\s+/).filter(Boolean).length,
       paragraph_offsets: [0],
@@ -85,7 +94,8 @@ const perDoc = rows.map((r) => {
 const allWords = [...new Set(perDoc.flatMap((d) => d.lemmas))]
 const level = new Map()
 for (const d of await fetchAllIn(db, 'shared_dictionary', 'word, v_level', 'word', allWords, ['word'])) {
-  if (d.v_level != null) level.set(d.word, Number(d.v_level))
+  // 채점기와 같이 **v11 을 뺀다.** 넣으면 검사기가 실제보다 높게 나오고, 빼먹으면 낮게 나온다.
+  if (d.v_level != null && Number(d.v_level) !== V_LEVEL_EXCLUDED) level.set(d.word, Number(d.v_level))
 }
 
 /** `PERCENTILE_DISC(0.75)` — 정렬한 값 중 누적 비율이 0.75 를 처음 넘는 값. */
