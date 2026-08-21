@@ -39,10 +39,19 @@ describe('measureSchoolCoverage', () => {
   it('가장 싸게 만들 수 있는 유형을 따로 낸다 — 결정론 · 자동채점 · 지문 제약 없음', () => {
     const cheap = measureSchoolCoverage().cheapWins.map((t) => t.key)
     // **만든 것은 여기서 빠진다** — 남은 할 일 목록이지 자랑 목록이 아니다.
-    // 영작 배열은 2026-08-21 에 만들어서 빠졌다(`buildWordOrder`).
-    expect(cheap).not.toContain('word_order')
-    expect(SCHOOL_TYPES.find((t) => t.key === 'word_order')!.implemented).toBe(true)
-    expect(cheap).toContain('unit_grammar')
+    //
+    // 2026-08-21 에 다섯을 다 만들어 **목록이 비었다**:
+    //   `buildWordOrder`(영작 배열) · `buildBlankWord`(빈칸) · `buildGrammarFix`(어법 고쳐쓰기)
+    //   · `buildUnitVocab`(본문 어휘 뜻) · `buildUnitGrammar`(단원 문법)
+    // 비었다는 것은 "**결정론 · 자동채점 · 지문 제약 없음**" 조건을 만족하는 남은 유형이
+    // 없다는 뜻이지 내신을 다 덮었다는 뜻이 아니다 — 남은 것은 그림·음원이 필요하거나
+    // (`word_picture`·`listen_choose`), 생성형이거나(`passage_comprehension`),
+    // 본교 교과서가 있어야 하거나(`textbook_variant`), 사람이 채점한다(`written_*`).
+    for (const key of ['word_order', 'blank_word', 'grammar_fix', 'unit_vocab', 'unit_grammar']) {
+      expect(cheap, `${key} 는 만들었으니 남은 할 일이 아니다`).not.toContain(key)
+      expect(SCHOOL_TYPES.find((t) => t.key === key)!.implemented, key).toBe(true)
+    }
+    expect(cheap).toEqual([])
     for (const k of cheap) {
       const t = SCHOOL_TYPES.find((x) => x.key === k)!
       expect(t.generation).toBe('deterministic')

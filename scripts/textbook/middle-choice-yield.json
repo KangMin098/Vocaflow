@@ -1,0 +1,64 @@
+{
+  "measured_at": "2026-08-21T14:41:51.740Z",
+  "byBand": [
+    {
+      "band": 5,
+      "paras": 2034,
+      "vocab": 1419,
+      "grammar": 373
+    },
+    {
+      "band": 3,
+      "paras": 740,
+      "vocab": 455,
+      "grammar": 262
+    },
+    {
+      "band": 4,
+      "paras": 1571,
+      "vocab": 755,
+      "grammar": 272
+    },
+    {
+      "band": 6,
+      "paras": 1782,
+      "vocab": 1269,
+      "grammar": 351
+    },
+    {
+      "band": 2,
+      "paras": 564,
+      "vocab": 332,
+      "grammar": 225
+    },
+    {
+      "band": 8,
+      "paras": 35,
+      "vocab": 16,
+      "grammar": 0
+    },
+    {
+      "band": 7,
+      "paras": 149,
+      "vocab": 108,
+      "grammar": 40
+    },
+    {
+      "band": 9,
+      "paras": 3,
+      "vocab": 1,
+      "grammar": 0
+    },
+    {
+      "band": 1,
+      "paras": 5,
+      "vocab": 0,
+      "grammar": 0
+    }
+  ],
+  "total": {
+    "paras": 6883,
+    "vocab": 4355,
+    "grammar": 1523
+  }
+}

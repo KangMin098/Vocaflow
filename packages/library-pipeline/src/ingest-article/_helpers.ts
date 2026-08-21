@@ -231,6 +231,17 @@ export function htmlToPlainText(html: string): string {
   s = s.replace(/<style[\s\S]*?<\/style>/gi, '')
   s = s.replace(/<script[\s\S]*?<\/script>/gi, '')
   s = s.replace(/<figure\b[\s\S]*?<\/figure>/gi, '\n')
+  // ⚠️ `<figcaption>` 을 따로 뗀다 — **`<figure>` 안에 있다는 보장이 없다.**
+  //   NASA 는 `</figure>` **뒤**에 형제로 둔다(실측 2026-08-21):
+  //     …</a></figure><figcaption class="hds-caption …">Cindy Evans during an Artemis II …</figcaption>
+  //   그래서 위 줄이 못 잡고 캡션이 본문 문장으로 들어갔다. 캡션은 마침표까지 있어
+  //   문장처럼 보이지만 정형동사가 없어 순서·삽입 문항의 재료가 되면 안 된다.
+  //
+  //   ⚠️ 이것을 **문장 필터로 고치려다 실패했다** — "정형동사 없는 명사구" 판정은
+  //   품사 태거 없이는 정밀도가 안 나온다(실측: 가장 좁은 규칙조차 표본 8개 중 실제 캡션 2개,
+  //   가장 넓은 규칙은 25,843문장 중 24.3%를 잡는데 대부분이 멀쩡한 문장이었다).
+  //   구조로 잡을 수 있는 것을 추론으로 잡으려 하면 안 된다. `scripts/textbook/caption-probe.mjs`.
+  s = s.replace(/<figcaption\b[\s\S]*?<\/figcaption>/gi, '\n')
   s = s.replace(/<aside\b[\s\S]*?<\/aside>/gi, '\n')
   s = s.replace(/<nav\b[\s\S]*?<\/nav>/gi, '')
   s = s.replace(/<br\s*\/?>/gi, '\n')

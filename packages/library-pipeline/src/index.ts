@@ -95,6 +95,15 @@ export {
   MIDDLE_SENTENCE_WORDS,
 } from './textbook/middle-short'
 export type { MiddleShortItem } from './textbook/middle-short'
+// 교재 — 중등 내신 객관식 2종 (본문 어휘 뜻 · 단원 문법). 4지선다 · 40~120어 규격.
+export {
+  buildUnitVocab,
+  buildUnitGrammar,
+  MIDDLE_CHOICES,
+  MIDDLE_ITEM_WORDS,
+  MIDDLE_GRAMMAR_UNDERLINES,
+} from './textbook/middle-choice'
+export type { MiddleChoiceItem, MiddleVocabItem, MiddleGrammarItem } from './textbook/middle-choice'
 export type { DcpParagraphDiagnosis } from './dcp/generate-items'
 export type { DcpItem, DcpItemType } from './dcp/generate-items'
 // ACP §18 §4-C — 텍스트 청결(어휘 노이즈) 산출

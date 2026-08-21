@@ -137,8 +137,13 @@ export const SCHOOL_TYPES: readonly SchoolType[] = [
     generation: 'deterministic',
     answerMode: 'choice',
     sourceNeed: 'any',
-    implemented: false,
-    note: '본문 낱말의 뜻 고르기. 오답은 같은 밴드의 다른 낱말 뜻이라 **결정론으로 만들 수 있다**.',
+    implemented: true,
+    note:
+      '`buildUnitVocab` — 본문 낱말의 뜻 고르기(4지선다). 오답은 같은 밴드의 다른 낱말 뜻이라 결정론이다. ' +
+      '초등 `buildWordMeaning` 과 규칙은 같고 **표제어가 지문에서 온다**는 점이 다르다. ' +
+      '⚠️ 초등판에 없던 제약이 하나 더 붙는다 — **지문에 있는 낱말의 뜻은 오답으로 쓰지 않는다**(지문이 없던 초등에는 없던 문제다). ' +
+      '지문에 한 번만 나오는 낱말만 묻는다(여러 번이면 다의어일 때 문맥마다 뜻이 갈린다). ' +
+      '실측 수율 **4,355/6,883 문단 = 63.3%** (2026-08-21).',
   },
   {
     key: 'unit_grammar',
@@ -147,8 +152,13 @@ export const SCHOOL_TYPES: readonly SchoolType[] = [
     generation: 'deterministic',
     answerMode: 'choice',
     sourceNeed: 'any',
-    implemented: false,
-    note: '수일치·시제·조동사 등 규칙 기반. 수능 어법(29번)과 같은 생성기를 쓸 수 있다.',
+    implemented: true,
+    note:
+      '`buildUnitGrammar` — 규칙 판정은 수능 어법(29번)의 `candidateAt` 을 **그대로 쓰고 규격만 다르다**: ' +
+      '**4지선다 · 40~120어 · 밑줄 4**(수능은 5지선다 · 90~200어 · 밑줄 5). ' +
+      '⚠️ 규격을 섞지 않으려고 함수를 나눴다 — 한 함수로 겸용하면 **수능 재고를 중등 재고로 세게 된다**. ' +
+      '밑줄은 문장에 고르게 퍼뜨린다(한 문장에 몰리면 나머지를 안 읽어도 풀린다). ' +
+      '실측 수율 **1,523/6,883 문단 = 22.1%** (2026-08-21).',
   },
   {
     key: 'passage_comprehension',
