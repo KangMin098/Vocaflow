@@ -32,7 +32,16 @@ import {
 /** 한 권이 서가에 서려면 최소 이만큼은 있어야 한다. */
 export const SHELF_MIN_ITEMS = 60
 
-/** DB 에 저장되지 않고 사전에서 생성되는 유형 — 조회 실패와 무관하다(elementary.ts). */
+/**
+ * DB 에 **문항으로** 저장되지 않고 사전에서 생성되는 유형(elementary.ts).
+ *
+ * ⚠️ "조회 실패와 무관하다" 고 적어 뒀던 것은 **틀렸다.** 생성 가능 수를 세려면
+ *    `shared_dictionary` 를 읽어야 하고, 그 표의 RLS 는 `authenticated` 전용이다.
+ *    그래서 **비로그인 서가**(공개 표면)에서는 초등 재고가 0으로 내려왔고, 화면은 그것을
+ *    '근간 예정'(재료 없음)으로 인쇄했다 — 계단 1·2 가 거짓으로 비어 보였다
+ *    (실측 2026-08-22: 로그인 7/7 vs 비로그인 5/7).
+ *    이 화면이 `unmeasured` 를 만든 이유와 **똑같은 사고**를 한 겹 아래에서 반복한 것이다.
+ */
 /** 단원 기본 구성 — 순서 2 + 삽입 2(compose-unit.DEFAULT_SLOTS 와 같은 값).
  *  ⚠️ 두 곳에 적히면 갈린다. 라이브러리가 상수를 export 하면 그것을 import 할 것. */
 const SLOTS: Record<string, number> = { order: 2, insert: 2 }
@@ -140,6 +149,14 @@ export function buildShelf(
    */
   measured = true,
   spine: readonly SeriesRung[] = SERIES_SPINE,
+  /**
+   * 초등 3종의 **생성 가능 수**(교육과정 어휘 보유량)를 실제로 읽었는가.
+   *
+   * 별도 인자인 이유: 두 재고는 **출처가 다르고 따로 실패한다.** 문항은 집계 RPC 에서,
+   * 어휘는 `shared_dictionary` 에서 온다. 하나로 묶으면 한쪽만 막혔을 때 나머지까지
+   * '못 잼' 이 되거나(과잉) 한쪽 실패가 묻힌다(과소) — 실제로 겪은 것은 후자다.
+   */
+  elementaryMeasured = true,
 ): Shelf {
   const fill = measureSeriesFill(inventory, spine)
 
@@ -153,13 +170,14 @@ export function buildShelf(
     itemCount: r.total,
     byType: r.byType,
     emptyTypes: [...r.emptyTypes],
-    // 초등 3종만 쓰는 계단은 DB 조회와 무관하므로 못 잰 것이 아니다.
-    maxUnits: maxUnitsOf(r.byType, r.rung.types),
+        maxUnits: maxUnitsOf(r.byType, r.rung.types),
+    // 이 계단이 쓰는 재고를 **전부** 읽었는가. 하나라도 못 읽었으면 총계는 뜻이 없다 —
+    // 섞인 계단(초등 유형 + 저장 유형)에서 한쪽만 빠지면 총계가 조용히 작아진다.
     status: statusOf(
       r.total,
       r.emptyTypes,
       r.rung.types,
-      measured || r.rung.types.every((t) => ELEMENTARY_ONLY.has(t)),
+      r.rung.types.every((t) => (ELEMENTARY_ONLY.has(t) ? elementaryMeasured : measured)),
     ),
   }))
 

@@ -138,3 +138,41 @@ describe('단원 상한 — 예측이 아니라 상한이다', () => {
     expect(step1.maxUnits).toBe(3) // 12문항 / 4
   })
 })
+
+describe('초등 재고도 DB 를 읽는다 — 못 읽으면 0 으로 적지 않는다', () => {
+  // 이 화면의 두 번째 조용한 실패. `shared_dictionary` 의 RLS 가 `authenticated` 전용이라
+  // **비로그인 서가**(공개 표면)에서만 초등 재고가 0으로 내려왔고, 화면은 '근간 예정' 을 인쇄했다.
+  // 로그인해서 확인하면 멀쩡하니 아무도 못 잡는다 (실측 2026-08-22: 로그인 7/7 vs 비로그인 5/7).
+  const ELEM = ['rhyme', 'word_meaning', 'spell_blank']
+
+  it('초등 어휘를 못 읽으면 초등 전용 계단은 empty 가 아니라 unmeasured 다', () => {
+    const shelf = buildShelf(dbInventory(6, 500), true, undefined, false)
+    const elementaryOnly = shelf.volumes.filter((v) => v.types.every((t) => ELEM.includes(t)))
+    expect(elementaryOnly.length, '초등 전용 계단이 사다리에 없다').toBeGreaterThan(0)
+    for (const v of elementaryOnly) {
+      expect(v.status, `step ${v.step}: 못 잰 것을 '없음' 으로 적었다`).toBe('unmeasured')
+    }
+    expect(shelf.hasUnmeasured).toBe(true)
+  })
+
+  it('섞인 계단(초등 유형 + 저장 유형)도 한쪽을 못 읽으면 unmeasured 다', () => {
+    // 총계가 조용히 작아져 'building' 으로 보이는 것이 실제 증상이었다 — 1,255 가 43 이 됐다.
+    const inv = [
+      { type: 'word_order', vLevel: 2, count: 43 },
+    ] as unknown as Parameters<typeof buildShelf>[0]
+    const shelf = buildShelf(inv, true, undefined, false)
+    const mixed = shelf.volumes.filter(
+      (v) => v.types.some((t) => ELEM.includes(t)) && v.types.some((t) => !ELEM.includes(t)),
+    )
+    expect(mixed.length).toBeGreaterThan(0)
+    for (const v of mixed) {
+      expect(v.status, `step ${v.step}: 한쪽만 읽고 총계를 판정했다`).toBe('unmeasured')
+    }
+  })
+
+  it('둘 다 읽었으면 평소대로 판정한다 (과잉 unmeasured 금지)', () => {
+    const shelf = buildShelf(dbInventory(6, 500), true, undefined, true)
+    const high = shelf.volumes.filter((v) => v.vLevels.includes(6))
+    expect(high.every((v) => v.status !== 'unmeasured')).toBe(true)
+  })
+})

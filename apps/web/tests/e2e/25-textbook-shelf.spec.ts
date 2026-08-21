@@ -33,6 +33,35 @@ async function login(page: Page) {
   await page.waitForURL((u) => !u.pathname.startsWith('/login'), { timeout: 20_000 })
 }
 
+/**
+ * 권 상세를 열고 **담기지 않은 상태로 되돌린다.**
+ *
+ * ⚠️ 서버 렌더된 버튼은 보이자마자 눌리지 않는다 — 하이드레이션 전에 클릭하면 아무 일도
+ *    일어나지 않고, 테스트는 "빼기가 안 된다" 로 **엉뚱한 증상**을 보고한다(실측 2026-08-22).
+ *    그래서 결과(= '담기' 라벨)가 나타날 때까지 재시도한다. 정리는 반드시 성공해야 한다 —
+ *    남기면 다음 실행이 "담기 버튼이 없다" 로 실패한다.
+ */
+async function ensureUnpicked(page: Page, step: number) {
+  await page.goto(`/library/textbooks/${step}`, {
+    waitUntil: 'domcontentloaded',
+    timeout: 60_000,
+  })
+  const pick = page.getByRole('button', { name: /내 교재에 담기$/ })
+  const unpick = page.getByRole('button', { name: /내 교재에서 빼기$/ })
+
+  for (let attempt = 0; attempt < 4; attempt++) {
+    if (await pick.isVisible().catch(() => false)) return
+    if (await unpick.isVisible().catch(() => false)) {
+      await unpick.click({ timeout: 10_000 }).catch(() => {})
+      if (await pick.isVisible({ timeout: 5_000 }).catch(() => false)) return
+    }
+    await page.waitForTimeout(1_500)
+  }
+  await expect(pick, `step ${step} 정리 실패 — 다음 실행이 엉뚱한 증상으로 깨진다`).toBeVisible({
+    timeout: 15_000,
+  })
+}
+
 function fatalErrors(errors: string[]): string[] {
   return errors.filter(
     (e) => !/favicon|404 \(Not Found\)|auth-js|auth\/v1\/token|Failed to fetch|ChunkLoadError/.test(e),
@@ -88,10 +117,9 @@ test.describe('교재 서가', () => {
   }) => {
     test.setTimeout(150_000)
 
-    await page.goto(`/library/textbooks/${STEP}`, {
-      waitUntil: 'domcontentloaded',
-      timeout: 60_000,
-    })
+    // 앞선 실행이 남긴 상태를 먼저 치운다 — 시작 상태를 보장하지 않으면
+    // "담기 버튼이 없다"(사실은 이미 담겨 있어 '빼기' 다)로 엉뚱한 증상을 보고한다.
+    await ensureUnpicked(page, STEP)
 
     const pick = page.getByRole('button', { name: /내 교재에 담기$/ })
     await expect(
@@ -114,24 +142,17 @@ test.describe('교재 서가', () => {
       await page.goto('/text?view=textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
       const mine = page.getByRole('region', { name: '내 교재' })
       await expect(mine).toBeVisible({ timeout: 30_000 })
-      await expect(mine.getByText(title, { exact: false })).toBeVisible({ timeout: 20_000 })
+      // ⚠️ `getByText` 로 느슨하게 잡으면 같은 제목이 링크·담기 버튼 이름에 함께 들어 있어
+      //    여러 요소가 걸린다(strict mode 위반). 여는 링크 하나로 좁힌다 —
+      //    "목록에 있다" 가 아니라 **"거기서 열 수 있다"** 가 이 면의 계약이다.
+      await expect(mine.getByRole('link', { name: title })).toBeVisible({ timeout: 20_000 })
 
       // 못 읽었을 때의 문장이 떠 있으면 안 된다 — 그건 담긴 것을 못 본 것이다.
       await expect(mine.getByText('확인하지 못했어요')).toHaveCount(0)
       await expect(mine.getByText('아직 담은 교재가 없어요')).toHaveCount(0)
     } finally {
       // ⚠️ 반드시 원복 — 남기면 다음 실행의 빈 상태 단언이 영구히 깨진다.
-      await page.goto(`/library/textbooks/${STEP}`, {
-        waitUntil: 'domcontentloaded',
-        timeout: 60_000,
-      })
-      const unpick = page.getByRole('button', { name: /내 교재에서 빼기$/ })
-      if (await unpick.isVisible().catch(() => false)) {
-        await unpick.click()
-        await expect(page.getByRole('button', { name: /내 교재에 담기$/ })).toBeVisible({
-          timeout: 20_000,
-        })
-      }
+      await ensureUnpicked(page, STEP)
     }
   })
 

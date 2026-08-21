@@ -15,8 +15,10 @@ import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
 
 export const metadata = {
-  title: '교재 · Vocaflow',
-  description: '학년을 잇는 독해 교재 시리즈',
+  // 레이아웃이 ' | Vocaflow' 를 붙인다 — 여기서 또 붙이면 두 번 나온다(실측).
+  title: '영어 독해 교재 — 초등·중등·고등',
+  description:
+    '학년을 잇는 독해 교재 시리즈. 초등·중등·고등 매대에서 학령·수준·유형으로 골라 담으세요.',
 }
 
 export default async function TextbooksPage() {

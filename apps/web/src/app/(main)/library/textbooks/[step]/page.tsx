@@ -13,6 +13,7 @@
 //           "한 단원의 문항은 서로 다른 원글에서" 규칙을 더 걸기 때문에, 재고만으로
 //           목차를 지어내면 실제보다 부풀려진다. 상한만 말하고 그것이 상한임을 밝힌다.
 
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, BookOpen } from 'lucide-react'
@@ -23,8 +24,38 @@ import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 
-export const metadata = {
-  title: '교재 · Vocaflow',
+/**
+ * 권마다 다른 제목·설명.
+ *
+ * ⚠️ 정적 `metadata` 였을 때 일곱 권이 **전부 '교재 · Vocaflow'** 였다. 이 화면은 비로그인에도
+ * 열려 있는 발견 표면이라(apps/web/CLAUDE.md 공개 표면 표), 같은 제목 일곱 개는
+ * 브라우저 탭·북마크·공유 카드·검색 결과에서 **서로 구별되지 않는다** — 링크를 받은 사람은
+ * 어떤 권인지 열어 봐야 안다.
+ *
+ * 제목·학령은 `SERIES_SPINE` 이 소유한다. 여기서 짓지 않고 서가에서 읽어 온다.
+ * 없는 권이면 정적 문구로 떨어진다 — `notFound()` 는 본문이 판정한다.
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: { step: string }
+}): Promise<Metadata> {
+  const step = Number(params.step)
+  if (!Number.isInteger(step)) return { title: '교재 · Vocaflow' }
+
+  const shelf = await fetchTextbookShelf()
+  const v = shelf.volumes.find((x) => x.step === step)
+  if (!v) return { title: '교재 · Vocaflow' }
+
+  // 조사를 붙이지 않는 형태로 잇는다 — 영문 권명에 한국어 조사를 붙일 수 없다.
+  const types = v.types.map((t) => TYPE_GUIDE[t]?.label ?? t).join(' · ')
+  // 못 잰 재고를 개수로 적지 않는다 — 검색 결과·공유 카드에 "문항 0개" 가 박히면
+  // 그 문장은 화면보다 오래 남는다(캐시·인덱스). 레이아웃이 접미사를 붙이므로 여기서 안 붙인다.
+  const count = v.status === 'unmeasured' ? '' : ` 문항 ${v.itemCount.toLocaleString()}개.`
+  return {
+    title: `${v.title} — ${v.schoolBand} 독해 교재`,
+    description: `${v.schoolBand} 대상. 수록 유형 ${types}.${count}`,
+  }
 }
 
 export default async function TextbookVolumePage({ params }: { params: { step: string } }) {

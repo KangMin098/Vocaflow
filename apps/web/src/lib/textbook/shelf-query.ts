@@ -12,6 +12,12 @@
 // 이걸 빠뜨리면 초등 계단이 거짓으로 비어 보이고, 학습자는 "초등 교재가 없다" 고 읽는다.
 // 근거 목록은 2022 개정 교육과정 기본어휘(`shared_dictionary.list_tags`)다:
 //   kcurr2022_1 초등 808 · kcurr2022_2 중등 1,211 · kcurr2022_0 고등 1,006 (실측 2026-08-21)
+//
+// ⚠️ **이 표도 학습자에게 직접 열려 있지 않다.** `shared_dictionary` 의 RLS 는
+//    `authenticated read dictionary` 하나뿐이라 **비로그인은 0을 받는다.** 서가는 공개 표면이므로
+//    (apps/web/CLAUDE.md 공개 표면 표) 그대로 두면 초등 계단이 로그아웃 상태에서만 비어 보인다 —
+//    로그인해서 확인하면 멀쩡하니 **아무도 못 잡는 종류의 거짓말**이다(실측 2026-08-22: 7/7 vs 5/7).
+//    그래서 집계 RPC 를 먼저 쓰고, 없으면 표를 직접 읽되 **실패를 0으로 적지 않는다.**
 
 import 'server-only'
 
@@ -58,11 +64,52 @@ export async function fetchTextbookShelf(): Promise<Shelf> {
   }
 
   // ② 초등 3종 — 생성 가능 수(교육과정 어휘 보유량)
+  //
+  // 집계 RPC(20260822090000) 를 먼저 시도한다. 없으면 표를 직접 읽는다 —
+  // 로그인 상태에서는 그 경로도 동작하므로, RPC 적용 전에도 기능이 죽지 않는다.
+  const vocabCounts = new Map<string, number>()
+  let elementaryMeasured = false
+
+  const { data: viaRpc, error: rpcError } = await lc.rpc('textbook_curriculum_vocab_counts')
+  if (!rpcError && Array.isArray(viaRpc)) {
+    for (const r of viaRpc as Array<{ list_tag: string | null; word_count: number | null }>) {
+      if (r.list_tag) vocabCounts.set(r.list_tag, Number(r.word_count ?? 0))
+    }
+    elementaryMeasured = vocabCounts.size > 0
+  } else {
+    // ── 폴백 (RPC 적용 전) ────────────────────────────────────────────────
+    // ⚠️ **RLS 는 오류를 내지 않는다. 행을 지운다.** 익명 요청에서 이 표는 빈 결과를 돌려주므로
+    //    `count` 는 0 이고 `error` 는 null 이다 — 클라이언트 쪽에서는 "0낱말" 과 "못 읽음" 을
+    //    **구별할 방법이 없다.** `if (!count) continue` 로 넘기던 것이 정확히 이 함정이었다.
+    //
+    //    그래서 세션 유무로 가른다: 로그인 상태라면 정책(`authenticated read dictionary`)을
+    //    통과하므로 값을 믿을 수 있고, 비로그인이면 **읽을 수 없음이 확정**이라 못 잰 것으로 적는다.
+    //    추측이 아니라 정책을 그대로 반영한 판정이다.
+    const {
+      data: { user },
+    } = await client.auth.getUser()
+
+    if (user) {
+      let ok = true
+      for (const tag of Object.keys(CURRICULUM_TAG_LEVEL)) {
+        const { count, error } = await lc
+          .from('shared_dictionary')
+          .select('word', { count: 'exact', head: true })
+          .contains('list_tags', [tag])
+        if (error || count == null) {
+          ok = false
+          continue
+        }
+        vocabCounts.set(tag, count)
+      }
+      elementaryMeasured = ok && vocabCounts.size > 0
+    } else {
+      elementaryMeasured = false
+    }
+  }
+
   for (const [tag, levels] of Object.entries(CURRICULUM_TAG_LEVEL)) {
-    const { count } = await lc
-      .from('shared_dictionary')
-      .select('word', { count: 'exact', head: true })
-      .contains('list_tags', [tag])
+    const count = vocabCounts.get(tag)
     if (!count) continue
     // 한 낱말이 세 유형 모두를 만들 수 있으므로 유형마다 같은 수를 넣되,
     // 레벨이 여럿이면 나눠 배분한다(같은 어휘를 두 계단이 통째로 세면 재고가 부풀려진다).
@@ -72,5 +119,5 @@ export async function fetchTextbookShelf(): Promise<Shelf> {
     }
   }
 
-  return buildShelf(inventory as Inventory, measured)
+  return buildShelf(inventory as Inventory, measured, undefined, elementaryMeasured)
 }

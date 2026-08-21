@@ -21,6 +21,18 @@ export interface ToggleResult {
   error?: string
 }
 
+/**
+ * 담김 상태를 보여주는 화면 전부를 무효화한다.
+ *
+ * ⚠️ `'/library/textbooks'` 만 부르면 **권 상세(`[step]`)가 안 딸려 온다.** 서가에서 담고
+ *    상세로 넘어가면 거기만 예전 상태를 보여준다 — 같은 것을 두 화면이 다르게 말하는 상태다.
+ *    `'layout'` 범위로 불러야 자식 라우트까지 걸린다.
+ */
+function revalidateShelf() {
+  revalidatePath('/library/textbooks', 'layout')
+  revalidatePath('/text')
+}
+
 async function userClient() {
   const client = await createClient()
   const {
@@ -39,8 +51,7 @@ export async function addTextbook(step: number): Promise<ToggleResult> {
     .upsert({ user_id: userId, step }, { onConflict: 'user_id,step' })
 
   if (error) return { ok: false, error: '지금은 담을 수 없어요. 잠시 뒤 다시 시도해 주세요.' }
-  revalidatePath('/library/textbooks')
-  revalidatePath('/text')
+  revalidateShelf()
   return { ok: true }
 }
 
@@ -56,7 +67,6 @@ export async function removeTextbook(step: number): Promise<ToggleResult> {
     .eq('step', step)
 
   if (error) return { ok: false, error: '지금은 뺄 수 없어요. 잠시 뒤 다시 시도해 주세요.' }
-  revalidatePath('/library/textbooks')
-  revalidatePath('/text')
+  revalidateShelf()
   return { ok: true }
 }
