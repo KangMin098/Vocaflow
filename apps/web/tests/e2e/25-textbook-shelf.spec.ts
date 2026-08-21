@@ -156,6 +156,31 @@ test.describe('교재 서가', () => {
     }
   })
 
+  test('권 상세가 앞뒤 권을 말한다 — 안 맞을 때 서가로 되돌려보내지 않는다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    // 가운데 권 — 양쪽이 다 있다.
+    await page.goto(`/library/textbooks/${STEP}`, { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    const ladder = page.getByRole('region', { name: '계단 안내' })
+    await expect(ladder).toBeVisible({ timeout: 30_000 })
+    await expect(ladder.getByText('어렵다면 한 계단 아래')).toBeVisible()
+    await expect(ladder.getByText('쉽다면 한 계단 위')).toBeVisible()
+
+    // 한 계단 위로 실제로 갈 수 있어야 한다 — 보이는데 안 눌리는 것이 이 화면의 첫 결함이었다.
+    await ladder.getByRole('link').last().click()
+    await page.waitForURL(
+      (u) =>
+        u.pathname.startsWith('/library/textbooks/') &&
+        u.pathname.split('/').pop() !== String(STEP),
+      { timeout: 20_000 },
+    )
+    expect(Number(page.url().split('/').pop())).toBeGreaterThan(STEP)
+
+    // 끝 계단 — 빈 칸이 아니라 이유를 적는다.
+    await page.goto('/library/textbooks/1', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    await expect(page.getByText('시리즈의 첫 권이에요')).toBeVisible({ timeout: 30_000 })
+  })
+
   test('매대가 초등·중등·고등 세 칸으로 갈린다 (평평한 일곱 줄이 아니다)', async ({ page }) => {
     test.setTimeout(120_000)
 

@@ -10,7 +10,7 @@ import { SERIES_SPINE } from '@vocaflow/library-pipeline'
 import { describe, expect, it } from 'vitest'
 
 import { buildShelf } from '../shelf'
-import { STAGE_ORDER, groupByStage, stageOf } from '../shelf-stage'
+import { STAGE_ORDER, groupByStage, neighborsOf, stageOf } from '../shelf-stage'
 import type { ShelfVolume } from '../shelf'
 
 function vol(step: number, schoolBand: string): ShelfVolume {
@@ -74,5 +74,40 @@ describe('진열 규칙', () => {
 
   it('빈 목록은 빈 묶음이다', () => {
     expect(groupByStage([])).toEqual([])
+  })
+})
+
+describe('앞뒤 권 — 실제 교재의 뒤표지', () => {
+  const LADDER = [vol(1, '초등 저학년'), vol(3, '중학 1-2학년'), vol(5, '고1')]
+
+  it('가운데 권은 양쪽을 다 가진다', () => {
+    const { prev, next } = neighborsOf(LADDER, 3)
+    expect(prev!.step).toBe(1)
+    expect(next!.step).toBe(5)
+  })
+
+  it('계단이 빠져 있어도 이어진다 (배열 인덱스가 아니라 step 순서)', () => {
+    // 사다리에 2·4 가 없다. 3 의 아래는 1, 위는 5 여야 한다.
+    expect(neighborsOf(LADDER, 3).prev!.step).toBe(1)
+    expect(neighborsOf(LADDER, 3).next!.step).toBe(5)
+  })
+
+  it('첫 권·마지막 권은 한쪽이 null — 화면이 그 사실을 말한다', () => {
+    expect(neighborsOf(LADDER, 1).prev).toBeNull()
+    expect(neighborsOf(LADDER, 1).next!.step).toBe(3)
+    expect(neighborsOf(LADDER, 5).next).toBeNull()
+  })
+
+  it('넘긴 순서가 뒤죽박죽이어도 맞다', () => {
+    const shuffled = [vol(5, '고1'), vol(1, '초등 저학년'), vol(3, '중학 1-2학년')]
+    expect(neighborsOf(shuffled, 3).prev!.step).toBe(1)
+    expect(neighborsOf(shuffled, 3).next!.step).toBe(5)
+  })
+
+  it('사다리에 없는 step 을 물어도 가장 가까운 양쪽을 준다', () => {
+    // 담아 둔 step 이 시리즈에서 빠졌을 때도 화면이 다음 갈 곳을 말할 수 있어야 한다.
+    const { prev, next } = neighborsOf(LADDER, 4)
+    expect(prev!.step).toBe(3)
+    expect(next!.step).toBe(5)
   })
 })

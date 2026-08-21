@@ -95,3 +95,30 @@ export function groupByStage(volumes: readonly ShelfVolume[]): StageGroup[] {
 
   return groups
 }
+
+export interface Neighbors {
+  /** 한 계단 아래 — 이 권이 어려울 때 갈 곳 */
+  prev: ShelfVolume | null
+  /** 한 계단 위 — 이 권이 쉬울 때 갈 곳 */
+  next: ShelfVolume | null
+}
+
+/**
+ * 한 권의 **앞뒤 권**.
+ *
+ * ── 왜 상세 화면에 필요한가 ───────────────────────────────────────────
+ * 실제 교재의 뒤표지에는 시리즈 전체가 그려져 있고 이 권이 어디쯤인지 표시돼 있다.
+ * 서점에서 책을 집은 사람이 가장 먼저 하는 판단이 **"나한테 맞나"** 이고, 안 맞으면
+ * 바로 옆 권으로 손이 가기 때문이다. 지금 화면은 그때 서가로 되돌아가게 만든다 —
+ * 되돌아간 사람은 대개 안 돌아온다.
+ *
+ * ⚠️ 배열 인덱스가 아니라 **step 순서**로 찾는다. 필터링된 목록을 넘겨도 맞아야 하고,
+ *    사다리에 계단이 빠져 있어도(가령 4가 없어도) 3 다음이 5 로 이어져야 한다.
+ */
+export function neighborsOf(volumes: readonly ShelfVolume[], step: number): Neighbors {
+  const sorted = [...volumes].sort((a, b) => a.step - b.step)
+  return {
+    prev: [...sorted].reverse().find((v) => v.step < step) ?? null,
+    next: sorted.find((v) => v.step > step) ?? null,
+  }
+}

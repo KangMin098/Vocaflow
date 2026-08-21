@@ -16,12 +16,14 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, BookOpen } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, ChevronsDown, ChevronsUp } from 'lucide-react'
 
 import { Screen } from '@/components/ui/ios'
 import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickButton'
 import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
+import { STAGE_LABEL, neighborsOf, stageOf } from '@/lib/textbook/shelf-stage'
+import type { ShelfVolume } from '@/lib/textbook/shelf'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 
 /**
@@ -58,6 +60,61 @@ export async function generateMetadata({
   }
 }
 
+/**
+ * 앞/뒤 권 한 칸.
+ *
+ * ⚠️ 없는 쪽은 **빈 칸으로 두지 않고 이유를 적는다.** 첫 권·마지막 권이라는 사실 자체가
+ *    학습자에게 필요한 정보다("더 쉬운 게 없다" 는 것을 알아야 다른 선택을 한다).
+ */
+function NeighborCard({
+  volume: v,
+  direction,
+}: {
+  volume: ShelfVolume | null
+  direction: 'down' | 'up'
+}) {
+  const lead = direction === 'down' ? '어렵다면 한 계단 아래' : '쉽다면 한 계단 위'
+  const Icon = direction === 'down' ? ChevronsDown : ChevronsUp
+
+  if (!v) {
+    return (
+      <p className="flex items-center gap-2.5 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[12px] leading-[1.6] text-[var(--t3)] [word-break:keep-all]">
+        <Icon size={15} aria-hidden className="shrink-0" />
+        {direction === 'down' ? '시리즈의 첫 권이에요.' : '시리즈의 마지막 권이에요.'}
+      </p>
+    )
+  }
+
+  return (
+    <Link
+      href={`/library/textbooks/${v.step}`}
+      className="group flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 no-underline transition-colors hover:border-[var(--p)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+    >
+      <span
+        aria-hidden
+        className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
+      >
+        <Icon size={15} />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block font-display text-[11.5px] font-[700] text-[var(--t3)]">{lead}</span>
+        {/* 조사를 붙이지 않는 형태로 잇는다 — 영문 권명에 한국어 조사를 붙일 수 없다. */}
+        <span className="mt-0.5 block font-editorial text-[15px] font-[500] leading-snug text-[var(--t1)]">
+          {v.title}
+        </span>
+        <span className="mt-0.5 block font-mono text-[10px] tabular-nums text-[var(--t3)]">
+          STEP {v.step} · {v.schoolBand}
+        </span>
+      </span>
+      <ArrowRight
+        size={15}
+        aria-hidden
+        className="shrink-0 text-[var(--t3)] motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5"
+      />
+    </Link>
+  )
+}
+
 export default async function TextbookVolumePage({ params }: { params: { step: string } }) {
   const step = Number(params.step)
   if (!Number.isInteger(step)) notFound()
@@ -67,6 +124,8 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
   if (!v) notFound()
 
   const minutes = v.maxUnits * 4 * 3 // 단원당 4문항 × 3분(compose-unit.MINUTES_PER_ITEM)
+  const { prev, next } = neighborsOf(shelf.volumes, v.step)
+  const stage = stageOf(v.schoolBand)
 
   return (
     <Screen width="wide" background="bg2" padX="md">
@@ -150,6 +209,29 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
             이보다 적게 나옵니다.
           </p>
         </section>
+
+        {/* 사다리에서의 자리 — 실제 교재의 뒤표지에 해당한다.
+            서점에서 책을 집은 사람이 가장 먼저 하는 판단이 "나한테 맞나" 이고,
+            안 맞을 때 서가로 되돌아가게 만들면 대개 안 돌아온다. */}
+        {(prev || next) && (
+          <section
+            aria-label="계단 안내"
+            className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8"
+          >
+            <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
+              이 권이 안 맞는다면
+            </h2>
+            <p className="mt-3 max-w-[58ch] font-body text-[13px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
+              한 계단은 <strong className="font-display text-[var(--t1)]">학년 하나</strong>에
+              해당합니다{stage ? ` — 지금 보는 권은 ${STAGE_LABEL[stage]} 매대에 있어요.` : '.'}
+            </p>
+
+            <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+              <NeighborCard volume={prev} direction="down" />
+              <NeighborCard volume={next} direction="up" />
+            </div>
+          </section>
+        )}
 
         <section
           aria-label="학습 시작"
