@@ -43,17 +43,39 @@ import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
  * 제목·학령은 `SERIES_SPINE` 이 소유한다. 여기서 짓지 않고 서가에서 읽어 온다.
  * 없는 권이면 정적 문구로 떨어진다 — `notFound()` 는 본문이 판정한다.
  */
+/**
+ * 없는 권의 제목.
+ *
+ * ⚠️ 여기 있던 값이 `'교재 · Vocaflow'` 였다 — 404 화면인데 **교재 페이지인 척**했다.
+ *    브라우저 탭·북마크·공유 카드에서 없는 권이 있는 권처럼 보인다.
+ *
+ * ⚠️ **`robots: noindex` 를 넣었다가 뺐다(실측 2026-08-22).** Next 가 `notFound()` 렌더에
+ *    이미 `<meta name="robots" content="noindex">` 를 넣는다 — 커스텀 메타데이터가 없는
+ *    이웃 라우트에서도 확인했다. 더하면 robots 태그가 **둘**이 된다.
+ *    "고쳐야 할 것 같다" 로 손대기 전에 **이미 되고 있는지 확인할 것.**
+ *
+ * ── 상태 코드는 남은 문제다(앱 전역) ────────────────────────────────
+ * 이 라우트는 없는 step 에 404 화면을 그리지만 **HTTP 상태는 200** 이다.
+ * 루트 `loading.tsx` 때문에 모든 페이지가 스트리밍이라 200 셸이 먼저 나간 뒤에는
+ * `notFound()` 가 상태를 못 바꾼다(없는 **라우트**는 정상 404 다).
+ * `loading.tsx` 는 "수정·삭제 금지" 로 못 박힌 파일이라 여기서 구조를 바꾸지 않는다.
+ * 색인은 Next 의 noindex 가 막고 있어 실질 피해는 크지 않다 — 기록만 남긴다.
+ */
+function notFoundMeta(): Metadata {
+  return { title: '찾을 수 없는 교재 · Vocaflow' }
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: { step: string }
 }): Promise<Metadata> {
   const step = Number(params.step)
-  if (!Number.isInteger(step)) return { title: '교재 · Vocaflow' }
+  if (!Number.isInteger(step)) return notFoundMeta()
 
   const shelf = await fetchTextbookShelf()
   const v = shelf.volumes.find((x) => x.step === step)
-  if (!v) return { title: '교재 · Vocaflow' }
+  if (!v) return notFoundMeta()
 
   // 조사를 붙이지 않는 형태로 잇는다 — 영문 권명에 한국어 조사를 붙일 수 없다.
   const types = v.types.map((t) => TYPE_GUIDE[t]?.label ?? t).join(' · ')

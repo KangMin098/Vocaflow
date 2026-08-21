@@ -428,3 +428,55 @@ test.describe('담기 — 연타', () => {
     }
   })
 })
+
+/**
+ * 없는 권 — **교재 페이지인 척하지 않는다.**
+ *
+ * ⚠️ 상태 코드는 200 이다(앱 전역 — 루트 `loading.tsx` 스트리밍 때문에 200 셸이 먼저 나가
+ *    `notFound()` 가 상태를 못 바꾼다. 없는 **라우트**는 정상 404). 여기서 고칠 수 없다.
+ * ⚠️ 색인 차단은 **Next 가 이미** 한다(`notFound()` 렌더에 noindex 를 넣는다).
+ *    그래서 이 spec 은 noindex 를 **우리가 넣었는지**가 아니라 **결과적으로 걸려 있는지**만 본다 —
+ *    누가 넣었는지는 프레임워크의 사정이고, 학습자·크롤러에게 중요한 건 결과다.
+ *    (`robots` 를 직접 넣었다가 태그가 둘이 되어 되돌렸다.)
+ */
+test.describe('없는 교재', () => {
+  test.use({ storageState: { cookies: [], origins: [] } })
+
+  for (const bad of ['99', 'abc']) {
+    test(`/${bad} 은 404 화면을 그리고 색인을 막는다`, async ({ page }) => {
+      test.setTimeout(90_000)
+
+      await page.goto(`/library/textbooks/${bad}`, {
+        waitUntil: 'domcontentloaded',
+        timeout: 60_000,
+      })
+
+      // 없는 권을 교재 페이지처럼 팔지 않는다.
+      await expect(page).toHaveTitle(/찾을 수 없는 교재/, { timeout: 30_000 })
+
+      // 프레임워크가 넣는 것과 우리가 넣는 것이 섞일 수 있으니 **하나라도** noindex 면 된다.
+      const contents = await page.locator('meta[name="robots"]').evaluateAll((els) =>
+        els.map((el) => el.getAttribute('content') ?? ''),
+      )
+      expect(
+        contents.some((c) => c.includes('noindex')),
+        `없는 권이 색인 가능 상태다: ${JSON.stringify(contents)}`,
+      ).toBe(true)
+    })
+  }
+
+  test('있는 권은 색인을 막지 않는다 — 과잉 차단 금지', async ({ page }) => {
+    test.setTimeout(90_000)
+    await page.goto('/library/textbooks/5', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    await expect(page).toHaveTitle(/독해 교재/, { timeout: 30_000 })
+    // 있는 권에는 robots 태그가 **아예 없는 것이 정상**이다(색인 가능).
+    // getAttribute 로 물으면 없는 요소를 기다리다 타임아웃한다 — 목록으로 받아 판정한다.
+    const contents = await page.locator('meta[name="robots"]').evaluateAll((els) =>
+      els.map((el) => el.getAttribute('content') ?? ''),
+    )
+    expect(
+      contents.some((c) => c.includes('noindex')),
+      `있는 권에까지 noindex 가 걸렸다: ${JSON.stringify(contents)}`,
+    ).toBe(false)
+  })
+})
