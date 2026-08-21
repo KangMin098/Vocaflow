@@ -13,6 +13,8 @@
 //    문서 응답은 200 이고 URL 은 hydration 후에 바뀌므로 goto 결과로 판정하면 안 된다.
 import { test, expect, type Page } from '@playwright/test';
 
+import { LIBRARY_TABS } from '../../src/lib/library/tabs';
+
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
@@ -315,7 +317,11 @@ test.describe('내비게이션 기본기', () => {
   test('탭 이동과 활성 표시(aria-selected)가 맞다', async ({ page }) => {
     test.setTimeout(180_000);
     const tabSets: Array<[string, string, string[]]> = [
-      ['/library/books', '라이브러리 탭', ['/library/books', '/library/scripts', '/library/vocab']],
+      // ⚠️ 목록을 손으로 적지 않는다 — 레지스트리에서 읽는다.
+      //    손으로 적었던 동안 네 번째 면(Textbooks)이 추가되자 이 스펙이
+      //    "3개여야 한다" 로 실패했다. 스펙이 제품보다 낡은 것이지 제품이 틀린 게 아니었다
+      //    (실측 2026-08-22). 레지스트리를 읽으면 면이 늘어도 자동으로 따라간다.
+      ['/library/books', '라이브러리 탭', LIBRARY_TABS.map((t) => t.href)],
       ['/comics/adapted', '만화 탭', ['/comics/adapted', '/comics/restored']],
     ];
 

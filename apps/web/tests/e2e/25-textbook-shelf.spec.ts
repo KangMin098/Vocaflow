@@ -199,3 +199,75 @@ test.describe('교재 서가', () => {
     await expect(page.getByRole('region', { name: '고등 매대' })).toHaveCount(0)
   })
 })
+
+/**
+ * 모바일에서 교재로 가는 길.
+ *
+ * ⚠️ 데스크톱 사이드바는 `hidden md:flex` 다. 모바일 학습자에게 남는 통로는 **하단 탭 →
+ *    Library → 가로 탭줄** 하나뿐이고, 그 탭줄에서 `Textbooks` 는 **네 번째**다.
+ *    390px 에서 네 번째 탭은 화면 밖으로 밀린다 — 스크롤은 되지만 **더 있다는 표시가 없어서**
+ *    학습자에게는 존재하지 않는 것과 같다(실측 2026-08-22: 오른쪽 끝 485px / 뷰포트 390px).
+ *
+ * 여기서 재는 것은 "DOM 에 있는가" 가 아니라 **"눈에 보이는가"** 다 —
+ * 이 저장소가 죽은 버튼과 같은 부류로 취급하는 결함이 정확히 그 차이에서 생긴다.
+ */
+test.describe('모바일에서 교재로 가는 길', () => {
+  test.use({ storageState: STATE_PATH, viewport: { width: 390, height: 844 } })
+
+  /** 요소가 뷰포트 안에 **실제로 몇 px 보이는가**. 0 이면 DOM 에 있어도 없는 것이다. */
+  async function visibleWidth(page: Page, locator: ReturnType<Page['locator']>) {
+    const box = await locator.boundingBox()
+    if (!box) return 0
+    const vw = page.viewportSize()?.width ?? 0
+    return Math.max(0, Math.min(box.x + box.width, vw) - Math.max(box.x, 0))
+  }
+
+  test('공용 서가 탭줄에서 Textbooks 가 눈에 보인다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/books', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    const strip = page.getByRole('tablist', { name: '라이브러리 탭' })
+    await expect(strip).toBeVisible({ timeout: 30_000 })
+
+    const tab = strip.getByRole('tab', { name: /Textbooks/ })
+    await expect(tab, 'Textbooks 탭이 탭줄에 없다').toHaveCount(1)
+
+    const shown = await visibleWidth(page, tab)
+    expect(
+      shown,
+      `Textbooks 탭이 화면 밖이다(보이는 폭 ${Math.round(shown)}px) — 모바일에서 교재로 갈 길이 없다`,
+    ).toBeGreaterThan(44)
+  })
+
+  test('탭줄이 더 있다는 것을 알린다 — 스크롤되는지 모르면 없는 것과 같다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/books', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    const strip = page.getByRole('tablist', { name: '라이브러리 탭' })
+    await expect(strip).toBeVisible({ timeout: 30_000 })
+
+    const overflows = await strip.evaluate((el) => el.scrollWidth > el.clientWidth + 1)
+    if (!overflows) return // 다 들어가면 알릴 것도 없다
+
+    // 넘칠 때는 가장자리 표시가 있어야 한다 — 손가락을 대 볼 이유를 주는 것.
+    const hasAffordance = await strip.evaluate((el) => el.hasAttribute('data-scroll-hint'))
+    expect(hasAffordance, '탭줄이 넘치는데 더 있다는 표시가 없다').toBe(true)
+  })
+
+  test('My Library 탭줄에서도 Textbooks 가 눈에 보인다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/text?view=books', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    const strip = page.getByRole('tablist', { name: '내 라이브러리 탭' })
+    await expect(strip).toBeVisible({ timeout: 30_000 })
+
+    const tab = strip.getByRole('tab', { name: /Textbooks/ })
+    await expect(tab, 'Textbooks 탭이 탭줄에 없다').toHaveCount(1)
+
+    const shown = await visibleWidth(page, tab)
+    expect(
+      shown,
+      `Textbooks 탭이 화면 밖이다(보이는 폭 ${Math.round(shown)}px)`,
+    ).toBeGreaterThan(44)
+  })
+})

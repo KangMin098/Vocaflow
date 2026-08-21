@@ -18,6 +18,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 // 탭 아이콘은 `MY_LIBRARY_TABS` 가 들고 온다 — 여기서 다시 고르지 않는다.
 import { ChevronLeft, ChevronRight, FileText, Sparkles } from 'lucide-react'
 
+import { useScrollHint, scrollActiveIntoView } from '@/hooks/useScrollHint'
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
 import {
   MY_LIBRARY_TABS,
@@ -146,6 +147,13 @@ export function MyLibraryCarousel({
     textbooks: 0,
   })
   const [detail, setDetail] = useState<DetailVariant | null>(null)
+  const { ref: stripRef, hint, measure: measureStrip } = useScrollHint<HTMLDivElement>()
+
+  // 주소로 곧장 들어온 면의 탭이 화면 밖이면 위치를 알 수 없다 — 보이는 자리로 끌어온다.
+  useEffect(() => {
+    scrollActiveIntoView(stripRef.current, '[aria-selected="true"]')
+    measureStrip()
+  }, [tab, stripRef, measureStrip])
   const touchStartX = useRef<number | null>(null)
 
   function openDetail(item: LibraryText | SubscribedSet, type: TabKey) {
@@ -297,9 +305,13 @@ export function MyLibraryCarousel({
       {/* ⚠️ 390px 에서 탭이 넷이면 화면을 넘는다 — 넘침은 **이 줄 안에서** 처리한다.
           페이지가 가로로 밀리면 학습자는 본문을 읽다가 옆으로 흔들린다(실측 2026-08-21: 51px). */}
       <div
+        ref={stripRef}
         role="tablist"
         aria-label="내 라이브러리 탭"
-        className="flex max-w-full items-center gap-1.5 overflow-x-auto rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        // ⚠️ 넘친다는 사실을 알린다 — 없으면 네 번째 탭(Textbooks)이 **9px** 만 보인다.
+        //    모바일에는 사이드바가 없어서 그 탭이 교재로 가는 유일한 통로다(실측 2026-08-22).
+        data-scroll-hint={hint === 'none' ? undefined : hint}
+        className="flex max-w-full items-center gap-1.5 overflow-x-auto rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden data-[scroll-hint=both]:[mask-image:linear-gradient(to_right,transparent,black_20px,black_calc(100%-20px),transparent)] data-[scroll-hint=end]:[mask-image:linear-gradient(to_right,black_calc(100%-20px),transparent)] data-[scroll-hint=start]:[mask-image:linear-gradient(to_right,transparent,black_20px)]"
       >
         {tabs.map((t) => {
           const isActive = t.key === tab
@@ -313,14 +325,15 @@ export function MyLibraryCarousel({
               onClick={() => selectTab(t.key)}
               // 0권이어도 Textbooks 탭은 눌려야 한다 — 그 면이 서가로 가는 통로다.
               disabled={t.count === 0 && t.key !== 'textbooks'}
-              className={`inline-flex min-h-[44px] shrink-0 items-center gap-1.5 whitespace-nowrap rounded-[var(--r-full)] px-3.5 font-display text-[13px] font-[700] transition-all disabled:cursor-not-allowed disabled:opacity-40 ${
+              className={`inline-flex min-h-[44px] shrink-0 items-center gap-1 whitespace-nowrap rounded-[var(--r-full)] px-2.5 font-display text-[12.5px] font-[700] transition-all disabled:cursor-not-allowed disabled:opacity-40 sm:gap-1.5 sm:px-3.5 sm:text-[13px] ${
                 isActive
                   ? 'text-white shadow-[var(--sh-sm)]'
                   : 'text-[var(--t2)] hover:bg-[var(--bg)]'
               }`}
               style={isActive ? { backgroundColor: t.accent } : undefined}
             >
-              <Icon size={13} aria-hidden />
+              {/* 장식이라 좁은 화면에서 먼저 접는다 — 라벨이 길이를 결정하게 둔다 */}
+              <Icon size={13} aria-hidden className="hidden sm:block" />
               {t.label}
               <span
                 className={`rounded-[var(--r-full)] px-1.5 text-[10px] tabular-nums ${
