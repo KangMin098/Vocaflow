@@ -252,7 +252,12 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
             </Link>
             {/* 담기는 서가와 **같은 버튼**을 쓴다 — 두 곳에서 다르게 생기면 같은 동작으로 안 읽힌다. */}
             {mine.available && (
-              <TextbookPickButton step={v.step} title={v.title} picked={mine.steps.includes(v.step)} />
+              <TextbookPickButton
+                step={v.step}
+                title={v.title}
+                picked={mine.steps.includes(v.step)}
+                signedIn={mine.signedIn}
+              />
             )}
           </div>
         </section>

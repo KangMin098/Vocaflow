@@ -9,26 +9,33 @@
 
 'use client'
 
-import { BookmarkCheck, BookmarkPlus, Loader2 } from 'lucide-react'
+import { BookmarkCheck, BookmarkPlus, Loader2, LogIn } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState, useTransition } from 'react'
 
+import { loginUrlWithReturn } from '@/lib/auth/redirect'
 import { addTextbook, removeTextbook } from '@/lib/textbook/my-shelf-actions'
 
 export function TextbookPickButton({
   step,
   title,
   picked,
+  signedIn = true,
   size = 'md',
 }: {
   step: number
   /** 스크린리더 문장에 쓴다 — 서가에 버튼이 일곱 개라 "담기" 만으로는 어느 권인지 모른다. */
   title: string
   picked: boolean
+  /** 비로그인이면 담기가 아니라 **로그인으로 가는 길**을 낸다. */
+  signedIn?: boolean
   size?: 'sm' | 'md'
 }) {
   const [isPicked, setIsPicked] = useState(picked)
   const [error, setError] = useState<string | null>(null)
   const [pending, startTransition] = useTransition()
+  const pathname = usePathname()
 
   function toggle() {
     setError(null)
@@ -40,6 +47,23 @@ export function TextbookPickButton({
   }
 
   const pad = size === 'sm' ? 'px-3 text-[11.5px]' : 'px-4 text-[12.5px]'
+
+  // ⚠️ 비로그인에게 **눌러도 안 되는 버튼**을 팔지 않는다. 자리를 비우지도 않는다 —
+  //    비우면 "이 서가에서 할 수 있는 일이 없다" 로 읽힌다. 로그인으로 가는 길을 내되
+  //    **돌아올 곳을 들려 보낸다**(안 그러면 로그인 후 /hub 로 떨어진다 —
+  //    이 저장소가 `?next=` / `?returnTo=` 로 이미 한 번 겪은 실패다).
+  if (!signedIn) {
+    return (
+      <Link
+        href={loginUrlWithReturn(pathname)}
+        aria-label={`${title} 담으려면 로그인`}
+        className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-ios-pill border border-[var(--bd)] bg-[var(--bg)] font-display font-[700] text-[var(--t1)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 ${pad}`}
+      >
+        <LogIn size={14} aria-hidden />
+        담으려면 로그인
+      </Link>
+    )
+  }
 
   return (
     <span className="inline-flex flex-col items-start gap-1">

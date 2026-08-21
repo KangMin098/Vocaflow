@@ -27,7 +27,12 @@ export default async function TextbooksPage() {
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-4 py-6 md:py-8">
-        <TextbookShelf shelf={shelf} picked={mine.steps} canPick={mine.available} />
+        <TextbookShelf
+          shelf={shelf}
+          picked={mine.steps}
+          canPick={mine.available}
+          signedIn={mine.signedIn}
+        />
       </div>
     </Screen>
   )

@@ -339,3 +339,92 @@ test.describe('교재 서가 — 키보드로 고르기', () => {
     expect(landed, '건너뛰기를 눌렀는데 목록으로 포커스가 가지 않았다').toBe(true)
   })
 })
+
+/**
+ * 담기의 **실패 경로**.
+ *
+ * 서가는 비로그인에도 열려 있다(발견·SEO — apps/web/CLAUDE.md 공개 표면 표).
+ * 그렇다면 담기를 누른 비로그인 방문자는 **가입으로 이어져야** 한다. 그 자리가
+ * 이 제품에서 CAC 0 경로가 실제로 성립하는 유일한 순간이고, 거기서 막다른 문구만 뜨면
+ * 공개로 열어 둔 이유가 사라진다.
+ *
+ * ⚠️ 실패 경로를 재는 이유: 성공 경로는 이미 왕복 회귀가 지키고 있다. 아무도 안 보는 것은
+ *    **눌렀는데 안 되는 경우 무슨 일이 일어나는가** 쪽이다.
+ */
+test.describe('담기 — 실패 경로', () => {
+  test.use({ storageState: { cookies: [], origins: [] } })
+
+  test('비로그인이 담기를 누르면 로그인으로 이어지고, 돌아올 곳을 들고 간다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto(`/library/textbooks/${STEP}`, {
+      waitUntil: 'domcontentloaded',
+      timeout: 60_000,
+    })
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible({ timeout: 30_000 })
+
+    // 담기 자리에 **무언가**는 있어야 한다 — 비로그인이라고 자리를 비우면
+    // 방문자는 이 서가에서 할 수 있는 일이 없다고 읽는다.
+    const cta = page.getByRole('link', { name: /담으려면 로그인/ })
+    await expect(cta, '비로그인에게 담기 자리가 막다른 길이다').toHaveCount(1)
+
+    const href = await cta.getAttribute('href')
+    expect(href, '로그인 링크가 없다').toBeTruthy()
+    // 로그인 후 **여기로** 돌아와야 한다. 돌아올 곳을 안 들고 가면 /hub 로 떨어진다
+    // (이 저장소가 ?next= / ?returnTo= 로 이미 한 번 겪은 실패).
+    expect(href!, `돌아올 곳이 없다: ${href}`).toContain('next=')
+    expect(decodeURIComponent(href!)).toContain(`/library/textbooks/${STEP}`)
+  })
+
+  test('비로그인 서가에서도 담기 자리가 비어 있지 않다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    const shelf = page.getByRole('region', { name: '교재 서가' })
+    await expect(shelf).toBeVisible({ timeout: 30_000 })
+
+    const ctas = shelf.getByRole('link', { name: /담으려면 로그인/ })
+    expect(await ctas.count(), '서가의 어느 권에도 담기 자리가 없다').toBeGreaterThan(0)
+  })
+})
+
+/**
+ * 연타 — 같은 권을 빠르게 두 번 누르면.
+ *
+ * `upsert(onConflict: 'user_id,step')` 이라 중복 행은 생기지 않지만, **화면 상태**가
+ * 어긋날 수 있다(담김↔안 담김이 뒤집히는 경합). 서버가 확인해 준 상태만 그린다는
+ * 이 버튼의 계약이 실제로 지켜지는지 본다.
+ */
+test.describe('담기 — 연타', () => {
+  test.use({ storageState: STATE_PATH })
+
+  test('빠르게 두 번 눌러도 화면과 저장소가 어긋나지 않는다', async ({ page }) => {
+    test.setTimeout(150_000)
+
+    await ensureUnpicked(page, STEP)
+    const pick = page.getByRole('button', { name: /내 교재에 담기$/ })
+    await expect(pick).toBeVisible({ timeout: 30_000 })
+
+    try {
+      // 처리 중에는 눌리지 않아야 한다 — 안 그러면 담기/빼기가 교차 실행된다.
+      await pick.click()
+      const second = pick.click({ timeout: 1_000 }).then(
+        () => 'clicked',
+        () => 'blocked',
+      )
+      expect(await second, '처리 중에도 다시 눌렸다 — 담기/빼기가 교차할 수 있다').toBe('blocked')
+
+      await expect(page.getByRole('button', { name: /내 교재에서 빼기$/ })).toBeVisible({
+        timeout: 20_000,
+      })
+
+      // 새로고침해도 같은 상태 — 화면만 바뀌고 저장이 안 된 경우를 잡는다.
+      await page.reload({ waitUntil: 'domcontentloaded' })
+      await expect(page.getByRole('button', { name: /내 교재에서 빼기$/ })).toBeVisible({
+        timeout: 30_000,
+      })
+    } finally {
+      await ensureUnpicked(page, STEP)
+    }
+  })
+})

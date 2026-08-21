@@ -50,10 +50,13 @@ export function TextbookShelf({
   shelf,
   picked = [],
   canPick = false,
+  signedIn = true,
 }: {
   shelf: Shelf
   /** 내가 이미 담은 계단 번호들 */
   picked?: readonly number[]
+  /** 비로그인이면 담기 대신 로그인 길을 낸다(자리를 비우지 않는다) */
+  signedIn?: boolean
   /**
    * 담기를 걸어도 되는가.
    *
@@ -161,7 +164,12 @@ export function TextbookShelf({
               <ol className="flex flex-col gap-3">
                 {g.volumes.map((v) => (
                   <li key={v.step}>
-                    <VolumeRow volume={v} picked={picked.includes(v.step)} canPick={canPick} />
+                    <VolumeRow
+                volume={v}
+                picked={picked.includes(v.step)}
+                canPick={canPick}
+                signedIn={signedIn}
+              />
                   </li>
                 ))}
               </ol>
@@ -177,10 +185,12 @@ function VolumeRow({
   volume: v,
   picked,
   canPick,
+  signedIn,
 }: {
   volume: ShelfVolume
   picked: boolean
   canPick: boolean
+  signedIn: boolean
 }) {
   const ready = v.status === 'ready'
 
@@ -250,7 +260,15 @@ function VolumeRow({
           "지금 펼치기" 가 보이는데 눌리지 않았다 — 이 저장소가 가장 나쁜 결함으로 못 박은 종류다. */}
       <div className="col-span-2 flex flex-wrap items-center gap-2 md:col-span-1 md:justify-end">
         {/* 담기는 **아직 못 펼치는 권에도** 뜬다 — 근간 예정을 찜해 두는 것이 서점의 예약과 같다. */}
-        {canPick && <TextbookPickButton step={v.step} title={v.title} picked={picked} size="sm" />}
+        {canPick && (
+          <TextbookPickButton
+            step={v.step}
+            title={v.title}
+            picked={picked}
+            signedIn={signedIn}
+            size="sm"
+          />
+        )}
         {ready ? (
           <Link
             href={`/library/textbooks/${v.step}`}
