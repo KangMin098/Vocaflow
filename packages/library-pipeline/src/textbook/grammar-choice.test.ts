@@ -12,13 +12,24 @@ import {
   standardArticle,
 } from './grammar-choice'
 
-const sentences = [
+/**
+ * 지문을 규격 안으로 늘린다.
+ *
+ * 생성기가 **90~200어 구간을 잘라 쓰므로**(`selectPassageWindow`) 짧은 픽스처는 통째로
+ * 탈락한다. 꼬리에 **관사·지시사를 넣지 않는다** — 처음엔 `that same year` 로 끝냈다가
+ * `that` 이 지시사 후보로 잡혀, "예외는 건드리지 않는다" 회귀가 엉뚱하게 통과해 버렸다.
+ * 픽스처를 늘릴 때는 늘리는 재료가 무엇을 만드는지도 봐야 한다.
+ */
+const PAD = 'according to the regional planning office released earlier last quarter'
+const long = (ss: readonly string[]): string[] => ss.map((s) => s.replace(/\.$/, ` ${PAD}.`))
+
+const sentences = long([
   'An engineer joined the team during a quiet week in early autumn.',
   'These panels were shipped from a factory near the eastern border.',
   'The council approved an increase before the winter season began.',
   'Those reports arrived after a delay of nearly three months.',
   'Every installer received a manual and an extra set of tools.',
-]
+])
 
 describe('표준형 판정', () => {
   it('모음 글자로 시작하면 an', () => {
@@ -82,26 +93,26 @@ describe('어법 문항', () => {
   it('원문이 표준형과 어긋나면 그 자리는 건드리지 않는다', () => {
     // `an hour` 는 자음 글자인데 an — 예외다. `a university` 는 모음 글자인데 a.
     // 둘 다 후보에서 빠져야 한다(빠지면 후보가 모자라 문항이 안 만들어진다).
-    const exceptions = [
+    const exceptions = long([
       'They waited an hour beside a university gate.',
       'He waited an hour beside a university gate.',
       'She waited an hour beside a university gate.',
       'We waited an hour beside a university gate.',
       'Nobody waited an hour beside a university gate.',
-    ]
+    ])
     expect(buildGrammarChoice(exceptions)).toBeNull()
   })
 
   it('지시사 뒤 명사의 수를 못 가르면 건드리지 않는다', () => {
     // `-is` · `-ss` 로 끝나는 명사는 형태로 수를 못 가른다.
     // (`series` 는 다르다 — 단복수가 같은 것이 **알려진 사실**이라 단수로 확정된다.)
-    const ambiguous = [
+    const ambiguous = long([
       'This analysis reached a clear conclusion about the northern harbour.',
       'That analysis mentioned a second review of the eastern seawall.',
       'These class members prepared a summary for the regional council.',
       'Those class members received an answer before the winter began.',
       'This analysis included a table and an appendix for later reference.',
-    ]
+    ])
     const item = buildGrammarChoice(ambiguous)
     // 지시사는 전부 빠지므로 관사(`a`)만 후보로 남고, 문장마다 하나씩 다섯이면 만들어진다.
     if (item) {
@@ -116,13 +127,13 @@ describe('어법 문항', () => {
   })
 
   it('문장 첫머리를 바꿔도 대문자를 지킨다', () => {
-    const capital = [
+    const capital = long([
       'An engineer joined the team during a quiet week in autumn.',
       'These panels were shipped from a factory near the border.',
       'An increase was approved before the winter season began.',
       'Those reports arrived after a delay of nearly three months.',
       'A manual and an extra set of tools reached every installer.',
-    ]
+    ])
     const item = buildGrammarChoice(capital)
     for (const s of item?.sentences ?? []) expect(s).toMatch(/^[A-Z]/)
   })

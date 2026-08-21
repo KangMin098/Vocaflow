@@ -261,28 +261,70 @@ console.log(
 // VOA 기사 끝 용어풀이를 지문에 달고 있었다. 교재에 그대로 인쇄되면 안 된다.
 //
 // 여기서는 **세기만** 한다. 지우는 것은 `--prune` 을 줬을 때뿐이다.
+//
+// 낡음의 정의는 **"지금 규칙으로 다시 만들면 다른 것이 나온다"** 이다. 인쇄 가능 여부만
+// 보던 첫 판은 좁았다 — 2026-08-21 에 지문을 규격 구간으로 잘라 쓰도록 바꾸자
+// **저장본의 지문 자체가 달라졌는데** 그 판정으로는 하나도 안 걸렸을 것이다.
+const rebuilders = {
+  vocab_choice: (ss) => {
+    const it = buildVocabChoice(ss, lex)
+    return it && { payload: { sentences: it.sentences, underlines: it.underlines }, answer: it.answer }
+  },
+  grammar_choice: (ss) => {
+    const it = buildGrammarChoice(ss)
+    return it && { payload: { sentences: it.sentences, underlines: it.underlines }, answer: it.answer }
+  },
+}
+
+// (글, 문단) → 문장들. 재생성 대조에 쓴다.
+const paragraphOf = new Map()
+for (const a of usable) {
+  const ps = paras(a.content)
+  for (let pi = 0; pi < ps.length; pi++) paragraphOf.set(`${a.id}|${pi}`, sents(ps[pi]))
+}
+
 const stale = []
 for (let i = 0; i < ids.length; i += 20) {
   const { data } = await db
     .from('csat_dcp_items')
-    .select('id, type, payload')
+    .select('id, type, ref_id, paragraph_idx, payload, answer_key')
     .eq('kind', 'article')
     .in('type', ['irrelevant', 'vocab_choice', 'grammar_choice'])
     .in('ref_id', ids.slice(i, i + 20))
     .limit(20000)
   for (const r of data ?? []) {
     const text = [r.payload?.intro, ...(r.payload?.sentences ?? [])].filter(Boolean).join(' ')
-    if (text && !isPrintablePassage(text)) stale.push({ id: r.id, type: r.type })
+    if (text && !isPrintablePassage(text)) {
+      stale.push({ id: r.id, type: r.type, why: '인쇄 불가' })
+      continue
+    }
+    const rebuild = rebuilders[r.type]
+    if (!rebuild) continue
+    const ss = paragraphOf.get(`${r.ref_id}|${r.paragraph_idx}`)
+    if (!ss) continue
+    const now = rebuild(ss)
+    // 지금 규칙으로는 아예 안 만들어지거나, 만들어도 내용이 다르면 낡은 것이다.
+    if (!now) {
+      stale.push({ id: r.id, type: r.type, why: '지금 규칙으로는 안 만들어짐' })
+    } else if (
+      JSON.stringify(now.payload.sentences) !== JSON.stringify(r.payload?.sentences) ||
+      now.answer !== r.answer_key?.position
+    ) {
+      stale.push({ id: r.id, type: r.type, why: '다시 만들면 달라짐' })
+    }
   }
 }
 if (stale.length) {
   const byStaleType = {}
-  for (const s of stale) byStaleType[s.type] = (byStaleType[s.type] ?? 0) + 1
-  console.log(
-    `\n  ⚠️ 지금 규칙으로는 실을 수 없는 기존 문항 ${stale.length}건 — ` +
-      Object.entries(byStaleType).map(([t, n]) => `${t} ${n}`).join(' · '),
-  )
-  console.log('     --prune 을 주면 지운다 (되돌릴 수 없다).')
+  for (const s of stale) {
+    const k = `${s.type} — ${s.why}`
+    byStaleType[k] = (byStaleType[k] ?? 0) + 1
+  }
+  console.log(`\n  ⚠️ 지금 규칙으로 낡은 기존 문항 ${stale.length}건`)
+  for (const [k, n] of Object.entries(byStaleType).sort((a, b) => b[1] - a[1])) {
+    console.log(`       ${k.padEnd(40)} ${n}`)
+  }
+  console.log('     --prune 으로 지운 뒤 --commit 으로 다시 넣는다 (지우기는 되돌릴 수 없다).')
 }
 
 if (!commit && !prune) {

@@ -74,6 +74,44 @@ export function isPrintablePassage(text: string): boolean {
   return !hasCitationResidue(text) && !hasNonProse(text)
 }
 
+/**
+ * 문단에서 **규격에 맞는 연속 구간**을 잘라 낸다.
+ *
+ * ── 왜 필요한가 (2026-08-21 실측) ───────────────────────────────────
+ * 문단을 통째로 지문으로 썼더니 **1,936문항이 규격 밖**이었다 —
+ * 어법 78.6% · 어휘 58.2% · 순서 41.4% · 삽입 39.5%. 수능 지문은 90~200어인데
+ * 우리 문단은 그보다 길다. 조판 단계에서 걸러지긴 하지만, 그러면 **재고 숫자가
+ * 계속 거짓말을 한다** — 어법은 580개가 아니라 124개였다.
+ *
+ * 문단 전체를 버리는 대신 **연속한 문장 몇 개**를 잘라 쓴다. 잘라도 글은 이어진다.
+ *
+ * 창은 **가장 이른 자리부터** 찾는다 — 결정론이어야 같은 문단이 늘 같은 지문을 준다.
+ * 문장 수 하한을 두는 이유는 유형마다 밑줄·자리 수가 정해져 있기 때문이다.
+ *
+ * @returns 맞는 구간이 없으면 null.
+ */
+export function selectPassageWindow(
+  sentences: ReadonlyArray<string>,
+  spec: { min: number; max: number },
+  minSentences: number,
+): string[] | null {
+  const counts = sentences.map((s) => s.split(/\s+/).filter(Boolean).length)
+  let best: { start: number; end: number; words: number } | null = null
+  for (let start = 0; start < sentences.length; start++) {
+    let words = 0
+    for (let end = start; end < sentences.length; end++) {
+      words += counts[end]!
+      if (words > spec.max) break
+      const n = end - start + 1
+      if (n < minSentences || words < spec.min) continue
+      // 가장 이른 시작 · 그중 가장 긴 구간(문장이 많을수록 밑줄을 퍼뜨릴 자리가 많다).
+      if (!best || n > best.end - best.start + 1) best = { start, end, words }
+    }
+    if (best) break // 가장 이른 시작에서 찾았으면 거기서 끝낸다 — 멱등해야 한다.
+  }
+  return best ? sentences.slice(best.start, best.end + 1) : null
+}
+
 /** 수능 순서 문항 — 도입문 + (A)(B)(C) + 5지선다. */
 export interface CsatOrderItem {
   kind: 'order'

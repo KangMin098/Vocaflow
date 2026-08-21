@@ -27,7 +27,8 @@
 //     V1 54.7% · V2 44.5% · V3 45.5% · V4 51.0% · V5 43.9%
 //     V6 41.5% · V7 46.6% · V8 38.2% · V9 40.8% · V10 33.8% · V11 21.0%
 
-import { isPrintablePassage } from './csat-format'
+import { CSAT_ITEM_WORDS } from './compose-unit'
+import { isPrintablePassage, selectPassageWindow } from './csat-format'
 
 /** 사전에서 필요한 것만. 순수 함수로 두려고 주입받는다. */
 export interface VocabLexicon {
@@ -117,12 +118,16 @@ function matchCase(original: string, replacement: string): string {
  * @param lex 사전.
  */
 export function buildVocabChoice(
-  sentences: ReadonlyArray<string>,
+  paragraph: ReadonlyArray<string>,
   lex: VocabLexicon,
 ): VocabChoiceItem | null {
-  if (sentences.length < VOCAB_UNDERLINES) return null
+  if (paragraph.length < VOCAB_UNDERLINES) return null
   // 인용 잔해·용어풀이가 섞인 문단은 교재에 실을 수 없다.
-  if (!isPrintablePassage(sentences.join(' '))) return null
+  if (!isPrintablePassage(paragraph.join(' '))) return null
+  // **문단을 통째로 쓰지 않는다.** 규격(90~200어)에 맞는 연속 구간을 잘라 쓴다 —
+  // 실측에서 어휘 문항의 58.2% 가 규격 밖이었고, 그 재고는 조판에서 통째로 버려졌다.
+  const sentences = selectPassageWindow(paragraph, CSAT_ITEM_WORDS, VOCAB_UNDERLINES)
+  if (!sentences) return null
 
   // 글 전체의 낱말 빈도 — 사슬을 찾는 데 쓴다.
   const freq = new Map<string, number>()
@@ -165,18 +170,57 @@ export function buildVocabChoice(
 
   if (!swappable.length) return null
 
-  // 결정론으로 하나 고른다 — 같은 지문은 늘 같은 문항이 된다.
-  const chosen = swappable[hash(sentences.join(' ')) % swappable.length]!
+  // ── 정답 번호를 먼저 고르고, 그 번호를 만들 수 있는 낱말을 고른다 ─
+  //
+  // ⚠️ 처음엔 낱말을 먼저 고르고 번호가 따라오게 뒀다. 그랬더니 **①이 현저히 적었다**
+  //   (실측 138·256·278·215·208 · χ²=52.7, 임계 9.5). 밑줄이 문장마다 하나씩이라 번호가 곧
+  //   문장 순서인데, **첫 문장에 바꿀 만한 낱말이 있을 확률이 낮기** 때문이다.
+  //   번호가 쏠리면 학습자는 읽지 않고 찍는다.
+  //
+  // 두 번 헛짚었다. ① "가까운 문장에서 고르기" 는 ②를 50.9%로 만들었고,
+  // ② "오답을 앞뒤에서 몇 개 가져올지만 정하기" 는 χ²를 52.7→38.7 로 줄였을 뿐이다 —
+  // **다섯 문장짜리 문단에서는 번호가 하나로 강제되기 때문**이다(앞 k개·뒤 4−k개가 고정).
+  //
+  // 그래서 순서를 뒤집는다. **번호를 먼저 정하고**, 그 번호가 나오게 하는 낱말 중에서 고른다.
+  // 후보가 아니라 **번호를 균등하게** 뽑는 것이 요점이다 — 후보 수로 뽑으면 다시 쏠린다.
+  const seed = hash(sentences.join(' '))
+  const need = VOCAB_UNDERLINES - 1
 
-  // 밑줄 다섯 — 바꿀 자리를 반드시 포함하고, **문장마다 하나씩** 지문에 고르게 퍼뜨린다.
+  /** 이 낱말을 바꾸면 나올 수 있는 정답 번호들. */
+  const ranksFor = (c: { sentenceIdx: number }): number[] => {
+    const pool = sentences
+      .map((_, si) => (si === c.sentenceIdx ? null : all.find((x) => x.sentenceIdx === si) ?? null))
+      .filter((x): x is NonNullable<typeof x> => x !== null)
+    const nBefore = pool.filter((d) => d.sentenceIdx < c.sentenceIdx).length
+    const nAfter = pool.filter((d) => d.sentenceIdx > c.sentenceIdx).length
+    const out: number[] = []
+    for (let r = 1; r <= VOCAB_UNDERLINES; r++) {
+      if (r - 1 <= nBefore && need - (r - 1) <= nAfter) out.push(r)
+    }
+    return out
+  }
+
+  const byRank = new Map<number, typeof swappable>()
+  for (const c of swappable) {
+    for (const r of ranksFor(c)) byRank.set(r, [...(byRank.get(r) ?? []), c])
+  }
+  const availableRanks = [...byRank.keys()].sort((a, b) => a - b)
+  if (!availableRanks.length) return null
+  const rank = availableRanks[seed % availableRanks.length]!
+  const forRank = byRank.get(rank)!
+  const chosen = forRank[seed % forRank.length]!
+
   const decoyPool = sentences
     .map((_, si) => (si === chosen.sentenceIdx ? null : all.find((c) => c.sentenceIdx === si) ?? null))
     .filter((x): x is NonNullable<typeof x> => x !== null)
-  // **읽는 순서대로** 세운 뒤 고른다. 정렬하지 않으면 정답이 늘 마지막 번호에 붙는다.
-  const pool = [...decoyPool, chosen].sort(
-    (a, b) => a.sentenceIdx - b.sentenceIdx || a.tokenIdx - b.tokenIdx,
-  )
-  const picked = pickUnderlines(pool, chosen.sentenceIdx)
+  const decoysBefore = decoyPool.filter((d) => d.sentenceIdx < chosen.sentenceIdx)
+  const decoysAfter = decoyPool.filter((d) => d.sentenceIdx > chosen.sentenceIdx)
+
+  const picked = [
+    ...spread(decoysBefore, rank - 1),
+    chosen,
+    ...spread(decoysAfter, need - (rank - 1)),
+  ].sort((a, b) => a.sentenceIdx - b.sentenceIdx || a.tokenIdx - b.tokenIdx)
   if (picked.length !== VOCAB_UNDERLINES) return null
 
   // 그 자리 한 곳만 반대말로 바꾼다. 나머지 자리의 원래 낱말은 그대로 남는다 —
@@ -222,23 +266,13 @@ export function buildVocabChoice(
   }
 }
 
-/**
- * 밑줄 다섯 자리를 고른다 — **바꿀 자리를 반드시 포함**하고 나머지는 고르게.
- *
- * 정답만 몰려 있으면 자리만 보고 찍는다. `csat-format` 의 `pickSlots` 와 같은 생각이다.
- */
-export function pickUnderlines<T extends { sentenceIdx: number }>(
-  candidates: ReadonlyArray<T>,
-  mustInclude: number,
-): T[] {
-  const mustIdx = candidates.findIndex((c) => c.sentenceIdx === mustInclude)
-  if (mustIdx < 0) return []
-  const picked = new Set<number>([mustIdx])
-  for (let k = 0; k < VOCAB_UNDERLINES && picked.size < VOCAB_UNDERLINES; k++) {
-    picked.add(Math.round((k * (candidates.length - 1)) / (VOCAB_UNDERLINES - 1)))
-  }
-  for (let i = 0; i < candidates.length && picked.size < VOCAB_UNDERLINES; i++) picked.add(i)
-  return [...picked].sort((a, b) => a - b).map((i) => candidates[i]!)
+/** 목록에서 n 개를 **고르게** 뽑는다 — 앞뒤로 몰리면 밑줄이 한 곳에 뭉친다. */
+export function spread<T>(items: readonly T[], n: number): T[] {
+  if (n <= 0) return []
+  if (items.length <= n) return [...items]
+  const out: T[] = []
+  for (let k = 0; k < n; k++) out.push(items[Math.round((k * (items.length - 1)) / (n - 1 || 1))]!)
+  return out
 }
 
 /** 낱말이 글에 몇 번 나오는가 — `cheap` 이 `cheaper` 를 세지 않는다. */

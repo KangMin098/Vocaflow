@@ -23,7 +23,11 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
 }
 
 const { createClient } = await import('@supabase/supabase-js')
-const { assessStock, CSAT_ITEM_WORDS } = await import('@vocaflow/library-pipeline')
+// **인쇄 형식으로 바꿔서 잰다.** 저장 형식의 숫자는 학습자가 보는 번호가 아니다 —
+// 첫 판에서 이걸 틀렸다(아래 SHAPE 주석 참조).
+const { assessStock, CSAT_ITEM_WORDS, toCsatOrder, toCsatInsert } = await import(
+  '@vocaflow/library-pipeline'
+)
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
@@ -43,16 +47,29 @@ for (let from = 0; ; from += 500) {
   if (data.length < 500) break
 }
 
-/** 유형마다 답지 수·정답·지문이 다른 자리에 있다. 한 곳에 모아 둔다. */
+/**
+ * 유형마다 답지 수·정답·지문이 다른 자리에 있다. 한 곳에 모아 둔다.
+ *
+ * ── 첫 판에서 두 번 틀렸다 (2026-08-21) ─────────────────────────────
+ * ① `order` 는 저장 형식에 번호가 없다고 보고 판정에서 뺐다. **틀렸다** — `toCsatOrder` 를
+ *    돌리면 번호가 나온다. "못 잰다" 가 아니라 **안 재고 있었다.**
+ * ② `insert` 는 `answer_key.position` 을 번호로 썼다. **그건 문단 안 위치(1..n)이지
+ *    인쇄되는 ①~⑤ 가 아니다.** 실측 결과 위치가 9까지 있었고, 6~9 인 **76건이 히스토그램에서
+ *    조용히 빠져** 있었다. 그렇게 나온 χ²=208.6 은 엉뚱한 분포를 잰 숫자였다.
+ *
+ * 그래서 **인쇄 형식으로 바꿔서 잰다** — 학습자가 보는 것이 그것이다.
+ * 변환이 실패하면(규격 밖) 그 문항은 애초에 교재에 못 실으므로 따로 센다.
+ */
 const SHAPE = {
-  // ⚠️ `order` 는 정답이 답지 번호가 아니라 **배열**이라 저장 형식에 번호가 없다.
-  //   번호는 `toCsatOrder` 가 인쇄할 때 정한다. 못 재는 것을 0 으로 재면 "✅ 고름" 이
-  //   찍히는데, 그건 잰 게 아니라 **안 잰 것을 통과로 눙친 것**이다. 답지 수를 0 으로 둬서
-  //   쏠림 판정 대상에서 뺀다.
-  order: { choices: 0, answer: () => 0, passage: (p) => (p?.presented ?? []).join(' ') },
+  order: {
+    choices: 5,
+    answer: (a, p) => toCsatOrder(p?.presented ?? [], a?.source_order ?? [])?.answer ?? null,
+    passage: (p) => (p?.presented ?? []).join(' '),
+  },
   insert: {
     choices: 5,
-    answer: (a) => a?.position ?? 0,
+    answer: (a, p) =>
+      toCsatInsert(p?.remaining ?? [], p?.insert_sentence ?? '', a?.position)?.answer ?? null,
     passage: (p) => [...(p?.remaining ?? []), p?.insert_sentence].filter(Boolean).join(' '),
   },
   irrelevant: {
@@ -76,15 +93,19 @@ const SHAPE = {
 
 const words = (t) => (t == null ? null : t.split(/\s+/).filter(Boolean).length)
 
+// 인쇄 변환이 실패한 문항 — 교재에 실을 수 없다. 히스토그램에서 조용히 빼지 않고 센다.
+const unprintable = new Map()
+
 const items = raw.map((r) => {
   const shape = SHAPE[r.type]
+  const answer = shape ? shape.answer(r.answer_key, r.payload) : null
+  if (shape && shape.choices > 0 && answer == null) {
+    unprintable.set(r.type, (unprintable.get(r.type) ?? 0) + 1)
+  }
   return {
     id: r.id,
     type: r.type,
-    // ⚠️ `order` 는 정답이 답지 번호가 아니라 배열이라 저장 형식에 번호가 없다.
-    //   `toCsatOrder` 가 인쇄할 때 번호를 정하므로, 저장본만 보고는 쏠림을 못 잰다.
-    //   그 사실을 0 으로 눙치지 않고 아래에서 따로 적는다.
-    answer: shape ? shape.answer(r.answer_key) : 0,
+    answer: answer ?? 0,
     choiceCount: shape ? shape.choices : 0,
     passageWords: shape ? words(shape.passage(r.payload)) : null,
     vLevel: r.v_level ?? null,
@@ -117,16 +138,21 @@ const flags = []
 for (const t of health.byType) {
   console.log(`  ── ${t.type}  (${t.count}) ${'─'.repeat(Math.max(0, 46 - t.type.length))}`)
 
+  const bad = unprintable.get(t.type) ?? 0
+  if (bad) {
+    console.log(`     인쇄 변환  실패 ${bad} / ${t.count} = ${pct(bad, t.count)}  ⚠️ 교재에 못 싣는다`)
+    flags.push(`${t.type}: 인쇄 변환 실패 ${bad}건 (${pct(bad, t.count)})`)
+  }
+
   if (t.answerBias) {
     const b = t.answerBias
+    const printable = b.counts.reduce((s, n) => s + n, 0)
     const mark = b.biased ? '⚠️ 쏠림' : '✅ 고름'
     console.log(
-      `     정답 번호  ${b.counts.join(' · ')}   최다 ${pct(Math.max(...b.counts), b.total)}` +
+      `     정답 번호  ${b.counts.join(' · ')}   (인쇄 가능 ${printable})  최다 ${pct(Math.max(...b.counts), printable)}` +
         `   χ²=${b.chi2.toFixed(1)} (df ${b.df}, 임계 9.5)  ${mark}`,
     )
     if (b.biased) flags.push(`${t.type}: 정답 번호 쏠림 (χ²=${b.chi2.toFixed(1)})`)
-  } else if (t.type === 'order') {
-    console.log(`     정답 번호  저장 형식에 번호가 없다 — 인쇄할 때 정해진다(못 잼)`)
   } else {
     console.log(`     정답 번호  단답이라 답지가 없다`)
   }

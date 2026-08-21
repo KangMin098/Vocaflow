@@ -28,7 +28,8 @@
 // 수일치**만 만든다. 그 둘은 구문 분석 없이도 "반드시 틀리게" 만들 수 있는 자리이기 때문이다.
 // 나머지는 문장 구조를 알아야 하고, 그건 이 파이프라인 밖이다.
 
-import { isPrintablePassage } from './csat-format'
+import { CSAT_ITEM_WORDS } from './compose-unit'
+import { isPrintablePassage, selectPassageWindow } from './csat-format'
 
 /** 우리가 만들 수 있는 어법 교체. */
 export type GrammarRule =
@@ -180,10 +181,14 @@ function candidateAt(
  *
  * @param sentences 지문 문장들.
  */
-export function buildGrammarChoice(sentences: ReadonlyArray<string>): GrammarChoiceItem | null {
+export function buildGrammarChoice(paragraph: ReadonlyArray<string>): GrammarChoiceItem | null {
   // 인용 잔해·용어풀이가 섞인 문단은 교재에 실을 수 없다.
   //   (VOA 기사 끝의 용어풀이가 본문과 같은 문단으로 붙어 오는 것을 실측에서 발견했다)
-  if (!isPrintablePassage(sentences.join(' '))) return null
+  if (!isPrintablePassage(paragraph.join(' '))) return null
+  // **문단을 통째로 쓰지 않는다.** 규격(90~200어)에 맞는 연속 구간을 잘라 쓴다 —
+  // 실측에서 어법 문항의 **78.6%** 가 규격 밖이었다. 580개인 줄 알았던 재고가 실은 124개였다.
+  const sentences = selectPassageWindow(paragraph, CSAT_ITEM_WORDS, GRAMMAR_UNDERLINES)
+  if (!sentences) return null
 
   const all: Candidate[] = []
   for (let si = 0; si < sentences.length; si++) {

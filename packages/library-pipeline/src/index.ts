@@ -488,7 +488,7 @@ export {
   buildVocabChoice,
   countWord,
   MIN_CHAIN_OCCURRENCES,
-  pickUnderlines,
+  spread,
   VOCAB_UNDERLINES,
 } from './textbook/vocab-choice'
 export type { Underline, VocabChoiceItem, VocabLexicon } from './textbook/vocab-choice'
