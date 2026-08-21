@@ -46,6 +46,11 @@ for (let from = 0; ; from += 1000) {
 }
 console.log(`사전 ${dict.size.toLocaleString()} 낱말\n`)
 const meaningOf = (w) => dict.get(w) ?? null
+// 단서 유일성 — 같은 첫 글자·같은 첫 뜻 낱말이 사전에 하나뿐인가.
+// 이 검사가 없으면 생성분의 9.88% 가 채점이 갈린다(실측 2026-08-22).
+const hintIdx = new Map()
+for (const [w, m] of dict) hintIdx.set(`${w[0]}|${m}`, (hintIdx.get(`${w[0]}|${m}`) ?? 0) + 1)
+const hintUnique = (w, m) => (hintIdx.get(`${w[0]}|${m}`) ?? 0) <= 1
 
 // 중등 밴드(V2~V4)를 겨냥하되, 비교를 위해 전 밴드를 함께 센다.
 const { data: arts, error } = await db
@@ -76,7 +81,7 @@ for (const a of arts ?? []) {
     const ctx = i > 0 ? sentences[i - 1] : null
     bump(band, 'sentences')
 
-    const b = buildBlankWord(s, ctx, meaningOf)
+    const b = buildBlankWord(s, ctx, meaningOf, hintUnique)
     if (b) {
       bump(band, 'blank')
       if (samples.blank.length < 4) samples.blank.push({ band, ...b })

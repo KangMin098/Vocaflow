@@ -89,11 +89,25 @@ function usableSentence(sentence: string): string[] | null {
  * @param context 바로 앞 문장. 없으면 null.
  * @param meaningOf 낱말의 우리말 뜻. 사전에 없으면 null — 그 낱말은 쓰지 않는다.
  *   (모듈을 순수하게 두려고 사전을 주입받는다. `elementary.ts` 와 같은 방식이다.)
+ * @param isHintUnique 이 낱말의 단서(첫 글자 + 뜻)가 사전에서 **이 낱말 하나만** 가리키는가.
+ *
+ * ── `isHintUnique` 를 나중에 붙인 이유 (실측 2026-08-22) ─────────────
+ * 처음엔 "첫 글자 + 우리말 뜻이면 답이 하나로 좁혀진다" 를 **주장만 하고 재지 않았다.**
+ * 재 보니 생성된 18,114문항 중 **1,790건(9.88%)** 이 확정되지 않았다:
+ *   `exploration` 의 단서 "e… (탐험)" 은 다른 e- 낱말도 가리킨다.
+ *   `about` 의 단서 "a… (~에 관하여)" 도 마찬가지다.
+ * 학습자가 맞는 답을 써도 틀렸다고 채점된다 — 단답의 가장 나쁜 실패다.
+ *
+ * 같은 저장소에 선례가 있었다: `elementary.ts` 의 `buildSpellBlank` 는 `c_t` 가
+ * cat·cot·cut 을 다 받는 것을 **사전으로 세어** 거른다. 확인할 수 있는 것을 확인 안 하고
+ * 주장으로 두면 안 된다. 그래서 이 인자는 **선택이 아니라 필수**다 —
+ * 선택으로 두면 다음 호출자가 빠뜨려 결함이 되살아난다.
  */
 export function buildBlankWord(
   sentence: string,
   context: string | null,
   meaningOf: (word: string) => string | null,
+  isHintUnique: (word: string, meaning: string) => boolean,
 ): MiddleShortItem | null {
   const tokens = usableSentence(sentence)
   if (!tokens) return null
@@ -126,6 +140,8 @@ export function buildBlankWord(
 
     const meaning = meaningOf(lower)
     if (!meaning) continue
+    // 단서가 이 낱말 하나를 가리키지 못하면 채점이 갈린다 — 다음 자리를 본다.
+    if (!isHintUnique(lower, meaning)) continue
 
     // 붙은 부호는 남긴다 — 부호까지 지우면 문장이 어색해지고 답과 무관한 힌트가 사라진다.
     const suffix = token.slice(token.indexOf(word) + word.length)
