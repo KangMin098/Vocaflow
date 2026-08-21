@@ -29,6 +29,24 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
   auth: { persistSession: false },
 })
 
+// ── 낱말 희소도 ─────────────────────────────────────────────────────
+// 해설의 어휘 사슬이 **흔한 낱말의 반복**을 근거로 세지 않게 하는 재료다.
+// 사전에 없는 낱말은 가장 희귀한 쪽으로 본다(고유명사·전문어라 주제를 강하게 지시한다).
+const vLevelOf = new Map()
+for (let from = 0; ; from += 1000) {
+  const { data, error: e } = await db
+    .from('shared_dictionary')
+    .select('word, v_level')
+    .order('word')
+    .range(from, from + 999)
+  if (e) throw new Error('사전 조회 실패: ' + e.message)
+  if (!data?.length) break
+  for (const r of data) vLevelOf.set(String(r.word).toLowerCase(), r.v_level)
+  if (data.length < 1000) break
+}
+const MAX_V = Math.max(...[...vLevelOf.values()].filter((v) => v != null))
+const rarity = (w) => vLevelOf.get(w.toLowerCase()) ?? MAX_V
+
 // 1,000행 조용한 절단에 두 번 당했다 — 페이지로 받는다.
 const rows = []
 for (let from = 0; ; from += 500) {
@@ -63,6 +81,10 @@ for (const r of rows) {
       continue
     }
   }
+  // ⚠️ **희소도를 넘기지 않는다.** 넘기면 커버리지가 6.9% → 6.2% 로 **떨어진다**(2026-08-21 실측).
+  //   Cycle 2 에 "다음 레버는 희귀어 사슬" 이라고 적어 뒀는데 재 보니 틀렸다 — 흔한 낱말을
+  //   빼면 오답 쪽 근거만 사라지는 게 아니라 **정답 쪽 근거도 같이 사라진다.**
+  //   `rarity` 는 위에서 계산해 두고 여기서는 쓰지 않는다(다음 실험의 재료로 남긴다).
   const ex = r.type === 'order' ? explainOrder(item) : explainInsert(item)
 
   // **교차 검증** — 해설이 문항과 다른 답을 설명하면 그건 결함이다. 조용히 넘기지 않는다.

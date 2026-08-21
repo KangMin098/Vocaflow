@@ -234,6 +234,24 @@ export function findPronoun(sentence: string): string | null {
   return null
 }
 
+/**
+ * 낱말의 희소도 — 클수록 드문 낱말. 사전의 `v_level` 이 그대로 들어온다.
+ *
+ * 사전에 없는 낱말은 **가장 희귀한 쪽**으로 본다 — 고유명사·전문어라 주제를 가장 강하게
+ * 지시한다. (`irrelevant.ts` 가 같은 것을 쓰므로 여기 두고 그쪽이 가져다 쓴다.)
+ */
+export type Rarity = (word: string) => number
+
+/** 희소도를 모를 때 — 모든 내용어를 똑같이 센다. */
+export const FLAT_RARITY: Rarity = () => 1
+
+/** 이 글이 스스로 정하는 눈금 — 내용어 희소도의 중앙값. 바깥에서 가져온 숫자가 아니다. */
+export function topicalBar(text: string, rarity: Rarity): number {
+  const values = [...contentWords(text)].map(rarity).sort((a, b) => a - b)
+  if (!values.length) return 0
+  return values[Math.floor(values.length / 2)]!
+}
+
 /** 내용어만 뽑는다 — 어휘 사슬을 만들 재료. */
 export function contentWords(text: string): Set<string> {
   const out = new Set<string>()
@@ -282,7 +300,14 @@ export function findFirstMention(
  *
  * 반환 순서가 곧 강도 순이다. 호출부는 맨 앞 하나만 쓴다.
  */
-export function evidenceFor(sentence: string, before: string, from: string, at: string): Evidence[] {
+export function evidenceFor(
+  sentence: string,
+  before: string,
+  from: string,
+  at: string,
+  rarity: Rarity = FLAT_RARITY,
+  bar = 0,
+): Evidence[] {
   const out: Evidence[] = []
   const beforeWords = contentWords(before)
 
@@ -339,9 +364,20 @@ export function evidenceFor(sentence: string, before: string, from: string, at: 
   }
 
   if (out.length === 0) {
-    // 어휘 사슬 — 가장 약한 근거라 위의 것이 하나도 없을 때만 쓴다.
+    // ── 어휘 사슬 — 가장 약한 근거라 위의 것이 하나도 없을 때만 쓴다 ──
+    //
+    // ⚠️ **희소도 문턱(`bar`)은 기본이 0 이다. 켜지 말 것.**
+    //   Cycle 2 에 "흔한 낱말의 반복은 근거가 아니니 희귀어만 세면 판별력이 오른다" 고
+    //   적어 뒀고, `irrelevant.ts` 가 같은 생각으로 성공했다(Russell Lissack 사례).
+    //   그런데 해설에서는 **반대였다** — 사전 `v_level` 을 문턱으로 넣어 재 보니
+    //   커버리지가 **6.9% → 6.2%** 로 떨어졌다(2026-08-21 실측).
+    //
+    //   이유는 두 곳의 쓰임이 다르기 때문이다. 무관 문장 고르기는 **후보를 거르는** 일이라
+    //   잡음을 빼면 정확해지지만, 해설은 **정답이 오답보다 근거가 많아야** 성립한다 —
+    //   잡음을 빼면 오답 쪽만이 아니라 **정답 쪽 근거도 같이 사라진다.**
+    //   문턱은 다음 실험을 위해 매개변수로만 남겨 둔다.
     const shared = [...contentWords(sentence)]
-      .filter((w) => beforeWords.has(w))
+      .filter((w) => beforeWords.has(w) && rarity(w) >= bar)
       .sort((a, b) => b.length - a.length || (a < b ? -1 : 1))
     if (shared.length > 0) {
       const w = shared[0]!
@@ -362,6 +398,13 @@ export function evidenceFor(sentence: string, before: string, from: string, at: 
 // ── 문항별 해설 ──────────────────────────────────────────────────────
 
 const CIRCLED = ['①', '②', '③', '④', '⑤'] as const
+
+/** 문항의 지문 전체 — 희소도 눈금을 이 글에서 뽑는다. */
+function passageOf(item: CsatOrderItem | CsatInsertItem): string {
+  return item.kind === 'order'
+    ? [item.intro, ...item.blocks.flatMap((b) => b.sentences)].join(' ')
+    : [...item.body, item.sentence].join(' ')
+}
 
 /**
  * **근거는 인접으로 잰다 — 앞 글 전체가 아니라 바로 앞 덩어리.**
@@ -407,7 +450,12 @@ export function isPositional(e: Evidence): boolean {
 }
 
 /** 한 배열에서 이음매마다 근거를 모은다 — 정답이든 오답이든 같은 탐지기. */
-function orderEvidence(item: CsatOrderItem, perm: ReadonlyArray<'A' | 'B' | 'C'>): Evidence[] {
+function orderEvidence(
+  item: CsatOrderItem,
+  perm: ReadonlyArray<'A' | 'B' | 'C'>,
+  rarity: Rarity,
+  bar: number,
+): Evidence[] {
   const byLabel = new Map(item.blocks.map((b) => [b.label, b.sentences]))
   const out: Evidence[] = []
   let prevText = item.intro
@@ -416,7 +464,7 @@ function orderEvidence(item: CsatOrderItem, perm: ReadonlyArray<'A' | 'B' | 'C'>
     const sentences = byLabel.get(label)
     if (!sentences?.length) continue
     // **바로 앞 단위만** 본다 — 여기가 인접 규칙이다.
-    const found = evidenceFor(sentences[0]!, prevText, prevName, `(${label}) 첫 문장`)
+    const found = evidenceFor(sentences[0]!, prevText, prevName, `(${label}) 첫 문장`, rarity, bar)
     // 이음매마다 가장 강한 근거 하나만 — 해설이 길어지면 읽지 않는다.
     if (found.length) out.push(found[0]!)
     prevText = sentences.join(' ')
@@ -428,11 +476,13 @@ function orderEvidence(item: CsatOrderItem, perm: ReadonlyArray<'A' | 'B' | 'C'>
 /**
  * 순서 문항 해설 — 다섯 답지를 같은 잣대로 재고, **정답이 유일 최다일 때만** 쓴다.
  */
-export function explainOrder(item: CsatOrderItem): Explanation {
+export function explainOrder(item: CsatOrderItem, rarity: Rarity = FLAT_RARITY): Explanation {
   const perm = item.choices[item.answer - 1]
   if (!perm) return { answer: item.answer, evidence: [], body: null }
 
-  const all = item.choices.map((p) => orderEvidence(item, p))
+  // 문턱은 **이 지문 자신의 중앙 희소도** — 글마다 스스로 눈금을 정한다.
+  const bar = topicalBar(passageOf(item), rarity)
+  const all = item.choices.map((p) => orderEvidence(item, p, rarity, bar))
   const evidence = all[item.answer - 1]!
   const mine = scoreOf(evidence)
   const beatenOrTied = all.some((e, i) => i !== item.answer - 1 && scoreOf(e) >= mine)
@@ -452,17 +502,23 @@ export function explainOrder(item: CsatOrderItem): Explanation {
  *   바로 앞 문장 → 넣을 문장   넣을 문장이 바로 앞을 받는가
  *   넣을 문장 → 바로 뒤 문장   뒤 문장이 넣을 문장을 받는가
  */
-function insertEvidence(item: CsatInsertItem, pos: number, slotNo: number): Evidence[] {
+function insertEvidence(
+  item: CsatInsertItem,
+  pos: number,
+  slotNo: number,
+  rarity: Rarity,
+  bar: number,
+): Evidence[] {
   const out: Evidence[] = []
   const prev = item.body[pos - 1]
   if (prev) {
-    const back = evidenceFor(item.sentence, prev, `${pos}번째 문장`, '넣을 문장')
+    const back = evidenceFor(item.sentence, prev, `${pos}번째 문장`, '넣을 문장', rarity, bar)
     if (back.length) out.push(back[0]!)
   }
   const next = item.body[pos]
   if (next) {
     const label = slotNo >= 1 && slotNo <= CIRCLED.length ? `${CIRCLED[slotNo - 1]} 뒤 문장` : '뒤 문장'
-    const fwd = evidenceFor(next, item.sentence, '넣을 문장', label)
+    const fwd = evidenceFor(next, item.sentence, '넣을 문장', label, rarity, bar)
     if (fwd.length) out.push(fwd[0]!)
   }
   return out
@@ -471,11 +527,12 @@ function insertEvidence(item: CsatInsertItem, pos: number, slotNo: number): Evid
 /**
  * 삽입 문항 해설 — 다섯 자리를 같은 잣대로 재고, **정답 자리가 유일 최다일 때만** 쓴다.
  */
-export function explainInsert(item: CsatInsertItem): Explanation {
+export function explainInsert(item: CsatInsertItem, rarity: Rarity = FLAT_RARITY): Explanation {
   const pos = item.slots[item.answer - 1]
   if (pos == null) return { answer: item.answer, evidence: [], body: null }
 
-  const all = item.slots.map((p, i) => insertEvidence(item, p, i + 1))
+  const bar = topicalBar(passageOf(item), rarity)
+  const all = item.slots.map((p, i) => insertEvidence(item, p, i + 1, rarity, bar))
   const evidence = all[item.answer - 1]!
   const mine = scoreOf(evidence)
   const beatenOrTied = all.some((e, i) => i !== item.answer - 1 && scoreOf(e) >= mine)
@@ -494,13 +551,15 @@ export function explainInsert(item: CsatInsertItem): Explanation {
  * 해설이 정답만 가리키는지 확인하려면 오답의 근거도 같은 잣대로 봐야 한다.
  * `scripts/textbook/explain-discriminate.mjs` 가 이걸로 판별력을 잰다.
  */
-export function orderEvidenceByChoice(item: CsatOrderItem): Evidence[][] {
-  return item.choices.map((p) => orderEvidence(item, p))
+export function orderEvidenceByChoice(item: CsatOrderItem, rarity: Rarity = FLAT_RARITY): Evidence[][] {
+  const bar = topicalBar(passageOf(item), rarity)
+  return item.choices.map((p) => orderEvidence(item, p, rarity, bar))
 }
 
 /** 자리 5곳 각각의 근거 — 감사용. */
-export function insertEvidenceBySlot(item: CsatInsertItem): Evidence[][] {
-  return item.slots.map((p, i) => insertEvidence(item, p, i + 1))
+export function insertEvidenceBySlot(item: CsatInsertItem, rarity: Rarity = FLAT_RARITY): Evidence[][] {
+  const bar = topicalBar(passageOf(item), rarity)
+  return item.slots.map((p, i) => insertEvidence(item, p, i + 1, rarity, bar))
 }
 
 export interface ExplainCoverage {

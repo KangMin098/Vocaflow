@@ -25,7 +25,7 @@
 
 import { CSAT_ITEM_WORDS } from './compose-unit'
 import { isPrintablePassage } from './csat-format'
-import { contentWords } from './explain'
+import { contentWords, FLAT_RARITY, topicalBar, type Rarity } from './explain'
 
 /** ①~⑤ — 수능과 같은 다섯 자리. */
 export const IRRELEVANT_SLOTS = 5
@@ -81,16 +81,10 @@ export interface IrrelevantItem {
   overlapGap: number
 }
 
-/**
- * 낱말의 희소도 — 클수록 드문 낱말. 사전의 `v_level` 이 그대로 들어온다.
- *
- * 사전에 없는 낱말은 **가장 희귀한 쪽**으로 본다. 고유명사·전문어라 주제를 가장 강하게
- * 지시하기 때문이다(Stonehenge · bedrock).
- */
-export type Rarity = (word: string) => number
-
-/** 희소도를 모를 때 — 모든 내용어를 똑같이 센다. */
-const FLAT_RARITY: Rarity = () => 1
+// 희소도 판정은 `explain.ts` 에 있다 — `contentWords` 와 같은 자리에 둬야 눈금이 어긋나지
+// 않는다. 해설(`explain`)도 어휘 사슬에 같은 문턱을 쓰므로 정의가 둘이면 반드시 갈린다.
+export type { Rarity }
+export { topicalBar }
 
 /**
  * 한 문장이 나머지 글과 얼마나 붙어 있는가 — **주제를 지시하는 낱말**의 공유 개수.
@@ -117,13 +111,6 @@ export function cohesionWith(
   let n = 0
   for (const w of contentWords(sentence)) if (restWords.has(w) && rarity(w) >= bar) n++
   return n
-}
-
-/** 이 글이 스스로 정하는 눈금 — 내용어 희소도의 중앙값. */
-export function topicalBar(text: string, rarity: Rarity): number {
-  const values = [...contentWords(text)].map(rarity).sort((a, b) => a - b)
-  if (!values.length) return 0
-  return values[Math.floor(values.length / 2)]!
 }
 
 function words(s: string): number {

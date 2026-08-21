@@ -164,6 +164,7 @@ export {
   measureExplainCoverage,
   orderEvidenceByChoice,
 } from './textbook/explain'
+export { FLAT_RARITY, topicalBar } from './textbook/explain'
 export type { Evidence, EvidenceKind, ExplainCoverage, Explanation, Relation } from './textbook/explain'
 // 결정론 문항 유형 — 흐름 무관(수능 35) · 영작 배열(중등 서술형)
 export {
@@ -173,7 +174,6 @@ export {
   IRRELEVANT_SOURCE_SENTENCES,
   MIN_FOREIGN_COHESION,
   MIN_NATIVE_COHESION,
-  topicalBar,
 } from './textbook/irrelevant'
 export type { ForeignSentence, IrrelevantItem, Rarity } from './textbook/irrelevant'
 export { buildWordOrder, deterministicShuffle, WORD_ORDER_WORDS } from './textbook/word-order'
