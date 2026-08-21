@@ -13,16 +13,11 @@
 //   HUB_SHOT_THEME=dark     → 다크모드 캡처
 //   HUB_SHOT_ROUTES=/hub,/wordvault → 라우트 부분 캡처
 //
-// ⚠️ **Git Bash(Windows)에서 라우트를 하나만 줄 때 조심.** MSYS 경로 변환이 선행 슬래시를
-//    Windows 경로로 바꿔 버린다 — `/library/textbooks/5` 가 `C:/Program Files/Git/library/...` 로
-//    도착해서 아무 라우트와도 안 맞는다(실측 2026-08-22, 두 번 헛돌았다).
-//    쉼표·물음표가 섞이면 변환이 꺼져서 여러 개를 줄 때는 멀쩡하다 — 그래서 더 헷갈린다.
-//    해결: `MSYS_NO_PATHCONV=1 HUB_SHOT_ROUTES='/library/textbooks/5' npx playwright test ...`
-//    (아래 ROUTES 빈 배열 가드가 이걸 잡아 줬다 — 없었으면 0장 찍고 성공으로 보였다.)
-//
 // ⚠️ Git Bash(MSYS)에서는 `MSYS_NO_PATHCONV=1` 을 함께 줄 것. 안 그러면 `/hub` 같은 값이
 //    `C:/Program Files/Git/hub` 로 **경로 변환**되어 아무 라우트와도 안 맞는다(실측 2026-08-15).
 //    `?v=a` 처럼 물음표가 붙은 값은 변환되지 않아서 이 함정이 한동안 안 보였다.
+//    (2026-08-22 재발 — **이 줄을 안 읽고** 두 번 헛돌았다. 쉼표가 섞인 호출은 멀쩡히 되니까
+//     "이번엔 다른 문제" 로 보인다. 라우트를 하나만 줄 때 가장 잘 밟는다.)
 //
 // 산출물은 리포에 남기지 않는다(스크린샷은 커밋 대상 아님). 기본 출력은 test-results 하위.
 
