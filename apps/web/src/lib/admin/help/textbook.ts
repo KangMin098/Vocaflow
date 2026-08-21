@@ -88,6 +88,30 @@ export const TBP_HELP: HelpRegistry = {
             done: '자동 채점 항목 통과 수가 나온다. 사람 판단 항목은 분모 밖이다.',
           },
           {
+            title: '지문 집필 몫 뽑기 (사다리 아래쪽이 빌 때)',
+            detail:
+              '`pnpm dlx tsx scripts/textbook/write-drain-export.mjs --band 3 --size 6` — 그 밴드에 **원글이 몇 편 모자라는지** 세어 슬롯을 낸다. 사다리가 끊기는 원인은 문항이 아니라 원글이다(한 단원 안에서 원글이 겹칠 수 없어서, 조합기는 문항 수보다 원글 수에서 먼저 바닥난다 — V3 는 원글 8편이라 문항이 31개인데도 0단원이었다). 슬롯 번호는 **지난 실행 다음부터** 매겨진다. **읽기만 한다.**',
+            done: '"더 써야 할 몫 N편" 과 슬롯 번호 범위가 나온다. 같이 나오는 `lexicon.json` 이 그 밴드의 어휘 목표다.',
+          },
+          {
+            title: 'Claude Code 가 지문을 쓴다',
+            detail:
+              '청크 하나가 서브에이전트 하나다. **어휘 목표를 반드시 지켜야 한다** — 밴드는 길이가 아니라 `compute_article_vrl`(서로 다른 낱말 V-Level 의 75분위)이 정하고, 쉬운 낱말로만 쓰면 목표보다 아래 계단으로 떨어진다(파일럿 10편 중 8편이 그랬다). 그래서 `lexicon.json` 이 "V3 낱말 12~14개 · V4~V5 꼬리 7~9개" 처럼 셀 수 있는 목표를 준다. **DB 는 건드리지 않는다.**',
+            done: '청크마다 `.out.json` 이 생긴다. 130~190어 · 8문장 이상이어야 적재된다.',
+          },
+          {
+            title: '지문 적재 → 분석 → 문항',
+            detail:
+              '`… write-drain-import.mjs --band 3 --commit` 이 `library_articles` 에 넣는다(`source=original` · CC0 · **`ready` 로 넣고 발행은 사람 판단**). 6문장·60어 미만은 넣지 않고 건너뛴 수를 찍는다. 이어서 `scripts/acp/reprocess.mjs --missing-vocab --commit`(어휘·CEFR·밴드) → `store-new-types.mjs --commit`(문항) 을 돌려야 재료가 된다. **셋을 한 스위치에 묶지 않은 이유는 무엇이 실패했는지 알기 위해서다.**',
+            done: '"적재 완료 N편". `source_id` 가 유일키라 다시 돌려도 중복되지 않고, 이미 문항이 붙은 글의 본문은 덮어쓰지 않는다.',
+          },
+          {
+            title: '**의도한 밴드에 떨어졌는지 확인**',
+            detail:
+              '분석이 끝나면 `article_v_level` 이 목표와 같은지 본다. 다르면 그 글이 못 쓰이는 게 아니라 **다른 계단에 쌓인 것**이다 — 아래쪽 계단도 비어 있으므로 버리지 않는다. 다만 적중률이 낮으면 `lexicon.json` 의 꼬리 목표를 올려 다시 뽑는다.',
+            done: '목표 밴드 대비 실제 밴드 분포. 파일럿 기준선은 10편 중 2편 적중(꼬리 지침 도입 전).',
+          },
+          {
             title: '해설 몫 뽑기 (한 권 겨냥)',
             detail:
               '`pnpm dlx tsx scripts/textbook/explain-drain-export.mjs --band 6 --volume 20 --size 12` — 그 권에 **실제로 실릴** 문항 중 해설이 없는 것만 청크로 뽑아 `scripts/textbook/explain-drain/v<밴드>/chunk-NN.json` 에 쓴다. **읽기만 하고, 이미 채워진 것은 건너뛴다 — 몇 번 돌려도 안전하다.** 청크 자리가 밴드별로 갈려 있어 여러 밴드를 동시에 돌려도 안 섞인다.',

@@ -31,9 +31,13 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
   { auth: { persistSession: false } })
 const sha256 = (s) => crypto.createHash('sha256').update(s, 'utf8').digest('hex')
 
+// ⚠️ 예전에는 `.is('compose_batch_id', null)` 로 compose 소속을 통째로 뺐다. 의도는
+//   "본문을 보관하지 않는 글은 재분석할 수 없다" 였는데, **거른 축이 틀렸다** — 본문
+//   유무는 `content` 가 말하고 아래에서 이미 그것으로 거른다. 배치 소속으로 거르면
+//   집필 드레인이 넣은 글(배치에 매달리되 본문을 보관한다)이 통째로 빠져서,
+//   새로 쓴 지문이 **어휘도 밴드도 없는 채로 남는다.**
 let q = db.from('library_articles')
   .select('id, source, source_id, source_url, title, author, language, license, content, published_at, feed_id, status')
-  .is('compose_batch_id', null)
 const id = arg('id'), title = arg('title')
 /**
  * 어휘가 한 줄도 없는 글만 고른다.
