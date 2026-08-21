@@ -10,7 +10,7 @@
 | 파이프라인 | 약어 | 입력 | 출력 | 주요 테이블 |
 |---|---|---|---|---|
 | **Library Curation Pipeline** | **LCP** | 9 외부 소스 → 도서 | `library_books` + `chapters_master` + `chapter_word_sets` (자동 발행) | `library_*` |
-| **Article Curation Pipeline** | **ACP** | 4 feed (arXiv/NASA/NIH/VOA) | `library_articles` + `shared_word_sets`(library_article, 발행 시 자동) | `library_articles` |
+| **Article Curation Pipeline** | **ACP** | **15 소스 · 38 피드** (실측 2026-08-21) | `library_articles` + `shared_word_sets`(library_article, 발행 시 자동) | `library_articles` |
 | **Vocabulary Curation Build** | **VCB** | seed 단어 list | `shared_words` enriched | `vocab_*` |
 | **Vocabulary Reading Level** | **VRL** | 사전 → 분류 | `shared_dictionary.v_level` 4축 (level/track/domain/skill) | `vocaflow_*` + `vrl_*` |
 

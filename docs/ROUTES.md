@@ -267,14 +267,43 @@
 | `POST /api/admin/library/delete-seed-catalog` | seed catalog 정리 |
 | `POST /api/admin/library/backfill-covers` | cover_image_url backfill |
 
-### `/api/admin/articles/*` (4)
+### `/api/admin/articles/*` (21)
+
+> 실측 2026-08-21 (`find apps/web/src/app/api/admin/articles -name route.ts`).
+> 이전 판은 **4개만 적고 있었고 그중 `arxiv-feed` 는 플랫폼에서 삭제된 소스**였다.
+
+**소스 GET 피드 (15)** — 소스별 후보 목록. `?feed=<id>` 로 피드 선택.
+
+| 경로 | 소스 | 라이선스 | register |
+|---|---|---|---|
+| `GET …/voa-feed` | VOA Learning English (13피드) | PD | news · expository · narrative |
+| `GET …/nasa-feed` | NASA (3피드) | PD | expository |
+| `GET …/nih-feed` | NIH (3피드 — 실측 전부 수확 0) | PD | expository |
+| `GET …/usgs-feed` | USGS | PD | expository |
+| `GET …/noaa-feed` | NOAA Climate.gov | PD | expository |
+| `GET …/factbook-feed` | CIA World Factbook | PD | reference |
+| `GET …/futurity-feed` | **Futurity (2026-08-21 신설)** | CC BY 4.0 | expository |
+| `GET …/plos-feed` | PLOS — `?feed=recent|essay` | CC BY 4.0 | expository · **argumentative** |
+| `GET …/elife-feed` | eLife digest | CC BY | expository |
+| `GET …/owid-feed` | Our World in Data | CC BY | argumentative |
+| `GET …/wikipedia-feed` | English Wikipedia FA/GA | CC BY-SA | expository |
+| `GET …/simple_wikipedia-feed` | Simple English Wikipedia | CC BY-SA | expository |
+| `GET …/wikivoyage-feed` | Wikivoyage | CC BY-SA | reference |
+| `GET …/wikinews-feed` | Wikinews (소스 비활성 — 실측 0건) | CC BY | news |
+| `GET …/the_conversation-feed` | The Conversation | **CC BY-ND → `display_only`** | argumentative |
+
+⚠️ `the_conversation` 은 ND 라 본문을 변형할 수 없어 **문항이 0개** 나온다.
+수집은 되지만 교재에는 못 실린다 — 자세한 것은 [LIBRARY_PIPELINE.md](./LIBRARY_PIPELINE.md).
+
+**운영 (6)**
 
 | 경로 | 비고 |
 |---|---|
-| `GET /api/admin/articles/arxiv-feed` | arXiv feed |
-| `GET /api/admin/articles/nasa-feed` | NASA feed |
-| `GET /api/admin/articles/nih-feed` | NIH feed |
-| `GET /api/admin/articles/voa-feed` | VOA Learning English feed |
+| `POST …/seed` · `GET …/seed-list` | seed_catalog 적재·조회 |
+| `POST …/bulk-requeue` | 선택분 큐 재투입 |
+| `POST …/force-publish` | 검수 건너뛰고 발행 |
+| `POST …/revert` | 발행 되돌리기 |
+| `POST …/delete` | 삭제 (+ seed unlock) |
 
 ---
 
