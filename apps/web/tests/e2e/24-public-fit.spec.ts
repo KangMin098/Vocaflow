@@ -76,8 +76,30 @@ test.describe('공개 지문 진단 — /fit (로그아웃)', () => {
     await expect(panel.getByRole('img', { name: /커버리지/ }).first()).toBeVisible();
 
     // ⑦ 전부 100% 로 뭉개지지 않는다 — 학년축이 실제로 변별해야 곡선이다
+    //
+    // ⚠️ 이 단언은 오래 **줄 수만 세고 있었다.** 위 ⑤ 의 정규식은 `0.0%` 도 통과하므로
+    //    "anon 권한으로 레벨 해석이 됐다" 는 주석이 실제로는 아무것도 보증하지 않았다.
+    //    사전(`shared_dictionary`)의 RLS 가 authenticated 전용이라 **익명은 0행을 받는다** —
+    //    그러면 모든 낱말이 미지어가 되어 곡선이 바닥에 눕는다(실측 2026-08-22: anon 0 / auth 6).
+    //    그래서 값을 꺼내 **바닥도 천장도 아닌지** 본다.
     const readings = await panel.getByRole('img', { name: /커버리지/ }).all();
     expect(readings.length, '학년 줄 수').toBe(8);
+
+    const pcts: number[] = [];
+    for (const r of readings) {
+      const label = (await r.getAttribute('aria-label')) ?? '';
+      const m = /커버리지 ([0-9.]+)%/.exec(label);
+      if (m) pcts.push(Number(m[1]));
+    }
+    expect(pcts.length, '커버리지 수치를 읽지 못했다').toBe(8);
+    expect(
+      Math.max(...pcts),
+      `익명 커버리지가 전부 바닥이다 — 사전을 못 읽고 있다: ${pcts.join(' / ')}`,
+    ).toBeGreaterThan(0);
+    expect(
+      Math.min(...pcts),
+      `학년축이 변별하지 않는다(전부 같은 값): ${pcts.join(' / ')}`,
+    ).toBeLessThan(Math.max(...pcts));
 
     // ⑧ 로그인 모드로 넘어가는 고리
     await expect(panel.getByRole('link', { name: /내 기준으로 보기/ })).toBeVisible();
