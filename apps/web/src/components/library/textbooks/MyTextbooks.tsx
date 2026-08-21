@@ -11,7 +11,7 @@
 //   · 고른 것이 있음                        → 권을 관리한다
 // 앞의 둘을 한 문장으로 뭉개는 것이 이 저장소의 지배적 결함 유형이다(CONVENTIONS).
 
-import { ArrowRight, BookOpen, Library } from 'lucide-react'
+import { ArrowRight, BookOpen, Library, Plus } from 'lucide-react'
 import Link from 'next/link'
 
 import type { Shelf } from '@/lib/textbook/shelf'
@@ -56,9 +56,28 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
   }
 
   // ③ 관리 — 담은 권을 계단 순서로.
+  //
+  // ⚠️ 여기서 **진도를 그리지 않는다.** 교재 문항은 오늘의 학습에 섞여 나오므로 "이 권의 몇 %"
+  //    라는 수치가 존재하지 않는다. 없는 진도 막대를 그리면 그 화면은 그 순간 거짓말이 된다.
+  //    대신 실제로 아는 것만 말한다 — 합계와 **다음 계단**.
+  const totalItems = picked.reduce((s, v) => s + v.itemCount, 0)
+  const totalUnits = picked.reduce((s, v) => s + v.maxUnits, 0)
+
+  // 다음 계단 = 담은 것 중 가장 높은 권 **바로 다음**의, 아직 안 담은 권.
+  // 시리즈의 존재 이유가 "학년을 잇는" 것이므로, 이 한 줄이 이 면의 다음 행동이다.
+  const highest = picked[picked.length - 1]!.step
+  const nextUp = shelf.volumes.find((v) => v.step > highest && !mine.steps.includes(v.step))
+
   return (
     <Section>
-      <ol className="flex flex-col divide-y divide-[var(--bd)]">
+      {/* 합계 — 상한임을 반드시 밝힌다(권 상세와 같은 규칙). 상한을 예측처럼 보이면 과장 광고다. */}
+      <p className="flex flex-wrap items-baseline gap-x-2.5 font-mono text-[11px] tabular-nums text-[var(--t3)]">
+        <span>{picked.length}권</span>
+        <span>· 문항 {totalItems.toLocaleString()}</span>
+        <span>· 최대 {totalUnits.toLocaleString()}단원</span>
+      </p>
+
+      <ol className="mt-1 flex flex-col divide-y divide-[var(--bd)]">
         {picked.map((v) => (
           <li key={v.step} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 py-3.5">
             <span
@@ -92,9 +111,39 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
         ))}
       </ol>
 
+      {/* 다음 계단 — 시리즈의 존재 이유가 "학년을 잇는" 것이라 이 자리가 이 면의 다음 행동이다.
+          없으면(마지막 권까지 담았으면) 내지 않는다. 빈 제안을 파는 것보다 아무 말도 안 하는 게 낫다. */}
+      {nextUp && (
+        <Link
+          href={`/library/textbooks/${nextUp.step}`}
+          className="group mt-4 flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 no-underline transition-colors hover:border-[var(--p)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          <span
+            aria-hidden
+            className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
+          >
+            <Plus size={15} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block font-display text-[12.5px] font-[700] text-[var(--t1)]">
+              다음 계단
+            </span>
+            {/* 제목과 학령을 조사 없이 잇는다 — 영문 권명에 한국어 조사를 붙일 수 없다. */}
+            <span className="mt-0.5 block font-body text-[12px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
+              STEP {nextUp.step} · {nextUp.title} · {nextUp.schoolBand}
+            </span>
+          </span>
+          <ArrowRight
+            size={15}
+            aria-hidden
+            className="shrink-0 text-[var(--t3)] motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5"
+          />
+        </Link>
+      )}
+
       <Link
         href="/library/textbooks"
-        className="group mt-4 inline-flex min-h-[44px] w-fit items-center gap-1 font-display text-[12px] font-[700] text-[var(--p)] no-underline transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="group mt-3 inline-flex min-h-[44px] w-fit items-center gap-1 font-display text-[12px] font-[700] text-[var(--p)] no-underline transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <BookOpen size={13} aria-hidden />
         교재 더 고르기

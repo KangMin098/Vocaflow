@@ -84,3 +84,28 @@ describe('담은 것을 관리한다', () => {
     expect(html).not.toContain('undefined')
   })
 })
+
+describe('없는 진도를 그리지 않고, 아는 것만 말한다', () => {
+  it('합계는 상한이라고 적는다 (권 상세와 같은 규칙)', () => {
+    const html = renderToString(
+      <MyTextbooks shelf={SHELF} mine={{ steps: [1, 2], available: true }} />,
+    )
+    expect(html).toContain('240') // 문항 120 × 2
+    expect(html).toContain('최대')
+    // 교재 문항은 오늘의 학습에 섞여 나온다 — 권별 진도율이라는 수치는 존재하지 않는다.
+    expect(html).not.toMatch(/진도|progressbar/)
+  })
+
+  it('담은 것 중 가장 높은 권 다음의, 아직 안 담은 권을 제안한다', () => {
+    const html = renderToString(<MyTextbooks shelf={SHELF} mine={{ steps: [1], available: true }} />)
+    expect(html).toContain('다음 계단')
+    expect(html).toContain('/library/textbooks/2')
+  })
+
+  it('마지막 권까지 담았으면 제안을 내지 않는다 (빈 제안을 팔지 않는다)', () => {
+    const html = renderToString(
+      <MyTextbooks shelf={SHELF} mine={{ steps: [1, 2, 3], available: true }} />,
+    )
+    expect(html).not.toContain('다음 계단')
+  })
+})
