@@ -521,3 +521,6 @@ export {
   discrimination,
 } from './textbook/item-health'
 export type { AnswerBias, HealthInput, ItemAttemptStats, StockHealth, TypeHealth } from './textbook/item-health'
+// 시리즈 정본 — 한 브랜드가 학령 전체를 계단으로 잡는다
+export { SERIES_BRAND, SERIES_SPINE, SERIES_CSAT_TYPES, measureSeriesFill } from './textbook/series'
+export type { Inventory, RungFill, SeriesFill, SeriesItemType, SeriesRung } from './textbook/series'
