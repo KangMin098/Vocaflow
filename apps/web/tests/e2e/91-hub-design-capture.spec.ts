@@ -512,6 +512,65 @@ async function layoutMetrics(page: Page) {
         const out: { text: string; ratio: number; need: number; color: string; bg: string }[] = []
         const main = document.querySelector('main') || document.body
 
+        // ⚠️ **비용을 아껴야 한다.** 첫 판이 글자마다 조상을 다시 타고 올라가며
+        //    `getComputedStyle` 을 반복 호출해서, 20라우트 × 2뷰포트 전체 스윕을
+        //    **180초 타임아웃으로 죽였다**(실측 2026-08-22). 계측기가 무거워서 못 돌리면
+        //    그 눈금은 없는 것과 같다. 스타일과 배경 해석을 요소 단위로 캐시한다.
+        const styleCache = new Map<HTMLElement, CSSStyleDeclaration>()
+        const cs2 = (el: HTMLElement) => {
+          let s = styleCache.get(el)
+          if (!s) {
+            s = getComputedStyle(el)
+            styleCache.set(el, s)
+          }
+          return s
+        }
+        /** null = 환원 불가(그라디언트·이미지). 요소당 한 번만 계산한다. */
+        const bgCache = new Map<HTMLElement, [number, number, number] | null>()
+        const bgOf = (el: HTMLElement): [number, number, number] | null => {
+          const cached = bgCache.get(el)
+          if (cached !== undefined) return cached
+
+          const chain: HTMLElement[] = []
+          let node: HTMLElement | null = el
+          let resolved: [number, number, number] | null = null
+          const layers: [number, number, number, number][] = []
+
+          while (node) {
+            const hit = bgCache.get(node)
+            if (hit !== undefined) {
+              resolved = hit
+              break
+            }
+            chain.push(node)
+            const s = cs2(node)
+            if (s.backgroundImage && s.backgroundImage !== 'none') {
+              resolved = null
+              break
+            }
+            const c = toRgba(s.backgroundColor)
+            if (c && c[3] > 0) {
+              if (c[3] >= 1) {
+                resolved = [c[0], c[1], c[2]]
+                break
+              }
+              layers.push(c)
+            }
+            node = node.parentElement
+          }
+
+          // 바닥을 못 찾았고 그라디언트도 아니면 페이지 배경으로 본다.
+          if (resolved === null && node === null) {
+            const bodyBg = toRgba(getComputedStyle(document.body).backgroundColor)
+            resolved = bodyBg && bodyBg[3] >= 1 ? [bodyBg[0], bodyBg[1], bodyBg[2]] : null
+          }
+          if (resolved !== null) {
+            for (let i = layers.length - 1; i >= 0; i--) resolved = over(layers[i], resolved)
+          }
+          for (const n of chain) bgCache.set(n, resolved)
+          return resolved
+        }
+
         for (const el of Array.from(main.querySelectorAll<HTMLElement>('*'))) {
           // 직접 가진 글자만 본다 — 컨테이너까지 세면 같은 글자를 여러 번 센다.
           const own = Array.from(el.childNodes)
@@ -524,45 +583,16 @@ async function layoutMetrics(page: Page) {
           const r = el.getBoundingClientRect()
           if (r.width === 0 || r.height === 0) continue
 
-          const cs = getComputedStyle(el)
+          const cs = cs2(el)
           if (cs.visibility === 'hidden' || cs.opacity === '0') continue
           const fgRaw = toRgba(cs.color)
           if (!fgRaw || fgRaw[3] === 0) continue
 
-          // 배경 — 반투명 층을 **쌓아 두었다가** 불투명 바닥 위에 순서대로 합성한다.
-          // 그라디언트·이미지를 만나면 포기한다(한 색으로 환원되지 않는다).
-          const layers: [number, number, number, number][] = []
-          let node: HTMLElement | null = el
-          let base: [number, number, number] | null = null
-          let skip = false
-          while (node) {
-            const s = getComputedStyle(node)
-            if (s.backgroundImage && s.backgroundImage !== 'none') {
-              skip = true
-              break
-            }
-            const c = toRgba(s.backgroundColor)
-            if (c && c[3] > 0) {
-              if (c[3] >= 1) {
-                base = [c[0], c[1], c[2]]
-                break
-              }
-              layers.push(c)
-            }
-            node = node.parentElement
-          }
-          if (skip) continue
-          // 바닥을 못 찾으면 페이지 배경으로 본다. 그것도 없으면 재지 않는다.
-          if (!base) {
-            const bodyBg = toRgba(getComputedStyle(document.body).backgroundColor)
-            if (!bodyBg || bodyBg[3] < 1) continue
-            base = [bodyBg[0], bodyBg[1], bodyBg[2]]
-          }
-          // 바깥쪽부터 안쪽으로 덮는다.
-          let bg: [number, number, number] = base
-          for (let i = layers.length - 1; i >= 0; i--) bg = over(layers[i], bg)
+          // 그라디언트·이미지 위 글자는 한 색으로 환원되지 않는다 — 재지 않는다.
+          const bg = bgOf(el)
+          if (!bg) continue
 
-          // 글자색도 반투명일 수 있다(opacity-70 등은 별개지만 rgba 글자색은 흔하다).
+          // 글자색도 반투명일 수 있다(rgba 토큰이 흔하다).
           const fg: [number, number, number] =
             fgRaw[3] >= 1 ? [fgRaw[0], fgRaw[1], fgRaw[2]] : over(fgRaw, bg)
 
@@ -605,7 +635,11 @@ async function layoutMetrics(page: Page) {
 }
 
 test.describe('허브 디자인 캡처', () => {
-  test.describe.configure({ mode: 'serial', timeout: 180_000 })
+  // 20 라우트 × 2 뷰포트를 한 테스트가 돈다 — 180초로는 끝까지 못 간다.
+  // ⚠️ 중간에 죽으면 **한 줄도 인쇄되지 않는다**(계측은 루프가 끝난 뒤 찍힌다). 그러면
+  //    "측정 실패" 가 아니라 **"측정 안 함"** 이 되고, 도구가 있는데 못 쓰는 상태가 된다
+  //    (실측 2026-08-22 — 부분 캡처만 돌리는 동안 이 사실이 안 보였다).
+  test.describe.configure({ mode: 'serial', timeout: 420_000 })
 
   // 세션은 한 번만 만든다. 리디자인 사이클은 하루에도 수십 번 캡처하는데,
   // 매번 로그인하면 느릴 뿐 아니라 auth 요청이 쌓인다.
@@ -613,7 +647,10 @@ test.describe('허브 디자인 캡처', () => {
     // 훅은 describe.configure 의 timeout 을 물려받지 않는다 — 기본 30초다.
     // dev 서버가 콜드 컴파일 중이면 `/login` 진입만 30초를 넘겨서, 캡처가 한 장도
     // 없이 "beforeAll hook timeout" 으로 죽는다(실측 2026-08-15, `.next` 삭제 직후).
-    test.setTimeout(180_000)
+    // 20 라우트 × 2 뷰포트를 한 테스트가 돈다. 180초로는 끝까지 못 가고,
+    // 중간에 죽으면 **한 줄도 인쇄되지 않는다**(계측은 루프가 끝난 뒤 찍힌다) —
+    // 그러면 "측정 실패" 가 아니라 "측정 안 함" 이 된다(실측 2026-08-22).
+    test.setTimeout(420_000)
     // 공개 라우트(/library/*)만 찍을 때는 로그인하지 않는다.
     //   검증 계정은 **워크스페이스의 모든 세션이 공유**한다. 다른 세션이 로그아웃하면
     //   Supabase 가 refresh 토큰을 전역 폐기해서 이쪽 로그인도 곧바로 죽고,
