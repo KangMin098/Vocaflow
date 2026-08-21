@@ -77,7 +77,41 @@ function pickExplanation(item, deterministic) {
 }
 
 /** 문항 하나를 수능 인쇄 형식으로. 못 바꾸면 null. */
+/** 생성형 유형 — 지문 하나 + 5지선다. 유형이 열이어도 인쇄 모양은 하나다. */
+const EXTRA_STEM_FALLBACK = '다음 글에 대한 물음에 답하시오.'
+
+function renderExtra(item, no) {
+  const p = item.payload ?? {}
+  const choices = Array.isArray(p.choices) ? p.choices : []
+  if (choices.length !== 5) return null
+  const answer = Number(item.answer_key?.answer)
+  if (!Number.isInteger(answer) || answer < 1 || answer > 5) return null
+  // 밑줄 유형은 그 구절에 실제로 밑줄을 친다 — 안 치면 발문이 가리키는 곳이 없다.
+  let passage = esc(String(p.passage ?? ''))
+  if (p.underline) {
+    const u = esc(String(p.underline))
+    if (passage.includes(u)) passage = passage.replace(u, `<u>${u}</u>`)
+  }
+  return {
+    html: `
+<div class="q">
+  <p class="stem"><b>${no}.</b> ${esc(String(p.stem_ko ?? EXTRA_STEM_FALLBACK))}</p>
+  <div class="passage">${passage}</div>
+  ${p.summary_sentence ? `<div class="given">${esc(String(p.summary_sentence))}</div>` : ''}
+  <ol class="choices">${choices.map((c) => `<li>${esc(String(c))}</li>`).join('')}</ol>
+</div>`,
+    answer,
+    explanation: item.answer_key?.rationale_ko
+      ? { text: String(item.answer_key.rationale_ko), from: 'batch' }
+      : null,
+    source: item.ref_title,
+  }
+}
+
 function renderItem(item, no) {
+  // ⚠️ **생성형을 여기서 안 받으면 조합기가 넣어도 인쇄가 안 된다.** 재료·조합·조판 셋이
+  //   다 열려야 학습자에게 닿는다 — 하나만 막혀도 문항은 DB 에만 남는다.
+  if (item.type !== 'order' && item.type !== 'insert') return renderExtra(item, no)
   if (item.type === 'order') {
     const q = toCsatOrder(item.payload.presented ?? [], item.answer_key.source_order ?? [])
     if (!q) return null

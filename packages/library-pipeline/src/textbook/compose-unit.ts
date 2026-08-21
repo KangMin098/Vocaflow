@@ -79,6 +79,34 @@ export const CSAT_ITEM_WORDS = { min: 90, max: 200 } as const
 export const DEFAULT_SLOTS = { order: 2, insert: 2 } as const
 
 /**
+ * 한 단원에 덧붙일 생성형 문항 수.
+ *
+ * 뼈대 4문항 + 생성형 2문항 = 6문항이 한 단원이 된다. 시중 교재 한 단원도 대개 5~8문항이다.
+ * **0 으로 두면 예전과 똑같이 동작한다** — 생성형이 없는 밴드는 자동으로 그렇게 된다.
+ */
+export const DEFAULT_EXTRA_PER_UNIT = 2
+
+/**
+ * 지문 하나를 통째로 묻는 생성형 유형.
+ *
+ * `csat_dcp_items.type` 값이다. `csat-types.ts` 의 키(`gist`)와 다를 수 있어 둘 다 담는다 —
+ * 요지가 실제로 `gist` ↔ `main_point` 로 갈려 있었다.
+ */
+export const EXTRA_ITEM_TYPES = new Set([
+  'gist',
+  'main_point',
+  'topic',
+  'title',
+  'blank',
+  'purpose',
+  'claim',
+  'mood',
+  'implication',
+  'summary',
+  'content_match',
+])
+
+/**
  * 한 낱말이 한 권에서 실릴 수 있는 최대 횟수.
  *
  * 1(=완전 금지)로 두면 뒤 단원의 어휘가 마른다(실측: 20단원 중 2개가 **0개**).
@@ -98,6 +126,13 @@ export interface ComposeOptions {
   unitCount?: number
   slots?: { order: number; insert: number }
   vocabCount?: number
+  /**
+   * 단원마다 덧붙일 생성형 문항 수(요지·주제·제목·빈칸 …).
+   *
+   * 뼈대를 바꾸지 않고 뒤에 얹는다 — 있으면 더 싣고 없으면 그대로다.
+   * 그래야 이 유형이 아직 없는 밴드의 권이 후퇴하지 않는다.
+   */
+  extraPerUnit?: number
 }
 
 /**
@@ -136,6 +171,9 @@ export function composeUnits(
     }
     // 수능 인쇄 형식으로 바꿀 수 없는 것은 여기서 뺀다 — 조합한 뒤에 발견하면
     //   단원에 "변환 불가" 자리가 생기고, 그건 교재로 나갈 수 없다.
+    // ⚠️ 문단 규격은 **뼈대 유형에만** 적용한다. 생성형 유형은 지문 하나를 통째로 묻기 때문에
+    //   "삽입 자리 5곳" 이나 "(A)(B)(C) 세 덩어리" 같은 조건이 성립하지 않는다.
+    //   여기서 같은 자를 대면 멀쩡한 문항이 전량 걸린다.
     if (
       p.type === 'insert' &&
       (p.body_sentences < CSAT_INSERT_BODY.min || p.body_sentences > CSAT_INSERT_BODY.max)
@@ -157,13 +195,17 @@ export function composeUnits(
   })
 
   // 원글이 골고루 쓰이도록 — 같은 글의 문항이 앞 단원에 몰리면 뒤 단원이 굶는다.
-  const byType: Record<UnitItemType, PoolItem[]> = {
+  const byType: Record<UnitItemType, PoolItem[]> & { extra: PoolItem[] } = {
     order: fit.filter((p) => p.type === 'order'),
     insert: fit.filter((p) => p.type === 'insert'),
+    // 생성형은 뼈대가 아니라 덧붙임이다 — 위 `EXTRA_ITEM_TYPES` 주석 참조.
+    extra: fit.filter((p) => EXTRA_ITEM_TYPES.has(p.type)),
   }
   for (const t of ['order', 'insert'] as const) {
     byType[t] = roundRobinByRef(byType[t])
   }
+  // 덧붙임도 글이 골고루 쓰이게 돌린다 — 안 그러면 앞 단원이 한 글의 유형을 다 가져간다.
+  byType.extra = roundRobinByRef(byType.extra)
 
   const used = new Set<string>()
   // 권 전체에서 낱말이 몇 번 실렸는지. **금지가 아니라 상한**이다 — 아래 주석 참조.
@@ -197,6 +239,30 @@ export function composeUnits(
         `한 단원 안에서 원글이 겹치면 안 되므로, 문항 수보다 **원글 수**가 먼저 바닥난다.`
       break
     }
+
+    // ②-b **생성형 문항을 덧붙인다** — 뼈대(순서 2 + 삽입 2)는 그대로 두고 뒤에 얹는다.
+    //
+    // ⚠️ 뼈대에 끼워 넣으면 이 유형이 아직 없는 밴드의 권이 통째로 줄어든다. 있으면 더 싣고
+    //   없으면 그대로여야 이미 완성된 권이 후퇴하지 않는다.
+    //
+    // ⚠️ **이걸 안 하면 문항을 만들어도 책에 안 실린다.** 실제로 그랬다 — 생성형 64문항을
+    //   넣고도 조합기가 `order`·`insert` 만 보고 있어서 권은 하나도 안 달라졌다.
+    //   만든 것과 작동하는 것은 다르다.
+    const extras: PoolItem[] = []
+    for (const it of byType.extra) {
+      if (extras.length >= (options.extraPerUnit ?? DEFAULT_EXTRA_PER_UNIT)) break
+      if (used.has(it.id)) continue
+      // ⚠️ **덧붙임도 같은 글 금지를 지킨다.** 처음엔 "같은 지문을 다른 각도로 묻는 것은
+      //   교재에서 정상" 이라고 열어 뒀는데, 자동 검수의 "한 단원에서 같은 글이 반복되지
+      //   않는다" 가 바로 떨어졌다(20단원 중 2). 규칙을 내 편의로 무르지 않는다 —
+      //   재고가 늘면 저절로 풀리는 제약이다.
+      if (refsInUnit.has(it.ref_id)) continue
+      if (extras.some((e) => e.ref_id === it.ref_id)) continue
+      // 같은 유형이 한 단원에 두 번 나오지도 않게 한다.
+      if (extras.some((e) => e.type === it.type)) continue
+      extras.push(it)
+    }
+    picked.push(...extras)
 
     for (const it of picked) used.add(it.id)
 

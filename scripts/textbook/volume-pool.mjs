@@ -53,6 +53,20 @@ export async function fetchAllIn(db, table, columns, column, values, orderBy) {
   return out
 }
 
+/**
+ * 단원의 뼈대를 이루는 결정론 유형. 한 단원은 이 넷으로 시작한다(순서 2 + 삽입 2).
+ */
+export const CORE_TYPES = new Set(['order', 'insert'])
+
+/**
+ * 지문 하나를 통째로 묻는 생성형 유형 — Claude Code 드레인이 쓴다.
+ *
+ * ⚠️ **뼈대에 끼워 넣지 않고 덧붙인다.** 뼈대를 바꾸면 이 유형이 아직 없는 밴드의 권이
+ *   통째로 줄어든다(지금은 V3 에만 있다). 있으면 더 실리고 없으면 그대로 — 그래야
+ *   이미 완성된 다섯 권이 후퇴하지 않는다.
+ */
+export const EXTRA_TYPES = new Set(['gist', 'main_point', 'topic', 'title', 'blank', 'purpose', 'claim', 'mood', 'implication', 'summary', 'content_match'])
+
 /** `apps/web/.env.local` 을 process.env 에 얹는다. 이미 있는 키는 덮지 않는다. */
 export function loadEnv() {
   for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -94,12 +108,31 @@ export async function loadVolume(db, { band, unitCount }) {
       ids,
       ['id'],
     )
-  ).filter((r) => r.kind === 'article' && (r.type === 'order' || r.type === 'insert'))
+  ).filter((r) => r.kind === 'article' && (CORE_TYPES.has(r.type) || EXTRA_TYPES.has(r.type)))
   const pool = []
   for (const r of itemRows) {
     const a = byId.get(r.ref_id)
     if (!a) continue
     const p = r.payload ?? {}
+    // ── 생성형 유형은 지문이 통째로 payload 에 있다 ──────────────────
+    // ⚠️ 이걸 안 넣으면 **문항을 만들어도 책에 안 실린다.** 실제로 그랬다 —
+    //   생성형 64문항을 넣고도 조합기가 못 봐서 권은 그대로였다.
+    if (EXTRA_TYPES.has(r.type)) {
+      const passage = String(p.passage ?? '')
+      pool.push({
+        id: r.id,
+        type: r.type,
+        ref_id: r.ref_id,
+        ref_title: a.title,
+        v_level: r.v_level,
+        passage_text: passage,
+        passage_words: passage.split(/\s+/).filter(Boolean).length,
+        body_sentences: passage.split(/(?<=[.!?])\s+/).filter((s) => s.trim().length > 1).length,
+        payload: p,
+        answer_key: r.answer_key ?? {},
+      })
+      continue
+    }
     const sentences = r.type === 'order' ? (p.presented ?? []) : (p.remaining ?? [])
     const text = [...sentences, p.insert_sentence].filter(Boolean).join(' ')
     pool.push({
