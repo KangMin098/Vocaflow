@@ -155,8 +155,12 @@ export const CSAT_READING_TYPES: readonly CsatType[] = [
     numbers: [35],
     label: '흐름 무관 문장',
     generation: 'deterministic',
-    implemented: false,
-    note: '**다른 지문의 문장을 끼워 넣으면 된다** — 정답이 구조적으로 확정된다. 순서·삽입과 같은 성질이라 만들 수 있다.',
+    implemented: true,
+    note:
+      '`buildIrrelevant` — 다른 글의 문장을 끼워 넣으면 정답이 구조적으로 확정된다. ' +
+      '다만 **아무 문장이나 넣으면 안 된다**: 겉모습(낱말 수)을 본문 범위에 맞추고, ' +
+      '주제어 하나는 공유하되 본문 어느 문장보다 덜 붙어 있어야 한다. ' +
+      '실측 수율 **45/1,565 문단 = 2.9%** (2026-08-21) — 대부분은 본문 자체의 결속이 약해 탈락한다.',
   },
   {
     key: 'order',

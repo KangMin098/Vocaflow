@@ -152,8 +152,12 @@ export const SCHOOL_TYPES: readonly SchoolType[] = [
     generation: 'deterministic',
     answerMode: 'short',
     sourceNeed: 'any',
-    implemented: false,
-    note: '**중등 내신 대표 서술형이고 결정론이다** — 원문 문장의 어순을 섞으면 원문이 정답이다. 순서·삽입과 같은 성질이라 지금 구조로 바로 만들 수 있다. 커버리지를 가장 싸게 올린다.',
+    implemented: true,
+    note:
+      '`buildWordOrder` — 원문 문장의 어순을 섞으면 원문이 정답이다. 6~12어(실측 근거는 그 파일 주석). ' +
+      '같은 낱말이 두 번 나오면 정답이 갈려 버리고, 문장 안 부호는 자리를 알려 줘서 버린다. ' +
+      '첫 낱말 대문자도 답을 흘리므로 흔한 낱말이면 소문자로 내린다. ' +
+      '실측 수율 **2,550/28,455 문장 = 9.0%** (2026-08-21).',
   },
   {
     key: 'blank_word',

@@ -165,6 +165,19 @@ export {
   orderEvidenceByChoice,
 } from './textbook/explain'
 export type { Evidence, EvidenceKind, ExplainCoverage, Explanation, Relation } from './textbook/explain'
+// 결정론 문항 유형 — 흐름 무관(수능 35) · 영작 배열(중등 서술형)
+export {
+  buildIrrelevant,
+  cohesionWith,
+  IRRELEVANT_SLOTS,
+  IRRELEVANT_SOURCE_SENTENCES,
+  MIN_FOREIGN_COHESION,
+  MIN_NATIVE_COHESION,
+  topicalBar,
+} from './textbook/irrelevant'
+export type { ForeignSentence, IrrelevantItem, Rarity } from './textbook/irrelevant'
+export { buildWordOrder, deterministicShuffle, WORD_ORDER_WORDS } from './textbook/word-order'
+export type { WordOrderItem } from './textbook/word-order'
 // 학습자·교사·학부모 3관점 채점표 — 못 재는 것에는 점수를 붙이지 않는다.
 export { UNIT_MINUTES, scoreVolume } from './textbook/scorecard'
 export type { Audience, AutoCheck, HumanCheck, Scorecard } from './textbook/scorecard'

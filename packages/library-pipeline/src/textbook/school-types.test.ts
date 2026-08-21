@@ -38,8 +38,10 @@ describe('measureSchoolCoverage', () => {
 
   it('가장 싸게 만들 수 있는 유형을 따로 낸다 — 결정론 · 자동채점 · 지문 제약 없음', () => {
     const cheap = measureSchoolCoverage().cheapWins.map((t) => t.key)
-    // 영작 배열은 중등 내신 대표 서술형인데 **정답이 원문이라 확정**된다.
-    expect(cheap).toContain('word_order')
+    // **만든 것은 여기서 빠진다** — 남은 할 일 목록이지 자랑 목록이 아니다.
+    // 영작 배열은 2026-08-21 에 만들어서 빠졌다(`buildWordOrder`).
+    expect(cheap).not.toContain('word_order')
+    expect(SCHOOL_TYPES.find((t) => t.key === 'word_order')!.implemented).toBe(true)
     expect(cheap).toContain('unit_grammar')
     for (const k of cheap) {
       const t = SCHOOL_TYPES.find((x) => x.key === k)!
