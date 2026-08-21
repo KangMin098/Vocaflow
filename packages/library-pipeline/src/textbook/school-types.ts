@@ -66,22 +66,33 @@ export const SCHOOL_TYPES: readonly SchoolType[] = [
   {
     key: 'phonics',
     band: 'elementary',
-    label: '파닉스 (소리-철자)',
+    label: '파닉스 (운율 맞추기)',
     generation: 'deterministic',
     answerMode: 'choice',
     sourceNeed: 'none',
-    implemented: false,
-    note: '같은 소리를 가진 낱말 고르기. 사전에 발음 정보가 있어야 하는데 `shared_dictionary` 에 없다.',
+    implemented: true,
+    note:
+      '`buildRhyme` — "제시어와 소리가 같은 낱말 고르기". ⚠️ **"사전에 발음 정보가 없다" 던 앞선 판단은 틀렸다** — ' +
+      '`ipa` 77.3%(36,790) · `rhyme_key` 60.9%(28,986) 이고 교육과정 초등 어휘는 **99.9%** 가 둘 다 있다(2026-08-21 실측). ' +
+      '`rhyme_key` 는 강세 모음부터의 각운이라 `-eɪk` = bake·break·cake·lake·make·steak·take·wake 처럼 ' +
+      '**철자가 달라도 소리로 묶인다** — 파닉스가 가르치려는 것이 정확히 그것이다. ' +
+      '오답은 굴절형·끝 철자가 같은 것을 빼고, 길이를 제시어~정답 구간에 맞춘다(겉모습으로 못 고르게). ' +
+      '실측 수율 **초등 470/806 = 58.3%**.',
   },
   {
-    key: 'sight_words',
+    key: 'basic_vocab',
     band: 'elementary',
-    label: '사이트워드',
+    label: '교육과정 기본어휘 뜻',
     generation: 'deterministic',
     answerMode: 'choice',
     sourceNeed: 'none',
-    implemented: false,
-    note: 'Dolch 목록(초등 저학년 약 130개)이 정본. v_level 0~2 어휘와 겹치므로 재료는 있다.',
+    implemented: true,
+    note:
+      '`buildWordMeaning` — 낱말의 뜻 고르기. ⚠️ **처음엔 Dolch 사이트워드로 잡았는데 그게 틀린 기준이었다** — ' +
+      '국내 초등의 정본은 **2022 개정 교육과정 기본어휘 별표**이고, `shared_dictionary.list_tags` 에 ' +
+      '이미 들어 있다(`kcurr2022_1` 초등 808 · `_2` 중등 1,211 · `_0` 고등 1,006). ' +
+      '오답은 유의어와 뜻이 겹치는 것을 뺀다(답이 둘이 된다). ' +
+      '실측 수율 **초등 805/806 = 99.9%** · 정답 번호 최다 27.5%(고르면 25%).',
   },
   {
     key: 'word_picture',
@@ -110,8 +121,12 @@ export const SCHOOL_TYPES: readonly SchoolType[] = [
     generation: 'deterministic',
     answerMode: 'short',
     sourceNeed: 'none',
-    implemented: false,
-    note: '낱말에서 글자를 지우고 채우게 한다. **정답이 하나로 확정**되고 재료는 사전에 다 있다.',
+    implemented: true,
+    note:
+      '`buildSpellBlank` — 낱말에서 글자 하나를 지우고 채우게 한다. 첫 글자와 마지막 글자는 남긴다. ' +
+      '**`c_t` 는 cat·cot·cut 이 다 되므로 문항이 안 되는데, 그건 사전으로 확인할 수 있다** — ' +
+      '47,591 낱말 중 그 꼴에 맞는 것이 하나일 때만 낸다. 단서로 한국어 뜻을 준다. ' +
+      '실측 수율 **초등 528/806 = 65.5%**.',
   },
 
   // ── 중등 — 교과서 본문 기반, 객관식 + 서술형 ─────────────────────

@@ -80,9 +80,12 @@ describe('PRODUCTION_STAGES', () => {
   })
 
   it('빠진 단계가 상업 교재와의 실제 격차다', () => {
-    // 해답·해설은 2026-08-21 에 `missing` → `partial` 로 옮겼다(실측 커버리지 6.9%).
-    // "일부라도 있으면 없는 것이 아니다" — 그러나 6.9% 를 `done` 이라 부르지도 않는다.
+    // 2026-08-21 에 둘이 `missing` → `partial` 로 옮겼다.
+    //   해답·해설  결정론 해설 (실측 커버리지 6.9%)
+    //   교정        인쇄 불가 자국 판정(`isPrintablePassage`) + 낡은 문항 감지 + 조사 자동 선택
+    // "일부라도 있으면 없는 것이 아니다" — 그러나 그것을 `done` 이라 부르지도 않는다.
+    // **남은 하나는 피드백이다** — 만든 뒤 무엇이 너무 쉽고 어려웠는지 보는 곳이 없다.
     const missing = measureStages().missingStages.map((s) => s.label)
-    expect(missing).toEqual(['교정 (초교·재교·삼교)', '평가·개정'])
+    expect(missing).toEqual(['평가·개정'])
   })
 })

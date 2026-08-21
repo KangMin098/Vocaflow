@@ -501,3 +501,14 @@ export {
   standardArticle,
 } from './textbook/grammar-choice'
 export type { GrammarChoiceItem, GrammarRule, GrammarUnderline } from './textbook/grammar-choice'
+// 초등 3종 — 파닉스(운율) · 낱말 뜻 · 철자 완성 (지문이 필요 없다)
+export {
+  buildRhyme,
+  buildSpellBlank,
+  buildWordMeaning,
+  countMatching,
+  ELEMENTARY_CHOICES,
+  firstSense,
+  pickDeterministic,
+} from './textbook/elementary'
+export type { ElementaryItem, ElementaryWord } from './textbook/elementary'
