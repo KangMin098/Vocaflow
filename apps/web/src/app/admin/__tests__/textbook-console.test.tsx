@@ -1,0 +1,150 @@
+// apps/web/src/app/admin/__tests__/textbook-console.test.tsx
+//
+// TBP 콘솔 렌더 회귀 + 도움말 계약.
+//
+// **이 화면은 조작 버튼이 없다** — 생성은 Claude Code 드레인이다. 그래서 화면이 말해야
+// 하는 것은 "지금 어떤 상태인가" 와 "다음에 무엇을 돌려야 하는가" 둘뿐이고,
+// 후자는 도움말의 드레인 절차가 진다. 도움말이 비면 화면이 반쪽이라 여기서 함께 본다.
+
+import { renderToString } from 'react-dom/server'
+import { describe, expect, it } from 'vitest'
+
+import { HELP_REGISTRY } from '@/lib/admin/help'
+import type { TextbookConsoleStats } from '@/lib/textbook/console-stats'
+
+import { TextbookConsoleClient } from '../textbook/TextbookConsoleClient'
+
+const base: TextbookConsoleStats = {
+  totalItems: 4509,
+  byType: [
+    { type: 'insert', count: 1146, answerBiased: null, chi2: null },
+    { type: 'vocab_choice', count: 968, answerBiased: false, chi2: 6.3 },
+    { type: 'grammar_choice', count: 383, answerBiased: true, chi2: 52.7 },
+  ],
+  series: {
+    brand: 'Vocaflow Reading',
+    rungs: [
+      {
+        rung: {
+          step: 1,
+          vLevels: [1],
+          schoolBand: '초등 저학년',
+          volumeTitle: 'Vocaflow Reading Starter',
+          types: ['rhyme'],
+          rationale: 'x',
+        },
+        byType: { rhyme: 0 },
+        total: 0,
+        emptyTypes: ['rhyme'],
+      },
+      {
+        rung: {
+          step: 5,
+          vLevels: [5],
+          schoolBand: '고1',
+          volumeTitle: 'Vocaflow Reading 4',
+          types: ['order'],
+          rationale: 'x',
+        },
+        byType: { order: 233 },
+        total: 233,
+        emptyTypes: [],
+      },
+    ],
+    brokenSteps: [1],
+  },
+  evaluation: {
+    total: 15,
+    byStanding: { superior: 5, parity: 3, inferior: 5, absent: 1, unmeasured: 1 },
+    byCategory: {
+      legal: { total: 3, superior: 1 },
+      physical: { total: 3, superior: 2 },
+      curriculum: { total: 4, superior: 0 },
+      pedagogy: { total: 5, superior: 2 },
+    },
+    superiorRatio: 5 / 15,
+    losing: [
+      {
+        key: 'explanation',
+        category: 'pedagogy',
+        label: '해설',
+        market: 'm',
+        ours: '6.9% 다',
+        howMeasured: '실측',
+        standing: 'inferior',
+      },
+    ],
+  },
+  observations: 0,
+  loadError: null,
+}
+
+describe('TBP 콘솔 렌더', () => {
+  it('요약 수치가 화면에 나온다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('4,509')
+    expect(html).toContain('33%') // 평가 우위 5/15
+  })
+
+  it('**끊긴 계단을 계단 수에 세지 않는다** — 사다리가 이어졌다고 착각하면 안 된다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('1/2') // 2단 중 1단만 살아 있다
+  })
+
+  it('정답 번호 쏠림을 유형별로 표시한다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('52.7')
+    expect(html).toContain('쏠림')
+    expect(html).toContain('고름')
+    // 저장 형식에 번호가 없는 유형은 "못 잼" 이라고 말한다 — 통과로 눙치지 않는다.
+    expect(html).toContain('저장 형식에 번호 없음')
+  })
+
+  it('**관측 0 을 경고로 말한다** — 없는 것을 없다고', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('난이도·변별도 못 냄')
+  })
+
+  it('지고 있는 요소를 숨기지 않는다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('해설')
+    expect(html).toContain('6.9%')
+  })
+
+  it('조회가 깨지면 빈 표 대신 이유를 말한다', () => {
+    const html = renderToString(
+      <TextbookConsoleClient stats={{ ...base, loadError: '문항 조회 실패: boom' }} />,
+    )
+    expect(html).toContain('문항 조회 실패: boom')
+  })
+})
+
+describe('TBP 도움말 계약', () => {
+  const entry = HELP_REGISTRY['textbook']
+
+  it('레지스트리에 등록돼 있다 — 없으면 화면의 도움말 버튼이 빈다', () => {
+    expect(entry).toBeDefined()
+    expect(entry!.title.length).toBeGreaterThan(0)
+  })
+
+  it('**드레인 절차가 있다** — 이 화면은 조작 버튼이 없어서 절차가 곧 사용법이다', () => {
+    const drain = entry!.screen.drain
+    expect(drain).toBeDefined()
+    expect(drain!.procedure.length).toBeGreaterThanOrEqual(4)
+    expect(drain!.prerequisites.length).toBeGreaterThan(0)
+    expect(drain!.verify.length).toBeGreaterThan(0)
+  })
+
+  it('**되돌릴 수 없는 동작이 주의에 적혀 있다**', () => {
+    const cautions = (entry!.screen.cautions ?? []).join(' ')
+    expect(cautions).toMatch(/--prune/)
+    expect(cautions).toMatch(/되돌릴 수 없/)
+  })
+
+  it('모든 절차 단계가 끝난 것을 어떻게 아는지 적는다', () => {
+    for (const step of entry!.screen.drain!.procedure) {
+      expect(step.done, step.title).toBeTruthy()
+      expect(step.detail.length, step.title).toBeGreaterThan(20)
+    }
+  })
+})

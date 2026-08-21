@@ -72,6 +72,8 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
       // PDCP — 퍼블릭도메인 스캔 만화. CCP(위)와 단계·QC·법적 게이트가 전부 달라 별도 메뉴.
       { href: '/admin/pd-comics', label: 'PD Comic Pipeline', Icon: ScanLine },
       { href: '/admin/topic-corpus', label: 'TCP Pipeline', Icon: Workflow },
+      // TBP — 교재. 조작 버튼이 없는 관측 화면이다(생성은 Claude Code 드레인).
+      { href: '/admin/textbook', label: 'TBP Pipeline', Icon: BookMarked },
       { href: '/admin/pending-words', label: 'Pending Words', Icon: Database },
     ],
   },
