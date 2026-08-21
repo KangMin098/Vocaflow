@@ -149,6 +149,28 @@ csat_item_attempts (없음)
 `2014_A.txt` 와 **바이트 동일** — B형 추출 사고이고 B형 지문은 확보돼 있지 않다. 둘 다 빌더가 처리한다.
 
 **한계 (실측)**: `scientists`·`workers` 처럼 문장 중간에서도 대문자로만 관측된 굴절형 77종(**159토큰 · 0.53%**)은
+
+**후속 — 결손 낱말 146 등재 (2026-08-21)**
+
+위 결손 272종을 `scripts/dict/csat-dict-drain.mjs` 로 처리했다(`drain-article-lemmas.mjs` 와 같은 청크 형식).
+
+| 단계 | 수 |
+|---|---|
+| 결손 후보 | 272 |
+| `unresolved_dict_words` 해소기가 푼 것 | **44** (굴절·철자 변이 — `math`→`mathematics` 등) |
+| Claude Code 가 판정 | 228 |
+| `skip` (인명 `plato`·`napoleon` · URL 조각 `fffbg`·`goldbeachseaworld` · 굴절형 `advertisers`) | **82** |
+| **사전 등재** | **146** (`source='ai-generated'` · `classified_by='claude_code_opus_5'` · `verified=false`) |
+
+**해소기를 반드시 먼저 통과시킨다** — 결손 목록은 "표제어가 없다" 까지만 보는데 학습자 경로는
+`resolve_dict_headword` 로 굴절형을 푼다. 안 거치면 이미 풀리는 낱말을 중복 등재해 품질을 되레 깎는다.
+
+등재 후 `csat-corpus-diff` → `-apply --commit` 을 다시 돌려 빈도를 붙였다
+(`lexicon_frequencies.lemma` 가 `shared_dictionary(word)` FK 라 **표제어가 먼저 있어야 빈도가 들어간다**).
+결과: `shared_dictionary` 47,591 → **47,737** · `kice_csat` 5,300 → **5,446행**(실측 5,192 + 미확인 254) ·
+`kice-csat-13y` **5,192** · **등장연도 불일치 0**.
+
+남은 결손 125종은 인명·URL 조각·OCR 파편이라 등재 대상이 아니다.
 인명(`charles`·`rhodes`)과 형태만으로 갈리지 않아 접지 않았다. 원형(`scientist`)에 그만큼 과소 반영된다.
 
 **부수 발견 — vendor 목록에 기출 근거가 없다.** `csat-prep-core-2k` 1,838 중 **678(37%)**,
@@ -281,7 +303,7 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 | `user_word_set_subscriptions` | 225 | 104 kB | 다중 구독 · source_book_id ref (자동 import 추적) |
 | `dictionary_categories` | 566 | 288 kB | 3계층 카테고리 트리 (H1=18 / H2=76 / H3=472) · self-ref parent_id |
 | `dictionary_word_categories` | 28,079 | 7.7 MB | 단어↔카테고리 M:N 매핑 |
-| `lexicon_frequencies` | 8,236 | 1.7 MB | Phase 2 사이드카 — KICE+WM+EBS+NGSL+AWL+COCA 다중 출처. `kice_csat` 은 2026-08-21 원문 실측 5,300행 (§ 위 참조) |
+| `lexicon_frequencies` | 8,382 | 1.7 MB | Phase 2 사이드카 — KICE+WM+EBS+NGSL+AWL+COCA 다중 출처. `kice_csat` 은 2026-08-21 원문 실측 5,300행 (§ 위 참조) |
 | `lexicon_source_tags` | 5,421 | 2.8 MB | source 태그 매핑 |
 | `word_lexicon` | 5,421 | 1.7 MB | **FROZEN** since 20260520 — Phase E DROP 예정 |
 | `word_frequency_stats` | 5,421 | 2.4 MB | 빈도 통계 (legacy) |

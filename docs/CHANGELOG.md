@@ -331,6 +331,11 @@ V6 고2 · V7 고3/수능). 시리즈는 그 위에 얹는다. **눈금이 둘�
 새 `list_tags`: `kice-csat-13y` 5,046 · `kice-csat-core-4y` 1,378.
 사전 결손 272종(`math`·`uncover`·`internalize`·`upcycling` 등)은 `diff.json` 에 남긴 후속 드레인 대상.
 
+**후속 — 기출에 나왔는데 사전에 없던 낱말 146 등재.** `scripts/dict/csat-dict-drain.mjs`
+(결손 272 → 해소기가 44 해결 → Claude Code 판정 228 → 인명·URL 조각·굴절형 82 skip → **146 등재**).
+`shared_dictionary` 47,591 → **47,737**, `kice_csat` **5,446행**, **등장연도 불일치 0**.
+`unresolved_dict_words` 게이트를 먼저 통과시킨다 — 안 하면 이미 풀리는 굴절형을 중복 등재한다.
+
 ### 교재 — 해설을 올리려던 두 실험이 **둘 다 실패했다** (v06.329)
 
 Cycle 2 에 **"다음 레버는 희귀어 사슬"** 이라고 적어 뒀다. 재 보니 **틀렸다.**
