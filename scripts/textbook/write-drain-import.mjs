@@ -182,6 +182,46 @@ for (const r of rows) {
 console.log(`  넣을 수 있는 것 ${ok.length} · **건너뛴 것 ${skipped.length}**`)
 for (const [slot, why] of skipped) console.log(`    · 슬롯 ${slot}: ${why}`)
 
+// ── 밴드를 여기서 다시 잰다 ─────────────────────────────────────────
+//
+// ⚠️ **집필하는 쪽의 자가 보고를 믿지 않는다.** 배치들이 "자가 검사 5/5" 라고 보고한 묶음이
+//   실제로는 13편 중 8편만 적중했다(2026-08-21). 저장된 파일을 직접 재 보니 검사기 예측과
+//   DB 실제 배정은 19/19 로 일치했다 — 즉 **검사기는 맞았고 보고가 틀렸다.**
+//   앞선 초안을 재고 보고했거나, 재고 나서 손을 더 댄 것이다.
+//
+// 그래서 적재하는 자리에서 한 번 더 잰다. **막지는 않는다** — 빗나간 글도 다른 계단에
+// 쌓이고 그 계단도 비어 있다. 다만 **몇 편이 어디로 갔는지 반드시 찍는다.**
+const { extractBookLemmas } = await import('@vocaflow/library-pipeline')
+const { fetchAllIn } = await import('./volume-pool.mjs')
+{
+  const per = ok.map((r) => {
+    const c = String(r.content)
+    const idx = extractBookLemmas([
+      { chapter_idx: 1, content: c, word_count: c.split(/\s+/).filter(Boolean).length, paragraph_offsets: [0], sentence_offsets: [0] },
+    ])
+    return { r, lemmas: [...idx.bookFrequency.keys()] }
+  })
+  const all = [...new Set(per.flatMap((d) => d.lemmas))]
+  const lv = new Map()
+  for (const d of await fetchAllIn(db, 'shared_dictionary', 'word, v_level', 'word', all, ['word'])) {
+    // 채점기와 같이 v11 을 뺀다(`compute_article_vrl`).
+    if (d.v_level != null && Number(d.v_level) !== 11) lv.set(d.word, Number(d.v_level))
+  }
+  const pct = (s, q) => (s.length ? s[Math.max(0, Math.min(s.length - 1, Math.ceil(q * s.length) - 1))] : null)
+  let hit = 0
+  const off = []
+  for (const { r, lemmas } of per) {
+    const p75 = pct(lemmas.map((w) => lv.get(w)).filter(Number.isFinite).sort((a, b) => a - b), 0.75)
+    r.predicted_v_level = p75
+    if (p75 === BAND) hit++
+    else off.push([r.slot, p75])
+  }
+  console.log(`  **목표 밴드 적중(적재 전 실측) ${hit}/${per.length}** = ${((100 * hit) / Math.max(1, per.length)).toFixed(1)}%`)
+  if (off.length) {
+    console.log(`    빗나간 것 — 버리지 않는다(그 계단도 비어 있다). 슬롯: ${off.map(([s, p]) => `${s}→V${p}`).join(' · ')}`)
+  }
+}
+
 // ── 이미 있는 것 ────────────────────────────────────────────────────
 const sourceIds = ok.map((r) => `original:v${BAND}-${r.slot}`)
 const existing = new Set()
@@ -251,6 +291,9 @@ for (const r of fresh) {
       tail_max: r.tail_max ?? null,
       at_band_min: r.at_band_min ?? null,
       at_band_max: r.at_band_max ?? null,
+      // 적재 직전에 실측한 예측 밴드. 분석이 끝난 뒤 `article_v_level` 과 대조하면
+      // **검사기가 여전히 채점기와 맞는지**를 언제든 다시 확인할 수 있다.
+      predicted_v_level: r.predicted_v_level ?? null,
     },
   })
   if (error) console.log(`  ✗ 슬롯 ${r.slot}: ${error.message}`)
