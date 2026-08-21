@@ -35,13 +35,44 @@ let q = db.from('library_articles')
   .select('id, source, source_id, source_url, title, author, language, license, content, published_at, feed_id, status')
   .is('compose_batch_id', null)
 const id = arg('id'), title = arg('title')
+/**
+ * 어휘가 한 줄도 없는 글만 고른다.
+ *
+ * **왜 필요한가** — 어휘는 화면에서 그대로 쓰이고 교재 조판에서도 단원 어휘가 된다.
+ * 그런데 `ready`/`published` 인데 `library_article_vocabularies` 가 비어 있는 글이 실제로
+ * 52편 있었다(2026-08-21 실측). 그런 글이 단원에 들어가면 그 단원만 어휘가 비고,
+ * 권 검수의 "단원마다 어휘가 고르다" 가 떨어진다 — **원인이 조판이 아니라 재료에 있다.**
+ *
+ * ⚠️ 세는 법: `library_article_vocabularies` 를 **5개씩** 나눠 묻는다. 한 번에 크게 물으면
+ *   PostgREST 행 상한에 걸려 뒤쪽 글이 전부 "어휘 0" 으로 보인다(200개씩 물었다가 실제로
+ *   253/257 이 비었다는 거짓 결과를 얻었다).
+ */
+const missingVocab = process.argv.includes('--missing-vocab')
 if (id) q = q.eq('id', id)
 else if (title) q = q.ilike('title', `%${title}%`)
-else { console.error('--id 또는 --title 이 필요하다.'); process.exit(2) }
+else if (missingVocab) q = q.in('status', ['ready', 'published'])
+else { console.error('--id · --title · --missing-vocab 중 하나가 필요하다.'); process.exit(2) }
 
 const { data, error } = await q
 if (error) throw new Error(error.message)
-const list = (data ?? []).filter((a) => (a.content ?? '').trim())
+let list = (data ?? []).filter((a) => (a.content ?? '').trim())
+
+if (missingVocab) {
+  const ids = list.map((a) => a.id)
+  const have = new Set()
+  for (let i = 0; i < ids.length; i += 5) {
+    const { data: v, error: ve } = await db
+      .from('library_article_vocabularies')
+      .select('library_article_id')
+      .in('library_article_id', ids.slice(i, i + 5))
+      .limit(20000)
+    if (ve) throw new Error('어휘 조회 실패: ' + ve.message)
+    for (const r of v ?? []) have.add(r.library_article_id)
+  }
+  const before = list.length
+  list = list.filter((a) => !have.has(a.id))
+  console.log(`어휘 없는 글만 남긴다 — ${before} → ${list.length}`)
+}
 console.log(`대상 ${list.length}편`)
 for (const a of list) console.log(`  · ${a.status.padEnd(10)} ${String(a.title).slice(0, 60)}`)
 if (!commit) { console.log('\n--commit 을 붙이면 재분석한다.'); process.exit(0) }

@@ -24,41 +24,67 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
-  const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
-  if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
-}
+import { loadEnv, loadVolume } from './volume-pool.mjs'
+
+loadEnv()
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
   return i >= 0 ? process.argv[i + 1] : null
 }
 const BAND = Number(arg('band') ?? 5)
 const SIZE = Number(arg('size') ?? 10)
-const DIR = path.resolve('scripts/textbook/explain-drain')
+/**
+ * 한 권에 실릴 문항만 뽑는다.
+ *
+ * **재고 전체(337)를 쓰는 것보다 한 권(80)을 먼저 완성하는 편이 값이 크다** — 해설까지
+ * 완비된 책이 하나 있어야 시중 교재와 정면으로 비교되고, 평가 요소 중 사람이 봐야 하는
+ * 셋(오답 매력도·레벨 신뢰·소재 적합성)도 그때 판정된다.
+ */
+const VOLUME_UNITS = arg('volume') ? Number(arg('volume')) : null
+/**
+ * 청크를 둘 자리.
+ *
+ * **밴드를 여럿 동시에 드레인하려면 자리를 갈라야 한다** — 한 디렉터리를 쓰면 나중 export 가
+ * 앞 밴드의 청크를 지우고(151행), import 는 그 안의 `.out.json` 을 **전부** 읽어 밴드가 섞인다.
+ * 기본값은 밴드별 폴더다.
+ */
+const DIR = path.resolve(arg('dir') ?? `scripts/textbook/explain-drain/v${BAND}`)
 
 const { createClient } = await import('@supabase/supabase-js')
-const { toCsatOrder, toCsatInsert, explainOrder, explainInsert } = await import(
-  '@vocaflow/library-pipeline'
-)
+const { toCsatOrder, toCsatInsert, explainOrder, explainInsert } = await import('@vocaflow/library-pipeline')
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 })
 
+// ── 대상 문항 ───────────────────────────────────────────────────────
+//
+// ⚠️ **한 권을 겨냥할 때 풀을 다시 만들지 않는다.** `render-volume.mjs` 와 같은 `loadVolume`
+//   을 부른다. 예전에는 이 자리에서 따로 만들었고 셋이 어긋났다 — 밴드를 문항 `v_level` 로
+//   걸렀고(조판은 원글 `article_v_level`), `composeUnits` 에 빈 어휘 맵을 넘겼고(조판은 단원
+//   어휘를 넘긴다), `display_only` 원글을 안 걸렀다. 그래서 겨냥한 80 과 실린 80 이 2문항
+//   달랐고, 뽑은 몫을 전부 채웠는데도 책은 78/80 으로 나왔다.
+//   **작게 어긋나는 드리프트는 티가 안 난다.**
 const rows = []
-for (let from = 0; ; from += 500) {
-  const { data, error } = await db
-    .from('csat_dcp_items')
-    .select('id, type, payload, answer_key, v_level')
-    .eq('kind', 'article')
-    .eq('v_level', BAND)
-    .in('type', ['order', 'insert'])
-    .order('id')
-    .range(from, from + 499)
-  if (error) throw new Error('문항 조회 실패: ' + error.message)
-  if (!data?.length) break
-  rows.push(...data)
-  if (data.length < 500) break
+if (VOLUME_UNITS) {
+  const { pool, itemIds } = await loadVolume(db, { band: BAND, unitCount: VOLUME_UNITS })
+  rows.push(...pool.filter((p) => itemIds.has(p.id)))
+} else {
+  // 재고 전체를 볼 때는 문항 자신의 밴드로 거른다.
+  for (let from = 0; ; from += 500) {
+    const { data, error } = await db
+      .from('csat_dcp_items')
+      .select('id, type, ref_id, payload, answer_key, v_level')
+      .eq('kind', 'article')
+      .eq('v_level', BAND)
+      .in('type', ['order', 'insert'])
+      .order('id')
+      .range(from, from + 499)
+    if (error) throw new Error('문항 조회 실패: ' + error.message)
+    if (!data?.length) break
+    rows.push(...data)
+    if (data.length < 500) break
+  }
 }
 
 const CIRCLED = ['①', '②', '③', '④', '⑤']

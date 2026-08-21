@@ -19,12 +19,23 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
-  const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
-  if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
+import { loadEnv } from './volume-pool.mjs'
+
+loadEnv()
+const arg = (n) => {
+  const i = process.argv.indexOf(`--${n}`)
+  return i >= 0 ? process.argv[i + 1] : null
 }
 const commit = process.argv.includes('--commit')
-const DIR = path.resolve('scripts/textbook/explain-drain')
+/**
+ * 청크 자리. **export 에 준 것과 같아야 한다.**
+ *
+ * 이 스크립트는 `DIR` 안의 `.out.json` 을 **전부** 읽는다 — 밴드를 여럿 동시에 돌릴 때
+ * 한 자리를 공유하면 남의 밴드 것까지 적재된다(적재 자체는 id 기반이라 안전하지만,
+ * "이번 밴드에 몇 건 들어갔나" 를 셀 수 없게 된다).
+ */
+const BAND = arg('band') ? Number(arg('band')) : null
+const DIR = path.resolve(arg('dir') ?? (BAND ? `scripts/textbook/explain-drain/v${BAND}` : 'scripts/textbook/explain-drain'))
 
 /** 해설이 실제로 쓰인 것으로 볼 최소 길이. 한 줄짜리 "정답 ③" 같은 것을 막는다. */
 const MIN_LENGTH = 20

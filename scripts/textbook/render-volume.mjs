@@ -19,10 +19,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
-  const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
-  if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
-}
+import { loadEnv, loadVolume } from './volume-pool.mjs'
+
+loadEnv()
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
   return i >= 0 ? process.argv[i + 1] : null
@@ -33,7 +32,6 @@ const OUT = arg('out') ?? `volume-v${BAND}.html`
 
 const { createClient } = await import('@supabase/supabase-js')
 const {
-  composeUnits,
   toCsatOrder,
   toCsatInsert,
   scoreVolume,
@@ -46,88 +44,13 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
   auth: { persistSession: false },
 })
 
-// ── 재료 ────────────────────────────────────────────────────────────
-const { data: arts, error } = await db
-  .from('library_articles')
-  .select('id, title, source, article_v_level, display_only')
-  .in('status', ['ready', 'published'])
-  .eq('article_v_level', BAND)
-  .order('id')
-if (error) throw new Error('기사 조회 실패: ' + error.message)
-const usable = (arts ?? []).filter((a) => !a.display_only)
-const byId = new Map(usable.map((a) => [a.id, a]))
-const ids = [...byId.keys()]
+// ── 재료 + 조합 ────────────────────────────────────────────────────
+// **규칙은 `volume-pool.mjs` 한 곳에만 있다.** 해설 드레인(`explain-drain-export.mjs`)이
+// 같은 함수를 부르므로 "드레인이 겨냥한 책" 과 "조판된 책" 이 어긋날 수 없다.
+// 예전에는 양쪽이 각자 풀을 만들었고 셋(밴드 기준·어휘 맵·display_only)이 달라
+// 2문항이 조용히 어긋났다 — 해설을 다 채웠는데도 책은 78/80 으로 나왔다.
+const { units, stoppedBecause, articles: byId, pool } = await loadVolume(db, { band: BAND, unitCount: UNITS })
 
-const pool = []
-for (let i = 0; i < ids.length; i += 20) {
-  const { data } = await db
-    .from('csat_dcp_items')
-    .select('id, type, ref_id, payload, answer_key, v_level')
-    .eq('kind', 'article')
-    .in('type', ['order', 'insert'])
-    .in('ref_id', ids.slice(i, i + 20))
-    .order('id')
-    .limit(20000)
-  for (const r of data ?? []) {
-    const a = byId.get(r.ref_id)
-    if (!a) continue
-    const p = r.payload ?? {}
-    const sentences = r.type === 'order' ? (p.presented ?? []) : (p.remaining ?? [])
-    const text = [...sentences, p.insert_sentence].filter(Boolean).join(' ')
-    pool.push({
-      id: r.id,
-      type: r.type,
-      ref_id: r.ref_id,
-      ref_title: a.title,
-      v_level: r.v_level,
-      passage_text: text,
-      passage_words: text.split(/\s+/).filter(Boolean).length,
-      body_sentences: sentences.length,
-      payload: p,
-      answer_key: r.answer_key ?? {},
-    })
-  }
-}
-
-// ── 어휘 ────────────────────────────────────────────────────────────
-const vocabRows = []
-for (let i = 0; i < ids.length; i += 5) {
-  const { data } = await db
-    .from('library_article_vocabularies')
-    .select('library_article_id, word, first_sentence, frequency_in_article')
-    .in('library_article_id', ids.slice(i, i + 5))
-    .limit(20000)
-  vocabRows.push(...(data ?? []))
-}
-const words = [...new Set(vocabRows.map((v) => v.word))]
-const dict = new Map()
-for (let i = 0; i < words.length; i += 500) {
-  const { data } = await db
-    .from('shared_dictionary')
-    .select('word, meaning_ko, v_level')
-    .in('word', words.slice(i, i + 500))
-  for (const r of data ?? []) dict.set(r.word, r)
-}
-vocabRows.sort(
-  (a, b) =>
-    a.library_article_id.localeCompare(b.library_article_id) ||
-    (b.frequency_in_article ?? 0) - (a.frequency_in_article ?? 0) ||
-    a.word.localeCompare(b.word),
-)
-const vocabByRef = new Map()
-for (const v of vocabRows) {
-  const d = dict.get(v.word)
-  if (!vocabByRef.has(v.library_article_id)) vocabByRef.set(v.library_article_id, [])
-  vocabByRef.get(v.library_article_id).push({
-    word: v.word,
-    meaning_ko: d?.meaning_ko ?? null,
-    v_level: d?.v_level ?? null,
-    first_sentence: v.first_sentence ?? null,
-    frequency_in_article: v.frequency_in_article ?? 0,
-  })
-}
-
-const { units, stoppedBecause } = composeUnits(pool, vocabByRef, { band: BAND, unitCount: UNITS })
 const card = scoreVolume(units, BAND)
 const rung = SERIES_SPINE.find((r) => r.vLevels.includes(BAND))
 
@@ -311,9 +234,14 @@ ${unitHtml.join('')}
 
 fs.writeFileSync(path.resolve(OUT), html, 'utf8')
 
-console.log(`V${BAND} — 원글 ${ids.length}편 · 문항 풀 ${pool.length}`)
+console.log(`V${BAND} — 원글 ${byId.size}편 · 문항 풀 ${pool.length}`)
 console.log(`조합 ${units.length}단원 · 인쇄 ${qNo}문항${stoppedBecause ? ` (${stoppedBecause})` : ''}`)
 console.log(`자동 검수 ${passed}/${card.auto.length} 통과`)
+// **떨어진 항목은 이름을 말한다.** "8/9" 만 찍으면 무엇이 걸렸는지 알 수 없어
+// 사람이 HTML 을 열어 눈으로 찾아야 한다 — 그러면 대개 안 찾는다.
+for (const c of card.auto.filter((x) => !x.pass)) {
+  console.log(`  ❌ ${c.label}${c.detail ? ` — ${c.detail}` : ''}`)
+}
 const byBatch = answerRows.filter((a) => a.explanation?.from === 'batch').length
 const byRule = answerRows.filter((a) => a.explanation?.from === 'rule').length
 console.log(

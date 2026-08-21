@@ -87,9 +87,34 @@ export const TBP_HELP: HelpRegistry = {
               '`pnpm dlx tsx scripts/textbook/build-volume.mjs --band 6 --units 20` — 그 밴드로 한 권을 실제로 조합해 3관점 채점표를 낸다. **읽기만 한다.**',
             done: '자동 채점 항목 통과 수가 나온다. 사람 판단 항목은 분모 밖이다.',
           },
+          {
+            title: '해설 몫 뽑기 (한 권 겨냥)',
+            detail:
+              '`pnpm dlx tsx scripts/textbook/explain-drain-export.mjs --band 6 --volume 20 --size 12` — 그 권에 **실제로 실릴** 문항 중 해설이 없는 것만 청크로 뽑아 `scripts/textbook/explain-drain/v<밴드>/chunk-NN.json` 에 쓴다. **읽기만 하고, 이미 채워진 것은 건너뛴다 — 몇 번 돌려도 안전하다.** 청크 자리가 밴드별로 갈려 있어 여러 밴드를 동시에 돌려도 안 섞인다.',
+            done: '"배치가 쓸 몫 N → 청크 M개". N 이 0 이면 그 권은 이미 다 찼다.',
+          },
+          {
+            title: 'Claude Code 가 청크를 채운다',
+            detail:
+              '청크 하나가 서브에이전트 하나다 — **청크 수만큼 동시에 띄운다.** 각 에이전트는 `chunk-NN.json` 을 읽어 항목마다 `explanation_ko` 를 쓰고 같은 폴더에 `chunk-NN.out.json` 으로 저장한다. 해설은 정답 근거를 지문에서 인용하고 다른 자리가 왜 아닌지까지 밝힌다. **DB 는 건드리지 않는다** — 파일만 쓴다.',
+            done: '청크마다 `.out.json` 이 하나씩 생긴다. 입력 항목 수와 출력 항목 수가 같아야 한다.',
+          },
+          {
+            title: '해설 적재',
+            detail:
+              '`pnpm dlx tsx scripts/textbook/explain-drain-import.mjs --band 6 --commit` — `answer_key` 를 읽어 `explanation_ko` **키 하나만 더한다**(통째로 덮으면 정답 키가 날아간다). 20자 미만은 넣지 않는다 — 빈 값이 들어가면 다음 export 가 "완료" 로 세어 구멍이 영영 남는다. 스위치 없이 돌리면 미리보기만 한다.',
+            done: '"적재 완료 N건". 같은 청크로 다시 돌려도 같은 값을 덮어쓸 뿐 손실이 없다.',
+          },
+          {
+            title: '책으로 조판',
+            detail:
+              '`pnpm dlx tsx scripts/textbook/render-volume.mjs --band 6 --units 20 --out volume-v6.html` — 문제편·정답편·해설을 한 HTML 로 낸다. 지정한 파일을 **덮어쓴다.** 고를 문항은 `volume-pool.mjs` 가 정하므로 위 export 가 겨냥한 그 책과 같다.',
+            done: '"해설 N/M — 배치 · 규칙 · 없음". **없음 0 이 한 권 완성**이다.',
+          },
         ],
         verify: [
           '이 화면의 **유형별 문항 수**가 늘었는지.',
+          '해설을 채웠다면 `render-volume.mjs` 의 마지막 줄이 **없음 0** 인지. 뽑은 몫을 다 채웠는데 없음이 남으면 겨냥한 책과 조판된 책이 어긋난 것이다 — 예전에 실제로 2문항이 그렇게 샜다(지금은 `volume-pool.mjs` 한 벌로 묶여 있고 회귀가 막는다).',
           '**정답 번호 χ²** 가 전부 임계(9.488) 아래인지 — 넘으면 그 유형은 찍어서 맞을 여지가 있다.',
           '`store-new-types.mjs` 를 인자 없이 다시 돌렸을 때 **새로 넣을 문항 0 · 낡은 것 0** 인지. 둘 중 하나라도 남으면 한 바퀴가 안 끝난 것이다.',
         ],
