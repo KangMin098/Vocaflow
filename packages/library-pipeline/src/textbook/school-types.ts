@@ -102,17 +102,30 @@ export const SCHOOL_TYPES: readonly SchoolType[] = [
     answerMode: 'choice',
     sourceNeed: 'media',
     implemented: false,
-    note: '낱말마다 그림이 필요하다. 저작권 없는 그림 세트가 없으면 성립하지 않는다.',
+    note:
+      '낱말마다 그림이 필요하다. **2026-08-22 실측으로 기각했다** — 접을 근거가 둘이다. ' +
+      '① Openverse 에서 CC0·PD 이미지가 있는 낱말이 표본 60개 중 **8개(13.3%)** 뿐이고 68.3% 는 BY/BY-SA 만 있다. ' +
+      '② 더 결정적으로 **검색이 낱말-그림 대응이 아니라 제목 문자열 매칭**이다: ' +
+      '`age` → "Cuba age" · `because` → "I love you because" · `between` → "Sand-Between-Toes". ' +
+      '추상어는 애초에 그림이 안 되고, 이대로 쓰면 **틀린 그림이 정답으로 붙는다**. ' +
+      '되살리려면 낱말↔그림이 사람 손으로 짝지어진 세트(예: Wikidata depicts 연결)가 있어야 한다. ' +
+      '실측: `scripts/textbook/media-probe.mjs`.',
   },
   {
     key: 'listen_choose',
     band: 'elementary',
     label: '듣고 고르기',
-    generation: 'external',
+    generation: 'deterministic',
     answerMode: 'choice',
     sourceNeed: 'media',
-    implemented: false,
-    note: '음원이 필요하다. VOA 는 오디오가 있으나 초등 수준이 아니다.',
+    implemented: true,
+    note:
+      '`buildListenChoose` — 음원을 듣고 알맞은 낱말 고르기. ' +
+      '⚠️ **"음원이 없다" 던 앞선 판단은 재 보지 않은 것이었다** — Wikimedia Commons 발음 파일은 ' +
+      '이름 규약이 문서화돼 있고(`File:En-us-<word>.ogg`), 교육과정 초등 어휘 표본 120개 중 ' +
+      '**113개(94.2%)** 가 존재한다(2026-08-22 실측). 라이선스 CC BY-SA 3.0 101 · PD 9 · CC BY 3.0 3. ' +
+      '**CC BY-SA 는 출처 표기가 의무**라 음원 주소와 표기 문자열을 짝으로 받고, 표기가 없으면 문항을 만들지 않는다. ' +
+      '오답은 **같은 각운**에서 고른다 — 아무 낱말이면 첫소리만 듣고 배제돼 듣기가 아니라 눈치가 된다.',
   },
   {
     key: 'spell_blank',

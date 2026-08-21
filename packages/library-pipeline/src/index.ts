@@ -104,6 +104,9 @@ export {
   MIDDLE_GRAMMAR_UNDERLINES,
 } from './textbook/middle-choice'
 export type { MiddleChoiceItem, MiddleVocabItem, MiddleGrammarItem } from './textbook/middle-choice'
+// 교재 — 초등 듣고 고르기 (Commons 발음 파일 · 출처 표기 필수).
+export { buildListenChoose, commonsAudioTitle } from './textbook/listen-choose'
+export type { ListenChooseItem, WordAudio } from './textbook/listen-choose'
 export type { DcpParagraphDiagnosis } from './dcp/generate-items'
 export type { DcpItem, DcpItemType } from './dcp/generate-items'
 // ACP §18 §4-C — 텍스트 청결(어휘 노이즈) 산출

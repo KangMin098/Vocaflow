@@ -48,7 +48,9 @@ export const ELEMENTARY_CHOICES = 4
 const LABELS = ['①', '②', '③', '④'] as const
 
 export interface ElementaryItem {
-  kind: 'rhyme' | 'word_meaning' | 'spell_blank'
+  // 'listen_choose' 는 별도 파일(`listen-choose.ts`)이지만 같은 문항 모양을 쓴다 —
+  // 초등 보기 4개·정답 번호·단답 자리가 같아서다. 유형 이름만 여기 함께 둔다.
+  kind: 'rhyme' | 'word_meaning' | 'spell_blank' | 'listen_choose'
   /** 학습자에게 보이는 물음 — 한국어. */
   promptKo: string
   /** 물음의 주인공(낱말 또는 빈칸 꼴). */
