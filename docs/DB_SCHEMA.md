@@ -296,7 +296,12 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 
 | 테이블 | rows | size | 비고 |
 |---|---:|---:|---|
-| `shared_dictionary` | **45,292** | **183 MB** | 영단어 마스터 캐시 — meaning_ko 100% (v06.24) · 11개 통합 컬럼 (Phase 1) · senses/primary_pos/pos_set/ipa_uk/us 100% (Phase 2) · `inflected_forms` text[] GIN (전역 권위화 굴절형 15,210 lemma · 규칙형 검증+권위 불규칙, noise 제거 · `scripts/dict/clean-inflected-forms.mjs` · NULL→규칙 fallback) · **kaikki 보완(v06.269): `homophones`·`rhyme_key`·`derived_forms`·`related_terms` 4컬럼(마이그 `add_kaikki_extra_columns`) + mnemonic_ko 5,062(어원·경선식0)** |
+| `shared_dictionary` | **47,737** | **183 MB** | 영단어 마스터 캐시 — 11개 통합 컬럼 (Phase 1). **채움률은 2026-08-21 실측**(아래 주): meaning_ko 100% · pos_set 99.1% · primary_pos 97.2% · senses 81.3% · ipa 77.1% · inflected_forms 31.9%(15,219) · mnemonic_ko 15.5%(7,405) · **ipa_uk/ipa_us 0%** · `inflected_forms` text[] GIN (`scripts/dict/clean-inflected-forms.mjs` · NULL→규칙 fallback) · kaikki 보완(v06.269): `homophones`·`rhyme_key`·`derived_forms`·`related_terms` 4컬럼(마이그 `add_kaikki_extra_columns`) |
+
+**채움률 주장은 실측으로만 (2026-08-21)** — 위 줄은 오래 `senses/primary_pos/pos_set/ipa_uk/us 100% (Phase 2)` 라고
+적고 있었으나 **실측하면 senses 81.3% · ipa_uk 0행 · ipa_us 0행** 이었다. Phase 2 가 채우려던 컬럼 중 발음 두 개는
+한 행도 채워진 적이 없다(`ipa` 단일 컬럼만 36,790행). 낡은 100% 주장은 "이미 다 됐다" 로 읽혀 **보강 작업을 건너뛰게**
+만든다 — 이 저장소가 반복해 겪은 실패 형태다. 채움률을 다시 적을 때는 `scripts/dict/csat-dict-health.mjs` 로 재서 적는다.
 | `coverage_lexicon` | **424,328** | — | **독해 커버리지 참조 사전 (학습 core와 분리, v06.271)** — 도서·스크립트의 비학습 롱테일 단어 뜻 조회용. kaikki 단일어·content POS·form_of(굴절) 제외 벌크. `word`(PK)·`pos`·`gloss_en`(즉시 폴백)·`ipa`·`meaning_ko`(demand LLM·NULL 시작)·`frequency_rank`·`source`·`seen_count`(승격 신호). RLS 공개읽기. 마이그 `create_coverage_lexicon`. **학습 로직(단어장·i+1·추천)은 조회 금지** — 오직 reader 폴백. |
 | `shared_words` | 13,437 | 46 MB | 공용 단어장 — `source_queue_id` FK to vocab_enrichment_queue (cast-2000 audit) · `source_sentence`(원문 출현 문장 · 도서 단어장 예문, 렌더는 source_sentence→example_en 폴백) · **`chapter` smallint**(세트 내 챕터 1..N, NULL=미분할 — 하나의 세트를 여러 챕터로 내부 구성, 챕터별 발행 아님. idx `set_id,chapter,sort_order`, 2026-07-09) |
 | `shared_word_sets` | 277 | 2.8 MB | 단어장 헤더 — category(8 enum)+`category_id`/`additional_category_ids[]` (브릿지) · is_published · curation_query JSONB · **`subscriber_count`**(구독수 denormalized · `user_word_set_subscriptions` INSERT/DELETE 트리거 `trg_maintain_set_subscriber_count` 유지 · 사용빈도/인기 랭킹, RLS 본인전용 집계 회피, 2026-07-09) |
