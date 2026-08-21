@@ -103,6 +103,22 @@ export function TextbookShelf({
         </p>
       )}
 
+      {/* ⚠️ 필터 칩이 21개다. 키보드 사용자는 **첫 권에 닿기까지 Tab 을 24번** 눌러야 했다
+          (실측 2026-08-22). 필터를 숨기면 분류 체계가 안 보이고, 그대로 두면 목록이 필터 뒤에
+          갇힌다 — 그래서 **건너뛸 길**을 낸다. 평소엔 안 보이고 포커스가 오면 나타난다. */}
+      <a
+        href="#textbook-list"
+        onClick={(e) => {
+          e.preventDefault()
+          const list = document.getElementById('textbook-list')
+          list?.focus()
+          list?.scrollIntoView({ block: 'start', behavior: 'auto' })
+        }}
+        className="sr-only rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-p)] no-underline focus-visible:not-sr-only focus-visible:inline-flex focus-visible:min-h-[44px] focus-visible:items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+      >
+        찾기 조건을 건너뛰고 교재 목록으로
+      </a>
+
       <FilterBar
         facets={facets}
         sel={sel}
@@ -120,7 +136,12 @@ export function TextbookShelf({
           고른 조건에 맞는 권이 없어요. 위에서 조건을 하나 풀어 보세요.
         </p>
       ) : (
-        <div className="flex flex-col gap-6">
+        <div
+          id="textbook-list"
+          tabIndex={-1}
+          // 건너뛰기가 도착하는 자리. `-1` 이라 Tab 순서에는 안 들어가고 프로그램 포커스만 받는다.
+          className="flex flex-col gap-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-4"
+        >
           {groups.map((g) => (
             <section key={g.label} aria-label={`${g.label} 매대`} className="flex flex-col gap-2.5">
               <h3 className="flex flex-wrap items-baseline gap-x-2.5 border-b border-[var(--bd)] pb-1.5">
@@ -294,9 +315,16 @@ function FilterBar({
         )}
       </div>
 
+      {/* ⚠️ 축마다 **이름 있는 묶음**으로 싼다. 안 그러면 스크린리더는 칩 21개를
+          축 구분 없이 한 덩어리로 읽는다 — 'V3' 만 들으면 무엇의 3인지 알 수 없다. */}
       {SHELF_AXES.map((axis) => (
-        <div key={axis} className="flex flex-wrap items-baseline gap-x-2 gap-y-1.5">
-          <span className="min-w-[34px] font-display text-[11px] font-[700] text-[var(--t2)]">
+        <div
+          key={axis}
+          role="group"
+          aria-label={AXIS_LABEL[axis]}
+          className="flex flex-wrap items-baseline gap-x-2 gap-y-1.5"
+        >
+          <span aria-hidden className="min-w-[34px] font-display text-[11px] font-[700] text-[var(--t2)]">
             {AXIS_LABEL[axis]}
           </span>
           {facets[axis].map((f) => {

@@ -271,3 +271,71 @@ test.describe('모바일에서 교재로 가는 길', () => {
     ).toBeGreaterThan(44)
   })
 })
+
+/**
+ * 키보드·스크린리더로 교재를 고를 수 있는가.
+ *
+ * ⚠️ 이 서가는 필터 칩을 **21개**(학령 7 · 수준 7 · 유형 7 남짓) 얹었다. 눈으로 보면
+ *    한 줄에 늘어선 작은 알약이지만, 키보드로는 **목록에 닿기 전에 지나야 하는 21번의 정지**이고
+ *    스크린리더로는 축 구분 없이 이어지는 21개의 버튼이다.
+ *    "보기에 괜찮다" 와 "쓸 수 있다" 가 갈리는 자리라 숫자로 잡아 둔다.
+ */
+test.describe('교재 서가 — 키보드로 고르기', () => {
+  test.use({ storageState: STATE_PATH })
+
+  test('필터 각 줄이 축 이름을 가진 묶음이다 — 21개가 한 덩어리로 들리면 안 된다', async ({
+    page,
+  }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    await expect(page.getByRole('region', { name: '교재 서가' })).toBeVisible({ timeout: 30_000 })
+
+    // 축마다 이름 있는 묶음. 없으면 스크린리더는 "버튼 21개" 로만 읽는다.
+    for (const axis of ['학령', '수준', '유형']) {
+      const group = page.getByRole('group', { name: axis })
+      await expect(group, `${axis} 축이 묶음으로 안 묶여 있다`).toHaveCount(1)
+      const chips = group.getByRole('button')
+      expect(await chips.count(), `${axis} 축에 칩이 없다`).toBeGreaterThan(0)
+    }
+  })
+
+  test('칩 하나만 들어도 무엇의 값인지 알 수 있다', async ({ page }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    await expect(page.getByRole('region', { name: '교재 서가' })).toBeVisible({ timeout: 30_000 })
+
+    // 'V3' 만 읽히면 무엇의 3인지 알 수 없다 — 접근 이름에 축과 권수가 함께 있어야 한다.
+    const chip = page.getByRole('button', { name: /^수준 V\d+ — \d+권$/ }).first()
+    await expect(chip, '수준 칩의 접근 이름에 축·권수가 없다').toBeVisible()
+    await expect(chip).toHaveAttribute('aria-pressed', 'false')
+  })
+
+  test('필터를 건너뛰고 목록으로 갈 수 있다 — 21번 눌러야 닿으면 못 쓰는 것이다', async ({
+    page,
+  }) => {
+    test.setTimeout(120_000)
+
+    await page.goto('/library/textbooks', { waitUntil: 'domcontentloaded', timeout: 60_000 })
+    await expect(page.getByRole('region', { name: '교재 서가' })).toBeVisible({ timeout: 30_000 })
+
+    // ⚠️ **Tab 횟수를 세는 것으로는 통과할 방법이 필터를 없애는 것뿐**이다.
+    //    실제로 필요한 것은 "적게 누르는" 것이 아니라 **"건너뛸 수 있는" 것**이라,
+    //    건너뛰기가 존재하고 **실제로 목록에 포커스를 옮기는지**를 본다.
+    //    (참고 실측 2026-08-22: 건너뛰기가 없던 때 첫 권까지 Tab 24번이었다.)
+    const skip = page.getByRole('link', { name: /건너뛰고 교재 목록으로/ })
+    await expect(skip, '필터를 건너뛸 길이 없다').toHaveCount(1)
+
+    await skip.focus()
+    // 평소엔 숨어 있다가 포커스가 오면 보여야 한다 — 안 보이면 있는 줄 모른다.
+    await expect(skip).toBeVisible()
+
+    await skip.press('Enter')
+    const landed = await page.evaluate(() => {
+      const list = document.getElementById('textbook-list')
+      return !!list && document.activeElement === list
+    })
+    expect(landed, '건너뛰기를 눌렀는데 목록으로 포커스가 가지 않았다').toBe(true)
+  })
+})
