@@ -59,8 +59,10 @@ export const CSAT_READING_TYPES: readonly CsatType[] = [
     numbers: [18],
     label: '글의 목적',
     generation: 'generative',
-    implemented: false,
-    note: '편지·안내문 성격의 지문이 필요하고, 오답은 "지문에 나오지만 목적이 아닌 것" 이라 설계가 필요하다.',
+    implemented: true,
+    dbType: 'purpose',
+    note:
+      '한국어 답지. Claude Code 드레인이 쓴다 — 오답은 글에 나오는 소재를 쓰되 목적이 아닌 것(배경·부수 효과·반대 방향)으로 만든다. 드레인 실측 정답 최장 6.3%.',
   },
   {
     key: 'mood',
@@ -75,8 +77,10 @@ export const CSAT_READING_TYPES: readonly CsatType[] = [
     numbers: [20],
     label: "필자의 주장",
     generation: 'generative',
-    implemented: false,
-    note: '논설 지문 필요. 오답은 "일부만 맞는 진술" 이라 난이도 조절이 어렵다.',
+    implemented: true,
+    dbType: 'claim',
+    note:
+      '한국어 답지(~해야 한다). 오답은 **글이 사실로 서술한 것을 당위로 바꾼 것**이 가장 잘 듣는다. 드레인 실측 정답 최장 6.3%.',
   },
   {
     key: 'implication',
@@ -133,8 +137,10 @@ export const CSAT_READING_TYPES: readonly CsatType[] = [
     numbers: [26],
     label: '내용 일치 (인물)',
     generation: 'generative',
-    implemented: false,
-    note: '전기문 지문 필요. 오답은 "지문 사실을 한 군데 비튼 것" 이라 **결정론 생성이 가능한 편**이다.',
+    implemented: true,
+    dbType: 'content_match',
+    note:
+      '⚠️ 수능은 전기문 지문이지만 우리는 **일반 지문의 사실 일치**로 낸다 — 오답 넷은 지문에서 확인되는 사실이고 정답만 한 군데(수·방향·주체)를 비튼다. 드레인 실측 정답 최장 0%.',
   },
   {
     key: 'notice',
@@ -214,8 +220,10 @@ export const CSAT_READING_TYPES: readonly CsatType[] = [
     numbers: [40],
     label: '요약문 완성',
     generation: 'generative',
-    implemented: false,
-    note: '요약문을 쓰고 두 빈칸의 오답 쌍을 만들어야 한다. 빈칸 다음으로 어렵다.',
+    implemented: true,
+    dbType: 'summary',
+    note:
+      '(A)(B) 짝 답지. **한쪽만 맞는 짝을 반드시 섞어야** 둘 다 읽는다. 드레인 실측 정답 최장 18.8% · 최단 18.8%(둘 다 우연 수준).',
   },
   {
     key: 'long_passage',
