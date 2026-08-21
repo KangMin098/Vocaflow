@@ -42,10 +42,11 @@ const DIR = path.resolve(arg('dir') ?? `scripts/textbook/write-drain/v${BAND}`)
  * 넣을 수 있는 글의 하한.
  *
  * `order` 문항은 도입문 + 세 덩어리를 만들어야 하고 `insert` 는 자리 다섯을 만들어야 한다.
- * 게다가 순서 문항은 **4~6문장 문단**에서만 나오므로, 두 문단을 만들려면 최소 여덟 문장이다.
- * **그 아래는 원글 수만 늘리고 단원은 못 늘린다.**
+ * 게다가 **문단이 6문장이어야 두 유형이 다 나온다** — 순서는 4~6문장 문단에서, 교재용 삽입은
+ * 본문 5~9문장(= 문단 6~10문장)에서 나온다. 겹치는 값은 6뿐이다.
+ * 그래서 한 편에 **최소 열두 문장**(6+6)이 필요하다. 그 아래는 원글 수만 늘리고 단원은 못 늘린다.
  */
-const MIN_SENTENCES = 8
+const MIN_SENTENCES = 12
 const MIN_WORDS = 60
 
 /**
@@ -65,28 +66,60 @@ function repaginate(content) {
     .map((p) => p.replace(/\s+/g, ' ').trim())
     .filter(Boolean)
   const sentsOf = (p) => p.split(/(?<=[.!?])\s+/).filter((s) => s.trim().length > 1)
-  if (paras.length > 1 && paras.every((p) => { const n = sentsOf(p).length; return n >= 4 && n <= 6 })) {
+  // ⚠️ 예전에는 `4~6문장`이면 그대로 뒀는데, **그게 바로 교재 삽입 규격에서 걸리는 형태다**
+  //   (본문이 3~5문장이 되어 하한 5 를 아슬아슬하게 못 넘긴다). `6~10` 이어야 손대지 않는다.
+  if (paras.length > 1 && paras.every((p) => { const n = sentsOf(p).length; return n >= 6 && n <= 10 })) {
     return paras.join('\n\n')
   }
   const all = paras.flatMap(sentsOf)
-  // **고르게 나눈다.** 5문장씩 잘라 나가면 꼬리에 3문장 조각이 남는데(12문장 → 5·5·2),
-  // 3문장 문단은 순서 문항을 못 만들어 그 자리가 통째로 버려진다.
-  // 그래서 문단 수를 먼저 정하고(모든 문단이 4~6문장이 되도록) 균등 배분한다.
+  // **6문장을 노린다.** 두 규격이 겹치는 유일한 값이기 때문이다:
+  //   · 순서 문항 — 문단이 **4~6문장**이어야 한다(도입문 1 + (A)(B)(C)).
+  //   · 삽입 문항 — 교재는 본문 **5~9문장**을 요구하고(`CSAT_INSERT_BODY`),
+  //     본문은 문단에서 한 문장을 빼낸 것이므로 문단이 **6~10문장**이어야 한다.
+  //
+  // ⚠️ 5문장으로 나누던 동안 삽입 본문이 4문장이 되어 **조합기가 통째로 걸렀다.**
+  //   그래서 V2 는 원글 85편에 삽입 문항 136개를 갖고도 10단원에서 멈췄다
+  //   (V6 은 원글 41편으로 20단원 — 긴 외부 기사라 문단이 6문장을 넘겼기 때문이다).
+  //   문단을 한 문장 키우는 것만으로 재고가 살아난다.
+  // 문단 수를 후보로 다 세어 보고 **쓸 수 있는 문항이 가장 많이 나오는 것**을 고른다.
+  // 규칙을 손으로 끼워 맞추면 8~11문장처럼 애매한 수에서 조용히 한 덩어리로 남는다.
   const n = all.length
-  let k = Math.max(1, Math.round(n / 5))
-  // 7문장처럼 4~6 으로 딱 안 떨어지는 수가 있다. 한 덩어리로 두면 순서 문항이 아예 안 나오므로
-  // 둘로 가른다 — 4문장 문단 하나라도 건지는 편이 낫다(뒤 3문장은 삽입 쪽에서 쓰인다).
-  if (k === 1 && n > 6) k = 2
-  while (k > 1 && n / k > 6) k++ // 문단이 너무 두꺼우면 더 쪼갠다
-  while (k > 1 && n / k < 4) k-- // 너무 얇으면 합친다
-  const out = []
-  let taken = 0
-  for (let i = 0; i < k; i++) {
-    const size = Math.round((n - taken) / (k - i))
-    out.push(all.slice(taken, taken + size))
-    taken += size
+  const split = (k) => {
+    const out = []
+    let taken = 0
+    for (let i = 0; i < k; i++) {
+      const size = Math.round((n - taken) / (k - i))
+      out.push(all.slice(taken, taken + size))
+      taken += size
+    }
+    return out.filter((p) => p.length)
   }
-  return out.filter((p) => p.length).map((p) => p.join(' ')).join('\n\n')
+  const score = (parts) =>
+    parts.reduce((s, p) => s + (p.length >= 4 && p.length <= 6 ? 1 : 0) + (p.length >= 6 && p.length <= 10 ? 1 : 0), 0)
+  const candidates = []
+  for (let k = 1; k <= Math.max(1, Math.floor(n / 4)); k++) candidates.push(split(k))
+  // **6문장 우선 분할도 후보에 넣는다.** 균등 분할만 보면 10문장이 `[5,5]`(삽입 0)에 머무는데
+  // `[6,4]` 면 삽입 하나를 더 건진다 — 한쪽을 6 으로 채우는 편이 규격에 맞다.
+  {
+    const greedy = []
+    for (let i = 0; i < n; i += 6) greedy.push(all.slice(i, i + 6))
+    if (greedy.length > 1 && greedy[greedy.length - 1].length < 4) {
+      const tail = greedy.pop()
+      greedy[greedy.length - 1] = greedy[greedy.length - 1].concat(tail)
+    }
+    candidates.push(greedy)
+  }
+  let best = candidates[0]
+  let bestScore = score(best)
+  for (const cand of candidates) {
+    const s = score(cand)
+    // 같은 점수면 문단이 적은 쪽 — 잘게 쪼개면 문맥이 짧아진다.
+    if (s > bestScore || (s === bestScore && cand.length < best.length)) {
+      best = cand
+      bestScore = s
+    }
+  }
+  return best.map((p) => p.join(' ')).join('\n\n')
 }
 
 const sha256 = (s) => crypto.createHash('sha256').update(s, 'utf8').digest('hex')
