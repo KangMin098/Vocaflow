@@ -115,3 +115,8 @@ apps/web/playwright-auth/
 scripts/dict/w0815-*/
 scripts/lcp/w0815-*/
 scripts/dict/w0816-*/
+
+# 수능 기출 코퍼스 중간 산출물 — 원본 .txt(저장소 밖)에서 재생성 가능.
+# diff.json 은 후속 작업 목록(사전 결손 272종)이라 남긴다.
+scripts/dict/csat-corpus/corpus.json
+scripts/dict/csat-corpus/normalized.json

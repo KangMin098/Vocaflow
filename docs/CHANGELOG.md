@@ -10,6 +10,38 @@
 
 ## Unreleased (v06.34 → next)
 
+### 사전 — 수능 기출 13개년을 **처음으로 실제로 세었다** (v06.330)
+
+`lexicon_frequencies` 의 `kice_csat`(3,369행)은 이름이 전부 빈도였는데 **빈도가 아니었다.**
+`raw_count` 최댓값이 9였고(13개년인데), `appears_every_year` 는 3,369행 **전부 false** 였다 —
+매년 나오는 낱말이 하나도 없다는 뜻이다. `social` 은 2014 한 해만 기록돼 있었고
+`people`·`time`·`make`·`world` 는 **표에 아예 없었다.** 문항별로 골라 적은 핵심어 목록을
+빈도 테이블에 넣어 둔 것이고, 원문을 센 적은 없었다.
+
+원본 .txt 13개년(2014~2026)을 WLP 로 토큰화해 교체했다 — **내용어 29,876 토큰 · 표제어 5,727**.
+
+- `scripts/dict/csat-corpus-build.mjs` — 원문 → 토큰 빈도. **홀수형+짝수형이 한 파일에 든 2023·2024·2026**
+  을 분리하고(안 하면 그 세 해만 2배), `2014_B.txt` 는 `2014_A.txt` 와 바이트 동일이라 제외(추출 사고)
+- `scripts/dict/csat-corpus-diff.mjs` — 굴절형 접기(`inflected_forms` 권위 + 규칙 fallback) · 인명 가르기 · 사전 대조
+- `scripts/dict/csat-corpus-apply.mjs` — 적재 (dry-run 기본 · `--commit`)
+
+| | 이전 | 이후 |
+|---|---|---|
+| 행 수 | 3,369 | **5,300** |
+| 등장 연도 수 | 최대 9 · 불일치 1,366 | 최대 **13** |
+| `appears_every_year` | 0 | **58** |
+| `normalized_freq` | 연도비율×10000 | **토큰 per 10k** |
+| `question_history` | 673 | 673 **보존** |
+
+**축은 일부러 바꾸지 않았다.** `resolve.ts` 의 `spec.min_years` 가 `raw_count` 를 "연도 수" 로 읽으므로,
+거기에 토큰 빈도를 넣으면 `min_years: 3` 이 오류 없이 "3회 이상" 이 된다. 그 자리에 경고 주석을 남겼다.
+
+**부수 발견** — vendor placeholder 목록에 기출 근거가 없다: `csat-prep-core-2k` 1,838 중 **678(37%)**,
+`csat-prep-ext-1.8k` 1,097 중 **424(39%)** 가 13개년 원문에 미등장. 지우지 않고 `citation` 에 비율 기록.
+
+새 `list_tags`: `kice-csat-13y` 5,046 · `kice-csat-core-4y` 1,378.
+사전 결손 272종(`math`·`uncover`·`internalize`·`upcycling` 등)은 `diff.json` 에 남긴 후속 드레인 대상.
+
 ### 교재 — 해설을 올리려던 두 실험이 **둘 다 실패했다** (v06.329)
 
 Cycle 2 에 **"다음 레버는 희귀어 사슬"** 이라고 적어 뒀다. 재 보니 **틀렸다.**

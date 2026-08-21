@@ -116,6 +116,49 @@ csat_item_attempts (없음)
 구조한 것도 함께 날아간다. 상세: [VCB_REDESIGN.md §3.5](./VCB_REDESIGN.md)
 | `reject_word_lexicon_insert` | 트리거는 이미 사라졌고(CASCADE) 함수만 남은 유물. 무해하나 오해를 부른다 |
 
+
+**원문 실측으로 교체 — 목록이 빈도를 자처하고 있었다 (2026-08-21 · v06.330)**
+
+위 구조 작업이 살린 `question_history` 는 그대로 살아 있지만, 같은 행의 **빈도 컬럼들은 빈도가 아니었다.**
+`kice_csat`(source_id=1)은 문항별로 골라 적은 **핵심어 목록**이었고 컬럼 이름만 빈도였다:
+
+| 컬럼 | 실제로 들어 있던 값 | 근거 |
+|---|---|---|
+| `raw_count` | 등장 **연도 수** (최댓값 9 — 13개년인데) | 컨슈머 `resolve.ts` 도 그렇게 읽는다 |
+| `normalized_freq` | 연도비율 × 10000 (9/13→6923.08) | 토큰과 무관 |
+| `appears_every_year` | **3,369행 전부 false** | 매년 나오는 낱말이 하나도 없다는 뜻 |
+| 수록 범위 | `social` 은 2014 한 해만. `people`·`time`·`make`·`world` 는 **아예 없음** | 원문에는 13개년 전부 등장 |
+
+원본 .txt 13개년(2014~2026)을 WLP 로 토큰화해 **실측으로 교체**했다
+(`scripts/dict/csat-corpus-build.mjs` → `-diff.mjs` → `-apply.mjs`, 셋 다 재실행 안전).
+
+| | 이전 | 이후 |
+|---|---|---|
+| 행 수 | 3,369 | **5,300** (실측 5,046 + 원문 미확인 254) |
+| `raw_count` (연도 수) | 최대 9 · 불일치 1,366 | 최대 **13** · 실측 정정 |
+| `normalized_freq` | 연도비율×10000 | **토큰 per 10k** (0.33~68.95) |
+| `appears_every_year` | 0건 | **58건** |
+| `question_history` | 673 | **673 보존** |
+
+⚠️ **`raw_count` 에 토큰 빈도를 넣지 말 것.** `resolve.ts` 의 `spec.min_years` 가 이 컬럼을 읽는다 —
+축을 바꾸면 `min_years: 3` 이 조용히 "3회 이상 등장" 이 되어 **오류 없이 세트만 헐거워진다.**
+토큰 빈도는 `normalized_freq` 와 `metadata.token_count`·`by_year` 에 있다.
+
+**원본의 함정 둘** (같은 자료를 다시 세는 사람을 위해): `2023`·`2024`·`2026` .txt 는 **홀수형+짝수형이 한 파일**에
+들어 있어 그대로 세면 그 세 해만 빈도가 2배가 된다(연도 수는 안 변해서 눈에 안 띈다). `2014_B.txt` 는
+`2014_A.txt` 와 **바이트 동일** — B형 추출 사고이고 B형 지문은 확보돼 있지 않다. 둘 다 빌더가 처리한다.
+
+**한계 (실측)**: `scientists`·`workers` 처럼 문장 중간에서도 대문자로만 관측된 굴절형 77종(**159토큰 · 0.53%**)은
+인명(`charles`·`rhodes`)과 형태만으로 갈리지 않아 접지 않았다. 원형(`scientist`)에 그만큼 과소 반영된다.
+
+**부수 발견 — vendor 목록에 기출 근거가 없다.** `csat-prep-core-2k` 1,838 중 **678(37%)**,
+`csat-prep-ext-1.8k` 1,097 중 **424(39%)** 가 13개년 원문에 없다. 지우지 않고 `frequency_data_sources.citation`
+에 비율을 적었다 — 출처 미확정 placeholder 라 교육적 타당성 판단은 별개다.
+
+새 태그: `kice-csat-13y` **5,046** (기출 원문 등장) · `kice-csat-core-4y` **1,378** (4개년 이상 반복).
+사전 결손 **272종**(`math`·`uncover`·`internalize`·`forager`·`upcycling` 등)은 `scripts/dict/csat-corpus/diff.json`
+에 남겼다 — 별도 드레인 대상.
+
 **재생성 방향(보류)**: 원천(`data/seed/kice-csat/*.xlsx` · `data/import/kice-csat-*.csv` — 둘 다 gitignore)이 있으면 parse → aggregate → seed 3단계로 되살릴 수 있다. 단 적재 대상을 **`lexicon_clean`(word 키)으로 재배선**해야 한다 — `word_lexicon` 복원은 동결 결정에 역행한다.
 
 **부수 원칙 — 보조 지표가 본체를 죽이지 않게.** `/admin/vocab/sources` 가 통째로 500 이었던 직접 원인은 테이블 부재가 아니라 `fetchSources` 가 `run_count` 뱃지 집계 실패를 `throw` 한 것이었다(이미 손에 든 소스 목록까지 버렸다). `admin/layout.tsx` 가 `reports` 뱃지를 try/catch 로 감싸 0을 반환하는 쪽이 옳은 형태다. 계약은 [sources-resilience.test.ts](../apps/web/src/lib/vcb/__tests__/sources-resilience.test.ts) 5건이 고정한다.
@@ -238,7 +281,7 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 | `user_word_set_subscriptions` | 225 | 104 kB | 다중 구독 · source_book_id ref (자동 import 추적) |
 | `dictionary_categories` | 566 | 288 kB | 3계층 카테고리 트리 (H1=18 / H2=76 / H3=472) · self-ref parent_id |
 | `dictionary_word_categories` | 28,079 | 7.7 MB | 단어↔카테고리 M:N 매핑 |
-| `lexicon_frequencies` | 6,305 | 1.7 MB | Phase 2 사이드카 — KICE+WM+EBS+NGSL+AWL+COCA 다중 출처 |
+| `lexicon_frequencies` | 8,236 | 1.7 MB | Phase 2 사이드카 — KICE+WM+EBS+NGSL+AWL+COCA 다중 출처. `kice_csat` 은 2026-08-21 원문 실측 5,300행 (§ 위 참조) |
 | `lexicon_source_tags` | 5,421 | 2.8 MB | source 태그 매핑 |
 | `word_lexicon` | 5,421 | 1.7 MB | **FROZEN** since 20260520 — Phase E DROP 예정 |
 | `word_frequency_stats` | 5,421 | 2.4 MB | 빈도 통계 (legacy) |

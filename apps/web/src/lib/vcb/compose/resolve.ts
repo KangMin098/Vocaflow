@@ -665,6 +665,10 @@ async function resolveExamItems(
       .order('rank_in_source', { ascending: true })
       .range(from, from + 999)
     // raw_count = 출제된 연도 수 (kice 시드가 그렇게 넣는다) → min_years 와 같은 축이다.
+    // ⚠️ **이 컬럼에 토큰 빈도를 넣지 말 것.** kice_csat 은 2026-08-21 에 원문 13개년 실측으로
+    //   갱신됐지만(`scripts/dict/csat-corpus-apply.mjs`), 그때도 raw_count 는 연도 수로 두고
+    //   토큰 빈도는 normalized_freq / metadata.token_count 에 넣었다. 축을 바꾸면 여기서
+    //   `min_years: 3` 이 조용히 "3회 이상 등장" 이 되어 오류 없이 세트만 헐거워진다.
     if (spec.min_years != null) q = q.gte('raw_count', spec.min_years)
     if (spec.raw_count_min != null) q = q.gte('raw_count', spec.raw_count_min)
     if (spec.frequency_tier_min != null) q = q.gte('frequency_tier', spec.frequency_tier_min)
