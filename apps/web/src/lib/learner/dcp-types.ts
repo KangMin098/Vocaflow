@@ -32,7 +32,14 @@ export const PLAYABLE_DCP_TYPES = ['order', 'insert'] as const
  *
  * 지우면 안 된다. 교재 조판이 이 재고를 쓴다.
  */
-export const TEXTBOOK_ONLY_DCP_TYPES = ['irrelevant', 'word_order', 'vocab_choice'] as const
+export const TEXTBOOK_ONLY_DCP_TYPES = [
+  'irrelevant',
+  'word_order',
+  'vocab_choice',
+  // 2026-08-21 적재. **이 회귀가 실제로 잡아 냈다** — 580행을 넣은 직후 통합 테스트가
+  // "분류되지 않은 유형 grammar_choice" 로 실패했고, 그래서 이 줄이 생겼다.
+  'grammar_choice',
+] as const
 
 export type PlayableDcpType = (typeof PLAYABLE_DCP_TYPES)[number]
 export type TextbookOnlyDcpType = (typeof TEXTBOOK_ONLY_DCP_TYPES)[number]
