@@ -468,7 +468,7 @@ function CarouselBook({
       ) : (
         <>
           {/* 그라디언트 표지 — 클로스바운드 클래식 풍 (실 표지엔 제목 박혀있어 미표시) */}
-          <GradientBookCover title={book.title} author={book.author} />
+          <GradientBookCover title={book.title} author={book.author} textTone={cover.textTone} />
           {/* 상단 sheen + grain (그라디언트 표지) */}
           <div aria-hidden className="book-cover-sheen absolute inset-0" />
           <div aria-hidden className="book-cover-grain absolute inset-0" />

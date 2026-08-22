@@ -21,6 +21,7 @@ import { createClient } from '@/lib/supabase/client'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import { scoreBook } from '@/lib/library/recommend-books'
 import type { PublishedBook } from '@/lib/library/published-book'
+import { bookCover } from '@/lib/library/book-cover'
 
 type State =
   | { kind: 'loading' }
@@ -216,6 +217,16 @@ function BookCard({
   const coverUrl = (book as { cover_image_url?: string | null }).cover_image_url ?? null
   const fromColor = book.cover_from ?? '#3B82F6'
   const toColor = book.cover_to ?? '#1D4ED8'
+  // ⚠️ DB 표지색은 아무 값이나 올 수 있다. 흰 제목을 무조건 얹으면 옅은 표지에서 사라진다 —
+  //    실측 2026-08-22: 'Introduction to Sociology' 가 옅은 민트 표지에서 **1.1:1** 이었다.
+  //    판정은 `bookCover` 가 소유한다(표지가 자기 색에서 잉크를 정한다).
+  const { textTone } = bookCover({
+    title: book.title,
+    bookVLevel: null,
+    coverFrom: fromColor,
+    coverTo: toColor,
+  })
+  const coverInk = textTone === 'dark' ? 'text-[#1A1714]' : 'text-white'
 
   return (
     <Link
@@ -247,7 +258,7 @@ function BookCard({
         {!coverUrl && (
           <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center">
             <span
-              className="line-clamp-3 font-display text-[12px] font-[700] leading-tight tracking-[-0.01em] text-white"
+              className={`line-clamp-3 font-display text-[12px] font-[700] leading-tight tracking-[-0.01em] ${coverInk}`}
               style={{ textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}
             >
               {book.title}

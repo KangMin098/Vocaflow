@@ -16,6 +16,17 @@ interface GradientBookCoverProps {
   ornament?: string | null
   /** 작은 카드(그리드 타일)용 축소 타이포 */
   compact?: boolean
+  /**
+   * 표지 위 글자색 — `bookCover().textTone` 을 그대로 넘긴다.
+   *
+   * ⚠️ 이 컴포넌트는 오래 `text-white` 를 **박아 두고** 있었고, `bookCover` 가 계산해 주는
+   *    `textTone` 을 **아무도 읽지 않았다**(실측 2026-08-22). DB 가 옅은 표지색을 주면
+   *    흰 제목이 **1.1:1** 로 사라졌다 — `drop-shadow` 가 가려 주고 있었지만
+   *    그림자는 WCAG 가 세지 않는다.
+   *    기본값이 `'light'` 인 것은 기존 호출부를 깨지 않기 위해서이고,
+   *    표지색을 아는 호출부는 **반드시 넘겨야 한다.**
+   */
+  textTone?: 'light' | 'dark'
 }
 
 export function GradientBookCover({
@@ -24,7 +35,14 @@ export function GradientBookCover({
   subtitle,
   ornament,
   compact = false,
+  textTone = 'light',
 }: GradientBookCoverProps) {
+  // 옅은 표지에는 어두운 잉크. 프레임·장식 룰도 같은 쪽으로 뒤집어야 테두리가 사라지지 않는다.
+  const dark = textTone === 'dark'
+  const ink = dark ? 'text-[#1A1714]' : 'text-white'
+  const frame1 = dark ? 'border-black/25' : 'border-white/30'
+  const frame2 = dark ? 'border-black/10' : 'border-white/12'
+  const rule = dark ? 'bg-black/35' : 'bg-white/40'
   const sub = subtitle ?? author
   const hasEmoji = !!ornament
 
@@ -34,27 +52,35 @@ export function GradientBookCover({
       ? 'mb-2 text-[17px] leading-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]'
       : 'mb-3 text-[22px] leading-none drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]'
     : compact
-      ? 'mb-2 font-english text-[12px] leading-none text-white/55'
-      : 'mb-3 font-english text-[15px] leading-none text-white/55'
+      ? `mb-2 font-english text-[12px] leading-none ${dark ? 'text-black/60' : 'text-white/55'}`
+      : `mb-3 font-english text-[15px] leading-none ${dark ? 'text-black/60' : 'text-white/55'}`
+
+  // ⚠️ 제목·부제의 흰색도 잉크를 따라가야 한다. 그림자는 **읽히게 도와줄 뿐 대비로 세지 않는다** —
+  //    옅은 표지에서는 그림자가 있어도 흰 제목이 1.1:1 이었다.
+  const titleInk = dark
+    ? 'text-[#1A1714] drop-shadow-[0_1px_2px_rgba(255,255,255,0.45)]'
+    : 'text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]'
+  const subInk = dark ? 'text-black/75' : 'text-white/85'
+
   const titleCls = compact
-    ? 'line-clamp-4 font-english text-[15px] font-[600] leading-[1.26] tracking-[0.005em] text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]'
-    : 'line-clamp-5 font-english text-[20px] font-[600] leading-[1.28] tracking-[0.005em] text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.45)]'
+    ? `line-clamp-4 font-english text-[15px] font-[600] leading-[1.26] tracking-[0.005em] ${titleInk}`
+    : `line-clamp-5 font-english text-[20px] font-[600] leading-[1.28] tracking-[0.005em] ${titleInk}`
   const subCls = compact
-    ? 'line-clamp-1 font-display text-[9px] font-[600] uppercase tracking-[0.14em] text-white/85'
-    : 'line-clamp-1 font-display text-[10px] font-[600] uppercase tracking-[0.16em] text-white/85'
+    ? `line-clamp-1 font-display text-[9px] font-[600] uppercase tracking-[0.14em] ${subInk}`
+    : `line-clamp-1 font-display text-[10px] font-[600] uppercase tracking-[0.16em] ${subInk}`
 
   return (
     <div
-      className={`absolute inset-0 flex flex-col items-center justify-center text-center text-white ${pad}`}
+      className={`absolute inset-0 flex flex-col items-center justify-center text-center ${ink} ${pad}`}
     >
       {/* 안쪽 이중 프레임 — 클래식 표지 테두리 */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-[10px] rounded-[2px] border border-white/30"
+        className={`pointer-events-none absolute inset-[10px] rounded-[2px] border ${frame1}`}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-[14px] rounded-[1px] border border-white/12"
+        className={`pointer-events-none absolute inset-[14px] rounded-[1px] border ${frame2}`}
       />
 
       {/* 상단 장식 — fleuron(❧) 또는 단어장 이모지 */}
@@ -70,7 +96,7 @@ export function GradientBookCover({
           {/* 장식 룰 */}
           <span
             aria-hidden
-            className={`h-px bg-white/40 ${compact ? 'my-2 w-7' : 'my-3 w-9'}`}
+            className={`h-px ${rule} ${compact ? 'my-2 w-7' : 'my-3 w-9'}`}
           />
           {/* 부제 — small caps */}
           <p className={subCls}>{sub}</p>

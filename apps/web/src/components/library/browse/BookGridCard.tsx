@@ -88,7 +88,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
           </>
         ) : (
           <>
-            <GradientBookCover title={book.title} author={book.author} compact />
+            <GradientBookCover title={book.title} author={book.author} textTone={cover.textTone} compact />
             <div aria-hidden className="book-cover-sheen absolute inset-0" />
             <div aria-hidden className="book-cover-grain absolute inset-0" />
           </>

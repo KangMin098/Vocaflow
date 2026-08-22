@@ -506,7 +506,9 @@ function BookCard({
         imageAlt={`${item.title} 표지`}
         coverSlot={
           /* 그라디언트 표지 — 클로스바운드 클래식 풍 (실 표지엔 제목 박혀있어 미표시) */
-          !item.coverImageUrl ? <GradientBookCover title={item.title} author={item.author} /> : null
+          !item.coverImageUrl ? (
+            <GradientBookCover title={item.title} author={item.author} textTone={cover.textTone} />
+          ) : null
         }
       >
         {/* 진행 배지 우상단 */}
