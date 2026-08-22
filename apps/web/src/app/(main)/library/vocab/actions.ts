@@ -103,9 +103,15 @@ export async function subscribeSet(setId: string): Promise<SubscribeResult> {
   }
 
   // 3) 도서가 아닌 세트 — 챕터 진입 개념이 없으므로 상한만 두고 적재한다.
+  // ⚠️ `lemma` 를 반드시 함께 읽는다 — 학습자 단어장에 들어갈 표제어가 그것이다.
+  //   단어장 표제어는 글에 나온 **표면형**이라 `abated` · `flushed` 같은 굴절형이 섞여 있고,
+  //   `lemma` 에 원형(`abate` · `flush`)이 이미 기록돼 있다(2026-08-22 실측: 4,620행이 서로 다름).
+  //   `meaning_ko` 는 **원형 기준으로 적혀 있으므로**(`abated` 의 뜻이 "약해지다") 표제어만 원형으로
+  //   맞추면 둘이 일치한다. 표면형을 그대로 넣으면 학습자는 `abated` 를 별개 낱말로 외우고,
+  //   `vocabularies` 의 UNIQUE(user_id, word) 때문에 나중에 `abate` 가 또 들어온다.
   const { data: words, error: wErr } = await supabase
     .from('shared_words')
-    .select('word, meaning_ko, source_sentence, example_en, pronunciation, part_of_speech, cefr_level')
+    .select('word, lemma, meaning_ko, source_sentence, example_en, pronunciation, part_of_speech, cefr_level')
     .eq('set_id', setId)
     .order('sort_order', { ascending: true, nullsFirst: false })
     .limit(INITIAL_IMPORT_LIMIT)
@@ -125,8 +131,16 @@ export async function subscribeSet(setId: string): Promise<SubscribeResult> {
     return { ok: true, importedCount: 0, alreadyOwnedCount: 0, totalWords }
   }
 
+  /**
+   * 학습자 단어장에 들어갈 표제어 — **원형이 있으면 원형**.
+   *
+   * `lemma` 가 비어 있으면(전체의 20%) 표면형을 그대로 쓴다. 그 경우는 대개 원형과 표면형이
+   * 같거나, 추출 때 원형을 못 정한 것이라 표면형이 최선의 값이다.
+   */
+  const headword = (w: { word: string; lemma: string | null }) => w.lemma?.trim() || w.word
+
   // 이미 보유한 단어 (충돌로 무시될 것) 카운트 — UX 안내용
-  const wordList = words!.map((w) => w.word)
+  const wordList = words!.map(headword)
   const { data: existing, error: exErr } = await supabase
     .from('vocabularies')
     .select('word')
@@ -136,18 +150,32 @@ export async function subscribeSet(setId: string): Promise<SubscribeResult> {
   const alreadyOwnedCount = existing?.length ?? 0
 
   // 청크 단위 upsert — UNIQUE(user_id, word) 충돌 무시
-  const rows = words!.map((w) => ({
-    user_id: user.id,
-    word: w.word,
-    meaning: w.meaning_ko,
-    // 원문 문장 우선 (도서 챕터 문맥) → dict 일반 예문 폴백
-    example_sentence: w.source_sentence ?? w.example_en,
-    pronunciation: w.pronunciation,
-    pos: w.part_of_speech,
-    cefr_level: w.cefr_level,
-    origin: 'shared_set',
-    shared_set_id: setId,
-  }))
+  //
+  // ⚠️ **원형으로 모으면 한 세트 안에서 표제어가 겹칠 수 있다** — `hunting` 과 `hunted` 가
+  //   둘 다 `hunt` 가 되는 식이다(실측 21건). 같은 배치에 같은 word 가 두 번 들어가면
+  //   Postgres 가 "ON CONFLICT DO UPDATE command cannot affect row a second time" 로 거절한다.
+  //   `ignoreDuplicates` 는 **DB 안의 기존 행**과의 충돌만 무시하지, 보내는 배열 안의 중복은 못 막는다.
+  //   그래서 여기서 먼저 접는다. 먼저 나온 것을 남기는 이유는 `sort_order` 순이라 세트가 의도한 순서다.
+  const seen = new Set<string>()
+  const rows = words!
+    .filter((w) => {
+      const k = headword(w).toLowerCase()
+      if (seen.has(k)) return false
+      seen.add(k)
+      return true
+    })
+    .map((w) => ({
+      user_id: user.id,
+      word: headword(w),
+      meaning: w.meaning_ko,
+      // 원문 문장 우선 (도서 챕터 문맥) → dict 일반 예문 폴백
+      example_sentence: w.source_sentence ?? w.example_en,
+      pronunciation: w.pronunciation,
+      pos: w.part_of_speech,
+      cefr_level: w.cefr_level,
+      origin: 'shared_set',
+      shared_set_id: setId,
+    }))
 
   for (let i = 0; i < rows.length; i += VOCAB_IMPORT_CHUNK) {
     const chunk = rows.slice(i, i + VOCAB_IMPORT_CHUNK)

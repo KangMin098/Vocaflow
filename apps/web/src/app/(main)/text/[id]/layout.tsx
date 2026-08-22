@@ -336,11 +336,19 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
         //   VOA=PD 파생 자유 · preview==publish==workspace 동일 어휘로 본문 enrich.
         const { data: swData } = await client
           .from('shared_words')
-          .select('word, meaning_ko, part_of_speech, cefr_level, example_en, source_sentence')
+          .select('word, lemma, meaning_ko, part_of_speech, cefr_level, example_en, source_sentence')
           .eq('set_id', set.id)
           .order('sort_order', { ascending: true });
         // 단어별 V-Level — shared_words 에는 없으므로 사전에서 한 번에 조회한다.
-        const swWords = ((swData ?? []) as Array<{ word: string }>).map((w) => w.word.toLowerCase());
+        //
+        // ⚠️ **표면형이 아니라 원형으로 찾는다.** 단어장 표제어는 글에 나온 그대로라
+        //   `abated` · `flushed` 같은 굴절형이 섞여 있는데, 사전은 원형만 갖고 있다.
+        //   표면형으로 찾으면 그 낱말들의 v_level 이 조용히 null 이 되고, 아래 주석대로
+        //   학습자가 "지금 단계보다 어려운 단어" 를 알 방법이 사라진다.
+        //   실측(2026-08-22): 표면형 조회 적중 76,789/81,409(94.3%) → 원형 조회 **81,409(100%)**.
+        const lemmaOf = (w: { word: string; lemma?: string | null }) =>
+          (w.lemma?.trim() || w.word).toLowerCase();
+        const swWords = ((swData ?? []) as Array<{ word: string; lemma: string | null }>).map(lemmaOf);
         const { data: vRows } = swWords.length
           ? await client.from('shared_dictionary').select('word, v_level').in('word', swWords)
           : { data: [] };
@@ -353,6 +361,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
         chapterWords = (
           (swData ?? []) as Array<{
             word: string;
+            lemma: string | null;
             meaning_ko: string | null;
             part_of_speech: string | null;
             cefr_level: string | null;
@@ -360,13 +369,15 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
             source_sentence: string | null;
           }>
         ).map((w) => ({
-          word: w.word,
+          // 본문 주석에 보이는 표제어도 원형으로 맞춘다 — 여기만 표면형이면
+          // 학습자가 단어장에서 본 낱말과 본문 주석의 낱말이 달라진다.
+          word: w.lemma?.trim() || w.word,
           meaning: w.meaning_ko,
           pos: w.part_of_speech,
           cefrLevel: w.cefr_level,
           // 아티클 단어장은 shared_words 에서 오는데 v_level 컬럼이 없다 — 사전에서 채운다.
           //   이 값이 없으면 학습자가 '지금 단계보다 어려운 단어' 를 알 방법이 없다.
-          vLevel: vByWord.get(w.word.toLowerCase()) ?? null,
+          vLevel: vByWord.get(lemmaOf(w)) ?? null,
           exampleSentence: w.source_sentence ?? w.example_en,
           baseLearningValue: 0,
           frequencyInChapter: 0,
