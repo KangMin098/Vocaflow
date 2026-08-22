@@ -24,6 +24,11 @@ export type SeedSource =
   | 'wikivoyage'
   | 'usgs'
   | 'noaa'
+  // ⚠️ 이 유니언은 `packages/library-pipeline` 의 `SourceKey` **사본**이다.
+  //    2026-08-21 에 정본에만 `futurity` 가 들어가고 여기가 안 따라와서
+  //    **브랜치의 `next build` 가 깨진 채로 있었다**(실측 2026-08-23).
+  //    두 벌을 두는 한 또 갈라진다 — `source-key-parity.test.ts` 가 그걸 막는다.
+  | 'futurity'
 
 interface ArticleScore {
   total: number

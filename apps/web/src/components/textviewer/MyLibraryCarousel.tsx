@@ -16,7 +16,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useCallback, useEffect, useRef, useState } from 'react'
 // 탭 아이콘은 `MY_LIBRARY_TABS` 가 들고 온다 — 여기서 다시 고르지 않는다.
-import { ChevronLeft, ChevronRight, FileText, Sparkles } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 
 import { useScrollHint, scrollActiveIntoView } from '@/hooks/useScrollHint'
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'

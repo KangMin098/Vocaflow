@@ -514,6 +514,31 @@ My Library 는 Books·Texts·Decks 세 면뿐이라 교재가 들어갈 자리�
 - 회귀 15: 필터 10(`shelf-filter.test`) + 교재 면 5(`MyTextbooks.test` — 세 상태 구별 · 계단 순서 ·
   사라진 계단 무시). 캡처 하네스에 `/text?view=textbooks` 추가.
 
+### `next build` 가 이틀째 깨져 있었다 — 소스 목록 사본이 갈라져서 (v06.377)
+
+이번 루프 내내 스윕이 `ERR_ABORTED` · `ECONNRESET` 로 흔들렸고, 그 뿌리를 따라가니 빌드였다.
+**프로덕션 빌드가 안 되니 모든 스윕이 dev 서버 위에서 돌았고**, dev 는 라우트마다 첫 방문에
+컴파일한다 — 예열을 넣어도 42개 라우트를 연속으로 열면 서버가 죽는다.
+**타입 하나가 계측 전체를 흔들고 있었다.**
+
+**원인 — 기사 소스 목록이 두 벌이다.** 정본은 `packages/library-pipeline` 의 `SourceKey`,
+사본은 `apps/web/src/lib/acp/seed-upsert.ts` 의 `SeedSource`.
+2026-08-21 커밋 `fe252c99` 가 정본에만 `futurity` 를 넣었고 사본이 안 따라왔다.
+
+고친 것 (값을 짐작하지 않았다 — 전부 같은 커밋이 근거다):
+- `SeedSource` 에 `'futurity'` — 정본을 그대로 따른다
+- `SOURCE_REGISTERS.futurity = ['expository', 'news']` — 그 커밋이 "대학 컨소시엄 **연구 기사**"
+  라고 적고 있고, 논증 지면을 맡은 것은 PLOS 쪽이다. `nasa`·`nih` 와 같은 모양이다.
+- 그러고도 빌드는 **ESLint 오류 3건**에서 멈췄다 — 안 쓰는 import 2 · `let`→`const` 1.
+  셋 다 커밋된 것이고 다른 세션의 작업 중인 파일이 아니었다.
+
+**`next build` exit=0.** 이 브랜치가 처음으로 빌드된다.
+
+**가드** `source-key-parity.test.ts` — 두 목록을 **소스로 읽어** 대조한다(손으로 적으면 세 번째 사본이 된다).
+`tsc` 도 잡긴 하지만 "어디를 어떻게 맞춰야 하는지" 는 말해 주지 않는다 —
+이 가드는 파일명과 할 일을 적어 준다. 값을 되돌려 **빨개지는 것을 확인**한 뒤 남겼다.
+`SOURCE_REGISTERS` 누락도 같이 본다.
+
 ### 본문까지 Tab 19번 → 2번 (건너뛰기 링크) + 내비 스펙 오진 2건 (v06.376)
 
 앞 항목에서 수치만 남겨 둔 것을 고쳤다 — 키보드 학습자는 **화면을 옮길 때마다**

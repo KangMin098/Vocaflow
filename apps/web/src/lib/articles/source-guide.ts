@@ -54,6 +54,9 @@ export const SOURCE_REGISTERS: Record<SourceKey, ReadonlyArray<string>> = {
   wikivoyage: ['reference'], // 여행 목적지 가이드 (CC-BY-SA → 발행 가능 · reference 보강)
   usgs: ['expository'], // 지구과학·자연재해 과학 저널리즘 (PD US Gov → 발행 가능)
   noaa: ['expository'], // 기후과학 explainer (PD US Gov → 발행 가능)
+  // 대학 컨소시엄 연구 기사 (CC BY 4.0 · fe252c99). 추측이 아니라 같은 커밋의 근거다 —
+  // "연구 기사" 이고 논증 지면을 맡은 것은 PLOS 쪽이다. nasa·nih 와 같은 모양.
+  futurity: ['expository', 'news'],
   // ACP §20 재저작 — register 는 발주(composed_spec)가 정한다. 시사가 기본이지만
   //   같은 사실 원장에서 설명문·내러티브 판을 뽑을 수 있어 셋을 모두 연다.
   original: ['news', 'expository', 'narrative'],

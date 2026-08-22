@@ -9,7 +9,7 @@
 import { useEffect, useState, useTransition } from 'react'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
-import { COMPOSE_TABS, COMPOSE_TAB_BACKING, type ComposeTab } from '@/lib/admin/compose-tabs'
+import { COMPOSE_TABS, type ComposeTab } from '@/lib/admin/compose-tabs'
 
 import {
   addAttestation,

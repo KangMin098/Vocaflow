@@ -112,7 +112,7 @@ export default async function AdminComposePage() {
   let attestations: AttestationRow[] = []
   let composed: ComposedRow[] = []
   let gates: GateRow[] = []
-  let derived: Record<string, DerivedCounts> = {}
+  const derived: Record<string, DerivedCounts> = {}
 
   if (url && key) {
     const client = createServiceClient(url, key, {
