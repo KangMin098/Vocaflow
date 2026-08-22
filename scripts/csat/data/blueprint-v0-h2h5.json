@@ -1,0 +1,205 @@
+{
+ "H2": {
+  "found": 23,
+  "failed": 29,
+  "buckets": {
+   "first": 3,
+   "last2": 10,
+   "middle": 10
+  },
+  "rate": 0.5652173913043478,
+  "detail": [
+   {
+    "exam": "2014B",
+    "no": 31,
+    "sentBefore": 4,
+    "sentAfter": 1,
+    "total": 6,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2015",
+    "no": 32,
+    "sentBefore": 5,
+    "sentAfter": 2,
+    "total": 8,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2016",
+    "no": 32,
+    "sentBefore": 6,
+    "sentAfter": 1,
+    "total": 8,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2016",
+    "no": 34,
+    "sentBefore": 8,
+    "sentAfter": 1,
+    "total": 10,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2017",
+    "no": 34,
+    "sentBefore": 0,
+    "sentAfter": 6,
+    "total": 7,
+    "bucket": "first"
+   },
+   {
+    "exam": "2019",
+    "no": 34,
+    "sentBefore": 2,
+    "sentAfter": 5,
+    "total": 8,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2020",
+    "no": 32,
+    "sentBefore": 1,
+    "sentAfter": 3,
+    "total": 5,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2020",
+    "no": 33,
+    "sentBefore": 0,
+    "sentAfter": 9,
+    "total": 10,
+    "bucket": "first"
+   },
+   {
+    "exam": "2021",
+    "no": 31,
+    "sentBefore": 2,
+    "sentAfter": 3,
+    "total": 6,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2021",
+    "no": 32,
+    "sentBefore": 3,
+    "sentAfter": 1,
+    "total": 5,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2022",
+    "no": 33,
+    "sentBefore": 1,
+    "sentAfter": 4,
+    "total": 6,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2022",
+    "no": 34,
+    "sentBefore": 4,
+    "sentAfter": 1,
+    "total": 6,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2023",
+    "no": 31,
+    "sentBefore": 4,
+    "sentAfter": 0,
+    "total": 5,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2023",
+    "no": 32,
+    "sentBefore": 5,
+    "sentAfter": 2,
+    "total": 8,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2023",
+    "no": 34,
+    "sentBefore": 4,
+    "sentAfter": 1,
+    "total": 6,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2024",
+    "no": 31,
+    "sentBefore": 5,
+    "sentAfter": 1,
+    "total": 7,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2024",
+    "no": 32,
+    "sentBefore": 3,
+    "sentAfter": 2,
+    "total": 6,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2024",
+    "no": 33,
+    "sentBefore": 3,
+    "sentAfter": 3,
+    "total": 7,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2024",
+    "no": 34,
+    "sentBefore": 1,
+    "sentAfter": 6,
+    "total": 8,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2025",
+    "no": 33,
+    "sentBefore": 2,
+    "sentAfter": 1,
+    "total": 4,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2025",
+    "no": 34,
+    "sentBefore": 0,
+    "sentAfter": 7,
+    "total": 8,
+    "bucket": "first"
+   },
+   {
+    "exam": "2026",
+    "no": 31,
+    "sentBefore": 1,
+    "sentAfter": 6,
+    "total": 8,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2026",
+    "no": 33,
+    "sentBefore": 6,
+    "sentAfter": 0,
+    "total": 7,
+    "bucket": "last2"
+   }
+  ]
+ },
+ "H5": {
+  "blocks": 51,
+  "cued": 14,
+  "artOnly": 14,
+  "none": 23,
+  "failedItems": 21
+ }
+}
