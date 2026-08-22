@@ -18,6 +18,26 @@
   덮으면 **조회 실패가 "내 단어가 부족한가 보다" 로 읽힌다**
 - ❌ **값만 넘기기** — 화면에 `T | null` 만 주면 "아직 못 셌다" 와 "세어보니 0" 을 구별할 수 없다.
   **상태 전체**(`{status, data}`)를 넘길 것
+- ❌ **학습자 화면 전수 계측을 `dev` 위에서만 돌리기** — dev 는 라우트마다 첫 방문에 컴파일하고,
+  그 지연이 "본문이 비어 있다"·"막다른 길" 로 기록된다. 더 나쁜 것은 **덜 렌더돼서 안 보이는 결함**이다:
+  같은 접근성 스윕이 dev 53건/6화면 → prod **83건/9화면** 이었다(실측 2026-08-23 —
+  차이는 공용 `SegmentControl` 31px 였고 `/wordvault`·`/my/words` 가 걸려 있었다).
+  · **거는 법** — 워크스페이스를 여러 세션이 공유하므로 3000 의 dev 서버는 건드리지 않는다:
+    ```bash
+    NEXT_DIST_DIR=.next-sweep npx next build            # 실행 중인 서버를 덮지 않게 따로 짓는다
+    NEXT_DIST_DIR=.next-sweep npx next start -p 3100 &
+    export PLAYWRIGHT_BASE_URL=http://localhost:3100    # 이게 있으면 playwright 가 서버를 안 띄운다
+    npx playwright test tests/e2e/10-a11y-sweep.spec.ts
+    npx playwright test tests/e2e/91-hub-design-capture.spec.ts
+    LEARNER_SWEEP=1  npx playwright test tests/e2e/26-learner-sweep.spec.ts
+    KEYBOARD_SWEEP=1 npx playwright test tests/e2e/27-keyboard-reach.spec.ts
+    ```
+    넷 다 합쳐 **약 10분** (dev 로는 약 25분).
+  · ⚠️ **서버를 다시 시작할 때는 정말 죽었는지 확인할 것.** `pkill` 이 Windows 에서 안 먹어
+    **옛 서버가 교체된 빌드 디렉터리를 서빙**했고, 청크 해시가 어긋나 400 이 쏟아졌다.
+    그 위에서 나온 "콘솔 에러 24 · 미안정 12" 는 화면 이야기가 아니었다.
+  · ⚠️ 이 환경은 바깥 HTTPS 가 막혀 있어 `next/image` 가 `www.gutenberg.org` 표지를
+    대신 받아오다 실패하고 `⨯ [TypeError: fetch failed]` 를 남긴다 — **앱 결함이 아니다.**
 - ❌ **계측값 `0` 을 성과로 읽기** — 0 은 "위반이 없다" 일 수도, **"재지 못했다"** 일 수도 있다.
   둘을 구별하지 않으면 도구가 고장난 날이 **가장 좋은 성적표**로 남는다.
   · 실측 2026-08-22, 한 루프에서 **세 번** 밟았다:

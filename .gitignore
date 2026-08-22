@@ -25,6 +25,7 @@ exports/
 **/.next/
 # dev 서버를 죽이지 않고 프로덕션 빌드를 검증할 때의 격리 출력 (NEXT_DIST_DIR)
 .next-verify/
+.next-sweep/
 **/.next-verify/
 dist/
 out/
