@@ -145,7 +145,10 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
   })
   test.use({ storageState: STATE_PATH })
 
-  test('모든 학습자 화면이 열리고 · 조용하고 · 앞길이 있고 · 되돌아온다', async ({ page }) => {
+  test('모든 학습자 화면이 열리고 · 조용하고 · 앞길이 있고 · 되돌아온다', async ({
+    page,
+    context,
+  }) => {
     const routes = learnerRoutes()
     expect(routes.length, '라우트를 하나도 못 찾았다 — 목록 추출이 깨졌다').toBeGreaterThan(20)
 
@@ -158,14 +161,22 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
     //    api/admin/articles/futurity-feed 의 타입 에러(다른 영역의 미완 기능)로
     //    next build 가 실패한다. 그래서 차선으로 **한 번 훑어 컴파일을 끝내 놓고,
     //    두 번째 방문부터 잰다.** 예열 결과는 버린다 — 재지 않은 것을 성적에 넣지 않는다.
+    const warm = await context.newPage()
     for (const route of routes) {
-      await page.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {})
-      await page.waitForTimeout(150)
+      await warm.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {})
+      await warm.waitForTimeout(150)
     }
+    await warm.close()
 
     const results: RouteResult[] = []
 
     for (const route of routes) {
+      // ⚠️ **라우트마다 새 탭을 연다.** 한 탭으로 42개를 순회하면 히스토리에 42칸이 쌓이고,
+      //    `goBack()` 이 **앞 라우트로** 간다 — 실측 2026-08-22 에 `/dictate` 의 뒤로가기가
+      //    `/diagnostic/history`(알파벳 직전 라우트)로 찍혔다. 앱이 아니라 계측기였다.
+      //    Cycle 2 에서 "뒤로가기 → 다른 곳" 4건으로 보고했던 것이 전부 이것이다.
+      //    새 탭이면 히스토리가 [이 화면, 목적지] 둘뿐이라 뒤로가기의 정답이 분명해진다.
+      const page = await context.newPage()
       const errors: string[] = []
       const onConsole = (m: { type: () => string; text: () => string }) => {
         if (m.type() === 'error') errors.push(m.text().slice(0, 200))
@@ -229,12 +240,14 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
           )
           const n = await links.count()
           let target: string | null = null
+          let targetIdx = -1
           for (let i = 0; i < Math.min(n, 12); i++) {
             const el = links.nth(i)
             if (!(await el.isVisible().catch(() => false))) continue
             const href = await el.getAttribute('href')
             if (href && href !== r.landed && !href.startsWith('#')) {
               target = href
+              targetIdx = i
               break
             }
           }
@@ -243,14 +256,41 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
 
           // ⑤ 연계 — 목적지가 **진짜 화면**인가. 링크만 살아 있고 그 끝이 에러면
           //    ④(복귀)는 초록으로 나온다. 그래서 도착지를 따로 본다.
-          if (target && !SESSION_ROUTES.has(route)) {
-            const dest = await gotoSettled(page, target)
+          if (target && targetIdx >= 0 && !SESSION_ROUTES.has(route)) {
+            // ⚠️ **`goto` 가 아니라 클릭이다.** 학습자는 주소를 치지 않고 링크를 누른다.
+            //    `goto` 는 전체 로드라 히스토리가 다르게 쌓이고, 목적지가 리다이렉트하면
+            //    뒤로가기가 엉뚱한 데로 간다 — 실측 2026-08-22 에 `/dictate` 가
+            //    "뒤로가기 → /library/books" 로 찍힌 것이 그것이었다(**계측기 문제**).
+            //    클릭하면 Next 의 클라이언트 라우팅을 타서 실제 동선과 같아진다.
+            const before = new URL(page.url()).pathname
+            await links
+              .nth(targetIdx)
+              .click({ timeout: 15_000 })
+              .catch(() => {})
+            // ⚠️ 고정 대기(1.2초)로는 부족했다 — dev 는 목적지를 그때 컴파일한다.
+            //    "눌러도 안 움직인다" 가 화면마다 찍혔는데 **기다림이 짧았던 것**이다.
+            //    주소가 바뀔 때까지 기다리고, 그래도 안 바뀌면 그때 죽은 링크로 본다.
+            await page
+              .waitForURL((u) => u.pathname !== before, { timeout: 20_000 })
+              .catch(() => {})
+            await page.waitForTimeout(600)
+            const dest = new URL(page.url()).pathname
             const destBody = ((await page.locator('body').innerText().catch(() => '')) || '').trim()
             const destBroken =
               /페이지를 찾을 수 없어요|문제가 발생했어요|Application error/.test(destBody)
-            r.linkLands = !destBroken && destBody.length > 40 && !dest.startsWith('/login')
+            // 클릭했는데 주소가 그대로면 그 링크는 **눌리지 않는 링크**다 — 죽은 앞길이다.
+            const moved = dest !== r.landed
+            // ⚠️ 게임 세션(`/play/*`)은 `next/dynamic` 으로 늦게 붙고 로딩 중엔 글자가 거의 없다.
+            //    40자 기준으로 재면 멀쩡한 화면이 "깨졌다" 로 찍힌다
+            //    (실측 2026-08-22: /wordblitz → /play/wordblitz 가 그랬다).
+            //    그 화면들은 **에러 화면인지만** 본다 — 본문 길이는 뜻이 없다.
+            const isSession = dest.startsWith('/play/')
+            const bodyOk = isSession ? true : destBody.length > 40
+            r.linkLands = moved && !destBroken && bodyOk && !dest.startsWith('/login')
             if (!r.linkLands) {
-              r.note = (r.note ? r.note + ' · ' : '') + `앞길 끝이 깨졌다: ${target} → ${dest}`
+              r.note =
+                (r.note ? r.note + ' · ' : '') +
+                (moved ? `앞길 끝이 깨졌다: ${target} → ${dest}` : `눌러도 안 움직인다: ${target}`)
             }
             // ⑤ 에서 이미 목적지에 와 있으므로 ④ 는 여기서 바로 뒤로가기만 하면 된다.
           }
@@ -281,6 +321,7 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
       } finally {
         page.off('console', onConsole)
         page.off('pageerror', onPageError)
+        await page.close().catch(() => {})
       }
 
       results.push(r)
@@ -337,7 +378,16 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
     // 예열을 넣고 나서 **재현된다**: 연속 두 실행 95.5% · 95.9% (실측 2026-08-22).
     // 그 전에는 96.7% / 54.9% 로 흔들렸다 — dev 서버의 라우트별 첫 컴파일 때문이었다.
     // 목표는 100% 다. 지금 바닥을 걸고, 올렸으면 이 숫자를 함께 올린다.
-    const FLOOR = Number(process.env.LEARNER_SWEEP_FLOOR ?? 95)
+    // ── 래칫 ──────────────────────────────────────────────────────────
+    // 실측 2026-08-22 (히스토리 격리 후): 100% · 98.3%.
+    // 100% 가 매번 나오지는 않는다 — 남는 것은 클라이언트 렌더가 늦게 붙는 화면
+    // (`/text`·`/my/words` 의 "막다른 길")과 `replace` 로 이동해 뒤로 갈 곳이 없는 경우다.
+    //
+    // ⚠️ **여기서 더 조정해 100% 를 만들지 않았다.** 남은 셋은 앱 결함이 아니라
+    //    계측 타이밍인데, 그걸 맞추려고 기준을 계속 느슨하게 하면 **답에 계측기를 맞추는**
+    //    것이 된다. 그 순간 이 숫자는 아무것도 지키지 않는다.
+    //    바닥은 재현되는 값으로 두고, 올릴 때는 **화면을 고쳐서** 올린다.
+    const FLOOR = Number(process.env.LEARNER_SWEEP_FLOOR ?? 98)
     expect(
       rate,
       `학습자 훑기 성공률 ${rate}% (바닥 ${FLOOR}%) — 목표 100%. 위 목록 참조`,
