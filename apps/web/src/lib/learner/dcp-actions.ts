@@ -12,6 +12,10 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 
 import type { DcpErrorCause, DcpGradeResult, DcpItem } from './dcp'
+import { SERIES_SPINE } from '@vocaflow/library-pipeline'
+
+import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
+
 import { isChoiceDcpType, isPlayableDcpType } from './dcp-types'
 
 const ALLOWED_CAUSES: readonly DcpErrorCause[] = ['vocab', 'parsing', 'structure', 'inference', 'timing']
@@ -90,27 +94,58 @@ function parseItem(raw: unknown): DcpItem | null {
   return null
 }
 
-/** 오늘 처방의 구문 연습(DCP) 문항. S3 미만이거나 문항 없으면 active=false. */
-export async function fetchDcpPracticeItems(): Promise<{ active: boolean; items: DcpItem[] }> {
+/**
+ * 담은 교재가 덮는 V-Level 목록.
+ *
+ * ⚠️ **사다리는 여기서 푼다.** `prescribe_today` 는 레벨만 알고 step 을 모른다 —
+ *    step → V-Level 매핑의 정본은 `SERIES_SPINE` 이고, SQL 에 복사하면 눈금이 둘이 되어
+ *    반드시 갈린다(`user_textbook_selections` 가 step 번호만 저장한 이유와 같다).
+ *
+ * 못 읽으면 빈 배열 — 그러면 처방은 예전과 똑같이 동작한다(담기가 오늘 할 것을 줄이지 않는다).
+ */
+async function pickedVLevels(): Promise<number[]> {
+  const mine = await fetchMyTextbooks()
+  if (!mine.available || mine.steps.length === 0) return []
+  const levels = new Set<number>()
+  for (const rung of SERIES_SPINE) {
+    if (mine.steps.includes(rung.step)) for (const lv of rung.vLevels) levels.add(lv)
+  }
+  return [...levels].sort((a, b) => a - b)
+}
+
+/**
+ * 오늘 처방의 구문 연습(DCP) 문항. S3 미만이거나 문항 없으면 active=false.
+ *
+ * `steered` = 이 문항들이 **담은 교재에서** 나왔는가. 화면이 그 사실을 말할 수 있어야
+ * "담기가 무엇을 바꿨는지" 를 학습자가 안다 — 안 그러면 또 보이지 않는 약속이 된다.
+ */
+export async function fetchDcpPracticeItems(): Promise<{
+  active: boolean
+  items: DcpItem[]
+  steered: boolean
+}> {
   const client = await createClient()
   const {
     data: { user },
   } = await client.auth.getUser()
-  if (!user) return { active: false, items: [] }
+  if (!user) return { active: false, items: [], steered: false }
 
   const loose = client as unknown as SupabaseClient
-  const { data, error } = await loose.rpc('prescribe_today', { p_user_id: user.id })
-  if (error || !data) return { active: false, items: [] }
+  const { data, error } = await loose.rpc('prescribe_today', {
+    p_user_id: user.id,
+    p_v_levels: await pickedVLevels(),
+  })
+  if (error || !data) return { active: false, items: [], steered: false }
 
   const blocks = (data as { blocks?: unknown }).blocks
   const practice = Array.isArray(blocks)
     ? (blocks.find((b) => (b as { kind?: string } | null)?.kind === 'practice') as Record<string, unknown> | undefined)
     : undefined
-  if (!practice || practice.active !== true) return { active: false, items: [] }
+  if (!practice || practice.active !== true) return { active: false, items: [], steered: false }
 
   const raw = practice.items
   const items = Array.isArray(raw) ? raw.map(parseItem).filter((x): x is DcpItem => x !== null) : []
-  return { active: items.length > 0, items }
+  return { active: items.length > 0, items, steered: practice.steered === true }
 }
 
 /**

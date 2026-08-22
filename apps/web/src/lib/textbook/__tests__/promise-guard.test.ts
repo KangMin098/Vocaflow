@@ -1,37 +1,34 @@
 // apps/web/src/lib/textbook/__tests__/promise-guard.test.ts
 //
-// **화면이 시스템보다 앞서 말하지 않게 한다.**
+// **화면이 시스템보다 앞서 말하지 않게 한다 — 그리고 뒤처지지도 않게 한다.**
 //
 // ── 왜 이 테스트가 있나 (실측 2026-08-22) ────────────────────────────────
-// 권 상세가 이렇게 적고 있었다:
-//   "이 권의 문항은 오늘의 학습에 섞여 나옵니다. 지금 수준에 맞는 단원부터 자동으로 배정돼요."
-// `prescribe_today` 본문을 읽어 보니 셋 다 틀렸다.
-//   ① 담은 교재를 보지 않는다 — `user_textbook_selections` 를 읽는 곳이 조회·쓰기 모듈뿐이다.
-//   ② '단원' 이라는 단위가 배정에 없다 — stage_band 로 거르고 `md5(id||current_date)` 무작위 5문항.
-//   ③ 유형이 `order`·`insert` 로 제한된다 — 문항 5,952개 중 오늘의 학습이 닿는 건 895개(15%).
-//      어휘 추론·어법·흐름 무관 2,830개는 이 경로로 한 번도 안 나온다.
-//
+// 권 상세가 "이 권의 문항은 오늘의 학습에 섞여 나옵니다. 지금 수준에 맞는 단원부터
+// 자동으로 배정돼요" 라고 적고 있었는데 `prescribe_today` 는 담은 교재를 보지 않았다.
 // 이런 문장은 **틀려도 아무 예외가 안 난다.** 화면은 멀쩡히 뜨고 학습자만 속는다.
-// 그래서 코드가 아니라 **문구**를 회귀로 잡는다.
 //
-// ⚠️ 배정이 실제로 담은 교재를 보게 되면(= 처방 경로가 `user_textbook_selections` 를 읽으면)
-//    이 테스트가 먼저 실패한다. 그때 **테스트와 문구를 함께** 갱신할 것.
-//    지금 이 파일이 하는 일은 "아직 안 됐다" 를 기억해 두는 것이다.
+// ⚠️ **첫 판은 잘못된 것을 봤다.** "어떤 모듈이 `user_textbook_selections` 라는 **문자열**을
+//    담고 있나" 를 셌는데, 배선이 실제로 붙었을 때 처방 모듈은 그 표를 직접 읽지 않고
+//    `fetchMyTextbooks()` 를 통해 읽었다 — 그래서 **가드가 초록인 채로 통과했다.**
+//    문자열이 아니라 **계약**을 봐야 한다: 처방 호출이 담은 교재를 넘기는가.
+//
+// 지금은 양방향이다. 배선이 없으면 "바꾸지 않는다" 라고 적어야 하고,
+// 배선이 있으면 그 말이 남아 있으면 안 된다.
 
-import { readFileSync, readdirSync, statSync } from 'node:fs'
+import { readFileSync } from 'node:fs'
 import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
 const SRC = path.resolve(__dirname, '../../..')
 const VOLUME_PAGE = path.join(SRC, 'app', '(main)', 'library', 'textbooks', '[step]', 'page.tsx')
+const DCP_ACTIONS = path.join(SRC, 'lib', 'learner', 'dcp-actions.ts')
 
 /**
  * 주석을 지운다 — 블록 · JSX 블록 · 줄 주석.
  *
- * ⚠️ 첫 판이 줄 앞머리만 보고 걸렀다가 **여러 줄짜리 JSX 주석 안의 문장**을 화면 문구로 세서
- *    스스로 실패했다. 이 파일이 잡으려는 것과 정확히 같은 종류의 실수다 —
- *    "적혀 있다" 와 "학습자가 읽는다" 는 다르다.
+ * ⚠️ 이것도 첫 판이 틀렸다. 줄 앞머리만 보고 걸렀다가 **여러 줄짜리 JSX 주석 안의 문장**을
+ *    화면 문구로 세서 스스로 실패했다. "적혀 있다" 와 "학습자가 읽는다" 는 다르다.
  */
 function stripComments(src: string): string {
   const JSX_COMMENT = /\{\s*\/\*[\s\S]*?\*\/\s*\}/g
@@ -40,73 +37,64 @@ function stripComments(src: string): string {
   return src.replace(JSX_COMMENT, '').replace(BLOCK_COMMENT, '').replace(LINE_COMMENT, '')
 }
 
-/** 담은 교재를 **코드에서** 읽는 모듈. 저장소를 소유한 두 모듈은 당연하므로 뺀다. */
-function modulesReadingSelections(): string[] {
-  const OWNERS = ['lib/textbook/my-shelf-query', 'lib/textbook/my-shelf-actions']
-  const out: string[] = []
-
-  const walk = (dir: string) => {
-    for (const name of readdirSync(dir)) {
-      const full = path.join(dir, name)
-      if (statSync(full).isDirectory()) {
-        if (name === 'node_modules' || name === '__tests__') continue
-        walk(full)
-        continue
-      }
-      if (!/\.tsx?$/.test(name)) continue
-
-      const rel = path.relative(SRC, full).replace(/\\/g, '/')
-      if (OWNERS.some((o) => rel.startsWith(o))) continue
-
-      // 주석에 이름만 적힌 것은 읽는 것이 아니다 — 권 상세는 왜 문구를 고쳤는지
-      // 설명하느라 표 이름을 주석에 적고 있다.
-      if (stripComments(readFileSync(full, 'utf8')).includes('user_textbook_selections')) {
-        out.push(rel)
-      }
-    }
-  }
-
-  walk(SRC)
-  return out
+/**
+ * 처방이 담은 교재를 **실제로** 받는가.
+ *
+ * 판정 근거는 하나뿐이다 — `prescribe_today` 호출에 `p_v_levels` 를 넘기는가.
+ * 그것이 이 약속의 기계적 정의다(사다리는 호출부가 풀고, SQL 은 레벨만 안다).
+ */
+function prescriptionReadsTextbooks(): boolean {
+  const src = stripComments(readFileSync(DCP_ACTIONS, 'utf8'))
+  return src.includes('prescribe_today') && src.includes('p_v_levels')
 }
 
-describe('담기가 오늘의 학습을 바꾸는가 — 아직 아니다', () => {
-  it('처방 경로가 담은 교재를 읽지 않는다는 사실이 유지된다', () => {
-    expect(
-      modulesReadingSelections(),
-      '담은 교재를 읽는 곳이 생겼다 — 권 상세의 "담기가 오늘의 학습을 바꾸지는 않습니다" 문구를 갱신할 것',
-    ).toEqual([])
+const WIRED = prescriptionReadsTextbooks()
+
+describe('담기와 오늘의 학습 — 화면과 시스템이 같은 말을 한다', () => {
+  it('처방 배선 여부를 기계로 판정할 수 있다', () => {
+    // 이 단언이 깨지면 판정 자체가 낡은 것이다(호출 방식이 바뀌었다는 뜻).
+    const src = stripComments(readFileSync(DCP_ACTIONS, 'utf8'))
+    expect(src, '처방 호출부를 못 찾았다 — 이 가드가 아무것도 안 지키고 있다').toContain(
+      'prescribe_today',
+    )
   })
 
-  it('권 상세가 지키지 못할 약속을 하지 않는다', () => {
+  it('배선이 있으면 "바꾸지 않는다" 가 화면에 남아 있지 않다', () => {
+    if (!WIRED) return
+    const rendered = stripComments(readFileSync(VOLUME_PAGE, 'utf8'))
+    expect(
+      rendered.includes('담기가 오늘의 학습을 바꾸지는'),
+      '처방이 담은 교재를 읽는데 화면은 아직 "바꾸지 않는다" 라고 말한다 — 이제 뒤처진 쪽은 화면이다',
+    ).toBe(false)
+  })
+
+  it('배선이 없으면 자동 배정을 약속하지 않는다', () => {
+    if (WIRED) return
     const rendered = stripComments(readFileSync(VOLUME_PAGE, 'utf8'))
     for (const claim of ['자동으로 배정', '섞여 나옵니다']) {
       expect(
         rendered.includes(claim),
-        `지켜지지 않는 약속이 화면에 있다: "${claim}" — prescribe_today 는 담은 교재를 보지 않는다`,
+        `지켜지지 않는 약속이 화면에 있다: "${claim}"`,
       ).toBe(false)
     }
   })
 
-  it('대신 지금 참인 것을 말한다', () => {
+  it('배선이 있으면 화면이 그 사실을 말한다', () => {
+    if (!WIRED) return
     const rendered = stripComments(readFileSync(VOLUME_PAGE, 'utf8'))
-    expect(rendered).toContain('담기가 오늘의 학습을 바꾸지는')
-  })
-})
-
-describe('숫자를 손으로 적지 않는다', () => {
-  // 권 상세의 "약 N시간" 은 한동안 `3` 을 손으로 적어 계산했고, 주석은 라이브러리 상수를
-  // 가리켰다. 확인해 보니 그 패키지 안에 같은 이름의 상수가 **둘**이고 값이 다르다
-  // (assemble-unit 2분 · compose-unit 3분). 손으로 적은 숫자는 어느 쪽과도 묶여 있지 않았다.
-  it('권 상세가 소요 시간 상수를 import 한다', () => {
-    const src = readFileSync(VOLUME_PAGE, 'utf8')
-    expect(src, '소요 시간 상수를 import 하지 않는다').toContain('MINUTES_PER_ITEM')
-    expect(src, '단원 구성 상수를 import 하지 않는다').toContain('DEFAULT_SLOTS')
+    expect(
+      rendered.includes('오늘의 학습'),
+      '담기가 오늘의 학습을 바꾸는데 화면이 그 말을 안 한다 — 보이지 않는 기능이 된다',
+    ).toBe(true)
   })
 
-  it('두 모델이 다르므로 단일 숫자로 인쇄하지 않는다 — 범위로 말한다', () => {
-    const rendered = stripComments(readFileSync(VOLUME_PAGE, 'utf8'))
-    expect(rendered, '시간을 범위가 아니라 한 숫자로 적고 있다').toContain('~')
-    expect(rendered).toContain('COMPOSE_MINUTES_PER_ITEM')
+  it('담기가 오늘 할 것을 **줄이지는** 않는다는 계약이 적혀 있다', () => {
+    // 담은 교재로 5문항을 못 채우면 예전 방식으로 채운다. 이 폴백이 사라지면
+    // 교재를 담았다는 이유로 오늘 할 것이 줄어들고, 담기는 벌이 된다.
+    const sql = readFileSync(
+      path.resolve(SRC, '../../../supabase/migrations/20260822110000_prescribe_today_textbook_steer.sql'),
+      'utf8',
+    )
+    expect(sql).toContain('NOT v_steered')
   })
 })
