@@ -14,14 +14,17 @@ import {
   correctOrderFromKey,
   type DcpErrorCause,
   type DcpGradeResult,
+  type DcpChoicePayload,
   type DcpInsertPayload,
   type DcpItem,
   type DcpOrderPayload,
   ERROR_CAUSES,
 } from '@/lib/learner/dcp'
+
+import { isChoiceDcpType } from '@/lib/learner/dcp-types'
 import { gradeDcpItem, recordDcpErrorCause } from '@/lib/learner/dcp-actions'
 
-import { DcpInsertItem, DcpOrderItem } from './DcpItems'
+import { DcpChoiceItem, DcpInsertItem, DcpOrderItem } from './DcpItems'
 
 type Phase = 'answering' | 'grading' | 'graded' | 'done'
 
@@ -77,7 +80,7 @@ export function DcpPlayer({ items }: { items: DcpItem[] }) {
         <div>
           <h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">오늘 구문 연습을 마쳤어요</h2>
           <p className="mt-1 font-body text-[13px] text-[var(--t2)]">
-            {total}문항 중 {correctCount}문항을 정확히 배열했어요. 꾸준함이 실력이 돼요.
+            {total}문항 중 {correctCount}문항을 맞혔어요. 꾸준함이 실력이 돼요.
           </p>
         </div>
         <Link
@@ -111,6 +114,12 @@ export function DcpPlayer({ items }: { items: DcpItem[] }) {
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
           <Feedback item={item} result={result} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} />
+        ) : isChoiceDcpType(item.type) ? (
+          <DcpChoiceItem
+            payload={item.payload as DcpChoicePayload}
+            submitting={phase === 'grading'}
+            onSubmit={handleSubmit}
+          />
         ) : item.type === 'order' ? (
           <DcpOrderItem
             payload={item.payload as DcpOrderPayload}
@@ -163,7 +172,14 @@ function Feedback({
           {correct ? <Check size={16} strokeWidth={2.5} /> : <X size={16} strokeWidth={2.5} />}
         </span>
         <p className="font-display text-[14px] font-[700]">
-          {correct ? '정확해요! 문장 흐름을 잘 잡았어요.' : '아쉬워요 — 정답 흐름을 함께 볼게요.'}
+          {/* 유형마다 '무엇을 잘했는지' 가 다르다 — 한 문장으로 뭉개면 선택지 유형에서 어색해진다. */}
+          {correct
+            ? isChoiceDcpType(item.type)
+              ? '정확해요! 근거를 잘 찾았어요.'
+              : '정확해요! 문장 흐름을 잘 잡았어요.'
+            : isChoiceDcpType(item.type)
+              ? '아쉬워요 — 정답과 근거를 함께 볼게요.'
+              : '아쉬워요 — 정답 흐름을 함께 볼게요.'}
         </p>
       </div>
 
@@ -229,6 +245,33 @@ function CauseTip({ cause }: { cause: DcpErrorCause }) {
 
 // 정답 공개 — order: 원래 순서 문장 / insert: 삽입 위치에 문장 배치
 function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, unknown> }) {
+  // ── 선택지 9종 — 정답 번호 + 해설(rationale_ko) ──
+  if (isChoiceDcpType(item.type)) {
+    const answer = answerKey.answer
+    const rationale = answerKey.rationale_ko
+    const p = item.payload as DcpChoicePayload
+    if (typeof answer !== 'number') return null
+    return (
+      <div className="flex flex-col gap-2">
+        <p className="font-display text-[12px] font-[700] text-[var(--t2)]">정답</p>
+        <div className="flex items-start gap-2.5 rounded-[var(--r-sm)] border border-[var(--success)] bg-[var(--success-light)] p-2.5">
+          <span className="mt-[1px] inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--success)] font-mono text-[12px] font-[700] text-[var(--bg)]" aria-hidden>
+            {answer}
+          </span>
+          <p className="min-w-0 flex-1 font-body text-[13px] leading-relaxed text-[var(--t1)]">
+            {p.choices[answer - 1] ?? ''}
+          </p>
+        </div>
+        {/* 해설은 **왜 나머지가 아닌지**까지 적혀 있다 — 오답 노트가 따로 필요 없게 만든 자리다. */}
+        {typeof rationale === 'string' && rationale.trim() && (
+          <p className="rounded-[var(--r-sm)] bg-[var(--bg)] p-2.5 font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
+            {rationale}
+          </p>
+        )}
+      </div>
+    )
+  }
+
   if (item.type === 'order') {
     const sourceOrder = answerKey.source_order
     const presented = (item.payload as DcpOrderPayload).presented

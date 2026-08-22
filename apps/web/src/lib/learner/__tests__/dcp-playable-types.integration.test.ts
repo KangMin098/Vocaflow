@@ -36,9 +36,12 @@ describe('DCP 유형 분류 (순수)', () => {
   })
 
   it('모르는 유형은 재생 가능으로 보지 않는다 — 기본이 제외다', () => {
-    expect(isPlayableDcpType('grammar_fix')).toBe(false)
+    // ⚠️ **예시는 저장소에 없는 이름이어야 한다.** 처음에는 `grammar_fix` 를 썼는데
+    //   2026-08-22 에 그 유형이 실제로 분류되면서 이 단언이 뒤집혔다. 언젠가 진짜가 될
+    //   이름을 "모르는 유형" 의 예로 쓰면, 테스트가 규칙이 아니라 그때의 재고를 검사하게 된다.
+    expect(isPlayableDcpType('sokrates_dialogue')).toBe(false)
     expect(isPlayableDcpType(undefined)).toBe(false)
-    expect(isClassifiedDcpType('grammar_fix')).toBe(false)
+    expect(isClassifiedDcpType('sokrates_dialogue')).toBe(false)
   })
 })
 

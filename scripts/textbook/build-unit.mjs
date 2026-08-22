@@ -15,6 +15,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { fetchAllIn } from './volume-pool.mjs'
+
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
@@ -69,16 +71,16 @@ for (const d of dcp ?? []) {
 //   V5 68편이면 어휘가 2만 행이라, 페이지네이션 없이 받으면 앞 몇 편만 어휘가 붙고
 //   나머지는 "어휘 0" 으로 보인다 — 실제로 그렇게 나왔다(18단원 중 17개가 0).
 //   지문별로 나눠 받아 자를 여지를 없앤다.
-const vocabRows = []
-for (let i = 0; i < ids.length; i += 5) {
-  const { data: chunk, error: ve } = await db
-    .from('library_article_vocabularies')
-    .select('library_article_id, word, first_sentence, frequency_in_article')
-    .in('library_article_id', ids.slice(i, i + 5))
-    .limit(20000)
-  if (ve) throw new Error('어휘 조회 실패: ' + ve.message)
-  vocabRows.push(...(chunk ?? []))
-}
+// ⚠️ **나눠 받는 것만으로는 모자라다.** `.limit(20000)` 은 서버 상한(1000행)을 못 넘으므로
+//   한 조각이 1000행을 넘기면 뒤가 조용히 잘린다. 페이징은 `fetchAllIn` 한 곳에만 둔다.
+const vocabRows = await fetchAllIn(
+  db,
+  'library_article_vocabularies',
+  'library_article_id, word, first_sentence, frequency_in_article',
+  'library_article_id',
+  ids,
+  ['library_article_id', 'word'],
+)
 const words = [...new Set((vocabRows ?? []).map((v) => v.word))]
 const meaning = new Map()
 for (let i = 0; i < words.length; i += 500) {

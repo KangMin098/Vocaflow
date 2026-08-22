@@ -19,6 +19,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { fetchAllIn } from './volume-pool.mjs'
+
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
@@ -42,16 +44,20 @@ const { data: arts, error } = await db
 if (error) throw new Error('기사 조회 실패: ' + error.message)
 
 // 이미 있는 조합 — 나눠 받는다(1,000행 제한에 조용히 잘린 적이 있다).
+// ⚠️ 조각이 1000행을 넘으면 뒤가 조용히 잘리고, 잘린 만큼 "이미 있음" 판정이 빠져
+//   있는 문항을 다시 넣으려다 유일키 위반으로 죽는다(2026-08-22 실측: 조각 최대 1022행).
 const existing = new Set()
 const ids = (arts ?? []).map((a) => a.id)
-for (let i = 0; i < ids.length; i += 20) {
-  const { data } = await db
-    .from('csat_dcp_items')
-    .select('ref_id, type, paragraph_idx')
-    .eq('kind', 'article')
-    .in('ref_id', ids.slice(i, i + 20))
-    .limit(20000)
-  for (const r of data ?? []) existing.add(`${r.ref_id}|${r.type}|${r.paragraph_idx}`)
+for (const r of await fetchAllIn(
+  db,
+  'csat_dcp_items',
+  'ref_id, type, paragraph_idx',
+  'ref_id',
+  ids,
+  ['ref_id', 'type', 'paragraph_idx'],
+  (q) => q.eq('kind', 'article'),
+)) {
+  existing.add(`${r.ref_id}|${r.type}|${r.paragraph_idx}`)
 }
 
 const rows = []

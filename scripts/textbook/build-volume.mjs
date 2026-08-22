@@ -14,6 +14,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { fetchAllIn } from './volume-pool.mjs'
+
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
@@ -47,16 +49,17 @@ if (!ids.length) {
   process.exit(0)
 }
 
-// 문항 — 1,000행 제한을 피해 나눠 받는다(이 저장소에서 이미 한 번 조용히 잘렸다).
-const items = []
-for (let i = 0; i < ids.length; i += 10) {
-  const { data } = await db
-    .from('csat_dcp_items')
-    .select('id, type, ref_id, paragraph_idx, payload, answer_key')
-    .in('ref_id', ids.slice(i, i + 10))
-    .limit(20000)
-  items.push(...(data ?? []))
-}
+// 문항 — 1,000행 제한을 피해 **페이징으로** 받는다.
+// ⚠️ 나눠 묻기만 하고 `.limit(20000)` 을 붙이던 판이 오래 남아 있었다. 그 숫자는 아무 힘이
+//   없다 — 서버가 1000에서 자른다. 페이징은 `fetchAllIn` 한 곳에만 둔다.
+const items = await fetchAllIn(
+  db,
+  'csat_dcp_items',
+  'id, type, ref_id, paragraph_idx, payload, answer_key',
+  'ref_id',
+  ids,
+  ['id'],
+)
 
 // ⚠️ Supabase 는 `.in()` 결과 순서를 보장하지 않는다. 정렬하지 않으면 **같은 재료로
 //   실행할 때마다 다른 교재**가 나온다 — 실측: "어휘 미달 0" 과 "미달 2" 가 번갈아 나왔다.
@@ -88,16 +91,15 @@ const pool = items.map((it) => ({
   answer_key: it.answer_key ?? {},
 }))
 
-// 어휘 — 지문별로 나눠 받는다.
-const vocabRows = []
-for (let i = 0; i < ids.length; i += 5) {
-  const { data } = await db
-    .from('library_article_vocabularies')
-    .select('library_article_id, word, first_sentence, frequency_in_article')
-    .in('library_article_id', ids.slice(i, i + 5))
-    .limit(20000)
-  vocabRows.push(...(data ?? []))
-}
+// 어휘 — 지문별로 나눠 **페이징으로** 받는다(한 편이 1,072행인 사례가 실측됐다).
+const vocabRows = await fetchAllIn(
+  db,
+  'library_article_vocabularies',
+  'library_article_id, word, first_sentence, frequency_in_article',
+  'library_article_id',
+  ids,
+  ['library_article_id', 'word'],
+)
 const words = [...new Set(vocabRows.map((v) => v.word))]
 const dict = new Map()
 for (let i = 0; i < words.length; i += 500) {

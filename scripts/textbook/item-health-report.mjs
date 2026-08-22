@@ -112,18 +112,35 @@ const items = raw.map((r) => {
   }
 })
 
-// 관측 — 지금은 0행이다. 들어오면 여기서 붙는다.
-const { data: attemptRows, error: aErr } = await db
-  .from('csat_item_attempts')
-  .select('question_id, is_correct')
-  .limit(50000)
-if (aErr) throw new Error('관측 조회 실패: ' + aErr.message)
+// 관측 — `dcp_item_id` 로 읽는다. `question_id` 는 quiz_questions 전용이라,
+// 거기에 문항 id 를 넣던 동안 모든 INSERT 가 FK 위반으로 죽어 0행이었다
+// (마이그레이션 20260822013136 에서 컬럼을 나눴다).
+// ⚠️ `.limit(50000)` 을 붙여도 서버는 1000행에서 자른다. 관측이 쌓이기 시작하면
+//   그 절단이 곧바로 **난이도·변별도를 왜곡**한다 — 앞 1000건만 본 P 값은 진짜 P 가 아니다.
+//   여기는 `.in()` 조회가 아니라 전수라서 페이징을 직접 돈다.
+const attemptRows = []
+{
+  const PAGE = 1000
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await db
+      .from('csat_item_attempts')
+      .select('dcp_item_id, is_correct')
+      // 페이지가 겹치거나 새지 않도록 정렬을 고정한다.
+      .order('id')
+      .range(from, from + PAGE - 1)
+    if (error) throw new Error('관측 조회 실패: ' + error.message)
+    attemptRows.push(...(data ?? []))
+    if (!data || data.length < PAGE) break
+  }
+}
 const agg = new Map()
 for (const a of attemptRows ?? []) {
-  const s = agg.get(a.question_id) ?? { id: a.question_id, attempts: 0, correct: 0 }
+  // 문항 재생성으로 링크가 끊긴 행(ON DELETE SET NULL)은 난이도·변별도에 못 쓴다.
+  if (!a.dcp_item_id) continue
+  const s = agg.get(a.dcp_item_id) ?? { id: a.dcp_item_id, attempts: 0, correct: 0 }
   s.attempts++
   if (a.is_correct) s.correct++
-  agg.set(a.question_id, s)
+  agg.set(a.dcp_item_id, s)
 }
 const stats = [...agg.values()]
 

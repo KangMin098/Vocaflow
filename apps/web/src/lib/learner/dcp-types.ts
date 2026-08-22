@@ -1,31 +1,36 @@
 // apps/web/src/lib/learner/dcp-types.ts
 //
-// **DCP 문항 유형을 두 갈래로 가른다 — 학습자가 푸는 것과 교재에만 쓰는 것.**
+// DCP 문항 유형의 **단일 출처** — 재생용(학습자가 푼다) vs 교재용(인쇄물에만 쓴다).
 //
-// ── 왜 이 파일이 있는가 (2026-08-21) ─────────────────────────────────
-// `csat_dcp_items` 는 원래 `order`·`insert` 둘뿐이었고, 그래서 "저장된 것 = 학습자가
-// 푸는 것" 이 참이었다. 교재용 유형(`irrelevant`·`word_order`·`vocab_choice`)을 같은
-// 테이블에 넣으면서 그 등식이 깨졌는데, `prescribe_today` 는 그대로 유형을 안 가리고
-// 5문항을 뽑았다. 실측 **발행 카탈로그 안 42.5%(661/1,556)** 가 화면이 못 그리는 문항으로
-// 나갔고, 클라이언트 매퍼가 그것을 `null` 로 버려 학습자는 조용히 문항을 잃었다.
-//
-// 마이그레이션 `20260821093000` 이 처방에 **허용 목록**을 넣어 막았다. 허용 목록이라
-// **새 유형은 기본이 제외**다 — 다음에 유형이 늘어도 저절로 새지 않는다.
-//
-// 이 파일이 지키는 것은 그다음 위험이다: **유형을 저장해 놓고 어느 갈래인지 정하지 않는 것.**
-// 회귀(`__tests__/dcp-playable-types.integration.test.ts`)가 DB 에 실제로 있는 유형을
-// 읽어 두 목록 어디에도 없으면 실패한다. 그러면 사람이 분류를 정해야 한다.
+// ⚠️ 이 파일이 갈리면 화면·채점·처방이 서로 다른 유형 집합을 믿는다.
+//    `dcp-playable-types.integration` 이 DB 에 실제로 저장된 유형과 이 목록을 대조한다 —
+//    새 유형을 적재하면 그 회귀가 먼저 빨개진다(실제로 여러 번 그렇게 잡혔다).
+
+/** 코어 2종 — 문단을 다시 읽어야 풀리는 유형. 가장 먼저 재생 지원이 붙었다. */
+export const CORE_DCP_TYPES = ['order', 'insert'] as const
 
 /**
- * 학습자가 화면에서 푸는 유형.
+ * 5지선다 계열 — **지문 하나 + 선택지 다섯**으로 푸는 유형(수능 대표 9종).
  *
- * 여기 넣으려면 **세 곳이 함께** 준비돼야 한다:
- *   ① `dcp-actions.ts` 의 `parseItem` 이 payload 를 읽을 수 있어야 하고
- *   ② `DcpPlayer` 가 그릴 수 있어야 하고
- *   ③ DB 의 `grade_dcp_item` 이 채점할 수 있어야 한다 (모르면 `Unknown type` 예외)
- * 그리고 `prescribe_today` 의 허용 목록에도 더해야 처방이 뽑는다.
+ * 아홉이 한 목록인 이유는 편의가 아니라 실측이다. DB 에 저장된 것들의 모양이 **완전히 같다**:
+ *   payload    `{passage, choices[5], stem_ko, underline, summary_sentence, choice_language}`
+ * 모양이 같으므로 파서·플레이어·채점이 하나면 된다. 유형마다 화면을 따로 만들면
+ * 아홉 벌이 조금씩 다르게 낡는다.
  */
-export const PLAYABLE_DCP_TYPES = ['order', 'insert'] as const
+export const CHOICE_DCP_TYPES = [
+  'topic',
+  'blank',
+  'main_point',
+  'title',
+  'summary',
+  'purpose',
+  'implication',
+  'content_match',
+  'claim',
+] as const
+
+/** 학습자가 실제로 푸는 유형 전체. */
+export const PLAYABLE_DCP_TYPES = [...CORE_DCP_TYPES, ...CHOICE_DCP_TYPES] as const
 
 /**
  * 교재(인쇄물)에만 쓰는 유형 — 학습자 화면에는 나가지 않는다.
@@ -40,34 +45,38 @@ export const TEXTBOOK_ONLY_DCP_TYPES = [
   // "분류되지 않은 유형 grammar_choice" 로 실패했고, 그래서 이 줄이 생겼다.
   'grammar_choice',
 
-  // ── 수능 대표 유형 9종 (232문항, 실측 2026-08-22) ──────────────────────
-  // 같은 회귀가 **다시** 잡아 냈다. 여기 넣는 이유는 하나뿐이다:
-  // **학습자 화면에 나갈 방법이 없다.** 재생하려면 `parseItem`·`DcpPlayer`·
-  // `grade_dcp_item`·`prescribe_today` 넷을 함께 만들어야 하는데 지금은 하나도 없다.
-  // 분류하지 않고 두면 이 회귀가 계속 빨간 채로 남아 **다음 진짜 누락을 가린다.**
+  // ── 학교 시험 축 4종 (2026-08-22 · 문항 10,239) ──────────────────────
+  // 같은 회귀가 **세 번째로** 잡았다. 이 넷은 `SERIES_SPINE` 4단(중3)이 실제로 쓰는
+  // 유형이라 서가에도 보이고 교재도 된다 — 그런데도 여기(교재 전용)에 두는 근거는
+  // **payload 실측**이다. 위 선택지 갈래는 지문 + 선택지 5개를 요구하는데:
   //
-  // ⚠️ 다만 "교재 전용" 이라는 이름이 지금은 절반만 맞다 — **어느 권도 이 유형을 쓰지 않는다.**
-  //    `SERIES_SPINE` 7권의 types 에 이 9종이 하나도 없어서, 서가에도 안 보이고
-  //    오늘의 학습에도 안 나온다. 즉 **만들어졌지만 아무 데도 닿지 않는 232문항**이다.
-  //    고3/수능 권이 빈칸·주제·제목·요약 없이 순서·삽입·어휘·어법·흐름무관만 담고 있다는 뜻이라,
-  //    시리즈 구성을 바꿀지는 커리큘럼 결정이다(CHANGELOG v06.356 에 수치와 함께 기록).
-  'topic',
-  'blank',
-  'main_point',
-  'title',
-  'summary',
-  'purpose',
-  'implication',
-  'content_match',
-  'claim',
+  //   blank_word   3,564 — choices 0건 · passage 0건 · answer 0건 (답을 써 넣는 단답)
+  //   grammar_fix  2,540 — 위와 같음
+  //   unit_vocab   2,848 — choices 있음 · **선택지가 5개인 것 0건** · passage 0건
+  //   unit_grammar 1,287 — 위와 같음
+  //
+  // 즉 `parseItem` 이 넷 다 `null` 로 버린다. 재생용 목록에 넣으면 "풀 수 있다" 고 적히고
+  // 실제로는 한 문항도 안 나오는, **이 파일이 막으려던 바로 그 상태**가 된다.
+  // 옮기려면 목록이 아니라 **입력 화면 + `grade_dcp_item` 채점 규칙**을 먼저 만들어야 한다.
+  'blank_word',
+  'grammar_fix',
+  'unit_vocab',
+  'unit_grammar',
 ] as const
 
+export type CoreDcpType = (typeof CORE_DCP_TYPES)[number]
+export type ChoiceDcpType = (typeof CHOICE_DCP_TYPES)[number]
 export type PlayableDcpType = (typeof PLAYABLE_DCP_TYPES)[number]
 export type TextbookOnlyDcpType = (typeof TEXTBOOK_ONLY_DCP_TYPES)[number]
 
 /** 학습자가 풀 수 있는 유형인가. */
 export function isPlayableDcpType(type: unknown): type is PlayableDcpType {
   return typeof type === 'string' && (PLAYABLE_DCP_TYPES as readonly string[]).includes(type)
+}
+
+/** 5지선다 계열인가 — 화면·채점이 한 벌로 처리하는 묶음. */
+export function isChoiceDcpType(type: unknown): type is ChoiceDcpType {
+  return typeof type === 'string' && (CHOICE_DCP_TYPES as readonly string[]).includes(type)
 }
 
 /** 두 갈래 어디에도 없는 유형 — 분류가 안 된 것이다. */

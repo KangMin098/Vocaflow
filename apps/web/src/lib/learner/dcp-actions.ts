@@ -12,7 +12,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 
 import type { DcpErrorCause, DcpGradeResult, DcpItem } from './dcp'
-import { isPlayableDcpType } from './dcp-types'
+import { isChoiceDcpType, isPlayableDcpType } from './dcp-types'
 
 const ALLOWED_CAUSES: readonly DcpErrorCause[] = ['vocab', 'parsing', 'structure', 'inference', 'timing']
 
@@ -60,6 +60,33 @@ function parseItem(raw: unknown): DcpItem | null {
       },
     }
   }
+
+  // ── 선택지 9종 ────────────────────────────────────────────────
+  // 아홉이 한 갈래인 이유는 **모양이 같아서**다(payload·answer_key 실측 동일).
+  // 유형마다 분기를 두면 아홉 벌이 조금씩 어긋난 채 남는다.
+  if (isChoiceDcpType(type)) {
+    const passage = (payload as { passage?: unknown }).passage
+    const choices = (payload as { choices?: unknown }).choices
+    const stemKo = (payload as { stem_ko?: unknown }).stem_ko
+    // 선택지가 5개가 아니면 문항이 성립하지 않는다 — 그리면 학습자가 못 푸는 화면이 된다.
+    if (typeof passage !== 'string' || !passage.trim()) return null
+    if (!Array.isArray(choices) || choices.length !== 5) return null
+    if (typeof stemKo !== 'string' || !stemKo.trim()) return null
+    const underline = (payload as { underline?: unknown }).underline
+    const summarySentence = (payload as { summary_sentence?: unknown }).summary_sentence
+    return {
+      id: r.id,
+      type,
+      paragraphIdx: typeof r.paragraph_idx === 'number' ? r.paragraph_idx : 0,
+      payload: {
+        passage,
+        choices: choices.map((c) => String(c)),
+        stemKo,
+        underline: typeof underline === 'string' && underline.trim() ? underline : null,
+        summarySentence: typeof summarySentence === 'string' && summarySentence.trim() ? summarySentence : null,
+      },
+    }
+  }
   return null
 }
 
@@ -98,6 +125,9 @@ export async function fetchDcpPracticeItems(): Promise<{ active: boolean; items:
  * ⚠️ 문항 테이블은 학습자가 못 읽는다(admin 정책 하나뿐). **열어서도 안 된다** —
  *   같은 행에 `answer_key` 가 있어서 정책을 열면 브라우저에서 정답이 보인다.
  *   그래서 `textbook_practice_items` RPC 가 정답을 뺀 열만 내준다.
+ *
+ * ⚠️ **어떤 유형이 나오는지는 RPC 가 정한다** — 화면이 거르지 않는다. 화면에서 거르면
+ *   "8문항 달라고 했는데 3개만 뜨는" 조용한 손실이 생긴다(처방에서 실제로 겪었다).
  */
 export async function fetchTextbookPracticeItems(
   vLevel: number,

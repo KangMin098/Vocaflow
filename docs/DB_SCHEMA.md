@@ -76,6 +76,34 @@ csat_item_attempts (없음)
 다시 재서 **`'S3'`** 을 받은 뒤에야 "계산이 실제로 돌았다" 가 증명됐다. 복원 검증은
 **폴백과 다른 값이 나오는 입력**으로 해야 한다.
 
+##### ⚠️ 그 복원은 절반만 맞았다 — 채점은 10일 더 죽어 있었다 (2026-08-22)
+
+복원이 원본 DDL 을 **그대로** 되살리면서 `question_id → quiz_questions` FK 도 함께 왔다.
+그런데 `grade_dcp_item` 은 그 컬럼에 `csat_dcp_items.id` 를 넣는다. 그래서 42P01(테이블 없음)이
+**23503(FK 위반)** 으로 바뀌었을 뿐 INSERT 는 여전히 100% 실패했다:
+
+```
+insert or update on table "csat_item_attempts" violates foreign key constraint
+"csat_item_attempts_question_id_fkey"
+DETAIL: Key (question_id)=(5d268e14-…) is not present in table "quiz_questions".
+```
+
+`gradeDcpItem` 이 이 예외를 `{correct:false}` 로 바꾸므로 **학습자가 정답을 맞혀도 화면은
+"아쉬워요" 를 띄웠다.** 관측 0행은 "아무도 안 풀었다" 가 아니라 **"풀어도 안 남았다"** 였다.
+
+당시 검증이 놓친 이유는 분명하다 — `derive_learner_stage` 와 `prescribe_today` 만 확인하고
+**채점을 한 번도 돌려 보지 않았다.** 두 함수는 `csat_item_attempts` 를 *읽기만* 하므로
+테이블이 있으면 통과한다.
+
+수정: [20260822013136](../supabase/migrations/20260822013136_dcp_attempts_and_choice_grading.sql) 이
+`dcp_item_id`(FK → `csat_dcp_items`, `ON DELETE SET NULL`)를 신설하고 `grade_dcp_item` 이
+그쪽에 쓰게 했다. **두 문항 세계가 한 컬럼을 나눠 쓰면 FK 를 어느 쪽에도 못 건다.**
+`SET NULL` 인 이유는 `refresh-dcp-items` 가 문항을 재생성하면 id 가 바뀌기 때문 —
+링크만 끊고 행은 남겨야 `derive_learner_stage` 의 정답률이 유지된다.
+
+회귀: [dcp-grade-records.integration.test.ts](../apps/web/src/lib/learner/__tests__/dcp-grade-records.integration.test.ts) —
+**실제 학습자 세션으로 채점을 돌려 행이 생기는지 센다.** 정의를 읽지 않는다.
+
 **침묵 제거**: `TodayPrescription.unavailable` 플래그 신설 + 카드가 폴백임을 고지 +
 [회귀 테스트](../apps/web/src/components/home/__tests__/TodayPrescriptionCard.test.tsx)가
 "정상 화면과 실패 화면이 실제로 달라야 한다"를 강제한다.
@@ -716,7 +744,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 ## 최근 마이그레이션 (20개)
 
 ```
-20260822100000  dictionary_categories_public_read           ← 분류 트리 anon 읽기(is_active 만)
+20260822013136  dictionary_categories_public_read           ← 분류 트리 anon 읽기(is_active 만)
 20260822090000  textbook_shelf_sources                     ← 지문 출처 집계 + 교육과정 어휘 개수 (둘 다 anon 실행 가능)
 20260821140000  user_textbook_selections                   ← 내가 고른 교재(step 번호만). RLS 본인 전용
 20260821120000  textbook_shelf_inventory                   ← 학습자용 재고 집계 RPC (테이블은 admin 전용 유지)

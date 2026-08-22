@@ -48,7 +48,19 @@ const arg = (n) => {
 }
 const BAND = Number(arg('band') ?? 3)
 const SIZE = Number(arg('size') ?? 5)
-const DIR = path.resolve(arg('dir') ?? `scripts/textbook/write-drain/v${BAND}`)
+/**
+ * 글의 갈래. 기본은 설명문(`expository`), 다른 하나가 **서사문**(`narrative`)이다.
+ *
+ * ⚠️ 갈래를 나눈 이유는 취향이 아니라 **수율 0 이 실측됐기 때문**이다. 분위기(mood) 유형은
+ *   배치를 돌려도 **0/16** 이 나왔다 — 재고가 전부 설명문이라 "글의 분위기" 를 물을 지문이
+ *   하나도 없었다. 장문 43~45(서사 지문 전제)도 같은 벽에 막혀 있다.
+ *   **지문 풀을 바꾸지 않는 한 배치를 더 돌려도 같은 결과다**(`csat-types.ts` mood 주석).
+ */
+const MODE = arg('mode') === 'narrative' ? 'narrative' : 'expository'
+const DIR = path.resolve(
+  // 갈래마다 청크 디렉터리를 나눈다 — 섞이면 배치가 어느 지침으로 쓸지 알 수 없다.
+  arg('dir') ?? `scripts/textbook/write-drain/v${BAND}${MODE === 'narrative' ? '-narr' : ''}`,
+)
 
 /**
  * 한 권(20단원)에 필요한 원글 수.
@@ -162,6 +174,99 @@ const SHAPES = [
     hint: '흔히 그렇게 안다고 말한 뒤 However 로 뒤집고, 그래서 어떻게 봐야 하는지로 맺는다.',
   },
 ]
+
+/**
+ * 서사문의 축 — **사람과 그날**이 소재다.
+ *
+ * 설명문 축(`TOPIC_AXES`)을 그대로 쓰면 안 된다. 「접합과 이음」을 1인칭으로 쓰라고 하면
+ * 설명문에 'I' 만 붙는다. 분위기 유형이 묻는 것은 **장면이 주는 인상**이므로,
+ * 축 자체가 장면이어야 한다.
+ */
+const NARRATIVE_AXES = [
+  {
+    key: 'first_day',
+    label: '처음 해 보는 일',
+    hint: '서툰 첫날. 무엇을 몰랐고 무엇에 놀랐는지가 장면으로 남는다.',
+    subs: ['낯선 교실의 첫 시간', '처음 맡은 심부름', '혼자 타 본 먼 길', '처음 서 본 무대', '새 이웃과의 첫 인사', '처음 만든 음식', '처음 돌본 동물', '처음 고쳐 본 물건'],
+  },
+  {
+    key: 'waiting',
+    label: '기다리는 시간',
+    hint: '아직 일어나지 않은 일을 기다리는 동안의 마음. 시간이 늘어지는 감각을 장면으로.',
+    subs: ['결과 발표 전날', '늦는 사람을 기다리며', '비가 그치기를', '진료실 앞 복도', '기차가 오기까지', '편지의 답을 기다리며', '씨앗이 돋기를', '차례가 오기까지'],
+  },
+  {
+    key: 'loss_and_find',
+    label: '잃음과 되찾음',
+    hint: '잃어버린 것을 찾는 과정. 찾는 동안 다른 것이 보인다.',
+    subs: ['잃어버린 열쇠', '이름을 잊은 얼굴', '없어진 사진', '길을 잃은 오후', '집을 나간 반려동물', '망가진 오래된 물건', '두고 온 우산', '잊고 있던 약속'],
+  },
+  {
+    key: 'work_beside',
+    label: '곁에서 일하는 사람',
+    hint: '누군가의 일하는 모습을 곁에서 지켜본 기록. 관찰이 곧 인물의 성격이 된다.',
+    subs: ['새벽에 문을 여는 가게', '고치는 사람의 손', '가르치는 사람의 침묵', '길에서 파는 사람', '밤에 일하는 사람', '오래 한 자리를 지킨 사람', '남을 대신 기다려 주는 사람', '떠나는 날의 인수인계'],
+  },
+  {
+    key: 'weather_day',
+    label: '날씨가 만든 하루',
+    hint: '날씨가 계획을 바꾼 날. 바깥의 변화가 안의 기분을 끌고 간다.',
+    subs: ['갑자기 내린 눈', '오래 이어진 가뭄', '바람이 심한 저녁', '안개 낀 아침', '길게 이어진 장마', '너무 이른 더위', '천둥이 치던 밤', '오랜만의 맑은 날'],
+  },
+  {
+    key: 'returning',
+    label: '돌아온 자리',
+    hint: '오랜만에 돌아간 곳이 달라져 있다. 기억과 지금을 겹쳐 보는 시선.',
+    subs: ['옛 학교 운동장', '이사 간 동네', '문 닫은 가게 앞', '자란 나무 아래', '오래된 방', '다시 만난 친구', '고향의 정류장', '남아 있는 낙서'],
+  },
+  {
+    key: 'small_kindness',
+    label: '작은 호의',
+    hint: '크지 않은 도움을 주고받은 일. 과장하지 않아야 장면이 산다.',
+    subs: ['우산을 나눠 쓴 길', '자리를 양보한 순간', '이름을 기억해 준 사람', '두고 간 물건을 챙겨 준 이', '말없이 도운 손', '길을 알려 준 사람', '몫을 남겨 둔 그릇', '기다려 준 몇 분'],
+  },
+  {
+    key: 'making_and_failing',
+    label: '만들다 실패한 것',
+    hint: '공들여 만들었으나 뜻대로 안 된 일. 실패가 남긴 것이 결말이 된다.',
+    subs: ['무너진 모형', '타 버린 빵', '어긋난 이음매', '지워진 그림', '끊어진 줄', '맞지 않은 치수', '늦어 버린 준비', '고치다 더 망친 것'],
+  },
+]
+
+/**
+ * 서사문의 짜임.
+ *
+ * 순서·삽입 문항은 **문장 사이의 결속**으로 답이 정해진다. 서사문은 시간 순서라는 강한
+ * 결속을 이미 갖고 있어 오히려 유리하지만, **시간 표지가 없으면** 어느 문장이든 앞뒤가
+ * 되어 답이 둘이 된다. 그래서 짜임마다 표지를 명시한다.
+ */
+const NARRATIVE_SHAPES = [
+  {
+    key: 'that_day',
+    label: '1인칭 회상 — 그날의 장면',
+    hint:
+      '나(I)가 과거형으로 그날을 되짚는다. 첫 문장에서 언제·어디인지 밝히고, 시간 표지' +
+      '(that morning · by noon · later · at last)로 순서를 붙들어 둔다. 마지막 문장은 그날이 남긴 것.',
+  },
+  {
+    key: 'watching_someone',
+    label: '3인칭 관찰 — 한 사람을 지켜봄',
+    hint:
+      '한 인물을 밖에서 지켜본다. 이름을 정해 그 이름으로 부르고, 동작과 말만 적는다. ' +
+      '속마음을 직접 설명하지 않는다 — 분위기는 동작에서 나와야 문항이 성립한다.',
+  },
+  {
+    key: 'turn_of_mood',
+    label: '분위기의 전환 — 앞과 뒤가 다르다',
+    hint:
+      '앞부분과 뒷부분의 인상이 뚜렷이 갈린다(고요→소란, 불안→안도 같은 방향). ' +
+      '전환점이 되는 문장을 하나 두고, 그 앞뒤로 쓰는 낱말의 결을 바꾼다.',
+  },
+]
+
+/** 이번 실행이 쓸 축·짜임. 갈래를 섞지 않는다. */
+const AXES = MODE === 'narrative' ? NARRATIVE_AXES : TOPIC_AXES
+const SHAPE_POOL = MODE === 'narrative' ? NARRATIVE_SHAPES : SHAPES
 
 const { createClient } = await import('@supabase/supabase-js')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
@@ -337,9 +442,9 @@ let slotBase = 0
 const tasks = []
 for (let i = 0; i < need; i++) {
   const n = slotBase + i
-  const axis = TOPIC_AXES[n % TOPIC_AXES.length]
-  const shape = SHAPES[n % SHAPES.length]
-  const sub = axis.subs[Math.floor(n / TOPIC_AXES.length) % axis.subs.length]
+  const axis = AXES[n % AXES.length]
+  const shape = SHAPE_POOL[n % SHAPE_POOL.length]
+  const sub = axis.subs[Math.floor(n / AXES.length) % axis.subs.length]
   tasks.push({
     slot: slotBase + i + 1,
     v_level: BAND,
@@ -348,6 +453,14 @@ for (let i = 0; i < need; i++) {
     topic_hint: `${axis.hint} — 이번 슬롯은 **${sub}** 를 다룬다. 다른 슬롯과 소재가 겹치지 않게 이 범위 안에서 쓴다.`,
     shape: shape.label,
     shape_hint: shape.hint,
+    mode: MODE,
+    // 서사문일 때만 붙는 규칙. 설명문 지침과 섞이면 'I' 만 붙은 설명문이 나온다.
+    narrative_rule:
+      MODE === 'narrative'
+        ? '사람이 등장하고 시간이 흐르는 **이야기**를 쓴다. 과거형으로 쓰고, 시간 표지로 ' +
+          '순서를 붙들어 둔다. 정의·통계·일반론 문장을 쓰지 않는다 — 그런 문장이 들어가면 ' +
+          '설명문이 되고, 분위기·심경 문항이 성립하지 않는다.'
+        : null,
     words_min: WORDS_MIN,
     words_max: WORDS_MAX,
     // 이번 실행의 어휘 조건. **import 가 이 값을 글에 기록해야** 나중에 조건별 적중률을
@@ -409,7 +522,7 @@ fs.writeFileSync(
   'utf8',
 )
 
-console.log(`V${BAND} 재고 — 원글 ${inBand.length}편 · 그중 문항이 붙은 것 ${withItems.size}편`)
+console.log(`V${BAND} 재고 — 원글 ${inBand.length}편 · 그중 문항이 붙은 것 ${withItems.size}편  [갈래 ${MODE}]`)
 console.log(`  한 권 실무 하한 ${VOLUME_ARTICLES}편 → **더 써야 할 몫 ${need}편**  → 청크 ${chunks.length}개 (${SIZE}편씩)`)
 console.log(`  슬롯 번호 ${slotBase + 1}~${slotBase + need} (지난 실행과 겹치지 않게 이어 붙였다)`)
 console.log(`  어수 규격 ${WORDS_MIN}~${WORDS_MAX}어 (조합기 창 90~200어 안 — 밴드와 무관)`)

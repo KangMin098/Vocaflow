@@ -34,6 +34,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { fetchAllIn } from './volume-pool.mjs'
+
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
@@ -137,17 +139,24 @@ const entryOf = (w) => {
 }
 
 // ── 이미 있는 조합 ──────────────────────────────────────────────────
-// 1,000행 조용한 절단에 두 번 당했다 — 나눠 받는다.
+// ⚠️ **기사를 20편씩 끊는 것만으로는 모자랐다.** `.limit(20000)` 은 PostgREST 의 1000행
+//   상한을 못 넘는다 — 아무리 크게 적어도 서버가 1000에서 자른다. 실측(2026-08-22):
+//   20편 조각 31개 중 **2개가 1022행**이라 그만큼의 기존 키가 이 Set 에서 빠졌고,
+//   그래서 INSERT 가 `csat_dcp_items_kind_ref_id_type_paragraph_idx_key` 중복으로 죽었다.
+//   (같은 함정에 이 저장소가 세 번째다. 그래서 회귀가 이제 이 폴더 전체를 본다.)
+//   `.range()` 로 실제로 넘겨 받는다 — 정렬을 고정해야 페이지가 겹치거나 새지 않는다.
 const existing = new Set()
 const ids = usable.map((a) => a.id)
-for (let i = 0; i < ids.length; i += 20) {
-  const { data } = await db
-    .from('csat_dcp_items')
-    .select('ref_id, type, paragraph_idx')
-    .eq('kind', 'article')
-    .in('ref_id', ids.slice(i, i + 20))
-    .limit(20000)
-  for (const r of data ?? []) existing.add(`${r.ref_id}|${r.type}|${r.paragraph_idx}`)
+for (const r of await fetchAllIn(
+  db,
+  'csat_dcp_items',
+  'ref_id, type, paragraph_idx',
+  'ref_id',
+  ids,
+  ['ref_id', 'type', 'paragraph_idx'],
+  (q) => q.eq('kind', 'article'),
+)) {
+  existing.add(`${r.ref_id}|${r.type}|${r.paragraph_idx}`)
 }
 
 // ── 후보 풀 (같은 밴드 안에서만 빌려 온다) ──────────────────────────
@@ -403,15 +412,17 @@ for (const a of usable) {
 }
 
 const stale = []
-for (let i = 0; i < ids.length; i += 20) {
-  const { data } = await db
-    .from('csat_dcp_items')
-    .select('id, type, ref_id, paragraph_idx, payload, answer_key')
-    .eq('kind', 'article')
-    .in('type', ['irrelevant', 'vocab_choice', 'grammar_choice'])
-    .in('ref_id', ids.slice(i, i + 20))
-    .limit(20000)
-  for (const r of data ?? []) {
+{
+  const rows = await fetchAllIn(
+    db,
+    'csat_dcp_items',
+    'id, type, ref_id, paragraph_idx, payload, answer_key',
+    'ref_id',
+    ids,
+    ['id'],
+    (q) => q.eq('kind', 'article').in('type', ['irrelevant', 'vocab_choice', 'grammar_choice']),
+  )
+  for (const r of rows) {
     const text = [r.payload?.intro, ...(r.payload?.sentences ?? [])].filter(Boolean).join(' ')
     if (text && !isPrintablePassage(text)) {
       stale.push({ id: r.id, type: r.type, why: '인쇄 불가' })

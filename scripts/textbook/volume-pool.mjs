@@ -35,13 +35,16 @@ import path from 'node:path'
  * @param values `.in()` 에 넣을 값들. 20개씩 나눠 묻는다(URL 길이 때문).
  * @param orderBy `range` 페이징이 성립하려면 정렬이 고정돼야 한다.
  */
-export async function fetchAllIn(db, table, columns, column, values, orderBy) {
+export async function fetchAllIn(db, table, columns, column, values, orderBy, apply) {
   const PAGE = 1000
   const out = []
   for (let i = 0; i < values.length; i += 20) {
     const slice = values.slice(i, i + 20)
     for (let from = 0; ; from += PAGE) {
       let q = db.from(table).select(columns).in(column, slice)
+      // 추가 조건(`kind`·`type` 같은)을 붙이는 자리. 호출부가 제 손으로 페이징을 다시
+      // 짜지 않게 하려고 둔다 — 그렇게 다시 짠 사본들이 전부 `.limit(20000)` 이었다.
+      if (apply) q = apply(q)
       for (const col of orderBy) q = q.order(col)
       const { data, error } = await q.range(from, from + PAGE - 1)
       if (error) throw new Error(`${table} 조회 실패: ${error.message}`)

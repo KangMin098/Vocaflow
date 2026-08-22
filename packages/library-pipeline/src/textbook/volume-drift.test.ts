@@ -25,6 +25,20 @@ import { describe, expect, it } from 'vitest'
 const SCRIPTS = path.resolve(fileURLToPath(new URL('../../../../scripts/textbook', import.meta.url)))
 const read = (f: string) => fs.readFileSync(path.join(SCRIPTS, f), 'utf8')
 
+/**
+ * "크게 잡으면 되겠지" 패턴. 1000 은 서버 상한과 같으므로 허용한다.
+ *
+ * 한 곳에서만 정의한다 — 두 단언이 각자 정규식을 들고 있으면 한쪽이 조용히 느슨해진다.
+ */
+const BIG_LIMIT = /\.limit\(\s*(?!1000\b)\d{4,}\s*\)/
+
+/** 주석은 이 함정을 설명하느라 그 숫자를 그대로 적으므로, 코드 줄만 남긴다. */
+const codeOnly = (src: string) =>
+  src
+    .split('\n')
+    .filter((l) => !/^\s*(\/\/|\*|\/\*)/.test(l))
+    .join('\n')
+
 /** 한 권을 다루는 스크립트 전부. 새 스크립트가 늘면 여기에 더한다. */
 const VOLUME_SCRIPTS = ['render-volume.mjs', 'explain-drain-export.mjs']
 
@@ -74,18 +88,27 @@ describe('한 권을 고르는 규칙은 한 벌뿐이다', () => {
     const pool = read('volume-pool.mjs')
     expect(pool).toContain('export async function fetchAllIn')
     // `.limit(20000)` 같은 "크게 잡으면 되겠지" 를 남겨 두지 않는다.
-    // 주석은 이 함정을 설명하느라 그 숫자를 그대로 적으므로 코드 줄만 본다.
-    const code = pool
-      .split('\n')
-      .filter((l) => !/^\s*(\/\/|\*|\/\*)/.test(l))
-      .join('\n')
-    expect(code, 'limit 으로 서버 상한을 넘으려는 코드가 남아 있다').not.toMatch(/\.limit\(\s*(?!1000\b)\d{4,}\s*\)/)
+    expect(codeOnly(pool), 'limit 으로 서버 상한을 넘으려는 코드가 남아 있다').not.toMatch(BIG_LIMIT)
     // 세 조회 모두 페이징을 거친다.
     for (const table of ['csat_dcp_items', 'library_article_vocabularies', 'shared_dictionary']) {
       expect(pool, `${table} 조회가 fetchAllIn 을 안 쓴다`).toMatch(
         new RegExp(`fetchAllIn\\([\\s\\S]{0,80}'${table}'`),
       )
     }
+  })
+
+  it('교재 스크립트 **전체**에 큰 limit 이 없다 — 한 파일만 보던 동안 옆 파일이 같은 함정에 빠졌다', () => {
+    // 위 단언이 `volume-pool.mjs` **하나만** 보던 2026-08-22, `store-new-types.mjs` 가
+    // 똑같이 `.limit(20000)` 을 들고 있다가 **중복 키로 문항 생성이 중단**됐다.
+    // 기사를 20편씩 끊어 물었지만 한 조각이 1022행이라 뒤가 잘렸고, 잘린 만큼
+    // "이미 있음" 판정이 빠져 이미 있는 문항을 다시 넣으려 했다.
+    //
+    // **한 파일만 지키는 회귀는 그 파일만 지킨다.** 그래서 폴더를 본다.
+    const offenders = fs
+      .readdirSync(SCRIPTS)
+      .filter((f) => f.endsWith('.mjs'))
+      .filter((f) => BIG_LIMIT.test(codeOnly(read(f))))
+    expect(offenders, 'PostgREST 는 1000행에서 자른다 — .range() 로 페이징할 것').toEqual([])
   })
 
   it('드레인 청크 자리가 밴드별로 갈린다 — 밴드를 동시에 돌려도 안 섞인다', () => {

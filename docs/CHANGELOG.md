@@ -10,6 +10,46 @@
 
 ## Unreleased (v06.34 → next)
 
+### 교재 — DCP 채점이 **한 번도 성공한 적이 없었다** (마이그레이션 승인 완료)
+
+마이그레이션 `dcp_attempts_and_choice_grading` — `csat_item_attempts.dcp_item_id` 신설
+(FK → `csat_dcp_items` · `ON DELETE SET NULL`) + `grade_dcp_item` 재작성 + `textbook_practice_items` 확장.
+**사용자 승인 후 적용.** 적용 시점 `csat_item_attempts` 0행이라 데이터 손실 없음.
+
+- **원인은 FK 였다.** `grade_dcp_item` 이 `question_id` 에 `csat_dcp_items.id` 를 넣는데 그 컬럼의 FK 는
+  `quiz_questions` 를 가리켜 모든 INSERT 가 23503 으로 죽었다(롤백 프로브 실측). 그 예외를
+  `gradeDcpItem` 이 `{correct:false}` 로 바꾸므로 **학습자가 정답을 맞혀도 화면은 "아쉬워요" 를 띄웠고
+  기록은 한 줄도 안 남았다.** `20260812113000_restore_csat_item_attempts` 가 원본 DDL(FK 포함)을
+  그대로 복원하며 생겼고, 당시 검증은 `derive_learner_stage`·`prescribe_today` 만 봤다 —
+  **채점을 한 번도 돌려 보지 않았다.** 42P01 을 고치고 23503 을 남긴 셈이다.
+- **선택지 9종을 학습자가 푼다** — 요지·주제·제목·빈칸·목적·주장·함의·요약·일치.
+  DB 실측상 payload·answer_key 모양이 같아 `DcpChoiceItem` 하나·채점 분기 하나가 아홉을 덮는다.
+  `textbook_practice_items` 가 이 9종을 내주고(**정답 계열 키 0개** 실측), 이미 푼 문항은 제외한다.
+  `prescribe_today` 는 그대로 — 허용 목록이 별개다.
+- 회귀 `dcp-grade-records.integration.test.ts`(4) — **진짜 학습자 세션으로 채점을 돌려 행이 생기는지 센다.**
+  컬럼·FK·권한·RLS 가 전부 맞아야 통과한다. 쓴 행은 지운다.
+
+### 교재 — 심경·분위기(19번) 0/16 → **45/48.** 지문 갈래가 유형을 가리고 있었다
+
+- 집필 드레인에 **서사문 갈래** 신설 — `write-drain-export.mjs --mode narrative`
+  (서사 축 8 × 짜임 3, 청크는 `write-drain/v<밴드>-narr` 로 분리). V4·V5 **48편 집필,
+  밴드 적중 48/48**(적재 전 예측과 DB 실측 일치).
+- 문항 드레인에 `--batch` — 지문 풀을 집필 배치로 좁힌다. **안 좁히면 같은 밴드 설명문이
+  슬롯을 채워 다시 0 이 나온다.** 좁혀서 mood 45건 적재(반려 3건은 배치가 `answer:0` 으로 남긴 것).
+  드레인 실측 정답 최장 0% · 최단 0%(우연이면 각 20%).
+- **커버리지 14/18 → 15/18 · 문항 19/28 → 20/28.** V5 인쇄 114 → 120, 다섯 권 전부 자동 검수 9/9.
+- 학교 시험 축 4종(`blank_word`·`grammar_fix`·`unit_vocab`·`unit_grammar`)은 교재 전용으로 분류 —
+  payload 실측상 `passage` 가 없고 선택지 5개인 것이 0건이라 재생 목록에 넣으면 파서가 전부 버린다.
+
+### 교재 스크립트 — `.limit(20000)` 이 다섯 파일에 더 있었다
+
+- `store-new-types.mjs` 가 **중복 키로 중단**됐다. 기사를 20편씩 끊어 물었지만 조각 31개 중
+  2개가 1022행이라 뒤가 잘렸고, 잘린 만큼 "이미 있음" 판정이 빠졌다(실측).
+- `fetchAllIn` 에 추가 조건 인자를 더해 **여섯 호출부를 한 페이저로 통일**
+  (build-unit · build-volume ×2 · refresh-dcp-items · store-new-types ×2). item-health-report 는
+  전수 조회라 직접 페이징.
+- 회귀 `volume-drift.test.ts` 를 **폴더 전체**로 넓혔다 — 한 파일만 보던 동안 옆 파일이 같은 함정에 빠졌다.
+
 ### 교재 — 중등 4유형 적재 (마이그레이션 승인 완료). 가장 얇던 두 계단이 두꺼워졌다
 
 마이그레이션 `csat_dcp_items_middle_types` — `type` CHECK 에 `blank_word` · `grammar_fix` ·
@@ -275,7 +315,7 @@ My Library 는 Books·Texts·Decks 세 면뿐이라 교재가 들어갈 자리�
 
 ### 순차 진행 ① 분류 트리 공개 · ② 잉크 계단 AA (v06.359)
 
-**① `dictionary_categories` 를 비로그인에게 연다** (`20260822100000`).
+**① `dictionary_categories` 를 비로그인에게 연다** (`20260822013136`).
 익명은 발행 세트 747개를 정상적으로 보는데 라벨이 오는 표는 `authenticated` 전용이라
 **0행**이 내려갔고, 화면은 그것을 "아직 매핑 안 됨" 으로 읽어 legacy 자유문구로 내려앉았다.
 기존 정책의 조건(`is_active = true`)을 **그대로** 써서 anon 에 더 넓게 열지 않았다.

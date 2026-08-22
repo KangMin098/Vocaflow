@@ -152,7 +152,7 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 // 이 유형은 **글 하나를 통째로** 쓰므로 문단이 아니라 원글이 단위다.
 const { data: arts, error } = await db
   .from('library_articles')
-  .select('id, title, content, article_v_level, display_only, status, word_count')
+  .select('id, title, content, article_v_level, display_only, status, word_count, compose_batch_id')
   .in('status', ['ready', 'published'])
   .eq('article_v_level', BAND)
   .order('id')
@@ -173,7 +173,24 @@ const { CSAT_ITEM_WORDS, selectPassageWindow, isPrintablePassage } = await impor
 /** 이 유형이 성립하려면 지문에 문장이 최소 몇 개 있어야 하는가. */
 const MIN_PASSAGE_SENTENCES = 5
 
-const withBody = (arts ?? []).filter((a) => !a.display_only && String(a.content ?? '').trim())
+/**
+ * 집필 배치로 지문 풀을 좁힌다 — **유형이 글의 갈래를 가리는 경우가 있다.**
+ *
+ * 심경·분위기(`mood`)는 재고가 전부 설명문이던 동안 **0/16** 이 나왔다. 설명문에는
+ * 물어볼 정서 변화가 없으니 배치가 아무리 잘해도 만들 수 없다. 그래서 서사문을 따로 쓰고
+ * (`write-drain-export --mode narrative`), 여기서 그 배치만 골라 준다.
+ * 좁히지 않으면 24슬롯이 설명문으로 채워져 같은 0 이 다시 나온다.
+ *
+ * 여러 배치를 쉼표로 잇는다: `--batch <uuid>,<uuid>`
+ */
+const BATCH_FILTER = (arg('batch') ?? '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean)
+
+const withBody = (arts ?? [])
+  .filter((a) => !a.display_only && String(a.content ?? '').trim())
+  .filter((a) => !BATCH_FILTER.length || BATCH_FILTER.includes(String(a.compose_batch_id)))
 /** 글 → 창 안 지문. 못 자르면 null 이고, 그런 글은 이 유형을 못 만든다. */
 function passageOf(a) {
   const sentences = String(a.content)

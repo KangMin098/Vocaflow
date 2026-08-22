@@ -4,8 +4,15 @@
 // 문항 계약은 packages/library-pipeline generate-items.ts 와 DB grade_dcp_item 에 정합:
 //   order  : payload.presented(셔플 문장) · 제출 {order:[배열한 presented 인덱스]} (각 presented[k]를 원래 위치로)
 //   insert : payload.{remaining, insert_sentence, gap_count} · 제출 {position:슬롯 0..remaining.length}
+//   선택지 9종 : payload.{passage, choices[5], stem_ko, …} · 제출 {choice:1..5}
 
-export type DcpItemType = 'order' | 'insert'
+import type { ChoiceDcpType } from './dcp-types'
+
+/**
+ * 화면이 그릴 수 있는 유형. 갈래 목록의 정본은 `dcp-types.ts` 다 — 여기서 다시 적으면
+ * 두 목록이 조용히 어긋난다(이 저장소가 이름 레지스트리에서 이미 겪은 실패다).
+ */
+export type DcpItemType = 'order' | 'insert' | ChoiceDcpType
 
 export interface DcpOrderPayload {
   presented: string[]
@@ -16,18 +23,36 @@ export interface DcpInsertPayload {
   gap_count: number
 }
 
+/**
+ * 선택지 9종 공용 payload — 아홉 유형이 **같은 모양**이라 하나로 받는다(실측).
+ *
+ * `underline` 은 함축 의미(`implication`)에서만 차 있고, `summary_sentence` 는 요약(`summary`)의
+ * (A)/(B) 빈칸 문장이다. 둘 다 없을 수 있으므로 선택 필드다 — **없다고 유형을 거르지 않는다.**
+ */
+export interface DcpChoicePayload {
+  passage: string
+  /** 정확히 5개. 부족하거나 넘치면 문항이 성립하지 않는다. */
+  choices: string[]
+  /** 묻는 말(한국어). 유형 차이는 사실상 이 문장에 들어 있다. */
+  stemKo: string
+  /** 지문 안에서 밑줄로 표시할 구절. 없으면 null. */
+  underline: string | null
+  /** 요약 유형의 (A)…(B) 문장. 없으면 null. */
+  summarySentence: string | null
+}
+
 export interface DcpItem {
   id: string
   type: DcpItemType
   paragraphIdx: number
-  payload: DcpOrderPayload | DcpInsertPayload
+  payload: DcpOrderPayload | DcpInsertPayload | DcpChoicePayload
 }
 
 /** grade_dcp_item 반환. 오답이면 answerKey 동봉(정답 공개용). */
 export interface DcpGradeResult {
   correct: boolean
   attemptId: string | null
-  /** order: {source_order:number[]} / insert: {position:number} / 정답이면 null */
+  /** order: {source_order} / insert: {position} / 선택지: {answer:1..5, rationale_ko} / 정답이면 null */
   answerKey: Record<string, unknown> | null
 }
 
