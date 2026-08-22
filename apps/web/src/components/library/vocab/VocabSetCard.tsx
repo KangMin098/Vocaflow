@@ -151,7 +151,7 @@ export function VocabSetCard({
         ) : isNew ? (
           <span
             aria-label="신규 단어장"
-            className="absolute left-3 top-3 inline-flex items-center rounded-[var(--r-full)] bg-ios-purple px-2 py-0.5 font-display text-[10px] font-[800] tracking-wide text-white shadow-[0_2px_6px_rgba(0,0,0,0.22)]"
+            className="absolute left-3 top-3 inline-flex items-center rounded-[var(--r-full)] bg-[var(--ios-purple-tint)] px-2 py-0.5 font-display text-[10px] font-[800] tracking-wide text-[var(--ios-purple-ink)] shadow-[0_2px_6px_rgba(0,0,0,0.22)]"
           >
             NEW
           </span>

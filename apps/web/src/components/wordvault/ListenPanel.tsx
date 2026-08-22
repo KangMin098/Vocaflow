@@ -164,9 +164,11 @@ export function ListenPanel({
             className={cn(
               'inline-flex items-center gap-s-2',
               'rounded-md px-s-4 py-s-2',
-              'font-display text-[13px] font-bold tracking-[-0.01em] text-white',
+              // ⚠️ 흰 글자를 --learn-fresh(#3B82F6) 위에 얹어 3.68:1 이었다(실측 2026-08-22).
+              //    색을 새로 고르지 않는다 — 저장소에 이미 두 테마 모두 계산된 짝이 있다.
+              'font-display text-[13px] font-bold tracking-[-0.01em] text-[var(--on-p)]',
               'shadow-sm transition-all duration-fast hover:shadow-md',
-              isPlaying ? 'bg-learn-error hover:bg-[#DC2626]' : 'bg-learn-fresh hover:bg-[#2563EB]'
+              isPlaying ? 'bg-[var(--error)] hover:opacity-90' : 'bg-[var(--p)] hover:opacity-90'
             )}
           >
             {isPlaying ? <Square size={13} /> : <Play size={13} />}

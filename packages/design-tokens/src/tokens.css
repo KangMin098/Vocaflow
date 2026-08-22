@@ -58,6 +58,7 @@
   --active-light: #F4EAD3;
   /* v07 — 골드를 "작은 글자"로 쓸 때의 잉크. --active(#B0843A)는 종이(--bg) 위에서 3.24:1 이라
      WCAG AA(본문 4.5:1)를 못 넘긴다(2026-08-09 axe 실측). 면/아이콘은 --active, 글자는 이 토큰. */
+  --on-active: #1A1714;  /* --active(금색) 채움 위의 글자 — 5.28:1. --ti(종이)는 3.24 로 미달 */
   --active-ink: #7E5A1B; /* gold ink — on --bg 5.97 · --bg2 5.49 · gold/amber tint 5.1~5.2 (전부 AA) */
 
   /* ─────── Semantic = paper-tone (채도 하향 · sophisticated) ─────── */
@@ -363,6 +364,7 @@
   --active: #D4A856;     /* lighter muted gold */
   --active-light: rgba(212, 168, 86, 0.18);
   /* 다크에서는 --active 자체가 어두운 배경 위 5:1 이상 → 같은 값 사용(별도 어둡게 할 필요 없음) */
+  --on-active: #231D17;  /* 다크 금색은 더 밝아 잉크가 7.57:1 */
   --active-ink: #D4A856; /* gold ink — on dark --bg 4.93:1 / --bg2 5.41:1 (AA) */
   /* 다크: tint 가 어두운 반투명이라 밝은 원색이 그대로 글자로 통한다 */
   --success-ink: #7FC49E;  /* dark tint 위 6.23:1 — 원색(#5BA47D)은 4.27 로 미달 */

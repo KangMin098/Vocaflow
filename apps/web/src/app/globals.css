@@ -61,19 +61,13 @@
     --bd-strong: #D4D4D8;
     --t5:        #D4D4D8;
 
-    /* CEFR Badge Colors */
-    --cefr-A1-bg:   #F1F5F9;
-    --cefr-A1-text: #64748B;
-    --cefr-A2-bg:   #E0F2FE;
-    --cefr-A2-text: #0369A1;
-    --cefr-B1-bg:   #DBEAFE;
-    --cefr-B1-text: #1E40AF;
-    --cefr-B2-bg:   #3B82F6;
-    --cefr-B2-text: #FFFFFF;
-    --cefr-C1-bg:   #7C3AED;
-    --cefr-C1-text: #FFFFFF;
-    --cefr-C2-bg:   #1F2937;
-    --cefr-C2-text: #FFFFFF;
+    /* CEFR Badge Colors — **정의는 tokens.css 에 있다.**
+       ⚠️ 여기에 같은 이름 12개가 따로 있었고, 나중에 로드되는 이쪽이 이겼다(실측 2026-08-22).
+          이긴 값은 B2/C1/C2 가 원색 채움 + 흰 글자라 3.68~ 로 AA 미달이었고,
+          다크 정의는 이쪽에 없어서 **라이트와 다크가 서로 다른 파일에서 왔다.**
+          한쪽만 고치면 다른 쪽이 안 따라오는, 가장 찾기 어려운 종류의 어긋남이다.
+       → 이 블록을 지우고 tokens.css(라이트+다크 한 쌍)로 일원화했다.
+          다시 벌어지지 않게 token-parity.test.ts 가 두 파일의 이름 충돌을 막는다. */
 
     /* Reading Universe Colors */
     --reading-bg:   #FAFAF7;

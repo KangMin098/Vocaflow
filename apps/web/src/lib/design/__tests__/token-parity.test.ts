@@ -99,3 +99,44 @@ describe('디자인 토큰 — tokens.css 와 colors.ts 가 같은 말을 한다
     })
   }
 })
+
+// ── 두 CSS 파일이 같은 이름을 놓고 다투지 않게 한다 ─────────────────────────
+//
+// ⚠️ 실측 2026-08-22: `--cefr-*` 12개가 `tokens.css` 와 `globals.css` **양쪽에** 있었고,
+//    나중에 로드되는 `globals.css` 가 이겼다. 이긴 값은 B2/C1/C2 가 원색 채움 + 흰 글자라
+//    3.68:1 로 AA 미달이었고, **다크 정의는 globals.css 에 없었다** — 그래서 라이트와 다크가
+//    서로 다른 파일에서 왔다. 한쪽만 고치면 다른 쪽이 안 따라온다.
+//
+//    이 어긋남은 앞의 parity 테스트로 안 잡힌다(그건 tokens.css ↔ colors.ts 를 본다).
+//    "정의가 두 곳에 있다" 는 것 자체가 결함이므로 이름 충돌을 막는다.
+
+const GLOBALS = readFileSync(
+  path.resolve(__dirname, '../../../app/globals.css'),
+  'utf8',
+)
+const LIGHT_GLOBALS = cssBlock(GLOBALS, /:root\s*\{/)
+const DARK_GLOBALS = cssBlock(GLOBALS, /\[data-theme=["']dark["']\]\s*\{/)
+
+describe('디자인 토큰 — 한 이름은 한 곳에서만 정의된다', () => {
+  it('두 CSS 를 실제로 읽었다', () => {
+    expect(Object.keys(LIGHT_GLOBALS).length).toBeGreaterThan(30)
+    expect(Object.keys(DARK_GLOBALS).length).toBeGreaterThan(10)
+  })
+
+  for (const [label, pkg, app] of [
+    ['라이트', LIGHT_CSS, LIGHT_GLOBALS],
+    ['다크', DARK_CSS, DARK_GLOBALS],
+  ] as const) {
+    it(`${label} — tokens.css 와 globals.css 가 같은 토큰을 정의하지 않는다`, () => {
+      const clash = Object.keys(pkg)
+        .filter((k) => k in app)
+        .map((k) => `--${k}: tokens.css="${pkg[k]}" / globals.css="${app[k]}" (globals 가 이긴다)`)
+
+      expect(
+        clash,
+        `토큰이 두 곳에 정의돼 있다 — 나중에 로드되는 쪽이 조용히 이긴다.\n` +
+          `한 곳(가능하면 tokens.css, 라이트·다크 한 쌍)만 남길 것.\n${clash.join('\n')}`,
+      ).toEqual([])
+    })
+  }
+})

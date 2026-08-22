@@ -413,7 +413,7 @@ export function DiagnosticClient() {
       if (!p) return null
       return (
         <div className="rounded-[var(--r-2xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-6 text-[var(--on-p)] shadow-[var(--sh-md)]">
-          <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--active)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--ti)]">
+          <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--active)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--on-active)]">
             ★ 처음이라면 여기서 시작
           </span>
           <h2 className="mt-3 font-display text-[24px] font-[700] leading-tight">{p.title}</h2>
