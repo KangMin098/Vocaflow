@@ -57,11 +57,12 @@ const SIZE = Number(arg('size') ?? 5)
  *   **지문 풀을 바꾸지 않는 한 배치를 더 돌려도 같은 결과다**(`csat-types.ts` mood 주석).
  */
 const MODE_ARG = arg('mode')
-const MODE =
-  MODE_ARG === 'narrative' ? 'narrative' : MODE_ARG === 'long-narrative' ? 'long-narrative' : 'expository'
+const MODES = new Set(['narrative', 'long-narrative', 'long-expository'])
+const MODE = MODES.has(MODE_ARG) ? MODE_ARG : 'expository'
 /** 서사 갈래인가 — 축·짜임·규칙을 공유한다. 길이만 다르다. */
 const IS_NARRATIVE = MODE === 'narrative' || MODE === 'long-narrative'
-const MODE_SUFFIX = MODE === 'narrative' ? '-narr' : MODE === 'long-narrative' ? '-long' : ''
+const MODE_SUFFIX =
+  MODE === 'narrative' ? '-narr' : MODE === 'long-narrative' ? '-long' : MODE === 'long-expository' ? '-longx' : ''
 const DIR = path.resolve(
   // 갈래마다 청크 디렉터리를 나눈다 — 섞이면 배치가 어느 지침으로 쓸지 알 수 없다.
   arg('dir') ?? `scripts/textbook/write-drain/v${BAND}${MODE_SUFFIX}`,
@@ -310,10 +311,53 @@ const LONG_NARRATIVE_SHAPES = [
   },
 ]
 
+/**
+ * 장문 ①(수능 41~42)의 짜임 — **긴 설명문 한 편에 제목·어휘 두 문항.**
+ *
+ * 43~45(서사문)와 달리 문단 순서를 묻지 않으므로 (A)(B)(C)(D) 라벨이 필요 없다.
+ * 대신 두 가지가 있어야 한다:
+ *   · **제목(41번)** 이 성립하려면 글 전체를 관통하는 하나의 논지가 있어야 한다.
+ *     사례만 나열한 글은 제목을 물을 수 없다("여러 사례" 말고는 쓸 말이 없다).
+ *   · **어휘(42번)** 가 성립하려면 문맥이 낱말의 뜻을 **강제**해야 한다. 한 문장만 봐도
+ *     되는 자리는 안 된다 — 반대말로 바꿔도 그 문장만은 자연스러우면 문항이 안 선다.
+ *     그래서 앞뒤가 서로를 받는 문장(대조·인과·되풀이)이 필요하다.
+ */
+const LONG_EXPOSITORY_SHAPES = [
+  {
+    key: 'claim_two_sides',
+    label: '통념 → 반증 → 수정된 결론 (긴 판)',
+    hint:
+      '흔히 그렇게 안다고 놓고, 그것을 무너뜨리는 관찰을 둘 이상 들고, 그래서 어떻게 봐야 하는지로 맺는다. ' +
+      '**대조 낱말이 짝을 이루게 쓴다**(increase↔reduce · gather↔scatter) — 어휘 문항이 그 짝에서 나온다. ' +
+      '마지막 문단이 첫 문단의 통념을 다시 불러 대조해야 제목이 하나로 정해진다.',
+  },
+  {
+    key: 'mechanism_effect',
+    label: '구조 → 작동 → 결과 (긴 판)',
+    hint:
+      '무엇이 어떻게 생겼는지 → 그래서 어떻게 움직이는지 → 그 결과 무엇이 달라지는지. ' +
+      '각 문단이 앞 문단의 낱말을 되받아 쓴다(정관사·지시어) — 그 되받음이 어휘 문항의 근거가 된다. ' +
+      '글 전체가 **하나의 원리**를 설명해야 제목이 선다. 원리가 둘이면 제목이 둘이 된다.',
+  },
+  {
+    key: 'problem_tradeoff',
+    label: '문제 → 해법들 → 절충 (긴 판)',
+    hint:
+      '무엇이 곤란한지 세우고, 해법 둘을 각각 한 문단씩 견주고, 어느 쪽도 공짜가 아니라는 결론으로 닫는다. ' +
+      '두 해법을 견줄 때 **같은 잣대의 낱말을 반복**해서 쓴다(cost·speed·risk) — 그 반복이 문맥을 강제한다.',
+  },
+]
+
 /** 이번 실행이 쓸 축·짜임. 갈래를 섞지 않는다. */
 const AXES = IS_NARRATIVE ? NARRATIVE_AXES : TOPIC_AXES
 const SHAPE_POOL =
-  MODE === 'long-narrative' ? LONG_NARRATIVE_SHAPES : MODE === 'narrative' ? NARRATIVE_SHAPES : SHAPES
+  MODE === 'long-narrative'
+    ? LONG_NARRATIVE_SHAPES
+    : MODE === 'long-expository'
+      ? LONG_EXPOSITORY_SHAPES
+      : MODE === 'narrative'
+        ? NARRATIVE_SHAPES
+        : SHAPES
 
 const { createClient } = await import('@supabase/supabase-js')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
@@ -346,7 +390,7 @@ const inBand = usable.filter((a) => a.article_v_level === BAND)
 // ⚠️ **장문(43~45)은 규격이 다르다.** 수능 장문은 지문 하나가 300어 안팎이고, 그 한 편에
 //   순서·지칭·일치 세 문항이 붙는다. 짧은 지문의 창(90~200어)을 그대로 대면 장문이 통째로 걸린다.
 //   문단 넷 × 6문장이면 대략 300~340어가 된다 — 그 규격으로 준다.
-const IS_LONG = MODE === 'long-narrative'
+const IS_LONG = MODE === 'long-narrative' || MODE === 'long-expository'
 const WORDS_MIN = IS_LONG ? 300 : 185
 const WORDS_MAX = IS_LONG ? 340 : 200
 
@@ -473,6 +517,12 @@ const takenTitles = new Set(usable.map((a) => String(a.title).toLowerCase().trim
 //   지난 실행과 겹친다. 그러면 새로 쓴 글이 "이미 있음" 으로 **조용히 버려진다** —
 //   집필은 다 해 놓고 적재만 0 이 되는데, 로그는 정상으로 보인다.
 //   그래서 이미 쓰인 번호 다음부터 매긴다.
+//
+// ⚠️ **DB 만 봐서는 모자란다.** 슬롯은 "DB 에 있는 최대치 다음" 부터 매기는데,
+//   두 export 를 나란히 돌리면 **둘 다 같은 최대치를 본다.** 먼저 적재한 쪽이 그 번호를
+//   차지하고 나중 쪽은 유일키에 걸려 **전량 "이미 있음" 으로 조용히 버려진다** —
+//   실측 2026-08-22: 서사문 12+12편을 다 써 놓고 적재가 0건이었는데 로그는 정상으로 보였다.
+//   그래서 **아직 적재되지 않은 청크 파일의 슬롯 번호까지** 함께 센다.
 let slotBase = 0
 {
   const { data, error } = await db
@@ -484,6 +534,26 @@ let slotBase = 0
   for (const r of data ?? []) {
     const n = Number(String(r.source_id).split('-').pop())
     if (Number.isFinite(n) && n > slotBase) slotBase = n
+  }
+  // 같은 밴드의 다른 청크 디렉터리(이번 것 포함 · 아직 적재 전)가 이미 쓴 번호.
+  const root = path.resolve('scripts/textbook/write-drain')
+  if (fs.existsSync(root)) {
+    for (const d of fs.readdirSync(root)) {
+      if (!d.startsWith(`v${BAND}`)) continue
+      const dir = path.join(root, d)
+      if (path.resolve(dir) === DIR) continue // 이번 실행이 곧 덮어쓸 자리는 뺀다
+      if (!fs.statSync(dir).isDirectory()) continue
+      for (const f of fs.readdirSync(dir)) {
+        if (!/^chunk-\d+(\.out)?\.json$/.test(f)) continue
+        let rows = []
+        try {
+          rows = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'))
+        } catch {
+          continue
+        }
+        for (const t of rows) if (Number.isFinite(t?.slot) && t.slot > slotBase) slotBase = t.slot
+      }
+    }
   }
 }
 
@@ -512,16 +582,25 @@ for (let i = 0; i < need; i++) {
         '설명문이 되고, 분위기·심경 문항이 성립하지 않는다.'
       : null,
     // 장문에만 붙는 형식 규칙. 이걸 어기면 43번(순서)을 아예 못 만든다.
+    // 장문 공통 형식 — 문단 4 × 6문장. 갈래와 무관하게 지켜야 한다.
     long_rule: IS_LONG
       ? '문단을 정확히 **넷**으로 나눈다(빈 줄로 구분). **각 문단은 정확히 6문장**이다 — ' +
         '적재기가 "모든 문단이 6~10문장" 일 때만 원문 문단을 그대로 두므로, 5문장으로 쓰면 ' +
-        '문단이 다시 합쳐져 네 토막 구조가 사라진다. 이름 있는 인물이 **둘 이상**이어야 하고, ' +
-        '대명사가 문단마다 두 번 이상 나와야 한다 — 44번 지칭 문항이 그 대명사들을 묻는다. ' +
-        // ⚠️ 실측으로 얻은 조건. 안 지키면 44번이 통째로 버려진다.
-        '**그 둘은 같은 성별이어야 한다**(둘 다 여자이거나 둘 다 남자). 남녀 한 쌍이면 ' +
-        'he 와 she 가 저절로 갈려 "가리키는 대상" 을 물을 수가 없다 — 실측 지칭 수율이 ' +
-        'V4 11/16 · V5 4/16 이었고 반려 사유가 **전부** 이것이었다. ' +
-        '첫 문단은 나머지 셋보다 **먼저 와야만 말이 되게** 쓴다.'
+        '문단이 다시 합쳐져 네 토막 구조가 사라진다.' +
+        (MODE === 'long-narrative'
+          ? ' 이름 있는 인물이 **둘 이상**이어야 하고, 대명사가 문단마다 두 번 이상 나와야 한다 — ' +
+            '44번 지칭 문항이 그 대명사들을 묻는다. ' +
+            // ⚠️ 실측으로 얻은 조건. 안 지키면 44번이 통째로 버려진다.
+            '**그 둘은 같은 성별이어야 한다**(둘 다 여자이거나 둘 다 남자). 남녀 한 쌍이면 ' +
+            'he 와 she 가 저절로 갈려 "가리키는 대상" 을 물을 수가 없다 — 실측 지칭 수율이 ' +
+            'V4 11/16 · V5 4/16 이었고 반려 사유가 **전부** 이것이었다. ' +
+            '첫 문단은 나머지 셋보다 **먼저 와야만 말이 되게** 쓴다.'
+          : ' 설명문이므로 인물·시간 표지는 필요 없다. 대신 두 가지가 있어야 한다: ' +
+            '① **글 전체를 관통하는 논지 하나** — 41번 제목이 그것을 묻는다. 사례만 나열하면 ' +
+            '제목을 물을 수 없다. ② **문맥이 낱말의 뜻을 강제하는 자리** — 42번 어휘가 그 자리를 ' +
+            '묻는다. 한 문장만 봐도 판단되는 낱말은 안 된다(반대말로 바꿔도 그 문장은 자연스럽다). ' +
+            '앞뒤 문장이 서로를 받게 쓴다 — 대조 짝(increase↔reduce), 정관사·지시어로 되받기, ' +
+            '같은 잣대 낱말의 반복.')
       : null,
     words_min: WORDS_MIN,
     words_max: WORDS_MAX,

@@ -74,6 +74,8 @@ export const EXTRA_TYPES = new Set([
   // `compose-unit.itemWordSpec` 으로 유형마다 자를 갈라 댄다. 이 목록에서 빠지면
   // 문항이 풀에 들어오지도 못해 "적재는 됐는데 책에는 없다" 가 된다.
   'long_order', 'long_reference', 'long_match',
+  // 장문 ① 설명문(41~42). 같은 긴 창을 쓴다.
+  'long_title', 'long_vocab',
 ])
 
 /** `apps/web/.env.local` 을 process.env 에 얹는다. 이미 있는 키는 덮지 않는다. */

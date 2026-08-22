@@ -93,7 +93,15 @@ export const CSAT_LONG_ITEM_WORDS = { min: 260, max: 400 } as const
  * 시험지와 같은 모양이 되는데, 지금 조합기는 "같은 원글은 단원당 하나" 규칙을 쓴다 —
  * 그 규칙을 장문에 그대로 대면 셋 중 하나만 실린다. **묶음 배치는 아직 안 만들었다**(다음 단계).
  */
-export const LONG_ITEM_TYPES = new Set(['long_order', 'long_reference', 'long_match'])
+export const LONG_ITEM_TYPES = new Set([
+  // 장문 ② 서사문 (43~45) — 한 이야기에서 셋이 나온다.
+  'long_order',
+  'long_reference',
+  'long_match',
+  // 장문 ① 설명문 (41~42) — 한 설명문에서 둘이 나온다. 창은 같다(260~400어).
+  'long_title',
+  'long_vocab',
+])
 
 /** 이 문항이 재야 할 지문 길이 범위. 유형이 창을 정한다. */
 export function itemWordSpec(type: string): { min: number; max: number } {
