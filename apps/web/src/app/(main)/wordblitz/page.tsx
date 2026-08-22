@@ -245,7 +245,7 @@ export default async function WordBlitzHubPage() {
                   key={r.step}
                   className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
                 >
-                  <p className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em] text-[var(--success)]">
+                  <p className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em] text-[var(--success-ink)]">
                     {r.step}
                   </p>
                   <p className="mt-1 font-display text-[13px] font-[700] text-[var(--t1)]">

@@ -183,7 +183,7 @@ export function PairFlipHub({
                     --bg2 위에서 **1.89:1** 이 된다(실측 2026-08-22 · 이 하나에서 15건).
                     면을 칠하는 색과 글자로 쓰는 색은 다르다 — 글자는 테마별 잉크 토큰으로.
                     (다크에서는 같은 앰버가 8.53:1 로 멀쩡하다. 그래서 한 색으로는 못 맞춘다.) */}
-                <p className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em] text-[var(--ink-amber)]">
+                <p className="font-mono text-[10px] font-[700] tabular-nums tracking-[0.10em] text-[var(--active-ink)]">
                   {r.step}
                 </p>
                 <p className="mt-1 font-display text-[13px] font-[700] text-[var(--t1)]">

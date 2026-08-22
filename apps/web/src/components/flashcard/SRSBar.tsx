@@ -28,22 +28,22 @@ const VARIANT_STYLES = {
   again: {
     border: 'border-[rgba(239,68,68,0.2)]',
     hover: 'hover:border-[var(--srs-1)] hover:bg-[var(--error-light)]',
-    label: 'text-[var(--srs-1)]',
+    label: 'text-[var(--srs-1-ink)]',
   },
   hard: {
     border: 'border-[rgba(245,158,11,0.2)]',
     hover: 'hover:border-[var(--srs-2)] hover:bg-[var(--active-light)]',
-    label: 'text-[var(--srs-2)]',
+    label: 'text-[var(--srs-2-ink)]',
   },
   good: {
     border: 'border-[rgba(34,197,94,0.2)]',
     hover: 'hover:border-[var(--srs-3)] hover:bg-[var(--success-light)]',
-    label: 'text-[var(--srs-3)]',
+    label: 'text-[var(--srs-3-ink)]',
   },
   easy: {
     border: 'border-[rgba(59,130,246,0.2)]',
     hover: 'hover:border-[var(--srs-4)] hover:bg-[var(--p-light)]',
-    label: 'text-[var(--srs-4)]',
+    label: 'text-[var(--srs-4-ink)]',
   },
 }
 
