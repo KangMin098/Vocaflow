@@ -21,6 +21,8 @@
 // 베이스라인은 줄여 나가는 숫자다 (늘리지 말 것).
 
 import { test, expect, type Page } from '@playwright/test';
+
+import { PARAM_ROUTES, SESSION_ROUTES, learnerRoutes } from './utils/learner-routes';
 import { writeFileSync, mkdirSync } from 'node:fs';
 
 const RUNTIME_USER = {
@@ -29,21 +31,21 @@ const RUNTIME_USER = {
 };
 const STATE_PATH = 'playwright-auth/.auth-a11y-sweep.json';
 
-/** 학습자 정적 라우트 — [param] 라우트는 대상 데이터가 계정마다 달라 제외 */
-const ROUTES = [
-  '/hub', '/dashboard', '/plan', '/reports',
-  // `/my/words`·`/my/texts` 는 ADR 0006 D4 로 폐지돼 `/wordvault`·`/text` 로 리다이렉트한다.
-  // 리다이렉트를 목록에 두면 **같은 화면을 두 번 재고**(라우트별 베이스라인이 뜻을 잃는다),
-  // 실패 메시지도 이미 없는 이름을 가리킨다. 단독 화면으로 남은 `/my/books` 만 유지.
-  '/wordvault', '/my/books',
-  '/library', '/library/books', '/library/scripts', '/library/vocab',
-  //  는 v06.201 통폐합으로 생긴 최상위 표면인데 이 목록에 없었다 —
-  // 새 라우트를 만들면서 접근성 스윕에 넣지 않으면 그 화면은 영영 안 재진다.
-  '/practice', '/wordblitz',
-  '/flashcard', '/pairflip', '/scriptquiz', '/spellforge',
-  '/dictate', '/dictate/setup', '/comics', '/arcade',
-  '/text', '/text/new', '/settings', '/diagnostic',
-];
+/**
+ * 학습자 정적 라우트 — **공용 레지스트리에서 읽는다**(`utils/learner-routes`).
+ *
+ * ⚠️ 여기 있던 목록은 **손으로 적은 25개**였고, 이 파일 스스로 그 위험을 적어 뒤 뒀다 —
+ *    "새 라우트를 만들면서 접근성 스윕에 넣지 않으면 그 화면은 영영 안 재진다"
+ *    (`/practice`·`/wordblitz` 가 실제로 빠져 있었다).
+ *    실측 2026-08-22: 학습자 정적 라우트는 **42개**이고 이 목록은 **24개**만 보고 있었다.
+ *    `/library/textbooks` 처럼 이번 주에 만든 화면도 빠져 있었다.
+ *    목록을 만드는 일을 사람에게 맡기지 않는다 — 파일 시스템이 정본이다.
+ *
+ * 빼는 것은 둘뿐이고 이유가 있다:
+ *   · 세션 화면(`/play/*`·`/dictate/session` 등) — 열면 학습 기록이 남는다
+ *   · 파라미터 필요 화면 — 맨 주소로는 자기 화면을 못 그린다(스스로 되돌린다)
+ */
+const ROUTES = learnerRoutes().filter((r) => !SESSION_ROUTES.has(r) && !PARAM_ROUTES.has(r));
 
 const CASES = [
   { name: 'mobile-light', width: 390, height: 844, theme: 'light' },

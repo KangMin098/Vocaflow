@@ -132,15 +132,30 @@ export function WordRow({
             onPlayWord(word.id)
           }}
           aria-label={`${word.word} 발음 듣기`}
-          className={cn(
-            'flex h-7 w-7 shrink-0 items-center justify-center rounded-md transition-all duration-fast',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-learn-fresh',
-            isPlaying
-              ? 'ring-learn-fresh/20 bg-learn-fresh text-white shadow-sm ring-2'
-              : 'text-t3 group-hover:bg-learn-fresh-light group-hover:text-learn-fresh'
-          )}
+          // ⚠️ 보이는 크기는 28px 인데 **누르는 영역이 28px 이면 안 된다**(기준 44px).
+          //    실측 2026-08-22: `/wordvault/browse` 한 화면에서만 44px 미만 타깃 **278개**가
+          //    나왔고 대부분이 이 버튼이다(단어 252개 × 1). 이 화면은 접근성 스윕의
+          //    손으로 적은 목록에 없어서 **한 번도 안 재졌다**.
+          //
+          //    ⚠️ 처음엔 `::after` 로 히트영역만 얹었다. 실제 탭은 커졌지만 **계측기가 못 본다** —
+          //       요소의 bounding rect 는 그대로 28px 이라 278건이 그대로 찍혔다.
+          //       "고쳤는데 안 세어지는" 것은 다음 사람에게 "안 고쳤다" 와 같다.
+          //    → **버튼 자체를 44px** 로 만들고, 음수 마진으로 **차지하는 자리는 28px** 로 되돌린다.
+          //       행 밀도(이 목록의 읽기 속도를 정한다)와 시각 크기는 그대로다.
+          className="group/play -m-2 flex h-11 w-11 shrink-0 items-center justify-center focus-visible:outline-none"
         >
-          <Play size={10} fill="currentColor" aria-hidden />
+          <span
+            aria-hidden
+            className={cn(
+              'flex h-7 w-7 items-center justify-center rounded-md transition-all duration-fast',
+              'group-focus-visible/play:ring-2 group-focus-visible/play:ring-learn-fresh',
+              isPlaying
+                ? 'ring-learn-fresh/20 bg-learn-fresh text-white shadow-sm ring-2'
+                : 'text-t3 group-hover:bg-learn-fresh-light group-hover:text-learn-fresh'
+            )}
+          >
+            <Play size={10} fill="currentColor" aria-hidden />
+          </span>
         </button>
 
         {/* 3. 영단어 + Memory dot + POS */}
