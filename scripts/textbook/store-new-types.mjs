@@ -1,6 +1,12 @@
 // scripts/textbook/store-new-types.mjs
 //
-// **교재용 문항(흐름 무관 · 어휘 · 어법 · 영작 배열)을 `csat_dcp_items` 에 넣는다.**
+// **교재용 문항을 `csat_dcp_items` 에 넣는다.**
+//
+// 수능 축 4종(흐름 무관 · 어휘 · 어법 · 영작 배열) + **중등 내신 4종**(빈칸에 낱말 쓰기 ·
+// 어법 틀린 것 고쳐 쓰기 · 본문 어휘 뜻 · 단원 문법, 2026-08-22 추가).
+//
+// ⚠️ **듣고 고르기(`listen_choose`)는 여기 없다** — 지문이 아니라 사전에서 나와 `ref_id` 가 없다.
+//   초등 3종(파닉스·기본어휘 뜻·철자 완성)과 같이 순수 함수로 남는다.
 //
 // ── 유일키가 문단당 하나를 강제한다 ──────────────────────────────────
 // 유일키는 `(kind, ref_id, type, paragraph_idx)` 다. 순서·삽입은 원래 문단당 하나라
@@ -42,6 +48,10 @@ const {
   buildWordOrder,
   buildVocabChoice,
   buildGrammarChoice,
+  buildBlankWord,
+  buildGrammarFix,
+  buildUnitVocab,
+  buildUnitGrammar,
   isPrintablePassage,
   CSAT_ITEM_WORDS,
   GRAMMAR_UNDERLINES,
@@ -73,13 +83,17 @@ const sents = (p) =>
     .filter(Boolean)
 
 // ── 사전 ────────────────────────────────────────────────────────────
+/** 뜻의 첫 갈래 — `elementary.ts` 의 `firstSense` 와 같은 규칙. */
+const firstSense = (t) => String(t).split(/[;,·/]|\s\d[.)]/)[0].trim()
+
 const vLevelOf = new Map()
+const meaningOf = new Map()
 const antOf = new Map()
 const posOf = new Map()
 for (let from = 0; ; from += 1000) {
   const { data, error: e } = await db
     .from('shared_dictionary')
-    .select('word, v_level, antonyms, primary_pos')
+    .select('word, v_level, antonyms, primary_pos, meaning_ko')
     .order('word')
     .range(from, from + 999)
   if (e) throw new Error('사전 조회 실패: ' + e.message)
@@ -89,6 +103,8 @@ for (let from = 0; ; from += 1000) {
     vLevelOf.set(w, r.v_level)
     if (Array.isArray(r.antonyms) && r.antonyms.length) antOf.set(w, r.antonyms.map(String))
     if (r.primary_pos) posOf.set(w, String(r.primary_pos))
+    // 빈칸 단서와 본문 어휘 보기는 우리말 뜻을 탄다. 뜻이 없으면 그 낱말은 못 쓴다.
+    if (r.meaning_ko) meaningOf.set(w, firstSense(String(r.meaning_ko)))
   }
   if (data.length < 1000) break
 }
@@ -98,6 +114,26 @@ const rarity = (w) => vLevelOf.get(w.toLowerCase()) ?? MAX_V
 const lex = {
   antonymsOf: (w) => antOf.get(w.toLowerCase()) ?? [],
   posOf: (w) => posOf.get(w.toLowerCase()) ?? null,
+}
+
+// ── 빈칸 단서의 유일성 ──────────────────────────────────────────────
+// 첫 글자 + 첫 뜻이 같은 낱말이 사전에 둘 이상이면 단서가 답을 확정하지 못한다.
+// **이 검사가 없으면 생성분의 9.88% 가 채점이 갈린다**(실측 2026-08-22:
+// `exploration` 의 "e… (탐험)" · `about` 의 "a… (~에 관하여)").
+// `elementary.ts` 의 철자 완성이 `c_t`(cat·cot·cut)를 사전으로 세어 거르는 것과 같은 규칙이다.
+const hintIdx = new Map()
+for (const [w, m] of meaningOf) {
+  const k = `${w[0]}|${m}`
+  hintIdx.set(k, (hintIdx.get(k) ?? 0) + 1)
+}
+const meaningLookup = (w) => meaningOf.get(w.toLowerCase()) ?? null
+const hintUnique = (w, m) => (hintIdx.get(`${w[0]}|${m}`) ?? 0) <= 1
+
+/** 본문 어휘 뜻의 보기 풀 — 사전 전체에서 뜻이 있는 낱말. */
+const meaningPool = [...meaningOf].map(([word, meaningKo]) => ({ word, meaningKo, rhymeKey: null }))
+const entryOf = (w) => {
+  const m = meaningOf.get(w.toLowerCase())
+  return m ? { word: w.toLowerCase(), meaningKo: m, rhymeKey: null } : null
 }
 
 // ── 이미 있는 조합 ──────────────────────────────────────────────────
@@ -134,6 +170,9 @@ const rows = []
 let skipped = 0
 let woCandidates = 0
 let woParagraphs = 0
+// 중등 단답 두 종도 문단 안 여러 문장이 후보다 — `word_order` 와 같은 이유로 문단당 하나만 넣고,
+// **버린 수를 남긴다**(나중에 유일키를 넓힐지 판단할 근거).
+const midDrop = { blank_word: { made: 0, kept: 0 }, grammar_fix: { made: 0, kept: 0 } }
 
 for (const a of usable) {
   const band = a.article_v_level ?? -1
@@ -237,6 +276,78 @@ for (const a of usable) {
           answer_key: { sentence: item.answer },
         })
     }
+
+    // ⑤ 중등 단답 2종 — 문단 안 후보 중 하나만 (유일키 제약, `word_order` 와 같다).
+    //   고르는 기준도 같다: **가장 이른 문장**. 단답은 문맥이 앞 문장이라 앞쪽이 안전하다
+    //   (뒤쪽 문장을 고르면 앞 문단을 안 읽어도 되는 문항이 섞인다).
+    for (const [type, build] of [
+      ['blank_word', (t, c) => buildBlankWord(t, c, meaningLookup, hintUnique)],
+      ['grammar_fix', (t, c) => buildGrammarFix(t, c)],
+    ]) {
+      let picked = null
+      let pickedIdx = -1
+      for (let si = 0; si < ss.length; si++) {
+        const item = build(ss[si], si > 0 ? ss[si - 1] : null)
+        if (!item) continue
+        midDrop[type].made++
+        if (!picked) {
+          picked = item
+          pickedIdx = si
+        }
+      }
+      if (!picked) continue
+      midDrop[type].kept++
+      const key = `${a.id}|${type}|${pi}`
+      if (existing.has(key)) {
+        skipped++
+        continue
+      }
+      rows.push({
+        kind: 'article',
+        ref_id: a.id,
+        type,
+        item_role: 'practice',
+        paragraph_idx: pi,
+        v_level: a.article_v_level,
+        payload: {
+          stem: picked.stem,
+          hint: picked.hint,
+          context: picked.context,
+          prompt_ko: picked.promptKo,
+          sentence_idx: pickedIdx,
+        },
+        answer_key: { text: picked.answerText, ...(picked.rule ? { rule: picked.rule } : {}) },
+      })
+    }
+
+    // ⑥ 중등 객관식 2종 — 원래 문단당 하나라 유일키와 다투지 않는다.
+    for (const [type, item] of [
+      ['unit_vocab', buildUnitVocab(ss, entryOf, meaningPool)],
+      ['unit_grammar', buildUnitGrammar(ss)],
+    ]) {
+      if (!item) continue
+      const key = `${a.id}|${type}|${pi}`
+      if (existing.has(key)) {
+        skipped++
+        continue
+      }
+      rows.push({
+        kind: 'article',
+        ref_id: a.id,
+        type,
+        item_role: 'practice',
+        paragraph_idx: pi,
+        v_level: a.article_v_level,
+        payload: {
+          sentences: item.sentences,
+          choices: item.choices,
+          prompt_ko: item.promptKo,
+          ...(item.target ? { target: item.target } : {}),
+          ...(item.underlines ? { underlines: item.underlines } : {}),
+        },
+        answer_key: { answer: item.answer, ...(item.original ? { original: item.original } : {}) },
+      })
+    }
   }
 }
 
@@ -246,7 +357,14 @@ for (const r of rows) byType[r.type] = (byType[r.type] ?? 0) + 1
 console.log('─'.repeat(72))
 console.log(`글 ${usable.length}편 (ND 제외)\n`)
 console.log(`  새로 넣을 문항  ${rows.length}`)
-for (const [t, n] of Object.entries(byType)) console.log(`    ${t.padEnd(12)} ${n}`)
+for (const [t, n] of Object.entries(byType)) console.log(`    ${t.padEnd(14)} ${n}`)
+for (const [t, d] of Object.entries(midDrop)) {
+  if (!d.made) continue
+  const drop = d.made - d.kept
+  console.log(
+    `    ${t.padEnd(14)} 유일키로 버림 ${drop} / 생성 ${d.made} (${((100 * drop) / d.made).toFixed(1)}%)`,
+  )
+}
 console.log(`  이미 있어 건너뜀 ${skipped}`)
 console.log(
   `\n  영작 배열 — 후보 ${woCandidates}개가 문단 ${woParagraphs}개에 흩어져 있다.` +

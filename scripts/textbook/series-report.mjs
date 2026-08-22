@@ -23,6 +23,7 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
 const { createClient } = await import('@supabase/supabase-js')
 const {
   SERIES_SPINE,
+  SERIES_TYPE_LABEL_KO,
   measureSeriesFill,
   buildRhyme,
   buildWordMeaning,
@@ -104,17 +105,9 @@ const fill = measureSeriesFill(inventory)
 const line = '─'.repeat(78)
 console.log(`${line}\n${fill.brand} — 학령 사다리 ${fill.rungs.length}단\n`)
 
-const TYPE_KO = {
-  rhyme: '파닉스 운율',
-  word_meaning: '낱말 뜻',
-  spell_blank: '철자 완성',
-  word_order: '영작 배열',
-  vocab_choice: '어휘',
-  grammar_choice: '어법',
-  irrelevant: '흐름 무관',
-  order: '순서',
-  insert: '삽입',
-}
+// 이름표는 `series.ts` 가 정본이다. 여기 따로 두었더니 유형을 늘렸을 때
+// 아무 에러 없이 `undefined 291` 이 찍혔다(2026-08-22). 저쪽은 타입이 걸려 있어 빠뜨릴 수 없다.
+const TYPE_KO = SERIES_TYPE_LABEL_KO
 
 for (const r of fill.rungs) {
   const mark = r.total === 0 ? '❌ 끊김' : r.emptyTypes.length ? '⚠️ 반쪽' : '✅'

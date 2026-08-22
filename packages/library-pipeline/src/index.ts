@@ -562,7 +562,8 @@ export {
 } from './textbook/item-health'
 export type { AnswerBias, HealthInput, ItemAttemptStats, StockHealth, TypeHealth } from './textbook/item-health'
 // 시리즈 정본 — 한 브랜드가 학령 전체를 계단으로 잡는다
-export { SERIES_BRAND, SERIES_SPINE, SERIES_CSAT_TYPES, measureSeriesFill } from './textbook/series'
+export { SERIES_BRAND, SERIES_SPINE,
+  SERIES_TYPE_LABEL_KO, SERIES_CSAT_TYPES, measureSeriesFill } from './textbook/series'
 export type { Inventory, RungFill, SeriesFill, SeriesItemType, SeriesRung } from './textbook/series'
 // 평가 요소 대조표 — "시중 교재보다 낫다" 를 말하려면 분모가 있어야 한다
 export { CATEGORY_KO, EVAL_DIMENSIONS, measureEvaluation } from './textbook/evaluation'

@@ -39,6 +39,40 @@ export type SeriesItemType =
   | 'irrelevant'
   | 'order'
   | 'insert'
+  // 중등 내신 4종 (2026-08-22).
+  //
+  // ⚠️ **유형을 만들고 적재까지 했는데 사다리가 0 으로 셌다.** 9,887행이 DB 에 들어간 뒤에도
+  //   계단별 문항 수가 그대로였는데, 이 union 과 아래 `types` 목록에 없으면
+  //   `measureSeries` 가 그 행을 어느 계단에도 넣지 않기 때문이다. 아무 에러도 안 난다.
+  //   **적재는 교재가 되는 것과 다르다** — 계단이 유형을 받아 줘야 비로소 실린다.
+  | 'blank_word'
+  | 'grammar_fix'
+  | 'unit_vocab'
+  | 'unit_grammar'
+
+/**
+ * 유형 이름표 — 리포트·화면이 함께 쓴다.
+ *
+ * ⚠️ **`Record<SeriesItemType, string>` 인 것이 핵심이다.** 리포트 스크립트 안에 평범한
+ *   객체로 두었더니, 유형을 늘렸을 때 아무 에러 없이 `undefined 291` 이 찍혔다
+ *   (2026-08-22 실측). 타입을 걸면 union 에 유형을 더한 순간 **컴파일이 막는다** —
+ *   이름표를 빠뜨릴 수 없게 된다.
+ */
+export const SERIES_TYPE_LABEL_KO: Record<SeriesItemType, string> = {
+  rhyme: '파닉스 운율',
+  word_meaning: '낱말 뜻',
+  spell_blank: '철자 완성',
+  word_order: '영작 배열',
+  vocab_choice: '어휘',
+  grammar_choice: '어법',
+  irrelevant: '흐름 무관',
+  order: '순서',
+  insert: '삽입',
+  blank_word: '빈칸 낱말',
+  grammar_fix: '어법 고쳐쓰기',
+  unit_vocab: '본문 어휘',
+  unit_grammar: '단원 문법',
+}
 
 export interface SeriesRung {
   /** 계단 번호 — 1 부터. 학습자에게 보이는 "레벨". */
@@ -93,16 +127,30 @@ export const SERIES_SPINE: readonly SeriesRung[] = [
     vLevels: [3],
     schoolBand: '중학 1-2학년',
     volumeTitle: `${SERIES_BRAND} 2`,
-    types: ['word_meaning', 'word_order', 'vocab_choice'],
-    rationale: '문장에서 짧은 글로. 어휘 문항이 처음 들어간다(지문 안에서 모순을 찾는 과제).',
+    types: ['word_meaning', 'word_order', 'vocab_choice', 'unit_vocab', 'blank_word'],
+    rationale:
+      '문장에서 짧은 글로. 어휘 문항이 처음 들어간다(지문 안에서 모순을 찾는 과제). ' +
+      '중등 내신의 **본문 어휘 뜻**과 **빈칸에 낱말 쓰기**도 여기서 열린다 — 둘 다 지문 한 문단이면 되고, ' +
+      '학교 시험의 실제 출제 비중이 가장 큰 자리다.',
   },
   {
     step: 4,
     vLevels: [4],
     schoolBand: '중학 3학년',
     volumeTitle: `${SERIES_BRAND} 3`,
-    types: ['word_order', 'vocab_choice', 'grammar_choice'],
-    rationale: '고교 진입 준비. 어법이 들어간다 — 중등 내신의 서술형 축과 겹친다.',
+    types: [
+      'word_order',
+      'vocab_choice',
+      'grammar_choice',
+      'unit_vocab',
+      'blank_word',
+      'unit_grammar',
+      'grammar_fix',
+    ],
+    rationale:
+      '고교 진입 준비. 어법이 들어간다 — 중등 내신의 서술형 축과 겹친다. ' +
+      '**단원 문법**(객관식)과 **어법 틀린 것 고쳐 쓰기**(단답)가 여기서 함께 열리는 이유는, ' +
+      '같은 규칙을 묻되 하나는 고르게 하고 하나는 쓰게 하기 때문이다 — 학교 시험이 실제로 그렇게 낸다.',
   },
   {
     step: 5,
