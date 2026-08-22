@@ -482,7 +482,7 @@ function CarouselBook({
       {/* CEFR + V-Level 상단 우측 */}
       <div className="absolute right-3.5 top-3.5 flex flex-col items-end gap-1">
         {(book.cefr_band ?? book.cefr_level) && (
-          <span className="inline-flex items-center rounded-[3px] bg-white/95 px-2 py-0.5 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--t1)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
+          <span className="inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-0.5 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
             {book.cefr_band ?? book.cefr_level}
           </span>
         )}
@@ -516,7 +516,7 @@ function CarouselBook({
         )}
         {book.enrollment_state === 'enrolled' && (
           <span
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-white/95 px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--p)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--chip-cover-bg)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--chip-cover-brand)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
             title="라이브러리에 추가됨 — 학습 시작 대기"
             aria-label="라이브러리에 추가됨"
           >

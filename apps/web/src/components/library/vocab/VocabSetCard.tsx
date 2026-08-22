@@ -144,7 +144,7 @@ export function VocabSetCard({
           <span
             aria-label="내 학습에 추가됨"
             title="내 학습에 추가됨"
-            className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-white/95 px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--p)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
+            className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--chip-cover-bg)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--chip-cover-brand)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
           >
             <Check size={10} strokeWidth={3} aria-hidden /> 내 학습
           </span>
@@ -159,7 +159,7 @@ export function VocabSetCard({
 
         {/* 우상단: CEFR 배지 */}
         {set.cefrLevel && (
-          <span className="absolute right-3 top-3 inline-flex items-center rounded-[3px] bg-white/95 px-2 py-0.5 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--t1)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
+          <span className="absolute right-3 top-3 inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-0.5 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
             {set.cefrLevel}
           </span>
         )}

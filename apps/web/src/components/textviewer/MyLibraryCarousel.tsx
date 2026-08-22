@@ -513,7 +513,7 @@ function BookCard({
         {item.progressPercent > 0 && (
           <span
             aria-hidden
-            className="absolute right-3.5 top-3.5 inline-flex items-center rounded-[3px] bg-white/95 px-2 py-0.5 font-mono text-[10.5px] font-[700] text-[var(--t1)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
+            className="absolute right-3.5 top-3.5 inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-0.5 font-mono text-[10.5px] font-[700] text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
           >
             {item.progressPercent}%
           </span>

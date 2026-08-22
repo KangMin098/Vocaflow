@@ -101,7 +101,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
         {/* 우상단 CEFR + V */}
         <div className="absolute right-2 top-2 flex flex-col items-end gap-1">
           {(book.cefr_band ?? book.cefr_level) && (
-            <span className="inline-flex items-center rounded-[3px] bg-white/95 px-1.5 py-0.5 font-mono text-[9.5px] font-[700] tracking-tight text-[var(--t1)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
+            <span className="inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
               {book.cefr_band ?? book.cefr_level}
             </span>
           )}
@@ -135,7 +135,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
           )}
           {state === 'enrolled' && (
             <span
-              className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-white/95 px-1.5 py-0.5 font-display text-[9px] font-[700] text-[var(--p)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
+              className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--chip-cover-bg)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-[var(--chip-cover-brand)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
               title="내 학습에 추가됨"
             >
               <Check size={9} strokeWidth={2.5} aria-hidden /> 내 학습
