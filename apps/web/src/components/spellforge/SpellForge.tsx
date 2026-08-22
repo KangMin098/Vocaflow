@@ -313,8 +313,20 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
       const isTextInput = target.tagName === 'TEXTAREA'
       if (isTextInput) return
 
-      // Tab — 힌트
+      // Tab — 힌트. **다만 Tab 은 이 앱에서 유일한 이동 수단이기도 하다.**
+      //
+      // ⚠️ 실측 2026-08-23: 이 핸들러가 `document` 전역에서 Tab 을 삼키고 있어
+      //    `/spellforge/play` 에서는 **Tab 을 40번 눌러도 포커스가 한 번도 안 움직였다.**
+      //    마우스를 못 쓰는 학습자는 나가기·모드 선택 어디에도 닿지 못한다 —
+      //    키보드 함정이다(WCAG 2.1.2 "No Keyboard Trap").
+      //
+      // 단축키는 살리되 **빠져나갈 길을 남긴다**:
+      //   · 타이핑 칸에 있을 때의 Tab 만 힌트다 (게임의 의도는 그대로)
+      //   · Shift+Tab 은 언제나 이동 — 이것이 함정에서 나가는 문이다
+      //   · 타이핑 칸 밖의 Tab 은 평범한 이동
       if (e.key === 'Tab') {
+        if (e.shiftKey) return
+        if (target !== inputRef.current) return
         e.preventDefault()
         triggerHint()
         playWordAudio(currentWord?.text ?? '')
