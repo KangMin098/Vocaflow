@@ -43,6 +43,11 @@ async function fillRates(filter) {
   const { count: posSet, error: e1 } = await ps
   if (e1) throw new Error('pos_set 조회 실패: ' + e1.message)
   out.pos_set = posSet
+  let sn = db.from('shared_dictionary').select('*', { count: 'exact', head: true }).neq('senses', '[]')
+  if (filter) sn = filter(sn)
+  const { count: senses, error: e3 } = await sn
+  if (e3) throw new Error('senses 조회 실패: ' + e3.message)
+  out.senses = senses
   let fp = db.from('shared_dictionary').select('*', { count: 'exact', head: true }).neq('field_provenance', '{}')
   if (filter) fp = filter(fp)
   const { count: prov, error: e2 } = await fp
@@ -71,6 +76,7 @@ addFill('primary_pos', 'C1 신규행 primary_pos')
 addFill('pos_set', 'C2 신규행 pos_set')
 addFill('v_level', 'C3 신규행 v_level')
 addFill('field_provenance', 'C4 신규행 field_provenance')
+addFill('senses', 'C9 신규행 senses')
 
 // ── C5: kice 낱말의 v_level_rule_v1 이 현재 룰과 어긋난 비율 ─────────
 // 기준은 kice 밖 대조군에서 같은 방식으로 잰 값 — 하드코딩하지 않는다.
@@ -128,6 +134,39 @@ checks.push({
   detail: `kice ${kiceDrift.pct.toFixed(1)}% (${kiceDrift.drifted}/${kiceDrift.n}) · 대조군 ${ctlDrift.pct.toFixed(1)}% (${ctlDrift.drifted}/${ctlDrift.n})`,
 })
 
+
+// ── C8: 채울 수 있는데 안 채운 ipa ──────────────────────────────────
+// **채움률로 재지 않는다.** 남은 낱말은 CMUdict 에 없는 파생어(monumentality)·조어(captology)라
+// 전체 기준선(80%대)에 영원히 못 미친다 — 그런 검사는 늘 빨간불이라 아무도 안 본다.
+// 대신 **채울 수 있는데 비어 있는 것이 0인가**를 본다: CMUdict 에 직접 있거나,
+// 하이픈 조각이 모두 CMUdict 에 있는 낱말. 발음을 지어내는 것은 검사 대상이 아니다.
+const cmuPath = 'scripts/dict/data/cmudict/cmudict-enrich.json'
+if (!fs.existsSync(cmuPath)) {
+  checks.push({ id: 'C8 채울 수 있는 ipa 누락', pass: false, detail: 'cmudict-enrich.json 없음 — scripts/dict/data/ 는 gitignore 라 내려받아야 한다: curl -L -o scripts/dict/data/cmudict/cmudict.dict https://raw.githubusercontent.com/cmusphinx/cmudict/master/cmudict.dict && node scripts/dict/cmudict-enrich.mjs extract' })
+} else {
+  const cmuMap = JSON.parse(fs.readFileSync(cmuPath, 'utf8'))
+  const noIpa = []
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await db
+      .from('shared_dictionary')
+      .select('word')
+      .is('ipa', null)
+      .order('word', { ascending: true })
+      .range(from, from + 999)
+    if (error) throw new Error('ipa 결측 조회 실패: ' + error.message)
+    noIpa.push(...data.map((r) => r.word))
+    if (data.length < 1000) break
+  }
+  const fillable = noIpa.filter(
+    (w) => cmuMap[w]?.ipa || (w.includes('-') && w.split('-').every((x) => x && cmuMap[x]?.ipa)),
+  )
+  checks.push({
+    id: 'C8 채울 수 있는 ipa 누락',
+    pass: fillable.length === 0,
+    detail: `${fillable.length}건 (ipa 빈 낱말 ${noIpa.length} 중) — 0 이 아니면 cmudict-enrich / ipa-compose-hyphen 을 돌린다`,
+  })
+}
+
 // ── C6: 코퍼스와 DB 의 등장 연도가 어긋난 행 ─────────────────────────
 const norm = JSON.parse(fs.readFileSync('scripts/dict/csat-corpus/normalized.json', 'utf8'))
 const byLemma = new Map(norm.rows.map((r) => [r.lemma, r.years_appeared.join(',')]))
@@ -169,5 +208,5 @@ console.log('── 사전 DB 정합성 ─────────────�
 for (const c of checks) console.log(`${c.pass ? '✅' : '❌'} ${c.id.padEnd(28)} ${c.detail}`)
 console.log('')
 console.log(`달성률 ${((100 * passed) / checks.length).toFixed(0)}%  (${passed}/${checks.length})`)
-console.log(`참고 — ipa 는 data/cmudict/ 가 없어 검사 대상에서 제외(외부 데이터 필요)`)
+console.log(`참고 — 기준선은 전체 사전 실측값이라 매 실행 다시 잰다(하드코딩 없음)`)
 process.exit(passed === checks.length ? 0 : 1)
