@@ -31,7 +31,7 @@ export const colorsLight = {
   errorLight: '#F4E0DC',
   warning: '#B5803A',    // deeper warm amber
   warningLight: '#F2E8D2',
-  info: '#5B7A98',
+  info: '#50697F',
   infoLight: '#E1E8EF',
 
   // surface — Apple Books 정합 (less yellow, more modern)
@@ -41,8 +41,8 @@ export const colorsLight = {
 
   // text — ink (deeper, more refined)
   t1: '#1A1714',
-  t2: 'rgba(26, 23, 20, 0.62)',
-  t3: 'rgba(26, 23, 20, 0.38)',
+  t2: 'rgba(26, 23, 20, 0.74)',
+  t3: 'rgba(26, 23, 20, 0.62)',
   t4: 'rgba(26, 23, 20, 0.20)',
   ti: '#FBFAF6',
 
@@ -64,7 +64,7 @@ export const colorsDark = {
   activeLight: 'rgba(212, 168, 86, 0.18)',
   success: '#5BA47D',
   successLight: 'rgba(91, 164, 125, 0.18)',
-  error: '#C25E54',
+  error: '#A8443A',
   errorLight: 'rgba(194, 94, 84, 0.18)',
   warning: '#CEA254',
   warningLight: 'rgba(206, 162, 84, 0.18)',
@@ -76,8 +76,8 @@ export const colorsDark = {
   bg3: '#2D261F',        // fill
 
   t1: '#F0EAE0',
-  t2: 'rgba(240, 234, 224, 0.62)',
-  t3: 'rgba(240, 234, 224, 0.38)',
+  t2: 'rgba(240, 234, 224, 0.74)',
+  t3: 'rgba(240, 234, 224, 0.62)',
   t4: 'rgba(240, 234, 224, 0.20)',
   ti: '#F0EAE0',
 
