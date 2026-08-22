@@ -152,10 +152,22 @@ for (const f of files) {
       }
     }
     const enWords = (body.match(/[A-Za-z][A-Za-z'’-]*/g) ?? []).length
-    // 선택지 언어 — 첫 선택지 뒤 40자에 한글이 있으면 한글 선택지로 본다
-    const firstChoice = body.indexOf('①')
-    const choiceLang =
-      firstChoice < 0 ? null : HANGUL.test(body.slice(firstChoice, firstChoice + 60)) ? 'ko' : 'en'
+    // ── 선택지 언어 ────────────────────────────────────────────────
+    // 첫 선택지 뒤 N자를 보는 방식은 틀렸다 — 2단 조판이 선택지를 `①` `③` `⑤` 처럼
+    // 흩어 놓아 옆 문항의 한글을 읽어 온다(실측: 2025#37 순서 문제가 ko 로 잡혔다).
+    // **선택지 줄만 모아** 판정하고, `(A)-(C)-(B)` · `(a)` 같은 기호뿐이면 `neutral` 이다
+    // (순서·지칭 유형의 선택지는 애초에 언어가 없다).
+    const choiceLines = body.split('\n').filter((l) => CHOICE_RE.test(l))
+    CHOICE_RE.lastIndex = 0
+    const choiceText = choiceLines.join(' ').replace(/[①-⑤]/g, ' ').trim()
+    const symbolic = choiceText.replace(/[()a-eA-E\s\-－~～,.]/g, '') === ''
+    const choiceLang = !choiceLines.length
+      ? null
+      : symbolic
+        ? 'neutral'
+        : HANGUL.test(choiceText)
+          ? 'ko'
+          : 'en'
 
     measured.push({
       exam: examId,
