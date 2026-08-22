@@ -127,6 +127,7 @@ export function SpellForgeHubClient({
           label: '시작하기',
           href,
           accent: SPELLFORGE_ACCENT,
+          accentText: '#1A1714', // 게임 패널색 위 6.08:1 — 종이(--ti)는 2.81 로 미달
           disabled: empty,
           disabledReason: '연습할 단어가 아직 없어요',
         }}

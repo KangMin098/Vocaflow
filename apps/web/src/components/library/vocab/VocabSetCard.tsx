@@ -166,7 +166,7 @@ export function VocabSetCard({
 
         {/* 좌하단: 카테고리(중요도) 단서 + 사용빈도(구독수) — 어떤 단계/시험용인지 + 얼마나 쓰는지 */}
         {cat && (
-          <span className="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-black/40 px-2 py-0.5 font-display text-[10px] font-[700] text-white backdrop-blur-[2px]">
+          <span className="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-black/55 px-2 py-0.5 font-display text-[10px] font-[700] text-white backdrop-blur-[2px]">
             <span aria-hidden>{cat.emoji}</span>
             {cat.label}
             {set.subscriberCount > 0 && (

@@ -908,6 +908,49 @@ test.describe('허브 디자인 캡처', () => {
  *    `10-a11y-sweep` 도 같은 이유로 24/42 였고, 그 파일 스스로 위험을 적어 두고도 겪었다.
  *    그래서 "적는 것" 은 그대로 두되, **빠뜨렸는지는 사람이 아니라 이 테스트가 본다.**
  */
+/**
+ * **AA 미달 글자는 0 이어야 한다 — 그리고 0 은 분모와 함께만 믿는다.**
+ *
+ * 2026-08-22 라운드에서 94장 전수로 **79건**이 나왔고, 원인을 다섯 부류로 정리해 0 으로 내렸다:
+ *   · 강조색을 글자로 쓴 것(`--srs-*` · `--active` · `--success`) — 면 칠하는 색과 글자색을 분리
+ *   · 토큰이 두 파일에 정의돼 **AA 미달인 쪽이 이긴** 것(`--cefr-*` 12개)
+ *   · 원색 채움 위 흰 글자 — 이미 검증된 짝(`--p`/`--on-p`, tint/`-ink`)으로 교체
+ *   · 흰 막이 바탕을 **밝혀서** 그 위의 흰 글자를 깎은 것
+ *   · **계측기 자신의 버그로 만들어진 가짜 16건**
+ *
+ * 그래서 하한을 0 으로 못 박는다. 다만 **0 을 그냥 통과로 읽지 않는다** —
+ * 스윕이 죽으면 위반도 0 으로 인쇄되기 때문이다(이 루프에서 네 번 겪었다).
+ * 통과의 조건은 "위반 0" 이 아니라 **"94장을 찍고 위반 0"** 이다.
+ */
+test('AA 미달 글자 0 (전수 캡처 기준)', () => {
+  // 디렉터리가 아예 없을 수도 있다(캡처를 안 돌린 경우). ENOENT 로 죽으면
+  // "무엇이 잘못됐나" 가 안 보인다 — 분모 0 으로 떨어뜨려 아래 단언이 말하게 한다.
+  const metricFiles = fs.existsSync(OUT_DIR)
+    ? fs.readdirSync(OUT_DIR).filter((f) => f.endsWith('-metrics.json'))
+    : []
+  const measured = metricFiles.flatMap(
+    (f) =>
+      JSON.parse(fs.readFileSync(path.join(OUT_DIR, f), 'utf8')) as {
+        route: string
+        vp: string
+        lowContrast: { text: string; ratio: number; need: number }[]
+      }[],
+  )
+
+  // 분모 먼저. 계측이 안 돌았으면 위반 0 은 성과가 아니라 측정 실패다.
+  expect(
+    measured.length,
+    'baseline 캡처의 계측 파일이 없다 — 그 상태의 "위반 0" 은 아무것도 지키지 않는다',
+  ).toBeGreaterThanOrEqual(90)
+
+  const bad = measured.flatMap((m) =>
+    m.lowContrast.map(
+      (c) => `${m.route}/${m.vp} "${c.text}" ${c.ratio}:1 (필요 ${c.need}:1)`,
+    ),
+  )
+  expect(bad, `AA 미달 글자가 다시 생겼다 (${measured.length}장 기준)`).toEqual([])
+})
+
 test('학습자 화면을 빠뜨리지 않는다 (레지스트리 정합)', () => {
   const declared = new Set([...ALL_ROUTES, ...LAB_ROUTES].map((r) => r.url))
   const missing = learnerRoutes().filter((r) => !declared.has(r))

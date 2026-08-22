@@ -208,7 +208,9 @@ export function VocabSetCarousel({
               {c.label}
               <span
                 className={`rounded-[var(--r-full)] px-1.5 text-[10px] tabular-nums ${
-                  isActive ? 'bg-white/25' : 'bg-[var(--bg3)] text-[var(--t2)]'
+                  // ⚠️ 흰 막은 강조색 바탕을 **밝혀서** 그 위의 흰 글자를 깎는다
+                  //    (실측 2026-08-22: 3.34:1). 같은 분리감을 어둡히는 쪽으로 낸다.
+                  isActive ? 'bg-black/25' : 'bg-[var(--bg3)] text-[var(--t2)]'
                 }`}
               >
                 {sets.filter((s) => s.category === c.id).length}

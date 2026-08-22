@@ -126,7 +126,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
             <span key={`${r.root}-${i}`} className="inline-flex items-center gap-1.5">
               {i > 0 && <span className="text-[11px] text-[var(--t2)]">+</span>}
               <span className="rounded-[var(--r-full)] bg-[var(--active-light)] px-2 py-0.5 text-[12px]">
-                <span className="font-english font-[700] text-[var(--active)]">{r.root}</span>
+                <span className="font-english font-[700] text-[var(--active-ink)]">{r.root}</span>
                 <span className="font-body text-[var(--t2)]"> {r.gloss}</span>
               </span>
             </span>

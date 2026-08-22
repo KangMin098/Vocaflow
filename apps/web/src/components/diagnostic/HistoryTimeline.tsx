@@ -97,7 +97,7 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
                 {s.v_level_delta != null && s.v_level_delta !== 0 && (
                   <span
                     className="font-display text-[12px] font-[700] tabular-nums"
-                    style={{ color: s.v_level_delta > 0 ? 'var(--active)' : 'var(--error)' }}
+                    style={{ color: s.v_level_delta > 0 ? 'var(--active-ink)' : 'var(--error-ink)' }}
                   >
                     {deltaSign}{s.v_level_delta}
                   </span>

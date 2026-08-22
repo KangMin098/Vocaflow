@@ -67,7 +67,7 @@ export function WordList({
           <span>전체 선택</span>
         </div>
         <div className="font-mono text-xs font-semibold text-t3">
-          <span className="text-learn-mastered font-extrabold">{selectedCount}</span>
+          <span className="font-extrabold text-[var(--learn-mastered-ink)]">{selectedCount}</span>
           {' / '}
           {totalCount}개 선택됨
         </div>
