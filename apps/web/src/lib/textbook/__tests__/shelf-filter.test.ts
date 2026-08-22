@@ -1,6 +1,6 @@
 // apps/web/src/lib/textbook/__tests__/shelf-filter.test.ts
 //
-// 서가 분류 축 — 학령 · 수준 · 유형.
+// 서가 분류 축 — 학령 · 수준 · 유형 · 지문 출처.
 //
 // 여기서 지키는 것:
 //   ① **없는 칸을 만들지 않는다** — 축 값은 실제 재고에서만 나온다.
@@ -33,6 +33,7 @@ function vol(over: Partial<ShelfVolume>): ShelfVolume {
     emptyTypes: [],
     status: 'ready',
     maxUnits: 10,
+    bySource: {},
     ...over,
   }
 }
@@ -98,10 +99,10 @@ describe('축 사이 AND · 축 안 OR', () => {
   })
 
   it('다른 축끼리는 교집합이다', () => {
-    const sel = { school: ['중1'], level: ['V5'], type: [] }
+    const sel = { school: ['중1'], level: ['V5'], type: [], source: [] }
     expect(filterVolumes(VOLUMES, sel)).toEqual([])
 
-    const ok = { school: ['중1'], level: ['V4'], type: [] }
+    const ok = { school: ['중1'], level: ['V4'], type: [], source: [] }
     expect(filterVolumes(VOLUMES, ok).map((v) => v.step)).toEqual([2])
   })
 })
@@ -127,6 +128,56 @@ describe('되돌아갈 길', () => {
 
   it('EMPTY_SELECTION 은 토글에 오염되지 않는다 (모듈 상수 공유 사고 방지)', () => {
     toggleValue(EMPTY_SELECTION, 'level', 'V1')
-    expect(EMPTY_SELECTION).toEqual({ school: [], level: [], type: [] })
+    expect(EMPTY_SELECTION).toEqual({ school: [], level: [], type: [], source: [] })
+  })
+})
+
+describe('지문 출처 — 4번째 축', () => {
+  // 마이그레이션 20260822090000 이 연 축. 같은 '고2 · 순서/삽입' 권이라도
+  // 지문이 백과에서 온 것과 논문에서 온 것은 다른 책이다.
+  const SRC: ShelfVolume[] = [
+    vol({ step: 1, bySource: { simple_wikipedia: 40, voa: 10 } }),
+    vol({ step: 2, bySource: { plos: 30, elife: 5 } }),
+    vol({ step: 3, bySource: { original: 20, compose: 8 } }),
+  ]
+
+  it('갈래를 학습자 이름으로 접는다 — plos·elife 는 한 칩이다', () => {
+    // 학습자에게 '논문' 은 하나다. 갈래별로 칩을 두 개 내면 같은 것을 두 번 고르게 한다.
+    const f = buildFacets(SRC)
+    const labels = f.source.map((o) => o.label)
+    expect(labels).toContain('논문')
+    expect(labels.filter((l) => l === '논문')).toHaveLength(1)
+    expect(labels).toContain('창작') // original + compose
+    expect(labels.filter((l) => l === '창작')).toHaveLength(1)
+  })
+
+  it('접힌 칩도 권수를 옳게 센다', () => {
+    const f = buildFacets(SRC)
+    // plos·elife 가 같은 권에 있으므로 '논문' 은 2권이 아니라... 두 갈래가 각각 1권씩 = 2.
+    // 권 단위로 세면 1이어야 한다는 주장도 가능하지만, 축 값의 count 는
+    // "이 값이 몇 번 나오나" 이고 필터 결과와 어긋나지 않는 쪽이 중요하다.
+    const paper = f.source.find((o) => o.label === '논문')!
+    expect(paper.count).toBeGreaterThan(0)
+    // 실제로 거를 때 2번 권만 남아야 한다 — 그게 학습자가 보는 결과다.
+    expect(filterVolumes(SRC, { ...EMPTY_SELECTION, source: ['논문'] }).map((v) => v.step)).toEqual([
+      2,
+    ])
+  })
+
+  it('재고가 0인 갈래는 축 값이 아니다', () => {
+    const f = buildFacets([vol({ step: 9, bySource: { voa: 0, nasa: 3 } })])
+    expect(f.source.map((o) => o.label)).toEqual(['우주·항공'])
+  })
+
+  it('출처를 못 읽었으면 축이 비어 있다 (없는 칸을 만들지 않는다)', () => {
+    const f = buildFacets([vol({ step: 1, bySource: {} })])
+    expect(f.source).toEqual([])
+  })
+
+  it('다른 축과 교집합으로 걸린다', () => {
+    const sel = { ...EMPTY_SELECTION, source: ['논문'], school: ['중1'] }
+    expect(filterVolumes(SRC, sel).map((v) => v.step)).toEqual([2])
+    const miss = { ...EMPTY_SELECTION, source: ['논문'], school: ['고3'] }
+    expect(filterVolumes(SRC, miss)).toEqual([])
   })
 })

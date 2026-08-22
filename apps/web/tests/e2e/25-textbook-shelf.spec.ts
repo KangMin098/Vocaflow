@@ -283,7 +283,7 @@ test.describe('모바일에서 교재로 가는 길', () => {
 test.describe('교재 서가 — 키보드로 고르기', () => {
   test.use({ storageState: STATE_PATH })
 
-  test('필터 각 줄이 축 이름을 가진 묶음이다 — 21개가 한 덩어리로 들리면 안 된다', async ({
+  test('필터 각 줄이 축 이름을 가진 묶음이다 — 칩 전부가 한 덩어리로 들리면 안 된다', async ({
     page,
   }) => {
     test.setTimeout(120_000)
@@ -292,7 +292,7 @@ test.describe('교재 서가 — 키보드로 고르기', () => {
     await expect(page.getByRole('region', { name: '교재 서가' })).toBeVisible({ timeout: 30_000 })
 
     // 축마다 이름 있는 묶음. 없으면 스크린리더는 "버튼 21개" 로만 읽는다.
-    for (const axis of ['학령', '수준', '유형']) {
+    for (const axis of ['학령', '수준', '유형', '지문 출처']) {
       const group = page.getByRole('group', { name: axis })
       await expect(group, `${axis} 축이 묶음으로 안 묶여 있다`).toHaveCount(1)
       const chips = group.getByRole('button')

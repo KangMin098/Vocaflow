@@ -28,6 +28,7 @@ function vol(step: number, title: string): ShelfVolume {
     emptyTypes: [],
     status: 'ready',
     maxUnits: 30,
+    bySource: {},
   }
 }
 

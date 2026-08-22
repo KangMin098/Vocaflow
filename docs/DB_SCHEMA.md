@@ -716,6 +716,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 ## 최근 마이그레이션 (20개)
 
 ```
+20260822090000  textbook_shelf_sources                     ← 지문 출처 집계 + 교육과정 어휘 개수 (둘 다 anon 실행 가능)
 20260821140000  user_textbook_selections                   ← 내가 고른 교재(step 번호만). RLS 본인 전용
 20260821120000  textbook_shelf_inventory                   ← 학습자용 재고 집계 RPC (테이블은 admin 전용 유지)
 20260815020000  close_client_writable_gaps                 ← 🔴 고아 테이블 anon 개방 + 초대코드 우회 (아래 참조)

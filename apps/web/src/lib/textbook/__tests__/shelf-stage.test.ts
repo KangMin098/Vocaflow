@@ -26,6 +26,7 @@ function vol(step: number, schoolBand: string): ShelfVolume {
     emptyTypes: [],
     status: 'empty',
     maxUnits: 0,
+    bySource: {},
   }
 }
 
@@ -41,7 +42,7 @@ describe('사다리와 매대표가 어긋나지 않는다', () => {
   })
 
   it('실제 서가가 세 매대로 갈린다 (평평한 일곱 줄이 아니다)', () => {
-    const groups = groupByStage(buildShelf([], true).volumes)
+    const groups = groupByStage(buildShelf([], {}, true).volumes)
     expect(groups.map((g) => g.label)).toEqual(['초등', '중등', '고등'])
     expect(groups.reduce((s, g) => s + g.volumes.length, 0)).toBe(SERIES_SPINE.length)
   })

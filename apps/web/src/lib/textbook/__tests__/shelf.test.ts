@@ -26,7 +26,7 @@ function dbInventory(vLevel: number, count: number): Inventory {
 
 describe('못 잼 ≠ 없음 (이 화면의 첫 결함)', () => {
   it('조회가 막히면 empty 가 아니라 unmeasured 다', () => {
-    const shelf = buildShelf([], false)
+    const shelf = buildShelf([], {}, false)
     const highSteps = shelf.volumes.filter((v) => v.vLevels.some((l) => l >= 5))
     expect(highSteps.length).toBeGreaterThan(0)
     for (const v of highSteps) {
@@ -36,7 +36,7 @@ describe('못 잼 ≠ 없음 (이 화면의 첫 결함)', () => {
   })
 
   it('조회에 성공했고 정말 0이면 empty 다', () => {
-    const shelf = buildShelf([], true)
+    const shelf = buildShelf([], {}, true)
     const high = shelf.volumes.find((v) => v.vLevels.includes(7))!
     expect(high.status).toBe('empty')
     expect(shelf.hasUnmeasured).toBe(false)
@@ -50,6 +50,7 @@ describe('못 잼 ≠ 없음 (이 화면의 첫 결함)', () => {
         { type: 'word_meaning', vLevel: 1, count: 400 },
         { type: 'spell_blank', vLevel: 1, count: 400 },
       ] as Inventory,
+      {},
       false, // DB 조회는 실패했지만
     )
     const step1 = shelf.volumes.find((v) => v.step === 1)!
@@ -60,14 +61,14 @@ describe('못 잼 ≠ 없음 (이 화면의 첫 결함)', () => {
 
 describe('분량 판정', () => {
   it('한 권 분량에 못 미치면 building', () => {
-    const shelf = buildShelf(dbInventory(7, 5), true) // 25개
+    const shelf = buildShelf(dbInventory(7, 5), {}, true) // 25개
     const v = shelf.volumes.find((x) => x.vLevels.includes(7))!
     expect(v.itemCount).toBeLessThan(SHELF_MIN_ITEMS)
     expect(v.status).toBe('building')
   })
 
   it('분량을 넘기면 ready', () => {
-    const shelf = buildShelf(dbInventory(7, 40), true) // 200개
+    const shelf = buildShelf(dbInventory(7, 40), {}, true) // 200개
     const v = shelf.volumes.find((x) => x.vLevels.includes(7))!
     expect(v.status).toBe('ready')
     expect(shelf.readyCount).toBeGreaterThanOrEqual(1)
@@ -76,12 +77,12 @@ describe('분량 판정', () => {
 
 describe('사다리 정본을 다시 만들지 않는다', () => {
   it('계단은 항상 일곱이고 순서가 곧 진열 순서다', () => {
-    const shelf = buildShelf([], true)
+    const shelf = buildShelf([], {}, true)
     expect(shelf.volumes.map((v) => v.step)).toEqual([1, 2, 3, 4, 5, 6, 7])
   })
 
   it('학령·유형은 SERIES_SPINE 에서 온다 — 화면이 짓지 않는다', () => {
-    const shelf = buildShelf([], true)
+    const shelf = buildShelf([], {}, true)
     const step5 = shelf.volumes.find((v) => v.step === 5)!
     expect(step5.schoolBand).toBe('고1')
     // 순서·삽입은 고1에서 열린다(수능 지문 길이 전제)
@@ -95,7 +96,7 @@ describe('사다리 정본을 다시 만들지 않는다', () => {
 
   it('쓰지 않는 유형의 재고는 그 계단에 세지 않는다', () => {
     // V1 에 order 를 넣어도 step1 은 그것을 쓰지 않으므로 0 이어야 한다.
-    const shelf = buildShelf([{ type: 'order', vLevel: 1, count: 999 }] as Inventory, true)
+    const shelf = buildShelf([{ type: 'order', vLevel: 1, count: 999 }] as Inventory, {}, true)
     const step1 = shelf.volumes.find((v) => v.step === 1)!
     expect(step1.itemCount).toBe(0)
   })
@@ -110,6 +111,7 @@ describe('단원 상한 — 예측이 아니라 상한이다', () => {
         { type: 'insert', vLevel: 7, count: 10 },
         { type: 'vocab_choice', vLevel: 7, count: 500 },
       ] as Inventory,
+      {},
       true,
     )
     const v = shelf.volumes.find((x) => x.vLevels.includes(7))!
@@ -119,6 +121,7 @@ describe('단원 상한 — 예측이 아니라 상한이다', () => {
   it('한쪽이 0이면 단원을 만들 수 없다', () => {
     const shelf = buildShelf(
       [{ type: 'order', vLevel: 7, count: 100 }] as Inventory,
+      {},
       true,
     )
     const v = shelf.volumes.find((x) => x.vLevels.includes(7))!
@@ -132,6 +135,7 @@ describe('단원 상한 — 예측이 아니라 상한이다', () => {
         { type: 'word_meaning', vLevel: 1, count: 4 },
         { type: 'spell_blank', vLevel: 1, count: 4 },
       ] as Inventory,
+      {},
       true,
     )
     const step1 = shelf.volumes.find((v) => v.step === 1)!
@@ -146,7 +150,7 @@ describe('초등 재고도 DB 를 읽는다 — 못 읽으면 0 으로 적지 �
   const ELEM = ['rhyme', 'word_meaning', 'spell_blank']
 
   it('초등 어휘를 못 읽으면 초등 전용 계단은 empty 가 아니라 unmeasured 다', () => {
-    const shelf = buildShelf(dbInventory(6, 500), true, undefined, false)
+    const shelf = buildShelf(dbInventory(6, 500), {}, true, undefined, false)
     const elementaryOnly = shelf.volumes.filter((v) => v.types.every((t) => ELEM.includes(t)))
     expect(elementaryOnly.length, '초등 전용 계단이 사다리에 없다').toBeGreaterThan(0)
     for (const v of elementaryOnly) {
@@ -160,7 +164,7 @@ describe('초등 재고도 DB 를 읽는다 — 못 읽으면 0 으로 적지 �
     const inv = [
       { type: 'word_order', vLevel: 2, count: 43 },
     ] as unknown as Parameters<typeof buildShelf>[0]
-    const shelf = buildShelf(inv, true, undefined, false)
+    const shelf = buildShelf(inv, {}, true, undefined, false)
     const mixed = shelf.volumes.filter(
       (v) => v.types.some((t) => ELEM.includes(t)) && v.types.some((t) => !ELEM.includes(t)),
     )
@@ -171,7 +175,7 @@ describe('초등 재고도 DB 를 읽는다 — 못 읽으면 0 으로 적지 �
   })
 
   it('둘 다 읽었으면 평소대로 판정한다 (과잉 unmeasured 금지)', () => {
-    const shelf = buildShelf(dbInventory(6, 500), true, undefined, true)
+    const shelf = buildShelf(dbInventory(6, 500), {}, true, undefined, true)
     const high = shelf.volumes.filter((v) => v.vLevels.includes(6))
     expect(high.every((v) => v.status !== 'unmeasured')).toBe(true)
   })

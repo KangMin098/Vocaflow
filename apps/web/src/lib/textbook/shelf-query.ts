@@ -119,5 +119,26 @@ export async function fetchTextbookShelf(): Promise<Shelf> {
     }
   }
 
-  return buildShelf(inventory as Inventory, measured, undefined, elementaryMeasured)
+  // ③ 지문 출처 — 집계 RPC(20260822090000). 못 읽으면 빈 맵이고, 화면은 출처 축을 안 낸다.
+  const sourcesByLevel: Record<number, Record<string, number>> = {}
+  const { data: srcRows, error: srcError } = await lc.rpc('textbook_shelf_sources')
+  if (!srcError && Array.isArray(srcRows)) {
+    for (const r of srcRows as Array<{
+      v_level: number | null
+      source_family: string | null
+      item_count: number | null
+    }>) {
+      if (r.v_level == null || !r.source_family) continue
+      const bucket = (sourcesByLevel[r.v_level] ??= {})
+      bucket[r.source_family] = (bucket[r.source_family] ?? 0) + Number(r.item_count ?? 0)
+    }
+  }
+
+  return buildShelf(
+    inventory as Inventory,
+    sourcesByLevel,
+    measured,
+    undefined,
+    elementaryMeasured,
+  )
 }

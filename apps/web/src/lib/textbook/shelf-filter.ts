@@ -17,11 +17,12 @@
 //   유형 — "무엇을 시키는 책인가". 독해·어법·순서처럼 시중 교재가 표지에 쓰는 것.
 
 import type { ShelfVolume } from './shelf'
+import { sourceLabel } from './source-guide'
 import { TYPE_GUIDE } from './type-guide'
 
-export type ShelfAxis = 'school' | 'level' | 'type'
+export type ShelfAxis = 'school' | 'level' | 'type' | 'source'
 
-export const SHELF_AXES = ['school', 'level', 'type'] as const
+export const SHELF_AXES = ['school', 'level', 'type', 'source'] as const
 
 export interface FacetOption {
   /** 필터 값(선택 상태의 키) */
@@ -37,12 +38,14 @@ export type Facets = Record<ShelfAxis, FacetOption[]>
 /** 축별 선택. 빈 배열 = 그 축은 안 거른다(전체). */
 export type Selection = Record<ShelfAxis, readonly string[]>
 
-export const EMPTY_SELECTION: Selection = { school: [], level: [], type: [] }
+export const EMPTY_SELECTION: Selection = { school: [], level: [], type: [], source: [] }
 
 export const AXIS_LABEL: Record<ShelfAxis, string> = {
   school: '학령',
   level: '수준',
   type: '유형',
+  // 시중 교재가 표지에 "과학 지문 중심" 이라고 적는 자리.
+  source: '지문 출처',
 }
 
 /** 한 권이 어떤 축 값들을 갖는가 — 필터와 패싯이 **같은 함수**를 써야 갈리지 않는다. */
@@ -54,11 +57,18 @@ function valuesOf(v: ShelfVolume, axis: ShelfAxis): string[] {
       return v.vLevels.map((n) => `V${n}`)
     case 'type':
       return [...v.types]
+    case 'source':
+      // 재고가 0인 갈래는 축 값이 아니다 — 고를 수 있는 것만 낸다.
+      return Object.entries(v.bySource)
+        .filter(([, n]) => n > 0)
+        .map(([family]) => family)
   }
 }
 
 function labelOf(axis: ShelfAxis, value: string): string {
-  return axis === 'type' ? (TYPE_GUIDE[value]?.label ?? value) : value
+  if (axis === 'type') return TYPE_GUIDE[value]?.label ?? value
+  if (axis === 'source') return sourceLabel(value)
+  return value
 }
 
 /**
@@ -73,6 +83,20 @@ export function buildFacets(volumes: readonly ShelfVolume[]): Facets {
     const seen = new Map<string, number>()
     for (const v of volumes) {
       for (const val of valuesOf(v, axis)) seen.set(val, (seen.get(val) ?? 0) + 1)
+    }
+    // ⚠️ 출처는 갈래가 여럿이 한 라벨로 접힌다(plos·elife → '논문', original·compose → '창작').
+    //    라벨 기준으로 합쳐야 칩이 두 번 나오지 않는다 — 학습자에게는 '논문' 이 하나다.
+    if (axis === 'source') {
+      const byLabel = new Map<string, { value: string; label: string; count: number }>()
+      for (const [value, count] of seen) {
+        const label = labelOf(axis, value)
+        const hit = byLabel.get(label)
+        // 값은 첫 갈래 키를 대표로 쓰되, 필터는 라벨로 판정한다(아래 filterVolumes).
+        if (hit) hit.count += count
+        else byLabel.set(label, { value: label, label, count })
+      }
+      out[axis] = [...byLabel.values()]
+      continue
     }
     out[axis] = [...seen.entries()].map(([value, count]) => ({
       value,
@@ -94,11 +118,14 @@ export function filterVolumes(volumes: readonly ShelfVolume[], sel: Selection): 
     SHELF_AXES.every((axis) => {
       const picked = sel[axis]
       if (picked.length === 0) return true
-      const has = valuesOf(v, axis)
+      // 출처만 **라벨**로 판정한다 — 칩이 라벨 단위로 접혀 있기 때문이다.
+      const has = axis === 'source' ? valuesOf(v, axis).map(labelOfSource) : valuesOf(v, axis)
       return picked.some((p) => has.includes(p))
     }),
   )
 }
+
+const labelOfSource = (family: string) => sourceLabel(family)
 
 /** 값 하나를 켜고 끈다. 화면이 배열 조작을 다시 짜지 않도록 여기서 준다. */
 export function toggleValue(sel: Selection, axis: ShelfAxis, value: string): Selection {

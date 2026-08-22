@@ -115,7 +115,17 @@ export interface ShelfVolume {
    *    화면은 반드시 '최대' 라고 적어야 한다 — 상한을 예측처럼 보이면 그 순간 과장 광고가 된다.
    */
   maxUnits: number
+  /**
+   * 이 권의 지문이 **어디서 왔는가** — 갈래별 문항 수.
+   *
+   * ⚠️ 못 읽었으면 빈 객체다. 화면은 "출처 없음" 이 아니라 **표시하지 않는 것**으로 처리한다 —
+   *    0 과 "못 잼" 을 구별하는 이 파일의 규칙이 여기에도 그대로 적용된다.
+   */
+  bySource: SourceCounts
 }
+
+/** 갈래별 문항 수. V레벨 여럿을 쓰는 권은 합산된다. */
+export type SourceCounts = Record<string, number>
 
 export interface Shelf {
   brand: string
@@ -149,6 +159,8 @@ function statusOf(
  */
 export function buildShelf(
   inventory: Inventory,
+  /** V레벨 → 갈래 → 문항 수. 조회가 막히면 빈 맵을 넘긴다(화면이 출처를 안 보인다). */
+  sourcesByLevel: Readonly<Record<number, SourceCounts>> = {},
   /**
    * DB 저장 유형(순서·삽입·어휘·어법 등)의 재고를 실제로 읽었는가.
    * 조회가 RLS·오류로 막히면 false 를 넘겨야 한다 — 그래야 화면이 '못 잼' 을 말한다.
@@ -177,6 +189,13 @@ export function buildShelf(
     byType: r.byType,
     emptyTypes: [...r.emptyTypes],
         maxUnits: maxUnitsOf(r.byType, r.rung.types),
+    // 권이 여러 V레벨을 쓰면 갈래 수를 합친다.
+    bySource: r.rung.vLevels.reduce<SourceCounts>((acc, lv) => {
+      for (const [family, n] of Object.entries(sourcesByLevel[lv] ?? {})) {
+        acc[family] = (acc[family] ?? 0) + n
+      }
+      return acc
+    }, {}),
     // 이 계단이 쓰는 재고를 **전부** 읽었는가. 하나라도 못 읽었으면 총계는 뜻이 없다 —
     // 섞인 계단(초등 유형 + 저장 유형)에서 한쪽만 빠지면 총계가 조용히 작아진다.
     status: statusOf(
