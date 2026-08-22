@@ -526,6 +526,18 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
             <span>힌트 (잠깐 보기)</span>
           </button>
 
+          {/*
+            Tab 이 힌트라 **여기서 나가는 방법을 화면이 말해야 한다.**
+            WCAG 2.1.2 는 표준 키가 아닌 방법으로 빠져나가야 한다면 그 방법을 **알리라**고 한다 —
+            알리지 않으면 길이 있어도 없는 것과 같다(실측 2026-08-23: 키보드 축이 이걸 잡았다).
+          */}
+          <span className="font-body text-[11px] text-[var(--t3)]">
+            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-0.5 font-mono text-[9px] font-[700] text-[var(--t2)]">
+              Shift+Tab
+            </kbd>{' '}
+            으로 나가기
+          </span>
+
           {mode === 'blind' && (
             <button
               onClick={() => setShowLength((s) => !s)}

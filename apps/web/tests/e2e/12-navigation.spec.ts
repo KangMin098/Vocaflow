@@ -113,8 +113,18 @@ test.describe('내비게이션 기본기', () => {
       expect(hrefs, `사이드바에 ${route} 없음`).toContain(route);
     }
 
+    // ⚠️ 이 `goto` 는 **준비 동작**이지 검사가 아니다. 앞 라우트가 클라이언트 이동을 하는
+    //    중에 겹치면 `net::ERR_ABORTED` 가 나고, 그러면 **메뉴를 하나도 못 눌러 본 채**
+    //    테스트가 죽는다(실측 2026-08-23: 두 번 연속 재현). 실패로 세야 하는 것은
+    //    "메뉴가 엉뚱한 데로 간다" 이지 "준비하다 방향이 겹쳤다" 가 아니다.
+    //    → 중단을 삼키되, **정말 /hub 에 있는지 확인**하고 아니면 한 번 더 간다.
     for (const href of MENU_ROUTES) {
-      await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 45_000 });
+      await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 45_000 }).catch(() => null);
+      if (new URL(page.url()).pathname !== '/hub') {
+        await page.waitForTimeout(500);
+        await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 45_000 }).catch(() => null);
+      }
+      expect(new URL(page.url()).pathname, '준비 이동 실패 — /hub 에 못 갔다').toBe('/hub');
       await sidebar.locator(`a[href="${href}"]`).first().click();
       // 리다이렉트 라우트는 목적지까지 허용 (예: /comics → /comics/adapted)
       await page.waitForURL((u) => u.pathname === href || u.pathname.startsWith(`${href}/`), {
@@ -394,7 +404,14 @@ test.describe('내비게이션 기본기', () => {
       .click();
     await page.waitForURL(/\/text\/[0-9a-f-]{36}\/comic/, { timeout: 90_000 });
 
-    const backToText = page.getByRole('link', { name: /본문/ }).first();
+    // ⚠️ `getByRole('link', { name: /본문/ })` 를 화면 전체에서 찾으면 **셸의 메뉴**를 먼저 집는다
+    //    (DOM 순서상 사이드바가 본문보다 앞이다). 실측 2026-08-23: 그래서 리더의 복귀 링크가
+    //    멀쩡한데도 `/text`(목록)로 가서 "리더에 갇힌다" 로 찍혔다 — **계측기가 틀린 것**이다.
+    //    리더가 실제로 쓰는 라벨로, 본문 범위 안에서 찾는다.
+    // 라벨로 찾지 않는다 — 리더는 `본문`, 대체 화면은 `본문 읽기`/`본문으로` 로 서로 다르고,
+    // 짧은 `본문` 은 셸 메뉴와 부딪힌다. **계약으로 찾는다**: 이 책의 본문을 읽기 모드로 여는 링크.
+    // (실측 2026-08-23: 라벨로 찾다가 셸의 `/text` 를 집어 "리더에 갇힌다" 로 오진했다.)
+    const backToText = page.locator('a[href^="/text/"][href*="mode=read"]').first();
     await expect(backToText, '리더에 본문 복귀 경로가 없다').toBeVisible({ timeout: 20_000 });
     await backToText.click();
     // 본문 워크스페이스(/text/[id]) 로 — 리더에 갇히지 않는다

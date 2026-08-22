@@ -71,6 +71,8 @@ interface Focused {
   visible: boolean
   tag: string
   label: string
+  /** 건너뛰기 링크인가 — 본문 앵커로 가는 링크. */
+  isSkip: boolean
 }
 
 /** 지금 포커스된 요소를 브라우저 안에서 판정한다. */
@@ -104,7 +106,10 @@ async function focusState(page: Page): Promise<Focused | null> {
     const label =
       (el.getAttribute('aria-label') || el.textContent || '').trim().slice(0, 28) || tag
 
-    return { inMain, actionable, visible, tag, label }
+    const href = el.getAttribute('href') || ''
+    const isSkip = tag === 'a' && href.startsWith('#')
+
+    return { inMain, actionable, visible, tag, label, isSkip }
   })
 }
 
@@ -114,10 +119,14 @@ interface RouteResult {
   opens: boolean
   /** ① 본문 컨트롤에 닿기까지 누른 Tab 수. null = 못 닿았다. */
   tabsToMain: number | null
+  /** 건너뛰기 링크를 눌러서 닿았나. */
+  viaSkip: boolean
   /** ② 그 지점의 포커스 표시. null = 닿지 못해 재지 못했다. */
   focusVisible: boolean | null
   /** ③ 더 눌렀을 때 움직이나. null = 닿지 못해 재지 못했다. */
   escapable: boolean | null
+  /** 어느 키로 나갔나. `Shift+Tab` 뿐이면 화면이 그걸 알려야 한다. */
+  escapedBy: 'Tab' | 'Shift+Tab' | null
   note: string
 }
 
@@ -161,8 +170,10 @@ test.describe('제3의 학습자 — 키보드만으로', () => {
         route,
         opens: false,
         tabsToMain: null,
+        viaSkip: false,
         focusVisible: null,
         escapable: null,
+        escapedBy: null,
         note: '',
       }
 
@@ -196,19 +207,40 @@ test.describe('제3의 학습자 — 키보드만으로', () => {
           continue
         }
 
-        // 주소창이 아니라 문서 처음부터 Tab 을 시작한다.
-        await p.locator('body').click({ position: { x: 2, y: 2 } }).catch(() => {})
-        await p.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+        // 문서 **처음부터** Tab 을 시작한다.
+        //
+        // ⚠️ 앞 판은 여기서 `body.click({x:2,y:2})` 를 했다. 그 좌표에는 사이드바가 있고,
+        //    클릭한 자리부터 순차 포커스가 이어지므로 **그보다 앞에 있는 건너뛰기 링크를
+        //    영영 지나쳤다.** 링크를 달아도 37곳 중 1곳만 그 링크를 만났고,
+        //    "본문까지 Tab 중앙값 19" 는 그대로였다 — 고쳤는데 눈금이 안 움직였다.
+        //    Playwright 의 `keyboard.press` 는 이미 페이지를 향하므로 클릭이 필요 없다.
+        await p.evaluate(() => {
+          ;(document.activeElement as HTMLElement | null)?.blur()
+          window.scrollTo(0, 0)
+        })
 
         // 못 닿았을 때 **어디를 돌았는지** 남긴다 — "못 닿았다" 만으로는 화면을 고칠지
         // 계측기를 고칠지 알 수 없다(대비 사이클에서 같은 실패를 세 번 겪었다).
         const trail: string[] = []
+        let usedSkip = false
         for (let i = 1; i <= MAX_TABS; i++) {
           await p.keyboard.press('Tab')
           const f = await focusState(p)
           if (f) trail.push(`${f.inMain ? '본문' : '셸'}/${f.actionable ? '' : '비컨트롤:'}${f.tag}"${f.label}"`)
+
+          // ⚠️ 건너뛰기 링크는 **누르라고 있는 것**이다. Tab 수만 세고 지나치면
+          //    링크를 달아도 눈금이 안 움직여, 고쳐도 고친 걸 알 수 없다.
+          //    학습자가 하는 일을 그대로 한다 — 포커스됐으면 Enter 를 누른다.
+          if (f && f.isSkip) {
+            usedSkip = true
+            await p.keyboard.press('Enter')
+            await p.waitForTimeout(250)
+            continue
+          }
+
           if (f && f.inMain && f.actionable) {
             r.tabsToMain = i
+            r.viaSkip = usedSkip
             r.focusVisible = f.visible
             if (!f.visible) r.note = `포커스가 안 보인다: <${f.tag}> "${f.label}"`
             break
@@ -226,20 +258,28 @@ test.describe('제3의 학습자 — 키보드만으로', () => {
             const el = document.activeElement as HTMLElement | null
             return el ? el.outerHTML.slice(0, 120) : ''
           })
-          let moved = false
-          for (let i = 0; i < 5; i++) {
-            await p.keyboard.press('Tab')
-            const now = await p.evaluate(() => {
-              const el = document.activeElement as HTMLElement | null
-              return el ? el.outerHTML.slice(0, 120) : ''
-            })
-            if (now !== before) {
-              moved = true
-              break
+          // ⚠️ 탈출을 `Tab` 만으로 재면 안 된다. 타이핑 게임처럼 `Tab` 을 기능키로 쓰는
+          //    화면에서는 **뒤로 나가는 문(Shift+Tab)** 이 정답이다. 한 방향만 보고
+          //    "갇혔다" 고 적으면 고칠 수 없는 실패가 된다.
+          //    다만 어느 문으로 나갔는지는 **남긴다** — Shift+Tab 뿐이라면 화면이 그 사실을
+          //    말하고 있어야 하고(WCAG 2.1.2), 그건 사람이 확인할 몫이다.
+          let escapedBy: 'Tab' | 'Shift+Tab' | null = null
+          for (const key of ['Tab', 'Shift+Tab'] as const) {
+            for (let i = 0; i < 5 && !escapedBy; i++) {
+              await p.keyboard.press(key)
+              const now = await p.evaluate(() => {
+                const el = document.activeElement as HTMLElement | null
+                return el ? el.outerHTML.slice(0, 120) : ''
+              })
+              if (now !== before) escapedBy = key
             }
+            if (escapedBy) break
           }
-          r.escapable = moved
-          if (!moved) r.note = (r.note ? r.note + ' · ' : '') + '포커스가 갇혔다'
+          r.escapable = escapedBy !== null
+          r.escapedBy = escapedBy
+          if (!escapedBy) r.note = (r.note ? r.note + ' · ' : '') + '포커스가 갇혔다 (Tab · Shift+Tab 둘 다 막힘)'
+          else if (escapedBy === 'Shift+Tab')
+            r.note = (r.note ? r.note + ' · ' : '') + 'Tab 은 막혀 있고 Shift+Tab 으로만 나간다 — 화면이 그 사실을 말해야 한다'
         }
       }
       results.push(r)
@@ -269,6 +309,9 @@ test.describe('제3의 학습자 — 키보드만으로', () => {
       `\n[키보드] 라우트 ${results.length} · 잰 검사 ${measured} · 통과 ${passed} → ${rate}%` +
         (skipped.length ? ` (안 열려서 제외 ${skipped.length}곳: ${skipped.join(', ')})` : ''),
     )
+    const viaSkip = results.filter((r) => r.viaSkip).length
+    const reached = results.filter((r) => r.tabsToMain !== null).length
+    console.log(`[키보드] 건너뛰기 링크로 닿은 화면 ${viaSkip}/${reached}`)
     const tabs = results.map((r) => r.tabsToMain).filter((n): n is number => n !== null)
     if (tabs.length) {
       const sorted = [...tabs].sort((a, b) => a - b)
@@ -277,7 +320,8 @@ test.describe('제3의 학습자 — 키보드만으로', () => {
       )
     }
     for (const r of results) {
-      if (r.tabsToMain !== null && r.focusVisible && r.escapable !== false) continue
+      if (r.tabsToMain !== null && r.focusVisible && r.escapable !== false && r.escapedBy !== 'Shift+Tab')
+        continue
       const flags = [
         r.opens ? '열림' : '✗열림',
         r.tabsToMain !== null ? `본문 Tab${r.tabsToMain}` : '✗본문 못 닿음',
