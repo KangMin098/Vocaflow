@@ -1,0 +1,656 @@
+<title>수능 영어 출제 설계도</title>
+<style>
+  :root {
+    --bg: #F6F8F6;
+    --surface: #FFFFFF;
+    --surface-2: #EFF2EF;
+    --ink: #171A18;
+    --ink-2: #3D443E;
+    --muted: #6B7269;
+    --rule: #DCE2DC;
+    --rule-strong: #C3CCC3;
+    --ok: #2E7D5A;
+    --ok-bg: #E4F0EA;
+    --warn: #B5803A;
+    --warn-bg: #F6EDDF;
+    --crit: #9C3A30;
+    --crit-bg: #F7E5E2;
+    --neutral: #8A8278;
+
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --sans: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, -apple-system, sans-serif;
+
+    --measure: 68ch;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #101310;
+      --surface: #171B18;
+      --surface-2: #1E231F;
+      --ink: #E9EDE8;
+      --ink-2: #C2CAC1;
+      --muted: #909a8e;
+      --rule: #272E28;
+      --rule-strong: #3A443B;
+      --ok: #58AC83;
+      --ok-bg: #17291F;
+      --warn: #D3A163;
+      --warn-bg: #2B2216;
+      --crit: #C9736A;
+      --crit-bg: #2C1B18;
+      --neutral: #9C948A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #101310;
+    --surface: #171B18;
+    --surface-2: #1E231F;
+    --ink: #E9EDE8;
+    --ink-2: #C2CAC1;
+    --muted: #909a8e;
+    --rule: #272E28;
+    --rule-strong: #3A443B;
+    --ok: #58AC83;
+    --ok-bg: #17291F;
+    --warn: #D3A163;
+    --warn-bg: #2B2216;
+    --crit: #C9736A;
+    --crit-bg: #2C1B18;
+    --neutral: #9C948A;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.72;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  /* ── 머리말 ───────────────────────────────────────── */
+  header.masthead {
+    padding: 56px 0 32px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 14px;
+  }
+  h1 {
+    font-size: clamp(30px, 5.2vw, 46px);
+    line-height: 1.12;
+    letter-spacing: -0.022em;
+    font-weight: 800;
+    margin: 0 0 16px;
+    text-wrap: balance;
+  }
+  .standfirst {
+    max-width: var(--measure);
+    color: var(--ink-2);
+    font-size: 17px;
+    margin: 0;
+  }
+  .standfirst strong { font-weight: 700; color: var(--ink); }
+
+  /* ── 계기판 ───────────────────────────────────────── */
+  .gauges {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 0 0 8px;
+  }
+  .gauge {
+    background: var(--surface);
+    padding: 20px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .gauge .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .gauge .value {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--ok);
+  }
+  .gauge .note { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .gauge-bar { height: 3px; background: var(--surface-2); overflow: hidden; }
+  .gauge-bar i { display: block; height: 100%; background: var(--ok); }
+
+  .method-note {
+    margin: 0 0 56px;
+    padding: 14px 18px;
+    background: var(--surface-2);
+    border-left: 3px solid var(--ok);
+    font-size: 14.5px;
+    color: var(--ink-2);
+    max-width: var(--measure);
+  }
+
+  /* ── 섹션 ─────────────────────────────────────────── */
+  section { margin: 0 0 64px; scroll-margin-top: 24px; }
+  h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    font-size: 23px;
+    font-weight: 750;
+    letter-spacing: -0.014em;
+    margin: 0 0 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule-strong);
+    text-wrap: balance;
+  }
+  h2 .num {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ok);
+    letter-spacing: 0.04em;
+    flex: none;
+  }
+  h3 {
+    font-size: 16.5px;
+    font-weight: 700;
+    letter-spacing: -0.008em;
+    margin: 34px 0 10px;
+    color: var(--ink);
+  }
+  p { max-width: var(--measure); margin: 0 0 14px; }
+  .lede { color: var(--ink-2); }
+  code {
+    font-family: var(--mono);
+    font-size: 0.87em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    border-radius: 2px;
+    color: var(--ink-2);
+  }
+  pre {
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1.72;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--neutral);
+    padding: 16px 18px;
+    overflow-x: auto;
+    margin: 0 0 18px;
+    color: var(--ink-2);
+  }
+  pre .cmt { color: var(--muted); }
+
+  /* ── 표 ───────────────────────────────────────────── */
+  .tablewrap { overflow-x: auto; margin: 0 0 18px; border: 1px solid var(--rule); background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+  th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  thead th {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    background: var(--surface-2);
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td.n, th.n { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.id { font-family: var(--mono); font-size: 12.5px; color: var(--ink-2); white-space: nowrap; }
+  td.q { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--muted); white-space: nowrap; }
+
+  .chip {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    padding: 1px 7px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .chip.ok { background: var(--ok-bg); color: var(--ok); }
+  .chip.no { background: var(--crit-bg); color: var(--crit); }
+  .chip.mid { background: var(--warn-bg); color: var(--warn); }
+
+  ul, ol { max-width: var(--measure); padding-left: 22px; margin: 0 0 16px; }
+  li { margin-bottom: 7px; }
+  li::marker { color: var(--muted); }
+
+  .callout {
+    max-width: var(--measure);
+    padding: 15px 18px;
+    margin: 0 0 18px;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--warn);
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+  .callout.crit { border-left-color: var(--crit); }
+  .callout.ok { border-left-color: var(--ok); }
+  .callout strong { color: var(--ink); }
+  .callout .tag {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--warn);
+    margin-bottom: 5px;
+  }
+  .callout.crit .tag { color: var(--crit); }
+  .callout.ok .tag { color: var(--ok); }
+
+  footer.colophon {
+    margin-top: 72px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule-strong);
+    font-size: 13.5px;
+    color: var(--muted);
+    max-width: var(--measure);
+  }
+  footer.colophon p { max-width: none; }
+
+  a { color: var(--ok); text-underline-offset: 3px; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--ok); outline-offset: 2px; }
+
+  @media (max-width: 620px) {
+    .wrap { padding: 0 16px 64px; }
+    header.masthead { padding-top: 36px; }
+    th, td { padding: 8px 10px; }
+  }
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">13개년 전수 계측 · 2014–2026 · 585문항</p>
+  <h1>수능 영어 출제 설계도</h1>
+  <p class="standfirst">
+    기출 원문에서 문제 유형을 귀납하고, 유형별 출제 제약을 실측한 뒤,
+    <strong>그 설계도가 처음 보는 시험지에도 통하는지</strong> 홀드아웃으로 검증한 결과.
+    모든 수치는 재현 가능하다.
+  </p>
+</header>
+
+<section aria-label="검증 요약">
+  <div class="gauges">
+    <div class="gauge">
+      <span class="label">문항 추출</span>
+      <span class="value">630 / 630</span>
+      <div class="gauge-bar"><i style="width:100%"></i></div>
+      <span class="note">누락 0. 손으로 센 숫자가 아니라 재현 가능한 분모.</span>
+    </div>
+    <div class="gauge">
+      <span class="label">유형 배정</span>
+      <span class="value">585 / 585</span>
+      <div class="gauge-bar"><i style="width:100%"></i></div>
+      <span class="note">미배정 0 · 중복 매칭 0. 유형 43종.</span>
+    </div>
+    <div class="gauge">
+      <span class="label">설계도 적합도 · 홀드아웃</span>
+      <span class="value">99.7 %</span>
+      <div class="gauge-bar"><i style="width:99.7%"></i></div>
+      <span class="note">583 / 585. 최근 8회차(2019–2026)는 전부 45/45.</span>
+    </div>
+  </div>
+  <p class="method-note">
+    <strong>왜 100%가 아닌가.</strong> 실측에서 뽑은 제약을 같은 실측으로 검사하면 100%는 동어반복이다.
+    그래서 <strong>한 회차를 빼고 만든 설계도로 그 회차를 예측</strong>했다(leave-one-exam-out).
+    남은 2건은 13년에 한 번만 출제된 유형이라 이 방법으로는 원리상 예측할 수 없고,
+    맞히려면 뺀 회차를 다시 넣어야 하므로 하지 않았다.
+  </p>
+</section>
+
+<section id="s0">
+  <h2><span class="num">§0</span> 이 문서를 믿어도 되는 이유</h2>
+  <p class="lede">아래를 돌리면 이 문서의 모든 숫자가 같은 값으로 나온다.</p>
+<pre>pnpm dlx tsx scripts/csat/extract-questions.mjs      <span class="cmt"># 원문 → 630문항 (누락 0)</span>
+pnpm dlx tsx scripts/csat/classify-types.mjs         <span class="cmt"># 유형 배정 585/585 (중복 0)</span>
+pnpm dlx tsx scripts/csat/measure-blueprint.mjs      <span class="cmt"># 유형별 제약 실측</span>
+pnpm dlx tsx scripts/csat/build-blueprint.mjs        <span class="cmt"># 설계도 파생 (손으로 적지 않는다)</span>
+pnpm dlx tsx scripts/csat/verify-blueprint.mjs       <span class="cmt"># 홀드아웃 검증 583/585</span>
+pnpm dlx tsx scripts/csat/measure-order-template.mjs <span class="cmt"># 순서 유형 선택지 템플릿</span>
+pnpm dlx tsx scripts/csat/csat-source-verify.mjs     <span class="cmt"># 원본 .txt ↔ PDF 대조</span></pre>
+  <p>
+    <strong>분모</strong> — 13개년 585문항. 2014는 수준별 A/B 두 회분이라 <strong>B형을 2014 대표</strong>로 쓴다
+    (현행 통합 수능은 난이도·구성 면에서 B형 계열). A형 45문항은 폐지 형식이라 참고로만 센다.
+  </p>
+</section>
+
+<section id="s1">
+  <h2><span class="num">§1</span> 출제 불변식</h2>
+  <p class="lede">13개년 <strong>전부</strong>에서 성립한 규칙. 하나라도 깨지면 그 해 시험지가 잘못 만들어진 것이다.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th class="n">#</th><th>불변식</th><th>검증</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td>총 <strong>45문항</strong></td><td><span class="chip ok">13 / 13 회차</span></td></tr>
+        <tr><td class="n">2</td><td><strong>3점 정확히 10문항</strong> → 2점 35 + 3점 10 = <strong>100점</strong></td><td><span class="chip ok">13 / 13 회차</span></td></tr>
+        <tr><td class="n">3</td><td><strong>선택지 5개</strong></td><td><span class="chip ok">572 확인 + 그림 13</span></td></tr>
+        <tr><td class="n">4</td><td>영역 경계 — 듣기 → 독해 → 장문 순, 되돌아가지 않음</td><td><span class="chip ok">13 / 13</span></td></tr>
+        <tr><td class="n">5</td><td>유형별 <strong>선택지 언어 고정</strong> (한글 / 영어 / 기호 중 하나)</td><td><span class="chip ok">유형별 단일 값</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>불변식 3의 예외 13문항은 측정 실패가 아니라 <strong>실제 구조</strong>다 — 그림 유형은 선택지가 그림 위에 인쇄된다.</p>
+
+  <h3>영역 경계는 고정이 아니다</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시기</th><th>듣기</th><th>독해</th><th>장문</th></tr></thead>
+      <tbody>
+        <tr><td>2014 <span class="chip mid">수준별 A/B</span></td><td class="q">1–22 <strong>(22문항)</strong></td><td class="q">23–40</td><td class="q">41–45</td></tr>
+        <tr><td>2015 – 2026</td><td class="q">1–17 <strong>(17문항)</strong></td><td class="q">18–40</td><td class="q">41–45</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout crit">
+    <span class="tag">함정</span>
+    <strong>문항 번호는 제약이 아니다.</strong> 유형별 번호는 해마다 밀린다(2014–2017에 대이동).
+    번호로 유형을 판정하면 옛 회차에서 깨진다. 판정은 <strong>지시문</strong>으로 하고, 번호는 <strong>검증에만</strong> 쓴다.
+  </div>
+</section>
+
+<section id="s2">
+  <h2><span class="num">§2</span> 유형별 설계도 — 현행 37종</h2>
+  <p class="lede">
+    <code>문항</code>은 최근 5회차(2022–2026) 기준. <code>3점</code>은 회차당 평균 개수.
+    <code>지문</code>은 영어 단어 수 중앙값. <code>생성기</code>는 이 저장소 <code>csat_dcp_items.type</code> 대응.
+  </p>
+
+  <h3>듣기 · 1–17 · 17문항</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th class="n">번호</th><th>유형</th><th>id</th><th class="n">문항</th><th class="n">3점</th><th>생성기</th></tr></thead>
+      <tbody>
+        <tr><td class="q">1</td><td>담화 목적</td><td class="id">L-PURPOSE</td><td class="n">1</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">2</td><td>의견</td><td class="id">L-OPINION</td><td class="n">1</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">3</td><td><strong>요지</strong> (2024–) / 관계 (–2023)</td><td class="id">L-MAIN / L-RELATION</td><td class="n">1</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">4</td><td>그림 불일치</td><td class="id">L-PICTURE</td><td class="n">1</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">5</td><td>할 일</td><td class="id">L-TODO</td><td class="n">1</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">6</td><td>지불 금액</td><td class="id">L-MONEY</td><td class="n">1</td><td class="n">0.4</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">7</td><td>이유</td><td class="id">L-REASON</td><td class="n">1</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">8</td><td>언급되지 않은 것</td><td class="id">L-NOTMENTION</td><td class="n">1</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">9</td><td>담화 내용 불일치</td><td class="id">L-ANNOUNCE</td><td class="n">1</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">10</td><td>표 보고 선택</td><td class="id">L-TABLE</td><td class="n">1</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">11–14</td><td><strong>짧은 응답</strong></td><td class="id">L-RESPONSE</td><td class="n"><strong>4</strong></td><td class="n"><strong>1.8</strong></td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">15</td><td>상황 후 할 말</td><td class="id">L-SITUATION</td><td class="n">1</td><td class="n">0.8</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">16</td><td>세트 주제</td><td class="id">L-SET-TOPIC</td><td class="n">1</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">17</td><td>세트 불포함</td><td class="id">L-SET-NOT</td><td class="n">1</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>독해 · 18–40 · 23문항</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th class="n">번호</th><th>유형</th><th class="n">문항</th><th class="n">지문</th><th>선택지</th><th class="n">3점</th><th>생성기</th></tr></thead>
+      <tbody>
+        <tr><td class="q">18</td><td>글의 목적</td><td class="n">1</td><td class="n">114</td><td>한글</td><td class="n">–</td><td class="id">purpose</td></tr>
+        <tr><td class="q">19</td><td>심경·분위기</td><td class="n">1</td><td class="n">138</td><td>영어</td><td class="n">–</td><td class="id">mood</td></tr>
+        <tr><td class="q">20</td><td>필자 주장</td><td class="n">1</td><td class="n">143</td><td>한글</td><td class="n">–</td><td class="id">claim</td></tr>
+        <tr><td class="q">21</td><td>함축 의미</td><td class="n">1</td><td class="n">214</td><td>영어</td><td class="n">0.8</td><td class="id">implication</td></tr>
+        <tr><td class="q">22</td><td>요지</td><td class="n">1</td><td class="n">151</td><td>한글</td><td class="n">–</td><td class="id">main_point</td></tr>
+        <tr><td class="q">23</td><td>주제</td><td class="n">1</td><td class="n">197</td><td>영어</td><td class="n">0.4</td><td class="id">topic</td></tr>
+        <tr><td class="q">24</td><td>제목</td><td class="n">1</td><td class="n">195</td><td>영어</td><td class="n">0.4</td><td class="id">title</td></tr>
+        <tr><td class="q">25</td><td>도표</td><td class="n">1</td><td class="n">138</td><td>영어</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">26</td><td>내용 일치 (인물·글)</td><td class="n">1</td><td class="n">149</td><td>한글</td><td class="n">–</td><td class="id">content_match</td></tr>
+        <tr><td class="q">27–28</td><td>안내문 일치</td><td class="n"><strong>2</strong></td><td class="n">106</td><td>한글</td><td class="n">–</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">29</td><td>어법</td><td class="n">1</td><td class="n">162</td><td>기호</td><td class="n">0.2</td><td class="id">grammar_fix</td></tr>
+        <tr><td class="q">30</td><td>어휘 (문맥)</td><td class="n">1</td><td class="n">174</td><td>기호</td><td class="n">0.8</td><td class="id">vocab_choice</td></tr>
+        <tr><td class="q">31–34</td><td><strong>빈칸 추론</strong></td><td class="n"><strong>4</strong></td><td class="n">191</td><td>영어</td><td class="n"><strong>2.0</strong></td><td class="id">blank</td></tr>
+        <tr><td class="q">35</td><td>무관한 문장</td><td class="n">1</td><td class="n">162</td><td>기호</td><td class="n">–</td><td class="id">irrelevant</td></tr>
+        <tr><td class="q">36–37</td><td>글의 순서</td><td class="n"><strong>2</strong></td><td class="n">182</td><td>기호</td><td class="n"><strong>1.0</strong></td><td class="id">order</td></tr>
+        <tr><td class="q">38–39</td><td>문장 삽입</td><td class="n"><strong>2</strong></td><td class="n">166</td><td>기호</td><td class="n"><strong>1.0</strong></td><td class="id">insert</td></tr>
+        <tr><td class="q">40</td><td>요약문 완성</td><td class="n">1</td><td class="n">201</td><td>영어</td><td class="n">–</td><td class="id">summary</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>장문 · 41–45 · 5문항 · 지문 2세트 공유</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th class="n">번호</th><th>유형</th><th>id</th><th class="n">지문</th><th class="n">3점</th><th>생성기</th></tr></thead>
+      <tbody>
+        <tr><td class="q">41</td><td>장문 제목</td><td class="id">X-TITLE</td><td class="n">248</td><td class="n">0.2</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">42</td><td>장문 어휘</td><td class="id">X-VOCAB</td><td class="n">〃</td><td class="n">0.2</td><td><span class="chip no">없음</span></td></tr>
+        <tr><td class="q">43</td><td>장문 순서</td><td class="id">X-ORDER</td><td class="n">356</td><td class="n">–</td><td class="id">long_order</td></tr>
+        <tr><td class="q">44</td><td>장문 지칭</td><td class="id">X-REFER</td><td class="n">〃</td><td class="n">–</td><td class="id">long_reference</td></tr>
+        <tr><td class="q">45</td><td>장문 내용 일치</td><td class="id">X-FACT</td><td class="n">〃</td><td class="n">–</td><td class="id">long_match</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.1 &nbsp;순서 유형의 선택지는 고정 템플릿이다</h3>
+  <p>
+    순서 배열 유형(36 · 37 · 43)의 선택지 5개 순열은 <strong>회차마다 새로 고르는 것이 아니다.</strong>
+    13개년 원문에서 <code>(A)(B)(C)</code> 토큰 시퀀스를 뽑아 대조하면, 같은 시기에는 완전히 동일한 시퀀스가 반복된다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th class="n">문항</th><th>동일 시퀀스를 쓴 구간</th><th>교체 시점</th></tr></thead>
+      <tbody>
+        <tr><td class="q">36 · 37</td><td>2015 · 2017–2023 <span class="chip ok">8회차 완전 동일</span></td><td class="q">2024</td></tr>
+        <tr><td class="q">43</td><td>2015–2016 / 2017–2023</td><td class="q">2017 · 2024</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    즉 선택지 순열 세트는 출제위원이 매번 설계하는 대상이 아니라 <strong>양식</strong>이고,
+    13년 동안 일괄 교체가 두 번 있었다. 36번과 37번이 같은 시퀀스를 쓴다.
+  </p>
+  <div class="callout ok">
+    <span class="tag">학습 함의</span>
+    6가지 가능 순열 중 <strong>5개만</strong>, 그것도 고정으로 쓰인다.
+    따라서 <strong>첫 문단 하나만 확정해도 후보가 2–3개로 줄어든다.</strong> 세 문단을 다 배열할 필요가 없다.
+  </div>
+  <div class="callout crit">
+    <span class="tag">한계</span>
+    2단 조판이 선택지를 흩어 놓아 <strong>순열 자체는 복원하지 못했다</strong>(토큰 11–15개만 회수).
+    “고정이다”는 검증됐고 “어떤 5개인가”는 미해결 — 조판 좌표가 있는 PDF 파싱이 필요하다.
+  </div>
+
+  <h3>폐지 유형 6종 — 연습하면 시간 낭비다</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>유형</th><th>id</th><th class="n">마지막 출제</th></tr></thead>
+      <tbody>
+        <tr><td>관계 (듣기)</td><td class="id">L-RELATION</td><td class="n">2023</td></tr>
+        <tr><td>담화 주제 단독 (듣기)</td><td class="id">L-TOPIC</td><td class="n">2015</td></tr>
+        <tr><td>부탁한 일 (듣기)</td><td class="id">L-FAVOR</td><td class="n">2019</td></tr>
+        <tr><td>빈칸 추론 2개 <code>(A),(B)</code></td><td class="id">R-BLANK2</td><td class="n">2017</td></tr>
+        <tr><td>지칭 추론 (단문)</td><td class="id">R-REFER</td><td class="n">2018</td></tr>
+        <tr><td>장문 빈칸</td><td class="id">X-BLANK / X-BLANK2</td><td class="n">2018 / 2017</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="s3">
+  <h2><span class="num">§3</span> 이 서비스가 아직 못 만드는 유형</h2>
+  <p class="lede">현행 37유형 중 <code>csat_dcp_items</code> 생성기가 다루는 것은 <strong>18종(49%)</strong>이다.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>갭</th><th class="n">유형</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td><strong>듣기 전체</strong></td><td class="n">15</td><td>음성 자산이 없어 문항 생성 자체가 불가</td></tr>
+        <tr><td>도표</td><td class="n">1</td><td><code>R-CHART</code> — 도표 데이터 생성 필요</td></tr>
+        <tr><td>안내문</td><td class="n">1</td><td><code>R-NOTICE</code> — 회차당 <strong>2문항</strong>인데 수단 없음</td></tr>
+        <tr><td>장문 제목·어휘</td><td class="n">2</td><td><code>X-TITLE</code> · <code>X-VOCAB</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <span class="tag">배점으로 보면 더 크다</span>
+    듣기 17 + 도표 1 + 안내문 2 + 장문 2 = <strong>22문항</strong>, 2점 환산 <strong>최소 44점</strong>.
+    절반 가까운 점수 구간에 생성 수단이 없다.
+  </div>
+</section>
+
+<section id="s4">
+  <h2><span class="num">§4</span> 학습 설계</h2>
+  <div class="callout">
+    <span class="tag">읽는 법</span>
+    앞의 §1–§3은 전부 실측이다. 이 절은 <strong>설계도가 말해 주는 것</strong>(시험이 요구하는 바)과
+    <strong>학습과학</strong>(어떻게 만들 것인가)의 결합이라 실측 + 추론이다. 구분해서 읽어야 한다.
+  </div>
+
+  <h3>4.1 &nbsp;설계도가 강제하는 세 가지 요구량</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>요구량</th><th>실측</th><th>의미</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>읽기 분량</strong></td>
+          <td class="n">2,955 단어 / 회차</td>
+          <td>듣기 25분을 빼면 45분 — 문항당 96초. 답 고르는 시간 포함해 <strong>분당 100단어 이상</strong> 필요</td>
+        </tr>
+        <tr>
+          <td><strong>고배점 집중</strong></td>
+          <td class="n">3.8 / 10</td>
+          <td>3점 10문항 중 <strong>빈칸추론 2.0 + 짧은응답 1.8</strong> — 전체 3점의 38%가 두 유형에</td>
+        </tr>
+        <tr>
+          <td><strong>무위험 구간</strong></td>
+          <td class="n">8문항 16점</td>
+          <td>3점이 한 번도 없는 유형 — 안내문 2 · 도표 1 · 내용일치 1 · 목적/요지/주장/심경 4</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>4.2 &nbsp;수준별 — 어디부터 확보할 것인가</h3>
+  <p>수준 판정은 <strong>모의고사 원점수가 아니라 유형별 정답률</strong>로 한다. 총점은 어느 구간이 비었는지 말해 주지 않는다.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th class="n">수준</th><th>먼저 확보할 것</th><th>근거</th></tr></thead>
+      <tbody>
+        <tr><td class="q">– 60점</td><td>듣기 17문항(34점) + 무위험 8문항(16점) = <strong>50점</strong></td><td>듣기는 3점이 회차당 3.0뿐이라 난도 편차가 작고, 무위험 구간은 3점 0건</td></tr>
+        <tr><td class="q">60–80</td><td>어법·어휘·무관한문장·순서·삽입 <span class="chip mid">기호 선택지 6문항</span></td><td>지문 이해가 아니라 <strong>형식 규칙</strong>으로 풀리는 구간</td></tr>
+        <tr><td class="q">80–90</td><td>빈칸 추론 4문항</td><td>3점 2.0/회가 여기 — 넘지 못하면 90이 상한</td></tr>
+        <tr><td class="q">90 –</td><td>함축의미 · 장문어휘 + 시간 관리</td><td>남은 3점 잔량과 속도</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>4.3 &nbsp;연령별 — 무엇을 언제</h3>
+  <p>수능은 고3 시험이지만 <strong>분당 100단어</strong>는 3년 안에 만들어지지 않는다. 역산하면 다음과 같다.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시기</th><th>핵심 과제</th><th>설계도 근거</th></tr></thead>
+      <tbody>
+        <tr><td><strong>초5 – 중1</strong></td><td>읽기 자동화의 기반 — 어휘 인출 속도, 기본 구문</td><td>분당 100단어는 어휘·구문 자동화가 전제. 유형 훈련은 <strong>아직 무의미</strong></td></tr>
+        <tr><td><strong>중2 – 중3</strong></td><td>어휘 폭 + 200단어 지문 완독</td><td>독해 지문 중앙값 114–214단어. 끊지 않고 읽는 게 전제</td></tr>
+        <tr><td><strong>고1 – 고2</strong></td><td><strong>유형별 설계도 인식</strong> — 각 유형이 무엇을 묻는지</td><td>§2가 훈련 대상. 폐지 6종은 제외</td></tr>
+        <tr><td><strong>고3</strong></td><td>3점 레버 + 시간 배분</td><td>빈칸 4 + 짧은응답 4에 집중, 무위험 8문항은 속도로 처리</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>4.4 &nbsp;기간별</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>기간</th><th>목표</th><th>측정 지표</th></tr></thead>
+      <tbody>
+        <tr><td><strong>단기</strong> 1–3개월</td><td>무위험 8 + 듣기 17 = <strong>50점 고정</strong> · 시간 배분 확립</td><td>해당 25문항 정답률 ≥ 95% · 독해 45분 내 완주</td></tr>
+        <tr><td><strong>중기</strong> 6–12개월</td><td>기호 선택지 6문항 규칙화</td><td>6문항 정답률 ≥ 80% · 빈칸 4문항 ≥ 50%</td></tr>
+        <tr><td><strong>장기</strong> 1년 +</td><td>분당 100단어 + 빈칸추론 안정화</td><td>읽기 속도 실측 ≥ 100wpm · 빈칸 정답률 ≥ 75%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>4.5 &nbsp;어휘 — 이미 근거가 있다</h3>
+  <p>같은 13개년 원문에서 실측한 어휘가 <code>shared_dictionary</code>에 들어 있다.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>태그</th><th class="n">낱말</th><th>용도</th></tr></thead>
+      <tbody>
+        <tr><td class="id">kice-csat-core-4y</td><td class="n"><strong>1,417</strong></td><td>4개년 이상 반복 출제 — <strong>우선 암기 대상</strong></td></tr>
+        <tr><td class="id">kice-csat-13y</td><td class="n">5,254</td><td>13개년 원문 등장 전체</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <span class="tag">시중 목록 대조</span>
+    실측으로 대조한 결과 <code>csat-prep-core-2k</code> 1,838 중 <strong>37%</strong>,
+    EBS 덱 1,303 중 <strong>43%</strong>가 13개년 원문에 한 번도 나오지 않는다.
+  </div>
+</section>
+
+<section id="s5">
+  <h2><span class="num">§5</span> <code>.md</code>냐 DB냐</h2>
+  <p class="lede">지금은 <code>.md</code> + JSON이 맞다. DB는 아직 이르다.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>산출물</th><th>형태</th><th>이유</th></tr></thead>
+      <tbody>
+        <tr><td>출제 원칙 · 유형 설명 · 학습 설계</td><td>문서</td><td>서술이라 표로 쪼갤 수 없고, 사람이 읽는 것이 목적</td></tr>
+        <tr><td>유형별 제약 (기계 판독)</td><td class="id">blueprint.json</td><td>검증 스크립트가 읽는다. 재생성 가능하고 CI에 걸 수 있다</td></tr>
+        <tr><td>문항 실측 원본</td><td class="id">data/*.json</td><td>재현 절차의 입력</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    <strong>DB로 옮길 시점</strong> — 문항 생성기가 이 제약을 <strong>실제로 강제</strong>할 때다.
+    그때는 <code>csat_dcp_items.type</code>과 조인할 제약 테이블이 필요하고 마이그레이션 승인을 받아야 한다.
+    지금 테이블을 만들면 <strong>아무도 읽지 않는 스키마</strong>가 하나 늘 뿐이다 — 이 저장소가 이미 겪은 형태다.
+  </p>
+</section>
+
+<section id="s6">
+  <h2><span class="num">§6</span> 이 문서가 말하지 않는 것</h2>
+  <p class="lede">측정하지 않았거나 측정할 수 없었던 것. 정직하게 적어 둔다.</p>
+  <ol>
+    <li>
+      <strong>오답 설계 원리</strong> — 오답 선택지가 어떻게 만들어지는지는 의미 분석이 필요하고,
+      지금 계측은 형식(개수·언어·길이)까지만 닿는다. 설계도의 가장 큰 빈칸이다.
+      <em>부분 진전</em>: 순서 유형만은 형식 계측으로 규칙이 잡혔다(§2.1).
+    </li>
+    <li><strong>지문 주제 분포</strong> — 어떤 소재가 몇 번 나왔는지 세지 않았다.</li>
+    <li><strong>정답 번호 분포</strong> — 정답 키가 원문에 없다. 문제지만 있고 정답표가 없다.</li>
+    <li>
+      <strong>난이도</strong> — 실제 정답률 데이터가 없다.
+      <strong>§4.2의 수준 구분은 3점 배점과 유형 성격에서 추론한 것이지 정답률 실측이 아니다.</strong>
+    </li>
+    <li><strong>듣기 지문</strong> — 음성이라 지면에 없다. 듣기 유형의 지문 길이·어휘는 계측 대상 밖이다.</li>
+  </ol>
+</section>
+
+<footer class="colophon">
+  <p>
+    분모 13개년(2014–2026) 585문항 · 유형 43종(현행 37 · 폐지 6) ·
+    홀드아웃 적합도 583/585 = 99.7% · 계측 2026-08-22.
+  </p>
+  <p>
+    원문 <code>docs/CSAT_BLUEPRINT.md</code> · 스크립트 <code>scripts/csat/</code> ·
+    데이터 <code>scripts/csat/data/</code>
+  </p>
+</footer>
+
+</div>
