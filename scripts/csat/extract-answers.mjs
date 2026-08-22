@@ -114,6 +114,24 @@ for (const f of files) {
   )
 }
 
+// ── 자동 추출이 실패한 회차는 손으로 받아 적은 것을 얹는다 ────────────
+// 자동분과 구분해 파일을 나눠 두었다 — 출처와 검산이 `answers-manual.json` 안에 있다.
+const manualPath = path.join(OUT_DIR, 'answers-manual.json')
+if (fs.existsSync(manualPath)) {
+  const manual = JSON.parse(fs.readFileSync(manualPath, 'utf8'))
+  for (const e of manual.entries) {
+    if (answers.some((a) => a.exam === e.exam)) {
+      console.log(`${e.exam.padEnd(6)} 수동분 건너뜀 — 자동 추출이 이미 성공했다`)
+      continue
+    }
+    for (const [no, ans, pts] of e.rows) {
+      answers.push({ exam: e.exam, no, answer: ans, answers: [ans], points: pts, multi: false, source: 'manual' })
+    }
+    const high = e.rows.filter((r) => r[2] === 3).length
+    console.log(`${e.exam.padEnd(6)} ${e.form}형 ${e.rows.length}/45  (수동 · 3점 ${high}개${high === 10 ? ' ✓' : ' ⚠️ 10이어야 한다'})`)
+  }
+}
+
 // ── 파이프라인 독립 검증 — 문제지에서 뽑은 3점 표시 vs 정답표 배점 ──────
 const measuredPath = path.join(OUT_DIR, 'blueprint-measured.json')
 let crosscheck = null

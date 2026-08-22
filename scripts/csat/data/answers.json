@@ -212,8 +212,8 @@
   }
  ],
  "crosscheck": {
-  "compared": 585,
-  "agree": 585,
+  "compared": 630,
+  "agree": 630,
   "disagree": []
  },
  "answers": [
@@ -6067,6 +6067,501 @@
    ],
    "points": 2,
    "multi": false
+  },
+  {
+   "exam": "2025",
+   "no": 1,
+   "answer": 2,
+   "answers": [
+    2
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 2,
+   "answer": 1,
+   "answers": [
+    1
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 3,
+   "answer": 5,
+   "answers": [
+    5
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 4,
+   "answer": 3,
+   "answers": [
+    3
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 5,
+   "answer": 1,
+   "answers": [
+    1
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 6,
+   "answer": 4,
+   "answers": [
+    4
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 7,
+   "answer": 3,
+   "answers": [
+    3
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 8,
+   "answer": 4,
+   "answers": [
+    4
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 9,
+   "answer": 5,
+   "answers": [
+    5
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 10,
+   "answer": 2,
+   "answers": [
+    2
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 11,
+   "answer": 3,
+   "answers": [
+    3
+   ],
+   "points": 3,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 12,
+   "answer": 1,
+   "answers": [
+    1
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 13,
+   "answer": 1,
+   "answers": [
+    1
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 14,
+   "answer": 5,
+   "answers": [
+    5
+   ],
+   "points": 3,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 15,
+   "answer": 2,
+   "answers": [
+    2
+   ],
+   "points": 3,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 16,
+   "answer": 2,
+   "answers": [
+    2
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 17,
+   "answer": 4,
+   "answers": [
+    4
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 18,
+   "answer": 1,
+   "answers": [
+    1
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 19,
+   "answer": 3,
+   "answers": [
+    3
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 20,
+   "answer": 5,
+   "answers": [
+    5
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 21,
+   "answer": 3,
+   "answers": [
+    3
+   ],
+   "points": 3,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 22,
+   "answer": 1,
+   "answers": [
+    1
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 23,
+   "answer": 2,
+   "answers": [
+    2
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 24,
+   "answer": 5,
+   "answers": [
+    5
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 25,
+   "answer": 4,
+   "answers": [
+    4
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 26,
+   "answer": 4,
+   "answers": [
+    4
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 27,
+   "answer": 3,
+   "answers": [
+    3
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 28,
+   "answer": 3,
+   "answers": [
+    3
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 29,
+   "answer": 2,
+   "answers": [
+    2
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 30,
+   "answer": 4,
+   "answers": [
+    4
+   ],
+   "points": 3,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 31,
+   "answer": 1,
+   "answers": [
+    1
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 32,
+   "answer": 2,
+   "answers": [
+    2
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 33,
+   "answer": 2,
+   "answers": [
+    2
+   ],
+   "points": 3,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 34,
+   "answer": 5,
+   "answers": [
+    5
+   ],
+   "points": 3,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 35,
+   "answer": 4,
+   "answers": [
+    4
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 36,
+   "answer": 5,
+   "answers": [
+    5
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 37,
+   "answer": 3,
+   "answers": [
+    3
+   ],
+   "points": 3,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 38,
+   "answer": 4,
+   "answers": [
+    4
+   ],
+   "points": 3,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 39,
+   "answer": 4,
+   "answers": [
+    4
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 40,
+   "answer": 1,
+   "answers": [
+    1
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 41,
+   "answer": 2,
+   "answers": [
+    2
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 42,
+   "answer": 5,
+   "answers": [
+    5
+   ],
+   "points": 3,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 43,
+   "answer": 2,
+   "answers": [
+    2
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 44,
+   "answer": 3,
+   "answers": [
+    3
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
+  },
+  {
+   "exam": "2025",
+   "no": 45,
+   "answer": 4,
+   "answers": [
+    4
+   ],
+   "points": 2,
+   "multi": false,
+   "source": "manual"
   }
  ]
 }
