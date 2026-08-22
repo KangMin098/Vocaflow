@@ -1,0 +1,144 @@
+{
+ "total": 585,
+ "three": 130,
+ "combos": [
+  {
+   "lang": "en",
+   "n": 321,
+   "three": 116,
+   "types": [
+    "L-RESPONSE",
+    "L-MONEY",
+    "L-TABLE",
+    "L-SITUATION",
+    "L-SET-TOPIC",
+    "L-SET-NOT",
+    "R-TOPIC",
+    "R-TITLE",
+    "R-REFER",
+    "R-GRAMMAR",
+    "R-VOCAB",
+    "R-CHART",
+    "R-BLANK",
+    "R-BLANK2",
+    "R-INSERT",
+    "X-TITLE",
+    "X-BLANK",
+    "R-MOOD",
+    "R-IRRELEVANT",
+    "X-BLANK2",
+    "R-IMPLY"
+   ]
+  },
+  {
+   "lang": "neutral",
+   "n": 59,
+   "three": 14,
+   "types": [
+    "R-ORDER",
+    "X-ORDER",
+    "X-REFER",
+    "X-VOCAB"
+   ]
+  },
+  {
+   "lang": "ko",
+   "n": 176,
+   "three": 0,
+   "types": [
+    "L-PURPOSE",
+    "L-TOPIC",
+    "L-OPINION",
+    "L-RELATION",
+    "L-TODO",
+    "L-REASON",
+    "L-NOTMENTION",
+    "L-ANNOUNCE",
+    "R-GIST",
+    "R-FACT",
+    "X-FACT",
+    "R-NOTICE",
+    "R-PURPOSE",
+    "R-CLAIM",
+    "L-MAIN"
+   ]
+  },
+  {
+   "lang": "(그림)",
+   "n": 13,
+   "three": 0,
+   "types": [
+    "L-PICTURE"
+   ]
+  },
+  {
+   "lang": "en+ko",
+   "n": 3,
+   "three": 0,
+   "types": [
+    "L-FAVOR"
+   ]
+  },
+  {
+   "lang": "en+neutral",
+   "n": 13,
+   "three": 0,
+   "types": [
+    "R-SUMMARY"
+   ]
+  }
+ ],
+ "withKo": {
+  "n": 179,
+  "three": 0
+ },
+ "noKo": {
+  "n": 406,
+  "three": 130
+ },
+ "strata": [
+  {
+   "section": "읽기",
+   "concept": "C1",
+   "n": 50,
+   "three": 0
+  },
+  {
+   "section": "읽기",
+   "concept": "C2",
+   "n": 13,
+   "three": 0
+  },
+  {
+   "section": "읽기",
+   "concept": "C4",
+   "n": 21,
+   "three": 0
+  },
+  {
+   "section": "듣기",
+   "concept": "C5",
+   "n": 10,
+   "three": 0
+  },
+  {
+   "section": "듣기",
+   "concept": "C1",
+   "n": 54,
+   "three": 0
+  },
+  {
+   "section": "듣기",
+   "concept": "C2",
+   "n": 6,
+   "three": 0
+  },
+  {
+   "section": "듣기",
+   "concept": "C4",
+   "n": 25,
+   "three": 0
+  }
+ ],
+ "exceptions": []
+}
