@@ -27,7 +27,10 @@ export default defineConfig({
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
   ],
-  webServer: process.env.CI
+  // `PLAYWRIGHT_BASE_URL` 을 주면 **서버를 우리가 띄우지 않는다.**
+  // 이 워크스페이스는 여러 세션이 공유하므로 3000 의 dev 서버를 함부로 죽이면 남의 실행이 깨진다.
+  // 프로덕션 빌드로 재고 싶을 때는 `next start -p 3100` 을 따로 띄우고 이 변수로 가리킨다.
+  webServer: process.env.CI || process.env.PLAYWRIGHT_BASE_URL
     ? undefined
     : {
         command: 'pnpm dev',
