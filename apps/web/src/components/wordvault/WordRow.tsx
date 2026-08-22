@@ -171,7 +171,7 @@ export function WordRow({
             {word.word}
           </span>
           <MemoryBadge srs={word.srs} size="xs" />
-          <sup className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-t4">
+          <sup className="font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-t3">
             {word.pos.replace(/\.$/, '')}
           </sup>
         </div>
@@ -194,14 +194,14 @@ export function WordRow({
             <p
               className={cn(
                 'truncate text-right font-serif text-[12.5px] font-[500] italic leading-[1.55] tracking-[0.005em] text-t3',
-                'before:mr-[1px] before:font-[700] before:text-t4 before:content-["\\201C"]',
-                'after:ml-[1px] after:font-[700] after:text-t4 after:content-["\\201D"]'
+                'before:mr-[1px] before:font-[700] before:text-t3 before:content-["\\201C"]',
+                'after:ml-[1px] after:font-[700] after:text-t3 after:content-["\\201D"]'
               )}
             >
               {word.exampleEn}
             </p>
           ) : (
-            <span className="block text-right font-body text-[12px] text-t4">—</span>
+            <span className="block text-right font-body text-[12px] text-t3">—</span>
           )}
         </div>
 

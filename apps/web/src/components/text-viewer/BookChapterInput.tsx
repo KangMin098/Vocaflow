@@ -179,7 +179,7 @@ export function BookChapterInput({
                 htmlFor="book-author"
                 className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
               >
-                저자 <span className="text-t4">(선택)</span>
+                저자 <span className="text-t3">(선택)</span>
               </label>
               <input
                 id="book-author"

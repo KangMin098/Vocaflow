@@ -25,6 +25,8 @@ import { test, expect, type Page } from '@playwright/test'
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { learnerRoutes } from './utils/learner-routes'
+
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
@@ -142,6 +144,40 @@ const ALL_ROUTES: { slug: string; url: string; label: string; nocards?: string }
     label: '교재 상세 — STEP 5',
     nocards: '한 권을 펼친 화면 — 반복 카드 격자 없음',
   },
+
+  // ── 레지스트리에서 채운 나머지 (실측 2026-08-22) ─────────────────────────
+  // 이 하네스는 손으로 적은 **15개**만 보고 있었다. 학습자 정적 라우트는 **42개**다.
+  // 대비·넘침·지면은 재지 않으면 없는 것과 같은데, 27개 화면이 한 번도 안 재졌다.
+  // 아래는 그 27개다 — `nocards` 는 붙이지 않았다. 카드 격자가 있는지는 재 보고 나서
+  // 화면별로 판단할 일이고, 미리 선언하면 **재지도 않고 면제**하는 것이 된다.
+  // (아래 '레지스트리 정합' 테스트가 앞으로의 누락을 막는다.)
+  { slug: 'comics', url: '/comics', label: '/comics' },
+  { slug: 'comics-adapted', url: '/comics/adapted', label: '/comics/adapted' },
+  { slug: 'comics-restored', url: '/comics/restored', label: '/comics/restored' },
+  { slug: 'diagnostic', url: '/diagnostic', label: '/diagnostic' },
+  { slug: 'diagnostic-history', url: '/diagnostic/history', label: '/diagnostic/history' },
+  { slug: 'dictate', url: '/dictate', label: '/dictate' },
+  { slug: 'dictate-results', url: '/dictate/results', label: '/dictate/results' },
+  { slug: 'dictate-session', url: '/dictate/session', label: '/dictate/session' },
+  { slug: 'dictate-setup', url: '/dictate/setup', label: '/dictate/setup' },
+  { slug: 'flashcard-play', url: '/flashcard/play', label: '/flashcard/play' },
+  { slug: 'my', url: '/my', label: '/my' },
+  { slug: 'my-books', url: '/my/books', label: '/my/books' },
+  { slug: 'my-texts', url: '/my/texts', label: '/my/texts' },
+  { slug: 'my-words', url: '/my/words', label: '/my/words' },
+  { slug: 'pairflip-play', url: '/pairflip/play', label: '/pairflip/play' },
+  { slug: 'pairflip-results', url: '/pairflip/results', label: '/pairflip/results' },
+  { slug: 'plan', url: '/plan', label: '/plan' },
+  { slug: 'reports', url: '/reports', label: '/reports' },
+  { slug: 'scriptquiz', url: '/scriptquiz', label: '/scriptquiz' },
+  { slug: 'scriptquiz-play', url: '/scriptquiz/play', label: '/scriptquiz/play' },
+  { slug: 'settings', url: '/settings', label: '/settings' },
+  { slug: 'spellforge-play', url: '/spellforge/play', label: '/spellforge/play' },
+  { slug: 'text', url: '/text', label: '/text' },
+  { slug: 'text-new', url: '/text/new', label: '/text/new' },
+  { slug: 'wordvault-browse', url: '/wordvault/browse', label: '/wordvault/browse' },
+  { slug: 'wordvault-review', url: '/wordvault/review', label: '/wordvault/review' },
+  { slug: 'wordvault-study', url: '/wordvault/study', label: '/wordvault/study' },
 ]
 
 /**
@@ -639,7 +675,9 @@ test.describe('허브 디자인 캡처', () => {
   // ⚠️ 중간에 죽으면 **한 줄도 인쇄되지 않는다**(계측은 루프가 끝난 뒤 찍힌다). 그러면
   //    "측정 실패" 가 아니라 **"측정 안 함"** 이 되고, 도구가 있는데 못 쓰는 상태가 된다
   //    (실측 2026-08-22 — 부분 캡처만 돌리는 동안 이 사실이 안 보였다).
-  test.describe.configure({ mode: 'serial', timeout: 420_000 })
+  // 42 라우트 × 2 뷰포트 = 84장. 라우트를 15개에서 42개로 넓히며 작업량이 두 배가 됐고
+  // 420초로는 끝까지 못 갔다(실측 2026-08-22 — 그러면 계측이 한 줄도 안 찍혀 "0건" 으로 보인다).
+  test.describe.configure({ mode: 'serial', timeout: 1_200_000 })
 
   // 세션은 한 번만 만든다. 리디자인 사이클은 하루에도 수십 번 캡처하는데,
   // 매번 로그인하면 느릴 뿐 아니라 auth 요청이 쌓인다.
@@ -650,7 +688,7 @@ test.describe('허브 디자인 캡처', () => {
     // 20 라우트 × 2 뷰포트를 한 테스트가 돈다. 180초로는 끝까지 못 가고,
     // 중간에 죽으면 **한 줄도 인쇄되지 않는다**(계측은 루프가 끝난 뒤 찍힌다) —
     // 그러면 "측정 실패" 가 아니라 "측정 안 함" 이 된다(실측 2026-08-22).
-    test.setTimeout(420_000)
+    test.setTimeout(1_200_000)
     // 공개 라우트(/library/*)만 찍을 때는 로그인하지 않는다.
     //   검증 계정은 **워크스페이스의 모든 세션이 공유**한다. 다른 세션이 로그아웃하면
     //   Supabase 가 refresh 토큰을 전역 폐기해서 이쪽 로그인도 곧바로 죽고,
@@ -771,4 +809,21 @@ test.describe('허브 디자인 캡처', () => {
       }
     }
   })
+})
+
+/**
+ * **레지스트리 정합** — 이 하네스가 학습자 화면을 빠뜨리지 않는지 기계로 확인한다.
+ *
+ * ⚠️ 이 파일의 라우트 목록은 손으로 적는다(슬러그·라벨·`nocards` 근거가 붙기 때문).
+ *    손으로 적는 목록은 언제나 뒤처진다 — 실측 2026-08-22 에 **15/42** 였다.
+ *    `10-a11y-sweep` 도 같은 이유로 24/42 였고, 그 파일 스스로 위험을 적어 두고도 겪었다.
+ *    그래서 "적는 것" 은 그대로 두되, **빠뜨렸는지는 사람이 아니라 이 테스트가 본다.**
+ */
+test('학습자 화면을 빠뜨리지 않는다 (레지스트리 정합)', () => {
+  const declared = new Set([...ALL_ROUTES, ...LAB_ROUTES].map((r) => r.url))
+  const missing = learnerRoutes().filter((r) => !declared.has(r))
+  expect(
+    missing,
+    `캡처 하네스에 없는 학습자 화면: ${missing.join(', ')} — 재지 않으면 없는 것과 같다`,
+  ).toEqual([])
 })

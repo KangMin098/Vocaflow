@@ -85,7 +85,7 @@ export function TextInput({
             </span>
           </div>
 
-          <span className="text-t4">·</span>
+          <span className="text-t3">·</span>
 
           <div className="flex items-center gap-s-1">
             <span className={isOverLimit ? 'text-error' : isNearLimit ? 'text-warning' : 'text-t2'}>
@@ -96,7 +96,7 @@ export function TextInput({
 
           {value && (
             <>
-              <span className="text-t4">·</span>
+              <span className="text-t3">·</span>
               <span className="text-success">자동 감지: 영어</span>
             </>
           )}

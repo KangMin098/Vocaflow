@@ -113,11 +113,11 @@ export function ScriptDisplay({
             <span>
               <span className="font-bold tabular-nums text-t1">{totalWords}</span> 단어
             </span>
-            <span className="text-t4">·</span>
+            <span className="text-t3">·</span>
             <span>
               <span className="font-bold tabular-nums text-t1">{totalChars}</span> 자
             </span>
-            <span className="text-t4">·</span>
+            <span className="text-t3">·</span>
             <span>
               <span className="font-bold tabular-nums text-p">{words.length}</span> 학습 단어
             </span>

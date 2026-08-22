@@ -29,7 +29,7 @@ export function SearchRow({ onSearchChange, onLevelChange, onSortChange }: Searc
           value={query}
           onChange={(e) => handleQuery(e.target.value)}
           placeholder="단어 또는 의미로 검색..."
-          className="h-[38px] w-full rounded-md border border-bd bg-bg pl-[38px] pr-s-4 font-body text-sm text-t1 transition-all duration-fast placeholder:text-t4 focus:border-bdf focus:shadow-[0_0_0_4px_rgba(59,130,246,0.15)] focus:outline-none"
+          className="h-[38px] w-full rounded-md border border-bd bg-bg pl-[38px] pr-s-4 font-body text-sm text-t1 transition-all duration-fast placeholder:text-t3 focus:border-bdf focus:shadow-[0_0_0_4px_rgba(59,130,246,0.15)] focus:outline-none"
         />
       </div>
 

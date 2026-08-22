@@ -187,7 +187,7 @@ export function WordList({
           <span className={cn('font-bold tabular-nums', noneSelected ? 'text-t3' : 'text-p')}>
             {selectedCount}
           </span>
-          <span className="text-t4"> / </span>
+          <span className="text-t3"> / </span>
           <span className="tabular-nums">{totalCount}</span> 개 선택됨
         </span>
       </div>

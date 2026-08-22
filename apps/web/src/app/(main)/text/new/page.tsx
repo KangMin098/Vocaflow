@@ -256,7 +256,7 @@ export default function TextViewerNewPage() {
                       htmlFor="text-author"
                       className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
                     >
-                      저자 <span className="text-t4">(선택)</span>
+                      저자 <span className="text-t3">(선택)</span>
                     </label>
                     <input
                       id="text-author"
@@ -276,7 +276,7 @@ export default function TextViewerNewPage() {
                       className="mb-s-2 block font-mono text-[10px] font-semibold uppercase tracking-wider text-t3"
                     >
                       본문 <span className="text-error">*</span>{' '}
-                      <span className="text-t4">최소 {CONTENT_MIN}자</span>
+                      <span className="text-t3">최소 {CONTENT_MIN}자</span>
                     </label>
                     <TextInput value={text} onChange={setText} onClear={() => setText('')} />
                   </div>

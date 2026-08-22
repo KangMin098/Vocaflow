@@ -66,11 +66,11 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <Link href="/terms" className="transition-colors duration-normal hover:text-t1">
             이용약관
           </Link>
-          <span className="text-t4">·</span>
+          <span className="text-t3">·</span>
           <Link href="/privacy" className="transition-colors duration-normal hover:text-t1">
             개인정보 처리방침
           </Link>
-          <span className="text-t4">·</span>
+          <span className="text-t3">·</span>
           <span>© 2026 Vocaflow</span>
         </div>
       </footer>

@@ -339,7 +339,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
               <div className="font-display text-xs font-bold tracking-[-0.01em] text-t1">
                 {r.label}
               </div>
-              <div className="mt-px hidden font-mono text-[9px] font-medium text-t4 sm:block">
+              <div className="mt-px hidden font-mono text-[9px] font-medium text-t3 sm:block">
                 {r.srs}
               </div>
             </button>
@@ -392,7 +392,7 @@ function Shortcut({ keys, label, sep = '+' }: { keys: string[]; label: string; s
     <div className="flex items-center gap-s-1">
       {keys.map((k, i) => (
         <span key={k} className="flex items-center gap-s-1">
-          {i > 0 && <span className="text-t4">{sep}</span>}
+          {i > 0 && <span className="text-t3">{sep}</span>}
           <kbd className="px-s-1.5 inline-flex h-[20px] min-w-[20px] items-center justify-center rounded-[4px] border border-bd bg-bg2 font-mono text-[10px] font-bold text-t2">
             {k}
           </kbd>
