@@ -120,3 +120,6 @@ scripts/dict/w0816-*/
 # diff.json 은 후속 작업 목록(사전 결손 272종)이라 남긴다.
 scripts/dict/csat-corpus/corpus.json
 scripts/dict/csat-corpus/normalized.json
+
+# 수능 기출 원문 복원 텍스트 — 저작권상 배포 금지, 분석 결과만 커밋한다
+scripts/csat/data/columns/

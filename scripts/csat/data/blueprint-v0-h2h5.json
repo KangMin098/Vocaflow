@@ -1,180 +1,287 @@
 {
  "H2": {
-  "found": 23,
-  "failed": 29,
+  "found": 43,
+  "failed": 9,
+  "cover": 0.8269230769230769,
   "buckets": {
-   "first": 3,
-   "last2": 10,
-   "middle": 10
+   "first": 10,
+   "last2": 12,
+   "middle": 21
   },
-  "rate": 0.5652173913043478,
+  "rate": 0.5116279069767442,
+  "verdict": "기각",
   "detail": [
    {
     "exam": "2014B",
     "no": 31,
     "sentBefore": 4,
+    "sentAfter": 2,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2014B",
+    "no": 32,
+    "sentBefore": 7,
+    "sentAfter": 0,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2014B",
+    "no": 33,
+    "sentBefore": 9,
+    "sentAfter": 0,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2014B",
+    "no": 34,
+    "sentBefore": 4,
+    "sentAfter": 3,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2014B",
+    "no": 35,
+    "sentBefore": 6,
     "sentAfter": 1,
-    "total": 6,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2015",
+    "no": 31,
+    "sentBefore": 7,
+    "sentAfter": 1,
     "bucket": "last2"
    },
    {
     "exam": "2015",
     "no": 32,
     "sentBefore": 5,
+    "sentAfter": 3,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2015",
+    "no": 33,
+    "sentBefore": 6,
     "sentAfter": 2,
-    "total": 8,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2016",
+    "no": 31,
+    "sentBefore": 5,
+    "sentAfter": 3,
     "bucket": "middle"
    },
    {
     "exam": "2016",
     "no": 32,
     "sentBefore": 6,
-    "sentAfter": 1,
-    "total": 8,
-    "bucket": "last2"
+    "sentAfter": 2,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2016",
+    "no": 33,
+    "sentBefore": 5,
+    "sentAfter": 2,
+    "bucket": "middle"
    },
    {
     "exam": "2016",
     "no": 34,
     "sentBefore": 8,
-    "sentAfter": 1,
-    "total": 10,
-    "bucket": "last2"
+    "sentAfter": 2,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2017",
+    "no": 33,
+    "sentBefore": 6,
+    "sentAfter": 2,
+    "bucket": "middle"
    },
    {
     "exam": "2017",
     "no": 34,
     "sentBefore": 0,
-    "sentAfter": 6,
-    "total": 7,
+    "sentAfter": 7,
     "bucket": "first"
+   },
+   {
+    "exam": "2018",
+    "no": 31,
+    "sentBefore": 5,
+    "sentAfter": 1,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2018",
+    "no": 32,
+    "sentBefore": 10,
+    "sentAfter": 3,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2018",
+    "no": 33,
+    "sentBefore": 2,
+    "sentAfter": 4,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2018",
+    "no": 34,
+    "sentBefore": 6,
+    "sentAfter": 1,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2019",
+    "no": 31,
+    "sentBefore": 9,
+    "sentAfter": 0,
+    "bucket": "last2"
+   },
+   {
+    "exam": "2019",
+    "no": 32,
+    "sentBefore": 3,
+    "sentAfter": 7,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2019",
+    "no": 33,
+    "sentBefore": 6,
+    "sentAfter": 1,
+    "bucket": "last2"
    },
    {
     "exam": "2019",
     "no": 34,
     "sentBefore": 2,
-    "sentAfter": 5,
-    "total": 8,
+    "sentAfter": 6,
     "bucket": "middle"
    },
    {
     "exam": "2020",
     "no": 32,
     "sentBefore": 1,
-    "sentAfter": 3,
-    "total": 5,
+    "sentAfter": 4,
     "bucket": "middle"
    },
    {
     "exam": "2020",
     "no": 33,
     "sentBefore": 0,
-    "sentAfter": 9,
-    "total": 10,
+    "sentAfter": 10,
     "bucket": "first"
    },
    {
-    "exam": "2021",
-    "no": 31,
-    "sentBefore": 2,
-    "sentAfter": 3,
-    "total": 6,
-    "bucket": "middle"
-   },
-   {
-    "exam": "2021",
-    "no": 32,
-    "sentBefore": 3,
-    "sentAfter": 1,
-    "total": 5,
-    "bucket": "last2"
-   },
-   {
-    "exam": "2022",
-    "no": 33,
-    "sentBefore": 1,
-    "sentAfter": 4,
-    "total": 6,
-    "bucket": "middle"
-   },
-   {
-    "exam": "2022",
+    "exam": "2020",
     "no": 34,
     "sentBefore": 4,
+    "sentAfter": 3,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2021",
+    "no": 33,
+    "sentBefore": 7,
     "sentAfter": 1,
-    "total": 6,
     "bucket": "last2"
    },
    {
-    "exam": "2023",
-    "no": 31,
-    "sentBefore": 4,
+    "exam": "2021",
+    "no": 34,
+    "sentBefore": 6,
     "sentAfter": 0,
-    "total": 5,
     "bucket": "last2"
+   },
+   {
+    "exam": "2022",
+    "no": 32,
+    "sentBefore": 0,
+    "sentAfter": 6,
+    "bucket": "first"
+   },
+   {
+    "exam": "2022",
+    "no": 33,
+    "sentBefore": 2,
+    "sentAfter": 12,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2022",
+    "no": 34,
+    "sentBefore": 0,
+    "sentAfter": 14,
+    "bucket": "first"
    },
    {
     "exam": "2023",
     "no": 32,
     "sentBefore": 5,
     "sentAfter": 2,
-    "total": 8,
     "bucket": "middle"
+   },
+   {
+    "exam": "2023",
+    "no": 33,
+    "sentBefore": 0,
+    "sentAfter": 18,
+    "bucket": "first"
    },
    {
     "exam": "2023",
     "no": 34,
-    "sentBefore": 4,
-    "sentAfter": 1,
-    "total": 6,
-    "bucket": "last2"
-   },
-   {
-    "exam": "2024",
-    "no": 31,
-    "sentBefore": 5,
-    "sentAfter": 1,
-    "total": 7,
-    "bucket": "last2"
+    "sentBefore": 0,
+    "sentAfter": 13,
+    "bucket": "first"
    },
    {
     "exam": "2024",
     "no": 32,
-    "sentBefore": 3,
-    "sentAfter": 2,
-    "total": 6,
-    "bucket": "middle"
+    "sentBefore": 0,
+    "sentAfter": 15,
+    "bucket": "first"
    },
    {
     "exam": "2024",
     "no": 33,
-    "sentBefore": 3,
-    "sentAfter": 3,
-    "total": 7,
-    "bucket": "middle"
+    "sentBefore": 0,
+    "sentAfter": 18,
+    "bucket": "first"
    },
    {
     "exam": "2024",
     "no": 34,
-    "sentBefore": 1,
-    "sentAfter": 6,
-    "total": 8,
+    "sentBefore": 0,
+    "sentAfter": 15,
+    "bucket": "first"
+   },
+   {
+    "exam": "2025",
+    "no": 32,
+    "sentBefore": 5,
+    "sentAfter": 4,
     "bucket": "middle"
    },
    {
     "exam": "2025",
     "no": 33,
     "sentBefore": 2,
-    "sentAfter": 1,
-    "total": 4,
-    "bucket": "last2"
+    "sentAfter": 11,
+    "bucket": "middle"
    },
    {
     "exam": "2025",
     "no": 34,
     "sentBefore": 0,
-    "sentAfter": 7,
-    "total": 8,
+    "sentAfter": 18,
     "bucket": "first"
    },
    {
@@ -182,24 +289,63 @@
     "no": 31,
     "sentBefore": 1,
     "sentAfter": 6,
-    "total": 8,
     "bucket": "middle"
+   },
+   {
+    "exam": "2026",
+    "no": 32,
+    "sentBefore": 6,
+    "sentAfter": 1,
+    "bucket": "last2"
    },
    {
     "exam": "2026",
     "no": 33,
     "sentBefore": 6,
-    "sentAfter": 0,
-    "total": 7,
+    "sentAfter": 2,
+    "bucket": "middle"
+   },
+   {
+    "exam": "2026",
+    "no": 34,
+    "sentBefore": 6,
+    "sentAfter": 1,
     "bucket": "last2"
    }
   ]
  },
  "H5": {
-  "blocks": 51,
-  "cued": 14,
+  "blocks": 93,
+  "cued": 21,
+  "inlineOnly": 17,
   "artOnly": 14,
-  "none": 23,
-  "failedItems": 21
+  "none": 41,
+  "failedItems": 7,
+  "cover": 0.8157894736842105,
+  "s1": 0.22580645161290325,
+  "s2": 0.4086021505376344,
+  "s3": 0.5591397849462365,
+  "verdict": "기각",
+  "failed": [
+   "2014B#43 번호없음",
+   "2015#43 번호없음",
+   "2018#43 번호없음",
+   "2023#36 창없음",
+   "2023#43 번호없음",
+   "2024#43 번호없음",
+   "2025#43 번호없음"
+  ],
+  "era": {
+   "early": {
+    "n": 42,
+    "s1": 0.2619047619047619,
+    "none": 0.3333333333333333
+   },
+   "late": {
+    "n": 51,
+    "s1": 0.19607843137254902,
+    "none": 0.5294117647058824
+   }
+  }
  }
 }
