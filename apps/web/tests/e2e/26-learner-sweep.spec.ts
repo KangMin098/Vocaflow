@@ -14,6 +14,9 @@
 //   ② 콘솔 에러 0   — 앱이 조용히 터지지 않는다
 //   ③ 앞길이 있다   — 본문 안에 **실제로 눌리는** 링크/버튼이 하나 이상
 //   ④ 되돌아온다    — 앞길을 눌러 이동한 뒤 뒤로가기로 원래 자리에 돌아온다
+//   ⑤ 연계가 성립   — 그 앞길이 **에러 화면이 아닌 진짜 화면**으로 간다
+//                     (④ 는 "돌아오나" 를 보고, ⑤ 는 "가서 뭐가 있나" 를 본다.
+//                      링크가 살아 있는데 목적지가 깨져 있으면 ④ 만으로는 초록이다.)
 //
 // ⚠️ **못 잰 것을 통과로 세지 않는다.** 라우트가 로그인으로 튕기거나 타임아웃하면
 //    그 화면의 네 검사는 전부 실패로 기록된다 — 이 저장소가 반복해서 겪은
@@ -23,56 +26,13 @@
 //    적어 두면 화면이 늘어도 이 스펙은 늘지 않고, 커버리지가 조용히 낡는다.
 
 import { test, expect, type Page } from '@playwright/test'
-import fs from 'node:fs'
-import path from 'node:path'
+import { PARAM_ROUTES, SESSION_ROUTES, learnerRoutes } from './utils/learner-routes'
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
   password: process.env.PLAYWRIGHT_RUNTIME_PASSWORD || 'RuntimeTest1!',
 }
 const STATE_PATH = 'playwright-auth/.auth-learner-sweep.json'
-
-/**
- * 훑지 않는 라우트 — **이유가 있는 것만.**
- * 이 목록이 길어지면 커버리지가 아니라 면제 목록이 자라는 것이다.
- */
-const SKIP: Record<string, string> = {
-  '/hub-lab': '재설계 실험용 — 학습자 동선이 아니다(캡처 하네스가 따로 본다)',
-  '/teacher': '교사 표면 — 학습자 기준 훑기의 대상이 아니다',
-}
-
-/** 세션을 쓰는 화면 — 열면 학습이 시작되거나 기록이 남는다. 열되 **누르지는 않는다**. */
-const NO_CLICK = new Set([
-  '/flashcard/play',
-  '/pairflip/play',
-  '/spellforge/play',
-  '/scriptquiz/play',
-  '/dictate/session',
-  '/practice/dcp',
-  '/wordvault/review',
-  '/wordvault/study',
-])
-
-function learnerRoutes(): string[] {
-  const base = path.resolve(__dirname, '../../src/app/(main)')
-  const out: string[] = []
-  const walk = (dir: string, url: string) => {
-    for (const name of fs.readdirSync(dir)) {
-      const full = path.join(dir, name)
-      if (!fs.statSync(full).isDirectory()) continue
-      if (name.startsWith('[')) continue // 동적 라우트는 실 데이터가 필요해 별도 스펙이 본다
-      if (name.startsWith('_') || name.startsWith('(')) {
-        walk(full, url)
-        continue
-      }
-      const child = `${url}/${name}`
-      if (fs.existsSync(path.join(full, 'page.tsx'))) out.push(child)
-      walk(full, child)
-    }
-  }
-  walk(base, '')
-  return out.filter((r) => !(r in SKIP)).sort()
-}
 
 async function login(page: Page) {
   await page.goto('/login', { waitUntil: 'networkidle' })
@@ -148,6 +108,8 @@ interface RouteResult {
   opens: boolean
   quiet: boolean
   hasWayForward: boolean
+  /** 앞길의 **목적지**가 성립하는가. `null` = 갈 곳이 없어 재지 않았다. */
+  linkLands: boolean | null
   /**
    * 되돌아오기. `null` = **재지 않았다**(통과도 실패도 아니다).
    *
@@ -160,20 +122,20 @@ interface RouteResult {
 }
 
 /**
- * ⚠️ **아직 상시 스펙이 아니다. `LEARNER_SWEEP=1` 일 때만 돈다.**
+ * ⚠️ **상시가 아니라 `LEARNER_SWEEP=1` 일 때만 돈다 — 느려서다(약 7분).**
  *
- * 이유: 같은 코드에서 연속 두 번 돌렸는데 **96.7% 와 54.9%** 가 나왔다(실측 2026-08-22).
- * 재현되지 않는 측정은 성적표가 아니라 소음이고, 상시로 두면 **빨간 스펙에 익숙해지게** 만들어
- * 다음 진짜 실패를 가린다 — 이 저장소가 이미 여러 번 겪은 일이다.
+ * 처음엔 "재현이 안 돼서" 막아 뒀다. 지금은 재현된다 —
+ * 예열(전 라우트 1회 방문)을 넣은 뒤 연속 두 실행이 **95.5% · 95.9%** 였다.
+ * 그 전에는 96.7% / 54.9% 로 흔들렸고, 원인은 dev 서버의 **라우트별 첫 컴파일**이었다.
  *
- * 원인으로 보는 것: dev 서버는 라우트마다 **첫 방문에 컴파일**한다. 42개를 연속으로 때리면
- * 서버가 흔들리고(실제로 스윕 도중 죽었다), 클라이언트 렌더가 준비되기 전에 판정하게 된다.
- * → 다음 사이클에 **프로덕션 빌드**(`NEXT_DIST_DIR=.next-sweep`)를 띄우고 그 위에서 잰다.
- *   그때 재현되면 상시로 올리고 래칫을 건다.
+ * 42개 라우트를 예열까지 두 번 도니 한 번에 7분이다. 기본 스위트에 넣으면 매 실행이
+ * 그만큼 느려지고, 느린 스위트는 안 돌리게 된다. 그래서 명시 실행으로 둔다.
+ * 프로덕션 빌드 위에서 재면 예열이 필요 없어 빨라진다 —
+ * **다만 이 브랜치는 지금 next build 가 깨져 있다**(다른 영역의 타입 에러).
  */
 test.describe('제3의 학습자 — 전수 훑기', () => {
   test.describe.configure({ mode: 'serial', timeout: 900_000 })
-  test.skip(process.env.LEARNER_SWEEP !== '1', 'LEARNER_SWEEP=1 로 명시할 때만 — 아직 재현되지 않는다')
+  test.skip(process.env.LEARNER_SWEEP !== '1', 'LEARNER_SWEEP=1 로 명시할 때만 — 약 7분 걸린다')
 
   test.beforeAll(async ({ browser }) => {
     const page = await browser.newPage({ storageState: undefined })
@@ -186,6 +148,20 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
   test('모든 학습자 화면이 열리고 · 조용하고 · 앞길이 있고 · 되돌아온다', async ({ page }) => {
     const routes = learnerRoutes()
     expect(routes.length, '라우트를 하나도 못 찾았다 — 목록 추출이 깨졌다').toBeGreaterThan(20)
+
+    // ── 예열 ────────────────────────────────────────────────────────────
+    // ⚠️ **dev 서버는 라우트마다 첫 방문에 컴파일한다.** 그 첫 방문을 재면 컴파일 지연이
+    //    "본문이 비어 있다"·"막다른 길" 로 기록되고 실행마다 결과가 달라진다
+    //    (실측 2026-08-22: 같은 코드로 96.7% → 54.9%).
+    //
+    //    정석은 프로덕션 빌드 위에서 재는 것인데 **이 브랜치는 지금 빌드가 깨져 있다** —
+    //    api/admin/articles/futurity-feed 의 타입 에러(다른 영역의 미완 기능)로
+    //    next build 가 실패한다. 그래서 차선으로 **한 번 훑어 컴파일을 끝내 놓고,
+    //    두 번째 방문부터 잰다.** 예열 결과는 버린다 — 재지 않은 것을 성적에 넣지 않는다.
+    for (const route of routes) {
+      await page.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {})
+      await page.waitForTimeout(150)
+    }
 
     const results: RouteResult[] = []
 
@@ -202,6 +178,7 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
         route,
         landed: route,
         opens: false,
+        linkLands: null,
         quiet: false,
         hasWayForward: false,
         backWorks: false,
@@ -235,7 +212,13 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
         r.quiet = fatal(errors).length === 0
         if (!r.quiet) r.note = (r.note ? r.note + ' · ' : '') + fatal(errors)[0].slice(0, 80)
 
-        if (r.opens) {
+        // 파라미터가 필요한 화면은 열림·콘솔만 잰다 — 나머지는 맨 주소로 물을 수 없다.
+        if (r.opens && PARAM_ROUTES.has(route)) {
+          r.hasWayForward = true
+          r.backWorks = null
+          r.linkLands = null
+          r.note = (r.note ? r.note + ' · ' : '') + '파라미터 필요 — 동선 검사 제외'
+        } else if (r.opens) {
           // ③ 앞길 — 본문 안에서 **실제로 다른 곳으로 가는** 링크.
           // ⚠️ `main` 만 보면 안 된다 — `<main>` 을 쓰지 않는 화면이 있고, 그때 첫 판은
           //    "막다른 길" 로 잘못 기록했다. 셸(사이드바·하단탭)은 모든 화면에 있으므로
@@ -258,12 +241,26 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
           r.hasWayForward = target !== null || n > 0
           if (!r.hasWayForward) r.note = (r.note ? r.note + ' · ' : '') + '막다른 길'
 
+          // ⑤ 연계 — 목적지가 **진짜 화면**인가. 링크만 살아 있고 그 끝이 에러면
+          //    ④(복귀)는 초록으로 나온다. 그래서 도착지를 따로 본다.
+          if (target && !SESSION_ROUTES.has(route)) {
+            const dest = await gotoSettled(page, target)
+            const destBody = ((await page.locator('body').innerText().catch(() => '')) || '').trim()
+            const destBroken =
+              /페이지를 찾을 수 없어요|문제가 발생했어요|Application error/.test(destBody)
+            r.linkLands = !destBroken && destBody.length > 40 && !dest.startsWith('/login')
+            if (!r.linkLands) {
+              r.note = (r.note ? r.note + ' · ' : '') + `앞길 끝이 깨졌다: ${target} → ${dest}`
+            }
+            // ⑤ 에서 이미 목적지에 와 있으므로 ④ 는 여기서 바로 뒤로가기만 하면 된다.
+          }
+
           // ④ 되돌아오기 — 세션 화면은 누르지 않고, 리다이렉트 화면은 재지 않는다.
           if (r.landed !== route) {
             r.backWorks = null
             r.note = (r.note ? r.note + ' · ' : '') + '리다이렉트 — 복귀 검사 제외'
-          } else if (target && !NO_CLICK.has(route)) {
-            await gotoSettled(page, target)
+          } else if (target && !SESSION_ROUTES.has(route)) {
+            // ⑤ 가 이미 목적지로 옮겨 놨다 — 다시 가지 않는다(히스토리가 한 칸 더 쌓인다).
             await page.goBack({ waitUntil: 'domcontentloaded', timeout: 45_000 }).catch(() => {})
             await page.waitForTimeout(700)
             // 리다이렉트 화면은 **도착지**로 돌아오는 것이 맞다(원래 주소로 돌아오면 또 튕긴다).
@@ -291,14 +288,18 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
 
     // ── 보고 ────────────────────────────────────────────────────────────
     // 분모는 **실제로 잰 검사**만 센다 — 안 잰 것을 통과로도 실패로도 세지 않는다.
-    const checks = results.reduce((s, r) => s + 3 + (r.backWorks === null ? 0 : 1), 0)
+    const checks = results.reduce(
+      (s, r) => s + 3 + (r.backWorks === null ? 0 : 1) + (r.linkLands === null ? 0 : 1),
+      0,
+    )
     const passed = results.reduce(
       (s, r) =>
         s +
         Number(r.opens) +
         Number(r.quiet) +
         Number(r.hasWayForward) +
-        (r.backWorks === true ? 1 : 0),
+        (r.backWorks === true ? 1 : 0) +
+        (r.linkLands === true ? 1 : 0),
       0,
     )
     const skipped = results.filter((r) => r.backWorks === null).length
@@ -310,12 +311,14 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
         ` (복귀 검사 제외 ${skipped}곳)`,
     )
     for (const r of results) {
-      if (r.opens && r.quiet && r.hasWayForward && r.backWorks !== false) continue
+      if (r.opens && r.quiet && r.hasWayForward && r.backWorks !== false && r.linkLands !== false)
+        continue
       const flags = [
         r.opens ? '열림' : '✗열림',
         r.quiet ? '조용' : '✗콘솔',
         r.hasWayForward ? '앞길' : '✗앞길',
         r.backWorks === null ? '복귀–' : r.backWorks ? '복귀' : '✗복귀',
+        r.linkLands === null ? '연계–' : r.linkLands ? '연계' : '✗연계',
       ].join(' ')
       // eslint-disable-next-line no-console
       console.log(`  ${r.route.padEnd(26)} ${flags}  ${r.note}`)
@@ -330,7 +333,11 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
     // ⚠️ 올리는 방향으로만 고칠 것. 내리면 그 순간 이 스펙은 아무것도 지키지 않는다.
     //    (2026-08-22 최초 96.7% · 잰 검사 150 · 복귀 검사 제외 18곳)
     // 재현되기 전까지는 바닥을 걸지 않는다 — 숫자를 인쇄하는 것이 이 스펙의 일이다.
-    const FLOOR = Number(process.env.LEARNER_SWEEP_FLOOR ?? 0)
+    // ── 래칫 ──────────────────────────────────────────────────────────
+    // 예열을 넣고 나서 **재현된다**: 연속 두 실행 95.5% · 95.9% (실측 2026-08-22).
+    // 그 전에는 96.7% / 54.9% 로 흔들렸다 — dev 서버의 라우트별 첫 컴파일 때문이었다.
+    // 목표는 100% 다. 지금 바닥을 걸고, 올렸으면 이 숫자를 함께 올린다.
+    const FLOOR = Number(process.env.LEARNER_SWEEP_FLOOR ?? 95)
     expect(
       rate,
       `학습자 훑기 성공률 ${rate}% (바닥 ${FLOOR}%) — 목표 100%. 위 목록 참조`,
