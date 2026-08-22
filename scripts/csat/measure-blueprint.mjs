@@ -115,7 +115,42 @@ for (const f of files) {
       .filter((l) => !HEADER_RE.test(l) && !/^\s*(홀수형|짝수형)\s*$/.test(l) && !/^\s*\d+\s*$/.test(l))
       .join('\n')
 
-    const choices = (body.match(CHOICE_RE) ?? []).length
+    // ── 선택지 세기 — 2단 조판이 만든 흘러넘침을 되돌린다 ──────────────
+    // PDF 가 2단이라 앞 문항의 마지막 선택지가 텍스트 흐름에서 **다음 문항 번호 뒤로** 밀린다.
+    // 실측: 44번이 늘 4개, 45번이 늘 6개로 나왔고 원문을 보니 `⑤ (e)` 가 `45.` 줄 다음에 있었다.
+    // 규칙: 블록의 **첫 `①` 앞에 오는 선택지 표시는 앞 문항 것**이다.
+    const firstCircle = body.indexOf('①')
+    const leading = firstCircle < 0 ? body : body.slice(0, firstCircle)
+    const own = firstCircle < 0 ? '' : body.slice(firstCircle)
+    const spill = (leading.match(CHOICE_RE) ?? []).length
+    if (spill > 0 && measured.length > 0) measured[measured.length - 1].choices += spill
+    let choices = (own.match(CHOICE_RE) ?? []).length
+
+    // 흘러넘침이 **세트 머리글을 넘어간** 경우까지 회수한다.
+    // 실측(2026): 42번의 `⑤ (e)` 가 `[43～45]` 머리글 2줄 뒤(라인 775)에 있었다 —
+    // 블록 시작이 아니라 다음 세트의 지문 한복판이라 위 규칙으로는 못 잡는다.
+    // `⑤ (e)` 처럼 **표시 + 짧은 괄호 한 글자만 있는 줄**로 한정해 좁게 줍는다.
+    // 흘러넘침이 이 블록 **자기 선택지 뒤로** 밀린 경우 (실측: 2017·2019·2020·2022 의 45번).
+    // 45번 선택지는 한국어 문장인데 그 사이에 `⑤ (e)` 한 줄만 스타일이 다르게 섞인다 —
+    // 그건 44번 것이다. 빼서 6→5 가 되면 앞 문항으로 돌린다.
+    if (choices > 5) {
+      const alien = own.split('\n').filter((l) => /^\s*[①-⑤]\s*\([a-e]\)\s*$/.test(l)).length
+      if (alien > 0 && choices - alien === 5) {
+        choices -= alien
+        if (measured.length > 0) measured[measured.length - 1].choices += alien
+      }
+    }
+
+    // ⚠️ **세트 머리글을 넘어간 경우로만** 한정한다. 그냥 앞을 훑으면 바로 다음 문항 블록의
+    //    첫 줄에 있는 흘러넘침까지 잡아 위 규칙과 **이중으로** 세게 된다(실측: 44번이 6이 됐다).
+    if (choices === 4 && /[①-⑤]\s*\([a-e]\)/.test(own)) {
+      const ahead = lines.slice(end, end + 12)
+      const headerAt = ahead.findIndex((l) => /^\s*\[\s*\d{1,2}\s*[~～∼－-]\s*\d{1,2}\s*\]/.test(l))
+      if (headerAt >= 0) {
+        const orphan = ahead.slice(headerAt).filter((l) => /^\s*[①-⑤]\s*\([a-e]\)\s*$/.test(l)).length
+        choices += Math.min(orphan, 1)
+      }
+    }
     const enWords = (body.match(/[A-Za-z][A-Za-z'’-]*/g) ?? []).length
     // 선택지 언어 — 첫 선택지 뒤 40자에 한글이 있으면 한글 선택지로 본다
     const firstChoice = body.indexOf('①')
