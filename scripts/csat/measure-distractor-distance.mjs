@@ -72,8 +72,12 @@ const FILE = {
 const results = []
 const skipped = []
 
+// 선택지가 **영어 문장**인 유형만 — 기호 선택지(①②③ 밑줄·(A)(B)(C))는 어휘 중첩을 잴 수 없다.
+// 듣기는 지문이 음성이라 지면에 없어 제외한다(측정 불가이지 무관심이 아니다).
+// 장문(X-)은 지문이 문항 번호보다 앞에 와 블록에 안 잡힌다 — 따로 다뤄야 하므로 이번엔 뺀다.
+const TEXT_CHOICE = new Set(['R-BLANK', 'R-IMPLY', 'R-TOPIC', 'R-TITLE', 'R-SUMMARY', 'R-MOOD'])
 const targets = classified.rows.filter(
-  (r) => r.exam !== '2014A' && r.type === 'R-BLANK' && key.has(`${r.exam}#${r.no}`),
+  (r) => r.exam !== '2014A' && TEXT_CHOICE.has(r.type) && key.has(`${r.exam}#${r.no}`),
 )
 
 for (const q of targets) {
@@ -101,7 +105,7 @@ for (const q of targets) {
   if (correct == null || wrong.length !== 4) { skipped.push({ ...q, why: '중첩 계산 실패' }); continue }
 
   results.push({
-    exam: q.exam, no: q.no, points: ans.points,
+    exam: q.exam, no: q.no, type: q.type, points: ans.points,
     correct_overlap: correct,
     wrong_overlap_mean: wrong.reduce((a, b) => a + b, 0) / wrong.length,
   })
@@ -118,13 +122,24 @@ if (skipped.length) {
   console.log('  제외 사유:', Object.entries(why).map(([k, v]) => `${k} ${v}`).join(' · '))
 }
 console.log('')
-console.log('선택지 내용어 중 지문에 나오는 비율')
-console.log('─'.repeat(52))
-console.log(`3점 ${String(hi.length).padStart(2)}문항 — 오답 평균 ${(100 * mean(hi.map((r) => r.wrong_overlap_mean))).toFixed(1)}%  · 정답 ${(100 * mean(hi.map((r) => r.correct_overlap))).toFixed(1)}%`)
-console.log(`2점 ${String(lo.length).padStart(2)}문항 — 오답 평균 ${(100 * mean(lo.map((r) => r.wrong_overlap_mean))).toFixed(1)}%  · 정답 ${(100 * mean(lo.map((r) => r.correct_overlap))).toFixed(1)}%`)
-console.log('')
-const d = mean(hi.map((r) => r.wrong_overlap_mean)) - mean(lo.map((r) => r.wrong_overlap_mean))
-console.log(`예측: 3점 오답이 더 높아야 한다.  차이 ${(100 * d).toFixed(1)}%p → ${d > 0 ? '방향 일치' : '방향 반대 — 가설 3 반증'}`)
+console.log('선택지 내용어 중 지문에 나오는 비율 — 유형별')
+console.log('─'.repeat(72))
+console.log('유형          3점  오답중앙   2점  오답중앙   차이     판정')
+const med = (a) => { if (!a.length) return null; const s2 = [...a].sort((x, y) => x - y); return s2[Math.floor(s2.length / 2)] }
+const byType = {}
+for (const r of results) (byType[r.type] ??= []).push(r)
+for (const [t, rows] of Object.entries(byType)) {
+  const h = rows.filter((r) => r.points === 3), l = rows.filter((r) => r.points === 2)
+  if (!h.length || !l.length) {
+    console.log(`${t.padEnd(12)} ${String(h.length).padStart(3)}   ―      ${String(l.length).padStart(3)}   ―        ―     대조 불가(한쪽이 0)`)
+    continue
+  }
+  const mh = med(h.map((r) => r.wrong_overlap_mean)), ml = med(l.map((r) => r.wrong_overlap_mean))
+  const diff = 100 * (mh - ml)
+  console.log(
+    `${t.padEnd(12)} ${String(h.length).padStart(3)}  ${(100 * mh).toFixed(1).padStart(5)}%  ${String(l.length).padStart(3)}  ${(100 * ml).toFixed(1).padStart(5)}%  ${diff.toFixed(1).padStart(6)}%p  ${diff > 0 ? '방향 일치' : '방향 반대'}`,
+  )
+}
 
 fs.writeFileSync(path.join(OUT_DIR, 'distractor-distance.json'), JSON.stringify({ results, skipped }, null, 1))
 console.log(`\n→ ${path.join(OUT_DIR, 'distractor-distance.json')}`)

@@ -2,7 +2,24 @@
  "results": [
   {
    "exam": "2014B",
+   "no": 24,
+   "type": "R-TOPIC",
+   "points": 2,
+   "correct_overlap": 0.2,
+   "wrong_overlap_mean": 0.10416666666666666
+  },
+  {
+   "exam": "2014B",
+   "no": 25,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.5,
+   "wrong_overlap_mean": 0.375
+  },
+  {
+   "exam": "2014B",
    "no": 31,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0.25,
    "wrong_overlap_mean": 0.3833333333333333
@@ -10,6 +27,7 @@
   {
    "exam": "2014B",
    "no": 32,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0.3333333333333333
@@ -17,6 +35,7 @@
   {
    "exam": "2014B",
    "no": 33,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0.5988095238095239
@@ -24,6 +43,7 @@
   {
    "exam": "2014B",
    "no": 34,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.4,
    "wrong_overlap_mean": 0.16666666666666666
@@ -31,13 +51,63 @@
   {
    "exam": "2014B",
    "no": 35,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0.28750000000000003
   },
   {
+   "exam": "2014B",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2015",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2015",
+   "no": 20,
+   "type": "R-TOPIC",
+   "points": 2,
+   "correct_overlap": 0.6666666666666666,
+   "wrong_overlap_mean": 0.08333333333333333
+  },
+  {
+   "exam": "2015",
+   "no": 21,
+   "type": "R-TOPIC",
+   "points": 2,
+   "correct_overlap": 0.16666666666666666,
+   "wrong_overlap_mean": 0.09166666666666667
+  },
+  {
+   "exam": "2015",
+   "no": 22,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.75,
+   "wrong_overlap_mean": 0.3833333333333333
+  },
+  {
+   "exam": "2015",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.8,
+   "wrong_overlap_mean": 0.20833333333333331
+  },
+  {
    "exam": "2015",
    "no": 31,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0
@@ -45,6 +115,7 @@
   {
    "exam": "2015",
    "no": 32,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.5,
    "wrong_overlap_mean": 0.5904761904761905
@@ -52,13 +123,39 @@
   {
    "exam": "2015",
    "no": 33,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.3333333333333333,
    "wrong_overlap_mean": 0.37380952380952376
   },
   {
    "exam": "2016",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2016",
+   "no": 22,
+   "type": "R-TOPIC",
+   "points": 2,
+   "correct_overlap": 0.4,
+   "wrong_overlap_mean": 0.1625
+  },
+  {
+   "exam": "2016",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.6,
+   "wrong_overlap_mean": 0.3
+  },
+  {
+   "exam": "2016",
    "no": 31,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0
@@ -66,6 +163,7 @@
   {
    "exam": "2016",
    "no": 32,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.25,
    "wrong_overlap_mean": 0.05
@@ -73,6 +171,7 @@
   {
    "exam": "2016",
    "no": 33,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.25,
    "wrong_overlap_mean": 0.0625
@@ -80,13 +179,55 @@
   {
    "exam": "2016",
    "no": 34,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0.4
   },
   {
+   "exam": "2016",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "correct_overlap": 0.5,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2017",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2017",
+   "no": 21,
+   "type": "R-TOPIC",
+   "points": 2,
+   "correct_overlap": 0.4,
+   "wrong_overlap_mean": 0.3125
+  },
+  {
+   "exam": "2017",
+   "no": 22,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.5,
+   "wrong_overlap_mean": 0.3875
+  },
+  {
+   "exam": "2017",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.75,
+   "wrong_overlap_mean": 0.4
+  },
+  {
    "exam": "2017",
    "no": 31,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0
@@ -94,6 +235,7 @@
   {
    "exam": "2017",
    "no": 32,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0.1
@@ -101,6 +243,7 @@
   {
    "exam": "2017",
    "no": 33,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.6666666666666666,
    "wrong_overlap_mean": 0.4583333333333333
@@ -108,13 +251,47 @@
   {
    "exam": "2017",
    "no": 34,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.25,
    "wrong_overlap_mean": 0.15
   },
   {
+   "exam": "2017",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2018",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2018",
+   "no": 22,
+   "type": "R-TOPIC",
+   "points": 2,
+   "correct_overlap": 0.7142857142857143,
+   "wrong_overlap_mean": 0.30833333333333335
+  },
+  {
+   "exam": "2018",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.5,
+   "wrong_overlap_mean": 0.5
+  },
+  {
    "exam": "2018",
    "no": 31,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.6666666666666666,
    "wrong_overlap_mean": 0.3958333333333333
@@ -122,6 +299,7 @@
   {
    "exam": "2018",
    "no": 32,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.2857142857142857,
    "wrong_overlap_mean": 0.32499999999999996
@@ -129,6 +307,7 @@
   {
    "exam": "2018",
    "no": 33,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.3333333333333333,
    "wrong_overlap_mean": 0.425
@@ -136,13 +315,55 @@
   {
    "exam": "2018",
    "no": 34,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0.2458333333333333
   },
   {
+   "exam": "2018",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2019",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2019",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0.30000000000000004
+  },
+  {
+   "exam": "2019",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "correct_overlap": 0.6666666666666666,
+   "wrong_overlap_mean": 0.29166666666666663
+  },
+  {
+   "exam": "2019",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.5,
+   "wrong_overlap_mean": 0.4125
+  },
+  {
    "exam": "2019",
    "no": 31,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0
@@ -150,6 +371,7 @@
   {
    "exam": "2019",
    "no": 32,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0.5,
    "wrong_overlap_mean": 0.5458333333333333
@@ -157,6 +379,7 @@
   {
    "exam": "2019",
    "no": 33,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.25,
    "wrong_overlap_mean": 0.4875
@@ -164,13 +387,55 @@
   {
    "exam": "2019",
    "no": 34,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.2,
    "wrong_overlap_mean": 0.35000000000000003
   },
   {
+   "exam": "2019",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "correct_overlap": 0.5,
+   "wrong_overlap_mean": 0.25
+  },
+  {
+   "exam": "2020",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2020",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "correct_overlap": 0.42857142857142855,
+   "wrong_overlap_mean": 0.17142857142857143
+  },
+  {
+   "exam": "2020",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "correct_overlap": 0.4,
+   "wrong_overlap_mean": 0.4916666666666666
+  },
+  {
+   "exam": "2020",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.4,
+   "wrong_overlap_mean": 0.4
+  },
+  {
    "exam": "2020",
    "no": 31,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0
@@ -178,6 +443,7 @@
   {
    "exam": "2020",
    "no": 32,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0.42857142857142855,
    "wrong_overlap_mean": 0.125
@@ -185,6 +451,7 @@
   {
    "exam": "2020",
    "no": 33,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.2,
    "wrong_overlap_mean": 0.1625
@@ -192,13 +459,55 @@
   {
    "exam": "2020",
    "no": 34,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.4,
    "wrong_overlap_mean": 0.24999999999999997
   },
   {
+   "exam": "2020",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2021",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2021",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "correct_overlap": 0.3333333333333333,
+   "wrong_overlap_mean": 0.2708333333333333
+  },
+  {
+   "exam": "2021",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "correct_overlap": 0.42857142857142855,
+   "wrong_overlap_mean": 0.26666666666666666
+  },
+  {
+   "exam": "2021",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.4,
+   "wrong_overlap_mean": 0.24166666666666664
+  },
+  {
    "exam": "2021",
    "no": 31,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0
@@ -206,6 +515,7 @@
   {
    "exam": "2021",
    "no": 32,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0.3333333333333333,
    "wrong_overlap_mean": 0.1125
@@ -213,6 +523,7 @@
   {
    "exam": "2021",
    "no": 33,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0.0625
@@ -220,13 +531,47 @@
   {
    "exam": "2021",
    "no": 34,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.6666666666666666,
    "wrong_overlap_mean": 0.5083333333333333
   },
   {
+   "exam": "2021",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2022",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "correct_overlap": 0.3333333333333333,
+   "wrong_overlap_mean": 0.175
+  },
+  {
+   "exam": "2022",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "correct_overlap": 0.4,
+   "wrong_overlap_mean": 0.175
+  },
+  {
+   "exam": "2022",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.3333333333333333,
+   "wrong_overlap_mean": 0.2875
+  },
+  {
    "exam": "2022",
    "no": 31,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0
@@ -234,6 +579,7 @@
   {
    "exam": "2022",
    "no": 32,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0.4,
    "wrong_overlap_mean": 0.0625
@@ -241,6 +587,7 @@
   {
    "exam": "2022",
    "no": 33,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.25,
    "wrong_overlap_mean": 0.2875
@@ -248,13 +595,47 @@
   {
    "exam": "2022",
    "no": 34,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.2,
    "wrong_overlap_mean": 0.2875
   },
   {
+   "exam": "2022",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2023",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "correct_overlap": 0.2,
+   "wrong_overlap_mean": 0.15000000000000002
+  },
+  {
+   "exam": "2023",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "correct_overlap": 0.3333333333333333,
+   "wrong_overlap_mean": 0.25
+  },
+  {
+   "exam": "2023",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.5,
+   "wrong_overlap_mean": 0.31666666666666665
+  },
+  {
    "exam": "2023",
    "no": 31,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0
@@ -262,6 +643,7 @@
   {
    "exam": "2023",
    "no": 32,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0.25,
    "wrong_overlap_mean": 0.09166666666666667
@@ -269,6 +651,7 @@
   {
    "exam": "2023",
    "no": 33,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.25,
    "wrong_overlap_mean": 0.1625
@@ -276,13 +659,55 @@
   {
    "exam": "2023",
    "no": 34,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.25,
    "wrong_overlap_mean": 0.15000000000000002
   },
   {
+   "exam": "2023",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2024",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2024",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "correct_overlap": 0.42857142857142855,
+   "wrong_overlap_mean": 0.34523809523809523
+  },
+  {
+   "exam": "2024",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "correct_overlap": 0.6666666666666666,
+   "wrong_overlap_mean": 0.5595238095238095
+  },
+  {
+   "exam": "2024",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 3,
+   "correct_overlap": 0.6,
+   "wrong_overlap_mean": 0.3875
+  },
+  {
    "exam": "2024",
    "no": 31,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0.125
@@ -290,6 +715,7 @@
   {
    "exam": "2024",
    "no": 32,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0.5,
    "wrong_overlap_mean": 0.20833333333333331
@@ -297,6 +723,7 @@
   {
    "exam": "2024",
    "no": 33,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.14285714285714285,
    "wrong_overlap_mean": 0.2916666666666667
@@ -304,13 +731,39 @@
   {
    "exam": "2024",
    "no": 34,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0.30833333333333335
   },
   {
    "exam": "2025",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "correct_overlap": 0.5,
+   "wrong_overlap_mean": 0.1607142857142857
+  },
+  {
+   "exam": "2025",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "correct_overlap": 0.16666666666666666,
+   "wrong_overlap_mean": 0.4345238095238095
+  },
+  {
+   "exam": "2025",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "correct_overlap": 0.2,
+   "wrong_overlap_mean": 0.2625
+  },
+  {
+   "exam": "2025",
    "no": 31,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0
@@ -318,6 +771,7 @@
   {
    "exam": "2025",
    "no": 32,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0.08333333333333333
@@ -325,6 +779,7 @@
   {
    "exam": "2025",
    "no": 33,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.3333333333333333,
    "wrong_overlap_mean": 0.08333333333333333
@@ -332,13 +787,47 @@
   {
    "exam": "2025",
    "no": 34,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.3333333333333333,
    "wrong_overlap_mean": 0.3392857142857143
   },
   {
    "exam": "2026",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "correct_overlap": 0,
+   "wrong_overlap_mean": 0
+  },
+  {
+   "exam": "2026",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "correct_overlap": 0.2,
+   "wrong_overlap_mean": 0.39166666666666666
+  },
+  {
+   "exam": "2026",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "correct_overlap": 0.2,
+   "wrong_overlap_mean": 0.39166666666666666
+  },
+  {
+   "exam": "2026",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 3,
+   "correct_overlap": 0.2,
+   "wrong_overlap_mean": 0.4375
+  },
+  {
+   "exam": "2026",
    "no": 31,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0
@@ -346,6 +835,7 @@
   {
    "exam": "2026",
    "no": 32,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0.3625
@@ -353,6 +843,7 @@
   {
    "exam": "2026",
    "no": 33,
+   "type": "R-BLANK",
    "points": 2,
    "correct_overlap": 0,
    "wrong_overlap_mean": 0.32916666666666666
@@ -360,10 +851,117 @@
   {
    "exam": "2026",
    "no": 34,
+   "type": "R-BLANK",
    "points": 3,
    "correct_overlap": 0.3333333333333333,
    "wrong_overlap_mean": 0.3333333333333333
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "exam": "2015",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A)와 (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ],
+   "why": "선택지 4개만 회수"
+  },
+  {
+   "exam": "2022",
+   "no": 19,
+   "stem": "다음 글에 나타난 Evelyn의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ],
+   "why": "선택지 3개만 회수"
+  },
+  {
+   "exam": "2023",
+   "no": 19,
+   "stem": "다음 글에 드러난 Jamie의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ],
+   "why": "선택지 4개만 회수"
+  },
+  {
+   "exam": "2024",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ],
+   "why": "선택지 0개만 회수"
+  },
+  {
+   "exam": "2025",
+   "no": 19,
+   "stem": "다음 글에 드러난 Peter의 심경 변화로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ],
+   "why": "선택지 3개만 회수"
+  },
+  {
+   "exam": "2025",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ],
+   "why": "선택지 0개만 회수"
+  },
+  {
+   "exam": "2026",
+   "no": 40,
+   "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+   "high_score": false,
+   "section": "독해",
+   "from_block": false,
+   "stem_truncated": false,
+   "type": "R-SUMMARY",
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ],
+   "why": "선택지 0개만 회수"
+  }
+ ]
 }
