@@ -44,7 +44,41 @@ export const SESSION_ROUTES = new Set([
  * 전수 훑기가 이걸 "막다른 길" 로 기록하고 있었다 — **계측기가 틀린 것**이지 화면이 아니다.
  * 열림·콘솔은 그대로 재고, 앞길·복귀·연계는 재지 않는다.
  */
-export const PARAM_ROUTES = new Set(['/dictate/results', '/pairflip/results'])
+export const PARAM_ROUTES = new Set([
+  '/dictate/results',
+  '/pairflip/results',
+  // 실측 2026-08-23: 자료(`?text=` · `?set=` · `?custom=1`) 없이 열면
+  // `router.replace('/dictate')` 로 되돌린다 — 정상 동작이다. 그래서 뒤로가기가
+  // `/dictate/setup` 이 아니라 `/dictate` 로 가고, 그걸 "복귀 실패" 로 세면 화면을
+  // 잘못 의심하게 된다. **`replace` 는 히스토리를 남기지 않는 것이 목적이다.**
+  '/dictate/setup',
+])
+
+/**
+ * **오직 다른 곳으로 보내기만 하는 화면.** (`/my` · `/my/words` · `/my/texts` …)
+ *
+ * 본문이 없다 — `redirect()` 한 줄이 전부다. 여기서 "앞길이 있나" 를 물으면
+ * **목적지를 두 번 세는 것**이고, 리다이렉트가 늦으면 그 순간을 찍어 "막다른 길" 이 된다.
+ * 실측 2026-08-23: `/my`·`/my/words` 는 막다른 길로, `/my/texts` 는 통과로 찍혔다 —
+ * **같은 한 줄짜리 파일 셋이 서로 다른 판정을 받았다.** 그건 화면이 아니라 타이밍이다.
+ *
+ * 그래서 런타임이 아니라 **소스로** 판별한다. 목적지는 목록에 따로 있으니 그쪽에서 재진다.
+ */
+export function redirectOnlyRoutes(): Set<string> {
+  const base = path.resolve(__dirname, '../../../src/app/(main)')
+  const out = new Set<string>()
+  for (const r of learnerRoutes()) {
+    const file = path.join(base, r, 'page.tsx')
+    if (!fs.existsSync(file)) continue
+    const src = fs.readFileSync(file, 'utf8')
+    // 이 저장소는 순수 리다이렉트 껍데기에 반환형 `never` 를 **명시**한다 — 그 선언을 믿는다.
+    // ⚠️ "JSX 가 없으면 껍데기" 로 재던 판은 `/wordvault/review` 처럼 자식 컴포넌트 **하나만**
+    //    돌려주는 진짜 화면까지 껍데기로 분류했다(34줄짜리 서버 컴포넌트다).
+    //    조용한 면제는 점수를 부풀린다 — 분모에서 빼는 판단은 좁고 명시적이어야 한다.
+    if (src.includes('redirect(') && src.includes('): never')) out.add(r)
+  }
+  return out
+}
 
 /** `(main)` 아래 정적 학습자 라우트 전부. 정렬은 안정적이다(스냅샷·베이스라인용). */
 export function learnerRoutes(): string[] {

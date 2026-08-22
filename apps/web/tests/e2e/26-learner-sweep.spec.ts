@@ -26,7 +26,12 @@
 //    적어 두면 화면이 늘어도 이 스펙은 늘지 않고, 커버리지가 조용히 낡는다.
 
 import { test, expect, type Page } from '@playwright/test'
-import { PARAM_ROUTES, SESSION_ROUTES, learnerRoutes } from './utils/learner-routes'
+import {
+  PARAM_ROUTES,
+  SESSION_ROUTES,
+  learnerRoutes,
+  redirectOnlyRoutes,
+} from './utils/learner-routes'
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -101,6 +106,9 @@ async function gotoSettled(page: Page, url: string): Promise<string> {
   }
   return new URL(page.url()).pathname
 }
+
+/** 소스로 판별한 "보내기만 하는" 화면 — 런타임 타이밍에 기대지 않는다. */
+const REDIRECT_ONLY = redirectOnlyRoutes()
 
 interface RouteResult {
   route: string
@@ -224,7 +232,16 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
         if (!r.quiet) r.note = (r.note ? r.note + ' · ' : '') + fatal(errors)[0].slice(0, 80)
 
         // 파라미터가 필요한 화면은 열림·콘솔만 잰다 — 나머지는 맨 주소로 물을 수 없다.
-        if (r.opens && PARAM_ROUTES.has(route)) {
+        if (r.opens && REDIRECT_ONLY.has(route)) {
+          // 보내기만 하는 껍데기 — 목적지는 목록에 따로 있고 거기서 재진다.
+          // 여기서 앞길을 물으면 목적지를 두 번 세는 것이고, 리다이렉트가 늦으면
+          // 그 순간을 찍어 "막다른 길" 이 된다(실측 2026-08-23: 같은 한 줄짜리 파일 셋이
+          // 서로 다른 판정을 받았다 — 화면이 아니라 타이밍이었다).
+          r.hasWayForward = true
+          r.backWorks = null
+          r.linkLands = null
+          r.note = (r.note ? r.note + ' · ' : '') + '리다이렉트 전용 — 목적지에서 잰다'
+        } else if (r.opens && PARAM_ROUTES.has(route)) {
           r.hasWayForward = true
           r.backWorks = null
           r.linkLands = null
@@ -263,10 +280,14 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
             //    "뒤로가기 → /library/books" 로 찍힌 것이 그것이었다(**계측기 문제**).
             //    클릭하면 Next 의 클라이언트 라우팅을 타서 실제 동선과 같아진다.
             const before = new URL(page.url()).pathname
-            await links
+            // ⚠️ 클릭 실패를 삼키면 **눌리지 않은 것**과 **죽은 링크**가 구별되지 않는다.
+            //    앞 판은 `.catch(() => {})` 라 둘 다 "눌러도 안 움직인다" 로 찍혔고,
+            //    그 말만 보고는 화면을 고쳐야 할지 계측기를 고쳐야 할지 알 수 없었다.
+            const clickErr = await links
               .nth(targetIdx)
               .click({ timeout: 15_000 })
-              .catch(() => {})
+              .then(() => null)
+              .catch((e: Error) => String(e.message).slice(0, 90))
             // ⚠️ 고정 대기(1.2초)로는 부족했다 — dev 는 목적지를 그때 컴파일한다.
             //    "눌러도 안 움직인다" 가 화면마다 찍혔는데 **기다림이 짧았던 것**이다.
             //    주소가 바뀔 때까지 기다리고, 그래도 안 바뀌면 그때 죽은 링크로 본다.
@@ -279,7 +300,7 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
             const destBroken =
               /페이지를 찾을 수 없어요|문제가 발생했어요|Application error/.test(destBody)
             // 클릭했는데 주소가 그대로면 그 링크는 **눌리지 않는 링크**다 — 죽은 앞길이다.
-            const moved = dest !== r.landed
+            const moved = dest !== r.landed && !clickErr
             // ⚠️ 게임 세션(`/play/*`)은 `next/dynamic` 으로 늦게 붙고 로딩 중엔 글자가 거의 없다.
             //    40자 기준으로 재면 멀쩡한 화면이 "깨졌다" 로 찍힌다
             //    (실측 2026-08-22: /wordblitz → /play/wordblitz 가 그랬다).
@@ -290,7 +311,11 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
             if (!r.linkLands) {
               r.note =
                 (r.note ? r.note + ' · ' : '') +
-                (moved ? `앞길 끝이 깨졌다: ${target} → ${dest}` : `눌러도 안 움직인다: ${target}`)
+                (moved
+                  ? `앞길 끝이 깨졌다: ${target} → ${dest}`
+                  : clickErr
+                    ? `클릭 자체가 안 됐다(계측기 또는 가림): ${target} — ${clickErr}`
+                    : `눌러도 안 움직인다: ${target}`)
             }
             // ⑤ 에서 이미 목적지에 와 있으므로 ④ 는 여기서 바로 뒤로가기만 하면 된다.
           }
@@ -387,7 +412,7 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
     //    계측 타이밍인데, 그걸 맞추려고 기준을 계속 느슨하게 하면 **답에 계측기를 맞추는**
     //    것이 된다. 그 순간 이 숫자는 아무것도 지키지 않는다.
     //    바닥은 재현되는 값으로 두고, 올릴 때는 **화면을 고쳐서** 올린다.
-    const FLOOR = Number(process.env.LEARNER_SWEEP_FLOOR ?? 98)
+    const FLOOR = Number(process.env.LEARNER_SWEEP_FLOOR ?? 100)
     expect(
       rate,
       `학습자 훑기 성공률 ${rate}% (바닥 ${FLOOR}%) — 목표 100%. 위 목록 참조`,
