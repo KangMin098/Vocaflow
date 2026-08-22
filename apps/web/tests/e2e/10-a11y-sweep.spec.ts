@@ -92,6 +92,14 @@ const TOUCH_BASELINE: Record<string, number> = {
   //   /dictate·/dictate/setup 각 3 → 0 · /library/vocab 18 → 3 (점 6x6 · 카테고리 칩 32px)
   //   /text 3 → 0 : My Library 면 탭이 30px 이었다(px-3.5 py-1.5). 네 번째 면을 더하면서
   //                 악화로 잡혔고, 하나를 되돌리는 대신 넷 다 44px 로 올렸다.
+  // 18회차 — 라우트를 24→32 로 넓히자 처음 재진 화면에서 쏟아졌다(899건 / 10화면).
+  //   `/wordvault/browse` 26 → 0 : 이 화면 하나가 대부분이었다.
+  //     소스 칩 `min-h-[36px]` 명시 · 세션 select `min-h-[36px]` 명시 ·
+  //     검색/난이도/정렬 38px · 재생 컨트롤 34px · 듣기 설정 칩 8종 26px ·
+  //     Active Recall 토글 20px · 전체선택 18px · 행 체크박스 14px(가장 작았다).
+  //     ⚠️ 칩은 **세로만 44 로 맞추면 안 된다** — x 는 폭이 34px 이었다. 기준은 44×44.
+  //   `/my/words` 1 → 0 : 테마 전환 32px. 높이만 올렸더니 폭이 36 이었다(부모 flex 가 줄였다).
+  //     `shrink-0` 이 없으면 44 로 적어도 44 가 아니다.
   // 17회차에 0 으로 만든 화면 — 항목을 지우면 기본값 0 이라 되살아나는 즉시 잡힌다.
   //   `/settings` 18 → 0 : `Toggle` 래퍼가 52x32 였다(주석은 "44×44 보장" 이라고 적혀 있었다)
   //                        + Segment 87x30 + 계정 버튼 2종
@@ -434,7 +442,14 @@ test.describe('학습자 화면 전수 감사 (a11y · 레이아웃)', () => {
     for (const [route, map] of [...smallByRoute.entries()].sort((a, b) => b[1].size - a[1].size).slice(0, 12)) {
       const base = TOUCH_BASELINE[route] ?? 0;
       console.log(`    ${String(map.size).padStart(3)}종 / ${String(base).padStart(3)}  ${route}`);
-      for (const [label, size] of [...map].slice(0, 3)) console.log(`           · ${label}|${size}`);
+      // ⚠️ 3개만 찍고 있었다. "26종" 이라고 말하면서 3개만 보여 주면 나머지 23개는
+      //    **없는 것과 같다**(실측 2026-08-23: 그래서 두 라운드를 헤맸다).
+      //    베이스라인을 넘는 화면은 전부 찍는다 — 그 화면이 지금 고칠 대상이다.
+      const over = map.size > base;
+      for (const [label, size] of over ? [...map] : [...map].slice(0, 3)) {
+        console.log(`           · ${label}|${size}`);
+      }
+      if (!over && map.size > 3) console.log(`           … 외 ${map.size - 3}종 (베이스라인 이내)`);
     }
     console.log('');
 

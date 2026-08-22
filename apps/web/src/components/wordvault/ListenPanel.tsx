@@ -163,7 +163,7 @@ export function ListenPanel({
             onClick={handleToggleAll}
             className={cn(
               'inline-flex items-center gap-s-2',
-              'rounded-md px-s-4 py-s-2',
+              'min-h-[44px] rounded-md px-s-4 py-s-2',
               // ⚠️ 흰 글자를 --learn-fresh(#3B82F6) 위에 얹어 3.68:1 이었다(실측 2026-08-22).
               //    색을 새로 고르지 않는다 — 저장소에 이미 두 테마 모두 계산된 짝이 있다.
               'font-display text-[13px] font-bold tracking-[-0.01em] text-[var(--on-p)]',
@@ -181,7 +181,7 @@ export function ListenPanel({
             disabled={selectedCount === 0}
             className={cn(
               'inline-flex items-center gap-s-2',
-              'rounded-md px-s-3 py-s-2',
+              'min-h-[44px] rounded-md px-s-3 py-s-2',
               'border font-display text-[13px] font-semibold tracking-[-0.01em]',
               'transition-all duration-fast',
               'disabled:cursor-not-allowed disabled:opacity-40',
@@ -245,7 +245,7 @@ export function ListenPanel({
           <button
             type="button"
             onClick={onPrev}
-            className="flex h-[34px] w-[34px] items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
             aria-label="이전"
           >
             <SkipBack size={13} />
@@ -253,7 +253,7 @@ export function ListenPanel({
           <button
             type="button"
             onClick={onTogglePause}
-            className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-p text-bg shadow-sm transition-all duration-fast hover:bg-p-hover hover:shadow-md"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-p text-bg shadow-sm transition-all duration-fast hover:bg-p-hover hover:shadow-md"
             aria-label="일시정지/재개"
           >
             {isPaused ? <Play size={14} /> : <Pause size={14} />}
@@ -261,7 +261,7 @@ export function ListenPanel({
           <button
             type="button"
             onClick={onNext}
-            className="flex h-[34px] w-[34px] items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
             aria-label="다음"
           >
             <SkipForward size={13} />
@@ -282,7 +282,7 @@ export function ListenPanel({
           <button
             type="button"
             onClick={onStop}
-            className="flex h-[34px] w-[34px] items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
             aria-label="정지"
           >
             <Square size={13} />
@@ -369,14 +369,24 @@ function OptBtn({
     <button
       type="button"
       onClick={onClick}
-      className={cn(
-        'px-s-2.5 rounded-sm border py-s-1',
-        'font-display text-xs font-semibold',
-        'transition-all duration-fast',
-        active ? 'border-p bg-p text-bg' : 'border-bd bg-bg text-t2 hover:bg-bg2 hover:text-t1'
-      )}
+      // ⚠️ 실측 26px 였다(기준 44px) — 속도·간격·반복·내용 칩 **8종 전부**.
+      //    칩 자체를 44px 로 키우면 설정 줄이 두 배가 돼 화면을 잡아먹는다.
+      //    → 보이는 알약은 그대로 두고 **세로 패딩으로 히트영역만** 44px 로 만든다.
+      //      `::after` 가 아니라 요소 자체의 크기여야 계측기가 본다(WordRow 에서 겪었다).
+      className="group/opt -m-2.5 flex min-h-[44px] min-w-[44px] items-center justify-center p-2.5"
     >
-      {children}
+      <span
+        className={cn(
+          'px-s-2.5 rounded-sm border py-s-1',
+          'font-display text-xs font-semibold',
+          'transition-all duration-fast',
+          active
+            ? 'border-p bg-p text-bg'
+            : 'border-bd bg-bg text-t2 group-hover/opt:bg-bg2 group-hover/opt:text-t1'
+        )}
+      >
+        {children}
+      </span>
     </button>
   )
 }

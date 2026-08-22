@@ -50,7 +50,8 @@ export function HideToggleBar({ hideStates, onToggle }: HideToggleBarProps) {
                 onClick={() => onToggle(cfg.type)}
                 className={cn(
                   'inline-flex items-center gap-s-2',
-                  'py-s-1.5 rounded-md border px-s-3',
+                  // 실측 20px — 알약 크기는 유지하고 히트영역만 44px 로 올린다.
+                  'min-h-[44px] py-s-1.5 rounded-md border px-s-3',
                   'font-display text-xs font-semibold tracking-[-0.01em]',
                   'transition-all duration-fast',
                   isHidden

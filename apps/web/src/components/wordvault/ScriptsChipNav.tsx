@@ -47,7 +47,7 @@ export function ScriptsChipNav({ chips, active, onChange }: ScriptsChipNavProps)
             role="tab"
             aria-selected={isActive}
             onClick={() => onChange(chip.id)}
-            className={`group inline-flex h-9 min-h-[36px] shrink-0 snap-start items-center gap-1.5 rounded-[var(--r-full)] px-3.5 font-display text-[13px] font-[600] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
+            className={`group inline-flex h-11 min-h-[44px] shrink-0 snap-start items-center gap-1.5 rounded-[var(--r-full)] px-3.5 font-display text-[13px] font-[600] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
               isActive
                 ? 'text-white shadow-sm'
                 : 'border border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:border-[var(--bd-strong)] hover:bg-[var(--bg2)]'

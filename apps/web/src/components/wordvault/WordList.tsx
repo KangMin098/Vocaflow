@@ -44,9 +44,18 @@ export function WordList({
             aria-label="전체 선택 토글"
             aria-checked={isAll}
             role="checkbox"
+            // ⚠️ 실측 18x18 (기준 44px). 보이는 상자는 그대로 두고 **누르는 자리만** 키운다 —
+            //    음수 마진으로 차지하는 자리도 그대로다(WordRow 와 같은 처치).
             className={cn(
-              'h-[18px] w-[18px] rounded-[5px] border-[1.5px]',
+              'h-11 w-11 -m-[13px] shrink-0',
               'flex cursor-pointer items-center justify-center',
+            )}
+          >
+            <span
+              aria-hidden
+              className={cn(
+              'h-[18px] w-[18px] rounded-[5px] border-[1.5px]',
+              'flex items-center justify-center',
               'transition-all duration-fast',
               isAll && 'border-p bg-p',
               isPartial && !isAll && 'border-p bg-bg2',
@@ -63,6 +72,7 @@ export function WordList({
               />
             )}
             {isPartial && !isAll && <span className="block h-[1.5px] w-[8px] rounded-[1px] bg-p" />}
+            </span>
           </button>
           <span>전체 선택</span>
         </div>

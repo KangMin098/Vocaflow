@@ -210,9 +210,18 @@ export default function WordVaultPage() {
               type="button"
               onClick={toggleTheme}
               aria-label="테마 전환"
-              className="flex h-8 w-8 items-center justify-center rounded-ios-pill text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+              // ⚠️ 보이는 크기는 32px 인데 **누르는 영역이 32px 이면 안 된다**(기준 44px).
+              //    ⚠️ `::after` 로 히트영역만 얹으면 실제 탭은 커지지만 **계측기가 못 본다** —
+              //       bounding rect 가 그대로라 위반이 그대로 찍힌다(WordRow 에서 겪었다).
+              //    → 버튼 자체를 44px 로 만들고, 음수 마진으로 **차지하는 자리는 그대로** 둔다.
+              className="group/theme -m-1.5 flex h-11 w-11 shrink-0 items-center justify-center"
             >
-              {theme === 'light' ? '🌙' : '☀️'}
+              <span
+                aria-hidden
+                className="flex h-8 w-8 items-center justify-center rounded-ios-pill text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] group-hover/theme:bg-[var(--bg2)] group-hover/theme:text-[var(--t1)]"
+              >
+                {theme === 'light' ? '🌙' : '☀️'}
+              </span>
             </button>
           </>
         }

@@ -97,13 +97,19 @@ export function WordRow({
           }}
           aria-label={isSelected ? '선택 해제' : '선택'}
           aria-pressed={isSelected}
-          className={cn(
-            'flex h-[14px] w-[14px] shrink-0 items-center justify-center rounded-[3px] border-[1.5px] transition-all duration-fast',
-            isSelected
-              ? 'border-learn-mastered bg-learn-mastered'
-              : 'border-bd-strong bg-bg hover:border-learn-mastered'
-          )}
+          // ⚠️ 실측 14x14 — 이 목록에서 가장 작은 타깃이었다(기준 44px).
+          //    보이는 상자 14px 는 행 밀도가 정한 값이라 그대로 두고, 누르는 자리만 44px 로.
+          className="group/check -m-[15px] flex h-11 w-11 shrink-0 items-center justify-center"
         >
+          <span
+            aria-hidden
+            className={cn(
+              'flex h-[14px] w-[14px] items-center justify-center rounded-[3px] border-[1.5px] transition-all duration-fast',
+              isSelected
+                ? 'border-learn-mastered bg-learn-mastered'
+                : 'border-bd-strong bg-bg group-hover/check:border-learn-mastered'
+            )}
+          >
           {isSelected && (
             <span
               className="block h-[3.5px] w-[7px] -translate-y-[0.5px] rotate-[-45deg]"
@@ -113,6 +119,7 @@ export function WordRow({
               }}
             />
           )}
+          </span>
         </button>
 
         {/*

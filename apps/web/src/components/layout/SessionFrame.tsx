@@ -246,7 +246,7 @@ export function SessionFrame({ children }: { children: ReactNode }) {
                   }}
                   aria-label="다른 학습 세션으로 이동"
                   title="단계 이동"
-                  className="h-9 min-h-[36px] cursor-pointer appearance-none rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-0 pl-3 pr-8 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+                  className="h-11 min-h-[44px] cursor-pointer appearance-none rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-0 pl-3 pr-8 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
                 >
                   {!currentOptionMatch && (
                     <option value="" disabled hidden>
