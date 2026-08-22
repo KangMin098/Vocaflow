@@ -552,7 +552,60 @@ async function layoutMetrics(page: Page) {
           return (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05)
         }
 
-        const out: { text: string; ratio: number; need: number; color: string; bg: string }[] = []
+        /**
+         * ⚠️ **어디인지 말하지 않는 발견은 고칠 수 없는 발견이다** (실측 2026-08-22).
+         *
+         * 이 계측기는 글자와 색만 찍고 있었다. 최대 그룹 16건
+         * (`rgba(26,23,20,0.74) on rgb(112,109,106)`)을 고치려고 코드를 읽어 **세 번 추정했고
+         * 세 번 다 빗나갔다.** 색을 역산해 "`--t3` 를 배경으로 쓴 것" 까지는 좁혔지만
+         * 그게 **어느 요소인지**는 끝내 못 짚었다.
+         *
+         * 그래서 두 가지를 같이 찍는다:
+         *   · `where`  — 글자가 있는 요소의 경로
+         *   · `bgFrom` — **그 배경색을 실제로 칠한 조상** (대개 여기가 고칠 곳이다)
+         * 위반한 것에만 계산한다 — 통과한 요소에는 비용이 0이다.
+         */
+        const desc = (el: HTMLElement): string => {
+          const tag = el.tagName.toLowerCase()
+          const id = el.id ? `#${el.id}` : ''
+          const cls = (el.getAttribute('class') || '')
+            .split(/[ ]+/)
+            .filter(Boolean)
+            .slice(0, 2)
+            .map((c) => `.${c}`)
+            .join('')
+          return `${tag}${id}${cls}`
+        }
+        /** main 까지 올라가며 최대 4단 — 더 길면 읽기가 더 어려워진다. */
+        const pathOf = (el: HTMLElement): string => {
+          const parts: string[] = []
+          let node: HTMLElement | null = el
+          while (node && node !== main && parts.length < 4) {
+            parts.unshift(desc(node))
+            node = node.parentElement
+          }
+          return parts.join(' > ')
+        }
+        /** 이 글자의 배경색을 **칠한** 조상. 투명한 것은 건너뛴다. */
+        const bgPainter = (el: HTMLElement): string => {
+          let node: HTMLElement | null = el
+          while (node) {
+            const c = toRgba(cs2(node).backgroundColor)
+            if (c && c[3] > 0) return pathOf(node)
+            node = node.parentElement
+          }
+          return '(지면)'
+        }
+
+        const out: {
+          text: string
+          ratio: number
+          need: number
+          color: string
+          bg: string
+          where: string
+          bgFrom: string
+        }[] = []
         const main = document.querySelector('main') || document.body
 
         // ⚠️ **비용을 아껴야 한다.** 첫 판이 글자마다 조상을 다시 타고 올라가며
@@ -568,50 +621,75 @@ async function layoutMetrics(page: Page) {
           }
           return s
         }
-        /** null = 환원 불가(그라디언트·이미지). 요소당 한 번만 계산한다. */
+        /**
+         * null = 환원 불가(그라디언트·이미지). 요소당 한 번만 계산한다.
+         *
+         * ⚠️ **캐시가 조상을 오염시켰다 — 없는 위반 16건을 만들어 냈다** (실측 2026-08-22).
+         *
+         * 앞 판은 조상 사슬을 타고 올라가다 불투명 바닥을 만나면, **사슬 전체**에
+         * "맨 아래 요소 기준으로 합성한 한 색" 을 그대로 캐시했다. 사슬에는 반투명 배경을
+         * 가진 자손도 들어 있으므로, 그 자손의 tint 가 **조상의 배경으로 저장**된다.
+         * 다음에 같은 조상 아래 다른 글자가 물어보면 남의 tint 를 뒤집어쓴 색을 돌려받는다.
+         *
+         * 실제로 `/diagnostic/history` 의 카드는 `bg-[var(--bg)]`(#FBFAF6)인데
+         * `rgb(112,109,106)`(= `--t3` 를 지면에 합성한 색)으로 읽혀 **2.66:1 위반 16건**이
+         * 인쇄됐다. 진짜 대비는 7 을 넘는다. 이 하네스가 가장 경계해 온 실패 —
+         * **틀린 숫자를 맞는 숫자처럼 인쇄하는 것** — 을 이 캐시가 저지르고 있었다.
+         *
+         * 위치를 찍게 만들지 않았으면 못 찾았을 것이다. 색만 봤을 땐 세 번 다 화면을 의심했다.
+         *
+         * 고침: 사슬을 **뒤에서 앞으로** 되짚으며 각 요소에 **자기 것부터의 합성**만 저장한다.
+         * 조상은 자손의 tint 를 절대 물려받지 않는다.
+         */
         const bgCache = new Map<HTMLElement, [number, number, number] | null>()
         const bgOf = (el: HTMLElement): [number, number, number] | null => {
           const cached = bgCache.get(el)
           if (cached !== undefined) return cached
 
           const chain: HTMLElement[] = []
+          /** chain[i] 자신이 얹는 반투명 배경(없으면 null) — 사슬과 길이가 같다. */
+          const own: ([number, number, number, number] | null)[] = []
           let node: HTMLElement | null = el
-          let resolved: [number, number, number] | null = null
-          const layers: [number, number, number, number][] = []
+          let base: [number, number, number] | null = null
 
           while (node) {
             const hit = bgCache.get(node)
             if (hit !== undefined) {
-              resolved = hit
+              // 캐시된 값은 "그 요소의 내용 뒤에 보이는 색" 이므로 자손의 바닥으로 옳다.
+              base = hit
               break
             }
-            chain.push(node)
             const s = cs2(node)
             if (s.backgroundImage && s.backgroundImage !== 'none') {
-              resolved = null
+              chain.push(node)
+              own.push(null)
+              base = null
               break
             }
             const c = toRgba(s.backgroundColor)
-            if (c && c[3] > 0) {
-              if (c[3] >= 1) {
-                resolved = [c[0], c[1], c[2]]
-                break
-              }
-              layers.push(c)
+            chain.push(node)
+            if (c && c[3] >= 1) {
+              own.push(null)
+              base = [c[0], c[1], c[2]]
+              break
             }
+            own.push(c && c[3] > 0 ? c : null)
             node = node.parentElement
           }
 
           // 바닥을 못 찾았고 그라디언트도 아니면 페이지 배경으로 본다.
-          if (resolved === null && node === null) {
+          if (base === null && node === null) {
             const bodyBg = toRgba(getComputedStyle(document.body).backgroundColor)
-            resolved = bodyBg && bodyBg[3] >= 1 ? [bodyBg[0], bodyBg[1], bodyBg[2]] : null
+            base = bodyBg && bodyBg[3] >= 1 ? [bodyBg[0], bodyBg[1], bodyBg[2]] : null
           }
-          if (resolved !== null) {
-            for (let i = layers.length - 1; i >= 0; i--) resolved = over(layers[i], resolved)
+
+          let acc: [number, number, number] | null = base
+          for (let k = chain.length - 1; k >= 0; k--) {
+            const layer = own[k]
+            if (acc !== null && layer) acc = over(layer, acc)
+            bgCache.set(chain[k], acc)
           }
-          for (const n of chain) bgCache.set(n, resolved)
-          return resolved
+          return acc
         }
 
         for (const el of Array.from(main.querySelectorAll<HTMLElement>('*'))) {
@@ -651,6 +729,8 @@ async function layoutMetrics(page: Page) {
               need,
               color: cs.color,
               bg: `rgb(${bg.join(',')})`,
+              where: pathOf(el),
+              bgFrom: bgPainter(el),
             })
           }
         }
@@ -807,7 +887,9 @@ test.describe('허브 디자인 캡처', () => {
       for (const c of m.lowContrast) {
         // eslint-disable-next-line no-console
         console.log(
-          `  [대비] ${c.ratio}:1 (필요 ${c.need}:1) "${c.text}" — ${c.color} on ${c.bg}`,
+          `  [대비] ${c.ratio}:1 (필요 ${c.need}:1) "${c.text}" — ${c.color} on ${c.bg}
+           ↳ ${c.where}
+           ↳ 배경을 칠한 곳: ${c.bgFrom}`,
         )
       }
       for (const c of m.overflowCulprits) {
