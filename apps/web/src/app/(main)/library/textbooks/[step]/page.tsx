@@ -303,6 +303,17 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
               <BookOpen size={15} aria-hidden />
               오늘의 학습으로
             </Link>
+            {/* ⚠️ **풀 자리로 가는 유일한 문이다.** 이 링크가 없던 동안 이 화면은 재고만 보여 주고
+                `/hub` 로 돌려보냈고, 그래서 `csat_item_attempts` 가 0행이라 난이도(P)·변별도(D)를
+                낼 수 없었다 — 평가 요소 중 열위 하나가 그것이고, **콘텐츠로는 못 고친다.**
+                순서·삽입만 나온다(생성형은 `DcpPlayer` 가 아직 못 그린다). */}
+            <Link
+              href={`/library/textbooks/${v.step}/practice`}
+              className="group inline-flex min-h-[48px] w-fit items-center gap-2 rounded-ios-pill border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[700] text-[var(--t1)] no-underline motion-safe:transition-all motion-safe:hover:border-[var(--p)] motion-safe:hover:text-[var(--p)] motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+            >
+              <ArrowRight size={15} aria-hidden />
+              문항 풀어 보기
+            </Link>
             {/* 담기는 서가와 **같은 버튼**을 쓴다 — 두 곳에서 다르게 생기면 같은 동작으로 안 읽힌다. */}
             {mine.available && (
               <TextbookPickButton

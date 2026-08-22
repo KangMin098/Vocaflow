@@ -86,6 +86,42 @@ export async function fetchDcpPracticeItems(): Promise<{ active: boolean; items:
   return { active: items.length > 0, items }
 }
 
+/**
+ * 교재 계단(V-Level)의 연습 문항을 가져온다 — **오늘 처방과 다른 경로다.**
+ *
+ * ── 왜 따로 있나 ────────────────────────────────────────────────────
+ * `fetchDcpPracticeItems` 는 오늘 처방을 읽으므로 S3 이상에서만 열린다. 그런데 교재 서가
+ * (`/library/textbooks`)는 학령 사다리를 보여 주면서 **풀 자리가 없었다** — 재고만 보고
+ * `/hub` 로 돌아가는 화면이었다. 그래서 `csat_item_attempts` 가 0행이고,
+ * **난이도(P)·변별도(D)를 못 낸다**(평가 요소 중 열위 하나).
+ *
+ * ⚠️ 문항 테이블은 학습자가 못 읽는다(admin 정책 하나뿐). **열어서도 안 된다** —
+ *   같은 행에 `answer_key` 가 있어서 정책을 열면 브라우저에서 정답이 보인다.
+ *   그래서 `textbook_practice_items` RPC 가 정답을 뺀 열만 내준다.
+ */
+export async function fetchTextbookPracticeItems(
+  vLevel: number,
+  limit = 10,
+): Promise<{ items: DcpItem[]; unavailable: boolean }> {
+  const client = await createClient()
+  const {
+    data: { user },
+  } = await client.auth.getUser()
+  // 로그인하지 않았으면 "문항이 없다" 가 아니라 "못 봤다" 다 — 둘을 구별해서 넘긴다.
+  if (!user) return { items: [], unavailable: true }
+
+  const loose = client as unknown as SupabaseClient
+  const { data, error } = await loose.rpc('textbook_practice_items', {
+    p_v_level: vLevel,
+    p_limit: limit,
+  })
+  // 조회 실패를 빈 목록으로 뭉개지 않는다 — 화면이 "아직 문항이 없어요" 로 거짓말하게 된다.
+  if (error) return { items: [], unavailable: true }
+
+  const items = Array.isArray(data) ? data.map(parseItem).filter((x): x is DcpItem => x !== null) : []
+  return { items, unavailable: false }
+}
+
 /** 서버 answer_key 로 채점(grade_dcp_item). attempt 를 기록하고 attempt_id 반환. */
 export async function gradeDcpItem(
   itemId: string,
