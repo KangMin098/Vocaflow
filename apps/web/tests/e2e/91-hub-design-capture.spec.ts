@@ -274,9 +274,16 @@ async function settle(page: Page) {
     })
     .catch(() => {})
   // 모션 정지 — 진입 트랜지션 중간 프레임이 찍히면 before/after 비교가 흔들린다
-  await page.addStyleTag({
-    content: `*,*::before,*::after{animation-duration:0s!important;animation-delay:0s!important;transition-duration:0s!important;transition-delay:0s!important}`,
-  })
+  // ⚠️ 리다이렉트 화면(`/my`·`/library` 등)에서는 이 호출 도중 내비게이션이 일어나
+  //    "Execution context was destroyed" 로 **스윕 전체가 죽는다**(실측 2026-08-22 —
+  //    라우트를 15→42 로 넓히며 리다이렉트 화면이 들어오자 재현됐다).
+  //    모션 정지는 **찍는 그림을 안정시키는 장식 단계**지 측정이 아니다 — 실패를 삼킨다.
+  //    삼키면 안 되는 것은 측정이지, 측정을 돕는 준비가 아니다.
+  await page
+    .addStyleTag({
+      content: `*,*::before,*::after{animation-duration:0s!important;animation-delay:0s!important;transition-duration:0s!important;transition-delay:0s!important}`,
+    })
+    .catch(() => {})
   await page.waitForTimeout(600)
 }
 
