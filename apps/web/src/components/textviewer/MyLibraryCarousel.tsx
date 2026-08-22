@@ -26,7 +26,8 @@ import {
   type MyLibraryView,
 } from '@/lib/library/tabs'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
-import { ArticleCover } from '@/components/library/shared/ArticleCover'
+import { MediaCover } from '@/components/library/MediaCover'
+import { resolveMediaForm, mediaFormSrLabel } from '@/lib/library/media-form'
 import { workspaceHref } from '@/lib/text-viewer/workspace-href'
 import type { LibraryText } from '@/types/library'
 import type { SubscribedSet } from '@/hooks/useSubscribedSets'
@@ -542,24 +543,31 @@ function ScriptCard({
   isCenter: boolean
   onClick: () => void
 }) {
-  // ⚠️ `coverGradient` 를 반드시 넘긴다. `lib/articles/start-learning.ts` 가 기사를 책과
-  //   **시각적으로 구분하려고** 일부러 시안(#38BDF8→#0E7490)을 심는데, 여기서 null 을 넘기면
-  //   제목 해시 팔레트로 떨어진다 — 그 팔레트는 도서와 **완전히 같은 8색**이라 구분이 사라진다.
-  //   바로 위 `BookCard` 는 제대로 넘기고 있었다.
+  // 매체 형식 판정 — `register==='news'` 가 소스보다 **우선**한다.
+  //   같은 소스가 해설과 단신을 함께 내기 때문이다(VOA 'As It Is' vs 'Words and Their Stories').
+  //   `texts` 에는 출처 컬럼이 없어 `useTexts` 가 ACP 마커(`article:{uuid}`)로 되짚어 넘긴다 —
+  //   안 넘기면 `kind:'text'` 로 떨어져 VOA 강의도 NASA 보도자료도 전부 **대본 표지**가 된다.
+  const form = resolveMediaForm({
+    kind: item.articleSource ? 'article' : 'text',
+    source: item.articleSource,
+    register: item.articleRegister,
+    hasAudio: item.articleHasAudio,
+  })
+
+  // 표지 그림은 `aria-hidden` 이라 **유일한 텍스트 대안이 이 라벨**이다(BBC GEL 패턴).
+  //   이 카드는 버튼의 `aria-label` 이 내부 텍스트를 덮으므로, 별도 span 이 아니라
+  //   라벨 문자열에 직접 잇는다 — `MediaCoverSrLabel` 을 넣어도 읽히지 않는다.
+  const srLabel = `${item.title} ${mediaFormSrLabel(form, {
+    readingMinutes: item.articleReadingMinutes ?? null,
+  })}`
+
   return (
-    <CardWrap onClick={onClick} ariaLabel={item.title}>
-      {/* 기사는 **책 표지도 책 셸도 쓰지 않는다** — 가로 4:3 평면 + 신문 네임플레이트.
-          학습자가 카드만 보고 기사인지 책인지 구분할 수 있어야 한다. */}
-      <ArticleShell
-        isCenter={isCenter}
-        coverSlot={
-          <ArticleCover
-            title={item.title}
-            source={item.articleSource}
-            level={item.cefrLevel}
-          />
-        }
-      >
+    <CardWrap onClick={onClick} ariaLabel={srLabel}>
+      {/* 기사는 **책 표지도 책 셸도 쓰지 않는다** — 매체 형식 표지를 가로 4:3 평면 셸에 담는다.
+          편집 관습에서 세로는 "이번 호(號)", 가로는 "기사"다(Economist 16:9 · NY 4:3 ·
+          Monocle 4:3 토큰 강제 · 롱블랙·뉴닉·폴인 4:3). 실측 2026-08-17. */}
+      <ArticleShell isCenter={isCenter}>
+        <MediaCover form={form} title={item.title} imageUrl={item.articleCoverUrl ?? null} />
         {item.progressPercent > 0 && (
           <span
             aria-hidden
@@ -572,6 +580,7 @@ function ScriptCard({
     </CardWrap>
   )
 }
+
 
 // ─── Vocab Card ──────────────────────────────────────────
 function VocabCard({
@@ -694,11 +703,9 @@ function CoverShell({
 function ArticleShell({
   isCenter,
   children,
-  coverSlot,
 }: {
   isCenter: boolean
-  children?: React.ReactNode
-  coverSlot: React.ReactNode
+  children: React.ReactNode
 }) {
   return (
     <div
@@ -708,7 +715,6 @@ function ArticleShell({
           : 'shadow-[0_1px_2px_rgba(12,14,20,0.10),0_8px_18px_-8px_rgba(12,14,20,0.22)]'
       }`}
     >
-      {coverSlot}
       {children}
     </div>
   )

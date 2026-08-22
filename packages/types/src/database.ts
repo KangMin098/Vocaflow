@@ -1794,6 +1794,9 @@ export type Database = {
           cefr_level: string | null
           content: string
           content_hash: string | null
+          cover_image_meta: Json | null
+          cover_image_url: string | null
+          cover_verified_at: string | null
           copyright_safe_in_kr: boolean
           created_at: string
           display_only: boolean
@@ -1830,6 +1833,9 @@ export type Database = {
           cefr_level?: string | null
           content: string
           content_hash?: string | null
+          cover_image_meta?: Json | null
+          cover_image_url?: string | null
+          cover_verified_at?: string | null
           copyright_safe_in_kr?: boolean
           created_at?: string
           display_only?: boolean
@@ -1866,6 +1872,9 @@ export type Database = {
           cefr_level?: string | null
           content?: string
           content_hash?: string | null
+          cover_image_meta?: Json | null
+          cover_image_url?: string | null
+          cover_verified_at?: string | null
           copyright_safe_in_kr?: boolean
           created_at?: string
           display_only?: boolean

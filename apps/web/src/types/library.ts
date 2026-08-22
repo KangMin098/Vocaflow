@@ -63,11 +63,23 @@ export interface LibraryText {
   coverImageUrl?: string | null
   /** 도서 단위 카드일 때 — 그림책 여부 (i+1 임계 삽화 보정) */
   isPictureBook?: boolean
-  /** ACP 기사에서 시작한 글일 때 — `library_articles.source` 키 (voa · nasa · the_conversation …).
-   *  표지를 **책이 아니라 기사**로 그리는 근거다. 이 값이 없으면 출처를 알 수 없어
-   *  `ArticleCover` 가 회색 폴백으로 떨어진다. `texts.source_url = 'article:{uuid}'` 마커로 잇는다. */
+  /**
+   * ACP 기사에서 시작한 글 — 원 기사의 **매체 판정 입력**.
+   *
+   * 왜 필요한가: `texts` 에는 출처 컬럼이 없다. 그대로 두면 `resolveMediaForm({kind:'text'})`
+   * 이 전부 **대본(script) 표지**로 떨어뜨린다 — VOA 어학 강의도, NASA 보도자료도, 신문 단신도.
+   * `texts.source_url = 'article:{uuid}'` 마커로 원 기사를 되짚어 아래 값을 채운다.
+   */
   articleSource?: string | null
-  /** ACP 기사에서 시작한 글일 때 — 원문 읽기 시간(분). 표지 데이트라인에 쓴다. */
+  /** `library_articles.register` — 'news' 면 소스보다 **우선**해 신문 조판으로 읽힌다
+   *  (같은 소스가 해설과 단신을 함께 낸다 — VOA 의 'As It Is' vs 'Words and Their Stories'). */
+  articleRegister?: string | null
+  /** 원문 음성 유무 — 듣기 자산이 있으면 읽는 법이 달라져 강의 형식으로 본다. */
+  articleHasAudio?: boolean
+  /** 원 기사의 실사진 커버. **HEAD 검증(`cover_verified_at`)을 통과한 것만** 채운다 —
+   *  죽은 URL 이 검은 박스로 나가던 사고(2026-08-15)의 재발 방지. */
+  articleCoverUrl?: string | null
+  /** 원문 읽기 시간(분) — 스크린리더 라벨(`mediaFormSrLabel`)에 넘긴다. */
   articleReadingMinutes?: number | null
 }
 

@@ -37,9 +37,17 @@ export function articleIdFromMarker(sourceUrl: string | null | undefined): strin
 }
 
 /** 기사 id → 표지에 필요한 최소 메타. `fetchTexts` 가 한 번에 채운다. */
-type ArticleCoverMeta = { source: string | null; readingMinutes: number | null }
+type ArticleCoverMeta = {
+  source: string | null
+  register: string | null
+  hasAudio: boolean
+  /** HEAD 검증을 통과한 URL 만 담는다 — 검증 전 URL 은 null 로 둔다. */
+  coverUrl: string | null
+  readingMinutes: number | null
+}
 
 function mapDbToLibraryText(row: TextsRow, articleMeta?: Map<string, ArticleCoverMeta>): LibraryText {
+  const art = articleMeta?.get(articleIdFromMarker(row.source_url) ?? '')
   const content = row.content ?? ''
   const wordCount = content.split(/\s+/).filter(Boolean).length
   const totalPages = Math.max(1, Math.ceil(wordCount / 250))
@@ -66,9 +74,11 @@ function mapDbToLibraryText(row: TextsRow, articleMeta?: Map<string, ArticleCove
     lastStudiedAt: row.last_opened ? new Date(row.last_opened) : null,
     isBookmarked: row.is_bookmarked ?? false,
     bookId: null,
-    articleSource: articleMeta?.get(articleIdFromMarker(row.source_url) ?? '')?.source ?? null,
-    articleReadingMinutes:
-      articleMeta?.get(articleIdFromMarker(row.source_url) ?? '')?.readingMinutes ?? null,
+    articleSource: art?.source ?? null,
+    articleRegister: art?.register ?? null,
+    articleHasAudio: art?.hasAudio ?? false,
+    articleCoverUrl: art?.coverUrl ?? null,
+    articleReadingMinutes: art?.readingMinutes ?? null,
   }
 }
 
@@ -347,14 +357,27 @@ async function fetchTexts(userId: string): Promise<LibraryText[]> {
   if (articleIds.length) {
     const { data: arts } = await supabase
       .from('library_articles')
-      .select('id, source, reading_minutes')
+      .select('id, source, register, audio_url, reading_minutes, cover_image_url, cover_verified_at')
       .in('id', [...new Set(articleIds)])
     for (const a of (arts ?? []) as Array<{
       id: string
       source: string | null
+      register: string | null
+      audio_url: string | null
       reading_minutes: number | null
+      cover_image_url: string | null
+      cover_verified_at: string | null
     }>) {
-      articleMeta.set(a.id, { source: a.source, readingMinutes: a.reading_minutes })
+      articleMeta.set(a.id, {
+        source: a.source,
+        register: a.register,
+        hasAudio: !!a.audio_url?.trim(),
+        // ⚠️ **검증 통과분만** 넘긴다. URL 이 있어도 `cover_verified_at` 이 비어 있으면
+        //   죽은 링크일 수 있고, 그러면 디자인 표지보다 나쁜 **검은 박스**가 된다
+        //   (2026-08-15 실측: Standard Ebooks 시드 1,450건 중 1,369건이 404 였다).
+        coverUrl: a.cover_verified_at ? a.cover_image_url : null,
+        readingMinutes: a.reading_minutes,
+      })
     }
   }
 
