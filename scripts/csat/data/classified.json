@@ -1,236 +1,286 @@
 {
- "total": 630,
- "assigned": 574,
- "unassigned": 48,
- "multi": 8,
+ "scope": {
+  "primary": "13개년(2014=B형)",
+  "out_of_scope": [
+   "2014A"
+  ]
+ },
+ "scoped": {
+  "n": 585,
+  "ok": 585,
+  "un": 0,
+  "mu": 0
+ },
+ "all": {
+  "n": 630,
+  "ok": 630,
+  "un": 0,
+  "mu": 0
+ },
  "types": [
   {
    "id": "L-PURPOSE",
    "name": "담화 목적",
    "sec": "듣기",
-   "match": "/하는 말의 목적으로/"
+   "match": "/하는말의목적으로/"
   },
   {
    "id": "L-OPINION",
    "name": "의견",
    "sec": "듣기",
-   "match": "/의견으로 가장 적절한/"
+   "match": "/의견으로가장적절한/"
   },
   {
    "id": "L-MAIN",
    "name": "요지",
    "sec": "듣기",
-   "match": "/하는 말의 요지로/"
+   "match": "/하는말의요지로/"
+  },
+  {
+   "id": "L-TOPIC",
+   "name": "담화 주제(단독)",
+   "sec": "듣기",
+   "match": "/하는말의주제로가장적절한것을고르시오/"
   },
   {
    "id": "L-RELATION",
    "name": "관계",
    "sec": "듣기",
-   "match": "/두 사람의 관계를/"
+   "match": "/두사람의관계를/"
   },
   {
    "id": "L-PICTURE",
-   "name": "그림 불일치",
+   "name": "그림",
    "sec": "듣기",
-   "match": "/그림에서 대화의 내용과 일치하지 않는/"
+   "match": "/그림에서(대화의내용과일치하지않는|.*위치를)/"
   },
   {
    "id": "L-TODO",
    "name": "할 일",
    "sec": "듣기",
-   "match": "/할 일로 가장 적절한/"
+   "match": "/할일로가장적절한/"
   },
   {
    "id": "L-FAVOR",
    "name": "부탁한 일",
    "sec": "듣기",
-   "match": "/부탁한 일로 가장 적절한/"
+   "match": "/부탁한일로가장적절한/"
   },
   {
    "id": "L-MONEY",
    "name": "지불 금액",
    "sec": "듣기",
-   "match": "/지불할 금액을/"
+   "match": "/지불할금액을/"
   },
   {
    "id": "L-REASON",
    "name": "이유",
    "sec": "듣기",
-   "match": "/(이유로 가장 적절한|없는 이유를)/"
+   "match": "/이유(로가장적절한|를고르시오)/"
   },
   {
    "id": "L-NOTMENTION",
    "name": "언급되지 않은 것",
    "sec": "듣기",
-   "match": "/언급되지 않은 것을 고르시오/"
+   "match": "/언급(되지|하지)않은것을고르시오/"
+  },
+  {
+   "id": "L-MENTIONED",
+   "name": "언급한 것 고르기",
+   "sec": "듣기",
+   "match": "/언급한[^,]*(을|를)고르시오/"
   },
   {
    "id": "L-TABLE",
    "name": "표 보고 선택",
    "sec": "듣기",
-   "match": "/표를 보면서 대화를 듣고/"
+   "match": "/표를보면서대화를듣고/"
   },
   {
    "id": "L-ANNOUNCE",
    "name": "담화 내용 불일치",
    "sec": "듣기",
-   "match": "/다음 내용을 듣고, 일치하지 않는/"
+   "match": "/다음내용을듣고,일치하지않는/"
   },
   {
    "id": "L-RESPONSE",
    "name": "짧은 응답",
    "sec": "듣기",
-   "match": "/마지막 말에 대한 .*응답으로/"
+   "match": "/마지막말에대한.*응답으로/"
   },
   {
    "id": "L-SITUATION",
    "name": "상황 후 할 말",
    "sec": "듣기",
-   "match": "/상황 설명을 듣고/"
+   "match": "/상황설명을듣고/"
   },
   {
    "id": "L-SET-TOPIC",
    "name": "세트 주제",
    "sec": "듣기",
-   "match": "/하는 말의 주제로 가장 적절한 것은\\?/"
+   "match": "/하는말의주제로가장적절한것은\\?/"
   },
   {
    "id": "L-SET-NOT",
    "name": "세트 불포함",
    "sec": "듣기",
-   "match": "/^언급된 .*아닌 것은\\?/"
+   "match": "/^언급된.*아닌것은\\?/"
   },
   {
    "id": "R-PURPOSE",
    "name": "글의 목적",
    "sec": "독해",
-   "match": "/다음 글의 목적으로/"
+   "match": "/다음글의목적으로/"
   },
   {
    "id": "R-MOOD",
    "name": "심경·분위기",
    "sec": "독해",
-   "match": "/(심경|분위기)(의 변화)?로 가장 적절한/"
+   "match": "/(심경|분위기)(의)?(변화)?(으)?로가장적절한/"
   },
   {
    "id": "R-CLAIM",
    "name": "필자 주장",
    "sec": "독해",
-   "match": "/필자가 주장하는 바로/"
+   "match": "/필자가주장하는바로/"
   },
   {
    "id": "R-IMPLY",
    "name": "함축 의미",
    "sec": "독해",
-   "match": "/밑줄 친 .*(의미하는 바로|뜻하는 바로)/"
+   "match": "/밑줄친.*(의미하는바로|뜻하는바로)/"
   },
   {
    "id": "R-GIST",
    "name": "요지",
    "sec": "독해",
-   "match": "/다음 글의 요지로/"
+   "match": "/다음글의요지로/"
   },
   {
    "id": "R-TOPIC",
    "name": "주제",
    "sec": "독해",
-   "match": "/다음 글의 주제로/"
+   "match": "/다음글의주제로/"
   },
   {
    "id": "R-TITLE",
    "name": "제목",
    "sec": "독해",
-   "match": "/다음 글의 제목으로/"
+   "match": "/다음글의제목으로/"
   },
   {
    "id": "R-CHART",
    "name": "도표",
    "sec": "독해",
-   "match": "/다음 도표의 내용과/"
-  },
-  {
-   "id": "R-FACT",
-   "name": "내용 일치(글)",
-   "sec": "독해",
-   "match": "/관한 다음 글의 내용과/"
+   "match": "/다음(도표|표)의내용과/"
   },
   {
    "id": "R-NOTICE",
    "name": "안내문 일치",
    "sec": "독해",
-   "match": "/관한 다음 (안내문|글\\(안내문\\))의 내용과/"
+   "match": "/(안내문의내용과|Notice의내용과)/"
+  },
+  {
+   "id": "R-FACT",
+   "name": "내용 일치(글)",
+   "sec": "독해",
+   "match": "/관한다음글의내용과/"
   },
   {
    "id": "R-GRAMMAR",
    "name": "어법",
    "sec": "독해",
-   "match": "/어법상 틀린/"
+   "match": "/어법상틀린/"
   },
   {
    "id": "R-VOCAB",
    "name": "어휘(문맥)",
    "sec": "독해",
-   "match": "/(문맥상 낱말의 쓰임이 적절하지 않은|네모 안에서 문맥에 맞는 낱말)/"
+   "match": "/^(?!.*밑줄친\\(a\\)).*(문맥상낱말의쓰임이적절하지않은|네모안에서문맥에맞는낱말)/"
   },
   {
    "id": "R-BLANK",
    "name": "빈칸 추론",
    "sec": "독해",
-   "match": "/빈칸에 들어갈 (말|것)로 가장 적절한/"
+   "match": "/^(?!.*요약)(?!.*(윗글|위글)의빈칸).*빈칸에들어갈(말|것)로가장적절한/"
+  },
+  {
+   "id": "R-REFER",
+   "name": "지칭 추론(단문·폐지)",
+   "sec": "독해",
+   "match": "/^(?!.*밑줄친\\(a\\)).*가리키는대상이나머지넷과다른/"
+  },
+  {
+   "id": "R-BLANK2",
+   "name": "빈칸 추론(2개·폐지)",
+   "sec": "독해",
+   "match": "/^(?!.*요약)(?!.*윗글)(?!.*위글).*빈칸\\(A\\),?\\(B\\)에들어갈말로/"
   },
   {
    "id": "R-IRRELEVANT",
    "name": "무관한 문장",
    "sec": "독해",
-   "match": "/전체 흐름과 관계 없는 문장/"
+   "match": "/전체흐름과관계없는문장/"
   },
   {
    "id": "R-ORDER",
    "name": "글의 순서",
    "sec": "독해",
-   "match": "/이어질 글의 순서로/"
+   "match": "/이어질글의순서로/"
   },
   {
    "id": "R-INSERT",
    "name": "문장 삽입",
    "sec": "독해",
-   "match": "/주어진 문장이 들어가기에/"
+   "match": "/주어진문장이들어가기에/"
   },
   {
    "id": "R-SUMMARY",
    "name": "요약문 완성",
    "sec": "독해",
-   "match": "/한 문장으로 요약하고자/"
+   "match": "/한문장으로요약하고자/"
   },
   {
    "id": "X-TITLE",
    "name": "장문 제목",
    "sec": "장문",
-   "match": "/윗글의 제목으로/"
+   "match": "/(윗글|위글)의제목으로/"
   },
   {
    "id": "X-VOCAB",
    "name": "장문 어휘",
    "sec": "장문",
-   "match": "/밑줄 친 \\(a\\).*낱말의 쓰임이 적절하지 않은/"
+   "match": "/밑줄친\\(a\\).*낱말의쓰임이적절하지않은/"
+  },
+  {
+   "id": "X-BLANK2",
+   "name": "장문 빈칸(2개)",
+   "sec": "장문",
+   "match": "/(윗글|위글)의빈칸\\(A\\),?\\(B\\)에들어갈말로/"
   },
   {
    "id": "X-ORDER",
    "name": "장문 순서",
    "sec": "장문",
-   "match": "/주어진 글 \\(A\\)에 이어질 내용을 순서에 맞게/"
+   "match": "/주어진글\\(A\\)에이어질내용을순서에맞게/"
   },
   {
    "id": "X-REFER",
    "name": "장문 지칭",
    "sec": "장문",
-   "match": "/가리키는 대상이 나머지 넷과 다른/"
+   "match": "/밑줄친\\(a\\).*가리키는대상이나머지넷과다른/"
+  },
+  {
+   "id": "X-BLANK",
+   "name": "장문 빈칸(1개·폐지)",
+   "sec": "장문",
+   "match": "/(윗글|위글)의빈칸에들어갈(말|것)로가장적절한/"
   },
   {
    "id": "X-FACT",
    "name": "장문 내용 일치",
    "sec": "장문",
-   "match": "/윗글에 관한 내용으로/"
+   "match": "/(윗글|위글)(에관한|의).*(내용과일치하지않는|내용으로적절하지않은)/"
   }
  ],
  "rows": [
@@ -243,7 +293,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2014B",
@@ -254,7 +307,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2014B",
@@ -265,7 +321,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2014B",
@@ -276,7 +335,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2014B",
@@ -286,8 +348,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-TOPIC"
+   ]
   },
   {
    "exam": "2014B",
@@ -297,8 +362,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-TOPIC"
+   ]
   },
   {
    "exam": "2014B",
@@ -309,7 +377,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2014B",
@@ -320,7 +391,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2014B",
@@ -331,7 +405,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RELATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
   },
   {
    "exam": "2014B",
@@ -342,7 +419,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TODO",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
   },
   {
    "exam": "2014B",
@@ -353,7 +433,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-FAVOR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-FAVOR"
+   ]
   },
   {
    "exam": "2014B",
@@ -363,8 +446,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2014B",
@@ -374,8 +460,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2014B",
@@ -386,7 +475,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2014B",
@@ -397,7 +489,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2014B",
@@ -408,7 +503,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2014B",
@@ -419,7 +517,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2014B",
@@ -430,7 +531,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2014B",
@@ -441,7 +545,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2014B",
@@ -452,7 +559,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2014B",
@@ -463,7 +573,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2014B",
@@ -474,7 +587,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2014B",
@@ -485,7 +601,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2014B",
@@ -496,7 +615,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2014B",
@@ -507,7 +629,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2014B",
@@ -517,8 +642,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": "X-REFER",
-   "hit_count": 1
+   "type": "R-REFER",
+   "hit_count": 1,
+   "hits": [
+    "R-REFER"
+   ]
   },
   {
    "exam": "2014B",
@@ -529,7 +657,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2014B",
@@ -540,7 +671,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2014B",
@@ -551,7 +685,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2014B",
@@ -562,7 +699,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2014B",
@@ -573,7 +713,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2014B",
@@ -584,7 +727,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2014B",
@@ -595,7 +741,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2014B",
@@ -606,7 +755,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2014B",
@@ -617,7 +769,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2014B",
@@ -627,8 +782,11 @@
    "section": "독해",
    "from_block": true,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-BLANK2",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK2"
+   ]
   },
   {
    "exam": "2014B",
@@ -638,8 +796,11 @@
    "section": "독해",
    "from_block": true,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-BLANK2",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK2"
+   ]
   },
   {
    "exam": "2014B",
@@ -650,7 +811,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2014B",
@@ -661,7 +825,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2014B",
@@ -672,7 +839,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2014B",
@@ -682,8 +852,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2014B",
@@ -693,8 +866,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": "R-BLANK",
-   "hit_count": 1
+   "type": "X-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "X-BLANK"
+   ]
   },
   {
    "exam": "2014B",
@@ -705,7 +881,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2014B",
@@ -716,7 +895,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2014B",
@@ -726,8 +908,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2014A",
@@ -738,7 +923,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2014A",
@@ -749,7 +937,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2014A",
@@ -760,7 +951,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2014A",
@@ -770,8 +964,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-PICTURE",
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2014A",
@@ -782,7 +979,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2014A",
@@ -792,8 +992,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": true,
-   "type": null,
-   "hit_count": 0
+   "type": "L-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-TOPIC"
+   ]
   },
   {
    "exam": "2014A",
@@ -803,8 +1006,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": true,
-   "type": null,
-   "hit_count": 0
+   "type": "L-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-TOPIC"
+   ]
   },
   {
    "exam": "2014A",
@@ -815,7 +1021,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2014A",
@@ -826,7 +1035,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2014A",
@@ -837,7 +1049,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RELATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
   },
   {
    "exam": "2014A",
@@ -848,7 +1063,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TODO",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
   },
   {
    "exam": "2014A",
@@ -859,7 +1077,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-FAVOR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-FAVOR"
+   ]
   },
   {
    "exam": "2014A",
@@ -869,8 +1090,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-MENTIONED",
+   "hit_count": 1,
+   "hits": [
+    "L-MENTIONED"
+   ]
   },
   {
    "exam": "2014A",
@@ -880,8 +1104,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2014A",
@@ -892,7 +1119,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2014A",
@@ -903,7 +1133,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2014A",
@@ -914,7 +1147,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2014A",
@@ -925,7 +1161,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2014A",
@@ -936,7 +1175,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2014A",
@@ -947,7 +1189,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2014A",
@@ -958,7 +1203,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2014A",
@@ -969,7 +1217,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2014A",
@@ -980,7 +1231,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
   },
   {
    "exam": "2014A",
@@ -991,7 +1245,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2014A",
@@ -1002,7 +1259,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2014A",
@@ -1013,7 +1273,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2014A",
@@ -1024,7 +1287,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2014A",
@@ -1035,7 +1301,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2014A",
@@ -1046,7 +1315,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2014A",
@@ -1057,7 +1329,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2014A",
@@ -1068,7 +1343,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2014A",
@@ -1079,7 +1357,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2014A",
@@ -1090,7 +1371,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2014A",
@@ -1101,7 +1385,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2014A",
@@ -1112,7 +1399,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2014A",
@@ -1122,8 +1412,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-BLANK2",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK2"
+   ]
   },
   {
    "exam": "2014A",
@@ -1134,7 +1427,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2014A",
@@ -1145,7 +1441,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2014A",
@@ -1156,7 +1455,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2014A",
@@ -1166,8 +1468,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2014A",
@@ -1177,8 +1482,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2014A",
@@ -1188,8 +1496,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": "R-BLANK",
-   "hit_count": 1
+   "type": "X-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "X-BLANK"
+   ]
   },
   {
    "exam": "2014A",
@@ -1200,7 +1511,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2014A",
@@ -1211,7 +1525,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2014A",
@@ -1221,8 +1538,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2015",
@@ -1233,7 +1553,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2015",
@@ -1244,7 +1567,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2015",
@@ -1255,7 +1581,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2015",
@@ -1265,8 +1594,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-TOPIC",
+   "hit_count": 1,
+   "hits": [
+    "L-TOPIC"
+   ]
   },
   {
    "exam": "2015",
@@ -1277,7 +1609,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RELATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
   },
   {
    "exam": "2015",
@@ -1288,7 +1623,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2015",
@@ -1299,7 +1637,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-FAVOR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-FAVOR"
+   ]
   },
   {
    "exam": "2015",
@@ -1310,7 +1651,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-REASON",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2015",
@@ -1321,7 +1665,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2015",
@@ -1331,8 +1678,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2015",
@@ -1343,7 +1693,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2015",
@@ -1354,7 +1707,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2015",
@@ -1365,7 +1721,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2015",
@@ -1376,7 +1735,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2015",
@@ -1387,7 +1749,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2015",
@@ -1398,7 +1763,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2015",
@@ -1409,7 +1777,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2015",
@@ -1420,7 +1791,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2015",
@@ -1430,8 +1804,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2015",
@@ -1442,7 +1819,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2015",
@@ -1453,7 +1833,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2015",
@@ -1464,7 +1847,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2015",
@@ -1475,7 +1861,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2015",
@@ -1486,7 +1875,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2015",
@@ -1497,7 +1889,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2015",
@@ -1508,7 +1903,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2015",
@@ -1519,7 +1917,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2015",
@@ -1530,7 +1931,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2015",
@@ -1540,8 +1944,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": "X-REFER",
-   "hit_count": 1
+   "type": "R-REFER",
+   "hit_count": 1,
+   "hits": [
+    "R-REFER"
+   ]
   },
   {
    "exam": "2015",
@@ -1552,7 +1959,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2015",
@@ -1563,7 +1973,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2015",
@@ -1574,7 +1987,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2015",
@@ -1585,7 +2001,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2015",
@@ -1595,8 +2014,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-BLANK2",
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK2"
+   ]
   },
   {
    "exam": "2015",
@@ -1607,7 +2029,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2015",
@@ -1618,7 +2043,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2015",
@@ -1629,7 +2057,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2015",
@@ -1640,7 +2071,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2015",
@@ -1651,7 +2085,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2015",
@@ -1662,7 +2099,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2015",
@@ -1672,8 +2112,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "X-TITLE",
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2015",
@@ -1683,8 +2126,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": "R-BLANK",
-   "hit_count": 1
+   "type": "X-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "X-BLANK"
+   ]
   },
   {
    "exam": "2015",
@@ -1695,7 +2141,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2015",
@@ -1706,7 +2155,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2015",
@@ -1716,8 +2168,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2016",
@@ -1728,7 +2183,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2016",
@@ -1739,7 +2197,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2016",
@@ -1750,7 +2211,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2016",
@@ -1761,7 +2225,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2016",
@@ -1772,7 +2239,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RELATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
   },
   {
    "exam": "2016",
@@ -1783,7 +2253,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2016",
@@ -1794,7 +2267,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TODO",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
   },
   {
    "exam": "2016",
@@ -1805,7 +2281,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-REASON",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2016",
@@ -1816,7 +2295,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2016",
@@ -1826,8 +2308,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-NOTMENTION",
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2016",
@@ -1838,7 +2323,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2016",
@@ -1849,7 +2337,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2016",
@@ -1860,7 +2351,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2016",
@@ -1871,7 +2365,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2016",
@@ -1882,7 +2379,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2016",
@@ -1893,7 +2393,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2016",
@@ -1904,7 +2407,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2016",
@@ -1915,7 +2421,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
   },
   {
    "exam": "2016",
@@ -1925,8 +2434,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2016",
@@ -1937,7 +2449,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CLAIM",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
   },
   {
    "exam": "2016",
@@ -1948,7 +2463,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2016",
@@ -1959,7 +2477,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2016",
@@ -1970,7 +2491,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2016",
@@ -1981,7 +2505,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2016",
@@ -1992,7 +2519,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2016",
@@ -2003,7 +2533,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2016",
@@ -2014,7 +2547,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2016",
@@ -2025,7 +2561,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2016",
@@ -2036,7 +2575,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2016",
@@ -2046,8 +2588,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": "X-REFER",
-   "hit_count": 1
+   "type": "R-REFER",
+   "hit_count": 1,
+   "hits": [
+    "R-REFER"
+   ]
   },
   {
    "exam": "2016",
@@ -2058,7 +2603,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2016",
@@ -2069,7 +2617,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2016",
@@ -2080,7 +2631,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2016",
@@ -2091,7 +2645,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2016",
@@ -2102,7 +2659,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2016",
@@ -2113,7 +2673,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2016",
@@ -2124,7 +2687,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2016",
@@ -2135,7 +2701,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2016",
@@ -2146,7 +2715,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2016",
@@ -2157,7 +2729,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2016",
@@ -2168,7 +2743,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2016",
@@ -2178,8 +2756,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": "R-BLANK",
-   "hit_count": 1
+   "type": "X-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "X-BLANK"
+   ]
   },
   {
    "exam": "2016",
@@ -2190,7 +2771,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2016",
@@ -2201,7 +2785,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2016",
@@ -2211,8 +2798,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2017",
@@ -2223,7 +2813,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2017",
@@ -2234,7 +2827,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2017",
@@ -2245,7 +2841,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2017",
@@ -2256,7 +2855,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2017",
@@ -2267,7 +2869,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RELATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
   },
   {
    "exam": "2017",
@@ -2278,7 +2883,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2017",
@@ -2289,7 +2897,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TODO",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
   },
   {
    "exam": "2017",
@@ -2300,7 +2911,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-REASON",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2017",
@@ -2311,7 +2925,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2017",
@@ -2322,7 +2939,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-NOTMENTION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2017",
@@ -2333,7 +2953,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2017",
@@ -2344,7 +2967,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2017",
@@ -2355,7 +2981,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2017",
@@ -2366,7 +2995,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2017",
@@ -2377,7 +3009,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2017",
@@ -2388,7 +3023,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2017",
@@ -2399,7 +3037,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2017",
@@ -2410,7 +3051,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
   },
   {
    "exam": "2017",
@@ -2420,8 +3064,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2017",
@@ -2432,7 +3079,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2017",
@@ -2443,7 +3093,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2017",
@@ -2454,7 +3107,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2017",
@@ -2465,7 +3121,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2017",
@@ -2476,7 +3135,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2017",
@@ -2487,7 +3149,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2017",
@@ -2498,7 +3163,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2017",
@@ -2509,7 +3177,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2017",
@@ -2520,7 +3191,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2017",
@@ -2531,7 +3205,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2017",
@@ -2541,8 +3218,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": "X-REFER",
-   "hit_count": 1
+   "type": "R-REFER",
+   "hit_count": 1,
+   "hits": [
+    "R-REFER"
+   ]
   },
   {
    "exam": "2017",
@@ -2553,7 +3233,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2017",
@@ -2564,7 +3247,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2017",
@@ -2575,7 +3261,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2017",
@@ -2586,7 +3275,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2017",
@@ -2597,7 +3289,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2017",
@@ -2608,7 +3303,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2017",
@@ -2619,7 +3317,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2017",
@@ -2630,7 +3331,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2017",
@@ -2641,7 +3345,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2017",
@@ -2652,7 +3359,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2017",
@@ -2663,7 +3373,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2017",
@@ -2673,8 +3386,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "X-BLANK2",
+   "hit_count": 1,
+   "hits": [
+    "X-BLANK2"
+   ]
   },
   {
    "exam": "2017",
@@ -2685,7 +3401,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2017",
@@ -2696,7 +3415,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2017",
@@ -2706,8 +3428,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "X-FACT",
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2018",
@@ -2718,7 +3443,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2018",
@@ -2729,7 +3457,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2018",
@@ -2740,7 +3471,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2018",
@@ -2751,7 +3485,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2018",
@@ -2762,7 +3499,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RELATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
   },
   {
    "exam": "2018",
@@ -2773,7 +3513,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2018",
@@ -2784,7 +3527,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TODO",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
   },
   {
    "exam": "2018",
@@ -2794,8 +3540,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2018",
@@ -2806,7 +3555,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2018",
@@ -2817,7 +3569,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-NOTMENTION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2018",
@@ -2828,7 +3583,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2018",
@@ -2839,7 +3597,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2018",
@@ -2850,7 +3611,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2018",
@@ -2861,7 +3625,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2018",
@@ -2872,7 +3639,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2018",
@@ -2883,7 +3653,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2018",
@@ -2894,7 +3667,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2018",
@@ -2905,7 +3681,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
   },
   {
    "exam": "2018",
@@ -2915,8 +3694,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2018",
@@ -2927,7 +3709,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CLAIM",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
   },
   {
    "exam": "2018",
@@ -2938,7 +3723,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2018",
@@ -2949,7 +3737,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2018",
@@ -2960,7 +3751,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2018",
@@ -2971,7 +3765,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2018",
@@ -2982,7 +3779,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2018",
@@ -2993,7 +3793,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2018",
@@ -3004,7 +3807,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2018",
@@ -3015,7 +3821,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2018",
@@ -3026,7 +3835,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2018",
@@ -3036,8 +3848,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": "X-REFER",
-   "hit_count": 1
+   "type": "R-REFER",
+   "hit_count": 1,
+   "hits": [
+    "R-REFER"
+   ]
   },
   {
    "exam": "2018",
@@ -3048,7 +3863,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2018",
@@ -3059,7 +3877,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2018",
@@ -3070,7 +3891,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2018",
@@ -3081,7 +3905,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2018",
@@ -3092,7 +3919,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2018",
@@ -3103,7 +3933,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2018",
@@ -3114,7 +3947,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2018",
@@ -3125,7 +3961,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2018",
@@ -3136,7 +3975,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2018",
@@ -3147,7 +3989,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2018",
@@ -3158,7 +4003,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2018",
@@ -3168,8 +4016,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": "R-BLANK",
-   "hit_count": 1
+   "type": "X-BLANK",
+   "hit_count": 1,
+   "hits": [
+    "X-BLANK"
+   ]
   },
   {
    "exam": "2018",
@@ -3180,7 +4031,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2018",
@@ -3191,7 +4045,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2018",
@@ -3202,7 +4059,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2019",
@@ -3213,7 +4073,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2019",
@@ -3224,7 +4087,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2019",
@@ -3235,7 +4101,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2019",
@@ -3246,7 +4115,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2019",
@@ -3257,7 +4129,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RELATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
   },
   {
    "exam": "2019",
@@ -3268,7 +4143,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2019",
@@ -3279,7 +4157,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-FAVOR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-FAVOR"
+   ]
   },
   {
    "exam": "2019",
@@ -3290,7 +4171,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-REASON",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2019",
@@ -3301,7 +4185,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2019",
@@ -3312,7 +4199,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-NOTMENTION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2019",
@@ -3323,7 +4213,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2019",
@@ -3334,7 +4227,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2019",
@@ -3345,7 +4241,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2019",
@@ -3356,7 +4255,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2019",
@@ -3367,7 +4269,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2019",
@@ -3378,7 +4283,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2019",
@@ -3389,7 +4297,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2019",
@@ -3400,7 +4311,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
   },
   {
    "exam": "2019",
@@ -3410,8 +4324,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2019",
@@ -3422,7 +4339,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CLAIM",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
   },
   {
    "exam": "2019",
@@ -3433,7 +4353,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IMPLY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
   },
   {
    "exam": "2019",
@@ -3444,7 +4367,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2019",
@@ -3455,7 +4381,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2019",
@@ -3466,7 +4395,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2019",
@@ -3476,8 +4408,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-CHART",
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2019",
@@ -3488,7 +4423,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2019",
@@ -3499,7 +4437,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2019",
@@ -3510,7 +4451,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2019",
@@ -3521,7 +4465,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2019",
@@ -3532,7 +4479,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2019",
@@ -3543,7 +4493,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2019",
@@ -3554,7 +4507,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2019",
@@ -3565,7 +4521,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2019",
@@ -3576,7 +4535,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2019",
@@ -3587,7 +4549,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2019",
@@ -3598,7 +4563,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2019",
@@ -3609,7 +4577,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2019",
@@ -3620,7 +4591,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2019",
@@ -3631,7 +4605,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2019",
@@ -3642,7 +4619,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2019",
@@ -3653,7 +4633,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2019",
@@ -3663,8 +4646,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 2
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
   },
   {
    "exam": "2019",
@@ -3675,7 +4661,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2019",
@@ -3686,7 +4675,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2019",
@@ -3697,7 +4689,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2020",
@@ -3708,7 +4703,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2020",
@@ -3719,7 +4717,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2020",
@@ -3730,7 +4731,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2020",
@@ -3741,7 +4745,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2020",
@@ -3752,7 +4759,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RELATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
   },
   {
    "exam": "2020",
@@ -3763,7 +4773,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2020",
@@ -3774,7 +4787,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TODO",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
   },
   {
    "exam": "2020",
@@ -3784,8 +4800,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2020",
@@ -3796,7 +4815,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2020",
@@ -3807,7 +4829,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-NOTMENTION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2020",
@@ -3817,8 +4842,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2020",
@@ -3829,7 +4857,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2020",
@@ -3840,7 +4871,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2020",
@@ -3851,7 +4885,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2020",
@@ -3862,7 +4899,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2020",
@@ -3873,7 +4913,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2020",
@@ -3884,7 +4927,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2020",
@@ -3895,7 +4941,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
   },
   {
    "exam": "2020",
@@ -3905,8 +4954,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2020",
@@ -3917,7 +4969,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CLAIM",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
   },
   {
    "exam": "2020",
@@ -3927,8 +4982,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-IMPLY",
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
   },
   {
    "exam": "2020",
@@ -3939,7 +4997,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2020",
@@ -3950,7 +5011,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2020",
@@ -3961,7 +5025,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2020",
@@ -3972,7 +5039,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2020",
@@ -3983,7 +5053,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2020",
@@ -3994,7 +5067,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2020",
@@ -4005,7 +5081,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2020",
@@ -4016,7 +5095,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2020",
@@ -4027,7 +5109,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2020",
@@ -4038,7 +5123,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2020",
@@ -4049,7 +5137,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2020",
@@ -4060,7 +5151,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2020",
@@ -4071,7 +5165,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2020",
@@ -4082,7 +5179,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2020",
@@ -4093,7 +5193,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2020",
@@ -4104,7 +5207,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2020",
@@ -4115,7 +5221,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2020",
@@ -4126,7 +5235,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2020",
@@ -4137,7 +5249,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2020",
@@ -4148,7 +5263,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2020",
@@ -4158,8 +5276,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 2
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
   },
   {
    "exam": "2020",
@@ -4170,7 +5291,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2020",
@@ -4181,7 +5305,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2020",
@@ -4192,7 +5319,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2021",
@@ -4203,7 +5333,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2021",
@@ -4214,7 +5347,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2021",
@@ -4225,7 +5361,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RELATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
   },
   {
    "exam": "2021",
@@ -4236,7 +5375,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2021",
@@ -4247,7 +5389,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TODO",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
   },
   {
    "exam": "2021",
@@ -4258,7 +5403,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2021",
@@ -4268,8 +5416,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-REASON",
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2021",
@@ -4280,7 +5431,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-NOTMENTION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2021",
@@ -4291,7 +5445,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2021",
@@ -4302,7 +5459,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2021",
@@ -4313,7 +5473,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2021",
@@ -4324,7 +5487,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2021",
@@ -4335,7 +5501,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2021",
@@ -4346,7 +5515,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2021",
@@ -4357,7 +5529,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2021",
@@ -4368,7 +5543,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2021",
@@ -4379,7 +5557,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2021",
@@ -4390,7 +5571,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
   },
   {
    "exam": "2021",
@@ -4400,8 +5584,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2021",
@@ -4412,7 +5599,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CLAIM",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
   },
   {
    "exam": "2021",
@@ -4422,8 +5612,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-IMPLY",
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
   },
   {
    "exam": "2021",
@@ -4434,7 +5627,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2021",
@@ -4445,7 +5641,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2021",
@@ -4456,7 +5655,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2021",
@@ -4467,7 +5669,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2021",
@@ -4478,7 +5683,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2021",
@@ -4489,7 +5697,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2021",
@@ -4500,7 +5711,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2021",
@@ -4511,7 +5725,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2021",
@@ -4522,7 +5739,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2021",
@@ -4533,7 +5753,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2021",
@@ -4544,7 +5767,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2021",
@@ -4555,7 +5781,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2021",
@@ -4566,7 +5795,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2021",
@@ -4577,7 +5809,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2021",
@@ -4588,7 +5823,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2021",
@@ -4599,7 +5837,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2021",
@@ -4610,7 +5851,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2021",
@@ -4621,7 +5865,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2021",
@@ -4632,7 +5879,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2021",
@@ -4643,7 +5893,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2021",
@@ -4653,8 +5906,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 2
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
   },
   {
    "exam": "2021",
@@ -4665,7 +5921,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2021",
@@ -4676,7 +5935,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2021",
@@ -4687,7 +5949,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2022",
@@ -4698,7 +5963,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2022",
@@ -4709,7 +5977,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2022",
@@ -4720,7 +5991,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RELATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
   },
   {
    "exam": "2022",
@@ -4731,7 +6005,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2022",
@@ -4742,7 +6019,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TODO",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
   },
   {
    "exam": "2022",
@@ -4753,7 +6033,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2022",
@@ -4764,7 +6047,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-REASON",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2022",
@@ -4775,7 +6061,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-NOTMENTION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2022",
@@ -4786,7 +6075,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2022",
@@ -4797,7 +6089,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2022",
@@ -4808,7 +6103,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2022",
@@ -4819,7 +6117,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2022",
@@ -4830,7 +6131,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2022",
@@ -4841,7 +6145,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2022",
@@ -4852,7 +6159,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2022",
@@ -4863,7 +6173,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2022",
@@ -4874,7 +6187,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2022",
@@ -4885,7 +6201,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
   },
   {
    "exam": "2022",
@@ -4895,8 +6214,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2022",
@@ -4907,7 +6229,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CLAIM",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
   },
   {
    "exam": "2022",
@@ -4918,7 +6243,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IMPLY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
   },
   {
    "exam": "2022",
@@ -4929,7 +6257,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2022",
@@ -4940,7 +6271,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2022",
@@ -4951,7 +6285,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2022",
@@ -4962,7 +6299,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2022",
@@ -4973,7 +6313,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2022",
@@ -4984,7 +6327,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2022",
@@ -4995,7 +6341,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2022",
@@ -5006,7 +6355,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2022",
@@ -5017,7 +6369,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2022",
@@ -5028,7 +6383,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2022",
@@ -5039,7 +6397,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2022",
@@ -5050,7 +6411,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2022",
@@ -5061,7 +6425,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2022",
@@ -5072,7 +6439,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2022",
@@ -5083,7 +6453,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2022",
@@ -5094,7 +6467,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2022",
@@ -5105,7 +6481,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2022",
@@ -5116,7 +6495,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2022",
@@ -5127,7 +6509,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2022",
@@ -5138,7 +6523,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2022",
@@ -5148,8 +6536,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 2
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
   },
   {
    "exam": "2022",
@@ -5160,7 +6551,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2022",
@@ -5171,7 +6565,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2022",
@@ -5182,7 +6579,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2023",
@@ -5193,7 +6593,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2023",
@@ -5204,7 +6607,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2023",
@@ -5215,7 +6621,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RELATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RELATION"
+   ]
   },
   {
    "exam": "2023",
@@ -5226,7 +6635,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2023",
@@ -5237,7 +6649,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TODO",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
   },
   {
    "exam": "2023",
@@ -5248,7 +6663,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2023",
@@ -5259,7 +6677,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-REASON",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2023",
@@ -5270,7 +6691,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-NOTMENTION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2023",
@@ -5281,7 +6705,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2023",
@@ -5292,7 +6719,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2023",
@@ -5303,7 +6733,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2023",
@@ -5314,7 +6747,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2023",
@@ -5325,7 +6761,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2023",
@@ -5336,7 +6775,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2023",
@@ -5347,7 +6789,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2023",
@@ -5358,7 +6803,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2023",
@@ -5369,7 +6817,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2023",
@@ -5380,7 +6831,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
   },
   {
    "exam": "2023",
@@ -5390,8 +6844,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2023",
@@ -5402,7 +6859,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CLAIM",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
   },
   {
    "exam": "2023",
@@ -5412,8 +6872,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-IMPLY",
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
   },
   {
    "exam": "2023",
@@ -5424,7 +6887,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2023",
@@ -5435,7 +6901,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2023",
@@ -5446,7 +6915,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2023",
@@ -5457,7 +6929,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2023",
@@ -5468,7 +6943,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2023",
@@ -5478,8 +6956,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-NOTICE",
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2023",
@@ -5490,7 +6971,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2023",
@@ -5501,7 +6985,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2023",
@@ -5512,7 +6999,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2023",
@@ -5523,7 +7013,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2023",
@@ -5534,7 +7027,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2023",
@@ -5545,7 +7041,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2023",
@@ -5556,7 +7055,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2023",
@@ -5567,7 +7069,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2023",
@@ -5578,7 +7083,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2023",
@@ -5589,7 +7097,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2023",
@@ -5600,7 +7111,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2023",
@@ -5611,7 +7125,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2023",
@@ -5622,7 +7139,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2023",
@@ -5633,7 +7153,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2023",
@@ -5643,8 +7166,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 2
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
   },
   {
    "exam": "2023",
@@ -5655,7 +7181,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2023",
@@ -5666,7 +7195,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2023",
@@ -5677,7 +7209,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2024",
@@ -5688,7 +7223,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2024",
@@ -5699,7 +7237,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2024",
@@ -5710,7 +7251,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MAIN",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MAIN"
+   ]
   },
   {
    "exam": "2024",
@@ -5721,7 +7265,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2024",
@@ -5732,7 +7279,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TODO",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
   },
   {
    "exam": "2024",
@@ -5743,7 +7293,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2024",
@@ -5754,7 +7307,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-REASON",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2024",
@@ -5765,7 +7321,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-NOTMENTION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2024",
@@ -5776,7 +7335,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2024",
@@ -5787,7 +7349,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2024",
@@ -5798,7 +7363,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2024",
@@ -5809,7 +7377,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2024",
@@ -5820,7 +7391,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2024",
@@ -5831,7 +7405,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2024",
@@ -5842,7 +7419,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2024",
@@ -5853,7 +7433,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2024",
@@ -5864,7 +7447,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2024",
@@ -5875,7 +7461,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
   },
   {
    "exam": "2024",
@@ -5885,8 +7474,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2024",
@@ -5897,7 +7489,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CLAIM",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
   },
   {
    "exam": "2024",
@@ -5908,7 +7503,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IMPLY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
   },
   {
    "exam": "2024",
@@ -5919,7 +7517,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2024",
@@ -5930,7 +7531,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2024",
@@ -5941,7 +7545,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2024",
@@ -5952,7 +7559,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2024",
@@ -5963,7 +7573,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2024",
@@ -5974,7 +7587,10 @@
    "from_block": false,
    "stem_truncated": true,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2024",
@@ -5985,7 +7601,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2024",
@@ -5996,7 +7615,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2024",
@@ -6007,7 +7629,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2024",
@@ -6018,7 +7643,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2024",
@@ -6029,7 +7657,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2024",
@@ -6040,7 +7671,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2024",
@@ -6051,7 +7685,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2024",
@@ -6062,7 +7699,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2024",
@@ -6073,7 +7713,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2024",
@@ -6084,7 +7727,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2024",
@@ -6095,7 +7741,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2024",
@@ -6106,7 +7755,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2024",
@@ -6117,7 +7769,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2024",
@@ -6128,7 +7783,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2024",
@@ -6138,8 +7796,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 2
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
   },
   {
    "exam": "2024",
@@ -6150,7 +7811,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2024",
@@ -6161,7 +7825,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2024",
@@ -6172,7 +7839,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2025",
@@ -6183,7 +7853,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2025",
@@ -6194,7 +7867,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2025",
@@ -6205,7 +7881,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MAIN",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MAIN"
+   ]
   },
   {
    "exam": "2025",
@@ -6216,7 +7895,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2025",
@@ -6227,7 +7909,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TODO",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
   },
   {
    "exam": "2025",
@@ -6238,7 +7923,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2025",
@@ -6249,7 +7937,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-REASON",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2025",
@@ -6260,7 +7951,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-NOTMENTION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2025",
@@ -6270,8 +7964,11 @@
    "section": "듣기",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "L-ANNOUNCE",
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2025",
@@ -6282,7 +7979,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2025",
@@ -6293,7 +7993,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2025",
@@ -6304,7 +8007,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2025",
@@ -6315,7 +8021,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2025",
@@ -6326,7 +8035,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2025",
@@ -6337,7 +8049,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2025",
@@ -6348,7 +8063,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2025",
@@ -6359,7 +8077,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2025",
@@ -6370,7 +8091,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
   },
   {
    "exam": "2025",
@@ -6380,8 +8104,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2025",
@@ -6392,7 +8119,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CLAIM",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
   },
   {
    "exam": "2025",
@@ -6403,7 +8133,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IMPLY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
   },
   {
    "exam": "2025",
@@ -6414,7 +8147,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2025",
@@ -6425,7 +8161,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2025",
@@ -6436,7 +8175,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2025",
@@ -6447,7 +8189,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2025",
@@ -6458,7 +8203,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2025",
@@ -6469,7 +8217,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2025",
@@ -6480,7 +8231,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2025",
@@ -6491,7 +8245,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2025",
@@ -6502,7 +8259,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2025",
@@ -6513,7 +8273,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2025",
@@ -6524,7 +8287,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2025",
@@ -6535,7 +8301,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2025",
@@ -6546,7 +8315,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2025",
@@ -6557,7 +8329,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2025",
@@ -6568,7 +8343,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2025",
@@ -6579,7 +8357,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2025",
@@ -6590,7 +8371,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2025",
@@ -6601,7 +8385,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2025",
@@ -6612,7 +8399,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2025",
@@ -6623,7 +8413,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2025",
@@ -6633,8 +8426,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 2
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
   },
   {
    "exam": "2025",
@@ -6645,7 +8441,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2025",
@@ -6656,7 +8455,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2025",
@@ -6667,7 +8469,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   },
   {
    "exam": "2026",
@@ -6678,7 +8483,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PURPOSE"
+   ]
   },
   {
    "exam": "2026",
@@ -6689,7 +8497,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-OPINION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-OPINION"
+   ]
   },
   {
    "exam": "2026",
@@ -6700,7 +8511,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MAIN",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MAIN"
+   ]
   },
   {
    "exam": "2026",
@@ -6711,7 +8525,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-PICTURE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-PICTURE"
+   ]
   },
   {
    "exam": "2026",
@@ -6722,7 +8539,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TODO",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TODO"
+   ]
   },
   {
    "exam": "2026",
@@ -6733,7 +8553,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-MONEY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-MONEY"
+   ]
   },
   {
    "exam": "2026",
@@ -6744,7 +8567,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-REASON",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-REASON"
+   ]
   },
   {
    "exam": "2026",
@@ -6755,7 +8581,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-NOTMENTION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-NOTMENTION"
+   ]
   },
   {
    "exam": "2026",
@@ -6766,7 +8595,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-ANNOUNCE"
+   ]
   },
   {
    "exam": "2026",
@@ -6777,7 +8609,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-TABLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-TABLE"
+   ]
   },
   {
    "exam": "2026",
@@ -6788,7 +8623,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2026",
@@ -6799,7 +8637,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2026",
@@ -6810,7 +8651,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2026",
@@ -6821,7 +8665,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-RESPONSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-RESPONSE"
+   ]
   },
   {
    "exam": "2026",
@@ -6832,7 +8679,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SITUATION",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SITUATION"
+   ]
   },
   {
    "exam": "2026",
@@ -6843,7 +8693,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-TOPIC"
+   ]
   },
   {
    "exam": "2026",
@@ -6854,7 +8707,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "L-SET-NOT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "L-SET-NOT"
+   ]
   },
   {
    "exam": "2026",
@@ -6865,7 +8721,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-PURPOSE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-PURPOSE"
+   ]
   },
   {
    "exam": "2026",
@@ -6875,8 +8734,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 0
+   "type": "R-MOOD",
+   "hit_count": 1,
+   "hits": [
+    "R-MOOD"
+   ]
   },
   {
    "exam": "2026",
@@ -6887,7 +8749,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CLAIM",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CLAIM"
+   ]
   },
   {
    "exam": "2026",
@@ -6898,7 +8763,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IMPLY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IMPLY"
+   ]
   },
   {
    "exam": "2026",
@@ -6909,7 +8777,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GIST",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GIST"
+   ]
   },
   {
    "exam": "2026",
@@ -6920,7 +8791,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TOPIC",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TOPIC"
+   ]
   },
   {
    "exam": "2026",
@@ -6931,7 +8805,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-TITLE"
+   ]
   },
   {
    "exam": "2026",
@@ -6942,7 +8819,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-CHART",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-CHART"
+   ]
   },
   {
    "exam": "2026",
@@ -6953,7 +8833,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-FACT"
+   ]
   },
   {
    "exam": "2026",
@@ -6964,7 +8847,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2026",
@@ -6975,7 +8861,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-NOTICE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-NOTICE"
+   ]
   },
   {
    "exam": "2026",
@@ -6986,7 +8875,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-GRAMMAR",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-GRAMMAR"
+   ]
   },
   {
    "exam": "2026",
@@ -6997,7 +8889,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-VOCAB",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-VOCAB"
+   ]
   },
   {
    "exam": "2026",
@@ -7008,7 +8903,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2026",
@@ -7019,7 +8917,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2026",
@@ -7030,7 +8931,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2026",
@@ -7041,7 +8945,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-BLANK",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-BLANK"
+   ]
   },
   {
    "exam": "2026",
@@ -7052,7 +8959,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-IRRELEVANT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-IRRELEVANT"
+   ]
   },
   {
    "exam": "2026",
@@ -7063,7 +8973,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2026",
@@ -7074,7 +8987,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-ORDER"
+   ]
   },
   {
    "exam": "2026",
@@ -7085,7 +9001,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2026",
@@ -7096,7 +9015,10 @@
    "from_block": true,
    "stem_truncated": false,
    "type": "R-INSERT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-INSERT"
+   ]
   },
   {
    "exam": "2026",
@@ -7107,7 +9029,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "R-SUMMARY",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "R-SUMMARY"
+   ]
   },
   {
    "exam": "2026",
@@ -7118,7 +9043,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-TITLE",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-TITLE"
+   ]
   },
   {
    "exam": "2026",
@@ -7128,8 +9056,11 @@
    "section": "독해",
    "from_block": false,
    "stem_truncated": false,
-   "type": null,
-   "hit_count": 2
+   "type": "X-VOCAB",
+   "hit_count": 1,
+   "hits": [
+    "X-VOCAB"
+   ]
   },
   {
    "exam": "2026",
@@ -7140,7 +9071,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-ORDER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-ORDER"
+   ]
   },
   {
    "exam": "2026",
@@ -7151,7 +9085,10 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-REFER",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-REFER"
+   ]
   },
   {
    "exam": "2026",
@@ -7162,547 +9099,12 @@
    "from_block": false,
    "stem_truncated": false,
    "type": "X-FACT",
-   "hit_count": 1
+   "hit_count": 1,
+   "hits": [
+    "X-FACT"
+   ]
   }
  ],
- "unassigned_rows": [
-  {
-   "exam": "2014B",
-   "no": 5,
-   "stem": "다음을 듣고, 여자가 하는 말의 주제로 가장 적절한 것을 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014B",
-   "no": 6,
-   "stem": "대화를 듣고, 두 사람이 하는 말의 주제로 가장 적절한 것을 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014B",
-   "no": 12,
-   "stem": "대화를 듣고, 남자가 head chef에 지원하지 못하는 이유를 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014B",
-   "no": 13,
-   "stem": "대화를 듣고, 예술 작품을 이해하는 데 도움이 되는 것으로 두 사람이 언급하지 않은 것을 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014B",
-   "no": 36,
-   "stem": "다음 글의 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것을 고르시오.",
-   "high_score": false,
-   "section": "독해",
-   "from_block": true,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014B",
-   "no": 37,
-   "stem": "다음 글의 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것을 고르시오.",
-   "high_score": false,
-   "section": "독해",
-   "from_block": true,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014B",
-   "no": 41,
-   "stem": "위 글의 제목으로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014B",
-   "no": 45,
-   "stem": "위 글의 grandpa에 관한 내용과 일치하지 않는 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014A",
-   "no": 4,
-   "stem": "대화를 듣고, 그림에서 Eva’s Bakery의 위치를 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014A",
-   "no": 6,
-   "stem": "다음을 듣고, 여자가 하는 말의 주제로 가장 적절한 것을 고르시오. ① 배낚시 전 확인해야 할 안전 장비 ② 배낚시를 즐기는 다양한 방법 ③ 선상 화재의 주된 원인 ④ 연령에 따른 구명조끼의 종류 ⑤ 배낚시 도구의 효과적인 관리 요령",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": true
-  },
-  {
-   "exam": "2014A",
-   "no": 7,
-   "stem": "대화를 듣고, 두 사람이 하는 말의 주제로 가장 적절한 것을 고르시오. ① 컴퓨터 구매 시 고려 사항 ② 컴퓨터 보안 프로그램의 필요성 ③ 컴퓨터 내부 먼지 제거의 중요성 ④ 컴퓨터 전용 청소 도구의 사용법 ⑤ 컴퓨터 사용 시간과 건강 간의 관계",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": true
-  },
-  {
-   "exam": "2014A",
-   "no": 13,
-   "stem": "대화를 듣고, 남자가 언급한 계약서상의 오류를 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014A",
-   "no": 14,
-   "stem": "대화를 듣고, 남자가 head chef에 지원하지 못하는 이유를 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014A",
-   "no": 36,
-   "stem": "다음 글의 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014A",
-   "no": 40,
-   "stem": "다음 글에 드러난 필자의 심경으로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014A",
-   "no": 41,
-   "stem": "위 글의 제목으로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2014A",
-   "no": 45,
-   "stem": "위 글의 grandmother에 관한 내용과 일치하지 않는 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2015",
-   "no": 4,
-   "stem": "대화를 듣고, 두 사람이 하는 말의 주제로 가장 적절한 것을 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2015",
-   "no": 10,
-   "stem": "대화를 듣고, 미용실에 관해 두 사람이 언급하지 않은 것을 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2015",
-   "no": 19,
-   "stem": "다음 글에 드러난 ‘I’의 심경으로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2015",
-   "no": 34,
-   "stem": "다음 글의 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2015",
-   "no": 41,
-   "stem": "위 글의 제목으로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2015",
-   "no": 45,
-   "stem": "위 글의 Jeremy에 관한 내용과 일치하지 않는 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2016",
-   "no": 10,
-   "stem": "대화를 듣고, Young Inventors Challenge에 관해 두 사람이 언급하지 않은 것을 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2016",
-   "no": 19,
-   "stem": "다음 글에 드러난 ‘I’의 심경으로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2016",
-   "no": 45,
-   "stem": "윗글의 Hannah에 관한 내용과 일치하지 않는 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2017",
-   "no": 19,
-   "stem": "다음 글에 드러난 Breaden의 심경 변화로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2017",
-   "no": 42,
-   "stem": "윗글의 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
-   "high_score": true,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2017",
-   "no": 45,
-   "stem": "윗글의 내용으로 적절하지 않은 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2018",
-   "no": 8,
-   "stem": "대화를 듣고, 여자가 영화를 보고 있는 이유를 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2018",
-   "no": 19,
-   "stem": "다음 글에 드러난 ‘I’의 심경 변화로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2019",
-   "no": 19,
-   "stem": "다음 글에 드러난 Dave의 심경 변화로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2019",
-   "no": 25,
-   "stem": "다음 표의 내용과 일치하지 않는 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2020",
-   "no": 8,
-   "stem": "대화를 듣고, 남자가 요리 대회 참가를 포기한 이유를 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2020",
-   "no": 11,
-   "stem": "Green Ocean 영화 시사회에 관한 다음 내용을 듣고, 일치 하지 않는 것을 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2020",
-   "no": 19,
-   "stem": "다음 글에 드러난 Jonas의 심경 변화로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2020",
-   "no": 21,
-   "stem": "밑줄 친 playing intellectual air guitar가 다음 글에서 의미 하는 바로 가장 적절한 것은?",
-   "high_score": true,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2021",
-   "no": 7,
-   "stem": "대화를 듣고, 남자가 텐트를 반품하려는 이유를 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2021",
-   "no": 19,
-   "stem": "다음 글에 드러난 ‘I’의 심경 변화로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2021",
-   "no": 21,
-   "stem": "밑줄 친 the role of the ‘lion’s historians’가 다음 글에서 의미 하는 바로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2022",
-   "no": 19,
-   "stem": "다음 글에 나타난 Evelyn의 심경 변화로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2023",
-   "no": 19,
-   "stem": "다음 글에 드러난 Jamie의 심경 변화로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2023",
-   "no": 21,
-   "stem": "밑줄 친 make oneself public to oneself가 다음 글에서 의미 하는 바로 가장 적절한 것은?",
-   "high_score": true,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2023",
-   "no": 27,
-   "stem": "다음 Renovation Notice의 내용과 일치하지 않는 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2024",
-   "no": 19,
-   "stem": "다음 글에 드러난 David의 심경 변화로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2025",
-   "no": 9,
-   "stem": "2024 Grand Butterfly Circus에 관한 다음 내용을 듣고, 일치 하지 않는 것을 고르시오.",
-   "high_score": false,
-   "section": "듣기",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2025",
-   "no": 19,
-   "stem": "다음 글에 드러난 Peter의 심경 변화로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  },
-  {
-   "exam": "2026",
-   "no": 19,
-   "stem": "다음 글에 드러난 Sophie의 심경 변화로 가장 적절한 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false
-  }
- ],
- "multi_rows": [
-  {
-   "exam": "2019",
-   "no": 42,
-   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
-   "high_score": true,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false,
-   "hits": [
-    "R-VOCAB",
-    "X-VOCAB"
-   ]
-  },
-  {
-   "exam": "2020",
-   "no": 42,
-   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
-   "high_score": true,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false,
-   "hits": [
-    "R-VOCAB",
-    "X-VOCAB"
-   ]
-  },
-  {
-   "exam": "2021",
-   "no": 42,
-   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
-   "high_score": true,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false,
-   "hits": [
-    "R-VOCAB",
-    "X-VOCAB"
-   ]
-  },
-  {
-   "exam": "2022",
-   "no": 42,
-   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false,
-   "hits": [
-    "R-VOCAB",
-    "X-VOCAB"
-   ]
-  },
-  {
-   "exam": "2023",
-   "no": 42,
-   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false,
-   "hits": [
-    "R-VOCAB",
-    "X-VOCAB"
-   ]
-  },
-  {
-   "exam": "2024",
-   "no": 42,
-   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false,
-   "hits": [
-    "R-VOCAB",
-    "X-VOCAB"
-   ]
-  },
-  {
-   "exam": "2025",
-   "no": 42,
-   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
-   "high_score": true,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false,
-   "hits": [
-    "R-VOCAB",
-    "X-VOCAB"
-   ]
-  },
-  {
-   "exam": "2026",
-   "no": 42,
-   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
-   "high_score": false,
-   "section": "독해",
-   "from_block": false,
-   "stem_truncated": false,
-   "hits": [
-    "R-VOCAB",
-    "X-VOCAB"
-   ]
-  }
- ]
+ "unassigned_rows": [],
+ "multi_rows": []
 }
