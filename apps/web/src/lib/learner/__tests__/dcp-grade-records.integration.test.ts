@@ -22,6 +22,8 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
+import { CHOICE_DCP_TYPES } from '../dcp-types'
+
 const SUPABASE_URL = process.env['NEXT_PUBLIC_SUPABASE_URL']
 const ANON_KEY = process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']
 const SERVICE_KEY = process.env['SUPABASE_SERVICE_ROLE_KEY']
@@ -132,6 +134,37 @@ describe.skipIf(skip)('grade_dcp_item 이 관측을 남긴다 (integration)', ()
     }
     // 문항 행에는 `answer_key` 가 함께 있다 — RPC 가 그 열을 빼는 것이 이 경로의 유일한 방어다.
     expect([...leaked]).toEqual([])
+  })
+
+  it('**재생용으로 표시된 선택지 유형은 전부 실제로 채점된다** — 목록이 두 곳이라 자꾸 갈린다', async () => {
+    // ── 왜 이 단언이 있나 (2026-08-22) ────────────────────────────────
+    // "코드는 풀 수 있다고 하는데 DB 는 채점 못 한다" 가 **세 번째**다.
+    //   · 처음엔 컬럼이 틀려 전 유형이 죽었다(FK 위반, 20260822013136)
+    //   · 다음엔 `mood` 를 만들고 `grade_dcp_item` 배열에 더하는 것을 빠뜨렸다(20260822140000)
+    // 목록이 `dcp-types.ts` 와 DB 함수 두 곳에 나뉘어 있는 한 또 갈린다.
+    //
+    // 그래서 **정의를 대조하지 않는다.** 유형마다 문항 하나를 실제로 제출해 본다 —
+    // `Unknown type` 이 나오면 그 유형은 화면에서 "정답을 맞혀도 오답" 이 된다.
+    const broken: string[] = []
+    for (const type of CHOICE_DCP_TYPES) {
+      const { data: item } = await admin
+        .from('csat_dcp_items')
+        .select('id, answer_key')
+        .eq('kind', 'article')
+        .eq('type', type)
+        .limit(1)
+        .maybeSingle()
+      // 재고가 없는 유형은 건널 수밖에 없다 — 없는 것을 채점해 볼 수는 없다.
+      if (!item?.id) continue
+      const answer = (item.answer_key as { answer?: number } | null)?.answer ?? 1
+      const { data, error } = await learner.rpc('grade_dcp_item', {
+        p_item_id: item.id,
+        p_answer: { choice: answer },
+      })
+      if (error) broken.push(`${type}: ${error.message}`)
+      else created.push((data as { attempt_id: string }).attempt_id)
+    }
+    expect(broken, 'DB 가 채점하지 못하는 재생용 유형이 있다 — grade_dcp_item 배열을 넓혀야 한다').toEqual([])
   })
 
   it('없는 선택지 번호는 거부한다 — 캐스트가 먼저 터지지 않는다', async () => {
