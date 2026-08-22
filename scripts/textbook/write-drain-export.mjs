@@ -56,10 +56,15 @@ const SIZE = Number(arg('size') ?? 5)
  *   하나도 없었다. 장문 43~45(서사 지문 전제)도 같은 벽에 막혀 있다.
  *   **지문 풀을 바꾸지 않는 한 배치를 더 돌려도 같은 결과다**(`csat-types.ts` mood 주석).
  */
-const MODE = arg('mode') === 'narrative' ? 'narrative' : 'expository'
+const MODE_ARG = arg('mode')
+const MODE =
+  MODE_ARG === 'narrative' ? 'narrative' : MODE_ARG === 'long-narrative' ? 'long-narrative' : 'expository'
+/** 서사 갈래인가 — 축·짜임·규칙을 공유한다. 길이만 다르다. */
+const IS_NARRATIVE = MODE === 'narrative' || MODE === 'long-narrative'
+const MODE_SUFFIX = MODE === 'narrative' ? '-narr' : MODE === 'long-narrative' ? '-long' : ''
 const DIR = path.resolve(
   // 갈래마다 청크 디렉터리를 나눈다 — 섞이면 배치가 어느 지침으로 쓸지 알 수 없다.
-  arg('dir') ?? `scripts/textbook/write-drain/v${BAND}${MODE === 'narrative' ? '-narr' : ''}`,
+  arg('dir') ?? `scripts/textbook/write-drain/v${BAND}${MODE_SUFFIX}`,
 )
 
 /**
@@ -264,9 +269,49 @@ const NARRATIVE_SHAPES = [
   },
 ]
 
+/**
+ * 장문(수능 43~45)의 짜임 — **네 토막으로 갈라 읽히는 이야기.**
+ *
+ * 43번이 "(A) 다음에 올 순서" 를 묻기 때문에, 글이 (A)(B)(C)(D) **네 문단**으로 갈리고
+ * 각 문단이 스스로 한 장면이어야 한다. 문단이 셋이면 답지가 6가지뿐이라 문항이 안 서고,
+ * 다섯이면 시험지 형식에서 벗어난다.
+ *
+ * ⚠️ **문단마다 6문장**이어야 한다. 적재기의 `repaginate` 가 "모든 문단이 6~10문장" 일 때만
+ *   원문 문단을 그대로 두기 때문이다 — 5문장으로 쓰면 적재하면서 문단이 다시 합쳐져
+ *   네 토막 구조가 사라진다(그러면 43번을 만들 수 없다).
+ */
+const LONG_NARRATIVE_SHAPES = [
+  {
+    key: 'four_scenes',
+    label: '네 장면 — (A) 발단 → (B)(C)(D) 전개·전환·매듭',
+    hint:
+      '문단 넷이 각각 한 장면이다. (A) 는 인물과 상황을 세우고 **끝을 열어 둔다**(다음 장면이 궁금해지게). ' +
+      '나머지 셋은 시간 표지로 순서를 못 박는다 — 순서를 바꾸면 말이 안 되어야 43번이 성립한다. ' +
+      '**인물이 둘 이상**이고 각자 이름이 있어야 한다(44번 지칭이 그 둘을 헷갈리게 묻는다). ' +
+      '대명사(he/she/him/her)를 문단마다 여러 번 쓰되, 누구를 가리키는지 문맥으로 분명해야 한다.',
+  },
+  {
+    key: 'two_people',
+    label: '두 사람 — 한 사건을 사이에 두고',
+    hint:
+      '이름 있는 두 인물이 번갈아 초점이 된다. (A) 에서 둘을 세우고, (B)(C)(D) 에서 한 사람의 행동이 ' +
+      '다른 사람에게 닿는 순서로 잇는다. 각 문단에 상대를 가리키는 대명사가 최소 두 번 나와야 한다. ' +
+      '시간 표지(that afternoon · the next day · a week later)로 순서를 고정한다.',
+  },
+  {
+    key: 'return_and_learn',
+    label: '되찾음 — 잃음 → 찾아 나섬 → 만남 → 남은 것',
+    hint:
+      '(A) 에서 무엇을 잃었는지 보이고, (B)(C) 에서 찾아 나선 과정을 시간 순으로, (D) 에서 무엇이 남았는지로 닫는다. ' +
+      '도와주는 인물을 하나 두어 이름을 붙인다(지칭 문항의 대조군). 마지막 문단이 앞 세 문단을 되짚지 않게 — ' +
+      '되짚으면 45번 일치 문항의 근거가 한곳에 몰린다.',
+  },
+]
+
 /** 이번 실행이 쓸 축·짜임. 갈래를 섞지 않는다. */
-const AXES = MODE === 'narrative' ? NARRATIVE_AXES : TOPIC_AXES
-const SHAPE_POOL = MODE === 'narrative' ? NARRATIVE_SHAPES : SHAPES
+const AXES = IS_NARRATIVE ? NARRATIVE_AXES : TOPIC_AXES
+const SHAPE_POOL =
+  MODE === 'long-narrative' ? LONG_NARRATIVE_SHAPES : MODE === 'narrative' ? NARRATIVE_SHAPES : SHAPES
 
 const { createClient } = await import('@supabase/supabase-js')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
@@ -296,8 +341,12 @@ const inBand = usable.filter((a) => a.article_v_level === BAND)
 //   실측(2026-08-21): V2 풀 282개 중 **154개가 "지문 짧음" 으로 탈락**했다 — 삽입 본문 규격
 //   탈락(45)보다 세 배 넘게 큰 병목인데, 그동안 이 숫자를 안 보고 있었다.
 //   두 문단이 각각 90어를 넘으려면 글이 **최소 185어**여야 한다.
-const WORDS_MIN = 185
-const WORDS_MAX = 200
+// ⚠️ **장문(43~45)은 규격이 다르다.** 수능 장문은 지문 하나가 300어 안팎이고, 그 한 편에
+//   순서·지칭·일치 세 문항이 붙는다. 짧은 지문의 창(90~200어)을 그대로 대면 장문이 통째로 걸린다.
+//   문단 넷 × 6문장이면 대략 300~340어가 된다 — 그 규격으로 준다.
+const IS_LONG = MODE === 'long-narrative'
+const WORDS_MIN = IS_LONG ? 300 : 185
+const WORDS_MAX = IS_LONG ? 340 : 200
 
 /**
  * 어휘 조건 — **꼬리 낱말 수가 곧 계단이다.**
@@ -455,12 +504,19 @@ for (let i = 0; i < need; i++) {
     shape_hint: shape.hint,
     mode: MODE,
     // 서사문일 때만 붙는 규칙. 설명문 지침과 섞이면 'I' 만 붙은 설명문이 나온다.
-    narrative_rule:
-      MODE === 'narrative'
-        ? '사람이 등장하고 시간이 흐르는 **이야기**를 쓴다. 과거형으로 쓰고, 시간 표지로 ' +
-          '순서를 붙들어 둔다. 정의·통계·일반론 문장을 쓰지 않는다 — 그런 문장이 들어가면 ' +
-          '설명문이 되고, 분위기·심경 문항이 성립하지 않는다.'
-        : null,
+    narrative_rule: IS_NARRATIVE
+      ? '사람이 등장하고 시간이 흐르는 **이야기**를 쓴다. 과거형으로 쓰고, 시간 표지로 ' +
+        '순서를 붙들어 둔다. 정의·통계·일반론 문장을 쓰지 않는다 — 그런 문장이 들어가면 ' +
+        '설명문이 되고, 분위기·심경 문항이 성립하지 않는다.'
+      : null,
+    // 장문에만 붙는 형식 규칙. 이걸 어기면 43번(순서)을 아예 못 만든다.
+    long_rule: IS_LONG
+      ? '문단을 정확히 **넷**으로 나눈다(빈 줄로 구분). **각 문단은 정확히 6문장**이다 — ' +
+        '적재기가 "모든 문단이 6~10문장" 일 때만 원문 문단을 그대로 두므로, 5문장으로 쓰면 ' +
+        '문단이 다시 합쳐져 네 토막 구조가 사라진다. 이름 있는 인물이 **둘 이상**이어야 하고, ' +
+        '대명사(he/she/him/her/his/her)가 문단마다 두 번 이상 나와야 한다 — 44번 지칭 문항이 ' +
+        '그 대명사들을 묻는다. 첫 문단은 나머지 셋보다 **먼저 와야만 말이 되게** 쓴다.'
+      : null,
     words_min: WORDS_MIN,
     words_max: WORDS_MAX,
     // 이번 실행의 어휘 조건. **import 가 이 값을 글에 기록해야** 나중에 조건별 적중률을
@@ -525,7 +581,13 @@ fs.writeFileSync(
 console.log(`V${BAND} 재고 — 원글 ${inBand.length}편 · 그중 문항이 붙은 것 ${withItems.size}편  [갈래 ${MODE}]`)
 console.log(`  한 권 실무 하한 ${VOLUME_ARTICLES}편 → **더 써야 할 몫 ${need}편**  → 청크 ${chunks.length}개 (${SIZE}편씩)`)
 console.log(`  슬롯 번호 ${slotBase + 1}~${slotBase + need} (지난 실행과 겹치지 않게 이어 붙였다)`)
-console.log(`  어수 규격 ${WORDS_MIN}~${WORDS_MAX}어 (조합기 창 90~200어 안 — 밴드와 무관)`)
+console.log(
+  `  어수 규격 ${WORDS_MIN}~${WORDS_MAX}어 ` +
+    (IS_LONG
+      ? '(수능 장문 규격 — 짧은 지문 창 90~200어 **밖**이다. 장문 유형 전용)'
+      : '(조합기 창 90~200어 안 — 밴드와 무관)'),
+)
+if (IS_LONG) console.log('  형식 — 문단 4 × 6문장 (적재기 repaginate 가 안 건드리는 유일한 구성)')
 console.log(`  어휘층 — V${BAND} ${lexicon.at.length}낱말 · 그 아래 ${lexicon.below.length} · 꼬리 ${lexicon.avoid.length}`)
 if (profile) console.log(`  V${BAND} 재고 프로필(${profile.samples}편) — p50 ${profile.p50} · p75 ${profile.p75} · p90 ${profile.p90}`)
 else console.log(`  ⚠️ V${BAND} 재고가 없어 프로필을 못 냈다 — 집필 목표를 실측으로 못 준다.`)

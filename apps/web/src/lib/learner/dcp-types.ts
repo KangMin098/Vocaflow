@@ -27,6 +27,18 @@ export const CHOICE_DCP_TYPES = [
   'implication',
   'content_match',
   'claim',
+
+  // ── 장문 ② 서사문 43~45 (2026-08-22) ────────────────────────────────
+  // 같은 모양을 쓴다 — 지문 하나 + 선택지 다섯 + `{answer, rationale_ko}`.
+  // **다른 점은 지문 길이뿐이다**(300어 안팎, 문단 4개). 그래서 화면·채점은 그대로 쓰고
+  // 조합기만 창을 갈랐다(`compose-unit.CSAT_LONG_ITEM_WORDS`).
+  //
+  // ⚠️ 44번(지칭)은 선택지가 **지문에서 그대로 따온 구절**이다. 지금 화면은 지문 안에
+  //    ①~⑤ 표시를 찍지 않으므로 학습자가 구절을 눈으로 찾아야 한다 — 시험지보다 어렵다.
+  //    적재기가 "지문에 그대로 없는 구절" 을 반려하므로 찾을 수는 있다.
+  'long_order',
+  'long_reference',
+  'long_match',
 ] as const
 
 /** 학습자가 실제로 푸는 유형 전체. */
@@ -62,6 +74,18 @@ export const TEXTBOOK_ONLY_DCP_TYPES = [
   'grammar_fix',
   'unit_vocab',
   'unit_grammar',
+
+  // ── 심경·분위기 (2026-08-22 · 45문항) ────────────────────────────────
+  // **모양은 선택지 갈래와 똑같다**(지문 + 선택지 5 + `{answer, rationale_ko}`). 그런데도 여기
+  // 있는 이유는 하나뿐이다 — DB 쪽 두 목록에 `mood` 가 **없다**:
+  //   `grade_dcp_item` 의 선택지 분기 배열 · `textbook_practice_items` 의 허용 목록
+  // 마이그레이션 `20260822013136` 을 쓸 때 이 유형이 아직 없었고, 만든 뒤에 넣는 것을 빠뜨렸다.
+  //
+  // 지금 재생용으로 올리면 화면은 그리는데 제출이 `Unknown type` 으로 죽는다 — 그리고 그 예외는
+  // `{correct:false}` 로 바뀌어 **정답을 맞혀도 오답으로 보인다.** 이 저장소가 열흘 겪은 그 결함이다.
+  // 올리려면 **목록이 아니라 DB 함수 두 개를 먼저** 고쳐야 한다(마이그레이션 · 승인 필요).
+  // 그전까지 45문항은 교재에는 실리고 화면에는 안 나온다.
+  'mood',
 ] as const
 
 export type CoreDcpType = (typeof CORE_DCP_TYPES)[number]

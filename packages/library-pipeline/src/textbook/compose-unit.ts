@@ -75,6 +75,31 @@ export interface ComposeResult {
  */
 export const CSAT_ITEM_WORDS = { min: 90, max: 200 } as const
 
+/**
+ * **장문(43~45)의 지문 길이 범위 — 다른 자다.**
+ *
+ * 수능 장문은 지문 하나가 300어 안팎이고 거기에 순서·지칭·일치 세 문항이 붙는다.
+ * 짧은 지문의 창(90~200어)을 그대로 대면 장문이 **전량 "너무 길다" 로 걸린다** —
+ * 규격 위반이 아니라 **다른 규격**인데 한 자로 재고 있었던 것이다.
+ *
+ * 집필 규격이 300~340어(문단 4 × 6문장)이므로 앞뒤로 여유를 둔다.
+ */
+export const CSAT_LONG_ITEM_WORDS = { min: 260, max: 400 } as const
+
+/**
+ * 장문 묶음 유형 — 위 긴 창을 쓴다.
+ *
+ * 셋이 **한 지문에서 나온다**(수능 장문 (2) 43~45번). 그래서 한 단원에 셋이 함께 실려야
+ * 시험지와 같은 모양이 되는데, 지금 조합기는 "같은 원글은 단원당 하나" 규칙을 쓴다 —
+ * 그 규칙을 장문에 그대로 대면 셋 중 하나만 실린다. **묶음 배치는 아직 안 만들었다**(다음 단계).
+ */
+export const LONG_ITEM_TYPES = new Set(['long_order', 'long_reference', 'long_match'])
+
+/** 이 문항이 재야 할 지문 길이 범위. 유형이 창을 정한다. */
+export function itemWordSpec(type: string): { min: number; max: number } {
+  return LONG_ITEM_TYPES.has(type) ? CSAT_LONG_ITEM_WORDS : CSAT_ITEM_WORDS
+}
+
 /** 단원 기본 구성 — 순서 2 + 삽입 2. 실제 수능 배점 비율과 같다. */
 export const DEFAULT_SLOTS = { order: 2, insert: 2 } as const
 
@@ -104,6 +129,8 @@ export const EXTRA_ITEM_TYPES = new Set([
   'implication',
   'summary',
   'content_match',
+  // 장문 묶음(43~45). 위 유형들과 달리 **긴 창**을 쓴다(`itemWordSpec`).
+  ...LONG_ITEM_TYPES,
 ])
 
 /**
@@ -161,11 +188,13 @@ export function composeUnits(
   let wrongFormat = 0
   let residue = 0
   const fit = pool.filter((p) => {
-    if (p.passage_words < CSAT_ITEM_WORDS.min) {
+    // 유형이 창을 정한다 — 장문은 300어가 정상이고, 짧은 지문의 자로 재면 전량 걸린다.
+    const spec = itemWordSpec(p.type)
+    if (p.passage_words < spec.min) {
       tooShort++
       return false
     }
-    if (p.passage_words > CSAT_ITEM_WORDS.max) {
+    if (p.passage_words > spec.max) {
       tooLong++
       return false
     }

@@ -135,6 +135,46 @@ const TYPES = {
       '선택지는 한국어 한 문장씩이다. **정답이 “일치하지 않는 것”** 이므로 나머지 넷은 지문에서 확인되는 사실이어야 한다. ' +
       '정답은 지문의 사실을 **한 군데만 바꾼 것**으로 만든다(수·방향·주체). 지문에 없는 내용을 지어내지 않는다.',
   },
+
+  // ── 장문 ② 서사문 43~45 — **한 지문에서 셋이 함께 나온다** ──────────────
+  // 지문을 자르지 않고 통째로 준다(300~340어). 짧은 지문의 창을 대면 이야기가 잘려
+  // 순서·지칭·일치 어느 것도 성립하지 않는다.
+  long_order: {
+    number: '43',
+    label: '장문 순서',
+    stem: '주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?',
+    choiceLang: 'en',
+    long: true,
+    guide:
+      '지문은 (A)(B)(C)(D) 네 문단이다. 선택지는 `(B) - (D) - (C)` 꼴 **다섯 가지 배열**이고, ' +
+      '정답은 시간·인과가 실제로 이어지는 하나뿐이어야 한다. ' +
+      '⚠️ 오답 넷도 **형식이 같아야** 한다(전부 세 토막). 정답만 모양이 다르면 읽지 않고 고른다. ' +
+      '순서를 정하는 근거(시간 표지·지시어·대명사가 가리키는 대상)를 `rationale_ko` 에 인용한다. ' +
+      '순서가 둘 이상 성립하면 이 문항을 만들지 말고 건너뛴다.',
+  },
+  long_reference: {
+    number: '44',
+    label: '장문 지칭',
+    stem: '밑줄 친 (a)~(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?',
+    choiceLang: 'en',
+    long: true,
+    guide:
+      '지문에서 **대명사 다섯 개**를 골라 선택지로 삼는다. 넷은 같은 인물을, 하나는 다른 인물을 가리켜야 한다. ' +
+      '선택지 문자열은 그 대명사가 든 **짧은 구절을 지문에서 그대로 따온 것**으로 쓴다(예: `he set the box down`). ' +
+      '⚠️ 지문에 그대로 없는 구절을 지어내면 학습자가 찾을 수 없다 — 반드시 원문에서 복사한다. ' +
+      '인물이 하나뿐이거나 대명사가 다섯 개가 안 되면 건너뛴다.',
+  },
+  long_match: {
+    number: '45',
+    label: '장문 일치',
+    stem: '윗글에 관한 내용으로 적절하지 않은 것은?',
+    choiceLang: 'ko',
+    long: true,
+    guide:
+      '선택지는 한국어 한 문장씩이다. **정답이 “적절하지 않은 것”** 이므로 나머지 넷은 지문에서 확인되는 사실이어야 한다. ' +
+      '⚠️ 근거를 **네 문단에 고루 흩는다** — 한 문단에 몰리면 그 문단만 읽고 풀린다. ' +
+      '정답은 지문의 사실을 한 군데만 바꾼 것으로 만든다(수·방향·주체·시점).',
+  },
 }
 
 const spec = TYPES[TYPE]
@@ -191,8 +231,37 @@ const BATCH_FILTER = (arg('batch') ?? '')
 const withBody = (arts ?? [])
   .filter((a) => !a.display_only && String(a.content ?? '').trim())
   .filter((a) => !BATCH_FILTER.length || BATCH_FILTER.includes(String(a.compose_batch_id)))
-/** 글 → 창 안 지문. 못 자르면 null 이고, 그런 글은 이 유형을 못 만든다. */
+
+/** 이 유형이 장문 묶음(43~45)인가 — 지문을 자르지 않고 통째로 쓴다. */
+const IS_LONG = spec.long === true
+/** 장문 지문 규격. `compose-unit.CSAT_LONG_ITEM_WORDS` 와 같은 값이어야 한다. */
+const LONG_WORDS = { min: 260, max: 400 }
+/** 장문은 (A)(B)(C)(D) 네 문단이어야 43번(순서)이 성립한다. */
+const LONG_PARAGRAPHS = 4
+
+/** 글을 문단으로 가른다(빈 줄 기준). */
+const parasOf = (content) =>
+  String(content)
+    .split(/\n\s*\n+/)
+    .map((p) => p.replace(/\s+/g, ' ').trim())
+    .filter(Boolean)
+
+/**
+ * 글 → 이 유형이 쓸 지문. 못 만들면 null 이고, 그런 글은 이 유형에서 빠진다.
+ *
+ * ⚠️ **장문은 자르지 않는다.** 짧은 지문의 창(90~200어)을 대면 이야기가 중간에서 끊겨
+ *   순서·지칭·일치 어느 것도 성립하지 않는다. 대신 조건을 따로 건다 —
+ *   문단이 정확히 넷이고 전체가 260~400어여야 한다.
+ */
 function passageOf(a) {
+  if (IS_LONG) {
+    const ps = parasOf(a.content)
+    if (ps.length !== LONG_PARAGRAPHS) return null
+    const text = ps.join('\n\n')
+    const n = text.split(/\s+/).filter(Boolean).length
+    if (n < LONG_WORDS.min || n > LONG_WORDS.max) return null
+    return isPrintablePassage(text) ? text : null
+  }
   const sentences = String(a.content)
     .replace(/\n\s*\n+/g, ' ')
     .split(/(?<=[.!?])\s+/)
@@ -208,6 +277,71 @@ const passages = new Map()
 for (const a of withBody) {
   const p = passageOf(a)
   if (p) passages.set(a.id, p)
+}
+
+// ── 순서 문항(43번)은 **뒤섞어 제시해야** 문항이 된다 ────────────────────
+//
+// ⚠️ 처음에는 문단을 원래 순서대로 (A)(B)(C)(D) 로 붙여 내보냈다. 그러면 정답이
+//   **언제나 `(B)-(C)-(D)`** 다 — 배치 네 개가 실제로 그 답만 만들어 왔고, 학습자도
+//   지문을 읽지 않고 그 하나를 고르면 맞는다. 문항이 아니라 **모양만 문항**이었다.
+//   적재 전에 발견해 그 산출물은 쓰지 않았다.
+//
+// 그래서 여기서 (B)(C)(D) 를 섞어 붙이고, **정답은 원래 순서를 되찾는 배열**이 된다.
+// 섞는 방식은 글 id 로 정해지므로 **몇 번 뽑아도 같은 문제가 나온다**(재실행 안전).
+//
+// ⚠️ 지칭(44)·일치(45)는 섞지 않는다 — 순서와 무관한 문항이고, 셋을 한 단원에 묶는
+//   조합은 아직 없다(`compose-unit.LONG_ITEM_TYPES` 주석). 묶게 되면 셋이 **같은
+//   제시본**을 봐야 하므로 그때 여기를 함께 고쳐야 한다.
+const LABELS = ['(B)', '(C)', '(D)']
+/** 글 id 로 정해지는 작은 해시 — 같은 글이면 항상 같은 섞기가 나온다. */
+const seedOf = (id) => {
+  let h = 0
+  for (const ch of String(id)) h = (h * 31 + ch.charCodeAt(0)) >>> 0
+  return h
+}
+/** [1,2,3] 의 순열 6가지. 첫 번째(항등)는 정답이 "그대로" 가 되므로 제시에 쓰지 않는다. */
+const PERMS = [
+  [0, 1, 2],
+  [0, 2, 1],
+  [1, 0, 2],
+  [1, 2, 0],
+  [2, 0, 1],
+  [2, 1, 0],
+]
+const shuffleCache = new Map()
+function shuffledOf(a) {
+  const hit = shuffleCache.get(a.id)
+  if (hit) return hit
+  const ps = parasOf(passages.get(a.id))
+  const seed = seedOf(a.id)
+  // 항등 순열(0)을 빼고 고른다 — 섞지 않으면 문항이 성립하지 않는다.
+  const perm = PERMS[1 + (seed % (PERMS.length - 1))]
+  // perm[k] = 제시 k번째 자리에 놓을 **원래 문단 번호**(1~3 중 perm[k]+1)
+  const shown = perm.map((origIdx, k) => ({
+    label: LABELS[k],
+    origIndex: origIdx + 1,
+    text: ps[origIdx + 1],
+  }))
+  // 원래 순서(1→2→3)를 되찾으려면 어느 라벨을 차례로 읽어야 하는가.
+  const correct = [1, 2, 3].map((orig) => shown.find((s) => s.origIndex === orig).label)
+  const passage = [ps[0], ...shown.map((s) => `${s.label}\n${s.text}`)].join('\n\n')
+  const out = { passage, shown, correctOrder: correct.join(' - ') }
+  shuffleCache.set(a.id, out)
+  return out
+}
+
+/** 장문 과제에 실어 보낼 여분 필드. 순서 문항만 섞인 제시본과 정답 배열을 함께 준다. */
+function longFields(a) {
+  if (TYPE !== 'long_order') {
+    return { parts: parasOf(passages.get(a.id)).map((text, i) => ({ label: `(${String.fromCharCode(65 + i)})`, text })) }
+  }
+  const s = shuffledOf(a)
+  return {
+    parts: [{ label: '(A)', text: parasOf(passages.get(a.id))[0] }, ...s.shown.map((x) => ({ label: x.label, text: x.text }))],
+    // **정답은 여기서 정해진다.** 배치가 짐작하지 않는다 — 짐작하면 원문 순서를 그대로
+    // 답으로 쓰게 되고, 그건 섞기 전의 그 결함이다.
+    correct_order: s.correctOrder,
+  }
 }
 const outOfWindow = withBody.filter((a) => !passages.has(a.id))
 const usable = withBody.filter((a) => passages.has(a.id))
@@ -232,8 +366,10 @@ const tasks = todo.slice(0, need).map((a) => ({
   choice_language: spec.choiceLang,
   guide: spec.guide,
   source_title: a.title,
-  // **글 전체가 아니라 창(90~200어)에 맞게 자른 구간**이다 — 위 `passageOf` 주석 참조.
-  passage: passages.get(a.id),
+  // 짧은 유형은 **창(90~200어)에 맞게 자른 구간**, 장문은 **글 전체**다 — 위 `passageOf` 주석 참조.
+  passage: TYPE === 'long_order' ? shuffledOf(a).passage : passages.get(a.id),
+  // 장문은 문단이 곧 (A)(B)(C)(D) 다. 배치가 문단 경계를 짐작하지 않도록 갈라서 준다.
+  ...(IS_LONG ? longFields(a) : {}),
   // ↓ 여기를 채운다
   choices: [],
   answer: 0,
@@ -253,8 +389,11 @@ for (let i = 0; i < tasks.length; i += SIZE) {
 console.log(`${spec.label}(${spec.number}번) · V${BAND}`)
 console.log(`  본문 있는 원글 ${withBody.length}편`)
 console.log(
-  `  그중 창(${CSAT_ITEM_WORDS.min}~${CSAT_ITEM_WORDS.max}어)으로 자를 수 있는 것 ${usable.length}편 · ` +
-    `**못 자름 ${outOfWindow.length}편**  ← 문장이 모자라거나 인쇄 불가 자국이 있는 글`,
+  IS_LONG
+    ? `  그중 장문 규격(문단 ${LONG_PARAGRAPHS}개 · ${LONG_WORDS.min}~${LONG_WORDS.max}어)에 드는 것 ${usable.length}편 · ` +
+        `**규격 밖 ${outOfWindow.length}편**  ← 문단 수가 다르거나 길이가 안 맞는 글`
+    : `  그중 창(${CSAT_ITEM_WORDS.min}~${CSAT_ITEM_WORDS.max}어)으로 자를 수 있는 것 ${usable.length}편 · ` +
+        `**못 자름 ${outOfWindow.length}편**  ← 문장이 모자라거나 인쇄 불가 자국이 있는 글`,
 )
 console.log(`  이미 이 유형이 붙은 것 ${existing.size}편`)
 console.log(`  **배치가 쓸 몫 ${tasks.length}편**  → 청크 ${chunks.length}개 (${SIZE}편씩)`)

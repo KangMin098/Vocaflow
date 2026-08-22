@@ -16,7 +16,14 @@
 // `human` 항목은 **점수를 만들지 않고 질문만 남긴다.** 이 저장소에서 근거 없는 임계값을
 // 세웠다 지운 적이 두 번 있어서(소스 감사 Cycle 5·6), 못 재는 것에 숫자를 붙이지 않는다.
 
-import { CSAT_ITEM_WORDS, MAX_WORD_APPEARANCES, type Unit } from './compose-unit'
+import {
+  CSAT_ITEM_WORDS,
+  CSAT_LONG_ITEM_WORDS,
+  itemWordSpec,
+  LONG_ITEM_TYPES,
+  MAX_WORD_APPEARANCES,
+  type Unit,
+} from './compose-unit'
 
 export type Audience = 'learner' | 'teacher' | 'parent'
 
@@ -62,14 +69,24 @@ export function scoreVolume(units: ReadonlyArray<Unit>): Scorecard {
   const uniqWords = new Set(allWords)
 
   // ── 학습자 ─────────────────────────────────────────────────────────
-  const outOfSpec = allItems.filter(
-    (i) => i.passage_words < CSAT_ITEM_WORDS.min || i.passage_words > CSAT_ITEM_WORDS.max,
-  )
+  // ⚠️ **자를 유형마다 갈라 댄다.** 장문(43~45)은 300어가 정상 규격이라, 짧은 유형의
+  //   창(90~200어)으로 재면 멀쩡한 문항이 "규격 밖" 으로 잡힌다 — 실제로 장문을 처음
+  //   실었을 때 이 검사가 14문항을 그렇게 세어 9/9 를 8/9 로 떨어뜨렸다.
+  //   **검사가 틀린 것이지 문항이 틀린 것이 아니었다.**
+  const outOfSpec = allItems.filter((i) => {
+    const spec = itemWordSpec(i.type)
+    return i.passage_words < spec.min || i.passage_words > spec.max
+  })
+  const longCount = allItems.filter((i) => LONG_ITEM_TYPES.has(i.type)).length
   auto.push({
     audience: 'learner',
     label: '지문 길이가 수능 규격이다',
     pass: outOfSpec.length === 0,
-    detail: `${allItems.length}문항 중 규격 밖 ${outOfSpec.length} (기준 ${CSAT_ITEM_WORDS.min}~${CSAT_ITEM_WORDS.max}어)`,
+    detail:
+      `${allItems.length}문항 중 규격 밖 ${outOfSpec.length} ` +
+      `(짧은 유형 ${CSAT_ITEM_WORDS.min}~${CSAT_ITEM_WORDS.max}어` +
+      (longCount ? ` · 장문 ${longCount}문항은 ${CSAT_LONG_ITEM_WORDS.min}~${CSAT_LONG_ITEM_WORDS.max}어` : '') +
+      `)`,
   })
 
   const badMinutes = units.filter(

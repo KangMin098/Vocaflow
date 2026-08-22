@@ -14,7 +14,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { composeUnits, DEFAULT_EXTRA_PER_UNIT, EXTRA_ITEM_TYPES } from './compose-unit'
+import { composeUnits, DEFAULT_EXTRA_PER_UNIT, EXTRA_ITEM_TYPES, LONG_ITEM_TYPES } from './compose-unit'
 
 /** 규격을 통과하는 최소한의 풀 항목. */
 function item(id: string, type: string, ref: string) {
@@ -92,5 +92,50 @@ describe('생성형 문항 덧붙임', () => {
     // 첫 단원만 덧붙고 나머지는 뼈대 4개 그대로.
     expect(units[0]!.items.length).toBe(5)
     for (const u of units.slice(1)) expect(u.items).toHaveLength(4)
+  })
+})
+
+describe('장문(43~45) — 유형이 지문 길이 창을 정한다', () => {
+  /** 장문 규격의 풀 항목. 300어대라 **짧은 유형의 창(90~200어)에는 안 들어간다.** */
+  function longItem(id: string, type: string, ref: string) {
+    const sentence = 'A small group of workers moved the heavy load along the road before the rain came.'
+    // 16어 × 20문장 = 320어 — 집필 규격(300~340어)과 같은 자리에 둔다.
+    const passage = Array.from({ length: 20 }, () => sentence).join(' ')
+    return {
+      id,
+      type,
+      ref_id: ref,
+      ref_title: `장문 ${ref}`,
+      v_level: 4,
+      passage_text: passage,
+      passage_words: passage.split(/\s+/).length,
+      body_sentences: 20,
+      payload: { passage, choices: ['a', 'b', 'c', 'd', 'e'] },
+      answer_key: { answer: 1 },
+    }
+  }
+
+  it('장문은 300어대여도 실린다 — 짧은 유형의 자로 재면 전량 걸린다', () => {
+    // ⚠️ 이 회귀가 없으면 장문은 **적재는 되는데 책에는 영영 안 실린다.**
+    //   같은 방식으로 생성형 64문항이 한 번 통째로 사라진 적이 있다(위 describe 참조).
+    const pool = [...corePool(40)]
+    for (let i = 0; i < 20; i++) {
+      pool.push(longItem(`lo${i}`, 'long_order', `L${i}`), longItem(`lm${i}`, 'long_match', `L${i}`))
+    }
+    const { units, rejected } = composeUnits(pool, new Map(), { band: 4, unitCount: 5 })
+    const longs = units.flatMap((u) => u.items).filter((x) => LONG_ITEM_TYPES.has(x.type))
+    expect(longs.length, '장문이 한 문항도 안 실렸다 — 창이 유형별로 갈리지 않았다').toBeGreaterThan(0)
+    // 320어짜리가 "너무 길다" 로 걸리면 창 분기가 안 먹은 것이다.
+    expect(rejected.tooLong, '장문이 길이로 걸렸다').toBe(0)
+  })
+
+  it('짧은 유형은 여전히 90~200어로 잰다 — 장문 창이 새면 짧은 지문이 통과한다', () => {
+    // 창을 유형별로 가르면서 **한쪽 자를 다른 쪽에 잘못 대는 것**이 다음 위험이다.
+    // 320어짜리를 `topic`(짧은 유형)으로 넣으면 반드시 걸려야 한다.
+    const pool = [...corePool(40)]
+    for (let i = 0; i < 20; i++) pool.push(longItem(`t${i}`, 'topic', `x${i}`))
+    const { units, rejected } = composeUnits(pool, new Map(), { band: 4, unitCount: 5 })
+    expect(rejected.tooLong, '320어짜리 짧은 유형이 안 걸렸다').toBeGreaterThan(0)
+    for (const u of units) expect(u.items).toHaveLength(4) // 뼈대만 남는다
   })
 })

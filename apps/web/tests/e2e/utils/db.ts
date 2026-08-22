@@ -701,3 +701,44 @@ export async function countAttemptsWithTagsSince(
   if (error) return -1;
   return (data ?? []).filter((r) => ((r.error_tags as string[] | null) ?? []).length > 0).length;
 }
+
+/**
+ * 특정 시각 이후 DCP 문항 응답(`csat_item_attempts`) 행 개수 — **채점이 실제로 기록되는지** 단언용.
+ *
+ * ⚠️ `dcp_item_id` 로 센다. `question_id` 는 `quiz_questions` 전용이라, 거기에 문항 id 를 넣던
+ *   동안 모든 INSERT 가 FK 위반으로 죽었다(2026-08-22, 마이그레이션 20260822013136 에서 컬럼 분리).
+ *   그때 화면은 멀쩡했다 — 예외가 `{correct:false}` 로 바뀌어 **정답을 맞혀도 "아쉬워요"** 가 떴다.
+ *   그래서 이 헬퍼는 "화면이 떴다" 가 아니라 **"행이 생겼다"** 를 본다.
+ */
+export async function countDcpAttemptsSince(userId: string, sinceIso: string): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  const { count, error } = await c
+    .from('csat_item_attempts')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .not('dcp_item_id', 'is', null)
+    .gte('responded_at', sinceIso);
+  if (error) return -1;
+  return count ?? 0;
+}
+
+/**
+ * 테스트가 만든 DCP 응답을 지운다 — **반드시 finally 에서 부른다.**
+ *
+ * 남기면 `derive_learner_stage`(정답률로 계단을 낸다)가 흔들려 다른 스펙의 전제가 조용히 바뀐다.
+ * 그리고 `textbook_practice_items` 가 "이미 푼 문항" 을 빼므로, 남은 응답만큼 다음 실행이
+ * 볼 문항이 줄어든다 — 재실행 안전이 깨진다.
+ */
+export async function deleteDcpAttemptsSince(userId: string, sinceIso: string): Promise<number> {
+  const c = serviceClient();
+  if (!c) return -1;
+  const { data, error } = await c
+    .from('csat_item_attempts')
+    .delete()
+    .eq('user_id', userId)
+    .gte('responded_at', sinceIso)
+    .select('id');
+  if (error) return -1;
+  return data?.length ?? 0;
+}
