@@ -29,7 +29,7 @@ describe('CSAT_READING_TYPES', () => {
     }
   })
 
-  it('구현된 것은 결정론 5 + 생성형 11 = 열여섯이다 — 실측 기준선', () => {
+  it('구현된 것은 결정론 5 + 생성형 12 = 열일곱이다 — 실측 기준선', () => {
     // 늘어날 때마다 여기를 고친다 — 커버리지 숫자가 조용히 바뀌면 어디서 늘었는지 알 수 없다.
     // 2026-08-21: 생성형 여덟(요지·주제·제목·빈칸·목적·주장·요약·내용일치)이 드레인으로 들어왔다.
     // 2026-08-22: 심경·분위기(`mood`). **지문 갈래를 바꿔서 열렸다** — 서사문 48편을 새로 쓰고
@@ -44,6 +44,7 @@ describe('CSAT_READING_TYPES', () => {
       'implication',
       'insert',
       'irrelevant',
+      'long_expository',
       'long_narrative',
       'mood',
       'order',
@@ -55,14 +56,16 @@ describe('CSAT_READING_TYPES', () => {
     ])
   })
 
-  it('아직 못 만드는 셋은 이유가 분명하다 — 지문 종류나 지문 밖 재료가 없다', () => {
+  it('아직 못 만드는 둘은 **지문 밖 재료**가 없어서다 — 우리가 쓴다고 생기지 않는다', () => {
     // 남은 것을 "아직 안 했다" 로 두면 다음 사람이 쉬운 줄 알고 손댄다.
     const rest = CSAT_READING_TYPES.filter((t) => !t.implemented).map((t) => t.key)
     // 2026-08-22: `long_passage` 를 **둘로 갈랐다** — 41~42(설명문)와 43~45(서사문)는
     // 시험지에서 지문이 서로 다르고 전제도 다르다. 한 칸에 두면 어느 쪽이 막혔는지 모른다.
     // 2026-08-22: `long_narrative`(43~45) 가 열렸다 — 서사문 32편을 300~340어 · 문단 4개로 새로 쓰고
     // 순서는 (B)(C)(D) 를 섞어 제시하도록 고쳤다(안 섞으면 정답이 늘 `(B)-(C)-(D)` 라 안 읽고 풀린다).
-    expect(rest.sort()).toEqual(['chart', 'long_expository', 'notice'])
+    // 2026-08-22: `long_expository`(41~42) 가 열렸다 — 긴 설명문 32편을 새로 쓰고
+    // 제목·어휘 32문항을 만들었다. **남은 둘은 우리가 글을 써서 되는 것이 아니다.**
+    expect(rest.sort()).toEqual(['chart', 'notice'])
     // 도표·안내문은 **지문 밖 재료**가 필요하다 — 우리가 쓴다고 생기지 않는다.
     for (const k of ['chart', 'notice']) {
       expect(CSAT_READING_TYPES.find((t) => t.key === k)?.generation).toBe('external')
@@ -90,14 +93,14 @@ describe('measureCoverage', () => {
     // 18 → 19: 장문을 두 묶음으로 갈랐다(위 참조). **문항 수 분모는 그대로 28** 이다 —
     // 갈랐다고 시험지 문항이 늘지 않는다. 유형 비율이 갑자기 떨어져 보이는 것은 그 때문이다.
     expect(c.types.total).toBe(19)
-    expect(c.types.implemented).toBe(16)
+    expect(c.types.implemented).toBe(17)
     expect(c.questions.total).toBe(28)
     // 결정론 7 (순서 2 + 삽입 2 + 흐름무관 1 + 어휘 1 + 어법 1)
-    //   + 생성형 16 (요지·주제·제목·목적·주장·요약·내용일치·함의·심경 각 1 + **빈칸 4** + **장문② 3**) = 23
+    //   + 생성형 18 (요지·주제·제목·목적·주장·요약·내용일치·함의·심경 각 1 + **빈칸 4**
+    //                 + **장문② 3**(43·44·45) + **장문① 2**(41·42)) = 25
     // 빈칸 하나가 유형 수로는 1 인데 문항 수로는 4 다 — 그래서 두 축을 따로 센다.
-    // 장문②도 유형 수로는 1 인데 문항 수로는 3(43·44·45) 이다.
-    expect(c.questions.implemented).toBe(23)
-    expect(c.questions.ratio).toBeCloseTo(23 / 28, 5)
+    expect(c.questions.implemented).toBe(25)
+    expect(c.questions.ratio).toBeCloseTo(25 / 28, 5)
   })
 
   it('결정론으로 가능한 것은 이제 다 만들었다 — 남은 13유형은 생성형·외부재료다', () => {
