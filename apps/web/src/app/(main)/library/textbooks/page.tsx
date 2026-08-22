@@ -26,6 +26,11 @@ export default async function TextbooksPage() {
 
   return (
     <Screen width="wide" background="bg2" padX="md">
+      {/* ⚠️ 이 화면에는 **보이는 제목이 없다** — Calm UI 라 그렇게 설계했다.
+          그래도 이름은 있어야 한다: h1 이 없으면 스크린리더로 "여기가 어디" 를 물을 방법이 없다
+          (실측 2026-08-23: 학습자 화면 3곳이 그랬다).
+          보이는 디자인은 그대로 두고 **프로그램에만** 이름을 붙인다. */}
+      <h1 className="sr-only">교재 서가</h1>
       <div className="flex flex-col gap-4 py-6 md:py-8">
         <TextbookShelf
           shelf={shelf}

@@ -16,7 +16,7 @@ import { fetchScriptQuizQueue, type QuizQueue } from '@/lib/scriptquiz/queue'
 import { createClient } from '@/lib/supabase/server'
 
 export const metadata = {
-  title: 'ScriptQuiz · Vocaflow',
+  title: 'ScriptQuiz — 읽은 것 확인하기',
   description: '읽은 챕터의 이해를 확인하세요',
 }
 

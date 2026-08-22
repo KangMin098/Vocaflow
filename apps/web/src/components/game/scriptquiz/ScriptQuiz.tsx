@@ -269,12 +269,13 @@ function StartScreen({
   const backHref = sanitizeInternalPath(useSearchParams()?.get('from')) ?? '/scriptquiz'
   return (
     <div className="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-6 py-12 text-center">
-      {/* QUIZ 로고 */}
-      <h1 className="font-display text-[64px] font-[900] leading-none tracking-tight md:text-[80px]">
+      {/* QUIZ 로고 — **제목이 아니라 워드마크다.** `h1` 으로 두면 SessionFrame 의 h1 과
+          둘이 되어 화면의 주제가 모호해진다. 보이는 것은 그대로다. */}
+      <p className="font-display text-[64px] font-[900] leading-none tracking-tight md:text-[80px]">
         <span className="bg-gradient-to-br from-[#5BC8F5] to-[#1A7AB8] bg-clip-text text-transparent drop-shadow-sm">
           QUIZ
         </span>
-      </h1>
+      </p>
       <p className="mt-3 font-mono text-[11px] font-[700] uppercase tracking-[0.20em] text-[var(--t2)]">
         스크립트 독해 퀴즈
       </p>
@@ -615,9 +616,10 @@ function ResultScreen({
             <Sparkles size={11} aria-hidden />
             완료
           </span>
-          <h1 className="mt-3 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)] md:text-[32px]">
+          {/* 완료 문구 — 화면의 이름은 SessionFrame 이 낸다. 여기는 그 아래 단계다. */}
+          <h2 className="mt-3 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)] md:text-[32px]">
             오늘 잘 마쳤어요
-          </h1>
+          </h2>
           <p className="mt-2 font-body text-[14px] leading-relaxed text-[var(--t2)]">
             {encouragement}
           </p>

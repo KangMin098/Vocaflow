@@ -20,9 +20,15 @@ interface WordVaultStudyClientProps {
 export function WordVaultStudyClient({ words, mode = 'study' }: WordVaultStudyClientProps) {
   const router = useRouter()
 
+  const screenName = mode === 'review' ? '복습' : '학습'
+
   if (words.length === 0) {
     return (
       <div className="mx-auto flex max-w-[480px] flex-col items-center px-s-4 py-s-16 text-center">
+        {/* ⚠️ 이 화면에는 보이는 제목이 없다 — Calm UI 라 그렇게 설계했다. 그래도 이름은 있어야 한다:
+            h1 이 없으면 스크린리더로 "여기가 어디" 를 물을 방법이 없다(실측 2026-08-23).
+            아래 h2 는 **상태 안내**지 화면 이름이 아니다 — 둘은 다른 것이다. */}
+        <h1 className="sr-only">{screenName}</h1>
         <div className="mb-s-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-bg2 text-t3">
           <Sparkles size={22} aria-hidden />
         </div>
@@ -44,5 +50,11 @@ export function WordVaultStudyClient({ words, mode = 'study' }: WordVaultStudyCl
     )
   }
 
-  return <StudyMode words={words} onExit={() => router.push('/wordvault')} />
+  return (
+    <>
+      {/* 위와 같은 이유 — 보이는 제목 없이도 화면에는 이름이 있어야 한다. */}
+      <h1 className="sr-only">{screenName}</h1>
+      <StudyMode words={words} onExit={() => router.push('/wordvault')} />
+    </>
+  )
 }
