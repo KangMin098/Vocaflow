@@ -42,6 +42,19 @@ export const SPEC = {
     { id: 'E4', grade: 'HARD', name: '듣기 17 + 읽기 28', check: (ex) => ex.items.filter((i) => i.no <= 17).length === 17 },
     { id: 'E5', grade: 'HARD', name: '정답 번호가 한쪽으로 쏠리지 않는다 (각 번호 6~12)',
       check: (ex) => { const d = [0, 0, 0, 0, 0, 0]; for (const i of ex.items) d[i.answer] += 1; return d.slice(1).every((x) => x >= 6 && x <= 12) } },
+    // 장문 세트는 유형군을 한 번씩 배치한다 — 41·43·44·45 는 13개년 한 번도 안 바뀌었다.
+    // 42 만 움직였다: X-BLANK(2014B~2018, 2017 만 X-BLANK2) → **2019 부터 X-VOCAB 로 8회 연속**.
+    // 그래서 2019 이후 장문 세트는 '5유형 종합' 이 아니라 어휘가 두 번 들어간 4유형 구성이다.
+    // (2016 년에 나온 시중 분석서가 '5유형 종합' 이라 적은 것은 그 시점엔 맞았고 지금은 틀리다)
+    { id: 'E6', grade: 'HARD', name: '장문 세트 41·43·44·45 의 유형이 고정 (제목·순서·지칭·일치)',
+      check: (ex) => {
+        const want = { 41: 'X-TITLE', 43: 'X-ORDER', 44: 'X-REFER', 45: 'X-FACT' }
+        return Object.entries(want).every(([no, t]) => {
+          const it = ex.items.find((i) => i.no === Number(no))
+          return !it || it.type === t
+        })
+      },
+      why: '13개년 예외 0. 42번만 바뀌었고 2019 부터 장문 어휘로 고정됐다.' },
   ],
   item: [
     { id: 'I1', grade: 'HARD', name: '선택지는 5개, 정답은 1~5', check: (it) => it.answer >= 1 && it.answer <= 5 },
