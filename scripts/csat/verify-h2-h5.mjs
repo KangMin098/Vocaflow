@@ -225,7 +225,7 @@ function baseIndent(lines) {
   console.log(`  시기별 — 앞 ${eE.n}토막 → 뒤 ${eL.n}토막`)
   console.log(`    S1 명시적 단서로 시작  ${(100 * eE.s1).toFixed(1)}% → ${(100 * eL.s1).toFixed(1)}%`)
   console.log(`    단서 없음             ${(100 * eE.none).toFixed(1)}% → ${(100 * eL.none).toFixed(1)}%`)
-  out.H5 = { blocks, cued, inlineOnly, artOnly, none, failedItems, cover, s1: s1 / 100, s2: s2 / 100, s3: s3 / 100, verdict, failed, era: { early: eE, late: eL } }
+  out.H5 = { blocks, cued, inlineOnly, artOnly, none, failedItems, cover, s1: s1 / 100, s2: s2 / 100, s3: s3 / 100, verdict, failed, era: { early: eE, late: eL }, perBlock }
 }
 
 fs.writeFileSync(path.join(OUT_DIR, 'blueprint-v0-h2h5.json'), JSON.stringify(out, null, 1))
