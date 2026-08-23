@@ -44,6 +44,13 @@
    "ok": true
   },
   {
+   "id": "E7",
+   "name": "2019학년도부터 3점 배분 고정 — 빈칸 2 · 순서 1 · 삽입 1",
+   "before": true,
+   "after": false,
+   "ok": true
+  },
+  {
    "id": "I1",
    "name": "선택지는 5개, 정답은 1~5",
    "before": true,

@@ -61,6 +61,7 @@ const MUT = {
   E4: (it) => { it.find((x) => x.type.startsWith('L-')).type = 'R-FACT'; return it }, // 듣기 하나를 읽기로
   E5: (it) => { for (const x of it) x.answer = 1; return it },             // 정답을 전부 ①로
   E6: (it) => { it.find((x) => x.no === 41).type = 'R-BLANK'; return it },  // 장문 41 유형 교체
+  E7: (it) => { const b = it.filter((x) => x.type === 'R-BLANK' && x.points === 3); if (b[0]) b[0].points = 2; return it }, // 빈칸 3점을 1개로
   I1: (it) => { it[0].answer = 6; return it },                            // 정답 6번
   I2: (it) => { it.find((x) => SEQUENTIAL_TYPES.includes(x.type)).answer = 1; return it }, // 순서대응형 ①
   I3: (it) => { it.find((x) => x.choiceHasKo).points = 3; return it },      // 한글 선택지에 3점
