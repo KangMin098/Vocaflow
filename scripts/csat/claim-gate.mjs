@@ -51,11 +51,20 @@ function g1(claim) {
   const total = sub.reduce((s, x) => s + x.n, 0)
   const biggest = [...sub].sort((a, b) => b.n - a.n)[0]
   const share = biggest.n / total
-  const dirs = sub.filter((x) => x.n >= 3).map((x) => x.hit / x.n > (claim.baseRate ?? 0))
+  const testable = sub.filter((x) => x.n >= 3)
+  const dirs = testable.map((x) => x.hit / x.n > (claim.baseRate ?? 0))
   const agree = dirs.filter(Boolean).length
-  if (share > 0.6) return { pass: false, msg: `한 하위 그룹이 표본의 ${(100 * share).toFixed(0)}% — 집계가 그것을 다시 재는 것일 수 있다 (${biggest.label})` }
-  if (dirs.length >= 2 && agree !== dirs.length && agree !== 0) return { pass: false, msg: `하위 그룹 방향 불일치 ${agree}/${dirs.length}` }
-  return { pass: true, msg: `하위 그룹 ${sub.length}개 · 최대 비중 ${(100 * share).toFixed(0)}% · 방향 일치` }
+  // 방향이 갈리는 것이 심슨의 역설의 본체다. 여기서 먼저 떨어뜨린다.
+  if (dirs.length >= 2 && agree !== dirs.length && agree !== 0) {
+    return { pass: false, msg: `하위 그룹 방향 불일치 ${agree}/${dirs.length} — 집계가 착시다` }
+  }
+  // ⚠️ 비중 편중은 **방향이 갈릴 때만** 문제다. 모든 하위 그룹이 같은 방향이면 가릴 것이 없다.
+  //    (첫 판은 하위 그룹 둘이 모두 100% 인데도 비중 67% 라는 이유로 떨어뜨렸다 — 부당하다)
+  if (share > 0.6 && dirs.length < 2) {
+    return { pass: false, msg: `한 하위 그룹이 표본의 ${(100 * share).toFixed(0)}% 인데 나머지가 검정 가능한 크기가 아니다 (${biggest.label})` }
+  }
+  const note = share > 0.6 ? ` · 최대 비중 ${(100 * share).toFixed(0)}% 이나 하위 그룹 전부 같은 방향이라 착시 위험 없음` : ` · 최대 비중 ${(100 * share).toFixed(0)}%`
+  return { pass: true, msg: `하위 그룹 ${sub.length}개${note} · 방향 일치` }
 }
 
 /** G2 기저 확률 — 그 성질을 갖지 않은 것이 애초에 몇이나 되는가 */
@@ -126,11 +135,16 @@ export function gate(claim) {
   // ⚠️ G5(유의성)는 **필수 관문**이다. 여기서 떨어진 주장은 다른 넷을 통과해도 SOFT 가 아니다.
   //    (첫 판은 순서 단서 감소를 3/5 SOFT 로 통과시켰다 — p=0.0636 인데도. 그건 폐기가 맞다)
   const sig = results.find((r) => r.name.startsWith('G5'))
+  // ⚠️ HARD 는 **범위 안에서 예외가 없는** 규칙이다(E1~E7·I1~I3 전부 100%).
+  //    관문을 5/5 통과해도 예외가 있으면 경향이지 불변식이 아니다.
+  //    (첫 판은 어휘 ④⑤ 를 5/5 로 HARD 후보에 올렸다 — 10/13 이라 예외가 3건인데도)
+  const exceptionFree = claim.hit === claim.n
   const verdict = !sig.pass ? '근거 부족 — 유의성 미달'
-    : passed === 5 ? 'HARD 후보'
-      : passed >= 4 ? 'SOFT'
-        : '근거 부족'
-  return { claim: claim.name, results, passed, verdict }
+    : passed === 5 && exceptionFree ? 'HARD 후보'
+      : passed === 5 ? `SOFT 상위 — 관문은 전부 통과했으나 예외 ${claim.n - claim.hit}건 (불변식이 아니라 경향)`
+        : passed >= 4 ? 'SOFT'
+          : '근거 부족'
+  return { claim: claim.name, results, passed, verdict, exceptionFree }
 }
 
 export function report(claim) {
