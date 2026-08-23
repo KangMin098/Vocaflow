@@ -1,0 +1,246 @@
+{
+ "task": "43개 유형 각각을 2015 개정 영어과 읽기 성취기준 6개 중 하나에 배정하라. 각 유형은 정확히 하나에.",
+ "concepts": [
+  {
+   "id": "C5",
+   "name": "필자의 심정이나 태도 파악"
+  },
+  {
+   "id": "C1",
+   "name": "세부 정보 파악"
+  },
+  {
+   "id": "C2",
+   "name": "줄거리·주제·요지 파악"
+  },
+  {
+   "id": "C4",
+   "name": "필자의 의도·글의 목적 파악"
+  },
+  {
+   "id": "C6",
+   "name": "낱말·어구·문장의 함축적 의미 파악"
+  },
+  {
+   "id": "C3",
+   "name": "내용의 논리적 관계 파악"
+  }
+ ],
+ "types": [
+  {
+   "code": "L-ANNOUNCE",
+   "name": "담화 내용 불일치",
+   "section": "듣기"
+  },
+  {
+   "code": "L-FAVOR",
+   "name": "부탁한 일",
+   "section": "듣기"
+  },
+  {
+   "code": "L-MAIN",
+   "name": "요지",
+   "section": "듣기"
+  },
+  {
+   "code": "L-MONEY",
+   "name": "지불 금액",
+   "section": "듣기"
+  },
+  {
+   "code": "L-NOTMENTION",
+   "name": "언급되지 않은 것",
+   "section": "듣기"
+  },
+  {
+   "code": "L-OPINION",
+   "name": "의견",
+   "section": "듣기"
+  },
+  {
+   "code": "L-PICTURE",
+   "name": "그림",
+   "section": "듣기"
+  },
+  {
+   "code": "L-PURPOSE",
+   "name": "담화 목적",
+   "section": "듣기"
+  },
+  {
+   "code": "L-REASON",
+   "name": "이유",
+   "section": "듣기"
+  },
+  {
+   "code": "L-RELATION",
+   "name": "관계",
+   "section": "듣기"
+  },
+  {
+   "code": "L-RESPONSE",
+   "name": "짧은 응답",
+   "section": "듣기"
+  },
+  {
+   "code": "L-SET-NOT",
+   "name": "세트 불포함",
+   "section": "듣기"
+  },
+  {
+   "code": "L-SET-TOPIC",
+   "name": "세트 주제",
+   "section": "듣기"
+  },
+  {
+   "code": "L-SITUATION",
+   "name": "상황 후 할 말",
+   "section": "듣기"
+  },
+  {
+   "code": "L-TABLE",
+   "name": "표 보고 선택",
+   "section": "듣기"
+  },
+  {
+   "code": "L-TODO",
+   "name": "할 일",
+   "section": "듣기"
+  },
+  {
+   "code": "L-TOPIC",
+   "name": "담화 주제(단독)",
+   "section": "듣기"
+  },
+  {
+   "code": "R-BLANK",
+   "name": "빈칸 추론",
+   "section": "독해"
+  },
+  {
+   "code": "R-BLANK2",
+   "name": "빈칸 추론(2개·폐지)",
+   "section": "독해"
+  },
+  {
+   "code": "R-CHART",
+   "name": "도표",
+   "section": "독해"
+  },
+  {
+   "code": "R-CLAIM",
+   "name": "필자 주장",
+   "section": "독해"
+  },
+  {
+   "code": "R-FACT",
+   "name": "내용 일치(글)",
+   "section": "독해"
+  },
+  {
+   "code": "R-GIST",
+   "name": "요지",
+   "section": "독해"
+  },
+  {
+   "code": "R-GRAMMAR",
+   "name": "어법",
+   "section": "독해"
+  },
+  {
+   "code": "R-IMPLY",
+   "name": "함축 의미",
+   "section": "독해"
+  },
+  {
+   "code": "R-INSERT",
+   "name": "문장 삽입",
+   "section": "독해"
+  },
+  {
+   "code": "R-IRRELEVANT",
+   "name": "무관한 문장",
+   "section": "독해"
+  },
+  {
+   "code": "R-MOOD",
+   "name": "심경·분위기",
+   "section": "독해"
+  },
+  {
+   "code": "R-NOTICE",
+   "name": "안내문 일치",
+   "section": "독해"
+  },
+  {
+   "code": "R-ORDER",
+   "name": "글의 순서",
+   "section": "독해"
+  },
+  {
+   "code": "R-PURPOSE",
+   "name": "글의 목적",
+   "section": "독해"
+  },
+  {
+   "code": "R-REFER",
+   "name": "지칭 추론(단문·폐지)",
+   "section": "독해"
+  },
+  {
+   "code": "R-SUMMARY",
+   "name": "요약문 완성",
+   "section": "독해"
+  },
+  {
+   "code": "R-TITLE",
+   "name": "제목",
+   "section": "독해"
+  },
+  {
+   "code": "R-TOPIC",
+   "name": "주제",
+   "section": "독해"
+  },
+  {
+   "code": "R-VOCAB",
+   "name": "어휘(문맥)",
+   "section": "독해"
+  },
+  {
+   "code": "X-BLANK",
+   "name": "장문 빈칸(1개·폐지)",
+   "section": "장문"
+  },
+  {
+   "code": "X-BLANK2",
+   "name": "장문 빈칸(2개)",
+   "section": "장문"
+  },
+  {
+   "code": "X-FACT",
+   "name": "장문 내용 일치",
+   "section": "장문"
+  },
+  {
+   "code": "X-ORDER",
+   "name": "장문 순서",
+   "section": "장문"
+  },
+  {
+   "code": "X-REFER",
+   "name": "장문 지칭",
+   "section": "장문"
+  },
+  {
+   "code": "X-TITLE",
+   "name": "장문 제목",
+   "section": "장문"
+  },
+  {
+   "code": "X-VOCAB",
+   "name": "장문 어휘",
+   "section": "장문"
+  }
+ ]
+}

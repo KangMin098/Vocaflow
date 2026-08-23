@@ -1,0 +1,33 @@
+{
+ "layerA": {
+  "n": 60,
+  "agree": 60,
+  "rate": 1,
+  "kappa": 1,
+  "diffs": []
+ },
+ "layerB": {
+  "n": 43,
+  "agree": 40,
+  "rate": 0.9302325581395349,
+  "kappa": 0.9117043121149896,
+  "diffs": [
+   {
+    "type": "L-RELATION",
+    "mine": "C5",
+    "theirs": "C1"
+   },
+   {
+    "type": "R-CLAIM",
+    "mine": "C4",
+    "theirs": "C2"
+   },
+   {
+    "type": "L-OPINION",
+    "mine": "C4",
+    "theirs": "C2"
+   }
+  ]
+ },
+ "boundaryCrossings": []
+}
