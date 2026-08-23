@@ -1,0 +1,24 @@
+{
+ "question": "선정을 거치지 않은 학술 문단으로 유효한 삽입 문항을 만들 수 있는가",
+ "why": "가설 12개가 두 층(지문 안 선택·지문 선정)에서 전부 실패했다. 남는 해석이 둘이었다 — (a) 제약이 의미 수준이라 어휘 도구로 안 보인다 (b) 제약이 애초에 느슨하다. 만들어 보면 갈린다. 아무 문단이나 문항이 되면 (b)다.",
+ "method": "control-prose2.json 의 12편 각각에서 문장 하나를 빼내고, 되돌릴 자리가 **유일한지** 직접 판단했다. 유일하면 유효 문항이다(복수정답이 안 나온다).",
+ "judge": "Claude Code — 의미 판단이라 정규식으로는 못 한다. 판단자가 기준 설계자와 같다는 한계를 명시한다.",
+ "results": [
+  { "topic": "신경학", "removed": "Rather than acting independently, these networks work together to create thoughts, perceptions and actions.", "anchor": "these networks → 앞 문장의 brain networks", "unique": true },
+  { "topic": "생물학", "removed": "Instead, there is overlap between females and males in each sex-related biological trait.", "anchor": "Instead → 앞 문장의 부정 진술(not sexually dimorphic)", "unique": true },
+  { "topic": "영양학", "removed": "This group of bioactive compounds are found in many plant-based foods, including tea, apples and berries.", "anchor": "This group → flavanols", "unique": true },
+  { "topic": "법학", "removed": "But the law also permits release of some information without your consent.", "anchor": "But + the law → 앞 문장의 권리 열거", "unique": true },
+  { "topic": "임상심리", "removed": "If it did, I believe this law could dramatically increase coaches abilities to identify and support athletes.", "anchor": "If it did → 앞 문장의 does not include", "unique": true },
+  { "topic": "사회학", "removed": "It was like a friend, he said, and helped him understand her perspective better.", "anchor": "It → 앞 문장의 AI model", "unique": true },
+  { "topic": "경제학", "removed": "He made that shift a quarter-century after over 5,000 steelworkers were laid off in a single day.", "anchor": "that shift → 앞 문장의 정책 전환", "unique": true },
+  { "topic": "천문학", "removed": "These nurseries start out at extremely cold temperatures of about minus 263 degrees Celsius.", "anchor": "These nurseries → molecular clouds", "unique": true },
+  { "topic": "의학", "removed": "One month later, she received a second supervised session and again appeared more expressive and agile.", "anchor": "a second / again → 앞의 첫 세션", "unique": true },
+  { "topic": "노동경제", "removed": "But today a newly hired financial analyst may first review an AI-generated forecast, rather than building the initial model from scratch.", "anchor": "But today → 앞의 과거 시제 블록", "unique": true },
+  { "topic": "공공정책", "removed": "However, in Australia, the same structural problems keep repeating.", "anchor": "However → 앞 문장의 개별 원인 열거", "unique": true },
+  { "topic": "역사", "removed": "It was grounded in building non-racial and inter-generational networks of care and solidarity.", "anchor": "It → 앞 문장의 her political work", "unique": true }
+ ],
+ "score": "12/12",
+ "verdict": "(b) — 제약이 느슨하다. 선정을 거치지 않은 학술 문단 12편 전부에서 자리가 유일한 삽입 문항이 나왔다. 삽입 문항이 되기 위해 지문에 필요한 것은 '문장 하나가 앞 문장을 지시로 받는다' 뿐이고, 그건 응집적인 산문이면 거의 항상 성립한다.",
+ "limitation": "유일성 판단을 내가 했고, 나는 판단 기준을 설계한 쪽이기도 하다. 그리고 평가원 검토는 복수정답 외에도 난도·소재 적합성 등을 본다 — 여기서는 '문항으로 성립하는가' 만 쟀다.",
+ "implication": "설계도를 못 찾은 것이 아니라, 그 층에 찾을 것이 별로 없었다. 대신 뒤집으면 생성이 쉽다는 뜻이다 — 형식 명세와 관행만 지키면 기출과 구별되지 않는 문항이 나온다."
+}
