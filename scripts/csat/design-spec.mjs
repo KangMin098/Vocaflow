@@ -39,7 +39,15 @@ export const SPEC = {
     { id: 'E1', grade: 'HARD', name: '한 회차는 45문항', check: (ex) => ex.items.length === 45 },
     { id: 'E2', grade: 'HARD', name: '3점이 정확히 10문항', check: (ex) => ex.items.filter((i) => i.points === 3).length === 10 },
     { id: 'E3', grade: 'HARD', name: '나머지는 전부 2점', check: (ex) => ex.items.every((i) => i.points === 2 || i.points === 3) },
-    { id: 'E4', grade: 'HARD', name: '듣기 17 + 읽기 28', check: (ex) => ex.items.filter((i) => i.no <= 17).length === 17 },
+    // ⚠️ 1판의 E4 는 `no <= 17 인 문항이 17개인가` 를 봤다. **항진명제다** — 1~45 번호가 있으면 언제나 참이다.
+    //    그래서 2014A·2014B 가 실제로는 **듣기 22문항**인데도 통과했다("위반 0" 중 하나가 무의미한 검사였다).
+    //    유형 코드로 실제 듣기 수를 센다. 2015학년도에 듣기가 22 → 17 로 줄었으므로 시기를 나눈다.
+    { id: 'E4', grade: 'HARD', name: '듣기 문항 수 고정 — 2015학년도부터 17 (2014 는 22)',
+      check: (ex) => {
+        const n = ex.items.filter((i) => i.type.startsWith('L-')).length
+        return ex.exam.startsWith('2014') ? n === 22 : n === 17
+      },
+      why: '2015학년도에 듣기가 22 → 17 로 줄었다. 그 뒤 12회차 고정.' },
     { id: 'E5', grade: 'HARD', name: '정답 번호가 한쪽으로 쏠리지 않는다 (각 번호 6~12)',
       check: (ex) => { const d = [0, 0, 0, 0, 0, 0]; for (const i of ex.items) d[i.answer] += 1; return d.slice(1).every((x) => x >= 6 && x <= 12) } },
     // 장문 세트는 유형군을 한 번씩 배치한다 — 41·43·44·45 는 13개년 한 번도 안 바뀌었다.
