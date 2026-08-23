@@ -124,3 +124,6 @@ scripts/dict/csat-corpus/normalized.json
 
 # 수능 기출 원문 복원 텍스트 — 저작권상 배포 금지, 분석 결과만 커밋한다
 scripts/csat/data/columns/
+
+# 상용 도서 변환본 — 저작권상 커밋 금지 (분석 참조용 로컬 사본)
+docs/reference/seum-code-full.md
