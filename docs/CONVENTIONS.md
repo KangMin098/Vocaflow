@@ -32,6 +32,11 @@
     LEARNER_SWEEP=1  npx playwright test tests/e2e/26-learner-sweep.spec.ts
     KEYBOARD_SWEEP=1 npx playwright test tests/e2e/27-keyboard-reach.spec.ts
     IDENTITY_SWEEP=1 npx playwright test tests/e2e/28-screen-identity.spec.ts
+
+    # 390px 모바일에서도 한 번 — 셸이 통째로 다르다(사이드바 없음 · 하단 탭 있음)
+    SWEEP_VIEWPORT=mobile LEARNER_SWEEP=1  npx playwright test tests/e2e/26-learner-sweep.spec.ts
+    SWEEP_VIEWPORT=mobile KEYBOARD_SWEEP=1 npx playwright test tests/e2e/27-keyboard-reach.spec.ts
+    SWEEP_VIEWPORT=mobile IDENTITY_SWEEP=1 npx playwright test tests/e2e/28-screen-identity.spec.ts
     ```
     다섯 다 합쳐 **약 11분** (dev 로는 약 25분). 다섯 축이 보는 것은 서로 다르다 —
     동선 · 터치/넘침 · 대비/배치 · 키보드 · **이 화면이 무엇인가**(제목·h1·랜드마크).

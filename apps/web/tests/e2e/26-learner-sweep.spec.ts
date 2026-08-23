@@ -39,6 +39,17 @@ const RUNTIME_USER = {
 }
 const STATE_PATH = 'playwright-auth/.auth-learner-sweep.json'
 
+/**
+ * **어느 화면 크기에서 재는가.** 기본은 데스크톱, `SWEEP_VIEWPORT=mobile` 이면 390px.
+ *
+ * ⚠️ 실측 2026-08-23: 이 축들은 **데스크톱 한 크기에서만** 돌고 있었다.
+ *    `CLAUDE.md` 는 모바일 퍼스트(390 → 768 → 1280)를 원칙으로 두는데,
+ *    390 에서는 사이드바가 사라지고 하단 탭이 생긴다 — **셸이 통째로 다른 화면**이다.
+ *    거기서 한 번도 안 재고 "전수" 라고 부르고 있었다.
+ */
+const MOBILE = process.env.SWEEP_VIEWPORT === 'mobile'
+const VIEWPORT = MOBILE ? { viewport: { width: 390, height: 844 } } : {}
+
 async function login(page: Page) {
   await page.goto('/login', { waitUntil: 'networkidle' })
   await page.waitForTimeout(800)
@@ -151,7 +162,7 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
     await page.context().storageState({ path: STATE_PATH })
     await page.close()
   })
-  test.use({ storageState: STATE_PATH })
+  test.use({ storageState: STATE_PATH, ...VIEWPORT })
 
   test('모든 학습자 화면이 열리고 · 조용하고 · 앞길이 있고 · 되돌아온다', async ({
     page,
