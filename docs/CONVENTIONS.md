@@ -31,8 +31,10 @@
     npx playwright test tests/e2e/91-hub-design-capture.spec.ts
     LEARNER_SWEEP=1  npx playwright test tests/e2e/26-learner-sweep.spec.ts
     KEYBOARD_SWEEP=1 npx playwright test tests/e2e/27-keyboard-reach.spec.ts
+    IDENTITY_SWEEP=1 npx playwright test tests/e2e/28-screen-identity.spec.ts
     ```
-    넷 다 합쳐 **약 10분** (dev 로는 약 25분).
+    다섯 다 합쳐 **약 11분** (dev 로는 약 25분). 다섯 축이 보는 것은 서로 다르다 —
+    동선 · 터치/넘침 · 대비/배치 · 키보드 · **이 화면이 무엇인가**(제목·h1·랜드마크).
   · ⚠️ **서버를 다시 시작할 때는 정말 죽었는지 확인할 것.** `pkill` 이 Windows 에서 안 먹어
     **옛 서버가 교체된 빌드 디렉터리를 서빙**했고, 청크 해시가 어긋나 400 이 쏟아졌다.
     그 위에서 나온 "콘솔 에러 24 · 미안정 12" 는 화면 이야기가 아니었다.
