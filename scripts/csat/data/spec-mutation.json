@@ -1,0 +1,68 @@
+{
+ "exam": "2026",
+ "results": [
+  {
+   "id": "E1",
+   "name": "한 회차는 45문항",
+   "before": true,
+   "after": false,
+   "ok": true
+  },
+  {
+   "id": "E2",
+   "name": "3점이 정확히 10문항",
+   "before": true,
+   "after": false,
+   "ok": true
+  },
+  {
+   "id": "E3",
+   "name": "나머지는 전부 2점",
+   "before": true,
+   "after": false,
+   "ok": true
+  },
+  {
+   "id": "E4",
+   "name": "듣기 문항 수 고정 — 2015학년도부터 17 (2014 는 22)",
+   "before": true,
+   "after": false,
+   "ok": true
+  },
+  {
+   "id": "E5",
+   "name": "정답 번호가 한쪽으로 쏠리지 않는다 (각 번호 6~12)",
+   "before": true,
+   "after": false,
+   "ok": true
+  },
+  {
+   "id": "E6",
+   "name": "장문 세트 41·43·44·45 의 유형이 고정 (제목·순서·지칭·일치)",
+   "before": true,
+   "after": false,
+   "ok": true
+  },
+  {
+   "id": "I1",
+   "name": "선택지는 5개, 정답은 1~5",
+   "before": true,
+   "after": false,
+   "ok": true
+  },
+  {
+   "id": "I2",
+   "name": "순서 대응형에서 ① 은 정답이 아니다",
+   "before": true,
+   "after": false,
+   "ok": true
+  },
+  {
+   "id": "I3",
+   "name": "선택지에 한글이 섞이면 3점이 아니다",
+   "before": true,
+   "after": false,
+   "ok": true
+  }
+ ]
+}
