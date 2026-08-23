@@ -137,5 +137,37 @@ console.log(`  → 예측 ${winner === '삽입용 (38·39)' ? '**적중**' : '**
   ` (삽입용 ${ins.score.toFixed(3)} vs 최고 타집단 ${maxOther.toFixed(3)}, 차이 ${(ins.score - maxOther).toFixed(3)})`)
 if (Math.abs(ins.score - maxOther) < 0.05) console.log('  차이가 0.05 미만 — 집단 간 구분이 없다고 본다.')
 
-fs.writeFileSync(path.join(OUT_DIR, 'passage-selection.json'), JSON.stringify({ prediction: '삽입용 지문이 가장 촘촘하다', result }, null, 1))
+// ── 1차 대조군 — 평가원 선정을 거치지 않은 산문 ──────────────────────
+// 위 네 집단은 전부 **이미 선정을 통과한** 지문이다. 그래서 재고 있는 것은 선정 효과가 아니라
+// 선정된 것들 사이의 2차 차이다. 1차 질문에는 선정 안 된 텍스트가 있어야 한다.
+// ⚠️ 장르가 완전히 겹치지 않는다(기후·데이터 해설 vs 인문·사회 에세이). 해석에서 감안한다.
+{
+  const ctl = JSON.parse(fs.readFileSync(path.join(OUT_DIR, 'control-prose.json'), 'utf8'))
+  const scores = [], sharedFlags = []
+  for (const it of ctl.items) {
+    const s = sentences(it.text)
+    if (s.length < 4) continue
+    for (let i = 1; i < s.length; i += 1) {
+      const c = cohesion(s[i - 1], s[i])
+      scores.push(c.score)
+      sharedFlags.push(c.shared > 0 ? 1 : 0)
+    }
+  }
+  const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length
+  console.log('')
+  console.log('  1차 대조군 — 선정을 거치지 않은 산문')
+  console.log(
+    `  ${'선정 안 된 산문'.padEnd(18)} ${String(ctl.items.length).padStart(3)}  ${String(scores.length).padStart(5)}` +
+      `   ${mean(scores).toFixed(3).padStart(7)}   ${(100 * mean(sharedFlags)).toFixed(1).padStart(6)}%`,
+  )
+  const selected = Object.values(result).map((v) => v.score)
+  const selMean = selected.reduce((a, b) => a + b, 0) / selected.length
+  const d = selMean - mean(scores)
+  console.log('')
+  console.log(`  선정된 지문 평균 ${selMean.toFixed(3)}  vs  선정 안 된 산문 ${mean(scores).toFixed(3)}  ·  차이 ${d >= 0 ? '+' : ''}${d.toFixed(3)}`)
+  console.log(`  → ${d > 0.05 ? '선정된 지문이 더 촘촘하다 — 선정 효과가 있다는 쪽' : d < -0.05 ? '**선정 안 된 산문이 오히려 더 촘촘하다 — 예측과 반대다**' : '차이 없음 — 선정 효과가 안 보인다'}`)
+  result['선정 안 된 산문'] = { passages: ctl.items.length, pairs: scores.length, score: mean(scores), sharedRate: mean(sharedFlags), control: true }
+}
+
+fs.writeFileSync(path.join(OUT_DIR, 'passage-selection.json'), JSON.stringify({ prediction: '삽입용 지문이 가장 촘촘하다 · 선정된 지문이 선정 안 된 산문보다 촘촘하다', result }, null, 1))
 console.log(`\n→ ${path.join(OUT_DIR, 'passage-selection.json')}`)
