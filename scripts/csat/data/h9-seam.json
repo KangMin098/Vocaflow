@@ -1,0 +1,1242 @@
+{
+ "items": 23,
+ "pool": 122,
+ "smooth": 62,
+ "ans": {
+  "n": 23,
+  "smooth": 14
+ },
+ "nonAns": {
+  "n": 99,
+  "smooth": 48
+ },
+ "lift": 12.384716732542822,
+ "rows": [
+  {
+   "id": "2014B#39",
+   "i": 1,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… the best available options., Let s take the example of going to war.",
+   "after": "So, when someone is threatening to go to war, or trying to convince …"
+  },
+  {
+   "id": "2014B#39",
+   "i": 2,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "… should be, a last resort, obviously, undertaken when all other options, have failed.",
+   "after": "They should be providing the most intense, scrutiny on our behalf, so the …"
+  },
+  {
+   "id": "2014B#39",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… campaign to justify it, the news media have a responsibility to question everything.",
+   "after": "Otherwise, we may be drawn into unnecessary, wars, or wars fought for reasons …"
+  },
+  {
+   "id": "2014B#39",
+   "i": 4,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… on our behalf, so the public can see the other side of, things.",
+   "after": "Most of the time, the, media fail to perform this crucial role."
+  },
+  {
+   "id": "2014B#39",
+   "i": 5,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… or wars fought for reasons other than those presented, by governments and generals.",
+   "after": "Even the large, , so-called liberal American media have admitted that they, have …"
+  },
+  {
+   "id": "2015#38",
+   "i": 1,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… has always been assumed that the insects, must rely on an internal clock.",
+   "after": "For their experiments they took, 15-year-old nymphs and moved them to an experimental, …"
+  },
+  {
+   "id": "2015#38",
+   "i": 2,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… suggested that the nymphs use an external cue and that, they can count.",
+   "after": "These nymphs should have taken a further, two years to emerge as adults, …"
+  },
+  {
+   "id": "2015#38",
+   "i": 3,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"the researchers had\" 가 앞 문장에 없음",
+    "\"this happen\" 가 앞 문장에 없음",
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… their experiments they took, 15-year-old nymphs and moved them to an experimental, enclosure.",
+   "after": "The researchers had made this happen by lengthening the period of daylight to …"
+  },
+  {
+   "id": "2015#38",
+   "i": 4,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "… years to emerge as adults, but in fact they took just one, year.",
+   "after": "By doing this, the trees were tricked into, flowering twice during the year …"
+  },
+  {
+   "id": "2015#38",
+   "i": 5,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… to which the peach trees on whose roots the insects fed were exposed.",
+   "after": "So it, seems that the cicadas keep track of time by counting the, …"
+  },
+  {
+   "id": "2015#39",
+   "i": 1,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"those fake\" 가 앞 문장에 없음"
+   ],
+   "before": "… asked them to act like, extroverts while pretending to teach a math class.",
+   "after": "They also rated how generally extroverted those fake extroverts appeared, based on their …"
+  },
+  {
+   "id": "2015#39",
+   "i": 2,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "… the percentage of time they spent, talking, and the volume of their speech.",
+   "after": "Then Lippa, did the same thing with actual extroverts and compared the, results."
+  },
+  {
+   "id": "2015#39",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… extroverted those fake extroverts appeared, based on their recorded voices and body language.",
+   "after": "He found that although the latter group came, across as more extroverted, some …"
+  },
+  {
+   "id": "2015#39",
+   "i": 4,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "Then Lippa, did the same thing with actual extroverts and compared the, results.",
+   "after": "It seems that most of us, know how to fake it to some …"
+  },
+  {
+   "id": "2015#39",
+   "i": 5,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… came, across as more extroverted, some of the fake extroverts were, surprisingly convincing.",
+   "after": "Whether or not, we re aware that the length of our strides and …"
+  },
+  {
+   "id": "2016#37",
+   "i": 1,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "Remember when you were little and you imagined that, adults had infinite power?",
+   "after": "I think that s the same expectation, that we have with respect to …"
+  },
+  {
+   "id": "2016#37",
+   "i": 2,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… open the juice container, and reach the sink could, make it stop raining.",
+   "after": "Because they are so good at using their noses, , we assume that …"
+  },
+  {
+   "id": "2016#37",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… that we have with respect to our dogs and their ability to, smell.",
+   "after": "But, dogs use other senses, too, and the brains of both humans, and …"
+  },
+  {
+   "id": "2016#37",
+   "i": 4,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… at using their noses, , we assume that they can smell anything, anytime.",
+   "after": "Many, owners have been snapped at by their dogs when they, returned home …"
+  },
+  {
+   "id": "2016#37",
+   "i": 5,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… of both humans, and dogs tend to intensify one sense at a time.",
+   "after": "Surprised by the vision of an unfamiliar silhouette pushing into the house, these …"
+  },
+  {
+   "id": "2016#37",
+   "i": 6,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "… dogs when they, returned home with a new hairdo or a new coat.",
+   "after": "Their, noses may be remarkable, but they re not always switched on."
+  },
+  {
+   "id": "2016#38",
+   "i": 1,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… for food and, shelter is nothing more than a means to an end.",
+   "after": "It is easy to do this when material, wealth is elevated to the …"
+  },
+  {
+   "id": "2016#38",
+   "i": 2,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… often we confuse means with ends, and sacrifice happiness, (end) for money (means).",
+   "after": "This is not to say that the, accumulation and production of material wealth …"
+  },
+  {
+   "id": "2016#38",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… position of the ultimate end, as it so, often is in our society.",
+   "after": "Material prosperity can help individuals, as well, as society, attain higher levels of …"
+  },
+  {
+   "id": "2016#38",
+   "i": 4,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… say that the, accumulation and production of material wealth is in itself, wrong.",
+   "after": "Financial, security can liberate us from work we do not find meaningful, and …"
+  },
+  {
+   "id": "2016#38",
+   "i": 5,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… prosperity can help individuals, as well, as society, attain higher levels of happiness.",
+   "after": "Even so, it is not the money per se that is valuable, but …"
+  },
+  {
+   "id": "2016#38",
+   "i": 6,
+   "isAnswer": true,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… paycheck. , Moreover, the desire to make money can challenge and inspire, us.",
+   "after": "Material wealth in and of itself does not necessarily, generate meaning or lead …"
+  },
+  {
+   "id": "2017#38",
+   "i": 1,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "What is the best order for a report, paper or other technical, document?",
+   "after": "Too, many writers interpret the term logical to mean chronological, , and it …"
+  },
+  {
+   "id": "2017#38",
+   "i": 2,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… and sequence, , and a variety of orders is possible under this heading.",
+   "after": "Usually, this is, tactically weak."
+  },
+  {
+   "id": "2017#38",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… become habitual to begin reports and papers with, careful reviews of previous work.",
+   "after": "Most readers of reports and papers are reading the documents because they are …"
+  },
+  {
+   "id": "2017#38",
+   "i": 4,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "Usually, this is, tactically weak.",
+   "after": "Therefore, to rehearse to them the, findings of previous work is simply to …"
+  },
+  {
+   "id": "2017#38",
+   "i": 5,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"the interesting thing\" 가 앞 문장에 없음",
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… the documents because they are interested in, and know something about, the subject.",
+   "after": "The interesting thing for them, is the new information the new findings and …"
+  },
+  {
+   "id": "2017#38",
+   "i": 6,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… the, findings of previous work is simply to bore them with, unnecessary reminders.",
+   "after": "To give a long chronological account of, work or procedures is normally appropriate …"
+  },
+  {
+   "id": "2017#39",
+   "i": 1,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… increase annual investments, from 24% today to 36% of the GDP in 2052.",
+   "after": "Another share will be invested in the shift, from coal to more expensive …"
+  },
+  {
+   "id": "2017#39",
+   "i": 2,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"These huge\" 가 앞 문장에 없음"
+   ],
+   "before": "… are more, expensive than old-fashioned stuff designed for an era of, cheap energy.",
+   "after": "These huge increases in investment would, not come about if investment was left …"
+  },
+  {
+   "id": "2017#39",
+   "i": 3,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… in new protective walls along the coast to keep the rising, ocean back.",
+   "after": "Rather, they will happen only through state intervention, based on parliamentary decision."
+  },
+  {
+   "id": "2017#39",
+   "i": 4,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "… in investment would, not come about if investment was left to the market.",
+   "after": "It, will be either direct, when the government invests the tax, dollars in …"
+  },
+  {
+   "id": "2018#38",
+   "i": 1,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… have evolved taste preferences for, sweet foods, which provide rich sources of calories.",
+   "after": "Human, newborn infants also show a strong preference for sweet, liquids."
+  },
+  {
+   "id": "2018#38",
+   "i": 2,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… most highly preferred food, item, an item that has the highest caloric value.",
+   "after": "Both humans and rats dislike bitter and sour, foods, which tend to contain …"
+  },
+  {
+   "id": "2018#38",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "Human, newborn infants also show a strong preference for sweet, liquids.",
+   "after": "They also, adaptively adjust their eating behavior in response to deficits, in water, …"
+  },
+  {
+   "id": "2018#38",
+   "i": 4,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… humans and rats dislike bitter and sour, foods, which tend to contain toxins.",
+   "after": "Experiments show that rats display an immediate liking for salt the first time …"
+  },
+  {
+   "id": "2018#38",
+   "i": 5,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "… adjust their eating behavior in response to deficits, in water, calories, and salt.",
+   "after": "They likewise increase, their intake of sweets and water when their energy and …"
+  },
+  {
+   "id": "2018#38",
+   "i": 6,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"These appear\" 가 앞 문장에 없음"
+   ],
+   "before": "… an immediate liking for salt the first time they experience a salt deficiency.",
+   "after": "These appear to be specific evolved, mechanisms, designed to deal with the adaptive …"
+  },
+  {
+   "id": "2018#39",
+   "i": 1,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… 1950s alerted the world to the, potential problems of organic mercury in fish.",
+   "after": "Mercury was being, bioaccumulated in the fish tissue and severe mercury poisoning, occurred …"
+  },
+  {
+   "id": "2018#39",
+   "i": 2,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… into the waters of Minamata Bay, which, also harbored a commercial fishing industry.",
+   "after": "The, disabling neurological symptoms were subsequently called, Minamata disease."
+  },
+  {
+   "id": "2018#39",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… tissue and severe mercury poisoning, occurred in many people who consumed the fish.",
+   "after": "Control over direct discharge of, mercury from industrial operations is clearly needed for, …"
+  },
+  {
+   "id": "2018#39",
+   "i": 4,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "The, disabling neurological symptoms were subsequently called, Minamata disease.",
+   "after": "However, it is now recognized that traces of, mercury can appear in lakes …"
+  },
+  {
+   "id": "2018#39",
+   "i": 5,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"such contamination\" 가 앞 문장에 없음"
+   ],
+   "before": "… over direct discharge of, mercury from industrial operations is clearly needed for, prevention.",
+   "after": "It is postulated that such contamination may result from airborne transport from remote …"
+  },
+  {
+   "id": "2018#39",
+   "i": 6,
+   "isAnswer": true,
+   "ok": false,
+   "reasons": [
+    "\"such sources\" 가 앞 문장에 없음",
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… of, mercury can appear in lakes far removed from any such, industrial discharge.",
+   "after": "Strictly controlled emission standards, for such sources are needed to minimize this problem. …"
+  },
+  {
+   "id": "2019#38",
+   "i": 1,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "The printing press boosted the power of ideas to copy, themselves.",
+   "after": "While this was tremendously, powerful, it limited the complexity of the ideas that …"
+  },
+  {
+   "id": "2019#38",
+   "i": 2,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "Prior to low-cost printing, ideas could and did, spread by word of mouth.",
+   "after": "The, spread of ideas by word of mouth was equivalent to a game …"
+  },
+  {
+   "id": "2019#38",
+   "i": 3,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"the advent of\" 가 앞 문장에 없음",
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… person could remember. , It also added a certain amount of guaranteed error.",
+   "after": "The advent of literacy and the creation of handwritten scrolls and, eventually, handwritten …"
+  },
+  {
+   "id": "2019#38",
+   "i": 4,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "… of mouth was equivalent to a game of, telephone on a global scale.",
+   "after": "But the incredible amount, of time required to copy a scroll or book …"
+  },
+  {
+   "id": "2019#38",
+   "i": 5,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… strengthened the ability of large and complex ideas to spread with high fidelity.",
+   "after": "A, well-trained monk could transcribe around four pages of text, per day."
+  },
+  {
+   "id": "2019#38",
+   "i": 6,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… book by hand limited the, speed with which information could spread this way.",
+   "after": "A printing press could copy information, thousands of times faster, allowing knowledge to …"
+  },
+  {
+   "id": "2019#39",
+   "i": 1,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… and flatlands collectively called the topography., This can be done in various ways.",
+   "after": "Another, technically more accurate, way is to draw contour lines."
+  },
+  {
+   "id": "2019#39",
+   "i": 2,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… lit and shaded, creating a visual representation of the, shape of the land.",
+   "after": "A contour line connects all, points that lie at the same elevation."
+  },
+  {
+   "id": "2019#39",
+   "i": 3,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "Another, technically more accurate, way is to draw contour lines.",
+   "after": "A round hill rising above a plain, therefore, would appear on the map …"
+  },
+  {
+   "id": "2019#39",
+   "i": 4,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "A contour line connects all, points that lie at the same elevation.",
+   "after": "When the contour, lines are positioned closely together, the hill s slope is …"
+  },
+  {
+   "id": "2019#39",
+   "i": 5,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… concentric circles, the largest at the base and the smallest near the top.",
+   "after": "Contour lines, can represent scarps, hollows, and valleys of the local, topography."
+  },
+  {
+   "id": "2019#39",
+   "i": 6,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… s slope is steep; if, they lie farther apart, the slope is gentler.",
+   "after": "At a glance, they reveal whether the relief in, the mapped area is …"
+  },
+  {
+   "id": "2020#38",
+   "i": 1,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… it, finds a place where it can compete successfully to satisfy its, needs.",
+   "after": "However, eventually, the young must locate, , identify, and settle in a habitat …"
+  },
+  {
+   "id": "2020#38",
+   "i": 2,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "Initially, these needs include only food and, shelter.",
+   "after": "In some cases, the, habitat that provides the best opportunity for survival may …"
+  },
+  {
+   "id": "2020#38",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… in a habitat that satisfies not only survivorship, but reproductive needs as well.",
+   "after": "Thus, individuals of many resident species, confronted with the fitness benefits of control …"
+  },
+  {
+   "id": "2020#38",
+   "i": 4,
+   "isAnswer": true,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… provides for highest reproductive, capacity because of requirements specific to the reproductive, period.",
+   "after": "Migrants, however, are free to choose the, optimal habitat for survival during the …"
+  },
+  {
+   "id": "2020#38",
+   "i": 5,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"these different\" 가 앞 문장에 없음"
+   ],
+   "before": "… nonbreeding survivorship by remaining in the specific habitat where highest breeding success occurs.",
+   "after": "Thus, , habitat selection during these different periods can be quite, different for …"
+  },
+  {
+   "id": "2020#39",
+   "i": 1,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"This made\" 가 앞 문장에 없음"
+   ],
+   "before": "… globe as new, channels have been launched everywhere, has caused advertisers, much concern.",
+   "after": "This made, the television advertising of mass consumer products relatively, straightforward not to …"
+  },
+  {
+   "id": "2020#39",
+   "i": 2,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… would be seen by the, majority of the population at one fell swoop.",
+   "after": "Still, it is arguable that advertisers worry rather too much about this problem, …"
+  },
+  {
+   "id": "2020#39",
+   "i": 3,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "… markets over, time, by advertising on a host of channels with separate, audiences.",
+   "after": "Moreover, advertisers gain considerable, benefits from the price competition between the numerous, broadcasting …"
+  },
+  {
+   "id": "2020#39",
+   "i": 4,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… much about this problem, as advertising in other media has always been fragmented.",
+   "after": "And television remains much the, fastest way to build up public awareness of …"
+  },
+  {
+   "id": "2020#39",
+   "i": 5,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… advertisers gain considerable, benefits from the price competition between the numerous, broadcasting stations.",
+   "after": "Seldom does a new brand or new campaign, that solely uses other media, …"
+  },
+  {
+   "id": "2021#38",
+   "i": 1,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "Imagine I tell you that Maddy is bad.",
+   "after": "Additionally, you will probably infer that I, am disapproving of Maddy, or saying …"
+  },
+  {
+   "id": "2021#38",
+   "i": 2,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… or the context in which we are talking, that I, mean morally bad.",
+   "after": "However, you might not, get a more detailed sense of the particular sorts …"
+  },
+  {
+   "id": "2021#38",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… of her, or similar, given typical linguistic conventions, and assuming I am sincere.",
+   "after": "In contrast, if I, say that Maddy is wicked, then you get more …"
+  },
+  {
+   "id": "2021#38",
+   "i": 4,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"the word wicked\" 가 앞 문장에 없음"
+   ],
+   "before": "… traits, and the like, , since people can be bad in many ways.",
+   "after": "The word wicked, is more specific than bad ."
+  },
+  {
+   "id": "2021#38",
+   "i": 5,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… get more of a sense of her, typical actions and attitudes to others.",
+   "after": "I have still not exactly pinpointed Maddy s character since wickedness takes many …"
+  },
+  {
+   "id": "2021#38",
+   "i": 6,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "The word wicked, is more specific than bad .",
+   "after": "But there is more detail, nevertheless, perhaps a stronger connotation of the sort …"
+  },
+  {
+   "id": "2021#38",
+   "i": 7,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… have still not exactly pinpointed Maddy s character since wickedness takes many forms.",
+   "after": "In addition, and again assuming, typical linguistic conventions, you should also get a …"
+  },
+  {
+   "id": "2021#39",
+   "i": 1,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "Designers draw on their experience of design when approaching, a new project.",
+   "after": "Others creations often spark, inspiration that also leads to new ideas and innovation."
+  },
+  {
+   "id": "2021#39",
+   "i": 2,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… both designs that they have created themselves and, those that others have created.",
+   "after": "This, is well known and understood."
+  },
+  {
+   "id": "2021#39",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "Others creations often spark, inspiration that also leads to new ideas and innovation.",
+   "after": "However, the expression, of an idea is protected by copyright, and people who …"
+  },
+  {
+   "id": "2021#39",
+   "i": 4,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "This, is well known and understood.",
+   "after": "Note that copyright covers the expression of an idea and not the idea …"
+  },
+  {
+   "id": "2021#39",
+   "i": 5,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "… people who infringe on, that copyright can be taken to court and prosecuted.",
+   "after": "This, means, for example, that while there are numerous smartphones, all with similar …"
+  },
+  {
+   "id": "2021#39",
+   "i": 6,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… that copyright covers the expression of an idea and not the idea itself.",
+   "after": "Copyright is free and is automatically, invested in the author, for instance, the …"
+  },
+  {
+   "id": "2023#38",
+   "i": 1,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "Parks take the shape demanded by the cultural concerns of, their time.",
+   "after": "Moments of park creation are particularly, telling, however, for they reveal and actualize …"
+  },
+  {
+   "id": "2023#38",
+   "i": 2,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… purposes and meanings are made and remade by planners, and by park users.",
+   "after": "Indeed, what, distinguishes a park from the broader category of public space, is …"
+  },
+  {
+   "id": "2023#38",
+   "i": 3,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… they reveal and actualize ideas about, nature and its relationship to urban society.",
+   "after": "Parks typically have trees, grass, , and other plants as their central features."
+  },
+  {
+   "id": "2023#38",
+   "i": 4,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… to embody., Public spaces include parks, concrete plazas, sidewalks, , even indoor atriums.",
+   "after": "When entering, a city park, people often imagine a sharp separation from, streets, …"
+  },
+  {
+   "id": "2023#38",
+   "i": 5,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "Parks typically have trees, grass, , and other plants as their central features.",
+   "after": "There s a reason for that: traditionally, park designers attempted to create such …"
+  },
+  {
+   "id": "2023#38",
+   "i": 6,
+   "isAnswer": true,
+   "ok": false,
+   "reasons": [
+    "\"this idea\" 가 앞 문장에 없음",
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… city park, people often imagine a sharp separation from, streets, cars, and buildings.",
+   "after": "What s behind this idea is, not only landscape architects desire to design …"
+  },
+  {
+   "id": "2023#39",
+   "i": 1,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… to slice a large issue into, smaller pieces, known as using salami tactics.",
+   "after": "For example, compensation demands can be, divided into cents-per-hour increments or lease rates …"
+  },
+  {
+   "id": "2023#39",
+   "i": 2,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "Issues, that can be expressed in quantitative, measurable units are easy, to slice.",
+   "after": "When working to, fractionate issues of principle or precedent, parties may use the, …"
+  },
+  {
+   "id": "2023#39",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… cents-per-hour increments or lease rates can be, quoted as dollars per square foot.",
+   "after": "It may be easier to reach an agreement when settlement terms don t …"
+  },
+  {
+   "id": "2023#39",
+   "i": 4,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "… or how long it, will last) as a way to fractionate the issue.",
+   "after": "Another, approach is to vary the number of ways that the principle may, …"
+  },
+  {
+   "id": "2023#39",
+   "i": 5,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… settlement terms don t have to be implemented until months in the future.",
+   "after": "For example, a company may devise a, family emergency leave plan that allows …"
+  },
+  {
+   "id": "2024#38",
+   "i": 1,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… given, that replication and verification have social value and are, common in science.",
+   "after": "Yes, some contests are seen as world class, such as identification of the …"
+  },
+  {
+   "id": "2024#38",
+   "i": 2,
+   "isAnswer": true,
+   "ok": true,
+   "reasons": [],
+   "before": "… to the extent, that it suggests that only a handful of contests exist.",
+   "after": "But, many other contests have multiple parts, and the number of, such contests …"
+  },
+  {
+   "id": "2024#38",
+   "i": 3,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… as identification of the Higgs particle or the development of high temperature superconductors.",
+   "after": "By way of example, , for many years it was thought that there …"
+  },
+  {
+   "id": "2024#38",
+   "i": 4,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… contests have multiple parts, and the number of, such contests may be increasing.",
+   "after": "There won t be one winner there will be many."
+  },
+  {
+   "id": "2024#39",
+   "i": 1,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… of a comma, for instance, may be a, matter of life and death.",
+   "after": "At the next step in the argument, however, the analogy breaks down."
+  },
+  {
+   "id": "2024#39",
+   "i": 2,
+   "isAnswer": true,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… the text of the first edition might provide more, accurate or updated information.",
+   "after": "A favorable mutation, is going to be more heavily represented in the next …"
+  },
+  {
+   "id": "2024#39",
+   "i": 3,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "At the next step in the argument, however, the analogy breaks down.",
+   "after": "By, contrast, there is no mechanism by which a book that, accidentally corrects …"
+  },
+  {
+   "id": "2025#38",
+   "i": 1,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… although it, accomplishes this objective in a very different manner than, patent protection.",
+   "after": "They may believe that the, cost and delay of seeking a patent are …"
+  },
+  {
+   "id": "2025#38",
+   "i": 2,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… of, obtaining a patent, many innovators prefer to protect their, innovation through secrecy.",
+   "after": "They might also believe that the invention can, best be utilized over a …"
+  },
+  {
+   "id": "2025#38",
+   "i": 3,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… too great or that, secrecy better protects their investment and increases their, profit.",
+   "after": "Without any special legal protection for trade secrets, however, the secretive inventor risks …"
+  },
+  {
+   "id": "2025#38",
+   "i": 4,
+   "isAnswer": true,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… be utilized over a longer period of time than a patent, would allow.",
+   "after": "Once the idea is released, it will be free, as the air under …"
+  },
+  {
+   "id": "2025#38",
+   "i": 5,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… secretive inventor risks that an employee or contractor will disclose the proprietary information.",
+   "after": "Such a predicament would lead any inventor, seeking to rely upon secrecy to …"
+  },
+  {
+   "id": "2025#39",
+   "i": 1,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"this context\" 가 앞 문장에 없음"
+   ],
+   "before": "… the concepts of maintenance and repair, are predominantly examined from a process-oriented, perspective.",
+   "after": "In this context, maintenance and repair, are considered practices that have the potential …"
+  },
+  {
+   "id": "2025#39",
+   "i": 2,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… scholarly discourse, often revolves around the lifespan or lifecycle of objects and, technologies.",
+   "after": "Krebs and Weber critically engage, with anthropomorphic metaphors that imply a biography of, …"
+  },
+  {
+   "id": "2025#39",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… prolong the, existence of objects, ensuring their sustained utilization over, an extended period.",
+   "after": "In reality, objects do not conform to a linear lifecycle model; instead, they …"
+  },
+  {
+   "id": "2025#39",
+   "i": 4,
+   "isAnswer": true,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… from its acquisition to its, disposal from the household, provides an incomplete, definition.",
+   "after": "Additionally, objects may enter recycling or, second-hand cycles, leading to a dynamic afterlife …"
+  },
+  {
+   "id": "2025#39",
+   "i": 5,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… find themselves relegated to the basement, only to be rediscovered and repurposed later.",
+   "after": "As such, the life of an object, exhibits a far more complicated and …"
+  },
+  {
+   "id": "2026#38",
+   "i": 1,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… rarely a battle between, facts and anecdotes or even facts and other facts.",
+   "after": "As storytelling creatures, we, routinely form narratives to help us understand the world, …"
+  },
+  {
+   "id": "2026#38",
+   "i": 2,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… real, clash is actually between stories: the predominant incumbent, and a new challenger.",
+   "after": "When we experience different events or, encounter various facts, our minds seek to …"
+  },
+  {
+   "id": "2026#38",
+   "i": 3,
+   "isAnswer": false,
+   "ok": true,
+   "reasons": [],
+   "before": "… creatures, we, routinely form narratives to help us understand the world, around us.",
+   "after": "For example, if you, have had some bad experiences with graduates from a …"
+  },
+  {
+   "id": "2026#38",
+   "i": 4,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… our minds seek to make sense of them, by forming stories around them.",
+   "after": "Suddenly, you, judge everyone from the university by what you ve, experienced on …"
+  },
+  {
+   "id": "2026#38",
+   "i": 5,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"these internal\" 가 앞 문장에 없음",
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… a negative narrative in your mind, about people who went to that school.",
+   "after": "Sometimes these internal narratives we form not only shape our beliefs and opinions …"
+  },
+  {
+   "id": "2026#38",
+   "i": 6,
+   "isAnswer": true,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… the university by what you ve, experienced on just a few unfortunate occasions.",
+   "after": "For, example, the narratives you have formed around gun control, or climate change …"
+  },
+  {
+   "id": "2026#39",
+   "i": 1,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… external reality, the player s, bodily space and the avatar s bodily space.",
+   "after": "As in the, real world, perception requires action."
+  },
+  {
+   "id": "2026#39",
+   "i": 2,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"the difference is\" 가 앞 문장에 없음"
+   ],
+   "before": "… the reality of the external, reality of the game world can be perceived.",
+   "after": "The difference is that the action in the game world can only be …"
+  },
+  {
+   "id": "2026#39",
+   "i": 3,
+   "isAnswer": true,
+   "ok": false,
+   "reasons": [
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "As in the, real world, perception requires action.",
+   "after": "Players extend, their perceptual field into the game, encompassing the available, actions of …"
+  },
+  {
+   "id": "2026#39",
+   "i": 4,
+   "isAnswer": false,
+   "ok": false,
+   "reasons": [
+    "\"the feedback loop\" 가 앞 문장에 없음",
+    "공유 어휘·접속어 없음"
+   ],
+   "before": "… world can only be explored through the virtual bodily space of the avatar.",
+   "after": "The feedback loop of perception, and action that enables you to navigate the …"
+  }
+ ]
+}
