@@ -165,8 +165,26 @@ export function itemsOfType(typeId) {
   return c.rows.filter((r) => r.type === typeId)
 }
 
+let ANS = null
 export function answerOf(exam, no) {
-  const a = JSON.parse(fs.readFileSync(path.resolve('scripts/csat/data/answers.json'), 'utf8'))
-  const r = a.answers.find((x) => x.exam === exam && x.no === no)
-  return r ?? null
+  if (!ANS) {
+    ANS = new Map()
+    const load = (f) => {
+      const p = path.resolve('scripts/csat/data', f)
+      if (!fs.existsSync(p)) return
+      for (const a of JSON.parse(fs.readFileSync(p, 'utf8')).answers) ANS.set(`${a.exam}#${a.no}`, a)
+    }
+    load('answers.json')
+    load('mock-answers.json')   // 모의평가 — 규칙 도출에 안 쓴 홀드아웃
+  }
+  return ANS.get(`${exam}#${no}`) ?? null
+}
+
+/** 모의평가 회차 id (columns2/M*.txt · mock-answers.json) */
+export const MOCK_EXAMS = ['M2606', 'M2609', 'M2706']
+
+/** 모의평가의 유형 배정 — mock-questions.json */
+export function mockRows() {
+  const p = path.resolve('scripts/csat/data/mock-questions.json')
+  return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')).rows : []
 }
