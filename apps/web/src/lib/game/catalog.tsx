@@ -452,14 +452,21 @@ export function hubSections(): Record<HubTrack, HubItem[]> {
   }
 }
 
-/** 게임 slug → 플레이 URL. 스코프(set/text/chapter)와 복귀(from)를 함께 싣는다. */
+/**
+ * 게임 slug → 플레이 URL. 스코프(set/text/book/chapter)와 복귀(from)를 함께 싣는다.
+ *
+ * `book` 은 `useGameWordScope` 가 처음부터 읽던 스코프인데 이 헬퍼에는 없었다 —
+ * 그래서 도서에서 들어와도 링크를 만드는 순간 스코프가 증발했다(허브 `readScope` 도 같은 구멍).
+ * 세 곳이 같은 어휘를 쓰지 않으면 경로가 조용히 끊긴다.
+ */
 export function gamePlayHref(
   slug: GameSlug,
-  opts: { from?: string; set?: string; text?: string; chapter?: number | null } = {},
+  opts: { from?: string; set?: string; text?: string; book?: string; chapter?: number | null } = {},
 ): string {
   const q = new URLSearchParams()
   if (opts.set) q.set('set', opts.set)
   if (opts.text) q.set('text', opts.text)
+  if (opts.book) q.set('book', opts.book)
   if (opts.chapter != null && opts.chapter > 0) q.set('chapter', String(opts.chapter))
   if (opts.from) q.set('from', opts.from)
   const qs = q.toString()

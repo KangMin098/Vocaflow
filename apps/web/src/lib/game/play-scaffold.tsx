@@ -11,6 +11,7 @@ import { useRef, useState, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { ResourceContext } from '@/components/layout/ResourceContext';
+import InGameBrief, { useBriefGate } from '@/components/game/brief/InGameBrief';
 import { GameLoading, NotEnoughWords, type Word, type ArcadeGameId } from '@/components/game/_shared/gamekit';
 import { useGameWordScope } from '@/lib/game/use-word-scope';
 import { useGameSessionRecorder } from '@/lib/game/use-session-recorder';
@@ -74,6 +75,9 @@ export function GamePlayScaffold({
   // 내 단어가 되므로, 남는 not-mine 은 **정말로 자료 밖인 것**(게임 내장 뱅크)뿐이다.
   const promotedRef = useRef(new Set<string>());
   const [promotedCount, setPromotedCount] = useState(0);
+
+  // 브리핑 게이트 — 첫 판은 규칙을 보고 시작한다. 이 훅도 early return **앞**이어야 한다.
+  const brief = useBriefGate(module);
 
   if (scope.loading) {
     return <GameLoading message={loadingMessage ?? '단어 불러오는 중…'} />;
@@ -143,7 +147,14 @@ export function GamePlayScaffold({
       {(promotedCount > 0 || notMineCount > 0) && (
         <CouplingNotice promoted={promotedCount} notMine={notMineCount} />
       )}
-      {render({ wordPool: scope.words, onCorrect, onWrong, onExit })}
+      <InGameBrief slug={module} gate={brief} name={label} />
+      {/* 첫 판에는 게임을 **마운트하지 않는다** — 이 아케이드의 게임은 대부분 마운트와 함께
+          시계·박·거리가 흐르므로, 브리핑을 읽는 동안 판이 소모된다(InGameBrief 헤더 참조).
+          'resolving' 은 localStorage 조회 전이라 아직 결정하지 않은 상태다 — 여기서 게임을
+          그려 버리면 "봤음" 인 학습자에게도 한 프레임 깜빡임이 생긴다. */}
+      {brief.phase === 'ready'
+        ? render({ wordPool: scope.words, onCorrect, onWrong, onExit })
+        : brief.phase === 'resolving' && <GameLoading message="게임 준비 중…" />}
     </main>
   );
 }

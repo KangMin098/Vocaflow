@@ -11,6 +11,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { CalendarClock, Check, ChevronDown, Layers, Loader2, Plus, RefreshCw, Volume2, X } from 'lucide-react'
 
+import CourseLauncher from '@/components/game/CourseLauncher'
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
@@ -399,6 +400,17 @@ export function VocabSetPreviewModal({
                 <RefreshCw size={12} className="mt-[3px] shrink-0" aria-hidden />
                 <span>복습은 <b className="font-[600] text-[var(--t2)]">기억이 흐려질 때</b> 자동으로 배치돼요 — 고정 일정이 아니라 당신의 기억에 맞춰 조절돼요.</span>
               </p>
+
+              {/* 세트 전체 코스 — 챕터가 없는 세트(전체의 66%)에는 지금까지 게임 진입이
+                  아예 없었다. 챕터 아코디언 안의 런처는 챕터형에서만 렌더되기 때문이다. */}
+              <div className="mt-3 border-t border-[var(--bd)] pt-3">
+                <CourseLauncher
+                  kind="wordset"
+                  poolSize={set.wordCount}
+                  scope={{ set: set.id, from: fromPath }}
+                  heading={chaptered ? '세트 전체로 할 코스' : '이 단어장으로 할 코스'}
+                />
+              </div>
             </div>
           )}
 

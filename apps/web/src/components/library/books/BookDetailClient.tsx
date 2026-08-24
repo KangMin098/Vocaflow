@@ -13,6 +13,7 @@
 import { useState, useTransition } from 'react'
 import { BookOpen, CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles } from 'lucide-react'
 
+import CourseLauncher from '@/components/game/CourseLauncher'
 import { VocabSetPreviewModal } from '@/components/library/vocab/VocabSetPreviewModal'
 import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
@@ -39,6 +40,7 @@ interface Props {
 }
 
 export function BookDetailClient({
+  bookId,
   bookVLevel,
   chapterSets,
   composerSets = [],
@@ -75,6 +77,8 @@ export function BookDetailClient({
   const totalWords = chapterSets.reduce((sum, s) => sum + s.wordCount, 0)
   const subscribedCount = chapterSets.filter((s) => localSubscribed.has(s.id)).length
   const cefrLevel = chapterSets[0]?.cefrLevel
+  // 코스가 여는 챕터 — `?book=` 무챕터 진입이 실제로 여는 것과 같은 챕터여야 한다.
+  const firstChapterSet = [...chapterSets].sort((a, b) => a.chapterIdx - b.chapterIdx)[0]
 
   if (chapterSets.length === 0) return null
 
@@ -154,6 +158,23 @@ export function BookDetailClient({
             <p className="mb-3 font-body text-[11px] text-[var(--t2)]">
               챕터를 클릭하면 단어 미리보기 + 내 단어장에 추가할 수 있어요
             </p>
+
+            {/* 도서 코스 — `?book=` 은 챕터를 지정하지 않으면 **첫 챕터** 단어장으로 열린다
+                (lib/workspace/scoped-words.ts fetchByBookChapter). 그러니 풀 크기도 첫 챕터로
+                재야 화면과 실제가 어긋나지 않는다. 다른 챕터로 하려면 칩을 눌러 미리보기로. */}
+            {firstChapterSet && (
+              <div className="mb-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2.5">
+                <CourseLauncher
+                  kind="book"
+                  poolSize={firstChapterSet.wordCount}
+                  scope={{
+                    book: bookId,
+                    from: `/library/books/${bookId}?preview=1`,
+                  }}
+                  heading={`이 도서로 할 코스 (Ch.${firstChapterSet.chapterIdx})`}
+                />
+              </div>
+            )}
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
               {chapterSets.map((set) => {
                 const subscribed = localSubscribed.has(set.id)

@@ -19,6 +19,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 
 import { ResourceContext } from '@/components/layout/ResourceContext';
+import InGameBrief, { useBriefGate } from '@/components/game/brief/InGameBrief';
 import { WordBlitzLoading } from '@/components/game/wordblitz/WordBlitzUI';
 // 게임은 gamekit Word({en,ko,pron?,example?,pos?,inflected?})를 받는다 —
 // lib/wordblitz/data 의 Word({en,ko,pron?})는 그 서브셋이라 v08 이 쓰는 example/pos 가 잘린다.
@@ -81,6 +82,9 @@ export default function WordBlitzPage() {
   );
 
   const nextRound = useCallback(() => setRound((r) => r + 1), []);
+  // 이 페이지는 GamePlayScaffold 를 쓰지 않는(독립 3D 계보) 유일한 게임이라,
+  // 브리핑 게이트도 손으로 건다. 빠뜨리면 19종 중 이 하나만 규칙 없이 시작된다.
+  const brief = useBriefGate('wordblitz');
 
   if (scope.loading) {
     return <WordBlitzLoading message="단어 불러오는 중..." />;
@@ -116,9 +120,16 @@ export default function WordBlitzPage() {
   }
 
   return (
-    <main style={{ width: '100vw', height: '100dvh', overflow: 'hidden' }}>
+    <main style={{ position: 'relative', width: '100vw', height: '100dvh', overflow: 'hidden' }}>
       <ResourceContext resource={gameResourceContext(scope)} />
-      <WordBlitzRound key={round} scope={scope} wordPool={wordPool} onNextRound={nextRound} />
+      <InGameBrief slug="wordblitz" gate={brief} name="WordBlitz" />
+      {/* 첫 판에는 라운드를 마운트하지 않는다 — 마운트가 곧 세션 레코더 시작이라,
+          브리핑을 읽는 동안 빈 판이 scores 에 적재된다. */}
+      {brief.phase === 'ready' ? (
+        <WordBlitzRound key={round} scope={scope} wordPool={wordPool} onNextRound={nextRound} />
+      ) : (
+        brief.phase === 'resolving' && <WordBlitzLoading message="게임 준비 중..." />
+      )}
     </main>
   );
 }

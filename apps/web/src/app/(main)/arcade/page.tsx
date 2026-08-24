@@ -33,8 +33,12 @@ import type { CSSProperties } from 'react';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 import ArcadeMetaStrip from '@/components/game/ArcadeMetaStrip';
+import CourseBoard, { COURSE_CSS } from '@/components/game/CourseBoard';
 import BriefButton from '@/components/game/brief/BriefButton';
+import { contentRefFromScope } from '@/lib/content/content-ref';
 import { hasBrief } from '@/lib/game/brief';
+import { resolveCourse, resourceKindFromScope } from '@/lib/game/sets';
+import { fetchWordsForContent } from '@/lib/workspace/scoped-words';
 import {
   GAME_COUNT,
   GAME_MARKS,
@@ -103,6 +107,8 @@ async function fetchVocabStats(): Promise<VocabStats> {
 interface HubScope {
   set?: string;
   text?: string;
+  /** 큐레이션 도서 — enroll 없이 챕터 단어장으로 논다. */
+  book?: string;
   chapter: number | null;
   /** 스코프가 걸려 있으면 자료명(배너 표기용). */
   label?: string;
@@ -111,18 +117,30 @@ interface HubScope {
   active: boolean;
 }
 
+// v08.6 — `book` 을 여기서 읽지 않던 동안, `useGameWordScope` 는 `?book=` 을 지원하는데
+// 허브만 몰라서 도서에서 들어오면 배너·코스·카드 링크가 전부 스코프를 잃었다.
+// 스코프 어휘는 use-word-scope · gamePlayHref · 이 함수 셋이 같아야 한다.
 function readScope(sp: Record<string, string | string[] | undefined>): Omit<HubScope, 'label'> {
   const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) || undefined;
   const set = one(sp.set);
   const text = one(sp.text);
+  const book = one(sp.book);
   const chRaw = Number(one(sp.chapter));
   const chapter = Number.isInteger(chRaw) && chRaw > 0 ? chRaw : null;
   const q = new URLSearchParams();
   if (set) q.set('set', set);
   if (text) q.set('text', text);
+  if (book) q.set('book', book);
   if (chapter != null) q.set('chapter', String(chapter));
   const qs = q.toString();
-  return { set, text, chapter, selfHref: qs ? `/arcade?${qs}` : '/arcade', active: !!(set || text) };
+  return {
+    set,
+    text,
+    book,
+    chapter,
+    selfHref: qs ? `/arcade?${qs}` : '/arcade',
+    active: !!(set || text || book),
+  };
 }
 
 /**
@@ -130,22 +148,42 @@ function readScope(sp: Record<string, string | string[] | undefined>): Omit<HubS
  * 게임에서 나갔을 때 스코프가 풀린 허브로 떨어지면 "이 도서로 여러 게임 돌기"가 끊긴다.
  */
 function scopedHref(scope: HubScope) {
-  return { set: scope.set, text: scope.text, chapter: scope.chapter, from: scope.selfHref };
+  return {
+    set: scope.set,
+    text: scope.text,
+    book: scope.book,
+    chapter: scope.chapter,
+    from: scope.selfHref,
+  };
 }
 
-/** 배너에 쓸 자료명. 실패해도 배너만 덜 친절해질 뿐이라 조용히 폴백. */
-async function fetchScopeLabel(scope: { set?: string; text?: string }): Promise<string | undefined> {
-  if (!scope.set && !scope.text) return undefined;
+/**
+ * 배너 자료명 + **풀 크기**.
+ *
+ * 풀 크기를 여기서 재는 이유: 코스는 풀에 따라 내려앉는다(lib/game/sets.ts). 실측상
+ * 도서 챕터의 41.6% · 스크립트의 44.1% 가 4단어 미만이라, 재지 않고 고정 3종을 광고하면
+ * 그 절반에서 링크가 전부 죽는다. 자료를 여는 경로는 `fetchWordsForContent` 하나뿐이므로
+ * 게임이 실제로 받게 될 단어를 그대로 세어 코스를 정한다(다른 계산식을 쓰면 반드시 어긋난다).
+ *
+ * 실패해도 배너가 덜 친절해지고 코스가 안 뜰 뿐이라 조용히 폴백한다.
+ */
+async function fetchScopeInfo(scope: {
+  set?: string;
+  text?: string;
+  book?: string;
+  chapter: number | null;
+}): Promise<{ label?: string; poolSize: number }> {
+  if (!scope.set && !scope.text && !scope.book) return { poolSize: 0 };
   try {
     const client = (await createClient()) as unknown as SupabaseClient;
-    if (scope.set) {
-      const { data } = await client.from('shared_word_sets').select('title').eq('id', scope.set).maybeSingle();
-      return (data as { title?: string } | null)?.title ?? undefined;
-    }
-    const { data } = await client.from('texts').select('title').eq('id', scope.text!).maybeSingle();
-    return (data as { title?: string } | null)?.title ?? undefined;
+    const {
+      data: { user },
+    } = await client.auth.getUser();
+    const ref = contentRefFromScope(scope);
+    const res = await fetchWordsForContent(client, ref, user?.id ?? null);
+    return { label: res?.title, poolSize: res?.words.length ?? 0 };
   } catch {
-    return undefined;
+    return { poolSize: 0 };
   }
 }
 
@@ -164,9 +202,17 @@ export default async function ArcadePage({
   searchParams?: Record<string, string | string[] | undefined>;
 }) {
   const base = readScope(searchParams ?? {});
-  const [stats, label] = await Promise.all([fetchVocabStats(), fetchScopeLabel(base)]);
-  const scope: HubScope = { ...base, label };
+  const [stats, info] = await Promise.all([fetchVocabStats(), fetchScopeInfo(base)]);
+  const scope: HubScope = { ...base, label: info.label };
   const mineReady = stats.total >= MINE_READY_THRESHOLD;
+  // 코스 — 자료를 들고 왔으면 그 자료의 풀로, 아니면 내 복습 큐 크기로 해석한다.
+  const courseKind = resourceKindFromScope(base);
+  const resolved = resolveCourse(courseKind, scope.active ? info.poolSize : stats.total);
+  const courseResourceLabel = scope.active
+    ? [scope.label, scope.chapter != null ? `Chapter ${scope.chapter}` : null, `단어 ${info.poolSize}개`]
+        .filter(Boolean)
+        .join(' · ')
+    : `내 복습 큐 · 단어 ${stats.total}개`;
   const daily = pickDailyGame(kstDayIndex(), stats.total);
   // 같은 인지 루프를 공유하는 계열은 한 장으로 접힌다(중복 체감 제거).
   const sections = hubSections();
@@ -174,7 +220,7 @@ export default async function ArcadePage({
 
   return (
     <div className="arc-scene">
-      <style dangerouslySetInnerHTML={{ __html: ARC_CSS }} />
+      <style dangerouslySetInnerHTML={{ __html: ARC_CSS + COURSE_CSS }} />
       <div className="arc-glow" aria-hidden="true" />
       <div className="arc-grain" aria-hidden="true" />
       <div className="arc-vig" aria-hidden="true" />
@@ -225,6 +271,14 @@ export default async function ArcadePage({
             </Link>
           </div>
         )}
+
+        {/* 코스 — "이 자료로는 이 순서로". 19장을 깔기 **전에** 답을 하나 준다.
+            근거(자료별 신호·풀 크기 실측)는 lib/game/sets.ts 헤더에 있다. */}
+        <CourseBoard
+          resolved={resolved}
+          scope={{ ...scopedHref(scope) }}
+          resourceLabel={courseResourceLabel}
+        />
 
         {/* ① Today's Experiment — 고르지 않아도 시작되는 기본값 */}
         <DailyPick

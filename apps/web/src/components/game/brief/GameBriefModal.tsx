@@ -44,12 +44,28 @@ interface Props {
   /** 계열 카드에서 열었을 때의 계열명 */
   familyName?: string
   onClose: () => void
+  /**
+   * 게임 **안에서** 열렸을 때의 주 행동 — 이동이 아니라 "이 판을 시작".
+   *
+   * 허브에서는 Launch 가 플레이 URL 로 가는 링크지만, 게임 페이지에서 열린 브리핑은
+   * 이미 그 URL 에 있다. 링크로 두면 같은 자리로의 no-op 이동이 되어 학습자에게는
+   * "눌렀는데 아무 일도 없다" 로 읽힌다. 넘기면 버튼으로 바뀐다.
+   */
+  onLaunch?: () => void
+  /** onLaunch 를 쓸 때의 버튼 문구. 기본 '시작하기'. */
+  launchLabel?: string
 }
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
 
-export default function GameBriefModal({ entries, familyName, onClose }: Props) {
+export default function GameBriefModal({
+  entries,
+  familyName,
+  onClose,
+  onLaunch,
+  launchLabel = '시작하기',
+}: Props) {
   const [tab, setTab] = useState(0)
   const [mounted, setMounted] = useState(false)
   const panelRef = useRef<HTMLDivElement>(null)
@@ -241,9 +257,15 @@ export default function GameBriefModal({ entries, familyName, onClose }: Props) 
           <button type="button" className="bf-later" onClick={onClose}>
             나중에
           </button>
-          <Link href={entry.href} className="bf-launch">
-            Launch <span aria-hidden="true">→</span>
-          </Link>
+          {onLaunch ? (
+            <button type="button" className="bf-launch" onClick={onLaunch}>
+              {launchLabel} <span aria-hidden="true">→</span>
+            </button>
+          ) : (
+            <Link href={entry.href} className="bf-launch">
+              Launch <span aria-hidden="true">→</span>
+            </Link>
+          )}
         </footer>
       </div>
     </div>,
