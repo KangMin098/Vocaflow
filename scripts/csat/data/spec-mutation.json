@@ -51,6 +51,13 @@
    "ok": true
   },
   {
+   "id": "E8",
+   "name": "번호마다 능력군이 고정 (2019 개편 이후 18~40)",
+   "before": true,
+   "after": false,
+   "ok": true
+  },
+  {
    "id": "I1",
    "name": "선택지는 5개, 정답은 1~5",
    "before": true,

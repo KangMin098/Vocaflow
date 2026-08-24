@@ -34,6 +34,26 @@ export const SEQUENTIAL_TYPES = [
   'R-FACT', 'X-FACT', 'R-NOTICE', 'R-CHART', 'L-NOTMENTION', 'L-SET-NOT', 'L-ANNOUNCE',
 ]
 
+/** 유형 → 평가원 능력군. 함축(21)은 2019 신설이라 따로 둔다. */
+export const ABILITY_OF = {
+  'R-PURPOSE': '대의파악', 'R-MOOD': '대의파악', 'R-CLAIM': '대의파악',
+  'R-GIST': '대의파악', 'R-TOPIC': '대의파악', 'R-TITLE': '대의파악',
+  'R-IMPLY': '함축',
+  'R-CHART': '세부사항', 'R-FACT': '세부사항', 'R-NOTICE': '세부사항',
+  'R-GRAMMAR': '어휘어법', 'R-VOCAB': '어휘어법', 'R-REFER': '어휘어법',
+  'R-BLANK': '빈칸', 'R-BLANK2': '빈칸',
+  'R-IRRELEVANT': '간접쓰기', 'R-ORDER': '간접쓰기', 'R-INSERT': '간접쓰기', 'R-SUMMARY': '간접쓰기',
+}
+
+/** 2019 개편 이후 번호 → 능력군 (18~40). 실측에서 뽑았고 12회차 예외 0. */
+export const ABILITY_BY_NO = {
+  18: '대의파악', 19: '대의파악', 20: '대의파악', 21: '함축', 22: '대의파악', 23: '대의파악', 24: '대의파악',
+  25: '세부사항', 26: '세부사항', 27: '세부사항', 28: '세부사항',
+  29: '어휘어법', 30: '어휘어법',
+  31: '빈칸', 32: '빈칸', 33: '빈칸', 34: '빈칸',
+  35: '간접쓰기', 36: '간접쓰기', 37: '간접쓰기', 38: '간접쓰기', 39: '간접쓰기', 40: '간접쓰기',
+}
+
 export const SPEC = {
   exam: [
     { id: 'E1', grade: 'HARD', name: '한 회차는 45문항', check: (ex) => ex.items.length === 45 },
@@ -77,6 +97,21 @@ export const SPEC = {
         return n('R-BLANK') === 2 && n('R-ORDER') === 1 && n('R-INSERT') === 1
       },
       why: '2019~2026 8회차 8/8. 2018 이전 0/5. 개편으로 고정된 배분표다.' },
+    // ⭐ 배정은 지문 성질과의 매칭이 아니다 — **번호가 능력군을 미리 정해 놓는다.**
+    //    2019 개편 이후 12회차(수능 9 + 모평 3)에서 18~40 번 **23개 번호가 전부** 한 능력군에 고정.
+    //    지문을 보고 유형을 고르는 것이 아니라, 자리에 맞는 지문을 넣는 것이다.
+    //    (12개 가설이 지문 쪽에서 아무것도 못 찾은 이유가 여기 있다 — §1)
+    { id: 'E8', grade: 'HARD', name: '번호마다 능력군이 고정 (2019 개편 이후 18~40)',
+      check: (ex) => {
+        const y = Number(ex.exam.slice(0, 4))
+        if (!(y >= 2019)) return true // 개편 전에는 배치가 다르다
+        return ex.items.every((i) => {
+          const want = ABILITY_BY_NO[i.no]
+          const got = ABILITY_OF[i.type]
+          return !want || !got || want === got
+        })
+      },
+      why: '2019~ 12회차 예외 0. 번호→능력군이 고정이므로 유형 배정은 지문 성질 매칭이 아니다.' },
   ],
   item: [
     { id: 'I1', grade: 'HARD', name: '선택지는 5개, 정답은 1~5', check: (it) => it.answer >= 1 && it.answer <= 5 },
