@@ -1,0 +1,370 @@
+{
+ "fig": 7,
+ "ansReuse": 0,
+ "ansTot": 8,
+ "disReuse": 0,
+ "disTot": 32,
+ "p": 1,
+ "rows": [
+  {
+   "exam": "2019",
+   "phrase": "refining ignorance",
+   "figurative": true,
+   "why": "역설적 결합 — 무지를 다듬는다",
+   "ok": true,
+   "answer": 1,
+   "per": [
+    {
+     "i": 1,
+     "isAns": true,
+     "n": 0,
+     "shared": [],
+     "text": "looking beyond what is known towards what is left unknown"
+    },
+    {
+     "i": 2,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "offering an ultimate account of what has been discovered"
+    },
+    {
+     "i": 3,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "analyzing existing knowledge with an objective mindset"
+    },
+    {
+     "i": 4,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "inspiring scientists to publicize significant discoveries"
+    },
+    {
+     "i": 5,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "informing students of a new field of science"
+    }
+   ]
+  },
+  {
+   "exam": "2020",
+   "phrase": "playing intellectual air guitar",
+   "figurative": true,
+   "why": "은유 — air guitar",
+   "ok": true,
+   "answer": 1,
+   "per": [
+    {
+     "i": 1,
+     "isAns": true,
+     "n": 0,
+     "shared": [],
+     "text": "displaying seemingly creative ability not rooted in firm k"
+    },
+    {
+     "i": 2,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "posing as experts by demonstrating their in-depth knowledg"
+    },
+    {
+     "i": 3,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "exhibiting artistic talent coupled with solid knowledge of"
+    },
+    {
+     "i": 4,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "performing musical pieces to attract a highly educated aud"
+    },
+    {
+     "i": 5,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "acquiring necessary experience to enhance their creativity"
+    }
+   ]
+  },
+  {
+   "exam": "2021",
+   "phrase": "the role of the lion's historians",
+   "figurative": true,
+   "why": "우화 인유 — 사자의 역사가",
+   "ok": true,
+   "answer": 2,
+   "per": [
+    {
+     "i": 1,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "uncovering the history of a species’ biological evolution"
+    },
+    {
+     "i": 2,
+     "isAns": true,
+     "n": 0,
+     "shared": [],
+     "text": "urging a shift to sustainable human behaviour for nature"
+    },
+    {
+     "i": 3,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "fighting against widespread violations of human rights"
+    },
+    {
+     "i": 4,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "rewriting history for more underrepresented people"
+    },
+    {
+     "i": 5,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "restricting the power of environmental lawmakers"
+    }
+   ]
+  },
+  {
+   "exam": "2022",
+   "phrase": "whether to make ready for the morning commute or not",
+   "figurative": false,
+   "why": "문자 그대로의 사례 서술 — 비유가 아니다",
+   "ok": true,
+   "answer": 1,
+   "per": [
+    {
+     "i": 1,
+     "isAns": true,
+     "n": 0,
+     "shared": [],
+     "text": "readily applicable information offered by specialized expe"
+    },
+    {
+     "i": 2,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "questionable facts that have been popularized by non-exper"
+    },
+    {
+     "i": 3,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "common knowledge that hardly influences crucial decisions"
+    },
+    {
+     "i": 4,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "practical information produced by both specialists and lay"
+    },
+    {
+     "i": 5,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "biased knowledge that is widespread in the local community"
+    }
+   ]
+  },
+  {
+   "exam": "2023",
+   "phrase": "make oneself public to oneself",
+   "figurative": true,
+   "why": "역설 — 자신에게 자신을 공개한다",
+   "ok": true,
+   "answer": 1,
+   "per": [
+    {
+     "i": 1,
+     "isAns": true,
+     "n": 0,
+     "shared": [],
+     "text": "use writing as a means of reflecting on oneself"
+    },
+    {
+     "i": 2,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "build one’s identity by reading others’ diaries"
+    },
+    {
+     "i": 3,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "exchange feedback in the process of writing"
+    },
+    {
+     "i": 4,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "create an alternate ego to present to others"
+    },
+    {
+     "i": 5,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "develop topics for writing about selfhood"
+    }
+   ]
+  },
+  {
+   "exam": "2024",
+   "phrase": "a nonstick frying pan",
+   "figurative": true,
+   "why": "은유 — 눌어붙지 않는 프라이팬",
+   "ok": true,
+   "answer": 4,
+   "per": [
+    {
+     "i": 1,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "never being confronted with any stressful experiences in d"
+    },
+    {
+     "i": 2,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "broadening one’s perspective to identify the cause of stre"
+    },
+    {
+     "i": 3,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "rarely confining one’s attention to positive aspects of an"
+    },
+    {
+     "i": 4,
+     "isAns": true,
+     "n": 0,
+     "shared": [],
+     "text": "having a larger view of an experience beyond its stressful"
+    },
+    {
+     "i": 5,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "taking stress into account as the source of developing a w"
+    }
+   ]
+  },
+  {
+   "exam": "2025",
+   "phrase": "hunting the shadow, not the substance",
+   "figurative": true,
+   "why": "관용적 은유 — 그림자를 좇다",
+   "ok": true,
+   "answer": 3,
+   "per": [
+    {
+     "i": 1,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "following historical precedents without regard to current "
+    },
+    {
+     "i": 2,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "prioritizing architecture’s material aspects over its arti"
+    },
+    {
+     "i": 3,
+     "isAns": true,
+     "n": 0,
+     "shared": [],
+     "text": "pursuing the ideals of architecture without the practical "
+    },
+    {
+     "i": 4,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "discounting the subjects necessary to achieve architectura"
+    },
+    {
+     "i": 5,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "seeking abstract knowledge emphasized by architectural tra"
+    }
+   ]
+  },
+  {
+   "exam": "2026",
+   "phrase": "made a lot of work less sticky",
+   "figurative": true,
+   "why": "은유 — 일이 덜 끈적해졌다",
+   "ok": true,
+   "answer": 2,
+   "per": [
+    {
+     "i": 1,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "settled the locational dilemma of the global markets"
+    },
+    {
+     "i": 2,
+     "isAns": true,
+     "n": 0,
+     "shared": [],
+     "text": "elevated the spatial flexibility in conducting business"
+    },
+    {
+     "i": 3,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "weakened the geographical expansion of local business"
+    },
+    {
+     "i": 4,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "relieved the strict legal processes of regional outsourcin"
+    },
+    {
+     "i": 5,
+     "isAns": false,
+     "n": 0,
+     "shared": [],
+     "text": "allowed business to be less complicated in its hiring proc"
+    }
+   ]
+  }
+ ]
+}
