@@ -95,6 +95,14 @@ if (MODE === 'apply') {
     if (data && data.length) done++
   }
   console.log(`applied: ${done} · failed: ${failed}`)
+
+  // 발행 단어장으로 전파. 이 한 줄이 없어서 2026-08-22 에 발행 세트 998개 8,171행이
+  // 예문 없이 남아 있었다 — `shared_words` 는 발행 시점 스냅샷이라 나중에 채운 사전 예문이
+  // 저절로 반영되지 않는다. 빈 칸만 채우므로 몇 번 돌려도 결과가 같다(재실행 안전).
+  const { data: synced, error: syncErr } = await db.rpc('sync_published_set_examples', { p_set_id: null })
+  if (syncErr) console.warn(`발행 세트 전파 실패: ${syncErr.message} — SELECT sync_published_set_examples() 를 직접 실행할 것`)
+  else console.log(`발행 세트 전파: ${synced ?? 0}행`)
+
   process.exit(0)
 }
 

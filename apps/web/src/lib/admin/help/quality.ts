@@ -120,6 +120,11 @@ export const QUALITY_HELP: HelpRegistry = {
           detail:
             '발행 세트가 현재 추출 로직의 산출과 어긋났다는 뜻(=stale). 추출을 개선하면 발행분이 한꺼번에 여기 걸린다. 유일하게 게시 차단에서 제외된 critical 이며, 재발행(republish_book_word_sets / republish_article_word_set)으로만 풀린다.',
         },
+        {
+          label: 'I12 발행세트 예문 공백',
+          detail:
+            '사전에 예문이 있는데 발행 세트 쪽이 비어 있는 건수. 발행은 스냅샷이라 나중에 채운 사전 예문이 저절로 반영되지 않아 생긴다 — 사전 예문 드레인을 돌린 뒤 여기가 붉어지는 것이 정상 흐름이다. 재발행이 아니라 `SELECT sync_published_set_examples()` 로 푼다(빈 칸만 채우므로 재실행 안전, 단어 목록은 바뀌지 않는다). 사전에도 예문이 없는 낱말은 세지 않는다 — 재동기화로 못 고치는 것을 세면 게이트가 영구히 붉게 남는다.',
+        },
       ],
       cautions: [
         '전역 게이트는 화면을 열 때마다 전 범위를 스캔한다 — statement_timeout 을 60초까지 올려 둔 무거운 쿼리다. 연속 새로고침 대신 결과를 읽고 움직인다.',

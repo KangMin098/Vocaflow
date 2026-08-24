@@ -121,10 +121,44 @@ export const OPS_HELP: HelpRegistry = {
         '읽기 전용이다. 뜻·레벨·검증 플래그를 여기서 고칠 수 없다 — 교정은 VCB·VRL 파이프라인이나 scripts/dict-* 로 한다.',
         '조회가 실패해도 오류 없이 "조건에 맞는 단어 없음" 으로만 보인다. 필터를 다 풀었는데 0건이면 검색 실패를 의심하고 새로고침해라.',
         'POS · Source 드롭다운 후보는 dict_categorical_distributions RPC 로 채운다. 이 RPC 가 실패하면 두 드롭다운이 "(전체)" 하나만 남는데, 역시 조용히 그렇게 된다.',
+        '사전 필드를 채워도 **이미 발행된 단어장에는 반영되지 않는다** — `shared_words` 는 발행 시점 스냅샷이다. 예문 드레인 뒤에는 `SELECT sync_published_set_examples()` 로 전파하고 품질 게이트 I12 가 0 인지 확인해라. 2026-08-22 에 이 전파가 없어 발행 세트 998개 8,171행이 예문 없이 나가고 있었다.',
       ],
+      drain: {
+        what: '사전 example_en 결측분을 채우고, 이미 발행된 단어장까지 전파한다.',
+        prerequisites: [
+          '대상은 단일 소문자어 · classified · v_level 보유 · 노이즈 register 제외분의 example_en 결측 행뿐이다.',
+        ],
+        procedure: [
+          {
+            title: '대상 뽑기',
+            detail:
+              '`node scripts/dict/example-fill.mjs dump --dir <DIR>` — 결측분을 chunk-NN.json 으로 분할한다. 이미 채워진 것은 대상에서 빠지므로 **재실행 안전**.',
+            done: '<DIR> 에 chunk-NN.json 이 생기고 targets 수가 출력된다.',
+          },
+          {
+            title: 'Claude Code 가 채움',
+            detail: '각 chunk-NN.json 을 읽고 같은 폴더에 chunk-NN.out.json([{word, example_en}])으로 저장한다.',
+            done: 'chunk 수와 out 파일 수가 같다.',
+          },
+          {
+            title: '적재 + 전파',
+            detail:
+              '`node scripts/dict/example-fill.mjs apply --dir <DIR> --commit` — 검증(길이 6~240 · 한글 없음 · 어간 포함) 통과분만 결측 행에 UPDATE 하고, 이어서 `sync_published_set_examples()` 로 발행 세트에 전파한다. 두 단계 모두 빈 칸만 건드리므로 **재실행 안전**.',
+            done: '`applied: N` 과 `발행 세트 전파: M행` 이 함께 출력된다.',
+          },
+        ],
+        verify: [
+          '품질 게이트 화면의 `I12 발행세트 예문 공백` 이 0(PASS)인지 확인. 0 이 아니면 전파가 실패한 것이다.',
+          '`--commit` 없이 돌리면 DRY-RUN 이라 아무것도 쓰지 않고 샘플 10건만 보여 준다.',
+        ],
+        recovery: [
+          '전파만 다시 하려면 `SELECT sync_published_set_examples()` 를 직접 실행한다 — 빈 칸만 채우므로 몇 번 돌려도 결과가 같고, 학습자가 보던 단어 목록은 바뀌지 않는다(재발행과 다르다).',
+        ],
+      },
       seeAlso: [
         { label: 'VCB Pipeline', href: '/admin/vocab' },
         { label: 'VRL Pipeline', href: '/admin/vrl' },
+        { label: '품질 게이트', href: '/admin/quality/gates' },
       ],
     },
   },

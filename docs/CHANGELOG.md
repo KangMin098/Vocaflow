@@ -10,6 +10,23 @@
 
 ## Unreleased (v06.34 → next)
 
+### 사전 조회를 표면형으로 하던 두 곳 — WordBlitz 후보 28.7% 가 버려지고 있었다
+
+`library_book_vocabularies` 의 lemma 보유 **1,591,690행** 중 표면형(`word`)이
+`shared_dictionary` 에 정확일치하는 것은 **71.3%**, lemma 는 **100%**. WordBlitz 챕터 보충이
+표면형으로 사전을 찾아 **28.7% 를 "뜻 없음"으로 버렸고**, 자르기를 사전 조회 **전에** 해서
+버퍼(`need*3`)를 뽑아 두고도 목표 12개를 못 채운 채 게임이 시작됐다.
+Flashcard 스코프 진입도 `fetchDictExtras` 를 표면형으로 불러 발행 세트 표면형
+**3,005종 / 4,620행**에서 연어·니모닉·다의어가 조용히 비었다.
+
+**재료는 이미 있었다** — 두 테이블 모두 `lemma` 를 갖고 있고 해소율 100%. 조회 키만 바꾸면 됐다.
+
+- `ScopedWord.lemma` 신설([workspace/scoped-words.ts](../apps/web/src/lib/workspace/scoped-words.ts)) — set·text 두 경로 모두 이미 `lemma` 를 select 하고 있었으나 노출하지 않았다
+- [wordblitz/word-pool.ts](../apps/web/src/lib/wordblitz/word-pool.ts) — lemma 키 + lemma 중복 제거 + **거르기→자르기 순서 교정**
+- [flashcard/scoped-words.ts](../apps/web/src/lib/flashcard/scoped-words.ts) — 부가정보 조회·조회결과 키를 lemma 로
+- 회귀 `wordblitz/__tests__/word-pool.test.ts` 4종 · `tsc --noEmit` 전체 통과
+- 손대지 않은 곳: `reader-queries.ts`(resolved_word) · `chapter-words-queries.ts`(lemma) — 이미 올바른 키였다
+
 ### 🕹 Game Lab — 자료별 게임 코스 + 게임 안 브리핑 (v08.6)
 
 아케이드 19종을 **4축 실측**으로 점검하고 두 축을 닫았다. 측정은 `node scripts/arcade/audit.mjs`
@@ -152,7 +169,7 @@
 `shared_dictionary` 47,737행을 LCP·ACP·VCB compose·VRL·학습 모듈 5경로 요구 필드에 대조.
 확정 결함 5건 — **발행 세트 998개 8,171행 예문 공백**(위 항목에서 해소) · VRL 3축 미분류 9,352행 중
 9,150이 최근 90일 유입 · `whenever`/`amongst`/`nowhere` 등 고빈도 기능어 해석 NULL ·
-표면형 3,005종이 정확일치 조인에서 탈락(99.8%는 RPC로 해소) · 템플릿 예문 약 350행.
+표면형으로 사전을 찾던 소비처 2곳(위 항목에서 해소) · 템플릿 예문 약 350행.
 오탐 4종(1음절 번역 137 · 미상 오탐 7 · 굴절 충돌 12 · 변이 그림자 44)은 조치 불필요로 확인.
 리포트: [docs/reports/dict-quality-20260822.md](./reports/dict-quality-20260822.md)
 

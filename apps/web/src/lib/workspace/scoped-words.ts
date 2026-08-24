@@ -14,6 +14,12 @@ import type { ContentRef } from '@/lib/content/content-ref'
 export interface ScopedWord {
   id: string
   word: string
+  /**
+   * 사전 표제어. `word` 는 본문에 나온 **표면형**(abated·leaves)이라 사전 조회 키로 쓰면 안 된다 —
+   * 2026-08-22 실측으로 발행 단어장 표면형 3,005종이 정확일치 조인에서 탈락하고 있었다.
+   * 사전(shared_dictionary)을 찾을 때는 반드시 이 값을 쓴다. 표면형뿐이면 표면형이 들어온다.
+   */
+  lemma: string
   meaning: string
   pronunciation: string
   pos: string
@@ -204,6 +210,7 @@ async function fetchBySet(
     return {
       id: r.id,
       word: r.word,
+      lemma: (r.lemma ?? r.word).toLowerCase(),
       meaning: r.meaning_ko ?? '',
       pronunciation: r.pronunciation ?? '',
       pos: r.part_of_speech ?? '',
@@ -260,6 +267,7 @@ async function fetchByText(
   const words: ScopedWord[] = rows.map((r) => ({
     id: r.id,
     word: r.word,
+    lemma: (r.lemma ?? r.word).toLowerCase(),
     meaning: r.meaning ?? '',
     pronunciation: r.pronunciation ?? '',
     pos: r.pos ?? '',
