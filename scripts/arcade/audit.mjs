@@ -167,19 +167,30 @@ const cDone =
   (hubReadsBook && hubShowsCourse ? 1 : 0)
 
 // ── 축 D · 랭킹 ───────────────────────────────────────────────────
+//
+// 파일이 있는지만 재면 축 B 에서 이미 겪은 실수를 반복한다 — 브리핑은 19종 전부에
+// 데이터가 있었는데 **누를 자리가 허브 카드 하나뿐**이라 대부분의 학습자에게 없는 기능이었다.
+// 랭킹도 같다: `/arcade/ranking` 을 만들어 두고 링크를 안 걸면 주소를 아는 사람만 가는 화면이다.
+// 그래서 ① 구현 ② 마이그레이션 ③ **도달 경로** 를 각각 센다.
 const rankingFiles = ['lib/game/ranking.ts', 'components/game/RankingBoard.tsx', 'app/(main)/arcade/ranking/page.tsx']
 const rankingPresent = rankingFiles.filter(has)
 const rankMigrations = existsSync('supabase/migrations')
   ? readdirSync('supabase/migrations').filter((f) => /game_rank|arcade_rank|leaderboard/i.test(f))
   : []
-const dDone = rankingPresent.length + (rankMigrations.length ? 1 : 0)
+const metaStrip = read(join(SRC, 'components/game/ArcadeMetaStrip.tsx'))
+const rankReach = {
+  hubIndex: /href="\/arcade\/ranking"/.test(arcade),
+  statusStrip: /\/arcade\/ranking/.test(metaStrip),
+}
+const rankReachable = Object.values(rankReach).filter(Boolean).length > 0
+const dDone = rankingPresent.length + (rankMigrations.length ? 1 : 0) + (rankReachable ? 1 : 0)
 
 // ── 집계 ──────────────────────────────────────────────────────────
 const axis = (num, den) => ({ num, den, pct: den === 0 ? 0 : Math.round((num / den) * 1000) / 10 })
 const A = { ...axis(games.length - dupedSlugs.size, games.length), unresolvedDupes }
 const B = { ...axis(visualEnough * pathScore, games.length * 3), coverage: briefCoverage, visualEnough, paths: briefPaths }
 const C = { ...axis(cDone, RESOURCES.length + 1), resources, hubReadsBook }
-const D = { ...axis(dDone, rankingFiles.length + 1), present: rankingPresent, migrations: rankMigrations }
+const D = { ...axis(dDone, rankingFiles.length + 2), present: rankingPresent, migrations: rankMigrations, reach: rankReach }
 const overall = Math.round(((A.pct + B.pct + C.pct + D.pct) / 4) * 10) / 10
 
 const report = { games: games.length, A, B, C, D, overall }
@@ -201,5 +212,7 @@ if (process.argv.includes('--json')) {
   console.log('D 랭킹            ' + p(D) + '  (' + D.num + '/' + D.den + ')')
   for (const f of rankingFiles) console.log('   ' + (has(f) ? '✅' : '❌') + ' ' + f)
   console.log('   ' + (rankMigrations.length ? '✅' : '❌') + ' 랭킹 마이그레이션')
+  console.log('   ' + (rankReachable ? '✅' : '❌') + ' 학습자 도달 경로 ' +
+    '(' + Object.entries(rankReach).filter(([, v]) => v).map(([k]) => k).join(', ') + ')')
   console.log('\n종합 ' + overall + '%\n')
 }

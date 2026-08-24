@@ -250,6 +250,12 @@ export default async function ArcadePage({
               <span className="arc-index-num">{countHubGames(sections[t.key])}</span>
             </a>
           ))}
+          {/* 목차의 유일한 라우트 이동 — 순위는 이 화면 안의 구역이 아니라 별도 화면이다.
+              여기 없으면 상단 스트립을 지나친 학습자에게 순위는 존재하지 않는 기능이 된다. */}
+          <Link className="arc-index-link" href="/arcade/ranking">
+            <span className="arc-index-name">Standings</span>
+            <span className="arc-index-num" aria-hidden="true">→</span>
+          </Link>
         </nav>
 
         {/* 자료 스코프 배너 — 지금 어떤 자료의 단어로 노는지, 그리고 푸는 길. */}
@@ -693,6 +699,14 @@ const ARC_CSS = `
   .arc-meta-lbl { font-family: var(--font-english, ui-monospace, monospace); font-size: 9.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: rgba(246,232,224,.62); display: flex; flex-direction: column; gap: 5px; }
   .arc-meta-level { min-width: 128px; }
   .arc-meta-goal { min-width: 158px; margin-left: auto; }
+  .arc-meta-rank { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 14px; border-radius: 999px; text-decoration: none;
+    font-family: var(--font-display, system-ui, sans-serif); font-size: 12px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap;
+    color: rgba(246,232,224,.76); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);
+    transition: color .15s var(--ease, ease), background-color .15s var(--ease, ease), border-color .15s var(--ease, ease), transform .12s var(--ease, ease); }
+  .arc-meta-rank:hover { color: #FBF3EC; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.28); }
+  .arc-meta-rank:active { transform: scale(.97); }
+  .arc-meta-rank:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,225,200,.45); }
+  @media (prefers-reduced-motion: reduce) { .arc-meta-rank { transition: none; } }
   .arc-meta-music { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 14px; border-radius: 999px; cursor: pointer;
     font-family: var(--font-display, system-ui, sans-serif); font-size: 12px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap;
     color: rgba(246,232,224,.76); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);

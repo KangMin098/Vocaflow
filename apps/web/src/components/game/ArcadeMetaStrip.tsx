@@ -15,6 +15,7 @@
 
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 // levelForXp 는 import 하지 않는다 — getArcadeMeta 가 이미 날짜 롤오버까지 반영한
@@ -70,7 +71,7 @@ export default function ArcadeMetaStrip() {
       <div className="arc-meta-item arc-meta-level">
         <span className="arc-meta-num">Lv {meta.level}</span>
         <span className="arc-meta-lbl">
-          Rank
+          Level
           <span className="arc-meta-bar" aria-hidden="true">
             <span className="arc-meta-bar-fill" style={{ width: `${lvPct * 100}%` }} />
           </span>
@@ -89,6 +90,17 @@ export default function ArcadeMetaStrip() {
           </span>
         </span>
       </div>
+
+      {/* 순위 — v08.6. 이 스트립의 다른 수치는 전부 localStorage(이 기기의 나)라
+          다른 학습자와의 비교가 어디에도 없었다. 링크를 걸지 않으면 /arcade/ranking 은
+          주소를 아는 사람만 가는 화면이 된다(브리핑이 허브 카드에만 있던 것과 같은 실수). */}
+      <Link href="/arcade/ranking" className="arc-meta-rank" title="게임별 순위와 내 랭크">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M6 20V11M12 20V5M18 20v-6" />
+          <path d="M3.5 20h17" opacity=".6" />
+        </svg>
+        <span>Standings</span>
+      </Link>
 
       {/* 배경음악 — 게임 진입 전에 정한다. 모든 게임이 같은 선호를 따른다. */}
       <button
