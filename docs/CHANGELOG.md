@@ -53,6 +53,25 @@ Flashcard 스코프 진입도 `fetchDictExtras` 를 표면형으로 불러 발�
 - 회귀 `wordblitz/__tests__/word-pool.test.ts` 4종 · `tsc --noEmit` 전체 통과
 - 손대지 않은 곳: `reader-queries.ts`(resolved_word) · `chapter-words-queries.ts`(lemma) — 이미 올바른 키였다
 
+### 🔍 랭킹 2차 — 런타임 확인이 잡은 두 가지 (v08.6)
+
+정적 지표가 100% 를 가리킨 뒤 **실제로 열어 보고** 잡은 것들이다. 둘 다 지표로는 안 보였다.
+
+- **꼴찌가 "상위 100%" 로 읽혔다.** 2명 중 2위 = 백분위 0 → `100 - 0` = 상위 100%.
+  백분위는 표본이 있을 때만 쓴다(`PERCENTILE_MIN_PLAYERS = 5`). 그 아래에서는
+  "1위인 게임 N · 겨룬 M종" — 참이고 오해될 여지가 없는 사실을 대신 센다
+- **랭킹에 닿는 길이 없었다.** Lab Status 스트립 + Lab Index 목차에 진입점 추가.
+  스트립의 'Rank' 라벨은 localStorage XP 레벨이라 'Level' 로 정정(한 화면에서 두 뜻 금지).
+  `audit.mjs` 축 D 에 **도달 경로** 항목을 넣어 다음부터는 지표가 잡는다
+- **검증 공백도 하나 있었다** — 신규 랭킹 스펙이 기본 e2e 계정(게임 기록 dictation 2건뿐)을
+  써서 핵심 단언이 skip 되고도 초록이었다. 아케이드 계정(runtime-test-0705 · 기록 55건)으로
+  바꾸고 skip 을 실패로 바꿨다
+- 회귀 +24 (`ranking.test.ts` 15 · `25-arcade-ranking.spec.ts` 9)
+- `13-arcade-integrity` A3 의 morpheme-rules 오탐 수정 — 이 게임은 봉인을 풀기 전까지
+  영단어를 보여 주지 않아, 통과가 "뽑힌 봉인 4개의 뜻이 마침 화면 문구와 겹치는가" 라는
+  우연에 걸려 있었다(같은 커밋에서 단독 통과 → 재실행 실패). `data-scope="mine"` 선언을
+  근거로 받는다 — 선언이 **없는** 게임은 여전히 실패한다(원래 잡으려던 결함)
+
 ### 🏁 Game Lab 랭킹 (v08.6 · 마이그레이션 `20260825120000_game_ranking`)
 
 4축 실측 75% → **100%**. 랭킹이 마지막 빈 축이었다.

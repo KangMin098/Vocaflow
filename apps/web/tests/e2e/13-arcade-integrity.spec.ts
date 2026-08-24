@@ -230,7 +230,21 @@ test.describe('아케이드 자료 연계', () => {
         ok =
           en.find((w) => text.includes(w)) ??
           ko.find((m) => text.includes(m.toLowerCase())) ??
-          (scope === 'builtin' || scope === 'demo' ? `(자료 출처를 스스로 선언: ${scope})` : null);
+          // `mine` 도 유효한 선언이다. 이 단언이 잡으려는 것은 **아무 말 없이 내장 콘텐츠로
+          // 도는 것**이고, `mine` 은 그 반대 — 게임이 "스코프 풀과 겹치는 항목을 실제로
+          // 실었다"고 기계가 읽을 수 있게 선언한 것이다(morpheme-rules 의 ownSealCount 는
+          // 풀 교집합에서 계산된다 · MorphemeRulesGame.tsx:167-170).
+          //
+          // 왜 필요했나: 자료 단어가 화면에 **글자로** 나오는 시점은 게임마다 다르다.
+          // morpheme-rules 는 봉인을 풀기 전까지 뜻을 장면 문장으로만 보여 주고 영단어는
+          // 발동 뒤에 나온다. 그래서 통과 여부가 "이번 판에 뽑힌 봉인 4개의 뜻이 마침
+          // 화면 문구와 겹치는가" 라는 우연에 걸려 매 실행 흔들렸다(실측: 같은 커밋에서
+          // 단독 실행 통과 → 재실행 실패). 선언을 읽으면 우연이 빠진다.
+          //
+          // 선언이 **아예 없는**(null) 게임은 여전히 실패한다 — 그게 원래 잡으려던 결함이다.
+          (scope === 'mine' || scope === 'builtin' || scope === 'demo'
+            ? `(자료 출처를 스스로 선언: ${scope})`
+            : null);
         if (!ok) await page.waitForTimeout(1200);
       }
       if (!ok) {

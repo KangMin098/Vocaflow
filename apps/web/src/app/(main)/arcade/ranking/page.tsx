@@ -116,14 +116,24 @@ export default async function ArcadeRankingPage({
                   <span className="rkp-stat-n">{overall.playedGames}</span>
                   <span className="rkp-stat-k">플레이한 게임</span>
                 </div>
+                {/* 백분위는 표본이 있을 때만 말한다.
+                    2명짜리 게임에서 2위는 백분위 0 이고, 그것을 "상위 100%" 로 옮기면
+                    **꼴찌가 최고 성적처럼 읽힌다** — 실제로 그 화면을 만들었다가 잡았다.
+                    표본이 작으면 대신 "1위인 게임" 을 센다: 참이고, 오해될 여지가 없다. */}
                 <div className="rkp-stat">
                   <span className="rkp-stat-n">
-                    {overall.meanPercentile == null ? '—' : `상위 ${Math.max(0, Math.round(100 - overall.meanPercentile))}%`}
+                    {overall.percentileMeaningful && overall.meanPercentile != null
+                      ? `상위 ${Math.max(1, Math.round(100 - overall.meanPercentile))}%`
+                      : overall.rankedGames > 0
+                        ? overall.topFinishes
+                        : '—'}
                   </span>
                   <span className="rkp-stat-k">
-                    {overall.rankedGames > 0
+                    {overall.percentileMeaningful
                       ? `${overall.rankedGames}종 평균`
-                      : '아직 겨룰 상대가 없어요'}
+                      : overall.rankedGames > 0
+                        ? `1위인 게임 · 겨룬 ${overall.rankedGames}종`
+                        : '아직 겨룰 상대가 없어요'}
                   </span>
                 </div>
                 <div className="rkp-stat">

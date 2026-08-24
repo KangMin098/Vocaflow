@@ -149,6 +149,15 @@ export async function fetchRankSummary(
 
 // ── 종합 랭크 ─────────────────────────────────────────────────────
 
+/**
+ * 백분위를 "상위 N%" 로 말해도 되는 최소 참가자 수.
+ *
+ * 2명짜리 게임에서 2위는 백분위 0 이고, 그것을 "상위 100%" 로 옮기면 **꼴찌가 최고 성적처럼
+ * 읽힌다**(실측으로 그 화면을 만들었다가 잡았다). 표본이 이만큼은 돼야 백분위가 순위보다
+ * 더 많은 것을 말한다 — 그 아래에서는 "N명 중 M위" 가 더 정확하고 덜 오해된다.
+ */
+export const PERCENTILE_MIN_PLAYERS = 5
+
 export interface OverallRank {
   /** 랭킹이 성립한 게임 수 — 참가자 2명 이상인 게임만 센다 */
   rankedGames: number
@@ -156,6 +165,13 @@ export interface OverallRank {
   playedGames: number
   /** 게임별 백분위의 평균. 성립한 게임이 없으면 null */
   meanPercentile: number | null
+  /**
+   * "상위 N%" 로 말해도 되는가 — 참가자 PERCENTILE_MIN_PLAYERS 이상인 게임이 하나라도 있을 때만.
+   * false 면 화면은 백분위 대신 순위로 말한다.
+   */
+  percentileMeaningful: boolean
+  /** 내가 1위인 게임 수 (참가자 2명 이상) — 참이고, 표본이 작아도 오해되지 않는 사실 */
+  topFinishes: number
   /** 개인 최고를 세운 게임 수 — 혼자 있는 게임에서도 말할 수 있는 사실 */
   soloBests: number
 }
@@ -180,6 +196,8 @@ export function overallRank(rows: RankSummaryRow[]): OverallRank {
     rankedGames: ranked.length,
     playedGames: rows.length,
     meanPercentile: mean,
+    percentileMeaningful: ranked.some((r) => r.playerCount >= PERCENTILE_MIN_PLAYERS),
+    topFinishes: ranked.filter((r) => r.myRank === 1).length,
     soloBests: rows.length - ranked.length,
   }
 }
