@@ -69,7 +69,21 @@ export function useGameSessionRecorder({
       // 아케이드 19종이 이 한 줄로 콘텐츠 귀속을 얻는다 — 스코프는 이미 여기 있었고
       // 적재만 그것을 버리고 있었다(scope.set 은 어디에도 안 남았다).
       // 맛보기 폴백(demo)은 내 단어도 자료도 아니므로 귀속시키지 않는다.
-      ...(scope.demo ? {} : { content: contentRefFromScope({ set: scope.set, text: scope.text, chapter: scope.chapter }) }),
+      //
+      // v08.6 — `book` 을 빠뜨리고 있었다. `useGameWordScope` 는 처음부터 `?book=` 을 읽는데
+      // 여기서만 그것을 버려서, 도서로 들어와 논 세션의 scores.content_type 이 'mine' 으로
+      // 적재됐다("어떤 도서를 학습했나" 를 못 답하게 하는, ContentRef 가 애초에 없애려던 결함).
+      // 도서 코스(lib/game/sets.ts)가 이 경로를 정식 진입으로 만들면서 실제로 흐르기 시작했다.
+      ...(scope.demo
+        ? {}
+        : {
+            content: contentRefFromScope({
+              set: scope.set,
+              text: scope.text,
+              book: scope.book,
+              chapter: scope.chapter,
+            }),
+          }),
       metadata: { captured, wrong, scope: scope.kind, demo: scope.demo },
     })
     awardArcadeXp(accuracy)

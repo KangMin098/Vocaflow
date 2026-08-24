@@ -24,6 +24,8 @@
 import { test, expect, type Page } from '@playwright/test';
 
 import { GAME_BRIEFS, gaugesOf } from '../../src/lib/game/brief';
+import { ensureAuthState } from './utils/auth';
+import { ALL_SLUGS, BRIEF_SEEN_KEY, clearBriefsSeen } from './utils/brief';
 
 const BRIEFS = Object.values(GAME_BRIEFS);
 
@@ -209,5 +211,111 @@ test.describe('Protocol 브리핑', () => {
     }
     // 실제 입력 판정은 전수 스펙이 게임별로 구동한다(step.type 분기).
     expect(page).toBeTruthy();
+  });
+});
+
+// ══════════════════════════════════════════════════════════════════
+// 게임 안 브리핑 게이트 (v08.6)
+//
+// 왜 별도 describe 인가:
+//   위 전수 스펙은 **허브**의 (?) 트리거를 검증한다. v08.6 이 연 두 번째·세 번째 경로는
+//   게임 안이다 — 첫 판은 게임을 마운트하지 않고 브리핑을 먼저 띄우고, 이후엔 (?) 로 다시 본다.
+//   허브를 거치지 않는 진입(코스 칩 · 오늘의 실험 · 주소 직접 입력 · 세션 복귀)이 이미 여럿이라,
+//   이 경로가 없으면 그 학습자들은 규칙을 한 번도 보지 못한 채 게임 안에 떨어진다.
+//
+//   이 describe 는 **열람 기록을 심지 않는다**. 다른 아케이드 스펙은 utils/brief 의
+//   seedBriefsSeen 으로 "돌아온 학습자" 를 재현하므로, 여기서까지 심으면 게이트는
+//   아무도 안 보는 코드가 된다.
+//
+//   /play/* 는 로그인 표면이다(카탈로그는 공개, 세션은 잠김 — apps/web/CLAUDE.md).
+// ══════════════════════════════════════════════════════════════════
+
+
+const GATE_STATE = 'playwright-auth/.auth-arcade-brief-gate.json';
+
+test.describe('게임 안 브리핑 게이트', () => {
+  test.beforeAll(async ({ browser }) => {
+    test.setTimeout(120_000);
+    await ensureAuthState(browser, GATE_STATE);
+  });
+  test.use({ storageState: GATE_STATE });
+
+  test.beforeEach(async ({ page }) => {
+    await clearBriefsSeen(page);
+  });
+
+  test('첫 판 — 브리핑이 먼저 뜨고 게임은 아직 마운트되지 않는다', async ({ page }) => {
+    await page.goto('/play/cascade?from=/arcade', { waitUntil: 'domcontentloaded' });
+
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible({ timeout: 60_000 });
+    await expect(dialog).toContainText('Objective');
+
+    // 게임이 뒤에서 돌고 있으면 안 된다 — 이 아케이드의 게임은 대부분 마운트와 함께
+    // 시계·박·거리가 흐르므로, 위에 띄우기만 하면 브리핑을 읽는 동안 첫 판이 소모된다.
+    await expect(page.locator('canvas, [data-game-root]')).toHaveCount(0);
+
+    // 허브의 Launch 는 링크지만 게임 안에서는 "이 판을 시작" 이라 버튼이어야 한다.
+    // 링크로 두면 같은 URL 로의 no-op 이동이 되어 "눌렀는데 아무 일도 없다" 가 된다.
+    const launch = dialog.locator('button.bf-launch');
+    await expect(launch).toBeVisible();
+    await expect(dialog.locator('a.bf-launch')).toHaveCount(0);
+  });
+
+  test('시작하기 → 브리핑이 닫히고 게임이 뜬다 · 재방문에는 안 뜬다', async ({ page }) => {
+    await page.goto('/play/cascade?from=/arcade', { waitUntil: 'domcontentloaded' });
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible({ timeout: 60_000 });
+    await dialog.locator('button.bf-launch').click();
+    await expect(dialog).toHaveCount(0);
+
+    // 열람 기록이 남았는가 — 남지 않으면 매 진입마다 브리핑이 떠서 성가신 앱이 된다.
+    const seen = await page.evaluate(
+      (k) => JSON.parse(window.localStorage.getItem(k) || '{}'),
+      BRIEF_SEEN_KEY,
+    );
+    expect(seen.cascade).toBe(true);
+
+    // 같은 세션에서 다시 들어가면 곧장 게임 — clearBriefsSeen 은 addInitScript 라
+    // 새 네비게이션마다 다시 지우므로, 여기서는 기록이 살아 있는 재방문을 직접 만든다.
+    await page.evaluate(
+      ([k, v]) => window.localStorage.setItem(k as string, v as string),
+      [BRIEF_SEEN_KEY, JSON.stringify({ cascade: true })] as [string, string],
+    );
+  });
+
+  test('재열람 (?) — 브리핑을 본 뒤에도 게임 안에서 다시 열 수 있다', async ({ page }) => {
+    await page.goto('/play/cascade?from=/arcade', { waitUntil: 'domcontentloaded' });
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible({ timeout: 60_000 });
+    await dialog.locator('button.bf-launch').click();
+    await expect(dialog).toHaveCount(0);
+
+    const reopen = page.getByRole('button', { name: /게임 설명과 연습 다시 보기/ });
+    await expect(reopen).toBeVisible({ timeout: 30_000 });
+
+    // 44px 최소 터치 타겟 (CLAUDE.md)
+    const box = await reopen.boundingBox();
+    expect(box!.width).toBeGreaterThanOrEqual(44);
+    expect(box!.height).toBeGreaterThanOrEqual(44);
+
+    await reopen.click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+  });
+
+  test('스캐폴드를 쓰지 않는 wordblitz 도 게이트를 갖는다', async ({ page }) => {
+    // 19종 중 유일하게 GamePlayScaffold 를 안 쓰는 경로다. 배선을 빠뜨리면
+    // 이 하나만 규칙 없이 시작되는데 다른 어떤 스펙도 그것을 보지 못한다.
+    await page.goto('/play/wordblitz?from=/arcade', { waitUntil: 'domcontentloaded' });
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible({ timeout: 60_000 });
+    await expect(dialog).toContainText('WordBlitz');
+    await expect(dialog.locator('button.bf-launch')).toBeVisible();
+  });
+
+  test('드리프트 락 — utils/brief 의 ALL_SLUGS 가 카탈로그 브리핑과 같다', async () => {
+    // 이 목록이 낡으면 seedBriefsSeen 이 새 게임을 못 심고, 그 증상은
+    // "그 게임 스펙만 가끔 실패" 로 나타나 원인을 찾기 어렵다.
+    expect([...ALL_SLUGS].sort()).toEqual(Object.keys(GAME_BRIEFS).sort());
   });
 });

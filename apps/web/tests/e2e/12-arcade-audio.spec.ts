@@ -18,6 +18,15 @@
 //   C 기본 ON(v07.6) — 선호 미설정 학습자가 게임 진입만으로 트랙을 받는가,
 //     그리고 명시적 OFF 는 기본값 변경에 덮이지 않고 유지되는가
 import { test, expect, type Page } from '@playwright/test';
+import { seedBriefsSeen } from './utils/brief';
+
+// v08.6 — `/play/*` 는 그 게임의 브리핑을 처음 여는 학습자에게 게임 대신 브리핑을 띄운다.
+// 이 스펙들이 검증하는 것은 게임의 동작이므로 "돌아온 학습자" 를 재현한다.
+// 게이트 자체의 회귀는 15-arcade-brief.spec.ts 가 심지 않은 상태로 본다.
+test.beforeEach(async ({ page }) => {
+  await seedBriefsSeen(page);
+});
+
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',

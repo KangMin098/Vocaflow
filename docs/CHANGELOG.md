@@ -53,6 +53,29 @@ Flashcard 스코프 진입도 `fetchDictExtras` 를 표면형으로 불러 발�
 - 회귀 `wordblitz/__tests__/word-pool.test.ts` 4종 · `tsc --noEmit` 전체 통과
 - 손대지 않은 곳: `reader-queries.ts`(resolved_word) · `chapter-words-queries.ts`(lemma) — 이미 올바른 키였다
 
+### 🏁 Game Lab 랭킹 (v08.6 · 마이그레이션 `20260825120000_game_ranking`)
+
+4축 실측 75% → **100%**. 랭킹이 마지막 빈 축이었다.
+
+- **점수를 게임 사이로 합산하지 않는다.** 실측(scores 43행): 같은 "점수" 가 게임마다 다른
+  단위이고(cascade 0~900 · pairflip 0~1460 · scriptquiz 0~40) 풀 크기·세션 길이에 비례한다.
+  합산 랭킹은 "누가 큰 단어장을 골랐나" 를 재게 된다 → 게임별은 원점수, 종합은 **백분위 평균**
+- **RPC 로만 연다** — `scores` RLS 는 `auth.uid() = user_id` 하나뿐이다. 정책을 넓히면 남의
+  학습 이력이 통째로 열리므로, 집계만 돌려주는 SECURITY DEFINER 함수 4개를 둔다
+  (`game_leaderboard` · `game_rank_summary` · `game_rank_alias` · `game_rank_window`).
+  원본 행은 반환하지 않는다. anon 실행 권한 없음
+- **실명은 opt-in** — 기본 표시는 user_id 에서 만든 결정론적 별칭('환한 올빼미 525').
+  `user_profiles.leaderboard_visibility` = alias(기본) / name / hidden
+- **표본을 숨기지 않는다** — 지금 참가자는 2명이다. 참가자 1명이면 백분위를 100 이 아니라
+  **null** 로 주고(거짓 성취 방지), 화면은 순위 대신 개인 최고를 말한다(`rankLine`)
+- 주·월 경계는 **KST** (`game_rank_window`) — UTC 로 자르면 한국 학습자에게 월요일 오전 9시에 주가 바뀐다
+- 인덱스 `idx_scores_module_created` — 기존 인덱스는 전부 user_id 선행이라 "이 게임의 상위" 질의에 못 쓴다
+- **부수 수정**: `useGameSessionRecorder` 가 `book` 스코프를 버리고 있었다 — 도서로 들어와 논
+  세션이 `content_type='mine'` 으로 적재됐다(ContentRef 가 애초에 없애려던 결함).
+  도서 코스가 이 경로를 정식 진입으로 만들면서 실제로 흐르기 시작했다
+- e2e +5 (`15-arcade-brief` 게임 안 게이트) + `tests/e2e/utils/brief.ts` — 게임 동작을 보는
+  스펙 7개는 "돌아온 학습자" 를 재현하고(seedBriefsSeen), 게이트 자체는 심지 않은 채로 본다
+
 ### 🕹 Game Lab — 자료별 게임 코스 + 게임 안 브리핑 (v08.6)
 
 아케이드 19종을 **4축 실측**으로 점검하고 두 축을 닫았다. 측정은 `node scripts/arcade/audit.mjs`
