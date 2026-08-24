@@ -228,6 +228,20 @@ export interface Surface {
   says: string
   /** 지금 무엇을 흡수하는가 — 이행 시 옮겨 올 대상 */
   absorbs: string[]
+  /**
+   * **이 표면이 지금 대표하는 라우트 접두사.**
+   *
+   * `absorbs` 는 산문이라 코드가 읽지 못한다 — 그래서 "Game Lab 은 Today 소관" 이라고
+   * 적어 두고도 `/arcade` 에서는 하단 탭이 전부 꺼져 있었다.
+   *
+   * 실측 2026-08-25: 학습자 화면 전수 계측에서 **52 측정 중 20 이 `aria-current` 없음**.
+   * 모바일에서는 사이드바가 없어 하단 탭이 유일한 위치 표시라 더 아프다
+   * (WCAG 2.4.8 Location · Nielsen #1 visibility of system status).
+   *
+   * ⚠️ 접두사는 **서로 겹치면 안 된다** — 두 탭이 동시에 켜지면 "지금 어디" 가 두 번 말해진다.
+   *    `framework.test` 가 겹침과 미아 라우트를 막는다.
+   */
+  owns?: string[]
 }
 
 export const SURFACES: Record<SurfaceId, Surface> = {
@@ -238,6 +252,9 @@ export const SURFACES: Record<SurfaceId, Surface> = {
     says: '오늘 할 것과 언제 끝나는지',
     // 처방 정본은 하나여야 한다 — 현재 7개 표면이 서로 다른 근거로 경쟁한다.
     absorbs: ['/hub 오늘', 'FlowNav 추천(mock)', "arcade Today's Experiment", '모듈 허브 TodayQueue(mock)'],
+    // 활동은 Surface 가 아니다(위 주석) — 그래서 활동 화면에 서 있을 때 켜지는 탭은
+    // 그 활동을 처방한 자리, 즉 Today 다.
+    owns: ['/practice', '/arcade', '/flashcard', '/spellforge', '/pairflip', '/wordblitz', '/scriptquiz', '/dictate'],
   },
   library: {
     id: 'library',
@@ -246,6 +263,8 @@ export const SURFACES: Record<SurfaceId, Surface> = {
     says: '무엇으로 공부할지 고르는 곳',
     // 콘텐츠 축 전부. 'Library' 가 큐레이션 카탈로그만 뜻했던 모호함이 여기서 사라진다.
     absorbs: ['/library (도서·Articles·Sets)', '/text (Texts)', '/comics (Book·Vintage)'],
+    // 바로 윗줄이 이미 셋을 자기 것이라고 적고 있다 — 코드가 읽을 수 있게 옮겨 적는다.
+    owns: ['/text', '/comics', '/my/books'],
   },
   vault: {
     id: 'vault',
@@ -260,6 +279,7 @@ export const SURFACES: Record<SurfaceId, Surface> = {
     href: '/dashboard',
     says: '지나온 것과 증빙',
     absorbs: ['/dashboard', '/reports'],
+    owns: ['/reports', '/diagnostic', '/plan'],
   },
 }
 

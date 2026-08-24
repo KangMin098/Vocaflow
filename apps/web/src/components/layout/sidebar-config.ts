@@ -65,6 +65,22 @@ export interface NavItem {
    * 축소(72px) 모드에서는 렌더하지 않는다(자리가 없다 — 부모 툴팁이 대신한다).
    */
   children?: NavItem[]
+  /**
+   * **이 항목이 대신 대표하는 라우트 접두사.**
+   *
+   * ── 왜 필요한가 (실측 2026-08-25) ──────────────────────────────────
+   * 사이드바는 13개 주소만 안다. 그런데 학습자 정적 화면은 42개다. 나머지에 서 있으면
+   * 셸의 어느 항목에도 `aria-current` 가 붙지 않는다 — 화면이 "지금 어디" 를 말하지 않는다.
+   * 전수 계측에서 **52 측정 중 20 이 그 상태**였다(현재 위치 표시 평균 61.5점).
+   *
+   * 시각적으로는 "아무 데도 아님" 이고, 스크린리더에서는 더 나쁘다: 목록을 훑어도
+   * 현재 위치가 없어 되돌아갈 곳을 못 찾는다(WCAG 2.4.8 Location).
+   *
+   * 라우트를 사이드바에 더 늘리는 대신 **소유 관계를 적는다** — 항목 수는 그대로 두고
+   * (레일이 길어지면 그 자체가 결함이다: 위 v06.202 결정 참조) 위치만 말한다.
+   * 접두사 매칭이므로 `/diagnostic/history` 같은 하위도 함께 잡힌다.
+   */
+  owns?: string[]
 }
 
 /** 흐름 단계 키 — 코드 식별자. 학습자가 읽는 이름은 `label` 이다. */
@@ -91,7 +107,15 @@ export interface NavGroup {
 
 export const META_ITEMS: NavItem[] = [
   { label: 'Today', href: '/hub', icon: Home, ariaLabel: 'Today — 지금 할 학습 (이어하기·모듈·추천)' },
-  { label: 'Growth', href: '/dashboard', icon: BarChart3, ariaLabel: 'Growth — 단어가 자란 기록·기억·주간 리듬 + 학습 관리(Level·Plan·Report)' },
+  {
+    label: 'Growth',
+    href: '/dashboard',
+    icon: BarChart3,
+    ariaLabel: 'Growth — 단어가 자란 기록·기억·주간 리듬 + 학습 관리(Level·Plan·Report)',
+    // `ariaLabel` 이 이미 "Level·Plan·Report" 를 자기 소관이라고 말하고 있었다 —
+    // 그런데 정작 그 세 화면에서는 Growth 에 불이 들어오지 않았다. 말과 동작을 맞춘다.
+    owns: ['/diagnostic', '/plan', '/reports'],
+  },
 ]
 
 /**
@@ -141,6 +165,8 @@ export const NAV_GROUPS: NavGroup[] = [
         href: '/text',
         icon: BookOpen,
         ariaLabel: 'My Library — 내 책·본문·구독 단어장',
+        // `/my/books` 는 이 칸이 말하는 "내 책" 그 자체다 — 주소만 다르다.
+        owns: ['/my/books'],
         children: MY_LIBRARY_TABS.map((t) => ({
           label: t.label,
           href: t.href,
@@ -193,6 +219,9 @@ export const NAV_GROUPS: NavGroup[] = [
         href: '/practice',
         icon: Layers,
         ariaLabel: '연습 — 어느 쪽을 연습할지 고르기',
+        // v06.202 가 도구 4개를 이 한 칸으로 **접었다**. 접힌 것들의 주소는 살아 있고
+        // (딥링크·회귀 스펙이 쓴다) 학습자도 거기 착지한다 — 그때 이 칸이 대신 불을 켠다.
+        owns: ['/flashcard', '/spellforge', '/pairflip', '/wordblitz'],
       },
       // Arcade — 게임 스위트(L4a~L5). 이전에는 /hub 의 진입 카드 하나가 유일한 통로라
       // 허브를 스크롤해 내려가지 않으면 존재 자체를 발견할 수 없었다. Practice 상시 노출로 승격.

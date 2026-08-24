@@ -42,9 +42,13 @@ const ICON: Record<SurfaceId, LucideIcon> = {
  * 하위 경로까지 활성으로 본다 — `/library/books` 에서 '서재' 가 꺼져 있으면
  * 학습자는 자기가 어디 있는지 알 수 없다.
  */
-function isActive(pathname: string, href: string): boolean {
-  if (pathname === href) return true
-  return pathname.startsWith(`${href}/`)
+function isActive(pathname: string, surface: { href: string; owns?: string[] }): boolean {
+  const under = (p: string) => pathname === p || pathname.startsWith(`${p}/`)
+  if (under(surface.href)) return true
+  // 표면이 떠맡은 라우트(`SURFACES[].owns`)도 그 표면이다 — 안 그러면 활동 화면
+  // (`/arcade`·`/flashcard` …)에서 **네 탭이 전부 꺼진다**. 모바일에는 사이드바가 없어
+  // 이 탭 줄이 유일한 위치 표시다.
+  return (surface.owns ?? []).some(under)
 }
 
 export interface MobileTabBarProps {
@@ -92,7 +96,7 @@ export function MobileTabBar({ status = null }: MobileTabBarProps) {
           {SURFACE_ORDER.map((id) => {
             const surface = SURFACES[id]
             const Icon = ICON[id]
-            const active = isActive(pathname ?? '', surface.href)
+            const active = isActive(pathname ?? '', surface)
             return (
               <li key={id} className="flex-1">
                 <Link

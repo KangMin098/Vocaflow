@@ -33,6 +33,22 @@ import {
 const STORAGE_KEY = 'vocaflow-sidebar-collapsed'
 
 /**
+ * 현재 위치를 그 항목이 **대표하는가** — 자기 주소이거나, `owns` 로 떠맡은 주소이거나.
+ *
+ * 실측 2026-08-25: 사이드바가 아는 주소는 13개인데 학습자 정적 화면은 42개다.
+ * 나머지에서는 어느 항목에도 `aria-current` 가 붙지 않아 "지금 어디" 가 사라졌다
+ * (전수 52 측정 중 20). `owns` 는 그 빈자리를 메우는 소유 선언이다 — `sidebar-config.ts` 참조.
+ */
+function matchesItem(
+  pathname: string,
+  item: NavItem,
+  search?: ReadonlyURLSearchParams | null,
+): boolean {
+  if (matchesRoute(pathname, item.href, search)) return true
+  return (item.owns ?? []).some((p) => pathname === p || pathname.startsWith(`${p}/`))
+}
+
+/**
  * 현재 위치가 그 항목(또는 하위)인가.
  *
  * 두 종류의 href 를 함께 다룬다:
@@ -302,7 +318,7 @@ function NavGroupBlock({
   // 여기서 하는 일은 그 활성 항목이 흐름의 **어디쯤인지**를 붙여 주는 것뿐이다.
   const here = group.items.some(
     (i) =>
-      matchesRoute(pathname, i.href, search) ||
+      matchesItem(pathname, i, search) ||
       (i.children ?? []).some((c) => matchesRoute(pathname, c.href, search)),
   )
 
@@ -430,7 +446,7 @@ function NavLinkItem({
   onToggleSub,
 }: NavLinkItemProps) {
   // 하위 라우트(/wordvault/study·review 등)에서도 부모 항목 활성 유지.
-  const isActive = matchesRoute(pathname, item.href)
+  const isActive = matchesItem(pathname, item, search)
   const Icon: LucideIcon = item.icon
   const accentColor = accent ?? 'var(--p)'
 

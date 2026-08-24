@@ -37,7 +37,11 @@
     "vcb:publish": "tsx scripts/vcb/08-publish.ts",
     "vcb:publish-precheck": "tsx scripts/vcb/08b-publish-precheck.ts",
     "vcb:compose": "tsx --tsconfig apps/web/tsconfig.json scripts/vcb/compose-publish.mts",
-    "vcb:compose-eval": "pnpm --filter web exec vitest run src/lib/vcb/compose"
+    "vcb:compose-eval": "pnpm --filter web exec vitest run src/lib/vcb/compose",
+    "ux:bench:competitors": "node scripts/ux-bench/bench.mjs --target competitors",
+    "ux:bench:self": "node scripts/ux-bench/bench.mjs --target vocaflow",
+    "ux:bench:compare": "node scripts/ux-bench/compare.mjs",
+    "ux:bench:selftest": "node scripts/ux-bench/score.selftest.mjs"
   },
   "repository": {
     "type": "git",

@@ -470,3 +470,46 @@ describe('풀스크린 라우트 — 레지스트리 선언과 일치한다', ()
     expect(isFullScreenRoute('')).toBe(false)
   })
 })
+
+// ── 위치 표시(`owns`) — 어느 화면에 서 있어도 "지금 어디" 가 말해진다 ─────
+//
+// 실측 2026-08-25 (`scripts/ux-bench`): 학습자 화면 전수 52 측정 중 **20 이 `aria-current` 없음**.
+// 사이드바가 아는 주소는 13개인데 정적 학습자 화면은 42개였다. 모바일은 사이드바가 없어
+// 하단 탭 4개가 유일한 위치 표시인데, 활동 화면(`/arcade`·`/flashcard` …)에서는 네 탭이
+// 전부 꺼져 있었다 — WCAG 2.4.8(Location) · Nielsen #1(visibility of system status).
+//
+// 라우트를 내비에 더 늘리는 대신 **소유 관계**를 선언했다. 그 선언이 조용히 어긋나지
+// 않게 여기서 못 박는다. 특히 겹침은 "지금 어디" 가 두 번 말해지는 것이라 더 나쁘다.
+describe('위치 표시 — 표면·사이드바의 owns 선언', () => {
+  const surfaceOwns = SURFACE_ORDER.flatMap((id) =>
+    (SURFACES[id].owns ?? []).map((p) => ({ id, p })),
+  )
+
+  it('표면의 owns 접두사는 서로 겹치지 않는다', () => {
+    for (const a of surfaceOwns) {
+      for (const b of surfaceOwns) {
+        if (a.id === b.id) continue
+        expect(
+          a.p === b.p || a.p.startsWith(`${b.p}/`),
+          `${a.id} 의 ${a.p} 가 ${b.id} 의 ${b.p} 와 겹친다 — 두 탭이 동시에 켜진다`,
+        ).toBe(false)
+      }
+    }
+  })
+
+  it('표면이 자기 href 를 owns 로 또 적지 않는다 (중복 선언)', () => {
+    for (const id of SURFACE_ORDER) {
+      const s = SURFACES[id]
+      for (const p of s.owns ?? []) {
+        expect(p === s.href, `${id}: ${p} 는 href 와 같다`).toBe(false)
+      }
+    }
+  })
+
+  it('owns 는 절대 경로다', () => {
+    for (const { id, p } of surfaceOwns) {
+      expect(p.startsWith('/'), `${id}: ${p}`).toBe(true)
+      expect(p.endsWith('/'), `${id}: ${p} 는 후행 슬래시를 갖지 않는다`).toBe(false)
+    }
+  })
+})
