@@ -89,10 +89,14 @@ function g4(claim) {
   // ⚠️ 회차당 표본이 1~2 면 회차별 비율이 구조적으로 0/1 로만 나온다(베르누이).
   //    거기서 잰 SD 는 자료의 잡음이 아니라 **표본 크기의 산물**이므로 분산 판정을 하면 안 된다.
   //    (첫 판이 어휘 ④⑤ 를 이 이유로 부당하게 떨어뜨렸다 — 회차당 1문항인 유형이다)
-  const perExamN = Math.max(...pe.map((x) => x.n))
-  if (perExamN <= 2) {
-    const step = pe.findIndex((x, i) => i > 1 && x.hit / x.n !== pe[i - 1].hit / pe[i - 1].n)
-    return { pass: true, na: true, msg: `회차당 표본 ${perExamN} — 분산 판정 불가(구조적으로 0/1). 계단 여부는 §시계열 표를 직접 볼 것` }
+  // ⚠️ 여기서 **max 를 쓰면 안 된다**(2026-08-25 수정). 회차 하나가 n=4 면 나머지 열세 회차가
+  //    전부 n=2 여도 가드가 열리고, 그러면 베르누이 잡음을 "계단" 으로 읽는다.
+  //    실제로 P4.1(대의파악, 회차당 2문항)에서 이 결함으로 "2025 에서 갈린다" 는 오판이 나왔다.
+  //    분산 판정은 **회차 대부분이 충분히 클 때만** 뜻이 있으므로 중앙값으로 본다.
+  const ns = pe.map((x) => x.n).sort((a, b) => a - b)
+  const medN = ns[Math.floor(ns.length / 2)]
+  if (medN <= 2) {
+    return { pass: true, na: true, msg: `회차당 표본 중앙값 ${medN} — 분산 판정 불가(구조적으로 0/1). 계단 여부는 §시계열 표를 직접 볼 것` }
   }
   const r = pe.map((x) => x.hit / x.n)
   const s = sd(r)

@@ -2,13 +2,13 @@
  "total": 51,
  "byStatus": {
   "HARD_CAND": 6,
-  "UNTESTED": 12,
-  "REJECTED": 14,
-  "SOFT": 12,
+  "UNTESTED": 10,
+  "REJECTED": 15,
+  "SOFT": 13,
   "HARD": 7
  },
- "coverageDecided": 76.5,
- "coverageFullExam": 21.6,
+ "coverageDecided": 80.4,
+ "coverageFullExam": 25.5,
  "coverageRule": 25.5,
  "bySec": {
   "0": {
@@ -27,10 +27,10 @@
   },
   "2": {
    "total": 4,
-   "decided": 1,
+   "decided": 2,
    "stale": 0,
-   "untested": 3,
-   "full": 2
+   "untested": 2,
+   "full": 3
   },
   "3": {
    "total": 13,
@@ -41,10 +41,10 @@
   },
   "4": {
    "total": 6,
-   "decided": 3,
+   "decided": 4,
    "stale": 0,
-   "untested": 3,
-   "full": 1
+   "untested": 2,
+   "full": 2
   },
   "5": {
    "total": 8,
@@ -73,11 +73,9 @@
   "P0.2",
   "P1c",
   "P2.1",
-  "P2.3",
   "P2.4",
   "P3.2",
   "P3.8",
-  "P4.1",
   "P4.4",
   "P4.5",
   "P5.5",
