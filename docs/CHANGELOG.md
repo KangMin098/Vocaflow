@@ -207,7 +207,7 @@ Flashcard 스코프 진입도 `fetchDictExtras` 를 표면형으로 불러 발�
 
 - 백필 8,123행 + 사전 표제어 34개(negress·shorn·shipbuilding …) 예문 신규 작성 후 재전파 48행
   → `shared_words` **81,409행 전부 예문 보유 · 공백 0**
-- 마이그레이션 `20260822170000` — `sync_published_set_examples(uuid)` 멱등 재동기화 +
+- 마이그레이션 `20260824231552` — `sync_published_set_examples(uuid)` 멱등 재동기화 +
   `run_content_quality_gates` 에 **I12 발행세트 예문 공백**(global · word_set). 재료가 사전에
   있는 것만 세어 게이트가 영구히 붉게 남는 것을 막는다
 - `scripts/dict/example-fill.mjs apply --commit` 이 적재 직후 전파 호출 + 전파 행수 출력
@@ -220,7 +220,7 @@ Flashcard 스코프 진입도 `fetchDictExtras` 를 표면형으로 불러 발�
 9,150이 최근 90일 유입 · `whenever`/`amongst`/`nowhere` 등 고빈도 기능어 해석 NULL ·
 표면형으로 사전을 찾던 소비처 2곳(위 항목에서 해소) · 템플릿 예문 약 350행.
 오탐 4종(1음절 번역 137 · 미상 오탐 7 · 굴절 충돌 12 · 변이 그림자 44)은 조치 불필요로 확인.
-리포트: [docs/reports/dict-quality-20260822.md](./reports/dict-quality-20260822.md)
+리포트: [docs/reports/dict-quality-20260825.md](./reports/dict-quality-20260825.md)
 
 ### 단어장 — 발행된 수능 세트 4개가 예문 0% 였다 (백필 1,940행)
 

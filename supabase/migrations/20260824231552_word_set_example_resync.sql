@@ -1,4 +1,4 @@
--- supabase/migrations/20260822170000_word_set_example_resync.sql
+-- supabase/migrations/20260824231552_word_set_example_resync.sql
 --
 -- 발행 단어장 예문 공백 재발 차단.
 --
@@ -6,7 +6,7 @@
 -- `select_book_chapter_vocab` 은 `sd.example_en` 을 이미 조인하고 있으므로 적재 경로에
 -- 구멍은 없다. 문제는 순서다 — 세트를 먼저 발행하고(2026-08-11/12), 사전 예문 드레인이
 -- 나중에 돌면(08-16~22) 그 사이에 발행된 세트는 **영원히 예문 없이** 남는다.
--- 2026-08-22 실측: 발행 세트 998개 · 8,171행이 그 상태였고 8,123행은 사전에 예문이 이미 있었다.
+-- 2026-08-25 실측: 발행 세트 998개 · 8,171행이 그 상태였고 8,123행은 사전에 예문이 이미 있었다.
 -- 2026-05 에 같은 결함을 1,940행 백필로 고쳤는데 재동기화 수단이 없어 4배로 재발했다.
 --
 -- 그래서 둘을 넣는다:
@@ -101,7 +101,7 @@ BEGIN
     WHERE sws.is_published AND sd.word_register = ANY(v_noise)
       AND NOT (sd.word_register = 'phrase_unit'
                AND sws.curation_query->>'blueprint' = 'phrasal-idiom');
-    -- 2026-08-22 신설: 발행은 스냅샷이라 나중에 채워진 사전 예문이 세트에 반영되지 않는다.
+    -- 2026-08-25 신설: 발행은 스냅샷이라 나중에 채워진 사전 예문이 세트에 반영되지 않는다.
     --   재료(사전 example_en)가 있는 것만 센다 — 사전에도 없는 낱말은 재동기화로 못 고치므로
     --   포함시키면 게이트가 영구히 붉게 남아 신호가 죽는다. 해소: sync_published_set_examples().
     RETURN QUERY SELECT '단어추출/VCB','I12 발행세트 예문 공백(사전에 재료 있음)','critical',
@@ -205,7 +205,7 @@ BEGIN
     RETURN QUERY SELECT 'VCB','뜻(meaning_ko) 결측','critical',
       count(*), CASE WHEN count(*)=0 THEN 'PASS' ELSE 'FAIL' END, jsonb_build_object('set_id',p_id)
     FROM shared_words sw WHERE sw.set_id=p_id AND (sw.meaning_ko IS NULL OR length(sw.meaning_ko)=0);
-    -- 2026-08-22 신설 — global 과 같은 규칙(두 곳이 갈리면 화면과 전역 리포트가 서로 다른 말을 한다).
+    -- 2026-08-25 신설 — global 과 같은 규칙(두 곳이 갈리면 화면과 전역 리포트가 서로 다른 말을 한다).
     RETURN QUERY SELECT 'VCB','I12 예문 공백(사전에 재료 있음)','critical',
       count(*), CASE WHEN count(*)=0 THEN 'PASS' ELSE 'FAIL' END,
       jsonb_build_object('set_id',p_id,'remedy','sync_published_set_examples(set_id)')

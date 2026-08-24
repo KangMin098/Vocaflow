@@ -81,7 +81,7 @@ export async function buildWordBlitzPool(
 
   const lbvRows = (lbvData ?? []) as LbvRow[];
 
-  // 후보 키는 표면형(r.word)이 아니라 **lemma** 다. 실측(2026-08-22) 1,591,690행 중
+  // 후보 키는 표면형(r.word)이 아니라 **lemma** 다. 실측(2026-08-25) 1,591,690행 중
   // 표면형이 사전에 정확일치하는 것은 71.3% 뿐이고 lemma 는 100% — 표면형으로 찾으면
   // 나머지 28.7% 가 뜻 없음으로 걸러져 풀이 12개를 못 채운다(게임이 조용히 짧아진다).
   const seen = new Set<string>();
