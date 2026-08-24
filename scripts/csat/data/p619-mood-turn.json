@@ -1,0 +1,169 @@
+{
+ "n": 10,
+ "withTurn": 8,
+ "mid": 7,
+ "rows": [
+  {
+   "exam": "2014A",
+   "ok": true,
+   "isChange": false,
+   "nSent": 16,
+   "nTurn": 0,
+   "pos": [],
+   "rep": null,
+   "answer": 2,
+   "firstTurnSent": null
+  },
+  {
+   "exam": "2015",
+   "ok": true,
+   "isChange": false,
+   "nSent": 11,
+   "nTurn": 0,
+   "pos": [],
+   "rep": null,
+   "answer": 1,
+   "firstTurnSent": null
+  },
+  {
+   "exam": "2016",
+   "ok": true,
+   "isChange": false,
+   "nSent": 7,
+   "nTurn": 0,
+   "pos": [],
+   "rep": null,
+   "answer": 1,
+   "firstTurnSent": null
+  },
+  {
+   "exam": "2017",
+   "ok": true,
+   "isChange": true,
+   "nSent": 14,
+   "nTurn": 1,
+   "pos": [
+    0.46
+   ],
+   "rep": 0.46153846153846156,
+   "answer": 5,
+   "firstTurnSent": "Suddenly, she stopped to say hello to her friends."
+  },
+  {
+   "exam": "2018",
+   "ok": true,
+   "isChange": true,
+   "nSent": 11,
+   "nTurn": 2,
+   "pos": [
+    0.4,
+    0.8
+   ],
+   "rep": 0.4,
+   "answer": 2,
+   "firstTurnSent": "However, as the boat slid into the Bay Park Canal, all of a "
+  },
+  {
+   "exam": "2019",
+   "ok": true,
+   "isChange": true,
+   "nSent": 13,
+   "nTurn": 1,
+   "pos": [
+    0.75
+   ],
+   "rep": 0.75,
+   "answer": 1,
+   "firstTurnSent": "Finally, it came."
+  },
+  {
+   "exam": "2020",
+   "ok": true,
+   "isChange": true,
+   "nSent": 11,
+   "nTurn": 1,
+   "pos": [
+    0.6
+   ],
+   "rep": 0.6,
+   "answer": 1,
+   "firstTurnSent": "Finally arriving in Alsace after three hours on the road, ho"
+  },
+  {
+   "exam": "2021",
+   "ok": true,
+   "isChange": true,
+   "nSent": 14,
+   "nTurn": 2,
+   "pos": [
+    0.08,
+    1
+   ],
+   "rep": 0.07692307692307693,
+   "answer": 1,
+   "firstTurnSent": "When I learned that Linda had won, I was deeply troubled and"
+  },
+  {
+   "exam": "2022",
+   "ok": true,
+   "isChange": true,
+   "nSent": 9,
+   "nTurn": 1,
+   "pos": [
+    0.75
+   ],
+   "rep": 0.75,
+   "answer": 1,
+   "firstTurnSent": "Now, the sun was beginning to set, and her goal was still fa"
+  },
+  {
+   "exam": "2023",
+   "ok": true,
+   "isChange": true,
+   "nSent": 10,
+   "nTurn": 0,
+   "pos": [],
+   "rep": null,
+   "answer": 3,
+   "firstTurnSent": null
+  },
+  {
+   "exam": "2024",
+   "ok": true,
+   "isChange": true,
+   "nSent": 10,
+   "nTurn": 1,
+   "pos": [
+    0.56
+   ],
+   "rep": 0.5555555555555556,
+   "answer": 1,
+   "firstTurnSent": "When he looked up again, he saw a different bus coming that "
+  },
+  {
+   "exam": "2025",
+   "ok": true,
+   "isChange": true,
+   "nSent": 8,
+   "nTurn": 0,
+   "pos": [],
+   "rep": null,
+   "answer": 3,
+   "firstTurnSent": null
+  },
+  {
+   "exam": "2026",
+   "ok": true,
+   "isChange": true,
+   "nSent": 12,
+   "nTurn": 2,
+   "pos": [
+    0.55,
+    1
+   ],
+   "rep": 0.5454545454545454,
+   "answer": 1,
+   "firstTurnSent": "Suddenly, Sophie saw a familiar sight."
+  }
+ ]
+}

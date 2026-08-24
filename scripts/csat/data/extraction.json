@@ -1,11 +1,11 @@
 {
  "total": 382,
- "ok": 343,
- "rate": 89.8,
+ "ok": 369,
+ "rate": 96.6,
  "byExam": {
   "2015": {
    "n": 28,
-   "ok": 25
+   "ok": 28
   },
   "2016": {
    "n": 28,
@@ -13,11 +13,11 @@
   },
   "2017": {
    "n": 28,
-   "ok": 26
+   "ok": 28
   },
   "2018": {
    "n": 28,
-   "ok": 22
+   "ok": 27
   },
   "2019": {
    "n": 28,
@@ -41,11 +41,11 @@
   },
   "2024": {
    "n": 28,
-   "ok": 19
+   "ok": 25
   },
   "2025": {
    "n": 28,
-   "ok": 23
+   "ok": 27
   },
   "2026": {
    "n": 28,
@@ -53,11 +53,11 @@
   },
   "2014B": {
    "n": 23,
-   "ok": 20
+   "ok": 23
   },
   "2014A": {
    "n": 23,
-   "ok": 20
+   "ok": 23
   }
  },
  "byType": {
@@ -105,15 +105,15 @@
   },
   "R-FACT": {
    "n": 13,
-   "ok": 12,
-   "noP": 1,
-   "noC": 1
+   "ok": 13,
+   "noP": 0,
+   "noC": 0
   },
   "R-BLANK": {
    "n": 55,
-   "ok": 49,
-   "noP": 3,
-   "noC": 6
+   "ok": 51,
+   "noP": 0,
+   "noC": 4
   },
   "R-BLANK2": {
    "n": 4,
@@ -123,15 +123,15 @@
   },
   "R-ORDER": {
    "n": 26,
-   "ok": 21,
+   "ok": 22,
    "noP": 0,
-   "noC": 5
+   "noC": 4
   },
   "R-INSERT": {
    "n": 26,
-   "ok": 24,
-   "noP": 2,
-   "noC": 2
+   "ok": 25,
+   "noP": 1,
+   "noC": 1
   },
   "R-SUMMARY": {
    "n": 13,
@@ -153,51 +153,51 @@
   },
   "X-ORDER": {
    "n": 14,
-   "ok": 10,
-   "noP": 2,
-   "noC": 4
+   "ok": 13,
+   "noP": 0,
+   "noC": 1
   },
   "X-REFER": {
    "n": 14,
-   "ok": 11,
-   "noP": 2,
-   "noC": 3
+   "ok": 14,
+   "noP": 0,
+   "noC": 0
   },
   "X-FACT": {
    "n": 14,
-   "ok": 11,
-   "noP": 2,
-   "noC": 2
+   "ok": 14,
+   "noP": 0,
+   "noC": 0
   },
   "R-PURPOSE": {
    "n": 12,
-   "ok": 9,
-   "noP": 3,
-   "noC": 3
+   "ok": 12,
+   "noP": 0,
+   "noC": 0
   },
   "R-NOTICE": {
    "n": 27,
-   "ok": 24,
-   "noP": 3,
-   "noC": 3
+   "ok": 27,
+   "noP": 0,
+   "noC": 0
   },
   "R-IRRELEVANT": {
    "n": 13,
-   "ok": 11,
-   "noP": 2,
-   "noC": 2
+   "ok": 12,
+   "noP": 1,
+   "noC": 1
   },
   "R-MOOD": {
    "n": 13,
-   "ok": 10,
-   "noP": 3,
-   "noC": 3
+   "ok": 12,
+   "noP": 0,
+   "noC": 1
   },
   "R-CLAIM": {
    "n": 10,
-   "ok": 7,
-   "noP": 3,
-   "noC": 3
+   "ok": 10,
+   "noP": 0,
+   "noC": 0
   },
   "X-BLANK2": {
    "n": 1,
@@ -220,87 +220,6 @@
  },
  "fail": [
   {
-   "exam": "2014B",
-   "no": 43,
-   "type": "X-ORDER",
-   "chars": 2578,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2014B",
-   "no": 44,
-   "type": "X-REFER",
-   "chars": 2578,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2014B",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 2578,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2014A",
-   "no": 37,
-   "type": "R-ORDER",
-   "chars": 1757,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2014A",
-   "no": 38,
-   "type": "R-IRRELEVANT",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2014A",
-   "no": 39,
-   "type": "R-INSERT",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2015",
-   "no": 43,
-   "type": "X-ORDER",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2015",
-   "no": 44,
-   "type": "X-REFER",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2015",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 0,
-   "okP": false,
-   "okC": true,
-   "ok": false
-  },
-  {
    "exam": "2016",
    "no": 31,
    "type": "R-BLANK",
@@ -310,74 +229,11 @@
    "ok": false
   },
   {
-   "exam": "2017",
-   "no": 31,
-   "type": "R-BLANK",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2017",
-   "no": 32,
-   "type": "R-BLANK",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2018",
-   "no": 18,
-   "type": "R-PURPOSE",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
    "exam": "2018",
    "no": 19,
    "type": "R-MOOD",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2018",
-   "no": 20,
-   "type": "R-CLAIM",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2018",
-   "no": 43,
-   "type": "X-ORDER",
-   "chars": 36,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2018",
-   "no": 44,
-   "type": "X-REFER",
-   "chars": 36,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2018",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 36,
-   "okP": false,
+   "chars": 682,
+   "okP": true,
    "okC": false,
    "ok": false
   },
@@ -437,64 +293,10 @@
   },
   {
    "exam": "2024",
-   "no": 18,
-   "type": "R-PURPOSE",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2024",
-   "no": 19,
-   "type": "R-MOOD",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2024",
-   "no": 20,
-   "type": "R-CLAIM",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2024",
-   "no": 26,
-   "type": "R-FACT",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2024",
-   "no": 27,
-   "type": "R-NOTICE",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2024",
-   "no": 28,
-   "type": "R-NOTICE",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2024",
    "no": 31,
    "type": "R-BLANK",
-   "chars": 0,
-   "okP": false,
+   "chars": 889,
+   "okP": true,
    "okC": false,
    "ok": false
   },
@@ -513,42 +315,6 @@
    "type": "X-ORDER",
    "chars": 2048,
    "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2025",
-   "no": 18,
-   "type": "R-PURPOSE",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2025",
-   "no": 19,
-   "type": "R-MOOD",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2025",
-   "no": 20,
-   "type": "R-CLAIM",
-   "chars": 0,
-   "okP": false,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2025",
-   "no": 27,
-   "type": "R-NOTICE",
-   "chars": 0,
-   "okP": false,
    "okC": false,
    "ok": false
   },

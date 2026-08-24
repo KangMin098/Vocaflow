@@ -75,6 +75,27 @@ function isGutterAt(pageLines, cut, slack = 2) {
   return hits / (n * (slack * 2 + 1)) <= 0.10
 }
 
+/**
+ * 여백 검출이 실패한 페이지 구조 — 두 단이 한 줄에 붙어 있다.
+ * 오른쪽 단의 시작은 **줄 한복판에 찍힌 문항 번호**(`  ... 40. 다음 글의`)로 드러난다.
+ * 그런 번호가 2개 이상 같은 열 근처에서 시작하면 그 열이 오른쪽 단의 왼쪽 끝이다.
+ */
+function rescueCut(pageLines) {
+  const cols = []
+  for (const l of pageLines) {
+    // 줄 앞머리가 아니라 한복판(40칸 이후)에서 시작하는 문항 번호
+    const m = l.match(/^(.{40,}?)\s{2,}(\d{1,2}\s*[.．]\s)/)
+    if (m) cols.push(m[1].length + m[0].slice(m[1].length).search(/\d/))
+  }
+  if (cols.length < 2) return null
+  cols.sort((a, b) => a - b)
+  const med = cols[Math.floor(cols.length / 2)]
+  // 후보 열 근처(±3)에서 시작하는 것이 과반이어야 한 격자로 인정한다
+  const near = cols.filter((c) => Math.abs(c - med) <= 3).length
+  if (near / cols.length < 0.5) return null
+  return Math.max(1, med - 1)
+}
+
 function cutPage(pageLines, cut) {
   const left = [], right = []
   for (const l of pageLines) {
@@ -113,7 +134,7 @@ export function extract(exam) {
   let grid = null, bestN = 0
   for (const [c, k] of tally) if (k > bestN || (k === bestN && c < grid)) { grid = c; bestN = k }
 
-  const stat = { pages: pages.length, detected: found.length, grid, applied: 0, kept1col: 0 }
+  const stat = { pages: pages.length, detected: found.length, grid, applied: 0, rescued: 0, kept1col: 0 }
   const out = []
   for (const ls of pages) {
     // 격자 우선 — 단 격자는 문서 안에서 고정이므로 페이지별 검출보다 믿을 만하다.
@@ -128,7 +149,13 @@ export function extract(exam) {
     } else {
       cut = findGutter(ls)   // 격자가 안 맞는 페이지만 따로 찾는다
     }
-    if (cut == null) { stat.kept1col += 1; out.push(...ls, ''); continue }
+    if (cut == null) {
+      // ③ 마지막 수단 — 아직 두 단이 한 줄에 붙어 있으면(문항 번호가 줄 한복판에 찍힌다)
+      //    그 번호들이 시작하는 열에서 자른다. 여백 검출이 실패한 페이지를 직접 겨눈다.
+      const rescue = rescueCut(ls)
+      if (rescue != null) { stat.rescued += 1; out.push(...cutPage(ls, rescue), ''); continue }
+      stat.kept1col += 1; out.push(...ls, ''); continue
+    }
     out.push(...cutPage(ls, cut), '')
   }
   return { text: out.join('\n'), stat }

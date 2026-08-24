@@ -64,9 +64,13 @@ export function itemBlocks(exam, no) {
   const re = new RegExp(`^\\s*${no}\\s*[.．]`)
   const reNext = new RegExp(`^\\s*${no + 1}\\s*[.．]`)
   ls.forEach((l, i) => { if (re.test(l)) starts.push(i) })
+  // 다음 문항 번호에서 끊는다. **세트 머리글 `[41~42]` 에서도 끊어야 한다** —
+  // 40번은 바로 뒤가 장문 세트라, 머리글을 무시하면 41번 줄까지 넘어가
+  // 장문 지문을 40번 것으로 착각한다(실제로 겪었다).
+  const reSet = /^\s*\[\s*\d{2}\s*[~～–—-]\s*\d{2}\s*\]/
   const out = []
   for (const i of starts) {
-    let j = ls.findIndex((l, k) => k > i && reNext.test(l))
+    let j = ls.findIndex((l, k) => k > i && (reNext.test(l) || reSet.test(l)))
     if (j < 0) j = Math.min(i + 60, ls.length)
     out.push(ls.slice(i, j))
   }
@@ -131,14 +135,26 @@ export function choicesOf(block) {
   return out
 }
 
+// 마침표로 끝나지만 문장이 끝난 것이 아닌 것들. 이걸 안 막으면
+// "Dear Mr. Brown, ..." 이 두 문장이 되어 **위치 기반 검정이 통째로 어긋난다**(P6.18 에서 겪었다).
+const ABBR = ['mr', 'mrs', 'ms', 'dr', 'prof', 'st', 'jr', 'sr', 'vs', 'etc', 'e.g', 'i.e', 'no', 'fig', 'approx', 'inc', 'ltd', 'co', 'univ', 'dept', 'p.m', 'a.m']
+const ABBR_RE = new RegExp(`\\b(?:${ABBR.join('|')})\\.$`, 'i')
+
 /** 영어 문장 분할 — 약어·인용부호를 견딘다 */
 export function sentences(p) {
   if (!p) return []
-  return p
+  const raw = p
     .replace(/([.!?]["”’)]?)\s+(?=[“"(A-Z])/g, '$1')
     .split('')
     .map((s) => s.trim())
     .filter((s) => s.length > 1)
+  // 약어에서 잘린 조각을 도로 붙인다
+  const out = []
+  for (const s of raw) {
+    if (out.length && ABBR_RE.test(out[out.length - 1])) out[out.length - 1] += ' ' + s
+    else out.push(s)
+  }
+  return out
 }
 
 export const EXAMS = ['2014B', '2014A', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026']

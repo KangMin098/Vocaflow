@@ -1,0 +1,412 @@
+{
+ "n": 12,
+ "grid": 8,
+ "withShare": 8,
+ "early": {
+  "hit": 7,
+  "n": 7
+ },
+ "late": {
+  "hit": 1,
+  "n": 5
+ },
+ "rows": [
+  {
+   "exam": "2014B",
+   "no": 40,
+   "ok": true,
+   "pairs": [
+    [
+     "justify",
+     "time"
+    ],
+    [
+     "justify",
+     "face"
+    ],
+    [
+     "cherish",
+     "time"
+    ],
+    [
+     "modify",
+     "face"
+    ],
+    [
+     "modify",
+     "trouble"
+    ]
+   ],
+   "dA": 3,
+   "dB": 3,
+   "grid": true,
+   "answer": 2,
+   "shareOne": 2
+  },
+  {
+   "exam": "2015",
+   "no": 40,
+   "ok": true,
+   "pairs": [
+    [
+     "unavoidable",
+     "differ"
+    ],
+    [
+     "direct",
+     "converge sap"
+    ],
+    [
+     "temporary",
+     "fluctuate"
+    ],
+    [
+     "unexpected",
+     "converge"
+    ],
+    [
+     "favorable",
+     "differ"
+    ]
+   ],
+   "dA": 5,
+   "dB": 4,
+   "grid": true,
+   "answer": 1,
+   "shareOne": 1
+  },
+  {
+   "exam": "2016",
+   "no": 40,
+   "ok": true,
+   "pairs": [
+    [
+     "contextual",
+     "put aside"
+    ],
+    [
+     "contextual",
+     "rely on"
+    ],
+    [
+     "controllable",
+     "put aside"
+    ],
+    [
+     "positive",
+     "ignore"
+    ],
+    [
+     "positive",
+     "rely on"
+    ]
+   ],
+   "dA": 3,
+   "dB": 3,
+   "grid": true,
+   "answer": 2,
+   "shareOne": 2
+  },
+  {
+   "exam": "2017",
+   "no": 40,
+   "ok": true,
+   "pairs": [
+    [
+     "weigh",
+     "common"
+    ],
+    [
+     "weigh",
+     "balanced"
+    ],
+    [
+     "weigh",
+     "dissimilar"
+    ],
+    [
+     "control",
+     "favorable"
+    ],
+    [
+     "control",
+     "conflicting"
+    ]
+   ],
+   "dA": 2,
+   "dB": 5,
+   "grid": true,
+   "answer": 3,
+   "shareOne": 2
+  },
+  {
+   "exam": "2018",
+   "no": 40,
+   "ok": true,
+   "pairs": [
+    [
+     "limit",
+     "distorted"
+    ],
+    [
+     "limit",
+     "unexpected"
+    ],
+    [
+     "diversify",
+     "accidental"
+    ],
+    [
+     "diversify",
+     "misleading"
+    ],
+    [
+     "provide",
+     "novel"
+    ]
+   ],
+   "dA": 3,
+   "dB": 5,
+   "grid": true,
+   "answer": 2,
+   "shareOne": 1
+  },
+  {
+   "exam": "2019",
+   "no": 40,
+   "ok": true,
+   "pairs": [
+    [
+     "immediate",
+     "competitive"
+    ],
+    [
+     "available",
+     "expensive"
+    ],
+    [
+     "delayed",
+     "competitive"
+    ],
+    [
+     "convenient",
+     "expensive"
+    ],
+    [
+     "abundant",
+     "competitive"
+    ]
+   ],
+   "dA": 5,
+   "dB": 2,
+   "grid": true,
+   "answer": 1,
+   "shareOne": 2
+  },
+  {
+   "exam": "2020",
+   "no": 40,
+   "ok": true,
+   "pairs": [
+    [
+     "tied",
+     "parted"
+    ],
+    [
+     "competitive",
+     "united"
+    ],
+    [
+     "responsible",
+     "isolated"
+    ],
+    [
+     "tied",
+     "endangered"
+    ],
+    [
+     "competitive",
+     "disconnected"
+    ]
+   ],
+   "dA": 3,
+   "dB": 5,
+   "grid": true,
+   "answer": 1,
+   "shareOne": 1
+  },
+  {
+   "exam": "2021",
+   "no": 40,
+   "ok": true,
+   "pairs": [
+    [
+     "rational",
+     "flexible"
+    ],
+    [
+     "appropriate",
+     "commonplace"
+    ],
+    [
+     "misguided",
+     "uniform"
+    ],
+    [
+     "unreasonable",
+     "varied"
+    ],
+    [
+     "effective",
+     "objective k"
+    ]
+   ],
+   "dA": 5,
+   "dB": 5,
+   "grid": false,
+   "answer": 3,
+   "shareOne": 0
+  },
+  {
+   "exam": "2022",
+   "no": 40,
+   "ok": false,
+   "why": "쌍 분리 실패",
+   "raw": [
+    "(A) － (C) － (B)",
+    "(B) － (A) － (C) Philip Kitcher and Wesley Salmon have suggested that",
+    "(B) － (C) － (A)",
+    "(C) － (A) － (B) there are two possible alternatives among philosophical",
+    "(C) － (B) － (A) theories of explanation. One is the view that scientific explanation consists in the unification of broad bodies of"
+   ]
+  },
+  {
+   "exam": "2023",
+   "no": 40,
+   "ok": true,
+   "pairs": [
+    [
+     "persisted",
+     "limit"
+    ],
+    [
+     "persisted",
+     "cultivate"
+    ],
+    [
+     "evolved",
+     "accelerate"
+    ],
+    [
+     "diminished",
+     "shape"
+    ],
+    [
+     "diminished",
+     "restrict k"
+    ]
+   ],
+   "dA": 3,
+   "dB": 5,
+   "grid": true,
+   "answer": 1,
+   "shareOne": 1
+  },
+  {
+   "exam": "2024",
+   "no": 40,
+   "ok": true,
+   "pairs": [
+    [
+     "enables",
+     "leaves"
+    ],
+    [
+     "challenges",
+     "spares"
+    ],
+    [
+     "delays",
+     "creates"
+    ],
+    [
+     "requires",
+     "removes"
+    ],
+    [
+     "invites",
+     "diminishes k"
+    ]
+   ],
+   "dA": 5,
+   "dB": 5,
+   "grid": false,
+   "answer": 1,
+   "shareOne": 0
+  },
+  {
+   "exam": "2025",
+   "no": 40,
+   "ok": true,
+   "pairs": [
+    [
+     "controllability",
+     "challenge"
+    ],
+    [
+     "predictability",
+     "support"
+    ],
+    [
+     "manageability",
+     "intensify"
+    ],
+    [
+     "affordability",
+     "reverse"
+    ],
+    [
+     "accessibility",
+     "question  k"
+    ]
+   ],
+   "dA": 5,
+   "dB": 5,
+   "grid": false,
+   "answer": 1,
+   "shareOne": 0
+  },
+  {
+   "exam": "2026",
+   "no": 40,
+   "ok": true,
+   "pairs": [
+    [
+     "uncertainty",
+     "lose"
+    ],
+    [
+     "imbalance",
+     "split"
+    ],
+    [
+     "challenges",
+     "secure"
+    ],
+    [
+     "stability",
+     "reach"
+    ],
+    [
+     "advantages",
+     "support"
+    ]
+   ],
+   "dA": 5,
+   "dB": 5,
+   "grid": false,
+   "answer": 3,
+   "shareOne": 0
+  }
+ ]
+}
