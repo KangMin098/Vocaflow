@@ -1,0 +1,754 @@
+[
+ {
+  "exam": "2022",
+  "no": 1,
+  "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, dog lovers. Does your dog chew up your shoes or bark for no reason at times? Is it hard to control your dog during walks? You no longer have to worry. We’ll help you solve these problems. At the Chester Dog Training Center, we have five professional certified trainers who will improve your dog’s behavior. We also teach you how to understand your dog and what to do when it misbehaves. Leave it to the Chester Dog Training Center. We’ll train your dog to become a well-behaved pet. Call us at 234-555-3647 or visit our website at www.chesterdogs.com."
+   }
+  ],
+  "script": "Hello, dog lovers. Does your dog chew up your shoes or bark for no reason at times? Is it hard to control your dog during walks? You no longer have to worry. We’ll help you solve these problems. At the Chester Dog Training Center, we have five professional certified trainers who will improve your dog’s behavior. We also teach you how to understand your dog and what to do when it misbehaves. Leave it to the Chester Dog Training Center. We’ll train your dog to become a well-behaved pet. Call us at 234-555-3647 or visit our website at www.chesterdogs.com.",
+  "words": 100,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2022",
+  "no": 2,
+  "stem": "대화를 듣고, 남자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Monica. Have you made plans for your trip to Busan?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, Dad. I’m going to the beach and visiting an aquarium in the morning. Then I’ll eat lunch at a fish market and go hiking."
+   },
+   {
+    "who": "M",
+    "text": "Hold on! That sounds quite demanding."
+   },
+   {
+    "who": "W",
+    "text": "You know, it’s my first trip after starting college."
+   },
+   {
+    "who": "M",
+    "text": "I understand, but I think you shouldn’t plan too many things to do for a trip."
+   },
+   {
+    "who": "W",
+    "text": "Well, I only have one day, and I want to experience as much as possible."
+   },
+   {
+    "who": "M",
+    "text": "You’ll be worn out if you stick to your plan. Also, consider the time it takes to move to each place."
+   },
+   {
+    "who": "W",
+    "text": "I guess you’re right. And there could be a long waiting line at some places."
+   },
+   {
+    "who": "M",
+    "text": "Right. That’s why you shouldn’t fill your trip plan with too many things."
+   },
+   {
+    "who": "W",
+    "text": "Okay. I’ll revise my plan."
+   }
+  ],
+  "script": "Monica. Have you made plans for your trip to Busan? Yes, Dad. I’m going to the beach and visiting an aquarium in the morning. Then I’ll eat lunch at a fish market and go hiking. Hold on! That sounds quite demanding. You know, it’s my first trip after starting college. I understand, but I think you shouldn’t plan too many things to do for a trip. Well, I only have one day, and I want to experience as much as possible. You’ll be worn out if you stick to your plan. Also, consider the time it takes to move to each place. I guess you’re right. And there could be a long waiting line at some places. Right. That’s why you shouldn’t fill your trip plan with too many things. Okay. I’ll revise my plan.",
+  "words": 135,
+  "nTurns": 10,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2022",
+  "no": 3,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, Mr. Newton. Welcome to the Delicacies Show."
+   },
+   {
+    "who": "M",
+    "text": "Thanks for inviting me."
+   },
+   {
+    "who": "W",
+    "text": "I want to first start talking about your famous apple bread. Can you briefly introduce it to our radio show listeners?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. Instead of sugar, I use home-made apple sauce when I bake bread."
+   },
+   {
+    "who": "W",
+    "text": "That’s interesting. What inspired the recipe?"
+   },
+   {
+    "who": "M",
+    "text": "Well, one day, I saw a news report about local apple farmers. They were experiencing difficulty due to decreasing apple consumption."
+   },
+   {
+    "who": "W",
+    "text": "So you created this new recipe to help the local economy."
+   },
+   {
+    "who": "M",
+    "text": "Yes. I also thought that the apple’s sweetness could add a special flavor."
+   },
+   {
+    "who": "W",
+    "text": "Sounds delicious. I’ll definitely go to your bakery and try some of your bread."
+   },
+   {
+    "who": "M",
+    "text": "Actually, I brought some for you and your radio show staff."
+   },
+   {
+    "who": "W",
+    "text": "Oh, thank you. We’ll be back after a commercial break."
+   }
+  ],
+  "script": "Hello, Mr. Newton. Welcome to the Delicacies Show. Thanks for inviting me. I want to first start talking about your famous apple bread. Can you briefly introduce it to our radio show listeners? Sure. Instead of sugar, I use home-made apple sauce when I bake bread. That’s interesting. What inspired the recipe? Well, one day, I saw a news report about local apple farmers. They were experiencing difficulty due to decreasing apple consumption. So you created this new recipe to help the local economy. Yes. I also thought that the apple’s sweetness could add a special flavor. Sounds delicious. I’ll definitely go to your bakery and try some of your bread. Actually, I brought some for you and your radio show staff. Oh, thank you. We’ll be back after a commercial break.",
+  "words": 132,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2022",
+  "no": 4,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Wow, Ms. Peters! It looks like everything is ready for the exchange student welcoming ceremony."
+   },
+   {
+    "who": "W",
+    "text": "Almost, Mr. Smith. What do you think?"
+   },
+   {
+    "who": "M",
+    "text": "It looks great. There’s a basket beside the stairs. What is it for?"
+   },
+   {
+    "who": "W",
+    "text": "We’re going to put flowers in it for the exchange students."
+   },
+   {
+    "who": "M",
+    "text": "That’ll be nice. I like the striped tablecloth on the table. It makes the table look fancy."
+   },
+   {
+    "who": "W",
+    "text": "Yeah, I’m going to put water bottles there. What do you think about the balloons next to the welcome banner?"
+   },
+   {
+    "who": "M",
+    "text": "They really brighten up the stage. Oh, look at the bear on the flag. It’s cute."
+   },
+   {
+    "who": "W",
+    "text": "Yes. It’s the symbol of the exchange students’ school."
+   },
+   {
+    "who": "M",
+    "text": "I see. And you set up two microphones."
+   },
+   {
+    "who": "W",
+    "text": "It’s because there’ll be two MCs."
+   },
+   {
+    "who": "M",
+    "text": "Good idea. Everything looks perfect."
+   }
+  ],
+  "script": "Wow, Ms. Peters! It looks like everything is ready for the exchange student welcoming ceremony. Almost, Mr. Smith. What do you think? It looks great. There’s a basket beside the stairs. What is it for? We’re going to put flowers in it for the exchange students. That’ll be nice. I like the striped tablecloth on the table. It makes the table look fancy. Yeah, I’m going to put water bottles there. What do you think about the balloons next to the welcome banner? They really brighten up the stage. Oh, look at the bear on the flag. It’s cute. Yes. It’s the symbol of the exchange students’ school. I see. And you set up two microphones. It’s because there’ll be two MCs. Good idea. Everything looks perfect.",
+  "words": 127,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2022",
+  "no": 5,
+  "stem": "대화를 듣고, 남자가 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Brian. I’m so excited about our school club photo this Friday."
+   },
+   {
+    "who": "M",
+    "text": "Me, too. The photo will be included in our graduation album. Let’s check our preparations for it."
+   },
+   {
+    "who": "W",
+    "text": "All right. I’m going to decorate our club’s room with ribbons."
+   },
+   {
+    "who": "M",
+    "text": "You said you’ll bring some from home, right?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. When is the photographer coming?"
+   },
+   {
+    "who": "M",
+    "text": "The photographer is coming after lunch."
+   },
+   {
+    "who": "W",
+    "text": "Great. That gives us time to get ready. You know I surveyed our club members about what to wear for the photo."
+   },
+   {
+    "who": "M",
+    "text": "Right. What were the results?"
+   },
+   {
+    "who": "W",
+    "text": "Most of our members wanted to wear heart-shaped sunglasses. Now all that’s left is to buy them for our members."
+   },
+   {
+    "who": "M",
+    "text": "I know a good online store. I can order the sunglasses."
+   },
+   {
+    "who": "W",
+    "text": "Could you? That’ll be great."
+   },
+   {
+    "who": "M",
+    "text": "No problem. I’ll take care of that."
+   }
+  ],
+  "script": "Brian. I’m so excited about our school club photo this Friday. Me, too. The photo will be included in our graduation album. Let’s check our preparations for it. All right. I’m going to decorate our club’s room with ribbons. You said you’ll bring some from home, right? Yes. When is the photographer coming? The photographer is coming after lunch. Great. That gives us time to get ready. You know I surveyed our club members about what to wear for the photo. Right. What were the results? Most of our members wanted to wear heart-shaped sunglasses. Now all that’s left is to buy them for our members. I know a good online store. I can order the sunglasses. Could you? That’ll be great. No problem. I’ll take care of that.",
+  "words": 129,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2022",
+  "no": 6,
+  "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오. [3점]",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Welcome to Daisy Valley Restaurant."
+   },
+   {
+    "who": "W",
+    "text": "Hi. I’d like to order some food to go. How much is the shrimp pasta and the chicken salad?"
+   },
+   {
+    "who": "M",
+    "text": "The shrimp pasta is $20, and the chicken salad is $10."
+   },
+   {
+    "who": "W",
+    "text": "I’ll take two shrimp pastas and one chicken salad, please."
+   },
+   {
+    "who": "M",
+    "text": "Sure. Would you like some dessert, too?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. What do you recommend?"
+   },
+   {
+    "who": "M",
+    "text": "The mini cheese cake is one of the best sellers in our restaurant. It’s $5 each."
+   },
+   {
+    "who": "W",
+    "text": "Great! I’ll order two of them."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Let me confirm your order. Two shrimp pastas, one chicken salad, and two mini cheese cakes. Is that correct?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. And I have a birthday coupon here. Can I use it?"
+   },
+   {
+    "who": "M",
+    "text": "Let me see. [Pause] Yes. You can get a 10% discount off the total."
+   },
+   {
+    "who": "W",
+    "text": "Terrific. I’ll use this coupon. Here’s my credit card."
+   }
+  ],
+  "script": "Welcome to Daisy Valley Restaurant. Hi. I’d like to order some food to go. How much is the shrimp pasta and the chicken salad? The shrimp pasta is $20, and the chicken salad is $10. I’ll take two shrimp pastas and one chicken salad, please. Sure. Would you like some dessert, too? Yes. What do you recommend? The mini cheese cake is one of the best sellers in our restaurant. It’s $5 each. Great! I’ll order two of them. Okay. Let me confirm your order. Two shrimp pastas, one chicken salad, and two mini cheese cakes. Is that correct? Yes. And I have a birthday coupon here. Can I use it? Let me see. [Pause] Yes. You can get a 10% discount off the total. Terrific. I’ll use this coupon. Here’s my credit card.",
+  "words": 130,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2022",
+  "no": 7,
+  "stem": "대화를 듣고, 남자가 탁구 연습을 할 수 없는 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hey, Mike. How’s your shoulder? Are you still in pain?"
+   },
+   {
+    "who": "M",
+    "text": "No, I feel totally fine, Emily. I should be ready for the table tennis tournament."
+   },
+   {
+    "who": "W",
+    "text": "That’s good to hear. Then do you want to practice with me now?"
+   },
+   {
+    "who": "M",
+    "text": "I’m sorry but I can’t right now."
+   },
+   {
+    "who": "W",
+    "text": "Why not? Do you have to work on your history homework?"
+   },
+   {
+    "who": "M",
+    "text": "No, I already submitted it to Mr. Jackson."
+   },
+   {
+    "who": "W",
+    "text": "Oh, then I guess you have to study for the science quiz, right?"
+   },
+   {
+    "who": "M",
+    "text": "I think I’m ready for it. Actually, I’m on my way to volunteer at the school library."
+   },
+   {
+    "who": "W",
+    "text": "I see. Then, don’t forget about our drama club meeting tomorrow."
+   },
+   {
+    "who": "M",
+    "text": "Of course not. See you there."
+   }
+  ],
+  "script": "Hey, Mike. How’s your shoulder? Are you still in pain? No, I feel totally fine, Emily. I should be ready for the table tennis tournament. That’s good to hear. Then do you want to practice with me now? I’m sorry but I can’t right now. Why not? Do you have to work on your history homework? No, I already submitted it to Mr. Jackson. Oh, then I guess you have to study for the science quiz, right? I think I’m ready for it. Actually, I’m on my way to volunteer at the school library. I see. Then, don’t forget about our drama club meeting tomorrow. Of course not. See you there.",
+  "words": 111,
+  "nTurns": 10,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2022",
+  "no": 8,
+  "stem": "대화를 듣고, Little Readers’ Class에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Christine, I heard your daughter Jennifer loves reading. Unfortunately, my daughter doesn’t."
+   },
+   {
+    "who": "W",
+    "text": "Actually, Jennifer didn’t enjoy reading until she took the Little Readers’ Class. It provides various fun reading activities."
+   },
+   {
+    "who": "M",
+    "text": "Really? It might be good for my daughter, too. Where’s it held?"
+   },
+   {
+    "who": "W",
+    "text": "It’s held at the Stonefield Library. I have a picture of the flyer somewhere in my phone. [Pause] Here."
+   },
+   {
+    "who": "M",
+    "text": "Oh. The class is from 4 p.m. to 5 p.m. every Monday."
+   },
+   {
+    "who": "W",
+    "text": "Is that time okay for her?"
+   },
+   {
+    "who": "M",
+    "text": "Yeah, she’s free on Monday afternoons."
+   },
+   {
+    "who": "W",
+    "text": "Great. The class is for children ages seven to nine. Your daughter is eight years old, right?"
+   },
+   {
+    "who": "M",
+    "text": "Yes, she can take it. So, to register, I should send an email to the address on the flyer."
+   },
+   {
+    "who": "W",
+    "text": "That’s right. I hope the class gets your daughter into reading."
+   }
+  ],
+  "script": "Christine, I heard your daughter Jennifer loves reading. Unfortunately, my daughter doesn’t. Actually, Jennifer didn’t enjoy reading until she took the Little Readers’ Class. It provides various fun reading activities. Really? It might be good for my daughter, too. Where’s it held? It’s held at the Stonefield Library. I have a picture of the flyer somewhere in my phone. [Pause] Here. Oh. The class is from 4 p.m. to 5 p.m. every Monday. Is that time okay for her? Yeah, she’s free on Monday afternoons. Great. The class is for children ages seven to nine. Your daughter is eight years old, right? Yes, she can take it. So, to register, I should send an email to the address on the flyer. That’s right. I hope the class gets your daughter into reading.",
+  "words": 132,
+  "nTurns": 10,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2022",
+  "no": 9,
+  "stem": "2021 Family Science Festival에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, WBPR listeners. Are you looking for a chance to enjoy quality family time? Then, we invite you to the 2021 Family Science Festival. It starts on December 7th and runs for one week at the Bermont Science Museum located near City Hall. Eight programs will be offered for parents and children to enjoy together, including robot building and VR simulations. We’ll also give out a children’s science magazine for free. This event is open to anyone, but remember that all children under age 11 must be accompanied by an adult. There’s no admission fee, but to participate, you must register in advance. Come and learn about the exciting world of science with your family. For more information, visit our website, www.wbpr.com."
+   }
+  ],
+  "script": "Hello, WBPR listeners. Are you looking for a chance to enjoy quality family time? Then, we invite you to the 2021 Family Science Festival. It starts on December 7th and runs for one week at the Bermont Science Museum located near City Hall. Eight programs will be offered for parents and children to enjoy together, including robot building and VR simulations. We’ll also give out a children’s science magazine for free. This event is open to anyone, but remember that all children under age 11 must be accompanied by an adult. There’s no admission fee, but to participate, you must register in advance. Come and learn about the exciting world of science with your family. For more information, visit our website, www.wbpr.com.",
+  "words": 122,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2022",
+  "no": 10,
+  "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 예약할 스터디 룸을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Megan, did you reserve a study room for our group project meeting tomorrow?"
+   },
+   {
+    "who": "W",
+    "text": "I’m looking at a website to book a room. Let’s book it together."
+   },
+   {
+    "who": "M",
+    "text": "Sure. [Pause] Oh, only these rooms are available."
+   },
+   {
+    "who": "W",
+    "text": "Yeah. Hmm, this one is too small for us."
+   },
+   {
+    "who": "M",
+    "text": "Right. We need a room big enough to accommodate six of us."
+   },
+   {
+    "who": "W",
+    "text": "Okay. Now, let’s look at the times. We all agreed to meet after 1 p.m., right?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. Then let’s skip this one."
+   },
+   {
+    "who": "W",
+    "text": "How much can we spend on the study room?"
+   },
+   {
+    "who": "M",
+    "text": "Since we’re meeting for two hours, I don’t think we can spend more than $20 per hour. It’s beyond our budget."
+   },
+   {
+    "who": "W",
+    "text": "Then, there are two options left. Should we choose a study room with a projector?"
+   },
+   {
+    "who": "M",
+    "text": "Absolutely. We’ll need it to practice for our presentation."
+   },
+   {
+    "who": "W",
+    "text": "Then let’s reserve this one."
+   }
+  ],
+  "script": "Megan, did you reserve a study room for our group project meeting tomorrow? I’m looking at a website to book a room. Let’s book it together. Sure. [Pause] Oh, only these rooms are available. Yeah. Hmm, this one is too small for us. Right. We need a room big enough to accommodate six of us. Okay. Now, let’s look at the times. We all agreed to meet after 1 p.m., right? Yes. Then let’s skip this one. How much can we spend on the study room? Since we’re meeting for two hours, I don’t think we can spend more than $20 per hour. It’s beyond our budget. Then, there are two options left. Should we choose a study room with a projector? Absolutely. We’ll need it to practice for our presentation. Then let’s reserve this one.",
+  "words": 135,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2022",
+  "no": 11,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Honey, I’m going out for a walk. Do you want to join me?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. But can you wait for a moment? I have to send an email to one of my co-workers right now."
+   },
+   {
+    "who": "W",
+    "text": "No problem. How long do you think it’ll take?"
+   }
+  ],
+  "script": "Honey, I’m going out for a walk. Do you want to join me? Sure. But can you wait for a moment? I have to send an email to one of my co-workers right now. No problem. How long do you think it’ll take?",
+  "words": 43,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2022",
+  "no": 12,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Telephone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Hello, this is Bob’s Camera Shop."
+   },
+   {
+    "who": "W",
+    "text": "Hi, this is Clara Patterson. I’m calling to see if I can pick up my camera today."
+   },
+   {
+    "who": "M",
+    "text": "Let me check. [Clicking sound] Yes. I’ve finished repairing your camera. It’s ready to go."
+   }
+  ],
+  "script": "[Telephone rings.] Hello, this is Bob’s Camera Shop. Hi, this is Clara Patterson. I’m calling to see if I can pick up my camera today. Let me check. [Clicking sound] Yes. I’ve finished repairing your camera. It’s ready to go.",
+  "words": 40,
+  "nTurns": 4,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2022",
+  "no": 13,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "W",
+    "text": "Honey, I’m home."
+   },
+   {
+    "who": "M",
+    "text": "Is everything all right? You seem low on energy."
+   },
+   {
+    "who": "W",
+    "text": "I am. I’m pretty burnt out."
+   },
+   {
+    "who": "M",
+    "text": "It’s no wonder. You’ve been so stressed out from work these days."
+   },
+   {
+    "who": "W",
+    "text": "Yeah, I can’t remember the last time that I really got to enjoy myself."
+   },
+   {
+    "who": "M",
+    "text": "You need to recharge your batteries. Why don’t you spend some time alone this weekend?"
+   },
+   {
+    "who": "W",
+    "text": "Maybe you’re right. I might need my own personal time."
+   },
+   {
+    "who": "M",
+    "text": "Yes. And don’t worry about the kids. I’ll take care of them."
+   },
+   {
+    "who": "W",
+    "text": "Sounds good. Then let me think about what I can do."
+   },
+   {
+    "who": "M",
+    "text": "You can go to the theater, ride your bike along the river, or do whatever makes you feel happy."
+   },
+   {
+    "who": "W",
+    "text": "Well, there’s an exhibition that I’ve been interested in."
+   }
+  ],
+  "script": "[3점] Honey, I’m home. Is everything all right? You seem low on energy. I am. I’m pretty burnt out. It’s no wonder. You’ve been so stressed out from work these days. Yeah, I can’t remember the last time that I really got to enjoy myself. You need to recharge your batteries. Why don’t you spend some time alone this weekend? Maybe you’re right. I might need my own personal time. Yes. And don’t worry about the kids. I’ll take care of them. Sounds good. Then let me think about what I can do. You can go to the theater, ride your bike along the river, or do whatever makes you feel happy. Well, there’s an exhibition that I’ve been interested in.",
+  "words": 120,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2022",
+  "no": 14,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Telephone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Front desk. How may I help you?"
+   },
+   {
+    "who": "W",
+    "text": "I’m in Room 201. I specifically booked a non-smoking room, but I smell cigarette smoke in my room."
+   },
+   {
+    "who": "M",
+    "text": "We’re sorry about that. Let me check that for you. [Typing sound] You’re Wendy Parker, right?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, that’s correct."
+   },
+   {
+    "who": "M",
+    "text": "Hmm, the record says we assigned you a non-smoking room."
+   },
+   {
+    "who": "W",
+    "text": "Then why do I smell cigarette smoke here?"
+   },
+   {
+    "who": "M",
+    "text": "Well, since your room is close to the ground level, cigarette smoke must have come in from outside. Sorry for the inconvenience. Would you like to switch rooms?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, please. The smell is really bothering me."
+   },
+   {
+    "who": "M",
+    "text": "Let me first check if there are any rooms available."
+   },
+   {
+    "who": "W",
+    "text": "If it’s possible, I’d like to move to a higher floor. Maybe higher than the 5th floor?"
+   },
+   {
+    "who": "M",
+    "text": "Okay. [Typing sound] Oh, we have one. Room 908 on the 9th floor is available."
+   }
+  ],
+  "script": "[Telephone rings.] Front desk. How may I help you? I’m in Room 201. I specifically booked a non-smoking room, but I smell cigarette smoke in my room. We’re sorry about that. Let me check that for you. [Typing sound] You’re Wendy Parker, right? Yes, that’s correct. Hmm, the record says we assigned you a non-smoking room. Then why do I smell cigarette smoke here? Well, since your room is close to the ground level, cigarette smoke must have come in from outside. Sorry for the inconvenience. Would you like to switch rooms? Yes, please. The smell is really bothering me. Let me first check if there are any rooms available. If it’s possible, I’d like to move to a higher floor. Maybe higher than the 5th floor? Okay. [Typing sound] Oh, we have one. Room 908 on the 9th floor is available.",
+  "words": 140,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2022",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Jason이 Sarah에게 할 말로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "W",
+    "text": "Jason is a sculptor and Sarah is the head of a local library. A few days ago, Sarah hired Jason to create a sculpture for the library’s reopening by the end of next month. This morning, Sarah received the final design of the sculpture from Jason. She likes his design, but it looks quite complicated to her. She’s worried whether he can finish in time, so she calls him to express her concern. However, Jason thinks that he has enough time to make it since he has worked on these types of sculptures before. So Jason wants to tell Sarah that he can finish it in time and that she doesn’t have to be concerned. In this situation, what would Jason most likely say to Sarah? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "[3점] Jason is a sculptor and Sarah is the head of a local library. A few days ago, Sarah hired Jason to create a sculpture for the library’s reopening by the end of next month. This morning, Sarah received the final design of the sculpture from Jason. She likes his design, but it looks quite complicated to her. She’s worried whether he can finish in time, so she calls him to express her concern. However, Jason thinks that he has enough time to make it since he has worked on these types of sculptures before. So Jason wants to tell Sarah that he can finish it in time and that she doesn’t have to be concerned. In this situation, what would Jason most likely say to Sarah? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 126,
+  "nTurns": 2,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2022",
+  "no": 16,
+  "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Good morning, students. You might think that math is all about boring formulas, but actually it involves much more. Today, we’ll learn how mathematics is used in the arts. First, let’s take music. Early mathematicians found that dividing or multiplying sound frequencies created different musical notes. Many musicians started applying this mathematical concept to make harmonized sounds. Second, painting frequently uses math concepts, particularly the “Golden Ratio.” Using this, great painters created masterpieces that display accurate proportions. The Mona Lisa is well-known for its accurate proportionality. Photography is another example of using mathematical ideas. Photographers divide their frames into 3 by 3 sections and place their subjects along the lines. By doing so, the photo becomes balanced, thus more pleasing. Lastly, dance applies mathematics to position dancers on the stage. In ballet, dancers calculate distances between themselves and other dancers, and adjust to the size of the stage. This gives the impression of harmonious movement. I hope you’ve gained a new perspective on mathematics."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Good morning, students. You might think that math is all about boring formulas, but actually it involves much more. Today, we’ll learn how mathematics is used in the arts. First, let’s take music. Early mathematicians found that dividing or multiplying sound frequencies created different musical notes. Many musicians started applying this mathematical concept to make harmonized sounds. Second, painting frequently uses math concepts, particularly the “Golden Ratio.” Using this, great painters created masterpieces that display accurate proportions. The Mona Lisa is well-known for its accurate proportionality. Photography is another example of using mathematical ideas. Photographers divide their frames into 3 by 3 sections and place their subjects along the lines. By doing so, the photo becomes balanced, thus more pleasing. Lastly, dance applies mathematics to position dancers on the stage. In ballet, dancers calculate distances between themselves and other dancers, and adjust to the size of the stage. This gives the impression of harmonious movement. I hope you’ve gained a new perspective on mathematics.",
+  "words": 162,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2022",
+  "no": 17,
+  "stem": "언급된 예술 분야가 아닌 것은?",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Good morning, students. You might think that math is all about boring formulas, but actually it involves much more. Today, we’ll learn how mathematics is used in the arts. First, let’s take music. Early mathematicians found that dividing or multiplying sound frequencies created different musical notes. Many musicians started applying this mathematical concept to make harmonized sounds. Second, painting frequently uses math concepts, particularly the “Golden Ratio.” Using this, great painters created masterpieces that display accurate proportions. The Mona Lisa is well-known for its accurate proportionality. Photography is another example of using mathematical ideas. Photographers divide their frames into 3 by 3 sections and place their subjects along the lines. By doing so, the photo becomes balanced, thus more pleasing. Lastly, dance applies mathematics to position dancers on the stage. In ballet, dancers calculate distances between themselves and other dancers, and adjust to the size of the stage. This gives the impression of harmonious movement. I hope you’ve gained a new perspective on mathematics."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Good morning, students. You might think that math is all about boring formulas, but actually it involves much more. Today, we’ll learn how mathematics is used in the arts. First, let’s take music. Early mathematicians found that dividing or multiplying sound frequencies created different musical notes. Many musicians started applying this mathematical concept to make harmonized sounds. Second, painting frequently uses math concepts, particularly the “Golden Ratio.” Using this, great painters created masterpieces that display accurate proportions. The Mona Lisa is well-known for its accurate proportionality. Photography is another example of using mathematical ideas. Photographers divide their frames into 3 by 3 sections and place their subjects along the lines. By doing so, the photo becomes balanced, thus more pleasing. Lastly, dance applies mathematics to position dancers on the stage. In ballet, dancers calculate distances between themselves and other dancers, and adjust to the size of the stage. This gives the impression of harmonious movement. I hope you’ve gained a new perspective on mathematics.",
+  "words": 162,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ }
+]

@@ -67,7 +67,7 @@ export function itemBlocks(exam, no) {
   // 다음 문항 번호에서 끊는다. **세트 머리글 `[41~42]` 에서도 끊어야 한다** —
   // 40번은 바로 뒤가 장문 세트라, 머리글을 무시하면 41번 줄까지 넘어가
   // 장문 지문을 40번 것으로 착각한다(실제로 겪었다).
-  const reSet = /^\s*\[\s*\d{2}\s*[~～–—-]\s*\d{2}\s*\]/
+  const reSet = /^\s*\[\s*\d{2}\s*[~～∼〜–—-]\s*\d{2}\s*\]/
   const out = []
   for (const i of starts) {
     let j = ls.findIndex((l, k) => k > i && (reNext.test(l) || reSet.test(l)))
@@ -88,7 +88,7 @@ export function setBlockFor(exam, no) {
   // `[41～42]` `[43~45]` — 물결표가 회차마다 다르다(～ · ~ · –)
   const heads = []
   ls.forEach((l, i) => {
-    const m = l.match(/^\s*\[\s*(\d{2})\s*[~～–—-]\s*(\d{2})\s*\]/)
+    const m = l.match(/^\s*\[\s*(\d{2})\s*[~～∼〜–—-]\s*(\d{2})\s*\]/)
     // ⚠️ `[31~34]` `[36~37]` 같은 머리글도 있지만 그것은 **발문을 묶은 것**이지
     //    지문을 공유하는 것이 아니다. 지문을 공유하는 세트는 장문(41~45)뿐이다.
     //    이 구분을 놓치면 빈칸 55문항의 지문이 통째로 발문으로 바뀐다(실제로 겪었다).

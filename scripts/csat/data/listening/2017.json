@@ -1,0 +1,774 @@
+[
+ {
+  "exam": "2017",
+  "no": 1,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Gary, how’s your résumé writing going?"
+   },
+   {
+    "who": "M",
+    "text": "I finished it, Jenny. But I’m not sure if I did it right."
+   },
+   {
+    "who": "W",
+    "text": "Yeah, it’s not easy. Do you want me to take a look at your résumé?"
+   }
+  ],
+  "script": "Gary, how’s your résumé writing going? I finished it, Jenny. But I’m not sure if I did it right. Yeah, it’s not easy. Do you want me to take a look at your résumé?",
+  "words": 36,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2017",
+  "no": 2,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Mom, I’m home. Sorry I’m so late."
+   },
+   {
+    "who": "W",
+    "text": "Peter! Where were you? Your dad and I were worried about you."
+   },
+   {
+    "who": "M",
+    "text": "I was practicing for the musical, and I didn’t realize how late it was."
+   }
+  ],
+  "script": "Mom, I’m home. Sorry I’m so late. Peter! Where were you? Your dad and I were worried about you. I was practicing for the musical, and I didn’t realize how late it was.",
+  "words": 33,
+  "nTurns": 3,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2017",
+  "no": 3,
+  "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hi, Health and Leisure Radio listeners! This is Stacy from Green Fields Farm. I’d like to invite you to try one of our farm experience programs. Our walking program takes you on a relaxing tour through the fields of our farm. On the tour, you can feed our animals. Do you want to bring some fresh fruit home with you? Then, try our fruit-picking program. We even have a cheese-making program for you. These are just a few of the programs we offer for your family or company event. To find out more, call us at 213-568-1234 or go to www.greenfieldsfarm.com. We’re excited to see you here at our farm experience programs. We know you’ll love it here!"
+   }
+  ],
+  "script": "Hi, Health and Leisure Radio listeners! This is Stacy from Green Fields Farm. I’d like to invite you to try one of our farm experience programs. Our walking program takes you on a relaxing tour through the fields of our farm. On the tour, you can feed our animals. Do you want to bring some fresh fruit home with you? Then, try our fruit-picking program. We even have a cheese-making program for you. These are just a few of the programs we offer for your family or company event. To find out more, call us at 213-568-1234 or go to www.greenfieldsfarm.com. We’re excited to see you here at our farm experience programs. We know you’ll love it here!",
+  "words": 119,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2017",
+  "no": 4,
+  "stem": "대화를 듣고, 남자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Ji-na, what are you reading?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, Mr. Brown. It’s an English book titled The Global Economy."
+   },
+   {
+    "who": "M",
+    "text": "That sounds difficult."
+   },
+   {
+    "who": "W",
+    "text": "It is. I spend so much time looking up new words in the dictionary."
+   },
+   {
+    "who": "M",
+    "text": "Hmm. You should choose a more level-appropriate English book. You’ll be able to read faster without distractions."
+   },
+   {
+    "who": "W",
+    "text": "That makes sense. But I thought I would learn English better if I read difficult things."
+   },
+   {
+    "who": "M",
+    "text": "Well, when learners read English books that are too hard, they get exhausted and give up their studies easily."
+   },
+   {
+    "who": "W",
+    "text": "So, do you mean I need to read something that’s not so hard?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. Reading at an appropriate level is more enjoyable and motivates learners to keep going."
+   },
+   {
+    "who": "W",
+    "text": "I see what you mean."
+   },
+   {
+    "who": "M",
+    "text": "Why don’t you drop by the library and choose an English book that’s appropriate for your level?"
+   },
+   {
+    "who": "W",
+    "text": "I think that’s a good idea. Thank you, Mr. Brown."
+   }
+  ],
+  "script": "Ji-na, what are you reading? Hi, Mr. Brown. It’s an English book titled The Global Economy. That sounds difficult. It is. I spend so much time looking up new words in the dictionary. Hmm. You should choose a more level-appropriate English book. You’ll be able to read faster without distractions. That makes sense. But I thought I would learn English better if I read difficult things. Well, when learners read English books that are too hard, they get exhausted and give up their studies easily. So, do you mean I need to read something that’s not so hard? Yes. Reading at an appropriate level is more enjoyable and motivates learners to keep going. I see what you mean. Why don’t you drop by the library and choose an English book that’s appropriate for your level? I think that’s a good idea. Thank you, Mr. Brown.",
+  "words": 145,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2017",
+  "no": 5,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Welcome back! Next, we’re very excited to have today’s special guest. Will you please welcome Jack Wilson?"
+   },
+   {
+    "who": "M",
+    "text": "Hi, Laura. Thanks for having me. I watch your TV show every morning."
+   },
+   {
+    "who": "W",
+    "text": "I’m flattered, Jack. So, I saw your magic performance at the theater a few days ago. It was amazing!"
+   },
+   {
+    "who": "M",
+    "text": "Yeah. More than 500 people came to see it. I had a wonderful time."
+   },
+   {
+    "who": "W",
+    "text": "Now, we all know making things disappear is your specialty."
+   },
+   {
+    "who": "M",
+    "text": "That’s right."
+   },
+   {
+    "who": "W",
+    "text": "Can you tell us how you make huge things like cars disappear?"
+   },
+   {
+    "who": "M",
+    "text": "Well, I can’t reveal my secrets, but it’s not as easy as pulling a rabbit out of a hat."
+   },
+   {
+    "who": "W",
+    "text": "Come on! Can’t you share just one little trick with us?"
+   },
+   {
+    "who": "M",
+    "text": "Alright, then. Just one. I’ll show you a magic trick with coins."
+   },
+   {
+    "who": "W",
+    "text": "Great! When we come back from the break, we’ll learn a coin trick from Jack Wilson. Stay tuned!"
+   }
+  ],
+  "script": "Welcome back! Next, we’re very excited to have today’s special guest. Will you please welcome Jack Wilson? Hi, Laura. Thanks for having me. I watch your TV show every morning. I’m flattered, Jack. So, I saw your magic performance at the theater a few days ago. It was amazing! Yeah. More than 500 people came to see it. I had a wonderful time. Now, we all know making things disappear is your specialty. That’s right. Can you tell us how you make huge things like cars disappear? Well, I can’t reveal my secrets, but it’s not as easy as pulling a rabbit out of a hat. Come on! Can’t you share just one little trick with us? Alright, then. Just one. I’ll show you a magic trick with coins. Great! When we come back from the break, we’ll learn a coin trick from Jack Wilson. Stay tuned!",
+  "words": 146,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2017",
+  "no": 6,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, Ms. Miller. I’m Joshua’s father."
+   },
+   {
+    "who": "W",
+    "text": "Hi, Mr. Smith. Thanks for coming to our parent-teacher meeting."
+   },
+   {
+    "who": "M",
+    "text": "It’s nice to meet you. This room looks great. Wow! Look at the wall."
+   },
+   {
+    "who": "W",
+    "text": "You know, Joshua loves the elephant between the lion and the panda."
+   },
+   {
+    "who": "M",
+    "text": "Does he like the mobile hanging from the ceiling, too?"
+   },
+   {
+    "who": "W",
+    "text": "He does. The children made it together."
+   },
+   {
+    "who": "M",
+    "text": "They did a wonderful job. That toy dinosaur next to the bookshelf looks good."
+   },
+   {
+    "who": "W",
+    "text": "Oh, I put it there because the children have been learning about dinosaurs."
+   },
+   {
+    "who": "M",
+    "text": "That sounds fun. There are two boxes under the Christmas tree. What are they for?"
+   },
+   {
+    "who": "W",
+    "text": "They’re presents for the class. We’ve got some candies for the kids."
+   },
+   {
+    "who": "M",
+    "text": "Aha. The Christmas tree is decorated so nicely. The star on top of the tree looks very pretty."
+   },
+   {
+    "who": "W",
+    "text": "Thanks. The meeting will start soon. Let’s go upstairs, Mr. Smith."
+   }
+  ],
+  "script": "Hello, Ms. Miller. I’m Joshua’s father. Hi, Mr. Smith. Thanks for coming to our parent-teacher meeting. It’s nice to meet you. This room looks great. Wow! Look at the wall. You know, Joshua loves the elephant between the lion and the panda. Does he like the mobile hanging from the ceiling, too? He does. The children made it together. They did a wonderful job. That toy dinosaur next to the bookshelf looks good. Oh, I put it there because the children have been learning about dinosaurs. That sounds fun. There are two boxes under the Christmas tree. What are they for? They’re presents for the class. We’ve got some candies for the kids. Aha. The Christmas tree is decorated so nicely. The star on top of the tree looks very pretty. Thanks. The meeting will start soon. Let’s go upstairs, Mr. Smith.",
+  "words": 142,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2017",
+  "no": 7,
+  "stem": "대화를 듣고, 여자가 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Honey, look at this picture of Tony from his first birthday party."
+   },
+   {
+    "who": "M",
+    "text": "Can you believe how fast our son is growing up?"
+   },
+   {
+    "who": "W",
+    "text": "Yeah, the time is just flying by. It’s hard to believe that his first school performance is this afternoon."
+   },
+   {
+    "who": "M",
+    "text": "I know. Have you prepared everything that we need to record his play?"
+   },
+   {
+    "who": "W",
+    "text": "Well, I’ve packed the video camera in that bag over there."
+   },
+   {
+    "who": "M",
+    "text": "Great. How about an extra memory card?"
+   },
+   {
+    "who": "W",
+    "text": "Oh, right. We’ll probably need another one to record the whole play."
+   },
+   {
+    "who": "M",
+    "text": "Better safe than sorry."
+   },
+   {
+    "who": "W",
+    "text": "That’s right. I’ll go find one. Did you pick up Tony’s costume yet?"
+   },
+   {
+    "who": "M",
+    "text": "I’ll go pick it up from the dry cleaner while you look for the memory card."
+   },
+   {
+    "who": "W",
+    "text": "Okay, sounds good."
+   }
+  ],
+  "script": "Honey, look at this picture of Tony from his first birthday party. Can you believe how fast our son is growing up? Yeah, the time is just flying by. It’s hard to believe that his first school performance is this afternoon. I know. Have you prepared everything that we need to record his play? Well, I’ve packed the video camera in that bag over there. Great. How about an extra memory card? Oh, right. We’ll probably need another one to record the whole play. Better safe than sorry. That’s right. I’ll go find one. Did you pick up Tony’s costume yet? I’ll go pick it up from the dry cleaner while you look for the memory card. Okay, sounds good.",
+  "words": 120,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2017",
+  "no": 8,
+  "stem": "대화를 듣고, 여자가 하이킹을 할 수 없는 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Hello."
+   },
+   {
+    "who": "W",
+    "text": "Hi, Steve. Sorry I couldn’t answer the phone earlier."
+   },
+   {
+    "who": "M",
+    "text": "No problem, Kelly. Thanks for calling me back so quickly. I hope I didn’t interrupt anything."
+   },
+   {
+    "who": "W",
+    "text": "Oh, no. I was just in a meeting about our new advertising plan. So, what were you calling about, Steve?"
+   },
+   {
+    "who": "M",
+    "text": "I was calling to see if you wanted to go hiking this Sunday with Chris, Julie, and me. Can you come?"
+   },
+   {
+    "who": "W",
+    "text": "I’d love to, but I can’t. I have to visit my grandmother."
+   },
+   {
+    "who": "M",
+    "text": "Your grandmother? I thought that you saw her last weekend."
+   },
+   {
+    "who": "W",
+    "text": "I was going to, but my car broke down. So, I’m going to go see her this Sunday."
+   },
+   {
+    "who": "M",
+    "text": "I see. Hopefully, you can come next time."
+   },
+   {
+    "who": "W",
+    "text": "Thanks for the invitation, anyway. Have fun."
+   }
+  ],
+  "script": "[Cell phone rings.] Hello. Hi, Steve. Sorry I couldn’t answer the phone earlier. No problem, Kelly. Thanks for calling me back so quickly. I hope I didn’t interrupt anything. Oh, no. I was just in a meeting about our new advertising plan. So, what were you calling about, Steve? I was calling to see if you wanted to go hiking this Sunday with Chris, Julie, and me. Can you come? I’d love to, but I can’t. I have to visit my grandmother. Your grandmother? I thought that you saw her last weekend. I was going to, but my car broke down. So, I’m going to go see her this Sunday. I see. Hopefully, you can come next time. Thanks for the invitation, anyway. Have fun.",
+  "words": 125,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2017",
+  "no": 9,
+  "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hi. I want to get some souvenirs for my family and friends. Can you show me where the souvenir magnets are?"
+   },
+   {
+    "who": "W",
+    "text": "Sure. They’re right here. We’ve got a lot to choose from. What do you think of this flag magnet?"
+   },
+   {
+    "who": "M",
+    "text": "That one’s good, but the airplane one is better. My sons love airplanes. How much is it?"
+   },
+   {
+    "who": "W",
+    "text": "It’s ten dollars."
+   },
+   {
+    "who": "M",
+    "text": "Alright, I’ll take two of them. And I’d like to pick up something for my friends, too."
+   },
+   {
+    "who": "W",
+    "text": "How about these animal key rings? They’re five dollars each."
+   },
+   {
+    "who": "M",
+    "text": "They’re nice. I’ll take six of them."
+   },
+   {
+    "who": "W",
+    "text": "Okay. Anything else?"
+   },
+   {
+    "who": "M",
+    "text": "That’s it. Can I use this coupon I picked up from the hotel?"
+   },
+   {
+    "who": "W",
+    "text": "Yeah. That gives you 10% off the total price."
+   },
+   {
+    "who": "M",
+    "text": "Wonderful. Here’s my credit card."
+   }
+  ],
+  "script": "Hi. I want to get some souvenirs for my family and friends. Can you show me where the souvenir magnets are? Sure. They’re right here. We’ve got a lot to choose from. What do you think of this flag magnet? That one’s good, but the airplane one is better. My sons love airplanes. How much is it? It’s ten dollars. Alright, I’ll take two of them. And I’d like to pick up something for my friends, too. How about these animal key rings? They’re five dollars each. They’re nice. I’ll take six of them. Okay. Anything else? That’s it. Can I use this coupon I picked up from the hotel? Yeah. That gives you 10% off the total price. Wonderful. Here’s my credit card.",
+  "words": 123,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2017",
+  "no": 10,
+  "stem": "대화를 듣고, World Furniture Expo에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Honey, I think it’s time to replace the kids’ beds. They’re too small for the kids."
+   },
+   {
+    "who": "M",
+    "text": "Right. We should buy a new kitchen table, too. Ours is too old."
+   },
+   {
+    "who": "W",
+    "text": "I heard the World Furniture Expo starts soon. Should we go there?"
+   },
+   {
+    "who": "M",
+    "text": "Yeah. That would be a good place to compare the quality and prices of the furniture. When is it?"
+   },
+   {
+    "who": "W",
+    "text": "It’s from September 16th through the 18th. And it’s not far from here."
+   },
+   {
+    "who": "M",
+    "text": "That’s good. Where is it?"
+   },
+   {
+    "who": "W",
+    "text": "It takes place at the Central Exhibition Center."
+   },
+   {
+    "who": "M",
+    "text": "How many companies will participate?"
+   },
+   {
+    "who": "W",
+    "text": "I’m not sure. Let’s check the website on my smart phone. [Pause] Wow! It says there will be fifty international and local companies."
+   },
+   {
+    "who": "M",
+    "text": "That’s great! And check this out! There will be a special lecture on interior design."
+   },
+   {
+    "who": "W",
+    "text": "Nice. Let’s make plans to go!"
+   }
+  ],
+  "script": "Honey, I think it’s time to replace the kids’ beds. They’re too small for the kids. Right. We should buy a new kitchen table, too. Ours is too old. I heard the World Furniture Expo starts soon. Should we go there? Yeah. That would be a good place to compare the quality and prices of the furniture. When is it? It’s from September 16th through the 18th. And it’s not far from here. That’s good. Where is it? It takes place at the Central Exhibition Center. How many companies will participate? I’m not sure. Let’s check the website on my smart phone. [Pause] Wow! It says there will be fifty international and local companies. That’s great! And check this out! There will be a special lecture on interior design. Nice. Let’s make plans to go!",
+  "words": 135,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2017",
+  "no": 11,
+  "stem": "Creative Minds Science Club에 관한 다음 내용을 듣고, 일치하지 않는 것을",
+  "turns": [
+   {
+    "who": "?",
+    "text": "고르시오."
+   },
+   {
+    "who": "M",
+    "text": "Good morning, everyone. I’m Matt Adams, president of Creative Minds Science Club. I’d like to invite you to join our club. Creative Minds is open to first- and second-year students. We meet in the science lab every Tuesday after school. We have a variety of interesting activities, like doing fun experiments and making inventions as a team. In fact, last year our club won prizes at a number of invention contests. We’re very proud of our achievements. This year’s advising teacher is Ms. Williams, who is a chemistry teacher at our school. This is a great opportunity to learn more about science and to put your creative mind into action. If you’re interested, you can find more information on our school’s bulletin board. Come and join us!"
+   }
+  ],
+  "script": "고르시오. Good morning, everyone. I’m Matt Adams, president of Creative Minds Science Club. I’d like to invite you to join our club. Creative Minds is open to first- and second-year students. We meet in the science lab every Tuesday after school. We have a variety of interesting activities, like doing fun experiments and making inventions as a team. In fact, last year our club won prizes at a number of invention contests. We’re very proud of our achievements. This year’s advising teacher is Ms. Williams, who is a chemistry teacher at our school. This is a great opportunity to learn more about science and to put your creative mind into action. If you’re interested, you can find more information on our school’s bulletin board. Come and join us!",
+  "words": 127,
+  "nTurns": 2,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2017",
+  "no": 12,
+  "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 램프를 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Welcome to Jay’s Lighting Store. How may I help you?"
+   },
+   {
+    "who": "W",
+    "text": "I’m here to look for a floor lamp for my living room."
+   },
+   {
+    "who": "M",
+    "text": "Here, take a look at this catalog. We have five models you can choose from. Are you looking for anything specific?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. It shouldn’t be too short. I’d like to get one that’s taller than one hundred and thirty centimeters."
+   },
+   {
+    "who": "M",
+    "text": "Then how about these four models? Would you like LED bulbs?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, I would. They last longer than standard bulbs."
+   },
+   {
+    "who": "M",
+    "text": "And they save energy. I definitely recommend LEDs. What’s your price range?"
+   },
+   {
+    "who": "W",
+    "text": "Well, I don’t want to spend more than fifty dollars."
+   },
+   {
+    "who": "M",
+    "text": "Then you have two options left. Which color do you like better?"
+   },
+   {
+    "who": "W",
+    "text": "Hmm..., I’ll go with the white one."
+   },
+   {
+    "who": "M",
+    "text": "Good choice. Would you like to pay in cash or by credit card?"
+   },
+   {
+    "who": "W",
+    "text": "I’ll pay in cash."
+   }
+  ],
+  "script": "Welcome to Jay’s Lighting Store. How may I help you? I’m here to look for a floor lamp for my living room. Here, take a look at this catalog. We have five models you can choose from. Are you looking for anything specific? Yes. It shouldn’t be too short. I’d like to get one that’s taller than one hundred and thirty centimeters. Then how about these four models? Would you like LED bulbs? Yes, I would. They last longer than standard bulbs. And they save energy. I definitely recommend LEDs. What’s your price range? Well, I don’t want to spend more than fifty dollars. Then you have two options left. Which color do you like better? Hmm..., I’ll go with the white one. Good choice. Would you like to pay in cash or by credit card? I’ll pay in cash.",
+  "words": 140,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2017",
+  "no": 13,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점] [Cell phone rings.]"
+   },
+   {
+    "who": "W",
+    "text": "Hello."
+   },
+   {
+    "who": "M",
+    "text": "Hi, Cindy. It’s Danny."
+   },
+   {
+    "who": "W",
+    "text": "Hey, Danny. How are you?"
+   },
+   {
+    "who": "M",
+    "text": "I’m fine, but a little confused. I’m in the library, but none of our group members are here."
+   },
+   {
+    "who": "W",
+    "text": "What? You’re at the library now? We’re not meeting until Thursday."
+   },
+   {
+    "who": "M",
+    "text": "Really? I think there was some kind of misunderstanding. I thought we were supposed to meet here at 12:30 this afternoon."
+   },
+   {
+    "who": "W",
+    "text": "We were going to, but we changed the date because we needed more time for individual work."
+   },
+   {
+    "who": "M",
+    "text": "Huh? No one told me about it."
+   },
+   {
+    "who": "W",
+    "text": "Don’t you remember? We decided that in class last Friday."
+   },
+   {
+    "who": "M",
+    "text": "I wasn’t there, Cindy. I stayed home sick."
+   },
+   {
+    "who": "W",
+    "text": "Oh, no! That’s right. You were absent last Friday when we changed the date! I was going to call you after school, but I forgot."
+   },
+   {
+    "who": "M",
+    "text": "Oh, that explains it. Well, it’s not a big deal."
+   }
+  ],
+  "script": "[3점] [Cell phone rings.] Hello. Hi, Cindy. It’s Danny. Hey, Danny. How are you? I’m fine, but a little confused. I’m in the library, but none of our group members are here. What? You’re at the library now? We’re not meeting until Thursday. Really? I think there was some kind of misunderstanding. I thought we were supposed to meet here at 12:30 this afternoon. We were going to, but we changed the date because we needed more time for individual work. Huh? No one told me about it. Don’t you remember? We decided that in class last Friday. I wasn’t there, Cindy. I stayed home sick. Oh, no! That’s right. You were absent last Friday when we changed the date! I was going to call you after school, but I forgot. Oh, that explains it. Well, it’s not a big deal.",
+  "words": 139,
+  "nTurns": 13,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2017",
+  "no": 14,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "M",
+    "text": "Alice, why didn’t you come to the music festival yesterday?"
+   },
+   {
+    "who": "W",
+    "text": "I was busy doing my homework. I wish I could’ve gone. How was it?"
+   },
+   {
+    "who": "M",
+    "text": "It was great! My favorite band signed my ticket."
+   },
+   {
+    "who": "W",
+    "text": "Wow! Can I see it?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. It’s in my wallet. [Pause] Wait! My wallet! It’s gone!"
+   },
+   {
+    "who": "W",
+    "text": "Really? Look in your coat pockets. Maybe it’s there."
+   },
+   {
+    "who": "M",
+    "text": "It’s not here. Oh, no! What should I do?"
+   },
+   {
+    "who": "W",
+    "text": "When was the last time you saw your wallet?"
+   },
+   {
+    "who": "M",
+    "text": "Umm... I remember having it at the subway station. Did I leave it there?"
+   },
+   {
+    "who": "W",
+    "text": "You should contact the station’s lost and found right away."
+   },
+   {
+    "who": "M",
+    "text": "But what if someone already took it?"
+   },
+   {
+    "who": "W",
+    "text": "Don’t worry. Someone with a good heart might have turned it in."
+   }
+  ],
+  "script": "[3점] Alice, why didn’t you come to the music festival yesterday? I was busy doing my homework. I wish I could’ve gone. How was it? It was great! My favorite band signed my ticket. Wow! Can I see it? Sure. It’s in my wallet. [Pause] Wait! My wallet! It’s gone! Really? Look in your coat pockets. Maybe it’s there. It’s not here. Oh, no! What should I do? When was the last time you saw your wallet? Umm... I remember having it at the subway station. Did I leave it there? You should contact the station’s lost and found right away. But what if someone already took it? Don’t worry. Someone with a good heart might have turned it in.",
+  "words": 119,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2017",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Brian이 Sarah에게 할 말로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "W",
+    "text": "Sarah and Brian are university classmates. Sarah wants to be a teacher and is interested in helping others. She plans on finding volunteer work to contribute to the community while getting teaching experience. However, she’s not sure what kind of volunteer work she can do. Brian is a volunteer mentor at a local community center. He feels that his students are learning a lot, and that he’s benefitting from the experience as well. Sarah tells Brian about her plan and asks him to recommend some volunteer work for her. Since Brian finds his volunteer work rewarding, he wants to suggest to Sarah that she be a mentor at the community center. In this situation, what would Brian most likely say to Sarah? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "[3점] Sarah and Brian are university classmates. Sarah wants to be a teacher and is interested in helping others. She plans on finding volunteer work to contribute to the community while getting teaching experience. However, she’s not sure what kind of volunteer work she can do. Brian is a volunteer mentor at a local community center. He feels that his students are learning a lot, and that he’s benefitting from the experience as well. Sarah tells Brian about her plan and asks him to recommend some volunteer work for her. Since Brian finds his volunteer work rewarding, he wants to suggest to Sarah that she be a mentor at the community center. In this situation, what would Brian most likely say to Sarah? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 122,
+  "nTurns": 2,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2017",
+  "no": 16,
+  "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, class. Last time we learned about insects, their life cycles and what they eat. As you know, many insects get food from flowers, but they aren’t the only creatures that do. Today, we’ll learn about a variety of animals that use flowers as a food source. First are hummingbirds. These birds use their long narrow beaks to get the flower’s sweet liquid called nectar. Mysteriously, they only feed from upside down flowers. We still don’t know why. Next are bats. Although most bats eat insects, some get their food from flowers. These bats have a strong sense of smell and sight compared to insect-eating bats. There are also lizards that drink nectar. These lizards are found on tropical islands that have few natural enemies. Finally, there is a type of squirrel that feeds from flowers. Most nectar-drinking animals help flowers grow in numbers, but these squirrels often harm the plant. When drinking nectar, they bite through the flower, which causes damage. Interesting, huh? What other animals use flowers in their diet? Take a minute to think, and then we’ll talk about it."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, class. Last time we learned about insects, their life cycles and what they eat. As you know, many insects get food from flowers, but they aren’t the only creatures that do. Today, we’ll learn about a variety of animals that use flowers as a food source. First are hummingbirds. These birds use their long narrow beaks to get the flower’s sweet liquid called nectar. Mysteriously, they only feed from upside down flowers. We still don’t know why. Next are bats. Although most bats eat insects, some get their food from flowers. These bats have a strong sense of smell and sight compared to insect-eating bats. There are also lizards that drink nectar. These lizards are found on tropical islands that have few natural enemies. Finally, there is a type of squirrel that feeds from flowers. Most nectar-drinking animals help flowers grow in numbers, but these squirrels often harm the plant. When drinking nectar, they bite through the flower, which causes damage. Interesting, huh? What other animals use flowers in their diet? Take a minute to think, and then we’ll talk about it.",
+  "words": 183,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2017",
+  "no": 17,
+  "stem": "언급된 동물이 아닌 것은?",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, class. Last time we learned about insects, their life cycles and what they eat. As you know, many insects get food from flowers, but they aren’t the only creatures that do. Today, we’ll learn about a variety of animals that use flowers as a food source. First are hummingbirds. These birds use their long narrow beaks to get the flower’s sweet liquid called nectar. Mysteriously, they only feed from upside down flowers. We still don’t know why. Next are bats. Although most bats eat insects, some get their food from flowers. These bats have a strong sense of smell and sight compared to insect-eating bats. There are also lizards that drink nectar. These lizards are found on tropical islands that have few natural enemies. Finally, there is a type of squirrel that feeds from flowers. Most nectar-drinking animals help flowers grow in numbers, but these squirrels often harm the plant. When drinking nectar, they bite through the flower, which causes damage. Interesting, huh? What other animals use flowers in their diet? Take a minute to think, and then we’ll talk about it."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, class. Last time we learned about insects, their life cycles and what they eat. As you know, many insects get food from flowers, but they aren’t the only creatures that do. Today, we’ll learn about a variety of animals that use flowers as a food source. First are hummingbirds. These birds use their long narrow beaks to get the flower’s sweet liquid called nectar. Mysteriously, they only feed from upside down flowers. We still don’t know why. Next are bats. Although most bats eat insects, some get their food from flowers. These bats have a strong sense of smell and sight compared to insect-eating bats. There are also lizards that drink nectar. These lizards are found on tropical islands that have few natural enemies. Finally, there is a type of squirrel that feeds from flowers. Most nectar-drinking animals help flowers grow in numbers, but these squirrels often harm the plant. When drinking nectar, they bite through the flower, which causes damage. Interesting, huh? What other animals use flowers in their diet? Take a minute to think, and then we’ll talk about it.",
+  "words": 183,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ }
+]

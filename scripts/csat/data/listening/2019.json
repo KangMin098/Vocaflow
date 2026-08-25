@@ -1,0 +1,806 @@
+[
+ {
+  "exam": "2019",
+  "no": 1,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Amy, you said you’re going to study at Donna’s house tonight, right?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, Dad. We have to submit our team report online by midnight."
+   },
+   {
+    "who": "M",
+    "text": "I think you’ll be quite late. Should I pick you up?"
+   }
+  ],
+  "script": "Amy, you said you’re going to study at Donna’s house tonight, right? Yes, Dad. We have to submit our team report online by midnight. I think you’ll be quite late. Should I pick you up?",
+  "words": 35,
+  "nTurns": 3,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2019",
+  "no": 2,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Thank you for waiting, sir. How can I help you?"
+   },
+   {
+    "who": "M",
+    "text": "My son wants to join the road safety program. Are there any seats still available?"
+   },
+   {
+    "who": "W",
+    "text": "It’s your lucky day! Somebody just canceled. So your son can have that seat."
+   }
+  ],
+  "script": "Thank you for waiting, sir. How can I help you? My son wants to join the road safety program. Are there any seats still available? It’s your lucky day! Somebody just canceled. So your son can have that seat.",
+  "words": 39,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2019",
+  "no": 3,
+  "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Attention, Whittenberg Dragons and Westbrook Whales fans. This is an announcement about today’s game at Estana Stadium. Today’s baseball game was supposed to begin in twenty minutes. But it started raining one hour ago, and has not stopped. According to the forecast, the weather will only get worse. Because of this, we have decided to cancel today’s game. Tickets you purchased for today’s event will be fully refunded. And information about the make-up game will be updated on our website soon. Once again, today’s game has been canceled due to heavy rain. Thank you for visiting our stadium, and we hope to see you again at our next game."
+   }
+  ],
+  "script": "Attention, Whittenberg Dragons and Westbrook Whales fans. This is an announcement about today’s game at Estana Stadium. Today’s baseball game was supposed to begin in twenty minutes. But it started raining one hour ago, and has not stopped. According to the forecast, the weather will only get worse. Because of this, we have decided to cancel today’s game. Tickets you purchased for today’s event will be fully refunded. And information about the make-up game will be updated on our website soon. Once again, today’s game has been canceled due to heavy rain. Thank you for visiting our stadium, and we hope to see you again at our next game.",
+  "words": 109,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2019",
+  "no": 4,
+  "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Andrew, you look unhappy. What’s wrong?"
+   },
+   {
+    "who": "M",
+    "text": "Hi, Ms. Benson. I’ve been trying this chemical reaction experiment again and again, but it’s not working."
+   },
+   {
+    "who": "W",
+    "text": "Why isn’t it working?"
+   },
+   {
+    "who": "M",
+    "text": "I don’t know. Maybe I don’t have much talent for chemistry."
+   },
+   {
+    "who": "W",
+    "text": "Don’t be so hard on yourself."
+   },
+   {
+    "who": "M",
+    "text": "So what should I do?"
+   },
+   {
+    "who": "W",
+    "text": "I believe that the path to success is through analyzing failure."
+   },
+   {
+    "who": "M",
+    "text": "Analyzing failure? What do you mean?"
+   },
+   {
+    "who": "W",
+    "text": "By examining what went wrong in your experiment, you can do it right."
+   },
+   {
+    "who": "M",
+    "text": "Hmm. You mean that even though my experiment didn’t work, I can learn something from failure?"
+   },
+   {
+    "who": "W",
+    "text": "Exactly. If you figure out how and why it didn’t work, you can succeed at your experiment."
+   },
+   {
+    "who": "M",
+    "text": "Now I understand. I’ll review my experiment. Thanks."
+   }
+  ],
+  "script": "Andrew, you look unhappy. What’s wrong? Hi, Ms. Benson. I’ve been trying this chemical reaction experiment again and again, but it’s not working. Why isn’t it working? I don’t know. Maybe I don’t have much talent for chemistry. Don’t be so hard on yourself. So what should I do? I believe that the path to success is through analyzing failure. Analyzing failure? What do you mean? By examining what went wrong in your experiment, you can do it right. Hmm. You mean that even though my experiment didn’t work, I can learn something from failure? Exactly. If you figure out how and why it didn’t work, you can succeed at your experiment. Now I understand. I’ll review my experiment. Thanks.",
+  "words": 120,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2019",
+  "no": 5,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "W",
+    "text": "Hello."
+   },
+   {
+    "who": "M",
+    "text": "Hello, Ms. Monroe. This is John Brown. I’m calling to invite you to a special event."
+   },
+   {
+    "who": "W",
+    "text": "Oh, thank you for calling. What’s the event?"
+   },
+   {
+    "who": "M",
+    "text": "Our museum will hold an exhibition of antique items, including the old pictures and tools you donated, under the theme Life in the 1800s."
+   },
+   {
+    "who": "W",
+    "text": "That’s wonderful. When is it?"
+   },
+   {
+    "who": "M",
+    "text": "It’ll be from December 3rd to 7th. And it’s all thanks to generous people like you."
+   },
+   {
+    "who": "W",
+    "text": "It’s my pleasure. I want my donation to help people learn about the past."
+   },
+   {
+    "who": "M",
+    "text": "Thank you. The antique items you donated have really improved our collection."
+   },
+   {
+    "who": "W",
+    "text": "I’m glad to hear that. I’m looking forward to visiting the exhibition."
+   },
+   {
+    "who": "M",
+    "text": "I’ll send you the invitation letter soon."
+   },
+   {
+    "who": "W",
+    "text": "Great. I’ll be waiting for it."
+   },
+   {
+    "who": "M",
+    "text": "Again, on behalf of our museum, we appreciate your donation."
+   }
+  ],
+  "script": "[Cell phone rings.] Hello. Hello, Ms. Monroe. This is John Brown. I’m calling to invite you to a special event. Oh, thank you for calling. What’s the event? Our museum will hold an exhibition of antique items, including the old pictures and tools you donated, under the theme Life in the 1800s. That’s wonderful. When is it? It’ll be from December 3rd to 7th. And it’s all thanks to generous people like you. It’s my pleasure. I want my donation to help people learn about the past. Thank you. The antique items you donated have really improved our collection. I’m glad to hear that. I’m looking forward to visiting the exhibition. I’ll send you the invitation letter soon. Great. I’ll be waiting for it. Again, on behalf of our museum, we appreciate your donation.",
+  "words": 134,
+  "nTurns": 13,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2019",
+  "no": 6,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Mom, I think the backyard is ready for Dad’s birthday party."
+   },
+   {
+    "who": "W",
+    "text": "Really? Let’s see."
+   },
+   {
+    "who": "M",
+    "text": "[Pause] I hung a screen between the trees."
+   },
+   {
+    "who": "W",
+    "text": "That’s nice."
+   },
+   {
+    "who": "M",
+    "text": "I think he’ll enjoy watching our old family videos there."
+   },
+   {
+    "who": "W",
+    "text": "I’m sure he will. Oh, did you buy the heart-shaped cake on the table?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. I got it from Dad’s favorite bakery."
+   },
+   {
+    "who": "W",
+    "text": "He’ll love it. What are the two boxes under the chair?"
+   },
+   {
+    "who": "M",
+    "text": "They’re gifts from Grandma and Grandpa."
+   },
+   {
+    "who": "W",
+    "text": "How nice of them. Hmm. I think the striped mat on the grass is too small. We cannot all sit there."
+   },
+   {
+    "who": "M",
+    "text": "You’re right. I’ll bring more chairs."
+   },
+   {
+    "who": "W",
+    "text": "Good idea. And you put the grill next to the garden lamp."
+   },
+   {
+    "who": "M",
+    "text": "Yeah. As you know, Dad loves barbecue."
+   },
+   {
+    "who": "W",
+    "text": "Right. We’re almost ready for the party."
+   }
+  ],
+  "script": "Mom, I think the backyard is ready for Dad’s birthday party. Really? Let’s see. [Pause] I hung a screen between the trees. That’s nice. I think he’ll enjoy watching our old family videos there. I’m sure he will. Oh, did you buy the heart-shaped cake on the table? Yes. I got it from Dad’s favorite bakery. He’ll love it. What are the two boxes under the chair? They’re gifts from Grandma and Grandpa. How nice of them. Hmm. I think the striped mat on the grass is too small. We cannot all sit there. You’re right. I’ll bring more chairs. Good idea. And you put the grill next to the garden lamp. Yeah. As you know, Dad loves barbecue. Right. We’re almost ready for the party.",
+  "words": 126,
+  "nTurns": 14,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2019",
+  "no": 7,
+  "stem": "대화를 듣고, 남자가 여자에게 부탁한 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Jim, are you doing a presentation for the science fair?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. I’m really nervous because it’s my first time presenting in public."
+   },
+   {
+    "who": "W",
+    "text": "Don’t worry. You’ll do well. What’s the topic?"
+   },
+   {
+    "who": "M",
+    "text": "Eating insects as food."
+   },
+   {
+    "who": "W",
+    "text": "Sounds interesting. Why did you choose that?"
+   },
+   {
+    "who": "M",
+    "text": "Because it’s a possible solution to future food problems."
+   },
+   {
+    "who": "W",
+    "text": "So what are you going to do in your presentation?"
+   },
+   {
+    "who": "M",
+    "text": "I’ll introduce some insect-based recipes and share my survey results on people’s opinions about eating insects."
+   },
+   {
+    "who": "W",
+    "text": "I can’t wait to see it. I’ll take some pictures for you since it’s your first public presentation."
+   },
+   {
+    "who": "M",
+    "text": "Thank you. But my brother Tom is going to take pictures."
+   },
+   {
+    "who": "W",
+    "text": "Okay. Is there anything I can help you with?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. Could you help with distributing hand-outs to the audience?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, I’ll do that."
+   },
+   {
+    "who": "M",
+    "text": "Thank you."
+   }
+  ],
+  "script": "Jim, are you doing a presentation for the science fair? Yes. I’m really nervous because it’s my first time presenting in public. Don’t worry. You’ll do well. What’s the topic? Eating insects as food. Sounds interesting. Why did you choose that? Because it’s a possible solution to future food problems. So what are you going to do in your presentation? I’ll introduce some insect-based recipes and share my survey results on people’s opinions about eating insects. I can’t wait to see it. I’ll take some pictures for you since it’s your first public presentation. Thank you. But my brother Tom is going to take pictures. Okay. Is there anything I can help you with? Sure. Could you help with distributing hand-outs to the audience? Yes, I’ll do that. Thank you.",
+  "words": 130,
+  "nTurns": 14,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2019",
+  "no": 8,
+  "stem": "대화를 듣고, 여자가 드론 비행 대회에 참가할 수 없는 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[Cell phone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Hey, Rebecca. I have good news."
+   },
+   {
+    "who": "W",
+    "text": "Hi, Michael. What is it?"
+   },
+   {
+    "who": "M",
+    "text": "I saw an advertisement about a drone flying competition. Why don’t we enter the competition as a team?"
+   },
+   {
+    "who": "W",
+    "text": "Great! I recently got a new drone as a graduation present. Is there anything we need to enter the competition?"
+   },
+   {
+    "who": "M",
+    "text": "No, all we need is our own drones."
+   },
+   {
+    "who": "W",
+    "text": "Good. My new drone flies much faster and longer than the old one. When is the competition?"
+   },
+   {
+    "who": "M",
+    "text": "It’s next Friday afternoon."
+   },
+   {
+    "who": "W",
+    "text": "Friday? I can’t make it that day."
+   },
+   {
+    "who": "M",
+    "text": "Oh! I forgot. You said that your parents are visiting."
+   },
+   {
+    "who": "W",
+    "text": "Actually, they came yesterday."
+   },
+   {
+    "who": "M",
+    "text": "Then, why can’t you go?"
+   },
+   {
+    "who": "W",
+    "text": "I have to go to a job interview."
+   },
+   {
+    "who": "M",
+    "text": "I see. Good luck on the interview. I’ll try to find another partner."
+   }
+  ],
+  "script": "[Cell phone rings.] Hey, Rebecca. I have good news. Hi, Michael. What is it? I saw an advertisement about a drone flying competition. Why don’t we enter the competition as a team? Great! I recently got a new drone as a graduation present. Is there anything we need to enter the competition? No, all we need is our own drones. Good. My new drone flies much faster and longer than the old one. When is the competition? It’s next Friday afternoon. Friday? I can’t make it that day. Oh! I forgot. You said that your parents are visiting. Actually, they came yesterday. Then, why can’t you go? I have to go to a job interview. I see. Good luck on the interview. I’ll try to find another partner.",
+  "words": 128,
+  "nTurns": 14,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2019",
+  "no": 9,
+  "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오. [3점]",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Good afternoon. What can I help you with, sir?"
+   },
+   {
+    "who": "M",
+    "text": "I’m looking for inline skates for my twins."
+   },
+   {
+    "who": "W",
+    "text": "I see. We have beginner skates and advanced skates. A pair of beginner skates is $60 and a pair of advanced skates is $80."
+   },
+   {
+    "who": "M",
+    "text": "My boys will start learning next week."
+   },
+   {
+    "who": "W",
+    "text": "Then you need the beginner skates."
+   },
+   {
+    "who": "M",
+    "text": "Right. I’ll buy two pairs in size 13."
+   },
+   {
+    "who": "W",
+    "text": "Okay. And I think your sons also need safety equipment."
+   },
+   {
+    "who": "M",
+    "text": "They already have elbow and knee pads. So, they only need helmets. How much are helmets?"
+   },
+   {
+    "who": "W",
+    "text": "They originally cost $20 each. But we have a promotion this week. So, you will get a 50 percent discount on each helmet."
+   },
+   {
+    "who": "M",
+    "text": "That’s nice. I’ll buy two helmets."
+   },
+   {
+    "who": "W",
+    "text": "Do you want anything else?"
+   },
+   {
+    "who": "M",
+    "text": "No, that’s all. Here’s my credit card."
+   }
+  ],
+  "script": "Good afternoon. What can I help you with, sir? I’m looking for inline skates for my twins. I see. We have beginner skates and advanced skates. A pair of beginner skates is $60 and a pair of advanced skates is $80. My boys will start learning next week. Then you need the beginner skates. Right. I’ll buy two pairs in size 13. Okay. And I think your sons also need safety equipment. They already have elbow and knee pads. So, they only need helmets. How much are helmets? They originally cost $20 each. But we have a promotion this week. So, you will get a 50 percent discount on each helmet. That’s nice. I’ll buy two helmets. Do you want anything else? No, that’s all. Here’s my credit card.",
+  "words": 124,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2019",
+  "no": 10,
+  "stem": "대화를 듣고, International Fireworks Festival에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Honey, what are you looking at?"
+   },
+   {
+    "who": "W",
+    "text": "I’m looking at the International Fireworks Festival website. You know I love fireworks."
+   },
+   {
+    "who": "M",
+    "text": "Okay, then we should go. When is it?"
+   },
+   {
+    "who": "W",
+    "text": "It’s on Saturday, November 24th and starts at 8 p.m. It’s also at the same place as last year."
+   },
+   {
+    "who": "M",
+    "text": "Ah! It’ll be held at Green Dove Park again?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. And the website says four countries are going to participate this year."
+   },
+   {
+    "who": "M",
+    "text": "Great. Which countries?"
+   },
+   {
+    "who": "W",
+    "text": "Korea, Spain, China and the U.S. will take part."
+   },
+   {
+    "who": "M",
+    "text": "Our children loved the festival last year. Let’s take them again."
+   },
+   {
+    "who": "W",
+    "text": "Of course. But last year, there were almost no parking spaces available near the park."
+   },
+   {
+    "who": "M",
+    "text": "If we don’t drive, how should we get there?"
+   },
+   {
+    "who": "W",
+    "text": "The festival provides a free shuttle bus from Town Hall Station."
+   },
+   {
+    "who": "M",
+    "text": "Really? Then, let’s take the shuttle bus."
+   }
+  ],
+  "script": "Honey, what are you looking at? I’m looking at the International Fireworks Festival website. You know I love fireworks. Okay, then we should go. When is it? It’s on Saturday, November 24th and starts at 8 p.m. It’s also at the same place as last year. Ah! It’ll be held at Green Dove Park again? Yes. And the website says four countries are going to participate this year. Great. Which countries? Korea, Spain, China and the U.S. will take part. Our children loved the festival last year. Let’s take them again. Of course. But last year, there were almost no parking spaces available near the park. If we don’t drive, how should we get there? The festival provides a free shuttle bus from Town Hall Station. Really? Then, let’s take the shuttle bus.",
+  "words": 134,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2019",
+  "no": 11,
+  "stem": "2018 Upcycling Workshop에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Attention, please. I’m Jenny Stone, the manager of the community center. I’m going to tell you about the 2018 Upcycling Workshop. Upcycling is creative reuse. It gives new life to old objects. The workshop will last three days, from November 23rd to 25th. It’ll run from 1 to 4 p.m. The workshop will be held in the seminar room. And we have a special treat this time. The famous fashion designer, Elizabeth Thompson, will teach you in the workshop. You’ll learn many upcycling methods from her. For example, you’ll remake plastic bags into rugs and old shirts into hats. All materials are provided. And there’s no participation fee. The workshop is open to people 18 and older. We’re looking forward to seeing you."
+   }
+  ],
+  "script": "Attention, please. I’m Jenny Stone, the manager of the community center. I’m going to tell you about the 2018 Upcycling Workshop. Upcycling is creative reuse. It gives new life to old objects. The workshop will last three days, from November 23rd to 25th. It’ll run from 1 to 4 p.m. The workshop will be held in the seminar room. And we have a special treat this time. The famous fashion designer, Elizabeth Thompson, will teach you in the workshop. You’ll learn many upcycling methods from her. For example, you’ll remake plastic bags into rugs and old shirts into hats. All materials are provided. And there’s no participation fee. The workshop is open to people 18 and older. We’re looking forward to seeing you.",
+  "words": 120,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2019",
+  "no": 12,
+  "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 도마를 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Welcome to Camilo’s Kitchen."
+   },
+   {
+    "who": "W",
+    "text": "Hello. I’m looking for a cutting board."
+   },
+   {
+    "who": "M",
+    "text": "Let me show you our five top-selling models, all at affordable prices. Do you have a preference for any material? We have plastic, maple, and walnut cutting boards."
+   },
+   {
+    "who": "W",
+    "text": "I don’t want the plastic one because I think plastic isn’t environmentally friendly."
+   },
+   {
+    "who": "M",
+    "text": "I see. What’s your budget range?"
+   },
+   {
+    "who": "W",
+    "text": "No more than $50."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Do you prefer one with or without a handle?"
+   },
+   {
+    "who": "W",
+    "text": "I think a cutting board with a handle is easier to use. So I’ll take one with a handle."
+   },
+   {
+    "who": "M",
+    "text": "Then, which size do you want? You have two models left."
+   },
+   {
+    "who": "W",
+    "text": "Hmm. A small-sized cutting board isn’t convenient when I cut vegetables. I’ll buy the other model."
+   },
+   {
+    "who": "M",
+    "text": "Great. Then this is the cutting board for you."
+   }
+  ],
+  "script": "Welcome to Camilo’s Kitchen. Hello. I’m looking for a cutting board. Let me show you our five top-selling models, all at affordable prices. Do you have a preference for any material? We have plastic, maple, and walnut cutting boards. I don’t want the plastic one because I think plastic isn’t environmentally friendly. I see. What’s your budget range? No more than $50. Okay. Do you prefer one with or without a handle? I think a cutting board with a handle is easier to use. So I’ll take one with a handle. Then, which size do you want? You have two models left. Hmm. A small-sized cutting board isn’t convenient when I cut vegetables. I’ll buy the other model. Great. Then this is the cutting board for you.",
+  "words": 126,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2019",
+  "no": 13,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "W",
+    "text": "Honey, what did the doctor say about your neck?"
+   },
+   {
+    "who": "M",
+    "text": "She said that it’s not too bad. I just need to take these pills and get enough rest."
+   },
+   {
+    "who": "W",
+    "text": "I’m relieved that it’s not so serious."
+   },
+   {
+    "who": "M",
+    "text": "But there’s a problem. The doctor said I shouldn’t drive after taking the medicine. It can make me very sleepy."
+   },
+   {
+    "who": "W",
+    "text": "Oh, no. What about your business trip on Monday?"
+   },
+   {
+    "who": "M",
+    "text": "Exactly. I’m supposed to drive my team members since I know the area."
+   },
+   {
+    "who": "W",
+    "text": "You cannot drive. It would be very dangerous."
+   },
+   {
+    "who": "M",
+    "text": "Maybe I’ll skip the medicine before I drive."
+   },
+   {
+    "who": "W",
+    "text": "Wouldn’t it delay your recovery and even make your neck pain worse?"
+   },
+   {
+    "who": "M",
+    "text": "Yeah. I do need to take the medicine regularly."
+   },
+   {
+    "who": "W",
+    "text": "Then one solution would be to see if somebody else in your team can drive instead of you."
+   }
+  ],
+  "script": "[3점] Honey, what did the doctor say about your neck? She said that it’s not too bad. I just need to take these pills and get enough rest. I’m relieved that it’s not so serious. But there’s a problem. The doctor said I shouldn’t drive after taking the medicine. It can make me very sleepy. Oh, no. What about your business trip on Monday? Exactly. I’m supposed to drive my team members since I know the area. You cannot drive. It would be very dangerous. Maybe I’ll skip the medicine before I drive. Wouldn’t it delay your recovery and even make your neck pain worse? Yeah. I do need to take the medicine regularly. Then one solution would be to see if somebody else in your team can drive instead of you.",
+  "words": 131,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2019",
+  "no": 14,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hey, Jessica. You got here early."
+   },
+   {
+    "who": "W",
+    "text": "You too, Mike. What are you reading?"
+   },
+   {
+    "who": "M",
+    "text": "I’m reading a magazine article about the musical Spring Empire."
+   },
+   {
+    "who": "W",
+    "text": "Oh, Spring Empire? I’m going to see it next week. What does the article say?"
+   },
+   {
+    "who": "M",
+    "text": "It mentions that the leading actors are geniuses and that the musical is going to be so popular."
+   },
+   {
+    "who": "W",
+    "text": "Wow, I really can’t wait to see it."
+   },
+   {
+    "who": "M",
+    "text": "Actually, I’ve seen it already. Since you haven’t watched the musical, I recommend you read the original novel first."
+   },
+   {
+    "who": "W",
+    "text": "Why do you say that?"
+   },
+   {
+    "who": "M",
+    "text": "The storyline is complicated. In my case, reading the novel first helped me fully understand and better enjoy the musical."
+   },
+   {
+    "who": "W",
+    "text": "Then, I need to get a copy of the book."
+   },
+   {
+    "who": "M",
+    "text": "I have one. I can lend it to you if you want."
+   }
+  ],
+  "script": "Hey, Jessica. You got here early. You too, Mike. What are you reading? I’m reading a magazine article about the musical Spring Empire. Oh, Spring Empire? I’m going to see it next week. What does the article say? It mentions that the leading actors are geniuses and that the musical is going to be so popular. Wow, I really can’t wait to see it. Actually, I’ve seen it already. Since you haven’t watched the musical, I recommend you read the original novel first. Why do you say that? The storyline is complicated. In my case, reading the novel first helped me fully understand and better enjoy the musical. Then, I need to get a copy of the book. I have one. I can lend it to you if you want.",
+  "words": 130,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2019",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Steve가 Cathy에게 할 말로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "M",
+    "text": "Cathy is starting high school and is looking to join a club. She’s interested in translation and has volunteered as a translator before. So she’s happy when she finds a translation club at her school. To enter the club, she must write a self-introduction letter. However, she’s not satisfied with the letter she wrote. She remembers that her older brother Steve has lots of experience writing self-introduction letters. Cathy asks him for advice about her self-introduction letter. Steve thinks the letter doesn’t focus enough on what she did as a volunteer translator. So Steve wants to suggest to Cathy that she emphasize her volunteer work related to translation. In this situation, what would Steve most likely say to Cathy? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "[3점] Cathy is starting high school and is looking to join a club. She’s interested in translation and has volunteered as a translator before. So she’s happy when she finds a translation club at her school. To enter the club, she must write a self-introduction letter. However, she’s not satisfied with the letter she wrote. She remembers that her older brother Steve has lots of experience writing self-introduction letters. Cathy asks him for advice about her self-introduction letter. Steve thinks the letter doesn’t focus enough on what she did as a volunteer translator. So Steve wants to suggest to Cathy that she emphasize her volunteer work related to translation. In this situation, what would Steve most likely say to Cathy? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 119,
+  "nTurns": 2,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2019",
+  "no": 16,
+  "stem": "여자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. Previously, we discussed traditional foods in different countries. Today, I’ll talk about surprising birthplaces of everyday foods. First, people believe the Caesar salad is named after a Roman emperor. But a well-known story is that the name came from a chef in Mexico. He created it by putting together some basic ingredients when running out of food. Second, bagels are a famous New York food. But they’re likely from central Europe. A widely repeated story says that they were first made in Vienna to celebrate the defeat of an invading army. Third, many people think kiwis are from New Zealand. It’s probably because a small flightless bird from New Zealand has the same name. In fact, the food is from China. Last, if there’s any country known for potatoes, it’s Ireland. That’s because crop failures of this food caused extreme hunger in Ireland in the 19th century. However, the food is believed to come from South America. Now, we’ll watch a short video about these foods."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. Previously, we discussed traditional foods in different countries. Today, I’ll talk about surprising birthplaces of everyday foods. First, people believe the Caesar salad is named after a Roman emperor. But a well-known story is that the name came from a chef in Mexico. He created it by putting together some basic ingredients when running out of food. Second, bagels are a famous New York food. But they’re likely from central Europe. A widely repeated story says that they were first made in Vienna to celebrate the defeat of an invading army. Third, many people think kiwis are from New Zealand. It’s probably because a small flightless bird from New Zealand has the same name. In fact, the food is from China. Last, if there’s any country known for potatoes, it’s Ireland. That’s because crop failures of this food caused extreme hunger in Ireland in the 19th century. However, the food is believed to come from South America. Now, we’ll watch a short video about these foods.",
+  "words": 168,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2019",
+  "no": 17,
+  "stem": "언급된 음식이 아닌 것은?",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, students. Previously, we discussed traditional foods in different countries. Today, I’ll talk about surprising birthplaces of everyday foods. First, people believe the Caesar salad is named after a Roman emperor. But a well-known story is that the name came from a chef in Mexico. He created it by putting together some basic ingredients when running out of food. Second, bagels are a famous New York food. But they’re likely from central Europe. A widely repeated story says that they were first made in Vienna to celebrate the defeat of an invading army. Third, many people think kiwis are from New Zealand. It’s probably because a small flightless bird from New Zealand has the same name. In fact, the food is from China. Last, if there’s any country known for potatoes, it’s Ireland. That’s because crop failures of this food caused extreme hunger in Ireland in the 19th century. However, the food is believed to come from South America. Now, we’ll watch a short video about these foods."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. Previously, we discussed traditional foods in different countries. Today, I’ll talk about surprising birthplaces of everyday foods. First, people believe the Caesar salad is named after a Roman emperor. But a well-known story is that the name came from a chef in Mexico. He created it by putting together some basic ingredients when running out of food. Second, bagels are a famous New York food. But they’re likely from central Europe. A widely repeated story says that they were first made in Vienna to celebrate the defeat of an invading army. Third, many people think kiwis are from New Zealand. It’s probably because a small flightless bird from New Zealand has the same name. In fact, the food is from China. Last, if there’s any country known for potatoes, it’s Ireland. That’s because crop failures of this food caused extreme hunger in Ireland in the 19th century. However, the food is believed to come from South America. Now, we’ll watch a short video about these foods.",
+  "words": 168,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ }
+]

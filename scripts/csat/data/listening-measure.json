@@ -1,0 +1,779 @@
+{
+ "perNo": {
+  "1": {
+   "type": "L-PURPOSE",
+   "n": 7,
+   "words": 43,
+   "turns": 3
+  },
+  "2": {
+   "type": "L-OPINION",
+   "n": 7,
+   "words": 51,
+   "turns": 3
+  },
+  "3": {
+   "type": "L-RELATION",
+   "n": 7,
+   "words": 119,
+   "turns": 1
+  },
+  "4": {
+   "type": "L-PICTURE",
+   "n": 7,
+   "words": 127,
+   "turns": 12
+  },
+  "5": {
+   "type": "L-TODO",
+   "n": 7,
+   "words": 135,
+   "turns": 12
+  },
+  "6": {
+   "type": "L-MONEY",
+   "n": 7,
+   "words": 135,
+   "turns": 12
+  },
+  "7": {
+   "type": "L-REASON",
+   "n": 7,
+   "words": 120,
+   "turns": 11
+  },
+  "8": {
+   "type": "L-NOTMENTION",
+   "n": 7,
+   "words": 126,
+   "turns": 13
+  },
+  "9": {
+   "type": "L-ANNOUNCE",
+   "n": 7,
+   "words": 123,
+   "turns": 11
+  },
+  "10": {
+   "type": "L-TABLE",
+   "n": 7,
+   "words": 127,
+   "turns": 12
+  },
+  "11": {
+   "type": "L-RESPONSE",
+   "n": 7,
+   "words": 113,
+   "turns": 2
+  },
+  "12": {
+   "type": "L-RESPONSE",
+   "n": 7,
+   "words": 117,
+   "turns": 11
+  },
+  "13": {
+   "type": "L-RESPONSE",
+   "n": 7,
+   "words": 129,
+   "turns": 13
+  },
+  "14": {
+   "type": "L-RESPONSE",
+   "n": 7,
+   "words": 132,
+   "turns": 12
+  },
+  "15": {
+   "type": "L-SITUATION",
+   "n": 7,
+   "words": 120,
+   "turns": 2
+  },
+  "16": {
+   "type": "L-SET-TOPIC",
+   "n": 7,
+   "words": 162,
+   "turns": 1
+  },
+  "17": {
+   "type": "L-SET-NOT",
+   "n": 7,
+   "words": 162,
+   "turns": 1
+  }
+ },
+ "lisPerExam": 2063,
+ "order": {
+  "n": 10,
+  "mono": 9,
+  "pairs": 30,
+  "conc": 29,
+  "rows": [
+   {
+    "exam": "2023",
+    "no": 8,
+    "stem": "대화를 듣고, 졸업 사진 촬영에 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "?",
+      "text": "[Telephone rings.]"
+     },
+     {
+      "who": "W",
+      "text": "Hello, Jennifer Porter speaking."
+     },
+     {
+      "who": "M",
+      "text": "Hi, Ms. Porter. This is Steve Jackson from Lifetime Photo Studio."
+     },
+     {
+      "who": "W",
+      "text": "Oh, how are you?"
+     },
+     {
+      "who": "M",
+      "text": "Good. I’m scheduled to shoot your school’s graduation photos on Wednesday, November 23rd. So, I’m calling to confirm the details."
+     },
+     {
+      "who": "W",
+      "text": "Sure. As we previously discussed, the place will be Lily Pond Park."
+     },
+     {
+      "who": "M",
+      "text": "Okay. Could you tell me the exact number of students taking part in the photo session?"
+     },
+     {
+      "who": "W",
+      "text": "Let me check. [Pause] Well, it’ll be 180 students."
+     },
+     {
+      "who": "M",
+      "text": "I see. The same as you said before."
+     },
+     {
+      "who": "W",
+      "text": "That’s right. How long will it take to shoot the photos?"
+     },
+     {
+      "who": "M",
+      "text": "It’ll take almost three hours. We should finish by noon."
+     },
+     {
+      "who": "W",
+      "text": "Great. Is there any other information you need?"
+     },
+     {
+      "who": "M",
+      "text": "No, I’m all set. Bye."
+     }
+    ],
+    "script": "[Telephone rings.] Hello, Jennifer Porter speaking. Hi, Ms. Porter. This is Steve Jackson from Lifetime Photo Studio. Oh, how are you? Good. I’m scheduled to shoot your school’s graduation photos on Wednesday, November 23rd. So, I’m calling to confirm the details. Sure. As we previously discussed, the place will be Lily Pond Park. Okay. Could you tell me the exact number of students taking part in the photo session? Let me check. [Pause] Well, it’ll be 180 students. I see. The same as you said before. That’s right. How long will it take to shoot the photos? It’ll take almost three hours. We should finish by noon. Great. Is there any other information you need? No, I’m all set. Bye.",
+    "words": 119,
+    "nTurns": 13,
+    "speakers": [
+     "W",
+     "M"
+    ],
+    "isDialogue": true,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2023",
+    "no": 9,
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "닻 1개"
+   },
+   {
+    "exam": "2023",
+    "no": 10,
+    "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 첼로 케이스를 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Welcome to Uptown Music Shop. How can I help you?"
+     },
+     {
+      "who": "W",
+      "text": "Hi, I’m looking for a hard cello case."
+     },
+     {
+      "who": "M",
+      "text": "All right. Here’s our catalog. These are the ones we have in stock. How much are you willing to spend?"
+     },
+     {
+      "who": "W",
+      "text": "I can spend up to $200."
+     },
+     {
+      "who": "M",
+      "text": "Okay. How about the interior material? Do you have a preference?"
+     },
+     {
+      "who": "W",
+      "text": "Well, I don’t want the velvet one. It seems difficult to take care of."
+     },
+     {
+      "who": "M",
+      "text": "Right. Then how about the length?"
+     },
+     {
+      "who": "W",
+      "text": "I have a full-size cello, so I want a case that’s at least 50 inches long."
+     },
+     {
+      "who": "M",
+      "text": "Now you have two options left. Do you need wheels on your case?"
+     },
+     {
+      "who": "W",
+      "text": "No, I don’t need them. I won’t carry it around a lot."
+     },
+     {
+      "who": "M",
+      "text": "Then this is the one for you."
+     },
+     {
+      "who": "W",
+      "text": "Thank you. I’ll take it."
+     }
+    ],
+    "script": "Welcome to Uptown Music Shop. How can I help you? Hi, I’m looking for a hard cello case. All right. Here’s our catalog. These are the ones we have in stock. How much are you willing to spend? I can spend up to $200. Okay. How about the interior material? Do you have a preference? Well, I don’t want the velvet one. It seems difficult to take care of. Right. Then how about the length? I have a full-size cello, so I want a case that’s at least 50 inches long. Now you have two options left. Do you need wheels on your case? No, I don’t need them. I won’t carry it around a lot. Then this is the one for you. Thank you. I’ll take it.",
+    "words": 126,
+    "nTurns": 12,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2023",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     31,
+     65,
+     96,
+     124,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2017",
+    "no": 10,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2017",
+    "no": 11,
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2017",
+    "no": 12,
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2017",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     49,
+     80,
+     109,
+     null,
+     146
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2018",
+    "no": 10,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2018",
+    "no": 11,
+    "type": "L-ANNOUNCE",
+    "ok": true,
+    "pos": [
+     34,
+     null,
+     64,
+     84,
+     null
+    ],
+    "pairs": 2,
+    "conc": 2,
+    "mono": true
+   },
+   {
+    "exam": "2018",
+    "no": 12,
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "닻 2개"
+   },
+   {
+    "exam": "2018",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     41,
+     67,
+     93,
+     119,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2019",
+    "no": 10,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2019",
+    "no": 11,
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2019",
+    "no": 12,
+    "type": "L-TABLE",
+    "ok": true,
+    "pos": [
+     34,
+     34,
+     36,
+     36,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2019",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     23,
+     60,
+     97,
+     130,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2020",
+    "no": 10,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "닻 0개"
+   },
+   {
+    "exam": "2020",
+    "no": 11,
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "닻 2개"
+   },
+   {
+    "exam": "2020",
+    "no": 12,
+    "type": "L-TABLE",
+    "ok": true,
+    "pos": [
+     95,
+     115,
+     95,
+     95,
+     118
+    ],
+    "pairs": 4,
+    "conc": 3,
+    "mono": false
+   },
+   {
+    "exam": "2020",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     23,
+     52,
+     null,
+     93,
+     121
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2021",
+    "no": 8,
+    "stem": "대화를 듣고, Bradford Museum of Failure에 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Hey, Kelly. Have you been to the Bradford Museum of Failure?"
+     },
+     {
+      "who": "W",
+      "text": "I’ve never even heard of it."
+     },
+     {
+      "who": "M",
+      "text": "Well, I went there yesterday and it was amazing."
+     },
+     {
+      "who": "W",
+      "text": "What does the museum exhibit?"
+     },
+     {
+      "who": "M",
+      "text": "It exhibits numerous failed products from the world’s best-known companies."
+     },
+     {
+      "who": "W",
+      "text": "Interesting. That makes me curious about the purpose of founding the museum."
+     },
+     {
+      "who": "M",
+      "text": "It was founded to deliver the message that we need to admit our failures to truly succeed."
+     },
+     {
+      "who": "W",
+      "text": "That’s quite a message, and it makes a lot of sense. Did it just open?"
+     },
+     {
+      "who": "M",
+      "text": "No, it opened in 2001."
+     },
+     {
+      "who": "W",
+      "text": "How come I’ve never heard of it?"
+     },
+     {
+      "who": "M",
+      "text": "I guess many people don’t know about it. But visiting the museum was an eye-opening experience."
+     },
+     {
+      "who": "W",
+      "text": "Where is it?"
+     },
+     {
+      "who": "M",
+      "text": "It’s located in Greenfalls, Hillside."
+     },
+     {
+      "who": "W",
+      "text": "That’s not too far from here. I’ll be sure to visit it."
+     }
+    ],
+    "script": "Hey, Kelly. Have you been to the Bradford Museum of Failure? I’ve never even heard of it. Well, I went there yesterday and it was amazing. What does the museum exhibit? It exhibits numerous failed products from the world’s best-known companies. Interesting. That makes me curious about the purpose of founding the museum. It was founded to deliver the message that we need to admit our failures to truly succeed. That’s quite a message, and it makes a lot of sense. Did it just open? No, it opened in 2001. How come I’ve never heard of it? I guess many people don’t know about it. But visiting the museum was an eye-opening experience. Where is it? It’s located in Greenfalls, Hillside. That’s not too far from here. I’ll be sure to visit it.",
+    "words": 132,
+    "nTurns": 14,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2021",
+    "no": 9,
+    "stem": "National Baking Competition에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Hello, listeners. I’m Carla Jones from the National Baking Association. I’m glad to announce that we’re hosting the National Baking Competition on December 20th. It’s an annual event aimed to discover people with a talent and passion for baking. This year, the theme of the competition is “healthy desserts.” We had the most applicants in the history of this competition, and only 10 participants will advance to the final round. The top three will win the grand prize of $10,000 each, and the recipes of the winners will appear in our magazine. You can enjoy watching the entire competition from home. It’ll be broadcast live on our website starting from 9 a.m. If you’re a food lover, you won’t want to miss watching this event."
+     }
+    ],
+    "script": "Hello, listeners. I’m Carla Jones from the National Baking Association. I’m glad to announce that we’re hosting the National Baking Competition on December 20th. It’s an annual event aimed to discover people with a talent and passion for baking. This year, the theme of the competition is “healthy desserts.” We had the most applicants in the history of this competition, and only 10 participants will advance to the final round. The top three will win the grand prize of $10,000 each, and the recipes of the winners will appear in our magazine. You can enjoy watching the entire competition from home. It’ll be broadcast live on our website starting from 9 a.m. If you’re a food lover, you won’t want to miss watching this event.",
+    "words": 123,
+    "nTurns": 1,
+    "speakers": [
+     "W"
+    ],
+    "isDialogue": false,
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2021",
+    "no": 10,
+    "stem": "다음 표를 보면서 대화를 듣고, 여자가 주문할 재사용 빨대 세트를 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Hi, Nicole. What are you doing?"
+     },
+     {
+      "who": "W",
+      "text": "Hi, Jack. I’m trying to buy a reusable straw set on the Internet. Do you want to see?"
+     },
+     {
+      "who": "M",
+      "text": "Sure. [Pause] These bamboo ones seem good. They’re made from natural materials."
+     },
+     {
+      "who": "W",
+      "text": "That’s true, but I’m worried they may not dry quickly."
+     },
+     {
+      "who": "M",
+      "text": "Okay. Then let’s look at straws made from other materials. How much are you willing to spend on a set of straws?"
+     },
+     {
+      "who": "W",
+      "text": "I don’t want to spend more than $10."
+     },
+     {
+      "who": "M",
+      "text": "That’s reasonable. How about length?"
+     },
+     {
+      "who": "W",
+      "text": "To use with my tumbler, eight or nine inches should be perfect."
+     },
+     {
+      "who": "M",
+      "text": "Then you’re down to these two. A carrying case would be very useful when going out."
+     },
+     {
+      "who": "W",
+      "text": "Good point. I’ll take your recommendation and order this set now."
+     }
+    ],
+    "script": "Hi, Nicole. What are you doing? Hi, Jack. I’m trying to buy a reusable straw set on the Internet. Do you want to see? Sure. [Pause] These bamboo ones seem good. They’re made from natural materials. That’s true, but I’m worried they may not dry quickly. Okay. Then let’s look at straws made from other materials. How much are you willing to spend on a set of straws? I don’t want to spend more than $10. That’s reasonable. How about length? To use with my tumbler, eight or nine inches should be perfect. Then you’re down to these two. A carrying case would be very useful when going out. Good point. I’ll take your recommendation and order this set now.",
+    "words": 119,
+    "nTurns": 10,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2021",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     31,
+     67,
+     91,
+     124,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   },
+   {
+    "exam": "2022",
+    "no": 8,
+    "stem": "대화를 듣고, Little Readers’ Class에 관해 언급되지 않은 것을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Christine, I heard your daughter Jennifer loves reading. Unfortunately, my daughter doesn’t."
+     },
+     {
+      "who": "W",
+      "text": "Actually, Jennifer didn’t enjoy reading until she took the Little Readers’ Class. It provides various fun reading activities."
+     },
+     {
+      "who": "M",
+      "text": "Really? It might be good for my daughter, too. Where’s it held?"
+     },
+     {
+      "who": "W",
+      "text": "It’s held at the Stonefield Library. I have a picture of the flyer somewhere in my phone. [Pause] Here."
+     },
+     {
+      "who": "M",
+      "text": "Oh. The class is from 4 p.m. to 5 p.m. every Monday."
+     },
+     {
+      "who": "W",
+      "text": "Is that time okay for her?"
+     },
+     {
+      "who": "M",
+      "text": "Yeah, she’s free on Monday afternoons."
+     },
+     {
+      "who": "W",
+      "text": "Great. The class is for children ages seven to nine. Your daughter is eight years old, right?"
+     },
+     {
+      "who": "M",
+      "text": "Yes, she can take it. So, to register, I should send an email to the address on the flyer."
+     },
+     {
+      "who": "W",
+      "text": "That’s right. I hope the class gets your daughter into reading."
+     }
+    ],
+    "script": "Christine, I heard your daughter Jennifer loves reading. Unfortunately, my daughter doesn’t. Actually, Jennifer didn’t enjoy reading until she took the Little Readers’ Class. It provides various fun reading activities. Really? It might be good for my daughter, too. Where’s it held? It’s held at the Stonefield Library. I have a picture of the flyer somewhere in my phone. [Pause] Here. Oh. The class is from 4 p.m. to 5 p.m. every Monday. Is that time okay for her? Yeah, she’s free on Monday afternoons. Great. The class is for children ages seven to nine. Your daughter is eight years old, right? Yes, she can take it. So, to register, I should send an email to the address on the flyer. That’s right. I hope the class gets your daughter into reading.",
+    "words": 132,
+    "nTurns": 10,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "type": "L-NOTMENTION",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2022",
+    "no": 9,
+    "stem": "2021 Family Science Festival에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Hello, WBPR listeners. Are you looking for a chance to enjoy quality family time? Then, we invite you to the 2021 Family Science Festival. It starts on December 7th and runs for one week at the Bermont Science Museum located near City Hall. Eight programs will be offered for parents and children to enjoy together, including robot building and VR simulations. We’ll also give out a children’s science magazine for free. This event is open to anyone, but remember that all children under age 11 must be accompanied by an adult. There’s no admission fee, but to participate, you must register in advance. Come and learn about the exciting world of science with your family. For more information, visit our website, www.wbpr.com."
+     }
+    ],
+    "script": "Hello, WBPR listeners. Are you looking for a chance to enjoy quality family time? Then, we invite you to the 2021 Family Science Festival. It starts on December 7th and runs for one week at the Bermont Science Museum located near City Hall. Eight programs will be offered for parents and children to enjoy together, including robot building and VR simulations. We’ll also give out a children’s science magazine for free. This event is open to anyone, but remember that all children under age 11 must be accompanied by an adult. There’s no admission fee, but to participate, you must register in advance. Come and learn about the exciting world of science with your family. For more information, visit our website, www.wbpr.com.",
+    "words": 122,
+    "nTurns": 1,
+    "speakers": [
+     "M"
+    ],
+    "isDialogue": false,
+    "type": "L-ANNOUNCE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2022",
+    "no": 10,
+    "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 예약할 스터디 룸을 고르시오.",
+    "turns": [
+     {
+      "who": "M",
+      "text": "Megan, did you reserve a study room for our group project meeting tomorrow?"
+     },
+     {
+      "who": "W",
+      "text": "I’m looking at a website to book a room. Let’s book it together."
+     },
+     {
+      "who": "M",
+      "text": "Sure. [Pause] Oh, only these rooms are available."
+     },
+     {
+      "who": "W",
+      "text": "Yeah. Hmm, this one is too small for us."
+     },
+     {
+      "who": "M",
+      "text": "Right. We need a room big enough to accommodate six of us."
+     },
+     {
+      "who": "W",
+      "text": "Okay. Now, let’s look at the times. We all agreed to meet after 1 p.m., right?"
+     },
+     {
+      "who": "M",
+      "text": "Yes. Then let’s skip this one."
+     },
+     {
+      "who": "W",
+      "text": "How much can we spend on the study room?"
+     },
+     {
+      "who": "M",
+      "text": "Since we’re meeting for two hours, I don’t think we can spend more than $20 per hour. It’s beyond our budget."
+     },
+     {
+      "who": "W",
+      "text": "Then, there are two options left. Should we choose a study room with a projector?"
+     },
+     {
+      "who": "M",
+      "text": "Absolutely. We’ll need it to practice for our presentation."
+     },
+     {
+      "who": "W",
+      "text": "Then let’s reserve this one."
+     }
+    ],
+    "script": "Megan, did you reserve a study room for our group project meeting tomorrow? I’m looking at a website to book a room. Let’s book it together. Sure. [Pause] Oh, only these rooms are available. Yeah. Hmm, this one is too small for us. Right. We need a room big enough to accommodate six of us. Okay. Now, let’s look at the times. We all agreed to meet after 1 p.m., right? Yes. Then let’s skip this one. How much can we spend on the study room? Since we’re meeting for two hours, I don’t think we can spend more than $20 per hour. It’s beyond our budget. Then, there are two options left. Should we choose a study room with a projector? Absolutely. We’ll need it to practice for our presentation. Then let’s reserve this one.",
+    "words": 135,
+    "nTurns": 12,
+    "speakers": [
+     "M",
+     "W"
+    ],
+    "isDialogue": true,
+    "type": "L-TABLE",
+    "ok": false,
+    "why": "선택지 없음"
+   },
+   {
+    "exam": "2022",
+    "no": 17,
+    "type": "L-SET-NOT",
+    "ok": true,
+    "pos": [
+     32,
+     58,
+     86,
+     119,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
+   }
+  ]
+ }
+}

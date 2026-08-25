@@ -1,0 +1,786 @@
+[
+ {
+  "exam": "2021",
+  "no": 1,
+  "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, viewers. Thank you for clicking on this video. I’m Ronnie Drain, and I’ve been a personal fitness trainer for over 15 years. Today, I’d like to tell you about my channel, Build Your Body. On my channel, you can watch videos showing you how to do a variety of exercises that you can do at home or at your office. If you’ve experienced difficulty exercising regularly, my videos can provide easy guidelines and useful resources on exercise routines. New videos will be uploaded every Friday. Visit my channel and build a stronger, healthier body."
+   }
+  ],
+  "script": "Hello, viewers. Thank you for clicking on this video. I’m Ronnie Drain, and I’ve been a personal fitness trainer for over 15 years. Today, I’d like to tell you about my channel, Build Your Body. On my channel, you can watch videos showing you how to do a variety of exercises that you can do at home or at your office. If you’ve experienced difficulty exercising regularly, my videos can provide easy guidelines and useful resources on exercise routines. New videos will be uploaded every Friday. Visit my channel and build a stronger, healthier body.",
+  "words": 94,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2021",
+  "no": 2,
+  "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Good morning, Chris."
+   },
+   {
+    "who": "M",
+    "text": "Good morning, Julie. How was your weekend?"
+   },
+   {
+    "who": "W",
+    "text": "It was wonderful. I went to an event called Stargazing Night with my 7-year-old son."
+   },
+   {
+    "who": "M",
+    "text": "Oh, so you went outdoors to look up at stars. Your son must have had a great time."
+   },
+   {
+    "who": "W",
+    "text": "Yes. And I think it helped my son become familiar with mathematical concepts."
+   },
+   {
+    "who": "M",
+    "text": "Interesting! How does it do that?"
+   },
+   {
+    "who": "W",
+    "text": "By counting the stars together, my son had a chance to practice counting to high numbers."
+   },
+   {
+    "who": "M",
+    "text": "Ah, that makes sense."
+   },
+   {
+    "who": "W",
+    "text": "Also, he enjoyed identifying shapes and tracing patterns that stars form together."
+   },
+   {
+    "who": "M",
+    "text": "Sounds like you had a magical and mathematical night!"
+   },
+   {
+    "who": "W",
+    "text": "Absolutely. I think looking at stars is a good way for kids to get used to mathematical concepts."
+   },
+   {
+    "who": "M",
+    "text": "Maybe I should take my daughter to the event next time."
+   }
+  ],
+  "script": "Good morning, Chris. Good morning, Julie. How was your weekend? It was wonderful. I went to an event called Stargazing Night with my 7-year-old son. Oh, so you went outdoors to look up at stars. Your son must have had a great time. Yes. And I think it helped my son become familiar with mathematical concepts. Interesting! How does it do that? By counting the stars together, my son had a chance to practice counting to high numbers. Ah, that makes sense. Also, he enjoyed identifying shapes and tracing patterns that stars form together. Sounds like you had a magical and mathematical night! Absolutely. I think looking at stars is a good way for kids to get used to mathematical concepts. Maybe I should take my daughter to the event next time.",
+  "words": 132,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2021",
+  "no": 3,
+  "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, Ms. Watson. Thank you for accepting my interview request."
+   },
+   {
+    "who": "W",
+    "text": "My pleasure. You must be Michael from Windmore High School."
+   },
+   {
+    "who": "M",
+    "text": "Yes. I’m honored to interview the person who designed the school I’m attending."
+   },
+   {
+    "who": "W",
+    "text": "Thank you. I’m very proud of that design."
+   },
+   {
+    "who": "M",
+    "text": "What was the concept behind it?"
+   },
+   {
+    "who": "W",
+    "text": "When planning the design of the school building, I wanted to incorporate elements of nature into it."
+   },
+   {
+    "who": "M",
+    "text": "I see. Did you apply this concept in any other building designs?"
+   },
+   {
+    "who": "W",
+    "text": "Yes. Skyforest Tower. My design included mini gardens for each floor and a roof-top garden, making the building look like a rising forest."
+   },
+   {
+    "who": "M",
+    "text": "That’s impressive. Actually, my art teacher is taking us on a field trip there next week."
+   },
+   {
+    "who": "W",
+    "text": "Really? Make sure to visit the observation deck on the 32nd floor. The view is spectacular."
+   },
+   {
+    "who": "M",
+    "text": "Thanks. I’ll check it out with my classmates."
+   }
+  ],
+  "script": "Hello, Ms. Watson. Thank you for accepting my interview request. My pleasure. You must be Michael from Windmore High School. Yes. I’m honored to interview the person who designed the school I’m attending. Thank you. I’m very proud of that design. What was the concept behind it? When planning the design of the school building, I wanted to incorporate elements of nature into it. I see. Did you apply this concept in any other building designs? Yes. Skyforest Tower. My design included mini gardens for each floor and a roof-top garden, making the building look like a rising forest. That’s impressive. Actually, my art teacher is taking us on a field trip there next week. Really? Make sure to visit the observation deck on the 32nd floor. The view is spectacular. Thanks. I’ll check it out with my classmates.",
+  "words": 139,
+  "nTurns": 11,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2021",
+  "no": 4,
+  "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Wow, Sam. You turned the student council room into a hot chocolate booth."
+   },
+   {
+    "who": "M",
+    "text": "Yes, Ms. Thompson. We’re ready to sell hot chocolate to raise money for children in need."
+   },
+   {
+    "who": "W",
+    "text": "Excellent. What are you going to put on the bulletin board under the clock?"
+   },
+   {
+    "who": "M",
+    "text": "I’ll post information letting people know where the profits will go."
+   },
+   {
+    "who": "W",
+    "text": "Good. I like the banner on the wall."
+   },
+   {
+    "who": "M",
+    "text": "Thanks. I designed it myself."
+   },
+   {
+    "who": "W",
+    "text": "Awesome. Oh, I’m glad you put my stripe-patterned tablecloth on the table."
+   },
+   {
+    "who": "M",
+    "text": "Thanks for letting us use it. Did you notice the snowman drawing that’s hanging on the tree?"
+   },
+   {
+    "who": "W",
+    "text": "Yeah. I remember it was drawn by the child you helped last year. By the way, there are three boxes on the floor. What are they for?"
+   },
+   {
+    "who": "M",
+    "text": "We’re going to fill those up with donations of toys and books."
+   },
+   {
+    "who": "W",
+    "text": "Sounds great. Good luck."
+   }
+  ],
+  "script": "Wow, Sam. You turned the student council room into a hot chocolate booth. Yes, Ms. Thompson. We’re ready to sell hot chocolate to raise money for children in need. Excellent. What are you going to put on the bulletin board under the clock? I’ll post information letting people know where the profits will go. Good. I like the banner on the wall. Thanks. I designed it myself. Awesome. Oh, I’m glad you put my stripe-patterned tablecloth on the table. Thanks for letting us use it. Did you notice the snowman drawing that’s hanging on the tree? Yeah. I remember it was drawn by the child you helped last year. By the way, there are three boxes on the floor. What are they for? We’re going to fill those up with donations of toys and books. Sounds great. Good luck.",
+  "words": 139,
+  "nTurns": 11,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2021",
+  "no": 5,
+  "stem": "대화를 듣고, 남자가 여자를 위해 할 일로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hi, Mary. You look worried. What’s the matter?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, Steve. Remember the report about wildflowers I’ve been working on?"
+   },
+   {
+    "who": "M",
+    "text": "Of course. That’s for your biology class, right?"
+   },
+   {
+    "who": "W",
+    "text": "Yeah. I was able to get pictures of all the wildflowers in my report except for daisies."
+   },
+   {
+    "who": "M",
+    "text": "I see. Can’t you submit your report without pictures of daisies?"
+   },
+   {
+    "who": "W",
+    "text": "No. I really need them. I even tried to take pictures of daisies myself, but I found out that they usually bloom from spring to fall."
+   },
+   {
+    "who": "M",
+    "text": "You know what? This spring, I went hiking with my dad and took some pictures of wildflowers."
+   },
+   {
+    "who": "W",
+    "text": "Do you have them on your phone? Can I see them?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. Have a look."
+   },
+   {
+    "who": "W",
+    "text": "Oh, the flowers in the pictures are daisies! These will be great for my report."
+   },
+   {
+    "who": "M",
+    "text": "Really? Then I’ll send them to you."
+   },
+   {
+    "who": "W",
+    "text": "Thanks. That would be very helpful."
+   }
+  ],
+  "script": "Hi, Mary. You look worried. What’s the matter? Hi, Steve. Remember the report about wildflowers I’ve been working on? Of course. That’s for your biology class, right? Yeah. I was able to get pictures of all the wildflowers in my report except for daisies. I see. Can’t you submit your report without pictures of daisies? No. I really need them. I even tried to take pictures of daisies myself, but I found out that they usually bloom from spring to fall. You know what? This spring, I went hiking with my dad and took some pictures of wildflowers. Do you have them on your phone? Can I see them? Sure. Have a look. Oh, the flowers in the pictures are daisies! These will be great for my report. Really? Then I’ll send them to you. Thanks. That would be very helpful.",
+  "words": 141,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2021",
+  "no": 6,
+  "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Welcome to the Chestfield Hotel. How may I help you?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, I’m Alice Milford. I made a reservation for me and my husband."
+   },
+   {
+    "who": "M",
+    "text": "[Typing sound] Here it is. You reserved one room for one night at the regular rate of $100."
+   },
+   {
+    "who": "W",
+    "text": "Can I use this 10% discount coupon?"
+   },
+   {
+    "who": "M",
+    "text": "Sure, you can."
+   },
+   {
+    "who": "W",
+    "text": "Fantastic. And is it possible to stay one more night?"
+   },
+   {
+    "who": "M",
+    "text": "Let me check. [Mouse clicking sound] Yes, the same room is available for tomorrow."
+   },
+   {
+    "who": "W",
+    "text": "Good. Do I get a discount for the second night, too?"
+   },
+   {
+    "who": "M",
+    "text": "Sorry. The coupon doesn’t apply to the second night. It’ll be $100. Do you still want to stay an extra night?"
+   },
+   {
+    "who": "W",
+    "text": "Yes, I do."
+   },
+   {
+    "who": "M",
+    "text": "Great. Will you and your husband have breakfast? It’s $10 per person for each day."
+   },
+   {
+    "who": "W",
+    "text": "No thanks. We’ll be going out early to go shopping. Here’s my credit card."
+   }
+  ],
+  "script": "Welcome to the Chestfield Hotel. How may I help you? Hi, I’m Alice Milford. I made a reservation for me and my husband. [Typing sound] Here it is. You reserved one room for one night at the regular rate of $100. Can I use this 10% discount coupon? Sure, you can. Fantastic. And is it possible to stay one more night? Let me check. [Mouse clicking sound] Yes, the same room is available for tomorrow. Good. Do I get a discount for the second night, too? Sorry. The coupon doesn’t apply to the second night. It’ll be $100. Do you still want to stay an extra night? Yes, I do. Great. Will you and your husband have breakfast? It’s $10 per person for each day. No thanks. We’ll be going out early to go shopping. Here’s my credit card.",
+  "words": 135,
+  "nTurns": 12,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2021",
+  "no": 7,
+  "stem": "대화를 듣고, 남자가 텐트를 반품하려는 이유를 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Honey, I’m home."
+   },
+   {
+    "who": "M",
+    "text": "How was your day?"
+   },
+   {
+    "who": "W",
+    "text": "Alright. Hey, did you order something? There’s a large box outside the door."
+   },
+   {
+    "who": "M",
+    "text": "It’s the tent we bought online for our camping trip. I’m returning it."
+   },
+   {
+    "who": "W",
+    "text": "Is it because of the size? I remember you said it might be a little small to fit all of us."
+   },
+   {
+    "who": "M",
+    "text": "Actually, when I set up the tent, it seemed big enough to hold us all."
+   },
+   {
+    "who": "W",
+    "text": "Then, did you find a cheaper one on another website?"
+   },
+   {
+    "who": "M",
+    "text": "No, price is not the issue."
+   },
+   {
+    "who": "W",
+    "text": "Then, why are you returning the tent?"
+   },
+   {
+    "who": "M",
+    "text": "It’s too heavy to carry around. We usually have to walk a bit to get to the campsite."
+   },
+   {
+    "who": "W",
+    "text": "I see. Is someone coming to pick up the box?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. I already scheduled a pickup."
+   }
+  ],
+  "script": "Honey, I’m home. How was your day? Alright. Hey, did you order something? There’s a large box outside the door. It’s the tent we bought online for our camping trip. I’m returning it. Is it because of the size? I remember you said it might be a little small to fit all of us. Actually, when I set up the tent, it seemed big enough to hold us all. Then, did you find a cheaper one on another website? No, price is not the issue. Then, why are you returning the tent? It’s too heavy to carry around. We usually have to walk a bit to get to the campsite. I see. Is someone coming to pick up the box? Yes. I already scheduled a pickup.",
+  "words": 126,
+  "nTurns": 12,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2021",
+  "no": 8,
+  "stem": "대화를 듣고, Bradford Museum of Failure에 관해 언급되지 않은 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hey, Kelly. Have you been to the Bradford Museum of Failure?"
+   },
+   {
+    "who": "W",
+    "text": "I’ve never even heard of it."
+   },
+   {
+    "who": "M",
+    "text": "Well, I went there yesterday and it was amazing."
+   },
+   {
+    "who": "W",
+    "text": "What does the museum exhibit?"
+   },
+   {
+    "who": "M",
+    "text": "It exhibits numerous failed products from the world’s best-known companies."
+   },
+   {
+    "who": "W",
+    "text": "Interesting. That makes me curious about the purpose of founding the museum."
+   },
+   {
+    "who": "M",
+    "text": "It was founded to deliver the message that we need to admit our failures to truly succeed."
+   },
+   {
+    "who": "W",
+    "text": "That’s quite a message, and it makes a lot of sense. Did it just open?"
+   },
+   {
+    "who": "M",
+    "text": "No, it opened in 2001."
+   },
+   {
+    "who": "W",
+    "text": "How come I’ve never heard of it?"
+   },
+   {
+    "who": "M",
+    "text": "I guess many people don’t know about it. But visiting the museum was an eye-opening experience."
+   },
+   {
+    "who": "W",
+    "text": "Where is it?"
+   },
+   {
+    "who": "M",
+    "text": "It’s located in Greenfalls, Hillside."
+   },
+   {
+    "who": "W",
+    "text": "That’s not too far from here. I’ll be sure to visit it."
+   }
+  ],
+  "script": "Hey, Kelly. Have you been to the Bradford Museum of Failure? I’ve never even heard of it. Well, I went there yesterday and it was amazing. What does the museum exhibit? It exhibits numerous failed products from the world’s best-known companies. Interesting. That makes me curious about the purpose of founding the museum. It was founded to deliver the message that we need to admit our failures to truly succeed. That’s quite a message, and it makes a lot of sense. Did it just open? No, it opened in 2001. How come I’ve never heard of it? I guess many people don’t know about it. But visiting the museum was an eye-opening experience. Where is it? It’s located in Greenfalls, Hillside. That’s not too far from here. I’ll be sure to visit it.",
+  "words": 132,
+  "nTurns": 14,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2021",
+  "no": 9,
+  "stem": "National Baking Competition에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Hello, listeners. I’m Carla Jones from the National Baking Association. I’m glad to announce that we’re hosting the National Baking Competition on December 20th. It’s an annual event aimed to discover people with a talent and passion for baking. This year, the theme of the competition is “healthy desserts.” We had the most applicants in the history of this competition, and only 10 participants will advance to the final round. The top three will win the grand prize of $10,000 each, and the recipes of the winners will appear in our magazine. You can enjoy watching the entire competition from home. It’ll be broadcast live on our website starting from 9 a.m. If you’re a food lover, you won’t want to miss watching this event."
+   }
+  ],
+  "script": "Hello, listeners. I’m Carla Jones from the National Baking Association. I’m glad to announce that we’re hosting the National Baking Competition on December 20th. It’s an annual event aimed to discover people with a talent and passion for baking. This year, the theme of the competition is “healthy desserts.” We had the most applicants in the history of this competition, and only 10 participants will advance to the final round. The top three will win the grand prize of $10,000 each, and the recipes of the winners will appear in our magazine. You can enjoy watching the entire competition from home. It’ll be broadcast live on our website starting from 9 a.m. If you’re a food lover, you won’t want to miss watching this event.",
+  "words": 123,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2021",
+  "no": 10,
+  "stem": "다음 표를 보면서 대화를 듣고, 여자가 주문할 재사용 빨대 세트를 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hi, Nicole. What are you doing?"
+   },
+   {
+    "who": "W",
+    "text": "Hi, Jack. I’m trying to buy a reusable straw set on the Internet. Do you want to see?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. [Pause] These bamboo ones seem good. They’re made from natural materials."
+   },
+   {
+    "who": "W",
+    "text": "That’s true, but I’m worried they may not dry quickly."
+   },
+   {
+    "who": "M",
+    "text": "Okay. Then let’s look at straws made from other materials. How much are you willing to spend on a set of straws?"
+   },
+   {
+    "who": "W",
+    "text": "I don’t want to spend more than $10."
+   },
+   {
+    "who": "M",
+    "text": "That’s reasonable. How about length?"
+   },
+   {
+    "who": "W",
+    "text": "To use with my tumbler, eight or nine inches should be perfect."
+   },
+   {
+    "who": "M",
+    "text": "Then you’re down to these two. A carrying case would be very useful when going out."
+   },
+   {
+    "who": "W",
+    "text": "Good point. I’ll take your recommendation and order this set now."
+   }
+  ],
+  "script": "Hi, Nicole. What are you doing? Hi, Jack. I’m trying to buy a reusable straw set on the Internet. Do you want to see? Sure. [Pause] These bamboo ones seem good. They’re made from natural materials. That’s true, but I’m worried they may not dry quickly. Okay. Then let’s look at straws made from other materials. How much are you willing to spend on a set of straws? I don’t want to spend more than $10. That’s reasonable. How about length? To use with my tumbler, eight or nine inches should be perfect. Then you’re down to these two. A carrying case would be very useful when going out. Good point. I’ll take your recommendation and order this set now.",
+  "words": 119,
+  "nTurns": 10,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2021",
+  "no": 11,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Lisa, are you okay from all the walking we did today?"
+   },
+   {
+    "who": "W",
+    "text": "Actually, Dad, my feet are tired from all the sightseeing. Also, I’m thirsty because the weather is so hot out here."
+   },
+   {
+    "who": "M",
+    "text": "Oh, then let’s go somewhere inside and get something to drink. Where should we go?"
+   }
+  ],
+  "script": "Lisa, are you okay from all the walking we did today? Actually, Dad, my feet are tired from all the sightseeing. Also, I’m thirsty because the weather is so hot out here. Oh, then let’s go somewhere inside and get something to drink. Where should we go?",
+  "words": 47,
+  "nTurns": 3,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2021",
+  "no": 12,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Excuse me, sir. I’m from the management office. You cannot park here because we’re about to close off this section of the parking lot."
+   },
+   {
+    "who": "M",
+    "text": "Why? What’s going on here?"
+   },
+   {
+    "who": "W",
+    "text": "We’re going to paint the walls in this section. If there are cars parked here, we cannot start our work."
+   }
+  ],
+  "script": "Excuse me, sir. I’m from the management office. You cannot park here because we’re about to close off this section of the parking lot. Why? What’s going on here? We’re going to paint the walls in this section. If there are cars parked here, we cannot start our work.",
+  "words": 49,
+  "nTurns": 3,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2021",
+  "no": 13,
+  "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점]"
+   },
+   {
+    "who": "W",
+    "text": "Hi. Can I get some help over here?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. What can I help you with?"
+   },
+   {
+    "who": "W",
+    "text": "I’m thinking of buying this washing machine."
+   },
+   {
+    "who": "M",
+    "text": "Good choice. It’s our best-selling model."
+   },
+   {
+    "who": "W",
+    "text": "I really like its design and it has a lot of useful features. I’ll take it."
+   },
+   {
+    "who": "M",
+    "text": "Great. However, you’ll have to wait for two weeks. We’re out of this model right now."
+   },
+   {
+    "who": "W",
+    "text": "Oh, no. I need it today. My washing machine broke down yesterday."
+   },
+   {
+    "who": "M",
+    "text": "Then how about buying the one on display?"
+   },
+   {
+    "who": "W",
+    "text": "Oh, I didn’t know I could buy the displayed one."
+   },
+   {
+    "who": "M",
+    "text": "Sure, you can. We can deliver and install it today."
+   },
+   {
+    "who": "W",
+    "text": "That’s just what I need, but it’s not a new one."
+   },
+   {
+    "who": "M",
+    "text": "Not to worry. It’s never been used. Also, like with the new ones, you can get it repaired for free for up to three years."
+   },
+   {
+    "who": "W",
+    "text": "That’s good."
+   },
+   {
+    "who": "M",
+    "text": "We can also give you a 20% discount on it. It’s a pretty good deal."
+   }
+  ],
+  "script": "[3점] Hi. Can I get some help over here? Sure. What can I help you with? I’m thinking of buying this washing machine. Good choice. It’s our best-selling model. I really like its design and it has a lot of useful features. I’ll take it. Great. However, you’ll have to wait for two weeks. We’re out of this model right now. Oh, no. I need it today. My washing machine broke down yesterday. Then how about buying the one on display? Oh, I didn’t know I could buy the displayed one. Sure, you can. We can deliver and install it today. That’s just what I need, but it’s not a new one. Not to worry. It’s never been used. Also, like with the new ones, you can get it repaired for free for up to three years. That’s good. We can also give you a 20% discount on it. It’s a pretty good deal.",
+  "words": 152,
+  "nTurns": 15,
+  "speakers": [
+   "W",
+   "M"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2021",
+  "no": 14,
+  "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+  "turns": [
+   {
+    "who": "?",
+    "text": "[3점] [Cell phone rings.]"
+   },
+   {
+    "who": "M",
+    "text": "Hello, Joe Burrow speaking."
+   },
+   {
+    "who": "W",
+    "text": "Hello. This is Officer Blake from the Roselyn Police Station."
+   },
+   {
+    "who": "M",
+    "text": "Oh, it’s good to speak to you again."
+   },
+   {
+    "who": "W",
+    "text": "Nice to speak to you, too. Do you remember the boy who found your briefcase and brought it here?"
+   },
+   {
+    "who": "M",
+    "text": "Sure. I wanted to give him a reward. But he wouldn’t accept it."
+   },
+   {
+    "who": "W",
+    "text": "I remember you saying that before."
+   },
+   {
+    "who": "M",
+    "text": "Yeah. I’d still like to somehow express my thanks in person."
+   },
+   {
+    "who": "W",
+    "text": "Good. That’s why I’m calling you. Are you available next Friday at 10 a.m.?"
+   },
+   {
+    "who": "M",
+    "text": "Yes. I’m free at that time. Why?"
+   },
+   {
+    "who": "W",
+    "text": "The boy will receive the Junior Citizen Award for what he’s done for you."
+   },
+   {
+    "who": "M",
+    "text": "That’s great news!"
+   },
+   {
+    "who": "W",
+    "text": "There’ll be a ceremony for him at the police station, and he invited you as his guest. I was wondering if you can make it."
+   }
+  ],
+  "script": "[3점] [Cell phone rings.] Hello, Joe Burrow speaking. Hello. This is Officer Blake from the Roselyn Police Station. Oh, it’s good to speak to you again. Nice to speak to you, too. Do you remember the boy who found your briefcase and brought it here? Sure. I wanted to give him a reward. But he wouldn’t accept it. I remember you saying that before. Yeah. I’d still like to somehow express my thanks in person. Good. That’s why I’m calling you. Are you available next Friday at 10 a.m.? Yes. I’m free at that time. Why? The boy will receive the Junior Citizen Award for what he’s done for you. That’s great news! There’ll be a ceremony for him at the police station, and he invited you as his guest. I was wondering if you can make it.",
+  "words": 137,
+  "nTurns": 13,
+  "speakers": [
+   "M",
+   "W"
+  ],
+  "isDialogue": true
+ },
+ {
+  "exam": "2021",
+  "no": 15,
+  "stem": "다음 상황 설명을 듣고, Ben이 Stacy에게 할 말로 가장 적절한 것을 고르시오. [3점]",
+  "turns": [
+   {
+    "who": "W",
+    "text": "Ben and Stacy are neighbors. Ben has been growing tomatoes in his backyard for several years. Ben shares his tomatoes with Stacy every year because she loves his fresh tomatoes. Today, Ben notices that his tomatoes will be ready to be picked in about a week. However, he leaves for a month-long business trip tomorrow. He’s worried that there’ll be no fresh tomatoes left in his backyard by the time he comes back. He’d like Stacy to have them while they are fresh and ripe. So, Ben wants to tell Stacy that she can come and get the tomatoes from his backyard whenever she wants. In this situation, what would Ben most likely say to Stacy? 16번부터 17번까지는 두 번 들려줍니다."
+   }
+  ],
+  "script": "Ben and Stacy are neighbors. Ben has been growing tomatoes in his backyard for several years. Ben shares his tomatoes with Stacy every year because she loves his fresh tomatoes. Today, Ben notices that his tomatoes will be ready to be picked in about a week. However, he leaves for a month-long business trip tomorrow. He’s worried that there’ll be no fresh tomatoes left in his backyard by the time he comes back. He’d like Stacy to have them while they are fresh and ripe. So, Ben wants to tell Stacy that she can come and get the tomatoes from his backyard whenever she wants. In this situation, what would Ben most likely say to Stacy? 16번부터 17번까지는 두 번 들려줍니다.",
+  "words": 116,
+  "nTurns": 1,
+  "speakers": [
+   "W"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2021",
+  "no": 16,
+  "stem": "남자가 하는 말의 주제로 가장 적절한 것은?",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, students. Last time, I gave you a list of English expressions containing color terms. Today, we’ll learn how these expressions got their meanings. The first expression is “out of the blue,” meaning something happens unexpectedly. It came from the phrase “a lightning bolt out of the blue,” which expresses the idea that it’s unlikely to see lightning when there’s a clear blue sky. The next expression, “white lie,” means a harmless lie to protect someone from a harsh truth. This is because the color white traditionally symbolizes innocence. Another expression, “green thumb,” refers to a great ability to cultivate plants. Planting pots were often covered with tiny green plants, so those who worked in gardens had green-stained hands. The last expression, “to see red,” means to suddenly get very angry. Its origin possibly comes from the belief that bulls get angry and attack when a bullfighter waves a red cape. I hope this lesson helps you remember these phrases better."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. Last time, I gave you a list of English expressions containing color terms. Today, we’ll learn how these expressions got their meanings. The first expression is “out of the blue,” meaning something happens unexpectedly. It came from the phrase “a lightning bolt out of the blue,” which expresses the idea that it’s unlikely to see lightning when there’s a clear blue sky. The next expression, “white lie,” means a harmless lie to protect someone from a harsh truth. This is because the color white traditionally symbolizes innocence. Another expression, “green thumb,” refers to a great ability to cultivate plants. Planting pots were often covered with tiny green plants, so those who worked in gardens had green-stained hands. The last expression, “to see red,” means to suddenly get very angry. Its origin possibly comes from the belief that bulls get angry and attack when a bullfighter waves a red cape. I hope this lesson helps you remember these phrases better.",
+  "words": 161,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ },
+ {
+  "exam": "2021",
+  "no": 17,
+  "stem": "언급된 색깔이 아닌 것은?",
+  "turns": [
+   {
+    "who": "M",
+    "text": "Hello, students. Last time, I gave you a list of English expressions containing color terms. Today, we’ll learn how these expressions got their meanings. The first expression is “out of the blue,” meaning something happens unexpectedly. It came from the phrase “a lightning bolt out of the blue,” which expresses the idea that it’s unlikely to see lightning when there’s a clear blue sky. The next expression, “white lie,” means a harmless lie to protect someone from a harsh truth. This is because the color white traditionally symbolizes innocence. Another expression, “green thumb,” refers to a great ability to cultivate plants. Planting pots were often covered with tiny green plants, so those who worked in gardens had green-stained hands. The last expression, “to see red,” means to suddenly get very angry. Its origin possibly comes from the belief that bulls get angry and attack when a bullfighter waves a red cape. I hope this lesson helps you remember these phrases better."
+   }
+  ],
+  "fromSet": "16~17",
+  "script": "Hello, students. Last time, I gave you a list of English expressions containing color terms. Today, we’ll learn how these expressions got their meanings. The first expression is “out of the blue,” meaning something happens unexpectedly. It came from the phrase “a lightning bolt out of the blue,” which expresses the idea that it’s unlikely to see lightning when there’s a clear blue sky. The next expression, “white lie,” means a harmless lie to protect someone from a harsh truth. This is because the color white traditionally symbolizes innocence. Another expression, “green thumb,” refers to a great ability to cultivate plants. Planting pots were often covered with tiny green plants, so those who worked in gardens had green-stained hands. The last expression, “to see red,” means to suddenly get very angry. Its origin possibly comes from the belief that bulls get angry and attack when a bullfighter waves a red cape. I hope this lesson helps you remember these phrases better.",
+  "words": 161,
+  "nTurns": 1,
+  "speakers": [
+   "M"
+  ],
+  "isDialogue": false
+ }
+]

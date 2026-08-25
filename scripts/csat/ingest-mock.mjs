@@ -133,7 +133,7 @@ function parseKey(raw) {
 const TYPES = JSON.parse(fs.readFileSync(path.join(DIR, 'classified.json'), 'utf8')).types
   .map((t) => ({ ...t, re: new RegExp(t.match.replace(/^\/|\/$/g, '')) }))
 
-const RE_SET = /^\s*\[\s*(\d{1,2})\s*[~～–—-]\s*(\d{1,2})\s*\]\s*(.*)$/
+const RE_SET = /^\s*\[\s*(\d{1,2})\s*[~～∼〜–—-]\s*(\d{1,2})\s*\]\s*(.*)$/
 
 /**
  * 발문을 모은다. 두 가지를 처리해야 한다:
