@@ -41,7 +41,8 @@
     "ux:bench:competitors": "node scripts/ux-bench/bench.mjs --target competitors",
     "ux:bench:self": "node scripts/ux-bench/bench.mjs --target vocaflow",
     "ux:bench:compare": "node scripts/ux-bench/compare.mjs",
-    "ux:bench:selftest": "node scripts/ux-bench/score.selftest.mjs"
+    "ux:bench:selftest": "node scripts/ux-bench/score.selftest.mjs",
+    "tcp:drain": "tsx --tsconfig apps/web/tsconfig.json scripts/topic-corpus/drain-loop.mts"
   },
   "repository": {
     "type": "git",
