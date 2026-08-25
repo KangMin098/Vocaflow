@@ -10,6 +10,35 @@
 
 ## Unreleased (v06.34 → next)
 
+### pending_words 드레인 — 판정이 셋인 것이 핵심이다
+
+큐 9,022행을 규칙으로 갈라 보면 매번 절반에서 막힌다. `lexicon_clean` 에 영어로 있으면 진성 갭이라
+했더니 ted·avon·baidu 가 올라오고, 코퍼스에 없으면 노이즈라 했더니 thylakoid·mesophyll 이 섞였다.
+남은 판단은 "영어 낱말인가 · 고유명사인가 · 쓰레기인가" 하나뿐이라, 저장소가 이미 쓰는 3단 드레인으로 만들었다.
+
+**`scripts/dict/drain-pending-words.mjs`** — export → Claude Code → import.
+등재만 하면 큐가 안 줄고 기각만 하면 실단어를 버리므로 **판정을 셋으로** 뒀다:
+
+| verdict | 사전 | 큐 | 어디로 |
+|---|---|---|---|
+| `add` | 등재 | added | |
+| `proper_noun` | — | rejected | `proper_noun_forms` |
+| `noise` | — | rejected | `noise_blacklist` |
+
+뒤 둘이 중요하다 — 두 표는 `ingest_topic_corpus_doc` 이 조회하므로 **다시 큐에 안 올라온다**.
+화면의 "거절" 버튼은 status 만 바꿔서, 같은 낱말이 다음 코퍼스 적재 때 그대로 다시 올라왔다.
+
+- 1라운드(chunk-00, 60낱말) — 사전 **+11** · proper_noun_forms **+8** · noise_blacklist **+40**
+  (외국어 32 · LaTeX/URL 조각·미확인 8) → 큐 9,081 → **9,022**
+- 후보 3,357 / 56청크. 접두사 파생은 뜻 반전 때문에 **일부러 제외**
+- 재실행 안전 — export 는 해석되는 낱말·기지 노이즈를 빼고, import 는 기존 표제어를 건너뛰며 건너뛴 수를 출력
+- 화면도움말 `/admin/pending-words` 에 드레인 3단(단계별 재실행 안전 여부) 추가
+
+**돌리면서 잡은 결함 셋** — ① 예문 검증이 하이픈을 한쪽만 지워 `pro-slavery` 등 5건 오탈락.
+② `noise_blacklist.category` 체크 제약을 몰라 40건이 **조용히 안 들어갔다**(큐는 rejected 인데
+블랙리스트는 비어, 다음 적재에서 다시 올라올 상태) — 이제 실패하면 종료 코드 1 로 끊는다.
+③ out.json 을 남긴 채 export 를 다시 돌리면 청크 경계가 밀려 짝이 깨진다 — 멈추도록 막았다.
+
 ### "하이픈 노이즈" 는 노이즈가 아니었다 — 3,238낱말이 눌러도 안 뜨는 상태였다
 
 큐 2단계로 **하이픈 3,088행을 규칙 기각하려다 멈췄다.** `triage.ts` 가 그 갈래를

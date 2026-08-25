@@ -207,7 +207,42 @@ export const OPS_HELP: HelpRegistry = {
         '되돌리기 버튼이 없다 — pending 으로 되돌리는 버튼 자체가 화면에 없으므로, 잘못 눌렀으면 남은 3버튼 중 맞는 상태로 다시 눌러 바로잡아야 한다.',
         '거절·추가로 바꿔도 행은 목록에서 사라지지 않는다(상태 필터가 없다). 배지 색으로 구분해라.',
         '페이지는 30초 캐시다. 내가 누른 변경은 즉시 반영되지만 다른 사람이 바꾼 결과는 최대 30초 늦게 보인다.',
+        '화면의 4버튼은 **status 만** 바꾼다. 노이즈를 "거절" 로만 처리하면 그 낱말은 다음 코퍼스 적재 때 **다시 올라온다** — 영구히 막으려면 `noise_blacklist`·`proper_noun_forms` 에 들어가야 하고, 그건 아래 드레인이 한다.',
       ],
+      drain: {
+        what: '큐를 세 갈래로 비운다 — 사전 등재 / 고유명사 / 노이즈. 뒤 둘은 표에 넣어야 다시 안 올라온다.',
+        prerequisites: [
+          '후보는 형태가 낱말답고(영문자·3자 이상) 아직 해석되지 않으며, 문서 2편 이상 또는 총 3회 이상 등장한 것뿐이다.',
+          '접두사 파생(non-·anti-·un-·self- …)은 **일부러 제외**한다 — 뜻이 뒤집혀(anti-slavery→slavery) 해석기로도 못 풀고 등재 여부가 판단 사항이다.',
+        ],
+        procedure: [
+          {
+            title: '후보 뽑기',
+            detail:
+              '`node scripts/dict/drain-pending-words.mjs export --dir scripts/dict/pending-drain` — 이미 해석되는 낱말·고유명사표·노이즈표에 있는 것을 빼고 chunk-NN.json 으로 나눈다. **재실행 안전**(남은 것만 다시 나온다). 적재 안 한 out.json 이 있으면 청크 경계가 어긋나므로 멈춘다.',
+            done: '"pending N → … → 미해석 M / chunks: K" 가 출력된다.',
+          },
+          {
+            title: 'Claude Code 가 판정',
+            detail:
+              '각 chunk 를 읽고 낱말마다 `verdict` 를 정해 chunk-NN.out.json 으로 쓴다. `add` 는 뜻·품사·CEFR·V-Level·예문까지, `proper_noun`·`noise` 는 이유(note)만. noise 는 `category` 도 정한다(foreign_word · corrupt_token · interjection_noise · archaic_grammar · proper_noun_marker).',
+            done: 'chunk 수와 out 파일 수가 같다.',
+          },
+          {
+            title: '적재',
+            detail:
+              '`… import --dir <DIR> --commit` — 검증(품사·CEFR·V-Level·레지스터·한글 뜻·예문에 표제어 포함) 통과분만 넣는다. `add` 는 사전+큐 added, `proper_noun`·`noise` 는 각 표에 넣고 큐 rejected. **재실행 안전** — 이미 있는 표제어는 건너뛰고 건너뛴 수를 출력한다.',
+            done: '"사전 +N · proper_noun_forms +N · noise_blacklist +N" 과 "큐 정리 — added / rejected" 가 출력된다.',
+          },
+        ],
+        verify: [
+          '`--commit` 없이 돌리면 DRY-RUN 이라 검증 결과와 샘플만 보여 준다. 검증 탈락 목록을 먼저 읽어라.',
+          '적재 뒤 export 를 다시 돌려 후보 수가 처리한 만큼 줄었는지 본다 — 안 줄었으면 큐 정리가 실패한 것이다.',
+        ],
+        recovery: [
+          '`noise_blacklist fail` 이 보이면 **큐만 정리되고 블랙리스트가 비어 있는 상태**다. 그대로 두면 같은 낱말이 다음 적재에서 다시 올라온다 — category 를 고쳐 import 를 다시 돌린다(멱등).',
+        ],
+      },
       seeAlso: [{ label: '사전 DB 직접 관리', href: '/admin/vocabulary' }],
     },
   },
