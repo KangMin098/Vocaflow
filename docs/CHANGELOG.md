@@ -10,6 +10,30 @@
 
 ## Unreleased (v06.34 → next)
 
+### "하이픈 노이즈" 는 노이즈가 아니었다 — 3,238낱말이 눌러도 안 뜨는 상태였다
+
+큐 2단계로 **하이픈 3,088행을 규칙 기각하려다 멈췄다.** `triage.ts` 가 그 갈래를
+"부분이 이미 해석됨 — 등재 불필요" 로 규정하고 3순위(=무시)에 두고 있었는데, 확인해 보니
+**`resolve_dict_headword` 는 하이픈 토큰을 분해하지 않는다.** 부분이 해석되든 말든 전체형은 NULL 이다:
+
+    well-being(166) · decision-making(123) · so-called(99) · well-known(75)
+    face-to-face · hands-on · real-time · in-depth  →  전부 NULL
+
+학습자가 누르면 아무것도 안 뜬다. 기각했다면 **실낱말 2,473개(8,124회)를 "무시해도 되는 것" 으로
+확정**할 뻔했다. 갈래를 다시 나누면 접두사 파생(non-·anti-·self-) 615 · 진짜 합성어 2,473 이다.
+
+- 하이픈 합성어 **53낱말 등재** (well-being · decision-making · face-to-face · meta-analysis ·
+  light-year · gamma-ray · peer-reviewed · socio-economic · light-dependent/independent …)
+- `triage.ts` 정정 — 라벨 '하이픈 노이즈'→**'하이픈 합성'**, 우선순위 3→1,
+  조치 문구를 "뜻이 부분의 합이 아니면 등재, 접두사 파생은 보류" 로. 화면도움말도 같이
+- 고유명사 **339행** → `proper_noun_forms` 등재 후 기각. `lexicon_clean.is_valid_word=false` 가
+  사실상 고유명사 플래그였다(wharton · delhi · istanbul · picasso …). 적재 함수가 이 표를 보므로
+  **다시 큐에 들어오지 않는다** — status 만 바꾸는 것보다 나은 자리다
+- 큐 11,081 → **9,081행** (added 376 / rejected 1,624)
+
+**기각하지 않은 것**: 접두사 파생 615 는 뜻이 뒤집혀(anti-slavery→slavery) 해석기로도 못 풀고
+등재도 판단이 필요해 남겼다. 코퍼스에 없는 토큰 3,711 도 규칙만으로는 못 가른다.
+
 ### 코퍼스 적재 언어 게이트 + 갭 낱말 문서 빈도 (마이그레이션 20260825114639)
 
 `pending_words` 를 채운 비영어 낱말의 출처가 **1,935편 중 4행**(자막이 통째로 비영어인 TED talk 3편)임을

@@ -20,7 +20,7 @@
 // 여기서 테스트 가능하게 고정한다.
 
 export type PendingBucket =
-  /** 부분이 이미 해석되는 하이픈 전체형 — 등재 불필요 */
+  /** 부분은 해석되지만 **전체형은 해석되지 않는** 하이픈 낱말 — 뜻이 합성적이면 등재 대상 */
   | 'hyphen_compound'
   /** 영/미 철자 변이가 사전에 있음 — 해석기(resolve_dict_headword) 쪽 구멍 */
   | 'spelling_variant'
@@ -49,9 +49,14 @@ export const BUCKET_META: Record<
     priority: 2,
   },
   hyphen_compound: {
-    label: '하이픈 노이즈',
-    action: '부분이 이미 해석됨 — 등재 불필요',
-    priority: 3,
+    label: '하이픈 합성',
+    // 2026-08-25 정정: 예전 라벨은 '하이픈 노이즈 / 등재 불필요' 였는데 **사실과 달랐다.**
+    //   resolve_dict_headword 는 하이픈 토큰을 분해하지 않는다 — 부분이 해석되는 것과 무관하게
+    //   전체형은 NULL 을 낸다(실측: well-being · decision-making · face-to-face 전부 NULL).
+    //   즉 학습자가 누르면 아무것도 안 뜬다. 그 상태를 '노이즈' 로 불러 3순위에 두는 동안
+    //   well-being(166) · decision-making(123) 같은 실낱말이 무시 대상으로 표시돼 있었다.
+    action: '전체형은 해석되지 않는다 — 뜻이 부분의 합이 아니면(well-being·face-to-face) 등재, 접두사 파생이면(non-·anti-) 보류',
+    priority: 1,
   },
 }
 
@@ -107,7 +112,7 @@ function hyphenParts(w: string): string[] {
  * ⚠️ 조회는 `shared_dictionary` 직접 존재가 아니라 **`unresolved_dict_words` 로
  * 해석 가능성**을 물어야 한다. 표제어 직접 존재로 검사하면 굴절형이 전부 미스난다 —
  * 실측: "kilowatt-hours" 의 `hours`, "mislabeled" 의 `labeled` 가 표제어가 아니라
- * 각각 하이픈 노이즈·파생형이 진성 갭으로 오분류됐다.
+ * 각각 하이픈 합성·파생형이 진성 갭으로 오분류됐다.
  */
 export function triageCandidates(lemma: string): string[] {
   const w = lemma.trim().toLowerCase()
@@ -119,9 +124,9 @@ export function triageCandidates(lemma: string): string[] {
  * 최종 분류. `resolvable` 은 triageCandidates 로 모은 후보 중
  * **`resolve_dict_headword` 가 해석해 내는** 것들 (표제어 직접 존재가 아니다).
  *
- * 우선순위: 하이픈 노이즈 → 철자 변이(해석기 버그) → 파생형 → 진성 갭.
+ * 우선순위: 하이픈 합성 → 철자 변이(해석기 버그) → 파생형 → 진성 갭.
  * 하이픈을 먼저 보는 이유는, 하이픈 전체형이 다른 규칙에도 걸릴 수 있기 때문이다
- * (예: "self-organize" 는 철자 변이 규칙에도 걸린다 — 그래도 본질은 하이픈 노이즈다).
+ * (예: "self-organize" 는 철자 변이 규칙에도 걸린다 — 그래도 본질은 하이픈 합성이다).
  */
 export function classifyPending(lemma: string, resolvable: Set<string>): PendingBucket {
   const w = lemma.trim().toLowerCase()
