@@ -87,7 +87,8 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
         {g.cta.kind === 'diagnostic' && (
           <Link
             href="/diagnostic"
-            className="inline-flex w-fit items-center gap-1 font-display text-[12.5px] font-[700] text-[var(--p)] underline-offset-2 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            // 실측 2026-08-25: 117×19 였다. 문장 속 링크가 아니라 독립 CTA 라 44px 규칙 대상이다.
+            className="inline-flex min-h-11 w-fit items-center gap-1 font-display text-[12.5px] font-[700] text-[var(--p)] underline-offset-2 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             3분 레벨 진단하기 <ArrowRight size={13} aria-hidden />
           </Link>

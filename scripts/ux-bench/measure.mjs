@@ -48,19 +48,35 @@ export const MEASURE_FN = String.raw`() => {
    *    대신 못 잰 개수를 그대로 낸다('contrastUnknown'): 0 이 아니면 눈으로 볼 대상이다.
    */
   const bgOf = (el) => {
-    let n = el;
+    // ⚠️ **반투명 배경을 무시하면 안 된다.** 첫 판은 alpha >= 0.999 인 배경만 받아들이고
+    //    그렇지 않으면 계속 위로 올라갔다. 그래서 rgba(26,23,20,0.62) 위의 흰 글자가
+    //    '흰 배경 위 흰 글자'(대비 1.0)로 잡혔다 — 실측 2026-08-25 에 /diagnostic/history 15건 ·
+    //    /library/books 22건 · /comics/restored 9건이 전부 이 가짜 위반이었다.
+    //    칩·배지는 대개 반투명 배경을 쓰므로, 이 버그는 **잘 만든 화면일수록 더 깎았다**.
+    //    올바른 계산은 아래에서 위로 **합성**하는 것이다.
+    const layers = [];
+    let n = el, opaque = null;
     while (n && n !== document.documentElement) {
       const cs = getComputedStyle(n);
       if (cs.backgroundImage && cs.backgroundImage !== 'none') return { gradient: true };
       const c = parseColor(cs.backgroundColor);
-      if (c && c.a >= 0.999) return c;
+      if (c && c.a > 0.001) {
+        if (c.a >= 0.999) { opaque = c; break; }
+        layers.push(c);
+      }
       n = n.parentElement;
     }
-    const rootCs = getComputedStyle(document.documentElement);
-    if (rootCs.backgroundImage && rootCs.backgroundImage !== 'none') return { gradient: true };
-    const html = parseColor(rootCs.backgroundColor);
-    return html && html.a >= 0.999 ? html : { r: 255, g: 255, b: 255, a: 1 };
-  };
+    if (!opaque) {
+      const rootCs = getComputedStyle(document.documentElement);
+      if (rootCs.backgroundImage && rootCs.backgroundImage !== 'none') return { gradient: true };
+      const html = parseColor(rootCs.backgroundColor);
+      opaque = html && html.a >= 0.999 ? html : { r: 255, g: 255, b: 255, a: 1 };
+    }
+    // 아래(불투명)에서 위(요소 자신)로 쌓아 올린다.
+    let out = opaque;
+    for (let i = layers.length - 1; i >= 0; i--) out = over(layers[i], out);
+    return out;
+    };
 
   const vh = document.documentElement.clientHeight;
   const visible = (el) => {

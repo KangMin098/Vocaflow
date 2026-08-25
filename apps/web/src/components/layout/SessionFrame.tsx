@@ -204,7 +204,12 @@ export function SessionFrame({ children }: { children: ReactNode }) {
       <div className="flex min-h-screen flex-col bg-[var(--bg)]">
         {/* ── Sticky session header ── */}
         <header
-          role="banner"
+          // ⚠️ role="banner" 를 걷어냈다. 이 헤더는 (main)/layout 의 <main> **안**에 있는데,
+          //    ARIA 에서 banner 는 최상위 랜드마크여야 한다 — main 안의 banner 는 보조기기에
+          //    거짓을 말하는 것이고, HTML-ARIA 매핑상 <header> 도 main 안에서는 banner 가 아니다.
+          //    ⚠️ <main> 을 이 프레임 밖으로 빼는 방법도 해 봤다. ARIA 는 맞아지지만 세션 화면의
+          //       h1 이 본문 밖으로 나가 화면 정체 검사가 5건 깨졌다(28-screen-identity 100% → 97.3%).
+          //       구조를 옮기는 대신 **거짓 선언만 지운다**.
           className={`sticky top-0 z-40 shrink-0 border-b border-[var(--bd)] bg-[var(--bg)]/95 backdrop-blur ${
             hasResource ? 'px-3 py-2 md:px-5 md:py-3' : 'px-3 md:px-5'
           }`}
@@ -384,7 +389,8 @@ function ResourceBreadcrumb({ resource }: { resource: SessionResource }) {
         <Link
           href={resource.href}
           aria-label={ariaLabel}
-          className="group inline-flex min-w-0 items-center gap-2 rounded-[var(--r-sm)] px-1 py-0.5 -mx-1 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          // 실측 2026-08-25: 255×22 였다. 세션 화면에서 **되돌아가는 유일한 이름 있는 링크**다.
+          className="group -my-3 inline-flex min-h-11 min-w-0 items-center gap-2 rounded-[var(--r-sm)] px-1 py-0.5 -mx-1 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {inner}
         </Link>

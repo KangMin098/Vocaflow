@@ -117,7 +117,10 @@ export function TextbookShelf({
           list?.focus()
           list?.scrollIntoView({ block: 'start', behavior: 'auto' })
         }}
-        className="sr-only rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-p)] no-underline focus-visible:not-sr-only focus-visible:inline-flex focus-visible:min-h-[44px] focus-visible:items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        // ⚠️ sr-only 요소에 px-4 py-2 를 **상시** 걸면 안 된다 — sr-only 의 width/height 1px 위에
+        //    패딩이 얹혀 숨긴 요소가 실제로 32×16 상자를 차지한다(실측 2026-08-25,
+        //    "44px 미만 터치 타겟" 으로도 잡혔다). 여백은 드러날 때만 준다.
+        className="sr-only rounded-[var(--r-md)] bg-[var(--p)] font-display text-[13px] font-[700] text-[var(--on-p)] no-underline focus-visible:not-sr-only focus-visible:inline-flex focus-visible:min-h-[44px] focus-visible:items-center focus-visible:px-4 focus-visible:py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
         찾기 조건을 건너뛰고 교재 목록으로
       </a>

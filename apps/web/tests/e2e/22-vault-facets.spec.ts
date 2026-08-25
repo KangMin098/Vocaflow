@@ -20,7 +20,18 @@ import { expect, test } from '@playwright/test';
 
 import { loginAsTestUser } from './utils/auth';
 
-const SECTION = 'section[aria-labelledby="facet-progress-heading"]';
+/**
+ * 이 섹션을 어떻게 찾는가 — **처방 문장으로 찾는다.**
+ *
+ * ⚠️ 예전 선택자는 `section[aria-labelledby="facet-progress-heading"]` 이었다.
+ *    2026-08-16 (287d3151) 이 섹션 껍데기를 `Frame` 으로 바꾸면서 그 id 가 사라졌고,
+ *    스펙만 남아 **9일 동안 빨간 채로 있었다**. 아무도 안 봤다는 뜻이다.
+ *    (`Frame` 은 제목을 `aria-label` 로 준다 — 즉 참조할 id 자체가 없다.)
+ *
+ *    그래서 **이 섹션에만 있는 것**을 기준으로 삼는다: 처방 문장의 testid.
+ *    껍데기가 또 바뀌어도 처방이 살아 있는 한 이 선택자는 따라간다.
+ */
+const SECTION = 'section:has([data-testid="facet-prescription"])';
 
 test.describe('WordVault 면 상태 (실데이터)', () => {
   test('A. 섹션이 렌더되고 처방은 한 면만 말한다', async ({ page }) => {
