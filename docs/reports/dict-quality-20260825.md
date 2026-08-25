@@ -4,7 +4,7 @@
 문서(.md)의 수치는 근거로 쓰지 않았다.
 
 - 대상: `shared_dictionary` **47,737행** (최신 행 2026-08-21 · 최근 30일 +2,067)
-- **D-1 · D-4 해소 · D-3 부분 해소**(아래 §4). D-2 · D-5 · D-6 미해소.
+- **D-1 · D-2 · D-4 해소 · D-3 부분 해소**(아래 §4). D-5 · D-6 미해소.
 - 출처 6종: imported 34,706 · ai-generated 6,589 · derivational-seed 6,178 · manual 183 · kice-orphan 66 · inflection-seed 15
 - VRL 마지막 계산 2026-08-25 · 마지막 품질 감사 2026-07-12
 
@@ -18,7 +18,7 @@
 | 🟢 | 도서 파이프라인 커버리지 | 상위 3,000 lemma 중 미등재 **2** |
 | ✅ | **발행 단어장 예문 공백** | 발행 세트 998개 · 8,171행 → **0행** (백필 8,123 + 사전 표제어 34개 신규 작성 후 48). 재발 차단 게이트 I12 신설 |
 | ◐ | VRL | `v_level` 459 **해소**(게이트 I1 → PASS · 기사 423낱말 추출 복귀). 3축 9,352는 **의도적 미충전** — 채워진 값의 62%가 v_level 상수이고 소비처 행동도 안 바뀐다 |
-| 🟠 | 해석기 구멍 (고빈도 기능어) | `whenever` `wherever` `whoever` `amongst` `anymore` `nowhere` → **NULL 반환** |
+| ✅ | 폐쇄집합 기능어 | 전수 훑어 **19개 등재** — 46/46 자기 표제어로 해석(이전 9 NULL · 5 오해소) + 회귀 4종 |
 | ✅ | 정확일치 조인 소비처 | 표면형으로 사전을 찾던 두 곳(WordBlitz 후보 28.7% 유실 · Flashcard 부가정보 4,620행)을 **lemma 키로 교정** + 회귀 4종 |
 | 🟠 | 미등재 실수요 | `pending_words` 진성 갭 **2,169 lemma / 9,673 encounter** |
 | ⚪ | 자산 부재 (설계상 이연) | audio_url 0% · image_url 0% — compose 청사진 2종 구조적 0건 |
@@ -100,12 +100,34 @@ CHANGELOG Unreleased 에 기록된 2026-05 백필(1,946행)과 **같은 결함�
 게이트가 **재료가 사전에 있는 것만** 세는 이유: 사전에도 없는 낱말은 재동기화로 못 고치므로
 포함시키면 게이트가 영구히 붉게 남아 신호가 죽는다.
 
-### D-2 (P1) 해석기가 고빈도 기능어에서 NULL을 낸다
-`whatever` `anywhere` `nobody` `somewhere` 는 표제어인데
-`whenever` `wherever` `whoever` `amongst` `anymore` `nowhere` 는 없고 해석도 실패한다.
-설계 결정이 아니라 **표제어 목록의 구멍**이다. 재귀대명사도 갈렸다 —
-`myself`·`itself`·`ourselves` 는 표제어, `herself`·`himself`·`themselves`·`yourself` 는
-she/he/they/you 로 떨어져 "그녀 자신"이 "그녀"로 나간다.
+### D-2 (P1) 폐쇄집합 기능어 19개가 비어 있었다 — **해소 완료**
+
+`whatever` `anywhere` `nobody` `somewhere` 는 표제어인데 `whenever` `wherever` `whoever`
+`amongst` `anymore` `nowhere` 는 없고 해석도 실패했다. 같은 자리에서 하나는 되고 하나는 안 되니
+설계 결정이 아니라 **목록의 구멍**이다. 재귀대명사는 더 고약했다 —
+`myself`·`itself`·`ourselves` 는 표제어인데 `herself`·`himself`·`themselves`·`yourself` 는
+she/he/they/you 로 떨어져 **"그녀 자신"이 "그녀"로** 나갔다.
+
+폐쇄집합(닫힌 목록)이라 **전수로 훑을 수 있었다.** 173개 후보를 두 라운드로 찍어 14개 사각을 찾았고,
+재귀대명사 5개를 더해 19개를 등재했다.
+
+| 갈래 | 등재 |
+|---|---|
+| 해석 자체가 NULL (9) | amongst · anyhow · anymore · no one · nowhere · whenever · wherever · whoever · whomever |
+| 다른 낱말로 떨어지던 재귀대명사 (5) | herself · himself · themselves · yourself · yourselves |
+| 2라운드에서 추가로 잡힌 것 (5) | anyplace · each other · one another · per se · vice versa |
+
+레벨은 같은 계열의 기존 표제어에 맞췄다(myself A1/V1 · anywhere A2/V2 · however B1/V4 · whichever B2/V5).
+`field_provenance.v_level = 'closed-class-fill-20260825'`.
+
+**철자 변이는 건드리지 않았다** — `towards→toward` · `anyways→anyway` · `backwards→backward` 는
+정본으로 접히는 것이 **정상 동작**이다. 이걸 같이 표제어로 만들면 같은 낱말이 두 철자로 중복 등재된다.
+
+| | |
+|---|---|
+| 검증 | 46개 폐쇄집합 전수 — **46/46 자기 표제어로 해석**(이전 9개 NULL · 5개 오해소) |
+| 큐 정리 | `pending_words` 6건(430 encounter) `added` 로 종료 — whenever 147 · anymore 103 · wherever 82 · amongst 64 |
+| 회귀 | `library/__tests__/closed-class-resolve.integration.test.ts` 4종 (실 DB · 해석 NULL 0 · 표제어 어긋남 0 · 철자 변이는 접힘 · 필드 완비) |
 
 ### D-3 (P1) VRL — v_level 459 **해소 완료** · 3축 9,352는 **채우지 않기로**
 

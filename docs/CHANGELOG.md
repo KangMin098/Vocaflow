@@ -10,6 +10,26 @@
 
 ## Unreleased (v06.34 → next)
 
+### 폐쇄집합 기능어 19개가 비어 있었다 — "그녀 자신"이 "그녀"로 나가고 있었다
+
+`whatever`·`anywhere`·`nobody` 는 표제어인데 `whenever`·`wherever`·`whoever`·`amongst`·
+`anymore`·`nowhere` 는 없고 `resolve_dict_headword` 도 NULL 을 냈다. 같은 자리에서 하나는 되고
+하나는 안 되니 설계가 아니라 **목록의 구멍**이다. 재귀대명사는 더 나빴다 — `myself`·`itself`·
+`ourselves` 는 표제어인데 `herself`·`himself`·`themselves`·`yourself` 는 she/he/they/you 로
+떨어져 뜻이 바뀌어 나갔다.
+
+폐쇄집합이라 **전수로 훑을 수 있었다** — 173개 후보 2라운드로 사각 14개 + 재귀대명사 5개 = **19개 등재**.
+
+- 해석 NULL 9 (amongst · anyhow · anymore · no one · nowhere · whenever · wherever · whoever · whomever)
+- 오해소 재귀대명사 5 (herself · himself · themselves · yourself · yourselves)
+- 2라운드 추가 5 (anyplace · each other · one another · per se · vice versa)
+- 레벨은 같은 계열 기존 표제어에 맞춤(myself A1/V1 · anywhere A2/V2 · however B1/V4 · whichever B2/V5) ·
+  `field_provenance.v_level='closed-class-fill-20260825'`
+- **철자 변이는 건드리지 않았다** — towards→toward · anyways→anyway 는 정본으로 접히는 것이 정상 동작이고,
+  표제어로 만들면 같은 낱말이 두 철자로 중복 등재된다
+- 검증 46/46 자기 표제어 해석 · `pending_words` 6건(430 encounter) added 종료
+- 회귀 `library/__tests__/closed-class-resolve.integration.test.ts` 4종(실 DB)
+
 ### VRL — 진짜 막힌 것은 v_level 459 였고, 3축 9,352 는 채우지 않기로 했다
 
 "분류가 사전 증가를 못 따라간다"는 진단이 **틀렸다.** 90일 창이 만든 착시였고,
@@ -164,6 +184,25 @@ Flashcard 스코프 진입도 `fetchDictExtras` 를 표면형으로 불러 발�
 - 회귀 +28 (`sets.test.ts` 18 · `brief-seen.test.ts` 10) — 코스가 **성립하지 않는 링크를
   광고하지 않는다**를 풀 0~30 전 구간에서 못 박는다. 이 테스트가 `courseMinWords`·`unlockAt`의
   실제 버그를 잡았다(중복 금지 규칙을 무시한 minWords 산술이라 도서 코스가 5단어에서 어긋났다)
+
+### 수능 설계도 — 기계 검사를 모평까지 넓히고 추출기 결함을 고쳤다 (전수 50.9%)
+
+- **기계 검사 5종을 모의평가까지 확장**(`allRows()` 신설) — 표본을 넓혀도 **판정이 전부 유지**된다:
+  P4.1 대의파악 13/37 = 35.1%(p=0.023) vs 빈칸 15/60 = 25%(p=0.207) · P2.3 빈칸 66편 vs 대조 99편
+  순열 **p=0.00005**(더 강해졌다) · P6.25 완전 단조 26/34 = 76.5%, 인접 쌍 103/113 = 91.2% ·
+  P4.4/P4.5 기각 유지(P4.5 는 36/72 = **50.0%** 로 정확히 기저)
+- **P3.3 을 15/15 로** — 수능 12/12 + 모평 3/3. 모평 손판독: temporary↔lasting ·
+  insignificant↔significant · thick↔thin. **17회차 예외 0** — 유형별 명제 중 가장 강하다
+- ⚠️ **추출기 결함 수정** — `passageOf` 가 줄머리 ①~⑤ 아무 데서나 지문을 끊었다.
+  기호 선지 유형(어법·어휘·무관·순서·삽입)은 선택지 블록이 따로 없고 마커가 본문에 찍히는데,
+  그걸 선택지로 오인했다. 2026-09 모평 30번이 **701자·마커 3개**만 남고 ④⑤ 를 잃었다.
+  ①로 시작하는 줄 뒤에 ②③④⑤ 가 차례로 오는 꼬리일 때만 끊도록 고쳐 **1,154자·마커 5개** 복구.
+  어법 판정 가능 14 → **17/18**(결과는 그대로, 기각 유지).
+  **총량 지표(추출률 96.6%)는 안 움직였다 — 개별 문항이 조용히 잘려 있었다**
+- **EBS 연계교재는 자료가 없다** — 보유분은 어휘 덱 1,800낱말뿐이고 연계 지문이 없다.
+  연계율은 출제 설계의 큰 축인데 이 자료로는 못 잰다고 §7.6 에 명시
+
+전수 커버리지 47.3% → **50.9%**
 
 ### ⭐ 수능 설계도 — 듣기 17문항 편입, 설계도의 마지막 큰 구멍을 메웠다
 
@@ -325,7 +364,7 @@ Flashcard 스코프 진입도 `fetchDictExtras` 를 표면형으로 불러 발�
 ### 사전 DB 품질 점검 — 전 파이프라인 대조 (읽기 전용 실측)
 
 `shared_dictionary` 47,737행을 LCP·ACP·VCB compose·VRL·학습 모듈 5경로 요구 필드에 대조.
-확정 결함 5건 — **발행 세트 998개 8,171행 예문 공백**(해소) · VRL v_level 459(해소) · `whenever`/`amongst`/`nowhere` 등 고빈도 기능어 해석 NULL ·
+확정 결함 5건 — **발행 세트 998개 8,171행 예문 공백**(해소) · VRL v_level 459(해소) · 폐쇄집합 기능어 19개 미등재(해소) ·
 표면형으로 사전을 찾던 소비처 2곳(위 항목에서 해소) · 템플릿 예문 약 350행.
 오탐 4종(1음절 번역 137 · 미상 오탐 7 · 굴절 충돌 12 · 변이 그림자 44)은 조치 불필요로 확인.
 리포트: [docs/reports/dict-quality-20260825.md](./reports/dict-quality-20260825.md)
