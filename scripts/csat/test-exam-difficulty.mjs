@@ -32,14 +32,19 @@ const axis = JSON.parse(fs.readFileSync(path.join(DIR, 'difficulty-axis.json'), 
 const GRADE1 = {
   2018: 10.03, 2019: 5.30, 2020: 7.43, 2021: 12.66,
   2022: 6.25, 2023: 7.83, 2024: 4.71, 2025: 6.22, 2026: 3.11,
+  // ⭐ 모의평가도 같은 절대평가 척도라 **정당하게 합칠 수 있다** (n=9 → 12).
+  //    2025 가 6.22 로 확정된 것도 9월 모평 채점결과 보도에서 교차 확인됐다.
+  M2606: 19.10,   // 2026-06 — 절대평가 도입 이후 수능·모평 통틀어 **역대 최고**
+  M2609: 4.50,    // 2026-09
+  M2706: 4.13,    // 2027-06
 }
-const GRADE1_ALT = { ...GRADE1, 2025: 6.55 }
+const GRADE1_ALT = { ...GRADE1 }   // 2025 확정 6.22 — 대안값 불필요해졌다
 
 // ── 회차별 지문 특성 ──────────────────────────────────────────────────
 const mean = (a) => (a.length ? a.reduce((s, x) => s + x, 0) / a.length : 0)
 const byExam = {}
 for (const r of axis.rows) {
-  if (!/^\d{4}$/.test(r.exam)) continue            // 모평 제외 (등급 자료 없음)
+  if (!(r.exam in GRADE1)) continue                // 등급 자료가 있는 회차만 (수능 9 + 모평 3)
   ;(byExam[r.exam] ??= []).push(r)
 }
 
@@ -73,7 +78,7 @@ function permR(x, y, iters = 20000) {
 const exams = Object.keys(GRADE1).map(String).filter((e) => byExam[e]).sort()
 console.log('회차 실난도 vs 지문 특성 — 난도는 지문에서 오는가')
 console.log('='.repeat(76))
-console.log(`  회차 ${exams.length} (2018~2026 · 절대평가 구간) · 문항 ${exams.reduce((s, e) => s + byExam[e].length, 0)}`)
+console.log(`  회차 ${exams.length} — 수능 9(2018~2026) + **모평 3**(같은 절대평가 척도) · 문항 ${exams.reduce((s, e) => s + byExam[e].length, 0)}`)
 console.log(`  실난도 = **1등급 비율(%)** — 낮을수록 어려웠다`)
 console.log()
 console.log('  회차   1등급%   C1+어휘%   문장당절수   지문낱말수   3점 지문 C1+%')
@@ -94,20 +99,20 @@ const g1alt = exams.map((e) => GRADE1_ALT[e])
 
 console.log('  상관 — 1등급 비율(낮을수록 어려움) vs 지문 특성')
 console.log('  ' + '-'.repeat(72))
-console.log('  지표                        r        순열 p     2025 대안값에서 r')
+console.log('  지표                        r        순열 p')
 const out = {}
 for (const [name, key] of METRICS) {
   const v = exams.map((e) => mean(byExam[e].map((x) => x[key])))
   const r = permR(g1, v)
   const rAlt = pearson(g1alt, v)
   out[key] = { ...r, rAlt }
-  console.log(`  ${name.padEnd(24)} ${r.r.toFixed(3).padStart(7)} ${r.p.toFixed(4).padStart(10)} ${rAlt.toFixed(3).padStart(16)}`)
+  console.log(`  ${name.padEnd(24)} ${r.r.toFixed(3).padStart(7)} ${r.p.toFixed(4).padStart(10)}`)
 }
 // 3점 지문만
 const v3 = exams.map((e) => { const a = byExam[e].filter((x) => x.points === 3); return a.length ? mean(a.map((x) => x.c1Ratio)) : 0 })
 const r3 = permR(g1, v3)
 out.c1_3jeom = { ...r3, rAlt: pearson(g1alt, v3) }
-console.log(`  ${'3점 지문의 C1+ 비율'.padEnd(24)} ${r3.r.toFixed(3).padStart(7)} ${r3.p.toFixed(4).padStart(10)} ${pearson(g1alt, v3).toFixed(3).padStart(16)}`)
+console.log(`  ${'3점 지문의 C1+ 비율'.padEnd(24)} ${r3.r.toFixed(3).padStart(7)} ${r3.p.toFixed(4).padStart(10)}`)
 console.log()
 
 const sig = Object.values(out).filter((x) => x.p < 0.05).length
@@ -127,7 +132,7 @@ console.log('  ⚠️ 한계')
 console.log(`    · 회차 ${exams.length}개뿐이다. |r| ≳ 0.67 이라야 p<0.05 에 닿는다 — **검정력이 낮다.**`)
 console.log('      유의하지 않다는 것이 "효과가 없다" 를 뜻하지는 않는다.')
 console.log('    · 1등급 비율은 **응시집단**에도 좌우된다(재수생 비율 등). 지문만의 함수가 아니다.')
-console.log('    · 2025 는 보도마다 6.22 / 6.55 로 갈린다. 위 표의 마지막 열이 대안값 결과다.')
+console.log('    · 2025 는 **6.22 로 확정**됐다(9월 모평 채점결과 보도에서 교차 확인). 앞 판의 6.55 는 폐기.')
 
 fs.writeFileSync(path.join(DIR, 'exam-difficulty.json'), JSON.stringify({
   grade1: GRADE1, grade1Alt: GRADE1_ALT, exams, correlations: out,
