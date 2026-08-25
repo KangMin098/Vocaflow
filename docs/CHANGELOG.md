@@ -10,6 +10,26 @@
 
 ## Unreleased (v06.34 → next)
 
+### 게이트 critical FAIL 0 달성 — 그리고 그 과정에서 비하어 18개가 학습자 단어장에 있는 것을 발견
+
+품질 게이트 전역 critical **7/7 PASS**. 마지막 하나였던 `I7 노이즈 register 발행 누출` 은
+`incontinently`(archaic_literary) 2행 — `select_book_chapter_vocab` 이 이미 archaic_literary 를
+제외하므로 그 규칙이 생기기 전의 잔재였다. 세트의 나머지는 건드리지 않고 2행만 지우고
+`word_count` 를 다시 셌다(재발행은 학습자가 보던 목록 전체를 바꾼다).
+
+발행 단어장 **83행**이 아직 옛 템플릿 예문을 들고 있던 것도 사전의 새 예문으로 교체했다 —
+`sync_published_set_examples` 는 사람 수정을 덮지 않으려고 **빈 칸만** 채우도록 설계돼 있어
+"나쁜 값 교체" 는 통과시키지 못한다. 대상을 '아직 템플릿 패턴인 행'으로 한정해 멱등을 유지했다.
+
+⚠️ **범위 밖에서 발견 — 비하어 18개가 발행된 학습자 단어장에 암기 카드로 들어가 있다.**
+`nigger`·`niggers`(Tom Sawyer Ch.6·Ch.10 · The Mysterious Affair at Styles Ch.8) ·
+`negro` · `negress` · `chink` · `whore` · `faggot` · `fag` · `retard` · `retarded` ·
+`cripple` · `midget` · `gypsy` · `gipsy` · `savage` · `savages` · `heathen` · `queer`.
+전부 `word_register='standard'` 라 추출 노이즈 필터를 그대로 통과했다 —
+비속어 레지스터가 없어 등재를 보류했던 바로 그 사고가 **이미 일어나 있었다.**
+일부(savage · queer · heathen · cripple · fag)는 문맥에 따라 정당한 낱말이라 일괄 제거는 과잉이고,
+낱말별 판단 + register 재분류가 필요하다. **미조치 — 결정 대기.**
+
 ### 템플릿 예문 212행 교체 — 맥락 없는 자동 문장을 실제 용례로
 
 `He often uses the expression "X" in conversation.` 같은 자동 생성 문장이 **212행** 있었다.
