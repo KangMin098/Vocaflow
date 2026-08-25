@@ -94,14 +94,57 @@ const CASES: PopupCase[] = [
     },
   },
   {
+    // GlobalBodyReset 이 이름을 대고 있는 그 컴포넌트다 —
+    // "NetflixDetailSheet 가 cleanup 못한 body.style.overflow='hidden'".
+    // 안전망이 지금도 필요한지, 아니면 시트가 스스로 치우는지 여기서 재진다.
+    name: '도서 서가 · 상세 시트(NetflixDetailSheet)',
+    route: '/library/books',
+    open: async (page) => {
+      const btn = page.locator('button[aria-label$="상세 보기"]').first();
+      if (!(await btn.isVisible().catch(() => false))) return null;
+      await btn.click();
+      return { trigger: '상세 보기' };
+    },
+  },
+  {
+    name: '스크립트 서가 · 학습 안내(SeriesInfoModal)',
+    route: '/library/scripts',
+    open: async (page) => {
+      const btn = page.locator('button[aria-label$="학습 안내 보기"]').first();
+      if (!(await btn.isVisible().catch(() => false))) return null;
+      await btn.click();
+      return { trigger: '학습 안내 보기' };
+    },
+  },
+  {
+    // ⚠️ 서가(`/comics/restored`)에는 트리거가 없다 — 정보 다이얼로그는 **시리즈 화면**에 있다.
+    //    서가를 가리키면 "트리거가 안 보인다" 로 조용히 건너뛴다(실측 2026-08-25).
+    name: '만화 시리즈 · 콘텐츠 정보(ComicInfoDialog)',
+    route: '/comics/restored?series=super-mystery-comics',
+    open: async (page) => {
+      const btn = page.locator('[aria-haspopup="dialog"]').first();
+      if (!(await btn.isVisible().catch(() => false))) return null;
+      await btn.click();
+      return { trigger: 'aria-haspopup=dialog' };
+    },
+  },
+  {
     name: '관리자 · 큐레이션 도서 상세',
     route: '/admin/curation',
     admin: true,
     open: async (page) => {
-      const row = page.locator('main button').filter({ hasText: /상세|보기|미리보기/ }).first();
-      if (!(await row.isVisible().catch(() => false))) return null;
-      await row.click();
-      return { trigger: '상세 버튼' };
+      // ⚠️ 관리자 화면에서는 **아무 버튼이나 누르지 않는다.** 같은 화면에
+      //    "소스 GET (대량)" · "드레인 실행(831건 대기)" 처럼 되돌릴 수 없거나 비싼 것이 있다.
+      //    트리거는 소스에서 확인한 것만 쓴다 — MyLibraryTab 의 표 행 클릭은
+      //    `setSelectedBook(book)` 뿐이라 읽기 전용이다(MyLibraryTab.tsx:831).
+      //    ⚠️ **행(`<tr>`) 이 아니라 제목 버튼을 누른다.** 행에도 onClick 이 달려 있지만
+      //    `<tr>` 은 포커스를 받지 못해서, 닫을 때 돌아갈 자리가 없다 —
+      //    실측 2026-08-25 에 "포커스가 BODY 로 떨어졌다" 로 찍혔는데 **앱이 아니라 계측기**였다.
+      //    키보드 사용자가 실제로 쓰는 길은 행 안의 제목 버튼이다(MyLibraryTab.tsx:855).
+      const title = page.locator('main table tbody tr button[type="button"]').nth(0);
+      if (!(await title.isVisible().catch(() => false))) return null;
+      await title.click();
+      return { trigger: '도서 제목 버튼(읽기 전용)' };
     },
   },
 ];
@@ -185,8 +228,72 @@ test.describe('팝업을 닫으면 제자리', () => {
   }
 
   test('커버리지 고지 — 이 스펙이 무엇을 안 재는지 숨기지 않는다', () => {
-    // `role="dialog"` 를 그리는 컴포넌트는 28개인데 여기서 재는 것은 4건이다.
-    // 그 격차를 숫자로 남겨 둔다 — 조용한 부분 커버리지가 "전부 봤다" 로 읽히지 않게.
-    expect(CASES.length, '대상이 비었다').toBeGreaterThan(0);
+    // `role="dialog"` 를 그리는 컴포넌트는 **28개**다(실측 2026-08-25).
+    // 전부를 여기서 열 수는 없다. 다만 **못 여는 이유를 하나씩 적어 둔다** —
+    // 이유 없는 면제 목록은 커버리지가 아니라 눈속임이고, 목록이 조용히 자란다.
+
+    /** 정적 화면에서 **열 수 있는** 다이얼로그. 이 스펙의 진짜 분모다. */
+    const REACHABLE = [
+      'GameBriefModal',
+      'VocabSetPreviewModal',
+      'NetflixDetailSheet',
+      'SeriesInfoModal',
+      'ComicInfoDialog',
+      'BookDetailModal',
+      'EnqueueModal',
+      'SeedDetailModal',
+      'AdminPdComicsClient',
+    ];
+
+    /** 여기서 재지 않는 19개 — **각각 이유와 함께.** */
+    const EXCLUDED: Record<string, string> = {
+      'ui/Modal': '프리미티브 — 자체 화면이 없다(쓰는 쪽에서 재진다)',
+      'ui/ZoomableImage': '프리미티브',
+      'ui/ios/SheetContainer': '프리미티브 — 아무도 직접 import 하지 않는다',
+      'layout/GlobalBodyReset': '다이얼로그가 아니라 body 잠금 안전망',
+      'spellforge/MicroPause': '학습 세션 중에만 — 열려면 세션을 시작해야 하고 기록이 남는다',
+      'diagnostic/DiagnosticClient': '진단 세션 — 검증 계정의 진단 결과를 덮어쓴다',
+      'comic/ComicReader': '동적 라우트(/text/[id]/comic) + 콘텐츠 필요',
+      'comic/PdModernReader': '동적 라우트(/comics/restored/[slug])',
+      'library/reader/WordLookupPopover': '읽기 중 단어 탭 — 동적 라우트 + 상호작용',
+      'workspace/FloatingSparkle': '/text/[id] 읽기 중',
+      'workspace/InsightPanel': '/text/[id] 읽기 중',
+      'workspace/RecallCard': '/text/[id] 읽기 중 — 열면 인출 기록이 남는다',
+      'workspace/SupportGloss': '/text/[id] 읽기 중',
+      'workspace/TypePopover': '/text/[id] 읽기 중',
+      'workspace/WorkspaceChapterNav': '/text/[id] 읽기 중',
+      'app:(main)/text/[id]/page': '동적 라우트',
+      'admin/articles/ArticleWordSetPreviewModal': '동적 라우트(/admin/articles/preview/[id])',
+      'admin/curation/ChapterQuizPreviewModal': '동적 라우트(/admin/curation/preview/[bookId])',
+      'admin/curation/ChapterWordSetPreviewModal': '동적 라우트(/admin/curation/preview/[bookId])',
+    };
+
+    const TOTAL_DIALOG_FILES = 28;
+    expect(
+      REACHABLE.length + Object.keys(EXCLUDED).length,
+      '분모가 안 맞는다 — 다이얼로그가 늘었는데 목록을 안 고쳤을 수 있다',
+    ).toBe(TOTAL_DIALOG_FILES);
+
+    // 이 스펙이 실제로 여는 컴포넌트 (케이스 이름에 괄호로 적어 둔 것 + 자명한 둘)
+    const COVERED = [
+      'GameBriefModal',
+      'VocabSetPreviewModal',
+      'NetflixDetailSheet',
+      'SeriesInfoModal',
+      'ComicInfoDialog',
+      'BookDetailModal',
+    ];
+    for (const c of COVERED) expect(REACHABLE, `${c} 가 분모에 없다`).toContain(c);
+
+    const pct = Math.round((COVERED.length / REACHABLE.length) * 1000) / 10;
+    // eslint-disable-next-line no-console
+    console.log(
+      `\n[팝업 커버리지] 열 수 있는 다이얼로그 ${COVERED.length}/${REACHABLE.length} (${pct}%) · ` +
+        `이유를 적고 제외한 것 ${Object.keys(EXCLUDED).length} · 전체 파일 ${TOTAL_DIALOG_FILES}\n` +
+        `  아직 안 여는 것: ${REACHABLE.filter((r) => !COVERED.includes(r)).join(', ')}\n`,
+    );
+
+    // 바닥선 — 여기서 내려가면 커버리지가 조용히 줄어든 것이다.
+    expect(COVERED.length, '팝업 커버리지가 줄었다').toBeGreaterThanOrEqual(6);
   });
 });

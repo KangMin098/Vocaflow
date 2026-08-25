@@ -95,8 +95,36 @@ const report = {
   sweeps: {
     learner: existsSync(join(specDir, '26-learner-sweep.spec.ts')),
     admin: existsSync(join(specDir, '30-admin-sweep.spec.ts')),
-    popup: /팝업|dialog.*제자리|restoreScroll/.test(specBlob) && existsSync(join(specDir, '31-popup-return.spec.ts')),
+    popup: existsSync(join(specDir, '31-popup-return.spec.ts')),
   },
+  dialogs: dialogCoverage(),
+}
+
+/**
+ * 팝업 커버리지 — `role="dialog"` 파일 수와, 그중 **정적 화면에서 열 수 있는 것** 대비 커버.
+ *
+ * 파일 수만 세면 분모가 부풀려진다 — 28개 중 프리미티브·세션 내부·동적 라우트가 대부분이고
+ * 그것들은 이 축으로 잴 수 있는 대상이 아니다. 실제 분모와 제외 사유는
+ * `31-popup-return.spec.ts` 의 '커버리지 고지' 테스트가 들고 있고(거기서 강제된다),
+ * 여기서는 **파일 수가 늘었는지**만 싸게 감시한다 — 늘었는데 목록이 그대로면 그 테스트가 깨진다.
+ */
+function dialogCoverage() {
+  const compDir = join(WEB, 'src/components')
+  const appDir = join(WEB, 'src/app')
+  const found = []
+  const walk = (d) => {
+    if (!existsSync(d)) return
+    for (const n of readdirSync(d)) {
+      const f = join(d, n)
+      if (statSync(f).isDirectory()) walk(f)
+      else if (n.endsWith('.tsx') && read(f).includes('role="dialog"')) found.push(f)
+    }
+  }
+  walk(compDir)
+  walk(appDir)
+  const spec = read(join(specDir, '31-popup-return.spec.ts'))
+  const declared = Number((spec.match(/const TOTAL_DIALOG_FILES = (\d+)/) || [])[1] ?? 0)
+  return { files: found.length, declaredInSpec: declared, inSync: found.length === declared }
 }
 report.overall = pct(
   learnerCovered.length + adminCovered.length,
@@ -118,6 +146,9 @@ if (process.argv.includes('--json')) {
     (report.sweeps.learner ? '✅' : '❌') + ' 학습자   ' +
     (report.sweeps.admin ? '✅' : '❌') + ' 관리자   ' +
     (report.sweeps.popup ? '✅' : '❌') + ' 팝업 제자리')
+  const d = report.dialogs
+  console.log('팝업 파일   ' + d.files + '개 · 스펙 선언 ' + d.declaredInSpec +
+    (d.inSync ? '  ✅ 일치' : '  ❌ 어긋남 — 31-popup-return 의 목록을 갱신할 것'))
   for (const [k, o] of [['학습자', report.learner], ['관리자', report.admin]]) {
     if (o.uncovered.length === 0) continue
     console.log(`\n— 어떤 테스트도 열어 본 적 없는 ${k} 화면 (${o.uncovered.length}) —`)
