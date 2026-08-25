@@ -8,7 +8,7 @@
   "UNTESTED": 1
  },
  "coverageDecided": 98.2,
- "coverageFullExam": 47.3,
+ "coverageFullExam": 50.9,
  "coverageRule": 29.1,
  "bySec": {
   "0": {
@@ -37,7 +37,7 @@
    "decided": 13,
    "stale": 0,
    "untested": 0,
-   "full": 3
+   "full": 4
   },
   "4": {
    "total": 6,
@@ -58,7 +58,7 @@
    "decided": 8,
    "stale": 0,
    "untested": 0,
-   "full": 3
+   "full": 4
   },
   "7": {
    "total": 6,

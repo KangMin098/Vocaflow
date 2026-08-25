@@ -223,7 +223,7 @@
    "exam": "2016",
    "no": 31,
    "type": "R-BLANK",
-   "chars": 881,
+   "chars": 978,
    "okP": true,
    "okC": false,
    "ok": false
@@ -232,7 +232,7 @@
    "exam": "2018",
    "no": 19,
    "type": "R-MOOD",
-   "chars": 682,
+   "chars": 789,
    "okP": true,
    "okC": false,
    "ok": false
@@ -241,7 +241,7 @@
    "exam": "2021",
    "no": 36,
    "type": "R-ORDER",
-   "chars": 993,
+   "chars": 1121,
    "okP": true,
    "okC": false,
    "ok": false
@@ -250,7 +250,7 @@
    "exam": "2022",
    "no": 31,
    "type": "R-BLANK",
-   "chars": 763,
+   "chars": 852,
    "okP": true,
    "okC": false,
    "ok": false
@@ -286,7 +286,7 @@
    "exam": "2023",
    "no": 31,
    "type": "R-BLANK",
-   "chars": 1056,
+   "chars": 1169,
    "okP": true,
    "okC": false,
    "ok": false
@@ -295,7 +295,7 @@
    "exam": "2024",
    "no": 31,
    "type": "R-BLANK",
-   "chars": 889,
+   "chars": 1010,
    "okP": true,
    "okC": false,
    "ok": false
@@ -304,7 +304,7 @@
    "exam": "2024",
    "no": 37,
    "type": "R-ORDER",
-   "chars": 992,
+   "chars": 1102,
    "okP": true,
    "okC": false,
    "ok": false
@@ -322,7 +322,7 @@
    "exam": "2025",
    "no": 36,
    "type": "R-ORDER",
-   "chars": 1040,
+   "chars": 1121,
    "okP": true,
    "okC": false,
    "ok": false
@@ -331,7 +331,7 @@
    "exam": "2026",
    "no": 36,
    "type": "R-ORDER",
-   "chars": 967,
+   "chars": 1128,
    "okP": true,
    "okC": false,
    "ok": false

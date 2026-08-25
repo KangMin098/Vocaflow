@@ -101,15 +101,36 @@ export function setBlockFor(exam, no) {
   return ls.slice(h.i + 1, end < 0 ? Math.min(h.i + 80, ls.length) : end)
 }
 
-/** 블록에서 영어 지문만 — 발문(한글)·선택지(①~⑤ 이후)를 걷어낸다 */
+/**
+ * 선택지 블록이 시작하는 줄 번호. 없으면 -1.
+ *
+ * ⚠️ **아무 ①~⑤ 로나 끊으면 안 된다.** 어법·어휘·무관·순서·삽입은 기호 선지라
+ *    **선택지 블록이 따로 없고 ①~⑤ 가 본문 안에 찍힌다.** 줄머리에 온 마커에서 끊으면
+ *    지문이 거기서 잘린다(M2609#30 은 ④⑤ 를 통째로 잃었고, 어법 마커 검출도 4/5 로 떨어졌다).
+ *
+ * 진짜 선택지 블록은 **① 로 시작하는 줄이 있고 그 뒤로 ②③④⑤ 가 차례로 나오는** 꼬리다.
+ */
+function choiceStart(block) {
+  for (let i = 0; i < block.length; i += 1) {
+    if (!block[i].trim().startsWith(CIRC[0])) continue
+    const tail = block.slice(i).join('\n')
+    let at = -1, ok = true
+    for (const c of CIRC) { const j = tail.indexOf(c); if (j <= at) { ok = false; break } at = j }
+    if (ok) return i
+  }
+  return -1
+}
+
+/** 블록에서 영어 지문만 — 발문(한글)·선택지 블록을 걷어낸다 */
 export function passageOf(block) {
+  const cut = choiceStart(block)
   const body = []
-  for (const raw of block) {
-    const l = raw.trim()
+  for (let i = 0; i < block.length; i += 1) {
+    if (cut >= 0 && i >= cut) break                             // 선택지 블록 시작
+    const l = block[i].trim()
     if (!l) continue
-    if ([...CIRC].some((c) => l.startsWith(c))) break          // 선택지 시작
     if (/^\s*\d+\s*[.．]/.test(l)) continue                     // 발문 줄
-    if (/^\[\d+[~–-]\d+\]/.test(l)) continue                    // 세트 안내
+    if (/^\[\d+[~～∼〜–—-]\d+\]/.test(l)) continue               // 세트 안내
     body.push(l)
   }
   return body
@@ -187,4 +208,18 @@ export const MOCK_EXAMS = ['M2606', 'M2609', 'M2706']
 export function mockRows() {
   const p = path.resolve('scripts/csat/data/mock-questions.json')
   return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')).rows : []
+}
+
+/**
+ * **수능 14회차 + 모의평가 3회차를 한 목록으로.**
+ * 검사 스크립트는 이걸 쓴다 — 모평은 규칙 도출에 안 쓴 회차이므로 표본을 넓히면서
+ * 동시에 홀드아웃 성격을 갖는다. 정답표가 없는 M2509 는 뺀다.
+ */
+export function allRows() {
+  const c = JSON.parse(fs.readFileSync(path.resolve('scripts/csat/data/classified.json'), 'utf8')).rows
+    .map((r) => ({ ...r, src: '수능' }))
+  const m = mockRows()
+    .filter((r) => MOCK_EXAMS.includes(r.exam) && r.type)
+    .map((r) => ({ ...r, src: '모평' }))
+  return [...c, ...m]
 }

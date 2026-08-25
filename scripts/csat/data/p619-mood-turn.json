@@ -1,5 +1,5 @@
 {
- "n": 10,
+ "n": 13,
  "withTurn": 8,
  "mid": 7,
  "rows": [
@@ -7,7 +7,7 @@
    "exam": "2014A",
    "ok": true,
    "isChange": false,
-   "nSent": 16,
+   "nSent": 13,
    "nTurn": 0,
    "pos": [],
    "rep": null,
@@ -18,7 +18,7 @@
    "exam": "2015",
    "ok": true,
    "isChange": false,
-   "nSent": 11,
+   "nSent": 10,
    "nTurn": 0,
    "pos": [],
    "rep": null,
@@ -164,6 +164,39 @@
    "rep": 0.5454545454545454,
    "answer": 1,
    "firstTurnSent": "Suddenly, Sophie saw a familiar sight."
+  },
+  {
+   "exam": "M2606",
+   "ok": true,
+   "isChange": true,
+   "nSent": 10,
+   "nTurn": 0,
+   "pos": [],
+   "rep": null,
+   "answer": 1,
+   "firstTurnSent": null
+  },
+  {
+   "exam": "M2609",
+   "ok": true,
+   "isChange": true,
+   "nSent": 10,
+   "nTurn": 0,
+   "pos": [],
+   "rep": null,
+   "answer": 3,
+   "firstTurnSent": null
+  },
+  {
+   "exam": "M2706",
+   "ok": true,
+   "isChange": true,
+   "nSent": 7,
+   "nTurn": 0,
+   "pos": [],
+   "rep": null,
+   "answer": 1,
+   "firstTurnSent": null
   }
  ]
 }

@@ -1,18 +1,18 @@
 {
- "n": 93,
+ "n": 112,
  "stats": {
   "대의파악 (주제·제목)": {
-   "n": 31,
-   "s1": 12,
-   "w1": 11
+   "n": 37,
+   "s1": 13,
+   "w1": 13
   },
   "빈칸 (31~34)": {
-   "n": 50,
-   "s1": 11,
-   "w1": 14
+   "n": 60,
+   "s1": 15,
+   "w1": 17
   },
   "요약 (40)": {
-   "n": 12,
+   "n": 15,
    "s1": 5,
    "w1": 5
   }
@@ -51,8 +51,8 @@
    "type": "R-TITLE",
    "answer": 2,
    "points": 2,
-   "rankSent": 1,
-   "rankWhole": 1
+   "rankSent": 2,
+   "rankWhole": 2
   },
   {
    "exam": "2015",
@@ -96,7 +96,7 @@
    "type": "R-TOPIC",
    "answer": 5,
    "points": 2,
-   "rankSent": 2,
+   "rankSent": 1,
    "rankWhole": 1
   },
   {
@@ -231,8 +231,8 @@
    "type": "R-TOPIC",
    "answer": 2,
    "points": 3,
-   "rankSent": 4,
-   "rankWhole": 4
+   "rankSent": 3,
+   "rankWhole": 3
   },
   {
    "exam": "2023",
@@ -240,7 +240,7 @@
    "type": "R-TITLE",
    "answer": 5,
    "points": 2,
-   "rankSent": 3,
+   "rankSent": 2,
    "rankWhole": 2
   },
   {
@@ -259,7 +259,7 @@
    "answer": 5,
    "points": 3,
    "rankSent": 1,
-   "rankWhole": 2
+   "rankWhole": 1
   },
   {
    "exam": "2025",
@@ -296,6 +296,60 @@
    "points": 3,
    "rankSent": 5,
    "rankWhole": 5
+  },
+  {
+   "exam": "M2606",
+   "no": 23,
+   "type": "R-TOPIC",
+   "answer": 3,
+   "points": 2,
+   "rankSent": 1,
+   "rankWhole": 1
+  },
+  {
+   "exam": "M2606",
+   "no": 24,
+   "type": "R-TITLE",
+   "answer": 2,
+   "points": 2,
+   "rankSent": 2,
+   "rankWhole": 1
+  },
+  {
+   "exam": "M2609",
+   "no": 23,
+   "type": "R-TOPIC",
+   "answer": 1,
+   "points": 2,
+   "rankSent": 2,
+   "rankWhole": 2
+  },
+  {
+   "exam": "M2609",
+   "no": 24,
+   "type": "R-TITLE",
+   "answer": 3,
+   "points": 3,
+   "rankSent": 4,
+   "rankWhole": 4
+  },
+  {
+   "exam": "M2706",
+   "no": 23,
+   "type": "R-TOPIC",
+   "answer": 2,
+   "points": 2,
+   "rankSent": 5,
+   "rankWhole": 5
+  },
+  {
+   "exam": "M2706",
+   "no": 24,
+   "type": "R-TITLE",
+   "answer": 2,
+   "points": 2,
+   "rankSent": 2,
+   "rankWhole": 2
   },
   {
    "exam": "2014B",
@@ -627,8 +681,8 @@
    "type": "R-BLANK",
    "answer": 2,
    "points": 2,
-   "rankSent": 4,
-   "rankWhole": 4
+   "rankSent": 3,
+   "rankWhole": 3
   },
   {
    "exam": "2023",
@@ -746,6 +800,96 @@
    "points": 3,
    "rankSent": 3,
    "rankWhole": 4
+  },
+  {
+   "exam": "M2606",
+   "no": 32,
+   "type": "R-BLANK",
+   "answer": 1,
+   "points": 3,
+   "rankSent": 1,
+   "rankWhole": 1
+  },
+  {
+   "exam": "M2606",
+   "no": 33,
+   "type": "R-BLANK",
+   "answer": 4,
+   "points": 2,
+   "rankSent": 2,
+   "rankWhole": 2
+  },
+  {
+   "exam": "M2606",
+   "no": 34,
+   "type": "R-BLANK",
+   "answer": 2,
+   "points": 3,
+   "rankSent": 1,
+   "rankWhole": 1
+  },
+  {
+   "exam": "M2609",
+   "no": 32,
+   "type": "R-BLANK",
+   "answer": 3,
+   "points": 3,
+   "rankSent": 2,
+   "rankWhole": 2
+  },
+  {
+   "exam": "M2609",
+   "no": 33,
+   "type": "R-BLANK",
+   "answer": 5,
+   "points": 2,
+   "rankSent": 2,
+   "rankWhole": 3
+  },
+  {
+   "exam": "M2609",
+   "no": 34,
+   "type": "R-BLANK",
+   "answer": 1,
+   "points": 3,
+   "rankSent": 5,
+   "rankWhole": 5
+  },
+  {
+   "exam": "M2706",
+   "no": 31,
+   "type": "R-BLANK",
+   "answer": 1,
+   "points": 2,
+   "rankSent": 1,
+   "rankWhole": 1
+  },
+  {
+   "exam": "M2706",
+   "no": 32,
+   "type": "R-BLANK",
+   "answer": 2,
+   "points": 2,
+   "rankSent": 3,
+   "rankWhole": 3
+  },
+  {
+   "exam": "M2706",
+   "no": 33,
+   "type": "R-BLANK",
+   "answer": 2,
+   "points": 3,
+   "rankSent": 1,
+   "rankWhole": 2
+  },
+  {
+   "exam": "M2706",
+   "no": 34,
+   "type": "R-BLANK",
+   "answer": 1,
+   "points": 3,
+   "rankSent": 2,
+   "rankWhole": 2
   },
   {
    "exam": "2014B",
@@ -854,6 +998,33 @@
    "points": 2,
    "rankSent": 3,
    "rankWhole": 3
+  },
+  {
+   "exam": "M2606",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "answer": 2,
+   "points": 2,
+   "rankSent": 3,
+   "rankWhole": 3
+  },
+  {
+   "exam": "M2609",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "answer": 4,
+   "points": 2,
+   "rankSent": 4,
+   "rankWhole": 4
+  },
+  {
+   "exam": "M2706",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "answer": 5,
+   "points": 2,
+   "rankSent": 5,
+   "rankWhole": 5
   }
  ]
 }

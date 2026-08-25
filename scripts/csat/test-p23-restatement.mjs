@@ -22,10 +22,10 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { itemBlocks, passageOf, sentences } from './lib-passage.mjs'
+import { itemBlocks, passageOf, sentences, allRows } from './lib-passage.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
-const rows = JSON.parse(fs.readFileSync(path.join(DIR, 'classified.json'), 'utf8')).rows
+const rows = allRows()   // 수능 14 + 모평 3
 
 const STOP = new Set(('a an the of to in on for and or not is are was were be been being it its this that these those with as by at from he she they we you i his her their our your them us him one ones can could may might will would shall should must do does did done have has had having but so than then there here what which who whom whose when where why how all any both each few more most other some such no nor only own same too very just also into over under about after before between out up down off again further once s t don now').split(' '))
 const stem = (w) => w.replace(/(ing|ions|ion|ers|er|ies|es|ed|ly|s)$/, '')

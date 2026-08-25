@@ -1,9 +1,9 @@
 {
- "n": 27,
- "excluded": 27,
- "mono": 20,
- "totPairs": 92,
- "totConc": 83,
+ "n": 34,
+ "excluded": 32,
+ "mono": 26,
+ "totPairs": 113,
+ "totConc": 103,
  "rows": [
   {
    "exam": "2014B",
@@ -868,6 +868,202 @@
     null,
     18
    ]
+  },
+  {
+   "exam": "M2606",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    1,
+    1,
+    1,
+    1
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 12
+  },
+  {
+   "exam": "M2606",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    2,
+    6,
+    9,
+    11,
+    null
+   ],
+   "nKnown": 4,
+   "pairs": 3,
+   "conc": 3,
+   "mono": true,
+   "nSent": 16
+  },
+  {
+   "exam": "M2606",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 0개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "M2606",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 1개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    2
+   ]
+  },
+  {
+   "exam": "M2609",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    1,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 3,
+   "mono": false,
+   "nSent": 16
+  },
+  {
+   "exam": "M2609",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": false,
+   "why": "닻 2개",
+   "pos": [
+    null,
+    null,
+    null,
+    9,
+    11
+   ]
+  },
+  {
+   "exam": "M2609",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 0개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "M2609",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": true,
+   "pos": [
+    4,
+    10,
+    null,
+    null,
+    23
+   ],
+   "nKnown": 3,
+   "pairs": 2,
+   "conc": 2,
+   "mono": true,
+   "nSent": 24
+  },
+  {
+   "exam": "M2706",
+   "no": 25,
+   "type": "R-CHART",
+   "ok": true,
+   "pos": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "nKnown": 5,
+   "pairs": 4,
+   "conc": 4,
+   "mono": true,
+   "nSent": 11
+  },
+  {
+   "exam": "M2706",
+   "no": 26,
+   "type": "R-FACT",
+   "ok": true,
+   "pos": [
+    0,
+    null,
+    9,
+    12,
+    null
+   ],
+   "nKnown": 3,
+   "pairs": 2,
+   "conc": 2,
+   "mono": true,
+   "nSent": 15
+  },
+  {
+   "exam": "M2706",
+   "no": 27,
+   "type": "R-NOTICE",
+   "ok": false,
+   "why": "닻 0개",
+   "pos": [
+    null,
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "exam": "M2706",
+   "no": 28,
+   "type": "R-NOTICE",
+   "ok": true,
+   "pos": [
+    3,
+    null,
+    4,
+    null,
+    15
+   ],
+   "nKnown": 3,
+   "pairs": 2,
+   "conc": 2,
+   "mono": true,
+   "nSent": 16
   }
  ]
 }

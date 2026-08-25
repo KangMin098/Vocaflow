@@ -21,11 +21,11 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { itemBlocks, passageOf, choicesOf, sentences } from './lib-passage.mjs'
+import { itemBlocks, passageOf, choicesOf, sentences, allRows } from './lib-passage.mjs'
 import { binomUpper, report } from './claim-gate.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
-const rows = JSON.parse(fs.readFileSync(path.join(DIR, 'classified.json'), 'utf8')).rows
+const rows = allRows()   // 수능 14 + 모평 3
 const TYPES = ['R-FACT', 'R-NOTICE', 'R-CHART']
 
 // 번역을 견디는 닻만 뽑는다

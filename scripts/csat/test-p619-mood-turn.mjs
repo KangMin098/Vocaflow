@@ -20,11 +20,11 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { itemBlocks, passageOf, choicesOf, sentences, answerOf } from './lib-passage.mjs'
+import { itemBlocks, passageOf, choicesOf, sentences, answerOf, allRows } from './lib-passage.mjs'
 import { binomUpper, report } from './claim-gate.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
-const rows = JSON.parse(fs.readFileSync(path.join(DIR, 'classified.json'), 'utf8')).rows
+const rows = allRows()   // 수능 14 + 모평 3
 const items = rows.filter((r) => r.type === 'R-MOOD')
 
 // 서사에서 국면을 바꾸는 표지. 문두에 오는 것만 센다 — 문중의 but 은 국면 전환이 아니다.
