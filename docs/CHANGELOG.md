@@ -10,6 +10,33 @@
 
 ## Unreleased (v06.34 → next)
 
+### 멸칭 33행이 학습자 암기 카드로 나가고 있었다 — 삭제가 아니라 재분류로 막았다
+
+`nigger`·`niggers` 가 발행 챕터 단어장 3곳(Tom Sawyer Ch.6·Ch.10 · The Mysterious Affair at
+Styles Ch.8)에 **외울 낱말로** 들어가 있었다. negro(7) · whore(5) · negress · midget · hussy ·
+sodomite · gypsy · gipsy · savages · retarded 까지 **33행 / 발행 세트 30곳**.
+전부 `word_register='standard'` 라 추출 노이즈 필터를 그대로 통과했다.
+
+**손목록이 아니라 사전 뜻풀이로 전수 검색했다** — 뜻에 모욕·비하·멸칭·차별이 들어간 표제어 중
+발행분에 있는 것. 그 결과 대부분이 오탐이었다(`despise`·`contempt`·`insult`·`racism`·`slur` 는
+**경멸을 뜻하는 정상 낱말**이지 멸칭이 아니다). 선은 하나로 그었다 —
+**주된 뜻이 특정 집단(인종·성·장애·성적지향)을 겨냥한 멸칭인 것만.**
+
+- 재분류 **9개** → `period_cultural` (노이즈 배열에 이미 있어 앞으로 추출이 자동으로 거른다):
+  nigger · negro · negress · whore · midget · hussy · sodomite · gypsy · gipsy
+- 이미 나간 **33행 삭제** + 세트 30곳 `word_count` 재계산
+- **사전에서 지우지 않았다** — 18개 표면형 전부 여전히 해석된다. Tom Sawyer 본문에서 누르면
+  뜻은 떠야 한다. 지웠으면 학습자가 원문을 읽다 막힌다
+- **일부러 남긴 것**: 등재된 뜻이 중립인 것(`chink`=좁은 틈 · `retard`=지연시키다 ·
+  `faggot`=땔감 다발 · `queer`=성소수자의 · `savage`=형용사)과 문학 독해에 필요한
+  경멸 뉘앙스 어휘(lackey · minion · yokel · dotard · spinster · effeminate · heathen)
+- 회귀 `library/__tests__/slur-not-published.integration.test.ts` 3종 — 발행분 0 · **여전히 해석됨** ·
+  남기기로 한 낱말이 안 지워짐(과잉 삭제 방지). 게이트 critical **7/7 PASS** 유지
+
+⚠️ **이 목록은 완결이 아니다.** `word_register` 에 비속어 값이 없어 멸칭을 표시할 자리가 없고,
+새 멸칭이 `standard` 로 들어오면 같은 일이 반복된다. 근본 해결은 레지스터 확장이다
+(노이즈 배열을 하드코딩한 함수 6개를 함께 고쳐야 한다).
+
 ### 게이트 critical FAIL 0 달성 — 그리고 그 과정에서 비하어 18개가 학습자 단어장에 있는 것을 발견
 
 품질 게이트 전역 critical **7/7 PASS**. 마지막 하나였던 `I7 노이즈 register 발행 누출` 은
