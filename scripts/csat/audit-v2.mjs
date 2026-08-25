@@ -23,6 +23,23 @@ const DIR = path.resolve('scripts/csat/data')
 const led = JSON.parse(fs.readFileSync(path.join(DIR, 'v2-claims.json'), 'utf8'))
 const claims = led.claims
 
+// **id 중복 가드.** 2026-08-26 에 실제로 겪었다 — 새 명제를 이미 쓰이는 번호(P4.6)로 올렸고,
+// 다음 사이클에서 `find(P4.6)` 이 **원래 명제**를 집어 그 근거를 통째로 덮어썼다.
+// 대장이 조용히 망가지면 커버리지 수치는 멀쩡해 보인다. 그래서 여기서 먼저 막는다.
+{
+  const seen = new Map()
+  const dups = []
+  for (const c of claims) {
+    if (seen.has(c.id)) dups.push(c.id)
+    else seen.set(c.id, c)
+  }
+  if (dups.length) {
+    console.error(`✗ 명제 id 가 중복이다: ${[...new Set(dups)].join(', ')}`)
+    console.error('  같은 번호를 두 명제가 쓰면 find(id) 가 엉뚱한 것을 집어 근거를 덮어쓴다.')
+    process.exit(1)
+  }
+}
+
 const DECIDED = new Set(['HARD', 'HARD_CAND', 'SOFT', 'REJECTED'])
 const RULE = new Set(['HARD', 'HARD_CAND'])
 
