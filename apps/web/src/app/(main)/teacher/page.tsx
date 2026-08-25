@@ -9,6 +9,8 @@
 import { ReceivedAssignments } from '@/components/teacher/ReceivedAssignments'
 import { SentAssignments } from '@/components/teacher/SentAssignments'
 import { TeacherClient } from '@/components/teacher/TeacherClient'
+import { recordFunnel } from '@/lib/analytics/funnel'
+import { createClient } from '@/lib/supabase/server'
 import { Screen } from '@/components/ui/ios'
 import {
   fetchMyAssignments,
@@ -23,6 +25,10 @@ export const metadata = {
 }
 
 export default async function TeacherPage() {
+  // 왕복 3단계 — 링크를 받은 교사가 **여기까지 왔는가**. 개설(4단계)과의 차이가
+  // "화면은 봤는데 만들지 않았다" 를 드러낸다. 지금은 그 구간이 통째로 안 보인다.
+  void recordFunnel(await createClient(), 'teacher_hub_view', { surface: '/teacher' })
+
   const [taught, joined, received, sent, collectedIds] = await Promise.all([
     fetchTeacherClasses(),
     fetchMyMemberships(),

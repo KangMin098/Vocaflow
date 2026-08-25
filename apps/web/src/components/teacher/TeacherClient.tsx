@@ -10,6 +10,7 @@ import { useState, useTransition } from 'react'
 import {
   createClass,
   joinClassByCode,
+  noteInviteShared,
   type MyMembership,
   type TeacherClass,
 } from '@/lib/teacher/class-actions'

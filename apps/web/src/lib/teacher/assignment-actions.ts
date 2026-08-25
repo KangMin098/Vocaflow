@@ -20,6 +20,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { recordFunnel } from '@/lib/analytics/funnel'
 import { createClient } from '@/lib/supabase/server'
 
 /** 과제에 실리는 낱말 한 개. DB 저장 형태와 같다(`{w,m,v}`) — 변환 지점을 만들지 않는다. */
@@ -121,6 +122,12 @@ export async function createAssignment(
       error: denied ? '이 학급에 보낼 권한이 없어요.' : '보내지 못했어요. 잠시 뒤 다시 시도해 주세요.',
     }
   }
+  // 교사 왕복의 마지막 단계 — 학급을 만든 교사가 **실제로 과제를 보냈는가**.
+  // 여기가 0 이면 앞 단계가 아무리 늘어도 학급은 굴러가지 않는 것이다.
+  await recordFunnel(client as unknown as SupabaseClient, 'assignment_sent', {
+    surface: '/teacher',
+    meta: { words: cleanWords.length },
+  })
   return { ok: true }
 }
 

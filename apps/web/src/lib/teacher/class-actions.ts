@@ -63,6 +63,18 @@ export async function createClass(name: string): Promise<{ ok: boolean; error?: 
   return { ok: false, error: '초대코드 생성 충돌 — 다시 시도해 주세요.' }
 }
 
+/**
+ * 초대코드를 복사·공유했다는 기록만 남긴다(교사 왕복 4.5단계).
+ *
+ * 왜 별도 액션인가: 복사는 클라이언트에서 일어나는데(`navigator.clipboard`),
+ * 기록은 서버가 `auth.uid()` 로 찍어야 위조가 안 된다. 실패해도 복사는 이미 됐으므로
+ * 화면에 아무 영향이 없어야 한다.
+ */
+export async function noteInviteShared(): Promise<void> {
+  const client = await createClient()
+  await recordFunnel(client as unknown as SupabaseClient, 'invite_shared', { surface: '/teacher' })
+}
+
 /** 초대코드로 클래스 참여 (학생). */
 export async function joinClassByCode(code: string): Promise<{ ok: boolean; error?: string }> {
   const c = (code ?? '').trim().toUpperCase()
