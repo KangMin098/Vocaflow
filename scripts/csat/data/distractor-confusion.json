@@ -1,0 +1,1351 @@
+{
+ "n": 128,
+ "n3": 56,
+ "n2": 72,
+ "byPoints": {
+  "confusion": {
+   "p3": 0.039021929764771965,
+   "p2": 0.05700349207622008,
+   "obs": -0.017981562311448117,
+   "p": 0.05269736513174341
+  },
+  "maxConfusion": {
+   "p3": 0.0853961976959698,
+   "p2": 0.12130948068936975,
+   "obs": -0.03591328299339995,
+   "p": 0.05819709014549272
+  },
+  "distractorCohesion": {
+   "p3": 0.031240354922282585,
+   "p2": 0.036220179177827994,
+   "obs": -0.0049798242555454085,
+   "p": 0.5005249737513124
+  },
+  "accessibility": {
+   "p3": 0.021496023628617696,
+   "p2": 0.019046552796202123,
+   "obs": 0.0024494708324155727,
+   "p": 0.45012749362531873
+  },
+  "distractorPassage": {
+   "p3": 0.020684447429781178,
+   "p2": 0.014248252812333766,
+   "obs": 0.006436194617447412,
+   "p": 0.005399730013499325
+  },
+  "baitGap": {
+   "p3": -0.0008115761988365151,
+   "p2": -0.004798299983868357,
+   "obs": 0.003986723785031842,
+   "p": 0.13074346282685867
+  }
+ },
+ "byExamCorr": {
+  "confusion": {
+   "r": -0.02298327472547794,
+   "p": 0.9420528973551322
+  },
+  "maxConfusion": {
+   "r": 0.13520823028012055,
+   "p": 0.6380180990950453
+  },
+  "distractorCohesion": {
+   "r": -0.0947075287297053,
+   "p": 0.7733613319334033
+  },
+  "accessibility": {
+   "r": 0.5176613352129735,
+   "p": 0.08294585270736463
+  },
+  "distractorPassage": {
+   "r": -0.49135285400239953,
+   "p": 0.10014499275036248
+  },
+  "baitGap": {
+   "r": -0.6168593793711531,
+   "p": 0.022448877556122192
+  }
+ },
+ "rows": [
+  {
+   "exam": "2014B",
+   "no": 24,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0.22165635036545758,
+   "maxConfusion": 0.31996367243287305,
+   "distractorCohesion": 0.12874391493765758,
+   "accessibility": 0.015973926701956395
+  },
+  {
+   "exam": "2014B",
+   "no": 25,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.043485284864181024,
+   "maxConfusion": 0.1739411394567241,
+   "distractorCohesion": 0.037775557086514484,
+   "accessibility": 0.014501348961679837
+  },
+  {
+   "exam": "2014B",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0.030384781323183327,
+   "maxConfusion": 0.12153912529273331,
+   "distractorCohesion": 0.03331609783318298,
+   "accessibility": 0.011997518861728028
+  },
+  {
+   "exam": "2014B",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.0657808350984034,
+   "maxConfusion": 0.13605758475821184,
+   "distractorCohesion": 0.03338199924658559,
+   "accessibility": 0
+  },
+  {
+   "exam": "2014B",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2014B",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.029275063332222198,
+   "accessibility": 0.03654711355673997
+  },
+  {
+   "exam": "2014B",
+   "no": 35,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.0567950407907723,
+   "accessibility": 0.014913628626643985
+  },
+  {
+   "exam": "2014B",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0.17338031048137276,
+   "maxConfusion": 0.36536636239129283,
+   "distractorCohesion": 0.09932823010780427,
+   "accessibility": 0
+  },
+  {
+   "exam": "2014A",
+   "no": 26,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.10782830040676512,
+   "maxConfusion": 0.1565976146209233,
+   "distractorCohesion": 0.08931655458496061,
+   "accessibility": 0.03377391264656361
+  },
+  {
+   "exam": "2014A",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.01906984978560987
+  },
+  {
+   "exam": "2014A",
+   "no": 35,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.030384781323183327,
+   "maxConfusion": 0.12153912529273331,
+   "distractorCohesion": 0.03331609783318298,
+   "accessibility": 0.011997518861728028
+  },
+  {
+   "exam": "2015",
+   "no": 20,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0.05062528563937462,
+   "maxConfusion": 0.2025011425574985,
+   "distractorCohesion": 0.02979783300437161,
+   "accessibility": 0.03761539230617108
+  },
+  {
+   "exam": "2015",
+   "no": 21,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0.0678301255783756,
+   "maxConfusion": 0.09633190554860895,
+   "distractorCohesion": 0.015637274331263065,
+   "accessibility": 0.030989114683624253
+  },
+  {
+   "exam": "2015",
+   "no": 22,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.10257777897669898,
+   "maxConfusion": 0.2882158509763089,
+   "distractorCohesion": 0.018606121450982414,
+   "accessibility": 0.06771339651552083
+  },
+  {
+   "exam": "2015",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.07579804624049201
+  },
+  {
+   "exam": "2015",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2015",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.09781595064411129,
+   "maxConfusion": 0.11859550546930116,
+   "distractorCohesion": 0.07848442307412086,
+   "accessibility": 0.0261162947502875
+  },
+  {
+   "exam": "2015",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.07091076936075208,
+   "maxConfusion": 0.19603939500572581,
+   "distractorCohesion": 0.027195521594638606,
+   "accessibility": 0.024000648684467437
+  },
+  {
+   "exam": "2015",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0.08160046241265342,
+   "maxConfusion": 0.3264018496506137,
+   "distractorCohesion": 0.04082751206161775,
+   "accessibility": 0.028481997343781214
+  },
+  {
+   "exam": "2016",
+   "no": 22,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.057279568327042354
+  },
+  {
+   "exam": "2016",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.0951081271788071,
+   "maxConfusion": 0.27255224286316415,
+   "distractorCohesion": 0.019796264259783997,
+   "accessibility": 0.042361390145246695
+  },
+  {
+   "exam": "2016",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.014996448014727338,
+   "accessibility": 0.012695735627011566
+  },
+  {
+   "exam": "2016",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.04842268703641072,
+   "accessibility": 0.015257512614654738
+  },
+  {
+   "exam": "2016",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.025366564819912247,
+   "accessibility": 0
+  },
+  {
+   "exam": "2016",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0.1432832177426514,
+   "maxConfusion": 0.313114938955552,
+   "distractorCohesion": 0.13699165619241213,
+   "accessibility": 0
+  },
+  {
+   "exam": "2017",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2017",
+   "no": 21,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0.10021597696683388,
+   "maxConfusion": 0.10611884649383675,
+   "distractorCohesion": 0.1296472896781596,
+   "accessibility": 0.02403345974784468
+  },
+  {
+   "exam": "2017",
+   "no": 22,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.11848111408330188,
+   "maxConfusion": 0.13241687774428937,
+   "distractorCohesion": 0.10557901563402662,
+   "accessibility": 0.03548700326944112
+  },
+  {
+   "exam": "2017",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.15310838096943347,
+   "maxConfusion": 0.3455712351085675,
+   "distractorCohesion": 0.022652705363337963,
+   "accessibility": 0.049244620865539296
+  },
+  {
+   "exam": "2017",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2017",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.07338781456974573,
+   "maxConfusion": 0.1576350260989552,
+   "distractorCohesion": 0,
+   "accessibility": 0.02834286699492295
+  },
+  {
+   "exam": "2017",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.014144222327325975
+  },
+  {
+   "exam": "2017",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0.16096784246885182,
+   "maxConfusion": 0.32391107932713853,
+   "distractorCohesion": 0.11099687506191132,
+   "accessibility": 0
+  },
+  {
+   "exam": "2018",
+   "no": 22,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0.10603971454048974,
+   "maxConfusion": 0.18233595025858218,
+   "distractorCohesion": 0.05837420640543144,
+   "accessibility": 0.0496118938843654
+  },
+  {
+   "exam": "2018",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.18703133413430198,
+   "maxConfusion": 0.23177763024928297,
+   "distractorCohesion": 0.18251574474037183,
+   "accessibility": 0.0346400947706561
+  },
+  {
+   "exam": "2018",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.04511169765821325,
+   "maxConfusion": 0.180446790632853,
+   "distractorCohesion": 0,
+   "accessibility": 0.027459885438817097
+  },
+  {
+   "exam": "2018",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.038206292505090375,
+   "maxConfusion": 0.07662713943520609,
+   "distractorCohesion": 0.029134464811495755,
+   "accessibility": 0.030751279584256486
+  },
+  {
+   "exam": "2018",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.06930115284287247,
+   "maxConfusion": 0.14199469815562163,
+   "distractorCohesion": 0.019625951973900567,
+   "accessibility": 0.012094532891466996
+  },
+  {
+   "exam": "2018",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.10051021335811035,
+   "maxConfusion": 0.16493229570476559,
+   "distractorCohesion": 0.12489649196038662,
+   "accessibility": 0
+  },
+  {
+   "exam": "2018",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0.07268222889234005,
+   "maxConfusion": 0.2907289155693602,
+   "distractorCohesion": 0.053292127733691776,
+   "accessibility": 0
+  },
+  {
+   "exam": "2019",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2019",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.019532703587068743,
+   "accessibility": 0
+  },
+  {
+   "exam": "2019",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "confusion": 0.0551661807999701,
+   "maxConfusion": 0.2206647231998804,
+   "distractorCohesion": 0.03633079834543005,
+   "accessibility": 0.04401281932432286
+  },
+  {
+   "exam": "2019",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.04522496934487745,
+   "maxConfusion": 0.09771553833691679,
+   "distractorCohesion": 0.016994646615797578,
+   "accessibility": 0.03554109560964938
+  },
+  {
+   "exam": "2019",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0.11804548271667663,
+   "maxConfusion": 0.1595208003944356,
+   "distractorCohesion": 0.19743541738431028,
+   "accessibility": 0.027011967499225464
+  },
+  {
+   "exam": "2019",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.03321939319978904,
+   "maxConfusion": 0.13287757279915616,
+   "distractorCohesion": 0,
+   "accessibility": 0.016430060178941806
+  },
+  {
+   "exam": "2019",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.0690313254806099,
+   "accessibility": 0.012868433461311947
+  },
+  {
+   "exam": "2019",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0.1491453965919046,
+   "maxConfusion": 0.30585793033587305,
+   "distractorCohesion": 0.1031206153398581,
+   "accessibility": 0
+  },
+  {
+   "exam": "2020",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2020",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "confusion": 0.030815717154881038,
+   "maxConfusion": 0.06634224785768376,
+   "distractorCohesion": 0.011620758155908137,
+   "accessibility": 0.03996718877588687
+  },
+  {
+   "exam": "2020",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0.020431212999765892,
+   "maxConfusion": 0.08172485199906357,
+   "distractorCohesion": 0,
+   "accessibility": 0.0347176120947299
+  },
+  {
+   "exam": "2020",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.051431984515152476,
+   "maxConfusion": 0.10502356220494331,
+   "distractorCohesion": 0,
+   "accessibility": 0.0221489368973621
+  },
+  {
+   "exam": "2020",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0.06031578516490169,
+   "maxConfusion": 0.14567926042864038,
+   "distractorCohesion": 0.09347833134555429,
+   "accessibility": 0.05049324433867596
+  },
+  {
+   "exam": "2020",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.01250701120669782
+  },
+  {
+   "exam": "2020",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.04421528180399265,
+   "maxConfusion": 0.1768611272159706,
+   "distractorCohesion": 0,
+   "accessibility": 0.039549574939758185
+  },
+  {
+   "exam": "2020",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0.08333333333333333,
+   "maxConfusion": 0.3333333333333333,
+   "distractorCohesion": 0.04845394267195755,
+   "accessibility": 0
+  },
+  {
+   "exam": "2021",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2021",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "confusion": 0.016312382460205537,
+   "maxConfusion": 0.06524952984082215,
+   "distractorCohesion": 0.018727632633772757,
+   "accessibility": 0.024736181773567612
+  },
+  {
+   "exam": "2021",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "confusion": 0.08737672361996962,
+   "maxConfusion": 0.16108979721060604,
+   "distractorCohesion": 0.08991653530750306,
+   "accessibility": 0.05745010597473226
+  },
+  {
+   "exam": "2021",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.12880128396009863,
+   "maxConfusion": 0.22091725455508995,
+   "distractorCohesion": 0.06554574886121343,
+   "accessibility": 0.02050456360349386
+  },
+  {
+   "exam": "2021",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2021",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.03210789235869625
+  },
+  {
+   "exam": "2021",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2021",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.14580037594092085,
+   "maxConfusion": 0.2011099252153406,
+   "distractorCohesion": 0.1178801346401863,
+   "accessibility": 0.05267792270676856
+  },
+  {
+   "exam": "2021",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2022",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2022",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "confusion": 0.042654809685450705,
+   "maxConfusion": 0.09244926942555297,
+   "distractorCohesion": 0.013572244862044154,
+   "accessibility": 0.021047130794129426
+  },
+  {
+   "exam": "2022",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "confusion": 0.12340864067248318,
+   "maxConfusion": 0.21840470409966845,
+   "distractorCohesion": 0.041559442524924925,
+   "accessibility": 0.026388113169171244
+  },
+  {
+   "exam": "2022",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.04898180302215044,
+   "maxConfusion": 0.09828377415602452,
+   "distractorCohesion": 0.018371733806885393,
+   "accessibility": 0.02477740589328283
+  },
+  {
+   "exam": "2022",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.03501930546709001
+  },
+  {
+   "exam": "2022",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.05710666137968806,
+   "accessibility": 0.030434487126150513
+  },
+  {
+   "exam": "2022",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.024753662623694373,
+   "accessibility": 0.030724786377834237
+  },
+  {
+   "exam": "2023",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2023",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "confusion": 0.054588177421822384,
+   "maxConfusion": 0.10917635484364477,
+   "distractorCohesion": 0.034986821025104,
+   "accessibility": 0.014143798500115877
+  },
+  {
+   "exam": "2023",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "confusion": 0.06741550359136936,
+   "maxConfusion": 0.0961941109183635,
+   "distractorCohesion": 0.026769349873633164,
+   "accessibility": 0.020216391985146742
+  },
+  {
+   "exam": "2023",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.13922655565736045,
+   "maxConfusion": 0.18765640050253038,
+   "distractorCohesion": 0.05918175184783644,
+   "accessibility": 0.03870102190767901
+  },
+  {
+   "exam": "2023",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.011626253232060908
+  },
+  {
+   "exam": "2023",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.035207691730046016,
+   "maxConfusion": 0.14083076692018406,
+   "distractorCohesion": 0,
+   "accessibility": 0.0157409723222566
+  },
+  {
+   "exam": "2023",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.031378734173586526
+  },
+  {
+   "exam": "2023",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0.08387524058543591,
+   "maxConfusion": 0.33550096234174365,
+   "distractorCohesion": 0.05385581044377219,
+   "accessibility": 0
+  },
+  {
+   "exam": "2024",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2024",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "confusion": 0.08703486957722949,
+   "maxConfusion": 0.1746722798057004,
+   "distractorCohesion": 0.02503047522652065,
+   "accessibility": 0.04244620559473674
+  },
+  {
+   "exam": "2024",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0.20809976980550246,
+   "maxConfusion": 0.4311290913273645,
+   "distractorCohesion": 0.05587421997007282,
+   "accessibility": 0.05717055742739584
+  },
+  {
+   "exam": "2024",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 3,
+   "confusion": 0.0759291544602805,
+   "maxConfusion": 0.10954930257217804,
+   "distractorCohesion": 0.054977931268343085,
+   "accessibility": 0.03677111693170271
+  },
+  {
+   "exam": "2024",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0.06560192739973258,
+   "maxConfusion": 0.1325943432439644,
+   "distractorCohesion": 0,
+   "accessibility": 0.02649268386106466
+  },
+  {
+   "exam": "2024",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.03827573645865831,
+   "maxConfusion": 0.08459417193356016,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2024",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.037023833188098855,
+   "accessibility": 0
+  },
+  {
+   "exam": "2024",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2025",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2025",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "confusion": 0.04276275965812818,
+   "maxConfusion": 0.09326291041655631,
+   "distractorCohesion": 0.014506809229673815,
+   "accessibility": 0.04466735576146839
+  },
+  {
+   "exam": "2025",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0.06293522341674966,
+   "maxConfusion": 0.10201902996857123,
+   "distractorCohesion": 0.015385909296551016,
+   "accessibility": 0.04962929787189832
+  },
+  {
+   "exam": "2025",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.07173279913037713,
+   "maxConfusion": 0.10606528758563678,
+   "distractorCohesion": 0.06684652130106897,
+   "accessibility": 0.029863016386270713
+  },
+  {
+   "exam": "2025",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2025",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2025",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.01515724632276324
+  },
+  {
+   "exam": "2025",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.09038765604629165,
+   "maxConfusion": 0.19201072091311858,
+   "distractorCohesion": 0.03575864382922943,
+   "accessibility": 0.04798325644219338
+  },
+  {
+   "exam": "2025",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2026",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "2026",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "confusion": 0.04770787059937281,
+   "maxConfusion": 0.09840299465674308,
+   "distractorCohesion": 0.015404747956791358,
+   "accessibility": 0.009584816792325866
+  },
+  {
+   "exam": "2026",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0.10300642314247417,
+   "maxConfusion": 0.204213233834556,
+   "distractorCohesion": 0.05072871727817618,
+   "accessibility": 0.012651649553841474
+  },
+  {
+   "exam": "2026",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 3,
+   "confusion": 0.1211007887997478,
+   "maxConfusion": 0.26214503270928274,
+   "distractorCohesion": 0.06359385849305062,
+   "accessibility": 0.02209166466999422
+  },
+  {
+   "exam": "2026",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.09255291605777143,
+   "maxConfusion": 0.13058908111250978,
+   "distractorCohesion": 0.12203162756814,
+   "accessibility": 0.013936627787866272
+  },
+  {
+   "exam": "2026",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0.10202147442428611,
+   "maxConfusion": 0.15283359611497327,
+   "distractorCohesion": 0.08107230205053434,
+   "accessibility": 0.010638358943580561
+  },
+  {
+   "exam": "2026",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.013551079474656
+  },
+  {
+   "exam": "2026",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "M2606",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.03487530519689681,
+   "accessibility": 0.014691305265432815
+  },
+  {
+   "exam": "M2606",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0.06857009506495973,
+   "maxConfusion": 0.17164634983985344,
+   "distractorCohesion": 0.018055645930628948,
+   "accessibility": 0.053480557257703155
+  },
+  {
+   "exam": "M2606",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.04366980855566134,
+   "maxConfusion": 0.09830304565900977,
+   "distractorCohesion": 0.01606286263181016,
+   "accessibility": 0.031070811642173884
+  },
+  {
+   "exam": "M2606",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.025868561102120286
+  },
+  {
+   "exam": "M2606",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0.014053262757530416
+  },
+  {
+   "exam": "M2606",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.06417498496102124,
+   "maxConfusion": 0.13781526244491427,
+   "distractorCohesion": 0.02087715196000089,
+   "accessibility": 0.023452513735269506
+  },
+  {
+   "exam": "M2606",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0.07545872301763806,
+   "maxConfusion": 0.30183489207055225,
+   "distractorCohesion": 0.05681929567814703,
+   "accessibility": 0
+  },
+  {
+   "exam": "M2609",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "M2609",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "confusion": 0.026629882137756404,
+   "maxConfusion": 0.10651952855102562,
+   "distractorCohesion": 0.01673277403474648,
+   "accessibility": 0.03687958324302683
+  },
+  {
+   "exam": "M2609",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0.08045689729779078,
+   "maxConfusion": 0.17394719753625013,
+   "distractorCohesion": 0.04039634661704936,
+   "accessibility": 0.045860401439252005
+  },
+  {
+   "exam": "M2609",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 3,
+   "confusion": 0.027194379010161827,
+   "maxConfusion": 0.10877751604064731,
+   "distractorCohesion": 0.015346163111980856,
+   "accessibility": 0.010393361455016365
+  },
+  {
+   "exam": "M2609",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.048391080816988064,
+   "maxConfusion": 0.10270146970514422,
+   "distractorCohesion": 0.04340609728772037,
+   "accessibility": 0.046436540153095604
+  },
+  {
+   "exam": "M2609",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0.027403428549691206,
+   "maxConfusion": 0.10961371419876483,
+   "distractorCohesion": 0.013997720526022587,
+   "accessibility": 0.011081817880477149
+  },
+  {
+   "exam": "M2609",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.04265763165517536,
+   "accessibility": 0
+  },
+  {
+   "exam": "M2609",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "M2706",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  },
+  {
+   "exam": "M2706",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "confusion": 0.07377005263910376,
+   "maxConfusion": 0.12845081957920276,
+   "distractorCohesion": 0.10249022311183249,
+   "accessibility": 0.019268771972599127
+  },
+  {
+   "exam": "M2706",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "confusion": 0.13853049564840927,
+   "maxConfusion": 0.16704181722223604,
+   "distractorCohesion": 0.0891204067619693,
+   "accessibility": 0.018254631929658746
+  },
+  {
+   "exam": "M2706",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "confusion": 0.047644446058263346,
+   "maxConfusion": 0.09878843844937833,
+   "distractorCohesion": 0.029222446357215364,
+   "accessibility": 0.02320499878201394
+  },
+  {
+   "exam": "M2706",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0.05097244344207058,
+   "accessibility": 0.011426772854199973
+  },
+  {
+   "exam": "M2706",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.051531547503120244,
+   "maxConfusion": 0.10437379205187024,
+   "distractorCohesion": 0.01468026876985034,
+   "accessibility": 0.038359926960259194
+  },
+  {
+   "exam": "M2706",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "confusion": 0.034214255719793446,
+   "maxConfusion": 0.13685702287917378,
+   "distractorCohesion": 0.061052593009482625,
+   "accessibility": 0.012893585569646053
+  },
+  {
+   "exam": "M2706",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "confusion": 0,
+   "maxConfusion": 0,
+   "distractorCohesion": 0,
+   "accessibility": 0
+  }
+ ]
+}
