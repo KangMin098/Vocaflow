@@ -20,6 +20,7 @@
 //   verdict='add'         → shared_dictionary 등재 + pending 을 added 로
 //   verdict='proper_noun' → proper_noun_forms 등재 + pending 을 rejected 로
 //   verdict='noise'       → noise_blacklist 등재 + pending 을 rejected 로
+//   verdict='defer'       → 등재 안 함 + pending 을 reviewing 으로 (실단어지만 표제어 가치 없음)
 // 뒤 둘은 적재 함수(`ingest_topic_corpus_doc`)가 조회하는 표라, 넣어 두면 **다시 큐에 안 들어온다**.
 // status 만 바꾸면 그 낱말이 다음 코퍼스에서 또 올라온다.
 //
@@ -28,9 +29,13 @@
 //            제외한다. 몇 번 돌려도 남은 것만 나온다.
 //   import : 이미 있는 표제어는 건너뛴다(건너뛴 수를 출력). 같은 out.json 을 다시 넣어도 결과가 같다.
 //
-// ── 일부러 후보에서 빼는 것 ─────────────────────────────────────────
-//   접두사 파생(non-·anti-·un-·self- …) — 뜻이 뒤집혀 해석기로도 못 풀고(anti-slavery→slavery)
-//   등재할지도 판단이 필요하다. 별도 라운드로 다룬다.
+// ── 접두사 파생도 후보에 넣는다 (2026-08-25 정정) ───────────────────
+//   처음엔 non-·anti-·un- 을 통째로 뺐다. **해석기** 관점에서는 옳다 — anti-slavery 를
+//   slavery 로 풀면 뜻이 정반대가 된다. 그런데 **등재** 관점에서는 위험이 없다:
+//   뜻을 명시해 넣는 행위는 아무것도 뒤집지 않는다. 빼 두면 self-doubt·non-profit·
+//   anti-slavery 같은 굳은 낱말이 영영 큐에 남는다.
+//   판정 기준은 하이픈 합성어와 같다 — **뜻이 부분의 합이 아니거나 관용으로 굳었으면 등재**.
+//   non-wheat·non-flooded 처럼 그 자리에서 만들어 쓴 형태는 `defer` 로 내린다.
 //
 // 실행:
 //   node scripts/dict/drain-pending-words.mjs export --dir scripts/dict/pending-drain [--chunk 60] [--min-enc 3]
@@ -63,10 +68,6 @@ const db = createClient(
   { auth: { persistSession: false } },
 )
 
-/** 뜻을 뒤집는 접두사 — 이 라운드에서 제외 (해석기 L4 가 같은 이유로 'less' 를 뺀다) */
-const NEGATING_PREFIXES = [
-  'non', 'anti', 'un', 'dis', 'mis', 'ir', 'im', 'il', 'de', 'counter', 'pseudo', 'quasi',
-]
 const POS_OK = new Set([
   'noun', 'verb', 'adjective', 'adverb', 'pronoun', 'preposition', 'conjunction',
   'interjection', 'determiner', 'idiom', 'phrasal_verb', 'abbreviation', 'number', 'other',
@@ -119,8 +120,6 @@ if (MODE === 'export') {
   const shaped = rows
     .map((r) => ({ w: String(r.lemma || '').toLowerCase().trim(), enc: r.encounter_count ?? 0, df: r.doc_freq ?? 0 }))
     .filter((r) => /^[a-z][a-z'-]*[a-z]$/.test(r.w) && r.w.length >= 3)
-    // 접두사 파생은 이 라운드 제외 (파일 머리 주석 참조)
-    .filter((r) => !(r.w.includes('-') && NEGATING_PREFIXES.includes(r.w.split('-')[0])))
     // 넓이(문서 수) 또는 총량 중 하나라도 기준을 넘어야 한다. doc_freq 는 2026-08-25 이후 적재분만 있다.
     .filter((r) => r.df >= 2 || r.enc >= MIN_ENC)
 
@@ -177,6 +176,7 @@ if (MODE === 'import') {
   const add = new Map()
   const proper = new Map()
   const noise = new Map()
+  const defer = new Map()
   const rejectLog = []
   let files = 0
 
@@ -197,6 +197,10 @@ if (MODE === 'import') {
       if (!w) { rejectLog.push(['(word 없음)', JSON.stringify(e).slice(0, 60)]); continue }
       const verdict = e?.verdict
 
+      // 실단어이긴 한데 표제어로 넣을 값이 없는 것(그 자리에서 만들어 쓴 접두사 파생 등).
+      // 노이즈로 부르면 거짓이고, out.json 에서 빼면 다음 export 에 영원히 다시 나온다.
+      // 'reviewing' 은 이미 있는 상태값이라 화면이 그대로 보여 준다.
+      if (verdict === 'defer') { defer.set(w, e?.note || ''); continue }
       if (verdict === 'proper_noun') { proper.set(w, e?.note || 'drain'); continue }
       if (verdict === 'noise') {
         const cat = String(e?.category || 'corrupt_token').trim()
@@ -207,7 +211,7 @@ if (MODE === 'import') {
         noise.set(w, { note: e?.note || '', category: cat })
         continue
       }
-      if (verdict !== 'add') { rejectLog.push([w, `verdict 이 add/proper_noun/noise 가 아님: ${verdict}`]); continue }
+      if (verdict !== 'add') { rejectLog.push([w, `verdict 이 add/defer/proper_noun/noise 가 아님: ${verdict}`]); continue }
 
       const ko = typeof e?.meaning_ko === 'string' ? e.meaning_ko.trim() : ''
       const ex = typeof e?.example_en === 'string' ? e.example_en.trim() : ''
@@ -233,7 +237,7 @@ if (MODE === 'import') {
     }
   }
 
-  console.log(`files ${files} · add ${add.size} · proper_noun ${proper.size} · noise ${noise.size} · 검증 탈락 ${rejectLog.length}`)
+  console.log(`files ${files} · add ${add.size} · defer ${defer.size} · proper_noun ${proper.size} · noise ${noise.size} · 검증 탈락 ${rejectLog.length}`)
   for (const [w, why] of rejectLog.slice(0, 20)) console.warn('  reject', w, '—', why)
   if (rejectLog.length > 20) console.warn(`  … 외 ${rejectLog.length - 20}건`)
 
@@ -325,11 +329,12 @@ if (MODE === 'import') {
   }
   const addedN = await mark([...add.keys()], 'added', `${stamp} pending 드레인 등재`)
   const rejectedN = await mark([...proper.keys(), ...noise.keys()], 'rejected', `${stamp} pending 드레인 기각(고유명사/노이즈)`)
+  const deferredN = await mark([...defer.keys()], 'reviewing', `${stamp} pending 드레인 보류(표제어로 넣을 값 없음)`)
 
   console.log(
     `\n적재 완료 — 사전 +${inserted} · proper_noun_forms +${properUp} · noise_blacklist +${noiseUp}`,
   )
-  console.log(`큐 정리 — added ${addedN} · rejected ${rejectedN}`)
+  console.log(`큐 정리 — added ${addedN} · rejected ${rejectedN} · 보류(reviewing) ${deferredN}`)
   process.exit(0)
 }
 

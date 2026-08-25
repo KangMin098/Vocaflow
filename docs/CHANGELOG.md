@@ -10,6 +10,33 @@
 
 ## Unreleased (v06.34 → next)
 
+### 드레인 설계 결정 둘 — 접두사 파생은 넣고, 비속어는 이연한다
+
+**① 접두사 파생을 후보에서 뺀 것은 과했다.** 처음엔 non-·anti-·un- 을 통째로 제외했다.
+**해석기** 관점에서는 옳다 — anti-slavery 를 slavery 로 풀면 뜻이 정반대가 된다. 그런데
+**등재** 관점에서는 위험이 없다: 뜻을 명시해 넣는 행위는 아무것도 뒤집지 않는다.
+빼 두면 self-doubt · self-awareness · non-coding · sub-saharan 같은 **굳은 낱말이 영영 큐에 남는다**.
+판정 기준은 하이픈 합성어와 같다 — 뜻이 부분의 합이 아니거나 관용으로 굳었으면 등재.
+
+그래서 네 번째 판정 `defer` 를 뒀다. non-rotating · three-carbon · culture-positive 처럼
+**그 자리에서 만들어 쓴 형태**는 노이즈가 아니라 실단어인데 표제어로 넣을 값이 없다.
+out.json 에서 빼면 다음 export 에 영원히 다시 나오므로, 큐에서 `reviewing` 으로 내린다
+(이미 있는 상태값이라 화면이 그대로 보여 준다).
+
+**② 비속어(shit · fuck · crap)는 이연한다.** `word_register` 에 비속어 값이 없어 넣으면
+`standard` 로 들어가 단어장 후보가 된다. 값을 추가하려면 노이즈 배열을 하드코딩한
+**함수 6개**(select_book_chapter_vocab · select_article_vocab · lookup_word_meaning ·
+extract_vocabulary_for_user_v2 · run_content_quality_gates · run_content_quality_gate_details)를
+모두 고쳐야 하는데, 얻는 것은 **낱말 3개**다. `register` 축을 "실소비처 확정 시 재개" 로
+이연해 둔 것과 같은 판단이다 — 비속어 표시 UI 가 생길 때 함께 한다.
+
+- 2라운드(chunk-00 재생성, 60낱말) — 사전 **+19**(anti-slavery · self-awareness · self-interest ·
+  self-love · non-coding · sub-saharan · multi-center · second-line · mesophyll · ergosphere ·
+  photorespiration · machiya · asmr · lstm · pid · med …) · proper_noun_forms +8 ·
+  noise_blacklist +22 · `defer` **11**
+- 큐 9,022 → **8,962** (added 406 · rejected 1,702 · reviewing 11)
+- 후보 3,427 / 58청크 (접두사 파생 포함으로 +70)
+
 ### pending_words 드레인 — 판정이 셋인 것이 핵심이다
 
 큐 9,022행을 규칙으로 갈라 보면 매번 절반에서 막힌다. `lexicon_clean` 에 영어로 있으면 진성 갭이라

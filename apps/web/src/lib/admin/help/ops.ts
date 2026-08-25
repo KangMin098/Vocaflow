@@ -225,7 +225,7 @@ export const OPS_HELP: HelpRegistry = {
           {
             title: 'Claude Code 가 판정',
             detail:
-              '각 chunk 를 읽고 낱말마다 `verdict` 를 정해 chunk-NN.out.json 으로 쓴다. `add` 는 뜻·품사·CEFR·V-Level·예문까지, `proper_noun`·`noise` 는 이유(note)만. noise 는 `category` 도 정한다(foreign_word · corrupt_token · interjection_noise · archaic_grammar · proper_noun_marker).',
+              '각 chunk 를 읽고 낱말마다 `verdict` 를 정해 chunk-NN.out.json 으로 쓴다. **넷이다** — `add`(뜻·품사·CEFR·V-Level·예문까지) · `proper_noun` · `noise`(`category` 필수: foreign_word · corrupt_token · interjection_noise · archaic_grammar · proper_noun_marker) · `defer`(실단어이지만 표제어로 넣을 값이 없는 것 — non-rotating·three-carbon 처럼 그 자리에서 만든 형태. 큐에서 `reviewing` 으로 내려가 다음 export 에 다시 안 나온다).',
             done: 'chunk 수와 out 파일 수가 같다.',
           },
           {
