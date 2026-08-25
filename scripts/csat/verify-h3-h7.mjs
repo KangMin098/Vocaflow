@@ -16,6 +16,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { POOL } from './grammar-pool.mjs'
 
 const SRC = 'C:/Users/Administrator/Document' + 's/수능영어기출/최종'
 const OUT_DIR = path.resolve('scripts/csat/data')
@@ -58,18 +59,8 @@ const out = {}
 //      · differentiates/knows(수일치) · did(대동사, 수일치의 한 갈래)
 //    또 `that` 밑줄 5개를 대명사로 잡고 있었는데, 어법 문항의 `that` 은 전부 관계사·접속사다.
 //    아래는 **풀을 넓힌 게 아니라 규칙을 고친 것**이다. 풀 10종은 그대로다.
-const POOL = [
-  ['G4 태', /^(be|been|is|are|was|were|being|get|gets)\s+\w+(ed|en)\b/i],
-  ['G8 전치사 vs 접속사', /^(because|although|though|despite|in\s+spite\s+of|while|during|since|unless|whereas)\b/i],
-  ['G2 관계사·접속사', /^(which|who|whom|whose|what|where|when|why|how|that)\b|^(in|of|for|on|with|to|by|from|at)\s+which\b/i],
-  ['G9 시제·조동사·가정법', /^(would|could|should|might|must|will|shall|had\s+to\b|ha[sve]+\s+to\b|had\s+\w+(ed|en)\b)/i],
-  ['G3 수일치', /^(is|are|was|were|has|have|does|do|did|seems?|exists?|remains?|appears?|makes?|takes?|comes?|gives?|knows?|continues?|differentiates?|means?|allows?|requires?|involves?|includes?|leads?|tends?)\b/i],
-  ['G1 준동사 vs 정동사', /^(to\s+[a-z]+|being|having\s+\w+|\w+ing\b|\w+ed\b|\w+en\b|built|brought|kept|left|found|held|made|sent|told|thought|caught|taught|bought|sought|felt|meant|dealt|spent|lost|paid|laid|said|set|put|cut|shown|grown|drawn|known|taken|given|written|driven|chosen|frozen|worn|torn|born)\b/i],
-  ['G5 대명사', /^(it|its|they|them|their|theirs|he|him|his|she|her|hers|one|ones|those|these|itself|themselves|himself|herself|oneself|ourselves)\b/i],
-  ['G6 형용사·부사', /^(\w+ly)\b|^(most|much|very|so|too|such|as|more|less|far|well|good|bad|close|responsible|able|likely|possible|available|similar|different|important|difficult|necessary|aware|capable|useful|common|likely|sufficient)\b/i],
-  ['G7 병렬', /^(and|or|but|nor)\b/i],
-  ['G10 도치·강조·생략', /^(neither|only|not\s+until|little|never|rarely|hardly|seldom|no\s+sooner)\b/i],
-]
+// 문법 풀 10종은 grammar-pool.mjs 가 단일 출처다(P3.5 홀드아웃이 같은 표를 쓴다)
+
 
 {
   const targets = classified.rows.filter((r) => r.exam !== '2014A' && r.type === 'R-GRAMMAR')
