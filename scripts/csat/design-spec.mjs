@@ -127,6 +127,15 @@ export const SPEC = {
         })
       },
       why: '2017~2026 수능 10 + 모평 3 = 13회차 · 26/26 예외 0. 기저 10/45 에서 이항 p ≈ 1e-17.' },
+    { id: 'E10', grade: 'HARD', name: '2018학년도부터 어휘 문항은 밑줄형 (네모형 폐지)',
+      check: (ex) => {
+        if (Number(ex.exam.slice(0, 4)) < 2018) return true
+        const v = ex.items.find((i) => i.type === 'R-VOCAB')
+        return !v || v.vocabFormat === 'underline'
+      },
+      why: '2018~2026 수능 9 + 모평 3 = 12회차 **12/12 예외 0**. 2015·2016·2017 은 전부 네모형이다. '
+        + '형식이 둘뿐이라 **기저 1/2 이고 가정이 아니다** — 이항 p = 2.44e-4. '
+        + '형식은 지면에서만 보이므로 measure-vocab-format.mjs 가 계측해 자료로 남긴다.' },
   ],
   item: [
     { id: 'I1', grade: 'HARD', name: '선택지는 5개, 정답은 1~5', check: (it) => it.answer >= 1 && it.answer <= 5 },
@@ -144,13 +153,15 @@ const classified = R('classified.json')
 const answers = R('answers.json').answers
 const bp = Object.fromEntries(R('blueprint.json').blueprint.map((x) => [x.type, x]))
 const key = new Map(answers.map((a) => [`${a.exam}#${a.no}`, a]))
+// 어휘 30번 형식 — measure-vocab-format.mjs 가 계측해 둔 것(지면에서만 보인다)
+const vfmt = R('vocab-format.json')
 
 const items = classified.rows
   .filter((r) => key.has(`${r.exam}#${r.no}`))
   .map((r) => {
     const a = key.get(`${r.exam}#${r.no}`)
     const lang = bp[r.type]?.constraints?.choice_lang ?? []
-    return { exam: r.exam, no: r.no, type: r.type, answer: a.answer, points: a.points, choiceHasKo: lang.includes('ko') }
+    return { exam: r.exam, no: r.no, type: r.type, answer: a.answer, points: a.points, choiceHasKo: lang.includes('ko'), vocabFormat: vfmt[`${r.exam}#${r.no}`] ?? null }
   })
 
 const exams = [...new Set(items.map((i) => i.exam))].sort()

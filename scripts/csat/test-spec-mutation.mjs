@@ -26,13 +26,15 @@ const bp = Object.fromEntries(R('blueprint.json').blueprint.map((x) => [x.type, 
 const classified = R('classified.json')
 const answers = R('answers.json').answers
 const key = new Map(answers.map((a) => [`${a.exam}#${a.no}`, a]))
+// 어휘 30번 형식 — measure-vocab-format.mjs 가 계측해 둔 것(지면에서만 보인다)
+const vfmt = R('vocab-format.json')
 
 const allItems = classified.rows
   .filter((r) => key.has(`${r.exam}#${r.no}`))
   .map((r) => {
     const a = key.get(`${r.exam}#${r.no}`)
     const lang = bp[r.type]?.constraints?.choice_lang ?? []
-    return { exam: r.exam, no: r.no, type: r.type, answer: a.answer, points: a.points, choiceHasKo: lang.includes('ko') }
+    return { exam: r.exam, no: r.no, type: r.type, answer: a.answer, points: a.points, choiceHasKo: lang.includes('ko'), vocabFormat: vfmt[`${r.exam}#${r.no}`] ?? null }
   })
 
 const EXAM = '2026'
@@ -66,6 +68,8 @@ const MUT = {
   E8: (it) => { const x = it.find((y) => y.no === 29); if (x) x.type = 'R-BLANK'; return it },
   // 34번 3점을 2점으로 — 유형군 마지막 자리 고정을 어긴다
   E9: (it) => { const x = it.find((y) => y.no === 34); if (x) x.points = 2; return it },
+  // 어휘 문항을 네모형으로 되돌린다 — 2018 개편을 어긴다
+  E10: (it) => { const x = it.find((y) => y.type === 'R-VOCAB'); if (x) x.vocabFormat = 'box'; return it },
   I1: (it) => { it[0].answer = 6; return it },                            // 정답 6번
   I2: (it) => { it.find((x) => SEQUENTIAL_TYPES.includes(x.type)).answer = 1; return it }, // 순서대응형 ①
   I3: (it) => { it.find((x) => x.choiceHasKo).points = 3; return it },      // 한글 선택지에 3점

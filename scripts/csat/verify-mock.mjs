@@ -24,13 +24,15 @@ const LABEL = { M2606: '2026-06', M2609: '2026-09', M2706: '2027-06', M2509: '20
 const bp = Object.fromEntries(R('blueprint.json').blueprint.map((x) => [x.type, x]))
 const qs = R('mock-questions.json').rows
 const key = new Map(R('mock-answers.json').answers.map((a) => [`${a.exam}#${a.no}`, a]))
+// 어휘 30번 형식 — E10 이 읽는다(measure-vocab-format.mjs 계측). 모평도 같은 표에 들어 있다
+const vfmt = R('vocab-format.json')
 
 const items = qs
   .filter((r) => r.type && key.has(`${r.exam}#${r.no}`))
   .map((r) => {
     const a = key.get(`${r.exam}#${r.no}`)
     const lang = bp[r.type]?.constraints?.choice_lang ?? []
-    return { exam: LABEL[r.exam] ?? r.exam, src: r.exam, no: r.no, type: r.type, answer: a.answer, points: a.points, choiceHasKo: lang.includes('ko') }
+    return { exam: LABEL[r.exam] ?? r.exam, src: r.exam, no: r.no, type: r.type, answer: a.answer, points: a.points, choiceHasKo: lang.includes('ko'), vocabFormat: vfmt[`${r.exam}#${r.no}`] ?? null }
   })
 
 const exams = [...new Set(items.map((i) => i.exam))].sort()
