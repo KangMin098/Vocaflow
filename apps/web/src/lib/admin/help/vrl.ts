@@ -64,6 +64,9 @@ export const VRL_HELP: HelpRegistry = {
       cautions: [
         '점수가 갑자기 떨어졌으면 데이터보다 조회 실패를 먼저 의심해라 — 상단 fetch errors 배너를 확인한다.',
         '60초 캐시(revalidate 60)로 그려진다. 방금 적용한 마이그레이션이 안 보이면 Quick Actions 의 새로고침을 눌러야 한다.',
+        'track/domain/skill 3축의 **채움률을 품질로 읽지 마라.** 2026-08-25 실측 — 채워진 38,385행 중 약 24,000행(62%)이 per-word 판단이 아니라 v_level 로 찍은 상수다(V11 17,296행의 track_levels 벡터가 딱 1개). 미분류 9,352행을 같은 상수로 채우면 이 화면 수치만 100% 가 되고 정보는 늘지 않는다.',
+        'skill 축 미분류를 급하게 채울 이유는 없다 — 유일한 소비처(`_extract_composite_score`)가 `skill_level = 4 AND 도서 v_level < 6` 일 때만 페널티를 거는데, 미분류 9,350행은 전부 단일어라 채워도 전부 3 이 되어 그 분기에 안 걸린다(행동 변화 0). ⚠️ `calc_skill_level()` 은 v_level 로 계산하지만 실데이터와 32,761행 어긋난다 — 근거로 쓰지 말 것.',
+        '반면 **`v_level` NULL 은 진짜로 막는다** — 도서 추출은 `v_level BETWEEN` 밴드로, 기사 추출은 `>= 6` 으로 거르고 NULL 은 둘 다 통과하지 못해 그 낱말이 추출에서 통째로 빠진다. 여기가 0 이 아니면 우선순위가 높다.',
       ],
       seeAlso: [
         { label: '의심 단어 정리', href: '/admin/vrl/concerns' },
