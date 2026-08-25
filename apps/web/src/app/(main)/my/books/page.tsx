@@ -501,7 +501,9 @@ function Empty({ message }: { message: string }) {
       <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">{message}</h2>
       <Link
         href="/library/books"
-        className="rounded-[var(--r-sm)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        // 151×34 였다 — 44px 미만 탭 대상(CLAUDE.md 절대 금지 · 실측 390px).
+        // 빈 서가에서 **밖으로 나가는 유일한 버튼**이라 특히 놓치면 안 된다.
+        className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
         Library에서 책 발견 →
       </Link>

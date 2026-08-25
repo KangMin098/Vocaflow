@@ -25,7 +25,8 @@ export default async function DcpPracticePage() {
         <header className="flex flex-col gap-1">
           <Link
             href="/hub"
-            className="inline-flex w-fit items-center gap-1 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            /* 41×18 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 세션에서 나가는 유일한 링크다. */
+            className="inline-flex min-h-[44px] w-fit min-w-[44px] items-center gap-1 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <ArrowLeft size={13} strokeWidth={2} aria-hidden />
             오늘

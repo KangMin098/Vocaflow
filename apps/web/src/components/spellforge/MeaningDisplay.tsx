@@ -57,7 +57,8 @@ export function MeaningDisplay({
       {/* Audio Button */}
       <button
         onClick={onPlayAudio}
-        className={`mb-8 inline-flex items-center gap-2 rounded-[var(--r-full)] border px-4 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
+        /* 106×36 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 세로만 늘린다. */
+        className={`mb-8 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-full)] border px-4 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
           isPlaying
             ? 'border-[var(--p)] bg-[var(--p)] text-white'
             : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--bg2)] hover:text-[var(--p)] hover:shadow-[0_2px_8px_rgba(59,130,246,0.15)]'

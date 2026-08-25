@@ -38,7 +38,8 @@ export function CardFront({
           }}
           aria-label={isBookmarked ? '북마크 해제' : '북마크 추가'}
           aria-pressed={isBookmarked}
-          className={`flex h-6 w-6 items-center justify-center rounded-[var(--r-sm)] transition-all duration-[var(--dur-normal)] ${
+          /* 24×24 였다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 아이콘은 그대로, 누를 면적만 넓힌다. */
+          className={`flex h-11 w-11 items-center justify-center rounded-[var(--r-sm)] transition-all duration-[var(--dur-normal)] ${
             isBookmarked
               ? 'text-[var(--active)]'
               : 'text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'

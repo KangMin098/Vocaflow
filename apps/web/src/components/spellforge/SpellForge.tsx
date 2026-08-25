@@ -401,7 +401,8 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
         href={backHref}
         aria-label="스펠 닫기 — 스크립트로 돌아가기"
         title="스크립트로 돌아가기"
-        className="fixed right-4 top-4 z-[55] inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        /* 36×36 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 세션에서 빠져나가는 유일한 버튼이라 특히 크게. */
+        className="fixed right-4 top-4 z-[55] inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <X size={18} strokeWidth={2} aria-hidden />
       </Link>

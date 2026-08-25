@@ -168,7 +168,8 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
         <button
           type="button"
           onClick={finish}
-          className="py-s-2 inline-flex items-center gap-s-2 rounded-md px-s-3 font-display text-[13px] font-semibold text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
+          /* 66×36 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 세로만 늘려 줄 배치는 그대로 둔다. */
+          className="py-s-2 inline-flex min-h-[44px] items-center gap-s-2 rounded-md px-s-3 font-display text-[13px] font-semibold text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
         >
           ← 종료
         </button>
@@ -190,7 +191,8 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
 
         <button
           type="button"
-          className="flex h-9 w-9 items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
+          /* 36×36 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). */
+          className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
           aria-label="설정"
         >
           <SettingsIcon size={14} />
@@ -374,7 +376,8 @@ function RevealPrompt({
     <button
       type="button"
       onClick={onClick}
-      className="py-s-3.5 border-bd-strong hover:bg-learn-fresh-light hover:border-learn-fresh hover:text-learn-fresh group inline-flex items-center gap-s-3 rounded-xl border-[1.5px] border-dashed bg-bg2 px-s-6 font-display text-sm font-semibold tracking-[-0.01em] text-t2 transition-all duration-fast hover:-translate-y-px hover:shadow-sm"
+      /* 178×32 였다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 학습 중 가장 자주 누르는 버튼이다. */
+      className="py-s-3.5 min-h-[44px] border-bd-strong hover:bg-learn-fresh-light hover:border-learn-fresh hover:text-learn-fresh group inline-flex items-center gap-s-3 rounded-xl border-[1.5px] border-dashed bg-bg2 px-s-6 font-display text-sm font-semibold tracking-[-0.01em] text-t2 transition-all duration-fast hover:-translate-y-px hover:shadow-sm"
     >
       <span className="flex items-center gap-s-2">
         {icon}
