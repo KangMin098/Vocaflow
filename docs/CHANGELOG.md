@@ -10,6 +10,36 @@
 
 ## Unreleased (v06.34 → next)
 
+### 퍼널을 9종에서 2종으로 좁혔다 — 이미 내려진 결정을 읽지 않고 중복 수집기를 만들었다
+
+`funnel_events` 를 9종으로 만든 뒤, 이 저장소에 이미 `lib/admin/retention-math.ts` 가 있고
+그 머리주석이 **명시적으로 반대 결정**을 내려 두었다는 것을 발견했다:
+
+> "F4 의 실체는 '수집 장치가 없다' 가 아니라 **'아무도 계산해 본 적이 없다'** 였다.
+>  그래서 수집기를 새로 만드는 대신 계산기를 만든다 — 쓰기 부하 0, 마이그레이션 0."
+> "순수 재방문(학습 없는 조회)은 **일부러** 수집하지 않는다."
+
+그 기준으로 9종을 재보니 **7종이 이미 파생된다** — signup(`auth.users.created_at`) ·
+first_learn(`scores`) · day7_return(활동 리텐션) · class_created/class_joined/assignment_sent
+(각 테이블 `created_at`) · visit(저장소가 안 재기로 한 것).
+
+남는 것은 **어떤 테이블에도 흔적이 없는 둘**뿐이다:
+- `teacher_hub_view` — 허브에 왔지만 학급을 만들지 않은 사람
+- `invite_shared` — 코드를 공유했지만 아무도 들어오지 않은 경우
+
+이 둘이 교사 채널이 **어디서** 끊기는지 말해 주는 유일한 신호다. 나머지는 쓰기 부하만 늘리고
+**같은 수치를 두 곳에서 세게** 만든다 — 둘이 어긋나면 어느 쪽이 맞는지 알 수 없다.
+이 저장소가 반복해서 겪은 실패 모양이고, 하루 종일 그것을 잡아 온 내가 만들었다.
+
+- 마이그레이션 `funnel_events_narrow_to_unobservable` — CHECK 을 2종으로 · 파생 이벤트 행 삭제 ·
+  `first_learn` 트리거 회수 · `anon_id` 컬럼 제거(남은 둘은 로그인 전용) · `user_id` NOT NULL
+- 배선 회수 — `/fit` visit · signup · class_created · class_joined · assignment_sent
+- `anon-id.ts` 삭제 — 익명 구간이 사라져 고리가 쓸모없어졌다. 쓰지 않을 것을 남기지 않는다
+- `funnel.ts` 헤더에 **계측 셋의 경계표** (retention-math 파생 · PostHog 공개화면 · 이 파일 2종)
+- 회귀 70종 통과 · `tsc --noEmit` 통과
+
+**세션 초반에 감사 산술은 인용하면서 F4 의 해소 방식까지는 확인하지 않은** 것이 원인이다.
+
 ### 사슬의 가운데 두 칸 — 가입은 브라우저에서, 첫 학습은 트리거로
 
 `signup` 과 `first_learn` 을 이어 `/fit 방문 → 가입 → 첫 학습 → 학급 개설` 이 한 줄로 이어진다.

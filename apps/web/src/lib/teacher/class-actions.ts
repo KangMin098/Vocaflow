@@ -53,11 +53,9 @@ export async function createClass(name: string): Promise<{ ok: boolean; error?: 
     const { error } = await lc
       .from('classes')
       .insert({ teacher_id: user.id, name: trimmed, invite_code: genCode() })
-    if (!error) {
-      // 교사 왕복 4단계. 기록 실패는 무시한다 — 계측이 개설을 막으면 안 된다.
-      await recordFunnel(client as unknown as SupabaseClient, 'class_created', { surface: '/teacher' })
-      return { ok: true }
-    }
+    // 개설은 `classes.created_at` 에 남는다 — 파생되는 것을 두 번 세지 않는다
+    // (`lib/admin/retention-math.ts` 의 결정과 같은 원칙).
+    if (!error) return { ok: true }
     if (error.code !== '23505') return { ok: false, error: error.message } // UNIQUE 외 즉시 반환
   }
   return { ok: false, error: '초대코드 생성 충돌 — 다시 시도해 주세요.' }
@@ -90,8 +88,7 @@ export async function joinClassByCode(code: string): Promise<{ ok: boolean; erro
   const { data, error } = await loose(client).rpc('join_class_by_code', { p_code: c })
   if (error) return { ok: false, error: error.message }
   if (!data) return { ok: false, error: '해당 초대코드의 클래스를 찾을 수 없어요.' }
-  // 교사 왕복 5단계 — 초대코드가 실제로 학생을 데려왔는지는 여기서만 알 수 있다.
-  await recordFunnel(client as unknown as SupabaseClient, 'class_joined', { surface: '/teacher' })
+  // 참여는 `class_members.joined_at` 에 남는다 — 파생되므로 따로 기록하지 않는다.
   return { ok: true }
 }
 

@@ -2,17 +2,17 @@
 //
 // 유입 퍼널 기록 — **절대로 학습 경로를 막지 않는다.**
 //
-// ⚠️ 이 폴더에 **계측이 둘** 있다. 겹치는 이벤트는 없고 계층이 다르다 — 헷갈리면 한쪽이 죽는다.
+// ⚠️ 이 폴더·이 저장소에 계측이 **셋** 있다. 겹치지 않게 각자 다른 것을 맡는다.
 //
-// | | `events.ts` + `client.ts` | `funnel.ts` (이 파일) |
+// | | 무엇을 | 어떻게 |
 // |---|---|---|
-// | 어디로 | PostHog (외부) | `funnel_events` (자체 DB) |
-// | 누구를 | **비로그인 공개 화면** 방문자 | 로그인 이후 · 교사 왕복 |
-// | 무엇을 | `/fit` 5종(viewed·analyzed·shared·share_opened·signup_clicked) | 유입 4종 + 교사 5단계 |
-// | 왜 나뉘나 | 지문이 새면 안 되므로 속성에 **자유 문자열이 하나도 없다** | 주체를 이어야 하므로 user_id·anon_id 를 쓴다 |
+// | `lib/admin/retention-math.ts` | 가입·첫 학습·활동 리텐션 | 기존 테이블에서 **파생**(쓰기 0) |
+// | `events.ts`+`client.ts` | `/fit` 공개 화면 5종 | PostHog(외부)·비로그인·지문 유출 차단 |
+// | `funnel.ts` (이 파일) | **파생으로 못 재는 두 구간** | 자체 DB `funnel_events` |
 //
-// 둘은 한 사람의 여정을 앞뒤로 나눠 맡는다: `/fit` 에서 익명으로 써 보고(→ PostHog),
-// 가입한 뒤 학급을 굴리는 구간(→ 이 파일). `anon_id` 가 그 사이를 잇는 고리다.
+// 이 파일이 맡는 둘은 어떤 테이블에도 흔적이 남지 않는다 —
+// "허브에 왔는데 학급을 안 만들었다" 와 "코드를 공유했는데 아무도 안 왔다".
+// 그 둘이 교사 채널이 **어디서** 끊기는지를 말해 주는 유일한 신호다.
 //
 // 왜 헬퍼로 감싸는가: 계측 호출이 예외를 던지면 그 화면이 죽는다. 계측은 부가 정보이지
 // 기능이 아니므로, 실패는 삼키고 콘솔에만 남긴다. DB 쪽 `record_funnel_event` 도 같은 이유로
@@ -24,25 +24,23 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-/** 기록 가능한 단계 — DB CHECK 제약과 같은 목록. 한쪽만 늘리면 조용히 거부된다. */
+/**
+ * 기록 가능한 단계 — **파생으로 못 재는 둘뿐이다.**
+ *
+ * 나머지(가입·첫 학습·재방문·학급 개설·참여·과제)는 `lib/admin/retention-math.ts` 가
+ * 기존 테이블에서 파생한다. 그 파일의 결정을 그대로 따른다 —
+ * "수집기를 새로 만드는 대신 계산기를 만든다. 쓰기 부하 0, 마이그레이션 0."
+ * 같은 수치를 두 곳에서 세면 어긋났을 때 어느 쪽이 맞는지 알 수 없다.
+ */
 export type FunnelEvent =
-  // 학습자 유입
-  | 'visit'
-  | 'signup'
-  | 'first_learn'
-  | 'day7_return'
-  // 교사 왕복 5단계 (분기 진단 산술 "교사 3,500 × 학급 30" 의 첫 단추)
+  /** 허브에 도달했지만 학급을 만들지 않은 사람 — 어떤 테이블에도 흔적이 없다 */
   | 'teacher_hub_view'
-  | 'class_created'
+  /** 초대코드를 공유했지만 아무도 들어오지 않은 경우 — 복사는 클라이언트에서 끝난다 */
   | 'invite_shared'
-  | 'class_joined'
-  | 'assignment_sent'
 
 interface RecordOptions {
   /** 화면 식별자 — 같은 단계가 여러 표면에서 일어날 때 구분한다. */
   surface?: string
-  /** 비로그인 구간을 잇는 브라우저 식별자. 로그인 상태면 없어도 된다. */
-  anonId?: string
   meta?: Record<string, unknown>
 }
 
@@ -61,7 +59,6 @@ export async function recordFunnel(
     }).rpc('record_funnel_event', {
       p_event: event,
       p_surface: options.surface ?? null,
-      p_anon_id: options.anonId ?? null,
       p_meta: options.meta ?? {},
     })
     if (error) {

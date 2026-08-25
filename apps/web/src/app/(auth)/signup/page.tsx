@@ -22,12 +22,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useMemo, useState } from 'react'
 
-import type { SupabaseClient } from '@supabase/supabase-js'
-
 import { Card } from '@/components/ui/Card'
 import { Checkbox } from '@/components/ui/Checkbox'
-import { getAnonId } from '@/lib/analytics/anon-id'
-import { recordFunnel } from '@/lib/analytics/funnel'
 import { FormField } from '@/components/ui/FormField'
 import { Input } from '@/components/ui/Input'
 import { ProgressBar } from '@/components/ui/ProgressBar'
@@ -143,17 +139,6 @@ export default function SignupPage() {
         return
       }
 
-      // 퍼널 2단계. **여기서 남겨야** `/fit` 익명 방문과 이어진다 — `anon_id` 는 브라우저에만
-      // 있어서 서버 콜백(exchangeCodeForSession)에서는 알 수 없다. 이메일 확인 전이라
-      // auth.uid() 가 아직 없을 수 있지만, anon_id 만으로도 앞 구간과 연결된다.
-      // 위의 "가짜 성공" 방어를 통과한 뒤에 남긴다 — 기존 회원의 재시도를 가입으로 세면 안 된다.
-      const anonId = getAnonId()
-      if (anonId) {
-        void recordFunnel(supabase as unknown as SupabaseClient, 'signup', {
-          surface: '/signup',
-          anonId,
-        })
-      }
 
       // ── 세션 유무로 분기 ──
       if (data.session) {
