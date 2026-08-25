@@ -141,6 +141,21 @@ export function passageOf(block) {
 }
 
 /** 블록에서 선택지 5개 — ①~⑤ 로 잘라 낸다 */
+// 다음 문항의 머리. ⑤ 는 뒤를 닫아 주는 마커가 없어서 **블록 끝까지 삼킨다** —
+// 실제로 2022 #34 의 ⑤ 가 1,029자였고 그 안에 35번 문두가 통째로 들어 있었다.
+// ⑤ 만 부풀면 다른 넷의 길이 순위가 밀려 **정답이 짧아 보이는 착시**가 생긴다.
+const NEXT_ITEM = /\s\d{1,2}\.\s*(?:다음|밑줄|위 |윗 |주어진|글의|아래|어법|빈칸|(?:\(A\)))/
+
+/** 선지 꼬리에 붙은 지면 장식을 턴다 — 쉼표 행렬 · 형별 표기 · 낱개 기호 */
+function trimChoice(s) {
+  let t = s
+  const nx = t.search(NEXT_ITEM)
+  if (nx > 0) t = t.slice(0, nx)
+  t = t.replace(/[,\s·]*(?:짝수형|홀수형)[\s\S]*$/, '')
+  t = t.replace(/(?:\s*,\s*){2,}[\s\S]*$/, '')
+  return t.replace(/[\s,]+$/, '').trim()
+}
+
 export function choicesOf(block) {
   const text = block.join('\n')
   const i = text.search(/[①②③④⑤]/)
@@ -151,8 +166,12 @@ export function choicesOf(block) {
     const a = tail.indexOf(CIRC[k])
     if (a < 0) return null
     const b = k === 4 ? tail.length : tail.indexOf(CIRC[k + 1])
-    out.push(tail.slice(a + 1, b < 0 ? tail.length : b).trim())
+    out.push(trimChoice(tail.slice(a + 1, b < 0 ? tail.length : b)))
   }
+  // 그래도 ⑤ 만 유별나게 길면 잘라내지 못한 것이 남아 있다는 뜻이다. 버린다.
+  const head = out.slice(0, 4).map((c) => c.length).sort((x, y) => x - y)
+  const med = (head[1] + head[2]) / 2
+  if (med > 0 && out[4].length > Math.max(60, med * 3)) return null
   return out
 }
 

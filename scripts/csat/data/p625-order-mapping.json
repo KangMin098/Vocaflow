@@ -1,9 +1,9 @@
 {
- "n": 34,
- "excluded": 32,
- "mono": 26,
- "totPairs": 113,
- "totConc": 103,
+ "n": 33,
+ "excluded": 33,
+ "mono": 25,
+ "totPairs": 111,
+ "totConc": 101,
  "rows": [
   {
    "exam": "2014B",
@@ -983,19 +983,8 @@
    "exam": "M2609",
    "no": 28,
    "type": "R-NOTICE",
-   "ok": true,
-   "pos": [
-    4,
-    10,
-    null,
-    null,
-    23
-   ],
-   "nKnown": 3,
-   "pairs": 2,
-   "conc": 2,
-   "mono": true,
-   "nSent": 24
+   "ok": false,
+   "why": "추출 실패"
   },
   {
    "exam": "M2706",

@@ -105,10 +105,10 @@
  },
  "lisPerExam": 2063,
  "order": {
-  "n": 10,
-  "mono": 9,
-  "pairs": 30,
-  "conc": 29,
+  "n": 9,
+  "mono": 8,
+  "pairs": 27,
+  "conc": 26,
   "rows": [
    {
     "exam": "2023",
@@ -183,9 +183,23 @@
    {
     "exam": "2023",
     "no": 9,
+    "stem": "Greenville Houseplant Expo에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Hello, listeners. I’m Melinda Jones from the organizing committee of the Greenville Houseplant Expo. I’m here to announce that the expo will run for three days starting on March 17th, 2023. Just on the opening day, there’ll be a lecture on plant care methods. This lecture will be given by Dr. Evans, host of the TV show Plants Love You. Most importantly, you can buy a variety of plants, including rare species, exhibited in the expo. Due to its popularity, you’d better get your tickets early. Tickets are available through online purchase only. If you’re a plant lover, come to the expo, which will take place at the Emerald Convention Center, and refresh your houseplant collection."
+     }
+    ],
+    "script": "Hello, listeners. I’m Melinda Jones from the organizing committee of the Greenville Houseplant Expo. I’m here to announce that the expo will run for three days starting on March 17th, 2023. Just on the opening day, there’ll be a lecture on plant care methods. This lecture will be given by Dr. Evans, host of the TV show Plants Love You. Most importantly, you can buy a variety of plants, including rare species, exhibited in the expo. Due to its popularity, you’d better get your tickets early. Tickets are available through online purchase only. If you’re a plant lover, come to the expo, which will take place at the Emerald Convention Center, and refresh your houseplant collection.",
+    "words": 115,
+    "nTurns": 1,
+    "speakers": [
+     "W"
+    ],
+    "isDialogue": false,
     "type": "L-ANNOUNCE",
     "ok": false,
-    "why": "닻 1개"
+    "why": "선택지 없음"
    },
    {
     "exam": "2023",
@@ -385,18 +399,24 @@
    {
     "exam": "2019",
     "no": 17,
-    "type": "L-SET-NOT",
-    "ok": true,
-    "pos": [
-     23,
-     60,
-     97,
-     130,
-     null
+    "stem": "언급된 음식이 아닌 것은?",
+    "turns": [
+     {
+      "who": "W",
+      "text": "Hello, students. Previously, we discussed traditional foods in different countries. Today, I’ll talk about surprising birthplaces of everyday foods. First, people believe the Caesar salad is named after a Roman emperor. But a well-known story is that the name came from a chef in Mexico. He created it by putting together some basic ingredients when running out of food. Second, bagels are a famous New York food. But they’re likely from central Europe. A widely repeated story says that they were first made in Vienna to celebrate the defeat of an invading army. Third, many people think kiwis are from New Zealand. It’s probably because a small flightless bird from New Zealand has the same name. In fact, the food is from China. Last, if there’s any country known for potatoes, it’s Ireland. That’s because crop failures of this food caused extreme hunger in Ireland in the 19th century. However, the food is believed to come from South America. Now, we’ll watch a short video about these foods."
+     }
     ],
-    "pairs": 3,
-    "conc": 3,
-    "mono": true
+    "fromSet": "16~17",
+    "script": "Hello, students. Previously, we discussed traditional foods in different countries. Today, I’ll talk about surprising birthplaces of everyday foods. First, people believe the Caesar salad is named after a Roman emperor. But a well-known story is that the name came from a chef in Mexico. He created it by putting together some basic ingredients when running out of food. Second, bagels are a famous New York food. But they’re likely from central Europe. A widely repeated story says that they were first made in Vienna to celebrate the defeat of an invading army. Third, many people think kiwis are from New Zealand. It’s probably because a small flightless bird from New Zealand has the same name. In fact, the food is from China. Last, if there’s any country known for potatoes, it’s Ireland. That’s because crop failures of this food caused extreme hunger in Ireland in the 19th century. However, the food is believed to come from South America. Now, we’ll watch a short video about these foods.",
+    "words": 168,
+    "nTurns": 1,
+    "speakers": [
+     "W"
+    ],
+    "isDialogue": false,
+    "type": "L-SET-NOT",
+    "ok": false,
+    "why": "선택지 없음"
    },
    {
     "exam": "2020",
