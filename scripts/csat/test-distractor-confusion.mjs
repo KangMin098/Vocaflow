@@ -178,6 +178,12 @@ console.log('     선지끼리는 소재·문법 틀이 같아 어휘가 겹치�
 
 fs.writeFileSync(path.join(DIR, 'distractor-confusion.json'), JSON.stringify({
   n: items.length, n3: p3.length, n2: p2.length, byPoints: out, byExamCorr: out2,
-  rows: items.map((x) => ({ exam: x.exam, no: x.no, type: x.type, points: x.points, confusion: x.confusion, maxConfusion: x.maxConfusion, distractorCohesion: x.distractorCohesion, accessibility: x.accessibility })),
+  // ⚠️ distractorPassage · baitGap 을 빠뜨리면 이 파일을 읽는 검사가 조용히 NaN 을 쓴다
+  //    (test-bait-agreement 가 그것 때문에 모든 문항을 'B' 로 찍어 카파 0 을 냈다)
+  rows: items.map((x) => ({
+    exam: x.exam, no: x.no, type: x.type, points: x.points,
+    confusion: x.confusion, maxConfusion: x.maxConfusion, distractorCohesion: x.distractorCohesion,
+    accessibility: x.accessibility, distractorPassage: x.distractorPassage, baitGap: x.baitGap,
+  })),
 }, null, 1))
 console.log(`\n→ ${path.join(DIR, 'distractor-confusion.json')}`)

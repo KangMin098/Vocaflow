@@ -75,7 +75,9 @@
    "confusion": 0.22165635036545758,
    "maxConfusion": 0.31996367243287305,
    "distractorCohesion": 0.12874391493765758,
-   "accessibility": 0.015973926701956395
+   "accessibility": 0.015973926701956395,
+   "distractorPassage": 0.018111087939730097,
+   "baitGap": 0.002137161237773702
   },
   {
    "exam": "2014B",
@@ -85,7 +87,9 @@
    "confusion": 0.043485284864181024,
    "maxConfusion": 0.1739411394567241,
    "distractorCohesion": 0.037775557086514484,
-   "accessibility": 0.014501348961679837
+   "accessibility": 0.014501348961679837,
+   "distractorPassage": 0.026805349246384877,
+   "baitGap": 0.01230400028470504
   },
   {
    "exam": "2014B",
@@ -95,7 +99,9 @@
    "confusion": 0.030384781323183327,
    "maxConfusion": 0.12153912529273331,
    "distractorCohesion": 0.03331609783318298,
-   "accessibility": 0.011997518861728028
+   "accessibility": 0.011997518861728028,
+   "distractorPassage": 0.027813269803887628,
+   "baitGap": 0.0158157509421596
   },
   {
    "exam": "2014B",
@@ -105,7 +111,9 @@
    "confusion": 0.0657808350984034,
    "maxConfusion": 0.13605758475821184,
    "distractorCohesion": 0.03338199924658559,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.033062533662230595,
+   "baitGap": 0.033062533662230595
   },
   {
    "exam": "2014B",
@@ -115,7 +123,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.03510983607680027,
+   "baitGap": 0.03510983607680027
   },
   {
    "exam": "2014B",
@@ -125,7 +135,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.029275063332222198,
-   "accessibility": 0.03654711355673997
+   "accessibility": 0.03654711355673997,
+   "distractorPassage": 0.017393998738219087,
+   "baitGap": -0.019153114818520885
   },
   {
    "exam": "2014B",
@@ -135,7 +147,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.0567950407907723,
-   "accessibility": 0.014913628626643985
+   "accessibility": 0.014913628626643985,
+   "distractorPassage": 0.030708008057288485,
+   "baitGap": 0.0157943794306445
   },
   {
    "exam": "2014B",
@@ -145,7 +159,9 @@
    "confusion": 0.17338031048137276,
    "maxConfusion": 0.36536636239129283,
    "distractorCohesion": 0.09932823010780427,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2014A",
@@ -155,7 +171,9 @@
    "confusion": 0.10782830040676512,
    "maxConfusion": 0.1565976146209233,
    "distractorCohesion": 0.08931655458496061,
-   "accessibility": 0.03377391264656361
+   "accessibility": 0.03377391264656361,
+   "distractorPassage": 0.021472203556118584,
+   "baitGap": -0.012301709090445027
   },
   {
    "exam": "2014A",
@@ -165,7 +183,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.01906984978560987
+   "accessibility": 0.01906984978560987,
+   "distractorPassage": 0.00909967529097546,
+   "baitGap": -0.009970174494634408
   },
   {
    "exam": "2014A",
@@ -175,7 +195,9 @@
    "confusion": 0.030384781323183327,
    "maxConfusion": 0.12153912529273331,
    "distractorCohesion": 0.03331609783318298,
-   "accessibility": 0.011997518861728028
+   "accessibility": 0.011997518861728028,
+   "distractorPassage": 0.027813269803887628,
+   "baitGap": 0.0158157509421596
   },
   {
    "exam": "2015",
@@ -185,7 +207,9 @@
    "confusion": 0.05062528563937462,
    "maxConfusion": 0.2025011425574985,
    "distractorCohesion": 0.02979783300437161,
-   "accessibility": 0.03761539230617108
+   "accessibility": 0.03761539230617108,
+   "distractorPassage": 0.009163702422175467,
+   "baitGap": -0.02845168988399561
   },
   {
    "exam": "2015",
@@ -195,7 +219,9 @@
    "confusion": 0.0678301255783756,
    "maxConfusion": 0.09633190554860895,
    "distractorCohesion": 0.015637274331263065,
-   "accessibility": 0.030989114683624253
+   "accessibility": 0.030989114683624253,
+   "distractorPassage": 0.011428058760863611,
+   "baitGap": -0.01956105592276064
   },
   {
    "exam": "2015",
@@ -205,7 +231,9 @@
    "confusion": 0.10257777897669898,
    "maxConfusion": 0.2882158509763089,
    "distractorCohesion": 0.018606121450982414,
-   "accessibility": 0.06771339651552083
+   "accessibility": 0.06771339651552083,
+   "distractorPassage": 0.04572852070319511,
+   "baitGap": -0.02198487581232572
   },
   {
    "exam": "2015",
@@ -215,7 +243,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.07579804624049201
+   "accessibility": 0.07579804624049201,
+   "distractorPassage": 0.014634030972186402,
+   "baitGap": -0.06116401526830561
   },
   {
    "exam": "2015",
@@ -225,7 +255,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2015",
@@ -235,7 +267,9 @@
    "confusion": 0.09781595064411129,
    "maxConfusion": 0.11859550546930116,
    "distractorCohesion": 0.07848442307412086,
-   "accessibility": 0.0261162947502875
+   "accessibility": 0.0261162947502875,
+   "distractorPassage": 0.04631036608732313,
+   "baitGap": 0.020194071337035626
   },
   {
    "exam": "2015",
@@ -245,7 +279,9 @@
    "confusion": 0.07091076936075208,
    "maxConfusion": 0.19603939500572581,
    "distractorCohesion": 0.027195521594638606,
-   "accessibility": 0.024000648684467437
+   "accessibility": 0.024000648684467437,
+   "distractorPassage": 0.030138072006661167,
+   "baitGap": 0.0061374233221937295
   },
   {
    "exam": "2015",
@@ -255,7 +291,9 @@
    "confusion": 0.08160046241265342,
    "maxConfusion": 0.3264018496506137,
    "distractorCohesion": 0.04082751206161775,
-   "accessibility": 0.028481997343781214
+   "accessibility": 0.028481997343781214,
+   "distractorPassage": 0.03155656362359095,
+   "baitGap": 0.0030745662798097387
   },
   {
    "exam": "2016",
@@ -265,7 +303,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.057279568327042354
+   "accessibility": 0.057279568327042354,
+   "distractorPassage": 0.01341581318882117,
+   "baitGap": -0.04386375513822119
   },
   {
    "exam": "2016",
@@ -275,7 +315,9 @@
    "confusion": 0.0951081271788071,
    "maxConfusion": 0.27255224286316415,
    "distractorCohesion": 0.019796264259783997,
-   "accessibility": 0.042361390145246695
+   "accessibility": 0.042361390145246695,
+   "distractorPassage": 0.02126285504224678,
+   "baitGap": -0.021098535102999916
   },
   {
    "exam": "2016",
@@ -285,7 +327,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.014996448014727338,
-   "accessibility": 0.012695735627011566
+   "accessibility": 0.012695735627011566,
+   "distractorPassage": 0.0031049149886692514,
+   "baitGap": -0.009590820638342315
   },
   {
    "exam": "2016",
@@ -295,7 +339,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.04842268703641072,
-   "accessibility": 0.015257512614654738
+   "accessibility": 0.015257512614654738,
+   "distractorPassage": 0.008471745822087809,
+   "baitGap": -0.006785766792566929
   },
   {
    "exam": "2016",
@@ -305,7 +351,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.025366564819912247,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.015596410239169394,
+   "baitGap": 0.015596410239169394
   },
   {
    "exam": "2016",
@@ -315,7 +363,9 @@
    "confusion": 0.1432832177426514,
    "maxConfusion": 0.313114938955552,
    "distractorCohesion": 0.13699165619241213,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2017",
@@ -325,7 +375,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2017",
@@ -335,7 +387,9 @@
    "confusion": 0.10021597696683388,
    "maxConfusion": 0.10611884649383675,
    "distractorCohesion": 0.1296472896781596,
-   "accessibility": 0.02403345974784468
+   "accessibility": 0.02403345974784468,
+   "distractorPassage": 0.02454854585529781,
+   "baitGap": 0.0005150861074531311
   },
   {
    "exam": "2017",
@@ -345,7 +399,9 @@
    "confusion": 0.11848111408330188,
    "maxConfusion": 0.13241687774428937,
    "distractorCohesion": 0.10557901563402662,
-   "accessibility": 0.03548700326944112
+   "accessibility": 0.03548700326944112,
+   "distractorPassage": 0.026074652379298735,
+   "baitGap": -0.009412350890142383
   },
   {
    "exam": "2017",
@@ -355,7 +411,9 @@
    "confusion": 0.15310838096943347,
    "maxConfusion": 0.3455712351085675,
    "distractorCohesion": 0.022652705363337963,
-   "accessibility": 0.049244620865539296
+   "accessibility": 0.049244620865539296,
+   "distractorPassage": 0.028226750604863668,
+   "baitGap": -0.021017870260675628
   },
   {
    "exam": "2017",
@@ -365,7 +423,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.007956239707319655,
+   "baitGap": 0.007956239707319655
   },
   {
    "exam": "2017",
@@ -375,7 +435,9 @@
    "confusion": 0.07338781456974573,
    "maxConfusion": 0.1576350260989552,
    "distractorCohesion": 0,
-   "accessibility": 0.02834286699492295
+   "accessibility": 0.02834286699492295,
+   "distractorPassage": 0.022261485785779994,
+   "baitGap": -0.006081381209142957
   },
   {
    "exam": "2017",
@@ -385,7 +447,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.014144222327325975
+   "accessibility": 0.014144222327325975,
+   "distractorPassage": 0.010198105300147786,
+   "baitGap": -0.003946117027178189
   },
   {
    "exam": "2017",
@@ -395,7 +459,9 @@
    "confusion": 0.16096784246885182,
    "maxConfusion": 0.32391107932713853,
    "distractorCohesion": 0.11099687506191132,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.0029267987214171448,
+   "baitGap": 0.0029267987214171448
   },
   {
    "exam": "2018",
@@ -405,7 +471,9 @@
    "confusion": 0.10603971454048974,
    "maxConfusion": 0.18233595025858218,
    "distractorCohesion": 0.05837420640543144,
-   "accessibility": 0.0496118938843654
+   "accessibility": 0.0496118938843654,
+   "distractorPassage": 0.026198837918682404,
+   "baitGap": -0.023413055965682994
   },
   {
    "exam": "2018",
@@ -415,7 +483,9 @@
    "confusion": 0.18703133413430198,
    "maxConfusion": 0.23177763024928297,
    "distractorCohesion": 0.18251574474037183,
-   "accessibility": 0.0346400947706561
+   "accessibility": 0.0346400947706561,
+   "distractorPassage": 0.028120531516097967,
+   "baitGap": -0.006519563254558131
   },
   {
    "exam": "2018",
@@ -425,7 +495,9 @@
    "confusion": 0.04511169765821325,
    "maxConfusion": 0.180446790632853,
    "distractorCohesion": 0,
-   "accessibility": 0.027459885438817097
+   "accessibility": 0.027459885438817097,
+   "distractorPassage": 0.02216056809579437,
+   "baitGap": -0.005299317343022726
   },
   {
    "exam": "2018",
@@ -435,7 +507,9 @@
    "confusion": 0.038206292505090375,
    "maxConfusion": 0.07662713943520609,
    "distractorCohesion": 0.029134464811495755,
-   "accessibility": 0.030751279584256486
+   "accessibility": 0.030751279584256486,
+   "distractorPassage": 0.027980556284354335,
+   "baitGap": -0.002770723299902151
   },
   {
    "exam": "2018",
@@ -445,7 +519,9 @@
    "confusion": 0.06930115284287247,
    "maxConfusion": 0.14199469815562163,
    "distractorCohesion": 0.019625951973900567,
-   "accessibility": 0.012094532891466996
+   "accessibility": 0.012094532891466996,
+   "distractorPassage": 0.029552296963021422,
+   "baitGap": 0.017457764071554426
   },
   {
    "exam": "2018",
@@ -455,7 +531,9 @@
    "confusion": 0.10051021335811035,
    "maxConfusion": 0.16493229570476559,
    "distractorCohesion": 0.12489649196038662,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.013102391550873047,
+   "baitGap": 0.013102391550873047
   },
   {
    "exam": "2018",
@@ -465,7 +543,9 @@
    "confusion": 0.07268222889234005,
    "maxConfusion": 0.2907289155693602,
    "distractorCohesion": 0.053292127733691776,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2019",
@@ -475,7 +555,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2019",
@@ -485,7 +567,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.019532703587068743,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.018078826241032873,
+   "baitGap": 0.018078826241032873
   },
   {
    "exam": "2019",
@@ -495,7 +579,9 @@
    "confusion": 0.0551661807999701,
    "maxConfusion": 0.2206647231998804,
    "distractorCohesion": 0.03633079834543005,
-   "accessibility": 0.04401281932432286
+   "accessibility": 0.04401281932432286,
+   "distractorPassage": 0.020283097814443374,
+   "baitGap": -0.023729721509879488
   },
   {
    "exam": "2019",
@@ -505,7 +591,9 @@
    "confusion": 0.04522496934487745,
    "maxConfusion": 0.09771553833691679,
    "distractorCohesion": 0.016994646615797578,
-   "accessibility": 0.03554109560964938
+   "accessibility": 0.03554109560964938,
+   "distractorPassage": 0.029280449923705328,
+   "baitGap": -0.006260645685944054
   },
   {
    "exam": "2019",
@@ -515,7 +603,9 @@
    "confusion": 0.11804548271667663,
    "maxConfusion": 0.1595208003944356,
    "distractorCohesion": 0.19743541738431028,
-   "accessibility": 0.027011967499225464
+   "accessibility": 0.027011967499225464,
+   "distractorPassage": 0.025646551420999503,
+   "baitGap": -0.0013654160782259617
   },
   {
    "exam": "2019",
@@ -525,7 +615,9 @@
    "confusion": 0.03321939319978904,
    "maxConfusion": 0.13287757279915616,
    "distractorCohesion": 0,
-   "accessibility": 0.016430060178941806
+   "accessibility": 0.016430060178941806,
+   "distractorPassage": 0.03865132888326055,
+   "baitGap": 0.02222126870431874
   },
   {
    "exam": "2019",
@@ -535,7 +627,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.0690313254806099,
-   "accessibility": 0.012868433461311947
+   "accessibility": 0.012868433461311947,
+   "distractorPassage": 0.02263811210941874,
+   "baitGap": 0.009769678648106793
   },
   {
    "exam": "2019",
@@ -545,7 +639,9 @@
    "confusion": 0.1491453965919046,
    "maxConfusion": 0.30585793033587305,
    "distractorCohesion": 0.1031206153398581,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.002766383948861282,
+   "baitGap": 0.002766383948861282
   },
   {
    "exam": "2020",
@@ -555,7 +651,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2020",
@@ -565,7 +663,9 @@
    "confusion": 0.030815717154881038,
    "maxConfusion": 0.06634224785768376,
    "distractorCohesion": 0.011620758155908137,
-   "accessibility": 0.03996718877588687
+   "accessibility": 0.03996718877588687,
+   "distractorPassage": 0.013320653388041724,
+   "baitGap": -0.026646535387845144
   },
   {
    "exam": "2020",
@@ -575,7 +675,9 @@
    "confusion": 0.020431212999765892,
    "maxConfusion": 0.08172485199906357,
    "distractorCohesion": 0,
-   "accessibility": 0.0347176120947299
+   "accessibility": 0.0347176120947299,
+   "distractorPassage": 0.03335772293306697,
+   "baitGap": -0.0013598891616629291
   },
   {
    "exam": "2020",
@@ -585,7 +687,9 @@
    "confusion": 0.051431984515152476,
    "maxConfusion": 0.10502356220494331,
    "distractorCohesion": 0,
-   "accessibility": 0.0221489368973621
+   "accessibility": 0.0221489368973621,
+   "distractorPassage": 0.024909725251749663,
+   "baitGap": 0.0027607883543875646
   },
   {
    "exam": "2020",
@@ -595,7 +699,9 @@
    "confusion": 0.06031578516490169,
    "maxConfusion": 0.14567926042864038,
    "distractorCohesion": 0.09347833134555429,
-   "accessibility": 0.05049324433867596
+   "accessibility": 0.05049324433867596,
+   "distractorPassage": 0.00835074217515758,
+   "baitGap": -0.04214250216351838
   },
   {
    "exam": "2020",
@@ -605,7 +711,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.01250701120669782
+   "accessibility": 0.01250701120669782,
+   "distractorPassage": 0.011414579806067351,
+   "baitGap": -0.0010924314006304694
   },
   {
    "exam": "2020",
@@ -615,7 +723,9 @@
    "confusion": 0.04421528180399265,
    "maxConfusion": 0.1768611272159706,
    "distractorCohesion": 0,
-   "accessibility": 0.039549574939758185
+   "accessibility": 0.039549574939758185,
+   "distractorPassage": 0.023586438132416895,
+   "baitGap": -0.01596313680734129
   },
   {
    "exam": "2020",
@@ -625,7 +735,9 @@
    "confusion": 0.08333333333333333,
    "maxConfusion": 0.3333333333333333,
    "distractorCohesion": 0.04845394267195755,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2021",
@@ -635,7 +747,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2021",
@@ -645,7 +759,9 @@
    "confusion": 0.016312382460205537,
    "maxConfusion": 0.06524952984082215,
    "distractorCohesion": 0.018727632633772757,
-   "accessibility": 0.024736181773567612
+   "accessibility": 0.024736181773567612,
+   "distractorPassage": 0.018923097448091324,
+   "baitGap": -0.005813084325476288
   },
   {
    "exam": "2021",
@@ -655,7 +771,9 @@
    "confusion": 0.08737672361996962,
    "maxConfusion": 0.16108979721060604,
    "distractorCohesion": 0.08991653530750306,
-   "accessibility": 0.05745010597473226
+   "accessibility": 0.05745010597473226,
+   "distractorPassage": 0.03190233642355822,
+   "baitGap": -0.025547769551174042
   },
   {
    "exam": "2021",
@@ -665,7 +783,9 @@
    "confusion": 0.12880128396009863,
    "maxConfusion": 0.22091725455508995,
    "distractorCohesion": 0.06554574886121343,
-   "accessibility": 0.02050456360349386
+   "accessibility": 0.02050456360349386,
+   "distractorPassage": 0.01538408205675375,
+   "baitGap": -0.005120481546740109
   },
   {
    "exam": "2021",
@@ -675,7 +795,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2021",
@@ -685,7 +807,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.03210789235869625
+   "accessibility": 0.03210789235869625,
+   "distractorPassage": 0.00817967044543718,
+   "baitGap": -0.023928221913259072
   },
   {
    "exam": "2021",
@@ -695,7 +819,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.00595258424296511,
+   "baitGap": 0.00595258424296511
   },
   {
    "exam": "2021",
@@ -705,7 +831,9 @@
    "confusion": 0.14580037594092085,
    "maxConfusion": 0.2011099252153406,
    "distractorCohesion": 0.1178801346401863,
-   "accessibility": 0.05267792270676856
+   "accessibility": 0.05267792270676856,
+   "distractorPassage": 0.030173331561808556,
+   "baitGap": -0.022504591144960007
   },
   {
    "exam": "2021",
@@ -715,7 +843,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2022",
@@ -725,7 +855,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2022",
@@ -735,7 +867,9 @@
    "confusion": 0.042654809685450705,
    "maxConfusion": 0.09244926942555297,
    "distractorCohesion": 0.013572244862044154,
-   "accessibility": 0.021047130794129426
+   "accessibility": 0.021047130794129426,
+   "distractorPassage": 0.012223246919251984,
+   "baitGap": -0.008823883874877442
   },
   {
    "exam": "2022",
@@ -745,7 +879,9 @@
    "confusion": 0.12340864067248318,
    "maxConfusion": 0.21840470409966845,
    "distractorCohesion": 0.041559442524924925,
-   "accessibility": 0.026388113169171244
+   "accessibility": 0.026388113169171244,
+   "distractorPassage": 0.016016859712790134,
+   "baitGap": -0.01037125345638111
   },
   {
    "exam": "2022",
@@ -755,7 +891,9 @@
    "confusion": 0.04898180302215044,
    "maxConfusion": 0.09828377415602452,
    "distractorCohesion": 0.018371733806885393,
-   "accessibility": 0.02477740589328283
+   "accessibility": 0.02477740589328283,
+   "distractorPassage": 0.021989906639832926,
+   "baitGap": -0.0027874992534499023
   },
   {
    "exam": "2022",
@@ -765,7 +903,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.03501930546709001
+   "accessibility": 0.03501930546709001,
+   "distractorPassage": 0.007474780007933982,
+   "baitGap": -0.027544525459156033
   },
   {
    "exam": "2022",
@@ -775,7 +915,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.05710666137968806,
-   "accessibility": 0.030434487126150513
+   "accessibility": 0.030434487126150513,
+   "distractorPassage": 0.016551976633116354,
+   "baitGap": -0.01388251049303416
   },
   {
    "exam": "2022",
@@ -785,7 +927,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.024753662623694373,
-   "accessibility": 0.030724786377834237
+   "accessibility": 0.030724786377834237,
+   "distractorPassage": 0.017837567597345262,
+   "baitGap": -0.012887218780488974
   },
   {
    "exam": "2023",
@@ -795,7 +939,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2023",
@@ -805,7 +951,9 @@
    "confusion": 0.054588177421822384,
    "maxConfusion": 0.10917635484364477,
    "distractorCohesion": 0.034986821025104,
-   "accessibility": 0.014143798500115877
+   "accessibility": 0.014143798500115877,
+   "distractorPassage": 0.006341997675353609,
+   "baitGap": -0.007801800824762267
   },
   {
    "exam": "2023",
@@ -815,7 +963,9 @@
    "confusion": 0.06741550359136936,
    "maxConfusion": 0.0961941109183635,
    "distractorCohesion": 0.026769349873633164,
-   "accessibility": 0.020216391985146742
+   "accessibility": 0.020216391985146742,
+   "distractorPassage": 0.01985825367965841,
+   "baitGap": -0.00035813830548833345
   },
   {
    "exam": "2023",
@@ -825,7 +975,9 @@
    "confusion": 0.13922655565736045,
    "maxConfusion": 0.18765640050253038,
    "distractorCohesion": 0.05918175184783644,
-   "accessibility": 0.03870102190767901
+   "accessibility": 0.03870102190767901,
+   "distractorPassage": 0.029531374032926855,
+   "baitGap": -0.009169647874752156
   },
   {
    "exam": "2023",
@@ -835,7 +987,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.011626253232060908
+   "accessibility": 0.011626253232060908,
+   "distractorPassage": 0.010466871931943688,
+   "baitGap": -0.0011593813001172203
   },
   {
    "exam": "2023",
@@ -845,7 +999,9 @@
    "confusion": 0.035207691730046016,
    "maxConfusion": 0.14083076692018406,
    "distractorCohesion": 0,
-   "accessibility": 0.0157409723222566
+   "accessibility": 0.0157409723222566,
+   "distractorPassage": 0.01186665657225396,
+   "baitGap": -0.0038743157500026396
   },
   {
    "exam": "2023",
@@ -855,7 +1011,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.031378734173586526
+   "accessibility": 0.031378734173586526,
+   "distractorPassage": 0.010301676134385216,
+   "baitGap": -0.02107705803920131
   },
   {
    "exam": "2023",
@@ -865,7 +1023,9 @@
    "confusion": 0.08387524058543591,
    "maxConfusion": 0.33550096234174365,
    "distractorCohesion": 0.05385581044377219,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2024",
@@ -875,7 +1035,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2024",
@@ -885,7 +1047,9 @@
    "confusion": 0.08703486957722949,
    "maxConfusion": 0.1746722798057004,
    "distractorCohesion": 0.02503047522652065,
-   "accessibility": 0.04244620559473674
+   "accessibility": 0.04244620559473674,
+   "distractorPassage": 0.030078477867294055,
+   "baitGap": -0.012367727727442684
   },
   {
    "exam": "2024",
@@ -895,7 +1059,9 @@
    "confusion": 0.20809976980550246,
    "maxConfusion": 0.4311290913273645,
    "distractorCohesion": 0.05587421997007282,
-   "accessibility": 0.05717055742739584
+   "accessibility": 0.05717055742739584,
+   "distractorPassage": 0.04711534226964561,
+   "baitGap": -0.010055215157750229
   },
   {
    "exam": "2024",
@@ -905,7 +1071,9 @@
    "confusion": 0.0759291544602805,
    "maxConfusion": 0.10954930257217804,
    "distractorCohesion": 0.054977931268343085,
-   "accessibility": 0.03677111693170271
+   "accessibility": 0.03677111693170271,
+   "distractorPassage": 0.021589612222544262,
+   "baitGap": -0.015181504709158446
   },
   {
    "exam": "2024",
@@ -915,7 +1083,9 @@
    "confusion": 0.06560192739973258,
    "maxConfusion": 0.1325943432439644,
    "distractorCohesion": 0,
-   "accessibility": 0.02649268386106466
+   "accessibility": 0.02649268386106466,
+   "distractorPassage": 0.017735429806935498,
+   "baitGap": -0.008757254054129162
   },
   {
    "exam": "2024",
@@ -925,7 +1095,9 @@
    "confusion": 0.03827573645865831,
    "maxConfusion": 0.08459417193356016,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.013759503955544138,
+   "baitGap": 0.013759503955544138
   },
   {
    "exam": "2024",
@@ -935,7 +1107,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.037023833188098855,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.01884845992841892,
+   "baitGap": 0.01884845992841892
   },
   {
    "exam": "2024",
@@ -945,7 +1119,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2025",
@@ -955,7 +1131,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2025",
@@ -965,7 +1143,9 @@
    "confusion": 0.04276275965812818,
    "maxConfusion": 0.09326291041655631,
    "distractorCohesion": 0.014506809229673815,
-   "accessibility": 0.04466735576146839
+   "accessibility": 0.04466735576146839,
+   "distractorPassage": 0.010253740139409362,
+   "baitGap": -0.034413615622059024
   },
   {
    "exam": "2025",
@@ -975,7 +1155,9 @@
    "confusion": 0.06293522341674966,
    "maxConfusion": 0.10201902996857123,
    "distractorCohesion": 0.015385909296551016,
-   "accessibility": 0.04962929787189832
+   "accessibility": 0.04962929787189832,
+   "distractorPassage": 0.03948148478328861,
+   "baitGap": -0.010147813088609708
   },
   {
    "exam": "2025",
@@ -985,7 +1167,9 @@
    "confusion": 0.07173279913037713,
    "maxConfusion": 0.10606528758563678,
    "distractorCohesion": 0.06684652130106897,
-   "accessibility": 0.029863016386270713
+   "accessibility": 0.029863016386270713,
+   "distractorPassage": 0.03709297483688749,
+   "baitGap": 0.007229958450616778
   },
   {
    "exam": "2025",
@@ -995,7 +1179,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2025",
@@ -1005,7 +1191,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.0025154984963854125,
+   "baitGap": 0.0025154984963854125
   },
   {
    "exam": "2025",
@@ -1015,7 +1203,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.01515724632276324
+   "accessibility": 0.01515724632276324,
+   "distractorPassage": 0.0031606144662479985,
+   "baitGap": -0.011996631856515241
   },
   {
    "exam": "2025",
@@ -1025,7 +1215,9 @@
    "confusion": 0.09038765604629165,
    "maxConfusion": 0.19201072091311858,
    "distractorCohesion": 0.03575864382922943,
-   "accessibility": 0.04798325644219338
+   "accessibility": 0.04798325644219338,
+   "distractorPassage": 0.042490283702722675,
+   "baitGap": -0.005492972739470706
   },
   {
    "exam": "2025",
@@ -1035,7 +1227,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2026",
@@ -1045,7 +1239,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "2026",
@@ -1055,7 +1251,9 @@
    "confusion": 0.04770787059937281,
    "maxConfusion": 0.09840299465674308,
    "distractorCohesion": 0.015404747956791358,
-   "accessibility": 0.009584816792325866
+   "accessibility": 0.009584816792325866,
+   "distractorPassage": 0.025369284460312225,
+   "baitGap": 0.015784467667986357
   },
   {
    "exam": "2026",
@@ -1065,7 +1263,9 @@
    "confusion": 0.10300642314247417,
    "maxConfusion": 0.204213233834556,
    "distractorCohesion": 0.05072871727817618,
-   "accessibility": 0.012651649553841474
+   "accessibility": 0.012651649553841474,
+   "distractorPassage": 0.030967234723561794,
+   "baitGap": 0.01831558516972032
   },
   {
    "exam": "2026",
@@ -1075,7 +1275,9 @@
    "confusion": 0.1211007887997478,
    "maxConfusion": 0.26214503270928274,
    "distractorCohesion": 0.06359385849305062,
-   "accessibility": 0.02209166466999422
+   "accessibility": 0.02209166466999422,
+   "distractorPassage": 0.0243306920059687,
+   "baitGap": 0.0022390273359744785
   },
   {
    "exam": "2026",
@@ -1085,7 +1287,9 @@
    "confusion": 0.09255291605777143,
    "maxConfusion": 0.13058908111250978,
    "distractorCohesion": 0.12203162756814,
-   "accessibility": 0.013936627787866272
+   "accessibility": 0.013936627787866272,
+   "distractorPassage": 0.028030310658185315,
+   "baitGap": 0.014093682870319042
   },
   {
    "exam": "2026",
@@ -1095,7 +1299,9 @@
    "confusion": 0.10202147442428611,
    "maxConfusion": 0.15283359611497327,
    "distractorCohesion": 0.08107230205053434,
-   "accessibility": 0.010638358943580561
+   "accessibility": 0.010638358943580561,
+   "distractorPassage": 0.01922886326261549,
+   "baitGap": 0.00859050431903493
   },
   {
    "exam": "2026",
@@ -1105,7 +1311,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.013551079474656
+   "accessibility": 0.013551079474656,
+   "distractorPassage": 0.022766539645240884,
+   "baitGap": 0.009215460170584883
   },
   {
    "exam": "2026",
@@ -1115,7 +1323,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "M2606",
@@ -1125,7 +1335,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.03487530519689681,
-   "accessibility": 0.014691305265432815
+   "accessibility": 0.014691305265432815,
+   "distractorPassage": 0.02090489693774299,
+   "baitGap": 0.0062135916723101755
   },
   {
    "exam": "M2606",
@@ -1135,7 +1347,9 @@
    "confusion": 0.06857009506495973,
    "maxConfusion": 0.17164634983985344,
    "distractorCohesion": 0.018055645930628948,
-   "accessibility": 0.053480557257703155
+   "accessibility": 0.053480557257703155,
+   "distractorPassage": 0.02791978718995741,
+   "baitGap": -0.025560770067745747
   },
   {
    "exam": "M2606",
@@ -1145,7 +1359,9 @@
    "confusion": 0.04366980855566134,
    "maxConfusion": 0.09830304565900977,
    "distractorCohesion": 0.01606286263181016,
-   "accessibility": 0.031070811642173884
+   "accessibility": 0.031070811642173884,
+   "distractorPassage": 0.019086507497688365,
+   "baitGap": -0.011984304144485518
   },
   {
    "exam": "M2606",
@@ -1155,7 +1371,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.025868561102120286
+   "accessibility": 0.025868561102120286,
+   "distractorPassage": 0.003163382504396091,
+   "baitGap": -0.022705178597724196
   },
   {
    "exam": "M2606",
@@ -1165,7 +1383,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0.014053262757530416
+   "accessibility": 0.014053262757530416,
+   "distractorPassage": 0.007728253586787823,
+   "baitGap": -0.006325009170742592
   },
   {
    "exam": "M2606",
@@ -1175,7 +1395,9 @@
    "confusion": 0.06417498496102124,
    "maxConfusion": 0.13781526244491427,
    "distractorCohesion": 0.02087715196000089,
-   "accessibility": 0.023452513735269506
+   "accessibility": 0.023452513735269506,
+   "distractorPassage": 0.010683843836815496,
+   "baitGap": -0.01276866989845401
   },
   {
    "exam": "M2606",
@@ -1185,7 +1407,9 @@
    "confusion": 0.07545872301763806,
    "maxConfusion": 0.30183489207055225,
    "distractorCohesion": 0.05681929567814703,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.0032832569005162003,
+   "baitGap": 0.0032832569005162003
   },
   {
    "exam": "M2609",
@@ -1195,7 +1419,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "M2609",
@@ -1205,7 +1431,9 @@
    "confusion": 0.026629882137756404,
    "maxConfusion": 0.10651952855102562,
    "distractorCohesion": 0.01673277403474648,
-   "accessibility": 0.03687958324302683
+   "accessibility": 0.03687958324302683,
+   "distractorPassage": 0.019470971880277296,
+   "baitGap": -0.017408611362749533
   },
   {
    "exam": "M2609",
@@ -1215,7 +1443,9 @@
    "confusion": 0.08045689729779078,
    "maxConfusion": 0.17394719753625013,
    "distractorCohesion": 0.04039634661704936,
-   "accessibility": 0.045860401439252005
+   "accessibility": 0.045860401439252005,
+   "distractorPassage": 0.03152595831382235,
+   "baitGap": -0.014334443125429655
   },
   {
    "exam": "M2609",
@@ -1225,7 +1455,9 @@
    "confusion": 0.027194379010161827,
    "maxConfusion": 0.10877751604064731,
    "distractorCohesion": 0.015346163111980856,
-   "accessibility": 0.010393361455016365
+   "accessibility": 0.010393361455016365,
+   "distractorPassage": 0.02608825645654798,
+   "baitGap": 0.015694895001531615
   },
   {
    "exam": "M2609",
@@ -1235,7 +1467,9 @@
    "confusion": 0.048391080816988064,
    "maxConfusion": 0.10270146970514422,
    "distractorCohesion": 0.04340609728772037,
-   "accessibility": 0.046436540153095604
+   "accessibility": 0.046436540153095604,
+   "distractorPassage": 0.06372567322868958,
+   "baitGap": 0.017289133075593974
   },
   {
    "exam": "M2609",
@@ -1245,7 +1479,9 @@
    "confusion": 0.027403428549691206,
    "maxConfusion": 0.10961371419876483,
    "distractorCohesion": 0.013997720526022587,
-   "accessibility": 0.011081817880477149
+   "accessibility": 0.011081817880477149,
+   "distractorPassage": 0.01475211968536973,
+   "baitGap": 0.0036703018048925822
   },
   {
    "exam": "M2609",
@@ -1255,7 +1491,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.04265763165517536,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0.021711976875850518,
+   "baitGap": 0.021711976875850518
   },
   {
    "exam": "M2609",
@@ -1265,7 +1503,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "M2706",
@@ -1275,7 +1515,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   },
   {
    "exam": "M2706",
@@ -1285,7 +1527,9 @@
    "confusion": 0.07377005263910376,
    "maxConfusion": 0.12845081957920276,
    "distractorCohesion": 0.10249022311183249,
-   "accessibility": 0.019268771972599127
+   "accessibility": 0.019268771972599127,
+   "distractorPassage": 0.027574002104605127,
+   "baitGap": 0.008305230132006
   },
   {
    "exam": "M2706",
@@ -1295,7 +1539,9 @@
    "confusion": 0.13853049564840927,
    "maxConfusion": 0.16704181722223604,
    "distractorCohesion": 0.0891204067619693,
-   "accessibility": 0.018254631929658746
+   "accessibility": 0.018254631929658746,
+   "distractorPassage": 0.031089846064096413,
+   "baitGap": 0.012835214134437667
   },
   {
    "exam": "M2706",
@@ -1305,7 +1551,9 @@
    "confusion": 0.047644446058263346,
    "maxConfusion": 0.09878843844937833,
    "distractorCohesion": 0.029222446357215364,
-   "accessibility": 0.02320499878201394
+   "accessibility": 0.02320499878201394,
+   "distractorPassage": 0.024309308040575028,
+   "baitGap": 0.001104309258561087
   },
   {
    "exam": "M2706",
@@ -1315,7 +1563,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0.05097244344207058,
-   "accessibility": 0.011426772854199973
+   "accessibility": 0.011426772854199973,
+   "distractorPassage": 0.014845295857234375,
+   "baitGap": 0.0034185230030344023
   },
   {
    "exam": "M2706",
@@ -1325,7 +1575,9 @@
    "confusion": 0.051531547503120244,
    "maxConfusion": 0.10437379205187024,
    "distractorCohesion": 0.01468026876985034,
-   "accessibility": 0.038359926960259194
+   "accessibility": 0.038359926960259194,
+   "distractorPassage": 0.03893523569638257,
+   "baitGap": 0.0005753087361233741
   },
   {
    "exam": "M2706",
@@ -1335,7 +1587,9 @@
    "confusion": 0.034214255719793446,
    "maxConfusion": 0.13685702287917378,
    "distractorCohesion": 0.061052593009482625,
-   "accessibility": 0.012893585569646053
+   "accessibility": 0.012893585569646053,
+   "distractorPassage": 0.011821410208123688,
+   "baitGap": -0.0010721753615223657
   },
   {
    "exam": "M2706",
@@ -1345,7 +1599,9 @@
    "confusion": 0,
    "maxConfusion": 0,
    "distractorCohesion": 0,
-   "accessibility": 0
+   "accessibility": 0,
+   "distractorPassage": 0,
+   "baitGap": 0
   }
  ]
 }
