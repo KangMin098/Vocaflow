@@ -35,7 +35,9 @@ import Link from 'next/link'
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { RetentionPanel } from '@/components/admin/RetentionPanel'
+import { TeacherFunnelPanel } from '@/components/admin/TeacherFunnelPanel'
 import { fetchRetention } from '@/lib/admin/retention'
+import { fetchTeacherFunnelGaps } from '@/lib/admin/teacher-funnel'
 import {
   fmt,
   getAdminDashboardStats,
@@ -292,9 +294,12 @@ export default async function AdminDashboardPage() {
   await requireAdmin('/admin')
   const client = createAdminClient() as unknown as SupabaseClient
   // 공급(콘텐츠)과 수요(학습자)를 나란히 부른다 — 이 화면이 공급만 세고 있던 것이 F4 의 실체다.
-  const [stats, retention] = await Promise.all([
+  const [stats, retention, teacherGaps] = await Promise.all([
     getAdminDashboardStats(client),
     fetchRetention(),
+    // 리텐션은 **일어난 일**만 파생한다. 교사 채널이 어디서 끊기는지는
+    // "일어나지 않은 일"(허브에 왔지만 안 만듦 · 공유했지만 안 옴)이라 따로 읽는다.
+    fetchTeacherFunnelGaps(),
   ])
 
   const kpis: AdminKpi[] = [
@@ -405,6 +410,15 @@ export default async function AdminDashboardPage() {
           </span>
         </header>
         <RetentionPanel report={retention} />
+
+        {/* 10만 산술(교사 3,500명 × 학급 30명)이 성립하는지는 이 두 격차가 말한다.
+            파생으로는 영영 못 보는 구간이라 funnel_events 가 분모를 댄다. */}
+        <div className="mt-4">
+          <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--t1)]">
+            교사 채널 — 어디서 끊기는가
+          </h3>
+          <TeacherFunnelPanel gaps={teacherGaps} />
+        </div>
       </section>
 
       {/* ── 파이프라인 현황 ── */}
