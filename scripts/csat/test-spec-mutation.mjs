@@ -64,6 +64,8 @@ const MUT = {
   E7: (it) => { const b = it.filter((x) => x.type === 'R-BLANK' && x.points === 3); if (b[0]) b[0].points = 2; return it }, // 빈칸 3점을 1개로
   // 29(어휘어법) 자리에 빈칸 유형을 놓는다 — 번호→능력군 고정을 어긴다
   E8: (it) => { const x = it.find((y) => y.no === 29); if (x) x.type = 'R-BLANK'; return it },
+  // 34번 3점을 2점으로 — 유형군 마지막 자리 고정을 어긴다
+  E9: (it) => { const x = it.find((y) => y.no === 34); if (x) x.points = 2; return it },
   I1: (it) => { it[0].answer = 6; return it },                            // 정답 6번
   I2: (it) => { it.find((x) => SEQUENTIAL_TYPES.includes(x.type)).answer = 1; return it }, // 순서대응형 ①
   I3: (it) => { it.find((x) => x.choiceHasKo).points = 3; return it },      // 한글 선택지에 3점
