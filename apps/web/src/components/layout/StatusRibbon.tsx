@@ -41,7 +41,7 @@ export function StatusRibbon({ status }: StatusRibbonProps) {
   return (
     <div
       aria-label="오늘 상태"
-      className="flex items-center gap-x-7 gap-y-2 border-b border-[var(--bd)] bg-[var(--bg)] px-4 py-2.5 md:px-6"
+      className="flex items-center gap-x-7 gap-y-2 border-b border-[var(--bd)] bg-[var(--bg)] px-4 py-3 md:px-6"
     >
       {status.isEmpty ? <EmptyState /> : <Metrics status={status} />}
     </div>
@@ -69,7 +69,7 @@ function Metrics({ status }: { status: TodayStatus }) {
   return (
     <>
       {status.total > 0 && (
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <ProgressRing done={status.done} total={status.total} />
           <div className="flex flex-col leading-none">
             <span className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
@@ -105,7 +105,7 @@ function Metrics({ status }: { status: TodayStatus }) {
 
       {/* 규칙 ④ — 0이면 표시하지 않는다 */}
       {status.streak > 0 && (
-        <div className="flex items-center gap-1.5" aria-label={`연속 ${status.streak}일`}>
+        <div className="flex items-center gap-2" aria-label={`연속 ${status.streak}일`}>
           <Flame size={12} strokeWidth={2} className="text-[var(--active)]" aria-hidden />
           <span className="font-display text-[13px] font-[700] tabular-nums text-[var(--t1)]">
             {status.streak}

@@ -65,7 +65,7 @@ export function SegmentControl<TKey extends string>({
         const isActive = item.key === active
         const Icon = item.icon
         const innerClass = cn(
-          'flex items-center justify-center gap-1.5 rounded-ios-pill font-display text-[12.5px] font-[600] no-underline',
+          'flex items-center justify-center gap-2 rounded-ios-pill font-display text-[12.5px] font-[600] no-underline',
           'transition-all duration-[var(--dur-ios-fast)] ease-ios-standard',
           // ⚠️ `py-[6px]` 이라 실측 31px 이었다(기준 44px). 공용 컴포넌트라
           //    `/wordvault`·`/my/words` 등 이 막대를 쓰는 화면이 전부 걸린다.
@@ -88,7 +88,7 @@ export function SegmentControl<TKey extends string>({
             {item.count != null && (
               <span
                 className={cn(
-                  'rounded-ios-pill px-1.5 py-px font-mono text-[10px] tabular-nums',
+                  'rounded-ios-pill px-2 py-px font-mono text-[10px] tabular-nums',
                   isActive ? 'bg-[var(--bg2)] text-[var(--t2)]' : 'text-[var(--t2)]',
                 )}
               >

@@ -41,7 +41,7 @@ export default function QuickStartCard({
       </div>
 
       <div
-        className="relative z-10 mb-2.5 flex items-baseline gap-1.5 text-[14px] font-bold"
+        className="relative z-10 mb-2.5 flex items-baseline gap-2 text-[14px] font-bold"
         style={{ fontFamily: 'var(--font-display)' }}
       >
         <span className="text-[20px] font-extrabold" style={{ fontFamily: 'var(--font-mono)' }}>

@@ -171,7 +171,7 @@ export function Sidebar() {
         {!collapsed && (
           <Link
             href="/hub"
-            className="flex min-h-11 items-center gap-2.5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
+            className="flex min-h-11 items-center gap-3 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
             aria-label="Vocaflow 홈"
           >
             <span
@@ -338,7 +338,7 @@ function NavGroupBlock({
       {/* 정거장 — 번호는 **순서**다. 진도·자격·잠금이 아니다.
           번호 배지가 레일 선 위에 얹혀 선을 끊어 준다(bg 로 punch through). */}
       {!collapsed ? (
-        <h3 className="mb-2 flex items-center gap-2.5">
+        <h3 className="mb-2 flex items-center gap-3">
           <span
             aria-hidden="true"
             className="relative z-[1] inline-flex h-[19px] w-[19px] shrink-0 items-center justify-center rounded-full border font-mono text-[10px] font-[700] tabular-nums transition-colors duration-[var(--dur-normal)]"
@@ -477,7 +477,7 @@ function NavLinkItem({
           title={collapsed ? item.label : undefined}
           // `min-w-0` — flex 항목 기본 min-width:auto 라 긴 라벨이 셰브런을 밀어낸다(truncate 무효화).
           className={`group relative flex min-h-[44px] min-w-0 flex-1 items-center rounded-[var(--r-md)] font-display text-[14px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 ${
-            collapsed ? 'justify-center px-1' : 'gap-2.5 pl-3 pr-2'
+            collapsed ? 'justify-center px-1' : 'gap-3 pl-3 pr-2'
           } ${
             isActive
               ? 'font-[600] text-[var(--t1)]'
@@ -547,7 +547,7 @@ function NavLinkItem({
       {hasSub && open && (
         <ul
           id={subId}
-          className="ml-[26px] mt-0.5 flex flex-col gap-0.5 border-l border-[var(--bd)] pl-1.5"
+          className="ml-[26px] mt-0.5 flex flex-col gap-0.5 border-l border-[var(--bd)] pl-2"
         >
           {children.map((child) => {
             const childActive = matchesRoute(pathname, child.href, search)

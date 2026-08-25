@@ -106,7 +106,7 @@ export function ContinueRow({
         </div>
 
         <span
-          className="hidden shrink-0 items-center gap-1 rounded-[var(--r-md)] border px-3 py-1.5 font-display text-[12px] font-[700] sm:inline-flex"
+          className="hidden shrink-0 items-center gap-1 rounded-[var(--r-md)] border px-3 py-2 font-display text-[12px] font-[700] sm:inline-flex"
           style={{
             background: `${accent}1A`,
             borderColor: accent,

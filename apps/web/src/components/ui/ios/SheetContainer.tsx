@@ -100,7 +100,7 @@ export function SheetContainer({
         )}
       >
         {/* grabber */}
-        <div className="flex justify-center pt-2.5 pb-1">
+        <div className="flex justify-center pt-3 pb-1">
           <span
             aria-hidden
             className="h-[5px] w-9 rounded-ios-pill bg-[var(--t4)]"

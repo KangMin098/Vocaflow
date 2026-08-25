@@ -57,7 +57,7 @@ export function Frame({
     >
       {/* Section Header v06.40 — 22px font-[600] (Linear/Things 3 정밀) + 호흡 강화 */}
       <header className="mb-6 flex items-baseline justify-between gap-3">
-        <div className="flex items-baseline gap-2.5">
+        <div className="flex items-baseline gap-3">
           <h2 className="font-display text-[22px] font-[600] tracking-[-0.022em] leading-[1.1] text-[var(--t1)]">
             {title}
           </h2>

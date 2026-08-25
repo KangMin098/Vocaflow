@@ -56,7 +56,7 @@ export function GamePoolPanel({
             {words.slice(0, 6).map((w) => (
               <li
                 key={w.en}
-                className="inline-flex items-baseline gap-1.5 rounded-ios-pill bg-[var(--bg2)] px-2.5 py-1"
+                className="inline-flex items-baseline gap-2 rounded-ios-pill bg-[var(--bg2)] px-3 py-1"
                 title={w.ko}
               >
                 <span className="font-editorial text-[13.5px] font-[500] text-[var(--t1)]">

@@ -134,7 +134,7 @@ export function TodayQueue({ buckets, totalLabel }: TodayQueueProps) {
                     }
               }
             >
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-2">
                 <span
                   className="h-2 w-2 rounded-full"
                   style={{ backgroundColor: meta.color }}

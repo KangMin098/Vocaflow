@@ -23,7 +23,7 @@ export function InsetGroup({
   children,
 }: InsetGroupProps) {
   return (
-    <div className={cn('flex flex-col gap-1.5', className)}>
+    <div className={cn('flex flex-col gap-2', className)}>
       {header && (
         <span className="px-1 font-mono text-[9.5px] font-[700] uppercase tracking-[0.16em] text-[var(--t2)]">
           {header}

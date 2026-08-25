@@ -45,11 +45,11 @@ export function StatPill({
     <div
       className={cn(
         // 다크 정합 — 카드 내부 칩 배경 = --bg3 (tertiarySystemFill)
-        'flex flex-col gap-1.5 rounded-ios-xl bg-[var(--bg3)] p-3.5',
+        'flex flex-col gap-2 rounded-ios-xl bg-[var(--bg3)] p-3.5',
         className,
       )}
     >
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-2">
         {dotColor && (
           <span
             aria-hidden
@@ -64,7 +64,7 @@ export function StatPill({
           {label}
         </span>
       </div>
-      <div className="flex items-baseline gap-1.5">
+      <div className="flex items-baseline gap-2">
         <span
           className="font-display text-[22px] font-[800] leading-none tracking-[-0.025em] tabular-nums"
           style={{ color: valueColor }}

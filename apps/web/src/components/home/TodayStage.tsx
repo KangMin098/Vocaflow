@@ -253,7 +253,7 @@ function FlowRow({
 
   // `min-h-11` = 44px. 실측 2026-08-25: "먼저 하기" 링크 세 줄이 40px 이었다 —
   // 4px 모자라서 프로젝트 절대 규칙(44×44)을 못 넘겼다. 목록 줄이라 폭은 이미 310px 이다.
-  const rowBase = 'flex min-h-11 items-stretch gap-3 rounded-[var(--r-md)] pl-2 pr-2.5'
+  const rowBase = 'flex min-h-11 items-stretch gap-3 rounded-[var(--r-md)] pl-2 pr-3'
 
   if (isNow || b.done || b.locked) {
     return (

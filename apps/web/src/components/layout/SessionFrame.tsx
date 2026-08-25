@@ -206,7 +206,7 @@ export function SessionFrame({ children }: { children: ReactNode }) {
         <header
           role="banner"
           className={`sticky top-0 z-40 shrink-0 border-b border-[var(--bd)] bg-[var(--bg)]/95 backdrop-blur ${
-            hasResource ? 'px-3 py-2 md:px-5 md:py-2.5' : 'px-3 md:px-5'
+            hasResource ? 'px-3 py-2 md:px-5 md:py-3' : 'px-3 md:px-5'
           }`}
         >
           {/* Top row */}
@@ -231,7 +231,7 @@ export function SessionFrame({ children }: { children: ReactNode }) {
             </div>
 
             {/* Right: stage combo + close */}
-            <div className="flex shrink-0 items-center gap-1.5">
+            <div className="flex shrink-0 items-center gap-2">
               <div className="relative">
                 <select
                   value={currentOptionMatch ? pathname : ''}
@@ -320,7 +320,7 @@ function ResourceBreadcrumb({ resource }: { resource: SessionResource }) {
   const inner = (
     <>
       {/* Type indicator (icon + label) */}
-      <span className="inline-flex shrink-0 items-center gap-1.5">
+      <span className="inline-flex shrink-0 items-center gap-2">
         <Icon
           size={13}
           strokeWidth={2}
@@ -378,20 +378,20 @@ function ResourceBreadcrumb({ resource }: { resource: SessionResource }) {
   return (
     <nav
       aria-label="현재 학습 리소스"
-      className="mt-1 flex min-w-0 items-center gap-1.5 md:mt-1.5"
+      className="mt-1 flex min-w-0 items-center gap-2 md:mt-1.5"
     >
       {resource.href ? (
         <Link
           href={resource.href}
           aria-label={ariaLabel}
-          className="group inline-flex min-w-0 items-center gap-1.5 rounded-[var(--r-sm)] px-1 py-0.5 -mx-1 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="group inline-flex min-w-0 items-center gap-2 rounded-[var(--r-sm)] px-1 py-0.5 -mx-1 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {inner}
         </Link>
       ) : (
         <div
           aria-label={ariaLabel}
-          className="inline-flex min-w-0 items-center gap-1.5"
+          className="inline-flex min-w-0 items-center gap-2"
         >
           {inner}
         </div>

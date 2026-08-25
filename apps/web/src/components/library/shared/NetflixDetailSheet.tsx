@@ -307,7 +307,7 @@ function Hero({ variant }: { variant: DetailVariant }) {
       />
 
       {/* 좌상단 카테고리/타입 */}
-      <div className="absolute left-5 top-5 z-[2] inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-black/40 px-3 py-1 font-display text-[10px] font-[700] uppercase tracking-wider text-white backdrop-blur-md md:left-7 md:top-7">
+      <div className="absolute left-5 top-5 z-[2] inline-flex items-center gap-2 rounded-[var(--r-full)] bg-black/40 px-3 py-1 font-display text-[10px] font-[700] uppercase tracking-wider text-white backdrop-blur-md md:left-7 md:top-7">
         {variant.type === 'book' && (
           <>
             <BookOpen size={11} aria-hidden /> 도서
@@ -336,7 +336,7 @@ function Hero({ variant }: { variant: DetailVariant }) {
       )}
 
       {/* 제목 + 저자 (좌하단) */}
-      <div className="absolute inset-x-0 bottom-0 z-[2] flex flex-col gap-1.5 px-6 pb-5 text-white md:px-8 md:pb-6">
+      <div className="absolute inset-x-0 bottom-0 z-[2] flex flex-col gap-2 px-6 pb-5 text-white md:px-8 md:pb-6">
         <h2
           className={`line-clamp-2 font-display font-[800] leading-[1.1] tracking-[-0.015em] drop-shadow-[0_2px_6px_rgba(0,0,0,0.55)] ${
             variant.type === 'book'
@@ -429,7 +429,7 @@ function BookBody({ v }: { v: BookVariant }) {
           (docs/CCP_LIBRARY_INTEGRATION.md R1·R2) */}
       {v.comicHref && (v.comicProgressPct ?? 0) > 0 && (
         <div className="flex items-center justify-between gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2">
-          <span className="inline-flex items-center gap-1.5 font-display text-[12px] font-[700] text-[var(--t2)]">
+          <span className="inline-flex items-center gap-2 font-display text-[12px] font-[700] text-[var(--t2)]">
             <BookImage size={13} aria-hidden style={{ color: 'var(--active)' }} />
             만화 미리 봄
           </span>
@@ -458,11 +458,11 @@ function BookBody({ v }: { v: BookVariant }) {
 
       {v.themes && v.themes.length > 0 && (
         <Section title="테마">
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {v.themes.map((th, i) => (
               <span
                 key={`${th}-${i}`}
-                className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-1 font-mono text-[11px] font-[600] text-[var(--on-p-tint)]"
+                className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1 font-mono text-[11px] font-[600] text-[var(--on-p-tint)]"
               >
                 {th}
               </span>
@@ -527,7 +527,7 @@ function Section({
   children: React.ReactNode
 }) {
   return (
-    <section className="flex flex-col gap-1.5">
+    <section className="flex flex-col gap-2">
       <h3 className="font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
         {title}
       </h3>
@@ -593,13 +593,13 @@ function MyProgressSection({
   const guidance = buildGuidance(kind, mine.status, fit?.tier ?? null)
 
   return (
-    <section className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
+    <section className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
       <div className="flex items-center justify-between gap-2">
         <h3 className="font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
           내 학습
         </h3>
         <span
-          className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2.5 py-1 font-display text-[11px] font-[700]"
+          className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-3 py-1 font-display text-[11px] font-[700]"
           style={{ color: sm.fg, background: sm.bg }}
         >
           <span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: sm.fg }} />
@@ -633,7 +633,7 @@ function MyProgressSection({
       {/* 레벨 적합도 (i+1) — 도서 한정 */}
       {fit && (
         <div className="flex items-center justify-between gap-2 rounded-[var(--r-md)] border bg-[var(--bg)] px-3 py-2" style={{ borderColor: fit.color }}>
-          <span className="inline-flex items-center gap-1.5 font-display text-[12px] font-[700]">
+          <span className="inline-flex items-center gap-2 font-display text-[12px] font-[700]">
             <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: fit.color }} />
             <span style={{ color: fit.color }}>레벨 {fit.label}</span>
           </span>
@@ -702,7 +702,7 @@ function IPlusOneRow({
       style={{ borderColor: fit.color }}
     >
       <div className="mb-1.5 flex items-baseline justify-between gap-2">
-        <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[700]">
+        <span className="inline-flex items-center gap-2 font-display text-[13px] font-[700]">
           <span
             aria-hidden
             className="h-2 w-2 rounded-full"
@@ -800,10 +800,10 @@ function VocabBody({ v }: { v: VocabVariant }) {
       {/* 단어 sample */}
       {v.samples && v.samples.length > 0 && (
         <div>
-          <p className="mb-2 inline-flex items-center gap-1.5 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
+          <p className="mb-2 inline-flex items-center gap-2 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
             <Sparkles size={11} aria-hidden /> 단어 미리보기 ({v.samples.length})
           </p>
-          <ul className="grid grid-cols-1 gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)]/40 p-3 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)]/40 p-3 sm:grid-cols-2">
             {v.samples.slice(0, 8).map((w) => (
               <li key={w.word} className="flex items-baseline justify-between gap-2">
                 <span className="font-english text-[14px] font-[600] text-[var(--t1)]">
@@ -840,7 +840,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
           <Link
             href={variant.secondaryHref}
             onClick={onClose}
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2.5 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+            className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
           >
             <Volume2 size={13} aria-hidden />
             {variant.secondaryLabel}
@@ -850,7 +850,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
           type="button"
           onClick={() => variant.onCtaClick?.()}
           disabled={variant.ctaPending}
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13.5px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60"
+          className="inline-flex items-center gap-2 rounded-[var(--r-md)] px-5 py-3 font-display text-[13.5px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60"
           style={{ backgroundColor: accent }}
         >
           {variant.ctaLabel}
@@ -871,7 +871,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
             type="button"
             onClick={() => variant.onUnenroll?.()}
             disabled={variant.unenrollPending}
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:border-[var(--error)] hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:border-[var(--error)] hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] disabled:opacity-50"
             title="내 학습 도서 목록에서 빼기 (단어 학습 기록은 보존)"
           >
             {variant.unenrollPending ? '제외 중…' : '− 내 학습에서 제외'}
@@ -882,7 +882,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
         <button
           type="button"
           onClick={onClose}
-          className="inline-flex items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2.5 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+          className="inline-flex items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
         >
           나중에
         </button>
@@ -891,7 +891,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
           <Link
             href={variant.comicHref}
             onClick={onClose}
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-4 py-2.5 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] motion-reduce:transition-none motion-reduce:hover:scale-100"
+            className="inline-flex items-center gap-2 rounded-[var(--r-md)] px-4 py-3 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] motion-reduce:transition-none motion-reduce:hover:scale-100"
             style={{ backgroundColor: 'var(--active)', color: '#231a09' }}
           >
             <BookImage size={14} aria-hidden />
@@ -901,7 +901,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
         <Link
           href={variant.ctaHref}
           onClick={onClose}
-          className="inline-flex items-center rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13.5px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
+          className="inline-flex items-center rounded-[var(--r-md)] px-5 py-3 font-display text-[13.5px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
           style={{ backgroundColor: accent }}
         >
           {variant.ctaLabel}
@@ -914,7 +914,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
 // ─── 미니 helpers ────────────────────────────────────────
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="flex flex-col gap-0.5 rounded-[var(--r-md)] bg-[var(--bg2)] p-2.5">
+    <div className="flex flex-col gap-0.5 rounded-[var(--r-md)] bg-[var(--bg2)] p-3">
       <span className="font-display text-[9.5px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         {label}
       </span>
@@ -936,7 +936,7 @@ function MetaItem({
   value: string
 }) {
   return (
-    <span className="inline-flex items-baseline gap-1.5 font-body text-[12px] text-[var(--t2)]">
+    <span className="inline-flex items-baseline gap-2 font-body text-[12px] text-[var(--t2)]">
       {icon && <span className="text-[var(--t2)]">{icon}</span>}
       <span className="text-[var(--t2)]">{label}</span>
       <strong className="font-display font-[700] text-[var(--t1)]">{value}</strong>

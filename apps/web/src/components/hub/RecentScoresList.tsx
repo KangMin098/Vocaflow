@@ -50,7 +50,7 @@ export function RecentScoresList({ scores, best, accent, emptyHint }: RecentScor
       ) : (
         <ul className="divide-y divide-[var(--bd)]">
           {scores.map((s, i) => (
-            <li key={`${s.date}-${i}`} className="flex items-center gap-3 py-2.5">
+            <li key={`${s.date}-${i}`} className="flex items-center gap-3 py-3">
               <span className="w-16 shrink-0 font-mono text-[11px] text-[var(--t2)]">{s.date}</span>
               <span className="flex-1 font-display text-[14px] font-[700] tabular-nums text-[var(--t1)]">
                 {s.score.toLocaleString()}

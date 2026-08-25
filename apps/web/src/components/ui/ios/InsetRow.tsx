@@ -108,7 +108,7 @@ export function InsetRow({
 
   const cls = cn(
     /* iOS Settings cell — 최소 44pt 높이 보장 + 16pt edge padding */
-    'group flex min-h-[44px] items-center gap-3 px-4 py-2.5',
+    'group flex min-h-[44px] items-center gap-3 px-4 py-3',
     'transition-colors duration-[var(--dur-ios-fast)]',
     (href || onClick) && 'hover:bg-[var(--bg2)] active:bg-[var(--bg3)]',
     className,

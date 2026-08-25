@@ -82,7 +82,7 @@ export function Capsule({
   return (
     <span
       className={cn(
-        'inline-flex items-baseline gap-1.5 rounded-ios-pill',
+        'inline-flex items-baseline gap-2 rounded-ios-pill',
         padClass,
         className,
       )}
