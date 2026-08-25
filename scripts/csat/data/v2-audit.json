@@ -1,15 +1,15 @@
 {
- "total": 67,
+ "total": 68,
  "byStatus": {
-  "SOFT": 27,
+  "SOFT": 28,
   "REJECTED": 27,
   "HARD": 11,
   "HARD_CAND": 1,
   "UNTESTED": 1
  },
  "coverageDecided": 98.5,
- "coverageFullExam": 56.7,
- "coverageRule": 17.9,
+ "coverageFullExam": 57.4,
+ "coverageRule": 17.6,
  "bySec": {
   "0": {
    "total": 2,
@@ -68,11 +68,11 @@
    "full": 1
   },
   "8": {
-   "total": 14,
-   "decided": 14,
+   "total": 15,
+   "decided": 15,
    "stale": 0,
    "untested": 0,
-   "full": 8
+   "full": 9
   }
  },
  "stale": [],

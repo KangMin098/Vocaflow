@@ -1,0 +1,253 @@
+{
+ "n": 24,
+ "B": 17,
+ "A": 7,
+ "pBinom": 0.03195732831954956,
+ "byPoints": {
+  "p3": {
+   "n": 12,
+   "B": 10
+  },
+  "p2": {
+   "n": 12,
+   "B": 7
+  },
+  "fisher": 0.37070938214823235
+ },
+ "byType": {
+  "R-BLANK": {
+   "n": 14,
+   "b": 12
+  },
+  "R-SUMMARY": {
+   "n": 4,
+   "b": 0
+  },
+  "R-IMPLY": {
+   "n": 3,
+   "b": 2
+  },
+  "R-TITLE": {
+   "n": 3,
+   "b": 3
+  }
+ },
+ "rows": [
+  {
+   "idx": 1,
+   "exam": "2026",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 4,
+   "bait": "B"
+  },
+  {
+   "idx": 2,
+   "exam": "M2706",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 2,
+   "bait": "B"
+  },
+  {
+   "idx": 3,
+   "exam": "M2706",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 5,
+   "bait": "A"
+  },
+  {
+   "idx": 4,
+   "exam": "2020",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "answer": 1,
+   "bait": "B"
+  },
+  {
+   "idx": 5,
+   "exam": "2020",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "bait": "B"
+  },
+  {
+   "idx": 6,
+   "exam": "2020",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 1,
+   "bait": "A"
+  },
+  {
+   "idx": 7,
+   "exam": "2018",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 1,
+   "bait": "B"
+  },
+  {
+   "idx": 8,
+   "exam": "2018",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "bait": "B"
+  },
+  {
+   "idx": 9,
+   "exam": "2024",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "answer": 4,
+   "bait": "B"
+  },
+  {
+   "idx": 10,
+   "exam": "2024",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 2,
+   "bait": "A"
+  },
+  {
+   "idx": 11,
+   "exam": "2015",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 2,
+   "bait": "B"
+  },
+  {
+   "idx": 12,
+   "exam": "2015",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 1,
+   "bait": "B"
+  },
+  {
+   "idx": 13,
+   "exam": "2021",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "bait": "B"
+  },
+  {
+   "idx": 14,
+   "exam": "2014A",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 1,
+   "bait": "B"
+  },
+  {
+   "idx": 15,
+   "exam": "2019",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 5,
+   "bait": "B"
+  },
+  {
+   "idx": 16,
+   "exam": "M2609",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "answer": 3,
+   "bait": "A"
+  },
+  {
+   "idx": 17,
+   "exam": "2025",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "answer": 2,
+   "bait": "B"
+  },
+  {
+   "idx": 18,
+   "exam": "2025",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 1,
+   "bait": "A"
+  },
+  {
+   "idx": 19,
+   "exam": "2016",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 4,
+   "bait": "B"
+  },
+  {
+   "idx": 20,
+   "exam": "2016",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "answer": 2,
+   "bait": "A"
+  },
+  {
+   "idx": 21,
+   "exam": "M2606",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "bait": "B"
+  },
+  {
+   "idx": 22,
+   "exam": "2022",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 5,
+   "bait": "B"
+  },
+  {
+   "idx": 23,
+   "exam": "2022",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "bait": "A"
+  },
+  {
+   "idx": 24,
+   "exam": "2014B",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 4,
+   "bait": "B"
+  }
+ ]
+}
