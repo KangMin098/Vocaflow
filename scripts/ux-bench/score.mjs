@@ -88,6 +88,14 @@ export function scoreOne(m) {
   // Core Web Vitals 공개 임계 — good <= 0.1 · poor >= 0.25.
   // 광고·쿠키 배너가 밀어내는 화면은 여기서 갈린다.
   const F5 = m.cls >= 0 ? band(m.cls, 0.1, 0.25) : null;
+  // WCAG 2.2 §2.2.2 (A) — 5초 넘게 저절로 움직이는 내용은 멈출 수단이 있어야 한다.
+  // 멈춤 컨트롤이 있으면 충족. 없으면 움직이는 것의 개수만큼 깎는다(0개면 만점).
+  const F6 =
+    m.movingForever === undefined || m.movingForever < 0
+      ? null
+      : m.pauseControl
+        ? 100
+        : band(m.movingForever + (m.autoplayMedia || 0) * 3, 0, 6);
 
   const avg = (xs) => {
     const v = xs.filter((x) => x !== null && Number.isFinite(x));
@@ -103,7 +111,7 @@ export function scoreOne(m) {
     //    FCP·domInteractive 는 그 차이만으로 우리 쪽이 유리해진다 — 그 우위는 제품이 아니라
     //    네트워크에서 나온 것이다. 그래서 속도 둘을 뺀 값을 함께 낸다.
     //    판정은 이 중립값으로 하고, 원래 값은 참고로 함께 적는다.
-    flow: { F1, F2, F3, F4, F5, score: avg([F1, F2, F3, F4, F5]), scoreNeutral: avg([F1, F4, F5]) },
+    flow: { F1, F2, F3, F4, F5, F6, score: avg([F1, F2, F3, F4, F5, F6]), scoreNeutral: avg([F1, F4, F5, F6]) },
   };
 }
 

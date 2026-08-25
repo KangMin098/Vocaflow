@@ -22,6 +22,7 @@ const perfect = {
   forwardPaths: 5, shellPaths: 6, actionButtons: 3, hasCurrent: true, hasBreadcrumb: true,
   hasSkipLink: true, hasSearch: true, hasSitemap: false, cls: 0.02,
   spacingOverflowPx: 0, spacingClipped: 0, spacingClipChecked: 40,
+  movingForever: 0, autoplayMedia: 0, pauseControl: false,
   foldActions: 3, domInteractive: 900, loadEventEnd: 1200, fcp: 800, domNodes: 900,
 };
 
@@ -123,6 +124,14 @@ check('WCAG 1.4.12 — 간격 CSS 를 얹었을 때 넘치면 절반, 잘리면 
   assert.equal(scoreOne({ ...perfect, spacingOverflowPx: 12 }).design.D5, 50);
   assert.equal(scoreOne({ ...perfect, spacingClipped: 20 }).design.D5, 75);   // 20/40 잘림
   assert.equal(scoreOne({ ...perfect, spacingOverflowPx: undefined }).design.D5, null);
+});
+
+check('WCAG 2.2.2 — 무한 애니메이션 0 이면 만점 · 6개면 0 · 멈춤 수단이 있으면 면제', () => {
+  assert.equal(scoreOne(perfect).flow.F6, 100);
+  assert.equal(scoreOne({ ...perfect, movingForever: 6 }).flow.F6, 0);
+  assert.equal(scoreOne({ ...perfect, movingForever: 3 }).flow.F6, 50);
+  assert.equal(scoreOne({ ...perfect, movingForever: 20, pauseControl: true }).flow.F6, 100);
+  assert.equal(scoreOne({ ...perfect, movingForever: -1 }).flow.F6, null);
 });
 
 console.log(`\n${n}개 검사 통과.`);

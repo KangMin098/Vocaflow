@@ -317,6 +317,34 @@ export const MEASURE_FN = String.raw`() => {
       if ((el.getAttribute('aria-label') || el.textContent || '').trim()) foldActions++;
     }
   }
+  // ── WCAG 2.2 §2.2.2 Pause, Stop, Hide (A) ──
+  // 5초 넘게 저절로 움직이는 내용은 멈출 수단을 줘야 한다. 무한 반복 애니메이션이
+  // 그 대상이고, getAnimations() 로 실제 **돌고 있는 것**을 센다(스타일시트를 읽지
+  // 않으므로 교차 출처에서도 잰다 — 상대에게도 똑같이 적용된다).
+  //
+  // ⚠️ 이 기준은 **우리가 질 가능성이 높다** — /arcade 는 상시 분위기 애니메이션을 쓴다.
+  //    그래서 넣는다. 이길 것만 고르면 그 비교는 아무것도 증명하지 않는다.
+  let movingForever = 0;
+  try {
+    const anims = typeof document.getAnimations === 'function' ? document.getAnimations() : [];
+    for (const an of anims) {
+      const eff = an.effect;
+      if (!eff || typeof eff.getTiming !== 'function') continue;
+      const t = eff.getTiming();
+      if (t.iterations !== Infinity) continue;
+      const el = eff.target;
+      if (!el || typeof el.getBoundingClientRect !== 'function') continue;
+      const r = el.getBoundingClientRect();
+      if (r.width < 2 || r.height < 2) continue;          // 안 보이는 것은 방해가 아니다
+      if (r.top > vh * 2) continue;                        // 한참 아래는 시야 밖
+      movingForever++;
+    }
+  } catch (e) { movingForever = -1; }
+  const autoplayMedia = document.querySelectorAll('video[autoplay]:not([muted]), audio[autoplay]').length;
+  // 멈춤 수단이 있으면 기준을 충족한다(정지·일시정지 컨트롤).
+  const pauseControl = !!Array.from(document.querySelectorAll('button, [role="button"], input[type="checkbox"]'))
+    .find((el) => /정지|멈춤|일시|pause|stop|motion/i.test((el.getAttribute('aria-label') || el.textContent || '')));
+
   const nav = performance.getEntriesByType('navigation')[0];
   const paints = performance.getEntriesByType('paint');
   const fcp = paints.find((p) => p.name === 'first-contentful-paint');
@@ -336,6 +364,7 @@ export const MEASURE_FN = String.raw`() => {
     hasSkipLink: hasSkipLink, hasSearch: hasSearch, hasSitemap: hasSitemap,
     cls: (window.__uxbCls !== undefined ? Math.round(window.__uxbCls * 1000) / 1000 : -1),
     foldActions: foldActions,
+    movingForever: movingForever, autoplayMedia: autoplayMedia, pauseControl: pauseControl,
     domInteractive: nav ? Math.round(nav.domInteractive) : -1,
     loadEventEnd: nav ? Math.round(nav.loadEventEnd) : -1,
     fcp: fcp ? Math.round(fcp.startTime) : -1,
