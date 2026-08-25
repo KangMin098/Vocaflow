@@ -151,7 +151,11 @@ function trimChoice(s) {
   let t = s
   const nx = t.search(NEXT_ITEM)
   if (nx > 0) t = t.slice(0, nx)
+  // 지면 상투구 — 형별 표기 · 듣기 종료 안내 · 시험지 말미 확인 사항
   t = t.replace(/[,\s·]*(?:짝수형|홀수형)[\s\S]*$/, '')
+  t = t.replace(/\s*이제\s*듣기[\s\S]*$/, '')
+  t = t.replace(/\s*\*?\s*확인\s*사항[\s\S]*$/, '')
+  t = t.replace(/\s*문제지의\s*지시[\s\S]*$/, '')
   t = t.replace(/(?:\s*,\s*){2,}[\s\S]*$/, '')
   return t.replace(/[\s,]+$/, '').trim()
 }

@@ -105,10 +105,10 @@
  },
  "lisPerExam": 2063,
  "order": {
-  "n": 9,
-  "mono": 8,
-  "pairs": 27,
-  "conc": 26,
+  "n": 10,
+  "mono": 9,
+  "pairs": 30,
+  "conc": 29,
   "rows": [
    {
     "exam": "2023",
@@ -399,24 +399,18 @@
    {
     "exam": "2019",
     "no": 17,
-    "stem": "언급된 음식이 아닌 것은?",
-    "turns": [
-     {
-      "who": "W",
-      "text": "Hello, students. Previously, we discussed traditional foods in different countries. Today, I’ll talk about surprising birthplaces of everyday foods. First, people believe the Caesar salad is named after a Roman emperor. But a well-known story is that the name came from a chef in Mexico. He created it by putting together some basic ingredients when running out of food. Second, bagels are a famous New York food. But they’re likely from central Europe. A widely repeated story says that they were first made in Vienna to celebrate the defeat of an invading army. Third, many people think kiwis are from New Zealand. It’s probably because a small flightless bird from New Zealand has the same name. In fact, the food is from China. Last, if there’s any country known for potatoes, it’s Ireland. That’s because crop failures of this food caused extreme hunger in Ireland in the 19th century. However, the food is believed to come from South America. Now, we’ll watch a short video about these foods."
-     }
-    ],
-    "fromSet": "16~17",
-    "script": "Hello, students. Previously, we discussed traditional foods in different countries. Today, I’ll talk about surprising birthplaces of everyday foods. First, people believe the Caesar salad is named after a Roman emperor. But a well-known story is that the name came from a chef in Mexico. He created it by putting together some basic ingredients when running out of food. Second, bagels are a famous New York food. But they’re likely from central Europe. A widely repeated story says that they were first made in Vienna to celebrate the defeat of an invading army. Third, many people think kiwis are from New Zealand. It’s probably because a small flightless bird from New Zealand has the same name. In fact, the food is from China. Last, if there’s any country known for potatoes, it’s Ireland. That’s because crop failures of this food caused extreme hunger in Ireland in the 19th century. However, the food is believed to come from South America. Now, we’ll watch a short video about these foods.",
-    "words": 168,
-    "nTurns": 1,
-    "speakers": [
-     "W"
-    ],
-    "isDialogue": false,
     "type": "L-SET-NOT",
-    "ok": false,
-    "why": "선택지 없음"
+    "ok": true,
+    "pos": [
+     23,
+     60,
+     97,
+     130,
+     null
+    ],
+    "pairs": 3,
+    "conc": 3,
+    "mono": true
    },
    {
     "exam": "2020",

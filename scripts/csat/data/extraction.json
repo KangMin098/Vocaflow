@@ -1,19 +1,19 @@
 {
  "total": 382,
- "ok": 357,
- "rate": 93.5,
+ "ok": 368,
+ "rate": 96.3,
  "byExam": {
   "2015": {
    "n": 28,
-   "ok": 27
+   "ok": 28
   },
   "2016": {
    "n": 28,
-   "ok": 26
+   "ok": 27
   },
   "2017": {
    "n": 28,
-   "ok": 27
+   "ok": 28
   },
   "2018": {
    "n": 28,
@@ -25,23 +25,23 @@
   },
   "2020": {
    "n": 28,
-   "ok": 27
+   "ok": 28
   },
   "2021": {
    "n": 28,
-   "ok": 26
+   "ok": 27
   },
   "2022": {
    "n": 28,
-   "ok": 23
+   "ok": 24
   },
   "2023": {
    "n": 28,
-   "ok": 25
+   "ok": 26
   },
   "2024": {
    "n": 28,
-   "ok": 24
+   "ok": 25
   },
   "2025": {
    "n": 28,
@@ -49,15 +49,15 @@
   },
   "2026": {
    "n": 28,
-   "ok": 26
+   "ok": 27
   },
   "2014B": {
    "n": 23,
-   "ok": 22
+   "ok": 23
   },
   "2014A": {
    "n": 23,
-   "ok": 22
+   "ok": 23
   }
  },
  "byType": {
@@ -165,9 +165,9 @@
   },
   "X-FACT": {
    "n": 14,
-   "ok": 3,
+   "ok": 14,
    "noP": 0,
-   "noC": 11
+   "noC": 0
   },
   "R-PURPOSE": {
    "n": 12,
@@ -220,55 +220,10 @@
  },
  "fail": [
   {
-   "exam": "2014B",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 2177,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2014A",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 1493,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2015",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 1795,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
    "exam": "2016",
    "no": 31,
    "type": "R-BLANK",
    "chars": 978,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2016",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 2126,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2017",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 2192,
    "okP": true,
    "okC": false,
    "ok": false
@@ -283,28 +238,10 @@
    "ok": false
   },
   {
-   "exam": "2020",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 2083,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
    "exam": "2021",
    "no": 36,
    "type": "R-ORDER",
    "chars": 1121,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2021",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 2021,
    "okP": true,
    "okC": false,
    "ok": false
@@ -346,15 +283,6 @@
    "ok": false
   },
   {
-   "exam": "2022",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 1960,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
    "exam": "2023",
    "no": 31,
    "type": "R-BLANK",
@@ -368,15 +296,6 @@
    "no": 38,
    "type": "R-INSERT",
    "chars": 1264,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2023",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 1927,
    "okP": true,
    "okC": false,
    "ok": false
@@ -409,15 +328,6 @@
    "ok": false
   },
   {
-   "exam": "2024",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 2048,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
    "exam": "2025",
    "no": 36,
    "type": "R-ORDER",
@@ -431,15 +341,6 @@
    "no": 36,
    "type": "R-ORDER",
    "chars": 1128,
-   "okP": true,
-   "okC": false,
-   "ok": false
-  },
-  {
-   "exam": "2026",
-   "no": 45,
-   "type": "X-FACT",
-   "chars": 2111,
    "okP": true,
    "okC": false,
    "ok": false

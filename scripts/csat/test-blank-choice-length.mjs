@@ -40,7 +40,9 @@ for (const r of rows) {
   if (EXCLUDE.has(r.type)) continue
   const a = answerOf(r.exam, r.no)
   if (!a) continue
-  const ch = choicesOf(itemBlocks(r.exam, r.no) ?? [])
+  const b0 = itemBlocks(r.exam, r.no)[0]
+  if (!b0) continue
+  const ch = choicesOf(b0)
   if (!ch || ch.length !== 5 || ch.some((c) => !c || c.length < 2)) continue
   const lens = ch.map((c) => c.length)
   if (new Set(lens).size === 1) continue
@@ -158,6 +160,36 @@ if (blanks.length) {
   const pSlot = Math.min(1, 2 * Math.min((sGe + 1) / (ITER + 1), (sLe + 1) / (ITER + 1)))
   console.log(`    자리 분포를 맞춘 귀무 — 평균순위 ${obsB.toFixed(3)}, 순열 p = ${pSlot.toFixed(4)}  ${pSlot < 0.05 ? '✓ 교란으로 설명되지 않는다' : '✗ 교란이 설명한다'}`)
   bRow.pSlotMatched = pSlot
+
+  // ⭐ **결정적 검정 — ⑤ 를 아예 뺀다.**
+  // ⑤ 는 뒤를 닫아 주는 마커가 없어 꼬리를 먹는다. 지면 상투구를 털어내도
+  // 진짜 선지 유형에서 ①~④ 평균보다 **+5.8자** 남는다(§7.5). 그 편향은 여기서 재려는
+  // 효과(−3.7자)보다 **크다**. 주석으로 넘길 수 없다.
+  // 그래서 ⑤ 를 버리고 **정답이 ①~④ 인 문항만** ①~④ 안에서 순위를 매긴다.
+  // 기저는 2.5 이고, 오염원이 표본에서 사라진다.
+  const four = blanks.filter((x) => x.k < 4).map((x) => ({ ...x, lens4: x.lens.slice(0, 4) }))
+  const rank4 = (lens, i) => avgRank(lens, i)
+  const obs4 = four.reduce((s, x) => s + rank4(x.lens4, x.k), 0) / four.length
+  const rnd4 = mkRnd(60606)
+  let g4 = 0
+  let l4 = 0
+  for (let t = 0; t < ITER; t += 1) {
+    let s = 0
+    for (const x of four) s += rank4(x.lens4, Math.floor(rnd4() * 4))
+    const m = s / four.length
+    if (m >= obs4) g4 += 1
+    if (m <= obs4) l4 += 1
+  }
+  const p4 = Math.min(1, 2 * Math.min((g4 + 1) / (ITER + 1), (l4 + 1) / (ITER + 1)))
+  const a4 = four.reduce((s, x) => s + x.lens4[x.k], 0) / four.length
+  const o4 = four.reduce((s, x) => s + x.lens4.filter((_, i) => i !== x.k).reduce((q, v) => q + v, 0) / 3, 0) / four.length
+  console.log('')
+  console.log(`    ⭐ ⑤ 를 뺀 결정적 검정 — 정답이 ①~④ 인 ${four.length}문항, ①~④ 안에서만`)
+  console.log(`       평균순위 ${obs4.toFixed(3)}  (기저 2.500)  ·  정답 ${a4.toFixed(1)}자 vs 오답 ${o4.toFixed(1)}자  (차 ${(a4 - o4).toFixed(1)})`)
+  console.log(`       순열 20,000회 양측 p = ${p4.toFixed(4)}   ${p4 < 0.05 ? '✓ ⑤ 편향 없이도 성립한다' : '✗ ⑤ 를 빼면 사라진다 — 효과는 ⑤ 편향이었다'}`)
+  bRow.pNoFifth = p4
+  bRow.nNoFifth = four.length
+  bRow.meanNoFifth = obs4
 
   // G4 시계열 — 회차 부호검정(동점 제외)
   const pe = {}

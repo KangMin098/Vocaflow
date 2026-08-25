@@ -47,7 +47,7 @@ for (const r of rows) {
   if (EXCLUDE.has(r.type)) continue
   const a = answerOf(r.exam, r.no)
   if (!a) continue
-  const block = itemBlocks(r.exam, r.no)
+  const block = itemBlocks(r.exam, r.no)[0]
   const ch = block && choicesOf(block)
   if (!ch || ch.length !== 5) continue
   if (ch.some((c) => !c || c.length < 2)) continue
