@@ -786,7 +786,15 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           />
         )
       ) : (
-        <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
+        <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)] [contain:paint]">
+          {/* `[contain:paint]` 이 필요한 이유 (실측 2026-08-25 · 390px):
+              표는 `min-w-[1080px]` 이고 이 컨테이너는 342px 로 **시각적으로는 이미 잘린다.**
+              그런데도 `documentElement.scrollWidth` 가 1086px 이 되어 **페이지 전체가 가로로
+              696px 스크롤됐다** — 컨테이너가 페인트 컨테인먼트를 세우지 않아 루트가 넘치는
+              자손을 계속 셈에 넣기 때문이다.
+              검증: `overflow-x:hidden` 추가 → 1086(안 됨) · 조상들에 `min-w-0` → 1086(안 됨)
+                    `contain:paint` → 390(해결) · 컨테이너 `display:none` → 390(원인 확정)
+              가로 스크롤은 어떤 화면에서도 의도가 아니다(CLAUDE.md "모바일 퍼스트 390"). */}
           <table className="w-full min-w-[1080px]">
             <thead className="border-b border-[var(--bd)] bg-[var(--bg2)]">
               <tr>

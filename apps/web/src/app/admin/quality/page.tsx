@@ -152,8 +152,12 @@ export default async function AdminQualityPage() {
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 p-8">
-      <header className="flex items-start justify-between gap-4">
-        <div>
+      {/* 좁은 화면에서는 두 블록이 나란히 설 자리가 없다 — 감싸서 아래로 내린다.
+          `flex-wrap` 없이 오른쪽에 `shrink-0` 을 두면 390px 에서 화면 밖으로 36px 밀려
+          **페이지 전체가 가로로 스크롤된다**(실측 2026-08-25 · CLAUDE.md "모바일 퍼스트 390" 위반).
+          왼쪽 블록에 `min-w-0` 을 주는 이유도 같다 — 없으면 긴 설명 문장이 줄바꿈되지 않는다. */}
+      <header className="flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0">
           <h1 className="inline-flex items-center gap-3 font-display text-[28px] font-[800] text-[var(--t1)]">
             <Gauge size={26} className="text-[#8B5CF6]" aria-hidden="true" /> 품질 지표
           </h1>

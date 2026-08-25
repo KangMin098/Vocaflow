@@ -219,6 +219,52 @@ test.describe('관리자 전수 훑기', () => {
     expect(findings, summary).toEqual([]);
   });
 
+  test('390px 에서 가로로 스크롤되는 관리자 화면이 없다', async ({ browser }) => {
+    test.skip(!adminBypassEnabled(), 'DEV_ADMIN_BYPASS=1 이 아니다');
+    test.setTimeout(ROUTES.length * 16_000 + 120_000);
+
+    // 왜 이 축을 따로 두는가:
+    //   가로 스크롤은 **어떤 화면에서도 의도가 아니다.** 화면은 멀쩡히 뜨고 콘솔도 조용해서
+    //   위의 4축은 전부 통과하는데, 손에 쥔 사람은 좌우로 밀리는 화면을 본다.
+    //   CLAUDE.md 는 "모바일 퍼스트 (390 → 768 → 1280px)" 를 항상 지킬 것으로 못 박고 있다.
+    //
+    // ⚠️ 관리자 내비게이션 자체는 여기서 재지 않는다 — 사이드바가 `hidden md:flex` 라
+    //    390px 에서 33화면 중 30곳의 관리자 링크가 **하나도 보이지 않는다**(실측 2026-08-25).
+    //    그건 버그가 아니라 "관리자는 데스크톱 표면" 이라는 설계 결정이고, 바꾸려면 모바일
+    //    관리자 내비를 새로 만드는 제품 결정이 필요하다. 사실만 여기 적어 둔다.
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    const page = await ctx.newPage();
+    const bad: string[] = [];
+
+    try {
+      for (const route of ROUTES) {
+        const res = await page
+          .goto(route, { waitUntil: 'domcontentloaded', timeout: 45_000 })
+          .catch(() => null);
+        if (!res || res.status() >= 400 || /\/login/.test(page.url())) continue;
+        await page.waitForTimeout(1000);
+
+        // scrollWidth 만 보면 **잘려 있는데도** 넘친다고 읽는 경우가 있다.
+        // 실제로 밀리는지 밀어 본다 — 그게 사람이 겪는 것이다.
+        const moved = await page
+          .evaluate(() => {
+            const before = window.scrollX;
+            window.scrollTo(9999, 0);
+            const after = window.scrollX;
+            window.scrollTo(0, 0);
+            return after - before;
+          })
+          .catch(() => 0);
+        if (moved > 1) bad.push(`${route} — 가로로 ${moved}px 밀린다`);
+        await page.goto('about:blank').catch(() => {});
+      }
+    } finally {
+      await ctx.close();
+    }
+
+    expect(bad, `390px 에서 가로 스크롤이 생기는 화면:\n  ${bad.join('\n  ')}`).toEqual([]);
+  });
+
   test('레지스트리 정합 — 파일시스템의 관리자 화면을 빠뜨리지 않는다', () => {
     // 목록을 손으로 적는 순간 뒤처진다. 학습자 쪽이 이미 그 값을 치렀다.
     expect(ROUTES.length, '관리자 라우트가 하나도 안 잡혔다 — 경로 규칙이 바뀌었는지 확인').toBeGreaterThan(20);
