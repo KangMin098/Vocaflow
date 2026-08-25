@@ -265,7 +265,47 @@ export const MEASURE_FN = String.raw`() => {
     if (r.width < 44 || r.height < 44) continue;
     if ((b.getAttribute('aria-label') || b.textContent || '').trim()) actionButtons++;
   }
-  const hasCurrent = !!document.querySelector('[aria-current]');
+  // **"지금 어디" 를 말하는 표준 패턴은 하나가 아니다.**
+  //
+  // ⚠️ 첫 판은 [aria-current] 만 인정했다. 그런데 ARIA Authoring Practices 는
+  //    탭 묶음에서 현재 항목을 aria-selected 로 표시하라고 정한다 — 탭에 aria-current 를
+  //    붙이는 것은 오히려 잘못된 조언이다. 실측 2026-08-25: /wordvault/browse 는
+  //    role="tablist" + aria-selected 로 **정석대로** 표시하는데 "현재 위치 없음" 으로 잡혔다.
+  //    기준서가 인정하는 패턴을 계측기가 모르면, 고치는 방향이 반대가 된다.
+  const hasCurrent =
+    !!document.querySelector('[aria-current]:not([aria-current="false"])') ||
+    !!document.querySelector('[role="tab"][aria-selected="true"]');
+
+  // ── WCAG 2.4(Navigable) 에서 **아직 안 재던 기준 둘** ──
+  //
+  // 지금 연계성 하위 지표는 이진(C1·C4)이거나 3에서 포화(C2·C3)라, 랜딩 페이지 한 장도
+  // 만점을 받는다. 좋은 것과 훌륭한 것을 구별하지 못하는 지표는 품질이 아니라
+  // **있고 없고**를 재는 것이다. 그래서 기준서에서 둘을 더 가져온다.
+  //
+  // ⚠️ 우리에게 유리한 것을 고른 것이 아니다 — 2.4.5 는 화면마다 검색을 요구하므로
+  //    이 저장소가 **질 가능성이 높은** 지표다(비관리자 검색 입력 6개뿐). 그래도 넣는다.
+
+  // 2.4.1 Bypass Blocks (A) — 반복 블록을 건너뛰는 수단.
+  //   탭 순서 앞쪽의 같은 문서 앵커 링크가 그 수단이다(G1/G123 기법).
+  const FOCUSABLE = 'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  const firstFocusable = Array.from(document.querySelectorAll(FOCUSABLE)).slice(0, 6);
+  const hasSkipLink = firstFocusable.some((el) => {
+    if (el.tagName !== 'A') return false;
+    const href = el.getAttribute('href') || '';
+    if (!href.startsWith('#') || href.length < 2) return false;
+    try { return !!document.querySelector(href); } catch (e) { return false; }
+  });
+
+  // 2.4.5 Multiple Ways (AA) — 한 화면에 닿는 길이 둘 이상인가.
+  //   내비게이션 + (검색 | 사이트맵) 을 센다.
+  const searchEl = document.querySelector('[role="search"], input[type="search"]')
+    || Array.from(document.querySelectorAll('input[type="text"], input:not([type])')).find((i) => {
+        const nm = ((i.getAttribute('aria-label') || '') + ' ' + (i.getAttribute('placeholder') || '')).toLowerCase();
+        return /search|검색|찾기/.test(nm);
+      });
+  const sitemapEl = Array.from(document.querySelectorAll('a[href]')).find((a2) => /sitemap|사이트맵|전체보기|전체 보기/i.test((a2.textContent || '') + ' ' + (a2.getAttribute('href') || '')));
+  const hasSearch = !!searchEl;
+  const hasSitemap = !!sitemapEl;
   const hasBreadcrumb = !!document.querySelector('nav[aria-label*="bread" i], [class*="breadcrumb" i]');
 
   // ── 축 4. 흐름성 ─────────────────────────────────────────────────────
@@ -293,6 +333,8 @@ export const MEASURE_FN = String.raw`() => {
     imgCount: imgs.length, imgsWithAlt: imgsWithAlt,
     forwardPaths: forward.size, shellPaths: shell.size,
     actionButtons: actionButtons, hasCurrent: hasCurrent, hasBreadcrumb: hasBreadcrumb,
+    hasSkipLink: hasSkipLink, hasSearch: hasSearch, hasSitemap: hasSitemap,
+    cls: (window.__uxbCls !== undefined ? Math.round(window.__uxbCls * 1000) / 1000 : -1),
     foldActions: foldActions,
     domInteractive: nav ? Math.round(nav.domInteractive) : -1,
     loadEventEnd: nav ? Math.round(nav.loadEventEnd) : -1,

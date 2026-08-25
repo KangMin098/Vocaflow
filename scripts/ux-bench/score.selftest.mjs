@@ -20,6 +20,8 @@ const perfect = {
   overflowPx: 0, hasMain: true, hasNav: true, hasLang: true, h1Count: 1,
   title: 'x', headSkips: 0, headCount: 5, imgCount: 4, imgsWithAlt: 4,
   forwardPaths: 5, shellPaths: 6, actionButtons: 3, hasCurrent: true, hasBreadcrumb: true,
+  hasSkipLink: true, hasSearch: true, hasSitemap: false, cls: 0.02,
+  spacingOverflowPx: 0, spacingClipped: 0, spacingClipChecked: 40,
   foldActions: 3, domInteractive: 900, loadEventEnd: 1200, fcp: 800, domNodes: 900,
 };
 
@@ -33,7 +35,7 @@ check('만점 입력 → 네 축 전부 100', () => {
 check('대비 위반 10% → D1 = 90', () => {
   const s = scoreOne({ ...perfect, contrastFail: 10 });
   assert.equal(s.design.D1, 90);
-  assert.equal(s.design.score, 97.5);            // (90+100+100+100)/4
+  assert.equal(s.design.score, 98);              // (90+100+100+100+100)/5 — D5(1.4.12) 추가 후
 });
 
 check('터치 타겟 절반 미달 → U1 = 50', () => {
@@ -98,6 +100,29 @@ check('집계는 null 을 분모에서 뺀다', () => {
   // 화면 점수는 화면 단계에서 이미 반올림된다(91.7) — 집계는 **그 값**을 평균한다.
   // 반올림 전 값(91.666)으로 기대치를 세우면 0.1 이 어긋난다.
   assert.equal(a.usability, 95.9);              // (100 + 91.7) / 2 = 95.85 → 95.9
+});
+
+check('WCAG 2.4.1 — 우회 링크가 없으면 C5 = 0', () => {
+  assert.equal(scoreOne({ ...perfect, hasSkipLink: false }).connectivity.C5, 0);
+});
+
+check('WCAG 2.4.5 — 내비만 있고 검색·사이트맵이 없으면 절반', () => {
+  assert.equal(scoreOne({ ...perfect, hasSearch: false, hasSitemap: false }).connectivity.C6, 50);
+  assert.equal(scoreOne({ ...perfect, hasSearch: false, hasSitemap: true }).connectivity.C6, 100);
+  assert.equal(scoreOne({ ...perfect, hasNav: false, hasSearch: false, hasSitemap: false }).connectivity.C6, 0);
+});
+
+check('CLS — 0.1 만점 · 0.25 영점 (Core Web Vitals) · 못 잰 값은 분모에서 빠진다', () => {
+  assert.equal(scoreOne({ ...perfect, cls: 0.1 }).flow.F5, 100);
+  assert.equal(scoreOne({ ...perfect, cls: 0.25 }).flow.F5, 0);
+  assert.equal(scoreOne({ ...perfect, cls: -1 }).flow.F5, null);
+});
+
+check('WCAG 1.4.12 — 간격 CSS 를 얹었을 때 넘치면 절반, 잘리면 비율만큼', () => {
+  assert.equal(scoreOne(perfect).design.D5, 100);
+  assert.equal(scoreOne({ ...perfect, spacingOverflowPx: 12 }).design.D5, 50);
+  assert.equal(scoreOne({ ...perfect, spacingClipped: 20 }).design.D5, 75);   // 20/40 잘림
+  assert.equal(scoreOne({ ...perfect, spacingOverflowPx: undefined }).design.D5, null);
 });
 
 console.log(`\n${n}개 검사 통과.`);

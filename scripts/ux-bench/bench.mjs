@@ -106,6 +106,22 @@ const STABILIZE = `() => {
   return has && performance.now() - (w.__benchLast || 0) > QUIET;
 }`;
 
+/**
+ * **누적 레이아웃 이동(CLS)** 은 로드 시작부터 쌓아야 한다 — 다 그린 뒤에 물으면 늦다.
+ * 그래서 페이지가 열리기 전에 관측기를 심는다(컨텍스트당 한 번).
+ * 임계값은 Core Web Vitals 공개 기준: good <= 0.1 · poor >= 0.25.
+ */
+const CLS_INIT = () => {
+  window.__uxbCls = 0;
+  try {
+    new PerformanceObserver((list) => {
+      for (const e of list.getEntries()) {
+        if (!e.hadRecentInput) window.__uxbCls += e.value;
+      }
+    }).observe({ type: 'layout-shift', buffered: true });
+  } catch (err) { /* 미지원 브라우저 — -1 로 남고 분모에서 빠진다 */ }
+};
+
 async function measurePage(page, url, timeoutMs) {
   try {
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: timeoutMs });
@@ -147,6 +163,44 @@ async function measurePage(page, url, timeoutMs) {
     if (!thin(got)) break;
     if (attempt < 3) await page.waitForTimeout(2_500);
   }
+  // ── WCAG 2.2 §1.4.12 Text Spacing (AA) ──
+  // 기준서가 **CSS 를 직접 명시한다**: 줄간격 1.5배 · 문단간격 2배 · 자간 0.12em · 어간 0.16em.
+  // 그걸 얹어도 내용이 잘리거나 기능이 사라지면 안 된다. 자동으로 잴 수 있고,
+  // 고정 높이 상자를 쓰는 화면은 흔히 실패한다 — **우리도 실패할 수 있는 기준이라 넣는다.**
+  if (m && !m.fatal) {
+    const spacing = await page.evaluate(() => {
+      const id = '__uxb_text_spacing';
+      document.getElementById(id)?.remove();
+      const st = document.createElement('style');
+      st.id = id;
+      st.textContent = '*{line-height:1.5 !important;letter-spacing:.12em !important;word-spacing:.16em !important}p{margin-bottom:2em !important}';
+      document.head.appendChild(st);
+      // 강제 리플로 후 관측
+      void document.body.offsetHeight;
+      const de = document.documentElement;
+      const overflow = Math.max(0, de.scrollWidth - de.clientWidth);
+      // 잘림: 넘치는 내용을 감추는 상자
+      let clipped = 0, checked = 0;
+      const els = Array.from(document.querySelectorAll('p, li, h1, h2, h3, h4, span, div, button, a')).slice(0, 1200);
+      for (const el of els) {
+        const cs = getComputedStyle(el);
+        if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+        const hides = cs.overflowY === 'hidden' || cs.overflow === 'hidden';
+        if (!hides) continue;
+        checked++;
+        if (el.scrollHeight > el.clientHeight + 2) clipped++;
+      }
+      st.remove();
+      void document.body.offsetHeight;
+      return { overflow: overflow, clipped: clipped, checked: checked };
+    }).catch(() => null);
+    if (spacing) {
+      m.spacingOverflowPx = spacing.overflow;
+      m.spacingClipped = spacing.clipped;
+      m.spacingClipChecked = spacing.checked;
+    }
+  }
+
   const bad = invalid(m);
   return bad ? { error: bad, raw: m } : m;
 }
@@ -188,6 +242,7 @@ async function runCompetitors() {
       // 인증서가 깨진 대상이 있다 — 그건 UX 결함이 아니라 접속 문제이므로 측정을 막지 않는다.
       ignoreHTTPSErrors: true,
     });
+    await ctx.addInitScript(CLS_INIT);
     const page = await ctx.newPage();
     for (const t of COMPETITORS) {
       if (ONLY && !t.platform.includes(ONLY)) continue;
@@ -220,6 +275,7 @@ async function runVocaflow() {
       isMobile: vp.name === 'mobile',
       hasTouch: vp.name === 'mobile',
     });
+    await ctx.addInitScript(CLS_INIT);
     const page = await ctx.newPage();
     // 로그인
     await page.goto(`${BASE}/login`, { waitUntil: 'networkidle', timeout: 60_000 });

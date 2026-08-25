@@ -407,6 +407,14 @@ function CoverCard({
     <button
       type="button"
       onClick={onActivate}
+      // ⚠️ **가운데가 아닌 카드는 탭 순서에서 뺀다** (ARIA APG Carousel).
+      //    원근 축소 때문에 옆 카드는 실측 8~38px 이라, 탭으로 거기 멈추면 학습자는
+      //    "보이지도 않는 8px 짜리" 에 포커스를 받는다. APG 는 회전 목록에서
+      //    **보이지 않는 슬라이드를 접근성 트리와 탭 순서에서 빼고**, 이동은 좌우 화살표와
+      //    점 인디케이터(둘 다 44px)가 맡게 하라고 정한다 — 여기 이미 둘 다 있다.
+      //    마우스 클릭은 그대로 된다(회전 편의). 실측 2026-08-25.
+      tabIndex={isCenter ? undefined : -1}
+      aria-hidden={isCenter ? undefined : true}
       aria-label={isCenter ? `${set.title} 미리보기` : `${set.title} 선택`}
       className="block rounded-[10px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[var(--p)]/40 focus-visible:ring-offset-4"
     >

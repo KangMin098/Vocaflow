@@ -50,6 +50,13 @@ export function scoreOne(m) {
   const D2 = band(m.fontSizeKinds, TYPO_FULL, TYPO_ZERO);            // 타이포 규율
   const D3 = band(m.textColorKinds, TYPO_FULL, TYPO_ZERO);           // 색 규율
   const D4 = rate(m.spacingOnGrid, m.spacingTotal);                  // 4px 그리드
+  // WCAG 2.2 §1.4.12 (AA) — 기준서가 명시한 간격 CSS 를 얹어도 내용이 잘리지 않는가.
+  // 넘침은 충족/미충족(부분 점수 없음), 잘림은 비율로 본다.
+  const D5 =
+    m.spacingOverflowPx === undefined
+      ? null
+      : (m.spacingOverflowPx > 1 ? 0 : 100) * 0.5 +
+        (m.spacingClipChecked > 0 ? rate(m.spacingClipChecked - m.spacingClipped, m.spacingClipChecked) : 100) * 0.5;
 
   // ── 축 2. 사용성 ──
   const U1 = rate(m.ctrlBig, m.ctrlTotal);                           // WCAG 2.5.5
@@ -65,12 +72,22 @@ export function scoreOne(m) {
   const C2 = band(-Math.min(ways, 3), -3, 0);                        // 앞길 3종 이상이면 만점
   const C3 = band(-Math.min(m.shellPaths, 3), -3, 0);                // 셸이 항상 있는가
   const C4 = m.hasCurrent ? 100 : 0;                                 // 현재 위치 표시
+  // ── WCAG 2.4 에서 뒤늦게 가져온 둘 ──
+  // 왜 뒤늦게인가: 첫 판의 연계성 넷은 이진이거나 3에서 포화라 **랜딩 페이지 한 장도**
+  // 만점을 받았다. 좋은 것과 훌륭한 것을 구별 못 하는 지표는 품질이 아니라 유무를 잰다.
+  // 기준서에서 골랐고, 우리가 질 수도 있는 것을 일부러 포함했다(2.4.5 는 화면마다
+  // 검색을 요구한다 — 이 저장소의 비관리자 검색 입력은 6개뿐이다).
+  const C5 = m.hasSkipLink ? 100 : 0;                                // WCAG 2.4.1 (A) 우회 링크
+  const C6 = (m.hasNav && (m.hasSearch || m.hasSitemap)) ? 100 : (m.hasNav ? 50 : 0); // 2.4.5 (AA) 다중 경로
 
   // ── 축 4. 흐름성 ──
   const F1 = m.foldActions > 0 ? 100 : 0;                            // 첫 화면에 다음 행동
   const F2 = m.fcp >= 0 ? band(m.fcp, 1800, 3000) : null;            // Core Web Vitals
   const F3 = m.domInteractive >= 0 ? band(m.domInteractive, 2000, 5000) : null;
   const F4 = band(m.domNodes, 1500, 3000);                           // Lighthouse dom-size
+  // Core Web Vitals 공개 임계 — good <= 0.1 · poor >= 0.25.
+  // 광고·쿠키 배너가 밀어내는 화면은 여기서 갈린다.
+  const F5 = m.cls >= 0 ? band(m.cls, 0.1, 0.25) : null;
 
   const avg = (xs) => {
     const v = xs.filter((x) => x !== null && Number.isFinite(x));
@@ -78,15 +95,15 @@ export function scoreOne(m) {
   };
 
   return {
-    design: { D1, D2, D3, D4, score: avg([D1, D2, D3, D4]) },
+    design: { D1, D2, D3, D4, D5, score: avg([D1, D2, D3, D4, D5]) },
     usability: { U1, U2, U3, U4, U5, U6, score: avg([U1, U2, U3, U4, U5, U6]) },
-    connectivity: { C1, C2, C3, C4, score: avg([C1, C2, C3, C4]) },
+    connectivity: { C1, C2, C3, C4, C5, C6, score: avg([C1, C2, C3, C4, C5, C6]) },
     // `scoreNeutral` — **환경 편향을 뺀** 흐름 점수.
     // ⚠️ 우리 화면은 localhost 프로덕션 빌드에서, 상대는 공용 인터넷에서 잰다.
     //    FCP·domInteractive 는 그 차이만으로 우리 쪽이 유리해진다 — 그 우위는 제품이 아니라
     //    네트워크에서 나온 것이다. 그래서 속도 둘을 뺀 값을 함께 낸다.
     //    판정은 이 중립값으로 하고, 원래 값은 참고로 함께 적는다.
-    flow: { F1, F2, F3, F4, score: avg([F1, F2, F3, F4]), scoreNeutral: avg([F1, F4]) },
+    flow: { F1, F2, F3, F4, F5, score: avg([F1, F2, F3, F4, F5]), scoreNeutral: avg([F1, F4, F5]) },
   };
 }
 
