@@ -176,10 +176,23 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
     //    "본문이 비어 있다"·"막다른 길" 로 기록되고 실행마다 결과가 달라진다
     //    (실측 2026-08-22: 같은 코드로 96.7% → 54.9%).
     //
-    //    정석은 프로덕션 빌드 위에서 재는 것인데 **이 브랜치는 지금 빌드가 깨져 있다** —
-    //    api/admin/articles/futurity-feed 의 타입 에러(다른 영역의 미완 기능)로
-    //    next build 가 실패한다. 그래서 차선으로 **한 번 훑어 컴파일을 끝내 놓고,
-    //    두 번째 방문부터 잰다.** 예열 결과는 버린다 — 재지 않은 것을 성적에 넣지 않는다.
+    //    정석은 **프로덕션 빌드 위에서 재는 것**이다. 그렇게 하면 컴파일 지터가 통째로 없다.
+    //
+    //    ⚠️ 2026-08-25 정정 — 이 자리에 "이 브랜치는 지금 빌드가 깨져 있다
+    //    (api/admin/articles/futurity-feed 타입 에러)" 고 적혀 있었는데 **낡은 정보였다.**
+    //    실측: `NEXT_DIST_DIR=.next-prod npx next build` 는 exit 0 으로 성공하고,
+    //    `tsc --noEmit` 의 futurity 에러도 0건이다. 그 한 줄 때문에 이 훑기는 계속 dev
+    //    서버에서만 돌았고, **실행마다 다른 화면 하나가 실패했다**
+    //    (2026-08-25 연속 2회: /text ✗앞길 → /library ✗열림 — 둘 다 앱이 아니라 컴파일 지연).
+    //    같은 코드를 프로덕션 빌드에 올려 재니 **177/177 = 100%** 였고 시간도 절반이었다
+    //    (7.7분 → 3.4분).
+    //
+    //    권장:  pnpm --filter web exec next build  후  next start -p 3230
+    //           LEARNER_SWEEP=1 PLAYWRIGHT_BASE_URL=http://localhost:3230 로 실행
+    //
+    //    아래 예열은 **dev 서버에서 돌릴 때의 차선책**으로 남긴다 — 한 번 훑어 컴파일을
+    //    끝내 놓고 두 번째 방문부터 잰다. 예열 결과는 버린다(재지 않은 것을 성적에 넣지 않는다).
+    //    프로덕션 빌드에서는 이 예열이 있어도 해가 없다(빠르게 지나간다).
     const warm = await context.newPage()
     for (const route of routes) {
       await warm.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {})
