@@ -12,10 +12,14 @@
 
 'use client'
 
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { useEffect, useMemo, useState } from 'react'
 import { FileText, RotateCcw } from 'lucide-react'
 
 import { LevelProfilePanel } from '@/components/textfit/LevelProfilePanel'
+import { getAnonId } from '@/lib/analytics/anon-id'
+import { recordFunnel } from '@/lib/analytics/funnel'
+import { createClient as createBrowserClient } from '@/lib/supabase/client'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 import {
   analyzePublicText,
@@ -62,6 +66,19 @@ export function PublicFitClient({ initialShared = null }: Props) {
     track({ name: 'fit_viewed', props: { shared: initialShared !== null } })
     if (initialShared !== null) {
       track({ name: 'fit_share_opened', props: { valid: true } })
+    }
+
+    // 같은 방문을 **자체 DB 에도** 남긴다 — PostHog 는 외부 분석용이고, 이 방문이 나중에
+    // 가입·학급 개설로 이어졌는지는 `funnel_events` 안에서 `anon_id` 로만 이을 수 있다.
+    // (그 고리가 없던 동안 "`/fit` 을 써 본 사람이 학급을 만들었는가" 를 물을 수 없었다.)
+    // 실패는 삼킨다 — 계측이 공개 화면을 깨뜨리면 안 된다.
+    const anonId = getAnonId()
+    if (anonId) {
+      void recordFunnel(createBrowserClient() as unknown as SupabaseClient, 'visit', {
+        surface: '/fit',
+        anonId,
+        meta: { shared: initialShared !== null },
+      })
     }
     // 진입 1회만 — 의존성 없음이 의도다.
     // eslint-disable-next-line react-hooks/exhaustive-deps
