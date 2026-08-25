@@ -24,8 +24,9 @@ import path from 'node:path'
 import { itemBlocks, passageOf, allRows } from './lib-passage.mjs'
 
 const arg = (k, d) => (process.argv.find((x) => x.startsWith('--' + k + '=')) ?? '').split('=')[1] || d
-const N = Number(arg('n', 48))
+const N = Number(arg('n', 48))  // --n=300 이면 전수
 const PER = Number(arg('per', 16))
+const TAG = arg('tag', 'chunk')  // 배치마다 다른 이름을 준다 — 앞 배치의 산출을 덮지 않으려고
 const WORK = path.resolve('scripts/csat/topic-blind')
 fs.mkdirSync(WORK, { recursive: true })
 
@@ -73,9 +74,9 @@ const RUBRIC = {
 const chunks = []
 for (let i = 0; i < todo.length; i += PER) chunks.push(todo.slice(i, i + PER))
 chunks.forEach((c, i) => {
-  fs.writeFileSync(path.join(WORK, `chunk-${String(i).padStart(2, '0')}.json`), JSON.stringify({
+  fs.writeFileSync(path.join(WORK, `${TAG}-${String(i).padStart(2, '0')}.json`), JSON.stringify({
     rubric: RUBRIC,
-    fillInstruction: '각 items 원소에 hand 키(위 categories 중 하나)를 더해 chunk-NN.out.json 으로 저장할 것.',
+    fillInstruction: `각 items 원소에 hand 키(위 categories 중 하나)를 더해 ${TAG}-NN.out.json 으로 저장할 것.`,
     items: c.map((x) => ({ id: x.id, type: x.type, passage: x.passage })),
   }, null, 1))
 })

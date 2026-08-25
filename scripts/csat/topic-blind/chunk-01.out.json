@@ -1,100 +1,220 @@
 {
  "items": [
   {
-   "id": "2017#35",
-   "type": "R-IRRELEVANT",
-   "passage": "Most often, you will find or meet people who introduce themselves in terms of their work or by what they spend time on. These people introduce themselves as a salesman or an executive. ① There is nothing criminal in doing this, but psychologically, we become what we believe. ② Identifying what we can do in the workplace serves to enhance the quality of our professional career. ③ People who follow this practice tend to lose their individuality and begin to live with the notion that they are recognized by the job they do. ④ However, jobs may not be permanent, and you may lose your job for countless reasons, some of which you may not even be responsible for. ⑤ In such a case, these people suffer from an inevitable social and mental trauma, leading to emotional stress and a feeling that all of a sudden they have been disassociated from what once was their identity.",
-   "hand": "심리·인지"
-  },
-  {
-   "id": "2017#39",
-   "type": "R-INSERT",
-   "passage": "Rather, they will happen only through state intervention, based on parliamentary decision. I expect that global society will increase annual investments from 24% today to 36% of the GDP in 2052. Much of this investment will be in energy-efficient goods that are more expensive than old-fashioned stuff designed for an era of cheap energy. ( ① ) Another share will be invested in the shift from coal to more expensive fuels, like conventional gas. ( ② ) Some will go into the construction of new renewable energy supply, even during the years before it becomes competitive. ( ③ ) And a lot will go into repair of climate damage or adaptation to future climate damage ─ for example, investing in new protective walls along the coast to keep the rising ocean back. ( ④ ) These huge increases in investment would not come about if investment was left to the market. ( ⑤ ) It will be either direct, when the government invests the tax dollars in whatever capacity it considers to be most necessary, or indirect, when the government passes legislation that makes the desired activity more profitable.",
-   "hand": "사회·경제"
-  },
-  {
-   "id": "2018#29",
-   "type": "R-VOCAB",
-   "passage": "않은 것은? Some prominent journalists say that archaeologists should work with treasure hunters because treasure hunters have accumulated valuable historical artifacts that can reveal much about the past. But archaeologists are not asked to cooperate with tomb robbers, who also have valuable historical artifacts. The quest for profit and the search for knowledge cannot coexist in archaeology because of the",
-   "hand": "역사·인류"
-  },
-  {
-   "id": "2019#33",
-   "type": "R-BLANK",
-   "passage": "material artefacts, mythologies, memories and traditions become resources for the present. The contents, interpretations and representations of the resource are selected according to the demands of the present; an imagined past provides resources for a heritage that is to be passed onto an imagined future. It follows too that the meanings and functions of memory and tradition are defined in the present. Further, heritage is more concerned with meanings than material artefacts. It is the former that give value, either cultural or financial, to the latter and explain why they have been selected from the near infinity of the past. In turn, they may later be discarded as the demands of present societies change, or even, as is presently occurring in the former Eastern Europe, when pasts have to be reinvented to reflect new presents. Thus heritage is . [3점]",
-   "hand": "역사·인류"
-  },
-  {
-   "id": "2019#37",
-   "type": "R-ORDER",
-   "passage": "Clearly, schematic knowledge helps you ― guiding your understanding and enabling you to reconstruct things you cannot remember. (A) Likewise, if there are things you can’t recall, your schemata will fill in the gaps with knowledge about what’s typical in that situation. As a result, a reliance on schemata will inevitably make the world seem more “normal” than it really is and will make the past seem more “regular” than it actually was. (B) Any reliance on schematic knowledge, therefore, will be shaped by this information about what’s “normal.” Thus, if there are things you don’t notice while viewing a situation or event, your schemata will lead you to fill in these “gaps” with knowledge about what’s normally in place in that setting. (C) But schematic knowledge can also hurt you, promoting errors in perception and memory. Moreover, the types of errors produced by schemata are quite predictable: Bear in mind that schemata summarize the broad pattern of your experience, and so they tell you, in essence, what’s typical or ordinary in a given situation. [3점]",
-   "hand": "심리·인지"
-  },
-  {
-   "id": "2019#40",
-   "type": "R-SUMMARY",
-   "passage": "(B)에 들어갈 말로 가장 적절한 것은? Biological organisms, including human societies both with and without market systems, discount distant outputs over those available at the present time based on risks associated with an uncertain future. As the timing of inputs and outputs varies greatly depending on the type of energy, there is a strong case to incorporate time when assessing energy alternatives. For example, the energy output from solar panels or wind power engines, where most investment happens before they begin producing, may need to be assessed differently when compared to most fossil fuel extraction technologies, where a large proportion of the energy output comes much sooner, and a larger (relative) proportion of inputs is applied during the extraction process, and not upfront. Thus fossil fuels, particularly oil and natural gas, in addition to having energy quality advantages (cost, storability, transportability, etc.) over many renewable technologies, also have a “temporal advantage” after accounting for human behavioral preference for current consumption /return. * upfront: 선행 투자의 ������ Due to the fact that people tend to favor more (A) outputs, fossil fuels are more (B) than renewable energy alternatives in regards to the distance between inputs and outputs. (A) (B)",
-   "hand": "사회·경제"
-  },
-  {
-   "id": "2020#22",
+   "id": "2016#21",
    "type": "R-GIST",
-   "passage": "In retrospect, it might seem surprising that something as mundane as the desire to count sheep was the driving force for an advance as fundamental as written language. But the desire for written records has always accompanied economic activity, since transactions are meaningless unless you can clearly keep track of who owns what. As such, early human writing is dominated by wheeling and dealing: a collection of bets, bills, and contracts. Long before we had the writings of the prophets, we had the writings of the profits. In fact, many civilizations never got to the stage of recording and leaving behind the kinds of great literary works that we often associate with the history of culture. What survives these ancient societies is, for the most part, a pile of receipts. If it weren’t for the commercial enterprises that produced those records, we would know far, far less about the cultures that they came from. * mundane: 세속의 ** prophet: 예언자",
+   "passage": "The negative effects of extrinsic motivators such as grades have been documented with students from different cultures. Although this matter is more complex than simply regarding all extrinsic rewards as controlling or diminishing learning, we agree with Richard Ryan and his colleagues that people across different cultures are likely to express more satisfaction with their lives when their primary goals are intrinsic rather than extrinsic. Another consistent research finding is that when a learning activity is undertaken explicitly to attain some extrinsic reward, people respond by seeking the least demanding way of ensuring the reward. Since there are three decades of evidence that dominating instruction with a system of controlling external rewards may contribute to inferior learning, using a pedagogy based on theories of intrinsic motivation appears to be a more reasonable and effective approach to enhancing learning among culturally diverse students. * pedagogy",
+   "hand": "교육·언어"
+  },
+  {
+   "id": "2016#22",
+   "type": "R-TOPIC",
+   "passage": "Twin sirens hide in the sea of history, tempting those seeking to understand and appreciate the past onto the reefs of misunderstanding and misinterpretation. These twin dangers are temporocentrism and ethnocentrism. Temporocentrism is the belief that your times are the best of all possible times. All other times are thus inferior. Ethnocentrism is the belief that your culture is the best of all possible cultures. All other cultures are thus inferior. Temporocentrism and ethnocentrism unite to cause individuals and cultures to judge all other individuals and cultures by the “superior” standards of their current culture. This leads to a total lack of perspective when dealing with past and / or foreign cultures and a resultant misunderstanding and misappreciation of them. Temporocentrism and ethnocentrism tempt moderns into unjustified criticisms of the peoples of the past.",
    "hand": "역사·인류"
   },
   {
-   "id": "2020#34",
+   "id": "2016#28",
+   "type": "R-GRAMMAR",
+   "passage": "The Greeks’ focus on the salient object and its attributes led to ① their failure to understand the fundamental nature of causality. Aristotle explained that a stone falling through the air is due to the stone having the property of “gravity.” But of course a piece of wood ② tossed into water floats instead of sinking. This phenomenon Aristotle explained as being due to the wood having the property of “levity”! In both cases the focus is ③ exclusively on the object, with no attention paid to the possibility that some force outside the object might be relevant. But the Chinese saw the world as consisting of continuously interacting substances, so their attempts to understand it ④ causing them to be oriented toward the complexities of the entire “field,” that is, the context or environment as a whole. The notion ⑤ that events always occur in a field of forces would have been completely intuitive to the Chinese. * salient: 현저한, 두드러진 ** levity: 가벼움 8 4 홀수형",
+   "hand": "철학·윤리"
+  },
+  {
+   "id": "2016#31",
    "type": "R-BLANK",
-   "passage": "terms of the specific attributes of musical sounds. The famous nineteenth-century critic Eduard Hanslick regarded ‘the measurable tone’ as ‘the primary and essential condition of all music’. Musical sounds, he was saying, can be distinguished from those of nature by the fact that they involve the use of fixed pitches, whereas virtually all natural sounds consist of constantly fluctuating frequencies. And a number of twentieth-century writers have assumed, like Hanslick, that fixed pitches are among the defining features of music. Now it is true that in most of the world’s musical cultures, pitches are . However this is a generalization about music and not a definition of it, for it is easy to put forward counter-examples. Japanese shakuhachi music and the sanjo music of Korea, for instance, fluctuate constantly around the notional pitches in terms of which the music is organized. [3점]",
+   "passage": "exchange every cultural item. If that were the case, there would be no cultural differences in the world today. Instead, only a small number of cultural elements ever spread from one culture to another. Which cultural item is accepted depends largely on the item’s use and compatibility with already existing cultural traits. For example, it is not likely that men’s hair dyes designed to “get out the gray” will spread into parts of rural Africa where a person’s status is elevated with advancing years. Even when a(n) is consistent with a society’s needs, there is still no guarantee that it will be accepted. For example, most people in the United States using US customary units (e.g., inch, foot, yard, mile, etc.) have resisted adopting the metric system even though making such a change would enable US citizens to interface with the rest of the world more efficiently. [3점] ① categorization * metric system: 미터법 ③ investigation ② innovation ⑤ specification ④ observation",
+   "hand": "역사·인류"
+  },
+  {
+   "id": "2016#32",
+   "type": "R-BLANK",
+   "passage": "our biology. Infants enter the world ready to respond to pain as bad and to sweet (up to a point) as good. In many situations, however, the boundary between good and bad is a reference point that changes over time and depends on the immediate circumstances. Imagine that you are out in the country on a cold night, inadequately dressed for the pouring rain, your clothes soaked. A stinging cold wind completes your misery. As you wander around, you find a large rock that provides some shelter from the fury of the elements. The biologist Michel Cabanac would call the experience of that moment intensely pleasurable because it functions, as pleasure normally does, to indicate the direction of . 한 The pleasant relief will not last very long, of course, and you 5 will soon be shivering behind the rock again, driven by your renewed suffering to seek better shelter. [3점] * shiver: 떨다",
+   "hand": "심리·인지"
+  },
+  {
+   "id": "2016#33",
+   "type": "R-BLANK",
+   "passage": "been a public domain and government activity for the common good. However, private capital started to flow into seed production and took it over as a sector of the economy, creating an artificial split between the two aspects of the seed’s nature: its role as means of production and its role as product. This process gained pace after the invention of hybrid breeding of maize in the late 1920s. Today most maize seed cultivated are hybrids. The companies that sell them are able to keep the distinct parent lines from farmers, and the grain that they produce is not suited for seed saving and replanting. The combination guarantees that farmers will have to . In the 1990s the extension of patent laws as the only intellectual property rights tool into the area of seed varieties started to create a growing market for private seed companies. [3점] * maize:",
+   "hand": "사회·경제"
+  },
+  {
+   "id": "2016#34",
+   "type": "R-BLANK",
+   "passage": "addressed themselves to fame. Horace, Petrarch, Shakespeare, Milton, and Keats all hoped that poetic greatness would grant them a kind of earthly immortality. Whitman held a similar faith that for centuries the world would value his poems. But to this ancient desire to live forever on the page, he added a new sense of fame. Readers would not simply attend to the poet’s work; they would be attracted to the greatness of his personality. They would see in his poems a vibrant cultural performance, an individual springing from the book with tremendous charisma and appeal. Out of the political rallies and electoral parades that marked Jacksonian America, Whitman defined poetic fame in relation to the crowd. Other poets might look for their inspiration from the goddess of poetry. Whitman’s poet sought . In the instability of American democracy, fame would be dependent on celebrity, on the degree to which the people rejoiced in the poet and his work. [3점] * rally: 집회",
    "hand": "예술·문화"
   },
   {
-   "id": "2021#23",
-   "type": "R-TOPIC",
-   "passage": "Difficulties arise when we do not think of people and machines as collaborative systems, but assign whatever tasks can be automated to the machines and leave the rest to people. This ends up requiring people to behave in machine-like fashion, in ways that differ from human capabilities. We expect people to monitor machines, which means keeping alert for long periods, something we are bad at. We require people to do repeated operations with the extreme precision and accuracy required by machines, again something we are not good at. When we divide up the machine and human components of a task in this way, we fail to take advantage of human strengths and capabilities but instead rely upon areas where we are genetically, biologically unsuited. Yet, when people fail, they are blamed.",
-   "hand": "기술·매체"
+   "id": "2016#36",
+   "type": "R-ORDER",
+   "passage": "Sometimes, after punishment has been administered a few times, it needn’t be continued, because the mere threat of punishment is enough to induce the desired behavior. (A) Avoidance training, however, doesn’t always work in our favor. For instance, a child who has been repeatedly criticized for poor performance on math may learn to dodge difficult math problems in order to avoid further punishment. (B) Unfortunately, because of this avoidance, the child fails to develop his math skills and therefore improve the capabilities he has, and so a vicious cycle has set in. The avoidance must be unlearned through some positive experiences with math in order for this cycle to be broken. (C) Psychologists call this avoidance training because the person is learning to avoid the possibility of a punishing consequence. Avoidance training is responsible for many everyday behaviors. It has taught you to carry an umbrella when it looks like rain to avoid the punishment of getting wet, and to keep your hand away from a hot iron to avoid the punishment of a burn.",
+   "hand": "심리·인지"
   },
   {
-   "id": "2021#30",
-   "type": "R-VOCAB",
-   "passage": "않은 것은? How the bandwagon effect occurs is demonstrated by the history of measurements of the speed of light. Because this speed is the basis of the theory of relativity, it’s one of the most frequently and carefully measured ① quantities in science. As far as we know, the speed hasn’t changed over time. However, from 1870 to 1900, all the experiments found speeds that were too high. Then, from 1900 to 1950, the ② opposite happened ― all the experiments found speeds that were too low! This kind of error, where results are always on one side of the real value, is called “bias.” It probably happened because over time, experimenters subconsciously adjusted their results to ③ match what they expected to find. If a result fit what they expected, they kept it. If a result didn’t fit, they threw it out. They weren’t being intentionally dishonest, just ④ influenced by the conventional wisdom. The pattern only changed when someone ⑤ lacked the courage to report what was actually measured instead of what was expected. * bandwagon effect: 편승 효과 58 5",
+   "id": "2016#37",
+   "type": "R-INSERT",
+   "passage": "Surprised by the vision of an unfamiliar silhouette pushing into the house, these dogs were using their eyes instead of their noses. Remember when you were little and you imagined that adults had infinite power? Surely someone who could drive the car, open the juice container, and reach the sink could make it stop raining. ( ① ) I think that’s the same expectation that we have with respect to our dogs and their ability to smell. ( ② ) Because they are so good at using their noses, we assume that they can smell anything, anytime. ( ③ ) But dogs use other senses, too, and the brains of both humans and dogs tend to intensify one sense at a time. ( ④ ) Many owners have been snapped at by their dogs when they returned home with a new hairdo or a new coat. ( ⑤ ) Their noses may be remarkable, but they’re not always switched on.",
    "hand": "과학·자연"
   },
   {
-   "id": "2021#36",
-   "type": "R-ORDER",
-   "passage": "The objective of battle, to “throw” the enemy and to make him defenseless, may temporarily blind commanders and even strategists to the larger purpose of war. War is never an isolated act, nor is it ever only one decision. (A) To be political, a political entity or a representative of a political entity, whatever its constitutional form, has to have an intention, a will. That intention has to be clearly expressed. (B) In the real world, war’s larger purpose is always a political purpose. It transcends the use of force. This insight was famously captured by Clausewitz’s most famous phrase, “War is a mere continuation of politics by other means.” (C) And one side’s will has to be transmitted to the enemy at in some point during the confrontation (it does not have to be publicly communicated). A violent act and its larger political intention must also be attributed to one side at some point during the confrontation. History does not know of acts of war without eventual attribution. ① (A) － (C) － (B) * entity: 실체 ** transcend: 초월하다 ③ (B) － (C) － (A) ⑤ (C) － (B) － (A) ② (B) － (A) － (C) ④ (C) － (A) － (B) K 짝수형",
-   "hand": "사회·경제"
-  },
-  {
-   "id": "2021#39",
+   "id": "2016#38",
    "type": "R-INSERT",
-   "passage": "Note that copyright covers the expression of an idea and not the idea itself. Designers draw on their experience of design when approaching a new project. This includes the use of previous designs that they know work ― both designs that they have created themselves and those that others have created. ( ① ) Others’creations often spark inspiration that also leads to new ideas and innovation. ( ② ) This is well known and understood. ( ③ ) However, the expression of an idea is protected by copyright, and people who infringe on that copyright can be taken to court and prosecuted. ( ④ ) This means, for example, that while there are numerous smartphones all with similar functionality, this does not represent an infringement of copyright as the idea has been expressed in different ways and it is the expression that has been copyrighted. ( ⑤ ) Copyright is free and is automatically invested in the author, for instance, the writer of a book or a programmer who develops a program, unless they sign the copyright over to someone else. [3점] * infringe: 침해하다 ** prosecute: 기소하다",
-   "hand": "사회·경제"
+   "passage": "Even so, it is not the money per se that is valuable, but the fact that it can potentially yield more positive experiences. Money ― beyond the bare minimum necessary for food and shelter ― is nothing more than a means to an end. Yet so often we confuse means with ends, and sacrifice happiness (end) for money (means). It is easy to do this when material wealth is elevated to the position of the ultimate end, as it so often is in our society. ( ① ) This is not to say that the accumulation and production of material wealth is in itself wrong. ( ② ) Material prosperity can help individuals, as well as society, attain higher levels of happiness. ( ③ ) Financial security can liberate us from work we do not find meaningful and from having to worry about the next paycheck. ( ④ ) Moreover, the desire to make money can challenge and inspire us. ( ⑤ ) Material wealth in and of itself does not necessarily generate meaning or lead to emotional wealth. [3점] * per se: 7",
+   "hand": "심리·인지"
   },
   {
-   "id": "2021#40",
+   "id": "2016#39",
+   "type": "R-IRRELEVANT",
+   "passage": "Food intake is essential for the survival of every living organism. The failure to detect spoiled or toxic food can have deadly consequences. Therefore, it is not surprising that humans use all their five senses to analyze food quality. ① A first judgment about the value of a food source is made on its appearance and smell. ② Food that looks and smells attractive is taken into the mouth. ③ The value of a particular food is an estimation of how good it is, based on its level of vitamins, minerals, or calories. ④ Here, based on a complex sensory analysis that is not only restricted to the sense of taste but also includes smell, touch, and hearing, the final decision whether to swallow or reject food is made. ⑤ Frequently, this complex interaction between different senses is inappropriately referred to as ‘taste’ although it should be better called flavor perception, because it uses multiple senses.",
+   "hand": "과학·자연"
+  },
+  {
+   "id": "2016#40",
    "type": "R-SUMMARY",
-   "passage": "(B)에 들어갈 말로 가장 적절한 것은? From a cross-cultural perspective the equation between public leadership and dominance is questionable. What does one mean by ‘dominance’? Does it indicate coercion? Or control over ‘the most valued’? ‘Political’ systems may be about both, either, or conceivably neither. The idea of ‘control’ would be a bothersome one for many peoples, as for instance among many native peoples of Amazonia where all members of a community are fond of their personal autonomy and notably allergic to any obvious expression of control or coercion. The conception of political power as a coercive force, while it may be a Western fixation, is not a universal. It is very unusual for an Amazonian leader to give an order. If many peoples do not view political power as a coercive force, nor as the most valued domain, then the leap from ‘the political’ to ‘domination’ (as coercion), and from there to ‘domination of women’, is a shaky one. As Marilyn Strathern has remarked, the notions of ‘the political’ and ‘political personhood’ are cultural obsessions of our own, a bias long reflected in anthropological constructs. * coercion: 강제 ** autonomy: 자율 *** anthropological: 인류학의 ������ It is (A) to understand political power in other cultures through our own notion of it because ideas of on: 함축 political power are not (B) across cultures. (A) (B) (A) (B)",
-   "hand": "역사·인류"
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? Performance must be judged in terms of what is under the control of the individuals being evaluated rather than those influences on performance that are beyond their control. There can be broad, influential factors, sometimes of an economic nature, that hold down the performance of everyone being judged. One example is in sales. If there is a general downturn in the economy and products or services are not being purchased with the same frequency as in the previous year, sales could be down, for example, by an average of 15%. This 15% (actually －15%) figure would then represent “average” performance. Perhaps the best salesperson in the year had only a 3% drop in sales over the previous year. Thus, “good” performance in this situation is a smaller loss compared to some average or norm group. 그 자체로 ������ 7 In performance evaluation, we should consider (A) factors affecting the individual’s performance rather than (B) figures only. (A) (B)",
+   "hand": "사회·경제"
   },
   {
-   "id": "2022#22",
+   "id": "2017#18",
+   "type": "R-PURPOSE",
+   "passage": "Want to improve your Korean writing? Writing is an essential tool that will help you adjust to Korean university life. The Ha-Rang Writing Center offers a free tutoring program open to all international students at our university. We encourage you to take advantage of this. The program has always been very popular among international students. Registration opens from November 28 for three days only. Once you are registered, we will match you with a perfect tutor and contact you to arrange your schedule. We are sure that you will be satisfied with our well-experienced tutors. Don’t miss this great opportunity to improve your Korean writing. For more information, feel free to email Jiyung Yoon, HRWC Director, at jyoon@hrwc.org.",
+   "hand": "분류불가"
+  },
+  {
+   "id": "2017#19",
+   "type": "R-MOOD",
+   "passage": "All smiling, Breaden, a cute three-year-old boy, was walking along the aisle of snacks, bars, and sweets. It was the aisle of all kinds of temptation for him. “Wow!” he exclaimed. Right in front of his eyes were rows of delicious-looking chocolate bars waiting to be touched. His mom was holding his hand. Breaden, her only child, had always been the focus of her attention and she was cautious not to lose him in the market. Suddenly, she stopped to say hello to her friends. Breaden stopped, too. With his eyes wide open and his mouth watering, Breaden stretched out his arm and was about to grab a bar when he felt a tight grip on his hand. He looked up. “Breaden, not today!” He knew what that meant. “Okay, Mommy,” he sighed. His shoulders fell.",
+   "hand": "분류불가"
+  },
+  {
+   "id": "2017#20",
    "type": "R-GIST",
-   "passage": "Environmental hazards include biological, physical, and chemical ones, along with the human behaviors that promote or allow exposure. Some environmental contaminants are difficult to avoid (the breathing of polluted air, the drinking of chemically contaminated public drinking water, noise in open public spaces); in these circumstances, exposure is largely involuntary. Reduction or elimination of these factors may require societal action, such as public awareness and public health measures. In many countries, the fact that some environmental hazards are difficult to avoid at the individual level is felt to be more morally egregious than those hazards that can be avoided. Having no choice but to drink water contaminated with very high levels of arsenic, or being forced to passively breathe in tobacco smoke in restaurants, outrages people more than the personal choice of whether an individual smokes tobacco. These factors are important when one considers how change (risk reduction) happens. * contaminate: 오염시키다 ** egregious: 매우 나쁜",
+   "passage": "Many present efforts to guard and maintain human progress, to meet human needs, and to realize human ambitions are simply unsustainable ─ in both the rich and poor nations. They draw too heavily, too quickly, on already overdrawn environmental resource accounts to be affordable far into the future without bankrupting those accounts. They may show profit on the balance sheets of our generation, but our children will inherit the losses. We borrow environmental capital from future generations with no intention or prospect of repaying. They may blame us for our wasteful ways, but they can never collect on our debt to them. We act as we do because we can get away with it: future generations do not vote; they have no political or financial power; they cannot challenge our decisions.",
    "hand": "사회·경제"
   },
   {
-   "id": "2022#33",
+   "id": "2017#23",
+   "type": "R-TITLE",
+   "passage": "as his material, the finished, recorded celluloid. This material from which his final work is composed consists not of living men or real landscapes, not of real, actual stage-sets, but only of their images, recorded on separate strips that can be shortened, altered, and assembled according to his will. The elements of reality are fixed on these pieces; by combining them in his selected sequence, shortening and lengthening them according to his desire, the director builds up his own “filmic” time and “filmic” space. He does not adapt reality, but uses it for the creation of a new reality, and the most characteristic and important aspect of this process is that, in it, laws of space and time invariable and inescapable in work with actuality become obedient. The film assembles from them a new reality proper only to itself.",
+   "hand": "예술·문화"
+  },
+  {
+   "id": "2017#28",
+   "type": "R-GRAMMAR",
+   "passage": "When people face real adversity ─ disease, unemployment, or the disabilities of age ─ affection from a pet takes on new meaning. A pet’s continuing affection becomes crucially important for ① those enduring hardship because it reassures them that their core essence has not been damaged. Thus pets are important in the treatment of ② depressed or chronically ill patients. In addition, pets are ③ used to great advantage with the institutionalized aged. In such institutions it is difficult for the staff to retain optimism when all the patients are declining in health. Children who visit cannot help but remember ④ what their parents or grandparents once were and be depressed by their incapacities. Animals, however, have no expectations about mental capacity. They do not worship youth. They have no memories about what the aged once ⑤ was and greet them as if they were children. An old man holding a puppy can relive a childhood moment with complete accuracy. His joy and the animal’s response are the same. 8 4 짝수형",
+   "hand": "심리·인지"
+  },
+  {
+   "id": "2017#29",
+   "type": "R-VOCAB",
+   "passage": "적절한 것은? When teachers work in isolation, they tend to see the world through one set of eyes ─ their own. The fact that there might be someone somewhere in the same building or district who may be more successful at teaching this or that subject or lesson is (A) based / lost on teachers who close the door and work their way through the school calendar virtually alone. In the absence of a process that (B) allows / forbids them to benchmark those who do things better or at least differently, teachers are left with that one perspective ─ their own. I taught various subjects under the social studies umbrella and had very little idea of how my peers who taught the same subject did what they did. The idea of meeting regularly to compare notes, plan common assessments, and share what we did well (C) mostly / never occurred to us. Rather, we spent much time in the social studies office complaining about a lack of time and playing the blame game. (A) (B) (C)",
+   "hand": "교육·언어"
+  },
+  {
+   "id": "2017#31",
    "type": "R-BLANK",
-   "passage": "bringing about stable institutional solutions to the problem of the commons. She pointed out, for instance, that the actors affected by the rules for the use and care of resources must have the right to . For that reason, the people who monitor and control the behavior of users should also be users and/or have been given a mandate by all users. This is a significant insight, as it show that prospects are poor for a centrally directed solution to the problem of the commons coming from a state power in comparison with a local solution for which users assume personal responsibility. Ostrom also emphasizes the importance of democratic decision processes and that all users must be given access to local forums for solving problems and conflicts among themselves. Political institutions at central, regional, and local levels must allow users to devise their own regulations and independently ensure observance. [3점] * commons: 공유지 ** mandate: 위임",
+   "passage": "throughout their development. Research suggests that overstructuring the child’s environment may actually limit creative and academic development. This is a central problem with much of science instruction. The exercises or activities are devised to eliminate different options and to focus on predetermined results. The answers are structured to fit the course assessments, and the wonder of science is lost along with cognitive intrigue. We define cognitive intrigue as the wonder that stimulates and intrinsically motivates an individual to voluntarily engage in an activity. The loss of cognitive intrigue may be initiated by the sole use of play items with predetermined conclusions and reinforced by rote instruction in school. This is exemplified by toys, games, and lessons that are a(n) in and of themselves and require little of the individual other than to master the planned objective. [3점] * rote : 기계적인 암기",
+   "hand": "교육·언어"
+  },
+  {
+   "id": "2017#32",
+   "type": "R-BLANK",
+   "passage": "context of satellite remote sensing. The temporal density of remotely sensed imagery is large, impressive, and growing. Satellites are collecting a great deal of imagery as you read this sentence. However, most applications in geography and environmental studies do not require extremely fine-grained temporal resolution. Meteorologists may require visible, infrared, and radar information at sub-hourly temporal resolution; urban planners might require imagery at monthly or annual resolution; and transportation planners may not need any time series information at all for some applications. Again, the temporal resolution of imagery used should . Sometimes researchers have to search archives of aerial photographs to get information from that past that pre-date the collection of satellite imagery. [3점] * meteorologist : 기상학자 ** infrared : 적외선의",
+   "hand": "기술·매체"
+  },
+  {
+   "id": "2017#34",
+   "type": "R-BLANK",
+   "passage": "legal, religious, and other rituals evolved into forms that we subsequently have come . This is a two-way process; the building provides the physical environment and setting for a particular social ritual such as traveling by train or going to the theater, as well as the symbolic setting. The meaning of buildings evolves and becomes established by experience and we in turn read our experience into buildings. Buildings arouse an empathetic reaction in us through these projected experiences, and the strength of these reactions is determined by our culture, our beliefs, and our expectations. They tell stories, for their form and spatial organization give us hints about how they should be used. Their physical layout encourages some uses and inhibits others; we do not go backstage in a theater unless especially invited. Inside a law court the precise location of those involved in the legal process is an integral part of the design and an essential part of ensuring that the law is upheld. [3점] * empathetic : 공감할 수 있는",
+   "hand": "예술·문화"
+  },
+  {
+   "id": "2017#36",
+   "type": "R-ORDER",
+   "passage": "Interestingly, being observed has two quite distinct effects on performance. In some cases, performance is decreased, even to the point of non-existence. The extreme of this is stage fright, the sudden fear of public performance. (A) So, if you are learning to play a new sport, it is better to begin it alone, but when you become skilled at it, then you will probably perform better with an audience. (B) There are many instances of well-known actors who, in mid-career, develop stage fright and simply cannot perform. The other extreme is that being observed enhances performance, people doing whatever it might be better when they know that others are watching. (C) The general rule seems to be that if one is doing something new or for the first time, then being observed while doing it decreases performance. On the other hand, being observed while doing some task or engaging in some activity that is well known or well practiced tends to enhance performance.",
+   "hand": "심리·인지"
+  },
+  {
+   "id": "2017#37",
+   "type": "R-ORDER",
+   "passage": "Evolution works to maximize the number of descendants that an animal leaves behind. Where the risk of death from fishing increases as an animal grows, evolution favors those that grow slowly, mature younger and smaller, and reproduce earlier. (A) Surely these adaptations are good news for species hard-pressed by excessive fishing? Not exactly. Young fish produce many fewer eggs than large-bodied animals, and many industrial fisheries are now so intensive that few animals survive more than a couple of years beyond the age of maturity. (B) This is exactly what we now see in the wild. Cod in Canada’s Gulf of St. Lawrence begin to reproduce at around four today; forty years ago they had to wait until six or seven to reach maturity. Sole in the North Sea mature at half the body weight they did in 1950. (C) Together this means there are fewer eggs and larvae to secure future generations. In some cases the amount of young produced today is a hundred or even a thousand times less than in the past, putting the survival of species, and the fisheries dependent on them, at grave risk. [3점]",
+   "hand": "과학·자연"
+  },
+  {
+   "id": "2017#38",
+   "type": "R-INSERT",
+   "passage": "Most readers of reports and papers are reading the documents because they are interested in, and know something about, the subject. What is the best order for a report, paper or other technical document? Of course, it must be logical; but that means simply that the paper must have connection and sequence, and a variety of orders is possible under this heading. Too many writers interpret the term logical to mean chronological, and it has become habitual to begin reports and papers with careful reviews of previous work. ( ① ) Usually, this is tactically weak. ( ② ) Therefore, to rehearse to them the findings of previous work is simply to bore them with unnecessary reminders. ( ③ ) The interesting thing for them is the new information ─ the new findings and conclusions. ( ④ ) So it is usually best to start with those pieces of information. ( ⑤ ) To give a long chronological account of work or procedures is normally appropriate only when the essential point of the paper is the chronological sequence. * chronological : 연 7",
+   "hand": "교육·언어"
+  },
+  {
+   "id": "2017#40",
+   "type": "R-SUMMARY",
+   "passage": "(B)에 들어갈 말로 가장 적절한 것은? The impacts of tourism on the environment are evident to scientists, but not all residents attribute environmental damage to tourism. Residents commonly have positive views on the economic and some sociocultural influences of tourism on quality of life, but their reactions to environmental impacts are mixed. Some residents feel tourism provides more parks and recreation areas, improves the quality of the roads and public facilities, and does not contribute to ecological decline. Many do not blame tourism for traffic problems, overcrowded outdoor recreation, or the disturbance of peace and tranquility of parks. Alternatively, some residents express concern that tourists overcrowd the local fishing, hunting, and other recreation areas or may cause traffic and pedestrian congestion. Some studies suggest that variations in residents’ feelings about tourism’s relationship to environmental damage are related to the type of tourism, the extent to which residents feel the natural environment needs to be protected, and the distance residents live from the tourist attractions. * tranquility : 고요함 ** congestion : 혼잡 ������ Residents do not (A) tourism’s environmental influences identically since they take (B) postures based on factors such as the type of tourism, opinions on the degree of protection, and their distance from an attraction. 대순의 (A) (B) (A) (B) 7",
    "hand": "사회·경제"
   },
   {
-   "id": "2022#34",
+   "id": "2018#18",
+   "type": "R-PURPOSE",
+   "passage": "Dear Ms. Diane Edwards, I am a teacher working at East End High School. I have read from your notice that the East End Seaport Museum is now offering a special program, the 2017 Bug Lighthouse Experience. The program would be a great opportunity for our students to have fun and experience something new. I estimate that 50 students and teachers from our school would like to participate in it. Would you please let me know if it is possible to make a group reservation for the program for Saturday, November 18? We don’t want to miss this great opportunity. I look forward to hearing from you soon. Best regards, Joseph Loach",
+   "hand": "분류불가"
+  },
+  {
+   "id": "2018#19",
+   "type": "R-MOOD",
+   "passage": "The start of the boat tour was far from what I had expected. None of the wildlife I saw was exotic. I could only see dull gray rocks. It was also so hot and humid that I could not enjoy the tour fully. However, as the boat slid into the Bay Park Canal, all of a sudden my mother shouted, “Look at the mangroves!” A whole new world came into sight. The mangrove forest alongside the canal thrilled me as we entered its cool shade. I was fascinated by the beautiful leaves and f lowers of the mangroves. But best of all, I was charmed by the native birds, monkeys, and lizards moving among the branches. “What a wonderful adventure!” I exclaimed. * mangrove : 맹그로브(강가나 늪지에서 자라는 열대 나무) ① ashamed → relaxed ② disappointed → excited ③ delighted → confused ⑤ scared → relieved ④ pleased → lonely",
+   "hand": "분류불가"
+  },
+  {
+   "id": "2018#20",
+   "type": "R-CLAIM",
+   "passage": "At the 2015 Fortune Most Powerful Women Summit, Ginni Rometty offered this advice: “When did you ever learn the most in your life? What experience? I guarantee you’ll tell me it was a time you felt at risk.” To become a better leader, you have to step out of your comfort zone. You have to challenge the conventional ways of doing things and search for opportunities to innovate. Exercising leadership not only requires you to challenge the organizational status quo but also requires you to challenge your internal status quo. You have to challenge yourself. You have to venture beyond the boundaries of your current experience and explore new territory. Those are the places where there are opportunities to improve, innovate, experiment, and grow. Growth is always at the edges, just outside the boundaries of where you are right now. * status quo : 현재 상태",
+   "hand": "심리·인지"
+  },
+  {
+   "id": "2018#21",
+   "type": "R-GIST",
+   "passage": "One exercise in teamwork I do at a company retreat is to put the group in a circle. At one particular retreat, there were eight people in the circle, and I slowly handed tennis balls to one person to start throwing around the circle. If N equals the number of people in the circle, then the maximum number of balls you can have in motion is N minus 1. Why? Because it’s almost impossible to throw and catch at the same time. The purpose of the exercise is to demonstrate the importance of an individual’s action. People are much more concerned about catching the ball than throwing it. What this demonstrates is that it’s equally important to the success of the exercise that the person you’re throwing to catches the ball as that you are able to catch the ball. If you’re less concerned about how you deliver information than with how you receive it, you’ll ultimately fail at delegation. You have to be equally skilled at both. * delegat",
+   "hand": "사회·경제"
+  },
+  {
+   "id": "2018#22",
+   "type": "R-TOPIC",
+   "passage": "Sensory-specific satiety is defined as a decrease in appetite, or the subjective liking for the food that is consumed, with little change in the hedonics of uneaten food. As a result of sensory-specific satiety, when people consume a variety of foods, they tend to overeat. A greater variety of food leads people to eat more than they would otherwise. So, being full and feeling sated are separate matters. The recovery of appetite or the motivation to eat is apparent to anyone who has consumed a large meal and is quite full, and does not require additional energy or nutrients to meet their daily needs, but decides to consume additional calories after seeing the dessert cart. Small changes in the sensory properties of foods are sufficient to increase food intake. For example, subjects who were presented with different shapes of pasta showed increased hedonic ratings and increased energy consumption relative to subjects eating only a single shape of pasta. * satiety : 포만(감) ** hedonics : 쾌락 *** sated : 충분히 만족한",
+   "hand": "심리·인지"
+  },
+  {
+   "id": "2018#23",
+   "type": "R-TITLE",
+   "passage": "Individual authors and photographers have rights to their intellectual property during their lifetimes, and their heirs have rights for 70 years after the creator’s death, so any publication less than 125 years old has to be checked for its copyright status. The duration of copyright protection has increased steadily over the years; the life-plus-70-years standard was set by the Copyright Term Extension Act of 1998, which increased the 50-year limit established by the 1976 Copyright Act. Supporters of such legislation like to defend these increases with tales of starving writers and their impoverished descendants, but in reality the beneficiaries are more likely to be transnational publishing companies. And note that copyright laws serve a dual purpose. In addition to protecting the rights of authors so as to encourage the publication of new creative works, copyright is also supposed to place reasonable time limits on those rights so that outdated works may be incorporated into new creative efforts. ion : 위임 Therefore, the extended copyright protection frustrates new creative endeavors such as including poetry and song lyrics on Internet sites. * heir : 상속인 ** legislation : 법률, 입법",
+   "hand": "사회·경제"
+  },
+  {
+   "id": "2018#28",
+   "type": "R-GRAMMAR",
+   "passage": "Psychologists who study giving behavior ① have noticed that some people give substantial amounts to one or two charities, while others give small amounts to many charities. Those who donate to one or two charities seek evidence about what the charity is doing and ② what it is really having a positive impact. If the evidence indicates that the charity is really helping others, they make a substantial donation. Those who give small amounts to many charities are not so interested in whether what they are ③ doing helps others ─ psychologists call them warm glow givers. Knowing that they are giving makes ④ them feel good, regardless of the impact of their donation. In many cases the donation is so small ─ $10 or less ─ that if they stopped ⑤ to think, they would realize that the cost of processing the donation is likely to exceed any benefit it brings to the charity. 8 4 짝수형",
+   "hand": "심리·인지"
+  },
+  {
+   "id": "2018#31",
    "type": "R-BLANK",
-   "passage": "all meaningful scientific debate, and progress in the sciences is, to a large extent, the ongoing process of achieving ever greater precision. But historical representation puts a premium on a proliferation of representations, hence not on the refinement of one representation but on the production of an ever more varied set of representations. Historical insight is not a matter of a continuous “narrowing down” of previous options, not of an approximation of the truth, but, on the contrary, is an “explosion” of possible points of view. It therefore aims at the unmasking of previous illusions of determinacy and precision by the production of new and alternative representations, rather than at achieving truth by a careful analysis of what was right and wrong in those previous representations. And from this perspective, the development of historical insight may indeed be regarded by the outsider as a process of creating ever more confusion, a continuo questioning of , rather than, as in the sciences, an ever greater approximation to the truth. [3점] * proliferation: 증식",
-   "hand": "역사·인류"
+   "passage": "Ford Coppola, gained widespread popularity, and for good reason. The film is an adaptation of Joseph Conrad’s novel Heart of Darkness, which is set in the African Congo at the end of the 19th century. Unlike the original novel, Apocalypse Now is set in Vietnam and Cambodia during the Vietnam War. The setting, time period, dialogue and other incidental details are changed but the fundamental narrative and themes of Apocalypse Now are the same as those of Heart of Darkness. Both describe a physical journey, ref lecting the central character’s mental and spiritual journey, down a river to confront the deranged Kurtz character, who represents the worst aspects of civilisation. By giving Apocalypse Now a setting that was contemporary at the time of its release, audiences were able to experience and identify with its themes more easily than they would have if the film had been . [3점] * deranged : 제정신이 아닌",
+   "hand": "예술·문화"
+  },
+  {
+   "id": "2018#32",
+   "type": "R-BLANK",
+   "passage": "can you recall? Do you remember what you ate today? I hope so. Yesterday? I bet it takes a moment’s effort. And what about the day before yesterday? What about a week ago? It’s not so much that your memory of last week’s lunch has disappeared; if provided with the right cue, like where you ate it, or whom you ate it with, you would likely recall what had been on your plate. Rather, it’s difficult to remember last week’s lunch because your brain has filed it away with all the other lunches you’ve ever eaten as just another lunch. When we try to recall something from a category that includes as many instances as “lunch” or “wine,” many memories compete for our attention. The memory of last Wednesday’s lunch isn’t necessarily gone; it’s that you lack . But a wine that talks: That’s unique. It’s a memory without rivals. [3점] 5",
+   "hand": "심리·인지"
+  },
+  {
+   "id": "2018#33",
+   "type": "R-BLANK",
+   "passage": "population involved in agriculture is declining, but at the same time, those remaining in agriculture are not benefiting from technological advances. The typical scenario in the less developed world is one in which a very few commercial agriculturalists are technologically advanced while the vast majority are incapable of competing. Indeed, this vast majority beca of larger global causes. As an example, in Kenya, farmers are actively encouraged to grow export crops such as tea and coffee at the expense of basic food production. The result is that a staple crop, such as maize, is not being produced in a sufficient amount. The essential argument here is that the capitalist mode of production is affecting peasant production in the less developed world in such a way as to limit the production of staple foods, thus causing a food problem. [3점] * staple : 주요한 ** maize : 옥수수 *** peasant : 소농(小農)",
+   "hand": "사회·경제"
+  },
+  {
+   "id": "2018#34",
+   "type": "R-BLANK",
+   "passage": "replicated behaviors and talents we thought were unique to humans, we’ve had to change our minds about what sets us apart. As we invent more species of AI, we will be forced to surrender more of what is supposedly unique about humans. Each step of surrender ─ we are not the only mind that can play chess, fly a plane, make music, or invent a mathematical law ─ will be painful and sad. We’ll spend the next three decades ─ indeed, perhaps the next century ─ in a permanent identity crisis, continually asking ourselves what humans are good for. If we aren’t unique toolmakers, or artists, or moral ethicists, then what, if anything, makes us special? In the grandest irony of all, the greatest benefit of an everyday, utilitarian AI will not be increased productivity or an economics of abundance or a new way of doing science ─ although all those will happen. The greatest benefit of the arrival of artificial intelligence is that * replicate",
+   "hand": "기술·매체"
   }
  ]
 }
