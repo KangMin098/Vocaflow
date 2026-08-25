@@ -61,6 +61,10 @@ interface IngestPayload {
   unique_words: number
   resolved_words: number
   gap_words: number
+  /** 언어 게이트에 걸렸다 — 아무것도 적재되지 않았다 (`ingest_topic_corpus_doc`). */
+  rejected?: boolean
+  /** 거부 시 사전 미해석 비율 (0~1). */
+  gap_ratio?: number
 }
 
 /**
@@ -133,6 +137,20 @@ export async function harvestTedTalk(
     }
 
     const payload = data as IngestPayload
+
+    // 자막이 통째로 다른 언어인 경우 — 사전이 언어 판별기 역할을 한다. 재시도해도 같은 자막이라
+    // permanent 로 닫는다. (2026-08-25: 이 가드가 없던 동안 비영어 talk 3편이 pending 큐에
+    //  베트남어·스페인어 낱말 1,614개를 부었다.)
+    if (payload.rejected) {
+      return {
+        ok: false,
+        sourceId,
+        externalId,
+        url: transcript.url,
+        reason: `비영어 문서로 거부 — 사전 미해석 ${Math.round((payload.gap_ratio ?? 0) * 100)}% (고유 토큰 ${payload.unique_words}개)`,
+        permanent: true,
+      }
+    }
 
     return {
       ok: true,

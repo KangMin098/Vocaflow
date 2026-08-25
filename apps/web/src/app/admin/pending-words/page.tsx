@@ -38,6 +38,7 @@ interface PendingWordRow {
   lemma: string
   surface: string | null
   encounter_count: number
+  doc_freq: number
   status: 'pending' | 'reviewing' | 'auto-classify' | 'rejected' | 'added'
   admin_note: string | null
   created_at: string
@@ -62,7 +63,13 @@ export default async function AdminPendingWordsPage() {
   const [{ data: rows }, { count: pendingCount }, { count: addedCount }] = await Promise.all([
     client
       .from('pending_words')
-      .select('id, lemma, surface, encounter_count, status, admin_note, created_at, updated_at')
+      .select(
+        'id, lemma, surface, encounter_count, doc_freq, status, admin_note, created_at, updated_at',
+      )
+      // 넓이(몇 편에 나왔나) 먼저, 총량은 그다음 — 한 문서에서 반복된 토큰이 총량만으로 위에
+      // 오는 것을 막는다(2026-08-25: 한 편에서 107번 나온 비영어 토큰이 12편에 걸친 실단어보다
+      // 위에 있었다). doc_freq 0 = 미집계라 기존 행끼리는 종전과 같은 순서로 남는다.
+      .order('doc_freq', { ascending: false })
       .order('encounter_count', { ascending: false })
       .order('created_at', { ascending: false })
       .limit(200),
@@ -182,6 +189,7 @@ export default async function AdminPendingWordsPage() {
               <tr className="border-b border-[var(--bd)] bg-[var(--bg2)]">
                 <Th>lemma</Th>
                 <Th align="center">분류 / 조치</Th>
+                <Th align="right">문서</Th>
                 <Th align="right">encounter</Th>
                 <Th align="center">status</Th>
                 <Th>admin note</Th>
@@ -219,6 +227,19 @@ export default async function AdminPendingWordsPage() {
                         }`}
                       >
                         {BUCKET_META[row.bucket].label}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2 text-right">
+                      {/* 0 은 "문서 0편" 이 아니라 미집계다 — 2026-08-25 이전 적재분·학습자 추출분 */}
+                      <span
+                        title={
+                          row.doc_freq > 0
+                            ? `${row.doc_freq}편의 글에 등장`
+                            : '미집계 (2026-08-25 이전 적재분 또는 학습자 추출분)'
+                        }
+                        className="font-mono text-[12px] font-[700] tabular-nums text-[var(--t1)]"
+                      >
+                        {row.doc_freq > 0 ? row.doc_freq.toLocaleString() : '—'}
                       </span>
                     </td>
                     <td className="px-3 py-2 text-right">

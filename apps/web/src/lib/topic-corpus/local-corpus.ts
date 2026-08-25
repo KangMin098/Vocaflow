@@ -60,6 +60,10 @@ interface IngestPayload {
   unique_words: number
   resolved_words: number
   gap_words: number
+  /** 언어 게이트에 걸렸다 — 아무것도 적재되지 않았다 (`ingest_topic_corpus_doc`). */
+  rejected?: boolean
+  /** 거부 시 사전 미해석 비율 (0~1). */
+  gap_ratio?: number
 }
 
 /** 본문이 이보다 짧으면 통계 가치가 없다 (harvest.ts 의 자막 하한과 같은 기준) */
@@ -123,6 +127,16 @@ export async function harvestLocalArticle(
   }
 
   const payload = data as IngestPayload
+
+  // 언어 게이트 — 사전 해석률이 낮으면 영어 문서가 아니다. 아무것도 적재되지 않았다.
+  if (payload.rejected) {
+    return {
+      ok: false,
+      sourceId,
+      externalId: article.id,
+      reason: `비영어 문서로 거부 — 사전 미해석 ${Math.round((payload.gap_ratio ?? 0) * 100)}% (고유 토큰 ${payload.unique_words}개)`,
+    }
+  }
 
   return {
     ok: true,

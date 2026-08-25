@@ -359,7 +359,7 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 | `echo_match_sessions` | 2 | 48 kB | v06.33 — avg/best/worst 점수 · retried_sentence_ids TEXT[] |
 | `echo_match_attempts` | 5 | 64 kB | 3축 점수 (intonation/stress/rhythm) · duration_ms · idx user_date |
 | `reading_sessions` | 217 | 128 kB | LCP v2.0 — 사용자별 chapter 동적 분할 |
-| `pending_words` | 0 | 80 kB | TextViewer → WordVault 인계 큐 |
+| `pending_words` | 11,081 | 80 kB | 사전 해석 실패 큐. 출처 둘 — 학습자 추출(`user_id` 있음, 실측 39행)과 주제 코퍼스 적재(`context_snippet=corpus:<소스>`). `doc_freq`(20260825114639) = 몇 편의 글에 나왔나, 0 = 미집계 |
 
 ### 3️⃣ 공용 단어장 / 사전 마스터
 
