@@ -1,0 +1,865 @@
+{
+ "items": [
+  {
+   "id": "2014B#31",
+   "passage": "in one area have a negative effect on other outcomes. This is very common when companies are busy listening to the ‘voice of the customer.’ Traveling salespeople, for example, may say they want a smaller cell phone, but they may not have thought about how hard that tiny phone will be to use. Carpenters may request a lightweight circular saw without thinking about the fact that it will no longer have the power to get through some of the more difficult jobs. When customers make requests for new product features, they are usually focused on solving just one problem and are not thinking of how their requested solution will . In this situation, customers request new features but reject the resulting product when they realize the ramifications of their suggestions ― the added feature turns out to be worthless because of the problems it causes. * ramification: 파생된 문제",
+   "choices": [
+    {
+     "label": "A",
+     "text": "induce other customers to make additional requests",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "delay the introduction of innovative products",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "impact other product or service functions",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "discourage companies from listening to customers’ voices",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "bring about excessive competition among companies",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2014B#32",
+   "passage": "and connections. A few hundred people cannot sustain a sophisticated technology. Recall that Australia was colonized 45,000 years ago by pioneers spreading east from Africa along the shore of Asia. The vanguard of such a migration must have been small in number and must have traveled comparatively light. The chances are they had only a sample of the technology available to their relatives back at the Red Sea crossing. This may explain why Australian aboriginal technology, although it developed and elaborated steadily over the ensuing millennia, was lacking in so many features of the Old World ― elastic weapons, for example, such as bows and catapults, were unknown, as were ovens. It was not that they were ‘primitive’ or that they had mentally regressed; it was that they and did not have a dense enough population and therefore a large enough collective brain to develop them much further. * catapult",
+   "choices": [
+    {
+     "label": "A",
+     "text": "focused on developing and elaborating elastic weapons",
+     "abstractness": 1,
+     "passageEcho": 2,
+     "concreteMarker": true
+    },
+    {
+     "label": "B",
+     "text": "had arrived with only a subset of technologies",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "inherited none of their relatives’ technologies in Africa",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": true
+    },
+    {
+     "label": "D",
+     "text": "failed to transfer their technical insights to the Old World 5",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": true
+    },
+    {
+     "label": "E",
+     "text": "were too tightly connected to develop new technologies",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2014B#33",
+   "passage": "play a large role in the creation and implementation of the policy, and when utilitarian rationality is the dominant value that guides policy. Through the use of the scientific method to determine the facts of any given policy situation, the power of social constructions is supposedly diminished, and solutions to social problems are discovered in an objective way. This process creates an illusion of neutrality and implies a transcendence of the pitfalls and inequalities commonly associated with policymaking. From this perspective, scientists and professionals emerge as the appropriate experts to be consulted in policymaking, while local citizen input and knowledge is often viewed as unnecessary. Scientific and professional policy design does not necessarily escape the pitfalls of degenerative politics. Scientific and professional expertise often relies on a particular type of knowledge that is limited to utility and rationality considerations. This approach to policy typically does not consider values and cultural factors that cannot be measured empirically. Scientifically designed policies can serve interests that run counter to the public interest. They . * transcendence: 초월",
+   "choices": [
+    {
+     "label": "A",
+     "text": "do stress cultural values rather than utilitarian ones",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "use empirically proven theories to reflect locals’ input",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "reveal objective solutions to social problems",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "may be free from the inequalities of policymaking",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "can reinforce unequal and unjust relationships",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2014B#34",
+   "passage": "surface, auditory looming turns out, on closer examination, to be pretty smart. Animals like rhesus monkeys have evolved the same bias. This intentional error functions as an advance warning system, manned by the self-protection subself, providing individuals with a margin of safety when they are confronted with potentially dangerous approaching objects. If you spot a rhinoceros or hear an avalanche speeding toward you, auditory looming will motivate you to jump out of the way now rather than wait until the last second. : 투석기 The evolutionary benefits of immediately getting out of the way of approaching dangers were so strong that natural selection endowed us ― and other mammals ― with brains that . Although 5 this kind of bias might inhibit economically rational judgment in laboratory tasks, it leads us to behave in a deeply rational manner in the real world. Being accurate is not always smart. * avalanche: 눈사태",
+   "choices": [
+    {
+     "label": "A",
+     "text": "deliberately make rational yet ineffective decisions",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "accurately detect, but irrationally ignore, approaching dangers 8 6",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "are geared to evaluate aural information precisely",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "prompt us to overlook dangers without thinking rationally",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "intentionally see and hear the world inaccurately",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2014B#35",
+   "passage": "nothing to overcome resistance to science. Science is universal in principle but in practice it speaks to very few. Mathematics may be considered a communication skill of the highest type, frictionless so to speak; and at the opposite pole from mathematics, the fruits of science show the practical benefits of science without the use of words. But those fruits are ambivalent. Science as science does not speak; ideally, all scientific concepts are mathematized when scientists communicate with one another, and when science displays its products to non-scientists it need not, and indeed is not able to, resort to salesmanship. When science speaks to others, it is no longer science, and the scientist becomes or has to hire a publicist who dilutes the exactness of mathematics. In doing so, the scientist reverses his drive toward mathematical exactness in favor of rhetorical vagueness and metaphor, thus . [",
+   "choices": [
+    {
+     "label": "A",
+     "text": "surmounting the barrier to science by associating science with mathematics",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "violating the code of intellectual conduct that defines him as a scientist",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "inevitably making others who are unskillful in mathematics hostile to science",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "degrading his ability to use the scientific language needed for good salesmanship",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "neglecting his duty of bridging the gap between science and the public",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2014A#33",
+   "passage": "science confirms that those who are dominant have more in using it. In essence, these individuals are entitled to look wherever they want. However, subordinates are more restricted in where they can look and when. Humility dictates that in the presence of royalty, as in church, heads ar bowed. As a general rule, dominants tend to ignore subordinates visually while subordinates tend to gaze at dominant individuals at a distance. In other words, higher-status individuals can be indifferent while lower-status persons are required to be attentive with their gaze. The king is free to look at anyone he wants, but all subjects face the king, even as they back out of a room. * be entitled to: (～할) 권한이 있다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "freedom",
+     "abstractness": 5,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "reluctance",
+     "abstractness": 5,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "conflict",
+     "abstractness": 5,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "responsibility 6",
+     "abstractness": 5,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "anxiety",
+     "abstractness": 5,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2014A#34",
+   "passage": "‘objectivity’ is the best way to see the world ― to see the facts without any feelings. However, from a human point of view, objectivity is just another attitude. It is an interpretation that deliberately ignores our feelings. It is very useful to ensure that scientific measurements are taken accurately and so on, but as far as life is concerned, it is a bit like turning the color off on your TV so that you see everything in black and white and then saying that is more truthful. It is not more truthful; it is just a filter that reduces the . When you turn down the feelings, you also turn down the possibility of enjoyment.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "richness of life",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "criticism of scientific findings",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "size of the TV screen",
+     "abstractness": 1,
+     "passageEcho": 2,
+     "concreteMarker": true
+    },
+    {
+     "label": "D",
+     "text": "brutality of humans",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "incorrectness of a theory",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2014A#35",
+   "passage": "in one area have a negative effect on other outcomes. This is very common when companies are busy listening to the ‘voice of the customer.’ Traveling salespeople, for example, may say they want a smaller cell phone, but they may not have thought about how hard that tiny phone will be to use. Carpenters may request a lightweight circular saw without thinking about the fact that it will no longer have the power to get through some of the more difficult jobs. When customers make requests for new product features, they are usually focused on solving just one e problem and are not thinking of how their requested solution will . In this situation, customers request new features but reject the resulting product when they realize the ramifications of their suggestions ― the added feature turns out to be worthless because of the problems it causes. * ramification: 파생된 문제",
+   "choices": [
+    {
+     "label": "A",
+     "text": "bring about excessive competition among companies",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "discourage companies from listening to customers’ voices 8",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "delay the introduction of innovative products",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "induce other customers to make additional requests",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "impact other product or service functions",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2015#31",
+   "passage": "been studied by psychologists since the 1920s, but the term “multitasking” didn’t exist until the 1960s. It was used to describe computers, not people. Back then, ten megahertz was so fast that a new word was needed to describe a computer’s ability to quickly perform many tasks. In retrospect, they probably made a poor choice, for the expression “multitasking” is inherently deceptive. Multitasking is about multiple tasks alternately sharing one resource (the CPU), but in time the context was flipped and it became interpreted to mean multiple tasks being done simultaneously by one resource (a person). It was a clever turn of phrase that’s misleading, for even computers can process only one piece of code at a time. When they “multitask,” they switch back and forth, alternating their attention until both tasks are done. The speed with which computers tackle multiple tasks that everything happens at the same time, so comparing computers to humans can be confusing.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "conceals the fact",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "expels the myth",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "proves the hypothesis",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "blurs the conviction",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "feeds the illusion",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2015#32",
+   "passage": "cured the world’s ills by abolishing wars and starvation; that gross human inequality is still widespread; that happiness is not universal. My friend made a common mistake ― a basic misunderstanding in the nature of knowledge. Knowledge is amoral ― not immoral but morality neutral. It can be used for any purpose, but many people assume it will be used to further their favorite hopes for society ― and this is the fundamental flaw. Knowledge of the world is one thing; its uses create a separate issue. To be disappointed that our progress in understanding has not remedied the social ills of the world is a legitimate l: 청각의 view, but . To argue that knowledge is not progressing because of the African or Middle Eastern conflicts misses the point. There is nothing inherent in knowledge that dictates any specific social or moral application.",
+   "choices": [
+    {
+     "label": "A",
+     "text": "to remove social inequality is the inherent purpose of knowledge",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "to confuse this with the progress of knowledge is absurd",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "to make science progress is to make it cure social ills 8 6",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "to know the nature of knowledge is to practice its moral value",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "to accumulate knowledge is to enhance its social application",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2015#33",
+   "passage": "size and complexity of human populations was the driving force in the evolution of science. Early, small communities had to concentrate all their physical and mental effort on survival; their thoughts were focused on food and religion. As communities became larger, some people had time to reflect and debate. They found that they could understand and predict events better if they reduced passion and prejudice, replacing these with observation and inference. But while a large population may have been necessary, in itself it was not sufficient for science to germinate. Some empires were big, but the rigid social control required to hold an empire together was not beneficial to science, just as it was not beneficial to reason. The early nurturing and later flowering of science to supp original thought and freewheeling incentive. The rise in commerce and the decline of authoritarian religion allowed science to follow reason in seventeenth-century Europe. * germinate: 싹트다, 발아하다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "were solely attributed to efforts of survival in a small community",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "prompted small communities to adopt harsh social norms",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "occurred in large communities with strict hierarchical structures",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "required a large and loosely structured, competitive community",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "resulted from passion and enthusiasm rather than inference",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2016#32",
+   "passage": "our biology. Infants enter the world ready to respond to pain as bad and to sweet (up to a point) as good. In many situations, however, the boundary between good and bad is a reference point that changes over time and depends on the immediate circumstances. Imagine that you are out in the country on a cold night, inadequately dressed for the pouring rain, your clothes soaked. A stinging cold wind completes your misery. As you wander around, you find a large rock that provides some shelter from the fury of the elements. The biologist Michel Cabanac would call the experience of that moment intensely pleasurable because it functions, as pleasure normally does, to indicate the direction of . 한 The pleasant relief will not last very long, of course, and you 5 will soon be shivering behind the rock again, driven by your renewed suffering to seek better shelter. * shiver: 떨다",
+   "choices": [
+    {
+     "label": "A",
+     "text": "judging desirable and undesirable conditions impartially",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "a permanent emotional adjustment to circumstantial demands",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "a mentally pre-determined inclination for emotional stability 8 6",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "a biologically significant improvement of circumstances",
+     "abstractness": 4,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "enhancing self-consciousness through physical suffering",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2016#33",
+   "passage": "been a public domain and government activity for the common good. However, private capital started to flow into seed production and took it over as a sector of the economy, creating an artificial split between the two aspects of the seed’s nature: its role as means of production and its role as product. This process gained pace after the invention of hybrid breeding of maize in the late 1920s. Today most maize seed cultivated are hybrids. The companies that sell them are able to keep the distinct parent lines from farmers, and the grain that they produce is not suited for seed saving and replanting. The combination guarantees that farmers will have to . In the 1990s the extension of patent laws as the only intellectual property rights tool into the area of seed varieties started to create a growing market for private seed companies. * maize:",
+   "choices": [
+    {
+     "label": "A",
+     "text": "use more chemical fertilizer than before",
+     "abstractness": 1,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "buy more seed from the company each season",
+     "abstractness": 1,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "search for ways to maintain rural communities",
+     "abstractness": 2,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "pioneer markets for their food products",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "increase the efficiency of food production",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2016#34",
+   "passage": "addressed themselves to fame. Horace, Petrarch, Shakespeare, Milton, and Keats all hoped that poetic greatness would grant them a kind of earthly immortality. Whitman held a similar faith that for centuries the world would value his poems. But to this ancient desire to live forever on the page, he added a new sense of fame. Readers would not simply attend to the poet’s work; they would be attracted to the greatness of his personality. They would see in his poems a vibrant cultural performance, an individual springing from the book with tremendous charisma and appeal. Out of the political rallies and electoral parades that marked Jacksonian America, Whitman defined poetic fame in relation to the crowd. Other poets might look for their inspiration from the goddess of poetry. Whitman’s poet sought . In the instability of American democracy, fame would be dependent on celebrity, on the degree to which the people rejoiced in the poet and his work. * rally: 집회",
+   "choices": [
+    {
+     "label": "A",
+     "text": "the approval of his contemporaries",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "a refuge from public attention",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "fame with political celebrities 6",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "immortality in literature itself",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "poetic purity out of political chaos",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2017#31",
+   "passage": "throughout their development. Research suggests that overstructuring the child’s environment may actually limit creative and academic development. This is a central problem with much of science instruction. The exercises or activities are devised to eliminate different options and to focus on predetermined results. The answers are structured to fit the course assessments, and the wonder of science is lost along with cognitive intrigue. We define cognitive intrigue as the wonder that stimulates and intrinsically motivates an individual to voluntarily engage in an activity. The loss of cognitive intrigue may be initiated by the sole use of play items with predetermined conclusions and reinforced by rote instruction in school. This is exemplified by toys, games, and lessons that are a(n) in and of themselves and require little of the individual other than to master the planned objective. * rote : 기계적인 암기",
+   "choices": [
+    {
+     "label": "A",
+     "text": "interest",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "puzzle",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "end",
+     "abstractness": 5,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "alternative",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "input",
+     "abstractness": 4,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2017#32",
+   "passage": "context of satellite remote sensing. The temporal density of remotely sensed imagery is large, impressive, and growing. Satellites are collecting a great deal of imagery as you read this sentence. However, most applications in geography and environmental studies do not require extremely fine-grained temporal resolution. Meteorologists may require visible, infrared, and radar information at sub-hourly temporal resolution; urban planners might require imagery at monthly or annual resolution; and transportation planners may not need any time series information at all for some applications. Again, the temporal resolution of imagery used should . Sometimes researchers have to search archives of aerial photographs to get information from that past that pre-date the collection of satellite imagery. * meteorologist : 기상학자 ** infrared : 적외선의",
+   "choices": [
+    {
+     "label": "A",
+     "text": "meet the requirements of your inquiry",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "rely exclusively upon satellite information 6",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "be as high as possible for any occasion",
+     "abstractness": 2,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "be selected for general purposes",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "be applied to new technology by experts",
+     "abstractness": 2,
+     "passageEcho": 0,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2017#33",
+   "passage": "without it altogether? Why accept it even when the loss is real? Perhaps we should say of it what Spinoza said of regret: that whoever feels it is “twice unhappy or twice helpless.” Laurence Thomas has suggested that the utility of “negative sentiments” (emotions like grief, guilt, resentment, and anger, which there is seemingly a reason to believe we might be better off without) lies in their providing a kind of guarantee of authenticity for such dispositional sentiments as love and respect. No occurrent feelings of love and respect need to be present throughout the period in which it is true that one loves or respects. One might therefore sometimes suspect, in the absence of the positive occurrent feelings, that . At such times, negative emotions like grief offer a kind of testimonial to the authenticity of love or respect. * dispositional : 성향적인 ** testimonial : 증거",
+   "choices": [
+    {
+     "label": "A",
+     "text": "an emotional loss can never be real",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "respect for oneself can be guaranteed",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "negative sentiments do not hold any longer",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "one no longer loves",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "one is much happier",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2017#34",
+   "passage": "legal, religious, and other rituals evolved into forms that we subsequently have come . This is a two-way process; the building provides the physical environment and setting for a particular social ritual such as traveling by train or going to the theater, as well as the symbolic setting. The meaning of buildings evolves and becomes established by experience and we in turn read our experience into buildings. Buildings arouse an empathetic reaction in us through these projected experiences, and the strength of these reactions is determined by our culture, our beliefs, and our expectations. They tell stories, for their form and spatial organization give us hints about how they should be used. Their physical layout encourages some uses and inhibits others; we do not go backstage in a theater unless especially invited. Inside a law court the precise location of those involved in the legal process is an integral part of the design and an essential part of ensuring that the law is upheld. * empathetic : 공감할 수 있는",
+   "choices": [
+    {
+     "label": "A",
+     "text": "to recognize and associate with those buildings’ function",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "to use and change into an integral part of our environment",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "to define and refine by reflecting cross-cultural interactions",
+     "abstractness": 3,
+     "passageEcho": 0,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "to identify and relate to a new architectural trend",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "to alter and develop for the elimination of their meanings 68",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2018#31",
+   "passage": "Ford Coppola, gained widespread popularity, and for good reason. The film is an adaptation of Joseph Conrad’s novel Heart of Darkness, which is set in the African Congo at the end of the 19th century. Unlike the original novel, Apocalypse Now is set in Vietnam and Cambodia during the Vietnam War. The setting, time period, dialogue and other incidental details are changed but the fundamental narrative and themes of Apocalypse Now are the same as those of Heart of Darkness. Both describe a physical journey, ref lecting the central character’s mental and spiritual journey, down a river to confront the deranged Kurtz character, who represents the worst aspects of civilisation. By giving Apocalypse Now a setting that was contemporary at the time of its release, audiences were able to experience and identify with its themes more easily than they would have if the film had been . * deranged : 제정신이 아닌",
+   "choices": [
+    {
+     "label": "A",
+     "text": "a faithful depiction of the Vietnam War",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": true
+    },
+    {
+     "label": "B",
+     "text": "a source of inspiration for the novel",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "a critical interpretation of contemporary civilisation",
+     "abstractness": 4,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "a vivid dramatisation of a psychological journey",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "a literal adaptation of the novel",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2018#32",
+   "passage": "can you recall? Do you remember what you ate today? I hope so. Yesterday? I bet it takes a moment’s effort. And what about the day before yesterday? What about a week ago? It’s not so much that your memory of last week’s lunch has disappeared; if provided with the right cue, like where you ate it, or whom you ate it with, you would likely recall what had been on your plate. Rather, it’s difficult to remember last week’s lunch because your brain has filed it away with all the other lunches you’ve ever eaten as just another lunch. When we try to recall something from a category that includes as many instances as “lunch” or “wine,” many memories compete for our attention. The memory of last Wednesday’s lunch isn’t necessarily gone; it’s that you lack . But a wine that talks: That’s unique. It’s a memory without rivals. 5",
+   "choices": [
+    {
+     "label": "A",
+     "text": "the memory capacity to keep a box of sleeping memories",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "the channel to let it flow into the pool of ordinary memories",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "the glue to attach it to just another lunch memory",
+     "abstractness": 1,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "the sufficient number of competitors in a battle for attention 8 6",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "the right hook to pull it out of a sea of lunchtime memories",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  },
+  {
+   "id": "2018#33",
+   "passage": "population involved in agriculture is declining, but at the same time, those remaining in agriculture are not benefiting from technological advances. The typical scenario in the less developed world is one in which a very few commercial agriculturalists are technologically advanced while the vast majority are incapable of competing. Indeed, this vast majority beca of larger global causes. As an example, in Kenya, farmers are actively encouraged to grow export crops such as tea and coffee at the expense of basic food production. The result is that a staple crop, such as maize, is not being produced in a sufficient amount. The essential argument here is that the capitalist mode of production is affecting peasant production in the less developed world in such a way as to limit the production of staple foods, thus causing a food problem. * staple : 주요한 ** maize : 옥수수 *** peasant : 소농(小農)",
+   "choices": [
+    {
+     "label": "A",
+     "text": "have reduced their involvement in growing cash crops",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "B",
+     "text": "have lost control over their own production",
+     "abstractness": 3,
+     "passageEcho": 1,
+     "concreteMarker": false
+    },
+    {
+     "label": "C",
+     "text": "have challenged the capitalist mode of production",
+     "abstractness": 3,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "D",
+     "text": "have turned to technology for food production",
+     "abstractness": 2,
+     "passageEcho": 2,
+     "concreteMarker": false
+    },
+    {
+     "label": "E",
+     "text": "have regained their competitiveness in the world market",
+     "abstractness": 2,
+     "passageEcho": 1,
+     "concreteMarker": false
+    }
+   ]
+  }
+ ]
+}
