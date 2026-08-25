@@ -12,6 +12,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { CalendarClock, Check, ChevronDown, Layers, Loader2, Plus, RefreshCw, Volume2, X } from 'lucide-react'
 
 import CourseLauncher from '@/components/game/CourseLauncher'
+import type { ResourceKind } from '@/lib/game/sets'
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
@@ -46,6 +47,16 @@ interface Props {
   onClose: () => void
   /** 챕터 게임 launch 의 닫기 복귀 경로(?from) — 재사용처(/wordvault 등)가 지정. 기본 /library/vocab. */
   fromPath?: string
+  /**
+   * 이 세트로 여는 게임 코스의 종류. 기본은 주제 단어장.
+   *
+   * `PublishedVocabSet` 만으로는 도서 챕터 세트인지 알 수 없다(`category` 유니온에
+   * `library_book` 이 없고, 챕터 번호는 `curation_query` 에 있어 여기까지 오지 않는다).
+   * 도서 상세에서 열 때는 호출부가 'book' 을 알려 준다 — 도서 챕터는 서사 맥락과 품사가
+   * 살아 있어 검증·의미망 코스가 맞고, 주제 단어장은 속사·관계·형태 코스가 맞다
+   * (근거는 lib/game/sets.ts 헤더의 실측표).
+   */
+  courseKind?: ResourceKind
 }
 
 /**
@@ -79,6 +90,7 @@ export function VocabSetPreviewModal({
   onToggle,
   onClose,
   fromPath = '/library/vocab',
+  courseKind = 'wordset',
 }: Props) {
   const fromEnc = encodeURIComponent(fromPath)
   const [words, setWords] = useState<PWord[] | null>(null)
@@ -405,10 +417,16 @@ export function VocabSetPreviewModal({
                   아예 없었다. 챕터 아코디언 안의 런처는 챕터형에서만 렌더되기 때문이다. */}
               <div className="mt-3 border-t border-[var(--bd)] pt-3">
                 <CourseLauncher
-                  kind="wordset"
+                  kind={courseKind}
                   poolSize={set.wordCount}
                   scope={{ set: set.id, from: fromPath }}
-                  heading={chaptered ? '세트 전체로 할 코스' : '이 단어장으로 할 코스'}
+                  heading={
+                    courseKind === 'book'
+                      ? '이 챕터로 할 코스'
+                      : chaptered
+                        ? '세트 전체로 할 코스'
+                        : '이 단어장으로 할 코스'
+                  }
                 />
               </div>
             </div>

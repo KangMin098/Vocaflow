@@ -298,6 +298,12 @@ export function BookDetailClient({
         isPending={previewSet ? pendingId === previewSet.id : false}
         onToggle={handleToggle}
         onClose={() => setPreviewSet(null)}
+        fromPath={`/library/books/${bookId}?preview=1`}
+        // 여기서 열리는 세트는 **도서 챕터 단어장**이다. 모달은 PublishedVocabSet 만 받아
+        // 그 사실을 알 수 없으므로(챕터 번호가 curation_query 에 있어 전달되지 않는다)
+        // 아는 쪽인 이 화면이 알려 준다 — 그래야 챕터마다 도서 코스가 열린다.
+        // (이전에는 도서 코스가 `?book=` 의 첫 챕터 하나뿐이었다.)
+        courseKind="book"
       />
     </section>
   )

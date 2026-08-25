@@ -172,7 +172,7 @@ async function fetchScopeInfo(scope: {
   text?: string;
   book?: string;
   chapter: number | null;
-}): Promise<{ label?: string; poolSize: number }> {
+}): Promise<{ label?: string; poolSize: number; setCategory?: string | null }> {
   if (!scope.set && !scope.text && !scope.book) return { poolSize: 0 };
   try {
     const client = (await createClient()) as unknown as SupabaseClient;
@@ -180,8 +180,19 @@ async function fetchScopeInfo(scope: {
       data: { user },
     } = await client.auth.getUser();
     const ref = contentRefFromScope(scope);
-    const res = await fetchWordsForContent(client, ref, user?.id ?? null);
-    return { label: res?.title, poolSize: res?.words.length ?? 0 };
+    // 세트의 종류(도서 챕터 / 주제 단어장)는 `?set=` 만으로 알 수 없다 — category 를 봐야 한다.
+    // 코스를 가르는 유일한 근거라 여기서 한 번 읽는다(pk 조회 1건).
+    const [res, cat] = await Promise.all([
+      fetchWordsForContent(client, ref, user?.id ?? null),
+      scope.set
+        ? client.from('shared_word_sets').select('category').eq('id', scope.set).maybeSingle()
+        : Promise.resolve({ data: null }),
+    ]);
+    return {
+      label: res?.title,
+      poolSize: res?.words.length ?? 0,
+      setCategory: (cat.data as { category?: string } | null)?.category ?? null,
+    };
   } catch {
     return { poolSize: 0 };
   }
@@ -206,7 +217,7 @@ export default async function ArcadePage({
   const scope: HubScope = { ...base, label: info.label };
   const mineReady = stats.total >= MINE_READY_THRESHOLD;
   // 코스 — 자료를 들고 왔으면 그 자료의 풀로, 아니면 내 복습 큐 크기로 해석한다.
-  const courseKind = resourceKindFromScope(base);
+  const courseKind = resourceKindFromScope(base, { setCategory: info.setCategory });
   const resolved = resolveCourse(courseKind, scope.active ? info.poolSize : stats.total);
   const courseResourceLabel = scope.active
     ? [scope.label, scope.chapter != null ? `Chapter ${scope.chapter}` : null, `단어 ${info.poolSize}개`]

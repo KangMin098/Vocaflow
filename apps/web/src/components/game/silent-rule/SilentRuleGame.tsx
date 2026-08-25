@@ -631,9 +631,17 @@ export function SilentRuleGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
               {/* 내 단어에서 규칙이 파생되지 않으면 그 사실을 말한다 — 조용히 내장 콘텐츠로
                   도는 것이 이 프로젝트가 '가짜 연계'라 부르는 결함이다. `data-scope` 는 그
                   고지를 기계도 읽게 한다(문구 정규식은 표현이 바뀌면 조용히 어긋난다). */}
-              {run.deck.mineCount === 0 && (
+              {/* v08.6 — 이전에는 `mineCount === 0` 일 때만 선언했다. 즉 **내 단어를 쓰는
+                  경우에는 아무 말도 하지 않았고**, 학습자도 기계도 그 사실을 알 수 없었다.
+                  결합을 말하는 것은 없을 때만이 아니라 있을 때도다 — morpheme-rules 가
+                  이미 그렇게 한다(ownSealCount 고지). 두 갈래를 모두 선언한다. */}
+              {run.deck.mineCount === 0 ? (
                 <p className="sr-brief-note" data-scope="builtin">
                   이번 판은 <b>내장 규칙 뱅크</b>로 열립니다 — 내 단어에서 굴절 규칙이 파생되지 않았어요.
+                </p>
+              ) : (
+                <p className="sr-brief-note" data-scope="mine">
+                  내 단어에서 온 문 <b>{run.deck.mineCount}개</b> — 이 단어가 복습 일정에 반영돼요.
                 </p>
               )}
             </div>

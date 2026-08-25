@@ -119,6 +119,30 @@ Flashcard 스코프 진입도 `fetchDictExtras` 를 표면형으로 불러 발�
 - 회귀 `wordblitz/__tests__/word-pool.test.ts` 4종 · `tsc --noEmit` 전체 통과
 - 손대지 않은 곳: `reader-queries.ts`(resolved_word) · `chapter-words-queries.ts`(lemma) — 이미 올바른 키였다
 
+### ⚙️ 랭킹 3차 — 인덱스가 안 쓰이고 있었다 (v08.6 · `20260825140000_game_ranking_plan_fix`)
+
+EXPLAIN 으로 재 보고 잡은 것들. 78행에서는 어느 쪽이든 1ms 라 **증상이 전혀 없다** —
+행이 쌓인 뒤에야 드러나는 종류라 지금 고쳐 둔다.
+
+- **`s.module::text = p_module` 이 인덱스를 죽이고 있었다.** enum 컬럼을 text 로 캐스팅하면
+  `idx_scores_module_created` 를 못 쓴다. 실측 계획(seqscan 강제 해제 후):
+  `Index Scan using idx_scores_user_date … Filter: ((module)::text = …)` — 전 기간을 훑고
+  게임으로 걸렀다. 바로 앞 마이그레이션이 만든 인덱스를 정작 함수가 못 쓰게 짜 놓았던 것.
+  enum 끼리 비교하니 `Index Cond: ((module = …) AND (created_at >= …))` 로 둘 다 들어간다.
+  없는 라벨은 예외를 잡아 **빈 순위표**로 돌려준다(순위표 하나 때문에 화면이 죽지 않게)
+- **`game_rank_summary` 가 창 안의 `scores` 전체를 집계하고 있었다** — 모든 게임 · 모든 학습자.
+  내 백분위에는 그 게임의 전 참가자가 필요하지만 **내가 안 한 게임까지** 훑을 이유는 없다.
+  `my_modules` 로 먼저 좁힌다
+- **도서 코스가 첫 챕터에만 열리던 제약 해소** — 그리고 그 과정에서 **내 규칙이 틀렸다는 것**을
+  발견했다. "`?set=` 에 챕터가 붙으면 도서" 는 성립하지 않는다: 도서 챕터 세트의 챕터 번호는
+  `curation_query.chapter_idx` 에 있고 `shared_words.chapter` 는 **전부 null** 이다(실측 156행).
+  그 규칙대로면 `?set=<도서챕터>&chapter=N` 이 0단어가 된다. 근거는 세트의 `category` 하나뿐이라
+  `resourceKindFromScope(scope, { setCategory })` 로 바꾸고, 허브가 pk 조회 1건으로 읽는다.
+  도서 상세의 챕터 칩 → 미리보기 모달에도 `courseKind="book"` 을 넘겨 **챕터마다** 도서 코스가 열린다
+- **silent-rule 이 내 단어를 쓸 때 아무 말도 안 하고 있었다** — `mineCount === 0` 일 때만 선언하고
+  있을 때는 침묵했다. 결합은 없을 때만이 아니라 있을 때도 말한다(morpheme-rules 가 이미 그렇다)
+- 회귀 +2 (세트 종류 판별 · 옛 규칙 재발 차단). `sets.test.ts` 20 · 게임 유닛 126
+
 ### 🔍 랭킹 2차 — 런타임 확인이 잡은 두 가지 (v08.6)
 
 정적 지표가 100% 를 가리킨 뒤 **실제로 열어 보고** 잡은 것들이다. 둘 다 지표로는 안 보였다.

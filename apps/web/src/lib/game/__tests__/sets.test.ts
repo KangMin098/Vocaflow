@@ -132,9 +132,23 @@ describe('unlockAt — 코스가 열리는 지점', () => {
 })
 
 describe('스코프 → 자료 종류', () => {
-  it('챕터가 붙은 세트는 도서 코스다', () => {
-    expect(resourceKindFromScope({ set: 'a', chapter: 3 })).toBe('book')
-    expect(resourceKindFromScope({ set: 'a', chapter: null })).toBe('wordset')
+  // v08.6 정정 — 이전 규칙("챕터가 붙어 오면 도서")은 **틀렸다.**
+  // 도서 챕터 세트의 챕터 번호는 `curation_query.chapter_idx` 에 있고 단어 행의
+  // `shared_words.chapter` 는 null 이다(실측: 도서 챕터 세트 2종 · 단어 156행 전부 null).
+  // 그래서 `?set=<도서챕터세트>&chapter=N` 은 0단어가 된다 — 그 규칙을 따랐다면
+  // 도서 코스가 항상 빈 풀 위에 그려졌을 것이다. 근거는 세트의 category 하나뿐이다.
+  it('세트 종류는 chapter 가 아니라 category 로 가른다', () => {
+    expect(resourceKindFromScope({ set: 'a' }, { setCategory: 'library_book' })).toBe('book')
+    expect(resourceKindFromScope({ set: 'a' }, { setCategory: 'themed' })).toBe('wordset')
+  })
+
+  it('category 를 모르면 주제 단어장으로 본다 — 다수이고, 틀려도 링크는 산다', () => {
+    expect(resourceKindFromScope({ set: 'a' })).toBe('wordset')
+    expect(resourceKindFromScope({ set: 'a' }, { setCategory: null })).toBe('wordset')
+  })
+
+  it('chapter 만으로는 도서가 되지 않는다 (옛 규칙 재발 차단)', () => {
+    expect(resourceKindFromScope({ set: 'a', chapter: 3 })).toBe('wordset')
   })
   it('book · text · 무스코프', () => {
     expect(resourceKindFromScope({ book: 'b' })).toBe('book')

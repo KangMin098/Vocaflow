@@ -234,17 +234,30 @@ function nextUnlock(kind: ResourceKind, from: number, playable: number): number 
   return null
 }
 
-/** 스코프 쿼리 → 자료 종류. 허브·자료 페이지가 같은 규칙을 쓰도록 한 곳에 둔다. */
-export function resourceKindFromScope(scope: {
-  set?: string
-  text?: string
-  book?: string
-  chapter?: number | null
-}): ResourceKind {
+/**
+ * 스코프 쿼리 → 자료 종류. 허브·자료 페이지가 같은 규칙을 쓰도록 한 곳에 둔다.
+ *
+ * ⚠️ `?set=` 만으로는 도서 챕터인지 주제 단어장인지 **알 수 없다.** 둘 다 같은
+ * `shared_word_sets` 행이고, 도서 챕터 세트의 챕터 번호는 `curation_query.chapter_idx` 에
+ * 있지 단어 행(`shared_words.chapter`)에는 없다(실측: 도서 챕터 세트 2종 · 단어 156행 전부 null).
+ * 그래서 "챕터가 붙어 오면 도서" 라는 이전 규칙은 성립하지 않았다 —
+ * `?set=<도서챕터세트>&chapter=N` 은 `shared_words.chapter = N` 로 걸러 **0단어**가 된다.
+ *
+ * 판단 근거는 세트의 `category` 하나뿐이므로, 아는 쪽이 `setCategory` 로 알려 준다.
+ * 모르면 주제 단어장으로 본다(그쪽이 다수이고, 틀려도 코스가 조금 덜 맞을 뿐 링크는 산다).
+ */
+export function resourceKindFromScope(
+  scope: {
+    set?: string
+    text?: string
+    book?: string
+    chapter?: number | null
+  },
+  opts: { setCategory?: string | null } = {},
+): ResourceKind {
   if (scope.book) return 'book'
   if (scope.text) return 'script'
-  // 공용 단어장 세트 id 는 챕터 단어장으로도 쓰인다 — 챕터가 붙어 오면 도서 코스다.
-  if (scope.set) return scope.chapter != null ? 'book' : 'wordset'
+  if (scope.set) return opts.setCategory === 'library_book' ? 'book' : 'wordset'
   return 'mine'
 }
 
