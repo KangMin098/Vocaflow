@@ -195,7 +195,10 @@ export function NetflixDetailSheet({ variant, onClose }: Props) {
           type="button"
           onClick={onClose}
           aria-label="닫기"
-          className="absolute right-3 top-3 z-[2] flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition-all hover:scale-110 hover:bg-black/70"
+          // h-9(36px) 이었다 — CLAUDE.md 가 금지하는 44px 미만 터치 타겟이다.
+          // 폰에는 Esc 가 없어서 이 버튼이 **닫는 유일한 길**인데 손가락으로 놓치기 쉬웠다
+          // (실측 2026-08-25 · 390px). 아이콘 크기는 그대로 두고 누를 면적만 넓힌다.
+          className="absolute right-3 top-3 z-[2] flex h-11 w-11 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition-all hover:scale-110 hover:bg-black/70"
         >
           <X size={16} strokeWidth={2.5} aria-hidden />
         </button>

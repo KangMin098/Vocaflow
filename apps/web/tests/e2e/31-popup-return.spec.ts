@@ -32,6 +32,17 @@ import { ensureAuthState } from './utils/auth';
 
 const STATE_PATH = 'playwright-auth/.auth-popup-return.json';
 
+/**
+ * **어느 화면 크기에서 재는가.** 기본은 데스크톱, `SWEEP_VIEWPORT=mobile` 이면 390px.
+ *
+ * 팝업은 작은 화면에서 깨지기 쉽다 — 시트가 화면을 다 덮으면 닫을 버튼이 접히거나,
+ * 스크롤 잠금이 풀리면서 배경이 맨 위로 튀거나, 트리거가 접힌 메뉴 안으로 들어간다.
+ * 데스크톱에서만 재면 그 셋 다 안 보인다. 학습자 전수 훑기(`26-learner-sweep`)가
+ * 같은 스위치를 쓰므로 실행 방법을 새로 외울 필요가 없다.
+ */
+const MOBILE = process.env.SWEEP_VIEWPORT === 'mobile';
+const VIEWPORT = MOBILE ? { viewport: { width: 390, height: 844 } } : {};
+
 interface PopupCase {
   name: string;
   route: string;
@@ -161,7 +172,7 @@ test.describe('팝업을 닫으면 제자리', () => {
     test.setTimeout(120_000);
     await ensureAuthState(browser, STATE_PATH);
   });
-  test.use({ storageState: STATE_PATH });
+  test.use({ storageState: STATE_PATH, ...VIEWPORT });
 
   for (const c of CASES) {
     test(`${c.name} — 열고 닫아도 주소·스크롤·포커스가 그대로`, async ({ page }) => {
@@ -194,6 +205,35 @@ test.describe('팝업을 닫으면 제자리', () => {
 
       // ── ② 주소 — 팝업은 이동이 아니다 ───────────────────────────
       expect(page.url(), '팝업을 여는 것만으로 주소가 바뀌었다').toBe(urlBefore);
+
+      if (MOBILE) {
+        // ── ⑥ 손가락으로 닫을 수 있는가 (모바일 전용) ──────────────
+        // 아래의 닫기 검증은 **Esc** 를 쓴다. 그런데 폰에는 Esc 키가 없다 —
+        // 데스크톱에서만 재면 "닫힌다" 가 참인 채로 **폰에서는 갇히는** 팝업을 놓친다.
+        // 그래서 모바일에서는 ① 눌러서 닫을 컨트롤이 실제로 보이고 ② 44px 이상인지 본다.
+        const closer = dialog
+          .locator(
+            'button[aria-label*="닫기"], button[aria-label*="close" i], ' +
+              'button:has-text("닫기"), button:has-text("나중에")',
+          )
+          .filter({ has: undefined })
+          .first();
+        const hasCloser = await closer.isVisible().catch(() => false);
+        expect(hasCloser, '모바일에서 눌러 닫을 컨트롤이 안 보인다 — 폰에는 Esc 가 없다').toBe(true);
+        const box = await closer.boundingBox();
+        expect(
+          Math.min(box?.width ?? 0, box?.height ?? 0),
+          `닫기 컨트롤이 ${Math.round(box?.width ?? 0)}×${Math.round(box?.height ?? 0)} — 44px 미만이면 손가락으로 놓친다`,
+        ).toBeGreaterThanOrEqual(44);
+
+        // 다이얼로그 자체가 화면 밖으로 나가면 안 된다.
+        const overflows = await page.evaluate(() => {
+          const d = document.querySelector('[role="dialog"]');
+          if (!d) return 0;
+          return Math.round(d.getBoundingClientRect().right - window.innerWidth);
+        });
+        expect(overflows, `다이얼로그가 화면 오른쪽으로 ${overflows}px 넘친다`).toBeLessThanOrEqual(1);
+      }
 
       // 닫기 — Esc 가 정본이다(키보드 사용자의 유일한 길인 경우가 많다).
       await page.keyboard.press('Escape');

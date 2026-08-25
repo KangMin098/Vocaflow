@@ -343,7 +343,10 @@ export function VocabSetPreviewModal({
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+            // h-9(36px) 이었다 — CLAUDE.md 가 금지하는 44px 미만 터치 타겟이다.
+            // 폰에는 Esc 가 없어서 이 버튼이 **닫는 유일한 길**인데 손가락으로 놓치기 쉬웠다
+            // (실측 2026-08-25 · 390px). 아이콘 크기는 그대로 두고 누를 면적만 넓힌다.
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
             aria-label="미리보기 닫기"
           >
             <X size={18} aria-hidden />

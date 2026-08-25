@@ -98,7 +98,10 @@ export function EnqueueModal({ source, onClose, onSuccess }: EnqueueModalProps) 
           type="button"
           onClick={onClose}
           disabled={submitting}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+          // h-8(32px) 이었다 — CLAUDE.md 가 금지하는 44px 미만 터치 타겟이다.
+          // 관리자도 폰으로 볼 수 있고, 폰에는 Esc 가 없어 이 버튼이 닫는 유일한 길이다
+          // (실측 2026-08-25 · 390px). 아이콘 크기는 그대로 두고 누를 면적만 넓힌다.
+          className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
           aria-label="닫기"
         >
           <X size={16} aria-hidden />
