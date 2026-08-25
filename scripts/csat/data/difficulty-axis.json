@@ -1,0 +1,2903 @@
+{
+ "n": 316,
+ "n3": 104,
+ "n2": 212,
+ "coverage": 0.6050929668552951,
+ "metrics": {
+  "c1Ratio": {
+   "p3": 0.06751119436622742,
+   "p2": 0.05233035456336455,
+   "obs": 0.015180839802862868,
+   "p": 0.0010499475026248687
+  },
+  "clausesPerSent": {
+   "p3": 2.9114217513255984,
+   "p2": 2.9189710054096847,
+   "obs": -0.007549254084086243,
+   "p": 0.9660516974151292
+  },
+  "wordsPerSent": {
+   "p3": 17.339972047183583,
+   "p2": 19.054421731308526,
+   "obs": -1.7144496841249435,
+   "p": 0.23333833308334584
+  },
+  "avgWordLen": {
+   "p3": 5.8612885400613255,
+   "p2": 5.734140422484198,
+   "obs": 0.12714811757712763,
+   "p": 0.030998450077496124
+  },
+  "nWords": {
+   "p3": 128.15384615384616,
+   "p2": 120.61320754716981,
+   "obs": 7.540638606676353,
+   "p": 0.003649817509124544
+  }
+ },
+ "byExam": {
+  "2015": 0.0453477403725456,
+  "2016": 0.05891113632447354,
+  "2017": 0.06051883979701709,
+  "2018": 0.062470534266694175,
+  "2019": 0.06343118379370447,
+  "2020": 0.05972817608455855,
+  "2021": 0.06041795570540739,
+  "2022": 0.05403413833848656,
+  "2023": 0.058784305614647314,
+  "2024": 0.045682999825211165,
+  "2025": 0.056944959079509985,
+  "2026": 0.05420693452456843,
+  "2014A": 0.04145273494392083,
+  "2014B": 0.06727754732813561,
+  "M2606": 0.04660052283631028,
+  "M2609": 0.07198491975022578,
+  "M2706": 0.06414919620830442
+ },
+ "rows": [
+  {
+   "exam": "2014B",
+   "no": 23,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.06172839506172839,
+   "clausesPerSent": 2.8,
+   "nWords": 96
+  },
+  {
+   "exam": "2014B",
+   "no": 24,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.04040404040404041,
+   "clausesPerSent": 3.2857142857142856,
+   "nWords": 125
+  },
+  {
+   "exam": "2014B",
+   "no": 25,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.04950495049504951,
+   "clausesPerSent": 2.7142857142857144,
+   "nWords": 127
+  },
+  {
+   "exam": "2014B",
+   "no": 27,
+   "type": "R-GRAMMAR",
+   "points": 3,
+   "c1Ratio": 0.08247422680412371,
+   "clausesPerSent": 2.3,
+   "nWords": 133
+  },
+  {
+   "exam": "2014B",
+   "no": 28,
+   "type": "R-VOCAB",
+   "points": 3,
+   "c1Ratio": 0.043010752688172046,
+   "clausesPerSent": 3.2857142857142856,
+   "nWords": 132
+  },
+  {
+   "exam": "2014B",
+   "no": 30,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.0963855421686747,
+   "clausesPerSent": 1.9090909090909092,
+   "nWords": 125
+  },
+  {
+   "exam": "2014B",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.04081632653061224,
+   "clausesPerSent": 2.5,
+   "nWords": 122
+  },
+  {
+   "exam": "2014B",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.0761904761904762,
+   "clausesPerSent": 3,
+   "nWords": 124
+  },
+  {
+   "exam": "2014B",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.09649122807017543,
+   "clausesPerSent": 3.111111111111111,
+   "nWords": 140
+  },
+  {
+   "exam": "2014B",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.07368421052631578,
+   "clausesPerSent": 2.5,
+   "nWords": 115
+  },
+  {
+   "exam": "2014B",
+   "no": 35,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.10989010989010989,
+   "clausesPerSent": 2.857142857142857,
+   "nWords": 110
+  },
+  {
+   "exam": "2014B",
+   "no": 38,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.12,
+   "clausesPerSent": 3,
+   "nWords": 119
+  },
+  {
+   "exam": "2014B",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.018518518518518517,
+   "clausesPerSent": 2.2222222222222223,
+   "nWords": 131
+  },
+  {
+   "exam": "2014B",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.03278688524590164,
+   "clausesPerSent": 2.2,
+   "nWords": 147
+  },
+  {
+   "exam": "2014A",
+   "no": 23,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0.012658227848101266,
+   "clausesPerSent": 1.5555555555555556,
+   "nWords": 93
+  },
+  {
+   "exam": "2014A",
+   "no": 24,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.06172839506172839,
+   "clausesPerSent": 2.8,
+   "nWords": 96
+  },
+  {
+   "exam": "2014A",
+   "no": 25,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.030303030303030304,
+   "clausesPerSent": 2,
+   "nWords": 118
+  },
+  {
+   "exam": "2014A",
+   "no": 26,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.014705882352941176,
+   "clausesPerSent": 1.75,
+   "nWords": 103
+  },
+  {
+   "exam": "2014A",
+   "no": 27,
+   "type": "R-GRAMMAR",
+   "points": 3,
+   "c1Ratio": 0.0375,
+   "clausesPerSent": 2,
+   "nWords": 91
+  },
+  {
+   "exam": "2014A",
+   "no": 28,
+   "type": "R-VOCAB",
+   "points": 3,
+   "c1Ratio": 0.023809523809523808,
+   "clausesPerSent": 2.125,
+   "nWords": 110
+  },
+  {
+   "exam": "2014A",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.03225806451612903,
+   "clausesPerSent": 2.7142857142857144,
+   "nWords": 86
+  },
+  {
+   "exam": "2014A",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.06756756756756757,
+   "clausesPerSent": 3,
+   "nWords": 83
+  },
+  {
+   "exam": "2014A",
+   "no": 35,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.04081632653061224,
+   "clausesPerSent": 2.5,
+   "nWords": 122
+  },
+  {
+   "exam": "2014A",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.01282051282051282,
+   "clausesPerSent": 2,
+   "nWords": 107
+  },
+  {
+   "exam": "2014A",
+   "no": 38,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.04854368932038835,
+   "clausesPerSent": 10,
+   "nWords": 112
+  },
+  {
+   "exam": "2014A",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0.0847457627118644,
+   "clausesPerSent": 2.5714285714285716,
+   "nWords": 133
+  },
+  {
+   "exam": "2014A",
+   "no": 40,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.07142857142857142,
+   "clausesPerSent": 1.3076923076923077,
+   "nWords": 102
+  },
+  {
+   "exam": "2015",
+   "no": 18,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.039473684210526314,
+   "clausesPerSent": 2,
+   "nWords": 91
+  },
+  {
+   "exam": "2015",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0,
+   "clausesPerSent": 1.7,
+   "nWords": 86
+  },
+  {
+   "exam": "2015",
+   "no": 20,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.02631578947368421,
+   "clausesPerSent": 2.6666666666666665,
+   "nWords": 88
+  },
+  {
+   "exam": "2015",
+   "no": 21,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.06060606060606061,
+   "clausesPerSent": 2.6666666666666665,
+   "nWords": 89
+  },
+  {
+   "exam": "2015",
+   "no": 22,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.023255813953488372,
+   "clausesPerSent": 4.166666666666667,
+   "nWords": 110
+  },
+  {
+   "exam": "2015",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.03225806451612903,
+   "clausesPerSent": 2,
+   "nWords": 102
+  },
+  {
+   "exam": "2015",
+   "no": 24,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.07017543859649122,
+   "clausesPerSent": 2.142857142857143,
+   "nWords": 92
+  },
+  {
+   "exam": "2015",
+   "no": 28,
+   "type": "R-GRAMMAR",
+   "points": 3,
+   "c1Ratio": 0.05714285714285714,
+   "clausesPerSent": 3.1666666666666665,
+   "nWords": 139
+  },
+  {
+   "exam": "2015",
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 3,
+   "c1Ratio": 0.04672897196261682,
+   "clausesPerSent": 2.3,
+   "nWords": 137
+  },
+  {
+   "exam": "2015",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.10576923076923077,
+   "clausesPerSent": 2.5,
+   "nWords": 128
+  },
+  {
+   "exam": "2015",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.07692307692307693,
+   "clausesPerSent": 2.625,
+   "nWords": 107
+  },
+  {
+   "exam": "2015",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.056074766355140186,
+   "clausesPerSent": 3.125,
+   "nWords": 127
+  },
+  {
+   "exam": "2015",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.041237113402061855,
+   "clausesPerSent": 8.5,
+   "nWords": 115
+  },
+  {
+   "exam": "2015",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.021505376344086023,
+   "clausesPerSent": 1.7,
+   "nWords": 130
+  },
+  {
+   "exam": "2015",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.011904761904761904,
+   "clausesPerSent": 1.75,
+   "nWords": 107
+  },
+  {
+   "exam": "2015",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.06862745098039216,
+   "clausesPerSent": 2.5,
+   "nWords": 138
+  },
+  {
+   "exam": "2015",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0,
+   "clausesPerSent": 3.4285714285714284,
+   "nWords": 133
+  },
+  {
+   "exam": "2015",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.0782608695652174,
+   "clausesPerSent": 2.3,
+   "nWords": 144
+  },
+  {
+   "exam": "2016",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0.02702702702702703,
+   "clausesPerSent": 2.4285714285714284,
+   "nWords": 90
+  },
+  {
+   "exam": "2016",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.05555555555555555,
+   "clausesPerSent": 2.142857142857143,
+   "nWords": 87
+  },
+  {
+   "exam": "2016",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0.08139534883720931,
+   "clausesPerSent": 2.5,
+   "nWords": 99
+  },
+  {
+   "exam": "2016",
+   "no": 21,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.11363636363636363,
+   "clausesPerSent": 4,
+   "nWords": 119
+  },
+  {
+   "exam": "2016",
+   "no": 22,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.14606741573033707,
+   "clausesPerSent": 2.5555555555555554,
+   "nWords": 112
+  },
+  {
+   "exam": "2016",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.027522935779816515,
+   "clausesPerSent": 4,
+   "nWords": 130
+  },
+  {
+   "exam": "2016",
+   "no": 25,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.07792207792207792,
+   "clausesPerSent": 1.6363636363636365,
+   "nWords": 114
+  },
+  {
+   "exam": "2016",
+   "no": 28,
+   "type": "R-GRAMMAR",
+   "points": 3,
+   "c1Ratio": 0.08602150537634409,
+   "clausesPerSent": 2.5714285714285716,
+   "nWords": 118
+  },
+  {
+   "exam": "2016",
+   "no": 29,
+   "type": "R-VOCAB",
+   "points": 2,
+   "c1Ratio": 0.06956521739130435,
+   "clausesPerSent": 1.6363636363636365,
+   "nWords": 148
+  },
+  {
+   "exam": "2016",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.03773584905660377,
+   "clausesPerSent": 2.2857142857142856,
+   "nWords": 125
+  },
+  {
+   "exam": "2016",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.03,
+   "clausesPerSent": 2.857142857142857,
+   "nWords": 120
+  },
+  {
+   "exam": "2016",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.05,
+   "clausesPerSent": 2.857142857142857,
+   "nWords": 120
+  },
+  {
+   "exam": "2016",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.09375,
+   "clausesPerSent": 1.9,
+   "nWords": 130
+  },
+  {
+   "exam": "2016",
+   "no": 35,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.018691588785046728,
+   "clausesPerSent": 2.4444444444444446,
+   "nWords": 126
+  },
+  {
+   "exam": "2016",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.05405405405405406,
+   "clausesPerSent": 2.125,
+   "nWords": 134
+  },
+  {
+   "exam": "2016",
+   "no": 37,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.053763440860215055,
+   "clausesPerSent": 3,
+   "nWords": 122
+  },
+  {
+   "exam": "2016",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0.043859649122807015,
+   "clausesPerSent": 2.6666666666666665,
+   "nWords": 121
+  },
+  {
+   "exam": "2016",
+   "no": 39,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.042105263157894736,
+   "clausesPerSent": 5.666666666666667,
+   "nWords": 114
+  },
+  {
+   "exam": "2016",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.010638297872340425,
+   "clausesPerSent": 1.7777777777777777,
+   "nWords": 113
+  },
+  {
+   "exam": "2017",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0.012987012987012988,
+   "clausesPerSent": 1.3,
+   "nWords": 101
+  },
+  {
+   "exam": "2017",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.014285714285714285,
+   "clausesPerSent": 1.4285714285714286,
+   "nWords": 111
+  },
+  {
+   "exam": "2017",
+   "no": 20,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.023809523809523808,
+   "clausesPerSent": 2.5,
+   "nWords": 105
+  },
+  {
+   "exam": "2017",
+   "no": 21,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.09016393442622951,
+   "clausesPerSent": 4.4,
+   "nWords": 147
+  },
+  {
+   "exam": "2017",
+   "no": 22,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.05263157894736842,
+   "clausesPerSent": 3,
+   "nWords": 123
+  },
+  {
+   "exam": "2017",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.08641975308641975,
+   "clausesPerSent": 3.8,
+   "nWords": 112
+  },
+  {
+   "exam": "2017",
+   "no": 25,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.06578947368421052,
+   "clausesPerSent": 2,
+   "nWords": 112
+  },
+  {
+   "exam": "2017",
+   "no": 28,
+   "type": "R-GRAMMAR",
+   "points": 3,
+   "c1Ratio": 0.07272727272727272,
+   "clausesPerSent": 2.272727272727273,
+   "nWords": 135
+  },
+  {
+   "exam": "2017",
+   "no": 29,
+   "type": "R-VOCAB",
+   "points": 2,
+   "c1Ratio": 0.009174311926605505,
+   "clausesPerSent": 3.125,
+   "nWords": 133
+  },
+  {
+   "exam": "2017",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.11904761904761904,
+   "clausesPerSent": 2.625,
+   "nWords": 108
+  },
+  {
+   "exam": "2017",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.1927710843373494,
+   "clausesPerSent": 2.142857142857143,
+   "nWords": 97
+  },
+  {
+   "exam": "2017",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.09090909090909091,
+   "clausesPerSent": 3,
+   "nWords": 104
+  },
+  {
+   "exam": "2017",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.07446808510638298,
+   "clausesPerSent": 3.2857142857142856,
+   "nWords": 128
+  },
+  {
+   "exam": "2017",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.01904761904761905,
+   "clausesPerSent": 8,
+   "nWords": 118
+  },
+  {
+   "exam": "2017",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.037037037037037035,
+   "clausesPerSent": 3,
+   "nWords": 124
+  },
+  {
+   "exam": "2017",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.07627118644067797,
+   "clausesPerSent": 2.3,
+   "nWords": 149
+  },
+  {
+   "exam": "2017",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.045871559633027525,
+   "clausesPerSent": 2.5555555555555554,
+   "nWords": 129
+  },
+  {
+   "exam": "2017",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.03418803418803419,
+   "clausesPerSent": 2.25,
+   "nWords": 137
+  },
+  {
+   "exam": "2017",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.03225806451612903,
+   "clausesPerSent": 3.5714285714285716,
+   "nWords": 162
+  },
+  {
+   "exam": "2018",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0.0410958904109589,
+   "clausesPerSent": 1.625,
+   "nWords": 84
+  },
+  {
+   "exam": "2018",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.06521739130434782,
+   "clausesPerSent": 1.6363636363636365,
+   "nWords": 107
+  },
+  {
+   "exam": "2018",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0.04040404040404041,
+   "clausesPerSent": 1.7,
+   "nWords": 118
+  },
+  {
+   "exam": "2018",
+   "no": 21,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.02586206896551724,
+   "clausesPerSent": 1.9,
+   "nWords": 124
+  },
+  {
+   "exam": "2018",
+   "no": 22,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.08080808080808081,
+   "clausesPerSent": 3.142857142857143,
+   "nWords": 126
+  },
+  {
+   "exam": "2018",
+   "no": 23,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.10185185185185185,
+   "clausesPerSent": 3.4,
+   "nWords": 147
+  },
+  {
+   "exam": "2018",
+   "no": 25,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.08333333333333333,
+   "clausesPerSent": 1.8,
+   "nWords": 116
+  },
+  {
+   "exam": "2018",
+   "no": 28,
+   "type": "R-GRAMMAR",
+   "points": 3,
+   "c1Ratio": 0.010869565217391304,
+   "clausesPerSent": 3.6666666666666665,
+   "nWords": 118
+  },
+  {
+   "exam": "2018",
+   "no": 29,
+   "type": "R-VOCAB",
+   "points": 2,
+   "c1Ratio": 0.022222222222222223,
+   "clausesPerSent": 2.75,
+   "nWords": 55
+  },
+  {
+   "exam": "2018",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.10891089108910891,
+   "clausesPerSent": 3,
+   "nWords": 122
+  },
+  {
+   "exam": "2018",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0,
+   "clausesPerSent": 2.3846153846153846,
+   "nWords": 119
+  },
+  {
+   "exam": "2018",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.07692307692307693,
+   "clausesPerSent": 2.6666666666666665,
+   "nWords": 108
+  },
+  {
+   "exam": "2018",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.08333333333333333,
+   "clausesPerSent": 2.857142857142857,
+   "nWords": 116
+  },
+  {
+   "exam": "2018",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.027777777777777776,
+   "clausesPerSent": 14,
+   "nWords": 134
+  },
+  {
+   "exam": "2018",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.07526881720430108,
+   "clausesPerSent": 1.8,
+   "nWords": 127
+  },
+  {
+   "exam": "2018",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.04395604395604396,
+   "clausesPerSent": 2.75,
+   "nWords": 122
+  },
+  {
+   "exam": "2018",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.07446808510638298,
+   "clausesPerSent": 2.625,
+   "nWords": 130
+  },
+  {
+   "exam": "2018",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.16666666666666666,
+   "clausesPerSent": 1.6666666666666667,
+   "nWords": 135
+  },
+  {
+   "exam": "2018",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.057971014492753624,
+   "clausesPerSent": 2.6666666666666665,
+   "nWords": 167
+  },
+  {
+   "exam": "2019",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0.015151515151515152,
+   "clausesPerSent": 1.75,
+   "nWords": 79
+  },
+  {
+   "exam": "2019",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.0375,
+   "clausesPerSent": 1.3846153846153846,
+   "nWords": 96
+  },
+  {
+   "exam": "2019",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0.06060606060606061,
+   "clausesPerSent": 3.6666666666666665,
+   "nWords": 112
+  },
+  {
+   "exam": "2019",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "c1Ratio": 0.02654867256637168,
+   "clausesPerSent": 2.272727272727273,
+   "nWords": 145
+  },
+  {
+   "exam": "2019",
+   "no": 22,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.05,
+   "clausesPerSent": 3.6,
+   "nWords": 109
+  },
+  {
+   "exam": "2019",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "c1Ratio": 0.07317073170731707,
+   "clausesPerSent": 2.8333333333333335,
+   "nWords": 151
+  },
+  {
+   "exam": "2019",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.05319148936170213,
+   "clausesPerSent": 2.2222222222222223,
+   "nWords": 116
+  },
+  {
+   "exam": "2019",
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.14285714285714285,
+   "clausesPerSent": 2.2222222222222223,
+   "nWords": 109
+  },
+  {
+   "exam": "2019",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 3,
+   "c1Ratio": 0.05102040816326531,
+   "clausesPerSent": 3,
+   "nWords": 122
+  },
+  {
+   "exam": "2019",
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 2,
+   "c1Ratio": 0.09900990099009901,
+   "clausesPerSent": 1.875,
+   "nWords": 118
+  },
+  {
+   "exam": "2019",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.053763440860215055,
+   "clausesPerSent": 1.5555555555555556,
+   "nWords": 112
+  },
+  {
+   "exam": "2019",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.04716981132075472,
+   "clausesPerSent": 2.75,
+   "nWords": 128
+  },
+  {
+   "exam": "2019",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.06329113924050633,
+   "clausesPerSent": 2.857142857142857,
+   "nWords": 108
+  },
+  {
+   "exam": "2019",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.09782608695652174,
+   "clausesPerSent": 2.75,
+   "nWords": 121
+  },
+  {
+   "exam": "2019",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.02654867256637168,
+   "clausesPerSent": 3.1666666666666665,
+   "nWords": 142
+  },
+  {
+   "exam": "2019",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.05128205128205128,
+   "clausesPerSent": 3,
+   "nWords": 140
+  },
+  {
+   "exam": "2019",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.07207207207207207,
+   "clausesPerSent": 2.2222222222222223,
+   "nWords": 130
+  },
+  {
+   "exam": "2019",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0.12727272727272726,
+   "clausesPerSent": 2.4444444444444446,
+   "nWords": 135
+  },
+  {
+   "exam": "2019",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.056910569105691054,
+   "clausesPerSent": 3.5,
+   "nWords": 158
+  },
+  {
+   "exam": "2020",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0,
+   "clausesPerSent": 1.75,
+   "nWords": 90
+  },
+  {
+   "exam": "2020",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0,
+   "clausesPerSent": 1.7272727272727273,
+   "nWords": 107
+  },
+  {
+   "exam": "2020",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0.06930693069306931,
+   "clausesPerSent": 4,
+   "nWords": 115
+  },
+  {
+   "exam": "2020",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "c1Ratio": 0.037037037037037035,
+   "clausesPerSent": 2,
+   "nWords": 134
+  },
+  {
+   "exam": "2020",
+   "no": 22,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.04081632653061224,
+   "clausesPerSent": 3.5714285714285716,
+   "nWords": 126
+  },
+  {
+   "exam": "2020",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.072,
+   "clausesPerSent": 2.7,
+   "nWords": 144
+  },
+  {
+   "exam": "2020",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.07692307692307693,
+   "clausesPerSent": 2.8333333333333335,
+   "nWords": 139
+  },
+  {
+   "exam": "2020",
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.046511627906976744,
+   "clausesPerSent": 1.875,
+   "nWords": 120
+  },
+  {
+   "exam": "2020",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 2,
+   "c1Ratio": 0.15841584158415842,
+   "clausesPerSent": 3,
+   "nWords": 137
+  },
+  {
+   "exam": "2020",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.08888888888888889,
+   "clausesPerSent": 4,
+   "nWords": 101
+  },
+  {
+   "exam": "2020",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.0547945205479452,
+   "clausesPerSent": 3.4,
+   "nWords": 102
+  },
+  {
+   "exam": "2020",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.07608695652173914,
+   "clausesPerSent": 2,
+   "nWords": 125
+  },
+  {
+   "exam": "2020",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.023529411764705882,
+   "clausesPerSent": 2.2857142857142856,
+   "nWords": 111
+  },
+  {
+   "exam": "2020",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.08,
+   "clausesPerSent": 12.5,
+   "nWords": 153
+  },
+  {
+   "exam": "2020",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.0743801652892562,
+   "clausesPerSent": 3.5,
+   "nWords": 144
+  },
+  {
+   "exam": "2020",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.045454545454545456,
+   "clausesPerSent": 2.7777777777777777,
+   "nWords": 152
+  },
+  {
+   "exam": "2020",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.09523809523809523,
+   "clausesPerSent": 3.142857142857143,
+   "nWords": 153
+  },
+  {
+   "exam": "2020",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0.04201680672268908,
+   "clausesPerSent": 2.2857142857142856,
+   "nWords": 145
+  },
+  {
+   "exam": "2020",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.05343511450381679,
+   "clausesPerSent": 2.7777777777777777,
+   "nWords": 162
+  },
+  {
+   "exam": "2021",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0.015151515151515152,
+   "clausesPerSent": 1.3636363636363635,
+   "nWords": 88
+  },
+  {
+   "exam": "2021",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.02247191011235955,
+   "clausesPerSent": 1.6428571428571428,
+   "nWords": 98
+  },
+  {
+   "exam": "2021",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0,
+   "clausesPerSent": 3,
+   "nWords": 108
+  },
+  {
+   "exam": "2021",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "c1Ratio": 0.047619047619047616,
+   "clausesPerSent": 2,
+   "nWords": 125
+  },
+  {
+   "exam": "2021",
+   "no": 22,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.07692307692307693,
+   "clausesPerSent": 2.7142857142857144,
+   "nWords": 142
+  },
+  {
+   "exam": "2021",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "c1Ratio": 0.02564102564102564,
+   "clausesPerSent": 3.3333333333333335,
+   "nWords": 101
+  },
+  {
+   "exam": "2021",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.10476190476190476,
+   "clausesPerSent": 2.2,
+   "nWords": 133
+  },
+  {
+   "exam": "2021",
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.024390243902439025,
+   "clausesPerSent": 1.9,
+   "nWords": 106
+  },
+  {
+   "exam": "2021",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 3,
+   "c1Ratio": 0.06481481481481481,
+   "clausesPerSent": 2.2222222222222223,
+   "nWords": 136
+  },
+  {
+   "exam": "2021",
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 2,
+   "c1Ratio": 0.028037383177570093,
+   "clausesPerSent": 1.9166666666666667,
+   "nWords": 134
+  },
+  {
+   "exam": "2021",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.1566265060240964,
+   "clausesPerSent": 3,
+   "nWords": 103
+  },
+  {
+   "exam": "2021",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.024096385542168676,
+   "clausesPerSent": 2.6,
+   "nWords": 98
+  },
+  {
+   "exam": "2021",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.056818181818181816,
+   "clausesPerSent": 3,
+   "nWords": 128
+  },
+  {
+   "exam": "2021",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.0594059405940594,
+   "clausesPerSent": 4.5,
+   "nWords": 120
+  },
+  {
+   "exam": "2021",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.07692307692307693,
+   "clausesPerSent": 2.3333333333333335,
+   "nWords": 43
+  },
+  {
+   "exam": "2021",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.07476635514018691,
+   "clausesPerSent": 1.6,
+   "nWords": 123
+  },
+  {
+   "exam": "2021",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.06956521739130435,
+   "clausesPerSent": 2.5,
+   "nWords": 137
+  },
+  {
+   "exam": "2021",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.03361344537815126,
+   "clausesPerSent": 3.5555555555555554,
+   "nWords": 149
+  },
+  {
+   "exam": "2021",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0.1016949152542373,
+   "clausesPerSent": 3.875,
+   "nWords": 138
+  },
+  {
+   "exam": "2021",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.1450381679389313,
+   "clausesPerSent": 2.5454545454545454,
+   "nWords": 153
+  },
+  {
+   "exam": "2022",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0,
+   "clausesPerSent": 1.25,
+   "nWords": 85
+  },
+  {
+   "exam": "2022",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.0375,
+   "clausesPerSent": 1.4444444444444444,
+   "nWords": 101
+  },
+  {
+   "exam": "2022",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0.009615384615384616,
+   "clausesPerSent": 2.7142857142857144,
+   "nWords": 126
+  },
+  {
+   "exam": "2022",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "c1Ratio": 0.018867924528301886,
+   "clausesPerSent": 2.5,
+   "nWords": 135
+  },
+  {
+   "exam": "2022",
+   "no": 22,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.04040404040404041,
+   "clausesPerSent": 3,
+   "nWords": 125
+  },
+  {
+   "exam": "2022",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "c1Ratio": 0.0898876404494382,
+   "clausesPerSent": 2.4285714285714284,
+   "nWords": 121
+  },
+  {
+   "exam": "2022",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.07216494845360824,
+   "clausesPerSent": 2.875,
+   "nWords": 120
+  },
+  {
+   "exam": "2022",
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.037037037037037035,
+   "clausesPerSent": 1.5454545454545454,
+   "nWords": 93
+  },
+  {
+   "exam": "2022",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 3,
+   "c1Ratio": 0.06779661016949153,
+   "clausesPerSent": 3.25,
+   "nWords": 148
+  },
+  {
+   "exam": "2022",
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 2,
+   "c1Ratio": 0.15384615384615385,
+   "clausesPerSent": 3.2857142857142856,
+   "nWords": 137
+  },
+  {
+   "exam": "2022",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.06741573033707865,
+   "clausesPerSent": 2.5,
+   "nWords": 103
+  },
+  {
+   "exam": "2022",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.04395604395604396,
+   "clausesPerSent": 2.1666666666666665,
+   "nWords": 119
+  },
+  {
+   "exam": "2022",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.06930693069306931,
+   "clausesPerSent": 3.5,
+   "nWords": 126
+  },
+  {
+   "exam": "2022",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.061855670103092786,
+   "clausesPerSent": 3,
+   "nWords": 117
+  },
+  {
+   "exam": "2022",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.02197802197802198,
+   "clausesPerSent": 3,
+   "nWords": 127
+  },
+  {
+   "exam": "2022",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.0811965811965812,
+   "clausesPerSent": 4.3,
+   "nWords": 280
+  },
+  {
+   "exam": "2022",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.0457516339869281,
+   "clausesPerSent": 2.4166666666666665,
+   "nWords": 216
+  },
+  {
+   "exam": "2023",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0,
+   "clausesPerSent": 1.7,
+   "nWords": 81
+  },
+  {
+   "exam": "2023",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.011904761904761904,
+   "clausesPerSent": 1.4,
+   "nWords": 116
+  },
+  {
+   "exam": "2023",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0.056818181818181816,
+   "clausesPerSent": 2.2857142857142856,
+   "nWords": 110
+  },
+  {
+   "exam": "2023",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "c1Ratio": 0.05660377358490566,
+   "clausesPerSent": 3.857142857142857,
+   "nWords": 134
+  },
+  {
+   "exam": "2023",
+   "no": 22,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.060240963855421686,
+   "clausesPerSent": 4,
+   "nWords": 127
+  },
+  {
+   "exam": "2023",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 3,
+   "c1Ratio": 0.049019607843137254,
+   "clausesPerSent": 3.2857142857142856,
+   "nWords": 129
+  },
+  {
+   "exam": "2023",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.016129032258064516,
+   "clausesPerSent": 2.7777777777777777,
+   "nWords": 145
+  },
+  {
+   "exam": "2023",
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.015151515151515152,
+   "clausesPerSent": 1.75,
+   "nWords": 92
+  },
+  {
+   "exam": "2023",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 2,
+   "c1Ratio": 0.07526881720430108,
+   "clausesPerSent": 2.5714285714285716,
+   "nWords": 124
+  },
+  {
+   "exam": "2023",
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 3,
+   "c1Ratio": 0.11403508771929824,
+   "clausesPerSent": 2.3636363636363638,
+   "nWords": 157
+  },
+  {
+   "exam": "2023",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.1111111111111111,
+   "clausesPerSent": 2.8,
+   "nWords": 139
+  },
+  {
+   "exam": "2023",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.06896551724137931,
+   "clausesPerSent": 2.5714285714285716,
+   "nWords": 109
+  },
+  {
+   "exam": "2023",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.05504587155963303,
+   "clausesPerSent": 2.5,
+   "nWords": 131
+  },
+  {
+   "exam": "2023",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.05454545454545454,
+   "clausesPerSent": 3,
+   "nWords": 130
+  },
+  {
+   "exam": "2023",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.009009009009009009,
+   "clausesPerSent": 9,
+   "nWords": 132
+  },
+  {
+   "exam": "2023",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.18,
+   "clausesPerSent": 3.125,
+   "nWords": 125
+  },
+  {
+   "exam": "2023",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.04854368932038835,
+   "clausesPerSent": 3,
+   "nWords": 139
+  },
+  {
+   "exam": "2023",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.07017543859649122,
+   "clausesPerSent": 2.888888888888889,
+   "nWords": 159
+  },
+  {
+   "exam": "2023",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0.06666666666666667,
+   "clausesPerSent": 3,
+   "nWords": 130
+  },
+  {
+   "exam": "2023",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.056451612903225805,
+   "clausesPerSent": 2.5555555555555554,
+   "nWords": 150
+  },
+  {
+   "exam": "2024",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0.014925373134328358,
+   "clausesPerSent": 2.125,
+   "nWords": 94
+  },
+  {
+   "exam": "2024",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.014492753623188406,
+   "clausesPerSent": 1.7,
+   "nWords": 89
+  },
+  {
+   "exam": "2024",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0.010869565217391304,
+   "clausesPerSent": 2.2857142857142856,
+   "nWords": 117
+  },
+  {
+   "exam": "2024",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "c1Ratio": 0.047619047619047616,
+   "clausesPerSent": 2.125,
+   "nWords": 130
+  },
+  {
+   "exam": "2024",
+   "no": 22,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.008849557522123894,
+   "clausesPerSent": 3.6666666666666665,
+   "nWords": 133
+  },
+  {
+   "exam": "2024",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.07142857142857142,
+   "clausesPerSent": 2.1666666666666665,
+   "nWords": 131
+  },
+  {
+   "exam": "2024",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 3,
+   "c1Ratio": 0.045454545454545456,
+   "clausesPerSent": 3.3,
+   "nWords": 145
+  },
+  {
+   "exam": "2024",
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.07142857142857142,
+   "clausesPerSent": 1.5454545454545454,
+   "nWords": 94
+  },
+  {
+   "exam": "2024",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 2,
+   "c1Ratio": 0.10679611650485436,
+   "clausesPerSent": 2.4285714285714284,
+   "nWords": 130
+  },
+  {
+   "exam": "2024",
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 3,
+   "c1Ratio": 0.042105263157894736,
+   "clausesPerSent": 2.7142857142857144,
+   "nWords": 124
+  },
+  {
+   "exam": "2024",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.06451612903225806,
+   "clausesPerSent": 3,
+   "nWords": 125
+  },
+  {
+   "exam": "2024",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.021052631578947368,
+   "clausesPerSent": 3.5,
+   "nWords": 117
+  },
+  {
+   "exam": "2024",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.05319148936170213,
+   "clausesPerSent": 3.5714285714285716,
+   "nWords": 118
+  },
+  {
+   "exam": "2024",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.027522935779816515,
+   "clausesPerSent": 3,
+   "nWords": 137
+  },
+  {
+   "exam": "2024",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.0425531914893617,
+   "clausesPerSent": 8,
+   "nWords": 118
+  },
+  {
+   "exam": "2024",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.07216494845360824,
+   "clausesPerSent": 3,
+   "nWords": 129
+  },
+  {
+   "exam": "2024",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.06481481481481481,
+   "clausesPerSent": 2.3636363636363638,
+   "nWords": 133
+  },
+  {
+   "exam": "2024",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.01904761904761905,
+   "clausesPerSent": 3.5,
+   "nWords": 127
+  },
+  {
+   "exam": "2024",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0.08256880733944955,
+   "clausesPerSent": 2.7142857142857144,
+   "nWords": 122
+  },
+  {
+   "exam": "2024",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.03225806451612903,
+   "clausesPerSent": 2.5555555555555554,
+   "nWords": 151
+  },
+  {
+   "exam": "2025",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0.02531645569620253,
+   "clausesPerSent": 2.5,
+   "nWords": 90
+  },
+  {
+   "exam": "2025",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.011363636363636364,
+   "clausesPerSent": 2.625,
+   "nWords": 105
+  },
+  {
+   "exam": "2025",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0,
+   "clausesPerSent": 2.8333333333333335,
+   "nWords": 107
+  },
+  {
+   "exam": "2025",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "c1Ratio": 0.04,
+   "clausesPerSent": 4.75,
+   "nWords": 123
+  },
+  {
+   "exam": "2025",
+   "no": 22,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.05319148936170213,
+   "clausesPerSent": 3,
+   "nWords": 116
+  },
+  {
+   "exam": "2025",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.0297029702970297,
+   "clausesPerSent": 3.3333333333333335,
+   "nWords": 133
+  },
+  {
+   "exam": "2025",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.04040404040404041,
+   "clausesPerSent": 2.6666666666666665,
+   "nWords": 114
+  },
+  {
+   "exam": "2025",
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.03076923076923077,
+   "clausesPerSent": 1.9,
+   "nWords": 104
+  },
+  {
+   "exam": "2025",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 2,
+   "c1Ratio": 0.0425531914893617,
+   "clausesPerSent": 3,
+   "nWords": 119
+  },
+  {
+   "exam": "2025",
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 3,
+   "c1Ratio": 0.07936507936507936,
+   "clausesPerSent": 3.5714285714285716,
+   "nWords": 157
+  },
+  {
+   "exam": "2025",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.08737864077669903,
+   "clausesPerSent": 2.4444444444444446,
+   "nWords": 129
+  },
+  {
+   "exam": "2025",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.09183673469387756,
+   "clausesPerSent": 2.25,
+   "nWords": 116
+  },
+  {
+   "exam": "2025",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.05063291139240506,
+   "clausesPerSent": 4.5,
+   "nWords": 104
+  },
+  {
+   "exam": "2025",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.039603960396039604,
+   "clausesPerSent": 3.5714285714285716,
+   "nWords": 136
+  },
+  {
+   "exam": "2025",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.008771929824561403,
+   "clausesPerSent": 7.5,
+   "nWords": 143
+  },
+  {
+   "exam": "2025",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.11764705882352941,
+   "clausesPerSent": 3.125,
+   "nWords": 129
+  },
+  {
+   "exam": "2025",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.09523809523809523,
+   "clausesPerSent": 2.857142857142857,
+   "nWords": 140
+  },
+  {
+   "exam": "2025",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0.13445378151260504,
+   "clausesPerSent": 2.7142857142857144,
+   "nWords": 142
+  },
+  {
+   "exam": "2025",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.09615384615384616,
+   "clausesPerSent": 2.857142857142857,
+   "nWords": 138
+  },
+  {
+   "exam": "2025",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.06451612903225806,
+   "clausesPerSent": 2.7142857142857144,
+   "nWords": 158
+  },
+  {
+   "exam": "2026",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0.028169014084507043,
+   "clausesPerSent": 1.4444444444444444,
+   "nWords": 96
+  },
+  {
+   "exam": "2026",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.0125,
+   "clausesPerSent": 1.5833333333333333,
+   "nWords": 105
+  },
+  {
+   "exam": "2026",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0.0375,
+   "clausesPerSent": 2.8,
+   "nWords": 107
+  },
+  {
+   "exam": "2026",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 2,
+   "c1Ratio": 0.061224489795918366,
+   "clausesPerSent": 3,
+   "nWords": 135
+  },
+  {
+   "exam": "2026",
+   "no": 22,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.1111111111111111,
+   "clausesPerSent": 2,
+   "nWords": 134
+  },
+  {
+   "exam": "2026",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.058823529411764705,
+   "clausesPerSent": 2.75,
+   "nWords": 123
+  },
+  {
+   "exam": "2026",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 3,
+   "c1Ratio": 0.08490566037735849,
+   "clausesPerSent": 3,
+   "nWords": 136
+  },
+  {
+   "exam": "2026",
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.08860759493670886,
+   "clausesPerSent": 1.875,
+   "nWords": 111
+  },
+  {
+   "exam": "2026",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 2,
+   "c1Ratio": 0.04040404040404041,
+   "clausesPerSent": 2.8333333333333335,
+   "nWords": 119
+  },
+  {
+   "exam": "2026",
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 3,
+   "c1Ratio": 0,
+   "clausesPerSent": 3,
+   "nWords": 23
+  },
+  {
+   "exam": "2026",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.041666666666666664,
+   "clausesPerSent": 2.7142857142857144,
+   "nWords": 136
+  },
+  {
+   "exam": "2026",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.00980392156862745,
+   "clausesPerSent": 3.4285714285714284,
+   "nWords": 115
+  },
+  {
+   "exam": "2026",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.00980392156862745,
+   "clausesPerSent": 3.125,
+   "nWords": 126
+  },
+  {
+   "exam": "2026",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.11650485436893204,
+   "clausesPerSent": 3.142857142857143,
+   "nWords": 123
+  },
+  {
+   "exam": "2026",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.027777777777777776,
+   "clausesPerSent": 9,
+   "nWords": 124
+  },
+  {
+   "exam": "2026",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.06542056074766354,
+   "clausesPerSent": 2.5555555555555554,
+   "nWords": 122
+  },
+  {
+   "exam": "2026",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.11702127659574468,
+   "clausesPerSent": 2.7142857142857144,
+   "nWords": 128
+  },
+  {
+   "exam": "2026",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.061946902654867256,
+   "clausesPerSent": 3.125,
+   "nWords": 146
+  },
+  {
+   "exam": "2026",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0.032,
+   "clausesPerSent": 2,
+   "nWords": 140
+  },
+  {
+   "exam": "2026",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.07894736842105263,
+   "clausesPerSent": 3.2222222222222223,
+   "nWords": 153
+  },
+  {
+   "exam": "M2606",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0.019230769230769232,
+   "clausesPerSent": 2.142857142857143,
+   "nWords": 75
+  },
+  {
+   "exam": "M2606",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.04040404040404041,
+   "clausesPerSent": 1.7,
+   "nWords": 119
+  },
+  {
+   "exam": "M2606",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0,
+   "clausesPerSent": 1.875,
+   "nWords": 109
+  },
+  {
+   "exam": "M2606",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "c1Ratio": 0.0603448275862069,
+   "clausesPerSent": 2.1818181818181817,
+   "nWords": 138
+  },
+  {
+   "exam": "M2606",
+   "no": 22,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0,
+   "clausesPerSent": 3.8333333333333335,
+   "nWords": 114
+  },
+  {
+   "exam": "M2606",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.04504504504504504,
+   "clausesPerSent": 2.1,
+   "nWords": 138
+  },
+  {
+   "exam": "M2606",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.0603448275862069,
+   "clausesPerSent": 2.888888888888889,
+   "nWords": 139
+  },
+  {
+   "exam": "M2606",
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.02531645569620253,
+   "clausesPerSent": 1.6363636363636365,
+   "nWords": 117
+  },
+  {
+   "exam": "M2606",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 2,
+   "c1Ratio": 0.031914893617021274,
+   "clausesPerSent": 2,
+   "nWords": 123
+  },
+  {
+   "exam": "M2606",
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 3,
+   "c1Ratio": 0.029411764705882353,
+   "clausesPerSent": 3.2857142857142856,
+   "nWords": 144
+  },
+  {
+   "exam": "M2606",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.05172413793103448,
+   "clausesPerSent": 3.2,
+   "nWords": 133
+  },
+  {
+   "exam": "M2606",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.1,
+   "clausesPerSent": 2.5714285714285716,
+   "nWords": 115
+  },
+  {
+   "exam": "M2606",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.024390243902439025,
+   "clausesPerSent": 2.888888888888889,
+   "nWords": 103
+  },
+  {
+   "exam": "M2606",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.09803921568627451,
+   "clausesPerSent": 3.7142857142857144,
+   "nWords": 134
+  },
+  {
+   "exam": "M2606",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.037383177570093455,
+   "clausesPerSent": 10.5,
+   "nWords": 142
+  },
+  {
+   "exam": "M2606",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.07216494845360824,
+   "clausesPerSent": 2.8333333333333335,
+   "nWords": 130
+  },
+  {
+   "exam": "M2606",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.10526315789473684,
+   "clausesPerSent": 2.2,
+   "nWords": 135
+  },
+  {
+   "exam": "M2606",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.06172839506172839,
+   "clausesPerSent": 3.142857142857143,
+   "nWords": 107
+  },
+  {
+   "exam": "M2606",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0.03333333333333333,
+   "clausesPerSent": 3.2857142857142856,
+   "nWords": 146
+  },
+  {
+   "exam": "M2606",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.03597122302158273,
+   "clausesPerSent": 3,
+   "nWords": 159
+  },
+  {
+   "exam": "M2609",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0.01639344262295082,
+   "clausesPerSent": 1.1111111111111112,
+   "nWords": 84
+  },
+  {
+   "exam": "M2609",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0,
+   "clausesPerSent": 1.8,
+   "nWords": 83
+  },
+  {
+   "exam": "M2609",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0.0375,
+   "clausesPerSent": 2.5714285714285716,
+   "nWords": 110
+  },
+  {
+   "exam": "M2609",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "c1Ratio": 0.08849557522123894,
+   "clausesPerSent": 3.625,
+   "nWords": 136
+  },
+  {
+   "exam": "M2609",
+   "no": 22,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.047058823529411764,
+   "clausesPerSent": 3.125,
+   "nWords": 116
+  },
+  {
+   "exam": "M2609",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.13829787234042554,
+   "clausesPerSent": 3,
+   "nWords": 125
+  },
+  {
+   "exam": "M2609",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 3,
+   "c1Ratio": 0.07407407407407407,
+   "clausesPerSent": 3.7142857142857144,
+   "nWords": 141
+  },
+  {
+   "exam": "M2609",
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.06521739130434782,
+   "clausesPerSent": 1.7,
+   "nWords": 116
+  },
+  {
+   "exam": "M2609",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 2,
+   "c1Ratio": 0.053763440860215055,
+   "clausesPerSent": 3.2857142857142856,
+   "nWords": 129
+  },
+  {
+   "exam": "M2609",
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 3,
+   "c1Ratio": 0.11764705882352941,
+   "clausesPerSent": 1.8,
+   "nWords": 129
+  },
+  {
+   "exam": "M2609",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.18518518518518517,
+   "clausesPerSent": 2,
+   "nWords": 121
+  },
+  {
+   "exam": "M2609",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.17557251908396945,
+   "clausesPerSent": 3.111111111111111,
+   "nWords": 163
+  },
+  {
+   "exam": "M2609",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.08247422680412371,
+   "clausesPerSent": 4,
+   "nWords": 129
+  },
+  {
+   "exam": "M2609",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.13131313131313133,
+   "clausesPerSent": 3.8333333333333335,
+   "nWords": 125
+  },
+  {
+   "exam": "M2609",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.0425531914893617,
+   "clausesPerSent": 8.5,
+   "nWords": 126
+  },
+  {
+   "exam": "M2609",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.038461538461538464,
+   "clausesPerSent": 2.857142857142857,
+   "nWords": 118
+  },
+  {
+   "exam": "M2609",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.047619047619047616,
+   "clausesPerSent": 2.625,
+   "nWords": 136
+  },
+  {
+   "exam": "M2609",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0.017391304347826087,
+   "clausesPerSent": 3.375,
+   "nWords": 158
+  },
+  {
+   "exam": "M2609",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.008695652173913044,
+   "clausesPerSent": 2.3,
+   "nWords": 158
+  },
+  {
+   "exam": "M2706",
+   "no": 18,
+   "type": "R-PURPOSE",
+   "points": 2,
+   "c1Ratio": 0.014084507042253521,
+   "clausesPerSent": 1.5,
+   "nWords": 91
+  },
+  {
+   "exam": "M2706",
+   "no": 19,
+   "type": "R-MOOD",
+   "points": 2,
+   "c1Ratio": 0.0641025641025641,
+   "clausesPerSent": 2.4285714285714284,
+   "nWords": 96
+  },
+  {
+   "exam": "M2706",
+   "no": 20,
+   "type": "R-CLAIM",
+   "points": 2,
+   "c1Ratio": 0,
+   "clausesPerSent": 1.875,
+   "nWords": 107
+  },
+  {
+   "exam": "M2706",
+   "no": 21,
+   "type": "R-IMPLY",
+   "points": 3,
+   "c1Ratio": 0.08247422680412371,
+   "clausesPerSent": 2.3333333333333335,
+   "nWords": 129
+  },
+  {
+   "exam": "M2706",
+   "no": 22,
+   "type": "R-GIST",
+   "points": 2,
+   "c1Ratio": 0.06382978723404255,
+   "clausesPerSent": 2.7142857142857144,
+   "nWords": 145
+  },
+  {
+   "exam": "M2706",
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "c1Ratio": 0.04950495049504951,
+   "clausesPerSent": 2.75,
+   "nWords": 144
+  },
+  {
+   "exam": "M2706",
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "c1Ratio": 0.009708737864077669,
+   "clausesPerSent": 2.2222222222222223,
+   "nWords": 141
+  },
+  {
+   "exam": "M2706",
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "c1Ratio": 0.04938271604938271,
+   "clausesPerSent": 2.1,
+   "nWords": 104
+  },
+  {
+   "exam": "M2706",
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 2,
+   "c1Ratio": 0.04081632653061224,
+   "clausesPerSent": 3,
+   "nWords": 132
+  },
+  {
+   "exam": "M2706",
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 3,
+   "c1Ratio": 0.05511811023622047,
+   "clausesPerSent": 5.166666666666667,
+   "nWords": 147
+  },
+  {
+   "exam": "M2706",
+   "no": 31,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.09803921568627451,
+   "clausesPerSent": 3.857142857142857,
+   "nWords": 117
+  },
+  {
+   "exam": "M2706",
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 2,
+   "c1Ratio": 0.1111111111111111,
+   "clausesPerSent": 2.875,
+   "nWords": 116
+  },
+  {
+   "exam": "M2706",
+   "no": 33,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.09859154929577464,
+   "clausesPerSent": 1.6666666666666667,
+   "nWords": 95
+  },
+  {
+   "exam": "M2706",
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "c1Ratio": 0.0851063829787234,
+   "clausesPerSent": 3.2857142857142856,
+   "nWords": 110
+  },
+  {
+   "exam": "M2706",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "c1Ratio": 0.034482758620689655,
+   "clausesPerSent": 5.5,
+   "nWords": 152
+  },
+  {
+   "exam": "M2706",
+   "no": 36,
+   "type": "R-ORDER",
+   "points": 2,
+   "c1Ratio": 0.10810810810810811,
+   "clausesPerSent": 2.6666666666666665,
+   "nWords": 157
+  },
+  {
+   "exam": "M2706",
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "c1Ratio": 0.10377358490566038,
+   "clausesPerSent": 3.142857142857143,
+   "nWords": 136
+  },
+  {
+   "exam": "M2706",
+   "no": 38,
+   "type": "R-INSERT",
+   "points": 2,
+   "c1Ratio": 0.09433962264150944,
+   "clausesPerSent": 2.6666666666666665,
+   "nWords": 147
+  },
+  {
+   "exam": "M2706",
+   "no": 39,
+   "type": "R-INSERT",
+   "points": 3,
+   "c1Ratio": 0.06201550387596899,
+   "clausesPerSent": 3.75,
+   "nWords": 162
+  },
+  {
+   "exam": "M2706",
+   "no": 40,
+   "type": "R-SUMMARY",
+   "points": 2,
+   "c1Ratio": 0.058394160583941604,
+   "clausesPerSent": 4,
+   "nWords": 169
+  }
+ ]
+}
