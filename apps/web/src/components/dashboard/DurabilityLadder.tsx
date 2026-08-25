@@ -50,7 +50,7 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
             ? '아직 한 번도 다시 만난 단어가 없어요.'
             : '단어를 담으면 여기서 기억이 자라는 걸 볼 수 있어요.'}
         </p>
-        <p className="mt-3 max-w-[46ch] font-body text-[13.5px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
+        <p className="mt-3 max-w-[46ch] font-body text-[14px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
           {unseen > 0
             ? `담아 둔 ${unseen.toLocaleString()}개를 한 번 복습하면, 그때부터 단어마다 "며칠을 버티는지"가 기록되기 시작해요.`
             : '글을 읽고 모르는 단어를 담는 것이 첫걸음이에요.'}
@@ -76,7 +76,7 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
         <h2 className="font-editorial text-[40px] font-[500] leading-[0.98] tracking-[-0.022em] text-[var(--t1)] md:text-[54px]">
           {medianDays !== null ? formatDuration(medianDays) : '—'}
         </h2>
-        <p className="font-body text-[13.5px] leading-snug text-[var(--t2)]">
+        <p className="font-body text-[14px] leading-snug text-[var(--t2)]">
           단어 절반이 이만큼 버텨요
         </p>
       </div>
@@ -141,12 +141,12 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
       {/* 지금 무엇을 하면 사다리가 오르는가 — 회고 화면이 채점이 아니라 안내가 되는 지점.
           무게 중심이 어디냐에 따라 말이 달라진다. */}
       <footer className="mt-5 border-t border-[var(--bd)] pt-4">
-        <p className="max-w-[58ch] font-english text-[13.5px] italic leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
+        <p className="max-w-[58ch] font-english text-[14px] italic leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
           {heaviest.key === 'day' || heaviest.key === 'few'
             ? '간격을 두고 다시 만날수록 버티는 시간이 늘어나요. 오늘 다 하지 않아도 괜찮아요 — 내일 다시 만나는 편이 오히려 오래 남아요.'
             : '한 번 올라간 칸은 잘 내려오지 않아요. 지금 속도면 충분해요.'}
         </p>
-        <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+        <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] tabular-nums text-[var(--t3)]">
           <span>사다리 위 {onLadder.toLocaleString()}개</span>
           {unseen > 0 && <span>· 아직 만나기 전 {unseen.toLocaleString()}개</span>}
         </p>
@@ -158,14 +158,14 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
           수치가 아니라 "언제 처음 만나 몇 번을 다시 만났나" 라는 자기 이력이다. */}
       {champion && (
         <aside className="mt-4 rounded-[var(--r-lg)] bg-[var(--bg2)] px-4 py-3.5">
-          <p className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
+          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
             가장 멀리 온 단어
           </p>
           <p className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
             <span className="font-editorial text-[22px] font-[500] text-[var(--t1)]">
               {champion.word}
             </span>
-            <span className="min-w-0 font-body text-[12.5px] text-[var(--t2)]">
+            <span className="min-w-0 font-body text-[13px] text-[var(--t2)]">
               {champion.meaning}
             </span>
           </p>

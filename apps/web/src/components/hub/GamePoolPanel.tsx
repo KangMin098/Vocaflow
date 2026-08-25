@@ -59,7 +59,7 @@ export function GamePoolPanel({
                 className="inline-flex items-baseline gap-2 rounded-ios-pill bg-[var(--bg2)] px-3 py-1"
                 title={w.ko}
               >
-                <span className="font-editorial text-[13.5px] font-[500] text-[var(--t1)]">
+                <span className="font-editorial text-[14px] font-[500] text-[var(--t1)]">
                   {w.en}
                 </span>
                 <span className="max-w-[12ch] truncate font-body text-[11px] text-[var(--t3)]">
@@ -69,7 +69,7 @@ export function GamePoolPanel({
             ))}
           </ul>
           {words.length > 6 && (
-            <p className="mt-2 font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+            <p className="mt-2 font-mono text-[11px] tabular-nums text-[var(--t3)]">
               외 {words.length - 6}개가 이번 풀에 들어 있어요
             </p>
           )}

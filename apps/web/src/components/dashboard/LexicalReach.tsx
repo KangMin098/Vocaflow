@@ -49,7 +49,7 @@ export function LexicalReach({ reach }: { reach: Reach }) {
       <dl className="mt-4 flex flex-col gap-2.5">
         {reach.bands.map((b, i) => (
           <div key={b.key} className="flex items-center gap-3">
-            <dt className="w-[62px] shrink-0 font-display text-[11.5px] font-[700] text-[var(--t2)]">
+            <dt className="w-[62px] shrink-0 font-display text-[12px] font-[700] text-[var(--t2)]">
               {b.label}
             </dt>
             <dd className="flex min-w-0 flex-1 items-center gap-2">
@@ -70,7 +70,7 @@ export function LexicalReach({ reach }: { reach: Reach }) {
         ))}
       </dl>
 
-      <p className="mt-4 border-t border-[var(--bd)] pt-3.5 font-body text-[11.5px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
+      <p className="mt-4 border-t border-[var(--bd)] pt-3.5 font-body text-[12px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
         순위가 낮을수록 글에서 자주 만나는 단어예요. 뒤쪽 칸이 두꺼워졌다면 흔한 단어는 이미
         넘어섰다는 뜻이에요.
       </p>

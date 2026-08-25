@@ -699,7 +699,7 @@ const ARC_CSS = `
   .arc-eyebrow { margin: 0; font-family: var(--font-english, ui-monospace, monospace); font-size: 11px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; color: rgba(212,168,86,.78); }
   .arc-title { margin: 10px 0 0; font-size: clamp(38px, 7vw, 60px); font-weight: 800; letter-spacing: -.015em; line-height: 1; color: #FBF3EC;
     text-shadow: 0 2px 30px rgba(0,0,0,.4); }
-  .arc-sub { margin: 16px 0 0; max-width: 48ch; font-size: clamp(14px, 1.4vw, 16px); line-height: 1.6; color: rgba(240,234,224,.66); word-break: keep-all; }
+  .arc-sub { margin: 16px 0 0; max-width: 48ch; font-size: clamp(14px, 1.4vw, 16px); line-height: 1.6; color: rgba(240,234,224,.55); word-break: keep-all; }
 
   .arc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(14px, 3vw, 30px); margin: 0 0 clamp(14px, 2.5vh, 20px); padding: 14px 18px; border-radius: 16px;
     background: linear-gradient(150deg, rgba(255,255,255,.07), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
@@ -707,12 +707,12 @@ const ARC_CSS = `
   .arc-meta-item { display: flex; flex-direction: column; gap: 4px; }
   .arc-meta-num { font-size: 21px; font-weight: 800; color: #FBF3EC; font-variant-numeric: tabular-nums; letter-spacing: -.01em; display: inline-flex; align-items: baseline; gap: 5px; }
   .arc-meta-flame { font-size: 17px; }
-  .arc-meta-lbl { font-family: var(--font-english, ui-monospace, monospace); font-size: 9.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: rgba(246,232,224,.62); display: flex; flex-direction: column; gap: 5px; }
+  .arc-meta-lbl { font-family: var(--font-english, ui-monospace, monospace); font-size: 9.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: rgba(240,234,224,.55); display: flex; flex-direction: column; gap: 5px; }
   .arc-meta-level { min-width: 128px; }
   .arc-meta-goal { min-width: 158px; margin-left: auto; }
   .arc-meta-rank { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 14px; border-radius: 999px; text-decoration: none;
     font-family: var(--font-display, system-ui, sans-serif); font-size: 12px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap;
-    color: rgba(246,232,224,.76); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);
+    color: rgba(240,234,224,.7); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);
     transition: color .15s var(--ease, ease), background-color .15s var(--ease, ease), border-color .15s var(--ease, ease), transform .12s var(--ease, ease); }
   .arc-meta-rank:hover { color: #FBF3EC; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.28); }
   .arc-meta-rank:active { transform: scale(.97); }
@@ -720,14 +720,14 @@ const ARC_CSS = `
   @media (prefers-reduced-motion: reduce) { .arc-meta-rank { transition: none; } }
   .arc-meta-music { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 14px; border-radius: 999px; cursor: pointer;
     font-family: var(--font-display, system-ui, sans-serif); font-size: 12px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap;
-    color: rgba(246,232,224,.76); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);
+    color: rgba(240,234,224,.7); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);
     transition: color .15s var(--ease, ease), background-color .15s var(--ease, ease), border-color .15s var(--ease, ease), transform .12s var(--ease, ease); }
   .arc-meta-music:hover { color: #FBF3EC; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.28); }
   .arc-meta-music:active { transform: scale(.97); }
   .arc-meta-music:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,225,200,.45); }
   .arc-meta-music[data-on="1"] { color: #FFE0C4; background: rgba(255,184,132,.16); border-color: rgba(255,184,132,.4); }
   @media (prefers-reduced-motion: reduce) { .arc-meta-music { transition: none; } }
-  .arc-meta-goal-total { font-size: 12px; font-weight: 700; color: rgba(246,232,224,.55); }
+  .arc-meta-goal-total { font-size: 12px; font-weight: 700; color: rgba(240,234,224,.55); }
   .arc-meta-goal[data-met="1"] .arc-meta-num { color: #9BE8C0; }
   .arc-meta-bar { display: block; height: 5px; border-radius: 999px; background: rgba(255,255,255,.14); overflow: hidden; margin-top: 3px; }
   .arc-meta-bar--goal { width: 100%; }
@@ -737,13 +737,13 @@ const ARC_CSS = `
   /* ── Lab Index — 구역 목차 ── */
   .arc-index { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 clamp(20px, 3.5vh, 30px); }
   .arc-index-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px;
-    text-decoration: none; color: rgba(240,234,224,.76); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.13);
+    text-decoration: none; color: rgba(240,234,224,.7); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.13);
     transition: background-color .15s var(--ease, ease), color .15s var(--ease, ease), border-color .15s var(--ease, ease); }
   .arc-index-link:hover { color: #FBF3EC; background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.28); }
   .arc-index-link:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,225,200,.45); }
   .arc-index-name { font-size: 12.5px; font-weight: 700; letter-spacing: -.01em; }
   .arc-index-num { font-family: var(--font-english, ui-monospace, monospace); font-size: 10.5px; font-weight: 800; font-variant-numeric: tabular-nums;
-    color: rgba(240,234,224,.62); background: rgba(0,0,0,.3); border-radius: 999px; padding: 2px 7px; }
+    color: rgba(240,234,224,.55); background: rgba(0,0,0,.3); border-radius: 999px; padding: 2px 7px; }
 
   /* ── ① Today's Experiment ── */
   .arc-daily { margin: 0 0 clamp(30px, 5vh, 46px); scroll-margin-top: 20px; }
@@ -773,7 +773,7 @@ const ARC_CSS = `
   .arc-daily-eyebrow { font-family: var(--font-english, ui-monospace, monospace); font-size: 10.5px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: #D4A856; }
   .arc-daily-name { margin: 3px 0 0; font-size: clamp(22px, 3vw, 27px); font-weight: 800; letter-spacing: -.01em; color: #fff; text-shadow: 0 1px 14px rgba(0,0,0,.3); }
   .arc-daily-tag { margin-top: 4px; font-size: 13.5px; line-height: 1.45; color: rgba(255,255,255,.85); word-break: keep-all; }
-  .arc-daily-meta { margin-top: 9px; font-size: 11.5px; font-weight: 700; letter-spacing: .01em; color: rgba(226,186,110,.95); }
+  .arc-daily-meta { margin-top: 9px; font-size: 11.5px; font-weight: 700; letter-spacing: .01em; color: #E7C182; }
   .arc-daily-cta { flex-shrink: 0; display: inline-flex; align-items: center; gap: 7px; padding: 11px 20px; border-radius: 999px;
     font-size: 14px; font-weight: 800; color: #17110A; background: linear-gradient(180deg,#E6C275,#C9A055);
     box-shadow: 0 8px 22px -8px rgba(0,0,0,.5); }
@@ -787,14 +787,14 @@ const ARC_CSS = `
   /* ── ②③④ 구역 ── */
   .arc-sec { margin: 0 0 clamp(32px, 5.5vh, 52px); scroll-margin-top: 20px; }
   .arc-sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; }
-  .arc-sec-eyebrow { margin: 0; font-family: var(--font-english, ui-monospace, monospace); font-size: 10px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: rgba(240,234,224,.5); }
+  .arc-sec-eyebrow { margin: 0; font-family: var(--font-english, ui-monospace, monospace); font-size: 10px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: rgba(240,234,224,.4); }
   .arc-sec-title { display: flex; align-items: center; gap: 9px; margin: 5px 0 0; font-size: clamp(19px, 2.4vw, 23px); font-weight: 800; letter-spacing: -.01em; color: #FBF3EC; }
-  .arc-sec-count { font-family: var(--font-english, ui-monospace, monospace); font-size: 11px; font-weight: 800; color: rgba(240,234,224,.66); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 3px 9px; font-variant-numeric: tabular-nums; }
+  .arc-sec-count { font-family: var(--font-english, ui-monospace, monospace); font-size: 11px; font-weight: 800; color: rgba(240,234,224,.55); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 3px 9px; font-variant-numeric: tabular-nums; }
   .arc-sec-badge { flex-shrink: 0; font-size: 11px; font-weight: 800; letter-spacing: .02em; padding: 6px 12px; border-radius: 999px; border: 1px solid transparent; }
   .arc-sec-badge[data-tone="live"] { color: #E6C275; background: rgba(176,132,58,.16); border-color: rgba(212,168,86,.36); }
-  .arc-sec-badge[data-tone="muted"] { color: rgba(246,232,224,.7); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.14); }
-  .arc-sec-desc { margin: 10px 0 18px; max-width: 68ch; font-size: 12.5px; line-height: 1.65; color: rgba(240,226,220,.62); word-break: keep-all; }
-  .arc-sec-link { color: rgba(255,225,200,.92); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+  .arc-sec-badge[data-tone="muted"] { color: rgba(240,234,224,.7); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.14); }
+  .arc-sec-desc { margin: 10px 0 18px; max-width: 68ch; font-size: 12.5px; line-height: 1.65; color: rgba(240,234,224,.55); word-break: keep-all; }
+  .arc-sec-link { color: rgba(255,225,200,.85); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
   .arc-sec-link:hover { color: #fff; }
 
   .arc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 1.8vw, 20px); }
@@ -840,7 +840,7 @@ const ARC_CSS = `
     box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 4px 14px -4px rgba(0,0,0,.4); }
   .arc-mark svg { width: 26px; height: 26px; filter: drop-shadow(0 0 6px var(--m-glow)); }
   .arc-chip { font-family: var(--font-english, ui-monospace, monospace); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
-    color: rgba(240,234,224,.82); background: rgba(0,0,0,.28); padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(4px); }
+    color: rgba(240,234,224,.85); background: rgba(0,0,0,.28); padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(4px); }
   .arc-chip--3d { color: #EAF6FF; background: rgba(120,190,255,.24); border-color: rgba(180,220,255,.36); }
   .arc-chip--beta { color: #FFE7C2; background: rgba(255,180,110,.22); border-color: rgba(255,200,150,.36); }
   .arc-chip--modes { color: var(--m-accent); background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.3); }
@@ -849,14 +849,14 @@ const ARC_CSS = `
   .arc-brief { position: absolute; top: 14px; right: 14px; z-index: 2;
     display: inline-flex; align-items: center; justify-content: center; gap: 7px;
     width: 44px; height: 44px; border-radius: 999px; cursor: pointer; font: inherit;
-    color: rgba(240,234,224,.72); background: rgba(10,8,6,.5); border: 1px solid rgba(255,255,255,.16);
+    color: rgba(240,234,224,.7); background: rgba(10,8,6,.5); border: 1px solid rgba(255,255,255,.16);
     backdrop-filter: blur(4px);
     transition: color .15s var(--ease, ease), background-color .15s var(--ease, ease), border-color .15s var(--ease, ease), transform .12s var(--ease, ease); }
   .arc-brief:hover { color: #FFF6EA; background: rgba(20,16,12,.8); border-color: color-mix(in srgb, var(--m-accent) 55%, rgba(255,255,255,.2)); }
   .arc-brief:active { transform: scale(.94); }
   .arc-brief:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,225,200,.6); }
   .arc-brief--pill { position: static; width: auto; padding: 0 16px; font-size: 12.5px; font-weight: 700; letter-spacing: -.01em;
-    color: rgba(240,234,224,.8); background: rgba(255,255,255,.06); }
+    color: rgba(240,234,224,.85); background: rgba(255,255,255,.06); }
   @media (prefers-reduced-motion: reduce) { .arc-brief { transition: none; } }
 
   /* ── 계열 카드 — 같은 인출, 다른 재미. 카드는 컨테이너, 모드 칩이 링크 ── */
@@ -869,24 +869,24 @@ const ARC_CSS = `
   .arc-mode:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.34); transform: translateX(2px); }
   .arc-mode:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,255,255,.6); }
   .arc-mode-name { font-family: var(--font-english, ui-monospace, monospace); font-size: 12px; font-weight: 800; letter-spacing: .02em; white-space: nowrap; }
-  .arc-mode-note { flex: 1; min-width: 0; font-size: 11px; line-height: 1.3; color: rgba(255,255,255,.74); word-break: keep-all; }
+  .arc-mode-note { flex: 1; min-width: 0; font-size: 11px; line-height: 1.3; color: rgba(255,255,255,.7); word-break: keep-all; }
   .arc-mode .arc-arrow { font-size: 12px; color: var(--m-accent); }
   .arc-mode:hover .arc-arrow { transform: translateX(3px); }
   @media (prefers-reduced-motion: reduce) { .arc-mode { transition: none; } }
 
   .arc-card-body { margin-top: auto; }
   .arc-name { margin: 0; font-size: 21px; font-weight: 800; letter-spacing: -.01em; color: #fff; text-shadow: 0 1px 12px rgba(0,0,0,.28); }
-  .arc-tag { margin: 5px 0 0; font-size: 13px; line-height: 1.4; color: rgba(255,255,255,.84); word-break: keep-all; }
+  .arc-tag { margin: 5px 0 0; font-size: 13px; line-height: 1.4; color: rgba(255,255,255,.85); word-break: keep-all; }
 
   .arc-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 14px; margin-top: 4px; border-top: 1px solid rgba(255,255,255,.14); }
-  .arc-ref { display: inline-flex; align-items: center; gap: 7px; min-width: 0; font-size: 11px; letter-spacing: .01em; color: rgba(255,255,255,.64); }
+  .arc-ref { display: inline-flex; align-items: center; gap: 7px; min-width: 0; font-size: 11px; letter-spacing: .01em; color: rgba(255,255,255,.55); }
   .arc-code { font-family: var(--font-english, ui-monospace, monospace); font-size: 10px; font-weight: 800; letter-spacing: .1em;
     color: var(--m-accent); background: rgba(0,0,0,.34); border: 1px solid rgba(255,255,255,.14); border-radius: 6px; padding: 2px 6px; }
   .arc-play { flex: none; display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-english, ui-monospace, monospace); font-size: 12px; font-weight: 800; letter-spacing: .04em; color: #fff; }
   .arc-arrow { display: inline-block; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
   .arc-slot:hover .arc-arrow, .arc-daily-card:hover .arc-arrow { transform: translateX(4px); }
 
-  .arc-note { margin: clamp(20px, 4vh, 34px) 0 0; font-size: 12.5px; line-height: 1.6; color: rgba(240,226,220,.56); max-width: 68ch; word-break: keep-all; }
+  .arc-note { margin: clamp(20px, 4vh, 34px) 0 0; font-size: 12.5px; line-height: 1.6; color: rgba(240,234,224,.55); max-width: 68ch; word-break: keep-all; }
   /* 자료 스코프 배너 — 도서/스크립트/단어장에서 들어왔을 때만. gold 액센트는 여기 한 곳. */
   .arc-scope { display: flex; align-items: center; gap: 11px; padding: 12px 16px; margin-bottom: clamp(20px, 3.5vh, 30px); border-radius: 14px;
     border: 1px solid rgba(212,168,86,.34); background: linear-gradient(140deg, rgba(212,168,86,.14), rgba(212,168,86,.05));
@@ -894,12 +894,12 @@ const ARC_CSS = `
   .arc-scope-mark { display: grid; place-items: center; width: 28px; height: 28px; flex: none; border-radius: 9px;
     background: rgba(212,168,86,.18); color: #E7C182; }
   .arc-scope-text { flex: 1; min-width: 0; font-size: 13.5px; line-height: 1.5; }
-  .arc-scope-tag { display: block; font-family: var(--font-english, ui-monospace, monospace); font-size: 9.5px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: rgba(226,186,110,.95); }
+  .arc-scope-tag { display: block; font-family: var(--font-english, ui-monospace, monospace); font-size: 9.5px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: #E7C182; }
   .arc-scope-text strong { font-weight: 800; color: #FFF3DF; }
   .arc-scope-ch { color: #E7C182; font-weight: 700; }
-  .arc-scope-sub { color: rgba(240,230,215,.7); }
+  .arc-scope-sub { color: rgba(240,234,224,.7); }
   .arc-scope-clear { flex: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px;
-    border-radius: 999px; border: 1px solid rgba(255,255,255,.18); color: rgba(240,230,215,.84);
+    border-radius: 999px; border: 1px solid rgba(255,255,255,.18); color: rgba(240,234,224,.85);
     font-size: 12.5px; font-weight: 700; text-decoration: none; transition: background .15s, color .15s, border-color .15s, transform .12s; }
   .arc-scope-clear:hover { background: rgba(255,255,255,.1); color: #FBF3EC; border-color: rgba(255,255,255,.3); }
   .arc-scope-clear:active { transform: scale(.97); }
@@ -907,8 +907,8 @@ const ARC_CSS = `
   @media (max-width: 560px) { .arc-scope { flex-wrap: wrap; } .arc-scope-text { flex-basis: 100%; order: 2; } }
   @media (prefers-reduced-motion: reduce) { .arc-scope-clear { transition: none; } }
 
-  .arc-credit { margin: 10px 0 0; font-size: 11px; color: rgba(240,226,220,.44); }
-  .arc-credit a { color: rgba(240,226,220,.6); text-decoration: underline; }
+  .arc-credit { margin: 10px 0 0; font-size: 11px; color: rgba(240,234,224,.4); }
+  .arc-credit a { color: rgba(240,234,224,.55); text-decoration: underline; }
   .arc-credit a:hover { color: rgba(255,225,200,.85); }
 
   @keyframes arc-drift { from { transform: translate3d(-2%, -1%, 0); } to { transform: translate3d(2%, 2.5%, 0); } }

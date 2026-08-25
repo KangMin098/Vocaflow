@@ -61,11 +61,11 @@ export function TodayFocus({ word }: { word: TasteWord | null }) {
 
           <hr className="my-5 border-0 border-t border-[var(--bd)]" />
 
-          <p className="max-w-[54ch] font-body text-[16.5px] leading-[1.65] text-[var(--t1)] [word-break:keep-all] md:text-[18px]">
+          <p className="max-w-[54ch] font-body text-[17px] leading-[1.65] text-[var(--t1)] [word-break:keep-all] md:text-[18px]">
             {word.meaningKo}
           </p>
 
-          <blockquote className="mt-4 max-w-[58ch] border-l-2 border-[var(--bd)] pl-4 font-editorial text-[15px] italic leading-[1.7] text-[var(--t2)] md:text-[16.5px]">
+          <blockquote className="mt-4 max-w-[58ch] border-l-2 border-[var(--bd)] pl-4 font-editorial text-[15px] italic leading-[1.7] text-[var(--t2)] md:text-[17px]">
             {word.exampleEn}
           </blockquote>
         </>
@@ -113,7 +113,7 @@ export function TodayFocus({ word }: { word: TasteWord | null }) {
       </div>
 
       {/* 2차 — 진단을 안 하고도 갈 곳이 있다. 게이트가 아님을 화면으로 증명하는 줄이다. */}
-      <p className="mt-4 font-body text-[12.5px] leading-snug text-[var(--t3)]">
+      <p className="mt-4 font-body text-[13px] leading-snug text-[var(--t3)]">
         <Link
           href="/library"
           className="inline-flex min-h-[44px] items-center font-display font-[700] text-[var(--p)] no-underline transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"

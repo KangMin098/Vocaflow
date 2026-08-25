@@ -72,7 +72,7 @@ function Metrics({ status }: { status: TodayStatus }) {
         <div className="flex items-center gap-3">
           <ProgressRing done={status.done} total={status.total} />
           <div className="flex flex-col leading-none">
-            <span className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
+            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
               오늘
             </span>
             <span className="mt-1 font-display text-[15px] font-[700] tabular-nums text-[var(--t1)]">
@@ -93,7 +93,7 @@ function Metrics({ status }: { status: TodayStatus }) {
           {/* 색만으로 알리지 않는다 — 점 + 라벨 + 숫자 3중 (색맹 대응) */}
           <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-[var(--warning)]" />
           <span className="flex flex-col leading-none">
-            <span className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
+            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
               {MEMORY_ATTENTION_LABEL}
             </span>
             <span className="mt-1 font-display text-[15px] font-[700] tabular-nums text-[var(--t1)]">

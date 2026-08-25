@@ -113,13 +113,13 @@ export function TodayStage({
 
               <hr className="my-5 border-0 border-t" style={{ borderColor: tone.rule }} />
 
-              <p className="max-w-[54ch] font-body text-[16.5px] leading-[1.65] [word-break:keep-all] md:text-[18px]">
+              <p className="max-w-[54ch] font-body text-[17px] leading-[1.65] [word-break:keep-all] md:text-[18px]">
                 {lead.meaning}
               </p>
 
               {lead.example && (
                 <blockquote
-                  className="mt-4 max-w-[58ch] border-l-2 pl-4 font-editorial text-[15px] italic leading-[1.7] md:text-[16.5px]"
+                  className="mt-4 max-w-[58ch] border-l-2 pl-4 font-editorial text-[15px] italic leading-[1.7] md:text-[17px]"
                   style={{ borderColor: tone.rule, color: tone.sub }}
                 >
                   {lead.example}
@@ -137,7 +137,7 @@ export function TodayStage({
           {now && (
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <StartNow block={now} tone={tone} label={wordIsTheAction ? '이 단어부터 시작' : '지금 시작'} />
-              <span className="font-mono text-[11.5px] tabular-nums" style={{ color: tone.sub }}>
+              <span className="font-mono text-[12px] tabular-nums" style={{ color: tone.sub }}>
                 {now.name} · {now.minutes}분
               </span>
             </div>
@@ -243,7 +243,7 @@ function FlowRow({
         {b.name}
       </span>
       <span
-        className="ml-auto shrink-0 font-mono text-[10.5px] tabular-nums"
+        className="ml-auto shrink-0 font-mono text-[11px] tabular-nums"
         style={{ color: tone.sub }}
       >
         {state}
@@ -331,7 +331,7 @@ function StartNow({ block, tone, label }: { block: TodayBlock; tone: RoomTone; l
         <ArrowRight size={15} aria-hidden />
       </button>
       {error && (
-        <span role="alert" className="font-body text-[11.5px]" style={{ color: tone.sub }}>
+        <span role="alert" className="font-body text-[12px]" style={{ color: tone.sub }}>
           {error}
         </span>
       )}

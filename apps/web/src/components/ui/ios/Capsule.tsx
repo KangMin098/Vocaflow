@@ -62,7 +62,7 @@ export function Capsule({
   className,
 }: CapsuleProps) {
   const t = TONE_STYLES[tone]
-  const padClass = size === 'sm' ? 'px-2 py-0.5 text-[10.5px]' : 'px-3 py-1 text-[12.5px]'
+  const padClass = size === 'sm' ? 'px-2 py-0.5 text-[11px]' : 'px-3 py-1 text-[13px]'
 
   if (children) {
     return (

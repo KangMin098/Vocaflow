@@ -118,7 +118,7 @@ export function ModuleHero({
 
       {/* 좁은 화면 — subText 줄바꿈 */}
       {subText && (
-        <p className="mt-1 truncate font-body text-[11.5px] opacity-80 sm:hidden">
+        <p className="mt-1 truncate font-body text-[12px] opacity-80 sm:hidden">
           {subText}
         </p>
       )}

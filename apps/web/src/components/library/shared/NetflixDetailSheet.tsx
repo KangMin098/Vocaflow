@@ -498,7 +498,7 @@ function BookBody({ v }: { v: BookVariant }) {
 
       {v.estBasis && (
         <Section title="V-Level 추정 근거">
-          <p className="font-body text-[11.5px] italic leading-[1.6] text-[var(--t2)]">
+          <p className="font-body text-[12px] italic leading-[1.6] text-[var(--t2)]">
             {v.estBasis}
           </p>
         </Section>
@@ -528,7 +528,7 @@ function Section({
 }) {
   return (
     <section className="flex flex-col gap-2">
-      <h3 className="font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
+      <h3 className="font-mono text-[11px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
         {title}
       </h3>
       <div>{children}</div>
@@ -595,7 +595,7 @@ function MyProgressSection({
   return (
     <section className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
       <div className="flex items-center justify-between gap-2">
-        <h3 className="font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
+        <h3 className="font-mono text-[11px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
           내 학습
         </h3>
         <span
@@ -652,15 +652,15 @@ function MyProgressSection({
           href="/diagnostic"
           className="flex items-center justify-between gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] px-3 py-2 transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)]"
         >
-          <span className="font-body text-[11.5px] text-[var(--t2)]">
+          <span className="font-body text-[12px] text-[var(--t2)]">
             레벨을 진단하면 이 책이 나에게 맞는지 알려드려요
           </span>
-          <span className="shrink-0 font-display text-[11.5px] font-[700] text-[var(--p)]">진단 →</span>
+          <span className="shrink-0 font-display text-[12px] font-[700] text-[var(--p)]">진단 →</span>
         </Link>
       )}
 
       {/* 권장 1줄 */}
-      <p className="font-body text-[11.5px] leading-relaxed text-[var(--t2)]">💡 {guidance}</p>
+      <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">💡 {guidance}</p>
     </section>
   )
 }
@@ -724,7 +724,7 @@ function IPlusOneRow({
           aria-hidden
         />
       </div>
-      <p className="mt-1.5 font-body text-[10.5px] leading-relaxed text-[var(--t2)]">
+      <p className="mt-1.5 font-body text-[11px] leading-relaxed text-[var(--t2)]">
         {fit.tier === 'ideal'
           ? '모르는 단어가 적당해서 맥락으로 익히기 좋아요 (i+1).'
           : fit.tier === 'easy'
@@ -792,7 +792,7 @@ function VocabBody({ v }: { v: VocabVariant }) {
       </div>
 
       {v.description && (
-        <p className="font-body text-[13.5px] leading-relaxed text-[var(--t2)]">
+        <p className="font-body text-[14px] leading-relaxed text-[var(--t2)]">
           {v.description}
         </p>
       )}
@@ -809,7 +809,7 @@ function VocabBody({ v }: { v: VocabVariant }) {
                 <span className="font-english text-[14px] font-[600] text-[var(--t1)]">
                   {w.word}
                 </span>
-                <span className="truncate font-body text-[11.5px] text-[var(--t2)]">
+                <span className="truncate font-body text-[12px] text-[var(--t2)]">
                   {w.meaningKo}
                 </span>
               </li>
@@ -850,7 +850,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
           type="button"
           onClick={() => variant.onCtaClick?.()}
           disabled={variant.ctaPending}
-          className="inline-flex items-center gap-2 rounded-[var(--r-md)] px-5 py-3 font-display text-[13.5px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60"
+          className="inline-flex items-center gap-2 rounded-[var(--r-md)] px-5 py-3 font-display text-[14px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60"
           style={{ backgroundColor: accent }}
         >
           {variant.ctaLabel}
@@ -901,7 +901,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
         <Link
           href={variant.ctaHref}
           onClick={onClose}
-          className="inline-flex items-center rounded-[var(--r-md)] px-5 py-3 font-display text-[13.5px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
+          className="inline-flex items-center rounded-[var(--r-md)] px-5 py-3 font-display text-[14px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
           style={{ backgroundColor: accent }}
         >
           {variant.ctaLabel}
@@ -915,13 +915,13 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
     <div className="flex flex-col gap-0.5 rounded-[var(--r-md)] bg-[var(--bg2)] p-3">
-      <span className="font-display text-[9.5px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+      <span className="font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         {label}
       </span>
       <span className="font-display text-[16px] font-[800] tabular-nums text-[var(--t1)]">
         {value}
       </span>
-      {sub && <span className="font-mono text-[9.5px] text-[var(--t2)]">{sub}</span>}
+      {sub && <span className="font-mono text-[10px] text-[var(--t2)]">{sub}</span>}
     </div>
   )
 }
@@ -968,6 +968,6 @@ function ProgressRow({ percent, accent }: { percent: number; accent: string }) {
 
 function Tip({ text }: { text: string }) {
   return (
-    <p className="font-body text-[11.5px] italic text-[var(--t2)]">💡 {text}</p>
+    <p className="font-body text-[12px] italic text-[var(--t2)]">💡 {text}</p>
   )
 }

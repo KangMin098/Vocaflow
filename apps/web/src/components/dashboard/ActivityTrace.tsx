@@ -187,7 +187,7 @@ export function ActivityTrace({
                   }}
                 />
                 <span
-                  className={`font-mono text-[9.5px] ${
+                  className={`font-mono text-[10px] ${
                     i === bestWeekday
                       ? 'font-[700] text-[var(--t1)]'
                       : 'font-[600] text-[var(--t3)]'
@@ -198,7 +198,7 @@ export function ActivityTrace({
               </div>
             ))}
           </div>
-          <p className="mt-2.5 font-body text-[11.5px] leading-snug text-[var(--t2)] [word-break:keep-all]">
+          <p className="mt-2.5 font-body text-[12px] leading-snug text-[var(--t2)] [word-break:keep-all]">
             주로 <strong className="font-display text-[var(--t1)]">{WEEKDAYS[bestWeekday]}요일</strong>에
             하는 편이에요.
           </p>

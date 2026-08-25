@@ -249,7 +249,7 @@ export function Sidebar() {
               <span className="font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                 {ASIDE_GROUP.label}
               </span>
-              <span className="truncate font-body text-[11.5px] font-[400] text-[var(--t2)]">
+              <span className="truncate font-body text-[12px] font-[400] text-[var(--t2)]">
                 {ASIDE_GROUP.says}
               </span>
             </h3>
@@ -399,7 +399,7 @@ function NavGroupBlock({
           색은 `--t3` 로 뒀다가 11px 에서 대비가 모자라 `--t2` 로 올렸다(실측 캡처) —
           보조 문장도 읽혀야 정보다. */}
       {!collapsed && here && (
-        <p className="mb-1.5 pl-[29px] font-body text-[11.5px] leading-[1.5] text-[var(--t2)] [word-break:keep-all]">
+        <p className="mb-1.5 pl-[29px] font-body text-[12px] leading-[1.5] text-[var(--t2)] [word-break:keep-all]">
           {group.says}
         </p>
       )}

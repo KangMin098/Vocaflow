@@ -96,7 +96,7 @@ function ReadingRow({ candidate }: { candidate: PrescriptionCandidate }) {
           {candidate.title}
         </span>
         {meta.length > 0 && (
-          <span className="mt-0.5 block font-mono text-[10.5px] tabular-nums text-[var(--t3)]">
+          <span className="mt-0.5 block font-mono text-[11px] tabular-nums text-[var(--t3)]">
             {meta.join(' · ')}
           </span>
         )}
@@ -143,7 +143,7 @@ function ReadingRow({ candidate }: { candidate: PrescriptionCandidate }) {
         {inner}
       </button>
       {error && (
-        <p role="alert" className="px-2 pb-2 font-body text-[11.5px] text-[var(--t2)]">
+        <p role="alert" className="px-2 pb-2 font-body text-[12px] text-[var(--t2)]">
           {error}
         </p>
       )}

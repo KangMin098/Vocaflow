@@ -117,7 +117,7 @@ export function ActivityRing({
           </span>
         )}
         {centerSub && (
-          <span className="font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
+          <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
             {centerSub}
           </span>
         )}

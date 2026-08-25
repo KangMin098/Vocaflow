@@ -40,12 +40,12 @@ export function RescuedWords({ rescued }: { rescued: RescuedWordsData }) {
           <p className="mt-3 max-w-[34ch] font-editorial text-[19px] font-[500] leading-[1.35] tracking-[-0.01em] text-[var(--t1)] [word-break:keep-all]">
             이번 주엔 아직 다시 만난 단어가 없어요.
           </p>
-          <p className="mt-2 font-body text-[12.5px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
+          <p className="mt-2 font-body text-[13px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
             한 번 만난 단어를 다시 만나는 순간부터 기억이 길어져요.
           </p>
           <Link
             href="/flashcard"
-            className="group mt-4 inline-flex min-h-[44px] w-fit items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p-light)] px-4 font-display text-[12.5px] font-[700] text-[var(--on-p-tint)] no-underline transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="group mt-4 inline-flex min-h-[44px] w-fit items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p-light)] px-4 font-display text-[13px] font-[700] text-[var(--on-p-tint)] no-underline transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             복습 열기
             <ArrowRight
@@ -69,7 +69,7 @@ export function RescuedWords({ rescued }: { rescued: RescuedWordsData }) {
             <ul className="mt-4 flex flex-col divide-y divide-[var(--bd)] border-t border-[var(--bd)]">
               {rescued.sample.map((w) => (
                 <li key={w.word} className="flex items-baseline gap-3 py-2.5">
-                  <span className="font-editorial text-[16.5px] font-[500] text-[var(--t1)]">
+                  <span className="font-editorial text-[17px] font-[500] text-[var(--t1)]">
                     {w.word}
                   </span>
                   <span className="min-w-0 flex-1 truncate font-body text-[12px] text-[var(--t2)]">

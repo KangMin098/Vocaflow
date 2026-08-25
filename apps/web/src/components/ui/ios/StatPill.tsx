@@ -72,10 +72,10 @@ export function StatPill({
           {value}
         </span>
         {unit && (
-          <span className="font-mono text-[10.5px] text-[var(--t2)]">{unit}</span>
+          <span className="font-mono text-[11px] text-[var(--t2)]">{unit}</span>
         )}
         {ratio && (
-          <span className="font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
+          <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
             {ratio}
           </span>
         )}

@@ -47,7 +47,7 @@ export function GatewayLead({ state }: { state: GatewayState }) {
       {href && (
         <Link
           href={href}
-          className="group ml-auto inline-flex min-h-[44px] shrink-0 items-center gap-1 font-display text-[12.5px] font-[700] text-[var(--p)] no-underline transition-colors duration-[var(--dur-normal)] hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="group ml-auto inline-flex min-h-[44px] shrink-0 items-center gap-1 font-display text-[13px] font-[700] text-[var(--p)] no-underline transition-colors duration-[var(--dur-normal)] hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           거기서 이어하기
           <ArrowRight
