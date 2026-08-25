@@ -4,7 +4,7 @@
 문서(.md)의 수치는 근거로 쓰지 않았다.
 
 - 대상: `shared_dictionary` **47,737행** (최신 행 2026-08-21 · 최근 30일 +2,067)
-- **D-1 · D-2 · D-4 해소 · D-3 부분 해소**(아래 §4). D-5 · D-6 미해소.
+- **D-1 · D-2 · D-4 해소 · D-3 · D-6 부분 해소**(아래 §4). D-5 미해소.
 - 출처 6종: imported 34,706 · ai-generated 6,589 · derivational-seed 6,178 · manual 183 · kice-orphan 66 · inflection-seed 15
 - VRL 마지막 계산 2026-08-25 · 마지막 품질 감사 2026-07-12
 
@@ -20,7 +20,7 @@
 | ◐ | VRL | `v_level` 459 **해소**(게이트 I1 → PASS · 기사 423낱말 추출 복귀). 3축 9,352는 **의도적 미충전** — 채워진 값의 62%가 v_level 상수이고 소비처 행동도 안 바뀐다 |
 | ✅ | 폐쇄집합 기능어 | 전수 훑어 **19개 등재** — 46/46 자기 표제어로 해석(이전 9 NULL · 5 오해소) + 회귀 4종 |
 | ✅ | 정확일치 조인 소비처 | 표면형으로 사전을 찾던 두 곳(WordBlitz 후보 28.7% 유실 · Flashcard 부가정보 4,620행)을 **lemma 키로 교정** + 회귀 4종 |
-| 🟠 | 미등재 실수요 | `pending_words` 진성 갭 **2,169 lemma / 9,673 encounter** |
+| ◐ | pending_words | **학습자 큐가 아니라 코퍼스 적재분**(11,081행 중 학습자 39). 51낱말 등재 · 1,285행 규칙 기각 → 9,479행. 노이즈 61%가 `corpus:ted:catalog` 한 소스 |
 | ⚪ | 자산 부재 (설계상 이연) | audio_url 0% · image_url 0% — compose 청사진 2종 구조적 0건 |
 
 ---
@@ -219,23 +219,45 @@ RPC 도 마이그레이션도 필요 없이 **조회 키만 lemma 로 바꾸면 
 `This word/term/phrase …` 70행, `… in conversation.` 143행.
 맥락 의존 인출(학습 원칙 5)을 무효화한다. 표제어를 예문에 포함하지 않는 행도 763.
 
-### D-6 (P2) pending_words 큐 구성
-11,081 lemma / 38,810 encounter. 성격별로 갈라 보면:
+### D-6 pending_words — 학습자 큐가 아니라 **코퍼스 적재분**이었다 · 부분 해소
 
-| 버킷 | lemma | encounter | 예 |
-|---|--:|--:|---|
-| unknown_token (베트남어·LaTeX·OCR 파편) | 4,051 | 12,019 | cua · nhung · displaystyle |
-| hyphen_compound | 3,277 | 10,641 | well-being · decision-making |
-| **genuine_gap_en (등재 1순위)** | **2,169** | **9,673** | esports · photosynthetic · supermassive · whenever |
-| foreign_noise | 1,162 | 3,584 | voi · cai · minh |
-| resolvable_now (큐 잔재) | 210 | 1,442 | lifestyle · teamwork |
-| short_or_digit | 112 | 1,137 | hr · ca |
-| derived_negation | 100 | 314 | nonstop · unintended |
+초판에 "학습자가 만난 실수요 2,169 lemma / 9,673 encounter"라고 적었다. **그 전제가 틀렸다.**
 
-노이즈가 **47%**라 평평한 목록으로는 처리 판단이 안 선다(`triage.ts` 의 문제의식이 실측으로 확인).
-`resolvable_now` 210건은 이미 해소됐는데 큐에 남은 것 — 정리 대상.
+`pending_words` **11,081행 전부가 2026-08-13~17 사이에 만들어졌고**, `user_id` 가 붙은
+학습자 행은 **39개**뿐이다(`text_id` 는 전 행 NULL). 나머지는 주제 코퍼스 적재
+(`20260816180000_fix_topic_corpus_gap_conflict`)가 `context_snippet='corpus:<소스>'` 로 넣은 것이다.
+`encounter_count` 도 학습자가 만난 횟수가 아니라 **코퍼스 안의 빈도**다 — 수요 근거로 쓸 수 없다.
 
----
+#### 노이즈는 낱말 문제가 아니라 소스 문제였다
+
+| 소스 | 대기 행 | 사전 코퍼스에도 없는 토큰 |
+|---|--:|--:|
+| **corpus:ted:catalog** | **5,804 (61%)** | **3,912 (67%)** |
+| corpus:local:wikivoyage | 619 | 416 |
+| corpus:local:simple-wikipedia | 514 | 308 |
+| corpus:local:plos | 304 | 203 |
+
+큐를 가득 채운 베트남어(cua · nhung · khong · duoc …)는 **TED 카탈로그 한 소스**에서 나온다 —
+카탈로그가 번역 제목·설명을 함께 담기 때문이다. 조치는 사전 등재가 아니라 **적재 쪽 언어 필터**이고,
+이번 턴에서는 손대지 않았다(적재 파이프라인 변경이라 별건).
+
+#### "진성 갭" 판정도 과대 계상돼 있다
+
+판정에 쓰는 `lexicon_clean` 에 고유명사·약어·외국어가 섞여 있어 `ted`·`avon`·`baidu`·`cac` 같은
+것이 진성 갭으로 올라온다. 상위 80개를 눈으로 보면 실제 영어 낱말은 절반 남짓이었다.
+
+#### 한 일
+
+| | |
+|---|---|
+| 등재 | **51낱말** — 상위 encounter 에서 실제 영어 낱말만 골라 작성(esports · photosynthetic · supermassive · spacetime · endometriosis …). 고유명사·브랜드·약어는 `proper_noun`/`brand`/`abbreviation` 레지스터로 넣어 **해석은 되지만 단어장에는 안 들어가게** 했다 |
+| 불규칙 복수 | `grandchild` 계열 5낱말에 `-children` 굴절형 추가(`be with child` 의 오생성 1건은 되돌림) |
+| 큐 정리 | `added` **318행 / 4,461 encounter** · 규칙 기각 `rejected` **1,285행**(외국어 1,174 · 2자 이하·숫자 111) |
+| 남은 큐 | 11,081 → **9,479행** |
+
+**손대지 않은 것**: 욕설(shit · fuck · crap)은 등재하지 않았다 — `word_register` 에 비속어 값이
+없어 넣으면 `standard` 로 들어가 단어장 후보가 된다. 레지스터를 늘릴지가 먼저다.
+하이픈 합성 3,238행과 코퍼스에 없는 토큰 3,711행도 규칙만으로는 기각할 수 없어 남겼다.
 
 ## 5. 오탐으로 확인된 것 (조치 불필요)
 
