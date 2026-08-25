@@ -463,7 +463,7 @@ export function BulkFetchTab() {
         </div>
 
         {lastResult && !fetchError && (
-          <div className="mt-3 flex flex-wrap items-center gap-3 rounded-[var(--r-sm)] bg-[var(--bg2)] p-2.5 font-mono text-[11px] text-[var(--t2)]">
+          <div className="mt-3 flex flex-wrap items-center gap-3 rounded-[var(--r-sm)] bg-[var(--bg2)] p-3 font-mono text-[11px] text-[var(--t2)]">
             {lastResult.inserted === 0 && lastResult.skipped === 0 ? (
               <>
                 <AlertCircle size={12} className="text-[var(--learn-review)]" />
@@ -490,7 +490,7 @@ export function BulkFetchTab() {
           </div>
         )}
         {fetchError && (
-          <div className="mt-3 flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] p-2.5 font-body text-[12px] text-[var(--learn-error)]">
+          <div className="mt-3 flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] p-3 font-body text-[12px] text-[var(--learn-error)]">
             <AlertCircle size={12} /> {fetchError}
           </div>
         )}
@@ -506,7 +506,7 @@ export function BulkFetchTab() {
           ))}
           {stats.shadowed > 0 && (
             <label
-              className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] px-2 py-1 font-mono text-[10px] text-[var(--learn-review)]"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-full)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] px-2 py-1 font-mono text-[10px] text-[var(--learn-review)]"
               title="Standard Ebooks 가 같은 책을 가진 Gutenberg 행 — 기본 숨김"
             >
               <input
@@ -524,7 +524,7 @@ export function BulkFetchTab() {
               onClick={handleDeleteAllShadowed}
               disabled={bulkDeleting}
               title="SE 가 대체한 Gutenberg 중복 행 전체 삭제 (큐 추가된 행은 보호)"
-              className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--learn-error)] hover:opacity-90 disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--learn-error)] hover:opacity-90 disabled:opacity-50"
             >
               {bulkDeleting ? <Loader2 size={11} className="animate-spin" /> : <Trash2 size={11} />}
               삭제 대상 {stats.shadowed}건 모두 삭제
@@ -577,7 +577,7 @@ export function BulkFetchTab() {
         <button
           type="button"
           onClick={handleEnrichMeta}
-          className="ml-auto inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11px] font-[600] text-[var(--t1)] transition-[background-color,border-color,opacity] duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] hover:bg-[var(--bg2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:opacity-50"
+          className="ml-auto inline-flex h-8 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11px] font-[600] text-[var(--t1)] transition-[background-color,border-color,opacity] duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] hover:bg-[var(--bg2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:opacity-50"
         >
           {enriching ? <Loader2 size={11} className="animate-spin" /> : <Info size={11} />}
           {enriching ? '멈추기' : '메타 없는 후보 보강'}
@@ -606,7 +606,7 @@ export function BulkFetchTab() {
           type="button"
           onClick={handleQueueCuration}
           disabled={queuingCuration}
-          className="ml-auto inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
+          className="ml-auto inline-flex h-8 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
         >
           {queuingCuration ? <Loader2 size={11} className="animate-spin" /> : <Plus size={11} />}
           정보 없는 도서 큐에 추가 (인기순 top 100)
@@ -665,11 +665,11 @@ export function BulkFetchTab() {
                     <div className="truncate font-body text-[11px] text-[var(--t2)]">{r.author ?? '—'}</div>
 
                     {/* 칩 행 — 출처/장르/난이도/연령/인기/언어/상태 + 소스 stat */}
-                    <div className="mt-1 flex flex-wrap items-center gap-1.5">
+                    <div className="mt-1 flex flex-wrap items-center gap-2">
                       <SourcePill source={r.source} />
                       {r.shadowed_by_se && (
                         <span
-                          className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-0.5 font-mono text-[9px] font-[700] text-[var(--learn-error)]"
+                          className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[9px] font-[700] text-[var(--learn-error)]"
                           title="Standard Ebooks 에 동일 도서 존재 — 이 Gutenberg 행은 삭제 대상"
                         >
                           <Trash2 size={9} aria-hidden /> 삭제 대상
@@ -679,7 +679,7 @@ export function BulkFetchTab() {
                       {r.est_v_level != null && (
                         <span
                           title={`추정 난이도 (ingest 후 실측 대체): ${cm?.est_basis ?? ''}`}
-                          className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-0.5 font-mono text-[9px] font-[700] text-[var(--on-p-tint)]"
+                          className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-1 font-mono text-[9px] font-[700] text-[var(--on-p-tint)]"
                         >
                           ~V{r.est_v_level}
                           {cm?.est_cefr ? `·${cm.est_cefr}` : ''}
@@ -736,7 +736,7 @@ export function BulkFetchTab() {
                         {cm.themes.map((th, i) => (
                           <span
                             key={`${th}-${i}`}
-                            className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[9px] text-[var(--t2)]"
+                            className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[9px] text-[var(--t2)]"
                           >
                             {th}
                           </span>
@@ -746,7 +746,7 @@ export function BulkFetchTab() {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex shrink-0 items-center gap-1.5">
+                  <div className="flex shrink-0 items-center gap-2">
                     {r.source_url && (
                       <a
                         href={r.source_url}
@@ -793,7 +793,7 @@ export function BulkFetchTab() {
                       </button>
                     )}
                     {r.imported_to_books ? (
-                      <span className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2.5 font-mono text-[10px] font-[700] text-[var(--learn-known)]">
+                      <span className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-3 font-mono text-[10px] font-[700] text-[var(--learn-known)]">
                         <CheckCircle2 size={11} /> 큐
                       </span>
                     ) : (
@@ -801,7 +801,7 @@ export function BulkFetchTab() {
                         type="button"
                         onClick={() => handleEnqueue(r)}
                         disabled={enqueuingId === r.id}
-                        className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-2.5 font-display text-[11px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
+                        className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
                       >
                         {enqueuingId === r.id ? <Loader2 size={11} className="animate-spin" /> : <Plus size={11} />}
                         enqueue
@@ -843,7 +843,7 @@ export function BulkFetchTab() {
 function SourcePill({ source }: { source: string }) {
   const cfg = SOURCE_OPTIONS.find((s) => s.value === source)
   return (
-    <span className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[9px] font-[700]"
+    <span className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
       style={{ color: cfg?.color, backgroundColor: cfg ? `color-mix(in srgb, ${cfg.color} 12%, transparent)` : 'var(--bg2)' }}>
       {cfg?.label ?? source}
     </span>
@@ -852,7 +852,7 @@ function SourcePill({ source }: { source: string }) {
 
 function Chip({ children, subtle }: { children: React.ReactNode; subtle?: boolean }) {
   return (
-    <span className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[9px] font-[600] ${
+    <span className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[600] ${
       subtle ? 'bg-[var(--bg2)] text-[var(--t2)]' : 'bg-[var(--bg2)] text-[var(--t2)]'
     }`}>{children}</span>
   )
@@ -861,7 +861,7 @@ function Chip({ children, subtle }: { children: React.ReactNode; subtle?: boolea
 function StatPill({ label, n, tone }: { label: string; n: number; tone: 'neutral' | 'success' | 'info' }) {
   const color = tone === 'success' ? 'var(--learn-known)' : tone === 'info' ? 'var(--p)' : 'var(--t3)'
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">
+    <span className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">
       {label} <strong className="font-display tabular-nums" style={{ color }}>{n.toLocaleString()}</strong>
     </span>
   )
@@ -881,4 +881,4 @@ const selectCls =
 const filterCls =
   'h-8 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)]'
 const primaryBtn =
-  'inline-flex h-9 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50'
+  'inline-flex h-9 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50'

@@ -79,7 +79,7 @@ export function ArticleAudioPanel({ articleId, audioUrl, source }: Props) {
         <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">보이스 연결</h2>
         {connected && (
           <span
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]"
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]"
             style={{ background: 'var(--learn-known-light)', color: 'var(--learn-known)' }}
           >
             <Check size={11} aria-hidden /> 연결됨
@@ -114,7 +114,7 @@ export function ArticleAudioPanel({ articleId, audioUrl, source }: Props) {
                 type="button"
                 onClick={() => call(null, 'clear')}
                 disabled={busy != null}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--learn-error)] disabled:opacity-50"
+                className="inline-flex shrink-0 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--learn-error)] disabled:opacity-50"
               >
                 {busy === 'clear' ? (
                   <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -130,7 +130,7 @@ export function ArticleAudioPanel({ articleId, audioUrl, source }: Props) {
           </div>
         ) : (
           // ── 미연결 ──
-          <div className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-3">
             <p className="font-body text-[12px] text-[var(--t2)]">
               이 글에 연결된 보이스가 없어요. 소스(VOA 등)의 오디오 URL 을 직접 연결할 수 있어요.
             </p>
@@ -146,7 +146,7 @@ export function ArticleAudioPanel({ articleId, audioUrl, source }: Props) {
                 type="button"
                 onClick={() => call(input, 'set')}
                 disabled={busy != null || input.trim().length === 0}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-[var(--r-md)] px-3.5 py-2 font-display text-[12px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.02] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex shrink-0 items-center gap-2 rounded-[var(--r-md)] px-4 py-2 font-display text-[12px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.02] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
                 style={{ background: 'var(--learn-review)' }}
               >
                 {busy === 'set' ? (

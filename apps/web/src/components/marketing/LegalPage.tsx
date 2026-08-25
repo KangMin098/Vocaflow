@@ -63,7 +63,7 @@ export function LegalPage({ title, intro, effectiveDate, version, sections }: Le
             {intro}
           </p>
           <div className="mt-5 flex flex-wrap items-center gap-4 font-mono text-[11px] text-[var(--t2)]">
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-2">
               <Calendar size={12} aria-hidden />
               시행일 {effectiveDate}
             </span>

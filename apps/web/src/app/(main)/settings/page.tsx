@@ -73,7 +73,7 @@ function SaveIndicator() {
     <div
       role="status"
       aria-live="polite"
-      className={`pointer-events-none fixed right-6 top-6 z-30 inline-flex items-center gap-1.5 rounded-full bg-[var(--success-light)] px-3 py-1.5 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--success)] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] ${
+      className={`pointer-events-none fixed right-6 top-6 z-30 inline-flex items-center gap-2 rounded-full bg-[var(--success-light)] px-3 py-2 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--success)] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] ${
         saving === 'saved' ? 'opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'
       }`}
     >
@@ -175,7 +175,7 @@ function Segment<T extends string>({ value, options, onChange, ariaLabel }: Segm
             onClick={() => onChange(opt.value)}
             // 44px 하한 — 실측 87x30 이었다(a11y 스윕 17회차). 세그먼트는 좁은 화면에서
             // 나란히 서므로 높이만 올린다(너비는 라벨이 정한다).
-            className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] px-3 py-1.5 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
+            className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-3 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
               active
                 ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]'
                 : 'text-[var(--t2)] hover:text-[var(--t1)]'
@@ -256,9 +256,9 @@ export default function SettingsPage() {
             <a
               key={c.href}
               href={c.href}
-              // 실측 2026-08-25: 31px 이었다(py-1.5). 알약의 시각 높이는 그대로 두고
+              // 실측 2026-08-25: 31px 이었다(py-2). 알약의 시각 높이는 그대로 두고
               // 누르는 높이만 44px 로 — inline-flex + items-center 라 알약은 그대로 보인다.
-              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-ios-pill bg-[var(--bg)] px-3 py-1.5 font-display text-[12.5px] font-[600] text-[var(--t2)] shadow-ios-1 transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] active:scale-[0.97]"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-ios-pill bg-[var(--bg)] px-3 py-2 font-display text-[12.5px] font-[600] text-[var(--t2)] shadow-ios-1 transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] active:scale-[0.97]"
             >
               {c.label}
             </a>
@@ -514,7 +514,7 @@ export default function SettingsPage() {
                       {row.label}
                     </p>
                     {!row.ready && (
-                      <span className="inline-flex items-center rounded-full bg-[var(--warning-light)] px-1.5 py-0.5 font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--active-ink)]">
+                      <span className="inline-flex items-center rounded-full bg-[var(--warning-light)] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--active-ink)]">
                         준비중
                       </span>
                     )}
@@ -566,7 +566,7 @@ export default function SettingsPage() {
                 type="button"
                 onClick={handleSignOut}
                 disabled={signingOut}
-                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <LogOut size={12} aria-hidden />
                 {signingOut ? '로그아웃 중...' : '로그아웃'}
@@ -579,11 +579,11 @@ export default function SettingsPage() {
                 type="button"
                 disabled
                 title="계정 해지는 준비 중입니다. support@vocaflow.com 으로 문의해주세요."
-                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] enabled:hover:bg-[var(--error-light)] disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] enabled:hover:bg-[var(--error-light)] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <Trash2 size={12} aria-hidden />
                 계정 해지
-                <span className="ml-1 inline-flex items-center rounded-full bg-[var(--warning-light)] px-1.5 py-0.5 font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--active-ink)]">
+                <span className="ml-1 inline-flex items-center rounded-full bg-[var(--warning-light)] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--active-ink)]">
                   준비중
                 </span>
               </button>

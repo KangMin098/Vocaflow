@@ -77,7 +77,7 @@ export function VoicePickerPopover() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label="음성 선택"
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-white/10 px-2.5 py-1 font-display text-[11px] font-[600] text-white/95 transition-colors hover:bg-white/20"
+        className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-white/10 px-3 py-1 font-display text-[11px] font-[600] text-white/95 transition-colors hover:bg-white/20"
       >
         <Volume2 size={11} aria-hidden />
         <span className="hidden sm:inline">{label}</span>
@@ -163,7 +163,7 @@ export function VoicePickerPopover() {
                         <p className="truncate font-display text-[12px] font-[600] text-[var(--t1)]">
                           {v.name}
                         </p>
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex items-center gap-2">
                           <span className="font-mono text-[9px] text-[var(--t2)]">{v.lang}</span>
                           <span
                             className={`rounded-[2px] px-1 py-px font-display text-[8px] font-[700] ${QUALITY_COLOR[quality]}`}

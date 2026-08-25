@@ -110,7 +110,7 @@ export function VaultIdentity({
         />
 
         <div className="flex flex-col gap-3">
-          <div className="flex items-end gap-2.5">
+          <div className="flex items-end gap-3">
             <span className="font-editorial text-[72px] font-[500] tabular-nums leading-[0.95] tracking-[-0.022em] text-[var(--t1)] md:text-[96px]">
               {NF.format(total)}
             </span>
@@ -126,7 +126,7 @@ export function VaultIdentity({
       </div>
 
       {/* 4 bucket — iOS Health Categories */}
-      <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {(['stable', 'shaky', 'risk', 'new'] as MemoryState[]).map((state) => {
           const meta = BUCKET_META[state]
           const count = buckets[state]

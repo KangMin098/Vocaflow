@@ -82,7 +82,7 @@ async function DashboardContent() {
       {/* fetch errors banner (silent failure 가시화) */}
       {fetchErrors.length > 0 && (
         <div
-          className="flex items-start gap-2.5 rounded-[var(--r-md)] border border-[var(--active)]/30 bg-[var(--warning-light)] p-3"
+          className="flex items-start gap-3 rounded-[var(--r-md)] border border-[var(--active)]/30 bg-[var(--warning-light)] p-3"
           role="alert"
         >
           <AlertTriangle

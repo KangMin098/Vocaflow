@@ -22,7 +22,7 @@ import {
 export function RetentionPanel({ report }: { report: RetentionReport | null }) {
   if (!report) {
     return (
-      <div className="flex items-start gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4">
+      <div className="flex items-start gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4">
         <AlertTriangle size={16} className="mt-0.5 shrink-0 text-[var(--warning)]" aria-hidden />
         <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
           리텐션을 계산하지 못했어요.{' '}

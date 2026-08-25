@@ -41,7 +41,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       <div className="mx-auto mb-5 h-px w-8 bg-[var(--bd)]" aria-hidden="true" />
 
       <p className="text-center">
-        <span className="inline-block rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-0.5 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--on-p-tint)]">
+        <span className="inline-block rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--on-p-tint)]">
           {word.pos}
         </span>
       </p>
@@ -53,14 +53,14 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       {/* 품사별 여러 뜻 — 다의어일 때만(≥2 sense). 시중 단어장 대비 다의어 한눈에.
           per-sense meanings_ko(Phase B 100%) 노출. 단일 sense면 flat meaning 으로 충분(미표시). */}
       {word.senses && word.senses.length >= 2 && (
-        <div className="mb-5 flex flex-col gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
+        <div className="mb-5 flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
           <span className="mb-0.5 font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t2)]">
             품사별 뜻
           </span>
           {word.senses.map((s, i) => (
             <div key={`${s.pos}-${i}`} className="flex items-baseline gap-2">
               {s.pos && (
-                <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-px font-mono text-[10px] font-[700] text-[var(--t2)]">
+                <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-px font-mono text-[10px] font-[700] text-[var(--t2)]">
                   {posLabel(s.pos)}
                 </span>
               )}
@@ -73,7 +73,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       {/* Example with audio indicator */}
       <div className="relative mt-auto rounded-[0_var(--r-md)_var(--r-md)_0] border-l-[3px] border-[var(--p)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-4 font-english text-[14px] italic leading-relaxed text-[var(--t1)]">
         <span
-          className={`absolute right-3 top-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-[3px] font-display text-[9px] font-[700] uppercase tracking-[0.06em] text-white transition-opacity duration-[var(--dur-normal)] ${isExampleAudioPlaying ? 'opacity-100' : 'opacity-70'} `}
+          className={`absolute right-3 top-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-[4px] font-display text-[9px] font-[700] uppercase tracking-[0.06em] text-white transition-opacity duration-[var(--dur-normal)] ${isExampleAudioPlaying ? 'opacity-100' : 'opacity-70'} `}
         >
           <Volume2
             size={9}
@@ -107,7 +107,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
           {word.collocations.slice(0, 3).map((c) => (
             <span
               key={c}
-              className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-english text-[12px] text-[var(--t2)]"
+              className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-english text-[12px] text-[var(--t2)]"
             >
               {c}
             </span>
@@ -118,14 +118,14 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       {/* 어원 힌트 — 어근 분해(word_root_links). 시중 어원단어장 대비 학습 중 노출.
           prefix→root→suffix 순 chip. 데이터 있을 때만(Progressive Disclosure). */}
       {word.roots && word.roots.length > 0 && (
-        <div className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1">
+        <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
           <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t2)]">
             어원
           </span>
           {word.roots.map((r, i) => (
-            <span key={`${r.root}-${i}`} className="inline-flex items-center gap-1.5">
+            <span key={`${r.root}-${i}`} className="inline-flex items-center gap-2">
               {i > 0 && <span className="text-[11px] text-[var(--t2)]">+</span>}
-              <span className="rounded-[var(--r-full)] bg-[var(--active-light)] px-2 py-0.5 text-[12px]">
+              <span className="rounded-[var(--r-full)] bg-[var(--active-light)] px-2 py-1 text-[12px]">
                 <span className="font-english font-[700] text-[var(--active-ink)]">{r.root}</span>
                 <span className="font-body text-[var(--t2)]"> {r.gloss}</span>
               </span>
@@ -137,7 +137,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       {/* 어근 기반 니모닉 — "어떻게 기억할까"의 다리. 데이터 있을 때만(Progressive Disclosure).
           Empathetic Feedback: 압박 없는 기억 힌트. Lora italic 사람 말투 톤. */}
       {word.mnemonic && (
-        <p className="mt-2.5 flex items-start gap-1.5 font-body text-[12.5px] italic leading-relaxed text-[var(--t2)]">
+        <p className="mt-2.5 flex items-start gap-2 font-body text-[12.5px] italic leading-relaxed text-[var(--t2)]">
           <span className="not-italic" aria-hidden="true">
             💡
           </span>

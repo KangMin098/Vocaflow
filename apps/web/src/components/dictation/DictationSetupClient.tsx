@@ -208,7 +208,7 @@ export function DictationSetupClient() {
         </p>
         <Link
           href="/dictate"
-          className={`inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
+          className={`inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
         >
           받아쓰기 열기
           <ArrowRight size={14} />
@@ -305,7 +305,7 @@ export function DictationSetupClient() {
       </section>
 
       {preview.targetWords > 0 && (
-        <p className="rounded-[var(--r-md)] bg-[var(--p-light)] px-4 py-2.5 font-body text-[12px] leading-relaxed text-[var(--on-p-tint)]">
+        <p className="rounded-[var(--r-md)] bg-[var(--p-light)] px-4 py-3 font-body text-[12px] leading-relaxed text-[var(--on-p-tint)]">
           이 세션에서 받아쓰는 문장에 내 단어 {preview.targetWords}개가 들어 있어요. 맞히면 그
           단어의 복습 간격이 늘어납니다.
         </p>
@@ -342,7 +342,7 @@ export function DictationSetupClient() {
                       {meta.label}
                     </span>
                     {recommended && (
-                      <span className="rounded-full bg-[var(--p)] px-1.5 py-0.5 font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--on-p)]">
+                      <span className="rounded-full bg-[var(--p)] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--on-p)]">
                         추천
                       </span>
                     )}
@@ -424,7 +424,7 @@ export function DictationSetupClient() {
                   {m === 'smart' ? '스마트' : '엄격'}
                 </p>
                 {m === 'smart' && (
-                  <span className="rounded-full bg-[var(--success-light)] px-1.5 py-0.5 font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--success)]">
+                  <span className="rounded-full bg-[var(--success-light)] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--success)]">
                     기본
                   </span>
                 )}
@@ -445,7 +445,7 @@ export function DictationSetupClient() {
           type="button"
           onClick={() => setShowAdvanced((v) => !v)}
           aria-expanded={showAdvanced}
-          className={`flex w-full items-center justify-between px-5 py-3.5 ${FOCUS_RING}`}
+          className={`flex w-full items-center justify-between px-5 py-4 ${FOCUS_RING}`}
         >
           <span className="font-display text-[13px] font-[600] text-[var(--t1)]">
             듣기 옵션
@@ -473,7 +473,7 @@ export function DictationSetupClient() {
               ))}
             </OptionRow>
 
-            <label className="flex cursor-pointer items-center justify-between rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-2.5">
+            <label className="flex cursor-pointer items-center justify-between rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-3">
               <span className="font-body text-[13px] text-[var(--t1)]">
                 힌트 사용 (쓰면 그 단어의 복습 간격이 덜 늘어나요)
               </span>
@@ -494,7 +494,7 @@ export function DictationSetupClient() {
       {startError && (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] px-3 py-2.5 font-body text-[13px] leading-relaxed text-[var(--error-ink)]"
+          className="rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] px-3 py-3 font-body text-[13px] leading-relaxed text-[var(--error-ink)]"
         >
           {startError}
         </p>
@@ -504,7 +504,7 @@ export function DictationSetupClient() {
         type="button"
         onClick={start}
         disabled={starting}
-        className={`group flex items-center justify-center gap-2 rounded-[var(--r-lg)] py-3.5 font-display text-[15px] font-[700] text-[var(--ti)] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-lg)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 ${FOCUS_RING}`}
+        className={`group flex items-center justify-center gap-2 rounded-[var(--r-lg)] py-4 font-display text-[15px] font-[700] text-[var(--ti)] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-lg)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 ${FOCUS_RING}`}
         style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
       >
         {starting ? (
@@ -538,7 +538,7 @@ function PreviewStat({
   emphasis?: boolean
 }) {
   return (
-    <div className="flex flex-col items-center gap-0.5">
+    <div className="flex flex-col items-center gap-1">
       <span
         className="font-mono text-[22px] font-[800] tabular-nums leading-none"
         style={{ color: emphasis ? DICTATION_ACCENT : 'var(--t1)' }}
@@ -594,7 +594,7 @@ function MiniButton({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`flex-1 rounded-[var(--r-sm)] border py-1.5 font-mono text-[11px] font-[600] transition-colors duration-[var(--dur-normal)] ${FOCUS_RING} ${
+      className={`flex-1 rounded-[var(--r-sm)] border py-2 font-mono text-[11px] font-[600] transition-colors duration-[var(--dur-normal)] ${FOCUS_RING} ${
         active
           ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
           : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -623,7 +623,7 @@ function EmptyState({
       <button
         type="button"
         onClick={onBack}
-        className={`inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
+        className={`inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
         style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
       >
         자료 다시 고르기

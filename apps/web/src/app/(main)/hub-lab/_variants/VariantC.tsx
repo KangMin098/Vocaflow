@@ -119,7 +119,7 @@ export function VariantC({ room, time }: { room: ReadingRoom | null; time: RoomT
             {lead.word}
           </h1>
 
-          <p className="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[11px] tabular-nums" style={{ color: tone.sub }}>
+          <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] tabular-nums" style={{ color: tone.sub }}>
             {lead.pos && <span>{lead.pos}</span>}
             {lead.cefr && <span>· {lead.cefr}</span>}
             <span>· {lead.overdueDays === 0 ? '오늘이 기한' : `${lead.overdueDays}일 밀림`}</span>
@@ -173,7 +173,7 @@ export function VariantC({ room, time }: { room: ReadingRoom | null; time: RoomT
 // ────────────────────────────────────────────────────────────
 function FollowingRow({ word: w }: { word: ReadingRoomWord }) {
   return (
-    <li className="flex items-baseline gap-3 py-2.5">
+    <li className="flex items-baseline gap-3 py-3">
       <span className="font-editorial text-[17px] font-[500] text-[var(--t1)]">{w.word}</span>
       <span className="min-w-0 flex-1 truncate font-body text-[12.5px] text-[var(--t2)]">
         {w.meaning}

@@ -27,7 +27,7 @@ export function WeaknessPanel({ rows, days = 14 }: { rows: WeaknessRow[]; days?:
   return (
     <section className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
       <header className="flex items-baseline justify-between">
-        <h2 className="flex items-center gap-1.5 font-display text-[15px] font-[700] text-[var(--t1)]">
+        <h2 className="flex items-center gap-2 font-display text-[15px] font-[700] text-[var(--t1)]">
           <Target size={14} className="text-[var(--t2)]" strokeWidth={2.2} />
           요즘 자주 놓치는 것
         </h2>
@@ -43,7 +43,7 @@ export function WeaknessPanel({ rows, days = 14 }: { rows: WeaknessRow[]; days?:
                 type="button"
                 onClick={() => setExpanded(isOpen ? null : r.tag)}
                 aria-expanded={isOpen}
-                className="flex w-full flex-col gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2.5 text-left transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+                className="flex w-full flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-3 text-left transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
               >
                 <div className="flex items-center gap-2">
                   <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
@@ -66,12 +66,12 @@ export function WeaknessPanel({ rows, days = 14 }: { rows: WeaknessRow[]; days?:
               </button>
 
               {isOpen && (
-                <div className="mt-1.5 flex flex-col gap-2 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-2.5">
+                <div className="mt-1.5 flex flex-col gap-2 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-3">
                   <p className="font-body text-[12px] italic leading-relaxed text-[var(--t2)]">
                     {tagCoach(r.tag)}
                   </p>
                   {r.sampleExpected && (
-                    <div className="flex flex-col gap-1 rounded-[var(--r-sm)] bg-[var(--bg)] px-2.5 py-2">
+                    <div className="flex flex-col gap-1 rounded-[var(--r-sm)] bg-[var(--bg)] px-3 py-2">
                       <p className="font-english text-[12px] leading-relaxed text-[var(--t1)]">
                         {r.sampleExpected}
                       </p>

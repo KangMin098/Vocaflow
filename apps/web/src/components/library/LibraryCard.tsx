@@ -55,7 +55,7 @@ export function LibraryCard({ text }: LibraryCardProps) {
       </div>
 
       {/* Info */}
-      <div className="flex flex-col gap-0.5 px-0.5">
+      <div className="flex flex-col gap-1 px-1">
         <h3 className="line-clamp-2 font-english text-[15px] font-[600] leading-tight text-[var(--t1)]">
           {text.title}
         </h3>

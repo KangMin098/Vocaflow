@@ -236,7 +236,7 @@ function StatsBar({ stats }: { stats: ArticleStats }) {
         return (
           <div
             key={it.label}
-            className="flex flex-col gap-0.5 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3"
+            className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3"
             style={{ backgroundColor: c.bg }}
           >
             <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: c.text }}>
@@ -369,7 +369,7 @@ function SourceTabs({
             aria-selected={active}
             onClick={() => onChange(key)}
             className={[
-              'inline-flex min-h-[40px] items-center gap-1.5 -mb-px border-b-2 px-3',
+              'inline-flex min-h-[40px] items-center gap-2 -mb-px border-b-2 px-3',
               'font-display text-[12px] font-[600]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',

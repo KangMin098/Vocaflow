@@ -75,7 +75,7 @@ export function ChapterBottomNav({ chapters, currentChapterIdx }: ChapterBottomN
           }
           window.scrollTo({ top: 0, behavior: 'smooth' })
         }}
-        className={`inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ${
+        className={`inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ${
           prev
             ? 'hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)] hover:shadow-[var(--sh-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'
             : 'cursor-not-allowed opacity-40'
@@ -127,7 +127,7 @@ export function ChapterBottomNav({ chapters, currentChapterIdx }: ChapterBottomN
           }
           window.scrollTo({ top: 0, behavior: 'smooth' })
         }}
-        className={`inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ${
+        className={`inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] ${
           next
             ? 'hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)] hover:shadow-[var(--sh-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'
             : 'cursor-not-allowed opacity-40'

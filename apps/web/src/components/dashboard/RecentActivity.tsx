@@ -165,7 +165,7 @@ function ActivityChip({ item, runLength }: { item: ActivityItem; runLength: numb
     <li>
       <span
         title={`${short}${runLabel && ` ${runLabel}`} · ${item.textTitle} · ${item.relativeTime}`}
-        className="group inline-flex h-7 shrink-0 items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5"
+        className="group inline-flex h-7 shrink-0 items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-3"
         aria-label={`${short} ${runLength > 1 ? `${runLength}회 ` : ''}${body}, ${item.relativeTime} — ${item.textTitle}`}
       >
         <span

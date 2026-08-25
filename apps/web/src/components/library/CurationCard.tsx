@@ -44,7 +44,7 @@ export function CurationCard({ item }: CurationCardProps) {
         <p className="font-body text-[13px] font-[500] text-[var(--t2)]">{item.author}</p>
 
         {/* Rating */}
-        <div className="mt-1 flex items-center gap-2.5 font-body text-[12px] text-[var(--t2)]">
+        <div className="mt-1 flex items-center gap-3 font-body text-[12px] text-[var(--t2)]">
           <span className="inline-flex items-center gap-1 text-[var(--active)]">
             <Star size={12} fill="currentColor" strokeWidth={0} aria-hidden="true" />
             {item.rating.toFixed(1)}

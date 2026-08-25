@@ -73,7 +73,7 @@ export function PairFlipPairsList({ pairs }: PairsListProps) {
                   </p>
                 </div>
                 <span
-                  className={`inline-flex shrink-0 items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[11px] font-[600] ${badge.className}`}
+                  className={`inline-flex shrink-0 items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[600] ${badge.className}`}
                 >
                   {badge.label}
                 </span>

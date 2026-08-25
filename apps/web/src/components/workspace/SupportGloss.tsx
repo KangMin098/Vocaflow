@@ -82,7 +82,7 @@ export function SupportGloss({ support, anchorRect, onClose }: SupportGlossProps
       {/* category chip */}
       <div className="mb-2.5 flex items-center justify-between">
         <span
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-[0.06em]"
+          className="inline-flex items-center gap-2 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] uppercase tracking-[0.06em]"
           style={{ color: meta.tint, background: meta.bg }}
         >
           <ChipIcon size={11} strokeWidth={2} aria-hidden="true" />

@@ -291,7 +291,7 @@ export function CuratedArticlesTab({
               type="button"
               onClick={runDrain}
               disabled={drain?.running}
-              className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex min-h-[32px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {drain?.running ? <Loader2 size={12} className="animate-spin" aria-hidden /> : <Play size={12} aria-hidden />}
               큐 처리 (dev · {queuedCount})
@@ -357,7 +357,7 @@ export function CuratedArticlesTab({
                     className="border-t border-[var(--bd)] transition-colors hover:bg-[var(--bg2)]"
                     style={isSel ? { backgroundColor: 'var(--learn-known-light)' } : undefined}
                   >
-                    <td className="px-2 py-2.5 text-center">
+                    <td className="px-2 py-3 text-center">
                       <button
                         type="button"
                         onClick={() => toggleOne(a.id)}
@@ -373,7 +373,7 @@ export function CuratedArticlesTab({
                       </button>
                     </td>
                     <Td>
-                      <div className="flex flex-col gap-0.5">
+                      <div className="flex flex-col gap-1">
                         <Link
                           href={`/admin/articles/preview/${a.id}${previewSuffix}`}
                           className="line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)] hover:text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
@@ -440,7 +440,7 @@ export function CuratedArticlesTab({
                             href={a.source_url}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex h-7 items-center gap-0.5 rounded-[var(--r-sm)] border border-[var(--bd)] px-2 font-mono text-[10px] text-[var(--t2)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] px-2 font-mono text-[10px] text-[var(--t2)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                             aria-label="원본 새 탭에서 열기"
                           >
                             <ExternalLink size={10} aria-hidden />
@@ -550,7 +550,7 @@ function BulkToolbar({
           type="button"
           onClick={onDev}
           disabled={bulk != null}
-          className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[32px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {bulk === 'dev' ? <Loader2 size={12} className="animate-spin" aria-hidden /> : <Play size={12} aria-hidden />}
           Dev 일괄 처리
@@ -559,7 +559,7 @@ function BulkToolbar({
           type="button"
           onClick={onRequeue}
           disabled={bulk != null}
-          className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--bg)] px-3 font-display text-[11px] font-[600] text-[var(--learn-error)] transition-colors hover:bg-[var(--learn-error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[32px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--bg)] px-3 font-display text-[11px] font-[600] text-[var(--learn-error)] transition-colors hover:bg-[var(--learn-error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {bulk === 'requeue' ? <Loader2 size={12} className="animate-spin" aria-hidden /> : <Download size={12} aria-hidden />}
           → 소스 GET
@@ -599,7 +599,7 @@ function DrainBanner({ drain, onStop, onDismiss }: { drain: DrainState; onStop: 
         라운드 {drain.rounds} · 처리 {drain.processed} · 성공 {drain.succeeded} · 실패 {drain.failed}
         {drain.remaining != null && ` · 남음 ${drain.remaining}`}
       </span>
-      <div className="ml-auto flex items-center gap-1.5">
+      <div className="ml-auto flex items-center gap-2">
         {drain.running ? (
           <button
             type="button"
@@ -642,7 +642,7 @@ function FilterChips({
     { value: 'archived', label: '보관됨' },
   ]
   return (
-    <div role="radiogroup" className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5">
+    <div role="radiogroup" className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-1">
       {options.map((opt) => {
         const active = filter === opt.value
         const count =
@@ -718,7 +718,7 @@ function StatusPill({ tone, label }: { tone: 'success' | 'warning' | 'info' | 'd
   const c = colorMap[tone]
   return (
     <span
-      className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[700]"
+      className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
       style={{ background: c.bg, color: c.fg }}
     >
       {label}
@@ -743,7 +743,7 @@ function Th({ children, align = 'left', srOnly }: { children: React.ReactNode; a
 
 function Td({ children, align = 'left' }: { children: React.ReactNode; align?: 'left' | 'center' | 'right' }) {
   return (
-    <td className={['px-3 py-2.5', align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'].join(' ')}>
+    <td className={['px-3 py-3', align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left'].join(' ')}>
       {children}
     </td>
   )
@@ -762,7 +762,7 @@ function EmptyBox({ onReset, hasAny }: { onReset: () => void; hasAny: boolean })
         <button
           type="button"
           onClick={onReset}
-          className="rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--on-p)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          className="rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--on-p)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           필터 초기화
         </button>

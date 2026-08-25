@@ -175,7 +175,7 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
           href={listHref}
-          className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden />
           글 목록으로
@@ -258,11 +258,11 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
         {/* 푸터 액션 */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--bd)] bg-[var(--bg2)] px-5 py-3">
           {error ? (
-            <span className="inline-flex items-center gap-1.5 font-body text-[12px] text-[var(--learn-error)]">
+            <span className="inline-flex items-center gap-2 font-body text-[12px] text-[var(--learn-error)]">
               <AlertCircle size={12} aria-hidden /> {error}
             </span>
           ) : article.statusMessage ? (
-            <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[var(--learn-error)]">
+            <span className="inline-flex items-center gap-2 font-mono text-[11px] text-[var(--learn-error)]">
               <AlertCircle size={12} aria-hidden /> {article.statusMessage}
             </span>
           ) : (
@@ -408,9 +408,9 @@ function GatePanel({
           {passCount} / {items.length}
         </span>
       </header>
-      <ul className="grid gap-1.5 sm:grid-cols-2">
+      <ul className="grid gap-2 sm:grid-cols-2">
         {items.map((it) => (
-          <li key={it.key} className="flex items-center gap-1.5 font-body text-[12px]">
+          <li key={it.key} className="flex items-center gap-2 font-body text-[12px]">
             {it.pass ? (
               <CheckCircle2 size={14} className="shrink-0 text-[var(--learn-known)]" aria-hidden />
             ) : (
@@ -420,20 +420,20 @@ function GatePanel({
           </li>
         ))}
         {derivation === 'display_only' && (
-          <li className="flex items-center gap-1.5 font-body text-[12px] text-[var(--learn-review)]">
+          <li className="flex items-center gap-2 font-body text-[12px] text-[var(--learn-review)]">
             <AlertCircle size={14} className="shrink-0" aria-hidden />
             단어세트 미발행(ND) — 본문 읽기 전용
           </li>
         )}
         {!copyrightSafe && (
-          <li className="flex items-center gap-1.5 font-body text-[12px] text-[var(--learn-error)]">
+          <li className="flex items-center gap-2 font-body text-[12px] text-[var(--learn-error)]">
             <XCircle size={14} className="shrink-0" aria-hidden />
             저작권 미확인 — 게시 차단
           </li>
         )}
       </ul>
       <div
-        className="flex items-center gap-1.5 border-t border-[var(--bd)] pt-2 font-display text-[12px] font-[600]"
+        className="flex items-center gap-2 border-t border-[var(--bd)] pt-2 font-display text-[12px] font-[600]"
         style={{ color: verdict.color }}
       >
         <VerdictIcon size={14} aria-hidden />
@@ -467,7 +467,7 @@ function ActionButton({
       type="button"
       onClick={onClick}
       disabled={pending}
-      className={`inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
+      className={`inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
     >
       {pending ? <Loader2 size={12} className="animate-spin" aria-hidden /> : icon}
       {label}
@@ -529,7 +529,7 @@ function PublishControl({
         onClick={onPublish}
         disabled={pending}
         title="copyright_safe 확인 후 즉시 게시 (admin_force_publish_article). 게시하면 학습자 스크립트 탭에 노출됩니다."
-        className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[700] text-[var(--on-p)] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[700] text-[var(--on-p)] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {pending ? (
           <Loader2 size={13} className="animate-spin" aria-hidden />
@@ -542,7 +542,7 @@ function PublishControl({
   }
   if (gate === 'published') {
     return (
-      <span className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-known)]/40 bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known)]">
+      <span className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-known)]/40 bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known)]">
         <CheckCircle2 size={13} aria-hidden />
         게시됨
       </span>
@@ -551,7 +551,7 @@ function PublishControl({
   return (
     <span
       title={GATE_REASON[gate]}
-      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[600] text-[var(--t2)]"
+      className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[600] text-[var(--t2)]"
     >
       <Ban size={12} aria-hidden />
       {GATE_REASON[gate]}
@@ -576,7 +576,7 @@ function StatusPill({
   const c = colorMap[tone]
   return (
     <span
-      className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[700]"
+      className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
       style={{ background: c.bg, color: c.fg }}
     >
       {label}

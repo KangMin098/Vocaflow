@@ -265,7 +265,7 @@ function StatusPill({ status, count }: { status: Status; count: number }) {
   const Icon = meta.icon
   return (
     <span
-      className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3 py-1"
+      className="inline-flex items-center gap-2 rounded-[var(--r-full)] px-3 py-1"
       style={{ backgroundColor: meta.bg, color: meta.color }}
     >
       <Icon size={12} strokeWidth={2.5} aria-hidden="true" />
@@ -299,13 +299,13 @@ function ScreenCard({ screen }: { screen: Screen }) {
         <Icon size={16} strokeWidth={1.75} />
       </span>
 
-      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex items-center justify-between gap-2">
           <p className="truncate font-display text-[14px] font-[600] text-[var(--t1)]">
             {screen.label}
           </p>
           <span
-            className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5"
+            className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] px-2 py-1"
             style={{ backgroundColor: meta.bg, color: meta.color }}
             aria-label={`상태: ${meta.label}`}
           >

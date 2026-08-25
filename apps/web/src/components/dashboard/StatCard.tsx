@@ -168,7 +168,7 @@ function StatCardBox({
         {trend && trendText && TrendIcon && (
           <div
             className={cn(
-              'inline-flex items-center gap-s-1 rounded-md px-s-2 py-[2px]',
+              'inline-flex items-center gap-s-1 rounded-md px-s-2 py-[4px]',
               'font-mono text-[11px] font-bold tabular-nums',
               trendStyle.bg,
               trendStyle.color

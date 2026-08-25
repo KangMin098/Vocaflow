@@ -165,7 +165,7 @@ export function BookContentReader({
         </div>
 
         {/* 토글 — 내 레벨(양 모드) + admin 검수 토글 */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <ToggleButton
             active={showLevelWords}
             onToggle={() => setShowLevelWords((v) => !v)}
@@ -302,7 +302,7 @@ function ToggleButton({
       aria-pressed={active}
       aria-label={ariaLabel}
       className={[
-        'inline-flex min-h-[32px] items-center rounded-[var(--r-sm)] border px-2.5',
+        'inline-flex min-h-[32px] items-center rounded-[var(--r-sm)] border px-3',
         'font-display text-[11px] font-[600]',
         'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',

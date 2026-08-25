@@ -121,7 +121,7 @@ export function UnifiedHeader({
           insight·더보기 중복 아이콘 제거(단어장 칩이 insight 트리거). */}
       <div
         className={`mx-auto flex w-full max-w-[1080px] items-center gap-3 px-5 transition-[padding] duration-[var(--dur-slower)] sm:px-8 ${
-          isFocusMode ? 'py-1' : 'py-1.5'
+          isFocusMode ? 'py-1' : 'py-2'
         }`}
       >
         {/* Back — 책(chapter context) 또는 라이브러리로.
@@ -182,7 +182,7 @@ export function UnifiedHeader({
                       type="button"
                       onClick={onToggleInsight}
                       aria-label={`챕터 단어장 ${bookWordSetStats.subscribed} / ${bookWordSetStats.total} — 학습 인사이트 열기`}
-                      className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-mono text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                      className="inline-flex min-h-[44px] min-w-[44px] shrink-0 items-center justify-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-mono text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
                     >
                       <Layers size={9} aria-hidden />
                       <span className="tabular-nums">
@@ -213,7 +213,7 @@ export function UnifiedHeader({
 
         {/* Progress Dots — chapter context 아닐 때 (사용자 직접 입력 progress %) */}
         {!hasChapterContext && (
-          <div className="hidden shrink-0 items-center gap-[3px] md:flex">
+          <div className="hidden shrink-0 items-center gap-[4px] md:flex">
             {Array.from({ length: 10 }).map((_, i) => {
               const isFilled = i < filledDots
               const isPartial = i === filledDots && partialDot
@@ -236,7 +236,7 @@ export function UnifiedHeader({
         )}
 
         {/* Actions toolbar — 북마크 · 타이포 · 집중 (insight·더보기 중복 제거) */}
-        <div role="toolbar" aria-label="액션" className="flex shrink-0 items-center gap-0.5">
+        <div role="toolbar" aria-label="액션" className="flex shrink-0 items-center gap-1">
           {/* Bookmark */}
           <button
             type="button"

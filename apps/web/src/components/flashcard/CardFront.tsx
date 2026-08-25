@@ -63,11 +63,11 @@ export function CardFront({
 
         {/* Recall Hint Area (1.5초 후 노출) */}
         <div
-          className={`mb-4 flex h-6 items-center justify-center gap-1.5 font-body text-[12px] italic text-[var(--t2)] transition-opacity duration-[var(--dur-slow)] ${hintVisible ? 'opacity-100' : 'opacity-0'} `}
+          className={`mb-4 flex h-6 items-center justify-center gap-2 font-body text-[12px] italic text-[var(--t2)] transition-opacity duration-[var(--dur-slow)] ${hintVisible ? 'opacity-100' : 'opacity-0'} `}
           aria-hidden={!hintVisible}
         >
           <span>첫 글자가 떠오르지 않으면:</span>
-          <span className="inline-block rounded-[var(--r-sm)] bg-[var(--p-light)] px-2 py-0.5 font-english text-[14px] font-[700] not-italic tracking-[0.04em] text-[var(--on-p-tint)]">
+          <span className="inline-block rounded-[var(--r-sm)] bg-[var(--p-light)] px-2 py-1 font-english text-[14px] font-[700] not-italic tracking-[0.04em] text-[var(--on-p-tint)]">
             {firstLetters}
           </span>
         </div>
@@ -79,7 +79,7 @@ export function CardFront({
             onPlayAudio()
           }}
           aria-label="발음 듣기"
-          className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-5 py-2.5 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--p)] hover:shadow-[0_4px_12px_rgba(59,130,246,0.15)]"
+          className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-5 py-3 font-display text-[13px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--p)] hover:shadow-[0_4px_12px_rgba(59,130,246,0.15)]"
         >
           <Volume2
             size={14}
@@ -96,7 +96,7 @@ export function CardFront({
         className={`mt-3 flex h-4 items-center justify-center gap-2 text-center font-display text-[10px] font-[600] uppercase tracking-[0.10em] text-[var(--t2)] opacity-60 transition-opacity duration-[var(--dur-normal)] ${showFlipHint ? 'opacity-60' : 'pointer-events-none opacity-0'} `}
       >
         <span>탭 또는</span>
-        <kbd className="rounded border border-[var(--bd)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
+        <kbd className="rounded border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--t2)]">
           Space
         </kbd>
         <span>로 정답 확인</span>

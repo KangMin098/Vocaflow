@@ -134,7 +134,7 @@ export function PrimaryButton({
               /wordvault 다크). count>0 일 때만 렌더돼 데이터에 따라 나타났다 사라진다.
               어둡게 깔면 어떤 채움색 위에서도 흰 글자 대비가 올라간다. */}
           {count != null && count > 0 && (
-            <span className="rounded-ios-pill bg-black/25 px-3 py-0.5 font-mono text-[12px] tabular-nums">
+            <span className="rounded-ios-pill bg-black/25 px-3 py-1 font-mono text-[12px] tabular-nums">
               {count}
             </span>
           )}

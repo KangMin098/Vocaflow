@@ -46,7 +46,7 @@ export function SentAssignments({ rows }: Props) {
             >
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div className="flex flex-col gap-1">
-                  <p className="m-0 flex items-center gap-1.5 font-display text-[14px] font-[700] text-[var(--t1)]">
+                  <p className="m-0 flex items-center gap-2 font-display text-[14px] font-[700] text-[var(--t1)]">
                     <Send size={13} aria-hidden className="text-[var(--t3)]" />
                     {a.title}
                   </p>
@@ -54,7 +54,7 @@ export function SentAssignments({ rows }: Props) {
                     {a.className} · 단어 {a.words.length}개
                   </p>
                 </div>
-                <p className="m-0 flex items-center gap-1.5 font-display text-[13px] font-[700] tabular-nums text-[var(--t1)]">
+                <p className="m-0 flex items-center gap-2 font-display text-[13px] font-[700] tabular-nums text-[var(--t1)]">
                   <Users size={13} aria-hidden className="text-[var(--t3)]" />
                   {p.collectedCount} / {p.memberCount}
                 </p>

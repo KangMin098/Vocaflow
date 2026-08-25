@@ -43,7 +43,7 @@ export function BrowseSourceBar({
   const current = chapters[idx] ?? null
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[var(--bg2)] to-[var(--bg)] px-2 py-1.5">
+    <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-r from-[var(--bg2)] to-[var(--bg)] px-2 py-2">
       {/* ── 챕터 네비게이터 ── */}
       <div className="flex min-w-0 items-center gap-1">
         <NavArrow
@@ -62,7 +62,7 @@ export function BrowseSourceBar({
               const ch = chapters.find((c) => c.id === e.target.value)
               if (ch) onGoToChapter(ch)
             }}
-            className="h-8 max-w-[200px] cursor-pointer appearance-none truncate rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2210%22%20height=%2210%22%20viewBox=%220%200%2024%2024%22%20fill=%22none%22%20stroke=%22%23A1A1AA%22%20stroke-width=%222.5%22%3E%3Cpolyline%20points=%226%209%2012%2015%2018%209%22/%3E%3C/svg%3E')] bg-[right_9px_center] bg-no-repeat pl-2.5 pr-7 font-display text-[12.5px] font-[700] tracking-[-0.01em] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none"
+            className="h-8 max-w-[200px] cursor-pointer appearance-none truncate rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] bg-[url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2210%22%20height=%2210%22%20viewBox=%220%200%2024%2024%22%20fill=%22none%22%20stroke=%22%23A1A1AA%22%20stroke-width=%222.5%22%3E%3Cpolyline%20points=%226%209%2012%2015%2018%209%22/%3E%3C/svg%3E')] bg-[right_9px_center] bg-no-repeat pl-3 pr-7 font-display text-[12.5px] font-[700] tracking-[-0.01em] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none"
           >
             {chapters.map((c) => (
               <option key={c.id} value={c.id}>
@@ -88,7 +88,7 @@ export function BrowseSourceBar({
       </div>
 
       {/* ── 소스 바로가기 ── */}
-      <div className="flex shrink-0 items-center gap-1.5">
+      <div className="flex shrink-0 items-center gap-2">
         {currentTextId && (
           <SourceLink
             href={`/text/${currentTextId}?mode=read`}
@@ -151,7 +151,7 @@ function SourceLink({
     <Link
       href={href}
       title={title}
-      className={`inline-flex h-8 items-center gap-1.5 rounded-[var(--r-md)] px-3 font-display text-[12px] font-[700] transition-all ${
+      className={`inline-flex h-8 items-center gap-2 rounded-[var(--r-md)] px-3 font-display text-[12px] font-[700] transition-all ${
         primary
           ? 'bg-[#6366F1] text-white shadow-[var(--sh-xs)] hover:bg-[#4F46E5]'
           : 'border border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'

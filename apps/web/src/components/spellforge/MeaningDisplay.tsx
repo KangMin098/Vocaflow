@@ -24,7 +24,7 @@ export function MeaningDisplay({
   return (
     <>
       {/* Source Tag */}
-      <div className="mb-6 inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1 font-body text-[11px] italic text-[var(--t2)]">
+      <div className="mb-6 inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1 font-body text-[11px] italic text-[var(--t2)]">
         <svg
           width="11"
           height="11"
@@ -42,7 +42,7 @@ export function MeaningDisplay({
 
       {/* Meaning */}
       <div className="group mb-2 text-center">
-        <span className="mb-3 inline-block rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-0.5 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--on-p-tint)]">
+        <span className="mb-3 inline-block rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--on-p-tint)]">
           {pos}
         </span>
         <h2 className="mb-2 font-english text-[36px] font-[600] leading-tight text-[var(--t1)]">

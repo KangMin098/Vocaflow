@@ -48,7 +48,7 @@ export default function CourseLauncher({
 
   return (
     <div className={className}>
-      <div className="flex flex-wrap items-center gap-1.5">
+      <div className="flex flex-wrap items-center gap-2">
         <span className="mr-0.5 font-display text-[11px] font-[700] text-[var(--t2)]">{heading}</span>
 
         {stages.map((s, i) => (
@@ -62,7 +62,7 @@ export default function CourseLauncher({
               from: scope.from,
             })}
             title={`${s.label} — ${s.game!.name} · ${s.game!.tagline}`}
-            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[11.5px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[11.5px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
           >
             <span aria-hidden>{'①②③④'[i] ?? '·'}</span>
             <span aria-hidden>{s.game!.emoji}</span>
@@ -73,7 +73,7 @@ export default function CourseLauncher({
         <Link
           href={hubHref}
           title="Game Lab — 이 자료의 단어로 전체 실험 열람"
-          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-full)] border border-[#8B5CF6]/45 bg-[#8B5CF6]/10 px-3 font-display text-[11.5px] font-[700] text-[#6D28D9] no-underline transition-colors hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/16 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-full)] border border-[#8B5CF6]/45 bg-[#8B5CF6]/10 px-3 font-display text-[11.5px] font-[700] text-[#6D28D9] no-underline transition-colors hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/16 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
         >
           <span aria-hidden>🕹</span>
           Game Lab

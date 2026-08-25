@@ -81,7 +81,7 @@ export function VariantD({
                 {lead.word}
               </h1>
               <p
-                className="mt-2 flex flex-wrap items-center gap-x-2.5 font-mono text-[11px] tabular-nums"
+                className="mt-2 flex flex-wrap items-center gap-x-3 font-mono text-[11px] tabular-nums"
                 style={{ color: tone.sub }}
               >
                 {lead.pos && <span>{lead.pos}</span>}
@@ -181,7 +181,7 @@ export function VariantD({
           </h2>
           <ul className="mt-2 divide-y divide-[var(--bd)]">
             {room.rest.map((w) => (
-              <li key={w.id} className="flex items-baseline gap-3 py-2.5">
+              <li key={w.id} className="flex items-baseline gap-3 py-3">
                 <span className="font-editorial text-[17px] font-[500] text-[var(--t1)]">
                   {w.word}
                 </span>
@@ -257,7 +257,7 @@ function FlowRow({
     </span>
   )
 
-  const rowBase = 'flex items-stretch gap-3 rounded-[var(--r-md)] pl-2 pr-2.5'
+  const rowBase = 'flex items-stretch gap-3 rounded-[var(--r-md)] pl-2 pr-3'
 
   if (isNow || b.done || b.locked) {
     return (

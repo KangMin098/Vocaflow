@@ -380,7 +380,7 @@ function AddBtn({ label, onClick }: { label: string; onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-[var(--r-sm)] font-display text-xs border transition-colors"
+      className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-sm)] font-display text-xs border transition-colors"
       style={{ color: 'var(--t2)', borderColor: 'var(--bd)', background: 'var(--bg2)' }}
     >
       <Plus className="w-3.5 h-3.5" />

@@ -178,7 +178,7 @@ export function VariantA({
               오늘
             </span>
             <span
-              className="rounded-ios-pill px-2 py-0.5 font-mono text-[10.5px] font-[700] tabular-nums"
+              className="rounded-ios-pill px-2 py-1 font-mono text-[10.5px] font-[700] tabular-nums"
               style={{ background: 'rgb(255 255 255 / 0.16)' }}
               title={`학습 스테이지 ${p.stage}`}
             >
@@ -259,7 +259,7 @@ export function VariantA({
           <h2 className="mb-2 font-body text-[11.5px] text-[var(--t3)]">읽던 것</h2>
           <Link
             href={`/text/${cont.textId}`}
-            className="group flex items-center gap-3 rounded-ios-2xl bg-[var(--bg)] px-4 py-3.5 no-underline shadow-ios-1 motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-ios-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="group flex items-center gap-3 rounded-ios-2xl bg-[var(--bg)] px-4 py-4 no-underline shadow-ios-1 motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-ios-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <span className="text-[20px]" aria-hidden>
               {cont.coverEmoji ?? '📄'}
@@ -416,7 +416,7 @@ function FlowRow({ block: b, isNow, isLast }: { block: Block; isNow: boolean; is
     </span>
   )
 
-  const rowBase = 'flex items-stretch gap-3 rounded-[var(--r-md)] pl-2 pr-2.5'
+  const rowBase = 'flex items-stretch gap-3 rounded-[var(--r-md)] pl-2 pr-3'
 
   // 지금 · 완료 · 잠김은 이동 대상이 아니다(지금은 위 CTA 가, 나머지는 열려 있지 않다).
   if (isNow || b.done || b.locked) {

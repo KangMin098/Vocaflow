@@ -106,7 +106,7 @@ export function LevelProfilePanel({
           링크는 서명하지 않는다. 남의 숫자를 내 분석처럼 보여주면 그때부터 이 화면은
           검증 도구가 아니라 주장 전달자가 된다. */}
       {shared && (
-        <p className="m-0 flex items-start gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg3)] px-3.5 py-2.5 font-body text-[12.5px] leading-[1.6] text-[var(--t2)]">
+        <p className="m-0 flex items-start gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg3)] px-4 py-3 font-body text-[12.5px] leading-[1.6] text-[var(--t2)]">
           <Link2 size={14} aria-hidden className="mt-0.5 shrink-0 text-[var(--t3)]" />
           <span>
             <b>공유받은 결과</b>예요 — 다른 사람이 분석한 지문입니다. 아래에 직접 지문을 넣으면 내
@@ -132,7 +132,7 @@ export function LevelProfilePanel({
       </header>
 
       {/* ── 레벨 사다리 ── */}
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         {profile.readings.map((r) => (
           <LevelRow key={r.level} reading={r} isFit={fit?.level === r.level} />
         ))}
@@ -168,7 +168,7 @@ export function LevelProfilePanel({
 
       {/* ── 어려운 단어 ── */}
       {profile.hardestWords.length > 0 && (
-        <div className="flex flex-col gap-2.5">
+        <div className="flex flex-col gap-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h3 className="m-0 font-display text-[13px] font-[700] text-[var(--t1)]">
               이 지문에서 가장 어려운 단어
@@ -177,7 +177,7 @@ export function LevelProfilePanel({
               <button
                 type="button"
                 onClick={onCopyWords}
-                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
               >
                 {wordsCopied ? (
                   <>
@@ -199,11 +199,11 @@ export function LevelProfilePanel({
               있습니다.
             </p>
           )}
-          <ul className="flex flex-wrap gap-1.5">
+          <ul className="flex flex-wrap gap-2">
             {profile.hardestWords.slice(0, 16).map((w) => (
               <li
                 key={w.lemma}
-                className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] py-1 pl-2.5 pr-2 font-body text-[13px] text-[var(--t1)]"
+                className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] py-1 pl-3 pr-2 font-body text-[13px] text-[var(--t1)]"
               >
                 {w.surface}
                 {/* 단일 텍스트 노드로 만든다 — `V{n}` 은 SSR 이 노드를 쪼개 `V<!-- -->10` 이 되고,
@@ -223,7 +223,7 @@ export function LevelProfilePanel({
           여기까지는 <b>학년 기준</b>이에요. 로그인하면 <b>내가 실제로 아는 단어</b>를 기준으로 다시
           계산하고, 복습을 미뤘을 때 이 지문이 2주 뒤 얼마나 어려워지는지까지 보여드려요.
         </p>
-        <div className="flex flex-wrap gap-2.5">
+        <div className="flex flex-wrap gap-3">
           {onShare && (
             <button
               type="button"
@@ -254,7 +254,7 @@ export function LevelProfilePanel({
           </Link>
           <Link
             href="/pricing"
-            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
           >
             요금제 보기
             <ArrowRight size={14} aria-hidden />
@@ -277,7 +277,7 @@ function LevelRow({ reading, isFit }: { reading: LevelReading; isFit: boolean })
 
   return (
     <div
-      className={`flex items-center gap-3 rounded-[var(--r-md)] px-2 py-1.5 transition-colors duration-[var(--dur-normal)] motion-reduce:transition-none ${
+      className={`flex items-center gap-3 rounded-[var(--r-md)] px-2 py-2 transition-colors duration-[var(--dur-normal)] motion-reduce:transition-none ${
         isFit ? 'bg-[var(--bg3)]' : ''
       }`}
     >

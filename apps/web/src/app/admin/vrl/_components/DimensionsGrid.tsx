@@ -16,7 +16,7 @@ export function DimensionsGrid({ dimensions }: DimensionsGridProps) {
 
   return (
     <section aria-label="9 quality dimensions" className="flex flex-col gap-4">
-      <header className="flex items-center gap-2.5">
+      <header className="flex items-center gap-3">
         <span
           className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
           style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}

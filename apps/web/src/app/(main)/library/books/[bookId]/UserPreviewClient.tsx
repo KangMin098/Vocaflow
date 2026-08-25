@@ -87,7 +87,7 @@ export function UserPreviewClient({
       <div className="flex items-center justify-between">
         <Link
           href="/library/books"
-          className="inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden />
           도서로
@@ -138,7 +138,7 @@ export function UserPreviewClient({
         footerSlot={
           <div className="flex flex-wrap items-center justify-between gap-3">
             {error ? (
-              <span className="inline-flex items-center gap-1.5 font-body text-[12px] text-[var(--learn-error)]">
+              <span className="inline-flex items-center gap-2 font-body text-[12px] text-[var(--learn-error)]">
                 <AlertCircle size={12} aria-hidden /> {error}
               </span>
             ) : (
@@ -263,7 +263,7 @@ function Stat({
   sub?: string;
 }) {
   return (
-    <div className="flex flex-col gap-0.5">
+    <div className="flex flex-col gap-1">
       <span className="font-display text-[10px] font-[600] uppercase tracking-wide text-[var(--t2)]">
         {label}
       </span>

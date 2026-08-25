@@ -174,7 +174,7 @@ function InfoBody({ info }: { info: PdComicInfo }) {
   return (
     <div className="flex flex-col gap-4">
       {/* 서지 — 학습자가 "언제 것인지"를 먼저 본다 */}
-      <dl className="grid grid-cols-2 gap-x-4 gap-y-2.5">
+      <dl className="grid grid-cols-2 gap-x-4 gap-y-3">
         <Row label="시리즈" value={info.seriesTitle} />
         <Row label="호수" value={info.issueNo != null ? `제 ${info.issueNo}호` : '단행본'} />
         <Row label="원본 발행" value={info.publishedYear ? `${info.publishedYear}년` : '연도 미상'} />
@@ -188,7 +188,7 @@ function InfoBody({ info }: { info: PdComicInfo }) {
       {/* 학습 노트 — 이 유형을 읽으면 어떤 영어를 얻나. 서가의 유형 구분이 존재하는 이유. */}
       {info.kindLearnerNote && (
         <section className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
-          <h3 className="flex items-center gap-1.5 font-display text-[12.5px] font-[700] text-[var(--t1)]">
+          <h3 className="flex items-center gap-2 font-display text-[12.5px] font-[700] text-[var(--t1)]">
             <BookOpen size={14} aria-hidden />
             이 유형으로 배우는 것
           </h3>
@@ -205,7 +205,7 @@ function InfoBody({ info }: { info: PdComicInfo }) {
 
       {/* 출처·저작권 — 신뢰의 문제라 숨기지 않는다 */}
       <section className="rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3">
-        <h3 className="flex items-center gap-1.5 font-display text-[12.5px] font-[700] text-[var(--t1)]">
+        <h3 className="flex items-center gap-2 font-display text-[12.5px] font-[700] text-[var(--t1)]">
           <ShieldCheck size={14} aria-hidden />
           출처와 이용 근거
         </h3>
@@ -217,7 +217,7 @@ function InfoBody({ info }: { info: PdComicInfo }) {
             href={info.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 inline-flex min-h-[44px] items-center gap-1.5 font-body text-[12.5px] font-[600] text-[var(--active-ink)] underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="mt-2 inline-flex min-h-[44px] items-center gap-2 font-body text-[12.5px] font-[600] text-[var(--active-ink)] underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             원본 스캔 보기
             {info.sourceArchive === 'internet-archive' && ' (Internet Archive)'}

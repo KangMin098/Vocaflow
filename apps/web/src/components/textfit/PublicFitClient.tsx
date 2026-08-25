@@ -186,7 +186,7 @@ export function PublicFitClient({ initialShared = null }: Props) {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-col gap-2.5">
+      <div className="flex flex-col gap-3">
         <label
           htmlFor="fit-input"
           className="font-display text-[13px] font-[700] text-[var(--t1)]"
@@ -213,7 +213,7 @@ export function PublicFitClient({ initialShared = null }: Props) {
             <button
               type="button"
               onClick={() => setText(SAMPLE)}
-              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3.5 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
             >
               <FileText size={14} aria-hidden />
               예시 지문
@@ -222,7 +222,7 @@ export function PublicFitClient({ initialShared = null }: Props) {
               type="button"
               onClick={() => setText('')}
               disabled={text.length === 0}
-              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3.5 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transition-none"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transition-none"
             >
               <RotateCcw size={14} aria-hidden />
               지우기

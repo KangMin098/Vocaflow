@@ -36,7 +36,10 @@ afterEach(() => {
 })
 
 describe('브리핑 열람 기록', () => {
-  beforeEach(() => installStorage())
+  // 블록 본문으로 둔다 — 화살표가 Storage 를 반환하면 vitest 가 그것을 cleanup 콜백으로 읽는다.
+  beforeEach(() => {
+    installStorage()
+  })
 
   it('처음에는 아무것도 본 적이 없다', () => {
     expect(isBriefSeen('cascade')).toBe(false)

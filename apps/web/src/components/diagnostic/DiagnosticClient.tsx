@@ -413,20 +413,20 @@ export function DiagnosticClient() {
       if (!p) return null
       return (
         <div className="rounded-[var(--r-2xl)] bg-gradient-to-br from-[var(--p-dark)] to-[var(--p)] p-6 text-[var(--on-p)] shadow-[var(--sh-md)]">
-          <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--active)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--on-active)]">
+          <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--active)] px-3 py-1 font-display text-[11px] font-[700] text-[var(--on-active)]">
             ★ 처음이라면 여기서 시작
           </span>
           <h2 className="mt-3 font-display text-[24px] font-[700] leading-tight">{p.title}</h2>
           <p className="mt-1.5 font-body text-[14px] leading-relaxed opacity-90">
             목표가 뚜렷하지 않다면, 이 진단 하나로 충분해요.
           </p>
-          <p className="mt-3 inline-block rounded-[var(--r-full)] bg-white/15 px-2.5 py-1 font-body text-[12px]">
+          <p className="mt-3 inline-block rounded-[var(--r-full)] bg-white/15 px-3 py-1 font-body text-[12px]">
             {t.question_count}문항 · 약 {t.estimated_minutes}분
           </p>
           <div className="mt-5 flex gap-2">
             <button
               onClick={() => void startTest(t)}
-              className="group flex flex-1 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--ti)] px-5 py-3 font-display text-[15px] font-[700] text-[var(--p)] shadow-[var(--sh-sm)] transition-transform hover:scale-[1.01] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--p)]"
+              className="group flex flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ti)] px-5 py-3 font-display text-[15px] font-[700] text-[var(--p)] shadow-[var(--sh-sm)] transition-transform hover:scale-[1.01] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--p)]"
             >
               진단 시작
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" aria-hidden />
@@ -450,7 +450,7 @@ export function DiagnosticClient() {
       return (
         <div
           key={t.id}
-          className="flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3.5 shadow-[var(--sh-sm)] transition-colors hover:border-[var(--p)]"
+          className="flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-colors hover:border-[var(--p)]"
         >
           <span className="text-[22px] leading-none" aria-hidden>
             {p.emoji}
@@ -472,7 +472,7 @@ export function DiagnosticClient() {
           <button
             onClick={() => void startTest(t)}
             // 44px 하한 — 실측 69x34. 진단 목록의 **시작 버튼**이라 가장 자주 눌린다.
-            className="group inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-[var(--r-md)] bg-[var(--bg3)] px-3.5 py-2 font-display text-[12px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="group inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-[var(--r-md)] bg-[var(--bg3)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             시작
             <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" aria-hidden />
@@ -539,7 +539,7 @@ export function DiagnosticClient() {
                   </span>
                   <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
                 </div>
-                <div className="flex flex-col gap-2.5">{secondary.map(renderGoal)}</div>
+                <div className="flex flex-col gap-3">{secondary.map(renderGoal)}</div>
               </section>
             )}
           </>
@@ -685,7 +685,7 @@ export function DiagnosticClient() {
         )}
         <button
           onClick={() => setLevelGuideOpen(true)}
-          className="mt-4 inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--on-p)]/40 px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
+          className="mt-4 inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--on-p)]/40 px-3 py-2 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
         >
           <Info size={13} aria-hidden /> 이 레벨이 뭔가요?
         </button>
@@ -740,7 +740,7 @@ export function DiagnosticClient() {
                       {rec.title}
                     </span>
                     {REC_LABEL[rec.recommendation_type] && (
-                      <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--on-p-tint)]">
+                      <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--on-p-tint)]">
                         {REC_LABEL[rec.recommendation_type]}
                       </span>
                     )}
@@ -777,7 +777,7 @@ export function DiagnosticClient() {
         </h2>
         <ol className="mt-3 flex flex-col gap-2">
           {nextPoints.map((pt, i) => (
-            <li key={i} className="flex gap-2.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
+            <li key={i} className="flex gap-3 font-body text-[13px] leading-relaxed text-[var(--t2)]">
               <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[var(--bg3)] font-display text-[11px] font-[700] text-[var(--t2)]">
                 {i + 1}
               </span>
@@ -804,7 +804,7 @@ export function DiagnosticClient() {
                   key={opt.key}
                   onClick={() => toggleInterest(opt.key)}
                   aria-pressed={selected}
-                  className={`flex flex-col items-center gap-1.5 rounded-[var(--r-md)] border-2 p-3 transition-all duration-[var(--dur-normal)] ${
+                  className={`flex flex-col items-center gap-2 rounded-[var(--r-md)] border-2 p-3 transition-all duration-[var(--dur-normal)] ${
                     selected
                       ? 'border-[var(--p)] bg-[var(--p-light)]'
                       : 'border-[var(--bd)] bg-[var(--bg)] hover:border-[var(--t3)]'
@@ -880,16 +880,16 @@ function InfoModal({
               <div className="flex items-center gap-2">
                 <h2 className="font-display text-[17px] font-[700] text-[var(--t1)]">{p.title}</h2>
                 {p.recommended && (
-                  <span className="rounded-[var(--r-full)] bg-[var(--p)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--on-p)]">
+                  <span className="rounded-[var(--r-full)] bg-[var(--p)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--on-p)]">
                     추천
                   </span>
                 )}
               </div>
-              <div className="mt-1.5 flex items-center gap-1.5">
-                <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-body text-[11px] text-[var(--t2)]">
+              <div className="mt-1.5 flex items-center gap-2">
+                <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-body text-[11px] text-[var(--t2)]">
                   📝 {test.question_count}문항
                 </span>
-                <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-body text-[11px] text-[var(--t2)]">
+                <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-body text-[11px] text-[var(--t2)]">
                   ⏱ 약 {test.estimated_minutes}분
                 </span>
               </div>
@@ -906,7 +906,7 @@ function InfoModal({
 
         <div className="flex flex-col gap-5 p-5">
           {/* 목적 — 강조 박스 */}
-          <div className="flex items-start gap-2.5 rounded-[var(--r-md)] bg-[var(--p-light)] p-3.5">
+          <div className="flex items-start gap-3 rounded-[var(--r-md)] bg-[var(--p-light)] p-4">
             <Target size={18} className="mt-0.5 shrink-0 text-[var(--p)]" aria-hidden />
             <p className="font-display text-[14px] font-[600] leading-snug text-[var(--t1)]">
               {info.summary}
@@ -914,7 +914,7 @@ function InfoModal({
           </div>
 
           {/* 이런 분께 */}
-          <div className="flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-3.5 py-2.5">
+          <div className="flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3">
             <Users size={15} className="shrink-0 text-[var(--t2)]" aria-hidden />
             <p className="font-body text-[13px] text-[var(--t2)]">
               <span className="font-[600] text-[var(--t1)]">이런 분께</span> · {p.who}
@@ -926,7 +926,7 @@ function InfoModal({
             <h3 className="mb-2 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
               결과 활용
             </h3>
-            <ul className="flex flex-col gap-1.5">
+            <ul className="flex flex-col gap-2">
               {info.usagePoints.map((pt, i) => (
                 <li
                   key={i}
@@ -947,7 +947,7 @@ function InfoModal({
             <div className="flex items-stretch gap-1">
               {info.steps.map((s, i) => (
                 <Fragment key={i}>
-                  <span className="flex flex-1 flex-col items-center justify-center gap-0.5 rounded-[var(--r-md)] bg-[var(--bg2)] px-1.5 py-2 text-center">
+                  <span className="flex flex-1 flex-col items-center justify-center gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] px-2 py-2 text-center">
                     <span className="font-display text-[10px] font-[700] text-[var(--p)]">
                       {i + 1}
                     </span>
@@ -978,7 +978,7 @@ function InfoModal({
           </button>
           <button
             onClick={onStart}
-            className="group flex flex-[2] items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)]"
+            className="group flex flex-[2] items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)]"
           >
             이 진단 시작
             <ArrowRight
@@ -1059,7 +1059,7 @@ function LevelGuideModal({
               return (
                 <div
                   key={b.level}
-                  className={`flex items-start gap-3 rounded-[var(--r-md)] border p-2.5 transition-colors ${
+                  className={`flex items-start gap-3 rounded-[var(--r-md)] border p-3 transition-colors ${
                     active ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-transparent'
                   }`}
                 >
@@ -1071,17 +1071,17 @@ function LevelGuideModal({
                     {isTrack ? `L${b.level}` : `V${b.level}`}
                   </span>
                   <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                       <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
                         {b.korean_name}
                       </span>
                       {cefr && (
-                        <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t2)]">
+                        <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">
                           CEFR {cefr}
                         </span>
                       )}
                       {active && (
-                        <span className="rounded-[var(--r-full)] bg-[var(--p)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--on-p)]">
+                        <span className="rounded-[var(--r-full)] bg-[var(--p)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--on-p)]">
                           현재
                         </span>
                       )}

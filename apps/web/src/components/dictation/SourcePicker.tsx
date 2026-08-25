@@ -66,9 +66,9 @@ function Row({
     <li>
       <Link
         href={href}
-        className="group flex items-center gap-3 rounded-[var(--r-md)] border border-transparent px-3 py-2.5 transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        className="group flex items-center gap-3 rounded-[var(--r-md)] border border-transparent px-3 py-3 transition-all duration-[var(--dur-normal)] hover:border-[var(--bd)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
-        <span className="shrink-0 rounded-full bg-[var(--bg3)] px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
+        <span className="shrink-0 rounded-full bg-[var(--bg3)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--t2)]">
           {badge}
         </span>
         <span className="min-w-0 flex-1">
@@ -115,7 +115,7 @@ export function SourcePicker({ catalog }: { catalog: DictationCatalog }) {
 
   return (
     <section className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
-      <div className="flex items-center gap-1.5" role="tablist" aria-label="받아쓸 자료 종류">
+      <div className="flex items-center gap-2" role="tablist" aria-label="받아쓸 자료 종류">
         {TABS.map((t) => {
           const Icon = t.icon
           const active = tab === t.id
@@ -126,9 +126,9 @@ export function SourcePicker({ catalog }: { catalog: DictationCatalog }) {
               role="tab"
               aria-selected={active}
               onClick={() => pick(t.id)}
-              // 44px 하한은 프로젝트 절대 규칙 — py-1.5 로는 30px 였다(실측 92x30).
+              // 44px 하한은 프로젝트 절대 규칙 — py-2 로는 30px 였다(실측 92x30).
               // 자료를 고르는 첫 조작이라 모바일에서 가장 많이 눌리는 곳이다.
-              className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] px-3 py-1.5 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 ${
+              className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-3 py-2 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 ${
                 active
                   ? 'bg-[var(--p-light)] text-[var(--on-p-tint)]'
                   : 'text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -178,14 +178,14 @@ export function SourcePicker({ catalog }: { catalog: DictationCatalog }) {
           ))}
 
         {counts[tab] === 0 && (
-          <li className="flex flex-col items-start gap-2.5 px-3 py-5">
+          <li className="flex flex-col items-start gap-3 px-3 py-5">
             <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
               {EMPTY_COPY[tab].text}
             </p>
             <Link
               href={EMPTY_COPY[tab].href}
               // 빈 탭에서 **유일한** 다음 걸음이다 — 여기가 44px 미만이면 막다른 곳에 가깝다
-              className="inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+              className="inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
             >
               {EMPTY_COPY[tab].cta}
               <ArrowRight size={13} />
@@ -230,7 +230,7 @@ function QuickPaste() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="mt-1 flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] px-4 py-2.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        className="mt-1 flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] px-4 py-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
         <ClipboardPaste size={13} />
         영어 글을 붙여넣어 바로 받아쓰기

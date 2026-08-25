@@ -201,7 +201,7 @@ export function Sidebar() {
       {/* ── 네비게이션 ── */}
       <nav className={`flex-1 overflow-y-auto pb-4 pt-2 ${collapsed ? 'px-2' : 'px-3'}`}>
         {/* META — Hub · Dashboard */}
-        <ul className="mt-2 flex flex-col gap-0.5">
+        <ul className="mt-2 flex flex-col gap-1">
           {META_ITEMS.map((item) => (
             <NavLinkItem
               key={item.href}
@@ -274,7 +274,7 @@ export function Sidebar() {
         <div className="my-5 border-t border-[var(--bd)]" aria-hidden="true" />
 
         {/* FOOTER — Settings */}
-        <ul className="flex flex-col gap-0.5">
+        <ul className="flex flex-col gap-1">
           {FOOTER_ITEMS.map((item) => (
             <NavLinkItem
               key={item.href}
@@ -399,12 +399,12 @@ function NavGroupBlock({
           색은 `--t3` 로 뒀다가 11px 에서 대비가 모자라 `--t2` 로 올렸다(실측 캡처) —
           보조 문장도 읽혀야 정보다. */}
       {!collapsed && here && (
-        <p className="mb-1.5 pl-[29px] font-body text-[12px] leading-[1.5] text-[var(--t2)] [word-break:keep-all]">
+        <p className="mb-1.5 pl-[28px] font-body text-[12px] leading-[1.5] text-[var(--t2)] [word-break:keep-all]">
           {group.says}
         </p>
       )}
 
-      <ul className={`flex flex-col gap-1 ${collapsed ? '' : 'pl-[7px]'}`}>
+      <ul className={`flex flex-col gap-1 ${collapsed ? '' : 'pl-[8px]'}`}>
         {group.items.map((item) => (
           <NavLinkItem
             key={item.href}
@@ -547,7 +547,7 @@ function NavLinkItem({
       {hasSub && open && (
         <ul
           id={subId}
-          className="ml-[26px] mt-0.5 flex flex-col gap-0.5 border-l border-[var(--bd)] pl-2"
+          className="ml-[26px] mt-0.5 flex flex-col gap-1 border-l border-[var(--bd)] pl-2"
         >
           {children.map((child) => {
             const childActive = matchesRoute(pathname, child.href, search)

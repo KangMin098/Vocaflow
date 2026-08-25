@@ -122,7 +122,7 @@ function Chip({
       type="button"
       aria-pressed={active}
       onClick={onClick}
-      className={`inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11.5px] font-[600] transition-colors ${
+      className={`inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11.5px] font-[600] transition-colors ${
         active
           ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
           : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--t3)] hover:bg-[var(--bg2)]'
@@ -136,11 +136,11 @@ function Chip({
 /** 라벨 구획 — 좌측 고정폭 라벨 + 칩 묶음. 각 조건을 또렷한 compartment 로 분리. */
 function Section({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-1.5 px-3.5 py-2.5 sm:flex-row sm:items-start sm:gap-3">
+    <div className="flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-start sm:gap-3">
       <span className="shrink-0 pt-1 font-display text-[11px] font-[700] text-[var(--t2)] sm:w-[56px]">
         {label}
       </span>
-      <div className="flex flex-1 flex-wrap items-center gap-1.5">{children}</div>
+      <div className="flex flex-1 flex-wrap items-center gap-2">{children}</div>
     </div>
   )
 }
@@ -184,7 +184,7 @@ export function BookFilterBar({
   return (
     <div className="flex flex-col divide-y divide-[var(--bd)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)]/60">
       {/* 상단 — 검색 + 정렬 + 초기화 + 결과수 */}
-      <div className="flex flex-wrap items-center gap-2.5 p-3.5">
+      <div className="flex flex-wrap items-center gap-3 p-4">
         <div className="relative min-w-[180px] flex-1">
           <Search
             size={14}
@@ -201,7 +201,7 @@ export function BookFilterBar({
           />
         </div>
 
-        <div className="inline-flex items-center gap-1.5">
+        <div className="inline-flex items-center gap-2">
           <SlidersHorizontal size={13} aria-hidden className="text-[var(--t2)]" />
           <label htmlFor="book-sort" className="sr-only">
             정렬
@@ -210,7 +210,7 @@ export function BookFilterBar({
             id="book-sort"
             value={sort}
             onChange={(e) => onSortChange(e.target.value as BookSort)}
-            className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-2.5 pr-7 font-display text-[12px] font-[600] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+            className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] py-2 pl-3 pr-7 font-display text-[12px] font-[600] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
           >
             {SORT_OPTIONS.map((o) => (
               <option key={o.key} value={o.key}>
@@ -224,7 +224,7 @@ export function BookFilterBar({
           <button
             type="button"
             onClick={onReset}
-            className="inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 py-1.5 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
+            className="inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
           >
             <X size={11} aria-hidden /> 초기화
           </button>

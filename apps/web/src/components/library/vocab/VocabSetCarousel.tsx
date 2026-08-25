@@ -199,7 +199,7 @@ export function VocabSetCarousel({
               aria-selected={isActive}
               onClick={() => selectCategory(c.id)}
               // 44px 하한 — 실측 32px 였다(카테고리 칩 7종 전부).
-              className={`inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700] transition-all ${
+              className={`inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] transition-all ${
                 isActive ? 'text-white shadow-[var(--sh-sm)]' : 'text-[var(--t2)] hover:bg-[var(--bg2)]'
               }`}
               style={isActive ? { backgroundColor: cc.accent } : undefined}
@@ -207,7 +207,7 @@ export function VocabSetCarousel({
               <span aria-hidden>{c.emoji}</span>
               {c.label}
               <span
-                className={`rounded-[var(--r-full)] px-1.5 text-[10px] tabular-nums ${
+                className={`rounded-[var(--r-full)] px-2 text-[10px] tabular-nums ${
                   // ⚠️ 흰 막은 강조색 바탕을 **밝혀서** 그 위의 흰 글자를 깎는다
                   //    (실측 2026-08-22: 3.34:1). 같은 분리감을 어둡히는 쪽으로 낸다.
                   isActive ? 'bg-black/25' : 'bg-[var(--bg3)] text-[var(--t2)]'
@@ -301,7 +301,7 @@ export function VocabSetCarousel({
               type="button"
               onClick={() => void openDetail(activeSet)}
               // 44px 하한 — 실측 80x38
-              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
             >
               <Eye size={14} aria-hidden /> 상세
             </button>
@@ -310,7 +310,7 @@ export function VocabSetCarousel({
               onClick={() => onToggle(activeSet)}
               disabled={pendingId === activeSet.id}
               // 44px 하한 — 실측 156x36. 이 화면의 **주 행동**이라 가장 먼저 지켜야 한다.
-              className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2 font-display text-[13px] font-[700] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60 ${
+              className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-5 py-2 font-display text-[13px] font-[700] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60 ${
                 subscribedIds.has(activeSet.id)
                   ? 'border border-[var(--success)]/30 bg-[var(--success-light)] text-[#065f46]'
                   : 'text-white'

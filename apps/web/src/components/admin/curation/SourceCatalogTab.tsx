@@ -173,7 +173,7 @@ function SegmentedControl<T extends string>({
 }: SegmentedControlProps<T>) {
   return (
     <div
-      className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5"
+      className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-1"
       role="radiogroup"
       aria-label={label}
     >
@@ -220,14 +220,14 @@ function SortSelect<T extends string>({
   onChange,
 }: SortSelectProps<T>) {
   return (
-    <label className="inline-flex items-center gap-1.5">
+    <label className="inline-flex items-center gap-2">
       <span className="font-mono text-[11px] text-[var(--t2)]">정렬</span>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
         className={[
           'rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)]',
-          'px-2.5 py-1 pr-7',
+          'px-3 py-1 pr-7',
           'font-display text-[12px] font-[600] text-[var(--t1)]',
           'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
           'hover:border-[var(--t3)]',
@@ -284,7 +284,7 @@ function FilteredEmptyState({ onReset }: { onReset: () => void }) {
         type="button"
         onClick={onReset}
         className={[
-          'mt-1 rounded-[var(--r-sm)] px-3 py-1.5',
+          'mt-1 rounded-[var(--r-sm)] px-3 py-2',
           'bg-[var(--p)] hover:bg-[var(--p-hover)]',
           'font-display text-[11px] font-[600] text-[var(--ti)]',
           'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',

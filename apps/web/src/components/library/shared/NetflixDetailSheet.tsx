@@ -473,7 +473,7 @@ function BookBody({ v }: { v: BookVariant }) {
 
       {(v.ageBand || v.genreNorm || v.estCefr) && (
         <Section title="큐레이터 추정">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px]">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px]">
             {v.genreNorm && (
               <span>
                 <strong className="font-display font-[700] text-[var(--t1)]">유형</strong>{' '}
@@ -914,7 +914,7 @@ function Footer({ variant, onClose }: { variant: DetailVariant; onClose: () => v
 // ─── 미니 helpers ────────────────────────────────────────
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="flex flex-col gap-0.5 rounded-[var(--r-md)] bg-[var(--bg2)] p-3">
+    <div className="flex flex-col gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] p-3">
       <span className="font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         {label}
       </span>

@@ -103,7 +103,7 @@ export function TodayStage({
                 {lead.word}
               </h1>
               <p
-                className="mt-2 flex flex-wrap items-center gap-x-2.5 font-mono text-[11px] tabular-nums"
+                className="mt-2 flex flex-wrap items-center gap-x-3 font-mono text-[11px] tabular-nums"
                 style={{ color: tone.sub }}
               >
                 {lead.pos && <span>{lead.pos}</span>}

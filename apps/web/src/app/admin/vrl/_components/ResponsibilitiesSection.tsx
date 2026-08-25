@@ -29,7 +29,7 @@ export function ResponsibilitiesSection({ snapshot }: ResponsibilitiesSectionPro
     <section aria-label="4 Responsibilities (R1-R4)" className="flex flex-col gap-4">
       {/* ── Section Header ── */}
       <header className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
             style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
@@ -74,7 +74,7 @@ export function ResponsibilitiesSection({ snapshot }: ResponsibilitiesSectionPro
       {/* ── R3 본질 페인 부각 띠 (R3 critical일 때만) ── */}
       {r3IsLowest && r3 && r3.status === 'critical' && (
         <div
-          className="flex items-start gap-2.5 rounded-[var(--r-md)] border border-[var(--error)]/30 bg-[var(--error-light)] p-3"
+          className="flex items-start gap-3 rounded-[var(--r-md)] border border-[var(--error)]/30 bg-[var(--error-light)] p-3"
           role="alert"
         >
           <Sparkles

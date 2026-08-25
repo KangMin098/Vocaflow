@@ -110,7 +110,7 @@ export default function WordBlitzPage() {
         <button
           type="button"
           onClick={() => router.push(resolveSessionReturnHref(scope.from, scope.text, '/wordvault'))}
-          className="min-h-[44px] rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[800] transition-[filter,transform] duration-150 hover:brightness-110 active:scale-[.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--combo)] focus-visible:ring-offset-2"
+          className="min-h-[44px] rounded-[var(--r-md)] px-5 py-3 font-display text-[13px] font-[800] transition-[filter,transform] duration-150 hover:brightness-110 active:scale-[.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--combo)] focus-visible:ring-offset-2"
           style={{ background: 'var(--combo)', color: 'var(--ti)' }}
         >
           내 단어장으로

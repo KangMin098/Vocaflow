@@ -97,7 +97,7 @@ export function VariantB({ terrain }: { terrain: StageMemoryGrid | null }) {
               {MEMORY_ROWS.map((row) => (
                 <tr key={row.id}>
                   <th scope="row" className="pr-2 text-right align-middle">
-                    <span className="inline-flex items-center gap-1.5">
+                    <span className="inline-flex items-center gap-2">
                       <span
                         className="inline-block h-[7px] w-[7px] shrink-0 rounded-full"
                         style={{ background: row.color }}

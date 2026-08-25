@@ -144,12 +144,12 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <span className="font-display text-[17px] font-[800] text-[var(--t1)]">{vocabInfo?.resolved_word ?? vocab}</span>
-                  {vocabInfo?.pos && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t2)]">{vocabInfo.pos}</span>}
-                  {vocabInfo?.cefr_level && <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--p)]">{vocabInfo.cefr_level}</span>}
+                  {vocabInfo?.pos && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">{vocabInfo.pos}</span>}
+                  {vocabInfo?.cefr_level && <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--p)]">{vocabInfo.cefr_level}</span>}
                   <button type="button" onClick={() => speak(vocabInfo?.resolved_word ?? vocab)} aria-label="단어 듣기" className="text-[var(--t3)] transition-colors hover:text-[var(--p)]"><Volume2 size={15} aria-hidden /></button>
                 </div>
                 {vocabBusy ? (
-                  <p className="mt-1.5 flex items-center gap-1.5 font-body text-[12px] text-[var(--t3)]"><Loader2 size={12} className="animate-spin" aria-hidden /> 찾는 중…</p>
+                  <p className="mt-1.5 flex items-center gap-2 font-body text-[12px] text-[var(--t3)]"><Loader2 size={12} className="animate-spin" aria-hidden /> 찾는 중…</p>
                 ) : vocabInfo?.meaning_ko ? (
                   <>
                     <p className="mt-1.5 font-body text-[14px] text-[var(--t1)]">{vocabInfo.meaning_ko}</p>

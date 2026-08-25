@@ -152,7 +152,7 @@ export function MetaStep({ meta, onMetaChange }: Props) {
                   key={s.value}
                   type="button"
                   onClick={() => setM('target_segment', s.value)}
-                  className="px-3 py-1.5 rounded-[var(--r-md)] text-sm font-display transition-all"
+                  className="px-3 py-2 rounded-[var(--r-md)] text-sm font-display transition-all"
                   style={{
                     background: active ? 'var(--p-light)' : 'var(--bg)',
                     color: active ? 'var(--p-dark)' : 'var(--t1)',
@@ -178,7 +178,7 @@ export function MetaStep({ meta, onMetaChange }: Props) {
                   key={c}
                   type="button"
                   onClick={() => toggleCefr(c)}
-                  className="px-3 py-1.5 rounded-[var(--r-md)] text-sm font-display transition-all"
+                  className="px-3 py-2 rounded-[var(--r-md)] text-sm font-display transition-all"
                   style={{
                     background: active ? 'var(--p-light)' : 'var(--bg)',
                     color: active ? 'var(--p-dark)' : 'var(--t1)',

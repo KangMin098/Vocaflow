@@ -42,7 +42,7 @@ export default async function PdComicReaderPage({ params }: { params: { slug: st
       <header className="flex items-center gap-2 py-3">
         <Link
           href="/comics/restored"
-          className="inline-flex min-h-[44px] items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
+          className="inline-flex min-h-[44px] items-center gap-2 font-body text-[12px] font-[500] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden /> 서가
         </Link>
@@ -83,7 +83,7 @@ function Provenance({
       <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
         출처 · 복원
       </p>
-      <dl className="mt-2 grid gap-1.5 font-body text-[12.5px] text-[var(--t2)]">
+      <dl className="mt-2 grid gap-2 font-body text-[12.5px] text-[var(--t2)]">
         <div className="flex gap-2">
           <dt className="w-[70px] shrink-0 text-[var(--t2)]">원작</dt>
           <dd className="text-[var(--t1)]">

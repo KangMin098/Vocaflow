@@ -63,13 +63,13 @@ export function TypePopover({ onClose }: TypePopoverProps) {
         <p className="mb-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
           글자 크기
         </p>
-        <div className="flex gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] p-[3px]">
+        <div className="flex gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] p-[4px]">
           {FONT_SIZES.map((opt) => (
             <button
               key={opt.px}
               onClick={() => setFontSize(opt.px)}
               aria-pressed={fontSize === opt.px}
-              className={`flex-1 rounded-[var(--r-sm)] py-1.5 font-english transition-all duration-[var(--dur-normal)] ${
+              className={`flex-1 rounded-[var(--r-sm)] py-2 font-english transition-all duration-[var(--dur-normal)] ${
                 fontSize === opt.px
                   ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-sm)]'
                   : 'text-[var(--t2)] hover:text-[var(--t1)]'
@@ -87,7 +87,7 @@ export function TypePopover({ onClose }: TypePopoverProps) {
         <p className="mb-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
           줄 간격
         </p>
-        <div className="flex gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] p-[3px]">
+        <div className="flex gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] p-[4px]">
           {LINE_HEIGHTS.map((opt) => (
             <button
               key={opt.value}

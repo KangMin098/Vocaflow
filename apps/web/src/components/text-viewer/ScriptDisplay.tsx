@@ -91,7 +91,7 @@ export function ScriptDisplay({
                 key={token.key}
                 onClick={() => onWordClick?.(token.word!.id)}
                 className={cn(
-                  'cursor-pointer rounded px-[2px] transition-all duration-fast',
+                  'cursor-pointer rounded px-[4px] transition-all duration-fast',
                   isHovered && 'ring-2 ring-p ring-offset-1',
                   isSelected
                     ? 'bg-p-light font-semibold text-p'

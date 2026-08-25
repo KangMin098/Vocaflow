@@ -276,7 +276,7 @@ export default function AdminSystemSettingsPage() {
                         {f.label}
                       </p>
                       <span
-                        className="inline-flex rounded-full px-1.5 py-0.5 font-display text-[10px] font-[700]"
+                        className="inline-flex rounded-full px-2 py-1 font-display text-[10px] font-[700]"
                         style={{ backgroundColor: aud.bg, color: aud.color }}
                       >
                         {aud.label}
@@ -322,14 +322,14 @@ export default function AdminSystemSettingsPage() {
                     <p className="font-display text-[13px] font-[700] text-[var(--t1)]">
                       {p.name}
                     </p>
-                    <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
+                    <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--t2)]">
                       {p.version}
                     </span>
-                    <span className="rounded-[var(--r-sm)] bg-[var(--p-light)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--on-p-tint)]">
+                    <span className="rounded-[var(--r-sm)] bg-[var(--p-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--on-p-tint)]">
                       {p.model}
                     </span>
                     {p.active && (
-                      <span className="rounded-full bg-[var(--success-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--success)]">
+                      <span className="rounded-full bg-[var(--success-light)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--success)]">
                         활성
                       </span>
                     )}
@@ -373,7 +373,7 @@ export default function AdminSystemSettingsPage() {
                         {n.title}
                       </p>
                       <span
-                        className="inline-flex rounded-full px-2 py-0.5 font-display text-[10px] font-[700]"
+                        className="inline-flex rounded-full px-2 py-1 font-display text-[10px] font-[700]"
                         style={{ backgroundColor: status.bg, color: status.color }}
                       >
                         {status.label}
@@ -389,7 +389,7 @@ export default function AdminSystemSettingsPage() {
               )
             })}
           </ul>
-          <button className="mt-3 inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] hover:border-[var(--p)]/40 hover:text-[var(--p)]">
+          <button className="mt-3 inline-flex items-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] hover:border-[var(--p)]/40 hover:text-[var(--p)]">
             + 새 공지 작성
           </button>
         </SettingsSection>

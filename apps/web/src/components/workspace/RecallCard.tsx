@@ -166,9 +166,9 @@ export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: Recal
 
       {/* 다의어 품사별 뜻 — ≥2 sense 일 때만(플래시카드와 동일). 리더 중 한눈에 다의 파악. */}
       {extras?.senses && extras.senses.length >= 2 && (
-        <div className="mt-2 flex flex-col gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] px-2.5 py-1.5">
+        <div className="mt-2 flex flex-col gap-1 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-2">
           {extras.senses.map((s, i) => (
-            <div key={`${s.pos}-${i}`} className="flex items-baseline gap-1.5">
+            <div key={`${s.pos}-${i}`} className="flex items-baseline gap-2">
               {s.pos && (
                 <span className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
                   {posLabel(s.pos)}
@@ -187,7 +187,7 @@ export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: Recal
           {extras.roots.map((r, i) => (
             <span key={`${r.root}-${i}`} className="inline-flex items-center gap-1">
               {i > 0 && <span className="text-[10px] text-[var(--t2)]">+</span>}
-              <span className="rounded-[var(--r-full)] bg-[var(--active-light)] px-1.5 py-0.5 text-[11px]">
+              <span className="rounded-[var(--r-full)] bg-[var(--active-light)] px-2 py-1 text-[11px]">
                 <span className="font-english font-[700] text-[var(--active)]">{r.root}</span>
                 <span className="font-body text-[var(--t2)]"> {r.gloss}</span>
               </span>

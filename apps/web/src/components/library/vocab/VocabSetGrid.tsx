@@ -235,7 +235,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
               type="button"
               onClick={() => setMineOnly((v) => !v)}
               aria-pressed={mineOnly}
-              className={`focus-visible:ring-[var(--t1)]/20 inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] border px-3 font-display text-[13px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
+              className={`focus-visible:ring-[var(--t1)]/20 inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] border px-3 font-display text-[13px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
                 mineOnly
                   ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)]'
                   : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -343,7 +343,7 @@ function DiagnosePrompt() {
       href="/diagnostic"
       className="border-ios-purple/40 bg-ios-purple/[0.06] hover:bg-ios-purple/[0.1] focus-visible:ring-ios-purple/40 flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed px-4 py-3 no-underline transition-colors focus-visible:outline-none focus-visible:ring-2"
     >
-      <span className="flex items-center gap-2.5">
+      <span className="flex items-center gap-3">
         <span
           aria-hidden
           className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm bg-ios-purple text-white"
@@ -359,7 +359,7 @@ function DiagnosePrompt() {
           </span>
         </span>
       </span>
-      <span className="shrink-0 rounded-[var(--r-md)] bg-ios-purple px-3 py-1.5 font-display text-[12px] font-[700] text-white">
+      <span className="shrink-0 rounded-[var(--r-md)] bg-ios-purple px-3 py-2 font-display text-[12px] font-[700] text-white">
         진단하기
       </span>
     </a>
@@ -404,7 +404,7 @@ function FeaturedRow({
           return (
             <div
               key={set.id}
-              className="flex w-[128px] shrink-0 snap-start flex-col gap-1.5 sm:w-[144px]"
+              className="flex w-[128px] shrink-0 snap-start flex-col gap-2 sm:w-[144px]"
             >
               <VocabSetCard
                 set={set}
@@ -425,9 +425,9 @@ function FeaturedRow({
                 보게 한다. 높이를 예약해(`min-h`) 사유가 짧은 카드도 줄이 안 밀리게 한다.
                 전체 문장은 `title` 로 남겨 마우스·스크린리더가 닿게 둔다.
               */}
-              <div className="flex flex-col gap-0.5 px-0.5">
+              <div className="flex flex-col gap-1 px-1">
                 <span
-                  className="inline-flex w-fit items-center rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9px] font-[800] uppercase tracking-wider"
+                  className="inline-flex w-fit items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[9px] font-[800] uppercase tracking-wider"
                   style={{ backgroundColor: badge.bg, color: badge.text }}
                 >
                   {badge.label}

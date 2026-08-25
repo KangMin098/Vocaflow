@@ -103,7 +103,7 @@ export default function AdminAnalyticsPage() {
         title="플랫폼 분석"
         description="DAU/MAU · retention · 학습 효과 · funnel"
         actions={
-          <button className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]">
+          <button className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]">
             <Filter size={14} aria-hidden />
             기간 · 7일
           </button>
@@ -254,12 +254,12 @@ export default function AdminAnalyticsPage() {
             <tbody className="divide-y divide-[var(--bd)]">
               {COHORTS.map((c) => (
                 <tr key={c.label}>
-                  <td className="py-2.5 font-mono text-[11px] text-[var(--t2)]">{c.label}</td>
-                  <td className="py-2.5 font-display text-[13px] font-[700] tabular-nums text-[var(--t1)]">
+                  <td className="py-3 font-mono text-[11px] text-[var(--t2)]">{c.label}</td>
+                  <td className="py-3 font-display text-[13px] font-[700] tabular-nums text-[var(--t1)]">
                     {c.size}
                   </td>
                   {[c.d1, c.d7, c.d30].map((v, i) => (
-                    <td key={i} className="py-2.5">
+                    <td key={i} className="py-3">
                       {v === null ? (
                         <span className="font-mono text-[10px] text-[var(--t2)]">—</span>
                       ) : (

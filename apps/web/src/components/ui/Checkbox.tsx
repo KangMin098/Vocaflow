@@ -77,7 +77,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         )}
       >
         {/* 시각적 박스 영역 */}
-        <span className="relative flex items-center justify-center pt-[2px]">
+        <span className="relative flex items-center justify-center pt-[4px]">
           {/* 네이티브 input — 시각적으로 숨김, 접근성용 */}
           <input
             ref={innerRef}

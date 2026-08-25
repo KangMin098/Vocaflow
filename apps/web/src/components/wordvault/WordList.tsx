@@ -73,7 +73,7 @@ export function WordList({
   return (
     <>
       {/* 전체 선택 바 */}
-      <div className="py-s-2.5 flex items-center justify-between rounded-t-xl border border-b-0 border-bd bg-bg px-s-4 font-display text-[13px] font-semibold text-t2">
+      <div className="py-s-3 flex items-center justify-between rounded-t-xl border border-b-0 border-bd bg-bg px-s-4 font-display text-[13px] font-semibold text-t2">
         <div className="flex items-center gap-s-3">
           <button
             type="button"

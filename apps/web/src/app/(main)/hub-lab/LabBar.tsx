@@ -16,7 +16,7 @@ export function LabBar({ variants, active }: LabBarProps) {
   return (
     <nav
       aria-label="허브 후보 전환"
-      className="flex flex-wrap items-center gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] px-3 py-2.5"
+      className="flex flex-wrap items-center gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] px-3 py-3"
     >
       <span className="mr-1 font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t3)]">
         LAB

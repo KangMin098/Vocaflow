@@ -51,7 +51,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
           className,
         )}
       >
-        <span className="relative flex items-center justify-center pt-[2px]">
+        <span className="relative flex items-center justify-center pt-[4px]">
           {/* 네이티브 input — 시각적 숨김 */}
           <input
             ref={ref}

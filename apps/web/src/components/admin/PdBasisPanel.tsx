@@ -171,7 +171,7 @@ function SeriesCard({
         type="button"
         onClick={onToggle}
         aria-expanded={expanded}
-        className="flex min-h-[52px] w-full flex-wrap items-center gap-x-3 gap-y-1 px-4 py-2.5 text-left"
+        className="flex min-h-[52px] w-full flex-wrap items-center gap-x-3 gap-y-1 px-4 py-3 text-left"
       >
         <span className="font-display text-[13.5px] font-[700] text-[var(--t1)]">{s.seriesTitle}</span>
         {s.publisher && (
@@ -183,7 +183,7 @@ function SeriesCard({
         </span>
         {/* 색만으로 구분하지 않는다 — 라벨을 함께 둔다 */}
         <span
-          className="rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[10px] font-[700]"
+          className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[10px] font-[700]"
           style={{
             color: done ? 'var(--success)' : 'var(--warning)',
             background: done ? 'var(--success-light)' : 'var(--warning-light)',
@@ -194,7 +194,7 @@ function SeriesCard({
         {/* 갱신된 구간이 있으면 그것부터 보여준다 — 발행하면 안 되는 호다 */}
         {s.renewalBlocked > 0 && (
           <span
-            className="rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[10px] font-[700]"
+            className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[10px] font-[700]"
             style={{ color: 'var(--error)', background: 'var(--error-light)' }}
           >
             갱신됨 {s.renewalBlocked}호 · 발행 불가
@@ -264,7 +264,7 @@ function SeriesCard({
                 value={evidence}
                 onChange={(e) => setEvidence(e.target.value)}
                 placeholder="https://onlinebooks.library.upenn.edu/cce/..."
-                className="min-h-[38px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-mono text-[12px]"
+                className="min-h-[38px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-mono text-[12px]"
               />
             </label>
             <button
@@ -290,7 +290,7 @@ function SeriesCard({
             <summary className="cursor-pointer font-display text-[12px] font-[700] text-[var(--t2)]">
               적용 대상 {s.total}호
             </summary>
-            <ul className="mt-1.5 flex flex-col gap-0.5">
+            <ul className="mt-1.5 flex flex-col gap-1">
               {s.issues.map((i) => (
                 <li key={i.id} className="flex flex-wrap items-center gap-2 font-mono text-[11px] text-[var(--t2)]">
                   <span className="w-12 shrink-0 tabular-nums">{i.issueNo != null ? `#${i.issueNo}` : '—'}</span>

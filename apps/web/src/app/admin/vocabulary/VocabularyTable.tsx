@@ -129,7 +129,7 @@ export function VocabularyTable({
                   <td className="px-3 py-2 text-center">
                     {cefr ? (
                       <span
-                        className="inline-flex items-center gap-0.5 rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700]"
+                        className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700]"
                         style={{
                           backgroundColor: `${cefrColor}1A`,
                           color: cefrColor,
@@ -149,7 +149,7 @@ export function VocabularyTable({
                   <td className="px-3 py-2 text-center">
                     {row.v_level != null ? (
                       <span
-                        className={`inline-flex items-center gap-0.5 rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700] ${
+                        className={`inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700] ${
                           reclassified
                             ? 'bg-[#8B5CF61A] text-[#8B5CF6]'
                             : 'bg-[var(--bg3)] text-[var(--t2)]'
@@ -197,7 +197,7 @@ export function VocabularyTable({
                         {issues.slice(0, 3).map((iss) => (
                           <span
                             key={iss.id}
-                            className="inline-flex items-center gap-1 rounded-full bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9px] text-[var(--t2)]"
+                            className="inline-flex items-center gap-1 rounded-full bg-[var(--bg2)] px-2 py-1 font-mono text-[9px] text-[var(--t2)]"
                             title={iss.detail}
                           >
                             <span
@@ -235,7 +235,7 @@ export function VocabularyTable({
             type="button"
             onClick={() => onPageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage <= 1}
-            className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
+            className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
           >
             <ChevronLeft size={12} aria-hidden /> prev
           </button>
@@ -243,7 +243,7 @@ export function VocabularyTable({
             type="button"
             onClick={() => onPageChange(currentPage + 1)}
             disabled={!hasNext}
-            className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
+            className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
           >
             next <ChevronRight size={12} aria-hidden />
           </button>

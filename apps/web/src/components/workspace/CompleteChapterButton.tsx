@@ -56,7 +56,7 @@ export function CompleteChapterButton({
   if (isAlreadyCompleted) {
     return (
       <span
-        className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--learn-known-light)] px-2.5 font-display text-[11px] font-[700] text-[var(--learn-known)]"
+        className="inline-flex min-h-[32px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--learn-known-light)] px-3 font-display text-[11px] font-[700] text-[var(--learn-known)]"
         role="status"
       >
         <Check size={12} aria-hidden />
@@ -71,7 +71,7 @@ export function CompleteChapterButton({
       onClick={handleComplete}
       disabled={submitting}
       className={[
-        'inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] px-3',
+        'inline-flex min-h-[32px] items-center gap-2 rounded-[var(--r-sm)] px-3',
         'bg-[var(--p)] hover:bg-[var(--p-hover)]',
         'font-display text-[11px] font-[600] text-[var(--ti)]',
         'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
@@ -99,7 +99,7 @@ function CompletionResult({
   if (result.bookCompleted) {
     return (
       <div
-        className="inline-flex items-center gap-2 rounded-[var(--r-sm)] bg-gradient-to-r from-[var(--cefr-C1-bg)] to-[var(--learn-known-light)] px-3 py-1.5"
+        className="inline-flex items-center gap-2 rounded-[var(--r-sm)] bg-gradient-to-r from-[var(--cefr-C1-bg)] to-[var(--learn-known-light)] px-3 py-2"
         role="status"
       >
         <Sparkles size={14} className="text-[var(--learn-known)]" aria-hidden />
@@ -121,7 +121,7 @@ function CompletionResult({
   if (result.nextChapterTextId) {
     return (
       <div
-        className="inline-flex items-center gap-2 rounded-[var(--r-sm)] bg-[var(--learn-known-light)] px-3 py-1.5"
+        className="inline-flex items-center gap-2 rounded-[var(--r-sm)] bg-[var(--learn-known-light)] px-3 py-2"
         role="status"
       >
         <Check size={12} className="text-[var(--learn-known)]" aria-hidden />
@@ -144,7 +144,7 @@ function CompletionResult({
 
   return (
     <span
-      className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--learn-known-light)] px-2.5 font-display text-[11px] font-[700] text-[var(--learn-known)]"
+      className="inline-flex min-h-[32px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--learn-known-light)] px-3 font-display text-[11px] font-[700] text-[var(--learn-known)]"
       role="status"
     >
       <Check size={12} aria-hidden />

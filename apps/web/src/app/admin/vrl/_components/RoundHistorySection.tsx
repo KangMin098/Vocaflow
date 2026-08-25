@@ -162,7 +162,7 @@ export function RoundHistorySection({ snapshot }: RoundHistorySectionProps) {
     <section aria-label="Round History (Day 3 reclassification)" className="flex flex-col gap-4">
       {/* ── 섹션 헤더 ── */}
       <header className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
             style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
@@ -238,14 +238,14 @@ export function RoundHistorySection({ snapshot }: RoundHistorySectionProps) {
           {ROADMAP.map((r) => (
             <li
               key={r.id}
-              className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-2.5"
+              className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3"
             >
               <div className="flex items-center justify-between">
                 <span className="font-display text-[12px] font-[800] text-[var(--t1)]">
                   {r.id}
                 </span>
                 <span
-                  className="rounded-full px-1.5 py-0.5 font-mono text-[9px] font-[700]"
+                  className="rounded-full px-2 py-1 font-mono text-[9px] font-[700]"
                   style={{
                     backgroundColor:
                       r.status === 'in_progress' ? 'var(--warning-light)' : 'var(--bg3)',
@@ -295,7 +295,7 @@ function RoundCard({ round }: { round: RoundEntry }) {
           </span>
         </div>
         <span
-          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-display text-[9px] font-[700]"
+          className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-display text-[9px] font-[700]"
           style={{ backgroundColor: meta.bg, color: meta.fg }}
         >
           <Icon size={11} strokeWidth={2} aria-hidden />

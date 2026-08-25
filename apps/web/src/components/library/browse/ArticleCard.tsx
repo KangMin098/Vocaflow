@@ -71,7 +71,7 @@ export function ArticleCard({
   /** 형식 칩 — 색만으로 구분하지 않는다(형태 + 라벨 + 아래 SR 텍스트 3중). */
   const FormChip = (
     <span
-      className="inline-flex items-center rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9.5px] font-[800] tracking-[0.04em]"
+      className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[9.5px] font-[800] tracking-[0.04em]"
       style={{ color: formSpec.accent, background: `color-mix(in srgb, ${formSpec.accent} 12%, transparent)` }}
     >
       {formSpec.label}
@@ -87,14 +87,14 @@ export function ArticleCard({
   }
 
   const SourceBadge = (
-    <span className="inline-flex items-center gap-1.5 font-mono text-[10.5px] font-[700]" style={{ color: src.color }}>
+    <span className="inline-flex items-center gap-2 font-mono text-[10.5px] font-[700]" style={{ color: src.color }}>
       <span aria-hidden className="h-2 w-2 rounded-full" style={{ backgroundColor: src.color }} />
       {src.label}
     </span>
   )
 
   const Meta = (
-    <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-[11px] font-[600] text-[var(--t2)]">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] font-[600] text-[var(--t2)]">
       {mins != null && (
         <span className="inline-flex items-center gap-1 tabular-nums">
           <Clock size={11} aria-hidden /> {mins}분
@@ -117,7 +117,7 @@ export function ArticleCard({
       )}
       {isEasier && (
         <span
-          className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 text-[var(--p)]"
+          className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg2)] px-2 text-[var(--p)]"
           title="같은 글을 쉬운 영어로 다시 쓴 판이에요"
         >
           <Sparkles size={11} aria-hidden /> 쉬운 판
@@ -131,7 +131,7 @@ export function ArticleCard({
       {tags.map((t) => (
         <span
           key={t}
-          className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[9.5px] text-[var(--t2)]"
+          className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[9.5px] text-[var(--t2)]"
         >
           {t}
         </span>
@@ -151,7 +151,7 @@ export function ArticleCard({
           style={{ borderColor: `color-mix(in srgb, ${src.color} 28%, var(--bd))`, backgroundColor: `color-mix(in srgb, ${src.color} 4%, var(--bg))` }}
         >
           <div className="flex items-center justify-between gap-2">
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-2">
               {SourceBadge}
               {FormChip}
             </span>
@@ -172,7 +172,7 @@ export function ArticleCard({
           )}
           {Meta}
           {Tags}
-          <span className="mt-1 inline-flex items-center gap-1.5 font-display text-[13px] font-[700] text-[var(--p)]">
+          <span className="mt-1 inline-flex items-center gap-2 font-display text-[13px] font-[700] text-[var(--p)]">
             {pending ? <Loader2 size={14} className="animate-spin" aria-hidden /> : null}
             읽기 시작
             <ArrowRight size={14} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
@@ -190,14 +190,14 @@ export function ArticleCard({
         type="button"
         onClick={handleLearn}
         disabled={pending}
-        className="group flex h-full w-full flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 pr-9 text-left shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--p)_50%,var(--bd))] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-60"
+        className="group flex h-full w-full flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 pr-9 text-left shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--p)_50%,var(--bd))] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-60"
       >
-        <span className="flex items-center gap-1.5">
+        <span className="flex items-center gap-2">
           {SourceBadge}
           {FormChip}
         </span>
         {/* 타일은 좁아서 표지를 제목 옆 작은 판으로 — 60px 이하에서도 조판 표식이 읽힌다 */}
-        <span className="flex items-start gap-2.5">
+        <span className="flex items-start gap-3">
           <span className="block h-[56px] w-[42px] shrink-0 overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)]">
             <MediaCover form={form} title={article.title} />
           </span>
@@ -206,7 +206,7 @@ export function ArticleCard({
             <MediaCoverSrLabel form={form} readingMinutes={mins} />
           </h3>
         </span>
-        <div className="mt-auto flex flex-col gap-2 pt-0.5">
+        <div className="mt-auto flex flex-col gap-2 pt-1">
           {Meta}
           {Tags}
         </div>

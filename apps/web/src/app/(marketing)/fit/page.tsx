@@ -165,7 +165,7 @@ export default function FitPage({ searchParams }: { searchParams?: SearchParams 
         <h2 className="m-0 font-display text-[15px] font-[750] tracking-[-0.02em] text-[var(--t1)]">
           어떻게 재나요
         </h2>
-        <ul className="mt-3 flex list-disc flex-col gap-2.5 pl-5 font-body text-[13.5px] leading-[1.7] text-[var(--t2)]">
+        <ul className="mt-3 flex list-disc flex-col gap-3 pl-5 font-body text-[13.5px] leading-[1.7] text-[var(--t2)]">
           <li>
             지문의 <b>러닝 워드</b>(기능어 포함) 대비, 해당 학년이 아는 어휘의 비율을 셉니다 — Hu &amp;
             Nation(2000)의 어휘 커버리지 정의입니다.

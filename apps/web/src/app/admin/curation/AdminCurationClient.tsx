@@ -181,7 +181,7 @@ function StatTile({
 
   return (
     <div
-      className="flex flex-col gap-0.5 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3"
+      className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3"
       style={{ backgroundColor: c.bg }}
     >
       <span
@@ -256,7 +256,7 @@ function TabList({ tab, onChange, stats }: TabListProps) {
             {label}
             {badge != null && (
               <span
-                className="inline-flex min-w-[18px] items-center justify-center rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 font-mono text-[10px] font-[700] text-[var(--t2)]"
+                className="inline-flex min-w-[18px] items-center justify-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 font-mono text-[10px] font-[700] text-[var(--t2)]"
                 aria-label={`${badge}건`}
               >
                 {badge}

@@ -141,7 +141,7 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
           </div>
         </div>
         <span
-          className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 font-display text-[10px] font-[700]"
+          className="inline-flex items-center gap-1 rounded-full px-3 py-1 font-display text-[10px] font-[700]"
           style={{ backgroundColor: status.bg, color: status.color }}
         >
           <StatusIcon size={11} strokeWidth={2} aria-hidden />
@@ -183,7 +183,7 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
         <h4 className="mb-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
           Factors ({readiness.factors.length})
         </h4>
-        <ul className="flex flex-col gap-1.5">
+        <ul className="flex flex-col gap-2">
           {readiness.factors.map((f) => {
             const fScorePct = Math.round(f.score * 100)
             const wPct = Math.round(f.weight * 100)
@@ -232,11 +232,11 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
           <h4 className="mb-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
             Affected Defects ({relatedDefects.length})
           </h4>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {relatedDefects.map((d) => (
               <span
                 key={d.id}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]"
+                className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]"
                 title={d.title}
               >
                 <span
@@ -270,7 +270,7 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
             >
               Primary Action
               {primaryImprovement.backlogId && (
-                <span className="ml-1.5 rounded-full bg-[var(--bg)] px-1.5 py-0.5 text-[9px]">
+                <span className="ml-1.5 rounded-full bg-[var(--bg)] px-2 py-1 text-[9px]">
                   {primaryImprovement.backlogId}
                 </span>
               )}

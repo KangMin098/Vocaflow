@@ -188,7 +188,7 @@ export default function AdminUsersPage() {
         title="사용자 관리"
         description="가입 · 제재 · 구독 상태 · 학습 통계"
         actions={
-          <button className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[#8B5CF6] px-3 py-2 font-display text-[12px] font-[600] text-white shadow-[var(--sh-sm)] hover:bg-[#7C3AED]">
+          <button className="inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-3 py-2 font-display text-[12px] font-[600] text-white shadow-[var(--sh-sm)] hover:bg-[#7C3AED]">
             <Plus size={14} aria-hidden />
             초대
           </button>
@@ -272,7 +272,7 @@ export default function AdminUsersPage() {
                   </td>
                   <td className="px-4 py-3">
                     <span
-                      className="inline-flex rounded-full px-2 py-0.5 font-display text-[11px] font-[700]"
+                      className="inline-flex rounded-full px-2 py-1 font-display text-[11px] font-[700]"
                       style={{ backgroundColor: plan.bg, color: plan.color }}
                     >
                       {plan.label}
@@ -280,7 +280,7 @@ export default function AdminUsersPage() {
                   </td>
                   <td className="px-4 py-3">
                     <span
-                      className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-display text-[11px] font-[700]"
+                      className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-display text-[11px] font-[700]"
                       style={{ backgroundColor: status.bg, color: status.color }}
                     >
                       <span

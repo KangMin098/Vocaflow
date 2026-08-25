@@ -201,9 +201,9 @@ function BulkIngestPanel({
         </span>
       </div>
 
-      <div className="mt-2 flex flex-wrap gap-1.5">
+      <div className="mt-2 flex flex-wrap gap-2">
         {['1964년+ 자동 제외', '표지 모음·색인 제외', '유형 10종 분류', '시리즈 정규화', '재실행 안전(멱등)'].map((g) => (
-          <span key={g} className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-0.5 font-mono text-[9.5px] text-[var(--t2)]">
+          <span key={g} className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-1 font-mono text-[9.5px] text-[var(--t2)]">
             ✓ {g}
           </span>
         ))}
@@ -303,20 +303,20 @@ function RecommendPanel({ source, onMsg, onEnqueued, schemaReady }: { source: st
       </div>
 
       {/* 자동 적용 가드레일 — 사용자가 규칙을 몰라도 됨을 명시 */}
-      <div className="mt-2 flex flex-wrap gap-1.5">
+      <div className="mt-2 flex flex-wrap gap-2">
         {['1964년+ 자동 제외', 'PD 위험 재정렬', '학습 부적합(문법서·주니어) 제외', '표지-only 제외', '중복 제외', '명작 canon 가중'].map((g) => (
-          <span key={g} className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-0.5 font-mono text-[9.5px] text-[var(--t2)]">✓ {g}</span>
+          <span key={g} className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-1 font-mono text-[9.5px] text-[var(--t2)]">✓ {g}</span>
         ))}
       </div>
 
       {/* 트랙 + 명작 칩 */}
-      <div className="mt-3 flex flex-wrap items-center gap-1.5">
+      <div className="mt-3 flex flex-wrap items-center gap-2">
         {tracks.map((t) => (
           <button key={t.key} type="button" title={t.note} disabled={busy} onClick={() => void run(t.query)} className="min-h-[34px] rounded-[var(--r-full)] px-3 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>{t.label}</button>
         ))}
         <span className="mx-1 font-mono text-[10px] text-[var(--t2)]">또는 명작:</span>
         {canon.slice(0, 14).map((c) => (
-          <button key={c} type="button" disabled={busy} onClick={() => void run(c)} className="min-h-[32px] rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-display text-[11.5px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t3)] disabled:opacity-50">{c}</button>
+          <button key={c} type="button" disabled={busy} onClick={() => void run(c)} className="min-h-[32px] rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11.5px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t3)] disabled:opacity-50">{c}</button>
         ))}
       </div>
 
@@ -328,18 +328,18 @@ function RecommendPanel({ source, onMsg, onEnqueued, schemaReady }: { source: st
             <span className="font-display text-[12px] font-[700] text-[var(--t1)]">&ldquo;{activeQuery}&rdquo; 추천 {cands.length}건</span>
             <span className="font-mono text-[11px] text-[var(--t2)]">신규 {newCount}</span>
             <label className="ml-auto flex items-center gap-1 font-body text-[11.5px] text-[var(--t2)]">앞
-              <input type="number" min={1} max={60} value={pages} onChange={(e) => setPages(Number(e.target.value))} className="w-14 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 text-right tabular-nums" />장</label>
+              <input type="number" min={1} max={60} value={pages} onChange={(e) => setPages(Number(e.target.value))} className="w-14 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 text-right tabular-nums" />장</label>
             <button type="button" disabled={busy || !schemaReady || newCount === 0} onClick={() => void enqueueTop(6)} className="min-h-[34px] rounded-[var(--r-md)] px-3 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>추천 상위 {Math.min(6, newCount)} 큐 적재 (앞 {pages}장)</button>
           </div>
           <ul className="divide-y divide-[var(--bd)]">
             {cands.map((c) => (
-              <li key={c.identifier} className="flex items-center gap-2.5 px-3 py-2">
+              <li key={c.identifier} className="flex items-center gap-3 px-3 py-2">
                 <span className="w-10 shrink-0 text-center font-mono text-[13px] font-[800] tabular-nums" style={{ color: ACCENT }}>{c.fit.toFixed(1)}</span>
                 <div className="min-w-0 flex-1">
                   <p className="font-display text-[12.5px] font-[700] text-[var(--t1)]">{c.title}{c.publishedYear && <span className="ml-2 font-mono text-[10.5px] text-[var(--t2)]">{c.publishedYear}</span>}{c.pageCount && <span className="ml-1.5 font-mono text-[10.5px] text-[var(--t2)]">{c.pageCount}p</span>}</p>
-                  <p className="mt-0.5 flex flex-wrap items-center gap-1.5 font-body text-[11px] text-[var(--t2)]">
-                    {c.pdRisk && RISK_UI[c.pdRisk] && <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700]" style={{ color: RISK_UI[c.pdRisk].fg, background: RISK_UI[c.pdRisk].bg }}>{RISK_UI[c.pdRisk].label}</span>}
-                    {c.why.map((w) => <span key={w} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9.5px] text-[var(--t2)]">{w}</span>)}
+                  <p className="mt-0.5 flex flex-wrap items-center gap-2 font-body text-[11px] text-[var(--t2)]">
+                    {c.pdRisk && RISK_UI[c.pdRisk] && <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: RISK_UI[c.pdRisk].fg, background: RISK_UI[c.pdRisk].bg }}>{RISK_UI[c.pdRisk].label}</span>}
+                    {c.why.map((w) => <span key={w} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[9.5px] text-[var(--t2)]">{w}</span>)}
                   </p>
                 </div>
                 {c.existingStatus && <span className="shrink-0 font-mono text-[10px] text-[var(--t2)]">등록됨 · {c.existingStatus}</span>}
@@ -464,7 +464,7 @@ function SourceTab({
       <RecommendPanel source={source} onMsg={onMsg} onEnqueued={onEnqueued} schemaReady={schemaReady} />
 
       <details className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
-        <summary className="cursor-pointer px-4 py-2.5 font-display text-[12.5px] font-[700] text-[var(--t2)]">직접 검색 · 능력표 (고급)</summary>
+        <summary className="cursor-pointer px-4 py-3 font-display text-[12.5px] font-[700] text-[var(--t2)]">직접 검색 · 능력표 (고급)</summary>
         <div className="flex flex-col gap-4 border-t border-[var(--bd)] p-4">
       {/* 능력표 — 사이트마다 취득 방식이 근본적으로 다르다 */}
       <section className="overflow-x-auto rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
@@ -536,7 +536,7 @@ function SourceTab({
 
         {/* 프리셋 — 자유 검색은 관련 없는 도서를 끌고 온다. PD 확률 높은 출발점을 먼저 준다. */}
         {(cur?.presets?.length ?? 0) > 0 && (
-          <div className="mt-3 flex flex-wrap items-center gap-1.5">
+          <div className="mt-3 flex flex-wrap items-center gap-2">
             <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
               출발점
             </span>
@@ -605,7 +605,7 @@ function SourceTab({
             <b>테스트 모드</b>
           </label>
           {testMode && (
-            <label className="flex items-center gap-1.5 font-body text-[12.5px] text-[var(--t2)]">
+            <label className="flex items-center gap-2 font-body text-[12.5px] text-[var(--t2)]">
               앞
               <input
                 type="number"
@@ -666,7 +666,7 @@ function SourceTab({
             {items.map((it) => {
               const checked = sel.has(it.identifier)
               return (
-                <li key={it.identifier} className="flex gap-3 px-4 py-2.5">
+                <li key={it.identifier} className="flex gap-3 px-4 py-3">
                   <input
                     type="checkbox"
                     checked={checked}
@@ -686,17 +686,17 @@ function SourceTab({
                       {it.publishedYear && <span className="ml-2 font-mono text-[11px] text-[var(--t2)]">{it.publishedYear}</span>}
                       {it.pageCount && <span className="ml-2 font-mono text-[11px] text-[var(--t2)]">{it.pageCount}p</span>}
                     </p>
-                    <p className="mt-1 flex flex-wrap items-center gap-1.5 font-body text-[11.5px] text-[var(--t2)]">
+                    <p className="mt-1 flex flex-wrap items-center gap-2 font-body text-[11.5px] text-[var(--t2)]">
                       {it.pdRisk && RISK_UI[it.pdRisk] && (
                         <span
-                          className="rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[10px] font-[700]"
+                          className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[10px] font-[700]"
                           style={{ color: RISK_UI[it.pdRisk].fg, background: RISK_UI[it.pdRisk].bg }}
                         >
                           {RISK_UI[it.pdRisk].label}
                         </span>
                       )}
                       {it.pdCurated && (
-                        <span className="rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">
+                        <span className="rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">
                           큐레이션
                         </span>
                       )}
@@ -901,7 +901,7 @@ function RowViewControls({
     ...(stuckN > 0 ? [{ key: 'stuck', label: '멈춤', n: stuckN }] : []),
   ]
   return (
-    <div className="mb-2 flex flex-wrap items-center gap-1.5">
+    <div className="mb-2 flex flex-wrap items-center gap-2">
       <label className="sr-only" htmlFor="pdc-row-search">호 검색</label>
       <input
         id="pdc-row-search"
@@ -919,7 +919,7 @@ function RowViewControls({
             type="button"
             onClick={() => view.setStatusFilter(c.key)}
             aria-pressed={on}
-            className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+            className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
             style={{ borderColor: on ? ACCENT : 'var(--bd)', color: on ? ACCENT : 'var(--t2)', background: on ? `${ACCENT}1a` : 'transparent' }}
           >
             {c.label} <span className="font-mono tabular-nums">{c.n}</span>
@@ -1036,7 +1036,7 @@ function QueueTab({
         {counts.map((s) => (
           <div key={s.key} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2">
             <p className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">{s.key}</p>
-            <p className="mt-0.5 flex items-baseline gap-1.5">
+            <p className="mt-0.5 flex items-baseline gap-2">
               <span className="font-display text-[19px] font-[800] tabular-nums text-[var(--t1)]">{s.n}</span>
               <span className="font-body text-[11.5px] text-[var(--t2)]">{s.label}</span>
             </p>
@@ -1105,7 +1105,7 @@ function QueueTab({
                   <button
                     type="button"
                     onClick={() => void retry(r.id)}
-                    className="min-h-[32px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-display text-[11.5px] font-[700] text-[var(--t2)]"
+                    className="min-h-[32px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11.5px] font-[700] text-[var(--t2)]"
                   >
                     이 호 재시도
                   </button>
@@ -1212,15 +1212,15 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border px-3.5 py-2.5" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
+      <div className="flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
         <span className="font-display text-[12.5px] font-[700] text-[var(--t1)]">테스트 · 모니터</span>
         <span className="font-body text-[11.5px] text-[var(--t2)]">파이프라인이 지금 무엇을 · 어떤 상태로 · 어떻게 처리 중인지 실시간 관측</span>
         <div className="ml-auto flex items-center gap-2">
           <span className="font-mono text-[11px] text-[var(--t2)]">{live ? `자동 새로고침 · ${relTime(new Date(lastPoll).toISOString())}` : '수동'}</span>
-          <button type="button" onClick={() => setLive((v) => !v)} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: live ? ACCENT : 'var(--bd)', color: live ? ACCENT : 'var(--t2)' }} aria-pressed={live}>
+          <button type="button" onClick={() => setLive((v) => !v)} className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: live ? ACCENT : 'var(--bd)', color: live ? ACCENT : 'var(--t2)' }} aria-pressed={live}>
             {live ? '● LIVE' : '○ 정지'}
           </button>
-          <button type="button" onClick={() => { void onRefresh().then(() => setLastPoll(Date.now())) }} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)]">새로고침</button>
+          <button type="button" onClick={() => { void onRefresh().then(() => setLastPoll(Date.now())) }} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)]">새로고침</button>
         </div>
       </div>
 
@@ -1233,9 +1233,9 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
         ))}
       </div>
       <div className="flex flex-wrap gap-2 font-body text-[11.5px]">
-        <span className="rounded-[var(--r-full)] px-2 py-0.5" style={{ background: 'var(--success-light)', color: 'var(--success)' }}>드레인 대상 {drainable.length}</span>
-        <span className="rounded-[var(--r-full)] px-2 py-0.5" style={{ background: 'var(--p-light)', color: 'var(--p)' }}>방금 진행 {runningNow.length}</span>
-        {stuck.length > 0 && <span className="rounded-[var(--r-full)] px-2 py-0.5" style={{ background: 'var(--error-light)', color: 'var(--error)' }}>멈춤 {stuck.length}</span>}
+        <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--success-light)', color: 'var(--success)' }}>드레인 대상 {drainable.length}</span>
+        <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--p-light)', color: 'var(--p)' }}>방금 진행 {runningNow.length}</span>
+        {stuck.length > 0 && <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--error-light)', color: 'var(--error)' }}>멈춤 {stuck.length}</span>}
       </div>
 
       <SelfDevTimeline active={active} />
@@ -1262,7 +1262,7 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                   {running && <span className="inline-block h-2 w-2 rounded-full" style={{ background: ACCENT }} aria-label="방금 진행" />}
                   <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">{r.title}</h3>
                   <span className="font-mono text-[11px] text-[var(--t2)]">{r.sourceAdapter}</span>
-                  {r.acquirePages != null && <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ background: `${ACCENT}1a`, color: ACCENT }}>테스트 · 앞 {r.acquirePages}쪽</span>}
+                  {r.acquirePages != null && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ background: `${ACCENT}1a`, color: ACCENT }}>테스트 · 앞 {r.acquirePages}쪽</span>}
                   <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">{r.panelsTotal}컷</span>
                 </div>
                 <Stepper status={r.status} failed={Boolean(r.lastError)} />
@@ -1272,34 +1272,34 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                   <span>최근 실행 {relTime(r.lastRunAt)}</span>
                   {tookMs != null && <span>{(tookMs / 1000).toFixed(1)}s</span>}
                   {ocr?.bubbles != null && <span className="text-[var(--t2)]">OCR {ocr.bubbles}대사 · 검수 {ocr.needsReview ?? 0}</span>}
-                  {usablePct != null && <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-[700]" style={{ color: usableTone, background: 'var(--bg2)' }} title="그대로 쓸 수 있는 대사 비율 — 콘텐츠 품질 비교 지표(높을수록 스캔·OCR 양호)">사용가능 {usablePct}%</span>}
+                  {usablePct != null && <span className="rounded-[var(--r-full)] px-2 py-1 font-[700]" style={{ color: usableTone, background: 'var(--bg2)' }} title="그대로 쓸 수 있는 대사 비율 — 콘텐츠 품질 비교 지표(높을수록 스캔·OCR 양호)">사용가능 {usablePct}%</span>}
                   <span className="text-[var(--t2)]">PD {r.pdBasis ?? '미기재'}</span>
                 </div>
                 {/* 작업 방식 — 콘텐츠별 처리 경로(품질 개선 판단). 텍스트 소스(hOCR vs 이미지 OCR)·형식·복원 프로파일 */}
                 {method && (
-                  <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+                  <div className="mt-1.5 flex flex-wrap items-center gap-2">
                     <span className="font-display text-[10px] font-[700] text-[var(--t2)]">작업 방식</span>
                     {/* 로컬 OCR 은퇴(2026-08-15) 후 경로는 두 갈래뿐이다 — 소스 hOCR 이 있거나, 대사가 비어 있거나.
                         "tesseract 로 읽었다" 는 제3의 경우는 더 이상 없다(있는 것처럼 적으면 검수자가 오탈자를 찾는다). */}
-                    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: method.hocrUsed ? 'var(--success)' : 'var(--warning)', background: method.hocrUsed ? 'var(--success-light)' : 'var(--warning-light)' }} title={method.hocrUsed ? '원본에 텍스트/OCR 레이어가 있어 그대로 추출 — 오탈자는 원본 OCR 품질을 따라간다' : '소스가 hOCR 을 주지 않아 대사가 비어 있다 — 전사부터 사람·Claude Code 몫'}>
+                    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: method.hocrUsed ? 'var(--success)' : 'var(--warning)', background: method.hocrUsed ? 'var(--success-light)' : 'var(--warning-light)' }} title={method.hocrUsed ? '원본에 텍스트/OCR 레이어가 있어 그대로 추출 — 오탈자는 원본 OCR 품질을 따라간다' : '소스가 hOCR 을 주지 않아 대사가 비어 있다 — 전사부터 사람·Claude Code 몫'}>
                       {method.textSource ?? (method.hocrUsed ? 'hOCR' : '대사 없음 — 수동 입력')}
                     </span>
-                    {method.format && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">형식 {method.format}</span>}
-                    {method.ocrStrategy && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">전략 {method.ocrStrategy}</span>}
-                    {method.restore && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">복원 crop:{String(method.restore.crop)} ·sat{method.restore.sat} ·x{method.restore.scale}</span>}
+                    {method.format && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">형식 {method.format}</span>}
+                    {method.ocrStrategy && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">전략 {method.ocrStrategy}</span>}
+                    {method.restore && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">복원 crop:{String(method.restore.crop)} ·sat{method.restore.sat} ·x{method.restore.scale}</span>}
                   </div>
                 )}
-                {r.lastError && <p className="mt-1.5 rounded-[var(--r-sm)] bg-[var(--error-light)] px-2.5 py-1.5 font-mono text-[11px] text-[var(--error)]">멈춤: {r.lastError.slice(0, 220)}</p>}
+                {r.lastError && <p className="mt-1.5 rounded-[var(--r-sm)] bg-[var(--error-light)] px-3 py-2 font-mono text-[11px] text-[var(--error)]">멈춤: {r.lastError.slice(0, 220)}</p>}
                 <div className="mt-2 flex flex-wrap items-center gap-2">
-                  <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, true)} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)] disabled:opacity-50">다음 단계 미리보기</button>
-                  {DRAINABLE.has(r.status) && <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, false)} className="min-h-9 rounded-[var(--r-full)] px-2.5 font-display text-[11px] font-[700] text-white disabled:opacity-50" style={{ background: ACCENT }}>이 이슈 한 단계 진행</button>}
-                  <button type="button" onClick={() => setOpenLive((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openLive === r.id ? ACCENT : 'var(--bd)', color: openLive === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openLive === r.id}>{openLive === r.id ? '진행 닫기' : '라이브 진행'}</button>
-                  <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '컷 대사'}</button>
-                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: '#2E7D5A', color: '#2E7D5A' }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
-                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'erase-preview')} title="GPU 없이 말풍선 지우기만 실행 — 남은 글자를 모델이 가짜 글자로 재현하므로 태우기 전에 확인한다" className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: 'var(--t3)', color: 'var(--t2)' }}>지우기 확인</button>
-                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요). 먼저 '지우기 확인'으로 글자가 다 지워졌는지 보세요" className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: ACCENT }}>AI 리스타일</button>
-                  <a href={`/admin/pd-comics/reader/${r.id}`} className="min-h-9 inline-flex items-center rounded-[var(--r-full)] px-2.5 font-display text-[11px] font-[700] text-white transition-opacity hover:opacity-90" style={{ background: ACCENT }}>모던 리더 ↗</a>
-                  {r.status === 'review' && <button type="button" onClick={() => setOpenPublish((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-2.5 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openPublish === r.id ? ACCENT : 'var(--bd)', color: openPublish === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openPublish === r.id}>{openPublish === r.id ? '발행 닫기' : '발행'}</button>}
+                  <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, true)} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] disabled:opacity-50">다음 단계 미리보기</button>
+                  {DRAINABLE.has(r.status) && <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, false)} className="min-h-9 rounded-[var(--r-full)] px-3 font-display text-[11px] font-[700] text-white disabled:opacity-50" style={{ background: ACCENT }}>이 이슈 한 단계 진행</button>}
+                  <button type="button" onClick={() => setOpenLive((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openLive === r.id ? ACCENT : 'var(--bd)', color: openLive === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openLive === r.id}>{openLive === r.id ? '진행 닫기' : '라이브 진행'}</button>
+                  <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '컷 대사'}</button>
+                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: '#2E7D5A', color: '#2E7D5A' }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
+                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'erase-preview')} title="GPU 없이 말풍선 지우기만 실행 — 남은 글자를 모델이 가짜 글자로 재현하므로 태우기 전에 확인한다" className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: 'var(--t3)', color: 'var(--t2)' }}>지우기 확인</button>
+                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요). 먼저 '지우기 확인'으로 글자가 다 지워졌는지 보세요" className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: ACCENT }}>AI 리스타일</button>
+                  <a href={`/admin/pd-comics/reader/${r.id}`} className="min-h-9 inline-flex items-center rounded-[var(--r-full)] px-3 font-display text-[11px] font-[700] text-white transition-opacity hover:opacity-90" style={{ background: ACCENT }}>모던 리더 ↗</a>
+                  {r.status === 'review' && <button type="button" onClick={() => setOpenPublish((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openPublish === r.id ? ACCENT : 'var(--bd)', color: openPublish === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openPublish === r.id}>{openPublish === r.id ? '발행 닫기' : '발행'}</button>}
                 </div>
                 {openLive === r.id && <LiveProgress issueId={r.id} onZoom={(rels, index) => setZoom({ issueId: r.id, rels, index })} />}
                 {open === r.id && <PanelDrill issueId={r.id} />}
@@ -1356,22 +1356,22 @@ function ModernizationMethods() {
   const [open, setOpen] = useState(false)
   return (
     <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
-      <button type="button" onClick={() => setOpen((v) => !v)} className="flex w-full items-center gap-2 px-3 py-2.5 text-left">
+      <button type="button" onClick={() => setOpen((v) => !v)} className="flex w-full items-center gap-2 px-3 py-3 text-left">
         <span className="font-display text-[12.5px] font-[800] text-[var(--t1)]">현대화 방법 (2트랙)</span>
-        <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>기본 · 작화 보존</span>
-        <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700]" style={{ color: '#8B5CF6', background: '#8B5CF618' }}>선택 · AI 리스타일</span>
+        <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>기본 · 작화 보존</span>
+        <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: '#8B5CF6', background: '#8B5CF618' }}>선택 · AI 리스타일</span>
         <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">{open ? '▾' : '▸'}</span>
       </button>
       {open && (
-        <div className="grid gap-2.5 border-t border-[var(--bd)] p-3 md:grid-cols-2">
-          <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
+        <div className="grid gap-3 border-t border-[var(--bd)] p-3 md:grid-cols-2">
+          <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
             <p className="font-display text-[12px] font-[800] text-[var(--t1)]">① 작화 보존 <span className="font-body font-[500] text-[var(--t2)]">— Claude Code / CPU · $0</span></p>
             <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작 그림 <b>그대로</b> + 색채·디자인(ffmpeg)·대사(HTML)만 현대화. 저작권 안전. <b>발행 기본.</b></p>
             <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">page-modern.mjs --workdir work/&lt;slug&gt; --level MAX
 page-html.mjs --workdir work/&lt;slug&gt;
 render-check.cjs --workdir work/&lt;slug&gt;</pre>
           </div>
-          <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
+          <div className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
             <p className="font-display text-[12px] font-[800] text-[var(--t1)]">② AI 리스타일 <span className="font-body font-[500] text-[var(--t2)]">— GPU 모델 · 선택</span></p>
             <p className="mt-1 font-body text-[11.5px] leading-snug text-[var(--t2)]">원작을 <b>다시 그림</b>(화풍 변경, 구도 유지). <b>말풍선 지우기 → 모델 재작화 → page-letter 재부착</b>. 모델 <span className="font-mono">qwen-image-edit-2511</span>, 환경 <b>RunPod-4090 전용</b> — edit 워크플로가 RunPod 에만 프로비저닝돼 있습니다(Kaggle-t4 는 t2i-only 라 쓸 수 없어 경로 자체를 제거). CCP 카탈로그(<span className="font-mono">model-runners</span>) 재사용.</p>
             <pre className="mt-1.5 overflow-x-auto rounded-[var(--r-xs,4px)] bg-[var(--bg3)] p-2 font-mono text-[10px] leading-relaxed text-[var(--t2)]">connect-check.mjs        # 연결 점검(RunPod/ComfyUI)
@@ -1424,35 +1424,35 @@ function SelfDevTimeline({ active }: { active: boolean }) {
         <span className="font-display text-[12.5px] font-[800] text-[var(--t1)]">자기발전 타임라인</span>
         <span className="font-body text-[11px] text-[var(--t2)]">시도 → 단계별 평가 → 평가 기반 자기발전. 콘텐츠 클릭 시 전체 흐름.</span>
       </div>
-      <ul className="flex flex-col gap-1.5">
+      <ul className="flex flex-col gap-2">
         {contents.map((c) => {
           const steps = data.steps.filter((s) => s.slug === c.slug).sort((a, b) => a.seq - b.seq)
           const isOpen = open === c.slug
           const lm = OP_META[(c.lastAction as OpStep['action']) in OP_META ? (c.lastAction as OpStep['action']) : 'note']
           return (
             <li key={c.slug} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)]">
-              <button type="button" onClick={() => setOpen(isOpen ? null : c.slug)} className="flex w-full items-center gap-2 px-2.5 py-2 text-left">
+              <button type="button" onClick={() => setOpen(isOpen ? null : c.slug)} className="flex w-full items-center gap-2 px-3 py-2 text-left">
                 <span className="min-w-0 flex-1 truncate font-body text-[12.5px] font-[600] text-[var(--t1)]">{c.content}</span>
                 {/* 단계 흐름 미니맵(한눈) — 각 스텝을 액션색 점으로 */}
-                <span className="hidden items-center gap-0.5 sm:flex">
+                <span className="hidden items-center gap-1 sm:flex">
                   {steps.map((s) => <span key={s.seq} title={`${OP_META[s.action].label} · ${s.title}`} className="h-2 w-2 rounded-full" style={{ background: OP_META[s.action].color }} />)}
                 </span>
-                <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700]" style={{ color: lm.color, background: lm.bg }}>{c.lastVerdict ? c.lastVerdict.split('—')[0].trim() : lm.label}</span>
+                <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: lm.color, background: lm.bg }}>{c.lastVerdict ? c.lastVerdict.split('—')[0].trim() : lm.label}</span>
                 <span className="font-mono text-[10px] tabular-nums text-[var(--t2)]">{steps.length}스텝</span>
                 <span className="font-mono text-[11px] text-[var(--t2)]">{isOpen ? '▾' : '▸'}</span>
               </button>
               {isOpen && (
-                <ol className="flex flex-col gap-0 border-t border-[var(--bd)] px-2.5 py-2">
+                <ol className="flex flex-col gap-0 border-t border-[var(--bd)] px-3 py-2">
                   {steps.map((s, i) => {
                     const m = OP_META[s.action]
                     return (
-                      <li key={s.seq} className="relative flex gap-2.5 pb-2.5 last:pb-0">
+                      <li key={s.seq} className="relative flex gap-3 pb-3 last:pb-0">
                         {/* 세로 연결선 */}
                         {i < steps.length - 1 && <span className="absolute left-[5px] top-4 h-full w-px" style={{ background: 'var(--bd)' }} />}
                         <span className="relative z-10 mt-1 h-2.5 w-2.5 shrink-0 rounded-full ring-2 ring-[var(--bg)]" style={{ background: m.color }} />
                         <div className="min-w-0 flex-1">
-                          <div className="flex flex-wrap items-center gap-1.5">
-                            <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]" style={{ color: m.color, background: m.bg }}>{m.label}</span>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]" style={{ color: m.color, background: m.bg }}>{m.label}</span>
                             <span className="font-mono text-[9.5px] text-[var(--t2)]">{s.phase}</span>
                             <span className="font-body text-[12px] font-[600] text-[var(--t1)]">{s.title}</span>
                             {s.verdict && <span className="font-mono text-[10px] font-[700]" style={{ color: m.color }}>· {s.verdict}</span>}
@@ -1489,12 +1489,12 @@ function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: str
   }, [issueId])
   if (err) return <p className="mt-2 font-body text-[11.5px] text-[var(--error)]">{err}</p>
   if (!data) return <p className="mt-2 font-body text-[11.5px] text-[var(--t2)]">불러오는 중…</p>
-  if (!data.workDir) return <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[11.5px] text-[var(--t2)]">work 산출물이 없습니다 — 중간 이미지를 보려면 <code className="font-mono">--record</code> 로 실행하세요(<code className="font-mono">--out work/&lt;slug&gt;</code> 면 재부팅 후에도 유지).</p>
+  if (!data.workDir) return <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-3 py-2 font-body text-[11.5px] text-[var(--t2)]">work 산출물이 없습니다 — 중간 이미지를 보려면 <code className="font-mono">--record</code> 로 실행하세요(<code className="font-mono">--out work/&lt;slug&gt;</code> 면 재부팅 후에도 유지).</p>
   const p = data.progress
   const KINDS: Array<[string, string]> = [['pages', '원본'], ['restored', '복원'], ['panels', '컷']]
   const anyArt = KINDS.some(([k]) => (data.artifacts?.[k]?.length ?? 0) > 0)
   return (
-    <div className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
+    <div className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
       {p && typeof p.done === 'number' && (
         <div className="mb-2.5">
           <div className="flex items-center justify-between font-mono text-[11px] text-[var(--t2)]">
@@ -1513,7 +1513,7 @@ function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: str
         return (
           <div key={kind} className="mb-2">
             <p className="mb-1 font-mono text-[10.5px] text-[var(--t2)]">{label} {files.length}장 · 클릭하면 크게</p>
-            <div className="flex gap-1.5 overflow-x-auto pb-1">
+            <div className="flex gap-2 overflow-x-auto pb-1">
               {files.slice(0, 30).map((f, idx) => (
                 <button key={f} type="button" onClick={() => onZoom(rels, idx)} title={`${f} — 크게 보기`} className="shrink-0 cursor-zoom-in overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] transition-shadow hover:shadow-[0_0_0_2px_var(--p)]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -1525,7 +1525,7 @@ function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: str
         )
       })}
       {(data.modern?.length ?? 0) > 0 && (
-        <div className="mt-3 border-t border-[var(--bd)] pt-2.5">
+        <div className="mt-3 border-t border-[var(--bd)] pt-3">
           <p className="mb-1.5 font-mono text-[10.5px] font-semibold text-[var(--t2)]">현대화 산출물 (Claude Code 오퍼레이터 판정)</p>
           <div className="flex flex-col gap-2">
             {data.modern!.map((m) => {
@@ -1533,7 +1533,7 @@ function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: str
               const tone = res?.includes('채택') ? 'var(--success,#2E7D5A)' : res?.includes('반려') ? 'var(--error,#9C3A30)' : res?.includes('현대적') ? 'var(--success,#2E7D5A)' : 'var(--warn,#B5803A)'
               const rel = m.preview ?? m.strip
               return (
-                <div key={m.key} className="flex gap-2.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2">
+                <div key={m.key} className="flex gap-3 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2">
                   {rel && (
                     <button type="button" onClick={() => onZoom([rel], 0)} title={`${m.label} — 크게 보기`} className="shrink-0 cursor-zoom-in overflow-hidden rounded-[var(--r-xs,4px)] border border-[var(--bd)] bg-[var(--bg2)] transition-shadow hover:shadow-[0_0_0_2px_var(--p)]">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -1541,9 +1541,9 @@ function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: str
                     </button>
                   )}
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2">
                       <span className="font-body text-[12px] font-semibold text-[var(--t1)]">{m.label}</span>
-                      {res && <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9.5px] font-semibold text-white" style={{ background: tone }}>{res.split('—')[0].trim()}</span>}
+                      {res && <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-semibold text-white" style={{ background: tone }}>{res.split('—')[0].trim()}</span>}
                     </div>
                     {res && <p className="mt-1 font-body text-[11px] leading-snug text-[var(--t2)]">{res}</p>}
                     {!res && <p className="mt-1 font-body text-[11px] text-[var(--t2)]">판정 대기 — 오퍼레이터가 프리뷰 검토 후 verdict 기록.</p>}
@@ -1574,14 +1574,14 @@ function PanelDrill({ issueId }: { issueId: string }) {
   }, [issueId])
   if (err) return <p className="mt-2 font-body text-[11.5px] text-[var(--error)]">{err}</p>
   if (panels === null) return <p className="mt-2 font-body text-[11.5px] text-[var(--t2)]">불러오는 중…</p>
-  if (panels.length === 0) return <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[11.5px] text-[var(--t2)]">아직 컷 콘텐츠가 없습니다 — 컷 분할(segment) 이후 생성됩니다.</p>
+  if (panels.length === 0) return <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-3 py-2 font-body text-[11.5px] text-[var(--t2)]">아직 컷 콘텐츠가 없습니다 — 컷 분할(segment) 이후 생성됩니다.</p>
   const totalBubbles = panels.reduce((a, p) => a + p.bubbles.length, 0)
   return (
-    <div className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-2.5">
+    <div className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
       <p className="mb-1.5 font-mono text-[11px] text-[var(--t2)]">컷 {panels.length} · 대사 {totalBubbles}개</p>
-      <ul className="flex max-h-72 flex-col gap-1.5 overflow-y-auto">
+      <ul className="flex max-h-72 flex-col gap-2 overflow-y-auto">
         {panels.map((p) => (
-          <li key={p.panelOrder} className="flex gap-2.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-1.5">
+          <li key={p.panelOrder} className="flex gap-3 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2">
             {p.imageUrl && (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={`/api/pdcp/artifact?issueId=${encodeURIComponent(issueId)}&rel=${encodeURIComponent(p.imageUrl)}`} alt={`컷 ${p.panelOrder}`} loading="lazy" className="h-20 w-16 shrink-0 rounded-[var(--r-xs,4px)] border border-[var(--bd)] bg-[var(--bg2)] object-cover" />
@@ -1593,11 +1593,11 @@ function PanelDrill({ issueId }: { issueId: string }) {
                 <span className="ml-auto">대사 {p.bubbles.length}</span>
               </div>
               {p.bubbles.length > 0 ? (
-                <ul className="mt-1 flex flex-col gap-0.5">
+                <ul className="mt-1 flex flex-col gap-1">
                   {p.bubbles.map((b, i) => {
                     const refined = (b as { refined?: boolean }).refined
                     return (
-                      <li key={i} className="flex items-baseline gap-1.5 font-body text-[11.5px] text-[var(--t1)]">
+                      <li key={i} className="flex items-baseline gap-2 font-body text-[11.5px] text-[var(--t1)]">
                         <span className="shrink-0 font-mono text-[9.5px]" style={{ color: refined ? 'var(--success)' : 'var(--t4)' }}>{b.kind ?? 'speech'}{refined ? '·정제' : (typeof b.confidence === 'number' ? ` ${Math.round(b.confidence * 100)}%` : '')}</span>
                         <span className="flex-1">{b.text || <em className="text-[var(--t4)]">(빈 대사)</em>}</span>
                       </li>
@@ -1702,7 +1702,7 @@ function PublishPanel({ issueId, onMsg, onRefresh }: { issueId: string; onMsg: (
   }
 
   const item = (ok: boolean, label: string) => (
-    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[10px] font-[700]" style={ok ? { color: 'var(--success)', background: 'var(--success-light)' } : { color: 'var(--t2)', background: 'var(--bg2)' }}>{ok ? '✓' : '○'} {label}</span>
+    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-mono text-[10px] font-[700]" style={ok ? { color: 'var(--success)', background: 'var(--success-light)' } : { color: 'var(--t2)', background: 'var(--bg2)' }}>{ok ? '✓' : '○'} {label}</span>
   )
   const gateOk = check && check.pdBasis && check.pdChecked && check.sourceUrl
   const canPublish = gateOk && check?.contentServable
@@ -1727,7 +1727,7 @@ function PublishPanel({ issueId, onMsg, onRefresh }: { issueId: string; onMsg: (
 
       {/* 발행 조건 체크리스트 */}
       {check && (
-        <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+        <div className="mt-2.5 flex flex-wrap items-center gap-2">
           {item(check.pdBasis, 'PD 근거')}
           {item(check.pdChecked, '검증 기록')}
           {item(check.sourceUrl, '출처 URL')}
@@ -1756,12 +1756,12 @@ function ModernBadges({ modern }: { modern?: { preserve: boolean; reader: boolea
   if (!modern) return null
   const done = modern.preserve || modern.reader || modern.restyle
   return (
-    <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+    <div className="mt-1.5 flex flex-wrap items-center gap-2">
       <span className="font-display text-[10px] font-[700] text-[var(--t2)]">현대화</span>
-      {!done && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">아직 안 함</span>}
-      {modern.preserve && <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>작화보존 ✓</span>}
-      {modern.reader && <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>리더 ✓</span>}
-      {modern.restyle && <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `${ACCENT}18` }}>AI 리스타일 ✓</span>}
+      {!done && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">아직 안 함</span>}
+      {modern.preserve && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>작화보존 ✓</span>}
+      {modern.reader && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>리더 ✓</span>}
+      {modern.restyle && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `${ACCENT}18` }}>AI 리스타일 ✓</span>}
     </div>
   )
 }
@@ -1771,11 +1771,11 @@ function Stepper({ status, failed }: { status: string; failed?: boolean }) {
   // "여기서 멈췄다"를 한눈에 보이게 한다(정상 진행처럼 보이면 안 된다).
   const cur = stageIndex(status)
   return (
-    <ol className="mt-2 flex flex-wrap items-center gap-1.5" aria-label="파이프라인 단계">
+    <ol className="mt-2 flex flex-wrap items-center gap-2" aria-label="파이프라인 단계">
       {PD_STAGES.map((s, i) => (
         <li key={s.key}>
           <span
-            className="rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[10px] font-[700]"
+            className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[10px] font-[700]"
             style={
               failed
                 ? { background: 'var(--error-light)', color: 'var(--error)' }

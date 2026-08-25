@@ -374,7 +374,7 @@ export function EchoMatchPlayer({
                   setError(null)
                   setPiperReady(false)
                 }}
-                className="mt-2 inline-flex items-center rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)]"
+                className="mt-2 inline-flex items-center rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-3 py-1 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)]"
               >
                 다시 시도
               </button>
@@ -458,7 +458,7 @@ export function EchoMatchPlayer({
           type="button"
           onClick={handlePrev}
           disabled={currentIdx === 0 || phase === 'recording'}
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-30"
+          className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-30"
         >
           <ChevronLeft size={13} aria-hidden /> 이전
         </button>
@@ -467,7 +467,7 @@ export function EchoMatchPlayer({
           <button
             type="button"
             onClick={handleRetry}
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)]"
+            className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)]"
           >
             <RotateCcw size={13} aria-hidden /> 다시
           </button>
@@ -477,7 +477,7 @@ export function EchoMatchPlayer({
           type="button"
           onClick={handleNext}
           disabled={currentIdx === last || phase === 'recording'}
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:cursor-not-allowed disabled:opacity-30"
+          className="inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:cursor-not-allowed disabled:opacity-30"
         >
           다음 <ChevronRight size={13} aria-hidden />
         </button>
@@ -543,7 +543,7 @@ function PhaseController({
         <button
           type="button"
           onClick={onStopRecording}
-          className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--error)] px-5 py-2.5 font-display text-[13px] font-[700] text-white transition-all hover:scale-[1.02] active:scale-[0.97]"
+          className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--error)] px-5 py-3 font-display text-[13px] font-[700] text-white transition-all hover:scale-[1.02] active:scale-[0.97]"
         >
           <Square size={12} fill="currentColor" aria-hidden /> 완료
         </button>
@@ -569,7 +569,7 @@ function PhaseController({
       <button
         type="button"
         onClick={onRetry}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--success)] bg-[var(--bg)] px-4 py-1.5 font-display text-[12px] font-[700] text-[var(--success)] transition-colors hover:bg-[var(--success-light)]"
+        className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--success)] bg-[var(--bg)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--success)] transition-colors hover:bg-[var(--success-light)]"
       >
         <RotateCcw size={12} aria-hidden /> 한 번 더
       </button>

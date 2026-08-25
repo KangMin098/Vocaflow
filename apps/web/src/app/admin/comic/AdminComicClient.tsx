@@ -112,7 +112,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
       {/* 순차 작업 가이드 */}
       <div className="rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}40`, background: `${ACCENT}0a` }}>
         <p className="mb-1.5 font-display text-[12px] font-[700] text-[var(--t1)]">작업 순서</p>
-        <ol className="flex flex-wrap items-center gap-x-1.5 gap-y-1 font-body text-[12px] text-[var(--t2)]">
+        <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 font-body text-[12px] text-[var(--t2)]">
           <Step n={1}>대상 도서 선택 → <b>만화 생성 큐</b> 적재</Step>
           <Arrow />
           <Step n={2}>Claude Code 드레인(<code className="font-mono text-[11px]">generate-comic.mjs</code>)으로 컷 생성</Step>
@@ -153,7 +153,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
         <div className="flex flex-col gap-3">
           {selected.size > 0 && (
             <div
-              className="flex items-center justify-between rounded-[var(--r-md)] border px-4 py-2.5"
+              className="flex items-center justify-between rounded-[var(--r-md)] border px-4 py-3"
               style={{ borderColor: `${ACCENT}55`, background: `${ACCENT}0f` }}
             >
               <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
@@ -162,14 +162,14 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
               <div className="flex gap-2">
                 <button
                   onClick={() => setSelected(new Set())}
-                  className="rounded-[var(--r-full)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] hover:text-[var(--t1)]"
+                  className="rounded-[var(--r-full)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] hover:text-[var(--t1)]"
                 >
                   해제
                 </button>
                 <button
                   onClick={runEnqueue}
                   disabled={pending}
-                  className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[12px] font-[700] text-white disabled:opacity-50"
+                  className="inline-flex items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[12px] font-[700] text-white disabled:opacity-50"
                   style={{ backgroundColor: ACCENT }}
                 >
                   {pending ? <Loader2 size={13} className="animate-spin" /> : <BookImage size={13} />}
@@ -297,11 +297,11 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
             return (
               <section key={f} className="flex flex-col gap-3">
                 {/* 구성 방식 헤더 — 읽는 방식 + 레이아웃 설명 */}
-                <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 rounded-[var(--r-md)] border-l-[3px] bg-[var(--bg2)] px-3.5 py-2.5" style={{ borderLeftColor: ACCENT }}>
-                  <span className="inline-flex items-center gap-1.5 font-display text-[14px] font-[800] text-[var(--t1)]">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 rounded-[var(--r-md)] border-l-[3px] bg-[var(--bg2)] px-4 py-3" style={{ borderLeftColor: ACCENT }}>
+                  <span className="inline-flex items-center gap-2 font-display text-[14px] font-[800] text-[var(--t1)]">
                     {scroll ? <ScrollText size={15} style={{ color: ACCENT }} /> : <BookOpen size={15} style={{ color: ACCENT }} />}{meta.label}
                   </span>
-                  <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `${ACCENT}1a` }}>{scroll ? '세로 스크롤' : '페이지 넘김'}</span>
+                  <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `${ACCENT}1a` }}>{scroll ? '세로 스크롤' : '페이지 넘김'}</span>
                   <span className="font-mono text-[11px] text-[var(--t2)]">{meta.layout}</span>
                   <span className="font-body text-[11px] text-[var(--t2)]">· 화풍 {group.length}종</span>
                   <p className="w-full font-body text-[11px] leading-relaxed text-[var(--t2)]">{meta.blurb}</p>
@@ -312,23 +312,23 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
                     <figure key={s.key} className="group flex flex-col overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] transition-shadow hover:shadow-[0_2px_16px_rgba(0,0,0,0.08)]">
                       <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-[var(--bd)]">
                         <StyleSwatch format={s.format} palette={s.palette} genre={s.genre} styleKey={s.key} />
-                        <div className="absolute inset-x-0 bottom-0 flex items-end gap-1.5 p-2.5" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0))' }}>
+                        <div className="absolute inset-x-0 bottom-0 flex items-end gap-2 p-3" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.62), rgba(0,0,0,0))' }}>
                           <span className="font-display text-[13px] font-[800] leading-tight text-white [text-shadow:0_1px_3px_rgba(0,0,0,0.5)]">{s.name}</span>
-                          {s.is_default && <span className="shrink-0 rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-white" style={{ background: ACCENT }}>기본</span>}
+                          {s.is_default && <span className="shrink-0 rounded-[var(--r-full)] px-2 py-1 font-display text-[9px] font-[700] text-white" style={{ background: ACCENT }}>기본</span>}
                         </div>
                         <div className="absolute right-2 top-2"><ModelStatusPill status={s.status === 'adopted' ? 'adopted' : s.status === 'rejected' ? 'rejected' : 'candidate'} /></div>
                       </div>
                       <figcaption className="flex flex-1 flex-col gap-2 p-3">
                         <div className="flex flex-wrap items-center gap-1">
-                          <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]" style={{ color: genreHue(s.genre), background: `${genreHue(s.genre)}1a` }}>
+                          <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: genreHue(s.genre), background: `${genreHue(s.genre)}1a` }}>
                             <span className="h-1.5 w-1.5 rounded-full" style={{ background: genreHue(s.genre) }} aria-hidden />{s.genre}
                           </span>
-                          {[s.age_band, s.palette].filter(Boolean).map((t) => <span key={t} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">{t}</span>)}
-                          {(s.difficulty_min != null || s.difficulty_max != null) && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">V{s.difficulty_min ?? 0}–{s.difficulty_max ?? 11}</span>}
+                          {[s.age_band, s.palette].filter(Boolean).map((t) => <span key={t} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]">{t}</span>)}
+                          {(s.difficulty_min != null || s.difficulty_max != null) && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">V{s.difficulty_min ?? 0}–{s.difficulty_max ?? 11}</span>}
                         </div>
                         {s.art_prompt && <p className="line-clamp-2 font-body text-[11px] leading-relaxed text-[var(--t2)]" title={s.art_prompt}>{s.art_prompt}</p>}
                         <div className="mt-auto flex items-center gap-2 pt-1">
-                          <select aria-label={`${s.name} 상태`} value={s.status} disabled={busy === s.key} onChange={(e) => setStatus(s.key, e.target.value)} className="min-h-11 flex-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 font-body text-[11px] text-[var(--t2)] disabled:opacity-50">
+                          <select aria-label={`${s.name} 상태`} value={s.status} disabled={busy === s.key} onChange={(e) => setStatus(s.key, e.target.value)} className="min-h-11 flex-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-body text-[11px] text-[var(--t2)] disabled:opacity-50">
                             {['candidate', 'adopted', 'rejected'].map((st) => <option key={st} value={st}>{st}</option>)}
                           </select>
                           {busy === s.key && <Loader2 size={13} className="animate-spin text-[var(--t2)]" />}
@@ -348,7 +348,7 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
 }
 function FilterSel({ label, value, onChange, opts }: { label: string; value: string; onChange: (v: string) => void; opts: string[] }) {
   return (
-    <label className="inline-flex items-center gap-1.5">
+    <label className="inline-flex items-center gap-2">
       <span className="font-display text-[11px] font-[700] text-[var(--t2)]">{label}</span>
       <select aria-label={label} value={value} onChange={(e) => onChange(e.target.value)} className="min-h-9 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-body text-[12px] text-[var(--t1)]">
         <option value="">전체</option>
@@ -396,7 +396,7 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
                 <tr key={m.key} className="border-b border-[var(--bd)]/60 last:border-0 align-top hover:bg-[var(--bg2)]/40">
                   <Td><span className="font-display text-[15px] font-[800] tabular-nums" style={{ color: (m.comic_fit ?? 0) >= 80 ? 'var(--memory-stable)' : (m.comic_fit ?? 0) >= 60 ? 'var(--memory-shaky)' : 'var(--t2)' }}>{m.comic_fit ?? '—'}</span></Td>
                   <Td>
-                    <div className="flex items-center gap-1.5">
+                    <div className="flex items-center gap-2">
                       <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{m.name}</span>
                       {m.source_url && <a href={m.source_url} target="_blank" rel="noreferrer" className="text-[var(--t2)] hover:text-[var(--active)]"><ExternalLink size={12} /></a>}
                     </div>
@@ -418,7 +418,7 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
                   <Td className="font-mono text-[12px] tabular-nums text-[var(--t2)]">{m.min_vram_gb != null ? `${m.min_vram_gb}GB` : '—'}</Td>
                   <Td><ModelStatusPill status={m.status} /></Td>
                   <Td>
-                    <select aria-label={`${m.name} 상태 변경`} value={m.status} disabled={busyKey === m.key} onChange={(e) => setStatus(m.key, e.target.value)} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-1 font-body text-[11px] text-[var(--t2)] disabled:opacity-50">
+                    <select aria-label={`${m.name} 상태 변경`} value={m.status} disabled={busyKey === m.key} onChange={(e) => setStatus(m.key, e.target.value)} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-body text-[11px] text-[var(--t2)] disabled:opacity-50">
                       {['candidate', 'testing', 'adopted', 'rejected'].map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </Td>
@@ -437,7 +437,7 @@ const ENV_META: Record<string, { label: string; tone: string }> = {
 }
 function EnvPill({ env }: { env: string }) {
   const m = ENV_META[env] ?? { label: env, tone: 'var(--t3)' }
-  return <span className="rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[10px] font-[700]" style={{ color: m.tone, background: `color-mix(in srgb, ${m.tone} 12%, transparent)` }}>{m.label}</span>
+  return <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: m.tone, background: `color-mix(in srgb, ${m.tone} 12%, transparent)` }}>{m.label}</span>
 }
 function ModelStatusPill({ status }: { status: string }) {
   const m: Record<string, { label: string; tone: string }> = {
@@ -445,7 +445,7 @@ function ModelStatusPill({ status }: { status: string }) {
     adopted: { label: '채택', tone: 'var(--memory-stable)' }, rejected: { label: '제외', tone: 'var(--memory-risk)' },
   }
   const s = m[status] ?? { label: status, tone: 'var(--t3)' }
-  return <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[11px] font-[700]" style={{ color: s.tone, background: `color-mix(in srgb, ${s.tone} 12%, transparent)` }}>{s.label}</span>
+  return <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]" style={{ color: s.tone, background: `color-mix(in srgb, ${s.tone} 12%, transparent)` }}>{s.label}</span>
 }
 
 function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: ComicModel[]; styles: ComicStyle[] }) {
@@ -494,14 +494,14 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-[180px_1fr]">
             <label className="flex flex-col gap-1">
               <span className="font-display text-[11px] font-[700] text-[var(--t2)]">실행 환경 (자가호스트 우선)</span>
-              <select value={env} onChange={(e) => { setEnv(e.target.value); setForm((f) => ({ ...f, backend: '', model: '', site: '' })) }} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
+              <select value={env} onChange={(e) => { setEnv(e.target.value); setForm((f) => ({ ...f, backend: '', model: '', site: '' })) }} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
                 <option value="runpod-4090">RunPod 4090 (24GB)</option>
                 <option value="api">API (폐쇄 모델)</option>
               </select>
             </label>
             <label className="flex flex-col gap-1">
               <span className="font-display text-[11px] font-[700] text-[var(--t2)]">모델 — 이 환경에서 실행 가능한 것만 ({envModels.length})</span>
-              <select aria-label="모델 선택" value={form.backend} onChange={(e) => e.target.value ? pickModel(e.target.value) : setForm((f) => ({ ...f, backend: '', model: '', site: '' }))} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
+              <select aria-label="모델 선택" value={form.backend} onChange={(e) => e.target.value ? pickModel(e.target.value) : setForm((f) => ({ ...f, backend: '', model: '', site: '' }))} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
                 <option value="">— 모델 선택 —</option>
                 {envModels.map((m) => <option key={m.key} value={m.key}>{m.name} · fit {m.comic_fit ?? '?'}{m.min_vram_gb ? ` · ${m.min_vram_gb}GB` : ''}</option>)}
               </select>
@@ -512,14 +512,14 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
         <Field label="이름*" value={form.label} onChange={set('label')} placeholder="예: Qwen-2511 vs FLUX.2 화풍 일관성" />
         {/* 모델은 위 환경-제약 드롭다운으로만 선택(자유입력 제거 → 제약 강제) */}
         {form.backend && (
-          <p className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[12px] text-[var(--t2)]">
+          <p className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-3 py-2 font-body text-[12px] text-[var(--t2)]">
             선택: <b className="text-[var(--t1)]">{form.model}</b> · <span className="font-mono text-[11px]">{form.backend}</span> · @{form.site}
           </p>
         )}
         {styles.length > 0 && (
           <label className="flex flex-col gap-1">
             <span className="font-display text-[11px] font-[700] text-[var(--t2)]">스타일 (선택 — 실험 매트릭스: 모델×환경×스타일)</span>
-            <select aria-label="스타일 선택" value={form.style} onChange={(e) => setForm((f) => ({ ...f, style: e.target.value }))} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
+            <select aria-label="스타일 선택" value={form.style} onChange={(e) => setForm((f) => ({ ...f, style: e.target.value }))} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
               <option value="">— 스타일 무관 —</option>
               {styles.filter((s) => s.status !== 'rejected').map((s) => <option key={s.key} value={s.key}>{s.name} · {s.format}/{s.genre}</option>)}
             </select>
@@ -527,7 +527,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
         )}
         <Field label="메모" value={form.note} onChange={set('note')} placeholder="가설·파라미터·기대 결과" />
         <div className="flex items-center gap-3">
-          <button onClick={submit} disabled={pending} className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[12px] font-[700] text-white disabled:opacity-50" style={{ backgroundColor: ACCENT }}>
+          <button onClick={submit} disabled={pending} className="inline-flex items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[12px] font-[700] text-white disabled:opacity-50" style={{ backgroundColor: ACCENT }}>
             {pending ? <Loader2 size={13} className="animate-spin" /> : <Plus size={13} />} 계획 추가
           </button>
           {msg && <span className="font-body text-[12px] text-[var(--memory-risk)]">{msg}</span>}
@@ -544,13 +544,13 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
               <div className="flex flex-wrap items-center gap-2">
                 <FlaskConical size={14} style={{ color: ACCENT }} />
                 <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{t.label}</span>
-                <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[11px] font-[700]" style={{ color: t.status === 'done' ? 'var(--memory-stable)' : t.status === 'failed' ? 'var(--memory-risk)' : ACCENT, background: 'var(--bg2)' }}>
+                <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]" style={{ color: t.status === 'done' ? 'var(--memory-stable)' : t.status === 'failed' ? 'var(--memory-risk)' : ACCENT, background: 'var(--bg2)' }}>
                   {t.status === 'running' && <Loader2 size={10} className="animate-spin" />}{t.status}
                 </span>
                 {(() => {
                   const url = (t.params as { kernel_url?: string } | null)?.kernel_url
                   return typeof url === 'string' ? (
-                    <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-0.5 font-display text-[11px] font-[700] transition-colors hover:bg-[var(--bg2)]" style={{ borderColor: `${ACCENT}40`, color: ACCENT }}>
+                    <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-display text-[11px] font-[700] transition-colors hover:bg-[var(--bg2)]" style={{ borderColor: `${ACCENT}40`, color: ACCENT }}>
                       <ExternalLink size={11} />모니터링
                     </a>
                   ) : null
@@ -558,7 +558,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
                 <div className="flex-1" />
                 <span className="font-mono text-[11px] text-[var(--t2)]">{new Date(t.created_at).toLocaleDateString('ko-KR')}</span>
               </div>
-              <div className="mt-1.5 flex flex-wrap items-center gap-1.5 font-mono text-[11px] text-[var(--t2)]">
+              <div className="mt-1.5 flex flex-wrap items-center gap-2 font-mono text-[11px] text-[var(--t2)]">
                 {t.backend && <span className="inline-flex items-center gap-1"><Cpu size={11} />{t.backend}</span>}
                 {t.model && <span>· {t.model}</span>}
                 {t.site && <span>· {t.site}</span>}
@@ -567,7 +567,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
                 {Array.isArray((t.params as { panels?: unknown } | null)?.panels) && <span>· 컷 {((t.params as { panels: number[] }).panels).join(',')}</span>}
               </div>
               {t.result && (
-                <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[12px] text-[var(--t2)]">
+                <p className="mt-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-3 py-2 font-body text-[12px] text-[var(--t2)]">
                   {Object.entries(t.result).map(([k, v]) => `${k}: ${typeof v === 'string' ? v : JSON.stringify(v)}`).join(' · ')}
                 </p>
               )}
@@ -584,7 +584,7 @@ function Field({ label, value, onChange, placeholder }: { label: string; value: 
   return (
     <label className="flex flex-col gap-1">
       <span className="font-display text-[11px] font-[700] text-[var(--t2)]">{label}</span>
-      <input value={value} onChange={onChange} placeholder={placeholder} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]" />
+      <input value={value} onChange={onChange} placeholder={placeholder} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]" />
     </label>
   )
 }
@@ -660,7 +660,7 @@ function StatusPill({ status }: { status: ComicCatalogRow['comicStatus'] }) {
   const m = COMIC_STATUS_META[status]
   return (
     <span
-      className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[11px] font-[700]"
+      className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]"
       style={{ color: m.tone, backgroundColor: `color-mix(in srgb, ${m.tone} 12%, transparent)` }}
     >
       {m.label}
@@ -698,7 +698,7 @@ function StatTile({
 
 function Step({ n, children }: { n: number; children: ReactNode }) {
   return (
-    <li className="inline-flex items-center gap-1.5">
+    <li className="inline-flex items-center gap-2">
       <span
         className="inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full font-display text-[10px] font-[800] text-white"
         style={{ backgroundColor: ACCENT }}
@@ -718,5 +718,5 @@ function Th({ children }: { children?: ReactNode }) {
   return <th className="px-3 py-2 font-[700]">{children}</th>
 }
 function Td({ children, className = '' }: { children?: ReactNode; className?: string }) {
-  return <td className={`px-3 py-2.5 ${className}`}>{children}</td>
+  return <td className={`px-3 py-3 ${className}`}>{children}</td>
 }

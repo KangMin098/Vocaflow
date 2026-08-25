@@ -320,7 +320,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
               href={url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 font-mono text-[11px] text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              className="inline-flex items-center gap-2 font-mono text-[11px] text-[var(--p)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
             >
               {sourceLabel(book.source)} 페이지 열기
               <ExternalLink size={10} aria-hidden />
@@ -349,7 +349,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
         {(book.status === 'published' || book.status === 'ready') && (
           <Link
             href={`/admin/curation/preview/${book.id}`}
-            className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+            className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           >
             <BookOpen size={12} aria-hidden />
             📖 본문 검수
@@ -537,7 +537,7 @@ function DeleteConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={pending || !canDelete}
-            className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-40"
+            className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-40"
           >
             {pending && <Loader2 size={12} className="animate-spin" aria-hidden />}
             영구 삭제
@@ -595,7 +595,7 @@ function RevertConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={pending}
-            className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+            className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
           >
             {pending && <Loader2 size={12} className="animate-spin" aria-hidden />}
             되돌리고 단어장 삭제
@@ -657,7 +657,7 @@ function CoverageCurve({
     return <p className="font-body text-[11px] text-[var(--t2)]">커버리지 데이터 없음</p>;
   }
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         {present.map((l) => {
           const pct = coverage[String(l)] as number;
@@ -742,7 +742,7 @@ function DataRow({
 
 function StatTile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-0.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2">
+    <div className="flex flex-col gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2">
       <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
         {label}
       </span>
@@ -770,7 +770,7 @@ function StatusPill({
   const { bg, text } = colorMap[tone];
   return (
     <span
-      className="inline-flex shrink-0 items-center rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[700]"
+      className="inline-flex shrink-0 items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
       style={{ backgroundColor: bg, color: text }}
     >
       {label}
@@ -807,7 +807,7 @@ function DryRunResult({
         {result.length_cv != null && <span className="opacity-70">CV {result.length_cv}</span>}
       </div>
       {result.warnings.length > 0 && (
-        <ul className="mt-1.5 flex flex-col gap-0.5">
+        <ul className="mt-1.5 flex flex-col gap-1">
           {result.warnings.map((w, i) => (
             <li key={i} className="font-body text-[11px]" style={{ color: tone.fg }}>· {w}</li>
           ))}
@@ -844,7 +844,7 @@ function ActionButton({
       type="button"
       onClick={onClick}
       disabled={pending}
-      className={`inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
+      className={`inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
     >
       {pending ? <Loader2 size={12} className="animate-spin" aria-hidden /> : icon}
       {label}

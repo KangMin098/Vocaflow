@@ -141,14 +141,14 @@ export function VcbPreviewHero({ items, spec, validation }: Props) {
               {confAvg.toFixed(2)}
             </span>
             <span
-              className="text-xs font-mono px-2 py-0.5 rounded-[var(--r-sm)]"
+              className="text-xs font-mono px-2 py-1 rounded-[var(--r-sm)]"
               style={{ background: confStyle.bg, color: confStyle.fg }}
             >
               {confStyle.label}
             </span>
           </div>
           {/* sparkline-ish bar */}
-          <div className="mt-3 flex items-center gap-0.5" aria-hidden="true">
+          <div className="mt-3 flex items-center gap-1" aria-hidden="true">
             {[0.5, 0.6, 0.7, 0.8, 0.9, 1.0].map((threshold) => {
               const filled = confAvg >= threshold
               return (

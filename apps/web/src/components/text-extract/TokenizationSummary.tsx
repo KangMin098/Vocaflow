@@ -86,7 +86,7 @@ export function TokenizationSummary({
       {truncated > 0 && (
         <p
           role="alert"
-          className="mt-2 inline-flex items-start gap-1.5 rounded-[var(--r-md)] border border-[var(--warning)]/30 bg-[var(--warning-light)] px-2.5 py-2 font-body text-[11px] text-[var(--warning-ink)]"
+          className="mt-2 inline-flex items-start gap-2 rounded-[var(--r-md)] border border-[var(--warning)]/30 bg-[var(--warning-light)] px-3 py-2 font-body text-[11px] text-[var(--warning-ink)]"
         >
           <TriangleAlert size={12} className="mt-0.5 shrink-0 text-[var(--warning)]" aria-hidden />
           <span>

@@ -47,7 +47,7 @@ export function ScriptsChipNav({ chips, active, onChange }: ScriptsChipNavProps)
             role="tab"
             aria-selected={isActive}
             onClick={() => onChange(chip.id)}
-            className={`group inline-flex h-11 min-h-[44px] shrink-0 snap-start items-center gap-1.5 rounded-[var(--r-full)] px-3.5 font-display text-[13px] font-[600] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
+            className={`group inline-flex h-11 min-h-[44px] shrink-0 snap-start items-center gap-2 rounded-[var(--r-full)] px-4 font-display text-[13px] font-[600] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
               isActive
                 ? 'text-white shadow-sm'
                 : 'border border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:border-[var(--bd-strong)] hover:bg-[var(--bg2)]'
@@ -70,7 +70,7 @@ export function ScriptsChipNav({ chips, active, onChange }: ScriptsChipNavProps)
             )}
             <span className="truncate">{chip.label}</span>
             <span
-              className={`inline-flex h-[18px] min-w-[22px] items-center justify-center rounded-[var(--r-full)] px-1.5 font-mono text-[10px] font-[700] tabular-nums ${
+              className={`inline-flex h-[18px] min-w-[22px] items-center justify-center rounded-[var(--r-full)] px-2 font-mono text-[10px] font-[700] tabular-nums ${
                 isActive
                   ? 'bg-white/20 text-white'
                   : 'bg-[var(--bg2)] text-[var(--t2)] group-hover:text-[var(--t2)]'

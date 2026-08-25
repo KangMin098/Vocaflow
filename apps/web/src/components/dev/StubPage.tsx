@@ -46,13 +46,13 @@ export function StubPage({ title, description, upcoming = [] }: StubPageProps) {
         <div className="mt-6 flex justify-center gap-3">
           <Link
             href="/"
-            className="rounded-[var(--r-md)] border border-[var(--bd)] px-5 py-2.5 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+            className="rounded-[var(--r-md)] border border-[var(--bd)] px-5 py-3 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
           >
             화면 목록
           </Link>
           <Link
             href="/hub"
-            className="rounded-[var(--r-md)] bg-[var(--p)] px-5 py-2.5 font-display text-[13px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)]"
+            className="rounded-[var(--r-md)] bg-[var(--p)] px-5 py-3 font-display text-[13px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)]"
           >
             허브로
           </Link>

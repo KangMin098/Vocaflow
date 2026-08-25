@@ -83,7 +83,7 @@ export function SeriesDetail({
       <button
         type="button"
         onClick={onBack}
-        className="inline-flex w-fit items-center gap-1.5 rounded-[var(--r-md)] px-1 py-1 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="inline-flex w-fit items-center gap-2 rounded-[var(--r-md)] px-1 py-1 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <ArrowLeft size={15} aria-hidden /> 시리즈 목록
       </button>
@@ -107,13 +107,13 @@ export function SeriesDetail({
         </div>
         <div className="flex flex-wrap items-center gap-2 md:pl-[3.75rem]">
           <span
-            className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[11px] font-[800]"
+            className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[800]"
             style={{ color: fitMeta.color, backgroundColor: `color-mix(in srgb, ${fitMeta.color} 14%, transparent)` }}
           >
             {fitMeta.label}
           </span>
           <span
-            className="inline-flex items-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[11px] font-[700]"
+            className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-mono text-[11px] font-[700]"
             style={{ color: track.accent, backgroundColor: `color-mix(in srgb, ${track.accent} 12%, transparent)` }}
           >
             {cefrLabel}
@@ -141,7 +141,7 @@ export function SeriesDetail({
         {/* 나머지 — 분류 or 평면 */}
         {rest.length > 0 && (
           <div className="flex flex-col gap-6">
-            <div className="flex items-baseline gap-2 px-0.5">
+            <div className="flex items-baseline gap-2 px-1">
               <h2 className="font-display text-[14px] font-[800] text-[var(--t1)]">
                 {grouped ? '주제별로 둘러보기' : '이어서 읽기'}
               </h2>
@@ -151,13 +151,13 @@ export function SeriesDetail({
             {grouped ? (
               groups.map((g) => (
                 <div key={g.key} className="flex flex-col gap-3">
-                  <div className="flex flex-col gap-0.5 px-0.5">
+                  <div className="flex flex-col gap-1 px-1">
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                       {g.color && <span aria-hidden className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: g.color }} />}
                       <h3 className="font-display text-[13.5px] font-[800] text-[var(--t1)]">{g.label}</h3>
                       {g.domain && (
                         <span
-                          className="inline-flex items-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[10px] font-[700]"
+                          className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
                           style={{ color: g.color, backgroundColor: `color-mix(in srgb, ${g.color} 12%, transparent)` }}
                         >
                           {g.domain}
@@ -200,11 +200,11 @@ export function SeriesDetail({
         {sources.length > 0 && (
           <div className="flex flex-col gap-2">
             <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">출처</span>
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               {sources.map((s) => (
                 <span
                   key={s.key}
-                  className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11.5px] font-[600] text-[var(--t1)]"
+                  className="inline-flex items-center gap-2 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11.5px] font-[600] text-[var(--t1)]"
                   style={{ borderColor: `color-mix(in srgb, ${s.color} 35%, transparent)` }}
                   title={`${s.label} · ${s.count}편`}
                 >
@@ -224,11 +224,11 @@ export function SeriesDetail({
           <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">
             이 시리즈로 기르는 것
           </span>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {track.skills.map((sk) => (
               <span
                 key={sk}
-                className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg)] px-2.5 py-1 font-display text-[12px] font-[600] text-[var(--t2)] shadow-[var(--sh-xs)]"
+                className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg)] px-3 py-1 font-display text-[12px] font-[600] text-[var(--t2)] shadow-[var(--sh-xs)]"
               >
                 {sk}
               </span>
@@ -247,7 +247,7 @@ export function SeriesDetail({
           <ol className="flex flex-wrap items-center gap-x-1 gap-y-2">
             {track.method.map((step, i) => (
               <li key={step} className="inline-flex items-center gap-1">
-                <span className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--bg)] py-1 pl-1.5 pr-2.5 font-display text-[12px] font-[600] text-[var(--t2)] shadow-[var(--sh-xs)]">
+                <span className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--bg)] py-1 pl-2 pr-3 font-display text-[12px] font-[600] text-[var(--t2)] shadow-[var(--sh-xs)]">
                   <span
                     aria-hidden
                     className="inline-flex h-[18px] w-[18px] items-center justify-center rounded-[var(--r-full)] bg-[var(--p)] font-mono text-[9.5px] font-[800] text-[var(--on-p)]"

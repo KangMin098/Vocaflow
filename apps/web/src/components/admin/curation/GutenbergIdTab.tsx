@@ -141,7 +141,7 @@ export function GutenbergIdTab({ onPickPreview }: GutenbergIdTabProps) {
           <div
             id="gutenberg-id-error"
             role="alert"
-            className="flex items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
+            className="flex items-center gap-2 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
           >
             <AlertCircle size={12} className="text-[var(--learn-error)]" aria-hidden />
             <span className="font-body text-[11px] text-[var(--learn-error)]">

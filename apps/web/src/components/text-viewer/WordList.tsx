@@ -161,7 +161,7 @@ export function WordList({
                   type="button"
                   onClick={() => setLevelFilter(lvl)}
                   className={cn(
-                    'shrink-0 rounded px-s-2 py-[3px] font-mono text-[10px] font-bold uppercase tracking-wider transition-colors duration-normal',
+                    'shrink-0 rounded px-s-2 py-[4px] font-mono text-[10px] font-bold uppercase tracking-wider transition-colors duration-normal',
                     isActive ? 'bg-p text-ti' : 'bg-bg2 text-t2 hover:bg-bg3 hover:text-t1'
                   )}
                 >

@@ -62,10 +62,10 @@ export function BookSupportVocabPanel({ bookId }: { bookId: string }) {
         type="button"
         onClick={() => void toggle()}
         aria-expanded={open}
-        className="flex min-h-[52px] w-full items-center gap-2.5 rounded-[var(--r-lg)] px-4 py-3 text-left transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="flex min-h-[52px] w-full items-center gap-3 rounded-[var(--r-lg)] px-4 py-3 text-left transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <Compass size={16} className="shrink-0 text-[var(--t2)]" aria-hidden />
-        <span className="flex flex-1 flex-col gap-0.5">
+        <span className="flex flex-1 flex-col gap-1">
           <span
             id="support-vocab-title"
             className="font-display text-[13px] font-[700] text-[var(--t1)]"

@@ -391,7 +391,7 @@ function QuestionScreen({
             />
           </div>
           <span
-            className="inline-flex items-center gap-1 rounded-full bg-[var(--ti)]/15 px-2.5 py-0.5 font-mono text-[12px] font-[700] tabular-nums"
+            className="inline-flex items-center gap-1 rounded-full bg-[var(--ti)]/15 px-3 py-1 font-mono text-[12px] font-[700] tabular-nums"
             style={{ color: timeColor === 'var(--error)' ? '#FFD9D9' : 'inherit' }}
           >
             <Clock size={11} aria-hidden />
@@ -407,7 +407,7 @@ function QuestionScreen({
       <div className="mx-auto max-w-3xl px-4 py-8 md:px-6 md:py-10">
         {/* 문제 박스 */}
         <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)] md:p-7">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--p-light)] px-2.5 py-0.5 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--on-p-tint)]">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[var(--p-light)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--on-p-tint)]">
             {question.type === 'truefalse' ? 'OX' : '4지선다'}
           </span>
           <h2 className="mt-3 font-english text-[18px] font-[600] leading-[1.6] text-[var(--t1)] md:text-[20px]">
@@ -461,7 +461,7 @@ function QuestionScreen({
                     </span>
                     <span className="font-display text-[12px] font-[600] text-[var(--t2)]">
                       {opt.text} ·{' '}
-                      <kbd className="rounded bg-[var(--bg2)] px-1 py-0.5 font-mono text-[10px] text-[var(--t2)]">
+                      <kbd className="rounded bg-[var(--bg2)] px-1 py-1 font-mono text-[10px] text-[var(--t2)]">
                         {symbol}
                       </kbd>
                     </span>
@@ -612,7 +612,7 @@ function ResultScreen({
       <div className="rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-md)] md:p-10">
         {/* 헤더 */}
         <header className="text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--success-light)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--success)]">
+          <span className="inline-flex items-center gap-2 rounded-full bg-[var(--success-light)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--success)]">
             <Sparkles size={11} aria-hidden />
             완료
           </span>

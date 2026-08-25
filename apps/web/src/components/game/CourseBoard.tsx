@@ -161,7 +161,7 @@ function moodVars(g: GameEntry): CSSProperties {
 export const COURSE_CSS = `
 .crs{
   margin: 0 0 34px;
-  padding: 22px 22px 20px;
+  padding: 24px 24px 20px;
   border-radius: 18px;
   border: 1px solid rgba(255,255,255,.10);
   background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
@@ -178,11 +178,11 @@ export const COURSE_CSS = `
 .crs-empty{ margin:0; font-size:13.5px; line-height:1.7; color: rgba(255,255,255,.6); max-width:62ch; }
 .crs-empty strong{ color: rgba(255,255,255,.88); font-weight:600; }
 
-.crs-steps{ list-style:none; margin:0; padding:0; display:grid; gap:9px; }
+.crs-steps{ list-style:none; margin:0; padding:0; display:grid; gap:8px; }
 .crs-step{ margin:0; }
 .crs-link{
-  display:flex; align-items:center; gap:14px;
-  padding:13px 15px; border-radius:13px; text-decoration:none;
+  display:flex; align-items:center; gap:16px;
+  padding:12px 16px; border-radius:13px; text-decoration:none;
   border:1px solid rgba(255,255,255,.09);
   background: linear-gradient(120deg, color-mix(in srgb, var(--m-a) 26%, transparent), rgba(255,255,255,.02));
   transition: transform var(--dur-normal,.18s) var(--ease,cubic-bezier(.2,.7,.3,1)),
@@ -196,16 +196,16 @@ export const COURSE_CSS = `
 .crs-ord{ flex:none; width:22px; font-size:14px; color: rgba(255,255,255,.5); text-align:center; }
 .crs-mark{ flex:none; width:26px; height:26px; color: var(--m-accent); }
 .crs-mark svg{ width:100%; height:100%; }
-.crs-body{ flex:1 1 auto; min-width:0; display:grid; gap:2px; }
+.crs-body{ flex:1 1 auto; min-width:0; display:grid; gap:4px; }
 .crs-role{ font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color: rgba(255,255,255,.44); }
 .crs-name{ font-size:15px; font-weight:600; color: rgba(255,255,255,.93); }
 .crs-name--muted{ font-size:13.5px; font-weight:500; color: rgba(255,255,255,.66); }
 .crs-tag{ font-size:12.5px; color: rgba(255,255,255,.55); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .crs-arrow{ flex:none; color: var(--m-accent); font-size:15px; }
 
-.crs-extra{ margin-top:15px; padding-top:14px; border-top:1px solid rgba(255,255,255,.07); }
+.crs-extra{ margin-top:15px; padding-top:16px; border-top:1px solid rgba(255,255,255,.07); }
 .crs-extra-label{ display:block; margin-bottom:8px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color: rgba(255,255,255,.4); }
-.crs-extra-list{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:7px; }
+.crs-extra-list{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px; }
 .crs-chip{
   display:inline-flex; align-items:center; justify-content:center; min-height:44px; min-width:44px; padding:0 12px;
   border-radius:999px; text-decoration:none; font-size:12.5px;
@@ -218,7 +218,7 @@ export const COURSE_CSS = `
 .crs-chip:focus-visible{ outline:2px solid var(--m-accent); outline-offset:2px; }
 
 @media (max-width: 560px){
-  .crs{ padding:18px 15px 16px; }
+  .crs{ padding:20px 16px 16px; }
   .crs-tag{ display:none; }
 }
 `

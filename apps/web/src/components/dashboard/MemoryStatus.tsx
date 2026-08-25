@@ -52,7 +52,7 @@ export function MemoryStatus({ stable = 0, shaky = 0, risk = 0, fresh = 0 }: Mem
         </p>
         <Link
           href="/library"
-          className="group mt-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)]"
+          className="group mt-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)]"
         >
           읽을거리 찾아보기
           <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" aria-hidden />
@@ -78,7 +78,7 @@ export function MemoryStatus({ stable = 0, shaky = 0, risk = 0, fresh = 0 }: Mem
         {attention > 0 && (
           <Link
             href="/flashcard"
-            className="group inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)]"
+            className="group inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)]"
           >
             <span className="tabular-nums">{attention}개</span> 복습하기
             <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" aria-hidden />
@@ -106,10 +106,10 @@ export function MemoryStatus({ stable = 0, shaky = 0, risk = 0, fresh = 0 }: Mem
       {/* 범례 — 라벨 + 설명 (의미 명시) */}
       {/* dt/dd 는 dl 의 직접 자식이어야 한다(axe dlitem). 색 점·레이아웃 래퍼를 두면
           정의 목록 시맨틱이 깨지므로, 시각 구조는 그대로 두고 요소만 평평하게 편다. */}
-      <dl className="mt-3 grid grid-cols-[auto_1fr] items-start gap-x-2 gap-y-2.5 sm:grid-cols-[auto_1fr_auto_1fr]">
+      <dl className="mt-3 grid grid-cols-[auto_1fr] items-start gap-x-2 gap-y-3 sm:grid-cols-[auto_1fr_auto_1fr]">
         {states.map((s) => (
           <Fragment key={s.key}>
-            <dt className="flex items-baseline gap-1.5">
+            <dt className="flex items-baseline gap-2">
               <span
                 className="mt-[6px] h-2.5 w-2.5 shrink-0 rounded-[var(--r-sm)]"
                 style={{ background: `var(${s.token})` }}

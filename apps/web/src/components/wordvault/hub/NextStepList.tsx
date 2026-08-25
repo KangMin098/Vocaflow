@@ -144,7 +144,7 @@ export function NextStepList() {
           </p>
           <Link
             href="/diagnostic"
-            className="inline-flex shrink-0 items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[12.5px] font-[600] text-white shadow-[0_2px_8px_rgba(88,86,214,0.25)] transition-all duration-[var(--dur-fast)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
+            className="inline-flex shrink-0 items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[12.5px] font-[600] text-white shadow-[0_2px_8px_rgba(88,86,214,0.25)] transition-all duration-[var(--dur-fast)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
           >
             <Compass size={13} aria-hidden />
             진단 받기
@@ -178,11 +178,11 @@ export function NextStepList() {
               <Link
                 key={set.id}
                 href={`/library/vocab#set-${set.slug}`}
-                className="group flex items-center gap-3 px-4 py-3.5 transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)]"
+                className="group flex items-center gap-3 px-4 py-4 transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)]"
               >
                 <Capsule tone={typeMeta.tone}>{typeMeta.label}</Capsule>
 
-                <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+                <div className="flex min-w-0 flex-1 flex-col gap-1">
                   <span className="line-clamp-1 font-display text-[14px] font-[600] tracking-[-0.012em] text-[var(--t1)] group-hover:text-[var(--p)]">
                     {set.title}
                   </span>

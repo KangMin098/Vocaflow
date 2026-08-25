@@ -79,7 +79,7 @@ function MetricChip({ label, value, tone }: Metric) {
   const style = TONE_STYLE[value ? tone : 'idle']
   return (
     <span
-      className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-2 py-0.5 font-body text-[11px]"
+      className="inline-flex items-center gap-2 rounded-[var(--r-full)] px-2 py-1 font-body text-[11px]"
       style={{ backgroundColor: style.bg, color: style.fg }}
     >
       {label}
@@ -443,7 +443,7 @@ export default async function AdminDashboardPage() {
                     />
                   </div>
                   <p className="mt-0.5 font-body text-[12px] text-[var(--t2)]">{p.sub}</p>
-                  <div className="mt-2.5 flex flex-wrap gap-1.5">
+                  <div className="mt-2.5 flex flex-wrap gap-2">
                     {p.metrics.map((m) => (
                       <MetricChip key={m.label} {...m} />
                     ))}
@@ -474,7 +474,7 @@ export default async function AdminDashboardPage() {
             <li key={o.href}>
               <Link
                 href={o.href}
-                className="group flex h-full items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2.5 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:border-[#8B5CF6]/40 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1"
+                className="group flex h-full items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-3 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:border-[#8B5CF6]/40 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1"
               >
                 <span
                   className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--bg2)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[#8B5CF6]/10 group-hover:text-[#8B5CF6]"
@@ -483,12 +483,12 @@ export default async function AdminDashboardPage() {
                   <o.Icon size={15} strokeWidth={1.75} />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2">
                     <p className="truncate font-display text-[13px] font-[600] text-[var(--t1)]">
                       {o.label}
                     </p>
                     {o.mock && (
-                      <span className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-px font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+                      <span className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-px font-mono text-[9px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                         목업
                       </span>
                     )}
@@ -527,10 +527,10 @@ export default async function AdminDashboardPage() {
               <li key={`${e.kind}-${e.href}-${e.at}`}>
                 <Link
                   href={e.href}
-                  className="group flex items-center gap-3 py-2.5 transition-opacity duration-[var(--dur-normal)] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                  className="group flex items-center gap-3 py-3 transition-opacity duration-[var(--dur-normal)] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
                 >
                   <span
-                    className="inline-flex w-[68px] shrink-0 justify-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700] uppercase tracking-[0.04em]"
+                    className="inline-flex w-[68px] shrink-0 justify-center rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700] uppercase tracking-[0.04em]"
                     style={{ backgroundColor: 'var(--bg2)', color: e.accent }}
                   >
                     {e.kind}

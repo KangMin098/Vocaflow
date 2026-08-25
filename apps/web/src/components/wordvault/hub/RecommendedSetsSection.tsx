@@ -203,9 +203,9 @@ export function RecommendedSetsSection({ hideUndiagnosedCard = false }: Props = 
                 </span>
               )}
               <div className="min-w-0 flex-1">
-                <div className="mb-0.5 flex items-center gap-1.5">
+                <div className="mb-0.5 flex items-center gap-2">
                   <span
-                    className="inline-flex items-center rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9px] font-[700] uppercase tracking-wider"
+                    className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-wider"
                     style={{ backgroundColor: badge.bg, color: badge.text }}
                   >
                     {badge.label}

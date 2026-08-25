@@ -79,8 +79,8 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
   return (
     <div className="flex flex-col gap-7">
       {/* ① 밴드별 한 줄 안내 (calm) */}
-      <section aria-label="학습 안내" className="flex flex-col gap-1.5 px-0.5">
-        <span className="inline-flex w-fit items-center gap-1.5 font-display text-[11px] font-[800] uppercase tracking-[0.09em] text-[var(--p)]">
+      <section aria-label="학습 안내" className="flex flex-col gap-2 px-1">
+        <span className="inline-flex w-fit items-center gap-2 font-display text-[11px] font-[800] uppercase tracking-[0.09em] text-[var(--p)]">
           <Sparkles size={12} aria-hidden /> {g.eyebrow}
         </span>
         <p className="font-body text-[15px] leading-[1.45] text-[var(--t1)]">{g.title}</p>
@@ -108,9 +108,9 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
 
       {/* ③ 나머지 시리즈 — 간단 rows */}
       {rest.length > 0 && (
-        <section aria-label="다른 시리즈" className="flex flex-col gap-2.5">
-          <h2 className="px-0.5 font-display text-[13px] font-[800] text-[var(--t2)]">다른 주제로 읽기</h2>
-          <ul className="flex flex-col gap-1.5">
+        <section aria-label="다른 시리즈" className="flex flex-col gap-3">
+          <h2 className="px-1 font-display text-[13px] font-[800] text-[var(--t2)]">다른 주제로 읽기</h2>
+          <ul className="flex flex-col gap-2">
             {rest.map((stat) => (
               <SeriesRow
                 key={stat.track.key}
@@ -157,14 +157,14 @@ function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => 
         type="button"
         onClick={onInfo}
         aria-label={`${track.title} — 학습 안내 보기`}
-        className="flex w-full flex-col gap-3.5 p-5 text-left transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--t1)_3%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)]"
+        className="flex w-full flex-col gap-4 p-5 text-left transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--t1)_3%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)]"
       >
         <div className="flex items-center justify-between gap-2">
           <span className="inline-flex items-center gap-1 font-display text-[11px] font-[800] uppercase tracking-[0.08em]" style={{ color: track.accent }}>
             <Sparkles size={12} aria-hidden /> 먼저 이걸로
           </span>
           <span
-            className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10.5px] font-[800]"
+            className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[10.5px] font-[800]"
             // 배경을 글자색의 14% 로 깔면 글자와 배경이 같은 계열이라 대비가 4.5 를 넘기 어렵다
             // (2026-08-09 실측 4.49). 중립 면(--bg2) 위에 잉크를 얹는다.
             style={{ color: fitMeta.color, backgroundColor: 'var(--bg2)' }}
@@ -205,7 +205,7 @@ function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => 
         className="flex items-center justify-between gap-2 border-t px-5 py-3"
         style={{ borderColor: `color-mix(in srgb, ${track.accent} 18%, var(--bd))` }}
       >
-        <span className="flex items-center gap-2.5 font-mono text-[11.5px] font-[600] text-[var(--t2)]">
+        <span className="flex items-center gap-3 font-mono text-[11.5px] font-[600] text-[var(--t2)]">
           <span>{cefrLabel}</span>
           <span>·</span>
           <span>{count}편</span>
@@ -241,12 +241,12 @@ function SeriesRow({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => v
         type="button"
         onClick={onInfo}
         aria-label={`${track.title} — 학습 안내 보기`}
-        className="flex flex-1 items-center gap-3 px-3.5 py-2.5 text-left transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
+        className="flex flex-1 items-center gap-3 px-4 py-3 text-left transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
       >
         <span className="block h-11 w-8 shrink-0 overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)]">
           <MediaCover form={rowForm} title={track.title} />
         </span>
-        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="flex min-w-0 flex-1 flex-col gap-1">
           <span className="truncate font-display text-[14px] font-[700] text-[var(--t1)]">
             {track.title}
             <MediaCoverSrLabel form={rowForm} />
@@ -262,7 +262,7 @@ function SeriesRow({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => v
         type="button"
         onClick={onEnter}
         aria-label={`${track.title} 글 둘러보기`}
-        className="flex shrink-0 items-center gap-1.5 border-l border-[var(--bd)] px-3 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
+        className="flex shrink-0 items-center gap-2 border-l border-[var(--bd)] px-3 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
       >
         <span className="font-mono text-[11px] font-[600] text-[var(--t2)]">{cefrLabel} · {count}편</span>
         <ChevronRight size={16} aria-hidden className="text-[var(--t2)]" />

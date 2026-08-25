@@ -135,11 +135,11 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
 
         <div className="flex items-center gap-2">
           {/* 상태별 카운트 칩 (두 task 합산) */}
-          <div className="flex flex-wrap items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-2">
             {STATUS_ORDER.filter((s) => (counts[s] ?? 0) > 0).map((s) => (
               <span
                 key={s}
-                className="inline-flex items-center gap-1 rounded-[var(--r-full)] border bg-[var(--bg)] px-2 py-0.5 font-mono text-[10px] font-[600]"
+                className="inline-flex items-center gap-1 rounded-[var(--r-full)] border bg-[var(--bg)] px-2 py-1 font-mono text-[10px] font-[600]"
                 style={{ color: STATUS_META[s].color, borderColor: STATUS_META[s].color }}
               >
                 {STATUS_META[s].label}
@@ -190,7 +190,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
               {voice.map((j) => {
                 const sm = STATUS_META[j.status]
                 return (
-                  <li key={j.id} className="flex items-center gap-2 px-3 py-1.5">
+                  <li key={j.id} className="flex items-center gap-2 px-3 py-2">
                     <Dot color={sm.color} />
                     <span className="min-w-0 flex-1 truncate font-body text-[12px] text-[var(--t1)]">
                       {j.bookTitle}
@@ -210,7 +210,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
               {quiz.map((j) => {
                 const sm = STATUS_META[j.status]
                 return (
-                  <li key={j.id} className="flex items-center gap-2 px-3 py-1.5">
+                  <li key={j.id} className="flex items-center gap-2 px-3 py-2">
                     <Dot color={sm.color} />
                     <span className="min-w-0 flex-1 truncate font-body text-[12px] text-[var(--t1)]">
                       {j.bookTitle}
@@ -236,7 +236,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
                 const sm = STATUS_META[j.status]
                 const summary = reviewSummary(j.result)
                 return (
-                  <li key={j.id} className="flex items-center gap-2 px-3 py-1.5">
+                  <li key={j.id} className="flex items-center gap-2 px-3 py-2">
                     <Dot color={sm.color} />
                     <span className="min-w-0 flex-1 truncate font-body text-[12px] text-[var(--t1)]">
                       {j.bookTitle}

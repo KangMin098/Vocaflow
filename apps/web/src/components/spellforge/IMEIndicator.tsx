@@ -43,7 +43,7 @@ export function IMEIndicator({ status }: IMEIndicatorProps) {
       role="status"
       aria-live="polite"
       aria-label={`입력 모드: ${s.text}`}
-      className={`inline-flex flex-shrink-0 items-center gap-1.5 rounded-[var(--r-full)] border px-2.5 py-1 font-mono text-[10px] font-[700] transition-all duration-[var(--dur-normal)] ${s.animate ? 'animate-[ime-shake_400ms_ease]' : ''} `}
+      className={`inline-flex flex-shrink-0 items-center gap-2 rounded-[var(--r-full)] border px-3 py-1 font-mono text-[10px] font-[700] transition-all duration-[var(--dur-normal)] ${s.animate ? 'animate-[ime-shake_400ms_ease]' : ''} `}
       style={{
         background: s.bg,
         borderColor: s.bd,

@@ -25,7 +25,7 @@ export function ComicBadge({ variant = 'chip' }: { variant?: Variant }) {
 
   return (
     <span
-      className="inline-flex w-fit items-center gap-1 rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9.5px] font-[700]"
+      className="inline-flex w-fit items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[9.5px] font-[700]"
       style={{ background: 'var(--active)', color: '#231a09' }}
     >
       <BookImage size={9} aria-hidden />

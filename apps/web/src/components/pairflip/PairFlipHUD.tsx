@@ -38,7 +38,7 @@ export function PairFlipHUD({
     >
       {/* 좌: 타이머 */}
       <div
-        className={`flex items-center gap-2 rounded-[var(--r-md)] px-3 py-1.5 ${
+        className={`flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2 ${
           isUrgent
             ? 'animate-pf-pulse bg-[var(--error-light)] text-[var(--error-ink)]'
             : 'bg-[var(--bg2)] text-[var(--t1)]'
@@ -52,7 +52,7 @@ export function PairFlipHUD({
 
       {/* 중: 점수 — 네이비 베이스 + 골드 텍스트 */}
       <div
-        className="flex items-center gap-1.5 rounded-[var(--r-md)] px-3 py-1.5"
+        className="flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2"
         style={{
           background: 'linear-gradient(135deg, #1E3A8A 0%, #1E1B4B 100%)',
           boxShadow: 'inset 0 0 0 1px rgba(245, 158, 11, 0.3)',
@@ -70,7 +70,7 @@ export function PairFlipHUD({
       </div>
 
       {/* 우: 콤보 + 힌트 */}
-      <div className="flex shrink-0 items-center gap-1.5">
+      <div className="flex shrink-0 items-center gap-2">
         <ComboBadge combo={combo} tier={comboTier} />
 
         <button
@@ -78,7 +78,7 @@ export function PairFlipHUD({
           onClick={onUseHint}
           disabled={hintsUsed >= hintLimit}
           aria-label={`힌트 사용 — 남은 ${hintLimit - hintsUsed}회`}
-          className="inline-flex h-9 min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--warning-light)] hover:text-[#92400E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex h-9 min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--warning-light)] hover:text-[#92400E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] disabled:cursor-not-allowed disabled:opacity-40"
         >
           <Lightbulb size={14} aria-hidden />
           <span className="font-mono tabular-nums">{hintLimit - hintsUsed}</span>
@@ -136,7 +136,7 @@ function ComboBadge({
   return (
     <span
       aria-label={`콤보 ${combo}배`}
-      className={`inline-flex h-8 items-center gap-1 rounded-[var(--r-full)] px-2.5 font-display text-[13px] font-[800] shadow-sm ${cls}`}
+      className={`inline-flex h-8 items-center gap-1 rounded-[var(--r-full)] px-3 font-display text-[13px] font-[800] shadow-sm ${cls}`}
       style={style}
     >
       {tier === 'rainbow' && <Sparkles size={12} aria-hidden />}

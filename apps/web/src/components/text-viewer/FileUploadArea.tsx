@@ -161,7 +161,7 @@ export function FileUploadArea({
             {acceptedFormats.map((fmt) => (
               <span
                 key={fmt}
-                className="rounded border border-bd bg-bg px-s-2 py-[2px] font-mono text-[10px] uppercase tracking-wider text-t2"
+                className="rounded border border-bd bg-bg px-s-2 py-[4px] font-mono text-[10px] uppercase tracking-wider text-t2"
               >
                 .{fmt}
               </span>

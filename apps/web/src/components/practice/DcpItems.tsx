@@ -45,7 +45,7 @@ export function DcpOrderItem({
         {order.map((pIdx, pos) => (
           <li
             key={pIdx}
-            className="flex items-center gap-2.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-2.5"
+            className="flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3"
           >
             <span
               className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--p-light)] font-mono text-[12px] font-[700] text-[var(--on-p-tint)]"
@@ -150,7 +150,7 @@ function SlotButton({
       disabled={disabled}
       aria-label={`${index + 1}번째 위치에 삽입`}
       aria-pressed={selected}
-      className="inline-flex min-h-[36px] items-center justify-center gap-1.5 rounded-[var(--r-sm)] border border-dashed px-3 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+      className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] border border-dashed px-3 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
       style={
         selected
           ? { borderColor: 'var(--p)', background: 'var(--p-light)', color: 'var(--p)', borderStyle: 'solid' }
@@ -195,7 +195,7 @@ export function DcpChoiceItem({
         </p>
       )}
 
-      <ol className="flex flex-col gap-1.5" role="radiogroup" aria-label="선택지">
+      <ol className="flex flex-col gap-2" role="radiogroup" aria-label="선택지">
         {choices.map((choice, i) => {
           const no = i + 1
           const selected = picked === no
@@ -207,7 +207,7 @@ export function DcpChoiceItem({
                 aria-checked={selected}
                 disabled={submitting}
                 onClick={() => setPicked(no)}
-                className="flex w-full min-h-[44px] items-start gap-2.5 rounded-[var(--r-md)] border p-2.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+                className="flex w-full min-h-[44px] items-start gap-3 rounded-[var(--r-md)] border p-3 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
                 style={
                   selected
                     ? { borderColor: 'var(--p)', background: 'var(--p-light)' }

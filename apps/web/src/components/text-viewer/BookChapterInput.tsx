@@ -198,7 +198,7 @@ export function BookChapterInput({
       {/* ── 챕터 워크벤치 ── */}
       <div className="flex flex-col gap-s-3">
         <div className="flex items-end justify-between gap-s-3">
-          <div className="flex flex-col gap-0.5">
+          <div className="flex flex-col gap-1">
             <h3 className="font-display text-sm font-bold text-t1">챕터 작성</h3>
             <p className="font-body text-xs text-t3">
               레일에서 챕터를 고르거나{' '}
@@ -365,7 +365,7 @@ function ChapterChip({
       aria-selected={active}
       onClick={onClick}
       title={label}
-      className={`flex h-9 shrink-0 snap-start items-center gap-1.5 rounded-lg px-s-3 font-display text-[12px] font-[700] transition-all duration-normal ${tone}`}
+      className={`flex h-9 shrink-0 snap-start items-center gap-2 rounded-lg px-s-3 font-display text-[12px] font-[700] transition-all duration-normal ${tone}`}
     >
       <span className="tabular-nums">{index + 1}</span>
       {status === 'complete' && !active && <Check size={12} aria-hidden />}

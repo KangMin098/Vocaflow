@@ -362,7 +362,7 @@ export function VocabSetMatrix({
         <div
           role="radiogroup"
           aria-label="X축 차원 선택"
-          className="inline-flex max-w-full items-center gap-0.5 overflow-x-auto rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="inline-flex max-w-full items-center gap-1 overflow-x-auto rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {(
             [
@@ -381,7 +381,7 @@ export function VocabSetMatrix({
                 role="radio"
                 aria-checked={active}
                 onClick={() => setAxis(opt.id)}
-                className={`relative inline-flex flex-col items-center gap-0 rounded-[var(--r-md)] px-4 py-1.5 transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 ${
+                className={`relative inline-flex flex-col items-center gap-0 rounded-[var(--r-md)] px-4 py-2 transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 ${
                   active
                     ? 'bg-[var(--bg)] shadow-[var(--sh-sm)]'
                     : 'hover:bg-[var(--bg)]/60'
@@ -408,14 +408,14 @@ export function VocabSetMatrix({
 
         {/* 범례 */}
         <div className="flex items-center gap-3 font-body text-[11px] text-[var(--t2)]">
-          <span className="inline-flex items-center gap-1.5">
+          <span className="inline-flex items-center gap-2">
             <span
               aria-hidden
               className="inline-block h-2.5 w-2.5 rounded-full bg-[var(--t1)]"
             />
             구독중
           </span>
-          <span className="inline-flex items-center gap-1.5">
+          <span className="inline-flex items-center gap-2">
             <span
               aria-hidden
               className="inline-block h-2.5 w-2.5 rounded-full border border-[var(--bd)] bg-[var(--bg)]"
@@ -441,7 +441,7 @@ export function VocabSetMatrix({
             type="button"
             onClick={() => setCompact((v) => !v)}
             aria-pressed={compact}
-            className={`inline-flex items-center gap-1.5 rounded-[var(--r-full)] border px-2.5 py-0.5 font-mono text-[10px] font-[700] uppercase tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 ${
+            className={`inline-flex items-center gap-2 rounded-[var(--r-full)] border px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 ${
               compact
                 ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)]'
                 : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:text-[var(--t1)]'
@@ -467,7 +467,7 @@ export function VocabSetMatrix({
           </button>
           <span
             aria-hidden
-            className="hidden items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] font-[600] text-[var(--t2)] md:inline-flex"
+            className="hidden items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] font-[600] text-[var(--t2)] md:inline-flex"
             title="가로로 드래그해서 탐색하세요"
           >
             ← drag →
@@ -528,7 +528,7 @@ export function VocabSetMatrix({
             return isStart && grp ? (
               <div
                 key={`grp-${colIdx}`}
-                className="sticky top-0 z-20 flex items-center justify-center gap-1.5 border-b border-r border-[var(--bd)] bg-[var(--bg)] px-2 py-1.5"
+                className="sticky top-0 z-20 flex items-center justify-center gap-2 border-b border-r border-[var(--bd)] bg-[var(--bg)] px-2 py-2"
                 style={{ gridColumn: `span ${span} / span ${span}` }}
               >
                 <span
@@ -639,14 +639,14 @@ export function VocabSetMatrix({
                       onSelectCategory(cat.id as VocabCategoryId)
                     }
                     disabled={isEmptyRow}
-                    className="flex w-full items-center gap-2.5 px-3 py-3 text-left transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--t1)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex w-full items-center gap-3 px-3 py-3 text-left transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--t1)]/30 disabled:cursor-not-allowed disabled:opacity-50"
                     aria-label={`${cat.label} 카테고리만 보기 · ${total}개`}
                   >
                     <span aria-hidden className="text-[22px] leading-none">
                       {cat.emoji}
                     </span>
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-baseline gap-1.5">
+                      <div className="flex items-baseline gap-2">
                         <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
                           {cat.label}
                         </span>
@@ -703,7 +703,7 @@ export function VocabSetMatrix({
                           </span>
                         </div>
                       ) : (
-                        <div className="relative flex flex-col gap-1 p-1.5">
+                        <div className="relative flex flex-col gap-1 p-2">
                           {items.slice(0, 3).map((s) => (
                             <MatrixSetChip
                               key={s.id}
@@ -809,7 +809,7 @@ function MatrixSetChip({
       onClick={onClick}
       title={`${set.title} · ${set.wordCount}단어${cefr ? ` · CEFR ${cefr}` : ''}${vLevel !== '—' ? ` · ${vLevel}` : ''}`}
       aria-label={`${set.title} — ${set.wordCount}단어${cefr ? `, CEFR ${cefr}` : ''}${vLevel !== '—' ? `, ${vLevel}` : ''}${isSubscribed ? ', 구독중' : ''}`}
-      className={`group/chip relative flex w-full items-center gap-1.5 overflow-hidden rounded-[var(--r-sm)] border px-1.5 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 focus-visible:ring-offset-1 ${
+      className={`group/chip relative flex w-full items-center gap-2 overflow-hidden rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 focus-visible:ring-offset-1 ${
         isSubscribed
           ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)] hover:bg-[var(--t1)]/90'
           : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:-translate-y-[1px] hover:border-[var(--t1)] hover:shadow-[var(--sh-sm)]'

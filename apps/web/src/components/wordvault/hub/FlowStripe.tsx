@@ -129,7 +129,7 @@ export function FlowStripe() {
   return (
     <Frame title="지난 28일">
       {/* Stats — iOS Health 캡슐 row */}
-      <div className="mb-5 grid grid-cols-3 gap-2.5">
+      <div className="mb-5 grid grid-cols-3 gap-3">
         <StatPill label="평균" value={NF.format(avg)} unit="개/일" />
         <StatPill label="활동" value={NF.format(activeDays)} unit="일" />
         <StatPill label="총합" value={NF.format(total)} unit="개" />

@@ -65,7 +65,7 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
     <section aria-label="pipeline impact matrix" className="flex flex-col gap-4">
       {/* ── 섹션 헤더 ── */}
       <header className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
             style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
@@ -159,9 +159,9 @@ export function PipelineImpactMatrix({ snapshot }: PipelineImpactMatrixProps) {
                 className="border-b border-[var(--bd)] hover:bg-[var(--bg2)]"
               >
                 <td className="px-3 py-2 align-top">
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2">
                     <span
-                      className="inline-flex rounded-full px-1.5 py-0.5 font-display text-[9px] font-[800] text-white"
+                      className="inline-flex rounded-full px-2 py-1 font-display text-[9px] font-[800] text-white"
                       style={{ backgroundColor: PRIORITY_COLOR[d.priority] }}
                     >
                       {d.priority}

@@ -62,7 +62,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
 
         {/* 매대 — 서점은 빈 책장을 보여주지 않는다. 고를 것을 진열한다. */}
         {preview.length > 0 && (
-          <ul className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {preview.map((v) => (
               <li key={v.step}>
                 <PreviewCard volume={v} />
@@ -73,7 +73,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
 
         <Link
           href="/library/textbooks"
-          className="group mt-4 inline-flex min-h-[44px] w-fit items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p-light)] px-4 font-display text-[12.5px] font-[700] text-[var(--on-p-tint)] no-underline transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="group mt-4 inline-flex min-h-[44px] w-fit items-center gap-2 rounded-[var(--r-full)] bg-[var(--p-light)] px-4 font-display text-[12.5px] font-[700] text-[var(--on-p-tint)] no-underline transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <Library size={14} aria-hidden />
           교재 서가 둘러보기
@@ -94,7 +94,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
   return (
     <Section>
       {/* 합계 — 단원은 상한임을 반드시 밝힌다(권 상세와 같은 규칙). 상한을 예측처럼 보이면 과장 광고다. */}
-      <p className="flex flex-wrap items-baseline gap-x-2.5 font-mono text-[11px] tabular-nums text-[var(--t2)]">
+      <p className="flex flex-wrap items-baseline gap-x-3 font-mono text-[11px] tabular-nums text-[var(--t2)]">
         <span>{totals.volumes}권</span>
         <span>· 문항 {totals.items.toLocaleString()}</span>
         <span>· 최대 {totals.maxUnits.toLocaleString()}단원</span>
@@ -102,7 +102,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
 
       <ol className="mt-1 flex flex-col divide-y divide-[var(--bd)]">
         {picked.map((v) => (
-          <li key={v.step} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 py-3.5">
+          <li key={v.step} className="flex flex-wrap items-baseline gap-x-3 gap-y-1 py-4">
             <span
               aria-hidden
               className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p)] font-display text-[12px] font-[800] tabular-nums text-[var(--on-p)]"
@@ -124,7 +124,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
               {v.types.slice(0, 3).map((t) => (
                 <span
                   key={t}
-                  className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-display text-[10.5px] font-[700] text-[var(--t2)]"
+                  className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-display text-[10.5px] font-[700] text-[var(--t2)]"
                 >
                   {TYPE_GUIDE[t]?.label ?? t}
                 </span>
@@ -188,7 +188,7 @@ export function MyTextbooks({ shelf, mine }: { shelf: Shelf; mine: MySelection }
  */
 function PreviewCard({ volume: v }: { volume: ShelfVolume }) {
   return (
-    <article className="flex h-full flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3.5">
+    <article className="flex h-full flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
       <p className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
         STEP {v.step} · {v.schoolBand}
       </p>
@@ -204,7 +204,7 @@ function PreviewCard({ volume: v }: { volume: ShelfVolume }) {
         {v.types.slice(0, 3).map((t) => (
           <span
             key={t}
-            className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]"
+            className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]"
           >
             {TYPE_GUIDE[t]?.label ?? t}
           </span>

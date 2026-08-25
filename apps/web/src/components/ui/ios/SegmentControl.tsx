@@ -55,7 +55,7 @@ export function SegmentControl<TKey extends string>({
     <nav
       aria-label={ariaLabel}
       className={cn(
-        'inline-flex items-center gap-0.5 rounded-ios-pill p-[3px]',
+        'inline-flex items-center gap-1 rounded-ios-pill p-[4px]',
         block && 'flex w-full',
         bgClass,
         className,
@@ -67,7 +67,7 @@ export function SegmentControl<TKey extends string>({
         const innerClass = cn(
           'flex items-center justify-center gap-2 rounded-ios-pill font-display text-[13px] font-[600] no-underline',
           'transition-all duration-[var(--dur-ios-fast)] ease-ios-standard',
-          // ⚠️ `py-[6px]` 이라 실측 31px 이었다(기준 44px). 공용 컴포넌트라
+          // ⚠️ `py-[8px]` 이라 실측 31px 이었다(기준 44px). 공용 컴포넌트라
           //    `/wordvault`·`/my/words` 등 이 막대를 쓰는 화면이 전부 걸린다.
           //    **프로덕션 빌드로 재기 전까지는 안 보였다** — dev 에서는 이 목록이 덜 렌더됐다
           //    (실측 2026-08-23: 같은 스윕이 dev 53건/6화면 → prod 83건/9화면).
@@ -75,7 +75,7 @@ export function SegmentControl<TKey extends string>({
           //    **누르는 높이만** 44px 로 올린다(세로 가운데 정렬이라 알약은 그대로 보인다).
           // ⚠️ 세로만 44 로 맞추면 안 된다 — 짧은 라벨('허브'·'학습'·'복습')은 **폭이 43px**
           //    이었다(실측 2026-08-25). 기준은 44×44 다.
-          'min-h-11 min-w-11 px-3.5 py-[6px]',
+          'min-h-11 min-w-11 px-4 py-[8px]',
           block && 'flex-1',
           isActive
             ? 'bg-[var(--bg)] text-[var(--t1)] shadow-ios-button'

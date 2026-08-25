@@ -157,7 +157,7 @@ export function BookExtractionPanel({
           type="button"
           onClick={handleRun}
           disabled={loading}
-          className="inline-flex min-h-[36px] shrink-0 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
+          className="inline-flex min-h-[36px] shrink-0 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
         >
           {loading ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -210,13 +210,13 @@ export function BookExtractionPanel({
                   <Td className="font-mono text-[var(--t2)]">{r.rank}</Td>
                   <Td className="text-right font-mono text-[var(--t2)]">{r.chapter_idx}</Td>
                   <Td className="font-display font-[600]">
-                    <span className="inline-flex items-center gap-1.5">
+                    <span className="inline-flex items-center gap-2">
                       {r.word}
                       <RegisterBadge register={r.word_register} />
                       {r.match_via === 'spelling_variant' && (
                         <span
                           title={`철자 변형 회수: ${r.matched_from} → ${r.word}`}
-                          className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--active-light)] px-1.5 font-mono text-[9px] font-[700] text-[var(--active)]"
+                          className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--active-light)] px-2 font-mono text-[9px] font-[700] text-[var(--active)]"
                         >
                           {r.matched_from}→
                         </span>
@@ -294,12 +294,12 @@ export function BookExtractionPanel({
           </header>
 
           {unboundByReason && (
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               {Array.from(unboundByReason.entries()).map(([reason, count]) => (
                 <span
                   key={reason}
                   title={REASON_HINT[reason]}
-                  className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]"
+                  className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]"
                 >
                   {REASON_LABEL[reason]}
                   <strong className="text-[var(--t1)]">{count}</strong>
@@ -313,7 +313,7 @@ export function BookExtractionPanel({
                     'base 가 대부분 V1 기능어(be·hello·have·they)라 학습 후보 아님 → seed 불필요(genuine miss 아님). ' +
                     `(이 중 genuine_miss ${clusterRecoverableMiss}건)`
                   }
-                  className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--info)]/40 bg-[var(--info-light)] px-2 py-0.5 font-mono text-[10px] text-[var(--info)]"
+                  className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--info)]/40 bg-[var(--info-light)] px-2 py-1 font-mono text-[10px] text-[var(--info)]"
                 >
                   ↻ 클러스터 회수
                   <strong>{clusterRecoverable.length}</strong>
@@ -329,7 +329,7 @@ export function BookExtractionPanel({
               type="button"
               onClick={handleStage}
               disabled={staging}
-              className="inline-flex min-h-[32px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex min-h-[32px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {staging ? (
                 <Loader2 size={13} className="animate-spin" aria-hidden />
@@ -411,7 +411,7 @@ export function BookExtractionPanel({
                       {r.cluster_base ? (
                         <span
                           title={`클러스터상 base='${r.cluster_base}'. 추출기는 클러스터 미사용 → 현재 추출 제외. base 가 사전에 있어 genuine miss 아님 (seed 불필요)`}
-                          className="inline-flex items-center gap-0.5 text-[var(--info)]"
+                          className="inline-flex items-center gap-1 text-[var(--info)]"
                         >
                           ↻ {r.cluster_base}
                         </span>
@@ -423,7 +423,7 @@ export function BookExtractionPanel({
                       {r.inflection_base ? (
                         <span
                           title={`굴절 규칙(en_inflection_bases)상 base='${r.inflection_base}' 이 사전에 존재하나 미완성 — 우측 dict V/뜻 확인`}
-                          className="inline-flex items-center gap-0.5 text-[var(--warning)]"
+                          className="inline-flex items-center gap-1 text-[var(--warning)]"
                         >
                           굴 {r.inflection_base}
                         </span>
@@ -435,7 +435,7 @@ export function BookExtractionPanel({
                       {r.deriv_base ? (
                         <span
                           title={`파생 규칙(en_derivational_bases)상 '${r.deriv_base}' 의 파생형 — seed 후보`}
-                          className="inline-flex items-center gap-0.5 text-[var(--p)]"
+                          className="inline-flex items-center gap-1 text-[var(--p)]"
                         >
                           파 {r.deriv_base}
                         </span>
@@ -520,7 +520,7 @@ export function BookExtractionPanel({
 
 function MetaCell({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-0.5">
+    <div className="flex flex-col gap-1">
       <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
         {label}
       </span>

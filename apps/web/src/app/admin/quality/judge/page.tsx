@@ -46,7 +46,7 @@ export default async function AdminJudgePage() {
   return (
     <div className="mx-auto max-w-4xl space-y-8 p-8">
       <header>
-        <h1 className="inline-flex items-center gap-2.5 font-display text-[28px] font-[800] text-[var(--t1)]">
+        <h1 className="inline-flex items-center gap-3 font-display text-[28px] font-[800] text-[var(--t1)]">
           <Scale size={26} className="text-[#8B5CF6]" aria-hidden="true" /> 추출 판정
         </h1>
         <p className="mt-2 max-w-2xl font-body text-[14px] leading-[1.6] text-[var(--t2)]">

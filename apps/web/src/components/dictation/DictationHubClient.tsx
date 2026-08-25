@@ -170,7 +170,7 @@ export function DictationHubClient() {
       {resumeId && (
         <Link
           href={`/dictate/session?sessionId=${resumeId}`}
-          className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2.5 font-body text-[13px] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[13px] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           <Play size={13} className="text-[var(--p)]" />
           풀던 받아쓰기가 남아 있어요
@@ -206,7 +206,7 @@ export function DictationHubClient() {
 
       {/* ─── 최근 세션 ─── */}
       {recent.length > 0 && (
-        <section className="flex flex-col gap-2.5">
+        <section className="flex flex-col gap-3">
           <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">최근 받아쓰기</h2>
           <ul className="flex flex-col divide-y divide-[var(--bg3)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
             {recent.map((s) => {
@@ -222,7 +222,7 @@ export function DictationHubClient() {
               const done = !!s.completedAt
               return (
                 <li key={s.id} className="flex items-center gap-3 px-4 py-3">
-                  <span className="shrink-0 rounded-full bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">
+                  <span className="shrink-0 rounded-full bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]">
                     {SOURCE_KIND_LABEL[s.sourceKind] ?? s.sourceKind}
                   </span>
                   <div className="min-w-0 flex-1">
@@ -334,7 +334,7 @@ function DailyCard({
       </div>
 
       {/* 왜 이 문장인지 — 구성 근거를 접지 않고 보여준다. 시스템을 신뢰하려면 근거가 보여야 한다. */}
-      <ul className="flex flex-wrap gap-1.5">
+      <ul className="flex flex-wrap gap-2">
         {daily.meta.due > 0 && (
           <ReasonChip label={`복습 임박 단어 ${daily.meta.due}`} tone="p" />
         )}
@@ -377,6 +377,6 @@ function ReasonChip({ label, tone }: { label: string; tone: 'p' | 'warning' | 'n
         ? 'bg-[var(--warning-light)] text-[var(--warning)]'
         : 'bg-[var(--bg3)] text-[var(--t2)]'
   return (
-    <li className={`rounded-full px-2.5 py-1 font-body text-[11px] font-[600] ${cls}`}>{label}</li>
+    <li className={`rounded-full px-3 py-1 font-body text-[11px] font-[600] ${cls}`}>{label}</li>
   )
 }

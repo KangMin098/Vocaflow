@@ -92,7 +92,7 @@ export function VcbPreviewFilters({ filters, onChange, visibleCount, totalCount,
           />
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <span className="text-xs font-display" style={{ color: 'var(--t2)' }}>
             CEFR
           </span>
@@ -104,7 +104,7 @@ export function VcbPreviewFilters({ filters, onChange, visibleCount, totalCount,
                   key={level}
                   type="button"
                   onClick={() => toggleCefr(level)}
-                  className="px-2.5 py-1.5 rounded-[var(--r-md)] text-xs font-mono font-semibold flex items-center gap-1 border transition-colors"
+                  className="px-3 py-2 rounded-[var(--r-md)] text-xs font-mono font-semibold flex items-center gap-1 border transition-colors"
                   style={{
                     background: active ? CEFR_DOT_COLOR[level] : 'var(--bg2)',
                     color: active ? 'var(--ti)' : 'var(--t2)',
@@ -119,7 +119,7 @@ export function VcbPreviewFilters({ filters, onChange, visibleCount, totalCount,
           </div>
         </div>
 
-        <label className="flex items-center gap-1.5 cursor-pointer">
+        <label className="flex items-center gap-2 cursor-pointer">
           <input
             type="checkbox"
             checked={filters.attentionOnly}
@@ -134,7 +134,7 @@ export function VcbPreviewFilters({ filters, onChange, visibleCount, totalCount,
         <button
           type="button"
           onClick={() => setAdvancedOpen((o) => !o)}
-          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-[var(--r-md)] text-xs font-display border"
+          className="inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
           style={{
             background: advancedOpen ? 'var(--p-light)' : 'var(--bg2)',
             color: advancedOpen ? 'var(--p)' : 'var(--t2)',
@@ -156,7 +156,7 @@ export function VcbPreviewFilters({ filters, onChange, visibleCount, totalCount,
           style={{ borderColor: 'var(--bd)' }}
         >
           {posOptions.length > 0 && (
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <span className="text-xs font-display" style={{ color: 'var(--t2)' }}>
                 POS
               </span>
@@ -184,7 +184,7 @@ export function VcbPreviewFilters({ filters, onChange, visibleCount, totalCount,
             </div>
           )}
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <span className="text-xs font-display" style={{ color: 'var(--t2)' }}>
               Tier
             </span>

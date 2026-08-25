@@ -63,7 +63,7 @@ export function WordPeekStrip({ words, className }: WordPeekStripProps) {
             <Link
               href={`/wordvault?view=browse&q=${encodeURIComponent(w.word)}`}
               aria-label={`${w.word} (${STATE_LABEL[w.memoryState]}) — ${w.meaning}`}
-              className="group inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-1.5 transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              className="group inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
             >
               <span
                 aria-hidden="true"

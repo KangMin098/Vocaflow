@@ -170,7 +170,7 @@ export default function PricingPage() {
       {/* ── Hero ── */}
       <section className="border-b border-[var(--bd)] bg-gradient-to-br from-[var(--bg2)] to-[var(--bg)]">
         <div className="mx-auto max-w-3xl px-6 py-16 text-center md:py-20">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-1.5 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)] shadow-[var(--sh-xs)]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)] shadow-[var(--sh-xs)]">
             <Sparkles size={12} className="text-[var(--p)]" aria-hidden />
             요금제
           </span>
@@ -197,7 +197,7 @@ export default function PricingPage() {
             <button
               onClick={() => setBilling('annual')}
               aria-pressed={billing === 'annual'}
-              className={`group inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-5 py-2 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ${
+              className={`group inline-flex items-center gap-2 rounded-[var(--r-full)] px-5 py-2 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ${
                 billing === 'annual'
                   ? 'bg-[var(--t1)] text-[var(--ti)] shadow-[var(--sh-xs)]'
                   : 'text-[var(--t2)] hover:text-[var(--t1)]'
@@ -205,7 +205,7 @@ export default function PricingPage() {
             >
               연간 결제
               <span
-                className={`rounded-full px-1.5 py-0.5 font-mono text-[10px] font-[700] tabular-nums ${
+                className={`rounded-full px-2 py-1 font-mono text-[10px] font-[700] tabular-nums ${
                   billing === 'annual'
                     ? 'bg-[var(--success)] text-[var(--ti)]'
                     : 'bg-[var(--success-light)] text-[var(--success)]'
@@ -255,7 +255,7 @@ export default function PricingPage() {
                   {/* highlight ribbon */}
                   {t.highlight && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[var(--p)] to-[#8B5CF6] px-3 py-1 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--ti)] shadow-[var(--sh-sm)]">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[var(--p)] to-[#8B5CF6] px-3 py-1 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--ti)] shadow-[var(--sh-sm)]">
                         <Sparkles size={11} strokeWidth={2.5} aria-hidden />
                         가장 인기
                       </span>
@@ -342,7 +342,7 @@ export default function PricingPage() {
                   {/* ── Features ── */}
                   <ul className="relative mt-6 space-y-3 border-t border-[var(--bd)] pt-6">
                     {t.features.map((f, i) => (
-                      <li key={i} className="flex items-start gap-2.5">
+                      <li key={i} className="flex items-start gap-3">
                         <span
                           className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
                           style={{ backgroundColor: `${t.accent}20`, color: t.accent }}
@@ -452,7 +452,7 @@ export default function PricingPage() {
             </p>
             <Link
               href="/fit"
-              className="mt-4 inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+              className="mt-4 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
             >
               지금 지문 넣어 보기 — 가입 없이
             </Link>

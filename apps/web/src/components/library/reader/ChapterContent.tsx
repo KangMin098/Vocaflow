@@ -186,7 +186,7 @@ function renderTokens(
         continue
       }
       const highlightCls = isSample
-        ? 'rounded-[2px] bg-[var(--cefr-C1-bg)] px-0.5 text-[var(--cefr-C1-text)]'
+        ? 'rounded-[2px] bg-[var(--cefr-C1-bg)] px-1 text-[var(--cefr-C1-text)]'
         : ''
       const interactiveCls = clickable
         ? 'cursor-pointer rounded-[2px] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--p-light)] hover:text-[var(--p-dark)]'

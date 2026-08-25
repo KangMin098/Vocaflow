@@ -531,7 +531,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
               className="mt-0.5 accent-[var(--p)]"
             />
             <div className="flex-1">
-              <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[600] text-[var(--t1)]">
+              <span className="inline-flex items-center gap-2 font-display text-[13px] font-[600] text-[var(--t1)]">
                 <User size={12} /> 본인 레벨 기준
               </span>
               <p className="mt-0.5 font-body text-[11px] text-[var(--t2)]">
@@ -551,7 +551,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
               className="mt-0.5 accent-[var(--p)]"
             />
             <div className="flex-1">
-              <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[600] text-[var(--t1)]">
+              <span className="inline-flex items-center gap-2 font-display text-[13px] font-[600] text-[var(--t1)]">
                 <FileText size={12} /> 글 레벨 기준 (P75)
               </span>
               <p className="mt-0.5 font-body text-[11px] text-[var(--t2)]">
@@ -563,7 +563,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
         <button
           onClick={() => void handleExtract()}
           disabled={loading}
-          className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97] disabled:opacity-50"
+          className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97] disabled:opacity-50"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
           {loading ? '분석 중…' : '추출 분석'}
@@ -618,7 +618,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
         <div
           role="radiogroup"
           aria-label="표시 비율"
-          className="mb-3 flex flex-wrap items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-2"
+          className="mb-3 flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-2"
         >
           <span className="px-1 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
             상위 점수
@@ -670,7 +670,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
               <button
                 onClick={() => void handleSave()}
                 disabled={saving || selected.size === 0}
-                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.98] disabled:opacity-50"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.98] disabled:opacity-50"
               >
                 {saving ? <Loader2 size={14} className="animate-spin" /> : <CheckCircle2 size={14} />}
                 {saving ? '담는 중…' : `${selected.size}개 담기`}
@@ -681,7 +681,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                 기본이 "표시된 것 전부 선택" 이라 아무 생각 없이 18개가 복습 큐로 들어가던 것을,
                 결정 앞에서 한 번 알려 준다 (Empathetic Feedback — 비난 없이 맥락만). */}
             {selected.size > CALM_BATCH && (
-              <p className="mt-1 flex items-start gap-1.5 font-body text-[11px] leading-relaxed text-[var(--t2)]">
+              <p className="mt-1 flex items-start gap-2 font-body text-[11px] leading-relaxed text-[var(--t2)]">
                 <Sparkles size={11} className="mt-0.5 shrink-0 text-[var(--p)]/70" aria-hidden />
                 <span>
                   한 번에 {selected.size}개를 담으면 며칠 뒤 복습이 몰려요.
@@ -733,14 +733,14 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                         <div className="flex items-baseline gap-2">
                           <span className="font-english text-[18px] font-[600] text-[var(--t1)]">{r.word}</span>
                           <span className="font-body text-[11px] text-[var(--t2)]">{r.pos}</span>
-                          <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--on-p-tint)]">V{r.v_level}</span>
+                          <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--on-p-tint)]">V{r.v_level}</span>
                           {r.cefr_level && (
-                            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">{r.cefr_level}</span>
+                            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]">{r.cefr_level}</span>
                           )}
                           {r.match_layer === 2 && r.matched_via_surface && r.matched_via_surface !== r.word && (
                             <span
                               title={`형태 "${r.word}" → 표제어 "${r.matched_via_surface}"`}
-                              className="rounded-[var(--r-full)] bg-[#fdf4ff] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[#a21caf] dark:bg-[#3b0764]/40 dark:text-[#f0abfc]"
+                              className="rounded-[var(--r-full)] bg-[#fdf4ff] px-2 py-1 font-display text-[10px] font-[700] text-[#a21caf] dark:bg-[#3b0764]/40 dark:text-[#f0abfc]"
                             >
                               → {r.matched_via_surface}
                             </span>
@@ -748,7 +748,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                           {rootHints.length > 0 && (
                             <span
                               title={`어원: ${rootHints.map((h) => `${h.root}(${h.gloss})`).join(' · ')}`}
-                              className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[#fdf6ec] px-1.5 py-0.5 font-display text-[10px] font-[700] text-[#9a6a1f] dark:bg-[#3b2a0a]/50 dark:text-[#e8c887]"
+                              className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[#fdf6ec] px-2 py-1 font-display text-[10px] font-[700] text-[#9a6a1f] dark:bg-[#3b2a0a]/50 dark:text-[#e8c887]"
                             >
                               🏛 {rootHints[0]!.root}
                             </span>
@@ -801,7 +801,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                       <div className="border-t border-[var(--bd)] bg-[var(--bg2)] p-4 font-body text-[11px]">
                         {/* 어원(root) 힌트 — 어근으로 계열 학습 (이중배당) */}
                         {rootHints.length > 0 && (
-                          <p className="mb-3 inline-flex flex-wrap items-center gap-1.5 rounded-[var(--r-md)] border border-[#9a6a1f]/20 bg-[#fdf6ec]/60 px-3 py-2 text-[#9a6a1f] dark:bg-[#3b2a0a]/30 dark:text-[#e8c887]">
+                          <p className="mb-3 inline-flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border border-[#9a6a1f]/20 bg-[#fdf6ec]/60 px-3 py-2 text-[#9a6a1f] dark:bg-[#3b2a0a]/30 dark:text-[#e8c887]">
                             <span aria-hidden>🏛</span>
                             <span className="font-display font-[700]">어원</span>
                             <span className="font-body">
@@ -817,7 +817,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                             </h4>
                             <ul className="flex flex-col gap-1">
                               {reasons.map((rs) => (
-                                <li key={rs.key} className="inline-flex items-start gap-1.5 font-body text-[11px] text-[var(--t2)]">
+                                <li key={rs.key} className="inline-flex items-start gap-2 font-body text-[11px] text-[var(--t2)]">
                                   <rs.Icon size={12} className="mt-0.5 shrink-0 text-[var(--p)]" />
                                   <span>{rs.label}</span>
                                 </li>
@@ -829,7 +829,7 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
                           <p className="mb-3 font-english text-[12px] italic text-[var(--t2)]">
                             &ldquo;{r.source_sentence ?? r.example_en}&rdquo;
                             {r.source_sentence && (
-                              <span className="ml-1.5 rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0.5 align-middle font-display text-[9px] font-[700] not-italic text-[var(--on-p-tint)]">
+                              <span className="ml-1.5 rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-1 align-middle font-display text-[9px] font-[700] not-italic text-[var(--on-p-tint)]">
                                 본문
                               </span>
                             )}

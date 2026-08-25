@@ -222,7 +222,7 @@ function Hero({
     >
       <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-[var(--p)]/[0.07] blur-2xl" aria-hidden />
       <div className="relative flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2 font-display text-[10.5px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
             <Library size={12} aria-hidden />
             BookVault
@@ -258,7 +258,7 @@ function Stat({
   highlight?: boolean;
 }) {
   return (
-    <div className="flex flex-col items-end gap-0.5 md:items-start">
+    <div className="flex flex-col items-end gap-1 md:items-start">
       <dd
         className={`font-display text-[22px] font-[700] leading-none tabular-nums md:text-[26px] ${
           highlight ? 'text-[var(--p)]' : 'text-[var(--t1)]'
@@ -287,7 +287,7 @@ function BookCard({ book }: { book: BookSummary }) {
       aria-label={`${book.title} 이어 읽기 · ${progress}% 진행`}
       className="group flex h-full flex-col overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[var(--p)]/40 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
-      <div className="flex flex-1 flex-col gap-2 p-5 pb-3.5">
+      <div className="flex flex-1 flex-col gap-2 p-5 pb-4">
         <div className="flex items-start justify-between gap-2">
           <h2 className="line-clamp-2 font-display text-[15px] font-[700] leading-snug text-[var(--t1)]">
             {book.title}
@@ -295,7 +295,7 @@ function BookCard({ book }: { book: BookSummary }) {
           <div className="flex shrink-0 items-center gap-1">
             {(book.cefr_band ?? book.cefr_level) && (
               <span
-                className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-0.5 font-mono text-[10px] font-[700]"
+                className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700]"
                 style={{
                   backgroundColor: `var(--cefr-${book.cefr_band ?? book.cefr_level}-bg)`,
                   color: `var(--cefr-${book.cefr_band ?? book.cefr_level}-text)`,
@@ -311,7 +311,7 @@ function BookCard({ book }: { book: BookSummary }) {
             )}
             {book.book_v_level != null && (
               <span
-                className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]"
+                className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]"
                 title="V-Level (한국 학습자 어휘 부담)"
               >
                 V{book.book_v_level}
@@ -326,7 +326,7 @@ function BookCard({ book }: { book: BookSummary }) {
         )}
 
         {/* Next/Last hint — 학습 흐름 단서 */}
-        <div className="mt-1 flex items-center gap-1.5 font-body text-[11.5px] text-[var(--t2)]">
+        <div className="mt-1 flex items-center gap-2 font-body text-[11.5px] text-[var(--t2)]">
           {isComplete ? (
             <span className="inline-flex items-center gap-1 font-[600] text-[var(--learn-known)]">
               <Sparkles size={11} aria-hidden /> 완독했어요
@@ -382,7 +382,7 @@ function ChapterDotRow({ book }: { book: BookSummary }) {
   if (total <= MAX_DOTS) {
     return (
       <div
-        className="flex flex-wrap items-center gap-[3px]"
+        className="flex flex-wrap items-center gap-[4px]"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={total}
@@ -427,7 +427,7 @@ function ChapterDotRow({ book }: { book: BookSummary }) {
 
   return (
     <div
-      className="flex flex-wrap items-center gap-[3px]"
+      className="flex flex-wrap items-center gap-[4px]"
       role="progressbar"
       aria-valuemin={0}
       aria-valuemax={total}

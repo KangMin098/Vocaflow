@@ -79,7 +79,7 @@ export default async function AdminGatesPage() {
   return (
     <div className="mx-auto max-w-5xl space-y-8 p-8">
       <header>
-        <h1 className="inline-flex items-center gap-2.5 font-display text-[28px] font-[800] text-[var(--t1)]">
+        <h1 className="inline-flex items-center gap-3 font-display text-[28px] font-[800] text-[var(--t1)]">
           <ShieldCheck size={26} className="text-[#8B5CF6]" aria-hidden="true" /> 품질 게이트
         </h1>
         <p className="mt-2 max-w-2xl font-body text-[14px] leading-[1.6] text-[var(--t2)]">
@@ -129,8 +129,8 @@ export default async function AdminGatesPage() {
       {/* 파이프라인별 불변식 */}
       {[...byPipeline.entries()].map(([pipeline, list]) => (
         <section key={pipeline} className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6">
-          <h2 className="mb-4 flex items-center gap-2.5">
-            <span className="rounded-[var(--r-sm)] bg-[#8B5CF6]/10 px-2 py-0.5 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[#8B5CF6]">
+          <h2 className="mb-4 flex items-center gap-3">
+            <span className="rounded-[var(--r-sm)] bg-[#8B5CF6]/10 px-2 py-1 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[#8B5CF6]">
               {pipeline}
             </span>
           </h2>
@@ -142,10 +142,10 @@ export default async function AdminGatesPage() {
                 return (
                   <li
                     key={r.invariant}
-                    className="flex items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2.5"
+                    className="flex items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3"
                   >
-                    <div className="flex items-center gap-2.5">
-                      <span className={`rounded-[var(--r-sm)] px-2 py-0.5 font-mono text-[10px] font-[700] ${st.bg} ${st.fg}`}>
+                    <div className="flex items-center gap-3">
+                      <span className={`rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700] ${st.bg} ${st.fg}`}>
                         {st.label}
                       </span>
                       <span className="font-body text-[13px] text-[var(--t1)]">{r.invariant}</span>

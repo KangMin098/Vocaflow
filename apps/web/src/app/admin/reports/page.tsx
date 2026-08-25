@@ -277,20 +277,20 @@ export default function AdminReportsPage() {
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <span
-                      className="inline-flex rounded-full px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-[0.06em]"
+                      className="inline-flex rounded-full px-2 py-1 font-display text-[10px] font-[700] uppercase tracking-[0.06em]"
                       style={{ backgroundColor: type.bg, color: type.color }}
                     >
                       {type.label}
                     </span>
                     <span
-                      className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-display text-[10px] font-[700]"
+                      className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-display text-[10px] font-[700]"
                       style={{ backgroundColor: sev.bg, color: sev.color }}
                     >
                       {r.severity === 'critical' && <AlertTriangle size={10} aria-hidden />}
                       {sev.label}
                     </span>
                     <span
-                      className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-display text-[10px] font-[700]"
+                      className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-display text-[10px] font-[700]"
                       style={{ backgroundColor: status.bg, color: status.color }}
                     >
                       <span
@@ -301,7 +301,7 @@ export default function AdminReportsPage() {
                       {status.label}
                     </span>
                     {isSlaWarning && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[var(--error)]/10 px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--error-ink)]">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[var(--error)]/10 px-2 py-1 font-mono text-[10px] font-[700] text-[var(--error-ink)]">
                         <Clock3 size={10} aria-hidden />
                         {r.ageHours}h · SLA 위반
                       </span>
@@ -325,7 +325,7 @@ export default function AdminReportsPage() {
                 </div>
 
                 {/* Action buttons */}
-                <div className="hidden flex-col gap-1.5 md:flex">
+                <div className="hidden flex-col gap-2 md:flex">
                   {r.status !== 'resolved' && (
                     <button className="rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--on-p)] hover:bg-[var(--p-hover)]">
                       처리

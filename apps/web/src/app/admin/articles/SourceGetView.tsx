@@ -129,7 +129,7 @@ function PolicyChip({ label, tone, Icon }: { label: string; tone: ChipTone; Icon
   const c = CHIP_COLORS[tone]
   return (
     <span
-      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 py-1 font-mono text-[10px] font-[600]"
+      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1 font-mono text-[10px] font-[600]"
       style={{ backgroundColor: c.bg, color: c.fg }}
     >
       {Icon && <Icon size={11} aria-hidden />}

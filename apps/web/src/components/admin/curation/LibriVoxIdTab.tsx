@@ -149,7 +149,7 @@ export function LibriVoxIdTab({ onPickPreview }: LibriVoxIdTabProps) {
           <div
             id="librivox-id-error"
             role="alert"
-            className="flex items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
+            className="flex items-center gap-2 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
           >
             <AlertCircle size={12} className="text-[var(--learn-error)]" aria-hidden />
             <span className="font-body text-[11px] text-[var(--learn-error)]">{error}</span>
@@ -223,7 +223,7 @@ function PreviewCard({
           {(preview.author ?? '저자 미상') + yearRange}
           <span className="ml-2 font-mono text-[10px] text-[var(--t5)]">· PD</span>
           {preview.totaltime && (
-            <span className="ml-2 inline-flex items-center gap-0.5 font-mono text-[10px] text-[var(--t5)]">
+            <span className="ml-2 inline-flex items-center gap-1 font-mono text-[10px] text-[var(--t5)]">
               <Clock size={9} aria-hidden /> {preview.totaltime}
             </span>
           )}
@@ -231,7 +231,7 @@ function PreviewCard({
 
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <span
-            className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700]"
+            className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700]"
             style={{ background: kindBadge.bg, color: kindBadge.fg }}
           >
             {kindBadge.icon}

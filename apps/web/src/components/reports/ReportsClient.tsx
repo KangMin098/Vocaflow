@@ -51,7 +51,7 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
           onClick={refresh}
           disabled={pending}
           // 44px 하한 — 실측 113x36 이었다(a11y 스윕 16회차).
-          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3.5 py-2 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--p)] hover:text-[var(--p)] disabled:opacity-50"
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--p)] hover:text-[var(--p)] disabled:opacity-50"
         >
           <RefreshCw size={13} strokeWidth={2} className={pending ? 'animate-spin' : ''} aria-hidden />
           {pending ? '갱신 중…' : '이번 주 갱신'}
@@ -81,7 +81,7 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
               처방 정본은 하나(Today) — 여기서 고르게 하지 않고 그리로 보낸다. */}
           <Link
             href="/hub"
-            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-white transition-transform hover:-translate-y-px motion-reduce:transition-none"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-white transition-transform hover:-translate-y-px motion-reduce:transition-none"
           >
             오늘 할 일 보러 가기
             <ArrowRight size={14} strokeWidth={2.2} aria-hidden />
@@ -99,7 +99,7 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
           {/* 돌아본 다음에 갈 곳. 차분하게 한 줄만 — 회고 화면에서 재촉하지 않는다. */}
           <Link
             href="/hub"
-            className="inline-flex min-h-[44px] items-center justify-center gap-1.5 self-center rounded-[var(--r-md)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 self-center rounded-[var(--r-md)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
           >
             오늘 할 일 보러 가기
             <ArrowRight size={14} strokeWidth={2.2} aria-hidden />
@@ -133,7 +133,7 @@ function ReportCard({ report }: { report: WeeklyReport }) {
       </div>
 
       {modules.length > 0 && (
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-2">
           {modules.map(([m, c]) => (
             <span
               key={m}

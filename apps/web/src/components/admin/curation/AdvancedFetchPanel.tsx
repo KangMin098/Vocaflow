@@ -81,7 +81,7 @@ export function AdvancedFetchPanel({
         className="flex w-full items-center justify-between gap-2 px-3 py-2 font-display text-[12px] font-[600] text-[var(--t1)] hover:bg-[var(--bg2)]"
         aria-expanded={open}
       >
-        <span className="inline-flex items-center gap-1.5">
+        <span className="inline-flex items-center gap-2">
           <Sliders size={12} className="text-[var(--t2)]" />
           소스별 고급 조건
           {hasActive && (
@@ -279,7 +279,7 @@ export function AdvancedFetchPanel({
 
             {enabled.includes('lit2goAudioOnly') && (
               <Field label="Lit2Go 오디오 보유 만" hint="USF audiobooks 만">
-                <label className="inline-flex items-center gap-1.5 text-[var(--t2)]">
+                <label className="inline-flex items-center gap-2 text-[var(--t2)]">
                   <input
                     type="checkbox"
                     checked={state.lit2goAudioOnly}
@@ -403,7 +403,7 @@ function MultiLangSelect({
     onChange(value.includes(v) ? value.filter((x) => x !== v) : [...value, v])
   }
   return (
-    <div className="flex flex-wrap gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-1.5">
+    <div className="flex flex-wrap gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2">
       {options.map((o) => {
         const on = value.includes(o.value)
         return (
@@ -412,7 +412,7 @@ function MultiLangSelect({
             type="button"
             onClick={() => toggle(o.value)}
             disabled={disabled}
-            className="inline-flex items-center rounded-[var(--r-full)] border px-2 py-0.5 font-mono text-[10px] transition-colors"
+            className="inline-flex items-center rounded-[var(--r-full)] border px-2 py-1 font-mono text-[10px] transition-colors"
             style={{
               background: on ? 'var(--p-light)' : 'var(--bg)',
               borderColor: on ? 'var(--p)' : 'var(--bd)',

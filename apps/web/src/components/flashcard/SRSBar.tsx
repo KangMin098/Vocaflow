@@ -63,11 +63,11 @@ export function SRSBar({ visible, srs, onJudge }: SRSBarProps) {
           <button
             key={rating}
             onClick={() => onJudge(rating)}
-            className={`group/srs relative flex flex-col items-center gap-1.5 rounded-[var(--r-lg)] border bg-[var(--bg)] px-2 py-3.5 pb-3 text-center transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-[3px] hover:shadow-[var(--sh-lg)] active:scale-[0.96] ${styles.border} ${styles.hover} `}
+            className={`group/srs relative flex flex-col items-center gap-2 rounded-[var(--r-lg)] border bg-[var(--bg)] px-2 py-4 pb-3 text-center transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-[3px] hover:shadow-[var(--sh-lg)] active:scale-[0.96] ${styles.border} ${styles.hover} `}
             aria-label={`${label}, ${formatNextReview(rating, srs)}`}
           >
             <span
-              className="absolute right-1.5 top-1 rounded border border-[var(--bd)] bg-[var(--bg2)] px-[5px] py-[1px] font-mono text-[9px] font-[700] text-[var(--t2)] opacity-50 transition-opacity group-hover/srs:opacity-100"
+              className="absolute right-1.5 top-1 rounded border border-[var(--bd)] bg-[var(--bg2)] px-[4px] py-[4px] font-mono text-[9px] font-[700] text-[var(--t2)] opacity-50 transition-opacity group-hover/srs:opacity-100"
               aria-hidden="true"
             >
               {keyHint}

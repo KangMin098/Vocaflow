@@ -140,7 +140,7 @@ export function RecommendedBooks() {
             block={false}
             rightIcon={null}
           >
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-2">
               <Compass size={13} aria-hidden />
               진단 받기
             </span>
@@ -231,7 +231,7 @@ function BookCard({
   return (
     <Link
       href={`/library/books/${book.id}`}
-      className="group flex w-[156px] shrink-0 flex-col gap-2.5"
+      className="group flex w-[156px] shrink-0 flex-col gap-3"
       style={{ scrollSnapAlign: 'start' }}
     >
       {/* Cover */}
@@ -268,7 +268,7 @@ function BookCard({
         {/* Fit 배지 (캡슐) */}
         {fitMeta && (
           <span
-            className="absolute right-2 top-2 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] backdrop-blur-md"
+            className="absolute right-2 top-2 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] backdrop-blur-md"
             style={{
               backgroundColor: `${fitMeta.bg}E6`,
               color: fitMeta.color,
@@ -280,7 +280,7 @@ function BookCard({
       </div>
 
       {/* Meta */}
-      <div className="flex flex-col gap-1 px-0.5">
+      <div className="flex flex-col gap-1 px-1">
         <span className="line-clamp-2 font-display text-[12.5px] font-[600] leading-tight tracking-[-0.01em] text-[var(--t1)]">
           {book.title}
         </span>
@@ -302,7 +302,7 @@ function BookCard({
 
 function MiniChip({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-[5px] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9.5px] font-[600] tabular-nums text-[var(--t2)]">
+    <span className="inline-flex items-center rounded-[5px] bg-[var(--bg2)] px-2 py-1 font-mono text-[9.5px] font-[600] tabular-nums text-[var(--t2)]">
       {children}
     </span>
   )

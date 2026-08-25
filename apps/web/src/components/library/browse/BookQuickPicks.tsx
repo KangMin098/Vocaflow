@@ -63,7 +63,7 @@ export function BookQuickPicks({ filters, sort, diagnosed, hasAudio, hasComic, o
             type="button"
             aria-pressed={active}
             onClick={() => onApply(t.filters, t.sort)}
-            className={`inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] border px-3 py-1.5 font-display text-[12.5px] font-[700] transition-all active:scale-[0.97] ${
+            className={`inline-flex min-h-11 items-center gap-2 rounded-[var(--r-full)] border px-3 py-2 font-display text-[12.5px] font-[700] transition-all active:scale-[0.97] ${
               active
                 ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)] shadow-[var(--sh-sm)]'
                 : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:border-[var(--p)] hover:bg-[var(--p-light)]'

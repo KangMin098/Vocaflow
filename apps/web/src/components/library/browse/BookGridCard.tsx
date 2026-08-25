@@ -101,12 +101,12 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
         {/* 우상단 CEFR + V */}
         <div className="absolute right-2 top-2 flex flex-col items-end gap-1">
           {(book.cefr_band ?? book.cefr_level) && (
-            <span className="inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-1.5 py-0.5 font-mono text-[9.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
+            <span className="inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-1 font-mono text-[9.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
               {book.cefr_band ?? book.cefr_level}
             </span>
           )}
           {book.book_v_level != null && (
-            <span className="inline-flex items-center rounded-[3px] bg-black/60 px-1.5 py-0.5 font-mono text-[9.5px] font-[700] tracking-tight text-white backdrop-blur-sm">
+            <span className="inline-flex items-center rounded-[3px] bg-black/60 px-2 py-1 font-mono text-[9.5px] font-[700] tracking-tight text-white backdrop-blur-sm">
               V{book.book_v_level}
             </span>
           )}
@@ -118,7 +118,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
             <span
               // --success 는 다크에서 밝은 초록(#5BA47D)이라 흰 글자와 2.9:1 이었다(2026-08-09 axe).
               // --memory-stable(#2E7D5A)은 양 테마 동일값이라 흰 글자로 5.0:1 확보.
-              className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+              className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[9px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
               style={{ background: 'var(--memory-stable)' }}
               title="완독한 도서"
             >
@@ -127,7 +127,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
           )}
           {state === 'in_progress' && (
             <span
-              className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-[var(--on-p)] shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+              className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-1 font-display text-[9px] font-[700] text-[var(--on-p)] shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
               title={`학습 중 · ${book.progress_pct ?? 0}%`}
             >
               ● {book.progress_pct ?? 0}%
@@ -135,7 +135,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
           )}
           {state === 'enrolled' && (
             <span
-              className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--chip-cover-bg)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-[var(--chip-cover-brand)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
+              className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--chip-cover-bg)] px-2 py-1 font-display text-[9px] font-[700] text-[var(--chip-cover-brand)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
               title="내 학습에 추가됨"
             >
               <Check size={9} strokeWidth={2.5} aria-hidden /> 내 학습
@@ -173,7 +173,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
           제목 2줄 = 13.5px × leading-tight(1.25) × 2 ≈ 34px
           저자 1줄 = 11px × 1.45 ≈ 16px
       */}
-      <div className="flex flex-col gap-0.5 px-0.5">
+      <div className="flex flex-col gap-1 px-1">
         {/* `data-design-title` — 계측이 재는 **메타데이터 제목**. 표지 아트의 제목
             (`GradientBookCover`, line-clamp-4/5)은 그림이지 표의 칸이 아니라서 제외된다. */}
         <h3
@@ -196,7 +196,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
           {/* i+1 적합도 (진단 시) */}
           {fit && (
             <span
-              className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] border px-1.5 py-0.5 font-display text-[9.5px] font-[700]"
+              className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-display text-[9.5px] font-[700]"
               style={{ color: fit.color, borderColor: fit.color }}
               title={`V${userVLevel} 학습자가 아는 단어 ${fit.coverage}%`}
             >
@@ -215,7 +215,7 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
             reasons.map((r) => (
               <span
                 key={r}
-                className="inline-flex shrink-0 items-center gap-0.5 rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[9px] font-[600] text-[var(--t2)]"
+                className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-display text-[9px] font-[600] text-[var(--t2)]"
               >
                 {r === '원어민 음성' && <Sparkles size={8} aria-hidden />}
                 {r}

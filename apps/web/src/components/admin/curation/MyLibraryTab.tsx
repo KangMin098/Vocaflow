@@ -607,7 +607,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
             <div
               role="radiogroup"
               aria-label="소스 필터"
-              className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5"
+              className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-1"
             >
               <FilterChip
                 label="전체"
@@ -636,7 +636,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
             <div
               role="radiogroup"
               aria-label="레벨 필터 (V-Level)"
-              className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5"
+              className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-1"
             >
               <FilterChip
                 label="전체"
@@ -695,7 +695,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
           <div
             role="radiogroup"
             aria-label="상태 필터"
-            className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-0.5"
+            className="inline-flex flex-wrap rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-1"
           >
             {FILTER_OPTIONS.map((opt) => {
               const active = opt.value === filter;
@@ -894,7 +894,7 @@ function BookRow({
       ].join(' ')}
       onClick={onClick}
     >
-      <td className="w-9 px-2 py-2.5 text-center" onClick={(e) => e.stopPropagation()}>
+      <td className="w-9 px-2 py-3 text-center" onClick={(e) => e.stopPropagation()}>
         <input
           type="checkbox"
           checked={selected}
@@ -1097,7 +1097,7 @@ function ExtractionCell({
 
   return (
     <span
-      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[10px] tabular-nums"
+      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-mono text-[10px] tabular-nums"
       style={{ background: colors.bg, color: colors.fg, borderColor: colors.border }}
       title={title}
     >
@@ -1130,7 +1130,7 @@ function WordSetCell({ count }: { count: number | null }) {
   }
   return (
     <span
-      className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[10px] tabular-nums"
+      className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-mono text-[10px] tabular-nums"
       style={{
         background: 'var(--active-light)',
         color: 'var(--active)',
@@ -1232,7 +1232,7 @@ function Td({
   return (
     <td
       className={[
-        'px-3 py-2.5',
+        'px-3 py-3',
         align === 'center' ? 'text-center' : align === 'right' ? 'text-right' : 'text-left',
       ].join(' ')}
     >
@@ -1263,7 +1263,7 @@ function SourceBadge({
   const url = bookSourceUrl(source, sourceId);
   const badge = (
     <span
-      className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[9px] font-[700]"
+      className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
       style={{
         color: cfg.color,
         backgroundColor: `color-mix(in srgb, ${cfg.color} 12%, transparent)`,
@@ -1306,7 +1306,7 @@ function StatusPill({
   const { bg, text } = colorMap[tone];
   return (
     <span
-      className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[700]"
+      className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
       style={{ backgroundColor: bg, color: text }}
     >
       {label}
@@ -1337,7 +1337,7 @@ function JobQueueBadge({
   const m = meta[status];
   return (
     <span
-      className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]"
+      className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
       style={{ backgroundColor: m.bg, color: m.fg }}
       title={
         `Dev 매핑 큐 · ${mode === 'dev_reprocess' ? '재처리' : '처리'} · ${status}` +
@@ -1402,7 +1402,7 @@ function CurationWorkflowGuide({
         type="button"
         onClick={onRunQueue}
         disabled={drainRunning}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:cursor-not-allowed disabled:opacity-50"
+        className="inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:cursor-not-allowed disabled:opacity-50"
       >
         <PlayCircle size={13} aria-hidden /> 큐 처리 (dev · {queued}권)
       </button>
@@ -1415,7 +1415,7 @@ function CurationWorkflowGuide({
       <button
         type="button"
         onClick={() => onFocus('ready')}
-        className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p-light)]"
+        className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p-light)]"
       >
         검토대기 보기
       </button>
@@ -1426,7 +1426,7 @@ function CurationWorkflowGuide({
   }
 
   return (
-    <div className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+    <div className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
       <div className="flex items-center justify-between gap-2">
         <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
           작업 순서
@@ -1435,7 +1435,7 @@ function CurationWorkflowGuide({
       </div>
 
       {/* 스테퍼 */}
-      <div className="flex items-center gap-1 overflow-x-auto pb-0.5">
+      <div className="flex items-center gap-1 overflow-x-auto pb-1">
         {STAGES.map((s, i) => {
           const isCurrent = current === s.key;
           const isViewing = activeFilter !== 'all' && s.filter === activeFilter;
@@ -1449,7 +1449,7 @@ function CurationWorkflowGuide({
                 onClick={() => onFocus(s.filter)}
                 aria-current={isCurrent ? 'step' : undefined}
                 className={[
-                  'inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-2.5 py-1.5 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)]',
+                  'inline-flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)]',
                   isCurrent
                     ? 'bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-sm)]'
                     : s.count > 0
@@ -1475,7 +1475,7 @@ function CurationWorkflowGuide({
       </div>
 
       {/* 현재 권장 액션 */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--bd)] pt-2.5">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--bd)] pt-3">
         <span className="font-body text-[12px] text-[var(--t2)]">
           <span aria-hidden>👉 </span>
           <strong className="font-[700] text-[var(--t1)]">지금 할 일</strong> — {calloutText}
@@ -1516,7 +1516,7 @@ function EmptyFiltered({ onReset }: { onReset: () => void }) {
       <button
         type="button"
         onClick={onReset}
-        className="mt-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1.5 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        className="mt-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
         필터 초기화
       </button>
@@ -1593,7 +1593,7 @@ function BulkActionToolbar({
                   failedCount > 0 ? ` + 실패 ${failedCount}` : ''
                 } = ${devBatchCount}권을 로직 파이프라인으로 dev 처리 (수집·정규화·분절·분석·추출·V-Level·LibriVox 자동매핑). 실패 도서는 ingest 부터 재시작.`
           }
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--p)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex items-center gap-2 rounded-[var(--r-sm)] border-2 border-[var(--p)] bg-[var(--p)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {pending ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -1602,7 +1602,7 @@ function BulkActionToolbar({
           )}
           Dev 일괄 처리
           {devBatchCount > 0 && (
-            <span className="ml-1 rounded-[var(--r-full)] bg-white/25 px-1.5 py-0 font-mono text-[10px]">
+            <span className="ml-1 rounded-[var(--r-full)] bg-white/25 px-2 py-0 font-mono text-[10px]">
               {devBatchCount}
             </span>
           )}
@@ -1618,7 +1618,7 @@ function BulkActionToolbar({
               ? '선택한 도서 중 검토대기/게시됨 상태가 없습니다 (퀴즈 생성 자격: 챕터 존재)'
               : `검토대기/게시됨 ${quizEligibleCount}권을 스크립트 퀴즈 생성 큐에 적재. 챕터별 스토리 퀴즈(문항 수 = 도서 V-Level 곡선 3~10)를 Claude Code 드레인이 생성.`
           }
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--active)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--active)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--warning-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--active)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex items-center gap-2 rounded-[var(--r-sm)] border-2 border-[var(--active)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--active)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--warning-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--active)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {pending ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -1627,7 +1627,7 @@ function BulkActionToolbar({
           )}
           스크립트 퀴즈 큐
           {quizEligibleCount > 0 && (
-            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--active)]/15 px-1.5 py-0 font-mono text-[10px]">
+            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--active)]/15 px-2 py-0 font-mono text-[10px]">
               {quizEligibleCount}
             </span>
           )}
@@ -1643,7 +1643,7 @@ function BulkActionToolbar({
               ? '선택한 도서 중 검토대기/게시됨 상태가 없습니다'
               : `검토대기/게시됨 ${reviewEligibleCount}권을 레벨 검토 큐에 적재. Claude Code 드레인이 본문을 읽어 CEFR/V-Level 을 재판정(저신뢰 도서 품질 검토).`
           }
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--info)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--info)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--info-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--info)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex items-center gap-2 rounded-[var(--r-sm)] border-2 border-[var(--info)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--info)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--info-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--info)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {pending ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -1652,7 +1652,7 @@ function BulkActionToolbar({
           )}
           레벨 검토 큐
           {reviewEligibleCount > 0 && (
-            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-1.5 py-0 font-mono text-[10px]">
+            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-2 py-0 font-mono text-[10px]">
               {reviewEligibleCount}
             </span>
           )}
@@ -1668,7 +1668,7 @@ function BulkActionToolbar({
               ? '선택한 도서 중 게시됨(발행 단어장 존재) 상태가 없습니다'
               : `게시됨 ${vocabAuditEligibleCount}권을 어휘 감사 큐에 적재. Claude Code 드레인이 발행 단어장의 뜻·품사·레벨·register 를 문맥 근거로 점검(flagged 기록).`
           }
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border-2 border-[var(--info)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--info)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--info-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--info)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex items-center gap-2 rounded-[var(--r-sm)] border-2 border-[var(--info)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--info)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--info-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--info)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {pending ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -1677,7 +1677,7 @@ function BulkActionToolbar({
           )}
           어휘 감사 큐
           {vocabAuditEligibleCount > 0 && (
-            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-1.5 py-0 font-mono text-[10px]">
+            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-2 py-0 font-mono text-[10px]">
               {vocabAuditEligibleCount}
             </span>
           )}
@@ -1825,7 +1825,7 @@ function DrainBanner({
             type="button"
             onClick={onStop}
             title="현재 라운드 끝낸 뒤 자동 반복 중지"
-            className="inline-flex items-center gap-1 rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2"
+            className="inline-flex items-center gap-1 rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2"
             style={{ borderColor: c.border, color: c.fg }}
           >
             <X size={12} aria-hidden />
@@ -1838,7 +1838,7 @@ function DrainBanner({
                 type="button"
                 onClick={onViewResults}
                 title="방금 처리된 도서(검토 대기)로 이동해 검수를 시작하세요"
-                className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--ti)] shadow-[var(--sh-xs)] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1"
+                className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--ti)] shadow-[var(--sh-xs)] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1"
                 style={{ background: c.fg }}
               >
                 검토 대기 보기
@@ -1850,7 +1850,7 @@ function DrainBanner({
                 type="button"
                 onClick={onRestart}
                 title="남은 큐 계속 처리"
-                className="inline-flex items-center gap-1 rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2"
+                className="inline-flex items-center gap-1 rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2"
                 style={{ borderColor: c.border, color: c.fg }}
               >
                 <PlayCircle size={12} aria-hidden />
@@ -1895,12 +1895,12 @@ function ToolbarBtn({
       onClick={onClick}
       disabled={disabled}
       title={title}
-      className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-40"
+      className="inline-flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-40"
     >
       {pending ? <Loader2 size={12} className="animate-spin" aria-hidden /> : icon}
       {label}
       {count > 0 && (
-        <span className="ml-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-1.5 py-0 font-mono text-[10px] text-[var(--on-p-tint)]">
+        <span className="ml-1 rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-0 font-mono text-[10px] text-[var(--on-p-tint)]">
           {count}
         </span>
       )}

@@ -41,7 +41,7 @@ export function TrendIndicator({ stableDelta, riskDelta }: TrendIndicatorProps) 
   }
 
   return (
-    <div className="flex items-center gap-2.5" aria-label="이번 주 추세">
+    <div className="flex items-center gap-3" aria-label="이번 주 추세">
       {items.map((item) => {
         const Arrow = item.value > 0 ? ArrowUp : ArrowDown
         const colorClass = item.positive
@@ -52,7 +52,7 @@ export function TrendIndicator({ stableDelta, riskDelta }: TrendIndicatorProps) 
         return (
           <span
             key={item.label}
-            className={`inline-flex items-center gap-0.5 font-body text-[11px] font-[600] tabular-nums ${colorClass}`}
+            className={`inline-flex items-center gap-1 font-body text-[11px] font-[600] tabular-nums ${colorClass}`}
           >
             <Arrow size={11} strokeWidth={2.5} aria-hidden="true" />
             {item.value > 0 ? '+' : ''}

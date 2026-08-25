@@ -31,7 +31,7 @@ export function GatewayLead({ state }: { state: GatewayState }) {
   return (
     <section
       aria-label="이어하기"
-      className="flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-ios-xl bg-[var(--bg)] px-5 py-3.5 shadow-ios-1 md:px-6"
+      className="flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-ios-xl bg-[var(--bg)] px-5 py-4 shadow-ios-1 md:px-6"
     >
       <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
         {line.lead}

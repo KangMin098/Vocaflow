@@ -295,7 +295,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
               type="button"
               onClick={handleRegenerate}
               disabled={isPending}
-              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border disabled:opacity-50"
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border disabled:opacity-50"
               style={{
                 color: 'var(--warning)',
                 borderColor: 'var(--warning)',
@@ -358,7 +358,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
           <button
             type="button"
             onClick={rejectFiltered}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[var(--r-md)] text-xs font-display border"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
             style={{
               background: 'var(--error-light)',
               color: 'var(--error)',
@@ -373,7 +373,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
           <button
             type="button"
             onClick={rejectSpecOutsiders}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[var(--r-md)] text-xs font-display border"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
             style={{
               background: 'var(--warning-light)',
               color: 'var(--warning)',
@@ -388,7 +388,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
           <button
             type="button"
             onClick={clearRejections}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[var(--r-md)] text-xs font-display border ml-auto"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border ml-auto"
             style={{
               background: 'var(--bg)',
               color: 'var(--t2)',

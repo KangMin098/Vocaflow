@@ -77,7 +77,7 @@ export function TaxonomyBrowser({ rows }: { rows: PdComicAdminRow[] }) {
 
   return (
     <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">
-      <header className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-[var(--bd)] px-4 py-2.5">
+      <header className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-[var(--bd)] px-4 py-3">
         <h3 className="font-display text-[13px] font-[800] text-[var(--t1)]">유형 · 시리즈</h3>
         <span className="font-mono text-[11.5px] tabular-nums text-[var(--t2)]">
           {kinds.length}유형 · {totals.series}시리즈 · {totals.total}호
@@ -85,7 +85,7 @@ export function TaxonomyBrowser({ rows }: { rows: PdComicAdminRow[] }) {
         <span className="font-mono text-[11.5px] tabular-nums" style={{ color: ACCENT }}>
           발행 {totals.published}/{totals.total}
         </span>
-        <label className="ml-auto flex items-center gap-1.5 font-body text-[12px] text-[var(--t2)]">
+        <label className="ml-auto flex items-center gap-2 font-body text-[12px] text-[var(--t2)]">
           <input
             type="checkbox"
             checked={onlyUnfinished}
@@ -132,7 +132,7 @@ export function TaxonomyBrowser({ rows }: { rows: PdComicAdminRow[] }) {
                   <thead>
                     <tr className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t3)]">
                       {['시리즈', '연도', '호', '컷', '단계', '발행'].map((h) => (
-                        <th key={h} className="px-4 py-1.5 font-[700]">{h}</th>
+                        <th key={h} className="px-4 py-2 font-[700]">{h}</th>
                       ))}
                     </tr>
                   </thead>
@@ -142,26 +142,26 @@ export function TaxonomyBrowser({ rows }: { rows: PdComicAdminRow[] }) {
                       const y1 = s.years.length ? Math.max(...s.years) : null
                       return (
                         <tr key={s.key} className="border-t border-[var(--bd)]">
-                          <td className="px-4 py-1.5 font-mono text-[11.5px] text-[var(--t1)]">{s.key}</td>
-                          <td className="px-4 py-1.5 font-mono text-[11px] tabular-nums">
+                          <td className="px-4 py-2 font-mono text-[11.5px] text-[var(--t1)]">{s.key}</td>
+                          <td className="px-4 py-2 font-mono text-[11px] tabular-nums">
                             {y0 ? (y1 && y1 !== y0 ? `${y0}–${y1}` : y0) : '—'}
                           </td>
-                          <td className="px-4 py-1.5 font-mono tabular-nums">{s.total}</td>
-                          <td className="px-4 py-1.5 font-mono tabular-nums">{s.panels.toLocaleString()}</td>
+                          <td className="px-4 py-2 font-mono tabular-nums">{s.total}</td>
+                          <td className="px-4 py-2 font-mono tabular-nums">{s.panels.toLocaleString()}</td>
                           {/* 단계 분포 — 어디서 멈춰 있는지가 다음 할 일을 정한다 */}
-                          <td className="px-4 py-1.5">
+                          <td className="px-4 py-2">
                             <span className="flex flex-wrap gap-1">
                               {[...s.statuses.entries()].map(([st, n]) => (
                                 <span
                                   key={st}
-                                  className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9.5px] text-[var(--t3)]"
+                                  className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[9.5px] text-[var(--t3)]"
                                 >
                                   {st} {n}
                                 </span>
                               ))}
                             </span>
                           </td>
-                          <td className="px-4 py-1.5 font-mono tabular-nums">
+                          <td className="px-4 py-2 font-mono tabular-nums">
                             <span style={{ color: s.published ? ACCENT : 'var(--t3)' }}>
                               {s.published}/{s.total}
                             </span>

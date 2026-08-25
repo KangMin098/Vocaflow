@@ -30,7 +30,7 @@ const HIDE_TOGGLES: ToggleConfig[] = [
 
 export function HideToggleBar({ hideStates, onToggle }: HideToggleBarProps) {
   return (
-    <div className="py-s-2.5 flex flex-col gap-s-3 rounded-lg border border-bd bg-bg2 px-s-4 sm:flex-row sm:items-center sm:justify-between">
+    <div className="py-s-3 flex flex-col gap-s-3 rounded-lg border border-bd bg-bg2 px-s-4 sm:flex-row sm:items-center sm:justify-between">
       {/* ── Active Recall 그룹 ── */}
       <div className="flex flex-wrap items-center gap-s-3">
         <div className="flex items-center gap-s-2">
@@ -51,7 +51,7 @@ export function HideToggleBar({ hideStates, onToggle }: HideToggleBarProps) {
                 className={cn(
                   'inline-flex items-center gap-s-2',
                   // 실측 20px — 알약 크기는 유지하고 히트영역만 44px 로 올린다.
-                  'min-h-[44px] py-s-1.5 rounded-md border px-s-3',
+                  'min-h-[44px] py-s-2 rounded-md border px-s-3',
                   'font-display text-xs font-semibold tracking-[-0.01em]',
                   'transition-all duration-fast',
                   isHidden

@@ -119,7 +119,7 @@ function HubEmpty({ reason }: { reason: 'auth' | 'empty' }) {
       </p>
       <a
         href={reason === 'auth' ? '/login' : '/wordvault'}
-        className="rounded-[var(--r-md)] bg-[var(--p)] px-5 py-2.5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)]"
+        className="rounded-[var(--r-md)] bg-[var(--p)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)]"
       >
         {reason === 'auth' ? '로그인' : '내 단어장으로'}
       </a>
@@ -141,7 +141,7 @@ function ScopedEmpty({ title }: { title: string | null }) {
       </p>
       <a
         href="/wordvault"
-        className="rounded-[var(--r-md)] bg-[var(--p)] px-5 py-2.5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)]"
+        className="rounded-[var(--r-md)] bg-[var(--p)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)]"
       >
         내 단어장으로
       </a>

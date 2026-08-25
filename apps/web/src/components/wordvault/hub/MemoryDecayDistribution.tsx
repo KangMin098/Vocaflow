@@ -151,7 +151,7 @@ export function MemoryDecayDistribution({
               aria-hidden="true"
             />
             <div className="min-w-0">
-              <div className="flex items-baseline gap-1.5">
+              <div className="flex items-baseline gap-2">
                 <span className="font-display text-[16px] font-[800] tabular-nums text-[var(--t1)]">
                   {b.count}
                 </span>

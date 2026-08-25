@@ -164,7 +164,7 @@ function QuizJobBadge({ job }: { job: AdminQuizJob }) {
   const label = `${job.chaptersDone}/${job.chaptersTotal}`
   if (job.status === 'done') {
     return (
-      <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--success-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--success)]">
+      <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--success-light)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--success)]">
         <CheckCircle2 size={11} aria-hidden />
         done {label}
       </span>
@@ -172,7 +172,7 @@ function QuizJobBadge({ job }: { job: AdminQuizJob }) {
   }
   if (job.status === 'failed') {
     return (
-      <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--error-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--error-ink)]">
+      <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--error-light)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--error-ink)]">
         <XCircle size={11} aria-hidden />
         failed {label}
       </span>
@@ -180,14 +180,14 @@ function QuizJobBadge({ job }: { job: AdminQuizJob }) {
   }
   if (job.status === 'running') {
     return (
-      <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--warning-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[#92400E]">
+      <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--warning-light)] px-2 py-1 font-display text-[10px] font-[700] text-[#92400E]">
         <Loader2 size={11} aria-hidden className="animate-spin" />
         running {label}
       </span>
     )
   }
   return (
-    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">
+    <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]">
       {job.status} {label}
     </span>
   )

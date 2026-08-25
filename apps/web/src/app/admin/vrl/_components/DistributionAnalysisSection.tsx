@@ -103,7 +103,7 @@ export function DistributionAnalysisSection({
   if (!categorical) {
     return (
       <section
-        className="flex items-center gap-2.5 rounded-[var(--r-xl)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-5"
+        className="flex items-center gap-3 rounded-[var(--r-xl)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-5"
         aria-label="distribution analysis unavailable"
       >
         <BarChart3 size={18} className="text-[var(--t2)]" aria-hidden />
@@ -117,7 +117,7 @@ export function DistributionAnalysisSection({
   return (
     <section aria-label="Distribution Analysis" className="flex flex-col gap-4">
       {/* ── 섹션 헤더 ── */}
-      <header className="flex items-center gap-2.5">
+      <header className="flex items-center gap-3">
         <span
           className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
           style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
@@ -195,7 +195,7 @@ function DistributionChart({
         <p className="font-body text-[10px] text-[var(--t2)]">{cfg.description}</p>
       </header>
 
-      <ul className="flex flex-col gap-1.5" aria-label={`${cfg.label} bars`}>
+      <ul className="flex flex-col gap-2" aria-label={`${cfg.label} bars`}>
         {display.map(([k, n]) => {
           const pct = maxCount > 0 ? (n / maxCount) * 100 : 0
           const sharePct = sumCount > 0 ? ((n / sumCount) * 100).toFixed(1) : '0.0'
@@ -226,7 +226,7 @@ function DistributionChart({
         })}
       </ul>
 
-      <footer className="border-t border-[var(--bd)] pt-1.5 font-mono text-[9px] text-[var(--t2)]">
+      <footer className="border-t border-[var(--bd)] pt-2 font-mono text-[9px] text-[var(--t2)]">
         sum: {sumCount.toLocaleString()} / total {total.toLocaleString()}
       </footer>
     </article>

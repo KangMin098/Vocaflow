@@ -154,7 +154,7 @@ export default async function AdminQualityPage() {
     <div className="mx-auto max-w-6xl space-y-8 p-8">
       <header className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="inline-flex items-center gap-2.5 font-display text-[28px] font-[800] text-[var(--t1)]">
+          <h1 className="inline-flex items-center gap-3 font-display text-[28px] font-[800] text-[var(--t1)]">
             <Gauge size={26} className="text-[#8B5CF6]" aria-hidden="true" /> 품질 지표
           </h1>
           <p className="mt-2 font-body text-[14px] text-[var(--t2)]">
@@ -162,7 +162,7 @@ export default async function AdminQualityPage() {
           </p>
         </div>
         <div className="flex shrink-0 items-start gap-3">
-          <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2.5 text-right">
+          <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 text-right">
             <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               최근 수집
             </p>
@@ -192,8 +192,8 @@ export default async function AdminQualityPage() {
               key={stage}
               className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6"
             >
-              <h2 className="mb-4 flex items-center gap-2.5">
-                <span className="rounded-[var(--r-sm)] bg-[#8B5CF6]/10 px-2 py-0.5 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[#8B5CF6]">
+              <h2 className="mb-4 flex items-center gap-3">
+                <span className="rounded-[var(--r-sm)] bg-[#8B5CF6]/10 px-2 py-1 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[#8B5CF6]">
                   {stage}
                 </span>
                 <span className="font-display text-[16px] font-[700] text-[var(--t1)]">
@@ -216,7 +216,7 @@ export default async function AdminQualityPage() {
                           <p className="font-display text-[13px] font-[600] text-[var(--t1)]">
                             {METRIC_LABEL[s.metric] ?? s.metric}
                             {s.segment && (
-                              <span className="ml-1.5 rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--t2)]">
+                              <span className="ml-1.5 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-mono text-[10px] font-[600] text-[var(--t2)]">
                                 {s.segment}
                               </span>
                             )}
@@ -240,7 +240,7 @@ export default async function AdminQualityPage() {
                         <Sparkline points={s.points.map((p) => p.value)} />
                       </div>
                       {Object.keys(dims).length > 0 && (
-                        <dl className="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-t border-[var(--bd)] pt-2.5">
+                        <dl className="mt-3 flex flex-wrap gap-x-3 gap-y-1 border-t border-[var(--bd)] pt-3">
                           {Object.entries(dims).map(([k, v]) => (
                             <div key={k} className="flex items-baseline gap-1">
                               <dt className="font-mono text-[10px] text-[var(--t2)]">{k}</dt>

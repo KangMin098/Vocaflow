@@ -140,7 +140,7 @@ export default function AboutPage() {
       {/* ── Hero ── */}
       <section className="relative overflow-hidden border-b border-[var(--bd)] bg-gradient-to-br from-[var(--p-light)] via-[var(--bg)] to-[var(--bg)]">
         <div className="mx-auto max-w-4xl px-6 py-20 text-center md:py-28">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-1.5 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)] shadow-[var(--sh-xs)]">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)] shadow-[var(--sh-xs)]">
             <Sparkles size={12} className="text-[var(--p)]" aria-hidden />
             우리의 미션
           </span>
@@ -329,7 +329,7 @@ export default function AboutPage() {
                 key={i}
                 className="flex items-start gap-4 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4"
               >
-                <span className="flex shrink-0 flex-col items-center gap-1 pt-0.5">
+                <span className="flex shrink-0 flex-col items-center gap-1 pt-1">
                   <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--error-light)] font-display text-[11px] font-[700] text-[var(--error-ink)]">
                     ✕
                   </span>

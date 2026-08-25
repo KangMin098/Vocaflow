@@ -82,7 +82,7 @@ export function WordRow({
       {/* ── 메인 행 (8 column grid) ── */}
       <div
         onClick={() => onPlayWord(word.id)}
-        className={cn('grid cursor-pointer items-center gap-3 px-4 py-2.5 md:gap-4')}
+        className={cn('grid cursor-pointer items-center gap-3 px-4 py-3 md:gap-4')}
         style={{
           gridTemplateColumns:
             'auto auto minmax(0, 200px) minmax(0, 130px) minmax(0, 1fr) auto auto',
@@ -166,7 +166,7 @@ export function WordRow({
         </button>
 
         {/* 3. 영단어 + Memory dot + POS */}
-        <div className="flex min-w-0 items-baseline gap-1.5">
+        <div className="flex min-w-0 items-baseline gap-2">
           <span
             onClick={stopBubble}
             className={cn(
@@ -214,7 +214,7 @@ export function WordRow({
 
         {/* 6. 마스터 5점 dot */}
         <div
-          className="flex shrink-0 items-center gap-[3px]"
+          className="flex shrink-0 items-center gap-[4px]"
           title={`마스터 ${word.mastery}/5`}
           aria-label={`마스터 ${word.mastery} of 5`}
         >
@@ -237,7 +237,7 @@ export function WordRow({
         {/* 7. 레벨 칩 */}
         <span
           className={cn(
-            'shrink-0 rounded-[3px] px-1.5 py-px font-mono text-[10px] font-[700] tracking-wide',
+            'shrink-0 rounded-[3px] px-2 py-px font-mono text-[10px] font-[700] tracking-wide',
             `bg-level-${word.levelClass}-light text-level-${word.levelClass}`
           )}
         >

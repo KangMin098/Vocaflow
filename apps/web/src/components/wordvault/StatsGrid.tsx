@@ -58,7 +58,7 @@ function StatCard({ icon: Icon, iconColor, trend, value, unit, label }: StatCard
         >
           <Icon size={14} />
         </div>
-        <span className="bg-learn-known-light text-learn-known rounded px-s-2 py-[2px] font-mono text-[11px] font-bold tabular-nums">
+        <span className="bg-learn-known-light text-learn-known rounded px-s-2 py-[4px] font-mono text-[11px] font-bold tabular-nums">
           {trend}
         </span>
       </div>

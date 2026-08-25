@@ -40,7 +40,7 @@ export default async function LibraryScriptsPage() {
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
         <header className="flex flex-col gap-3 px-1">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-3">
             <span
               aria-hidden
               className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm bg-[var(--p)] text-white"

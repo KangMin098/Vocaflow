@@ -77,7 +77,7 @@ export function FindAndMore() {
             className="h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] pl-10 pr-14 font-body text-[14px] text-[var(--t1)] placeholder:text-[var(--t2)] transition-colors duration-[var(--dur-normal)] focus:border-[var(--p)] focus:bg-[var(--bg)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
           />
           <kbd
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--t2)]"
+            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-mono text-[10px] font-[600] text-[var(--t2)]"
             aria-hidden="true"
           >
             Enter
@@ -89,7 +89,7 @@ export function FindAndMore() {
       <div className="flex flex-wrap items-center gap-2">
         <Link
           href="/wordvault?view=browse"
-          className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+          className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
         >
           전체 둘러보기
           <ArrowRight size={12} aria-hidden="true" />
@@ -99,7 +99,7 @@ export function FindAndMore() {
           aria-disabled="true"
           tabIndex={-1}
           title="Phase 2 — 단어 다중 선택 후 태그·이동·삭제"
-          className="inline-flex min-h-[36px] cursor-not-allowed items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] opacity-50"
+          className="inline-flex min-h-[36px] cursor-not-allowed items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] opacity-50"
         >
           <Layers size={12} aria-hidden="true" />
           일괄 작업 (Phase 2)

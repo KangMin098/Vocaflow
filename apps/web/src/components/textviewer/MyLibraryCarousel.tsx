@@ -312,7 +312,7 @@ export function MyLibraryCarousel({
         // ⚠️ 넘친다는 사실을 알린다 — 없으면 네 번째 탭(Textbooks)이 **9px** 만 보인다.
         //    모바일에는 사이드바가 없어서 그 탭이 교재로 가는 유일한 통로다(실측 2026-08-22).
         data-scroll-hint={hint === 'none' ? undefined : hint}
-        className="flex max-w-full items-center gap-1.5 overflow-x-auto rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden data-[scroll-hint=both]:[mask-image:linear-gradient(to_right,transparent,black_20px,black_calc(100%-20px),transparent)] data-[scroll-hint=end]:[mask-image:linear-gradient(to_right,black_calc(100%-20px),transparent)] data-[scroll-hint=start]:[mask-image:linear-gradient(to_right,transparent,black_20px)]"
+        className="flex max-w-full items-center gap-2 overflow-x-auto rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden data-[scroll-hint=both]:[mask-image:linear-gradient(to_right,transparent,black_20px,black_calc(100%-20px),transparent)] data-[scroll-hint=end]:[mask-image:linear-gradient(to_right,black_calc(100%-20px),transparent)] data-[scroll-hint=start]:[mask-image:linear-gradient(to_right,transparent,black_20px)]"
       >
         {tabs.map((t) => {
           const isActive = t.key === tab
@@ -326,7 +326,7 @@ export function MyLibraryCarousel({
               onClick={() => selectTab(t.key)}
               // 0권이어도 Textbooks 탭은 눌려야 한다 — 그 면이 서가로 가는 통로다.
               disabled={t.count === 0 && t.key !== 'textbooks'}
-              className={`inline-flex min-h-[44px] shrink-0 items-center gap-1 whitespace-nowrap rounded-[var(--r-full)] px-2.5 font-display text-[12.5px] font-[700] transition-all disabled:cursor-not-allowed disabled:opacity-40 sm:gap-1.5 sm:px-3.5 sm:text-[13px] ${
+              className={`inline-flex min-h-[44px] shrink-0 items-center gap-1 whitespace-nowrap rounded-[var(--r-full)] px-3 font-display text-[12.5px] font-[700] transition-all disabled:cursor-not-allowed disabled:opacity-40 sm:gap-2 sm:px-4 sm:text-[13px] ${
                 isActive
                   ? 'text-white shadow-[var(--sh-sm)]'
                   : 'text-[var(--t2)] hover:bg-[var(--bg)]'
@@ -337,7 +337,7 @@ export function MyLibraryCarousel({
               <Icon size={13} aria-hidden className="hidden sm:block" />
               {t.label}
               <span
-                className={`rounded-[var(--r-full)] px-1.5 text-[10px] tabular-nums ${
+                className={`rounded-[var(--r-full)] px-2 text-[10px] tabular-nums ${
                   isActive ? 'bg-black/25' : 'bg-[var(--bg3)] text-[var(--t2)]'
                 }`}
               >
@@ -516,7 +516,7 @@ function BookCard({
         {item.progressPercent > 0 && (
           <span
             aria-hidden
-            className="absolute right-3.5 top-3.5 inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-0.5 font-mono text-[10.5px] font-[700] text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
+            className="absolute right-3.5 top-3.5 inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-1 font-mono text-[10.5px] font-[700] text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
           >
             {item.progressPercent}%
           </span>
@@ -524,7 +524,7 @@ function BookCard({
         {/* CEFR 좌상단 */}
         <span
           aria-hidden
-          className="absolute left-3.5 top-3.5 inline-flex items-center rounded-[3px] bg-black/55 px-2 py-0.5 font-mono text-[10.5px] font-[700] text-white backdrop-blur-sm"
+          className="absolute left-3.5 top-3.5 inline-flex items-center rounded-[3px] bg-black/55 px-2 py-1 font-mono text-[10.5px] font-[700] text-white backdrop-blur-sm"
         >
           {item.cefrLevel}
         </span>
@@ -787,7 +787,7 @@ function HeroInfo({
       <p className="font-body text-[13px] text-[var(--t2)]">{subtitle}</p>
       <Link
         href={href}
-        className="mt-2 inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
+        className="mt-2 inline-flex min-h-11 items-center gap-2 rounded-[var(--r-md)] px-5 py-3 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
         style={{ backgroundColor: accent }}
       >
         {cta}

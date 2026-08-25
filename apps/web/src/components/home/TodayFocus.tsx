@@ -54,7 +54,7 @@ export function TodayFocus({ word }: { word: TasteWord | null }) {
             {word.word}
           </h2>
 
-          <p className="mt-2 flex flex-wrap items-center gap-x-2.5 font-mono text-[11px] tabular-nums text-[var(--t3)]">
+          <p className="mt-2 flex flex-wrap items-center gap-x-3 font-mono text-[11px] tabular-nums text-[var(--t3)]">
             {word.cefr && <span>{word.cefr}</span>}
             {word.rank !== null && <span>· 자주 쓰는 순 {word.rank.toLocaleString()}위</span>}
           </p>

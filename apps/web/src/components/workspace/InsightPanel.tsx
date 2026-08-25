@@ -109,7 +109,7 @@ export function InsightPanel({
 
           {/* Bookmarks */}
           <section className="mb-8">
-            <h3 className="mb-3 flex items-center gap-1.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+            <h3 className="mb-3 flex items-center gap-2 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               <Bookmark size={11} fill="currentColor" strokeWidth={0} aria-hidden="true" />
               북마크 ({bookmarks.length})
             </h3>
@@ -123,7 +123,7 @@ export function InsightPanel({
                 {bookmarks.map((b) => (
                   <button
                     key={b.id}
-                    className="flex items-center gap-3 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-2.5 text-left transition-all duration-[var(--dur-normal)] hover:translate-x-0.5 hover:bg-[var(--bg3)]"
+                    className="flex items-center gap-3 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-3 text-left transition-all duration-[var(--dur-normal)] hover:translate-x-0.5 hover:bg-[var(--bg3)]"
                   >
                     <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--active-light)] text-[var(--active)]">
                       <Bookmark size={13} fill="currentColor" strokeWidth={0} aria-hidden="true" />
@@ -144,7 +144,7 @@ export function InsightPanel({
 
           {/* Memory Decay */}
           <section>
-            <h3 className="mb-3 flex items-center gap-1.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+            <h3 className="mb-3 flex items-center gap-2 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               <Layers size={11} strokeWidth={2} aria-hidden="true" />
               기억 상태
             </h3>

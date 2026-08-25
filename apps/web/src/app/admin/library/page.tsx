@@ -188,7 +188,7 @@ export default function AdminLibraryPage() {
         title="콘텐츠 관리"
         description="스크립트 CRUD · 카테고리 · 큐레이션"
         actions={
-          <button className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[#8B5CF6] px-3 py-2 font-display text-[12px] font-[600] text-white shadow-[var(--sh-sm)] hover:bg-[#7C3AED]">
+          <button className="inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-3 py-2 font-display text-[12px] font-[600] text-white shadow-[var(--sh-sm)] hover:bg-[#7C3AED]">
             <Plus size={14} aria-hidden />
             스크립트 추가
           </button>
@@ -243,7 +243,7 @@ export default function AdminLibraryPage() {
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <span
-                      className="inline-flex items-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[700]"
+                      className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700]"
                       style={{
                         backgroundColor: `${CEFR_COLOR[c.cefr]}15`,
                         color: CEFR_COLOR[c.cefr],
@@ -252,13 +252,13 @@ export default function AdminLibraryPage() {
                       {c.cefr}
                     </span>
                     <span
-                      className="inline-flex rounded-full px-2 py-0.5 font-display text-[10px] font-[700]"
+                      className="inline-flex rounded-full px-2 py-1 font-display text-[10px] font-[700]"
                       style={{ backgroundColor: status.bg, color: status.color }}
                     >
                       {status.label}
                     </span>
                     {c.curated && (
-                      <span className="inline-flex items-center gap-0.5 rounded-full bg-[var(--warning-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--active)]">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[var(--warning-light)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--active)]">
                         <Star size={9} fill="currentColor" aria-hidden />
                         큐레이션
                       </span>

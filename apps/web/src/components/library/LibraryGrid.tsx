@@ -270,7 +270,7 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
         )}
         <div className="mt-1 flex flex-wrap items-center justify-center gap-2 font-mono text-[11px] text-[var(--t2)]">
           {(activeBook.cefr_band ?? activeBook.cefr_level) && (
-            <span className="rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">
+            <span className="rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]">
               {activeBook.cefr_band ?? activeBook.cefr_level}
             </span>
           )}
@@ -278,7 +278,7 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
             // 하드코딩 앰버(#92400E on #FBBF24/15)는 다크에서 1.87:1 이었다(2026-08-09 axe).
             // 면=tint 토큰 · 글자=ink 토큰으로 분리하면 양 테마 모두 AA.
             <span
-              className="rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[700]"
+              className="rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
               style={{ background: 'var(--ios-yellow-tint)', color: 'var(--ios-yellow-ink)' }}
             >
               V{activeBook.book_v_level}
@@ -289,7 +289,7 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
             <span>·  {Math.round(activeBook.reading_minutes / 60)}h</span>
           )}
           {activeBook.word_set_count != null && activeBook.word_set_count > 0 && (
-            <span className="inline-flex items-center gap-0.5 text-[var(--p-dark)]">
+            <span className="inline-flex items-center gap-1 text-[var(--p-dark)]">
               ·  <Sparkles size={9} aria-hidden />
               {activeBook.word_set_count}개 단어장
             </span>
@@ -302,7 +302,7 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
           if (!fit) return null
           return (
             <span
-              className="mt-1.5 inline-flex items-center gap-1.5 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11px] font-[700]"
+              className="mt-1.5 inline-flex items-center gap-2 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-[700]"
               style={{ color: fit.color, borderColor: fit.color }}
               title={`V${userVLevel} 학습자가 이 책 단어의 ${fit.coverage}% 를 이미 알아요`}
               aria-label={`나에게 ${fit.label}, 아는 단어 ${fit.coverage}퍼센트`}
@@ -341,7 +341,7 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
             <button
               type="button"
               onClick={() => openDetail(activeBook)}
-              className={`mt-3 inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] ${bg}`}
+              className={`mt-3 inline-flex min-h-11 items-center gap-2 rounded-[var(--r-md)] px-5 py-3 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97] ${bg}`}
             >
               {label}
             </button>
@@ -482,23 +482,23 @@ function CarouselBook({
       {/* CEFR + V-Level 상단 우측 */}
       <div className="absolute right-3.5 top-3.5 flex flex-col items-end gap-1">
         {(book.cefr_band ?? book.cefr_level) && (
-          <span className="inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-0.5 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
+          <span className="inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-1 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
             {book.cefr_band ?? book.cefr_level}
           </span>
         )}
         {book.book_v_level != null && (
-          <span className="inline-flex items-center rounded-[3px] bg-black/60 px-2 py-0.5 font-mono text-[10.5px] font-[700] tracking-tight text-white backdrop-blur-sm">
+          <span className="inline-flex items-center rounded-[3px] bg-black/60 px-2 py-1 font-mono text-[10.5px] font-[700] tracking-tight text-white backdrop-blur-sm">
             V{book.book_v_level}
           </span>
         )}
       </div>
 
       {/* v06.34 — 좌상단: enrollment + 단어장 indicator 스택 (위→아래) */}
-      <div className="absolute left-3 top-3 flex flex-col gap-1.5">
+      <div className="absolute left-3 top-3 flex flex-col gap-2">
         {/* 학습 상태 배지 — 가장 가시성 높은 위치 */}
         {book.enrollment_state === 'completed' && (
           <span
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--success)] px-2 py-0.5 font-display text-[10px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--success)] px-2 py-1 font-display text-[10px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
             title="완독한 도서"
             aria-label="완독한 도서"
           >
@@ -507,7 +507,7 @@ function CarouselBook({
         )}
         {book.enrollment_state === 'in_progress' && (
           <span
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-0.5 font-display text-[10px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-1 font-display text-[10px] font-[700] text-white shadow-[0_2px_6px_rgba(0,0,0,0.25)]"
             title={`학습 중 · ${book.progress_pct ?? 0}% 진행`}
             aria-label={`학습 중 ${book.progress_pct ?? 0}퍼센트 진행`}
           >
@@ -516,7 +516,7 @@ function CarouselBook({
         )}
         {book.enrollment_state === 'enrolled' && (
           <span
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--chip-cover-bg)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--chip-cover-brand)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--chip-cover-bg)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--chip-cover-brand)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
             title="라이브러리에 추가됨 — 학습 시작 대기"
             aria-label="라이브러리에 추가됨"
           >

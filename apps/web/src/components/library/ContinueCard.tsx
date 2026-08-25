@@ -43,7 +43,7 @@ export function ContinueCard({ text }: ContinueCardProps) {
         </div>
 
         {/* Info */}
-        <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
           {/* CEFR + Author */}
           <div className="flex items-center gap-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
             <CEFRBadge level={text.cefrLevel} />

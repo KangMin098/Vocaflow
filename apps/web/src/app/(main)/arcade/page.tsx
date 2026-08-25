@@ -701,16 +701,16 @@ const ARC_CSS = `
     text-shadow: 0 2px 30px rgba(0,0,0,.4); }
   .arc-sub { margin: 16px 0 0; max-width: 48ch; font-size: clamp(14px, 1.4vw, 16px); line-height: 1.6; color: rgba(240,234,224,.55); word-break: keep-all; }
 
-  .arc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(14px, 3vw, 30px); margin: 0 0 clamp(14px, 2.5vh, 20px); padding: 14px 18px; border-radius: 16px;
+  .arc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(14px, 3vw, 30px); margin: 0 0 clamp(14px, 2.5vh, 20px); padding: 16px 20px; border-radius: 16px;
     background: linear-gradient(150deg, rgba(255,255,255,.07), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.12); }
   .arc-meta--ghost { min-height: 66px; }
   .arc-meta-item { display: flex; flex-direction: column; gap: 4px; }
-  .arc-meta-num { font-size: 21px; font-weight: 800; color: #FBF3EC; font-variant-numeric: tabular-nums; letter-spacing: -.01em; display: inline-flex; align-items: baseline; gap: 5px; }
+  .arc-meta-num { font-size: 21px; font-weight: 800; color: #FBF3EC; font-variant-numeric: tabular-nums; letter-spacing: -.01em; display: inline-flex; align-items: baseline; gap: 4px; }
   .arc-meta-flame { font-size: 17px; }
-  .arc-meta-lbl { font-family: var(--font-english, ui-monospace, monospace); font-size: 9.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: rgba(240,234,224,.55); display: flex; flex-direction: column; gap: 5px; }
+  .arc-meta-lbl { font-family: var(--font-english, ui-monospace, monospace); font-size: 9.5px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: rgba(240,234,224,.55); display: flex; flex-direction: column; gap: 4px; }
   .arc-meta-level { min-width: 128px; }
   .arc-meta-goal { min-width: 158px; margin-left: auto; }
-  .arc-meta-rank { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 14px; border-radius: 999px; text-decoration: none;
+  .arc-meta-rank { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; text-decoration: none;
     font-family: var(--font-display, system-ui, sans-serif); font-size: 12px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap;
     color: rgba(240,234,224,.7); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);
     transition: color .15s var(--ease, ease), background-color .15s var(--ease, ease), border-color .15s var(--ease, ease), transform .12s var(--ease, ease); }
@@ -718,7 +718,7 @@ const ARC_CSS = `
   .arc-meta-rank:active { transform: scale(.97); }
   .arc-meta-rank:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,225,200,.45); }
   @media (prefers-reduced-motion: reduce) { .arc-meta-rank { transition: none; } }
-  .arc-meta-music { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 14px; border-radius: 999px; cursor: pointer;
+  .arc-meta-music { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; cursor: pointer;
     font-family: var(--font-display, system-ui, sans-serif); font-size: 12px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap;
     color: rgba(240,234,224,.7); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);
     transition: color .15s var(--ease, ease), background-color .15s var(--ease, ease), border-color .15s var(--ease, ease), transform .12s var(--ease, ease); }
@@ -736,14 +736,14 @@ const ARC_CSS = `
 
   /* ── Lab Index — 구역 목차 ── */
   .arc-index { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 clamp(20px, 3.5vh, 30px); }
-  .arc-index-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px;
+  .arc-index-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px;
     text-decoration: none; color: rgba(240,234,224,.7); background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.13);
     transition: background-color .15s var(--ease, ease), color .15s var(--ease, ease), border-color .15s var(--ease, ease); }
   .arc-index-link:hover { color: #FBF3EC; background: rgba(255,255,255,.11); border-color: rgba(255,255,255,.28); }
   .arc-index-link:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255,225,200,.45); }
   .arc-index-name { font-size: 12.5px; font-weight: 700; letter-spacing: -.01em; }
   .arc-index-num { font-family: var(--font-english, ui-monospace, monospace); font-size: 10.5px; font-weight: 800; font-variant-numeric: tabular-nums;
-    color: rgba(240,234,224,.55); background: rgba(0,0,0,.3); border-radius: 999px; padding: 2px 7px; }
+    color: rgba(240,234,224,.55); background: rgba(0,0,0,.3); border-radius: 999px; padding: 4px 8px; }
 
   /* ── ① Today's Experiment ── */
   .arc-daily { margin: 0 0 clamp(30px, 5vh, 46px); scroll-margin-top: 20px; }
@@ -769,12 +769,12 @@ const ARC_CSS = `
     color: var(--m-accent); background: rgba(255,255,255,.08); border: 1px solid rgba(212,168,86,.28);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.26), 0 6px 18px -6px rgba(0,0,0,.45); }
   .arc-daily-mark svg { width: 36px; height: 36px; filter: drop-shadow(0 0 8px var(--m-glow)); }
-  .arc-daily-body { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 2px; }
+  .arc-daily-body { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 4px; }
   .arc-daily-eyebrow { font-family: var(--font-english, ui-monospace, monospace); font-size: 10.5px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: #D4A856; }
   .arc-daily-name { margin: 3px 0 0; font-size: clamp(22px, 3vw, 27px); font-weight: 800; letter-spacing: -.01em; color: #fff; text-shadow: 0 1px 14px rgba(0,0,0,.3); }
   .arc-daily-tag { margin-top: 4px; font-size: 13.5px; line-height: 1.45; color: rgba(255,255,255,.85); word-break: keep-all; }
   .arc-daily-meta { margin-top: 9px; font-size: 11.5px; font-weight: 700; letter-spacing: .01em; color: #E7C182; }
-  .arc-daily-cta { flex-shrink: 0; display: inline-flex; align-items: center; gap: 7px; padding: 11px 20px; border-radius: 999px;
+  .arc-daily-cta { flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px;
     font-size: 14px; font-weight: 800; color: #17110A; background: linear-gradient(180deg,#E6C275,#C9A055);
     box-shadow: 0 8px 22px -8px rgba(0,0,0,.5); }
   .arc-daily-card:hover .arc-daily-cta { background: linear-gradient(180deg,#F0D08A,#D4A856); }
@@ -786,11 +786,11 @@ const ARC_CSS = `
 
   /* ── ②③④ 구역 ── */
   .arc-sec { margin: 0 0 clamp(32px, 5.5vh, 52px); scroll-margin-top: 20px; }
-  .arc-sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; }
+  .arc-sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
   .arc-sec-eyebrow { margin: 0; font-family: var(--font-english, ui-monospace, monospace); font-size: 10px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; color: rgba(240,234,224,.4); }
-  .arc-sec-title { display: flex; align-items: center; gap: 9px; margin: 5px 0 0; font-size: clamp(19px, 2.4vw, 23px); font-weight: 800; letter-spacing: -.01em; color: #FBF3EC; }
-  .arc-sec-count { font-family: var(--font-english, ui-monospace, monospace); font-size: 11px; font-weight: 800; color: rgba(240,234,224,.55); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 3px 9px; font-variant-numeric: tabular-nums; }
-  .arc-sec-badge { flex-shrink: 0; font-size: 11px; font-weight: 800; letter-spacing: .02em; padding: 6px 12px; border-radius: 999px; border: 1px solid transparent; }
+  .arc-sec-title { display: flex; align-items: center; gap: 8px; margin: 5px 0 0; font-size: clamp(19px, 2.4vw, 23px); font-weight: 800; letter-spacing: -.01em; color: #FBF3EC; }
+  .arc-sec-count { font-family: var(--font-english, ui-monospace, monospace); font-size: 11px; font-weight: 800; color: rgba(240,234,224,.55); background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: 4px 8px; font-variant-numeric: tabular-nums; }
+  .arc-sec-badge { flex-shrink: 0; font-size: 11px; font-weight: 800; letter-spacing: .02em; padding: 8px 12px; border-radius: 999px; border: 1px solid transparent; }
   .arc-sec-badge[data-tone="live"] { color: #E6C275; background: rgba(176,132,58,.16); border-color: rgba(212,168,86,.36); }
   .arc-sec-badge[data-tone="muted"] { color: rgba(240,234,224,.7); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.14); }
   .arc-sec-desc { margin: 10px 0 18px; max-width: 68ch; font-size: 12.5px; line-height: 1.65; color: rgba(240,234,224,.55); word-break: keep-all; }
@@ -811,7 +811,7 @@ const ARC_CSS = `
   /* 카드 = 공통 잉크 베이스 + 게임 무드 24% 틴트. 색은 장식이 아니라 식별 신호. */
   .arc-card {
     position: relative; overflow: hidden; isolation: isolate;
-    display: flex; flex-direction: column; gap: 14px; min-height: 208px; padding: 22px 22px 18px;
+    display: flex; flex-direction: column; gap: 16px; min-height: 208px; padding: 24px 24px 20px;
     border-radius: 20px; text-decoration: none; color: #F2ECE3;
     background:
       linear-gradient(158deg, color-mix(in srgb, var(--m-a) 24%, #171310) 0%, #131009 62%, #14171E 100%);
@@ -834,20 +834,20 @@ const ARC_CSS = `
 
   /* 우상단 44px 은 브리핑 트리거 자리 — 칩이 그 아래로 흐르지 않게 확보한다. */
   .arc-card-top { display: flex; align-items: flex-start; gap: 8px; padding-right: 44px; }
-  .arc-chips { display: flex; flex-wrap: wrap; gap: 5px; padding-top: 4px; }
+  .arc-chips { display: flex; flex-wrap: wrap; gap: 4px; padding-top: 4px; }
   .arc-mark { width: 42px; height: 42px; flex: none; display: grid; place-items: center; border-radius: 12px;
     color: var(--m-accent); background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 4px 14px -4px rgba(0,0,0,.4); }
   .arc-mark svg { width: 26px; height: 26px; filter: drop-shadow(0 0 6px var(--m-glow)); }
   .arc-chip { font-family: var(--font-english, ui-monospace, monospace); font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
-    color: rgba(240,234,224,.85); background: rgba(0,0,0,.28); padding: 5px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(4px); }
+    color: rgba(240,234,224,.85); background: rgba(0,0,0,.28); padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(4px); }
   .arc-chip--3d { color: #EAF6FF; background: rgba(120,190,255,.24); border-color: rgba(180,220,255,.36); }
   .arc-chip--beta { color: #FFE7C2; background: rgba(255,180,110,.22); border-color: rgba(255,200,150,.36); }
   .arc-chip--modes { color: var(--m-accent); background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.3); }
 
   /* 브리핑 트리거 */
   .arc-brief { position: absolute; top: 14px; right: 14px; z-index: 2;
-    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     width: 44px; height: 44px; border-radius: 999px; cursor: pointer; font: inherit;
     color: rgba(240,234,224,.7); background: rgba(10,8,6,.5); border: 1px solid rgba(255,255,255,.16);
     backdrop-filter: blur(4px);
@@ -878,17 +878,17 @@ const ARC_CSS = `
   .arc-name { margin: 0; font-size: 21px; font-weight: 800; letter-spacing: -.01em; color: #fff; text-shadow: 0 1px 12px rgba(0,0,0,.28); }
   .arc-tag { margin: 5px 0 0; font-size: 13px; line-height: 1.4; color: rgba(255,255,255,.85); word-break: keep-all; }
 
-  .arc-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 14px; margin-top: 4px; border-top: 1px solid rgba(255,255,255,.14); }
-  .arc-ref { display: inline-flex; align-items: center; gap: 7px; min-width: 0; font-size: 11px; letter-spacing: .01em; color: rgba(255,255,255,.55); }
+  .arc-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; margin-top: 4px; border-top: 1px solid rgba(255,255,255,.14); }
+  .arc-ref { display: inline-flex; align-items: center; gap: 8px; min-width: 0; font-size: 11px; letter-spacing: .01em; color: rgba(255,255,255,.55); }
   .arc-code { font-family: var(--font-english, ui-monospace, monospace); font-size: 10px; font-weight: 800; letter-spacing: .1em;
-    color: var(--m-accent); background: rgba(0,0,0,.34); border: 1px solid rgba(255,255,255,.14); border-radius: 6px; padding: 2px 6px; }
-  .arc-play { flex: none; display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-english, ui-monospace, monospace); font-size: 12px; font-weight: 800; letter-spacing: .04em; color: #fff; }
+    color: var(--m-accent); background: rgba(0,0,0,.34); border: 1px solid rgba(255,255,255,.14); border-radius: 6px; padding: 4px 8px; }
+  .arc-play { flex: none; display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-english, ui-monospace, monospace); font-size: 12px; font-weight: 800; letter-spacing: .04em; color: #fff; }
   .arc-arrow { display: inline-block; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
   .arc-slot:hover .arc-arrow, .arc-daily-card:hover .arc-arrow { transform: translateX(4px); }
 
   .arc-note { margin: clamp(20px, 4vh, 34px) 0 0; font-size: 12.5px; line-height: 1.6; color: rgba(240,234,224,.55); max-width: 68ch; word-break: keep-all; }
   /* 자료 스코프 배너 — 도서/스크립트/단어장에서 들어왔을 때만. gold 액센트는 여기 한 곳. */
-  .arc-scope { display: flex; align-items: center; gap: 11px; padding: 12px 16px; margin-bottom: clamp(20px, 3.5vh, 30px); border-radius: 14px;
+  .arc-scope { display: flex; align-items: center; gap: 12px; padding: 12px 16px; margin-bottom: clamp(20px, 3.5vh, 30px); border-radius: 14px;
     border: 1px solid rgba(212,168,86,.34); background: linear-gradient(140deg, rgba(212,168,86,.14), rgba(212,168,86,.05));
     box-shadow: inset 0 1px 0 rgba(255,255,255,.08); color: #F4EADB; }
   .arc-scope-mark { display: grid; place-items: center; width: 28px; height: 28px; flex: none; border-radius: 9px;
@@ -898,7 +898,7 @@ const ARC_CSS = `
   .arc-scope-text strong { font-weight: 800; color: #FFF3DF; }
   .arc-scope-ch { color: #E7C182; font-weight: 700; }
   .arc-scope-sub { color: rgba(240,234,224,.7); }
-  .arc-scope-clear { flex: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 14px;
+  .arc-scope-clear { flex: none; min-height: 44px; display: inline-flex; align-items: center; padding: 0 16px;
     border-radius: 999px; border: 1px solid rgba(255,255,255,.18); color: rgba(240,234,224,.85);
     font-size: 12.5px; font-weight: 700; text-decoration: none; transition: background .15s, color .15s, border-color .15s, transform .12s; }
   .arc-scope-clear:hover { background: rgba(255,255,255,.1); color: #FBF3EC; border-color: rgba(255,255,255,.3); }

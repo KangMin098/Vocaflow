@@ -149,8 +149,8 @@ export function TextbookShelf({
           className="flex flex-col gap-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-4"
         >
           {groups.map((g) => (
-            <section key={g.label} aria-label={`${g.label} 매대`} className="flex flex-col gap-2.5">
-              <h3 className="flex flex-wrap items-baseline gap-x-2.5 border-b border-[var(--bd)] pb-1.5">
+            <section key={g.label} aria-label={`${g.label} 매대`} className="flex flex-col gap-3">
+              <h3 className="flex flex-wrap items-baseline gap-x-3 border-b border-[var(--bd)] pb-2">
                 <span className="font-editorial text-[19px] font-[500] leading-none text-[var(--t1)]">
                   {g.label}
                 </span>
@@ -222,20 +222,20 @@ function VolumeRow({
         <h3 className="font-editorial text-[19px] font-[500] leading-snug text-[var(--t1)] md:text-[21px]">
           {v.title}
         </h3>
-        <p className="mt-1 flex flex-wrap items-center gap-x-2.5 font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
+        <p className="mt-1 flex flex-wrap items-center gap-x-3 font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
           <span>{v.schoolBand}</span>
           <span>· V{v.vLevels.join('·V')}</span>
           <span>· 문항 {v.itemCount.toLocaleString()}</span>
         </p>
 
         {/* 수록 유형 — 서점 교재의 "구성" 란에 해당한다 */}
-        <ul className="mt-2.5 flex flex-wrap gap-1.5">
+        <ul className="mt-2.5 flex flex-wrap gap-2">
           {v.types.map((t) => {
             const missing = v.emptyTypes.includes(t)
             return (
               <li
                 key={t}
-                className={`inline-flex items-center gap-1 rounded-[var(--r-full)] px-2.5 py-1 font-display text-[11px] font-[700] ${
+                className={`inline-flex items-center gap-1 rounded-[var(--r-full)] px-3 py-1 font-display text-[11px] font-[700] ${
                   missing
                     ? 'bg-[var(--bg3)] text-[var(--t2)] line-through'
                     : 'bg-[var(--p-light)] text-[var(--on-p-tint)]'
@@ -276,13 +276,13 @@ function VolumeRow({
           <Link
             href={`/library/textbooks/${v.step}`}
             aria-label={`${v.title} 펼쳐 보기`}
-            className="group inline-flex min-h-[44px] items-center gap-1.5 rounded-ios-pill bg-[var(--p)] px-4 font-display text-[12.5px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+            className="group inline-flex min-h-[44px] items-center gap-2 rounded-ios-pill bg-[var(--p)] px-4 font-display text-[12.5px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           >
             <BookOpen size={14} aria-hidden />
             {STATUS_LABEL[v.status]}
           </Link>
         ) : (
-          <span className="inline-flex min-h-[44px] items-center gap-1.5 rounded-ios-pill border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12.5px] font-[700] text-[var(--t2)]">
+          <span className="inline-flex min-h-[44px] items-center gap-2 rounded-ios-pill border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12.5px] font-[700] text-[var(--t2)]">
             <Layers size={14} aria-hidden />
             {STATUS_LABEL[v.status]}
           </span>
@@ -315,9 +315,9 @@ function FilterBar({
   const active = selectionCount(sel)
 
   return (
-    <div className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3.5">
+    <div className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-4">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t2)]">
+        <span className="inline-flex items-center gap-2 font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t2)]">
           <SlidersHorizontal size={12} aria-hidden />
           찾기
         </span>
@@ -343,7 +343,7 @@ function FilterBar({
           key={axis}
           role="group"
           aria-label={AXIS_LABEL[axis]}
-          className="flex flex-wrap items-baseline gap-x-2 gap-y-1.5"
+          className="flex flex-wrap items-baseline gap-x-2 gap-y-2"
         >
           <span aria-hidden className="min-w-[34px] font-display text-[11px] font-[700] text-[var(--t2)]">
             {AXIS_LABEL[axis]}

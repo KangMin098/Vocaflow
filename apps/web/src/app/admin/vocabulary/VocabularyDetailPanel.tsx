@@ -71,7 +71,7 @@ export function VocabularyDetailPanel({ detail, onClose }: VocabularyDetailPanel
 
       {/* ── Sanity Issues ── */}
       {issues.length > 0 ? (
-        <section aria-label="sanity issues" className="flex flex-col gap-1.5">
+        <section aria-label="sanity issues" className="flex flex-col gap-2">
           <h3 className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
             Sanity Check ({issues.length})
           </h3>
@@ -256,7 +256,7 @@ export function VocabularyDetailPanel({ detail, onClose }: VocabularyDetailPanel
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="flex flex-col gap-1.5 border-t border-[var(--bd)] pt-3">
+    <section className="flex flex-col gap-2 border-t border-[var(--bd)] pt-3">
       <h3 className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
         {title}
       </h3>
@@ -277,7 +277,7 @@ function KvRow({
   multiline?: boolean
 }) {
   return (
-    <div className="grid grid-cols-[110px_minmax(0,1fr)] gap-2 py-0.5">
+    <div className="grid grid-cols-[110px_minmax(0,1fr)] gap-2 py-1">
       <span className="font-mono text-[10px] text-[var(--t2)]">{k}</span>
       {v == null || v === '' ? (
         <Empty />

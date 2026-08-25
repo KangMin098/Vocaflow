@@ -81,7 +81,7 @@ export function ActivityTrace({
             연속을 기록으로 만들면 끊기는 날이 실패가 된다(streak 불안). */}
         {streak > 0 && (
           <span
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--bg2)] px-2.5 py-1 font-display text-[11px] font-[700] text-[var(--t1)]"
+            className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--bg2)] px-3 py-1 font-display text-[11px] font-[700] text-[var(--t1)]"
             aria-label={`${streak}일 연속 학습 중`}
           >
             <Flame size={11} strokeWidth={2.5} className="text-[var(--active)]" aria-hidden />
@@ -159,7 +159,7 @@ export function ActivityTrace({
 
       {/* 분(minutes)은 없다 — 위 주석 참조. 실제로 세는 것만 인쇄한다.
           `8/28일` 로 쓰면 8월 28일로 읽힌다(실측 라운드 1에서 그렇게 읽혔다). */}
-      <dl className="mt-4 flex items-center gap-1 border-t border-[var(--bd)] pt-3.5">
+      <dl className="mt-4 flex items-center gap-1 border-t border-[var(--bd)] pt-4">
         <Stat label="학습일" value={`${days.length}일 중 ${activeDays}일`} />
         <Divider />
         <Stat label="리뷰" value={`${totalReviews.toLocaleString()}건`} />
@@ -171,10 +171,10 @@ export function ActivityTrace({
           점수가 아니라 성향이라 어떤 값이 나와도 학습자를 탓하지 않는다. 빈 카드 아래쪽을
           메우려고 넣은 것이 아니라, 4주치를 요일로 접었을 때만 보이는 것이 실제로 있다. */}
       {bestWeekday >= 0 && (
-        <div className="mt-auto border-t border-[var(--bd)] pt-3.5">
-          <div className="flex items-end gap-1.5">
+        <div className="mt-auto border-t border-[var(--bd)] pt-4">
+          <div className="flex items-end gap-2">
             {WEEKDAYS.map((label, i) => (
-              <div key={label} className="flex min-w-0 flex-1 flex-col items-center gap-1.5">
+              <div key={label} className="flex min-w-0 flex-1 flex-col items-center gap-2">
                 <span
                   aria-hidden
                   className="w-full rounded-[var(--r-sm)]"

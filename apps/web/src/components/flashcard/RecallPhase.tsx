@@ -16,7 +16,7 @@ export function RecallPhase({ visible, progress, label }: RecallPhaseProps) {
       className={`mb-6 flex h-8 w-full flex-col items-center justify-center transition-opacity duration-[var(--dur-slow)] ease-[var(--ease)] ${visible ? 'opacity-100' : 'pointer-events-none opacity-0'} `}
       aria-live="polite"
     >
-      <p className="mb-1.5 flex items-center gap-1.5 font-display text-[11px] font-[600] uppercase tracking-[0.10em] text-[var(--p)]">
+      <p className="mb-1.5 flex items-center gap-2 font-display text-[11px] font-[600] uppercase tracking-[0.10em] text-[var(--p)]">
         <Brain size={11} strokeWidth={2} aria-hidden="true" />
         <span>{label}</span>
       </p>

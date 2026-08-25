@@ -111,7 +111,7 @@ export function QualityBars({
       <div
         className={
           compact
-            ? 'grid grid-cols-2 gap-x-3 gap-y-1.5'
+            ? 'grid grid-cols-2 gap-x-3 gap-y-2'
             : 'space-y-1.5'
         }
         role="group"
@@ -179,7 +179,7 @@ function CompositeScore({ score }: { score: number }) {
 
   return (
     <div
-      className="flex items-center gap-1.5"
+      className="flex items-center gap-2"
       aria-label={`종합 점수 ${display} / 5.0`}
     >
       <span

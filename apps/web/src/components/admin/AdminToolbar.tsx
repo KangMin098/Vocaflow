@@ -51,13 +51,13 @@ export function AdminToolbar({
 
       {/* 필터 칩 */}
       {chips && chips.length > 0 && (
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <Filter size={13} className="text-[var(--t2)]" aria-hidden />
           {chips.map((c, i) => (
             <button
               key={i}
               onClick={c.onClick}
-              className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 font-display text-[11px] font-[600] transition-colors duration-[var(--dur-normal)] ${
+              className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 font-display text-[11px] font-[600] transition-colors duration-[var(--dur-normal)] ${
                 c.active
                   ? 'border-[#8B5CF6] bg-[#8B5CF6]/10 text-[#8B5CF6]'
                   : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[#8B5CF6]/40 hover:text-[#8B5CF6]'

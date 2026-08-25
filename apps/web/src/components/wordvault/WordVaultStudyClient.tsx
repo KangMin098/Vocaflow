@@ -42,7 +42,7 @@ export function WordVaultStudyClient({ words, mode = 'study' }: WordVaultStudyCl
         </p>
         <Link
           href="/wordvault/browse"
-          className="rounded-md bg-bg2 px-s-5 py-s-2.5 font-display text-[13px] font-semibold text-t1 no-underline transition-colors duration-normal hover:bg-bg3"
+          className="rounded-md bg-bg2 px-s-5 py-s-3 font-display text-[13px] font-semibold text-t1 no-underline transition-colors duration-normal hover:bg-bg3"
         >
           단어 둘러보기 →
         </Link>

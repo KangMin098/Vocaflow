@@ -67,7 +67,7 @@ export function InsetRow({
               </span>
             )}
             {progress && progress.total > 0 && (
-              <span className="shrink-0 rounded-ios-pill bg-[var(--bg2)] px-2 py-0.5 font-mono text-[10px] tabular-nums text-[var(--t2)]">
+              <span className="shrink-0 rounded-ios-pill bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] tabular-nums text-[var(--t2)]">
                 {progress.done}/{progress.total}
                 {progress.unit ?? ''}
               </span>

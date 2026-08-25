@@ -78,7 +78,7 @@ export function MyTextsGrid({ texts }: MyTextsGridProps) {
       </header>
 
       {/* Filter chips */}
-      <div className="mb-4 flex flex-wrap gap-1.5" role="tablist" aria-label="레벨 필터">
+      <div className="mb-4 flex flex-wrap gap-2" role="tablist" aria-label="레벨 필터">
         {CEFR_LEVELS.map((level) => {
           const active = filter === level
           const count =

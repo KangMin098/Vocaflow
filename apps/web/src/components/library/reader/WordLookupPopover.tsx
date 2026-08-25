@@ -132,7 +132,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
       style={{ left, top, bottom, width: POPOVER_W }}
     >
       {/* header — 단어 + 발음 + 닫기 */}
-      <div className="flex items-center gap-2 border-b border-[var(--bd)] px-3.5 py-2.5">
+      <div className="flex items-center gap-2 border-b border-[var(--bd)] px-4 py-3">
         <span className="min-w-0 flex-1 truncate font-english text-[18px] font-[600] text-[var(--t1)]">
           {headWord}
         </span>
@@ -155,7 +155,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
       </div>
 
       {/* body */}
-      <div className="px-3.5 py-3">
+      <div className="px-4 py-3">
         {loading ? (
           <div className="flex items-center gap-2 py-1">
             <span className="h-3.5 w-3.5 animate-pulse rounded-full bg-[var(--bg3)]" />
@@ -182,9 +182,9 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
   return (
     <div className="flex flex-col gap-2">
       {/* meta badges */}
-      <div className="flex flex-wrap items-center gap-1.5">
+      <div className="flex flex-wrap items-center gap-2">
         {foreign && (
-          <span className="inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-body text-[10px] font-[600] text-[var(--t2)]">
+          <span className="inline-flex items-center gap-1 rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-1 font-body text-[10px] font-[600] text-[var(--t2)]">
             <span aria-hidden>{foreign.flag}</span>
             {foreign.label}
           </span>
@@ -192,12 +192,12 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
         <RegisterBadge register={result.wordRegister} />
         <PosBadge pos={result.pos} />
         {result.cefrLevel && (
-          <span className="rounded-[var(--r-sm)] bg-[var(--p-light)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--on-p-tint)]">
+          <span className="rounded-[var(--r-sm)] bg-[var(--p-light)] px-2 py-1 font-mono text-[10px] font-[600] text-[var(--on-p-tint)]">
             {result.cefrLevel}
           </span>
         )}
         {result.vLevel != null && (
-          <span className="rounded-[var(--r-sm)] bg-[var(--bg3)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t2)]">
+          <span className="rounded-[var(--r-sm)] bg-[var(--bg3)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">
             V{result.vLevel}
           </span>
         )}
@@ -220,11 +220,11 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
 
       {/* 자주 함께 쓰는 표현 — 데이터 있을 때만 절제 노출(Progressive Disclosure) · 최대 3개 */}
       {result.collocations && result.collocations.length > 0 && (
-        <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
           {result.collocations.slice(0, 3).map((c) => (
             <span
               key={c}
-              className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-english text-[11px] text-[var(--t2)]"
+              className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-english text-[11px] text-[var(--t2)]"
             >
               {c}
             </span>
@@ -263,8 +263,8 @@ function SuggestionBody({ result }: { result: WordLookup }) {
       <p className="font-body text-[12px] font-[600] text-[var(--t2)]">
         🔍 사전에 정확히 없어요 — 혹시 이 단어일까요?
       </p>
-      <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-2">
-        <div className="flex items-baseline gap-1.5">
+      <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3 py-2">
+        <div className="flex items-baseline gap-2">
           <span className="font-english text-[15px] font-[600] text-[var(--t1)]">
             {result.resolvedWord}
           </span>

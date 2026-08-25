@@ -118,7 +118,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
       {/* ── 로고 ── */}
       <Link
         href="/admin"
-        className="flex h-[64px] shrink-0 items-center gap-2.5 border-b border-[var(--bd)] px-5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
+        className="flex h-[64px] shrink-0 items-center gap-3 border-b border-[var(--bd)] px-5 transition-opacity duration-[var(--dur-normal)] hover:opacity-90"
       >
         <span
           className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#A78BFA] to-[#8B5CF6] font-display text-[15px] font-[800] text-[var(--ti)] shadow-[0_1px_4px_rgba(139,92,246,0.18)]"
@@ -157,7 +157,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
         {NAV_GROUPS.map((group, idx) => (
           <div key={idx} className={idx > 0 ? 'mt-6' : 'mt-2'}>
             {group.label && (
-              <h3 className="mb-2.5 flex items-center gap-2.5 px-3">
+              <h3 className="mb-2.5 flex items-center gap-3 px-3">
                 {group.color && (
                   <span
                     className="h-1.5 w-1.5 shrink-0 rounded-full"
@@ -174,7 +174,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
                 />
               </h3>
             )}
-            <ul className="flex flex-col gap-0.5">
+            <ul className="flex flex-col gap-1">
               {group.items.map((item) => {
                 const isActive = item.href === activeHref
                 return (
@@ -182,7 +182,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
                     <Link
                       href={item.href}
                       aria-current={isActive ? 'page' : undefined}
-                      className={`group relative flex items-center gap-2.5 rounded-[var(--r-md)] py-1.5 pl-3 pr-2 font-display text-[14px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
+                      className={`group relative flex items-center gap-3 rounded-[var(--r-md)] py-2 pl-3 pr-2 font-display text-[14px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
                         isActive
                           ? 'bg-[var(--bg)] font-[600] text-[var(--t1)] shadow-[var(--sh-sm)] ring-1 ring-[var(--bd)]'
                           : 'font-[500] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] hover:shadow-[inset_0_0_0_1px_var(--bd)]'
@@ -215,7 +215,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
                       <span className="flex-1 truncate">{item.label}</span>
                       {item.badge !== undefined && item.badge > 0 && (
                         <span
-                          className="inline-flex shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[var(--error)] px-1.5 py-0.5 font-display text-[10px] font-[700] text-white"
+                          className="inline-flex shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[var(--error)] px-2 py-1 font-display text-[10px] font-[700] text-white"
                           aria-label={`미처리 ${item.badge}개`}
                         >
                           {item.badge}
@@ -234,7 +234,7 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
       <div className="shrink-0 border-t border-[var(--bd)] bg-gradient-to-b from-transparent to-[var(--bg2)] p-3">
         <Link
           href="/hub"
-          className="group flex items-center gap-2.5 rounded-[var(--r-md)] px-2.5 py-2 transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg)] hover:shadow-[var(--sh-sm)] hover:ring-1 hover:ring-[var(--bd)]"
+          className="group flex items-center gap-3 rounded-[var(--r-md)] px-3 py-2 transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg)] hover:shadow-[var(--sh-sm)] hover:ring-1 hover:ring-[var(--bd)]"
         >
           <span
             className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p-light)] group-hover:text-[var(--p)]"

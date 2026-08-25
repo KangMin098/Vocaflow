@@ -29,11 +29,11 @@ export function weeksAgo(weekStartIso: string): number {
 export function ManageSection({ overview }: { overview: ManageOverview }) {
   const undiagnosed = overview.vLevel == null
   return (
-    <section aria-label="학습 관리" className="flex flex-col gap-2.5">
+    <section aria-label="학습 관리" className="flex flex-col gap-3">
       <h2 className="font-display text-[13px] font-[800] uppercase tracking-[0.06em] text-[var(--t2)]">
         학습 관리
       </h2>
-      <div className="grid gap-2.5 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-3">
         {/* Level — 수준 미측정이면 1순위 강조(alert) */}
         <ManageCard
           icon={<Compass size={16} strokeWidth={1.75} />}

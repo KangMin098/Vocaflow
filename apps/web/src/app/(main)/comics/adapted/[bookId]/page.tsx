@@ -144,7 +144,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
         <div>
           <Link
             href="/comics/adapted"
-            className="inline-flex min-h-11 items-center gap-1.5 font-body text-[12.5px] font-[500] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
+            className="inline-flex min-h-11 items-center gap-2 font-body text-[12.5px] font-[500] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
           >
             <ArrowLeft size={14} aria-hidden /> 만화 목록
           </Link>
@@ -162,7 +162,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
             {title}
           </h1>
           {author && <p className="font-body text-[13px] text-[var(--t2)]">{author}</p>}
-          <div className="mt-1 flex flex-wrap items-center gap-1.5">
+          <div className="mt-1 flex flex-wrap items-center gap-2">
             {item.panelsTotal > 0 && <Meta>{item.panelsTotal}컷</Meta>}
             {item.vLevel != null && <Meta>V{item.vLevel}</Meta>}
             {fit && <Meta>{fit.label}</Meta>}
@@ -224,7 +224,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 px-1">
           <Link
             href={`/library/books/${bookId}?preview=1`}
-            className="inline-flex min-h-11 items-center gap-1.5 font-display text-[13px] font-[700] text-[var(--p)] transition-colors hover:text-[var(--p-dark)]"
+            className="inline-flex min-h-11 items-center gap-2 font-display text-[13px] font-[700] text-[var(--p)] transition-colors hover:text-[var(--p-dark)]"
           >
             <Layers size={14} aria-hidden /> 이 책의 단어장 보기
           </Link>
@@ -239,7 +239,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
 
 function Meta({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-0.5 font-mono text-[11px] tabular-nums text-[var(--t2)]">
+    <span className="rounded-[var(--r-full)] bg-[var(--bg)] px-2 py-1 font-mono text-[11px] tabular-nums text-[var(--t2)]">
       {children}
     </span>
   )

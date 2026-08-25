@@ -181,7 +181,7 @@ function gameName(slug: GameSlug): string {
 const PAGE_CSS = `
 .rkp{
   min-height: 100vh;
-  padding: 34px 20px 64px;
+  padding: 36px 20px 64px;
   background: radial-gradient(1200px 600px at 50% -10%, #221B33 0%, #12101A 46%, #0C0A12 100%);
   color: rgba(255,255,255,.9);
 }
@@ -194,8 +194,8 @@ const PAGE_CSS = `
 
 .rkp-periods{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:22px; }
 .rkp-period{
-  display:flex; flex-direction:column; gap:2px; min-height:56px; justify-content:center;
-  padding:8px 15px; border-radius:12px; text-decoration:none;
+  display:flex; flex-direction:column; gap:4px; min-height:56px; justify-content:center;
+  padding:8px 16px; border-radius:12px; text-decoration:none;
   border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03);
   transition: border-color .18s cubic-bezier(.2,.7,.3,1), background .18s cubic-bezier(.2,.7,.3,1);
 }
@@ -206,7 +206,7 @@ const PAGE_CSS = `
 .rkp-period-note{ font-size:11px; color: rgba(255,255,255,.42); }
 
 .rkp-gate{
-  margin:0 auto 26px; padding:16px 18px; border-radius:14px; max-width:64ch;
+  margin:0 auto 26px; padding:16px 20px; border-radius:14px; max-width:64ch;
   border:1px solid rgba(255,255,255,.10); background: rgba(255,255,255,.03);
   font-size:13px; line-height:1.7; color: rgba(255,255,255,.62);
 }
@@ -220,18 +220,18 @@ const PAGE_CSS = `
 .rkp-me-title{ margin:0 0 14px; font-size:16px; font-weight:640; }
 .rkp-me-empty{ margin:0; font-size:13px; line-height:1.7; color: rgba(255,255,255,.6); }
 
-.rkp-stats{ display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; margin-bottom:16px; }
+.rkp-stats{ display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-bottom:16px; }
 .rkp-stat{
-  display:grid; gap:3px; padding:13px 14px; border-radius:12px;
+  display:grid; gap:4px; padding:12px 16px; border-radius:12px;
   background: rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.07);
 }
 .rkp-stat-n{ font-size:21px; font-weight:660; font-variant-numeric: tabular-nums; }
 .rkp-stat-k{ font-size:11.5px; color: rgba(255,255,255,.48); }
 
-.rkp-mine{ list-style:none; margin:0; padding:0; display:grid; gap:5px; }
+.rkp-mine{ list-style:none; margin:0; padding:0; display:grid; gap:4px; }
 .rkp-mine-link{
   display:grid; grid-template-columns: minmax(0,1fr) auto; align-items:center;
-  gap:4px 12px; padding:11px 13px; border-radius:11px; text-decoration:none;
+  gap:4px 12px; padding:12px 12px; border-radius:11px; text-decoration:none;
   border:1px solid rgba(255,255,255,.07); background: rgba(255,255,255,.022);
   transition: border-color .18s cubic-bezier(.2,.7,.3,1), background .18s cubic-bezier(.2,.7,.3,1);
 }
@@ -246,7 +246,7 @@ const PAGE_CSS = `
 .rkp-more{ margin:16px 0 0; font-size:12px; color: rgba(255,255,255,.45); }
 
 @media (max-width: 560px){
-  .rkp{ padding:26px 14px 52px; }
+  .rkp{ padding:28px 16px 52px; }
   .rkp-title{ font-size:25px; }
   .rkp-stats{ grid-template-columns: 1fr; }
   .rkp-grid{ grid-template-columns: 1fr; }

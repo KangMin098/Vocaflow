@@ -145,14 +145,14 @@ export function CompletionState({
         <div className="flex justify-center gap-3">
           <button
             onClick={onRestart}
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--t1)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)]"
+            className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--t1)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)]"
           >
             <RefreshCw size={14} strokeWidth={2} aria-hidden="true" />
             <span>다시 학습</span>
           </button>
           <Link
             href={backHref}
-            className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline shadow-[0_4px_12px_rgba(59,130,246,0.25)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(59,130,246,0.35)]"
+            className="inline-flex items-center gap-2 rounded-[var(--r-md)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline shadow-[0_4px_12px_rgba(59,130,246,0.25)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(59,130,246,0.35)]"
             style={{
               background: 'linear-gradient(135deg, var(--p) 0%, var(--p-dark) 100%)',
             }}

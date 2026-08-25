@@ -382,7 +382,7 @@ export function VcbSeedFlow({
                   type="button"
                   onClick={() => setRunModel(m)}
                   disabled={status.running || isPending}
-                  className="px-3 py-1.5 text-xs font-mono disabled:opacity-50"
+                  className="px-3 py-2 text-xs font-mono disabled:opacity-50"
                   style={{
                     background: runModel === m ? 'var(--p)' : 'var(--bg)',
                     color: runModel === m ? 'var(--ti)' : 'var(--t2)',

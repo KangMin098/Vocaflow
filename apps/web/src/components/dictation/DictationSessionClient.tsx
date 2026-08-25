@@ -285,7 +285,7 @@ export function DictationSessionClient() {
         <button
           type="button"
           onClick={() => router.replace(`/dictate/results?sessionId=${sessionId}`)}
-          className={`inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
+          className={`inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
           style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
         >
           결과 보기
@@ -315,7 +315,7 @@ export function DictationSessionClient() {
         <button
           type="button"
           onClick={() => router.push('/dictate')}
-          className={`inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
+          className={`inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
           style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
         >
           받아쓰기로 돌아가기
@@ -421,7 +421,7 @@ export function DictationSessionClient() {
                 듣고 받아쓰기
               </span>
               {currentItem.reason && (
-                <span className="rounded-full bg-[var(--bg3)] px-2 py-0.5 font-body text-[10px] font-[600] text-[var(--t2)]">
+                <span className="rounded-full bg-[var(--bg3)] px-2 py-1 font-body text-[10px] font-[600] text-[var(--t2)]">
                   {REASON_LABEL[currentItem.reason] ?? currentItem.reason}
                 </span>
               )}
@@ -439,7 +439,7 @@ export function DictationSessionClient() {
               이제 해결책을 한 번 물어본다. 데이터 소모를 숨기지 않고 크기를 밝힌다. */}
           {audio.englishVoiceAvailable === false && audio.engine === 'system' && (
             <div
-              className="mb-3 rounded-[var(--r-md)] border border-[var(--warning)]/30 bg-[var(--warning-light)] px-3 py-2.5"
+              className="mb-3 rounded-[var(--r-md)] border border-[var(--warning)]/30 bg-[var(--warning-light)] px-3 py-3"
               role="status"
             >
               <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
@@ -450,7 +450,7 @@ export function DictationSessionClient() {
                 <button
                   type="button"
                   onClick={() => audio.chooseEngine('neural')}
-                  className={`mt-2 inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] ${FOCUS_RING}`}
+                  className={`mt-2 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] ${FOCUS_RING}`}
                 >
                   <Download size={12} />
                   음성 내려받아 사용하기 (약 17MB · 한 번만)
@@ -503,7 +503,7 @@ export function DictationSessionClient() {
           {/* 목소리 선택 — 기본은 시스템 음성(속도를 낮춰도 음높이가 보존된다).
               신경망 음성은 기기에 영어 음성이 없거나, 늘 같은 목소리로 듣고 싶을 때. */}
           {audio.neuralSupported && (
-            <div className="mt-3 flex items-center gap-1.5">
+            <div className="mt-3 flex items-center gap-2">
               <span className="font-body text-[11px] text-[var(--t2)]">목소리</span>
               {(
                 [
@@ -519,7 +519,7 @@ export function DictationSessionClient() {
                     audio.chooseEngine(v.id)
                   }}
                   aria-pressed={audio.engine === v.id}
-                  className={`min-h-[44px] rounded-[var(--r-sm)] border px-2.5 py-1 font-display text-[11px] font-[600] transition-colors duration-[var(--dur-normal)] ${FOCUS_RING} ${
+                  className={`min-h-[44px] rounded-[var(--r-sm)] border px-3 py-1 font-display text-[11px] font-[600] transition-colors duration-[var(--dur-normal)] ${FOCUS_RING} ${
                     audio.engine === v.id
                       ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
                       : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -537,16 +537,16 @@ export function DictationSessionClient() {
           )}
 
           <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-[var(--t2)]">
-            <kbd className="rounded bg-[var(--bg3)] px-1.5 py-0.5 font-mono">Space</kbd>
+            <kbd className="rounded bg-[var(--bg3)] px-2 py-1 font-mono">Space</kbd>
             <span>재생</span>
             <span className="opacity-50">·</span>
-            <kbd className="rounded bg-[var(--bg3)] px-1.5 py-0.5 font-mono">1-5</kbd>
+            <kbd className="rounded bg-[var(--bg3)] px-2 py-1 font-mono">1-5</kbd>
             <span>속도</span>
             <span className="opacity-50">·</span>
-            <kbd className="rounded bg-[var(--bg3)] px-1.5 py-0.5 font-mono">F</kbd>
+            <kbd className="rounded bg-[var(--bg3)] px-2 py-1 font-mono">F</kbd>
             <span>Focus</span>
             <span className="opacity-50">·</span>
-            <kbd className="rounded bg-[var(--bg3)] px-1.5 py-0.5 font-mono">Enter</kbd>
+            <kbd className="rounded bg-[var(--bg3)] px-2 py-1 font-mono">Enter</kbd>
             <span>제출</span>
           </div>
         </section>
@@ -560,7 +560,7 @@ export function DictationSessionClient() {
               </h3>
               {/* 어떤 단어인지는 알려주지 않는다 — 개수만으로 주의를 모은다 */}
               {targetCount > 0 && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-[var(--p-light)] px-2.5 py-1 font-body text-[11px] font-[600] text-[var(--on-p-tint)]">
+                <span className="inline-flex items-center gap-1 rounded-full bg-[var(--p-light)] px-3 py-1 font-body text-[11px] font-[600] text-[var(--on-p-tint)]">
                   <Sparkles size={11} />내 단어 {targetCount}개 포함
                 </span>
               )}
@@ -615,7 +615,7 @@ export function DictationSessionClient() {
                       type="button"
                       onClick={() => handleHint(stage.level)}
                       aria-pressed={activeHint === stage.level}
-                      className={`min-h-[44px] rounded-[var(--r-sm)] border px-2.5 py-1 font-display text-[11px] font-[600] transition-colors ${FOCUS_RING} ${
+                      className={`min-h-[44px] rounded-[var(--r-sm)] border px-3 py-1 font-display text-[11px] font-[600] transition-colors ${FOCUS_RING} ${
                         activeHint === stage.level
                           ? 'border-[var(--active)] bg-[var(--active-light)] text-[var(--active)]'
                           : used
@@ -635,7 +635,7 @@ export function DictationSessionClient() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={userInput.trim().length === 0}
-                className={`flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] py-2.5 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS_RING}`}
+                className={`flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] py-3 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50 ${FOCUS_RING}`}
                 style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
               >
                 제출
@@ -752,14 +752,14 @@ function FeedbackSection({
 
       {/* 타깃 단어 결과 — 이 문장이 무엇을 훈련했는지 지금 밝힌다 */}
       {(targetHits.length > 0 || targetMisses.length > 0) && (
-        <div className="mb-3 flex flex-wrap items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-2.5">
+        <div className="mb-3 flex flex-wrap items-center gap-2 rounded-[var(--r-md)] bg-[var(--bg2)] px-3 py-3">
           <span className="mr-1 font-body text-[11px] font-[600] text-[var(--t2)]">
             이 문장의 내 단어
           </span>
           {targetHits.map((w) => (
             <span
               key={`hit-${w}`}
-              className="inline-flex items-center gap-1 rounded-full bg-[var(--success-light)] px-2.5 py-1 font-english text-[12px] font-[600] text-[var(--success)]"
+              className="inline-flex items-center gap-1 rounded-full bg-[var(--success-light)] px-3 py-1 font-english text-[12px] font-[600] text-[var(--success)]"
             >
               ✓ {w}
             </span>
@@ -767,7 +767,7 @@ function FeedbackSection({
           {targetMisses.map((w) => (
             <span
               key={`miss-${w}`}
-              className="inline-flex items-center gap-1 rounded-full bg-[var(--warning-light)] px-2.5 py-1 font-english text-[12px] font-[600] text-[var(--warning)]"
+              className="inline-flex items-center gap-1 rounded-full bg-[var(--warning-light)] px-3 py-1 font-english text-[12px] font-[600] text-[var(--warning)]"
             >
               ↻ {w}
             </span>
@@ -880,12 +880,12 @@ function WordStatusLegend({ statuses }: { statuses: Set<WordResult['status']> })
   const items = WORD_STATUS_ORDER.filter((s) => statuses.has(s))
   if (items.length === 0) return null
   return (
-    <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+    <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2">
       {items.map((s) => (
-        <span key={s} className="inline-flex items-center gap-1.5">
+        <span key={s} className="inline-flex items-center gap-2">
           <span
             aria-hidden="true"
-            className={`inline-block rounded px-1.5 py-0.5 font-english text-[11px] ${WORD_STATUS_STYLES[s]}`}
+            className={`inline-block rounded px-2 py-1 font-english text-[11px] ${WORD_STATUS_STYLES[s]}`}
           >
             Aa
           </span>
@@ -901,7 +901,7 @@ function WordChip({ word }: { word: WordResult }) {
 
   return (
     <span
-      className={`mr-1 inline-block rounded px-1.5 py-0.5 font-english ${WORD_STATUS_STYLES[word.status]}`}
+      className={`mr-1 inline-block rounded px-2 py-1 font-english ${WORD_STATUS_STYLES[word.status]}`}
       title={
         word.status === 'misspelled' || word.status === 'wrong'
           ? `정답: ${word.expected}`

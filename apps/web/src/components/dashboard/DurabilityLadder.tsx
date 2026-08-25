@@ -111,7 +111,7 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
         {rungs.map((r) => (
           <div key={r.key} className="flex min-w-0 flex-col gap-1">
             <dt className="flex flex-col gap-1">
-              <span className="flex items-center gap-1.5">
+              <span className="flex items-center gap-2">
                 <span
                   aria-hidden
                   className="h-2.5 w-2.5 shrink-0 rounded-[var(--r-sm)]"
@@ -157,11 +157,11 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
           이전 화면을 비판한 것과 똑같은 결함이다(개수는 있고 단어가 없다). 회고에서 남는 것은
           수치가 아니라 "언제 처음 만나 몇 번을 다시 만났나" 라는 자기 이력이다. */}
       {champion && (
-        <aside className="mt-4 rounded-[var(--r-lg)] bg-[var(--bg2)] px-4 py-3.5">
+        <aside className="mt-4 rounded-[var(--r-lg)] bg-[var(--bg2)] px-4 py-4">
           <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t3)]">
             가장 멀리 온 단어
           </p>
-          <p className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+          <p className="mt-1.5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <span className="font-editorial text-[22px] font-[500] text-[var(--t1)]">
               {champion.word}
             </span>

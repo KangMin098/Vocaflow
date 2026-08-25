@@ -168,7 +168,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
         <button
           type="button"
           onClick={finish}
-          className="py-s-1.5 inline-flex items-center gap-s-2 rounded-md px-s-3 font-display text-[13px] font-semibold text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
+          className="py-s-2 inline-flex items-center gap-s-2 rounded-md px-s-3 font-display text-[13px] font-semibold text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
         >
           ← 종료
         </button>
@@ -380,7 +380,7 @@ function RevealPrompt({
         {icon}
         <span>{label}</span>
       </span>
-      <kbd className="px-s-1.5 group-hover:bg-learn-fresh group-hover:border-learn-fresh rounded-[4px] border border-bd bg-bg py-[3px] font-mono text-[11px] font-bold text-t3 transition-colors duration-fast group-hover:text-white">
+      <kbd className="px-s-2 group-hover:bg-learn-fresh group-hover:border-learn-fresh rounded-[4px] border border-bd bg-bg py-[4px] font-mono text-[11px] font-bold text-t3 transition-colors duration-fast group-hover:text-white">
         {shortcut}
       </kbd>
     </button>
@@ -393,7 +393,7 @@ function Shortcut({ keys, label, sep = '+' }: { keys: string[]; label: string; s
       {keys.map((k, i) => (
         <span key={k} className="flex items-center gap-s-1">
           {i > 0 && <span className="text-t3">{sep}</span>}
-          <kbd className="px-s-1.5 inline-flex h-[20px] min-w-[20px] items-center justify-center rounded-[4px] border border-bd bg-bg2 font-mono text-[10px] font-bold text-t2">
+          <kbd className="px-s-2 inline-flex h-[20px] min-w-[20px] items-center justify-center rounded-[4px] border border-bd bg-bg2 font-mono text-[10px] font-bold text-t2">
             {k}
           </kbd>
         </span>

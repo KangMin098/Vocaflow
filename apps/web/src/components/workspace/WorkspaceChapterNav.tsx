@@ -88,7 +88,7 @@ export function WorkspaceChapterNav({
       <ul
         ref={listRef}
         role="list"
-        className="overflow-y-auto p-1.5"
+        className="overflow-y-auto p-2"
         style={{ maxHeight: 'calc(60vh - 56px)' }}
       >
         {chapters.map((ch) => {
@@ -100,7 +100,7 @@ export function WorkspaceChapterNav({
                 onClick={onClose}
                 aria-current={active ? 'page' : undefined}
                 className={[
-                  'group flex items-center gap-2.5 rounded-[var(--r-sm)] px-2.5 py-2',
+                  'group flex items-center gap-3 rounded-[var(--r-sm)] px-3 py-2',
                   'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
                   active

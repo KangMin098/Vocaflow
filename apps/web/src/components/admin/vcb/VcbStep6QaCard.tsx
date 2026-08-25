@@ -95,7 +95,7 @@ export function VcbStep6QaCard({ runId, runStatus, enrichedCount }: Props) {
           {isPending ? '실행 중…' : isDone ? '재실행' : 'QA 실행'}
         </button>
 
-        <label className="flex items-center gap-1.5 cursor-pointer">
+        <label className="flex items-center gap-2 cursor-pointer">
           <input
             type="checkbox"
             checked={requeue}
@@ -145,7 +145,7 @@ export function VcbStep6QaCard({ runId, runStatus, enrichedCount }: Props) {
           )}
           <div className="text-sm flex-1">
             <div className="font-semibold">QA 완료 · {fmtMs(result.duration_ms)}</div>
-            <div className="text-xs mt-1 grid grid-cols-2 gap-x-4 gap-y-0.5 font-mono" style={{ color: 'var(--t2)' }}>
+            <div className="text-xs mt-1 grid grid-cols-2 gap-x-4 gap-y-1 font-mono" style={{ color: 'var(--t2)' }}>
               <span>passed</span><span>{result.passed}</span>
               <span>flagged</span><span style={{ color: result.flagged > 0 ? 'var(--warning)' : 'inherit' }}>{result.flagged}</span>
               <span>failed</span><span style={{ color: result.failed > 0 ? 'var(--error)' : 'inherit' }}>{result.failed}</span>

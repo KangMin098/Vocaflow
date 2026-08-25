@@ -93,7 +93,7 @@ export function AssetGrid({ books }: AssetGridProps) {
       <div className="mt-5 flex justify-end border-t border-[var(--bd)] pt-4">
         <Link
           href="/wordvault/browse"
-          className="group inline-flex items-center gap-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-fast)] hover:text-[var(--p)]"
+          className="group inline-flex items-center gap-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-fast)] hover:text-[var(--p)]"
         >
           <span>전체 단어 둘러보기</span>
           <ArrowRight
@@ -137,7 +137,7 @@ function AssetCard({ book }: { book: VaultBook }) {
       </div>
 
       {/* Big number — 단어수 */}
-      <div className="flex items-baseline gap-1.5">
+      <div className="flex items-baseline gap-2">
         <span className="font-display text-[28px] font-[800] leading-none tracking-[-0.02em] tabular-nums text-[var(--t1)]">
           {NF.format(total)}
         </span>

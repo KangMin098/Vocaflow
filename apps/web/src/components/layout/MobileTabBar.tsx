@@ -109,7 +109,7 @@ export function MobileTabBar({ status = null }: MobileTabBarProps) {
                       : undefined
                   }
                   // 44px 하한은 프로젝트 절대 규칙 — h-14(56px)로 여유를 둔다.
-                  className={`flex h-14 flex-col items-center justify-center gap-0.5 transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-inset ${
+                  className={`flex h-14 flex-col items-center justify-center gap-1 transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-inset ${
                     active ? 'text-[var(--p)]' : 'text-[var(--t2)]'
                   }`}
                 >

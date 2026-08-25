@@ -209,7 +209,7 @@ export function StudioClient({ catalog, options }: Props) {
                         {bp.title}
                       </span>
                       <span
-                        className="shrink-0 rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[10px] font-medium"
+                        className="shrink-0 rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-medium"
                         style={{ color: st.color, background: st.bg }}
                       >
                         {st.label}
@@ -223,9 +223,9 @@ export function StudioClient({ catalog, options }: Props) {
                       {bp.market_example}
                     </p>
 
-                    <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
+                    <div className="mt-2.5 flex flex-wrap items-center gap-2">
                       <span
-                        className="rounded-[var(--r-sm)] px-1.5 py-0.5 font-body text-[10px]"
+                        className="rounded-[var(--r-sm)] px-2 py-1 font-body text-[10px]"
                         style={{ background: 'var(--bg2)', color: 'var(--t3)' }}
                       >
                         목차 {GROUP_BY_LABEL[bp.group_by] ?? bp.group_by}
@@ -233,7 +233,7 @@ export function StudioClient({ catalog, options }: Props) {
                       {bp.facets.map((f) => (
                         <span
                           key={f}
-                          className="rounded-[var(--r-sm)] px-1.5 py-0.5 font-body text-[10px]"
+                          className="rounded-[var(--r-sm)] px-2 py-1 font-body text-[10px]"
                           style={{ background: 'var(--bg2)', color: 'var(--t3)' }}
                         >
                           {FACET_LABEL[f] ?? f}

@@ -69,7 +69,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
     >
       {/* ── 헤더 ── */}
       <header className="mb-4 flex items-start justify-between gap-3">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <span
             className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] bg-gradient-to-br from-[#8B5CF6] to-[#6D28D9] text-white shadow-[var(--sh-sm)]"
             aria-hidden
@@ -114,7 +114,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
           </p>
         </div>
         <span
-          className="mb-2 inline-flex items-center gap-1 rounded-full px-3 py-1.5 font-display text-[11px] font-[700]"
+          className="mb-2 inline-flex items-center gap-1 rounded-full px-3 py-2 font-display text-[11px] font-[700]"
           style={{ backgroundColor: status.bg, color: status.fg }}
         >
           <StatusIcon size={13} strokeWidth={2} aria-hidden />
@@ -147,7 +147,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
           return (
             <div
               key={r.id}
-              className={`flex items-center gap-2.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-2.5 transition-shadow duration-[var(--dur-normal)] ${
+              className={`flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3 transition-shadow duration-[var(--dur-normal)] ${
                 isMinScore && r.status === 'critical'
                   ? 'ring-2 ring-[var(--error)] shadow-[0_0_16px_rgba(239,68,68,0.18)]'
                   : ''

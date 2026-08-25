@@ -130,7 +130,7 @@ export function PracticeChooser({
           <h2 className="font-body text-[12px] text-[var(--t2)]">다른 쪽도 연습할 수 있어요</h2>
           <Link
             href={GAME_LAB_HREF}
-            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] px-2 font-body text-[12px] text-[var(--t2)] no-underline transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-2 font-body text-[12px] text-[var(--t2)] no-underline transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <Gamepad2 size={13} aria-hidden className="shrink-0" />
             Game Lab {GAME_COUNT}종 전부
@@ -139,7 +139,7 @@ export function PracticeChooser({
         </div>
         {/* 2열 × 5장 = 마지막 줄에 **항상** 구멍이 남는다(면 6 − 강조 1 = 홀수).
             마지막 카드를 두 칸으로 펴면 구멍이 의도가 된다. */}
-        <ul className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+        <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {rest.map((f, i) => (
             <FacetCard
               key={f}
@@ -256,9 +256,9 @@ function FacetCard({
     <li className={cell}>
       <div
         data-design-card
-        className="flex h-full flex-col rounded-ios-xl bg-[var(--bg)] px-4 py-3.5 shadow-ios-1 md:px-5 md:py-4"
+        className="flex h-full flex-col rounded-ios-xl bg-[var(--bg)] px-4 py-4 shadow-ios-1 md:px-5 md:py-4"
       >
-        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
           <span className="font-display text-[15px] font-[700] text-[var(--t1)]">{def.name}</span>
           {progress && (
             <span className="font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
@@ -301,12 +301,12 @@ function FacetCard({
  */
 function ToolRow({ tools, className = '' }: { tools: PracticeTool[]; className?: string }) {
   return (
-    <ul className={`flex flex-wrap items-center gap-x-1.5 gap-y-1 ${className}`}>
+    <ul className={`flex flex-wrap items-center gap-x-2 gap-y-1 ${className}`}>
       {tools.map((t) => (
         <li key={t.href}>
           <Link
             href={t.href}
-            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-ios-pill bg-[var(--bg2)] px-3 font-mono text-[12px] text-[var(--t2)] no-underline hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] motion-safe:transition-colors"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-ios-pill bg-[var(--bg2)] px-3 font-mono text-[12px] text-[var(--t2)] no-underline hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] motion-safe:transition-colors"
           >
             {t.isGame && <Gamepad2 size={12} aria-hidden className="shrink-0" />}
             {t.label}

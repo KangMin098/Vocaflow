@@ -135,7 +135,7 @@ export function DictationResultsClient() {
         </div>
         <Link
           href="/dictate"
-          className="inline-flex h-11 items-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          className="inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
         >
           받아쓰기로 돌아가기
@@ -192,7 +192,7 @@ export function DictationResultsClient() {
       {/* ─── 오늘 무엇이 남았나 ─── */}
       <section className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {/* 복습으로 넘어간 단어 — 받아쓰기가 단어 기억에 남긴 흔적 */}
-        <article className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
+        <article className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
           <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">
             복습에 반영된 단어
           </h3>
@@ -206,7 +206,7 @@ export function DictationResultsClient() {
               </p>
               <Link
                 href="/dictate"
-                className="inline-flex min-h-[44px] items-center gap-1 self-start rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+                className="inline-flex min-h-[44px] items-center gap-1 self-start rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
               >
                 자료 고르기
                 <ArrowRight size={13} />
@@ -214,11 +214,11 @@ export function DictationResultsClient() {
             </>
           ) : (
             <>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2">
                 {agg.hits.map((w) => (
                   <span
                     key={`h-${w}`}
-                    className="rounded-full bg-[var(--success-light)] px-2.5 py-1 font-english text-[12px] font-[600] text-[var(--success)]"
+                    className="rounded-full bg-[var(--success-light)] px-3 py-1 font-english text-[12px] font-[600] text-[var(--success)]"
                   >
                     ✓ {w}
                   </span>
@@ -226,7 +226,7 @@ export function DictationResultsClient() {
                 {agg.misses.map((w) => (
                   <span
                     key={`m-${w}`}
-                    className="rounded-full bg-[var(--warning-light)] px-2.5 py-1 font-english text-[12px] font-[600] text-[var(--warning)]"
+                    className="rounded-full bg-[var(--warning-light)] px-3 py-1 font-english text-[12px] font-[600] text-[var(--warning)]"
                   >
                     ↻ {w}
                   </span>
@@ -279,7 +279,7 @@ export function DictationResultsClient() {
             {agg.tags.slice(0, 3).map(([tag, n]) => (
               <li
                 key={tag}
-                className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2.5"
+                className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-3"
               >
                 <div className="flex items-center gap-2">
                   <span className="font-display text-[13px] font-[700] text-[var(--t1)]">

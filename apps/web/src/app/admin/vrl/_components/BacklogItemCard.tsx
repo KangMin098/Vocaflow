@@ -37,9 +37,9 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
       className={`flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3 shadow-[var(--sh-sm)] transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)] ${ringClass} ${isDone ? 'opacity-75' : ''}`}
     >
       <header className="flex items-start justify-between gap-2">
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-2">
           <span
-            className="inline-flex rounded-full px-1.5 py-0.5 font-display text-[9px] font-[800] text-white"
+            className="inline-flex rounded-full px-2 py-1 font-display text-[9px] font-[800] text-white"
             style={{ backgroundColor: accent }}
           >
             {item.priority}
@@ -51,7 +51,7 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
             {item.id}
           </span>
           {item.schemaTier && (
-            <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[9px] font-[700] text-[var(--t2)]">
+            <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
               Tier {item.schemaTier}
             </span>
           )}
@@ -59,7 +59,7 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
         <div className="flex items-center gap-1">
           {isDone && (
             <span
-              className="inline-flex items-center gap-0.5 rounded-full bg-[var(--success-light)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-[var(--success)]"
+              className="inline-flex items-center gap-1 rounded-full bg-[var(--success-light)] px-2 py-1 font-display text-[9px] font-[700] text-[var(--success)]"
               aria-label="완료"
             >
               <CheckCircle2 size={9} strokeWidth={2} aria-hidden />
@@ -68,7 +68,7 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
           )}
           {item.isBestRoi && !isDone && (
             <span
-              className="inline-flex items-center gap-0.5 rounded-full bg-[var(--success-light)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-[var(--success)]"
+              className="inline-flex items-center gap-1 rounded-full bg-[var(--success-light)] px-2 py-1 font-display text-[9px] font-[700] text-[var(--success)]"
               aria-label="best ROI"
               title="Best ROI — 비용 대비 효과 우수"
             >
@@ -78,7 +78,7 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
           )}
           {item.isCorePain && (
             <span
-              className="inline-flex items-center gap-0.5 rounded-full bg-[var(--error-light)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-[var(--error-ink)]"
+              className="inline-flex items-center gap-1 rounded-full bg-[var(--error-light)] px-2 py-1 font-display text-[9px] font-[700] text-[var(--error-ink)]"
               aria-label="core pain"
               title="본질 페인"
             >
@@ -97,11 +97,11 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
         {item.oneLine}
       </p>
 
-      <div className="flex flex-wrap items-center gap-1.5">
+      <div className="flex flex-wrap items-center gap-2">
         {item.affects.map((r) => (
           <span
             key={r}
-            className="inline-flex h-5 items-center justify-center rounded-[var(--r-sm)] px-1.5 font-mono text-[9px] font-[800] text-white"
+            className="inline-flex h-5 items-center justify-center rounded-[var(--r-sm)] px-2 font-mono text-[9px] font-[800] text-white"
             style={{ backgroundColor: RESP_COLOR[r] }}
           >
             {r}
@@ -119,7 +119,7 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
           {item.doneNote}
         </p>
       ) : (
-        <dl className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-0.5 border-t border-[var(--bd)] pt-2 font-body text-[10px] text-[var(--t2)]">
+        <dl className="grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 border-t border-[var(--bd)] pt-2 font-body text-[10px] text-[var(--t2)]">
           <dt className="font-mono text-[var(--t2)]">effort</dt>
           <dd>{item.effort}</dd>
           <dt className="font-mono text-[var(--t2)]">value</dt>

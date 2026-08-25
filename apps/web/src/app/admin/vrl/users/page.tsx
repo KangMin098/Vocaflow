@@ -86,7 +86,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
         <h3 className="mb-3 font-display text-[13px] font-[700] text-[var(--t1)]">
           V-Level 분포 (전체 {data.total} users)
         </h3>
-        <div className="grid grid-cols-12 gap-1.5">
+        <div className="grid grid-cols-12 gap-2">
           {data.byLevel.map((n, i) => {
             const h = Math.round((n / maxLevelCount) * 60) + 4
             return (
@@ -150,7 +150,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
                   </td>
                   <td className="px-3 py-2">
                     <span
-                      className="rounded-full px-2 py-0.5 font-display text-[10px] font-[700]"
+                      className="rounded-full px-2 py-1 font-display text-[10px] font-[700]"
                       style={{ backgroundColor: sb.bg, color: sb.color }}
                     >
                       {sb.label}

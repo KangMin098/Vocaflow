@@ -776,7 +776,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
     <div className="flex flex-col gap-4">
       {/* 헤더 */}
       <header className="flex items-baseline justify-between gap-3 border-b border-[var(--bd)] pb-3">
-        <div className="flex items-baseline gap-2.5">
+        <div className="flex items-baseline gap-3">
           <Download size={14} className="self-center text-[var(--p)]" aria-hidden />
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
             LCP 대량 GET
@@ -790,7 +790,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       {/* v06.42 — 학습자 수준 선택기 + 소스 자동 정렬 + 소스 명세 카드 */}
       <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4">
         {/* v06.72 — 빠른 선택 preset (한 번에 합리적 묶음) */}
-        <div className="mb-3 flex flex-wrap items-center gap-1.5">
+        <div className="mb-3 flex flex-wrap items-center gap-2">
           <span className="font-display text-[11.5px] font-[600] text-[var(--t2)]">빠른 선택:</span>
           {(['basic', 'all', 'advanced'] as Preset[]).map((p) => (
             <button
@@ -798,7 +798,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
               type="button"
               onClick={() => applyPreset(p)}
               disabled={fetching}
-              className="inline-flex h-7 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-display text-[10.5px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex h-7 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[10.5px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {PRESET_LABEL[p]}
             </button>
@@ -811,13 +811,13 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
           <span className="font-display text-[11.5px] font-[600] text-[var(--t2)]">
             학습자 수준 (소스 정렬 기준):
           </span>
-          <div className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-0.5">
+          <div className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-1">
             {(['beginner', 'intermediate', 'advanced'] as LearnerLevel[]).map((lv) => (
               <button
                 key={lv}
                 type="button"
                 onClick={() => setLearnerLevel(lv)}
-                className={`rounded-[var(--r-sm)] px-2.5 py-0.5 font-display text-[11px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                className={`rounded-[var(--r-sm)] px-3 py-1 font-display text-[11px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                   learnerLevel === lv
                     ? 'bg-[var(--p)] text-[var(--on-p)]'
                     : 'text-[var(--t2)] hover:text-[var(--t1)]'
@@ -920,7 +920,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
         </div>
 
         {/* v06.47 — 수준 선택의 실제 의미를 화면에서 명시 (오해 방지) */}
-        <p className="mb-3 flex items-start gap-1.5 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2.5 py-2 font-body text-[10.5px] leading-relaxed text-[var(--t2)]">
+        <p className="mb-3 flex items-start gap-2 rounded-[var(--r-sm)] bg-[var(--bg2)] px-3 py-2 font-body text-[10.5px] leading-relaxed text-[var(--t2)]">
           <Info size={12} className="mt-0.5 shrink-0 text-[var(--t2)]" aria-hidden />
           <span>
             <strong className="text-[var(--t2)]">수준 선택은 소스 우선순위·추천만 바꿉니다</strong> — 기사 내용을 레벨로 골라오지는
@@ -941,7 +941,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             type="button"
             onClick={toggleAllSources}
             disabled={fetching}
-            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
             title={allSelected ? '전체 소스 해제' : '전체 소스 선택 (한 번에 모두 가져오기 준비)'}
           >
             {allSelected ? '전체 해제' : '전체 선택'}
@@ -962,7 +962,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             return (
               <div
                 key={s.key}
-                className="group relative flex flex-col gap-1.5 rounded-[var(--r-sm)] border p-2.5 text-left transition-all"
+                className="group relative flex flex-col gap-2 rounded-[var(--r-sm)] border p-3 text-left transition-all"
                 style={{
                   background: active ? `color-mix(in srgb, ${s.color} 8%, transparent)` : 'var(--bg)',
                   borderColor: active ? s.color : 'var(--bd)',
@@ -973,7 +973,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                   type="button"
                   onClick={() => toggleSource(s.key)}
                   disabled={fetching}
-                  className="flex items-center gap-1.5 text-left disabled:cursor-not-allowed"
+                  className="flex items-center gap-2 text-left disabled:cursor-not-allowed"
                 >
                   {active ? (
                     <CheckSquare size={14} aria-hidden style={{ color: s.color }} />
@@ -1009,7 +1009,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                           : { label: '이 수준엔 어려움', color: 'var(--memory-shaky)' }
                     return (
                       <span
-                        className="ml-auto rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[8.5px] font-[700]"
+                        className="ml-auto rounded-[var(--r-full)] px-2 py-1 font-mono text-[8.5px] font-[700]"
                         style={{
                           background: `color-mix(in srgb, ${c.color} 14%, transparent)`,
                           color: c.color,
@@ -1022,7 +1022,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 </button>
 
                 {/* 2행 — target CEFR + 라이선스 */}
-                <div className="flex flex-wrap items-center gap-1.5 font-mono text-[9.5px] text-[var(--t2)]">
+                <div className="flex flex-wrap items-center gap-2 font-mono text-[9.5px] text-[var(--t2)]">
                   <span>CEFR {spec.targetCefr.min}–{spec.targetCefr.max}</span>
                   <span aria-hidden>·</span>
                   <span>{spec.license}</span>
@@ -1043,7 +1043,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 {/* v06.71 — health 상태 표시 */}
                 {s.health && s.health !== 'ok' && (
                   <div
-                    className="flex items-start gap-1 rounded-[var(--r-sm)] px-1.5 py-1 font-body text-[9.5px]"
+                    className="flex items-start gap-1 rounded-[var(--r-sm)] px-2 py-1 font-body text-[9.5px]"
                     style={{
                       background:
                         s.health === 'inactive'
@@ -1065,7 +1065,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                   type="button"
                   onClick={() => toggleExpand(s.key)}
                   disabled={fetching}
-                  className="inline-flex items-center gap-1 self-start rounded-[var(--r-sm)] px-1.5 py-0.5 font-mono text-[10px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-1 self-start rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed"
                   aria-expanded={expanded}
                 >
                   {expanded ? <ChevronDown size={11} /> : <ChevronRight size={11} />}
@@ -1075,7 +1075,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 {expanded && (
                   <div className="mt-1 flex flex-col gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2">
                     {/* maxItems */}
-                    <label className="flex flex-wrap items-center gap-1.5">
+                    <label className="flex flex-wrap items-center gap-2">
                       <span className="font-mono text-[9.5px] uppercase tracking-wider text-[var(--t2)]">
                         가져올 최대 개수
                       </span>
@@ -1096,7 +1096,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                         value={userMaxItems}
                         onChange={(e) => setSourceMaxItems(s.key, parseInt(e.target.value, 10) || 1)}
                         disabled={fetching}
-                        className="h-6 w-14 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 font-mono text-[11px] tabular-nums text-[var(--t1)]"
+                        className="h-6 w-14 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[11px] tabular-nums text-[var(--t1)]"
                       />
                     </label>
                     {/* feed checkboxes */}
@@ -1109,7 +1109,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                         return (
                           <label
                             key={f.id}
-                            className="flex cursor-pointer items-center gap-1.5 rounded-[var(--r-sm)] px-1.5 py-0.5 text-[10.5px] hover:bg-[var(--bg2)]"
+                            className="flex cursor-pointer items-center gap-2 rounded-[var(--r-sm)] px-2 py-1 text-[10.5px] hover:bg-[var(--bg2)]"
                           >
                             <input
                               type="checkbox"
@@ -1136,12 +1136,12 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
         </div>
 
         {/* v06.72 — fetch 버튼 + 진행 bar */}
-        <div className="mt-3 flex flex-col gap-1.5">
+        <div className="mt-3 flex flex-col gap-2">
           <button
             type="button"
             onClick={handleBulkFetch}
             disabled={fetching || selectedSources.size === 0}
-            className="inline-flex h-9 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
+            className="inline-flex h-9 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
           >
             {fetching ? (
               <Loader2 size={12} className="animate-spin" />
@@ -1185,7 +1185,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       {/* v06.71 — 소스별 결과 분포 (fetched/passed/capped) */}
       {Object.keys(sourceStats).length > 0 && (
         <section className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
-          <h3 className="mb-1.5 inline-flex items-center gap-1.5 font-display text-[12px] font-[700] text-[var(--t1)]">
+          <h3 className="mb-1.5 inline-flex items-center gap-2 font-display text-[12px] font-[700] text-[var(--t1)]">
             📊 소스별 결과
           </h3>
           <ul className="grid gap-1 font-mono text-[10.5px] sm:grid-cols-2">
@@ -1196,7 +1196,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
               return (
                 <li
                   key={s.key}
-                  className="flex items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--bg)] px-2 py-1"
+                  className="flex items-center gap-2 rounded-[var(--r-sm)] bg-[var(--bg)] px-2 py-1"
                   style={{ color: isZero ? 'var(--t3)' : 'var(--t1)' }}
                 >
                   <span
@@ -1232,7 +1232,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       {/* 실패한 feed 안내 */}
       {failedFeeds.length > 0 && (
         <section className="rounded-[var(--r-sm)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] p-3">
-          <h3 className="mb-1.5 inline-flex items-center gap-1.5 font-display text-[12px] font-[700] text-[var(--learn-review)]">
+          <h3 className="mb-1.5 inline-flex items-center gap-2 font-display text-[12px] font-[700] text-[var(--learn-review)]">
             <AlertCircle size={12} />
             가져오지 못한 카테고리 {failedFeeds.length}개
           </h3>
@@ -1329,8 +1329,8 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
       return (
         <section className="overflow-hidden rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)]">
           {/* 헤더 */}
-          <div className="flex flex-wrap items-center gap-2 border-b border-[var(--bd)] bg-[var(--bg2)] p-2.5 font-mono text-[11px]">
-            <label className="inline-flex items-center gap-1.5 text-[var(--t2)]">
+          <div className="flex flex-wrap items-center gap-2 border-b border-[var(--bd)] bg-[var(--bg2)] p-3 font-mono text-[11px]">
+            <label className="inline-flex items-center gap-2 text-[var(--t2)]">
               <input
                 type="checkbox"
                 checked={visibleSelected.size > 0 && visibleSelected.size === displayRows.length}
@@ -1358,11 +1358,11 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             </span>
 
             {/* v06.41 — 정렬 토글 */}
-            <div className="ml-2 inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-0.5">
+            <div className="ml-2 inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-1">
               <button
                 type="button"
                 onClick={() => setSortBy('score')}
-                className={`rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                className={`rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                   sortBy === 'score'
                     ? 'bg-[var(--p)] text-[var(--on-p)]'
                     : 'text-[var(--t2)] hover:text-[var(--t1)]'
@@ -1374,7 +1374,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
               <button
                 type="button"
                 onClick={() => setSortBy('date')}
-                className={`rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                className={`rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                   sortBy === 'date'
                     ? 'bg-[var(--p)] text-[var(--on-p)]'
                     : 'text-[var(--t2)] hover:text-[var(--t1)]'
@@ -1389,7 +1389,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
             <button
               type="button"
               onClick={() => setListFiltersExpanded((v) => !v)}
-              className="inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-0.5 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              className="inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
               title="검색 / 소스 / 점수 / CEFR / 발행 / audio / 기간"
             >
               {listFiltersExpanded ? <ChevronDown size={10} /> : <ChevronRight size={10} />}
@@ -1405,20 +1405,20 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 if (listFilters.recencyDays != null) n++
                 if (listFilters.articleStatuses.size > 0) n++
                 return n > 0 ? (
-                  <span className="ml-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-1.5 font-mono text-[9px] text-[var(--on-p)]">
+                  <span className="ml-0.5 rounded-[var(--r-full)] bg-[var(--p)] px-2 font-mono text-[9px] text-[var(--on-p)]">
                     {n}
                   </span>
                 ) : null
               })()}
             </button>
 
-            <div className="ml-auto flex items-center gap-1.5">
+            <div className="ml-auto flex items-center gap-2">
               {/* v06.74 — 선택 일괄 삭제 */}
               <button
                 type="button"
                 onClick={() => handleDeleteRows()}
                 disabled={deleting || selected.size === 0}
-                className="inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--bg)] px-3 font-display text-[11px] font-[700] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--learn-error)] disabled:opacity-50"
+                className="inline-flex h-8 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--bg)] px-3 font-display text-[11px] font-[700] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--learn-error)] disabled:opacity-50"
                 title="선택 항목을 seed_catalog 에서 숨기거나 (미발행) library_articles 영구 삭제 (큐 진행 중)"
               >
                 {deleting ? (
@@ -1432,7 +1432,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 type="button"
                 onClick={handleBulkEnqueue}
                 disabled={enqueuing || selected.size === 0}
-                className="inline-flex h-8 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[700] text-[var(--on-p)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
+                className="inline-flex h-8 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[700] text-[var(--on-p)] hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
               >
                 {enqueuing ? (
                   <Loader2 size={11} className="animate-spin" />
@@ -1483,7 +1483,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                             return { ...f, sources: next }
                           })
                         }
-                        className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[10px] font-[600]"
+                        className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-mono text-[10px] font-[600]"
                         style={{
                           background: checked
                             ? `color-mix(in srgb, ${s.color} 14%, transparent)`
@@ -1545,7 +1545,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                             return { ...f, cefrLevels: next }
                           })
                         }
-                        className={`inline-flex items-center rounded-[var(--r-sm)] border px-2 py-0.5 font-mono text-[10px] font-[700] ${
+                        className={`inline-flex items-center rounded-[var(--r-sm)] border px-2 py-1 font-mono text-[10px] font-[700] ${
                           checked
                             ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)]'
                             : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)]'
@@ -1563,13 +1563,13 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
                   발행 상태
                 </span>
-                <div className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-0.5">
+                <div className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-1">
                   {(['all', 'unpublished', 'published'] as const).map((opt) => (
                     <button
                       key={opt}
                       type="button"
                       onClick={() => setListFilters((f) => ({ ...f, publishStatus: opt }))}
-                      className={`flex-1 rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10.5px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                      className={`flex-1 rounded-[var(--r-sm)] px-2 py-1 font-display text-[10.5px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                         listFilters.publishStatus === opt
                           ? 'bg-[var(--p)] text-[var(--on-p)]'
                           : 'text-[var(--t2)] hover:text-[var(--t1)]'
@@ -1586,13 +1586,13 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                 <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
                   🎧 audio 보유
                 </span>
-                <div className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-0.5">
+                <div className="inline-flex rounded-[var(--r-sm)] border border-[var(--bd)] p-1">
                   {(['all', 'with', 'without'] as const).map((opt) => (
                     <button
                       key={opt}
                       type="button"
                       onClick={() => setListFilters((f) => ({ ...f, audioStatus: opt }))}
-                      className={`flex-1 rounded-[var(--r-sm)] px-2 py-0.5 font-display text-[10.5px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                      className={`flex-1 rounded-[var(--r-sm)] px-2 py-1 font-display text-[10.5px] font-[600] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                         listFilters.audioStatus === opt
                           ? 'bg-[var(--p)] text-[var(--on-p)]'
                           : 'text-[var(--t2)] hover:text-[var(--t1)]'
@@ -1625,7 +1625,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                             return { ...f, articleStatuses: next }
                           })
                         }
-                        className="inline-flex items-center rounded-[var(--r-full)] border px-2 py-0.5 font-mono text-[10px] font-[700]"
+                        className="inline-flex items-center rounded-[var(--r-full)] border px-2 py-1 font-mono text-[10px] font-[700]"
                         style={{
                           background: checked ? meta.bg : 'var(--bg)',
                           borderColor: checked ? meta.fg : 'var(--bd)',
@@ -1707,10 +1707,10 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                     className="mt-1 h-3.5 w-3.5 shrink-0"
                   />
                   <div className="min-w-0 flex-1">
-                    <div className="mb-0.5 flex flex-wrap items-center gap-1.5">
+                    <div className="mb-0.5 flex flex-wrap items-center gap-2">
                       {sourceCfg && (
                         <span
-                          className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]"
+                          className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
                           style={{
                             color: sourceCfg.color,
                             background: `color-mix(in srgb, ${sourceCfg.color} 12%, transparent)`,
@@ -1725,7 +1725,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                       </span>
                       {scorePct !== null && (
                         <span
-                          className="inline-flex items-center rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700] tabular-nums"
+                          className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700] tabular-nums"
                           style={{
                             color:
                               scorePct >= 75 ? 'var(--memory-stable)' :
@@ -1748,7 +1748,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                         const d = r.published_at ? new Date(r.published_at) : null
                         if (!d || Number.isNaN(d.getTime())) return null
                         return (
-                          <span className="inline-flex items-center gap-0.5 font-mono text-[9.5px] text-[var(--t2)]">
+                          <span className="inline-flex items-center gap-1 font-mono text-[9.5px] text-[var(--t2)]">
                             <Calendar size={9} />
                             {d.toISOString().slice(0, 10)}
                           </span>
@@ -1756,7 +1756,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                       })()}
                       {r.has_audio && (
                         <span
-                          className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]"
+                          className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
                           style={{ color: 'var(--active)', background: 'color-mix(in srgb, var(--active) 14%, transparent)' }}
                           title="audio (mp3) 포함 — LCP librivox_audio 와 동일 연계로 reader 에서 player 자동 노출"
                         >
@@ -1770,7 +1770,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                         const meta = STATUS_BADGE[stat]
                         return (
                           <span
-                            className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] px-1.5 py-0.5 font-mono text-[9px] font-[700]"
+                            className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
                             style={{ color: meta.fg, background: meta.bg }}
                             title={r.articleStatusMessage ?? meta.title}
                           >
@@ -1779,7 +1779,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                         )
                       })()}
                       {isEnqueued && !r.articleStatus && (
-                        <span className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] border border-[var(--memory-stable)] bg-[var(--success-light)] px-1.5 py-0.5 font-mono text-[9px] font-[700] text-[var(--memory-stable)]">
+                        <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--memory-stable)] bg-[var(--success-light)] px-2 py-1 font-mono text-[9px] font-[700] text-[var(--memory-stable)]">
                           <CheckCircle2 size={9} /> 큐
                         </span>
                       )}
@@ -1793,7 +1793,7 @@ export function BulkArticlesTab({ onEnqueued }: Props) {
                       </p>
                     )}
                   </div>
-                  <div className="flex shrink-0 items-center gap-0.5">
+                  <div className="flex shrink-0 items-center gap-1">
                     <a
                       href={r.url}
                       target="_blank"

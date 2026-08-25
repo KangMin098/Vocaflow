@@ -268,7 +268,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
               type="button"
               onClick={loadSample}
               disabled={loading || (kind === 'book' ? !bookId : !articleId)}
-              className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
               표본 불러오기
@@ -291,19 +291,19 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
               <span className="font-mono text-[var(--t2)]">{sourceLabel}</span> — 이 챕터를 공부하는
               학습자에게 <strong className="text-[var(--t1)]">가치 있는 단어</strong>를 고르세요.
             </p>
-            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-2.5 py-1 font-mono text-[11px] text-[var(--t2)]">
+            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-3 py-1 font-mono text-[11px] text-[var(--t2)]">
               {mode === 'absolute' ? '절대 판정' : '쌍대 비교'}
             </span>
           </div>
 
           {mode === 'absolute' ? (
-            <ul className="grid grid-cols-1 gap-2.5 md:grid-cols-2">
+            <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {sample.map((w) => {
                 const v = verdicts[w.word] ?? 'not_valuable'
                 return (
                   <li
                     key={w.word}
-                    className={`rounded-[var(--r-md)] border bg-[var(--bg2)] p-3.5 transition-all duration-[var(--dur-normal)] ease-[var(--ease)] ${
+                    className={`rounded-[var(--r-md)] border bg-[var(--bg2)] p-4 transition-all duration-[var(--dur-normal)] ease-[var(--ease)] ${
                       v === 'valuable'
                         ? 'border-[#2E7D5A]/50 bg-[#2E7D5A]/6'
                         : v === 'uncertain'
@@ -373,7 +373,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                           key={side}
                           type="button"
                           onClick={() => setPairChoices((p) => ({ ...p, [i]: side }))}
-                          className={`flex-1 rounded-[var(--r-sm)] border p-2.5 text-left transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
+                          className={`flex-1 rounded-[var(--r-sm)] border p-3 text-left transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
                             chosen
                               ? 'border-[#8B5CF6] bg-[#8B5CF6]/10'
                               : 'border-[var(--bd)] hover:border-[#8B5CF6]/40'
@@ -402,7 +402,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
               type="button"
               onClick={submit}
               disabled={saving || (mode === 'pairwise' && pairwiseAnswered === 0)}
-              className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] bg-[#8B5CF6] px-5 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-5 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {saving ? <Loader2 size={14} className="animate-spin" /> : <Scale size={14} />}
               판정 제출
@@ -462,9 +462,9 @@ function RevealPanel({
           return (
             <li
               key={w.word}
-              className="flex items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2"
+              className="flex items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2"
             >
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-3">
                 <span
                   className={`grid h-5 w-5 place-items-center rounded-full ${
                     match ? 'bg-[#2E7D5A]/15 text-[#2E7D5A]' : 'bg-[#B5803A]/15 text-[#B5803A]'
@@ -476,10 +476,10 @@ function RevealPanel({
                 <span className="font-body text-[12px] text-[var(--t2)]">{w.meaning_ko}</span>
               </div>
               <div className="flex shrink-0 items-center gap-2 font-mono text-[10px]">
-                <span className={`rounded-[var(--r-sm)] px-1.5 py-0.5 ${youKept ? 'bg-[#2E7D5A]/12 text-[#2E7D5A]' : 'bg-[var(--bg3)] text-[var(--t2)]'}`}>
+                <span className={`rounded-[var(--r-sm)] px-2 py-1 ${youKept ? 'bg-[#2E7D5A]/12 text-[#2E7D5A]' : 'bg-[var(--bg3)] text-[var(--t2)]'}`}>
                   나: {youKept ? '가치' : v === 'uncertain' ? '애매' : '제외'}
                 </span>
-                <span className={`rounded-[var(--r-sm)] px-1.5 py-0.5 ${r.in_cap ? 'bg-[#8B5CF6]/12 text-[#8B5CF6]' : 'bg-[var(--bg3)] text-[var(--t2)]'}`}>
+                <span className={`rounded-[var(--r-sm)] px-2 py-1 ${r.in_cap ? 'bg-[#8B5CF6]/12 text-[#8B5CF6]' : 'bg-[var(--bg3)] text-[var(--t2)]'}`}>
                   시스템: {r.in_cap ? 'in-cap' : `#${r.sort_order_at}`}
                 </span>
               </div>
@@ -492,7 +492,7 @@ function RevealPanel({
         <button
           type="button"
           onClick={onReset}
-          className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[#8B5CF6]/40 bg-[#8B5CF6]/8 px-4 py-2 font-display text-[13px] font-[600] text-[#8B5CF6] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#8B5CF6]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+          className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[#8B5CF6]/40 bg-[#8B5CF6]/8 px-4 py-2 font-display text-[13px] font-[600] text-[#8B5CF6] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#8B5CF6]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
         >
           <Sparkles size={14} /> 다음 표본 판정
         </button>

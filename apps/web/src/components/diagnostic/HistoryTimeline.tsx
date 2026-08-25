@@ -85,7 +85,7 @@ export function HistoryTimeline({ snapshots }: { snapshots: Snapshot[] }) {
               <header className="mb-2 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span
-                    className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-wider"
+                    className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] uppercase tracking-wider"
                     style={{ backgroundColor: style.color, color: 'var(--ti)' }}
                   >
                     {style.label}

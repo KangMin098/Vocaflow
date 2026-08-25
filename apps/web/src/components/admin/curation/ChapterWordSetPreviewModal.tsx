@@ -121,7 +121,7 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
         <header className="flex items-start justify-between gap-3 border-b border-[var(--bd)] p-5">
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-baseline gap-2">
-              <span className="rounded-[var(--r-full)] bg-[#8B5CF6]/10 px-2 py-0.5 font-display text-[10px] font-[700] text-[#6D28D9]">
+              <span className="rounded-[var(--r-full)] bg-[#8B5CF6]/10 px-2 py-1 font-display text-[10px] font-[700] text-[#6D28D9]">
                 Ch.{set.chapterIdx}
               </span>
               <h3 className="font-display text-[16px] font-[700] text-[var(--t1)]">
@@ -180,7 +180,7 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
           {words && words.length > 0 && (
             <ul className="flex flex-col divide-y divide-[var(--bd)]/40">
               {words.map((w) => (
-                <li key={w.word} className="flex items-center gap-3 py-2.5">
+                <li key={w.word} className="flex items-center gap-3 py-3">
                   <span className="font-display text-[11px] font-[700] tabular-nums text-[var(--t2)]">
                     #{w.sortOrder}
                   </span>
@@ -195,7 +195,7 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
                         </span>
                       )}
                       {w.cefrLevel && (
-                        <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-[var(--t2)]">
+                        <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-display text-[9px] font-[700] text-[var(--t2)]">
                           {w.cefrLevel}
                         </span>
                       )}
@@ -208,7 +208,7 @@ export function ChapterWordSetPreviewModal({ set, onClose }: Props) {
                     type="button"
                     onClick={() => speak(w.word)}
                     aria-label={`${w.word} 발음 듣기`}
-                    className="shrink-0 rounded-full p-1.5 text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)]"
+                    className="shrink-0 rounded-full p-2 text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)]"
                   >
                     <Volume2 size={14} aria-hidden />
                   </button>

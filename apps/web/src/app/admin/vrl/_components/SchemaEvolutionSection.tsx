@@ -65,7 +65,7 @@ export function SchemaEvolutionSection({ snapshot }: SchemaEvolutionSectionProps
     <section aria-label="Schema Evolution Plan" className="flex flex-col gap-4">
       {/* ── 섹션 헤더 ── */}
       <header className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)]"
             style={{ backgroundColor: '#8B5CF61A', color: '#8B5CF6' }}
@@ -138,7 +138,7 @@ function ProgressRing({ pct, dimScore }: { pct: number; dimScore: number }) {
         : 'var(--error)'
 
   return (
-    <div className="flex items-center gap-2.5">
+    <div className="flex items-center gap-3">
       <svg width="58" height="58" viewBox="0 0 58 58" aria-hidden>
         <circle
           cx="29"
@@ -215,11 +215,11 @@ function TierCard({
   return (
     <article
       aria-label={`Tier ${tier.tier} ${tier.label}`}
-      className={`flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)] ${ringClass}`}
+      className={`flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)] ${ringClass}`}
     >
       {/* ── 헤더 ── */}
-      <header className="flex items-start justify-between gap-2.5">
-        <div className="flex items-center gap-2.5">
+      <header className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
           <span
             className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] font-display text-[14px] font-[800] text-white shadow-[var(--sh-sm)]"
             style={{ background: color.gradient }}

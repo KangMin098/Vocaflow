@@ -144,7 +144,7 @@ export function ComicReviewClient({
         <div className="flex items-center gap-3">
           <Link
             href="/admin/comic"
-            className="inline-flex items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t2)] hover:text-[var(--t1)]"
+            className="inline-flex items-center gap-2 font-body text-[12px] font-[500] text-[var(--t2)] hover:text-[var(--t1)]"
           >
             <ArrowLeft size={14} /> Comic Pipeline
           </Link>
@@ -152,9 +152,9 @@ export function ComicReviewClient({
           <h1 className="font-display text-[18px] font-[800] text-[var(--t1)]">{title}</h1>
           <span className="font-body text-[12px] text-[var(--t2)]">{author}</span>
           {vLevel != null && (
-            <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[11px] text-[var(--t2)]">V{vLevel}</span>
+            <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[11px] text-[var(--t2)]">V{vLevel}</span>
           )}
-          <Link href={`/admin/comic/${bookId}/drain`} className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2.5 py-1 font-display text-[11px] font-[700]" style={{ borderColor: `${ACCENT}55`, color: ACCENT }}>
+          <Link href={`/admin/comic/${bookId}/drain`} className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-[700]" style={{ borderColor: `${ACCENT}55`, color: ACCENT }}>
             <Cpu size={12} /> 드레인 관측 →
           </Link>
         </div>
@@ -170,7 +170,7 @@ export function ComicReviewClient({
 
       {/* 만화 스타일 선택 (포맷×연령×장르×난이도) */}
       <div className="flex flex-wrap items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
-        <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[700] text-[var(--t1)]">
+        <span className="inline-flex items-center gap-2 font-display text-[13px] font-[700] text-[var(--t1)]">
           <Palette size={15} style={{ color: ACCENT }} /> 만화 스타일
         </span>
         <select
@@ -178,7 +178,7 @@ export function ComicReviewClient({
           value={detail.header?.style_key ?? ''}
           disabled={styleBusy}
           onChange={(e) => setStyle(e.target.value)}
-          className="min-h-11 min-w-[240px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1.5 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)] disabled:opacity-50"
+          className="min-h-11 min-w-[240px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)] disabled:opacity-50"
         >
           <option value="">— 스타일 선택 —</option>
           {styles.filter((s) => s.status !== 'rejected').map((s) => (
@@ -203,7 +203,7 @@ export function ComicReviewClient({
               <div key={s} className="flex items-center gap-2">
                 {i > 0 && <ChevronRight size={14} className="shrink-0 text-[var(--t2)]" />}
                 <span
-                  className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-[var(--r-full)] px-3 py-1 font-display text-[12px] font-[700] transition-all"
+                  className="inline-flex items-center gap-2 whitespace-nowrap rounded-[var(--r-full)] px-3 py-1 font-display text-[12px] font-[700] transition-all"
                   style={
                     active
                       ? { backgroundColor: m.tone, color: '#fff' }
@@ -266,7 +266,7 @@ export function ComicReviewClient({
         </div>
 
         {/* 이 단계에서 할 일 */}
-        <p className="mt-3 flex items-start gap-1.5 border-t border-[var(--bd)] pt-3 font-body text-[12px] text-[var(--t2)]">
+        <p className="mt-3 flex items-start gap-2 border-t border-[var(--bd)] pt-3 font-body text-[12px] text-[var(--t2)]">
           <span aria-hidden style={{ color: ACCENT }}>›</span>
           {STAGE_HINT[stage]}
         </p>
@@ -304,7 +304,7 @@ export function ComicReviewClient({
           {verbatimN > 0 && (
             <div>
               <p className="mb-1 font-display text-[12px] font-[700] text-[var(--memory-risk)]">정본 불일치 {verbatimN}건</p>
-              <ul className="flex flex-col gap-0.5">
+              <ul className="flex flex-col gap-1">
                 {(qc.verbatim_mismatch as unknown[]).map((v, k) => (
                   <li key={k} className="font-body text-[12px] text-[var(--t2)]">
                     • {typeof v === 'string' ? v : JSON.stringify(v)}
@@ -316,7 +316,7 @@ export function ComicReviewClient({
           {ruleN > 0 && (
             <div>
               <p className="mb-1 font-display text-[12px] font-[700] text-[var(--memory-shaky)]">규칙 위반 {ruleN}건</p>
-              <ul className="flex flex-col gap-0.5">
+              <ul className="flex flex-col gap-1">
                 {(qc.rule_violations as unknown[]).map((v, k) => (
                   <li key={k} className="font-body text-[12px] text-[var(--t2)]">
                     • {typeof v === 'string' ? v : JSON.stringify(v)}
@@ -339,11 +339,11 @@ export function ComicReviewClient({
             target_vocab 은 verbatim(정본) 버블에서만 뽑아야 원문·퀴즈와 단어가 일치합니다. 아래 단어는
             학습자가 만화에서 만나도 단어장·FSRS 로 이어지지 않습니다.
           </p>
-          <ul className="flex flex-wrap gap-1.5">
+          <ul className="flex flex-wrap gap-2">
             {vocabIntegrity.orphans.slice(0, 40).map((w) => (
               <li
                 key={w}
-                className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[11px] text-[var(--t2)]"
+                className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[11px] text-[var(--t2)]"
               >
                 {w}
               </li>
@@ -369,7 +369,7 @@ export function ComicReviewClient({
         byStave.map(([ch, list]) => (
           <section key={ch} className="flex flex-col gap-3">
             <h2 className="flex items-center gap-2 font-display text-[13px] font-[700] text-[var(--t1)]">
-              <span className="rounded-[var(--r-sm)] bg-[color-mix(in_srgb,var(--info)_14%,transparent)] px-2 py-0.5 text-[var(--info)]">
+              <span className="rounded-[var(--r-sm)] bg-[color-mix(in_srgb,var(--info)_14%,transparent)] px-2 py-1 text-[var(--info)]">
                 {list[0]?.stave_label ?? `Chapter ${ch}`}
               </span>
               <span className="font-body text-[12px] font-[400] text-[var(--t2)]">{list.length}컷</span>
@@ -386,7 +386,7 @@ export function ComicReviewClient({
                       onError={(e) => { const el = e.currentTarget; if (el.src !== p.image_url) el.src = p.image_url }}
                       className="aspect-[3/4] w-full object-cover"
                     />
-                    <span className="absolute left-1.5 top-1.5 rounded-[var(--r-sm)] bg-black/60 px-1.5 py-0.5 font-mono text-[10px] font-[700] text-white">
+                    <span className="absolute left-1.5 top-1.5 rounded-[var(--r-sm)] bg-black/60 px-2 py-1 font-mono text-[10px] font-[700] text-white">
                       #{p.page_order}
                     </span>
                   </div>
@@ -405,7 +405,7 @@ export function ComicReviewClient({
                     {p.target_vocab.length > 0 && (
                       <div className="mt-0.5 flex flex-wrap gap-1">
                         {p.target_vocab.map((w) => (
-                          <span key={w} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t2)]">{w}</span>
+                          <span key={w} className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">{w}</span>
                         ))}
                       </div>
                     )}
@@ -437,7 +437,7 @@ function Btn({
       onClick={onClick}
       disabled={disabled}
       title={title}
-      className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border px-3.5 py-1.5 font-display text-[12px] font-[700] transition-all disabled:opacity-40"
+      className="inline-flex items-center gap-2 rounded-[var(--r-full)] border px-4 py-2 font-display text-[12px] font-[700] transition-all disabled:opacity-40"
       style={
         primary
           ? { backgroundColor: ACCENT, color: '#fff', borderColor: ACCENT }
@@ -453,7 +453,7 @@ function Btn({
 function QcTile({ label, value, tone = 'var(--t1)', Icon }: { label: string; value: string; tone?: string; Icon?: typeof Upload }) {
   return (
     <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-2">
         {Icon && <Icon size={14} style={{ color: tone }} />}
         <p className="font-display text-[18px] font-[800] tabular-nums" style={{ color: tone }}>{value}</p>
       </div>

@@ -296,7 +296,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
             )}
           </div>
           <div aria-hidden style={{ height: 2, background: 'color-mix(in srgb, var(--active) 30%, transparent)' }} />
-          <div className="flex select-text flex-col gap-2 px-3.5 py-3">
+          <div className="flex select-text flex-col gap-2 px-4 py-3">
             <div className="flex items-center gap-2">
               <span className="font-display text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--active-ink)]">{st}</span>
               <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
@@ -308,22 +308,22 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
               const shown = !b.verbatim || revealed.has(key)
               if (isCap) return <p key={key} className="border-l-[3px] border-[var(--active)] pl-3 font-serif text-[13px] italic leading-relaxed text-[var(--t2)]">{b.text}</p>
               return (
-                <div key={key} className="flex flex-col gap-0.5">
+                <div key={key} className="flex flex-col gap-1">
                   {b.speaker && (
-                    <span className="inline-flex items-center gap-1.5 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+                    <span className="inline-flex items-center gap-2 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
                       <span aria-hidden className="h-2 w-2 rounded-full" style={{ background: speakerHue(b.speaker) }} />{b.speaker}
                     </span>
                   )}
                   {b.verbatim ? (
-                    <div className="flex flex-col gap-1.5 self-start">
-                      <button type="button" data-no-nav onClick={() => toggleReveal(key)} aria-pressed={shown} aria-label={shown ? `정본 대사: ${b.text}` : '정본 대사 — 기억해 보고 탭하여 확인'} className="group inline-flex min-h-11 items-center gap-2 rounded-[var(--r-md)] px-2.5 py-1.5 text-left font-body text-[14px] transition-colors motion-reduce:transition-none" style={{ border: '1px dashed color-mix(in srgb, var(--active) 55%, transparent)', background: 'color-mix(in srgb, var(--active) 8%, transparent)', color: shown ? 'var(--t1)' : 'var(--t3)' }}>
+                    <div className="flex flex-col gap-2 self-start">
+                      <button type="button" data-no-nav onClick={() => toggleReveal(key)} aria-pressed={shown} aria-label={shown ? `정본 대사: ${b.text}` : '정본 대사 — 기억해 보고 탭하여 확인'} className="group inline-flex min-h-11 items-center gap-2 rounded-[var(--r-md)] px-3 py-2 text-left font-body text-[14px] transition-colors motion-reduce:transition-none" style={{ border: '1px dashed color-mix(in srgb, var(--active) 55%, transparent)', background: 'color-mix(in srgb, var(--active) 8%, transparent)', color: shown ? 'var(--t1)' : 'var(--t3)' }}>
                         {!shown && <Eye size={13} aria-hidden style={{ color: 'var(--active)' }} />}
                         <span className={shown ? '' : 'select-none blur-[4px]'}>{b.text}</span>
                         {!shown && <span className="shrink-0 font-display text-[10px] font-[700] underline underline-offset-2" style={{ color: 'var(--active)' }}>기억나면 탭</span>}
                       </button>
                       {shown && (
                         <div className="flex items-center gap-2 pl-1">
-                          <button type="button" data-no-nav onClick={() => toggleRecall(key)} aria-pressed={recalled.has(key)} className="inline-flex min-h-9 items-center gap-1 rounded-[var(--r-full)] px-2.5 py-1 font-display text-[11px] font-[700] transition-colors motion-reduce:transition-none" style={recalled.has(key) ? { background: 'color-mix(in srgb, var(--memory-stable) 16%, transparent)', color: 'var(--memory-stable)' } : { border: '1px solid var(--bd)', color: 'var(--t3)' }}>
+                          <button type="button" data-no-nav onClick={() => toggleRecall(key)} aria-pressed={recalled.has(key)} className="inline-flex min-h-9 items-center gap-1 rounded-[var(--r-full)] px-3 py-1 font-display text-[11px] font-[700] transition-colors motion-reduce:transition-none" style={recalled.has(key) ? { background: 'color-mix(in srgb, var(--memory-stable) 16%, transparent)', color: 'var(--memory-stable)' } : { border: '1px solid var(--bd)', color: 'var(--t3)' }}>
                             {recalled.has(key) ? <><Check size={12} /> 기억함</> : '기억했어요'}
                           </button>
                           <button type="button" data-no-nav onClick={() => reblur(key)} className="min-h-9 font-body text-[11px] text-[var(--t2)] underline underline-offset-2 hover:text-[var(--t1)]">다시 볼게요</button>
@@ -339,10 +339,10 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
           </div>
         </div>
         {p.targetVocab.length > 0 && (
-          <div className="mt-3 flex flex-wrap items-center gap-1.5">
+          <div className="mt-3 flex flex-wrap items-center gap-2">
             <span className="font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">학습 단어</span>
             {p.targetVocab.map((w) => (
-              <button key={w} type="button" data-no-nav onClick={(e) => { vocabTrigger.current = e.currentTarget; setVocab(w) }} className="min-h-11 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-body text-[13px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--active)] motion-reduce:transition-none">{w}</button>
+              <button key={w} type="button" data-no-nav onClick={(e) => { vocabTrigger.current = e.currentTarget; setVocab(w) }} className="min-h-11 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-1 font-body text-[13px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--active)] motion-reduce:transition-none">{w}</button>
             ))}
           </div>
         )}
@@ -357,16 +357,16 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
         <p className="font-display text-[17px] font-[800] text-[var(--t1)]">여기까지 잘 읽었어요</p>
         <p className="mt-1 font-body text-[13px] text-[var(--t2)]">이야기의 흐름을 잡았다면, 이제 본문으로 더 깊이 만나 볼까요?</p>
         {recalled.size > 0 && (
-          <p className="mt-2 inline-flex items-center gap-1.5 font-body text-[13px] font-[600]" style={{ color: 'var(--memory-stable)' }}>
+          <p className="mt-2 inline-flex items-center gap-2 font-body text-[13px] font-[600]" style={{ color: 'var(--memory-stable)' }}>
             <Check size={14} aria-hidden /> 정본 대사 {recalled.size}개를 기억했어요
           </p>
         )}
       </div>
       <div className="flex flex-wrap justify-center gap-2">
-        <Link href={`/text/${textId}?mode=read`} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-px motion-reduce:transition-none" style={{ background: 'var(--active)', color: ON_GOLD }}>
+        <Link href={`/text/${textId}?mode=read`} className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-px motion-reduce:transition-none" style={{ background: 'var(--active)', color: ON_GOLD }}>
           <BookOpen size={14} aria-hidden /> 본문 읽기
         </Link>
-        <Link href="/scriptquiz" className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:border-[var(--active)]">
+        <Link href="/scriptquiz" className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:border-[var(--active)]">
           <ListChecks size={14} aria-hidden /> 퀴즈로 확인
         </Link>
       </div>
@@ -392,7 +392,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
         className={`fixed inset-x-0 top-0 z-30 transition-[opacity,transform] duration-[var(--dur-slower)] ease-[var(--ease)] motion-reduce:transition-none ${chrome ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'}`}
       >
         <div className="mx-auto flex max-w-[860px] items-center justify-between gap-3 px-4 py-2">
-          <Link href={`/text/${textId}?mode=read`} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] px-3 py-1 font-body text-[13px] font-[600] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)]" style={glass}>
+          <Link href={`/text/${textId}?mode=read`} className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-full)] px-3 py-1 font-body text-[13px] font-[600] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)]" style={glass}>
             <ArrowLeft size={15} aria-hidden /> 본문
           </Link>
           <span className="hidden truncate font-display text-[12px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)] sm:block">{bookTitle}</span>
@@ -452,7 +452,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
         // md 이상은 `--tabbar-h: 0px` 라 종전 그대로 화면 바닥에 붙는다.
         className={`fixed inset-x-0 bottom-[var(--tabbar-h)] z-30 transition-[opacity,transform] duration-[var(--dur-slower)] ease-[var(--ease)] motion-reduce:transition-none ${chrome ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'}`}
       >
-        <div className="mx-auto flex max-w-[860px] items-center gap-2 px-4 py-2.5">
+        <div className="mx-auto flex max-w-[860px] items-center gap-2 px-4 py-3">
           <button type="button" data-no-nav onClick={() => nav(i - 1, -1, 'chrome')} disabled={i === 0} aria-label="이전 컷" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] backdrop-blur-xl transition-colors hover:text-[var(--p)] disabled:opacity-30 motion-reduce:transition-none" style={glass}><ArrowLeft size={17} /></button>
 
           <div className="flex flex-1 items-center justify-center gap-1 rounded-[var(--r-full)] px-2 py-1 backdrop-blur-xl" style={glass}>
@@ -462,7 +462,7 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
               const within = isCur && page ? (i - s.first + 1) / s.count : passed ? 1 : 0
               const state = passed ? '읽음' : isCur ? '현재' : '남음'
               return (
-                <button key={s.key} type="button" data-no-nav onClick={() => { if (view === 'scroll' || s.first !== i) nav(s.first, s.first < i ? -1 : 1, 'chrome') }} aria-label={`${s.label}, ${s.count}컷, ${state}`} aria-current={isCur ? 'true' : undefined} className="group inline-flex h-11 items-center px-1.5">
+                <button key={s.key} type="button" data-no-nav onClick={() => { if (view === 'scroll' || s.first !== i) nav(s.first, s.first < i ? -1 : 1, 'chrome') }} aria-label={`${s.label}, ${s.count}컷, ${state}`} aria-current={isCur ? 'true' : undefined} className="group inline-flex h-11 items-center px-2">
                   {si > 0 && <span aria-hidden className="mr-1.5 h-px w-1.5 bg-[var(--bd)]" />}
                   <span aria-hidden className="relative inline-flex h-3 w-3 items-center justify-center rounded-full transition-all motion-reduce:transition-none" style={{
                     background: within >= 1 ? 'var(--active)' : within > 0 ? `color-mix(in srgb, var(--active) ${Math.round(within * 100)}%, transparent)` : 'transparent',
@@ -493,10 +493,10 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
             <div className="flex items-baseline gap-2">
               <p className="font-display text-[22px] font-[800] text-[var(--t1)]">{vocab}</p>
               {vocabInfo?.pos && <span className="font-body text-[12px] italic text-[var(--t2)]">{vocabInfo.pos}</span>}
-              {vocabInfo?.cefr_level && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t2)]">{vocabInfo.cefr_level}</span>}
+              {vocabInfo?.cefr_level && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">{vocabInfo.cefr_level}</span>}
             </div>
             {vocabBusy ? (
-              <p className="mt-3 inline-flex items-center gap-1.5 font-body text-[13px] text-[var(--t2)]"><Loader2 size={13} className="animate-spin" /> 뜻을 불러오는 중…</p>
+              <p className="mt-3 inline-flex items-center gap-2 font-body text-[13px] text-[var(--t2)]"><Loader2 size={13} className="animate-spin" /> 뜻을 불러오는 중…</p>
             ) : vocabInfo?.meaning_ko ? (
               <>
                 <p className="mt-2 font-body text-[15px] font-[600] leading-snug text-[var(--t1)]">{vocabInfo.meaning_ko}</p>
@@ -508,12 +508,12 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
               <p className="mt-2 font-body text-[13px] text-[var(--t2)]">이 장면의 맥락에서 만난 단어예요.</p>
             )}
             <div className="mt-4 flex items-center justify-between gap-2">
-              <button type="button" onClick={() => setVocab(null)} className="min-h-11 rounded-[var(--r-full)] px-3 py-1.5 font-display text-[13px] font-[600] text-[var(--t2)] hover:text-[var(--t1)]">닫기</button>
+              <button type="button" onClick={() => setVocab(null)} className="min-h-11 rounded-[var(--r-full)] px-3 py-2 font-display text-[13px] font-[600] text-[var(--t2)] hover:text-[var(--t1)]">닫기</button>
               <div className="flex gap-2">
-                <Link href={`/wordvault/browse?q=${encodeURIComponent(vocab)}`} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1.5 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:border-[var(--active)] hover:text-[var(--t1)]">
+                <Link href={`/wordvault/browse?q=${encodeURIComponent(vocab)}`} className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:border-[var(--active)] hover:text-[var(--t1)]">
                   <BookOpen size={13} aria-hidden /> 단어장
                 </Link>
-                <button type="button" onClick={addToVault} disabled={added === 'adding' || added === 'done' || added === 'exists'} className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[13px] font-[700] disabled:opacity-70" style={{ background: 'var(--active)', color: ON_GOLD }}>
+                <button type="button" onClick={addToVault} disabled={added === 'adding' || added === 'done' || added === 'exists'} className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] disabled:opacity-70" style={{ background: 'var(--active)', color: ON_GOLD }}>
                   {added === 'adding' ? <Loader2 size={13} className="animate-spin" /> : added === 'done' || added === 'exists' ? <Check size={14} /> : <Plus size={14} />}
                   {added === 'done' ? '추가됨' : added === 'exists' ? '이미 있음' : '단어장 추가'}
                 </button>

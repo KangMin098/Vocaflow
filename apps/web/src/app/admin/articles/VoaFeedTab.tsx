@@ -162,7 +162,7 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
       <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
         <label
           htmlFor="voa-url-input"
-          className="flex items-center gap-1.5 font-display text-[12px] font-[600] text-[var(--t2)]"
+          className="flex items-center gap-2 font-display text-[12px] font-[600] text-[var(--t2)]"
         >
           <Link2 size={12} aria-hidden />
           URL 직접 입력 (RSS 와 별개로 즉시 큐 추가)
@@ -199,7 +199,7 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
         {urlMessage && (
           <div
             role={urlMessage.ok ? 'status' : 'alert'}
-            className="flex items-center gap-1.5 rounded-[var(--r-sm)] px-3 py-2 font-body text-[11px]"
+            className="flex items-center gap-2 rounded-[var(--r-sm)] px-3 py-2 font-body text-[11px]"
             style={{
               background: urlMessage.ok ? 'var(--learn-known-light)' : 'var(--learn-error-light)',
               color: urlMessage.ok ? 'var(--learn-known)' : 'var(--learn-error)',
@@ -233,7 +233,7 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
             return (
               <li
                 key={item.source_id}
-                className="flex flex-col gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)]"
+                className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)]"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
@@ -278,7 +278,7 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
                 </div>
                 <div className="flex items-center gap-3 font-mono text-[10px] text-[var(--t5)]">
                   {item.published_at && (
-                    <span className="inline-flex items-center gap-0.5">
+                    <span className="inline-flex items-center gap-1">
                       <Calendar size={9} aria-hidden />
                       {item.published_at.slice(0, 10)}
                     </span>

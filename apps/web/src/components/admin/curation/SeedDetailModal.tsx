@@ -128,9 +128,9 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
           </div>
 
           <div className="min-w-0 flex-1 pt-1">
-            <div className="mb-2 flex flex-wrap items-center gap-1.5">
+            <div className="mb-2 flex flex-wrap items-center gap-2">
               <span
-                className="inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[10px] font-[700]"
+                className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-mono text-[10px] font-[700]"
                 style={{
                   color: sourceColor,
                   background: `color-mix(in srgb, ${sourceColor} 12%, transparent)`,
@@ -139,12 +139,12 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
                 {sourceLabel}
               </span>
               {cm?.genre_norm && (
-                <span className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-0.5 font-mono text-[10px] text-[var(--t2)]">
+                <span className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">
                   {cm.genre_norm}
                 </span>
               )}
               {row.imported_to_books && (
-                <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2 py-0.5 font-mono text-[10px] font-[700] text-[var(--learn-known)]">
+                <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--learn-known)]">
                   <CheckCircle2 size={10} /> 큐에 추가됨
                 </span>
               )}
@@ -160,7 +160,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
             )}
 
             {/* 핵심 메타 그리드 */}
-            <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 text-[11px] sm:grid-cols-3">
+            <div className="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-[11px] sm:grid-cols-3">
               {row.est_v_level != null && (
                 <MetaCell label="V-Level" value={`V${row.est_v_level}`} accent="var(--p)" />
               )}
@@ -237,11 +237,11 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
           {/* 테마 배지 */}
           {cm?.themes && cm.themes.length > 0 && (
             <Section title="테마" icon={<Tag size={13} />}>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2">
                 {cm.themes.map((th, i) => (
                   <span
                     key={`${th}-${i}`}
-                    className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-2.5 py-1 font-mono text-[11px] font-[600] text-[var(--on-p-tint)]"
+                    className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--p-light)] px-3 py-1 font-mono text-[11px] font-[600] text-[var(--on-p-tint)]"
                   >
                     {th}
                   </span>
@@ -275,7 +275,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
                 {row.subjects.slice(0, 8).map((s, i) => (
                   <span
                     key={i}
-                    className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] text-[var(--t2)]"
+                    className="inline-flex items-center rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]"
                   >
                     {s}
                   </span>
@@ -292,7 +292,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
               href={row.source_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+              className="inline-flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
             >
               <ExternalLink size={12} /> 원문 페이지
             </a>
@@ -301,7 +301,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
           )}
 
           {row.imported_to_books ? (
-            <span className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-3 py-2 font-mono text-[12px] font-[700] text-[var(--learn-known)]">
+            <span className="inline-flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-3 py-2 font-mono text-[12px] font-[700] text-[var(--learn-known)]">
               <CheckCircle2 size={12} /> 큐에 이미 추가됨
             </span>
           ) : (
@@ -309,7 +309,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
               type="button"
               onClick={() => onEnqueue(row)}
               disabled={enqueuing}
-              className="inline-flex items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
             >
               {enqueuing ? (
                 <Loader2 size={12} className="animate-spin" />
@@ -338,7 +338,7 @@ function MetaCell({
   accent?: string
 }) {
   return (
-    <div className="flex flex-col gap-0.5 min-w-0">
+    <div className="flex flex-col gap-1 min-w-0">
       <span className="font-mono text-[9.5px] uppercase tracking-wider text-[var(--t2)]">
         {label}
       </span>
@@ -364,7 +364,7 @@ function Section({
 }) {
   return (
     <section className="mb-4">
-      <h3 className="mb-1.5 inline-flex items-center gap-1.5 font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
+      <h3 className="mb-1.5 inline-flex items-center gap-2 font-mono text-[10.5px] font-[700] uppercase tracking-[0.1em] text-[var(--t2)]">
         {icon}
         {title}
       </h3>

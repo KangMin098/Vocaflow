@@ -189,7 +189,7 @@ export default function AdminBillingPage() {
         title="결제/구독"
         description="MRR · 결제 내역 · 환불 처리"
         actions={
-          <button className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]">
+          <button className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]">
             <Download size={14} aria-hidden />
             CSV
           </button>
@@ -236,7 +236,7 @@ export default function AdminBillingPage() {
               const day = ['월', '화', '수', '목', '금', '토', '일'][i]
               const max = 1.84
               return (
-                <li key={i} className="flex flex-1 flex-col items-center gap-1.5">
+                <li key={i} className="flex flex-1 flex-col items-center gap-2">
                   <div className="flex w-full flex-1 items-end">
                     <div
                       className="w-full rounded-t-[var(--r-sm)] bg-gradient-to-t from-[var(--success)] to-[var(--success)]/60 transition-[height] duration-[var(--dur-slow)]"
@@ -350,7 +350,7 @@ export default function AdminBillingPage() {
                   </td>
                   <td className="px-4 py-3">
                     <span
-                      className="inline-flex rounded-full px-2 py-0.5 font-display text-[11px] font-[700]"
+                      className="inline-flex rounded-full px-2 py-1 font-display text-[11px] font-[700]"
                       style={{
                         backgroundColor: t.plan === 'pro' ? 'var(--p-light)' : '#F5F3FF',
                         color: t.plan === 'pro' ? 'var(--p)' : '#8B5CF6',
@@ -365,7 +365,7 @@ export default function AdminBillingPage() {
                   <td className="px-4 py-3 font-body text-[12px] text-[var(--t2)]">{t.method}</td>
                   <td className="px-4 py-3">
                     <span
-                      className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-display text-[11px] font-[700]"
+                      className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-display text-[11px] font-[700]"
                       style={{ backgroundColor: status.bg, color: status.color }}
                     >
                       <StatusIcon size={11} aria-hidden />

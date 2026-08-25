@@ -149,11 +149,11 @@ function DiagnosticView({ data }: { data: VrlDiagnosticData }) {
                   </td>
                   <td className="px-3 py-2 text-center">
                     {t.isActive ? (
-                      <span className="inline-flex rounded-full bg-[var(--success-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--success)]">
+                      <span className="inline-flex rounded-full bg-[var(--success-light)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--success)]">
                         active
                       </span>
                     ) : (
-                      <span className="inline-flex rounded-full bg-[var(--bg3)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--t2)]">
+                      <span className="inline-flex rounded-full bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]">
                         off
                       </span>
                     )}

@@ -85,13 +85,13 @@ export function TextFitVerdict({ report, onCollectWords, onDiagnose }: Props) {
   return (
     <section
       aria-label="지문 적합도 판정"
-      className="flex flex-col gap-[18px] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-5 transition-colors duration-[var(--dur-normal)]"
+      className="flex flex-col gap-[20px] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-5 transition-colors duration-[var(--dur-normal)]"
     >
       {/* ── 판정 한 줄 ── */}
-      <header className="flex flex-col gap-2.5">
-        <div className="flex flex-wrap items-center gap-2.5">
+      <header className="flex flex-col gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <span
-            className="inline-flex items-center gap-[7px] rounded-[var(--r-full)] border bg-[var(--bg3)] px-[11px] py-[5px] font-display text-[13px] font-[700] leading-[1.3]"
+            className="inline-flex items-center gap-[8px] rounded-[var(--r-full)] border bg-[var(--bg3)] px-[12px] py-[4px] font-display text-[13px] font-[700] leading-[1.3]"
             style={{ borderColor: token.dot, color: token.ink }}
           >
             <span
@@ -129,7 +129,7 @@ export function TextFitVerdict({ report, onCollectWords, onDiagnose }: Props) {
           `어휘 커버리지 ${pct(report.coverage)}, ${copy.label} 구간.` +
           (showForecast ? ` 복습하지 않으면 ${FORECAST_DAYS}일 뒤 ${pct(report.coverageIn14Days)}.` : '')
         }
-        className="flex flex-col gap-[7px]"
+        className="flex flex-col gap-[8px]"
       >
         <div className="relative h-[30px] overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg3)]">
           {/* 대역 경계 눈금 */}
@@ -196,9 +196,9 @@ export function TextFitVerdict({ report, onCollectWords, onDiagnose }: Props) {
           커버리지 기여는 둘 다 0 이지만 학습자에게는 전혀 다른 단어다.
           하나는 처음부터 배워야 하고, 다른 하나는 복습 한 번이면 돌아온다. */}
       {(report.unknown.length > 0 || recoverable > 0) && (
-        <p className="m-0 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-body text-[13.5px] leading-[1.6] text-[var(--t2)]">
+        <p className="m-0 flex flex-wrap items-center gap-x-4 gap-y-2 font-body text-[13.5px] leading-[1.6] text-[var(--t2)]">
           {report.unknown.length > 0 && (
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-2">
               <span
                 aria-hidden
                 className="h-1.5 w-1.5 rounded-full"
@@ -208,7 +208,7 @@ export function TextFitVerdict({ report, onCollectWords, onDiagnose }: Props) {
             </span>
           )}
           {recoverable > 0 && (
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-2">
               <span
                 aria-hidden
                 className="h-1.5 w-1.5 rounded-full"
@@ -238,7 +238,7 @@ export function TextFitVerdict({ report, onCollectWords, onDiagnose }: Props) {
 
       {/* ── 처방 ── */}
       {active && active.reachable && (
-        <div className="flex flex-wrap items-center justify-between gap-3.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg3)] px-4 py-3.5">
+        <div className="flex flex-wrap items-center justify-between gap-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg3)] px-4 py-4">
           <p className="m-0 flex items-center gap-2 font-body text-[14px] text-[var(--t1)]">
             <Target size={16} aria-hidden className="shrink-0 text-[var(--p)]" />
             <span>
@@ -252,7 +252,7 @@ export function TextFitVerdict({ report, onCollectWords, onDiagnose }: Props) {
             <button
               type="button"
               onClick={() => onCollectWords(active.words.map((w) => w.lemma))}
-              className="inline-flex min-h-[44px] items-center gap-[7px] rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
+              className="inline-flex min-h-[44px] items-center gap-[8px] rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
             >
               <Sparkles size={15} aria-hidden />
               단어장에 담기
@@ -288,7 +288,7 @@ export function TextFitVerdict({ report, onCollectWords, onDiagnose }: Props) {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls={detailId}
-          className="inline-flex min-h-[44px] items-center gap-1.5 font-body text-[13px] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)] active:text-[var(--p)] focus-visible:rounded-[2px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+          className="inline-flex min-h-[44px] items-center gap-2 font-body text-[13px] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)] active:text-[var(--p)] focus-visible:rounded-[2px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-[var(--p)] motion-reduce:transition-none"
         >
           {open ? <ChevronUp size={15} aria-hidden /> : <ChevronDown size={15} aria-hidden />}이 숫자가
           나온 근거
@@ -299,7 +299,7 @@ export function TextFitVerdict({ report, onCollectWords, onDiagnose }: Props) {
             id={detailId}
             className="mt-3 flex flex-col gap-3 font-body text-[13px] leading-[1.7] text-[var(--t2)]"
           >
-            <dl className="m-0 grid grid-cols-[auto_1fr_auto] items-baseline gap-x-3 gap-y-1.5">
+            <dl className="m-0 grid grid-cols-[auto_1fr_auto] items-baseline gap-x-3 gap-y-2">
               {(Object.entries(report.breakdown) as [KnownSource, number][])
                 .filter(([, n]) => n > 0)
                 .sort((a, b) => b[1] - a[1])
@@ -321,7 +321,7 @@ export function TextFitVerdict({ report, onCollectWords, onDiagnose }: Props) {
               )}
             </p>
 
-            <p className="m-0 flex items-start gap-[7px] text-[var(--t3)]">
+            <p className="m-0 flex items-start gap-[8px] text-[var(--t3)]">
               <Clock3 size={14} aria-hidden className="mt-[3px] shrink-0" />
               <span>
                 기준선 98%·95%는 Hu &amp; Nation(2000)의 읽기 이해 임계에서 왔어요. 이후 재현

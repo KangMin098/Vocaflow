@@ -115,14 +115,14 @@ function SourceBlock({
         {feeds.map((f) => (
           <li
             key={`${f.source}|${f.feedId}`}
-            className="flex items-center gap-2 rounded-[var(--r-sm)] bg-[var(--bg)] px-2.5 py-1.5"
+            className="flex items-center gap-2 rounded-[var(--r-sm)] bg-[var(--bg)] px-3 py-2"
           >
             <span className="min-w-0 flex-1 truncate font-body text-[12px] text-[var(--t2)]">
               {f.feedLabel}
             </span>
             {f.audioN > 0 && (
               <span
-                className="inline-flex items-center gap-0.5 font-mono text-[10px] text-[var(--learn-known)]"
+                className="inline-flex items-center gap-1 font-mono text-[10px] text-[var(--learn-known)]"
                 title={`${f.audioN}건 audio`}
               >
                 <Volume2 size={11} aria-hidden />
@@ -151,7 +151,7 @@ function PolicyTag({ label, tone }: { label: string; tone: Tone }) {
   const c = TAG_COLORS[tone]
   return (
     <span
-      className="rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-0.5 font-mono text-[9px] font-[600]"
+      className="rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-1 font-mono text-[9px] font-[600]"
       style={{ backgroundColor: c.bg, color: c.fg }}
     >
       {label}

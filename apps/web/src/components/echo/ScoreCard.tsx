@@ -54,7 +54,7 @@ export function ScoreCard({ score, feedback, tone }: Props) {
 
 function Axis({ label, value, weight }: { label: string; value: number; weight: string }) {
   return (
-    <div className="flex flex-col gap-1.5 rounded-[var(--r-md)] bg-[var(--bg2)] p-3">
+    <div className="flex flex-col gap-2 rounded-[var(--r-md)] bg-[var(--bg2)] p-3">
       <div className="flex items-baseline justify-between">
         <span className="font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--t2)]">
           {label}

@@ -60,7 +60,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
         <header className="flex items-start justify-between gap-3 border-b border-[var(--bd)] p-5">
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-baseline gap-2">
-              <span className="rounded-[var(--r-full)] bg-[#8B5CF6]/10 px-2 py-0.5 font-display text-[10px] font-[700] text-[#6D28D9]">
+              <span className="rounded-[var(--r-full)] bg-[#8B5CF6]/10 px-2 py-1 font-display text-[10px] font-[700] text-[#6D28D9]">
                 Ch.{chapter.chapterIdx}
               </span>
               <h3 className="font-display text-[16px] font-[700] text-[var(--t1)]">
@@ -104,7 +104,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
                   <span className="grid h-6 w-6 shrink-0 place-items-center rounded-[var(--r-full)] bg-[#8B5CF6]/10 font-display text-[11px] font-[700] tabular-nums text-[#6D28D9]">
                     {q.qOrder}
                   </span>
-                  <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--t2)]">
+                  <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-wider text-[var(--t2)]">
                     {q.type}
                   </span>
                 </div>
@@ -118,7 +118,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
                   </p>
                 )}
 
-                <ul className="mt-3 flex flex-col gap-1.5">
+                <ul className="mt-3 flex flex-col gap-2">
                   {q.options.map((opt, i) => {
                     const isCorrect = i === q.correctIndex
                     return (
@@ -165,7 +165,7 @@ export function ChapterQuizPreviewModal({ chapter, onClose }: Props) {
                 </ul>
 
                 {q.sourceSnippet && (
-                  <div className="mt-3 flex items-start gap-2 border-t border-[var(--bd)]/60 pt-2.5">
+                  <div className="mt-3 flex items-start gap-2 border-t border-[var(--bd)]/60 pt-3">
                     <Quote size={12} aria-hidden className="mt-1 shrink-0 text-[var(--t2)]" />
                     <p className="font-english text-[12px] italic leading-relaxed text-[var(--t2)]">
                       {q.sourceSnippet}

@@ -45,7 +45,7 @@ export function LibriVoxAudioPlayer({ audio }: { audio: LibriVoxAudio }) {
       aria-label="LibriVox 오디오 낭독"
     >
       <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
+        <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
           <Headphones size={11} aria-hidden />
           오디오 낭독 (LibriVox)
         </div>
@@ -59,7 +59,7 @@ export function LibriVoxAudioPlayer({ audio }: { audio: LibriVoxAudio }) {
               href={audio.archive_url}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-0.5 text-[var(--t2)] hover:text-[var(--p)] hover:underline"
+              className="inline-flex items-center gap-1 text-[var(--t2)] hover:text-[var(--p)] hover:underline"
               aria-label="archive.org 에서 전체 보기"
             >
               archive.org
@@ -73,7 +73,7 @@ export function LibriVoxAudioPlayer({ audio }: { audio: LibriVoxAudio }) {
       <VoiceConsistencyBadge kind={consistency} voices={voices} />
 
       {/* 챕터 선택 + 이동 */}
-      <div className="mb-2 flex items-stretch gap-1.5">
+      <div className="mb-2 flex items-stretch gap-2">
         <button
           type="button"
           onClick={() => setIdx((i) => Math.max(0, i - 1))}
@@ -152,7 +152,7 @@ function VoiceConsistencyBadge({
 
   return (
     <div
-      className="mb-2 inline-flex items-center gap-1.5 rounded-[var(--r-sm)] px-2 py-1 font-body text-[11px] font-[600]"
+      className="mb-2 inline-flex items-center gap-2 rounded-[var(--r-sm)] px-2 py-1 font-body text-[11px] font-[600]"
       style={{ background: cfg.bg, color: cfg.fg }}
       role="status"
     >

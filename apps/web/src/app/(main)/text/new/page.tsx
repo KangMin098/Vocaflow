@@ -135,7 +135,7 @@ export default function TextViewerNewPage() {
         <Link
           href="/text"
           aria-label="스크립트 허브로 돌아가기"
-          className="flex min-h-11 items-center gap-1.5 rounded-md px-3 font-display text-[12px] font-[600] text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
+          className="flex min-h-11 items-center gap-2 rounded-md px-3 font-display text-[12px] font-[600] text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
         >
           <ArrowLeft size={14} aria-hidden="true" />
           <span>허브</span>

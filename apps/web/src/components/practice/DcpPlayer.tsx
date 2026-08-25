@@ -162,7 +162,7 @@ function Feedback({
       {/* 배너 (색+아이콘 이중부호 · aria-live) */}
       <div
         aria-live="polite"
-        className="flex items-center gap-2.5 rounded-[var(--r-md)] p-3"
+        className="flex items-center gap-3 rounded-[var(--r-md)] p-3"
         style={{
           background: correct ? 'var(--success-light)' : 'var(--error-light)',
           color: correct ? 'var(--success)' : 'var(--error)',
@@ -190,7 +190,7 @@ function Feedback({
       {!correct && (
         <div className="flex flex-col gap-2">
           <p className="font-display text-[12px] font-[700] text-[var(--t2)]">어떤 점이 어려웠나요? (선택)</p>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {ERROR_CAUSES.map((ec) => (
               <button
                 key={ec.cause}
@@ -228,7 +228,7 @@ function CauseTip({ cause }: { cause: DcpErrorCause }) {
   const def = ERROR_CAUSES.find((e) => e.cause === cause)
   if (!def) return null
   return (
-    <div className="flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--bg)] p-2.5">
+    <div className="flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--bg)] p-3">
       <p className="min-w-0 flex-1 font-body text-[12.5px] leading-relaxed text-[var(--t2)]">{def.tip}</p>
       {def.href && (
         <Link
@@ -254,7 +254,7 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
     return (
       <div className="flex flex-col gap-2">
         <p className="font-display text-[12px] font-[700] text-[var(--t2)]">정답</p>
-        <div className="flex items-start gap-2.5 rounded-[var(--r-sm)] border border-[var(--success)] bg-[var(--success-light)] p-2.5">
+        <div className="flex items-start gap-3 rounded-[var(--r-sm)] border border-[var(--success)] bg-[var(--success-light)] p-3">
           <span className="mt-[1px] inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--success)] font-mono text-[12px] font-[700] text-[var(--bg)]" aria-hidden>
             {answer}
           </span>
@@ -264,7 +264,7 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
         </div>
         {/* 해설은 **왜 나머지가 아닌지**까지 적혀 있다 — 오답 노트가 따로 필요 없게 만든 자리다. */}
         {typeof rationale === 'string' && rationale.trim() && (
-          <p className="rounded-[var(--r-sm)] bg-[var(--bg)] p-2.5 font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
+          <p className="rounded-[var(--r-sm)] bg-[var(--bg)] p-3 font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
             {rationale}
           </p>
         )}
@@ -278,13 +278,13 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
     if (!Array.isArray(sourceOrder)) return null
     const correctOrder = correctOrderFromKey(sourceOrder as number[])
     return (
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <p className="font-display text-[12px] font-[700] text-[var(--t2)]">정답 순서</p>
-        <ol className="flex flex-col gap-1.5">
+        <ol className="flex flex-col gap-2">
           {correctOrder.map((pIdx, pos) => (
             <li
               key={pos}
-              className="flex items-start gap-2 rounded-[var(--r-sm)] border border-[var(--success)] bg-[var(--success-light)] p-2.5"
+              className="flex items-start gap-2 rounded-[var(--r-sm)] border border-[var(--success)] bg-[var(--success-light)] p-3"
             >
               <span className="font-mono text-[12px] font-[700] text-[var(--success)]">{pos + 1}</span>
               <p className="min-w-0 flex-1 font-body text-[13px] leading-relaxed text-[var(--t1)]">{presented[pIdx]}</p>
@@ -302,15 +302,15 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
   const withInsert = [...p.remaining]
   withInsert.splice(position, 0, `〔${p.insert_sentence}〕`)
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       <p className="font-display text-[12px] font-[700] text-[var(--t2)]">정답 위치</p>
-      <ol className="flex flex-col gap-1.5">
+      <ol className="flex flex-col gap-2">
         {withInsert.map((sentence, i) => {
           const isInserted = i === position
           return (
             <li
               key={i}
-              className="rounded-[var(--r-sm)] border p-2.5 font-body text-[13px] leading-relaxed"
+              className="rounded-[var(--r-sm)] border p-3 font-body text-[13px] leading-relaxed"
               style={{
                 borderColor: isInserted ? 'var(--success)' : 'var(--bd)',
                 background: isInserted ? 'var(--success-light)' : 'var(--bg)',

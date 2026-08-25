@@ -102,7 +102,7 @@ export function TextCard({ text }: TextCardProps) {
         {/* Bookmark indicator */}
         {text.isBookmarked && (
           <span
-            className="absolute right-2 top-2 rounded-full bg-white/20 p-1.5 backdrop-blur"
+            className="absolute right-2 top-2 rounded-full bg-white/20 p-2 backdrop-blur"
             aria-label="즐겨찾기"
           >
             <Bookmark
@@ -116,7 +116,7 @@ export function TextCard({ text }: TextCardProps) {
 
         {/* CEFR badge */}
         <span
-          className="absolute bottom-2 left-2 rounded-[var(--r-sm)] bg-white/20 px-1.5 py-0.5 font-display text-[9px] font-[800] uppercase tracking-wider text-white backdrop-blur"
+          className="absolute bottom-2 left-2 rounded-[var(--r-sm)] bg-white/20 px-2 py-1 font-display text-[9px] font-[800] uppercase tracking-wider text-white backdrop-blur"
           aria-label={`레벨 ${text.cefrLevel}`}
         >
           {text.cefrLevel}

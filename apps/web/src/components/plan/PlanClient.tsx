@@ -414,11 +414,11 @@ export function PlanClient({
       >
         {/* 좌: 고르기 */}
         <div className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
-          <h2 className="flex items-center gap-1.5 font-display text-[14px] font-[800] text-[var(--t1)]">
+          <h2 className="flex items-center gap-2 font-display text-[14px] font-[800] text-[var(--t1)]">
             <Plus size={15} strokeWidth={2} className="text-[var(--p)]" aria-hidden /> 자료 고르기
           </h2>
 
-          <div role="tablist" aria-label="자료 유형" className="flex flex-wrap gap-1.5">
+          <div role="tablist" aria-label="자료 유형" className="flex flex-wrap gap-2">
             {TYPE_TABS.map((t) => {
               const Icon = MATERIAL_ICON[t]
               const active = activeTab === t
@@ -440,7 +440,7 @@ export function PlanClient({
                     setArtSrc('')
                     setArtProg('')
                   }}
-                  className={`inline-flex min-h-11 items-center gap-1 rounded-[var(--r-md)] border px-2.5 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                  className={`inline-flex min-h-11 items-center gap-1 rounded-[var(--r-md)] border px-3 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                     active
                       ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
                       : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
@@ -499,14 +499,14 @@ export function PlanClient({
                 ) : (
                   <div className="flex flex-col gap-3">
                     {visibleGroups.map((g) => (
-                      <div key={g.key} className="flex flex-col gap-1.5">
+                      <div key={g.key} className="flex flex-col gap-2">
                         <div className="flex items-center gap-2">
                           <h3 className="font-display text-[11px] font-[800] text-[var(--t2)]">{g.label}</h3>
                           {g.short && <span className="font-mono text-[10px] text-[var(--t2)]">{g.short}</span>}
                           <span className="font-mono text-[10px] text-[var(--t2)]">{g.items.length}</span>
                           <span className="h-px flex-1 bg-[var(--bd)]" aria-hidden />
                         </div>
-                        <ul className="flex flex-col gap-1.5">
+                        <ul className="flex flex-col gap-2">
                           {g.items.map((m) => (
                             <MaterialRow
                               key={m.id}
@@ -615,7 +615,7 @@ function TodayStrip({ items, today, weekDates }: { items: PlanItem[]; today: num
       aria-label="오늘의 학습"
       className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--p)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]"
     >
-      <h2 className="flex items-center gap-1.5 font-display text-[14px] font-[800] text-[var(--t1)]">
+      <h2 className="flex items-center gap-2 font-display text-[14px] font-[800] text-[var(--t1)]">
         <CalendarDays size={15} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
         오늘의 학습{' '}
         <span className="font-mono text-[12px] text-[var(--p)]">
@@ -627,7 +627,7 @@ function TodayStrip({ items, today, weekDates }: { items: PlanItem[]; today: num
           오늘({dayLabel})은 계획된 학습이 없어요 — 아래에서 자료에 {dayLabel}요일을 더해 보세요.
         </p>
       ) : (
-        <div className="flex flex-col gap-2.5">
+        <div className="flex flex-col gap-3">
           {todayItems.map((it) => (
             <TodayRow key={it.id} item={it} />
           ))}
@@ -639,8 +639,8 @@ function TodayStrip({ items, today, weekDates }: { items: PlanItem[]; today: num
 
 function TodayRow({ item }: { item: PlanItem }) {
   return (
-    <div className="flex flex-col gap-1.5">
-      <span className="flex items-center gap-1.5">
+    <div className="flex flex-col gap-2">
+      <span className="flex items-center gap-2">
         <MiniMaterialGlyph item={item} />
         <span className="truncate font-display text-[13px] font-[800] text-[var(--t1)]">{item.title}</span>
         {item.materialType === 'book' && item.chapterCount > 1 && (
@@ -685,10 +685,10 @@ function WeekBoard({
   return (
     <section
       aria-label="주간 보드"
-      className="flex flex-col gap-2.5 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
+      className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
     >
       {/* 헤더 — 오늘의 학습·컴포저와 동일한 섹션 리듬 */}
-      <div className="flex items-center gap-1.5 px-0.5">
+      <div className="flex items-center gap-2 px-1">
         <CalendarDays size={14} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
         <h2 className="font-display text-[13px] font-[800] text-[var(--t1)]">주간 보드</h2>
         <span className="font-mono text-[11px] text-[var(--t2)]">
@@ -697,7 +697,7 @@ function WeekBoard({
       </div>
 
       {/* 7열 — 데스크톱=한 화면 grid, 모바일=가로 스크롤(min-w + snap). items-start 로 열마다 자연 높이 */}
-      <div ref={scrollerRef} className="snap-x overflow-x-auto pb-2 pt-0.5 [scrollbar-width:thin]">
+      <div ref={scrollerRef} className="snap-x overflow-x-auto pb-2 pt-1 [scrollbar-width:thin]">
         <div className="grid min-w-[820px] grid-cols-7 items-start gap-2">
           {WEEKDAYS.map((d) => {
             const dayItems = items.filter((i) => i.weekdays.includes(d.value))
@@ -717,7 +717,7 @@ function WeekBoard({
               >
                 {/* 요일 헤더 (요일·날짜·오늘) — 색+형태 이중, 오늘은 틴트+배지 */}
                 <div
-                  className={`flex flex-col items-center gap-0.5 border-b px-1 py-1.5 ${
+                  className={`flex flex-col items-center gap-1 border-b px-1 py-2 ${
                     isToday ? 'border-[var(--p)] bg-[var(--p-light)]' : 'border-[var(--bd)]'
                   }`}
                 >
@@ -737,14 +737,14 @@ function WeekBoard({
                     {weekDates[d.value - 1] ?? ''}
                   </span>
                   {isToday && (
-                    <span className="mt-0.5 rounded-full bg-[var(--p)] px-1.5 py-[1.5px] font-display text-[8px] font-[800] leading-none text-[var(--on-p)]">
+                    <span className="mt-0.5 rounded-full bg-[var(--p)] px-2 py-[1.5px] font-display text-[8px] font-[800] leading-none text-[var(--on-p)]">
                       오늘
                     </span>
                   )}
                 </div>
 
                 {/* 본문 — 계획 카드 스택 or 빈 상태 */}
-                <div className="flex min-h-[72px] flex-1 flex-col gap-1.5 p-1.5">
+                <div className="flex min-h-[72px] flex-1 flex-col gap-2 p-2">
                   {empty ? (
                     <span className="flex flex-1 items-center justify-center py-2 font-body text-[10px] italic text-[var(--t2)]">
                       비어 있음
@@ -803,7 +803,7 @@ function DayCard({ item, active, onClick }: { item: PlanItem; active: boolean; o
       // `relative` 는 장식이 아니다 — 이 카드 안의 `sr-only`(= position:absolute)가
       // 위치 기준을 못 찾으면 **문서 전체**를 기준으로 잡아, 가로 스크롤러(min-w-[820px]) 안의
       // 정적 위치만큼 문서가 넓어진다. 실측: `/plan` 모바일 가로 넘침 126px 의 원인이 이것이었다.
-      className={`relative flex w-full flex-col gap-1.5 rounded-[var(--r-sm)] border p-1.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      className={`relative flex w-full flex-col gap-2 rounded-[var(--r-sm)] border p-2 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
           ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)] shadow-[var(--sh-sm)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t1)] hover:-translate-y-px hover:border-[var(--p)] hover:shadow-[var(--sh-xs)]'
@@ -813,7 +813,7 @@ function DayCard({ item, active, onClick }: { item: PlanItem; active: boolean; o
         <MiniMaterialGlyph item={item} />
         {chapterLabel && (
           <span
-            className={`inline-flex h-4 shrink-0 items-center gap-0.5 rounded-[4px] px-1 font-mono text-[9px] tabular-nums ${
+            className={`inline-flex h-4 shrink-0 items-center gap-1 rounded-[4px] px-1 font-mono text-[9px] tabular-nums ${
               active ? 'bg-white/15 text-[var(--ti)]' : 'bg-[var(--bg3)] text-[var(--t2)]'
             }`}
             aria-hidden
@@ -825,7 +825,7 @@ function DayCard({ item, active, onClick }: { item: PlanItem; active: boolean; o
       </span>
       <span className="line-clamp-2 font-display text-[11.5px] font-[700] leading-snug">{item.title}</span>
       {shown.length > 0 && (
-        <span className="flex flex-wrap items-center gap-0.5">
+        <span className="flex flex-wrap items-center gap-1">
           {shown.map((a) => (
             <ActivityGlyph key={a.id} activity={a.id} size="sm" tone={active ? 'onDark' : 'default'} />
           ))}
@@ -863,24 +863,24 @@ function BoardChip({ item, active, onClick }: { item: PlanItem; active: boolean;
       aria-pressed={active}
       title={`${item.title}${chapterLabel ? ` — 챕터 ${chapterLabel}` : ''}${actLabels ? ` — ${actLabels}` : ''}`}
       // 같은 이유로 `relative` — 이 행도 `sr-only` 를 품는다(위 카드 주석 참조).
-      className={`relative flex w-full items-center gap-2 rounded-[var(--r-sm)] border px-2 py-1.5 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      className={`relative flex w-full items-center gap-2 rounded-[var(--r-sm)] border px-2 py-2 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
           ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t1)] hover:border-[var(--p)]'
       }`}
     >
       <MiniMaterialGlyph item={item} />
-      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+      <span className="flex min-w-0 flex-1 flex-col gap-1">
         <span className="truncate font-display text-[12px] font-[700] leading-tight">{item.title}</span>
         {(shown.length > 0 || chapterLabel) && (
           <span
-            className={`flex flex-wrap items-center gap-x-1.5 gap-y-0.5 ${
+            className={`flex flex-wrap items-center gap-x-2 gap-y-1 ${
               active ? 'text-[var(--ti)] opacity-90' : 'text-[var(--t2)]'
             }`}
           >
             {chapterLabel && (
               <span
-                className={`inline-flex h-5 items-center gap-0.5 rounded-[5px] px-1 font-mono text-[10px] tabular-nums ${
+                className={`inline-flex h-5 items-center gap-1 rounded-[5px] px-1 font-mono text-[10px] tabular-nums ${
                   active ? 'bg-white/15' : 'bg-[var(--bg3)]'
                 }`}
                 aria-hidden
@@ -978,7 +978,7 @@ function DraftConfig({
         </ConfigBlock>
       )}
       <ConfigBlock label="활동 (학습 수단)">
-        <div className="grid grid-cols-2 gap-1.5">
+        <div className="grid grid-cols-2 gap-2">
           {activitiesForType(type).map((a) => (
             <ActivityChip key={a} activity={a} selected={draft.activities.has(a)} onClick={() => toggleA(a)} />
           ))}
@@ -991,7 +991,7 @@ function DraftConfig({
         type="button"
         onClick={onCommit}
         disabled={adding || draft.activities.size === 0}
-        className="inline-flex h-11 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+        className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
       >
         {adding
           ? '담는 중…'
@@ -1034,7 +1034,7 @@ function ItemConfig({
         right={
           <Link
             href={item.href}
-            className="inline-flex h-8 shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)]"
+            className="inline-flex h-8 shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)]"
           >
             열기 <ExternalLink size={12} strokeWidth={2} aria-hidden />
           </Link>
@@ -1052,7 +1052,7 @@ function ItemConfig({
         </ConfigBlock>
       )}
       <ConfigBlock label="활동 (켜고 끄면 바로 저장)">
-        <div className="grid grid-cols-2 gap-1.5">
+        <div className="grid grid-cols-2 gap-2">
           {activitiesForType(item.materialType).map((a) => (
             <ActivityChip key={a} activity={a} selected={item.modules.includes(a)} onClick={() => onToggleActivity(a)} small />
           ))}
@@ -1072,7 +1072,7 @@ function ItemConfig({
       <button
         type="button"
         onClick={onRemove}
-        className="inline-flex min-h-11 items-center justify-center gap-1.5 self-start rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--error)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--error)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <Trash2 size={13} strokeWidth={1.75} aria-hidden /> 계획에서 빼기
       </button>
@@ -1113,7 +1113,7 @@ function ConfigHeader({
 
 function ConfigBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       <p className="font-body text-[12px] text-[var(--t2)]">{label}</p>
       {children}
     </div>
@@ -1200,7 +1200,7 @@ function ChapterList({
               {/* 챕터별 어휘 V-level — 단일 book_v_level 이 뭉개는 편차 노출 (색상만 의존 X, 숫자 텍스트) */}
               {vLevelByIdx.get(n) != null && (
                 <span
-                  className={`inline-flex shrink-0 items-center rounded-[var(--r-full)] border px-1.5 py-0.5 font-mono text-[9px] font-[700] leading-none tabular-nums ${
+                  className={`inline-flex shrink-0 items-center rounded-[var(--r-full)] border px-2 py-1 font-mono text-[9px] font-[700] leading-none tabular-nums ${
                     on ? 'border-[var(--p)] text-[var(--p)]' : 'border-[var(--bd)] text-[var(--t2)]'
                   }`}
                   title={`이 장의 어휘 난이도 V${vLevelByIdx.get(n)} — 책 전체 라벨과 다를 수 있어요`}
@@ -1327,9 +1327,9 @@ function ArticleNav({
   col2Label?: string
 }) {
   return (
-    <div className="flex gap-2.5">
+    <div className="flex gap-3">
       {/* ① 1단 분류(소스/카테고리) */}
-      <div className="flex shrink-0 flex-col gap-1.5">
+      <div className="flex shrink-0 flex-col gap-2">
         <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
           {col1Label}
         </span>
@@ -1346,7 +1346,7 @@ function ArticleNav({
         </nav>
       </div>
       {/* ② 2단 분류(프로그램/책) */}
-      <div className="flex shrink-0 flex-col gap-1.5 border-l border-[var(--bd)] pl-2.5">
+      <div className="flex shrink-0 flex-col gap-2 border-l border-[var(--bd)] pl-3">
         <span className="px-1 font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
           {col2Label}
         </span>
@@ -1360,7 +1360,7 @@ function ArticleNav({
               onClick={() => onProgram(p.key)}
               aria-pressed={on}
               title={p.full ?? p.label}
-              className={`flex min-h-11 w-full items-start gap-1.5 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+              className={`flex min-h-11 w-full items-start gap-2 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                 on
                   ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
                   : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
@@ -1420,7 +1420,7 @@ function ArticleSelectPane({
   return (
     <div className="flex flex-col gap-3">
       {/* 헤더 */}
-      <div className="flex items-center gap-1.5 border-b border-[var(--bd)] pb-2.5">
+      <div className="flex items-center gap-2 border-b border-[var(--bd)] pb-3">
         <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]" aria-hidden>
           <Icon size={13} strokeWidth={1.75} />
         </span>
@@ -1428,7 +1428,7 @@ function ArticleSelectPane({
           {sourceLabel}
           {program.full ? <span className="font-[700] text-[var(--t2)]"> · {program.label}</span> : null}
         </h2>
-        <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg2)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
+        <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--t2)]">
           {program.items.length}
         </span>
         {n > 0 && (
@@ -1446,7 +1446,7 @@ function ArticleSelectPane({
       <p className="font-body text-[12px] italic text-[var(--t2)]">
         담을 자료를 여러 개 고르세요 — 아래에서 활동·요일을 정해 한 번에 담아요.
       </p>
-      <ul className="flex max-h-[300px] flex-col gap-1.5 overflow-y-auto pr-1">
+      <ul className="flex max-h-[300px] flex-col gap-2 overflow-y-auto pr-1">
         {program.items.map((m) => (
           <ArticlePickRow
             key={m.id}
@@ -1463,7 +1463,7 @@ function ArticleSelectPane({
       {n > 0 ? (
         <div className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
           <ConfigBlock label={`활동 — 선택한 ${n}개 공통`}>
-            <div className="grid grid-cols-2 gap-1.5">
+            <div className="grid grid-cols-2 gap-2">
               {activitiesForType(type).map((a) => (
                 <ActivityChip
                   key={a}
@@ -1482,7 +1482,7 @@ function ArticleSelectPane({
             type="button"
             onClick={onCommit}
             disabled={adding || activities.size === 0}
-            className="inline-flex h-11 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {adding
               ? '담는 중…'
@@ -1527,7 +1527,7 @@ function ArticlePickRow({
         onClick={onToggle}
         aria-pressed={selected}
         title={m.title}
-        className="flex w-full items-center gap-2.5 rounded-[var(--r-md)] px-2.5 py-2 text-left transition-transform duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.99]"
+        className="flex w-full items-center gap-3 rounded-[var(--r-md)] px-3 py-2 text-left transition-transform duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.99]"
       >
         <span
           className={`inline-flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[5px] border transition-colors duration-[var(--dur-normal)] ${
@@ -1540,20 +1540,20 @@ function ArticlePickRow({
           {selected && <Check size={12} strokeWidth={3} />}
         </span>
         <MaterialBadge type={type} m={m} />
-        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="flex min-w-0 flex-1 flex-col gap-1">
           <span className="truncate font-display text-[13px] font-[700] leading-tight text-[var(--t1)]">{m.title}</span>
           {m.subtitle && (
             <span className="truncate font-body text-[11px] leading-tight text-[var(--t2)]">{m.subtitle}</span>
           )}
         </span>
         {m.vLevel != null && m.vLevel > 0 && (
-          <span className="shrink-0 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
+          <span className="shrink-0 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--t2)]">
             V{m.vLevel}
           </span>
         )}
         {inPlan && (
           <span
-            className="inline-flex h-5 shrink-0 items-center gap-0.5 rounded-full bg-[var(--bg3)] px-1.5 font-display text-[9px] font-[800] text-[var(--t2)]"
+            className="inline-flex h-5 shrink-0 items-center gap-1 rounded-full bg-[var(--bg3)] px-2 font-display text-[9px] font-[800] text-[var(--t2)]"
             title="이미 계획에 담긴 자료 (또 담을 수 있어요)"
           >
             <Check size={9} strokeWidth={3} aria-hidden /> 담김
@@ -1595,10 +1595,10 @@ function MaterialRow({
         onClick={onPick}
         aria-pressed={picked}
         title={inPlan ? `${m.title} — 계획에 ${count}개 담김 (클릭해 배치 추가)` : m.title}
-        className="flex w-full items-center gap-2.5 rounded-[var(--r-md)] px-2.5 py-2 text-left transition-transform duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.99]"
+        className="flex w-full items-center gap-3 rounded-[var(--r-md)] px-3 py-2 text-left transition-transform duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.99]"
       >
         <MaterialBadge type={type} m={m} />
-        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="flex min-w-0 flex-1 flex-col gap-1">
           <span className="truncate font-display text-[13px] font-[700] leading-tight text-[var(--t1)]">
             {displayTitle ?? m.title}
           </span>
@@ -1607,13 +1607,13 @@ function MaterialRow({
           )}
         </span>
         {m.vLevel != null && m.vLevel > 0 && (
-          <span className="shrink-0 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 py-0.5 font-mono text-[10px] font-[700] text-[var(--t2)]">
+          <span className="shrink-0 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--t2)]">
             V{m.vLevel}
           </span>
         )}
         {inPlan ? (
           <span
-            className="inline-flex h-6 shrink-0 items-center gap-0.5 rounded-full bg-[var(--p)] px-1.5 font-display text-[9px] font-[800] text-[var(--on-p)]"
+            className="inline-flex h-6 shrink-0 items-center gap-1 rounded-full bg-[var(--p)] px-2 font-display text-[9px] font-[800] text-[var(--on-p)]"
             title={`계획에 ${count}개 담김`}
           >
             <Check size={10} strokeWidth={3} aria-hidden /> {count}
@@ -1714,7 +1714,7 @@ function ActivityChip({
       onClick={onClick}
       aria-pressed={selected}
       title={def.layer}
-      className={`inline-flex min-h-11 w-full items-center gap-2 rounded-[var(--r-md)] border px-2.5 font-display font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      className={`inline-flex min-h-11 w-full items-center gap-2 rounded-[var(--r-md)] border px-3 font-display font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         small ? 'text-[12px]' : 'text-[13px]'
       } ${
         selected
@@ -1755,7 +1755,7 @@ function WeekdayChips({
             onClick={() => onToggle(d.value)}
             aria-pressed={on}
             aria-label={`${d.label}요일 ${date}${isToday ? ' (오늘)' : ''}`}
-            className={`flex min-h-[56px] flex-col items-center justify-center gap-0.5 rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+            className={`flex min-h-[56px] flex-col items-center justify-center gap-1 rounded-[var(--r-md)] border transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
               on
                 ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)] shadow-[var(--sh-sm)]'
                 : isToday
@@ -1793,11 +1793,11 @@ function LaunchRow({ item }: { item: PlanItem }) {
   const [chapter, setChapter] = useState<number | null>(null)
   if (acts.length === 0) return null
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       {hasSetChapters && (
         <ChapterScopePicker count={item.chapterCount} value={chapter} onChange={setChapter} />
       )}
-      <div className="flex flex-wrap gap-1.5">
+      <div className="flex flex-wrap gap-2">
         {acts.map((a) => (
           <LaunchChip
             key={a.id}
@@ -1824,14 +1824,14 @@ function ChapterScopePicker({
   onChange: (n: number | null) => void
 }) {
   return (
-    <label className="inline-flex w-fit items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] py-1 pl-2 pr-1 text-[var(--t2)]">
+    <label className="inline-flex w-fit items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] py-1 pl-2 pr-1 text-[var(--t2)]">
       <ListChecks size={13} strokeWidth={1.75} className="text-[var(--p)]" aria-hidden />
       <span className="font-display text-[11px] font-[700]">챕터</span>
       <select
         aria-label="게임을 시작할 챕터 범위"
         value={value ?? 'all'}
         onChange={(e) => onChange(e.target.value === 'all' ? null : Number(e.target.value))}
-        className="h-7 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-1.5 font-mono text-[11px] font-[700] text-[var(--t1)] tabular-nums transition-colors duration-[var(--dur-normal)] focus:border-[var(--p)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="h-7 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[11px] font-[700] text-[var(--t1)] tabular-nums transition-colors duration-[var(--dur-normal)] focus:border-[var(--p)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <option value="all">전체 ({count})</option>
         {Array.from({ length: count }, (_, i) => i + 1).map((n) => (
@@ -1850,7 +1850,7 @@ function LaunchChip({ activity, href, scoped }: { activity: PlanActivity; href: 
     <Link
       href={href}
       title={scoped ? `${def.label} — 이 자료로 바로 시작` : `${def.label} — 모듈에서 시작`}
-      className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 pr-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 pr-3 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
       <ActivityGlyph activity={activity} size="sm" />
       {def.label}

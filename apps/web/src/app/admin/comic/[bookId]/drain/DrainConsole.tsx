@@ -63,12 +63,12 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
     <div className="flex flex-col gap-6 p-6">
       {/* 헤더 */}
       <div className="flex flex-wrap items-center gap-3">
-        <Link href={`/admin/comic/${detail.bookId}`} className="inline-flex items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t2)] hover:text-[var(--t1)]"><ArrowLeft size={14} /> 검수</Link>
+        <Link href={`/admin/comic/${detail.bookId}`} className="inline-flex items-center gap-2 font-body text-[12px] font-[500] text-[var(--t2)] hover:text-[var(--t1)]"><ArrowLeft size={14} /> 검수</Link>
         <span className="text-[var(--t2)]">/</span>
         <h1 className="inline-flex items-center gap-2 font-display text-[18px] font-[800] text-[var(--t1)]"><Cpu size={17} style={{ color: ACCENT }} /> 드레인 관측</h1>
         <span className="font-body text-[13px] text-[var(--t2)]">{detail.title}</span>
         <div className="flex-1" />
-        <button onClick={() => router.refresh()} className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1.5 font-display text-[12px] font-[700] text-[var(--t2)] hover:border-[var(--active)]"><RefreshCw size={13} /> 새로고침</button>
+        <button onClick={() => router.refresh()} className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--t2)] hover:border-[var(--active)]"><RefreshCw size={13} /> 새로고침</button>
       </div>
 
       {/* 화면 도움말 — 드레인 절차 포함 */}
@@ -125,14 +125,14 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
 
           {/* 발행 차단 사유 */}
           <div className="rounded-[var(--r-md)] border p-4" style={publishable ? { borderColor: 'color-mix(in srgb, var(--memory-stable) 40%, transparent)', background: 'color-mix(in srgb, var(--memory-stable) 7%, transparent)' } : { borderColor: 'color-mix(in srgb, var(--memory-shaky) 40%, transparent)', background: 'color-mix(in srgb, var(--memory-shaky) 7%, transparent)' }}>
-            <p className="mb-1.5 inline-flex items-center gap-1.5 font-display text-[13px] font-[800]" style={{ color: publishable ? 'var(--memory-stable)' : 'var(--memory-shaky)' }}>
+            <p className="mb-1.5 inline-flex items-center gap-2 font-display text-[13px] font-[800]" style={{ color: publishable ? 'var(--memory-stable)' : 'var(--memory-shaky)' }}>
               {publishable ? <CircleCheck size={15} /> : <CircleSlash size={15} />}
               {publishable ? '발행 가능 — QC 게이트 통과' : '발행 차단 / 대기'}
             </p>
             {publishable ? (
               <p className="font-body text-[12px] text-[var(--t2)]">{detail.stage === 'published' ? '이미 학습자에게 발행되어 있습니다.' : '검수 화면에서 [게시 →] 하면 학습자에게 노출됩니다.'}</p>
             ) : (
-              <ul className="flex flex-col gap-0.5 font-body text-[12px] text-[var(--t2)]">{blockers.map((b, k) => <li key={k}>• {b}</li>)}</ul>
+              <ul className="flex flex-col gap-1 font-body text-[12px] text-[var(--t2)]">{blockers.map((b, k) => <li key={k}>• {b}</li>)}</ul>
             )}
           </div>
 
@@ -146,9 +146,9 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
                 ))}
               </div>
               {chapters.map((ch) => (
-                <div key={ch} className="flex flex-col gap-1.5">
+                <div key={ch} className="flex flex-col gap-2">
                   <span className="font-mono text-[11px] text-[var(--t2)]">Stave {ch}</span>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-2">
                     {[...byPanel.values()].filter((e) => e.chapter_idx === ch).sort((a, b) => (a.page_order ?? 0) - (b.page_order ?? 0)).map((e) => (
                       <div key={`${e.chapter_idx}-${e.page_order}`} role="img" tabIndex={0}
                         aria-label={`컷 ${e.page_order} ${e.status ?? 'pending'}${e.attempt > 1 ? ` ${e.attempt}회 시도` : ''}${e.score != null ? ` ${e.score}점` : ''}`}
@@ -172,15 +172,15 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
             <h2 className="font-display text-[13px] font-[700] text-[var(--t1)]">평가 이력 (최근 {Math.min(events.length, 40)})</h2>
             <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
               <table className="w-full min-w-[560px] text-left font-body text-[12px]">
-                <thead><tr className="border-b border-[var(--bd)] bg-[var(--bg2)] text-[11px] uppercase text-[var(--t2)]"><th className="px-3 py-1.5">컷</th><th className="px-3 py-1.5">phase</th><th className="px-3 py-1.5">상태</th><th className="px-3 py-1.5">점수</th><th className="px-3 py-1.5">메시지</th></tr></thead>
+                <thead><tr className="border-b border-[var(--bd)] bg-[var(--bg2)] text-[11px] uppercase text-[var(--t2)]"><th className="px-3 py-2">컷</th><th className="px-3 py-2">phase</th><th className="px-3 py-2">상태</th><th className="px-3 py-2">점수</th><th className="px-3 py-2">메시지</th></tr></thead>
                 <tbody>
                   {[...events].sort((a, b) => +new Date(b.created_at) - +new Date(a.created_at)).slice(0, 40).map((e, k) => (
                     <tr key={k} className="border-b border-[var(--bd)]/50 last:border-0">
-                      <td className="px-3 py-1.5 font-mono text-[var(--t2)]">S{e.chapter_idx}·{e.page_order}{e.attempt > 1 ? ` (#${e.attempt})` : ''}</td>
-                      <td className="px-3 py-1.5 text-[var(--t2)]">{e.phase}</td>
-                      <td className="px-3 py-1.5"><span style={{ color: STATUS_TONE[e.status ?? 'pending'] }}>{e.status}</span></td>
-                      <td className="px-3 py-1.5 font-mono tabular-nums text-[var(--t2)]">{e.score ?? '—'}</td>
-                      <td className="px-3 py-1.5 text-[var(--t2)]">{e.message ?? '—'}</td>
+                      <td className="px-3 py-2 font-mono text-[var(--t2)]">S{e.chapter_idx}·{e.page_order}{e.attempt > 1 ? ` (#${e.attempt})` : ''}</td>
+                      <td className="px-3 py-2 text-[var(--t2)]">{e.phase}</td>
+                      <td className="px-3 py-2"><span style={{ color: STATUS_TONE[e.status ?? 'pending'] }}>{e.status}</span></td>
+                      <td className="px-3 py-2 font-mono tabular-nums text-[var(--t2)]">{e.score ?? '—'}</td>
+                      <td className="px-3 py-2 text-[var(--t2)]">{e.message ?? '—'}</td>
                     </tr>
                   ))}
                   {events.length === 0 && <tr><td colSpan={5} className="px-3 py-6 text-center text-[var(--t2)]">이벤트 없음</td></tr>}
@@ -195,7 +195,7 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
               <h2 className="font-display text-[13px] font-[700] text-[var(--t1)]">실행 이력 ({runs.length})</h2>
               <div className="flex flex-col gap-1">
                 {runs.map((r) => (
-                  <div key={r.id} className="flex items-center gap-3 rounded-[var(--r-sm)] border border-[var(--bd)] px-3 py-1.5 font-body text-[12px]">
+                  <div key={r.id} className="flex items-center gap-3 rounded-[var(--r-sm)] border border-[var(--bd)] px-3 py-2 font-body text-[12px]">
                     <RunStatus status={r.status} small />
                     <span className="text-[var(--t2)]">{r.backend}</span>
                     <span className="text-[var(--t2)]">pass {r.panels_pass}/{r.panels_total} · 반복 {r.iterations}</span>
@@ -220,13 +220,13 @@ function RunStatus({ status, small }: { status: string; small?: boolean }) {
   }
   const m = meta[status] ?? { label: status, tone: 'var(--t3)' }
   return (
-    <span className={`inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display font-[700] ${small ? 'text-[11px]' : 'text-[12px]'}`} style={{ color: m.tone, background: `color-mix(in srgb, ${m.tone} 12%, transparent)` }}>
+    <span className={`inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display font-[700] ${small ? 'text-[11px]' : 'text-[12px]'}`} style={{ color: m.tone, background: `color-mix(in srgb, ${m.tone} 12%, transparent)` }}>
       {status === 'running' && <Loader2 size={11} className="animate-spin" />}{m.label}
     </span>
   )
 }
 function Badge({ children, tone = 'var(--t2)' }: { children: ReactNode; tone?: string }) {
-  return <span className="rounded-[var(--r-full)] px-2 py-0.5 font-display text-[12px] font-[700]" style={{ color: tone, background: 'var(--bg2)' }}>{children}</span>
+  return <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[12px] font-[700]" style={{ color: tone, background: 'var(--bg2)' }}>{children}</span>
 }
 function Kpi({ label, value, tone = 'var(--t1)', Icon, suffix }: { label: string; value: number; tone?: string; Icon?: typeof Wrench; suffix?: string }) {
   return (

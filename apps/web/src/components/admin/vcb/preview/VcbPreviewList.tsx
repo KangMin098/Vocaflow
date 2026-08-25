@@ -140,7 +140,7 @@ export function VcbPreviewList({
                   {item.lemma}
                 </span>
                 <span
-                  className="font-mono text-[11px] px-1.5 py-0.5 rounded-[var(--r-sm)] w-fit"
+                  className="font-mono text-[11px] px-2 py-1 rounded-[var(--r-sm)] w-fit"
                   style={{ background: 'var(--bg3)', color: 'var(--t2)' }}
                 >
                   {item.pos}
@@ -154,7 +154,7 @@ export function VcbPreviewList({
                     {item.cefr_estimate}
                   </span>
                 </span>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2">
                   <span
                     className="font-mono text-[12px] tabular-nums"
                     style={{ color: 'var(--t2)' }}
@@ -179,7 +179,7 @@ export function VcbPreviewList({
                       e.stopPropagation()
                       onToggleReject(key, item)
                     }}
-                    className="opacity-0 group-hover:opacity-100 text-[10px] font-display px-1.5 py-0.5 rounded-[var(--r-sm)] transition-opacity"
+                    className="opacity-0 group-hover:opacity-100 text-[10px] font-display px-2 py-1 rounded-[var(--r-sm)] transition-opacity"
                     style={{
                       background: isRejected ? 'var(--success-light)' : 'var(--error-light)',
                       color: isRejected ? 'var(--success)' : 'var(--error)',

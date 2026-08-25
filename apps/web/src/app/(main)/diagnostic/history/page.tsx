@@ -50,7 +50,7 @@ export default async function DiagnosticHistoryPage() {
               제목과의 간격을 유지한다. */}
           <Link
             href="/diagnostic"
-            className="-my-3 inline-flex min-h-11 items-center gap-1.5 font-display text-[13px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-ios-fast)] hover:text-[var(--p-hover)]"
+            className="-my-3 inline-flex min-h-11 items-center gap-2 font-display text-[13px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-ios-fast)] hover:text-[var(--p-hover)]"
           >
             <ArrowLeft size={14} aria-hidden />
             진단으로 돌아가기

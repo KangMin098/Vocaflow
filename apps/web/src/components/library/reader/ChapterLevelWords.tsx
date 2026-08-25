@@ -153,7 +153,7 @@ export function ChapterLevelWords({
   if (bare) {
     return (
       <section aria-label="이 챕터에서 익힐 단어">
-        <h3 className="mb-3 flex items-center gap-1.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+        <h3 className="mb-3 flex items-center gap-2 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
           <Target size={11} strokeWidth={2} aria-hidden />
           이 챕터에서 익힐 단어
         </h3>
@@ -227,7 +227,7 @@ function DeliveredBody({
                 onClick={() => setOpenWord(open ? null : w.word)}
                 disabled={!hasContext}
                 aria-expanded={hasContext ? open : undefined}
-                className="flex min-h-[44px] w-full items-baseline gap-2.5 rounded-[var(--r-sm)] px-1 text-left transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bg3)] disabled:cursor-default disabled:hover:bg-transparent"
+                className="flex min-h-[44px] w-full items-baseline gap-3 rounded-[var(--r-sm)] px-1 text-left transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bg3)] disabled:cursor-default disabled:hover:bg-transparent"
               >
                 <span className="w-28 shrink-0 font-display text-[14px] font-[700] text-[var(--t1)]">
                   {w.word}
@@ -243,7 +243,7 @@ function DeliveredBody({
                 </span>
                 {w.reason && (
                   <span
-                    className="shrink-0 rounded-[3px] px-1.5 py-0.5 font-body text-[9px] font-[600]"
+                    className="shrink-0 rounded-[3px] px-2 py-1 font-body text-[9px] font-[600]"
                     style={{ backgroundColor: rs.bg, color: rs.text }}
                   >
                     {w.reason}
@@ -322,7 +322,7 @@ function LegacyBody({ result }: { result: LeveledChapterResult }) {
         {result.words.map((w) => {
           const rs = reasonStyle(w.reasoning)
           return (
-            <li key={w.word} className="flex items-baseline gap-2.5 py-2">
+            <li key={w.word} className="flex items-baseline gap-3 py-2">
               <span className="w-28 shrink-0 font-display text-[14px] font-[700] text-[var(--t1)]">
                 {w.word}
               </span>
@@ -336,7 +336,7 @@ function LegacyBody({ result }: { result: LeveledChapterResult }) {
               </span>
               {w.reasoning && (
                 <span
-                  className="shrink-0 rounded-[3px] px-1.5 py-0.5 font-body text-[9px] font-[600]"
+                  className="shrink-0 rounded-[3px] px-2 py-1 font-body text-[9px] font-[600]"
                   style={{ backgroundColor: rs.bg, color: rs.text }}
                 >
                   {w.reasoning}

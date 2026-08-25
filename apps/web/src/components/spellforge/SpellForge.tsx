@@ -489,21 +489,21 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
 
           {/* Feedback Strip */}
           <div className="mt-4 flex w-full items-center justify-center gap-5 py-2 font-mono text-[11px] text-[var(--t2)] opacity-40 transition-opacity duration-[var(--dur-normal)] hover:opacity-100">
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em]">
                 정확도
               </span>
               <strong className="font-[700] text-[var(--t1)]">{sessionAccuracy}%</strong>
             </div>
             <span className="h-3 w-px bg-[var(--bd)]" />
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em]">
                 힌트
               </span>
               <strong className="font-[700] text-[var(--t1)]">{hintCount}</strong>
             </div>
             <span className="h-3 w-px bg-[var(--bd)]" />
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <span className="font-display text-[9px] font-[700] uppercase tracking-[0.08em]">
                 진행
               </span>
@@ -515,12 +515,12 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
         </div>
 
         {/* Hint Bar */}
-        <div className="mt-3 flex w-full max-w-[720px] items-center justify-center gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-6 py-3.5">
+        <div className="mt-3 flex w-full max-w-[720px] items-center justify-center gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-6 py-4">
           <button
             onClick={triggerHint}
-            className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
           >
-            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-0.5 font-mono text-[9px] font-[700] text-[var(--t2)]">
+            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
               Tab
             </kbd>
             <span>힌트 (잠깐 보기)</span>
@@ -532,7 +532,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
             알리지 않으면 길이 있어도 없는 것과 같다(실측 2026-08-23: 키보드 축이 이걸 잡았다).
           */}
           <span className="font-body text-[11px] text-[var(--t3)]">
-            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-0.5 font-mono text-[9px] font-[700] text-[var(--t2)]">
+            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
               Shift+Tab
             </kbd>{' '}
             으로 나가기
@@ -541,7 +541,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
           {mode === 'blind' && (
             <button
               onClick={() => setShowLength((s) => !s)}
-              className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-[var(--p)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
             >
               {showLength ? '글자 수 가리기' : '글자 수 보기'}
             </button>
@@ -549,9 +549,9 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
 
           <button
             onClick={handleSkip}
-            className="inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-3.5 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-solid hover:border-[var(--t3)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:-translate-y-px hover:border-solid hover:border-[var(--t3)] hover:bg-[var(--bg)] hover:text-[var(--t1)]"
           >
-            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-0.5 font-mono text-[9px] font-[700] text-[var(--t2)]">
+            <kbd className="rounded border border-[var(--bd)] bg-[var(--bg)] px-1 py-1 font-mono text-[9px] font-[700] text-[var(--t2)]">
               Esc
             </kbd>
             <span>건너뛰기</span>

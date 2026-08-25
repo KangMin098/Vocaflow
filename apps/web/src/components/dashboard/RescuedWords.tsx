@@ -45,7 +45,7 @@ export function RescuedWords({ rescued }: { rescued: RescuedWordsData }) {
           </p>
           <Link
             href="/flashcard"
-            className="group mt-4 inline-flex min-h-[44px] w-fit items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p-light)] px-4 font-display text-[13px] font-[700] text-[var(--on-p-tint)] no-underline transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="group mt-4 inline-flex min-h-[44px] w-fit items-center gap-2 rounded-[var(--r-full)] bg-[var(--p-light)] px-4 font-display text-[13px] font-[700] text-[var(--on-p-tint)] no-underline transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             복습 열기
             <ArrowRight
@@ -57,7 +57,7 @@ export function RescuedWords({ rescued }: { rescued: RescuedWordsData }) {
         </>
       ) : (
         <>
-          <div className="mt-3 flex flex-wrap items-baseline gap-x-2.5">
+          <div className="mt-3 flex flex-wrap items-baseline gap-x-3">
             <span className="font-editorial text-[34px] font-[500] leading-none tabular-nums text-[var(--t1)]">
               {rescued.count.toLocaleString()}
             </span>
@@ -68,7 +68,7 @@ export function RescuedWords({ rescued }: { rescued: RescuedWordsData }) {
           {rescued.sample.length > 0 && (
             <ul className="mt-4 flex flex-col divide-y divide-[var(--bd)] border-t border-[var(--bd)]">
               {rescued.sample.map((w) => (
-                <li key={w.word} className="flex items-baseline gap-3 py-2.5">
+                <li key={w.word} className="flex items-baseline gap-3 py-3">
                   <span className="font-editorial text-[17px] font-[500] text-[var(--t1)]">
                     {w.word}
                   </span>

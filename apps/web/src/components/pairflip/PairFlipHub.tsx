@@ -118,7 +118,7 @@ export function PairFlipHub({
           매번 보는 것이 되면 설명이 아니라 소음이다. 연습 화면에서 먼저 와야 하는 것은
           무엇으로 노는가(위 풀)와 시작이다. `<details>` — JS 없이 · 기본 접힘 · SR 지원. */}
       <details className="group">
-        <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-[var(--r-sm)] py-1.5 font-body text-[12.5px] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] [&::-webkit-details-marker]:hidden">
+        <summary className="inline-flex cursor-pointer list-none items-center gap-2 rounded-[var(--r-sm)] py-2 font-body text-[12.5px] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] [&::-webkit-details-marker]:hidden">
           <ChevronRight
             size={13}
             aria-hidden
@@ -247,7 +247,7 @@ export function PairFlipHub({
           type="button"
           onClick={handleStart}
           aria-label="게임 시작"
-          className="group inline-flex w-full items-center justify-center gap-1.5 rounded-[var(--r-md)] py-3.5 font-display text-[15px] font-[700] tracking-[0.01em] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:-translate-y-0.5 active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 md:text-[16px]"
+          className="group inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] py-4 font-display text-[15px] font-[700] tracking-[0.01em] transition-all duration-[var(--dur-normal)] ease-[var(--ease-spring)] hover:-translate-y-0.5 active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] focus-visible:ring-offset-2 md:text-[16px]"
           style={{
             background: `linear-gradient(135deg, ${PF_COLORS.coverFrom} 0%, ${PF_COLORS.coverMid} 60%, ${PF_COLORS.coverTo} 100%)`,
             color: PF_COLORS.goldLight,

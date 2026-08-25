@@ -112,9 +112,9 @@ export function ModePills({
           : 'opacity-100'
       }`}
     >
-      <div className="mx-auto flex max-w-[1080px] items-center justify-center gap-0.5 px-4 py-1.5 md:gap-1.5 md:px-8">
+      <div className="mx-auto flex max-w-[1080px] items-center justify-center gap-1 px-4 py-2 md:gap-2 md:px-8">
         {grouped.map((group, gIdx) => (
-          <div key={group.key} className="flex items-center gap-0.5">
+          <div key={group.key} className="flex items-center gap-1">
             {gIdx > 0 && (
               <span aria-hidden className="mx-1.5 h-4 w-px shrink-0 bg-[var(--bd)] md:mx-2" />
             )}
@@ -154,7 +154,7 @@ export function ModePills({
                       <Link
                         href={href}
                         aria-current={isActive ? 'page' : undefined}
-                        className={`inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-2.5 py-1 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none ${
+                        className={`inline-flex items-center gap-2 rounded-[var(--r-full)] px-3 py-1 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] motion-reduce:transition-none ${
                           isActive
                             ? 'text-white shadow-[var(--sh-sm)]'
                             : isDone

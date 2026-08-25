@@ -79,7 +79,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
             <button
               type="button"
               onClick={() => controls.start(0)}
-              className="inline-flex h-11 items-center gap-1.5 rounded-[var(--r-full)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+              className="inline-flex h-11 items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:brightness-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
             >
               <RotateCcw size={15} aria-hidden /> 처음부터 다시
             </button>
@@ -117,7 +117,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
           >
             <Play size={17} fill="currentColor" aria-hidden /> 시작하기
           </button>
-          <p className="flex items-center gap-1.5 font-body text-[11px] text-[var(--t2)]">
+          <p className="flex items-center gap-2 font-body text-[11px] text-[var(--t2)]">
             {state.recognitionSupported ? (
               <>
                 <Mic size={12} aria-hidden /> 마이크로 발화를 부드럽게 인식해요 (정확한 채점은
@@ -202,7 +202,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
       </div>
 
       {/* 컨트롤 — 44px+ */}
-      <div className="mt-3 flex items-center justify-center gap-1.5">
+      <div className="mt-3 flex items-center justify-center gap-2">
         <CtrlButton
           onClick={paused ? controls.resume : controls.pause}
           label={paused ? '계속' : '잠깐 멈춤'}
@@ -237,7 +237,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
               type="button"
               onClick={() => controls.setRate(r.value)}
               aria-pressed={state.rate === r.value}
-              className={`h-7 rounded-[var(--r-full)] px-2.5 font-mono text-[11px] font-[600] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+              className={`h-7 rounded-[var(--r-full)] px-3 font-mono text-[11px] font-[600] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                 state.rate === r.value
                   ? 'bg-[var(--p)] text-white'
                   : 'text-[var(--t2)] hover:bg-[var(--bg2)]'
@@ -252,7 +252,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit }: ShadowRe
           type="button"
           onClick={() => controls.setAutoAdvance(!state.autoAdvance)}
           aria-pressed={state.autoAdvance}
-          className="inline-flex items-center gap-1.5 font-body text-[11.5px] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 rounded"
+          className="inline-flex items-center gap-2 font-body text-[11.5px] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 rounded"
         >
           <span
             aria-hidden

@@ -123,7 +123,7 @@ export function StoryWeaverIdTab({ onPickPreview }: StoryWeaverIdTabProps) {
         {error && (
           <div
             role="alert"
-            className="flex items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
+            className="flex items-center gap-2 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
           >
             <AlertCircle size={12} className="text-[var(--learn-error)]" aria-hidden />
             <span className="font-body text-[11px] text-[var(--learn-error)]">{error}</span>
@@ -188,11 +188,11 @@ function PreviewCard({
           <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-body text-[12px] text-[var(--t2)]">
             {preview.author}
             <span className="font-mono text-[10px] text-[var(--t5)]">· {preview.license}</span>
-            <span className="inline-flex items-center gap-0.5 font-mono text-[10px] text-[var(--t5)]">
+            <span className="inline-flex items-center gap-1 font-mono text-[10px] text-[var(--t5)]">
               <ImageIcon size={9} aria-hidden /> {preview.page_count}페이지
             </span>
             {preview.has_audio && (
-              <span className="inline-flex items-center gap-0.5 font-mono text-[10px] text-[var(--learn-review)]">
+              <span className="inline-flex items-center gap-1 font-mono text-[10px] text-[var(--learn-review)]">
                 <Headphones size={9} aria-hidden /> 낭독
               </span>
             )}

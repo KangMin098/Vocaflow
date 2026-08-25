@@ -57,7 +57,7 @@ export function TextbookPickButton({
       <Link
         href={loginUrlWithReturn(pathname)}
         aria-label={`${title} 담으려면 로그인`}
-        className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-ios-pill border border-[var(--bd)] bg-[var(--bg)] font-display font-[700] text-[var(--t1)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 ${pad}`}
+        className={`inline-flex min-h-[44px] items-center gap-2 rounded-ios-pill border border-[var(--bd)] bg-[var(--bg)] font-display font-[700] text-[var(--t1)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 ${pad}`}
       >
         <LogIn size={14} aria-hidden />
         담으려면 로그인
@@ -73,7 +73,7 @@ export function TextbookPickButton({
         disabled={pending}
         aria-pressed={isPicked}
         aria-label={`${title} ${isPicked ? '내 교재에서 빼기' : '내 교재에 담기'}`}
-        className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-ios-pill border font-display font-[700] no-underline motion-safe:transition-all motion-safe:active:scale-[0.98] disabled:cursor-wait disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 ${pad} ${
+        className={`inline-flex min-h-[44px] items-center gap-2 rounded-ios-pill border font-display font-[700] no-underline motion-safe:transition-all motion-safe:active:scale-[0.98] disabled:cursor-wait disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 ${pad} ${
           isPicked
             ? 'border-[var(--p)] bg-[var(--p-light)] text-[var(--on-p-tint)] hover:bg-[var(--bg2)]'
             : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:border-[var(--p)] hover:text-[var(--p)]'

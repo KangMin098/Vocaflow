@@ -229,7 +229,7 @@ export function SessionFrame({ children }: { children: ReactNode }) {
                 {meta.title}
               </h1>
               {progressLabel && (
-                <span className="ml-1 hidden rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[11px] font-[600] tabular-nums text-[var(--t2)] md:inline-block">
+                <span className="ml-1 hidden rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[11px] font-[600] tabular-nums text-[var(--t2)] md:inline-block">
                   {progressLabel}
                 </span>
               )}
@@ -390,7 +390,7 @@ function ResourceBreadcrumb({ resource }: { resource: SessionResource }) {
           href={resource.href}
           aria-label={ariaLabel}
           // 실측 2026-08-25: 255×22 였다. 세션 화면에서 **되돌아가는 유일한 이름 있는 링크**다.
-          className="group -my-3 inline-flex min-h-11 min-w-0 items-center gap-2 rounded-[var(--r-sm)] px-1 py-0.5 -mx-1 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="group -my-3 inline-flex min-h-11 min-w-0 items-center gap-2 rounded-[var(--r-sm)] px-1 py-1 -mx-1 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {inner}
         </Link>

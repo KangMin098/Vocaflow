@@ -45,7 +45,7 @@ export function StatPill({
     <div
       className={cn(
         // 다크 정합 — 카드 내부 칩 배경 = --bg3 (tertiarySystemFill)
-        'flex flex-col gap-2 rounded-ios-xl bg-[var(--bg3)] p-3.5',
+        'flex flex-col gap-2 rounded-ios-xl bg-[var(--bg3)] p-4',
         className,
       )}
     >

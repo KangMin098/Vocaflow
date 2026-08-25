@@ -146,13 +146,13 @@ export function ComicFormatChoice({
             const inner = (
               <>
                 <div className="flex items-center justify-between gap-2">
-                  <span className="inline-flex items-center gap-1.5 font-display text-[15px] font-[800] text-[var(--t1)]">
+                  <span className="inline-flex items-center gap-2 font-display text-[15px] font-[800] text-[var(--t1)]">
                     <Icon size={16} aria-hidden style={{ color: recommended ? 'var(--active)' : 'var(--t3)' }} />
                     {c.title}
                   </span>
                   {recommended && (
                     <span
-                      className="shrink-0 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[800]"
+                      className="shrink-0 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[800]"
                       style={{ background: 'var(--active)', color: ON_GOLD }}
                     >
                       지금 추천
@@ -167,7 +167,7 @@ export function ComicFormatChoice({
               </>
             )
 
-            const cls = `flex h-full min-h-[150px] flex-col gap-1.5 rounded-[var(--r-lg)] border-2 bg-[var(--bg)] p-4 text-left shadow-[var(--sh-sm)] transition-[transform,box-shadow,border-color] duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${
+            const cls = `flex h-full min-h-[150px] flex-col gap-2 rounded-[var(--r-lg)] border-2 bg-[var(--bg)] p-4 text-left shadow-[var(--sh-sm)] transition-[transform,box-shadow,border-color] duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 disabled:cursor-not-allowed disabled:opacity-60 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${
               recommended ? 'border-[var(--active)]' : 'border-[var(--bd)] hover:border-[var(--t3)]'
             }`
 

@@ -106,7 +106,7 @@ function NeighborCard({
 
   if (!v) {
     return (
-      <p className="flex items-center gap-2.5 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[12px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
+      <p className="flex items-center gap-3 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[12px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
         <Icon size={15} aria-hidden className="shrink-0" />
         {direction === 'down' ? '시리즈의 첫 권이에요.' : '시리즈의 마지막 권이에요.'}
       </p>
@@ -167,7 +167,7 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
       <div className="flex flex-col gap-4 py-6 md:py-8">
         <Link
           href="/library/textbooks"
-          className="inline-flex min-h-[44px] w-fit items-center gap-1.5 font-display text-[13px] font-[700] text-[var(--p)] no-underline transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-[44px] w-fit items-center gap-2 font-display text-[13px] font-[700] text-[var(--p)] no-underline transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden />
           교재 서가
@@ -225,7 +225,7 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
           className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8"
         >
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">분량</h2>
-          <p className="mt-3 flex flex-wrap items-baseline gap-x-2.5">
+          <p className="mt-3 flex flex-wrap items-baseline gap-x-3">
             <span className="font-editorial text-[32px] font-[500] leading-none tabular-nums text-[var(--t1)]">
               최대 {v.maxUnits.toLocaleString()}
             </span>
@@ -265,7 +265,7 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
               해당합니다{stage ? ` — 지금 보는 권은 ${STAGE_LABEL[stage]} 매대에 있어요.` : '.'}
             </p>
 
-            <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <NeighborCard volume={prev} direction="down" />
               <NeighborCard volume={next} direction="up" />
             </div>
@@ -298,7 +298,7 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
             다른 수준으로 채웁니다. <strong className="font-display text-[var(--t1)]">담았다고 오늘 할
             것이 줄지는 않아요.</strong>
           </p>
-          <div className="mt-4 flex flex-wrap items-center gap-2.5">
+          <div className="mt-4 flex flex-wrap items-center gap-3">
             <Link
               href="/hub"
               className="group inline-flex min-h-[48px] w-fit items-center gap-2 rounded-ios-pill bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"

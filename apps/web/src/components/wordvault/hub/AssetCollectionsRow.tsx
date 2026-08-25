@@ -134,7 +134,7 @@ function CollectionCard({
       {/* Top — type badge + optional icon */}
       <div className="flex items-center justify-between">
         <span
-          className={`inline-flex rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] uppercase tracking-wider ${badge.class}`}
+          className={`inline-flex rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] uppercase tracking-wider ${badge.class}`}
         >
           {badge.label}
         </span>

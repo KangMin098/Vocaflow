@@ -78,7 +78,7 @@ export function AdminScreenHelp({
         onClick={toggle}
         aria-expanded={open}
         aria-controls={panelId}
-        className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2.5 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/8 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] active:scale-[0.97] disabled:opacity-50 motion-reduce:transition-none"
+        className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/8 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] active:scale-[0.97] disabled:opacity-50 motion-reduce:transition-none"
       >
         <CircleHelp size={14} aria-hidden />
         화면 도움말
@@ -99,7 +99,7 @@ export function AdminScreenHelp({
           <div className="flex flex-wrap items-baseline gap-2">
             <h2 className="font-display text-[14px] font-[800] text-[var(--t1)]">{entry.title}</h2>
             {scoped && (
-              <span className="rounded-[var(--r-full)] bg-[#8B5CF6]/14 px-2 py-0.5 font-display text-[11px] font-[700] text-[#6D28D9]">
+              <span className="rounded-[var(--r-full)] bg-[#8B5CF6]/14 px-2 py-1 font-display text-[11px] font-[700] text-[#6D28D9]">
                 {tab}
               </span>
             )}
@@ -116,7 +116,7 @@ export function AdminScreenHelp({
           {body.steps && body.steps.length > 0 && (
             <ol className="mt-3 flex flex-col gap-2">
               {body.steps.map((s, i) => (
-                <li key={s.title} className="flex gap-2.5">
+                <li key={s.title} className="flex gap-3">
                   <span
                     aria-hidden
                     className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[#8B5CF6] font-mono text-[11px] font-[800] text-white"
@@ -138,7 +138,7 @@ export function AdminScreenHelp({
           )}
 
           {body.fields && body.fields.length > 0 && (
-            <dl className="mt-3 grid gap-x-4 gap-y-1.5 sm:grid-cols-[max-content_1fr]">
+            <dl className="mt-3 grid gap-x-4 gap-y-2 sm:grid-cols-[max-content_1fr]">
               {body.fields.map((f) => (
                 <div key={f.label} className="contents">
                   <dt className="font-display text-[12.5px] font-[700] text-[var(--t1)]">{f.label}</dt>
@@ -150,7 +150,7 @@ export function AdminScreenHelp({
 
           {body.drain && (
             <section className="mt-3 rounded-[var(--r-md)] border border-[#B0843A]/35 bg-[#B0843A]/[0.06] p-3">
-              <h3 className="flex items-center gap-1.5 font-display text-[12.5px] font-[800] text-[var(--t1)]">
+              <h3 className="flex items-center gap-2 font-display text-[12.5px] font-[800] text-[var(--t1)]">
                 <Terminal size={13} aria-hidden className="text-[#B0843A]" />
                 Claude Code 드레인 절차
               </h3>
@@ -168,7 +168,7 @@ export function AdminScreenHelp({
               <p className="mt-2 font-display text-[11.5px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
                 절차
               </p>
-              <ol className="mt-0.5 flex flex-col gap-1.5">
+              <ol className="mt-0.5 flex flex-col gap-2">
                 {body.drain.procedure.map((s, i) => (
                   <li key={s.title} className="flex gap-2">
                     <span aria-hidden className="font-mono text-[11.5px] font-[800] text-[#B0843A]">
@@ -212,7 +212,7 @@ export function AdminScreenHelp({
           {body.cautions && body.cautions.length > 0 && (
             <ul className="mt-3 flex flex-col gap-1">
               {body.cautions.map((c) => (
-                <li key={c} className="flex gap-1.5 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">
+                <li key={c} className="flex gap-2 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">
                   <AlertTriangle size={13} aria-hidden className="mt-1 shrink-0 text-[#B45309]" />
                   <span>{c}</span>
                 </li>

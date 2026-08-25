@@ -105,7 +105,7 @@ export function ScoreTrendChart() {
 
           {/* 변화 chip */}
           <div
-            className={`inline-flex items-center gap-s-1 rounded-md px-s-2 py-[2px] font-mono text-[11px] font-bold tabular-nums ${
+            className={`inline-flex items-center gap-s-1 rounded-md px-s-2 py-[4px] font-mono text-[11px] font-bold tabular-nums ${
               change >= 0 ? 'bg-success-light text-[var(--success-ink)]' : 'bg-error-light text-[var(--error-ink)]'
             }`}
           >

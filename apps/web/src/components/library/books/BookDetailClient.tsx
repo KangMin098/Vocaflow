@@ -84,7 +84,7 @@ export function BookDetailClient({
 
   return (
     <section aria-label="함께 학습할 단어장" className="flex flex-col gap-3">
-      <header className="flex items-center gap-2.5">
+      <header className="flex items-center gap-3">
         <span className="h-px w-4 bg-[var(--t3)]" aria-hidden />
         <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
           📚 함께 학습할 단어장
@@ -107,7 +107,7 @@ export function BookDetailClient({
               <h3 className="font-display text-[15px] font-[700] text-[var(--t1)]">
                 도서 학습 단어장
               </h3>
-              <span className="inline-flex items-center gap-0.5 rounded-[var(--r-full)] bg-[#FBBF24] px-1.5 py-0.5 font-display text-[9px] font-[700] uppercase tracking-wider text-[#7C2D12]">
+              <span className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[#FBBF24] px-2 py-1 font-display text-[9px] font-[700] uppercase tracking-wider text-[#7C2D12]">
                 <Sparkles size={9} aria-hidden /> 추천
               </span>
             </div>
@@ -163,7 +163,7 @@ export function BookDetailClient({
                 (lib/workspace/scoped-words.ts fetchByBookChapter). 그러니 풀 크기도 첫 챕터로
                 재야 화면과 실제가 어긋나지 않는다. 다른 챕터로 하려면 칩을 눌러 미리보기로. */}
             {firstChapterSet && (
-              <div className="mb-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2.5">
+              <div className="mb-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-3">
                 <CourseLauncher
                   kind="book"
                   poolSize={firstChapterSet.wordCount}

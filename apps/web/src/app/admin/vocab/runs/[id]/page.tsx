@@ -92,7 +92,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
         <VcbRunStatusBadge status={run.status} size="md" />
         {hasIntegrityMismatch && (
           <div
-            className="flex items-center gap-2 px-3 py-1.5 rounded-[var(--r-md)] border text-sm"
+            className="flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border text-sm"
             style={{
               background: 'var(--warning-light)',
               borderColor: 'var(--warning)',
@@ -336,14 +336,14 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
                         {set.title}
                       </span>
                       <span
-                        className="text-[11px] font-mono px-2 py-0.5 rounded-[var(--r-full)]"
+                        className="text-[11px] font-mono px-2 py-1 rounded-[var(--r-full)]"
                         style={{ background: 'var(--bg3)', color: 'var(--t3)' }}
                       >
                         {set.category}
                       </span>
                       {set.is_published && (
                         <span
-                          className="text-[11px] font-display font-medium px-2 py-0.5 rounded-[var(--r-full)]"
+                          className="text-[11px] font-display font-medium px-2 py-1 rounded-[var(--r-full)]"
                           style={{
                             background: 'var(--success-light)',
                             color: 'var(--success)',

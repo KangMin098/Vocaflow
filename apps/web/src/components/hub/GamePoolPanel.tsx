@@ -52,7 +52,7 @@ export function GamePoolPanel({
 
       {enough ? (
         <>
-          <ul className="mt-3 flex flex-wrap gap-x-2 gap-y-1.5">
+          <ul className="mt-3 flex flex-wrap gap-x-2 gap-y-2">
             {words.slice(0, 6).map((w) => (
               <li
                 key={w.en}

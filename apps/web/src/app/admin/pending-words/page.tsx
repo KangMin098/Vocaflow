@@ -218,7 +218,7 @@ export default async function AdminPendingWordsPage() {
                     <td className="px-3 py-2 text-center">
                       <span
                         title={BUCKET_META[row.bucket].action}
-                        className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] ${
+                        className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] ${
                           row.bucket === 'genuine_gap'
                             ? 'bg-[var(--p-light)] text-[var(--on-p-tint)]'
                             : row.bucket === 'spelling_variant'
@@ -250,7 +250,7 @@ export default async function AdminPendingWordsPage() {
                     </td>
                     <td className="px-3 py-2 text-center">
                       <span
-                        className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]"
+                        className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]"
                         style={{ backgroundColor: status.bg, color: status.color }}
                       >
                         <span

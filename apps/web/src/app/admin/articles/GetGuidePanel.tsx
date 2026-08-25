@@ -96,14 +96,14 @@ export function GetGuidePanel({ articles, feedHealth, level, onLevel, onPickSour
         </div>
 
         {/* 부족한 빈칸 요약 (register별) */}
-        <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">부족한 글</span>
           {REGISTERS.map((r) => {
             const n = gapByReg.get(r.key) ?? 0
             return (
               <span
                 key={r.key}
-                className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-0.5 font-mono text-[10px]"
+                className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-2 py-1 font-mono text-[10px]"
                 style={
                   n > 0
                     ? { backgroundColor: 'var(--learn-error-light)', color: 'var(--learn-error)' }
@@ -117,7 +117,7 @@ export function GetGuidePanel({ articles, feedHealth, level, onLevel, onPickSour
         </div>
 
         {/* 추천 소스 */}
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
             추천 GET (빈칸 × 학습자 레벨)
           </span>
@@ -144,10 +144,10 @@ function RecCard({
   const regs = Array.from(new Set(rec.filledGaps.map((g) => g.register)))
   const tone = FIT_TONE[rec.fit]
   return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2.5">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-3">
       <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{SOURCE_LABEL[rec.source]}</span>
       <span
-        className="rounded-[var(--r-full)] px-2 py-0.5 font-mono text-[9px] font-[700]"
+        className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
         style={{ backgroundColor: tone.bg, color: tone.fg }}
       >
         {FIT_LABEL[rec.fit]}

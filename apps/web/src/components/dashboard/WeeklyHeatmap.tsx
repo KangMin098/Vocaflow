@@ -124,7 +124,7 @@ export function WeeklyHeatmap({ days: daysDto }: { days?: ActivityDayDto[] }) {
 
         {streak.current > 0 && (
           <span
-            className={`inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-2.5 py-1 font-display text-[11px] font-[700] ${
+            className={`inline-flex items-center gap-2 rounded-[var(--r-full)] px-3 py-1 font-display text-[11px] font-[700] ${
               streak.isRecord
                 ? 'bg-[var(--warning-light)] text-[#92400E]'
                 : 'bg-[var(--bg2)] text-[var(--t1)]'
@@ -258,7 +258,7 @@ function Stat({
   emphasis?: boolean
 }) {
   return (
-    <div className="flex flex-1 flex-col gap-0.5">
+    <div className="flex flex-1 flex-col gap-1">
       <dt className="font-mono text-[9px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
         {label}
       </dt>

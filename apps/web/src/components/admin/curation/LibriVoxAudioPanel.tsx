@@ -132,7 +132,7 @@ export function LibriVoxAudioPanel({
         </h2>
         {connected && (
           <span
-            className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700]"
+            className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]"
             style={{ background: 'var(--learn-known-light)', color: 'var(--learn-known)' }}
           >
             <Check size={11} aria-hidden /> {mapped ?? chapters.length}챕터 연결됨
@@ -156,7 +156,7 @@ export function LibriVoxAudioPanel({
                 type="button"
                 onClick={disconnect}
                 disabled={busy != null}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--learn-error)] disabled:opacity-50"
+                className="inline-flex shrink-0 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--learn-error)] disabled:opacity-50"
               >
                 {busy === 'clear' ? (
                   <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -173,7 +173,7 @@ export function LibriVoxAudioPanel({
                   type="button"
                   onClick={() => setShowList((v) => !v)}
                   aria-expanded={showList}
-                  className="flex w-full items-center gap-1.5 px-3 py-2 text-left font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:text-[var(--t1)]"
+                  className="flex w-full items-center gap-2 px-3 py-2 text-left font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:text-[var(--t1)]"
                 >
                   {showList ? <ChevronDown size={13} aria-hidden /> : <ChevronRight size={13} aria-hidden />}
                   도서 챕터 ↔ 보이스 챕터 매핑 보기 ({chapters.length})
@@ -181,7 +181,7 @@ export function LibriVoxAudioPanel({
                 {showList && (
                   <ul className="max-h-[320px] divide-y divide-[var(--bd)]/50 overflow-y-auto px-1 pb-1">
                     {chapters.map((ch) => (
-                      <li key={ch.idx} className="flex items-center gap-2 px-2 py-1.5">
+                      <li key={ch.idx} className="flex items-center gap-2 px-2 py-2">
                         <button
                           type="button"
                           onClick={() => togglePlay(ch)}
@@ -217,7 +217,7 @@ export function LibriVoxAudioPanel({
               type="button"
               onClick={connect}
               disabled={busy != null}
-              className="inline-flex shrink-0 items-center gap-1.5 rounded-[var(--r-md)] px-3.5 py-1.5 font-display text-[12px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.02] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex shrink-0 items-center gap-2 rounded-[var(--r-md)] px-4 py-2 font-display text-[12px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.02] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
               style={{ background: 'var(--learn-review)' }}
             >
               {busy === 'build' ? (

@@ -128,7 +128,7 @@ function LoginForm() {
           aria-live="assertive"
           // Next 의 __next-route-announcer__ 도 role=alert 라 테스트에서 충돌한다 — 고유 훅을 준다
           data-testid="auth-error"
-          className="mb-s-4 flex items-start gap-s-2 rounded-md border border-error/30 bg-error-light px-s-3 py-s-2.5 font-body text-sm text-error"
+          className="mb-s-4 flex items-start gap-s-2 rounded-md border border-error/30 bg-error-light px-s-3 py-s-3 font-body text-sm text-error"
         >
           <AlertCircle size={16} className="mt-px shrink-0" aria-hidden />
           <span>{authError}</span>

@@ -181,13 +181,13 @@ export function SeriesInfoModal({
 
           {/* ── 개인화 훅 (Von Restorff) ── */}
           <div
-            className="flex items-start gap-3 rounded-[var(--r-lg)] border-l-[3px] px-4 py-3.5"
+            className="flex items-start gap-3 rounded-[var(--r-lg)] border-l-[3px] px-4 py-4"
             style={{ borderColor: fitMeta.color, backgroundColor: `color-mix(in srgb, ${fitMeta.color} 9%, var(--bg))` }}
           >
             <span aria-hidden className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-full)]" style={{ backgroundColor: fitMeta.color, color: 'var(--ti)' }}>
               <Sparkles size={13} aria-hidden />
             </span>
-            <div className="flex flex-col gap-0.5">
+            <div className="flex flex-col gap-1">
               <span className="font-display text-[16px] font-[800] leading-[1.3] text-[var(--t1)]">{appeal.lead}</span>
               <span className="font-body text-[13.5px] leading-[1.45] text-[var(--t2)]">{appeal.body}</span>
             </div>
@@ -199,7 +199,7 @@ export function SeriesInfoModal({
               {track.skills.map((sk) => {
                 const Icon = skillIcon(sk)
                 return (
-                  <div key={sk} className="flex items-center gap-2.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2.5">
+                  <div key={sk} className="flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-3">
                     <span aria-hidden className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)]" style={{ backgroundColor: `color-mix(in srgb, ${accent} 14%, transparent)`, color: accent }}>
                       <Icon size={16} aria-hidden />
                     </span>
@@ -244,11 +244,11 @@ export function SeriesInfoModal({
           )}
 
           {/* ── 왜 효과적 (아이콘 앵커) ── */}
-          <div className="flex items-start gap-2.5 rounded-[var(--r-lg)] bg-[var(--bg2)] p-4">
+          <div className="flex items-start gap-3 rounded-[var(--r-lg)] bg-[var(--bg2)] p-4">
             <span aria-hidden className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-full)]" style={{ backgroundColor: `color-mix(in srgb, ${accent} 16%, transparent)`, color: accent }}>
               <Lightbulb size={14} aria-hidden />
             </span>
-            <div className="flex flex-col gap-0.5">
+            <div className="flex flex-col gap-1">
               <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">왜 효과적일까요</span>
               <p className="font-body text-[13px] leading-[1.5] text-[var(--t1)]">{track.why}</p>
               {track.note && <p className="mt-1 font-body text-[11.5px] leading-[1.45] text-[var(--t2)]">※ {track.note}</p>}
@@ -257,7 +257,7 @@ export function SeriesInfoModal({
         </div>
 
         {/* ═══ 스티키 CTA ═══ */}
-        <footer className="flex items-center gap-2.5 border-t border-[var(--bd)] bg-[var(--bg)] px-6 py-4">
+        <footer className="flex items-center gap-3 border-t border-[var(--bd)] bg-[var(--bg)] px-6 py-4">
           <button
             type="button"
             onClick={onClose}
@@ -268,7 +268,7 @@ export function SeriesInfoModal({
           <button
             type="button"
             onClick={onEnter}
-            className="group inline-flex min-h-[48px] flex-1 items-center justify-center gap-1.5 rounded-[var(--r-md)] px-4 font-display text-[15px] font-[800] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:translate-y-0"
+            className="group inline-flex min-h-[48px] flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] px-4 font-display text-[15px] font-[800] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:translate-y-0"
             style={{ backgroundColor: accent }}
           >
             {idealCount > 0 ? `딱 맞는 글 ${idealCount}편부터 시작` : '이 시리즈로 시작하기'}
@@ -301,9 +301,9 @@ function DifficultyGauge({
   const me = vToPct(effectiveUserV(userV))
   const myCefr = vToCefrLabel(effectiveUserV(userV))
   return (
-    <div className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3.5">
+    <div className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-4">
       <div className="flex items-center justify-between">
-        <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[800]" style={{ color: fitMeta.color }}>
+        <span className="inline-flex items-center gap-2 font-display text-[13px] font-[800]" style={{ color: fitMeta.color }}>
           <Target size={14} aria-hidden /> {fitMeta.label}
         </span>
         <span className="font-mono text-[11px] font-[600] text-[var(--t2)]">시리즈 {cefrLabel}</span>
@@ -339,7 +339,7 @@ function SourceDetail({ source, maxCount }: { source: TrackStat['sources'][numbe
         <div className="flex items-center gap-2">
           <span className="truncate font-display text-[13.5px] font-[800] text-[var(--t1)]">{source.label}</span>
           <span
-            className="inline-flex shrink-0 items-center rounded-[var(--r-sm)] px-1.5 py-0.5 font-display text-[10px] font-[700]"
+            className="inline-flex shrink-0 items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
             style={{ color: source.color, backgroundColor: `color-mix(in srgb, ${source.color} 12%, transparent)` }}
           >
             {source.domain}
@@ -371,7 +371,7 @@ function StatTile({
 }) {
   return (
     <div
-      className="flex flex-col items-center gap-1 rounded-[var(--r-md)] border px-2 py-2.5 text-center"
+      className="flex flex-col items-center gap-1 rounded-[var(--r-md)] border px-2 py-3 text-center"
       style={{
         borderColor: tint ? `color-mix(in srgb, ${tint} 28%, var(--bd))` : 'var(--bd)',
         backgroundColor: tint ? `color-mix(in srgb, ${tint} 7%, var(--bg))` : 'var(--bg2)',
@@ -391,8 +391,8 @@ function StatTile({
 /** 정보 존 — 라벨 + 내용 (Gestalt 근접성). */
 function Zone({ label, accent, children }: { label: string; accent: string; children: ReactNode }) {
   return (
-    <section className="flex flex-col gap-2.5">
-      <span className="inline-flex items-center gap-1.5 font-display text-[12px] font-[800] uppercase tracking-[0.07em] text-[var(--t2)]">
+    <section className="flex flex-col gap-3">
+      <span className="inline-flex items-center gap-2 font-display text-[12px] font-[800] uppercase tracking-[0.07em] text-[var(--t2)]">
         <span aria-hidden className="h-3 w-[3px] rounded-full" style={{ backgroundColor: accent }} />
         {label}
       </span>

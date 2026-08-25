@@ -115,7 +115,7 @@ export function TeacherClient({
             type="button"
             onClick={handleCreate}
             disabled={!name.trim() || pending}
-            className="inline-flex h-10 items-center justify-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:opacity-50"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:opacity-50"
           >
             <Plus size={14} strokeWidth={2} aria-hidden /> 개설
           </button>
@@ -135,7 +135,7 @@ export function TeacherClient({
             type="button"
             onClick={handleJoin}
             disabled={code.trim().length < 4 || pending}
-            className="inline-flex h-10 items-center justify-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--p)] hover:text-[var(--p)] disabled:opacity-50"
+            className="inline-flex h-10 items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--p)] hover:text-[var(--p)] disabled:opacity-50"
           >
             참여하기
           </button>
@@ -169,7 +169,7 @@ export function TeacherClient({
                 <button
                   type="button"
                   onClick={() => copy(c.invite_code)}
-                  className="inline-flex items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-mono text-[13px] font-[700] tracking-[0.12em] text-[var(--t1)] transition-colors hover:border-[var(--p)]"
+                  className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-mono text-[13px] font-[700] tracking-[0.12em] text-[var(--t1)] transition-colors hover:border-[var(--p)]"
                   aria-label={`초대코드 ${c.invite_code} 복사`}
                 >
                   {c.invite_code}

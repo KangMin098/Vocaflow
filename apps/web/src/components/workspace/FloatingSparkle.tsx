@@ -48,7 +48,7 @@ export function FloatingSparkle({ message, ctaLabel, ctaHref }: FloatingSparkleP
             : 'pointer-events-none translate-y-2.5 scale-95 opacity-0'
         } `}
       >
-        <p className="mb-2.5 flex items-center gap-1.5 font-display text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+        <p className="mb-2.5 flex items-center gap-2 font-display text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
           <Sparkles size={11} strokeWidth={2} aria-hidden="true" />
           <span>다음 단계</span>
         </p>
@@ -60,7 +60,7 @@ export function FloatingSparkle({ message, ctaLabel, ctaHref }: FloatingSparkleP
         <Link
           href={ctaHref}
           onClick={() => setIsExpanded(false)}
-          className="flex w-full items-center justify-center gap-1.5 rounded-[var(--r-md)] p-2.5 font-display text-[13px] font-[700] text-[var(--on-p)] no-underline transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)]"
+          className="flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] p-3 font-display text-[13px] font-[700] text-[var(--on-p)] no-underline transition-shadow duration-[var(--dur-normal)] hover:shadow-[var(--sh-md)]"
           style={{
             background: 'linear-gradient(135deg, var(--p) 0%, var(--p-dark) 100%)',
           }}
@@ -72,7 +72,7 @@ export function FloatingSparkle({ message, ctaLabel, ctaHref }: FloatingSparkleP
 
         <button
           onClick={() => setIsExpanded(false)}
-          className="mt-2 block w-full py-1.5 font-body text-[11px] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)]"
+          className="mt-2 block w-full py-2 font-body text-[11px] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)]"
         >
           나중에 보기
         </button>

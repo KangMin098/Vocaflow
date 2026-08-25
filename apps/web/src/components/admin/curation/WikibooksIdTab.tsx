@@ -142,7 +142,7 @@ export function WikibooksIdTab({ onPickPreview }: WikibooksIdTabProps) {
           <div
             id="wikibooks-title-error"
             role="alert"
-            className="flex items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
+            className="flex items-center gap-2 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2"
           >
             <AlertCircle size={12} className="text-[var(--learn-error)]" aria-hidden />
             <span className="font-body text-[11px] text-[var(--learn-error)]">{error}</span>
@@ -210,7 +210,7 @@ function PreviewCard({
             · CC-BY-SA-3.0
           </span>
           {preview.subpage_count > 0 && (
-            <span className="ml-2 inline-flex items-center gap-0.5 font-mono text-[10px] text-[var(--t5)]">
+            <span className="ml-2 inline-flex items-center gap-1 font-mono text-[10px] text-[var(--t5)]">
               <Layers size={9} aria-hidden /> sub-page {preview.subpage_count}개
             </span>
           )}

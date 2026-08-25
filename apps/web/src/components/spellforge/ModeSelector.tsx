@@ -50,7 +50,7 @@ export function ModeSelector({ mode, onChange }: ModeSelectorProps) {
             onClick={() => onChange(m.key)}
             role="radio"
             aria-checked={isActive}
-            className={`inline-flex cursor-pointer items-center gap-1.5 rounded-[var(--r-full)] px-3.5 py-1.5 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
+            className={`inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ${
               isActive
                 ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-sm)]'
                 : 'bg-transparent text-[var(--t2)] hover:text-[var(--t1)]'

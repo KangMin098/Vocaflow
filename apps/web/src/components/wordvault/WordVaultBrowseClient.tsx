@@ -244,13 +244,13 @@ export function WordVaultBrowseClient({
                 onGoToChapter={goToChapter}
               />
             ) : (
-              <div className="flex flex-col gap-1.5">
+              <div className="flex flex-col gap-2">
                 <ScriptsChipNav chips={chips} active={scriptFilter} onChange={setScriptFilter} />
                 {/* 스크립트 필터 시 해당 스크립트 본문으로 바로가기 */}
                 {scriptFilter.startsWith('text:') && (
                   <Link
                     href={`/text/${scriptFilter.slice(5)}`}
-                    className="inline-flex w-fit items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-1.5 font-display text-[12px] font-[700] text-[#6366F1] transition-colors hover:bg-[var(--bg2)]"
+                    className="inline-flex w-fit items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[700] text-[#6366F1] transition-colors hover:bg-[var(--bg2)]"
                   >
                     <FileText size={12} aria-hidden />
                     이 스크립트 본문 열기 →

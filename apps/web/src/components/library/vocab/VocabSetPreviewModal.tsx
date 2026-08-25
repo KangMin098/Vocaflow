@@ -299,7 +299,7 @@ export function VocabSetPreviewModal({
           <span className="font-english text-[16px] font-[600] text-[var(--t1)]">{w.word}</span>
           {w.partOfSpeech && <span className="font-body text-[11px] italic text-[var(--t2)]">{w.partOfSpeech}</span>}
           {w.cefrLevel && (
-            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-1.5 py-0.5 font-display text-[10px] font-[600] text-[var(--t2)]">
+            <span className="rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[600] text-[var(--t2)]">
               {w.cefrLevel}
             </span>
           )}
@@ -408,7 +408,7 @@ export function VocabSetPreviewModal({
                 )
               })()}
 
-              <p className="mt-2 flex items-start gap-1.5 font-body text-[12px] leading-relaxed text-[var(--t2)]">
+              <p className="mt-2 flex items-start gap-2 font-body text-[12px] leading-relaxed text-[var(--t2)]">
                 <RefreshCw size={12} className="mt-[3px] shrink-0" aria-hidden />
                 <span>복습은 <b className="font-[600] text-[var(--t2)]">기억이 흐려질 때</b> 자동으로 배치돼요 — 고정 일정이 아니라 당신의 기억에 맞춰 조절돼요.</span>
               </p>
@@ -444,7 +444,7 @@ export function VocabSetPreviewModal({
                         type="button"
                         onClick={() => toggleChapter(ch.n)}
                         aria-expanded={open}
-                        className="flex min-w-0 flex-1 items-center justify-between gap-2 px-4 py-2.5 text-left transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8B5CF6]"
+                        className="flex min-w-0 flex-1 items-center justify-between gap-2 px-4 py-3 text-left transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8B5CF6]"
                       >
                         <span className="min-w-0 font-display text-[13px] font-[700] text-[var(--t1)]">
                           {ch.label ?? `Chapter ${ch.n}`}
@@ -469,7 +469,7 @@ export function VocabSetPreviewModal({
                     {open && (
                       <div className="flex flex-col">
                         {/* 게임별 챕터 학습 런처 */}
-                        <div className="flex flex-wrap items-center gap-1.5 border-t border-[var(--bd)] bg-[var(--bg)] px-4 py-2.5">
+                        <div className="flex flex-wrap items-center gap-2 border-t border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
                           <span className="mr-0.5 font-display text-[11px] font-[700] text-[var(--t2)]">
                             이 챕터 학습
                           </span>
@@ -481,7 +481,7 @@ export function VocabSetPreviewModal({
                               // 44px 최소 터치 타겟(CLAUDE.md) — 기존 py-1 은 24px 였다.
                               // 아케이드 칩만 액센트를 줘 "개별 게임"이 아니라 "전부로 가는 문"임을 구분.
                               className={
-                                'inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-full)] border px-3 font-display text-[11.5px] font-[700] no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ' +
+                                'inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-full)] border px-3 font-display text-[11.5px] font-[700] no-underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ' +
                                 (g.wide
                                   ? 'border-[#8B5CF6]/45 bg-[#8B5CF6]/10 text-[#6D28D9] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/16'
                                   : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/10 hover:text-[#6D28D9]')
@@ -564,7 +564,7 @@ export function VocabSetPreviewModal({
               type="button"
               onClick={() => onToggle(set)}
               disabled={isPending}
-              className="inline-flex min-h-[40px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] disabled:opacity-60"
+              className="inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] disabled:opacity-60"
             >
               {isPending ? <Loader2 size={14} className="animate-spin" aria-hidden /> : <Check size={14} aria-hidden />}
               구독 해지
@@ -574,7 +574,7 @@ export function VocabSetPreviewModal({
               type="button"
               onClick={() => onToggle(set)}
               disabled={isPending}
-              className="inline-flex min-h-[40px] items-center gap-1.5 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[700] text-white transition-colors hover:bg-[#7C3AED] disabled:opacity-60"
+              className="inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[700] text-white transition-colors hover:bg-[#7C3AED] disabled:opacity-60"
             >
               {isPending ? <Loader2 size={14} className="animate-spin" aria-hidden /> : <Plus size={14} aria-hidden />}
               내 단어장에 추가

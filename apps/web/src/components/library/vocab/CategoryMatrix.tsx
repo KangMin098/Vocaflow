@@ -42,7 +42,7 @@ export function CategoryMatrix({
             onClick={() => onChange(cat.id)}
             aria-pressed={isActive}
             disabled={isEmpty}
-            className={`group relative flex aspect-[5/4] flex-col items-center justify-center gap-1.5 rounded-[var(--r-lg)] border p-3 text-center transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 focus-visible:ring-offset-2 ${
+            className={`group relative flex aspect-[5/4] flex-col items-center justify-center gap-2 rounded-[var(--r-lg)] border p-3 text-center transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 focus-visible:ring-offset-2 ${
               isActive
                 ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)] shadow-[var(--sh-md)]'
                 : isEmpty
@@ -52,7 +52,7 @@ export function CategoryMatrix({
           >
             {/* Count 배지 — 우상단 */}
             <span
-              className={`absolute right-2 top-2 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full px-1.5 font-mono text-[10px] font-[700] tabular-nums ${
+              className={`absolute right-2 top-2 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full px-2 font-mono text-[10px] font-[700] tabular-nums ${
                 isActive
                   ? 'bg-[var(--bg)]/15 text-[var(--bg)]'
                   : isEmpty
@@ -72,7 +72,7 @@ export function CategoryMatrix({
             </span>
 
             {/* 라벨 + 힌트 */}
-            <div className="flex flex-col items-center gap-0.5">
+            <div className="flex flex-col items-center gap-1">
               <span
                 className={`font-display text-[13px] font-[700] leading-tight ${
                   isActive ? 'text-[var(--bg)]' : 'text-[var(--t1)]'

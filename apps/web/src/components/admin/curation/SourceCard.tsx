@@ -90,7 +90,7 @@ function RankRibbon({ rank, isPrimary }: { rank: number; isPrimary: boolean }) {
   return (
     <div
       className={[
-        'absolute left-0 top-0 px-2 py-0.5',
+        'absolute left-0 top-0 px-2 py-1',
         'rounded-br-[var(--r-md)]',
         'font-mono text-[10px] font-[700]',
         isPrimary
@@ -115,7 +115,7 @@ function MetaStrip({ catalog }: { catalog: SourceCatalog }) {
       : '—';
 
   return (
-    <div className="border-t border-[var(--bd)] bg-[var(--bg2)] px-5 py-2.5">
+    <div className="border-t border-[var(--bd)] bg-[var(--bg2)] px-5 py-3">
       <div className="flex items-center gap-3 font-mono text-[10px] text-[var(--t2)]">
         <MetaItem label="📜" value={catalog.license_summary} />
         <MetaItem

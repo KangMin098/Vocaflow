@@ -144,14 +144,14 @@ export function VocabSetCard({
           <span
             aria-label="내 학습에 추가됨"
             title="내 학습에 추가됨"
-            className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--chip-cover-bg)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--chip-cover-brand)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
+            className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--chip-cover-bg)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--chip-cover-brand)] shadow-[0_2px_6px_rgba(0,0,0,0.18)]"
           >
             <Check size={10} strokeWidth={3} aria-hidden /> 내 학습
           </span>
         ) : isNew ? (
           <span
             aria-label="신규 단어장"
-            className="absolute left-3 top-3 inline-flex items-center rounded-[var(--r-full)] bg-[var(--ios-purple-tint)] px-2 py-0.5 font-display text-[10px] font-[800] tracking-wide text-[var(--ios-purple-ink)] shadow-[0_2px_6px_rgba(0,0,0,0.22)]"
+            className="absolute left-3 top-3 inline-flex items-center rounded-[var(--r-full)] bg-[var(--ios-purple-tint)] px-2 py-1 font-display text-[10px] font-[800] tracking-wide text-[var(--ios-purple-ink)] shadow-[0_2px_6px_rgba(0,0,0,0.22)]"
           >
             NEW
           </span>
@@ -159,19 +159,19 @@ export function VocabSetCard({
 
         {/* 우상단: CEFR 배지 */}
         {set.cefrLevel && (
-          <span className="absolute right-3 top-3 inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-0.5 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
+          <span className="absolute right-3 top-3 inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-1 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
             {set.cefrLevel}
           </span>
         )}
 
         {/* 좌하단: 카테고리(중요도) 단서 + 사용빈도(구독수) — 어떤 단계/시험용인지 + 얼마나 쓰는지 */}
         {cat && (
-          <span className="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-black/55 px-2 py-0.5 font-display text-[10px] font-[700] text-white backdrop-blur-[2px]">
+          <span className="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-black/55 px-2 py-1 font-display text-[10px] font-[700] text-white backdrop-blur-[2px]">
             <span aria-hidden>{cat.emoji}</span>
             {cat.label}
             {set.subscriberCount > 0 && (
               <span
-                className="ml-1 inline-flex items-center gap-0.5 border-l border-white/30 pl-1 tabular-nums"
+                className="ml-1 inline-flex items-center gap-1 border-l border-white/30 pl-1 tabular-nums"
                 title={`${set.subscriberCount}명 학습 중`}
               >
                 <Users size={9} strokeWidth={2.5} aria-hidden />
@@ -217,8 +217,8 @@ export function VocabSetCard({
         제목을 반복하지 않는다 — 제목이 말하지 않는 것만 적는다.
       */}
       {set.kind && !hideKind && (
-        <p className="mt-2 flex items-baseline gap-1.5 font-body text-[11px] leading-snug text-[var(--t3)]">
-          <span className="shrink-0 rounded-[3px] bg-[var(--bg2)] px-1.5 py-px font-display text-[10px] font-[700] text-[var(--t2)]">
+        <p className="mt-2 flex items-baseline gap-2 font-body text-[11px] leading-snug text-[var(--t3)]">
+          <span className="shrink-0 rounded-[3px] bg-[var(--bg2)] px-2 py-px font-display text-[10px] font-[700] text-[var(--t2)]">
             {set.kind.label}
           </span>
           <span className="line-clamp-2">{set.kind.principle}</span>

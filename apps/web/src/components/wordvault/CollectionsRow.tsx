@@ -35,7 +35,7 @@ export function CollectionsRow({ activeId: controlledActiveId, onChange }: Colle
             className={cn(
               'shrink-0 cursor-pointer',
               'inline-flex items-center gap-s-2',
-              'py-s-1.5 rounded-md px-s-3',
+              'py-s-2 rounded-md px-s-3',
               'border transition-all duration-fast',
               'font-display text-[13px] font-semibold tracking-[-0.01em]',
               isActive
@@ -46,7 +46,7 @@ export function CollectionsRow({ activeId: controlledActiveId, onChange }: Colle
             <span>{col.name}</span>
             <span
               className={cn(
-                'px-s-1.5 rounded-[4px] py-[2px] font-mono text-[11px] font-bold',
+                'px-s-2 rounded-[4px] py-[4px] font-mono text-[11px] font-bold',
                 isActive ? 'bg-white/15 text-bg' : 'bg-bg2 text-t3'
               )}
             >

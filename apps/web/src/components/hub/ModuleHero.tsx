@@ -72,8 +72,8 @@ export function ModuleHero({
       aria-label={title}
       className={
         quiet
-          ? 'relative overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 text-[var(--t1)] md:px-5 md:py-3.5'
-          : 'relative overflow-hidden rounded-[var(--r-md)] px-4 py-3 text-[var(--ti)] shadow-[var(--sh-xs)] md:px-5 md:py-3.5'
+          ? 'relative overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 text-[var(--t1)] md:px-5 md:py-4'
+          : 'relative overflow-hidden rounded-[var(--r-md)] px-4 py-3 text-[var(--ti)] shadow-[var(--sh-xs)] md:px-5 md:py-4'
       }
       style={
         quiet
@@ -85,7 +85,7 @@ export function ModuleHero({
             }
       }
     >
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
         {/* Eyebrow + title 한 줄 (좁은 화면에선 wrap) */}
         <div className="flex min-w-0 flex-1 items-center gap-2">
           {Icon && (

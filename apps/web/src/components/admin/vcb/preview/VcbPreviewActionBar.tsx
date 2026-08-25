@@ -29,7 +29,7 @@ export function VcbPreviewActionBar({
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center gap-4">
         {rejectedCount > 0 ? (
           <div
-            className="flex items-center gap-1.5 px-2 py-1 rounded-[var(--r-md)] text-xs font-mono"
+            className="flex items-center gap-2 px-2 py-1 rounded-[var(--r-md)] text-xs font-mono"
             style={{ background: 'var(--error-light)', color: 'var(--error)' }}
           >
             <XCircle className="w-3.5 h-3.5" />
@@ -51,7 +51,7 @@ export function VcbPreviewActionBar({
           type="button"
           onClick={onImport}
           disabled={isPending || isDanger}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
           style={{
             background: hasWarning ? 'var(--bg2)' : 'var(--p)',
             color: hasWarning ? 'var(--p)' : 'var(--ti)',
@@ -61,7 +61,7 @@ export function VcbPreviewActionBar({
           {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Upload className="w-4 h-4" />}
           DB 에 import
           {hasWarning && (
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-[var(--r-sm)]"
+            <span className="text-[10px] font-mono px-2 py-1 rounded-[var(--r-sm)]"
               style={{ background: 'var(--warning-light)', color: 'var(--warning)' }}>
               주의
             </span>

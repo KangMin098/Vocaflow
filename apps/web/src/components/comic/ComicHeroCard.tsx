@@ -53,13 +53,13 @@ export function ComicHeroCard({ items }: { items: ComicHeroItem[] }) {
                     {it.title}
                   </h3>
                   {it.author && <p className="font-body text-[12px] text-[var(--t2)]">{it.author}</p>}
-                  <div className="mt-1 flex flex-wrap items-center gap-1.5">
+                  <div className="mt-1 flex flex-wrap items-center gap-2">
                     <Meta>{it.panelsTotal}컷</Meta>
                     {it.vLevel != null && <Meta>V{it.vLevel}</Meta>}
                     <Meta>GONICK 화풍</Meta>
                   </div>
                 </div>
-                <span className="inline-flex min-h-11 w-fit items-center gap-1.5 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] shadow-[var(--sh-sm)]" style={{ background: 'var(--active)', color: '#231a09' }}>
+                <span className="inline-flex min-h-11 w-fit items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] shadow-[var(--sh-sm)]" style={{ background: 'var(--active)', color: '#231a09' }}>
                   {it.enrolled ? '만화로 읽기' : '만화 미리보기'}
                   <ArrowRight size={14} aria-hidden className="transition-transform duration-[var(--dur-normal)] group-hover:translate-x-1 motion-reduce:transition-none" />
                 </span>
@@ -103,7 +103,7 @@ export function ComicHeroCard({ items }: { items: ComicHeroItem[] }) {
 
 function Meta({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-mono text-[11px] tabular-nums text-[var(--t2)]">
+    <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[11px] tabular-nums text-[var(--t2)]">
       {children}
     </span>
   )

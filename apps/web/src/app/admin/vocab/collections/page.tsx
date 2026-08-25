@@ -69,19 +69,19 @@ export default async function VcbCollectionsPage() {
                       {c.title}
                     </span>
                     <span
-                      className="text-[11px] font-mono px-2 py-0.5 rounded-[var(--r-full)]"
+                      className="text-[11px] font-mono px-2 py-1 rounded-[var(--r-full)]"
                       style={{ background: 'var(--bg3)', color: 'var(--t3)' }}
                     >
                       {c.category}
                     </span>
                     <span
-                      className="text-[11px] font-display font-medium px-2 py-0.5 rounded-[var(--r-full)]"
+                      className="text-[11px] font-display font-medium px-2 py-1 rounded-[var(--r-full)]"
                       style={{ background: 'var(--bg2)', color: 'var(--t2)' }}
                     >
                       {c.producer === 'run' ? 'run' : 'Studio'}
                     </span>
                     <span
-                      className="text-[11px] font-display font-medium px-2 py-0.5 rounded-[var(--r-full)]"
+                      className="text-[11px] font-display font-medium px-2 py-1 rounded-[var(--r-full)]"
                       style={{
                         background: c.is_published ? 'var(--success-light)' : 'var(--bg2)',
                         color: c.is_published ? 'var(--success)' : 'var(--t3)',

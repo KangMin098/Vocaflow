@@ -23,7 +23,7 @@ export default async function PdModernReaderPreview({ params }: { params: { issu
       <div className="mx-auto w-full max-w-[820px] px-3 pt-3 md:px-4">
         <Link
           href="/admin/pd-comics"
-          className="inline-flex min-h-[44px] items-center gap-1.5 font-body text-[12px] font-[500] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
+          className="inline-flex min-h-[44px] items-center gap-2 font-body text-[12px] font-[500] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden /> pd-comics
         </Link>

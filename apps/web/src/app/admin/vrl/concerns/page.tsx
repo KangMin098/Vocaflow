@@ -95,12 +95,12 @@ function ConcernsView({ data }: { data: VrlConcernsData }) {
           {data.byType.map((t) => (
             <span
               key={t.type}
-              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-2.5 py-1 font-mono text-[11px] font-[600] text-[var(--t2)]"
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg2)] px-3 py-1 font-mono text-[11px] font-[600] text-[var(--t2)]"
             >
               {t.type}
               <span className="font-display font-[700] text-[var(--t1)]">{t.total}</span>
               {t.open > 0 && (
-                <span className="rounded-full bg-[var(--error)] px-1.5 py-0.5 font-display text-[9px] font-[700] text-white">
+                <span className="rounded-full bg-[var(--error)] px-2 py-1 font-display text-[9px] font-[700] text-white">
                   {t.open} open
                 </span>
               )}
@@ -146,12 +146,12 @@ function ConcernsView({ data }: { data: VrlConcernsData }) {
                 </td>
                 <td className="px-3 py-2 text-center">
                   {r.resolved ? (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[var(--success-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--success)]">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[var(--success-light)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--success)]">
                       <CheckCircle2 size={10} aria-hidden />
                       resolved
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-[var(--error-light)] px-2 py-0.5 font-display text-[10px] font-[700] text-[var(--error-ink)]">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[var(--error-light)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--error-ink)]">
                       <AlertTriangle size={10} aria-hidden />
                       open
                     </span>

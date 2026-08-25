@@ -29,10 +29,10 @@ describe('estimateHeight — 명시적 신호 우선순위', () => {
   })
 
   it('py-N + 텍스트 줄높이', () => {
-    // py-1.5(12px) + 14px×1.4(20px) = 32px
-    expect(estimateHeight('rounded px-2.5 py-1.5')?.px).toBe(32)
+    // py-2(12px) + 14px×1.4(20px) = 32px
+    expect(estimateHeight('rounded px-3 py-2')?.px).toBe(32)
     // text-[11px] 명시 시 11×1.4=15 → 12+15 = 27px (실제 결함 사례)
-    expect(estimateHeight('px-2.5 py-1.5 text-[11px]')?.px).toBe(27)
+    expect(estimateHeight('px-3 py-2 text-[11px]')?.px).toBe(27)
   })
 })
 

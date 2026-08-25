@@ -100,7 +100,7 @@ export function CandidateTable({ source, onImported }: Props) {
           후보 {items.length}건 · score 순
         </span>
         <span
-          className="rounded-[var(--r-full)] border border-[var(--bd)] px-2.5 py-1 font-mono text-[10px] font-[600]"
+          className="rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1 font-mono text-[10px] font-[600]"
           style={
             policy.supply === 'static'
               ? { backgroundColor: 'var(--learn-fresh-light)', color: 'var(--learn-fresh)' }
@@ -226,7 +226,7 @@ function ScoreBar({ value }: { value: number }) {
   const pct = Math.round(v * 100)
   const color = v >= 0.7 ? 'var(--learn-known)' : v >= 0.4 ? 'var(--learn-review)' : 'var(--learn-error)'
   return (
-    <span className="flex items-center gap-1.5">
+    <span className="flex items-center gap-2">
       <span className="block h-1.5 flex-1 overflow-hidden rounded-[var(--r-full)] bg-[var(--bg2)]">
         <span className="block h-full rounded-[var(--r-full)]" style={{ width: `${pct}%`, backgroundColor: color }} />
       </span>
@@ -239,7 +239,7 @@ function ScoreBar({ value }: { value: number }) {
 
 function CandidateSkeleton() {
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="flex flex-col gap-2">
       {Array.from({ length: 5 }).map((_, i) => (
         <div
           key={i}

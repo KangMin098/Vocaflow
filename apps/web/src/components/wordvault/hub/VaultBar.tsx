@@ -75,7 +75,7 @@ export function VaultBar({
         className={`mt-2 flex flex-wrap gap-x-3 gap-y-1 font-body text-[11px] font-[600] tracking-[-0.01em] ${labelClass}`}
       >
         {segments.map((seg) => (
-          <span key={seg.key} className="inline-flex items-center gap-1.5">
+          <span key={seg.key} className="inline-flex items-center gap-2">
             <span
               className="inline-block h-1.5 w-1.5 rounded-full"
               style={{ backgroundColor: seg.color }}

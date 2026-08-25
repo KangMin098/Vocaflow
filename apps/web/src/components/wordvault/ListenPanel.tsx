@@ -193,7 +193,7 @@ export function ListenPanel({
             <span>선택 듣기</span>
             <span
               className={cn(
-                'px-s-1.5 inline-flex h-[20px] min-w-[20px] items-center justify-center rounded-[10px]',
+                'px-s-2 inline-flex h-[20px] min-w-[20px] items-center justify-center rounded-[10px]',
                 'font-mono text-[11px] font-bold',
                 selectedCount > 0 ? 'bg-learn-mastered text-white' : 'bg-bg2 text-t3'
               )}
@@ -373,11 +373,11 @@ function OptBtn({
       //    칩 자체를 44px 로 키우면 설정 줄이 두 배가 돼 화면을 잡아먹는다.
       //    → 보이는 알약은 그대로 두고 **세로 패딩으로 히트영역만** 44px 로 만든다.
       //      `::after` 가 아니라 요소 자체의 크기여야 계측기가 본다(WordRow 에서 겪었다).
-      className="group/opt -m-2.5 flex min-h-[44px] min-w-[44px] items-center justify-center p-2.5"
+      className="group/opt -m-2.5 flex min-h-[44px] min-w-[44px] items-center justify-center p-3"
     >
       <span
         className={cn(
-          'px-s-2.5 rounded-sm border py-s-1',
+          'px-s-3 rounded-sm border py-s-1',
           'font-display text-xs font-semibold',
           'transition-all duration-fast',
           active

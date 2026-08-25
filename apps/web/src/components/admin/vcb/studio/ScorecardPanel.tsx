@@ -112,7 +112,7 @@ export function ScorecardPanel({
 
         {preview.evidence_line ? (
           <p
-            className="font-body text-xs mt-3 mb-0 rounded-[var(--r-md)] p-2.5"
+            className="font-body text-xs mt-3 mb-0 rounded-[var(--r-md)] p-3"
             style={{ background: 'var(--p-light)', color: 'var(--admin)' }}
           >
             {preview.evidence_line}
@@ -129,7 +129,7 @@ export function ScorecardPanel({
             .map((m) => (
               <div
                 key={m.id}
-                className="rounded-[var(--r-md)] p-2.5"
+                className="rounded-[var(--r-md)] p-3"
                 style={{ background: 'var(--bg2)' }}
                 title={m.note}
               >
@@ -217,7 +217,7 @@ export function ScorecardPanel({
             같은 유형의 대표작과만 견준다. 기준선은 그 책이 지면에서 주는 상한이다 — 뜻·발음·오류는 1.00.
           </p>
           <div
-            className="grid gap-1.5"
+            className="grid gap-2"
             style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))' }}
           >
             {preview.market.elements.map((el) => {
@@ -226,7 +226,7 @@ export function ScorecardPanel({
               return (
                 <div
                   key={el.id}
-                  className="flex items-baseline justify-between gap-2 rounded-[var(--r-sm)] px-2 py-1.5"
+                  className="flex items-baseline justify-between gap-2 rounded-[var(--r-sm)] px-2 py-2"
                   style={{ background: lose ? 'var(--error-light)' : 'var(--bg2)' }}
                   title={el.note}
                 >
@@ -274,7 +274,7 @@ export function ScorecardPanel({
         </p>
         <div className="grid gap-2" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
           {card.facets.map((f) => (
-            <div key={f.facet} className="rounded-[var(--r-md)] p-2.5" style={{ background: 'var(--bg2)' }}>
+            <div key={f.facet} className="rounded-[var(--r-md)] p-3" style={{ background: 'var(--bg2)' }}>
               <div className="flex items-baseline justify-between gap-2">
                 <span className="font-display text-xs font-medium" style={{ color: 'var(--t1)' }}>
                   {f.code} {f.name}
@@ -333,11 +333,11 @@ export function ScorecardPanel({
             {funnel.after_subtract} → 목표 적용 {funnel.after_objective} → 최종 {funnel.final}
           </p>
           {droppedTop.length > 0 ? (
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-2">
               {droppedTop.map(([reason, n]) => (
                 <span
                   key={reason}
-                  className="rounded-[var(--r-sm)] px-2 py-0.5 font-body text-[11px]"
+                  className="rounded-[var(--r-sm)] px-2 py-1 font-body text-[11px]"
                   style={{ background: 'var(--bg2)', color: 'var(--t3)' }}
                 >
                   {reason} {n}

@@ -62,17 +62,17 @@ export function WorkspaceBookContext({
 
   return (
     <header
-      className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-[var(--bd)] bg-[var(--bg)]/95 px-5 py-1.5 backdrop-blur-sm"
+      className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-[var(--bd)] bg-[var(--bg)]/95 px-5 py-2 backdrop-blur-sm"
       aria-label="책 컨텍스트"
     >
       {/* 좌측: 컴팩트 breadcrumb (BookVault › 책 › Chapter N · ✓N) */}
       <nav
         aria-label="breadcrumb"
-        className="flex min-w-0 items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]"
+        className="flex min-w-0 items-center gap-2 font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]"
       >
         <Link
           href="/my/books"
-          className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-1.5 py-0.5 text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           aria-label="책 목록으로 돌아가기"
         >
           <ArrowLeft size={10} aria-hidden />

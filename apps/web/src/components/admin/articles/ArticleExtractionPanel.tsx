@@ -65,7 +65,7 @@ export function ArticleExtractionPanel({
           <button
             type="button"
             onClick={() => setModalOpen(true)}
-            className="inline-flex min-h-[36px] shrink-0 items-center gap-1.5 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3.5 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="inline-flex min-h-[36px] shrink-0 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-4 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <SearchCheck size={13} aria-hidden />
             단어장 검수 팝업
@@ -116,7 +116,7 @@ export function ArticleExtractionPanel({
                 >
                   <Td className="text-right font-mono text-[var(--t2)]">{r.rank}</Td>
                   <Td className="font-display font-[600]">
-                    <span className="inline-flex items-center gap-1.5">
+                    <span className="inline-flex items-center gap-2">
                       {r.word}
                       <RegisterBadge register={r.wordRegister} />
                     </span>
@@ -184,7 +184,7 @@ export function ArticleExtractionPanel({
 
 function MetaCell({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-0.5">
+    <div className="flex flex-col gap-1">
       <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--t2)]">
         {label}
       </span>

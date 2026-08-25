@@ -99,12 +99,12 @@ export default async function PdComicsPage({
 function KindNav({ kinds }: { kinds: PdComicShelfKind[] }) {
   if (kinds.length < 2) return null
   return (
-    <nav aria-label="유형 바로가기" className="flex flex-wrap gap-1.5">
+    <nav aria-label="유형 바로가기" className="flex flex-wrap gap-2">
       {kinds.map((k) => (
         <a
           key={k.kind}
           href={`#kind-${k.kind}`}
-          className="inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12.5px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12.5px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {k.label}
           <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">{k.issuesPublished}</span>
@@ -154,13 +154,13 @@ function KindSection({ kind }: { kind: PdComicShelfKind }) {
                     no cover
                   </span>
                 )}
-                <span className="absolute left-2 top-2 rounded-[var(--r-full)] bg-[rgba(23,17,10,.82)] px-2 py-0.5 font-mono text-[10px] font-[700] text-[#E6C275] backdrop-blur">
+                <span className="absolute left-2 top-2 rounded-[var(--r-full)] bg-[rgba(23,17,10,.82)] px-2 py-1 font-mono text-[10px] font-[700] text-[#E6C275] backdrop-blur">
                   {s.yearFrom === s.yearTo || !s.yearTo
                     ? `${s.yearFrom ?? '연도 미상'}${s.yearFrom ? ' 원본' : ''}`
                     : `${s.yearFrom}–${s.yearTo} 원본`}
                 </span>
               </div>
-              <div className="flex flex-1 flex-col gap-1 px-3 py-2.5">
+              <div className="flex flex-1 flex-col gap-1 px-3 py-3">
                 {s.publisher && (
                   <p className="truncate font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
                     {s.publisher}
@@ -255,12 +255,12 @@ function SeriesView({
                   </span>
                 )}
                 {it.publishedYear && (
-                  <span className="absolute left-2 top-2 rounded-[var(--r-full)] bg-[rgba(23,17,10,.82)] px-2 py-0.5 font-mono text-[10px] font-[700] text-[#E6C275] backdrop-blur">
+                  <span className="absolute left-2 top-2 rounded-[var(--r-full)] bg-[rgba(23,17,10,.82)] px-2 py-1 font-mono text-[10px] font-[700] text-[#E6C275] backdrop-blur">
                     {it.publishedYear} 원본 · 복원
                   </span>
                 )}
               </div>
-              <div className="flex flex-1 flex-col gap-1 px-3 py-2.5">
+              <div className="flex flex-1 flex-col gap-1 px-3 py-3">
                 {it.issueNo != null && (
                   <p className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
                     제 {it.issueNo}호

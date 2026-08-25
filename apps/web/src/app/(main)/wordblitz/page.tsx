@@ -103,7 +103,7 @@ export default async function WordBlitzHubPage() {
         // 이전에는 `linear-gradient(#2d6a2d → #5ab540)` 위에 `#FFE234` 글자였다. 형제 4화면이
         // 각자 다른 고채도 면을 갖고 있어 한 그룹인데 네 브랜드가 동시에 소리쳤다.
         // 연습 화면은 학습 직전의 대기실이다 — 자극이 아니라 준비가 필요하다.
-        className="relative mb-4 overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 text-[var(--t1)] md:px-5 md:py-3.5"
+        className="relative mb-4 overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 text-[var(--t1)] md:px-5 md:py-4"
       >
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <div className="flex min-w-0 flex-1 items-center gap-2">
@@ -140,7 +140,7 @@ export default async function WordBlitzHubPage() {
           <Link
             href="/play/wordblitz"
             // 실측 2026-08-25: 108×30 이었다. 이 화면의 주 행동인데 44px 규칙 아래였다.
-            className="group inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[800] text-[var(--on-p)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-0.5"
+            className="group inline-flex min-h-11 shrink-0 items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[800] text-[var(--on-p)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-0.5"
           >
             <Gamepad2 size={12} strokeWidth={2.5} aria-hidden />
             바로 시작
@@ -187,7 +187,7 @@ export default async function WordBlitzHubPage() {
           먼저 와야 하는 것은 무엇으로 노는가(위 풀)와 시작이다.
           `<details>` 라 기본 접힘 · 필요할 때만 펼침 · JS 없이 동작 · 스크린리더 지원. */}
       <details className="group mb-8">
-        <summary className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-[var(--r-sm)] py-1.5 font-body text-[12.5px] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] [&::-webkit-details-marker]:hidden">
+        <summary className="inline-flex cursor-pointer list-none items-center gap-2 rounded-[var(--r-sm)] py-2 font-body text-[12.5px] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] [&::-webkit-details-marker]:hidden">
           <ChevronRight
             size={13}
             aria-hidden
@@ -323,7 +323,7 @@ export default async function WordBlitzHubPage() {
       <footer className="mt-10 text-center">
         <Link
           href="/play/wordblitz"
-          className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-8 py-3.5 font-display text-[15px] font-[700] text-[var(--on-p)] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-0.5"
+          className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-8 py-4 font-display text-[15px] font-[700] text-[var(--on-p)] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-0.5"
         >
           <Gamepad2 size={16} strokeWidth={2.5} aria-hidden />
           지금 한 판

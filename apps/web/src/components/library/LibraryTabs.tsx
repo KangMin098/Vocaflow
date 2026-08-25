@@ -52,7 +52,7 @@ export function LibraryTabs() {
             role="tab"
             aria-selected={isActive}
             aria-label={`${tab.label} — ${tab.says}`}
-            className={`flex min-h-[44px] shrink-0 items-center gap-1.5 whitespace-nowrap border-b-2 px-2.5 py-3 font-display text-[13.5px] font-[600] transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 sm:gap-2 sm:px-4 sm:text-[14px] ${
+            className={`flex min-h-[44px] shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-3 py-3 font-display text-[13.5px] font-[600] transition-colors duration-[var(--dur-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 sm:gap-2 sm:px-4 sm:text-[14px] ${
               isActive
                 ? 'border-[#8B5CF6] text-[var(--t1)]'
                 : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]'

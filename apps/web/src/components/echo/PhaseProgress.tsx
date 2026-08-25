@@ -33,7 +33,7 @@ export function PhaseProgress({ phase, currentSentence, totalSentences }: Props)
             return (
               <span
                 key={p.key}
-                className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-0.5 font-display text-[10px] font-[700] transition-colors ${
+                className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] transition-colors ${
                   isActive
                     ? 'bg-[var(--p)] text-[var(--on-p)]'
                     : isPassed

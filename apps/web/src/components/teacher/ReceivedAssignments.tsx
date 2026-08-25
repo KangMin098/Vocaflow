@@ -64,7 +64,7 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
       {error && (
         <p
           role="alert"
-          className="m-0 rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg2)] px-3.5 py-2.5 font-body text-[13px] text-[var(--memory-risk-ink)]"
+          className="m-0 rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg2)] px-4 py-3 font-body text-[13px] text-[var(--memory-risk-ink)]"
         >
           {error}
         </p>
@@ -80,7 +80,7 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
             >
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div className="flex flex-col gap-1">
-                  <p className="m-0 flex items-center gap-1.5 font-display text-[14px] font-[700] text-[var(--t1)]">
+                  <p className="m-0 flex items-center gap-2 font-display text-[14px] font-[700] text-[var(--t1)]">
                     <BookOpen size={14} aria-hidden className="text-[var(--t3)]" />
                     {a.title}
                   </p>
@@ -93,7 +93,7 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
                   type="button"
                   onClick={() => handleCollect(a)}
                   disabled={done || busy === a.id}
-                  className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-default disabled:border-[var(--bd)] disabled:bg-[var(--bg3)] disabled:text-[var(--t2)] motion-reduce:transition-none"
+                  className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-default disabled:border-[var(--bd)] disabled:bg-[var(--bg3)] disabled:text-[var(--t2)] motion-reduce:transition-none"
                 >
                   {busy === a.id ? (
                     <Loader2 size={14} aria-hidden className="animate-spin motion-reduce:animate-none" />
@@ -107,11 +107,11 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
               </div>
 
               {/* 단어는 접지 않고 바로 보여준다 — 담기 전에 무엇인지 알아야 담는다. */}
-              <ul className="flex flex-wrap gap-1.5">
+              <ul className="flex flex-wrap gap-2">
                 {a.words.slice(0, 24).map((w) => (
                   <li
                     key={w.w}
-                    className="inline-flex items-baseline gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] py-1 pl-2.5 pr-2 font-body text-[12.5px] text-[var(--t1)]"
+                    className="inline-flex items-baseline gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] py-1 pl-3 pr-2 font-body text-[12.5px] text-[var(--t1)]"
                   >
                     {w.w}
                     {w.m && <span className="text-[11.5px] text-[var(--t3)]">{w.m}</span>}
