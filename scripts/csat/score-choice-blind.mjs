@@ -20,7 +20,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-const WORK = path.resolve('scripts/csat/choice-blind')
+const arg = (k, d) => (process.argv.find((x) => x.startsWith('--' + k + '=')) ?? '').split('=')[1] || d
+const DIRNAME = arg('dir', 'choice-blind')
+const WORK = path.resolve('scripts/csat/' + DIRNAME)
 const DIR = path.resolve('scripts/csat/data')
 const ITER = 20000
 const mkRnd = (s) => () => { s = (s * 1103515245 + 12345) % 2147483648; return s / 2147483648 }
@@ -34,7 +36,7 @@ for (const f of fs.readdirSync(WORK).filter((x) => x.endsWith('.out.json')).sort
     const ans = it.choices.find((c) => c.label === k.answerLabel)
     const dis = it.choices.filter((c) => c.label !== k.answerLabel)
     if (!ans || dis.length !== 4) continue
-    items.push({ id: it.id, points: k.points, ans, dis, all: it.choices })
+    items.push({ id: it.id, type: k.type ?? it.type ?? 'R-BLANK', points: k.points, ans, dis, all: it.choices })
   }
 }
 
@@ -185,16 +187,55 @@ console.log(`    부호검정(동점 ${ms.length - nz.length}회 제외) ${pos}/
 console.log(`    ${pSign < 0.05 ? '✓ 특정 시기의 계단이 아니라 14개년 상시 경향' : '· 회차 수준에서는 일관되지 않는다'}`)
 
 console.log('')
+console.log('  5. 유형별 — 추상도 우위가 빈칸 고유인가')
+console.log('  ' + '-'.repeat(72))
+const byType = {}
+for (const it of items) (byType[it.type] ??= []).push(it)
+const typeRows = []
+for (const [t, xs] of Object.entries(byType).sort((a, b) => b[1].length - a[1].length)) {
+  if (xs.length < 8) continue
+  const obs = mean(xs.map((x) => A(x.ans) - mean(x.dis.map(A))))
+  const rnd = mkRnd(7000 + t.length * 131)
+  let ge = 0
+  let le = 0
+  for (let i = 0; i < ITER; i += 1) {
+    let s2 = 0
+    for (const x of xs) {
+      const k = Math.floor(rnd() * 5)
+      let o = 0
+      for (let q = 0; q < 5; q += 1) if (q !== k) o += A(x.all[q])
+      s2 += A(x.all[k]) - o / 4
+    }
+    const m = s2 / xs.length
+    if (m >= obs) ge += 1
+    if (m <= obs) le += 1
+  }
+  const pv = Math.min(1, 2 * Math.min((ge + 1) / (ITER + 1), (le + 1) / (ITER + 1)))
+  const dl = mean(xs.map((x) => L(x.ans) - mean(x.dis.map(L))))
+  typeRows.push({ type: t, n: xs.length, dAbs: obs, dLen: dl, p: pv })
+}
+const ordered = [...typeRows].sort((a, b) => a.p - b.p)
+let prev2 = 0
+ordered.forEach((r, i) => { const adj = Math.max(prev2, Math.min(1, (ordered.length - i) * r.p)); prev2 = adj; r.holm = adj })
+console.log('    유형          n    추상도 차   길이 차     raw p    Holm')
+for (const r of typeRows) {
+  const a = (r.dAbs >= 0 ? '+' : '') + r.dAbs.toFixed(3)
+  const l = (r.dLen >= 0 ? '+' : '') + r.dLen.toFixed(1)
+  console.log(`      ${r.type.padEnd(12)} ${String(r.n).padStart(3)}   ${a.padStart(7)}    ${l.padStart(7)}   ${r.p.toFixed(4)}   ${r.holm.toFixed(4)} ${r.holm < 0.05 ? '✓' : '·'}`)
+}
+
+console.log('')
 console.log('  판정')
 console.log('  ' + '-'.repeat(72))
 const win = three.filter(([, r]) => r.holm < 0.05).map(([n2]) => n2)
 if (win.length) console.log(`    · Holm 을 견딘 것: ${win.join(' · ')}`)
 else console.log('    · Holm 을 견딘 새 측도가 없다 — 세 후보 모두 지지되지 않는다')
 
-fs.writeFileSync(path.join(DIR, 'choice-blind-score.json'), JSON.stringify({
+fs.writeFileSync(path.join(DIR, DIRNAME + '-score.json'), JSON.stringify({
   n: items.length, bias: { rAbsLen: rAL, rEchoLen: rEL, rAbsMarker: rAM },
   paired: Object.fromEntries(Object.entries(R).map(([k, v]) => [k, v])),
   regression: { beta, residual: Rres },
   byPoints: { n3: i3.length, n2: i2.length },
+  byType: typeRows,
 }, null, 1))
-console.log(`\n→ ${path.join(DIR, 'choice-blind-score.json')}`)
+console.log(`\n→ ${path.join(DIR, DIRNAME + '-score.json')}`)

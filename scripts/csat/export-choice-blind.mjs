@@ -26,8 +26,11 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, passageOf, choicesOf, answerOf, allRows } from './lib-passage.mjs'
 
-const WORK = path.resolve('scripts/csat/choice-blind')
-const PER = 21
+// 인자: --types=R-TOPIC,R-TITLE --dir=choice-blind2  (기본 = 빈칸)
+const arg = (k, d) => (process.argv.find((x) => x.startsWith('--' + k + '=')) ?? '').split('=')[1] || d
+const TYPES = arg('types', 'R-BLANK').split(',')
+const WORK = path.resolve('scripts/csat/' + arg('dir', 'choice-blind'))
+const PER = Number(arg('per', 21))
 fs.mkdirSync(WORK, { recursive: true })
 
 const mkRnd = (s) => () => { s = (s * 1103515245 + 12345) % 2147483648; return s / 2147483648 }
@@ -35,7 +38,7 @@ const hash = (s) => { let h = 7; for (const c of s) h = (h * 31 + c.charCodeAt(0
 
 const items = []
 for (const r of allRows()) {
-  if (r.type !== 'R-BLANK') continue
+  if (!TYPES.includes(r.type)) continue
   const a = answerOf(r.exam, r.no)
   if (!a || a.answer < 1 || a.answer > 5) continue
   const b = itemBlocks(r.exam, r.no)[0]
@@ -52,6 +55,7 @@ for (const r of allRows()) {
 
   items.push({
     id: `${r.exam}#${r.no}`,
+    type: r.type,
     passage: pas.replace(/\[\s*3\s*점\s*\]/g, '').replace(/\s+/g, ' ').trim(),
     choices: idx.map((k, s) => ({ label: 'ABCDE'[s], text: ch[k] })),
     _key: { answerLabel: 'ABCDE'[idx.indexOf(a.answer - 1)], points: a.points, order: idx },
@@ -67,7 +71,7 @@ for (const f of fs.readdirSync(WORK)) {
 const todo = items.filter((x) => !done.has(x.id))
 
 const keyPath = path.join(WORK, 'KEY.json')
-fs.writeFileSync(keyPath, JSON.stringify(Object.fromEntries(items.map((x) => [x.id, x._key])), null, 1))
+fs.writeFileSync(keyPath, JSON.stringify(Object.fromEntries(items.map((x) => [x.id, { ...x._key, type: x.type }])), null, 1))
 
 const RUBRIC = {
   note: '자료를 보기 전에 고정한 규칙표. 선지마다 세 값을 매긴다. 정답이 무엇인지 모르는 채로 매겨야 한다.',
@@ -83,13 +87,13 @@ chunks.forEach((c, i) => {
   fs.writeFileSync(path.join(WORK, name), JSON.stringify({
     rubric: RUBRIC,
     fillInstruction: '각 choices 원소에 abstractness(1~5) · passageEcho(0~2) · concreteMarker(true/false) 세 키를 더해 chunk-NN.out.json 으로 저장할 것. 다른 키는 건드리지 말 것.',
-    items: c.map((x) => ({ id: x.id, passage: x.passage, choices: x.choices })),
+    items: c.map((x) => ({ id: x.id, type: x.type, passage: x.passage, choices: x.choices })),
   }, null, 1))
 })
 
 console.log('맹검 손판독 — 몫 뽑기')
 console.log('='.repeat(70))
-console.log(`  빈칸 전체 ${items.length}문항 · 이미 채운 것 ${done.size} · 이번에 뽑은 것 ${todo.length}`)
+console.log(`  대상(${TYPES.join(",")}) 전체 ${items.length}문항 · 이미 채운 것 ${done.size} · 이번에 뽑은 것 ${todo.length}`)
 console.log(`  청크 ${chunks.length}개 (문항 ${PER}개씩) → ${WORK}`)
 console.log(`  대응표(정답·배점) → ${keyPath}  ← **채점 전까지 열지 않는다**`)
 if (!todo.length) console.log('  → 남은 몫이 없다. score-choice-blind.mjs 로 채점할 것.')
