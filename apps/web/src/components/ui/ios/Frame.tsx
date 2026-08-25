@@ -73,7 +73,9 @@ export function Frame({
             <Link
               href={moreHref}
               className={cn(
-                'inline-flex items-center gap-0.5 font-display text-[14px] font-[600] text-[var(--p)]',
+                // 실측 2026-08-25: '더보기' 가 58×21 이었다. 이 링크는 Frame 을 쓰는
+                // 모든 화면 헤더에 뜬다 — 한 곳을 고치면 전부 따라온다.
+                'inline-flex min-h-11 min-w-11 items-center justify-end gap-0.5 font-display text-[14px] font-[600] text-[var(--p)]',
                 'transition-colors duration-[var(--dur-ios-fast)] hover:text-[var(--p-hover)]',
               )}
             >

@@ -39,18 +39,48 @@ const comp = load('competitors.json');
 const self = load('vocaflow.json');
 const TARGET_RATIO = 1.05;
 
-/** 플랫폼별 축 평균 — 유효 측정만. 화면 수가 다른 것은 평균이 흡수한다. */
+/**
+ * 플랫폼별 축 점수 — **화면마다 회차 중앙값을 먼저 낸 뒤** 그 값들을 평균한다.
+ *
+ * ⚠️ 회차를 그냥 다 섞어 평균하면 한 번의 이상치가 기준선을 끌고 간다.
+ *    실측 2026-08-25: 같은 커밋 두 실행 사이 LingQ 디자인 88.4 ↔ 74.4.
+ *    라이브 사이트는 방문마다 다른 화면(A/B·쿠키 배너·광고)을 준다.
+ *    중앙값은 그 한 번을 흡수하고, 평균은 흡수하지 못한다.
+ */
 function byPlatform(rows) {
-  const map = new Map();
+  const median = (xs) => {
+    const v = xs.filter((x) => Number.isFinite(x)).sort((a, b) => a - b);
+    if (!v.length) return null;
+    const mid = v.length >> 1;
+    return v.length % 2 ? v[mid] : Math.round(((v[mid - 1] + v[mid]) / 2) * 10) / 10;
+  };
+  // ① 화면(플랫폼+주소+뷰포트)별로 회차를 모은다
+  const byScreen = new Map();
   for (const r of rows) {
     if (!r.score) continue;
-    if (!map.has(r.platform)) map.set(r.platform, []);
-    map.get(r.platform).push(r.score);
+    const key = `${r.platform}|${r.url}|${r.viewport}`;
+    if (!byScreen.has(key)) byScreen.set(key, { platform: r.platform, region: r.region, runs: [] });
+    byScreen.get(key).runs.push(r.score);
   }
+  // ② 화면마다 축별 중앙값 → 그 화면의 대표 점수
+  const byPlat = new Map();
+  for (const { platform, region, runs } of byScreen.values()) {
+    const rep = {
+      design: { score: median(runs.map((s) => s.design.score)) },
+      usability: { score: median(runs.map((s) => s.usability.score)) },
+      connectivity: { score: median(runs.map((s) => s.connectivity.score)) },
+      flow: {
+        score: median(runs.map((s) => s.flow.score)),
+        scoreNeutral: median(runs.map((s) => s.flow.scoreNeutral)),
+      },
+    };
+    if (!byPlat.has(platform)) byPlat.set(platform, { region, screens: [] });
+    byPlat.get(platform).screens.push(rep);
+  }
+  // ③ 플랫폼별 평균 (화면 수가 다른 것은 평균이 흡수한다)
   const out = [];
-  for (const [platform, scores] of map) {
-    const region = rows.find((r) => r.platform === platform)?.region ?? '';
-    out.push({ platform, region, n: scores.length, ...aggregate(scores) });
+  for (const [platform, { region, screens }] of byPlat) {
+    out.push({ platform, region, n: screens.length, ...aggregate(screens) });
   }
   return out.sort((a, b) => a.platform.localeCompare(b.platform));
 }

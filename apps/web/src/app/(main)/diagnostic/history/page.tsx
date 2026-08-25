@@ -45,9 +45,12 @@ export default async function DiagnosticHistoryPage() {
     <Screen width="content" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
         <header className="px-1">
+          {/* 되돌아가는 링크는 이 화면의 유일한 앞길이다 — 히트 영역 44px 확보
+              (실측 2026-08-25: 126×20 이었다). 세로 여백은 음수 마진으로 되받아
+              제목과의 간격을 유지한다. */}
           <Link
             href="/diagnostic"
-            className="inline-flex items-center gap-1.5 font-display text-[13px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-ios-fast)] hover:text-[var(--p-hover)]"
+            className="-my-3 inline-flex min-h-11 items-center gap-1.5 font-display text-[13px] font-[600] text-[var(--p)] transition-colors duration-[var(--dur-ios-fast)] hover:text-[var(--p-hover)]"
           >
             <ArrowLeft size={14} aria-hidden />
             진단으로 돌아가기

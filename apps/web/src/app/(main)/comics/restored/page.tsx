@@ -104,7 +104,7 @@ function KindNav({ kinds }: { kinds: PdComicShelfKind[] }) {
         <a
           key={k.kind}
           href={`#kind-${k.kind}`}
-          className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12.5px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12.5px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {k.label}
           <span className="font-mono text-[11px] tabular-nums text-[var(--t3)]">{k.issuesPublished}</span>

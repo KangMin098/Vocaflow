@@ -65,7 +65,11 @@ export const MEASURE_FN = String.raw`() => {
   const vh = document.documentElement.clientHeight;
   const visible = (el) => {
     const r = el.getBoundingClientRect();
-    if (r.width < 1 || r.height < 1) return false;
+    // 2px 미만은 **볼 수도 누를 수도 없다.** sr-only 건너뛰기 링크가 이 모양이다
+    // (clip 으로 1x1 로 접어 두고 포커스 때만 펼친다). 실측 2026-08-25: 그 1x1 이
+    // 전 화면에서 "44px 미만 터치 타겟" 으로 잡혀 화면마다 1건씩 깎고 있었다 —
+    // 키보드 전용 요소를 터치 타겟으로 세는 것은 계측 착오다.
+    if (r.width < 2 || r.height < 2) return false;
     const cs = getComputedStyle(el);
     if (cs.visibility === 'hidden' || cs.display === 'none' || Number(cs.opacity) === 0) return false;
     return true;
@@ -136,14 +140,37 @@ export const MEASURE_FN = String.raw`() => {
   let ctrlTotal = 0, ctrlBig = 0, ctrlNamed = 0;
   const smallSample = [];
   const namelessSample = [];
+  /**
+   * WCAG 2.2 §2.5.5 는 예외를 명시한다 — 그중 **Inline**:
+   * '문장이나 텍스트 블록 안에 있는 타겟' 은 44px 요구에서 빠진다.
+   * 문장 속 링크를 44px 로 만들면 줄 간격이 무너져 오히려 읽기가 나빠지기 때문이다.
+   *
+   * ⚠️ 실측 2026-08-25: '특정 도서·챕터·단어장으로 학습하려면 [내 자료]에서 …' 의
+   *    문장 속 링크(39x16)가 위반으로 잡히고 있었다. 기준서가 빼라고 한 것을
+   *    세면 그건 우리 화면이 아니라 자가 틀린 것이다. 양쪽에 똑같이 적용한다.
+   */
+  const inlineInSentence = (el) => {
+    if (el.tagName !== 'A') return false;
+    if (!/^inline$/.test(getComputedStyle(el).display)) return false;
+    const parent = el.parentElement;
+    if (!parent) return false;
+    let around = '';
+    for (const n of Array.from(parent.childNodes)) {
+      if (n.nodeType === 3) around += n.nodeValue || '';
+    }
+    return around.trim().length > 0;   // 링크 옆에 문장이 있다
+  };
+  let ctrlInlineExempt = 0;
+
   for (const el of ctrls) {
     const r = el.getBoundingClientRect();
     const host = el.closest('label') || el;
     const hr = host.getBoundingClientRect();
     const w = Math.max(r.width, hr.width), h = Math.max(r.height, hr.height);
+    if (inlineInSentence(el)) { ctrlInlineExempt++; continue; }
     ctrlTotal++;
     if (w >= 44 && h >= 44) ctrlBig++;
-    else if (smallSample.length < 8) smallSample.push({ tag: el.tagName.toLowerCase(), w: Math.round(w), h: Math.round(h), label: (el.getAttribute('aria-label') || el.textContent || '').trim().slice(0, 24) });
+    else if (smallSample.length < 8) smallSample.push({ tag: el.tagName.toLowerCase(), w: Math.round(w), h: Math.round(h), label: (el.getAttribute('aria-label') || el.textContent || '').trim().slice(0, 24), cls: (el.className || '').toString().slice(0, 40) });
     let name = (el.getAttribute('aria-label') || el.getAttribute('title') || el.textContent || el.getAttribute('alt') || '').trim();
     if (!name && el.getAttribute('aria-labelledby')) name = 'ref';
     if (!name && el.id) { try { if (document.querySelector('label[for="' + CSS.escape(el.id) + '"]')) name = 'label'; } catch (e) { /* noop */ } }
@@ -156,18 +183,36 @@ export const MEASURE_FN = String.raw`() => {
   const de = document.documentElement;
   const overflowPx = Math.max(0, de.scrollWidth - de.clientWidth);
   const main = document.querySelector('main, [role="main"]');
-  const h1s = Array.from(document.querySelectorAll('h1')).filter(visible);
+  /**
+   * 제목·랜드마크는 **접근성 트리에 있으면** 센다 — 눈에 보이는지는 기준이 아니다.
+   *
+   * ⚠️ 실측 2026-08-25: '/library/textbooks' 는 h1 을 'sr-only' 로 둔다(시각 디자인상
+   *    제목 자리가 없지만 스크린리더에는 있어야 하니까 — 정석이다). 그런데 보이는 것만
+   *    세다 보니 'h1 없음' 으로 잡혔다. 스크린리더용으로 **일부러** 숨긴 것을
+   *    결함으로 세면, 고치는 방향이 정반대가 된다.
+   */
+  const a11yVisible = (el) => {
+    if (el.closest('[aria-hidden="true"]')) return false;
+    const cs = getComputedStyle(el);
+    return cs.display !== 'none' && cs.visibility !== 'hidden';
+  };
+  const h1s = Array.from(document.querySelectorAll('h1')).filter(a11yVisible);
   const hasNav = !!document.querySelector('nav, [role="navigation"]');
   const hasLang = !!document.documentElement.getAttribute('lang');
   const title = (document.title || '').trim();
-  const heads = Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,h6')).filter(visible).map((h) => Number(h.tagName[1]));
+  const heads = Array.from(document.querySelectorAll('h1,h2,h3,h4,h5,h6')).filter(a11yVisible).map((h) => Number(h.tagName[1]));
   let headSkips = 0;
   for (let i = 1; i < heads.length; i++) if (heads[i] - heads[i - 1] > 1) headSkips++;
   const imgs = Array.from(document.querySelectorAll('img')).filter(visible);
   const imgsWithAlt = imgs.filter((i) => i.hasAttribute('alt')).length;
 
   // ── 축 3. 연계성 ─────────────────────────────────────────────────────
-  const here = location.pathname;
+  // 목적지는 **경로 + 쿼리**다.
+  // ⚠️ 실측 2026-08-25: '/comics/restored' 는 시리즈 13개를 '?series=' 로 갈라 놓는데,
+  //    쿼리를 버리고 세면 13개가 전부 자기 자신이 되어 **앞길 1개**로 잡혔다.
+  //    ('10-a11y-sweep' 도 같은 사각을 주석으로 적어 두고 "참고값으로만" 이라 미뤄 뒀다.)
+  //    학습자에게 '?series=atomic-war' 는 다른 화면이다 — 그렇게 센다.
+  const here = location.pathname + location.search;
   const scope = main || document.body;
   // 셸(사이드바·헤더·하단 탭)은 **랜드마크로** 판별한다.
   // ⚠️ 첫 판은 "셸 = 전체 − 본문" 이었다. 그러면 <main> 이 없는 사이트에서 셸이
@@ -187,8 +232,9 @@ export const MEASURE_FN = String.raw`() => {
       if (opts && opts.skipShell && inShell(a)) continue;
       const href = a.getAttribute('href') || '';
       let p = null;
-      if (href.startsWith('/')) p = href.split('?')[0].split('#')[0];
-      else if (/^https?:/.test(href)) { try { const u = new URL(href); if (u.origin === location.origin) p = u.pathname; } catch (e) { /* noop */ } }
+      if (href.startsWith('#')) continue;                      // 같은 화면 안 앵커는 이동이 아니다
+      if (href.startsWith('/')) p = href.split('#')[0];
+      else if (/^https?:/.test(href)) { try { const u = new URL(href); if (u.origin === location.origin) p = u.pathname + u.search; } catch (e) { /* noop */ } }
       if (!p || p === here) continue;
       out.add(p);
     }
@@ -224,7 +270,7 @@ export const MEASURE_FN = String.raw`() => {
     textColorKinds: textColors.size,
     bgColorKinds: bgColors.size,
     spacingTotal: spacingTotal, spacingOnGrid: spacingOnGrid, spacingOff: spacingOff,
-    ctrlTotal: ctrlTotal, ctrlBig: ctrlBig, ctrlNamed: ctrlNamed,
+    ctrlTotal: ctrlTotal, ctrlBig: ctrlBig, ctrlNamed: ctrlNamed, ctrlInlineExempt: ctrlInlineExempt,
     smallSample: smallSample, namelessSample: namelessSample,
     overflowPx: overflowPx, hasMain: !!main, hasNav: hasNav, hasLang: hasLang, h1Count: h1s.length,
     title: title, headSkips: headSkips, headCount: heads.length,

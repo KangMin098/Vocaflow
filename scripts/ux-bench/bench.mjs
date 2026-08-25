@@ -34,6 +34,17 @@ const arg = (name, dflt) => {
 const TARGET = arg('target', 'competitors');
 const BASE = arg('base', process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3100');
 const ONLY = arg('only', '');
+/**
+ * **몇 번 재는가.**
+ *
+ * ⚠️ 실측 2026-08-25: 같은 커밋에서 대표 플랫폼을 두 번 재는 사이 LingQ 디자인
+ *    88.4 → 74.4, Duolingo 흐름 75 → 61.8 로 움직였다. 라이브 사이트는 A/B·쿠키 배너·
+ *    광고 때문에 방문마다 다른 화면을 준다. **1회 측정으로 기준선을 고정하면
+ *    우리 우위가 그날 상대가 어떤 배너를 띄웠는지에 달린다.**
+ *    회차마다 따로 저장하고, 판정은 `compare.mjs` 가 **중앙값**으로 낸다
+ *    (평균이 아니라 중앙값 — 한 번의 이상치가 기준선을 끌고 가지 않게).
+ */
+const RUNS = Math.max(1, Number(arg('runs', '1')) || 1);
 
 /**
  * 학습자 정적 라우트 — `apps/web/tests/e2e/utils/learner-routes.ts` 와 **같은 규칙**.
@@ -237,9 +248,14 @@ async function runVocaflow() {
   return rows;
 }
 
-const rows = TARGET === 'vocaflow' ? await runVocaflow() : await runCompetitors();
+const rows = [];
+for (let run = 1; run <= RUNS; run++) {
+  if (RUNS > 1) console.log(`\n[bench] ── 회차 ${run}/${RUNS} ──`);
+  const got = TARGET === 'vocaflow' ? await runVocaflow() : await runCompetitors();
+  for (const r of got) rows.push({ ...r, run });
+}
 fs.mkdirSync(OUT_DIR, { recursive: true });
 const outFile = path.join(OUT_DIR, `${TARGET}.json`);
 fs.writeFileSync(outFile, JSON.stringify(rows, null, 2), 'utf8');
 const ok = rows.filter((r) => r.score).length;
-console.log(`\n[bench] ${rows.length} 측정 · 유효 ${ok} · 실패 ${rows.length - ok} → ${path.relative(process.cwd(), outFile)}`);
+console.log(`\n[bench] ${rows.length} 측정(${RUNS}회차) · 유효 ${ok} · 실패 ${rows.length - ok} → ${path.relative(process.cwd(), outFile)}`);

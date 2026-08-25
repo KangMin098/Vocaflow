@@ -256,7 +256,9 @@ export default function SettingsPage() {
             <a
               key={c.href}
               href={c.href}
-              className="rounded-ios-pill bg-[var(--bg)] px-3 py-1.5 font-display text-[12.5px] font-[600] text-[var(--t2)] shadow-ios-1 transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] active:scale-[0.97]"
+              // 실측 2026-08-25: 31px 이었다(py-1.5). 알약의 시각 높이는 그대로 두고
+              // 누르는 높이만 44px 로 — inline-flex + items-center 라 알약은 그대로 보인다.
+              className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-ios-pill bg-[var(--bg)] px-3 py-1.5 font-display text-[12.5px] font-[600] text-[var(--t2)] shadow-ios-1 transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] active:scale-[0.97]"
             >
               {c.label}
             </a>
@@ -396,7 +398,11 @@ export default function SettingsPage() {
                   step={0.05}
                   value={ttsSpeed}
                   onChange={(e) => setTtsSpeed(parseFloat(e.target.value))}
-                  className="h-1.5 w-32 cursor-pointer appearance-none rounded-full bg-[var(--bg3)] accent-[var(--p)]"
+                  // 실측 2026-08-25: 128×6 이었다. 슬라이더는 **막대가 아니라 손잡이를 잡는다** —
+                  // 막대(6px)는 그대로 보이게 두고, 위아래 투명 여백으로 잡는 영역만 44px 로 넓힌다
+                  // (background-clip: content-box 로 막대 색이 여백까지 번지지 않게).
+                  style={{ paddingTop: 19, paddingBottom: 19, backgroundClip: 'content-box' }}
+                  className="box-content h-1.5 w-32 cursor-pointer appearance-none rounded-full bg-[var(--bg3)] accent-[var(--p)]"
                   aria-label="재생 속도"
                 />
                 <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">

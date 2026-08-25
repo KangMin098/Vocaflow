@@ -179,10 +179,13 @@ function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => 
             <MediaCover form={heroForm} title={track.title} />
           </span>
           <div className="flex min-w-0 flex-1 flex-col gap-1">
-            <h3 className="font-display text-[17px] font-[800] leading-[1.2] text-[var(--t1)]">
+            {/* h1 다음은 h2 — 이 히어로는 "다른 주제로 읽기"(h2) 의 하위가 아니라 형제 구역이다.
+                그래서 h3 로 시작하면 h1 → h3 로 한 단계 건너뛴다(WCAG 2.2 §1.3.1).
+                실측 2026-08-25 모바일에서 제목 계층 50점. 크기는 그대로 둔다. */}
+            <h2 className="font-display text-[17px] font-[800] leading-[1.2] text-[var(--t1)]">
               {track.title}
               <MediaCoverSrLabel form={heroForm} />
-            </h3>
+            </h2>
             <p className="font-body text-[13px] leading-[1.45] text-[var(--t2)]">{track.oneLine}</p>
             {stat.sources.length > 0 && (
               <p className="truncate font-mono text-[10.5px] font-[600] text-[var(--t2)]">출처 · {sourceHint(stat)}</p>
@@ -215,7 +218,7 @@ function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => 
           type="button"
           onClick={onEnter}
           aria-label={`${track.title} 글 둘러보기`}
-          className="inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-md)] px-2 font-display text-[13px] font-[700] transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--t1)_5%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center gap-1 rounded-[var(--r-md)] px-2 font-display text-[13px] font-[700] transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--t1)_5%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           style={{ color: track.accent }}
         >
           글 둘러보기

@@ -58,6 +58,9 @@ export function TextInput({
         placeholder={placeholder}
         rows={10}
         aria-invalid={isOverLimit}
+        // 이 화면의 본체 입력인데 이름이 없었다(실측 2026-08-25). placeholder 는 예시 문장이라
+        // 이름 대신 쓸 수 없다 — 스크린리더에서 "편집" 으로만 읽혔다(WCAG 2.2 §4.1.2).
+        aria-label="학습할 본문"
         className="min-h-[280px] w-full resize-y bg-transparent px-s-5 py-s-4 font-serif text-base leading-[1.7] text-t1 placeholder:font-serif placeholder:italic placeholder:text-t3 focus:outline-none"
       />
 

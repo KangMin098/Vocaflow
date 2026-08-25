@@ -139,9 +139,13 @@ function ManageCard({
           {icon}
         </span>
         <h3 className="font-display text-[14px] font-[800] text-[var(--t1)]">{title}</h3>
+        {/* 히트 영역 44×44 — 글자는 12px 이지만 누르는 곳은 그것보다 커야 한다.
+            실측 2026-08-25: 이 링크가 66×18 이었다(세 카드 전부). `-my-3` 로 세로 여백을
+            음수 마진으로 되받아 헤더 높이는 그대로 두면서 히트 영역만 넓힌다 —
+            안 그러면 카드가 세 번 두꺼워진다. */}
         <Link
           href={href}
-          className="ml-auto inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--p)] no-underline transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="-my-3 ml-auto inline-flex min-h-11 min-w-11 shrink-0 items-center justify-end gap-1 font-display text-[12px] font-[700] text-[var(--p)] no-underline transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {cta} <ArrowRight size={12} strokeWidth={2} aria-hidden />
         </Link>

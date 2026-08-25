@@ -290,7 +290,12 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
             //    뒤로가기가 엉뚱한 데로 간다 — 실측 2026-08-22 에 `/dictate` 가
             //    "뒤로가기 → /library/books" 로 찍힌 것이 그것이었다(**계측기 문제**).
             //    클릭하면 Next 의 클라이언트 라우팅을 타서 실제 동선과 같아진다.
-            const before = new URL(page.url()).pathname
+            // ⚠️ **경로만 보면 안 된다.** 같은 경로를 쿼리로 가르는 화면이 있다
+            //    (`/arcade/ranking?period=week` · `/comics/restored?series=…`).
+            //    경로만 비교하면 멀쩡히 이동하는 링크가 "눌러도 안 움직인다" 로 찍힌다
+            //    — 실측 2026-08-25 에 `/arcade/ranking` 이 그렇게 잡혔다(화면이 아니라 계측기 문제).
+            const here = (u: URL) => u.pathname + u.search
+            const before = here(new URL(page.url()))
             // ⚠️ 클릭 실패를 삼키면 **눌리지 않은 것**과 **죽은 링크**가 구별되지 않는다.
             //    앞 판은 `.catch(() => {})` 라 둘 다 "눌러도 안 움직인다" 로 찍혔고,
             //    그 말만 보고는 화면을 고쳐야 할지 계측기를 고쳐야 할지 알 수 없었다.
@@ -303,15 +308,15 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
             //    "눌러도 안 움직인다" 가 화면마다 찍혔는데 **기다림이 짧았던 것**이다.
             //    주소가 바뀔 때까지 기다리고, 그래도 안 바뀌면 그때 죽은 링크로 본다.
             await page
-              .waitForURL((u) => u.pathname !== before, { timeout: 20_000 })
+              .waitForURL((u) => here(new URL(u.toString())) !== before, { timeout: 20_000 })
               .catch(() => {})
             await page.waitForTimeout(600)
-            const dest = new URL(page.url()).pathname
+            const dest = here(new URL(page.url()))
             const destBody = ((await page.locator('body').innerText().catch(() => '')) || '').trim()
             const destBroken =
               /페이지를 찾을 수 없어요|문제가 발생했어요|Application error/.test(destBody)
             // 클릭했는데 주소가 그대로면 그 링크는 **눌리지 않는 링크**다 — 죽은 앞길이다.
-            const moved = dest !== r.landed && !clickErr
+            const moved = dest !== before && !clickErr
             // ⚠️ 게임 세션(`/play/*`)은 `next/dynamic` 으로 늦게 붙고 로딩 중엔 글자가 거의 없다.
             //    40자 기준으로 재면 멀쩡한 화면이 "깨졌다" 로 찍힌다
             //    (실측 2026-08-22: /wordblitz → /play/wordblitz 가 그랬다).

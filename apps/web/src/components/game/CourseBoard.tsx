@@ -207,7 +207,7 @@ export const COURSE_CSS = `
 .crs-extra-label{ display:block; margin-bottom:8px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color: rgba(255,255,255,.4); }
 .crs-extra-list{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:7px; }
 .crs-chip{
-  display:inline-flex; align-items:center; min-height:32px; padding:0 12px;
+  display:inline-flex; align-items:center; justify-content:center; min-height:44px; min-width:44px; padding:0 12px;
   border-radius:999px; text-decoration:none; font-size:12.5px;
   color: var(--m-accent); border:1px solid color-mix(in srgb, var(--m-accent) 30%, transparent);
   background: color-mix(in srgb, var(--m-a) 16%, transparent);

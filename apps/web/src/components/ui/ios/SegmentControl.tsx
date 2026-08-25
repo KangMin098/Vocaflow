@@ -73,7 +73,9 @@ export function SegmentControl<TKey extends string>({
           //    (실측 2026-08-23: 같은 스윕이 dev 53건/6화면 → prod 83건/9화면).
           //    알약의 시각 높이는 iOS 세그먼트의 정체성이라 그대로 두고,
           //    **누르는 높이만** 44px 로 올린다(세로 가운데 정렬이라 알약은 그대로 보인다).
-          'min-h-11 px-3.5 py-[6px]',
+          // ⚠️ 세로만 44 로 맞추면 안 된다 — 짧은 라벨('허브'·'학습'·'복습')은 **폭이 43px**
+          //    이었다(실측 2026-08-25). 기준은 44×44 다.
+          'min-h-11 min-w-11 px-3.5 py-[6px]',
           block && 'flex-1',
           isActive
             ? 'bg-[var(--bg)] text-[var(--t1)] shadow-ios-button'

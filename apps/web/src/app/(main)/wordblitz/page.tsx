@@ -139,7 +139,8 @@ export default async function WordBlitzHubPage() {
               (풀스크린이 실제로 다른 모드가 되면 그때 파라미터와 함께 되살릴 것.) */}
           <Link
             href="/play/wordblitz"
-            className="group inline-flex shrink-0 items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-1.5 font-display text-[12px] font-[800] text-[var(--on-p)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-0.5"
+            // 실측 2026-08-25: 108×30 이었다. 이 화면의 주 행동인데 44px 규칙 아래였다.
+            className="group inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-[var(--r-sm)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[800] text-[var(--on-p)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-0.5"
           >
             <Gamepad2 size={12} strokeWidth={2.5} aria-hidden />
             바로 시작

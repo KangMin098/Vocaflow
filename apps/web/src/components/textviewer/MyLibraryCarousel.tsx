@@ -787,7 +787,7 @@ function HeroInfo({
       <p className="font-body text-[13px] text-[var(--t2)]">{subtitle}</p>
       <Link
         href={href}
-        className="mt-2 inline-flex items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
+        className="mt-2 inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-md)] px-5 py-2.5 font-display text-[13px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.03] active:scale-[0.97]"
         style={{ backgroundColor: accent }}
       >
         {cta}

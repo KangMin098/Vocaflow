@@ -289,9 +289,9 @@ function BookCard({ book }: { book: BookSummary }) {
     >
       <div className="flex flex-1 flex-col gap-2 p-5 pb-3.5">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="line-clamp-2 font-display text-[15px] font-[700] leading-snug text-[var(--t1)]">
+          <h2 className="line-clamp-2 font-display text-[15px] font-[700] leading-snug text-[var(--t1)]">
             {book.title}
-          </h3>
+          </h2>
           <div className="flex shrink-0 items-center gap-1">
             {(book.cefr_band ?? book.cefr_level) && (
               <span
@@ -498,7 +498,7 @@ function Empty({ message }: { message: string }) {
       <div className="select-none text-3xl" aria-hidden>
         📚
       </div>
-      <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">{message}</h3>
+      <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">{message}</h2>
       <Link
         href="/library/books"
         className="rounded-[var(--r-sm)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"

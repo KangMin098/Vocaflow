@@ -440,7 +440,7 @@ export function PlanClient({
                     setArtSrc('')
                     setArtProg('')
                   }}
-                  className={`inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border px-2.5 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                  className={`inline-flex min-h-11 items-center gap-1 rounded-[var(--r-md)] border px-2.5 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                     active
                       ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
                       : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
@@ -1072,7 +1072,7 @@ function ItemConfig({
       <button
         type="button"
         onClick={onRemove}
-        className="inline-flex h-9 items-center justify-center gap-1.5 self-start rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--error)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="inline-flex min-h-11 items-center justify-center gap-1.5 self-start rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--error)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <Trash2 size={13} strokeWidth={1.75} aria-hidden /> 계획에서 빼기
       </button>
@@ -1169,7 +1169,7 @@ function ChapterList({
               type="button"
               onClick={() => onToggle(n)}
               aria-pressed={on}
-              className={`flex min-h-[40px] w-full items-center gap-2 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+              className={`flex min-h-11 w-full items-center gap-2 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                 on
                   ? 'border-[var(--p)] bg-[var(--p-light)]'
                   : 'border-[var(--bd)] bg-[var(--bg)] hover:border-[var(--p)]'
@@ -1360,7 +1360,7 @@ function ArticleNav({
               onClick={() => onProgram(p.key)}
               aria-pressed={on}
               title={p.full ?? p.label}
-              className={`flex min-h-[38px] w-full items-start gap-1.5 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+              className={`flex min-h-11 w-full items-start gap-1.5 rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                 on
                   ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
                   : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
@@ -1682,7 +1682,7 @@ function RailButton({
       onClick={onClick}
       aria-pressed={active}
       title={short ? `${label} (${short})` : label}
-      className={`flex min-h-[40px] w-full flex-col items-start justify-center rounded-[var(--r-md)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      className={`flex min-h-11 w-full flex-col items-start justify-center rounded-[var(--r-md)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         active
           ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
           : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
@@ -1714,7 +1714,7 @@ function ActivityChip({
       onClick={onClick}
       aria-pressed={selected}
       title={def.layer}
-      className={`inline-flex min-h-[40px] w-full items-center gap-2 rounded-[var(--r-md)] border px-2.5 font-display font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+      className={`inline-flex min-h-11 w-full items-center gap-2 rounded-[var(--r-md)] border px-2.5 font-display font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
         small ? 'text-[12px]' : 'text-[13px]'
       } ${
         selected
@@ -1850,7 +1850,7 @@ function LaunchChip({ activity, href, scoped }: { activity: PlanActivity; href: 
     <Link
       href={href}
       title={scoped ? `${def.label} — 이 자료로 바로 시작` : `${def.label} — 모듈에서 시작`}
-      className="inline-flex min-h-[36px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 pr-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 pr-2.5 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:border-[var(--p)] hover:bg-[var(--p-light)] hover:text-[var(--on-p-tint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
       <ActivityGlyph activity={activity} size="sm" />
       {def.label}

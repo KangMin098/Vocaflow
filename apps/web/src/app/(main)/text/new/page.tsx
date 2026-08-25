@@ -135,7 +135,7 @@ export default function TextViewerNewPage() {
         <Link
           href="/text"
           aria-label="스크립트 허브로 돌아가기"
-          className="flex h-9 items-center gap-1.5 rounded-md px-3 font-display text-[12px] font-[600] text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
+          className="flex min-h-11 items-center gap-1.5 rounded-md px-3 font-display text-[12px] font-[600] text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
         >
           <ArrowLeft size={14} aria-hidden="true" />
           <span>허브</span>
@@ -144,7 +144,8 @@ export default function TextViewerNewPage() {
         <button
           onClick={toggleTheme}
           aria-label="테마 전환"
-          className="flex h-9 w-9 items-center justify-center rounded-md text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
+          // 보이는 크기(36px)는 그대로, 누르는 영역만 44px — /wordvault 헤더가 쓰는 것과 같은 방식.
+          className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1"
         >
           {theme === 'light' ? '🌙' : '☀️'}
         </button>
@@ -192,7 +193,7 @@ export default function TextViewerNewPage() {
                     aria-checked={structure === 'single'}
                     onClick={() => setStructure('single')}
                     className={[
-                      'flex items-center justify-center gap-s-2 rounded-lg px-s-3 py-s-2 font-display text-sm font-[600] transition-all duration-normal',
+                      'flex min-h-11 items-center justify-center gap-s-2 rounded-lg px-s-3 py-s-2 font-display text-sm font-[600] transition-all duration-normal',
                       structure === 'single'
                         ? 'bg-bg text-t1 shadow-sm'
                         : 'text-t3 hover:text-t1',
@@ -207,7 +208,7 @@ export default function TextViewerNewPage() {
                     aria-checked={structure === 'book'}
                     onClick={() => setStructure('book')}
                     className={[
-                      'flex items-center justify-center gap-s-2 rounded-lg px-s-3 py-s-2 font-display text-sm font-[600] transition-all duration-normal',
+                      'flex min-h-11 items-center justify-center gap-s-2 rounded-lg px-s-3 py-s-2 font-display text-sm font-[600] transition-all duration-normal',
                       structure === 'book'
                         ? 'bg-bg text-t1 shadow-sm'
                         : 'text-t3 hover:text-t1',
