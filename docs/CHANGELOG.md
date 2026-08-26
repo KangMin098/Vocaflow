@@ -10,6 +10,44 @@
 
 ## Unreleased (v06.34 → next)
 
+### 승인 대기 마이그레이션 2건 적용 — 그리고 그중 하나의 전제가 틀렸다 (3건이 됐다)
+
+`_pending_` 로 오래 묶여 있던 둘을 적용했다. 적용은 쉬웠고, **적용한 뒤에 문제가 나왔다.**
+
+| 마이그레이션 | 한 일 |
+|---|---|
+| `20260826102742_lcp_requeue_failed` | `trg_lb_requeue`(AFTER UPDATE OF status, WHEN 가드) + 중복 발행 트리거 `trg_publish_book_word_sets_t` 제거 |
+| `20260826102758_textfit_resolve_levels` | TextFit 커버리지용 해석 함수 — **필터 없음**(아는 단어도 세야 분자가 나온다) |
+| `20260826103132_admin_requeue_book_single_enqueue` | ← **위 첫 줄이 만든 구멍을 닫는 것** |
+
+**전제가 틀렸다.** 승인 대기본은 "status 를 queued 로 되돌려도 큐에 안 들어간다 =
+밀 손잡이가 없다" 고 적었는데, `admin_requeue_book` 이 **이미 손잡이였다** — status 를 바꾸고
+**직접** `pgmq.send` 까지 한다. 거기에 UPDATE 트리거가 붙자 같은 도서가 **두 번** 큐에 들어간다.
+문서(`DB_SCHEMA.md` §Admin RPC)에 `admin_requeue_book | 단일 도서 → queued + pgmq` 라고
+**적혀 있었는데** 마이그레이션을 쓸 때 그 줄을 읽지 않았다.
+
+- **트리거를 남기고 함수 쪽 send 를 뺐다** — 규칙이 하나여야 한다("status 가 queued 로 바뀌면
+  큐에 들어간다"). 함수마다 send 를 손으로 붙이는 쪽이 원래 문제였고, 트리거가 INSERT 전용인
+  것을 아무도 몰랐던 이유이기도 하다
+- 이미 `queued` 인 행은 WHEN 절에 걸려 트리거가 발화하지 않는다 → **그때만** 함수가 직접 넣는다.
+  관리자가 누른 "재큐" 가 조용히 아무 일도 안 하면 안 된다
+- 없는 도서에 `'requeued'` 를 돌려주던 것도 예외로 바꿨다 — 화면은 성공으로 표시하고
+  큐에는 처리할 수 없는 메시지가 남았다
+- `FOR UPDATE` 로 잠그고 읽는다 — 동시에 두 번 누르면 둘 다 "전이 아님" 으로 보고 둘 다 넣는다
+- `requeued: true` 플래그는 **소비자가 없다**(앱 전체 grep 0건) — 그래서 뺄 수 있었다
+
+**실측 검증** — 실패 도서 1권(`The Faerie Queene`)을 `queued` 로 되돌려 메시지를 셌다:
+1 → **2**(트리거가 정확히 한 번). 트리거 실측 `trg_lb_requeue` 1 · `trg_publish_book_word_sets_t`
+**0**(제거됨) · `trg_lb_publish_word_sets` 1(유지).
+`textfit_resolve_levels` 스모크: 8낱말 → 7행, `happier→happy` · `studies→study` 로 굴절이 붙고
+사전에 없는 `xyzzy` 는 빠졌다. 이제 `/fit` 이 정확 일치 폴백에서 벗어난다.
+
+⚠️ **큐에 묵은 메시지 572건이 쌓여 있다.** dev 는 `get_lcp_config()` 가 NULL 이라 워커가
+early return 하고, 큐는 **처리 시점에만** archive 된다. 그래서 위 도서에도 2026-08-11 자
+메시지가 그대로 남아 있었다(재큐하면 같은 도서가 두 번 처리된다). 그 1건은 archive 했고,
+**83권 되살리기 전에 `archive_book_pipeline_messages` 를 먼저 돌려야 한다** —
+`DB_SCHEMA.md` §Pipeline RPC 에 규칙으로 적었다.
+
 ### 담은 낱말이 **게임에 안 나오는** 경로가 있었다 — 뜻이 비면 걸러진다
 
 담기를 고친 뒤 사슬의 마지막을 밟았다: 담은 낱말이 학습 큐까지 가는가.

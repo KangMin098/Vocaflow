@@ -1,7 +1,7 @@
--- supabase/migrations/_pending_20260817_textfit_resolve_levels.sql
+-- supabase/migrations/20260826102758_textfit_resolve_levels.sql
 --
--- ⚠️ 미적용 — 승인 대기. CLAUDE.md §항상 지킬 것: "마이그레이션 자동 적용 금지".
---    승인 시 파일명을 `<timestamp>_textfit_resolve_levels.sql` 로 옮기고 apply_migration.
+-- ✅ 적용 2026-08-26 (schema_migrations 20260826102758). 스모크: 8낱말 입력 →
+--    happier→happy · studies→study 로 굴절이 붙고, 사전에 없는 xyzzy 는 빠졌다(7행).
 --
 -- 무엇을 하는가
 --   표면형 배열을 받아 `resolve_dict_headword` 로 표제어를 붙이고 V-Level 을 돌려준다.

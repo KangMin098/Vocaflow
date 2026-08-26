@@ -493,7 +493,7 @@ cast-2000 audit chain — 4 테이블 cascade:
 
 ## Functions (요약)
 
-223 함수. 카테고리별:
+357 함수(`pg_proc` × `nspname='public'` 실측 2026-08-26 — 앞 판의 223 은 낡은 값이었다). 카테고리별:
 
 ### 표제어 해석 — 의미 보존 원칙 (v06.35 · 마이그레이션 4건)
 
@@ -501,6 +501,7 @@ cast-2000 audit chain — 4 테이블 cascade:
 |---|---|---|
 | `resolve_dict_headword(p_surface text)` | RETURNS text | 표면형 → 사전 표제어 **5계층** |
 | `unresolved_dict_words(p_words text[])` | RETURNS text[] | 해석 실패분만 반환 (pending_words 기록용) |
+| `textfit_resolve_levels(p_words text[])` | RETURNS TABLE(surface·headword·v_level) | TextFit 커버리지 — **필터 없음**(아는 단어도 세야 분자가 나온다). STABLE · SECURITY INVOKER · 입력 상한 4000. [20260826102758](../supabase/migrations/20260826102758_textfit_resolve_levels.sql) |
 
 **5계층**: ① 정확 일치 → ② 사전 등재 굴절형(`inflected_forms`) → ③ 규칙 굴절 역생성(`en_inflection_bases`)
 → ④ 의미 보존 파생 접미사 → ⑤ **영/미 철자 변이**.
@@ -527,7 +528,7 @@ cast-2000 audit chain — 4 테이블 cascade:
 | 함수 | 시그니처 | 용도 |
 |---|---|---|
 | `admin_enqueue_book(source, source_id, title, ...)` | RETURNS uuid | BulkFetch / ID 입력으로 도서 큐 등록 |
-| `admin_requeue_book(p_book_id uuid)` | RETURNS text | 단일 도서 → queued + pgmq |
+| `admin_requeue_book(p_book_id uuid)` | RETURNS text | 단일 도서 → queued. **pgmq 발행은 트리거가 한다** — 이 함수가 직접 넣는 것은 `이미 queued` 였을 때뿐(그때는 트리거가 발화하지 않는다). 없는 도서는 예외. [20260826103132](../supabase/migrations/20260826103132_admin_requeue_book_single_enqueue.sql) |
 | `admin_bulk_set_books_curating(uuid[])` | RETURNS (updated, skipped, sets_deleted, blocked_users, blocked_published) | ready → curating, draft 단어장만 삭제 |
 | `admin_bulk_requeue_books(uuid[])` | RETURNS (deleted, skipped, sets_deleted, **seed_unlocked**, blocked_users, blocked_published) | (ready ∪ in_progress) → DELETE library_books (소스 GET 복귀) — v06.34 시맨틱 |
 | `admin_delete_book(p_book_id uuid)` | RETURNS table | 실패 도서 영구 삭제 (제한 status) |
@@ -536,6 +537,25 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `admin_requeue_article` | — | ACP article requeue |
 | `unenroll_library_book(p_book_id uuid)` | RETURNS (texts_deleted, subs_deleted, vocabs_deleted) | 사용자 enroll 해제 (도서 단위 unenroll) |
 | 나머지 | … | (admin_bulk_* / admin_pending_* / admin_concerns_* / VRL 분류 등) |
+
+**큐 발행 규칙** — `status` 가 `queued` 로 **바뀌면** 큐에 들어간다 (2026-08-26 실측):
+
+| 트리거 | 시점 | |
+|---|---|---|
+| `trg_lb_enqueue` | `AFTER INSERT` | 새 도서 |
+| `trg_lb_requeue` | `AFTER UPDATE OF status` · `WHEN (NEW.status='queued' AND OLD.status IS DISTINCT FROM 'queued')` | 되살리기 ([20260826102742](../supabase/migrations/20260826102742_lcp_requeue_failed.sql)) |
+
+⚠️ **`WHEN` 절이 없으면 안 된다** — `UPDATE OF status` 는 SET 목록에 status 가 있기만 하면
+값이 같아도 발화하므로, 가드가 없으면 queued 행을 건드릴 때마다 중복 메시지가 쌓인다.
+
+⚠️ **함수가 직접 `pgmq.send` 하면 트리거와 겹친다** — 실제로 `admin_requeue_book` 이 그랬고
+([20260826103132](../supabase/migrations/20260826103132_admin_requeue_book_single_enqueue.sql)에서
+해소), 새 경로를 만들 때 send 를 손으로 붙이면 같은 일이 반복된다. **status 만 바꾸면 된다.**
+
+⚠️ **재큐 전에 묵은 메시지를 치울 것** — 큐는 처리 시점에만 archive 된다. dev 는
+`get_lcp_config()` 가 NULL 이라 워커가 early return 하므로 메시지가 쌓인다
+(2026-08-26 실측 **572건**). 실패 도서를 되살리면 옛 메시지 위에 새것이 얹혀 같은 도서가
+두 번 처리된다 — `archive_book_pipeline_messages(book_id)` 를 먼저 부른다.
 
 ### Pipeline RPC
 

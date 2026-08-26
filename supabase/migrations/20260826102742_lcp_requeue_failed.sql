@@ -1,4 +1,7 @@
--- supabase/migrations/<ts>_lcp_requeue_failed.sql
+-- supabase/migrations/20260826102742_lcp_requeue_failed.sql
+--
+-- ✅ 적용 2026-08-26 (schema_migrations 20260826102742). 적용 후 실측:
+--    trg_lb_requeue 1 · trg_publish_book_word_sets_t 0(제거됨) · trg_lb_publish_word_sets 1(유지)
 --
 -- LCP: 실패한 도서를 **다시 큐에 넣을 방법이 없다** — 83권이 그래서 죽어 있다.
 --
