@@ -5,7 +5,7 @@
 //
 // 여기서 정하는 것 셋 — 셋 다 틀리면 조용히 아프다:
 //   1. `origin` — 값마다 **삭제 의미가 다르다**
-//   2. `meaning` — NOT NULL 이라 없으면 빈 문자열
+//   2. `meaning` — NOT NULL 이고, **비면 낱말이 게임에서 영영 안 나온다**
 //   3. 빈 낱말 걸러내기 — 표면형이 없으면 `word` 가 NOT NULL 을 위반한다
 //   4. `lemma` — **`shared_dictionary(word)` 로 가는 FK 가 걸려 있다**
 
@@ -21,6 +21,15 @@ import type { AssignmentWord } from './assignment-actions'
  */
 export const ASSIGNMENT_ORIGIN = 'assignment' as const
 
+/**
+ * 사전에서 가져온 보강 정보 — 표제어가 실재하는지와 뜻.
+ *
+ * 한 번의 조회로 둘을 다 얻는다(`shared_dictionary` 에 `word`·`meaning_ko` 가 같이 있다).
+ */
+export interface DictLookup {
+  meaningKo: string | null
+}
+
 export interface VocabInsertRow {
   user_id: string
   word: string
@@ -35,6 +44,14 @@ export interface VocabInsertRow {
    * NULL 이면 SRS 키가 표면형이 된다 — 이상적이지는 않지만 **담기지 않는 것보다 낫다.**
    */
   lemma: string | null
+  /**
+   * 뜻 — **비면 그 낱말은 어떤 게임에도 안 나온다.**
+   *
+   * `fetchDueGameWords` 가 `.neq('meaning','')` 로 거른다(빈 뜻으로는 문제를 못 만든다).
+   * 그래서 과제에 뜻이 없으면 사전에서 채운다 — 안 그러면 단어장에 들어가고도
+   * 영영 안 풀리는 죽은 낱말이 된다. 둘 다 없으면 빈 문자열로 넣되(학습자가 고칠 수 있다),
+   * 그 수를 호출부가 셀 수 있게 한다.
+   */
   meaning: string
   origin: typeof ASSIGNMENT_ORIGIN
 }
@@ -54,14 +71,27 @@ export function usableAssignmentWords(words: AssignmentWord[] | null | undefined
 export function assignmentWordsToVocabRows(
   userId: string,
   words: AssignmentWord[] | null | undefined,
-  /** `shared_dictionary` 에 실재하는 표제어. 여기 없는 낱말은 `lemma` 를 비운다. */
-  knownLemmas: ReadonlySet<string> = new Set(),
+  /**
+   * `shared_dictionary` 조회 결과. 키에 있으면 표제어가 실재한다는 뜻이고,
+   * `meaningKo` 는 과제에 뜻이 없을 때의 대체다.
+   */
+  dict: ReadonlyMap<string, DictLookup> = new Map(),
 ): VocabInsertRow[] {
-  return usableAssignmentWords(words).map((w) => ({
-    user_id: userId,
-    word: w.w,
-    lemma: knownLemmas.has(w.w) ? w.w : null,
-    meaning: w.m ?? '',
-    origin: ASSIGNMENT_ORIGIN,
-  }))
+  return usableAssignmentWords(words).map((w) => {
+    const found = dict.get(w.w)
+    // 교사가 보낸 뜻이 우선이다 — 학생이 과제 카드에서 본 것이 그것이다.
+    const meaning = (w.m ?? '').trim() || (found?.meaningKo ?? '').trim()
+    return {
+      user_id: userId,
+      word: w.w,
+      lemma: found ? w.w : null,
+      meaning,
+      origin: ASSIGNMENT_ORIGIN,
+    }
+  })
+}
+
+/** 뜻이 비어 게임에 못 나올 낱말 수 — 호출부가 사실대로 말할 수 있게. */
+export function countUnplayable(rows: readonly VocabInsertRow[]): number {
+  return rows.filter((r) => r.meaning.length === 0).length
 }

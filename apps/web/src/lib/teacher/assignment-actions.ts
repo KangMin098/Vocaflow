@@ -21,7 +21,12 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createClient } from '@/lib/supabase/server'
-import { assignmentWordsToVocabRows, usableAssignmentWords } from './assignment-vocab'
+import {
+  assignmentWordsToVocabRows,
+  countUnplayable,
+  usableAssignmentWords,
+  type DictLookup,
+} from './assignment-vocab'
 
 /** 과제에 실리는 낱말 한 개. DB 저장 형태와 같다(`{w,m,v}`) — 변환 지점을 만들지 않는다. */
 export interface AssignmentWord {
@@ -218,7 +223,7 @@ export async function markAssignmentOpened(assignmentId: string): Promise<void> 
  */
 export async function markAssignmentCollected(
   assignmentId: string,
-): Promise<{ ok: boolean; error?: string; added?: number }> {
+): Promise<{ ok: boolean; error?: string; added?: number; unplayable?: number }> {
   const client = await createClient()
   const {
     data: { user },
@@ -239,18 +244,28 @@ export async function markAssignmentCollected(
   )
   if (words.length === 0) return { ok: false, error: '담을 낱말이 없어요.' }
 
-  // `vocabularies.lemma` 는 `shared_dictionary(word)` 를 참조한다. 사전에 없는 값을 적으면
-  // **그 한 행 때문에 일괄 upsert 전체가 거부되고** 학생은 과제를 통째로 못 담는다.
-  // 그래서 먼저 물어보고, 있는 것만 표제어를 채운다(없으면 NULL — FK 는 NULL 을 허용한다).
+  // 사전에 **한 번** 물어 두 가지를 얻는다.
+  //
+  //   ① 표제어가 실재하는가 — `vocabularies.lemma` 는 `shared_dictionary(word)` 를 참조한다.
+  //      없는 값을 적으면 **그 한 행 때문에 일괄 upsert 전체가 거부되고** 학생은 과제를
+  //      통째로 못 담는다(FK 는 NULL 을 허용하므로 없으면 비운다).
+  //   ② 뜻 — 과제에 뜻이 없으면 여기서 채운다. **뜻이 비면 그 낱말은 어떤 게임에도 안 나온다**
+  //      (`fetchDueGameWords` 가 `.neq('meaning','')` 로 거른다). 단어장에 들어가고도
+  //      영영 안 풀리는 죽은 낱말이 되는 것을 막는다.
   const { data: dictRows } = await loose(client)
     .from('shared_dictionary')
-    .select('word')
+    .select('word, meaning_ko')
     .in('word', words.map((w) => w.w))
-  const known = new Set(((dictRows ?? []) as { word: string }[]).map((r) => r.word))
+  const dict = new Map<string, DictLookup>(
+    ((dictRows ?? []) as { word: string; meaning_ko: string | null }[]).map((r) => [
+      r.word,
+      { meaningKo: r.meaning_ko },
+    ]),
+  )
 
   // 행을 만드는 규칙은 `assignment-vocab.ts` 가 소유한다 —
   // `'use server'` 파일은 async 함수만 내보낼 수 있어 순수 함수를 그대로 검사할 수 없다.
-  const vocab = assignmentWordsToVocabRows(user.id, words, known)
+  const vocab = assignmentWordsToVocabRows(user.id, words, dict)
 
   const { error: insErr, count } = await loose(client)
     .from('vocabularies')
@@ -268,8 +283,9 @@ export async function markAssignmentCollected(
 
   // 낱말은 들어갔는데 기록만 실패한 경우 — 학습 자체는 되므로 성공으로 본다.
   // (다음에 다시 눌러도 `ignoreDuplicates` 라 중복이 생기지 않는다.)
-  if (error) return { ok: true, added: count ?? 0 }
-  return { ok: true, added: count ?? 0 }
+  void error
+  // 뜻이 끝내 비어 있는 낱말 수 — 그것들은 게임에 안 나온다. 화면이 사실대로 말할 수 있게 넘긴다.
+  return { ok: true, added: count ?? 0, unplayable: countUnplayable(vocab) }
 }
 /**
  * 내가 이미 담은 과제 id (학생) — 화면이 "담았어요" 를 처음부터 보여줄 수 있게.

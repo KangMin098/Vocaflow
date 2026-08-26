@@ -14,10 +14,17 @@ import { describe, expect, it } from 'vitest'
 import {
   ASSIGNMENT_ORIGIN,
   assignmentWordsToVocabRows,
+  countUnplayable,
   usableAssignmentWords,
+  type DictLookup,
 } from '../assignment-vocab'
 
 const UID = '00000000-0000-0000-0000-000000000001'
+
+/** 사전에 있는 낱말 — 표제어가 실재하고 뜻도 있다. */
+function dict(entries: Record<string, string | null>): Map<string, DictLookup> {
+  return new Map(Object.entries(entries).map(([w, m]) => [w, { meaningKo: m }]))
+}
 
 describe('과제 낱말 → 단어장 행', () => {
   it("origin 은 'assignment' 다 — 'shared_set' 이면 무관한 도서 해지에 함께 지워진다", () => {
@@ -27,9 +34,31 @@ describe('과제 낱말 → 단어장 행', () => {
     expect(row?.origin).not.toBe('manual')
   })
 
-  it('뜻이 없어도 행이 만들어진다 — meaning 은 NOT NULL 이다', () => {
-    const [row] = assignmentWordsToVocabRows(UID, [{ w: 'gallop' }])
-    expect(row?.meaning).toBe('')
+  it('과제에 뜻이 없으면 사전에서 채운다 — 빈 뜻이면 어떤 게임에도 안 나온다', () => {
+    // `fetchDueGameWords` 가 `.neq('meaning','')` 로 거른다.
+    // 채우지 않으면 단어장에 들어가고도 영영 안 풀리는 죽은 낱말이 된다.
+    const [row] = assignmentWordsToVocabRows(UID, [{ w: 'gallop' }], dict({ gallop: '질주하다' }))
+    expect(row?.meaning).toBe('질주하다')
+  })
+
+  it('교사가 보낸 뜻이 우선이다 — 학생이 과제 카드에서 본 것이 그것이다', () => {
+    const [row] = assignmentWordsToVocabRows(
+      UID,
+      [{ w: 'gallop', m: '(말이) 전속력으로 달리다' }],
+      dict({ gallop: '질주하다' }),
+    )
+    expect(row?.meaning).toBe('(말이) 전속력으로 달리다')
+  })
+
+  it('둘 다 없으면 빈 뜻으로 넣되 셀 수 있게 한다 — 조용히 버리지 않는다', () => {
+    const rows = assignmentWordsToVocabRows(UID, [{ w: 'gallop' }, { w: 'run', m: '달리다' }])
+    expect(rows[0]?.meaning).toBe('')
+    expect(countUnplayable(rows)).toBe(1)
+  })
+
+  it('공백뿐인 뜻도 빈 것으로 본다 — DB 는 통과시키지만 게임은 거른다', () => {
+    const [row] = assignmentWordsToVocabRows(UID, [{ w: 'gallop', m: '   ' }], dict({ gallop: '질주하다' }))
+    expect(row?.meaning).toBe('질주하다')
   })
 
   it('표면형이 비면 버린다 — word 가 NOT NULL 이라 넣으면 전체 upsert 가 실패한다', () => {
@@ -46,7 +75,11 @@ describe('과제 낱말 → 단어장 행', () => {
   })
 
   it('FSRS 상태를 적지 않는다 — 이미 배운 낱말의 이력을 덮어쓸 여지를 만들지 않는다', () => {
-    const [row] = assignmentWordsToVocabRows(UID, [{ w: 'gallop', m: '질주하다', v: 7 }], new Set(['gallop']))
+    const [row] = assignmentWordsToVocabRows(
+      UID,
+      [{ w: 'gallop', m: '질주하다', v: 7 }],
+      dict({ gallop: '질주하다' }),
+    )
     expect(Object.keys(row ?? {}).sort()).toEqual([
       'lemma',
       'meaning',
@@ -62,7 +95,7 @@ describe('과제 낱말 → 단어장 행', () => {
     const rows = assignmentWordsToVocabRows(
       UID,
       [{ w: 'gallop' }, { w: 'zzzznotaword' }],
-      new Set(['gallop']),
+      dict({ gallop: '질주하다' }),
     )
     expect(rows[0]?.lemma).toBe('gallop')
     expect(rows[1]?.lemma).toBeNull()

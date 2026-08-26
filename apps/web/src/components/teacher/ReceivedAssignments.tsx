@@ -28,6 +28,13 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
   const [collected, setCollected] = useState<Set<string>>(new Set(collectedIds))
   const [busy, setBusy] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  /**
+   * 뜻이 비어 **게임에 안 나오는** 낱말 수.
+   *
+   * 담기는 성공했는데 그 낱말들만 조용히 안 풀리면, 학습자는 이유를 알 수 없다
+   * (`fetchDueGameWords` 가 `.neq('meaning','')` 로 거른다). 드문 경우지만 말해 준다.
+   */
+  const [unplayable, setUnplayable] = useState(0)
 
   async function handleCollect(a: ClassAssignment) {
     setBusy(a.id)
@@ -39,6 +46,7 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
         return
       }
       setCollected((prev) => new Set(prev).add(a.id))
+      setUnplayable(res.unplayable ?? 0)
     } finally {
       setBusy(null)
     }
@@ -67,6 +75,21 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
           className="m-0 rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg2)] px-4 py-3 font-body text-[13px] text-[var(--memory-risk-ink)]"
         >
           {error}
+        </p>
+      )}
+
+      {/*
+        담기는 됐는데 그중 몇 개가 **게임에 안 나오는** 경우 — 뜻이 비어 있으면 문제를
+        만들 수 없어 `fetchDueGameWords` 가 거른다. 말해 주지 않으면 학습자는
+        "왜 이 단어만 안 나오지" 를 영영 알 수 없다. 드문 경우라 조용한 한 줄로 둔다.
+      */}
+      {unplayable > 0 && (
+        <p
+          role="status"
+          className="m-0 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[12.5px] leading-[1.6] text-[var(--t2)]"
+        >
+          <b className="tabular-nums text-[var(--t1)]">{unplayable}개</b>는 뜻이 비어 있어 단어장에는
+          담겼지만 게임에는 나오지 않아요. 단어장에서 뜻을 채우면 바로 나옵니다.
         </p>
       )}
 
