@@ -5,10 +5,24 @@
 // 나머지(출처·시간·레벨·적합·음성·태그)는 절제된 한 줄 메타로. 카드 전체가 읽기 진입.
 //   · featured: 시리즈에서 먼저 읽어볼 1편을 큰 리드로(잡지 lead 스타일).
 //   · normal:   그룹 리스트용 표준 타일.
+//
+// ── 왜 `<button>` 이 아니라 `<a>` 인가 (2026-08-26) ─────────────────────
+// 이 카드는 `<button onClick>` 이었다. 화면에서는 잘 동작했지만 **주소가 없었다.**
+// 그래서 `/library/scripts` 를 익명으로 받아 보면 글 제목은 다 들어 있는데
+// **상세로 가는 링크가 0개**였다 — sitemap 이 광고하는 글 160개를 사이트 안 어느 페이지도
+// 가리키지 않는 고아 상태였다. 크롤러는 sitemap 으로 주소를 알아도 그 페이지가 어디에
+// 속하는지 모르고, 비로그인 방문자는 클릭해도 학습 시작이 실패해 `alert` 를 봤다.
+//
+// 이제 카드는 **진짜 링크**다(`/library/scripts/[id]`). 그 라우트가 서버에서 이미 갈라 준다 —
+// 로그인이면 학습 시작으로 리다이렉트, 아니면 공개 미리보기. 링크만으로도 두 경우가 다 맞는다.
+//
+// 로그인 사용자의 클릭은 그대로 가로채 **한 번에** 학습으로 보낸다(리다이렉트 한 홉을 아낀다).
+// 실패하면 `alert` 대신 링크 주소로 보낸다 — 익명 클릭이 막다른 골목이 되지 않는다.
 
 'use client'
 
 import { useTransition } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ArrowRight, Clock, ExternalLink, Loader2, Target, Volume2, Sparkles } from 'lucide-react'
 
@@ -78,11 +92,22 @@ export function ArticleCard({
     </span>
   )
 
-  function handleLearn() {
+  /** 카드의 주소. 크롤러가 보는 것도, 클릭이 실패했을 때 가는 곳도 이것이다. */
+  const href = `/library/scripts/${article.id}`
+
+  /**
+   * 로그인 사용자의 지름길 — 상세 라우트가 할 리다이렉트를 여기서 미리 한다.
+   *
+   * 실패해도 막다른 골목이 되지 않는다: 예전에는 `alert` 였고, 익명 방문자는 그 자리에서 끝났다.
+   * 이제는 링크가 원래 가려던 곳(공개 미리보기)으로 보낸다.
+   */
+  function handleLearn(e: React.MouseEvent<HTMLAnchorElement>) {
+    // 새 탭·다운로드 등 브라우저 고유 동작은 가로채지 않는다.
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
+    e.preventDefault()
     startTransition(async () => {
       const res = await startArticleLearning(article.id)
-      if (res.ok) router.push(`/text/${res.textId}?mode=read`)
-      else window.alert(res.error)
+      router.push(res.ok ? `/text/${res.textId}?mode=read` : href)
     })
   }
 
@@ -143,11 +168,12 @@ export function ArticleCard({
   if (featured) {
     return (
       <article className="relative">
-        <button
-          type="button"
+        <Link
+          href={href}
           onClick={handleLearn}
-          disabled={pending}
-          className="group flex w-full flex-col gap-3 rounded-[var(--r-lg)] border p-5 text-left shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-60"
+          // `<a>` 에는 disabled 가 없다 — 진행 중임을 보조기술에 알리고 재클릭만 막는다.
+          aria-disabled={pending || undefined}
+          className="group flex w-full flex-col gap-3 rounded-[var(--r-lg)] border p-5 text-left shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 aria-disabled:pointer-events-none aria-disabled:opacity-60"
           style={{ borderColor: `color-mix(in srgb, ${src.color} 28%, var(--bd))`, backgroundColor: `color-mix(in srgb, ${src.color} 4%, var(--bg))` }}
         >
           <div className="flex items-center justify-between gap-2">
@@ -177,7 +203,7 @@ export function ArticleCard({
             읽기 시작
             <ArrowRight size={14} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
           </span>
-        </button>
+        </Link>
         {article.source_url && <OriginalLink href={article.source_url} />}
       </article>
     )
@@ -186,11 +212,11 @@ export function ArticleCard({
   // ── Normal tile ──
   return (
     <article className="relative h-full">
-      <button
-        type="button"
+      <Link
+        href={href}
         onClick={handleLearn}
-        disabled={pending}
-        className="group flex h-full w-full flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 pr-9 text-left shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--p)_50%,var(--bd))] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-60"
+        aria-disabled={pending || undefined}
+        className="group flex h-full w-full flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 pr-9 text-left shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--p)_50%,var(--bd))] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 aria-disabled:pointer-events-none aria-disabled:opacity-60"
       >
         <span className="flex items-center gap-2">
           {SourceBadge}
@@ -215,13 +241,15 @@ export function ArticleCard({
             <Loader2 size={16} className="animate-spin text-[var(--p)]" />
           </span>
         )}
-      </button>
+      </Link>
       {article.source_url && <OriginalLink href={article.source_url} />}
     </article>
   )
 }
 
-// 원문 링크 — 카드 버튼과 겹치지 않게 우상단 별도 (button 안에 a 중첩 불가).
+// 원문 링크 — 카드 링크와 겹치지 않게 우상단 **별도 형제**로 둔다.
+// (카드가 `<a>` 가 된 뒤로는 중첩이 더 엄격하다 — `<a>` 안의 `<a>` 는 무효 HTML 이고
+//  브라우저가 조용히 밖으로 끌어내 레이아웃이 깨진다.)
 function OriginalLink({ href }: { href: string }) {
   return (
     <a

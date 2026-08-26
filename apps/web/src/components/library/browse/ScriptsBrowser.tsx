@@ -6,11 +6,21 @@
 //     · 심리: 선택 과부하(Hick) 최소화 + 확신 있는 출발점(자기효능감) + 자율(나머지도 보임).
 //   상세면 = SeriesDetail — 능력·학습과학·학습법 같은 깊이는 고른 뒤에만 노출.
 // 데이터/추천 로직은 buildScriptsMap 그대로(밴드 적응 유지). 추가 fetch 0.
+//
+// ── 왜 시리즈 선택이 `useState` 가 아니라 `?series=` 인가 (2026-08-26) ──
+// 드릴다운이 상태였다. 그래서 **글 목록에 주소가 없었다** — 익명으로 `/library/scripts` 를
+// 받아 보면 시리즈 제목까지는 있는데 글로 가는 링크가 **0개**였다. sitemap 이 광고하는
+// 글 160개를 사이트 안 어느 페이지도 가리키지 않는 고아 상태였고, 뒤로가기·공유·새로고침도
+// 전부 진입면으로 돌아갔다.
+//
+// 만화 서가는 이미 `?series=` 로 되어 있다(`/comics/restored`). 같은 모양으로 맞춘다 —
+// 진입면 → `?series=` → 글 상세, 세 단계가 전부 주소를 갖는다.
 
 'use client'
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { ArrowRight, ChevronRight, Info, Sparkles, Volume2 } from 'lucide-react'
 
 import { useUserVLevel } from '@/hooks/useUserVLevel'
@@ -35,10 +45,25 @@ function sourceHint(stat: TrackStat): string {
   return top.join(' · ') + (more > 0 ? ` +${more}` : '')
 }
 
-export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
+/** 시리즈 글 목록의 주소. 진입면과 상세면이 같은 라우트를 쓰되 주소로 갈린다. */
+export function seriesHref(key: TrackKey): string {
+  return `/library/scripts?series=${encodeURIComponent(key)}`
+}
+
+export const SCRIPTS_INDEX_HREF = '/library/scripts'
+
+export function ScriptsBrowser({
+  articles,
+  series,
+}: {
+  articles: PublishedArticle[]
+  /** `?series=` — 서버가 읽어 넘긴다. 상태가 아니라 주소가 이 화면의 단일 출처다. */
+  series: string | null
+}) {
   const userV = useUserVLevel()
-  const [selected, setSelected] = useState<TrackKey | null>(null)
-  // 왼쪽(본문) 클릭 시 뜨는 학습정보 팝업 — 글 목록 진입 전 결정 surface
+  const router = useRouter()
+  // 왼쪽(본문) 클릭 시 뜨는 학습정보 팝업 — 글 목록 진입 전 결정 surface.
+  // 이것만 상태로 남는다: 팝업은 되돌아올 자리가 아니라 결정을 돕는 겹침이다.
   const [infoKey, setInfoKey] = useState<TrackKey | null>(null)
 
   const map = useMemo(() => buildScriptsMap(articles, userV), [articles, userV])
@@ -62,10 +87,17 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
     )
   }
 
-  // ── 상세면 (시리즈 선택 시) ──
-  const selectedStat = selected ? map.tracks.find((t) => t.track.key === selected) ?? null : null
+  // ── 상세면 (`?series=`) ──
+  // 없는 키가 오면 진입면으로 떨어진다 — 주소를 손으로 고쳐도 빈 화면이 나오지 않는다.
+  const selectedStat = series ? map.tracks.find((t) => t.track.key === series) ?? null : null
   if (selectedStat) {
-    return <SeriesDetail stat={selectedStat} userV={userV} onBack={() => setSelected(null)} />
+    return (
+      <SeriesDetail
+        stat={selectedStat}
+        userV={userV}
+        onBack={() => router.push(SCRIPTS_INDEX_HREF)}
+      />
+    )
   }
 
   // ── 진입면 (조용한 초대) ──
@@ -101,7 +133,7 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
           <SeriesHero
             stat={hero}
             onInfo={() => setInfoKey(hero.track.key)}
-            onEnter={() => setSelected(hero.track.key)}
+            enterHref={seriesHref(hero.track.key)}
           />
         </section>
       )}
@@ -116,7 +148,7 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
                 key={stat.track.key}
                 stat={stat}
                 onInfo={() => setInfoKey(stat.track.key)}
-                onEnter={() => setSelected(stat.track.key)}
+                enterHref={seriesHref(stat.track.key)}
               />
             ))}
           </ul>
@@ -130,8 +162,8 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
           userV={userV}
           onClose={() => setInfoKey(null)}
           onEnter={() => {
-            setSelected(infoStat.track.key)
             setInfoKey(null)
+            router.push(seriesHref(infoStat.track.key))
           }}
         />
       )}
@@ -140,7 +172,16 @@ export function ScriptsBrowser({ articles }: { articles: PublishedArticle[] }) {
 }
 
 // ── 추천 히어로 — 확신 있는 출발점 (본문=학습안내 팝업 · 하단=바로 둘러보기) ──
-function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => void; onEnter: () => void }) {
+function SeriesHero({
+  stat,
+  onInfo,
+  enterHref,
+}: {
+  stat: TrackStat
+  onInfo: () => void
+  /** "글 둘러보기" 는 **진짜 링크**다 — 크롤러가 글 목록에 닿는 유일한 경로다. */
+  enterHref: string
+}) {
   const { track, fit, cefrLabel, count, hasAudio } = stat
   const fitMeta = TRACK_FIT_META[fit]
   const heroForm = dominantMediaForm(track.sources)
@@ -215,23 +256,30 @@ function SeriesHero({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => 
             </span>
           )}
         </span>
-        <button
-          type="button"
-          onClick={onEnter}
+        <Link
+          href={enterHref}
           aria-label={`${track.title} 글 둘러보기`}
           className="inline-flex min-h-11 min-w-11 items-center justify-center gap-1 rounded-[var(--r-md)] px-2 font-display text-[13px] font-[700] transition-colors duration-[var(--dur-normal)] hover:bg-[color-mix(in_srgb,var(--t1)_5%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           style={{ color: track.accent }}
         >
           글 둘러보기
           <ArrowRight size={14} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
-        </button>
+        </Link>
       </div>
     </div>
   )
 }
 
 // ── 나머지 시리즈 — 조용한 row (왼쪽=학습안내 팝업 · 오른쪽=바로 둘러보기) ──
-function SeriesRow({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => void; onEnter: () => void }) {
+function SeriesRow({
+  stat,
+  onInfo,
+  enterHref,
+}: {
+  stat: TrackStat
+  onInfo: () => void
+  enterHref: string
+}) {
   const { track, cefrLabel, count } = stat
   const rowForm = dominantMediaForm(track.sources)
   return (
@@ -258,15 +306,14 @@ function SeriesRow({ stat, onInfo, onEnter }: { stat: TrackStat; onInfo: () => v
         <Info size={15} aria-hidden className="shrink-0 opacity-70" style={{ color: track.accent }} />
       </button>
       {/* 오른쪽 = 바로 글 둘러보기 (직행) */}
-      <button
-        type="button"
-        onClick={onEnter}
+      <Link
+        href={enterHref}
         aria-label={`${track.title} 글 둘러보기`}
         className="flex shrink-0 items-center gap-2 border-l border-[var(--bd)] px-3 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
       >
         <span className="font-mono text-[11px] font-[600] text-[var(--t2)]">{cefrLabel} · {count}편</span>
         <ChevronRight size={16} aria-hidden className="text-[var(--t2)]" />
-      </button>
+      </Link>
     </li>
   )
 }

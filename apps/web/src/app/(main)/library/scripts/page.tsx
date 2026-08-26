@@ -18,9 +18,16 @@ export const metadata = {
   description: '큐레이션된 짧은 영어 글',
 }
 
-export const revalidate = 60
+// `?series=` 를 읽으므로 요청마다 렌더한다(만화 서가 `/comics/restored` 와 같은 방식).
+// 이전에는 `revalidate = 60` 이었으나, 그때는 시리즈 선택이 **주소가 아니라 상태**였다 —
+// 그래서 익명 HTML 에 글로 가는 링크가 하나도 없었다. 주소를 갖는 편이 훨씬 값지다.
+export const dynamic = 'force-dynamic'
 
-export default async function LibraryScriptsPage() {
+export default async function LibraryScriptsPage({
+  searchParams,
+}: {
+  searchParams: { series?: string }
+}) {
   const client = (await createClient()) as unknown as SupabaseClient
 
   // published + copyright_safe 아티클 (RLS anyone_read_published_safe_articles 기준 일치)
@@ -64,7 +71,7 @@ export default async function LibraryScriptsPage() {
           )}
         </header>
 
-        <ScriptsBrowser articles={articles} />
+        <ScriptsBrowser articles={articles} series={searchParams.series ?? null} />
       </div>
     </Screen>
   )
