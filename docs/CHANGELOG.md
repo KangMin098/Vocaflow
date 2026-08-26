@@ -10,6 +10,39 @@
 
 ## Unreleased (v06.34 → next)
 
+### 폰에서는 교사 화면으로 가는 길이 한 줄도 없었다
+
+10만 경로(교사 3,500명 × 학급 30명)의 입구인 `/teacher` 에 **모바일에서 도달할 수 없었다.**
+`FOOTER_ITEMS`(Class · Settings)는 `Sidebar.tsx` 에서만 렌더되는데 사이드바는 `hidden md:flex` 다.
+전수 grep 으로 확인한 두 주소의 링크는 랜딩(`app/page.tsx`)과 `SendToClassButton` 뿐이고
+둘 다 로그인 뒤의 상시 동선이 아니다. `/settings` 도 같은 상태였다(링크 0개 — 사이드바가
+설정 배열에서 만들어 낼 뿐이다).
+
+**왜 아무도 못 봤는가 — 재는 자가 없었다.** `wayfinding.test.ts` 는 "지금 어디에 있는가"
+(aria-current 소유자)를 재고, 그래서 `/teacher` 를 `EXEMPT` 로 `/settings` 를 `TABBAR_EXEMPT` 로
+**면제**한다. 둘 다 학습 표면이 아니니 그 판단은 맞다. 그런데 그 면제가 가린 것이 있었다 —
+위치 표시를 면제받은 화면은 **거기까지 가는 길이 있는지도 아무도 재지 않았다.**
+계측으로 치면 `teacher_hub_view` 가 영원히 0인데 그것이 "교사가 안 온다" 인지
+"교사가 못 온다" 인지 구별할 수 없는 상태였다.
+
+- `components/layout/MobileUtilityBar.tsx` — 좁은 화면 전용 한 줄(`md:hidden`).
+  **목록을 자기가 들지 않는다** — `FOOTER_ITEMS` 를 그대로 읽어 사이드바와 갈라지지 않게 한다
+- **하단 탭에 다섯 번째를 넣지 않았다** — `MobileTabBar` 는 `SURFACE_ORDER`(4)를 그대로 읽고,
+  `axes.ts` 가 "활동은 Surface 가 아니다" 로 표면을 넷으로 못 박았다. 교사 화면은 학습 표면이
+  아니라 **역할 표면**이라 그 넷에 낄 자리가 아니다
+- **StatusRibbon 안에도 넣지 않았다** — ADR 0006 D2(띠는 상태 표면 하나)가 되돌아간다
+- 펼침 메뉴로 만들지 않았다 — 항목이 둘뿐이라 탭 한 번이 두 번이 되고 오버레이가 화면을 덮는다
+- 풀스크린 학습 세션에서는 셸을 걷어낸다 — Sidebar·StatusRibbon·MobileTabBar 와 **같은 판정**
+  (`isFullScreenRoute`). 넷이 따로 놀면 세션 화면에 셸 조각 하나만 남는다
+- 회귀 `layout/__tests__/mobile-reach.test.tsx`(5) — **도달 가능성**을 처음으로 잰다.
+  옆 파일이 재는 "어디에 있는가" 와 다른 질문이다. 목록을 눈으로 세지 않고 `FOOTER_ITEMS`
+  와 대조하므로, 항목이 늘면 단언도 같이 는다
+- `tsc --noEmit` 통과 · eslint 0 · wayfinding 4 + mobile-reach 5 통과
+
+⚠️ 테스트를 만들다 겪은 것: `next/link` 목이 `href` 만 넘기면 `aria-current` 가 사라져
+**컴포넌트는 멀쩡한데 테스트만 빨개진다.** 실제 Link 는 나머지 props 를 그대로 넘긴다 —
+목이 실물보다 적게 하면 그 차이가 결함으로 보고된다.
+
 ### 검색 착지점 278개가 접근성 검사 밖에 있었다 — 도서 상세엔 h1 이 없었다
 
 `10-a11y-sweep` 은 `learnerRoutes()` 를 훑는데 그 함수는 **동적 라우트를 건너뛴다**
