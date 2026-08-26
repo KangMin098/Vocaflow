@@ -11,15 +11,37 @@
 // 왜 손으로 적은 목록을 안 믿나: 실측(2026-08-17) 기준 `public/sitemap.xml` 은 URL 이
 //   **루트 하나뿐**이었다. 정적 파일이라 화면이 늘어도 아무도 갱신하지 않았다.
 
-import { describe, expect, it } from 'vitest'
+import { beforeAll, describe, expect, it, vi } from 'vitest'
 
 import robots from '../robots'
 import sitemap, { SITEMAP_PATHS } from '../sitemap'
 import { PROTECTED_PREFIXES, requiresAuth } from '@/lib/auth/protected-routes'
 import { SITE_ORIGIN } from '@/lib/seo/site'
 
+/**
+ * 콘텐츠 목록은 **가짜로 준다.**
+ *
+ * 실 DB 를 치면 이 스위트가 네트워크에 묶이고, 그러면 "sitemap 의 계약" 이 아니라
+ * "지금 DB 에 뭐가 있나" 를 시험하게 된다. 여기서 지키려는 것은 계약이다 —
+ * 콘텐츠가 섞여 들어와도 ① 보호 경로는 걸러지고 ② 정적 항목과 중복되지 않고
+ * ③ 정적 우선순위 질서를 깨지 않는다. 그래서 세 경우를 일부러 다 담은 가짜를 쓴다.
+ * (실제로 몇 건이 나오는지는 `seo-content-entries.integration.test.ts` 가 실 DB 로 본다.)
+ */
+vi.mock('@/lib/seo/content-entries', () => ({
+  fetchContentEntries: async () => [
+    { path: '/library/books/aaaa', lastModified: new Date('2026-01-02') },
+    { path: '/comics/restored/some-issue' },
+    { path: '/wordvault/sneaky' }, // 보호 경로 — 걸러져야 한다
+    { path: '/comics' }, // 정적 항목과 중복 — 한 번만 나가야 한다
+  ],
+}))
+
 describe('sitemap — 색인 대상', () => {
-  const entries = sitemap()
+  let entries: Awaited<ReturnType<typeof sitemap>>
+
+  beforeAll(async () => {
+    entries = await sitemap()
+  })
 
   it('URL 이 하나뿐이 아니다 (정적 파일 시절의 결함)', () => {
     expect(entries.length).toBeGreaterThan(5)
@@ -58,6 +80,29 @@ describe('sitemap — 색인 대상', () => {
   it('URL 이 중복되지 않는다', () => {
     const urls = entries.map((e) => e.url)
     expect(new Set(urls).size).toBe(urls.length)
+  })
+
+  it('콘텐츠 상세가 들어간다 — 랜딩만 있던 시절의 결함', () => {
+    const paths = entries.map((e) => e.url.slice(SITE_ORIGIN.length))
+    expect(paths).toContain('/library/books/aaaa')
+    expect(paths).toContain('/comics/restored/some-issue')
+  })
+
+  it('콘텐츠 목록에 보호 경로가 섞여 와도 걸러낸다', () => {
+    const paths = entries.map((e) => e.url.slice(SITE_ORIGIN.length))
+    expect(paths).not.toContain('/wordvault/sneaky')
+  })
+
+  it('콘텐츠가 정적 항목과 겹치면 한 번만 나간다', () => {
+    const dup = entries.filter((e) => e.url === `${SITE_ORIGIN}/comics`)
+    expect(dup.length).toBe(1)
+  })
+
+  it('콘텐츠 상세는 카탈로그보다 낮다 — 목록이 먼저 잡혀야 고를 수 있다', () => {
+    const byPath = new Map(entries.map((e) => [e.url.slice(SITE_ORIGIN.length) || '/', e]))
+    const catalog = byPath.get('/library/books')!
+    const detail = byPath.get('/library/books/aaaa')!
+    expect(detail.priority!).toBeLessThan(catalog.priority!)
   })
 
   it('약관·개인정보는 낮은 우선순위다 — 검색 유입의 문이 아니다', () => {

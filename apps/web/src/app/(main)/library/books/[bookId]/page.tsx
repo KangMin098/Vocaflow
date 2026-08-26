@@ -1,6 +1,7 @@
 // apps/web/src/app/(main)/library/books/[bookId]/page.tsx
 // LCP v2.0 Phase 11 — 사용자 책 미리보기
 
+import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
@@ -14,6 +15,37 @@ import { UserPreviewClient } from './UserPreviewClient';
 interface PageProps {
   params: { bookId: string };
   searchParams: { preview?: string };
+}
+
+/**
+ * 책마다 다른 제목·설명을 준다.
+ *
+ * 그전까지 이 라우트에는 metadata 가 없어 루트 기본값이 그대로 나갔다 — 발행 도서 13권이
+ * 검색 결과에서 전부 같은 제목으로 보였다는 뜻이다. 이 화면은 **비로그인 방문자가 보는
+ * 미리보기**이므로(로그인+수강자만 /text 로 redirect) 검색 유입의 착지점이다.
+ *
+ * 조회는 본문과 따로 한다 — 필요한 필드가 2개뿐이라 본문 쿼리를 공유하려고
+ * 캐시 계층을 만드는 것보다 가볍다.
+ */
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const client = (await createClient()) as unknown as SupabaseClient;
+  const { data } = await client
+    .from('library_books')
+    .select('title, author')
+    .eq('id', params.bookId)
+    .eq('status', 'published')
+    .eq('copyright_safe_in_kr', true)
+    .maybeSingle();
+
+  const b = data as { title?: string; author?: string | null } | null;
+  if (!b?.title) return {};
+
+  const by = b.author ? ` — ${b.author}` : '';
+  return {
+    title: `${b.title}${by} · Vocaflow`,
+    description: `${b.title}${by}. 챕터별 어휘와 난이도를 미리 보고 영어 원문으로 읽습니다.`,
+    alternates: { canonical: `/library/books/${params.bookId}` },
+  };
 }
 
 export default async function LibraryBookPreviewPage({

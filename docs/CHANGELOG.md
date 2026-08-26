@@ -10,6 +10,43 @@
 
 ## Unreleased (v06.34 → next)
 
+### 콘텐츠 123개를 검색에 알린다 — sitemap 9 → 132 (+ 1,000행 절단 발견)
+
+미오픈 단계에서 10만 학습자에 이르는 CAC 0 경로는 **검색**과 **교사** 둘뿐이다. 교사 쪽은
+계측을 붙였고, 검색 쪽을 처음으로 쟀다 — `sitemap.xml` 의 URL 이 **9개**였고 전부 정적 랜딩이었다.
+그런데 로그인 없이 열리는 **콘텐츠 상세가 123개**(발행 도서 13 + 발행 만화 110) 있었다.
+문을 123개 내놓고 검색엔진에는 9개만 알리고 있었다. 검색 유입은 랜딩이 아니라 롱테일에서 온다.
+
+- `lib/seo/content-entries.ts` — 콘텐츠 상세 목록을 **anon 권한으로** 만든다.
+  service-role 로 읽으면 RLS 가 막는 행까지 올라가 크롤러가 열리지 않는 URL 을 받는다;
+  anon 으로 읽으면 "익명이 못 보면 sitemap 에도 없다" 가 자동으로 성립한다
+  (실제로 `pd_comic_issues` 969행 중 RLS 가 여는 **110호**만 올라간다 — 필터를 따로 안 적어도 된다)
+- ⚠️ **1,000행 절단** — PostgREST 는 select 당 1,000행만 주고 오류도 경고도 없다.
+  첫 구현이 `pd_comic_panels` 4,282행을 통째로 읽으려다 잘렸고, 그 안에 든 호가 **28개**뿐이라
+  만화 110호 중 **82호가 조용히 빠졌다**. 실패가 예외가 아니라 *그럴듯한 작은 숫자*로 나타난다.
+  → `range` 페이지네이션 + 회귀가 **DB 총계(head+count)와 대조**한다(상수를 적으면 같이 낡는다)
+- 상세 페이지 제목 — 복원 만화 110호가 전부 `복원 만화 · Vocaflow` **하나**였다(검색엔진에는
+  같은 제목 110개 = 중복 취급). `generateMetadata` 로 시리즈·호수·연도를 넣고 canonical 을 준다.
+  발행 도서 13권은 metadata 자체가 없어 루트 기본값이 나가고 있었다 — 제목·설명·canonical 추가
+- 사이트맵 조건을 **화면과 똑같이** 맞춘다(`copyright_safe_in_kr`) — 갈라지면 404 를 광고한다
+- 회귀 19 (기존 11 + 정적/콘텐츠 계약 4 + 실 DB anon·절단 4)
+
+### LCP: 실패한 도서를 되살릴 방법이 없다 — 83권 (마이그레이션 미적용)
+
+`library_books` 401권 중 `failed` **83권**의 사유가 하나뿐이다 — `fetch failed`.
+콘텐츠도 파싱도 아닌 **일시적 네트워크 오류**이고, 전부 `standard_ebooks`(377권 중 83권 = **22%**).
+되살릴 수 없던 이유가 세 겹이었다: ① `api/lcp/process` 가 catch 에서 status 를 `failed` 로 박고
+② 큐 메시지는 archive 로 치우고(주석: "admin 이 수동 검토") ③ **enqueue 트리거가 `AFTER INSERT`
+전용**이라 status 를 `queued` 로 되돌려도 큐에 안 들어간다. 설계는 "사람이 다시 민다" 였는데
+밀 손잡이가 없었다.
+
+- `supabase/migrations/_pending_lcp_requeue_failed.sql` — **미적용**(승인 대기).
+  `trg_lb_requeue` (AFTER UPDATE OF status, `WHEN` 절로 queued 진입만) — 함수는 이미
+  `status='queued'` 만 보므로 그대로 쓴다. WHEN 절이 없으면 queued 행을 건드릴 때마다
+  중복 메시지가 쌓인다. 발행 트리거는 `published` 전이에만 걸려 충돌하지 않는 것을 확인
+- 같은 파일에서 **발행 트리거 중복** 제거 — `trg_lb_publish_word_sets` 와
+  `trg_publish_book_word_sets_t` 가 정의가 완전히 동일해 발행마다 `publish_book_word_sets()` 가 두 번 돌았다
+
 ### 교사 채널이 어디서 끊기는가 — 대시보드에 두 격차 (파이프라인 완결)
 
 `funnel_events` 의 2종을 **볼 자리**를 만들었다. 숫자가 있어도 볼 화면이 없으면 아무도 안 본다 —

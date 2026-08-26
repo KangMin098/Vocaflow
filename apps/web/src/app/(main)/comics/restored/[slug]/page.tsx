@@ -8,6 +8,8 @@
 // 출처 표기는 선택이 아니다 — PD 여도 아카이브 출처를 밝히는 것이 신뢰의 문제고,
 // "1945년 원본을 복원했다"는 사실 자체가 이 콘텐츠의 매력이자 화질 기대치의 정직한 세팅이다.
 
+import { cache } from 'react'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -18,7 +20,40 @@ import { createClient } from '@/lib/supabase/server'
 import PdModernReader from '@/components/comic/PdModernReader'
 
 export const dynamic = 'force-dynamic'
-export const metadata = { title: '복원 만화 · Vocaflow' }
+/**
+ * 출처 조회를 한 번만 한다 — `generateMetadata` 와 본문이 같은 요청에서 각각 부르면 왕복이 두 배다.
+ * (supabase rpc 는 Next 의 fetch 중복 제거 대상이 아니다.)
+ */
+const provenanceOnce = cache(async (slug: string) => {
+  const client = (await createClient()) as unknown as SupabaseClient
+  return selectPdProvenance(client, slug)
+})
+
+/**
+ * 호마다 다른 제목을 준다.
+ *
+ * 그전까지 113호가 전부 `복원 만화 · Vocaflow` 하나였다 — 검색엔진에는 **같은 제목의 페이지 113개**로
+ * 보이고, 그건 중복 취급이라 대개 하나만 남고 나머지는 색인에서 빠진다.
+ * "1945년 원본" 이라는 사실 자체가 이 콘텐츠의 검색 가치라 연도와 시리즈를 제목에 넣는다.
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const prov = await provenanceOnce(params.slug)
+  if (!prov) return { title: '복원 만화 · Vocaflow' }
+
+  const issue = prov.issueNo ? ` #${prov.issueNo}` : ''
+  const year = prov.publishedYear ? ` (${prov.publishedYear})` : ''
+  const series = prov.seriesTitle ? `${prov.seriesTitle}${issue}` : `${prov.title}${issue}`
+
+  return {
+    title: `${series}${year} · 복원 만화 · Vocaflow`,
+    description: `${prov.title}${year} — 퍼블릭 도메인 만화를 컷 단위로 복원해 영어 원문 그대로 읽습니다.`,
+    alternates: { canonical: `/comics/restored/${params.slug}` },
+  }
+}
 
 const PD_BASIS_LABEL: Record<string, string> = {
   'pre-1929': '1929년 이전 발행 — 저작권 만료',
@@ -30,7 +65,7 @@ export default async function PdComicReaderPage({ params }: { params: { slug: st
   const client = (await createClient()) as unknown as SupabaseClient
   const [{ ready, data: panels }, prov] = await Promise.all([
     selectPdComic(client, params.slug),
-    selectPdProvenance(client, params.slug),
+    provenanceOnce(params.slug),
   ])
 
   // 스키마 미적용은 404 가 아니다 — 아직 준비 안 된 상태로 안내한다.

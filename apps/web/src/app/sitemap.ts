@@ -7,6 +7,11 @@
 //   `/library`·`/comics` 가 전부 빠져 있었고, 정적 파일이라 화면이 늘어도 아무도 갱신하지 않았다.
 //   검색으로 들어올 수 있는 문이 실제로는 하나였던 셈이다.
 //
+// 2026-08-26 — 여기에 **콘텐츠 상세**를 더했다. 그전까지 sitemap 은 정적 랜딩 9개뿐이었는데,
+//   로그인 없이 열리는 콘텐츠 상세가 126개(발행 도서 13 + 복원 만화 113) 있었다.
+//   검색 유입은 랜딩이 아니라 롱테일에서 온다 — 문을 126개 내고 9개만 알리고 있었다.
+//   목록은 `lib/seo/content-entries.ts` 가 **anon 권한으로** 만든다(못 읽으면 안 올린다).
+//
 // ⚠️ 여기 적은 경로는 **`requiresAuth` 로 검증**한다. 보호 경로를 sitemap 에 올리면
 //    크롤러가 로그인 화면을 색인하고, 그건 없는 것보다 나쁘다. 회귀가 이 계약을 강제한다.
 
@@ -14,6 +19,7 @@ import type { MetadataRoute } from 'next'
 
 import { requiresAuth } from '@/lib/auth/protected-routes'
 import { absoluteUrl } from '@/lib/seo/site'
+import { fetchContentEntries } from '@/lib/seo/content-entries'
 
 interface Entry {
   path: string
@@ -43,10 +49,19 @@ const ENTRIES: Entry[] = [
 /** 색인 후보 목록 — 회귀 테스트가 이걸 직접 검증한다. */
 export const SITEMAP_PATHS = ENTRIES.map((e) => e.path)
 
-export default function sitemap(): MetadataRoute.Sitemap {
+/**
+ * 콘텐츠 상세의 우선순위.
+ *
+ * 정적 카탈로그(0.6)보다 낮게 둔다 — 개별 작품은 롱테일이라 수가 많고, 카탈로그가
+ * 먼저 잡혀야 그 안에서 사람이 고를 수 있다. 0 으로 두지 않는 이유는 이 126개가
+ * 실제 검색 유입의 문이기 때문이다.
+ */
+const CONTENT_PRIORITY = 0.5
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date()
 
-  return ENTRIES
+  const staticEntries = ENTRIES
     // 보호 경로가 실수로 섞여 들어오면 조용히 뺀다 — 로그인 화면을 색인시키지 않는다.
     .filter((e) => !requiresAuth(e.path))
     .map((e) => ({
@@ -55,4 +70,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: e.changeFrequency,
       priority: e.priority,
     }))
+
+  // 콘텐츠가 없거나 DB 를 못 읽어도 정적 목록은 그대로 나간다.
+  const content = await fetchContentEntries()
+  const seen = new Set(staticEntries.map((e) => e.url))
+
+  const contentEntries = content
+    .filter((c) => !requiresAuth(c.path))
+    .map((c) => ({
+      url: absoluteUrl(c.path),
+      lastModified: c.lastModified ?? lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: CONTENT_PRIORITY,
+    }))
+    .filter((e) => {
+      if (seen.has(e.url)) return false
+      seen.add(e.url)
+      return true
+    })
+
+  return [...staticEntries, ...contentEntries]
 }
