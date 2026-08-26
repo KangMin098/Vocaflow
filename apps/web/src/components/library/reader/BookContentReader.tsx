@@ -157,6 +157,8 @@ export function BookContentReader({
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [handleKeyDown])
 
+  const Heading = mode === 'user-preview' ? 'h1' : 'h2'
+
   const activeContent = contentCache[activeIdx] ?? null
   const activeSamples = sampleCache[activeIdx] ?? []
 
@@ -169,9 +171,15 @@ export function BookContentReader({
       {/* Header */}
       <header className="flex items-center justify-between gap-4 border-b border-[var(--bd)] bg-[var(--bg2)] px-5 py-3">
         <div className="min-w-0 flex-1">
-          <h2 className="line-clamp-1 font-display text-[16px] font-[700] text-[var(--t1)]">
+          {/*
+            미리보기(비로그인 착지점)에서는 이 제목이 **그 페이지의 h1** 이다.
+            도서 상세에는 다른 h1 이 없어서, 그대로 두면 검색엔진과 스크린리더가
+            "무엇에 관한 페이지인가" 를 알 방법이 없다(2026-08-26 실측 — h1 0개).
+            admin-review 는 검수 도구 안의 한 구획이라 h2 가 맞다.
+          */}
+          <Heading className="line-clamp-1 font-display text-[16px] font-[700] text-[var(--t1)]">
             {bookTitle}
-          </h2>
+          </Heading>
           <p className="mt-0.5 line-clamp-1 font-body text-[12px] text-[var(--t2)]">
             {bookAuthor ?? '저자 미상'}
             {cefrLevel && (

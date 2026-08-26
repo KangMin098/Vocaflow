@@ -264,7 +264,8 @@ function ArticlePreview({
               href={a.source_url}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              className="inline-flex items-center gap-1 underline decoration-[var(--bd)] underline-offset-2 transition-colors hover:text-[var(--t1)]"
+              // 푸터의 독립 링크라 문장 속이 아니다 — 44px 히트영역을 준다.
+              className="inline-flex min-h-[44px] items-center gap-1 underline decoration-[var(--bd)] underline-offset-2 transition-colors hover:text-[var(--t1)]"
             >
               출처 {a.feed_label ?? a.source ?? '원문'}
               <ExternalLink size={11} aria-hidden />

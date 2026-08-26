@@ -45,7 +45,7 @@ export default async function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col bg-[var(--bg)] text-[var(--t1)]">
       <header className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-[var(--bd)] bg-[var(--bg)]/90 px-4 backdrop-blur lg:px-8">
-        <Link href="/" className="flex items-center gap-2" aria-label="Vocaflow 홈">
+        <Link href="/" className="flex min-h-[44px] items-center gap-2" aria-label="Vocaflow 홈">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--p)] text-white">
             <Sparkles size={16} aria-hidden />
           </span>
@@ -170,7 +170,8 @@ function FooterLink({ href, children }: { href: string; children: React.ReactNod
   return (
     <Link
       href={href}
-      className="font-body text-[12px] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+      // 푸터도 내비게이션이다 — 폰에서 누르는 곳이라 44px 히트영역을 준다(글자 크기는 그대로).
+      className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center font-body text-[12px] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
     >
       {children}
     </Link>
