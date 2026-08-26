@@ -15,7 +15,7 @@ import { notFound } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { ArrowLeft } from 'lucide-react'
 
-import { selectPdComic, selectPdProvenance } from '@/lib/pd-comic/queries'
+import { listPdComics, selectPdComic, selectPdComicInfo, selectPdProvenance } from '@/lib/pd-comic/queries'
 import { comicIssueJsonLd } from '@/lib/seo/structured-data'
 import { createClient } from '@/lib/supabase/server'
 import PdModernReader from '@/components/comic/PdModernReader'
@@ -28,6 +28,44 @@ export const dynamic = 'force-dynamic'
 const provenanceOnce = cache(async (slug: string) => {
   const client = (await createClient()) as unknown as SupabaseClient
   return selectPdProvenance(client, slug)
+})
+
+/**
+ * **같은 시리즈의 이웃 호** — 만화는 연재물이라 다음 호로 이어 읽는 것이 자연스럽다.
+ *
+ * 그전에는 이 화면의 출구가 "복원 만화 목록" 하나였다. 목록은 시리즈 단위라,
+ * 한 호를 다 읽은 사람이 다음 호로 가려면 두 번 거슬러 올라가야 했다.
+ * 크롤러도 같다 — 110호가 sitemap 으로만 이어져 있고 서로를 가리키지 않으면
+ * 검색엔진이 시리즈를 하나의 연재로 읽지 않는다.
+ *
+ * ⚠️ 호수(`issue_no`)를 믿고 정렬하지 않는다. 발행 중 가장 큰 시리즈
+ *    (`super-mystery-comics`, 33호)는 **호수가 전부 `null`** 이고,
+ *    `Atomic War!` 는 9호가 번호 4개를 나눠 쓴다(2026-08-26 실측).
+ *    그래서 호수가 있으면 호수로, 없으면 slug 로 — 어느 쪽이든 **순서가 흔들리지 않게** 한다.
+ */
+const siblingsOnce = cache(async (slug: string, seriesKey: string | null) => {
+  if (!seriesKey) return { prev: null, next: null, total: 0 }
+
+  const client = (await createClient()) as unknown as SupabaseClient
+  const { data } = await listPdComics(client, seriesKey)
+
+  const ordered = [...data].sort((a, b) => {
+    const an = a.issueNo,
+      bn = b.issueNo
+    if (an != null && bn != null && an !== bn) return an - bn
+    if (an != null && bn == null) return -1
+    if (an == null && bn != null) return 1
+    return a.slug.localeCompare(b.slug)
+  })
+
+  const i = ordered.findIndex((x) => x.slug === slug)
+  if (i < 0) return { prev: null, next: null, total: ordered.length }
+
+  return {
+    prev: ordered[i - 1] ?? null,
+    next: ordered[i + 1] ?? null,
+    total: ordered.length,
+  }
 })
 
 /**
@@ -64,9 +102,10 @@ const PD_BASIS_LABEL: Record<string, string> = {
 
 export default async function PdComicReaderPage({ params }: { params: { slug: string } }) {
   const client = (await createClient()) as unknown as SupabaseClient
-  const [{ ready, data: panels }, prov] = await Promise.all([
+  const [{ ready, data: panels }, prov, info] = await Promise.all([
     selectPdComic(client, params.slug),
     provenanceOnce(params.slug),
+    selectPdComicInfo(client, params.slug),
   ])
 
   // 스키마 미적용은 404 가 아니다 — 아직 준비 안 된 상태로 안내한다.
@@ -120,6 +159,8 @@ export default async function PdComicReaderPage({ params }: { params: { slug: st
             .map((b) => ({ type: b.kind === 'caption' ? 'caption' as const : 'balloon' as const, x: b.box!.x, y: b.box!.y, w: b.box!.w, h: b.box!.h, text: b.text })),
         }))}
       />
+
+      <SeriesNav slug={params.slug} seriesKey={info?.seriesKey ?? null} seriesTitle={info?.seriesTitle ?? null} />
 
       {prov && <Provenance prov={prov} panels={panels.length} />}
     </div>
@@ -178,6 +219,64 @@ function Provenance({
         </div>
       </dl>
     </footer>
+  )
+}
+
+/**
+ * 이전 호 · 다음 호 — 이 화면의 **두 번째 출구**.
+ *
+ * 목록(`/comics/restored`)은 시리즈 단위라, 한 호를 다 읽은 사람이 다음 호로 가려면
+ * 두 번 거슬러 올라가야 했다. 연재물에서 그건 사실상 막다른 길이다.
+ */
+async function SeriesNav({
+  slug,
+  seriesKey,
+  seriesTitle,
+}: {
+  slug: string
+  seriesKey: string | null
+  seriesTitle: string | null
+}) {
+  const { prev, next, total } = await siblingsOnce(slug, seriesKey)
+  if (!prev && !next) return null
+
+  return (
+    <nav
+      aria-label="같은 시리즈"
+      className="mt-6 flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-4"
+    >
+      <p className="m-0 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+        {seriesTitle ?? '같은 시리즈'}
+        {total > 0 && <span className="ml-2 font-mono text-[10px] text-[var(--t3)]">{total}권</span>}
+      </p>
+      <div className="flex flex-wrap gap-2">
+        {prev && <IssueLink issue={prev} label="이전 호" />}
+        {next && <IssueLink issue={next} label="다음 호" />}
+      </div>
+    </nav>
+  )
+}
+
+function IssueLink({
+  issue,
+  label,
+}: {
+  issue: { slug: string; title: string; issueNo: number | null }
+  label: string
+}) {
+  return (
+    <Link
+      href={`/comics/restored/${issue.slug}`}
+      className="inline-flex min-h-11 flex-1 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] px-3 font-body text-[12.5px] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+    >
+      <span className="shrink-0 font-mono text-[10px] uppercase tracking-wide text-[var(--t3)]">
+        {label}
+      </span>
+      <span className="line-clamp-1">
+        {issue.issueNo != null ? `#${issue.issueNo} ` : ''}
+        {issue.title}
+      </span>
+    </Link>
   )
 }
 
