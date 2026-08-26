@@ -1,0 +1,94 @@
+{
+ "items": [
+  {
+   "id": "H1",
+   "src": "2014B 25",
+   "answer": 3,
+   "choices": [
+    "the physical reason why the note A must be fixed at 440 Hz",
+    "the decline of baroque music after a new tuning standard spread",
+    "the arbitrary nature of pitch standards and its effect on sound",
+    "a physical law that fixes one note at a single frequency",
+    "how a rock group earned its fame by retuning"
+   ],
+   "metrics": {
+    "confusion": 0.020622684211145596,
+    "distractorPassage": 0.02949344080549674,
+    "accessibility": 0.05642923872650256,
+    "baitGap": -0.026935797921005818
+   }
+  },
+  {
+   "id": "H2",
+   "src": "2014A 26",
+   "answer": 4,
+   "choices": [
+    "why a hiker should fear a bear more than a snake",
+    "the chemistry of the poison a serpent carries",
+    "how often a sting proves fatal to an allergic person",
+    "why small animals are more dangerous to hikers than large ones",
+    "the habits that keep a tiger away from a mountain trail"
+   ],
+   "metrics": {
+    "confusion": 0.028139972677866866,
+    "distractorPassage": 0.024850863249978133,
+    "accessibility": 0.11485194889292137,
+    "baitGap": -0.09000108564294323
+   }
+  },
+  {
+   "id": "H3",
+   "src": "2015 22",
+   "answer": 2,
+   "choices": [
+    "how people choose which moral principles to accept",
+    "what accepting a moral principle involves beyond belief",
+    "the guilt a person feels when others violate a moral principle",
+    "how a community agrees on which rules to teach the young",
+    "the shame felt at a neighbour's wrongdoing rather than one's own"
+   ],
+   "metrics": {
+    "confusion": 0.09052761228631029,
+    "distractorPassage": 0.04781949308311646,
+    "accessibility": 0.061226339915883575,
+    "baitGap": -0.013406846832767112
+   }
+  },
+  {
+   "id": "H4",
+   "src": "2016 23",
+   "answer": 5,
+   "choices": [
+    "evidence that people age biologically at the same rate",
+    "proof that everyone declines at one steady rate",
+    "why counting years describes a person better than biology does",
+    "a single marker that has already replaced the calendar",
+    "the difficulty of measuring a biological age that differs among people"
+   ],
+   "metrics": {
+    "confusion": 0.0761625149174367,
+    "distractorPassage": 0.02740540011999258,
+    "accessibility": 0.03916756280085857,
+    "baitGap": -0.011762162680865992
+   }
+  },
+  {
+   "id": "H5",
+   "src": "2017 22",
+   "answer": 1,
+   "choices": [
+    "the ambiguity of language as a strength rather than a defect",
+    "the superiority of bee signs over language in exchanging information",
+    "how language grew less reliable as a medium for exchanging meaning",
+    "advice for a writer who wishes to remove every vagueness",
+    "how a shared code loses reliability as it spreads"
+   ],
+   "metrics": {
+    "confusion": 0.03864312631090719,
+    "distractorPassage": 0.026449392907623236,
+    "accessibility": 0.03684531257774534,
+    "baitGap": -0.010395919670122107
+   }
+  }
+ ]
+}

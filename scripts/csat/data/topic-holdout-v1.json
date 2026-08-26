@@ -1,0 +1,45 @@
+{
+ "note": "주제 유형 오답 홀드아웃 — 기출 지문 5편에 선지만 새로 썼다. 수치를 계산하지 않고 §6.12 의 말로 된 지침만 따랐다.",
+ "items": [
+  { "id": "H1", "src": "2014B 25", "answer": 3,
+    "choices": [
+     "the physical reason why the note A must be fixed at 440 Hz",
+     "how a band's tuning choice decided its popularity in the 70s",
+     "the arbitrary nature of pitch standards and its effect on sound",
+     "the difficulty of tuning period instruments to a modern standard",
+     "the decline of baroque music after a new tuning standard spread"
+    ] },
+  { "id": "H2", "src": "2014A 26", "answer": 4,
+    "choices": [
+     "why large animals are more dangerous to hikers than small ones",
+     "how small animals developed poison to overcome their size",
+     "the number of hikers killed by bee stings every year",
+     "why small animals are more dangerous to hikers than large ones",
+     "common sense advice for hikers who meet a tiger or a bear"
+    ] },
+  { "id": "H3", "src": "2015 22", "answer": 2,
+    "choices": [
+     "how people choose which moral principles to accept",
+     "what accepting a moral principle involves beyond belief",
+     "the guilt a person feels when others violate a moral principle",
+     "why some moral principles are better justified than others",
+     "why a moral code tends to conflict with practical conduct"
+    ] },
+  { "id": "H4", "src": "2016 23", "answer": 5,
+    "choices": [
+     "evidence that people age biologically at the same rate",
+     "the parts of the body in which age changes begin first",
+     "why chronological age measures aging better than biology does",
+     "a single measurable change that mirrors all other age changes",
+     "the difficulty of measuring a biological age that differs among people"
+    ] },
+  { "id": "H5", "src": "2017 22", "answer": 1,
+    "choices": [
+     "the ambiguity of language as a strength rather than a defect",
+     "the superiority of bee signs over language in exchanging information",
+     "why speakers should express their ideas more precisely than they do",
+     "the effort listeners make to recover a speaker's exact intention",
+     "how language grew less reliable as a medium for exchanging meaning"
+    ] }
+ ]
+}

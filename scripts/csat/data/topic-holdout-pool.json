@@ -1,0 +1,90 @@
+{
+ "note": "홀드아웃 1판+2판 오답을 합친 후보 풀 8개/문항. 정답 선지는 1판 그대로.",
+ "items": [
+  {
+   "id": "H1",
+   "src": "2014B 25",
+   "type": "R-TOPIC",
+   "key": "the arbitrary nature of pitch standards and its effect on sound",
+   "pool": [
+    "the physical reason why the note A must be fixed at 440 Hz",
+    "how a band's tuning choice decided its popularity in the 70s",
+    "the difficulty of tuning period instruments to a modern standard",
+    "the decline of baroque music after a new tuning standard spread",
+    "a physical law that fixes one note at a single frequency",
+    "how a rock group earned its fame by retuning",
+    "the craft of restoring an instrument from an earlier century",
+    "why nobody can hear a difference between two tuning systems"
+   ],
+   "answerSlot": 3
+  },
+  {
+   "id": "H2",
+   "src": "2014A 26",
+   "type": "R-TOPIC",
+   "key": "why small animals are more dangerous to hikers than large ones",
+   "pool": [
+    "why large animals are more dangerous to hikers than small ones",
+    "how small animals developed poison to overcome their size",
+    "the number of hikers killed by bee stings every year",
+    "common sense advice for hikers who meet a tiger or a bear",
+    "why a hiker should fear a bear more than a snake",
+    "the chemistry of the poison a serpent carries",
+    "how often a sting proves fatal to an allergic person",
+    "the habits that keep a tiger away from a mountain trail"
+   ],
+   "answerSlot": 4
+  },
+  {
+   "id": "H3",
+   "src": "2015 22",
+   "type": "R-TOPIC",
+   "key": "what accepting a moral principle involves beyond belief",
+   "pool": [
+    "how people choose which moral principles to accept",
+    "the guilt a person feels when others violate a moral principle",
+    "why some moral principles are better justified than others",
+    "why a moral code tends to conflict with practical conduct",
+    "how a community agrees on which rules to teach the young",
+    "the shame felt at a neighbour's wrongdoing rather than one's own",
+    "a test for deciding which standard is best justified",
+    "why a strong code tends to weaken in daily practice"
+   ],
+   "answerSlot": 2
+  },
+  {
+   "id": "H4",
+   "src": "2016 23",
+   "type": "R-TOPIC",
+   "key": "the difficulty of measuring a biological age that differs among people",
+   "pool": [
+    "evidence that people age biologically at the same rate",
+    "the parts of the body in which age changes begin first",
+    "why chronological age measures aging better than biology does",
+    "a single measurable change that mirrors all other age changes",
+    "proof that everyone declines at one steady rate",
+    "the organ in which decline can first be detected",
+    "why counting years describes a person better than biology does",
+    "a single marker that has already replaced the calendar"
+   ],
+   "answerSlot": 5
+  },
+  {
+   "id": "H5",
+   "src": "2017 22",
+   "type": "R-TOPIC",
+   "key": "the ambiguity of language as a strength rather than a defect",
+   "pool": [
+    "the superiority of bee signs over language in exchanging information",
+    "why speakers should express their ideas more precisely than they do",
+    "the effort listeners make to recover a speaker's exact intention",
+    "how language grew less reliable as a medium for exchanging meaning",
+    "the exactness that makes signalling among insects superior",
+    "advice for a writer who wishes to remove every vagueness",
+    "the work a reader does to recover an intended thought",
+    "how a shared code loses reliability as it spreads"
+   ],
+   "answerSlot": 1
+  }
+ ]
+}
