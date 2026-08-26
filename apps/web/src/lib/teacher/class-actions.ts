@@ -73,6 +73,44 @@ export async function noteInviteShared(): Promise<void> {
   await recordFunnel(client as unknown as SupabaseClient, 'invite_shared', { surface: '/teacher' })
 }
 
+export interface ClassPeek {
+  name: string
+  memberCount: number
+}
+
+/**
+ * 초대코드가 **가리키는 학급**을 보여준다 — 가입 전에, 익명으로.
+ *
+ * 왜 필요한가: 코드가 틀렸거나 오래됐을 때 가입을 마친 뒤에 알려 주면 그 사람은
+ * 계정만 하나 만들고 떠난다. 초대의 진위를 먼저 보여주는 것이 전환의 문제이자 정직함의 문제다.
+ *
+ * `classes` 의 RLS 는 비멤버에게 닫혀 있으므로 SECURITY DEFINER 함수를 쓴다
+ * (`join_class_by_code` 와 같은 이유). 돌려주는 것은 **이름과 인원뿐** —
+ * 교사의 신원은 담기지 않는다. 코드를 아는 사람은 어차피 그 학급에 들어갈 수 있으므로
+ * 노출 범위는 코드가 이미 주는 권한보다 좁다.
+ *
+ * 없는 코드면 `null`. 조회 실패도 `null` 이다 — 화면은 어느 쪽이든 "확인할 수 없다" 로
+ * 말하고 가입을 권하지 않는다.
+ */
+export async function peekClassByCode(code: string): Promise<ClassPeek | null> {
+  const c = (code ?? '').trim().toUpperCase()
+  if (c.length < 4) return null
+
+  const client = await createClient()
+  const { data, error } = await loose(client).rpc('peek_class_by_code', { p_code: c })
+  if (error) {
+    console.error('[peekClassByCode] 조회 실패', error.message)
+    return null
+  }
+
+  const row = (Array.isArray(data) ? data[0] : data) as
+    | { class_name?: string; member_count?: number }
+    | undefined
+  if (!row?.class_name) return null
+
+  return { name: row.class_name, memberCount: row.member_count ?? 0 }
+}
+
 /** 초대코드로 클래스 참여 (학생). */
 export async function joinClassByCode(code: string): Promise<{ ok: boolean; error?: string }> {
   const c = (code ?? '').trim().toUpperCase()

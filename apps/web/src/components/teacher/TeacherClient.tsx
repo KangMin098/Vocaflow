@@ -14,6 +14,7 @@ import {
   type MyMembership,
   type TeacherClass,
 } from '@/lib/teacher/class-actions'
+import { inviteUrl } from '@/lib/teacher/invite-link'
 
 export function TeacherClient({
   classes,
@@ -70,9 +71,21 @@ export function TeacherClient({
    * 2026-08-26 프로덕션 빌드가 이 누락을 no-unused-vars 로 잡았다. import 만 있고
    * 호출이 없었다 — 화면은 멀쩡히 돌고 계측만 조용히 죽어 있는 모양이었다.
    */
+  /**
+   * 학생에게 건네지는 것 — **코드가 아니라 링크다.**
+   *
+   * 2026-08-26 이전에는 `ABC123` 여섯 글자만 복사됐다. 그것을 받은 학생은
+   * ① 주소를 찾아 ② 가입하고 ③ `클래스` 화면을 찾아 ④ 코드를 붙여넣어야 했다 —
+   * ③ 은 학생이 스스로 도달할 이유가 없는 화면이다.
+   * 이제 `/join/ABC123` 이 그 넷을 한 번의 클릭으로 만든다.
+   *
+   * 코드 자체는 화면에 계속 보인다 — 링크를 못 여는 상황(칠판·인쇄물·구두 전달)에서
+   * 손으로 넣을 수 있어야 하고, 그 입력창도 이 화면에 그대로 있다.
+   */
   function copy(c: string) {
     // clipboard 가 없는 환경(비보안 컨텍스트 등)에서는 undefined 라 .then 이 터진다.
-    const written = navigator.clipboard?.writeText(c)
+    const origin = typeof window === 'undefined' ? '' : window.location.origin
+    const written = navigator.clipboard?.writeText(inviteUrl(origin, c))
     if (!written) return
 
     void written.then(() => {
@@ -189,7 +202,8 @@ export function TeacherClient({
                   type="button"
                   onClick={() => copy(c.invite_code)}
                   className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-mono text-[13px] font-[700] tracking-[0.12em] text-[var(--t1)] transition-colors hover:border-[var(--p)]"
-                  aria-label={`초대코드 ${c.invite_code} 복사`}
+                  aria-label={`${c.name} 초대 링크 복사 (코드 ${c.invite_code})`}
+                  title="초대 링크가 복사돼요 — 학생이 누르면 바로 참여 화면으로 갑니다"
                 >
                   {c.invite_code}
                   {copied === c.invite_code ? (

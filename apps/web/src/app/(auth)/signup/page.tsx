@@ -12,6 +12,14 @@
 //      예전엔 무조건 /verify-email 로 보내서, 자동 확인이 켜진 현재 설정에선
 //      **이미 로그인된 사용자에게 "메일을 확인하세요" 라는 오지 않을 메일을 기다리게** 했다.
 //
+// ── 복귀 경로(`?next=`)를 지킨다 (2026-08-26) ──────────────────────
+//   로그인은 `resolveReturnTo` 로 복귀 경로를 지키는데 **가입은 무조건 `/hub` 로 보냈다.**
+//   그래서 딥링크를 받고 온 사람이 가입을 마치면 원래 가려던 곳이 사라졌다 —
+//   하필 **초대받은 학생은 전원 신규 가입자**다. 교사가 초대 링크를 보내도
+//   학생이 그 링크로 가입하는 순간 학급 연결이 끊긴다.
+//   메일 인증 경로도 같다 — `emailRedirectTo` 에 `next` 를 실어 보내야
+//   콜백(`/api/auth/callback`)이 그것을 살린다(콜백은 이미 `safeInternalPath(next)` 우선이다).
+//
 // ⚠️ 약관 동의 시각: user_consents 테이블이 아직 없어 raw_user_meta_data 에 임시 저장.
 //    TODO Phase 3: user_consents 테이블 정식 마이그레이션 후 분리 저장.
 
@@ -19,8 +27,8 @@
 
 import { AlertCircle, ArrowRight, Lock, Mail, User as UserIcon } from 'lucide-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useMemo, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { Suspense, useMemo, useState } from 'react'
 
 import { Card } from '@/components/ui/Card'
 import { Checkbox } from '@/components/ui/Checkbox'
@@ -29,6 +37,7 @@ import { Input } from '@/components/ui/Input'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import { useToast } from '@/components/ui/Toast'
 import { mapSignupError } from '@/lib/auth/errors'
+import { RETURN_PARAM, resolveReturnTo } from '@/lib/auth/redirect'
 import {
   DISPLAY_NAME_MAX_LENGTH,
   encodeDisplayNameB64,
@@ -40,9 +49,12 @@ import {
 } from '@/lib/auth/validation'
 import { createClient } from '@/lib/supabase/client'
 
-export default function SignupPage() {
+function SignupForm() {
   const router = useRouter()
   const toast = useToast()
+  const searchParams = useSearchParams()
+  // 가입 후 갈 곳. 안전하지 않은 값이면 `resolveReturnTo` 가 `/hub` 로 떨어뜨린다.
+  const returnTo = resolveReturnTo(searchParams)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -109,7 +121,8 @@ export default function SignupPage() {
         email: email.trim(),
         password,
         options: {
-          emailRedirectTo: `${origin}/api/auth/callback`,
+          // 메일 인증을 거치는 설정에서도 복귀 경로가 살아 있어야 한다.
+          emailRedirectTo: `${origin}/api/auth/callback?${RETURN_PARAM}=${encodeURIComponent(returnTo)}`,
           // raw_user_meta_data — handle_new_user() 트리거가 user_profiles 생성 시 사용
           data: {
             ...(asciiName
@@ -144,14 +157,17 @@ export default function SignupPage() {
       if (data.session) {
         // 자동 확인(mailer_autoconfirm) — 이미 로그인 상태다. 대기 화면은 거짓말이 된다.
         toast.success('가입이 완료되었어요. 바로 시작해볼까요?', { title: '환영합니다 🎉' })
-        router.push('/hub')
+        router.push(returnTo)
         router.refresh()
         return
       }
 
       // 메일 인증 대기 — /verify-email 에서 재발송 안내
       toast.success('가입 완료! 이메일을 확인해주세요.', { title: '환영합니다 🎉' })
-      router.push(`/verify-email?email=${encodeURIComponent(email.trim())}`)
+      router.push(
+        `/verify-email?email=${encodeURIComponent(email.trim())}` +
+          `&${RETURN_PARAM}=${encodeURIComponent(returnTo)}`,
+      )
     } catch (err) {
       setAuthError(mapSignupError(err instanceof Error ? err.message : null))
     } finally {
@@ -361,5 +377,30 @@ export default function SignupPage() {
         </p>
       </form>
     </Card>
+  )
+}
+
+/** useSearchParams 사용 컴포넌트를 감싸는 로딩 골격 (Suspense fallback). */
+function SignupSkeleton() {
+  return (
+    <Card variant="elevated" padding="lg" className="rounded-xl">
+      <div className="flex h-72 items-center justify-center">
+        <span
+          className="border-current/30 h-5 w-5 animate-spin rounded-full border-2 border-t-current text-t3"
+          role="status"
+          aria-label="가입 화면 준비 중"
+        />
+      </div>
+    </Card>
+  )
+}
+
+export default function SignupPage() {
+  // useSearchParams 는 Suspense 경계가 없으면 페이지 전체가 CSR 로 이탈한다 (Next 14).
+  // 로그인 화면이 같은 이유로 같은 모양을 하고 있다.
+  return (
+    <Suspense fallback={<SignupSkeleton />}>
+      <SignupForm />
+    </Suspense>
   )
 }

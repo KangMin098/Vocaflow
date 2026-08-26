@@ -1034,6 +1034,27 @@ where schemaname='public'
   검증 + `role='student'` 고정)이라 이 정책은 **쓰이지 않는 우회로**였다. 그래서 그냥 제거했다.
 - 현재 `classes`·`class_members` 0행 (B2B 기능 미출시) — 잠재 결함이었다.
 
+#### `peek_class_by_code(p_code text)` — 초대 링크가 가입 **전에** 학급을 보여준다 (20260826120000)
+
+`RETURNS TABLE(class_name text, member_count integer)` · `STABLE SECURITY DEFINER` ·
+`GRANT EXECUTE TO anon, authenticated`.
+
+교사가 공유하는 것이 코드에서 **링크(`/join/[code]`)** 로 바뀌면서 필요해졌다. 그 화면은
+익명 방문자에게 열리는데 `classes` 의 RLS 는 비멤버에게 닫혀 있다(`join_class_by_code` 가
+SECURITY DEFINER 인 것과 같은 이유).
+
+- **왜 가입 전인가**: 코드가 틀렸을 때 가입을 마친 뒤 알려 주면 그 사람은 계정만 만들고 떠난다.
+- **무엇을 감추나**: 교사의 신원(id·이메일·이름)은 돌려주지 않는다. 이름과 인원뿐이다.
+- **노출 범위**: 코드를 아는 사람은 이미 `join_class_by_code` 로 그 학급에 들어갈 수 있다.
+  이름을 보는 것은 그보다 **좁은** 권한이다. 코드는 32자 알파벳 6자리(약 10.7억)라
+  열거해도 얻는 것이 학급 이름 하나다.
+
+**회귀 락** — `apps/web/src/lib/teacher/__tests__/invite-rpc.integration.test.ts` (4건):
+익명 실행 권한 · 없는 코드에 0행 · 반환 컬럼이 `class_name`/`member_count` 뿐 ·
+비로그인 `join_class_by_code` 가 NULL(공개 GET 만으로 가입되지 않는다).
+**GRANT 는 마이그레이션 한 줄이라 다음 함수 교체 때 조용히 빠질 수 있고, 빠지면
+유효한 초대까지 전부 "확인할 수 없어요" 로 보인다** — 정상 실패 화면과 구별되지 않는다.
+
 **회귀 락** — `apps/web/src/lib/auth/__tests__/rls-surface.integration.test.ts` (14건).
 고아 테이블 anon/authenticated 읽기·쓰기 차단 + `pass_hash` 컬럼 지정 조회 차단 +
 직접 가입/역할 자칭 차단 + **정상 초대코드 경로가 살아 있는지**(과잉 차단 방지)까지 단언한다.

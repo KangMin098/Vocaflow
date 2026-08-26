@@ -11,7 +11,7 @@
 | 그룹 | URL | 인증 | 레이아웃 |
 |---|---|---|---|
 | `(auth)` | `/login` / `/signup` / `/reset-password` / `/verify-email` | 미인증 | 헤더 없음 |
-| `(marketing)` | `/about` / `/fit` / `/fit/s/[payload]` / `/pricing` / `/privacy` / `/terms` | 공개 | 랜딩 + 지문 진단 |
+| `(marketing)` | `/about` / `/fit` / `/fit/s/[payload]` / `/join/[code]` / `/pricing` / `/privacy` / `/terms` | 공개 | 랜딩 + 지문 진단 + 학급 초대 |
 | `(main)` | `/hub` / `/text/*` / `/wordvault/*` 등 | 인증 필요 | Sidebar + FlowNav + SessionFrame |
 | `(app)` | `/play/wordblitz` / `/play/pirate-quest` | 인증 | 풀스크린 (Sidebar X · SessionFrame ✓) |
 | `admin/*` | `/admin/*` | admin/curator only | AdminSidebar |
@@ -141,6 +141,7 @@
 | `/about` | 소개 |
 | **`/fit`** | **지문 난이도 진단** — 로그인 없이 학년별 어휘 커버리지 곡선. 가입 전 가치 노출(교사 채널 CAC 0). 분석은 `/api/fit`(서버 메모리 맵 + IP 레이트리밋) · 입력 지문 미저장 · 학습자 표면 아님(F5 분모 제외) · 색인 대상 |
 | **`/fit/s/[payload]`** | **공유받은 결과** — 결과가 URL 에 통째로 담긴다(서버 저장 0). `opengraph-image.tsx` 가 학년별 곡선을 그린 미리보기 PNG 생성(edge 런타임). `noindex` + canonical→`/fit`. ⚠️ 쿼리(`?r=`)가 아니라 **경로 세그먼트**인 이유: `opengraph-image` 는 `searchParams` 를 못 받는다 |
+| **`/join/[code]`** | **학급 초대 링크** — 교사가 복사하는 것이 코드가 아니라 이 주소다. 그전에는 맨 코드 6자였고, 받은 학생은 ①주소 찾기 ②가입 ③`클래스` 화면 찾기 ④붙여넣기 넷을 스스로 해야 했다(③은 도달할 이유가 없는 화면). 익명에게 학급 이름·인원을 **가입 전에** 보여준다(`peek_class_by_code`). 참여는 버튼 한 번 — 공개 GET 이 가입을 일으키면 링크 미리보기·prefetch 만으로 들어간다. `noindex, nofollow`(초대는 받은 사람의 것) · sitemap 제외 |
 | `/pricing` | 요금 |
 | `/privacy` | 개인정보 |
 | `/terms` | 약관 |

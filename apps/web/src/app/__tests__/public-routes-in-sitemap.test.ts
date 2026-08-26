@@ -29,6 +29,12 @@ const APP = join(process.cwd(), 'src', 'app')
  */
 const NOT_INDEXED: ReadonlyArray<{ prefix: string; why: string }> = [
   { prefix: '/fit/s/', why: '공유 결과는 파생물 — robots 가 막고 페이지도 noindex 다' },
+  {
+    prefix: '/join/',
+    why:
+      '학급 초대 링크 — **받은 사람의 것**이지 검색될 것이 아니다. 코드가 검색 결과에 실리면 ' +
+      '초대가 초대가 아니게 된다(페이지가 robots:{index:false} 를 낸다)',
+  },
   { prefix: '/library/textbooks/', why: '교재 계단은 학습자 진도용 화면 (카탈로그가 아니다)' },
   { prefix: '/text/', why: '내가 넣은 개인 본문 — 보호 경로' },
   {
