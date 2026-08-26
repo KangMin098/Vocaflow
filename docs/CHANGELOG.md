@@ -10,6 +10,38 @@
 
 ## Unreleased (v06.34 → next)
 
+### 두 파이프라인 후처리 대조 — lemma 말고 더 있나 (대부분 정상)
+
+lemma 누락이 "도서에 있고 글에 없는 단계" 였으므로, 같은 종류가 더 있는지 LCP·ACP 의
+후처리를 나란히 놓고 봤다.
+
+| 도서(LCP) 후처리 | 글(ACP) |
+|---|---|
+| `backfill_book_lemmas` | **없음** — 앞 사이클에서 다룸 |
+| `compute_book_vrl` | `compute_article_vrl` ✓ |
+| `compute_book_chapter_v_levels` | 챕터 개념이 없어 무관 |
+| `compute_book_cefrj` · `compute_book_coverage` · `collect_archaic_candidates` | **함수 자체가 없다** |
+| 표지 해결(`resolveCoverImageUrlWithSeed`) | **없음** |
+| — | `compute_article_syntax` (CTP — 도서에 없는 쪽) |
+
+**"호출을 빠뜨린" 것은 lemma 하나뿐이다.** 나머지는 글용 함수가 애초에 없다
+(`compute_article_*` 은 vrl·syntax 둘뿐이고 **둘 다 호출된다**). 미구현이지 누락이 아니다.
+
+실측으로 확인한 것 — 779개 글(발행 160 + 대기 619):
+
+| | |
+|---|---|
+| `cefr_level` · `article_v_level` · `register` | **전부 채워짐** |
+| **`cover_image_url`** | **전부 0** |
+
+표지는 `cover_image_meta` · `cover_verified_at` 까지 컬럼이 셋 있는데 **채우는 코드가 없다.**
+설계는 됐고 구현이 안 된 자리다. 학습 가치에는 직접 영향이 없고(카탈로그는 그라데이션 폴백)
+lemma 만큼 급하지 않지만, **공유·검색 미리보기에는 영향이 있다** — 같은 날 만든 글 상세
+160개가 공유될 때 걸 이미지가 없다.
+
+이 사이클은 고칠 것을 찾지 못했다. 그것 자체가 결과다 — 앞 사이클의 lemma 가
+"흔한 패턴" 이 아니라 **단발 결함**이었음을 확인했다.
+
 ### lemma 공백의 원인 — ACP 에 파이프라인 한 단계가 통째로 빠져 있었다
 
 앞 사이클에서 "글 어휘 132,476행의 lemma 가 전부 NULL" 을 쟀다. 코드를 따라가 원인을 찾았다.
