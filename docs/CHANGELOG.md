@@ -10,6 +10,35 @@
 
 ## Unreleased (v06.34 → next)
 
+### 공유 카드를 세 서가로 — 콘텐츠 279개가 그림 있는 링크가 된다
+
+앞 사이클에서 짧은 글에 붙인 카드를 도서·만화로 넓혔다. 먼저 **공유 모듈로 뽑았다** —
+세 라우트가 각자 그리면 반드시 갈라지고, 공유 카드는 **브랜드가 처음 보이는 자리**라
+갈라지면 더 티가 난다(이 저장소가 이름·경로·수치·목록에서 이미 네 번 겪은 모양이다).
+
+- `lib/seo/og-card.tsx` — 카드 모양의 단일 출처. 머리(서가 이름) · 제목 · 부제 · 배지 · 출처
+- 각 `opengraph-image.tsx` 는 **데이터만 조회**한다. 조건은 화면과 같게 맞춘다
+- 표지·컷 이미지를 배경으로 쓰지 않는다 — 외부 호스트(Gutenberg·SE·GCS·IA)에 있어서,
+  크롤러가 여러 번 가져가는 자리를 **남의 서버 상태에 묶지 않는다.**
+  우리 스토리지로 옮기면 그때 얹으면 된다
+
+실측(dev · 셋 다 200 · 1200×630):
+
+| | 카드 |
+|---|---|
+| 글 | `Prague` / Wikivoyage contributors / **B2 · V5 · 13,942 words** / wikivoyage |
+| 도서 | `Ammachi's Amazing Machines` / Rajiv Eipe / **A2 · V2 · 182 words · 1 ch** |
+| 만화 | `Super Mystery Comics Issue v06n06` / internet-archive |
+
+⚠️ **만화 카드가 처음엔 비어 있었다** — 제목이 폴백 `Vocaflow` 였다.
+`source_archive` 로 select 했는데 그건 `selectPdProvenance` **RPC 가 매핑한 이름**이고
+표에는 `source_adapter` 다. PostgREST 가 400 을 냈고 카드는 조용히 폴백으로 그려졌다.
+**상태 코드 200 · 14 KB 로는 알 수 없었다** — 이미지를 열어 봐야 보이는 실패다.
+(앞 사이클의 폰트 섞임도 같은 종류였다. 지표가 아니라 결과물을 봐야 하는 자리가 있다.)
+
+만화 배지가 비는 것은 **정직한 표시**다 — 이 호는 `issue_no`·`published_year` 가 없다
+(`super-mystery-comics` 33호는 권-호 체계라 통권 번호가 없다 — 앞 사이클에서 확인).
+
 ### 짧은 글 160개에 공유 미리보기 — 걸 이미지가 없었다
 
 앞 사이클에서 `library_articles` 의 표지 컬럼 셋이 **779개 글 전부 비어 있음**을 확인했다
