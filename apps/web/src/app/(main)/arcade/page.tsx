@@ -55,7 +55,7 @@ import {
 } from '@/lib/game/catalog';
 import { createClient } from '@/lib/supabase/server';
 
-export const metadata = { title: 'Game Lab · Vocaflow' };
+export const metadata = { title: 'Game Lab' };
 export const dynamic = 'force-dynamic';
 
 /** 최소 mine 게임(minWords 4~6) 을 채우려면 이만큼은 있어야 한다. */

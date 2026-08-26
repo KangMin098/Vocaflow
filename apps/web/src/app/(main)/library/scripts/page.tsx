@@ -14,7 +14,7 @@ import type { PublishedArticle } from '@/lib/articles/types'
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 
 export const metadata = {
-  title: '스크립트 — Vocaflow Library',
+  title: 'Dispatches',
   description: '큐레이션된 짧은 영어 글',
 }
 

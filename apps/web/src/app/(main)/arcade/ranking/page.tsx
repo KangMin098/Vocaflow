@@ -32,7 +32,7 @@ import {
 } from '@/lib/game/ranking'
 import { createClient } from '@/lib/supabase/server'
 
-export const metadata = { title: '랭킹 · Game Lab · Vocaflow' }
+export const metadata = { title: '랭킹 · Game Lab' }
 export const dynamic = 'force-dynamic'
 
 /** 한 화면에 그릴 순위표 수 — 전 19종을 세로로 깔면 목록이지 랭킹이 아니다. */

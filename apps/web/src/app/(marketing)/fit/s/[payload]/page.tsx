@@ -30,7 +30,7 @@ interface Params {
 export function generateMetadata({ params }: Params): Metadata {
   const shared = decodeProfile(params.payload)
   if (!shared) {
-    return { title: '지문 난이도 진단 · Vocaflow', robots: { index: false, follow: true } }
+    return { title: '지문 난이도 진단', robots: { index: false, follow: true } }
   }
 
   const headline = profileHeadline(shared)

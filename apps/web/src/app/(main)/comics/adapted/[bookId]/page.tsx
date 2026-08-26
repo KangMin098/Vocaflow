@@ -24,7 +24,7 @@ interface PageProps {
 }
 
 export const metadata = {
-  title: '만화 미리보기 — Vocaflow Library',
+  title: '만화 미리보기',
   description: '같은 책, 그림으로 먼저 만나는 입구',
 }
 

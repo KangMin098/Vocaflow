@@ -21,7 +21,7 @@ import {
 } from '@/components/library/browse/ComicsBrowser'
 
 export const metadata = {
-  title: '만화 — Vocaflow Library',
+  title: '만화',
   description: '큐레이션된 영어 원서를 만화로 — 같은 책, 그림으로 먼저 만나는 입구',
 }
 

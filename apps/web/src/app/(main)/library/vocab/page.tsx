@@ -17,7 +17,7 @@ import {
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 
 export const metadata = {
-  title: '공용 단어장 · Vocaflow',
+  title: '공용 단어장',
   description: '함께 만든 어휘 자산 — 큐레이션된 단어 컬렉션을 내 단어장에 추가하세요.',
 }
 

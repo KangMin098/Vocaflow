@@ -29,7 +29,7 @@ import { createClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 export const metadata = {
-  title: '복원 만화 · Vocaflow',
+  title: '복원 만화',
   description: '퍼블릭 도메인 만화를 디지털 복원해 읽습니다',
 }
 

@@ -91,7 +91,7 @@ const SECTIONS: LegalSection[] = [
 ]
 
 export const metadata = {
-  title: '이용약관 · Vocaflow',
+  title: '이용약관',
 }
 
 export default function TermsPage() {

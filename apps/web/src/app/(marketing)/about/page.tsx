@@ -130,7 +130,7 @@ const MODULES: Module[] = [
 ]
 
 export const metadata = {
-  title: '소개 · Vocaflow',
+  title: '소개',
   description: '영어를 오래 가게 만드는 학습 — 학습 철학 4개 + 학습 과학 7개를 도구로 합니다.',
 }
 

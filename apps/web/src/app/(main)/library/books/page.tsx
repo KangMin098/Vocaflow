@@ -19,7 +19,7 @@ import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 const HERO_N = 4;
 
 export const metadata = {
-  title: '도서 — Vocaflow Library',
+  title: '도서',
   description: '큐레이션된 영어 학습 자료',
 };
 

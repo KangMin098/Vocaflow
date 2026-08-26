@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: absoluteUrl('/fit'),
-    title: '이 지문, 우리 반에 맞을까? · Vocaflow',
+    title: '이 지문, 우리 반에 맞을까?',
     description: BASE_DESC,
   },
 }

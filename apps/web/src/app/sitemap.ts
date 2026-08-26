@@ -41,7 +41,13 @@ const ENTRIES: Entry[] = [
   { path: '/about', changeFrequency: 'monthly', priority: 0.7 },
   { path: '/library/books', changeFrequency: 'weekly', priority: 0.6 },
   { path: '/library/vocab', changeFrequency: 'weekly', priority: 0.6 },
-  { path: '/comics', changeFrequency: 'weekly', priority: 0.5 },
+  // ACP 공개 짧은 글(Dispatches) — 빠져 있었다.
+  { path: '/library/scripts', changeFrequency: 'weekly', priority: 0.6 },
+  // ⚠️ `/comics` 는 **리다이렉트**다(→ `/comics/adapted`). sitemap 에 리다이렉트를 올리면
+  //    크롤 예산이 한 번 더 왕복하는 데 쓰이고, 정작 **실제 목록 두 개가 빠져 있었다** —
+  //    같은 날 복원 만화 상세 110개를 올려 놓고 그리로 가는 카탈로그 문은 색인되지 않았다.
+  { path: '/comics/adapted', changeFrequency: 'weekly', priority: 0.5 },
+  { path: '/comics/restored', changeFrequency: 'weekly', priority: 0.5 },
   { path: '/terms', changeFrequency: 'yearly', priority: 0.2 },
   { path: '/privacy', changeFrequency: 'yearly', priority: 0.2 },
 ]
