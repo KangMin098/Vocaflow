@@ -1,0 +1,186 @@
+{
+ "note": "v4 — **소스를 고른 것이 아니라 유형별 대역을 겨냥해 썼다.** §10.14 가 보인 대로 저장소 재고에는 네 축을 동시에 만족하는 글이 0편이다(낱말 길이 4.85~5.25 가 4.1%, 문장당 낱말과의 교집합 2편). 그래서 check-passage-band.mjs 를 자로 삼아 대역 안에 들 때까지 고쳐 썼다 — 초안은 낱말 길이 6.06(너무 어려움)이었고 두 번 고쳐 5/5 가 됐다. 기출 지문은 한 편도 쓰지 않았다. ⚠️ 2판: 유형마다 대역 중앙 길이가 다른데(TOPIC 1005 · VOCAB 1053 · ORDER 1091 · BLANK 944) 지문 셋을 돌려써서 글자수가 5/9 로 떨어졌다. 문장 풀을 늘려 유형별 목표에 맞췄다 — **길이 실수를 네 번째로 반복한 뒤 고쳤다.**",
+ "sources": [
+  {
+   "id": "P",
+   "kind": "대역 겨냥 작문",
+   "title": "표준 도량형의 사회적 효과",
+   "chars": 1017,
+   "band": "R-TOPIC 5/5"
+  },
+  {
+   "id": "Q",
+   "kind": "대역 겨냥 작문",
+   "title": "같은 글의 빈칸판",
+   "chars": 919,
+   "band": "R-BLANK 5/5"
+  },
+  {
+   "id": "R",
+   "kind": "대역 겨냥 작문",
+   "title": "도량형 원기에서 자연 상수로",
+   "chars": 861,
+   "band": "R-FACT 4/5 (어휘 다양도만 경계 초과)"
+  }
+ ],
+ "procedure": [
+  "D2 유형: E11 · D3 배점: E9 로 34·37 을 3점 · D7: blueprint · D4: I2 만 지킴",
+  "D5·D6: §6.15 · §6.12 · P3.13",
+  "**지문: check-passage-band.mjs 로 유형 대역 안에 들 때까지 고쳐 썼다**",
+  "⚠️ 지문을 대역에 맞춰 썼으므로 **③의 A축(겨냥하지 않은 축) 가정이 이 판에서는 깨진다** — 아래 참조"
+ ],
+ "circularityNote": "⚠️ **v4 는 v1~v3 와 성격이 다르다.** v1~v3 는 지문 계측값을 겨냥하지 않았으므로 그 축이 '겨냥하지 않은 축' 이었다. v4 는 **바로 그 축을 겨냥해 썼다.** 따라서 v4 의 높은 점수는 품질의 증거가 아니라 **'대역을 겨냥하면 대역에 든다'는 확인**이다. v4 가 답하는 것은 하나뿐이다 — **그런 글을 쓸 수 있는가.** 있다면 파이프라인의 작문 목표가 된다.",
+ "items": [
+  {
+   "no": 23,
+   "type": "R-TOPIC",
+   "points": 2,
+   "answer": 4,
+   "src": "P",
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians of trade often treat that skill as a casualty of progress, yet the exchange was never a simple loss. What replaced local judgement was a rule that strangers could check without trusting each other. Checking at a distance is exactly what allowed trade to reach beyond people one already knew.",
+   "choices": [
+    "methods used by early inspectors to detect false containers",
+    "the loss of local expertise caused by administrative reform",
+    "reasons why traders preferred reputation to written rules",
+    "a shared measure as the condition for trade among strangers",
+    "differences between the containers used in neighbouring towns"
+   ]
+  },
+  {
+   "no": 24,
+   "type": "R-TITLE",
+   "points": 2,
+   "answer": 3,
+   "src": "P",
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians of trade often treat that skill as a casualty of progress, yet the exchange was never a simple loss. What replaced local judgement was a rule that strangers could check without trusting each other. A market that runs on shared rules can therefore include partners who will never meet, while a market that runs on reputation stays as small as the circle of people who know one another.",
+   "choices": [
+    "The Forgotten Craft of the Market Inspector",
+    "How Containers Were Made Before the Modern Age",
+    "A Measure That Made Strangers Possible",
+    "Why Local Reputation Still Governs Small Markets",
+    "Progress and Its Casualties: A History of Trade"
+   ]
+  },
+  {
+   "no": 29,
+   "type": "R-GRAMMAR",
+   "points": 2,
+   "answer": 3,
+   "src": "P",
+   "passage": "A standard measure is usually ① treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held, and every such dispute ② had to be reopened in the next town he entered. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes ③ were disappearing with it. Historians of trade often treat that skill as a casualty of progress, ④ yet the exchange was never a simple loss. What replaced local judgement was a rule that strangers could check without ⑤ trusting each other, and checking at a distance is exactly what allowed trade to reach beyond people one already knew.",
+   "grammarPoints": [
+    "G1 준동사 vs 정동사(수동 분사)",
+    "G3 수일치",
+    "G3 수일치",
+    "G8 접속사",
+    "G1 준동사(전치사 뒤 동명사)"
+   ],
+   "choices": [
+    "treated",
+    "were settled",
+    "were disappearing",
+    "yet",
+    "trusting"
+   ]
+  },
+  {
+   "no": 30,
+   "type": "R-VOCAB",
+   "points": 3,
+   "answer": 4,
+   "src": "P",
+   "vocabFormat": "underline",
+   "swapType": "antonym",
+   "intended": "disappeared",
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was ① social. Before a measure was fixed, every trade needed an argument about the quantity itself, and such arguments were settled by local ② standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute ③ disappeared, and the special skill of the people who had settled such disputes ④ spread with it. Historians of trade often treat that skill as a casualty of progress, yet the exchange was never a simple loss. What replaced local judgement was a rule that strangers could ⑤ check without trusting each other, and checking at a distance is exactly what allowed trade to reach beyond people one already knew.",
+   "choices": [
+    "social",
+    "standing",
+    "disappeared",
+    "spread",
+    "check"
+   ]
+  },
+  {
+   "no": 32,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 2,
+   "src": "Q",
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians of trade often treat that skill as a casualty of progress, yet the exchange was never a simple loss. What replaced local judgement was ______.",
+   "choices": [
+    "a container whose size no trader was allowed to question",
+    "a rule strangers could check without trusting each other",
+    "an office that inherited the authority of the old inspectors",
+    "a market in which reputation counted for more than before",
+    "a written record of every dispute that had ever been settled"
+   ]
+  },
+  {
+   "no": 34,
+   "type": "R-BLANK",
+   "points": 3,
+   "answer": 5,
+   "src": "Q",
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians of trade often treat that skill as a casualty of progress, yet the exchange was never a simple loss. What replaced local judgement was a rule that strangers could check without trusting each other. A fixed measure therefore did something that ______.",
+   "choices": [
+    "no inspector had ever been asked to attempt",
+    "every town had already achieved on its own",
+    "the older containers had done more cheaply",
+    "traders had long resisted for reasons of cost",
+    "no amount of local skill could ever do"
+   ]
+  },
+  {
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "points": 2,
+   "answer": 4,
+   "src": "P",
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. ① Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. ② A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. ③ Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. ④ The metals used for coins were chosen mainly for their resistance to corrosion in damp storage conditions. ⑤ Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. What replaced local judgement was a rule that strangers could check without trusting each other.",
+   "choices": [
+    "①",
+    "②",
+    "③",
+    "④",
+    "⑤"
+   ]
+  },
+  {
+   "no": 37,
+   "type": "R-ORDER",
+   "points": 3,
+   "answer": 2,
+   "src": "P",
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule.",
+   "blocks": {
+    "A": "Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians of trade often treat that skill as a casualty of progress, yet the exchange was never a simple loss.",
+    "B": "A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves.",
+    "C": "What replaced local judgement was a rule that strangers could check without trusting each other. Checking at a distance is exactly what allowed trade to reach beyond people one already knew. The towns that resisted the new measure longest found their markets shrinking to the neighbours they could still argue with."
+   },
+   "choices": [
+    "(A)-(C)-(B)",
+    "(B)-(A)-(C)",
+    "(B)-(C)-(A)",
+    "(C)-(A)-(B)",
+    "(C)-(B)-(A)"
+   ],
+   "orderAnswer": "(B)-(A)-(C)"
+  },
+  {
+   "no": 26,
+   "type": "R-FACT",
+   "points": 2,
+   "answer": 3,
+   "src": "R",
+   "passage": "The first fixed measures were kept as physical objects in a public building. A bar of metal or a carved stone served as the object against which officials compared local containers. A copy of that object was then sent to each market town for daily use. The copies drifted a little every year, because metal wore down and stone chipped at the edges. Inspectors travelled between the towns to correct the drift in those copies. That work was slow, and the corrections were often disputed by local traders. A single worn copy could shift the price of grain across a whole region. Later the measure was tied to a natural constant rather than to any object. A wavelength of light does not wear down and needs no inspector. Any laboratory can reproduce the measure without a visit from an official. The metal bar became a museum piece rather than a working authority.",
+   "choices": [
+    "최초의 고정 도량형은 실물로 보관되었다.",
+    "각 시장 도시로 사본이 보내졌다.",
+    "사본의 오차는 검사관이 오기 전에 스스로 사라졌다.",
+    "닳은 사본 하나가 곡물 가격을 지역 전체에서 바꿀 수 있었다.",
+    "빛의 파장은 검사관 없이도 어디서나 재현된다."
+   ]
+  }
+ ]
+}
