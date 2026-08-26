@@ -140,13 +140,13 @@ export function TeacherClient({
             onChange={(e) => setName(e.target.value)}
             placeholder="예: 3-2반 영어"
             aria-label="클래스 이름"
-            className="h-10 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-body text-[14px] text-[var(--t1)] focus:border-[var(--p)] focus:outline-none"
+            className="h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-body text-[14px] text-[var(--t1)] focus:border-[var(--p)] focus:outline-none"
           />
           <button
             type="button"
             onClick={handleCreate}
             disabled={!name.trim() || pending}
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:opacity-50"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] disabled:opacity-50"
           >
             <Plus size={14} strokeWidth={2} aria-hidden /> 개설
           </button>
@@ -160,13 +160,13 @@ export function TeacherClient({
             placeholder="ABC123"
             aria-label="초대코드"
             maxLength={6}
-            className="h-10 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-mono text-[14px] uppercase tracking-[0.15em] text-[var(--t1)] focus:border-[var(--p)] focus:outline-none"
+            className="h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-mono text-[14px] uppercase tracking-[0.15em] text-[var(--t1)] focus:border-[var(--p)] focus:outline-none"
           />
           <button
             type="button"
             onClick={handleJoin}
             disabled={code.trim().length < 4 || pending}
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--p)] hover:text-[var(--p)] disabled:opacity-50"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] font-display text-[13px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--p)] hover:text-[var(--p)] disabled:opacity-50"
           >
             참여하기
           </button>
