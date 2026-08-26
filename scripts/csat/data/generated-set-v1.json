@@ -1,5 +1,5 @@
 {
- "note": "설계도만 보고 만든 문항. 지문은 library_articles(source=original, license_class=cc0, cefr B2) 에서 가져왔다 — 파이프라인 자체 산출물이라 파생 제약이 없다. 기출 지문은 한 편도 쓰지 않았다. ⚠️ 32·34 지문은 처음에 659·648자로 너무 짧게 잘랐다가 원 소스에서 되살려 늘렸다(채점 결과 백분위 1%). 소스 길이가 아니라 내 절단이 문제였다.",
+ "note": "설계도만 보고 만든 문항. 지문은 library_articles(source=original, license_class=cc0, cefr B2) 에서 가져왔다 — 파이프라인 자체 산출물이라 파생 제약이 없다. 기출 지문은 한 편도 쓰지 않았다. ⚠️ 32·34 지문은 처음에 659·648자로 너무 짧게 잘랐다가 원 소스에서 되살려 늘렸다(채점 결과 백분위 1%). 소스 길이가 아니라 내 절단이 문제였다. 2026-08-26 2판: 24·29·37·26 도 원 소스 길이로 되살렸다(절단 요인 제거).",
  "sources": [
   {
    "id": "ae655394-3511-47e1-88c4-4f88343f326f",
@@ -47,7 +47,7 @@
    "points": 2,
    "answer": 2,
    "src": "When Paint Left the Studio",
-   "passage": "For a long time, painters ground their own colours and mixed them with oil indoors. A stone slab, a jar of oil, and heavy powders were not things an artist could carry, so most pictures of fields and skies were finished from memory or from a few quick sketches. Drawing outdoors was ordinary; completing a serious work there seemed abnormal. Then someone thought to seal freshly mixed paint inside a soft metal tube. That small container changed the working day. A painter could now locate a spot beside a river, open a folding stool, and finish a picture where the light actually fell. Because weather would not wait, brushwork grew faster and looser, and the surface kept the marks of that speed.",
+   "passage": "For a long time, painters ground their own colours and mixed them with oil indoors. A stone slab, a jar of oil, and heavy powders were not things an artist could carry, so most pictures of fields and skies were finished from memory or from a few quick sketches. Drawing outdoors was ordinary; completing a serious work there seemed abnormal. Then someone thought to seal freshly mixed paint inside a soft metal tube. That small container changed the working day. A painter could now locate a spot beside a river, open a folding stool, and finish a picture where the light actually fell. Because weather would not wait, brushwork grew faster and looser, and the surface kept the marks of that speed. The first reaction was harsh, and critics called the loose finish a flaw. Later the same looseness was praised as honesty, and studio landscapes looked stiff beside these lively outdoor scenes.",
    "choices": [
     "How Critics Learned to Praise Loose Brushwork",
     "A Small Tube That Moved Painting Outdoors",
@@ -62,19 +62,19 @@
    "points": 2,
    "answer": 3,
    "src": "Why Old Streets Bend",
-   "passage": "Walk through the oldest quarter of almost any town and the streets refuse ① to run straight. They bend, narrow without warning, and meet at angles ② that no planner would choose today. The reason is that those crooked lines ③ was never drawn at all. They were worn. Before anyone owned a map, a track formed where feet and carts found the easiest ground, ④ around a marsh, along the edge of a field, or down to a stream whose location is now hidden under stone. Because a wall is expensive to move, each new building locked that curve in place, and the shape ⑤ survived long after the marsh was drained.",
+   "passage": "Walk through the oldest quarter of almost any town and the streets refuse ① to run straight. They bend, narrow without warning, and meet at angles ② that no planner would choose today. The newer districts nearby are laid out in clean squares, so the contrast is easy to observe. The reason is that those crooked lines ③ was never drawn at all. They were worn. Before anyone owned a map, a track formed where feet and carts found the easiest ground, around a marsh, along the edge of a field, or down to a stream whose location is now ④ hidden under stone. No standard width was ever agreed, so a cart could pass in one place and stick fast in the next. Later, houses were built facing the track, and the track became a street. Because a wall is expensive to move, each new building locked that curve in place, and the shape ⑤ survived long after the marsh was drained and the field abandoned.",
    "grammarPoints": [
     "G1 준동사 vs 정동사",
     "G2 관계사·접속사",
     "G3 수일치",
-    "G6 형용사·부사",
+    "G1 준동사 vs 정동사(분사)",
     "G1 준동사 vs 정동사"
    ],
    "choices": [
     "to run",
     "that",
     "was",
-    "around",
+    "hidden",
     "survived"
    ]
   },
@@ -147,11 +147,11 @@
    "points": 3,
    "answer": 2,
    "src": "When Paint Left the Studio",
-   "passage": "For a long time, painters ground their own colours and mixed them with oil indoors, so most pictures of fields and skies were finished from memory.",
+   "passage": "For a long time, painters ground their own colours and mixed them with oil indoors. A stone slab, a jar of oil, and heavy powders were not things an artist could carry, so most pictures of fields and skies were finished from memory or from a few quick sketches. Drawing outdoors was ordinary; completing a serious work there seemed abnormal.",
    "blocks": {
-    "A": "Because weather would not wait, brushwork grew faster and looser, and the surface kept the marks of that speed.",
-    "B": "Then someone thought to seal freshly mixed paint inside a soft metal tube, and that small container changed the working day.",
-    "C": "The first reaction was harsh, and critics called the loose finish a flaw; later the same looseness was praised as honesty."
+    "A": "Because weather would not wait, brushwork grew faster and looser, and the surface kept the marks of that speed. Studio landscapes began to look stiff beside these lively outdoor scenes.",
+    "B": "Then someone thought to seal freshly mixed paint inside a soft metal tube. That small container changed the working day, for a painter could now locate a spot beside a river, open a folding stool, and finish a picture where the light actually fell.",
+    "C": "The first reaction was harsh, and critics called the loose finish a flaw. Later the same looseness was praised as honesty, and within a generation painting outdoors had become the standard."
    },
    "choices": [
     "(A)-(C)-(B)",
@@ -168,7 +168,7 @@
    "points": 2,
    "answer": 2,
    "src": "When a river runs low, a reactor goes quiet",
-   "passage": "Romania operates a single nuclear power station, and the building stands on the bank of the Danube. The station draws all of the cooling water for its reactors from that one river. In August a long stretch of hot, dry weather pushed the river far below its usual level. The operator had already idled one of the plant's two reactors during the previous month. On Thursday it powered down the second reactor as well, leaving the station silent. The station normally supplies about a fifth of all the electricity used in Romania. Its director said that no restart was expected within the following ten days. The government therefore turned to wind generation and to imported power in order to cover the gap.",
+   "passage": "Romania operates a single nuclear power station, and the building stands on the bank of the Danube. The station draws all of the cooling water for its reactors from that one river. In August a long stretch of hot, dry weather pushed the river far below its usual level. The operator had already idled one of the plant's two reactors during the previous month. On Thursday it powered down the second reactor as well, leaving the station silent. The station normally supplies about a fifth of all the electricity used in Romania. Its director said that no restart was expected within the following ten days. A shutdown of that length forces an immediate rearrangement of the national supply. The government therefore turned to wind generation and to imported power in order to cover the gap. The same shrinking river now presses on neighboring Hungary, whose reactors also draw their cooling water directly from the Danube.",
    "choices": [
     "루마니아의 원자력 발전소는 한 곳이다.",
     "두 원자로는 같은 날 함께 가동을 멈췄다.",
