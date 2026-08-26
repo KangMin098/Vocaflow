@@ -15,7 +15,13 @@
 
 import { NextResponse } from 'next/server'
 
-import { getLevelMap, checkRealWords, loadMeanings } from '@/lib/textfit/level-map'
+import {
+  getLevelMap,
+  checkRealWords,
+  loadCurriculumMarks,
+  loadMeanings,
+} from '@/lib/textfit/level-map'
+import { summarizeCurriculum } from '@/lib/textfit/curriculum'
 import { collectCandidates } from '@/lib/textfit/inflect'
 import { buildLevelProfile } from '@/lib/textfit/profile'
 import type { PublicWord } from '@/lib/textfit/profile'
@@ -115,6 +121,28 @@ export async function POST(request: Request): Promise<NextResponse> {
     // (전체에 붙이면 응답이 몇 배가 되는데 화면은 상위 24 개만 보여준다.)
     const meanings = await loadMeanings(profile.hardestWords.map((w) => w.lemma))
     for (const w of profile.hardestWords) w.meaningKo = meanings.get(w.lemma) ?? null
+
+    // ── 교육과정 기본 어휘 ──
+    //
+    // 교사가 행동하는 숫자는 "고1 92%" 가 아니라 **"교육과정 밖 낱말 12개"** 다.
+    // 그 목록은 교육부 고시로 공개돼 있고 교과서 검정이 그것으로 이뤄진다 —
+    // 설명이 필요 없는 유일한 축이다.
+    //
+    // `unresolved`(사전 어디에도 없는 토큰)는 세지 않는다. 고유명사·오탈자가 대부분이라
+    // 넣으면 `Prague` 같은 것이 "교육과정 밖 어휘" 로 잡혀 숫자가 부풀고,
+    // 그 사실은 이미 `breakdown.unresolved` 가 따로 말한다.
+    const contentLemmas = [...merged.values()]
+      .filter((w) => w.status !== 'unresolved')
+      .map((w) => w.lemma)
+    const marks = await loadCurriculumMarks(contentLemmas)
+
+    // `null` = 조회 실패. 이때는 **칸을 아예 만들지 않는다** — 빈 값을 넣으면
+    // 모든 낱말이 "밖" 으로 세어져 멀쩡한 지문에 거짓 경보가 나간다.
+    if (marks) {
+      profile.curriculum = summarizeCurriculum(contentLemmas, marks)
+      // 가장 어려운 낱말에는 밴드를 직접 붙인다 — 교사가 손댈 목록이 그것이다.
+      for (const w of profile.hardestWords) w.curriculumBand = marks.get(w.lemma)?.band ?? null
+    }
 
     return NextResponse.json(profile, {
       headers: {

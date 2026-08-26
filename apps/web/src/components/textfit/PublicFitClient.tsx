@@ -15,6 +15,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { FileText, RotateCcw } from 'lucide-react'
 
+import { CurriculumPanel } from '@/components/textfit/CurriculumPanel'
 import { LevelProfilePanel } from '@/components/textfit/LevelProfilePanel'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 import {
@@ -251,6 +252,13 @@ export function PublicFitClient({ initialShared = null }: Props) {
         onCopyWords={profile && profile.hardestWords.length > 0 ? handleCopyWords : undefined}
         wordsCopied={wordsCopied}
       />
+
+      {/*
+        커버리지 사다리 **다음**에 온다. 사다리는 "이 지문이 누구에게 맞나" 를 말하고
+        이 칸은 "그래서 무엇을 손봐야 하나" 를 말한다 — 순서가 그렇다.
+        조회에 실패하면 스스로 아무것도 그리지 않는다.
+      */}
+      <CurriculumPanel profile={profile} />
     </div>
   )
 }

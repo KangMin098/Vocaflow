@@ -16,6 +16,7 @@
 //   `shared_dictionary` 는 authenticated 전용이라 공개 화면에서 쓸 수 없다(2026-08-17 실측).
 
 import { BAND_THRESHOLDS, bandFor } from './coverage'
+import type { CurriculumBand, CurriculumSummary } from './curriculum'
 import type { FitBand } from './types'
 
 /** 진단 V-Level 축. 0·11 은 양 끝 특수값이라 프로파일에서 제외한다. */
@@ -57,6 +58,11 @@ export interface PublicWord {
   /** 이 지문에서의 출현 횟수 */
   count: number
   status: PublicWordStatus
+  /**
+   * 교육과정 기본 어휘 밴드. `null` 은 **밖**, `undefined` 는 아직 조회하지 않았다는 뜻이다.
+   * 둘을 구별한다 — 화면이 "밖" 을 표시할지 아무것도 안 할지가 갈린다.
+   */
+  curriculumBand?: CurriculumBand | null
   /** `leveled` 일 때만 채워진다 */
   vLevel: number | null
   /**
@@ -103,6 +109,14 @@ export interface LevelProfile {
   hardestWords: PublicWord[]
   /** 상태별 토큰 수 (합 + 기능어 = totalTokens) */
   breakdown: Record<PublicWordStatus | 'function_word', number>
+  /**
+   * **2022 개정 교육과정 기본 어휘** 요약 — 한국 교사가 실제로 행동하는 숫자.
+   *
+   * `buildLevelProfile` 은 이것을 만들지 않는다(순수 함수라 DB 를 모른다).
+   * 라우트가 조회해서 붙인다. **조회에 실패하면 아예 없다** — 빈 값을 넣으면
+   * "밖 0개" 로 읽혀 조회 실패와 구별되지 않는다.
+   */
+  curriculum?: CurriculumSummary
 }
 
 /**

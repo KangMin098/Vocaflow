@@ -24,6 +24,8 @@ import 'server-only'
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
+import type { CurriculumMark } from './curriculum'
+
 /** 맵 유효 기간 — 어휘 세트 발행은 드물다. 만료되면 다음 요청이 다시 적재한다. */
 const TTL_MS = 30 * 60_000
 
@@ -250,6 +252,59 @@ export async function loadMeanings(lemmas: string[]): Promise<Map<string, string
       if (!key || !row.meaning_ko || out.has(key)) continue
       out.set(key, row.meaning_ko)
     }
+  }
+
+  return out
+}
+
+/**
+ * 표제어들의 **교육과정 기본 어휘 밴드**와 수능 기출 여부.
+ *
+ * ── 왜 RPC 인가 ─────────────────────────────────────────────────────
+ * 이 태그는 `shared_dictionary.list_tags` 에만 있고 익명은 그 표를 못 읽는다
+ * (RLS: `authenticated read dictionary`). 공개 경로가 쓰는 `shared_words`·`lexicon_clean`
+ * 에는 없다. 그래서 밴드만 돌려주는 `curriculum_bands`(SECURITY DEFINER)를 부른다.
+ *
+ * ── 실패는 `null` 이다. 빈 Map 이 아니다 ────────────────────────────
+ * RPC 응답에 없는 낱말은 **교육과정 밖**으로 센다(태그 없는 낱말을 아예 안 돌려주기 때문).
+ * 그래서 조회가 실패했을 때 빈 Map 을 돌려주면 **모든 낱말이 "교육과정 밖"** 이 되고,
+ * 교사는 멀쩡한 지문을 보고 "밖 47개" 라는 거짓 경보를 받는다.
+ * `null` 이면 호출부가 칸을 통째로 감춘다 — **틀린 숫자보다 없는 칸이 낫다.**
+ */
+export async function loadCurriculumMarks(
+  lemmas: string[],
+): Promise<Map<string, CurriculumMark> | null> {
+  const out = new Map<string, CurriculumMark>()
+  if (lemmas.length === 0) return out
+
+  const supabase = anonClient()
+  const { data, error } = await (supabase as unknown as {
+    rpc: (
+      fn: string,
+      args: Record<string, unknown>,
+    ) => Promise<{ data: unknown; error: { message: string } | null }>
+  }).rpc('curriculum_bands', { p_words: lemmas })
+
+  if (error) {
+    console.error('[textfit] 교육과정 밴드 조회 실패:', error.message)
+    return null
+  }
+
+  type Row = {
+    word: string
+    curr_band: number | null
+    csat: boolean | null
+    via_derived: boolean | null
+  }
+  for (const row of (data ?? []) as Row[]) {
+    const key = (row.word ?? '').trim().toLowerCase()
+    if (!key) continue
+    const band = row.curr_band
+    out.set(key, {
+      band: band === 1 || band === 2 || band === 3 ? band : null,
+      csat: row.csat === true,
+      viaDerived: row.via_derived === true,
+    })
   }
 
   return out
