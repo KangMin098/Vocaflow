@@ -49,10 +49,11 @@ describe.skipIf(skipIfNoEnv)('sitemap 콘텐츠 목록 (실 DB · anon)', () => 
       process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY'] as string,
       { auth: { persistSession: false } },
     )
-    // head+count 는 행을 받지 않으므로 절단과 무관한 총계를 준다.
-    const { count } = await db
-      .from('pd_comic_issues')
-      .select('id', { count: 'exact', head: true })
+    // ⚠️ 대조 대상은 **표가 아니라 RPC** 다. `list_pd_comics` 는 같은 호의 중복 등록을
+    //    걸러 호마다 대표 하나만 주고(발행 110행 → 105호), 서가·이어읽기·sitemap 이 전부
+    //    그 목록을 쓴다. 표를 세면 중복 5개만큼 항상 어긋나고, 그 어긋남이 절단으로 오해된다.
+    const { data: rep } = await db.rpc('list_pd_comics', { p_series_key: null })
+    const count = Array.isArray(rep) ? rep.length : 0
 
     const comics = (await fetchContentEntries()).filter((e) =>
       e.path.startsWith('/comics/restored/'),
@@ -61,7 +62,7 @@ describe.skipIf(skipIfNoEnv)('sitemap 콘텐츠 목록 (실 DB · anon)', () => 
     expect(count, 'anon 이 만화를 하나도 못 센다').toBeGreaterThan(0)
     expect(
       comics.length,
-      `anon 에게 보이는 발행 만화 ${count}호 중 ${comics.length}호만 sitemap 에 있다 — 절단 의심`,
+      `대표 만화 ${count}호 중 ${comics.length}호만 sitemap 에 있다 — 절단 또는 출처 불일치`,
     ).toBe(count)
   })
 

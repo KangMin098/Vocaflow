@@ -58,6 +58,10 @@ const siblingsOnce = cache(async (slug: string, seriesKey: string | null) => {
     return a.slug.localeCompare(b.slug)
   })
 
+  // ⚠️ 지금 보는 호가 목록에 **없을 수 있다.** `list_pd_comics` 는 같은 호의 중복 등록을
+  //    이미 걸러 호마다 대표 하나만 준다(발행 110행 → 105호). `Atomic War!` 는 4개 호가
+  //    9행인데 — 같은 만화의 다른 스캔본이 각각 발행됐다 — 그중 대표가 아닌 5개가 그렇다.
+  //    그런 호에서는 이웃을 만들지 않는다. 없는 순서를 지어내는 것보다 안 보여주는 편이 낫다.
   const i = ordered.findIndex((x) => x.slug === slug)
   if (i < 0) return { prev: null, next: null, total: ordered.length }
 

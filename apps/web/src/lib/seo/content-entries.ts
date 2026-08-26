@@ -119,28 +119,25 @@ async function articleEntries(db: SupabaseClient): Promise<ContentEntry[]> {
     }))
 }
 
-/** 발행 만화 상세 — `/comics/restored/[slug]`. */
+/**
+ * 발행 만화 상세 — `/comics/restored/[slug]`.
+ *
+ * ⚠️ **표를 직접 읽지 않는다.** `list_pd_comics` 를 쓴다 — 서가와 이어읽기가 쓰는 바로 그 함수다.
+ *
+ * 왜: 같은 호가 여러 번 발행돼 있다. `Atomic War!` 는 **4개 호가 9행**인데, 같은 만화의
+ * 다른 스캔본(IA 업로드가 여럿)이 각각 발행된 것이다. RPC 는 호마다 대표 하나만 주므로
+ * 화면에는 105호가 보이는데, 표를 직접 읽으면 **110개**가 나온다.
+ * 그 차이 5개는 검색엔진에 **중복 콘텐츠**로 나가고, 서가에서 도달할 수도 없는 고아 URL 이다.
+ *
+ * 원칙은 도서에서 세운 것과 같다 — **sitemap 의 조건을 화면과 똑같이 맞춘다.**
+ * 다만 도서는 조건을 손으로 맞췄고, 여기서는 아예 같은 함수를 부른다(더 안전하다).
+ */
 async function comicEntries(db: SupabaseClient): Promise<ContentEntry[]> {
-  const [issues, panels] = await Promise.all([
-    selectAll('pd_comic_issues', (f, t) =>
-      db.from('pd_comic_issues').select('id, slug').range(f, t),
-    ),
-    selectAll('pd_comic_panels', (f, t) =>
-      db.from('pd_comic_panels').select('issue_id').range(f, t),
-    ),
-  ])
+  const { data, error } = await db.rpc('list_pd_comics', { p_series_key: null })
+  if (error) throw new Error(`list_pd_comics 실패: ${error.message}`)
 
-  // 패널이 없는 호는 열면 notFound() 다 — 404 를 색인시키지 않는다.
-  // (지금은 발행 110호 전부 패널이 있어 교집합이 곧 전체지만, 그건 오늘의 데이터일 뿐이다.)
-  const withPanels = new Set(
-    panels.map((r) => r.issue_id).filter((v): v is string => typeof v === 'string'),
-  )
-
-  return issues
-    .filter(
-      (r): r is Row & { id: string; slug: string } =>
-        typeof r.id === 'string' && typeof r.slug === 'string' && withPanels.has(r.id),
-    )
+  return ((data ?? []) as Row[])
+    .filter((r): r is Row & { slug: string } => typeof r.slug === 'string')
     .map((r) => ({ path: `/comics/restored/${r.slug}` }))
 }
 /**
