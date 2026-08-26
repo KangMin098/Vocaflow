@@ -3,10 +3,21 @@
 // 탐색 그리드 도서 타일 — 표지(실 이미지 or 그라디언트) + 제목 + i+1 적합도 배지 + 추천 사유 칩.
 // 클릭 시 NetflixDetailSheet (BooksExplorer 가 상태 보유). 표지 비주얼은 LibraryGrid 캐러셀과
 // 동일한 .book-cover-* CSS + bookCover/GradientBookCover 재사용 (시각 일관성).
+//
+// ── 왜 `<button>` 이 아니라 `<a>` 인가 (2026-08-26) ─────────────────────
+// 시트는 그대로 둔다 — 카드에서 바로 펼쳐 보는 것이 이 서가의 방식이고 그건 옳다.
+// 문제는 **주소가 없다는 것**이었다: `/library/books` 를 익명으로 받아 보면 발행 도서
+// 13권의 제목은 다 들어 있는데 상세로 가는 `<a>` 가 **0개**였고, sitemap 이 알리는
+// 13개 주소를 사이트 안 어느 페이지도 가리키지 않았다(글 160개와 같은 상태였다).
+//
+// 그래서 **겉은 링크, 클릭은 시트**로 만든다. 크롤러는 `/library/books/[id]` 를 보고,
+// 사람은 예전과 똑같이 시트를 얻으며, 새 탭으로 열면 실제 상세 페이지가 열린다
+// (그 라우트는 이미 공개이고 h1·구조화 데이터·공유 카드를 갖추고 있다).
 
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { Check, Sparkles, Volume2 } from 'lucide-react'
 
 import { ComicBadge } from '@/components/comic/ComicBadge'
@@ -37,9 +48,14 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
   const state = book.enrollment_state ?? 'not_enrolled'
 
   return (
-    <button
-      type="button"
-      onClick={() => onOpen(book)}
+    <Link
+      href={`/library/books/${book.id}`}
+      onClick={(e) => {
+        // 수식키·가운데 클릭은 그대로 둔다 — 새 탭으로 실제 상세를 열 수 있어야 한다.
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return
+        e.preventDefault()
+        onOpen(book)
+      }}
       aria-label={`${book.title}${book.author ? ` · ${book.author}` : ''} 상세 보기`}
       // ⚠️ `w-full` 이 없으면 버튼이 **내용 너비로 줄어든다.** 격자는 6열 균등인데 칸 안에서
       // 카드가 제목 길이만큼만 넓어져, 표지(w-full)가 그 폭을 그대로 따라 제각각이 됐다 —
@@ -223,6 +239,6 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
             ))}
         </div>
       </div>
-    </button>
+    </Link>
   )
 }

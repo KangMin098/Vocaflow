@@ -158,54 +158,94 @@ test.describe('공개 표면 — 비로그인 검색 착지점', () => {
   })
 })
 
+
 /**
- * **고아 페이지 금지** — sitemap 이 광고하는 글을 사이트 안에서 링크로 닿을 수 있어야 한다.
+ * **고아 페이지 금지** — sitemap 이 알리는 주소를 사이트 안에서 링크로 닿을 수 있어야 한다.
  *
- * 2026-08-26 실측: `/library/scripts` 를 익명으로 받으면 글 제목 160개가 다 들어 있는데
- * **상세로 가는 `<a>` 가 0개**였다. 카드가 `<button onClick>` 이었고, 시리즈 드릴다운은
- * `useState` 라 주소가 없었다. 화면에서는 잘 동작하니 아무도 몰랐다 —
- * sitemap 은 160개를 알리고 있었고, 그 160개를 가리키는 링크는 사이트에 하나도 없었다.
+ * 2026-08-26 실측. `/library/scripts` 를 익명으로 받으면 글 제목 160개가 다 들어 있는데
+ * **상세로 가는 `<a>` 가 0개**였다. `/library/books` 는 13권 전부 그랬다. 원인 둘:
+ * 카드가 `<button onClick>` 이라 주소가 없었고, 시리즈 드릴다운이 `useState` 였다.
+ * 화면에서는 잘 동작하니 아무도 몰랐다.
  *
- * 그 상태의 대가는 조용하다: 크롤러는 주소를 알아도 그 페이지가 무엇에 속하는지 모르고
- * (내부 링크가 곧 문맥이다), 비로그인 방문자는 목록에서 글로 갈 방법이 없다.
+ * 그 상태의 대가는 조용하다: 크롤러는 sitemap 으로 주소를 알아도 그 페이지가 무엇에
+ * 속하는지 모르고(내부 링크가 곧 문맥이다), 비로그인 방문자는 목록에서 콘텐츠로 갈 수 없다.
  *
- * 그래서 **두 집합을 맞춘다**: sitemap 의 글 주소 ⊆ 링크로 닿는 글 주소.
- * 손으로 센 숫자를 쓰지 않는다 — 글이 늘면 두 집합이 함께 늘어야 하고,
- * 한쪽만 늘면 그게 곧 회귀다.
+ * **두 집합을 맞춘다**: sitemap 의 상세 주소 ⊆ 링크로 닿는 주소.
+ * 손으로 센 숫자를 쓰지 않는다 — 콘텐츠가 늘면 두 집합이 함께 늘어야 하고, 한쪽만 늘면 회귀다.
  */
+interface Shelf {
+  label: string
+  /** 서가 진입면. 여기서 1홉, 그 안의 `?…` 링크에서 2홉까지 따라간다. */
+  index: string
+  /** 이 서가의 상세 주소 모양. */
+  detail: RegExp
+  /**
+   * 허용 고아 수 — **줄어들기만 해야 한다** (`TOUCH_BASELINE` 과 같은 규칙).
+   * 0 이 아닌 값에는 반드시 이유와 해소 조건을 적는다.
+   */
+  allowOrphans: number
+  why?: string
+}
+
+const SHELVES: readonly Shelf[] = [
+  { label: '글', index: '/library/scripts', detail: /^\/library\/scripts\/[^/]+$/, allowOrphans: 0 },
+  { label: '도서', index: '/library/books', detail: /^\/library\/books\/[^/]+$/, allowOrphans: 0 },
+  { label: '각색 만화', index: '/comics/adapted', detail: /^\/comics\/adapted\/[^/]+$/, allowOrphans: 0 },
+  {
+    label: '복원 만화',
+    index: '/comics/restored',
+    detail: /^\/comics\/restored\/[^/]+$/,
+    // `Atomic War!` 1~4호가 IA 식별자만 다른 중복 행으로 각각 2~3벌 발행돼 있다(9행 · 숨는 5행).
+    // `list_pd_comics` 는 `distinct on (series_key, issue_no)` 로 한 벌만 내보내는데,
+    // 동점 처리가 `panels_total desc, created_at` 이고 **그 두 값이 9행 모두 같다.**
+    // 그래서 어느 행이 이기는지가 실행 계획에 달렸고, sitemap 과 화면이 **같은 만화에
+    // 서로 다른 주소**를 쓴다. 마이그레이션(`_pending_pd_comic_pick_stable.sql`)이 적용되면 0 이 된다.
+    allowOrphans: 4,
+    why: 'Atomic War! 중복 행의 동점 처리가 비결정적 — 미적용 마이그레이션 대기',
+  },
+]
+
 test.describe('공개 콘텐츠에 링크로 닿는다', () => {
-  test('sitemap 의 글 160개가 모두 /library/scripts 에서 링크로 닿는다', async ({ page }) => {
-    const res = await page.request.get('/sitemap.xml')
-    expect(res.ok(), 'sitemap.xml 을 못 읽었다').toBe(true)
-    const xml = await res.text()
-    const advertised = new Set(
-      [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
-        .map((m) => new URL(m[1] as string).pathname)
-        .filter((p) => /^\/library\/scripts\/[^/]+$/.test(p)),
-    )
-    expect(advertised.size, 'sitemap 에 글 상세가 하나도 없다').toBeGreaterThan(0)
+  for (const shelf of SHELVES) {
+    test(`${shelf.label} — sitemap 이 알린 주소가 링크로 닿는다`, async ({ page }) => {
+      const res = await page.request.get('/sitemap.xml')
+      expect(res.ok(), 'sitemap.xml 을 못 읽었다').toBe(true)
+      const xml = await res.text()
+      const advertised = [
+        ...new Set(
+          [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
+            .map((m) => new URL(m[1] as string).pathname)
+            .filter((p) => shelf.detail.test(p)),
+        ),
+      ]
+      // 0건이면 아래 비교가 조용히 통과한다 — sitemap 이 비면 그것부터 회귀다.
+      expect(advertised.length, `sitemap 에 ${shelf.label} 상세가 없다`).toBeGreaterThan(0)
 
-    // 1홉: 진입면에서 시리즈 목록. 여기가 0이면 아래 루프가 조용히 0을 통과한다.
-    await page.goto('/library/scripts', { waitUntil: 'domcontentloaded' })
-    const seriesHrefs = await page
-      .locator('a[href*="/library/scripts?series="]')
-      .evaluateAll((els) => [...new Set(els.map((e) => (e as HTMLAnchorElement).getAttribute('href') ?? ''))])
-    expect(seriesHrefs.length, '진입면에 시리즈 링크가 없다 — 드릴다운이 다시 상태로 돌아갔다').toBeGreaterThan(0)
+      const reachable = new Set<string>()
+      /** 이 페이지의 링크를 거둬 상세는 모으고, 같은 서가의 필터 주소는 돌려준다(2홉). */
+      const harvest = async (url: string): Promise<string[]> => {
+        await page.goto(url, { waitUntil: 'domcontentloaded' })
+        const all = await page
+          .locator('a[href]')
+          .evaluateAll((els) =>
+            els.map((e) => {
+              const u = new URL((e as HTMLAnchorElement).href)
+              return u.pathname + u.search
+            }),
+          )
+        all.filter((p) => shelf.detail.test(p)).forEach((p) => reachable.add(p))
+        return [...new Set(all.filter((p) => p.startsWith(`${shelf.index}?`)))]
+      }
 
-    // 2홉: 각 시리즈에서 글 상세.
-    const reachable = new Set<string>()
-    for (const href of seriesHrefs) {
-      await page.goto(href, { waitUntil: 'domcontentloaded' })
-      const found = await page
-        .locator('a[href^="/library/scripts/"]')
-        .evaluateAll((els) => els.map((e) => new URL((e as HTMLAnchorElement).href).pathname))
-      found.forEach((p) => reachable.add(p))
-    }
+      for (const next of await harvest(shelf.index)) await harvest(next)
 
-    const orphans = [...advertised].filter((p) => !reachable.has(p))
-    expect(
-      orphans.length,
-      `검색에 알렸지만 사이트 안에서 닿을 수 없는 글 ${orphans.length}개: ${orphans.slice(0, 5).join(', ')}`,
-    ).toBe(0)
-  })
+      const orphans = advertised.filter((p) => !reachable.has(p))
+      expect(
+        orphans.length,
+        `검색에 알렸지만 사이트 안에서 닿을 수 없는 ${shelf.label} ${orphans.length}개` +
+          `${shelf.why ? ` (허용 ${shelf.allowOrphans} — ${shelf.why})` : ''}` +
+          `: ${orphans.slice(0, 5).join(', ')}`,
+      ).toBeLessThanOrEqual(shelf.allowOrphans)
+    })
+  }
 })
