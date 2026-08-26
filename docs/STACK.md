@@ -69,6 +69,7 @@ vocaflow/
 | `tailwind-merge` | 3.5.0 | className 병합 |
 | `clsx` | 2.1.1 | conditional class |
 | `lucide-react` | 1.11.0 | 아이콘 |
+| `qrcode-generator` | 2.0.4 | 인쇄 학습지의 QR (무의존성 · SVG 출력). 종이 → 웹 복귀 경로 — 외부 이미지 서비스를 쓰면 오프라인 인쇄가 깨진다 |
 | `postcss` | 8.x | |
 
 ### State / Data

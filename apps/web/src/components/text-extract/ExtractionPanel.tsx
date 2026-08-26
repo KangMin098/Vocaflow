@@ -20,6 +20,7 @@ import { tokenizeText } from '@/lib/text-extract/tokenize'
 import { buildSentenceIndex, firstSentenceContaining } from '@/lib/text-extract/source-sentence'
 import { TokenizationSummary } from '@/components/text-extract/TokenizationSummary'
 import { TextFitVerdict } from '@/components/textfit/TextFitVerdict'
+import { ClassWorksheet } from '@/components/teacher/ClassWorksheet'
 import { SendToClassButton } from '@/components/teacher/SendToClassButton'
 import type { AssignmentWord } from '@/lib/teacher/assignment-actions'
 import { fetchTeacherClasses } from '@/lib/teacher/class-actions'
@@ -585,11 +586,21 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
       {/* 교사 경로 — 추출한 단어를 학급에 보낸다.
           학급이 없으면 버튼 대신 안내 한 줄만 나온다(누르면 실패하는 버튼을 두지 않는다). */}
       {results && results.length > 0 && (
-        <div className="mb-4">
+        <div className="mb-4 flex flex-col gap-3">
           <SendToClassButton
             classes={teacherClasses}
             words={selectedAssignmentWords}
             defaultTitle={assignmentTitle}
+          />
+          {/*
+            보내기와 나란히 둔다 — 같은 낱말이 **디지털로도 종이로도** 나가야 한다.
+            교실에서 실제로 일어나는 일이 그렇고, 종이에 찍히는 학급 초대 QR 이
+            "교사 1명 → 학생 30명" 이 실제로 일어나는 유일한 자리다.
+          */}
+          <ClassWorksheet
+            classes={teacherClasses}
+            words={selectedAssignmentWords}
+            title={assignmentTitle}
           />
         </div>
       )}

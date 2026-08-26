@@ -78,4 +78,28 @@ test.describe('/fit — 인쇄 학습지', () => {
     expect(raw).not.toContain('by which plants convert')
     expect(raw).not.toContain('still puzzles researchers')
   })
+
+  /**
+   * QR 이 사라지거나 촘촘해지는 것을 잡는다.
+   *
+   * QR 은 **모듈 크기가 전부**다. 담는 주소가 길어지면 모듈 수가 늘고 같은 지면에서
+   * 각 모듈이 작아진다 — 화면에서는 멀쩡해 보이고 **종이에서만 실패한다.**
+   * (실측: `/fit/s/<payload>` 434자 → 81×81 → 30mm 에서 0.37mm/모듈, 복사본에서 불가.
+   *  `/fit` 25자 → 25×25 → 1.20mm/모듈. 지면에서 잘라 독립 디코더로 읽히는 것을 확인했다.)
+   *
+   * 밀도 자체는 `lib/worksheet/__tests__/qr.test.ts` 가 못 박는다. 여기서는
+   * **지면에 실제로 실렸는지**와 크기가 사람이 찍을 만한지를 본다.
+   */
+  test('인쇄 지면에 QR 이 실린다 — 종이에서 웹으로 돌아오는 유일한 길이다', async ({ page }) => {
+    await analyze(page)
+    await page.emulateMedia({ media: 'print' })
+
+    const qr = page.locator('.vf-sheet svg').first()
+    await expect(qr, '지면에 QR 이 없다 — 종이를 집어 든 사람이 돌아올 길이 사라졌다').toHaveCount(1)
+
+    const box = await qr.boundingBox()
+    expect(box, 'QR 이 그려지지 않았다').not.toBeNull()
+    // 22mm 하한(약 83px @96dpi)보다 작으면 찍기 어렵다. printSizeMm 이 그 하한을 지킨다.
+    expect(box!.width, `QR 이 ${Math.round(box!.width)}px 로 너무 작다`).toBeGreaterThan(60)
+  })
 })
