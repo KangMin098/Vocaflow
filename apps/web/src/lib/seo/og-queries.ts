@@ -52,8 +52,25 @@ export const OG_QUERIES = {
    */
   comic: {
     table: 'pd_comic_issues',
-    select: 'title,series_title,issue_no,published_year,source_adapter',
+    // `pd_comic_series(title)` 는 **정본 시리즈 제목**이다. 표의 `series_title` 은 아카이브가
+    // 준 원본 문자열이라 오타가 있는 행이 있다(`Bafflng Mysteries` — 2026-08-26 실측).
+    // 카드가 그것을 그대로 쓰면 오타가 공유 링크의 얼굴이 된다. 화면과 같은 규칙을 쓴다.
+    select: 'title,series_title,issue_no,published_year,source_adapter,pd_comic_series(title)',
     filter: (slug: string) => `slug=eq.${encodeURIComponent(slug)}&status=eq.published`,
+    sampleFilter: 'status=eq.published',
+  },
+
+  /**
+   * 각색 만화(CCP) — 도서에서 파생된 만화판이라 **도서 행**을 읽는다.
+   *
+   * ⚠️ 조건이 `book` 과 다르다. 이 화면은 `applyBookReadGate`(= `status='published'` 만)를 쓴다 —
+   *    도서 카탈로그의 `copyright_safe_in_kr` 까지 요구하지 않는다(사유는 `lib/library/publish-gate.ts`).
+   *    `book` 을 그대로 쓰면 **화면에는 있는데 카드만 빈** 도서가 생긴다. 그래서 따로 둔다.
+   */
+  comicAdapted: {
+    table: 'library_books',
+    select: 'title,author,cefr_band,cefr_level,book_v_level,chapter_count',
+    filter: (id: string) => `id=eq.${encodeURIComponent(id)}&status=eq.published`,
     sampleFilter: 'status=eq.published',
   },
 } as const satisfies Record<string, OgQuery>

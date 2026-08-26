@@ -14,7 +14,7 @@
 
 import { ImageResponse } from 'next/og'
 
-import { OgCard, OG_SIZE, needsKoreanFont, type OgCardProps } from '@/lib/seo/og-card'
+import { OgCard, OG_SIZE, ogCardText, type OgCardProps } from '@/lib/seo/og-card'
 import { loadKoreanOgFont } from '@/lib/seo/og-font'
 import { ogQueryUrl } from '@/lib/seo/og-queries'
 
@@ -72,7 +72,8 @@ export default async function Image({ params }: { params: { bookId: string } }) 
     source: a?.feed_label ?? a?.source ?? null,
   }
 
-  const font = needsKoreanFont(props) ? await loadKoreanOgFont() : null
+  // 한글이 없으면 로더가 스스로 null 을 준다 — 판정을 두 곳에 두지 않는다.
+  const font = await loadKoreanOgFont(ogCardText(props))
 
   return new ImageResponse(<OgCard {...props} />, {
     ...OG_SIZE,

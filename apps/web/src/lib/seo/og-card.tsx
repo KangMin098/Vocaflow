@@ -10,10 +10,11 @@
 //    색을 여기서 하드코딩한다 — 이미지에는 테마가 없고 토큰이 닿지 않는다.
 //    값은 `packages/design-tokens` 에서 손으로 옮겼다.
 //
-// ⚠️ **한글 폰트를 무조건 싣지 않는다.** 한글 폰트가 가진 라틴 글리프와 Satori 기본 폰트가
-//    글자마다 갈려 영어 제목이 `Pr**agu**e` 처럼 굵기가 들쭉날쭉해진다(2026-08-26 실측 —
-//    첫 렌더가 그 상태였다). 카드에 들어가는 것은 원문 제목·저자·출처라 대부분 영어다.
-//    → `needsKoreanFont()` 로 **한글이 실제로 있을 때만** 싣는다.
+// ⚠️ **두 폰트가 같은 글자를 가지면 한 단어 안에서 굵기가 갈린다.** 영어 제목이
+//    `Pr**agu**e` · `A Chr**ist**mas Carol` 처럼 나왔다(2026-08-26 실측, 두 번).
+//    처음엔 "한글이 있을 때만 싣기" 로 막았는데, 한글 배지가 하나만 있어도 다시 실리므로
+//    반쪽이었다. 지금은 `loadKoreanOgFont` 가 **한글만** 받아 두 폰트의 범위가 겹치지 않는다.
+//    → 호출부는 `ogCardText(props)` 를 넘기기만 하면 된다(판정도 로더 안에 있다).
 
 import type { ReactElement } from 'react'
 
@@ -38,13 +39,23 @@ export interface OgCardProps {
   source?: string | null
 }
 
-/** 이 카드에 한글이 들어가는가 — 폰트를 실을지 판단한다. */
-export function needsKoreanFont(p: OgCardProps): boolean {
-  const text = [p.kind, p.title, p.subtitle ?? '', ...(p.badges ?? []), p.source ?? ''].join('')
-  return /[가-힣]/.test(text)
+/**
+ * 이 카드에 그려질 **모든 글자** — 폰트 서브셋 요청에 그대로 넘긴다.
+ *
+ * 손으로 유지하는 글자 목록을 두지 않는 이유: 빠진 글자는 오류 없이 **조용히 사라진다.**
+ * 카드가 아는 것을 카드가 넘기면 잊을 일이 없다.
+ */
+export function ogCardText(p: OgCardProps): string {
+  return [p.kind, p.title, p.subtitle ?? '', ...(p.badges ?? []), p.source ?? ''].join('')
 }
 
-/** 제목이 길면 줄인다 — Satori 는 말줄임을 안 해 주고 넘치면 잘려 나간다. */
+/**
+ * 제목이 길면 줄인다 — Satori 는 말줄임을 안 해 준다.
+ *
+ * 상한 110자의 근거(2026-08-26 실측): 카탈로그에서 가장 긴 제목은 **218자** 짜리 논문 글이다
+ * (`Sepsis neonatorum: …`). 110자로 자르면 52px 에서 **세 줄**이 되고 부제·표식과 겹치지 않는다.
+ * 발행 도서 최대 48자·복원 만화 최대 24자는 애초에 걸리지 않는다.
+ */
 function clampTitle(title: string): string {
   return title.length > 110 ? `${title.slice(0, 108)}…` : title
 }
@@ -85,11 +96,17 @@ export function OgCard({ kind, title, subtitle, badges = [], source }: OgCardPro
         <div style={{ display: 'flex', fontSize: 20, color: MUTED }}>{kind}</div>
       </div>
 
-      {/* 제목 — 이 카드의 본체 */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+      {/*
+        제목 — 이 카드의 본체.
+
+        ⚠️ 이 안쪽 div 에 `display: 'flex'` 를 주지 않는다. 주면 글자 전체가 **하나의 flex 항목**이
+           되어 줄바꿈 없이 한 줄로 뻗고, 카드 오른쪽 밖으로 잘려 나간다(2026-08-26 실측 —
+           `ATOMIC WAR! No. 1 - Comic Book, 1952` 가 `… Issue #1` 에서 끊겼다).
+           `flexWrap`·`maxWidth`·`width` 로는 안 고쳐진다. 텍스트 컨테이너로 두어야 흐른다.
+      */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 18, width: '100%' }}>
         <div
           style={{
-            display: 'flex',
             fontSize: title.length > 60 ? 52 : 64,
             lineHeight: 1.15,
             fontWeight: 800,

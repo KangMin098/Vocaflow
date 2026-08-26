@@ -58,10 +58,6 @@ export default async function Image({ params }: { params: { payload: string } })
   // 아무도 누르지 않는다. 해독 실패 시 일반 소개 카드로 떨어진다.
   const profile = decodeProfile(params.payload)
 
-  // Satori 기본 폰트는 라틴 전용이라 한글이 빈칸으로 나온다. 폰트를 명시 주입한다.
-  // 실패하면 `null` — 폰트 없이라도 렌더한다(숫자·곡선은 그대로 나온다).
-  const koreanFont = await loadKoreanOgFont()
-
   // 화면용 문장(`profileHeadline`)을 그대로 쓰면 한 줄에 안 들어가 다음 블록과 겹친다 —
   // Satori 는 넘친 텍스트를 잘라 주지 않고 그냥 겹쳐 그린다(2026-08-17 실측).
   // 그래서 카드에는 **주어를 뺀 짧은 형태**를 쓴다. 뜻은 같고 한 줄에 들어간다.
@@ -70,6 +66,24 @@ export default async function Image({ params }: { params: { payload: string } })
     : profile.fitLevel !== null
       ? `${LEVEL_LABEL[profile.fitLevel]} 수준이면 편하게 읽혀요`
       : '고등 교육과정을 넘는 지문이에요'
+
+  // Satori 기본 폰트는 라틴 전용이라 한글이 빈칸으로 나온다. 폰트를 명시 주입한다.
+  //
+  // ⚠️ **이 카드에 나올 수 있는 한글을 전부 넘긴다.** 로더는 넘긴 글자만 담긴 서브셋을 받고,
+  //    빠진 글자는 오류 없이 **조용히 사라진다.** 그래서 문구를 바꾸면 아래 목록도 같이 봐야 한다 —
+  //    다만 이제 목록이 폰트 파일 옆이 아니라 **문구 바로 옆**에 있어 눈에 띈다.
+  //    (라틴은 일부러 안 넣는다. 두 폰트가 같은 글자를 가지면 한 단어 안에서 굵기가 갈린다.)
+  // 실패하면 `null` — 폰트 없이라도 렌더한다(숫자·곡선은 그대로 나온다).
+  const koreanFont = await loadKoreanOgFont(
+    [
+      headline,
+      '지문 난이도 진단',
+      '교과서 지문이든 수업 프린트든 붙여넣으면 됩니다. 가입도, 설치도 필요 없어요.',
+      '기준 = 편하게 읽히는 구간',
+      '로그인 없이, 저장하지 않고',
+      ...Object.values(LEVEL_LABEL),
+    ].join(''),
+  )
 
   return new ImageResponse(
     (

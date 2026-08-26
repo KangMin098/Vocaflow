@@ -1,14 +1,14 @@
-// apps/web/src/app/(main)/library/books/[bookId]/opengraph-image.tsx
+// apps/web/src/app/(main)/comics/adapted/[bookId]/opengraph-image.tsx
 //
-// 발행 도서 공유 미리보기.
+// 각색 만화(CCP) 공유 미리보기.
 //
-// 도서에는 `cover_image_url`(원천 표지)이 실제로 채워져 있다 — 글과 다른 점이다.
-// 그런데 **여기서 그것을 배경으로 쓰지 않는다.** 표지는 외부 호스트(Gutenberg·Standard Ebooks·
-// GCS)에 있고, edge 에서 매번 받아 오면 카드 생성이 남의 서버 상태에 묶인다.
-// 크롤러가 여러 번 가져가는 자리라 그 결합이 비싸다. 표지를 우리 스토리지로 옮기면
-// 그때 배경으로 얹으면 된다 — 그때까지는 제목·저자·난이도로 충분히 알아볼 수 있다.
+// 이 화면은 **도서에서 파생된 만화판**이라 카드도 도서 행을 읽는다. 그런데 조건이
+// 도서 카탈로그와 다르다 — 여기는 `applyBookReadGate`(status 만)를 쓰므로 카드도 그것에 맞춘다
+// (`lib/seo/og-queries.ts` 의 `comicAdapted`). 조건이 갈리면 **화면에는 있는데 카드만 비는**
+// 도서가 생기고, 그건 상태 200 짜리 유효한 PNG 라 열어 보기 전에는 알 수 없다.
 //
-// 카드 모양은 `lib/seo/og-card.tsx` 가 소유한다.
+// 만화판 첫 컷을 배경으로 쓰지 않는 이유는 복원 만화와 같다 — 컷 이미지는 스토리지에 있고
+// edge 에서 매번 받아 오면 카드 생성이 스토리지 지연에 묶인다. 크롤러가 여러 번 가져가는 자리다.
 
 import { ImageResponse } from 'next/og'
 
@@ -17,7 +17,7 @@ import { loadKoreanOgFont } from '@/lib/seo/og-font'
 import { ogQueryUrl } from '@/lib/seo/og-queries'
 
 export const runtime = 'edge'
-export const alt = 'Vocaflow — 영어 원서를 챕터별 어휘와 함께'
+export const alt = 'Vocaflow — 같은 책, 그림으로 먼저'
 export const size = OG_SIZE
 export const contentType = 'image/png'
 
@@ -27,19 +27,15 @@ interface Row {
   cefr_band: string | null
   cefr_level: string | null
   book_v_level: number | null
-  word_count: number | null
   chapter_count: number | null
 }
 
-/** 조건을 화면(`page.tsx`)과 **같게** — published + copyright_safe. */
 async function fetchBook(id: string): Promise<Row | null> {
   const url = process.env['NEXT_PUBLIC_SUPABASE_URL']
   const key = process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']
   if (!url || !key) return null
 
-  const q = ogQueryUrl(url, 'book', id)
-
-  const res = await fetch(q, {
+  const res = await fetch(ogQueryUrl(url, 'comicAdapted', id), {
     headers: { apikey: key, Authorization: `Bearer ${key}` },
     next: { revalidate: 86400 },
   })
@@ -53,14 +49,14 @@ export default async function Image({ params }: { params: { bookId: string } }) 
   const b = await fetchBook(params.bookId)
 
   const props: OgCardProps = {
-    kind: 'Books',
+    kind: 'Comics',
     title: b?.title ?? 'Vocaflow',
     subtitle: b?.author ?? null,
     badges: [
       b?.cefr_band ?? b?.cefr_level ?? null,
       b?.book_v_level != null ? `V${b.book_v_level}` : null,
-      b?.word_count ? `${b.word_count.toLocaleString('en-US')} words` : null,
       b?.chapter_count ? `${b.chapter_count} ch` : null,
+      '만화판',
     ].filter((x): x is string => typeof x === 'string'),
     source: null,
   }

@@ -6,6 +6,8 @@
 //
 // 프리뷰는 아트만 보여준다 — 정본 대사/target_vocab 은 리더의 학습 자산이라 프리뷰에 싣지 않는다(§7.2).
 
+import { cache } from 'react'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, BookImage, Layers } from 'lucide-react'
@@ -23,10 +25,34 @@ interface PageProps {
   params: { bookId: string }
 }
 
-export const metadata = {
-  title: '만화 미리보기',
-  description: '같은 책, 그림으로 먼저 만나는 입구',
+/**
+ * **책마다 다른 제목** — 고정 메타였다(`만화 미리보기` 하나).
+ *
+ * 2026-08-26 실측: 이 라우트만 canonical 도 og:image 도 없었고 description 이 20자였다.
+ * 지금은 발행 만화가 1권뿐이라 눈에 띄지 않지만, 제목이 같은 페이지가 여럿이면
+ * 검색엔진은 중복으로 보고 대개 하나만 남긴다 — 복원 만화 113호가 `복원 만화 · Vocaflow`
+ * 하나였을 때 겪은 것과 같은 구조다. 늘어난 뒤에 고치면 이미 색인에서 빠진 뒤다.
+ */
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const book = await bookOnce(params.bookId)
+  if (!book) return { title: '만화 미리보기' }
+
+  return {
+    title: `${book.title} 만화판`,
+    description: `${book.title}${book.author ? ` · ${book.author}` : ''} — 같은 책을 그림으로 먼저 만나고, 이어서 원문으로 읽습니다.`,
+    alternates: { canonical: `/comics/adapted/${params.bookId}` },
+  }
 }
+
+/** 메타와 본문이 같은 요청에서 각각 부르면 왕복이 두 배다. */
+const bookOnce = cache(async (bookId: string) => {
+  const client = (await createClient()) as unknown as SupabaseClient
+  // 조건은 화면과 같은 열람 게이트 — 갈리면 없는 책의 제목을 메타에 싣게 된다.
+  const { data } = await applyBookReadGate(
+    client.from('library_books').select('title, author').eq('id', bookId),
+  ).maybeSingle()
+  return (data as { title: string; author: string | null } | null) ?? null
+})
 
 export const dynamic = 'force-dynamic'
 

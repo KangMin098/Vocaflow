@@ -13,7 +13,8 @@
 
 import { ImageResponse } from 'next/og'
 
-import { OgCard, OG_SIZE, needsKoreanFont, type OgCardProps } from '@/lib/seo/og-card'
+import { pdComicDisplayTitle } from '@/lib/pd-comic/display-title'
+import { OgCard, OG_SIZE, ogCardText, type OgCardProps } from '@/lib/seo/og-card'
 import { loadKoreanOgFont } from '@/lib/seo/og-font'
 import { ogQueryUrl } from '@/lib/seo/og-queries'
 
@@ -28,6 +29,8 @@ interface Row {
   issue_no: number | null
   published_year: number | null
   source_adapter: string | null
+  /** 임베드한 정본 시리즈 — 표의 `series_title` 보다 이쪽이 우선이다. */
+  pd_comic_series: { title: string | null } | null
 }
 
 /**
@@ -60,11 +63,18 @@ async function fetchIssue(slug: string): Promise<Row | null> {
 export default async function Image({ params }: { params: { slug: string } }) {
   const c = await fetchIssue(params.slug)
 
-  // 시리즈명이 호 제목과 같으면 한 번만 쓴다 — 카탈로그에 그런 행이 실제로 있다
-  // (`Super Mystery Comics`). 같은 말을 두 줄에 겹쳐 쓰면 카드가 이상해진다.
-  const series = c?.series_title ?? null
-  const title = c?.title ?? 'Vocaflow'
-  const subtitle = series && series !== title ? series : null
+  // 제목 규칙은 화면과 **같은 것**을 쓴다(`lib/pd-comic/display-title.ts`) —
+  // 정본 시리즈 + 호수, 이미 호수를 품고 있으면 덧붙이지 않는다.
+  const title = c
+    ? pdComicDisplayTitle({
+        title: c.title,
+        seriesTitle: c.pd_comic_series?.title ?? c.series_title,
+        issueNo: c.issue_no,
+      })
+    : 'Vocaflow'
+
+  // 아카이브 원본 표기가 우리 이름표와 다를 때만 부제로 — 같은 말을 두 줄에 겹쳐 쓰지 않는다.
+  const subtitle = c && c.title !== title ? c.title : null
 
   const props: OgCardProps = {
     kind: 'Vintage Comics',
@@ -77,7 +87,8 @@ export default async function Image({ params }: { params: { slug: string } }) {
     source: c?.source_adapter ?? null,
   }
 
-  const font = needsKoreanFont(props) ? await loadKoreanOgFont() : null
+  // 한글이 없으면 로더가 스스로 null 을 준다 — 판정을 두 곳에 두지 않는다.
+  const font = await loadKoreanOgFont(ogCardText(props))
 
   return new ImageResponse(<OgCard {...props} />, {
     ...OG_SIZE,

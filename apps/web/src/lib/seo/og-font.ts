@@ -13,13 +13,33 @@
 //   (학년 이름 8종 · 판정 문구 몇 개 · 숫자). Google Fonts 의 `text=` 서브셋은 그 글자들만
 //   담은 woff2 를 돌려주므로 보통 수 KB 다. 저장소에 메가바이트를 넣을 이유가 없다.
 //
+// ── 왜 **한글만** 받나 (2026-08-26 실측) ────────────────────────────
+//   서브셋 요청에 `Vocaflow`·숫자 같은 라틴이 섞여 있었다. 그래서 이 폰트가 라틴 글리프를
+//   **일부만** 갖게 됐고, Satori 는 가진 글자는 이 폰트로, 없는 글자는 기본 폰트로 그렸다.
+//   결과가 `A Chr**ist**mas Carol` — 한 단어 안에서 굵기가 갈린다.
+//   (`Pr**agu**e` 로 한 번 겪고 "한글 있을 때만 싣기" 로 막았는데, 한글 배지가 하나라도
+//    들어가면 다시 실리므로 그 방어는 반쪽이었다.)
+//
+//   두 폰트의 **글자 범위를 겹치지 않게** 만들면 섞일 수가 없다. 그래서 한글만 받는다 —
+//   라틴·숫자·기호는 전부 Satori 기본 폰트가 그린다.
+//
+// ── 왜 글자 목록을 손으로 안 들고 있나 ─────────────────────────────
+//   전에는 `SUBSET_TEXT` 상수에 나올 법한 문구를 적어 뒀다. **빠진 글자는 렌더되지 않고
+//   조용히 사라진다** — 문구를 바꾸면서 목록 갱신을 잊으면 카드에 구멍이 난다.
+//   지금은 호출부가 **그 카드에 실제로 들어가는 글자**를 넘긴다. 잊을 것이 없다.
+//
 // 실패해도 이미지는 나와야 한다 — 미리보기가 깨진 링크는 아무도 누르지 않는다.
 //   폰트를 못 받으면 `null` 을 돌려주고, 호출부는 폰트 없이 렌더한다(라틴·숫자는 그대로 나온다).
 
 
 
-/** 프로세스 캐시 — OG 는 크롤러가 몰아서 치므로 매번 받지 않는다. */
-let cached: ArrayBuffer | null | undefined
+/**
+ * 프로세스 캐시 — OG 는 크롤러가 몰아서 치므로 매번 받지 않는다.
+ * 글자 집합마다 다른 폰트이므로 그것을 키로 쓴다. 카드의 한글은 대부분 고정 문구라
+ * 실제 키 종류는 몇 개뿐이지만, 콘텐츠 제목에 한글이 섞이면 늘 수 있어 상한을 둔다.
+ */
+const cache = new Map<string, ArrayBuffer | null>()
+const CACHE_MAX = 32
 
 /** Google Fonts CSS 에서 woff2(또는 ttf) URL 하나를 뽑는다. */
 function firstFontUrl(css: string): string | null {
@@ -27,20 +47,10 @@ function firstFontUrl(css: string): string | null {
   return m?.[1] ?? null
 }
 
-/**
- * 카드에 나올 수 있는 글자 집합.
- *
- * 서브셋 요청에 넣을 문자열이라 **화면 문구가 바뀌면 여기도 바뀌어야 한다**.
- * 빠진 글자는 렌더되지 않고 조용히 사라지므로, 새 문구를 넣을 땐 이 문자열을 함께 늘린다.
- */
-const SUBSET_TEXT =
-  '지문난이도진단이수준이면편하게읽혀요영어를붙여넣으면학년별로몇가읽히는지바로나옵니다' +
-  '교과서든수업프린트붙여넣기됩니다가입도설치도필요없어요기준편하게읽히는구간' +
-  '초등고학년중고수능기본심화실무공인영어토익학술원서' +
-  '이글은교육과정범위를넘어섭니다분석할단어가아직없어요' +
-  '저장하지않고로그인없이' +
-  '0123456789.%·—&()' +
-  'VocaflowHuNation'
+/** 이 문자열에서 한글만 골라 정렬·중복 제거 — 서브셋 요청 키이자 내용이다. */
+export function hangulSubset(text: string): string {
+  return [...new Set(text.match(/[가-힣ㄱ-ㅎㅏ-ㅣ]/g) ?? [])].sort().join('')
+}
 
 /**
  * 한글 서브셋 폰트를 얻는다. 실패는 `null` — 호출부가 폰트 없이 진행한다.
@@ -48,13 +58,17 @@ const SUBSET_TEXT =
  * 첫 실패도 캐시한다(`null` 로) — 크롤러가 몰아칠 때 매번 외부 요청을 재시도하면
  * 이미지 응답이 통째로 느려진다. 프로세스가 다시 뜨면 다시 시도한다.
  */
-export async function loadKoreanOgFont(): Promise<ArrayBuffer | null> {
-  if (cached !== undefined) return cached
+export async function loadKoreanOgFont(text: string): Promise<ArrayBuffer | null> {
+  const chars = hangulSubset(text)
+  // 한글이 없으면 이 폰트를 실을 이유가 없다 — 실으면 라틴이 섞인다.
+  if (!chars) return null
+  const hit = cache.get(chars)
+  if (hit !== undefined) return hit
 
   try {
     const cssUrl =
       'https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700' +
-      `&text=${encodeURIComponent(SUBSET_TEXT)}`
+      `&text=${encodeURIComponent(chars)}`
 
     // woff2 대신 ttf 를 받으려면 구형 UA 가 필요하다 — Satori 는 ttf/otf/woff 를 읽고
     // **woff2 는 못 읽는다.** UA 를 안 보내면 woff2 가 와서 렌더가 조용히 실패한다.
@@ -71,11 +85,22 @@ export async function loadKoreanOgFont(): Promise<ArrayBuffer | null> {
     const fontRes = await fetch(fontUrl, { next: { revalidate: 86_400 } })
     if (!fontRes.ok) throw new Error(`FONT ${fontRes.status}`)
 
-    cached = await fontRes.arrayBuffer()
-    return cached
+    const buf = await fontRes.arrayBuffer()
+    remember(chars, buf)
+    return buf
   } catch (err) {
     console.warn('[og-font] 한글 서브셋 폰트 로드 실패 — 폰트 없이 렌더합니다:', err)
-    cached = null
+    // 첫 실패도 캐시한다 — 크롤러가 몰아칠 때 매번 재시도하면 이미지 응답이 통째로 느려진다.
+    remember(chars, null)
     return null
   }
+}
+
+/** 상한을 넘으면 가장 오래된 것부터 버린다(Map 은 삽입 순서를 지킨다). */
+function remember(key: string, value: ArrayBuffer | null): void {
+  if (cache.size >= CACHE_MAX) {
+    const oldest = cache.keys().next().value
+    if (oldest !== undefined) cache.delete(oldest)
+  }
+  cache.set(key, value)
 }
