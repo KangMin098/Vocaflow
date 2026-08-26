@@ -256,6 +256,213 @@
      "지문 어휘 그대로"
     ]
    }
+  },
+  "X-TITLE": {
+   "from": "설계도 X-TITLE 절차",
+   "no": 41,
+   "points": 2,
+   "answer": 3,
+   "passage": "A weather forecast can be judged in two different ways, and the two rarely agree. The first way asks how often the forecast matches what the sky later does. The second way asks how often the forecast changes what a person actually decides to do. A forecast can score very well on the first measure and score nothing at all on the second measure. In a city where it rains on four days out of five, a forecast that predicts rain every single day will be right eighty percent of the time. That forecast is (a) accurate, and it is simultaneously useless, because nobody who reads it will behave differently on any day of the week. The forecast that earns its keep is the one that (b) separates the days on which a decision would actually change. Such a forecast will be (c) wrong more often, because the days it tries to separate are exactly the days that are genuinely ambiguous. Forecasters who are rewarded for accuracy therefore learn to predict the (d) exceptional, and forecasters who are rewarded for usefulness learn to accept a worse score. Most public forecasting is judged by accuracy, since accuracy is easily counted and usefulness is not. The result is a service that reports the obvious with great (e) precision and falls silent exactly where a reader most needs it to speak. A forecast is not a description of the future but an instrument for choosing, and an instrument is worth whatever it changes.",
+   "choices": [
+    "The Long Road to Reliable Weather Prediction",
+    "Counting Rain: A Short History of Records",
+    "Why an Accurate Forecast Can Still Be Worthless",
+    "Precision and Trust: The Forecaster’s Dilemma",
+    "How Cities Learn to Live with Uncertain Skies"
+   ],
+   "design": {
+    "정답원리": "결론 단락 주제의 대조 표제",
+    "오답": [
+     "단락 요약",
+     "도입 화제",
+     "반대 함의",
+     "상투 표제"
+    ]
+   }
+  },
+  "X-VOCAB": {
+   "from": "설계도 X-VOCAB 절차 · 41번과 지문 공유",
+   "no": 42,
+   "points": 3,
+   "answer": 4,
+   "passage": "A weather forecast can be judged in two different ways, and the two rarely agree. The first way asks how often the forecast matches what the sky later does. The second way asks how often the forecast changes what a person actually decides to do. A forecast can score very well on the first measure and score nothing at all on the second measure. In a city where it rains on four days out of five, a forecast that predicts rain every single day will be right eighty percent of the time. That forecast is (a) accurate, and it is simultaneously useless, because nobody who reads it will behave differently on any day of the week. The forecast that earns its keep is the one that (b) separates the days on which a decision would actually change. Such a forecast will be (c) wrong more often, because the days it tries to separate are exactly the days that are genuinely ambiguous. Forecasters who are rewarded for accuracy therefore learn to predict the (d) exceptional, and forecasters who are rewarded for usefulness learn to accept a worse score. Most public forecasting is judged by accuracy, since accuracy is easily counted and usefulness is not. The result is a service that reports the obvious with great (e) precision and falls silent exactly where a reader most needs it to speak. A forecast is not a description of the future but an instrument for choosing, and an instrument is worth whatever it changes.",
+   "choices": [
+    "(a) accurate",
+    "(b) separates",
+    "(c) wrong",
+    "(d) exceptional",
+    "(e) precision"
+   ],
+   "design": {
+    "정답원리": "전개 단락에서 반의어 치환 — (d) ordinary → exceptional",
+    "오답": [
+     "어려운 정답 낱말",
+     "유의어 치환",
+     "먼 단락 미끼",
+     "중립 낱말"
+    ]
+   }
+  },
+  "X-ORDER": {
+   "from": "설계도 X-ORDER 절차",
+   "no": 43,
+   "points": 2,
+   "answer": 3,
+   "passage": "(A) Nora had spent the whole summer at her grandfather’s cottage beside the lake. On the last morning (a) she found him out on the dock with a wooden box in his weathered hands. Inside the box was a small brass compass, worn smooth around the edges from years of handling. \"This one belonged to my own father,\" (b) he said quietly. \"He carried it on every trip he ever took, and he never lost his way.\" Nora turned the compass over and watched the slender needle settle toward the distant shoreline. (c) She wanted to ask whether she could keep it, but the words simply would not emerge. (C) On the long drive home she kept thinking about the box on the dock. She thought about the needle that had settled so quickly. (d) She had said nothing at all, and the compass had gone back into the box before she left. Her mother noticed that she was quiet and asked her twice what was troubling her. Nora merely shook her head and stared out at the flat brown farmland. By the time they reached the city outskirts she had decided that the opportunity had vanished for good. (B) Two weeks later a small parcel arrived at the apartment with her name printed on the label. (e) She opened it at the kitchen table while her mother watched from the doorway. The compass lay inside on a folded square of soft grey flannel. Under the compass was a brief handwritten note in her grandfather’s careful handwriting. The note said that a compass is no use to anyone inside a box. It said that he had carried it long enough for one man. (D) Nora took the compass up to her room and positioned it on the windowsill above her desk. The needle swung once and then held steady. It pointed past the rooftops toward the distant water. She remembered the dock again, and about how she had not been able to ask. Then she wrote him a letter. She kept it deliberately short, because he had never liked lengthy ones. She told him exactly where the needle pointed from her window.",
+   "choices": [
+    "(B) - (C) - (D)",
+    "(B) - (D) - (C)",
+    "(C) - (B) - (D)",
+    "(C) - (D) - (B)",
+    "(D) - (B) - (C)"
+   ],
+   "design": {
+    "정답원리": "사건 시간 순서 — 귀가 → 소포 → 답장",
+    "오답": [
+     "인접 두 토막 교환",
+     "(B) 선행 배열",
+     "결말 선행",
+     "역순 배열"
+    ]
+   }
+  },
+  "X-REFER": {
+   "from": "설계도 X-REFER 절차 · 43번과 지문 공유",
+   "no": 44,
+   "points": 2,
+   "answer": 2,
+   "passage": "(A) Nora had spent the whole summer at her grandfather’s cottage beside the lake. On the last morning (a) she found him out on the dock with a wooden box in his weathered hands. Inside the box was a small brass compass, worn smooth around the edges from years of handling. \"This one belonged to my own father,\" (b) he said quietly. \"He carried it on every trip he ever took, and he never lost his way.\" Nora turned the compass over and watched the slender needle settle toward the distant shoreline. (c) She wanted to ask whether she could keep it, but the words simply would not emerge. (C) On the long drive home she kept thinking about the box on the dock. She thought about the needle that had settled so quickly. (d) She had said nothing at all, and the compass had gone back into the box before she left. Her mother noticed that she was quiet and asked her twice what was troubling her. Nora merely shook her head and stared out at the flat brown farmland. By the time they reached the city outskirts she had decided that the opportunity had vanished for good. (B) Two weeks later a small parcel arrived at the apartment with her name printed on the label. (e) She opened it at the kitchen table while her mother watched from the doorway. The compass lay inside on a folded square of soft grey flannel. Under the compass was a brief handwritten note in her grandfather’s careful handwriting. The note said that a compass is no use to anyone inside a box. It said that he had carried it long enough for one man. (D) Nora took the compass up to her room and positioned it on the windowsill above her desk. The needle swung once and then held steady. It pointed past the rooftops toward the distant water. She remembered the dock again, and about how she had not been able to ask. Then she wrote him a letter. She kept it deliberately short, because he had never liked lengthy ones. She told him exactly where the needle pointed from her window.",
+   "choices": [
+    "(a) she found him",
+    "(b) he said quietly",
+    "(c) She wanted to ask",
+    "(d) She had said nothing",
+    "(e) She opened it"
+   ],
+   "design": {
+    "정답원리": "넷은 Nora · (b)만 할아버지",
+    "오답": [
+     "직전 명사 일치",
+     "문장 주어 일치",
+     "토막 경계",
+     "대화 안 지칭"
+    ]
+   }
+  },
+  "X-FACT": {
+   "from": "설계도 X-FACT 절차 · 43번과 지문 공유",
+   "no": 45,
+   "points": 2,
+   "answer": 3,
+   "passage": "(A) Nora had spent the whole summer at her grandfather’s cottage beside the lake. On the last morning (a) she found him out on the dock with a wooden box in his weathered hands. Inside the box was a small brass compass, worn smooth around the edges from years of handling. \"This one belonged to my own father,\" (b) he said quietly. \"He carried it on every trip he ever took, and he never lost his way.\" Nora turned the compass over and watched the slender needle settle toward the distant shoreline. (c) She wanted to ask whether she could keep it, but the words simply would not emerge. (C) On the long drive home she kept thinking about the box on the dock. She thought about the needle that had settled so quickly. (d) She had said nothing at all, and the compass had gone back into the box before she left. Her mother noticed that she was quiet and asked her twice what was troubling her. Nora merely shook her head and stared out at the flat brown farmland. By the time they reached the city outskirts she had decided that the opportunity had vanished for good. (B) Two weeks later a small parcel arrived at the apartment with her name printed on the label. (e) She opened it at the kitchen table while her mother watched from the doorway. The compass lay inside on a folded square of soft grey flannel. Under the compass was a brief handwritten note in her grandfather’s careful handwriting. The note said that a compass is no use to anyone inside a box. It said that he had carried it long enough for one man. (D) Nora took the compass up to her room and positioned it on the windowsill above her desk. The needle swung once and then held steady. It pointed past the rooftops toward the distant water. She remembered the dock again, and about how she had not been able to ask. Then she wrote him a letter. She kept it deliberately short, because he had never liked lengthy ones. She told him exactly where the needle pointed from her window.",
+   "choices": [
+    "Nora는 여름 내내 할아버지의 호숫가 집에서 지냈다.",
+    "나침반은 할아버지의 아버지가 쓰던 것이다.",
+    "Nora는 그 자리에서 나침반을 달라고 말했다.",
+    "소포는 두 주 뒤에 Nora의 이름으로 도착했다.",
+    "Nora는 할아버지에게 짧은 편지를 썼다."
+   ],
+   "design": {
+    "정답원리": "③ 이 사건과 어긋난다 — 묻지 못했다",
+    "오답": [
+     "동의 재진술",
+     "결과 요약",
+     "심리 서술",
+     "주체 바꾸기"
+    ]
+   }
+  },
+  "R-CHART": {
+   "from": "설계도 R-CHART 절차",
+   "no": 25,
+   "points": 2,
+   "answer": 3,
+   "chart": {
+    "2019": [
+     78,
+     55,
+     44,
+     39,
+     20
+    ],
+    "2024": [
+     74,
+     49,
+     41,
+     36,
+     22
+    ],
+    "항목": [
+     "Norway",
+     "Poland",
+     "Japan",
+     "Spain",
+     "Chile"
+    ]
+   },
+   "passage": "The above graph shows the percentage of adults in five countries who reported reading at least one book for pleasure in 2019 and in 2024. ① In 2024, the percentage of adults who read at least one book for pleasure was highest in Norway and lowest in Chile. ② In both years, the percentage in Norway was higher than the percentage in Poland, and the percentage in Poland was higher than the percentage in Japan. ③ The percentage in Japan in 2024 was more than twice the percentage in Chile in 2024. ④ In Spain, the percentage in 2024 was lower than the percentage in 2019, and the same was true in Japan. ⑤ Among the five countries, Chile was the only country whose percentage in 2024 was higher than its percentage in 2019.",
+   "choices": [
+    "①",
+    "②",
+    "③",
+    "④",
+    "⑤"
+   ],
+   "design": {
+    "정답원리": "관계어 한 곳만 어긋남 — 41 은 22 의 두 배가 아니다",
+    "오답": [
+     "단순 확인 참",
+     "순위 참",
+     "증감 참",
+     "계산 필요 참"
+    ]
+   }
+  },
+  "R-NOTICE": {
+   "from": "설계도 R-NOTICE 절차",
+   "no": 27,
+   "points": 2,
+   "answer": 4,
+   "passage": "Riverside Autumn Night Market. The market returns to the South Lawn for a single evening. Local growers, bakers, and craftspeople will occupy forty stalls along the riverside. A stage beside the boathouse will host three short performances. Admission is free and advance tickets are unnecessary. The lawn gates open at five and close at half past nine. The park parking area closes at four, so please use the Elm Street garage. Leashed dogs are welcome on the lawn but not inside the refreshment tent. The market continues in light rain and is cancelled only during storms.",
+   "choices": [
+    "South Lawn에서 하루 저녁만 열린다.",
+    "노점은 모두 마흔 개가 마련된다.",
+    "입장에는 표가 필요하지 않다.",
+    "공원 주차장은 아홉 시 반에 문을 닫는다.",
+    "가벼운 비가 와도 행사는 진행된다."
+   ],
+   "design": {
+    "정답원리": "항목 하나의 값만 바꿈 — 주차장은 네 시",
+    "오답": [
+     "항목 그대로",
+     "단위 환산",
+     "조건부 참",
+     "값 바꾸기"
+    ]
+   }
+  },
+  "R-INSERT": {
+   "from": "설계도 R-INSERT 절차",
+   "no": 38,
+   "points": 2,
+   "answer": 5,
+   "passage": "This is why such rules are almost always written after an accident rather than before one. Every safety rule in a workplace began as a description of something that had already gone wrong. ( ① ) Before the event, the hazard is one of a thousand hazards that could in principle materialise, and no organisation can afford to write a separate rule for each of them. ( ② ) After the event, the hazard is no longer one possibility among many; it is the thing that actually happened, and it now has a cost attached to it. ( ③ ) The rule that follows is therefore cheap to justify, because the accident has already paid for the argument. ( ④ ) A rule written before an accident has to compete for attention with every other imagined danger, and it usually loses the competition. ( ⑤ ) The pattern leaves an uncomfortable conclusion for anyone designing a system: the rules you have are a record of your failures, and the failures you have not yet had are the rules you do not have.",
+   "choices": [
+    "①",
+    "②",
+    "③",
+    "④",
+    "⑤"
+   ],
+   "design": {
+    "정답원리": "지시어 This 의 해소 지점 = 비용 비대칭이 완성된 뒤",
+    "오답": [
+     "지시어 해소 전 자리",
+     "새 개념 수용 후 자리",
+     "표지 인접 자리",
+     "문단 경계"
+    ]
+   }
   }
  }
 }

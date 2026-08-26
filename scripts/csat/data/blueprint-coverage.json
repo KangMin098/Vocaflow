@@ -8,15 +8,15 @@
   "R5"
  ],
  "cells": 185,
- "done": 158,
- "pct": 85.4,
- "fullTypes": 13,
+ "done": 166,
+ "pct": 89.7,
+ "fullTypes": 21,
  "perReq": {
   "R1": 37,
   "R2": 35,
   "R3": 35,
   "R4": 37,
-  "R5": 14
+  "R5": 22
  },
  "rows": [
   {
@@ -256,10 +256,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-FACT",
@@ -276,10 +274,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-GRAMMAR",
@@ -334,10 +330,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-SUMMARY",
@@ -354,10 +348,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "X-VOCAB",
@@ -365,10 +357,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "X-ORDER",
@@ -376,10 +366,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "X-REFER",
@@ -387,10 +375,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "X-FACT",
@@ -398,10 +384,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   }
  ]
 }
