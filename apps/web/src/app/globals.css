@@ -913,3 +913,58 @@ body.studying .sidebar:hover { opacity: 1; }
 }
 
 /* gentle-float은 §8에서 이미 정의됨 (Flashcard MicroPause와 공용) */
+
+/* ══════════════════════════════════════════════════════════════════
+   인쇄 — 교사 학습지 (2026-08-26)
+
+   이 저장소에 인쇄 규칙이 하나도 없었다(`@media print` 0개). 그런데 교사의 수업 준비는
+   **종이로 끝난다** — 유인물·쪽지시험이 교무실에 남고, 그것이 CAC 0 채널에서 브랜드가
+   실제로 옮겨 다니는 경로다.
+
+   ⚠️ 학습지는 **`document.body` 직속 형제**로 그린다(React portal). 이유는 실측이다:
+      처음에는 `visibility: hidden` 으로 나머지를 지우고 학습지만 `position:absolute` 로
+      얹었다. 잉크는 맞았는데 **문서 높이가 그대로라 빈 장이 딸려 나왔다** —
+      1장짜리 목록이 **4쪽**으로 인쇄됐다.
+      `display:none` 은 조상 어딘가를 접으면 자식인 학습지까지 사라져 쓸 수 없다.
+      그래서 학습지를 트리 밖으로 빼고, body 의 **다른 자식만** 접는다. 높이가 함께 접힌다.
+   ══════════════════════════════════════════════════════════════════ */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    height: auto !important;
+  }
+
+  /* 학습지를 뺀 나머지 — 높이까지 접어야 빈 장이 안 생긴다. */
+  body > *:not(.vf-sheet) {
+    display: none !important;
+  }
+
+  .vf-sheet {
+    display: block !important;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    background: #fff;
+  }
+
+  /* 색을 쓰지 않는다 — 학교 인쇄기는 대부분 흑백이고, 회색조로 떨어진 옅은 토큰 색은
+     글자를 읽기 어렵게 만든다. 검정 잉크와 선만 쓴다. */
+
+  /* 낱말 한 줄이 두 장에 걸치면 못 쓴다. */
+  .vf-sheet tr,
+  .vf-sheet li {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .vf-sheet .vf-page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+}

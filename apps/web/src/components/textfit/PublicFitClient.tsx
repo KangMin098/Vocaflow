@@ -16,6 +16,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { FileText, RotateCcw } from 'lucide-react'
 
 import { CurriculumPanel } from '@/components/textfit/CurriculumPanel'
+import { Worksheet, type WorksheetMode } from '@/components/textfit/Worksheet'
+import { WorksheetControls } from '@/components/textfit/WorksheetControls'
 import { LevelProfilePanel } from '@/components/textfit/LevelProfilePanel'
 import { tokenizeText } from '@/lib/text-extract/tokenize'
 import {
@@ -51,6 +53,10 @@ interface Props {
 export function PublicFitClient({ initialShared = null }: Props) {
   const [text, setText] = useState('')
   const [profile, setProfile] = useState<LevelProfile | null>(initialShared)
+  /**
+   * 인쇄할 학습지 종류. 기본은 `both` — 교사는 대개 나눠 줄 것과 걷을 것을 함께 만든다.
+   */
+  const [worksheetMode, setWorksheetMode] = useState<WorksheetMode>('both')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
@@ -259,6 +265,22 @@ export function PublicFitClient({ initialShared = null }: Props) {
         조회에 실패하면 스스로 아무것도 그리지 않는다.
       */}
       <CurriculumPanel profile={profile} />
+
+      {/*
+        마지막 자리 — 여기까지 읽은 사람은 "이 지문을 쓰겠다" 고 정한 사람이다.
+        인쇄는 링크 복사보다 강한 의도이고, 그 종이가 교무실에 남는다.
+      */}
+      {profile && (
+        <>
+          <WorksheetControls
+            mode={worksheetMode}
+            onModeChange={setWorksheetMode}
+            wordCount={profile.hardestWords.length}
+          />
+          {/* 화면에 안 보인다 — 인쇄에서만 켜진다(globals.css 의 .vf-sheet). */}
+          <Worksheet profile={profile} mode={worksheetMode} />
+        </>
+      )}
     </div>
   )
 }
