@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
+import { bookJsonLd } from '@/lib/seo/structured-data';
 import { listChapters } from '@/lib/library/reader-queries';
 import { getResumeTarget } from '@/lib/library/resume-queries';
 import { fetchBookChapterSets, fetchBookComposerSets } from '@/lib/library/books/queries';
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const by = b.author ? ` — ${b.author}` : '';
   return {
-    title: `${b.title}${by} · Vocaflow`,
+    title: `${b.title}${by}`,
     description: `${b.title}${by}. 챕터별 어휘와 난이도를 미리 보고 영어 원문으로 읽습니다.`,
     alternates: { canonical: `/library/books/${params.bookId}` },
   };
@@ -122,6 +123,23 @@ export default async function LibraryBookPreviewPage({
 
   return (
     <div className="flex flex-col gap-4">
+      {/*
+        검색엔진에 **작품으로** 보이게 한다 — 제목 한 줄이 아니라 저자·무료·퍼블릭 도메인까지.
+        이 화면은 비로그인 방문자가 보는 미리보기라 검색 유입의 착지점이다.
+        내용은 코드가 만든 JSON 문자열이고 사용자 입력이 섞이지 않는다(/fit 과 같은 패턴).
+      */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: bookJsonLd({
+            id: b.id,
+            title: b.title,
+            author: b.author,
+            wordCount: b.word_count,
+            chapterCount: b.chapter_count,
+          }),
+        }}
+      />
       <UserPreviewClient
         bookId={b.id}
         title={b.title}

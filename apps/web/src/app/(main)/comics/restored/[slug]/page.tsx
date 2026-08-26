@@ -16,6 +16,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { ArrowLeft } from 'lucide-react'
 
 import { selectPdComic, selectPdProvenance } from '@/lib/pd-comic/queries'
+import { comicIssueJsonLd } from '@/lib/seo/structured-data'
 import { createClient } from '@/lib/supabase/server'
 import PdModernReader from '@/components/comic/PdModernReader'
 
@@ -42,14 +43,14 @@ export async function generateMetadata({
   params: { slug: string }
 }): Promise<Metadata> {
   const prov = await provenanceOnce(params.slug)
-  if (!prov) return { title: '복원 만화 · Vocaflow' }
+  if (!prov) return { title: '복원 만화' }
 
   const issue = prov.issueNo ? ` #${prov.issueNo}` : ''
   const year = prov.publishedYear ? ` (${prov.publishedYear})` : ''
   const series = prov.seriesTitle ? `${prov.seriesTitle}${issue}` : `${prov.title}${issue}`
 
   return {
-    title: `${series}${year} · 복원 만화 · Vocaflow`,
+    title: `${series}${year} · 복원 만화`,
     description: `${prov.title}${year} — 퍼블릭 도메인 만화를 컷 단위로 복원해 영어 원문 그대로 읽습니다.`,
     alternates: { canonical: `/comics/restored/${params.slug}` },
   }
@@ -74,6 +75,25 @@ export default async function PdComicReaderPage({ params }: { params: { slug: st
 
   return (
     <div className="mx-auto w-full max-w-[820px] px-3 pb-16 md:px-4">
+      {/*
+        검색엔진에 **호(issue)로** 보이게 한다 — 시리즈·호수·발행연도·출처까지.
+        "1945년 원본" 이라는 사실이 이 콘텐츠의 검색 가치이고, 같은 시리즈의 다른 호가
+        함께 발견되는 것이 카탈로그의 값이다.
+      */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: comicIssueJsonLd({
+            slug: params.slug,
+            title: prov?.title ?? params.slug,
+            seriesTitle: prov?.seriesTitle ?? null,
+            issueNo: prov?.issueNo ?? null,
+            publishedYear: prov?.publishedYear ?? null,
+            sourceArchive: prov?.sourceArchive ?? null,
+            sourceUrl: prov?.sourceUrl ?? null,
+          }),
+        }}
+      />
       <header className="flex items-center gap-2 py-3">
         <Link
           href="/comics/restored"

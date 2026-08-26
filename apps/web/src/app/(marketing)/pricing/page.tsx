@@ -18,7 +18,7 @@ import { PricingClient } from '@/components/marketing/PricingClient'
 import { fetchTrustSignals } from '@/lib/marketing/trust-signals'
 
 export const metadata: Metadata = {
-  title: '요금제 · Vocaflow',
+  title: '요금제',
   description:
     '내가 아는 비율로 글의 난이도를 재고, 편하게 읽히기까지 몇 단어가 남았는지 계산합니다. 무료로 시작할 수 있어요.',
   alternates: { canonical: '/pricing' },

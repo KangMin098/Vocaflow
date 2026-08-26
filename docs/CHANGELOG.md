@@ -10,6 +10,41 @@
 
 ## Unreleased (v06.34 → next)
 
+### 콘텐츠 123개를 검색에 "작품으로" 보이게 한다 — JSON-LD + 제목 중복 제거
+
+sitemap 에 콘텐츠 상세 123개를 올렸는데, 그 페이지들은 `<title>` 말고는 검색엔진에
+아무것도 말하지 않았다. 저자·언어·무료 여부·퍼블릭 도메인은 본문에 한국어로 적혀 있을 뿐이라
+기계가 읽지 못한다. 롱테일 유입이 CAC 0 경로 중 하나라 **그 표면의 품질이 곧 유입**이다.
+
+- `lib/seo/structured-data.ts` — `Book`(발행 도서 13) · `ComicIssue`(발행 만화 110).
+  `isAccessibleForFree` + 퍼블릭 도메인 라이선스를 명시한다("무료로 읽을 수 있나" 가
+  검색하는 사람이 실제로 알고 싶어 하는 것이고, 발행 조건이 그것을 보장한다)
+- **지어내지 않는다** — `aggregateRating`·`reviewCount` 는 넣지 않는다. 구조화 데이터의
+  허위 표기는 검색엔진 페널티 사유이고, 애초에 이 저장소는 공개 화면에 지어낸 지표를
+  걸었다가 걷어낸 이력이 있다. 회귀가 금지 키 목록을 검사한다
+- **모르면 키를 뺀다** — `author: null` 이나 `wordCount: 0` 은 "저자가 없다"·"낱말이 0" 이라고
+  **말하는** 것이지 모른다는 뜻이 아니다
+- 시리즈명이 호 제목과 같으면 `isPartOf` 를 넣지 않는다 — 자기 자신에 속한다는 말은
+  정보가 아니다(실제로 카탈로그에 그런 행이 있다: Super Mystery Comics)
+
+⚠️ **`JSON.stringify` 만으로는 `<script>` 안에 넣기 안전하지 않다.**
+`<` 를 이스케이프하지 않으므로 제목에 `</script>` 가 있으면 브라우저가 거기서 태그를 끊는다.
+`/fit` 의 구조화 데이터는 "코드가 만든 문자열" 이라 이 문제가 없었지만 **여기는 다르다** —
+도서·만화 제목은 외부 아카이브(IA · Standard Ebooks)에서 온 값이다. `\u003c` 로 이스케이프.
+회귀는 "JSON.parse 가 안 터진다" 가 아니라 **출력에 `<` 가 하나도 없는지**를 본다
+(전자는 통과하면서 HTML 은 깨진다).
+
+### `<title>` 에 Vocaflow 가 두 번 나오고 있었다
+
+루트 layout 이 `template: '%s | Vocaflow'` 를 갖는데 하위 화면들이 접미사를 또 붙였다.
+`Super Mystery Comics v06n06 · 복원 만화 · Vocaflow | Vocaflow` — 검색 결과에 그대로 나간다.
+`/comics/restored/[slug]` · `/library/books/[bookId]` · `/pricing` 세 곳에서 제거.
+(랜딩 `/` 는 루트 세그먼트라 template 이 적용되지 않아 그대로 둔다.)
+
+실측(dev, 2026-08-26):
+`Ammachi's Amazing Machines — Rajiv Eipe | Vocaflow` ·
+`Super Mystery Comics Issue v06n06 · 복원 만화 | Vocaflow`
+
 ### 배포 경로가 없었다 + 프로덕션 빌드가 교사 퍼널의 절반을 죽여 놓고 있었다
 
 sitemap 132개·랜딩·계측을 만든 뒤 **그것이 실제로 나갈 수 있는지** 확인했다. 두 가지가 나왔다.
