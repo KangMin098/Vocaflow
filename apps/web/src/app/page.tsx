@@ -1,326 +1,231 @@
 // apps/web/src/app/page.tsx
-// 개발 진입점 — 전체 화면 인덱스 + 진행 현황
+//
+// 랜딩 — 검색과 공유가 도착하는 곳.
+//
+// 왜 새로 만들었나 (2026-08-26 실측):
+//   이 자리에는 **개발용 화면 인덱스**가 있었다(`'use client'`, 307줄). 그런데 sitemap 은
+//   이 경로를 **priority 1.0** 으로, 즉 검색 첫 문으로 광고하고 있었다. 같은 날 콘텐츠 상세
+//   123개를 sitemap 에 올렸으니, 문 132개가 전부 개발자용 인덱스를 가리키고 있었던 셈이다.
+//   `(marketing)` 그룹에는 about·fit·pricing·terms·privacy 만 있고 **랜딩이 없었다.**
+//   → 화면 인덱스는 `/dev` 로 옮기고(robots 가 막는다) 이 자리를 랜딩으로 채운다.
+//
+// ── 무엇을 말하고 무엇을 말하지 않는가 ──────────────────────────────
+// **지어낸 것을 쓰지 않는다.** 후기·이용자 수·평점·도입 기관은 한 줄도 없다 —
+// 2026-08-16 진단에서 `/pricing` 이 "학습자 12,000+ / 평점 4.8 / 학교 34곳"(실측 3/0/0)을
+// 걸고 있었고, 그건 표시광고법이 정면으로 다루는 항목이다.
+// 대신 **검증 가능한 동작**(`lib/marketing/differentiators.ts`)과 **DB 실측**
+// (`lib/marketing/trust-signals.ts`)만 말한다. 수치를 못 읽으면 그 자리는 비운다.
+//
+// ── 첫 CTA 가 가입이 아닌 이유 ──────────────────────────────────────
+// `/fit` 은 **로그인 없이** 지문 난이도를 재 준다. 가입 전에 가치를 보여주는 유일한 화면이고,
+// 교사 채널(CAC 0)이 성립하려면 이 문이 가장 넓어야 한다(sitemap 이 같은 이유로 0.9 를 준다).
+// 그래서 1차 CTA 는 "먼저 재 보기" 이고 가입은 그 다음이다.
 
-'use client'
-
-import {
-  Anchor,
-  BarChart3,
-  BookMarked,
-  CheckCircle2,
-  CircleDashed,
-  CircleDot,
-  CreditCard,
-  FileText,
-  Flag,
-  FlaskConical,
-  Headphones,
-  HelpCircle,
-  Home as HomeIcon,
-  LayoutDashboard,
-  Layers,
-  Library,
-  LogIn,
-  Mail,
-  Menu,
-  PencilLine,
-  Settings as SettingsIcon,
-  ShieldCheck,
-  Sliders,
-  Sparkles,
-  Type,
-  UserPlus,
-  Users,
-  Zap,
-  type LucideIcon,
-} from 'lucide-react'
+import { ArrowRight, BookOpen, GraduationCap, Sparkles } from 'lucide-react'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 
-type Status = 'done' | 'progress' | 'pending'
+import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
+import { fetchTrustSignals } from '@/lib/marketing/trust-signals'
 
-interface Screen {
-  href: string
-  label: string
-  description: string
-  icon: LucideIcon
-  status: Status
+export const metadata: Metadata = {
+  title: 'Vocaflow — 내가 아는 비율로 읽기를 설계합니다',
+  description:
+    '글의 난이도가 아니라 "내가 아는 비율"을 잽니다. 이 글이 편하게 읽히기까지 몇 단어가 남았는지 계산해 드려요. 로그인 없이 먼저 재 보세요.',
+  alternates: { canonical: '/' },
 }
 
-interface ScreenGroup {
-  title: string
-  description: string
-  accent: string
-  screens: Screen[]
-}
+/** 신뢰 지표는 매 요청 세지 않는다 — 하루 한 번이면 충분하다. */
+export const revalidate = 86400
 
-const GROUPS: ScreenGroup[] = [
-  {
-    title: '인증 (Authentication)',
-    description: '로그인 · 가입 · 비밀번호 · 이메일 인증',
-    accent: 'var(--p)',
-    screens: [
-      { href: '/login', label: '로그인', description: '이메일·소셜 로그인', icon: LogIn, status: 'done' },
-      { href: '/signup', label: '회원가입', description: '신규 가입 · 약관 동의', icon: UserPlus, status: 'done' },
-      { href: '/reset-password', label: '비밀번호 재설정', description: '재설정 링크 발송', icon: ShieldCheck, status: 'done' },
-      { href: '/verify-email', label: '이메일 인증', description: '인증 코드 확인', icon: Mail, status: 'done' },
-    ],
-  },
-  {
-    title: '메인 앱 (Learning Platform)',
-    description: '학습 핵심 모듈 · 7개 도메인',
-    accent: '#8B5CF6',
-    screens: [
-      { href: '/hub', label: '허브 (Home Hub)', description: 'Hero · 모듈 진입 · 이어하기', icon: HomeIcon, status: 'done' },
-      { href: '/library', label: '라이브러리', description: '스크립트 카드 · 카테고리 · 큐레이션', icon: Library, status: 'done' },
-      { href: '/text', label: '직접 입력 (TextViewer)', description: '텍스트·파일·URL → AI 단어 추출', icon: FileText, status: 'done' },
-      { href: '/text/1', label: '학습 워크스페이스', description: '스크립트 읽기 + 단어 학습 (text/[id])', icon: Menu, status: 'done' },
-      { href: '/wordvault', label: '단어장 (WordVault)', description: 'Browse · Study · Review 3-View', icon: BookMarked, status: 'done' },
-      { href: '/flashcard', label: '플래시카드 Hub', description: 'Continue · SRS Queue · 7일 정확도 · 시작 설정', icon: Layers, status: 'done' },
-      { href: '/flashcard/play', label: '플래시카드 세션', description: 'SM-2 SRS · 능동적 회상 3초 · 4단계 평가', icon: Layers, status: 'done' },
-      { href: '/spellforge', label: 'SpellForge Hub', description: 'Memory Decay · 모드/난이도 선택 · Best 점수', icon: Type, status: 'done' },
-      { href: '/spellforge/play', label: 'SpellForge 세션', description: '스펠링 타이핑 · 파란 패널 · IME 분리', icon: Type, status: 'done' },
-      { href: '/wordblitz', label: 'WordBlitz Hub', description: '게임 소개 · 최근 점수 · 시작 진입점', icon: Zap, status: 'done' },
-      { href: '/play/wordblitz', label: 'WordBlitz Play (3D)', description: '인형뽑기 3D · GLB 집게 · 풀스크린', icon: Zap, status: 'progress' },
-      { href: '/play/pirate-quest', label: "Pirate's Bounty (3D)", description: '해변 단어 매칭 · 21 GLB 해적 자산 · TTS 듣기', icon: Anchor, status: 'done' },
-      { href: '/scriptquiz', label: 'ScriptQuiz Hub', description: 'Chapter grid · 영어 immersion · 한영 토글', icon: HelpCircle, status: 'done' },
-      { href: '/scriptquiz/play', label: 'ScriptQuiz 세션', description: '3-screen · 영어 질문/선택지 · O/X 피드백', icon: HelpCircle, status: 'done' },
-      { href: '/dictate', label: 'Dictation Hub', description: 'CEFR 자동 감지 · 리소스 선택 · 직접 입력 · 최근 세션', icon: Headphones, status: 'done' },
-      { href: '/dictate/setup', label: 'Dictation Setup', description: '단위/갯수/순서/채점/속도/반복/힌트 설정', icon: PencilLine, status: 'done' },
-      { href: '/dictate/session', label: 'Dictation 세션', description: 'TTS 받아쓰기 · 단어별 채점 · 4단계 힌트 · Focus Mode', icon: PencilLine, status: 'done' },
-      { href: '/dictate/results', label: 'Dictation 결과', description: '정확도 · 오류 패턴 · 오답 단어 · 다음 단계 추천', icon: PencilLine, status: 'done' },
-      { href: '/dashboard', label: '대시보드', description: '학습 통계 · 히트맵 · 점수 추이', icon: BarChart3, status: 'done' },
-      { href: '/settings', label: '설정', description: '학습 흐름 · 외형 · 음성 · 알림 · 데이터', icon: SettingsIcon, status: 'done' },
-    ],
-  },
-  {
-    title: '마케팅 (Marketing)',
-    description: '랜딩 · 가격 · 정책 · 회사 소개',
-    accent: 'var(--info)',
-    screens: [
-      { href: '/about', label: '소개', description: '미션 · 학습 철학 4 + 학습 과학 7', icon: Sparkles, status: 'done' },
-      { href: '/pricing', label: '가격', description: '3-tier · 비교표 · FAQ', icon: BarChart3, status: 'done' },
-      { href: '/terms', label: '이용약관', description: '9 sections · sticky TOC', icon: ShieldCheck, status: 'done' },
-      { href: '/privacy', label: '개인정보처리방침', description: '8 sections · sticky TOC', icon: ShieldCheck, status: 'done' },
-    ],
-  },
-  {
-    title: '관리자 (Admin Console)',
-    description: '플랫폼 운영 · 콘텐츠 큐레이션 · 사용자 관리',
-    accent: '#8B5CF6',
-    screens: [
-      { href: '/admin', label: '관리자 대시보드', description: 'KPI 개요 · 섹션 진입 · 최근 활동', icon: LayoutDashboard, status: 'done' },
-      { href: '/admin/users', label: '사용자 관리', description: 'KPI 4 · 검색·필터 · 7명 mock', icon: Users, status: 'done' },
-      { href: '/admin/library', label: '콘텐츠 관리', description: 'CRUD 카드 · CEFR · 큐레이션 · 6건 mock', icon: Library, status: 'done' },
-      { href: '/admin/vocabulary', label: '단어장 마스터', description: '표준 단어 · IPA 검증 · TTS 캐시', icon: BookMarked, status: 'done' },
-      { href: '/admin/analytics', label: '플랫폼 분석', description: 'DAU 라인 · 코호트 · funnel · 모듈 사용', icon: BarChart3, status: 'done' },
-      { href: '/admin/reports', label: '신고/문의', description: '큐 + 심각도 + SLA + 상태 흐름', icon: Flag, status: 'done' },
-      { href: '/admin/billing', label: '결제/구독', description: 'MRR 차트 · 트랜잭션 · 요금제 분포', icon: CreditCard, status: 'done' },
-      { href: '/admin/settings', label: '시스템 설정', description: 'feature flags · AI 프롬프트 · 공지 · 점검', icon: Sliders, status: 'done' },
-    ],
-  },
-  {
-    title: '개발 도구 (Dev)',
-    description: '컴포넌트 카탈로그 · 검증',
-    accent: 'var(--active)',
-    screens: [
-      { href: '/dev/components', label: 'UI 컴포넌트 카탈로그', description: 'Parts Kit 14종 검증 페이지', icon: FlaskConical, status: 'done' },
-    ],
-  },
-]
-
-const STATUS_META: Record<Status, { label: string; icon: LucideIcon; color: string; bg: string }> = {
-  done: {
-    label: '구현',
-    icon: CheckCircle2,
-    color: 'var(--success)',
-    bg: 'var(--success-light)',
-  },
-  progress: {
-    label: '진행',
-    icon: CircleDot,
-    color: 'var(--active)',
-    bg: 'var(--active-light)',
-  },
-  pending: {
-    label: '대기',
-    icon: CircleDashed,
-    color: 'var(--t3)',
-    bg: 'var(--bg3)',
-  },
-}
-
-export default function RootIndexPage() {
-  const allScreens = GROUPS.flatMap((g) => g.screens)
-  const total = allScreens.length
-  const done = allScreens.filter((s) => s.status === 'done').length
-  const progress = allScreens.filter((s) => s.status === 'progress').length
-  const pending = allScreens.filter((s) => s.status === 'pending').length
-  const donePercent = Math.round((done / total) * 100)
+export default async function LandingPage() {
+  const signals = await fetchTrustSignals()
 
   return (
-    <main className="min-h-screen bg-[var(--bg2)]">
-      <div className="mx-auto max-w-6xl px-6 py-12">
-        {/* ── Hero ── */}
-        <header className="mb-10 text-center">
-          <span className="inline-flex items-center justify-center rounded-2xl bg-[var(--p-light)] p-4">
-            <Sparkles size={28} className="text-[var(--p)]" />
+    <div className="flex min-h-screen flex-col bg-[var(--bg)] text-[var(--t1)]">
+      <header className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-[var(--bd)] bg-[var(--bg)]/90 px-4 backdrop-blur lg:px-8">
+        <Link href="/" className="flex items-center gap-2" aria-label="Vocaflow 홈">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--p)] text-white">
+            <Sparkles size={16} aria-hidden />
           </span>
-          <h1 className="mt-5 font-display text-[36px] font-[800] tracking-tight text-[var(--t1)]">
-            Vocaflow
+          <span className="font-display text-[17px] font-[800] tracking-tight">Vocaflow</span>
+        </Link>
+        <nav className="flex items-center gap-1">
+          <HeaderLink href="/about">소개</HeaderLink>
+          <HeaderLink href="/pricing">요금제</HeaderLink>
+          <Link
+            href="/login"
+            className="ml-1 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] px-4 font-body text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+          >
+            로그인
+          </Link>
+        </nav>
+      </header>
+
+      <main className="flex-1">
+        {/* ── Hero — 1차 CTA 는 가입이 아니라 "먼저 재 보기" ── */}
+        <section className="mx-auto max-w-3xl px-6 py-16 text-center md:py-24">
+          <h1 className="font-display text-[30px] font-[800] leading-[1.25] tracking-tight text-[var(--t1)] md:text-[42px]">
+            글이 어려운 게 아니라
+            <br />
+            <span className="text-[var(--p)]">내가 아는 비율</span>이 다른 겁니다
           </h1>
-          <p className="mt-2 font-body text-[16px] text-[var(--t2)]">
-            영어 스크립트 기반 종합 학습 플랫폼
+          <p className="mx-auto mt-5 max-w-[46ch] font-body text-[15px] leading-relaxed text-[var(--t2)] md:text-[16px]">
+            같은 글도 사람마다 다른 숫자가 나옵니다. 이 글이 편하게 읽히기까지 몇 단어가 남았는지
+            계산해 드려요.
           </p>
-          <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.10em] text-[var(--t2)]">
-            개발 진입점 · 화면 인덱스 + 진행 현황
-          </p>
-        </header>
 
-        {/* ── 진행률 요약 ── */}
-        <section
-          aria-label="전체 진행 현황"
-          className="mb-10 rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)]"
-        >
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <p className="font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
-                전체 진행률
-              </p>
-              <p className="mt-1 font-display text-[40px] font-[800] leading-none text-[var(--t1)]">
-                {donePercent}
-                <span className="ml-1 text-[24px] text-[var(--t2)]">%</span>
-              </p>
-              <p className="mt-1 font-body text-[13px] text-[var(--t2)]">
-                {done} / {total} 화면 구현 완료
-              </p>
-            </div>
-            <div className="flex shrink-0 gap-2">
-              <StatusPill status="done" count={done} />
-              <StatusPill status="progress" count={progress} />
-              <StatusPill status="pending" count={pending} />
-            </div>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link
+              href="/fit"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 font-body text-[14px] font-[700] text-white transition-opacity duration-[var(--dur-normal)] hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+            >
+              지문 난이도 재 보기
+              <ArrowRight size={16} aria-hidden />
+            </Link>
+            <Link
+              href="/signup"
+              className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-6 font-body text-[14px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+            >
+              무료로 시작하기
+            </Link>
           </div>
+          <p className="mt-3 font-body text-[12px] text-[var(--t3)]">
+            난이도 진단은 <strong>로그인 없이</strong> 바로 쓸 수 있어요
+          </p>
+        </section>
 
-          {/* Progress bar */}
-          <div className="mt-5 h-2 w-full overflow-hidden rounded-[var(--r-full)] bg-[var(--bg3)]">
-            <div
-              className="h-full rounded-[var(--r-full)] bg-[var(--success)] transition-[width] duration-[var(--dur-slow)]"
-              style={{ width: `${donePercent}%` }}
-              aria-hidden="true"
-            />
+        {/* ── 다른 점 — 후기가 아니라 검증 가능한 동작 ── */}
+        <section aria-label="다른 점" className="border-y border-[var(--bd)] bg-[var(--bg2)]">
+          <div className="mx-auto grid max-w-5xl gap-5 px-6 py-12 md:grid-cols-3 md:py-16">
+            {DIFFERENTIATORS.map((d) => (
+              <article key={d.title} className="flex flex-col">
+                <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">{d.title}</h2>
+                <p className="mt-2 flex-1 font-body text-[13.5px] leading-relaxed text-[var(--t2)]">
+                  {d.body}
+                </p>
+                <p className="mt-3 font-mono text-[10.5px] leading-snug text-[var(--t3)]">
+                  {d.basis}
+                </p>
+              </article>
+            ))}
           </div>
         </section>
 
-        {/* ── 그룹별 화면 리스트 ── */}
-        <div className="flex flex-col gap-10">
-          {GROUPS.map((group) => (
-            <section key={group.title} aria-label={group.title}>
-              <header className="mb-4 flex items-center gap-3">
-                <span
-                  className="h-2.5 w-2.5 shrink-0 rounded-full"
-                  style={{ backgroundColor: group.accent }}
-                  aria-hidden="true"
-                />
-                <h2 className="font-display text-[18px] font-[700] text-[var(--t1)]">
-                  {group.title}
-                </h2>
-                <span className="font-body text-[13px] text-[var(--t2)]">·</span>
-                <p className="font-body text-[13px] text-[var(--t2)]">{group.description}</p>
-                <span
-                  className="ml-auto h-px flex-1 bg-gradient-to-r from-[var(--bd)] to-transparent"
-                  aria-hidden="true"
-                />
-                <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
-                  {group.screens.filter((s) => s.status === 'done').length} / {group.screens.length}
-                </span>
-              </header>
-
-              <ul className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
-                {group.screens.map((screen) => (
-                  <li key={screen.href}>
-                    <ScreenCard screen={screen} />
+        {/* ── 신뢰 지표 — 서버가 DB 에서 읽은 것만. 못 읽으면 섹션 자체가 없다. ── */}
+        {signals && signals.length > 0 && (
+          <section aria-label="플랫폼 규모" className="border-b border-[var(--bd)]">
+            <div className="mx-auto max-w-4xl px-6 py-8">
+              <ul className="grid grid-cols-3 divide-x divide-[var(--bd)]">
+                {signals.map((s) => (
+                  <li key={s.label} className="px-3 text-center first:pl-0 last:pr-0">
+                    <p className="font-display text-[20px] font-[800] tabular-nums tracking-tight text-[var(--t1)] md:text-[26px]">
+                      {s.value}
+                    </p>
+                    <p className="mt-0.5 font-display text-[10.5px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+                      {s.label}
+                    </p>
+                    <p className="mt-0.5 font-body text-[10.5px] text-[var(--t2)]">{s.sub}</p>
                   </li>
                 ))}
               </ul>
-            </section>
-          ))}
+            </div>
+          </section>
+        )}
+
+        {/* ── 두 갈래 문 — 읽을 것 / 가르칠 것 ── */}
+        <section className="mx-auto max-w-5xl px-6 py-14 md:py-20">
+          <div className="grid gap-5 md:grid-cols-2">
+            <DoorCard
+              href="/library/books"
+              icon={<BookOpen size={18} aria-hidden />}
+              title="무엇을 읽나요"
+              body="퍼블릭 도메인 고전과 복원 만화를 챕터별 어휘와 함께 읽습니다. 로그인 없이 둘러볼 수 있어요."
+              cta="서가 둘러보기"
+            />
+            <DoorCard
+              href="/teacher"
+              icon={<GraduationCap size={18} aria-hidden />}
+              title="가르치시나요"
+              body="학급을 만들고 초대코드를 나눠 주면 학생들의 어휘 진행을 한 화면에서 봅니다."
+              cta="교사 허브"
+            />
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-[var(--bd)] bg-[var(--bg)]">
+        <div className="mx-auto flex max-w-5xl flex-col gap-3 px-6 py-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-body text-[12px] text-[var(--t3)]">
+            Vocaflow — 영어 스크립트 기반 어휘 학습
+          </p>
+          <nav className="flex flex-wrap items-center gap-4">
+            <FooterLink href="/about">소개</FooterLink>
+            <FooterLink href="/pricing">요금제</FooterLink>
+            <FooterLink href="/terms">이용약관</FooterLink>
+            <FooterLink href="/privacy">개인정보처리방침</FooterLink>
+          </nav>
         </div>
-
-        {/* ── 푸터 ── */}
-        <footer className="mt-12 text-center">
-          <p className="font-mono text-[11px] uppercase tracking-[0.10em] text-[var(--t2)]">
-            Vocaflow Design System v06.6 · Phase 1.5
-          </p>
-          <p className="mt-2 font-body text-[12px] text-[var(--t2)]">
-            완성형 화면은 클릭하여 검증할 수 있습니다 · 대기 화면은 placeholder가 표시됩니다
-          </p>
-        </footer>
-      </div>
-    </main>
-  )
-}
-
-function StatusPill({ status, count }: { status: Status; count: number }) {
-  const meta = STATUS_META[status]
-  const Icon = meta.icon
-  return (
-    <span
-      className="inline-flex items-center gap-2 rounded-[var(--r-full)] px-3 py-1"
-      style={{ backgroundColor: meta.bg, color: meta.color }}
-    >
-      <Icon size={12} strokeWidth={2.5} aria-hidden="true" />
-      <span className="font-display text-[11px] font-[700] uppercase tracking-[0.06em]">
-        {meta.label}
-      </span>
-      <span className="font-mono text-[12px] font-[700] tabular-nums">{count}</span>
-    </span>
-  )
-}
-
-function ScreenCard({ screen }: { screen: Screen }) {
-  const meta = STATUS_META[screen.status]
-  const StatusIcon = meta.icon
-  const Icon = screen.icon
-  const isInteractive = screen.status !== 'progress'
-
-  const inner = (
-    <div
-      className={`group flex h-full items-start gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ${
-        isInteractive
-          ? 'hover:-translate-y-0.5 hover:border-[var(--p)]/40 hover:shadow-[var(--sh-md)]'
-          : 'cursor-not-allowed opacity-70'
-      }`}
-    >
-      {/* Icon */}
-      <span
-        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--p-light)] group-hover:text-[var(--on-p-tint)]"
-        aria-hidden="true"
-      >
-        <Icon size={16} strokeWidth={1.75} />
-      </span>
-
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <div className="flex items-center justify-between gap-2">
-          <p className="truncate font-display text-[14px] font-[600] text-[var(--t1)]">
-            {screen.label}
-          </p>
-          <span
-            className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] px-2 py-1"
-            style={{ backgroundColor: meta.bg, color: meta.color }}
-            aria-label={`상태: ${meta.label}`}
-          >
-            <StatusIcon size={10} strokeWidth={2.5} aria-hidden="true" />
-            <span className="font-display text-[10px] font-[700] uppercase tracking-[0.06em]">
-              {meta.label}
-            </span>
-          </span>
-        </div>
-        <p className="truncate font-body text-[12px] text-[var(--t2)]">{screen.description}</p>
-        <p className="mt-1 truncate font-mono text-[10px] text-[var(--t2)]">{screen.href}</p>
-      </div>
+      </footer>
     </div>
   )
+}
 
-  if (!isInteractive) return inner
-  return <Link href={screen.href}>{inner}</Link>
+function HeaderLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] px-3 font-body text-[13px] font-[500] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+    >
+      {children}
+    </Link>
+  )
+}
+
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className="font-body text-[12px] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+    >
+      {children}
+    </Link>
+  )
+}
+
+function DoorCard({
+  href,
+  icon,
+  title,
+  body,
+  cta,
+}: {
+  href: string
+  icon: React.ReactNode
+  title: string
+  body: string
+  cta: string
+}) {
+  return (
+    <Link
+      href={href}
+      className="group flex flex-col rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6 transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+    >
+      <span className="flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--p)]">
+        {icon}
+      </span>
+      <h2 className="mt-3 font-display text-[16px] font-[700] text-[var(--t1)]">{title}</h2>
+      <p className="mt-1.5 flex-1 font-body text-[13.5px] leading-relaxed text-[var(--t2)]">
+        {body}
+      </p>
+      <span className="mt-4 inline-flex items-center gap-1.5 font-body text-[13px] font-[600] text-[var(--p)]">
+        {cta}
+        <ArrowRight
+          size={14}
+          aria-hidden
+          className="transition-transform duration-[var(--dur-normal)] group-hover:translate-x-0.5 motion-reduce:transition-none"
+        />
+      </span>
+    </Link>
+  )
 }

@@ -135,6 +135,12 @@ describe('robots — 크롤 범위', () => {
     expect(disallow).toContain('/fit/s/')
   })
 
+  it('개발용 화면 인덱스(/dev)를 막는다 — 접두사 슬래시만으로는 안 잡힌다', () => {
+    // 2026-08-26 에 화면 인덱스를 / 에서 /dev 로 옮겼다. 그때까지 목록에는 '/dev/' 만
+    // 있었는데, 그 규칙은 '/dev' **자체**를 막지 못한다 — 옮긴 화면이 그대로 색인될 뻔했다.
+    expect(disallow).toContain('/dev')
+  })
+
   it('공개 화면은 막지 않는다', () => {
     for (const open of ['/fit', '/pricing', '/about', '/library', '/comics']) {
       expect(disallow).not.toContain(`${open}/`)

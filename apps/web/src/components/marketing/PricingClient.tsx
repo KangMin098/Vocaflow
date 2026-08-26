@@ -13,6 +13,7 @@ import { Check, Crown, Heart, Sparkles, Users, Zap, type LucideIcon } from 'luci
 import Link from 'next/link'
 import { useState } from 'react'
 
+import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
 import type { TrustSignal } from '@/lib/marketing/trust-signals'
 
 type Billing = 'monthly' | 'annual'
@@ -106,24 +107,6 @@ const TIERS: Tier[] = [
 ]
 
 
-// ── 다른 점 — 지어낸 후기 대신 검증 가능한 동작을 말한다 ──
-const DIFFERENTIATORS = [
-  {
-    title: '내 기준 커버리지',
-    body: '글의 난이도가 아니라 "내가 아는 비율"을 잽니다. 같은 글도 사람마다 다른 숫자가 나와요.',
-    basis: '근거 · Hu & Nation (2000) 읽기 이해 임계 98/95%',
-  },
-  {
-    title: '숫자가 시간에 따라 변합니다',
-    body: '복습을 미루면 커버리지가 내려갑니다. 2주 뒤 이 글이 얼마나 어려워지는지 미리 보여줘요.',
-    basis: '근거 · FSRS 기억 안정도 R(t) = exp(ln 0.9 · t / S)',
-  },
-  {
-    title: '"몇 개만 하면 되는지"',
-    body: '막연히 단어를 외우는 대신, 이 글이 편하게 읽히는 최소 단어 수를 계산해 줍니다.',
-    basis: '근거 · 출현 빈도 기여도 순 최소 집합',
-  },
-]
 
 interface FAQ {
   q: string

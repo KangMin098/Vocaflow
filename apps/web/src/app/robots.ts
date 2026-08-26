@@ -19,7 +19,9 @@ import { PROTECTED_PREFIXES } from '@/lib/auth/protected-routes'
 import { absoluteUrl } from '@/lib/seo/site'
 
 /** 로그인이 필요하진 않지만 색인할 이유도 없는 경로. */
-const NOINDEX_PUBLIC = ['/api/', '/dev/', '/hub-lab']
+// ⚠️ 접두사에 슬래시를 붙이면 **그 경로 자체는 안 막힌다** — '/dev/' 는 '/dev' 를 잡지 못한다.
+//    2026-08-26 에 개발용 화면 인덱스를 '/' 에서 '/dev' 로 옮기며 드러났다.
+const NOINDEX_PUBLIC = ['/api/', '/dev', '/dev/', '/hub-lab']
 
 export default function robots(): MetadataRoute.Robots {
   const disallow = [
