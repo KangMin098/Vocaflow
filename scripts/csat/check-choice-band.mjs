@@ -39,6 +39,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { itemBlocks, passageOf, choicesOf, answerOf, allRows } from './lib-passage.mjs'
+import { cleanPassage, looksInterleaved } from './clean-passage.mjs'   // §10.29
 
 const STOP = new Set(('a an the of to in on for and or is are was were be been being it its this that these those with as by at from he she they we you i his her their our your them us him can could may might will would shall should must do does did done have has had having but so than then there here what which who whom whose when where why how all any both each few more most other some such only own same too very just also into over under about after before between out up down off again further once').split(' '))
 const stem = (w) => w.replace(/(ing|ions|ion|ers|er|ies|es|ed|ly|s)$/, '')
@@ -55,10 +56,11 @@ export function pastItems() {
     if (!CHOICE_TYPES.has(r.type)) continue
     const b = itemBlocks(r.exam, r.no)[0]
     if (!b) continue
-    const p = passageOf(b)
+    const p = cleanPassage(passageOf(b))
     const ch = choicesOf(b)
     const a = answerOf(r.exam, r.no)
     if (!p || p.length < 150 || !ch || ch.length !== 5 || !a) continue
+    if (looksInterleaved(p)) continue
     if (ch.some((c) => toks(c).length < 2)) continue
     out.push({ exam: r.exam, no: r.no, type: r.type, points: a.points, passage: p, choices: ch, k: a.answer - 1 })
   }

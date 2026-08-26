@@ -23,6 +23,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, passageOf, choicesOf, answerOf, allRows } from './lib-passage.mjs'
+import { cleanPassage, looksInterleaved } from './clean-passage.mjs'   // §10.29 부속물 제거
 
 const DIR = path.resolve('scripts/csat/data')
 const SETS = ['generated-set-v1.json', 'generated-set-v2.json', 'generated-set-v3.json', 'generated-set-v4.json', 'generated-set-v5.json', 'generated-set-v6.json']
@@ -40,7 +41,8 @@ for (const r of allRows()) {
   if (!TYPES.has(r.type)) continue
   const b = itemBlocks(r.exam, r.no)[0]
   if (!b) continue
-  const p = passageOf(b)
+  const p = cleanPassage(passageOf(b))
+  if (p && looksInterleaved(p)) continue
   const ch = choicesOf(b)
   const a = answerOf(r.exam, r.no)
   if (!p || p.length < 150 || !ch || ch.length !== 5 || !a) continue

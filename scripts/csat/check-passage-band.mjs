@@ -20,6 +20,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, passageOf, choicesOf, allRows } from './lib-passage.mjs'
+// **부속물을 걷어낸 지문으로 잰다** — 각주 뜻풀이·발문 조각이 섞이면 문장당 낱말이 최대 +3.5 로 틀어진다(§10.29)
+import { cleanPassage, looksInterleaved } from './clean-passage.mjs'
 
 const [, , typeArg, fileArg] = process.argv
 const W = (s) => (s.match(/[A-Za-z][A-Za-z'-]*/g) ?? [])
@@ -42,8 +44,9 @@ export function bands() {
   for (const r of allRows()) {
     const b = itemBlocks(r.exam, r.no)[0]
     if (!b) continue
-    const p = passageOf(b)
+    const p = cleanPassage(passageOf(b))
     if (!p || p.length < 150) continue
+    if (looksInterleaved(p)) continue   // 두 단이 섞인 지문은 청소로 못 고친다 — 표본에서 뺀다
     ;(ref[r.type] ??= []).push(metrics(p))
   }
   const q = (a, x) => { const s = [...a].sort((m, n) => m - n); return s[Math.floor(x * (s.length - 1))] }
