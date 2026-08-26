@@ -78,7 +78,10 @@ export function AdminScreenHelp({
         onClick={toggle}
         aria-expanded={open}
         aria-controls={panelId}
-        className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/8 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] active:scale-[0.97] disabled:opacity-50 motion-reduce:transition-none"
+        // min-h-[36px] 이었다 — 44px 미만 탭 대상(CLAUDE.md 절대 금지).
+        // 이 버튼은 **모든 관리자 화면**에 있어서 하나 고치면 26곳이 함께 낫는다
+        // (실측 2026-08-26 · 390px). 관리자가 폰에서 처음 누르는 것이 대개 이것이다.
+        className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[#8B5CF6] hover:bg-[#8B5CF6]/8 hover:text-[#6D28D9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] active:scale-[0.97] disabled:opacity-50 motion-reduce:transition-none"
       >
         <CircleHelp size={14} aria-hidden />
         화면 도움말
