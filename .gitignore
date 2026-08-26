@@ -24,9 +24,7 @@ exports/
 .next/
 **/.next/
 # dev 서버를 죽이지 않고 프로덕션 빌드를 검증할 때의 격리 출력 (NEXT_DIST_DIR)
-.next-verify/
-.next-sweep/
-**/.next-verify/
+.next-*/
 dist/
 out/
 coverage/
@@ -127,3 +125,23 @@ scripts/csat/data/columns/
 
 # 상용 도서 변환본 — 저작권상 커밋 금지 (분석 참조용 로컬 사본)
 docs/reference/seum-code-full.md
+
+# ── 정리 2026-08-26 ──────────────────────────────────────────────
+# e2e / 아케이드 회귀 산출물 (매 실행 재생성)
+apps/web/e2e-out/
+apps/web/test-results-arcade/
+
+# dict 드레인 작업 폴더 (w0815-*/w0816-* 와 같은 계열 — 청크는 import 후 소모품)
+scripts/dict/w0817-*/
+scripts/dict/article-lemmas/
+scripts/dict/SLUR_CANDIDATES.json
+
+# 스킬 설치기 산출물 (머신별 도구 — .claude/settings.local.json 과 같은 성격)
+.agents/
+.claude/skills/
+skills-lock.json
+
+# 저장소 루트 프로토타입·임시 파일 (작업 산출물은 docs/ 또는 apps/ 안에 둔다)
+/volume-v*.html
+/tmp-*.mjs
+/__probe.out
