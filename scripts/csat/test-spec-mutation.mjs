@@ -70,6 +70,8 @@ const MUT = {
   E9: (it) => { const x = it.find((y) => y.no === 34); if (x) x.points = 2; return it },
   // 어휘 문항을 네모형으로 되돌린다 — 2018 개편을 어긴다
   E10: (it) => { const x = it.find((y) => y.type === 'R-VOCAB'); if (x) x.vocabFormat = 'box'; return it },
+  // 23번(주제)을 같은 능력군의 다른 유형(제목)으로 바꾼다 — 번호→유형 고정을 어긴다
+  E11: (it) => { const x = it.find((y) => y.no === 23); if (x) x.type = 'R-TITLE'; return it },
   I1: (it) => { it[0].answer = 6; return it },                            // 정답 6번
   I2: (it) => { it.find((x) => SEQUENTIAL_TYPES.includes(x.type)).answer = 1; return it }, // 순서대응형 ①
   I3: (it) => { it.find((x) => x.choiceHasKo).points = 3; return it },      // 한글 선택지에 3점

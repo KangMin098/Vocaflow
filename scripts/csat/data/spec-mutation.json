@@ -72,6 +72,13 @@
    "ok": true
   },
   {
+   "id": "E11",
+   "name": "2019학년도부터 번호마다 **유형**이 고정 (18~45, 28자리)",
+   "before": true,
+   "after": false,
+   "ok": true
+  },
+  {
    "id": "I1",
    "name": "선택지는 5개, 정답은 1~5",
    "before": true,

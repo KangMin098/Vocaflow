@@ -1,0 +1,343 @@
+{
+ "exams": 11,
+ "items": 308,
+ "typeByNo": [
+  {
+   "no": 18,
+   "n": 11,
+   "top": "R-PURPOSE",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-PURPOSE": 11
+   }
+  },
+  {
+   "no": 19,
+   "n": 11,
+   "top": "R-MOOD",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-MOOD": 11
+   }
+  },
+  {
+   "no": 20,
+   "n": 11,
+   "top": "R-CLAIM",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-CLAIM": 11
+   }
+  },
+  {
+   "no": 21,
+   "n": 11,
+   "top": "R-IMPLY",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-IMPLY": 11
+   }
+  },
+  {
+   "no": 22,
+   "n": 11,
+   "top": "R-GIST",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-GIST": 11
+   }
+  },
+  {
+   "no": 23,
+   "n": 11,
+   "top": "R-TOPIC",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-TOPIC": 11
+   }
+  },
+  {
+   "no": 24,
+   "n": 11,
+   "top": "R-TITLE",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-TITLE": 11
+   }
+  },
+  {
+   "no": 25,
+   "n": 11,
+   "top": "R-CHART",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-CHART": 11
+   }
+  },
+  {
+   "no": 26,
+   "n": 11,
+   "top": "R-FACT",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-FACT": 11
+   }
+  },
+  {
+   "no": 27,
+   "n": 11,
+   "top": "R-NOTICE",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-NOTICE": 11
+   }
+  },
+  {
+   "no": 28,
+   "n": 11,
+   "top": "R-NOTICE",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-NOTICE": 11
+   }
+  },
+  {
+   "no": 29,
+   "n": 11,
+   "top": "R-GRAMMAR",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-GRAMMAR": 11
+   }
+  },
+  {
+   "no": 30,
+   "n": 11,
+   "top": "R-VOCAB",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-VOCAB": 11
+   }
+  },
+  {
+   "no": 31,
+   "n": 11,
+   "top": "R-BLANK",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-BLANK": 11
+   }
+  },
+  {
+   "no": 32,
+   "n": 11,
+   "top": "R-BLANK",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-BLANK": 11
+   }
+  },
+  {
+   "no": 33,
+   "n": 11,
+   "top": "R-BLANK",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-BLANK": 11
+   }
+  },
+  {
+   "no": 34,
+   "n": 11,
+   "top": "R-BLANK",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-BLANK": 11
+   }
+  },
+  {
+   "no": 35,
+   "n": 11,
+   "top": "R-IRRELEVANT",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-IRRELEVANT": 11
+   }
+  },
+  {
+   "no": 36,
+   "n": 11,
+   "top": "R-ORDER",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-ORDER": 11
+   }
+  },
+  {
+   "no": 37,
+   "n": 11,
+   "top": "R-ORDER",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-ORDER": 11
+   }
+  },
+  {
+   "no": 38,
+   "n": 11,
+   "top": "R-INSERT",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-INSERT": 11
+   }
+  },
+  {
+   "no": 39,
+   "n": 11,
+   "top": "R-INSERT",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-INSERT": 11
+   }
+  },
+  {
+   "no": 40,
+   "n": 11,
+   "top": "R-SUMMARY",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "R-SUMMARY": 11
+   }
+  },
+  {
+   "no": 41,
+   "n": 11,
+   "top": "X-TITLE",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "X-TITLE": 11
+   }
+  },
+  {
+   "no": 42,
+   "n": 11,
+   "top": "X-VOCAB",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "X-VOCAB": 11
+   }
+  },
+  {
+   "no": 43,
+   "n": 11,
+   "top": "X-ORDER",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "X-ORDER": 11
+   }
+  },
+  {
+   "no": 44,
+   "n": 11,
+   "top": "X-REFER",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "X-REFER": 11
+   }
+  },
+  {
+   "no": 45,
+   "n": 11,
+   "top": "X-FACT",
+   "hit": 11,
+   "kinds": 1,
+   "tally": {
+    "X-FACT": 11
+   }
+  }
+ ],
+ "typeFixedCount": 28,
+ "slots": 28,
+ "langFixed": 21,
+ "types": 22,
+ "decisions": [
+  {
+   "id": "D1",
+   "name": "지문 선정",
+   "grade": "NONE",
+   "why": "초안 §1(주제문 위계 · 전개구조 7종 · 논리 방향 · 제약 세기)은 **전부 미검증이거나 기각**이다. 남은 것은 **길이 참조값**뿐(§7.4 의 ±20% 대역) — 그것도 규칙이 아니라 관측 범위다. **V1(기출 지문 vs 동일 출처 인접 단락 대조군)이 한 번도 실행되지 않았다.**"
+  },
+  {
+   "id": "D2",
+   "name": "유형 배정",
+   "grade": "HARD",
+   "why": "번호가 정한다. E8(번호→능력군)에 더해 이 파일이 잰 **번호→유형 고정성**을 쓴다."
+  },
+  {
+   "id": "D3",
+   "name": "배점",
+   "grade": "HARD",
+   "why": "E2(회차당 3점 10개) + E7(유형별 배분) + E9(34·37 고정) + I3(한글 선지는 3점 아님). **남는 자유는 빈칸의 두 번째 3점 자리 하나**(33번 8회 / 32번 3회)."
+  },
+  {
+   "id": "D4",
+   "name": "정답 자리",
+   "grade": "SOFT",
+   "why": "E5(회차 전체에서 번호별 6~12회)와 I2(순서대응형 ① 회피, 192문항 예외 0)가 **분포와 금지**를 정한다. 그러나 **개별 문항의 정답 자리는 자유다** — 어느 자리를 정답으로 할지는 설계도가 안 정한다."
+  },
+  {
+   "id": "D5",
+   "name": "정답 내용",
+   "grade": "SOFT",
+   "why": "P4.11(정답은 오답보다 **한 층위 위**, 154문항 +0.295 p=0.0001) · P4.1(주제 재진술, 대의파악에서만) · P4.12(대의파악은 지문 낱말로, 빈칸은 지문 밖 낱말로). **방향은 있고 절차는 없다** — \"한 층위 위\" 를 만족하는 문장은 무수히 많고 그중 무엇이 기출다운지는 안 정한다."
+  },
+  {
+   "id": "D6",
+   "name": "오답 내용",
+   "grade": "SOFT",
+   "why": "P3.13(어휘는 반의어 치환 92%) · §6.12(오답이 지문을 문다, 3점 0.0207 vs 2점 0.0142) · P4.15(정답이 지문 표현을 담는다, 빈칸만 예외). ⚠️ **P4.4(방향 반전) 기각 · P3.7(형용사·부사 오답 전용) 기각** — 초안의 오답 규칙 상당수가 기각됐다."
+  },
+  {
+   "id": "D7",
+   "name": "선지 언어",
+   "grade": "HARD",
+   "why": "유형이 정하고(blueprint), P4.6(한글 선지면 3점이 아니다)이 14회차 예외 0 으로 못박는다."
+  },
+  {
+   "id": "D8",
+   "name": "표시 형식",
+   "grade": "HARD",
+   "why": "E6(장문 세트 41·43·44·45 유형 고정) + E10(2018부터 어휘는 밑줄형) + 유형별 마커 위치. ⚠️ 마커 위치는 독립 검증이 아니라 추출기의 전제다(위 3번 참조)."
+  }
+ ],
+ "hard": 4,
+ "soft": 3,
+ "none": 1
+}
