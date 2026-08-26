@@ -44,8 +44,17 @@ import 가 **품사 · CEFR · V-Level · 레지스터 · 한글 뜻 · 예문�
 - `meaning_ko` — 한국어 뜻. 영어 정의를 옮기지 말고 **그 낱말이 한국어로 무엇인지** 적는다
 - `example_en` — **표제어가 그대로 들어간** 자연스러운 한 문장. 굴절형만 쓰면 검증에 걸린다
 - `v_level` — 0~11. CEFR 과 어긋나지 않게 (A1≈1~2 · B1≈5~6 · C1≈9)
-- `word_register` — 보통 `standard`. 비속어·은어처럼 값이 없는 경우는 **`defer`** 로 보낸다
-  (억지로 `standard` 를 붙이면 그 낱말이 학습자 단어장 후보가 된다)
+- `word_register` — **아래 여덟 중 하나만** 쓴다(2026-08-26 DB 실측):
+  `standard` · `abbreviation` · `archaic_literary` · `brand` · `modern_advanced` ·
+  `period_cultural` · `phrase_unit` · `proper_noun`.
+  비속어·은어처럼 **여기 값이 없는 것은 `defer`** 로 보낸다 — 억지로 `standard` 를 붙이면
+  그 낱말이 학습자 단어장 후보가 된다
+
+### 굴절형은 `add` 가 아니다
+
+`headsets` · `thinkers` · `suppliers` 처럼 **평범한 낱말의 복수·굴절형**은 표제어가 아니다.
+기본형이 진짜 표제어이고, 굴절형을 넣으면 **틀린 형태가 사전에 영구히 남는다**.
+→ `defer`. (파일럿 실측: 한 청크 60개 중 이것이 `defer` 16건의 최대 원인이었다.)
 
 ## 출력
 
