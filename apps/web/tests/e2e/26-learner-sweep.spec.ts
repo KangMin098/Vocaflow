@@ -9,7 +9,7 @@
 // 개별 스펙은 자기 시나리오만 깊게 보므로, **"전부 한 번씩"** 을 보는 자리가 따로 필요하다.
 //
 // ── 무엇을 성공으로 세는가 ───────────────────────────────────────────────
-// 화면마다 네 가지를 본다. 성공률 = 통과 검사 / 전체 검사.
+// 화면마다 여섯 가지를 본다. 성공률 = 통과 검사 / 전체 검사.
 //   ① 열린다        — 에러/404 화면이 아니고 본문이 있다
 //   ② 콘솔 에러 0   — 앱이 조용히 터지지 않는다
 //   ③ 앞길이 있다   — 본문 안에 **실제로 눌리는** 링크/버튼이 하나 이상
@@ -17,6 +17,10 @@
 //   ⑤ 연계가 성립   — 그 앞길이 **에러 화면이 아닌 진짜 화면**으로 간다
 //                     (④ 는 "돌아오나" 를 보고, ⑤ 는 "가서 뭐가 있나" 를 본다.
 //                      링크가 살아 있는데 목적지가 깨져 있으면 ④ 만으로는 초록이다.)
+//   ⑥ 요청이 성립   — 그 화면이 보낸 **같은 출처 요청이 4xx/5xx 로 실패하지 않는다**
+//                     (①~⑤ 는 전부 "화면이 뜨는가" 를 묻는다. 화면은 뜨고 콘솔도
+//                      조용한데 그 화면의 데이터가 500 이면 학습자는 빈 목록을 보고
+//                      우리는 그 화면을 100% 로 센다 — 2026-08-26 신설.)
 //
 // ⚠️ **못 잰 것을 통과로 세지 않는다.** 라우트가 로그인으로 튕기거나 타임아웃하면
 //    그 화면의 네 검사는 전부 실패로 기록된다 — 이 저장소가 반복해서 겪은
@@ -32,6 +36,8 @@ import {
   learnerRoutes,
   redirectOnlyRoutes,
 } from './utils/learner-routes'
+import { crashKindOf } from './utils/crash-screen'
+import { describeNetFailure, watchNetwork } from './utils/net-watch'
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -137,6 +143,14 @@ interface RouteResult {
    *    통과로 세면 안 재본 것을 성적에 넣는 것이다. 그래서 **분모에서 뺀다.**
    */
   backWorks: boolean | null
+  /**
+   * **그 화면이 보낸 같은 출처 요청이 실패하지 않았는가** (4xx/5xx).
+   *
+   * 나머지 축은 전부 "화면이 뜨는가" 를 묻는다. 화면은 멀쩡히 뜨고 콘솔도 조용한데
+   * **그 화면의 데이터 요청이 500 을 뱉으면** 학습자는 빈 목록을 보고 우리는
+   * 그 화면을 100% 로 센다. 그건 통과가 아니다 — 그래서 분모를 하나 늘린다.
+   */
+  netOk: boolean
   note: string
 }
 
@@ -167,6 +181,7 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
   test('모든 학습자 화면이 열리고 · 조용하고 · 앞길이 있고 · 되돌아온다', async ({
     page,
     context,
+    baseURL,
   }) => {
     const routes = learnerRoutes()
     expect(routes.length, '라우트를 하나도 못 찾았다 — 목록 추출이 깨졌다').toBeGreaterThan(20)
@@ -225,8 +240,13 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
         quiet: false,
         hasWayForward: false,
         backWorks: false,
+        netOk: true,
         note: '',
       }
+
+      // 이 탭이 보내는 같은 출처 요청을 지켜본다 — 탭이 라우트마다 새로 열리므로
+      // 수집함도 라우트마다 새것이다(비울 필요가 없다).
+      const net = watchNetwork(page, new URL(baseURL ?? 'http://localhost:3000').origin)
 
       try {
         r.landed = await gotoSettled(page, route)
@@ -246,7 +266,7 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
           r.note = '로그인으로 튕김'
         } else {
           const body = (await page.locator('body').innerText().catch(() => '')) || ''
-          const isError = /페이지를 찾을 수 없어요|문제가 발생했어요|Application error/.test(body)
+          const isError = crashKindOf(body) !== null
           r.opens = !isError && body.trim().length > 40
           if (!r.opens) r.note = isError ? '에러/404 화면' : '본문이 비어 있다'
           if (r.landed !== route) r.note = `리다이렉트 → ${r.landed}`
@@ -326,8 +346,7 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
             await page.waitForTimeout(600)
             const dest = here(new URL(page.url()))
             const destBody = ((await page.locator('body').innerText().catch(() => '')) || '').trim()
-            const destBroken =
-              /페이지를 찾을 수 없어요|문제가 발생했어요|Application error/.test(destBody)
+            const destBroken = crashKindOf(destBody) !== null
             // 클릭했는데 주소가 그대로면 그 링크는 **눌리지 않는 링크**다 — 죽은 앞길이다.
             const moved = dest !== before && !clickErr
             // ⚠️ 게임 세션(`/play/*`)은 `next/dynamic` 으로 늦게 붙고 로딩 중엔 글자가 거의 없다.
@@ -373,6 +392,14 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
       } catch (e) {
         r.note = `예외: ${String(e).slice(0, 80)}`
       } finally {
+        // ── ⑥ 요청 — 이 화면이 보낸 같은 출처 요청이 실패했는가.
+        net.stop()
+        r.netOk = net.failures.length === 0
+        if (!r.netOk) {
+          r.note =
+            (r.note ? r.note + ' · ' : '') +
+            `실패한 요청 ${net.failures.length}건 — ${describeNetFailure(net.failures[0])}`
+        }
         page.off('console', onConsole)
         page.off('pageerror', onPageError)
         await page.close().catch(() => {})
@@ -383,8 +410,11 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
 
     // ── 보고 ────────────────────────────────────────────────────────────
     // 분모는 **실제로 잰 검사**만 센다 — 안 잰 것을 통과로도 실패로도 세지 않는다.
+    // 상시 검사는 **넷**이다 — 열림 · 조용 · 앞길 · 요청(2026-08-26 신설).
+    // 요청 축을 더하면 분모가 라우트 수만큼 늘어난다. 그게 바를 올린다는 뜻이다:
+    // 같은 100% 라도 **더 많은 것을 재고 나온 100%** 여야 한다.
     const checks = results.reduce(
-      (s, r) => s + 3 + (r.backWorks === null ? 0 : 1) + (r.linkLands === null ? 0 : 1),
+      (s, r) => s + 4 + (r.backWorks === null ? 0 : 1) + (r.linkLands === null ? 0 : 1),
       0,
     )
     const passed = results.reduce(
@@ -393,6 +423,7 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
         Number(r.opens) +
         Number(r.quiet) +
         Number(r.hasWayForward) +
+        Number(r.netOk) +
         (r.backWorks === true ? 1 : 0) +
         (r.linkLands === true ? 1 : 0),
       0,
@@ -406,12 +437,20 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
         ` (복귀 검사 제외 ${skipped}곳)`,
     )
     for (const r of results) {
-      if (r.opens && r.quiet && r.hasWayForward && r.backWorks !== false && r.linkLands !== false)
+      if (
+        r.opens &&
+        r.quiet &&
+        r.hasWayForward &&
+        r.netOk &&
+        r.backWorks !== false &&
+        r.linkLands !== false
+      )
         continue
       const flags = [
         r.opens ? '열림' : '✗열림',
         r.quiet ? '조용' : '✗콘솔',
         r.hasWayForward ? '앞길' : '✗앞길',
+        r.netOk ? '요청' : '✗요청',
         r.backWorks === null ? '복귀–' : r.backWorks ? '복귀' : '✗복귀',
         r.linkLands === null ? '연계–' : r.linkLands ? '연계' : '✗연계',
       ].join(' ')

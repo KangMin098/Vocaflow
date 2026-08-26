@@ -13,6 +13,9 @@
 //   ② 조용함 — 콘솔 에러 0 (알려진 잡음은 이름을 붙여 거른다)
 //   ③ 연결   — 화면 안의 내부 링크가 **실재하는 라우트**를 가리킨다(죽은 링크 0)
 //   ④ 복귀   — 링크를 눌러 나갔다가 뒤로가기로 **원래 화면에 정확히 돌아온다**
+//   ⑤ 요청   — 그 화면이 보낸 **같은 출처 요청이 4xx/5xx 로 실패하지 않는다**
+//            (나머지 넷은 전부 "화면이 뜨는가" 다. 화면은 뜨는데 그 데이터가
+//             500 이면 관리자는 빈 큐를 "할 일 없음" 으로 읽는다.)
 //
 // ── 판정 원칙 ────────────────────────────────────────────────────────────
 // 한 화면이 실패하면 그 화면만 실패로 적고 **계속 훑는다.** 첫 실패에서 멈추면
@@ -28,6 +31,8 @@ import {
   adminRoutes,
   ADMIN_NO_CLICK_ROUTES,
 } from './utils/admin-routes';
+import { crashKind } from './utils/crash-screen';
+import { describeNetFailure, watchNetwork } from './utils/net-watch';
 
 const ROUTES = adminRoutes();
 /** 리다이렉트 껍데기 — 본문·복귀를 묻지 않는다(목적지에서 재진다). 소스로 판별. */
@@ -49,22 +54,22 @@ const KNOWN_NOISE = [
 
 const isNoise = (t: string) => KNOWN_NOISE.some((re) => re.test(t));
 
-/** 이 화면이 에러 바운더리로 떨어졌는가 — `app/error.tsx` 가 그리는 표면. */
+/**
+ * 이 화면이 에러 화면인가 — 판정은 `utils/crash-screen.ts` 가 소유한다.
+ *
+ * ⚠️ 2026-08-26 이전 이 함수의 조건은 **죽어 있었다**:
+ *     `/문제가 발생했어요|다시 시도/.test(t) === false && false`
+ * `X === false && false` 는 **항상 false** 다. 즉 관리자 33화면은 우리 에러 경계로
+ * 떨어져도 영영 초록이었다 — `error.tsx` 는 HTTP 200 에 본문도 충분하니
+ * 나머지 축도 전부 통과한다. **아무도 안 보는 구멍이었다.**
+ */
 async function crashed(page: Page): Promise<boolean> {
-  return page
-    .evaluate(() => {
-      const t = document.body?.innerText ?? '';
-      return (
-        /Application error|client-side exception|missing required error components/i.test(t) ||
-        /문제가 발생했어요|다시 시도/.test(t) === false && false
-      );
-    })
-    .catch(() => false);
+  return (await crashKind(page)) !== null;
 }
 
 interface Finding {
   route: string;
-  axis: '열림' | '조용함' | '연결' | '복귀';
+  axis: '열림' | '조용함' | '연결' | '복귀' | '요청';
   detail: string;
 }
 
@@ -72,11 +77,43 @@ test.describe('관리자 전수 훑기', () => {
   test('모든 관리자 화면이 열리고 · 조용하고 · 링크가 살아 있고 · 되돌아온다', async ({ page }) => {
     test.skip(!adminBypassEnabled(), 'DEV_ADMIN_BYPASS=1 이 아니다');
     test.skip(!(await adminReachable(page)), '관리자 화면이 열리지 않는다 — dev 우회가 꺼져 있거나(프로덕션 빌드) 서버가 없다. 로그인 화면을 세어 초록을 만들지 않는다');
-    test.setTimeout(ROUTES.length * 22_000 + 120_000);
+    // 측정 한 바퀴(브라우저) + 예열(HTTP GET, 싸다).
+    test.setTimeout(ROUTES.length * 24_000 + 180_000);
 
     const findings: Finding[] = [];
     // 라우트 실재 판정의 분모 — 죽은 링크를 "없는 화면" 으로 판정하려면 목록이 필요하다.
     const known = new Set(ROUTES);
+
+    // ── 예열 ───────────────────────────────────────────────────────────
+    // ⚠️ **이 훑기는 dev 서버에서만 돌 수 있다.** 관리자 우회(`DEV_ADMIN_BYPASS`)를
+    //    `NODE_ENV==='production'` 에서 코드가 무조건 무력화하기 때문이다
+    //    (`lib/auth/dev-bypass.ts` — 하드 게이트). 학습자 훑기처럼 프로덕션 빌드로
+    //    도망갈 수 없다.
+    //
+    //    그런데 dev 서버는 **라우트마다 첫 방문에 컴파일한다.** 그 첫 방문을 재면
+    //    컴파일 지연이 앱 결함으로 찍힌다. 실측 2026-08-26: `/admin` 이
+    //    `Failed to fetch RSC payload … Falling back to browser navigation` 으로
+    //    콘솔 에러 1건을 냈는데, 같은 화면을 홀로·연속·about:blank 경유 세 방법으로
+    //    다시 열자 **셋 다 0건**이었다. 재현되지 않는다 = 화면이 아니라 **컴파일 타이밍**이다.
+    //
+    //    학습자 훑기가 같은 함정을 먼저 겪고 예열로 풀었다(같은 코드가 96.7% → 54.9%).
+    //    예열 결과는 **버린다**(재지 않은 것을 성적에 넣지 않는다).
+    //
+    // ⚠️ 예열은 **브라우저로 열지 않고 HTTP GET 으로만** 한다.
+    //    첫 판은 학습자 훑기처럼 새 탭으로 33화면을 전부 열었는데, 라우트당 두 번
+    //    렌더하느라 **26분이 걸려 테스트가 타임아웃**했다(1,302초 초과).
+    //    컴파일을 유발하는 것은 서버 요청이지 클라이언트 렌더가 아니므로,
+    //    요청만 보내면 목적(컴파일 선행)은 같고 비용은 훨씬 싸다.
+    for (const route of ROUTES) {
+      await page.request.get(route, { timeout: 60_000 }).catch(() => {});
+    }
+
+    // ── ⑤ 요청 ─────────────────────────────────────────────────────────
+    // 나머지 축은 전부 **"화면이 뜨는가"** 를 묻는다. 화면은 멀쩡히 뜨고 콘솔도
+    // 조용한데 **그 화면의 데이터 요청이 500 을 뱉는** 경우는 아무도 안 봤다.
+    // 관리자에게는 특히 위험하다 — 빈 목록이 "큐가 비었다" 로 읽히기 때문이다.
+    const origin = new URL(page.url()).origin;
+    const net = watchNetwork(page, origin);
 
     for (const route of ROUTES) {
       const errors: string[] = [];
@@ -189,6 +226,16 @@ test.describe('관리자 전수 훑기', () => {
           });
         }
       } finally {
+        // ── ⑤ 요청 ───────────────────────────────────────────────────
+        // 이 화면 몫만 본다(복귀 축이 다른 화면을 들렀다 오므로 라우트마다 비운다).
+        const failed = net.drain();
+        if (failed.length > 0) {
+          findings.push({
+            route,
+            axis: '요청',
+            detail: `실패한 요청 ${failed.length}건 — ${describeNetFailure(failed[0])}`,
+          });
+        }
         page.off('console', onConsole);
         page.off('pageerror', onPageError);
         // **다음 화면을 깨끗한 상태에서 잰다.**
@@ -200,6 +247,8 @@ test.describe('관리자 전수 훑기', () => {
       }
     }
 
+    net.stop();
+
     // ── 보고 ───────────────────────────────────────────────────────
     const byAxis = (a: Finding['axis']) => findings.filter((f) => f.axis === a);
     const summary = [
@@ -208,6 +257,7 @@ test.describe('관리자 전수 훑기', () => {
       `  조용함 실패 ${byAxis('조용함').length}`,
       `  연결   실패 ${byAxis('연결').length}`,
       `  복귀   실패 ${byAxis('복귀').length}`,
+      `  요청   실패 ${byAxis('요청').length}`,
       '',
       ...findings.map((f) => `  [${f.axis}] ${f.route} — ${f.detail}`),
     ].join('\n');

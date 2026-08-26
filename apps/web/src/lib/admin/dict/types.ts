@@ -151,17 +151,33 @@ export interface SchemaPresenceData {
 // ─────────────────────────────────────────────────────────────
 // 8b. Categorical Distributions (dict_categorical_distributions RPC)
 // ─────────────────────────────────────────────────────────────
+/**
+ * ⚠️ **모든 분포가 `null` 일 수 있다.** 이 타입은 2026-08-27 이전까지 전부 non-nullable
+ * 이라고 말했는데 **거짓말이었다.**
+ *
+ * RPC 본문의 `jsonb_object_agg` 는 **그룹이 0행이면 SQL NULL** 을 돌려준다. 그래서:
+ *   ① 그 컬럼에 비-NULL 값이 하나도 없으면 그 키가 null (정상적으로 가능하다)
+ *   ② 호출자가 RLS 로 0행을 보면 **일곱 개 전부** null —
+ *      `shared_dictionary` 정책은 `authenticated`·`service_role` 뿐이고 **`anon` 정책이 없다.**
+ *      dev admin 우회는 합성 admin 이라 실 세션이 없어 `anon` 으로 질의한다 → 전부 null.
+ *
+ * 실제로 소비자 대부분(`queries.ts` · `word-search.ts` · `critical-defects-detector.ts`)은
+ * 이미 `?? {}` / `?.` 로 막고 있었다 — **타입만 혼자 다른 말을 하고 있었다.**
+ * 그 틈으로 `DistributionAnalysisSection` 이 무방비로 `Object.entries(data)` 를 불렀고,
+ * RPC 성능을 고쳐 호출이 성공하기 시작한 순간 `/admin/vrl` 전체가 에러 경계로 떨어졌다.
+ * 타입을 사실대로 고쳐 **다음 소비자가 같은 실수를 못 하게** 한다.
+ */
 export interface DictCategoricalDistributions {
-  by_primary_pos: Record<string, number>
-  by_v_level: Record<string, number>
-  by_v_level_rule_v1: Record<string, number>
-  by_source: Record<string, number>
-  by_cefr_level: Record<string, number>
-  by_frequency_band: Record<string, number>
+  by_primary_pos: Record<string, number> | null
+  by_v_level: Record<string, number> | null
+  by_v_level_rule_v1: Record<string, number> | null
+  by_source: Record<string, number> | null
+  by_cefr_level: Record<string, number> | null
+  by_frequency_band: Record<string, number> | null
   verified_by_v_level: Record<
     string,
     { total: number; verified: number; pct: number }
-  >
+  > | null
 }
 
 // ─────────────────────────────────────────────────────────────

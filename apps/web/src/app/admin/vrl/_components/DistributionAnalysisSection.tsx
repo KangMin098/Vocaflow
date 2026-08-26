@@ -160,11 +160,28 @@ function DistributionChart({
   total,
 }: {
   cfg: ChartConfig
-  data: Record<string, number>
+  /**
+   * ⚠️ **`null` 이 올 수 있다.** 타입은 `Record<string, number>` 라고 말하지만 거짓말이었다.
+   *
+   * RPC 본문의 `jsonb_object_agg` 는 **그룹이 0행이면 SQL NULL** 을 돌려준다.
+   * 그래서 다음 두 경우에 이 자리가 통째로 null 이 된다:
+   *   ① 그 컬럼에 비-NULL 값이 하나도 없을 때 (정상적으로 가능하다)
+   *   ② 호출자 역할이 RLS 로 0행을 보게 될 때 — **dev admin 우회가 정확히 이 경우다.**
+   *      우회는 합성 admin 이라 실제 Supabase 세션이 없어 `anon` 으로 질의하는데,
+   *      `shared_dictionary` 의 정책은 `authenticated`·`service_role` 뿐이고
+   *      **`anon` 정책이 없다** → 7개 집계 전부 NULL.
+   *
+   * 2026-08-27 이전에는 이 크래시가 **숨어 있었다.** RPC 가 7회 전체 스캔이라 anon 의
+   * `statement_timeout=3s` 를 넘겨 **항상 먼저 죽었고**, 상위 `!categorical` 가드가
+   * 그것을 받아 빈 상태를 그렸다. RPC 를 1회 스캔으로 고쳐 성공하기 시작하자
+   * `Object.entries(null)` 로 터졌다 — 성능 수정이 **가려져 있던 결함을 드러낸 것**이다.
+   */
+  data: Record<string, number> | null | undefined
   total: number
 }) {
   const sortedEntries = (() => {
-    const entries = Object.entries(data)
+    // 없는 분포를 0개 항목으로 다룬다 — 화면 전체를 에러 경계로 떨어뜨리지 않는다.
+    const entries = Object.entries(data ?? {})
     if (cfg.keyOrder) {
       return entries.sort(([a], [b]) => cfg.keyOrder!(a, b))
     }
@@ -195,6 +212,17 @@ function DistributionChart({
         <p className="font-body text-[10px] text-[var(--t2)]">{cfg.description}</p>
       </header>
 
+      {/*
+        빈 차트를 **말없이** 그리지 않는다. 막대가 0개인 상자는 "분포가 균일하다" 로도
+        "데이터가 없다" 로도 읽혀서, 관리자가 어느 쪽인지 알 수 없다.
+        분포 자체가 없으면(= RPC 가 그 키에 null 을 준 경우) 그렇다고 적는다.
+      */}
+      {display.length === 0 ? (
+        <p className="font-body text-[11px] text-[var(--t2)]">
+          이 분포는 비어 있어요 — 해당 값을 가진 낱말이 없거나, 지금 계정 권한으로는 사전 행이
+          보이지 않습니다.
+        </p>
+      ) : (
       <ul className="flex flex-col gap-2" aria-label={`${cfg.label} bars`}>
         {display.map(([k, n]) => {
           const pct = maxCount > 0 ? (n / maxCount) * 100 : 0
@@ -225,6 +253,7 @@ function DistributionChart({
           )
         })}
       </ul>
+      )}
 
       <footer className="border-t border-[var(--bd)] pt-2 font-mono text-[9px] text-[var(--t2)]">
         sum: {sumCount.toLocaleString()} / total {total.toLocaleString()}

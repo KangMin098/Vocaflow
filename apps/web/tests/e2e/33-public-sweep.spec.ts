@@ -15,11 +15,23 @@
 //   ④ 복귀     — 링크로 나갔다가 뒤로가기로 정확히 돌아온다
 //   ⑤ 가로스크롤 — 390px 에서 좌우로 밀리지 않는다
 //   ⑥ 탭 대상  — 390px 에서 44px 미만으로 눌러야 하는 것이 없다
+//   ⑦ 요청     — 그 화면이 보낸 **같은 출처 요청이 4xx/5xx 로 실패하지 않는다**
+//              (①~⑥ 은 전부 "화면이 뜨는가" 다. 화면은 뜨는데 데이터가 안 오면
+//               학습자는 빈 카탈로그를 보고 우리는 그 화면을 100% 로 센다.)
 //
 // 한 화면이 실패해도 **계속 훑는다** — 첫 실패에서 멈추면 매 실행 하나씩만 알게 된다.
+//
+// ⚠️ **프로덕션 빌드 위에서 잰다.** dev 서버는 라우트마다 첫 방문에 컴파일하고, 그때 청크가
+//    잘려 오면 `[uncaught] Invalid or unexpected token` 이 뜬다 — 화면이 아니라 서버 상태다.
+//    실측 2026-08-27, 같은 코드 같은 커밋:
+//      dev(3221)        → `/dev` 조용함 실패 1  (위 파싱 에러)
+//      프로덕션(next start) → **12화면 7축 전부 0**, 게다가 8.7분 → 59초
+//    권장:  next build && next start -p 3240  후  PLAYWRIGHT_BASE_URL=http://localhost:3240
 
 import { expect, test, type ConsoleMessage, type Page } from '@playwright/test';
 
+import { crashKindOf } from './utils/crash-screen';
+import { describeNetFailure, watchNetwork } from './utils/net-watch';
 import { AUTH_ROUTES, DEV_ROUTES, allStaticRoutes, publicRoutes } from './utils/public-routes';
 import { describeOffender, scanTapTargets, TAP_MIN, TAP_MIN_TEXT_WIDTH } from './utils/tap-target';
 
@@ -38,7 +50,7 @@ const isNoise = (t: string) => KNOWN_NOISE.some((re) => re.test(t));
 
 interface Finding {
   route: string;
-  axis: '열림' | '조용함' | '연결' | '복귀' | '가로스크롤' | '탭대상';
+  axis: '열림' | '조용함' | '연결' | '복귀' | '요청' | '가로스크롤' | '탭대상';
   detail: string;
 }
 
@@ -52,12 +64,21 @@ test.describe('공개 화면 전수 훑기 (로그아웃)', () => {
   //    리다이렉트로 튕겨 아무것도 못 잰다 — 그러면 초록인데 검증은 0이 된다.
   test.use({ storageState: { cookies: [], origins: [] } });
 
-  test('모든 공개 화면이 열리고 · 조용하고 · 링크가 살아 있고 · 되돌아온다', async ({ page }) => {
+  test('모든 공개 화면이 열리고 · 조용하고 · 링크가 살아 있고 · 되돌아온다', async ({
+    page,
+    baseURL,
+  }) => {
     test.setTimeout(ROUTES.length * 20_000 + 120_000);
     expect(ROUTES.length, '공개 라우트를 못 찾았다 — 경로 규칙이 바뀌었는지 확인').toBeGreaterThan(5);
 
     const known = knownRoutes();
     const findings: Finding[] = [];
+    // ── ⑦ 요청 ─────────────────────────────────────────────────────────
+    // 나머지 축은 전부 **"화면이 뜨는가"** 다. 화면은 뜨고 콘솔도 조용한데
+    // **그 화면의 데이터 요청이 실패하는** 경우는 아무 축도 안 봤다.
+    // ⚠️ origin 은 `baseURL` 에서 받는다 — 테스트 시작 시점의 `page.url()` 은
+    //    `about:blank` 라, 거기서 뽑으면 감시가 **아무것도 안 잡는다**.
+    const net = watchNetwork(page, new URL(baseURL ?? 'http://localhost:3000').origin, 'anonymous');
 
     for (const route of ROUTES) {
       const errors: string[] = [];
@@ -85,8 +106,13 @@ test.describe('공개 화면 전수 훑기 (로그아웃)', () => {
         await page.waitForTimeout(1200);
 
         const body = await page.evaluate(() => document.body?.innerText ?? '').catch(() => '');
-        if (/Application error|client-side exception|페이지를 찾을 수 없어요/.test(body)) {
-          findings.push({ route, axis: '열림', detail: '에러/404 화면' });
+        // ⚠️ 이 판정은 `문제가 발생했어요`(= app/error.tsx)를 **안 보고 있었다.**
+        // `error.tsx` 는 HTTP 200 에 본문도 충분해서, 서버 컴포넌트가 던져 에러 화면이
+        // 떠 있어도 나머지 축이 전부 통과한다 — 공개 화면 12개가 그 구멍 위에 있었다.
+        // 판정은 `utils/crash-screen.ts` 가 소유한다(셋이 각자 적으면 또 갈라진다).
+        const crash = crashKindOf(body);
+        if (crash) {
+          findings.push({ route, axis: '열림', detail: `${crash} 가 떠 있다` });
           continue;
         }
         if (body.trim().length < 40) {
@@ -140,15 +166,26 @@ test.describe('공개 화면 전수 훑기 (로그아웃)', () => {
           findings.push({ route, axis: '조용함', detail: `콘솔 에러 ${errors.length}건 — ${errors[0]}` });
         }
       } finally {
+        // ── ⑦ 요청 — 이 화면 몫만 본다(복귀 축이 다른 화면을 들렀다 오므로 라우트마다 비운다).
+        const failed = net.drain();
+        if (failed.length > 0) {
+          findings.push({
+            route,
+            axis: '요청',
+            detail: `실패한 요청 ${failed.length}건 — ${describeNetFailure(failed[0])}`,
+          });
+        }
         page.off('console', onConsole);
         page.off('pageerror', onPageError);
         await page.goto('about:blank').catch(() => {});
       }
     }
 
+    net.stop();
+
     const summary = [
       `공개 화면 ${ROUTES.length}개 훑음`,
-      ...(['열림', '조용함', '연결', '복귀'] as const).map(
+      ...(['열림', '조용함', '연결', '복귀', '요청'] as const).map(
         (a) => `  ${a} 실패 ${findings.filter((f) => f.axis === a).length}`,
       ),
       '',
