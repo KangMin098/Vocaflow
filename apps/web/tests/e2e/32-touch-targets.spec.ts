@@ -25,7 +25,7 @@
 
 import { expect, test, type Page } from '@playwright/test';
 
-import { adminBypassEnabled, adminRoutes } from './utils/admin-routes';
+import { adminBypassEnabled, adminReachable, adminRoutes } from './utils/admin-routes';
 import { ensureAuthState } from './utils/auth';
 import { learnerRoutes, SESSION_ROUTES } from './utils/learner-routes';
 import { describeOffender, scanTapTargets, TAP_MIN, TAP_MIN_TEXT_WIDTH } from './utils/tap-target';
@@ -121,6 +121,7 @@ test.describe('탭 대상 44px — 관리자 전 화면 @390px (ratchet)', () =>
 
   test(`44px 미만이 ${ADMIN_BASELINE}건보다 늘지 않는다`, async ({ page }) => {
     test.skip(!adminBypassEnabled(), 'DEV_ADMIN_BYPASS=1 이 아니다');
+    test.skip(!(await adminReachable(page)), '관리자 화면이 열리지 않는다 — dev 우회가 꺼져 있거나(프로덕션 빌드) 서버가 없다. 로그인 화면을 세어 초록을 만들지 않는다');
     const routes = adminRoutes();
     test.setTimeout(routes.length * 14_000 + 120_000);
 

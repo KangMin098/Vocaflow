@@ -89,6 +89,28 @@ export function adminRedirectOnlyRoutes(): Set<string> {
  * (`lib/auth/dev-bypass.ts`). 우회가 꺼져 있으면 훑기는 **건너뛴다** — 로그인 화면을
  * 33번 캡처해 놓고 "관리자 화면 통과" 라고 적는 것이 가장 나쁜 결과이기 때문이다.
  */
+/**
+ * **우회가 실제로 먹는가** — 플래그가 아니라 서버에 물어본다.
+ *
+ * ⚠️ `adminBypassEnabled()` 는 `.env.local` 의 글자만 읽는다. 그런데 그 플래그는
+ * `NODE_ENV==='production'` 에서 **코드가 무조건 무력화**한다(`lib/auth/dev-bypass.ts`).
+ * 그래서 프로덕션 빌드(`next start`)에 대고 돌리면 플래그는 1인데 관리자 화면은 전부
+ * 로그인으로 튕기고, 스캐너는 그것을 "잴 것이 없음" 으로 넘긴다 —
+ * **아무것도 안 재고 초록**이 된다.
+ *
+ * 실측 2026-08-26: 관리자 탭 대상 ratchet 이 프로덕션에서 **2.1초 만에 "0건"** 으로
+ * 통과했다. 바닥선이 218인데 0건이면 축하할 일이 아니라 계측이 죽은 것이다.
+ * 이 함수는 그 거짓 초록을 막는다 — 서버가 관리자 화면을 실제로 내주는지 확인한다.
+ */
+export async function adminReachable(page: import('@playwright/test').Page): Promise<boolean> {
+  try {
+    await page.goto('/admin', { waitUntil: 'domcontentloaded', timeout: 30_000 })
+    return !/\/login/.test(page.url())
+  } catch {
+    return false
+  }
+}
+
 export function adminBypassEnabled(): boolean {
   // utils → e2e → tests → apps/web. 위로 셋이다 — 둘이면 `apps/web/tests/.env.local` 을
   // 찾게 되고, 파일이 없으니 훑기가 **조용히 건너뛰어진다**(실측으로 한 번 겪었다).

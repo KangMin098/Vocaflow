@@ -27,7 +27,7 @@
 
 import { expect, test, type Page } from '@playwright/test';
 
-import { adminBypassEnabled } from './utils/admin-routes';
+import { adminBypassEnabled, adminReachable } from './utils/admin-routes';
 import { ensureAuthState } from './utils/auth';
 
 const STATE_PATH = 'playwright-auth/.auth-popup-return.json';
@@ -180,6 +180,7 @@ test.describe('팝업을 닫으면 제자리', () => {
         !!c.admin && !adminBypassEnabled(),
         'DEV_ADMIN_BYPASS=1 이 아니다 — 관리자 화면을 열 수 없다',
       );
+      if (c.admin) test.skip(!(await adminReachable(page)), '관리자 화면이 열리지 않는다 — dev 우회가 꺼져 있거나(프로덕션 빌드) 서버가 없다. 로그인 화면을 세어 초록을 만들지 않는다');
       test.setTimeout(120_000);
 
       await page.goto(c.route, { waitUntil: 'domcontentloaded', timeout: 60_000 });

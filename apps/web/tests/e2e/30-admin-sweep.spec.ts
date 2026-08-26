@@ -23,6 +23,7 @@ import { expect, test, type ConsoleMessage, type Page } from '@playwright/test';
 
 import {
   adminBypassEnabled,
+  adminReachable,
   adminRedirectOnlyRoutes,
   adminRoutes,
   ADMIN_NO_CLICK_ROUTES,
@@ -69,10 +70,8 @@ interface Finding {
 
 test.describe('관리자 전수 훑기', () => {
   test('모든 관리자 화면이 열리고 · 조용하고 · 링크가 살아 있고 · 되돌아온다', async ({ page }) => {
-    test.skip(
-      !adminBypassEnabled(),
-      'DEV_ADMIN_BYPASS=1 이 아니다 — 로그인 화면을 33번 캡처해 놓고 "통과" 라고 적지 않는다',
-    );
+    test.skip(!adminBypassEnabled(), 'DEV_ADMIN_BYPASS=1 이 아니다');
+    test.skip(!(await adminReachable(page)), '관리자 화면이 열리지 않는다 — dev 우회가 꺼져 있거나(프로덕션 빌드) 서버가 없다. 로그인 화면을 세어 초록을 만들지 않는다');
     test.setTimeout(ROUTES.length * 22_000 + 120_000);
 
     const findings: Finding[] = [];
@@ -222,6 +221,10 @@ test.describe('관리자 전수 훑기', () => {
   test('390px 에서 가로로 스크롤되는 관리자 화면이 없다', async ({ browser }) => {
     test.skip(!adminBypassEnabled(), 'DEV_ADMIN_BYPASS=1 이 아니다');
     test.setTimeout(ROUTES.length * 16_000 + 120_000);
+    const probe = await browser.newPage();
+    const reachable = await adminReachable(probe);
+    await probe.close();
+    test.skip(!reachable, '관리자 화면이 열리지 않는다 — dev 우회가 꺼져 있거나(프로덕션 빌드) 서버가 없다. 로그인 화면을 세어 초록을 만들지 않는다');
 
     // 왜 이 축을 따로 두는가:
     //   가로 스크롤은 **어떤 화면에서도 의도가 아니다.** 화면은 멀쩡히 뜨고 콘솔도 조용해서
