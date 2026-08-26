@@ -1,5 +1,5 @@
 {
- "note": "홀드아웃 1판+2판 오답을 합친 후보 풀 8개/문항. 정답 선지는 1판 그대로.",
+ "note": "홀드아웃 1판+2판 오답 8개 + 정답 선지 후보 3개. 정답도 후보에 넣어야 접근성이 닫힌다.",
  "items": [
   {
    "id": "H1",
@@ -16,7 +16,12 @@
     "the craft of restoring an instrument from an earlier century",
     "why nobody can hear a difference between two tuning systems"
    ],
-   "answerSlot": 3
+   "answerSlot": 3,
+   "keys": [
+    "the arbitrary nature of pitch standards and its effect on sound",
+    "the arbitrary basis of tuning and what it does to sound",
+    "why a chosen reference tone shapes how music is heard"
+   ]
   },
   {
    "id": "H2",
@@ -31,9 +36,17 @@
     "why a hiker should fear a bear more than a snake",
     "the chemistry of the poison a serpent carries",
     "how often a sting proves fatal to an allergic person",
-    "the habits that keep a tiger away from a mountain trail"
+    "the habits that keep a tiger away from a mountain trail",
+    "why fear of a predator outlasts the danger it poses",
+    "the way folklore ranks beasts by their bulk",
+    "how a guide should rank the perils of open country"
    ],
-   "answerSlot": 4
+   "answerSlot": 4,
+   "keys": [
+    "why small animals are more dangerous to hikers than large ones",
+    "why the smaller creature poses the greater threat on a trail",
+    "why bulk is a poor guide to how much a creature threatens us"
+   ]
   },
   {
    "id": "H3",
@@ -48,9 +61,17 @@
     "how a community agrees on which rules to teach the young",
     "the shame felt at a neighbour's wrongdoing rather than one's own",
     "a test for deciding which standard is best justified",
-    "why a strong code tends to weaken in daily practice"
+    "why a strong code tends to weaken in daily practice",
+    "how a community teaches the young what to value",
+    "why philosophers disagree about the source of obligation",
+    "the way habit replaces reflection in daily choice"
    ],
-   "answerSlot": 2
+   "answerSlot": 2,
+   "keys": [
+    "what accepting a moral principle involves beyond belief",
+    "what taking on a rule of conduct commits a person to",
+    "the commitments that follow from adopting a standard of conduct"
+   ]
   },
   {
    "id": "H4",
@@ -67,7 +88,12 @@
     "why counting years describes a person better than biology does",
     "a single marker that has already replaced the calendar"
    ],
-   "answerSlot": 5
+   "answerSlot": 5,
+   "keys": [
+    "the difficulty of measuring a biological age that differs among people",
+    "why ageing resists a single yardstick though its pace differs",
+    "the trouble with putting a number on how worn a body is"
+   ]
   },
   {
    "id": "H5",
@@ -84,7 +110,12 @@
     "the work a reader does to recover an intended thought",
     "how a shared code loses reliability as it spreads"
    ],
-   "answerSlot": 1
+   "answerSlot": 1,
+   "keys": [
+    "the ambiguity of language as a strength rather than a defect",
+    "why vagueness in speech is a resource and not a fault",
+    "imprecision as what lets words make new understanding"
+   ]
   }
  ]
 }

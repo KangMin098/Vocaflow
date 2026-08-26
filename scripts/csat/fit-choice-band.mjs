@@ -43,27 +43,36 @@ function centreDistance(m, band) {
 /**
  * 후보 풀에서 4개를 골라 대역 중앙에 가장 가까운 조합을 돌려준다.
  * 정답 자리는 answerSlot(1~5, 기본 4)에 놓는다.
+ *
+ * `keys` 로 **정답 선지 후보**를 여럿 주면 그것도 함께 고른다.
+ * 왜 필요했나 — 홀드아웃 5문항을 이 루프로 돌렸더니 16/20 에서 멈췄고,
+ * 남은 4칸이 **전부 접근성**(지문↔정답)과 그에 딸린 미끼 격차였다.
+ * 루프가 **오답만 고르고 정답은 고정**했기 때문이다(H2 접근성 0.1149 vs 대역 상단 0.0565 —
+ * 정답이 지문 첫 문장을 거의 그대로 옮겼다). 정답도 후보로 넣으면 닫힌다.
  */
-export function fitChoices({ passage, type, key, pool, answerSlot = 4 }, past = pastItems(), bands = choiceBands(past)) {
+export function fitChoices({ passage, type, key, keys, pool, answerSlot = 4 }, past = pastItems(), bands = choiceBands(past)) {
   const band = bands[type]
   if (!band) throw new Error(`유형 ${type} 의 기출 표본이 부족하다`)
+  const keyList = keys?.length ? keys : [key]
   const best = { d: Infinity }
   const n = pool.length
-  for (let a = 0; a < n; a += 1) {
-    for (let b = a + 1; b < n; b += 1) {
-      for (let c = b + 1; c < n; c += 1) {
-        for (let d = c + 1; d < n; d += 1) {
-          const dis = [pool[a], pool[b], pool[c], pool[d]]
-          const choices = [...dis.slice(0, answerSlot - 1), key, ...dis.slice(answerSlot - 1)]
-          const one = { type, passage, choices, k: answerSlot - 1 }
-          // **규칙을 먼저 건다.** 대역에 가까워도 C1 을 어기면 후보가 아니다.
-          if (!CHOICE_RULES.every((r) => r.check(one))) continue
-          const m = choiceMetrics(one, makeIdf([...past, one]))
-          const inBand = AXES.filter((k) => m[k] >= band[k].lo && m[k] <= band[k].hi).length
-          const dist = centreDistance(m, band)
-          // 대역 안 칸수를 먼저 보고, 같으면 중앙에 가까운 쪽
-          if (inBand > (best.inBand ?? -1) || (inBand === best.inBand && dist < best.d)) {
-            Object.assign(best, { choices, m, inBand, d: dist, answer: answerSlot })
+  for (const K of keyList) {
+    for (let a = 0; a < n; a += 1) {
+      for (let b = a + 1; b < n; b += 1) {
+        for (let c = b + 1; c < n; c += 1) {
+          for (let d = c + 1; d < n; d += 1) {
+            const dis = [pool[a], pool[b], pool[c], pool[d]]
+            const choices = [...dis.slice(0, answerSlot - 1), K, ...dis.slice(answerSlot - 1)]
+            const one = { type, passage, choices, k: answerSlot - 1 }
+            // **규칙을 먼저 건다.** 대역에 가까워도 C1 을 어기면 후보가 아니다.
+            if (!CHOICE_RULES.every((r) => r.check(one))) continue
+            const m = choiceMetrics(one, makeIdf([...past, one]))
+            const inBand = AXES.filter((k) => m[k] >= band[k].lo && m[k] <= band[k].hi).length
+            const dist = centreDistance(m, band)
+            // 대역 안 칸수를 먼저 보고, 같으면 중앙에 가까운 쪽
+            if (inBand > (best.inBand ?? -1) || (inBand === best.inBand && dist < best.d)) {
+              Object.assign(best, { choices, m, inBand, d: dist, answer: answerSlot, key: K })
+            }
           }
         }
       }
@@ -91,7 +100,7 @@ if (ENTRY) {
   for (const it of J.items) {
     const passage = it.passage ?? byKey.get(it.src)?.passage
     if (!passage) { console.log(`  ${it.id} 지문을 못 찾았다 (${it.src})`); continue }
-    const r = fitChoices({ passage, type: it.type ?? 'R-TOPIC', key: it.key, pool: it.pool, answerSlot: it.answerSlot ?? 4 }, past, bands)
+    const r = fitChoices({ passage, type: it.type ?? 'R-TOPIC', key: it.key, keys: it.keys, pool: it.pool, answerSlot: it.answerSlot ?? 4 }, past, bands)
     const band = bands[it.type ?? 'R-TOPIC']
     ok += r.inBand
     tot += AXES.length

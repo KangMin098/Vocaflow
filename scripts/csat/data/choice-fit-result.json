@@ -5,17 +5,17 @@
    "src": "2014B 25",
    "answer": 3,
    "choices": [
-    "the physical reason why the note A must be fixed at 440 Hz",
+    "how a band's tuning choice decided its popularity in the 70s",
     "the decline of baroque music after a new tuning standard spread",
-    "the arbitrary nature of pitch standards and its effect on sound",
-    "a physical law that fixes one note at a single frequency",
-    "how a rock group earned its fame by retuning"
+    "the arbitrary basis of tuning and what it does to sound",
+    "how a rock group earned its fame by retuning",
+    "why nobody can hear a difference between two tuning systems"
    ],
    "metrics": {
-    "confusion": 0.020622684211145596,
-    "distractorPassage": 0.02949344080549674,
-    "accessibility": 0.05642923872650256,
-    "baitGap": -0.026935797921005818
+    "confusion": 0.07289049358430344,
+    "distractorPassage": 0.02966076410922021,
+    "accessibility": 0.04206339105128905,
+    "baitGap": -0.01240262694206884
    }
   },
   {
@@ -25,15 +25,15 @@
    "choices": [
     "why a hiker should fear a bear more than a snake",
     "the chemistry of the poison a serpent carries",
-    "how often a sting proves fatal to an allergic person",
-    "why small animals are more dangerous to hikers than large ones",
-    "the habits that keep a tiger away from a mountain trail"
+    "the way folklore ranks beasts by their bulk",
+    "why bulk is a poor guide to how much a creature threatens us",
+    "how a guide should rank the perils of open country"
    ],
    "metrics": {
-    "confusion": 0.028139972677866866,
-    "distractorPassage": 0.024850863249978133,
-    "accessibility": 0.11485194889292137,
-    "baitGap": -0.09000108564294323
+    "confusion": 0.05007122444408636,
+    "distractorPassage": 0.015269765165381036,
+    "accessibility": 0.019474556159382293,
+    "baitGap": -0.004204790994001256
    }
   },
   {
@@ -41,17 +41,17 @@
    "src": "2015 22",
    "answer": 2,
    "choices": [
-    "how people choose which moral principles to accept",
-    "what accepting a moral principle involves beyond belief",
     "the guilt a person feels when others violate a moral principle",
+    "what taking on a rule of conduct commits a person to",
     "how a community agrees on which rules to teach the young",
-    "the shame felt at a neighbour's wrongdoing rather than one's own"
+    "the shame felt at a neighbour's wrongdoing rather than one's own",
+    "how a community teaches the young what to value"
    ],
    "metrics": {
-    "confusion": 0.09052761228631029,
-    "distractorPassage": 0.04781949308311646,
-    "accessibility": 0.061226339915883575,
-    "baitGap": -0.013406846832767112
+    "confusion": 0.02150730976275819,
+    "distractorPassage": 0.02715528769697805,
+    "accessibility": 0.042609113524475974,
+    "baitGap": -0.015453825827497925
    }
   },
   {
