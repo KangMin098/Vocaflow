@@ -8,15 +8,15 @@
   "R5"
  ],
  "cells": 185,
- "done": 148,
- "pct": 80,
- "fullTypes": 3,
+ "done": 158,
+ "pct": 85.4,
+ "fullTypes": 13,
  "perReq": {
   "R1": 37,
   "R2": 35,
   "R3": 35,
   "R4": 37,
-  "R5": 4
+  "R5": 14
  },
  "rows": [
   {
@@ -193,10 +193,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-PURPOSE",
@@ -204,10 +202,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-MOOD",
@@ -215,10 +211,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-TOPIC",
@@ -235,10 +229,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-IMPLY",
@@ -246,10 +238,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-TITLE",
@@ -257,10 +247,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:대역 안 4/5"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-CHART",
@@ -279,10 +267,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:대역 안 4/5"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-NOTICE",
@@ -310,10 +296,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:대역 안 3/5"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-BLANK",
@@ -332,10 +316,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:대역 안 3/5"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-IRRELEVANT",
@@ -363,10 +345,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "X-TITLE",

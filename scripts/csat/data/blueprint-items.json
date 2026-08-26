@@ -21,7 +21,7 @@
    "no": 24,
    "points": 2,
    "answer": 3,
-   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians of trade often treat that skill as a casualty of progress, yet the exchange was never a simple loss. What replaced local judgement was a rule that strangers could check without trusting each other. A market that runs on shared rules can therefore include partners who will never meet, while a market that runs on reputation stays as small as the circle of people who know one another.",
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians often treat that skill as a casualty of progress, yet the exchange was no simple loss. What replaced local judgement was a rule that strangers could check without trusting each other. A market that runs on shared rules can therefore include partners who will never meet, while a market that runs on reputation stays as small as the circle of people who know one another.",
    "choices": [
     "The Forgotten Craft of the Market Inspector",
     "How Containers Were Made Before the Modern Age",
@@ -49,7 +49,7 @@
    "no": 30,
    "points": 3,
    "answer": 4,
-   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was ① social. Before a measure was fixed, every trade needed an argument about the quantity itself, and such arguments were settled by local ② standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute ③ disappeared, and the special skill of the people who had settled such disputes ④ spread with it. Historians of trade often treat that skill as a casualty of progress, yet the exchange was never a simple loss. What replaced local judgement was a rule that strangers could ⑤ check without trusting each other, and checking at a distance is exactly what allowed trade to reach beyond people one already knew.",
+   "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was ① social. Before a measure was fixed, every trade needed an argument about the quantity itself, and such arguments were settled by local ② standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a dispute about what a container held. Every such dispute had to be reopened in the next town he entered. The cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute ③ disappeared, and the special skill of the people who had settled such disputes ④ spread with it. Historians often treat that skill as a casualty of progress, yet the exchange was no simple loss. What replaced local judgement was a rule that strangers could ⑤ check without trusting each other, and checking at a distance is exactly what allowed trade to reach beyond people one already knew.",
    "choices": [
     "social",
     "standing",
@@ -93,9 +93,9 @@
    "answer": 2,
    "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule.",
    "blocks": {
-    "A": "Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians of trade often treat that skill as a casualty of progress, yet the exchange was never a simple loss.",
+    "A": "Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians often treat that skill as a casualty of progress, yet the exchange was no simple loss.",
     "B": "A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves.",
-    "C": "What replaced local judgement was a rule that strangers could check without trusting each other. Checking at a distance is exactly what allowed trade to reach beyond people one already knew. The towns that resisted the new measure longest found their markets shrinking to the neighbours they could still argue with."
+    "C": "What replaced local judgement was a rule that strangers could check without trusting each other. Checking at a distance is exactly what allowed trade to reach beyond people one already knew. Towns that resisted the measure longest found their markets shrinking to the neighbours they could still argue with."
    },
    "choices": [
     "(A)-(C)-(B)",
@@ -110,7 +110,7 @@
    "no": 26,
    "points": 2,
    "answer": 3,
-   "passage": "The first fixed measures were kept as physical objects in a public building. A bar of metal or a carved stone served as the object against which officials compared local containers. A copy of that object was then sent to each market town for daily use. The copies drifted a little every year, because metal wore down and stone chipped at the edges. Inspectors travelled between the towns to correct the drift in those copies. That work was slow, and the corrections were often disputed by local traders. A single worn copy could shift the price of grain across a whole region. Later the measure was tied to a natural constant rather than to any object. A wavelength of light does not wear down and needs no inspector. Any laboratory can reproduce the measure without a visit from an official. The metal bar became a museum piece rather than a working authority.",
+   "passage": "The first fixed measures were kept as physical objects in a public building. A bar of metal or a carved stone served as the object against which officials compared local containers. A copy of that object was then sent to each market town for daily use. The copies drifted a little every year, because metal wore down and stone chipped at the edges. Inspectors travelled between the towns to correct the drift in those copies. That work was slow, and the corrections were often disputed. A single worn copy could shift the price of grain across a whole region. Later the measure was tied to a natural constant rather than to any object. A wavelength of light does not wear down and needs no inspector. Any laboratory can reproduce the measure without a visit from an official. The metal bar became a museum piece rather than a working authority.",
    "choices": [
     "최초의 고정 도량형은 실물로 보관되었다.",
     "각 시장 도시로 사본이 보내졌다.",
@@ -118,6 +118,144 @@
     "닳은 사본 하나가 곡물 가격을 지역 전체에서 바꿀 수 있었다.",
     "빛의 파장은 검사관 없이도 어디서나 재현된다."
    ]
+  },
+  "R-PURPOSE": {
+   "from": "설계도 R-PURPOSE 절차",
+   "no": 18,
+   "points": 2,
+   "answer": 2,
+   "passage": "Dear Community Centre Manager, I am writing for the Riverside Book Club. We booked the small meeting room for our monthly meeting on the third Friday. The centre has been generous to our club for three years. Our club has grown quickly since the spring reading drive. Twenty-eight people have now told us that they will come to the meeting. The small room holds only sixteen chairs. I would like to ask whether the main hall could be available to us on that evening instead. We are happy to keep the same hour and to pay the higher room fee. Please let me know soon whether this change can be arranged. Thank you for your continued help. Sincerely, Daniel Cho",
+   "choices": [
+    "독서 모임의 새 회원을 모집하려고",
+    "예약한 모임 장소의 변경을 요청하려고",
+    "모임 시간의 연기를 미리 통보하려고",
+    "회의실 사용료의 인하를 문의하려고",
+    "지역 문화 행사 참여를 제안하려고"
+   ],
+   "design": {
+    "정답원리": "요청 행위 한 문장",
+    "오답": [
+     "배경 화제",
+     "인접 행위",
+     "수신자 뒤집기",
+     "범위 과장"
+    ]
+   }
+  },
+  "R-GIST": {
+   "from": "설계도 R-GIST 절차",
+   "no": 22,
+   "points": 2,
+   "answer": 4,
+   "passage": "Advice from an expert is often repeated as if it were a rule that holds everywhere. Yet every piece of expert advice was formed inside a particular set of conditions, and those conditions are rarely stated when the advice is passed on. A surgeon who insists on a long recovery period is speaking about the patients she has actually seen, most of whom were older than the person now reading her words. A coach who warns against early specialisation is describing the athletes who came through his own programme, not every child who picks up a racket. When the advice travels, the conditions stay behind, and what arrives is a confident sentence with its supports removed. The reader then applies it to a case the expert never examined and blames the expert when it fails. Advice is therefore worth as much as the description of the situation it came from, and no more.",
+   "choices": [
+    "전문가의 조언은 일반인의 경험보다 신뢰할 만하다",
+    "조언을 구할 때는 여러 전문가의 의견을 비교해야 한다",
+    "전문가는 자신의 경험을 넘어서는 조언을 삼가야 한다",
+    "조언은 그것이 만들어진 조건과 함께 전해져야 쓸모가 있다",
+    "조언을 따르기 전에 실패의 책임 소재를 분명히 해야 한다"
+   ],
+   "design": {
+    "정답원리": "주제문 재진술",
+    "오답": [
+     "구체진술 승격",
+     "과잉 일반화",
+     "태도 뒤집기",
+     "역접 앞 문장"
+    ]
+   }
+  },
+  "R-CLAIM": {
+   "from": "설계도 R-CLAIM 절차",
+   "no": 20,
+   "points": 2,
+   "answer": 5,
+   "passage": "Schools record what students get right and almost nothing about what they got wrong on the way there. A test score marks the end of a process and hides every step that led to it. Teachers know that the useful part of learning happens in those hidden steps, yet the record keeps none of them. When a student cannot see her own wrong turns, she cannot tell a careless error from a real misunderstanding, and she repeats both. Schools should therefore ask students to keep a record of their own failed attempts alongside their results. The record need not be graded, and grading it would defeat the purpose. A workbook of dead ends is more informative than a page of correct answers. It only has to exist, so that a student can read her own past reasoning and see exactly where it bent.",
+   "choices": [
+    "평가 방식을 다양화하여 시험의 비중을 낮추어야 한다",
+    "교사는 학생의 오답을 수업 중에 함께 검토해야 한다",
+    "학습 부진의 원인을 조기에 진단하는 체계를 갖추어야 한다",
+    "성적 기록을 학생 본인에게 모두 공개해야 한다",
+    "학생이 자신의 실패한 시도를 스스로 기록하게 해야 한다"
+   ],
+   "design": {
+    "정답원리": "유일한 당위 표현",
+    "오답": [
+     "통념 당위화",
+     "수단·목적 뒤바꿈",
+     "정도 과장",
+     "대상 바꾸기"
+    ]
+   }
+  },
+  "R-MOOD": {
+   "from": "설계도 R-MOOD 절차",
+   "no": 19,
+   "points": 2,
+   "answer": 3,
+   "passage": "Mina stood at the edge of the stage and looked at the rows of empty seats. In twenty minutes they would all be full. Her hands were cold and her mouth had gone dry. She checked the strings of her violin for the fourth time. Each note sounded thinner than the last one. She could hear her own heart in her ears. The hall smelled of dust and fresh varnish. Then the door at the back opened and her old teacher walked in. He gave her the small nod he always gave before a lesson. Mina felt her shoulders drop and her breath go slow. The seats were still empty, but they no longer looked like a wall. She lifted the bow and the first note came out warm and full.",
+   "choices": [
+    "indifferent → curious",
+    "hopeful → disappointed",
+    "nervous → relieved",
+    "calm → frightened",
+    "proud → ashamed"
+   ],
+   "design": {
+    "정답원리": "전환점 앞뒤 감정 쌍",
+    "오답": [
+     "앞만 맞는 쌍",
+     "뒤만 맞는 쌍",
+     "강도 어긋남",
+     "무전환 쌍"
+    ]
+   }
+  },
+  "R-IMPLY": {
+   "from": "설계도 R-IMPLY 절차",
+   "no": 21,
+   "points": 3,
+   "answer": 2,
+   "passage": "Every large organisation eventually produces a written document that describes how its work is supposed to proceed. The document is written by people whose job is to see the whole, which means their view is assembled from reports rather than from the work itself. Whatever reaches them has already been simplified twice: once by the person who did the work and once by the person who summarised it. The result is a description that is internally consistent and quietly wrong about the parts that resist tidy description. Those parts are exactly where the real difficulty of the work lives. When the document is then used to judge performance, the people doing the work are measured against a picture that was never taken from where they stand. They learn to produce the reports that the picture expects of them. In this way the map is drawn by the people who never walk the ground, and the ground gradually rearranges itself to resemble the map.",
+   "choices": [
+    "those who design a system are shielded from the effort it takes to run it",
+    "records made for oversight come to replace the reality they were meant to record",
+    "organisations grow too large for any single document to describe them fully",
+    "workers resist documentation because it exposes the mistakes they have made",
+    "accurate description requires direct experience of the work being described"
+   ],
+   "design": {
+    "정답원리": "논지로의 번역",
+    "오답": [
+     "문자적 독해",
+     "인접 문장 요약",
+     "논지 반대",
+     "상투적 교훈"
+    ]
+   }
+  },
+  "R-SUMMARY": {
+   "from": "설계도 R-SUMMARY 절차",
+   "no": 40,
+   "points": 2,
+   "answer": 2,
+   "passage": "In a series of experiments, participants were asked to estimate how long a set of household tasks would take them. Half of them made their estimates in the room where the tasks would later be carried out; the other half made theirs in a neutral office. The estimates produced in the task room were substantially longer, and they were also substantially closer to the times the participants actually recorded. Interviews conducted afterwards suggested a straightforward explanation. Participants standing in the room mentioned obstacles that the office group never raised: a cupboard that sticks, a cord that has to be unplugged, a surface that must be cleared before anything else can begin. These small interruptions are invisible when a task is imagined as a single action. The physical setting did not make the participants more careful; it made the interruptions available to them. The difference persisted across participants of different ages and occupations. Estimating a task in the place where it will be done produced longer and closer predictions, because the setting made the (A) steps of the task visible rather than making the estimator more (B).",
+   "choices": [
+    "routine … confident",
+    "overlooked … careful",
+    "repeated … experienced",
+    "essential … cautious",
+    "difficult … skilled"
+   ],
+   "design": {
+    "정답원리": "(A)(B) 독립 판정 (최근 3회 형식)",
+    "오답": [
+     "(A) 적중·(B) 이탈",
+     "(B) 적중·(A) 이탈",
+     "둘 다 인접",
+     "지문 어휘 그대로"
+    ]
+   }
   }
  }
 }
