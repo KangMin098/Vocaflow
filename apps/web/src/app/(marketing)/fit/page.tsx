@@ -38,6 +38,8 @@ function readShareParam(sp: SearchParams | undefined): string | null {
  * 이 화면은 **도구 자체**다 — 검색으로 들어오는 문이라 색인 대상이다.
  * 공유받은 결과는 `/fit/s/[payload]` 가 따로 담당한다(그쪽은 noindex + 결과 미리보기 이미지).
  */
+import { fetchPlatformFacts, formatCount } from '@/lib/marketing/trust-signals'
+
 export const metadata: Metadata = {
   title: BASE_TITLE,
   description: BASE_DESC,
@@ -111,7 +113,13 @@ function structuredData(): string {
   ])
 }
 
-export default function FitPage({ searchParams }: { searchParams?: SearchParams }) {
+/**
+ * ⚠️ 이 화면이 인용하는 수치는 **상수로 적지 않는다.**
+ *    2026-08-26 실측에서 여기 박혀 있던 두 수(47,137 · 1,678,478)가 9일 만에 어긋나 있었다.
+ *    `components/marketing/__tests__/no-hardcoded-stats.test.ts` 가 재발을 막는다.
+ */
+export default async function FitPage({ searchParams }: { searchParams?: SearchParams }) {
+  const facts = await fetchPlatformFacts()
   // 구버전 공유 링크(`/fit?r=`) 호환 — 이미 복사돼 돌아다니는 주소를 죽이지 않는다.
   // 새 링크는 `/fit/s/<payload>` 이고, 그쪽에만 미리보기 이미지가 붙는다.
   const legacyShared = decodeProfile(readShareParam(searchParams))
@@ -176,11 +184,18 @@ export default function FitPage({ searchParams }: { searchParams?: SearchParams 
             <b>구간</b>으로 표시합니다.
           </li>
           <li>
-            학년별 어휘는 자체 학습 어휘 목록(공개 표제어 <b>18,271</b>개, V-Level 1~11)을 씁니다.
+            학년별 어휘는 자체 학습 어휘 목록(V-Level 1~11)을 씁니다.
             레벨을 확인할 수 없는 단어는 <b>감추지 않고</b> 범위로 표시합니다.
           </li>
           <li>
-            영영 사전 <b>47,137</b> 표제어와 도서–어휘 연결 <b>1,678,478</b>건 위에서 동작합니다.
+            {facts ? (
+              <>
+                영영 사전 <b>{formatCount(facts.headwords)}</b> 표제어와 도서–어휘 연결{' '}
+                <b>{formatCount(facts.bookVocabLinks)}</b>건 위에서 동작합니다.
+              </>
+            ) : (
+              <>영영 사전과 도서–어휘 연결 위에서 동작합니다.</>
+            )}
           </li>
         </ul>
         <p className="m-0 mt-4 font-body text-[12.5px] leading-[1.65] text-[var(--t3)]">

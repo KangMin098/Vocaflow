@@ -1,0 +1,534 @@
+// apps/web/src/components/marketing/PricingClient.tsx
+// 요금제 화면의 인터랙티브 부분 — 3-tier (Free · Pro · Team) + 월간/연간 토글.
+// 인지 앵커링: 중앙 Pro 강조 + 연간 결제 시 "2개월 무료" 시각화
+// CLAUDE.md §Calm UI — 가격 압박 없음, "지금 결정 안 해도 OK" 톤
+//
+// ⚠️ 신뢰 지표는 **여기서 정하지 않는다.** 서버(page.tsx)가 DB 에서 읽어 넘긴다 —
+//    상수로 적어 두면 반드시 낡는다(2026-08-26 에 세 수치가 9일 만에 전부 어긋나 있었다).
+//    lib/marketing/trust-signals.ts 참조.
+
+'use client'
+
+import { Check, Crown, Heart, Sparkles, Users, Zap, type LucideIcon } from 'lucide-react'
+import Link from 'next/link'
+import { useState } from 'react'
+
+import type { TrustSignal } from '@/lib/marketing/trust-signals'
+
+type Billing = 'monthly' | 'annual'
+
+interface Tier {
+  id: string
+  label: string
+  /** 월간 가격 — 연간일 땐 monthlyPriceAnnual 로 노출 */
+  priceMonthly: string
+  /** 연간 결제 시 월 환산 가격 (2개월 무료 적용) */
+  monthlyPriceAnnual?: string
+  /** 연간 결제 시 1회 청구액 (참고 표시) */
+  annualTotal?: string
+  description: string
+  icon: LucideIcon
+  accent: string
+  bgGradient: string
+  cta: string
+  ctaHref: string
+  highlight?: boolean
+  features: string[]
+  limit?: string
+}
+
+const TIERS: Tier[] = [
+  {
+    id: 'free',
+    label: 'Free',
+    priceMonthly: '0',
+    description: '학습 과학의 핵심을 부담 없이.',
+    icon: Heart,
+    accent: 'var(--info)',
+    bgGradient: 'from-[var(--info-light)] to-transparent',
+    cta: '바로 시작',
+    ctaHref: '/signup',
+    features: [
+      '스크립트 입력 · 분석 (월 5건)',
+      '단어장 100개 단어',
+      'Flashcard SM-2 SRS',
+      '하늘 환경 · 차분한 UI',
+      '웹 + 모바일 동기화',
+    ],
+    limit: '월 5개 스크립트 · 단어 100개',
+  },
+  {
+    id: 'pro',
+    label: 'Pro',
+    priceMonthly: '9,900',
+    monthlyPriceAnnual: '8,250',
+    annualTotal: '99,000',
+    description: '학습 과학 7원칙을 모두 활용하는 분께.',
+    icon: Crown,
+    accent: 'var(--p)',
+    bgGradient: 'from-[var(--p-light)] to-transparent',
+    cta: '14일 무료 체험',
+    ctaHref: '/signup?plan=pro',
+    highlight: true,
+    features: [
+      '스크립트 무제한 · AI 분석 무제한',
+      '단어장 무제한 · 클라우드 백업',
+      '7개 모듈 전체 (Flashcard·SpellForge·WordBlitz·ScriptQuiz)',
+      '집중 모드 · 학습 워크스페이스',
+      'Memory Decay 4단계 색 추적',
+      '주간 학습 리포트 · 인사이트 패널',
+      '음성(TTS) 자연스러운 OpenAI 보이스',
+    ],
+    limit: '제한 없음',
+  },
+  {
+    id: 'team',
+    label: 'Team',
+    priceMonthly: '29,900',
+    monthlyPriceAnnual: '24,920',
+    annualTotal: '299,000',
+    description: '같이 배우는 사람들을 위해.',
+    icon: Users,
+    accent: '#8B5CF6',
+    bgGradient: 'from-[#F5F3FF] to-transparent',
+    cta: '문의하기',
+    ctaHref: 'mailto:hello@vocaflow.app',
+    features: [
+      'Pro 모든 기능 포함',
+      '관리자 콘솔 (학습 진행 추적)',
+      '커스텀 스크립트 라이브러리',
+      '팀 단어장 공유',
+      '학습 효과 통계 대시보드',
+      '우선 기술 지원',
+    ],
+    limit: '5인 시작 · 추가 시 1인당 ₩4,900',
+  },
+]
+
+
+// ── 다른 점 — 지어낸 후기 대신 검증 가능한 동작을 말한다 ──
+const DIFFERENTIATORS = [
+  {
+    title: '내 기준 커버리지',
+    body: '글의 난이도가 아니라 "내가 아는 비율"을 잽니다. 같은 글도 사람마다 다른 숫자가 나와요.',
+    basis: '근거 · Hu & Nation (2000) 읽기 이해 임계 98/95%',
+  },
+  {
+    title: '숫자가 시간에 따라 변합니다',
+    body: '복습을 미루면 커버리지가 내려갑니다. 2주 뒤 이 글이 얼마나 어려워지는지 미리 보여줘요.',
+    basis: '근거 · FSRS 기억 안정도 R(t) = exp(ln 0.9 · t / S)',
+  },
+  {
+    title: '"몇 개만 하면 되는지"',
+    body: '막연히 단어를 외우는 대신, 이 글이 편하게 읽히는 최소 단어 수를 계산해 줍니다.',
+    basis: '근거 · 출현 빈도 기여도 순 최소 집합',
+  },
+]
+
+interface FAQ {
+  q: string
+  a: string
+}
+
+const FAQS: FAQ[] = [
+  {
+    q: '무료 플랜에서 Pro로 언제든 업그레이드할 수 있나요?',
+    a: '네. 학습 데이터(단어장·진행률·Streak)는 모두 그대로 이어집니다. 다운그레이드도 마찬가지입니다.',
+  },
+  {
+    q: '환불 정책은요?',
+    a: '결제 후 14일 이내 사유 무관 전액 환불됩니다. 학습이 안 맞으면 부담 없이 떠나세요.',
+  },
+  {
+    q: 'AI 분석은 어떤 모델을 쓰나요?',
+    a: 'GPT-4o-mini를 기본으로, Pro 플랜은 더 정밀한 GPT-4o가 일부 단계에서 활용됩니다. TTS는 OpenAI TTS-1.',
+  },
+  {
+    q: '학교/스터디 그룹 할인이 있나요?',
+    a: 'Team 플랜에서 5인 이상부터 자동 적용됩니다. 학교 기관은 hello@vocaflow.app으로 문의하시면 별도 안내드립니다.',
+  },
+  {
+    q: '데이터는 안전한가요?',
+    a: 'Supabase RLS(Row-Level Security)로 사용자별 데이터를 격리합니다. 자세한 내용은 개인정보처리방침을 참고하세요.',
+  },
+]
+
+/**
+ * @param signals 서버가 DB 에서 읽은 신뢰 지표. null 이면 **섹션을 통째로 숨긴다** —
+ *   낡거나 0 인 숫자를 공개 화면에 거는 것보다 안 보여주는 편이 낫다.
+ */
+export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
+  const [billing, setBilling] = useState<Billing>('monthly')
+
+  return (
+    <div className="bg-[var(--bg)]">
+      {/* ── Hero ── */}
+      <section className="border-b border-[var(--bd)] bg-gradient-to-br from-[var(--bg2)] to-[var(--bg)]">
+        <div className="mx-auto max-w-3xl px-6 py-16 text-center md:py-20">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)] shadow-[var(--sh-xs)]">
+            <Sparkles size={12} className="text-[var(--p)]" aria-hidden />
+            요금제
+          </span>
+          <h1 className="mt-6 font-display text-[36px] font-[800] leading-[1.15] tracking-tight text-[var(--t1)] md:text-[48px]">
+            당신의 페이스에 맞는 플랜
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl font-body text-[15px] leading-relaxed text-[var(--t2)]">
+            학습은 길게 봐야 합니다. 부담 없이 시작하고, 필요할 때 옮기세요.
+          </p>
+
+          {/* ── 월간/연간 토글 ── */}
+          <div className="mt-8 inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] p-1 shadow-[var(--sh-xs)]">
+            <button
+              onClick={() => setBilling('monthly')}
+              aria-pressed={billing === 'monthly'}
+              className={`rounded-[var(--r-full)] px-5 py-2 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ${
+                billing === 'monthly'
+                  ? 'bg-[var(--t1)] text-[var(--ti)] shadow-[var(--sh-xs)]'
+                  : 'text-[var(--t2)] hover:text-[var(--t1)]'
+              }`}
+            >
+              월간 결제
+            </button>
+            <button
+              onClick={() => setBilling('annual')}
+              aria-pressed={billing === 'annual'}
+              className={`group inline-flex items-center gap-2 rounded-[var(--r-full)] px-5 py-2 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ${
+                billing === 'annual'
+                  ? 'bg-[var(--t1)] text-[var(--ti)] shadow-[var(--sh-xs)]'
+                  : 'text-[var(--t2)] hover:text-[var(--t1)]'
+              }`}
+            >
+              연간 결제
+              <span
+                className={`rounded-full px-2 py-1 font-mono text-[10px] font-[700] tabular-nums ${
+                  billing === 'annual'
+                    ? 'bg-[var(--success)] text-[var(--ti)]'
+                    : 'bg-[var(--success-light)] text-[var(--success)]'
+                }`}
+              >
+                2개월 무료
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Trust signals — 서버가 읽어 준 것만. 못 읽었으면 섹션 자체가 없다. ── */}
+      {signals && signals.length > 0 && (
+        <section aria-label="신뢰 지표" className="border-b border-[var(--bd)] bg-[var(--bg)]">
+          <div className="mx-auto max-w-4xl px-6 py-8">
+            <ul className="grid grid-cols-3 divide-x divide-[var(--bd)]">
+              {signals.map((s) => (
+                <li key={s.label} className="px-4 text-center first:pl-0 last:pr-0">
+                  <p className="font-display text-[24px] font-[800] tabular-nums tracking-tight text-[var(--t1)] md:text-[28px]">
+                    {s.value}
+                  </p>
+                  <p className="mt-0.5 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+                    {s.label}
+                  </p>
+                  <p className="mt-0.5 font-body text-[11px] text-[var(--t2)]">{s.sub}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {/* ── 3 Tier ── */}
+      <section className="bg-[var(--bg)]">
+        <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
+          <ul className="grid grid-cols-1 gap-5 md:grid-cols-3">
+            {TIERS.map((t) => {
+              const Icon = t.icon
+              return (
+                <li
+                  key={t.id}
+                  className={`relative flex flex-col rounded-[var(--r-2xl)] border bg-[var(--bg)] p-6 transition-all duration-[var(--dur-normal)] md:p-7 ${
+                    t.highlight
+                      ? 'border-[var(--p)] shadow-[var(--sh-lg)] md:-translate-y-2'
+                      : 'border-[var(--bd)] shadow-[var(--sh-sm)] hover:shadow-[var(--sh-md)]'
+                  }`}
+                >
+                  {/* highlight ribbon */}
+                  {t.highlight && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[var(--p)] to-[#8B5CF6] px-3 py-1 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--ti)] shadow-[var(--sh-sm)]">
+                        <Sparkles size={11} strokeWidth={2.5} aria-hidden />
+                        가장 인기
+                      </span>
+                    </div>
+                  )}
+
+                  {/* gradient glow */}
+                  <div
+                    aria-hidden
+                    className={`pointer-events-none absolute inset-x-0 top-0 -z-0 h-32 rounded-t-[var(--r-2xl)] bg-gradient-to-b ${t.bgGradient} opacity-60`}
+                  />
+
+                  {/* ── Header ── */}
+                  <div className="relative">
+                    <span
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)]"
+                      style={{ backgroundColor: `${t.accent}15`, color: t.accent }}
+                      aria-hidden
+                    >
+                      <Icon size={18} strokeWidth={1.75} />
+                    </span>
+                    <h2 className="mt-4 font-display text-[22px] font-[800] text-[var(--t1)]">
+                      {t.label}
+                    </h2>
+                    <p className="mt-1 font-body text-[13px] leading-relaxed text-[var(--t2)]">
+                      {t.description}
+                    </p>
+                  </div>
+
+                  {/* ── Price ── */}
+                  {(() => {
+                    const isFree = t.priceMonthly === '0'
+                    const showAnnual = billing === 'annual' && t.monthlyPriceAnnual
+                    const displayPrice = showAnnual ? t.monthlyPriceAnnual : t.priceMonthly
+                    return (
+                      <div className="relative mt-6">
+                        <div className="flex items-baseline gap-1">
+                          {!isFree && (
+                            <span className="font-display text-[18px] font-[600] text-[var(--t2)]">
+                              ₩
+                            </span>
+                          )}
+                          <span className="font-display text-[40px] font-[800] tabular-nums leading-none tracking-tight text-[var(--t1)] md:text-[44px]">
+                            {isFree ? '무료' : displayPrice}
+                          </span>
+                          {!isFree && (
+                            <span className="ml-1 font-body text-[13px] text-[var(--t2)]">/ 월</span>
+                          )}
+                          {isFree && (
+                            <span className="ml-1 font-body text-[13px] text-[var(--t2)]">/ 평생</span>
+                          )}
+                        </div>
+                        {/* 연간 결제 시 보조 정보 */}
+                        {showAnnual && t.annualTotal && (
+                          <p className="mt-1.5 font-mono text-[11px] tabular-nums text-[var(--success)]">
+                            <span className="line-through text-[var(--t2)]">
+                              ₩{(parseInt(t.priceMonthly.replace(/,/g, ''), 10) * 12).toLocaleString()}
+                            </span>{' '}
+                            → ₩{t.annualTotal} / 년
+                          </p>
+                        )}
+                        {t.limit && (
+                          <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
+                            {t.limit}
+                          </p>
+                        )}
+                      </div>
+                    )
+                  })()}
+
+                  {/* ── CTA ── */}
+                  <Link
+                    href={t.ctaHref}
+                    className={`relative mt-6 inline-flex items-center justify-center gap-2 rounded-[var(--r-md)] px-5 py-3 font-display text-[14px] font-[700] transition-all duration-[var(--dur-normal)] active:scale-[0.97] ${
+                      t.highlight
+                        ? 'bg-[var(--p)] text-[var(--on-p)] shadow-[var(--sh-sm)] hover:bg-[var(--p-hover)] hover:shadow-[var(--sh-md)]'
+                        : 'border-2 border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:border-[var(--p)] hover:bg-[var(--p-light)]'
+                    }`}
+                  >
+                    {t.cta}
+                    {t.highlight && <Zap size={14} strokeWidth={2.5} aria-hidden />}
+                  </Link>
+
+                  {/* ── Features ── */}
+                  <ul className="relative mt-6 space-y-3 border-t border-[var(--bd)] pt-6">
+                    {t.features.map((f, i) => (
+                      <li key={i} className="flex items-start gap-3">
+                        <span
+                          className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full"
+                          style={{ backgroundColor: `${t.accent}20`, color: t.accent }}
+                          aria-hidden
+                        >
+                          <Check size={10} strokeWidth={3} />
+                        </span>
+                        <span className="font-body text-[13px] leading-relaxed text-[var(--t1)]">
+                          {f}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              )
+            })}
+          </ul>
+
+          <p className="mx-auto mt-10 max-w-md text-center font-body text-[13px] italic text-[var(--t2)]">
+            14일 이내 환불 가능 · 카드 등록 없이 무료 사용 시작
+          </p>
+        </div>
+      </section>
+
+      {/* ── 비교표 (간단) ── */}
+      <section className="border-t border-[var(--bd)] bg-[var(--bg2)]">
+        <div className="mx-auto max-w-4xl px-6 py-16">
+          <header className="mb-8 max-w-xl">
+            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+              Compare
+            </p>
+            <h2 className="mt-2 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)]">
+              한눈에 비교
+            </h2>
+          </header>
+
+          <div className="overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
+            <table className="w-full text-left text-[13px]">
+              <thead className="bg-[var(--bg2)]">
+                <tr>
+                  <th className="px-4 py-3 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+                    기능
+                  </th>
+                  {TIERS.map((t) => (
+                    <th
+                      key={t.id}
+                      className="px-4 py-3 text-center font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"
+                    >
+                      {t.label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[var(--bd)]">
+                {[
+                  ['스크립트 분석', '월 5개', '무제한', '무제한'],
+                  ['단어장 단어', '100', '무제한', '무제한'],
+                  ['Flashcard SRS', '✓', '✓', '✓'],
+                  ['SpellForge · WordBlitz · ScriptQuiz', '·', '✓', '✓'],
+                  ['집중 모드 · 학습 워크스페이스', '·', '✓', '✓'],
+                  ['Memory Decay 추적', '·', '✓', '✓'],
+                  ['주간 리포트', '·', '✓', '✓'],
+                  ['팀 학습 추적', '·', '·', '✓'],
+                  ['우선 지원', '·', '·', '✓'],
+                ].map((row, i) => (
+                  <tr key={i} className="hover:bg-[var(--bg2)]">
+                    <td className="px-4 py-3 font-body text-[var(--t1)]">{row[0]}</td>
+                    {row.slice(1).map((cell, j) => (
+                      <td
+                        key={j}
+                        className="px-4 py-3 text-center font-body tabular-nums text-[var(--t2)]"
+                      >
+                        {cell === '✓' ? (
+                          <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--success-light)] text-[var(--success)]">
+                            <Check size={12} strokeWidth={3} />
+                          </span>
+                        ) : cell === '·' ? (
+                          <span className="text-[var(--t2)]">—</span>
+                        ) : (
+                          cell
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 이 제품만 하는 것 ──
+          지어낸 후기가 있던 자리. 후기는 실증자료 없이 게재할 수 없으므로,
+          실제 학습자가 생기기 전까지는 **검증 가능한 동작**으로 대신한다. */}
+      <section aria-label="다른 점" className="border-t border-[var(--bd)] bg-[var(--bg)]">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <header className="mb-8 max-w-2xl">
+            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+              What&apos;s different
+            </p>
+            <h2 className="mt-2 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)]">
+              읽기 전에, 이 글이 나에게 맞는지 먼저 알려줍니다
+            </h2>
+            <p className="mt-3 font-body text-[14px] leading-[1.7] text-[var(--t2)]">
+              교과서 지문이든 선생님이 준 프린트든 붙여넣으면, 지금 내 어휘로 몇 %가 읽히는지
+              바로 나옵니다. 그리고 몇 개를 더 익히면 편하게 읽히는지까지.
+            </p>
+            <Link
+              href="/fit"
+              className="mt-4 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[13.5px] font-[600] text-[var(--bg)] transition-all duration-[var(--dur-normal)] hover:brightness-110 active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+            >
+              지금 지문 넣어 보기 — 가입 없이
+            </Link>
+          </header>
+          <ul className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {DIFFERENTIATORS.map((d) => (
+              <li
+                key={d.title}
+                className="flex flex-col rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
+              >
+                <p className="font-display text-[14px] font-[700] text-[var(--t1)]">{d.title}</p>
+                <p className="mt-2 font-body text-[13px] leading-[1.7] text-[var(--t2)]">{d.body}</p>
+                <p className="mt-3 border-t border-[var(--bd)] pt-3 font-mono text-[11px] leading-[1.6] text-[var(--t2)]">
+                  {d.basis}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="border-t border-[var(--bd)] bg-[var(--bg)]">
+        <div className="mx-auto max-w-3xl px-6 py-16">
+          <header className="mb-8 text-center">
+            <p className="font-mono text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--p)]">
+              FAQ
+            </p>
+            <h2 className="mt-2 font-display text-[26px] font-[800] tracking-tight text-[var(--t1)]">
+              자주 묻는 질문
+            </h2>
+          </header>
+
+          <ul className="space-y-3">
+            {FAQS.map((faq, i) => (
+              <li
+                key={i}
+                className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-xs)]"
+              >
+                <details className="group">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+                    <span className="font-display text-[15px] font-[700] text-[var(--t1)]">
+                      {faq.q}
+                    </span>
+                    <span
+                      className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--bg2)] text-[var(--t2)] transition-transform duration-[var(--dur-normal)] group-open:rotate-45"
+                      aria-hidden
+                    >
+                      <span className="font-display text-[16px] font-[600]">+</span>
+                    </span>
+                  </summary>
+                  <p className="mt-3 font-body text-[14px] leading-relaxed text-[var(--t2)]">
+                    {faq.a}
+                  </p>
+                </details>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section className="bg-gradient-to-br from-[var(--p)] to-[#6D28D9] text-[var(--ti)]">
+        <div className="mx-auto max-w-2xl px-6 py-16 text-center">
+          <h2 className="font-display text-[26px] font-[800] tracking-tight md:text-[32px]">
+            아직 망설이고 계신가요?
+          </h2>
+          <p className="mx-auto mt-3 max-w-md font-body text-[15px] leading-relaxed opacity-90">
+            카드 등록 없이 모든 핵심 기능을 평생 써볼 수 있어요.
+          </p>
+          <Link
+            href="/signup"
+            className="mt-6 inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--ti)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--p)] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] hover:scale-[1.02] active:scale-[0.97]"
+          >
+            <Zap size={16} strokeWidth={2.5} aria-hidden />
+            무료로 시작하기
+          </Link>
+        </div>
+      </section>
+    </div>
+  )
+}
