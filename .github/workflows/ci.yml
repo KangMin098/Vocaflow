@@ -114,10 +114,12 @@ jobs:
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
 
-      # 상시 스펙만 돈다 — 학습 루프 완주 · 추출 신뢰 · 추출 스케일 · a11y 전수 스윕.
+      # 상시 스펙만 돈다 — 학습 루프 완주 · 추출 신뢰 · 추출 스케일 · a11y 전수 스윕 ·
+      # **공개 표면**(33-public-surface: 비로그인 검색 착지점. a11y 스윕은 동적 라우트를
+      # 건너뛰고 로그인 상태로 돌아서 콘텐츠 상세 278개를 한 번도 보지 못했다).
       # a11y 스윕은 베이스라인 방식이라 **오늘부터의 악화만** 실패시킨다.
       - if: steps.guard.outputs.ready == 'true'
-        run: pnpm --filter web exec playwright test 04-ui-smoke 08-text-extract-trust 09-text-extract-scale 10-a11y-sweep
+        run: pnpm --filter web exec playwright test 04-ui-smoke 08-text-extract-trust 09-text-extract-scale 10-a11y-sweep 33-public-surface
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}

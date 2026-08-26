@@ -143,6 +143,14 @@ describe('robots — 크롤 범위', () => {
     }
   })
 
+  it('관리 콘솔을 막는다 — 학습자 보호 목록에서 파생되지 않는다', () => {
+    // `/admin` 은 `PROTECTED_PREFIXES` 에 없다(3층 가드가 따로 지킨다). 그래서 파생만
+    // 믿으면 robots 가 admin 을 안 막는다 — 2026-08-26 실측에서 실제로 그랬다.
+    // 크롤러가 admin 전체를 훑으며 로그인 리다이렉트에 크롤 예산을 쓴다.
+    expect(disallow).toContain('/admin')
+    expect(disallow).toContain('/admin/')
+  })
+
   it('로그인은 불필요하지만 색인 대상도 아닌 곳을 막는다', () => {
     // "로그인 불필요" 와 "검색 노출" 은 다른 축이다 — /api 는 PUBLIC_PREFIXES 에 있지만
     // 색인할 이유가 없다.

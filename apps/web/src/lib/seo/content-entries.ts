@@ -29,6 +29,8 @@
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
+import { fetchComicCatalog } from '@/lib/comic/catalog'
+
 export interface ContentEntry {
   path: string
   /** 마지막 변경 시각. 모르면 생략 — 거짓 날짜를 주면 크롤러가 재방문 주기를 잘못 잡는다. */
@@ -141,6 +143,22 @@ async function comicEntries(db: SupabaseClient): Promise<ContentEntry[]> {
     .map((r) => ({ path: `/comics/restored/${r.slug}` }))
 }
 /**
+ * 발행 CCP 만화 상세 — `/comics/adapted/[bookId]`.
+ *
+ * 도서를 만화로 각색한 것이라 복원 만화(`/comics/restored`)와 별개 라우트다.
+ * 비로그인도 3컷 미리보기를 볼 수 있어 공개 표면인데 sitemap 에 빠져 있었다(2026-08-26).
+ *
+ * 여기서도 표를 직접 읽지 않는다 — `fetchComicCatalog` 는 화면이 쓰는 **단일 출처**이고
+ * "이중 published 게이트" 를 안에 담고 있다. 조건을 옮겨 적으면 반드시 갈라진다.
+ */
+async function adaptedComicEntries(db: SupabaseClient): Promise<ContentEntry[]> {
+  const items = await fetchComicCatalog(db, { coverLimit: 0 })
+  return items
+    .filter((c) => typeof c.bookId === 'string' && c.bookId.length > 0)
+    .map((c) => ({ path: `/comics/adapted/${c.bookId}` }))
+}
+
+/**
  * 색인 대상 콘텐츠 상세 경로 전부.
  *
  * 환경변수가 없으면(테스트·빌드 일부 단계) 빈 배열 — 예외를 던지지 않는다.
@@ -149,7 +167,7 @@ export async function fetchContentEntries(): Promise<ContentEntry[]> {
   const db = anonClient()
   if (!db) return []
 
-  const [books, comics, articles] = await Promise.all([
+  const [books, comics, adapted, articles] = await Promise.all([
     bookEntries(db).catch((err: unknown) => {
       console.error('[seo/content-entries] 도서', err)
       return [] as ContentEntry[]
@@ -158,11 +176,15 @@ export async function fetchContentEntries(): Promise<ContentEntry[]> {
       console.error('[seo/content-entries] 만화', err)
       return [] as ContentEntry[]
     }),
+    adaptedComicEntries(db).catch((err: unknown) => {
+      console.error('[seo/content-entries] 각색 만화', err)
+      return [] as ContentEntry[]
+    }),
     articleEntries(db).catch((err: unknown) => {
       console.error('[seo/content-entries] 짧은 글', err)
       return [] as ContentEntry[]
     }),
   ])
 
-  return [...books, ...comics, ...articles]
+  return [...books, ...comics, ...adapted, ...articles]
 }
