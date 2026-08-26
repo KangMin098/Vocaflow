@@ -44,6 +44,33 @@ ls <DIR>/chunk-*.json | grep -v '\.out\.json$'
 **이미 `chunk-NN.out.json` 이 있는 청크는 건너뛴다**(`--force` 가 없으면).
 건너뛴 수를 반드시 말한다 — 0 건 처리를 "완료" 로 보고하는 것이 이 저장소가 경계하는 실패다.
 
+### ⚠️ claim 을 먼저 찍는다 — 워크스페이스를 여러 세션이 공유한다
+
+실측 2026-08-26: 3차 물결에서 **두 에이전트가 "내 청크에 이미 다른 판정본이 있었다"** 고
+보고했다. 다른 세션이 같은 청크를 동시에 돌고 있었던 것이다. TCP 큐는 DB 가
+`FOR UPDATE SKIP LOCKED` 로 막아 주지만, **이 청크 폴더에는 그런 장치가 없다.**
+결과는 낭비된 판정과, 서로 다른 판정본이 덮어쓰는 경합이다.
+
+그래서 스폰 **전에** 표시를 남긴다:
+
+```bash
+# 잡기 — 이미 신선한 claim 이 있으면 그 청크는 건너뛴다
+for c in <대상 청크들>; do
+  claim="${c%.json}.claim"
+  if [ -f "$claim" ]; then
+    age=$(( $(date +%s) - $(stat -c %Y "$claim") ))
+    [ "$age" -lt 1800 ] && echo "SKIP(claimed ${age}s) $c" && continue   # 30분
+  fi
+  echo "$(hostname)-$$ $(date -Is)" > "$claim"
+  echo "CLAIM $c"
+done
+```
+
+- **30분이 지난 claim 은 죽은 것으로 보고 가져간다** — 세션이 중간에 끊길 수 있다
+  (`compose` 큐가 쓰는 30분 회수와 같은 값).
+- 청크가 끝나면 `.claim` 을 지운다. 실패했으면 남겨 두지 말 것 — 다음 실행이 못 잡는다.
+- `.claim` 은 커밋하지 않는다.
+
 ## 2단계 — 팬아웃
 
 물결마다 `--wave-size` 개씩, 각 청크에 `pending-words-judge` 서브에이전트 하나.
