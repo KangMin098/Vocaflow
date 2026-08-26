@@ -33,7 +33,7 @@ export function LandingCta() {
         <Link
           href="/fit"
           onClick={() => track({ name: 'landing_cta_clicked', props: { target: 'fit' } })}
-          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 font-body text-[14px] font-[700] text-white transition-opacity duration-[var(--dur-normal)] hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 font-body text-[14px] font-[700] text-[var(--on-p)] transition-opacity duration-[var(--dur-normal)] hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
         >
           지문 난이도 재 보기
           <ArrowRight size={16} aria-hidden />

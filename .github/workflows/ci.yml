@@ -23,7 +23,20 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # ⚠️ **실 DB 통합 테스트에 시크릿을 넘긴다.**
+      #
+      # 이 저장소에는 실 DB 를 치는 회귀가 24개 있고(2026-08-26 실측) 그중에는
+      # **권한 상승·RLS 회귀**가 들어 있다(privilege-escalation · rls-surface ·
+      # word-set-rls · session-rls · assignment-rls). 전부 skipIf(env 없음) 이라,
+      # env 를 안 넘기면 CI 에서 **조용히 전량 건너뛴다** — 초록불인데 아무것도 안 본 상태다.
+      #
+      # 시크릿이 없는 저장소에서는 지금과 똑같이 skip 된다(빈 문자열 → skipIf). 안전하다.
+      # 넣는 순간부터 24개가 CI 에서 실제로 돈다.
       - run: pnpm turbo run lint typecheck test
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
 
   # v06.92 — 프로덕션 next build 회귀 가드.
   # 빌드가 minify/컴파일 단계에서 깨지지 않는지 검증(이번 복구 PR 이전엔 main 빌드가 실패했음).

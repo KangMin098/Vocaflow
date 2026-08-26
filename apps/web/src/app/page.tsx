@@ -46,7 +46,7 @@ export default async function LandingPage() {
     <div className="flex min-h-screen flex-col bg-[var(--bg)] text-[var(--t1)]">
       <header className="sticky top-0 z-30 flex h-[60px] items-center justify-between border-b border-[var(--bd)] bg-[var(--bg)]/90 px-4 backdrop-blur lg:px-8">
         <Link href="/" className="flex min-h-[44px] items-center gap-2" aria-label="Vocaflow 홈">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--p)] text-white">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--p)] text-[var(--on-p)]">
             <Sparkles size={16} aria-hidden />
           </span>
           <span className="font-display text-[17px] font-[800] tracking-tight">Vocaflow</span>
