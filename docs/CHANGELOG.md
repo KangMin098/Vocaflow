@@ -10,6 +10,28 @@
 
 ## Unreleased (v06.34 → next)
 
+### 글 상세에 **이 글의 단어장** — 세트 135개가 비로그인에게 안 보이고 있었다
+
+발행 글 160개 중 **135개**에 자동 생성 단어장이 있다(낱말 3,656개). 그런데 어디에도 안 보였다.
+
+이유는 결함이 아니라 **빈자리**였다. `lib/library/vocab/queries.ts` 가 공용 카탈로그에서
+`library_book`·`library_article` 두 카테고리를 일부러 뺀다 — "소스 종속 자동생성 세트는 각
+소스 컨텍스트에서만". 도서는 그 컨텍스트가 있다(도서 상세의 챕터 세트). **글은 없었다** —
+로그인 뒤 학습 화면(`/text/[id]`)뿐이라 검색으로 온 사람은 볼 곳이 없었다.
+
+RLS 는 처음부터 열려 있었다. `shared_word_sets`·`shared_words` 의 `read published` 정책이
+`library_article` 세트를 **그 글이 published + copyright_safe_in_kr 일 때** 익명에게 준다.
+데이터도 정책도 준비됐고 **화면만 없던 자리**다 — 이 라우트 자체가 그랬던 것과 같다.
+
+- `lib/library/article-vocab.ts` 신설 — 쿼리의 단일 출처. 화면과 회귀가 같은 것을 부른다
+  (공유 카드가 `source_archive`/`source_adapter` 로 빈 카드를 냈을 때 배운 것)
+- 세트와 글을 잇는 키는 컬럼이 아니라 `curation_query` jsonb 안의 `article_id` → `contains`
+- 낱말 6개 + 총 개수를 노출. CTA 도 "모르는 단어만 골라"(약속) → "위 40개 낱말 중"(표본)으로
+- 회귀 4 (`article-vocab.integration.test.ts`) — anon 권한으로 실제 조회. 섹션이 `vocab && (…)`
+  이라 0행이면 **페이지는 200 인데 섹션만 사라진다**. 상태 코드로 알 수 없는 실패라 쿼리를 잰다
+- 익명 렌더 실측: Prague(valid·cruise·suburban…) · Kyoto(temple·shrine·plum…) — 글마다 다른 세트
+
+
 ### L1 우선 순서는 옳다 — 철자 변이가 유일한 예외임을 확인
 
 앞 항목에서 "L1(정확 일치)이 먼저라 L5 철자 통합이 무력화된다" 를 찾았다.

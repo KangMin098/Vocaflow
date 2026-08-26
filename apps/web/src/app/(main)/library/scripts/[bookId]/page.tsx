@@ -31,6 +31,10 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { RETURN_PARAM } from '@/lib/auth/redirect'
 import { startArticleLearning } from '@/lib/articles/start-learning'
+import {
+  fetchArticleVocabPreview,
+  type ArticleVocabPreview,
+} from '@/lib/library/article-vocab'
 import { formatReadingTime } from '@/lib/library/reading-time'
 import { articleJsonLd } from '@/lib/seo/structured-data'
 import { createClient } from '@/lib/supabase/server'
@@ -131,6 +135,15 @@ const nextUpOnce = cache(
   },
 )
 
+/**
+ * **이 글의 단어장** — 쿼리는 `lib/library/article-vocab.ts` 가 소유한다.
+ * 여기서 하는 일은 캐시뿐이다(한 요청 안에서 metadata 와 본문이 같은 값을 쓴다).
+ */
+const vocabOnce = cache(async (articleId: string) => {
+  const supabase = (await createClient()) as unknown as SupabaseClient
+  return fetchArticleVocabPreview(supabase, articleId)
+})
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const a = await articleOnce(params.bookId)
   if (!a) return {}
@@ -163,19 +176,24 @@ export default async function LibraryScriptsResolve({ params }: PageProps) {
     if (res.ok) redirect(`/text/${res.textId}?mode=read`)
   }
 
-  const nextUp = await nextUpOnce(article.id, article.article_v_level, article.word_count)
+  const [nextUp, vocab] = await Promise.all([
+    nextUpOnce(article.id, article.article_v_level, article.word_count),
+    vocabOnce(article.id),
+  ])
 
-  return <ArticlePreview a={article} isLoggedIn={!!user} nextUp={nextUp} />
+  return <ArticlePreview a={article} isLoggedIn={!!user} nextUp={nextUp} vocab={vocab} />
 }
 
 function ArticlePreview({
   a,
   isLoggedIn,
   nextUp,
+  vocab,
 }: {
   a: ArticleRow
   isLoggedIn: boolean
   nextUp: NextUpRow[]
+  vocab: ArticleVocabPreview | null
 }) {
   const paragraphs = (a.content ?? '')
     .split(/\n{2,}/)
@@ -276,6 +294,48 @@ function ArticlePreview({
       )}
 
       {/*
+        이 글의 단어장 — **이 화면의 두 번째 근거.**
+
+        발행 글 160개 중 135개에 자동 생성된 세트가 있다. 그런데 그 세트는 공용 카탈로그에서
+        일부러 빠져 있고("소스 컨텍스트에서만"), 그 소스 컨텍스트가 로그인 뒤 학습 화면뿐이라
+        **비로그인 방문자는 볼 곳이 없었다.** RLS 는 이미 열려 있다 — 데이터도 정책도 준비됐는데
+        화면만 없던 자리다.
+
+        왜 여기가 중요한가: 아래 CTA 는 "모르는 단어만 골라" 라는 **약속**이다.
+        약속만으로는 가입하지 않는다. 실제 낱말 여섯 개와 개수를 먼저 보여 주면 약속이 표본이 된다.
+      */}
+      {vocab && (
+        <section className="flex flex-col gap-3 border-t border-[var(--bd)] pt-4">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <h2 className="m-0 font-display text-[12px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+              이 글의 단어장
+            </h2>
+            {vocab.wordCount > 0 && (
+              <span className="font-mono text-[11px] text-[var(--t3)]">
+                낱말 {vocab.wordCount}개
+              </span>
+            )}
+          </div>
+
+          {vocab.samples.length > 0 && (
+            <ul className="m-0 grid list-none grid-cols-1 gap-x-4 gap-y-1.5 p-0 sm:grid-cols-2">
+              {vocab.samples.map((w) => (
+                <li
+                  key={w.word}
+                  className="flex items-baseline gap-2 font-body text-[13px] leading-[1.6]"
+                >
+                  <span className="font-[600] text-[var(--t1)]">{w.word}</span>
+                  {w.meaningKo && (
+                    <span className="line-clamp-1 text-[var(--t3)]">{w.meaningKo}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      )}
+
+      {/*
         이어서 읽을 글 — 이 화면의 **두 번째 출구**.
 
         그전에는 출구가 로그인 CTA 하나뿐이었다. 읽고 나면 갈 곳이 없으니 떠난다.
@@ -314,8 +374,8 @@ function ArticlePreview({
       {!isLoggedIn && (
         <section className="flex flex-col items-start gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
           <p className="m-0 font-body text-[13px] leading-relaxed text-[var(--t2)]">
-            로그인하면 이 글의 <strong>모르는 단어만 골라</strong> 단어장으로 만들고, 읽은 곳부터
-            이어서 볼 수 있어요.
+            로그인하면 위 {vocab && vocab.wordCount > 0 ? `${vocab.wordCount}개` : '이 글의'} 낱말 중{' '}
+            <strong>모르는 것만 골라</strong> 단어장으로 만들고, 읽은 곳부터 이어서 볼 수 있어요.
           </p>
           <Link
             href={`/login?${RETURN_PARAM}=${encodeURIComponent(`/library/scripts/${a.id}`)}`}
