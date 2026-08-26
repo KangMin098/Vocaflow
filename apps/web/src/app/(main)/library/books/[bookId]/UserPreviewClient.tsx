@@ -17,6 +17,7 @@ import {
   type ChapterSet,
 } from '@/components/library/books/BookDetailClient';
 import { BookSupportVocabPanel } from '@/components/library/books/BookSupportVocabPanel';
+import { formatReadingTime } from '@/lib/library/reading-time'
 
 interface Props {
   bookId: string;
@@ -92,9 +93,9 @@ export function UserPreviewClient({
           <ArrowLeft size={14} aria-hidden />
           도서로
         </Link>
-        {readingMinutes > 0 && (
+        {formatReadingTime(readingMinutes) !== null && (
           <span className="font-mono text-[11px] text-[var(--t2)]">
-            예상 학습 시간 약 {Math.round(readingMinutes / 60)}시간
+            예상 학습 시간 {formatReadingTime(readingMinutes)}
           </span>
         )}
       </div>

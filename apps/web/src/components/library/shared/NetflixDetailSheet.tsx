@@ -19,6 +19,7 @@ import { X, Clock, BookImage, BookOpen, Layers, Sparkles, Volume2 } from 'lucide
 
 import { bookCover } from '@/lib/library/book-cover'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
+import { formatReadingTime } from '@/lib/library/reading-time'
 
 export interface SampleWord {
   word: string
@@ -407,11 +408,11 @@ function BookBody({ v }: { v: BookVariant }) {
         {v.wordCount != null && (
           <MetaItem label="단어" value={v.wordCount.toLocaleString()} />
         )}
-        {v.readingMinutes != null && v.readingMinutes > 0 && (
+        {formatReadingTime(v.readingMinutes) !== null && (
           <MetaItem
             icon={<Clock size={12} aria-hidden />}
             label="읽기"
-            value={`약 ${Math.round(v.readingMinutes / 60)}시간`}
+            value={formatReadingTime(v.readingMinutes) as string}
           />
         )}
         {v.lexile != null && <MetaItem label="Lexile" value={`${v.lexile}L`} />}
