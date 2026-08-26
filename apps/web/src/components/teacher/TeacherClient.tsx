@@ -59,10 +59,28 @@ export function TeacherClient({
     })
   }
 
+  /**
+   * 초대코드 복사 — **여기가 교사 퍼널의 4.5단계다.**
+   *
+   * noteInviteShared() 가 없으면 funnel_events.invite_shared 는 영원히 0행이고,
+   * 그러면 대시보드의 "초대코드를 공유했고 → 학생이 왔다" **분모가 0** 이라 그 구간을
+   * 아예 못 읽는다. 복사는 클라이언트에서 끝나 어떤 표에도 흔적이 남지 않는다 —
+   * 파생으로 대체할 수 없는 둘 중 하나다(lib/analytics/funnel.ts 참조).
+   *
+   * 2026-08-26 프로덕션 빌드가 이 누락을 no-unused-vars 로 잡았다. import 만 있고
+   * 호출이 없었다 — 화면은 멀쩡히 돌고 계측만 조용히 죽어 있는 모양이었다.
+   */
   function copy(c: string) {
-    void navigator.clipboard?.writeText(c).then(() => {
+    // clipboard 가 없는 환경(비보안 컨텍스트 등)에서는 undefined 라 .then 이 터진다.
+    const written = navigator.clipboard?.writeText(c)
+    if (!written) return
+
+    void written.then(() => {
       setCopied(c)
       setTimeout(() => setCopied(null), 1500)
+      // 복사가 실제로 끝난 뒤에만 기록한다 — 실패한 복사는 공유가 아니다.
+      // 기록이 실패해도 화면은 아무 영향을 받지 않는다(서버 액션이 삼킨다).
+      void noteInviteShared()
     })
   }
 

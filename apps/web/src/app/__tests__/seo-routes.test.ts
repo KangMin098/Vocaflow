@@ -11,6 +11,9 @@
 // 왜 손으로 적은 목록을 안 믿나: 실측(2026-08-17) 기준 `public/sitemap.xml` 은 URL 이
 //   **루트 하나뿐**이었다. 정적 파일이라 화면이 늘어도 아무도 갱신하지 않았다.
 
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+
 import { beforeAll, describe, expect, it, vi } from 'vitest'
 
 import robots from '../robots'
@@ -109,6 +112,20 @@ describe('sitemap — 색인 대상', () => {
     const byPath = new Map(entries.map((e) => [e.url.slice(SITE_ORIGIN.length) || '/', e]))
     expect(byPath.get('/terms')!.priority!).toBeLessThan(0.5)
     expect(byPath.get('/privacy')!.priority!).toBeLessThan(0.5)
+  })
+})
+
+describe('sitemap — 갱신', () => {
+  /**
+   * **`revalidate` 가 없으면 sitemap 이 빌드 시점에 굳는다.**
+   *
+   * 2026-08-26 프로덕션 빌드 실측에서 `○ /sitemap.xml` (Static) 로 나왔다. 그 상태면
+   * 도서를 발행해도 **재배포 전까지** 사이트맵이 그대로다 — 콘텐츠를 DB 에서 읽도록
+   * 만든 의미가 통째로 사라진다. 런타임 동작이라 다른 테스트로는 안 잡혀서 소스를 본다.
+   */
+  it('revalidate 를 내보낸다 — 없으면 빌드 시점에 굳는다', () => {
+    const src = readFileSync(join(process.cwd(), 'src', 'app', 'sitemap.ts'), 'utf8')
+    expect(src).toMatch(/export const revalidate\s*=\s*\d+/)
   })
 })
 

@@ -58,6 +58,18 @@ export const SITEMAP_PATHS = ENTRIES.map((e) => e.path)
  */
 const CONTENT_PRIORITY = 0.5
 
+/**
+ * 하루마다 다시 만든다.
+ *
+ * ⚠️ 이게 없으면 Next 가 sitemap 을 **빌드 시점에 프리렌더하고 그대로 굳힌다**
+ * (2026-08-26 빌드 실측: `○ /sitemap.xml` — Static). 그러면 도서를 발행해도
+ * **재배포 전까지 사이트맵이 132개 그대로**다. 콘텐츠를 DB 에서 읽도록 만든 의미가 사라진다.
+ *
+ * 하루인 이유: 크롤러가 sitemap 을 그보다 자주 읽지 않고, 발행은 사람이 하는 일이라
+ * 분 단위로 반영될 필요가 없다.
+ */
+export const revalidate = 86400
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date()
 
