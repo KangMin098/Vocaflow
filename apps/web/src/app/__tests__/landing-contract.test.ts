@@ -65,4 +65,19 @@ describe('랜딩 계약', () => {
   it('수치를 소스에 적지 않는다 — 서버가 DB 에서 읽어야 한다', () => {
     expect(source).toMatch(/fetchTrustSignals/)
   })
+
+  it('로그인한 사람은 랜딩에 서지 않는다 — 미들웨어가 /hub 로 보낸다', () => {
+    // 랜딩은 익명에게 맞춰져 있다. 로그인한 사람에게 가입 CTA 를 다시 보이면
+    // 이미 내린 결정을 다시 묻는 화면이 된다.
+    //
+    // **왜 페이지가 아니라 미들웨어인가** — `/` 는 revalidate 86400 인 ISR 이라
+    // 페이지가 세션을 읽으면 캐시가 깨지고 크롤러가 받는 화면까지 매 요청 렌더된다.
+    // 런타임 동작이라 다른 테스트로는 안 잡혀 **소스에 규칙이 있는지**를 못 박는다
+    // (같은 이유로 sitemap 의 revalidate 도 소스로 지킨다).
+    const middleware = readFileSync(join(process.cwd(), 'src', 'middleware.ts'), 'utf8')
+    // `skipsStatusCheck` 안에도 `pathname === '/'` 가 있다 — 그 줄에 걸리면 규칙이
+    // 없어도 통과한다. 그래서 **로그인 조건과 붙어 있는지**를 본다.
+    expect(middleware).toMatch(/user && pathname === '\/'/)
+    expect(middleware).toMatch(/redirectTo\('\/hub'\)/)
+  })
 })

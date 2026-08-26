@@ -90,6 +90,19 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   const isAdminRoute = pathname.startsWith('/admin')
 
+  // ── 로그인한 사람에게 `/` 는 랜딩이 아니다 ─────────────────────────────
+  // 랜딩은 검색이 도착하는 정문이라 **익명에게 맞춰** 만들어졌다(가입 CTA · 무료 근거 · 소개).
+  // 로그인한 사람이 주소만 치고 들어오면 그 화면은 이미 내린 결정을 다시 묻는다.
+  //
+  // 페이지 안에서 세션을 읽어 갈라 놓지 않는 이유: `/` 는 `revalidate = 86400` 인 ISR 이라
+  // 페이지가 auth 를 조회하는 순간 **캐시가 깨져** 크롤러가 받는 화면까지 매 요청 렌더된다.
+  // 미들웨어는 캐시 앞에서 돌기 때문에 익명 요청은 그대로 캐시된 랜딩을 받는다.
+  // 세션 조회(getUser)는 위에서 이미 했으니 왕복이 늘지도 않는다.
+  //
+  // ⚠️ 이 리다이렉트를 먼저 넣었으면 **모바일에서 `/teacher` 로 가는 마지막 길이 끊겼다** —
+  //    랜딩 CTA 가 그때까지 유일한 통로였다. `MobileUtilityBar` 가 생긴 뒤에야 안전하다.
+  if (user && pathname === '/') return redirectTo('/hub')
+
   // 개발 전용 우회 (DEV_ADMIN_BYPASS=1, 프로덕션 무효) — 상태·역할 검사 생략
   if (isAdminRoute && devAdminBypass()) {
     return response
