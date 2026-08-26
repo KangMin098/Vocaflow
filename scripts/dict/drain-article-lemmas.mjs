@@ -155,13 +155,38 @@ async function doExport() {
     if (e2) throw new Error('해소기 조회 실패: ' + e2.message)
     for (const r of data ?? []) unresolved.push(typeof r === 'string' ? r : r.word)
   }
-  const missing = unresolved
+  const missingRaw = unresolved
     .filter((w) => seen.has(w))
     .sort((a, b) => seen.get(b).count - seen.get(a).count)
 
-  const realHit = ((100 * (all.length - missing.length)) / all.length).toFixed(1)
-  console.log(`해소기가 푼 것 ${exact.length - missing.length} (굴절·철자 변이)`)
-  console.log(`실제 적중 ${all.length - missing.length}/${all.length} = ${realHit}%  ← 학습자가 겪는 값`)
+  // ⚠️ 이미 "등재 대상 아님" 으로 판정된 것을 다시 내보내지 않는다.
+  //   `skip: true` 는 **어디에도 기록되지 않는다** — 고치기 전에는 URL 조각(`fishusa`)·
+  //   학명 종소명(`macrochirus`)·중세 영어(`shoures`)가 export 마다 그대로 다시 나왔고,
+  //   판정하는 쪽은 그것이 "아직 안 본 것" 인지 "보고 뺀 것" 인지 알 수 없었다
+  //   (2026-08-26 실측: 450건 중 **133건**이 그런 재출현이었다).
+  //   자매 드레인(`drain-pending-words.mjs`)이 채우는 두 목록을 그대로 재사용한다 —
+  //   같은 낱말을 두 파이프라인이 각자 판정하던 중복도 함께 사라진다
+  //   (같은 날 실측: article-lemmas 잔여 1,010건 중 **747건(74%)** 이 pending_words 와 겹쳤다).
+  const judged = new Set()
+  for (const table of ['noise_blacklist', 'proper_noun_forms']) {
+    for (let i = 0; i < missingRaw.length; i += 500) {
+      const { data, error: e3 } = await db
+        .from(table)
+        .select('form')
+        .in('form', missingRaw.slice(i, i + 500))
+      if (e3) throw new Error(`${table} 조회 실패: ` + e3.message)
+      for (const r of data ?? []) judged.add(String(r.form).toLowerCase())
+    }
+  }
+  const missing = missingRaw.filter((w) => !judged.has(w))
+
+  // 적중률은 **거르기 전** 기준으로 적는다 — 걸러도 학습자가 뜻을 못 보는 사실은 그대로다.
+  const realHit = ((100 * (all.length - missingRaw.length)) / all.length).toFixed(1)
+  console.log(`해소기가 푼 것 ${exact.length - missingRaw.length} (굴절·철자 변이)`)
+  console.log(`실제 적중 ${all.length - missingRaw.length}/${all.length} = ${realHit}%  ← 학습자가 겪는 값`)
+  if (judged.size > 0) {
+    console.log(`이미 판정된 것 ${judged.size} 제외 (노이즈·고유명사 목록)`)
+  }
   console.log(`진짜 빠진 낱말 ${missing.length}\n`)
   if (!missing.length) {
     console.log('채울 것이 없다.')
