@@ -85,6 +85,52 @@ const articleOnce = cache(async (id: string): Promise<ArticleRow | null> => {
   return (data as ArticleRow | null) ?? null
 })
 
+interface NextUpRow {
+  id: string
+  title: string
+  word_count: number | null
+  reading_minutes: number | null
+}
+
+/**
+ * **이어서 읽을 글** — 같은 V-Level 에서 분량이 가까운 순으로 셋.
+ *
+ * 왜 필요한가: 검색으로 글 하나에 도착한 사람의 출구가 로그인 CTA 하나뿐이었다.
+ * 읽고 나면 갈 곳이 없으니 떠난다. 그리고 크롤러도 마찬가지다 — 글 160개가
+ * sitemap 으로만 연결돼 있고 **서로를 가리키지 않으면** 묶음으로 읽히지 않는다.
+ *
+ * 왜 V-Level 인가: 피드(`feed_label`)는 흩어져 있고 가장 큰 묶음이 `null`(41개)이라
+ * 기준이 못 된다. 난이도는 이 제품이 이미 쓰는 축이고("이 글이 편했다면 다음은 이것"),
+ * §학습원칙 Desirable Difficulty 와 같은 이야기다.
+ *
+ * 정렬을 분량 근접으로 두는 이유: 무작위는 요청마다 달라져 캐시와 맞지 않고,
+ * 최신순은 같은 글만 계속 나온다. 방금 읽은 것과 **비슷한 크기**가 이어읽기에 가깝다.
+ */
+const nextUpOnce = cache(
+  async (id: string, vLevel: number | null, wordCount: number | null): Promise<NextUpRow[]> => {
+    const supabase = (await createClient()) as unknown as SupabaseClient
+
+    let q = supabase
+      .from('library_articles')
+      .select('id, title, word_count, reading_minutes')
+      .eq('status', 'published')
+      .eq('copyright_safe_in_kr', true)
+      .neq('id', id)
+      .limit(24)
+
+    if (vLevel != null) q = q.eq('article_v_level', vLevel)
+
+    const { data } = await q
+    const rows = (data as NextUpRow[] | null) ?? []
+    if (rows.length === 0) return []
+
+    const base = wordCount ?? 0
+    return [...rows]
+      .sort((a, b) => Math.abs((a.word_count ?? 0) - base) - Math.abs((b.word_count ?? 0) - base))
+      .slice(0, 3)
+  },
+)
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const a = await articleOnce(params.bookId)
   if (!a) return {}
@@ -117,10 +163,20 @@ export default async function LibraryScriptsResolve({ params }: PageProps) {
     if (res.ok) redirect(`/text/${res.textId}?mode=read`)
   }
 
-  return <ArticlePreview a={article} isLoggedIn={!!user} />
+  const nextUp = await nextUpOnce(article.id, article.article_v_level, article.word_count)
+
+  return <ArticlePreview a={article} isLoggedIn={!!user} nextUp={nextUp} />
 }
 
-function ArticlePreview({ a, isLoggedIn }: { a: ArticleRow; isLoggedIn: boolean }) {
+function ArticlePreview({
+  a,
+  isLoggedIn,
+  nextUp,
+}: {
+  a: ArticleRow
+  isLoggedIn: boolean
+  nextUp: NextUpRow[]
+}) {
   const paragraphs = (a.content ?? '')
     .split(/\n{2,}/)
     .map((p) => p.trim())
@@ -216,6 +272,42 @@ function ArticlePreview({ a, isLoggedIn }: { a: ArticleRow; isLoggedIn: boolean 
           )}
           {licenseLabel && <span>{licenseLabel}</span>}
         </footer>
+      )}
+
+      {/*
+        이어서 읽을 글 — 이 화면의 **두 번째 출구**.
+
+        그전에는 출구가 로그인 CTA 하나뿐이었다. 읽고 나면 갈 곳이 없으니 떠난다.
+        크롤러도 같다 — 글 160개가 sitemap 으로만 이어져 있고 서로를 가리키지 않으면
+        묶음으로 읽히지 않는다. 같은 난이도의 이웃을 거는 것이 사람에게도 기계에도 맞다.
+      */}
+      {nextUp.length > 0 && (
+        <nav
+          aria-label="이어서 읽을 글"
+          className="flex flex-col gap-2 border-t border-[var(--bd)] pt-4"
+        >
+          <h2 className="m-0 font-display text-[12px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+            비슷한 난이도로 이어 읽기
+          </h2>
+          <ul className="m-0 flex list-none flex-col gap-1 p-0">
+            {nextUp.map((n) => {
+              const t = formatReadingTime(n.reading_minutes)
+              return (
+                <li key={n.id}>
+                  <Link
+                    href={`/library/scripts/${n.id}`}
+                    className="flex min-h-11 items-center justify-between gap-3 rounded-[var(--r-sm)] px-3 font-body text-[13.5px] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                  >
+                    <span className="line-clamp-1">{n.title}</span>
+                    {t && (
+                      <span className="shrink-0 font-mono text-[11px] text-[var(--t3)]">{t}</span>
+                    )}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        </nav>
       )}
 
       {!isLoggedIn && (
