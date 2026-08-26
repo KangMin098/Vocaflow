@@ -1,0 +1,479 @@
+{
+ "scope": "수능 14개년 대역(듣기는 대본 7개년) · 10~90 분위",
+ "caveat": "양식 일치의 증거일 뿐 정답성의 증거가 아니다 (P10.18: 어휘 유사도의 정답 적중 27.3%, 기저 20%)",
+ "typesWithItem": 8,
+ "denominator": 37,
+ "fullPass": 4,
+ "axisOk": 34,
+ "axisTotal": 40,
+ "rows": [
+  {
+   "type": "L-RESPONSE",
+   "has": false
+  },
+  {
+   "type": "L-PURPOSE",
+   "has": false
+  },
+  {
+   "type": "L-OPINION",
+   "has": false
+  },
+  {
+   "type": "L-RELATION",
+   "has": false
+  },
+  {
+   "type": "L-MAIN",
+   "has": false
+  },
+  {
+   "type": "L-PICTURE",
+   "has": false
+  },
+  {
+   "type": "L-TODO",
+   "has": false
+  },
+  {
+   "type": "L-MONEY",
+   "has": false
+  },
+  {
+   "type": "L-REASON",
+   "has": false
+  },
+  {
+   "type": "L-NOTMENTION",
+   "has": false
+  },
+  {
+   "type": "L-ANNOUNCE",
+   "has": false
+  },
+  {
+   "type": "L-TABLE",
+   "has": false
+  },
+  {
+   "type": "L-SITUATION",
+   "has": false
+  },
+  {
+   "type": "L-SET-TOPIC",
+   "has": false
+  },
+  {
+   "type": "L-SET-NOT",
+   "has": false
+  },
+  {
+   "type": "R-GIST",
+   "has": false
+  },
+  {
+   "type": "R-PURPOSE",
+   "has": false
+  },
+  {
+   "type": "R-MOOD",
+   "has": false
+  },
+  {
+   "type": "R-TOPIC",
+   "has": true,
+   "no": 23,
+   "points": 2,
+   "answer": 4,
+   "words": 162,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 956,
+     "lo": 672,
+     "hi": 1033,
+     "ok": true
+    },
+    "words": {
+     "v": 162,
+     "lo": 121,
+     "hi": 168,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 18,
+     "lo": 17.625,
+     "hi": 25.167,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.815,
+     "lo": 4.691,
+     "hi": 5.607,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.673,
+     "lo": 0.519,
+     "hi": 0.694,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-CLAIM",
+   "has": false
+  },
+  {
+   "type": "R-IMPLY",
+   "has": false
+  },
+  {
+   "type": "R-TITLE",
+   "has": true,
+   "no": 24,
+   "points": 2,
+   "answer": 3,
+   "words": 180,
+   "inBand": 4,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 1049,
+     "lo": 753,
+     "hi": 1108,
+     "ok": true
+    },
+    "words": {
+     "v": 180,
+     "lo": 132,
+     "hi": 179,
+     "ok": false
+    },
+    "sentLen": {
+     "v": 20,
+     "lo": 16.273,
+     "hi": 26.833,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.744,
+     "lo": 4.184,
+     "hi": 5.667,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.639,
+     "lo": 0.544,
+     "hi": 0.687,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": false
+  },
+  {
+   "type": "R-CHART",
+   "has": false
+  },
+  {
+   "type": "R-FACT",
+   "has": true,
+   "no": 26,
+   "points": 2,
+   "answer": 3,
+   "words": 152,
+   "inBand": 4,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 861,
+     "lo": 674,
+     "hi": 891,
+     "ok": true
+    },
+    "words": {
+     "v": 152,
+     "lo": 110,
+     "hi": 150,
+     "ok": false
+    },
+    "sentLen": {
+     "v": 13.818,
+     "lo": 12.5,
+     "hi": 17.375,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.586,
+     "lo": 4.4,
+     "hi": 4.96,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.678,
+     "lo": 0.588,
+     "hi": 0.682,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": false
+  },
+  {
+   "type": "R-NOTICE",
+   "has": false
+  },
+  {
+   "type": "R-GRAMMAR",
+   "has": true,
+   "no": 29,
+   "points": 2,
+   "answer": 3,
+   "words": 154,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 921,
+     "lo": 878,
+     "hi": 1082,
+     "ok": true
+    },
+    "words": {
+     "v": 154,
+     "lo": 146,
+     "hi": 166,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 22,
+     "lo": 14.909,
+     "hi": 24.833,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.831,
+     "lo": 4.554,
+     "hi": 5.343,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.682,
+     "lo": 0.601,
+     "hi": 0.703,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-VOCAB",
+   "has": true,
+   "no": 30,
+   "points": 3,
+   "answer": 4,
+   "words": 164,
+   "inBand": 3,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 969,
+     "lo": 749,
+     "hi": 980,
+     "ok": true
+    },
+    "words": {
+     "v": 164,
+     "lo": 124,
+     "hi": 160,
+     "ok": false
+    },
+    "sentLen": {
+     "v": 23.429,
+     "lo": 15.2,
+     "hi": 22.857,
+     "ok": false
+    },
+    "wordLen": {
+     "v": 4.762,
+     "lo": 4.633,
+     "hi": 5.344,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.671,
+     "lo": 0.616,
+     "hi": 0.711,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": false
+  },
+  {
+   "type": "R-BLANK",
+   "has": true,
+   "no": 32,
+   "points": 3,
+   "answer": 2,
+   "words": 136,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 807,
+     "lo": 802,
+     "hi": 997,
+     "ok": true
+    },
+    "words": {
+     "v": 136,
+     "lo": 124,
+     "hi": 163,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 17,
+     "lo": 16,
+     "hi": 26.667,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.787,
+     "lo": 4.692,
+     "hi": 5.356,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.676,
+     "lo": 0.589,
+     "hi": 0.705,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-ORDER",
+   "has": true,
+   "no": 37,
+   "points": 3,
+   "answer": 2,
+   "words": 182,
+   "inBand": 3,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 1081,
+     "lo": 865,
+     "hi": 1072,
+     "ok": false
+    },
+    "words": {
+     "v": 182,
+     "lo": 146,
+     "hi": 180,
+     "ok": false
+    },
+    "sentLen": {
+     "v": 18.2,
+     "lo": 15.5,
+     "hi": 23.571,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.857,
+     "lo": 4.354,
+     "hi": 5.642,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.659,
+     "lo": 0.532,
+     "hi": 0.683,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": false
+  },
+  {
+   "type": "R-IRRELEVANT",
+   "has": true,
+   "no": 35,
+   "points": 2,
+   "answer": 4,
+   "words": 143,
+   "inBand": 5,
+   "axisN": 5,
+   "axes": {
+    "chars": {
+     "v": 867,
+     "lo": 361,
+     "hi": 1039,
+     "ok": true
+    },
+    "words": {
+     "v": 143,
+     "lo": 51,
+     "hi": 174,
+     "ok": true
+    },
+    "sentLen": {
+     "v": 17.875,
+     "lo": 17,
+     "hi": 24.857,
+     "ok": true
+    },
+    "wordLen": {
+     "v": 4.909,
+     "lo": 4.447,
+     "hi": 5.203,
+     "ok": true
+    },
+    "ttr": {
+     "v": 0.706,
+     "lo": 0.617,
+     "hi": 0.723,
+     "ok": true
+    }
+   },
+   "viol": [],
+   "pass": true
+  },
+  {
+   "type": "R-INSERT",
+   "has": false
+  },
+  {
+   "type": "R-SUMMARY",
+   "has": false
+  },
+  {
+   "type": "X-TITLE",
+   "has": false
+  },
+  {
+   "type": "X-VOCAB",
+   "has": false
+  },
+  {
+   "type": "X-ORDER",
+   "has": false
+  },
+  {
+   "type": "X-REFER",
+   "has": false
+  },
+  {
+   "type": "X-FACT",
+   "has": false
+  }
+ ]
+}

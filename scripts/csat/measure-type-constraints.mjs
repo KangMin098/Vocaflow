@@ -63,7 +63,9 @@ for (const r of cls.rows) {
     const sb = setBlockFor(r.exam, r.no)
     if (sb) p = cleanPassage(passageOf(sb))
   }
-  items.push({ ...r, answer: a?.answer ?? null, points: a?.points ?? null, choices: ch, passage: p })
+  // ⚠️ circular() 는 **청소 전 원문**과 견줘야 한다. cleanPassage 가 각주·발문 파편을 지우므로
+  //    청소본과 견주면 지문 안에 박힌 선지가 "지문에 없다" 로 나오고, 기호형이 한국어형으로 오분류된다.
+  items.push({ ...r, answer: a?.answer ?? null, points: a?.points ?? null, choices: ch, passage: p, raw: b ? passageOf(b) : null })
 }
 
 /**
@@ -73,10 +75,11 @@ for (const r of cls.rows) {
  * 지문이 곧 선지이므로 당연한 값이고, 설계에 대해 아무것도 말하지 않는다.
  */
 function circular(it) {
-  if (!it.choices || !it.passage) return true
+  const src = it.raw ?? it.passage
+  if (!it.choices || !src) return true
   const long = it.choices.filter((c) => c.trim().length > 20)
   if (!long.length) return true
-  const inP = long.filter((c) => it.passage.includes(c.trim().slice(0, 30))).length
+  const inP = long.filter((c) => src.includes(c.trim().slice(0, 30))).length
   return inP / long.length >= 0.6
 }
 
@@ -85,8 +88,18 @@ for (const it of items) (byType[it.type] ??= []).push(it)
 
 // ── 형식 제약 ────────────────────────────────────────────────────────
 const isKo = (s) => /[가-힣]/.test(s ?? '')
+/**
+ * ⚠️ **기호형은 발문으로 가린다.** 어법·어휘·무관·삽입·지칭은 선택지가 따로 없고 본문에 ①~⑤ 가 찍힌다.
+ * 그 경우 `choicesOf` 는 선지가 아니라 **① 뒤의 지문 나머지**를 돌려주고 `passageOf` 는 ① 앞까지만
+ * 돌려준다 — 둘이 서로소라 "지문 안에 선지가 있는가" 로는 못 가린다(실제로 못 가렸다).
+ * 그 오분류가 G3(한글 선지 3점 금지) 가족에 어법·어휘·삽입을 끌어들여
+ * 문서가 "예외 0" 이라 적은 자리를 **28/240 예외 있음**으로 바꿔 놓고 있었다.
+ * 발문 문구는 이 구분을 정확히 말해 준다.
+ */
+const MARKER_STEM = /어법상|낱말의\s*쓰임|네모\s*안에서|흐름과\s*관계\s*없는|주어진\s*문장이\s*들어가기에|가리키는\s*대상/
 function choiceShape(it) {
   if (!it.choices) return null
+  if (MARKER_STEM.test(it.stem ?? '')) return '기호'
   const ln = it.choices.map((c) => c.trim().length)
   if (Math.max(...ln) <= 3) return '기호'
   if (it.choices.every((c) => /\([ABC]\)/.test(c))) return '조합'
@@ -266,7 +279,9 @@ const FAMILIES = [
     members: ['R-GRAMMAR', 'R-VOCAB', 'R-IRRELEVANT', 'R-INSERT', 'X-VOCAB', 'X-REFER',
       'R-FACT', 'R-NOTICE', 'R-CHART', 'X-FACT', 'L-NOTMENTION', 'L-ANNOUNCE', 'L-SET-NOT'],
     test: 'no1', base: 0.27,
-    claim: (n) => `정답을 ①에 두지 않는다 — 대응형 ${n}문항 예외 0 (비대응형 기저 27%)`,
+    claim: (n, hit) => (hit === 0
+      ? `정답을 ①에 두지 않는다 — 대응형 ${n}문항 예외 0 (비대응형 기저 27%)`
+      : `①이 정답인 경우 ${hit}/${n} — 예외가 있다`),
     why: '①은 지문 맨 앞에 대응한다. 거기에 답을 두면 뒤를 읽을 이유가 사라져 "앞만 읽고 찍기" 로 무너진다' },
   { id: 'G2', name: '선지가 지문 순서에 대응하지 않는 유형',
     members: null, complementOf: 'G1', test: 'no1max', base: 0.2,
@@ -274,11 +289,15 @@ const FAMILIES = [
     why: '회차당 정답 번호는 균형을 맞춘다. 대응형 15문항이 앞번호를 못 쓰므로 그 몫이 이쪽으로 밀린다' },
   { id: 'G3', name: '선택지가 한국어인 유형',
     members: null, byShape: '한국어', test: 'no3pt',
-    claim: (n) => `3점이 붙지 않는다 — 한글 선지 ${n}문항 예외 0`,
+    claim: (n, hit) => (hit === 0
+      ? `3점이 붙지 않는다 — 한글 선지 ${n}문항 예외 0`
+      : `3점 부착 ${hit}/${n} — 예외가 있다`),
     why: '한글 선지는 선택지 자체의 독해 부담이 없다. 3점은 부담이 큰 자리에만 붙는다' },
   { id: 'G4', name: '순서 배열형(선지가 (A)(B)(C) 순열)',
     members: ['R-ORDER', 'X-ORDER'], test: 'no1', base: 0.2,
-    claim: (n) => `정답을 ①에 두지 않는다 — 순열형 ${n}문항 예외 0`,
+    claim: (n, hit) => (hit === 0
+      ? `정답을 ①에 두지 않는다 — 순열형 ${n}문항 예외 0`
+      : `①이 정답인 경우 ${hit}/${n} — 예외가 있다`),
     why: '①은 "주어진 글 다음 바로 (A)" 라는 가장 순진한 읽기다. 거기에 답을 두면 추론이 필요 없어진다',
     novel: true },
 ]
@@ -318,8 +337,8 @@ for (const f of FAMILIES) {
     const hit = withP.filter((r) => r.points === 3).length
     const baseRate = items.filter((r) => r.points != null).filter((r) => r.points === 3).length / items.filter((r) => r.points != null).length
     G.push({ id: f.id, name: f.name, members, n: withP.length, hit, base: +baseRate.toFixed(3),
-      p: Math.pow(1 - baseRate, withP.length), exceptionFree: hit === 0,
-      claim: f.claim(withP.length), why: f.why })
+      p: hit === 0 ? Math.pow(1 - baseRate, withP.length) : 1, exceptionFree: hit === 0,
+      claim: f.claim(withP.length, hit), why: f.why })
   }
 }
 // G 는 4개뿐이므로 Bonferroni 로 족하다

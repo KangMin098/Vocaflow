@@ -11,7 +11,7 @@
 // | R2 제약 실측 | 14개년 검정 통과 제약 ≥2개, 그중 HARD ≥1 (형식·가족·내용 어느 층이든) |
 // | R3 계측 대역 | `type-bands-all.json` 에 n≥7 대역 |
 // | R4 생성 절차 | 단계 ≥4, **각 단계에 실패 시 처리(check)** |
-// | R5 생성 검증 | 그 절차로 만든 문항이 대역 안에 들었다는 실측 기록 |
+// | R5 생성 검증 | `verify-blueprint-items.mjs` 채점표에서 계측 5축 전부 대역 안 + 제약 위반 0 |
 //
 // 실행: node scripts/csat/test-blueprint-coverage.mjs
 
@@ -24,6 +24,7 @@ const rd = (f) => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))
 const inv = rd('type-inventory.json')
 const bands = rd('type-bands-all.json').bands
 const con = fs.existsSync(path.join(DIR, 'type-constraints.json')) ? rd('type-constraints.json') : { types: {} }
+const itemScore = fs.existsSync(path.join(DIR, 'blueprint-items-score.json')) ? rd('blueprint-items-score.json') : { rows: [] }
 const REG_F = path.join(DIR, 'blueprint-registry.json')
 const reg = fs.existsSync(REG_F) ? JSON.parse(fs.readFileSync(REG_F, 'utf8')) : { types: {} }
 
@@ -87,13 +88,16 @@ function checkR4(e) {
   return [true, '']
 }
 
-function checkR5(e) {
-  const v = e?.validation
-  if (!v) return [false, '검증 기록 없음']
-  if (!v.data || !fs.existsSync(path.resolve(v.data))) return [false, `데이터 ${v.data ?? '?'} 없음`]
-  if (!nonEmpty(v.metric)) return [false, '측도 없음']
-  if (!(v.pass >= 1) || !(v.total >= 1)) return [false, '통과/전체 수 없음']
-  if (v.pass < v.total) return [false, `대역 안 ${v.pass}/${v.total}`]
+/**
+ * R5 — 자기 신고를 받지 않는다. `verify-blueprint-items.mjs` 가 낸 채점표를 읽어
+ * 그 유형의 문항이 **계측 5축 전부 대역 안 + 형식·가족 제약 위반 0** 인지만 본다.
+ */
+function checkR5(t) {
+  const r = itemScore.rows?.find((x) => x.type === t)
+  if (!r || !r.has) return [false, '문항 없음']
+  if (!(r.axisN >= 1)) return [false, '대역이 없어 잴 수 없음']
+  if (r.inBand < r.axisN) return [false, `대역 안 ${r.inBand}/${r.axisN}`]
+  if ((r.viol ?? []).length) return [false, `제약 위반 ${r.viol[0]}`]
   return [true, '']
 }
 
@@ -101,7 +105,7 @@ const rows = []
 for (const r of current) {
   const e = reg.types?.[r.type]
   const res = {
-    R1: checkR1(e), R2: checkR2(r.type, e), R3: checkR3(r.type), R4: checkR4(e), R5: checkR5(e),
+    R1: checkR1(e), R2: checkR2(r.type, e), R3: checkR3(r.type), R4: checkR4(e), R5: checkR5(r.type),
   }
   rows.push({ type: r.type, name: r.name, sec: r.sec, res })
 }
