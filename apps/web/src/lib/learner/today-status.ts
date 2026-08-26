@@ -25,14 +25,32 @@ export interface TodayStatus {
   done: number
   /** 오늘 실행 가능하고 완료를 관측할 수 있는 블록 수 */
   total: number
-  /** 지금 조치할 것 — risk + shaky. `stable`·`new` 는 조치 불가라 띠에 넣지 않는다 */
+  /** 지금 조치할 것 — risk + shaky. `stable` 은 조치 불가라 띠에 넣지 않는다 */
   attention: number
+  /**
+   * **아직 한 번도 만나지 않은 낱말** — 기억 4상태의 `new`.
+   *
+   * 예전에는 `new` 도 "조치 불가" 로 보아 띠에서 뺐다. 학습자가 스스로 뽑아 담던 시절엔
+   * 맞는 판단이었다 — 담은 사람은 이미 그것을 본 사람이다.
+   * **교사가 보낸 낱말이 생기면서 그 전제가 깨졌다.** 학생은 그 낱말을 아직 본 적이 없고,
+   * 그것이야말로 가장 먼저 할 일이다.
+   *
+   * 2026-08-27 실측: 학생이 선생님이 보낸 3낱말을 담은 직후에도 띠는
+   * **"아직 시작 전이에요 — 5분이면 오늘 할 일이 생겨요"** 였다. 사실이 아니다.
+   *
+   * ⚠️ `attention` 에 합치지 않는다 — "복습이 급하다" 와 "아직 안 배웠다" 는 다른 일이고,
+   *    합치면 기존 숫자의 뜻이 조용히 바뀐다.
+   */
+  fresh: number
   streak: number
   /**
    * 세 지표가 전부 0인가.
    *
    * true 면 띠는 **숫자를 하나도 그리지 않고** 문장 하나로 바뀐다 — ADR 0006 D2 의 핵심 규칙.
    * 0을 나열하는 것은 "당신은 아무것도 하지 않았다" 를 반복하는 것과 같다(철학 ③).
+   *
+   * ⚠️ `fresh` 도 본다. 안 보면 **할 일이 있는 사람에게 없다고 말하게 된다** —
+   *    선생님이 보낸 낱말을 막 담은 학생이 정확히 그 경우였다.
    */
   isEmpty: boolean
 }
@@ -40,8 +58,8 @@ export interface TodayStatus {
 export interface TodayStatusInput {
   /** 오늘 진행 — `today-blocks.blockProgress()` 가 낸 값을 그대로 받는다 */
   progress: { done: number; total: number }
-  /** R(t) 기반 기억 분포 — risk + shaky 만 쓴다 */
-  memory: { risk: number; shaky: number }
+  /** R(t) 기반 기억 분포 — risk + shaky 는 `attention`, new 는 `fresh` 로 간다 */
+  memory: { risk: number; shaky: number; fresh?: number }
   streak: number
 }
 
@@ -50,13 +68,15 @@ export function computeTodayStatus(input: TodayStatusInput): TodayStatus {
   // 링 비율이 1을 넘을 수 없도록 done 을 total 로 막는다.
   const done = Math.min(total, Math.max(0, input.progress.done))
   const attention = Math.max(0, input.memory.risk) + Math.max(0, input.memory.shaky)
+  const fresh = Math.max(0, input.memory.fresh ?? 0)
   const streak = Math.max(0, input.streak)
 
   return {
     done,
     total,
     attention,
+    fresh,
     streak,
-    isEmpty: total === 0 && attention === 0 && streak === 0,
+    isEmpty: total === 0 && attention === 0 && fresh === 0 && streak === 0,
   }
 }

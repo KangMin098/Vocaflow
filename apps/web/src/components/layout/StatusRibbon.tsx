@@ -103,6 +103,37 @@ function Metrics({ status }: { status: TodayStatus }) {
         </Link>
       )}
 
+      {/*
+        **아직 한 번도 만나지 않은 낱말** — 기억 4상태의 `new`.
+
+        예전에는 이 칸이 없었다. `new` 를 "조치 불가" 로 보았기 때문인데,
+        학습자가 스스로 뽑아 담던 시절엔 맞는 판단이었다(담은 사람은 이미 본 사람이다).
+        **교사가 보낸 낱말이 생기면서 그 전제가 깨졌다** — 학생은 그 낱말을 본 적이 없고,
+        그것이 가장 먼저 할 일이다. 2026-08-27 실측: 학생이 선생님이 보낸 3낱말을 담은
+        직후에도 띠는 "아직 시작 전이에요" 였다.
+
+        `attention` 과 색·라벨을 다르게 둔다 — "복습이 급하다" 와 "아직 안 배웠다" 는
+        다른 일이고, 같아 보이면 학습자가 우선순위를 잘못 잡는다.
+      */}
+      {status.fresh > 0 && (
+        <Link
+          href="/wordvault"
+          aria-label={`아직 안 배운 단어 ${status.fresh}개 보기`}
+          className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-2 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          {/* 색만으로 알리지 않는다 — 점 + 라벨 + 숫자 3중 (색맹 대응) */}
+          <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-[var(--memory-new)]" />
+          <span className="flex flex-col leading-none">
+            <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
+              새 단어
+            </span>
+            <span className="mt-1 font-display text-[15px] font-[700] tabular-nums text-[var(--t1)]">
+              {status.fresh}
+            </span>
+          </span>
+        </Link>
+      )}
+
       {/* 규칙 ④ — 0이면 표시하지 않는다 */}
       {status.streak > 0 && (
         <div className="flex items-center gap-2" aria-label={`연속 ${status.streak}일`}>

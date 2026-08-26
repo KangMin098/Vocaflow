@@ -103,3 +103,41 @@ describe('attention — stable·new 는 절대 포함하지 않는다', () => {
     expect(s.streak).toBe(0)
   })
 })
+
+/**
+ * **할 일이 있는 사람에게 없다고 말하는 것**을 막는다.
+ *
+ * 2026-08-27 실측: 학생이 선생님이 보낸 낱말 3개를 담은 **직후**에도 띠는
+ * "아직 시작 전이에요 — 5분이면 오늘 할 일이 생겨요" 였다.
+ * 낱말은 `vocabularies` 에 정확히 들어가 있었다(origin='assignment', 뜻·표제어 채움).
+ *
+ * 이유: 진단 전이면 `progress` 가 강제로 0/0 이고, `attention` 은 risk+shaky 만 본다.
+ * 한 번도 복습하지 않은 낱말은 기억 4상태의 `new` 라 **어디에도 세어지지 않았다.**
+ * 학습자가 스스로 담던 시절엔 맞는 판단이었지만(담은 사람은 이미 본 사람이다),
+ * 교사가 보낸 낱말이 생기면서 그 전제가 깨졌다.
+ */
+describe('computeTodayStatus — 아직 안 배운 낱말', () => {
+  const NONE = { progress: { done: 0, total: 0 }, streak: 0 }
+
+  it('새 낱말이 있으면 비어 있지 않다 — 진단 전이어도 그렇다', () => {
+    const s = computeTodayStatus({ ...NONE, memory: { risk: 0, shaky: 0, fresh: 3 } })
+    expect(s.fresh).toBe(3)
+    expect(s.isEmpty, '담은 낱말이 있는데 "아직 시작 전" 이라고 말하면 거짓말이다').toBe(false)
+  })
+
+  it('attention 에 합치지 않는다 — "복습이 급하다" 와 "아직 안 배웠다" 는 다른 일이다', () => {
+    const s = computeTodayStatus({ ...NONE, memory: { risk: 2, shaky: 1, fresh: 5 } })
+    expect(s.attention).toBe(3)
+    expect(s.fresh).toBe(5)
+  })
+
+  it('fresh 가 없으면 예전대로 비어 있다 — 기존 판정을 넓히지 않는다', () => {
+    expect(computeTodayStatus({ ...NONE, memory: { risk: 0, shaky: 0, fresh: 0 } }).isEmpty).toBe(true)
+    // 값을 안 넘겨도 안전해야 한다(선택 필드).
+    expect(computeTodayStatus({ ...NONE, memory: { risk: 0, shaky: 0 } }).isEmpty).toBe(true)
+  })
+
+  it('음수는 0으로 막는다', () => {
+    expect(computeTodayStatus({ ...NONE, memory: { risk: 0, shaky: 0, fresh: -4 } }).fresh).toBe(0)
+  })
+})

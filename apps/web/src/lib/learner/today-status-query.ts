@@ -122,7 +122,12 @@ export const fetchTodayStatus = cache(async (): Promise<TodayStatus | null> => {
 
   return computeTodayStatus({
     progress,
-    memory: { risk: growth?.memory.risk ?? 0, shaky: growth?.memory.shaky ?? 0 },
+    memory: {
+      risk: growth?.memory.risk ?? 0,
+      shaky: growth?.memory.shaky ?? 0,
+      // 아직 한 번도 만나지 않은 낱말 — 교사가 보낸 것이 여기로 들어온다.
+      fresh: growth?.memory.fresh ?? 0,
+    },
     streak: growth?.streak ?? 0,
   })
 })
