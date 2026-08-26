@@ -72,7 +72,7 @@ export const TBP_HELP: HelpRegistry = {
           {
             title: '몇 개 늘고 몇 개 낡았는지만 본다',
             detail:
-              '`pnpm dlx tsx scripts/textbook/store-new-types.mjs` — 인자 없이 돌리면 **아무것도 쓰지 않는다.** 새로 넣을 문항 수와 "지금 규칙으로 낡은" 기존 문항 수를 센다. 낡음은 인쇄 불가·규격 밖·**다시 만들면 달라짐** 세 가지로 갈라 보여 준다.',
+              '`pnpm dlx tsx scripts/textbook/store-new-types.mjs` — 인자 없이 돌리면 **아무것도 쓰지 않는다.** 새로 넣을 문항 수와 "지금 규칙으로 낡은" 기존 문항 수를 센다. 낡음은 인쇄 불가·규격 밖·**다시 만들면 달라짐** 세 가지로 갈라 보여 준다. 아래 ②·⑤와 함께 보려면 `pnpm tbp:health` 한 번으로 셋을 잇달아 돌린다(전부 읽기 전용 — 실측 4.7분).',
             done: '"--commit 없이 실행했다. 아무것도 쓰지 않았다." 로 끝난다.',
           },
           {

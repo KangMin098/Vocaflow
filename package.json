@@ -42,7 +42,8 @@
     "ux:bench:self": "node scripts/ux-bench/bench.mjs --target vocaflow",
     "ux:bench:compare": "node scripts/ux-bench/compare.mjs",
     "ux:bench:selftest": "node scripts/ux-bench/score.selftest.mjs",
-    "tcp:drain": "tsx --tsconfig apps/web/tsconfig.json scripts/topic-corpus/drain-loop.mts"
+    "tcp:drain": "tsx --tsconfig apps/web/tsconfig.json scripts/topic-corpus/drain-loop.mts",
+    "tbp:health": "tsx --tsconfig apps/web/tsconfig.json scripts/textbook/health-bundle.mts"
   },
   "repository": {
     "type": "git",

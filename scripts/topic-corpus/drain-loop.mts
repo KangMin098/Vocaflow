@@ -23,21 +23,13 @@
 // claim 이 `FOR UPDATE SKIP LOCKED` 라 화면과 동시에 돌려도 같은 문서를 두 번 잡지 않는다.
 // Ctrl+C 로 언제든 끊어도 되고, 다시 켜면 이어서 마른다.
 
-import { readFileSync } from 'node:fs'
 import { parseArgs } from 'node:util'
 
 import { createClient } from '@supabase/supabase-js'
 
 import { drainTopicCorpusBatch, MAX_PER_CALL } from '../../apps/web/src/lib/topic-corpus/drain'
+import { loadSupabaseEnv } from '../lib/supabase-env.mts'
 
-function loadEnv(path: string): Record<string, string> {
-  const out: Record<string, string> = {}
-  for (const line of readFileSync(path, 'utf8').split(/\r?\n/)) {
-    const m = line.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*)$/)
-    if (m) out[m[1]!] = m[2]!.trim().replace(/^["']|["']$/g, '')
-  }
-  return out
-}
 
 // ⚠️ `pnpm tcp:drain -- --batches 3` 로 부르면 argv 에 `--` 가 그대로 들어오고,
 //    Node parseArgs 는 그것을 **옵션 끝** 으로 읽어 뒤 인자를 전부 무시한다
@@ -55,13 +47,8 @@ const { values } = parseArgs({
   allowPositionals: true,
 })
 
-const env = loadEnv('apps/web/.env.local')
-const url = env['NEXT_PUBLIC_SUPABASE_URL']
-const key = env['SUPABASE_SERVICE_ROLE_KEY']
-if (!url || !key) {
-  console.error('apps/web/.env.local 에 NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 필요')
-  process.exit(1)
-}
+// 환경변수 우선 — 그래야 CI·스케줄러에서도 돈다(로컬은 .env.local 로 떨어진다).
+const { url, serviceRoleKey: key, source: credSource } = loadSupabaseEnv()
 
 const db = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } })
 const sourceId = values.source ?? null
@@ -88,7 +75,7 @@ async function pendingCount(): Promise<number | null> {
 const started = Date.now()
 const before = await pendingCount()
 console.log(
-  `[tcp] 시작 — 대기 ${before ?? '?'}건 · 배치당 ${max}편` +
+  `[tcp] 시작 — 대기 ${before ?? '?'}건 · 배치당 ${max}편 · 자격 ${credSource}` +
     (sourceId ? ` · 주제 ${sourceId}` : '') +
     (Number.isFinite(maxBatches) ? ` · 최대 ${maxBatches}배치` : ''),
 )
