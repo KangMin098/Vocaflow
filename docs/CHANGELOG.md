@@ -51,12 +51,21 @@ import 만 있고 호출이 없었다. 즉 `funnel_events.invite_shared` 가 **�
 
 **③ 사이트맵이 빌드 시점에 굳고 있었다.**
 
-빌드 라우트 표에 `○ /sitemap.xml` (Static) 로 찍혔다. `revalidate` 가 없어 **빌드 때 한 번 만들고
+`revalidate` 가 없어 **빌드 때 한 번 만들고
 그대로 굳는다** — 도서를 발행해도 재배포 전까지 132개 그대로다. 콘텐츠를 DB 에서 읽도록 만든
 의미가 통째로 사라지는 상태였다. `export const revalidate = 86400` 추가(랜딩·요금제와 같은 주기).
 런타임 동작이라 다른 테스트로는 안 잡혀 **소스에 revalidate 가 있는지**를 회귀로 못 박았다.
 
-빌드 실측(2026-08-26): `/` `/pricing` = ○ + revalidate(ISR) · `/fit` = ƒ(동적) · `/dev` = ○.
+⚠️ **빌드 라우트 표의 `○` 로는 판별할 수 없다** — ISR 과 완전 정적이 같은 기호다.
+처음에 `○ /sitemap.xml` 을 근거로 삼았는데, 그러면 revalidate 가 붙은 랜딩·요금제까지
+굳었다 로 오해하게 된다. 실제 확인은 `.next/prerender-manifest.json` 이다:
+
+| | initialRevalidateSeconds |
+|---|---|
+| `/sitemap.xml` · `/` · `/pricing` | **86400** (ISR) |
+| `/about` · `/robots.txt` | `false` (완전 정적) |
+
+`/fit` 은 `ƒ`(요청마다 동적) — searchParams 를 읽으므로 그게 맞다.
 
 ### 랜딩 구간을 잰다 + e2e 스모크로 교체 영향 확인
 

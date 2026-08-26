@@ -119,9 +119,12 @@ describe('sitemap — 갱신', () => {
   /**
    * **`revalidate` 가 없으면 sitemap 이 빌드 시점에 굳는다.**
    *
-   * 2026-08-26 프로덕션 빌드 실측에서 `○ /sitemap.xml` (Static) 로 나왔다. 그 상태면
-   * 도서를 발행해도 **재배포 전까지** 사이트맵이 그대로다 — 콘텐츠를 DB 에서 읽도록
-   * 만든 의미가 통째로 사라진다. 런타임 동작이라 다른 테스트로는 안 잡혀서 소스를 본다.
+   * 그 상태면 도서를 발행해도 **재배포 전까지** 사이트맵이 그대로다 — 콘텐츠를 DB 에서
+   * 읽도록 만든 의미가 통째로 사라진다. 런타임 동작이라 다른 테스트로는 안 잡혀서 소스를 본다.
+   *
+   * ⚠️ 빌드 라우트 표의 `○` 로는 판별할 수 없다(ISR 과 완전 정적이 같은 기호다).
+   *    실제 확인은 `.next/prerender-manifest.json` 의 `initialRevalidateSeconds` —
+   *    2026-08-26 실측: `/sitemap.xml` · `/` · `/pricing` = 86400, `/about` · `/robots.txt` = false.
    */
   it('revalidate 를 내보낸다 — 없으면 빌드 시점에 굳는다', () => {
     const src = readFileSync(join(process.cwd(), 'src', 'app', 'sitemap.ts'), 'utf8')
