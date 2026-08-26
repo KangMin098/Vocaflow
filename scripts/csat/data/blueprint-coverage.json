@@ -1,0 +1,496 @@
+{
+ "denominator": 37,
+ "requirements": [
+  "R1",
+  "R2",
+  "R3",
+  "R4",
+  "R5"
+ ],
+ "cells": 185,
+ "done": 82,
+ "pct": 44.3,
+ "fullTypes": 0,
+ "perReq": {
+  "R1": 6,
+  "R2": 35,
+  "R3": 35,
+  "R4": 6,
+  "R5": 0
+ },
+ "rows": [
+  {
+   "type": "L-RESPONSE",
+   "R1": false,
+   "R2": false,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R2:통과 제약 1개 (2 필요)",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-PURPOSE",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-OPINION",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-RELATION",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-MAIN",
+   "R1": false,
+   "R2": true,
+   "R3": false,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R3:대역 없음 (n=0)",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-PICTURE",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-TODO",
+   "R1": false,
+   "R2": true,
+   "R3": false,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R3:대역 없음 (n=6)",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-MONEY",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-REASON",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-NOTMENTION",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-ANNOUNCE",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-TABLE",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-SITUATION",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-SET-TOPIC",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "L-SET-NOT",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-GIST",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": false,
+   "blocked": [
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-PURPOSE",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": false,
+   "blocked": [
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-MOOD",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": false,
+   "blocked": [
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-TOPIC",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": false,
+   "blocked": [
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-CLAIM",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": false,
+   "blocked": [
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-IMPLY",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-TITLE",
+   "R1": true,
+   "R2": true,
+   "R3": true,
+   "R4": true,
+   "R5": false,
+   "blocked": [
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-CHART",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-FACT",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-NOTICE",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-GRAMMAR",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-VOCAB",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-BLANK",
+   "R1": false,
+   "R2": false,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R2:통과 제약 1개 (2 필요)",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-ORDER",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-IRRELEVANT",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-INSERT",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "R-SUMMARY",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "X-TITLE",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "X-VOCAB",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "X-ORDER",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "X-REFER",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  },
+  {
+   "type": "X-FACT",
+   "R1": false,
+   "R2": true,
+   "R3": true,
+   "R4": false,
+   "R5": false,
+   "blocked": [
+    "R1:항목 없음",
+    "R4:절차 0단계 (실패 처리 포함 4 필요)",
+    "R5:검증 기록 없음"
+   ]
+  }
+ ]
+}
