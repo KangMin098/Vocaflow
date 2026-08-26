@@ -21,7 +21,8 @@ import path from 'node:path'
 import { itemBlocks, passageOf, choicesOf, answerOf, allRows } from './lib-passage.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
-const gen = JSON.parse(fs.readFileSync(path.join(DIR, 'generated-set-v1.json'), 'utf8'))
+const SET = (process.argv.find((x) => x.startsWith('--set=')) ?? '').split('=')[1] || 'generated-set-v1.json'
+const gen = JSON.parse(fs.readFileSync(path.join(DIR, SET), 'utf8'))
 
 // ⚠️ **채점기 결함 둘을 먼저 고쳤다.**
 // ① 마커형(어법·어휘·무관·삽입)은 기출 쪽 choicesOf 가 **선지가 아니라 지문 조각**을 돌려준다.
@@ -136,5 +137,5 @@ for (const it of blanks) {
 }
 console.log('    ⚠️ 정답을 짧게 쓰라고 §6.15 가 말했고 나는 그것을 보고 썼다. **순환이다.**')
 
-fs.writeFileSync(path.join(DIR, 'generated-set-score.json'), JSON.stringify({ rows, inBand, total }, null, 1))
+fs.writeFileSync(path.join(DIR, SET.replace('.json', '-score.json')), JSON.stringify({ rows, inBand, total }, null, 1))
 console.log(`\n→ ${path.join(DIR, 'generated-set-score.json')}`)
