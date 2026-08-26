@@ -108,23 +108,45 @@ for (const row of current) {
   bands[t] = { n: rows.length, ok: true, source: isL ? '대본' : '문제지', years: [...yrs].sort(), nMock: isL ? 0 : (R.mock[t]?.length ?? 0), ...b }
 }
 
+/**
+ * ⚠️ **대리 대역.** 두 유형은 자기 표본으로 대역을 못 만든다:
+ *   L-MAIN — 2024학년도 신설인데 이 저장소의 대본은 2017~2023 뿐이라 **표본 0**
+ *   L-TODO — 7개년 중 6개년에만 출제돼 **n=6**
+ * 표본이 없다고 설계도를 비워 두는 대신, **가장 가까운 친족 유형의 대역을 빌려 쓰되 빌린 표시를 남긴다.**
+ * 친족은 자료를 보기 전에 **발화 구조**로 고른다(독백↔독백 · 대화↔대화) — 사후에 잘 맞는 것을 고르지 않는다.
+ * 빌린 대역은 그 유형의 관측이 아니므로, **대본이 확보되면 반드시 교체해야 한다.**
+ */
+const PROXY = {
+  'L-MAIN': { from: 'L-PURPOSE', why: '둘 다 화자 1인 독백(발화 1). 요지와 목적은 담화 길이·문형이 같은 계열' },
+  'L-TODO': { from: 'L-REASON', why: '둘 다 화자 2인 대화(발화 10~13). 요청·설명 구조가 같은 계열' },
+}
+for (const [t, p] of Object.entries(PROXY)) {
+  if (bands[t]?.ok) continue
+  const src = bands[p.from]
+  if (!src?.ok) continue
+  bands[t] = { ...src, ok: true, proxy: p.from, proxyWhy: p.why, ownN: bands[t]?.n ?? 0 }
+}
+
 const okN = Object.values(bands).filter((b) => b.ok).length
+const proxyN = Object.values(bands).filter((b) => b.proxy).length
 fs.writeFileSync(path.join(DIR, 'type-bands-all.json'), JSON.stringify({
   builtAt: 'build-bands-all.mjs',
   rule: 'n>=7 표본(수능만), 10/50/90 분위. 독해·장문 = 수능 14개년 문제지 · 듣기 = 대본 7개년(2017~2023)',
   denominator: current.length,
   covered: okN,
+  proxied: proxyN,
   bands,
 }, null, 1))
 
-console.log(`대역 확보 ${okN}/${current.length}`)
+console.log(`대역 확보 ${okN}/${current.length} (그중 대리 ${proxyN})`)
 console.log('')
-console.log(['type', 'n', '출처', '연수', 'words lo~mid~hi', 'sentLen', 'wordLen', 'ttr'].join('\t'))
+console.log(['type', 'n', '출처', '연수', 'words lo~mid~hi', 'sentLen', 'wordLen', 'ttr', '비고'].join('\t'))
 for (const row of current) {
   const b = bands[row.type]
   if (!b.ok) { console.log([row.type, b.n, b.source, '-', '— 표본 부족'].join('\t')); continue }
   console.log([row.type, b.n, b.source, b.years.length,
     `${b.words.lo}~${b.words.mid}~${b.words.hi}`,
-    b.sentLen.mid.toFixed(1), b.wordLen.mid.toFixed(2), b.ttr.mid.toFixed(3)].join('\t'))
+    b.sentLen.mid.toFixed(1), b.wordLen.mid.toFixed(2), b.ttr.mid.toFixed(3),
+    b.proxy ? `대리 ← ${b.proxy} (자기 표본 ${b.ownN})` : ''].join('\t'))
 }
 console.log(`\n→ ${path.join(DIR, 'type-bands-all.json')}`)

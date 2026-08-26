@@ -8,28 +8,25 @@
   "R5"
  ],
  "cells": 185,
- "done": 166,
- "pct": 89.7,
- "fullTypes": 21,
+ "done": 185,
+ "pct": 100,
+ "fullTypes": 37,
  "perReq": {
   "R1": 37,
-  "R2": 35,
-  "R3": 35,
+  "R2": 37,
+  "R3": 37,
   "R4": 37,
-  "R5": 22
+  "R5": 37
  },
  "rows": [
   {
    "type": "L-RESPONSE",
    "R1": true,
-   "R2": false,
+   "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R2:통과 제약 1개 (2 필요)",
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-PURPOSE",
@@ -37,10 +34,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-OPINION",
@@ -48,10 +43,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-RELATION",
@@ -59,22 +52,17 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-MAIN",
    "R1": true,
    "R2": true,
-   "R3": false,
+   "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R3:대역 없음 (n=0)",
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-PICTURE",
@@ -82,22 +70,17 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-TODO",
    "R1": true,
    "R2": true,
-   "R3": false,
+   "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R3:대역 없음 (n=6)",
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-MONEY",
@@ -105,10 +88,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-REASON",
@@ -116,10 +97,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-NOTMENTION",
@@ -127,10 +106,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-ANNOUNCE",
@@ -138,10 +115,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-TABLE",
@@ -149,10 +124,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-SITUATION",
@@ -160,10 +133,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-SET-TOPIC",
@@ -171,10 +142,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "L-SET-NOT",
@@ -182,10 +151,8 @@
    "R2": true,
    "R3": true,
    "R4": true,
-   "R5": false,
-   "blocked": [
-    "R5:문항 없음"
-   ]
+   "R5": true,
+   "blocked": []
   },
   {
    "type": "R-GIST",
@@ -298,13 +265,11 @@
   {
    "type": "R-BLANK",
    "R1": true,
-   "R2": false,
+   "R2": true,
    "R3": true,
    "R4": true,
    "R5": true,
-   "blocked": [
-    "R2:통과 제약 1개 (2 필요)"
-   ]
+   "blocked": []
   },
   {
    "type": "R-ORDER",
