@@ -51,25 +51,25 @@ ls <DIR>/chunk-*.json | grep -v '\.out\.json$'
 `FOR UPDATE SKIP LOCKED` 로 막아 주지만, **이 청크 폴더에는 그런 장치가 없다.**
 결과는 낭비된 판정과, 서로 다른 판정본이 덮어쓰는 경합이다.
 
-그래서 스폰 **전에** 표시를 남긴다:
+그래서 스폰 **전에** 표시를 남긴다. 손으로 짜지 말고 공용 도구를 쓴다
+(`scripts/lib/claim-chunks.mjs` — 네 개의 팬아웃 명령이 같은 구현을 공유한다):
 
 ```bash
-# 잡기 — 이미 신선한 claim 이 있으면 그 청크는 건너뛴다
-for c in <대상 청크들>; do
-  claim="${c%.json}.claim"
-  if [ -f "$claim" ]; then
-    age=$(( $(date +%s) - $(stat -c %Y "$claim") ))
-    [ "$age" -lt 1800 ] && echo "SKIP(claimed ${age}s) $c" && continue   # 30분
-  fi
-  echo "$(hostname)-$$ $(date -Is)" > "$claim"
-  echo "CLAIM $c"
-done
+node scripts/lib/claim-chunks.mjs --dir <DIR> --in 'chunk-*.json' \
+     --done '.json:.out.json' --max <wave-size>
 ```
 
-- **30분이 지난 claim 은 죽은 것으로 보고 가져간다** — 세션이 중간에 끊길 수 있다
-  (`compose` 큐가 쓰는 30분 회수와 같은 값).
-- 청크가 끝나면 `.claim` 을 지운다. 실패했으면 남겨 두지 말 것 — 다음 실행이 못 잡는다.
-- `.claim` 은 커밋하지 않는다.
+`CLAIM <경로>` 로 나온 것**만** 스폰한다. `SKIP … 남이-잡음` 은 다른 세션이 돌고 있는 것이고,
+`SKIP … 이미-완료` 는 산출물이 이미 있는 것이다. 마지막 줄의 요약 수치를 보고에 그대로 옮긴다.
+
+- **30분이 지난 claim 은 죽은 것으로 보고 가져간다**(`STALE` 로 찍힌다) — 세션이 중간에 끊길 수 있다.
+  `compose` 큐가 쓰는 회수 시간과 같은 값이다.
+- 물결이 끝나면 풀어 준다: `node scripts/lib/claim-chunks.mjs --release <청크 경로들>`.
+  **실패한 청크도 반드시 풀어 준다** — 남겨 두면 30분 동안 아무도 못 잡는다.
+- `.claim` 은 커밋하지 않는다(`.gitignore`).
+
+⚠️ 도구가 잡은 게 **0개**면 그렇게 말한다. 0건 처리를 "완료" 로 보고하는 것이 이 저장소가
+경계하는 실패다. 회귀: `node scripts/lib/claim-chunks.selftest.mjs` (13건).
 
 ## 2단계 — 팬아웃
 
