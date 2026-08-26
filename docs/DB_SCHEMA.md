@@ -1034,6 +1034,21 @@ where schemaname='public'
   검증 + `role='student'` 고정)이라 이 정책은 **쓰이지 않는 우회로**였다. 그래서 그냥 제거했다.
 - 현재 `classes`·`class_members` 0행 (B2B 기능 미출시) — 잠재 결함이었다.
 
+#### `vocabularies.origin` 에 `'assignment'` 추가 (20260826123000)
+
+`CHECK (origin = ANY (ARRAY['ai','shared_set','imported','manual','library','assignment']))`.
+
+**값마다 삭제 의미가 다르다** — `unenroll_library_book` 은 도서 해지 시 그 학습자의
+`origin='shared_set'` 낱말을 지운다. 교사 과제 낱말에 그 값을 쓰면 **무관한 도서를
+해지했을 뿐인데 선생님이 보낸 단어가 함께 사라진다.** `'manual'` 은 "학습자가 직접 넣었다"
+는 뜻이라 사실과 다르고 `'imported'` 는 파일 가져오기의 자리다. 그래서 자기 값을 준다.
+
+⚠️ **`vocabularies.lemma` 는 `shared_dictionary(word)` 를 참조한다**(`vocabularies_lemma_fkey`,
+`ON DELETE SET NULL`). 사전에 없는 표제어를 적으면 **그 한 행 때문에 일괄 upsert 전체가
+거부된다.** 과제 담기는 먼저 사전에 물어보고 있는 것만 채운다(없으면 NULL).
+
+**회귀 락** — `apps/web/src/lib/teacher/__tests__/assignment-vocab.test.ts` (8건).
+
 #### `peek_class_by_code(p_code text)` — 초대 링크가 가입 **전에** 학급을 보여준다 (20260826120000)
 
 `RETURNS TABLE(class_name text, member_count integer)` · `STABLE SECURITY DEFINER` ·

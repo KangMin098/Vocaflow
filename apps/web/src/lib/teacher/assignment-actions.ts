@@ -21,6 +21,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createClient } from '@/lib/supabase/server'
+import { assignmentWordsToVocabRows, usableAssignmentWords } from './assignment-vocab'
 
 /** 과제에 실리는 낱말 한 개. DB 저장 형태와 같다(`{w,m,v}`) — 변환 지점을 만들지 않는다. */
 export interface AssignmentWord {
@@ -191,15 +192,71 @@ export async function markAssignmentOpened(assignmentId: string): Promise<void> 
     )
 }
 
-/** 단어장에 담았다고 기록한다 (학생). 다시 담아도 처음 시각을 유지한다. */
+/**
+ * **과제 낱말을 학습자의 단어장에 실제로 넣는다** — 그리고 담았다고 기록한다.
+ *
+ * ── 2026-08-26 이전에는 기록만 했다 ─────────────────────────────────
+ * 버튼은 `단어장에 담기` 이고 누르면 `담았어요` 로 바뀌는데, 하는 일은
+ * `class_assignment_progress.collected_at` 을 찍는 것뿐이었다. **단어장은 그대로였다.**
+ * 교사 대시보드도 그 숫자를 세어 "N명이 담았어요" 라고 말했다 —
+ * 교사가 지문을 고르고 낱말을 뽑아 보낸 이유가 학생의 학습 자료가 되는 것인데,
+ * 그 **종착점이 빈 약속**이었다.
+ *
+ * ── 왜 origin='assignment' 인가 ─────────────────────────────────────
+ * `origin` 에는 삭제 의미가 붙어 있다 — `unenroll_library_book` 은 도서를 해지할 때
+ * 그 학습자의 `origin='shared_set'` 낱말을 지운다. 과제 낱말에 그 값을 쓰면
+ * **무관한 도서를 해지했을 뿐인데 선생님이 보낸 단어가 함께 사라진다.**
+ * (`20260826123000_vocab_origin_assignment`)
+ *
+ * ── 이미 있는 낱말은 건드리지 않는다 ────────────────────────────────
+ * `ignoreDuplicates` — 학습자가 이미 갖고 있던 낱말의 FSRS 상태(difficulty·stability·
+ * next_review_at)를 과제가 초기화하면 **그동안의 학습이 지워진다.** 추출 화면의 저장도
+ * 같은 이유로 같은 옵션을 쓴다.
+ *
+ * 낱말 저장이 실패하면 **기록도 남기지 않는다.** 순서를 뒤집으면 "담았어요" 라고 표시된 채
+ * 단어장은 비어 있는, 지금 고치고 있는 바로 그 상태가 된다.
+ */
 export async function markAssignmentCollected(
   assignmentId: string,
-): Promise<{ ok: boolean; error?: string }> {
+): Promise<{ ok: boolean; error?: string; added?: number }> {
   const client = await createClient()
   const {
     data: { user },
   } = await client.auth.getUser()
   if (!user) return { ok: false, error: '로그인이 필요합니다.' }
+
+  // 낱말은 과제 행에서 다시 읽는다 — 클라이언트가 보낸 목록을 믿으면 남의 낱말도 넣을 수 있다.
+  // RLS 가 소속 학급의 과제만 열어 주므로, 못 읽으면 담을 자격이 없는 것이다.
+  const { data: rows, error: readErr } = await loose(client)
+    .from('class_assignments')
+    .select('words')
+    .eq('id', assignmentId)
+    .limit(1)
+
+  if (readErr) return { ok: false, error: '과제를 불러오지 못했어요.' }
+  const words = usableAssignmentWords(
+    (rows as { words: AssignmentWord[] | null }[] | null)?.[0]?.words,
+  )
+  if (words.length === 0) return { ok: false, error: '담을 낱말이 없어요.' }
+
+  // `vocabularies.lemma` 는 `shared_dictionary(word)` 를 참조한다. 사전에 없는 값을 적으면
+  // **그 한 행 때문에 일괄 upsert 전체가 거부되고** 학생은 과제를 통째로 못 담는다.
+  // 그래서 먼저 물어보고, 있는 것만 표제어를 채운다(없으면 NULL — FK 는 NULL 을 허용한다).
+  const { data: dictRows } = await loose(client)
+    .from('shared_dictionary')
+    .select('word')
+    .in('word', words.map((w) => w.w))
+  const known = new Set(((dictRows ?? []) as { word: string }[]).map((r) => r.word))
+
+  // 행을 만드는 규칙은 `assignment-vocab.ts` 가 소유한다 —
+  // `'use server'` 파일은 async 함수만 내보낼 수 있어 순수 함수를 그대로 검사할 수 없다.
+  const vocab = assignmentWordsToVocabRows(user.id, words, known)
+
+  const { error: insErr, count } = await loose(client)
+    .from('vocabularies')
+    .upsert(vocab, { onConflict: 'user_id,word', ignoreDuplicates: true, count: 'exact' })
+
+  if (insErr) return { ok: false, error: '단어장에 담지 못했어요.' }
 
   const now = new Date().toISOString()
   const { error } = await loose(client)
@@ -209,10 +266,11 @@ export async function markAssignmentCollected(
       { onConflict: 'assignment_id,user_id' },
     )
 
-  if (error) return { ok: false, error: '기록하지 못했어요.' }
-  return { ok: true }
+  // 낱말은 들어갔는데 기록만 실패한 경우 — 학습 자체는 되므로 성공으로 본다.
+  // (다음에 다시 눌러도 `ignoreDuplicates` 라 중복이 생기지 않는다.)
+  if (error) return { ok: true, added: count ?? 0 }
+  return { ok: true, added: count ?? 0 }
 }
-
 /**
  * 내가 이미 담은 과제 id (학생) — 화면이 "담았어요" 를 처음부터 보여줄 수 있게.
  *

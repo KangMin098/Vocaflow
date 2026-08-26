@@ -3,7 +3,8 @@
 
 'use client'
 
-import { Check, Copy, GraduationCap, Plus, Users } from 'lucide-react'
+import { ArrowRight, Check, Copy, GraduationCap, Plus, Users } from 'lucide-react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 
@@ -70,11 +71,9 @@ export function TeacherClient({
    *
    * 2026-08-26 프로덕션 빌드가 이 누락을 no-unused-vars 로 잡았다. import 만 있고
    * 호출이 없었다 — 화면은 멀쩡히 돌고 계측만 조용히 죽어 있는 모양이었다.
-   */
-  /**
-   * 학생에게 건네지는 것 — **코드가 아니라 링크다.**
    *
-   * 2026-08-26 이전에는 `ABC123` 여섯 글자만 복사됐다. 그것을 받은 학생은
+   * ── 복사되는 것: **코드가 아니라 링크다** (2026-08-26) ──────────────
+   * 그전에는 `ABC123` 여섯 글자만 클립보드에 들어갔다. 그것을 받은 학생은
    * ① 주소를 찾아 ② 가입하고 ③ `클래스` 화면을 찾아 ④ 코드를 붙여넣어야 했다 —
    * ③ 은 학생이 스스로 도달할 이유가 없는 화면이다.
    * 이제 `/join/ABC123` 이 그 넷을 한 번의 클릭으로 만든다.
@@ -217,6 +216,38 @@ export function TeacherClient({
           </ul>
         )}
       </section>
+
+      {/*
+        **이 화면의 유일한 출구.**
+
+        2026-08-26 실측: `/teacher` 에는 나가는 링크가 **하나도 없었다.** 학급을 만들고
+        초대 링크를 나눠 준 교사가 그다음 할 일이 화면 어디에도 없었다 —
+        "보낸 단어" 구역은 보낸 것이 없으면 `return null` 이라 기능이 있는지조차 안 보인다.
+
+        보내는 기능은 이미 있다. `/text/new` 에서 지문을 붙여넣고 단어를 뽑으면
+        `SendToClassButton` 이 나온다. 그런데 링크가 **한 방향뿐이었다** —
+        추출 화면은 학급을 알고(학급이 없으면 여기로 보낸다), 학급 화면은 추출을 몰랐다.
+
+        학급이 있을 때만 보여준다. 없으면 먼저 만드는 것이 순서다.
+      */}
+      {classes.length > 0 && (
+        <section className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-4">
+          <h2 className="m-0 font-display text-[13px] font-[700] text-[var(--t1)]">
+            다음 — 우리 반에 단어 보내기
+          </h2>
+          <p className="m-0 font-body text-[12.5px] leading-[1.65] text-[var(--t2)]">
+            교과서 지문이나 수업 프린트를 붙여넣으면 어려운 낱말을 골라 줘요. 그중 보낼 것만
+            추려 학급에 보내면 학생 화면에 <strong>받은 단어</strong>로 도착합니다.
+          </p>
+          <Link
+            href="/text/new"
+            className="mt-1 inline-flex min-h-11 w-fit items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[700] text-[var(--on-p)] transition-opacity duration-[var(--dur-normal)] hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
+          >
+            지문 붙여넣기
+            <ArrowRight size={14} aria-hidden />
+          </Link>
+        </section>
+      )}
 
       {/* 참여 중인 클래스 */}
       {memberships.length > 0 && (
