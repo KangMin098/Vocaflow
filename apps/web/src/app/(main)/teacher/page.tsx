@@ -48,6 +48,9 @@ export default async function TeacherPage() {
         <TeacherClient
           classes={taught.classes}
           memberships={joined.memberships}
+          // 받은 것이 없으면 참여 중인 학급 아래에 무엇을 기다리는지 적는다 —
+          // `ReceivedAssignments` 는 빈 목록에서 아무것도 그리지 않아 학생이 막다른 골목에 선다.
+          hasReceived={receivedOnly.length > 0}
           // 조회 실패와 "정말 클래스가 없음" 은 화면에서 구별되어야 한다 —
           // 빈 목록만 보여주면 교사는 자기 클래스가 사라졌다고 읽는다.
           unavailable={taught.unavailable || joined.unavailable}

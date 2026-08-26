@@ -20,10 +20,19 @@ import { inviteUrl } from '@/lib/teacher/invite-link'
 export function TeacherClient({
   classes,
   memberships,
+  hasReceived = false,
   unavailable = false,
 }: {
   classes: TeacherClass[]
   memberships: MyMembership[]
+  /**
+   * 받은 과제가 하나라도 있는가.
+   *
+   * 없으면 참여 중인 학급 아래에 **무엇을 기다리는 중인지** 적는다 —
+   * `ReceivedAssignments` 는 빈 목록에서 `return null` 이라 아무것도 그리지 않고,
+   * 학생 화면에는 반 이름 하나만 남는다(2026-08-27 실측).
+   */
+  hasReceived?: boolean
   /**
    * 목록을 **불러오지 못했는가**. true 면 빈 목록은 "클래스가 없다" 가 아니다.
    *
@@ -38,6 +47,9 @@ export function TeacherClient({
   const [code, setCode] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState<string | null>(null)
+
+  /** 내 학급 중 한 곳이라도 학생이 있는가 — "다음 할 일" 이 갈리는 기준. */
+  const hasStudents = classes.some((c) => c.member_count > 0)
 
   function handleCreate() {
     setError(null)
@@ -196,6 +208,17 @@ export function TeacherClient({
                   <p className="mt-0.5 inline-flex items-center gap-1 font-body text-[12px] text-[var(--t2)]">
                     <Users size={11} aria-hidden /> 학생 {c.member_count}명
                   </p>
+                  {/*
+                    학생이 없는 학급은 **아직 아무 일도 일어나지 않은 학급**이다.
+                    "학생 0명" 만 쓰고 옆에 코드 칩을 두면 처음 온 교사는 그 칩이 무엇인지
+                    알 수 없다 — 실측했을 때 첫 화면에 `TSTEM1` 만 덩그러니 있었다.
+                  */}
+                  {c.member_count === 0 && (
+                    <p className="m-0 mt-1 font-body text-[11.5px] leading-[1.55] text-[var(--t3)]">
+                      코드를 누르면 <b className="text-[var(--t2)]">초대 링크</b>가 복사돼요 — 반
+                      채팅방에 붙여넣으면 학생이 눌러서 들어옵니다.
+                    </p>
+                  )}
                 </div>
                 <button
                   type="button"
@@ -230,7 +253,25 @@ export function TeacherClient({
 
         학급이 있을 때만 보여준다. 없으면 먼저 만드는 것이 순서다.
       */}
-      {classes.length > 0 && (
+      {/*
+        학생이 한 명도 없으면 **다음 할 일은 보내기가 아니라 부르기**다.
+        보낼 대상이 없는데 "단어를 보내세요" 라고 하면 그 화면은 틀린 말을 하는 것이고,
+        교사는 시킨 대로 해도 아무 일이 안 일어난다(2026-08-27 실측: 학생 0명인 첫 화면이
+        정확히 그 상태였다).
+      */}
+      {classes.length > 0 && !hasStudents && (
+        <section className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-4">
+          <h2 className="m-0 font-display text-[13px] font-[700] text-[var(--t1)]">
+            다음 — 학생 부르기
+          </h2>
+          <p className="m-0 font-body text-[12.5px] leading-[1.65] text-[var(--t2)]">
+            위 <b>초대코드를 누르면 링크가 복사</b>돼요. 반 채팅방이나 알림장에 붙여넣으면 학생이
+            눌러서 바로 들어옵니다. 학생이 들어온 뒤에 단어를 보낼 수 있어요.
+          </p>
+        </section>
+      )}
+
+      {classes.length > 0 && hasStudents && (
         <section className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] p-4">
           <h2 className="m-0 font-display text-[13px] font-[700] text-[var(--t1)]">
             다음 — 우리 반에 단어 보내기
@@ -265,6 +306,18 @@ export function TeacherClient({
               </li>
             ))}
           </ul>
+          {/*
+            **받은 것이 없는 학생은 막다른 골목에 있다.**
+            들어온 직후가 정확히 그 상태이고, 그때 아무 말도 없으면 학생은
+            잘못 들어온 줄 안다(실측: 반 이름 한 줄 말고는 화면에 아무것도 없었다).
+          */}
+          {!hasReceived && (
+            <p className="m-0 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[12.5px] leading-[1.65] text-[var(--t2)]">
+              선생님이 단어를 보내면 여기에 <b className="text-[var(--t1)]">받은 단어</b>로
+              도착해요. 그때까지는 <b className="text-[var(--t1)]">내 단어장</b>으로 하던 학습을
+              이어가면 됩니다.
+            </p>
+          )}
         </section>
       )}
     </div>

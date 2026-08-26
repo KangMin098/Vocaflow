@@ -74,3 +74,49 @@ describe('TeacherClient — 실패와 빈 상태의 구별', () => {
     expect(html).toMatch(/초대코드|참여/)
   })
 })
+
+/**
+ * **빈 상태에서 다음 할 일이 보이는가** — 제품이 사람을 잃는 자리다.
+ *
+ * 2026-08-27 실측(학급 하나 · 학생 0 · 과제 0):
+ *   화면은 "학생 0명" 과 코드 칩 `TSTEM1` 만 보여주고, 다음 할 일을 **"단어 보내기"** 라고 했다.
+ *   보낼 대상이 없는데 보내라고 하면 그 화면은 틀린 말을 하는 것이고, 교사는 시킨 대로 해도
+ *   아무 일이 안 일어난다. 학생 쪽도 같았다 — 참여했는데 받은 것이 없으면 반 이름 한 줄뿐이었다
+ *   (`ReceivedAssignments` 가 빈 목록에서 `return null` 이라 아무것도 안 그린다).
+ */
+describe('TeacherClient — 빈 상태의 다음 할 일', () => {
+  const EMPTY_CLASS: TeacherClass = { ...CLASS, member_count: 0 }
+
+  it('학생이 없으면 다음 할 일은 **부르기**다 — 보낼 대상이 없는데 보내라고 하지 않는다', () => {
+    const html = renderToString(<TeacherClient classes={[EMPTY_CLASS]} memberships={[]} />)
+    expect(html).toContain('학생 부르기')
+    expect(html).not.toContain('우리 반에 단어 보내기')
+  })
+
+  it('학생이 없는 학급 줄은 코드가 무엇인지 말한다 — 칩만 두면 처음 온 교사는 모른다', () => {
+    const html = renderToString(<TeacherClient classes={[EMPTY_CLASS]} memberships={[]} />)
+    expect(html).toContain('초대 링크')
+  })
+
+  it('학생이 들어오면 다음 할 일이 **보내기**로 바뀐다', () => {
+    const html = renderToString(<TeacherClient classes={[CLASS]} memberships={[]} />)
+    expect(html).toContain('우리 반에 단어 보내기')
+    expect(html).not.toContain('학생 부르기')
+    // 안내 줄도 사라진다 — 이미 들어온 학급에 초대 설명이 남아 있으면 소음이다.
+    expect(html).not.toContain('반 채팅방에 붙여넣으면')
+  })
+
+  it('참여했는데 받은 것이 없는 학생에게 무엇을 기다리는지 말한다', () => {
+    const html = renderToString(
+      <TeacherClient classes={[]} memberships={[MEMBERSHIP]} hasReceived={false} />,
+    )
+    expect(html).toContain('선생님이 단어를 보내면')
+  })
+
+  it('받은 것이 있으면 그 안내를 지운다 — 이미 도착했는데 기다리라고 하지 않는다', () => {
+    const html = renderToString(
+      <TeacherClient classes={[]} memberships={[MEMBERSHIP]} hasReceived />,
+    )
+    expect(html).not.toContain('선생님이 단어를 보내면')
+  })
+})
