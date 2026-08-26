@@ -13,8 +13,11 @@ import {
   type ChapterListItem,
   type SampleWord,
 } from '@/lib/library/reader-queries'
+import { RETURN_PARAM } from '@/lib/auth/redirect'
 import { createClient } from '@/lib/supabase/client'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { ChapterContentView } from './ChapterContent'
 import { ChapterSidebar } from './ChapterSidebar'
@@ -36,6 +39,25 @@ interface BookContentReaderProps {
   /** v06.34 — admin 모드에서 chapter list 옆에 원본 소스 외부링크 표시 */
   source?: string | null
   sourceId?: string | null
+  /**
+   * 서버가 미리 읽어 둔 **1장 본문**.
+   *
+   * 왜 필요한가 (2026-08-26 실측): 본문을 전부 클라이언트에서 fetch 했다. 그래서
+   * 초기 HTML 에는 `activeContent === null` 의 폴백인 **"본문 없음"** 만 들어갔다.
+   * 크롤러는 JS 를 실행하지 않으므로 **검색엔진이 본문을 한 글자도 못 봤다** —
+   * 같은 날 sitemap 에 올린 도서 상세 13개가 전부 그 상태였다.
+   * 사람에게도 첫 페인트에 "본문 없음" 이 스쳤다.
+   *
+   * 있으면 캐시의 1장 자리를 채운 채 시작한다(그러면 fetch effect 도 건너뛴다).
+   */
+  initialContent?: ChapterContent | null
+  /**
+   * 로그인 여부 — 본문이 안 올 때 **"없다" 와 "로그인이 필요하다" 를 가른다.**
+   *
+   * `content_chunks` 의 RLS 가 `auth.role() = 'authenticated'` 라, 비로그인에게는
+   * 목차만 오고 본문은 0행이다. 그 상태를 "본문 없음" 으로 적으면 거짓말이 된다.
+   */
+  isLoggedIn?: boolean
 }
 
 export function BookContentReader({
@@ -49,9 +71,14 @@ export function BookContentReader({
   footerSlot,
   source,
   sourceId,
+  initialContent,
+  isLoggedIn,
 }: BookContentReaderProps) {
   const [activeIdx, setActiveIdx] = useState(1)
-  const [contentCache, setContentCache] = useState<Record<number, ChapterContent>>({})
+  // 서버가 준 1장이 있으면 그것으로 시작한다 — 초기 HTML 에 본문이 들어가고 fetch 도 한 번 준다.
+  const [contentCache, setContentCache] = useState<Record<number, ChapterContent>>(() =>
+    initialContent ? ({ 1: initialContent } as Record<number, ChapterContent>) : {},
+  )
   const [sampleCache, setSampleCache] = useState<Record<number, SampleWord[]>>({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -252,6 +279,8 @@ export function BookContentReader({
                   <ChapterLevelWords libraryBookId={libraryBookId} chapterIdx={activeIdx} />
                 )}
               </>
+            ) : isLoggedIn === false ? (
+              <SignInToReadPanel />
             ) : (
               <div className="flex h-full items-center justify-center font-body text-[12px] text-[var(--t2)]">
                 본문 없음
@@ -333,6 +362,38 @@ function ContentError({ message }: { message: string }) {
       <div className="rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-4 py-3" role="alert">
         <p className="font-body text-[12px] text-[var(--learn-error)]">{message}</p>
       </div>
+    </div>
+  )
+}
+
+/**
+ * 로그인해야 본문이 열리는 경우.
+ *
+ * **"본문 없음" 이 아니다.** `content_chunks` 의 RLS 는 `auth.role() = 'authenticated'` 라
+ * 비로그인에게 0행을 준다 — 목차는 보이는데(`library_chapters_master` 는 발행 도서면 공개)
+ * 본문만 안 온다. 그 상태를 "본문 없음" 으로 적어 두면 **거짓말**이고, 하필 이 화면이
+ * 검색으로 들어온 사람의 착지점이라 그 한 줄에서 떠난다(2026-08-26 실측).
+ */
+function SignInToReadPanel() {
+  const pathname = usePathname()
+
+  return (
+    <div className="flex h-full flex-col items-center justify-center gap-3 px-8 text-center">
+      <div className="select-none text-4xl" aria-hidden>
+        📖
+      </div>
+      <h3 className="font-display text-[16px] font-[700] text-[var(--t1)]">
+        로그인하면 1장을 읽을 수 있어요
+      </h3>
+      <p className="max-w-md font-body text-[13px] leading-relaxed text-[var(--t2)]">
+        난이도와 어휘는 지금 그대로 보실 수 있어요. 본문은 계정이 있어야 열립니다.
+      </p>
+      <Link
+        href={`/login?${RETURN_PARAM}=${encodeURIComponent(pathname)}`}
+        className="mt-1 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+      >
+        로그인하고 읽기
+      </Link>
     </div>
   )
 }

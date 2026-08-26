@@ -6,7 +6,7 @@ import { notFound, redirect } from 'next/navigation';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
 import { bookJsonLd } from '@/lib/seo/structured-data';
-import { listChapters } from '@/lib/library/reader-queries';
+import { getChapterContent, listChapters } from '@/lib/library/reader-queries';
 import { getResumeTarget } from '@/lib/library/resume-queries';
 import { fetchBookChapterSets, fetchBookComposerSets } from '@/lib/library/books/queries';
 import { fetchUserSubscriptions } from '@/lib/library/vocab/queries';
@@ -104,8 +104,13 @@ export default async function LibraryBookPreviewPage({
     vrl_components: Record<string, unknown> | null;
   };
 
-  const [chapters, chapterSets, composerSets, subscribedSet] = await Promise.all([
+  const [chapters, initialContent, chapterSets, composerSets, subscribedSet] = await Promise.all([
     listChapters(client, b.id),
+    // ⚠️ 1장 본문을 **서버에서** 읽는다. 클라이언트 fetch 에만 맡기면 초기 HTML 에
+    //    "본문 없음" 폴백만 들어가고, 크롤러는 JS 를 실행하지 않으므로 검색엔진이
+    //    이 책의 본문을 한 글자도 보지 못한다(2026-08-26 실측 — 발행 13권 전부).
+    //    미리보기에서 열리는 장이 1장뿐이라(`user-preview`) 한 장만 읽으면 된다.
+    getChapterContent(client, b.id, 1),
     fetchBookChapterSets(
       client as unknown as Parameters<typeof fetchBookChapterSets>[0],
       b.id,
@@ -159,6 +164,7 @@ export default async function LibraryBookPreviewPage({
         }
         totalWordCount={b.word_count ?? 0}
         readingMinutes={b.reading_minutes ?? 0}
+        initialContent={initialContent}
         chapters={chapters}
         chapterSets={chapterSets}
         composerSets={composerSets}
