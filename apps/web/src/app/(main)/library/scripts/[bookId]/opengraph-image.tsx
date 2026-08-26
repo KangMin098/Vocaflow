@@ -16,6 +16,7 @@ import { ImageResponse } from 'next/og'
 
 import { OgCard, OG_SIZE, needsKoreanFont, type OgCardProps } from '@/lib/seo/og-card'
 import { loadKoreanOgFont } from '@/lib/seo/og-font'
+import { ogQueryUrl } from '@/lib/seo/og-queries'
 
 // Edge — Node 에서는 Next 가 번들한 기본 폰트를 못 읽어 이미지가 통째로 500 이 난다
 // (`/fit/s` 구현의 실측 주석 참조).
@@ -43,11 +44,7 @@ async function fetchArticle(id: string): Promise<Row | null> {
   const key = process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']
   if (!url || !key) return null
 
-  const q =
-    `${url}/rest/v1/library_articles` +
-    `?id=eq.${encodeURIComponent(id)}` +
-    `&status=eq.published&copyright_safe_in_kr=is.true` +
-    `&select=title,author,cefr_level,article_v_level,word_count,feed_label,source&limit=1`
+  const q = ogQueryUrl(url, 'article', id)
 
   const res = await fetch(q, {
     headers: { apikey: key, Authorization: `Bearer ${key}` },

@@ -15,6 +15,7 @@ import { ImageResponse } from 'next/og'
 
 import { OgCard, OG_SIZE, needsKoreanFont, type OgCardProps } from '@/lib/seo/og-card'
 import { loadKoreanOgFont } from '@/lib/seo/og-font'
+import { ogQueryUrl } from '@/lib/seo/og-queries'
 
 export const runtime = 'edge'
 export const alt = 'Vocaflow — 퍼블릭 도메인 만화를 영어 원문 그대로'
@@ -42,11 +43,7 @@ async function fetchIssue(slug: string): Promise<Row | null> {
   const key = process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']
   if (!url || !key) return null
 
-  const q =
-    `${url}/rest/v1/pd_comic_issues` +
-    `?slug=eq.${encodeURIComponent(slug)}` +
-    `&status=eq.published` +
-    `&select=title,series_title,issue_no,published_year,source_adapter&limit=1`
+  const q = ogQueryUrl(url, 'comic', slug)
 
   const res = await fetch(q, {
     headers: { apikey: key, Authorization: `Bearer ${key}` },

@@ -14,6 +14,7 @@ import { ImageResponse } from 'next/og'
 
 import { OgCard, OG_SIZE, needsKoreanFont, type OgCardProps } from '@/lib/seo/og-card'
 import { loadKoreanOgFont } from '@/lib/seo/og-font'
+import { ogQueryUrl } from '@/lib/seo/og-queries'
 
 export const runtime = 'edge'
 export const alt = 'Vocaflow — 영어 원서를 챕터별 어휘와 함께'
@@ -36,11 +37,7 @@ async function fetchBook(id: string): Promise<Row | null> {
   const key = process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']
   if (!url || !key) return null
 
-  const q =
-    `${url}/rest/v1/library_books` +
-    `?id=eq.${encodeURIComponent(id)}` +
-    `&status=eq.published&copyright_safe_in_kr=is.true` +
-    `&select=title,author,cefr_band,cefr_level,book_v_level,word_count,chapter_count&limit=1`
+  const q = ogQueryUrl(url, 'book', id)
 
   const res = await fetch(q, {
     headers: { apikey: key, Authorization: `Bearer ${key}` },
