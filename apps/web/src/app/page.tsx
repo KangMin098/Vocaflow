@@ -25,6 +25,7 @@ import { ArrowRight, BookOpen, GraduationCap, Sparkles } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
+import { LandingCta } from '@/components/marketing/LandingCta'
 import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
 import { fetchTrustSignals } from '@/lib/marketing/trust-signals'
 
@@ -75,24 +76,7 @@ export default async function LandingPage() {
             계산해 드려요.
           </p>
 
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/fit"
-              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 font-body text-[14px] font-[700] text-white transition-opacity duration-[var(--dur-normal)] hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
-            >
-              지문 난이도 재 보기
-              <ArrowRight size={16} aria-hidden />
-            </Link>
-            <Link
-              href="/signup"
-              className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-6 font-body text-[14px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
-            >
-              무료로 시작하기
-            </Link>
-          </div>
-          <p className="mt-3 font-body text-[12px] text-[var(--t3)]">
-            난이도 진단은 <strong>로그인 없이</strong> 바로 쓸 수 있어요
-          </p>
+          <LandingCta />
         </section>
 
         {/* ── 다른 점 — 후기가 아니라 검증 가능한 동작 ── */}

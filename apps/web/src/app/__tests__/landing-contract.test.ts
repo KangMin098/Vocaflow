@@ -18,6 +18,15 @@ import { describe, expect, it } from 'vitest'
 const LANDING = join(process.cwd(), 'src', 'app', 'page.tsx')
 const source = readFileSync(LANDING, 'utf8')
 
+/**
+ * 히어로의 두 버튼은 **여기서만** 클라이언트다(계측 때문에). 랜딩 소스만 보면
+ * "CTA 가 사라졌다" 로 잘못 읽히므로 둘을 합쳐서 본다.
+ */
+const CTA = join(process.cwd(), 'src', 'components', 'marketing', 'LandingCta.tsx')
+const cta = readFileSync(CTA, 'utf8')
+const rendered = `${source}
+${cta}`
+
 describe('랜딩 계약', () => {
   it("서버 컴포넌트다 — 'use client' 면 초기 HTML 에 읽을 내용이 남지 않는다", () => {
     const firstLines = source.split('\n').slice(0, 40).join('\n')
@@ -31,7 +40,7 @@ describe('랜딩 계약', () => {
 
   it('가입 전에 가치를 보여주는 화면(/fit)으로 가는 길이 있다', () => {
     // 교사 채널(CAC 0)의 전제다 — 로그인 없이 써 볼 수 있어야 교사가 반 아이들에게 권한다.
-    expect(source).toMatch(/href="\/fit"/)
+    expect(rendered).toMatch(/href="\/fit"/)
   })
 
   it('지어낸 신뢰 지표를 걸지 않는다 — 이용자 수·평점·도입 기관', () => {
@@ -44,6 +53,13 @@ describe('랜딩 계약', () => {
     expect(code).not.toMatch(/평점\s*[0-9]/)
     expect(code).not.toMatch(/학습자\s*[0-9][0-9,]*\s*\+/)
     expect(code).not.toMatch(/학교\s*[0-9][0-9,]*\s*곳/)
+  })
+
+  it('랜딩 도착과 CTA 클릭을 잰다 — 안 재면 검색이 사람을 데려오는지 모른다', () => {
+    // sitemap 132개 URL 이 전부 여기로 온다. 이 두 이벤트가 없으면
+    // "검색에 안 잡힌다" 와 "왔는데 안 눌렀다" 를 구분할 수 없다.
+    expect(cta).toMatch(/landing_viewed/)
+    expect(cta).toMatch(/landing_cta_clicked/)
   })
 
   it('수치를 소스에 적지 않는다 — 서버가 DB 에서 읽어야 한다', () => {

@@ -44,6 +44,20 @@ export type PublicEvent =
   | { name: 'fit_share_opened'; props: { valid: boolean } }
   /** 가입 유도 클릭 — 공개 화면에서 제품으로 넘어가는 유일한 문 */
   | { name: 'fit_signup_clicked'; props: Record<string, never> }
+  /**
+   * 랜딩 진입 — 검색·공유가 도착하는 지점의 분모.
+   *
+   * 2026-08-26 이전 이 자리는 개발용 화면 인덱스였고 랜딩 자체가 없었다. 이제 sitemap 의
+   * 132개 URL 이 여기로 오므로, 여기를 못 세면 **검색이 실제로 사람을 데려오는지** 알 수 없다.
+   */
+  | { name: 'landing_viewed'; props: Record<string, never> }
+  /**
+   * 랜딩에서 다음으로 넘어간 클릭.
+   *
+   * `fit` 은 `fit_viewed` 와 대조해 **랜딩→진단 이탈**을 본다(두 수가 벌어지면 그 사이가 샌다).
+   * `signup` 은 가치를 보기 전에 바로 가입한 사람이라 `fit_signup_clicked` 와 다른 사람이다.
+   */
+  | { name: 'landing_cta_clicked'; props: { target: 'fit' | 'signup' } }
 
 export type PublicEventName = PublicEvent['name']
 
@@ -54,6 +68,8 @@ export const ALLOWED_EVENTS: readonly PublicEventName[] = [
   'fit_shared',
   'fit_share_opened',
   'fit_signup_clicked',
+  'landing_viewed',
+  'landing_cta_clicked',
 ] as const
 
 /** 러닝 워드 수 → 버킷. 원본 숫자를 그대로 보내지 않는 이유는 필요하지 않기 때문이다. */

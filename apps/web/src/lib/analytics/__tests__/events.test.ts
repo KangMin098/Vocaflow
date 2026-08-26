@@ -54,15 +54,32 @@ describe('isSafeProps — 지문이 새지 않는다', () => {
 })
 
 describe('허용 이벤트 목록', () => {
-  it('교사 퍼널 5단계를 전부 덮는다', () => {
+  it('교사 퍼널 5단계가 빠지지 않는다', () => {
     // 진입 → 사용 → 공유 → 그 링크로 유입 → 가입 클릭.
     // 하나라도 빠지면 "교사 채널이 작동하는가" 에 답할 수 없다.
+    expect([...ALLOWED_EVENTS]).toEqual(
+      expect.arrayContaining([
+        'fit_viewed',
+        'fit_analyzed',
+        'fit_shared',
+        'fit_share_opened',
+        'fit_signup_clicked',
+      ]),
+    )
+  })
+
+  it('목록 전체가 의도된 것이다 — 이벤트는 조용히 늘어나면 안 된다', () => {
+    // 위 테스트는 **빠짐**을 막고, 이 테스트는 **늘어남**을 막는다.
+    // 늘리는 것 자체가 나쁘진 않지만, 늘릴 때는 여기를 고치며 한 번 더 생각하게 한다
+    // (`/fit` 은 "붙여넣은 지문을 저장하지 않는다" 를 화면에서 약속하고 있다).
     expect([...ALLOWED_EVENTS]).toEqual([
       'fit_viewed',
       'fit_analyzed',
       'fit_shared',
       'fit_share_opened',
       'fit_signup_clicked',
+      'landing_viewed',
+      'landing_cta_clicked',
     ])
   })
 
