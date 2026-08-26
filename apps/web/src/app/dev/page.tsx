@@ -181,7 +181,9 @@ export default function RootIndexPage() {
           aria-label="전체 진행 현황"
           className="mb-10 rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)]"
         >
-          <div className="flex items-end justify-between gap-4">
+          {/* 390px 에서 두 블록이 나란히 설 자리가 없어 상태 칩이 화면 밖으로 22px 밀렸다
+              (실측 2026-08-26). 감싸서 아래로 내린다 — 가로 스크롤은 어떤 화면에서도 의도가 아니다. */}
+          <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="font-display text-[11px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
                 전체 진행률
@@ -194,7 +196,7 @@ export default function RootIndexPage() {
                 {done} / {total} 화면 구현 완료
               </p>
             </div>
-            <div className="flex shrink-0 gap-2">
+            <div className="flex flex-wrap gap-2">
               <StatusPill status="done" count={done} />
               <StatusPill status="progress" count={progress} />
               <StatusPill status="pending" count={pending} />

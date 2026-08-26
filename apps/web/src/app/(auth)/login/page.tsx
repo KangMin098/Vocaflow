@@ -161,7 +161,8 @@ function LoginForm() {
           hint={
             <Link
               href="/reset-password"
-              className="font-mono text-[10px] uppercase tracking-[0.1em] text-t3 transition-colors duration-normal hover:text-p"
+              /* 73×13 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 비밀번호를 잊은 사람이 누르는 유일한 길이다. */
+              className="inline-flex min-h-[44px] items-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3 transition-colors duration-normal hover:text-p"
             >
               비밀번호 찾기
             </Link>

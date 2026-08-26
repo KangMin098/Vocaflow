@@ -164,7 +164,8 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
             <button
               onClick={() => setBilling('monthly')}
               aria-pressed={billing === 'monthly'}
-              className={`rounded-[var(--r-full)] px-5 py-2 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ${
+              /* 90×34 · 167×39 였다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 결제 주기 선택이라 놓치면 잘못 결제한다. */
+              className={`inline-flex min-h-[44px] items-center rounded-[var(--r-full)] px-5 py-2 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ${
                 billing === 'monthly'
                   ? 'bg-[var(--t1)] text-[var(--ti)] shadow-[var(--sh-xs)]'
                   : 'text-[var(--t2)] hover:text-[var(--t1)]'
@@ -175,7 +176,9 @@ export function PricingClient({ signals }: { signals: TrustSignal[] | null }) {
             <button
               onClick={() => setBilling('annual')}
               aria-pressed={billing === 'annual'}
-              className={`group inline-flex items-center gap-2 rounded-[var(--r-full)] px-5 py-2 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ${
+              /* 167×39 였다 — 짝인 '월간 결제' 와 같은 이유로 44px. 둘 중 하나만 키우면
+                 나란히 선 두 버튼의 높이가 어긋난다. */
+              className={`group inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-full)] px-5 py-2 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ${
                 billing === 'annual'
                   ? 'bg-[var(--t1)] text-[var(--ti)] shadow-[var(--sh-xs)]'
                   : 'text-[var(--t2)] hover:text-[var(--t1)]'

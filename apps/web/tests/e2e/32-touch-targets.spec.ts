@@ -28,9 +28,9 @@ import { expect, test, type Page } from '@playwright/test';
 import { adminBypassEnabled, adminRoutes } from './utils/admin-routes';
 import { ensureAuthState } from './utils/auth';
 import { learnerRoutes, SESSION_ROUTES } from './utils/learner-routes';
+import { describeOffender, scanTapTargets, TAP_MIN, TAP_MIN_TEXT_WIDTH } from './utils/tap-target';
 
 const STATE_PATH = 'playwright-auth/.auth-touch-targets.json';
-const MIN = 44;
 const MOBILE = { width: 390, height: 844 } as const;
 
 interface Offender {
@@ -52,50 +52,11 @@ async function scanRoute(page: Page, route: string, settle = 900): Promise<Offen
   await page.waitForTimeout(settle);
 
   const found = await page
-    .evaluate((min) => {
-      const out: { tag: string; label: string; w: number; h: number }[] = [];
-      const sel =
-        'button, a[href], [role="button"], input[type="checkbox"], input[type="radio"], select';
-      for (const el of Array.from(document.querySelectorAll(sel))) {
-        const r0 = el.getBoundingClientRect();
-        if (r0.width === 0 || r0.height === 0) continue;
-        const cs = getComputedStyle(el);
-        if (cs.visibility === 'hidden' || cs.display === 'none' || cs.pointerEvents === 'none')
-          continue;
-
-        // 체크박스·라디오는 크기와 무관하게 감싸는 label 이 탭 대상이다.
-        let target: Element = el;
-        if (el.tagName === 'INPUT') {
-          const lab =
-            el.closest('label') ??
-            (el.id ? document.querySelector(`label[for="${CSS.escape(el.id)}"]`) : null);
-          if (!lab) continue; // 라벨이 없으면 판단하지 않는다
-          target = lab;
-        }
-        const r = target.getBoundingClientRect();
-        if (Math.min(r.width, r.height) >= min) continue;
-
-        // 본문 안 인라인 텍스트 링크는 대상이 아니다 — 문장 속 링크까지 44px 로 키우면
-        // 읽는 글이 버튼 목록이 된다. 아이콘/버튼만 본다.
-        if (el.tagName === 'A' && r.height < 30 && (el.textContent ?? '').trim().length > 3)
-          continue;
-
-        out.push({
-          tag: el.tagName,
-          label: (el.getAttribute('aria-label') ?? el.textContent ?? '')
-            .replace(/\s+/g, ' ')
-            .trim()
-            .slice(0, 30),
-          w: Math.round(r.width),
-          h: Math.round(r.height),
-        });
-      }
-      return out;
-    }, MIN)
-    .catch(() => [] as { tag: string; label: string; w: number; h: number }[]);
+    .evaluate(scanTapTargets, { min: TAP_MIN, minTextWidth: TAP_MIN_TEXT_WIDTH })
+    .catch(() => []);
 
   await page.goto('about:blank').catch(() => {});
-  return found.map((f) => ({ route, tag: f.tag, label: f.label, size: `${f.w}×${f.h}` }));
+  return found.map((f) => ({ route, tag: f.tag, label: f.label, size: describeOffender(f).split(" ")[0] }));
 }
 
 const report = (offenders: Offender[]) =>
@@ -142,7 +103,18 @@ test.describe('탭 대상 44px — 학습자 전 화면 @390px', () => {
  *
  * 모바일 관리자를 제대로 하려면 내비부터 만들어야 하고, 그건 제품 결정이다(CLAUDE.md 에 기록).
  */
-const ADMIN_BASELINE = 205; // 2026-08-26 실측 (화면 도움말 26건 수정 후)
+/**
+ * 2026-08-26 실측 **218**.
+ *
+ * 이 숫자는 두 번 움직였고 이유가 서로 다르다 — 섞어서 읽으면 안 된다:
+ *   231 → 205  **고쳐서** 줄었다(공용 `화면 도움말` 버튼 하나가 26곳이었다)
+ *   205 → 218  **규칙이 정확해져서** 늘었다. 회귀가 아니다.
+ *              옛 규칙은 "라벨이 4자 초과인 `<a>`" 를 인라인 텍스트로 보고 면제했는데,
+ *              그러면 "소스 GET (대량)" 같은 **긴 라벨의 내비 링크**가 통째로 빠졌다.
+ *              지금은 **문장 속에 있는가**(부모에 링크 밖 글자가 있는가)로 가른다.
+ *              빠져 있던 13건이 드러난 것이지 새로 생긴 것이 아니다.
+ */
+const ADMIN_BASELINE = 218;
 
 test.describe('탭 대상 44px — 관리자 전 화면 @390px (ratchet)', () => {
   test.use({ viewport: MOBILE });
