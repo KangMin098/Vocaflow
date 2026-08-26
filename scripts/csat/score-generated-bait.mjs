@@ -25,7 +25,7 @@ import path from 'node:path'
 import { itemBlocks, passageOf, choicesOf, answerOf, allRows } from './lib-passage.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
-const SETS = ['generated-set-v1.json', 'generated-set-v2.json', 'generated-set-v3.json', 'generated-set-v4.json', 'generated-set-v5.json']
+const SETS = ['generated-set-v1.json', 'generated-set-v2.json', 'generated-set-v3.json', 'generated-set-v4.json', 'generated-set-v5.json', 'generated-set-v6.json']
 const ITER = 20000
 const mkRnd = (s) => () => { s = (s * 1103515245 + 12345) % 2147483648; return s / 2147483648 }
 
@@ -148,10 +148,54 @@ for (const a of AX) {
   console.log(`  ${a.name.padEnd(22)} 생성 ${r.a.toFixed(4)}  기출 ${r.b.toFixed(4)}   raw ${r.p.toFixed(4)} → Holm ${r.holm.toFixed(4)}  ${mark}`)
 }
 
+// ── **유형별 층화** — 이 스크립트가 한 번 틀린 자리다 ─────────────────────────
+// 2026-08-26: 위 합산 검정만 보고 "생성 오답의 혼동도가 기출보다 낮다(Holm 0.024)" 를
+// 격차로 보고했다. 유형별로 가르니 **빈칸의 기출 중앙이 0.0000** 이었고 내 것은 8/8 대역 안이었다.
+// 즉 **멀쩡한 것을 결함으로 적었고**, 그 진단을 믿고 고친 v5 는 빈칸을 대역 상단의 두 배로 밀어 올렸다.
+// 유형마다 대역 중앙이 다르면 **합산은 두 집단의 유형 혼합비 차이를 재는 것**이 된다.
+console.log('')
+console.log('  **유형별 층화** — 혼동도 (겨냥하지 않은 판 v1~v4 만)')
+console.log('  ' + '-'.repeat(74))
+const UNAIMED = new Set(['v1', 'v2', 'v3', 'v4'])
+const strat = []
+for (const t of ['R-BLANK', 'R-TOPIC', 'R-TITLE']) {
+  const P = past.filter((x) => x.type === t)
+  const G = gen.filter((x) => x.type === t && UNAIMED.has(x.src))
+  if (P.length < 8 || !G.length) continue
+  const lo = qs(P, 'confusion', 0.1)
+  const md = qs(P, 'confusion', 0.5)
+  const hi = qs(P, 'confusion', 0.9)
+  const r = permTwo(G, P, 'confusion', 700 + t.length)
+  strat.push({ t, r, lo, md, hi, inB: G.filter((x) => x.confusion >= lo && x.confusion <= hi).length, n: G.length })
+}
+{
+  const ord = [...strat].sort((x, y) => x.r.p - y.r.p)
+  let pv = 0
+  ord.forEach((x, i) => { const adj = Math.max(pv, Math.min(1, (ord.length - i) * x.r.p)); pv = adj; x.holm = adj })
+}
+for (const s of strat) {
+  console.log(`    ${s.t.replace('R-', '').padEnd(8)} 기출 ${s.lo.toFixed(4)}~**${s.md.toFixed(4)}**~${s.hi.toFixed(4)}  생성 ${s.r.a.toFixed(4)}  대역안 ${s.inB}/${s.n}  raw ${s.r.p.toFixed(4)} → Holm ${s.holm.toFixed(4)}  ${s.holm < 0.05 ? '**다르다**' : '구분 안 됨'}`)
+}
+console.log('')
+console.log('  **유형별 층화** — 겨냥한 판 (v5 · v6) 은 대역 안에 들어갔는가')
+console.log('  ' + '-'.repeat(74))
+for (const v of ['v5', 'v6']) {
+  const cells = []
+  for (const t of ['R-BLANK', 'R-TOPIC', 'R-TITLE']) {
+    const P = past.filter((x) => x.type === t)
+    const G = gen.filter((x) => x.type === t && x.src === v)
+    if (!G.length || P.length < 8) continue
+    const lo = qs(P, 'confusion', 0.1)
+    const hi = qs(P, 'confusion', 0.9)
+    cells.push(`${t.replace('R-', '')} ${mean(G, 'confusion').toFixed(4)} (${G.filter((x) => x.confusion >= lo && x.confusion <= hi).length}/${G.length})`)
+  }
+  if (cells.length) console.log(`    ${v}  ${cells.join('   ')}`)
+}
+
 console.log('')
 console.log('  판마다 따로 — 지문 미끼 · 혼동도 (Holm 은 위 4검정 기준)')
 console.log('  ' + '-'.repeat(74))
-for (const v of ['v1', 'v2', 'v3', 'v4', 'v5']) {
+for (const v of ['v1', 'v2', 'v3', 'v4', 'v5', 'v6']) {
   const xs = gen.filter((x) => x.src === v)
   if (!xs.length) continue
   const c = permTwo(xs, past, 'confusion', 900 + v.length)
@@ -165,21 +209,26 @@ console.log('  ' + '-'.repeat(74))
 // ⚠️ **합산 null 을 그대로 믿으면 안 된다(§6.14 의 G1 교훈).**
 // 판별로 보면 v1~v4 는 혼동도가 기출보다 **낮고** v5 는 **높다** — 합치면 상쇄된다.
 const conf = {}
-for (const v of ['v1', 'v2', 'v3', 'v4', 'v5']) {
+for (const v of ['v1', 'v2', 'v3', 'v4', 'v5', 'v6']) {
   const xs = gen.filter((x) => x.src === v)
   if (xs.length) conf[v] = mean(xs, 'confusion')
 }
 const pastConf = mean(past, 'confusion')
 const below = Object.entries(conf).filter(([, m]) => m < pastConf).map(([v]) => v)
 const above = Object.entries(conf).filter(([, m]) => m > pastConf).map(([v]) => v)
-const diff = AX.filter((a) => out[a.k].holm < 0.05)
-if (!diff.length) {
-  console.log('    · **네 측도 모두 기출과 구분되지 않는다.**')
-  console.log('      이 축은 내가 수치로 겨냥하지 않았으므로 **순환이 아니다.**')
+// ⚠️ **판정은 합산이 아니라 층화에서 읽는다.** 합산 Holm 이 전부 1.000 이어도
+// 그것은 유형 혼합비가 상쇄된 결과일 수 있다 — 실제로 그랬다(§10.22).
+// 그리고 **겨냥한 판(v5·v6)은 판정의 근거가 아니다.** 근거는 v1~v4 뿐이다.
+const diffT = strat.filter((s) => s.holm < 0.05)
+if (!diffT.length) {
+  console.log('    · **겨냥하지 않은 판(v1~v4)의 혼동도는 유형별로도 기출과 구분되지 않는다.**')
 } else {
-  console.log(`    · 기출과 다른 측도: ${diff.map((a) => a.name).join(' · ')}`)
-  console.log('      **이 축은 겨냥하지 않았으므로 이 차이는 진짜다.**')
+  console.log(`    · 겨냥하지 않은 판에서 기출과 다른 유형: ${diffT.map((s) => s.t.replace('R-', '')).join(' · ')}`)
+  console.log('      **이 축은 v1~v4 에서 겨냥하지 않았으므로 이 차이는 진짜다.**')
+  console.log(`      나머지 유형(${strat.filter((s) => s.holm >= 0.05).map((s) => s.t.replace('R-', '')).join(' · ')})은 구분되지 않는다 — **전부가 깨진 것이 아니다.**`)
 }
+const diff = AX.filter((a) => out[a.k].holm < 0.05)
+console.log(`    · 합산 4측도 중 기출과 다른 것: ${diff.length ? diff.map((a) => a.name).join(' · ') : '**없음** — 그러나 이것만으로 "같다" 고 적으면 안 된다(아래)'}`)
 console.log('')
 console.log(`    ⚠️ **합산 null 은 상쇄의 산물이다.** 기출 혼동도 ${pastConf.toFixed(4)} 을 기준으로`)
 console.log(`       아래인 판 ${below.join(' ')} · 위인 판 ${above.join(' ')} — 합치면 지워진다.`)
