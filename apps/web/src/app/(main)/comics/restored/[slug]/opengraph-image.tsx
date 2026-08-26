@@ -31,12 +31,14 @@ interface Row {
 }
 
 /**
- * ⚠️ 표를 직접 읽는다 — edge 에서 `select_pd_comic_provenance` RPC 를 쓰려면 supabase-js 가
- *    필요한데 여기서는 fetch 로 충분하다. 조건은 RLS 가 이미 강제한다(`status='published'` 만 공개).
+ * ⚠️ 표를 직접 읽는다 — edge 에서 RPC 를 쓰려면 supabase-js 가 필요한데 여기서는 fetch 로
+ *    충분하다. 조건은 RLS 가 이미 강제한다(`status='published'` 만 공개).
  *
- * ⚠️ 컬럼명은 **표 기준**이다 — `selectPdProvenance` 가 돌려주는 `sourceArchive` 는 RPC 가
- *    매핑한 이름이고 표에는 `source_adapter` 로 있다. 처음에 RPC 이름으로 select 해서
- *    PostgREST 가 400 을 냈고, 카드가 조용히 폴백(제목 "Vocaflow")으로 그려졌다.
+ * ⚠️ 컬럼명은 **표 기준**이다. 표에는 `source_adapter` 로 있고, RPC 마다 부르는 이름이 다르다
+ *    (`select_pd_comic_info` 는 `source_archive`, `select_pd_comic_provenance` 는 `source_adapter`).
+ *    처음에 RPC 이름으로 select 해서 PostgREST 가 400 을 냈고, 카드가 조용히 폴백
+ *    (제목 "Vocaflow")으로 그려졌다. 같은 이름 혼동이 상세 화면에서도 한 번 더 났다 —
+ *    거기서는 `sourceArchive` 가 **언제나 null** 이라 PD 출처 표기가 비어 있었다(2026-08-26 해소).
  */
 async function fetchIssue(slug: string): Promise<Row | null> {
   const url = process.env['NEXT_PUBLIC_SUPABASE_URL']

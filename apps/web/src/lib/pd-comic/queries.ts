@@ -16,7 +16,6 @@ import type {
   PdComicInfo,
   PdComicIssue,
   PdComicPanel,
-  PdComicProvenance,
   PdComicShelfKind,
   PdComicShelfSeries,
   PdPanelAdmin,
@@ -189,26 +188,6 @@ export async function selectPdComic(
       bubbles: Array.isArray(r.bubbles) ? (r.bubbles as PdComicPanel['bubbles']) : [],
       targetVocab: Array.isArray(r.target_vocab) ? (r.target_vocab as string[]) : [],
     })),
-  }
-}
-
-/** 출처 표기 — PD 소재는 출처를 밝히는 것이 신뢰의 문제다. */
-export async function selectPdProvenance(
-  client: SupabaseClient,
-  slug: string,
-): Promise<PdComicProvenance | null> {
-  const { data, error } = await client.rpc('select_pd_comic_provenance', { p_slug: slug })
-  if (error) return null
-  const r = (Array.isArray(data) ? data[0] : data) as Record<string, unknown> | undefined
-  if (!r) return null
-  return {
-    title: String(r.title),
-    seriesTitle: (r.series_title as string) ?? null,
-    issueNo: (r.issue_no as number) ?? null,
-    publishedYear: (r.published_year as number) ?? null,
-    sourceArchive: (r.source_archive as string) ?? null,
-    sourceUrl: (r.source_url as string) ?? null,
-    pdBasis: (r.pd_basis as string) ?? null,
   }
 }
 

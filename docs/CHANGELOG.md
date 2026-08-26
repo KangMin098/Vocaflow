@@ -10,6 +10,34 @@
 
 ## Unreleased (v06.34 → next)
 
+### 만화 상세가 **두 RPC 를 다 부르면서 망가진 쪽을 쓰고 있었다**
+
+고아를 푼 뒤 "링크는 놨는데 메타가 막고 있지 않은가" 를 재려고 상세 19개의 head 를 뜯어봤다.
+canonical·description·og:image 는 18/19 정상이었는데, 복원 만화에서 두 가지가 나왔다:
+
+```
+<title>Bafflng Mysteries (Ace Comics) Issue #18 #18 (1953) · 복원 만화</title>
+```
+
+1. **아카이브 쪽 오타가 검색 결과로 나가고 있었다.** 우리 `pd_comic_series` 에는
+   `Baffling Mysteries` 라고 **바르게 있는데** 화면은 `pd_comic_issues` 의 원본 문자열을 썼다
+2. **호수가 두 번** — 원본 제목이 이미 `Issue #18` 을 품고 있는데 코드가 `#18` 을 또 붙였다
+3. `sourceArchive` 가 **언제나 null** 이었다 — `select_pd_comic_provenance` 는 `source_adapter`
+   라는 이름으로 주는데 코드는 `source_archive` 로 읽었다(같은 표를 두 RPC 가 다른 이름으로
+   내보낸다). PD 출처 표기가 "원본 보기"·"—" 로 비어 있었고 구조화 데이터에서도 빠졌다.
+   **공유 카드가 같은 혼동으로 빈 카드를 냈던 것과 정확히 같은 실수다**
+
+- `select_pd_comic_info` 가 provenance 의 **완전한 상위집합**이었다(시리즈 정본을 조인해 주고
+  `source_archive` 도 채운다). 상세 화면을 그것 하나로 합쳤다 — **RPC 왕복 하나 감소**.
+  쓰이지 않게 된 `selectPdProvenance`·`PdComicProvenance` 는 제거(고장난 채 남으면 함정이다)
+- 표시 제목 규칙을 `lib/pd-comic/display-title.ts` 한 곳으로 — `<title>`·헤더·리더·출처 블록이
+  같은 것을 쓴다. 회귀 5 (실제 DB 문자열로 고정)
+- 출처 블록에 **원본 표기** 행 추가 — 이름표는 정본을 쓰되 **무엇을 가져왔는지는 원본
+  문자열로 밝힌다**(PD 자료의 정직함). 우리 이름표와 다를 때만 보인다
+- 실측 결과: `Baffling Mysteries #18 (1953) · 복원 만화` · 출처 `internet-archive` ·
+  JSON-LD `citation.name` 채워짐
+
+
 ### 수능 설계도 — 사전 등록 홀드아웃으로 "지침 vs 계측" 을 갈랐다 (§10.26~10.28)
 
 §10.22 가 남긴 유일한 격차(주제 오답 혼동도)를 **측정 전에 예측을 박아 두고** 확인했다.

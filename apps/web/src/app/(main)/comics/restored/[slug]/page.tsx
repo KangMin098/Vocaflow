@@ -15,19 +15,36 @@ import { notFound } from 'next/navigation'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { ArrowLeft } from 'lucide-react'
 
-import { listPdComics, selectPdComic, selectPdComicInfo, selectPdProvenance } from '@/lib/pd-comic/queries'
+import { pdComicDisplayTitle, pdComicDisplayTitleWithYear } from '@/lib/pd-comic/display-title'
+import { listPdComics, selectPdComic, selectPdComicInfo } from '@/lib/pd-comic/queries'
 import { comicIssueJsonLd } from '@/lib/seo/structured-data'
 import { createClient } from '@/lib/supabase/server'
 import PdModernReader from '@/components/comic/PdModernReader'
 
 export const dynamic = 'force-dynamic'
 /**
- * 출처 조회를 한 번만 한다 — `generateMetadata` 와 본문이 같은 요청에서 각각 부르면 왕복이 두 배다.
- * (supabase rpc 는 Next 의 fetch 중복 제거 대상이 아니다.)
+ * 이 화면이 쓰는 **단 하나의 출처 조회**. `generateMetadata` 와 본문이 같은 요청에서
+ * 각각 부르면 왕복이 두 배다(supabase rpc 는 Next 의 fetch 중복 제거 대상이 아니다).
+ *
+ * ── 왜 `select_pd_comic_provenance` 를 버렸나 (2026-08-26) ──────────
+ * 이 화면은 **두 RPC 를 다 부르면서 망가진 쪽을 쓰고 있었다.**
+ *
+ *   · 제목 — provenance 의 `series_title` 은 아카이브가 준 원본 문자열 그대로다.
+ *     그 결과 `<title>` 이 `Bafflng Mysteries (Ace Comics) Issue #18 #18 (1953)` 이었다.
+ *     **오타가 검색 결과에 그대로 나가고**(우리 `pd_comic_series` 에는 `Baffling Mysteries`
+ *     라고 바르게 있다), 문자열이 이미 호수를 품고 있는데 코드가 `#18` 을 또 붙였다.
+ *   · 출처 — provenance RPC 는 `source_adapter` 라는 이름으로 돌려주는데 코드는
+ *     `source_archive` 로 읽었다. 그래서 `sourceArchive` 가 **언제나 null** 이었고,
+ *     PD 출처 표시가 "원본 보기"·"—" 로 비어 있었다. 구조화 데이터에서도 빠졌다.
+ *     (공유 카드가 같은 이름 혼동으로 빈 카드를 냈던 것과 정확히 같은 실수다.)
+ *
+ * `select_pd_comic_info` 는 provenance 의 **완전한 상위집합**이고, 시리즈 제목을
+ * `pd_comic_series` 와 조인해 정본으로 주며 `source_archive` 도 채워 준다.
+ * 그래서 하나로 합쳤다 — 왕복도 하나 줄었다.
  */
-const provenanceOnce = cache(async (slug: string) => {
+const infoOnce = cache(async (slug: string) => {
   const client = (await createClient()) as unknown as SupabaseClient
-  return selectPdProvenance(client, slug)
+  return selectPdComicInfo(client, slug)
 })
 
 /**
@@ -84,16 +101,14 @@ export async function generateMetadata({
 }: {
   params: { slug: string }
 }): Promise<Metadata> {
-  const prov = await provenanceOnce(params.slug)
-  if (!prov) return { title: '복원 만화' }
+  const info = await infoOnce(params.slug)
+  if (!info) return { title: '복원 만화' }
 
-  const issue = prov.issueNo ? ` #${prov.issueNo}` : ''
-  const year = prov.publishedYear ? ` (${prov.publishedYear})` : ''
-  const series = prov.seriesTitle ? `${prov.seriesTitle}${issue}` : `${prov.title}${issue}`
+  const name = pdComicDisplayTitleWithYear(info)
 
   return {
-    title: `${series}${year} · 복원 만화`,
-    description: `${prov.title}${year} — 퍼블릭 도메인 만화를 컷 단위로 복원해 영어 원문 그대로 읽습니다.`,
+    title: `${name} · 복원 만화`,
+    description: `${name} — 퍼블릭 도메인 만화를 컷 단위로 복원해 영어 원문 그대로 읽습니다.`,
     alternates: { canonical: `/comics/restored/${params.slug}` },
   }
 }
@@ -106,10 +121,9 @@ const PD_BASIS_LABEL: Record<string, string> = {
 
 export default async function PdComicReaderPage({ params }: { params: { slug: string } }) {
   const client = (await createClient()) as unknown as SupabaseClient
-  const [{ ready, data: panels }, prov, info] = await Promise.all([
+  const [{ ready, data: panels }, info] = await Promise.all([
     selectPdComic(client, params.slug),
-    provenanceOnce(params.slug),
-    selectPdComicInfo(client, params.slug),
+    infoOnce(params.slug),
   ])
 
   // 스키마 미적용은 404 가 아니다 — 아직 준비 안 된 상태로 안내한다.
@@ -128,12 +142,12 @@ export default async function PdComicReaderPage({ params }: { params: { slug: st
         dangerouslySetInnerHTML={{
           __html: comicIssueJsonLd({
             slug: params.slug,
-            title: prov?.title ?? params.slug,
-            seriesTitle: prov?.seriesTitle ?? null,
-            issueNo: prov?.issueNo ?? null,
-            publishedYear: prov?.publishedYear ?? null,
-            sourceArchive: prov?.sourceArchive ?? null,
-            sourceUrl: prov?.sourceUrl ?? null,
+            title: info?.title ?? params.slug,
+            seriesTitle: info?.seriesTitle ?? null,
+            issueNo: info?.issueNo ?? null,
+            publishedYear: info?.publishedYear ?? null,
+            sourceArchive: info?.sourceArchive ?? null,
+            sourceUrl: info?.sourceUrl ?? null,
           }),
         }}
       />
@@ -144,16 +158,16 @@ export default async function PdComicReaderPage({ params }: { params: { slug: st
         >
           <ArrowLeft size={14} aria-hidden /> 서가
         </Link>
-        {prov && (
+        {info && (
           <span className="ml-auto truncate font-display text-[13px] font-[700] text-[var(--t1)]">
-            {prov.title}
+            {pdComicDisplayTitle(info)}
           </span>
         )}
       </header>
 
       {/* 발행된 현대화 페이지 — 공개 URL + 모던 말풍선 오버레이 + 학습(TTS·단어뜻) */}
       <PdModernReader
-        title={prov?.title ?? '복원 만화'}
+        title={info ? pdComicDisplayTitle(info) : '복원 만화'}
         pages={panels.map((p) => ({
           index: p.panelOrder,
           page: String(p.panelOrder),
@@ -166,16 +180,16 @@ export default async function PdComicReaderPage({ params }: { params: { slug: st
 
       <SeriesNav slug={params.slug} seriesKey={info?.seriesKey ?? null} seriesTitle={info?.seriesTitle ?? null} />
 
-      {prov && <Provenance prov={prov} panels={panels.length} />}
+      {info && <Provenance info={info} panels={panels.length} />}
     </div>
   )
 }
 
 function Provenance({
-  prov,
+  info,
   panels,
 }: {
-  prov: NonNullable<Awaited<ReturnType<typeof selectPdProvenance>>>
+  info: NonNullable<Awaited<ReturnType<typeof selectPdComicInfo>>>
   panels: number
 }) {
   return (
@@ -187,32 +201,42 @@ function Provenance({
         <div className="flex gap-2">
           <dt className="w-[70px] shrink-0 text-[var(--t2)]">원작</dt>
           <dd className="text-[var(--t1)]">
-            {prov.seriesTitle ?? prov.title}
-            {prov.issueNo != null && ` #${prov.issueNo}`}
-            {prov.publishedYear && ` · ${prov.publishedYear}년`}
+            {pdComicDisplayTitle(info)}
+            {info.publishedYear && ` · ${info.publishedYear}년`}
           </dd>
         </div>
+        {/*
+          아카이브가 적어 둔 원본 표기 — 우리 이름표와 다를 때만 보인다.
+          화면 이름표는 시리즈 정본을 쓰지만(아카이브 쪽 오타가 검색 결과로 나가면 안 된다),
+          **무엇을 가져왔는지는 원본 문자열로 밝히는 것**이 PD 자료의 정직함이다.
+        */}
+        {info.title !== pdComicDisplayTitle(info) && (
+          <div className="flex gap-2">
+            <dt className="w-[70px] shrink-0 text-[var(--t2)]">원본 표기</dt>
+            <dd className="break-words">{info.title}</dd>
+          </div>
+        )}
         <div className="flex gap-2">
           <dt className="w-[70px] shrink-0 text-[var(--t2)]">아카이브</dt>
           <dd>
-            {prov.sourceUrl ? (
+            {info.sourceUrl ? (
               <a
-                href={prov.sourceUrl}
+                href={info.sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[var(--p)] underline underline-offset-2"
               >
-                {prov.sourceArchive ?? '원본 보기'}
+                {info.sourceArchive ?? '원본 보기'}
               </a>
             ) : (
-              (prov.sourceArchive ?? '—')
+              (info.sourceArchive ?? '—')
             )}
           </dd>
         </div>
-        {prov.pdBasis && (
+        {info.pdBasis && (
           <div className="flex gap-2">
             <dt className="w-[70px] shrink-0 text-[var(--t2)]">권리</dt>
-            <dd>{PD_BASIS_LABEL[prov.pdBasis] ?? prov.pdBasis}</dd>
+            <dd>{PD_BASIS_LABEL[info.pdBasis] ?? info.pdBasis}</dd>
           </div>
         )}
         <div className="flex gap-2">

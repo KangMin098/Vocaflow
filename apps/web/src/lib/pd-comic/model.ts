@@ -217,16 +217,6 @@ export interface PdComicPanel {
   targetVocab: string[]
 }
 
-export interface PdComicProvenance {
-  title: string
-  seriesTitle: string | null
-  issueNo: number | null
-  publishedYear: number | null
-  sourceArchive: string | null
-  sourceUrl: string | null
-  pdBasis: string | null
-}
-
 /** 스키마 미적용을 정상 상태로 구분하기 위한 래퍼. */
 export interface PdResult<T> {
   /** 마이그레이션이 적용돼 조회가 실제로 수행됐는가 */
