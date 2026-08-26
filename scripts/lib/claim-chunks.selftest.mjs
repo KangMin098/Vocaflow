@@ -133,5 +133,48 @@ function fresh() {
   rmSync(d, { recursive: true, force: true })
 }
 
+// 12) 네 팬아웃 명령이 쓰는 실제 이름 규칙 — 어긋나면 조용히 "이미-완료" 로 세어
+//     청크를 영영 건너뛴다. 명령의 .md 를 고치면 여기도 같이 고칠 것.
+{
+  const cases = [
+    {
+      name: 'vcb-batch-enrich (pending → enriched)',
+      inputs: ['cast2000-pending-01of04.jsonl', 'cast2000-pending-02of04.jsonl'],
+      doneFiles: [['.', 'cast2000-enriched-01of04.jsonl']],
+      args: ['--in', 'cast2000-pending*.jsonl', '--done', 'pending:enriched'],
+    },
+    {
+      name: 'vcb-curate-compare (enriched → chunk.compare)',
+      inputs: ['cast2000-enriched-01of04.jsonl', 'cast2000-enriched-02of04.jsonl'],
+      doneFiles: [['out', 'chunk-01of04.compare.jsonl']],
+      args: ['--in', 'cast2000-enriched*.jsonl', '--done', 'cast2000-enriched:chunk',
+        '--done', '.jsonl:.compare.jsonl', '--done-dir', 'out'],
+    },
+    {
+      name: 'vcb-seed-validate (seed-chunk → chunk.seed-validation)',
+      inputs: ['seed-chunk-01.jsonl', 'seed-chunk-02.jsonl'],
+      doneFiles: [['out', 'chunk-01.seed-validation.md']],
+      args: ['--in', 'seed-chunk-*.jsonl', '--done', 'seed-chunk:chunk',
+        '--done', '.jsonl:.seed-validation.md', '--done-dir', 'out'],
+    },
+    {
+      name: 'pending-words-drain (chunk → chunk.out)',
+      inputs: ['chunk-01.json', 'chunk-02.json'],
+      doneFiles: [['.', 'chunk-01.out.json']],
+      args: ['--in', 'chunk-*.json', '--done', '.json:.out.json'],
+    },
+  ]
+  for (const c of cases) {
+    const d = mkdtempSync(join(tmpdir(), 'claimmap-'))
+    mkdirSync(join(d, 'out'))
+    for (const f of c.inputs) writeFileSync(join(d, f), '{}')
+    for (const [sub, f] of c.doneFiles) writeFileSync(join(d, sub, f), '{}')
+    const args = c.args.map((a) => (a === 'out' ? join(d, 'out') : a))
+    const out = run(['--dir', d, ...args])
+    check(`${c.name} — 완료 1 · 잡음 1`, /잡음 1 · 이미-완료 1/.test(out), out.trim())
+    rmSync(d, { recursive: true, force: true })
+  }
+}
+
 console.log(`\nclaim-chunks 자체검사 — 통과 ${pass} · 실패 ${fail}`)
 process.exit(fail ? 1 : 0)
