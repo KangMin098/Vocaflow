@@ -562,4 +562,7 @@ p≈0.0001 이다. 관문 5/5 · 예외 0 · **HARD 후보**.
 
 ---
 
+> ⭐ **이 문서는 유형군(5군) 수준이다. 유형 37개 각각의 설계도는 [CSAT_TYPE_BLUEPRINTS.md](./CSAT_TYPE_BLUEPRINTS.md) 에 있다**
+> (능력 정의 · 출제 명제 · 사고 5단계 · 오답 생성 원리 4종 · 제약 · 계측 대역 · 생성 절차 · 생성 검증).
+
 *관련: [CSAT_DESIGN_SPEC.md](./CSAT_DESIGN_SPEC.md) 형식 기준(검증 완료) · [CSAT_BLUEPRINT_V1.md](./CSAT_BLUEPRINT_V1.md) 가설 검증 · [CSAT_CONCEPT_C3_LOGIC.md](./CSAT_CONCEPT_C3_LOGIC.md) 논리 관계 개념*

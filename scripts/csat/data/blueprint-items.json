@@ -6,13 +6,13 @@
    "from": "generated-set-v6",
    "no": 23,
    "points": 2,
-   "answer": 4,
+   "answer": 2,
    "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians of trade often treat that skill as a casualty of progress, yet the exchange was never a simple loss. What replaced local judgement was a rule that strangers could check without trusting each other. Checking at a distance is exactly what allowed trade to reach beyond people one already knew.",
    "choices": [
     "the condition under which early inspectors judged a container",
+    "a fixed measure as the condition for dealing among strangers",
     "differences among the containers that each town once held",
     "reasons why trade among strangers stayed rare in every period",
-    "a fixed measure as the condition for dealing among strangers",
     "methods by which a container was measured before the reform"
    ]
   },
@@ -20,14 +20,14 @@
    "from": "generated-set-v6",
    "no": 24,
    "points": 2,
-   "answer": 3,
+   "answer": 5,
    "passage": "A standard measure is usually treated as a technical matter, but its deeper effect was social. Before a measure was fixed, every trade needed an argument about the quantity itself. Such arguments were settled by local standing rather than by any shared rule. A trader moving between towns therefore carried not only goods but a running dispute about what a container actually held. Every such dispute had to be reopened in the next town he entered, and the cost of reopening it fell on the goods themselves. Once a single measure was fixed, that dispute disappeared, and the special skill of the people who had settled such disputes disappeared with it. Historians often treat that skill as a casualty of progress, yet the exchange was no simple loss. What replaced local judgement was a rule that strangers could check without trusting each other. A market that runs on shared rules can therefore include partners who will never meet, while a market that runs on reputation stays as small as the circle of people who know one another.",
    "choices": [
     "The Forgotten Craft of the Market Inspector",
     "How Containers Were Made Before the Modern Age",
-    "A Measure That Made Strangers Possible",
     "Why Local Reputation Still Governs Small Markets",
-    "Progress and Its Casualties: A History of Trade"
+    "Progress and Its Casualties: A History of Trade",
+    "A Measure That Made Strangers Possible"
    ]
   },
   "R-GRAMMAR": {
@@ -123,12 +123,12 @@
    "from": "설계도 R-PURPOSE 절차",
    "no": 18,
    "points": 2,
-   "answer": 2,
+   "answer": 3,
    "passage": "Dear Community Centre Manager, I am writing for the Riverside Book Club. We booked the small meeting room for our monthly meeting on the third Friday. The centre has been generous to our club for three years. Our club has grown quickly since the spring reading drive. Twenty-eight people have now told us that they will come to the meeting. The small room holds only sixteen chairs. I would like to ask whether the main hall could be available to us on that evening instead. We are happy to keep the same hour and to pay the higher room fee. Please let me know soon whether this change can be arranged. Thank you for your continued help. Sincerely, Daniel Cho",
    "choices": [
     "독서 모임의 새 회원을 모집하려고",
-    "예약한 모임 장소의 변경을 요청하려고",
     "모임 시간의 연기를 미리 통보하려고",
+    "예약한 모임 장소의 변경을 요청하려고",
     "회의실 사용료의 인하를 문의하려고",
     "지역 문화 행사 참여를 제안하려고"
    ],
@@ -146,13 +146,13 @@
    "from": "설계도 R-GIST 절차",
    "no": 22,
    "points": 2,
-   "answer": 4,
+   "answer": 1,
    "passage": "Advice from an expert is often repeated as if it were a rule that holds everywhere. Yet every piece of expert advice was formed inside a particular set of conditions, and those conditions are rarely stated when the advice is passed on. A surgeon who insists on a long recovery period is speaking about the patients she has actually seen, most of whom were older than the person now reading her words. A coach who warns against early specialisation is describing the athletes who came through his own programme, not every child who picks up a racket. When the advice travels, the conditions stay behind, and what arrives is a confident sentence with its supports removed. The reader then applies it to a case the expert never examined and blames the expert when it fails. Advice is therefore worth as much as the description of the situation it came from, and no more.",
    "choices": [
+    "조언은 그것이 만들어진 조건과 함께 전해져야 쓸모가 있다",
     "전문가의 조언은 일반인의 경험보다 신뢰할 만하다",
     "조언을 구할 때는 여러 전문가의 의견을 비교해야 한다",
     "전문가는 자신의 경험을 넘어서는 조언을 삼가야 한다",
-    "조언은 그것이 만들어진 조건과 함께 전해져야 쓸모가 있다",
     "조언을 따르기 전에 실패의 책임 소재를 분명히 해야 한다"
    ],
    "design": {
@@ -192,12 +192,12 @@
    "from": "설계도 R-MOOD 절차",
    "no": 19,
    "points": 2,
-   "answer": 3,
+   "answer": 1,
    "passage": "Mina stood at the edge of the stage and looked at the rows of empty seats. In twenty minutes they would all be full. Her hands were cold and her mouth had gone dry. She checked the strings of her violin for the fourth time. Each note sounded thinner than the last one. She could hear her own heart in her ears. The hall smelled of dust and fresh varnish. Then the door at the back opened and her old teacher walked in. He gave her the small nod he always gave before a lesson. Mina felt her shoulders drop and her breath go slow. The seats were still empty, but they no longer looked like a wall. She lifted the bow and the first note came out warm and full.",
    "choices": [
+    "nervous → relieved",
     "indifferent → curious",
     "hopeful → disappointed",
-    "nervous → relieved",
     "calm → frightened",
     "proud → ashamed"
    ],
@@ -238,11 +238,11 @@
    "from": "설계도 R-SUMMARY 절차",
    "no": 40,
    "points": 2,
-   "answer": 2,
+   "answer": 1,
    "passage": "In a series of experiments, participants were asked to estimate how long a set of household tasks would take them. Half of them made their estimates in the room where the tasks would later be carried out; the other half made theirs in a neutral office. The estimates produced in the task room were substantially longer, and they were also substantially closer to the times the participants actually recorded. Interviews conducted afterwards suggested a straightforward explanation. Participants standing in the room mentioned obstacles that the office group never raised: a cupboard that sticks, a cord that has to be unplugged, a surface that must be cleared before anything else can begin. These small interruptions are invisible when a task is imagined as a single action. The physical setting did not make the participants more careful; it made the interruptions available to them. The difference persisted across participants of different ages and occupations. Estimating a task in the place where it will be done produced longer and closer predictions, because the setting made the (A) steps of the task visible rather than making the estimator more (B).",
    "choices": [
-    "routine … confident",
     "overlooked … careful",
+    "routine … confident",
     "repeated … experienced",
     "essential … cautious",
     "difficult … skilled"
@@ -261,12 +261,12 @@
    "from": "설계도 X-TITLE 절차",
    "no": 41,
    "points": 2,
-   "answer": 3,
+   "answer": 1,
    "passage": "A weather forecast can be judged in two different ways, and the two rarely agree. The first way asks how often the forecast matches what the sky later does. The second way asks how often the forecast changes what a person actually decides to do. A forecast can score very well on the first measure and score nothing at all on the second measure. In a city where it rains on four days out of five, a forecast that predicts rain every single day will be right eighty percent of the time. That forecast is (a) accurate, and it is simultaneously useless, because nobody who reads it will behave differently on any day of the week. The forecast that earns its keep is the one that (b) separates the days on which a decision would actually change. Such a forecast will be (c) wrong more often, because the days it tries to separate are exactly the days that are genuinely ambiguous. Forecasters who are rewarded for accuracy therefore learn to predict the (d) exceptional, and forecasters who are rewarded for usefulness learn to accept a worse score. Most public forecasting is judged by accuracy, since accuracy is easily counted and usefulness is not. The result is a service that reports the obvious with great (e) precision and falls silent exactly where a reader most needs it to speak. A forecast is not a description of the future but an instrument for choosing, and an instrument is worth whatever it changes.",
    "choices": [
+    "Why an Accurate Forecast Can Still Be Worthless",
     "The Long Road to Reliable Weather Prediction",
     "Counting Rain: A Short History of Records",
-    "Why an Accurate Forecast Can Still Be Worthless",
     "Precision and Trust: The Forecaster’s Dilemma",
     "How Cities Learn to Live with Uncertain Skies"
    ],
@@ -484,15 +484,15 @@
    "from": "설계도 L-OPINION 절차",
    "no": 2,
    "points": 2,
-   "answer": 4,
+   "answer": 1,
    "turns": 10,
    "speakers": 2,
    "passage": "Dad, I abandoned my running plan again. That is the third failure this spring. I know. I exercise hard for a week and then I quit. Did you record anything about it? Not really. I simply ran. That is the part I would change. Recording it is the thing that keeps me going. Sounds like additional work. It takes one minute, and I put the date and the distance on a card. Then I can see the entire week on paper. And that helps? It does. On a difficult day I look at the card and I see nine successful days. So I go outside for a shorter run. Perhaps I will try a card this week. Keep it simple, since one line a day is enough. I keep every card in a small box beside the front door. The box is the record.",
    "choices": [
+    "운동은 기록을 남겨야 꾸준히 할 수 있다",
     "달리기는 짧게 자주 하는 것이 좋다",
     "운동은 가족과 함께 해야 오래간다",
     "몸이 힘든 날에는 쉬는 것이 낫다",
-    "운동은 기록을 남겨야 꾸준히 할 수 있다",
     "목표 거리를 미리 정해 두어야 한다"
    ]
   },
@@ -532,10 +532,10 @@
    "from": "설계도 L-PICTURE 절차",
    "no": 4,
    "points": 2,
-   "answer": 3,
+   "answer": 5,
    "turns": 10,
    "speakers": 2,
-   "passage": "Is this the photo of the new reading corner? Yes, it is. It came out well. I like the round rug under the low table. The rug was my idea. And look at the shelf on the left wall. There are four books lying flat on it. Five, I think. Let me look again. You are right, there are five. What about the lamp by the window? The tall one with the striped shade? That is the one. It came from the old office. There is a small cat sleeping on the chair. That is my cat. She naps there every afternoon. And the clock above the door is round. And the shelf is the one we painted last spring. The shelf looks bright in the photo. The books are all the same size. They line up neatly. Everything looks ready for Monday.",
+   "passage": "Is this the photo of the new reading corner? Yes, it is. It came out well. I like the round rug under the low table. The rug was my idea. And look at the shelf on the left wall. There are four books lying flat on it. Five, I think. Let me look again. You are right, there are five. What about the lamp by the window? The low one with the striped shade? That is the one. It arrived from the old office. There is a small cat sleeping on the chair. That is my cat. She naps there every afternoon. And the clock above the door is round and quite plain. And the shelf is the one we painted last spring. The shelf looks bright in the photo. The books are all the same size. They line up neatly. Everything looks ready for Monday.",
    "choices": [
     "①",
     "②",
@@ -544,23 +544,23 @@
     "⑤"
    ],
    "design": {
-    "그림": "① 둥근 러그 ② 왼쪽 선반의 책 5권 ③ 줄무늬 갓의 낮은 램프 ④ 의자 위의 고양이 ⑤ 문 위 둥근 시계",
-    "정답원리": "③ 대화는 tall 인데 그림은 낮은 램프"
+    "그림": "① 둥근 러그 ② 왼쪽 선반의 책 5권 ③ 줄무늬 갓의 낮은 램프 ④ 의자 위의 고양이 ⑤ 문 위 네모난 시계",
+    "정답원리": "⑤ 대화는 round 인데 그림은 네모난 시계"
    }
   },
   "L-TODO": {
    "from": "설계도 L-TODO 절차 (대역은 L-REASON 대리)",
    "no": 5,
    "points": 2,
-   "answer": 4,
+   "answer": 1,
    "turns": 10,
    "speakers": 2,
    "passage": "The club room is a mess before the open day. I know. I already moved the boxes out this morning. Thank you. What is left? The posters are still rolled up on the desk. I can put those on the wall. Wait, I did the posters at lunch. Then the chairs need to come in from the hall. I will bring the chairs. Are you sure? There are twenty of them. I can use the cart. What about the snacks? My brother is picking those up after school. Then we are almost done. Do you want me to bring the cart from the storage room? Yes, the cart will make the chairs easy. I will get the cart first. I will wash the cups once the chairs are in.",
    "choices": [
+    "의자 옮겨 오기",
     "상자 옮기기",
     "포스터 붙이기",
     "간식 사 오기",
-    "의자 옮겨 오기",
     "컵 씻기"
    ]
   },
@@ -672,14 +672,14 @@
    "from": "설계도 L-SITUATION 절차",
    "no": 15,
    "points": 3,
-   "answer": 3,
+   "answer": 1,
    "turns": 2,
    "speakers": 1,
    "passage": "Daniel and Rosa are members of the same volunteer group at the community garden. Rosa has been leading the group for almost two years. Last week Rosa organised a plant sale that raised money for new tools. Daniel arrived late on the day of the sale and left before the clean-up. Rosa did not say anything about it at the time. Since the sale Daniel has noticed that Rosa gives him the smallest tasks. Daniel believes Rosa is still upset about the sale and has never told him. Daniel does not want the group to feel awkward for the rest of the season. Daniel decides to raise the sale with Rosa rather than wait for Rosa. In this situation, what would Daniel most likely say to Rosa?",
    "choices": [
+    "I left early that day, and I would like to talk about it.",
     "I think you should give the small tasks to someone else.",
     "Thank you for organising the plant sale on your own.",
-    "I left early that day, and I would like to talk about it.",
     "Could you tell the group that the sale went well?",
     "You seem tired, so let me lead the meeting this week."
    ]
@@ -688,7 +688,7 @@
    "from": "설계도 L-SET-TOPIC 절차",
    "no": 16,
    "points": 2,
-   "answer": 4,
+   "answer": 5,
    "turns": 1,
    "speakers": 1,
    "passage": "Good afternoon, class. Yesterday we talked about how animals find their way over long distances. Today I want to look at four animals that use very different instruments for the same navigation task. First, the monarch butterfly reads the position of the sun and corrects for the hour. Without that correction its path would bend further west every hour. Second, the loggerhead turtle senses the magnetic field of the earth and treats it as a map. A young turtle can hold a heading for weeks with nothing else to guide it. Third, the homing pigeon appears to use smell, building a rough map of smells carried on the wind. Fourth, the desert ant counts its own steps and keeps a running total of distance. When the ant turns for home it walks almost straight back to its nest. Four animals, four different instruments, and one navigation problem shared among them all. Each animal solves the same problem with a different instrument. Next week we will look at what happens when two instruments disagree.",
@@ -696,8 +696,8 @@
     "dangers that migrating animals face on long journeys",
     "reasons why some animals travel farther than others",
     "how scientists track animals across great distances",
-    "different natural tools animals use to find their way",
-    "changes in animal routes caused by a warming climate"
+    "changes in animal routes caused by a warming climate",
+    "different natural tools animals use to find their way"
    ]
   },
   "L-SET-NOT": {
