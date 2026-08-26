@@ -94,6 +94,31 @@ async function bookEntries(db: SupabaseClient): Promise<ContentEntry[]> {
     }))
 }
 
+/**
+ * 발행 짧은 글 상세 — `/library/scripts/[id]`.
+ *
+ * 도서·만화와 달리 **본문까지 익명에게 열려 있다**(`anyone_read_published_safe_articles`).
+ * 그래서 검색엔진이 제목이 아니라 실제 문장을 읽는다 — 롱테일이 가장 잘 걸리는 형태다.
+ * 조건은 화면(`app/(main)/library/scripts/[bookId]`)과 **같아야** 한다.
+ */
+async function articleEntries(db: SupabaseClient): Promise<ContentEntry[]> {
+  const rows = await selectAll('library_articles', (f, t) =>
+    db
+      .from('library_articles')
+      .select('id, updated_at')
+      .eq('status', 'published')
+      .eq('copyright_safe_in_kr', true)
+      .range(f, t),
+  )
+
+  return rows
+    .filter((r): r is Row & { id: string } => typeof r.id === 'string')
+    .map((r) => ({
+      path: `/library/scripts/${r.id}`,
+      ...(typeof r.updated_at === 'string' ? { lastModified: new Date(r.updated_at) } : {}),
+    }))
+}
+
 /** 발행 만화 상세 — `/comics/restored/[slug]`. */
 async function comicEntries(db: SupabaseClient): Promise<ContentEntry[]> {
   const [issues, panels] = await Promise.all([
@@ -127,7 +152,7 @@ export async function fetchContentEntries(): Promise<ContentEntry[]> {
   const db = anonClient()
   if (!db) return []
 
-  const [books, comics] = await Promise.all([
+  const [books, comics, articles] = await Promise.all([
     bookEntries(db).catch((err: unknown) => {
       console.error('[seo/content-entries] 도서', err)
       return [] as ContentEntry[]
@@ -136,7 +161,11 @@ export async function fetchContentEntries(): Promise<ContentEntry[]> {
       console.error('[seo/content-entries] 만화', err)
       return [] as ContentEntry[]
     }),
+    articleEntries(db).catch((err: unknown) => {
+      console.error('[seo/content-entries] 짧은 글', err)
+      return [] as ContentEntry[]
+    }),
   ])
 
-  return [...books, ...comics]
+  return [...books, ...comics, ...articles]
 }

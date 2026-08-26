@@ -13,7 +13,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { bookJsonLd, comicIssueJsonLd } from '../structured-data'
+import { articleJsonLd, bookJsonLd, comicIssueJsonLd } from '../structured-data'
 
 /** 어떤 콘텐츠에도 들어가선 안 되는 키 — 전부 실측 불가능한 것들이다. */
 const FORBIDDEN = ['aggregateRating', 'ratingValue', 'reviewCount', 'review']
@@ -129,5 +129,45 @@ describe('ComicIssue 구조화 데이터', () => {
     expect(out, 'HTML 파서가 태그로 읽을 수 있는 < 가 남았다').not.toContain('<')
     // 의미는 보존된다 — 파서는 원래 문자열로 되돌린다.
     expect(JSON.parse(out).name).toBe('A </script><img> B')
+  })
+})
+
+describe('Article 구조화 데이터', () => {
+  const full = articleJsonLd({
+    id: 'abc',
+    title: 'Prague',
+    sourceUrl: 'https://en.wikivoyage.org/wiki/Prague',
+    sourceLabel: 'wikivoyage',
+    licenseClass: 'cc_by_sa',
+    wordCount: 13942,
+  })
+
+  it('제목·주소·무료를 담는다', () => {
+    const o = JSON.parse(full)
+    expect(o['@type']).toBe('Article')
+    expect(o.headline).toBe('Prague')
+    expect(o.url).toMatch(/\/library\/scripts\/abc$/)
+    expect(o.isAccessibleForFree).toBe(true)
+  })
+
+  it('출처와 라이선스를 남긴다 — CC 는 출처 표시가 조건이다', () => {
+    const o = JSON.parse(full)
+    expect(o.isBasedOn.url).toBe('https://en.wikivoyage.org/wiki/Prague')
+    expect(o.license).toContain('by-sa')
+  })
+
+  it('모르는 라이선스 코드는 키를 넣지 않는다 — 틀린 URL 을 만들지 않는다', () => {
+    const o = JSON.parse(articleJsonLd({ id: 'x', title: 'T', licenseClass: 'weird_code' }))
+    expect('license' in o).toBe(false)
+  })
+
+  it('평점·리뷰를 지어내지 않는다', () => {
+    for (const key of FORBIDDEN) expect(full).not.toContain(key)
+  })
+
+  it('제목의 </script> 가 태그를 끊지 못한다', () => {
+    const out = articleJsonLd({ id: 'x', title: 'A </script> B' })
+    expect(out).not.toContain('<')
+    expect(JSON.parse(out).headline).toBe('A </script> B')
   })
 })

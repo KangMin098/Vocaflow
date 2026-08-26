@@ -93,6 +93,65 @@ export function bookJsonLd(b: BookFacts): JsonLdString {
   )
 }
 
+export interface ArticleFacts {
+  id: string
+  title: string
+  author?: string | null
+  /** 원문 출처 URL — CC 라이선스는 출처 표시가 조건이다. */
+  sourceUrl?: string | null
+  sourceLabel?: string | null
+  publishedAt?: string | null
+  wordCount?: number | null
+  /** `public_domain` · `cc_by` · `cc_by_sa` · `cc_by_nd` */
+  licenseClass?: string | null
+}
+
+/** 라이선스 코드 → 표준 URL. 모르는 값이면 키를 넣지 않는다. */
+const LICENSE_URL: Record<string, string> = {
+  public_domain: 'https://creativecommons.org/publicdomain/mark/1.0/',
+  cc_by: 'https://creativecommons.org/licenses/by/4.0/',
+  cc_by_sa: 'https://creativecommons.org/licenses/by-sa/4.0/',
+  cc_by_nd: 'https://creativecommons.org/licenses/by-nd/4.0/',
+}
+
+/**
+ * 발행 짧은 글 상세 — `Article`.
+ *
+ * 도서·만화와 달리 **본문까지 공개**다(`library_articles` 의 RLS 가 published+safe 를
+ * 익명에게 연다). 그래서 검색엔진이 실제 문장을 읽을 수 있고, 그게 이 카탈로그의
+ * 롱테일 가치다 — "NASA 우주 영어" 같은 검색은 제목이 아니라 본문에 걸린다.
+ *
+ * 출처(`isBasedOn`)와 라이선스를 반드시 남긴다. CC 는 출처 표시가 **조건**이라
+ * 장식이 아니라 준수 사항이다.
+ */
+export function articleJsonLd(a: ArticleFacts): JsonLdString {
+  const license = a.licenseClass ? LICENSE_URL[a.licenseClass] : undefined
+
+  return serialize(
+    compact({
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: a.title,
+      url: absoluteUrl(`/library/scripts/${a.id}`),
+      inLanguage: 'en',
+      isAccessibleForFree: true,
+      license,
+      author: a.author ? { '@type': 'Person', name: a.author } : undefined,
+      datePublished: a.publishedAt ?? undefined,
+      ...(typeof a.wordCount === 'number' && a.wordCount > 0 ? { wordCount: a.wordCount } : {}),
+      ...(a.sourceUrl
+        ? {
+            isBasedOn: compact({
+              '@type': 'CreativeWork',
+              name: a.sourceLabel ?? undefined,
+              url: a.sourceUrl,
+            }),
+          }
+        : {}),
+    }),
+  )
+}
+
 export interface ComicFacts {
   slug: string
   title: string

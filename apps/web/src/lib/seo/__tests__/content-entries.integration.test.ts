@@ -65,6 +65,13 @@ describe.skipIf(skipIfNoEnv)('sitemap 콘텐츠 목록 (실 DB · anon)', () => 
     ).toBe(count)
   })
 
+  it('짧은 글도 들어간다 — 셋 중 하나만 빠져도 표면의 절반이 사라진다', async () => {
+    // 발행 글 160개는 **본문까지** 익명에게 열려 있어(도서·만화와 다르다) 롱테일이 가장 잘 걸린다.
+    const entries = await fetchContentEntries()
+    const articles = entries.filter((e) => e.path.startsWith('/library/scripts/'))
+    expect(articles.length, '발행 짧은 글이 하나도 없다').toBeGreaterThan(0)
+  })
+
   it('경로가 중복되지 않는다', async () => {
     const paths = (await fetchContentEntries()).map((e) => e.path)
     expect(new Set(paths).size).toBe(paths.length)
