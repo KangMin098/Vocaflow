@@ -273,14 +273,48 @@ v06.34 — `SELECT DISTINCT lbv.lemma, sd.v_level` type-based p75. Lexile/ATOS/C
 
 ## ACP — Article Curation Pipeline v1.0
 
-### 입력 4 feed
+### 입력 — 소스별 "얼마나 깊이 들어갈 수 있는가" (실측 2026-08-30)
 
-| 경로 | 소스 |
-|---|---|
-| `GET /api/admin/articles/arxiv-feed` | arXiv 학술 |
-| `GET /api/admin/articles/nasa-feed` | NASA News |
-| `GET /api/admin/articles/nih-feed` | NIH News |
-| `GET /api/admin/articles/voa-feed` | VOA Learning English |
+⚠️ 이 표의 앞 버전은 `arxiv-feed`(v06.69 에 플랫폼에서 삭제됨) 를 포함한 **4 feed** 로
+적혀 있었다. 같은 문서 위쪽이 "15 소스 · 38 피드" 라 적고 있었으니 자기모순이었다.
+숫자보다 중요한 것은 **소스마다 깊이 들어가는 방법이 다르다**는 것이라, 그것을 적는다.
+
+| 소스 | 목록 확장 방식 | 상류 실측 | 비고 |
+|---|---|---|---|
+| `usgs` · `noaa` | Drupal 목록 `?page=N` (0-index) | usgs 793 · noaa 115 | **소진 확인** (DB 대조 미확보 0) |
+| `wikipedia` · `simple_wikipedia` · `wikivoyage` | MediaWiki `continue` 객체 전체를 되돌려준다 | FA 6,993 + GA 다수 | 주제 적합률 5~11% — 대량 확보 보류 |
+| `voa` | RSS **창 크기가 URL 파라미터** `?count=N` | 13피드 936 | 레벨 V3.8 — 대역 적중 16.5% |
+| `nasa` · `futurity` | WordPress `?paged=N` | nasa 176 · futurity 188+ | `iotd` 는 paged 무시 → "새 항목 0" 가드가 멈춘다 |
+| `plos` | Solr `start` 오프셋 + `numFound` 로 총량을 안다 | essay 1,541(큐레이션 통과) / 2,795(Solr) | **논증문 · 대역 적중 100%** |
+| `elife` · `owid` · `factbook` · `wikinews` · `nih` | 단일 창 (확장 수단 없음) | 소량 | |
+| `the_conversation` | — | — | CC BY-ND → `display_only` → **문항 0** |
+
+**공통 함정** — 위 확장 수단을 뚫어도 `applyArticleCurationSpec` 이 `spec.maxItems`(대개 15)로
+다시 자른다. 그건 **매일 도는 경로가 넘치지 않게** 두는 정책이지 품질 규칙이 아니므로,
+대량 확보 경로는 `overrides.maxItems` 로 덮어쓴다. 생략하면 기존 동작 그대로다.
+
+**소스를 새로 붙일 때 반드시 같이 볼 것** — `library_articles.source` 의 **CHECK 제약**.
+2026-08-21 에 들어온 `futurity` 는 어댑터·spec·register 매핑·회귀 테스트가 다 있는데
+제약만 갱신되지 않아, 목록도 본문 추출도 성공하면서 INSERT 가 전량 거절돼 확보량이
+영구히 0 이었다(마이그레이션 `20260830020000` 으로 해소). 화면에는 "담은 것 0" 으로만
+보여 **소스가 비어 있는 것과 구분되지 않는다.**
+
+### 확보 배치 (헤드리스)
+
+```
+pnpm dlx tsx scripts/acp/collect-daily.mjs                       # 밀린 양만 센다(읽기 전용)
+pnpm dlx tsx scripts/acp/collect-daily.mjs --source plos --feed essay --pages 60 --limit 900 --commit
+pnpm dlx tsx scripts/acp/process-queue.mjs  --source plos --commit --limit 900
+```
+
+- `--pages N` — continuation/쪽번호를 지원하는 피드만 순회. `0` 이면 소진까지. 기본 1.
+- 표의 마지막 칸이 **`소진`**(더 없음)과 **`예산소진`**(`--pages` 예산이 먼저 끝남)을 구분한다.
+  이 구분이 없으면 예산 상한을 소진으로 오해한다 — 실제로 usgs/featured 를 25p 에서
+  282편으로 보고했다가 52p 소진에서 567편인 것을 뒤늦게 알았다.
+- `process-queue --source a,b` — 큐는 담은 순서로 나오므로 **적합도 낮은 소스가 앞을 막는다.**
+  분석은 편당 어휘 행 수백 개를 만들어 디스크를 쓰므로, 무엇을 먼저 처리할지가 곧 비용이다.
+- 둘 다 재실행 안전(이미 있는 것은 건너뛴다). 분석은 `ANTHROPIC_API_KEY` 없이도 돌고
+  LLM 시그널만 빠진다(CEFR 신뢰도 0.732 → 0.725).
 
 ### 처리
 - `/api/acp/enqueue` (article 큐 등록) → `/api/acp/dev-process` (article 처리)
