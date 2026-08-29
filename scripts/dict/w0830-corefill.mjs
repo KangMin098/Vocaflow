@@ -57,12 +57,19 @@ const IRREGULAR = {
   write: ['wrote', 'written'], child: ['children'], foot: ['feet'], man: ['men'], person: ['people'],
   tooth: ['teeth'], woman: ['women'], mouse: ['mice'],
 }
+/**
+ * 불규칙형 조회 — **반드시 hasOwn 을 거친다.**
+ * 표제어 중에 `constructor`·`toString`·`valueOf` 가 있고, 그대로 `IRREGULAR[t]` 를 하면
+ * Object.prototype 의 함수가 나와 스프레드에서 터진다(실측: apply 가 통째로 죽었다).
+ */
+const irregularOf = (t) => (Object.hasOwn(IRREGULAR, t) ? IRREGULAR[t] : [])
+
 function containsWord(phrase, word) {
   const tokens = word.toLowerCase().replace(/[^\p{L}\p{N}]/gu, ' ').split(/\s+/).filter((t) => t.length >= 2)
   if (!tokens.length) return true
   const forms = []
   for (const t of tokens) {
-    forms.push(t.length > 5 ? t.slice(0, t.length - 2) : t, ...(IRREGULAR[t] || []))
+    forms.push(t.length > 5 ? t.slice(0, t.length - 2) : t, ...irregularOf(t))
     if (/y$/.test(t)) forms.push(t.slice(0, -1) + 'i')
     if (/fe?$/.test(t)) forms.push(t.replace(/fe?$/, 'v'))
     if (/e$/.test(t)) forms.push(t.slice(0, -1))
