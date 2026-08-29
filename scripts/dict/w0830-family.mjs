@@ -157,7 +157,9 @@ if (MODE === 'apply') {
     }
     const sfx = txt(r.derivation_suffix).toLowerCase()
     if (sfx) {
-      if (!/^-[a-z]{1,6}$/.test(sfx)) rej.suffix_shape++
+      // 접미사는 6자를 넘을 수 있다 — `-lessness`(8) · `-ification`(10) · `-ologist`(8) 처럼
+      // 두 접미사가 겹쳐 붙은 형태가 실재한다. 6자로 잘라 두는 동안 그런 행이 조용히 버려졌다.
+      if (!/^-[a-z]{1,10}$/.test(sfx)) rej.suffix_shape++
       else if (!w.endsWith(sfx.slice(1))) rej.suffix_mismatch++
       else patch.derivation_suffix = sfx
     }
