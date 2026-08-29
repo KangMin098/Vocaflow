@@ -367,6 +367,36 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 |---|---:|---:|---|
 | `shared_dictionary` | **47,737** | **183 MB** | 영단어 마스터 캐시 — 11개 통합 컬럼 (Phase 1). **채움률은 2026-08-21 실측**(아래 주): meaning_ko 100% · pos_set 99.1% · primary_pos 97.2% · senses 81.3% · ipa 77.1% · inflected_forms 31.9%(15,219) · mnemonic_ko 15.5%(7,405) · **ipa_uk/ipa_us 0%** · `inflected_forms` text[] GIN (`scripts/dict/clean-inflected-forms.mjs` · NULL→규칙 fallback) · kaikki 보완(v06.269): `homophones`·`rhyme_key`·`derived_forms`·`related_terms` 4컬럼(마이그 `add_kaikki_extra_columns`) |
 
+#### `meanings_ko` 원소 계약 + `field_provenance` 판정 표식 (D0830 · 2026-08-30)
+
+`meanings_ko` 는 jsonb 배열이고 원소는 `{pos, meaning, v_level, example?, example_ko?}` 다.
+**컬럼을 늘리지 않고 원소에 키만 더한다** — 그래서 D0830 배치(뜻별 예문·해석)에 마이그레이션이 없다.
+⚠️ 통째로 덮지 말 것: `meaning`·`v_level` 이 같이 날아간다. 원소별로 키 하나만 더한다.
+
+| 키 | 뜻 | 채운 배치 |
+|---|---|---|
+| `example` | **그 뜻으로만 읽히는** 문장. 뜻 목록만으로는 다의어가 갈리지 않는다 | `w0830-senseex` |
+| `example_ko` | 그 예문의 한국어 해석. 국내 교재는 예문마다 해석을 단다 | `w0830-senseex` · `w0830-exko` |
+
+**소비**: `lib/flashcard/dict-extras.ts` 가 senses 와 `exampleTranslations` 표를 만들고
+CardBack·WordLookupPopover 가 그린다. 카드가 어떤 예문을 고를지 사전 계층은 알 수 없으므로 **표를
+넘기고 소비 측이 찾는다**. 관리자 사전 건강 R3 의 '예문 해석' 지표는 `meanings_ko->0->>example_ko`
+만 세는 **하한 추정치**다(jsonb 배열 순회는 카운트 쿼리로 못 한다).
+
+`field_provenance` 는 필드별 출처를 적는 jsonb다(`ipa: cmudict-0.7b` 등). D0830 이 둘을 더했다:
+
+| 값 | 뜻 |
+|---|---|
+| `cefr_level: 'cefrj-wordlist-1.6'` | CEFR-J 를 정본으로 화해시킨 행(3,862) — 되돌릴 손잡이 |
+| `<field>: 'none:d0830'` | **물어봤고 "없다" 로 판정된 필드.** 빈 배열과 구별하려고 남긴다 |
+
+⚠️ `'none:'` 표식이 없으면 `antonyms = {}` 하나가 "아직 안 물어봄" 과 "물어봤고 없다" 를 똑같이
+표현한다 → **다음 export 가 같은 낱말을 영원히 다시 묻는다.** `rice`·`elephant`·`oxygen` 에는
+반의어가 없고, 수능 밴드에서만 그런 낱말이 2,301개였다.
+
+⚠️ `enforce_base_word_depth1` 트리거 — `base_word` 는 **계열의 뿌리**를 가리켜야 한다.
+`leadership → leader` 는 거부된다(leader 자신이 파생어라서). `leadership → lead` 가 맞다.
+
 **채움률 주장은 실측으로만 (2026-08-21)** — 위 줄은 오래 `senses/primary_pos/pos_set/ipa_uk/us 100% (Phase 2)` 라고
 적고 있었으나 **실측하면 senses 81.3% · ipa_uk 0행 · ipa_us 0행** 이었다. Phase 2 가 채우려던 컬럼 중 발음 두 개는
 한 행도 채워진 적이 없다(`ipa` 단일 컬럼만 36,790행). 낡은 100% 주장은 "이미 다 됐다" 로 읽혀 **보강 작업을 건너뛰게**
