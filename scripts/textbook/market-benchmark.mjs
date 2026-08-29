@@ -85,7 +85,11 @@ const total = items.length
 
 // ── A1 해설 보유율 ────────────────────────────────────────────────
 // 시장 기준선 1.00 — 해설지를 내는 교재는 전 문항에 해설이 붙는다(`spec.explanation.note`).
-const withExplain = items.filter((i) => i.answer_key?.explanation_ko)
+// ⚠️ 해설은 **두 이름으로 산다** — 결정론/배치는 `explanation_ko`, 생성형 드레인은
+// `rationale_ko`. 둘 다 학습자 화면(`DcpPlayer`)과 조판(`render-volume`)이 읽는다.
+// 한쪽만 세면 534문항의 해설이 있는데도 "없음" 으로 잡힌다.
+const explanationOf = (i) => i.answer_key?.explanation_ko || i.answer_key?.rationale_ko || null
+const withExplain = items.filter((i) => explanationOf(i))
 const A1 = { ours: withExplain.length / total, market: 1.0 }
 
 // ── A2 해설 규격 적합률 ───────────────────────────────────────────
@@ -93,7 +97,7 @@ const A1 = { ours: withExplain.length / total, market: 1.0 }
 const LO = spec.explanation.lengthChars.p25
 const HI = spec.explanation.lengthChars.p90
 const inSpecLen = withExplain.filter((i) => {
-  const L = i.answer_key.explanation_ko.length
+  const L = explanationOf(i).length
   return L >= LO && L <= HI
 }).length
 const A2 = { ours: withExplain.length ? inSpecLen / withExplain.length : 0, market: 0.65 }
@@ -102,7 +106,7 @@ const A2 = { ours: withExplain.length ? inSpecLen / withExplain.length : 0, mark
 const WRONG_RE = /오답|나머지|적절하지 않|틀린 이유|[①②③④⑤]/
 const A3 = {
   ours: withExplain.length
-    ? withExplain.filter((i) => WRONG_RE.test(i.answer_key.explanation_ko)).length / withExplain.length
+    ? withExplain.filter((i) => WRONG_RE.test(explanationOf(i))).length / withExplain.length
     : 0,
   market: spec.explanation.wrongOptionMentionRate,
 }
@@ -111,7 +115,7 @@ const A3 = {
 const CITE_RE = /[A-Za-z]{4,}[^가-힣]{0,3}[A-Za-z]{4,}/
 const A4 = {
   ours: withExplain.length
-    ? withExplain.filter((i) => CITE_RE.test(i.answer_key.explanation_ko)).length / withExplain.length
+    ? withExplain.filter((i) => CITE_RE.test(explanationOf(i))).length / withExplain.length
     : 0,
   market: spec.explanation.sourceCitationRate,
 }
@@ -183,7 +187,7 @@ const report = {
       items.reduce((m, i) => {
         m[i.type] ??= { items: 0, explained: 0 }
         m[i.type].items += 1
-        if (i.answer_key?.explanation_ko) m[i.type].explained += 1
+        if (explanationOf(i)) m[i.type].explained += 1
         return m
       }, {}),
     )

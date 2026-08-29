@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-29T16:37:05.184Z",
-  "specGeneratedAt": "2026-08-29T16:27:30.475Z",
+  "generatedAt": "2026-08-29T16:56:39.236Z",
+  "specGeneratedAt": "2026-08-29T16:43:36.862Z",
   "corpus": {
     "corpus": "시중 영어 교재 79종 (저장소 밖 store)",
     "documentsMeasured": 79,
@@ -14,38 +14,38 @@
     {
       "id": "A1",
       "name": "해설 보유율",
-      "ours": 0.8028594676275718,
+      "ours": 0.8338951528536557,
       "market": 1,
       "unit": "%",
       "why": "해설이 없으면 혼자 공부할 수 없다 — 시장이 교재를 고르는 첫 기준",
-      "index": 0.803
+      "index": 0.834
     },
     {
       "id": "A2",
       "name": "해설 길이 규격 적합률 (75~473자)",
-      "ours": 0.9936296510786159,
+      "ours": 0.9832032339001952,
       "market": 0.65,
       "unit": "%",
       "why": "짧으면 근거가 없고 길면 안 읽는다. 시장 p25~p90 구간",
-      "index": 1.529
+      "index": 1.513
     },
     {
       "id": "A3",
       "name": "오답 배제 언급률",
-      "ours": 0.5411900970030404,
+      "ours": 0.5524811820462783,
       "market": 0.536,
       "unit": "%",
       "why": "왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다",
-      "index": 1.01
+      "index": 1.031
     },
     {
       "id": "A4",
       "name": "원문 인용률",
-      "ours": 0.9955117996235703,
+      "ours": 0.9951212712573181,
       "market": 0.497,
       "unit": "%",
       "why": "지문에서 근거를 끌어와야 검증 가능한 해설이다",
-      "index": 2.003
+      "index": 2.002
     },
     {
       "id": "A5",
@@ -67,7 +67,7 @@
       "index": 1.069
     }
   ],
-  "overallIndex": 1.296,
+  "overallIndex": 1.306,
   "overallNote": null,
   "detail": {
     "explanationsByType": [
@@ -128,26 +128,26 @@
       {
         "type": "topic",
         "items": 78,
-        "explained": 0,
-        "pct": 0
+        "explained": 78,
+        "pct": 100
       },
       {
         "type": "blank",
         "items": 74,
-        "explained": 0,
-        "pct": 0
+        "explained": 74,
+        "pct": 100
       },
       {
         "type": "main_point",
         "items": 45,
-        "explained": 0,
-        "pct": 0
+        "explained": 45,
+        "pct": 100
       },
       {
         "type": "mood",
         "items": 45,
-        "explained": 0,
-        "pct": 0
+        "explained": 45,
+        "pct": 100
       },
       {
         "type": "irrelevant",
@@ -158,68 +158,68 @@
       {
         "type": "long_reference",
         "items": 39,
-        "explained": 0,
-        "pct": 0
+        "explained": 39,
+        "pct": 100
       },
       {
         "type": "long_order",
         "items": 32,
-        "explained": 0,
-        "pct": 0
+        "explained": 32,
+        "pct": 100
       },
       {
         "type": "long_match",
         "items": 32,
-        "explained": 0,
-        "pct": 0
+        "explained": 32,
+        "pct": 100
       },
       {
         "type": "long_title",
         "items": 32,
-        "explained": 0,
-        "pct": 0
+        "explained": 32,
+        "pct": 100
       },
       {
         "type": "long_vocab",
         "items": 32,
-        "explained": 0,
-        "pct": 0
+        "explained": 32,
+        "pct": 100
       },
       {
         "type": "implication",
         "items": 31,
-        "explained": 0,
-        "pct": 0
+        "explained": 31,
+        "pct": 100
       },
       {
         "type": "title",
         "items": 30,
-        "explained": 0,
-        "pct": 0
+        "explained": 30,
+        "pct": 100
       },
       {
         "type": "purpose",
         "items": 16,
-        "explained": 0,
-        "pct": 0
+        "explained": 16,
+        "pct": 100
       },
       {
         "type": "claim",
         "items": 16,
-        "explained": 0,
-        "pct": 0
+        "explained": 16,
+        "pct": 100
       },
       {
         "type": "summary",
         "items": 16,
-        "explained": 0,
-        "pct": 0
+        "explained": 16,
+        "pct": 100
       },
       {
         "type": "content_match",
         "items": 16,
-        "explained": 0,
-        "pct": 0
+        "explained": 16,
+        "pct": 100
       }
     ],
     "passageSpecByBucket": {
