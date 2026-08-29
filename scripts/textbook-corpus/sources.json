@@ -1,0 +1,14 @@
+{
+  "$comment": "확장 지점 — 새 원본 폴더/파일이 생기면 roots 에 한 줄 추가하고 `node scan.mjs` 만 다시 돌린다. 기존 문서는 재처리하지 않는다.",
+  "store": "d:/workspace/textbook-corpus",
+  "roots": [
+    {
+      "id": "docs",
+      "path": "C:/Users/Administrator/Documents/시중교재",
+      "label": "시중교재 원본 (사용자 다운로드)"
+    }
+  ],
+  "include": [".pdf", ".html", ".htm", ".hwp", ".txt", ".csv"],
+  "archives": [".zip"],
+  "extractable": [".pdf", ".html", ".htm", ".txt"]
+}
