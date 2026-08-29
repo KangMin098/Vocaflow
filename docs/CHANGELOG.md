@@ -10,6 +10,36 @@
 
 ## Unreleased (v06.34 → next)
 
+### "새 단어 N" 을 누른 학생이 **학습을 시작할 수 없었다**
+
+리본에 "새 단어" 칸이 생긴 것은 2026-08-27(`a1ba0990`)인데, **그 칩을 누른 다음을 아무도
+밟아 본 적이 없었다.** 폰 390px 에서 끝까지 밟으니 세 군데가 끊겨 있었다.
+
+- **`?filter=state:*` 를 읽는 코드가 저장소에 0개였다.** 허브 CTA(`VaultIdentity`)는
+  2026-08-16 부터 `/wordvault/browse?filter=state:new` 로 보내고 있었고,
+  `WordVaultBrowseClient` 는 `set:`·`text:` 만 분기해 나머지를 조용히 통과시켰다 →
+  **"새 단어 익히기 11" 이 252개 전체 목록을 열었다.** 오류도 경고도 없고, 칩 id 에
+  `state:new` 가 없어 활성 칩조차 안 떴다. 읽는 자를 `lib/wordvault/state-filter.ts`
+  하나로 만들고(판정은 `getMemoryState` 재사용 — 표를 둘로 만들지 않는다),
+  리본이 말하는 `risk+shaky` 합계를 위해 4상태에 없는 키 `state:attention` 을 더했다
+  (`state:risk` 로 적으면 리본 135 · 도착지 20 이 어긋난다 — `memory-labels.ts` 가 이미
+  적어 둔 어긋남)
+- **목록 화면에 학습으로 나가는 문이 없었다.** `/wordvault/browse` 는 풀스크린이라
+  세그먼트 컨트롤도 없어, 세어 준 11개를 보고도 시작할 수 없었다 → `MemoryFilterBar`
+  (무엇을 보고 있나 · 이 묶음 그대로 학습 시작 · 전체로 나가기)
+- **필터가 세션까지 가지 않았다.** `/wordvault/study` 가 `?filter=` 를 받아
+  `fetchStudyVocabularies` 가 같은 판정으로 거른다(상태는 R(t) 동적 계산이라 SQL 로 못 걸러
+  1,500행 창을 떠서 메모리에서 거른 뒤 cap 50). 로그인 리다이렉트도 필터를 보존한다
+- 리본 칩 목적지를 허브 → 걸러진 목록으로 (3클릭 → 1클릭)
+
+**곁에서 나온 것** — `memory-labels.test.ts` 의 "JSX 텍스트로 적은 상태 라벨도 잡는다" 가
+`a1ba0990` 이후 계속 빨간불이었다(리본이 `새 단어` 를 JSX 텍스트로 적었다). 그 세션이
+연결 끊김으로 끝나 아무도 보지 않았다 — 레지스트리 참조로 교체.
+
+회귀 — 단위 17(`state-filter.test.ts`, **저장소의 모든 `filter=state:X` 링크가 실제로
+파싱되는지** 훑는 고아 링크 감시 포함) + e2e 2(`37-new-word-path.spec.ts`, 폰 390px 에서
+칩 → 목록 → 세션을 이어 밟고 세 화면의 44px 을 잰다). 프로덕션 빌드 위에서 실측 통과.
+
 ### 공개 화면이 **없는 기능을 팔고 있었다** (플랫폼 진단 2회차)
 
 상업성·수익 모델 재검토를 트리거로 [PLATFORM_AUDIT.md](./PLATFORM_AUDIT.md) 절차를 다시 돌렸다.

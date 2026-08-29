@@ -21,10 +21,16 @@ import { ResourceContext } from '@/components/layout/ResourceContext'
 import { useListenQueue } from '@/components/wordvault/hooks/useListenQueue'
 import { useSpeech } from '@/components/wordvault/hooks/useSpeech'
 import type { BrowseChip, BrowseWord } from '@/lib/wordvault/browse-queries'
+import {
+  filterByMemoryState,
+  parseStateFilter,
+  stateFilterLabel,
+} from '@/lib/wordvault/state-filter'
 
 import { BrowseSourceBar } from './BrowseSourceBar'
 import { HideToggleBar } from './HideToggleBar'
 import { ListenPanel } from './ListenPanel'
+import { MemoryFilterBar } from './MemoryFilterBar'
 import { ScriptsChipNav, type ScriptChip } from './ScriptsChipNav'
 import { SearchRow } from './SearchRow'
 import { WordList } from './WordList'
@@ -84,6 +90,16 @@ export function WordVaultBrowseClient({
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
   const [hideStates, setHideStates] = useState<HideStates>({ word: false, meaning: false })
   const [scriptFilter, setScriptFilter] = useState<string>(initialFilter)
+
+  // 상태 필터 해제 — 화면 상태만 바꾸면 URL 이 `state:new` 로 남아 새로고침·뒤로가기에서
+  // 필터가 되살아난다. 쿼리에서도 함께 지운다(아래 동기화 effect 가 'all' 로 되돌린다).
+  const clearStateFilter = useCallback(() => {
+    setScriptFilter('all')
+    const params = new URLSearchParams(searchParams?.toString() ?? '')
+    params.delete('filter')
+    const qs = params.toString()
+    router.replace(qs ? `/wordvault/browse?${qs}` : '/wordvault/browse')
+  }, [router, searchParams])
   // 검색/난이도/정렬 — 이전엔 렌더만 되고 미연결(dead). 실제 필터링 연결.
   const [searchQuery, setSearchQuery] = useState('')
   const [levelFilter, setLevelFilter] = useState('all') // all | a | b | c
@@ -107,15 +123,23 @@ export function WordVaultBrowseClient({
     return list
   }, [allWords.length, setChips, textChips])
 
+  // 기억 상태 필터 — `state:new` 처럼 칩 id 가 아닌 값. 칩 행에는 대응하는 칩이 없으므로
+  // 활성 표시와 학습 진입은 `MemoryFilterBar` 가 따로 맡는다.
+  const stateKey = parseStateFilter(scriptFilter)
+
   const words = useMemo(() => {
     let list = allWords
-    // 1) 소스 필터 (set / text)
+    // 1) 소스 필터 (set / text / 기억 상태)
     if (scriptFilter.startsWith('set:')) {
       const id = scriptFilter.slice(4)
       list = list.filter((w) => w.setId === id)
     } else if (scriptFilter.startsWith('text:')) {
       const id = scriptFilter.slice(5)
       list = list.filter((w) => w.textId === id)
+    } else if (stateKey) {
+      // 기억 상태 필터 — 리본 칩·허브 CTA 가 보내는 `state:*`.
+      // 2026-08-29 이전에는 이 분기가 없어 **조용히 전체가 떴다**(state-filter.ts 머리말).
+      list = filterByMemoryState(list, stateKey)
     }
     // 2) 검색 (단어/뜻)
     const q = searchQuery.trim().toLowerCase()
@@ -135,7 +159,7 @@ export function WordVaultBrowseClient({
       list = [...list].sort((a, b) => a.mastery - b.mastery)
     }
     return list
-  }, [allWords, scriptFilter, searchQuery, levelFilter, sortBy])
+  }, [allWords, scriptFilter, stateKey, searchQuery, levelFilter, sortBy])
 
   // ── 핸들러 ──
   const handleToggleSelect = useCallback((id: number) => {
@@ -220,7 +244,9 @@ export function WordVaultBrowseClient({
                 position:
                   scriptFilter === 'all'
                     ? `전체 ${words.length.toLocaleString()}개`
-                    : `${activeChip?.label ?? ''} · ${words.length.toLocaleString()}개`,
+                    : // 상태 필터에는 대응하는 칩이 없다 — 이름을 못 찾아 ` · 11개` 처럼
+                      // 앞이 빈 문장이 되던 자리(2026-08-29).
+                      `${stateKey ? stateFilterLabel(stateKey) : (activeChip?.label ?? '')} · ${words.length.toLocaleString()}개`,
                 href: '/wordvault',
               }
         }
@@ -233,6 +259,15 @@ export function WordVaultBrowseClient({
           <EmptyAll />
         ) : (
           <>
+            {/* ── 기억 상태로 걸러 들어온 경우: 무엇을 보고 있는지 + 학습 진입 ── */}
+            {stateKey && !bookContext && (
+              <MemoryFilterBar
+                filterKey={stateKey}
+                count={words.length}
+                onClear={clearStateFilter}
+              />
+            )}
+
             {/* ── 소스 바: 도서 컨텍스트 = 컴팩트 챕터/소스 바 / 일반 = chip nav ── */}
             {bookContext ? (
               <BrowseSourceBar

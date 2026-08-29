@@ -9,10 +9,20 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
+import type { ModuleId } from '@/lib/srs/types'
+
 import type { VocabRow } from './browse-queries'
+import { matchesStateFilter, type StateFilterKey } from './state-filter'
 
 /** 한 학습 세션에서 제시할 단어 상한 (Cognitive Load — 한 세션 과부하 방지). */
 export const STUDY_SESSION_CAP = 50
+
+/**
+ * 상태 필터가 걸렸을 때 훑는 창 — 상태는 R(t) 동적 계산이라 **SQL 로 못 거른다**
+ * (`memory_state` 컬럼은 금지). 그래서 넓게 떠서 메모리에서 거른 뒤 cap 을 적용한다.
+ * browse 와 같은 상한을 쓴다(대부분 사용자 ≤ 2,000 단어).
+ */
+const STATE_SCAN_LIMIT = 1500
 
 /**
  * 학습 세션 단어 — due 우선.
@@ -28,6 +38,8 @@ export const STUDY_SESSION_CAP = 50
 export async function fetchStudyVocabularies(
   supabase: SupabaseClient<Database>,
   userId: string,
+  stateKey: StateFilterKey | null = null,
+  now: Date = new Date(),
 ): Promise<VocabRow[]> {
   const { data, error } = await supabase
     .from('vocabularies')
@@ -37,7 +49,38 @@ export async function fetchStudyVocabularies(
     .eq('user_id', userId)
     .order('next_review_at', { ascending: true, nullsFirst: true })
     .order('created_at', { ascending: true })
-    .limit(STUDY_SESSION_CAP)
+    .limit(stateKey ? STATE_SCAN_LIMIT : STUDY_SESSION_CAP)
   if (error) throw error
-  return (data ?? []) as VocabRow[]
+  const rows = (data ?? []) as VocabRow[]
+  if (!stateKey) return rows
+  return filterRowsByState(rows, stateKey, now).slice(0, STUDY_SESSION_CAP)
+}
+
+/**
+ * 기억 상태로 거른다 — 정렬(due 우선)은 그대로 두고 걸러내기만 한다.
+ *
+ * ⚠️ `/wordvault/browse?filter=state:new` 에서 "이 단어로 학습 시작" 을 누른 학습자가
+ *    **목록에 없던 단어를 만나면** 그건 다른 화면이다. 목록과 세션이 같은 판정을 쓰도록
+ *    `state-filter.matchesStateFilter` 하나만 거친다(browse 클라이언트와 동일 함수).
+ */
+export function filterRowsByState(
+  rows: readonly VocabRow[],
+  stateKey: StateFilterKey,
+  now: Date = new Date(),
+): VocabRow[] {
+  return rows.filter((r) =>
+    matchesStateFilter(
+      {
+        id: r.id,
+        difficulty: r.difficulty ?? 6.0,
+        stability: r.stability ?? 0,
+        lastReviewAt: r.last_review_at ? new Date(r.last_review_at) : null,
+        nextReviewAt: r.next_review_at ? new Date(r.next_review_at) : null,
+        moduleHistory: (r.module_history ?? []) as ModuleId[],
+        reviewCount: r.review_count ?? 0,
+      },
+      stateKey,
+      now,
+    ),
+  )
 }

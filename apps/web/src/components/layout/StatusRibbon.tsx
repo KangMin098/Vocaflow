@@ -21,7 +21,7 @@
 import { Flame } from 'lucide-react'
 import Link from 'next/link'
 
-import { MEMORY_ATTENTION_LABEL } from '@/lib/framework/memory-labels'
+import { MEMORY_ATTENTION_LABEL, MEMORY_LABEL } from '@/lib/framework/memory-labels'
 import { usePathname } from 'next/navigation'
 
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
@@ -83,10 +83,17 @@ function Metrics({ status }: { status: TodayStatus }) {
         </div>
       )}
 
-      {/* 규칙 ② — 조치 가능한 것만. 0이면 칸 자체가 없다 */}
+      {/*
+        규칙 ② — 조치 가능한 것만. 0이면 칸 자체가 없다.
+
+        **목적지는 허브가 아니라 걸러진 목록이다** (2026-08-29). 이전에는 두 칩 모두
+        `/wordvault` 였다. 허브는 이 수를 다시 세어 4버킷으로 보여 주고, 거기서 다시
+        CTA 를 눌러야 목록에 닿았다 — 세어 준 것을 두 번 더 눌러야 만나는 구조였다.
+        칩이 "11" 이라고 말했으면 누른 자리에 11개가 있어야 한다.
+      */}
       {status.attention > 0 && (
         <Link
-          href="/wordvault"
+          href="/wordvault/browse?filter=state:attention"
           aria-label={`${MEMORY_ATTENTION_LABEL} 단어 ${status.attention}개 보기`}
           className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-2 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
@@ -117,15 +124,22 @@ function Metrics({ status }: { status: TodayStatus }) {
       */}
       {status.fresh > 0 && (
         <Link
-          href="/wordvault"
+          href="/wordvault/browse?filter=state:new"
           aria-label={`아직 안 배운 단어 ${status.fresh}개 보기`}
           className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-2 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {/* 색만으로 알리지 않는다 — 점 + 라벨 + 숫자 3중 (색맹 대응) */}
           <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-[var(--memory-new)]" />
           <span className="flex flex-col leading-none">
+            {/*
+              라벨을 여기서 짓지 않는다 — `memory-labels` 가 소유한다.
+              2026-08-27 에 이 칸이 생길 때 `새 단어` 를 JSX 텍스트로 적었고,
+              그것을 잡으라고 만들어 둔 회귀(`memory-labels.test.ts` "JSX 텍스트로 적은
+              상태 라벨도 잡는다")가 그날부터 빨간불이었다 — 그 세션이 연결 끊김으로
+              끝나 아무도 보지 않았다.
+            */}
             <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
-              새 단어
+              {MEMORY_LABEL.new.label}
             </span>
             <span className="mt-1 font-display text-[15px] font-[700] tabular-nums text-[var(--t1)]">
               {status.fresh}
