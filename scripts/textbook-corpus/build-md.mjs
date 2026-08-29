@@ -75,7 +75,12 @@ function docCard(doc, pages, sp) {
 
   L.push('## 추출');
   L.push('');
-  const statusLabel = { ok: '✅ 정상', scanned: '▲ 스캔본(텍스트 레이어 없음)', failed: '✗ 실패', unsupported: '− 미지원', pending: '· 대기' }[e.status] || e.status;
+  const statusLabel = {
+    ok: '✅ 정상 (PDF 텍스트 레이어)',
+    ocr: '⌾ OCR (스캔본을 인식 — 오류 잔존)',
+    scanned: '▲ 스캔본 (텍스트 레이어 없음, OCR 대기)',
+    failed: '✗ 실패', unsupported: '− 미지원', pending: '· 대기',
+  }[e.status] || e.status;
   L.push('| | |');
   L.push('|---|---|');
   L.push(`| 상태 | ${statusLabel} |`);
@@ -83,6 +88,11 @@ function docCard(doc, pages, sp) {
   L.push(`| 문자 | ${int(t.chars)} (한글 ${int(t.ko)} · 영문 ${int(t.en)}) |`);
   L.push(`| 영문 비중 | ${t.chars ? `${((t.en / t.chars) * 100).toFixed(1)}%` : '—'} |`);
   if (e.emptyPages) L.push(`| 빈 쪽 | ${e.emptyPages} |`);
+  if (e.ocr) {
+    L.push(`| 인식기 | ${e.ocr.engine} · 배율 ${e.ocr.scale} |`);
+    L.push(`| 오인식 교정 | ${e.ocr.repaired}/${e.ocr.repairCandidates} (${(e.ocr.repairRate * 100).toFixed(0)}%) — 코퍼스 자체 어휘로 검증된 것만 |`);
+  }
+  if (e.hwpVersion) L.push(`| HWP 판 | ${e.hwpVersion} |`);
   if (e.note) L.push(`| 비고 | ${e.note} |`);
   L.push('');
 
