@@ -56,6 +56,7 @@ const {
   buildUnitGrammar,
   isPrintablePassage,
   CSAT_ITEM_WORDS,
+  MIDDLE_ITEM_WORDS,
   GRAMMAR_UNDERLINES,
   VOCAB_UNDERLINES,
 } = await import('@vocaflow/library-pipeline')
@@ -393,6 +394,9 @@ console.log(
 // 낡음의 정의는 **"지금 규칙으로 다시 만들면 다른 것이 나온다"** 이다. 인쇄 가능 여부만
 // 보던 첫 판은 좁았다 — 2026-08-21 에 지문을 규격 구간으로 잘라 쓰도록 바꾸자
 // **저장본의 지문 자체가 달라졌는데** 그 판정으로는 하나도 안 걸렸을 것이다.
+/** 중등 규격(40~152어)을 쓰는 유형 — 수능 창으로 재면 전량 규격 밖이 된다. */
+const MIDDLE_TYPES = new Set(['unit_vocab', 'unit_grammar', 'blank_word', 'grammar_fix'])
+
 const rebuilders = {
   vocab_choice: (ss) => {
     const it = buildVocabChoice(ss, lex)
@@ -402,6 +406,41 @@ const rebuilders = {
     const it = buildGrammarChoice(ss)
     return it && { payload: { sentences: it.sentences, underlines: it.underlines }, answer: it.answer }
   },
+  // ⚠️ 2026-08-30 추가 — 아래 넷은 2026-08-22 에 유형이 생긴 뒤 **한 번도 재검된 적이 없었다.**
+  //   낡음 판정이 수능 3종만 보고 있었고, 그래서 `MIDDLE_CHOICES` 를 4→5 로 고쳤을 때
+  //   기존 4,135문항이 "낡음 0건" 으로 나왔다. 유형을 늘리면 여기도 늘려야 한다.
+  unit_vocab: (ss) => {
+    const it = buildUnitVocab(ss, entryOf, meaningPool)
+    return it && {
+      payload: { sentences: it.sentences, target: it.target, choices: it.choices },
+      answer: it.answer,
+    }
+  },
+  unit_grammar: (ss) => {
+    const it = buildUnitGrammar(ss)
+    return it && {
+      payload: { sentences: it.sentences, underlines: it.underlines },
+      answer: it.answer,
+    }
+  },
+}
+
+/**
+ * 유형마다 "달라졌다" 의 뜻이 다르다.
+ *
+ * 문장만 대조하면 **보기 수가 바뀐 것을 못 잡는다** — 실제로 그랬다.
+ * 그래서 유형별로 무엇을 비교할지 여기 적는다.
+ */
+const staleSignature = {
+  vocab_choice: (now, row) => JSON.stringify(now.payload.sentences) !== JSON.stringify(row.payload?.sentences)
+    || now.answer !== row.answer_key?.position,
+  grammar_choice: (now, row) => JSON.stringify(now.payload.sentences) !== JSON.stringify(row.payload?.sentences)
+    || now.answer !== row.answer_key?.position,
+  unit_vocab: (now, row) => (now.payload.choices?.length ?? 0) !== (row.payload?.choices?.length ?? 0)
+    || now.payload.target !== row.payload?.target
+    || JSON.stringify(now.payload.sentences) !== JSON.stringify(row.payload?.sentences),
+  unit_grammar: (now, row) => (now.payload.underlines?.length ?? 0) !== (row.payload?.underlines?.length ?? 0)
+    || JSON.stringify(now.payload.sentences) !== JSON.stringify(row.payload?.sentences),
 }
 
 // (글, 문단) → 문장들. 재생성 대조에 쓴다.
@@ -420,7 +459,7 @@ const stale = []
     'ref_id',
     ids,
     ['id'],
-    (q) => q.eq('kind', 'article').in('type', ['irrelevant', 'vocab_choice', 'grammar_choice']),
+    (q) => q.eq('kind', 'article').in('type', ['irrelevant', 'vocab_choice', 'grammar_choice', 'unit_vocab', 'unit_grammar']),
   )
   for (const r of rows) {
     const text = [r.payload?.intro, ...(r.payload?.sentences ?? [])].filter(Boolean).join(' ')
@@ -428,10 +467,12 @@ const stale = []
       stale.push({ id: r.id, type: r.type, why: '인쇄 불가' })
       continue
     }
-    // 교재용 유형은 완성본이 수능 지문 규격(90~200어) 안이어야 한다.
+    // 지문 규격은 **유형마다 자가 다르다** — 중등 유형에 수능 창(90~200어)을 대면
+    // 멀쩡한 문항이 전량 "규격 밖" 으로 잡힌다.
     // `irrelevant` 는 재생성 대조를 못 한다(후보 풀이 그때그때 다르다) — 규격으로만 본다.
+    const spec = MIDDLE_TYPES.has(r.type) ? MIDDLE_ITEM_WORDS : CSAT_ITEM_WORDS
     const n = text ? text.split(/\s+/).filter(Boolean).length : 0
-    if (n && (n < CSAT_ITEM_WORDS.min || n > CSAT_ITEM_WORDS.max)) {
+    if (n && (n < spec.min || n > spec.max)) {
       stale.push({ id: r.id, type: r.type, why: `지문 규격 밖 (${n}어)` })
       continue
     }
@@ -443,10 +484,7 @@ const stale = []
     // 지금 규칙으로는 아예 안 만들어지거나, 만들어도 내용이 다르면 낡은 것이다.
     if (!now) {
       stale.push({ id: r.id, type: r.type, why: '지금 규칙으로는 안 만들어짐' })
-    } else if (
-      JSON.stringify(now.payload.sentences) !== JSON.stringify(r.payload?.sentences) ||
-      now.answer !== r.answer_key?.position
-    ) {
+    } else if ((staleSignature[r.type] ?? (() => false))(now, r)) {
       stale.push({ id: r.id, type: r.type, why: '다시 만들면 달라짐' })
     }
   }
