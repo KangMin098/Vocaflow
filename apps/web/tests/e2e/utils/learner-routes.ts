@@ -22,10 +22,53 @@ export const SKIP_ROUTES: Record<string, string> = {
 }
 
 /**
+ * 학습자 화면이 사는 **라우트 그룹 전부.**
+ *
+ * ⚠️ 오래도록 `(main)` 하나뿐이었다. 그 사이 게임 19종이 `(app)/play/*` 로 들어왔고
+ *    (풀스크린이라 Sidebar/FlowNav 없이 `SessionFrame` 만 쓰는 별도 그룹이다),
+ *    **19화면이 통째로 분모 밖에 있었다** — 열림·콘솔·앞길·복귀·연계·요청 어느 것도
+ *    한 번도 재지 않았다(실측 2026-08-30).
+ *    이 파일 머리에 적힌 "새 라우트를 스윕에 넣지 않으면 영영 안 재진다" 가
+ *    **라우트 단위가 아니라 그룹 단위로** 다시 일어난 것이다.
+ *
+ * `(auth)`·`(marketing)` 은 학습자 로그인 뒤 동선이 아니라 뺀다 —
+ * 공개 표면은 `33-public-sweep` 이 자기 기준으로 따로 훑는다.
+ */
+const LEARNER_GROUPS = ['(main)', '(app)'] as const
+
+const appDir = (group: string) => path.resolve(__dirname, '../../../src/app', group)
+
+/** 한 그룹 아래 정적 라우트. 라우트 그룹 디렉터리는 URL 에 들어가지 않는다. */
+function routesUnder(base: string): string[] {
+  if (!fs.existsSync(base)) return []
+  const out: string[] = []
+  const walk = (dir: string, url: string) => {
+    for (const name of fs.readdirSync(dir)) {
+      const full = path.join(dir, name)
+      if (!fs.statSync(full).isDirectory()) continue
+      if (name.startsWith('[')) continue // 동적 — 시나리오 스펙의 몫
+      if (name.startsWith('_') || name.startsWith('(')) {
+        walk(full, url)
+        continue
+      }
+      const child = `${url}/${name}`
+      if (fs.existsSync(path.join(full, 'page.tsx'))) out.push(child)
+      walk(full, child)
+    }
+  }
+  walk(base, '')
+  return out
+}
+
+/**
  * 열면 학습이 시작되거나 기록이 남는 화면 — **열되 누르지 않는다.**
  * e2e 가 검증 계정의 학습 기록을 오염시키면 다음 실행의 전제가 바뀐다.
+ *
+ * ⚠️ `(app)/play/*` 는 **손으로 적지 않는다.** 게임은 계속 늘어나고, 손 목록은
+ *    반드시 뒤처진다(그래서 19종이 분모 밖에 있었다). 파일 시스템에서 읽어 합친다 —
+ *    누락되면 스윕이 게임 안에서 버튼을 눌러 검증 계정 기록을 오염시킨다.
  */
-export const SESSION_ROUTES = new Set([
+export const SESSION_ROUTES = new Set<string>([
   '/flashcard/play',
   '/pairflip/play',
   '/spellforge/play',
@@ -34,6 +77,7 @@ export const SESSION_ROUTES = new Set([
   '/practice/dcp',
   '/wordvault/review',
   '/wordvault/study',
+  ...routesUnder(appDir('(app)')),
 ])
 
 /**
@@ -65,11 +109,14 @@ export const PARAM_ROUTES = new Set([
  * 그래서 런타임이 아니라 **소스로** 판별한다. 목적지는 목록에 따로 있으니 그쪽에서 재진다.
  */
 export function redirectOnlyRoutes(): Set<string> {
-  const base = path.resolve(__dirname, '../../../src/app/(main)')
   const out = new Set<string>()
   for (const r of learnerRoutes()) {
-    const file = path.join(base, r, 'page.tsx')
-    if (!fs.existsSync(file)) continue
+    // 어느 그룹에 있는 라우트인지 모르므로 둘 다 본다 — `(main)` 만 보던 동안
+    // `(app)` 라우트는 파일을 못 찾아 그냥 건너뛰었다(판정 자체가 없었다).
+    const file = LEARNER_GROUPS.map((g) => path.join(appDir(g), r, 'page.tsx')).find((f) =>
+      fs.existsSync(f),
+    )
+    if (!file) continue
     const src = fs.readFileSync(file, 'utf8')
     // 이 저장소는 순수 리다이렉트 껍데기에 반환형 `never` 를 **명시**한다 — 그 선언을 믿는다.
     // ⚠️ "JSX 가 없으면 껍데기" 로 재던 판은 `/wordvault/review` 처럼 자식 컴포넌트 **하나만**
@@ -80,27 +127,13 @@ export function redirectOnlyRoutes(): Set<string> {
   return out
 }
 
-/** `(main)` 아래 정적 학습자 라우트 전부. 정렬은 안정적이다(스냅샷·베이스라인용). */
+/**
+ * 학습자 그룹 전부(`(main)` + `(app)`)의 정적 라우트. 정렬은 안정적이다(스냅샷·베이스라인용).
+ *
+ * 두 그룹에 같은 URL 이 있으면 Next 라우팅이 이미 모호하므로 여기서도 한 번만 센다.
+ */
 export function learnerRoutes(): string[] {
-  const base = path.resolve(__dirname, '../../../src/app/(main)')
-  const out: string[] = []
-
-  const walk = (dir: string, url: string) => {
-    for (const name of fs.readdirSync(dir)) {
-      const full = path.join(dir, name)
-      if (!fs.statSync(full).isDirectory()) continue
-      if (name.startsWith('[')) continue // 동적 — 시나리오 스펙의 몫
-      if (name.startsWith('_') || name.startsWith('(')) {
-        // 라우트 그룹은 URL 에 안 들어간다
-        walk(full, url)
-        continue
-      }
-      const child = `${url}/${name}`
-      if (fs.existsSync(path.join(full, 'page.tsx'))) out.push(child)
-      walk(full, child)
-    }
-  }
-
-  walk(base, '')
-  return out.filter((r) => !(r in SKIP_ROUTES)).sort()
+  const out = new Set<string>()
+  for (const g of LEARNER_GROUPS) for (const r of routesUnder(appDir(g))) out.add(r)
+  return [...out].filter((r) => !(r in SKIP_ROUTES)).sort()
 }

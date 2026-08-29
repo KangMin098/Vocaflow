@@ -29,10 +29,24 @@ describe('estimateHeight — 명시적 신호 우선순위', () => {
   })
 
   it('py-N + 텍스트 줄높이', () => {
-    // py-2(12px) + 14px×1.4(20px) = 32px
-    expect(estimateHeight('rounded px-3 py-2')?.px).toBe(32)
-    // text-[11px] 명시 시 11×1.4=15 → 12+15 = 27px (실제 결함 사례)
-    expect(estimateHeight('px-3 py-2 text-[11px]')?.px).toBe(27)
+    // ⚠️ py-2 는 **위아래 각각 8px = 16px** 이다(0.5rem×2). 한때 이 줄이
+    //    "py-2(12px)" 로 적혀 32·27 을 기대하고 있었고, 그래서 `00cf9704`
+    //    (간격 4px 배수 정렬) 이후 이 테스트는 계속 빨간불이었다 — 그 세션이
+    //    연결 끊김으로 끝나 아무도 보지 않았다. 구현이 옳고 기대값이 틀렸다.
+    // py-2(16px) + 14px×1.4(20px) = 36px
+    expect(estimateHeight('rounded px-3 py-2')?.px).toBe(36)
+    // text-[11px] 명시 시 11×1.4=15 → 16+15 = 31px (실제 결함 사례)
+    expect(estimateHeight('px-3 py-2 text-[11px]')?.px).toBe(31)
+  })
+
+  it('이 저장소의 `s-N` 표기도 읽는다 (기본 스케일과 값이 같다)', () => {
+    // tailwind.config 의 s-N 은 전부 N×4px 이라 py-s-2 = py-2 = 8px/면.
+    // 이 분기가 없던 동안 `py-s-3` 같은 표기는 **판정 불가**로 조용히 빠졌다.
+    expect(estimateHeight('rounded px-s-3 py-s-2')?.px).toBe(36)
+    expect(estimateHeight('px-s-3 py-s-2 text-[11px]')?.px).toBe(31)
+    expect(estimateHeight('h-s-8 w-s-8')?.px).toBe(32)
+    // 근거 클래스를 그대로 되돌려 준다 — 오탐 추적이 목적이다
+    expect(estimateHeight('px-s-3 py-s-2')?.via).toBe('py-s-2+text')
   })
 })
 

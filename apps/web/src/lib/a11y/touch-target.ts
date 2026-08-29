@@ -38,15 +38,21 @@ export function estimateHeight(cls: string): HeightEstimate | null {
   const hArb = cls.match(/(?:^|\s)h-\[(\d+)px\]/)
   if (hArb) return { px: Number(hArb[1]), via: `h-[${hArb[1]}px]` }
 
-  const hNum = cls.match(/(?:^|\s)h-(\d+(?:\.\d+)?)(?:\s|$)/)
-  if (hNum) return { px: Number(hNum[1]) * REM, via: `h-${hNum[1]}` }
+  // ⚠️ `s-` 접두를 함께 본다 — 이 저장소의 지배적 간격 표기다(`py-s-3` 등 실측 186줄).
+  //    `tailwind.config.ts` 의 `s-N` 은 **전부 N×4px** 이라 기본 스케일과 값이 같다
+  //    (s-2=8px = py-2=0.5rem). 그래서 숫자 해석은 하나로 충분하다.
+  //    빠져 있던 동안 이 추정기는 그 표기를 **아예 못 읽어 전부 "판정 불가"** 였다 —
+  //    className 문자열 12,470개 중 180개가 그렇게 조용히 빠져 있었다(실측 2026-08-30).
+  const hNum = cls.match(/(?:^|\s)h-(s-)?(\d+(?:\.\d+)?)(?:\s|$)/)
+  if (hNum) return { px: Number(hNum[2]) * REM, via: `h-${hNum[1] ?? ''}${hNum[2]}` }
 
   // py-N (또는 p-N) + 텍스트 줄높이. text-[Npx] 가 없으면 14px 가정 · line-height 1.4
-  const py = cls.match(/(?:^|\s)(?:py|p)-(\d+(?:\.\d+)?)(?:\s|$)/)
+  const py = cls.match(/(?:^|\s)(py|p)-(s-)?(\d+(?:\.\d+)?)(?:\s|$)/)
   if (py) {
     const fs = cls.match(/text-\[(\d+)px\]/)
     const lineH = Math.round((fs ? Number(fs[1]) : 14) * 1.4)
-    return { px: Number(py[1]) * REM * 2 + lineH, via: `py-${py[1]}+text` }
+    const via = `${py[1]}-${py[2] ?? ''}${py[3]}`
+    return { px: Number(py[3]) * REM * 2 + lineH, via: `${via}+text` }
   }
 
   return null

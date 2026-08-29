@@ -25,6 +25,8 @@
 //    근거 없는 임계값은 목표가 아니라 짐작이다.
 
 import { test, expect, type Page } from '@playwright/test'
+import { focusProbe } from './utils/content-scope'
+import { isFullScreenRoute } from '../../src/lib/layout/full-screen-routes'
 import { learnerRoutes, redirectOnlyRoutes } from './utils/learner-routes'
 
 const RUNTIME_USER = {
@@ -86,42 +88,14 @@ interface Focused {
   isSkip: boolean
 }
 
-/** 지금 포커스된 요소를 브라우저 안에서 판정한다. */
-async function focusState(page: Page): Promise<Focused | null> {
-  return page.evaluate(() => {
-    const el = document.activeElement as HTMLElement | null
-    if (!el || el === document.body) return null
-
-    const main = document.querySelector('main')
-    const inMain = main ? main.contains(el) : true
-
-    const tag = el.tagName.toLowerCase()
-    const role = el.getAttribute('role') || ''
-    const actionable =
-      tag === 'a' ||
-      tag === 'button' ||
-      tag === 'input' ||
-      tag === 'select' ||
-      tag === 'textarea' ||
-      ['button', 'link', 'checkbox', 'tab', 'menuitem'].includes(role)
-
-    // 포커스 표시 — outline 이 그려지거나 ring(box-shadow) 이 붙거나.
-    // ⚠️ 클래스 문자열(`focus-visible:ring-2`)을 세면 안 된다. 그건 "적혀 있다" 이지
-    //    "그려진다" 가 아니다 — 상위 규칙에 덮이면 적혀 있어도 안 보인다.
-    const cs = getComputedStyle(el)
-    const ow = parseFloat(cs.outlineWidth || '0')
-    const hasOutline = cs.outlineStyle !== 'none' && ow > 0
-    const hasRing = cs.boxShadow !== 'none' && cs.boxShadow !== ''
-    const visible = hasOutline || hasRing
-
-    const label =
-      (el.getAttribute('aria-label') || el.textContent || '').trim().slice(0, 28) || tag
-
-    const href = el.getAttribute('href') || ''
-    const isSkip = tag === 'a' && href.startsWith('#')
-
-    return { inMain, actionable, visible, tag, label, isSkip }
-  })
+/**
+ * 지금 포커스된 요소를 브라우저 안에서 판정한다.
+ *
+ * 판정 자체는 `utils/content-scope` 가 소유한다 — 같은 규칙을 26·28 과 나눠 쓴다.
+ * 여기서 다시 쓰면 셋이 갈라진다(실측 2026-08-30: 게임 19종에서 셋 다 같은 오답을 냈다).
+ */
+async function focusState(page: Page, isFullScreen: boolean): Promise<Focused | null> {
+  return page.evaluate(focusProbe, isFullScreen)
 }
 
 interface RouteResult {
@@ -236,7 +210,7 @@ test.describe('제3의 학습자 — 키보드만으로', () => {
         let usedSkip = false
         for (let i = 1; i <= MAX_TABS; i++) {
           await p.keyboard.press('Tab')
-          const f = await focusState(p)
+          const f = await focusState(p, isFullScreenRoute(landed))
           if (f) trail.push(`${f.inMain ? '본문' : '셸'}/${f.actionable ? '' : '비컨트롤:'}${f.tag}"${f.label}"`)
 
           // ⚠️ 건너뛰기 링크는 **누르라고 있는 것**이다. Tab 수만 세고 지나치면

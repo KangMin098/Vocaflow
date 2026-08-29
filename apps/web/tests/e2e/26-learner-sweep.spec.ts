@@ -36,6 +36,7 @@ import {
   learnerRoutes,
   redirectOnlyRoutes,
 } from './utils/learner-routes'
+import { contentScopes } from './utils/content-scope'
 import { crashKindOf } from './utils/crash-screen'
 import { describeNetFailure, watchNetwork } from './utils/net-watch'
 
@@ -295,9 +296,15 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
           // ⚠️ `main` 만 보면 안 된다 — `<main>` 을 쓰지 않는 화면이 있고, 그때 첫 판은
           //    "막다른 길" 로 잘못 기록했다. 셸(사이드바·하단탭)은 모든 화면에 있으므로
           //    앞길로 세면 안 되지만, 본문이 `main` 밖이면 그것도 세야 한다.
-          const scope = (await page.locator('main').count()) > 0 ? 'main' : 'body'
+          // 무엇이 본문인가 — 판정은 `utils/content-scope` 가 소유한다(27·28 과 같은 규칙).
+          //    셸을 앞길로 세지 않으면서, **열린 모달은 본문으로** 센다.
+          const hasMain = (await page.locator('main').count()) > 0
+          const hasDialog = (await page.locator('[role="dialog"]').count()) > 0
+          const scopes = contentScopes(hasMain, hasDialog)
           const links = page.locator(
-            `${scope} a[href^="/"]:not([href="#"]), ${scope} button:not([disabled])`,
+            scopes
+              .flatMap((s) => [`${s} a[href^="/"]:not([href="#"])`, `${s} button:not([disabled])`])
+              .join(', '),
           )
           const n = await links.count()
           let target: string | null = null

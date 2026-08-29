@@ -24,6 +24,7 @@
 // ⚠️ **바닥값을 짐작하지 않는다.** 첫 실행의 실측치를 그대로 바닥으로 적는다.
 
 import { test, expect, type Page } from '@playwright/test'
+import { identityProbe } from './utils/content-scope'
 import { isFullScreenRoute } from '../../src/lib/layout/full-screen-routes'
 import { learnerRoutes, redirectOnlyRoutes } from './utils/learner-routes'
 
@@ -116,18 +117,8 @@ test.describe('제3의 학습자 — 이 화면은 무엇인가', () => {
       }
 
       r.landed = landed
-      const probe = await page.evaluate(() => {
-        const main = document.querySelector('main')
-        const scope: ParentNode = main ?? document.body
-        const h1s = Array.from(scope.querySelectorAll('h1'))
-        return {
-          title: document.title.trim(),
-          h1Count: h1s.length,
-          h1Text: (h1s[0]?.textContent || '').trim().slice(0, 40),
-          hasMain: main !== null,
-          hasNav: document.querySelector('nav, [role="navigation"]') !== null,
-        }
-      })
+      // 판정은 `utils/content-scope` 가 소유한다 — 26·27 과 같은 규칙을 나눠 쓴다.
+      const probe = await page.evaluate(identityProbe, isFullScreenRoute(landed))
       Object.assign(r, probe)
       results.push(r)
     }
