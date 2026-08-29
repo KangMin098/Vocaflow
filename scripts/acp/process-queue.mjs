@@ -74,12 +74,20 @@ if (commit) {
   console.log('             (빠진 낱말이 0 이면 그대로 진행하면 된다)\n')
 }
 
-const { data: queued, error } = await db
+// ⚠️ 큐는 담은 순서(created_at)로 나온다. 그래서 **적합도가 낮은 소스가 앞을 막는다** —
+//   2026-08-30 실측에서 큐 892편 중 앞머리가 전부 wikipedia(주제 적합률 5~11%)였고,
+//   정작 적합률 52~64% 인 usgs·noaa 812편이 뒤에 있었다. 분석은 어휘 행을 편당 수백 개
+//   만들어 디스크를 쓰므로, **무엇을 먼저 처리할지가 곧 무엇에 돈을 쓸지**다.
+//   `collect-daily` 와 같은 이름의 필터를 둔다(쉼표로 여러 개).
+const onlySources = (arg('source') ?? '').split(',').map((s) => s.trim()).filter(Boolean)
+
+let q = db
   .from('library_articles')
   .select('id, source, source_id, source_url, title, author, language, license, content, published_at, feed_id')
   .eq('status', 'queued')
   .is('compose_batch_id', null)
-  .order('created_at', { ascending: true })
+if (onlySources.length) q = q.in('source', onlySources)
+const { data: queued, error } = await q.order('created_at', { ascending: true })
 if (error) throw new Error('큐 조회 실패: ' + error.message)
 
 const list = queued ?? []
