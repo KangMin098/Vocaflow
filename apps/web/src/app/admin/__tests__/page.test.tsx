@@ -25,6 +25,15 @@ vi.mock('@/lib/admin/dashboard-stats', async (importOriginal) => {
   return { ...actual, getAdminDashboardStats: () => statsMock() }
 })
 
+// 교사 퍼널 격차 — 이 화면이 나중에 붙인 두 번째 조회원이다.
+// ⚠️ 막지 않으면 `createClient()` 가 `cookies()` 를 부르고, 요청 스코프 밖이라
+//    **다섯 검사 전부**가 렌더 전에 죽는다. 이 스펙은 "숫자가 상수로 굳지 않는가" 를
+//    보는 자리이므로 조회는 픽스처로 고정한다(실 DB 는 integration 스펙 소관).
+//    `null` 로 둔다 — 화면이 "못 불러왔다" 를 그리는 쪽도 함께 지나간다.
+vi.mock('@/lib/admin/teacher-funnel', () => ({
+  fetchTeacherFunnelGaps: async () => null,
+}))
+
 import AdminDashboardPage from '../page'
 
 /** 2026-08-12 실측값을 축약한 픽스처 — reportsOpen 만 null(테이블 없음). */

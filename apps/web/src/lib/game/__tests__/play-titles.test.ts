@@ -59,11 +59,19 @@ describe('게임 라우트 제목', () => {
       //    `/wordblitz`(허브)와 `/play/wordblitz`(세션)가 실측에서 같은 제목이었다
       //    (2026-08-30 · `28-screen-identity` 제목 중복). `(main)` 쪽 세션이 이미
       //    같은 방식으로 가른다 — `/flashcard` vs `/flashcard/play`("Flashcard 학습").
-      const want = `${name} 플레이 · Vocaflow`
+      const want = `${name} 플레이`
       const got = titleOf(slug)
       if (got !== want) wrong.push(`${slug}: "${got}" ≠ "${want}"`)
     }
     expect(wrong, `카탈로그와 어긋난 제목:\n${wrong.join('\n')}`).toEqual([])
+  })
+
+  it('브랜드를 손으로 붙이지 않는다 — 루트 template 이 이미 붙인다', () => {
+    // 루트 `layout.tsx` 는 `title.template = "%s | Vocaflow"` 다. 페이지가 또 `· Vocaflow`
+    // 를 적으면 탭에 **"X · Vocaflow | Vocaflow"** 로 두 번 나온다.
+    // (저장소에 그렇게 적힌 페이지가 25곳 더 있다 — 실측 2026-08-30. 여기부터 늘리지 않는다.)
+    const offenders = playSlugs().filter((s) => (titleOf(s) ?? '').includes('Vocaflow'))
+    expect(offenders, `제목에 브랜드가 이미 들어 있다: ${offenders.join(', ')}`).toEqual([])
   })
 
   it('제목이 서로 겹치지 않는다', () => {

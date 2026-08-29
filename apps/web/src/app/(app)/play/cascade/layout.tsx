@@ -12,7 +12,7 @@
 // 카탈로그와 어긋나거나 새 게임에 이 파일이 빠지면 `play-titles.test.ts` 가 잡는다.
 
 export const metadata = {
-  title: "Cascade 플레이 · Vocaflow",
+  title: "Cascade 플레이",
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {

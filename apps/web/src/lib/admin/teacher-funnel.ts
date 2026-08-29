@@ -16,7 +16,6 @@
 
 import 'server-only'
 
-import { cache } from 'react'
 
 import { createClient } from '@/lib/supabase/server'
 
@@ -39,8 +38,15 @@ type Row = Record<string, unknown>
  * 조회가 실패하면 `null` — 화면이 "0" 과 "못 불러왔다" 를 구별할 수 있어야 한다
  * (`fetchTeacherClasses` 가 같은 이유로 겪은 문제: 테이블이 사라진 동안 교사에게
  *  "개설한 클래스가 없어요" 로 보였다).
+ *
+ * ⚠️ **`react.cache` 로 감싸지 않는다.** 호출부가 `/admin` 한 곳뿐이라 이득이 없고,
+ *    감싸는 순간 이 파일을 import 하는 **모든 vitest 스위트가 통째로 죽는다**
+ *    (`cache is not a function` — node 환경에는 React 서버 런타임이 없다).
+ *    실제로 `src/app/admin/__tests__/page.test.tsx` 가 그렇게 0 test 로 죽어 있었다.
+ *    같은 판단으로 `lib/admin/retention.ts`·`dashboard-stats.ts` 도 감싸지 않는다
+ *    (CONVENTIONS "vitest 를 깨뜨리는 것은 server-only 가 아니라 react.cache 다").
  */
-export const fetchTeacherFunnelGaps = cache(async (): Promise<TeacherFunnelGaps | null> => {
+export async function fetchTeacherFunnelGaps(): Promise<TeacherFunnelGaps | null> {
   const client = await createClient()
   const loose = client as unknown as {
     from: (t: string) => {
@@ -105,4 +111,4 @@ export const fetchTeacherFunnelGaps = cache(async (): Promise<TeacherFunnelGaps 
     sharedInvite: sharedIds.size,
     gotStudent: countIntersect(sharedIds, teachersWithStudent),
   }
-})
+}
