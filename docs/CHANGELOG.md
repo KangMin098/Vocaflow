@@ -52,6 +52,42 @@ CEFR-J 근거가 있는 6,098 낱말로 대조한 결과(2026-08-30 실측):
 곁가지로 `base_word` 뒤집힌 행 4건 정리(`separable → inseparable` 처럼 **접두형이 기본형으로**
 들어가 있었다 — 학습자에게 거꾸로 된 형태론을 가르친다): `separable`·`ordinate`·`tolerable`·`comprehensible`.
 
+### 멸칭이 **굴절형으로** 학습 카드에 샜다 — 발행 24배 확대가 드러낸 부류 결함
+
+발행을 13→316권으로 늘리자 회귀 테스트(`slur-not-published.integration.test.ts`)가 즉시 깨졌다 —
+`savages` 9세트 · `retarded` 7세트. 2026-08-25 에 고친 것과 **같은 결함이 아니었다**:
+
+- 추출 RPC 는 표면형이 사전 표제어면 그것으로, 아니면 **lemma 의 register 로** 판정한다
+  (`select_book_chapter_vocab` 의 `JOIN … ON sd.word = CASE WHEN <표면형이 분류된 표제어> THEN lower(bv.word) ELSE resolve_dict_headword(…) END`).
+- 그런데 `savage`(흉포한) · `retard`(지연시키다)는 **의도적으로 남긴** 중립 표제어다.
+  그래서 멸칭인 굴절형만 필터를 통과했다. 표제어를 재분류하는 기존 처방은 쓸 수 없었다 —
+  그러면 문학 독해에 필요한 형용사·동사가 함께 사라진다.
+- 부류 크기 실측: 발행 단어장의 표면형 38,537종 중 **13,394종이 표제어가 아닌 굴절형**,
+  즉 전부 lemma 로만 판정되고 있었다. 2단어 문제가 아니라 경로 문제였다.
+
+조치 — **굴절형을 표제어로 등재해 판정 기준을 그 표면형 자신으로 옮긴다**(마이그레이션 불필요):
+
+- `scripts/lcp/safety/scan-published-slurs.mjs` — 어근 89종 후보 추출(읽기 전용).
+  `slur-roots.mjs` 는 판정이 아니라 후보 목록이다 — `idiot` · `lunatic` 처럼 문학 독해에
+  필요한 낱말이 대거 걸리므로 자동 처리하지 않는다.
+- **Claude Code 판정 89종 → 멸칭 15 / 유지 74** (`verdicts.json` 에 근거와 함께 고정).
+  유지 74 는 어근 오탐(`snigger` · `chink` · `niggardly` · `raccoon` · `cocoon` · `tycoon`)이거나
+  문학 독해에 필요한 낱말이다(저장소 기존 기준: 주된 뜻이 집단 멸칭인가).
+- `apply-slur-verdicts.mjs` — 표제어 8종 재분류 + 굴절형 7종 신규 등재(전부 `period_cultural`).
+  **사전에서 지우지 않는다** — 등재 뜻에 원뜻을 먼저 적어 원문에서 눌렀을 때 읽히게 했다
+  (`retarded` = "① 지연된 … ② (옛 의학용어) 지적장애의 — 현재는 심한 모욕어").
+- `republish-affected-books.mjs` — 이미 발행된 세트는 `republish_book_word_sets` 로 다시 뜬다.
+  손으로 행을 지우면 다음 재발행에서 되돌아온다(발행 세트는 추출 RPC 의 스냅샷이다).
+
+### 카탈로그 "단어장 N" 배지가 발행 300권을 넘기며 조용히 0 이 됐다
+
+`/library/books` 가 개수를 세려고 세트 행을 전부 받아 왔는데, PostgREST 는 한 응답에
+**1,000행까지만** 준다. 실측: id 100→220행 · 200→354행 · **300→정확히 1000행(잘림)**.
+`page.tsx` 가 error 를 무시해 화면은 정상으로 뜨고 배지만 틀린다.
+`lib/library/word-set-counts.ts` 로 분리해 `.range()` 페이지네이션 + 필요한 열만 선택
+(`book_id:curation_query->>book_id`) + 오류 전파. `.in()` 쿼리스트링은 316 id = 11,691자였으나
+실측에서 거부되지 않았다 — 길이는 이번 원인이 아니었다.
+
 ### 재고 301권이 준비를 마치고도 서가에 오르지 못하고 있었다 — D0830 발행적체 실측
 
 학습자에게 보이는 도서는 **13권**인데 `status='ready'` 재고는 **303권**이었다. 왜 막혔는지를

@@ -12,6 +12,7 @@ import { BooksExplorer } from '@/components/library/browse/BooksExplorer';
 import { ComicHeroCard, type ComicHeroItem } from '@/components/comic/ComicHeroCard';
 import { comicBookIdsOf, fetchComicCatalog } from '@/lib/comic/catalog';
 import { applyBookCatalogGate } from '@/lib/library/publish-gate';
+import { fetchPublishedBookWordSetCounts } from '@/lib/library/word-set-counts';
 import type { PublishedBook } from '@/lib/library/published-book';
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 
@@ -80,18 +81,17 @@ export default async function LibraryBooksPage() {
 
   if (books.length > 0) {
     const ids = books.map((b) => b.id);
-    const { data: sets } = await client
-      .from('shared_word_sets')
-      .select('curation_query')
-      .eq('is_published', true)
-      .eq('category', 'library_book')
-      .in('curation_query->>book_id', ids);
 
-    const countsByBook = new Map<string, number>();
-    for (const s of (sets ?? []) as { curation_query: Record<string, unknown> }[]) {
-      const bookId = String(s.curation_query?.book_id ?? '');
-      if (!bookId) continue;
-      countsByBook.set(bookId, (countsByBook.get(bookId) ?? 0) + 1);
+    // "단어장 N" 배지 — 개수 집계는 word-set-counts.ts 가 단일 출처.
+    //   여기서 세트 행을 직접 받아 세면 PostgREST 1,000행 상한에 잘린다(2026-08-30 실측:
+    //   발행 300권을 넘기는 순간 정확히 1000행에서 잘렸다). 잘려도 오류가 아니라서
+    //   배지만 조용히 0 이 된다 — 그래서 페이지네이션과 오류 전파를 그 모듈에 맡긴다.
+    let countsByBook = new Map<string, number>();
+    try {
+      countsByBook = await fetchPublishedBookWordSetCounts(client);
+    } catch {
+      // 개수를 못 세도 카탈로그 자체는 떠야 한다. 배지만 빠진다.
+      countsByBook = new Map();
     }
 
     // v06.34 — library_seed_catalog 에서 curation_meta 가져와 도서별 매핑 (선택 모달용)
