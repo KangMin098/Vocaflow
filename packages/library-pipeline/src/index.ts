@@ -79,7 +79,8 @@ export {
 } from './ingest-article/wikipedia'
 export type { WikipediaListItem } from './ingest-article/wikipedia'
 // ACP §18 — PLOS (CC-BY 오픈 학술 논문 · C1-C2 심화 · 발행 허용).
-export { ingestPlosArticle, listPlosFeed, PLOS_FEEDS } from './ingest-article/plos'
+export { ingestPlosArticle, listPlosFeed,
+  listPlosFeedPage, PLOS_FEEDS } from './ingest-article/plos'
 export type { PlosListItem } from './ingest-article/plos'
 // ACP §18 — Wikivoyage (여행 가이드 · B1-B2 · CC-BY-SA · reference 밴드 보강).
 export { ingestWikivoyageArticle, listWikivoyageFeed, WIKIVOYAGE_FEEDS } from './ingest-article/wikivoyage'

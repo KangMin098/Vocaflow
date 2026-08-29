@@ -192,7 +192,15 @@ const SOURCES = [
     //   사라진다" 와 같은 실수다. 논증문은 The Conversation 이 CC BY-ND 라 문항을 못 만드는
     //   자리를 메우는 유일한 사용 가능 공급선이라(`argumentative-supply.test.ts`) 더 뼈아프다.
     key: 'plos',
-    feeds: lib.PLOS_FEEDS.map((f) => ({ id: f.id, run: () => lib.listPlosFeed(f.id) })),
+    feeds: lib.PLOS_FEEDS.map((f) => ({
+      id: f.id,
+      run: () => lib.listPlosFeed(f.id),
+      // Solr `start` 오프셋. numFound 가 총량을 알려 주므로 끝을 추정하지 않는다.
+      runPage: async (cursor) => {
+        const { items, cont } = await lib.listPlosFeedPage(f.id, 50, cursor ?? 0)
+        return { items, cont }
+      },
+    })),
     ingest: (u) => lib.ingestPlosArticle(u),
   },
   {

@@ -62,7 +62,8 @@ interface SolrDoc {
   publication_date?: string
 }
 interface SolrResponse {
-  response?: { docs?: SolrDoc[] }
+  /** `numFound` = 이 질의의 전체 건수. 페이지네이션의 끝을 추정 대신 알게 해 준다. */
+  response?: { docs?: SolrDoc[]; numFound?: number }
 }
 
 /** class 정규식 매칭 첫 <div> inner HTML 을 깊이 추적 슬라이스(중첩 div 안전). */
@@ -111,6 +112,25 @@ function extractProse(articleHtml: string): string {
 
 /** 최근 PLOS 기사 목록 (solr API — full 문서). 대량 GET picker. */
 export async function listPlosFeed(feedId: string = 'recent', rows: number = 20): Promise<PlosListItem[]> {
+  const { items } = await listPlosFeedPage(feedId, rows, 0)
+  return items
+}
+
+/**
+ * Solr 한 페이지 — `start` 오프셋으로 이어 받는다.
+ *
+ * ⚠️ 예전에는 `start` 가 없어 **언제나 최신 rows(최대 50)편**이 상한이었다.
+ *   `essay` 피드(Essay·Perspective·Opinion·Unsolved Mystery = 논증문)는 이 저장소에서
+ *   **문항을 만들 수 있는 유일한 논증문 공급선**이고(The Conversation 은 CC BY-ND 라 제외)
+ *   실측에서 V-Level 대역 적중이 46/46 = 100% 였다. 그런 소스가 50편에 갇혀 있었다.
+ *
+ * `total` 은 Solr 의 numFound — 이 피드에 남은 상류 총량이라 "소진" 판정의 근거가 된다.
+ */
+export async function listPlosFeedPage(
+  feedId: string = 'recent',
+  rows: number = 20,
+  start: number = 0,
+): Promise<{ items: PlosListItem[]; cont: number | null; total: number }> {
   const feed = PLOS_FEEDS.find((f) => f.id === feedId) ?? PLOS_FEEDS[0]!
   // 유형을 지정한 피드는 그 유형만, 아니면 정정문만 제외하고 전부.
   // 인용부호를 solr 에 그대로 넘겨야 두 단어짜리 유형('Unsolved Mystery')이 한 값으로 잡힌다.
@@ -122,7 +142,9 @@ export async function listPlosFeed(feedId: string = 'recent', rows: number = 20)
   url.searchParams.set('q', '*:*')
   url.searchParams.set('fq', `doc_type:full${typeClause}`)
   url.searchParams.set('fl', 'id,title_display,journal,abstract,publication_date')
-  url.searchParams.set('rows', String(Math.min(rows, 50)))
+  const pageRows = Math.min(rows, 50)
+  url.searchParams.set('rows', String(pageRows))
+  if (start > 0) url.searchParams.set('start', String(start))
   url.searchParams.set('sort', 'publication_date desc')
   url.searchParams.set('wt', 'json')
 
@@ -138,7 +160,15 @@ export async function listPlosFeed(feedId: string = 'recent', rows: number = 20)
       published_at: d.publication_date ?? null,
       description: decodeEntities((d.abstract?.[0] ?? '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()).slice(0, 300),
     }))
-  return applyArticleCurationSpec(raw, 'plos', feedId)
+  const total = data.response?.numFound ?? 0
+  return {
+    // 상한을 spec 의 maxItems 가 아니라 요청한 rows 로 둔다 — 대량 확보 경로에서
+    // 50편을 받아 와 15편으로 잘리던 것과 같은 함정을 여기서도 막는다.
+    items: applyArticleCurationSpec(raw, 'plos', feedId, { maxItems: pageRows }),
+    // Solr 가 총량을 알려 주므로 "정말 끝" 을 추정하지 않고 안다.
+    cont: start + pageRows < total ? start + pageRows : null,
+    total,
+  }
 }
 
 // journal 표시명 → URL slug (solr journal 필드는 표시명).
