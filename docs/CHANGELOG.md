@@ -10,6 +10,28 @@
 
 ## Unreleased (v06.34 → next)
 
+### 재고 301권이 준비를 마치고도 서가에 오르지 못하고 있었다 — D0830 발행적체 실측
+
+학습자에게 보이는 도서는 **13권**인데 `status='ready'` 재고는 **303권**이었다. 왜 막혔는지를
+추정하지 않고 게이트를 303권 전량에 **실제로 돌려** 재니, 막고 있던 것은 품질이 아니었다 —
+`content_gate_publishable('book', id)` 가 **301/303 PASS**. 남은 2권(`Clarissa` · `Darkwater`)도
+결손은 `book_v_level` 하나뿐이었고 `compute_book_vrl` + `compute_book_cefrj` 재실행으로 해소돼
+**303/303 PASS** 가 됐다. 즉 적체는 게이트가 아니라 **발행 행위의 부재**였다.
+
+- **표지 281권 대량 확보** — `cover_image_url` 보유가 ready 22/303(7%)뿐이었다(발행본은 12/13=92%).
+  Standard Ebooks 는 표지 URL 이 `source_id` 로 결정된다
+  (`https://standardebooks.org/ebooks/{source_id}/downloads/cover.jpg`) — 규칙으로 만들고
+  **HEAD 로 200 + `image/*` 를 확인한 것만** 기록한다(404 를 그대로 넣으면 깨진 이미지가 남는다).
+  281/281 확인·기록 → ready **303/303** 표지 보유. `scripts/lcp/fetch-book-covers.mjs`
+  (재실행 안전: `cover_image_url IS NULL` 만 조회하고 기록 시에도 같은 조건을 걸어
+  다른 세션이 그 사이 채운 행을 덮지 않는다. 2회차 실행 대상 0 확인)
+- **발행 안전 사전 확인** — 멸칭 19형을 ready 303권 어휘에 대조: 발견된 9형이 전부
+  `word_register='period_cultural'` = `select_book_chapter_vocab` 노이즈 필터 대상이라
+  단어장으로 나가지 않는다(회귀 `slur-not-published.integration.test.ts` 와 같은 기준).
+- **문서–현실 드리프트 재확인(F7)** — `CLAUDE.md` 는 챕터 퀴즈를 "카탈로그 10권" 이라 적고 있으나
+  `library_chapter_quiz` 의 실제 `count(distinct library_book_id)` 는 **5** 다.
+
+
 ### 사전이 **예문을 싣고도 해석을 한 줄도 달지 않았다** — D0830 교재경쟁 드레인
 
 시중 어휘 교재와 우리 사전을 같은 항목표로 놓고 재니 갈라지는 자리가 나왔고, 전부 "데이터가 없다"
