@@ -183,19 +183,22 @@ if (MODE === 'apply') {
     for (const s of (Array.isArray(r.senses) ? r.senses : [])) {
       const i = Number(s && s.idx)
       if (!Number.isInteger(i) || i < 0 || i >= mk.length) { rej.bad_idx++; continue }
-      const ex = txt(s.example)
+      // ⚠️ 예문이 게이트에 걸려도 **해석은 따로 살린다.** 예문과 해석은 서로 다른 칸이고,
+      //   예문 하나가 중복이라는 이유로 그 뜻의 해석까지 버리면 재실행해도 영영 안 채워진다.
+      let ex = txt(s.example)
       const ko = txt(s.example_ko)
       if (!ex && !ko) { rej.empty++; continue }
       if (ex) {
         const wc = ex.split(/\s+/).length
-        if (!ASCII_OK.test(ex)) { rej.non_ascii++; continue }
-        if (wc < 4) { rej.too_short++; continue }
-        if (wc > 22) { rej.too_long++; continue }
-        if (!containsWord(ex, w)) { rej.no_headword++; continue }
-        if (hasKo(ex)) { rej.ko_leak++; continue }
-        if (seen.has(ex.toLowerCase())) { rej.dup++; continue }
-        seen.add(ex.toLowerCase())
+        if (!ASCII_OK.test(ex)) { rej.non_ascii++; ex = '' }
+        else if (wc < 4) { rej.too_short++; ex = '' }
+        else if (wc > 22) { rej.too_long++; ex = '' }
+        else if (!containsWord(ex, w)) { rej.no_headword++; ex = '' }
+        else if (hasKo(ex)) { rej.ko_leak++; ex = '' }
+        else if (seen.has(ex.toLowerCase())) { rej.dup++; ex = '' }
+        else seen.add(ex.toLowerCase())
       }
+      if (!ex && !ko) continue
       if (ko && !hasKo(ko)) { rej.no_ko++; continue }
       const target = mk[i]
       let changed = false

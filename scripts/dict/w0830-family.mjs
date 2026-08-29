@@ -151,6 +151,9 @@ if (MODE === 'apply') {
       else if (!known.has(b)) rej.base_unknown++
       else if (derivedBase.has(b)) rej.base_derived++
       else patch.base_word = b
+      // 이번 실행에서 방금 파생어가 된 낱말도 곧바로 "쓸 수 없는 기본형" 이 된다.
+      // (`ideology` 를 파생어로 만든 직후 `ideological → ideology` 를 쓰면 트리거가 막는다)
+      if (patch.base_word) derivedBase.add(w)
     }
     const sfx = txt(r.derivation_suffix).toLowerCase()
     if (sfx) {
