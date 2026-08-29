@@ -28,18 +28,26 @@ const db = makeClient()
 const { slurs } = JSON.parse(readFileSync(resolve(__dirname, 'verdicts.json'), 'utf8'))
 const forms = slurs.map((s) => s.surface)
 
-/** 판정된 멸칭이 아직 들어 있는 발행 세트 → 도서 id 로 묶는다. */
+/**
+ * 판정된 멸칭이 아직 들어 있는 발행 세트 → 도서 id 로 묶는다.
+ *
+ * ⚠️ 표면형(word)만 보면 놓친다. lemma 자체가 멸칭인 경우(gook → gooks · kaffir → kaffirs)
+ *    표면형은 판정 목록에 없고 lemma 만 걸린다. 추출 RPC 도 같은 이유로 lemma 로 내려가
+ *    걸러 내므로, 재발행 대상 판정도 **양쪽을 다 봐야** 대상이 빠지지 않는다.
+ */
 async function affectedBooks() {
   const setIds = new Set()
-  for (let from = 0; ; from += 1000) {
-    const { data, error } = await db
-      .from('shared_words')
-      .select('set_id')
-      .in('word', forms)
-      .range(from, from + 999)
-    if (error) throw new Error(`단어 조회 실패: ${error.message}`)
-    for (const r of data) setIds.add(r.set_id)
-    if (data.length < 1000) break
+  for (const column of ['word', 'lemma']) {
+    for (let from = 0; ; from += 1000) {
+      const { data, error } = await db
+        .from('shared_words')
+        .select('set_id')
+        .in(column, forms)
+        .range(from, from + 999)
+      if (error) throw new Error(`단어 조회 실패(${column}): ${error.message}`)
+      for (const r of data) setIds.add(r.set_id)
+      if (data.length < 1000) break
+    }
   }
   if (setIds.size === 0) return []
 

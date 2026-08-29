@@ -57,6 +57,28 @@ for (const s of slurs) {
   if (existing) {
     if (existing.word_register === 'period_cultural') {
       already++
+      // 수리 통과 — 이 파이프라인이 심은 굴절형인데 난이도가 비어 있으면 채운다.
+      //   초기 실행이 v_level 을 비운 채로 넣어 품질 게이트 I1 을 깬 적이 있다(2026-08-30).
+      //   같은 스크립트를 다시 돌리는 것만으로 그 상태가 복구돼야 한다.
+      if (s.lemma && (existing.v_level == null || existing.cefr_level == null)) {
+        const { data: base } = await db
+          .from('shared_dictionary')
+          .select('v_level, cefr_level')
+          .eq('word', s.lemma)
+          .maybeSingle()
+        if (base?.v_level != null && base?.cefr_level != null) {
+          console.log(`  ⟳ ${s.surface} — 난이도 결손 보수 V${base.v_level}/${base.cefr_level} ← ${s.lemma}`)
+          if (COMMIT) {
+            const { error } = await db
+              .from('shared_dictionary')
+              .update({ v_level: base.v_level, cefr_level: base.cefr_level })
+              .eq('word', s.surface)
+            if (error) { failed++; console.log(`    ! 보수 실패: ${error.message}`) }
+          }
+        } else {
+          console.log(`  ! ${s.surface} — lemma '${s.lemma}' 에 난이도가 없어 보수 불가(I1 FAIL 로 남는다)`)
+        }
+      }
       console.log(`  · ${s.surface} — 이미 period_cultural`)
       continue
     }
@@ -79,23 +101,47 @@ for (const s of slurs) {
     console.log(`  ! ${s.surface} — 등재에 필요한 meaning_ko/pos 가 verdicts.json 에 없다`)
     continue
   }
-  console.log(`  + ${s.surface} — 신규 등재 (period_cultural)`)
+  // 난이도는 **lemma 에서 물려받는다**. 지어내지도, 비워 두지도 않는다 —
+  //   비워 두면 품질 게이트 I1(classified 표제어는 meaning/pos/v_level/cefr 완비)이 critical FAIL 한다.
+  //   2026-08-30 실측: v_level 을 비운 채 7행을 넣자 I1 이 312 → 319 로 늘었다.
+  //   굴절형의 난이도는 기본형과 같다고 보는 것이 이 사전의 기존 전제이기도 하다
+  //   (select_book_chapter_vocab 이 sense 가 아니라 표제어 대표 v_level 로 밴드를 판정한다).
+  let inherited = { v_level: null, cefr_level: null }
+  if (s.lemma) {
+    const { data: base } = await db
+      .from('shared_dictionary')
+      .select('v_level, cefr_level')
+      .eq('word', s.lemma)
+      .maybeSingle()
+    if (base) inherited = { v_level: base.v_level, cefr_level: base.cefr_level }
+  }
+  if (inherited.v_level == null || inherited.cefr_level == null) {
+    failed++
+    console.log(`  ! ${s.surface} — lemma '${s.lemma}' 에서 v_level/cefr_level 을 물려받지 못했다(I1 위반 방지로 등재 보류)`)
+    continue
+  }
+
+  console.log(`  + ${s.surface} — 신규 등재 (period_cultural · V${inherited.v_level}/${inherited.cefr_level} ← ${s.lemma})`)
   if (COMMIT) {
     const { error } = await db.from('shared_dictionary').insert({
       word: s.surface,
       pos: s.pos,
       meaning_ko: s.meaning_ko,
       word_register: 'period_cultural',
+      v_level: inherited.v_level,
+      cefr_level: inherited.cefr_level,
       // classified_by 는 check 제약이 있는 열거값이다(shared_dictionary_classified_by_check).
-      // 자유 문자열을 넣으면 INSERT 가 통째로 거부된다 — 판정 출처는 source 로 남긴다.
+      // 자유 문자열을 넣으면 INSERT 가 통째로 거부된다 — 판정 출처는 field_provenance 로 남긴다.
       classified_by: 'claude_code_opus_5',
       // source 도 check 제약 열거값이다(shared_dictionary_source_check).
       // 'inflection-seed' 가 정확히 이 경우다 — 굴절형을 표제어로 심는다.
       source: 'inflection-seed',
-      // 판정 근거는 자유 필드에 남긴다 — 나중에 이 등재가 왜 생겼는지 추적 가능해야 한다.
-      field_provenance: { word_register: 'slur-verdict-20260830', meaning_ko: 'slur-verdict-20260830' },
-      // v_level 은 일부러 비운다 — 지어낸 난이도를 넣지 않는다. 단어장 제외는
-      // word_register='period_cultural' 하나로 이미 확정된다(추출 RPC 의 노이즈 필터).
+      field_provenance: {
+        word_register: 'slur-verdict-20260830',
+        meaning_ko: 'slur-verdict-20260830',
+        v_level: `inherited:${s.lemma}`,
+        cefr_level: `inherited:${s.lemma}`,
+      },
     })
     if (error) { failed++; console.log(`    ! 실패: ${error.message}`); continue }
   }

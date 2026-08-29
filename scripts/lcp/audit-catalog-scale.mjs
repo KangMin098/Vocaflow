@@ -56,34 +56,62 @@ record('.in() 쿼리스트링 길이', {
   note: `${ids.length} id → ${inClauseLen}자 (URL 인코딩 전). 6,000자 초과부터 게이트웨이 상한이 위험하다`,
 })
 
-// ③ 챕터 단어장 개수 — page.tsx 는 세기 위해 전 행을 받아 온다
+// ③ 챕터 단어장 개수 — **페이지가 실제로 쓰는 경로**(lib/library/word-set-counts.ts)와 같은 방식:
+//    .range() 로 끝까지 페이지네이션 + book_id 한 열만. 여기가 합격 기준이다.
+const PAGE = 1000
 t = performance.now()
-const { data: sets, error: sErr } = await db
-  .from('shared_word_sets')
-  .select('curation_query')
-  .eq('is_published', true)
-  .eq('category', 'library_book')
-  .in('curation_query->>book_id', ids)
-const setMs = performance.now() - t
-record('챕터 단어장 조회(개수용)', {
-  error: !!sErr,
-  warn: !sErr && (sets.length >= 1000 || setMs > 1500),
-  note: sErr
-    ? `실패: ${sErr.message}`
-    : `${sets.length}행 · ${Math.round(setMs)}ms${sets.length >= 1000 ? ' — 1,000행 상한에 닿았을 수 있다(개수가 잘린다)' : ''}`,
-})
+const counts = new Map()
+let pages = 0
+let countErr = null
+for (let from = 0; ; from += PAGE) {
+  const { data, error } = await db
+    .from('shared_word_sets')
+    .select('book_id:curation_query->>book_id')
+    .eq('is_published', true)
+    .eq('category', 'library_book')
+    .range(from, from + PAGE - 1)
+  if (error) { countErr = error; break }
+  pages++
+  for (const r of data) {
+    if (!r.book_id) continue
+    counts.set(r.book_id, (counts.get(r.book_id) ?? 0) + 1)
+  }
+  if (data.length < PAGE) break
+}
+const pagedTotal = [...counts.values()].reduce((a, b) => a + b, 0)
+const countMs = performance.now() - t
 
-// 같은 조건으로 count 를 따로 받아 대조 — 행이 잘렸는지 확인하는 유일한 방법.
-//   ⚠️ 필터를 하나라도 빼고 세면(예: .in(ids) 생략) 미발행 도서의 세트까지 세어 오탐이 난다.
 const { count: trueCount } = await db
   .from('shared_word_sets')
   .select('id', { count: 'exact', head: true })
   .eq('is_published', true)
   .eq('category', 'library_book')
+
+record('단어장 개수(페이지네이션 경로)', {
+  error: !!countErr || pagedTotal !== (trueCount ?? -1),
+  warn: countMs > 3000,
+  note: countErr
+    ? `실패: ${countErr.message}`
+    : `${pagedTotal}행 / count ${trueCount} · ${pages}페이지 · ${Math.round(countMs)}ms — 어긋나면 배지가 틀린다`,
+})
+
+const booksWithBadge = books.filter((b) => (counts.get(b.id) ?? 0) > 0).length
+record('배지가 뜨는 도서 비율', {
+  error: booksWithBadge < books.length * 0.5,
+  note: `${booksWithBadge}/${books.length}권에 단어장 개수가 잡힌다`,
+})
+
+// ③-b 옛 경로(한 방 조회)가 지금 규모에서 어떻게 되는지 — **기록용**.
+//     실패로 세지 않는다. 이건 "왜 페이지네이션을 쓰는가" 의 근거이지 회귀 대상이 아니다.
+const { data: naive } = await db
+  .from('shared_word_sets')
+  .select('curation_query')
+  .eq('is_published', true)
+  .eq('category', 'library_book')
   .in('curation_query->>book_id', ids)
-record('단어장 개수 정합', {
-  error: !sErr && sets.length < (trueCount ?? 0),
-  note: `받아온 ${sErr ? 'n/a' : sets.length} vs 같은 조건 count ${trueCount} — 적으면 행이 잘린 것이고 화면의 "단어장 N" 배지가 틀린다`,
+record('참고: 한 방 조회로 세면', {
+  warn: (naive?.length ?? 0) < (trueCount ?? 0),
+  note: `${naive?.length ?? 0}행만 온다 (실제 ${trueCount}) — PostgREST 는 한 응답에 ${PAGE}행까지만 준다`,
 })
 
 // ④ 시드 카탈로그
