@@ -16,7 +16,17 @@
 //   · 연어는 2~5낱말이고 표제어(굴절형 허용)를 포함해야 한다.
 //   · 노트는 20~200자 한국어이고 표제어의 영문 철자를 담아야 한다(일반론 방지).
 //
-// 재실행 안전: chunk 는 이미 채워진 필드를 빼고 굽는다. apply 는 빈 값을 쓰지 않고 건너뛴 수를 출력한다.
+// ⚠️ 빈칸과 "없음으로 판정함" 을 구분한다 — 이 배치의 핵심 설계다:
+//   실측(2026-08-30) — 처리한 3,918 낱말 중 **2,360건이 반의어 빈 배열 + 사유**로 돌아왔다.
+//   `rice`·`elephant`·`oxygen`·`monday` 에는 반의어가 없다. 그런데 DB 는 `antonyms = {}` 하나로
+//   "아직 안 물어봄" 과 "물어봤고 없다" 를 똑같이 표현한다. 그러면 **다음 export 가 같은 2,360 개를
+//   영원히 다시 묻는다** — 매번 같은 토큰을 태우고 매번 같은 빈칸이 남는다.
+//   그래서 판정을 `field_provenance.<field> = 'none:d0830'` 으로 남기고, chunk 가 그것을 읽어 뺀다.
+//   (CLAUDE.md 의 "빈 값이 들어가면 다음 export 가 완료로 세어 구멍이 영영 남는다" 의 반대 사고다 —
+//    여기서는 **판정을 안 남기면** 구멍이 영영 남는다.)
+//
+// 재실행 안전: chunk 는 이미 채워진 필드와 **없음으로 판정된 필드**를 빼고 굽는다.
+//   apply 는 빈 값을 쓰지 않고 건너뛴 수를 출력한다.
 //
 // 실행: node scripts/dict/w0830-corefill.mjs chunk [--dir D] [--size 30]
 //       node scripts/dict/w0830-corefill.mjs apply [--dir D] [--commit]
@@ -70,18 +80,21 @@ if (MODE === 'chunk') {
   let cursor = ''
   for (;;) {
     const { data, error } = await db.from('shared_dictionary')
-      .select('word, pos, primary_pos, pos_set, meaning_ko, meanings_ko, example_en, synonyms, antonyms, collocations, korean_learner_note, cefr_level, v_level, frequency_rank, list_tags, register, word_register')
+      .select('word, pos, primary_pos, pos_set, meaning_ko, meanings_ko, example_en, synonyms, antonyms, collocations, korean_learner_note, cefr_level, v_level, frequency_rank, list_tags, register, word_register, field_provenance')
       .gt('word', cursor).order('word').limit(1000)
     if (error) { console.error(error.message); process.exit(1) }
     if (!data.length) break
     for (const r of data) {
       const tags = r.list_tags || []
       if (!tags.some((t) => EXAM_TAGS.includes(t))) continue
+      // 'none:' 로 시작하는 provenance = 이미 물어봤고 "없다" 로 판정된 필드. 다시 묻지 않는다.
+      const prov = r.field_provenance || {}
+      const judged = (f) => String(prov[f] ?? '').startsWith('none:')
       const need = []
-      if (empty(r.synonyms)) need.push('synonyms')
-      if (empty(r.antonyms)) need.push('antonyms')
-      if (empty(r.collocations)) need.push('collocations')
-      if (!txt(r.korean_learner_note)) need.push('korean_learner_note')
+      if (empty(r.synonyms) && !judged('synonyms')) need.push('synonyms')
+      if (empty(r.antonyms) && !judged('antonyms')) need.push('antonyms')
+      if (empty(r.collocations) && !judged('collocations')) need.push('collocations')
+      if (!txt(r.korean_learner_note) && !judged('korean_learner_note')) need.push('korean_learner_note')
       if (!need.length) continue
       const mk = Array.isArray(r.meanings_ko) ? r.meanings_ko : []
       targets.push({
@@ -142,13 +155,14 @@ if (MODE === 'apply') {
   const cur = new Map()
   for (let i = 0; i < words.length; i += 200) {
     const { data, error } = await db.from('shared_dictionary')
-      .select('word, synonyms, antonyms, collocations, korean_learner_note').in('word', words.slice(i, i + 200))
+      .select('word, synonyms, antonyms, collocations, korean_learner_note, field_provenance').in('word', words.slice(i, i + 200))
     if (error) throw new Error(error.message)
     for (const d of data) cur.set(d.word.toLowerCase(), d)
   }
 
   const rej = { no_row: 0, unknown_word: 0, self: 0, dup: 0, bad_shape: 0, too_long: 0, no_headword: 0, note_short: 0, note_no_ko: 0, note_no_word: 0 }
   const wrote = { synonyms: 0, antonyms: 0, collocations: 0, korean_learner_note: 0 }
+  const judged = { synonyms: 0, antonyms: 0, collocations: 0 }
   const flagged = []
   let updated = 0, fail = 0
 
@@ -201,8 +215,29 @@ if (MODE === 'apply') {
       }
     }
 
+    // "없음으로 판정함" 을 남긴다 — 그 필드가 여전히 비어 있고, 산출물이 그 필드를 **빈 채로 냈고**,
+    // 사유가 붙어 있을 때만. 사유 없는 빈 배열은 게으름과 구별되지 않으므로 판정으로 치지 않는다.
+    if (txt(r.skip_reason)) {
+      const prov = { ...(row.field_provenance || {}) }
+      let marked = false
+      const stillEmpty = {
+        synonyms: empty(row.synonyms) && !patch.synonyms,
+        antonyms: empty(row.antonyms) && !patch.antonyms,
+        collocations: empty(row.collocations) && !patch.collocations,
+      }
+      for (const f of ['synonyms', 'antonyms', 'collocations']) {
+        if (!stillEmpty[f]) continue
+        if (!Array.isArray(r[f]) || r[f].length > 0) continue // 냈는데 게이트가 버린 것은 판정이 아니다
+        if (String(prov[f] ?? '').startsWith('none:')) continue
+        prov[f] = 'none:d0830'
+        marked = true
+        judged[f]++
+      }
+      if (marked) patch.field_provenance = prov
+    }
+
     if (!Object.keys(patch).length) continue
-    for (const k of Object.keys(patch)) wrote[k]++
+    for (const k of Object.keys(patch)) if (k !== 'field_provenance') wrote[k]++
     if (!COMMIT) { updated++; continue }
     const { error } = await db.from('shared_dictionary').update(patch).eq('word', row.word)
     if (error) { fail++; if (fail < 5) console.warn('fail', w, error.message) } else updated++
@@ -211,6 +246,7 @@ if (MODE === 'apply') {
 
   console.log(`\n${COMMIT ? '적용' : '드라이런'} — 낱말 ${updated} · 실패 ${fail}`)
   console.log('필드별 기록:', JSON.stringify(wrote))
+  console.log('없음으로 판정(다음 export 에서 빠진다):', JSON.stringify(judged))
   console.log('거부:', JSON.stringify(rej))
   if (flagged.length) {
     fs.writeFileSync(path.join(DIR, 'FLAGGED.json'), JSON.stringify(flagged, null, 1))
