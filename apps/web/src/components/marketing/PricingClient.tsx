@@ -69,7 +69,10 @@ const TIERS: Tier[] = [
     accent: 'var(--p)',
     bgGradient: 'from-[var(--p-light)] to-transparent',
     cta: '14일 무료 체험',
-    ctaHref: '/signup?plan=pro',
+    // ⚠️ `?plan=pro` 를 달고 있었는데 **가입 화면은 그 값을 읽지 않는다**(실측 2026-08-30).
+    //    결제 경로 자체가 아직 없어 받아 줄 곳도 없다 — 고를 수 있는 것처럼 보이게 하는
+    //    파라미터를 주소에 남기지 않는다(진단 2회차의 "없는 기능을 팔지 않는다" 와 같은 줄).
+    ctaHref: '/signup',
     highlight: true,
     features: [
       '스크립트 무제한 · AI 분석 무제한',

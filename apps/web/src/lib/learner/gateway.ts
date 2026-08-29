@@ -43,7 +43,11 @@ function one<T>(v: T | T[] | null | undefined): T | null {
 /** 텍스트로 돌아가는 경로. 모듈에 따라 진입면이 다르다. */
 function hrefFor(module: string, textId: string | null): string | null {
   if (!textId) return null
-  if (module === 'dictation') return `/dictate/setup?textId=${textId}`
+  // ⚠️ 이름이 어긋나 있었다 — 여기서는 `?textId=` 를 보냈는데 받는 쪽
+  //    (`DictationSetupClient`)이 읽는 것은 `text`·`set`·`custom`·`chapter` 다.
+  //    그래서 "이어서 받아쓰기" 를 눌러도 **자료가 안 실린 빈 준비 화면**이 열렸고,
+  //    학습자는 방금 읽던 글을 다시 골라야 했다(실측 2026-08-30 · 오류는 나지 않는다).
+  if (module === 'dictation') return `/dictate/setup?text=${textId}`
   if (module === 'echo') return `/text/${textId}/echo`
   if (module === 'scriptquiz') return `/scriptquiz`
   return `/text/${textId}`

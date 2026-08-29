@@ -54,7 +54,12 @@ function defaultNextForType(type: EmailOtpType): string {
     case 'email_change':
       return '/settings'
     case 'invite':
-      return '/signup?invited=true'
+      // ⚠️ `?invited=true` 를 붙여 보내고 있었는데 **가입 화면은 그 값을 읽지 않는다**
+      //    (실측 2026-08-30 — `searchParams` 에서 읽는 것은 복귀 경로뿐이다).
+      //    바로 위 `recovery` 의 `?mode=update` 는 재설정 폼이 실제로 읽는다 — 그 짝인 줄
+      //    알고 붙였지만 받는 쪽이 만들어진 적이 없다. 읽는 자가 생기기 전까지는 달지 않는다:
+      //    주소에 남은 마커는 "이런 동작이 있다" 는 신호로 읽힌다.
+      return '/signup'
   }
 }
 

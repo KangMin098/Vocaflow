@@ -88,7 +88,12 @@ export function CompletionState({
               {stats.difficultWords.map((dw) => (
                 <Link
                   key={dw.word.id}
-                  href={`/flashcard?word=${dw.word.id}`}
+                  // ⚠️ `/flashcard?word=<id>` 로 보내고 있었는데 **`/flashcard` 는
+                  //    searchParams 를 한 줄도 읽지 않는다**(실측 2026-08-30). 어려웠던
+                  //    단어를 눌러도 그냥 허브가 열렸다 — 링크가 장식이었다.
+                  //    실제로 그 낱말을 보여 줄 수 있는 곳으로 보낸다(`?q=` 는
+                  //    `lib/wordvault/list-params` 가 읽는다).
+                  href={`/wordvault/browse?q=${encodeURIComponent(dw.word.text)}`}
                   className="flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 text-left no-underline transition-all duration-[var(--dur-normal)] hover:translate-x-0.5 hover:border-[var(--p)] hover:shadow-[var(--sh-sm)]"
                 >
                   <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[var(--error-light)] font-display text-[11px] font-[800] text-[var(--error-ink)]">
