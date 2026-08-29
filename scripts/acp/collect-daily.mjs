@@ -42,6 +42,21 @@ const onlySource = arg('source')
 const onlyFeed = arg('feed')
 const PER_FEED = Number(arg('limit') ?? 3)
 
+/**
+ * 카테고리를 몇 페이지까지 걸어 들어갈지 (continuation 지원 피드만).
+ *
+ * ⚠️ 기본 1 이다 — 매일 도는 경로의 부하를 늘리지 않는다. 대량 확보는 명시적으로 켠다.
+ *   `--pages 0` 이면 소진까지(`cont === null`) 간다.
+ *
+ * 왜 필요한가 (실측 2026-08-30): 위키미디어 어댑터는 카테고리 **첫 페이지만** 읽고 있었다.
+ *   Featured Articles 6,993편 중 손에 닿는 것이 ~20편이었고, 그걸 다 담으면 "새 것 0" 이
+ *   떠서 **소진처럼 보였다.** 페이지를 걸어야 나머지 99.7% 가 보인다.
+ */
+const PAGES = Number(arg('pages') ?? 1)
+/** 페이지 사이 간격 — 기관 API 에 몰아치지 않는다. */
+const PAGE_DELAY_MS = Number(arg('page-delay') ?? 350)
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+
 const { createClient } = await import('@supabase/supabase-js')
 const lib = await import('@vocaflow/library-pipeline')
 
@@ -104,6 +119,8 @@ const SOURCES = [
     feeds: lib.WIKIPEDIA_FEEDS.map((f) => ({
       id: f.id,
       run: () => lib.listWikipediaFeed(f.category, f.id),
+      // continuation 지원 — `--pages` 로 카테고리를 걸어 들어간다.
+      runPage: (cursor) => lib.listWikipediaFeedPage(f.category, f.id, 20, cursor),
     })),
     ingest: (u) => lib.ingestWikipediaArticle(u),
   },
@@ -166,8 +183,32 @@ for (const s of targets) {
     if (onlyFeed && feed.id !== onlyFeed) continue
     const label = `${s.key}/${feed.id}`
     let items = []
+    // 소진 여부를 말로 구분한다 — 'exhausted' 만이 "정말 다 봤다" 이고,
+    // 'capped' 는 `--pages` 예산이 먼저 끝난 것이다. 둘을 섞으면 상한을 소진으로 오해한다.
+    let walk = null
     try {
-      items = await feed.run()
+      if (feed.runPage && PAGES !== 1) {
+        const seen = new Set()
+        let cursor = null
+        let pages = 0
+        const budget = PAGES > 0 ? PAGES : Infinity
+        while (pages < budget) {
+          const page = await feed.runPage(cursor)
+          pages++
+          for (const it of page.items) {
+            if (it.url && !seen.has(it.url)) {
+              seen.add(it.url)
+              items.push(it)
+            }
+          }
+          cursor = page.cont
+          if (!cursor) break
+          if (pages < budget) await sleep(PAGE_DELAY_MS)
+        }
+        walk = { pages, state: cursor ? 'capped' : 'exhausted' }
+      } else {
+        items = await feed.run()
+      }
     } catch (e) {
       failures.push(`${label}: 목록 실패 — ${e instanceof Error ? e.message : String(e)}`)
       console.log(`  ✗ ${label.padEnd(32)} 목록을 못 가져왔다`)
@@ -193,6 +234,7 @@ for (const s of targets) {
         String(fresh.length).padStart(5),
         ((100 * fit) / n).toFixed(1).padStart(6),
         ((100 * unfit) / n).toFixed(1).padStart(7),
+        walk ? `  ${walk.pages}p ${walk.state === 'exhausted' ? '소진' : '예산소진'}` : '',
       ].join(' '),
     )
 

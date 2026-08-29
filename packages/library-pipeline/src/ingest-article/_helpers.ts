@@ -9,6 +9,43 @@ const DEFAULT_TIMEOUT_MS = 15_000
 const DEFAULT_USER_AGENT =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 
+/**
+ * Wikimedia 계열은 **위장 UA 를 보내면 안 된다.**
+ *
+ * 실측 2026-08-30 — 카테고리를 여러 페이지 걷기 시작하자마자 전부 429 로 막혔다.
+ * 같은 순간 손으로 친 요청은 200 에 60건을 돌려줬다. 차이는 딱 하나, User-Agent 였다:
+ *   Chrome 위장 → 429 / `Vocaflow/1.0 (probe)` → 200
+ * Wikimedia 의 UA 정책은 API 클라이언트에 **식별 가능한 이름과 연락처**를 요구하고,
+ * 브라우저를 사칭하는 UA 는 봇으로 보고 공격적으로 스로틀한다. 즉 이건 속도 문제가 아니라
+ * **신원 문제**였다 — 간격만 늘렸으면 영영 못 고쳤다.
+ */
+const WIKIMEDIA_UA = 'Vocaflow/1.0 (https://vocaflow.app; hello@vocaflow.app) library-pipeline'
+
+/** UA 정책을 적용할 호스트. 서브도메인까지 본다(en./simple./www.). */
+const WIKIMEDIA_HOST_RE =
+  /(^|\.)(wikipedia|wikivoyage|wikisource|wikibooks|wikinews|wikimedia|wiktionary)\.org$/i
+
+/** 호스트에 맞는 UA. 알 수 없는 URL 은 기존 기본값을 그대로 쓴다(동작 변화 없음). */
+export function userAgentFor(url: string): string {
+  try {
+    return WIKIMEDIA_HOST_RE.test(new URL(url).hostname) ? WIKIMEDIA_UA : DEFAULT_USER_AGENT
+  } catch {
+    return DEFAULT_USER_AGENT
+  }
+}
+
+/** 재시도 대상 — 일시적인 것만. 404·403 은 재시도해도 같다. */
+const RETRYABLE_STATUS = new Set([429, 503])
+const MAX_ATTEMPTS = 3
+/** Retry-After 를 그대로 믿지 않는다 — 몇 분짜리 값이 오면 배치가 통째로 멈춘다. */
+const MAX_BACKOFF_MS = 20_000
+
+function backoffMs(attempt: number, retryAfter: string | null): number {
+  const hinted = retryAfter ? Number(retryAfter) * 1000 : NaN
+  const base = Number.isFinite(hinted) && hinted > 0 ? hinted : 500 * 2 ** attempt
+  return Math.min(base, MAX_BACKOFF_MS)
+}
+
 export interface RssListItem {
   /** GUID 또는 link 해시 — caller 가 source prefix 추가 */
   guid: string | null
@@ -304,18 +341,28 @@ export async function fetchWithTimeout(
     extraHeaders?: Record<string, string>
   } = {},
 ): Promise<Response> {
-  const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? DEFAULT_TIMEOUT_MS)
-  try {
-    return await fetch(url, {
-      signal: controller.signal,
-      headers: {
-        'User-Agent': DEFAULT_USER_AGENT,
-        Accept: options.accept ?? 'application/rss+xml, application/xml, text/xml, text/html',
-        ...options.extraHeaders,
-      },
-    })
-  } finally {
-    clearTimeout(timer)
+  let last: Response | null = null
+  for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? DEFAULT_TIMEOUT_MS)
+    try {
+      const res = await fetch(url, {
+        signal: controller.signal,
+        headers: {
+          'User-Agent': userAgentFor(url),
+          Accept: options.accept ?? 'application/rss+xml, application/xml, text/xml, text/html',
+          ...options.extraHeaders,
+        },
+      })
+      // 일시적 거절만 물러섰다 다시 친다. 마지막 시도의 응답은 그대로 돌려줘
+      // 호출부가 지금까지처럼 status 를 보고 판단하게 둔다(동작 변화 없음).
+      if (!RETRYABLE_STATUS.has(res.status) || attempt === MAX_ATTEMPTS - 1) return res
+      last = res
+    } finally {
+      clearTimeout(timer)
+    }
+    await new Promise((r) => setTimeout(r, backoffMs(attempt, last?.headers.get('retry-after') ?? null)))
   }
+  // 도달하지 않는다(마지막 시도에서 반환). 타입을 위해 남긴다.
+  return last as Response
 }
