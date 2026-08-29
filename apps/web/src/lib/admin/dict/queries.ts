@@ -680,6 +680,9 @@ function emptyCoverage(): DictCoverageData {
     total: 0,
     meaningKo: m,
     exampleEn: m,
+    // 실제 집계(위 `asMetric(exKo, total)`)에는 있는데 이 폴백에만 빠져 있었다 —
+    // 타입에 필드를 더할 때 안전 기본값 쪽을 같이 고치지 않으면 빌드가 막힌다.
+    exampleKo: m,
     ipa: m,
     cefrLevel: m,
     cefrConfidence: m,
