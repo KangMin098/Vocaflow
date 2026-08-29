@@ -184,17 +184,37 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 
 ---
 
-## 📊 DB 핵심 통계 (2026-08-29 실측)
+## 📊 DB 핵심 통계
 
-> ⚠️ **이 블록은 손으로 고치는 한 반드시 다시 낡는다.** 2026-08-29 진단에서 여기 적힌 값이
-> 실제와 이렇게 벌어져 있었다 — 테이블 87→105 · 함수 327→358 · migrations 428→510 ·
-> DB 350 MB→1,996 MB · `shared_dictionary` 45,292→48,962 · `library_books` 20→**401** ·
-> `vocabularies` 5,896→**2,205**(과대 기재였다). 이게 [PLATFORM_AUDIT.md](./docs/PLATFORM_AUDIT.md)
-> §8 의 상시 결함 **F7**(문서–현실 드리프트)이고, 해소 조건은 이 블록을 **스크립트 생성으로
-> 교체**하는 것이다. 그때까지 **여기 수치를 근거로 쓰지 말 것** — DB 에 직접 물어볼 것.
+<!-- db-stats:start -->
 
-- **105 테이블** · **11 view** · **358 함수** · **510 migrations 적용** (로컬 파일 353 — 차이는 원격 선적용분)
-- ✅ **없는 테이블을 읽는 RPC = 0개** (2026-08-16 실측으로 해소 완료).
+> 이 블록은 `node scripts/docs/gen-db-stats.mjs` 가 DB 에서 생성한다 — **손으로 고치지 말 것.**
+> 고쳐도 다음 실행에 덮어써지고, 그 사이에는 틀린 값이 근거로 쓰인다.
+> 마지막 생성 **2026-08-30**. 낡았는지 확인만 하려면 `--check` (파일을 안 고치고 exit 1).
+
+**수요 측** — 이 줄이 이 문서에서 가장 중요하다. 공급이 아무리 늘어도 여기가 안 늘면 진단은 `risk` 다.
+
+- 가입자 **3** (프로필 3) · 학습기록 **665** · 읽기 세션 256 · 일별 활동 42 · 점수 78
+- 교사 채널: 학급 **0** · 학급 구성원 0 · 학급 과제 **0** · 퍼널 이벤트 1
+
+**공급 측**
+
+- `shared_dictionary` **48,962** row · meaning_ko 100%
+- `library_books` **401** — ready 303 · failed 77 · published 13 · queued 6 · archived 2
+- `library_articles` **779** — ready 619 · published 160
+- `shared_word_sets` 1,337 (published 1,334) · `library_chapter_quiz` 1,019
+- `texts` 277 · `vocabularies` 2,205
+- 만화: `pd_comic_issues` 969 · 시리즈 101 · 발행 `comic_books` 1
+
+> **여기 없는 수치는 일부러 안 센다** — 테이블·함수·migration 개수와 DB 용량은 전용 RPC 가 있어야
+> 읽히는데, 그 값들로 바뀌는 결정이 없다. 용량처럼 실제로 의미 있는 것은 분기 진단이 날짜와 함께
+> 기록한다([PLATFORM_AUDIT.md](./docs/PLATFORM_AUDIT.md) §6-2). 스키마 자체는 [DB_SCHEMA.md](./docs/DB_SCHEMA.md).
+
+<!-- db-stats:end -->
+
+### 없는 테이블을 읽는 RPC = 0개 — 왜 목록이 아니라 `to_regclass` 인가
+
+2026-08-16 실측으로 해소 완료.
   `20260719161409_drop_unused_empty_tables` 가 "빈 테이블"로 13개를 CASCADE 삭제했으나 함수는 CASCADE 대상이 아니어서 살아남았고, 오래 미해결로 남아 있었다. 처리 결과는 두 갈래다:
   - **복원**(6): `word_familiarity`(20260812093000) · `csat_item_attempts`(20260812113000) · `vocab_raw_texts` · `classes` · `class_members` · `pending_words`
   - **은퇴**(1): `word_lexicon` — **복원하면 안 되는 경우였다**(`20260816140000`).
@@ -208,15 +228,8 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
   `/hub` 구문 연습 블록을 "완료 관측 불가" 로 분모에서 빼는 코드를 넣었다가, DB 에 물어보고
   되돌렸다(복원된 지 나흘 된 테이블이었다). **문서가 아니라 `to_regclass` 로 확인할 것.**
   상세: [DB_SCHEMA.md](./docs/DB_SCHEMA.md)
-- 전체 DB: **1,996 MB** — 그중 `library_book_vocabularies` 하나가 **1,120 MB(56%)** 다.
-  발행 13권 / 전체 401권짜리 재고에 대한 색인이다. **디스크를 채우는 것은 학습자가 아니라 재고다.**
-- `shared_dictionary` **48,962** row · meaning_ko 100%
-- `library_books` **401** (published 13 · ready 303 · failed 77 · queued 6 · archived 2)
-- `texts` **277** · `vocabularies` **2,205** · `library_articles` 779 (published 160)
-- `shared_word_sets` 1,337 (published 1,334) · `library_chapter_quiz` **1,019**
-- 수요 측: 가입자 **3** · 학습기록 **665** · 학급 0 · 학급 과제 0 · 퍼널 이벤트 0
 
-상세: [docs/DB_SCHEMA.md](./docs/DB_SCHEMA.md)
+전체 스키마·RPC 시그니처: [docs/DB_SCHEMA.md](./docs/DB_SCHEMA.md)
 
 ---
 
@@ -318,6 +331,7 @@ vocaflow/
 | 코딩 패턴 / 안티패턴 추가 | [CONVENTIONS.md](./docs/CONVENTIONS.md) | 절대 금지 / 항상 지킬 것 |
 | 패키지 추가/버전 변경 | [STACK.md](./docs/STACK.md) | 패키지 표 갱신 |
 | 위 모든 변경 (요약) | [CHANGELOG.md](./docs/CHANGELOG.md) | Unreleased 섹션 한두 줄 추가 |
+| **콘텐츠·수요 수치가 바뀌는 작업** (드레인 · 발행 · 마이그레이션) | **본 문서 §📊 DB 핵심 통계** | `pnpm docs:db-stats` **실행** — 손으로 고치지 않는다. 마커 안은 스크립트 생성물이다 |
 
 **갱신 원칙**:
 - 정확도 100% — DB direct query / grep 으로 검증 가능한 사실만

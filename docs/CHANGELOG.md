@@ -10,6 +10,72 @@
 
 ## Unreleased (v06.34 → next)
 
+### 사전이 **예문을 싣고도 해석을 한 줄도 달지 않았다** — D0830 교재경쟁 드레인
+
+시중 어휘 교재와 우리 사전을 같은 항목표로 놓고 재니 갈라지는 자리가 나왔고, 전부 "데이터가 없다"
+가 아니라 **"있는데 닿지 않는다"** 쪽이었다. 컴포저 평가 리포트(`docs/reports/vcb-compose-eval.md`)가
+이미 그 자리를 이름으로 부르고 있었다 — `missing:senses_multi` 2,242건 · `undersized_group` 4,639건.
+
+- **T1 · `senses` ↔ `meanings_ko` 어긋남 해소 (10,409 낱말 · LLM 불필요)** —
+  학습자 화면(CardBack)은 `meanings_ko` 를 읽고 VCB 컴포저는 `senses` 를 읽는데
+  (`resolve.ts` 의 `sense_count: senseCount(row.senses)`), 두 컬럼이 갈라져 **meanings_ko 로는
+  다의어인데 senses 로는 단의어**인 낱말이 8,184개였다. 그래서 B17 '다의어' 블루프린트가
+  모집단의 절반을 걸러 내고 있었다. 부가 키(`sense_en`·`register`·`examples`)를 뜻 문자열로
+  매칭해 이월하며 재구성 → **다의어 7,970 → 16,154(2.03배)** · top3k 구간 3,152 · 어긋남 잔량 0.
+  `scripts/dict/w0830-sensesync.mjs`
+- **T2 · 다의어 뜻마다 예문 + 한국어 해석** — 뜻 40,608 중 예문이 붙은 것은 9,645(23.8%)뿐이고
+  **해석은 0건**이었다. 다의어 교재의 본체는 뜻 목록이 아니라 *그 뜻으로만 읽히는 문장*이다.
+  `meanings_ko[].example` / `.example_ko` 에 **원소별 키만** 더한다(마이그레이션 불필요 · 통째로
+  덮으면 meaning·v_level 이 날아간다). `scripts/dict/w0830-senseex.mjs`
+- **T3 · 수능·EBS·교육과정 밴드(6,932) 결손 채움** — 유의어 없음 2,719 · 반의어 없음 2,876 ·
+  연어 357 · 학습자 노트 379. 유의·반의는 **사전 등재어만** 통과시킨다 — 없는 낱말을 넣으면
+  학습자가 눌러도 아무것도 안 뜬다. `scripts/dict/w0830-corefill.mjs`
+- **T4 · 어족(`base_word`·`derivation_suffix`)** — B9 '파생어 family' 가 후보 4,639 을 버리던
+  원인이 `base_word` 7%(3,414)였다. 대상 15,016.
+  ⚠️ DB 트리거 `enforce_base_word_depth1` 이 **기본형이 다시 파생어면 거부**한다 —
+  `leadership → leader` 가 아니라 `leadership → lead`(계열의 뿌리)여야 한다.
+  `scripts/dict/w0830-family.mjs` (+ `backfill` 모드로 기본형 쪽 `derived_forms` 역채움)
+- **T5 · 예문 해석(뜻이 하나뿐인 31,961 낱말)** — 국내 교재는 예문마다 해석을 단다.
+  해석 없는 영어 예문은 대다수 학습자에게 읽히지 않고 넘어간다 — 칸이 차 있어도 학습에서는
+  비어 있는 것과 같다. `scripts/dict/w0830-exko.mjs`
+- **학습자 화면 배선** — CardBack 의 "품사별 뜻" 이 이제 **뜻마다 예문+해석**을 보이고, 대표 예문
+  아래에 해석 줄이 붙는다. `dict-extras` 가 예문→해석 표를 넘기고 소비 측이 찾는다(카드가 어떤
+  예문을 고를지 사전 계층은 알 수 없다). Admin 사전 건강 R3 에 '예문 해석' 지표 추가 —
+  첫 sense 만 세는 **하한 추정치**라고 라벨에 적어 둔다.
+- **배치가 찾아낸 결함 2종** — ① 굴절 매처에 `choose`·`undertake` 계열이 없어 그 예문이
+  `no_headword` 로 **조용히 버려지고** 있었다(불규칙 60여 개 보강). ② WordNet 유래 **동음이의어
+  오염**이 광범위하다 — `it`(대명사)의 연어가 `it department`, `saw`(see 과거형)의 연어가
+  `chain saw`, `transport`(수송)의 연어가 `transport of joy`. 각 배치의 `FLAGGED.json` 에 누적.
+
+### F7 해소 — **CLAUDE.md 의 DB 통계를 사람이 안 적는다**
+
+항상 첨부되는 문서가 틀린 수치를 들고 있으면 그게 곧바로 잘못된 판단이 된다. 실제로 그랬다 —
+낡은 목록을 믿고 멀쩡한 `/hub` 블록을 "완료 관측 불가" 로 빼는 코드가 들어간 적이 있고,
+두 번의 진단이 각각 `library_books 20`(실제 401) · `shared_dictionary 45,292`(실제 48,962) 를
+적발했다. **성실함으로는 못 막는다.**
+
+`scripts/docs/gen-db-stats.mjs` 신설 (`pnpm docs:db-stats`).
+CLAUDE.md 의 `<!-- db-stats:start -->` … `end` 사이를 DB 정확 카운트로 다시 만든다.
+`--check` 는 파일을 고치지 않고 낡았으면 exit 1 (CI·훅용), `--print` 는 stdout.
+같은 DB 상태면 같은 결과다(재실행 안전 — 연속 실행으로 확인).
+
+**셀 수 없는 값은 지웠다.** 테이블·뷰·함수·migration 개수와 DB 용량은 PostgREST 로 못 읽어
+전용 RPC(=마이그레이션)가 필요한데, 그 값들로 바뀌는 결정이 없었다. 유지 장치를 붙일 값이 아니라
+지울 값이었다. 용량처럼 실제로 의미 있는 것은 분기 진단이 날짜와 함께 기록한다
+([PLATFORM_AUDIT.md](./PLATFORM_AUDIT.md) §6-2). 규칙은 공개 화면에 이미 쓰는 것과 같다
+(`marketing/__tests__/no-hardcoded-stats`): **숫자는 기계가 써넣거나, 아예 없거나 둘 중 하나다.**
+
+수치가 아닌 서술(없는 테이블 RPC 이력 14줄)은 마커 밖으로 그대로 옮겨 보존했다.
+자동화 매트릭스(CLAUDE.md §1️⃣)에 "콘텐츠·수요 수치가 바뀌는 작업 → `pnpm docs:db-stats` 실행" 행 추가.
+
+> ⚠️ 스크립트를 아무도 안 돌리면 여전히 낡는다. `--check` 를 CI 나 커밋 훅에 걸지는
+> 다음 진단 회차에 결정한다.
+
+**부수 관측** — `funnel_events` 에 **첫 행**이 들어왔다(`teacher_hub_view` · `/teacher`,
+2026-08-29). 기존 계정이 만든 것이라 외부 수요는 아니지만, 계측 경로가 실제 쓰기까지
+도는 것을 처음 확인했다. 판정은 그대로 `risk`.
+
+
 ### 시중교재 코퍼스 파이프라인 (`scripts/textbook-corpus/`)
 
 로컬에 내려받은 시중 영어 교재 **79개 파일 · 808 MB** 를 분류·추출·조회 가능한 형태로 만들었다.
