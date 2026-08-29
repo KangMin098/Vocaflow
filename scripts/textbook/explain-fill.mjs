@@ -29,7 +29,43 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
 }
 
 const { createClient } = await import('@supabase/supabase-js')
-const { DETERMINISTIC_EXPLAIN_TYPES, explainItem } = await import('@vocaflow/library-pipeline')
+const {
+  DETERMINISTIC_EXPLAIN_TYPES,
+  explainInsertSeam,
+  explainShortInsertSeam,
+  explainItem,
+  explainOrderSeam,
+  toCsatInsert,
+  toCsatOrder,
+} = await import('@vocaflow/library-pipeline')
+
+/**
+ * 순서·삽입은 `explain-items.ts` 가 아니라 `explain-seam.ts` 가 쓴다.
+ *
+ * 수능 인쇄 형식으로 못 바꾸는 문항은 이음매 자체가 성립하지 않으므로 건너뛴다 —
+ * 그 사실을 `못씀` 으로 세고 조용히 빈 값을 넣지 않는다.
+ */
+function explainSeamItem(type, payload, answerKey) {
+  if (type === 'order') {
+    const it = toCsatOrder(payload?.presented ?? [], answerKey?.source_order ?? [])
+    return it ? explainOrderSeam(it) : null
+  }
+  if (type === 'insert') {
+    const it = toCsatInsert(payload?.remaining ?? [], payload?.insert_sentence ?? '', answerKey?.position)
+    if (it) return explainInsertSeam(it)
+    // 자리가 5곳이 안 되는 것(3~4문장)은 교재에는 못 써도 **학습 화면에서는 그대로 풀린다.**
+    // 실측 1,748건 중 1,047건이 그렇다 — 그 화면에 해설이 없던 자리다.
+    return explainShortInsertSeam(
+      payload?.remaining ?? [],
+      payload?.insert_sentence ?? '',
+      answerKey?.position,
+    )
+  }
+  return null
+}
+
+/** 이 스크립트가 채우는 유형 전체. */
+const FILL_TYPES = [...DETERMINISTIC_EXPLAIN_TYPES, 'order', 'insert']
 
 const COMMIT = process.argv.includes('--commit')
 const OVERWRITE = process.argv.includes('--overwrite')
@@ -45,7 +81,7 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
 )
 
-const types = ONLY_TYPE ? [ONLY_TYPE] : [...DETERMINISTIC_EXPLAIN_TYPES]
+const types = ONLY_TYPE ? [ONLY_TYPE] : [...FILL_TYPES]
 console.log(`대상 유형 ${types.length}: ${types.join(', ')}`)
 console.log(COMMIT ? '모드: 적재' : '모드: 보기만 (--commit 으로 실제 적재)')
 if (OVERWRITE) console.log('⚠ --overwrite: 결정론 해설을 다시 쓴다 (배치 해설은 건드리지 않는다)')
@@ -82,7 +118,9 @@ for (const type of types) {
         if (!(OVERWRITE && oursBefore)) { s.already += 1; continue }
       }
 
-      const e = explainItem(row.type, row.payload ?? {}, ak)
+      const e = row.type === 'order' || row.type === 'insert'
+        ? explainSeamItem(row.type, row.payload ?? {}, ak)
+        : explainItem(row.type, row.payload ?? {}, ak)
       if (!e) { s.skipped += 1; continue }
 
       s.wrote += 1

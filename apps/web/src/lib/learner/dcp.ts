@@ -90,3 +90,23 @@ export function correctOrderFromKey(sourceOrder: number[]): number[] {
   }
   return result
 }
+
+/**
+ * 해설 문구를 고른다 — **해설은 두 이름으로 산다.**
+ *
+ * 생성형 드레인(`item-drain-*`)은 `rationale_ko` 에, 결정론·배치 드레인
+ * (`explain-fill` · `explain-drain-*`)은 `explanation_ko` 에 넣는다. 한쪽만 읽으면
+ * 그 유형의 해설이 있는데도 화면에 안 나온다 — 순서·삽입이 실제로 그랬다
+ * (2026-08-30 에 2,755건을 채웠는데 화면은 정답만 보여 주고 있었다).
+ *
+ * 규칙은 여기 한 곳에만 둔다. 화면마다 각자 고르게 두면 같은 실수가 다시 난다.
+ * 우선순위는 `explanation_ko` — 결정론/배치가 나중에 쓴 것이고 더 최신이다.
+ */
+export function pickExplanationText(answerKey: Record<string, unknown> | null | undefined): string | null {
+  if (!answerKey) return null
+  for (const key of ['explanation_ko', 'rationale_ko'] as const) {
+    const v = answerKey[key]
+    if (typeof v === 'string' && v.trim()) return v.trim()
+  }
+  return null
+}

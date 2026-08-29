@@ -624,3 +624,6 @@ export {
   SCHOOL_SENTENCE_TYPES,
   SCHOOL_SENTENCE_WORDS,
 } from './textbook/compose-unit'
+
+export { explainInsertSeam, explainOrderSeam } from './textbook/explain-seam'
+export { explainShortInsertSeam } from './textbook/explain-seam'

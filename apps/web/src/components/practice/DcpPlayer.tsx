@@ -19,6 +19,7 @@ import {
   type DcpItem,
   type DcpOrderPayload,
   ERROR_CAUSES,
+  pickExplanationText,
 } from '@/lib/learner/dcp'
 
 import { isChoiceDcpType } from '@/lib/learner/dcp-types'
@@ -243,12 +244,30 @@ function CauseTip({ cause }: { cause: DcpErrorCause }) {
   )
 }
 
+/**
+ * 해설 한 덩이.
+ *
+ * ⚠️ **해설은 두 이름으로 산다** — 생성형 드레인은 `rationale_ko`, 결정론·배치는
+ *   `explanation_ko`. 한쪽만 읽으면 그 유형의 해설이 있는데도 화면에 안 나온다.
+ *   순서·삽입이 실제로 그랬다: 2026-08-30 에 2,755건을 채웠는데 화면은 정답 순서만
+ *   보여 주고 **왜 그렇게 이어지는지는 한 글자도 안 보여 줬다.**
+ */
+function ExplanationNote({ answerKey }: { answerKey: Record<string, unknown> }) {
+  // 두 키 중 무엇을 읽을지는 `pickExplanationText` 한 곳에만 있다.
+  const text = pickExplanationText(answerKey)
+  if (!text) return null
+  return (
+    <p className="rounded-[var(--r-sm)] bg-[var(--bg)] p-3 font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
+      {text}
+    </p>
+  )
+}
+
 // 정답 공개 — order: 원래 순서 문장 / insert: 삽입 위치에 문장 배치
 function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, unknown> }) {
-  // ── 선택지 9종 — 정답 번호 + 해설(rationale_ko) ──
+  // ── 선택지 9종 — 정답 번호 + 해설 ──
   if (isChoiceDcpType(item.type)) {
     const answer = answerKey.answer
-    const rationale = answerKey.rationale_ko
     const p = item.payload as DcpChoicePayload
     if (typeof answer !== 'number') return null
     return (
@@ -263,11 +282,7 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
           </p>
         </div>
         {/* 해설은 **왜 나머지가 아닌지**까지 적혀 있다 — 오답 노트가 따로 필요 없게 만든 자리다. */}
-        {typeof rationale === 'string' && rationale.trim() && (
-          <p className="rounded-[var(--r-sm)] bg-[var(--bg)] p-3 font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
-            {rationale}
-          </p>
-        )}
+        <ExplanationNote answerKey={answerKey} />
       </div>
     )
   }
@@ -291,6 +306,7 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
             </li>
           ))}
         </ol>
+        <ExplanationNote answerKey={answerKey} />
       </div>
     )
   }
@@ -323,6 +339,7 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
           )
         })}
       </ol>
+      <ExplanationNote answerKey={answerKey} />
     </div>
   )
 }
