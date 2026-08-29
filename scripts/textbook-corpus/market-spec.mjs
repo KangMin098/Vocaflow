@@ -237,6 +237,64 @@ function extractTypeDensity(db) {
   };
 }
 
+/**
+ * **선택지 수** — 학교급별로 몇 지선다인가.
+ *
+ * ⚠️ 이걸 재기 전에 `middle-choice.ts` 는 "수능 5지선다 · **중등 4지선다**" 라고 적고
+ * 4,135문항을 그렇게 만들었다. 근거가 적혀 있지 않은 통념이었고, 재 보니 **반대**다 —
+ * 중등 문항의 93.8%가 5지선다이고 초등조차 79.7%다.
+ *
+ * 세는 법: 쪽 안에서 `①` 이 나오면 한 묶음이 시작된 것으로 보고, **번호가 순증하는
+ * 동안만** 같은 묶음으로 잇는다(본문 속 원문자 잡음을 배제한다). 묶음의 최대 번호가
+ * 그 문항의 보기 수다. 쪽 단위로 세면 한 쪽에 여러 문항이 있어 값이 흐려진다.
+ */
+function extractChoiceCount(db) {
+  const rows = db.prepare(`
+    SELECT d.grade_min, d.series, p.text
+    FROM pages p JOIN docs d ON d.id = p.doc_id
+    WHERE d.status = 'ok' AND d.category IN ('독해','내신')
+      AND d.role IN ('본책','본문','미리보기')`).all();
+
+  const LABEL = { '①': 1, '②': 2, '③': 3, '④': 4, '⑤': 5 };
+  const school = (g) => (g == null ? null : g <= 6 ? '초등' : g <= 9 ? '중등' : '고등');
+  const agg = {};
+
+  for (const r of rows) {
+    const b = school(r.grade_min);
+    if (!b) continue;
+    agg[b] ??= { counts: {}, series: new Set() };
+    agg[b].series.add(r.series);
+
+    let cur = null;
+    const flush = () => {
+      // 3지 미만은 보기 묶음으로 보지 않는다 — 목차 번호 같은 잡음이다.
+      if (cur && cur.max >= 3) agg[b].counts[cur.max] = (agg[b].counts[cur.max] || 0) + 1;
+      cur = null;
+    };
+    for (const m of r.text.matchAll(/[①②③④⑤]/g)) {
+      const v = LABEL[m[0]];
+      if (v === 1) { flush(); cur = { max: 1, last: 1 }; continue; }
+      if (!cur) continue;
+      if (v === cur.last + 1) { cur.last = v; cur.max = Math.max(cur.max, v); }
+      else flush();
+    }
+    flush();
+  }
+
+  const out = {};
+  for (const [b, v] of Object.entries(agg)) {
+    const total = Object.values(v.counts).reduce((a, n) => a + n, 0);
+    out[b] = {
+      seriesMeasured: v.series.size,
+      itemsMeasured: total,
+      byCount: v.counts,
+      dominant: Number(Object.entries(v.counts).sort((a, c) => c[1] - a[1])[0]?.[0] ?? 0),
+      fiveChoiceRate: total ? Number(((v.counts[5] || 0) / total).toFixed(3)) : 0,
+    };
+  }
+  return out;
+}
+
 /** 단원 구성 — 한 권에 단원이 몇 개, 단원 간격이 몇 쪽인지. */
 function extractUnitSpec(db) {
   const rows = db.prepare(`
@@ -285,6 +343,7 @@ function main() {
     passageWords: extractPassageSpec(db),
     explanation: extractExplanationSpec(db),
     typeDensity: extractTypeDensity(db),
+    choiceCount: extractChoiceCount(db),
     units: extractUnitSpec(db),
   };
 
@@ -301,6 +360,9 @@ function main() {
   log(`  표준 발문 ${spec.questionStems.length}종 (우리 유형 대응 ${spec.typeCoverage.mappedToOurTypes})`);
   log(`  지문 규격 ${Object.keys(spec.passageWords).length} 학년대`);
   log(`  해설 블록 ${spec.explanation.blocksMeasured} — 중앙 ${spec.explanation.lengthChars.median}자 · 오답배제 ${(spec.explanation.wrongOptionMentionRate * 100).toFixed(1)}% · 인용 ${(spec.explanation.sourceCitationRate * 100).toFixed(1)}%`);
+  for (const [b, c] of Object.entries(spec.choiceCount)) {
+    log(`  선택지 ${b} — 지배값 ${c.dominant}지선다 · 5지 비율 ${(c.fiveChoiceRate * 100).toFixed(1)}% (문항 ${c.itemsMeasured})`);
+  }
   log(`  단원 ${spec.units.booksMeasured}권 — 권당 ${spec.units.unitsPerBook?.median}단원 · 단원당 ${spec.units.pagesPerUnit?.median}쪽`);
   if (spec.typeCoverage.unmappedStems.length) {
     log('  ⚠ 우리 유형에 대응 없는 발문:');

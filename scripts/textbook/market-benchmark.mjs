@@ -157,6 +157,35 @@ for (const it of items) {
 }
 const A6 = { ours: a6Total ? a6In / a6Total : 0, market: 0.80 }
 
+// ── A7 선택지 수 규격 적합률 ──────────────────────────────────────
+// 학교급마다 시장의 지배값이 있다(초·중·고 모두 5지선다 — 중등 93.8%).
+// `middle-choice.ts` 는 "중등 4지선다" 라고 적고 4,135문항을 그렇게 만들었는데,
+// 그 문장에는 근거가 없었고 실측은 반대였다. 그래서 축으로 세워 다시 잊히지 않게 한다.
+const VBAND_SCHOOL = (v) => (v == null ? null : v <= 2 ? '초등' : v <= 4 ? '중등' : '고등')
+let a7In = 0
+let a7Total = 0
+const a7ByType = {}
+for (const it of items) {
+  const choices = it.payload?.choices ?? it.payload?.underlines
+  if (!Array.isArray(choices) || choices.length < 3) continue
+  const school = VBAND_SCHOOL(it.v_level)
+  const want = spec.choiceCount?.[school]?.dominant
+  if (!want) continue
+  a7Total += 1
+  const ok = choices.length === want
+  if (ok) a7In += 1
+  a7ByType[it.type] ??= { ok: 0, total: 0, want, seen: {} }
+  a7ByType[it.type].total += 1
+  if (ok) a7ByType[it.type].ok += 1
+  a7ByType[it.type].seen[choices.length] = (a7ByType[it.type].seen[choices.length] ?? 0) + 1
+}
+// 시장 자신도 100% 는 아니다 — 지배값 비율을 기준선으로 쓴다(중등 0.938 등).
+const a7Market = Object.values(spec.choiceCount ?? {}).length
+  ? Object.values(spec.choiceCount).reduce((a, c) => a + c.fiveChoiceRate, 0)
+    / Object.values(spec.choiceCount).length
+  : 0.85
+const A7 = { ours: a7Total ? a7In / a7Total : 0, market: Number(a7Market.toFixed(3)) }
+
 const AXES = [
   { id: 'A1', name: '해설 보유율', ...A1, unit: '%', why: '해설이 없으면 혼자 공부할 수 없다 — 시장이 교재를 고르는 첫 기준' },
   { id: 'A2', name: `해설 길이 규격 적합률 (${LO}~${HI}자)`, ...A2, unit: '%', why: '짧으면 근거가 없고 길면 안 읽는다. 시장 p25~p90 구간' },
@@ -164,6 +193,7 @@ const AXES = [
   { id: 'A4', name: '원문 인용률', ...A4, unit: '%', why: '지문에서 근거를 끌어와야 검증 가능한 해설이다' },
   { id: 'A5', name: '유형 다양성 (표준 대비)', ...A5, unit: '종', why: '표준 유형을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다' },
   { id: 'A6', name: '지문 어수 규격 적합률', ...A6, unit: '%', why: '학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다' },
+  { id: 'A7', name: '선택지 수 규격 적합률', ...A7, unit: '%', why: '학교급마다 시장 지배값이 있다 — 어긋나면 그 학년 시험지가 아니다' },
 ].map((a) => ({ ...a, index: ratio(a.ours, a.market) }))
 
 // 종합은 기하평균 — 한 축이 0 에 가까우면 종합도 끌려 내려가야 맞다.
@@ -194,6 +224,7 @@ const report = {
       .map(([type, v]) => ({ type, ...v, pct: Number((100 * v.explained / v.items).toFixed(1)) }))
       .sort((a, b) => b.items - a.items),
     passageSpecByBucket: a6ByBucket,
+    choiceCountByType: a7ByType,
     typesBeyondMarket: beyond.sort(),
     marketTypesMissing: [...marketTypes].filter((t) => !ourTypes.has(t)).sort(),
   },

@@ -1,6 +1,6 @@
 {
   "$schema": "market-spec/1",
-  "generatedAt": "2026-08-29T16:43:36.862Z",
+  "generatedAt": "2026-08-29T23:29:12.309Z",
   "provenance": {
     "corpus": "시중 영어 교재 79종 (저장소 밖 store)",
     "documentsMeasured": 79,
@@ -403,6 +403,41 @@
           "grammar_choice": 0.0028
         }
       }
+    }
+  },
+  "choiceCount": {
+    "고등": {
+      "seriesMeasured": 10,
+      "itemsMeasured": 946,
+      "byCount": {
+        "3": 97,
+        "4": 48,
+        "5": 801
+      },
+      "dominant": 5,
+      "fiveChoiceRate": 0.847
+    },
+    "초등": {
+      "seriesMeasured": 3,
+      "itemsMeasured": 311,
+      "byCount": {
+        "3": 50,
+        "4": 13,
+        "5": 248
+      },
+      "dominant": 5,
+      "fiveChoiceRate": 0.797
+    },
+    "중등": {
+      "seriesMeasured": 6,
+      "itemsMeasured": 225,
+      "byCount": {
+        "3": 4,
+        "4": 10,
+        "5": 211
+      },
+      "dominant": 5,
+      "fiveChoiceRate": 0.938
     }
   },
   "units": {

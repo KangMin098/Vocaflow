@@ -8,11 +8,23 @@
 // 조심할 것도 다르다: 단답은 *정답의 유일성*, 객관식은 *오답의 무해성*.
 //
 // ── 중등은 수능과 규격이 다르다 ──────────────────────────────────────
-//   보기 수    수능 5지선다 · **중등 4지선다** (`elementary.ts` 와 같다)
+//   보기 수    **초·중·고 모두 5지선다** (아래 ⚠️ 참조)
 //   지문 길이  수능 90~200어 · **중등 40~120어** (교과서 한 단원 본문이 그 정도다)
-//   밑줄 수    수능 5 · **중등 4**
+//   밑줄 수    5
 // 같은 생성기를 규격만 바꿔 돌리지 않고 별도 함수로 두는 이유는, 규격이 섞이면
 // 커버리지가 거짓말을 하기 때문이다 — 수능 어법 재고를 중등 재고로 세게 된다.
+//
+// ⚠️ **2026-08-30 정정 — 여기 "중등 4지선다" 라고 적혀 있었고 그 근거는 없었다.**
+//   시중 79종을 문항 단위로 세어 보니 반대다(`market-spec.json` `choiceCount`):
+//
+//     학교급   3지   4지   5지    5지 비율
+//     초등      50    13   248     79.7%
+//     중등       4    10   211     **93.8%**
+//     고등      97    48   801     84.7%
+//
+//   그 한 줄 때문에 `unit_vocab` 2,848 + `unit_grammar` 1,287 = **4,135문항이
+//   4지선다로 만들어졌다.** 근거 없는 규격 한 줄이 재고의 24%를 시장 밖으로 보냈다.
+//   지문 길이(40~120어)는 실측이 뒷받침하므로 그대로 둔다 — 틀린 것은 보기 수뿐이다.
 //
 // ⚠️ 어법 규칙 판정은 `grammar-choice.ts` 의 `candidateAt` 을 **그대로 쓴다.**
 //   재구현하면 두 유형의 판정이 조용히 갈라진다(`middle-short.ts` 와 같은 이유).
@@ -21,16 +33,30 @@ import { candidateAt, type GrammarRule } from './grammar-choice'
 import { isPrintablePassage, selectPassageWindow } from './csat-format'
 import { firstSense, type ElementaryWord } from './elementary'
 
-/** 중등 객관식은 4지선다. */
-export const MIDDLE_CHOICES = 4
+/** 중등 객관식 보기 수 — 시중 실측 지배값(중등 93.8%가 5지). 위 ⚠️ 참조. */
+export const MIDDLE_CHOICES = 5
 
-/** 중등 지문 규격 — 교과서 한 단원 본문 크기. */
-export const MIDDLE_ITEM_WORDS = { min: 40, max: 120 } as const
+/**
+ * 중등 지문 규격 — 시중 실측(`market-spec.json` `passageWords`).
+ *
+ * 상한 152 는 **중1 p90** 이다(중2 156 · 중3 153 중 가장 보수적인 값).
+ * 2026-08-30 이전에는 120 이었고 근거가 "교과서 한 단원 본문이 그 정도" 라는 말뿐이었다.
+ *
+ * ⚠️ 이 값은 보기 수와 **함께** 움직인다. 밑줄을 4→5 로 올리면 좁은 창에서는
+ * 어법 후보 5개를 못 찾아 수율이 무너진다 — 실측:
+ *
+ *   4지 · 40~120   unit_vocab 45.0% · unit_grammar 27.6%
+ *   5지 · 40~120   unit_vocab 45.0% · unit_grammar **16.6%**  ← 창이 좁아 −40%
+ *   5지 · 40~152   unit_vocab 48.7% · unit_grammar **24.0%**  ← 시장 창으로 −13%
+ *
+ * 즉 시장 규격 두 개(보기 5 · 지문 p90)는 **같이 지켜야** 성립한다.
+ */
+export const MIDDLE_ITEM_WORDS = { min: 40, max: 152 } as const
 
-/** 중등 어법 밑줄 수. 수능(5)보다 하나 적다. */
-export const MIDDLE_GRAMMAR_UNDERLINES = 4
+/** 중등 어법 밑줄 수. 보기 수와 같아야 한다 — 밑줄 하나가 보기 하나다. */
+export const MIDDLE_GRAMMAR_UNDERLINES = 5
 
-const LABELS = ['①', '②', '③', '④'] as const
+const LABELS = ['①', '②', '③', '④', '⑤'] as const
 
 export interface MiddleChoiceItem {
   kind: 'unit_vocab' | 'unit_grammar'
@@ -39,7 +65,7 @@ export interface MiddleChoiceItem {
   sentences: string[]
   /** 보기. */
   choices: { label: string; text: string }[]
-  /** 정답 번호 1~4. */
+  /** 정답 번호 1~5. */
   answer: number
 }
 
@@ -143,9 +169,9 @@ export function buildUnitVocab(
 // ── ② 단원 문법 ────────────────────────────────────────────────────
 
 /**
- * 중등 규격 어법 문항 — 밑줄 넷 중 틀린 것 고르기. 조건을 못 맞추면 **null**.
+ * 중등 규격 어법 문항 — 밑줄 다섯 중 틀린 것 고르기. 조건을 못 맞추면 **null**.
  *
- * 수능 어법(`buildGrammarChoice`)과 규칙은 같고 **규격만 다르다**(4지선다 · 40~120어).
+ * 수능 어법(`buildGrammarChoice`)과 규칙은 같고 **지문 길이만 다르다**(40~120어).
  * 규격을 섞지 않으려고 함수를 나눴다 — 섞으면 수능 재고를 중등 재고로 세게 된다.
  */
 export function buildUnitGrammar(paragraph: ReadonlyArray<string>): MiddleGrammarItem | null {

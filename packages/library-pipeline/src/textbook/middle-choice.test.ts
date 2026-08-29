@@ -152,3 +152,20 @@ describe('단원 문법 — 중등 규격이 수능과 섞이지 않는다', () 
     expect(a.sentences).toEqual(b.sentences)
   })
 })
+
+describe('규격은 시장 실측에 고정된다', () => {
+  it('중등 보기 수는 시중 지배값과 같다 — 근거 없는 상수로 되돌아가지 않게', async () => {
+    const spec = (await import('./market-spec.json')).default as {
+      choiceCount: Record<string, { dominant: number; fiveChoiceRate: number }>
+    }
+    const mid = spec.choiceCount['중등']!
+    // 2026-08-30 실측: 중등 문항 225개 중 93.8%가 5지선다였다.
+    // 그 전에는 이 파일이 "중등 4지선다" 라고 적고 4,135문항을 그렇게 만들었다.
+    expect(mid.dominant).toBe(MIDDLE_CHOICES)
+    expect(mid.fiveChoiceRate).toBeGreaterThan(0.9)
+  })
+
+  it('밑줄 수와 보기 수는 같다 — 밑줄 하나가 보기 하나다', () => {
+    expect(MIDDLE_GRAMMAR_UNDERLINES).toBe(MIDDLE_CHOICES)
+  })
+})
