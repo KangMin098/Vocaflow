@@ -1,0 +1,374 @@
+{
+  "$schema": "market-spec/1",
+  "generatedAt": "2026-08-29T16:27:30.475Z",
+  "provenance": {
+    "corpus": "시중 영어 교재 79종 (저장소 밖 store)",
+    "documentsMeasured": 79,
+    "pagesMeasured": 5214,
+    "charsMeasured": 14712945,
+    "rule": "집계 통계와 업계 공통 발문형만 담는다. 지문·해설 원문은 담지 않는다.",
+    "stemRule": "서로 다른 시리즈 2곳 이상에서 같은 형태로 쓰인 발문만 표준형으로 본다"
+  },
+  "questionStems": [
+    {
+      "stem": "다음 글의 주제로 가장 적절한 것은?",
+      "seriesCount": 8,
+      "publisherCount": 3,
+      "occurrences": 47,
+      "gradeMin": 9,
+      "gradeMax": 11,
+      "ourType": "topic"
+    },
+    {
+      "stem": "다음 글의 제목으로 가장 적절한 것은?",
+      "seriesCount": 8,
+      "publisherCount": 3,
+      "occurrences": 34,
+      "gradeMin": 9,
+      "gradeMax": 11,
+      "ourType": "title"
+    },
+    {
+      "stem": "다음 글의 요지로 가장 적절한 것은?",
+      "seriesCount": 8,
+      "publisherCount": 3,
+      "occurrences": 26,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "main_point"
+    },
+    {
+      "stem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+      "seriesCount": 8,
+      "publisherCount": 3,
+      "occurrences": 22,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "claim"
+    },
+    {
+      "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "seriesCount": 7,
+      "publisherCount": 3,
+      "occurrences": 88,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "blank"
+    },
+    {
+      "stem": "다음 글의 목적으로 가장 적절한 것은?",
+      "seriesCount": 7,
+      "publisherCount": 3,
+      "occurrences": 49,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "purpose"
+    },
+    {
+      "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+      "seriesCount": 7,
+      "publisherCount": 3,
+      "occurrences": 43,
+      "gradeMin": 9,
+      "gradeMax": 11,
+      "ourType": "irrelevant"
+    },
+    {
+      "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+      "seriesCount": 7,
+      "publisherCount": 4,
+      "occurrences": 43,
+      "gradeMin": 9,
+      "gradeMax": 11,
+      "ourType": "grammar_fix"
+    },
+    {
+      "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+      "seriesCount": 6,
+      "publisherCount": 3,
+      "occurrences": 44,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "order"
+    },
+    {
+      "stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+      "seriesCount": 5,
+      "publisherCount": 3,
+      "occurrences": 41,
+      "gradeMin": 7,
+      "gradeMax": 11,
+      "ourType": "vocab_choice"
+    },
+    {
+      "stem": "윗글의 제목으로 가장 적절한 것은?",
+      "seriesCount": 4,
+      "publisherCount": 3,
+      "occurrences": 24,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "title"
+    },
+    {
+      "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+      "seriesCount": 4,
+      "publisherCount": 2,
+      "occurrences": 22,
+      "gradeMin": 9,
+      "gradeMax": 11,
+      "ourType": "summary"
+    },
+    {
+      "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+      "seriesCount": 4,
+      "publisherCount": 3,
+      "occurrences": 18,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "content_match"
+    },
+    {
+      "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+      "seriesCount": 4,
+      "publisherCount": 3,
+      "occurrences": 13,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "content_match"
+    },
+    {
+      "stem": "밑줄 친 (a)~(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?",
+      "seriesCount": 3,
+      "publisherCount": 2,
+      "occurrences": 16,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "vocab_choice"
+    },
+    {
+      "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+      "seriesCount": 3,
+      "publisherCount": 2,
+      "occurrences": 10,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "order"
+    },
+    {
+      "stem": "밑줄 친 (a)~(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+      "seriesCount": 3,
+      "publisherCount": 2,
+      "occurrences": 7,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "long_reference"
+    },
+    {
+      "stem": "다음 표의 내용과 일치하지 않는 것은?",
+      "seriesCount": 3,
+      "publisherCount": 2,
+      "occurrences": 5,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "content_match"
+    },
+    {
+      "stem": "다음 글에 드러난 ‘I’의 심경 변화로 가장 적절한 것은?",
+      "seriesCount": 3,
+      "publisherCount": 3,
+      "occurrences": 5,
+      "gradeMin": 10,
+      "gradeMax": 10,
+      "ourType": "mood"
+    },
+    {
+      "stem": "다음 글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "seriesCount": 2,
+      "publisherCount": 2,
+      "occurrences": 10,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "blank"
+    },
+    {
+      "stem": "윗글의 빈칸에 들어갈 말로 가장 적절한 것은?",
+      "seriesCount": 2,
+      "publisherCount": 2,
+      "occurrences": 6,
+      "gradeMin": 10,
+      "gradeMax": 11,
+      "ourType": "blank"
+    },
+    {
+      "stem": "다음 글의 상황에 나타난 분위기로 가장 적절한 것은?",
+      "seriesCount": 2,
+      "publisherCount": 2,
+      "occurrences": 4,
+      "gradeMin": 10,
+      "gradeMax": 10,
+      "ourType": "mood"
+    },
+    {
+      "stem": "다음 글에 드러난 Sarah의 심경 변화로 가장 적절한 것은?",
+      "seriesCount": 2,
+      "publisherCount": 2,
+      "occurrences": 2,
+      "gradeMin": 10,
+      "gradeMax": 10,
+      "ourType": "mood"
+    }
+  ],
+  "typeCoverage": {
+    "standardStems": 23,
+    "mappedToOurTypes": 23,
+    "unmappedStems": [],
+    "distinctOurTypesCovered": [
+      "blank",
+      "claim",
+      "content_match",
+      "grammar_fix",
+      "irrelevant",
+      "long_reference",
+      "main_point",
+      "mood",
+      "order",
+      "purpose",
+      "summary",
+      "title",
+      "topic",
+      "vocab_choice"
+    ]
+  },
+  "passageWords": {
+    "초6": {
+      "gradeMin": 6,
+      "words": {
+        "n": 124,
+        "min": 40,
+        "p10": 44,
+        "p25": 53,
+        "median": 63,
+        "p75": 83,
+        "p90": 125,
+        "max": 194,
+        "mean": 73
+      }
+    },
+    "중1": {
+      "gradeMin": 7,
+      "words": {
+        "n": 74,
+        "min": 40,
+        "p10": 46,
+        "p25": 55,
+        "median": 84,
+        "p75": 132,
+        "p90": 152,
+        "max": 197,
+        "mean": 93.3
+      }
+    },
+    "중2": {
+      "gradeMin": 8,
+      "words": {
+        "n": 11,
+        "min": 40,
+        "p10": 48,
+        "p25": 50,
+        "median": 90,
+        "p75": 156,
+        "p90": 156,
+        "max": 173,
+        "mean": 94.8
+      }
+    },
+    "중3": {
+      "gradeMin": 9,
+      "words": {
+        "n": 30,
+        "min": 41,
+        "p10": 44,
+        "p25": 45,
+        "median": 73,
+        "p75": 118,
+        "p90": 153,
+        "max": 165,
+        "mean": 82.9
+      }
+    },
+    "고1": {
+      "gradeMin": 10,
+      "words": {
+        "n": 720,
+        "min": 40,
+        "p10": 47,
+        "p25": 64,
+        "median": 112,
+        "p75": 175,
+        "p90": 242,
+        "max": 354,
+        "mean": 126.8
+      }
+    },
+    "고2": {
+      "gradeMin": 11,
+      "words": {
+        "n": 375,
+        "min": 40,
+        "p10": 43,
+        "p25": 49,
+        "median": 84,
+        "p75": 158,
+        "p90": 188,
+        "max": 307,
+        "mean": 107.6
+      }
+    }
+  },
+  "explanation": {
+    "blocksMeasured": 2149,
+    "lengthChars": {
+      "n": 2149,
+      "min": 40,
+      "p10": 52,
+      "p25": 75,
+      "median": 143,
+      "p75": 269,
+      "p90": 473,
+      "max": 855,
+      "mean": 200.5
+    },
+    "wrongOptionMentionRate": 0.536,
+    "sourceCitationRate": 0.497,
+    "seriesShippingAnswerKey": {
+      "total": 18,
+      "with_ans": 12
+    },
+    "note": "해설지를 내는 교재는 사실상 전 문항에 해설이 붙는다 — 보유율의 시장 기준선은 100% 로 본다"
+  },
+  "units": {
+    "booksMeasured": 9,
+    "unitsPerBook": {
+      "n": 9,
+      "min": 5,
+      "p10": 5,
+      "p25": 7,
+      "median": 10,
+      "p75": 12,
+      "p90": 29,
+      "max": 29,
+      "mean": 11.2
+    },
+    "pagesPerUnit": {
+      "n": 9,
+      "min": 2,
+      "p10": 2,
+      "p25": 4,
+      "median": 17,
+      "p75": 29,
+      "p90": 38,
+      "max": 38,
+      "mean": 18.3
+    }
+  }
+}

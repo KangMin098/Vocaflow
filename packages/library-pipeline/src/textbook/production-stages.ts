@@ -111,9 +111,10 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
       'csat-format 수능 인쇄 변환',
     ],
     gap:
-      '수능 읽기 18유형 중 **5유형**(문항 7/28). 남은 13유형은 결정론으로 못 만든다 — ' +
-      '**지문을 새로 써야 하거나**(요지·주제·빈칸·함의 …) 도표·안내문 같은 **지문 밖 재료**가 필요하다. ' +
-      '즉 여기서부터는 지금까지와 다른 종류의 작업이다.',
+      '⚠️ 여기 적혀 있던 "수능 5유형(문항 7/28)" 은 **낡은 값이었다** — 2026-08-30 DB 실측은 ' +
+      '**25유형 17,206문항**이다. 시중 79종에서 뽑은 표준 발문 23종 중 우리 유형에 대응하는 14종은 ' +
+      '**모두 갖췄고**(market-benchmark A5 관문 14/14), 표준 밖 11종을 더 만든다. ' +
+      '남은 것은 도표·안내문처럼 **지문 밖 재료**가 필요한 유형이다.',
     worker: 'claude',
     claude: {
       role:
@@ -121,7 +122,9 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
         '이 유형들은 오답의 매력도가 난이도를 만들기 때문에 **오답 4개를 함께 써야** 한다.',
       scripts: null,
       storage: 'csat_dcp_items — 유형 추가 시 `type` CHECK 확장 필요(마이그레이션 · 승인)',
-      progress: '드레인 없음. 결정론 5유형(7문항)만 있고 생성형은 0/11 이다.',
+      progress:
+        '2026-08-30 실측 25유형 17,206문항. 생성형도 비어 있지 않다 — ' +
+        'topic 78 · blank 74 · mood 45 · main_point 45 · title 30 · implication 31 · claim/purpose/summary/content_match 각 16.',
     },
   },
   {
@@ -193,7 +196,10 @@ export const PRODUCTION_STAGES: readonly ProductionStage[] = [
         importScript: 'scripts/textbook/explain-drain-import.mjs',
       },
       storage: '`answer_key.explanation_ko` (jsonb) — **마이그레이션 없음.** 기존 정답 키를 덮지 않고 키만 더한다',
-      progress: 'V5 실측 — 배치가 쓸 몫 337 중 **10건 적재**(첫 청크). 결정론 18 + 배치 10 = 28.',
+      progress:
+        '2026-08-30 실측 **13,814/17,206 = 80.3%**(2.7% 에서 올랐다). ' +
+        '`explain-items.ts` 결정론 7유형 13,351건 + `explain.ts` 순서·삽입 463건. ' +
+        '남은 3,392 는 순서 1,295 · 삽입 1,522 · 생성형 575 — **읽어야 아는 것들이라 배치 몫이다**.',
     },
   },
   {

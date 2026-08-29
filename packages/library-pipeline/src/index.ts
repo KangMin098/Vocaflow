@@ -586,3 +586,17 @@ export {
   reviewStock,
 } from './textbook/bias-review'
 export type { BiasFinding, BiasKind, BiasReport, PronounBalance } from './textbook/bias-review'
+
+export {
+  DETERMINISTIC_EXPLAIN_TYPES,
+  EXPLANATION_CHARS,
+  explainBlankWord,
+  explainGrammarFix,
+  explainItem,
+  explainUnderlinedGrammar,
+  explainUnitVocab,
+  explainVocabChoice,
+  explainWordOrder,
+  inferRule,
+} from './textbook/explain-items'
+export type { DeterministicExplainType, ItemExplanation } from './textbook/explain-items'

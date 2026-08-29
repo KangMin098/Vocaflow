@@ -1,0 +1,266 @@
+{
+  "generatedAt": "2026-08-29T16:37:05.184Z",
+  "specGeneratedAt": "2026-08-29T16:27:30.475Z",
+  "corpus": {
+    "corpus": "시중 영어 교재 79종 (저장소 밖 store)",
+    "documentsMeasured": 79,
+    "pagesMeasured": 5214,
+    "charsMeasured": 14712945,
+    "rule": "집계 통계와 업계 공통 발문형만 담는다. 지문·해설 원문은 담지 않는다.",
+    "stemRule": "서로 다른 시리즈 2곳 이상에서 같은 형태로 쓰인 발문만 표준형으로 본다"
+  },
+  "itemsMeasured": 17206,
+  "axes": [
+    {
+      "id": "A1",
+      "name": "해설 보유율",
+      "ours": 0.8028594676275718,
+      "market": 1,
+      "unit": "%",
+      "why": "해설이 없으면 혼자 공부할 수 없다 — 시장이 교재를 고르는 첫 기준",
+      "index": 0.803
+    },
+    {
+      "id": "A2",
+      "name": "해설 길이 규격 적합률 (75~473자)",
+      "ours": 0.9936296510786159,
+      "market": 0.65,
+      "unit": "%",
+      "why": "짧으면 근거가 없고 길면 안 읽는다. 시장 p25~p90 구간",
+      "index": 1.529
+    },
+    {
+      "id": "A3",
+      "name": "오답 배제 언급률",
+      "ours": 0.5411900970030404,
+      "market": 0.536,
+      "unit": "%",
+      "why": "왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다",
+      "index": 1.01
+    },
+    {
+      "id": "A4",
+      "name": "원문 인용률",
+      "ours": 0.9955117996235703,
+      "market": 0.497,
+      "unit": "%",
+      "why": "지문에서 근거를 끌어와야 검증 가능한 해설이다",
+      "index": 2.003
+    },
+    {
+      "id": "A5",
+      "name": "유형 다양성 (표준 대비)",
+      "ours": 25,
+      "market": 14,
+      "gate": 1,
+      "unit": "종",
+      "why": "표준 유형을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다",
+      "index": 1.786
+    },
+    {
+      "id": "A6",
+      "name": "지문 어수 규격 적합률",
+      "ours": 0.8552168103971821,
+      "market": 0.8,
+      "unit": "%",
+      "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
+      "index": 1.069
+    }
+  ],
+  "overallIndex": 1.296,
+  "overallNote": null,
+  "detail": {
+    "explanationsByType": [
+      {
+        "type": "blank_word",
+        "items": 3564,
+        "explained": 3564,
+        "pct": 100
+      },
+      {
+        "type": "unit_vocab",
+        "items": 2848,
+        "explained": 2848,
+        "pct": 100
+      },
+      {
+        "type": "grammar_fix",
+        "items": 2540,
+        "explained": 2540,
+        "pct": 100
+      },
+      {
+        "type": "insert",
+        "items": 1748,
+        "explained": 226,
+        "pct": 12.9
+      },
+      {
+        "type": "order",
+        "items": 1532,
+        "explained": 237,
+        "pct": 15.5
+      },
+      {
+        "type": "word_order",
+        "items": 1337,
+        "explained": 1337,
+        "pct": 100
+      },
+      {
+        "type": "unit_grammar",
+        "items": 1287,
+        "explained": 1287,
+        "pct": 100
+      },
+      {
+        "type": "vocab_choice",
+        "items": 1192,
+        "explained": 1192,
+        "pct": 100
+      },
+      {
+        "type": "grammar_choice",
+        "items": 583,
+        "explained": 583,
+        "pct": 100
+      },
+      {
+        "type": "topic",
+        "items": 78,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "blank",
+        "items": 74,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "main_point",
+        "items": 45,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "mood",
+        "items": 45,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "irrelevant",
+        "items": 41,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "long_reference",
+        "items": 39,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "long_order",
+        "items": 32,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "long_match",
+        "items": 32,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "long_title",
+        "items": 32,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "long_vocab",
+        "items": 32,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "implication",
+        "items": 31,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "title",
+        "items": 30,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "purpose",
+        "items": 16,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "claim",
+        "items": 16,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "summary",
+        "items": 16,
+        "explained": 0,
+        "pct": 0
+      },
+      {
+        "type": "content_match",
+        "items": 16,
+        "explained": 0,
+        "pct": 0
+      }
+    ],
+    "passageSpecByBucket": {
+      "고1": {
+        "in": 2249,
+        "total": 2425,
+        "p10": 47,
+        "p90": 242
+      },
+      "중1": {
+        "in": 1836,
+        "total": 2449,
+        "p10": 46,
+        "p90": 152
+      },
+      "고2": {
+        "in": 2217,
+        "total": 2547,
+        "p10": 43,
+        "p90": 188
+      },
+      "초6": {
+        "in": 739,
+        "total": 812,
+        "p10": 44,
+        "p90": 125
+      }
+    },
+    "typesBeyondMarket": [
+      "blank_word",
+      "grammar_choice",
+      "implication",
+      "insert",
+      "long_match",
+      "long_order",
+      "long_title",
+      "long_vocab",
+      "unit_grammar",
+      "unit_vocab",
+      "word_order"
+    ],
+    "marketTypesMissing": []
+  }
+}
