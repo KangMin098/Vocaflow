@@ -59,6 +59,12 @@ export interface WordLookup {
   wordRegister: string | null
   /** 자주 함께 쓰는 표현 — 툴팁 절제 노출(Progressive Disclosure). 없으면 null */
   collocations: string[] | null
+  /**
+   * 예문 해석 — `meanings_ko[].example_ko` 중 `exampleEn` 과 같은 문장의 것.
+   * 읽는 중에 뜬 영어 예문은 **해석이 없으면 읽히지 않는다** — 모르는 낱말을 만나서 연 창이다.
+   * RPC 는 이 값을 주지 않으므로 연어와 같은 왕복에서 함께 가져온다(마이그레이션 회피).
+   */
+  exampleKo: string | null
   /** 해소 언어 — 'en'(영어) | 'fr' 등(선제형 외국어 사전). 외국어면 배지 표기 */
   lang: string | null
 }
@@ -94,17 +100,34 @@ export async function lookupWord(
   // 연어 보강 — lookup_word_meaning RPC 미반환이라 해소된 word 로 shared_dictionary 1행 조회.
   // 툴팁은 단어 1개 on-demand 라 추가 round-trip 허용. 실패해도 조회 결과는 그대로.
   let collocations: string[] | null = null
+  let exampleKo: string | null = null
   if (row.found && row.resolved_word) {
     const { data: cd, error: cErr } = await client
       .from('shared_dictionary')
-      .select('collocations')
+      .select('collocations, meanings_ko')
       .eq('word', row.resolved_word)
       .maybeSingle()
     if (cErr) {
       console.warn('[reader/lookupWord] collocations fetch failed:', cErr.message)
     } else {
-      const c = (cd as { collocations: string[] | null } | null)?.collocations
+      const d = cd as {
+        collocations: string[] | null
+        meanings_ko: Array<{ example?: string; example_ko?: string }> | null
+      } | null
+      const c = d?.collocations
       collocations = c && c.length > 0 ? c : null
+
+      // RPC 가 준 예문과 **같은 문장**의 해석만 쓴다. 뜻이 여러 개일 때 아무 해석이나 붙이면
+      // 다른 뜻을 가르치게 된다 — 틀린 해석은 없는 해석보다 나쁘다.
+      const key = (s: string) => s.trim().toLowerCase().replace(/\s+/g, ' ')
+      const ex = (row.example_en ?? '').trim()
+      if (ex && Array.isArray(d?.meanings_ko)) {
+        const hit = d.meanings_ko.find(
+          (m) => (m?.example ?? '').trim() && key(m.example as string) === key(ex),
+        )
+        const ko = (hit?.example_ko ?? '').trim()
+        if (ko) exampleKo = ko
+      }
     }
   }
 
@@ -120,6 +143,7 @@ export async function lookupWord(
     matchVia: row.match_via,
     wordRegister: row.word_register,
     collocations,
+    exampleKo,
     lang: row.lang,
   }
 }

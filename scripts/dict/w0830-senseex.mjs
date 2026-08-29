@@ -72,6 +72,18 @@ const IRREGULAR = {
   undertake: ['undertook', 'undertaken'], overcome: ['overcame'], become: ['became'],
   understand: ['understood'], withdraw: ['withdrew', 'withdrawn'], overtake: ['overtook', 'overtaken'],
   forecast: ['forecast'], rebuild: ['rebuilt'], outgrow: ['outgrew', 'outgrown'],
+  // 3차 보강 — 배치 중 서브에이전트가 "이 예문이 조용히 버려진다" 고 잡아낸 것들.
+  // 어간 절단(5자 초과 시 뒤 2자)이 `stride → strid` 를 만들어 `strode` 와 안 맞는 유형이다.
+  strive: ['strove', 'striven'], cling: ['clung'], stride: ['strode', 'stridden'],
+  thrive: ['throve', 'thriven'], weave: ['wove', 'woven'], swell: ['swollen'],
+  sow: ['sown'], slay: ['slew', 'slain'], spit: ['spat'], spin: ['spun'],
+  sting: ['stung'], swing: ['swung'], spring: ['sprang', 'sprung'], stink: ['stank', 'stunk'],
+  tread: ['trod', 'trodden'], wring: ['wrung'], wind: ['wound'], uphold: ['upheld'],
+  withhold: ['withheld'], foresee: ['foresaw', 'foreseen'], mislead: ['misled'],
+  oversee: ['oversaw', 'overseen'], undergo: ['underwent', 'undergone'], withstand: ['withstood'],
+  forsake: ['forsook', 'forsaken'], cleave: ['cleft', 'clove'], plead: ['pled'],
+  strew: ['strewn'], thrust: ['thrust'], upset: ['upset'], shed: ['shed'], rid: ['rid'],
+  knit: ['knitted', 'knit'], slit: ['slit'], flee: ['fled'], dwell: ['dwelt'],
 }
 function containsWord(phrase, word) {
   const tokens = word.toLowerCase().replace(/[^\p{L}\p{N}]/gu, ' ').split(/\s+/).filter((t) => t.length >= 2)

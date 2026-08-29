@@ -211,10 +211,16 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
       {/* 한국어 뜻 */}
       <p className="font-body text-[14px] leading-relaxed text-[var(--t1)]">{result.meaningKo}</p>
 
-      {/* 예문 */}
+      {/* 예문 — 해석은 있을 때만. 모르는 낱말을 만나 연 창이라, 해석 없는 영어 예문은
+          읽히지 않고 넘어간다(그러면 예문 칸이 차 있어도 학습에서는 비어 있다). */}
       {result.exampleEn && (
         <p className="border-l-[3px] border-[var(--bd)] pl-2 font-english text-[12px] italic leading-relaxed text-[var(--t2)]">
           {result.exampleEn}
+          {result.exampleKo && (
+            <span className="mt-1 block font-body not-italic text-[var(--t2)]">
+              {result.exampleKo}
+            </span>
+          )}
         </p>
       )}
 
