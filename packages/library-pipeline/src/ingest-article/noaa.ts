@@ -61,9 +61,25 @@ function sliceAllDivByClass(html: string, classRe: RegExp): string[] {
 
 /** NOAA 기사 본문 HTML → 산문. field--name-body(본문 필드만·관련링크 region 제외) → 캡션/References 제거. */
 function extractProse(html: string): string {
-  // field--name-body(가장 큰 조각 = 실 본문) 슬라이스 — node__content 는 관련링크 region 포함해 오염.
+  // field--name-body 슬라이스 — node__content 는 관련링크 region 포함해 오염.
+  //
+  // ⚠️ 원래 **가장 긴 HTML 조각**을 본문으로 골랐다. 그게 2026-08-30 에 NOAA 적재를
+  //   211편 중 25편으로 떨어뜨린 원인이다. climate.gov 의 모든 기사 페이지에는
+  //   `field--name-body` 클래스를 단 **11,345자짜리 공통 보일러플레이트 div**가 있고
+  //   그 안에는 산문이 한 글자도 없다. 본문이 그보다 짧은 기사에서는 이 껍데기가 이겨
+  //   `extractProse` 가 **정확히 0 words** 를 돌려주고 "body too short" 로 버려졌다.
+  //
+  //     understanding-cop                 슬라이스 [11345, 8343, 361] → 최장=껍데기 → 0 words
+  //     climate-change-global-temperature 슬라이스 [11345, 21113, 361] → 최장=본문  → 1,579 words
+  //
+  //   같은 코드가 어떤 기사는 되고 어떤 기사는 안 되니 "일부 페이지가 이상하다" 로 보였다.
+  //   길이가 아니라 **산문 양**으로 고르면 두 경우가 같은 이유로 맞는다.
   const bodies = sliceAllDivByClass(html, /\bfield--name-body\b/)
-  let body = bodies.sort((a, b) => b.length - a.length)[0] ?? html
+  const scored = bodies
+    .map((b) => ({ html: b, words: htmlToPlainText(b).split(/\s+/).filter(Boolean).length }))
+    .sort((a, b) => b.words - a.words)
+  // 어느 슬라이스에도 산문이 없으면 문서 전체로 물러선다(기존 폴백 유지).
+  let body = (scored[0]?.words ?? 0) > 0 ? scored[0]!.html : html
   // 차트/미디어 캡션 제거 (Drupal field-media-caption — 그래프 설명, 본문 아님).
   body = body.replace(/<div[^>]*class="[^"]*field--name-field-media-caption[^"]*"[\s\S]*?<\/div>/gi, '\n')
   body = body.replace(/<figcaption[\s\S]*?<\/figcaption>/gi, '\n')
