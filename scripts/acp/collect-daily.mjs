@@ -185,7 +185,32 @@ const SOURCES = [
   },
   { key: 'owid', feeds: [{ id: 'default', run: () => lib.listOwidFeed() }], ingest: (u) => lib.ingestOwidArticle(u) },
   { key: 'elife', feeds: [{ id: 'default', run: () => lib.listElifeFeed() }], ingest: (u) => lib.ingestElifeArticle(u) },
-  { key: 'plos', feeds: [{ id: 'default', run: () => lib.listPlosFeed() }], ingest: (u) => lib.ingestPlosArticle(u) },
+  {
+    // ⚠️ `listPlosFeed()` 를 인자 없이 부르고 있었다 → 언제나 `recent` 하나뿐이고
+    //   **`essay` 피드(Essay·Perspective·Opinion·Unsolved Mystery = 논증문)가 통째로 빠졌다.**
+    //   VOA·simple_wikipedia 에서 이미 두 번 겪은 "소스당 첫 피드만 쓰면 나머지가 조용히
+    //   사라진다" 와 같은 실수다. 논증문은 The Conversation 이 CC BY-ND 라 문항을 못 만드는
+    //   자리를 메우는 유일한 사용 가능 공급선이라(`argumentative-supply.test.ts`) 더 뼈아프다.
+    key: 'plos',
+    feeds: lib.PLOS_FEEDS.map((f) => ({ id: f.id, run: () => lib.listPlosFeed(f.id) })),
+    ingest: (u) => lib.ingestPlosArticle(u),
+  },
+  {
+    // 어댑터·테스트·SOURCE_SPECS 는 있는데 **이 표에만 없었다** — 배치가 못 부르니
+    //   확보량 0 이었다. CC BY 4.0 · 학술 소재 × 읽히는 문장(수능 소재-문체 조합에 가장 가깝다).
+    //   WordPress 라 `?paged=N` 으로 과거 글이 나온다.
+    key: 'futurity',
+    feeds: lib.FUTURITY_FEEDS.map((f) => ({
+      id: f.id,
+      run: () => lib.listFuturityFeed(f.url, f.id),
+      runPage: async (cursor) => {
+        const page = cursor ?? 1
+        const items = await lib.listFuturityFeed(lib.futurityFeedUrlPaged(f.url, page), f.id, 60)
+        return { items, cont: items.length > 0 ? page + 1 : null }
+      },
+    })),
+    ingest: (u) => lib.ingestFuturityArticle(u),
+  },
 ]
 
 const targets = onlySource ? SOURCES.filter((s) => s.key === onlySource) : SOURCES

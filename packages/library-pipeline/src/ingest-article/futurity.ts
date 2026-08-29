@@ -76,16 +76,34 @@ function toFuturityItem(it: RssListItem): FuturityListItem {
   }
 }
 
+/**
+ * Futurity 도 WordPress 라 `?paged=N` 으로 과거 글이 나온다(NASA news 와 같은 구조).
+ * 페이지를 안 걸면 최신 한 창(약 10편)이 상한이다.
+ */
+export function futurityFeedUrlPaged(feedUrl: string, page: number): string {
+  if (page <= 1) return feedUrl
+  try {
+    const u = new URL(feedUrl)
+    u.searchParams.set('paged', String(page))
+    return u.toString()
+  } catch {
+    return feedUrl
+  }
+}
+
+/**
+ * @param limit 최대 편수. VOA·NASA 와 같은 이유로 예전에는 받아 놓고 버렸다(`void _limit`).
+ *   생략하면 큐레이션 spec 의 `maxItems` 그대로 — 기존 동작 무변경.
+ */
 export async function listFuturityFeed(
   feedUrl: string = FUTURITY_FEEDS[0]!.url,
   feedId: string = 'all',
-  _limit: number = 20,
+  limit?: number,
 ): Promise<FuturityListItem[]> {
-  void _limit
   const res = await fetchWithTimeout(feedUrl)
   if (!res.ok) throw new Error(`Futurity RSS fetch failed: ${res.status}`)
   const raw = parseRssFeed(await res.text()).map(toFuturityItem)
-  return applyArticleCurationSpec(raw, 'futurity', feedId)
+  return applyArticleCurationSpec(raw, 'futurity', feedId, { maxItems: limit })
 }
 
 /**

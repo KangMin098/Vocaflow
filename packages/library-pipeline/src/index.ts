@@ -94,7 +94,13 @@ export { ingestNoaaArticle, listNoaaFeed,
   listNoaaFeedPage,
   buildNoaaListUrl, NOAA_FEEDS } from './ingest-article/noaa'
 // ACP — Futurity (대학 컨소시엄 연구 기사 · CC BY 4.0 · B1-B2 · 학술 소재 × 접근형 문체).
-export { ingestFuturityArticle, listFuturityFeed, stripFuturityChrome, FUTURITY_FEEDS } from './ingest-article/futurity'
+export {
+  ingestFuturityArticle,
+  listFuturityFeed,
+  futurityFeedUrlPaged,
+  stripFuturityChrome,
+  FUTURITY_FEEDS,
+} from './ingest-article/futurity'
 export type { FuturityListItem } from './ingest-article/futurity'
 export type { NoaaListItem } from './ingest-article/noaa'
 // CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
