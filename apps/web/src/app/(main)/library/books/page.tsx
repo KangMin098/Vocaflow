@@ -69,9 +69,13 @@ export default async function LibraryBooksPage() {
     client
       .from('library_books')
       .select(
+        // ⚠️ librivox_audio 는 **일부러 빼 놨다.** 이 화면이 그 jsonb 로 하는 일은
+        //   has_audio 불리언 하나를 만드는 것뿐인데, 2026-08-30 실측에서 그 열 하나가
+        //   조회 payload 408KB 중 178KB(44%)를 차지했다 — 오디오를 가진 5권이
+        //   권당 수십 KB짜리 챕터 매핑을 싣고 오기 때문이다. 아래에서 id 만 따로 받는다.
         'id, title, author, cefr_level, cefr_band, book_v_level, ' +
           'word_count, chapter_count, reading_minutes, cover_from, cover_to, cover_image_url, lexical_coverage, ' +
-          'is_picture_book, librivox_audio, published_at, curation_metadata',
+          'is_picture_book, published_at, curation_metadata',
       ),
   ).order('published_at', { ascending: false });
 
@@ -81,6 +85,18 @@ export default async function LibraryBooksPage() {
 
   if (books.length > 0) {
     const ids = books.map((b) => b.id);
+
+    // 오디오 보유 여부 — 본문(jsonb)이 아니라 id 만 받는다. 조건이 "NULL 이 아님" 하나라
+    //   PostgREST 필터로 끝나고, 응답은 몇 줄짜리다.
+    const audioBookIds = new Set<string>();
+    {
+      const { data: audioRows } = await client
+        .from('library_books')
+        .select('id')
+        .eq('status', 'published')
+        .not('librivox_audio', 'is', null);
+      for (const r of (audioRows ?? []) as { id: string }[]) audioBookIds.add(r.id);
+    }
 
     // "단어장 N" 배지 — 개수 집계는 word-set-counts.ts 가 단일 출처.
     //   여기서 세트 행을 직접 받아 세면 PostgREST 1,000행 상한에 잘린다(2026-08-30 실측:
@@ -155,9 +171,8 @@ export default async function LibraryBooksPage() {
     }
 
     books = books.map((b) => {
-      // librivox_audio(jsonb) 는 has_audio 로 축약, curation_metadata 는 추출 후 제외.
-      const { librivox_audio, curation_metadata, ...rest } = b as PublishedBook & {
-        librivox_audio?: unknown;
+      // curation_metadata 는 추출 후 제외. 오디오 여부는 위에서 따로 받은 id 집합으로 판정한다.
+      const { curation_metadata, ...rest } = b as PublishedBook & {
         curation_metadata?: Record<string, unknown> | null;
       };
       const c = curationByBook.get(b.id);
@@ -211,7 +226,7 @@ export default async function LibraryBooksPage() {
       return {
         ...rest,
         word_set_count: countsByBook.get(b.id) ?? 0,
-        has_audio: librivox_audio != null,
+        has_audio: audioBookIds.has(b.id),
         popularity_rank: popularityRank,
         synopsis_ko: cm?.synopsis_ko ?? null,
         learning_value: cm?.learning_value ?? null,

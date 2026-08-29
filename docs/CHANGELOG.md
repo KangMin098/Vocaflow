@@ -9,6 +9,34 @@
 ---
 
 ## Unreleased (v06.34 → next)
+
+### 허브가 거는 `?q=`·`?level=` 을 **읽는 코드가 없었다** + `/wordvault` 목업 제거
+
+`filter=state:*` 와 **같은 사고가 세 군데 더** 있었다. 허브의 세 자리가 링크를 걸고 있었는데
+목적지에서 읽는 코드가 하나도 없어 조건이 조용히 버려졌다 —
+`WordPeekStrip`(단어 클릭 `?q=<단어>`) · `FindAndMore`(검색 Enter) ·
+`CEFRDistribution`(레벨 막대 `?level=B1`). **단어를 눌러 놓고 전체 목록을 받는다.**
+
+- `lib/wordvault/list-params.ts` — 읽는 자 단일 출처. `level` 은 화면 셀렉트의 묶음(`a/b/c`)과
+  허브 막대의 낱개 CEFR(`B1`)을 **둘 다** 받는다(한쪽으로 강제하면 막대가 자기가 가리킨 칸보다
+  넓은 결과를 연다). `?q=` 는 URL 검색과 손 검색이 같은 규칙을 쓰게 한다
+- 검색어가 입력칸에, 난이도가 셀렉트에 반영된다 — 목록만 걸러 놓고 입력칸이 비어 있으면
+  화면이 거짓말을 한다. `ResourceContext` 는 걸린 조건을 **전부** 말한다
+  (하나만 말하면 "전체 3개" 처럼 3이 어디서 나온 수인지 화면이 숨긴다)
+- 옛 `?view=` 리다이렉트가 나머지 쿼리를 보존한다
+
+**그리고 `/wordvault` 에서 목업을 걷어냈다.** 이 페이지는 `MOCK_WORDS` 13개로
+browse·study·review 를 직접 그리는 분기를 갖고 있었고(전부 리다이렉트 뒤라 학습자에겐 한 프레임),
+review 분기는 `오늘 복습할 단어 12개` 를 **하드코딩**하고 있었다. 지울 수 있었던 근거는
+**`lib/text-viewer/handoff.ts` 의 쓰는 쪽이 0개**라는 것이다 — `saveExtractedWords` 를 부르는
+코드가 없으니 `consumePendingWords()` 는 언제나 `null` 이었고, `words` 상태는 **항상 정확히
+`MOCK_WORDS`** 였다. 추출 단어는 지금 `/text/new` → DB 로 바로 간다.
+handoff 와 고아가 된 목업 컴포넌트 4종(`PageHeader`·`StatsGrid`·`CollectionsRow`·`mock-data`)
+도 함께 삭제 — 남겨 두면 다시 배선된다.
+
+회귀: 단위 13(고아 링크 감시 포함) + e2e 1(옛 주소 → 목적지 → 실제 적용까지 연속).
+실측: 학습자 훑기 **296/296** · 화면 정체 **261/261** · wordvault 회귀 5 (프로덕션 빌드).
+
 ### 수능 지문 원문 대량 확보 — **상한 여덟 개가 전부 우리 쪽에 있었다**
 
 목표: "수능 적합도 최적 소스부터 원문 모두 확보". 시작 시점에 대상 피드에서 손에 닿는 것은
@@ -226,6 +254,38 @@ CEFR-J 근거가 있는 6,098 낱말로 대조한 결과(2026-08-30 실측):
 
 곁가지로 `base_word` 뒤집힌 행 4건 정리(`separable → inseparable` 처럼 **접두형이 기본형으로**
 들어가 있었다 — 학습자에게 거꾸로 된 형태론을 가르친다): `separable`·`ordinate`·`tolerable`·`comprehensible`.
+
+### 카탈로그에 뜨는 282권이 **학습을 시작할 수 없었다** — 발행 게이트와 등록 게이트가 다른 컬럼을 봤다
+
+발행 316권 중 **282권이 등록 불가**였다. `enroll_library_book` 은 첫머리에서 막는다 —
+`IF v_book.cefr_level IS NULL OR v_book.cefr_level NOT IN ('A1'…'C2') THEN RAISE EXCEPTION`.
+그런데 발행을 허가하는 `content_gate_publishable` 은 `cefr_level` 을 **보지 않는다.**
+**허가 조건과 시작 조건이 서로 다른 컬럼을 보고 있었다.**
+
+아무도 못 본 이유: 화면의 레벨 배지는 `cefr_band ?? cefr_level` 을 읽는데 `cefr_band` 는
+316/316 채워져 있었다. 목록에도 상세에도 이상이 없고, **학습자가 "학습 시작" 을 누르는 순간에만**
+예외가 났다. 발행 13권 시절에는 12권이 `cefr_level` 을 갖고 있어 드러나지 않았다 —
+재고를 24배로 늘리자 비로소 보인 결함이다.
+
+- **자기 챕터의 최빈값으로 백필** (`scripts/lcp/backfill-book-cefr-level.mjs`, 282권 · 재실행 대상 0 실측).
+  `cefr_band`(어휘 기반)로 채우지 않았다 — `enroll_library_book` 은 텍스트 행을 만들 때
+  챕터 값이 유효하면 그걸 쓰고 책 값은 폴백으로만 쓰므로, **실제 적용될 값과 같은 출처**여야
+  같은 책 안에서 레벨이 어긋나지 않는다. 발행 도서 11,080챕터는 전부 유효했다.
+  이미 값이 있는 34권은 건드리지 않는다(`cefr_confidence` 근거가 사라진다).
+  결과 분포 B1 45 · B2 142 · C1 95.
+- **전 경로 실검증** — 검증 계정으로 `enroll_library_book`(12챕터 생성) →
+  `get_chapter_content`(17,401자) → `deliver_chapter_vocab`(24낱말) 확인 후 `unenroll` 로 정리.
+- **회귀 고정** `published-books-enrollable.integration.test.ts` — 발행 도서가 등록 RPC 의
+  세 가드(유효 cefr_level · copyright_safe · 챕터 존재)를 모두 만족하는지 검사한다.
+  실제 enroll 은 부르지 않는다 — 공유 DB 에 텍스트 행이 남는다. (4 passed)
+
+### 카탈로그 조회 payload 408KB → 231KB — 불리언 하나를 위해 178KB 를 실어 오고 있었다
+
+`/library/books` 가 `librivox_audio`(jsonb)를 통째로 받아 `has_audio = librivox_audio != null`
+하나만 만들고 버리고 있었다. 실측: 조회 408.5KB 중 **178KB(44%)가 그 열** — 오디오를 가진 5권이
+권당 수십 KB짜리 챕터 매핑을 싣고 오기 때문이다. 열을 빼고 **id 만 따로** 받도록 바꿨다
+(`.not('librivox_audio','is',null)` → 5행 0.2KB).
+실측 **408.5KB → 230.7KB(-43.5%) · 160ms → 96ms**.
 
 ### 서가를 24배로 늘린 것이 **선택을 더 어렵게** 만들고 있었다 — 큐레이션 메타 311권
 
