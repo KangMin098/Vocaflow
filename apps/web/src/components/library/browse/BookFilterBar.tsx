@@ -41,6 +41,12 @@ export interface BookFilters {
   audioOnly: boolean
   /** 포맷 — 만화(comic_books published)로도 볼 수 있는 도서만 */
   comicOnly: boolean
+  /**
+   * 내 수준에서 지금 읽을 수 있는 **챕터**가 하나라도 있는 책만.
+   * 책 라벨(p75)은 책 안의 쉬운 챕터를 가린다 — 실측 2026-08-30, 책 단위로는
+   * 고1(V5) 이 2권뿐인데 챕터로는 87권에 263개 있었다.
+   */
+  readableChaptersOnly: boolean
 }
 
 export type BookSort = 'recommended' | 'easy' | 'hard' | 'short' | 'popular' | 'new'
@@ -56,6 +62,7 @@ export const EMPTY_FILTERS: BookFilters = {
   length: null,
   audioOnly: false,
   comicOnly: false,
+  readableChaptersOnly: false,
 }
 
 const ENROLL_OPTIONS: { key: EnrollFilter; label: string }[] = [
@@ -92,6 +99,8 @@ export interface FacetData {
   hasComic: boolean
   /** 로그인 사용자가 등록(내 서재)한 도서가 하나라도 있는지 */
   hasEnrollments: boolean
+  /** 챕터 난이도 분포를 가진 도서가 하나라도 있는지 (없으면 칩을 숨긴다) */
+  hasReadableChapters: boolean
 }
 
 interface Props {
@@ -169,7 +178,8 @@ export function BookFilterBar({
     filters.age !== null ||
     filters.length !== null ||
     filters.audioOnly ||
-    filters.comicOnly
+    filters.comicOnly ||
+    filters.readableChaptersOnly
 
   const myBand = diagnosed ? vBandOf(userVLevel) : null
 
@@ -372,6 +382,15 @@ export function BookFilterBar({
               onClick={() => onChange({ audioOnly: !filters.audioOnly })}
             >
               🔊 원어민 음성
+            </Chip>
+          )}
+          {/* 진단한 학습자에게만 — 수준을 모르면 baseline V5 가정이라 "내 수준" 이 거짓말이 된다. */}
+          {diagnosed && facets.hasReadableChapters && (
+            <Chip
+              active={filters.readableChaptersOnly}
+              onClick={() => onChange({ readableChaptersOnly: !filters.readableChaptersOnly })}
+            >
+              📖 지금 읽을 챕터 있음
             </Chip>
           )}
         </Section>

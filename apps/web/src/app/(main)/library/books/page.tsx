@@ -235,6 +235,9 @@ export default async function LibraryBooksPage() {
         est_cefr: cm?.est_cefr ?? null,
         age_band: cm?.age_band ?? null,
         genre_norm: cm?.genre_norm ?? null,
+        // 챕터 난이도 분포 — 책 라벨이 가리는 쉬운 챕터를 카탈로그에서 보이게 한다.
+        chapter_v_hist:
+          (lbMeta?.['chapter_v_hist'] as Record<string, number> | undefined) ?? null,
         description_en: descriptionEn,
         enrollment_state: enrollState,
         progress_pct: progressPct,

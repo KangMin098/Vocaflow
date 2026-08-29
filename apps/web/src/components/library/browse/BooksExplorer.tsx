@@ -21,7 +21,7 @@ import {
 import { createClient } from '@/lib/supabase/client'
 import { unenrollBook } from '@/lib/library/enroll'
 import { toBookDetailVariant } from '@/lib/library/book-detail-variant'
-import { judgeIPlusOne } from '@/lib/library/i-plus-one'
+import { countReadableChapters, judgeIPlusOne } from '@/lib/library/i-plus-one'
 import {
   AGE_BANDS,
   LENGTH_BUCKETS,
@@ -126,6 +126,7 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
     let hasAudio = false
     let hasComic = false
     let hasEnrollments = false
+    let hasReadableChapters = false
     for (const b of books) {
       const vb = vBandOf(b.book_v_level)
       if (vb) vbSet.add(vb)
@@ -138,6 +139,8 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
       if (b.has_audio) hasAudio = true
       if (b.has_comic) hasComic = true
       if (b.enrollment_state && b.enrollment_state !== 'not_enrolled') hasEnrollments = true
+      if ((countReadableChapters(b.chapter_v_hist, userVLevel)?.count ?? 0) > 0)
+        hasReadableChapters = true
     }
     // tie-break 은 code-unit 비교 (localeCompare 는 Node↔브라우저 collation 차이로
     // 주제 순서가 엇갈려 hydration mismatch 유발 — 주제 상시 노출 후 표면화).
@@ -153,8 +156,9 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
       hasAudio,
       hasComic,
       hasEnrollments,
+      hasReadableChapters,
     }
-  }, [books])
+  }, [books, userVLevel])
 
   // 필터 적용 → 정렬.
   const visible = useMemo(() => {
@@ -180,6 +184,12 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
       if (filters.age && ageBandOf(b.age_band) !== filters.age) return false
       if (filters.length && lengthBucket(b.reading_minutes) !== filters.length) return false
       if (filters.audioOnly && !b.has_audio) return false
+      // 책 라벨이 어려워도 **그 안에 지금 읽을 수 있는 챕터**가 있으면 남긴다.
+      if (
+        filters.readableChaptersOnly &&
+        (countReadableChapters(b.chapter_v_hist, userVLevel)?.count ?? 0) === 0
+      )
+        return false
       if (filters.comicOnly && !b.has_comic) return false
       return true
     })

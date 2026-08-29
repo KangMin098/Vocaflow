@@ -24,7 +24,7 @@ import { ComicBadge } from '@/components/comic/ComicBadge'
 import { bookCover } from '@/lib/library/book-cover'
 import { coverFitFor } from '@/lib/library/cover-fit'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
-import { judgeIPlusOne } from '@/lib/library/i-plus-one'
+import { countReadableChapters, judgeIPlusOne } from '@/lib/library/i-plus-one'
 import type { PublishedBook } from '@/lib/library/published-book'
 
 interface Props {
@@ -45,6 +45,10 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
   const coverImageUrl = book.cover_image_url ?? null
   const coverFit = coverFitFor(book)
   const fit = judgeIPlusOne(book.lexical_coverage, userVLevel, book.is_picture_book)
+  // 책 라벨(p75)이 어려워도 그 안에 지금 읽을 수 있는 챕터가 있을 수 있다 —
+  //   실측 2026-08-30, 책 단위 고1(V5) 은 2권인데 챕터로는 87권에 263개였다.
+  //   진단 전에는 표시하지 않는다(baseline V5 가정을 "내 수준" 이라 말하면 거짓말이 된다).
+  const readable = userVLevel > 0 ? countReadableChapters(book.chapter_v_hist, userVLevel) : null
   const state = book.enrollment_state ?? 'not_enrolled'
 
   return (
@@ -124,6 +128,14 @@ export function BookGridCard({ book, userVLevel, reasons = [], onOpen }: Props) 
           {book.book_v_level != null && (
             <span className="inline-flex items-center rounded-[3px] bg-black/60 px-2 py-1 font-mono text-[9.5px] font-[700] tracking-tight text-white backdrop-blur-sm">
               V{book.book_v_level}
+            </span>
+          )}
+          {readable != null && readable.count > 0 && (
+            <span
+              className="inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-1 font-mono text-[9.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
+              title={`내 수준(V${readable.effectiveUserVLevel})에서 지금 읽을 수 있는 장 ${readable.count}개 — 책 전체 라벨과 다를 수 있어요`}
+            >
+              읽을 장 {readable.count}
             </span>
           )}
         </div>

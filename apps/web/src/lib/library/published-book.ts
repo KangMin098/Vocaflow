@@ -33,6 +33,12 @@ export interface PublishedBook {
   est_cefr?: string | null
   age_band?: string | null
   genre_norm?: string | null
+  /**
+   * 챕터 난이도 분포 (V레벨 → 챕터 수). `curation_metadata.chapter_v_hist`.
+   * 책 라벨(p75)이 가리는 진입로를 발견 단계에서 열기 위한 값 —
+   * 실측 2026-08-30: 책 단위로는 고1(V5) 이 2권뿐인데 챕터로는 87권에 263개 있었다.
+   */
+  chapter_v_hist?: Record<string, number> | null
   description_en?: string | null
   // 탐색/추천/정렬 시그널
   /** library_seed_catalog.popularity_rank (작을수록 인기) */
