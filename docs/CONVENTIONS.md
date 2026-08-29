@@ -523,6 +523,41 @@ function Component() {
 }
 ```
 
+### 전량이 필요하면 `.limit()` 을 쓰지 말 것 — PostgREST 는 1,000행에서 끊는다
+
+**`db-max-rows` 가 1,000이다. 더 요청해도(`.limit(10000)` 을 걸어도) 조용히 잘린다 — 오류가 아니다.**
+그래서 "전부 받아 세는" 코드는 모집단이 자라는 순간 **틀린 숫자를 오류 없이 보여 준다.**
+
+2026-08-30 하루에 같은 결함을 세 곳에서 만났다 (전부 화면만 틀렸다):
+
+| 자리 | 증상 |
+|---|---|
+| 도서 카탈로그 "단어장 N" 배지 | 발행 300권을 넘기며 정확히 1000행에서 잘려 대부분 0 |
+| 계획 자료 선택기 | 큐레이션 단어장 **70개 중 1개**만 남음 (챕터 세트가 상한을 잠식) |
+| 학습 자산(hub) | 한 사용자 `vocabularies` 1,945행 → 세트별 단어 수 과소 집계 + 그 수로 정렬 |
+
+```typescript
+// ❌ 전량이 필요한데 상한을 건다 — 자라면 조용히 틀린다
+const { data } = await sb.from('shared_word_sets').select('id').limit(10000)
+
+// ✅ 개수를 세거나 전량이 필요하면 공용 헬퍼
+import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select'
+
+const rows = await pagedSelect<Row>(
+  (from, to) => sb.from('shared_word_sets').select('id').eq('is_published', true).range(from, to),
+  '발행 단어장',
+)
+```
+
+- **`.in()` 대상 id 가 많으면** `pagedSelectIn` — id 를 조각내고 각 조각을 끝까지 받는다
+  (`.in()` 은 GET 쿼리스트링이라 316개 UUID = 약 11,700자가 된다).
+- **오류를 삼키지 말 것** — `const { data } = await …` 로 error 를 버리면 "0개" 와 "조회 실패" 가
+  같아진다. 헬퍼는 throw 한다.
+- **의도적으로 자르는 곳**(표시용 상위 N개 등)은 `.limit()` 을 쓰되 **왜인지 주석으로 적을 것.**
+  그래야 다음 사람이 "전량이 필요한데 실수로 자른 것" 과 구별한다.
+
+회귀: `src/lib/supabase/__tests__/paged-select.test.ts` (마지막 페이지가 가득 차면 한 번 더 묻는지 포함)
+
 ### Service Role (절대 클라이언트 노출 금지)
 ```typescript
 import { createClient } from '@supabase/supabase-js'

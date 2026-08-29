@@ -17,8 +17,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-/** 한 응답의 최대 행 수. PostgREST 기본값이며, 이보다 크게 요청해도 잘린다. */
-const PAGE = 1000
+import { pagedSelect } from '@/lib/supabase/paged-select'
 
 /**
  * 발행된 도서 챕터 단어장을 도서별로 센다.
@@ -28,25 +27,21 @@ const PAGE = 1000
 export async function fetchPublishedBookWordSetCounts(
   client: SupabaseClient,
 ): Promise<Map<string, number>> {
+  const rows = await pagedSelect<{ book_id: string | null }>(
+    (from, to) =>
+      client
+        .from('shared_word_sets')
+        .select('book_id:curation_query->>book_id')
+        .eq('is_published', true)
+        .eq('category', 'library_book')
+        .range(from, to),
+    '발행 단어장 개수',
+  )
+
   const counts = new Map<string, number>()
-
-  for (let from = 0; ; from += PAGE) {
-    const { data, error } = await client
-      .from('shared_word_sets')
-      .select('book_id:curation_query->>book_id')
-      .eq('is_published', true)
-      .eq('category', 'library_book')
-      .range(from, from + PAGE - 1)
-
-    if (error) throw new Error(`발행 단어장 개수 조회 실패: ${error.message}`)
-
-    const rows = (data ?? []) as unknown as { book_id: string | null }[]
-    for (const r of rows) {
-      if (!r.book_id) continue
-      counts.set(r.book_id, (counts.get(r.book_id) ?? 0) + 1)
-    }
-    if (rows.length < PAGE) break
+  for (const r of rows) {
+    if (!r.book_id) continue
+    counts.set(r.book_id, (counts.get(r.book_id) ?? 0) + 1)
   }
-
   return counts
 }

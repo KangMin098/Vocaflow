@@ -16,6 +16,7 @@ import { BookOpen, ChevronRight, FileText, Library } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { pagedSelectIn } from '@/lib/supabase/paged-select'
 
 import { unsubscribeSet } from '@/app/(main)/library/vocab/actions'
 import { VocabSetPreviewModal } from '@/components/library/vocab/VocabSetPreviewModal'
@@ -316,12 +317,21 @@ export function ResourcePortfolio() {
 
       const countsPerSet = new Map<string, number>()
       if (setIds.length > 0) {
-        const { data: vocabsBySet } = await supabase
-          .from('vocabularies')
-          .select('shared_set_id')
-          .eq('user_id', user.id)
-          .in('shared_set_id', setIds)
-        for (const v of (vocabsBySet ?? []) as Array<{ shared_set_id: string }>) {
+        // ⚠️ 개수를 세려면 **전량**이 필요하다. 그냥 받으면 PostgREST 가 1,000행에서 끊는데
+        //   2026-08-30 실측으로 한 사용자의 vocabularies 가 이미 1,945행이었다 —
+        //   세트별 단어 수가 적게 세어지고, 아래에서 그 수로 정렬까지 하므로 순서도 틀어진다.
+        const vocabsBySet = await pagedSelectIn<{ shared_set_id: string }>(
+          setIds,
+          (chunk, from, to) =>
+            supabase
+              .from('vocabularies')
+              .select('shared_set_id')
+              .eq('user_id', user.id)
+              .in('shared_set_id', chunk)
+              .range(from, to),
+          '세트별 내 단어',
+        )
+        for (const v of vocabsBySet) {
           countsPerSet.set(v.shared_set_id, (countsPerSet.get(v.shared_set_id) ?? 0) + 1)
         }
       }
@@ -347,20 +357,26 @@ export function ResourcePortfolio() {
         })
       }
       // 내부 챕터(shared_words.chapter) 보유 세트만 학습 모달(챕터 런처)로 라우팅 — 챕터 없는 세트는
-      //   모달이 10개 미리보기뿐이라 기존 '단어 브라우저' 링크가 더 유용. 표준 subscribed 세트는 소수라
-      //   set_id만 선택하는 단일 쿼리로 충분(챕터형 세트=교육과정류 ≤1184단어).
+      //   모달이 10개 미리보기뿐이라 기존 '단어 브라우저' 링크가 더 유용.
+      // ⚠️ 여기 있던 `.limit(10000)` 은 효과가 없었다 — PostgREST 는 1,000행에서 끊는다.
+      //   "표준 subscribed 세트는 소수(≤1184단어)" 라는 전제도 이미 틀렸다: 2026-08-30 실측으로
+      //   챕터 보유 세트 하나가 최대 1,828행이고 큐레이션 전체로는 26,390행이다.
+      //   잘리면 챕터형 세트가 '챕터 없음' 으로 판정돼 챕터 런처 대신 단어 브라우저로 샌다.
       const chapteredSetIds = new Set<string>()
       const otherSetIds = otherSets.map((s) => s.id)
       if (otherSetIds.length > 0) {
-        const { data: chRows } = await supabase
-          .from('shared_words')
-          .select('set_id')
-          .in('set_id', otherSetIds)
-          .not('chapter', 'is', null)
-          .limit(10000)
-        for (const r of (chRows ?? []) as Array<{ set_id: string }>) {
-          chapteredSetIds.add(r.set_id)
-        }
+        const chRows = await pagedSelectIn<{ set_id: string }>(
+          otherSetIds,
+          (chunk, from, to) =>
+            supabase
+              .from('shared_words')
+              .select('set_id')
+              .in('set_id', chunk)
+              .not('chapter', 'is', null)
+              .range(from, to),
+          '챕터 보유 세트',
+        )
+        for (const r of chRows) chapteredSetIds.add(r.set_id)
       }
 
       for (const s of otherSets) {

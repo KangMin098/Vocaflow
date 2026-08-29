@@ -17,8 +17,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-/** PostgREST 한 응답의 최대 행 수. 이보다 크게 요청해도 잘린다. */
-const PAGE = 1000
+import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select'
 
 /** 자동 생성 세트 — 큐레이션 목록에서 분리해야 하는 카테고리. */
 export const AUTO_SET_CATEGORIES = ['library_book', 'library_article'] as const
@@ -26,20 +25,6 @@ export const AUTO_SET_CATEGORIES = ['library_book', 'library_article'] as const
 const BOOK_COLS = 'id, title, author, book_v_level, cover_image_url, chapter_count'
 const SET_COLS = 'id, title, slug, category, word_count, cover_emoji, cefr_level, curation_query'
 
-async function paged<T>(
-  run: (from: number, to: number) => PromiseLike<{ data: unknown; error: { message: string } | null }>,
-  what: string,
-): Promise<T[]> {
-  const out: T[] = []
-  for (let from = 0; ; from += PAGE) {
-    const { data, error } = await run(from, from + PAGE - 1)
-    if (error) throw new Error(`${what} 조회 실패: ${error.message}`)
-    const rows = (data ?? []) as T[]
-    out.push(...rows)
-    if (rows.length < PAGE) break
-  }
-  return out
-}
 
 /**
  * 계획에 넣을 수 있는 발행 도서 전량.
@@ -47,7 +32,7 @@ async function paged<T>(
  * `enroll_library_book` 이 예외를 던진다(v06.215 에서 실제로 났던 버그).
  */
 export function fetchPlanBooks<T>(client: SupabaseClient): Promise<T[]> {
-  return paged<T>((from, to) =>
+  return pagedSelect<T>((from, to) =>
     client
       .from('library_books')
       .select(BOOK_COLS)
@@ -66,7 +51,7 @@ export function fetchPlanBooks<T>(client: SupabaseClient): Promise<T[]> {
  */
 export function fetchPlanCuratedSets<T>(client: SupabaseClient): Promise<T[]> {
   const notIn = `("${AUTO_SET_CATEGORIES.join('","')}")`
-  return paged<T>((from, to) =>
+  return pagedSelect<T>((from, to) =>
     client
       .from('shared_word_sets')
       .select(SET_COLS)
@@ -88,12 +73,9 @@ export async function fetchPlanChapterSets<T>(
   client: SupabaseClient,
   enrolledBookIds: string[],
 ): Promise<T[]> {
-  if (enrolledBookIds.length === 0) return []
-  const out: T[] = []
-  // `.in()` 은 GET 쿼리스트링이라 id 가 많으면 URL 이 길어진다 — 나눠 보낸다.
-  for (let i = 0; i < enrolledBookIds.length; i += 50) {
-    const chunk = enrolledBookIds.slice(i, i + 50)
-    const rows = await paged<T>((from, to) =>
+  return pagedSelectIn<T>(
+    enrolledBookIds,
+    (chunk, from, to) =>
       client
         .from('shared_word_sets')
         .select(SET_COLS)
@@ -103,8 +85,5 @@ export async function fetchPlanChapterSets<T>(
         .order('title')
         .range(from, to),
     '챕터 단어장',
-    )
-    out.push(...rows)
-  }
-  return out
+  )
 }
