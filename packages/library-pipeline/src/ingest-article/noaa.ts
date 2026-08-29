@@ -96,13 +96,32 @@ function extractProse(html: string): string {
   return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim()
 }
 
+/**
+ * 목록 URL 1페이지분. Drupal 뷰라 `?page=N`(0-index)으로 넘어간다 — 실측 2026-08-30:
+ * base·page=1·page=2 의 HTML 해시가 모두 달랐다. 첫 페이지만 읽으면 최신 ~13편이 상한이고,
+ * 그걸 다 담는 순간 "새 것 0" 이 떠서 **소진처럼 보인다**(위키미디어와 같은 조용한 상한).
+ */
+export function buildNoaaListUrl(feedId: string, page: number = 0): string {
+  const feed = NOAA_FEEDS.find((f) => f.id === feedId) ?? NOAA_FEEDS[0]!
+  return page > 0 ? `${SITE}${feed.path}?page=${page}` : `${SITE}${feed.path}`
+}
+
 /** NOAA Climate.gov 리스트 → 항목. anchor 텍스트가 제목(USGS 와 달리 직접 페어). */
 export async function listNoaaFeed(
   feedId: string = 'understanding-climate',
   limit: number = 24,
 ): Promise<NoaaListItem[]> {
+  return listNoaaFeedPage(feedId, limit, 0).then((r) => r.items)
+}
+
+/** 한 페이지 — 항목이 하나도 없을 때를 끝으로 본다(HTML 목록엔 토큰이 없다). */
+export async function listNoaaFeedPage(
+  feedId: string = 'understanding-climate',
+  limit: number = 24,
+  page: number = 0,
+): Promise<{ items: NoaaListItem[]; cont: number | null }> {
   const feed = NOAA_FEEDS.find((f) => f.id === feedId) ?? NOAA_FEEDS[0]!
-  const res = await fetchWithTimeout(`${SITE}${feed.path}`, { accept: 'text/html' })
+  const res = await fetchWithTimeout(buildNoaaListUrl(feedId, page), { accept: 'text/html' })
   if (!res.ok) throw new Error(`NOAA list fetch failed: ${res.status} ${feed.path}`)
   const html = await res.text()
 
@@ -128,7 +147,10 @@ export async function listNoaaFeed(
     })
   }
 
-  return applyArticleCurationSpec(raw.slice(0, limit * 2), 'noaa', feedId)
+  return {
+    items: applyArticleCurationSpec(raw.slice(0, limit * 2), 'noaa', feedId),
+    cont: raw.length > 0 ? page + 1 : null,
+  }
 }
 
 /** www.climate.gov/news-features/<section>/<slug> URL → RawArticle. */

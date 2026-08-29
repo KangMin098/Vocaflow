@@ -79,13 +79,40 @@ function extractProse(html: string): string {
   return text.replace(/\n{3,}/g, '\n\n').trim()
 }
 
+/**
+ * 목록 URL 1페이지분. Drupal 뷰라 `?page=N`(0-index)으로 넘어간다 — 실측 2026-08-30:
+ * base·page=1·page=2 의 HTML 해시가 모두 달랐다.
+ *
+ * **왜 페이지가 필요한가**: 첫 페이지만 읽으면 최신 ~16편이 상한이고, 그걸 다 담는 순간
+ * "새 것 0" 이 떠서 **소진처럼 보인다.** 위키미디어에서 겪은 것과 같은 조용한 상한이다.
+ * 여기 USGS·NOAA 는 주제 적합도가 33~75% 로 재고 중 가장 높아서, 이 상한이 그대로
+ * 수능 적합 지문 공급의 천장이 된다.
+ */
+export function buildUsgsListUrl(feedId: string, page: number = 0): string {
+  const feed = USGS_FEEDS.find((f) => f.id === feedId) ?? USGS_FEEDS[0]!
+  return page > 0 ? `${SITE}${feed.path}?page=${page}` : `${SITE}${feed.path}`
+}
+
 /** USGS 카드 리스트(c-usgs-teaser) → 항목. featured/snippets 공용(동일 Drupal teaser 뷰). */
 export async function listUsgsFeed(
   feedId: string = 'featured',
   limit: number = 24,
 ): Promise<UsgsListItem[]> {
+  return listUsgsFeedPage(feedId, limit, 0).then((r) => r.items)
+}
+
+/**
+ * 한 페이지 — 다음 페이지 번호를 함께 돌려준다.
+ * HTML 목록에는 MediaWiki 같은 토큰이 없어 **항목이 하나도 없을 때**를 끝으로 본다.
+ * (범위를 넘긴 page 에 마지막 페이지를 다시 주는 사이트가 있어, 중복 판정은 호출부가 한다.)
+ */
+export async function listUsgsFeedPage(
+  feedId: string = 'featured',
+  limit: number = 24,
+  page: number = 0,
+): Promise<{ items: UsgsListItem[]; cont: number | null }> {
   const feed = USGS_FEEDS.find((f) => f.id === feedId) ?? USGS_FEEDS[0]!
-  const res = await fetchWithTimeout(`${SITE}${feed.path}`, { accept: 'text/html' })
+  const res = await fetchWithTimeout(buildUsgsListUrl(feedId, page), { accept: 'text/html' })
   if (!res.ok) throw new Error(`USGS list fetch failed: ${res.status} ${feed.path}`)
   const html = await res.text()
 
@@ -121,7 +148,10 @@ export async function listUsgsFeed(
     })
   }
 
-  return applyArticleCurationSpec(raw.slice(0, limit * 2), 'usgs', feedId)
+  return {
+    items: applyArticleCurationSpec(raw.slice(0, limit * 2), 'usgs', feedId),
+    cont: raw.length > 0 ? page + 1 : null,
+  }
 }
 
 /** www.usgs.gov/news/featured-story|science-snippet/<slug> URL → RawArticle. */

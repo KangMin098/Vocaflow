@@ -83,10 +83,14 @@ export type { PlosListItem } from './ingest-article/plos'
 export { ingestWikivoyageArticle, listWikivoyageFeed, WIKIVOYAGE_FEEDS } from './ingest-article/wikivoyage'
 export type { WikivoyageListItem } from './ingest-article/wikivoyage'
 // ACP §18 — USGS (지구과학·자연재해 과학 저널리즘 · B2 · PD US Gov · 신규 도메인 · 발행 허용).
-export { ingestUsgsArticle, listUsgsFeed, USGS_FEEDS } from './ingest-article/usgs'
+export { ingestUsgsArticle, listUsgsFeed,
+  listUsgsFeedPage,
+  buildUsgsListUrl, USGS_FEEDS } from './ingest-article/usgs'
 export type { UsgsListItem } from './ingest-article/usgs'
 // ACP §18 — NOAA Climate.gov (기후과학 explainer · B2-C1 · PD US Gov · climate 신규 도메인 · CSAT 최빈출).
-export { ingestNoaaArticle, listNoaaFeed, NOAA_FEEDS } from './ingest-article/noaa'
+export { ingestNoaaArticle, listNoaaFeed,
+  listNoaaFeedPage,
+  buildNoaaListUrl, NOAA_FEEDS } from './ingest-article/noaa'
 // ACP — Futurity (대학 컨소시엄 연구 기사 · CC BY 4.0 · B1-B2 · 학술 소재 × 접근형 문체).
 export { ingestFuturityArticle, listFuturityFeed, stripFuturityChrome, FUTURITY_FEEDS } from './ingest-article/futurity'
 export type { FuturityListItem } from './ingest-article/futurity'

@@ -133,13 +133,23 @@ const SOURCES = [
     ingest: (u) => lib.ingestWikivoyageArticle(u),
   },
   {
+    // USGS·NOAA 는 Drupal 목록 HTML 이라 `?page=N` 으로 넘어간다(토큰이 아니라 쪽번호).
+    //   재고 중 주제 적합도가 가장 높은 쪽이라(33~75%) 첫 페이지 상한이 곧 공급 천장이었다.
     key: 'usgs',
-    feeds: lib.USGS_FEEDS.map((f) => ({ id: f.id, run: () => lib.listUsgsFeed(f.id) })),
+    feeds: lib.USGS_FEEDS.map((f) => ({
+      id: f.id,
+      run: () => lib.listUsgsFeed(f.id),
+      runPage: (cursor) => lib.listUsgsFeedPage(f.id, 24, cursor ?? 0),
+    })),
     ingest: (u) => lib.ingestUsgsArticle(u),
   },
   {
     key: 'noaa',
-    feeds: lib.NOAA_FEEDS.map((f) => ({ id: f.id, run: () => lib.listNoaaFeed(f.id) })),
+    feeds: lib.NOAA_FEEDS.map((f) => ({
+      id: f.id,
+      run: () => lib.listNoaaFeed(f.id),
+      runPage: (cursor) => lib.listNoaaFeedPage(f.id, 24, cursor ?? 0),
+    })),
     ingest: (u) => lib.ingestNoaaArticle(u),
   },
   {
@@ -195,14 +205,23 @@ for (const s of targets) {
         while (pages < budget) {
           const page = await feed.runPage(cursor)
           pages++
+          let added = 0
           for (const it of page.items) {
             if (it.url && !seen.has(it.url)) {
               seen.add(it.url)
               items.push(it)
+              added++
             }
           }
           cursor = page.cont
           if (!cursor) break
+          // ⚠️ 쪽번호 방식(USGS·NOAA)은 범위를 넘겨도 마지막 페이지를 200 으로 되돌려주는
+          //   사이트가 있다. 토큰이 없으니 "새 항목이 하나도 안 늘었다" 를 끝으로 본다 —
+          //   이 가드가 없으면 같은 페이지를 예산만큼 계속 친다(무해해 보이지만 남의 서버를 때린다).
+          if (added === 0) {
+            cursor = null
+            break
+          }
           if (pages < budget) await sleep(PAGE_DELAY_MS)
         }
         walk = { pages, state: cursor ? 'capped' : 'exhausted' }
