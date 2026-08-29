@@ -55,12 +55,31 @@ export interface NasaListItem {
   has_audio?: boolean
 }
 
+/**
+ * NASA 뉴스 피드는 WordPress 라 `?paged=N` 으로 과거 글이 나온다.
+ * 실측 2026-08-30: 기본 10편 · `?paged=2` 와 `?paged=5` 가 각각 다른 10편을 돌려줬다.
+ * (`iotd` 는 paged 를 무시하고 창 전체 60편을 준다 — 그래서 페이지를 걸 필요가 없다.)
+ */
+export function nasaFeedUrlPaged(feedUrl: string, page: number): string {
+  if (page <= 1) return feedUrl
+  try {
+    const u = new URL(feedUrl)
+    u.searchParams.set('paged', String(page))
+    return u.toString()
+  } catch {
+    return feedUrl
+  }
+}
+
+/**
+ * @param limit 최대 편수. VOA 와 같은 이유로 예전에는 버려졌다(`void _limit`) — 생략하면
+ *   큐레이션 spec 의 `maxItems` 그대로이고, 넘기면 그 값이 상한이 된다.
+ */
 export async function listNasaFeed(
   feedUrl: string,
   feedId: string = 'news',
-  _limit: number = 20,
+  limit?: number,
 ): Promise<NasaListItem[]> {
-  void _limit
   const res = await fetchWithTimeout(feedUrl)
   if (!res.ok) throw new Error(`NASA RSS fetch failed: ${res.status}`)
   const xml = await res.text()
@@ -78,7 +97,7 @@ export async function listNasaFeed(
     ...it,
     has_audio: audioByLink.get(it.url) ?? false,
   }))
-  return applyArticleCurationSpec(raw, 'nasa', feedId)
+  return applyArticleCurationSpec(raw, 'nasa', feedId, { maxItems: limit })
 }
 
 function toNasaItem(it: RssListItem): NasaListItem {

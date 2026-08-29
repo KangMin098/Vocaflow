@@ -503,6 +503,16 @@ export function applyArticleCurationSpec<T extends ScorableItem>(
   items: T[],
   source: SourceKey,
   feedId: string,
+  /**
+   * 대량 확보용 상한 덮어쓰기. 생략하면 spec 의 `maxItems` 그대로 — **기존 동작 무변경.**
+   *
+   * ⚠️ 왜 필요한가 (실측 2026-08-30): `maxItems` 는 **매일 도는 경로가 넘치지 않게** 두는
+   *   정책이지 품질 규칙이 아니다. 그런데 그 상한이 대량 확보 경로에도 그대로 걸려,
+   *   VOA RSS 를 `count=200` 으로 불러 200건을 받아 와도 여기서 15건으로 잘려 나갔다.
+   *   위 소스들에서 반복해 본 것과 같은 **조용한 상한**이다 — 오류도 경고도 없이
+   *   "이 피드는 15편이 전부" 처럼 보인다.
+   */
+  overrides?: { maxItems?: number },
 ): Array<T & { score: ArticleScore }> {
   const spec = FEED_SPECS[`${source}:${feedId}`] ?? SOURCE_DEFAULT_SPEC[source]
 
@@ -512,7 +522,7 @@ export function applyArticleCurationSpec<T extends ScorableItem>(
 
   passed.sort((a, b) => b.score.total - a.score.total)
 
-  return passed.slice(0, spec.maxItems)
+  return passed.slice(0, overrides?.maxItems ?? spec.maxItems)
 }
 
 /** Source/feedId 의 spec 가져오기 (UI에서 표시용) */

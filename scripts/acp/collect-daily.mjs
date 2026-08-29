@@ -82,13 +82,34 @@ const db = createClient(
  */
 const SOURCES = [
   {
+    // VOA 는 페이지가 아니라 **창 크기**가 파라미터다 — `?count=N`. 배선된 URL 이 전부
+    //   count=20 이라 20편이 전부인 것처럼 보였다(실측: count=200 → 200건).
+    //   그래서 runPage 는 한 번에 다 받아오고 바로 끝낸다(cont=null).
     key: 'voa',
-    feeds: lib.VOA_FEEDS.map((f) => ({ id: f.id, run: () => lib.listVoaFeed(f.url, f.id) })),
+    feeds: lib.VOA_FEEDS.map((f) => ({
+      id: f.id,
+      run: () => lib.listVoaFeed(f.url, f.id),
+      runPage: async (cursor) => {
+        if (cursor != null) return { items: [], cont: null }
+        const items = await lib.listVoaFeed(lib.voaFeedUrlWithCount(f.url, 200), f.id, 200)
+        return { items, cont: null }
+      },
+    })),
     ingest: (u) => lib.ingestVoaArticle(u),
   },
   {
+    // NASA news 는 WordPress 라 `?paged=N` 으로 과거 글이 나온다(실측: paged=2·5 가 각각 다른 10편).
+    //   iotd 는 paged 를 무시하고 같은 창을 다시 주므로 walker 의 "새 항목 0 → 중단" 이 받아 낸다.
     key: 'nasa',
-    feeds: lib.NASA_FEEDS.map((f) => ({ id: f.id, run: () => lib.listNasaFeed(f.url, f.id) })),
+    feeds: lib.NASA_FEEDS.map((f) => ({
+      id: f.id,
+      run: () => lib.listNasaFeed(f.url, f.id),
+      runPage: async (cursor) => {
+        const page = cursor ?? 1
+        const items = await lib.listNasaFeed(lib.nasaFeedUrlPaged(f.url, page), f.id, 60)
+        return { items, cont: items.length > 0 ? page + 1 : null }
+      },
+    })),
     ingest: (u) => lib.ingestNasaArticle(u),
   },
   {

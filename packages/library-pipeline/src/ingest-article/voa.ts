@@ -190,12 +190,35 @@ export interface VoaListItem {
   has_audio?: boolean
 }
 
+/**
+ * VOA RSS 는 창 크기가 **URL 파라미터**다 — `?count=N`.
+ * 배선된 URL 은 전부 `count=20` 이라, 그 뒤가 있는데도 20편이 전부인 것처럼 보였다.
+ * 실측 2026-08-30: `count=200` → item 200개(응답 200 OK). 상한은 우리가 정한 것이었다.
+ */
+export function voaFeedUrlWithCount(feedUrl: string, count: number): string {
+  try {
+    const u = new URL(feedUrl)
+    if (!u.searchParams.has('count')) return feedUrl
+    u.searchParams.set('count', String(count))
+    return u.toString()
+  } catch {
+    return feedUrl
+  }
+}
+
+/**
+ * @param limit 이 피드에서 돌려받을 최대 편수. **예전에는 받아 놓고 버렸다**(`void _limit`).
+ *   그래서 큐레이션 spec 의 `maxItems`(대개 15)가 언제나 최종 상한이었고, RSS 를
+ *   `count=200` 으로 불러도 15편으로 잘렸다. 지금은 이 값이 실제 상한이 된다.
+ *
+ *   ⚠️ 기본값을 두지 않는다. `MAX_ITEMS_PER_FEED`(20)를 기본으로 넣으면 spec 의 15 보다
+ *   커서 **아무도 요청하지 않은 동작 변화**가 생긴다. 생략하면 spec 그대로다.
+ */
 export async function listVoaFeed(
   feedUrl: string,
   feedId: string = 'as-it-is',
-  _limit: number = MAX_ITEMS_PER_FEED,
+  limit?: number,
 ): Promise<VoaListItem[]> {
-  void _limit
   const res = await fetchWithTimeout(feedUrl)
   if (!res.ok) {
     throw new Error(`VOA RSS fetch failed: ${res.status}`)
@@ -205,7 +228,7 @@ export async function listVoaFeed(
   // v06.45 — VOA Learning English 는 모두 audio 가 article HTML 에 존재 (학습 정체성).
   //          list 단계에서 RSS 만으로는 확정 불가하지만 has_audio=true 휴리스틱.
   const withAudio = raw.map((it) => ({ ...it, has_audio: true }))
-  return applyArticleCurationSpec(withAudio, 'voa', feedId)
+  return applyArticleCurationSpec(withAudio, 'voa', feedId, { maxItems: limit })
 }
 
 /**

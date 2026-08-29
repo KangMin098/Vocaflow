@@ -22,9 +22,11 @@ export { ingestFromPressbooks } from './ingest/pressbooks'
 
 // S2 INGEST — Articles (ACP — VOA / NASA / NIH + v06.66 wikinews/the_conversation/simple_wikipedia.
 // v06.69 arXiv 제거 — 사용자 명시 플랫폼 전체 삭제)
-export { listVoaFeed, ingestVoaArticle, VOA_FEEDS } from './ingest-article/voa'
+export { listVoaFeed,
+  voaFeedUrlWithCount, ingestVoaArticle, VOA_FEEDS } from './ingest-article/voa'
 export type { VoaListItem } from './ingest-article/voa'
-export { listNasaFeed, ingestNasaArticle, NASA_FEEDS } from './ingest-article/nasa'
+export { listNasaFeed,
+  nasaFeedUrlPaged, ingestNasaArticle, NASA_FEEDS } from './ingest-article/nasa'
 export type { NasaListItem } from './ingest-article/nasa'
 export { listNihFeed, ingestNihArticle, NIH_FEEDS } from './ingest-article/nih'
 export type { NihListItem } from './ingest-article/nih'
