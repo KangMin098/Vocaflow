@@ -22,6 +22,13 @@ import { useListenQueue } from '@/components/wordvault/hooks/useListenQueue'
 import { useSpeech } from '@/components/wordvault/hooks/useSpeech'
 import type { BrowseChip, BrowseWord } from '@/lib/wordvault/browse-queries'
 import {
+  levelParamToClass,
+  matchesLevel,
+  matchesQuery,
+  normalizeQuery,
+  parseLevelParam,
+} from '@/lib/wordvault/list-params'
+import {
   filterByMemoryState,
   parseStateFilter,
   stateFilterLabel,
@@ -70,6 +77,10 @@ export function WordVaultBrowseClient({
   const router = useRouter()
   const searchParams = useSearchParams()
   const initialFilter = searchParams?.get('filter') ?? 'all'
+  // 허브가 걸어 보내는 목록 파라미터 — 판정은 `lib/wordvault/list-params` 가 소유한다.
+  // 2026-08-30 이전에는 읽는 코드가 없어 `?q=`·`?level=` 이 조용히 버려졌다.
+  const initialQuery = normalizeQuery(searchParams?.get('q'))
+  const initialLevel = parseLevelParam(searchParams?.get('level'))
 
   const goToChapter = useCallback(
     (chapter: { id: string; chapterIdx: number }) => {
@@ -101,8 +112,12 @@ export function WordVaultBrowseClient({
     router.replace(qs ? `/wordvault/browse?${qs}` : '/wordvault/browse')
   }, [router, searchParams])
   // 검색/난이도/정렬 — 이전엔 렌더만 되고 미연결(dead). 실제 필터링 연결.
-  const [searchQuery, setSearchQuery] = useState('')
-  const [levelFilter, setLevelFilter] = useState('all') // all | a | b | c
+  // ⚠️ 초기값은 URL 에서 온다 — 허브가 `?q=`·`?level=` 로 보내고, 2026-08-30 이전에는
+  //    그 둘을 읽는 코드가 없어 단어를 눌러도 **전체 목록**이 열렸다.
+  const [searchQuery, setSearchQuery] = useState(initialQuery)
+  // 'all' | 'a' | 'b' | 'c' | 'A1'…'C2' — 허브의 레벨 막대는 낱개 CEFR 로 보내고
+  // 화면 셀렉트는 묶음으로 고른다. 둘 다 정당한 요청이라 둘 다 들고 있는다.
+  const [levelFilter, setLevelFilter] = useState<string>(searchParams?.get('level') ?? 'all')
   const [sortBy, setSortBy] = useState('recent') // recent | alpha | mastery
   const [listenSettings, setListenSettings] = useState<ListenSettings>({
     content: 'word',
@@ -141,16 +156,14 @@ export function WordVaultBrowseClient({
       // 2026-08-29 이전에는 이 분기가 없어 **조용히 전체가 떴다**(state-filter.ts 머리말).
       list = filterByMemoryState(list, stateKey)
     }
-    // 2) 검색 (단어/뜻)
-    const q = searchQuery.trim().toLowerCase()
-    if (q) {
-      list = list.filter(
-        (w) => w.word.toLowerCase().includes(q) || w.meaning.toLowerCase().includes(q),
-      )
+    // 2) 검색 (단어/뜻) — URL 로 들어온 검색과 손으로 친 검색이 같은 규칙을 쓴다.
+    if (searchQuery.trim()) {
+      list = list.filter((w) => matchesQuery(w, searchQuery))
     }
-    // 3) 난이도 (levelClass a/b/c)
-    if (levelFilter !== 'all') {
-      list = list.filter((w) => w.levelClass === levelFilter)
+    // 3) 난이도 — 묶음(a/b/c) 과 낱개 CEFR(B1) 둘 다 받는다.
+    const level = parseLevelParam(levelFilter)
+    if (level) {
+      list = list.filter((w) => matchesLevel(w, level))
     }
     // 4) 정렬 (recent = 원본 순서 유지)
     if (sortBy === 'alpha') {
@@ -223,6 +236,23 @@ export function WordVaultBrowseClient({
 
   const activeChip = chips.find((c) => c.id === scriptFilter)
 
+  /**
+   * 지금 목록에 걸려 있는 조건을 사람이 읽는 한 줄로.
+   *
+   * ⚠️ 조건이 여럿일 수 있다 — 허브에서 `?q=`·`?level=` 을 걸고 들어오면 소스 필터가
+   *    `all` 이라도 목록은 걸러져 있다. 그때 "전체 3개" 라고 적으면 3이 어디서 나온
+   *    수인지 화면이 말하지 않는 것이다(2026-08-30 이전에는 그 둘이 아예 무시됐다).
+   */
+  const conditionLabel = useMemo(() => {
+    const parts: string[] = []
+    if (stateKey) parts.push(stateFilterLabel(stateKey))
+    else if (scriptFilter !== 'all' && activeChip) parts.push(activeChip.label)
+    const level = parseLevelParam(levelFilter)
+    if (level) parts.push(level.kind === 'cefr' ? level.value : `${level.value.toUpperCase()} 등급`)
+    if (searchQuery.trim()) parts.push(`"${searchQuery.trim()}"`)
+    return parts.length ? parts.join(' · ') : '전체'
+  }, [stateKey, scriptFilter, activeChip, levelFilter, searchQuery])
+
   return (
     <>
       <ResourceContext
@@ -241,12 +271,9 @@ export function WordVaultBrowseClient({
             : {
                 type: 'vocab',
                 label: '내 어휘 자산',
-                position:
-                  scriptFilter === 'all'
-                    ? `전체 ${words.length.toLocaleString()}개`
-                    : // 상태 필터에는 대응하는 칩이 없다 — 이름을 못 찾아 ` · 11개` 처럼
-                      // 앞이 빈 문장이 되던 자리(2026-08-29).
-                      `${stateKey ? stateFilterLabel(stateKey) : (activeChip?.label ?? '')} · ${words.length.toLocaleString()}개`,
+                // 지금 걸려 있는 조건을 **전부** 말한다 — 하나만 말하면 나머지가 숨는다
+                // (검색어로 걸러 놓고 "전체 3개" 라고 적으면 3이 어디서 나온 수인지 모른다).
+                position: `${conditionLabel} · ${words.length.toLocaleString()}개`,
                 href: '/wordvault',
               }
         }
@@ -317,6 +344,11 @@ export function WordVaultBrowseClient({
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               <div className="min-w-0 flex-1">
                 <SearchRow
+                  initialQuery={initialQuery}
+                  // 낱개 CEFR(`B1`)은 셀렉트에 대응 칸이 없어 묶음으로 환산해 보여 준다 —
+                  // 목록은 여전히 B1 만 거른다(허브 막대가 가리킨 칸이 그것이라서).
+                  // 그 정확한 조건은 아래 ResourceContext 가 문장으로 말한다.
+                  initialLevel={levelParamToClass(initialLevel)}
                   onSearchChange={setSearchQuery}
                   onLevelChange={setLevelFilter}
                   onSortChange={setSortBy}

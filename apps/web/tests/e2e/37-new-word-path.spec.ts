@@ -83,6 +83,46 @@ test.describe('새 단어 경로 — 칩에서 학습 시작까지', () => {
     );
   });
 
+  test('허브가 거는 ?q= · ?level= 이 목적지까지 살아서 적용된다', async ({ page }) => {
+    // 허브의 세 자리(WordPeekStrip · FindAndMore · CEFRDistribution)가 옛 주소
+    // `/wordvault?view=browse&q=…&level=…` 로 보낸다. 2026-08-30 이전에는
+    //   ① 옛 주소가 `view` 만 떼고 나머지를 넘기긴 했지만
+    //   ② 목적지에 **읽는 코드가 없어** 조건이 통째로 버려졌다.
+    // 그래서 "주소가 살아서 도착하는가" 와 "도착해서 실제로 걸리는가" 를 함께 잰다.
+
+    // 먼저 전체 목록에서 실제로 존재하는 단어 하나를 집는다 — 기대값을 하드코딩하지 않는다.
+    await page.goto('/wordvault/browse', { waitUntil: 'networkidle' })
+    const anyWord = page.locator('[data-testid="word-row"]').first()
+    await expect(anyWord, '둘러보기에 단어가 없다 — 계정 데이터가 비었다').toBeVisible({
+      timeout: 15_000,
+    })
+    const sample = ((await anyWord.innerText()).match(/[A-Za-z]{4,}/) ?? [])[0]
+    expect(sample, '표본 단어를 못 뽑았다').toBeTruthy()
+
+    // ── 옛 주소로 들어가도 조건이 목적지까지 간다 ──
+    await page.goto(`/wordvault?view=browse&q=${encodeURIComponent(sample!)}`, {
+      waitUntil: 'networkidle',
+    })
+    await page.waitForURL(/\/wordvault\/browse\?.*q=/, { timeout: 15_000 })
+
+    // ── 화면이 조건을 말한다 ── (목록만 걸러 놓고 입력칸이 비어 있으면 화면이 거짓말한다)
+    await expect(
+      page.locator('input[aria-label="단어 검색"]'),
+      '검색어가 입력칸에 반영되지 않았다',
+    ).toHaveValue(sample!)
+
+    // ── 실제로 걸렸는가 ── 필터 전보다 항목이 줄어야 한다
+    const filtered = await page.locator('[data-testid="word-row"]').count()
+    await page.goto('/wordvault/browse', { waitUntil: 'networkidle' })
+    const all = await page.locator('[data-testid="word-row"]').count()
+    expect(filtered, `검색이 목록을 좁히지 못했다 (전체 ${all} · 검색 ${filtered})`).toBeLessThan(all)
+
+    // ── 낱개 CEFR 도 받는다 ── (허브 레벨 막대가 보내는 형태)
+    await page.goto('/wordvault/browse?level=B1', { waitUntil: 'networkidle' })
+    const b1 = await page.locator('[data-testid="word-row"]').count()
+    expect(b1, 'B1 필터가 전체와 같다 — 적용되지 않았다').toBeLessThan(all)
+  })
+
   test('경로의 조작 요소가 폰에서 44px 이상이다', async ({ page }) => {
     const routes = ['/hub', '/wordvault/browse?filter=state:new', '/wordvault/study?filter=state:new'];
     const failures: string[] = [];

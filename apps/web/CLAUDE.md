@@ -221,9 +221,25 @@ pnpm --filter web test:e2e         # 전체 e2e (smoke + 학습루프 + wordvaul
 
 `error.tsx` / `not-found.tsx` / `loading.tsx`가 `src/app/` 직속에 반드시 존재. 누락 시 클라이언트 라우터가 "missing required error components, refreshing..." 로 무한 새로고침. 수정·삭제 금지.
 
-## TextViewer ↔ WordVault 인계 (mock Phase 2)
+## TextViewer → WordVault 인계 — **sessionStorage 경유는 없다** (2026-08-30 제거)
 
-`lib/text-viewer/handoff.ts`의 `saveExtractedWords` / `consumePendingWords` / `toWordItem`. sessionStorage 기반 — Phase 3에서 Zustand `wordVaultStore`로 교체 예정.
+추출 단어는 `/text/new` 에서 **DB(`vocabularies`)로 바로** 간다. `/wordvault/browse` 는 서버에서 그것을 읽는다.
+
+여기 있던 `lib/text-viewer/handoff.ts`(sessionStorage 경유)는 삭제했다 — **쓰는 쪽이 0개**였다.
+`saveExtractedWords` 를 부르는 코드가 저장소에 없었으므로 `consumePendingWords()` 는 언제나
+`null` 이었고, 그 뒤의 토스트·상태 주입은 한 번도 실행된 적이 없다. 그 죽은 경로가
+`/wordvault` 페이지에 `MOCK_WORDS` 를 붙들어 두는 유일한 이유였다(§아래).
+
+⚠️ **`/wordvault` 는 허브 + 옛 `?view=` 리다이렉트뿐이다.** 한때 이 페이지가 `MOCK_WORDS` 13개로
+browse·study·review 를 **직접 그리는 분기**를 갖고 있었고(전부 리다이렉트 뒤라 한 프레임만 보였다),
+review 분기는 `오늘 복습할 단어 12개` 를 하드코딩하고 있었다. 실화면 셋은 각자
+`/wordvault/{browse,study,review}` 가 서버에서 데이터를 받아 그린다. 목업 컴포넌트
+(`PageHeader`·`StatsGrid`·`CollectionsRow`·`mock-data`)도 함께 지웠다 — 남겨 두면 다시 배선된다.
+
+**목록 파라미터는 `lib/wordvault/list-params.ts` 가 읽는다** (`?q=` · `?level=`).
+허브 세 자리가 이 링크를 걸고 있었는데 읽는 자가 없어 조건이 조용히 버려지고 있었다
+(`?filter=state:*` 와 같은 사고 — `lib/wordvault/state-filter.ts` 머리말 참조).
+새 파라미터를 더할 때는 **읽는 자를 한 파일에 두고 링크 전수를 훑는 회귀를 함께** 낼 것.
 
 ## 테마 토글
 
