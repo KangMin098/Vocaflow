@@ -16,7 +16,7 @@ import { createInitialSRS } from '@/lib/srs/sm2'
 import { rowToCard, type VocabularyRow } from '@/lib/srs/supabase-adapter'
 import { blankSurface } from '@/lib/text/surface-match'
 import { fetchStudyVocabularies } from '@/lib/wordvault/study-queries'
-import { fetchDictExtras } from '@/lib/flashcard/dict-extras'
+import { fetchDictExtras, exampleKey } from '@/lib/flashcard/dict-extras'
 import type { FlashcardWord } from '@/types/flashcard'
 
 /**
@@ -50,6 +50,7 @@ export async function fetchDueFlashcardWords(
       exampleSentenceWithBlank: example ? blankSurface(example, r.word) : '',
       collocations: ex?.collocations,
       senses: ex?.senses,
+      exampleTranslation: ex?.exampleTranslations?.[exampleKey(example ?? '')],
       roots: ex?.roots,
       mnemonic: ex?.mnemonic,
       textId: r.text_id ?? r.id,

@@ -58,13 +58,30 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
             품사별 뜻
           </span>
           {word.senses.map((s, i) => (
-            <div key={`${s.pos}-${i}`} className="flex items-baseline gap-2">
-              {s.pos && (
-                <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-px font-mono text-[10px] font-[700] text-[var(--t2)]">
-                  {posLabel(s.pos)}
+            <div key={`${s.pos}-${i}`} className="flex flex-col gap-1">
+              <div className="flex items-baseline gap-2">
+                {s.pos && (
+                  <span className="shrink-0 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-px font-mono text-[10px] font-[700] text-[var(--t2)]">
+                    {posLabel(s.pos)}
+                  </span>
+                )}
+                <span className="font-body text-[14px] leading-snug text-[var(--t1)]">
+                  {s.meaning}
                 </span>
+              </div>
+
+              {/* 뜻마다 붙는 문장 — 뜻 목록만으로는 갈라지지 않는다. 그 뜻으로만 읽히는 문장이
+                  변별을 만든다(Context-Dependent). 해석은 있을 때만 — 없는 예문은 건너뛰게 된다. */}
+              {s.example && (
+                <p className="border-l border-[var(--bd)] pl-3 font-english text-[12px] italic leading-relaxed text-[var(--t2)]">
+                  {s.example}
+                  {s.exampleKo && (
+                    <span className="mt-0.5 block font-body text-[11px] not-italic text-[var(--t3,var(--t2))]">
+                      {s.exampleKo}
+                    </span>
+                  )}
+                </p>
               )}
-              <span className="font-body text-[14px] leading-snug text-[var(--t1)]">{s.meaning}</span>
             </div>
           ))}
         </div>
@@ -91,6 +108,14 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
           target={word.text}
           forms={word.inflectedForms}
         />
+
+        {/* 예문 해석 — 국내 교재는 예문마다 해석을 단다. 해석 없는 예문은 학습자가 건너뛴다.
+            없으면 표시하지 않는다(빈 줄이 카드를 흔들지 않게). */}
+        {word.exampleTranslation && (
+          <span className="mt-2 block font-body text-[12px] not-italic leading-relaxed text-[var(--t2)]">
+            {word.exampleTranslation}
+          </span>
+        )}
 
         <span className="mt-2 block font-body text-[11px] not-italic text-[var(--t2)]">
           — {word.textTitle}, {word.textChapter}

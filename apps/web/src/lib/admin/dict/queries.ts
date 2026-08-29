@@ -132,6 +132,7 @@ export async function fetchDictCoverage(
     coll,
     infl,
     note,
+    exKo,
     freq,
     sfi,
     verified,
@@ -163,6 +164,11 @@ export async function fetchDictCoverage(
     countRows(client, 'shared_dictionary', (q) =>
       q.not('korean_learner_note', 'is', null),
     ),
+    // 예문 해석 — jsonb 첫 원소만 본다. 배열 전체를 순회하려면 RPC 가 필요하고,
+    // 그 비용을 들일 만큼 이 지표가 정밀할 필요는 없다(진행 방향만 보면 된다).
+    countRows(client, 'shared_dictionary', (q) =>
+      q.not('meanings_ko->0->>example_ko', 'is', null),
+    ),
     countRows(client, 'shared_dictionary', (q) =>
       q.not('frequency_rank', 'is', null),
     ),
@@ -185,6 +191,7 @@ export async function fetchDictCoverage(
     collocations: asMetric(coll, total),
     inflections: asMetric(infl, total),
     koreanLearnerNote: asMetric(note, total),
+    exampleKo: asMetric(exKo, total),
     frequencyRank: asMetric(freq, total),
     ngslSfi: asMetric(sfi, total),
     verified: asMetric(verified, total),

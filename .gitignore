@@ -145,3 +145,8 @@ skills-lock.json
 /volume-v*.html
 /tmp-*.mjs
 /__probe.out
+
+# D0830 사전 드레인 작업 폴더 — 청크는 import 후 소모품이고, **명세(_PROMPT.md)만 남긴다**
+#   (w0817-* 는 디렉터리째 무시해서 나중에 명세를 되찾을 수 없었다. 같은 실수를 반복하지 않는다)
+scripts/dict/w0830-*/*
+!scripts/dict/w0830-*/_PROMPT.md

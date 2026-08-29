@@ -10,7 +10,7 @@ import { createNewCard } from '@/lib/srs'
 import { createInitialSRS } from '@/lib/srs/sm2'
 import { fetchScopedWords } from '@/lib/workspace/scoped-words'
 import { blankSurface } from '@/lib/text/surface-match'
-import { fetchDictExtras } from '@/lib/flashcard/dict-extras'
+import { fetchDictExtras, exampleKey } from '@/lib/flashcard/dict-extras'
 import type { FlashcardWord } from '@/types/flashcard'
 
 export interface ScopedFlashcardResult {
@@ -54,6 +54,7 @@ export async function fetchScopedFlashcardWords(
       inflectedForms: w.inflectedForms,
       collocations: ex?.collocations,
       senses: ex?.senses,
+      exampleTranslation: ex?.exampleTranslations?.[exampleKey(w.example ?? '')],
       roots: ex?.roots,
       mnemonic: ex?.mnemonic,
       textId: w.id,

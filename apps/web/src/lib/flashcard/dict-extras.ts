@@ -10,6 +10,10 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 export interface WordSense {
   pos: string
   meaning: string
+  /** 그 뜻으로만 읽히는 예문 (meanings_ko[].example) — 뜻을 갈라 주는 문장. 없으면 미표시 */
+  example?: string
+  /** 예문 해석 (meanings_ko[].example_ko) — 국내 교재는 예문마다 해석을 단다. 없으면 미표시 */
+  exampleKo?: string
 }
 export interface RootPart {
   root: string
@@ -21,7 +25,15 @@ export interface DictExtras {
   senses?: WordSense[]
   roots?: RootPart[]
   mnemonic?: string // 어근 기반 니모닉(mnemonic_ko)
+  /**
+   * 예문 → 한국어 해석. 카드가 어떤 예문을 고를지 여기서는 알 수 없으므로 **표를 넘기고**
+   * 소비 측에서 찾게 한다. 키는 정규화된 예문(소문자·공백 축약).
+   */
+  exampleTranslations?: Record<string, string>
 }
+
+/** 예문 대조 키 — 대소문자·연속 공백 차이로 해석을 놓치지 않게 한다. */
+export const exampleKey = (s: string): string => s.trim().toLowerCase().replace(/\s+/g, ' ')
 
 const AFFIX_ORDER: Record<string, number> = { prefix: 0, root: 1, suffix: 2 }
 
@@ -51,10 +63,30 @@ export async function fetchDictExtras(
       const e: DictExtras = map.get(d.word) ?? {}
       if (d.collocations && d.collocations.length > 0) e.collocations = d.collocations
       if (d.mnemonic_ko && d.mnemonic_ko.trim()) e.mnemonic = d.mnemonic_ko.trim()
-      if (Array.isArray(d.meanings_ko) && d.meanings_ko.length >= 2) {
-        const senses = (d.meanings_ko as Array<{ pos?: string; meaning?: string }>)
+      if (Array.isArray(d.meanings_ko) && d.meanings_ko.length > 0) {
+        const raw = d.meanings_ko as Array<{
+          pos?: string
+          meaning?: string
+          example?: string
+          example_ko?: string
+        }>
+        // 해석표는 뜻이 하나뿐인 낱말에도 필요하다 — 대표 예문의 해석이 거기 들어 있다.
+        const table: Record<string, string> = {}
+        for (const s of raw) {
+          const ex = (s?.example ?? '').trim()
+          const ko = (s?.example_ko ?? '').trim()
+          if (ex && ko) table[exampleKey(ex)] = ko
+        }
+        if (Object.keys(table).length > 0) e.exampleTranslations = table
+
+        const senses = raw
           .filter((s) => s && typeof s.meaning === 'string' && s.meaning.trim())
-          .map((s) => ({ pos: (s.pos ?? '').trim(), meaning: (s.meaning as string).trim() }))
+          .map((s) => ({
+            pos: (s.pos ?? '').trim(),
+            meaning: (s.meaning as string).trim(),
+            example: (s.example ?? '').trim() || undefined,
+            exampleKo: (s.example_ko ?? '').trim() || undefined,
+          }))
         if (senses.length >= 2) e.senses = senses
       }
       map.set(d.word, e)

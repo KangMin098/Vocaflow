@@ -38,6 +38,12 @@ export interface DictCoverageData {
   collocations: DictCoverageMetric
   inflections: DictCoverageMetric
   koreanLearnerNote: DictCoverageMetric
+  /**
+   * 예문 해석 — `meanings_ko[0].example_ko` 를 가진 row.
+   * ⚠️ **하한 추정치다.** 다의어는 뒤쪽 sense 에만 해석이 붙어 있을 수 있는데, 카운트 쿼리로는
+   * jsonb 배열을 순회할 수 없어 첫 원소만 본다. 실제 충전율은 이 값 이상이다.
+   */
+  exampleKo: DictCoverageMetric
   frequencyRank: DictCoverageMetric
   ngslSfi: DictCoverageMetric
   verified: DictCoverageMetric

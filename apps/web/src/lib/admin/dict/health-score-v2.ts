@@ -490,6 +490,14 @@ function r4UserLearning(raw: DictSnapshotRaw): ResponsibilityReadiness {
       evidence: `${(c.koreanLearnerNote.ratio * 100).toFixed(1)}%`,
     },
     {
+      // 시중 교재는 예문마다 해석을 단다. 해석 없는 영어 예문은 대다수 학습자가 건너뛴다 —
+      // 예문 칸이 차 있어도 학습에서는 비어 있는 것과 같다.
+      label: '예문 해석 (meanings_ko[].example_ko)',
+      score: c.exampleKo.ratio,
+      weight: 0.1,
+      evidence: `${(c.exampleKo.ratio * 100).toFixed(1)}% (첫 sense 기준 하한)`,
+    },
+    {
       label: 'audio_url (SpellForge/WordBlitz)',
       score: lr.audioUrl?.ratio ?? 0,
       weight: 0.15,
