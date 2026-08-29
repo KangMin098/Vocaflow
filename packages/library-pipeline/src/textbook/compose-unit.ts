@@ -63,7 +63,9 @@ export interface ComposeResult {
   /** 왜 더 못 만들었는지. 조용히 짧은 권을 내지 않는다. */
   stoppedBecause: string | null
   /** 규격 밖이라 쓰지 않은 문항 수 — 유형별. */
-  rejected: { tooShort: number; tooLong: number; wrongFormat: number; residue: number }
+  rejected: { tooShort: number; tooLong: number; wrongFormat: number; residue: number; outOfRung: number }
+  /** 시장 비중을 못 지키고 양보한 횟수. targetShare 를 줬을 때만 0 이 아니다. */
+  mixRelaxed: { repeatedType: number; overQuota: number }
 }
 
 /**
@@ -103,9 +105,30 @@ export const LONG_ITEM_TYPES = new Set([
   'long_vocab',
 ])
 
+/**
+ * 학교 시험 축 — **지문 한 문단**이면 되는 유형(중등 내신).
+ *
+ * 수능 창(90~200어)을 그대로 대면 이 유형은 전량 걸린다. 실제로 그래서 13,351문항이
+ * 어느 권에도 못 실리고 DB 에만 있었다 — 만든 것과 실리는 것은 다르다.
+ */
+export const SCHOOL_PARAGRAPH_TYPES = new Set([
+  'unit_vocab', 'unit_grammar', 'grammar_choice', 'vocab_choice',
+])
+/** **문장 하나**면 되는 유형 — 빈칸 쓰기 · 어법 고치기 · 영작 배열. */
+export const SCHOOL_SENTENCE_TYPES = new Set(['blank_word', 'grammar_fix', 'word_order'])
+export const SCHOOL_ITEM_TYPES = new Set([...SCHOOL_PARAGRAPH_TYPES, ...SCHOOL_SENTENCE_TYPES])
+
+/** 문단 유형의 창 — `middle-choice.ts` 의 생성 규격(40~120어)에 여유를 둔 값. */
+export const SCHOOL_PARAGRAPH_WORDS = { min: 40, max: 200 } as const
+/** 문장 유형의 창 — `middle-short.ts` 의 `MIDDLE_SENTENCE_WORDS`(6~25어)에 여유를 둔 값. */
+export const SCHOOL_SENTENCE_WORDS = { min: 6, max: 40 } as const
+
 /** 이 문항이 재야 할 지문 길이 범위. 유형이 창을 정한다. */
 export function itemWordSpec(type: string): { min: number; max: number } {
-  return LONG_ITEM_TYPES.has(type) ? CSAT_LONG_ITEM_WORDS : CSAT_ITEM_WORDS
+  if (LONG_ITEM_TYPES.has(type)) return CSAT_LONG_ITEM_WORDS
+  if (SCHOOL_SENTENCE_TYPES.has(type)) return SCHOOL_SENTENCE_WORDS
+  if (SCHOOL_PARAGRAPH_TYPES.has(type)) return SCHOOL_PARAGRAPH_WORDS
+  return CSAT_ITEM_WORDS
 }
 
 /** 단원 기본 구성 — 순서 2 + 삽입 2. 실제 수능 배점 비율과 같다. */
@@ -168,6 +191,61 @@ export interface ComposeOptions {
    * 그래야 이 유형이 아직 없는 밴드의 권이 후퇴하지 않는다.
    */
   extraPerUnit?: number
+  /**
+   * 이 권이 쓸 수 있는 문항 유형 — `SERIES_SPINE` 의 단수별 `types`.
+   *
+   * ⚠️ **유형은 난이도가 아니라 학년의 신분증이다.** 시중 79종 실측(`market-spec.json`
+   * `typeDensity`)에서 순서·삽입은 중등 쪽당 0.4~1.0%, 고등 3% 대다. 초등은 0 이다.
+   * 이 갈래가 없던 동안 V3(중1-2) 권 120문항 중 **80문항이 수능 순서·삽입**이었다 —
+   * 재고에 그것밖에 없어서였지, 그 학년 교재라서가 아니었다.
+   *
+   * 주지 않으면 예전과 똑같이 동작한다(전 유형 허용).
+   */
+  allowedTypes?: readonly string[]
+  /**
+   * 유형별 목표 비중(합 1) — `rungMix()` 가 시장 밀도에서 유도한 값.
+   *
+   * 주면 **뼈대/덧붙임 이분법을 쓰지 않는다.** 권 전체 문항 수에 비중을 곱해 유형별
+   * 몫을 정하고(최대잉여법), 단원을 돌며 그 몫에서 뽑는다. 이분법으로는 비중을
+   * 정수 칸으로 바꾸는 순간 작은 유형이 0 으로 눌린다 — 실제로 `order` 11%가
+   * 0칸이 됐다. 비중을 지키려면 배분도 비중으로 해야 한다.
+   */
+  targetShare?: Record<string, number>
+  /** 한 단원의 문항 수. `targetShare` 를 줄 때만 쓴다. */
+  itemsPerUnit?: number
+}
+
+/**
+ * 비중을 정수 몫으로 나눈다 — **최대잉여법**.
+ *
+ * 단순 반올림은 합이 안 맞고 작은 유형을 0 으로 만든다. 잉여가 큰 순으로 남은 몫을
+ * 하나씩 준다. 같은 잉여면 유형 이름 순 — 재실행해도 같은 결과가 나와야 한다.
+ */
+export function largestRemainder(
+  share: Record<string, number>,
+  total: number,
+): Record<string, number> {
+  const entries = Object.entries(share).filter(([, v]) => v > 0)
+  const sum = entries.reduce((a, [, v]) => a + v, 0)
+  if (sum <= 0 || total <= 0) return {}
+  const raw = entries.map(([t, v]) => ({ t, exact: (v / sum) * total }))
+  const out: Record<string, number> = {}
+  let assigned = 0
+  for (const r of raw) {
+    const floor = Math.floor(r.exact)
+    out[r.t] = floor
+    assigned += floor
+  }
+  const rest = [...raw].sort(
+    (x, y) => (y.exact - Math.floor(y.exact)) - (x.exact - Math.floor(x.exact)) || x.t.localeCompare(y.t),
+  )
+  for (let i = 0; assigned < total && i < rest.length * 2; i += 1) {
+    const r = rest[i % rest.length]
+    if (!r) break
+    out[r.t] = (out[r.t] ?? 0) + 1
+    assigned += 1
+  }
+  return out
 }
 
 /**
@@ -187,7 +265,20 @@ export function composeUnits(
   vocabByRef: ReadonlyMap<string, ReadonlyArray<UnitVocab>>,
   options: ComposeOptions,
 ): ComposeResult {
-  const slots = options.slots ?? DEFAULT_SLOTS
+  // 사다리 단수가 순서·삽입을 안 쓰면 뼈대 칸도 0 이어야 한다 —
+  // 그러지 않으면 "재료 부족" 으로 권이 통째로 안 나온다.
+  const allowedSet = options.allowedTypes ? new Set(options.allowedTypes) : null
+  const baseSlots = options.slots ?? DEFAULT_SLOTS
+  const slots = allowedSet
+    ? {
+        order: allowedSet.has('order') ? baseSlots.order : 0,
+        insert: allowedSet.has('insert') ? baseSlots.insert : 0,
+      }
+    : baseSlots
+  // 뼈대가 비면 단원이 통째로 빈다 — 그때는 덧붙임이 단원을 채운다.
+  const skeletonSize = slots.order + slots.insert
+  const wantExtra = options.extraPerUnit
+    ?? (skeletonSize === 0 ? 6 : DEFAULT_EXTRA_PER_UNIT)
   const wantUnits = options.unitCount ?? 20
   const wantVocab = options.vocabCount ?? 20
 
@@ -195,7 +286,14 @@ export function composeUnits(
   let tooLong = 0
   let wrongFormat = 0
   let residue = 0
+  let outOfRung = 0
+  // 사다리 단수가 쓰는 유형만 남긴다. 주지 않으면 전 유형 허용(예전 동작).
+  const allowed = allowedSet
   const fit = pool.filter((p) => {
+    if (allowed && !allowed.has(p.type)) {
+      outOfRung++
+      return false
+    }
     // 유형이 창을 정한다 — 장문은 300어가 정상이고, 짧은 지문의 자로 재면 전량 걸린다.
     const spec = itemWordSpec(p.type)
     if (p.passage_words < spec.min) {
@@ -235,14 +333,39 @@ export function composeUnits(
   const byType: Record<UnitItemType, PoolItem[]> & { extra: PoolItem[] } = {
     order: fit.filter((p) => p.type === 'order'),
     insert: fit.filter((p) => p.type === 'insert'),
-    // 생성형은 뼈대가 아니라 덧붙임이다 — 위 `EXTRA_ITEM_TYPES` 주석 참조.
-    extra: fit.filter((p) => EXTRA_ITEM_TYPES.has(p.type)),
+    // 생성형·학교 시험 축은 뼈대가 아니라 덧붙임이다 — 위 `EXTRA_ITEM_TYPES` 주석 참조.
+    extra: fit.filter((p) => EXTRA_ITEM_TYPES.has(p.type) || SCHOOL_ITEM_TYPES.has(p.type)),
   }
   for (const t of ['order', 'insert'] as const) {
     byType[t] = roundRobinByRef(byType[t])
   }
   // 덧붙임도 글이 골고루 쓰이게 돌린다 — 안 그러면 앞 단원이 한 글의 유형을 다 가져간다.
   byType.extra = roundRobinByRef(byType.extra)
+
+  // ── 비중 배분 경로 ────────────────────────────────────────────────
+  // `targetShare` 를 주면 유형별 몫을 권 전체에서 먼저 나눠 두고 단원을 돌며 뽑는다.
+  // 뼈대/덧붙임 이분법은 비중을 정수 칸으로 바꾸며 작은 유형을 0 으로 눌러 버린다.
+  const perUnit = options.itemsPerUnit ?? (slots.order + slots.insert + wantExtra)
+  const byShare = options.targetShare
+    ? (() => {
+        const pools = new Map<string, PoolItem[]>()
+        for (const it of fit) {
+          if (!((options.targetShare?.[it.type] ?? 0) > 0)) continue
+          if (!pools.has(it.type)) pools.set(it.type, [])
+          pools.get(it.type)!.push(it)
+        }
+        for (const [t, list] of pools) pools.set(t, roundRobinByRef(list))
+        // 재고가 없는 유형은 비중에서 뺀다 — 두면 그 몫이 빈칸으로 남는다.
+        const live: Record<string, number> = {}
+        for (const [t, v] of Object.entries(options.targetShare!)) {
+          if ((pools.get(t)?.length ?? 0) > 0) live[t] = v
+        }
+        return { pools, quota: largestRemainder(live, wantUnits * perUnit) }
+      })()
+    : null
+
+  // 시장 비중을 지키지 못하고 양보한 횟수 — 조용히 넘어가지 않는다.
+  const mixRelaxed = { repeatedType: 0, overQuota: 0 }
 
   const used = new Set<string>()
   // 권 전체에서 낱말이 몇 번 실렸는지. **금지가 아니라 상한**이다 — 아래 주석 참조.
@@ -254,6 +377,42 @@ export function composeUnits(
     const picked: PoolItem[] = []
     const refsInUnit = new Set<string>()
     let short: UnitItemType | null = null
+
+    if (byShare) {
+      // 남은 몫이 많은 유형부터 뽑는다 — 뒤 단원에 한 유형이 몰리지 않는다.
+      //
+      // ⚠️ **3단 폴백이 필요하다.** 처음엔 1단(몫 남음 + 유형 중복 금지)만 뒀더니
+      //   20단원짜리가 12단원에서 멈췄다 — 단원 후반에 "몫이 남았고 아직 안 쓴 유형" 이
+      //   말라서다. 시중 교재도 한 단원에 같은 유형을 두 번 낸다. 재고가 허용하는
+      //   만큼만 양보하되 **양보한 사실은 세어서 남긴다**(mixRelaxed).
+      const takeOne = (allowRepeatType: boolean, ignoreQuota: boolean): boolean => {
+        const cands = Object.entries(byShare.quota)
+          .filter(([t, left]) => (ignoreQuota || left > 0)
+            && (allowRepeatType || !picked.some((x) => x.type === t)))
+          .sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0]))
+        for (const [t] of cands) {
+          const list = byShare.pools.get(t) ?? []
+          const hit = list.find((it) => !used.has(it.id) && !refsInUnit.has(it.ref_id))
+          if (!hit) continue
+          picked.push(hit)
+          refsInUnit.add(hit.ref_id)
+          used.add(hit.id)
+          byShare.quota[t] = (byShare.quota[t] ?? 0) - 1
+          return true
+        }
+        return false
+      }
+      for (let k = 0; k < perUnit; k += 1) {
+        if (takeOne(false, false)) continue
+        if (takeOne(true, false)) { mixRelaxed.repeatedType += 1; continue }
+        if (takeOne(true, true)) { mixRelaxed.overQuota += 1; continue }
+        break
+      }
+      if (picked.length < perUnit) {
+        stoppedBecause = `재료 부족 — ${n - 1}단원까지 만들었다 (마지막 단원 ${picked.length}/${perUnit}문항)`
+        break
+      }
+    } else {
 
     for (const t of ['order', 'insert'] as const) {
       const need = slots[t]
@@ -287,7 +446,7 @@ export function composeUnits(
     //   만든 것과 작동하는 것은 다르다.
     const extras: PoolItem[] = []
     for (const it of byType.extra) {
-      if (extras.length >= (options.extraPerUnit ?? DEFAULT_EXTRA_PER_UNIT)) break
+      if (extras.length >= wantExtra) break
       if (used.has(it.id)) continue
       // ⚠️ **덧붙임도 같은 글 금지를 지킨다.** 처음엔 "같은 지문을 다른 각도로 묻는 것은
       //   교재에서 정상" 이라고 열어 뒀는데, 자동 검수의 "한 단원에서 같은 글이 반복되지
@@ -300,6 +459,7 @@ export function composeUnits(
       extras.push(it)
     }
     picked.push(...extras)
+    }   // ← 비중 배분을 안 쓸 때의 예전 경로 끝
 
     for (const it of picked) used.add(it.id)
 
@@ -359,7 +519,12 @@ export function composeUnits(
   if (!stoppedBecause && units.length < wantUnits) {
     stoppedBecause = `${units.length}단원만 만들었다.`
   }
-  return { units, stoppedBecause, rejected: { tooShort, tooLong, wrongFormat, residue } }
+  return {
+    units,
+    stoppedBecause,
+    rejected: { tooShort, tooLong, wrongFormat, residue, outOfRung },
+    mixRelaxed,
+  }
 }
 
 /**

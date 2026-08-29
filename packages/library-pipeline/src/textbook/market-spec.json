@@ -1,6 +1,6 @@
 {
   "$schema": "market-spec/1",
-  "generatedAt": "2026-08-29T16:27:30.475Z",
+  "generatedAt": "2026-08-29T16:43:36.862Z",
   "provenance": {
     "corpus": "시중 영어 교재 79종 (저장소 밖 store)",
     "documentsMeasured": 79,
@@ -345,6 +345,65 @@
       "with_ans": 12
     },
     "note": "해설지를 내는 교재는 사실상 전 문항에 해설이 붙는다 — 보유율의 시장 기준선은 100% 로 본다"
+  },
+  "typeDensity": {
+    "note": "쪽 단위 등장률이다(문항 수가 아니다). 학교급 사이 **상대 비교**로 쓴다 — 어떤 유형이 그 학년의 교재에 실리는 유형인지 가르는 데 쓴다.",
+    "bySchool": {
+      "고등": {
+        "pagesMeasured": 2467,
+        "densityPerPage": {
+          "order": 0.0304,
+          "insert": 0.0312,
+          "unit_vocab": 0,
+          "blank_word": 0.002,
+          "word_order": 0.0073,
+          "grammar_fix": 0.0024,
+          "topic": 0.0268,
+          "title": 0.0385,
+          "main_point": 0.0122,
+          "blank": 0.0645,
+          "irrelevant": 0.0178,
+          "vocab_choice": 0.0243,
+          "grammar_choice": 0.0284
+        }
+      },
+      "초등": {
+        "pagesMeasured": 871,
+        "densityPerPage": {
+          "order": 0,
+          "insert": 0,
+          "unit_vocab": 0.0069,
+          "blank_word": 0.0126,
+          "word_order": 0.0367,
+          "grammar_fix": 0,
+          "topic": 0,
+          "title": 0,
+          "main_point": 0,
+          "blank": 0.0034,
+          "irrelevant": 0,
+          "vocab_choice": 0,
+          "grammar_choice": 0
+        }
+      },
+      "중등": {
+        "pagesMeasured": 1053,
+        "densityPerPage": {
+          "order": 0.0038,
+          "insert": 0.0104,
+          "unit_vocab": 0.0199,
+          "blank_word": 0.0009,
+          "word_order": 0.0199,
+          "grammar_fix": 0.0009,
+          "topic": 0.0133,
+          "title": 0.0171,
+          "main_point": 0.0019,
+          "blank": 0.0028,
+          "irrelevant": 0.0038,
+          "vocab_choice": 0.0038,
+          "grammar_choice": 0.0028
+        }
+      }
+    }
   },
   "units": {
     "booksMeasured": 9,

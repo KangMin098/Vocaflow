@@ -78,6 +78,18 @@ export const EXTRA_TYPES = new Set([
   'long_title', 'long_vocab',
 ])
 
+/**
+ * 학교 시험 축 — 중등 내신 유형. 지문이 `sentences`(문단) 또는 `stem`(문장 하나)에 있다.
+ *
+ * ⚠️ 이 갈래가 없던 동안 **13,351문항이 어느 권에도 안 실렸다.** 생성형에서 똑같은 일이
+ *   한 번 있었는데(위 EXTRA_TYPES 주석), 같은 실수가 더 큰 규모로 반복돼 있었다.
+ *   재료·조합·조판 셋이 다 열려야 학습자에게 닿는다.
+ */
+export const SCHOOL_TYPES = new Set([
+  'unit_vocab', 'unit_grammar', 'grammar_choice', 'vocab_choice',
+  'blank_word', 'grammar_fix', 'word_order',
+])
+
 /** `apps/web/.env.local` 을 process.env 에 얹는다. 이미 있는 키는 덮지 않는다. */
 export function loadEnv() {
   for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -92,8 +104,8 @@ export function loadEnv() {
  * @returns `{ units, stoppedBecause, pool, articles, vocabByRef, itemIds }`
  *   `itemIds` 는 그 권에 **실제로 실릴** 문항 id 집합이다 — 드레인이 겨냥할 대상.
  */
-export async function loadVolume(db, { band, unitCount }) {
-  const { composeUnits } = await import('@vocaflow/library-pipeline')
+export async function loadVolume(db, { band, unitCount, marketMix = false }) {
+  const { composeUnits, rungMix } = await import('@vocaflow/library-pipeline')
 
   // ── 원글 ──────────────────────────────────────────────────────────
   // 밴드는 **원글** 기준이다. 문항의 `v_level` 로 거르면 조판과 어긋난다.
@@ -119,7 +131,10 @@ export async function loadVolume(db, { band, unitCount }) {
       ids,
       ['id'],
     )
-  ).filter((r) => r.kind === 'article' && (CORE_TYPES.has(r.type) || EXTRA_TYPES.has(r.type)))
+  ).filter(
+    (r) => r.kind === 'article'
+      && (CORE_TYPES.has(r.type) || EXTRA_TYPES.has(r.type) || SCHOOL_TYPES.has(r.type)),
+  )
   const pool = []
   for (const r of itemRows) {
     const a = byId.get(r.ref_id)
@@ -139,6 +154,25 @@ export async function loadVolume(db, { band, unitCount }) {
         passage_text: passage,
         passage_words: passage.split(/\s+/).filter(Boolean).length,
         body_sentences: passage.split(/(?<=[.!?])\s+/).filter((s) => s.trim().length > 1).length,
+        payload: p,
+        answer_key: r.answer_key ?? {},
+      })
+      continue
+    }
+    // ── 학교 시험 축은 지문이 `sentences`(문단) 또는 `stem`/`context`(문장)에 있다 ──
+    if (SCHOOL_TYPES.has(r.type)) {
+      const lines = Array.isArray(p.sentences) ? p.sentences.map(String) : []
+      const text = lines.length ? lines.join(' ') : String(p.stem ?? p.context ?? '')
+      if (!text.trim()) continue
+      pool.push({
+        id: r.id,
+        type: r.type,
+        ref_id: r.ref_id,
+        ref_title: a.title,
+        v_level: r.v_level,
+        passage_text: text,
+        passage_words: text.split(/s+/).filter(Boolean).length,
+        body_sentences: lines.length || 1,
         payload: p,
         answer_key: r.answer_key ?? {},
       })
@@ -194,8 +228,17 @@ export async function loadVolume(db, { band, unitCount }) {
     })
   }
 
-  const { units, stoppedBecause } = composeUnits(pool, vocabByRef, { band, unitCount })
+  // `marketMix` 를 켜면 유형 구성을 시장 밀도에 맞춘다(`rungMix`).
+  // 기본은 꺼져 있다 — 이미 완성된 권이 조용히 달라지면 안 된다.
+  const mix = marketMix
+    ? rungMix(band, new Set(pool.map((it) => it.type)))
+    : null
+  const { units, stoppedBecause, rejected } = composeUnits(pool, vocabByRef, {
+    band,
+    unitCount,
+    ...(mix ? { targetShare: mix.targetShare, itemsPerUnit: 6 } : {}),
+  })
   const itemIds = new Set(units.flatMap((u) => u.items.map((i) => i.id)))
 
-  return { units, stoppedBecause, pool, articles: byId, vocabByRef, itemIds }
+  return { units, stoppedBecause, rejected, mix, pool, articles: byId, vocabByRef, itemIds }
 }

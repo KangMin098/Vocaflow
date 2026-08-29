@@ -183,6 +183,60 @@ function extractExplanationSpec(db) {
   };
 }
 
+/**
+ * 학교급별 **유형 밀도** — 어느 학년에 어떤 문항이 실리는가.
+ *
+ * 이걸 재기 전에는 "중1-2 교재에 수능 순서·삽입을 넣어도 되는가" 를 문서로만 답했다.
+ * 재 보니 시중 중등 교재에서 순서·삽입은 쪽당 1% 미만이고 고등에서만 3% 대로 올라온다.
+ * 반대로 **본문 어휘 뜻**과 **영작 배열**은 초·중등에서 나오고 고등에서 사라진다.
+ * 유형은 난이도가 아니라 **학년의 신분증**이다 — 잘못 실으면 그 권은 그 학년 교재가 아니다.
+ */
+function extractTypeDensity(db) {
+  const PATTERNS = {
+    order: /이어질 (글의 )?순서|순서로 가장 적절/,
+    insert: /문장이 들어가기|주어진 문장이/,
+    unit_vocab: /밑줄 친 .{0,12}의 뜻|뜻으로 알맞은|우리말 뜻/,
+    blank_word: /빈칸에 알맞은 (말|낱말|단어)을? 쓰|철자를 쓰/,
+    word_order: /배열하(여|시오)|알맞게 배열|순서대로 배열/,
+    grammar_fix: /어법상 (틀린|어색한).{0,10}(고쳐|바르게)/,
+    topic: /주제로 가장 적절/,
+    title: /제목으로 가장 적절/,
+    main_point: /요지로 가장 적절/,
+    blank: /빈칸에 들어갈 말로 가장 적절/,
+    irrelevant: /전체 흐름과 관계 없는/,
+    vocab_choice: /낱말의 쓰임이 적절하지 않은/,
+    grammar_choice: /어법상 틀린 것은|밑줄 친 부분 중 어법/,
+  }
+  const rows = db.prepare(`
+    SELECT d.grade_min, p.text
+    FROM pages p JOIN docs d ON d.id = p.doc_id
+    WHERE d.status IN ('ok','ocr') AND d.category IN ('독해','내신')`).all();
+
+  const school = (g) => (g == null ? null : g <= 6 ? '초등' : g <= 9 ? '중등' : '고등');
+  const agg = {};
+  for (const r of rows) {
+    const b = school(r.grade_min);
+    if (!b) continue;
+    agg[b] ??= { pages: 0, hits: {} };
+    agg[b].pages += 1;
+    for (const [type, re] of Object.entries(PATTERNS)) {
+      if (re.test(r.text)) agg[b].hits[type] = (agg[b].hits[type] || 0) + 1;
+    }
+  }
+  const out = {};
+  for (const [b, v] of Object.entries(agg)) {
+    out[b] = { pagesMeasured: v.pages, densityPerPage: {} };
+    for (const type of Object.keys(PATTERNS)) {
+      out[b].densityPerPage[type] = Number(((v.hits[type] || 0) / v.pages).toFixed(4));
+    }
+  }
+  return {
+    note: '쪽 단위 등장률이다(문항 수가 아니다). 학교급 사이 **상대 비교**로 쓴다 — '
+      + '어떤 유형이 그 학년의 교재에 실리는 유형인지 가르는 데 쓴다.',
+    bySchool: out,
+  };
+}
+
 /** 단원 구성 — 한 권에 단원이 몇 개, 단원 간격이 몇 쪽인지. */
 function extractUnitSpec(db) {
   const rows = db.prepare(`
@@ -230,6 +284,7 @@ function main() {
     },
     passageWords: extractPassageSpec(db),
     explanation: extractExplanationSpec(db),
+    typeDensity: extractTypeDensity(db),
     units: extractUnitSpec(db),
   };
 

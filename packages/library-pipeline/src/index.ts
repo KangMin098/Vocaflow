@@ -600,3 +600,19 @@ export {
   inferRule,
 } from './textbook/explain-items'
 export type { DeterministicExplainType, ItemExplanation } from './textbook/explain-items'
+
+export {
+  ITEMS_PER_UNIT,
+  RUNG_TYPE_FLOOR_PER_MILLE,
+  rungMix,
+  schoolOfBand,
+  typeMixFit,
+} from './textbook/rung-mix'
+export type { RungMix } from './textbook/rung-mix'
+export {
+  SCHOOL_ITEM_TYPES,
+  SCHOOL_PARAGRAPH_TYPES,
+  SCHOOL_PARAGRAPH_WORDS,
+  SCHOOL_SENTENCE_TYPES,
+  SCHOOL_SENTENCE_WORDS,
+} from './textbook/compose-unit'

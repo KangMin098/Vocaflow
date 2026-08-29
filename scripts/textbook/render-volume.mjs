@@ -19,7 +19,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { loadEnv, loadVolume } from './volume-pool.mjs'
+import { SCHOOL_TYPES, loadEnv, loadVolume } from './volume-pool.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -38,6 +38,8 @@ const {
   explainOrder,
   explainInsert,
   SERIES_SPINE,
+  rungMix,
+  typeMixFit,
 } = await import('@vocaflow/library-pipeline')
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
@@ -49,9 +51,23 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 // 같은 함수를 부르므로 "드레인이 겨냥한 책" 과 "조판된 책" 이 어긋날 수 없다.
 // 예전에는 양쪽이 각자 풀을 만들었고 셋(밴드 기준·어휘 맵·display_only)이 달라
 // 2문항이 조용히 어긋났다 — 해설을 다 채웠는데도 책은 78/80 으로 나왔다.
-const { units, stoppedBecause, articles: byId, pool } = await loadVolume(db, { band: BAND, unitCount: UNITS })
+const MARKET_MIX = process.argv.includes('--market-mix')
+const { units, stoppedBecause, articles: byId, pool, mix } = await loadVolume(db, {
+  band: BAND,
+  unitCount: UNITS,
+  marketMix: MARKET_MIX,
+})
 
 const card = scoreVolume(units, BAND)
+
+// ── 유형 구성이 시장과 얼마나 맞는가 ────────────────────────────────
+// 시중 79종 실측 밀도(`market-spec.json` typeDensity)를 목표로 삼고 총변이거리로 잰다.
+// 이 값을 안 찍으면 "중1-2 교재 120문항 중 80문항이 수능 순서·삽입" 같은 상태를
+// 아무도 눈치채지 못한다 — 실제로 그랬다.
+const actualMix = {}
+for (const u of units) for (const it of u.items) actualMix[it.type] = (actualMix[it.type] ?? 0) + 1
+const target = rungMix(BAND, new Set(pool.map((it) => it.type))).targetShare
+const fit = typeMixFit(actualMix, target)
 const rung = SERIES_SPINE.find((r) => r.vLevels.includes(BAND))
 
 // ── 조판 ────────────────────────────────────────────────────────────
@@ -69,6 +85,10 @@ const CIRCLED = ['①', '②', '③', '④', '⑤']
 function pickExplanation(item, deterministic) {
   const batch = item.answer_key?.explanation_ko
   if (typeof batch === 'string' && batch.trim()) return { text: batch.trim(), from: 'batch' }
+  // 생성형은 해설을 `rationale_ko` 에 담는다 — 같은 것이 두 이름으로 산다.
+  // 여기서 안 보면 534문항의 해설이 있는데도 "없음" 으로 인쇄된다.
+  const rationale = item.answer_key?.rationale_ko
+  if (typeof rationale === 'string' && rationale.trim()) return { text: rationale.trim(), from: 'batch' }
   if (deterministic?.body) {
     // 결정론 해설의 첫 두 줄은 "정답 ③ (B)-(A)-(C)" 와 빈 줄이라 본문에서는 뺀다.
     return { text: deterministic.body.split('\n').slice(2).join('\n'), from: 'rule' }
@@ -108,9 +128,107 @@ function renderExtra(item, no) {
   }
 }
 
+/**
+ * 학교 시험 축(중등 내신) 조판 — 4지선다 · 밑줄 5지 · 단답 · 배열.
+ *
+ * `renderExtra` 는 `choices.length === 5` 를 요구한다. 이 유형들은 선택지가 4개이거나
+ * 아예 없어서 **전부 null 로 떨어졌다** — 13,351문항이 인쇄되지 않던 이유다.
+ */
+function renderSchool(item, no) {
+  const p = item.payload ?? {}
+  const ak = item.answer_key ?? {}
+  const sentences = Array.isArray(p.sentences) ? p.sentences.map(String) : []
+  const stem = String(p.prompt_ko ?? p.stem_ko ?? '')
+
+  // ── 4지선다: 본문 어휘 뜻 · 단원 문법 ──
+  if (Array.isArray(p.choices) && p.choices.length >= 3 && p.choices.length <= 5) {
+    const answer = Number(ak.answer)
+    if (!Number.isInteger(answer) || answer < 1 || answer > p.choices.length) return null
+    const body = sentences.length ? sentences.map((x) => esc(x)).join(' ') : ''
+    return {
+      html: `
+<div class="q">
+  <p class="stem"><b>${no}.</b> ${esc(stem)}</p>
+  ${body ? `<div class="passage">${body}</div>` : ''}
+  <ol class="choices">${p.choices
+    .map((c) => `<li>${esc(typeof c === 'string' ? c : (c?.text ?? ''))}</li>`)
+    .join('')}</ol>
+</div>`,
+      answer,
+      explanation: pickExplanation(item, null),
+      source: item.ref_title,
+    }
+  }
+
+  // ── 밑줄 5지: 문맥상 낱말 쓰임 · 어법 고르기 ──
+  if (Array.isArray(p.underlines) && p.underlines.length >= 3) {
+    const answer = Number(ak.position ?? ak.answer)
+    if (!Number.isInteger(answer) || answer < 1 || answer > p.underlines.length) return null
+    // 밑줄 자리에 번호를 붙여 인쇄한다 — 안 붙이면 발문이 가리키는 곳이 없다.
+    const marked = sentences.map((sentence, si) => {
+      let out = esc(sentence)
+      for (const [ui, u] of p.underlines.entries()) {
+        if (Number(u?.sentenceIdx) !== si) continue
+        const w = esc(String(u?.word ?? ''))
+        if (!w || !out.includes(w)) continue
+        out = out.replace(w, `<u>${CIRCLED[ui] ?? ''}${w}</u>`)
+      }
+      return out
+    }).join(' ')
+    return {
+      html: `
+<div class="q">
+  <p class="stem"><b>${no}.</b> ${esc(stem || '밑줄 친 부분 중 알맞지 않은 것은?')}</p>
+  <div class="passage">${marked}</div>
+</div>`,
+      answer,
+      explanation: pickExplanation(item, null),
+      source: item.ref_title,
+    }
+  }
+
+  // ── 단답: 빈칸 낱말 쓰기 · 어법 고쳐 쓰기 ──
+  if (typeof p.stem === 'string' && p.stem.trim()) {
+    const text = String(ak.text ?? '')
+    if (!text) return null
+    return {
+      html: `
+<div class="q">
+  <p class="stem"><b>${no}.</b> ${esc(stem)}</p>
+  <div class="passage">${esc(p.stem)}</div>
+  ${p.hint ? `<p class="hint">힌트 ${esc(String(p.hint))}</p>` : ''}
+  <p class="answer-line">답: ____________</p>
+</div>`,
+      answer: text,
+      explanation: pickExplanation(item, null),
+      source: item.ref_title,
+    }
+  }
+
+  // ── 배열: 영작 ──
+  if (Array.isArray(p.bank) && p.bank.length >= 3) {
+    const sentence = String(ak.sentence ?? '')
+    if (!sentence) return null
+    return {
+      html: `
+<div class="q">
+  <p class="stem"><b>${no}.</b> 낱말을 모두 한 번씩 써서 문장을 완성하시오.</p>
+  ${p.context ? `<div class="passage">${esc(String(p.context))}</div>` : ''}
+  <div class="given">${p.bank.map((w) => esc(String(w))).join(' / ')}</div>
+  <p class="answer-line">답: ________________________________________</p>
+</div>`,
+      answer: sentence,
+      explanation: pickExplanation(item, null),
+      source: item.ref_title,
+    }
+  }
+  return null
+}
+
 function renderItem(item, no) {
   // ⚠️ **생성형을 여기서 안 받으면 조합기가 넣어도 인쇄가 안 된다.** 재료·조합·조판 셋이
   //   다 열려야 학습자에게 닿는다 — 하나만 막혀도 문항은 DB 에만 남는다.
+  if (SCHOOL_TYPES.has(item.type)) return renderSchool(item, no)
   if (item.type !== 'order' && item.type !== 'insert') return renderExtra(item, no)
   if (item.type === 'order') {
     const q = toCsatOrder(item.payload.presented ?? [], item.answer_key.source_order ?? [])
@@ -271,6 +389,13 @@ fs.writeFileSync(path.resolve(OUT), html, 'utf8')
 console.log(`V${BAND} — 원글 ${byId.size}편 · 문항 풀 ${pool.length}`)
 console.log(`조합 ${units.length}단원 · 인쇄 ${qNo}문항${stoppedBecause ? ` (${stoppedBecause})` : ''}`)
 console.log(`자동 검수 ${passed}/${card.auto.length} 통과`)
+console.log(
+  `유형-학년 적합도 ${(fit * 100).toFixed(1)}% (시중 밀도 대비) — ` +
+    Object.entries(actualMix)
+      .sort((x, y) => y[1] - x[1])
+      .map(([t, n]) => `${t} ${n}`)
+      .join(' · '),
+)
 // **떨어진 항목은 이름을 말한다.** "8/9" 만 찍으면 무엇이 걸렸는지 알 수 없어
 // 사람이 HTML 을 열어 눈으로 찾아야 한다 — 그러면 대개 안 찾는다.
 for (const c of card.auto.filter((x) => !x.pass)) {
