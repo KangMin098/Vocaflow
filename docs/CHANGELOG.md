@@ -152,6 +152,33 @@ CEFR-J 근거가 있는 6,098 낱말로 대조한 결과(2026-08-30 실측):
 곁가지로 `base_word` 뒤집힌 행 4건 정리(`separable → inseparable` 처럼 **접두형이 기본형으로**
 들어가 있었다 — 학습자에게 거꾸로 된 형태론을 가르친다): `separable`·`ordinate`·`tolerable`·`comprehensible`.
 
+### 서가를 24배로 늘린 것이 **선택을 더 어렵게** 만들고 있었다 — 큐레이션 메타 311권
+
+발행 확대 뒤 실측: 학습자가 보는 것은 제목·저자·표지·레벨뿐이었다.
+`curation_metadata` 에 `synopsis_ko` 가 있는 도서는 **5/316**. 폴백인 `library_seed_catalog` 는
+`is_admin_or_curator()` RLS 라 **학습자에게는 아예 빈 값**이다. 한국 고등학생이 영어 고전 316권 중
+무엇을 고를지 판단할 근거가 없었다.
+
+장르는 더 나빴다. `lib/library/genres.ts` 의 `bucketOf` 는 `genre_norm` 이 비면 'literary' 로
+떨어뜨린다 — 그 파일 주석이 이미 **"발행 도서의 genre_norm NULL 은 큐레이션 백필로 해소해야
+근본 정확(프론트 한계)"** 이라 적고 있었다. 그래서 `The Wealth of Nations` · `The Federalist Papers` ·
+`Tractatus Logico-Philosophicus` 가 모두 **문학·소설**로 떴다.
+
+- **Claude Code 판정 311권** — 8청크. 권마다 한국어 한 줄 소개 · 학습 가치 · 테마 2~4 ·
+  `genre_norm` · `age_band` · `est_cefr` · `est_basis`.
+  `scripts/lcp/curation-meta/{export,import}.mjs` (3단 드레인 · 재실행 안전 — 2회차 대상 0 실측)
+- **결과**: `synopsis_ko` **5 → 316** · `genre_norm`/`themes`/`age_band` **316/316**.
+  장르 버킷 실측 분포 — 문학 66 · 동화청소년 57 · 시희곡 47 · 인문 41 · 추리 32 · 모험역사 30 ·
+  SF판타지 27 · 로맨스 11 (이전에는 311권 전부 문학). 연령 청소년 137 · 성인 128 · 어린이 46.
+  테마 393종.
+- **import 는 jsonb 를 통째로 덮지 않는다** — 기존 키를 읽어 더한다(덮으면 `popularity_rank` 등이
+  조용히 사라진다). 빈 값·짧은 값은 넣지 않고 건너뛴 수를 출력한다 — 넣으면 다음 export 가
+  "완료" 로 세어 구멍이 영영 남는다.
+- **검증기가 실제로 걸렀다** — `genre_norm` 이 `genres.ts` RULES 키워드를 포함하지 않으면
+  거부한다(bucketOf 가 literary 로 떨어뜨려 *채워도 안 채운 것과 같아지므로*). '풍자 단편' 1건 반려.
+- ⚠️ 그 검사는 RULES 를 **복사한 목록**이라 갈릴 수 있다 —
+  `curation-genre-keywords.test.ts` 로 두 목록의 일치와 버킷 순서 의존을 못 박았다(3 passed).
+
 ### 발행 완료 316/316 · PostgREST 8초 벽 — supabase-js 로는 대형 도서를 발행할 수 없다
 
 전량 발행에서 **49권이 타임아웃**했다. 전부 챕터 113~528권. 원인은 코드가 아니라 롤 설정이었다 —
