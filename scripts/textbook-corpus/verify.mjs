@@ -69,13 +69,13 @@ const docs = Object.values(manifest.docs);
   const by = {};
   for (const d of docs) by[d.extract?.status || 'pending'] = (by[d.extract?.status || 'pending'] || 0) + 1;
   const bad = (by.failed || 0) + (by.unsupported || 0) + (by.pending || 0);
-  const okPct = ((by.ok || 0) / docs.length) * 100;
+  const withText = (by.ok || 0) + (by.ocr || 0);
   check('G2', '추출 성공률', bad === 0,
-    `ok ${by.ok || 0} (${okPct.toFixed(1)}%) · scanned ${by.scanned || 0} · 조용한 실패 ${bad}`);
+    `ok ${by.ok || 0} · ocr ${by.ocr || 0} · scanned ${by.scanned || 0} · 조용한 실패 ${bad} → 본문 확보 ${withText}/${docs.length} (${((withText / docs.length) * 100).toFixed(1)}%)`);
 
-  // 빈 파일을 "완료" 로 세지 않는지 — ok 인데 문자 0 이면 그게 구멍이다.
-  const emptyOk = docs.filter((d) => d.extract?.status === 'ok' && (d.extract?.totals?.chars || 0) === 0);
-  check('G2b', 'ok 인데 빈 문서 없음', emptyOk.length === 0,
+  // 빈 파일을 "완료" 로 세지 않는지 — 완료인데 문자 0 이면 그게 구멍이다.
+  const emptyOk = docs.filter((d) => ['ok', 'ocr'].includes(d.extract?.status) && (d.extract?.totals?.chars || 0) === 0);
+  check('G2b', '완료인데 빈 문서 없음', emptyOk.length === 0,
     emptyOk.length ? emptyOk.map((d) => d.relPath).join(', ') : '0건');
 }
 
@@ -110,6 +110,25 @@ const docs = Object.values(manifest.docs);
     db.close();
   } catch (e) { pass = false; notes.push(String(e).slice(0, 200)); }
   check('G4', '조회 동작', pass, notes.join(' '));
+}
+
+// ── G7 사본 탐지 ───────────────────────────────────────────────
+{
+  const ov = readJson(path.join(sp.root, 'overlap.json'), null);
+  if (!ov) {
+    check('G7', '사본 탐지', false, 'overlap.json 이 없다 — `node overlap.mjs` 를 먼저 돌린다');
+  } else {
+    // 자기 자신과의 쌍이 없어야 하고, 포함률은 0~1 이어야 하며,
+    // 파일 이름이 사실상 같은 두 문서(수능PLUS.hwp / 수능PLUS (1).hwp)는 반드시 잡혀야 한다.
+    const selfPair = ov.pairs.some((p) => p.a === p.b);
+    const ranged = ov.pairs.every((p) => p.containment >= 0 && p.containment <= 1);
+    const twins = docs.filter((d) => /수능PLUS/.test(d.fileName)).map((d) => d.id);
+    const twinFound = twins.length < 2 || ov.pairs.some(
+      (p) => twins.includes(p.a) && twins.includes(p.b) && p.jaccard > 0.9,
+    );
+    check('G7', '사본 탐지', !selfPair && ranged && twinFound,
+      `쌍 ${ov.pairs.length} · 자기쌍 ${selfPair ? '있음' : '없음'} · 값 범위 ${ranged ? '정상' : '이상'} · 동일 사본 검출 ${twinFound ? 'O' : 'X'}`);
+  }
 }
 
 // ── G5 확장성 ──────────────────────────────────────────────────

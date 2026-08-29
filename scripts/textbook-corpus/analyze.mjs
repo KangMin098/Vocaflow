@@ -54,6 +54,32 @@ const STOP = new Set(('the of and a to in is you that it he was for on are as wi
   + 'again change off play spell air away animal house point page letter mother answer found study still learn '
   + 'should america world').split(' '));
 
+/**
+ * 지문 겹침 지문(sketch) — 8낱말 연속열을 해시해 1/64 만 남긴다.
+ *
+ * 왜 어휘 집합이 아니라 연속열인가: 같은 학년대 교재는 어휘가 원래 비슷하다.
+ * "같은 책의 다른 판본/미리보기" 를 가리려면 **같은 문장이 실제로 들어 있는지**를
+ * 물어야 한다. 8낱말이면 우연히 겹치지 않는다.
+ */
+function shingleSketch(enWords, k = 8, keepEvery = 64) {
+  const out = [];
+  for (let i = 0; i + k <= enWords.length; i += 1) {
+    // FNV-1a 32비트 — 빠르고 분포가 고르다.
+    let h = 0x811c9dc5;
+    for (let j = i; j < i + k; j += 1) {
+      const w = enWords[j];
+      for (let c = 0; c < w.length; c += 1) {
+        h ^= w.charCodeAt(c);
+        h = Math.imul(h, 0x01000193) >>> 0;
+      }
+      h ^= 32;
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    if (h % keepEvery === 0) out.push(h);
+  }
+  return [...new Set(out)].sort((a, b) => a - b);
+}
+
 function analyzeDoc(pagesPath) {
   const lines = fs.readFileSync(pagesPath, 'utf8').split('\n').filter(Boolean);
   let enText = [];
@@ -133,6 +159,7 @@ function analyzeDoc(pagesPath) {
     unitCount: units.length,
     units: units.slice(0, 200),
     topWords,
+    sketch: shingleSketch(words.map((w) => w.toLowerCase())),
   };
 }
 
@@ -149,9 +176,14 @@ function main() {
   for (const doc of docs) {
     const pagesPath = path.join(sp.text, doc.id, 'pages.jsonl');
     if (!fs.existsSync(pagesPath)) { noText += 1; continue; }
-    if (!FORCE && doc.analysis?.sourceHash === doc.hash) { skipped += 1; continue; }
+    // 원본 해시만 보면 안 된다 — 원본이 그대로여도 추출이 좋아지면(OCR 교정 규칙 수정 등)
+    // 본문이 바뀐다. 그때 여기서 건너뛰면 지표가 낡은 본문에 머문 채 조용히 남는다.
+    if (!FORCE
+      && doc.analysis?.sourceHash === doc.hash
+      && doc.analysis?.extractedAt === doc.extract?.extractedAt) { skipped += 1; continue; }
     const a = analyzeDoc(pagesPath);
     a.sourceHash = doc.hash;
+    a.extractedAt = doc.extract?.extractedAt || null;
     a.analyzedAt = new Date().toISOString();
     manifest.docs[doc.id].analysis = a;
     done += 1;

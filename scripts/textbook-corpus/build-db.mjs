@@ -42,7 +42,7 @@ CREATE TABLE docs (
   series        TEXT NOT NULL,
   volume        INTEGER,
 
-  status        TEXT NOT NULL,          -- ok | scanned | failed | unsupported | pending
+  status        TEXT NOT NULL,          -- ok | ocr | scanned | failed | unsupported | pending
   page_kind     TEXT,                   -- page | chunk
   pages         INTEGER NOT NULL DEFAULT 0,
   chars         INTEGER NOT NULL DEFAULT 0,
@@ -107,16 +107,28 @@ CREATE TABLE top_words (
 );
 CREATE INDEX idx_top_words_word ON top_words(word);
 
+-- 문서 간 지문 겹침 — 무엇이 무엇의 사본인지. a 가 작은 쪽(b 안에 들어 있는 쪽)이다.
+CREATE TABLE overlap (
+  a_id        TEXT NOT NULL REFERENCES docs(id),
+  b_id        TEXT NOT NULL REFERENCES docs(id),
+  containment REAL NOT NULL,
+  jaccard     REAL NOT NULL,
+  shared      INTEGER NOT NULL,
+  verdict     TEXT NOT NULL,
+  PRIMARY KEY (a_id, b_id)
+);
+CREATE INDEX idx_overlap_verdict ON overlap(verdict, containment DESC);
+
 CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 
 -- 학년대별 난이도 비교 — "출판사가 붙인 학년" 과 "실제로 잰 난이도" 를 나란히 본다.
 CREATE VIEW v_difficulty AS
-SELECT school, grade_band, grade_min, category, series, volume, role, file_name,
+SELECT school, grade_band, grade_min, category, series, volume, role, file_name, status,
        pages, word_tokens, ROUND(avg_sent_len, 2) AS avg_sent_len,
        ROUND(fk_grade, 2) AS fk_grade, ROUND(fog_index, 2) AS fog_index,
        ROUND(ttr, 4) AS ttr, ROUND(en_ratio, 3) AS en_ratio
 FROM docs
-WHERE status = 'ok' AND fk_grade IS NOT NULL
+WHERE status IN ('ok','ocr') AND fk_grade IS NOT NULL
 ORDER BY grade_min, fk_grade;
 
 -- 시리즈 한 눈에 — 권별로 본책/미리보기/해설이 갖춰졌는지.
@@ -131,11 +143,23 @@ SELECT series, publisher, category, volume,
        SUM(pages) AS pages
 FROM docs GROUP BY series, volume ORDER BY series, volume;
 
+-- 사본 관계 — "N종을 비교했다" 가 참인지 확인하는 자리.
+CREATE VIEW v_overlap AS
+SELECT o.verdict, ROUND(o.containment, 3) AS containment, ROUND(o.jaccard, 3) AS jaccard,
+       da.file_name AS a_file, da.role AS a_role, da.pages AS a_pages,
+       db2.file_name AS b_file, db2.role AS b_role, db2.pages AS b_pages,
+       da.series AS a_series, db2.series AS b_series
+FROM overlap o
+JOIN docs da ON da.id = o.a_id
+JOIN docs db2 ON db2.id = o.b_id
+ORDER BY o.containment DESC;
+
 -- 구멍 목록 — 손대야 할 것만.
 CREATE VIEW v_gaps AS
 SELECT id, rel_path, status, publisher, series, low_confidence,
        CASE
          WHEN status = 'scanned' THEN 'OCR 필요 (텍스트 레이어 없음)'
+         WHEN status = 'ocr' THEN 'OCR 텍스트 — 인식 오류 잔존, 깨끗한 추출과 같은 신뢰도로 쓰지 말 것'
          WHEN status IN ('failed','unsupported') THEN '추출 불가'
          WHEN low_confidence <> '' THEN '분류 미확정: ' || low_confidence
        END AS gap
@@ -205,6 +229,11 @@ function main() {
     for (const u of a.units || []) insUnit.run(d.id, a.unitKind || 'UNIT', u.no, u.page);
     (a.topWords || []).forEach((w, i) => insTop.run(d.id, w.w, w.n, i + 1));
   }
+
+  // 겹침은 overlap.mjs 가 따로 계산한다 — 없으면 표만 비워 둔다(오류 아님).
+  const overlap = readJson(path.join(sp.root, 'overlap.json'), { pairs: [] });
+  const insOverlap = db.prepare('INSERT OR IGNORE INTO overlap (a_id,b_id,containment,jaccard,shared,verdict) VALUES (?,?,?,?,?,?)');
+  for (const p of overlap.pairs) insOverlap.run(p.a, p.b, p.containment, p.jaccard, p.shared, p.verdict);
   db.exec('COMMIT');
 
   // 재현성 지문 — 시각을 뺀 내용만으로 계산한다. verify.mjs 가 두 번 돌려 비교한다.
@@ -212,11 +241,13 @@ function main() {
     SELECT id, school, grade_band, category, role, publisher, series, volume,
            status, pages, chars, word_tokens, sentences, fk_grade, unit_count
     FROM docs ORDER BY id`).all();
-  const digest = sha1(JSON.stringify(digestRows) + `|pages:${pageRows}`);
+  const overlapRows = db.prepare('SELECT a_id,b_id,containment,verdict FROM overlap ORDER BY a_id,b_id').all();
+  const digest = sha1(JSON.stringify(digestRows) + JSON.stringify(overlapRows) + `|pages:${pageRows}`);
 
   insMeta.run('built_at', new Date().toISOString());
   insMeta.run('docs', String(docs.length));
   insMeta.run('page_rows', String(pageRows));
+  insMeta.run('overlap_pairs', String(overlap.pairs.length));
   insMeta.run('content_digest', digest);
   insMeta.run('manifest_generated_at', manifest.generatedAt || '');
 

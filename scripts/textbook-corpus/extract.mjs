@@ -23,11 +23,13 @@ import {
   readJson, storePaths, writeJson,
 } from './lib.mjs';
 import { extractHwpText } from './hwp.mjs';
+import { buildVocabulary, ocrPdf, repairText } from './ocr.mjs';
 
 const FORCE = hasFlag('--force');
 const ONLY = flagValue('--only');
 const LIMIT = Number(flagValue('--limit', '0')) || 0;
 const CONCURRENCY = Number(flagValue('--jobs', '4')) || 4;
+const OCR = hasFlag('--ocr');   // 스캔본 OCR 은 느리므로 명시할 때만 돈다
 
 /** 페이지 텍스트가 이보다 짧으면 그 페이지는 이미지(스캔)로 본다. */
 const MIN_CHARS_PER_PAGE = 40;
@@ -160,6 +162,52 @@ function extractHwp(doc, outDir) {
   };
 }
 
+/**
+ * 스캔 PDF — Windows 내장 OCR 로 읽고 코퍼스 자체 어휘로 교정한다.
+ * 결과 상태는 `ok` 가 아니라 **`ocr`** 다. 인식 오류가 남아 있는 텍스트를
+ * 깨끗한 추출과 같은 칸에 넣으면 나중에 그 차이를 아무도 알 수 없게 된다.
+ */
+function extractScannedPdf(doc, outDir, vocab, sp) {
+  const workDir = path.join(sp.root, 'ocr', doc.id);
+  const { pages } = ocrPdf(doc.absPath, workDir);
+  if (pages.length === 0) {
+    return {
+      status: 'scanned', pages: 0, emptyPages: 0, avgCharsPerPage: 0,
+      totals: { chars: 0, ko: 0, en: 0, digits: 0 },
+      note: 'OCR 이 한 쪽도 내지 못했다',
+    };
+  }
+
+  const agg = { chars: 0, ko: 0, en: 0, digits: 0 };
+  let repaired = 0; let repairSeen = 0; let emptyPages = 0;
+  const lines = pages.map((raw, i) => {
+    const r = repairText(raw, vocab);
+    repaired += r.repaired; repairSeen += r.seen;
+    const s = countStats(r.text);
+    agg.chars += s.chars; agg.ko += s.ko; agg.en += s.en; agg.digits += s.digits;
+    if (s.chars < MIN_CHARS_PER_PAGE) emptyPages += 1;
+    return JSON.stringify({ p: i + 1, ...s, text: r.text });
+  });
+
+  ensureDir(outDir);
+  fs.writeFileSync(path.join(outDir, 'pages.jsonl'), `${lines.join('\n')}\n`, 'utf8');
+  return {
+    status: 'ocr',
+    pages: pages.length,
+    emptyPages,
+    avgCharsPerPage: Math.round(agg.chars / pages.length),
+    totals: agg,
+    ocr: {
+      engine: 'Windows.Media.Ocr (ko)',
+      scale: 3.5,
+      repaired,
+      repairCandidates: repairSeen,
+      repairRate: repairSeen ? Number((repaired / repairSeen).toFixed(3)) : 0,
+    },
+    note: 'OCR 결과 — 인식 오류가 남아 있다. 깨끗한 추출(ok)과 같은 신뢰도로 쓰지 말 것',
+  };
+}
+
 function unsupported(doc) {
   return {
     status: 'unsupported',
@@ -183,11 +231,20 @@ async function main() {
   const todo = docs.filter((d) => FORCE
     || !d.extract
     || d.extract.sourceHash !== d.hash
-    || RETRY.has(d.extract.status));
+    || RETRY.has(d.extract.status)
+    || (OCR && d.extract.status === 'scanned'));
   const work = LIMIT ? todo.slice(0, LIMIT) : todo;
 
   log(`대상 ${docs.length} · 처리할 것 ${todo.length}${LIMIT ? ` (이번 ${work.length})` : ''}`);
   if (work.length === 0) { log('할 일 없음 — 모두 최신.'); return; }
+
+  // OCR 교정용 어휘는 깨끗하게 추출된 문서에서 만든다 (외부 사전 없음).
+  let vocab = new Set();
+  if (OCR) {
+    const okIds = Object.values(manifest.docs).filter((d) => d.extract?.status === 'ok').map((d) => d.id);
+    vocab = buildVocabulary(sp.text, okIds);
+    log(`OCR 교정 어휘 ${vocab.size.toLocaleString()}낱말 (ok 문서 ${okIds.length}건에서 3회 이상 등장)`);
+  }
 
   const startedAt = Date.now();
   let done = 0;
@@ -198,7 +255,12 @@ async function main() {
     const t0 = Date.now();
     let res;
     try {
-      if (doc.ext === 'pdf') res = await extractPdf(doc, outDir);
+      if (doc.ext === 'pdf') {
+        res = await extractPdf(doc, outDir);
+        // 이전 상태가 아니라 **이번 결과**로 판단한다. 지난번이 failed 로 끝났으면
+        // status 로 거는 조건은 조용히 빗나가고, 스캔본이 또 스캔본으로 남는다.
+        if (res.status === 'scanned' && OCR) res = extractScannedPdf(doc, outDir, vocab, sp);
+      }
       else if (doc.ext === 'html' || doc.ext === 'htm' || doc.ext === 'txt') res = extractHtml(doc, outDir);
       else if (doc.ext === 'hwp') res = extractHwp(doc, outDir);
       else res = unsupported(doc);
@@ -216,7 +278,7 @@ async function main() {
     }
     results.set(doc.id, res);
     done += 1;
-    const mark = { ok: '✓', scanned: '▲', failed: '✗', unsupported: '−' }[res.status] || '?';
+    const mark = { ok: '✓', ocr: '⌾', scanned: '▲', failed: '✗', unsupported: '−' }[res.status] || '?';
     log(`  ${mark} [${String(done).padStart(3)}/${work.length}] ${res.pages}p ${fmtBytes(res.totals.chars)} ${(res.ms / 1000).toFixed(1)}s  ${doc.relPath}`);
   }
 

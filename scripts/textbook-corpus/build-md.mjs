@@ -416,6 +416,44 @@ function main() {
   }
   writeText(path.join(sp.index, '07-vocabulary.md'), vocabLines.join('\n'));
 
+  // ── 08 사본 관계 ────────────────────────────────────────────
+  const overlap = readJson(path.join(sp.root, 'overlap.json'), { pairs: [], compared: 0, minContainment: 0 });
+  const byId = new Map(docs.map((d) => [d.id, d]));
+  const linkId = (id) => (byId.has(id) ? link(byId.get(id)) : id);
+  const dup = overlap.pairs.filter((p) => p.verdict !== '지문 일부 공유');
+  writeText(path.join(sp.index, '08-overlap.md'), [
+    '# 08 · 사본 관계 (같은 책 · 부분본)', '',
+    '이 코퍼스에는 **같은 책이 여러 본** 들어 있다 — 스캔본과 텍스트본, 미리보기와 해설, 이름만 다른 사본.',
+    '무엇이 무엇의 사본인지 모르면 "교재 N종을 비교했다" 는 말이 거짓이 된다.',
+    '',
+    `재는 값은 **포함률**이다: 8낱말 연속열을 해시해 1/64 를 남기고, 작은 쪽이 큰 쪽에 얼마나 들어 있는지 센다. 자카드는 20쪽 미리보기와 207쪽 본책을 남남으로 만들어 이 물음에 못 쓴다. 비교 ${overlap.compared}문서 · 임계 ${overlap.minContainment} · 검출 ${overlap.pairs.length}쌍.`,
+    '',
+    '## 같은 책 · 부분본',
+    '',
+    dup.length ? table(
+      dup.map((p) => [
+        p.verdict,
+        `${(p.containment * 100).toFixed(0)}%`,
+        `${(p.jaccard * 100).toFixed(0)}%`,
+        `${linkId(p.a)}<br>\`${p.aRole} · ${p.aPages}쪽\``,
+        `${linkId(p.b)}<br>\`${p.bRole} · ${p.bPages}쪽\``,
+      ]),
+      ['판정', '포함률', '자카드', '작은 쪽', '큰 쪽'], ['', 'r', 'r', '', ''],
+    ) : '_검출 없음._',
+    '',
+    '## 지문 일부만 공유',
+    '',
+    '같은 출판사가 여러 교재에 같은 지문을 재사용한 경우다. 중복 보관이 아니다.',
+    '',
+    table(
+      overlap.pairs.filter((p) => p.verdict === '지문 일부 공유').slice(0, 40).map((p) => [
+        `${(p.containment * 100).toFixed(0)}%`, p.aSeries, p.bSeries, linkId(p.a), linkId(p.b),
+      ]),
+      ['포함률', '시리즈 A', '시리즈 B', '파일 A', '파일 B'], ['r', '', '', '', ''],
+    ),
+    '',
+  ].join('\n'));
+
   // ── README ────────────────────────────────────────────────
   writeText(path.join(sp.index, 'README.md'), [
     '# 시중교재 코퍼스 — 색인', '',
@@ -431,6 +469,7 @@ function main() {
     '| [05-difficulty.md](05-difficulty.md) | **측정된 난이도 비교** (FK · 문장길이 · 어휘 다양도) |',
     '| [06-gaps.md](06-gaps.md) | 아직 못 읽은 것 · 분류 미확정 |',
     '| [07-vocabulary.md](07-vocabulary.md) | 학년대별 빈출 어휘 |',
+    '| [08-overlap.md](08-overlap.md) | **사본 관계** — 같은 책이 몇 본 들어 있나 |',
     '',
     `문서 카드 ${cards}장은 \`../md/<학교급>/\` 아래에 있다. 원문 전량과 교차 질의는 \`../corpus.db\` (SQLite + FTS5).`,
     '',
