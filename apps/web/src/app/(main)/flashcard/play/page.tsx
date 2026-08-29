@@ -16,7 +16,7 @@ import { resolveSessionReturnHref } from '@/lib/layout/session-return'
 import { createClient } from '@/lib/supabase/server'
 
 export const metadata = {
-  title: 'Flashcard 학습 · Vocaflow',
+  title: 'Flashcard 학습',
 }
 
 interface PageProps {

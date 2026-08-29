@@ -44,7 +44,7 @@ export async function generateMetadata({
   // 권마다 다른 제목을 준다 — 같은 제목이 여럿이면 탭·북마크·공유 카드에서 구별되지 않는다.
   return rung
     ? { title: `${rung.volumeTitle} 연습 · Vocaflow`, description: `${rung.schoolBand} 계단의 순서·삽입 문항을 풀어요` }
-    : { title: '교재 연습 · Vocaflow' }
+    : { title: '교재 연습' }
 }
 
 export default async function TextbookPracticePage({

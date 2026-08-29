@@ -15,7 +15,7 @@ import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
 
 export const metadata = {
-  title: '내 라이브러리 · Vocaflow',
+  title: '내 라이브러리',
   description: '내 책 · 본문 · 구독 단어장 · 담은 교재',
 }
 

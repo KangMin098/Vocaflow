@@ -30,7 +30,10 @@ import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
 import { fetchTrustSignals } from '@/lib/marketing/trust-signals'
 
 export const metadata: Metadata = {
-  title: 'Vocaflow — 내가 아는 비율로 읽기를 설계합니다',
+  // ⚠️ `absolute` — 루트 `title.template`("%s | Vocaflow")을 **거친다.**
+  //    그냥 문자열로 두면 "Vocaflow — … | Vocaflow" 로 브랜드가 두 번 나온다.
+  //    랜딩은 브랜드를 앞에 세우는 것이 검색 결과에서 맞으므로 제목 전체를 직접 정한다.
+  title: { absolute: 'Vocaflow — 내가 아는 비율로 읽기를 설계합니다' },
   description:
     '글의 난이도가 아니라 "내가 아는 비율"을 잽니다. 이 글이 편하게 읽히기까지 몇 단어가 남았는지 계산해 드려요. 로그인 없이 먼저 재 보세요.',
   alternates: { canonical: '/' },

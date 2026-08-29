@@ -39,7 +39,7 @@ import { fetchTasteWord } from '@/lib/learner/taste-word'
 import { fetchDcpDoneToday, fetchTouchedModulesToday } from '@/lib/learner/today-status-query'
 
 export const metadata = {
-  title: 'Today · Vocaflow',
+  title: 'Today',
   description: '오늘의 학습을 시작하세요',
 }
 

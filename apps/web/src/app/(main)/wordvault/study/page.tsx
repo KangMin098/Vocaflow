@@ -13,7 +13,7 @@ import { parseStateFilter } from '@/lib/wordvault/state-filter'
 import { fetchStudyVocabularies } from '@/lib/wordvault/study-queries'
 
 export const metadata = {
-  title: 'WordVault — 학습 · Vocaflow',
+  title: 'WordVault — 학습',
 }
 
 export const dynamic = 'force-dynamic'

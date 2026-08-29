@@ -20,7 +20,7 @@ import {
 import { fetchMyMemberships, fetchTeacherClasses } from '@/lib/teacher/class-actions'
 
 export const metadata = {
-  title: '클래스 · Vocaflow',
+  title: '클래스',
   description: '클래스를 만들고 초대코드로 학생을 모아요',
 }
 

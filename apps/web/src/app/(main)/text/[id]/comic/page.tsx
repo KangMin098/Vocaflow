@@ -17,7 +17,10 @@ interface PageProps {
   params: { id: string }
 }
 
-export const metadata = { title: '만화 · Vocaflow' }
+// ⚠️ `/comics/adapted`(각색 만화 카탈로그)가 이미 '만화' 다 — 여기는 **내 글을 만화로 읽는**
+//    자리라 이름이 달라야 한다. 브랜드 접미(`· Vocaflow`)가 붙어 있던 동안 두 제목이
+//    우연히 갈라져 있었고, 그걸 걷어내자 같은 이름이 됐다(실측 2026-08-30).
+export const metadata = { title: '만화로 읽기' }
 export const dynamic = 'force-dynamic'
 
 function ComicEmpty({ textId, message }: { textId: string; message: string }) {

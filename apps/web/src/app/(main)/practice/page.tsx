@@ -38,7 +38,7 @@ import { createClient } from '@/lib/supabase/server'
 import { PracticeChooser } from './PracticeChooser'
 
 export const metadata = {
-  title: '연습 · Vocaflow',
+  title: '연습',
   description: '오늘 어느 쪽을 연습할지 고르세요',
 }
 

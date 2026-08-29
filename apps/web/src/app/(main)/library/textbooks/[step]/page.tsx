@@ -62,7 +62,7 @@ import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
  * 색인은 Next 의 noindex 가 막고 있어 실질 피해는 크지 않다 — 기록만 남긴다.
  */
 function notFoundMeta(): Metadata {
-  return { title: '찾을 수 없는 교재 · Vocaflow' }
+  return { title: '찾을 수 없는 교재' }
 }
 
 export async function generateMetadata({

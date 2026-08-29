@@ -31,7 +31,7 @@ import { createClient } from '@/lib/supabase/server'
 import { FlashcardHubClient } from './FlashcardHubClient'
 
 export const metadata = {
-  title: 'Flashcard · Vocaflow',
+  title: 'Flashcard',
 }
 
 export default async function FlashcardHubPage() {

@@ -30,7 +30,7 @@ import { createClient } from '@/lib/supabase/server'
 import { SpellForgeHubClient } from './SpellForgeHubClient'
 
 export const metadata = {
-  title: 'SpellForge · Vocaflow',
+  title: 'SpellForge',
 }
 
 export default async function SpellForgeHubPage() {

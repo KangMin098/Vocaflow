@@ -19,7 +19,7 @@ interface PageProps {
 }
 
 export const metadata = {
-  title: '따라읽기 · Vocaflow',
+  title: '따라읽기',
 }
 
 export const dynamic = 'force-dynamic'

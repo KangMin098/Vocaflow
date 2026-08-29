@@ -11,7 +11,7 @@ import { createClient } from '@/lib/supabase/server'
 import { HistoryTimeline } from '@/components/diagnostic/HistoryTimeline'
 
 export const metadata = {
-  title: '진단 History — Vocaflow',
+  title: '진단 History',
   description: 'V-Level 변천사 — 진단·학습·수동 갱신 audit chain',
 }
 

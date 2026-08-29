@@ -42,7 +42,7 @@ import { fetchManageOverview } from '@/lib/learner/manage-overview'
 import { fetchMemoryHorizon } from '@/lib/learner/memory-horizon'
 
 export const metadata = {
-  title: 'Growth · Vocaflow',
+  title: 'Growth',
   description: '기억이 얼마나 오래 버티는지 돌아보세요',
 }
 

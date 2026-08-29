@@ -17,7 +17,7 @@ import { fetchScopedSpellForgeWords } from '@/lib/spellforge/scoped-words'
 import { createClient } from '@/lib/supabase/server'
 
 export const metadata = {
-  title: 'SpellForge 학습 · Vocaflow',
+  title: 'SpellForge 학습',
 }
 
 interface PageProps {

@@ -54,7 +54,7 @@ const RULES: RuleStep[] = [
 const MIN_WORDS = 6
 
 export const metadata = {
-  title: 'WordBlitz · Vocaflow',
+  title: 'WordBlitz',
 }
 
 export default async function WordBlitzHubPage() {

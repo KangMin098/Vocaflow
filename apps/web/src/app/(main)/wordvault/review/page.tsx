@@ -13,7 +13,7 @@ import { vocabRowToWord, type BrowseWord } from '@/lib/wordvault/browse-queries'
 import { fetchStudyVocabularies } from '@/lib/wordvault/study-queries'
 
 export const metadata = {
-  title: 'WordVault — 복습 · Vocaflow',
+  title: 'WordVault — 복습',
 }
 
 export const dynamic = 'force-dynamic'

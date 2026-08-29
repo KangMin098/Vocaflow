@@ -8,7 +8,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
 
 export const metadata = {
-  title: 'BookVault — Vocaflow',
+  title: 'BookVault',
   description: 'Library에서 추가한 책',
 };
 

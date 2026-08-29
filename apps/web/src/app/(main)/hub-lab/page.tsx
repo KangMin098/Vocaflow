@@ -29,7 +29,7 @@ import { VariantD } from './_variants/VariantD'
 import { VariantG } from './_variants/VariantG'
 
 export const metadata = {
-  title: '허브 랩 · Vocaflow',
+  title: '허브 랩',
   description: '진입면 후보 비교 (내부용)',
 }
 

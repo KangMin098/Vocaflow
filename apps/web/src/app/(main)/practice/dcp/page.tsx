@@ -12,7 +12,7 @@ import { Screen } from '@/components/ui/ios'
 import { fetchDcpPracticeItems } from '@/lib/learner/dcp-actions'
 
 export const metadata = {
-  title: '구문 연습 · Vocaflow',
+  title: '구문 연습',
   description: '문장의 순서와 위치로 글의 논리 구조를 훈련해요',
 }
 
