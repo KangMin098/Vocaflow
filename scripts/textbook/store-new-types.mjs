@@ -55,6 +55,23 @@ const arg = (n) => {
  * ⚠️ **밴드를 좁히면 "낡은 문항" 집계도 그 밴드만이다.** 전체 정리는 인자 없이 돌린다.
  */
 const BAND = arg('band') == null ? null : Number(arg('band'))
+/**
+ * 낡은 문항 재검사를 할 것인가 — **실행 시간의 절반이 여기다.**
+ *
+ * 실측 2026-08-30 (V4 656편, `--band 4` 미리보기 547.7초):
+ *   원글 조회 1.2s(0%) · 사전 조회 17.2s(3%) · **문항 생성 257.0s(47%)** ·
+ *   **낡은 문항 재검사 272.2s(50%)**
+ * 앞선 배치(`ef1d4092`)가 "8분 10초가 어디로 가는지 안 쟀다" 며 남긴 숙제의 답이고,
+ * 그때 최적화한 원글 조회는 **0%** 였다. 짐작으로 고르면 이렇게 빗나간다.
+ *
+ * 재검사는 **넣는 일과 무관하다** — 규칙이 엄해졌을 때 기존 문항이 낡았는지 보고할 뿐이다.
+ * 그래서 갈래를 나눈다:
+ *   · `--band N`  한 밴드를 채우러 온 것 → 재검사를 **건너뛴다**(두 배 빨라진다)
+ *   · 밴드 없음     전체 정리 → 재검사한다(그게 목적이다)
+ *   · `--stale`    밴드를 좁혔어도 재검사를 강제한다
+ * `--prune` 은 지울 대상을 알아야 하므로 언제나 재검사한다.
+ */
+const RECHECK = process.argv.includes('--prune') || process.argv.includes('--stale') || BAND == null
 const commit = process.argv.includes('--commit')
 // 지우기는 별도 플래그다 — 되돌릴 수 없는 동작을 적재와 같은 스위치에 묶지 않는다.
 const prune = process.argv.includes('--prune')
@@ -97,6 +114,34 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
  *   200 으로 줄이면 왕복이 다섯 배가 되지만 각 요청이 가벼워 실제로는 더 빨리 끝난다.
  */
 const ARTICLE_PAGE = 200
+/**
+ * 단계별 소요 시간 — **계측 없이 더 고치는 것은 같은 실수의 네 번째 반복이다.**
+ *
+ * 앞선 배치가 V7 을 세 번 실패시키고 남긴 요청이 이것이다(`ef1d4092`):
+ * "V4 재실행 8분 10초가 어디로 가는지 안 쟀다 — 다음 사람은 여기를 먼저 재야 한다."
+ * 후보가 넷이라 짐작으로는 못 고른다: 원글 조회(본문 포함) · 사전 4.9만 낱말 ·
+ * 생성 CPU · 낡은 문항 재검사. `--timing` 없이도 항상 찍는다 — 껐다 켜는 스위치를 두면
+ * 정작 느릴 때 꺼져 있다.
+ */
+const T0 = Date.now()
+let tPrev = T0
+const marks = []
+function mark(label) {
+  const now = Date.now()
+  marks.push([label, now - tPrev])
+  tPrev = now
+}
+/** 두 갈래(미리보기·적재)가 같은 표를 찍는다 — 한쪽만 찍으면 느린 쪽을 못 본다. */
+function report() {
+  const total = Date.now() - T0
+  console.log('\n  단계별 소요 — 어디가 오래 걸리는지 짐작하지 않는다')
+  for (const [label, ms] of marks) {
+    const pct = total ? Math.round((100 * ms) / total) : 0
+    console.log(`    ${label.padEnd(22)} ${String((ms / 1000).toFixed(1)).padStart(7)}s  ${String(pct).padStart(3)}%`)
+  }
+  console.log(`    ${'합계'.padEnd(22)} ${String((total / 1000).toFixed(1)).padStart(7)}s`)
+}
+
 const arts = []
 for (let from = 0; ; from += ARTICLE_PAGE) {
   let q = db
@@ -113,6 +158,7 @@ for (let from = 0; ; from += ARTICLE_PAGE) {
   arts.push(...data)
   if (data.length < ARTICLE_PAGE) break
 }
+mark('원글 조회(본문 포함)')
 const usable = arts.filter((a) => !a.display_only)
 
 // ⚠️ 아래 낡음 판정이 이 목록으로 문항을 좁힌다. 위 `existing` 조회가 `fetchAllPaged` 로
@@ -216,6 +262,7 @@ const entryOf = (w) => {
 //     (후보: 사전 4.9만 낱말 적재 · 생성 CPU · "낡은 문항" 재검사).
 //     **다음 사람은 고치기 전에 그것부터 재라** — 계측 없이 고치면 나아졌는지 알 수 없다.
 const KEY_CHUNK = 100
+mark('사전 조회')
 const existing = new Set()
 const addKey = (r) => existing.add(`${r.ref_id}|${r.type}|${r.paragraph_idx}`)
 if (BAND == null) {
@@ -537,6 +584,7 @@ const rebuilders = {
  * 문장만 대조하면 **보기 수가 바뀐 것을 못 잡는다** — 실제로 그랬다.
  * 그래서 유형별로 무엇을 비교할지 여기 적는다.
  */
+mark('문항 생성(CPU)')
 const staleSignature = {
   vocab_choice: (now, row) => JSON.stringify(now.payload.sentences) !== JSON.stringify(row.payload?.sentences)
     || now.answer !== row.answer_key?.position,
@@ -557,9 +605,15 @@ for (const a of usable) {
 }
 
 const stale = []
+if (!RECHECK) {
+  console.log(
+    '\n  낡은 문항 재검사를 건너뛴다 — 실행 시간의 절반이 여기다(실측 50%).' +
+      '\n  이 밴드의 낡은 문항까지 보려면 --stale 을, 전체 정리는 --band 없이 돌린다.',
+  )
+}
 /** 원본 문단을 못 찾아 재생성 대조를 못 한 문항 — 유형별. 조용히 넘기지 않고 보고한다. */
 const uncomparable = {}
-{
+if (RECHECK) {
   const rows = await fetchAllIn(
     db,
     'csat_dcp_items',
@@ -631,8 +685,10 @@ if (stale.length) {
   console.log('     --prune 으로 지운 뒤 --commit 으로 다시 넣는다 (지우기는 되돌릴 수 없다).')
 }
 
+mark('낡은 문항 재검사')
 if (!commit && !prune) {
   console.log('\n  --commit 없이 실행했다. 아무것도 쓰지 않았다.')
+  report()
   process.exit(0)
 }
 
@@ -663,4 +719,7 @@ for (let i = 0; i < rows.length; i += 200) {
   if (e) throw new Error(`적재 실패 (${i}~${i + chunk.length}): ${e.message}`)
   inserted += chunk.length
 }
+mark('적재')
 console.log(`\n  적재 완료 ${inserted}건`)
+
+report()
