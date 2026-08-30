@@ -5,7 +5,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { scoreVolume, UNIT_MINUTES } from './scorecard'
+import { scoreVolume, UNIT_MINUTES, MARKET_UNITS_PER_BOOK } from './scorecard'
 import { type PoolItem, type Unit } from './compose-unit'
 
 let seq = 0
@@ -100,11 +100,29 @@ describe('scoreVolume', () => {
     expect(s.auto.find((x) => x.label.includes('어휘가 고르다'))!.pass).toBe(true)
   })
 
-  it('20단원 미만은 시중 분량에 못 닿았다고 말한다', () => {
+  it('시중 분량 기준은 **실측 중앙값**이다 — 손으로 적은 20 이 아니다', () => {
+    // ⚠️ 이 테스트는 예전에 `'1/20단원'` 을 기대했다. 20 은 근거가 없었고,
+    //    같은 저장소의 실측(시중 9종)은 중앙값 10 · p75 12 였다.
+    //    **틀린 임계값을 테스트가 굳혀 두고 있었다.**
+    expect(MARKET_UNITS_PER_BOOK.median).toBe(10)
+    expect(MARKET_UNITS_PER_BOOK.median).toBeLessThan(20)
+  })
+
+  it('중앙값 미만은 시중 분량에 못 닿았다고 말한다', () => {
     const s = scoreVolume([unit(1, ['a', 'b'], words('w', 20))])
     const c = s.auto.find((x) => x.label.includes('시중 교재 분량'))!
     expect(c.pass).toBe(false)
-    expect(c.detail).toBe('1/20단원')
+    expect(c.detail).toContain(`1/${MARKET_UNITS_PER_BOOK.median}단원`)
+    // 근거를 detail 에 남긴다 — 다음 사람이 다시 재지 않아도 되게.
+    expect(c.detail).toContain('시중')
+    expect(c.detail).toContain(String(MARKET_UNITS_PER_BOOK.p75))
+  })
+
+  it('중앙값을 채우면 통과한다 — 18단원을 미달로 잡던 것이 문제였다', () => {
+    const many = Array.from({ length: MARKET_UNITS_PER_BOOK.median }, (_, i) =>
+      unit(i + 1, [`a${i}`, `b${i}`], words(`w${i}`, 20)),
+    )
+    expect(scoreVolume(many).auto.find((x) => x.label.includes('시중 교재 분량'))!.pass).toBe(true)
   })
 
   it('분량이 한 자리에서 끝낼 범위를 벗어나면 잡는다', () => {

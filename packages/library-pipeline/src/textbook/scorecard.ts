@@ -24,6 +24,7 @@ import {
   MAX_WORD_APPEARANCES,
   type Unit,
 } from './compose-unit'
+import spec from './market-spec.json'
 
 export type Audience = 'learner' | 'teacher' | 'parent'
 
@@ -54,6 +55,23 @@ export interface Scorecard {
 
 /** 한 단원이 학습자에게 적당한 분량인가 — 수능 1회분(70분)의 4분의 1 안팎. */
 export const UNIT_MINUTES = { min: 10, max: 25 } as const
+
+/**
+ * 한 권의 단원 수 — **시중 9종 실측**(`market-spec.json` `units.unitsPerBook`).
+ *
+ * ⚠️ **2026-08-30 정정 — 여기 `20` 이라고 적혀 있었고 그 근거는 없었다.**
+ *   같은 저장소가 시중 9종을 재서 남긴 값은 이렇다:
+ *
+ *     최소 5 · p25 7 · **중앙값 10** · p75 12 · p90 29
+ *
+ *   20 은 p75(12)보다도 위다. 그런데 항목 라벨은 "한 권이 **시중 교재 분량**에 닿는다" 였다 —
+ *   시장을 참칭하는 임계값이었다. 그 탓에 18단원짜리 권이 미달로 잡혔는데, 실제로는
+ *   시중 중앙값의 1.8배다. `middle-choice.ts` 의 "중등 4지선다" 와 같은 종류의 결함이고,
+ *   반증도 같은 자리(이 저장소의 실측 파일)에 있었다.
+ *
+ *   기준은 **중앙값**으로 둔다 — 그것이 "시중 교재 분량" 이라는 말의 뜻이다.
+ */
+export const MARKET_UNITS_PER_BOOK = spec.units.unitsPerBook
 
 /**
  * 단원 묶음(=한 권)을 채점한다.
@@ -199,8 +217,10 @@ export function scoreVolume(units: ReadonlyArray<Unit>): Scorecard {
   auto.push({
     audience: 'parent',
     label: '한 권이 시중 교재 분량에 닿는다',
-    pass: units.length >= 20,
-    detail: `${units.length}/20단원`,
+    pass: units.length >= MARKET_UNITS_PER_BOOK.median,
+    detail:
+      `${units.length}/${MARKET_UNITS_PER_BOOK.median}단원 ` +
+      `(시중 ${MARKET_UNITS_PER_BOOK.n}종 실측 중앙값 · p25 ${MARKET_UNITS_PER_BOOK.p25} · p75 ${MARKET_UNITS_PER_BOOK.p75})`,
   })
 
   human.push({
