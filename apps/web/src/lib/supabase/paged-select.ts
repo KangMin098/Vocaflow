@@ -41,8 +41,12 @@ export async function pagedSelect<T>(run: RangeQuery, label: string): Promise<T[
 /**
  * `.in()` 대상 id 가 많을 때 — id 를 나눠 보내고 각 조각을 끝까지 페이지네이션한다.
  *
- * `.in()` 은 GET 쿼리스트링이라 id 수만큼 URL 이 길어진다(316개 UUID = 약 11,700자).
- * 실측에서 그 길이 자체는 거부되지 않았지만, 조각내면 URL 길이와 행 상한을 함께 벗어난다.
+ * `.in()` 은 GET 쿼리스트링이라 id 수만큼 URL 이 길어진다.
+ *
+ * ⚠️ **개수가 아니라 길이로 쪼갠다.** 여기 있던 `chunkSize = 50` 은 UUID 를 염두에 둔
+ *    짐작이었고, 값이 짧은 낱말에는 지나치게 잘게 쪼개 왕복만 늘렸다. 반대로 다른 자리의
+ *    `500` 은 낱말에는 맞지만 UUID 에는 **깨지는 값**이었다(400개 = 약 14,800자 → 실패).
+ *    같은 상수를 값 종류에 따라 다르게 써야 한다는 것 자체가 단위가 틀렸다는 신호다.
  */
 export async function pagedSelectIn<T>(
   ids: readonly string[],
@@ -51,13 +55,12 @@ export async function pagedSelectIn<T>(
     error: { message: string } | null
   }>,
   label: string,
-  chunkSize = 50,
+  maxChars = IN_VALUE_MAX_CHARS,
 ): Promise<T[]> {
   if (ids.length === 0) return []
   const out: T[] = []
-  for (let i = 0; i < ids.length; i += chunkSize) {
-    const chunk = [...ids].slice(i, i + chunkSize)
-    const rows = await pagedSelect<T>((from, to) => run(chunk, from, to), label)
+  for (const chunk of chunkForIn(ids, maxChars)) {
+    const rows = await pagedSelect<T>((from, to) => run([...chunk], from, to), label)
     out.push(...rows)
   }
   return out
@@ -89,5 +92,51 @@ export async function chunkedRpc<TRow, TItem = string>(
     if (error) throw new Error(`${label} RPC 실패: ${error.message}`)
     out.push(...((data ?? []) as TRow[]))
   }
+  return out
+}
+
+/**
+ * `.in()` 한 번에 넣어도 되는 **값 문자열 길이** 상한.
+ *
+ * ⚠️ 한계는 **개수가 아니라 길이**다. 실측 2026-08-30 (같은 코드, 값만 다름):
+ *
+ *   | 값 문자열 길이 | 결과                          |
+ *   |---------------|-------------------------------|
+ *   | ~11,100자      | 성공                          |
+ *   | ~14,800자      | `TypeError: fetch failed` (7.5초 뒤) |
+ *   | ~25,900자      | `Bad Request` (즉시)           |
+ *
+ * 그래서 **개수로 쪼개면 값에 따라 되기도 하고 안 되기도 한다** — 낱말(평균 18자)은
+ * 1,000개가 되는데 **UUID(36자)는 400개에서 이미 깨진다.** 이 저장소는 50·300·400·500 을
+ * 제각각 쓰고 있었고, 그중 어느 것이 왜 그 값인지 아무도 몰랐다.
+ *
+ * 8,000자는 성공 구간(~11,100)의 약 70% — 실패 구간과 사이를 벌려 둔다.
+ * 첫 실패 모드가 **7.5초 뒤의 `fetch failed`** 라 화면에서는 "느리다" 로만 보인다.
+ */
+export const IN_VALUE_MAX_CHARS = 8000
+
+/**
+ * `.in()` 에 넣을 값을 **길이 기준**으로 쪼갠다.
+ *
+ * 값 하나가 상한보다 길면 그것만 담은 조각을 만든다 — 버리지 않는다(그러면 조용히 빠진다).
+ */
+export function chunkForIn<T extends string | number>(
+  values: readonly T[],
+  maxChars = IN_VALUE_MAX_CHARS,
+): T[][] {
+  const out: T[][] = []
+  let cur: T[] = []
+  let len = 0
+  for (const v of values) {
+    const w = String(v).length + 1 // 구분자 한 자
+    if (cur.length > 0 && len + w > maxChars) {
+      out.push(cur)
+      cur = []
+      len = 0
+    }
+    cur.push(v)
+    len += w
+  }
+  if (cur.length > 0) out.push(cur)
   return out
 }

@@ -12,6 +12,8 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+
+import { chunkForIn } from '@/lib/supabase/paged-select'
 import { CheckCircle2, ChevronDown, ChevronUp, Loader2, Sparkles, TrendingUp, User, FileText, Target, GraduationCap, Briefcase, Repeat, Star, Shuffle } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -308,12 +310,22 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
     // 어원(root) 힌트 — 추출 단어의 표제어 어근을 조회해 근거에 노출(best-effort). 신규 테이블이라 loose client.
     const lemmas = [...new Set(rows.map((r) => (r.matched_via_surface ?? r.word).toLowerCase()))]
     if (lemmas.length > 0) {
-      void (supabase as unknown as SupabaseClient)
-        .from('word_root_links')
-        .select('word, word_roots(root, gloss_ko)')
-        .in('word', lemmas)
-        .then((res) => {
-          const rows2 = (res.data ?? []) as unknown as { word: string; word_roots: { root: string; gloss_ko: string } | null }[]
+      // ⚠️ `.in()` 은 **개수가 아니라 값 길이**에서 깨진다 — 낱말 ~600개(약 11,000자)를
+      //    넘으면 `TypeError: fetch failed` 가 **7.5초 뒤에** 온다(실측 2026-08-30).
+      //    긴 글을 붙여넣으면 표제어가 쉽게 그 수를 넘는데, 화면에서는 "어원이 안 뜬다" 로만
+      //    보인다. 길이 기준으로 쪼갠다.
+      void Promise.all(
+        chunkForIn(lemmas).map((chunk) =>
+          (supabase as unknown as SupabaseClient)
+            .from('word_root_links')
+            .select('word, word_roots(root, gloss_ko)')
+            .in('word', chunk),
+        ),
+      )
+        .then((results) => {
+          const rows2 = results.flatMap(
+            (res) => (res.data ?? []) as unknown as { word: string; word_roots: { root: string; gloss_ko: string } | null }[],
+          )
           const map: Record<string, { root: string; gloss: string }[]> = {}
           for (const l of rows2) {
             if (!l.word_roots) continue

@@ -16,7 +16,13 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { PAGE_SIZE, chunkedRpc, pagedSelect } from '@/lib/supabase/paged-select'
+import {
+  IN_VALUE_MAX_CHARS,
+  PAGE_SIZE,
+  chunkForIn,
+  chunkedRpc,
+  pagedSelect,
+} from '@/lib/supabase/paged-select'
 
 /** `total` 행을 가진 가짜 테이블. 요청 범위만큼 잘라 준다(PostgREST 처럼 상한도 건다). */
 function fakeTable(total: number) {
@@ -111,5 +117,42 @@ describe('chunkedRpc', () => {
         '테스트',
       ),
     ).rejects.toThrow(/테스트 RPC 실패: 타임아웃/)
+  })
+})
+
+describe('chunkForIn — `.in()` 은 개수가 아니라 길이에서 깨진다', () => {
+  it('길이 상한 안에서 최대한 담는다', () => {
+    const words = Array.from({ length: 100 }, () => 'abcdefghij') // 10자 + 구분자 1
+    const chunks = chunkForIn(words, 55) // 11자씩 → 5개까지
+    expect(chunks[0]).toHaveLength(5)
+    expect(chunks.flat()).toHaveLength(100)
+  })
+
+  it('같은 개수라도 값이 길면 더 잘게 쪼갠다 — 이것이 개수 기준의 결함이다', () => {
+    // 실측: 낱말(평균 18자)은 1,000개가 되는데 UUID(36자)는 400개에서 깨졌다.
+    const uuid = '0123456789abcdef0123456789abcdef0123'
+    const short = 'cat'
+    const byUuid = chunkForIn(Array.from({ length: 400 }, () => uuid))
+    const byWord = chunkForIn(Array.from({ length: 400 }, () => short))
+    expect(byUuid.length).toBeGreaterThan(byWord.length)
+    expect(byWord).toHaveLength(1) // 짧은 값 400개는 한 번에 간다
+  })
+
+  it('어떤 조각도 상한을 넘지 않는다', () => {
+    const vals = Array.from({ length: 5000 }, (_, i) => `word-${i}-${'x'.repeat(i % 40)}`)
+    for (const c of chunkForIn(vals)) {
+      expect(c.join(',').length).toBeLessThanOrEqual(IN_VALUE_MAX_CHARS)
+    }
+  })
+
+  it('상한보다 긴 값 하나도 버리지 않는다 — 조용히 빠지면 결과가 틀린다', () => {
+    const huge = 'x'.repeat(IN_VALUE_MAX_CHARS + 100)
+    const chunks = chunkForIn([huge, 'a', 'b'])
+    expect(chunks.flat()).toContain(huge)
+    expect(chunks.flat()).toHaveLength(3)
+  })
+
+  it('빈 입력은 빈 배열', () => {
+    expect(chunkForIn([])).toEqual([])
   })
 })
