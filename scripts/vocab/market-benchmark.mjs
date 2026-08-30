@@ -117,7 +117,7 @@ const catalogWords = await fetchCatalogWords([...setIds])
 async function fetchDictFor(words, chunk = 400) {
   // `shared_dictionary` 의 키는 `word` 다 — `id` 컬럼이 없다.
   const cols =
-    'word, example_en, senses, synonyms, antonyms, derived_forms, collocations,'
+    'word, example_en, example_ko, senses, synonyms, antonyms, derived_forms, collocations,'
     + ' ipa, ipa_us, pos, primary_pos, korean_learner_note'
   const out = []
   for (let i = 0; i < words.length; i += chunk) {
@@ -154,13 +154,23 @@ const hasExampleEn = (d) =>
  *
  * ⚠️ 둘을 섞으면 안 된다. `sense_ko` 는 100% 있지만 그건 낱말 뜻이지 예문 번역이 아니다.
  *    시중 단어장이 예문마다 다는 한 줄은 문장 번역이고, 그게 없으면 학습자는 예문을
- *    읽지 못한 채 넘어간다. 지금 스키마에는 그 칸 자체가 없다 — 그 사실이 드러나야 한다.
+ *    읽지 못한 채 넘어간다.
+ *
+ * 번역이 사는 자리가 **둘**이라 둘 다 본다(마이그레이션 `20260830170000` 이후):
+ *   · `example_ko` 컬럼      — 대표 예문(`example_en`)의 짝
+ *   · `senses[].examples_ko` — 뜻마다 붙은 예문의 짝
+ * 한쪽만 세면 카탈로그의 3/4 가 "번역 없음" 으로 잡힌다 — 표제어 11,183 중 8,487 이
+ * 대표 예문만 갖고 있기 때문이다.
  */
-const hasExampleKo = (d) =>
-  senseList(d).some((s) => {
+const hasExampleKo = (d) => {
+  if (typeof d.example_ko === 'string' && d.example_ko.trim().length > 0) return true
+  return senseList(d).some((s) => {
     const ko = s.examples_ko ?? s.example_ko ?? null
-    return Array.isArray(ko) ? ko.length > 0 : typeof ko === 'string' && ko.trim().length > 0
+    return Array.isArray(ko)
+      ? ko.some((x) => typeof x === 'string' && x.trim().length > 0)
+      : typeof ko === 'string' && ko.trim().length > 0
   })
+}
 
 const arr = (v) => (Array.isArray(v) ? v : [])
 const hasDerived = (d) => arr(d.derived_forms).length > 0

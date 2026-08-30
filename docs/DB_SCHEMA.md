@@ -365,7 +365,7 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 
 | 테이블 | rows | size | 비고 |
 |---|---:|---:|---|
-| `shared_dictionary` | **47,737** | **183 MB** | 영단어 마스터 캐시 — 11개 통합 컬럼 (Phase 1). **채움률은 2026-08-21 실측**(아래 주): meaning_ko 100% · pos_set 99.1% · primary_pos 97.2% · senses 81.3% · ipa 77.1% · inflected_forms 31.9%(15,219) · mnemonic_ko 15.5%(7,405) · **ipa_uk/ipa_us 0%** · `inflected_forms` text[] GIN (`scripts/dict/clean-inflected-forms.mjs` · NULL→규칙 fallback) · kaikki 보완(v06.269): `homophones`·`rhyme_key`·`derived_forms`·`related_terms` 4컬럼(마이그 `add_kaikki_extra_columns`) |
+| `shared_dictionary` | **47,737** | **183 MB** | 영단어 마스터 캐시 — 11개 통합 컬럼 (Phase 1). **채움률은 2026-08-21 실측**(아래 주): meaning_ko 100% · pos_set 99.1% · primary_pos 97.2% · senses 81.3% · ipa 77.1% · inflected_forms 31.9%(15,219) · mnemonic_ko 15.5%(7,405) · **ipa_uk/ipa_us 0%** · `inflected_forms` text[] GIN (`scripts/dict/clean-inflected-forms.mjs` · NULL→규칙 fallback) · kaikki 보완(v06.269): `homophones`·`rhyme_key`·`derived_forms`·`related_terms` 4컬럼(마이그 `add_kaikki_extra_columns`) · **`example_ko`**(대표 예문 `example_en` 의 한국어 짝, 마이그 `20260830170000`) — ⚠️ **뜻마다 붙은 예문의 번역은 여기가 아니라 `senses[].examples_ko`** 다. 둘을 섞으면 짝이 어긋난다(대표 예문이 몇 번 뜻의 것인지 알 수 없음). 채우는 곳: `scripts/vocab/example-ko-drain-*` |
 
 #### `meanings_ko` 원소 계약 + `field_provenance` 판정 표식 (D0830 · 2026-08-30)
 

@@ -93,7 +93,7 @@ async function fetchSenses(words, chunk = 400) {
   for (let i = 0; i < words.length; i += chunk) {
     const { data, error } = await supabase
       .from('shared_dictionary')
-      .select('word, senses')
+      .select('word, senses, example_en, example_ko')
       .in('word', words.slice(i, i + chunk))
     if (error) throw new Error(`shared_dictionary: ${error.message}`)
     out.push(...data)
@@ -119,6 +119,8 @@ for (const r of rows) {
   senses.forEach((se, idx) => {
     if (!needsKo(se)) return
     todo.push({
+      // 어디에 넣을 번역인가. **import 가 이 값으로 쓰는 자리를 가른다.**
+      target: 'sense',
       word: r.word,
       sense_idx: typeof se.sense_idx === 'number' ? se.sense_idx : idx,
       pos: se.pos ?? null,
@@ -129,10 +131,34 @@ for (const r of rows) {
       examples_ko: [],
     })
   })
+
+  // 대표 예문(`example_en` 컬럼)의 번역 — 마이그레이션 `20260830170000` 로 열린 자리.
+  //
+  // ⚠️ **뜻마다 붙은 예문과 섞지 않는다.** 이 예문이 몇 번 뜻의 것인지 알 수 없어서
+  //   `senses[0]` 에 밀어 넣으면 짝이 어긋난다. `example_ko` 는 오직 `example_en` 과 짝이다.
+  const topEn = typeof r.example_en === 'string' ? r.example_en.trim() : ''
+  const topKo = typeof r.example_ko === 'string' ? r.example_ko.trim() : ''
+  if (topEn.length > 0 && topKo.length === 0) {
+    todo.push({
+      target: 'top',
+      word: r.word,
+      sense_idx: null,
+      pos: null,
+      // 대표 예문에는 뜻 번호가 없다. 첫 뜻의 뜻풀이를 참고로 실어 준다(번역할 때 도움이 된다).
+      sense_ko: senses[0]?.sense_ko ?? null,
+      examples: [topEn],
+      examples_ko: [],
+    })
+  }
 }
 
 // 낱말 순으로 고정한다 — 재실행해도 같은 청크가 나와야 이어 작업할 수 있다.
-todo.sort((a, b) => a.word.localeCompare(b.word) || a.sense_idx - b.sense_idx)
+// 같은 낱말 안에서는 뜻별 예문을 먼저, 대표 예문(sense_idx 가 null)을 뒤에 둔다.
+todo.sort(
+  (a, b) =>
+    a.word.localeCompare(b.word)
+    || (a.sense_idx ?? Number.MAX_SAFE_INTEGER) - (b.sense_idx ?? Number.MAX_SAFE_INTEGER),
+)
 
 const sentences = todo.reduce((s, t) => s + t.examples.length, 0)
 console.log(`카탈로그 표제어 ${words.length.toLocaleString()} · 번역 필요 뜻 ${todo.length.toLocaleString()} · 문장 ${sentences.toLocaleString()}`)

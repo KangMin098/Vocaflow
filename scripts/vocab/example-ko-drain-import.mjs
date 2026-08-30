@@ -76,8 +76,20 @@ for (const f of outFiles) {
       continue
     }
 
+    // 대표 예문(`example_ko` 컬럼)은 문장이 하나뿐이다. 여럿이면 어느 것의 번역인지 모른다.
+    const target = item.target === 'top' ? 'top' : 'sense'
+    if (target === 'top' && clean.length !== 1) {
+      stats.skipLen += 1
+      continue
+    }
+
     if (!byWord.has(item.word)) byWord.set(item.word, [])
-    byWord.get(item.word).push({ sense_idx: item.sense_idx, examples: ex, examples_ko: clean })
+    byWord.get(item.word).push({
+      target,
+      sense_idx: item.sense_idx,
+      examples: ex,
+      examples_ko: clean,
+    })
     stats.ok += 1
   }
 }
@@ -90,7 +102,7 @@ for (let i = 0; i < words.length; i += 200) {
   const batch = words.slice(i, i + 200)
   const { data, error } = await supabase
     .from('shared_dictionary')
-    .select('word, senses')
+    .select('word, senses, example_en')
     .in('word', batch)
   if (error) throw new Error(`읽기 실패: ${error.message}`)
 
@@ -104,8 +116,21 @@ for (let i = 0; i < words.length; i += 200) {
     }
     const senses = Array.isArray(row.senses) ? row.senses : []
     let touched = 0
+    let topKo = null
 
     for (const patch of byWord.get(word) ?? []) {
+      if (patch.target === 'top') {
+        // ④ 대표 예문도 읽은 뒤 바뀌었는지 본다 — 문장이 다르면 짝이 어긋난 것이다.
+        const nowTop = typeof row.example_en === 'string' ? row.example_en.trim() : ''
+        if (nowTop !== patch.examples[0]) {
+          stats.skipDrift += 1
+          continue
+        }
+        topKo = patch.examples_ko[0]
+        touched += 1
+        continue
+      }
+
       const idx = senses.findIndex((se, n) =>
         (typeof se.sense_idx === 'number' ? se.sense_idx : n) === patch.sense_idx)
       if (idx < 0) {
@@ -129,9 +154,12 @@ for (let i = 0; i < words.length; i += 200) {
 
     if (touched === 0) continue
     if (COMMIT) {
+      // 한 낱말의 뜻별 번역과 대표 예문 번역을 **한 번에** 쓴다 — 두 번 쓰면 뒤엣것이
+      // 앞엣것의 `senses` 를 덮어쓸 수 있다.
+      const patchRow = topKo != null ? { senses, example_ko: topKo } : { senses }
       const { error: uErr } = await supabase
         .from('shared_dictionary')
-        .update({ senses })
+        .update(patchRow)
         .eq('word', word)
       if (uErr) throw new Error(`쓰기 실패(${word}): ${uErr.message}`)
     }
