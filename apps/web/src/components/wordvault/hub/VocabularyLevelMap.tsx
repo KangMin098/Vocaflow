@@ -7,6 +7,8 @@
 
 import { useEffect, useState } from 'react'
 
+import { pagedSelect } from '@/lib/supabase/paged-select'
+
 import { Capsule, Frame, InsetGroup, InsetRow } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/client'
 
@@ -70,13 +72,26 @@ export function VocabularyLevelMap() {
       //
       // ⚠️ 근본 원인은 화면이 아니라 `vocabularies.lemma` 를 채우는 파이프라인이다.
       //    여기 폴백은 그 결손을 **가리는 것이 아니라** 이미 있는 데이터를 제대로 읽는 것이다.
-      const { data: vocabs } = await supabase
-        .from('vocabularies')
-        .select('lemma, word')
-        .eq('user_id', user.id)
+      // ⚠️ 상한을 안 적었는데 **그게 곧 1,000행**이다 — PostgREST 가 거기서 끊는다
+      //    (실측 2026-08-30 · 오류가 아니다). 이미 1,945행인 계정이 있어, 레벨 분포가
+      //    절반만 세어진 채 "내 어휘 지도" 로 떴다.
+      //    ⚠️ 바로 아래 사전 조회는 이미 500개씩 쪼개고 있었다 — 쪼개야 한다는 걸 알면서
+      //       **기본 읽기만 안 쪼갠** 자리다. 이 저장소에서 세 번째로 같은 모양이다.
+      let vocabs: Array<{ lemma: string | null; word: string | null }> = []
+      try {
+        vocabs = await pagedSelect<{ lemma: string | null; word: string | null }>(
+          (lo, hi) =>
+            supabase.from('vocabularies').select('lemma, word').eq('user_id', user.id).range(lo, hi),
+          'level-map vocabularies',
+        )
+      } catch {
+        if (cancelled) return
+        setState({ kind: 'error', message: '어휘 지도를 불러오지 못했어요' })
+        return
+      }
       if (cancelled) return
 
-      const lemmas = ((vocabs ?? []) as Array<{ lemma: string | null; word: string | null }>)
+      const lemmas = (vocabs as Array<{ lemma: string | null; word: string | null }>)
         .map((v) => (v.lemma ?? v.word ?? '').trim().toLowerCase())
         .filter((v) => v.length > 0)
 

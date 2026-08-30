@@ -43,6 +43,8 @@
 
 import 'server-only'
 
+import { pagedSelect } from '@/lib/supabase/paged-select'
+
 import { cache } from 'react'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -129,28 +131,45 @@ export const fetchMemoryHorizon = cache(async (): Promise<MemoryHorizon | null> 
   const since28 = new Date(Date.now() - 27 * 86_400_000).toISOString()
   const since7 = new Date(Date.now() - 7 * 86_400_000).toISOString()
 
-  const [{ data: vocabRows }, { data: reviewRows }, { data: weekRows }] = await Promise.all([
-    lc
-      .from('vocabularies')
-      .select('id, word, meaning, lemma, stability, review_count, created_at')
-      .eq('user_id', user.id)
-      .limit(10_000),
+  // ⚠️ 여기 있던 `.limit(10_000)`·`.limit(50_000)` 은 **전부 1,000행에서 잘렸다** —
+  //    PostgREST 가 그 위를 안 준다(실측 2026-08-30). 이 화면은 `/dashboard` 의 회고라
+  //    "얼마나 쌓였나"·"되찾은 단어" 를 세는 곳인데, 학습이 쌓일수록 **더 크게 틀린다**.
+  //    ⚠️ 이 파일은 바로 아래에서 `.in()` 을 500개씩 병렬로 쪼개고 있었다 — 쪼개는 법을
+  //       알면서 기본 읽기만 안 쪼갠, 이 저장소에서 반복되는 모양이다.
+  const [vocabRows, reviewRows, weekRows] = await Promise.all([
+    pagedSelect<{ id: string; word: string | null; meaning: string | null; lemma: string | null; stability: number | null; review_count: number | null; created_at: string | null }>(
+      (lo, hi) =>
+        lc
+          .from('vocabularies')
+          .select('id, word, meaning, lemma, stability, review_count, created_at')
+          .eq('user_id', user.id)
+          .range(lo, hi),
+      'memory-horizon vocabularies',
+    ),
     // 학습량의 정본. minutes 가 아니라 **행 수**를 센다.
-    lc
-      .from('learning_records')
-      .select('vocabulary_id, attempted_at')
-      .eq('user_id', user.id)
-      .gte('attempted_at', since28)
-      .limit(50_000),
+    pagedSelect<{ vocabulary_id: string | null; attempted_at: string }>(
+      (lo, hi) =>
+        lc
+          .from('learning_records')
+          .select('vocabulary_id, attempted_at')
+          .eq('user_id', user.id)
+          .gte('attempted_at', since28)
+          .range(lo, hi),
+      'memory-horizon learning_records(28d)',
+    ),
     // 되찾은 단어 — 맞힌 것만. 틀린 재시도까지 세면 "되찾았다" 가 거짓이 된다.
-    lc
-      .from('learning_records')
-      .select('vocabulary_id')
-      .eq('user_id', user.id)
-      .eq('is_correct', true)
-      .not('vocabulary_id', 'is', null)
-      .gte('attempted_at', since7)
-      .limit(50_000),
+    pagedSelect<{ vocabulary_id: string | null }>(
+      (lo, hi) =>
+        lc
+          .from('learning_records')
+          .select('vocabulary_id')
+          .eq('user_id', user.id)
+          .eq('is_correct', true)
+          .not('vocabulary_id', 'is', null)
+          .gte('attempted_at', since7)
+          .range(lo, hi),
+      'memory-horizon learning_records(7d)',
+    ),
   ])
 
   const vocab = (vocabRows ?? []) as Array<{

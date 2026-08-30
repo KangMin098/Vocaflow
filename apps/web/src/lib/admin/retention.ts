@@ -11,6 +11,8 @@
 
 import 'server-only'
 
+import { pagedSelect } from '@/lib/supabase/paged-select'
+
 import { createAdminClient } from '@/lib/supabase/admin'
 
 import { computeRetention, type LearnerActivity, type RetentionReport } from './retention-math'
@@ -57,9 +59,19 @@ async function computeFromDb(): Promise<RetentionReport | null> {
   })
   if (userErr || !userList) return null
 
-  const [{ data: lr }, { data: sc }] = await Promise.all([
-    admin.from('learning_records').select('user_id, attempted_at').limit(100_000),
-    admin.from('scores').select('user_id, created_at').limit(100_000),
+  // ⚠️ 여기 있던 `.limit(100_000)` 은 **1,000행에서 잘렸다** — PostgREST 가 그 위를
+  //    안 준다(실측 2026-08-30). 리텐션은 "며칠에 걸쳐 돌아왔나" 를 세는 지표라,
+  //    잘리면 **최근 1,000건만 보고** 재방문을 계산한다 — 학습이 쌓일수록 더 크게 틀린다.
+  //    (이 화면은 분기 진단이 근거로 쓰는 수치다 — 틀린 채로 결정에 들어간다.)
+  const [lr, sc] = await Promise.all([
+    pagedSelect<{ user_id: string | null; attempted_at: string | null }>(
+      (lo, hi) => admin.from('learning_records').select('user_id, attempted_at').range(lo, hi),
+      'retention learning_records',
+    ),
+    pagedSelect<{ user_id: string | null; created_at: string | null }>(
+      (lo, hi) => admin.from('scores').select('user_id, created_at').range(lo, hi),
+      'retention scores',
+    ),
   ])
 
   // 두 출처를 합친다 — 한쪽만 보면 조용히 틀린다(받아쓰기·게임은 scores,

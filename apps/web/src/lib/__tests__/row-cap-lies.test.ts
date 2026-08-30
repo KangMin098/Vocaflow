@@ -54,8 +54,11 @@ function overCapLimits(): string[] {
     if (rel(f).includes('__tests__/')) continue
     const src = strip(readFileSync(f, 'utf8'))
     src.split('\n').forEach((line, i) => {
-      for (const m of line.matchAll(/\.limit\(\s*(\d+)\s*\)/g)) {
-        const n = Number(m[1])
+      // ⚠️ 숫자 구분자(`10_000`)를 반드시 함께 본다 — 첫 판이 `\d+` 만 봐서
+      //    `.limit(10_000)` 다섯 곳을 **통째로 놓쳤다**(실측 2026-08-30, 이 검사를 만든
+      //    바로 다음 사이클에 드러났다). 통과한 검사도 왜 통과했는지 봐야 한다.
+      for (const m of line.matchAll(/\.limit\(\s*([\d_]+)\s*\)/g)) {
+        const n = Number(m[1]!.replace(/_/g, ''))
         if (n > PAGE_SIZE) out.push(`${rel(f)}:${i + 1}  .limit(${n})`)
       }
     })
@@ -72,7 +75,7 @@ describe('행 상한을 넘겨 요청하지 않는다', () => {
   it('스캔이 비어 있으면 이 테스트는 아무것도 지키지 않는다', () => {
     const anyLimit = walk(SRC)
       .filter((f) => !rel(f).includes('__tests__/'))
-      .some((f) => /\.limit\(\s*\d+\s*\)/.test(strip(readFileSync(f, 'utf8'))))
+      .some((f) => /\.limit\(\s*[\d_]+\s*\)/.test(strip(readFileSync(f, 'utf8'))))
     expect(anyLimit, '`.limit(N)` 을 하나도 못 찾았다 — 스캐너가 깨졌다').toBe(true)
   })
 
