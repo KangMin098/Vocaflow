@@ -7,6 +7,8 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { cleanWordWebRow } from '@/lib/dict/word-web'
+
 import { pagedSelect } from '@/lib/supabase/paged-select'
 
 export interface ChapterListItem {
@@ -135,19 +137,12 @@ export async function lookupWord(
       const c = d?.collocations
       collocations = c && c.length > 0 ? c : null
 
-      // 표제어 자신이 섞여 있으면 뺀다 — 자기를 "파생어" 로 보여 주면 오해를 만든다.
-      const self = row.resolved_word.toLowerCase()
-      const clean = (list: string[] | null | undefined): string[] | null => {
-        if (!Array.isArray(list)) return null
-        const out = [...new Set(
-          list.map((s) => (typeof s === 'string' ? s.trim() : ''))
-            .filter((s) => s.length > 0 && s.toLowerCase() !== self),
-        )]
-        return out.length > 0 ? out : null
-      }
-      derived = clean(d?.derived_forms)
-      synonyms = clean(d?.synonyms)
-      antonyms = clean(d?.antonyms)
+      // 정제 규칙은 `lib/dict/word-web.ts` 한 곳에 있다 — 플래시카드 정답면도 같은 함수를
+      // 쓴다. 두 곳이 다르게 거르면 같은 낱말이 화면마다 다르게 보인다.
+      const head = row.resolved_word
+      derived = cleanWordWebRow(d?.derived_forms, head)
+      synonyms = cleanWordWebRow(d?.synonyms, head)
+      antonyms = cleanWordWebRow(d?.antonyms, head)
 
       // RPC 가 준 예문과 **같은 문장**의 해석만 쓴다. 뜻이 여러 개일 때 아무 해석이나 붙이면
       // 다른 뜻을 가르치게 된다 — 틀린 해석은 없는 해석보다 나쁘다.
