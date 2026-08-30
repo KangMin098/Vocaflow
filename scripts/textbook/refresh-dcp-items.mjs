@@ -39,13 +39,21 @@ const db = createClient(
 // ⚠️ 페이징 없이 읽으면 PostgREST 가 1,000행에서 자른다 — 실측 2026-08-30:
 //   status ready/published 원글이 **6,633편**, V5 만 3,055편이다.
 //   `scan-unpaged-queries.mjs` 가 이 자리를 잡아냈다.
-const arts = await fetchAllPaged(db, (q) =>
-  q
-    .from('library_articles')
-    .select('id, title, article_v_level, display_only, content, status')
-    .in('status', ['ready', 'published'])
-    .not('content', 'is', null)
-    .order('id'))
+// ⚠️ 페이지 크기를 200 으로 줄인다 — `content` 를 함께 받기 때문이다.
+//   실측 2026-08-31: 원글 평균 본문 11KB × 1,000행 = **페이지당 11MB**. 코퍼스가
+//   6,633 → 18,757편으로 커지면서 게이트웨이가 524 를 HTML 로 돌려주고 배치가 죽었다.
+//   행 수 상한(1,000)만 보고 크기를 정하면 본문이 붙는 순간 조용히 한계를 넘는다.
+const arts = await fetchAllPaged(
+  db,
+  (q) =>
+    q
+      .from('library_articles')
+      .select('id, title, article_v_level, display_only, content, status')
+      .in('status', ['ready', 'published'])
+      .not('content', 'is', null)
+      .order('id'),
+  200,
+)
 
 // 이미 있는 조합 — 나눠 받는다(1,000행 제한에 조용히 잘린 적이 있다).
 // ⚠️ 조각이 1000행을 넘으면 뒤가 조용히 잘리고, 잘린 만큼 "이미 있음" 판정이 빠져

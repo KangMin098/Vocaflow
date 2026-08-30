@@ -64,8 +64,13 @@ export async function withRetry(label, run, tries = 4) {
     if (!error) return data
     lastErr = error
     const msg = String(error.message ?? '')
+    // ⚠️ 게이트웨이는 **오류를 HTML 페이지로** 돌려준다 — 그때 message 는 문장이 아니라
+    //   `<!DOCTYPE html>…` 통째다. 위 낱말들만 보면 그게 안 걸려 **재시도 없이 죽는다**
+    //   (실측 2026-08-31: content 를 1,000행씩 받다가 페이지당 11MB 가 되어 524 가 났는데
+    //    한 번도 재시도하지 않고 배치가 끝났다).
     const transient =
-      /schema cache|statement timeout|525|timeout|fetch failed|socket|ECONN|EAI_AGAIN|handshake/i.test(msg)
+      /schema cache|statement timeout|525|timeout|fetch failed|socket|ECONN|EAI_AGAIN|handshake/i.test(msg) ||
+      /<html|<!doctype|error code:\s*5\d\d|\b50[234]\b|\b52[0-4]\b/i.test(msg)
     if (!transient) break
     // 1s → 3s → 9s. 끊긴 쪽이 회복할 시간을 준다.
     const wait = 1000 * 3 ** i
