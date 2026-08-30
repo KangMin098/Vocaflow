@@ -83,12 +83,30 @@ const NON_PROSE = /_{4,}|[–—-]\s*(?:v|n|adj|adv|prep|conj|pron)\.\s/i
  *
  * ⚠️ 본문에 정상적으로 나올 수 있는 표현은 넣지 않았다. 예컨대 `Q4`(분기)나
  *   문장 안의 `credit` 은 걸리지 않는다 — 대문자 라벨 꼴만 본다.
+ *
+ * ── 날짜 규칙 정정 2026-08-30 ────────────────────────────────────────
+ * 처음 쓴 날짜 규칙은 **우연히** 동작하고 있었다. 온전한 달 이름 중 세 글자인 것은
+ * `May` 뿐이라(`Apr\b` 는 "April" 에 안 걸린다), 학술지 앞장을 잡아낸 것은 그 앞장에
+ * **5월 날짜가 우연히 있었을 때뿐**이었다. 그래서 규칙이 두 방향으로 다 틀려 있었다:
+ *
+ *   넓게 틀림 — 산문 속 날짜를 껍데기로 셌다
+ *                "the May 18, 1980, eruption of Mount St. Helens" · 인물 생몰년
+ *   좁게 틀림 — 5월이 없는 학술지 앞장을 통째로 놓쳤다
+ *                "Received: December 17, 2024; Accepted: November 18, 2025"
+ *
+ * 원글 24,738편으로 옛 규칙과 새 규칙을 대조했다(다른 규칙이 이미 잡는 것은 빼고 —
+ * 그것들은 판정이 갈리지 않는다): **새로 잡는 것 14,603편**(표본 전부 PLOS 앞장) ·
+ * **놓아 주는 것 37편**(표본 전부 정상 산문). 그래서 날짜 자체가 아니라 **앞장 라벨**을
+ * 본다. 약어 꼴 날짜 도장은 그대로 두되 `May` 만 뺐다 — 약어인지 온전한 달 이름인지
+ * 구별할 수 없고, 구별 못 하는 것을 근거로 지문을 버리면 안 된다.
  */
 const ARTICLE_CHROME = [
   /\b\d+\s*Min\s*Read\b/i,                                    // 읽기시간 머리말
   /\bCredits?:\s/i,                                            // 크레딧 라벨
   /\bImage credit\b|\bPhoto:\s/i,
-  /\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s*\d{4}\b/, // 날짜 도장
+  /\b(?:Received|Accepted|Submitted|Revised|Published)\s*:\s*[A-Z][a-z]+\s+\d{1,2},\s*\d{4}\b/, // 학술지 앞장
+  /\bCopyright:\s*©/,                                          // 학술지 저작권 라벨
+  /\b(?:Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sept?|Oct|Nov|Dec)\s+\d{1,2},\s*\d{4}\b/, // 약어 날짜 도장 (May 제외)
   /(?:^|\s)Q\s+(?:What|How|Why|When|Who|Where)\b/,             // Q&A 표지
   /\b(?:Close|Read More|Share|Download|Print)\b\s+[A-Z]/,      // 캡션·버튼 나열
 ]

@@ -196,4 +196,23 @@ describe('hasArticleChrome — 기사 껍데기', () => {
   ])('%s 는 걸리지 않는다 — 본문을 버리면 안 된다', (_label, text) => {
     expect(hasArticleChrome(text)).toBe(false)
   })
+
+  // ── 날짜 규칙 정정 2026-08-30 (원글 24,738편 대조) ───────────────────
+  // 옛 규칙은 `May` 가 온전한 달 이름이면서 세 글자 약어이기도 한 것에 기대고 있었다.
+  // 그래서 5월이 든 학술지 앞장만 우연히 잡고, 산문 속 5월 날짜까지 같이 버렸다.
+  it.each([
+    ['학술지 접수·게재일', 'Received: December 17, 2024; Accepted: November 18, 2025; Published: December 2, 2025'],
+    ['게재일 단독', 'Editor: Olaf Sporns, Indiana University Published: January 26, 2012 This is an open-access article.'],
+    ['학술지 저작권 라벨', 'Copyright: © 2012 Vlachos et al. This is an open-access article distributed under the terms.'],
+  ])('%s 을 잡는다 — 5월이 없어도', (_label, text) => {
+    expect(hasArticleChrome(text)).toBe(true)
+  })
+
+  it.each([
+    ['산문 속 5월 날짜', 'The May 18, 1980, eruption of Mount St. Helens still washes sediment downstream.'],
+    ['인물 생몰년', 'Commodore Nutt (April 1, 1848 – May 25, 1881) was an American entertainer.'],
+    ['문장 첫머리 5월 날짜', 'On May 18, 2023, frost damaged trees across New York state and cut the apple crop.'],
+  ])('%s 는 걸리지 않는다 — 껍데기가 아니라 글이다', (_label, text) => {
+    expect(hasArticleChrome(text)).toBe(false)
+  })
 })
