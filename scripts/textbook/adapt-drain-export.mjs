@@ -70,6 +70,49 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
  */
 const ADAPTABLE = ['cc_by', 'cc0', 'public_domain']
 
+/**
+ * **우리가 쓴 글(`source='original'`)은 각색 대상이 아니다.**
+ *
+ * 이미 우리 것이면 쉬운 판을 "각색" 할 이유가 없다 — 그 레벨로 **직접 쓰는** 것이 맞다.
+ * DB 도 그렇게 말한다: `chk_original_needs_batch` 가 `source='original'` 행에
+ * `compose_batch_id`·`composed_spec` 을 요구한다. 각색본에 원본의 배치 정보를 베껴 넣으면
+ * **그 spec 은 원본을 설명하지 각색본을 설명하지 않는다** — 거짓 계보가 된다.
+ * (2026-08-30 첫 적재가 이 제약에 걸려서 알았다.)
+ */
+const NOT_ADAPTABLE_SOURCES = ['original']
+
+/**
+ * 밴드가 **소재로** 받지 못하는 글의 성격.
+ *
+ * 초등 지시문은 "제도·정책·추상명사는 쓰지 않는다 · 사건사고·분쟁·죽음은 쓰지 않는다" 다.
+ * 그런데 export 가 라이선스·레벨·길이만 보고 뽑던 동안 **표본 18편 중 7편(39%)이
+ * 소재부터 부적합**이었다 — COP28 정책 · 육류 감축 논쟁 · 네덜란드 전쟁사 · 사망 원인 등.
+ * 쓸 수 없는 것을 뽑아 놓고 채우라고 하면 그만큼이 그냥 버려진다.
+ *
+ * `register` 가 이미 그것을 구분해 둔다(실측 각색 가능 재고):
+ *   expository 4,389 · **argumentative 1,546** · narrative 14 · reference 7 · news 3
+ *
+ * 초등에서 `argumentative` 를 뺀다 — 주장하는 글은 제도·쟁점을 다루기 때문이다.
+ * (`narrative` 가 14편뿐이라는 것도 함께 드러났다 — 초등이 가장 원하는 결의 글이 거의 없다.)
+ *
+ * ⚠️ **이 필터로 부적합률이 줄지 않았다.** 걸러 낸 뒤 다시 18편을 뽑아 눈으로 보니
+ *   COP28 정책 · 육류 감축 · 네덜란드 전쟁사 · 정치 용어 · 벌 입틀 광학이 그대로 있었다 —
+ *   **전부 `expository` 다.** 부적합 39% → 약 44% 로, 측정상 나아지지 않았다.
+ *   `register` 는 "주장하는가" 를 가르지 이 밴드가 필요한 **"눈에 보이는가"** 를 가르지 않는다.
+ *
+ *   그래도 남겨 둔다 — `argumentative` 1,546편은 **정의상** 이 밴드의 소재가 아니고,
+ *   빼는 것이 맞다. 다만 **이것으로 문제가 풀렸다고 읽으면 안 된다.**
+ *
+ *   실제 대책은 뽑는 쪽이 아니라 **채우는 쪽의 판단**이다(소재 적합성은 규칙으로 안 갈린다).
+ *   그래서 **필요한 편수의 두 배쯤 뽑아 두고** 부적합한 것은 비워 둔다 —
+ *   import 가 "제목 또는 본문이 비었다" 로 세므로 조용히 사라지지 않는다.
+ */
+const REGISTER_EXCLUDE = {
+  elementary: ['argumentative'],
+  middle: [],
+  high: [],
+}
+
 /** 원본은 목표보다 위에 있어야 한다 — 같은 레벨을 '쉬운 판' 이라 부를 수 없다. */
 const SOURCE_MIN_LEVEL = spec.vRange.max + 1
 
@@ -95,14 +138,20 @@ const already = new Set(
     .filter(Boolean),
 )
 
+const excludeRegisters = REGISTER_EXCLUDE[BAND] ?? []
 const sources = await fetchAll(
   'library_articles',
-  'id, title, content, source, feed_label, license, license_class, article_v_level, word_count, source_url',
-  (q) =>
-    q
+  'id, title, content, source, feed_label, license, license_class, article_v_level, word_count, source_url, register',
+  (q) => {
+    let x = q
       .in('license_class', ADAPTABLE)
+      .not('source', 'in', `(${NOT_ADAPTABLE_SOURCES.join(',')})`)
       .gte('article_v_level', SOURCE_MIN_LEVEL)
-      .eq('display_only', false),
+      .eq('display_only', false)
+    // `register` 가 비어 있는 글은 막지 않는다 — 판정된 적이 없는 것과 부적합한 것은 다르다.
+    if (excludeRegisters.length) x = x.or(`register.is.null,register.not.in.(${excludeRegisters.join(',')})`)
+    return x
+  },
 )
 
 const usable = sources.filter(
@@ -162,6 +211,9 @@ for (const [n, chunk] of chunks.entries()) {
 console.log(`\n레벨 적응 — ${spec.label} (V${spec.vRange.min}~${spec.vRange.max} · ${spec.cefrj.join('/')})`)
 console.log(`  규격  ${spec.words.min}~${spec.words.max}어 · 평균 문장 ${spec.avgSentenceWords}어`)
 console.log(`  각색 가능 라이선스 원본  ${sources.length}편 (V${SOURCE_MIN_LEVEL} 이상 · ${ADAPTABLE.join('/')})`)
+if (excludeRegisters.length) {
+  console.log(`  소재로 안 맞는 성격 제외  ${excludeRegisters.join('/')} — 이 밴드의 지시문이 제도·쟁점을 금한다`)
+}
 console.log(`  그중 본문이 충분한 것  ${usable.length}편 · 이미 각색된 원본 ${already.size}편은 뺐다`)
 console.log(`  피드 ${feeds.length}종에서 돌아가며 뽑음 → **${picked.length}편** · 청크 ${chunks.length}개 (${SIZE}편씩)\n`)
 console.log(`  ${DIR}/chunk-NN.json`)

@@ -109,6 +109,12 @@ for (const r of rows) {
   const title = (r.title ?? '').trim()
   if (!title || !text) { skip('제목 또는 본문이 비었다'); continue }
 
+  // 우리가 쓴 글은 각색 대상이 아니다 — `chk_original_needs_batch` 가 `source='original'` 에
+  // compose 배치 정보를 요구하는데, 원본의 spec 은 각색본을 설명하지 않는다.
+  // export 가 이미 걸러 내지만 **낡은 청크가 남아 있을 수 있어** 여기서도 막는다.
+  // 한 행 때문에 배치 전체가 터지는 것보다 세어서 건너뛰는 편이 낫다.
+  if (r.source_feed === 'original') { skip("우리가 쓴 글(source='original')은 각색하지 않는다"); continue }
+
   // 같은 원본 · 같은 레벨의 판이 이미 있으면 건너뛴다 — 재실행 안전.
   const sibs = shelfBySource.get(r.adapted_from_id) ?? []
   if (siblings.some((s) => s.adapted_from_id === r.adapted_from_id && s.article_v_level === r.target_v_level)) {
