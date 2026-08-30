@@ -257,12 +257,25 @@ function ArticlePreview({
         </p>
       </header>
 
+      {/*
+        ⚠️ `break-words` 는 장식이 아니라 **레이아웃 방어**다.
+           본문은 우리가 쓴 글이 아니라 외부 소스(VOA·NASA·위키…)에서 온 것이라,
+           줄바꿈할 곳이 없는 긴 토큰이 섞여 들어온다. 실측 2026-08-30:
+           발행 160편 중 **49편(31%)** 에 40자 이상 붙어 있는 토큰이 있고,
+           28편은 VOA 대본의 밑줄 구분선(`______…` 54자)이다.
+           그 한 줄이 폰(390px)에서 페이지 전체를 **161px 밀어냈다**
+           — 문단 하나가 넘치는 게 아니라 화면이 통째로 가로로 흔들린다.
+           `33-public-surface` 가 그걸 잡았고, 그 화면은 **로그인 없이 본문까지 열리는**
+           가장 값나가는 검색 착지점이다(anyone_read_published_safe_articles).
+           소스를 손보는 길도 있지만 그건 편마다 다르고 계속 들어온다 —
+           **읽는 쪽에서 한 번** 막는 것이 맞다.
+      */}
       <article className="flex flex-col gap-4">
         {paragraphs.length > 0 ? (
           paragraphs.map((p, i) => (
             <p
               key={i}
-              className="m-0 font-body text-[15px] leading-[1.85] text-[var(--t1)] md:text-[16px]"
+              className="m-0 break-words font-body text-[15px] leading-[1.85] text-[var(--t1)] md:text-[16px]"
             >
               {p}
             </p>

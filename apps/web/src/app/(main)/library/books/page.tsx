@@ -26,7 +26,18 @@ export const metadata = {
 
 export const revalidate = 60;
 
-export default async function LibraryBooksPage() {
+export default async function LibraryBooksPage({
+  searchParams,
+}: {
+  searchParams?: { show?: string };
+}) {
+  // `?show=all` — 전체 탐색 그리드를 처음부터 전량 그린다.
+  //   기본 화면은 60장만 그려 초기 HTML 을 절반으로 줄였는데(BooksExplorer 의 GRID_PAGE),
+  //   그러면 나머지 도서가 **링크로 닿지 않는 고아**가 된다. 그래서 전량으로 가는
+  //   주소를 하나 판다 — 버튼(JS)과 달리 링크는 크롤러도 따라온다.
+  //   이 화면은 auth.getUser() 로 이미 요청마다 렌더되므로 searchParams 를 읽어도
+  //   새로 잃는 캐시가 없다.
+  const showAll = searchParams?.show === "all";
   const client = (await createClient()) as unknown as SupabaseClient;
 
   // 학습자 V레벨 — i+1 적합도 판정용 (미진단 시 0 → 배지 미표시)
@@ -358,7 +369,7 @@ export default async function LibraryBooksPage() {
 
         {comicHeroes.length > 0 && <ComicHeroCard items={comicHeroes} />}
 
-        <BooksExplorer books={books} userVLevel={userVLevel} userMastery={userMastery} />
+        <BooksExplorer books={books} userVLevel={userVLevel} userMastery={userMastery} showAll={showAll} />
       </div>
     </Screen>
   );

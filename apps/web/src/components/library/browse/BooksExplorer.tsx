@@ -57,10 +57,44 @@ import { BookQuickPicks } from './BookQuickPicks'
 const SPOTLIGHT_N = 10
 const RAIL_N = 12
 
+/**
+ * 전체 탐색 그리드를 **한 번에 몇 장까지 그릴 것인가.**
+ *
+ * ── 왜 상한이 필요한가 (실측 2026-08-30) ────────────────────────────────
+ * 상한이 없을 때 이 화면의 HTML 은 **1.79MB** 였고, 그중 79%(1.42MB)가 발행 316권을
+ * 전부 서버 렌더한 카드 DOM 이었다(RSC 데이터는 367KB 로 오히려 작다 — 무게는 데이터가
+ * 아니라 **그린 결과**다). 카드 한 장이 약 4.5KB 이므로 이 비용은 카탈로그와 함께
+ * **선형으로** 자란다. 발행 대기가 303권 더 있으니 그대로 두면 곧 3MB 를 넘긴다.
+ *
+ * 학습자 쪽 근거가 같은 방향을 가리킨다 — 316장을 한 화면에 쏟는 것은 고르기를 돕지
+ * 않는다(Cognitive Load · Progressive Disclosure). 그래서 **자르는 대신 접는다**:
+ * 처음 60장을 그리고, 더 보고 싶은 사람만 60장씩 편다.
+ *
+ * ⚠️ 추천 레일·스포트라이트는 건드리지 않는다. 그쪽은 이미 상한이 있고(SPOTLIGHT_N·RAIL_N),
+ *    "무엇을 먼저 볼지" 를 파는 자리라 접으면 화면의 목적이 사라진다.
+ *
+ * ⚠️ **접는 것만으로는 안 된다.** 처음 이 상한을 넣었을 때 `33-public-surface` 의
+ *    "sitemap 이 알린 주소가 링크로 닿는다" 가 깨졌다 — 316권 중 256권이 화면 어디에서도
+ *    링크로 닿지 않는 고아가 됐다. sitemap 에 있는 것과 사이트 안에서 닿는 것은 다른 문제고,
+ *    이 저장소는 이미 "검색에 알렸지만 아무도 안 본 화면" 의 값을 치렀다.
+ *    그래서 **`?show=all` 이라는 진짜 주소**를 함께 판다 — 버튼(JS·점진)과 별개로
+ *    링크(무JS·크롤러) 한 줄이 전량으로 가는 길을 연다. 눌러서 볼 수 있는 것만 알린다.
+ *
+ * 60인 이유: 가장 넓은 뷰(xl, 6열)에서 10줄이다 — 한 번 더 누르기 전에 스크롤로
+ * 충분히 훑을 분량이면서, 초기 HTML 을 약 0.5MB 안에 둔다.
+ */
+const GRID_PAGE = 60
+
+/** `?show=all` — 전량을 서버에서 그리는 주소. 링크로 닿는 길이자 무JS 폴백. */
+export const SHOW_ALL_PARAM = 'show'
+export const SHOW_ALL_VALUE = 'all'
+
 interface Props {
   books: PublishedBook[]
   userVLevel: number
   userMastery: UserMastery
+  /** `?show=all` 로 들어왔는가 — 그러면 전체 탐색 그리드를 처음부터 전량 그린다. */
+  showAll?: boolean
 }
 
 function nullsLast(a: number | null | undefined, b: number | null | undefined, dir: 1 | -1) {
@@ -72,7 +106,7 @@ function nullsLast(a: number | null | undefined, b: number | null | undefined, d
   return (av - bv) * dir
 }
 
-export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
+export function BooksExplorer({ books, userVLevel, userMastery, showAll = false }: Props) {
   const router = useRouter()
   const diagnosed = userVLevel >= 1
   const ctx = useMemo(() => ({ userVLevel, userMastery }), [userVLevel, userMastery])
@@ -81,6 +115,22 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
   const [sort, setSort] = useState<BookSort>('recommended')
   const [detail, setDetail] = useState<DetailVariant | null>(null)
   const [unenrollPending, startUnenroll] = useTransition()
+  /** 전체 탐색 그리드에 지금 그려 둔 장수 (GRID_PAGE 주석 참조). */
+  const initialShown = showAll ? books.length : GRID_PAGE
+  const [shown, setShown] = useState(initialShown)
+
+  // 조건이 바뀌면 펼친 만큼을 되돌린다 — 안 그러면 200장을 펼쳐 둔 채 필터를 바꿨을 때
+  // 새 결과 200장이 그대로 쏟아진다(펼침은 **그 목록에 대한** 선택이지 화면의 설정이 아니다).
+  //
+  // 세터를 감싸지 않고 **렌더 중 조정**을 쓴다(React 공식 패턴). 지금 조건을 바꾸는 곳이
+  // 다섯 군데(빠른선택·필터·정렬·초기화·빈결과 초기화)라, 세터마다 리셋을 심으면
+  // 하나를 빠뜨리는 순간 조용히 어긋난다 — 그 버그는 눈에 잘 띄지도 않는다.
+  const conditionKey = `${sort}|${JSON.stringify(filters)}`
+  const [lastConditionKey, setLastConditionKey] = useState(conditionKey)
+  if (conditionKey !== lastConditionKey) {
+    setLastConditionKey(conditionKey)
+    setShown(initialShown)
+  }
 
   // 점수 + 사유 (전체 도서 1회) — rail/그리드/추천정렬 공용.
   const reasonsByBook = useMemo(() => {
@@ -376,21 +426,49 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
             </button>
           </div>
         ) : (
-          <div
-            role="list"
-            className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
-          >
-            {visible.map((book) => (
-              <div role="listitem" key={book.id}>
-                <BookGridCard
-                  book={book}
-                  userVLevel={userVLevel}
-                  reasons={reasonsByBook.get(book.id)}
-                  onOpen={openDetail}
-                />
+          <>
+            <div
+              role="list"
+              className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+            >
+              {visible.slice(0, shown).map((book) => (
+                <div role="listitem" key={book.id}>
+                  <BookGridCard
+                    book={book}
+                    userVLevel={userVLevel}
+                    reasons={reasonsByBook.get(book.id)}
+                    onOpen={openDetail}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* 접힌 나머지 — 몇 권이 더 있는지 **숫자로** 말한다.
+                "더 보기" 만 있으면 얼마나 남았는지 몰라 계속 누를지 판단할 수 없다. */}
+            {visible.length > shown && (
+              <div className="flex flex-col items-center gap-2 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShown((n) => n + GRID_PAGE)}
+                  className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                >
+                  {Math.min(GRID_PAGE, visible.length - shown)}권 더 보기
+                </button>
+                <p aria-live="polite" className="font-mono text-[11px] text-[var(--t2)]">
+                  {shown} / {visible.length}
+                </p>
+                {/* 전량으로 가는 **진짜 주소**. 버튼은 JS 가 있어야 듣지만 이건 링크라
+                    크롤러도 따라온다 — sitemap 이 알린 도서가 고아가 되지 않게 하는 길이다
+                    (위 GRID_PAGE 주석의 33-public-surface 계약). */}
+                <Link
+                  href={`/library/books?${SHOW_ALL_PARAM}=${SHOW_ALL_VALUE}`}
+                  className="min-h-11 items-center font-display text-[12px] font-[600] text-[var(--t2)] underline decoration-[var(--bd)] underline-offset-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] inline-flex"
+                >
+                  전체 {books.length}권 한 번에 보기
+                </Link>
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </section>
 
