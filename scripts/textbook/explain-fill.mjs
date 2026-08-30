@@ -22,6 +22,10 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+// **한 번에 하나만 돈다.** 겹치면 둘 다 statement timeout 으로 죽는다 — batch-lock.mjs 참조.
+import { acquire } from './batch-lock.mjs'
+
+acquire('textbook-batch')
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
