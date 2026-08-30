@@ -11,18 +11,18 @@ import type { Database } from '@vocaflow/types'
 
 import type { ModuleId } from '@/lib/srs/types'
 
+import { pagedSelect } from '@/lib/supabase/paged-select'
+
 import type { VocabRow } from './browse-queries'
 import { matchesStateFilter, type StateFilterKey } from './state-filter'
 
 /** 한 학습 세션에서 제시할 단어 상한 (Cognitive Load — 한 세션 과부하 방지). */
 export const STUDY_SESSION_CAP = 50
 
-/**
- * 상태 필터가 걸렸을 때 훑는 창 — 상태는 R(t) 동적 계산이라 **SQL 로 못 거른다**
- * (`memory_state` 컬럼은 금지). 그래서 넓게 떠서 메모리에서 거른 뒤 cap 을 적용한다.
- * browse 와 같은 상한을 쓴다(대부분 사용자 ≤ 2,000 단어).
- */
-const STATE_SCAN_LIMIT = 1500
+// ⚠️ 여기 있던 `STATE_SCAN_LIMIT = 1500` 을 지웠다 — **그 창은 실제로 1,000이었다.**
+//    상태는 R(t) 동적 계산이라 SQL 로 못 거르고(`memory_state` 컬럼은 금지) 넓게 떠서
+//    메모리에서 걸러야 하는데, PostgREST 가 1,000행에서 끊으므로 "넓게" 가 성립하지 않았다.
+//    지금은 `pagedSelect` 로 끝까지 받는다.
 
 /**
  * 학습 세션 단어 — due 우선.
@@ -41,18 +41,30 @@ export async function fetchStudyVocabularies(
   stateKey: StateFilterKey | null = null,
   now: Date = new Date(),
 ): Promise<VocabRow[]> {
-  const { data, error } = await supabase
-    .from('vocabularies')
-    .select(
-      'id, word, meaning, example_sentence, pronunciation, pos, cefr_level, difficulty, stability, last_review_at, next_review_at, module_history, review_count, text_id, shared_set_id, created_at',
-    )
-    .eq('user_id', userId)
-    .order('next_review_at', { ascending: true, nullsFirst: true })
-    .order('created_at', { ascending: true })
-    .limit(stateKey ? STATE_SCAN_LIMIT : STUDY_SESSION_CAP)
-  if (error) throw error
-  const rows = (data ?? []) as VocabRow[]
-  if (!stateKey) return rows
+  const select = () =>
+    supabase
+      .from('vocabularies')
+      .select(
+        'id, word, meaning, example_sentence, pronunciation, pos, cefr_level, difficulty, stability, last_review_at, next_review_at, module_history, review_count, text_id, shared_set_id, created_at',
+      )
+      .eq('user_id', userId)
+      .order('next_review_at', { ascending: true, nullsFirst: true })
+      .order('created_at', { ascending: true })
+
+  // 상태 필터가 없으면 앞에서 cap 만큼만 있으면 된다 — 의도적으로 자른다.
+  if (!stateKey) {
+    const { data, error } = await select().limit(STUDY_SESSION_CAP)
+    if (error) throw error
+    return (data ?? []) as VocabRow[]
+  }
+
+  // ⚠️ 상태로 거를 때는 전량이 필요하다. `.limit(1500)` 은 **1,000행에서 잘렸다** —
+  //    PostgREST 가 그 위를 안 준다(실측 2026-08-30). 잘리면 "새 단어 N개로 학습 시작" 이
+  //    N 보다 적은 세션을 열고, 그 차이는 아무 데도 안 나타난다.
+  const rows = await pagedSelect<VocabRow>(
+    (from, to) => select().range(from, to),
+    'wordvault study vocabularies',
+  )
   return filterRowsByState(rows, stateKey, now).slice(0, STUDY_SESSION_CAP)
 }
 

@@ -13,6 +13,7 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
+import { pagedSelect } from '@/lib/supabase/paged-select'
 import type { ModuleId } from '@/lib/srs/types'
 
 type DB = Database
@@ -47,16 +48,21 @@ export async function fetchUserVocabularies(
   supabase: SupabaseClient<DB>,
   userId: string,
 ): Promise<VocabRow[]> {
-  const { data, error } = await supabase
-    .from('vocabularies')
-    .select(
-      'id, word, meaning, example_sentence, pronunciation, pos, cefr_level, difficulty, stability, last_review_at, next_review_at, module_history, review_count, text_id, shared_set_id, created_at',
-    )
-    .eq('user_id', userId)
-    .order('created_at', { ascending: false })
-    .limit(1500)
-  if (error) throw error
-  return (data ?? []) as VocabRow[]
+  // ⚠️ `.limit(1500)` 은 **1,000행에서 잘렸다** — PostgREST 가 그 위를 안 준다
+  //    (실측 2026-08-30). 둘러보기 목록·칩 개수·듣기 큐가 전부 이 배열에서 나오므로,
+  //    1,000을 넘는 학습자는 자기 단어의 일부를 아예 볼 수 없었다(이미 1,945행인 계정이 있다).
+  return pagedSelect<VocabRow>(
+    (from, to) =>
+      supabase
+        .from('vocabularies')
+        .select(
+          'id, word, meaning, example_sentence, pronunciation, pos, cefr_level, difficulty, stability, last_review_at, next_review_at, module_history, review_count, text_id, shared_set_id, created_at',
+        )
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+        .range(from, to),
+    'wordvault browse vocabularies',
+  )
 }
 
 /** 스크립트별 chip — 사용자가 보유한 단어가 1+인 텍스트만. */

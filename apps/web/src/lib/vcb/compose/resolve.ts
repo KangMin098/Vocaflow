@@ -731,7 +731,11 @@ async function resolveLearnerWrong(
     .eq('user_id', userId)
     .eq('is_correct', false)
     .order('attempted_at', { ascending: false })
-    .limit(4000)
+    // ⚠️ `4000` 이라고 적혀 있었지만 **1,000행만 온다** — PostgREST 상한이다(실측 2026-08-30).
+    //    여기는 "최근 틀린 것부터" 정렬된 후보 풀이라 자르는 것 자체는 의도다.
+    //    다만 적힌 수가 오지 않으면 다음 사람이 풀 크기를 잘못 안다 — 실제 받는 수로 적는다.
+    //    더 큰 풀이 필요하면 `pagedSelect` 로 바꿔야 하고, 그건 동작 변경이다.
+    .limit(1000)
   if (error) throw new Error(`learning_records failed: ${error.message}`)
 
   type Row = { vocabulary_id: string; metadata: { chosen?: string } | null; vocabularies: { word: string } | { word: string }[] }
@@ -824,7 +828,8 @@ async function resolveLearner(
     .eq('user_id', spec.user_id)
     .gt('review_count', 0)
     .order('next_review_at', { ascending: true })
-    .limit(2000)
+    // ⚠️ `2000` 이라고 적혀 있었지만 **1,000행만 온다**(위와 같은 이유).
+    .limit(1000)
   if (error) throw new Error(`vocabularies failed: ${error.message}`)
 
   const words = ((data ?? []) as unknown as { word: string }[]).map((r) => r.word)

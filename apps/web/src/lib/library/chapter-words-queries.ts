@@ -6,6 +6,8 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js';
 
+import { pagedSelect } from '@/lib/supabase/paged-select';
+
 // ─────────────────────────────────────────────
 // 사용자 레벨 맞춤 추출 (Krashen i+1) — 라이브러리 도서 chapter
 // 챕터 lemma → extract_vocabulary_for_user RPC (목표 = 사용자 V-Level+1 gaussian)
@@ -54,16 +56,24 @@ export async function getChapterWordsForUser(
   strategy: 'auto' | 'user' | 'text' = 'auto',
 ): Promise<LeveledChapterResult> {
   // 1. chapter lemma 수집 (바인딩된 것만)
-  const { data: lbvData, error: lbvError } = await client
-    .from('library_book_vocabularies')
-    .select('word, lemma')
-    .eq('library_book_id', libraryBookId)
-    .eq('chapter_idx', chapterIdx)
-    .not('lemma', 'is', null)
-    .limit(5000);
-
-  if (lbvError) {
-    console.error('[getChapterWordsForUser] lbv fetch failed:', lbvError.message);
+  // ⚠️ 여기 있던 `.limit(5000)` 은 **1,000행에서 잘렸다** — PostgREST 가 그 위를 안 준다
+  //    (실측 2026-08-30). 빠진 lemma 는 챕터 단어장에서 그대로 빠지므로, 큰 챕터일수록
+  //    학습자가 받는 단어가 조용히 줄었다. 오류가 아니라 **적게 준 것**이라 아무도 몰랐다.
+  let lbvData: Array<{ word: string; lemma: string | null }> = [];
+  try {
+    lbvData = await pagedSelect<{ word: string; lemma: string | null }>(
+      (lo, hi) =>
+        client
+          .from('library_book_vocabularies')
+          .select('word, lemma')
+          .eq('library_book_id', libraryBookId)
+          .eq('chapter_idx', chapterIdx)
+          .not('lemma', 'is', null)
+          .range(lo, hi),
+      'library_book_vocabularies chapter lemmas',
+    );
+  } catch (e) {
+    console.error('[getChapterWordsForUser] lbv fetch failed:', e instanceof Error ? e.message : e);
     return { words: [], meta: null };
   }
 

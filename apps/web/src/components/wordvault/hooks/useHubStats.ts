@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react'
 import type { VaultBook } from '@/components/wordvault/hub/BookShelfSection'
 import { getMemoryState, type MemoryState, type ModuleId } from '@/lib/srs'
 import { createClient } from '@/lib/supabase/client'
+import { pagedSelect } from '@/lib/supabase/paged-select'
 
 export interface HubStats {
   total: number
@@ -40,6 +41,20 @@ interface PerBucket {
   risk: number
   new: number
 }
+/** 허브 통계가 쓰는 `vocabularies` 열만. 페이지네이션 헬퍼가 제네릭이라 여기서 형을 준다. */
+interface VocabStatRow {
+  id: string
+  difficulty: number | null
+  stability: number | null
+  last_review_at: string | null
+  next_review_at: string | null
+  module_history: string[] | null
+  review_count: number | null
+  text_id: string | null
+  shared_set_id: string | null
+  created_at: string | null
+}
+
 const emptyBucket = (): PerBucket => ({ stable: 0, shaky: 0, risk: 0, new: 0 })
 
 export function useHubStats(): HubStatsState {
@@ -58,12 +73,28 @@ export function useHubStats(): HubStatsState {
         return
       }
 
-      const { data: rows, error } = await supabase
-        .from('vocabularies')
-        .select(
-          'id, difficulty, stability, last_review_at, next_review_at, module_history, review_count, text_id, shared_set_id, created_at',
+      // ⚠️ 상한을 안 적으면 되는 것이 아니다 — PostgREST 는 **1,000행에서 끊는다**
+      //    (실측 2026-08-30). 여기 수치는 허브 히어로의 총계와 4버킷이라, 잘리면
+      //    학습자가 자기 자산을 적게 본다. 이미 1,945행인 계정이 있다.
+      //    같은 분포를 서버에서 따로 세는 `growth-stats`(상태 띠)와 **행 집합이 달라지면**
+      //    한 화면 안에서 두 수가 어긋난다 — 이 저장소가 이미 겪은 사고다(리본 135 vs Vault 20).
+      let rows: VocabStatRow[] = []
+      let error: { message: string } | null = null
+      try {
+        rows = await pagedSelect<VocabStatRow>(
+          (lo, hi) =>
+            supabase
+              .from('vocabularies')
+              .select(
+                'id, difficulty, stability, last_review_at, next_review_at, module_history, review_count, text_id, shared_set_id, created_at',
+              )
+              .eq('user_id', user.id)
+              .range(lo, hi),
+          'wordvault hub vocabularies',
         )
-        .eq('user_id', user.id)
+      } catch (e) {
+        error = { message: e instanceof Error ? e.message : String(e) }
+      }
 
       if (cancelled) return
       if (error) {

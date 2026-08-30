@@ -13,6 +13,7 @@ import { cache } from 'react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { getMemoryState } from '@/lib/srs/state'
+import { pagedSelect } from '@/lib/supabase/paged-select'
 import { createClient } from '@/lib/supabase/server'
 
 // 연속일 규칙은 순수 모듈이 소유한다 — 클라이언트·테스트가 서버 코드를 끌어오지 않도록.
@@ -60,12 +61,20 @@ export const fetchGrowthStats = cache(async (): Promise<GrowthStats | null> => {
   const since = kstDateIso(-27)
 
   // `user_stats` 는 더 이상 읽지 않는다 — streak 은 daily_activity 실적에서 센다(computeStreak).
-  const [{ data: vocabRows }, { data: activityRows }] = await Promise.all([
-    lc
-      .from('vocabularies')
-      .select('stability, last_review_at')
-      .eq('user_id', user.id)
-      .limit(10000),
+  const [vocabRows, { data: activityRows }] = await Promise.all([
+    // ⚠️ 여기 있던 `.limit(10000)` 은 **효과가 없었다** — PostgREST 는 1,000행에서 끊는다
+    //    (실측 2026-08-30: 10,000 을 요청해도 1,000행이 온다. 오류가 아니다).
+    //    이 분포는 **상태 띠의 "다시 볼"·"새 단어"** 가 되어 모든 화면 최상단에 뜨므로,
+    //    잘리면 학습자는 어디를 봐도 적게 세어진 수를 본다. 이미 1,945행인 계정이 있다.
+    pagedSelect<{ stability: number | null; last_review_at: string | null }>(
+      (from, to) =>
+        lc
+          .from('vocabularies')
+          .select('stability, last_review_at')
+          .eq('user_id', user.id)
+          .range(from, to),
+      'growth-stats vocabularies',
+    ),
     lc
       .from('daily_activity')
       .select('date, total_minutes, total_words')

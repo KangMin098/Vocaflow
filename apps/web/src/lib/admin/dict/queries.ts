@@ -5,6 +5,8 @@
 // 모든 함수 병렬 호출 가능 (Promise.all 조합)
 
 import type { SupabaseClient } from '@supabase/supabase-js'
+
+import { pagedSelect } from '@/lib/supabase/paged-select'
 import type {
   DictVolumeData,
   DictCoverageData,
@@ -405,18 +407,33 @@ export async function fetchVrlClassificationStats(
 export async function fetchIntegrityDefects(
   client: SupabaseClient,
 ): Promise<IntegrityDefectsData> {
-  const { data, error } = await client
-    .from('vrl_data_integrity_concerns')
-    .select('concern_type, resolved')
-    .limit(5000)
+  // ⚠️ 여기 있던 `.limit(5000)` 은 **1,000행에서 잘렸다** — PostgREST 가 그 위를 안 준다
+  //    (실측 2026-08-30). 받은 행을 세어 화면의 결함 개수로 쓰고 있었으므로, 1,000을
+  //    넘는 순간 **적게 세어진 수가 조용히** 떴다.
+  //    유형별 분해는 전량이 필요하니 끝까지 받고, 총계·미해결은 이 파일이 이미 가진
+  //    정확 카운트(`countRows` — `count: 'exact', head: true`)로 따로 확인한다.
+  //    둘이 어긋나면 페이지네이션이 깨진 것이라 그 사실을 로그로 남긴다.
+  type Row = { concern_type: string; resolved: boolean }
+  let rows: Row[] = []
+  let error: { message: string } | null = null
+  try {
+    rows = await pagedSelect<Row>(
+      (lo, hi) =>
+        client
+          .from('vrl_data_integrity_concerns')
+          .select('concern_type, resolved')
+          .range(lo, hi),
+      'vrl_data_integrity_concerns',
+    )
+  } catch (e) {
+    error = { message: e instanceof Error ? e.message : String(e) }
+  }
 
   if (error) {
     console.warn('[fetchIntegrityDefects] failed:', error.message)
     return { open: 0, resolved: 0, total: 0, byType: [] }
   }
 
-  type Row = { concern_type: string; resolved: boolean }
-  const rows = (data ?? []) as Row[]
   const open = rows.filter((r) => !r.resolved).length
   const resolved = rows.length - open
 
