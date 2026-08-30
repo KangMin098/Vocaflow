@@ -34,12 +34,27 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { fetchAllIn } from './volume-pool.mjs'
+import { fetchAllIn, fetchAllPaged } from './volume-pool.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
 }
+const arg = (n) => {
+  const i = process.argv.indexOf(`--${n}`)
+  return i >= 0 ? process.argv[i + 1] : null
+}
+/**
+ * 한 밴드만 처리한다 — **드레인 한 바퀴를 돌리려고 몇 시간을 기다리지 않기 위해서다.**
+ *
+ * 이 스크립트는 글 5,900편과 문항 13만 건을 매번 다시 잰다(규칙이 엄해지면 먼저 넣은 것이
+ * 낡기 때문이다 — 위 머리말 참조). 그 전수 검사는 옳지만, 새로 쓴 글 40편의 문항을 보려고
+ * 그것을 다 기다릴 이유는 없다. 실측 2026-08-30: 전수 실행 셋이 CPU 200분씩 물고 동시에
+ * 돌고 있었고, 그중 둘은 세 시간 넘게 안 끝났다.
+ *
+ * ⚠️ **밴드를 좁히면 "낡은 문항" 집계도 그 밴드만이다.** 전체 정리는 인자 없이 돌린다.
+ */
+const BAND = arg('band') == null ? null : Number(arg('band'))
 const commit = process.argv.includes('--commit')
 // 지우기는 별도 플래그다 — 되돌릴 수 없는 동작을 적재와 같은 스위치에 묶지 않는다.
 const prune = process.argv.includes('--prune')
@@ -74,19 +89,25 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 //   `range()` 로 실제로 다 받는다.
 const arts = []
 for (let from = 0; ; from += 1000) {
-  const { data, error } = await db
+  let q = db
     .from('library_articles')
     .select('id, article_v_level, display_only, content')
     .in('status', ['ready', 'published'])
     .not('content', 'is', null)
-    .order('id')
-    .range(from, from + 999)
+  // --band 을 주면 그 밴드만 본다. 전수는 몇 시간이 걸린다(위 BAND 주석 참조).
+  if (BAND != null) q = q.eq('article_v_level', BAND)
+  const { data, error } = await q.order('id').range(from, from + 999)
   if (error) throw new Error('기사 조회 실패: ' + error.message)
   if (!data?.length) break
   arts.push(...data)
   if (data.length < 1000) break
 }
 const usable = arts.filter((a) => !a.display_only)
+
+// ⚠️ 아래 낡음 판정이 이 목록으로 문항을 좁힌다. 위 `existing` 조회가 `fetchAllPaged` 로
+//   바뀌면서 이 줄이 함께 지워졌는데 **두 번째 사용처가 남아 있어** 실행이 매번
+//   `ReferenceError: ids is not defined` 로 죽었다(2026-08-30). 지우려면 두 곳을 함께 본다.
+const ids = usable.map((a) => a.id)
 
 const paras = (c) =>
   String(c)
@@ -160,17 +181,21 @@ const entryOf = (w) => {
 //   그래서 INSERT 가 `csat_dcp_items_kind_ref_id_type_paragraph_idx_key` 중복으로 죽었다.
 //   (같은 함정에 이 저장소가 세 번째다. 그래서 회귀가 이제 이 폴더 전체를 본다.)
 //   `.range()` 로 실제로 넘겨 받는다 — 정렬을 고정해야 페이지가 겹치거나 새지 않는다.
+// ⚠️ **`.in()` 으로 원글을 끊어 묻지 않는다.** `fetchAllIn` 은 20편씩 나눠 묻는데,
+//   원글이 1.2만 편이면 그것만으로 **600회 넘는 왕복**이다 — 원글이 늘수록 느려진다
+//   (실측 2026-08-30: 원글이 하루 만에 6천 → 1.2만 편이 되자 이 조회에서 한 시간을 넘겨도
+//    끝나지 않았고, 출력이 끝에 한 번뿐이라 멈춘 것처럼 보였다).
+//
+//   기사별로 물을 이유가 없다 — 필요한 것은 `kind='article'` 인 키 전부다.
+//   1,000행씩 곧장 넘겨 받으면 13.6만 문항이 **137회**로 끝난다.
+//   정렬을 고정해야 페이지가 겹치거나 새지 않는다(이 저장소가 세 번 밟은 함정).
 const existing = new Set()
-const ids = usable.map((a) => a.id)
-for (const r of await fetchAllIn(
-  db,
-  'csat_dcp_items',
-  'ref_id, type, paragraph_idx',
-  'ref_id',
-  ids,
-  ['ref_id', 'type', 'paragraph_idx'],
-  (q) => q.eq('kind', 'article'),
-)) {
+for (const r of await fetchAllPaged(db, (q) =>
+  q
+    .from('csat_dcp_items')
+    .select('ref_id, type, paragraph_idx')
+    .eq('kind', 'article')
+    .order('id'))) {
   existing.add(`${r.ref_id}|${r.type}|${r.paragraph_idx}`)
 }
 
@@ -400,7 +425,11 @@ const byType = {}
 for (const r of rows) byType[r.type] = (byType[r.type] ?? 0) + 1
 
 console.log('─'.repeat(72))
-console.log(`글 ${usable.length}편 (ND 제외)\n`)
+console.log(
+  `글 ${usable.length}편 (ND 제외)` +
+    (BAND == null ? ' · **전 밴드**' : ` · **V${BAND} 만** — 낡음 집계도 이 밴드뿐이다`) +
+    '\n',
+)
 console.log(`  새로 넣을 문항  ${rows.length}`)
 for (const [t, n] of Object.entries(byType)) console.log(`    ${t.padEnd(14)} ${n}`)
 for (const [t, d] of Object.entries(midDrop)) {
@@ -578,10 +607,18 @@ if (prune && stale.length) {
 
 if (!commit) process.exit(0)
 
+// ⚠️ **`insert` 가 아니라 `upsert` 다.** 머리말은 "재실행 안전 — 유일키가 중복을 막는다"
+//   라고 적어 두었는데, 실제로는 자기 스냅샷에 있는 중복만 걸렀다. 스냅샷을 뜬 뒤에
+//   **다른 실행이 같은 행을 넣으면 유일키 충돌로 통째로 죽는다** — 이 워크스페이스는
+//   여러 세션이 붙어 있어서 실제로 이 스크립트가 넷이 동시에 돌고 있었다(2026-08-30 실측).
+//   `ignoreDuplicates` 로 이미 있는 조합을 건너뛴다. 기존 행은 건드리지 않으므로
+//   학습 기록이 끊기지 않는다(덮어쓰면 id 가 바뀔 수 있다).
 let inserted = 0
 for (let i = 0; i < rows.length; i += 200) {
   const chunk = rows.slice(i, i + 200)
-  const { error: e } = await db.from('csat_dcp_items').insert(chunk)
+  const { error: e } = await db
+    .from('csat_dcp_items')
+    .upsert(chunk, { onConflict: 'kind,ref_id,type,paragraph_idx', ignoreDuplicates: true })
   // 조용히 삼키지 않는다 — 실패를 못 보면 "넣었다" 고 착각한다.
   if (e) throw new Error(`적재 실패 (${i}~${i + chunk.length}): ${e.message}`)
   inserted += chunk.length
