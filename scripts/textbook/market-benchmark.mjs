@@ -109,10 +109,17 @@ const inSpecLen = withExplain.filter((i) => {
 const A2 = { ours: withExplain.length ? inSpecLen / withExplain.length : 0, market: 0.65 }
 
 // ── A3 오답 배제 언급률 ───────────────────────────────────────────
+// ⚠️ **선택지가 있는 문항만 센다.** 단답형(빈칸 낱말 쓰기·어법 고쳐 쓰기)에는
+//   배제할 오답이 없다 — 없는 것을 못 했다고 세면 단답 재고가 늘수록 지수가 떨어진다.
+//   실제로 그랬다: 재고가 17,206 → 136,512 로 늘며 단답이 64%가 되자 A3 가
+//   62.5% → 45.3% 로 떨어졌는데, **선택지 있는 문항만 보면 99.8%** 였다.
+//   시장 기준선 53.6% 도 객관식 해설 위주로 잰 값이라 같은 모집단으로 맞춘다.
 const WRONG_RE = /오답|나머지|적절하지 않|틀린 이유|[①②③④⑤]/
+const hasOptions = (i) => Array.isArray(i.payload?.choices) || Array.isArray(i.payload?.underlines)
+const withOptions = withExplain.filter(hasOptions)
 const A3 = {
-  ours: withExplain.length
-    ? withExplain.filter((i) => WRONG_RE.test(explanationOf(i))).length / withExplain.length
+  ours: withOptions.length
+    ? withOptions.filter((i) => WRONG_RE.test(explanationOf(i))).length / withOptions.length
     : 0,
   market: spec.explanation.wrongOptionMentionRate,
 }
@@ -195,7 +202,7 @@ const A7 = { ours: a7Total ? a7In / a7Total : 0, market: Number(a7Market.toFixed
 const AXES = [
   { id: 'A1', name: '해설 보유율', ...A1, unit: '%', why: '해설이 없으면 혼자 공부할 수 없다 — 시장이 교재를 고르는 첫 기준' },
   { id: 'A2', name: `해설 길이 규격 적합률 (${LO}~${HI}자)`, ...A2, unit: '%', why: '짧으면 근거가 없고 길면 안 읽는다. 시장 p25~p90 구간' },
-  { id: 'A3', name: '오답 배제 언급률', ...A3, unit: '%', why: '왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다' },
+  { id: 'A3', name: '오답 배제 언급률 (선택지 문항)', ...A3, unit: '%', why: '왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다 — 단답형은 배제할 오답이 없어 모집단에서 뺀다' },
   { id: 'A4', name: '원문 인용률', ...A4, unit: '%', why: '지문에서 근거를 끌어와야 검증 가능한 해설이다' },
   { id: 'A5', name: '유형 다양성 (표준 대비)', ...A5, unit: '종', why: '표준 유형을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다' },
   { id: 'A6', name: '지문 어수 규격 적합률', ...A6, unit: '%', why: '학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다' },
@@ -229,6 +236,11 @@ const report = {
     )
       .map(([type, v]) => ({ type, ...v, pct: Number((100 * v.explained / v.items).toFixed(1)) }))
       .sort((a, b) => b.items - a.items),
+    wrongOptionScope: {
+      withOptions: withOptions.length,
+      shortAnswer: withExplain.length - withOptions.length,
+      note: '단답형은 배제할 오답이 없어 A3 모집단에서 뺀다',
+    },
     passageSpecByBucket: a6ByBucket,
     choiceCountByType: a7ByType,
     typesBeyondMarket: beyond.sort(),

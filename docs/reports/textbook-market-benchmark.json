@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T01:42:04.412Z",
+  "generatedAt": "2026-08-30T01:46:14.775Z",
   "specGeneratedAt": "2026-08-29T23:29:12.309Z",
   "corpus": {
     "corpus": "시중 영어 교재 79종 (저장소 밖 store)",
@@ -14,38 +14,38 @@
     {
       "id": "A1",
       "name": "해설 보유율",
-      "ours": 0.6134112751992499,
+      "ours": 0.9995458274730427,
       "market": 1,
       "unit": "%",
       "why": "해설이 없으면 혼자 공부할 수 없다 — 시장이 교재를 고르는 첫 기준",
-      "index": 0.613
+      "index": 1
     },
     {
       "id": "A2",
       "name": "해설 길이 규격 적합률 (75~473자)",
-      "ours": 0.99644128113879,
+      "ours": 0.9978160498351044,
       "market": 0.65,
       "unit": "%",
       "why": "짧으면 근거가 없고 길면 안 읽는다. 시장 p25~p90 구간",
-      "index": 1.533
+      "index": 1.535
     },
     {
       "id": "A3",
-      "name": "오답 배제 언급률",
-      "ours": 0.6314098736535384,
+      "name": "오답 배제 언급률 (선택지 문항)",
+      "ours": 0.9982919350523738,
       "market": 0.536,
       "unit": "%",
-      "why": "왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다",
-      "index": 1.178
+      "why": "왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다 — 단답형은 배제할 오답이 없어 모집단에서 뺀다",
+      "index": 1.862
     },
     {
       "id": "A4",
       "name": "원문 인용률",
-      "ours": 0.9976593661181303,
+      "ours": 0.9977500916086478,
       "market": 0.497,
       "unit": "%",
       "why": "지문에서 근거를 끌어와야 검증 가능한 해설이다",
-      "index": 2.007
+      "index": 2.008
     },
     {
       "id": "A5",
@@ -76,15 +76,15 @@
       "index": 1.161
     }
   ],
-  "overallIndex": 1.268,
+  "overallIndex": 1.452,
   "overallNote": null,
   "detail": {
     "explanationsByType": [
       {
         "type": "blank_word",
         "items": 46927,
-        "explained": 28009,
-        "pct": 59.7
+        "explained": 46927,
+        "pct": 100
       },
       {
         "type": "unit_vocab",
@@ -95,8 +95,8 @@
       {
         "type": "grammar_fix",
         "items": 27398,
-        "explained": 2540,
-        "pct": 9.3
+        "explained": 27398,
+        "pct": 100
       },
       {
         "type": "vocab_choice",
@@ -107,8 +107,8 @@
       {
         "type": "word_order",
         "items": 9393,
-        "explained": 1337,
-        "pct": 14.2
+        "explained": 9393,
+        "pct": 100
       },
       {
         "type": "unit_grammar",
@@ -137,8 +137,8 @@
       {
         "type": "irrelevant",
         "items": 921,
-        "explained": 41,
-        "pct": 4.5
+        "explained": 921,
+        "pct": 100
       },
       {
         "type": "topic",
@@ -231,6 +231,11 @@
         "pct": 100
       }
     ],
+    "wrongOptionScope": {
+      "withOptions": 48593,
+      "shortAnswer": 87857,
+      "note": "단답형은 배제할 오답이 없어 A3 모집단에서 뺀다"
+    },
     "passageSpecByBucket": {
       "고2": {
         "in": 29035,
