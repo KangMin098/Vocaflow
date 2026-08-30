@@ -81,12 +81,28 @@ if (commit) {
 //   `collect-daily` 와 같은 이름의 필터를 둔다(쉼표로 여러 개).
 const onlySources = (arg('source') ?? '').split(',').map((s) => s.trim()).filter(Boolean)
 
+/**
+ * `--fit-only` — **수능 적합 원문만 분석한다.**
+ *
+ * ⚠️ 왜 (실측 2026-08-30): DB 4.2GB 의 내역을 처음 재 봤더니
+ *   library_article_vocabularies 1,565MB(36.6%) 대 library_articles 103MB(2.4%) 였다.
+ *   **원문 본문은 거의 공짜고, 비용은 이 단계가 만드는 어휘 연결 행**이다(편당 ~174KB).
+ *   그런데 지금은 부적합 원문에도 어휘를 뽑는다 — 적합률이 약 55% 이므로 45% 가 낭비다.
+ *
+ *   채점(`scripts/csat/score-articles.mjs`)은 `content` 만 있으면 되고 분석 결과가 필요 없다.
+ *   그래서 **수집 → 채점 → (적합만) 분석** 순서가 성립한다. 이 플래그가 그 순서를 만든다.
+ *
+ *   ⚠️ 채점 전 원문은 `csat_fit` 이 null 이라 여기서 빠진다. 먼저 채점을 돌릴 것.
+ */
+const fitOnly = process.argv.includes('--fit-only')
+
 let q = db
   .from('library_articles')
   .select('id, source, source_id, source_url, title, author, language, license, content, published_at, feed_id')
   .eq('status', 'queued')
   .is('compose_batch_id', null)
 if (onlySources.length) q = q.in('source', onlySources)
+if (fitOnly) q = q.gt('csat_fit->>pass', '0')
 const { data: queued, error } = await q.order('created_at', { ascending: true })
 if (error) throw new Error('큐 조회 실패: ' + error.message)
 
