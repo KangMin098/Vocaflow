@@ -56,7 +56,8 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 // 같은 함수를 부르므로 "드레인이 겨냥한 책" 과 "조판된 책" 이 어긋날 수 없다.
 // 예전에는 양쪽이 각자 풀을 만들었고 셋(밴드 기준·어휘 맵·display_only)이 달라
 // 2문항이 조용히 어긋났다 — 해설을 다 채웠는데도 책은 78/80 으로 나왔다.
-const MARKET_MIX = process.argv.includes('--market-mix')
+// 기본은 **켬**. `--no-market-mix` 로만 끈다 — 왜 기본이 켬인지는 `volume-pool.mjs` 참조.
+const MARKET_MIX = !process.argv.includes('--no-market-mix')
 const { units, stoppedBecause, articles: byId, pool, mix } = await loadVolume(db, {
   band: BAND,
   unitCount: UNITS,

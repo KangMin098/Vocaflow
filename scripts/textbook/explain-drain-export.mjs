@@ -67,12 +67,13 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 //   **작게 어긋나는 드리프트는 티가 안 난다.**
 const rows = []
 if (VOLUME_UNITS) {
-  // 조판(`render-volume.mjs`)이 `--market-mix` 로 만든 책을 겨냥하려면 여기도 같은
-  // 스위치를 켜야 한다. 안 켜면 겨냥한 책과 실린 책이 달라진다 — 위 드리프트 경고 그대로다.
+  // 조판(`render-volume.mjs`)과 **같은 기본값**을 써야 한다 — 어긋나면 겨냥한 책과
+  // 실린 책이 달라진다(위 드리프트 경고 그대로다). 2026-08-30 부터 둘 다 기본 켬이고
+  // `--no-market-mix` 로만 끈다.
   const { pool, itemIds } = await loadVolume(db, {
     band: BAND,
     unitCount: VOLUME_UNITS,
-    marketMix: process.argv.includes('--market-mix'),
+    marketMix: !process.argv.includes('--no-market-mix'),
   })
   rows.push(...pool.filter((p) => itemIds.has(p.id)))
 } else {

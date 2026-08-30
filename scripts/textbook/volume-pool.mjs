@@ -104,7 +104,12 @@ export function loadEnv() {
  * @returns `{ units, stoppedBecause, pool, articles, vocabByRef, itemIds }`
  *   `itemIds` 는 그 권에 **실제로 실릴** 문항 id 집합이다 — 드레인이 겨냥할 대상.
  */
-export async function loadVolume(db, { band, unitCount, marketMix = false }) {
+// ⚠️ `marketMix` 기본값은 **켬**이다 (2026-08-30 변경).
+//    끄고 조판하면 재고에 많은 유형이 그대로 실려 시중 구성과 크게 어긋난다 — 실측:
+//      V5 20단원 · 끔  유형-학년 적합도 **31.3%** (order 40 + insert 40 = 120문항의 67%)
+//      V5 20단원 · 켬  유형-학년 적합도 **67.4%**
+//    시장에 맞는 책을 만드는 것이 옵트인일 이유가 없다. 끄려면 `--no-market-mix`.
+export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   const { composeUnits, rungMix } = await import('@vocaflow/library-pipeline')
 
   // ── 원글 ──────────────────────────────────────────────────────────
