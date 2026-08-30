@@ -110,24 +110,32 @@ for (const type of types) {
   const PAGE = 500
   let cursor = null
   for (;;) {
-    let q = supabase
-      .from('csat_dcp_items')
-      .select('id,type,payload,answer_key')
-      .eq('type', type)
-      .order('id')
-      .limit(PAGE)
-    if (cursor) q = q.gt('id', cursor)
-    // 일시적 실패(5xx·timeout)는 다시 시도한다 — 읽기라 안전하다.
+    // ⚠️ **매 시도마다 질의를 새로 만든다.** PostgREST 빌더는 한 번 await 하면
+    //   결과가 붙박이라, 같은 객체를 다시 await 해도 **새 요청이 나가지 않는다** —
+    //   재시도가 같은 실패를 즉시 되풀이할 뿐이다(실측 2026-08-31: 백오프를 넣었는데도
+    //   네 줄이 한꺼번에 찍혔다. 기다리기만 하고 다시 묻지 않았다는 뜻이다).
+    const build = () => {
+      let q = supabase
+        .from('csat_dcp_items')
+        .select('id,type,payload,answer_key')
+        .eq('type', type)
+        .order('id')
+        .limit(PAGE)
+      if (cursor) q = q.gt('id', cursor)
+      return q
+    }
     let data = null
     let error = null
-    for (let attempt = 0; attempt < 4; attempt += 1) {
-      const res = await q
+    const TRIES = 4
+    for (let attempt = 0; attempt < TRIES; attempt += 1) {
+      const res = await build()
       data = res.data
       error = res.error
       if (!error) break
       const msg = String(error.message ?? '')
       if (!/5\d\d|timeout|schema cache|fetch failed|socket|ECONN|EAI_AGAIN|handshake/i.test(msg)) break
-      console.error(`  ↻ ${type} 재시도 ${attempt + 1}/3 — ${msg.slice(0, 60)}`)
+      if (attempt === TRIES - 1) break
+      console.error(`  ↻ ${type} 재시도 ${attempt + 1}/${TRIES - 1} — ${msg.slice(0, 60)}`)
       await new Promise((r) => setTimeout(r, 1000 * 3 ** attempt))
     }
     if (error) throw new Error(`${type}: ${error.message}`)
