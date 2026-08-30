@@ -47,6 +47,9 @@ type PanelState =
   | { kind: 'loading' }
   | { kind: 'anon' }
   | { kind: 'empty' }
+  // 조회 실패 — 빈 상태와 반드시 구별한다. 빈 상태 문구가 "이미 다 아는 단어들이네요" 라
+  // 실패를 빈 상태로 접으면 학습자가 **깨진 화면에서 칭찬을 받는다.**
+  | { kind: 'error' }
   | { kind: 'delivered'; result: DeliveryResult }
   | { kind: 'legacy'; result: LeveledChapterResult }
 
@@ -94,8 +97,9 @@ export function ChapterLevelWords({
       )
       if (cancelled) return
       setState(legacy.words.length === 0 ? { kind: 'empty' } : { kind: 'legacy', result: legacy })
-    })().catch(() => {
-      if (!cancelled) setState({ kind: 'empty' })
+    })().catch((e) => {
+      console.error('[ChapterLevelWords] 챕터 단어 조회 실패:', e instanceof Error ? e.message : e)
+      if (!cancelled) setState({ kind: 'error' })
     })
     return () => {
       cancelled = true
@@ -127,6 +131,12 @@ export function ChapterLevelWords({
       {state.kind === 'anon' && (
         <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
           로그인하면 내 레벨에 맞춰 이 챕터의 학습 단어를 골라 드려요.
+        </p>
+      )}
+
+      {state.kind === 'error' && (
+        <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
+          지금은 이 챕터의 단어를 불러오지 못했어요. 잠시 후 다시 열어 주세요.
         </p>
       )}
 

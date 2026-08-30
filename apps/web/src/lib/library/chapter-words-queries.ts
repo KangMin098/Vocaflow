@@ -48,6 +48,18 @@ export interface LeveledChapterResult {
  *
  * 기존 getChapterWords(LV 평면 정렬) 와 별개 — 이쪽은 "내 레벨 맞춤".
  */
+/**
+ * 조회 실패 — **빈 결과와 구별되어야 한다.**
+ * 이 패널의 빈 상태 문구는 "이미 다 아는 단어들이네요" 다. 실패를 빈 결과로 돌려주면
+ * 학습자는 조회가 깨진 챕터에서 "다 안다" 는 칭찬을 받는다(2026-08-30 실측).
+ */
+export class ChapterWordsError extends Error {
+  constructor(message: string, readonly cause?: unknown) {
+    super(message);
+    this.name = 'ChapterWordsError';
+  }
+}
+
 export async function getChapterWordsForUser(
   client: SupabaseClient,
   libraryBookId: string,
@@ -73,8 +85,9 @@ export async function getChapterWordsForUser(
       'library_book_vocabularies chapter lemmas',
     );
   } catch (e) {
-    console.error('[getChapterWordsForUser] lbv fetch failed:', e instanceof Error ? e.message : e);
-    return { words: [], meta: null };
+    // 조회 실패를 빈 결과로 바꾸지 않는다 — 화면이 "이미 다 아는 단어들이네요" 라고
+    // **거짓 칭찬**을 하게 된다(실패와 완벽한 이해가 같은 모습이 된다).
+    throw new ChapterWordsError('챕터 단어를 불러오지 못했습니다', e);
   }
 
   const lemmas = Array.from(
@@ -93,8 +106,7 @@ export async function getChapterWordsForUser(
     p_level_strategy: strategy,
   });
   if (error) {
-    console.error('[getChapterWordsForUser] extract RPC failed:', error.message);
-    return { words: [], meta: null };
+    throw new ChapterWordsError(`챕터 단어 추출 실패: ${error.message}`);
   }
 
   const rows = (data ?? []) as Array<{
@@ -220,8 +232,7 @@ export async function deliverChapterVocab(
   });
 
   if (error) {
-    console.error('[deliverChapterVocab] RPC failed:', error.message);
-    return { words: [], meta: null };
+    throw new ChapterWordsError(`챕터 단어 전달 실패: ${error.message}`);
   }
 
   const rows = data ?? [];

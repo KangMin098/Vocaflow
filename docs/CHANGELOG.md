@@ -10,6 +10,23 @@
 
 ## Unreleased (v06.34 → next)
 
+### 챕터 단어 패널 — 조회가 깨지면 학습자가 칭찬을 받고 있었다 (2026-08-30)
+
+빈 상태 문구가 `이 챕터에는 새로 익힐 단어가 없어요. 이미 다 아는 단어들이네요` 인데,
+`deliverChapterVocab` 과 `getChapterWordsForUser` 가 실패를 **빈 결과로 바꿔** 돌려주고
+있었다(세 지점). 즉 조회가 깨진 챕터에서 학습자는 오류 대신 **"다 안다" 는 칭찬**을 받았고,
+다시 시도할 방법도 없었다.
+
+- 세 실패 지점을 `ChapterWordsError` 로 던지게 바꿈 (`lib/library/chapter-words-queries.ts`)
+- `ChapterLevelWords` 에 `error` 상태 신설 — 빈 상태와 다른 문구 + 재시도 안내
+- 회귀 5 (`chapter-words-failure.test.ts`) — 실패 3종은 예외, 정상 빈 결과 2종은 빈 결과
+
+**RPC 1,000행 상한 전수 점검** — 앱의 `.rpc()` 호출 125곳을 훑어 집합 반환 함수의 실측
+최대 행수를 확인했다. `deliver_chapter_vocab` 30(설계 상한) · `select_book_comic_all` 90 ·
+`list_book_support_vocab` 200(LIMIT) · `run_content_quality_gates` 9 · `topic_corpus_overview` 28.
+**남은 상한 위반 0** — 직전에 고친 `list_book_chapter_quiz_catalog` 가 유일한 사례였다.
+
+
 ### T6-1 — WordNet 이 매달아 놓은 남의 낱말을 떼어냈다 (되돌릴 수 있게)
 
 WordNet 은 표제어를 동음이의어별로 나누지 않고 한 문자열 아래 모든 synset 을 매단다.
