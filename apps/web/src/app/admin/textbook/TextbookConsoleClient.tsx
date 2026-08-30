@@ -4,7 +4,7 @@
 'use client'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
-import type { TextbookConsoleStats } from '@/lib/textbook/console-stats'
+import type { TextbookConsoleStats, VolumeRender } from '@/lib/textbook/console-stats'
 
 const TYPE_KO: Record<string, string> = {
   order: '순서',
@@ -28,6 +28,7 @@ const CHI2_CRITICAL = 9.488
 
 export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }) {
   const { evaluation: ev, series, brand } = stats
+  const bottleneck = findBottleneck(brand.renders)
   const superiorPct = ev.total ? Math.round((100 * ev.byStanding.superior) / ev.total) : 0
 
   return (
@@ -189,6 +190,7 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                   <th className="py-2 pr-3 text-right font-[600]">문항</th>
                   <th className="py-2 pr-3 font-[600]">자동 검수</th>
                   <th className="py-2 pr-3 font-[600]">해설 없음</th>
+                  <th className="py-2 pr-3 text-right font-[600]">유형-학년 적합도</th>
                   <th className="py-2 pr-3 text-right font-[600]">겹치지 않는 권</th>
                   <th className="py-2 pr-3 font-[600]">규격</th>
                   <th className="py-2 pr-3 font-[600]">마지막 조판</th>
@@ -229,6 +231,15 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                       </span>
                     </td>
                     <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">
+                      {/* 임계를 두지 않는다 — 시장에서 읽어온 밀도와의 거리일 뿐, 몇 %면
+                          합격이라는 근거가 어디에도 없다. 낮은 순서만 아래에서 짚는다. */}
+                      {r.typeMixFit == null ? (
+                        <span className="text-[var(--t3)]">못 잼</span>
+                      ) : (
+                        `${(r.typeMixFit * 100).toFixed(1)}%`
+                      )}
+                    </td>
+                    <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">
                       {/* null 은 0 이 아니다 — 원글을 안 쓰는 권은 원글 재고가 상한이 아니다. */}
                       {r.distinctVolumes == null ? (
                         <span className="text-[var(--t3)]" title="이 권은 원글을 쓰지 않는다 — 원글 재고가 상한이 아니다">
@@ -257,9 +268,37 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
             </table>
           </div>
         )}
+        {bottleneck ? (
+          <p className="font-body text-[13px] text-[var(--t2)]">
+            <span className="font-[700] text-[var(--t1)]">사다리 병목</span> —{' '}
+            {bottleneck.capacity ? (
+              <>
+                겹치지 않는 권이 가장 적은 계단은{' '}
+                <span className="text-[var(--t1)]">
+                  {bottleneck.capacity.step}단 {bottleneck.capacity.volumeTitle}
+                </span>{' '}
+                <span className="tabular-nums">({bottleneck.capacity.distinctVolumes}권)</span>. 여기서
+                학습자가 같은 책을 다시 받는다 — 문항이 아니라 <strong>원글</strong>이 상한이다.{' '}
+              </>
+            ) : null}
+            {bottleneck.fit ? (
+              <>
+                시중 구성과 가장 먼 계단은{' '}
+                <span className="text-[var(--t1)]">
+                  {bottleneck.fit.step}단 {bottleneck.fit.volumeTitle}
+                </span>{' '}
+                <span className="tabular-nums">
+                  ({(bottleneck.fit.typeMixFit! * 100).toFixed(1)}%)
+                </span>
+                .
+              </>
+            ) : null}
+          </p>
+        ) : null}
         <p className="font-body text-[12px] text-[var(--t3)]">
           권마다 한 행이고 다시 찍으면 덮어쓴다 — 재실행해도 행이 늘지 않는다. 여기 없는 계단은
-          아직 안 찍은 것이지 실패한 것이 아니다.
+          아직 안 찍은 것이지 실패한 것이 아니다. <strong>임계값을 두지 않는다</strong> — 적합도
+          몇 %가 합격이라는 근거가 없어서, 가장 낮은 것만 이름으로 짚는다.
         </p>
       </section>
 
@@ -325,6 +364,30 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
       </section>
     </div>
   )
+}
+
+/**
+ * 사다리의 병목 — **최솟값을 이름으로 짚는다.**
+ *
+ * 표에 숫자가 일곱 줄 있으면 관리자가 매번 눈으로 최소를 찾아야 하고, 그러면 대개 안 찾는다.
+ * 임계값을 두지 않는 이유는 근거가 없어서다 — "적합도 80% 이상 합격" 같은 수치는
+ * 어디에서도 관측되지 않았다. 그래서 **판정하지 않고 순위만 말한다.**
+ *
+ * 못 잰 것(null)은 후보에서 뺀다 — 0 으로 치면 그것이 항상 최소가 되어 병목을 가린다.
+ */
+function findBottleneck(renders: VolumeRender[]): {
+  capacity: VolumeRender | null
+  fit: VolumeRender | null
+} | null {
+  if (renders.length === 0) return null
+  const withCapacity = renders.filter((r) => r.distinctVolumes != null)
+  const withFit = renders.filter((r) => r.typeMixFit != null)
+  const min = <T,>(rows: T[], key: (r: T) => number): T | null =>
+    rows.length === 0 ? null : rows.reduce((a, b) => (key(b) < key(a) ? b : a))
+  const capacity = min(withCapacity, (r) => r.distinctVolumes!)
+  const fit = min(withFit, (r) => r.typeMixFit!)
+  if (!capacity && !fit) return null
+  return { capacity, fit }
 }
 
 /** 색 한 칸. **색상만으로 정보를 전달하지 않는다** — 값을 글자로 함께 적는다. */

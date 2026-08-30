@@ -249,3 +249,34 @@ describe('TBP 도움말 계약', () => {
     }
   })
 })
+
+describe('사다리 병목 — 최솟값을 이름으로 짚는다', () => {
+  it('적합도를 표에 낸다 — 기록해 놓고 안 보여주면 없는 것과 같다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('유형-학년 적합도')
+    expect(html).toContain('91.2%')
+  })
+
+  it('**못 잰 것을 0 으로 치지 않는다** — 0 이면 그것이 항상 최소가 되어 병목을 가린다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('못 잼')
+    // 병목은 적합도를 잰 권(V5 91.2%) 이지, 못 잰 권(V6)이 아니다.
+    expect(html).toContain('사다리 병목')
+    expect(html).toContain('Vocaflow Reading 4')
+  })
+
+  it('임계값으로 판정하지 않는다 — 몇 %가 합격이라는 근거가 없다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('임계값을 두지 않는다')
+    expect(html).not.toContain('적합도 미달')
+  })
+
+  it('조판된 권이 없으면 병목 줄도 없다 — 근거 없이 말하지 않는다', () => {
+    const html = renderToString(
+      <TextbookConsoleClient
+        stats={{ ...base, brand: { ...base.brand, renders: [], staleBands: [] } }}
+      />,
+    )
+    expect(html).not.toContain('사다리 병목')
+  })
+})
