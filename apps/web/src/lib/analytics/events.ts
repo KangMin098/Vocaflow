@@ -69,16 +69,34 @@ export type PublicEvent =
 
 export type PublicEventName = PublicEvent['name']
 
-/** 허용 이벤트 이름 — 런타임 검사용(타입은 빌드 후 사라진다). */
-export const ALLOWED_EVENTS: readonly PublicEventName[] = [
-  'fit_viewed',
-  'fit_analyzed',
-  'fit_shared',
-  'fit_share_opened',
-  'fit_signup_clicked',
-  'landing_viewed',
-  'landing_cta_clicked',
-] as const
+/**
+ * 허용 이벤트 이름 — 런타임 검사용(타입은 빌드 후 사라진다).
+ *
+ * ⚠️ **`Record<PublicEventName, true>` 로 적는다. 배열 리터럴로 적지 않는다.**
+ *    `readonly PublicEventName[]` 는 **빠진 이름을 잡아 주지 않는다** — 배열은 전수를
+ *    요구하지 않기 때문이다. 그래서 유니온에는 있는데 이 목록에는 없는 이벤트가 생기고,
+ *    `track()` 은 목록에 없으면 **조용히 버린다**(운영 빌드에서는 console.error 도 안 나온다).
+ *
+ *    2026-08-30 실측으로 실제로 그 일이 있었다 — `fit_worksheet_printed` 가 유니온에만 있고
+ *    이 목록에 없어 **한 건도 전송되지 않고 있었다.** 하필 이 파일이 스스로 그 이벤트를
+ *    "가입보다 강한 의도 신호" 라고 적어 둔, 교사 채널(CAC 0)의 핵심 신호다.
+ *
+ *    Record 로 적으면 이름을 하나라도 빠뜨렸을 때 **타입 검사가 막는다.**
+ */
+const EVENT_REGISTRY: Record<PublicEventName, true> = {
+  fit_viewed: true,
+  fit_analyzed: true,
+  fit_shared: true,
+  fit_share_opened: true,
+  fit_signup_clicked: true,
+  fit_worksheet_printed: true,
+  landing_viewed: true,
+  landing_cta_clicked: true,
+}
+
+export const ALLOWED_EVENTS: readonly PublicEventName[] = Object.keys(
+  EVENT_REGISTRY,
+) as PublicEventName[]
 
 /** 러닝 워드 수 → 버킷. 원본 숫자를 그대로 보내지 않는 이유는 필요하지 않기 때문이다. */
 export function sizeBucket(totalTokens: number): 'xs' | 's' | 'm' | 'l' | 'xl' {

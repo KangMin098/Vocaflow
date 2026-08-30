@@ -10,7 +10,13 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { ALLOWED_EVENTS, isSafeProps, resolvedDecile, sizeBucket } from '../events'
+import {
+  ALLOWED_EVENTS,
+  isSafeProps,
+  resolvedDecile,
+  sizeBucket,
+  type PublicEventName,
+} from '../events'
 
 describe('isSafeProps — 지문이 새지 않는다', () => {
   it('숫자·불리언·null 은 통과한다', () => {
@@ -68,19 +74,44 @@ describe('허용 이벤트 목록', () => {
     )
   })
 
+  /**
+   * 유니온 `PublicEvent` 에 정의된 이름 전부.
+   * `PublicEventName` 으로 타입돼 있어 **오타는 타입 검사가** 잡고, **빠짐은 아래 테스트가** 잡는다.
+   */
+  const DEFINED: PublicEventName[] = [
+    'fit_viewed',
+    'fit_analyzed',
+    'fit_shared',
+    'fit_share_opened',
+    'fit_signup_clicked',
+    'fit_worksheet_printed',
+    'landing_viewed',
+    'landing_cta_clicked',
+  ]
+
+  it('정의된 이벤트가 모두 허용 목록에 있다 — 빠지면 조용히 버려진다', () => {
+    // ⚠️ 이 검사가 없어서 실제로 물렸다(2026-08-30). `fit_worksheet_printed` 가 유니온에만
+    //    있고 허용 목록에 없어 **한 건도 전송되지 않았다** — track() 은 목록에 없으면 조용히
+    //    반환하고 운영 빌드에서는 console.error 도 안 나온다.
+    //    그리고 아래 "늘어남" 테스트가 그 불완전한 목록을 **고정하고 있어서**, 고치려 하면
+    //    테스트가 막았다. 빠짐 검사와 늘어남 검사는 **둘 다** 있어야 한다.
+    const missing = DEFINED.filter((n) => !ALLOWED_EVENTS.includes(n))
+    expect(missing, `허용 목록에서 빠졌다 — track() 이 조용히 버린다: ${missing.join(', ')}`).toEqual(
+      [],
+    )
+  })
+
   it('목록 전체가 의도된 것이다 — 이벤트는 조용히 늘어나면 안 된다', () => {
     // 위 테스트는 **빠짐**을 막고, 이 테스트는 **늘어남**을 막는다.
     // 늘리는 것 자체가 나쁘진 않지만, 늘릴 때는 여기를 고치며 한 번 더 생각하게 한다
     // (`/fit` 은 "붙여넣은 지문을 저장하지 않는다" 를 화면에서 약속하고 있다).
-    expect([...ALLOWED_EVENTS]).toEqual([
-      'fit_viewed',
-      'fit_analyzed',
-      'fit_shared',
-      'fit_share_opened',
-      'fit_signup_clicked',
-      'landing_viewed',
-      'landing_cta_clicked',
-    ])
+    expect([...ALLOWED_EVENTS].sort()).toEqual([...DEFINED].sort())
+  })
+
+  it('교사 채널 신호가 살아 있다 — 인쇄는 파생으로 대체할 수 없다', () => {
+    // 인쇄는 브라우저에서 끝나 어떤 표에도 행이 남지 않는다.
+    // 빠지면 "교사가 실제로 수업에 썼는가" 를 영영 알 수 없다(10만 산술이 걸린 CAC 0 채널).
+    expect(ALLOWED_EVENTS).toContain('fit_worksheet_printed')
   })
 
   it('이름이 중복되지 않는다', () => {
