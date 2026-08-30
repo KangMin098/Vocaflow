@@ -336,6 +336,37 @@ pnpm dlx tsx scripts/acp/process-queue.mjs  --source plos --commit --limit 900
 
 마이그레이션: `20260614180000_acp_article_word_set_pipeline`.
 
+### 레벨 적응 드레인 (v06.34 신설) — 사다리 아래 세 단을 채우는 유일한 경로
+
+**게이트는 지어져 있었는데 그것을 쓰는 파이프라인이 없었다** — `compose/adaptation.ts` 의
+`runAdaptationGates` 를 부르는 스크립트가 하나도 없어, 6,627편 중 각색본이 3편뿐이었다.
+
+왜 필요한가 (2026-08-30 실측): 겹치지 않는 20단원 책을 몇 권 만들 수 있는지 세면
+**1단 0권 · 2단 1권 · 3단 2권** 인데 5단 18권 · 6단 23권이다. 수집 피드(arXiv · NASA ·
+VOA · PLOS · Futurity)가 성인 대상이라 아래 단이 애초에 안 들어온다. **분류를 아무리 돌려도
+없는 글이 생기지는 않는다** — 미분류 1,808편을 310편까지 분류했는데도 1단은 1편 그대로였다.
+
+| 단계 | 스크립트 / 하는 일 |
+|---|---|
+| ① export | `scripts/textbook/adapt-drain-export.mjs --band elementary` — 각색 허용 라이선스(`cc_by`·`cc0`·`public_domain`)이고 목표보다 위 밴드인 원본을 **피드를 돌아가며** 뽑는다(한 피드에 쏠리면 서가가 한 색이 된다). 이미 각색본이 있는 원본은 건너뛴다 |
+| ② **Claude Code** | 청크의 `title`·`text` 를 목표 학령으로 다시 쓴다. 규격은 `GRADE_BANDS` 가 준다 — 초등 90~170어 · 평균 문장 9어 · 추상명사 금지 · 숫자 하나 · 같은 낱말 반복 |
+| ③ import | `adapt-drain-import.mjs --band elementary [--commit]` — `runAdaptationGates` 를 돌려 넣는다 |
+
+**재실행 안전** — ①은 읽기만 한다. ③은 같은 원본·같은 밴드의 각색본이 있으면 건너뛴다
+(실측: 2회차 "이미 있음 6 · 적재 0편").
+
+**게이트** — critical 은 **I17 서가 중복** 하나다. 라이선스가 사용을 허락했으므로 재저작의
+출처·표현·구조 독립성 검사는 성립하지 않는다. A1(원문 재작성)·A2(목표 레벨)는 경고이고,
+경고를 달고 들어간 편수를 반드시 출력한다. 규격 밖(어수·평균 문장 길이)은 import 가 막는다.
+
+⚠️ **각색본은 원본의 `source` 를 그대로 이어받는다** — `library_articles_source_check` 가
+실제 피드만 허용하고, 각색해도 저작권 귀속은 원 발행처이기 때문이다. 각색이라는 사실은
+`adapted_from_id` 와 `feed_id='adapted'` 가 나른다. `cc_by_sa` 는 뺐다(파생물 공유 조건을
+서가 약관이 감당하는지 미확인 — 모르는 채로 쓰는 것보다 빼는 편이 싸다).
+
+첫 실행(2026-08-30): 각색 가능 원본 **6,006편** 중 6편을 써서 게이트 6/6 통과,
+1단 원글 **1 → 7편**.
+
 ---
 
 ## VCB — Vocabulary Curation Build
