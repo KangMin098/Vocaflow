@@ -180,7 +180,14 @@ for (const r of rows) {
   })
 }
 
-console.log(`\n레벨 적응 적재 — ${spec.label} (V${spec.vRange.min} · ${spec.words.min}~${spec.words.max}어)`)
+// ⚠️ 목표 단수는 **청크가 들고 온다**(`target_v_level`) — 밴드의 최소값이 아니다.
+//    머리말에 `spec.vRange.min` 을 찍던 동안 V2 로 적재하면서 화면에는 "V1" 이라고
+//    나왔다. 넣은 곳과 찍힌 곳이 다르면 로그를 믿을 수 없게 된다.
+const targetLevels = [...new Set(rows.map((r) => r.target_v_level).filter((v) => v != null))].sort()
+console.log(
+  `\n레벨 적응 적재 — ${spec.label} ` +
+    `(V${targetLevels.join('·V') || spec.vRange.min} · ${spec.words.min}~${spec.words.max}어)`,
+)
 console.log(`  모드: ${commit ? '적재' : '보기만 (--commit 으로 실제 적재)'}`)
 console.log(`  훑음 ${stats.scanned} · 넣을 수 있음 ${stats.ready} · 이미 있음 ${stats.already} · **건너뜀 ${stats.skipped}**`)
 for (const [why, n] of Object.entries(reasons)) console.log(`    · ${why}: ${n}건`)
