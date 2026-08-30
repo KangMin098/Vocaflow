@@ -102,3 +102,33 @@ describe('typeMixFit', () => {
     expect(typeMixFit({}, { a: 1 })).toBe(0)
   })
 })
+
+describe('유형을 새로 열면 적합도가 먼저 떨어진다 — 2026-08-30 실측 재현', () => {
+  // V7 재고에 실제로 있던 일곱 유형. `topic` 은 0건이었다.
+  const HAVE7 = ['grammar_choice', 'vocab_choice', 'order', 'word_order', 'blank_word', 'grammar_fix', 'insert']
+  const HAVE8 = [...HAVE7, 'topic']
+
+  /** 120문항 한 권. 실제 조판이 낸 구성을 그대로 옮겼다. */
+  const BEFORE = { grammar_choice: 35, vocab_choice: 30, order: 14, word_order: 14, blank_word: 10, grammar_fix: 9, insert: 8 }
+  const TOPIC_10 = { grammar_choice: 30, vocab_choice: 26, order: 14, word_order: 13, topic: 10, blank_word: 10, grammar_fix: 9, insert: 8 }
+  const TOPIC_20 = { grammar_choice: 28, vocab_choice: 24, topic: 20, order: 14, word_order: 11, insert: 8, blank_word: 8, grammar_fix: 7 }
+
+  it('없던 유형을 열자 목표 비중이 그 유형에 새로 배정된다', () => {
+    const before = rungMix(7, HAVE7).targetShare
+    const after = rungMix(7, HAVE8).targetShare
+    expect(before.topic).toBeUndefined()
+    expect(after.topic).toBeGreaterThan(0.15) // 여덟으로 나뉘며 단번에 큰 몫을 갖는다
+    // 나머지 유형의 목표는 그만큼 낮아진다 — 합이 1 이기 때문이다.
+    expect(after.grammar_choice).toBeLessThan(before.grammar_choice!)
+  })
+
+  it('조금만 넣으면 오히려 내려간다 — 한 청크만 보고 "효과 없음" 으로 읽으면 안 된다', () => {
+    const fitBefore = typeMixFit(BEFORE, rungMix(7, HAVE7).targetShare)
+    const fit10 = typeMixFit(TOPIC_10, rungMix(7, HAVE8).targetShare)
+    const fit20 = typeMixFit(TOPIC_20, rungMix(7, HAVE8).targetShare)
+
+    expect(fit10).toBeLessThan(fitBefore)   // 69.4% → 68.8%
+    expect(fit20).toBeGreaterThan(fitBefore) // → 77.1%
+    expect(fit20).toBeGreaterThan(fit10)
+  })
+})

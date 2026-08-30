@@ -58,6 +58,17 @@ export const ITEMS_PER_UNIT = 6
  * @param band V-Level (1~7)
  * @param available 우리가 실제로 가진 유형. 주면 그 안에서만 고른다 —
  *   시장에 있어도 재고가 없으면 비중을 0 으로 두어야 다른 유형이 그 자리를 메운다.
+ *
+ * ⚠️ **유형을 새로 열면 적합도가 먼저 떨어진다.** 목표는 `available` 안에서 다시
+ *    정규화되므로, 없던 유형이 하나 생기면 그 유형이 곧바로 큰 목표 비중을 갖는다.
+ *    조금만 넣으면 미달분이 그대로 감점된다 — 실측(V7 · 20단원 120문항):
+ *
+ *      topic 0건   적합도 69.4%   (7유형으로 정규화)
+ *      topic 10건  적합도 68.8%   ← **내려갔다.** 8유형이 되며 topic 목표가 17.5%(21문항)
+ *      topic 20건  적합도 77.1%   (16.7% 로 목표에 근접)
+ *
+ *    그래서 새 유형은 **목표 비중을 채울 만큼 한 번에** 넣어야 한다. 한 청크만 넣고
+ *    "효과가 없다" 고 판단하면 정반대로 읽는 것이다.
  */
 export function rungMix(band: number, available?: Iterable<string>): RungMix {
   const school = schoolOfBand(band)
