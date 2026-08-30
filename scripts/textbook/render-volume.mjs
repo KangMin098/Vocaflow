@@ -428,6 +428,18 @@ fs.writeFileSync(path.resolve(OUT), html, 'utf8')
 console.log(`V${BAND} — 원글 ${byId.size}편 · 문항 풀 ${pool.length}`)
 console.log(`조합 ${units.length}단원 · 인쇄 ${qNo}문항${stoppedBecause ? ` (${stoppedBecause})` : ''}`)
 console.log(`자동 검수 ${passed}/${card.auto.length} 통과`)
+
+// ── 카탈로그 용량 ────────────────────────────────────────────────────
+// **한 권을 만들 수 있는 것과 여러 권을 줄 수 있는 것은 다르다.** 학습자가 늘면
+// 같은 책을 돌려주게 되는데, 그 한계가 지금까지 어디에도 안 찍혔다.
+// 한 권이 원글 몇 편을 쓰는지 세고, 재고를 그것으로 나눠 **겹치지 않는 권수**를 낸다.
+const usedArticles = new Set()
+for (const u of units) for (const it of u.items) if (it.ref_id) usedArticles.add(it.ref_id)
+const distinctVolumes = usedArticles.size ? Math.floor(byId.size / usedArticles.size) : 0
+console.log(
+  `카탈로그 용량  이 권이 쓴 원글 ${usedArticles.size}편 · ` +
+    `재고 ${byId.size}편 → 겹치지 않는 책 **${distinctVolumes}권**`,
+)
 console.log(
   `유형-학년 적합도 ${(fit * 100).toFixed(1)}% (시중 밀도 대비) — ` +
     Object.entries(actualMix)
