@@ -12,6 +12,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
 import { contentRefFromBook, contentRefFromText } from '@/lib/content/content-ref'
+import { pagedSelect } from '@/lib/supabase/paged-select'
 import type {
   ChapterQuizCatalogBook,
   QuizOption,
@@ -111,19 +112,27 @@ export async function fetchChapterQuizCatalog(
   const rpc = client.rpc.bind(client) as unknown as (
     fn: string,
     args?: Record<string, unknown>,
-  ) => Promise<{ data: unknown; error: { message: string } | null }>
+  ) => {
+    range: (
+      from: number,
+      to: number,
+    ) => PromiseLike<{ data: unknown; error: { message: string } | null }>
+  }
 
-  const { data, error } = await rpc('list_book_chapter_quiz_catalog')
-  if (error) throw new Error(error.message)
-
-  const rows = (Array.isArray(data) ? data : []) as Array<{
+  // RPC 도 PostgREST 의 1,000행 상한을 받는다. 이 RPC 는 **퀴즈가 있는 챕터마다 한 행**이라
+  // 드레인이 진행될수록 행이 늘고, 상한을 넘는 순간 뒤쪽 도서가 카탈로그에서 조용히 사라진다
+  // (오류 없음 → "아직 안 만들어졌다" 빈 상태로 오인). 2026-08-30 실측 189행 / 대상 3,373행.
+  const rows = await pagedSelect<{
     book_id: string
     book_title: string
     book_v_level: number | null
     chapter_idx: number
     chapter_title: string | null
     question_count: number
-  }>
+  }>(
+    (from, to) => rpc('list_book_chapter_quiz_catalog').range(from, to),
+    'ScriptQuiz 챕터 퀴즈 카탈로그',
+  )
 
   const byBook = new Map<string, ChapterQuizCatalogBook>()
   for (const r of rows) {

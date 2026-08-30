@@ -27,6 +27,8 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
+import { pagedSelectIn } from '@/lib/supabase/paged-select'
+
 import { fetchChapterQuizCatalog, type ChapterQuizCatalogBook } from './questions'
 
 /**
@@ -199,23 +201,36 @@ export async function fetchScriptQuizQueue(
   if (catalog.length === 0) return { books: [], next: null, unconfirmed: 0, readTotal: 0 }
 
   const bookIds = catalog.map((b) => b.bookId)
-  const [{ data: textRows }, { data: scoreRows }] = await Promise.all([
-    client
-      .from('texts')
-      .select('library_book_id, chapter_idx, status, updated_at')
-      .eq('user_id', userId)
-      .in('library_book_id', bookIds),
-    client
-      .from('scores')
-      .select('content_id, content_chapter, accuracy, created_at')
-      .eq('user_id', userId)
-      .eq('module', 'scriptquiz')
-      .in('content_id', bookIds),
+
+  // 두 조회 모두 **전량이 필요하다** — 빠진 행은 오류가 아니라 "안 읽음 / 안 풀었음" 으로
+  // 읽힌다. `texts` 가 잘리면 읽은 챕터가 대기열에서 사라지고, `scores` 가 잘리면
+  // 이미 확인한 챕터를 다시 풀라고 내민다. 둘 다 화면만 조용히 틀린다.
+  // (카탈로그 도서 수가 6 → 271 로 자라는 중이라 `.in()` 길이도 함께 위험하다.)
+  const [textRows, scoreRows] = await Promise.all([
+    pagedSelectIn<TextRow>(
+      bookIds,
+      (chunk, from, to) =>
+        client
+          .from('texts')
+          .select('library_book_id, chapter_idx, status, updated_at')
+          .eq('user_id', userId)
+          .in('library_book_id', chunk)
+          .range(from, to),
+      'ScriptQuiz 대기열 texts',
+    ),
+    pagedSelectIn<ScoreRow>(
+      bookIds,
+      (chunk, from, to) =>
+        client
+          .from('scores')
+          .select('content_id, content_chapter, accuracy, created_at')
+          .eq('user_id', userId)
+          .eq('module', 'scriptquiz')
+          .in('content_id', chunk)
+          .range(from, to),
+      'ScriptQuiz 대기열 scores',
+    ),
   ])
 
-  return buildQuizQueue(
-    catalog,
-    (textRows ?? []) as unknown as TextRow[],
-    (scoreRows ?? []) as unknown as ScoreRow[],
-  )
+  return buildQuizQueue(catalog, textRows, scoreRows)
 }
