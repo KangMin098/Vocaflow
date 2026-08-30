@@ -36,8 +36,11 @@ const sha256 = (s) => crypto.createHash('sha256').update(s, 'utf8').digest('hex'
 //   유무는 `content` 가 말하고 아래에서 이미 그것으로 거른다. 배치 소속으로 거르면
 //   집필 드레인이 넣은 글(배치에 매달리되 본문을 보관한다)이 통째로 빠져서,
 //   새로 쓴 지문이 **어휘도 밴드도 없는 채로 남는다.**
+// ⚠️ `.order` 없이 `.range` 를 쓰면 페이지 경계에서 같은 행이 겹치거나 빠진다
+//   (PDCP 수집이 정렬 없는 페이지네이션으로 214건을 중복시키고 그만큼 누락한 전례가 있다).
 let q = db.from('library_articles')
   .select('id, source, source_id, source_url, title, author, language, license, content, published_at, feed_id, status')
+  .order('id')
 const id = arg('id'), title = arg('title')
 /**
  * 어휘가 한 줄도 없는 글만 고른다.
@@ -57,9 +60,20 @@ else if (title) q = q.ilike('title', `%${title}%`)
 else if (missingVocab) q = q.in('status', ['ready', 'published'])
 else { console.error('--id · --title · --missing-vocab 중 하나가 필요하다.'); process.exit(2) }
 
-const { data, error } = await q
-if (error) throw new Error(error.message)
-let list = (data ?? []).filter((a) => (a.content ?? '').trim())
+// ⚠️ **페이지로 받는다.** PostgREST 는 한 번에 1,000행만 준다. `library_articles` 는
+//   5,900행이 넘으므로 페이지 없이 물으면 **뒤쪽 글이 통째로 안 보이고, 그것이
+//   "재분석할 것이 없다" 로 읽힌다.** 실측 2026-08-30: 집필 드레인이 새로 넣은 V2 40편이
+//   `--missing-vocab` 에 한 편도 안 잡혔고(어휘 0 · 밴드 NULL), 스크립트는 조용히 성공했다.
+//   이 파일은 아래 어휘 조회에서만 상한을 알고 있었고 정작 본 목록에는 안 걸어 두었다.
+const rows = []
+for (let from = 0; ; from += 1000) {
+  const { data, error } = await q.range(from, from + 999)
+  if (error) throw new Error(error.message)
+  if (!data?.length) break
+  rows.push(...data)
+  if (data.length < 1000) break
+}
+let list = rows.filter((a) => (a.content ?? '').trim())
 
 if (missingVocab) {
   const ids = list.map((a) => a.id)
