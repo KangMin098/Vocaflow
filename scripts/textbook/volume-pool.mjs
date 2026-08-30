@@ -43,11 +43,42 @@ import path from 'node:path'
  *
  * @param build 질의를 만드는 함수. `db` 를 받아 `.from(...).select(...)...` 를 돌려준다.
  */
+/**
+ * 일시적 실패를 다시 시도한다 — **몇 천 행짜리 조회는 언젠가 반드시 한 번 끊긴다.**
+ *
+ * 2026-08-30 하루에 세 가지가 다 나왔다:
+ *   · `Could not query the database for the schema cache`  (다른 세션이 마이그레이션을 적용하는 중)
+ *   · `canceling statement due to statement timeout`        (본문까지 싣는 조회가 커서)
+ *   · Cloudflare **525**(SSL handshake failed)                (연결이 끊김)
+ * 세 번째는 `store-new-types --band 5` 를 통째로 죽였다 — 3,408편을 다 읽고 나서였다.
+ *
+ * ⚠️ **읽기에만 쓴다.** 쓰기를 재시도하면 중복이 생길 수 있다(적재는 유일키가 막지만
+ *   그건 적재 쪽의 계약이지 여기서 보장할 일이 아니다).
+ * ⚠️ 영구 오류(권한·문법)는 재시도해도 같으므로 **네 번 만에 포기하고 그대로 던진다** —
+ *   조용히 빈 배열을 돌려주면 "재고 0" 이라는 거짓말이 된다.
+ */
+export async function withRetry(label, run, tries = 4) {
+  let lastErr
+  for (let i = 0; i < tries; i += 1) {
+    const { data, error } = await run()
+    if (!error) return data
+    lastErr = error
+    const msg = String(error.message ?? '')
+    const transient =
+      /schema cache|statement timeout|525|timeout|fetch failed|socket|ECONN|EAI_AGAIN|handshake/i.test(msg)
+    if (!transient) break
+    // 1s → 3s → 9s. 끊긴 쪽이 회복할 시간을 준다.
+    const wait = 1000 * 3 ** i
+    console.error(`  ↻ ${label} 재시도 ${i + 1}/${tries - 1} (${wait / 1000}s) — ${msg.slice(0, 80)}`)
+    await new Promise((r) => setTimeout(r, wait))
+  }
+  throw new Error(`${label} 조회 실패: ${lastErr?.message ?? '알 수 없음'}`)
+}
+
 export async function fetchAllPaged(db, build, page = 1000) {
   const out = []
   for (let from = 0; ; from += page) {
-    const { data, error } = await build(db).range(from, from + page - 1)
-    if (error) throw new Error(`조회 실패: ${error.message}`)
+    const data = await withRetry('페이지', () => build(db).range(from, from + page - 1))
     if (!data?.length) break
     out.push(...data)
     if (data.length < page) break
@@ -66,8 +97,7 @@ export async function fetchAllIn(db, table, columns, column, values, orderBy, ap
       // 짜지 않게 하려고 둔다 — 그렇게 다시 짠 사본들이 전부 `.limit(20000)` 이었다.
       if (apply) q = apply(q)
       for (const col of orderBy) q = q.order(col)
-      const { data, error } = await q.range(from, from + PAGE - 1)
-      if (error) throw new Error(`${table} 조회 실패: ${error.message}`)
+      const data = await withRetry(table, () => q.range(from, from + PAGE - 1))
       if (!data?.length) break
       out.push(...data)
       if (data.length < PAGE) break

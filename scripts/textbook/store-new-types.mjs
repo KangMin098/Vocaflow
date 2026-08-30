@@ -34,7 +34,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { fetchAllIn, fetchAllPaged } from './volume-pool.mjs'
+import { fetchAllIn, fetchAllPaged, withRetry } from './volume-pool.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -106,8 +106,9 @@ for (let from = 0; ; from += ARTICLE_PAGE) {
     .not('content', 'is', null)
   // --band 을 주면 그 밴드만 본다. 전수는 몇 시간이 걸린다(위 BAND 주석 참조).
   if (BAND != null) q = q.eq('article_v_level', BAND)
-  const { data, error } = await q.order('id').range(from, from + ARTICLE_PAGE - 1)
-  if (error) throw new Error('기사 조회 실패: ' + error.message)
+  // ⚠️ 여기서 끊기면 몇 천 편을 다 읽고 나서 통째로 잃는다 — 실측 2026-08-30 에
+  //   V5(3,408편)를 다 읽은 뒤 Cloudflare 525 로 죽었다. 일시적 실패는 다시 시도한다.
+  const data = await withRetry('기사', () => q.order('id').range(from, from + ARTICLE_PAGE - 1))
   if (!data?.length) break
   arts.push(...data)
   if (data.length < ARTICLE_PAGE) break
