@@ -40,6 +40,11 @@ const {
   SERIES_SPINE,
   rungMix,
   typeMixFit,
+  // 브랜딩 — 값은 `@vocaflow/design-tokens` 에서 온다. 여기서 색을 적지 않는다.
+  VOLUME_FONTS,
+  buildColophon,
+  ladderStrip,
+  volumeCssVariables,
 } = await import('@vocaflow/library-pipeline')
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
@@ -309,14 +314,22 @@ for (const u of units) {
 }
 
 const passed = card.auto.filter((c) => c.pass).length
-const html = `<title>${esc(rung?.volumeTitle ?? `Vocaflow Reading V${BAND}`)}</title>
+const colophon = buildColophon({
+  title: rung?.volumeTitle ?? `Vocaflow Reading V${BAND}`,
+  step: rung?.step ?? null,
+  schoolBand: rung?.schoolBand ?? null,
+  vLevel: BAND,
+  autoPassed: passed,
+  autoTotal: card.auto.length,
+})
+const html = `<title>${esc(colophon.title)}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap">
 <style>
-:root{--ink:#1a1a1a;--sub:#5a5a5a;--line:#d8d4cd;--bg:#fbfaf7;--accent:#7a3b2e;--slot:#b8542f}
-:root:not([data-theme="light"]){}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ink:#eae7e1;--sub:#a8a29a;--line:#3a3733;--bg:#1c1b19;--accent:#d99a86;--slot:#e0a184}}
-:root[data-theme="dark"]{--ink:#eae7e1;--sub:#a8a29a;--line:#3a3733;--bg:#1c1b19;--accent:#d99a86;--slot:#e0a184}
+${volumeCssVariables()}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;line-height:1.72}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:${VOLUME_FONTS.english};line-height:1.72}
 .wrap{max-width:46rem;margin:0 auto;padding:3rem 1.25rem 5rem}
 .cover{border-bottom:3px double var(--line);padding-bottom:2rem;margin-bottom:2.5rem}
 .brand{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700}
@@ -351,18 +364,33 @@ h1{font-size:2.1rem;margin:.6rem 0 .3rem;letter-spacing:-.01em;text-wrap:balance
 .noexpl{font-size:.82rem;color:var(--sub);font-style:italic}
 .efrom{margin:.25rem 0 0;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);opacity:.7}
 .tablewrap{overflow-x:auto}
+/* 한국어 해설·라벨은 본문 서체로 — Lora 는 영문 지문 전용이다. */
+.meta,.chip,.expl,.noexpl,.vocab h3,.src{font-family:${VOLUME_FONTS.body}}
+.ladder{display:flex;gap:.34rem;margin:.9rem 0 0;font-family:${VOLUME_FONTS.mono};font-size:.74rem;color:var(--sub)}
+.ladder span{min-width:1.5rem;text-align:center}
+.ladder span.here{color:var(--accent);font-weight:700}
+.colophon{margin-top:4rem;border-top:1px solid var(--line);padding-top:1.4rem;font-family:${VOLUME_FONTS.body};font-size:.78rem;color:var(--sub);line-height:1.7}
+.colophon dl{display:grid;grid-template-columns:auto 1fr;gap:.3rem 1.2rem;margin:0}
+.colophon dt{color:var(--accent);letter-spacing:.1em;text-transform:uppercase;font-size:.68rem;padding-top:.1rem}
+.colophon dd{margin:0}
 @media print{body{background:#fff}.wrap{max-width:none}}
 </style>
 <div class="wrap">
 <header class="cover">
-  <p class="brand">${esc(rung ? `${rung.step}단 · ${rung.schoolBand}` : `V${BAND}`)}</p>
-  <h1>${esc(rung?.volumeTitle ?? `Vocaflow Reading V${BAND}`)}</h1>
+  <p class="brand">${esc(colophon.ladder)}</p>
+  <h1>${esc(colophon.title)}</h1>
   <p class="meta">${units.length}단원 · ${qNo}문항 · 총 ${units.reduce((s, u) => s + u.estimated_minutes, 0)}분 · 레벨 V${BAND}</p>
   <div class="scorebar">
     <span class="chip ok">자동 검수 ${passed}/${card.auto.length} 통과</span>
     <span class="chip">지문 90~200어</span>
     <span class="chip">정답 번호 균등 검정</span>
     <span class="chip">출처 표기</span>
+    <span class="chip">교정 3회</span>
+  </div>
+  <div class="ladder" aria-label="시리즈 일곱 단 중 이 권의 자리">
+    ${ladderStrip(rung?.step ?? null)
+      .map((s) => `<span class="${s.startsWith('[') ? 'here' : ''}">${esc(s)}</span>`)
+      .join('')}
   </div>
 </header>
 ${unitHtml.join('')}
@@ -382,6 +410,16 @@ ${unitHtml.join('')}
     )
     .join('')}
 </section>
+<footer class="colophon">
+  <dl>
+    <dt>제목</dt><dd>${esc(colophon.title)}</dd>
+    <dt>사다리</dt><dd>${esc(colophon.ladder)} — 일곱 단 중 ${rung?.step ?? '—'}단</dd>
+    <dt>판차</dt><dd>${esc(colophon.edition)}</dd>
+    <dt>발행</dt><dd>${esc(colophon.issued)}</dd>
+    <dt>검수</dt><dd>${esc(colophon.review)} · 교정 초교·재교·삼교</dd>
+    <dt>출처</dt><dd>${esc(colophon.sourcePolicy)}</dd>
+  </dl>
+</footer>
 </div>`
 
 fs.writeFileSync(path.resolve(OUT), html, 'utf8')

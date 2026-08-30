@@ -614,6 +614,16 @@ export type { DeterministicExplainType, ItemExplanation } from './textbook/expla
 export { proofreadPassage, summarizeProofread } from './textbook/proofread'
 export type { ProofFinding, ProofStage, ProofSummary } from './textbook/proofread'
 
+/** 교재 브랜딩 — 값은 `@vocaflow/design-tokens` 에서 읽는다. 여기서 다시 적지 않는다. */
+export {
+  VOLUME_FONTS,
+  VOLUME_PALETTE,
+  buildColophon,
+  ladderStrip,
+  volumeCssVariables,
+} from './textbook/brand'
+export type { Colophon, ColophonInput } from './textbook/brand'
+
 export {
   ITEMS_PER_UNIT,
   RUNG_TYPE_FLOOR_PER_MILLE,
