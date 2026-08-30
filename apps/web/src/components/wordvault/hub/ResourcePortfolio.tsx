@@ -111,6 +111,11 @@ export function ResourcePortfolio() {
       // 이 자리는 내 구독 목록이라 출판 정보를 싣지 않는다(판권면은 카탈로그에서 본다).
       brandFingerprint: null,
       ladderStep: null,
+      // 판권면 3종 — 이 승격은 모달의 최소 형태라 각인값을 갖고 오지 않는다.
+      //   판권면은 그 줄들을 통째로 뺀다(없는 것을 지어내지 않는다).
+      imprintCode: null,
+      qa: null,
+      level: null,
     })
   }
 

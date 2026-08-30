@@ -114,6 +114,12 @@ export async function fetchBookChapterSets(
       // 도서 챕터 세트는 공용 서가 사다리에 앉지 않는다 — 그 책의 맥락에서만 열린다.
       brandFingerprint: null,
       ladderStep: null,
+      // 판권면 3종도 마찬가지다. 이 세트들은 공용 서가에 뜨지 않아
+      // `scripts/vocab/stamp-imprint.mts` 의 각인 대상이 아니고, 각인이 없으면
+      // 판권면이 그 줄들을 통째로 뺀다(0/0 을 적어 "검수 0 통과" 로 읽히게 두지 않는다).
+      imprintCode: null,
+      qa: null,
+      level: null,
       chapterIdx: Number(r.curation_query?.chapter_idx ?? 0),
       curationQuery: r.curation_query ?? {},
     }))
@@ -177,7 +183,7 @@ export async function fetchBookComposerSets(
     .from('shared_word_sets')
     .select(
       // 챕터 세트와 같은 규칙 — 단어 수는 임베드 집계로 함께 받는다(EMBEDDED_WORD_COUNT 주석).
-      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta, shared_words(count)',
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta, slug, version, ladder_step, shared_words(count)',
     )
     .eq('is_published', true)
     .eq('curation_query->>source_book_id', bookId)
@@ -195,6 +201,9 @@ export async function fetchBookComposerSets(
     subscriber_count: number | null
     created_at: string | null
     curation_query: Record<string, unknown>
+    slug: string | null
+    version: number | null
+    ladder_step: number | null
     cover_image_url: string | null
     cover_image_meta: CoverMeta | null
     shared_words: { count: number }[] | null
@@ -225,10 +234,14 @@ export async function fetchBookComposerSets(
         kind: setKindOf(blueprint),
         coverImageUrl: r.cover_image_url ?? null,
         coverImageMeta: r.cover_image_meta ?? null,
-        // 이 자리는 도서 상세의 보조 단어장 줄이라 출판 정보를 싣지 않는다.
-        // 세트를 골라 온 select 에 두 컬럼이 없으므로 **있는 척하지 않고** null 로 둔다.
+        // 이 줄에서 카드로 열리는 미리보기 모달은 공용 서가와 **같은 판권면**을 그린다.
+        // 그러니 각인된 값을 그대로 넘긴다 — 같은 권이 어디서 열리느냐에 따라 판권면이
+        // 달라지면 그 판권면을 믿을 수 없다. (지문은 목록 표시에 안 쓰여 select 에서 뺐다.)
         brandFingerprint: null,
-        ladderStep: null,
+        ladderStep: r.ladder_step ?? null,
+        imprintCode: r.slug ? `VF-${r.slug}-v${r.version ?? 1}` : null,
+        qa: (cq['qa'] as BookComposerSet['qa']) ?? null,
+        level: (cq['level'] as BookComposerSet['level']) ?? null,
         blueprint,
         why: composerSetWhy(blueprint, wordCount, cq),
       }

@@ -46,6 +46,9 @@ function set(overrides: Partial<PublishedVocabSet> = {}): PublishedVocabSet {
     // 카테고리·CEFR 추정 경로를 타는지 확인할 수 있다. 저작된 계단은 따로 넘겨 시험한다.
     brandFingerprint: null,
     ladderStep: null,
+    imprintCode: null,
+    qa: null,
+    level: null,
     ...overrides,
   }
 }

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-30T13:50:10.599Z",
-  "specGeneratedAt": "2026-08-30T12:51:37.328Z",
+  "generatedAt": "2026-08-30T14:38:30.263Z",
+  "specGeneratedAt": "2026-08-30T13:58:09.077Z",
   "population": {
-    "publishedSets": 70,
-    "catalogHeadwords": 11181,
+    "publishedSets": 52,
+    "catalogHeadwords": 11651,
     "note": "발행 카탈로그에 실제로 실린 표제어만 센다 — 사전 전체를 세면 학습자가 만나지 않는 낱말이 섞인다."
   },
   "marketSample": {
@@ -25,7 +25,7 @@
     {
       "id": "V2",
       "name": "예문 한국어역 보유율",
-      "ours": 0.9998211251229765,
+      "ours": 1,
       "market": 0.921,
       "unit": "%",
       "seenBy": "CardBack · WordLookupPopover (meanings_ko[].example_ko)",
@@ -35,32 +35,32 @@
     {
       "id": "V3",
       "name": "파생어 보유율",
-      "ours": 0.5876934084607817,
+      "ours": 0.5742854690584499,
       "market": 0.414,
       "unit": "%",
       "seenBy": "CardBack 낱말 그물 (derived_forms)",
       "why": "한 어근에서 갈라진 말을 함께 줘야 낱말당 회수가 늘어난다",
-      "index": 1.42
+      "index": 1.387
     },
     {
       "id": "V4",
       "name": "유의어·반의어 보유율",
-      "ours": 0.7918790805831321,
+      "ours": 0.7702343146511029,
       "market": 0.257,
       "unit": "%",
       "seenBy": "CardBack 낱말 그물 (synonyms·antonyms)",
       "why": "뜻이 겹치고 갈리는 자리를 보여야 변별이 생긴다",
-      "index": 3.081
+      "index": 2.997
     },
     {
       "id": "V5",
       "name": "다의어 뜻 분리율",
-      "ours": 0.6466326804400322,
+      "ours": 0.6413183417732383,
       "market": 0.443,
       "unit": "%",
       "seenBy": "CardBack 다의어 표 (meanings_ko.length >= 2)",
       "why": "뜻이 여럿인 낱말을 한 덩어리로 주면 어느 뜻도 남지 않는다",
-      "index": 1.46
+      "index": 1.448
     },
     {
       "id": "V6",
@@ -84,8 +84,8 @@
       "index": 3.25
     }
   ],
-  "overall": 1.6,
-  "overallVisible": 1.6,
+  "overall": 1.586,
+  "overallVisible": 1.586,
   "visibleAxisIds": [
     "V1",
     "V2",
@@ -100,19 +100,19 @@
     {
       "id": "B1",
       "name": "연어 보유율",
-      "ours": 0.933369108308738,
+      "ours": 0.9199210368208738,
       "why": "시중 표제어 칸에 연어 자리가 없다 — 덩어리로 외우는 축을 통째로 더한다"
     },
     {
       "id": "B2",
       "name": "발음기호 보유율",
-      "ours": 0.9574277792684017,
+      "ours": 0.949618058535748,
       "why": "시중도 싣지만 추출로는 셀 수 없어(대괄호가 깨진다) 같은 자로 못 잰다"
     },
     {
       "id": "B3",
       "name": "한국어 학습자 노트 보유율",
-      "ours": 0.859314909221,
+      "ours": 0.8252510514118959,
       "why": "시중의 '문해력 UP' 류는 산발적이라 보유율 기준선이 없다"
     }
   ],

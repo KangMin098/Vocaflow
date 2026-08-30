@@ -18,6 +18,7 @@ import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 import {
   COVER_QUERY,
+  COVER_QUERY_BY_SLUG,
   FAMILY_GRAIN,
   isUsableLicense,
   type CoverFamily,
@@ -193,7 +194,9 @@ for (const s of sets) {
   const bp = getBlueprint(blueprint)
   const family = (bp?.family ?? 'list') as CoverFamily
   const grain = FAMILY_GRAIN[family]
-  const base = COVER_QUERY[blueprint]
+  // 권별 검색어가 있으면 그것이 이긴다 — 한 유형에 여러 권이면 유형 검색어 하나로는
+  // 첫 권만 도판을 받고 나머지가 그라디언트로 떨어진다(design.ts 주석).
+  const base = COVER_QUERY_BY_SLUG[s.slug] ?? COVER_QUERY[blueprint]
   if (!base) {
     console.warn(`  ! ${s.slug} — ${blueprint} 검색어 미정의 (design.ts 에 추가 필요)`)
     missed += 1

@@ -151,6 +151,49 @@ export const COVER_QUERY: Record<string, string> = {
   uncovered: 'antique blank map',
 }
 
+/**
+ * **권별 검색어 — 한 유형이 여러 권일 때.**
+ *
+ * ── 왜 필요한가 (실측 2026-08-30) ───────────────────────────────────
+ * 위 표는 **유형당 하나**다. 그런데 주제별 단어장을 17권 내자 열일곱 권이 전부
+ * `world atlas map` 한 검색어를 두고 경쟁했고, 표지 수집기가 이미 쓴 그림을 제외하므로
+ * **한 권만 도판을 받고 열여섯 권이 그라디언트로 떨어졌다.**
+ *
+ * 유형 검색어를 주제어로 바꾸면 안 된다 — 그 표는 "이 유형이 무엇인가" 를 그리는 자리다
+ * (`freq-tier` = 도표, `root-etymology` = 뿌리 도판). 권이 여럿인 유형만 여기서 **덮어쓴다.**
+ *
+ * 검색어는 소재를 말하고 결은 계열이 잡는다(`FAMILY_GRAIN`) — 그래서 주제가 달라도
+ * 열일곱 권이 한 시리즈로 읽힌다.
+ */
+export const COVER_QUERY_BY_SLUG: Record<string, string> = {
+  'cat-topic-travel': 'antique travel poster engraving',
+  'cat-topic-animals': 'zoological plate engraving',
+  'cat-topic-food-and-drink': 'botanical fruit plate',
+  'cat-topic-health': 'anatomical plate engraving',
+  'cat-topic-science-and-technology': 'microscope engraving',
+  'cat-topic-the-natural-world': 'natural history plate',
+  'cat-topic-people': 'portrait engraving crowd',
+  'cat-topic-sport': 'archery engraving',
+  'cat-topic-culture': 'ornament pattern plate',
+  'cat-topic-appearance': 'costume plate engraving',
+  'cat-topic-functions': 'rhetoric diagram engraving',
+  'cat-topic-communication': 'telegraph engraving',
+  'cat-topic-work-and-business': 'factory engraving',
+  'cat-topic-politics-and-society': 'parliament engraving',
+  'cat-topic-homes-and-buildings': 'architectural elevation drawing',
+  'cat-topic-leisure': 'fairground engraving',
+  'cat-topic-time-and-space': 'astronomical chart engraving',
+  'cat-topic-notions': 'geometric diagram engraving',
+  // 레벨 밴드 3권 — 같은 `staircase engraving` 을 두고 겹친다.
+  'cat-level-v1-v3': 'stepping stones engraving',
+  'cat-level-v8-v10': 'mountain summit engraving',
+  // 교육과정 3권 · 수능 유형 3권도 각자 한 장씩 받아야 한다.
+  'cat-curriculum-elem': 'primary schoolroom engraving',
+  'cat-curriculum-high': 'lecture hall engraving',
+  'cat-kice-purpose': 'compass rose engraving',
+  'cat-kice-long': 'scroll manuscript engraving',
+}
+
 /** 표지 출처 — CC 표기 의무를 지키기 위해 URL 과 **함께** 저장한다. */
 export interface CoverMeta {
   source: 'openverse'
