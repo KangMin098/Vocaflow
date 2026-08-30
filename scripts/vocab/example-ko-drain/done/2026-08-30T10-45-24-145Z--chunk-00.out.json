@@ -1,0 +1,3907 @@
+{
+  "chunk": 0,
+  "generatedAt": "2026-08-30T10:42:13.247Z",
+  "instruction": "examples_ko 를 examples 와 **같은 길이**로 채운다. 한 문장에 한 줄. 직역이 아니라 학습자가 읽을 자연스러운 한국어로 쓰되, 표제어의 그 뜻(sense_ko)이 문장에서 어떻게 쓰였는지 드러나게 옮긴다. 빈 문자열을 넣지 않는다 — 넣으면 import 가 건너뛰고 그 자리는 영영 구멍으로 남는다.",
+  "items": [
+    {
+      "target": "top",
+      "word": "complement",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "보완하다, 잘 어울려 돋보이게 하다",
+      "examples": [
+        "A crisp white wine is the perfect complement to fresh grilled seafood."
+      ],
+      "examples_ko": [
+        "산뜻한 화이트 와인은 갓 구운 해산물에 곁들이기 딱 좋다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "complete",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "완전한, 완성된",
+      "examples": [
+        "Please complete the form before leaving."
+      ],
+      "examples_ko": [
+        "가시기 전에 그 서식을 작성해 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "completely",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "완전히, 전적으로",
+      "examples": [
+        "The small mountain village was completely destroyed by the powerful earthquake last week."
+      ],
+      "examples_ko": [
+        "그 작은 산골 마을은 지난주 강한 지진으로 완전히 무너졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "completion",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "We celebrated the completion of the bridge."
+      ],
+      "examples_ko": [
+        "우리는 그 다리의 완공을 축하했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "complex",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "복합 단지, 단지",
+      "examples": [
+        "They moved into a new apartment complex near the train station."
+      ],
+      "examples_ko": [
+        "그들은 기차역 근처의 새 아파트 단지로 이사했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "complexion",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "안색, 피부빛",
+      "examples": [
+        "She has a fair complexion that burns easily in the sun."
+      ],
+      "examples_ko": [
+        "그녀는 볕에 쉽게 타는 흰 피부를 지녔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "complexity",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "복잡성",
+      "examples": [
+        "The complexity of the human brain still amazes scientists."
+      ],
+      "examples_ko": [
+        "인간 두뇌의 복잡함은 지금도 과학자들을 놀라게 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compliance",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "준수",
+      "examples": [
+        "Strict compliance with safety rules is required for every worker on site."
+      ],
+      "examples_ko": [
+        "현장의 모든 작업자에게 안전 수칙의 철저한 준수가 요구된다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compliant",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(규정·기준에) 부합하는, 준수하는",
+      "examples": [
+        "All our products are fully compliant with EU safety standards."
+      ],
+      "examples_ko": [
+        "우리 제품은 모두 EU 안전 기준을 온전히 충족한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "complicate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "복잡하게 만들다",
+      "examples": [
+        "Don't complicate the issue with unnecessary details."
+      ],
+      "examples_ko": [
+        "쓸데없는 세부 사항으로 문제를 복잡하게 만들지 마라."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "complicated",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "복잡한",
+      "examples": [
+        "The instructions were too complicated for me to follow."
+      ],
+      "examples_ko": [
+        "그 설명은 내가 따라 하기에 너무 복잡했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "complication",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "복잡한 문제",
+      "examples": [
+        "The surgery went smoothly without any serious complication."
+      ],
+      "examples_ko": [
+        "그 수술은 별다른 합병증 없이 순조롭게 끝났다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compliment",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "칭찬, 찬사",
+      "examples": [
+        "He gave me a nice compliment about my hair."
+      ],
+      "examples_ko": [
+        "그는 내 머리에 대해 기분 좋은 칭찬을 해 주었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "comply",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "준수하다",
+      "examples": [
+        "All employees must comply with the new safety regulations."
+      ],
+      "examples_ko": [
+        "모든 직원은 새 안전 규정을 따라야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "component",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "구성 요소, 부품",
+      "examples": [
+        "Each component of the engine must be tested separately."
+      ],
+      "examples_ko": [
+        "그 엔진의 부품은 하나하나 따로 시험해야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compose",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "작곡하다, 짓다",
+      "examples": [
+        "Mozart began to compose music when he was only five years old."
+      ],
+      "examples_ko": [
+        "모차르트는 겨우 다섯 살에 작곡을 시작했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "composer",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "작곡가",
+      "examples": [
+        "Mozart is regarded as one of the greatest composers in history."
+      ],
+      "examples_ko": [
+        "모차르트는 역사상 가장 위대한 작곡가 가운데 하나로 꼽힌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "composite",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "합성의, 복합의",
+      "examples": [
+        "The sketch is a composite of several witness descriptions."
+      ],
+      "examples_ko": [
+        "그 몽타주는 여러 목격자의 진술을 합쳐 만든 것이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "composition",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "구성, 작품",
+      "examples": [
+        "The chemical composition of the rock surprised the geologists."
+      ],
+      "examples_ko": [
+        "그 암석의 화학적 조성에 지질학자들이 놀랐다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compost",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "퇴비 — 유기물이 썩어 만들어진 천연 비료",
+      "examples": [
+        "She spread homemade compost over the vegetable beds."
+      ],
+      "examples_ko": [
+        "그녀는 직접 만든 퇴비를 채소밭에 뿌렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compost bin",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "퇴비통, 퇴비 보관함",
+      "examples": [
+        "We throw fruit peel into the compost bin behind the kitchen."
+      ],
+      "examples_ko": [
+        "우리는 과일 껍질을 부엌 뒤 퇴비통에 넣는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compostable",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "퇴비화 가능한, 생분해성의",
+      "examples": [
+        "The cafe now serves every drink in compostable cups."
+      ],
+      "examples_ko": [
+        "그 카페는 이제 모든 음료를 퇴비화되는 컵에 담아 낸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "composure",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "감정의 동요 없이 유지하는 침착함, 평정심",
+      "examples": [
+        "He managed to keep his composure during the difficult interview."
+      ],
+      "examples_ko": [
+        "그는 힘든 면접 내내 침착함을 잃지 않았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compound",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "합성물, 화합물",
+      "examples": [
+        "Water is a compound made of hydrogen and oxygen atoms."
+      ],
+      "examples_ko": [
+        "물은 수소와 산소 원자로 이루어진 화합물이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "comprehend",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(완전히) 이해하다",
+      "examples": [
+        "It's hard to comprehend the scale of the disaster."
+      ],
+      "examples_ko": [
+        "그 재난의 규모는 헤아리기가 어렵다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "comprehension",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "이해",
+      "examples": [
+        "Reading comprehension improves steadily when students practice every single day."
+      ],
+      "examples_ko": [
+        "학생들이 날마다 연습하면 독해력이 꾸준히 좋아진다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "comprehensive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "포괄적인",
+      "examples": [
+        "The report provides a comprehensive overview of the project."
+      ],
+      "examples_ko": [
+        "그 보고서는 사업 전반을 두루 짚어 준다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compress",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "압축하다, 압박하다 — 눌러서 작게 만들다",
+      "examples": [
+        "You can compress these large files into a single archive before sending them."
+      ],
+      "examples_ko": [
+        "이 큰 파일들은 보내기 전에 하나의 압축 파일로 묶을 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "comprise",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "~로 이루어져 있다",
+      "examples": [
+        "The committee comprises members from twelve countries."
+      ],
+      "examples_ko": [
+        "그 위원회는 열두 나라에서 온 위원들로 이루어져 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compromise",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "타협, 절충",
+      "examples": [
+        "They reached a compromise after hours of discussion."
+      ],
+      "examples_ko": [
+        "그들은 몇 시간 논의한 끝에 절충안에 이르렀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compulsion",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "억누를 수 없는 강박적 충동",
+      "examples": [
+        "She felt a strong compulsion to check the lock several times before leaving."
+      ],
+      "examples_ko": [
+        "그녀는 나가기 전에 자물쇠를 여러 번 확인해야 한다는 충동을 강하게 느꼈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compulsive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "억제하기 어려운 충동에 따른, 강박적인",
+      "examples": [
+        "He is a compulsive liar who can't stop fabricating stories."
+      ],
+      "examples_ko": [
+        "그는 이야기를 지어내는 것을 멈추지 못하는 상습적인 거짓말쟁이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compulsory",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "의무적인, 강제적인",
+      "examples": [
+        "Wearing seat belts is compulsory for all passengers in this country."
+      ],
+      "examples_ko": [
+        "이 나라에서는 모든 탑승자가 안전벨트를 매야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "compute",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "The program can compute the total cost in less than a second."
+      ],
+      "examples_ko": [
+        "그 프로그램은 총비용을 일 초도 안 되어 계산해 낸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "computer",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "컴퓨터",
+      "examples": [
+        "My computer is very slow today."
+      ],
+      "examples_ko": [
+        "내 컴퓨터가 오늘 아주 느리다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "computerize",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "전산화하다 — 수작업 업무를 컴퓨터 시스템으로 바꾸다",
+      "examples": [
+        "The company decided to computerize its accounting system."
+      ],
+      "examples_ko": [
+        "그 회사는 회계 시스템을 전산화하기로 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "computing",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "컴퓨터 사용, 컴퓨팅",
+      "examples": [
+        "Cloud computing has transformed the way businesses store data today."
+      ],
+      "examples_ko": [
+        "클라우드 컴퓨팅이 오늘날 기업이 자료를 저장하는 방식을 바꿔 놓았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "comrade",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "동료, 벗, 친구",
+      "examples": [
+        "He spoke fondly of his old army comrades from the war."
+      ],
+      "examples_ko": [
+        "그는 전쟁 때 함께한 옛 전우들을 정겹게 이야기했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "con",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "사기, 사기 행위",
+      "examples": [
+        "The whole investment scheme turned out to be a con."
+      ],
+      "examples_ko": [
+        "그 투자 계획은 전부 사기로 드러났다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conceal",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "숨기다, 감추다",
+      "examples": [
+        "He tried to conceal his disappointment."
+      ],
+      "examples_ko": [
+        "그는 실망한 기색을 감추려 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concealment",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "은폐, 숨김",
+      "examples": [
+        "He sought concealment behind the heavy curtains."
+      ],
+      "examples_ko": [
+        "그는 두꺼운 커튼 뒤에 몸을 숨기려 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concede",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "인정하다, 시인하다",
+      "examples": [
+        "After hours of debate, she finally conceded that he was right."
+      ],
+      "examples_ko": [
+        "몇 시간 논쟁한 끝에 그녀는 마침내 그가 옳다고 인정했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conceit",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "자만, 자만심",
+      "examples": [
+        "His conceit made it hard for colleagues to work with him."
+      ],
+      "examples_ko": [
+        "그의 자만심 때문에 동료들이 그와 일하기 힘들어했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conceited",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "자만하는, 우쭐대는",
+      "examples": [
+        "He is clever but rather conceited, and he loves to talk about his own marks."
+      ],
+      "examples_ko": [
+        "그는 똑똑하지만 다소 우쭐대는 편이라 자기 성적 이야기를 즐겨 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conceive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "생각해 내다, 구상하다",
+      "examples": [
+        "She conceived a brilliant idea for a new product."
+      ],
+      "examples_ko": [
+        "그녀는 새 제품에 대한 훌륭한 아이디어를 떠올렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concentrate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "집중하다, 정신을 모으다",
+      "examples": [
+        "I can't concentrate on my work when the music is so loud."
+      ],
+      "examples_ko": [
+        "음악이 그렇게 크면 나는 일에 집중할 수가 없다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concept",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "개념, 발상",
+      "examples": [
+        "The concept of freedom means different things to different people."
+      ],
+      "examples_ko": [
+        "자유라는 개념은 사람마다 다른 것을 뜻한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conception",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "개념, 구상",
+      "examples": [
+        "Her conception of justice differs greatly from mine."
+      ],
+      "examples_ko": [
+        "정의에 대한 그녀의 생각은 나의 것과 크게 다르다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concern",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "걱정, 우려",
+      "examples": [
+        "Rising sea levels are a major concern for coastal communities everywhere."
+      ],
+      "examples_ko": [
+        "해수면 상승은 세계 어디서나 해안 지역 사회의 큰 걱정거리다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concerned",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "걱정하는, 염려하는",
+      "examples": [
+        "She was deeply concerned about her father's health."
+      ],
+      "examples_ko": [
+        "그녀는 아버지의 건강을 몹시 걱정했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concert",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "콘서트, 연주회",
+      "examples": [
+        "We went to a concert last night."
+      ],
+      "examples_ko": [
+        "우리는 어젯밤 음악회에 갔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concession",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "양보, 양해",
+      "examples": [
+        "The union refused to make any concession on the wage demands."
+      ],
+      "examples_ko": [
+        "그 노조는 임금 요구에서 어떤 양보도 하지 않으려 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concierge",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "콘시어지 — 손님의 요청을 처리해 주는 호텔 안내원",
+      "examples": [
+        "The concierge arranged a taxi to the airport for us."
+      ],
+      "examples_ko": [
+        "호텔 안내인이 우리를 위해 공항까지 갈 택시를 잡아 주었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concise",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "간결한, 간명한",
+      "examples": [
+        "Please give me a concise summary of the report's main findings."
+      ],
+      "examples_ko": [
+        "그 보고서의 핵심 내용을 간결하게 요약해 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conclude",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결론짓다, 마무리하다",
+      "examples": [
+        "The judge concluded that he was innocent."
+      ],
+      "examples_ko": [
+        "판사는 그가 무죄라고 결론지었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conclusion",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결론",
+      "examples": [
+        "After hours of careful discussion, we all finally reached the same conclusion about the issue."
+      ],
+      "examples_ko": [
+        "몇 시간 신중히 논의한 끝에 우리는 그 문제에 대해 모두 같은 결론에 이르렀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conclusive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "의심의 여지 없이 어떤 사실을 입증하는",
+      "examples": [
+        "The DNA test provided conclusive evidence of his innocence."
+      ],
+      "examples_ko": [
+        "그 DNA 검사가 그의 결백을 확정하는 증거가 되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concoct",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "여러 재료를 섞어 음식·음료를 만들어내다",
+      "examples": [
+        "He concocted an elaborate excuse to explain why he was late."
+      ],
+      "examples_ko": [
+        "그는 늦은 이유를 대려고 그럴듯한 변명을 지어냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concord",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "화합, 일치",
+      "examples": [
+        "The two nations lived in concord for over a century."
+      ],
+      "examples_ko": [
+        "그 두 나라는 백 년 넘게 화목하게 지냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concordat",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "정교 협약, 콩코르다(교회·국가 협정)",
+      "examples": [
+        "The two states signed a concordat to end the dispute."
+      ],
+      "examples_ko": [
+        "그 두 나라는 분쟁을 끝내기로 협약을 맺었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concourse",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(역·공항의) 중앙 홀, 콩코스",
+      "examples": [
+        "Passengers crowded the station concourse waiting for their platforms to be announced."
+      ],
+      "examples_ko": [
+        "승객들이 승강장 안내를 기다리며 역 중앙홀을 가득 메웠다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concrete",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "구체적인, 명확한",
+      "examples": [
+        "We need concrete evidence before we can make any accusations."
+      ],
+      "examples_ko": [
+        "무언가를 문제 삼기 전에 구체적인 증거가 필요하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concretely",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "구체적으로, 명확하게",
+      "examples": [
+        "She explained concretely how the new system would save the company money."
+      ],
+      "examples_ko": [
+        "그녀는 새 시스템이 회사 비용을 어떻게 아껴 주는지 구체적으로 설명했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "concur",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "동의하다",
+      "examples": [
+        "I concur with your assessment of the situation."
+      ],
+      "examples_ko": [
+        "나는 상황에 대한 당신의 판단에 동의한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "condemn",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비난하다, 규탄하다",
+      "examples": [
+        "World leaders condemned the attack."
+      ],
+      "examples_ko": [
+        "세계 지도자들이 그 공격을 규탄했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "condense",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "응축하다, (수증기가) 액화되다",
+      "examples": [
+        "Try to condense your report into a single page."
+      ],
+      "examples_ko": [
+        "보고서를 한 쪽으로 줄여 보아라."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "condenser",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "응축기, 콘덴서 — 기체를 액체로 응축시키는 장치",
+      "examples": [
+        "Steam from the turbine flows into the condenser and turns back into water."
+      ],
+      "examples_ko": [
+        "터빈에서 나온 증기는 응축기로 흘러 들어가 다시 물이 된다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "condescend",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "겸손하게 ~하다, (몸을 낮추어) 응하다",
+      "examples": [
+        "She would not condescend to attend such a vulgar party."
+      ],
+      "examples_ko": [
+        "그녀는 그런 천박한 파티에 참석하는 일 따위는 하려 하지 않았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "condition",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "상태, 컨디션",
+      "examples": [
+        "The old used car is still in very good condition despite being more than ten years old."
+      ],
+      "examples_ko": [
+        "그 중고차는 십 년이 넘었는데도 아직 상태가 아주 좋다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conditional",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "조건부의, 조건적인",
+      "examples": [
+        "Her acceptance to the university was conditional on her final grades."
+      ],
+      "examples_ko": [
+        "그녀의 대학 합격은 최종 성적에 달린 조건부였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conditioner",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(헤어) 컨디셔너, 린스",
+      "examples": [
+        "She applied conditioner after shampooing to keep her hair smooth."
+      ],
+      "examples_ko": [
+        "그녀는 머리를 부드럽게 하려고 샴푸 뒤에 린스를 발랐다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "condom",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "피임이나 성병 예방을 위해 사용하는 얇은 고무 기구",
+      "examples": [
+        "Public health campaigns encourage the use of a condom for safer sex."
+      ],
+      "examples_ko": [
+        "공중 보건 캠페인은 더 안전한 성관계를 위해 콘돔 사용을 권한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "condor",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "콘도르, 안데스 큰 독수리",
+      "examples": [
+        "A majestic condor soared high above the Andes mountains in search of prey."
+      ],
+      "examples_ko": [
+        "위풍당당한 콘도르 한 마리가 먹이를 찾아 안데스산맥 위를 높이 날았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conduct",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "수행하다, 실시하다",
+      "examples": [
+        "They conducted a survey of 1,000 students."
+      ],
+      "examples_ko": [
+        "그들은 학생 천 명을 대상으로 설문 조사를 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conductor",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "지휘자(음악)",
+      "examples": [
+        "The orchestra performed brilliantly under their new conductor."
+      ],
+      "examples_ko": [
+        "그 관현악단은 새 지휘자 아래에서 훌륭한 연주를 들려주었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cone",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "원뿔, 원뿔 모양",
+      "examples": [
+        "The children licked their ice cream cones happily."
+      ],
+      "examples_ko": [
+        "아이들이 아이스크림콘을 즐겁게 핥아 먹었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confectioner",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "제과업자, 과자 제조인",
+      "examples": [
+        "The local confectioner is famous for handmade chocolate truffles."
+      ],
+      "examples_ko": [
+        "그 동네 제과점은 손으로 만든 초콜릿 트뤼프로 유명하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confederate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "어떤 일을 함께 도모하는 사람, 특히 불법적인 일의 공범",
+      "examples": [
+        "The thief had a confederate waiting in the getaway car."
+      ],
+      "examples_ko": [
+        "그 도둑에게는 도주 차량에서 기다리는 공범이 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confer",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "협의하다, 상의하다",
+      "examples": [
+        "The judges withdrew briefly to confer about the final verdict."
+      ],
+      "examples_ko": [
+        "판사들은 최종 평결을 상의하려고 잠시 자리를 비웠다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conference",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "회의, 학회, 회담",
+      "examples": [
+        "She is attending an international conference next week."
+      ],
+      "examples_ko": [
+        "그녀는 다음 주에 국제 학회에 참석한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confess",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "고백하다",
+      "examples": [
+        "He confessed to stealing the money."
+      ],
+      "examples_ko": [
+        "그는 그 돈을 훔쳤다고 자백했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confession",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "고백, 자백",
+      "examples": [
+        "The suspect signed a written confession after hours of police questioning."
+      ],
+      "examples_ko": [
+        "그 용의자는 몇 시간에 걸친 경찰 조사 끝에 자술서에 서명했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confide",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "털어놓다, (비밀을) 말하다",
+      "examples": [
+        "She decided to confide her deepest fears to her closest friend."
+      ],
+      "examples_ko": [
+        "그녀는 가장 깊은 두려움을 가장 가까운 친구에게 털어놓기로 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confidence",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "자신감; 확신",
+      "examples": [
+        "She always speaks with great confidence when presenting in front of a large audience."
+      ],
+      "examples_ko": [
+        "그녀는 많은 청중 앞에서 발표할 때 늘 자신 있게 말한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confident",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "자신 있는",
+      "examples": [
+        "She walked into the interview feeling confident and well-prepared."
+      ],
+      "examples_ko": [
+        "그녀는 자신감 있고 준비된 마음으로 면접장에 들어섰다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confidential",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비밀의, 기밀의",
+      "examples": [
+        "This information is strictly confidential."
+      ],
+      "examples_ko": [
+        "이 정보는 엄격한 비밀이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confidently",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "자신 있게, 당당하게",
+      "examples": [
+        "She spoke confidently in front of the large audience."
+      ],
+      "examples_ko": [
+        "그녀는 많은 청중 앞에서 자신 있게 말했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "configuration",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "구성, 배치",
+      "examples": [
+        "The default configuration works fine for most home network users."
+      ],
+      "examples_ko": [
+        "기본 설정만으로도 가정용 네트워크 이용자 대부분에게 충분하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "configure",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "구성하다",
+      "examples": [
+        "You need to configure the router before connecting any devices."
+      ],
+      "examples_ko": [
+        "기기를 연결하기 전에 공유기를 설정해야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confine",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "제한하다, 한정하다",
+      "examples": [
+        "The prisoners were confined to small cells."
+      ],
+      "examples_ko": [
+        "그 죄수들은 좁은 감방에 갇혀 지냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confirm",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "확인하다; 확정하다",
+      "examples": [
+        "Please confirm your reservation by email."
+      ],
+      "examples_ko": [
+        "이메일로 예약을 확정해 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confirmation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "확인, 확정",
+      "examples": [
+        "We received written confirmation of our hotel reservation by email."
+      ],
+      "examples_ko": [
+        "우리는 이메일로 호텔 예약 확정서를 받았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conflict",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "갈등, 충돌; 분쟁",
+      "examples": [
+        "There was conflict between the two leaders."
+      ],
+      "examples_ko": [
+        "그 두 지도자 사이에 갈등이 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conform",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "따르다, 순응하다",
+      "examples": [
+        "All products must conform to strict safety standards."
+      ],
+      "examples_ko": [
+        "모든 제품은 엄격한 안전 기준에 맞아야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conform to",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "~을 따르다, 순응하다",
+      "examples": [
+        "All products must conform to safety regulations."
+      ],
+      "examples_ko": [
+        "모든 제품은 안전 규정에 맞아야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conformity",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "순응·동조 — 규범·기준에 따르는 것",
+      "examples": [
+        "The school demands strict conformity to its dress code."
+      ],
+      "examples_ko": [
+        "그 학교는 복장 규정을 엄격히 지킬 것을 요구한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confound",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "당황하게 하다, 어리둥절하게 하다",
+      "examples": [
+        "The results confounded the researchers' expectations."
+      ],
+      "examples_ko": [
+        "그 결과는 연구자들의 예상을 뒤엎었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confront",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "정면으로 맞서다, 대항하다",
+      "examples": [
+        "She decided to confront her manager about the unfair treatment."
+      ],
+      "examples_ko": [
+        "그녀는 부당한 대우에 대해 관리자에게 따지기로 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confrontation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대립",
+      "examples": [
+        "She wanted to avoid a direct confrontation with her boss."
+      ],
+      "examples_ko": [
+        "그녀는 상사와 정면으로 부딪치는 것을 피하고 싶었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confrontational",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대립적인, 정면 대결하려는",
+      "examples": [
+        "Her confrontational tone made the meeting difficult."
+      ],
+      "examples_ko": [
+        "그녀의 대립적인 말투 때문에 회의가 껄끄러워졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confuse",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "혼란스럽게 만들다",
+      "examples": [
+        "The instructions confuse me every time I read them."
+      ],
+      "examples_ko": [
+        "그 설명은 읽을 때마다 나를 헷갈리게 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confused",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "혼란스러운, 헷갈리는",
+      "examples": [
+        "The students looked confused after the teacher's explanation."
+      ],
+      "examples_ko": [
+        "선생님의 설명이 끝난 뒤 학생들은 어리둥절한 표정이었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "confusion",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "혼란",
+      "examples": [
+        "There was complete confusion when the alarm went off."
+      ],
+      "examples_ko": [
+        "경보가 울리자 완전히 아수라장이 되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conger",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "붕장어, 콩거",
+      "examples": [
+        "The diver spotted a huge conger lurking in a rocky crevice."
+      ],
+      "examples_ko": [
+        "잠수부가 바위 틈에 숨어 있는 커다란 붕장어를 발견했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "congest",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "도로·공간을 사람이나 차량으로 꽉 차게 만들다",
+      "examples": [
+        "Heavy traffic congests the city center every weekday morning."
+      ],
+      "examples_ko": [
+        "평일 아침마다 극심한 교통량이 도심을 막히게 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "congratulate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "축하하다",
+      "examples": [
+        "I want to congratulate you on your promotion to senior manager."
+      ],
+      "examples_ko": [
+        "선임 관리자로 승진하신 것을 축하드리고 싶습니다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "congratulation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "축하, 축하 인사",
+      "examples": [
+        "He received a warm congratulation from his mentor after the promotion."
+      ],
+      "examples_ko": [
+        "그는 승진한 뒤 멘토에게서 따뜻한 축하를 받았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "congregate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(사람들이) 모이다",
+      "examples": [
+        "Crowds congregated in the square to hear the speech."
+      ],
+      "examples_ko": [
+        "사람들이 연설을 들으려고 광장에 모여들었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "congregation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(교회의) 신도, 회중, 신자들",
+      "examples": [
+        "The entire congregation rose to sing the final hymn together."
+      ],
+      "examples_ko": [
+        "신도 전체가 일어나 마지막 찬송을 함께 불렀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "congress",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "의회, 국회",
+      "examples": [
+        "Congress voted to approve the new healthcare bill last Tuesday."
+      ],
+      "examples_ko": [
+        "의회는 지난 화요일에 새 의료법안을 승인하기로 표결했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "congressional",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "의회의, 미국 국회의",
+      "examples": [
+        "The new bill faces a tough congressional vote later this week."
+      ],
+      "examples_ko": [
+        "그 새 법안은 이번 주 후반 의회 표결에서 험난한 관문을 마주한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "congruence",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "일치, 합치 — 서로 잘 들어맞음",
+      "examples": [
+        "There is a clear congruence between the company's values and its hiring practices."
+      ],
+      "examples_ko": [
+        "그 회사의 가치관과 채용 방식 사이에는 뚜렷한 일치가 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "congruent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "일치하는, 부합하는",
+      "examples": [
+        "His actions are congruent with the values he professes."
+      ],
+      "examples_ko": [
+        "그의 행동은 그가 내세우는 가치관과 일치한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conifer",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "침엽수, 구과식물",
+      "examples": [
+        "The forest was dominated by tall conifers with dark green needles."
+      ],
+      "examples_ko": [
+        "그 숲은 짙은 초록 바늘잎을 단 키 큰 침엽수가 주를 이루었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conjectural",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "추측의, 추측에 근거한",
+      "examples": [
+        "Most of his claims about the ancient ruins remain purely conjectural."
+      ],
+      "examples_ko": [
+        "그 고대 유적에 관한 그의 주장은 대부분 추측에 머물러 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conjecture",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "추측, 짐작 — 증거가 부족한 채로 참이라고 여기는 생각",
+      "examples": [
+        "His theory remains pure conjecture without supporting evidence."
+      ],
+      "examples_ko": [
+        "그의 이론은 뒷받침할 증거가 없어 순전한 추측에 그친다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conjugate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(동사를) 활용하다, 인칭·시제에 따라 변화시키다",
+      "examples": [
+        "Beginners often struggle to conjugate irregular verbs correctly in the past tense."
+      ],
+      "examples_ko": [
+        "초보자는 과거형에서 불규칙 동사를 제대로 활용하는 데 애를 먹곤 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conjunction",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결합, 연결; (in conjunction with) 함께",
+      "examples": [
+        "Used in conjunction with the map, the app rarely leads you wrong."
+      ],
+      "examples_ko": [
+        "지도와 함께 쓰면 그 앱은 좀처럼 길을 잘못 알려 주지 않는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conker",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "마로니에 열매, 콩커 놀이용 견과(영국)",
+      "examples": [
+        "The boys collected conkers from under the horse chestnut tree."
+      ],
+      "examples_ko": [
+        "아이들은 마로니에 나무 밑에서 열매를 주웠다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "connect",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "연결하다",
+      "examples": [
+        "Please connect the printer to the computer."
+      ],
+      "examples_ko": [
+        "프린터를 컴퓨터에 연결해 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "connection",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "연결",
+      "examples": [
+        "The internet connection in this old hotel is so slow that I can barely check my email."
+      ],
+      "examples_ko": [
+        "이 오래된 호텔의 인터넷 연결이 어찌나 느린지 이메일 확인조차 겨우 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "connive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "부정·불법 행위를 함께 꾸미다",
+      "examples": [
+        "Two officials connived to embezzle company funds."
+      ],
+      "examples_ko": [
+        "공무원 두 사람이 짜고 회사 자금을 횡령했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "connoisseur",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "감식가, 전문가, 애호가",
+      "examples": [
+        "As a connoisseur of fine wines, he could identify the vintage instantly."
+      ],
+      "examples_ko": [
+        "고급 포도주 감식가인 그는 빈티지를 단번에 알아맞혔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "connotation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "함의, 내포된 의미",
+      "examples": [
+        "\"Thrifty\" and \"stingy\" mean much the same but carry a different connotation."
+      ],
+      "examples_ko": [
+        "'thrifty'와 'stingy'는 뜻이 거의 같지만 풍기는 어감이 다르다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conquer",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "정복하다, 점령하다",
+      "examples": [
+        "She worked hard to conquer her fear of public speaking."
+      ],
+      "examples_ko": [
+        "그녀는 남들 앞에서 말하는 두려움을 이겨 내려고 애썼다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conqueror",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "정복자, 승리자",
+      "examples": [
+        "William the Conqueror invaded England in 1066 and changed its history."
+      ],
+      "examples_ko": [
+        "정복왕 윌리엄은 1066년에 잉글랜드를 침공해 그 역사를 바꿔 놓았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conquest",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "정복, 점령",
+      "examples": [
+        "The Norman conquest of England began in 1066."
+      ],
+      "examples_ko": [
+        "노르만족의 잉글랜드 정복은 1066년에 시작되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conscience",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "양심",
+      "examples": [
+        "His guilty conscience kept him awake throughout the long, restless night."
+      ],
+      "examples_ko": [
+        "죄책감 때문에 그는 길고 뒤척이는 밤을 뜬눈으로 지새웠다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conscientious",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "양심적인",
+      "examples": [
+        "She is a conscientious worker who checks every detail before submitting."
+      ],
+      "examples_ko": [
+        "그녀는 제출하기 전에 모든 항목을 확인하는 성실한 직원이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conscious",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "의식하는, 자각하는",
+      "examples": [
+        "The patient was conscious and able to speak after the operation."
+      ],
+      "examples_ko": [
+        "그 환자는 수술 뒤 의식이 있었고 말도 할 수 있었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consciously",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "의식적으로",
+      "examples": [
+        "She consciously chose to speak more slowly."
+      ],
+      "examples_ko": [
+        "그녀는 일부러 더 천천히 말하기로 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consciousness",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "의식",
+      "examples": [
+        "He slowly regained consciousness after the surgery had ended."
+      ],
+      "examples_ko": [
+        "그는 수술이 끝난 뒤 서서히 의식을 되찾았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conscript",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(군에) 강제로 징집하다, 소집하다",
+      "examples": [
+        "During the war, young men were conscripted into the army at age eighteen."
+      ],
+      "examples_ko": [
+        "전쟁 중에 젊은 남자들은 열여덟이면 군에 징집되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consecrate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "성별하다, 신성하게 하다",
+      "examples": [
+        "The bishop will consecrate the new church next Sunday morning."
+      ],
+      "examples_ko": [
+        "주교가 다음 주 일요일 아침에 새 교회를 봉헌할 것이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consecutive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "중간에 끊김 없이 차례로 이어지는",
+      "examples": [
+        "It rained for five consecutive days last week."
+      ],
+      "examples_ko": [
+        "지난주에 닷새 내리 비가 왔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consensual",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "합의에 의한, 동의한",
+      "examples": [
+        "The agreement was reached through consensual negotiation between both parties."
+      ],
+      "examples_ko": [
+        "그 합의는 양측의 자발적인 협상을 통해 이루어졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consensus",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "합의",
+      "examples": [
+        "The team finally reached a consensus on the new project plan."
+      ],
+      "examples_ko": [
+        "그 팀은 새 사업 계획에 대해 마침내 합의에 이르렀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "동의, 허락",
+      "examples": [
+        "You need written consent from a parent to join the trip."
+      ],
+      "examples_ko": [
+        "그 여행에 참가하려면 부모의 서면 동의가 필요하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consequence",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결과; (좋지 않은) 영향",
+      "examples": [
+        "He didn't really think about the long-term consequences of quitting his stable job so suddenly."
+      ],
+      "examples_ko": [
+        "그는 안정된 직장을 그렇게 갑자기 그만두는 일이 장기적으로 어떤 결과를 낳을지 별로 생각하지 않았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consequent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결과적인, 그에 따른, 결과로 일어나는",
+      "examples": [
+        "The drought and the consequent food shortage hit the region hard."
+      ],
+      "examples_ko": [
+        "가뭄과 그에 따른 식량 부족이 그 지역을 크게 덮쳤다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consequential",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "중대한, 중요한",
+      "examples": [
+        "The court's ruling was one of the most consequential decisions of the decade."
+      ],
+      "examples_ko": [
+        "그 법원의 판결은 그 십 년 사이 가장 큰 영향을 남긴 결정 가운데 하나였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consequently",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "결과적으로, 따라서",
+      "examples": [
+        "He didn't study hard; consequently, he failed the exam."
+      ],
+      "examples_ko": [
+        "그는 열심히 공부하지 않았고, 그 결과 시험에 떨어졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conservation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(자연·환경) 보호",
+      "examples": [
+        "Wildlife conservation has become a global priority in recent decades."
+      ],
+      "examples_ko": [
+        "야생 동식물 보전은 최근 몇십 년 사이 세계적인 과제가 되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conservative",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "보수적인, 신중한",
+      "examples": [
+        "Her conservative parents disapproved of her lifestyle choices."
+      ],
+      "examples_ko": [
+        "보수적인 그녀의 부모는 그녀의 생활 방식을 못마땅해했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conservator",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(박물관·미술) 보존 전문가 — 유물·미술품을 보존·복원하는 전문가",
+      "examples": [
+        "The museum hired a skilled conservator to restore the damaged painting."
+      ],
+      "examples_ko": [
+        "그 박물관은 손상된 그림을 복원하려고 숙련된 보존 전문가를 고용했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conservatory",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "온실 — 여린 식물을 기르는 유리 건물",
+      "examples": [
+        "They drank tea in the sunny conservatory overlooking the garden."
+      ],
+      "examples_ko": [
+        "그들은 정원이 내다보이는 볕 좋은 온실에서 차를 마셨다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conserve",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(자원·에너지를) 아끼다, 절약하다",
+      "examples": [
+        "We should conserve energy by turning off lights."
+      ],
+      "examples_ko": [
+        "우리는 불을 꺼서 에너지를 아껴야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consider",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "고려하다, 숙고하다",
+      "examples": [
+        "You should consider all the options."
+      ],
+      "examples_ko": [
+        "모든 선택지를 고려해 보아야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "considerable",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "상당한, 꽤 많은",
+      "examples": [
+        "The complex new project required a considerable amount of time and effort from the entire team."
+      ],
+      "examples_ko": [
+        "그 복잡한 새 사업에는 팀 전체의 상당한 시간과 노력이 필요했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consideration",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "고려, 숙고",
+      "examples": [
+        "Please give my proposal careful consideration."
+      ],
+      "examples_ko": [
+        "제 제안을 신중히 검토해 주시기 바랍니다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consign",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(원치 않는 상태·장소에) 두다, 처박아 두다",
+      "examples": [
+        "Old documents were consigned to a dusty box in the attic."
+      ],
+      "examples_ko": [
+        "오래된 문서들은 다락의 먼지 쌓인 상자로 치워졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consist",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "이루어지다, 구성되다",
+      "examples": [
+        "The team consists of ten players."
+      ],
+      "examples_ko": [
+        "그 팀은 열 명의 선수로 이루어져 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consist of",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "~로 구성되다",
+      "examples": [
+        "The committee consists of seven members from different departments."
+      ],
+      "examples_ko": [
+        "그 위원회는 여러 부서에서 온 일곱 명으로 이루어져 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consistency",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "일관성, 한결같음",
+      "examples": [
+        "The team's consistency throughout the season earned them the title."
+      ],
+      "examples_ko": [
+        "그 팀은 시즌 내내 흔들리지 않은 덕분에 우승을 차지했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consistent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "일관된",
+      "examples": [
+        "Her consistent performance earned her a promotion."
+      ],
+      "examples_ko": [
+        "그녀의 한결같은 성과가 승진으로 이어졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consistently",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "일관되게, 꾸준히",
+      "examples": [
+        "She has consistently performed well throughout the entire academic year."
+      ],
+      "examples_ko": [
+        "그녀는 한 학년 내내 꾸준히 좋은 성적을 냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "console",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "위로하다, 위안을 주다",
+      "examples": [
+        "He tried to console his friend after the sad news about her father."
+      ],
+      "examples_ko": [
+        "그는 아버지에 관한 슬픈 소식을 들은 친구를 위로하려 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consolidate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "강화하다, 굳히다",
+      "examples": [
+        "The company plans to consolidate its operations into a single headquarters next year."
+      ],
+      "examples_ko": [
+        "그 회사는 내년에 사업장을 하나의 본사로 통합할 계획이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consolidation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "통합, 합병",
+      "examples": [
+        "The merger led to the consolidation of the two largest banks."
+      ],
+      "examples_ko": [
+        "그 합병으로 가장 큰 두 은행이 하나로 합쳐졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consonant",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "자음",
+      "examples": [
+        "The letter B is a consonant, not a vowel."
+      ],
+      "examples_ko": [
+        "글자 B는 모음이 아니라 자음이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consortium",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "공동 목적을 위해 여러 기업·기관이 결성한 협력 단체",
+      "examples": [
+        "A consortium of banks financed the new highway project."
+      ],
+      "examples_ko": [
+        "여러 은행이 컨소시엄을 이뤄 그 새 고속도로 사업에 자금을 댔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conspicuous",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "주의를 끌 만큼 분명히 보이는",
+      "examples": [
+        "Her bright red coat made her conspicuous in the crowd."
+      ],
+      "examples_ko": [
+        "새빨간 외투 때문에 그녀는 인파 속에서 눈에 띄었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conspiracy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "음모, 모의, 공모",
+      "examples": [
+        "The detectives uncovered a vast conspiracy to defraud elderly investors of millions."
+      ],
+      "examples_ko": [
+        "형사들은 노년 투자자들에게서 수백만을 가로채려던 거대한 음모를 밝혀냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conspire",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "음모를 꾸미다, 공모하다",
+      "examples": [
+        "They conspired to overthrow the government."
+      ],
+      "examples_ko": [
+        "그들은 정부를 무너뜨리려고 공모했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constable",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(영국) 순경, 경찰관",
+      "examples": [
+        "The local constable arrived to take a statement from the witness."
+      ],
+      "examples_ko": [
+        "동네 경찰관이 목격자의 진술을 받으러 왔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constant",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "끊임없는, 지속적인",
+      "examples": [
+        "The speed of light is a constant in physics."
+      ],
+      "examples_ko": [
+        "빛의 속도는 물리학에서 상수다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constantly",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "끊임없이",
+      "examples": [
+        "Technology is constantly changing the way we work."
+      ],
+      "examples_ko": [
+        "기술은 우리가 일하는 방식을 끊임없이 바꾸고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constellation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "별자리, 성좌",
+      "examples": [
+        "Orion is one of the most easily recognized constellations in the night sky."
+      ],
+      "examples_ko": [
+        "오리온자리는 밤하늘에서 가장 알아보기 쉬운 별자리 가운데 하나다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constipation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "변비",
+      "examples": [
+        "A diet low in fibre often leads to chronic constipation."
+      ],
+      "examples_ko": [
+        "섬유질이 적은 식단은 흔히 만성 변비로 이어진다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constituency",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "선거구",
+      "examples": [
+        "She won her constituency by a comfortable margin in the recent election."
+      ],
+      "examples_ko": [
+        "그녀는 최근 선거에서 자기 지역구를 넉넉한 표차로 지켰다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constituent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "구성 요소, 성분",
+      "examples": [
+        "Water is a key constituent of every living cell in the human body."
+      ],
+      "examples_ko": [
+        "물은 사람 몸의 모든 살아 있는 세포를 이루는 핵심 성분이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constitute",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(전체를) 구성하다, 이루다",
+      "examples": [
+        "Women constitute nearly half of the workforce in this company."
+      ],
+      "examples_ko": [
+        "이 회사에서 여성이 전체 인력의 거의 절반을 차지한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constitution",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "헌법, 정관",
+      "examples": [
+        "The country's constitution guarantees fundamental rights to every citizen."
+      ],
+      "examples_ko": [
+        "그 나라의 헌법은 모든 국민에게 기본권을 보장한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constitutional",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "헌법의, 합헌의",
+      "examples": [
+        "The court ruled that the new law was not constitutional."
+      ],
+      "examples_ko": [
+        "법원은 그 새 법이 헌법에 맞지 않는다고 판결했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constrain",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "자유나 행동을 제한하다",
+      "examples": [
+        "Tight budgets constrain what the team can achieve."
+      ],
+      "examples_ko": [
+        "빠듯한 예산이 그 팀이 해낼 수 있는 일을 제약한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constrict",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(눌러서) 좁히다, 죄다; 좁아지다",
+      "examples": [
+        "The tight collar constricted his throat."
+      ],
+      "examples_ko": [
+        "꽉 조인 옷깃이 그의 목을 죄었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "construct",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "건설하다; 구성하다",
+      "examples": [
+        "They are planning to construct a new shopping mall on the empty lot downtown."
+      ],
+      "examples_ko": [
+        "그들은 시내 빈터에 새 쇼핑몰을 지을 계획이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "construction",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "건설, 건축",
+      "examples": [
+        "The construction of the new bridge will take two years."
+      ],
+      "examples_ko": [
+        "그 새 다리를 놓는 데 이 년이 걸릴 것이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "constructor",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "건설업자, 제작자, 만드는 사람",
+      "examples": [
+        "The constructor finished the bridge two months ahead of schedule."
+      ],
+      "examples_ko": [
+        "그 시공사는 예정보다 두 달 앞당겨 다리를 완공했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "construe",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "말이나 행동을 특정한 의미로 해석하다",
+      "examples": [
+        "Her silence was construed as agreement."
+      ],
+      "examples_ko": [
+        "그녀의 침묵은 동의로 받아들여졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consult",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "상담하다, 자문을 구하다",
+      "examples": [
+        "You should consult a doctor about that pain."
+      ],
+      "examples_ko": [
+        "그 통증에 대해서는 의사와 상의해 보아야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consultancy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "자문",
+      "examples": [
+        "She left the bank to start her own management consultancy."
+      ],
+      "examples_ko": [
+        "그녀는 은행을 그만두고 자기 경영 컨설팅 회사를 차렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consultant",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "컨설턴트",
+      "examples": [
+        "We hired a consultant to improve our business strategy."
+      ],
+      "examples_ko": [
+        "우리는 사업 전략을 개선하려고 컨설턴트를 고용했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consultation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "상담",
+      "examples": [
+        "The doctor scheduled a consultation to discuss the test results in detail."
+      ],
+      "examples_ko": [
+        "의사는 검사 결과를 자세히 이야기하려고 상담 일정을 잡았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consume",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "소비하다, 소모하다",
+      "examples": [
+        "Americans consume a lot of coffee every day."
+      ],
+      "examples_ko": [
+        "미국인들은 날마다 커피를 많이 마신다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consumer",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "소비자",
+      "examples": [
+        "The average consumer spends more money during the holiday season."
+      ],
+      "examples_ko": [
+        "보통 소비자는 연휴 기간에 돈을 더 많이 쓴다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "consumption",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "소비",
+      "examples": [
+        "Water consumption rises sharply during the summer."
+      ],
+      "examples_ko": [
+        "여름이면 물 사용량이 가파르게 는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contact",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "연락하다",
+      "examples": [
+        "Please contact me by email if you have any questions."
+      ],
+      "examples_ko": [
+        "궁금한 점이 있으면 이메일로 연락 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contagious",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(병이) 전염성의, 접촉으로 옮는",
+      "examples": [
+        "Measles is highly contagious and spreads through the air."
+      ],
+      "examples_ko": [
+        "홍역은 전염성이 매우 강하고 공기로 퍼진다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contain",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "포함하다, 담고 있다",
+      "examples": [
+        "This popular energy drink contains a large amount of sugar and caffeine per bottle."
+      ],
+      "examples_ko": [
+        "인기 있는 이 에너지 음료에는 한 병당 설탕과 카페인이 많이 들어 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "container",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "용기, 그릇",
+      "examples": [
+        "Please store the leftovers in an airtight container in the fridge."
+      ],
+      "examples_ko": [
+        "남은 음식은 밀폐 용기에 담아 냉장고에 넣어 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contaminate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "오염시키다",
+      "examples": [
+        "Even small amounts of waste can contaminate the entire water supply."
+      ],
+      "examples_ko": [
+        "적은 양의 폐기물도 수원 전체를 오염시킬 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contemplate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "숙고하다, 고려하다",
+      "examples": [
+        "He contemplated quitting his job for several months."
+      ],
+      "examples_ko": [
+        "그는 몇 달 동안 직장을 그만둘까 곰곰이 생각했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contemporaneous",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "같은 시기에 존재·발생한",
+      "examples": [
+        "The two manuscripts are contemporaneous, both dating from the 12th century."
+      ],
+      "examples_ko": [
+        "그 두 사본은 같은 시기의 것으로, 둘 다 12세기에 만들어졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contemporary",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "현대의, 당대의; 동시대의",
+      "examples": [
+        "The museum features contemporary art from artists around the world."
+      ],
+      "examples_ko": [
+        "그 박물관은 세계 여러 작가의 현대 미술을 선보인다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contempt",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "경멸, 멸시, 무시",
+      "examples": [
+        "She looked at the cheating player with utter contempt and walked away."
+      ],
+      "examples_ko": [
+        "그녀는 속임수를 쓴 선수를 몹시 경멸하는 눈으로 보고 자리를 떴다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contemptuously",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "경멸하듯이, 무시하며",
+      "examples": [
+        "She tossed the letter contemptuously on the table."
+      ],
+      "examples_ko": [
+        "그녀는 그 편지를 경멸하듯 탁자에 툭 던졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contend",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(강력히) 주장하다",
+      "examples": [
+        "Critics contend that the new law will harm small businesses across the country."
+      ],
+      "examples_ko": [
+        "비판자들은 그 새 법이 전국의 소상공인에게 해를 끼칠 것이라고 주장한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "content",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "내용, 콘텐츠",
+      "examples": [
+        "The content of the report was kept secret until the meeting began."
+      ],
+      "examples_ko": [
+        "그 보고서의 내용은 회의가 시작될 때까지 비밀에 부쳐졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contention",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "주장, 논점",
+      "examples": [
+        "His main contention is that the new policy will harm small businesses."
+      ],
+      "examples_ko": [
+        "그의 핵심 주장은 새 정책이 소상공인에게 해가 되리라는 것이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contentious",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "논쟁적인",
+      "examples": [
+        "Immigration remains a contentious issue in many countries."
+      ],
+      "examples_ko": [
+        "이민 문제는 여러 나라에서 여전히 논쟁적인 사안이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contentment",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "A sense of quiet contentment filled the room."
+      ],
+      "examples_ko": [
+        "조용한 만족감이 방 안에 가득했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contest",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대회, 경연",
+      "examples": [
+        "She won first prize in the school singing contest last month."
+      ],
+      "examples_ko": [
+        "그녀는 지난달 학교 노래 대회에서 일 등을 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "context",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "단어·사건이 놓인 주변 상황",
+      "examples": [
+        "You need to read the whole paragraph to understand the context."
+      ],
+      "examples_ko": [
+        "맥락을 알려면 문단 전체를 읽어야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contextual",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "The contextual meaning of the word is unclear here."
+      ],
+      "examples_ko": [
+        "여기서 그 낱말이 문맥상 무슨 뜻인지 분명하지 않다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contiguous",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "인접한, 맞닿은",
+      "examples": [
+        "Texas is contiguous with Mexico along its southern border."
+      ],
+      "examples_ko": [
+        "텍사스는 남쪽 국경에서 멕시코와 맞닿아 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "continent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대륙",
+      "examples": [
+        "Africa is the second largest continent both in area and population."
+      ],
+      "examples_ko": [
+        "아프리카는 면적으로나 인구로나 두 번째로 큰 대륙이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "continental",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대륙의",
+      "examples": [
+        "They enjoyed a continental breakfast at the hotel."
+      ],
+      "examples_ko": [
+        "그들은 호텔에서 간단한 유럽식 아침 식사를 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contingency",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비상 사태, 우발 상황",
+      "examples": [
+        "We must have a contingency plan in case of failure."
+      ],
+      "examples_ko": [
+        "실패할 경우에 대비한 비상 계획이 있어야 한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contingent",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "~에 달려 있는, ~을 조건으로 하는",
+      "examples": [
+        "The deal is contingent on board approval."
+      ],
+      "examples_ko": [
+        "그 거래는 이사회 승인 여부에 달려 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "continual",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "끊임없는",
+      "examples": [
+        "The continual interruptions made it impossible to finish the report."
+      ],
+      "examples_ko": [
+        "끊임없는 방해 때문에 보고서를 끝낼 수가 없었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "continually",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "끊임없이, 거듭",
+      "examples": [
+        "He continually interrupted the speaker with irrelevant questions throughout the entire presentation."
+      ],
+      "examples_ko": [
+        "그는 발표 내내 엉뚱한 질문으로 발표자의 말을 계속 끊었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "continue",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "계속하다, 지속하다",
+      "examples": [
+        "The rain continued all day."
+      ],
+      "examples_ko": [
+        "비가 온종일 계속 내렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "continuity",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "연속성, 지속성",
+      "examples": [
+        "The new manager ensured continuity of service during the transition period."
+      ],
+      "examples_ko": [
+        "새 관리자는 인수인계 기간에도 서비스가 끊기지 않도록 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "continuous",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "지속적인",
+      "examples": [
+        "There has been continuous rain for the past three days."
+      ],
+      "examples_ko": [
+        "사흘째 비가 끊이지 않고 내리고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "continuously",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "끊임없이, 계속해서",
+      "examples": [
+        "The machine has been running continuously for three days."
+      ],
+      "examples_ko": [
+        "그 기계는 사흘째 쉬지 않고 돌아가고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "continuum",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "끊김 없이 이어지며 점진적으로 변화하는 일련의 상태나 값",
+      "examples": [
+        "Political views exist on a continuum from far left to far right."
+      ],
+      "examples_ko": [
+        "정치적 견해는 극좌에서 극우까지 이어진 하나의 스펙트럼 위에 놓인다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contort",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "얼굴·몸을 부자연스럽게 비틀다",
+      "examples": [
+        "Pain made him contort his face into a grimace."
+      ],
+      "examples_ko": [
+        "고통 때문에 그의 얼굴이 잔뜩 일그러졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contour",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "윤곽을 그리다, 등고선을 표시하다",
+      "examples": [
+        "The designer carefully contoured the seat to fit the human spine."
+      ],
+      "examples_ko": [
+        "그 디자이너는 사람 척추에 맞도록 좌석의 굴곡을 정성껏 잡았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contraband",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "밀수품, 금제품",
+      "examples": [
+        "Customs officers seized a large shipment of contraband at the border."
+      ],
+      "examples_ko": [
+        "세관 직원들이 국경에서 대량의 밀수품을 압수했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contraception",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "임신을 막는 방법·기구의 총칭, 피임",
+      "examples": [
+        "The clinic offers free advice on different methods of contraception."
+      ],
+      "examples_ko": [
+        "그 진료소는 여러 피임 방법에 관한 상담을 무료로 해 준다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contract",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "계약, 계약서",
+      "examples": [
+        "She signed a two-year contract."
+      ],
+      "examples_ko": [
+        "그녀는 이 년짜리 계약서에 서명했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contraction",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "수축, 줄어듦",
+      "examples": [
+        "\"Don't\" is a common contraction of \"do not\"."
+      ],
+      "examples_ko": [
+        "'Don't'는 'do not'의 흔한 축약형이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contractual",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "계약상의, 계약에 의한",
+      "examples": [
+        "She has a contractual obligation to remain with the company for two more years."
+      ],
+      "examples_ko": [
+        "그녀는 이 년을 더 회사에 남아야 하는 계약상의 의무가 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contradict",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "반박하다, 부정하다",
+      "examples": [
+        "Her actions contradict her words."
+      ],
+      "examples_ko": [
+        "그녀의 행동은 자기 말과 어긋난다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contradiction",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "모순",
+      "examples": [
+        "His actions stood in direct contradiction to his earlier statements."
+      ],
+      "examples_ko": [
+        "그의 행동은 앞서 한 말과 정면으로 어긋났다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contradictory",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "모순되는, 상반된",
+      "examples": [
+        "The witnesses gave contradictory accounts of what happened that night."
+      ],
+      "examples_ko": [
+        "목격자들은 그날 밤 일에 대해 서로 엇갈리는 진술을 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contraflow",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "역방향 통행, 역류 차로(영국)",
+      "examples": [
+        "A contraflow system managed the roadworks traffic."
+      ],
+      "examples_ko": [
+        "역주행 차로 운영으로 도로 공사 구간의 교통을 관리했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contrail",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "비행운, 항공기 응결 흔적",
+      "examples": [
+        "A thin white contrail traced the path of the jet across the blue sky."
+      ],
+      "examples_ko": [
+        "가느다란 흰 비행운이 푸른 하늘에 제트기의 자취를 그렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contraindication",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "특정 치료·약물을 사용해서는 안 되는 의학적 이유",
+      "examples": [
+        "Pregnancy is a contraindication for this medication."
+      ],
+      "examples_ko": [
+        "임신은 이 약을 쓰면 안 되는 금기 사항이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contrapuntal",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "여러 독립 선율이 대위법으로 결합된",
+      "examples": [
+        "Bach's fugues are admired for their intricate contrapuntal writing."
+      ],
+      "examples_ko": [
+        "바흐의 푸가는 정교한 대위법 작법으로 높이 평가받는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contrarian",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "반대론자, 역발상 투자자",
+      "examples": [
+        "As a contrarian, he bought stocks when everyone else was selling."
+      ],
+      "examples_ko": [
+        "그는 남들이 다 팔 때 사들이는 역발상 투자자였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contrary",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "반대의, 정반대의",
+      "examples": [
+        "His opinion is contrary to what most people believe today."
+      ],
+      "examples_ko": [
+        "그의 의견은 오늘날 대부분의 사람이 믿는 것과 반대다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contrast",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대조; 대비",
+      "examples": [
+        "There is a sharp contrast between the two paintings."
+      ],
+      "examples_ko": [
+        "그 두 그림 사이에는 뚜렷한 대비가 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contribute",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기여하다",
+      "examples": [
+        "Everyone contributed to the project's success."
+      ],
+      "examples_ko": [
+        "모두가 그 사업의 성공에 힘을 보탰다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contribute to",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "~에 기여하다",
+      "examples": [
+        "Regular exercise contributes to better mental health."
+      ],
+      "examples_ko": [
+        "규칙적인 운동은 정신 건강을 좋게 하는 데 도움이 된다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contribution",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기여, 공헌",
+      "examples": [
+        "Her contribution to modern medical science was extremely significant and changed many lives."
+      ],
+      "examples_ko": [
+        "현대 의학에 그녀가 남긴 기여는 매우 컸고 많은 생명을 바꿔 놓았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contributor",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기여자, 기부자",
+      "examples": [
+        "She is a regular contributor to several leading scientific journals."
+      ],
+      "examples_ko": [
+        "그녀는 여러 주요 과학 학술지에 꾸준히 글을 싣는 필자다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contributory",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(어떤 결과를 낳는 데) 원인이 되는, 한몫하는 (a contributory factor 기여 요인)",
+      "examples": [
+        "Smoking was a contributory factor in his early death."
+      ],
+      "examples_ko": [
+        "흡연이 그의 이른 죽음에 한몫한 요인이었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contrivance",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(기계) 장치, 고안물 — 특정 일을 하도록 만든 기구",
+      "examples": [
+        "The plot relies on a clumsy contrivance to bring the lovers back together."
+      ],
+      "examples_ko": [
+        "그 줄거리는 연인을 다시 만나게 하려고 어설픈 설정에 기대고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "contrive",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "어려운 상황에서 용케 ~해내다, 가까스로 성취하다",
+      "examples": [
+        "She contrived to finish the report before the midnight deadline."
+      ],
+      "examples_ko": [
+        "그녀는 자정 마감 전에 보고서를 용케 끝내 냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "control",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "통제하다, 지배하다",
+      "examples": [
+        "The government tried to control the spread of the disease with strict rules."
+      ],
+      "examples_ko": [
+        "정부는 엄격한 규칙으로 그 병의 확산을 막으려 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "controller",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "제어 장치, 컨트롤러",
+      "examples": [
+        "The game controller stopped working after my brother dropped it on the floor."
+      ],
+      "examples_ko": [
+        "동생이 바닥에 떨어뜨린 뒤로 그 게임 컨트롤러가 작동하지 않는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "controversial",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "논란이 많은, 논쟁적인",
+      "examples": [
+        "The new law is highly controversial among voters."
+      ],
+      "examples_ko": [
+        "그 새 법은 유권자들 사이에서 논란이 크다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "controversy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "논란, 논쟁",
+      "examples": [
+        "The new law sparked controversy among parents and teachers alike."
+      ],
+      "examples_ko": [
+        "그 새 법은 학부모와 교사 모두에게서 논란을 불러일으켰다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "controvert",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "어떤 주장이나 사실을 반박하여 부인하다",
+      "examples": [
+        "No one in the courtroom could controvert the witness's detailed testimony."
+      ],
+      "examples_ko": [
+        "법정에 있던 누구도 그 증인의 상세한 증언을 반박하지 못했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convene",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(회의를) 소집하다, 불러 모으다",
+      "examples": [
+        "The committee will convene next Monday to discuss the proposal."
+      ],
+      "examples_ko": [
+        "그 위원회는 그 제안을 논의하려고 다음 주 월요일에 소집된다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convenience",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "편의, 편리함",
+      "examples": [
+        "This online tool offers great convenience."
+      ],
+      "examples_ko": [
+        "이 온라인 도구는 아주 편리하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convenience store",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "편의점",
+      "examples": [
+        "I bought milk and bread at the convenience store near the station."
+      ],
+      "examples_ko": [
+        "나는 역 근처 편의점에서 우유와 빵을 샀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convenient",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "편리한, 편한",
+      "examples": [
+        "The store is very convenient because it is open all night."
+      ],
+      "examples_ko": [
+        "그 가게는 밤새 문을 열어서 아주 편리하다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convention",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "관습, 관례",
+      "examples": [
+        "Shaking hands is a common social convention when meeting someone for the first time."
+      ],
+      "examples_ko": [
+        "악수는 처음 만난 사람과 인사할 때의 흔한 사회적 관례다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conventional",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "전통적인, 관습적인",
+      "examples": [
+        "He preferred conventional methods over the new digital approach."
+      ],
+      "examples_ko": [
+        "그는 새로운 디지털 방식보다 전통적인 방법을 더 좋아했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "converge",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "한 점으로 모이다, 수렴하다",
+      "examples": [
+        "Protesters converged on the capital from every direction."
+      ],
+      "examples_ko": [
+        "시위대가 사방에서 수도로 모여들었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conversation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대화",
+      "examples": [
+        "We had a long and pleasant conversation about our favorite books over a cup of coffee."
+      ],
+      "examples_ko": [
+        "우리는 커피를 마시며 좋아하는 책에 관해 길고 즐거운 이야기를 나눴다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "converse",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대화하다, 이야기를 나누다",
+      "examples": [
+        "We converse in English during our weekly meetings."
+      ],
+      "examples_ko": [
+        "우리는 주간 회의에서 영어로 대화한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conversely",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "반대로",
+      "examples": [
+        "Heavy rain causes floods; conversely, drought leads to wildfires."
+      ],
+      "examples_ko": [
+        "폭우는 홍수를 부르고, 반대로 가뭄은 산불로 이어진다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conversion",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "전환, 변환",
+      "examples": [
+        "The conversion of the old factory into apartments took two years."
+      ],
+      "examples_ko": [
+        "그 낡은 공장을 아파트로 바꾸는 데 이 년이 걸렸다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convert",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "전환하다, 변환하다",
+      "examples": [
+        "They decided to convert the dusty old attic into a comfortable home office space."
+      ],
+      "examples_ko": [
+        "그들은 먼지 쌓인 다락을 아늑한 재택 사무실로 바꾸기로 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convertible",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "전환 가능한, 바꿀 수 있는",
+      "examples": [
+        "The sofa is convertible into a bed for overnight guests."
+      ],
+      "examples_ko": [
+        "그 소파는 손님이 묵을 때 침대로 바꿀 수 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convey",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "전달하다, 전하다",
+      "examples": [
+        "Please convey my thanks to your family."
+      ],
+      "examples_ko": [
+        "가족분들께 제 고마움을 전해 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conveyance",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "운송, 운반 — 실어 나름",
+      "examples": [
+        "The conveyance of goods across the border was delayed by customs."
+      ],
+      "examples_ko": [
+        "국경을 넘는 물품 운송이 세관 절차로 지연되었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convict",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "기결수, 죄수",
+      "examples": [
+        "The escaped convict was recaptured near the border yesterday."
+      ],
+      "examples_ko": [
+        "탈옥한 그 죄수는 어제 국경 근처에서 다시 붙잡혔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "conviction",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "확신, 신념",
+      "examples": [
+        "She spoke with deep conviction about the need for social reform."
+      ],
+      "examples_ko": [
+        "그녀는 사회 개혁의 필요성에 대해 깊은 신념을 담아 말했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convince",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "납득시키다",
+      "examples": [
+        "He convinced me to try the new restaurant."
+      ],
+      "examples_ko": [
+        "그가 나를 설득해서 그 새 식당에 가 보게 했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convinced",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "확신하는",
+      "examples": [
+        "I am convinced that she is telling the absolute truth."
+      ],
+      "examples_ko": [
+        "나는 그녀가 온전히 진실을 말하고 있다고 확신한다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convivial",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "유쾌한, 흥겹게 어울리는",
+      "examples": [
+        "The dinner party had a warm, convivial atmosphere that lasted late into the night."
+      ],
+      "examples_ko": [
+        "그 만찬은 밤늦게까지 이어진 따뜻하고 흥겨운 분위기였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convoy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "호송대, 함께 이동하는 차량·선박 행렬",
+      "examples": [
+        "A convoy of trucks carrying food supplies arrived at the refugee camp."
+      ],
+      "examples_ko": [
+        "식량을 실은 트럭 행렬이 난민촌에 도착했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "convulse",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(고통·웃음 등으로) 몸을 격하게 떨다, 경련을 일으키다",
+      "examples": [
+        "The audience was convulsed with laughter at the comedian's punchline."
+      ],
+      "examples_ko": [
+        "그 코미디언의 마지막 한마디에 관객이 웃음으로 몸을 가누지 못했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "coo",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "(비둘기가) 구구 울다, 낮게 웅얼거리는 소리를 내다",
+      "examples": [
+        "The pigeons would coo softly on the windowsill every morning at dawn."
+      ],
+      "examples_ko": [
+        "비둘기들이 아침마다 동틀 무렵 창턱에서 구구 하고 울었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cook",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "요리하다, 조리하다",
+      "examples": [
+        "I usually cook dinner for my family on Sunday evenings."
+      ],
+      "examples_ko": [
+        "나는 보통 일요일 저녁에 가족을 위해 저녁을 짓는다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cooker",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "조리기구",
+      "examples": [
+        "She bought a new electric cooker to replace the old gas one."
+      ],
+      "examples_ko": [
+        "그녀는 낡은 가스레인지를 바꾸려고 새 전기레인지를 샀다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cookery",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "요리법, 요리",
+      "examples": [
+        "She enrolled in a French cookery class to improve her skills."
+      ],
+      "examples_ko": [
+        "그녀는 솜씨를 늘리려고 프랑스 요리 강습에 등록했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cookie",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "쿠키, 비스킷 (과자)",
+      "examples": [
+        "She baked a batch of chocolate chip cookies for the party."
+      ],
+      "examples_ko": [
+        "그녀는 파티에 낼 초코칩 쿠키를 한 판 구웠다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cookware",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "조리기구, 주방 용품",
+      "examples": [
+        "A good set of cookware will last for decades if you treat it well."
+      ],
+      "examples_ko": [
+        "좋은 조리 도구 한 벌은 잘만 쓰면 수십 년을 간다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cooky",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": null,
+      "examples": [
+        "He took one more cooky from the jar on the shelf."
+      ],
+      "examples_ko": [
+        "그는 선반 위 병에서 쿠키를 하나 더 집었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cool",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "시원한, 서늘한",
+      "examples": [
+        "The weather was cool and pleasant during our morning walk."
+      ],
+      "examples_ko": [
+        "아침 산책을 하는 동안 날씨가 선선하고 상쾌했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "coop",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "닭장",
+      "examples": [
+        "The farmer locked the chickens in the coop at night."
+      ],
+      "examples_ko": [
+        "그 농부는 밤이면 닭들을 닭장에 가두었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cooperate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "협력하다",
+      "examples": [
+        "Both countries agreed to cooperate on tackling climate change together."
+      ],
+      "examples_ko": [
+        "두 나라는 기후 변화에 함께 대응하기로 합의했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cooperation",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "협력, 협조",
+      "examples": [
+        "Close cooperation between the two countries led to a peace deal."
+      ],
+      "examples_ko": [
+        "두 나라의 긴밀한 협력이 평화 협정으로 이어졌다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cooperative",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "협력적인, 협동의",
+      "examples": [
+        "The new student was friendly and very cooperative in class."
+      ],
+      "examples_ko": [
+        "그 전학생은 상냥하고 수업에도 아주 협조적이었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "coordinate",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "조정하다, 조율하다",
+      "examples": [
+        "She will coordinate the rescue efforts among several local agencies."
+      ],
+      "examples_ko": [
+        "그녀가 여러 지역 기관 사이의 구조 활동을 조율할 것이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "coordination",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "조정",
+      "examples": [
+        "The rescue effort required close coordination between several emergency agencies."
+      ],
+      "examples_ko": [
+        "그 구조 작업에는 여러 응급 기관 사이의 긴밀한 조율이 필요했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "coot",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "물닭, 큰물닭",
+      "examples": [
+        "A pair of coots glided across the pond."
+      ],
+      "examples_ko": [
+        "물닭 한 쌍이 연못 위를 미끄러지듯 지나갔다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cop",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "경찰",
+      "examples": [
+        "A cop pulled us over for driving above the posted speed limit."
+      ],
+      "examples_ko": [
+        "경찰관이 제한 속도를 넘겼다며 우리 차를 세웠다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cope",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "대처하다, 감당하다",
+      "examples": [
+        "She found it hard to cope with the stress."
+      ],
+      "examples_ko": [
+        "그녀는 그 스트레스를 감당하기가 힘들었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "copper",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "구리, 동",
+      "examples": [
+        "Electric wires are usually made of copper because it conducts well."
+      ],
+      "examples_ko": [
+        "전선은 전도가 잘되어 보통 구리로 만든다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "copter",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "헬리콥터(축약형, 구어)",
+      "examples": [
+        "The rescue copter landed on the hospital roof."
+      ],
+      "examples_ko": [
+        "그 구조 헬기가 병원 옥상에 내려앉았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "copy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "사본, 복사본",
+      "examples": [
+        "Please make a copy of this document and file it carefully."
+      ],
+      "examples_ko": [
+        "이 문서를 한 부 복사해 잘 보관해 주세요."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "copyright",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "저작권, 판권",
+      "examples": [
+        "The author holds the copyright to all of her published novels."
+      ],
+      "examples_ko": [
+        "그 작가는 자신이 펴낸 모든 소설의 저작권을 갖고 있다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "coral",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "산호; 산호초",
+      "examples": [
+        "She wore a coral dress that complemented her sun-kissed complexion."
+      ],
+      "examples_ko": [
+        "그녀는 볕에 그을린 피부와 잘 어울리는 산호빛 원피스를 입었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cord",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "끈, 줄, 노끈",
+      "examples": [
+        "She tied the heavy package with a thick cord before mailing it."
+      ],
+      "examples_ko": [
+        "그녀는 무거운 소포를 부치기 전에 굵은 끈으로 묶었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cordial",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "다정한, 화기애애한, 따뜻한",
+      "examples": [
+        "The mayor gave the visitors a cordial welcome at the town hall."
+      ],
+      "examples_ko": [
+        "시장은 시청에서 방문객들을 따뜻하게 맞았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cordially",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "진심으로, 다정하게",
+      "examples": [
+        "You are cordially invited to attend the ceremony."
+      ],
+      "examples_ko": [
+        "그 예식에 정중히 초대합니다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "corduroy",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "코르덴, 골이 진 두꺼운 면직물",
+      "examples": [
+        "He wore brown corduroy trousers and a wool sweater."
+      ],
+      "examples_ko": [
+        "그는 갈색 코듀로이 바지에 모직 스웨터를 입었다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "core",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "사물의 중심 또는 가장 중요한 부분",
+      "examples": [
+        "Honesty is at the core of our company values."
+      ],
+      "examples_ko": [
+        "정직은 우리 회사 가치관의 핵심이다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cork",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "코르크; 코르크 마개",
+      "examples": [
+        "He carefully pulled the cork from the dusty old bottle of wine."
+      ],
+      "examples_ko": [
+        "그는 먼지 앉은 오래된 포도주병에서 코르크 마개를 조심스럽게 뽑았다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "corkscrew",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "코르크 마개뽑이",
+      "examples": [
+        "He pulled out a corkscrew to open the bottle of wine."
+      ],
+      "examples_ko": [
+        "그는 포도주병을 따려고 코르크 따개를 꺼냈다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cormorant",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "가마우지",
+      "examples": [
+        "A black cormorant dived beneath the waves to catch a fish."
+      ],
+      "examples_ko": [
+        "검은 가마우지 한 마리가 물고기를 잡으려고 파도 밑으로 잠수했다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "corn",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "옥수수",
+      "examples": [
+        "The farmer harvested a huge field of corn in late autumn."
+      ],
+      "examples_ko": [
+        "그 농부는 늦가을에 드넓은 옥수수밭을 거둬들였다."
+      ]
+    },
+    {
+      "target": "top",
+      "word": "cornea",
+      "sense_idx": null,
+      "pos": null,
+      "sense_ko": "각막(눈)",
+      "examples": [
+        "Laser surgery can reshape the cornea to correct nearsightedness."
+      ],
+      "examples_ko": [
+        "레이저 수술로 각막의 모양을 바꿔 근시를 교정할 수 있다."
+      ]
+    }
+  ]
+}
