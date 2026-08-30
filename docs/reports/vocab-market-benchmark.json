@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-30T11:01:19.451Z",
+  "generatedAt": "2026-08-30T11:06:38.279Z",
   "specGeneratedAt": "2026-08-30T05:22:08.319Z",
   "population": {
     "publishedSets": 70,
@@ -38,8 +38,8 @@
       "ours": 0.5875883036752213,
       "market": 0.414,
       "unit": "%",
-      "seenBy": null,
-      "why": "한 어근에서 갈라진 말을 함께 줘야 낱말당 회수가 늘어난다 — **다만 지금은 컴포저가 낱말을 고를 때만 쓰고 학습자에게 안 보인다**",
+      "seenBy": "CardBack 낱말 그물 (derived_forms)",
+      "why": "한 어근에서 갈라진 말을 함께 줘야 낱말당 회수가 늘어난다",
       "index": 1.419
     },
     {
@@ -48,8 +48,8 @@
       "ours": 0.7917374586425825,
       "market": 0.257,
       "unit": "%",
-      "seenBy": null,
-      "why": "뜻이 겹치고 갈리는 자리를 보여야 변별이 생긴다 — **다만 지금은 학습자에게 안 보인다**",
+      "seenBy": "CardBack 낱말 그물 (synonyms·antonyms)",
+      "why": "뜻이 겹치고 갈리는 자리를 보여야 변별이 생긴다",
       "index": 3.081
     },
     {
@@ -85,18 +85,17 @@
     }
   ],
   "overall": 1.599,
-  "overallVisible": 1.437,
+  "overallVisible": 1.599,
   "visibleAxisIds": [
     "V1",
     "V2",
+    "V3",
+    "V4",
     "V5",
     "V6",
     "V7"
   ],
-  "hiddenAxisIds": [
-    "V3",
-    "V4"
-  ],
+  "hiddenAxisIds": [],
   "beyondMarket": [
     {
       "id": "B1",

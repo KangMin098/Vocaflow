@@ -140,6 +140,47 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
         </div>
       )}
 
+      {/*
+        낱말 그물 — 파생어 · 유의어 · 반의어.
+
+        ⚠️ **셋 다 사전에 있었는데 화면이 안 읽고 있었다** (실측 2026-08-30:
+          파생어 58.8% · 유의어 71.1% · 반의어 51.5%). 시중 단어장은 표제어 아래에 이 셋을
+          붙이는 것이 기본형이고(실측 파생어 41.4% · 유의/반의 26%), 우리는 그보다 많이
+          갖고도 학습자에게 한 번도 보여 준 적이 없었다 — **DB 재고는 제품이 아니다.**
+
+        묶어서 한 블록으로 두는 이유: 셋 다 "이 낱말 둘레의 말" 이라 학습자에게는 한 가지
+        정보다. 줄을 셋으로 나누면 카드가 길어지고 Calm UI 가 무너진다.
+        각 3개까지만 — 연어 블록과 같은 절제 기준(Cognitive Load).
+      */}
+      {((word.derived?.length ?? 0) > 0
+        || (word.synonyms?.length ?? 0) > 0
+        || (word.antonyms?.length ?? 0) > 0) && (
+        <div className="mt-3 flex flex-col gap-1">
+          {([
+            ['파생어', word.derived, 'bg-[var(--bg2)] text-[var(--t2)]'],
+            ['비슷한 말', word.synonyms, 'bg-[var(--success-light)] text-[var(--t1)]'],
+            // 반의어는 색이 아니라 **라벨**로 갈린다 — 색만으로 정보를 전달하지 않는다(색맹 대응).
+            ['반대말', word.antonyms, 'bg-[var(--bg3)] text-[var(--t2)]'],
+          ] as const)
+            .filter(([, list]) => (list?.length ?? 0) > 0)
+            .map(([label, list, chip]) => (
+              <div key={label} className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <span className="font-body text-[10px] uppercase tracking-[0.08em] text-[var(--t2)]">
+                  {label}
+                </span>
+                {list!.slice(0, 3).map((w) => (
+                  <span
+                    key={w}
+                    className={`rounded-[var(--r-full)] px-2 py-1 font-english text-[12px] ${chip}`}
+                  >
+                    {w}
+                  </span>
+                ))}
+              </div>
+            ))}
+        </div>
+      )}
+
       {/* 어원 힌트 — 어근 분해(word_root_links). 시중 어원단어장 대비 학습 중 노출.
           prefix→root→suffix 순 chip. 데이터 있을 때만(Progressive Disclosure). */}
       {word.roots && word.roots.length > 0 && (

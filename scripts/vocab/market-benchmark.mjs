@@ -269,8 +269,8 @@ const V7 = {
 const AXES = [
   { id: 'V1', name: '예문 보유율', ...V1, unit: '%', seenBy: 'CardBack · WordLookupPopover (meanings_ko[].example)', why: '예문이 없으면 뜻만 외우게 된다 — 맥락 없는 어휘는 인출되지 않는다' },
   { id: 'V2', name: '예문 한국어역 보유율', ...V2, unit: '%', seenBy: 'CardBack · WordLookupPopover (meanings_ko[].example_ko)', why: '번역이 없으면 예문을 읽지 못한 채 넘어간다 — 시중이 전 표제어에 다는 칸' },
-  { id: 'V3', name: '파생어 보유율', ...V3, unit: '%', seenBy: null, why: '한 어근에서 갈라진 말을 함께 줘야 낱말당 회수가 늘어난다 — **다만 지금은 컴포저가 낱말을 고를 때만 쓰고 학습자에게 안 보인다**' },
-  { id: 'V4', name: '유의어·반의어 보유율', ...V4, unit: '%', seenBy: null, why: '뜻이 겹치고 갈리는 자리를 보여야 변별이 생긴다 — **다만 지금은 학습자에게 안 보인다**' },
+  { id: 'V3', name: '파생어 보유율', ...V3, unit: '%', seenBy: 'CardBack 낱말 그물 (derived_forms)', why: '한 어근에서 갈라진 말을 함께 줘야 낱말당 회수가 늘어난다' },
+  { id: 'V4', name: '유의어·반의어 보유율', ...V4, unit: '%', seenBy: 'CardBack 낱말 그물 (synonyms·antonyms)', why: '뜻이 겹치고 갈리는 자리를 보여야 변별이 생긴다' },
   { id: 'V5', name: '다의어 뜻 분리율', ...V5, unit: '%', seenBy: 'CardBack 다의어 표 (meanings_ko.length >= 2)', why: '뜻이 여럿인 낱말을 한 덩어리로 주면 어느 뜻도 남지 않는다' },
   { id: 'V6', name: '품사 표시율', ...V6, unit: '%', seenBy: 'CardBack (meanings_ko[].pos)', why: '품사를 모르면 문장에 넣지 못한다' },
   { id: 'V7', name: '묶음 원리 다양성 (시장 PART 축 대비)', ...V7, unit: '종', seenBy: 'VocabSetCard 유형 줄 (set-kind)', why: '시장 표준 축을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다' },

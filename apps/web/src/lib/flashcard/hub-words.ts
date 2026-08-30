@@ -49,6 +49,9 @@ export async function fetchDueFlashcardWords(
       // hub 단어는 사전 inflected_forms 미보유 → 규칙 기반 빈칸 fallback
       exampleSentenceWithBlank: example ? blankSurface(example, r.word) : '',
       collocations: ex?.collocations,
+      derived: ex?.derived,
+      synonyms: ex?.synonyms,
+      antonyms: ex?.antonyms,
       senses: ex?.senses,
       exampleTranslation: ex?.exampleTranslations?.[exampleKey(example ?? '')],
       roots: ex?.roots,

@@ -26,6 +26,19 @@ export interface DictExtras {
   roots?: RootPart[]
   mnemonic?: string // 어근 기반 니모닉(mnemonic_ko)
   /**
+   * 파생어 — 한 낱말에서 갈라져 나온 말(`derived_forms`).
+   *
+   * ⚠️ **재고는 있는데 화면이 안 읽고 있었다** (실측 2026-08-30: 카탈로그 58.8%).
+   *   시중 단어장은 표제어 아래 파생어를 붙이는 것이 기본형이고(실측 보유율 41.4%),
+   *   우리는 그보다 많이 갖고도 학습자에게 한 번도 보여 준 적이 없었다.
+   *   DB 에만 있는 것은 재고이지 제품이 아니다.
+   */
+  derived?: string[]
+  /** 유의어 — `synonyms`. 위와 같은 이유로 이번에 화면에 올린다(카탈로그 71.1%). */
+  synonyms?: string[]
+  /** 반의어 — `antonyms`. 짝을 이루는 말은 함께 보여야 변별이 생긴다(카탈로그 51.5%). */
+  antonyms?: string[]
+  /**
    * 예문 → 한국어 해석. 카드가 어떤 예문을 고를지 여기서는 알 수 없으므로 **표를 넘기고**
    * 소비 측에서 찾게 한다. 키는 정규화된 예문(소문자·공백 축약).
    */
@@ -49,7 +62,7 @@ export async function fetchDictExtras(
   // ① collocations + 다의어 senses + 니모닉 (shared_dictionary)
   const { data: dict, error: dictErr } = await client
     .from('shared_dictionary')
-    .select('word, collocations, meanings_ko, mnemonic_ko')
+    .select('word, collocations, meanings_ko, mnemonic_ko, derived_forms, synonyms, antonyms')
     .in('word', words)
   if (dictErr) {
     console.warn('[flashcard/dict-extras] dict fetch failed:', dictErr.message)
@@ -59,10 +72,28 @@ export async function fetchDictExtras(
       collocations: string[] | null
       meanings_ko: unknown
       mnemonic_ko: string | null
+      derived_forms: string[] | null
+      synonyms: string[] | null
+      antonyms: string[] | null
     }>) {
       const e: DictExtras = map.get(d.word) ?? {}
       if (d.collocations && d.collocations.length > 0) e.collocations = d.collocations
       if (d.mnemonic_ko && d.mnemonic_ko.trim()) e.mnemonic = d.mnemonic_ko.trim()
+
+      // 파생어·유의어·반의어 — 표제어 자신이 목록에 섞여 있는 경우가 있어 빼고 넘긴다
+      // (자기 자신을 "파생어" 로 보여 주면 학습자가 오해한다). 빈 문자열도 걸러 낸다.
+      const clean = (list: string[] | null | undefined): string[] | undefined => {
+        if (!Array.isArray(list)) return undefined
+        const self = d.word.toLowerCase()
+        const out = [...new Set(
+          list.map((s) => (typeof s === 'string' ? s.trim() : ''))
+            .filter((s) => s.length > 0 && s.toLowerCase() !== self),
+        )]
+        return out.length > 0 ? out : undefined
+      }
+      e.derived = clean(d.derived_forms)
+      e.synonyms = clean(d.synonyms)
+      e.antonyms = clean(d.antonyms)
       if (Array.isArray(d.meanings_ko) && d.meanings_ko.length > 0) {
         const raw = d.meanings_ko as Array<{
           pos?: string

@@ -34,6 +34,17 @@ export interface FlashcardWord {
   /** 자주 함께 쓰는 표현(collocations) — 정답면에만 절제 노출(Progressive Disclosure). 없으면 미표시 */
   collocations?: string[]
   /**
+   * 파생어(`derived_forms`) · 유의어(`synonyms`) · 반의어(`antonyms`) — 정답면 하단.
+   *
+   * ⚠️ 셋 다 **사전에 있었는데 화면이 안 읽던 칸**이다(실측 2026-08-30: 58.8% · 71.1% · 51.5%).
+   *   시중 단어장은 표제어 아래에 이 셋을 붙이는 것이 기본형인데(실측 파생어 41.4% ·
+   *   유의/반의 26%), 우리는 그보다 많이 갖고도 학습자에게 보여 준 적이 없었다.
+   *   없으면 미표시 — 빈 줄이 카드를 흔들지 않게 한다.
+   */
+  derived?: string[]
+  synonyms?: string[]
+  antonyms?: string[]
+  /**
    * 다의어 품사별 뜻 (meanings_ko ≥2 sense) — 정답면 "여러 뜻" 노출. 단일 sense면 미표시(flat meaning 충분).
    * `example`/`exampleKo` 는 **그 뜻으로만 읽히는 문장**이다 — 뜻 목록만으로는 갈라지지 않는다.
    */
