@@ -10,6 +10,30 @@
 
 ## Unreleased (v06.34 → next)
 
+### 어느 화면에서도 **닿지 않는 코드 6,299줄** — 죽은 코드는 조용하지 않다
+
+허브 고아 8개를 계기로 저장소 전체를 셌다. Next 진입점(page·layout·route·middleware…)에서
+import 를 따라가도 닿지 않는 파일이 **49개 · 6,299줄**이었다. 문제는 양이 아니라 **내용**이다:
+
+- 하드코딩된 진행 수치 — `QuickStartCard` 의 `pendingCount = 12 · todayGoal = 15 · todayDone = 8`
+- 목적지가 읽지 않는 링크 — `/flashcard?mode=review`
+- **교체됐는데 안 지워진 v1 대시보드 6종** — 살아 있는 `/dashboard` 는 다른 6종
+  (`ActivityTrace`·`DurabilityLadder`·`LexicalReach`·`ManageSection`·`RecentActivity`·`RescuedWords`)을 쓴다
+- **`lib/supabase/middleware.ts`** — 실제 `middleware.ts` 는 자기 안에서 클라이언트를 만든다.
+  남겨 두면 낡은 인증 경로를 누군가 import 한다
+- 목업 데이터 2종(`library/vocab/mock-data.ts` · `flashcard/mock-data.ts`)
+
+읽는 사람에게 이것들은 **"구현된 기능"** 으로 보인다. 근거가 분명한 **9파일 1,251줄**을 지웠고
+(49 → **40**), 나머지는 영역을 아는 사람이 판단할 몫이라 `unreachable-modules.test.ts` 로
+**늘지 못하게 래칫**을 걸었다(상한 40 · 줄이면 상수를 함께 내린다. 여유는 4까지만 허용해
+"지우고 상수를 안 내려" 검사가 무력해지는 것을 막는다).
+
+⚠️ **계측기를 두 번 고치고서야 믿을 수 있었다.** 첫 판은 280파일/64,041줄이 죽었다고 했는데
+`walk` 는 상대경로, 상대 import 는 절대경로로 담겨 서로 안 맞았다(도달 1343 > 전체 1207 —
+**숫자가 스스로 모순이라고 말하고 있었다**). 고치니 53개. 그다음엔 `base + '/index.ts'` 의
+구분자가 섞여(`…\brief/index.ts`) **배럴 파일이 전부 죽은 것으로** 잡혔다 → 정규화 후 49개.
+지우기 전에 큰 것 5개를 직접 grep 으로 대조했다.
+
 ### `ah` 가 Pride and Prejudice 1장 상위 20 단어였다 — 원인은 "순위 없음 = 희귀함"
 
 `select_book_chapter_vocab` 는 `v_level >= 6` 을 통과한 낱말을 점수순으로 세운다.
