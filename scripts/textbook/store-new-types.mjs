@@ -87,8 +87,18 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 //   쓸 수 있는 글이 **3,356편**인데 스크립트는 **981편(29%)** 만 보고 있었다.
 //   그래서 낡음 판정이 나머지 71%를 아예 안 봤고, 4지선다 2,886건이 "낡음 0건" 으로 보고됐다.
 //   `range()` 로 실제로 다 받는다.
+/**
+ * 한 번에 받는 기사 수 — **`content` 때문에 1,000 은 너무 크다.**
+ *
+ * ⚠️ 실측 2026-08-30: V7(원글 1,829편)에서 이 조회가
+ *   `canceling statement due to statement timeout` 으로 죽었다. 다른 조회는 id 나 키만
+ *   가져오지만 여기는 **본문 전체**를 싣는다 — 한 편이 수천 자라 1,000편이면 수 MB 다.
+ *   행 수가 아니라 **바이트가 상한**이라, 같은 1,000이라도 이 조회만 걸린다.
+ *   200 으로 줄이면 왕복이 다섯 배가 되지만 각 요청이 가벼워 실제로는 더 빨리 끝난다.
+ */
+const ARTICLE_PAGE = 200
 const arts = []
-for (let from = 0; ; from += 1000) {
+for (let from = 0; ; from += ARTICLE_PAGE) {
   let q = db
     .from('library_articles')
     .select('id, article_v_level, display_only, content')
@@ -96,11 +106,11 @@ for (let from = 0; ; from += 1000) {
     .not('content', 'is', null)
   // --band 을 주면 그 밴드만 본다. 전수는 몇 시간이 걸린다(위 BAND 주석 참조).
   if (BAND != null) q = q.eq('article_v_level', BAND)
-  const { data, error } = await q.order('id').range(from, from + 999)
+  const { data, error } = await q.order('id').range(from, from + ARTICLE_PAGE - 1)
   if (error) throw new Error('기사 조회 실패: ' + error.message)
   if (!data?.length) break
   arts.push(...data)
-  if (data.length < 1000) break
+  if (data.length < ARTICLE_PAGE) break
 }
 const usable = arts.filter((a) => !a.display_only)
 
@@ -189,14 +199,43 @@ const entryOf = (w) => {
 //   기사별로 물을 이유가 없다 — 필요한 것은 `kind='article'` 인 키 전부다.
 //   1,000행씩 곧장 넘겨 받으면 13.6만 문항이 **137회**로 끝난다.
 //   정렬을 고정해야 페이지가 겹치거나 새지 않는다(이 저장소가 세 번 밟은 함정).
+// ⚠️ **밴드를 좁혀도 이 조회는 안 좁혀졌다 — 그게 배치가 느린 진짜 이유였다.**
+//   실측 2026-08-30: `--band 7`(원글 1,829편)이 9분 20초에도 안 끝났다. 기사 조회는
+//   10회면 되는데 이 전수 조회가 **140회**를 물고 있었기 때문이다. 밴드가 1,829편이든
+//   8,725편이든 이 비용은 똑같이 든다.
+//
+//   ⚠️ **`v_level` 로는 못 좁힌다.** 문항의 `v_level` 은 만들 때 박히는데 원글 레벨이
+//     나중에 바뀌면 어긋난다 — 실측 140,405건 중 **236건(0.17%)** 이 그렇다.
+//     그만큼 키를 놓치면 INSERT 가 유일키 중복으로 죽는다(이 파일이 이미 한 번 겪었다).
+//     그래서 `ref_id` 로 정확히 좁히되 **묶음을 100 으로 키워** 왕복을 줄인다
+//     (`fetchAllIn` 의 20 은 UUID 기준으로 지나치게 보수적이다 — 100개면 URL 3.8KB).
+//   ⚠️ **이 갈래의 효과는 검증되지 않았다.** 전수 스캔이 밴드와 무관하게 140회라는 산술은
+//     맞지만, 바꾸기 **전** V4 의 깨끗한 소요 시간을 재 두지 않아 실제로 빨라졌는지 말할 수
+//     없다. 바꾼 뒤 V4 재실행은 8분 10초였고 그 시간이 어디로 가는지도 안 쟀다
+//     (후보: 사전 4.9만 낱말 적재 · 생성 CPU · "낡은 문항" 재검사).
+//     **다음 사람은 고치기 전에 그것부터 재라** — 계측 없이 고치면 나아졌는지 알 수 없다.
+const KEY_CHUNK = 100
 const existing = new Set()
-for (const r of await fetchAllPaged(db, (q) =>
-  q
-    .from('csat_dcp_items')
-    .select('ref_id, type, paragraph_idx')
-    .eq('kind', 'article')
-    .order('id'))) {
-  existing.add(`${r.ref_id}|${r.type}|${r.paragraph_idx}`)
+const addKey = (r) => existing.add(`${r.ref_id}|${r.type}|${r.paragraph_idx}`)
+if (BAND == null) {
+  // 전수 실행에서는 밴드로 나눌 것이 없다 — 1,000행씩 곧장 받는 편이 싸다.
+  for (const r of await fetchAllPaged(db, (q) =>
+    q.from('csat_dcp_items').select('ref_id, type, paragraph_idx').eq('kind', 'article').order('id'))) {
+    addKey(r)
+  }
+} else {
+  for (let i = 0; i < ids.length; i += KEY_CHUNK) {
+    const slice = ids.slice(i, i + KEY_CHUNK)
+    for (const r of await fetchAllPaged(db, (q) =>
+      q
+        .from('csat_dcp_items')
+        .select('ref_id, type, paragraph_idx')
+        .eq('kind', 'article')
+        .in('ref_id', slice)
+        .order('id'))) {
+      addKey(r)
+    }
+  }
 }
 
 /**
