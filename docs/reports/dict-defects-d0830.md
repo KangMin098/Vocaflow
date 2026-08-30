@@ -72,3 +72,55 @@ D0830 드레인(T2 뜻별 예문 · T3 코어밴드 결손 · T5 예문 해석)�
 
 ⚠️ 이 549행은 D0830 배치가 만든 것이 아니다(이 배치는 접미사를 함께 적는다).
 어느 파이프라인이 넣었는지 확인한 뒤에 정리해야 한다 — **출처를 모르고 지우면 되돌릴 수 없다.**
+
+## 추가 발견 — `frequency_rank` 가 NULL 이라는 이유만으로 V11 이 붙는다 (2026-08-30)
+
+`ah` 가 **Pride and Prejudice 1장 상위 20 단어**로 학습자에게 나가고 있었다.
+`select_book_chapter_vocab` 는 `v_level >= 6` 을 통과한 낱말을 점수순으로 세우는데,
+`ah` 의 헤드워드 `v_level` 이 **11** 이었다.
+
+원인은 그 행이 스스로 적고 있다 — `claude_reasoning` 이
+`"L10 R9: archaic/jargon (rank>15000 or null, no tags) → V11"`.
+**`frequency_rank` 가 NULL 이면 rank>15000 과 같이 취급**하는 규칙이다.
+`ah` 는 흔해서 순위표에 안 실린 쪽인데 희귀해서 안 실린 쪽으로 읽혔다.
+
+같은 행 안에서 이미 반증이 나와 있었다:
+
+| 근거 | 값 |
+|---|---|
+| `meanings_ko[0].v_level` (뜻 수준) | **3** |
+| `v_level_rule_v1` (규칙 v1 산출) | 7 |
+| 헤드워드 `v_level` (사용되는 값) | **11** |
+| 동류 감탄사 | `oh` A1/V1 · `aha` A2/V2 · `ha` A2/V2 · `hmm` A1/V2 |
+
+**고친 것**: `ah` → A2 / V2 (`classified_by = claude_code_opus_5`, 사유를 `claude_reasoning` 에 기록).
+V2 는 추출 게이트(V≥6) 아래이므로 학습자 표면에서 빠진다.
+
+**같은 규칙에 걸린 나머지는 고치지 않았다.** 헤드워드 `v_level` 이 자기 뜻 수준보다
+3 이상 높은 행이 **376**, 5 이상은 **19** 다. 그중 `manga`(V11 ↔ 뜻 V5) · `origami`(V10 ↔ V5) ·
+`oregano` · `brisket` · `bouillon` 처럼 **판단이 갈리는 값**이 대부분이라, 한 번에 내리면
+근거 없이 난이도 지형을 바꾸게 된다. `ah` 만 (a) rank 가 NULL 이고 (b) 뜻 수준이 V3 이며
+(c) 동류가 전부 V1~V3 이라 **반증이 세 겹**이었다.
+
+⚠️ **분모를 세는 질의**: 헤드워드와 뜻 수준의 어긋남은 아래로 잰다. 다음 배치가 이 목록을
+다시 만들 때 같은 기준을 써야 회차 간 비교가 된다.
+
+```sql
+select word, v_level,
+  (select max((e->>'v_level')::int) from jsonb_array_elements(meanings_ko) e where e ? 'v_level') as sense_v
+from shared_dictionary
+where meanings_ko is not null and jsonb_array_length(meanings_ko) > 0 and v_level is not null;
+-- gap = v_level - sense_v.  gap>=3 → 376행 · gap>=5 → 19행 (2026-08-30 실측)
+```
+
+### 곁가지 — 외국어 낱말이 영어 표제어로 앉아 있다
+
+같은 조사에서 나온 것. 기능어·감탄사 중 `v_level >= 9` 이고 register 가 `standard` 인 42개를
+훑으니 `moi` · `qui` · `une` · `auf` · `oui` · `et` 는 프랑스어·라틴어이고, `yoo` 는 `yoo-hoo` 의
+조각, `shaw` 는 고유명사, `lol` 은 약어다. 같은 부류인 `avec` · `chez` · `dans` · `merci` · `vous` 는
+`modern_advanced` 로 잡혀 있어 **같은 성질에 서로 다른 register 가 붙어 있다.**
+T5 서브에이전트들도 독립적으로 같은 것을 짚었다 (`avec` · `entre` · `deux` · `eau` · `filles` ·
+`limite` · `chaque` · `museo` — "영어 문장에 그 낱말을 섞은 실제 용례가 아니다").
+
+register 를 바꾸면 발행 도서 12권의 추출 결과가 전부 움직이므로 **이 배치에서는 재지 않고 적기만 한다.**
+T6 의 동음이의어 오염 판정과 같은 회차에서 다루는 것이 맞다.

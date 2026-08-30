@@ -18,9 +18,9 @@ exports[`extraction RPC (integration · 골든셋 스냅샷) > lexical_coverage 
 exports[`extraction RPC (integration · 골든셋 스냅샷) > select_article_vocab — VOA 글 상위 20 (전량 10행) 1`] = `
 [
   {
-    "composite_score": 0.5881,
+    "composite_score": 0.6256,
     "sort_order": 1,
-    "v_level": 8,
+    "v_level": 7,
     "word": "amplifier",
   },
   {
@@ -30,10 +30,10 @@ exports[`extraction RPC (integration · 골든셋 스냅샷) > select_article_vo
     "word": "adverb",
   },
   {
-    "composite_score": 0.392,
+    "composite_score": 0.4033,
     "sort_order": 3,
-    "v_level": 6,
-    "word": "budget",
+    "v_level": 11,
+    "word": "downtoners",
   },
   {
     "composite_score": 0.3915,
@@ -60,16 +60,16 @@ exports[`extraction RPC (integration · 골든셋 스냅샷) > select_article_vo
     "word": "amplify",
   },
   {
-    "composite_score": 0.2358,
+    "composite_score": 0.2966,
     "sort_order": 8,
-    "v_level": 6,
-    "word": "approximately",
+    "v_level": 7,
+    "word": "qualifiers",
   },
   {
-    "composite_score": 0.2216,
+    "composite_score": 0.2358,
     "sort_order": 9,
-    "v_level": 9,
-    "word": "qualifier",
+    "v_level": 6,
+    "word": "approximately",
   },
   {
     "composite_score": 0.1983,
@@ -82,6 +82,12 @@ exports[`extraction RPC (integration · 골든셋 스냅샷) > select_article_vo
     "sort_order": 11,
     "v_level": 8,
     "word": "forceful",
+  },
+  {
+    "composite_score": 0.1467,
+    "sort_order": 12,
+    "v_level": 9,
+    "word": "imprecision",
   },
 ]
 `;
@@ -183,50 +189,50 @@ exports[`extraction RPC (integration · 골든셋 스냅샷) > select_book_chapt
     "composite_score": 0.3667,
     "sort_order": 14,
     "v_level": 9,
-    "word": "establishment",
+    "word": "discontented",
     "word_register": "standard",
   },
   {
-    "composite_score": 0.2917,
+    "composite_score": 0.3667,
     "sort_order": 15,
-    "v_level": 7,
-    "word": "impatiently",
+    "v_level": 9,
+    "word": "establishment",
     "word_register": "standard",
   },
   {
     "composite_score": 0.2917,
     "sort_order": 16,
     "v_level": 7,
-    "word": "insufficient",
+    "word": "impatiently",
     "word_register": "standard",
   },
   {
     "composite_score": 0.2917,
     "sort_order": 17,
     "v_level": 7,
-    "word": "objection",
+    "word": "insufficient",
     "word_register": "standard",
   },
   {
     "composite_score": 0.2917,
     "sort_order": 18,
     "v_level": 7,
-    "word": "universally",
+    "word": "objection",
     "word_register": "standard",
   },
   {
     "composite_score": 0.2917,
     "sort_order": 19,
+    "v_level": 7,
+    "word": "universally",
+    "word_register": "standard",
+  },
+  {
+    "composite_score": 0.2917,
+    "sort_order": 20,
     "v_level": 11,
     "word": "michaelmas",
     "word_register": "modern_advanced",
-  },
-  {
-    "composite_score": 0.2667,
-    "sort_order": 20,
-    "v_level": 9,
-    "word": "discontented",
-    "word_register": "standard",
   },
 ]
 `;

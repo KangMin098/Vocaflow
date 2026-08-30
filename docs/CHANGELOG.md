@@ -10,6 +10,24 @@
 
 ## Unreleased (v06.34 → next)
 
+### `ah` 가 Pride and Prejudice 1장 상위 20 단어였다 — 원인은 "순위 없음 = 희귀함"
+
+`select_book_chapter_vocab` 는 `v_level >= 6` 을 통과한 낱말을 점수순으로 세운다.
+`ah` 의 헤드워드 `v_level` 이 **11** 이라 1장 20번째 학습 단어로 나가고 있었다.
+그 행의 `claude_reasoning` 이 원인을 그대로 적고 있다 — `rank>15000 **or null** → V11`.
+`ah` 는 흔해서 순위표에 없는 쪽인데 희귀해서 없는 쪽으로 읽혔다.
+같은 행의 뜻 수준은 V3 이고 동류는 `oh` A1/V1 · `aha` A2/V2 · `hmm` A1/V2 다.
+
+- `ah` → **A2 / V2** (추출 게이트 V≥6 아래로 내려가 학습자 표면에서 빠진다)
+- 같은 규칙에 걸린 **376행**(헤드워드 V − 뜻 V ≥ 3, 그중 ≥5 는 19행)은 **고치지 않았다** —
+  `manga` · `origami` · `brisket` 처럼 판단이 갈리는 값이라 근거 없이 난이도 지형을 바꾸게 된다.
+  분모를 세는 질의와 함께 [dict-defects-d0830.md](./reports/dict-defects-d0830.md) 에 기록
+- 곁가지로 외국어 낱말이 영어 표제어로 앉은 것 확인 (`moi` `qui` `une` `auf` `oui` `et` 는
+  `standard`, 같은 부류 `avec` `chez` `dans` 은 `modern_advanced` — 성질이 같은데 register 가 갈린다).
+  register 를 바꾸면 발행 도서 12권의 추출이 전부 움직이므로 T6 회차로 미룸
+- `extraction-rpc.integration` 골든 스냅샷 2건 갱신 (5회 연속 통과로 안정 확인)
+
+
 ### 이름 감시를 **라우트 감시**로 좁혔다 — 그리고 고아 컴포넌트 9개가 드러났다
 
 앞 항목의 감시는 "이름이 저장소 **어디에서도** 안 읽히는가" 만 봤다. 그래서 **A 화면이 읽는
