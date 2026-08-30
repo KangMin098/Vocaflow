@@ -10,6 +10,35 @@
 
 ## Unreleased (v06.34 → next)
 
+### 이름 감시를 **라우트 감시**로 좁혔다 — 그리고 고아 컴포넌트 9개가 드러났다
+
+앞 항목의 감시는 "이름이 저장소 **어디에서도** 안 읽히는가" 만 봤다. 그래서 **A 화면이 읽는
+이름을 B 화면 링크에 거는 경우**는 통과했고, 그게 더 흔한 모양이었다.
+`route-query-params.test.ts` 가 목적지 라우트의 **모듈 그래프**(page → import 추적)에서
+읽는지 본다.
+
+- **`/wordvault?set=<id>`** (`MyLibraryCarousel` · `/text` 허브에서 살아 있다) — `set` 은
+  `/dictate/setup` 이 읽는 이름이고 `/wordvault` 는 안 읽는다. "단어장 보기" 를 눌러도
+  그 세트가 아니라 **허브 전체**가 열렸다 → `/wordvault/browse?filter=set:<id>`
+- **`/flashcard?mode=review`** — `mode` 는 `/reset-password` 가 읽는다. `/flashcard` 는 안 읽는다
+
+**오탐 10건이 판정의 설계를 정했다** (12건 중 2건만 진짜였다):
+① **넘겨 주는 라우트** — `/wordvault` 는 `view` 만 떼고 나머지를 목적지로 넘긴다.
+그 라우트에서 이름을 따지면 멀쩡한 `?q=`·`?level=` 이 고아가 된다 → 넘김 감지.
+② **별칭 상수** — `resolveReturnTo` 는 `RETURN_PARAM_ALIASES` 를 돌며 `params.get(key)` 한다.
+리터럴이 `.get(` 옆에 없어 `/login?next=` 를 고아로 신고했다 → 별칭 배열도 읽는 자로.
+③ **주석** — 옛 주소가 경위 설명에 남아 방금 고친 것을 다시 신고했다 → 주석 제거.
+라우트 파일을 못 찾은 링크(계산된 경로 조각)는 **실패로 세지 않고 개수만** 본다.
+
+⚠️ **앞 항목의 서술을 정정한다.** 거기서 "허브의 세 자리" 라고 적은
+`CEFRDistribution`·`FindAndMore`·`WordPeekStrip` 은 **렌더되지 않는 컴포넌트**였다
+(`WordVaultHub` 가 import 하지 않는다). 그것을 계기로 세어 보니 `components/wordvault/hub/`
+에 **importer 0 인 컴포넌트가 8개**(1,278줄) 있었고, `QuickStartCard`(하드코딩된 진행
+`12·15·8` 을 들고 있었다)까지 **9개**를 지웠다. 다만 그때 만든 `?q=`·`?level=` 배선은
+버리지 않았다 — `CompletionState`("어려웠던 단어")가 지금 그 경로를 쓴다.
+
+실측: 라우트 감시 **고아 0**(148 링크 · 라우트 지도 205) · 단위 155파일 통과.
+
 ### 같은 사고를 여섯 번 밟고 **전수 감시**로 옮겼다 — 일곱 번째가 즉시 나왔다
 
 "링크는 거는데 읽는 자가 없는 쿼리 파라미터" 를 각자 자리에서 여섯 번 막았다

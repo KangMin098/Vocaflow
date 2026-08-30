@@ -228,7 +228,11 @@ export function MyLibraryCarousel({
         // 구독 = 활성 학습 풀에 포함 (진도 세부는 Phase 2 — Memory Decay 집계)
         mine: { status: 'in_progress' },
         ctaLabel: '단어장 열기',
-        secondaryHref: `/wordvault?set=${v.id}`,
+        // ⚠️ `/wordvault?set=<id>` 로 보내고 있었는데 **허브는 `set` 을 읽지 않는다**
+        //    (읽는 것은 `view` 하나다 — 실측 2026-08-30). "단어장 보기" 를 눌러도
+        //    그 세트가 아니라 **허브 전체**가 열렸다. 세트로 거를 수 있는 곳은
+        //    `/wordvault/browse` 이고 그쪽은 `filter=set:<id>` 를 읽는다.
+        secondaryHref: `/wordvault/browse?filter=set:${v.id}`,
         secondaryLabel: '단어장 보기',
         onCtaClick: () => setDetail(null),
       })
@@ -771,7 +775,7 @@ function HeroInfo({
     const v = item as SubscribedSet
     title = v.title
     subtitle = `${v.wordCount.toLocaleString()} 단어${v.description ? ' · ' + v.description : ''}`
-    href = `/wordvault?set=${v.id}`
+    href = `/wordvault/browse?filter=set:${v.id}`
     cta = '단어장 열기'
   }
 
