@@ -141,10 +141,24 @@ for (const type of types) {
         for (;;) {
           const u = queue.shift()
           if (!u) return
-          const { error: uErr } = await supabase
-            .from('csat_dcp_items')
-            .update({ answer_key: u.answer_key })
-            .eq('id', u.id)
+          // ⚠️ **이 쓰기는 재시도해도 안전하다** — 행 하나를 정해진 값으로 덮고,
+          //   이미 해설이 있는 문항은 애초에 `updates` 에 안 들어온다(위 skip). 그래서
+          //   중복이 생길 여지가 없다(적재 계열의 insert 와는 다르다).
+          //   일시적 실패에 그냥 죽으면 몇 만 건짜리 배치가 통째로 멈춘다 — 실측
+          //   2026-08-31 에 Cloudflare **520** 하나가 V5 해설 채우기를 죽였다.
+          let uErr = null
+          for (let attempt = 0; attempt < 4; attempt += 1) {
+            const res = await supabase
+              .from('csat_dcp_items')
+              .update({ answer_key: u.answer_key })
+              .eq('id', u.id)
+            uErr = res.error
+            if (!uErr) break
+            const msg = String(uErr.message ?? '')
+            // 영구 오류(권한·제약)는 다시 해도 같다 — 바로 던진다.
+            if (!/5\d\d|timeout|schema cache|fetch failed|socket|ECONN|EAI_AGAIN|handshake/i.test(msg)) break
+            await new Promise((r) => setTimeout(r, 1000 * 3 ** attempt))
+          }
           if (uErr) throw new Error(`${type} ${u.id}: ${uErr.message}`)
           written += 1
         }
