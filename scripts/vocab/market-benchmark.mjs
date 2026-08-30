@@ -188,10 +188,20 @@ const hasExampleKo = (d) => {
 }
 
 const arr = (v) => (Array.isArray(v) ? v : [])
+const mkList = (d) => (Array.isArray(d.meanings_ko) ? d.meanings_ko : [])
 const hasDerived = (d) => arr(d.derived_forms).length > 0
 const hasSynAnt = (d) => arr(d.synonyms).length > 0 || arr(d.antonyms).length > 0
-const hasPolysemy = (d) => senseList(d).length > 1
-const hasPos = (d) => !!(d.primary_pos || d.pos)
+
+/**
+ * 다의어 분리 · 품사 — **화면이 읽는 `meanings_ko` 로 잰다.**
+ *
+ * `senses` 로 재도 수치는 거의 같지만(65.3% vs 64.7%), 같은 것을 두 컬럼으로 재면
+ * 어느 쪽이 정본인지 흐려진다. V2 를 그렇게 틀렸으므로 여기서도 **읽는 자리**로 통일한다.
+ * (`dict-extras.ts` 는 `meanings_ko.length >= 2` 일 때만 다의어 표를 그린다.)
+ */
+const hasPolysemy = (d) => mkList(d).length >= 2
+const hasPos = (d) =>
+  mkList(d).some((m) => typeof m?.pos === 'string' && m.pos.trim().length > 0)
 const hasColloc = (d) => arr(d.collocations).length > 0
 const hasIpa = (d) => !!(d.ipa || d.ipa_us)
 const hasNote = (d) => !!d.korean_learner_note
@@ -243,23 +253,45 @@ const V7 = {
   gate: Number(gate.toFixed(3)),
 }
 
+/**
+ * ⚠️ **`seenBy` 가 이 표의 핵심이다 — 학습자가 그 칸을 보는가.**
+ *
+ * 시중 단어장의 우위는 **지면에 인쇄되어 학습자 눈에 닿는 것**이다. DB 에만 있고 화면이
+ * 안 읽는 칸은 재고이지 제품이 아니다. 그래서 축마다 **누가 읽는지를 적고**, 못 적으면
+ * `null` 로 두어 종합에서 뺀다.
+ *
+ * 실측(2026-08-30 grep) — 학습자 화면이 `shared_dictionary` 에서 읽는 컬럼은
+ * `collocations` · `meanings_ko` · `mnemonic_ko` · `meaning_ko` · `pos` · `cefr_level` · `v_level`
+ * 뿐이다(`dict-extras.ts` · `reader-queries.ts` · `chapter-words-queries.ts`).
+ * `derived_forms` · `synonyms` · `antonyms` 는 **컴포저가 낱말을 고를 때만** 쓰고
+ * 어느 학습자 화면도 그리지 않는다.
+ */
 const AXES = [
-  { id: 'V1', name: '예문 보유율', ...V1, unit: '%', why: '예문이 없으면 뜻만 외우게 된다 — 맥락 없는 어휘는 인출되지 않는다' },
-  { id: 'V2', name: '예문 한국어역 보유율', ...V2, unit: '%', why: '번역이 없으면 예문을 읽지 못한 채 넘어간다 — 시중이 전 표제어에 다는 칸' },
-  { id: 'V3', name: '파생어 보유율', ...V3, unit: '%', why: '한 어근에서 갈라진 말을 함께 줘야 낱말당 회수가 늘어난다' },
-  { id: 'V4', name: '유의어·반의어 보유율', ...V4, unit: '%', why: '뜻이 겹치고 갈리는 자리를 보여야 변별이 생긴다' },
-  { id: 'V5', name: '다의어 뜻 분리율', ...V5, unit: '%', why: '뜻이 여럿인 낱말을 한 덩어리로 주면 어느 뜻도 남지 않는다' },
-  { id: 'V6', name: '품사 표시율', ...V6, unit: '%', why: '품사를 모르면 문장에 넣지 못한다' },
-  { id: 'V7', name: '묶음 원리 다양성 (시장 PART 축 대비)', ...V7, unit: '종', why: '시장 표준 축을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다' },
+  { id: 'V1', name: '예문 보유율', ...V1, unit: '%', seenBy: 'CardBack · WordLookupPopover (meanings_ko[].example)', why: '예문이 없으면 뜻만 외우게 된다 — 맥락 없는 어휘는 인출되지 않는다' },
+  { id: 'V2', name: '예문 한국어역 보유율', ...V2, unit: '%', seenBy: 'CardBack · WordLookupPopover (meanings_ko[].example_ko)', why: '번역이 없으면 예문을 읽지 못한 채 넘어간다 — 시중이 전 표제어에 다는 칸' },
+  { id: 'V3', name: '파생어 보유율', ...V3, unit: '%', seenBy: null, why: '한 어근에서 갈라진 말을 함께 줘야 낱말당 회수가 늘어난다 — **다만 지금은 컴포저가 낱말을 고를 때만 쓰고 학습자에게 안 보인다**' },
+  { id: 'V4', name: '유의어·반의어 보유율', ...V4, unit: '%', seenBy: null, why: '뜻이 겹치고 갈리는 자리를 보여야 변별이 생긴다 — **다만 지금은 학습자에게 안 보인다**' },
+  { id: 'V5', name: '다의어 뜻 분리율', ...V5, unit: '%', seenBy: 'CardBack 다의어 표 (meanings_ko.length >= 2)', why: '뜻이 여럿인 낱말을 한 덩어리로 주면 어느 뜻도 남지 않는다' },
+  { id: 'V6', name: '품사 표시율', ...V6, unit: '%', seenBy: 'CardBack (meanings_ko[].pos)', why: '품사를 모르면 문장에 넣지 못한다' },
+  { id: 'V7', name: '묶음 원리 다양성 (시장 PART 축 대비)', ...V7, unit: '종', seenBy: 'VocabSetCard 유형 줄 (set-kind)', why: '시장 표준 축을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다' },
 ].map((a) => ({ ...a, index: ratio(a.ours, a.market) }))
 
-// 종합은 기하평균 — 한 축이 0 이면 종합도 0 이어야 맞다.
-const idx = AXES.map((a) => a.index)
-const overall = idx.every((x) => x != null)
-  ? (idx.some((x) => x === 0)
-    ? 0
-    : Number(Math.exp(idx.reduce((s, x) => s + Math.log(x), 0) / idx.length).toFixed(3)))
-  : null
+/** 기하평균. 한 축이 0 이면 0 — 비율의 평균은 기하평균이다. */
+function geomean(list) {
+  const xs = list.filter((x) => x != null)
+  if (xs.length === 0 || xs.length !== list.length) return null
+  if (xs.some((x) => x === 0)) return 0
+  return Number(Math.exp(xs.reduce((s, x) => s + Math.log(x), 0) / xs.length).toFixed(3))
+}
+
+const overall = geomean(AXES.map((a) => a.index))
+
+/**
+ * **학습자가 실제로 보는 축만으로 다시 잰 종합.** 이쪽이 제품의 우위에 가깝다 —
+ * 위의 `overall` 은 보이지 않는 재고까지 넣은 값이라 더 후하게 나온다.
+ */
+const visibleAxes = AXES.filter((a) => a.seenBy)
+const overallVisible = geomean(visibleAxes.map((a) => a.index))
 
 /**
  * 시장에 칸이 없는 축 — **지수에 넣지 않는다.**
@@ -286,6 +318,9 @@ const report = {
   },
   axes: AXES,
   overall,
+  overallVisible,
+  visibleAxisIds: visibleAxes.map((a) => a.id),
+  hiddenAxisIds: AXES.filter((a) => !a.seenBy).map((a) => a.id),
   beyondMarket,
   axisDetail: { v7Covered: coveredAxes.sort(), v7Missing: [...marketAxes].filter((a) => !ourAxes.has(a)).sort(), v7Beyond: beyondAxes.sort() },
 }
@@ -306,7 +341,12 @@ if (process.argv.includes('--json')) {
     const m = a.unit === '%' ? `${(a.market * 100).toFixed(1)}%` : `${a.market}종`
     console.log(`  ${a.id} ${a.name.padEnd(34)} 우리 ${o.padStart(7)}  시장 ${m.padStart(7)}  ${bar(a.index)}`)
   }
-  console.log(`\n  종합 우위지수 (기하평균) = ${overall ?? '측정 불가'}`)
+  console.log(`\n  종합 우위지수 (기하평균, 7축) = ${overall ?? '측정 불가'}`)
+  console.log(`  ├ 학습자에게 **보이는** 축만 (${visibleAxes.map((a) => a.id).join('·')}) = ${overallVisible ?? '측정 불가'}`)
+  const hidden = AXES.filter((a) => !a.seenBy)
+  if (hidden.length > 0) {
+    console.log(`  └ 안 보이는 축 (${hidden.map((a) => a.id).join('·')}) — DB 재고일 뿐 제품의 우위가 아니다`)
+  }
   if (V7.gate < 1) console.log(`  ⚠️ V7 관문 미통과 (${(V7.gate * 100).toFixed(0)}%) — 폭을 인정하지 않고 관문 값으로 눌렀다`)
   console.log('\n  시장에 칸이 없어 지수에 넣지 않은 축:')
   for (const b of beyondMarket) console.log(`  ${b.id} ${b.name.padEnd(34)} 우리 ${(b.ours * 100).toFixed(1).padStart(6)}%`)
