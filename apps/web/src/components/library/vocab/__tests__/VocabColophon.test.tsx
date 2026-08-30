@@ -32,6 +32,9 @@ function set(overrides: Partial<PublishedVocabSet> = {}): PublishedVocabSet {
     coverImageMeta: null,
     brandFingerprint: null,
     ladderStep: null,
+    imprintCode: null,
+    qa: null,
+    level: null,
     ...overrides,
   }
 }
@@ -64,8 +67,39 @@ describe('판권면', () => {
     expect(html).not.toContain('표제어 선정')
   })
 
-  it('검수 수치는 아예 싣지 않는다 — 0/0 은 "검수 0 통과" 로 읽힌다', () => {
+  it('각인 전 세트는 검수 줄을 아예 빼 둔다 — 0/0 은 "검수 0 통과" 로 읽힌다', () => {
     expect(render(set())).not.toContain('자동 검수')
+  })
+
+  it('각인된 검수 실측은 판권면에 싣는다 — 시중 단어장의 "감수" 자리다', () => {
+    const html = render(set({ qa: { checked: 1500, passed: 1487, at: '2026-08-30T00:00:00.000Z' } }))
+    expect(html).toContain('자동 검수 1487/1500 통과')
+  })
+
+  it('판권 번호가 있으면 싣는다 — 학습자가 이 판을 특정해 인용할 수 있어야 한다', () => {
+    expect(render(set({ imprintCode: 'VF-etymology-core-v3' }))).toContain('VF-etymology-core-v3')
+  })
+
+  it('판권 번호가 없으면 지어내지 않는다', () => {
+    expect(render(set())).not.toContain('판권 번호')
+  })
+
+  it('사다리 밖이어도 각인된 대상 수준은 적는다 — 학령 계단이 없다고 수준이 없는 게 아니다', () => {
+    const html = render(
+      set({
+        cefrLevel: 'C2',
+        category: 'themed',
+        level: { median: 9, min: 4, max: 11, measured: 1500 },
+      }),
+    )
+    expect(html).toContain('대상 수준')
+    expect(html).toContain('V9 (V4~V11 · 1,500낱말 실측)')
+  })
+
+  it('계단이 있는 권에는 대상 수준을 겹쳐 적지 않는다 — 단계 줄이 이미 말한다', () => {
+    // B1 → 5단이 잡히므로 계단이 있다.
+    const html = render(set({ level: { median: 5, min: 1, max: 9, measured: 1500 } }))
+    expect(html).not.toContain('대상 수준')
   })
 
   it('출처 정책은 언제나 싣는다 — 법적 근거가 사라지면 안 된다', () => {

@@ -1,6 +1,6 @@
 {
   "$schema": "vocab-choice-benchmark/1",
-  "generatedAt": "2026-08-30T14:01:19.876Z",
+  "generatedAt": "2026-08-30T14:13:29.199Z",
   "catalog": {
     "sets": 70,
     "words": 32790
@@ -23,40 +23,40 @@
     }
   },
   "ours": {
-    "meanSignalsPerSet": 7.057,
+    "meanSignalsPerSet": 9.943,
     "rates": {
       "colophon": 1,
-      "isbn": 0,
+      "isbn": 1,
       "toc": 0.7,
       "studyPlan": 1,
       "preface": 0.414,
-      "dayPacing": 0.843,
+      "dayPacing": 1,
       "reviewTest": 1,
       "seriesGuide": 0.843,
-      "targetGrade": 0.843,
-      "extras": 0.414,
-      "proofread": 0
+      "targetGrade": 1,
+      "extras": 0.986,
+      "proofread": 1
     }
   },
-  "choiceIndex": 0.83,
+  "choiceIndex": 1.17,
   "perSignalRatio": {
     "colophon": 1,
-    "isbn": 0,
+    "isbn": 1,
     "toc": 0.7,
     "studyPlan": 1,
     "preface": 1.656,
-    "dayPacing": 0.843,
+    "dayPacing": 1,
     "reviewTest": 1,
     "seriesGuide": 1.124,
-    "targetGrade": 0.843,
-    "extras": 0.828,
+    "targetGrade": 1,
+    "extras": 1.972,
     "proofread": null
   },
   "weakest": [
-    "isbn",
     "toc",
-    "extras",
-    "dayPacing",
-    "targetGrade"
+    "colophon",
+    "isbn",
+    "studyPlan",
+    "dayPacing"
   ]
 }

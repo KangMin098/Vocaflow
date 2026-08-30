@@ -85,6 +85,21 @@ export interface PublishedVocabSet {
    * 뜻이고, 그때만 화면이 `lib/library/vocab/rung.ts` 의 추정으로 내려간다.
    */
   ladderStep: number | null
+  /**
+   * 판권 번호 — 이 **판(edition)** 을 특정하는 표기. 시중 단어장의 ISBN 자리다.
+   * 학습자가 인용·검색·문의할 때 쓸 수 있어야 하므로 slug 와 판차를 함께 낸다.
+   */
+  imprintCode: string | null
+  /**
+   * 자동 검수 실측 — `scripts/vocab/stamp-imprint.mts` 가 각인한다.
+   * **null 이면 판권면이 그 줄을 뺀다** — 0/0 은 "검수 0 통과" 로 읽혀 없는 것보다 나쁘다.
+   */
+  qa: { checked: number; passed: number; at: string } | null
+  /**
+   * 표제어 난이도 실측(V-Level 중앙값·최소·최대). 사다리 **밖**(성인 수준) 권이
+   * "대상 수준" 을 말할 수 있게 하는 유일한 근거다 — 학령 계단이 없다고 수준이 없는 게 아니다.
+   */
+  level: { median: number; min: number; max: number; measured: number } | null
 }
 
 export interface SamplePreviewWord {
@@ -128,7 +143,14 @@ interface SharedSetRow {
   created_at: string | null
   category_id?: string | null
   additional_category_ids?: string[] | null
-  curation_query?: { blueprint?: string } | null
+  slug?: string | null
+  version?: number | null
+  curation_query?: {
+    blueprint?: string
+    /** `scripts/vocab/stamp-imprint.mts` 가 더한 키. 컴포저의 레시피와 같은 jsonb 에 산다. */
+    qa?: { checked: number; passed: number; at: string }
+    level?: { median: number; min: number; max: number; measured: number }
+  } | null
   cover_image_url?: string | null
   cover_image_meta?: CoverMeta | null
   brand_fingerprint?: string | null
@@ -145,7 +167,7 @@ export async function fetchPublishedSets(
   const { data, error } = await sb
     .from('shared_word_sets')
     .select(
-      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids, curation_query, cover_image_url, cover_image_meta, brand_fingerprint, ladder_step, shared_words(count)',
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids, curation_query, cover_image_url, cover_image_meta, brand_fingerprint, ladder_step, slug, version, shared_words(count)',
     )
     .eq('is_published', true)
     // 소스 종속 자동생성 세트는 공용 단어장 영역에 노출 X — 각 소스 컨텍스트에서만.
@@ -161,7 +183,7 @@ export async function fetchPublishedSets(
     // 위 select 가 실패할 수 있음 — fallback 으로 legacy 컬럼만 fetch.
     const fallback = await sb
       .from('shared_word_sets')
-      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta, brand_fingerprint, ladder_step, shared_words(count)')
+      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta, brand_fingerprint, ladder_step, slug, version, shared_words(count)')
       .eq('is_published', true)
       .neq('category', 'library_book')
       .neq('category', 'library_article')
@@ -240,6 +262,10 @@ async function enrichSets(
     coverImageMeta: s.cover_image_meta ?? null,
     brandFingerprint: s.brand_fingerprint ?? null,
     ladderStep: s.ladder_step ?? null,
+    // 판권 번호 — slug 가 없으면 만들지 않는다(id 로 지어내면 학습자가 인용할 수 없는 값이 된다).
+    imprintCode: s.slug ? `VF-${s.slug}-v${s.version ?? 1}` : null,
+    qa: s.curation_query?.qa ?? null,
+    level: s.curation_query?.level ?? null,
   }))
 }
 

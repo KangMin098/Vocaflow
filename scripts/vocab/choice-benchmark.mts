@@ -64,19 +64,24 @@ const HIDDEN_CATEGORIES = ['library_book', 'library_article']
 interface SetRow {
   id: string
   title: string
+  slug: string | null
   category: string
   cefr_level: string | null
   ladder_step: number | null
   word_count: number | null
   cover_image_url: string | null
   brand_fingerprint: string | null
-  curation_query: { blueprint?: string } | null
+  curation_query: {
+    blueprint?: string
+    qa?: { checked: number; passed: number }
+    level?: { median: number }
+  } | null
 }
 
 const { data: rawSets, error: setErr } = await client
   .from('shared_word_sets')
   .select(
-    'id, title, category, cefr_level, ladder_step, word_count, cover_image_url, brand_fingerprint, curation_query',
+    'id, title, slug, category, cefr_level, ladder_step, word_count, cover_image_url, brand_fingerprint, curation_query',
   )
   .eq('is_published', true)
   .not('category', 'in', `(${HIDDEN_CATEGORIES.join(',')})`)
@@ -151,25 +156,32 @@ for (const s of sets) {
   const got: SignalKey[] = []
   // 판권면 — `VocabColophon` 이 판차·발행일을 늘 그린다(created_at 은 항상 있다).
   got.push('colophon')
-  // ISBN 자리 — 권의 고유 신원 표기. **화면에 없다.** slug·version 은 DB 에만 있다.
-  //   (있는 척하지 않는다 — 이 0 이 다음 사이클의 할 일이다.)
+  // 판권 번호 — ISBN 자리. `queries.ts` 가 slug 없는 세트에는 만들지 않는다.
+  if (s.slug) got.push('isbn')
   // 목차 — 미리보기 모달의 챕터/라벨 아코디언. 묶음이 둘 이상이어야 목차 노릇을 한다.
   if (groups >= 2) got.push('toc')
   // 학습 플랜 — 미리보기 모달의 `plan` 블록. 낱말이 있어야 계산된다.
   if (wordCount > 0) got.push('studyPlan')
   // 표제어 선정 근거 — `VocabColophon` 은 `set.kind.principle` 이 없으면 그 줄을 뺀다.
   if (kind?.principle) got.push('preface')
-  // 하루치 — `colophon.volume` 은 `rung.wordsPerDay > 0` 일 때만 "하루 N · D일" 로 적힌다.
-  if (rung && rung.wordsPerDay > 0 && wordCount > 0) got.push('dayPacing')
+  // 하루치 — 미리보기 모달의 `computeStudyPlan` 이 **모든 세트에** "하루 22단어 · 약 D일" 을
+  //   그린다(`VocabSetPreviewModal.tsx:78`). 낱말 수만 있으면 계산되고 계단은 필요 없다.
+  //
+  //   ⚠️ 이 줄은 한때 `rung.wordsPerDay` 에 묶여 있어 84.3% 로 나왔다 — **판권면만 보고
+  //      모달을 안 봤다.** 기준은 "DB 에 값이 있는가" 도 "판권면이 적는가" 도 아니라
+  //      **학습자가 보는가** 다.
+  if (wordCount > 0) got.push('dayPacing')
   // 복습 안내 — 학습 플랜 블록 안의 FSRS 문구. 같은 조건에서 함께 뜬다.
   if (wordCount > 0) got.push('reviewTest')
   // 시리즈 안내 — `ladderStrip` 은 `rung` 이 있을 때만 그려진다.
   if (rung) got.push('seriesGuide')
-  // 대상 학년 — 판권면 '단계' 줄(`schoolBand`). 역시 `rung` 이 있어야 한다.
-  if (rung) got.push('targetGrade')
+  // 대상 수준 — 계단이 있으면 판권면 '단계' 줄, 없으면 각인된 V-Level 중앙값('대상 수준' 줄).
+  //   사다리 밖이라고 수준이 없는 것이 아니다.
+  if (rung || s.curation_query?.level) got.push('targetGrade')
   // 부가자료 — 발음기호. 절반 넘게 있어야 "이 권은 발음을 준다" 가 성립한다.
   if (words > 0 && withPron / words >= PRON_RATE_FOR_EXTRAS) got.push('extras')
-  // 감수 표시 — `autoPassed/autoTotal` 을 화면이 갖고 있지 않아 그 줄이 빠진다.
+  // 감수 — 각인된 자동 검수 수치. 없으면 판권면이 그 줄을 뺀다(0/0 은 "검수 0 통과" 로 읽힌다).
+  if ((s.curation_query?.qa?.checked ?? 0) > 0) got.push('proofread')
 
   for (const k of got) hit[k] += 1
   perSet.push({ id: s.id, title: s.title, signals: got })

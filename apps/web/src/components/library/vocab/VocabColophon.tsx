@@ -34,10 +34,10 @@ export function VocabColophon({ set }: { set: PublishedVocabSet }) {
     wordCount: set.wordCount,
     wordsPerDay: rung?.wordsPerDay ?? 0,
     issued: new Date(set.createdAt),
-    // 검수 수치는 이 화면이 갖고 있지 않다 — 0/0 을 적으면 "검수 0 통과" 로 읽히므로
-    // 아래에서 그 줄을 뺀다(지어내지 않는다).
-    autoPassed: 0,
-    autoTotal: 0,
+    // 검수 수치는 `scripts/vocab/stamp-imprint.mts` 가 각인한 실측이다. 각인 전 세트는
+    // null 이라 0/0 이 되고, 그때는 아래에서 그 줄을 뺀다(지어내지 않는다).
+    autoPassed: set.qa?.passed ?? 0,
+    autoTotal: set.qa?.checked ?? 0,
   })
 
   const rows: Array<[string, string]> = [
@@ -46,6 +46,27 @@ export function VocabColophon({ set }: { set: PublishedVocabSet }) {
     ['구성', colophon.volume],
   ]
   if (colophon.selection) rows.push(['표제어 선정', colophon.selection])
+  /*
+    자동 검수 — 시중 단어장의 "감수" 자리. **각인된 세트만.**
+    표제어가 뜻·예문·발음·품사 넷을 다 갖췄는지를 실제로 세어 둔 값이라 지어낸 것이 아니다.
+  */
+  if (set.qa && set.qa.checked > 0) rows.push(['검수', colophon.review])
+  /*
+    대상 수준 — **사다리 밖 권을 위한 줄.** 학령 계단이 없다고 수준이 없는 것이 아닌데,
+    계단이 null 이면 판권면이 수준을 한 줄도 못 적고 있었다(70권 중 11권).
+    계단이 있는 권은 위 '단계' 줄이 이미 말하므로 중복해서 적지 않는다.
+  */
+  if (!rung && set.level) {
+    rows.push([
+      '대상 수준',
+      `V${set.level.median} (V${set.level.min}~V${set.level.max} · ${set.level.measured.toLocaleString()}낱말 실측)`,
+    ])
+  }
+  /*
+    판권 번호 — 시중 단어장의 ISBN 자리. 학습자가 이 **판**을 특정해 인용·문의할 수 있어야 한다.
+    slug 가 없는 세트는 만들지 않는다(`queries.ts` — 지어낸 번호는 인용할 수 없다).
+  */
+  if (set.imprintCode) rows.push(['판권 번호', set.imprintCode])
 
   return (
     <section
