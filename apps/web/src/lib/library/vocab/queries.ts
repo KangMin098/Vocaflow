@@ -11,6 +11,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 import { setKindOf, type SetKind } from './set-kind'
 import type { CoverMeta } from '@/lib/vcb/covers/design'
+import { pagedSelect } from '@/lib/supabase/paged-select'
 
 type DB = Database
 
@@ -250,13 +251,25 @@ export async function fetchUserSubscriptions(
   userId: string | null,
 ): Promise<Set<string>> {
   if (!userId) return new Set()
-  const { data, error } = await supabase
-    .from('user_word_set_subscriptions')
-    .select('set_id')
-    .eq('user_id', userId)
 
-  if (error) throw error
-  return new Set((data ?? []).map((r) => r.set_id))
+  // ⚠️ **끝까지 받는다.** 이 조회는 상한이 없어서 PostgREST 의 1,000행에서 조용히 잘렸다.
+  //    잘리면 구독 중인 세트가 **구독 안 한 것으로** 보인다 — 오류 없이 화면만 틀리는,
+  //    이 저장소가 하루에 세 번 값을 치른 그 실패다(`lib/supabase/paged-select.ts` 머리 주석).
+  //
+  //    도달 가능한가: 오늘 최대 보유는 268개다. 그런데 챕터 단어장은 **도서를 담으면 함께
+  //    붙는다** — Clarissa 한 권이 450개, Le Morte d'Arthur 가 443개다(실측 2026-08-30).
+  //    고전 몇 권을 담은 학습자는 바로 1,000을 넘는다. "지금은 안 넘는다" 는 근거가 못 된다.
+  const rows = await pagedSelect<{ set_id: string }>(
+    (from, to) =>
+      supabase
+        .from('user_word_set_subscriptions')
+        .select('set_id')
+        .eq('user_id', userId)
+        .range(from, to),
+    '구독 단어장',
+  )
+
+  return new Set(rows.map((r) => r.set_id))
 }
 
 /**

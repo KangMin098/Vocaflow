@@ -7,6 +7,8 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { pagedSelect } from '@/lib/supabase/paged-select'
+
 export interface ChapterListItem {
   chapter_idx: number
   chapter_title: string | null
@@ -189,15 +191,24 @@ export async function listChapters(
   client: SupabaseClient,
   libraryBookId: string
 ): Promise<ChapterListItem[]> {
-  const { data, error } = await client
-    .from('library_chapters_master')
-    .select(
-      'chapter_idx, chapter_title, group_label, source_href, word_count, paragraph_offsets, chapter_v_level'
-    )
-    .eq('library_book_id', libraryBookId)
-    .order('chapter_idx', { ascending: true })
+  // ⚠️ **끝까지 받는다.** 목차는 전량이 필요한데(한 장이라도 빠지면 그 장으로 갈 길이 없다)
+  //    PostgREST 는 한 응답에 1,000행까지만 준다 — 넘으면 오류 없이 잘린다.
+  //    지금 최대 보유는 Clarissa 528장으로 상한의 절반이다(실측 2026-08-30). 아직 안 닿지만
+  //    도서는 계속 들어오고, **잘린 목차는 "그 책에 그 장이 없다" 로 보인다** — 조용한 거짓말이다.
+  //    저장소 규칙(`lib/supabase/paged-select.ts`): 전량이 필요하면 이 헬퍼를 쓴다.
+  const data = await pagedSelect<Record<string, unknown>>(
+    (from, to) =>
+      client
+        .from('library_chapters_master')
+        .select(
+          'chapter_idx, chapter_title, group_label, source_href, word_count, paragraph_offsets, chapter_v_level'
+        )
+        .eq('library_book_id', libraryBookId)
+        .order('chapter_idx', { ascending: true })
+        .range(from, to),
+    'listChapters',
+  )
 
-  if (error) throw new Error(`listChapters failed: ${error.message}`)
   return (data ?? []).map((row) => {
     const r = row as {
       chapter_idx: number
