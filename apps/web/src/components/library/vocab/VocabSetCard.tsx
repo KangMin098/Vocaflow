@@ -2,7 +2,7 @@
 //
 // 클로스바운드 클래식 책 표지 타일 — /library/books 와 동일한 "책 한 권" 메타포.
 // - aspect-[3/4] 책 표지 (그라디언트 + 중앙 serif 제목 + 이모지 장식 + 단어수)
-// - 우상단 CEFR 배지 · 좌상단 구독 배지
+// - 우상단 사다리 배지(계단·학령 — 계단을 못 정한 권만 CEFR) · 좌상단 구독 배지
 // - hover/focus 시 + 추가/제외 액션 reveal
 // - 그리드라 반사(-webkit-box-reflect)는 끔 (행 간 겹침 방지)
 
@@ -14,6 +14,7 @@ import { Check, Loader2, Minus, Plus, Users } from 'lucide-react'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
 import { FAMILY_GRAIN } from '@/lib/vcb/covers/design'
+import { rungForSet } from '@/lib/library/vocab/rung'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
 import { vocabCategoryMeta } from './categories'
@@ -57,6 +58,11 @@ export function VocabSetCard({
   const coverImage = set.coverImageUrl
   const family = set.coverImageMeta?.family
   const duotone = family ? FAMILY_GRAIN[family] : FAMILY_GRAIN.list
+
+  // 사다리에서의 자리. 컴포저가 정한 값이 DB 에 있으면 그것을 쓰는 것이 맞지만, 카드는
+  // 아직 그 컬럼을 받지 않는다 — 여기서는 카테고리·CEFR 로 **추정**한다(`rungForSet`).
+  // 근거가 없으면 null 이고, 그때는 종전대로 CEFR 을 보인다.
+  const { rung } = rungForSet(set)
 
   // 신규(최근 14일) 배지 — 최신성 discovery 신호. SSR 하이드레이션 회피 위해 mount 후 판정.
   const [mounted, setMounted] = useState(false)
@@ -157,10 +163,33 @@ export function VocabSetCard({
           </span>
         ) : null}
 
-        {/* 우상단: CEFR 배지 */}
-        {set.cefrLevel && (
-          <span className="absolute right-3 top-3 inline-flex items-center rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-1 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
-            {set.cefrLevel}
+        {/*
+          우상단: **사다리에서의 자리**.
+
+          여기 있던 것은 CEFR(A1·B2·C2)이었다. 그런데 시중 단어장은 표지에 CEFR 을 적지 않고
+          **자기 사다리**를 적는다(능률VOCA: 중학 → 고등 기본 → 수능 필수). 남의 눈금을 쓰면
+          그 눈금의 브랜드가 되기 때문이고, 한국 고등학생에게 'B2' 는 자기 학년을 말해 주지도
+          않는다. 그래서 계단을 앞에 세우고 CEFR 은 툴팁으로 내린다 — 버리지는 않는다.
+
+          계단을 못 정한 권(학령 밖 성인 수준 등)은 종전대로 CEFR 을 보인다.
+          **빈칸으로 두지 않는다** — 자리가 비면 표지가 미완성으로 읽힌다.
+        */}
+        {(rung || set.cefrLevel) && (
+          <span
+            title={
+              rung
+                ? `${rung.schoolBand}${set.cefrLevel ? ` · CEFR ${set.cefrLevel}` : ''}`
+                : `CEFR ${set.cefrLevel}`
+            }
+            className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-[3px] bg-[var(--chip-cover-bg)] px-2 py-1 font-mono text-[10.5px] font-[700] tracking-tight text-[var(--chip-cover-ink)] shadow-[0_2px_4px_rgba(0,0,0,0.18)]">
+            {rung ? (
+              <>
+                <span className="tabular-nums">{rung.step}단</span>
+                <span className="font-body font-[600] opacity-80">{rung.schoolBand}</span>
+              </>
+            ) : (
+              set.cefrLevel
+            )}
           </span>
         )}
 

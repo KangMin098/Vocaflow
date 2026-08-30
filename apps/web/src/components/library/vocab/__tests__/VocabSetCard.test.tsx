@@ -47,7 +47,7 @@ function set(overrides: Partial<PublishedVocabSet> = {}): PublishedVocabSet {
 }
 
 function render(s: PublishedVocabSet): string {
-  return renderToString(
+  const html = renderToString(
     <VocabSetCard
       set={s}
       isSubscribed={false}
@@ -57,6 +57,10 @@ function render(s: PublishedVocabSet): string {
       onPreview={() => {}}
     />,
   )
+  // ⚠️ SSR 은 인접한 텍스트 노드 사이에 `<!-- -->` 를 끼워 넣는다(하이드레이션 경계 표시).
+  //    그래서 화면에 `7단` 으로 보이는 것이 HTML 에는 `7<!-- -->단` 으로 들어간다 —
+  //    문자열 단언이 **화면과 다른 이유로** 깨진다. 마커는 내용이 아니므로 걷어내고 본다.
+  return html.replace(/<!-- -->/g, '')
 }
 
 describe('단어장 카드 — 표지와 유형', () => {
@@ -83,6 +87,36 @@ describe('단어장 카드 — 표지와 유형', () => {
     )
     expect(html).toContain(FAMILY_GRAIN.corpus.ink)
     expect(html).not.toContain(FAMILY_GRAIN.structure.ink)
+  })
+
+  // 표지 배지는 **우리 사다리**를 말한다 — 시중 단어장이 CEFR 대신 자기 눈금을 적는 것과 같다.
+  it('사다리 계단과 학령을 배지로 적는다', () => {
+    // etymology + B2 → V7 → 7단 고3/수능 상위
+    const html = render(set())
+    expect(html).toContain('7단')
+    expect(html).toContain('고3 / 수능 상위')
+  })
+
+  it('CEFR 을 버리지 않고 툴팁으로 남긴다', () => {
+    expect(render(set())).toContain('CEFR B2')
+  })
+
+  it('학교급 카테고리는 CEFR 보다 세다 — 초등이면 1단이다', () => {
+    const html = render(set({ category: 'elementary', cefrLevel: 'B2' }))
+    expect(html).toContain('1단')
+    expect(html).toContain('초등 저학년')
+  })
+
+  it('계단을 못 정하면 종전대로 CEFR 을 보인다 — 자리를 비우지 않는다', () => {
+    // C2 = 성인 수준이라 학교 사다리 밖이다.
+    const html = render(set({ category: 'themed', cefrLevel: 'C2' }))
+    expect(html).not.toContain('단</span>')
+    expect(html).toContain('C2')
+  })
+
+  it('계단도 CEFR 도 없으면 배지 자체를 그리지 않는다', () => {
+    const html = render(set({ category: 'themed', cefrLevel: null }))
+    expect(html).not.toContain('CEFR')
   })
 
   it('표지가 없으면 그라디언트 표지 + 이모지로 폴백한다 (공백 아님)', () => {
