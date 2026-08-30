@@ -7,6 +7,8 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { cleanWordWebRow } from '@/lib/dict/word-web'
+
 export interface WordSense {
   pos: string
   meaning: string
@@ -80,17 +82,10 @@ export async function fetchDictExtras(
       if (d.collocations && d.collocations.length > 0) e.collocations = d.collocations
       if (d.mnemonic_ko && d.mnemonic_ko.trim()) e.mnemonic = d.mnemonic_ko.trim()
 
-      // 파생어·유의어·반의어 — 표제어 자신이 목록에 섞여 있는 경우가 있어 빼고 넘긴다
-      // (자기 자신을 "파생어" 로 보여 주면 학습자가 오해한다). 빈 문자열도 걸러 낸다.
-      const clean = (list: string[] | null | undefined): string[] | undefined => {
-        if (!Array.isArray(list)) return undefined
-        const self = d.word.toLowerCase()
-        const out = [...new Set(
-          list.map((s) => (typeof s === 'string' ? s.trim() : ''))
-            .filter((s) => s.length > 0 && s.toLowerCase() !== self),
-        )]
-        return out.length > 0 ? out : undefined
-      }
+      // 파생어·유의어·반의어 — 정제 규칙은 `lib/dict/word-web.ts` 한 곳에 있다.
+      // 읽기 조회 창도 같은 함수를 쓴다(두 곳이 다르게 거르면 같은 낱말이 다르게 보인다).
+      const clean = (list: string[] | null | undefined): string[] | undefined =>
+        cleanWordWebRow(list, d.word) ?? undefined
       e.derived = clean(d.derived_forms)
       e.synonyms = clean(d.synonyms)
       e.antonyms = clean(d.antonyms)

@@ -400,6 +400,32 @@ cefrToVLevel = { A1:1, A2:3, B1:5, B2:7, C1:9, C2:10 }   ← 짝수 없음
 
 **보이는 축 지수 1.437 → 1.599.** 있는 것을 보여 준 것만으로 올랐다.
 
+#### ⚠️ 그런데 그중 일부가 **틀린 것을 가르치고 있었다** — 정제 규칙 추가
+
+사전의 `synonyms` 에는 WordNet 계열 자료가 섞여 있다. 카탈로그 표제어 기준 유의어 항목
+**17,544 개 중 886 개(5.1%)가 표제어 자신을 품는다**:
+
+```
+cell → jail cell · prison cell · cellular telephone   (유의어가 아니라 그 낱말의 다른 뜻)
+bank → bank building · savings bank                    (유의어가 아니라 하위어)
+```
+
+"비슷한 말: jail cell" 을 읽은 학습자는 **cell 을 jail cell 과 바꿔 쓸 수 있다고 배운다.**
+틀린 것을 가르치는 것은 아무것도 안 보여 주는 것보다 나쁘다. 유의어가 전부 그런 낱말이
+**553 개**였다.
+
+- `lib/dict/word-web.ts` — 정제 규칙 **한 곳**. 두 화면이 같은 함수를 쓴다(다르게 거르면
+  같은 낱말이 화면마다 다르게 보인다 — `_example-shape.mjs` 와 같은 이유)
+- 버리는 기준은 **길이가 아니라 표제어를 품었는가**다. `abandon → give up` 은 여러 낱말이지만
+  정당한 유의어라 남긴다
+- **낱말 경계로 본다** — 부분 문자열로 보면 `accord → accordance` 가 걸리는데 그건 정당하다.
+  `bank building` 은 `bank` 를 낱말로 품었지만 `accordance` 는 아니다
+- 회귀 9 + 두 화면 e2e 2 통과
+
+**같은 조사에서 `related_terms`(83.9%)는 올리지 않기로 했다** — WordNet 관계 덤프라
+`develop → change · fledge · feather · stool · tiller`, `cell → blastomere · kupffer's cell` 처럼
+학습자에게 해롭다. **보유율이 높다고 가치가 있는 것이 아니다.**
+
 읽기 중 낱말 조회 창(`WordLookupPopover`)에도 같은 블록을 올렸다 — **두 곳이 같은 것을
 보여 주지 않으면 학습자는 두 곳을 다른 사전으로 여긴다.** 다만 툴팁은 읽기를 **끊고** 뜬
 창이라 카드보다 절제한다: 줄마다 **2개**(카드는 3개). 카드는 학습이 목적이고 툴팁은 읽던
