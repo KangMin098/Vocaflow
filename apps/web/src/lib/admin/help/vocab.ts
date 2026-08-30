@@ -472,6 +472,54 @@ export const VCB_HELP: HelpRegistry = {
       cautions: [
         '여기에는 수정·회수 버튼이 없다. 잘못 발행된 단어장은 같은 슬러그로 새 버전을 발행해 덮는 것이 유일한 교정 경로다.',
       ],
+      drain: {
+        what:
+          '발행 카탈로그 표제어의 **예문 한국어 번역**. 시중 단어장 대비 우위지수에서 이 축만 0 이라 종합이 0 이었다(기하평균). 채우는 만큼 종합이 올라간다.',
+        prerequisites: [
+          'Claude Code 세션을 저장소 루트에서 열어 둘 것 — 번역은 문장을 읽어야 나오므로 결정론 스크립트로는 만들 수 없다',
+          'apps/web/.env.local 에 SUPABASE_SERVICE_ROLE_KEY 가 있을 것 (export·import 둘 다 이 키로 붙는다)',
+          '마이그레이션은 필요 없다 — senses 가 jsonb 라 examples_ko 키를 더하기만 한다',
+        ],
+        procedure: [
+          {
+            title: 'node scripts/vocab/example-ko-drain-export.mjs --size 120 --max 3',
+            detail:
+              '아직 번역이 없는 뜻만 문장 120개 단위로 잘라 scripts/vocab/example-ko-drain/chunk-NN.json 으로 뽑는다. **재실행 안전** — 이미 채워진 뜻(examples_ko 가 examples 와 같은 길이)은 건너뛰므로 몇 번을 돌려도 남은 몫만 나온다. DB 는 읽기만 한다.',
+            done: '"번역 필요 뜻 N · 문장 N" 이 출력되고 chunk 파일이 생긴다. 0 이면 다 채워진 것이다.',
+          },
+          {
+            title: 'Claude Code 가 chunk 를 채워 chunk-NN.out.json 으로 저장',
+            detail:
+              'examples_ko 를 examples 와 **같은 길이**로 채운다. sense_ko 가 가리키는 그 뜻이 문장에서 어떻게 쓰였는지 드러나게 옮긴다. 빈 문자열을 넣지 않는다 — import 가 건너뛰고 그 자리는 다음 export 에서 다시 나오긴 하지만, 그 사이 카탈로그에 구멍으로 남는다.',
+          },
+          {
+            title: 'node scripts/vocab/example-ko-drain-import.mjs',
+            detail:
+              '**드라이런이 기본이다.** 무엇이 들어갈지와 건너뛴 수(빈 값 · 길이 불일치 · 읽은 뒤 바뀜)를 먼저 본다. 건너뛴 수가 크면 채운 쪽을 고친 뒤 다시 본다.',
+            done: '"드라이런 — N개가 들어갈 예정" 이 나온다.',
+          },
+          {
+            title: 'node scripts/vocab/example-ko-drain-import.mjs --commit',
+            detail:
+              '뜻마다 examples_ko **키 하나만** 더한다(senses 를 통째로 덮지 않는다 — 덮으면 sense_ko·v_level·register 가 날아간다). 적재를 마친 .out.json 은 done/ 으로 옮겨져 다음 export 와 섞이지 않는다. **재실행 안전** — 같은 값을 다시 써도 결과가 같다.',
+            done: '"적재 완료 — 뜻 N개에 번역을 더했다" 가 나온다.',
+          },
+          {
+            title: 'node scripts/vocab/market-benchmark.mjs',
+            detail:
+              '우위지수를 다시 잰다. 읽기만 하므로 몇 번을 돌려도 안전하다.',
+            done: 'V2 예문 한국어역 보유율이 올라가고 종합 우위지수가 그만큼 오른다.',
+          },
+        ],
+        verify: [
+          'export 를 다시 돌렸을 때 "번역 필요 뜻" 이 적재한 수만큼 줄어 있을 것 — 안 줄었으면 적재가 안 된 것이다',
+          'market-benchmark 의 V2 수치가 올라갈 것 (docs/reports/vocab-market-benchmark.json)',
+        ],
+        recovery: [
+          '"읽은 뒤 바뀜" 이 잡히면 다른 세션이 그 낱말의 예문을 고친 것이다. export 를 다시 돌려 새 chunk 를 받아 채운다 — 억지로 넣으면 번역과 문장의 짝이 어긋난다.',
+          'import 가 중간에 죽어도 이미 쓴 낱말은 남는다. 다시 --commit 해도 같은 값이 덮이므로 안전하다.',
+        ],
+      },
     },
   },
 

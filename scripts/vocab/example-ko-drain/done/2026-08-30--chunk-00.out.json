@@ -1,0 +1,1447 @@
+{
+  "chunk": 0,
+  "generatedAt": "2026-08-30T08:00:00.606Z",
+  "instruction": "examples_ko 를 examples 와 **같은 길이**로 채운다. 한 문장에 한 줄. 직역이 아니라 학습자가 읽을 자연스러운 한국어로 쓰되, 표제어의 그 뜻(sense_ko)이 문장에서 어떻게 쓰였는지 드러나게 옮긴다. 빈 문자열을 넣지 않는다 — 넣으면 import 가 건너뛰고 그 자리는 영영 구멍으로 남는다.",
+  "items": [
+    {
+      "word": "abandon",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "버리다, 떠나다",
+      "examples": [
+        "Many baby girls have been abandoned on the streets of Beijing."
+      ],
+      "examples_ko": [
+        "베이징 거리에는 버려진 여자 아기들이 많았다."
+      ]
+    },
+    {
+      "word": "abandon",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "포기하다, 단념하다",
+      "examples": [
+        "I hereby abandon my position as manager."
+      ],
+      "examples_ko": [
+        "저는 이로써 관리자 자리를 내려놓습니다."
+      ]
+    },
+    {
+      "word": "abandon",
+      "sense_idx": 2,
+      "pos": "noun",
+      "sense_ko": "자유분방함, 거리낌 없음",
+      "examples": [
+        "with gay abandon, with wild abandon, with reckless abandon"
+      ],
+      "examples_ko": [
+        "거리낌 없이, 마음껏, 앞뒤 가리지 않고"
+      ]
+    },
+    {
+      "word": "abandoned",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "버려진, 유기된",
+      "examples": [
+        "They explored an abandoned factory on the edge of town."
+      ],
+      "examples_ko": [
+        "그들은 마을 외곽의 버려진 공장을 둘러보았다."
+      ]
+    },
+    {
+      "word": "abandonment",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "유기, 버림 — 돌봐야 할 사람을 버리고 떠남",
+      "examples": [
+        "Since he left her, she's suing him for divorce on grounds of abandonment."
+      ],
+      "examples_ko": [
+        "그가 떠난 뒤, 그녀는 유기를 이유로 그를 상대로 이혼 소송을 내고 있다."
+      ]
+    },
+    {
+      "word": "aberration",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "일탈, 변칙, 이상 현상 (정상에서 벗어난 것)",
+      "examples": [
+        "aberrations from theory"
+      ],
+      "examples_ko": [
+        "이론에서 벗어난 이상 현상들"
+      ]
+    },
+    {
+      "word": "able",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "할 수 있는, ~할 능력이 있는",
+      "examples": [
+        "She is able to lift the box without assistance."
+      ],
+      "examples_ko": [
+        "그녀는 도움 없이 그 상자를 들 수 있다."
+      ]
+    },
+    {
+      "word": "able",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "유능한",
+      "examples": [
+        "The chairman was also an able sailor."
+      ],
+      "examples_ko": [
+        "그 회장은 유능한 뱃사람이기도 했다."
+      ]
+    },
+    {
+      "word": "aboard",
+      "sense_idx": 0,
+      "pos": "adverb",
+      "sense_ko": "(배·기차·비행기에) 탑승하여, 승선하여",
+      "examples": [
+        "We all climbed aboard."
+      ],
+      "examples_ko": [
+        "우리는 모두 배에 올라탔다."
+      ]
+    },
+    {
+      "word": "aboard",
+      "sense_idx": 1,
+      "pos": "adverb",
+      "sense_ko": "(팀·조직에) 합류하여 (welcome aboard)",
+      "examples": [
+        "The office manager welcomed him aboard."
+      ],
+      "examples_ko": [
+        "사무장은 그가 팀에 합류한 것을 환영했다."
+      ]
+    },
+    {
+      "word": "abort",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "(임무·계획의) 중단, 중지",
+      "examples": [
+        "We've had three aborts over the last two days."
+      ],
+      "examples_ko": [
+        "지난 이틀 동안 세 차례 중단이 있었다."
+      ]
+    },
+    {
+      "word": "abortive",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "(계획·시도가) 실패로 끝난, 무산된",
+      "examples": [
+        "an abortive attempt"
+      ],
+      "examples_ko": [
+        "실패로 끝난 시도"
+      ]
+    },
+    {
+      "word": "abortive",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "제대로 발달하지 못한, 퇴화한",
+      "examples": [
+        "an abortive organ"
+      ],
+      "examples_ko": [
+        "제대로 발달하지 못한 기관"
+      ]
+    },
+    {
+      "word": "abortive",
+      "sense_idx": 2,
+      "pos": "adjective",
+      "sense_ko": "(의학) 병의 진행을 도중에 멈추게 하는",
+      "examples": [
+        "abortive treatment of typhoid fever"
+      ],
+      "examples_ko": [
+        "장티푸스의 진행을 도중에 멈추게 하는 치료"
+      ]
+    },
+    {
+      "word": "abound",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "많이 있다, 아주 흔하다, 풍부하다",
+      "examples": [
+        "Wild animals abound wherever man does not stake his claim."
+      ],
+      "examples_ko": [
+        "사람이 손대지 않은 곳이면 어디든 야생 동물이 많다."
+      ]
+    },
+    {
+      "word": "abound",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "(abound in/with) ~으로 가득하다, ~이 넘쳐나다",
+      "examples": [
+        "The wilderness abounds in traps."
+      ],
+      "examples_ko": [
+        "그 황야에는 덫이 널려 있다."
+      ]
+    },
+    {
+      "word": "abrasion",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "찰과상 — 피부가 긁히거나 벗겨진 상처",
+      "examples": [
+        "The doctor cleaned the small skin abrasion on her knee."
+      ],
+      "examples_ko": [
+        "의사는 그녀의 무릎에 난 작은 찰과상을 소독했다."
+      ]
+    },
+    {
+      "word": "abrasion",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "마모, 마멸 — 마찰로 표면이 닳는 현상",
+      "examples": [
+        "The metal surface showed signs of abrasion after years of use."
+      ],
+      "examples_ko": [
+        "그 금속 표면은 여러 해 쓰인 뒤 마모된 흔적을 보였다."
+      ]
+    },
+    {
+      "word": "abstinence",
+      "sense_idx": 2,
+      "pos": "noun",
+      "sense_ko": "성관계를 삼감, 성적 금욕",
+      "examples": [
+        "Abstinence is the only 100% guaranteed contraception."
+      ],
+      "examples_ko": [
+        "성관계를 삼가는 것만이 100% 확실한 피임법이다."
+      ]
+    },
+    {
+      "word": "abstract",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "추상적인",
+      "examples": [
+        "The politician gave a somewhat abstract answer when asked about their plans to cut spending."
+      ],
+      "examples_ko": [
+        "그 정치인은 지출 삭감 계획을 묻자 다소 추상적인 답을 내놓았다."
+      ]
+    },
+    {
+      "word": "academic",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "학문의; 학업의; 학술적인",
+      "examples": [
+        "I have always had an academic interest in hacking."
+      ],
+      "examples_ko": [
+        "나는 늘 해킹에 학문적인 관심을 갖고 있었다."
+      ]
+    },
+    {
+      "word": "accede",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "(요청·제안에) 동의하다, 응하다",
+      "examples": [
+        "to accede to a request"
+      ],
+      "examples_ko": [
+        "요청에 응하다"
+      ]
+    },
+    {
+      "word": "accede",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "(직위·왕위에) 오르다, 취임하다",
+      "examples": [
+        "the house of Hanover acceded to the English throne"
+      ],
+      "examples_ko": [
+        "하노버 왕가가 영국 왕위에 올랐다"
+      ]
+    },
+    {
+      "word": "accede",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "(조약·기구에) 가입하다",
+      "examples": [
+        "to accede to the European Union"
+      ],
+      "examples_ko": [
+        "유럽 연합에 가입하다"
+      ]
+    },
+    {
+      "word": "accelerate",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "가속하다, 속도를 높이다",
+      "examples": [
+        "The car began to accelerate as soon as the light turned green."
+      ],
+      "examples_ko": [
+        "신호가 초록으로 바뀌자마자 차가 속도를 내기 시작했다."
+      ]
+    },
+    {
+      "word": "accelerate",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "(과정을) 촉진하다, 앞당기다",
+      "examples": [
+        "The company plans to accelerate its growth with new marketing strategies."
+      ],
+      "examples_ko": [
+        "그 회사는 새 마케팅 전략으로 성장을 앞당길 계획이다."
+      ]
+    },
+    {
+      "word": "acceleration",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "가속, 속도가 빨라짐",
+      "examples": [
+        "A falling body moves toward the earth with an acceleration of velocity."
+      ],
+      "examples_ko": [
+        "떨어지는 물체는 속도가 점점 빨라지면서 지면으로 향한다."
+      ]
+    },
+    {
+      "word": "acceleration",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "(물리) 가속도",
+      "examples": [
+        "The boosters produce an acceleration of 20 metres per second per second."
+      ],
+      "examples_ko": [
+        "그 추진체는 매초 초당 20미터씩 빨라지는 가속도를 낸다."
+      ]
+    },
+    {
+      "word": "accelerator",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "(자동차의) 가속 페달, 액셀",
+      "examples": [
+        "As soon as you get onto the slipway, push the accelerator."
+      ],
+      "examples_ko": [
+        "진입로에 들어서면 바로 가속 페달을 밟아라."
+      ]
+    },
+    {
+      "word": "access",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "접근, 출입",
+      "examples": [
+        "The door provides access to the premises."
+      ],
+      "examples_ko": [
+        "그 문으로 건물에 출입할 수 있다."
+      ]
+    },
+    {
+      "word": "access",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "(자료·시스템에) 접근하다, 이용하다, 접속하다",
+      "examples": [
+        "I can't access most of the data on the computer without a password."
+      ],
+      "examples_ko": [
+        "비밀번호 없이는 그 컴퓨터의 자료 대부분에 접근할 수 없다."
+      ]
+    },
+    {
+      "word": "accession",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "(왕위·직위의) 즉위, 취임",
+      "examples": [
+        "her accession to the throne"
+      ],
+      "examples_ko": [
+        "그녀의 왕위 즉위"
+      ]
+    },
+    {
+      "word": "accession",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "(조약·기구) 가입",
+      "examples": [
+        "accession to the European Union"
+      ],
+      "examples_ko": [
+        "유럽 연합 가입"
+      ]
+    },
+    {
+      "word": "accessory",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "액세서리, 부속품",
+      "examples": [
+        "the accessories of a mobile phone"
+      ],
+      "examples_ko": [
+        "휴대전화의 부속품들"
+      ]
+    },
+    {
+      "word": "accessory",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "공범, 종범",
+      "examples": [
+        "She was an accessory to the murder because she helped him commit and probably also conceal the crime."
+      ],
+      "examples_ko": [
+        "그녀는 그가 범행을 저지르고 은폐하는 것까지 도왔기 때문에 그 살인의 공범이었다."
+      ]
+    },
+    {
+      "word": "accessory",
+      "sense_idx": 2,
+      "pos": "adjective",
+      "sense_ko": "부속의, 보조의",
+      "examples": [
+        "She had an accessory finger on one hand."
+      ],
+      "examples_ko": [
+        "그녀는 한 손에 덧붙은 손가락이 하나 있었다."
+      ]
+    },
+    {
+      "word": "acclaim",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "찬사를 보내다, 극찬하다",
+      "examples": [
+        "a highly-acclaimed novel"
+      ],
+      "examples_ko": [
+        "극찬을 받은 소설"
+      ]
+    },
+    {
+      "word": "accolade",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "칭찬, 찬사, 영예",
+      "examples": [
+        "Winning the championship brought the team immense accolade from sports analysts worldwide."
+      ],
+      "examples_ko": [
+        "우승은 그 팀에 전 세계 스포츠 분석가들의 엄청난 찬사를 안겼다."
+      ]
+    },
+    {
+      "word": "accolade",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "표창, 수상, 영예로운 상",
+      "examples": [
+        "The scientist received the highest accolade in her field for the groundbreaking discovery."
+      ],
+      "examples_ko": [
+        "그 과학자는 획기적인 발견으로 자기 분야에서 가장 높은 영예를 받았다."
+      ]
+    },
+    {
+      "word": "accommodate",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "수용하다, 받아들이다",
+      "examples": [
+        "This venue accommodates three hundred people."
+      ],
+      "examples_ko": [
+        "이 장소는 삼백 명을 수용한다."
+      ]
+    },
+    {
+      "word": "accommodate",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "(요구·사정을) 들어주다, 편의를 봐주다",
+      "examples": [
+        "to accommodate a friend with a loan"
+      ],
+      "examples_ko": [
+        "친구에게 돈을 빌려주어 편의를 봐주다"
+      ]
+    },
+    {
+      "word": "accommodate",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "숙박을 제공하다, 재워 주다",
+      "examples": [
+        "to accommodate an old friend for a week"
+      ],
+      "examples_ko": [
+        "오랜 친구를 일주일 동안 재워 주다"
+      ]
+    },
+    {
+      "word": "accompany",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "동반하다, 함께 가다",
+      "examples": [
+        "Geoffrey accompanied the group on their pilgrimage."
+      ],
+      "examples_ko": [
+        "제프리는 그 무리의 순례길에 동행했다."
+      ]
+    },
+    {
+      "word": "accompany",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "수반되다, 딸리다",
+      "examples": [
+        "Thunder almost always accompanies lightning during a rain storm."
+      ],
+      "examples_ko": [
+        "비바람이 칠 때 천둥은 거의 언제나 번개에 뒤따른다."
+      ]
+    },
+    {
+      "word": "accompany",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "(음악에서) 반주하다",
+      "examples": [
+        "I will accompany her on the oboe."
+      ],
+      "examples_ko": [
+        "내가 오보에로 그녀의 반주를 맡겠다."
+      ]
+    },
+    {
+      "word": "accord",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "합의, 협정",
+      "examples": [
+        "The Geneva Accord of 1954 ended the French-Indochinese War."
+      ],
+      "examples_ko": [
+        "1954년 제네바 협정으로 프랑스-인도차이나 전쟁이 끝났다."
+      ]
+    },
+    {
+      "word": "accord",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "일치, 조화",
+      "examples": [
+        "the accord of light and shade in painting"
+      ],
+      "examples_ko": [
+        "그림에서 빛과 그늘의 조화"
+      ]
+    },
+    {
+      "word": "accordingly",
+      "sense_idx": 0,
+      "pos": "adverb",
+      "sense_ko": "그에 따라, 그러므로",
+      "examples": [
+        "The rules have changed, and you must act accordingly."
+      ],
+      "examples_ko": [
+        "규칙이 바뀌었으니 그에 맞게 행동해야 한다."
+      ]
+    },
+    {
+      "word": "accredit",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "(기관·학교를) 공인하다, 인가하다",
+      "examples": [
+        "The school was an accredited college."
+      ],
+      "examples_ko": [
+        "그 학교는 인가받은 대학이었다."
+      ]
+    },
+    {
+      "word": "accredit",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "(공로·업적을) ~의 것으로 돌리다",
+      "examples": [
+        "Nationalisms often accredit all the unemployment issues to immigration."
+      ],
+      "examples_ko": [
+        "민족주의는 실업 문제를 죄다 이민 탓으로 돌리곤 한다."
+      ]
+    },
+    {
+      "word": "ache",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "아프다, 쑤시다",
+      "examples": [
+        "My feet were aching for days after the marathon."
+      ],
+      "examples_ko": [
+        "마라톤이 끝나고 며칠 동안 발이 쑤셨다."
+      ]
+    },
+    {
+      "word": "ache",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "아픔, 통증",
+      "examples": [
+        "You may suffer a minor ache in your side."
+      ],
+      "examples_ko": [
+        "옆구리에 가벼운 통증이 있을 수 있다."
+      ]
+    },
+    {
+      "word": "acid",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "산성의; 신랄한",
+      "examples": [
+        "His response was harsh and acid."
+      ],
+      "examples_ko": [
+        "그의 대답은 거칠고 신랄했다."
+      ]
+    },
+    {
+      "word": "acknowledge",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "인정하다",
+      "examples": [
+        "to acknowledge the being of a god"
+      ],
+      "examples_ko": [
+        "신의 존재를 인정하다"
+      ]
+    },
+    {
+      "word": "acknowledge",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "(받았음을) 확인하다, 수신을 알리다",
+      "examples": [
+        "This is to acknowledge your kind invitation to participate in the upcoming debate."
+      ],
+      "examples_ko": [
+        "다가오는 토론에 참여해 달라는 초대를 잘 받았음을 알려 드립니다."
+      ]
+    },
+    {
+      "word": "acknowledge",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "감사를 표하다, 답례하다",
+      "examples": [
+        "to acknowledge a favor"
+      ],
+      "examples_ko": [
+        "호의에 감사를 표하다"
+      ]
+    },
+    {
+      "word": "acquit",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "무죄를 선고하다, 방면하다",
+      "examples": [
+        "The jury acquitted the prisoner of the charge."
+      ],
+      "examples_ko": [
+        "배심원단은 그 피고인에게 그 혐의에 대해 무죄를 선고했다."
+      ]
+    },
+    {
+      "word": "acquit",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "(acquit oneself) 처신하다, 제 몫을 해내다",
+      "examples": [
+        "The soldier acquitted herself well in battle."
+      ],
+      "examples_ko": [
+        "그 군인은 전투에서 제 몫을 훌륭히 해냈다."
+      ]
+    },
+    {
+      "word": "act",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "행동하다, 행하다",
+      "examples": [
+        "If you don’t act soon, you will be in trouble."
+      ],
+      "examples_ko": [
+        "곧 행동하지 않으면 곤란해질 것이다."
+      ]
+    },
+    {
+      "word": "act",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "연기하다",
+      "examples": [
+        "He’s been acting Shakespearean leads since he was twelve."
+      ],
+      "examples_ko": [
+        "그는 열두 살 때부터 셰익스피어 극의 주역을 연기해 왔다."
+      ]
+    },
+    {
+      "word": "act",
+      "sense_idx": 2,
+      "pos": "noun",
+      "sense_ko": "행동, 행위",
+      "examples": [
+        "an act of goodwill"
+      ],
+      "examples_ko": [
+        "선의의 행동"
+      ]
+    },
+    {
+      "word": "act",
+      "sense_idx": 3,
+      "pos": "noun",
+      "sense_ko": "(연극의) 막",
+      "examples": [
+        "The pivotal moment in the play was in the first scene of the second act."
+      ],
+      "examples_ko": [
+        "그 연극의 결정적 순간은 2막 1장에 있었다."
+      ]
+    },
+    {
+      "word": "acting",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "대행의, 임시의",
+      "examples": [
+        "The CEO is currently in a hospital. The CFO is acting CEO in the meantime."
+      ],
+      "examples_ko": [
+        "대표가 지금 병원에 있어서, 그동안은 재무 책임자가 대표 대행을 맡고 있다."
+      ]
+    },
+    {
+      "word": "actively",
+      "sense_idx": 0,
+      "pos": "adverb",
+      "sense_ko": "적극적으로, 능동적으로",
+      "examples": [
+        "She actively participates in community events."
+      ],
+      "examples_ko": [
+        "그녀는 지역 행사에 적극적으로 참여한다."
+      ]
+    },
+    {
+      "word": "acute",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "극심한, 심각한 (부족·통증·위기)",
+      "examples": [
+        "His need for medical attention was acute."
+      ],
+      "examples_ko": [
+        "그에게는 치료가 절실했다."
+      ]
+    },
+    {
+      "word": "acute",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "예민한, 예리한 (감각·통찰)",
+      "examples": [
+        "Eagles have very acute vision."
+      ],
+      "examples_ko": [
+        "독수리는 시력이 매우 예리하다."
+      ]
+    },
+    {
+      "word": "acute",
+      "sense_idx": 2,
+      "pos": "adjective",
+      "sense_ko": "(질병이) 급성의",
+      "examples": [
+        "He dropped dead of an acute illness."
+      ],
+      "examples_ko": [
+        "그는 급성 질환으로 갑자기 숨졌다."
+      ]
+    },
+    {
+      "word": "acute",
+      "sense_idx": 3,
+      "pos": "adjective",
+      "sense_ko": "(수학) 예각의",
+      "examples": [
+        "The teacher pointed out the acute angle."
+      ],
+      "examples_ko": [
+        "선생님이 그 예각을 짚어 주었다."
+      ]
+    },
+    {
+      "word": "adapter",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "(전기·기계) 어댑터, 변환 장치",
+      "examples": [
+        "He had an adapter that let him plug his phone into the car's cigarette lighter for power."
+      ],
+      "examples_ko": [
+        "그는 차의 시가잭에 휴대전화를 꽂아 충전할 수 있는 어댑터를 갖고 있었다."
+      ]
+    },
+    {
+      "word": "addict",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "중독자",
+      "examples": [
+        "a heroin addict"
+      ],
+      "examples_ko": [
+        "헤로인 중독자"
+      ]
+    },
+    {
+      "word": "addict",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "열광적 애호가, 팬",
+      "examples": [
+        "He is an addict when it comes to chocolate cookies."
+      ],
+      "examples_ko": [
+        "그는 초콜릿 쿠키라면 사족을 못 쓴다."
+      ]
+    },
+    {
+      "word": "addictive",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "중독성의, 중독을 일으키는",
+      "examples": [
+        "These are addictive drugs."
+      ],
+      "examples_ko": [
+        "이것들은 중독성 있는 약물이다."
+      ]
+    },
+    {
+      "word": "addictive",
+      "sense_idx": 2,
+      "pos": "adjective",
+      "sense_ko": "중독에 빠지기 쉬운 (an addictive personality 중독되기 쉬운 성격)",
+      "examples": [
+        "He has an addictive personality."
+      ],
+      "examples_ko": [
+        "그는 무엇에든 쉽게 중독되는 성격이다."
+      ]
+    },
+    {
+      "word": "address",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "주소",
+      "examples": [
+        "The President's address is 1600 Pennsylvania Avenue NW in Washington, D.C."
+      ],
+      "examples_ko": [
+        "대통령의 주소는 워싱턴 D.C. 펜실베이니아 애비뉴 NW 1600번지다."
+      ]
+    },
+    {
+      "word": "address",
+      "sense_idx": 3,
+      "pos": "verb",
+      "sense_ko": "연설하다; 말을 걸다",
+      "examples": [
+        "He addressed some portions of his remarks to his supporters, some to his opponents."
+      ],
+      "examples_ko": [
+        "그는 발언의 일부는 지지자들에게, 일부는 반대자들에게 건넸다."
+      ]
+    },
+    {
+      "word": "adjourn",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "휴회하다, (회의를) 정회하다",
+      "examples": [
+        "The court will adjourn for lunch."
+      ],
+      "examples_ko": [
+        "법정은 점심을 위해 휴정한다."
+      ]
+    },
+    {
+      "word": "adjourn",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "연기하다, 뒤로 미루다",
+      "examples": [
+        "The trial was adjourned for a week."
+      ],
+      "examples_ko": [
+        "재판은 일주일 뒤로 연기되었다."
+      ]
+    },
+    {
+      "word": "adjourn",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "(격식) 자리를 옮기다, 다 함께 이동하다",
+      "examples": [
+        "After the dinner, we will adjourn to the bar."
+      ],
+      "examples_ko": [
+        "저녁 식사를 마치면 다 함께 바로 자리를 옮기겠습니다."
+      ]
+    },
+    {
+      "word": "admiralty",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "(영국) 해군성, 해군 본부",
+      "examples": [
+        "The Admiralty ordered the fleet to set sail."
+      ],
+      "examples_ko": [
+        "해군 본부는 함대에 출항을 명령했다."
+      ]
+    },
+    {
+      "word": "admiralty",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "해사법(海事法), 해상 관할권",
+      "examples": [
+        "The case was tried in admiralty court."
+      ],
+      "examples_ko": [
+        "그 사건은 해사 법원에서 심리되었다."
+      ]
+    },
+    {
+      "word": "admission",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "입장, 입학",
+      "examples": [
+        "I request admission for two adults."
+      ],
+      "examples_ko": [
+        "성인 두 명 입장을 요청합니다."
+      ]
+    },
+    {
+      "word": "admission",
+      "sense_idx": 2,
+      "pos": "noun",
+      "sense_ko": "입장료, 입장 요금",
+      "examples": [
+        "There is no way he has seen that show, the admission is more than he makes in a week."
+      ],
+      "examples_ko": [
+        "그가 그 공연을 봤을 리 없다. 입장료가 그의 일주일 벌이보다 비싸다."
+      ]
+    },
+    {
+      "word": "adult",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "성인의, 어른의",
+      "examples": [
+        "an adult human, animal, or plant"
+      ],
+      "examples_ko": [
+        "다 자란 사람이나 동물, 식물"
+      ]
+    },
+    {
+      "word": "advance",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "진전, 발전",
+      "examples": [
+        "an advance in health or knowledge"
+      ],
+      "examples_ko": [
+        "건강이나 지식에서의 진전"
+      ]
+    },
+    {
+      "word": "advance",
+      "sense_idx": 2,
+      "pos": "adjective",
+      "sense_ko": "사전의, 미리의",
+      "examples": [
+        "He made an advance payment on the prior shipment to show good faith."
+      ],
+      "examples_ko": [
+        "그는 성의를 보이려고 앞선 선적분에 대해 대금을 미리 지급했다."
+      ]
+    },
+    {
+      "word": "adverb",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "부사 (동사·형용사·다른 부사를 수식하는 품사)",
+      "examples": [
+        "'Quickly' is an adverb that describes how something is done."
+      ],
+      "examples_ko": [
+        "'Quickly'는 어떤 일이 어떻게 이루어지는지를 나타내는 부사다."
+      ]
+    },
+    {
+      "word": "advise",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "조언하다; 권하다",
+      "examples": [
+        "The dentist advised me to brush three times a day."
+      ],
+      "examples_ko": [
+        "치과 의사는 나에게 하루 세 번 이를 닦으라고 권했다."
+      ]
+    },
+    {
+      "word": "advise",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "통보하다",
+      "examples": [
+        "We were advised of the risk."
+      ],
+      "examples_ko": [
+        "우리는 그 위험을 통보받았다."
+      ]
+    },
+    {
+      "word": "advisory",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "자문의, 조언의",
+      "examples": [
+        "The advisory committee could only offer advice, but since that was almost always accepted they had real power."
+      ],
+      "examples_ko": [
+        "그 자문 위원회는 조언만 할 수 있었지만, 그 조언이 거의 늘 받아들여졌으므로 실질적인 힘이 있었다."
+      ]
+    },
+    {
+      "word": "advisory",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "(공식) 경보, 주의보",
+      "examples": [
+        "The Coast Guard issued a small craft advisory, warning little boats to watch out for bad weather."
+      ],
+      "examples_ko": [
+        "해안 경비대는 소형 선박에 악천후를 조심하라며 주의보를 발령했다."
+      ]
+    },
+    {
+      "word": "advocate",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "옹호하다, 지지하다",
+      "examples": [
+        "We have been advocating for changes in immigration law."
+      ],
+      "examples_ko": [
+        "우리는 이민법 개정을 줄곧 주장해 왔다."
+      ]
+    },
+    {
+      "word": "advocate",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "옹호자, 지지자",
+      "examples": [
+        "Since she started working with her advocate, she has become much more confident."
+      ],
+      "examples_ko": [
+        "자신을 지지해 주는 사람과 함께한 뒤로 그녀는 훨씬 더 당당해졌다."
+      ]
+    },
+    {
+      "word": "aegis",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "보호, 비호, 후원 (보통 'under the aegis of')",
+      "examples": [
+        "The project was carried out under the aegis of the UN."
+      ],
+      "examples_ko": [
+        "그 사업은 유엔의 후원 아래 진행되었다."
+      ]
+    },
+    {
+      "word": "aerial",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "공중의, 항공의",
+      "examples": [
+        "an aerial view of the landscape"
+      ],
+      "examples_ko": [
+        "그 풍경을 공중에서 내려다본 모습"
+      ]
+    },
+    {
+      "word": "aerobic",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "(운동이) 유산소의",
+      "examples": [
+        "She does aerobic exercise three times a week."
+      ],
+      "examples_ko": [
+        "그녀는 일주일에 세 번 유산소 운동을 한다."
+      ]
+    },
+    {
+      "word": "aerobic",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "에어로빅의, 에어로빅에 관한",
+      "examples": [
+        "He joined an aerobic fitness class at the gym."
+      ],
+      "examples_ko": [
+        "그는 체육관의 에어로빅 수업에 등록했다."
+      ]
+    },
+    {
+      "word": "aerobic",
+      "sense_idx": 2,
+      "pos": "adjective",
+      "sense_ko": "(생물) 산소가 있어야 살거나 일어나는, 호기성의",
+      "examples": [
+        "The bacteria require an aerobic environment to grow."
+      ],
+      "examples_ko": [
+        "그 세균은 자라려면 산소가 있는 환경이 필요하다."
+      ]
+    },
+    {
+      "word": "aerospace",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "항공우주 산업 — 항공기·미사일·위성·우주선을 다루는 산업",
+      "examples": [
+        "He works mainly in aerospace. Most of their contracts are in aerospace. A few are in medical devices."
+      ],
+      "examples_ko": [
+        "그는 주로 항공우주 분야에서 일한다. 그 회사 계약 대부분이 항공우주 쪽이고, 일부만 의료 기기다."
+      ]
+    },
+    {
+      "word": "aesthetic",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "미적인, 심미적인",
+      "examples": [
+        "The design of the lobby cannot be considered particularly aesthetic."
+      ],
+      "examples_ko": [
+        "그 로비의 디자인은 그다지 미적이라고 보기 어렵다."
+      ]
+    },
+    {
+      "word": "aesthetic",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "(작품·집단의) 미적 스타일, 미감, 분위기",
+      "examples": [
+        "Her most recent works have this quirky, nonchalant aesthetic inspired by ’90s teen culture."
+      ],
+      "examples_ko": [
+        "그녀의 최근 작품들에는 90년대 청소년 문화에서 영감을 받은, 독특하고 심드렁한 미감이 있다."
+      ]
+    },
+    {
+      "word": "affair",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "일, 사건",
+      "examples": [
+        "a difficult affair to manage"
+      ],
+      "examples_ko": [
+        "감당하기 어려운 일"
+      ]
+    },
+    {
+      "word": "affair",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "불륜, 정사",
+      "examples": [
+        "When Martin's wife found out about his affair with her best friend, she asked for a divorce."
+      ],
+      "examples_ko": [
+        "마틴의 아내는 그가 자기 가장 친한 친구와 불륜을 저지른 것을 알고 이혼을 요구했다."
+      ]
+    },
+    {
+      "word": "affect",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "영향을 미치다",
+      "examples": [
+        "The heat of the sunlight affected the speed of the chemical reaction."
+      ],
+      "examples_ko": [
+        "햇빛의 열기가 그 화학 반응의 속도에 영향을 미쳤다."
+      ]
+    },
+    {
+      "word": "affect",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "~인 척하다, 가장하다",
+      "examples": [
+        "to affect ignorance"
+      ],
+      "examples_ko": [
+        "모르는 척하다"
+      ]
+    },
+    {
+      "word": "affirm",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "확언하다, 단언하다",
+      "examples": [
+        "She affirmed that she would go when I asked her."
+      ],
+      "examples_ko": [
+        "내가 묻자 그녀는 가겠다고 단언했다."
+      ]
+    },
+    {
+      "word": "affirm",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "(존재·가치를) 인정하고 지지해 주다, 북돋우다",
+      "examples": [
+        "They did everything they could to affirm the children's self-confidence."
+      ],
+      "examples_ko": [
+        "그들은 아이들의 자신감을 북돋우려고 할 수 있는 모든 것을 했다."
+      ]
+    },
+    {
+      "word": "affirmative",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "긍정의, 찬성의",
+      "examples": [
+        "an affirmative answer"
+      ],
+      "examples_ko": [
+        "긍정의 답"
+      ]
+    },
+    {
+      "word": "affirmative",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "긍정, 동의의 말",
+      "examples": [
+        "That’s an affirmative Houston, the space shuttle has lost the secondary thrusters."
+      ],
+      "examples_ko": [
+        "휴스턴, 맞습니다. 우주 왕복선이 보조 추진기를 잃었습니다."
+      ]
+    },
+    {
+      "word": "affix",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "붙이다, 첨부하다",
+      "examples": [
+        "to affix a seal to an instrument"
+      ],
+      "examples_ko": [
+        "증서에 인장을 찍어 붙이다"
+      ]
+    },
+    {
+      "word": "age",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "나이, 연령",
+      "examples": [
+        "\"What is the age of your oldest child?\" — \"He's ten.\" (ten years old)"
+      ],
+      "examples_ko": [
+        "\"가장 큰 아이가 몇 살인가요?\" — \"열 살이에요.\""
+      ]
+    },
+    {
+      "word": "age",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "시대, 시기",
+      "examples": [
+        "The Bronze Age was followed by the Iron Age."
+      ],
+      "examples_ko": [
+        "청동기 시대 다음에 철기 시대가 왔다."
+      ]
+    },
+    {
+      "word": "age",
+      "sense_idx": 2,
+      "pos": "noun",
+      "sense_ko": "노년, 늙음",
+      "examples": [
+        "Wisdom doesn't necessarily come with age, sometimes age just shows up all by itself."
+      ],
+      "examples_ko": [
+        "지혜가 반드시 나이와 함께 오는 것은 아니다. 때로는 나이만 혼자 찾아온다."
+      ]
+    },
+    {
+      "word": "agency",
+      "sense_idx": 0,
+      "pos": "noun",
+      "sense_ko": "대행사; 기관; 청",
+      "examples": [
+        "Central Intelligence Agency"
+      ],
+      "examples_ko": [
+        "중앙 정보국"
+      ]
+    },
+    {
+      "word": "agency",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "대리; 매개",
+      "examples": [
+        "authority of agency"
+      ],
+      "examples_ko": [
+        "대리인으로서 갖는 권한"
+      ]
+    },
+    {
+      "word": "agent",
+      "sense_idx": 1,
+      "pos": "noun",
+      "sense_ko": "요원, 첩보원",
+      "examples": [
+        "The Bureau of Alcohol, Tobacco, Firearms and Explosives officers are just simply referred to as \"ATF agents\"."
+      ],
+      "examples_ko": [
+        "주류·담배·총기·폭발물 단속국의 직원들은 그냥 \"ATF 요원\"이라고 불린다."
+      ]
+    },
+    {
+      "word": "aggregate",
+      "sense_idx": 2,
+      "pos": "verb",
+      "sense_ko": "합계하다, 총계를 내다",
+      "examples": [
+        "There are ten loads, aggregating five hundred bushels."
+      ],
+      "examples_ko": [
+        "짐이 열 덩이인데, 합치면 500부셸이 된다."
+      ]
+    },
+    {
+      "word": "aggressive",
+      "sense_idx": 0,
+      "pos": "adjective",
+      "sense_ko": "공격적인",
+      "examples": [
+        "an aggressive policy, war, person, nation"
+      ],
+      "examples_ko": [
+        "공격적인 정책, 전쟁, 사람, 국가"
+      ]
+    },
+    {
+      "word": "aggressive",
+      "sense_idx": 1,
+      "pos": "adjective",
+      "sense_ko": "적극적인, 의욕적인",
+      "examples": [
+        "an aggressive stock; an aggressive portfolio"
+      ],
+      "examples_ko": [
+        "적극적으로 공격적인 주식; 공격적인 포트폴리오"
+      ]
+    },
+    {
+      "word": "agitate",
+      "sense_idx": 0,
+      "pos": "verb",
+      "sense_ko": "(마음을) 동요시키다, 불안하게 만들다",
+      "examples": [
+        "He was greatly agitated by the news."
+      ],
+      "examples_ko": [
+        "그는 그 소식에 크게 동요했다."
+      ]
+    },
+    {
+      "word": "agitate",
+      "sense_idx": 1,
+      "pos": "verb",
+      "sense_ko": "(정치적으로) 선동하다, 운동을 벌이다",
+      "examples": [
+        "Politicians agitate desperate designs."
+      ],
+      "examples_ko": [
+        "정치인들은 필사적인 계략을 부추긴다."
+      ]
+    }
+  ]
+}
