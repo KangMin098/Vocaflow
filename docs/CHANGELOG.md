@@ -10,6 +10,18 @@
 
 ## Unreleased (v06.34 → next)
 
+### 챕터 퀴즈 — 시대 문헌을 사람 눈으로 거르지 않는다 (2026-08-30)
+
+이 퀴즈는 설계상 **원문을 그대로 인용한 근거 문장**을 학습자 화면에 띄운다. 그래서 시대
+문헌(`The Adventures of Huckleberry Finn` 등)은 두 사이클 연속 후보에서 빠져 있었다 —
+문장마다 사람이 눈으로 걸러야 안전한데, 그 주의력은 지친다.
+
+- `generate-chapter-quiz.mjs` 에 `checkCardSafety()` — 질문·한국어 질문·보기·근거 문장 **전부**를 훑어, 뜻이 오직 집단 멸칭인 낱말이 있으면 삽입 전에 거부한다.
+- `safety/slur-roots.mjs` 의 넓은 후보 목록을 쓰지 않는다 — 거기엔 `idiot`·`dwarf`·`savage`·`vagabond` 처럼 문학 독해에 필요한 낱말이 대거 있어, 그것까지 막으면 Oz 도 Ragged Dick 도 드레인할 수 없다.
+- `checkAnswerSpread` 와 같은 자리(배치 전량 검사)에서 돈다 — 반쪽만 들어가지 않는다.
+- Admin 화면도움말(`help/curation.ts`)에 배치 드레인 절차와 두 자동 검사를 추가.
+
+
 ### 문항 생성기의 문장 창이 밴드를 몰랐다 — 초등 하한 8 → 6
 
 `store-new-types.mjs` 가 후보 문장을 **8~20어**로 걸렀다. 그 값은 수능 산문에 맞춘 것인데,

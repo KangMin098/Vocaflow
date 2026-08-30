@@ -140,6 +140,18 @@ export const LCP_HELP: HelpRegistry = {
                 '퀴즈는 generate-chapter-quiz.mjs plan → content <ch> → insert <ch> --file, 레벨은 review-book.mjs plan → apply --file [--correct], 어휘는 audit-vocab.mjs plan → apply --file, 매핑은 librivox-align.mjs dry-run → --commit. plan 단계는 쓰기가 없다.',
               done: 'apply/insert 가 잡 status 와 진행률을 DB 에 갱신한다.',
             },
+            {
+              title: '여러 챕터를 한 번에 (배치)',
+              detail:
+                'generate-chapter-quiz.mjs export-batch <book_id> --limit N --out <path> 로 아직 문항이 없는 챕터만 뽑고, 채운 뒤 insert-batch --file <path> --commit 으로 넣는다. export 는 이미 채워진 챕터를 건너뛰고 insert 는 이미 문항이 있는 챕터를 건너뛰므로 **몇 번을 다시 돌려도 안전하다** — 중간에 실패했으면 그냥 같은 명령을 다시 실행한다.',
+              done: 'insert-batch 가 챕터 수·문항 수·비어서 건너뛴 수를 출력한다.',
+            },
+            {
+              title: '넣기 전 자동 검사 두 가지',
+              detail:
+                'insert-batch 는 배치 전량을 먼저 본다. ① 정답 위치 쏠림 — 화면이 보기를 섞지 않으므로 한 위치가 50% 를 넘으면 거부한다(balance-answer-positions.mjs 로 재배치). ② 학습 카드 금칙어 — 근거 문장은 원문을 그대로 인용하므로, 뜻이 오직 집단 멸칭인 낱말이 질문·보기·근거 문장 어디에 있어도 거부한다. 둘 다 넣기 전에 걸리므로 반쪽만 들어가지 않는다.',
+              done: '두 검사를 통과해야 삽입이 시작된다.',
+            },
           ],
           verify: [
             '드레인 큐 배너를 새로고침 — 해당 잡이 완료로 바뀐다. 진행 중 건이 하나도 없어야 배너에 닫기 버튼이 생긴다.',

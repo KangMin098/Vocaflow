@@ -343,6 +343,58 @@ function checkAnswerSpread(questions, label) {
   }
 }
 
+/**
+ * 학습 카드에 그대로 올라가면 안 되는 낱말 — **좁은 목록**이다.
+ *
+ * 이 퀴즈는 설계상 **원문을 그대로 인용한 근거 문장**을 화면에 띄운다. 그래서
+ * `safety/slur-roots.mjs` 의 넓은 후보 목록을 그대로 쓸 수 없다 — 거기엔 `idiot`·`dwarf`·
+ * `savage`·`vagabond` 처럼 문학 독해에 필요한 낱말이 대거 들어 있고, 그것까지 막으면
+ * Oz 도, Ragged Dick 도 드레인할 수 없다.
+ *
+ * 여기 남긴 것은 **뜻이 오직 집단 멸칭인 것들**뿐이다. 시대 문헌(Huckleberry Finn 등)을
+ * 채울 때 사람이 문장마다 눈으로 거르는 대신 이 가드가 막는다 —
+ * 사람의 주의력은 지치지만 가드는 지치지 않는다.
+ */
+const CARD_BANNED = [
+  'nigger', 'darkie', 'darky', 'pickaninny', 'blackamoor', 'negress',
+  'redskin', 'squaw', 'halfbreed', 'half-breed', 'mulatto', 'quadroon', 'octoroon',
+  'coon', 'jap', 'gook', 'wop', 'dago', 'kike', 'kaffir', 'hottentot',
+  'retard', 'mongoloid', 'imbecile', 'cretin',
+]
+
+/**
+ * 학습자에게 보이는 **모든 문자열**을 훑는다 — 질문·한국어 질문·보기·근거 문장.
+ * 넣기 전에 배치 전량을 본다(부분 삽입 방지).
+ */
+function checkCardSafety(questions, label) {
+  const hits = []
+  questions.forEach((q, i) => {
+    const fields = [
+      ['question', q.question],
+      ['question_ko', q.question_ko],
+      ['source_snippet', q.source_snippet],
+      ...q.options.flatMap((o, j) => [
+        [`options[${j}].text`, o.text],
+        [`options[${j}].textKo`, o.textKo],
+      ]),
+    ]
+    for (const [name, value] of fields) {
+      if (typeof value !== 'string') continue
+      const lower = value.toLowerCase()
+      for (const word of CARD_BANNED) {
+        if (lower.includes(word)) hits.push(`  #${i} ${name}: "${word}"`)
+      }
+    }
+  })
+  if (hits.length > 0) {
+    throw new Error(
+      `${label}: 학습 카드에 올릴 수 없는 낱말이 ${hits.length}곳 있다.` +
+        `${'\n'}${hits.join('\n')}${'\n'}` +
+        '원문에 있더라도 카드에는 싣지 않는다 — 그 대목을 피해 다른 문장을 근거로 삼을 것.',
+    )
+  }
+}
+
 async function cmdInsertBatch(filePath, commit) {
   const payload = JSON.parse(fs.readFileSync(filePath, 'utf8'))
   const bookId = payload.book?.id
@@ -356,6 +408,7 @@ async function cmdInsertBatch(filePath, commit) {
     allQuestions.push(...validateQuestions(ch.questions))
   }
   checkAnswerSpread(allQuestions, `${book.title} 배치`)
+  checkCardSafety(allQuestions, `${book.title} 배치`)
 
   let okCh = 0
   let skipped = 0
