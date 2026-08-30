@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-08-30T07:49:54.966Z",
+  "specGeneratedAt": "2026-08-30T05:22:08.319Z",
+  "population": {
+    "publishedSets": 70,
+    "catalogHeadwords": 11183,
+    "note": "발행 카탈로그에 실제로 실린 표제어만 센다 — 사전 전체를 세면 학습자가 만나지 않는 낱말이 섞인다."
+  },
+  "marketSample": {
+    "documents": 4,
+    "entries": 140,
+    "limitation": "표본이 한 출판사(NE능률) 미리보기본에 쏠려 있다. 구조의 유무는 갈리지만 보유율은 **하한**으로만 읽는다 — PDF 추출이 빠뜨린 칸은 없는 것으로 세어진다."
+  },
+  "axes": [
+    {
+      "id": "V1",
+      "name": "예문 보유율",
+      "ours": 1,
+      "market": 0.914,
+      "unit": "%",
+      "why": "예문이 없으면 뜻만 외우게 된다 — 맥락 없는 어휘는 인출되지 않는다",
+      "index": 1.094
+    },
+    {
+      "id": "V2",
+      "name": "예문 한국어역 보유율",
+      "ours": 0,
+      "market": 0.921,
+      "unit": "%",
+      "why": "번역이 없으면 예문을 읽지 못한 채 넘어간다 — 시중이 전 표제어에 다는 칸",
+      "index": 0
+    },
+    {
+      "id": "V3",
+      "name": "파생어 보유율",
+      "ours": 0.5875883036752213,
+      "market": 0.414,
+      "unit": "%",
+      "why": "한 어근에서 갈라진 말을 함께 줘야 낱말당 회수가 늘어난다",
+      "index": 1.419
+    },
+    {
+      "id": "V4",
+      "name": "유의어·반의어 보유율",
+      "ours": 0.7917374586425825,
+      "market": 0.257,
+      "unit": "%",
+      "why": "뜻이 겹치고 갈리는 자리를 보여야 변별이 생긴다",
+      "index": 3.081
+    },
+    {
+      "id": "V5",
+      "name": "다의어 뜻 분리율",
+      "ours": 0.6533130644728606,
+      "market": 0.443,
+      "unit": "%",
+      "why": "뜻이 여럿인 낱말을 한 덩어리로 주면 어느 뜻도 남지 않는다",
+      "index": 1.475
+    },
+    {
+      "id": "V6",
+      "name": "품사 표시율",
+      "ours": 1,
+      "market": 0.921,
+      "unit": "%",
+      "why": "품사를 모르면 문장에 넣지 못한다",
+      "index": 1.086
+    },
+    {
+      "id": "V7",
+      "name": "묶음 원리 다양성 (시장 PART 축 대비)",
+      "ours": 26,
+      "market": 8,
+      "gate": 1,
+      "unit": "종",
+      "why": "시장 표준 축을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다",
+      "index": 3.25
+    }
+  ],
+  "overall": 0,
+  "beyondMarket": [
+    {
+      "id": "B1",
+      "name": "연어 보유율",
+      "ours": 0.9332916033264776,
+      "why": "시중 표제어 칸에 연어 자리가 없다 — 덩어리로 외우는 축을 통째로 더한다"
+    },
+    {
+      "id": "B2",
+      "name": "발음기호 보유율",
+      "ours": 0.957345971563981,
+      "why": "시중도 싣지만 추출로는 셀 수 없어(대괄호가 깨진다) 같은 자로 못 잰다"
+    },
+    {
+      "id": "B3",
+      "name": "한국어 학습자 노트 보유율",
+      "ours": 0.8592506483054636,
+      "why": "시중의 '문해력 UP' 류는 산발적이라 보유율 기준선이 없다"
+    }
+  ],
+  "axisDetail": {
+    "v7Covered": [
+      "antonym-pair",
+      "collocation",
+      "confusable",
+      "freq-tier",
+      "phrasal-idiom",
+      "polysemy",
+      "root-etymology",
+      "topic-field"
+    ],
+    "v7Missing": [],
+    "v7Beyond": [
+      "academic-awl",
+      "book-companion",
+      "chapter-companion",
+      "curriculum-grade",
+      "day-pacing",
+      "domain-specialty",
+      "exam-items",
+      "exam-list",
+      "facet-ladder",
+      "level-band",
+      "mnemonic-story",
+      "pos-focus",
+      "recycle",
+      "rhyme-phonics",
+      "synonym-cluster",
+      "uncovered",
+      "unlock",
+      "word-family"
+    ]
+  }
+}
