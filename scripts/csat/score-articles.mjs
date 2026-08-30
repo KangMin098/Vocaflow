@@ -41,6 +41,24 @@ import { allRows, itemBlocks, passageOf } from './lib-passage.mjs'
 import { cleanPassage, looksInterleaved } from './clean-passage.mjs'
 import { looksLikeProse } from './prose-gate.mjs'
 
+// ⚠️ **이 채점기가 재지 않는 축: 소재.**
+//
+// 실측 2026-08-30 — 이 자로 재면 `wikipedia` 가 **적합률 94.6% 로 전 소스 1위**가 된다.
+// FA/GA 문서는 길고 잘 짜인 설명문이라 모양·담화 대역을 잘 통과하기 때문이다. 그런데
+// 그 제목은 *Judge (sumo)* · *True Blue (album)* · *Siege of Rome* 이다 — 수능 소재가 아니다.
+//
+// 저장소의 `classifyTopic` 을 게이트로 붙여 봤지만 **이 축에는 맞지 않는다**:
+//   위키백과의 모양·담화 적합 87편 중 `unfit` 은 **1편**뿐이고,
+//   *Judge (sumo)*·*True Blue (album)* 은 `neutral`, *Changeling (film)* 은 오히려 `fit` 이다.
+//   그건 뉴스 연성/경성 분류기이지 수능 소재 판정기가 아니다.
+//
+// 대신 실측이 알려 준 것: **소재는 소스가 이미 결정한다.** 같은 `neutral` 이라도
+//   PLOS·futurity → 태양지구공학 · 기술혁신과 문화변동 · 세포생물학 · 도시 주거비 · 전기차 배출
+//   wikipedia     → 스모 심판 · 앨범 · 공성전
+// 학술·기관 소스는 본질적으로 수능 소재이고, 전 분야를 다루는 위키백과만 예외다.
+//
+// → 그래서 소재 축은 **소스 정책**으로 통제하고(위키백과 대량 확보 보류), 이 자는
+//   모양·담화만 잰다. 자가 못 재는 것을 재는 척하지 않는 것이 이 파일의 계약이다.
 const SCORER_VERSION = 1
 const TYPE = 'R-BLANK' // 수능 최다 출제 · 기출 표본 n=55 로 가장 두껍다
 
