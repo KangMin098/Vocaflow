@@ -1,5 +1,5 @@
 {
-  "builtAt": "2026-08-30T02:28:53.403Z",
+  "builtAt": "2026-08-30T02:33:32.730Z",
   "source": "수능 14개년 + 모의 3회",
   "bands": {
     "R-GIST": {
@@ -328,9 +328,11 @@
   },
   "applied": {
     "type": "R-BLANK",
-    "corpus": 6562,
-    "shapeOnly": 16887,
-    "withDiscourse": 8838,
-    "rate": 52.336116539349796
+    "corpus": 6765,
+    "shapeOnly": 17742,
+    "withDiscourse": 9122,
+    "rate": 51.41472212828317,
+    "articlesShape": 5091,
+    "articlesDiscourse": 3835
   }
 }

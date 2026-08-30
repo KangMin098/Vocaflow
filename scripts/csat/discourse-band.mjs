@@ -160,7 +160,13 @@ if (APPLY) {
 
   let shapeOnly = 0
   let withDiscourse = 0
+  // **원문 단위 계수** — 목표(1만/3만/5만)는 지문이 아니라 원문 편수다.
+  //   지문을 하나라도 내는 원문만 "수능 적합 원문" 으로 센다.
+  let articlesShape = 0
+  let articlesDiscourse = 0
   for (const a of corpus) {
+    let aShape = 0
+    let aDisc = 0
     const sents = splitSentences(a.content)
     const wp = sents.map(W)
     let i = 0
@@ -185,15 +191,17 @@ if (APPLY) {
         break
       }
       if (hit < 0) { i++; continue }
-      shapeOnly++
+      shapeOnly++; aShape++
       const text = sents.slice(i, hit).join(' ')
       const d = discourseOf(text)
       // 기출 10 분위 이상이면 통과 — 상한은 걸지 않는다(표지가 많은 건 흠이 아니다).
       if (d.connPer100 >= db1.connPer100.lo && d.anaPer100 >= db1.anaPer100.lo && d.hasBoth) {
-        withDiscourse++
+        withDiscourse++; aDisc++
       }
       i = hit
     }
+    if (aShape > 0) articlesShape++
+    if (aDisc > 0) articlesDiscourse++
   }
 
   const rate = (100 * withDiscourse) / Math.max(1, shapeOnly)
@@ -201,7 +209,15 @@ if (APPLY) {
   console.log(`  모양 대역 통과        ${shapeOnly.toLocaleString()}`)
   console.log(`  + 담화 대역까지 통과  ${withDiscourse.toLocaleString()}  (${rate.toFixed(1)}%)`)
   console.log(`  기출 자신의 '둘 다' 보유율 ${(100 * db1.bothRate).toFixed(0)}% — 이 값보다 크게 낮으면 코퍼스가 기출보다 헐겁다는 뜻이다.`)
-  report.applied = { type: TYPE, corpus: corpus.length, shapeOnly, withDiscourse, rate }
+  console.log(``)
+  console.log(`  ── 원문 단위 (목표는 이 줄이다) ──`)
+  console.log(`  지문을 내는 원문        ${articlesShape.toLocaleString()} / ${corpus.length.toLocaleString()}`)
+  console.log(`  담화까지 통과하는 원문  ${articlesDiscourse.toLocaleString()} / ${corpus.length.toLocaleString()}  (${((100*articlesDiscourse)/Math.max(1,corpus.length)).toFixed(1)}%)`)
+  for (const [label, target] of [['1단계', 10000], ['2단계', 30000], ['3단계', 50000]]) {
+    const pct = (100 * articlesDiscourse) / target
+    console.log(`    ${label} ${target.toLocaleString().padStart(6)} → ${pct.toFixed(1)}% · 부족 ${Math.max(0, target - articlesDiscourse).toLocaleString()}`)
+  }
+  report.applied = { type: TYPE, corpus: corpus.length, shapeOnly, withDiscourse, rate, articlesShape, articlesDiscourse }
 }
 
 if (outPath) {
