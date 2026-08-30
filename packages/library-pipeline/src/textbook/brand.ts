@@ -153,3 +153,61 @@ export function volumeCssVariables(): string {
     `:root[data-theme="dark"]{${d}}`,
   ].join('\n')
 }
+
+/**
+ * 브랜드 규격의 **지문** — 조판 CSS 변수 + 서체 스택을 한 문자열로 해시한 값.
+ *
+ * ── 무엇에 쓰나 ─────────────────────────────────────────────────────
+ * 조판기가 이 값을 조판 기록(`textbook_volume_renders.brand_fingerprint`)에 남긴다.
+ * 나중에 토큰이 바뀌면 현재 지문이 달라지므로, **화면이 "이 권은 옛 규격으로
+ * 조판됐다" 를 말할 수 있다.** 색을 DB 에 복사해 두면 정본이 둘이 되므로 그러지 않는다.
+ *
+ * FNV-1a 를 쓰는 이유는 의존성 없이 어디서나(노드·브라우저·스크립트) 같은 값이
+ * 나와야 하기 때문이다. 암호학적 용도가 아니다 — 같은지 다른지만 본다.
+ */
+export function brandFingerprint(): string {
+  const material = [
+    volumeCssVariables(),
+    VOLUME_FONTS.english,
+    VOLUME_FONTS.body,
+    VOLUME_FONTS.mono,
+  ].join('|')
+  let h = 0x811c9dc5
+  for (let i = 0; i < material.length; i += 1) {
+    h ^= material.charCodeAt(i)
+    h = Math.imul(h, 0x01000193) >>> 0
+  }
+  return h.toString(16).padStart(8, '0')
+}
+
+/** 규격 한 줄 — 화면이 표로 그린다. */
+export interface BrandSpecRow {
+  key: string
+  /** 지면에서 이것이 무슨 자리인지. 색 이름을 그대로 쓰면 관리자가 못 읽는다. */
+  label: string
+  light: string
+  dark: string
+}
+
+/**
+ * 조판 규격을 사람이 읽을 표로 낸다.
+ *
+ * **여기서 값을 적지 않는다** — `VOLUME_PALETTE` 를 읽고, 그 팔레트는 토큰을 읽는다.
+ * 화면·테스트·조판기가 전부 같은 한 곳을 본다.
+ */
+export function brandSpecRows(): BrandSpecRow[] {
+  const rows: ReadonlyArray<[keyof VolumePalette, string]> = [
+    ['ink', '본문 잉크'],
+    ['sub', '보조 글자 — 출처·해설 꼬리말'],
+    ['line', '괘선 — 표·구분선'],
+    ['bg', '지면 바탕'],
+    ['accent', '표제·문항 번호'],
+    ['slot', '빈칸·밑줄 자리'],
+  ]
+  return rows.map(([key, label]) => ({
+    key,
+    label,
+    light: VOLUME_PALETTE.light[key],
+    dark: VOLUME_PALETTE.dark[key],
+  }))
+}

@@ -1,5 +1,5 @@
 // apps/web/src/app/admin/textbook/TextbookConsoleClient.tsx
-// TBP(교재) 콘솔 — 사다리 · 문항 건강 · 평가 우위. 조작은 없다(생성은 Claude Code 드레인).
+// TBP(교재) 콘솔 — 브랜드 · 사다리 · 문항 건강 · 평가 우위. 조작은 없다(생성은 Claude Code 드레인).
 
 'use client'
 
@@ -27,7 +27,7 @@ const STANDING_KO: Record<string, { mark: string; label: string; color: string }
 const CHI2_CRITICAL = 9.488
 
 export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }) {
-  const { evaluation: ev, series } = stats
+  const { evaluation: ev, series, brand } = stats
   const superiorPct = ev.total ? Math.round((100 * ev.byStanding.superior) / ev.total) : 0
 
   return (
@@ -52,9 +52,21 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
       ) : null}
 
       {/* ── 요약 ─────────────────────────────────────────────── */}
-      <section aria-label="요약" className="grid grid-cols-2 gap-3 md:grid-cols-4">
+      <section aria-label="요약" className="grid grid-cols-2 gap-3 md:grid-cols-5">
         <Stat label="저장 문항" value={stats.totalItems.toLocaleString()} />
         <Stat label="사다리 계단" value={`${series.rungs.length - series.brokenSteps.length}/${series.rungs.length}`} />
+        <Stat
+          label="조판된 권"
+          value={brand.renderError ? '—' : `${brand.renders.length}/${series.rungs.length}`}
+          sub={
+            brand.renderError
+              ? '기록 못 읽음'
+              : brand.staleBands.length
+                ? `옛 규격 ${brand.staleBands.length}권`
+                : undefined
+          }
+          warn={Boolean(brand.renderError) || brand.staleBands.length > 0}
+        />
         <Stat label="평가 우위" value={`${superiorPct}%`} sub={`${ev.byStanding.superior}/${ev.total}`} />
         <Stat
           label="학습자 관측"
@@ -99,6 +111,155 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
         </div>
         <p className="font-body text-[12px] text-[var(--t3)]">
           초등 3종(파닉스 운율·기본어휘 뜻·철자 완성)은 사전의 순수 함수라 저장하지 않는다 — 여기 표에 없다.
+        </p>
+      </section>
+
+      {/* ── 브랜드 규격 ───────────────────────────────────────── */}
+      <section aria-label="브랜드 규격" className="flex flex-col gap-2">
+        <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">
+          브랜드 규격 — {brand.brand}
+        </h2>
+        <p className="font-body text-[12px] text-[var(--t3)]">
+          값은 <code className="font-mono">@vocaflow/design-tokens</code> 에서 읽는다 — 조판기가 색을 따로
+          갖고 있으면 손에 쥔 책이 화면과 달라진다. 규격 지문{' '}
+          <span className="font-mono text-[var(--t2)]">{brand.fingerprint}</span> 이 바뀌면 그 전에 찍은
+          권은 아래에서 <span style={{ color: 'var(--warn)' }}>옛 규격</span> 으로 뜬다.
+        </p>
+
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[520px] border-collapse font-body text-[13px]">
+            <thead>
+              <tr className="border-b border-[var(--bd)] text-left text-[var(--t2)]">
+                <th className="py-2 pr-3 font-[600]">지면에서의 자리</th>
+                <th className="py-2 pr-3 font-[600]">라이트</th>
+                <th className="py-2 pr-3 font-[600]">다크</th>
+              </tr>
+            </thead>
+            <tbody>
+              {brand.palette.map((row) => (
+                <tr key={row.key} className="border-b border-[var(--bd)]">
+                  <td className="py-2 pr-3 text-[var(--t1)]">{row.label}</td>
+                  <td className="py-2 pr-3">
+                    <Swatch value={row.light} />
+                  </td>
+                  <td className="py-2 pr-3">
+                    <Swatch value={row.dark} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 font-body text-[12px]">
+          <dt className="text-[var(--t2)]">영문 지문</dt>
+          <dd className="font-mono text-[var(--t1)]">{brand.fonts.english}</dd>
+          <dt className="text-[var(--t2)]">한국어 해설</dt>
+          <dd className="font-mono text-[var(--t1)]">{brand.fonts.body}</dd>
+          <dt className="text-[var(--t2)]">문항 번호·수치</dt>
+          <dd className="font-mono text-[var(--t1)]">{brand.fonts.mono}</dd>
+        </dl>
+      </section>
+
+      {/* ── 조판 기록 ─────────────────────────────────────────── */}
+      <section aria-label="조판된 권" className="flex flex-col gap-2">
+        <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">조판된 권</h2>
+        {brand.renderError ? (
+          <p
+            role="alert"
+            className="rounded-[var(--r-md)] border border-[var(--danger)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--danger)]"
+          >
+            {brand.renderError} — 조판이 0권인 것이 아니라 기록을 못 읽은 것이다.
+          </p>
+        ) : brand.renders.length === 0 ? (
+          <p className="font-body text-[13px] text-[var(--t2)]">
+            아직 조판된 권이 없다.{' '}
+            <code className="font-mono text-[12px]">
+              pnpm dlx tsx scripts/textbook/render-volume.mjs --band 5 --units 20 --out volume-v5.html
+            </code>{' '}
+            로 찍으면 여기 한 행이 남는다.
+          </p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[760px] border-collapse font-body text-[13px]">
+              <thead>
+                <tr className="border-b border-[var(--bd)] text-left text-[var(--t2)]">
+                  <th className="py-2 pr-3 font-[600]">권</th>
+                  <th className="py-2 pr-3 text-right font-[600]">단원</th>
+                  <th className="py-2 pr-3 text-right font-[600]">문항</th>
+                  <th className="py-2 pr-3 font-[600]">자동 검수</th>
+                  <th className="py-2 pr-3 font-[600]">해설 없음</th>
+                  <th className="py-2 pr-3 text-right font-[600]">겹치지 않는 권</th>
+                  <th className="py-2 pr-3 font-[600]">규격</th>
+                  <th className="py-2 pr-3 font-[600]">마지막 조판</th>
+                </tr>
+              </thead>
+              <tbody>
+                {brand.renders.map((r) => (
+                  <tr key={r.band} className="border-b border-[var(--bd)] align-top">
+                    <td className="py-2 pr-3 text-[var(--t1)]">
+                      <span className="font-[700]">{r.volumeTitle}</span>
+                      <span className="block text-[12px] text-[var(--t3)]">
+                        V{r.band}
+                        {r.step != null ? ` · ${r.step}단` : ''}
+                        {r.schoolBand ? ` · ${r.schoolBand}` : ''}
+                      </span>
+                    </td>
+                    <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">{r.units}</td>
+                    <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">{r.items}</td>
+                    <td className="py-2 pr-3">
+                      <span
+                        className="tabular-nums"
+                        style={{ color: r.autoPassed === r.autoTotal ? 'var(--ok)' : 'var(--warn)' }}
+                      >
+                        {/* 한 문자열로 낸다 — 조각내면 "8/9" 가 마크업 사이에 끊겨 복사도 검색도 안 된다. */}
+                        {`${r.autoPassed === r.autoTotal ? '✅' : '⚠️'} ${r.autoPassed}/${r.autoTotal}`}
+                      </span>
+                      {r.failedChecks.length ? (
+                        <span className="block text-[12px] text-[var(--warn)]">
+                          {r.failedChecks.join(' · ')}
+                        </span>
+                      ) : null}
+                    </td>
+                    <td className="py-2 pr-3 tabular-nums">
+                      <span
+                        style={{ color: r.missingExplanations === 0 ? 'var(--ok)' : 'var(--warn)' }}
+                      >
+                        {r.missingExplanations === 0 ? '✅ 0' : `⚠️ ${r.missingExplanations}`}
+                      </span>
+                    </td>
+                    <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">
+                      {/* null 은 0 이 아니다 — 원글을 안 쓰는 권은 원글 재고가 상한이 아니다. */}
+                      {r.distinctVolumes == null ? (
+                        <span className="text-[var(--t3)]" title="이 권은 원글을 쓰지 않는다 — 원글 재고가 상한이 아니다">
+                          해당 없음
+                        </span>
+                      ) : (
+                        r.distinctVolumes
+                      )}
+                    </td>
+                    <td className="py-2 pr-3">
+                      {r.brandCurrent ? (
+                        <span style={{ color: 'var(--ok)' }}>✅ 최신</span>
+                      ) : (
+                        <span style={{ color: 'var(--warn)' }} title={r.brandFingerprint}>
+                          ⚠️ 옛 규격 — 재조판
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-2 pr-3 text-[var(--t2)]">
+                      {r.renderedAt.slice(0, 10)}
+                      <span className="block text-[12px] text-[var(--t3)]">{r.renderCount}회 찍음</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        <p className="font-body text-[12px] text-[var(--t3)]">
+          권마다 한 행이고 다시 찍으면 덮어쓴다 — 재실행해도 행이 늘지 않는다. 여기 없는 계단은
+          아직 안 찍은 것이지 실패한 것이 아니다.
         </p>
       </section>
 
@@ -163,6 +324,20 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
         ) : null}
       </section>
     </div>
+  )
+}
+
+/** 색 한 칸. **색상만으로 정보를 전달하지 않는다** — 값을 글자로 함께 적는다. */
+function Swatch({ value }: { value: string }) {
+  return (
+    <span className="inline-flex items-center gap-2">
+      <span
+        aria-hidden
+        className="inline-block h-4 w-4 rounded-[3px] border border-[var(--bd)]"
+        style={{ backgroundColor: value }}
+      />
+      <span className="font-mono text-[12px] uppercase text-[var(--t1)]">{value}</span>
+    </span>
   )
 }
 

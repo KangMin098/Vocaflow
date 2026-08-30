@@ -76,6 +76,55 @@ const base: TextbookConsoleStats = {
     ],
   },
   observations: 0,
+  brand: {
+    brand: 'Vocaflow Reading',
+    fingerprint: 'a1b2c3d4',
+    palette: [
+      { key: 'ink', label: '본문 잉크', light: '#1A1714', dark: '#F2EDE4' },
+      { key: 'accent', label: '표제·문항 번호', light: '#8A5A20', dark: '#D9A94E' },
+    ],
+    fonts: { english: '"Lora", serif', body: '"DM Sans", sans-serif', mono: '"JetBrains Mono", monospace' },
+    renders: [
+      {
+        band: 5,
+        volumeTitle: 'Vocaflow Reading 4',
+        step: 5,
+        schoolBand: '고1',
+        units: 20,
+        items: 80,
+        autoPassed: 8,
+        autoTotal: 9,
+        failedChecks: ['오답 매력도'],
+        missingExplanations: 0,
+        typeMixFit: 0.912,
+        distinctVolumes: 6,
+        brandFingerprint: 'a1b2c3d4',
+        brandCurrent: true,
+        renderCount: 3,
+        renderedAt: '2026-08-30T05:00:00.000Z',
+      },
+      {
+        band: 6,
+        volumeTitle: 'Vocaflow Reading 5',
+        step: 6,
+        schoolBand: '고2',
+        units: 20,
+        items: 80,
+        autoPassed: 9,
+        autoTotal: 9,
+        failedChecks: [],
+        missingExplanations: 2,
+        typeMixFit: null,
+        distinctVolumes: null,
+        brandFingerprint: '00000000',
+        brandCurrent: false,
+        renderCount: 1,
+        renderedAt: '2026-08-20T05:00:00.000Z',
+      },
+    ],
+    staleBands: [6],
+    renderError: null,
+  },
   loadError: null,
 }
 
@@ -116,6 +165,58 @@ describe('TBP 콘솔 렌더', () => {
       <TextbookConsoleClient stats={{ ...base, loadError: '문항 조회 실패: boom' }} />,
     )
     expect(html).toContain('문항 조회 실패: boom')
+  })
+})
+
+describe('브랜드 규격 · 조판 기록', () => {
+  it('규격을 화면에서 읽을 수 있다 — 코드에만 있으면 아무도 안 본다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('브랜드 규격')
+    expect(html).toContain('Vocaflow Reading')
+    expect(html).toContain('#1A1714')
+    expect(html).toContain('Lora')
+  })
+
+  it('**색만으로 말하지 않는다** — 색 칸 옆에 값이 글자로 있다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    // 스와치는 aria-hidden 이고, 읽을 수 있는 것은 hex 문자열 쪽이다.
+    expect(html).toContain('aria-hidden')
+    expect(html).toContain('#8A5A20')
+  })
+
+  it('옛 규격으로 찍힌 권을 재조판 대상으로 표시한다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('옛 규격')
+    expect(html).toContain('옛 규격 1권')
+  })
+
+  it('조판 기록의 수치를 다시 계산하지 않고 그대로 보인다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('Vocaflow Reading 4')
+    expect(html).toContain('8/9')
+    expect(html).toContain('오답 매력도')
+    // 원글을 안 쓰는 권은 0 이 아니라 "해당 없음" 이다.
+    expect(html).toContain('해당 없음')
+    // 해설이 안 붙은 문항 수는 경고로 — 통과로 눙치지 않는다.
+    expect(html).toContain('2')
+  })
+
+  it('**기록을 못 읽은 것과 조판 0권을 구별한다**', () => {
+    const broken = renderToString(
+      <TextbookConsoleClient
+        stats={{ ...base, brand: { ...base.brand, renders: [], staleBands: [], renderError: '조판 기록 조회 실패: boom' } }}
+      />,
+    )
+    expect(broken).toContain('조판 기록 조회 실패: boom')
+    expect(broken).not.toContain('아직 조판된 권이 없다')
+
+    const none = renderToString(
+      <TextbookConsoleClient
+        stats={{ ...base, brand: { ...base.brand, renders: [], staleBands: [] } }}
+      />,
+    )
+    expect(none).toContain('아직 조판된 권이 없다')
+    expect(none).toContain('render-volume.mjs')
   })
 })
 

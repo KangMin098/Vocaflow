@@ -9,6 +9,8 @@ import {
   SERIES_BRAND,
   VOLUME_FONTS,
   VOLUME_PALETTE,
+  brandFingerprint,
+  brandSpecRows,
   buildColophon,
   ladderStrip,
   volumeCssVariables,
@@ -112,5 +114,42 @@ describe('ladderStrip — 뒤표지 시리즈 표시', () => {
 describe('SERIES_BRAND', () => {
   it('시리즈 이름은 한 곳에서만 온다', () => {
     expect(SERIES_BRAND).toBe('Vocaflow Reading')
+  })
+})
+
+describe('brandFingerprint — 옛 규격으로 찍힌 권을 가려내는 지문', () => {
+  it('안정적이다 — 같은 규격이면 몇 번을 불러도 같은 값', () => {
+    expect(brandFingerprint()).toBe(brandFingerprint())
+  })
+
+  it('8자리 16진수다 — DB 에 그대로 들어간다', () => {
+    expect(brandFingerprint()).toMatch(/^[0-9a-f]{8}$/)
+  })
+
+  it('**색을 복사해 두지 않는다** — 지문은 값이 아니라 값의 요약이다', () => {
+    // 지문 안에서 실제 색을 읽어낼 수 있으면 정본이 둘이 된 것이다.
+    expect(brandFingerprint()).not.toContain(colorsLight.t1.replace('#', '').toLowerCase())
+  })
+})
+
+describe('brandSpecRows — 관리자가 읽는 규격표', () => {
+  const rows = brandSpecRows()
+
+  it('팔레트 여섯 자리를 전부 낸다', () => {
+    expect(rows).toHaveLength(6)
+    expect(rows.map((r) => r.key)).toEqual(['ink', 'sub', 'line', 'bg', 'accent', 'slot'])
+  })
+
+  it('값은 토큰에서 온다 — 표에 값을 다시 적지 않았다', () => {
+    const ink = rows.find((r) => r.key === 'ink')!
+    expect(ink.light).toBe(colorsLight.t1)
+    expect(ink.dark).toBe(colorsDark.t1)
+  })
+
+  it('**색 이름이 아니라 지면에서의 자리를 적는다** — 관리자는 `slot` 을 모른다', () => {
+    for (const r of rows) {
+      expect(r.label.length, r.key).toBeGreaterThan(1)
+      expect(r.label, r.key).not.toBe(r.key)
+    }
   })
 })

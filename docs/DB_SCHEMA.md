@@ -794,6 +794,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 ## 최근 마이그레이션 (20개)
 
 ```
+20260830140000  textbook_volume_renders                    ← TBP 조판 기록(권당 1행 · admin 읽기). 아래 참조
 20260822013136  dictionary_categories_public_read           ← 분류 트리 anon 읽기(is_active 만)
 20260822090000  textbook_shelf_sources                     ← 지문 출처 집계 + 교육과정 어휘 개수 (둘 다 anon 실행 가능)
 20260821140000  user_textbook_selections                   ← 내가 고른 교재(step 번호만). RLS 본인 전용
@@ -836,6 +837,35 @@ v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([202608
 비용: 도서당 추출 1회 — 발행 12권 기준 수집 전체가 9행/즉시 → **11행/21.9초**로 늘어난다(야간 03:10).
 ⚠️ 드리프트 서브쿼리는 **temp table 로 1회만** 평가할 것 — CTE 로 두면 outer 참조 수만큼 재실행돼
 19초가 37.9초가 된다(`EXPLAIN ANALYZE` 로 SubPlan 2개 확인).
+
+---
+
+### TBP 조판 기록 ([20260830140000](../supabase/migrations/20260830140000_textbook_volume_renders.sql))
+
+`textbook_volume_renders` — **교재 한 권을 조판했다는 사실**을 남긴다. `band` 가 PK 라 권당 한 행이고,
+`render-volume.mjs` 가 다시 돌 때마다 **덮어쓴다**(재실행 안전 — 열 번 찍어도 행이 안 늘고
+`render_count` 만 오른다).
+
+왜 필요했나: 브랜딩(`packages/library-pipeline/src/textbook/brand.ts` — 팔레트·서체·판권면)과
+조판기는 코드로만 있었고 결과는 `--out volume-v5.html` 로컬 파일이라, `/admin/textbook` 이 읽을
+레코드가 **하나도 없었다.**
+
+| 컬럼 | 무엇 |
+|---|---|
+| `band` (PK) | 사다리의 한 권 = V-Level (`SERIES_SPINE`) |
+| `volume_title` · `step` · `school_band` | 판권면에 실린 그대로 |
+| `units` · `items` | 단원 수 · 인쇄된 문항 수 |
+| `auto_passed` / `auto_total` · `failed_checks` | 자동 검수. **떨어진 항목의 이름까지** 남긴다 |
+| `explained_batch` · `explained_rule` | 해설 출처별 수. 없음 = `items` − 둘의 합 |
+| `type_mix_fit` | 시중 밀도 대비 적합도(0~1). 못 쟀으면 **NULL** — 0 으로 뭉개지 않는다 |
+| `distinct_volumes` | 겹치지 않게 줄 수 있는 권수. 원글을 안 쓰는 권(초등 3종)은 **NULL**(20260830141000) |
+| `brand_fingerprint` | `brandFingerprint()` — 조판 CSS 변수 + 서체 스택의 8자리 해시 |
+| `colophon` (jsonb) | 판권면 전체 |
+
+⚠️ **색을 저장하지 않는다.** 값의 정본은 `@vocaflow/design-tokens` 하나이고, 기록은 "언제 규격의
+것이냐" 만 안다. 토큰이 바뀌면 지문이 달라져 화면이 그 권을 **"옛 규격 — 재조판"** 으로 표시한다.
+
+RLS: `SELECT` 는 `is_admin_or_curator()`. 쓰기 정책은 없다 — 조판기(service role)만 쓴다.
 
 ---
 
