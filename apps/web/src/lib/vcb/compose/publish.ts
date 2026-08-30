@@ -9,7 +9,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { resolveLadderStep, vocabBrandFingerprint } from '@vocaflow/library-pipeline/vocab-brand'
 
-import { rungForSet } from '@/lib/library/vocab/rung'
 import { PASS_THRESHOLD, evaluateSet, type Scorecard } from './evaluate'
 import { evaluateMarket } from './market'
 import type { ComposedSet } from './types'
@@ -36,6 +35,41 @@ export interface PublishOutcome {
 }
 
 const WORD_CHUNK = 500
+
+/** 중앙값을 믿으려면 이만큼은 매칭돼야 한다. 표본이 얇으면 한두 낱말이 계단을 흔든다. */
+const MIN_WORDS_FOR_MEDIAN = 20
+
+/**
+ * 이 권이 앉을 계단을 **낱말 실측**으로 제안한다.
+ *
+ * ── 왜 카테고리·CEFR 로는 안 되는가 (실측 2026-08-30) ────────────────
+ * 그 두 경로는 **홀수 계단만 낸다**:
+ *
+ *   cefrToVLevel = { A1:1, A2:3, B1:5, B2:7, C1:9, C2:10 }
+ *   카테고리     = { 초등:1, 중등:3, 고등:5, 수능:7 }
+ *
+ * 그래서 7단짜리 사다리인데 배정은 네 칸에만 닿았고, **2·4·6단이 구조적으로 비어 있었다.**
+ * 재고가 없어서가 아니었다 — 낱말 실측으로 다시 재니 그 세 칸에만 23권이 있었다.
+ *
+ * ── 왜 중앙값인가 ────────────────────────────────────────────────────
+ * 평균은 꼬리에 끌린다. 주제 세트에는 아주 쉬운 낱말과 아주 어려운 낱말이 섞여 있어
+ * 평균을 쓰면 학습자가 실제로 만나는 난이도보다 높게 잡힌다. 중앙값은 **"이 책을 펴면
+ * 만나는 보통 낱말"** 이고, 학년을 정하는 기준은 그쪽이다.
+ *
+ * 낱말에 v_level 이 모자라면 null 을 낸다 — 그때는 `resolveLadderStep` 이 청사진 바닥만
+ * 쓰고, 그것도 없으면 계단을 비운다(짐작으로 채우지 않는다).
+ */
+function suggestedStep(set: ComposedSet): number | null {
+  const levels = set.entries
+    .map((e) => e.candidate.v_level)
+    .filter((v): v is number => typeof v === 'number')
+    .sort((a, b) => a - b)
+  if (levels.length < MIN_WORDS_FOR_MEDIAN) return null
+  // 짝수 개면 아래쪽 — 계단은 **틀리면 아래로** 가는 편이 안전하다(어려운 책을 제 수준으로
+  // 착각하는 것보다, 쉬운 책을 먼저 만나는 쪽이 낫다).
+  const med = levels[Math.floor((levels.length - 1) / 2)]!
+  return med >= 1 && med <= 7 ? Math.round(med) : null
+}
 
 interface SharedWordRow {
   set_id: string
@@ -235,10 +269,7 @@ export async function publishComposedSet(
       brand_fingerprint: vocabBrandFingerprint(),
       ladder_step: resolveLadderStep({
         blueprint: set.recipe.blueprint,
-        suggested: rungForSet({
-          category: meta.category,
-          cefrLevel: meta.target_cefr_range[0] ?? null,
-        }).rung?.step ?? null,
+        suggested: suggestedStep(set),
       }),
     }
 
