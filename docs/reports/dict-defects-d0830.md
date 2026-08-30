@@ -152,3 +152,101 @@ ASCII 로 `creche` 라 쓰면 어간이 `crèch` 라 `containsWord` 가 `no_head
 실측: `non_ascii` 거부 2 → **0**, `crèche` 두 뜻 모두 예문·해석 적재 확인.
 
 ⚠️ **같은 함정이 다른 배치에도 있는지 봐야 한다** — `w0817-colloc` 의 매처가 이 코드의 원본이다.
+
+---
+
+# T6-1 실행 기록 — 동음이의어 오염 판정 (2026-08-30)
+
+파이프라인 `scripts/dict/w0830-homonym.mjs` · 청크 `scripts/dict/w0830-homonym/`
+
+## 대상 고르기
+
+`field_provenance` 에 `wordnet` 이 찍혀 있고 `collocations`·`synonyms`·`antonyms` 중
+하나라도 값이 있는 행 **34,195**. 그중 시험 밴드(수능·EBS·교육과정)를 1차 파장으로 잡아
+**6,456 낱말 / 323 청크**(20낱말씩).
+
+## 이 배치가 하지 않는 것 — 섞으면 못 가린다
+
+- **대체값을 만들지 않는다.** 비우기만 한다. 채우는 것은 `corefill` 소관이다.
+- **`example_en` 을 건드리지 않는다.** 뜻이 어긋난 예문은 `EXAMPLE-QUEUE.json` 으로 넘긴다.
+- **`meanings_ko` 갈래 순서를 건드리지 않는다.** 인덱스가 바뀌면 T2 가 채운 예문이 엉뚱한 뜻에 붙는다.
+
+## 안전 장치
+
+| 장치 | 무엇을 막나 |
+|---|---|
+| `field_provenance.t6_removed` 에 지운 값 보존 | **출처를 모르고 지우는 것** — 되돌릴 수 있다 |
+| 청크 입력을 다시 읽어 대조, 없는 문자열은 `not_shown` 거부 | 서브에이전트가 **지어낸 값**을 지우는 것 |
+| 현재 배열에 없는 값은 `not_present` 거부 | 다른 세션이 이미 바꾼 행을 덮는 것 |
+| 지울 것이 없어도 `t6_homonym` 도장을 찍는다 | "물어봤고 깨끗했다" 와 "아직 안 물어봤다" 가 섞이는 것 |
+
+## 실측 (4,400 낱말 판정 시점)
+
+| | |
+|---|--:|
+| 판정한 낱말 | 4,400 |
+| **오염 없음** | 4,329 (98.4%) |
+| 지운 항목 | 연어 50 · 반의어 54 · 유의어 0 |
+| 통째로 빈 필드 | 연어 11 · 반의어 15 |
+| `not_shown` / `not_present` 거부 | **0 / 0** |
+
+정본 사례는 전부 잡혔다 — `saw`(hand/chain/old saw) · `over`(크리켓) · `march`·`may`(월 이름) ·
+`he`(he good/nice/tired) · `stem`(STEM) · `transport`(황홀).
+
+**유의어는 한 건도 지우지 않았다.** 오염은 연어와 반의어에만 나타났다.
+반의어 쪽은 대부분 WordNet 의 반의어 사슬을 그대로 들여온 것이다 —
+`flat`↔`natural`·`sharp`(악보 기호) · `bear`↔`bull`(증시) · `direct`↔`alternating`(직류/교류) ·
+`multiply`↔`singly`(부사 뜻) · `epidemic`↔`ecdemic`(반대편이 아니다).
+
+## 판정하며 드러난 것 — 오염보다 흔한 결함이 따로 있다
+
+시험 밴드에서 WordNet 평탄화 오염은 **1.6%** 로 예상보다 희소했다. 구간마다 서로 다른
+서브에이전트가 독립적으로 같은 것을 짚었다:
+
+> **연어가 전부 맞는데, 전부 부차적 뜻에만 붙어 있다.**
+
+`pet`(pet project/peeve/theory — 전부 형용사) · `pin`(전부 두문자어 PIN) · `swallow`(전부 '제비') ·
+`sole`(전부 '밑창') · `tender`(전부 '입찰') · `rose`(전부 '장밋빛의') · `bay`(전부 말 털색) ·
+`thrust` · `sphere` · `kindly` · `crush` · `spoil` · `bench` · `drain` · `rub` …
+
+**지울 것이 없으니 이 배치로는 못 고친다.** 값이 틀린 게 아니라 대표 뜻이 비어 있는 것이다.
+자유 서술로 흘려보내지 않도록 apply 가 `COREFILL-QUEUE.json` 으로 뽑는다 (현재 **77건**).
+
+## 폐기한 수치 하나
+
+`meaning_ko` ↔ `senses` 불일치를 SQL 휴리스틱(앞 4글자 포함 여부)으로 재서 **31,571건**이
+나왔으나 **근거로 쓸 수 없다** — 의역 차이에도 걸린다. 이 수치를 인용하지 말 것.
+
+반증 불가능한 지표로 다시 쟀다: 사전이 스스로 `pos_set` 에 적어 둔 품사인데
+`meanings_ko` 에 그 품사의 뜻을 하나도 등재하지 않은 행 = **667행**(시험 밴드 21 · top3k 43).
+
+```sql
+with s as (
+  select word, pos_set,
+    (select array_agg(distinct e->>'pos') from jsonb_array_elements(coalesce(meanings_ko,'[]'::jsonb)) e
+      where e->>'pos' is not null) as sense_pos
+  from shared_dictionary
+  where pos_set is not null and array_length(pos_set,1) >= 2
+    and meanings_ko is not null and jsonb_array_length(meanings_ko) >= 1
+)
+select count(*) from s
+where sense_pos is not null and exists (select 1 from unnest(pos_set) p where not (p = any(sense_pos)));
+```
+
+`it` 이 그 사례다 — `senses[]` 에 대명사 뜻이 없고 **'정보 기술(IT)' 명사 뜻만** 있다.
+그래서 `it department`·`it support` 가 규칙상 "정상" 으로 판정돼 살아남았다.
+`fell` 도 같다(영국 북부 '산지' 뜻이 등재돼 있어 `fell running` 이 통과).
+**이 둘은 T6-1 이 아니라 뜻 갈래 정리(T6-2)의 몫이다.**
+
+## 배치 도중 고친 결함 — 큐가 빈 채로 덮이고 있었다
+
+apply 가 부수 발견을 **`already` 판정 뒤에** 모으고 있었다. 배치가 끝난 뒤 재실행하면
+모든 행이 `already` 라 `FLAGGED.json`·큐 파일이 **빈 채로 덮인다**.
+실제로 한 번 덮였다(184건 → 83건). 수집을 `already` 앞으로 옮겨 고쳤고,
+재실행하니 271건으로 복구됐다. **큐는 이번에 쓴 행이 아니라 배치 전체의 보고서다.**
+
+## 남은 것
+
+- 시험 밴드 **103/323 청크** 미판정 (세션 한도로 중단, 재실행 안전)
+- `top` 파장 4,365 낱말 · `rest` 파장 약 23,000 낱말 미착수
+- T6-2(뜻 갈래 정리) · T6-3(예문 교체) 미착수
