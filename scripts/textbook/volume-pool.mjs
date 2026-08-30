@@ -391,7 +391,18 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
     ['library_article_id', 'word'],
   )
   const words = [...new Set(vocabRows.map((v) => v.word))]
-  const dictRows = await fetchAllIn(db, 'shared_dictionary', 'word, meaning_ko, v_level', 'word', words, ['word'])
+  // 낱말이 많으면 **사전을 통째로 받는 편이 싸다.** 사전은 48,969행뿐이라 1,000행씩
+  // 49회면 끝나는데, 낱말별로 묶어 물으면 낱말 수에 비례해 요청이 는다.
+  //   실측 2026-08-30 (V6 · 고유 낱말 100,694개):
+  //     묶어 조회  25,297행 · **38.5초**
+  //     통째로     48,969행 · **10.6초**   ← 3.6배 빠르다
+  // 통째로 받으면 안 쓰는 낱말도 들어오지만 **조회되지 않으므로 산출물은 같다**
+  // (아래 `dict` 는 `vocabRows` 의 낱말로만 읽힌다).
+  const DICT_ROWS = 48_969
+  const dictRows =
+    words.length * 10 > DICT_ROWS
+      ? await fetchAllPaged(db, (q) => q.from('shared_dictionary').select('word, meaning_ko, v_level').order('word'))
+      : await fetchAllIn(db, 'shared_dictionary', 'word, meaning_ko, v_level', 'word', words, ['word'])
   const dict = new Map()
   for (const r of dictRows) dict.set(r.word, r)
   vocabRows.sort(
