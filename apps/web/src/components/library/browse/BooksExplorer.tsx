@@ -125,7 +125,12 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
   // 세터를 감싸지 않고 **렌더 중 조정**을 쓴다(React 공식 패턴). 지금 조건을 바꾸는 곳이
   // 다섯 군데(빠른선택·필터·정렬·초기화·빈결과 초기화)라, 세터마다 리셋을 심으면
   // 하나를 빠뜨리는 순간 조용히 어긋난다 — 그 버그는 눈에 잘 띄지도 않는다.
-  const conditionKey = `${sort}|${JSON.stringify(filters)}`
+  // ⚠️ `showAll` 도 키에 넣는다. `?show=all` 링크는 **클라이언트 이동**이라 컴포넌트가
+  //    다시 마운트되지 않고, 그러면 위 `useState` 초기화가 다시 돌지 않는다 —
+  //    props 만 true 로 바뀌고 `shown` 은 60에 머문다. 실측 2026-08-30: 링크를 눌러도
+  //    카드가 안 늘고 "더 보기" 가 그대로 남아 있었다(새로고침으로 열면 멀쩡했다 —
+  //    그래서 크롤러와 무JS 에서는 동작하고 **사람이 누를 때만** 안 되는 상태였다).
+  const conditionKey = `${showAll}|${sort}|${JSON.stringify(filters)}`
   const [lastConditionKey, setLastConditionKey] = useState(conditionKey)
   if (conditionKey !== lastConditionKey) {
     setLastConditionKey(conditionKey)

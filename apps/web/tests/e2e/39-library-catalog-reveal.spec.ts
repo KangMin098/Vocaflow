@@ -109,4 +109,27 @@ test.describe('도서 카탈로그 — 점진 노출', () => {
       test.skip(true, '정렬 컨트롤을 못 찾았다 — 필터 UI 가 바뀌었는지 본다')
     }
   })
+
+  test('“전체 보기” 링크가 눌러도 전량을 편다 — 새로고침에서만 되면 안 된다', async ({ page }) => {
+    await page.goto('/library/books', { waitUntil: 'domcontentloaded' })
+    await page.waitForTimeout(1500)
+
+    const all = page.getByRole('link', { name: /전체 .*권 한 번에 보기/ })
+    test.skip(!(await all.first().isVisible().catch(() => false)), '접을 것이 없다')
+
+    await all.first().click()
+    await page.waitForURL(/show=all/, { timeout: 30_000 })
+    await page.waitForTimeout(1500)
+
+    // ⚠️ 왜 "눌러서" 가는 경로를 따로 재나 (실측 2026-08-30):
+    //    `?show=all` 은 **클라이언트 이동**이라 BooksExplorer 가 다시 마운트되지 않는다.
+    //    펼침 초기값을 `useState` 초기화로만 두면 props 는 true 가 되는데 state 는 60에
+    //    머물러, **새로고침으로 열면 되고 눌러서 가면 안 되는** 상태가 된다.
+    //    크롤러·무JS 는 멀쩡하고 **사람만** 겪는 종류라, 바이트 예산으로도 링크 도달
+    //    검사로도 안 잡힌다. 그래서 사람의 동선(클릭)으로 재는 검사가 따로 필요하다.
+    await expect(
+      page.getByRole('button', { name: /권 더 보기/ }),
+      '전체 보기로 왔는데 아직 접혀 있다 — 눌러서 온 경우에만 안 펴진다',
+    ).toHaveCount(0)
+  })
 })
