@@ -21,6 +21,44 @@ import type { CoverMeta } from '@/lib/vcb/covers/design'
 type DB = Database
 
 /**
+ * EMBEDDED_WORD_COUNT — 세트별 실측 단어 수를 **같은 왕복에서** 받는다.
+ *
+ * ── 왜 바꿨나 (실측 2026-08-30) ────────────────────────────────────────
+ * 이전 구현은 세트를 받은 뒤 `shared_words` 를 `.in('set_id', ids)` 로 **한 번 더** 받아
+ * 행을 세었다. 세트가 몇십 개일 때는 보이지 않던 두 가지가 발행 확대(316권) 뒤 드러났다:
+ *
+ *   ① **큰 책은 화면이 통째로 비었다.** UUID 하나가 37자라 세트 450개면 질의 URL 이
+ *      16KB 를 넘고, 그 요청은 **7.7초를 끌다가 실패**한다. `/library/books/[id]` 는
+ *      이 오류를 Promise.all 에서 그대로 받아 본문을 한 글자도 못 그린다 —
+ *      그런데 HTTP 는 **200** 이라(셸은 이미 흘러갔다) 어떤 훑기 축에도 안 걸린다.
+ *      실측: 발행 316권 중 Clarissa(450세트)·Le Morte d'Arthur(443세트) 2권이 빈 화면.
+ *
+ *   ② **나머지 책은 조용히 틀린 수를 보여 줬다.** PostgREST 는 한 응답에 1,000행까지만
+ *      준다. 세트 단어 합이 1,000을 넘는 책이 **316권 중 257권(81%)** 이고, 잘린 창에
+ *      걸친 세트는 실제보다 **작은 수**가 나온다(0이 아니라서 캐시 폴백도 안 걸린다).
+ *      오류 없이 틀린 숫자를 파는, 이 저장소가 반복해서 값을 치른 실패 유형이다
+ *      (`word-set-counts.ts` 머리 주석이 같은 함정을 카탈로그 쪽에서 기록하고 있다).
+ *
+ * ── 왜 이 방법인가 ────────────────────────────────────────────────────
+ * `shared_words(count)` 임베드 집계는 **세트 목록과 같은 요청**에서 개수를 받는다.
+ * 긴 URL 도, 1,000행 상한도, 두 번째 왕복도 없다 — 개수는 DB 가 세므로 정확하다.
+ * 실측(Clarissa 450세트): 두 번 왕복 7,697ms 실패 → 한 번 왕복 **247ms 성공**.
+ *
+ * ⚠️ 그래도 `word_count` 캐시를 폴백으로 남긴다. 임베드가 없는 행(관계 조인이 비면
+ *    `null`)을 0으로 적으면 "단어 없는 단어장" 이라는 또 다른 거짓말이 된다.
+ */
+function embeddedWordCounts(
+  rows: { id: string; word_count: number | null; shared_words?: { count: number }[] | null }[],
+): Map<string, number> {
+  const counts = new Map<string, number>()
+  for (const r of rows) {
+    const embedded = r.shared_words?.[0]?.count
+    counts.set(r.id, typeof embedded === 'number' ? embedded : (r.word_count ?? 0))
+  }
+  return counts
+}
+
+/**
  * 도서별 챕터 단어장 — chapter_idx ASC 정렬. PublishedVocabSet 호환 형태로 반환.
  */
 export async function fetchBookChapterSets(
@@ -30,7 +68,8 @@ export async function fetchBookChapterSets(
   const { data, error } = await supabase
     .from('shared_word_sets')
     .select(
-      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at, curation_query',
+      // 단어 수는 **임베드 집계**로 함께 받는다(`shared_words(count)`) — 이유는 EMBEDDED_WORD_COUNT 주석.
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, created_at, curation_query, shared_words(count)',
     )
     .eq('is_published', true)
     .eq('category', 'library_book')
@@ -48,21 +87,12 @@ export async function fetchBookChapterSets(
     word_count: number | null
     created_at: string | null
     curation_query: Record<string, unknown>
+    shared_words: { count: number }[] | null
   }[]
 
   if (rows.length === 0) return []
 
-  // 실측 단어 수 보정 — word_count 캐시 stale 방지
-  const ids = rows.map((r) => r.id)
-  const { data: words, error: wErr } = await supabase
-    .from('shared_words')
-    .select('set_id')
-    .in('set_id', ids)
-  if (wErr) throw wErr
-  const counts = new Map<string, number>()
-  for (const w of words ?? []) {
-    counts.set(w.set_id, (counts.get(w.set_id) ?? 0) + 1)
-  }
+  const counts = embeddedWordCounts(rows)
 
   return rows
     .map((r) => ({
@@ -143,7 +173,8 @@ export async function fetchBookComposerSets(
   const { data, error } = await supabase
     .from('shared_word_sets')
     .select(
-      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta',
+      // 챕터 세트와 같은 규칙 — 단어 수는 임베드 집계로 함께 받는다(EMBEDDED_WORD_COUNT 주석).
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta, shared_words(count)',
     )
     .eq('is_published', true)
     .eq('curation_query->>source_book_id', bookId)
@@ -163,19 +194,12 @@ export async function fetchBookComposerSets(
     curation_query: Record<string, unknown>
     cover_image_url: string | null
     cover_image_meta: CoverMeta | null
+    shared_words: { count: number }[] | null
   }[]
 
   if (rows.length === 0) return []
 
-  // 실측 단어 수 보정 — word_count 캐시가 stale 할 수 있다 (챕터 세트와 같은 규칙).
-  const ids = rows.map((r) => r.id)
-  const { data: words, error: wErr } = await supabase
-    .from('shared_words')
-    .select('set_id')
-    .in('set_id', ids)
-  if (wErr) throw wErr
-  const counts = new Map<string, number>()
-  for (const w of words ?? []) counts.set(w.set_id, (counts.get(w.set_id) ?? 0) + 1)
+  const counts = embeddedWordCounts(rows)
 
   return rows
     .map((r): BookComposerSet => {
@@ -220,26 +244,32 @@ export async function fetchBookWordSetSubscriptionStats(
   bookId: string,
   userId: string | null,
 ): Promise<{ subscribed: number; total: number } | null> {
-  const { data: sets, error } = await supabase
+  // ⚠️ 세트 id 를 **받아서 `.in()` 으로 되돌려 보내지 않는다.**
+  //    세트가 450개인 책(Clarissa)에서 그 URL 이 16KB 를 넘어 요청이 7초를 끌다 실패했고,
+  //    이 함수는 `/text/[id]` 레이아웃이 부르므로 **읽기 화면 전체**가 그 오류를 받는다.
+  //    개수만 필요하므로 양쪽 다 head 카운트로 센다 — 목록은 애초에 오갈 이유가 없다.
+  //    (같은 함정의 전말은 이 파일 위 EMBEDDED_WORD_COUNT 주석.)
+  const { count: total, error } = await supabase
     .from('shared_word_sets')
-    .select('id')
+    .select('id', { count: 'exact', head: true })
     .eq('is_published', true)
     .eq('category', 'library_book')
     .eq('curation_query->>book_id', bookId)
 
   if (error) throw error
-  const setIds = ((sets ?? []) as { id: string }[]).map((s) => s.id)
-  const total = setIds.length
-  if (total === 0) return null
+  if (!total) return null
 
   if (!userId) return { subscribed: 0, total }
 
-  const { data: subs, error: sErr } = await supabase
+  // 구독 수도 같은 조건을 **조인으로** 건다(inner join → 이 책의 챕터 세트만 남는다).
+  const { count: subscribed, error: sErr } = await supabase
     .from('user_word_set_subscriptions')
-    .select('set_id')
+    .select('set_id, shared_word_sets!inner(id)', { count: 'exact', head: true })
     .eq('user_id', userId)
-    .in('set_id', setIds)
+    .eq('shared_word_sets.is_published', true)
+    .eq('shared_word_sets.category', 'library_book')
+    .eq('shared_word_sets.curation_query->>book_id', bookId)
 
   if (sErr) throw sErr
-  return { subscribed: (subs ?? []).length, total }
+  return { subscribed: subscribed ?? 0, total }
 }

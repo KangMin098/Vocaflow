@@ -51,7 +51,18 @@ export async function fetchTextbookShelf(): Promise<Shelf> {
   //    학습자·비로그인은 **빈 배열**을 받고, 그걸 재료 없음으로 읽으면 문항 1,241개를 가진
   //    계단이 근간 예정 으로 나온다(실측 2026-08-21 — 이 화면이 실제로 그렇게 거짓말했다).
   //    RPC 는 SECURITY DEFINER 로 개수만 돌려준다 — 지문·선지·정답은 나가지 않는다.
-  const { data: items, error: itemsError } = await lc.rpc('textbook_shelf_inventory')
+  //
+  // ⚠️ 집계 RPC 셋(재고 · 교육과정 어휘 · 출처)은 **서로를 기다릴 이유가 없다.**
+  //    차례로 await 하던 동안 이 공개 카탈로그의 서버 시간은 세 왕복의 **합**이었다
+  //    (실측 2026-08-30: 547 + 2,093 + 496 = 3.1초 → 화면 완료 2.77초).
+  //    함께 띄우면 가장 느린 하나로 수렴한다. 셋 다 읽기 전용 집계라 순서 의존이 없다.
+  const [inventoryRes, vocabRes, sourcesRes] = await Promise.all([
+    lc.rpc('textbook_shelf_inventory'),
+    lc.rpc('textbook_curriculum_vocab_counts'),
+    lc.rpc('textbook_shelf_sources'),
+  ])
+
+  const { data: items, error: itemsError } = inventoryRes
   const measured = !itemsError && Array.isArray(items) && items.length > 0
 
   for (const r of (items ?? []) as Array<{
@@ -70,7 +81,7 @@ export async function fetchTextbookShelf(): Promise<Shelf> {
   const vocabCounts = new Map<string, number>()
   let elementaryMeasured = false
 
-  const { data: viaRpc, error: rpcError } = await lc.rpc('textbook_curriculum_vocab_counts')
+  const { data: viaRpc, error: rpcError } = vocabRes
   if (!rpcError && Array.isArray(viaRpc)) {
     for (const r of viaRpc as Array<{ list_tag: string | null; word_count: number | null }>) {
       if (r.list_tag) vocabCounts.set(r.list_tag, Number(r.word_count ?? 0))
@@ -121,7 +132,7 @@ export async function fetchTextbookShelf(): Promise<Shelf> {
 
   // ③ 지문 출처 — 집계 RPC(20260822090000). 못 읽으면 빈 맵이고, 화면은 출처 축을 안 낸다.
   const sourcesByLevel: Record<number, Record<string, number>> = {}
-  const { data: srcRows, error: srcError } = await lc.rpc('textbook_shelf_sources')
+  const { data: srcRows, error: srcError } = sourcesRes
   if (!srcError && Array.isArray(srcRows)) {
     for (const r of srcRows as Array<{
       v_level: number | null
