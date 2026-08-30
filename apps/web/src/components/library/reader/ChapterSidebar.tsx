@@ -5,7 +5,7 @@
 
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { ChevronDown, ChevronRight, ExternalLink, Lock } from 'lucide-react'
 import type { ChapterListItem } from '@/lib/library/reader-queries'
 import { chapterSourceUrl } from '@/lib/library/source-urls'
@@ -27,8 +27,48 @@ interface Segment {
   items: ChapterListItem[]
 }
 
+/**
+ * 그룹 라벨이 **없는** 긴 책을 범위로 묶는 기준.
+ *
+ * ── 왜 (실측 2026-08-30 · 4배 CPU 감속 · 390px) ──────────────────────────
+ * `group_label` 이 있는 책은 그룹이 접혀서 DOM 이 작다 — Le Morte d'Arthur(502장)는
+ * **842 노드 · FCP 2.5초**. 그런데 라벨이 하나도 없는 책은 접을 단위가 없어서 전 장이
+ * 그대로 그려진다 — Clarissa(528장)는 **5,695 노드 · FCP 4.8초**로, 같은 크기의 책인데
+ * 노드가 7배다. 발행 316권 중 100장 넘는 평면 책이 4권이고, 그 넷이 가장 느리다.
+ *
+ * 그래서 라벨이 없으면 **번호 범위로 스스로 묶는다.** 접기만 하는 것이 아니라 —
+ * 528줄을 끝없이 스크롤하는 것보다 "251–300" 을 한 번 눌러 들어가는 편이 실제로 낫다.
+ * (한 번에 다 펼쳐 두는 것은 목차가 아니라 벽이다 — Cognitive Load.)
+ *
+ * 임계값을 60으로 둔 이유: 그 아래는 스크롤 한두 번이면 훑히므로 묶으면 오히려 방해다.
+ */
+const FLAT_BUCKET_MIN = 60
+const FLAT_BUCKET_SIZE = 50
+
 // group_label 이 같은 연속 챕터를 한 그룹으로 (책 안에서 같은 Book/sub-book 은 연속)
 function buildSegments(chapters: ChapterListItem[]): Segment[] {
+  const hasLabel = chapters.some((c) => c.group_label != null)
+
+  // 라벨 없는 긴 책 — 번호 범위로 묶는다(위 주석 참조).
+  if (!hasLabel && chapters.length > FLAT_BUCKET_MIN) {
+    const segs: Segment[] = []
+    for (let i = 0; i < chapters.length; i += FLAT_BUCKET_SIZE) {
+      const items = chapters.slice(i, i + FLAT_BUCKET_SIZE)
+      const first = items[0]
+      const last = items[items.length - 1]
+      if (!first || !last) continue
+      segs.push({
+        key: `range#${first.chapter_idx}`,
+        label:
+          first.chapter_idx === last.chapter_idx
+            ? `${first.chapter_idx}장`
+            : `${first.chapter_idx}–${last.chapter_idx}장`,
+        items,
+      })
+    }
+    return segs
+  }
+
   const segs: Segment[] = []
   for (const ch of chapters) {
     const label = ch.group_label ?? null
@@ -49,11 +89,41 @@ export function ChapterSidebar({
 }: ChapterSidebarProps) {
   const showSourceLink = mode === 'admin-review' && !!source && !!sourceId
   const segments = useMemo(() => buildSegments(chapters), [chapters])
-  const [collapsed, setCollapsed] = useState<Set<string>>(new Set())
 
-  // 그룹 있는 책: 기본 전부 접되, 활성 챕터가 든 그룹만 펼침
+  /**
+   * 그룹 있는 책: 기본 전부 접되, 활성 챕터가 든 그룹만 펼침.
+   *
+   * ⚠️ **첫 렌더에서 계산한다** — 예전에는 `useEffect` 로 접었다. 결과가 화면에는 같아
+   *    보였지만, 접히는 것은 **하이드레이션 뒤**라 서버가 보낸 HTML 에는 챕터 행이
+   *    **전부** 들어 있었다. 실측 2026-08-30 (Clarissa · 528장):
+   *    이 목차 `<nav>` 하나가 **637KB** 로 문서 1.18MB 의 54% 였다.
+   *    접을 작정이었던 것을 그리고 나서 지우고 있었던 셈이다(레이아웃도 한 번 튄다).
+   *
+   *    발행 316권 중 100장 넘는 책이 17권(그룹 있는 13 · 평면 4)이고, 챕터는 계속 는다.
+   *
+   * 서버와 클라이언트가 **같은 props(chapters·activeIdx)로 같은 값**을 내므로
+   * 하이드레이션 불일치가 없다.
+   */
+  const [collapsed, setCollapsed] = useState<Set<string>>(() => {
+    const next = new Set<string>()
+    if (!segments.some((s) => s.label)) return next
+    for (const s of segments) {
+      if (s.label && !s.items.some((c) => c.chapter_idx === activeIdx)) next.add(s.key)
+    }
+    return next
+  })
+
+  // 챕터 목록 자체가 바뀌면(다른 책) 접힘 상태를 다시 세운다.
+  //   ⚠️ 첫 렌더는 위 initializer 가 이미 처리했다 — 여기서 또 하면 같은 일을 두 번 한다.
+  //      그래서 **처음 한 번은 건너뛴다.**
+  const firstSegments = useRef(segments)
   useEffect(() => {
-    if (!segments.some((s) => s.label)) return
+    if (firstSegments.current === segments) return
+    firstSegments.current = segments
+    if (!segments.some((s) => s.label)) {
+      setCollapsed(new Set())
+      return
+    }
     const next = new Set<string>()
     for (const s of segments) {
       if (s.label && !s.items.some((c) => c.chapter_idx === activeIdx)) next.add(s.key)

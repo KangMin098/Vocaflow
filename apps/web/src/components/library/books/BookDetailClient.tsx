@@ -51,6 +51,15 @@ export function BookDetailClient({
   const [supplementaryExpanded, setSupplementaryExpanded] = useState(false)
   const [previewSet, setPreviewSet] = useState<PublishedVocabSet | null>(null)
   const [pendingId, setPendingId] = useState<string | null>(null)
+  /**
+   * 챕터 칩을 한 번에 몇 개까지 그릴 것인가.
+   *
+   * ⚠️ 상한이 없을 때 Clarissa(450챕터)의 이 격자만으로 수백 KB 가 나갔다 —
+   *    도서 상세 문서 1.18MB 중 목차 `<nav>` 637KB 와 함께 대부분을 차지했다.
+   *    발행 316권 중 100챕터 넘는 책이 17권이고 챕터는 계속 는다.
+   *    처음 60개만 그리고 나머지는 눌러서 편다(`/library/books` 카탈로그와 같은 처방).
+   */
+  const [shownChapters, setShownChapters] = useState(60)
   const [localSubscribed, setLocalSubscribed] = useState<Set<string>>(
     () => new Set(subscribedIds),
   )
@@ -176,7 +185,7 @@ export function BookDetailClient({
               </div>
             )}
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-              {chapterSets.map((set) => {
+              {chapterSets.slice(0, shownChapters).map((set) => {
                 const subscribed = localSubscribed.has(set.id)
                 const pending = pendingId === set.id
                 return (
@@ -207,6 +216,22 @@ export function BookDetailClient({
                 )
               })}
             </div>
+
+            {/* 접힌 나머지 — 몇 챕터가 더 있는지 숫자로 말한다. */}
+            {chapterSets.length > shownChapters && (
+              <div className="mt-3 flex flex-col items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setShownChapters((n) => n + 60)}
+                  className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[12.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706]"
+                >
+                  {Math.min(60, chapterSets.length - shownChapters)}챕터 더 보기
+                </button>
+                <p aria-live="polite" className="font-mono text-[10.5px] text-[var(--t2)]">
+                  {shownChapters} / {chapterSets.length}
+                </p>
+              </div>
+            )}
           </div>
         )}
       </article>
