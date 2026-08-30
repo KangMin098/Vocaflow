@@ -256,6 +256,151 @@ async function refreshJobProgress(bookId) {
   console.log(`[job] ${chaptersDone}/${chapters.length}ch · ${questionsCreated}문 · status=${status}`)
 }
 
+// ── batch (진입밴드 대량 드레인) ───────────────────────────────
+//
+// 왜 배치가 따로 있나: 챕터 하나에 content → 저술 → insert 왕복 3회는 40권 1,091챕터에
+//   맞지 않는다. 여러 챕터 본문을 한 파일로 뽑고, 채운 파일 하나를 한 번에 넣는다.
+//   ⚠️ **검증은 위 `validateQuestions` 를 그대로 쓴다** — 배치용 검증을 따로 쓰면 규칙이 갈린다.
+//
+// 대상 선정: 학습자가 실제로 도달하는 장만 — chapter_v_level ≤ 7(수능 1-2등급 이하) 이고
+//   300~6,000단어. 너무 짧으면 물을 것이 없고, 너무 길면 한 번에 읽히지 않는다.
+//   **이미 문항이 있는 장은 제외한다** — 재실행 안전의 전부다.
+
+const BATCH_MAX_V = 7
+const BATCH_MIN_WORDS = 300
+const BATCH_MAX_WORDS = 6000
+
+async function cmdExportBatch(bookId, limit, outPath) {
+  const book = await getBook(bookId)
+  const counts = await existingCounts(bookId)
+  const { data, error } = await db
+    .from('library_chapters_master')
+    .select('chapter_idx, chapter_title, content_hash, word_count, chapter_v_level')
+    .eq('library_book_id', bookId)
+    .lte('chapter_v_level', BATCH_MAX_V)
+    .gte('word_count', BATCH_MIN_WORDS)
+    .lte('word_count', BATCH_MAX_WORDS)
+    .order('chapter_idx', { ascending: true })
+  if (error) throw new Error(`chapters lookup failed: ${error.message}`)
+
+  const todo = (data ?? []).filter((c) => (counts.get(c.chapter_idx) ?? 0) === 0).slice(0, limit)
+  const hashes = [...new Set(todo.map((c) => c.content_hash))]
+  const contentByHash = new Map()
+  for (let i = 0; i < hashes.length; i += 50) {
+    const { data: chunks, error: cErr } = await db
+      .from('content_chunks')
+      .select('hash, content')
+      .in('hash', hashes.slice(i, i + 50))
+    if (cErr) throw new Error(`content_chunks lookup failed: ${cErr.message}`)
+    for (const r of chunks ?? []) contentByHash.set(r.hash, r.content)
+  }
+
+  const payload = {
+    book: { id: book.id, title: book.title, book_v_level: book.book_v_level },
+    target_per_chapter: targetPerChapter(book.book_v_level),
+    chapters: todo.map((c) => ({
+      chapter_idx: c.chapter_idx,
+      chapter_title: c.chapter_title,
+      word_count: c.word_count,
+      chapter_v_level: c.chapter_v_level,
+      content: contentByHash.get(c.content_hash) ?? '',
+      questions: [],
+    })),
+  }
+  fs.mkdirSync(path.dirname(outPath), { recursive: true })
+  fs.writeFileSync(outPath, JSON.stringify(payload, null, 2))
+  console.log(
+    `[export] ${book.title} — 남은 대상 ${(data ?? []).filter((c) => (counts.get(c.chapter_idx) ?? 0) === 0).length}장 중 ${todo.length}장 → ${outPath}`,
+  )
+}
+
+/**
+ * 정답 위치 쏠림 검사 — **보기를 섞는 화면이 없다.**
+ *
+ * 2026-08-30 실측: 기존 1,019문항의 correct_index 분포는 253/256/261/249 로 고르다.
+ *   그런데 한 번에 여러 챕터를 저술하면 무심코 정답을 계속 첫 보기에 두게 된다
+ *   (실제로 첫 배치 5문항이 전부 index 0 이었다). 그러면 학습자가 본문을 읽지 않고
+ *   **첫 보기만 찍어도 맞는다** — 문항이 있어도 학습이 일어나지 않는다.
+ *
+ * 보기가 3개 이상인 문항만 센다(truefalse 는 위치가 2개뿐이라 쏠림 판정이 무의미하다).
+ */
+function checkAnswerSpread(questions, label) {
+  const multi = questions.filter((q) => q.options.length >= 3)
+  if (multi.length === 0) return
+  const dist = new Map()
+  for (const q of multi) dist.set(q.correct_index, (dist.get(q.correct_index) ?? 0) + 1)
+  const top = Math.max(...dist.values())
+  const share = top / multi.length
+  const summary = [...dist].sort((a, b) => a[0] - b[0]).map(([i, n]) => `${i}:${n}`).join(' ')
+  if (multi.length >= 8 && share > 0.5) {
+    throw new Error(
+      `${label}: 정답 위치가 한쪽에 쏠렸다(${summary} · 최대 ${Math.round(share * 100)}%). ` +
+        '화면은 보기를 섞지 않는다 — 첫 보기만 찍어도 맞는 문항집이 된다. 위치를 분산할 것.',
+    )
+  }
+  if (share > 0.5) {
+    console.warn(`[warn] ${label}: 정답 위치 쏠림 ${summary} (문항이 적어 경고만)`)
+  }
+}
+
+async function cmdInsertBatch(filePath, commit) {
+  const payload = JSON.parse(fs.readFileSync(filePath, 'utf8'))
+  const bookId = payload.book?.id
+  if (!bookId) throw new Error('book.id 가 없다')
+  const book = await getBook(bookId)
+
+  // ⚠️ **넣기 전에 전량을 본다.** 챕터별로 넣다가 중간에 실패하면 반쪽만 들어간다.
+  const allQuestions = []
+  for (const ch of payload.chapters ?? []) {
+    if (!Array.isArray(ch.questions) || ch.questions.length === 0) continue
+    allQuestions.push(...validateQuestions(ch.questions))
+  }
+  checkAnswerSpread(allQuestions, `${book.title} 배치`)
+
+  let okCh = 0
+  let skipped = 0
+  let questionsTotal = 0
+  for (const ch of payload.chapters ?? []) {
+    if (!Array.isArray(ch.questions) || ch.questions.length === 0) {
+      skipped++
+      continue
+    }
+    // ⚠️ 위 insert 와 **같은** 검증. 빈 값·범위 밖 correctIndex 는 여기서 걸린다.
+    const questions = validateQuestions(ch.questions)
+    questionsTotal += questions.length
+    if (!commit) {
+      okCh++
+      continue
+    }
+    const { error: delErr } = await db
+      .from('library_chapter_quiz')
+      .delete()
+      .eq('library_book_id', bookId)
+      .eq('chapter_idx', ch.chapter_idx)
+    if (delErr) throw new Error(`delete existing failed (ch=${ch.chapter_idx}): ${delErr.message}`)
+    const rows = questions.map((q, i) => ({
+      library_book_id: bookId,
+      chapter_idx: ch.chapter_idx,
+      q_order: i + 1,
+      type: q.type,
+      question: q.question,
+      question_ko: q.question_ko,
+      options: q.options,
+      correct_index: q.correct_index,
+      source_snippet: q.source_snippet,
+      source_sentence_idx: q.source_sentence_idx,
+      book_v_level: book.book_v_level,
+    }))
+    const { error: insErr } = await db.from('library_chapter_quiz').insert(rows)
+    if (insErr) throw new Error(`insert failed (ch=${ch.chapter_idx}): ${insErr.message}`)
+    okCh++
+  }
+  console.log(
+    `[insert-batch] ${book.title} — 챕터 ${okCh} · 문항 ${questionsTotal} · 비어서 건너뜀 ${skipped}${commit ? '' : ' [dry-run]'}`,
+  )
+  if (commit) await refreshJobProgress(bookId)
+}
+
 // ── main ──────────────────────────────────────────────────────
 const [, , cmd, ...rest] = process.argv
 const commit = rest.includes('--commit')
@@ -272,11 +417,30 @@ try {
     if (!rest[0] || rest[1] == null || !file)
       throw new Error('usage: insert <book_id> <chapter_idx> --file <path> [--commit]')
     await cmdInsert(rest[0], Number.parseInt(rest[1], 10), file, commit)
+  } else if (cmd === 'export-batch') {
+    const limFlag = rest.indexOf('--limit')
+    const outFlag = rest.indexOf('--out')
+    if (!rest[0] || outFlag < 0)
+      throw new Error('usage: export-batch <book_id> [--limit N] --out <path>')
+    await cmdExportBatch(rest[0], limFlag >= 0 ? Number.parseInt(rest[limFlag + 1], 10) : 999, rest[outFlag + 1])
+  } else if (cmd === 'insert-batch') {
+    const fileFlag = rest.indexOf('--file')
+    if (fileFlag < 0) throw new Error('usage: insert-batch --file <path> [--commit]')
+    await cmdInsertBatch(rest[fileFlag + 1], commit)
   } else if (cmd === 'refresh-job') {
     if (!rest[0]) throw new Error('usage: refresh-job <book_id>')
     await refreshJobProgress(rest[0])
   } else {
-    console.error('commands: plan <book_id> | content <book_id> <ch> | insert <book_id> <ch> --file q.json [--commit] | refresh-job <book_id>')
+    for (const line of [
+      'commands:',
+      '  plan <book_id>',
+      '  content <book_id> <ch>',
+      '  insert <book_id> <ch> --file q.json [--commit]',
+      '  export-batch <book_id> [--limit N] --out <path>',
+      '  insert-batch --file <path> [--commit]',
+      '  refresh-job <book_id>',
+    ])
+      console.error(line)
     process.exit(1)
   }
 } catch (e) {
