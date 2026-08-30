@@ -94,8 +94,15 @@ const IRREGULAR = {
  */
 const irregularOf = (t) => (Object.hasOwn(IRREGULAR, t) ? IRREGULAR[t] : [])
 
+// 분음부호를 벗긴다 — 표제어에 accent 가 있으면 ASCII 예문과 영원히 안 맞는다.
+// `crèche` 는 accent 를 살리면 ASCII_OK 에서, `creche` 로 쓰면 어간 `crèch` 와 안 맞아
+// no_headword 로 탈락했다. 양쪽에서 걸리니 그 낱말의 예문 칸은 **영영 빈다**.
+// 대상 5낱말(entrée · crèche · fainéant · crêpe · sou’wester). 이 정규화는 매칭을 넓히기만 한다.
+const deaccent = (s) => s.normalize('NFD').replace(/\p{M}/gu, '')
+
 function containsWord(phrase, word) {
-  const tokens = word.toLowerCase().replace(/[^\p{L}\p{N}]/gu, ' ').split(/\s+/).filter((t) => t.length >= 2)
+  phrase = deaccent(phrase)
+  const tokens = deaccent(word).toLowerCase().replace(/[^\p{L}\p{N}]/gu, ' ').split(/\s+/).filter((t) => t.length >= 2)
   if (!tokens.length) return true
   const forms = []
   for (const t of tokens) {
@@ -110,7 +117,7 @@ function containsWord(phrase, word) {
 
 const txt = (v) => (v ?? '').toString().trim()
 const hasKo = (s) => /[가-힣]/.test(s)
-const ASCII_OK = /^[ -~‘’“”]+$/
+const ASCII_OK = /^[ -~‘’“”]+$/  // deaccent 를 거친 뒤 검사한다 — 이 게이트의 목적은 한글·CJK·이모지 차단이지 accent 금지가 아니다.
 
 if (MODE === 'chunk') {
   const targets = []
@@ -211,7 +218,7 @@ if (MODE === 'apply') {
       if (!ex && !ko) { rej.empty++; continue }
       if (ex) {
         const wc = ex.split(/\s+/).length
-        if (!ASCII_OK.test(ex)) { rej.non_ascii++; ex = '' }
+        if (!ASCII_OK.test(deaccent(ex))) { rej.non_ascii++; ex = '' }
         else if (wc < 4) { rej.too_short++; ex = '' }
         else if (wc > 22) { rej.too_long++; ex = '' }
         else if (!containsWord(ex, w)) { rej.no_headword++; ex = '' }
