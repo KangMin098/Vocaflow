@@ -22,6 +22,11 @@ import Link from 'next/link'
 import { useMemo, useState } from 'react'
 
 import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickButton'
+import {
+  SearchSortBar,
+  VolumeCard,
+  VolumeCover,
+} from '@/components/library/textbooks/ShelfControls'
 import type { Shelf, ShelfVolume } from '@/lib/textbook/shelf'
 import {
   AXIS_LABEL,
@@ -34,17 +39,16 @@ import {
   type Facets,
   type Selection,
 } from '@/lib/textbook/shelf-filter'
+import {
+  DEFAULT_SORT,
+  onlyReady,
+  searchVolumes,
+  sortVolumes,
+  type ShelfView,
+} from '@/lib/textbook/shelf-search'
 import { groupByStage } from '@/lib/textbook/shelf-stage'
+import { STATUS_LABEL } from '@/lib/textbook/shelf-status'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
-
-
-const STATUS_LABEL: Record<ShelfVolume['status'], string> = {
-  ready: '지금 펼치기',
-  building: '준비 중',
-  empty: '근간 예정',
-  // '없음' 과 절대 같은 말을 쓰지 않는다 — 못 잰 것을 없다고 적는 것이 이 화면의 첫 결함이었다.
-  unmeasured: '재고 확인 중',
-}
 
 export function TextbookShelf({
   shelf,
@@ -66,11 +70,31 @@ export function TextbookShelf({
   canPick?: boolean
 }) {
   const [sel, setSel] = useState<Selection>(EMPTY_SELECTION)
+  const [query, setQuery] = useState('')
+  const [sort, setSort] = useState<string>(DEFAULT_SORT)
+  const [view, setView] = useState<ShelfView>('list')
+  const [readyOnly, setReadyOnly] = useState(false)
+
   // 축 값은 **재고에서** 뽑는다 — 손으로 적은 목록은 시리즈가 바뀌면 갈린다.
   const facets = useMemo(() => buildFacets(shelf.volumes), [shelf.volumes])
-  const shown = useMemo(() => filterVolumes(shelf.volumes, sel), [shelf.volumes, sel])
+
+  // ⚠️ 순서가 의미를 가진다: **좁히고 → 줄세운다.** 뒤집으면 정렬이 버려진 권까지 훑고,
+  //    더 나쁘게는 '문항 많은 순' 이 필터로 사라질 권을 기준으로 잡아 순서가 흔들려 보인다.
+  const shown = useMemo(() => {
+    const filtered = filterVolumes(shelf.volumes, sel)
+    const searched = searchVolumes(filtered, query)
+    return onlyReady(searched, readyOnly)
+  }, [shelf.volumes, sel, query, readyOnly])
+
+  const ordered = useMemo(() => sortVolumes(shown, sort), [shown, sort])
+
   // 1차 진열은 매대다 — 시중 교재 코너가 초등/중등/고등을 먼저 나누고 그 안에 계단을 세운다.
-  const groups = useMemo(() => groupByStage(shown), [shown])
+  //
+  // ⚠️ **정렬을 고르면 매대 묶음을 푼다.** 학령으로 묶은 채 '문항 많은 순' 을 걸면
+  //    묶음 안에서만 정렬되어 전체 1등이 가운데 매대에 숨는다 — 학습자는 정렬이
+  //    고장 났다고 읽는다. 기본(계단 순)일 때만 묶고, 그 밖에는 한 줄로 편다.
+  const grouped = sort === DEFAULT_SORT && view === 'list'
+  const groups = useMemo(() => (grouped ? groupByStage(ordered) : []), [grouped, ordered])
 
   return (
     <section
@@ -133,13 +157,27 @@ export function TextbookShelf({
         total={shelf.volumes.length}
       />
 
+      <SearchSortBar
+        query={query}
+        onQuery={setQuery}
+        sort={sort}
+        onSort={setSort}
+        view={view}
+        onView={setView}
+        readyOnly={readyOnly}
+        onReadyOnly={setReadyOnly}
+        readyCount={shelf.readyCount}
+      />
+
       {shown.length === 0 ? (
         // 0건을 빈 화면으로 두지 않는다 — 무엇을 풀어야 다시 보이는지 말해 준다.
         <p
           role="status"
           className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-5 font-body text-[13px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]"
         >
-          고른 조건에 맞는 권이 없어요. 위에서 조건을 하나 풀어 보세요.
+          {query.trim()
+            ? `'${query.trim()}' 에 걸리는 권이 없어요. 검색어를 지우거나 조건을 하나 풀어 보세요.`
+            : '고른 조건에 맞는 권이 없어요. 위에서 조건을 하나 풀어 보세요.'}
         </p>
       ) : (
         <div
@@ -148,36 +186,67 @@ export function TextbookShelf({
           // 건너뛰기가 도착하는 자리. `-1` 이라 Tab 순서에는 안 들어가고 프로그램 포커스만 받는다.
           className="flex flex-col gap-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-4"
         >
-          {groups.map((g) => (
-            <section key={g.label} aria-label={`${g.label} 매대`} className="flex flex-col gap-3">
-              <h3 className="flex flex-wrap items-baseline gap-x-3 border-b border-[var(--bd)] pb-2">
-                <span className="font-editorial text-[19px] font-[500] leading-none text-[var(--t1)]">
-                  {g.label}
-                </span>
-                <span className="font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
-                  {g.volumes.length}권
-                </span>
-                {/* 매대 팻말은 라벨이 말하지 않는 것만 말한다 — 이 매대가 무엇을 시키는지. */}
-                {g.says && (
-                  <span className="min-w-0 flex-1 font-body text-[11.5px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
-                    {g.says}
+          {grouped ? (
+            groups.map((g) => (
+              <section key={g.label} aria-label={`${g.label} 매대`} className="flex flex-col gap-3">
+                <h3 className="flex flex-wrap items-baseline gap-x-3 border-b border-[var(--bd)] pb-2">
+                  <span className="font-editorial text-[19px] font-[500] leading-none text-[var(--t1)]">
+                    {g.label}
                   </span>
-                )}
-              </h3>
-              <ol className="flex flex-col gap-3">
-                {g.volumes.map((v) => (
-                  <li key={v.step}>
+                  <span className="font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
+                    {g.volumes.length}권
+                  </span>
+                  {/* 매대 팻말은 라벨이 말하지 않는 것만 말한다 — 이 매대가 무엇을 시키는지. */}
+                  {g.says && (
+                    <span className="min-w-0 flex-1 font-body text-[11.5px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
+                      {g.says}
+                    </span>
+                  )}
+                </h3>
+                <ol className="flex flex-col gap-3">
+                  {g.volumes.map((v) => (
+                    <li key={v.step}>
+                      <VolumeRow
+                        volume={v}
+                        picked={picked.includes(v.step)}
+                        canPick={canPick}
+                        signedIn={signedIn}
+                      />
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            ))
+          ) : (
+            // 매대 묶음을 푼 진열 — 정렬을 골랐거나 격자를 골랐을 때.
+            <ol
+              className={
+                view === 'grid'
+                  ? 'grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3'
+                  : 'flex flex-col gap-3'
+              }
+            >
+              {ordered.map((v) => (
+                <li key={v.step}>
+                  {view === 'grid' ? (
+                    <VolumeCard
+                      volume={v}
+                      picked={picked.includes(v.step)}
+                      canPick={canPick}
+                      signedIn={signedIn}
+                    />
+                  ) : (
                     <VolumeRow
-                volume={v}
-                picked={picked.includes(v.step)}
-                canPick={canPick}
-                signedIn={signedIn}
-              />
-                  </li>
-                ))}
-              </ol>
-            </section>
-          ))}
+                      volume={v}
+                      picked={picked.includes(v.step)}
+                      canPick={canPick}
+                      signedIn={signedIn}
+                    />
+                  )}
+                </li>
+              ))}
+            </ol>
+          )}
         </div>
       )}
     </section>
@@ -203,20 +272,10 @@ function VolumeRow({
         ready ? 'border-[var(--bd)] bg-[var(--bg)]' : 'border-dashed border-[var(--bd)] bg-[var(--bg2)]'
       }`}
     >
-      {/* 계단 번호 = 진열 순서. 책등처럼 세운다. */}
-      <span
-        aria-hidden
-        className={`flex h-[62px] w-[46px] shrink-0 flex-col items-center justify-center rounded-[var(--r-sm)] font-display ${
-          ready
-            ? 'bg-[var(--p)] text-[var(--on-p)]'
-            : 'bg-[var(--bg3)] text-[var(--t2)]'
-        }`}
-      >
-        <span className="font-mono text-[9px] font-[700] uppercase tracking-[0.1em] opacity-80">
-          STEP
-        </span>
-        <span className="text-[22px] font-[800] leading-none tabular-nums">{v.step}</span>
-      </span>
+      {/* 계단 번호 = 진열 순서. 책등처럼 세운다.
+          표지는 `ShelfControls` 가 소유한다 — 목록과 격자가 **같은 표지**를 써야
+          같은 책으로 읽힌다(진열을 바꿨더니 다른 책처럼 보이면 토글이 해가 된다). */}
+      <VolumeCover volume={v} />
 
       <div className="min-w-0">
         <h3 className="font-editorial text-[19px] font-[500] leading-snug text-[var(--t1)] md:text-[21px]">

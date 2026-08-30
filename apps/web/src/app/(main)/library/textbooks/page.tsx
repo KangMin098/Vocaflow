@@ -9,7 +9,10 @@
 // 데이터는 실측 재고에서 나온다 — 목업이 없다. 재고가 비면 그 계단은 '근간 예정' 으로
 // 정직하게 표시된다(`shelf.ts` 의 status 판정).
 
+import { buildLevelChart } from '@vocaflow/library-pipeline'
+
 import { Screen } from '@/components/ui/ios'
+import { LevelChart } from '@/components/library/textbooks/LevelChart'
 import { TextbookShelf } from '@/components/library/textbooks/TextbookShelf'
 import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
@@ -23,6 +26,9 @@ export const metadata = {
 
 export default async function TextbooksPage() {
   const [shelf, mine] = await Promise.all([fetchTextbookShelf(), fetchMyTextbooks()])
+
+  // 레벨 차트는 **서버에서** 만든다 — 시장 규격(market-spec.json)이 클라이언트로 갈 이유가 없다.
+  const chart = buildLevelChart(shelf.volumes)
 
   return (
     <Screen width="wide" background="bg2" padX="md">
@@ -38,6 +44,23 @@ export default async function TextbooksPage() {
           canPick={mine.available}
           signedIn={mine.signedIn}
         />
+
+        {/* Progressive Disclosure — 레벨 차트는 고르다가 막혔을 때 펼치는 것이지
+            매대보다 먼저 나올 것이 아니다. 닫혀 있어도 DOM 에는 있어 검색·스크린리더가 찾는다. */}
+        <details className="group rounded-ios-2xl bg-[var(--bg)] px-5 py-4 shadow-ios-2 md:px-8">
+          <summary className="flex min-h-[44px] cursor-pointer list-none items-center gap-2 font-display text-[13px] font-[700] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] [&::-webkit-details-marker]:hidden">
+            <span
+              aria-hidden
+              className="inline-block motion-safe:transition-transform group-open:rotate-90"
+            >
+              ›
+            </span>
+            교재 레벨 차트 — 내 학년은 몇 계단일까요?
+          </summary>
+          <div className="pt-3">
+            <LevelChart chart={chart} />
+          </div>
+        </details>
       </div>
     </Screen>
   )

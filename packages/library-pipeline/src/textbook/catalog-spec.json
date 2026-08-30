@@ -1,0 +1,140 @@
+{
+  "$schema": "./catalog-spec.schema.json",
+  "generatedAt": "2026-08-30",
+  "provenance": {
+    "subject": "경쟁 상업 교재 카탈로그 사이트의 매대 표면(catalog surface)",
+    "primary": [
+      {
+        "site": "NE_Books (NE능률)",
+        "urls": [
+          "https://www.nebooks.co.kr/",
+          "https://m.nebooks.co.kr/pages/book/category.asp?c=BD02"
+        ],
+        "observedAt": "2026-08-30",
+        "alsoFrom": "사용자 제공 스크린샷 2장 (고등교재 > 독해 목록, 1·2페이지)",
+        "catalogSize": "고등교재>독해 89종"
+      }
+    ],
+    "rule": "직접 관측한 affordance 만 센다. '있을 법한' 기능은 세지 않는다.",
+    "limits": [
+      "이 자는 **기능 개수**를 센다 — 기능의 질을 재지 않는다. 검색창 하나와 좋은 검색은 여기서 같은 1점이다.",
+      "NE_Books 한 곳을 기준선으로 쓴다. 표본 1이므로 '업계 평균' 이 아니라 '관측된 상업 기준선' 이라고만 말할 수 있다.",
+      "종이 교재를 파는 곳과 즉시 학습을 파는 곳은 목적이 다르다. 그래서 구조적으로 저쪽이 가질 수 없는 축은 지수에 섞지 않고 별도(D)로 적는다 — 섞으면 지수가 자화자찬이 된다."
+    ]
+  },
+
+  "axes": [
+    {
+      "id": "C1",
+      "name": "탐색 축 (browse facet)",
+      "why": "무엇으로 좁힐 수 있는가. 축이 없으면 89종이 89종의 벽이다",
+      "market": 4,
+      "marketEvidence": ["교재 분류", "학습유형", "단계", "시리즈 칩"],
+      "ours": [
+        { "id": "school", "label": "학령", "probe": "학령" },
+        { "id": "level", "label": "수준", "probe": "수준" },
+        { "id": "type", "label": "유형", "probe": "유형" },
+        { "id": "source", "label": "지문 출처", "probe": "지문 출처" }
+      ]
+    },
+    {
+      "id": "C2",
+      "name": "검색·정렬·표시 제어",
+      "why": "찾기(검색)와 줄세우기(정렬)는 카탈로그의 기본 동작이다. 없으면 매대가 아니라 포스터다",
+      "market": 9,
+      "marketEvidence": [
+        "검색창", "정렬 최신순", "정렬 과거순", "정렬 조회순", "정렬 가나다순",
+        "목록 보기", "그리드 보기", "10개 더 보기", "판매중 교재만 보기"
+      ],
+      "ours": [
+        { "id": "search", "label": "검색창", "probe": "권 이름 · 학년 · 유형으로 찾기" },
+        { "id": "sort-step", "label": "정렬 계단 순", "probe": "계단 순" },
+        { "id": "sort-step-desc", "label": "정렬 높은 계단부터", "probe": "높은 계단부터" },
+        { "id": "sort-items", "label": "정렬 문항 많은 순", "probe": "문항 많은 순" },
+        { "id": "sort-types", "label": "정렬 유형 많은 순", "probe": "유형 많은 순" },
+        { "id": "sort-title", "label": "정렬 가나다순", "probe": "가나다순" },
+        { "id": "view-list", "label": "목록 보기", "probe": "목록 보기" },
+        { "id": "view-grid", "label": "격자 보기", "probe": "격자 보기" },
+        { "id": "ready-only", "label": "펼칠 수 있는 권만 보기", "probe": "지금 펼칠 수 있는 권만 보기" },
+        { "id": "sort-says", "label": "정렬 기준 설명", "probe": "초등 → 고등, 배우는 차례대로" }
+      ]
+    },
+    {
+      "id": "C3",
+      "name": "낱권 판단 근거 필드",
+      "why": "표지 앞에서 3초 안에 '내 것인가' 를 판단할 재료. 상업 매대가 가장 공들이는 자리다",
+      "market": 7,
+      "marketEvidence": [
+        "표지 이미지", "제목", "태그라인", "학년 배지", "상태 배지(판매중/절판)",
+        "책갈피 수", "부가서비스 버튼"
+      ],
+      "ours": [
+        { "id": "title", "label": "제목", "probe": "Vocaflow Reading" },
+        { "id": "band", "label": "대상 학령", "probe": "초등 저학년" },
+        { "id": "vlevel", "label": "V-Level", "probe": "· V" },
+        { "id": "itemCount", "label": "문항 수", "probe": "· 문항" },
+        { "id": "typeChips", "label": "수록 유형별 문항 수", "probe": "빈칸 낱말" },
+        { "id": "cover", "label": "표지 (재고 데이터에서 생성)", "probe": "STEP" },
+        { "id": "tagline", "label": "태그라인 (이 권이 무엇을 시키는가)", "probe": "낱말에서 문장으로" },
+        { "id": "statusBadge", "label": "상태 배지", "probe": "지금 펼치기" }
+      ]
+    },
+    {
+      "id": "C4",
+      "name": "표본 열람 (사기 전에 안을 본다)",
+      "why": "안을 못 보면 사지 않는다 — 상업 카탈로그가 미리보기·가이드북에 돈을 쓰는 이유",
+      "market": 2,
+      "marketEvidence": ["교재 가이드북 다운로드(PDF)", "교재 미리보기(30건 제한)"],
+      "ours": [{ "id": "open", "label": "지금 펼치기", "probe": "지금 펼치기" }]
+    },
+    {
+      "id": "C5",
+      "name": "레벨 안내",
+      "why": "'내 아이가 몇 단계인가' 는 교재 구매의 첫 질문이다",
+      "market": 1,
+      "marketEvidence": ["교재 레벨 차트"],
+      "ours": [
+        { "id": "chart", "label": "교재 레벨 차트", "probe": "교재 레벨 차트" },
+        {
+          "id": "chartProvenance",
+          "label": "레벨 규격의 근거 표시 (시중 79종 실측)",
+          "probe": "지문 어수 (시중 교재 실측)"
+        }
+      ]
+    },
+    {
+      "id": "C6",
+      "name": "부가 리소스",
+      "why": "정답·해설·음원이 없으면 혼자 못 쓴다. 종이 교재의 필수 부속",
+      "market": 4,
+      "marketEvidence": ["정답 및 해설", "MP3", "기타", "부가자료 전체 다운로드"],
+      "ours": []
+    },
+    {
+      "id": "C7",
+      "name": "재고 투명성",
+      "why": "몇 권인지, 그 안에 무엇이 얼마나 들었는지를 숫자로 말하는가",
+      "market": 1,
+      "marketEvidence": ["총 89종 표시 (낱권 수록 문항 수는 표시하지 않는다)"],
+      "ours": [
+        { "id": "volumeCount", "label": "총 권수", "probe": "7권 전체" },
+        { "id": "perVolume", "label": "권별 문항 수", "probe": "· 문항" },
+        { "id": "perType", "label": "유형별 문항 수", "probe": "빈칸 낱말" }
+      ]
+    }
+  ],
+
+  "structural": {
+    "note": "지수(C)에 **섞지 않는다.** 종이 교재 카탈로그가 구조적으로 가질 수 없는 것이라 같은 자로 잴 수 없다. 별도로 적어 두는 이유는, 우리가 어디서 이기는지를 잊지 않기 위해서다.",
+    "items": [
+      { "id": "D1", "label": "결제 없이 즉시 학습 시작", "probe": "지금 펼치기" },
+      { "id": "D2", "label": "실측 재고 노출 (문항 수가 DB 실계수)", "probe": "· 문항" },
+      { "id": "D3", "label": "비로그인 공개 카탈로그", "probe": "교재 서가" }
+    ]
+  },
+
+  "target": {
+    "overallIndex": 1.2,
+    "note": "종합은 축별 지수의 기하평균 — 한 축이 0 이면 종합도 0 이어야 맞다(검색이 없는 매대는 다른 게 좋아도 매대가 아니다)."
+  }
+}

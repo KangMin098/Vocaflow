@@ -10,6 +10,42 @@
 
 ## Unreleased (v06.34 → next)
 
+### 교재 매대가 익명 방문자에게 **재고를 못 보여 주고 있었다** — 그리고 매대는 한 번도 측정된 적이 없었다
+
+`/library/textbooks` 가 "브랜딩 결과물인가" 라는 물음에서 시작해 **두 가지를 실측**했다.
+
+**① 가용성 결함 (해소)** — 익명 요청에서 집계 RPC 둘이 `statement_timeout` 3초를 넘겨 취소되고
+있었고, 그 결과 공개 서가가 **7권 중 6권을 '재고 확인 중'** 으로 인쇄했다. 인덱스는 이미 있었다 —
+문제는 대량 적재 뒤 가시성 맵이 낡아 `Heap Fetches: 119735`(140,754행의 85%)로 힙 170MB 를
+다시 읽던 것이었다. **이름만 index-only** 였다.
+
+| | 전 | 후 |
+|---|---|---|
+| 인덱스 스캔 | 3,105 ms | **27 ms** (Heap Fetches 0) |
+| `textbook_shelf_sources` | 3,533 ms | **274 ms** |
+| `textbook_shelf_inventory` | 타임아웃 | **243 ms** |
+| '재고 확인 중' 권수 | **6/7** | **0/7** |
+
+`VACUUM (ANALYZE)` 로 고쳤고, **다음 드레인에 되돌아가지 않도록** 마이그레이션
+`20260830180000` 으로 이 표의 autovacuum insert 방아쇠를 29,151행 → **3,408행**으로 낮췄다.
+(insert 는 죽은 튜플을 안 만들어 일반 임계값이 아니라 insert 전용 임계값이 방아쇠다.)
+
+**② 매대 지수 신설** — `market-benchmark.mjs` 는 **교재 안**(해설·지문·유형)을 재고 이미 1.452 다.
+그런데 학습자가 처음 만나는 **매대**는 재 본 적이 없었다. 경쟁 상업 카탈로그(NE_Books,
+1차 관측 2026-08-30)를 기준선으로 `catalog-spec.json` + `scripts/textbook/catalog-benchmark.mjs`
+를 만들어 **렌더된 HTML 에만 물어** 잰다(코드에 있어도 화면에 없으면 0점).
+
+기준선 **13/28 · 종합 0.00**(검색·레벨 안내·부가 리소스 세 축이 0이라 기하평균이 0). 이어서
+검색·정렬 5종·목록/격자·펼칠 수 있는 권만 보기(`shelf-search.ts`), 재고 데이터에서 생성하는
+**표지**, 시중 79종 5,214쪽 실측 위에 계단을 얹는 **교재 레벨 차트**(`level-chart.ts`)를 넣어
+**24/28** 로 올렸다. 남은 0축은 C6 부가 리소스.
+
+- 신규: `packages/library-pipeline/src/textbook/{catalog-spec.json,level-chart.ts}` ·
+  `scripts/textbook/catalog-benchmark.mjs` · `apps/web/src/lib/textbook/{shelf-search.ts,shelf-status.ts}` ·
+  `apps/web/src/components/library/textbooks/{ShelfControls.tsx,LevelChart.tsx}`
+- 마이그레이션: `20260830180000_dcp_items_autovacuum_insert_tuning`
+- 회귀 31 (레벨 차트 12 + 매대 찾기·줄세우기 19)
+
 ### 문항 생성 배치는 **조회가 아니라 원글당 CPU** 가 병목이다 (미해결 질문에 대한 답)
 
 앞서 "V4 재실행 8분 10초가 어디로 가는지 안 쟀다 — 다음 사람은 여기를 먼저 재라" 고
