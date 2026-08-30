@@ -10,6 +10,22 @@
 
 ## Unreleased (v06.34 → next)
 
+### dev 서버와 빌드의 `.next` 공유 — 모든 화면이 CSS 없이 렌더되던 원인 차단
+
+`next dev` 가 뜬 채로 다른 세션이 `npx next build` 를 돌리자 빌드가 `.next/static` 을 비웠고,
+dev 서버의 매니페스트는 이미 낸 청크를 계속 가리켜 `/_next/static/css/app/layout.css` 가 404 →
+**전 화면이 스타일 없이** 렌더됐다(sr-only 텍스트·아이콘 대체 문자까지 노출). 서버는 살아 있고
+HTML 도 정상이라 증상만으로는 원인이 안 보인다.
+
+- **distDir 분리** — dev 기본값을 `.next-dev` 로(`next.config.mjs` 가 phase 를 받아 결정).
+  빌드가 지우는 `.next` 와 애초에 겹치지 않는다. `NEXT_DIST_DIR` 로 계속 덮어쓸 수 있다.
+- **소유권 표식** — dev 가 `<distDir>/.dev-server-owner.json` 에 PID 를 남기고 60초마다 touch,
+  종료 시 삭제. `next build` 는 대상 distDir 에 살아 있는 표식이 있으면 안내 메시지와 함께 즉시 실패
+  (PID 생존 + mtime 3분 이내 둘 다 볼 것 — PID 재사용·유령 표식으로 정상 빌드가 막히지 않게).
+  탈출구 `NEXT_ALLOW_DIST_CLOBBER=1`.
+- webpack watch 무시 대상을 `.next/**` → `.next*/**` 로 확장 (세션별 distDir 전부 포함).
+- 문서: `apps/web/CLAUDE.md` 동시 세션 주의사항에 한 항목 추가.
+
 ### 문항 생성 배치 성능 — 3회 연속 실패, 원인 분석하고 중단한다
 
 유휴 원글(문항 0개) 1만여 편을 해소하려 했으나 **V7 배치가 세 번 연속 실패**했다.

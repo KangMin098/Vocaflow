@@ -206,6 +206,13 @@ pnpm --filter web test:e2e         # 전체 e2e (smoke + 학습루프 + wordvaul
 - 새 화면/모듈 런타임 검증을 했으면 그 시나리오를 04-ui-smoke 또는 새 spec 으로 **남겨서** 다음부터 자동 회귀되게 할 것
 - 마이크 실녹음 검증은 fake-mic 플래그 필요: `--use-fake-ui-for-media-stream --use-fake-device-for-media-stream`
 - ⚠️ **dev 서버는 워크스페이스에 1개만** — 멀티 세션이 각자 `next dev` 를 띄우면 `.next` 공유 오염으로 라우트가 무작위 404 (실측 2026-07-07). 이미 떠 있는 서버를 재사용하고, 오염 시 모든 서버 종료 → `.next` 삭제 → 1개만 재기동.
+- ⚠️ **`next build` 는 dev 서버가 뜬 채로 돌리지 말 것 — 돌려도 안전하게 만들어 두었다.** dev 는
+  `.next-dev`, 빌드는 `.next` 로 **distDir 이 분리**돼 있고(`next.config.mjs`), 빌드가 dev 의
+  distDir 을 지우려 하면 소유권 표식(`<distDir>/.dev-server-owner.json`, dev 가 60초마다 touch)을
+  보고 **즉시 실패**한다. 검증 빌드는 `NEXT_DIST_DIR=.next-verify pnpm --filter web build`.
+  실측 2026-08-30 — 분리 전에는 동시 세션의 `npx next build` 가 `.next/static` 을 비워
+  `/_next/static/css/app/layout.css` 가 404 → **모든 화면이 CSS 없이** 렌더됐다(HTML·서버는 정상이라
+  "스타일만 안 먹는다" 로 보여 원인이 안 보인다). 표식이 잘못 남았으면 그 파일을 지운다.
 - ⚠️ **인증 상태는 `playwright-auth/` 에 저장한다 — `test-results/` 에 두지 말 것.** Playwright 는
   실행 시작 때 output 디렉터리를 통째로 지우므로, 동시 세션이 있으면 **남의 실행이 내 스펙의
   로그인 상태를 지운다.** 그러면 스펙은 엉뚱한 증상으로 실패한다 — 실측 2026-08-15,
