@@ -1,94 +1,115 @@
 // apps/web/src/lib/supabase/__tests__/paged-select.test.ts
 //
-// 회귀 고정: **1,000행 상한을 넘겨서 끝까지 받는다.**
+// 행 상한을 넘기는 두 헬퍼의 회귀.
 //
-// 이 헬퍼가 생긴 이유는 파일 상단 주석에 있다 — 2026-08-30 하루에 같은 결함을 세 곳에서
-// 만났고 전부 오류 없이 화면 숫자만 틀렸다. 그래서 "한 번 더 요청하는가" 를 못 박는다.
+// ── 왜 (실측 2026-08-30) ─────────────────────────────────────────────
+// PostgREST 는 한 응답에 **1,000행까지만** 준다 — 테이블 조회도, **RPC 도** 그렇다.
+// 오류가 아니라 조용히 잘리므로, 잘못 쓰면 아무도 모르는 채 수만 틀린다:
+//
+//     vocabularies 1,945행 계정  →  단일 select 1,000 / 페이지네이션 1,945
+//     표면형 1,500개 → RPC 1회   →  1,000행 / 500개씩 쪼개면 1,499행
+//
+// 그래서 두 헬퍼가 지켜야 할 성질을 못 박는다:
+//   ① 마지막 페이지가 덜 찼을 때 **멈춘다** (무한 루프가 아니다)
+//   ② 딱 맞아떨어질 때도 **한 번 더 확인하고** 멈춘다 (마지막 행을 잃지 않는다)
+//   ③ 실패는 **삼키지 않는다** — 반쯤 받은 결과를 정상이라고 부르면 그게 더 나쁘다
 
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
-import { PAGE_SIZE, pagedSelect, pagedSelectIn } from '../paged-select'
+import { PAGE_SIZE, chunkedRpc, pagedSelect } from '@/lib/supabase/paged-select'
 
-/** from/to 를 받아 그 구간만큼 잘라 주는 가짜 조회. 실제 PostgREST 처럼 상한도 지킨다. */
-function fakeTable(total: number, calls: Array<[number, number]> = []) {
-  return (from: number, to: number) => {
+/** `total` 행을 가진 가짜 테이블. 요청 범위만큼 잘라 준다(PostgREST 처럼 상한도 건다). */
+function fakeTable(total: number) {
+  const calls: Array<[number, number]> = []
+  const run = (from: number, to: number) => {
     calls.push([from, to])
-    const size = Math.min(to - from + 1, PAGE_SIZE)
-    const rows = []
-    for (let i = from; i < Math.min(from + size, total); i++) rows.push({ i })
+    const width = Math.min(to - from + 1, PAGE_SIZE)
+    const rows = Array.from({ length: Math.max(0, Math.min(width, total - from)) }, (_, i) => ({
+      id: from + i,
+    }))
     return Promise.resolve({ data: rows, error: null })
   }
+  return { run, calls }
 }
 
 describe('pagedSelect', () => {
-  it('1,000행 이하면 한 번만 요청한다', async () => {
-    const calls: Array<[number, number]> = []
-    const rows = await pagedSelect<{ i: number }>(fakeTable(300, calls), 'x')
-    expect(rows).toHaveLength(300)
-    expect(calls).toHaveLength(1)
+  it('상한보다 적으면 한 번만 부른다', async () => {
+    const t = fakeTable(3)
+    const rows = await pagedSelect<{ id: number }>(t.run, '테스트')
+    expect(rows).toHaveLength(3)
+    expect(t.calls).toHaveLength(1)
   })
 
-  it('정확히 1,000행이면 한 번 더 요청해 끝을 확인한다', async () => {
-    // 여기가 핵심 — 마지막 페이지가 가득 차면 더 있는지 알 수 없다.
-    const calls: Array<[number, number]> = []
-    const rows = await pagedSelect<{ i: number }>(fakeTable(PAGE_SIZE, calls), 'x')
-    expect(rows).toHaveLength(PAGE_SIZE)
-    expect(calls).toHaveLength(2)
+  it('상한을 넘으면 끝까지 받는다 — 이게 이 헬퍼의 존재 이유다', async () => {
+    const t = fakeTable(1945) // 실제로 존재하는 계정의 행 수
+    const rows = await pagedSelect<{ id: number }>(t.run, '테스트')
+    expect(rows).toHaveLength(1945)
+    expect(rows[0]!.id).toBe(0)
+    expect(rows[1944]!.id).toBe(1944)
   })
 
-  it('상한을 넘는 모집단을 빠짐없이 받는다', async () => {
-    const rows = await pagedSelect<{ i: number }>(fakeTable(2345), 'x')
-    expect(rows).toHaveLength(2345)
-    expect(rows[0]).toEqual({ i: 0 })
-    expect(rows[2344]).toEqual({ i: 2344 })
+  it('딱 맞아떨어져도 마지막 행을 잃지 않는다', async () => {
+    // 2,000행이면 두 번째 페이지가 가득 찬다 — 거기서 멈추면 "더 없음" 을 확인하지 않은 것이다.
+    const t = fakeTable(PAGE_SIZE * 2)
+    const rows = await pagedSelect<{ id: number }>(t.run, '테스트')
+    expect(rows).toHaveLength(PAGE_SIZE * 2)
+    expect(t.calls).toHaveLength(3) // 마지막 빈 페이지까지 확인한다
   })
 
-  it('오류를 삼키지 않는다 — 0행과 실패는 구별돼야 한다', async () => {
+  it('빈 테이블은 한 번 부르고 끝난다', async () => {
+    const t = fakeTable(0)
+    expect(await pagedSelect(t.run, '테스트')).toEqual([])
+    expect(t.calls).toHaveLength(1)
+  })
+
+  it('실패를 삼키지 않는다', async () => {
     await expect(
-      pagedSelect(() => Promise.resolve({ data: null, error: { message: '권한 없음' } }), '내 단어'),
-    ).rejects.toThrow('내 단어 조회 실패: 권한 없음')
+      pagedSelect(() => Promise.resolve({ data: null, error: { message: '권한 없음' } }), '테스트'),
+    ).rejects.toThrow(/테스트 조회 실패: 권한 없음/)
   })
 })
 
-describe('pagedSelectIn', () => {
-  it('id 를 조각내 보내고 결과를 합친다', async () => {
-    const seen: string[][] = []
-    const ids = Array.from({ length: 120 }, (_, i) => `id-${i}`)
-    const rows = await pagedSelectIn<{ id: string }>(
-      ids,
+describe('chunkedRpc', () => {
+  it('인자를 쪼개 부르고 결과를 합친다', async () => {
+    const seen: number[] = []
+    const rows = await chunkedRpc<{ w: string }>(
+      Array.from({ length: 1500 }, (_, i) => `w${i}`),
       (chunk) => {
-        seen.push(chunk)
-        return Promise.resolve({ data: chunk.map((id) => ({ id })), error: null })
+        seen.push(chunk.length)
+        return Promise.resolve({ data: chunk.map((w) => ({ w })), error: null })
       },
-      'x',
-      50,
+      '테스트',
     )
-    expect(seen.map((c) => c.length)).toEqual([50, 50, 20])
-    expect(rows).toHaveLength(120)
-  })
-
-  it('id 가 없으면 조회하지 않는다', async () => {
-    let called = false
-    const rows = await pagedSelectIn<unknown>(
-      [],
-      () => {
-        called = true
-        return Promise.resolve({ data: [], error: null })
-      },
-      'x',
-    )
-    expect(rows).toEqual([])
-    expect(called).toBe(false)
-  })
-
-  it('조각 안에서도 1,000행 상한을 넘겨 받는다', async () => {
-    // 조각당 행이 상한을 넘는 경우 — 챕터 보유 세트 판정이 실제로 이 모양이었다.
-    const rows = await pagedSelectIn<{ i: number }>(
-      ['a'],
-      (_chunk, from, to) => fakeTable(1500)(from, to),
-      'x',
-      50,
-    )
+    // 한 번에 보냈으면 1,000에서 잘렸을 입력이 전부 돌아온다.
     expect(rows).toHaveLength(1500)
+    expect(seen).toEqual([500, 500, 500])
+  })
+
+  it('빈 입력은 부르지 않는다 — 빈 배열로 RPC 를 때리지 않는다', async () => {
+    let called = 0
+    const rows = await chunkedRpc([], () => {
+      called += 1
+      return Promise.resolve({ data: [], error: null })
+    }, '테스트')
+    expect(rows).toEqual([])
+    expect(called).toBe(0)
+  })
+
+  it('조각 하나가 실패하면 전체를 실패로 돌린다', async () => {
+    // 반쯤 푼 결과를 정상이라고 부르면, 호출부는 "해석 못 한 단어" 로 세어
+    // 아는 비율을 낮게 계산한다 — 조용히 틀리는 쪽이다.
+    let n = 0
+    await expect(
+      chunkedRpc(
+        Array.from({ length: 1200 }, (_, i) => i),
+        () => {
+          n += 1
+          return Promise.resolve(
+            n === 2 ? { data: null, error: { message: '타임아웃' } } : { data: [], error: null },
+          )
+        },
+        '테스트',
+      ),
+    ).rejects.toThrow(/테스트 RPC 실패: 타임아웃/)
   })
 })

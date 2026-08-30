@@ -15,6 +15,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { chunkedRpc } from '@/lib/supabase/paged-select'
 import { createClient } from '@/lib/supabase/server'
 
 import { analyzeTextFit } from './coverage'
@@ -44,11 +45,19 @@ async function resolveLevels(
   }
 
   // ── 1순위: 정본 해석기 ──
-  const rpc = await (supabase as unknown as SupabaseClient)
-    .rpc('textfit_resolve_levels', { p_words: surfaces })
-
-  if (!rpc.error && Array.isArray(rpc.data)) {
-    for (const row of rpc.data as ResolvedRow[]) {
+  //
+  // ⚠️ **한 번에 다 보내면 안 된다.** PostgREST 는 RPC 결과에도 `db-max-rows` 를 적용한다 —
+  //    이 프로젝트는 1,000이다. 표면형 1,500개를 넣고 실측하니 **1,000행만** 왔다
+  //    (2026-08-30). 오류가 아니라 조용히 잘린다.
+  //    잘린 표면형은 해석되지 않은 채 남아 **미지어로 세어지고**, 그러면 "내가 아는 비율" 이
+  //    실제보다 낮게 나온다 — 그 수치가 랜딩의 1차 CTA(`/fit`)가 파는 것 자체다.
+  //    아래 폴백이 이미 400개씩 쪼개고 있었는데(`.in()` 길이 때문에), RPC 쪽만 안 쪼갰다.
+  try {
+    const rows = await chunkedRpc<ResolvedRow>(surfaces, (chunk) =>
+      (supabase as unknown as SupabaseClient).rpc('textfit_resolve_levels', { p_words: chunk }),
+      'textfit_resolve_levels',
+    )
+    for (const row of rows) {
       if (!row.headword) continue
       surfaceToLemma.set(row.surface, row.headword)
       if (row.v_level !== null && row.v_level !== undefined) {
@@ -56,7 +65,13 @@ async function resolveLevels(
       }
     }
     return { surfaceToLemma, lemmaVLevel, mode: 'headword_rpc' }
+  } catch {
+    // 아래 폴백으로 내려간다.
   }
+  // 한 조각이라도 실패하면 **전부** 폴백으로 다시 푼다 — 반쯤 해석된 결과를
+  // 정본 모드라고 부르면 그게 더 나쁘다.
+  surfaceToLemma.clear()
+  lemmaVLevel.clear()
 
   // ── 폴백: 정확 일치만 ──
   // 굴절형("allocated")은 해석되지 않아 미지어로 남는다. 커버리지를 과소평가하는 방향.

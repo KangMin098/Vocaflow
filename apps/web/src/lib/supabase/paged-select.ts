@@ -62,3 +62,32 @@ export async function pagedSelectIn<T>(
   }
   return out
 }
+
+/**
+ * **인자 배열이 큰 RPC 는 쪼개서 부른다.**
+ *
+ * ⚠️ 상한은 테이블 조회만의 이야기가 아니다 — PostgREST 는 **RPC 결과에도** `db-max-rows`
+ *    를 적용한다. 실측 2026-08-30: `textfit_resolve_levels` 에 표면형 1,500개를 넣으니
+ *    **1,000행만** 왔고, 500개씩 쪼개 부르니 1,499행이 왔다. 오류는 나지 않는다.
+ *    거기서 빠진 낱말은 "해석 못 한 단어" 로 남아 **아는 비율이 낮게** 계산된다 —
+ *    그 수치가 랜딩 1차 CTA(`/fit`)가 파는 것 자체다.
+ *
+ * 낱말 하나하나를 독립적으로 푸는 RPC 에만 쓴다(순서·집계에 의존하지 않는 것).
+ * 조각 하나라도 실패하면 **전체를 실패로 돌린다** — 반쯤 푼 결과를 정상이라고 부르면
+ * 그게 더 나쁘다.
+ */
+export async function chunkedRpc<TRow, TItem = string>(
+  items: readonly TItem[],
+  run: (chunk: TItem[]) => PromiseLike<{ data: unknown; error: { message: string } | null }>,
+  label: string,
+  chunkSize = 500,
+): Promise<TRow[]> {
+  if (items.length === 0) return []
+  const out: TRow[] = []
+  for (let i = 0; i < items.length; i += chunkSize) {
+    const { data, error } = await run([...items].slice(i, i + chunkSize))
+    if (error) throw new Error(`${label} RPC 실패: ${error.message}`)
+    out.push(...((data ?? []) as TRow[]))
+  }
+  return out
+}

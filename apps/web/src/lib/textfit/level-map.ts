@@ -22,6 +22,8 @@
 
 import 'server-only'
 
+import { chunkedRpc } from '@/lib/supabase/paged-select'
+
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
 import type { CurriculumMark } from './curriculum'
@@ -278,25 +280,33 @@ export async function loadCurriculumMarks(
   if (lemmas.length === 0) return out
 
   const supabase = anonClient()
-  const { data, error } = await (supabase as unknown as {
-    rpc: (
-      fn: string,
-      args: Record<string, unknown>,
-    ) => Promise<{ data: unknown; error: { message: string } | null }>
-  }).rpc('curriculum_bands', { p_words: lemmas })
-
-  if (error) {
-    console.error('[textfit] 교육과정 밴드 조회 실패:', error.message)
-    return null
-  }
-
   type Row = {
     word: string
     curr_band: number | null
     csat: boolean | null
     via_derived: boolean | null
   }
-  for (const row of (data ?? []) as Row[]) {
+
+  // ⚠️ **한 번에 다 보내면 안 된다.** PostgREST 는 RPC 결과에도 1,000행 상한을 건다
+  //    (실측 2026-08-30 · 오류가 아니라 조용히 잘린다). 잘린 낱말은 교육과정 밴드가
+  //    비어 "교과서에 없는 단어" 처럼 보인다 — 실제로는 있는데 안 물어본 것이다.
+  let rows: Row[]
+  try {
+    rows = await chunkedRpc<Row>(lemmas, (chunk) =>
+      (supabase as unknown as {
+        rpc: (
+          fn: string,
+          args: Record<string, unknown>,
+        ) => Promise<{ data: unknown; error: { message: string } | null }>
+      }).rpc('curriculum_bands', { p_words: chunk }),
+      'curriculum_bands',
+    )
+  } catch (e) {
+    console.error('[textfit] 교육과정 밴드 조회 실패:', e instanceof Error ? e.message : e)
+    return null
+  }
+
+  for (const row of rows) {
     const key = (row.word ?? '').trim().toLowerCase()
     if (!key) continue
     const band = row.curr_band
