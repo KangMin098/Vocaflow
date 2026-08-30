@@ -117,7 +117,7 @@ const catalogWords = await fetchCatalogWords([...setIds])
 async function fetchDictFor(words, chunk = 400) {
   // `shared_dictionary` 의 키는 `word` 다 — `id` 컬럼이 없다.
   const cols =
-    'word, example_en, example_ko, senses, synonyms, antonyms, derived_forms, collocations,'
+    'word, example_en, example_ko, meanings_ko, senses, synonyms, antonyms, derived_forms, collocations,'
     + ' ipa, ipa_us, pos, primary_pos, korean_learner_note'
   const out = []
   for (let i = 0; i < words.length; i += chunk) {
@@ -156,13 +156,28 @@ const hasExampleEn = (d) =>
  *    시중 단어장이 예문마다 다는 한 줄은 문장 번역이고, 그게 없으면 학습자는 예문을
  *    읽지 못한 채 넘어간다.
  *
- * 번역이 사는 자리가 **둘**이라 둘 다 본다(마이그레이션 `20260830170000` 이후):
- *   · `example_ko` 컬럼      — 대표 예문(`example_en`)의 짝
- *   · `senses[].examples_ko` — 뜻마다 붙은 예문의 짝
- * 한쪽만 세면 카탈로그의 3/4 가 "번역 없음" 으로 잡힌다 — 표제어 11,183 중 8,487 이
- * 대표 예문만 갖고 있기 때문이다.
+ * ⚠️⚠️ **이 축을 세 번 틀렸다. 자리가 셋이고, 그중 화면이 읽는 것은 하나뿐이다.**
+ *
+ *   ① `meanings_ko[].example_ko` — **정본이자 화면이 읽는 자리.**
+ *      `lib/flashcard/dict-extras.ts` 가 여기서 읽어 `CardBack`·`WordLookupPopover` 가 그린다
+ *   ② `example_ko` 컬럼          — 마이그 `20260830170000`. 지금은 화면이 읽지 않는다
+ *   ③ `senses[].examples_ko`     — 뜻별 예문의 짝. 지금은 화면이 읽지 않는다
+ *
+ * ①을 빠뜨린 채 재는 바람에 **V2 가 0.0% 로 보였다.** 실제로는 11,166/11,183 = 99.8% 가
+ * 이미 채워져 있었고 학습자도 보고 있었다. 그 오측정 위에서 마이그레이션 하나와 번역
+ * 3,450 문장이 만들어졌다 — 이미 있던 것을 다른 칸에 다시 쓴 셈이다.
+ *
+ * **교훈은 이 저장소가 이미 적어 둔 것이다**: "데이터가 있다는 것과 학습자가 본다는 것은
+ * 다른 사실" (`VocabSetCard.test.tsx` 머리말). 여기서는 그 반대 방향으로 틀렸다 —
+ * **학습자는 보고 있는데 내가 못 찾고 있었다.** 지표를 만들 때 *화면이 어디서 읽는지*를
+ * 먼저 확인했어야 했다.
  */
 const hasExampleKo = (d) => {
+  // ① 정본 — 화면이 읽는 자리부터 본다.
+  const mk = Array.isArray(d.meanings_ko) ? d.meanings_ko : []
+  if (mk.some((m) => typeof m?.example_ko === 'string' && m.example_ko.trim().length > 0)) {
+    return true
+  }
   if (typeof d.example_ko === 'string' && d.example_ko.trim().length > 0) return true
   return senseList(d).some((s) => {
     const ko = s.examples_ko ?? s.example_ko ?? null
