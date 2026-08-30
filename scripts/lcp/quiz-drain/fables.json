@@ -1,0 +1,1438 @@
+{
+  "book": {
+    "id": "350250ca-2e05-4e2e-96d4-051032abf78b",
+    "title": "Fables",
+    "book_v_level": 6
+  },
+  "target_per_chapter": 6,
+  "chapters": [
+    {
+      "chapter_idx": 7,
+      "chapter_title": "The Cat and the Birds",
+      "word_count": 448,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 13. The Cat and the Birds\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-cat-and-the-birds\n\nA Cat heard that the Birds in an aviary were ailing. So he got himself up as a doctor, and, taking with him a set of the instruments proper to his profession, presented himself at the door, and inquired after the health of the Birds. \"We shall do very well,\" they replied, without letting him in, \"when we've seen the last of you.\"\n\nCHAPTER 14. The Spendthrift and the Swallow\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-spendthrift-and-the-swallow\n\nA Spendthrift, who had wasted his fortune, and had nothing left but the clothes in which he stood, saw a Swallow one fine day in early spring. Thinking that summer had come, and that he could now do without his coat, he went and sold it for what it would fetch. A change, however, took place in the weather, and there came a sharp frost which killed the unfortunate Swallow. When the Spendthrift saw its dead body he cried, \"Miserable bird! Thanks to you I am perishing of cold myself.\"\n\nCHAPTER 15. The Old Woman and the Doctor\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-old-woman-and-the-doctor\n\nAn Old Woman became almost totally blind from a disease of the eyes, and, after consulting a Doctor, made an agreement with him in the presence of witnesses that she should pay him a high fee if he cured her, while if he failed he was to receive nothing. The Doctor accordingly prescribed a course of treatment, and every time he paid her a visit he took away with him some article out of the house, until at last, when he visited her for the last time, and the cure was complete, there was nothing left. When the Old Woman saw that the house was empty she refused to pay him his fee; and, after repeated refusals on her part, he sued her before the magistrates for payment of her debt. On being brought into court she was ready with her defence. \"The claimant,\" said she, \"has stated the facts about our agreement correctly. I undertook to pay him a fee if he cured me, and he, on his part, promised to charge nothing if he failed. Now, he says I am cured; but I say that I am blinder than ever, and I can prove what I say. When my eyes were bad I could at any rate see well enough to be aware that my house contained a certain amount of furniture and other things; but now, when according to him I am cured, I am entirely unable to see anything there at all.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How do the Birds answer the Cat who comes dressed as a doctor?",
+          "questionKo": "의사 차림으로 온 고양이에게 새들은 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "They say they will do very well once they have seen the last of him.",
+              "textKo": "그를 다시 안 보게 되면 아주 잘 지낼 거라고 말한다."
+            },
+            {
+              "text": "They let him in but hide in the highest cage.",
+              "textKo": "들여보내되 가장 높은 새장에 숨는다."
+            },
+            {
+              "text": "They ask him to leave his instruments outside.",
+              "textKo": "도구를 밖에 두고 오라고 한다."
+            },
+            {
+              "text": "They call the shepherd for help.",
+              "textKo": "목동을 부른다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "We shall do very well, they replied, without letting him in, when we've seen the last of you."
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Spendthrift blame the Swallow?",
+          "questionKo": "낭비꾼이 제비를 탓하는 이유는?",
+          "options": [
+            {
+              "text": "The Swallow stole the coin he got for his coat.",
+              "textKo": "제비가 외투 판 돈을 훔쳐서."
+            },
+            {
+              "text": "Seeing one Swallow made him think summer had come, so he sold his coat.",
+              "textKo": "제비 한 마리를 보고 여름이 온 줄 알아 외투를 팔았기 때문에."
+            },
+            {
+              "text": "The Swallow had promised him an early summer.",
+              "textKo": "제비가 이른 여름을 약속해서."
+            },
+            {
+              "text": "The Swallow led him to the wrong market.",
+              "textKo": "제비가 엉뚱한 시장으로 이끌어서."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "Thinking that summer had come, and that he could now do without his coat, he went and sold it"
+        },
+        {
+          "type": "multiple",
+          "question": "What clever defence does the Old Woman make in court?",
+          "questionKo": "노파가 법정에서 내놓은 영리한 항변은?",
+          "options": [
+            {
+              "text": "She says the witnesses were bribed by the Doctor.",
+              "textKo": "증인들이 의사에게 매수됐다고 한다."
+            },
+            {
+              "text": "She says the agreement was never written down.",
+              "textKo": "계약이 문서로 남지 않았다고 한다."
+            },
+            {
+              "text": "She says she is blinder than before — she can no longer see any furniture in her house.",
+              "textKo": "전보다 더 안 보인다고 한다 — 집 안 가구가 하나도 안 보인다는 것."
+            },
+            {
+              "text": "She says another doctor cured her first.",
+              "textKo": "다른 의사가 먼저 고쳤다고 한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "now, when according to him I am cured, I am entirely unable to see anything there at all"
+        },
+        {
+          "type": "multiple",
+          "question": "What did the Doctor do on each visit to the Old Woman?",
+          "questionKo": "의사는 노파를 방문할 때마다 무엇을 했는가?",
+          "options": [
+            {
+              "text": "Changed the terms of their agreement.",
+              "textKo": "계약 조건을 바꿨다."
+            },
+            {
+              "text": "Brought a new witness with him.",
+              "textKo": "새 증인을 데려왔다."
+            },
+            {
+              "text": "Delayed the treatment to raise his fee.",
+              "textKo": "치료를 미뤄 수임료를 올렸다."
+            },
+            {
+              "text": "Took away some article out of the house.",
+              "textKo": "집 안 물건을 하나씩 가져갔다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "every time he paid her a visit he took away with him some article out of the house"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Cat brings a set of doctor’s instruments with him to the aviary.",
+          "questionKo": "고양이는 새장에 의사의 도구 한 벌을 챙겨 온다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "taking with him a set of the instruments proper to his profession"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 8,
+      "chapter_title": "The Moon and Her Mother",
+      "word_count": 382,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 16. The Moon and Her Mother\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-moon-and-her-mother\n\nThe Moon once begged her Mother to make her a gown. \"How can I?\" replied she; \"there's no fitting your figure. At one time you're a New Moon, and at another you're a Full Moon; and between whiles you're neither one nor the other.\"\n\nCHAPTER 17. Mercury and the Woodman\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#mercury-and-the-woodman\n\nA Woodman was felling a tree on the bank of a river, when his axe, glancing off the trunk, flew out of his hands and fell into the water. As he stood by the water's edge lamenting his loss, Mercury appeared and asked him the reason for his grief; and on learning what had happened, out of pity for his distress he dived into the river and, bringing up a golden axe, asked him if that was the one he had lost. The Woodman replied that it was not, and Mercury then dived a second time, and, bringing up a silver axe, asked if that was his. \"No, that is not mine either,\" said the Woodman. Once more Mercury dived into the river, and brought up the missing axe. The Woodman was overjoyed at recovering his property, and thanked his benefactor warmly; and the latter was so pleased with his honesty that he made him a present of the other two axes. When the Woodman told the story to his companions, one of these was filled with envy of his good fortune and determined to try his luck for himself. So he went and began to fell a tree at the edge of the river, and presently contrived to let his axe drop into the water. Mercury appeared as before, and, on learning that his axe had fallen in, he dived and brought up a golden axe, as he had done on the previous occasion. Without waiting to be asked whether it was his or not the fellow cried, \"That's mine, that's mine,\" and stretched out his hand eagerly for the prize: but Mercury was so disgusted at his dishonesty that he not only declined to give him the golden axe, but also refused to recover for him the one he had let fall into the stream.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why can the Mother not make the Moon a gown?",
+          "questionKo": "어머니가 달에게 옷을 지어 줄 수 없는 이유는?",
+          "options": [
+            {
+              "text": "The Moon changes shape — new, full, and neither in between.",
+              "textKo": "달은 모양이 변한다 — 초승, 보름, 그 사이엔 이도 저도 아니어서."
+            },
+            {
+              "text": "There is no cloth wide enough in the sky.",
+              "textKo": "하늘에 그만큼 넓은 천이 없어서."
+            },
+            {
+              "text": "The Moon will not stay still to be measured.",
+              "textKo": "달이 가만히 있지 않아 치수를 잴 수 없어서."
+            },
+            {
+              "text": "The Mother has no thread that will not burn.",
+              "textKo": "타지 않는 실이 없어서."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "At one time you’re a New Moon, and at another you’re a Full Moon; and between whiles you’re neither one nor the other."
+        },
+        {
+          "type": "multiple",
+          "question": "Why does Mercury give the first Woodman all three axes?",
+          "questionKo": "머큐리가 첫 번째 나무꾼에게 도끼 세 자루를 다 준 이유는?",
+          "options": [
+            {
+              "text": "The Woodman had cut the tree on Mercury’s own bank.",
+              "textKo": "나무꾼이 머큐리의 강둑에서 나무를 베었기 때문에."
+            },
+            {
+              "text": "He was pleased with the Woodman’s honesty.",
+              "textKo": "나무꾼의 정직함이 마음에 들었기 때문에."
+            },
+            {
+              "text": "The Woodman refused all three at first.",
+              "textKo": "나무꾼이 처음엔 셋 다 거절했기 때문에."
+            },
+            {
+              "text": "The golden and silver axes had no owner.",
+              "textKo": "금도끼와 은도끼에 주인이 없었기 때문에."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "the latter was so pleased with his honesty that he made him a present of the other two axes"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the second Woodman lose, and why?",
+          "questionKo": "두 번째 나무꾼은 무엇을 잃으며, 이유는?",
+          "options": [
+            {
+              "text": "Only the golden axe; Mercury still returns his own.",
+              "textKo": "금도끼만 — 머큐리는 그의 도끼는 돌려준다."
+            },
+            {
+              "text": "Nothing; Mercury never appears to him.",
+              "textKo": "아무것도 — 머큐리가 그에게는 나타나지 않는다."
+            },
+            {
+              "text": "Both the golden axe and his own — Mercury is disgusted by his dishonesty.",
+              "textKo": "금도끼와 자기 도끼 둘 다 — 머큐리가 그의 부정직함에 질려서."
+            },
+            {
+              "text": "His friendship with the first Woodman.",
+              "textKo": "첫 나무꾼과의 우정."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "he not only declined to give him the golden axe, but also refused to recover for him the one he had let fall"
+        },
+        {
+          "type": "multiple",
+          "question": "What mistake does the second Woodman make when the golden axe appears?",
+          "questionKo": "금도끼가 올라왔을 때 두 번째 나무꾼이 저지른 실수는?",
+          "options": [
+            {
+              "text": "He asks for the silver one instead.",
+              "textKo": "대신 은도끼를 달라고 한다."
+            },
+            {
+              "text": "He tries to dive in after it himself.",
+              "textKo": "직접 물에 뛰어들려 한다."
+            },
+            {
+              "text": "He offers to pay Mercury for it.",
+              "textKo": "값을 치르겠다고 한다."
+            },
+            {
+              "text": "He claims it as his own without even waiting to be asked.",
+              "textKo": "묻기도 전에 자기 것이라고 주장한다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Without waiting to be asked whether it was his or not the fellow cried, That's mine, that's mine"
+        },
+        {
+          "type": "truefalse",
+          "question": "The second Woodman drops his axe into the river on purpose.",
+          "questionKo": "두 번째 나무꾼은 일부러 도끼를 강에 빠뜨린다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "presently contrived to let his axe drop into the water"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 9,
+      "chapter_title": "The Ass, the Fox, and the Lion",
+      "word_count": 374,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 18. The Ass, the Fox, and the Lion\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ass-the-fox-and-the-lion\n\nAn Ass and a Fox went into partnership and sallied out to forage for food together. They hadn't gone far before they saw a Lion coming their way, at which they were both dreadfully frightened. But the Fox thought he saw a way of saving his own skin, and went boldly up to the Lion and whispered in his ear, \"I'll manage that you shall get hold of the Ass without the trouble of stalking him, if you'll promise to let me go free.\" The Lion agreed to this, and the Fox then rejoined his companion and contrived before long to lead him by a hidden pit, which some hunter had dug as a trap for wild animals, and into which he fell. When the Lion saw that the Ass was safely caught and couldn't get away, it was to the Fox that he first turned his attention, and he soon finished him off, and then at his leisure proceeded to feast upon the Ass.\n\nCHAPTER 19. The Lion and the Mouse\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-lion-and-the-mouse\n\nA Lion asleep in his lair was waked up by a Mouse running over his face. Losing his temper he seized it with his paw and was about to kill it. The Mouse, terrified, piteously entreated him to spare its life. \"Please let me go,\" it cried, \"and one day I will repay you for your kindness.\" The idea of so insignificant a creature ever being able to do anything for him amused the Lion so much that he laughed aloud, and good-humouredly let it go. But the Mouse's chance came, after all. One day the Lion got entangled in a net which had been spread for game by some hunters, and the Mouse heard and recognised his roars of anger and ran to the spot. Without more ado it set to work to gnaw the ropes with its teeth, and succeeded before long in setting the Lion free. \"There!\" said the Mouse, \"you laughed at me when I promised I would repay you: but now you see, even a Mouse can help a Lion.\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What bargain does the Fox strike with the Lion?",
+          "questionKo": "여우가 사자와 맺은 거래는?",
+          "options": [
+            {
+              "text": "He will lead the Ass into a hidden pit if the Lion lets him go free.",
+              "textKo": "자기를 놓아주면 당나귀를 숨은 구덩이로 이끌겠다는 것."
+            },
+            {
+              "text": "He will hunt for the Lion all winter.",
+              "textKo": "겨울 내내 사자를 위해 사냥하겠다는 것."
+            },
+            {
+              "text": "He will share the Ass equally with the Lion.",
+              "textKo": "당나귀를 사자와 똑같이 나누겠다는 것."
+            },
+            {
+              "text": "He will bring the Lion two asses instead of one.",
+              "textKo": "당나귀 한 마리 대신 두 마리를 데려오겠다는 것."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "I'll manage that you shall get hold of the Ass … if you'll promise to let me go free"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Lion’s order of eating turn the Fox’s plan against him?",
+          "questionKo": "사자가 먹는 순서는 여우의 계획을 어떻게 뒤집는가?",
+          "options": [
+            {
+              "text": "He eats the Ass first, then lets the Fox go as promised.",
+              "textKo": "당나귀를 먼저 먹고 약속대로 여우를 놓아준다."
+            },
+            {
+              "text": "Once the Ass is trapped and cannot escape, he kills the Fox first and feasts on the Ass at leisure.",
+              "textKo": "당나귀가 갇혀 못 달아나게 되자 여우부터 죽이고 당나귀는 천천히 먹는다."
+            },
+            {
+              "text": "He refuses both and leaves them.",
+              "textKo": "둘 다 마다하고 떠난다."
+            },
+            {
+              "text": "He eats neither until the hunters arrive.",
+              "textKo": "사냥꾼이 올 때까지 둘 다 먹지 않는다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "it was to the Fox that he first turned his attention, and he soon finished him off"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the Lion let the Mouse go?",
+          "questionKo": "사자가 쥐를 놓아주는 이유는?",
+          "options": [
+            {
+              "text": "The Mouse had already gnawed his ropes once.",
+              "textKo": "쥐가 이미 한 번 밧줄을 갉아 준 적이 있어서."
+            },
+            {
+              "text": "He was too sleepy to bother.",
+              "textKo": "너무 졸려서 귀찮아서."
+            },
+            {
+              "text": "The idea that so small a creature could ever repay him amused him.",
+              "textKo": "그렇게 작은 것이 은혜를 갚는다는 생각이 우스워서."
+            },
+            {
+              "text": "The Mouse promised to bring him food.",
+              "textKo": "쥐가 먹이를 가져다주겠다고 해서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "The idea of so insignificant a creature ever being able to do anything for him amused the Lion so much that he laughed aloud"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Mouse repay the Lion?",
+          "questionKo": "쥐는 사자에게 어떻게 은혜를 갚는가?",
+          "options": [
+            {
+              "text": "It leads the hunters away from his lair.",
+              "textKo": "사냥꾼들을 굴에서 멀리 유인한다."
+            },
+            {
+              "text": "It brings other mice to guard him while he sleeps.",
+              "textKo": "다른 쥐들을 데려와 자는 동안 지킨다."
+            },
+            {
+              "text": "It warns him before he steps into the net.",
+              "textKo": "그물에 걸리기 전에 미리 알려 준다."
+            },
+            {
+              "text": "It recognises his roars and gnaws through the hunters’ net.",
+              "textKo": "그의 포효를 알아듣고 사냥꾼의 그물을 갉아 끊는다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "it set to work to gnaw the ropes with its teeth, and succeeded before long in setting the Lion free"
+        },
+        {
+          "type": "blank",
+          "question": "The Mouse’s closing line: \"even a ______ can help a Lion.\"",
+          "questionKo": "쥐의 마지막 말: \"______ 도 사자를 도울 수 있다.\"",
+          "options": [
+            {
+              "text": "Mouse",
+              "textKo": "쥐"
+            },
+            {
+              "text": "Fox",
+              "textKo": "여우"
+            },
+            {
+              "text": "Frog",
+              "textKo": "개구리"
+            },
+            {
+              "text": "Bird",
+              "textKo": "새"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "but now you see, even a Mouse can help a Lion"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 10,
+      "chapter_title": "The Crow and the Pitcher",
+      "word_count": 362,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 20. The Crow and the Pitcher\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-crow-and-the-pitcher\n\nA thirsty Crow found a Pitcher with some water in it, but so little was there that, try as she might, she could not reach it with her beak, and it seemed as though she would die of thirst within sight of the remedy. At last she hit upon a clever plan. She began dropping pebbles into the Pitcher, and with each pebble the water rose a little higher until at last it reached the brim, and the knowing bird was enabled to quench her thirst.\n\nCHAPTER 21. The Boys and the Frogs\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-boys-and-the-frogs\n\nSome mischievous Boys were playing on the edge of a pond, and, catching sight of some Frogs swimming about in the shallow water, they began to amuse themselves by pelting them with stones, and they killed several of them. At last one of the Frogs put his head out of the water and said, \"Oh, stop! stop! I beg of you: what is sport to you is death to us.\"\n\nCHAPTER 22. The North Wind and the Sun\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-north-wind-and-the-sun\n\nA dispute arose between the North Wind and the Sun, each claiming that he was stronger than the other. At last they agreed to try their powers upon a traveller, to see which could soonest strip him of his cloak. The North Wind had the first try; and, gathering up all his force for the attack, he came whirling furiously down upon the man, and caught up his cloak as though he would wrest it from him by one single effort: but the harder he blew, the more closely the man wrapped it round himself. Then came the turn of the Sun. At first he beamed gently upon the traveller, who soon unclasped his cloak and walked on with it hanging loosely about his shoulders: then he shone forth in his full strength, and the man, before he had gone many steps, was glad to throw his cloak right off and complete his journey more lightly clad.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does the thirsty Crow reach the water?",
+          "questionKo": "목마른 까마귀는 물에 어떻게 닿는가?",
+          "options": [
+            {
+              "text": "She tips the pitcher over with her wings.",
+              "textKo": "날개로 항아리를 넘어뜨린다."
+            },
+            {
+              "text": "She drops pebbles in until the water rises to the brim.",
+              "textKo": "조약돌을 떨어뜨려 물이 주둥이까지 차오르게 한다."
+            },
+            {
+              "text": "She breaks the pitcher with her beak.",
+              "textKo": "부리로 항아리를 깬다."
+            },
+            {
+              "text": "She waits for rain to fill it.",
+              "textKo": "비가 차기를 기다린다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "She began dropping pebbles into the Pitcher, and with each pebble the water rose a little higher"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Frog say to the boys throwing stones?",
+          "questionKo": "돌을 던지는 소년들에게 개구리가 하는 말은?",
+          "options": [
+            {
+              "text": "That the pond belongs to the frogs.",
+              "textKo": "연못은 개구리들의 것이라고."
+            },
+            {
+              "text": "That he will tell their parents.",
+              "textKo": "부모에게 이르겠다고."
+            },
+            {
+              "text": "That what is sport to them is death to the frogs.",
+              "textKo": "너희에겐 놀이가 우리에겐 죽음이라고."
+            },
+            {
+              "text": "That the stones will sink the shallow water.",
+              "textKo": "돌 때문에 얕은 물이 메워진다고."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "what is sport to you is death to us"
+        },
+        {
+          "type": "multiple",
+          "question": "Why does the North Wind fail to take the traveller’s cloak?",
+          "questionKo": "북풍이 나그네의 외투를 벗기지 못한 이유는?",
+          "options": [
+            {
+              "text": "The traveller had tied it down before setting out.",
+              "textKo": "나그네가 미리 묶어 두어서."
+            },
+            {
+              "text": "The Sun blocked his path with clouds.",
+              "textKo": "해가 구름으로 길을 막아서."
+            },
+            {
+              "text": "The cloak was too heavy to lift.",
+              "textKo": "외투가 너무 무거워서."
+            },
+            {
+              "text": "The harder he blew, the more closely the man wrapped it round himself.",
+              "textKo": "세게 불수록 나그네가 더 단단히 여며서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "the harder he blew, the more closely the man wrapped it round himself"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Sun win the contest?",
+          "questionKo": "해는 어떻게 시합에서 이기는가?",
+          "options": [
+            {
+              "text": "He beams gently first, then shines in full strength until the man throws the cloak off.",
+              "textKo": "처음엔 부드럽게 비추다 온 힘으로 내리쬐어 스스로 벗게 한다."
+            },
+            {
+              "text": "He melts the clasp of the cloak.",
+              "textKo": "외투의 걸쇠를 녹인다."
+            },
+            {
+              "text": "He asks the traveller directly.",
+              "textKo": "나그네에게 직접 청한다."
+            },
+            {
+              "text": "He waits until the traveller reaches home.",
+              "textKo": "나그네가 집에 닿을 때까지 기다린다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "At first he beamed gently upon the traveller … then he shone forth in his full strength"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Crow was in danger of dying of thirst within sight of the water.",
+          "questionKo": "까마귀는 물을 눈앞에 두고 목말라 죽을 처지였다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "it seemed as though she would die of thirst within sight of the remedy"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 11,
+      "chapter_title": "The Mistress and Her Servants",
+      "word_count": 366,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 23. The Mistress and Her Servants\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-mistress-and-her-servants\n\nA Widow, thrifty and industrious, had two servants, whom she kept pretty hard at work. They were not allowed to lie long abed in the mornings, but the old lady had them up and doing as soon as the cock crew. They disliked intensely having to get up at such an hour, especially in wintertime: and they thought that if it were not for the cock waking up their Mistress so horribly early, they could sleep longer. So they caught it and wrung its neck. But they weren't prepared for the consequences. For what happened was that their Mistress, not hearing the cock crow as usual, waked them up earlier than ever, and set them to work in the middle of the night.\n\nCHAPTER 24. The Goods and the Ills\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-goods-and-the-ills\n\nThere was a time in the youth of the world when Goods and Ills entered equally into the concerns of men, so that the Goods did not prevail to make them altogether blessed, nor the Ills to make them wholly miserable. But owing to the foolishness of mankind the Ills multiplied greatly in number and increased in strength, until it seemed as though they would deprive the Goods of all share in human affairs, and banish them from the earth. The latter, therefore, betook themselves to heaven and complained to Jupiter of the treatment they had received, at the same time praying him to grant them protection from the Ills, and to advise them concerning the manner of their intercourse with men. Jupiter granted their request for protection, and decreed that for the future they should not go among men openly in a body, and so be liable to attack from the hostile Ills, but singly and unobserved, and at infrequent and unexpected intervals. Hence it is that the earth is full of Ills, for they come and go as they please and are never far away; while Goods, alas! come one by one only, and have to travel all the way from heaven, so that they are very seldom seen.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "Why do the servants kill the cock?",
+          "questionKo": "하인들이 수탉을 죽인 이유는?",
+          "options": [
+            {
+              "text": "The cock had been pecking at their food.",
+              "textKo": "수탉이 그들의 음식을 쪼아서."
+            },
+            {
+              "text": "They believe the cock’s crowing is what wakes their Mistress so early.",
+              "textKo": "수탉의 울음이 주인을 그렇게 일찍 깨운다고 믿어서."
+            },
+            {
+              "text": "Their Mistress ordered them to.",
+              "textKo": "주인이 시켜서."
+            },
+            {
+              "text": "They wanted to eat it for supper.",
+              "textKo": "저녁으로 먹으려고."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "if it were not for the cock waking up their Mistress so horribly early, they could sleep longer"
+        },
+        {
+          "type": "multiple",
+          "question": "What is the consequence they had not prepared for?",
+          "questionKo": "그들이 예상하지 못한 결과는?",
+          "options": [
+            {
+              "text": "The Mistress bought two new cocks.",
+              "textKo": "주인이 새 수탉 두 마리를 샀다."
+            },
+            {
+              "text": "They were dismissed from service.",
+              "textKo": "해고당했다."
+            },
+            {
+              "text": "Without the crow to time her, she wakes them even earlier — in the middle of the night.",
+              "textKo": "울음으로 시각을 가늠하지 못한 주인이 더 일찍 — 한밤중에 — 깨운다."
+            },
+            {
+              "text": "The Mistress slept late and blamed them for the lost work.",
+              "textKo": "주인이 늦잠을 자고 밀린 일을 그들 탓으로 돌렸다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "not hearing the cock crow as usual, waked them up earlier than ever, and set them to work in the middle of the night"
+        },
+        {
+          "type": "multiple",
+          "question": "Why did the Goods go to Jupiter?",
+          "questionKo": "선(善)들이 유피테르를 찾아간 이유는?",
+          "options": [
+            {
+              "text": "To ask that men be made wiser.",
+              "textKo": "사람들을 더 지혜롭게 해 달라고."
+            },
+            {
+              "text": "To ask to be released from the earth altogether.",
+              "textKo": "땅에서 아예 벗어나게 해 달라고."
+            },
+            {
+              "text": "To ask for more of their number to be created.",
+              "textKo": "수를 더 늘려 달라고."
+            },
+            {
+              "text": "To complain of the Ills and ask for protection.",
+              "textKo": "악(惡)들을 고발하고 보호를 청하려고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "complained to Jupiter of the treatment they had received, at the same time praying him to grant them protection"
+        },
+        {
+          "type": "multiple",
+          "question": "What does Jupiter’s decree explain about the world?",
+          "questionKo": "유피테르의 결정은 세상의 무엇을 설명하는가?",
+          "options": [
+            {
+              "text": "Why Ills are always near while Goods come one by one and rarely.",
+              "textKo": "악은 늘 가까이 있고 선은 하나씩 드물게 오는 이유."
+            },
+            {
+              "text": "Why the seasons change.",
+              "textKo": "계절이 바뀌는 이유."
+            },
+            {
+              "text": "Why men grow foolish as they age.",
+              "textKo": "사람이 나이 들며 어리석어지는 이유."
+            },
+            {
+              "text": "Why prayers are answered only in heaven.",
+              "textKo": "기도가 하늘에서만 응답되는 이유."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "the earth is full of Ills, for they come and go as they please … while Goods, alas! come one by one only"
+        },
+        {
+          "type": "blank",
+          "question": "The Ills grew strong, the story says, owing to the ______ of mankind.",
+          "questionKo": "이야기에 따르면 악이 강해진 것은 인류의 ______ 때문이다.",
+          "options": [
+            {
+              "text": "cruelty",
+              "textKo": "잔인함"
+            },
+            {
+              "text": "foolishness",
+              "textKo": "어리석음"
+            },
+            {
+              "text": "greed",
+              "textKo": "탐욕"
+            },
+            {
+              "text": "pride",
+              "textKo": "교만"
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "owing to the foolishness of mankind the Ills multiplied greatly in number"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 12,
+      "chapter_title": "The Hares and the Frogs",
+      "word_count": 309,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 25. The Hares and the Frogs\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-hares-and-the-frogs\n\nThe Hares once gathered together and lamented the unhappiness of their lot, exposed as they were to dangers on all sides and lacking the strength and the courage to hold their own. Men, dogs, birds and beasts of prey were all their enemies, and killed and devoured them daily: and sooner than endure such persecution any longer, they one and all determined to end their miserable lives. Thus resolved and desperate, they rushed in a body towards a neighbouring pool, intending to drown themselves. On the bank were sitting a number of Frogs, who, when they heard the noise of the Hares as they ran, with one accord leaped into the water and hid themselves in the depths. Then one of the older Hares who was wiser than the rest cried out to his companions, \"Stop, my friends, take heart; don't let us destroy ourselves after all: see, here are creatures who are afraid of us, and who must, therefore, be still more timid than ourselves.\"\n\nCHAPTER 26. The Fox and the Stork\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-fox-and-the-stork\n\nA Fox invited a Stork to dinner, at which the only fare provided was a large flat dish of soup. The Fox lapped it up with great relish, but the Stork with her long bill tried in vain to partake of the savoury broth. Her evident distress caused the sly Fox much amusement. But not long after the Stork invited him in turn, and set before him a pitcher with a long and narrow neck, into which she could get her bill with ease. Thus, while she enjoyed her dinner, the Fox sat by hungry and helpless, for it was impossible for him to reach the tempting contents of the vessel.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What stops the Hares from drowning themselves?",
+          "questionKo": "토끼들이 물에 빠져 죽으려던 것을 멈추게 한 것은?",
+          "options": [
+            {
+              "text": "The pool turned out to be too shallow.",
+              "textKo": "연못이 너무 얕았기 때문에."
+            },
+            {
+              "text": "A hunter’s dog drove them back from the bank.",
+              "textKo": "사냥개가 둑에서 그들을 몰아내서."
+            },
+            {
+              "text": "The Frogs, more timid still, leap away from them in fear.",
+              "textKo": "더 겁 많은 개구리들이 그들을 무서워해 달아나서."
+            },
+            {
+              "text": "The oldest Hare fell in first and was saved.",
+              "textKo": "가장 늙은 토끼가 먼저 빠졌다가 구조돼서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "here are creatures who are afraid of us, and who must, therefore, be still more timid than ourselves"
+        },
+        {
+          "type": "multiple",
+          "question": "Why had the Hares resolved to end their lives?",
+          "questionKo": "토끼들이 목숨을 끊기로 한 이유는?",
+          "options": [
+            {
+              "text": "Their food had failed that winter.",
+              "textKo": "그해 겨울 먹이가 떨어져서."
+            },
+            {
+              "text": "The Frogs had driven them from the pond.",
+              "textKo": "개구리들이 연못에서 그들을 쫓아내서."
+            },
+            {
+              "text": "Their leader had been killed by hunters.",
+              "textKo": "우두머리가 사냥꾼에게 죽어서."
+            },
+            {
+              "text": "Men, dogs, birds and beasts were all their enemies, and they lacked strength and courage.",
+              "textKo": "사람·개·새·짐승이 모두 적인데 힘도 용기도 없어서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Men, dogs, birds and beasts of prey were all their enemies … lacking the strength and the courage"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Fox make the Stork’s dinner impossible to eat?",
+          "questionKo": "여우는 황새가 저녁을 먹지 못하게 어떻게 하는가?",
+          "options": [
+            {
+              "text": "He serves the soup in a large flat dish.",
+              "textKo": "수프를 크고 납작한 접시에 낸다."
+            },
+            {
+              "text": "He eats it all before she arrives.",
+              "textKo": "그녀가 오기 전에 다 먹어 버린다."
+            },
+            {
+              "text": "He serves food she is allergic to.",
+              "textKo": "그녀가 못 먹는 음식을 낸다."
+            },
+            {
+              "text": "He puts the dish on a high shelf.",
+              "textKo": "접시를 높은 선반에 올려 둔다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "the only fare provided was a large flat dish of soup"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Stork return the trick?",
+          "questionKo": "황새는 어떻게 되갚는가?",
+          "options": [
+            {
+              "text": "She refuses to invite him at all.",
+              "textKo": "아예 초대하지 않는다."
+            },
+            {
+              "text": "She invites him and serves from a pitcher with a long, narrow neck.",
+              "textKo": "그를 초대해 목이 길고 좁은 항아리에 담아 낸다."
+            },
+            {
+              "text": "She hides the food and pretends there is none.",
+              "textKo": "음식을 감추고 없는 척한다."
+            },
+            {
+              "text": "She eats his share as well as her own.",
+              "textKo": "자기 몫에 그의 몫까지 먹는다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "set before him a pitcher with a long and narrow neck, into which she could get her bill with ease"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Hares’ rescue comes from realising there are creatures more timid than themselves.",
+          "questionKo": "토끼들을 구한 것은 자기들보다 더 겁 많은 존재가 있다는 깨달음이었다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "Stop, my friends, take heart; don’t let us destroy ourselves after all"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 13,
+      "chapter_title": "The Wolf in Sheep's Clothing",
+      "word_count": 386,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 27. The Wolf in Sheep's Clothing\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-wolf-in-sheep-s-clothing\n\nA Wolf resolved to disguise himself in order that he might prey upon a flock of sheep without fear of detection. So he clothed himself in a sheepskin, and slipped among the sheep when they were out at pasture. He completely deceived the shepherd, and when the flock was penned for the night he was shut in with the rest. But that very night as it happened, the shepherd, requiring a supply of mutton for the table, laid hands on the Wolf in mistake for a Sheep, and killed him with his knife on the spot.\n\nCHAPTER 28. The Stag in the Ox-Stall\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-stag-in-the-ox-stall\n\nA Stag, chased from his lair by the hounds, took refuge in a farmyard, and, entering a stable where a number of oxen were stalled, thrust himself under a pile of hay in a vacant stall, where he lay concealed, all but the tips of his horns. Presently one of the Oxen said to him, \"What has induced you to come in here? Aren't you aware of the risk you are running of being captured by the herdsmen?\" To which he replied, \"Pray let me stay for the present. When night comes I shall easily escape under cover of the dark.\" In the course of the afternoon more than one of the farmhands came in, to attend to the wants of the cattle, but not one of them noticed the presence of the Stag, who accordingly began to congratulate himself on his escape and to express his gratitude to the Oxen. \"We wish you well,\" said the one who had spoken before, \"but you are not out of danger yet. If the master comes, you will certainly be found out, for nothing ever escapes his keen eyes.\" Presently, sure enough, in he came, and made a great to-do about the way the Oxen were kept. \"The beasts are starving,\" he cried; \"here, give them more hay, and put plenty of litter under them.\" As he spoke, he seized an armful himself from the pile where the Stag lay concealed, and at once detected him. Calling his men, he had him seized at once and killed for the table.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does the Wolf’s own disguise destroy him?",
+          "questionKo": "늑대의 변장은 어떻게 그를 파멸시키는가?",
+          "options": [
+            {
+              "text": "The shepherd, needing mutton, kills him by mistake for a sheep.",
+              "textKo": "양고기가 필요한 목동이 그를 양으로 착각해 죽인다."
+            },
+            {
+              "text": "The sheep smell him out and trample him.",
+              "textKo": "양들이 냄새를 맡고 짓밟는다."
+            },
+            {
+              "text": "The sheepskin catches on the pen and traps him.",
+              "textKo": "양가죽이 우리에 걸려 그를 옭아맨다."
+            },
+            {
+              "text": "The dogs tear the skin off and chase him away.",
+              "textKo": "개들이 가죽을 벗겨 내고 쫓아낸다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "the shepherd, requiring a supply of mutton for the table, laid hands on the Wolf in mistake for a Sheep"
+        },
+        {
+          "type": "multiple",
+          "question": "Where does the Stag hide, and what gives him away?",
+          "questionKo": "사슴은 어디에 숨으며, 무엇이 그를 들키게 하는가?",
+          "options": [
+            {
+              "text": "Behind the stable door; a herdsman closes it.",
+              "textKo": "마구간 문 뒤 — 소치기가 문을 닫는다."
+            },
+            {
+              "text": "Under a pile of hay; the master takes an armful from that very pile.",
+              "textKo": "건초 더미 아래 — 주인이 바로 그 더미에서 한 아름을 집는다."
+            },
+            {
+              "text": "In the hayloft; an ox calls out to him.",
+              "textKo": "건초 다락 — 소가 그를 부른다."
+            },
+            {
+              "text": "In an empty stall; his horns cast a shadow.",
+              "textKo": "빈 칸 — 뿔이 그림자를 드리운다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "he seized an armful himself from the pile where the Stag lay concealed, and at once detected him"
+        },
+        {
+          "type": "multiple",
+          "question": "What warning do the Oxen give the Stag?",
+          "questionKo": "소들이 사슴에게 준 경고는?",
+          "options": [
+            {
+              "text": "That the farmhands count the cattle each evening.",
+              "textKo": "일꾼들이 저녁마다 가축 수를 센다는 것."
+            },
+            {
+              "text": "That the hounds will follow his scent into the stable.",
+              "textKo": "사냥개들이 냄새를 따라 마구간까지 온다는 것."
+            },
+            {
+              "text": "That nothing escapes the master’s keen eyes.",
+              "textKo": "주인의 매서운 눈은 아무것도 놓치지 않는다는 것."
+            },
+            {
+              "text": "That the hay will be moved before nightfall.",
+              "textKo": "해 지기 전에 건초를 옮긴다는 것."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "If the master comes, you will certainly be found out, for nothing ever escapes his keen eyes"
+        },
+        {
+          "type": "multiple",
+          "question": "Why did the Stag think he was safe before the master arrived?",
+          "questionKo": "주인이 오기 전 사슴이 안전하다고 여긴 이유는?",
+          "options": [
+            {
+              "text": "The Oxen had promised to shield him with their bodies.",
+              "textKo": "소들이 몸으로 가려 주기로 약속해서."
+            },
+            {
+              "text": "The hounds had already given up the chase.",
+              "textKo": "사냥개들이 이미 추격을 포기해서."
+            },
+            {
+              "text": "Night had already fallen.",
+              "textKo": "이미 밤이 되어서."
+            },
+            {
+              "text": "More than one farmhand came in and none noticed him.",
+              "textKo": "일꾼이 여럿 드나들었는데 아무도 알아채지 못해서."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "more than one of the farmhands came in … but not one of them noticed the presence of the Stag"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Wolf completely deceives the shepherd and is shut in with the flock for the night.",
+          "questionKo": "늑대는 목동을 완전히 속이고 밤에 양들과 함께 우리에 갇힌다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "He completely deceived the shepherd, and when the flock was penned for the night he was shut in with the rest."
+        }
+      ]
+    },
+    {
+      "chapter_idx": 14,
+      "chapter_title": "The Milkmaid and Her Pail",
+      "word_count": 304,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 29. The Milkmaid and Her Pail\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-milkmaid-and-her-pail\n\nA farmer's daughter had been out to milk the cows, and was returning to the dairy carrying her pail of milk upon her head. As she walked along, she fell a-musing after this fashion: \"The milk in this pail will provide me with cream, which I will make into butter and take to market to sell. With the money I will buy a number of eggs, and these, when hatched, will produce chickens, and by and by I shall have quite a large poultry-yard. Then I shall sell some of my fowls, and with the money which they will bring in I will buy myself a new gown, which I shall wear when I go to the fair; and all the young fellows will admire it, and come and make love to me, but I shall toss my head and have nothing to say to them.\" Forgetting all about the pail, and suiting the action to the word, she tossed her head. Down went the pail, all the milk was spilled, and all her fine castles in the air vanished in a moment!\n\nCHAPTER 30. The Dolphins, the Whales, and the Sprat\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-dolphins-the-whales-and-the-sprat\n\nThe Dolphins quarrelled with the Whales, and before very long they began fighting with one another. The battle was very fierce, and had lasted some time without any sign of coming to an end, when a Sprat thought that perhaps he could stop it; so he stepped in and tried to persuade them to give up fighting and make friends. But one of the Dolphins said to him contemptuously, \"We would rather go on fighting till we're all killed than be reconciled by a Sprat like you!\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "What chain of plans does the Milkmaid build from her pail of milk?",
+          "questionKo": "젖 짜는 소녀가 우유 한 통에서 세우는 계획의 사슬은?",
+          "options": [
+            {
+              "text": "Milk → cream → butter → eggs → chickens → a new gown.",
+              "textKo": "우유 → 크림 → 버터 → 달걀 → 병아리 → 새 옷."
+            },
+            {
+              "text": "Milk → cheese → a cow → a farm of her own.",
+              "textKo": "우유 → 치즈 → 소 → 자기 농장."
+            },
+            {
+              "text": "Milk → market → a horse → a journey to the city.",
+              "textKo": "우유 → 시장 → 말 → 도시 여행."
+            },
+            {
+              "text": "Milk → butter → a shop → a husband.",
+              "textKo": "우유 → 버터 → 가게 → 남편."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "The milk in this pail will provide me with cream, which I will make into butter … buy a number of eggs"
+        },
+        {
+          "type": "multiple",
+          "question": "What exact action spills the milk?",
+          "questionKo": "우유를 쏟게 만든 정확한 동작은?",
+          "options": [
+            {
+              "text": "She trips on a stone in the lane.",
+              "textKo": "길의 돌부리에 걸린다."
+            },
+            {
+              "text": "She tosses her head, acting out her own daydream.",
+              "textKo": "공상 속 동작 그대로 고개를 젖힌다."
+            },
+            {
+              "text": "She turns to greet the young fellows.",
+              "textKo": "청년들에게 인사하려고 돌아선다."
+            },
+            {
+              "text": "She sets the pail down to count her money.",
+              "textKo": "돈을 세려고 통을 내려놓는다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "suiting the action to the word, she tossed her head. Down went the pail"
+        },
+        {
+          "type": "multiple",
+          "question": "Why do the Dolphins refuse the Sprat’s peacemaking?",
+          "questionKo": "돌고래들이 청어의 중재를 거절하는 이유는?",
+          "options": [
+            {
+              "text": "The Sprat had sided with the Whales earlier.",
+              "textKo": "청어가 앞서 고래 편을 들어서."
+            },
+            {
+              "text": "They had already agreed to a truce with the Whales.",
+              "textKo": "이미 고래와 휴전에 합의해서."
+            },
+            {
+              "text": "They would rather fight until all are killed than be reconciled by so small a fish.",
+              "textKo": "그런 작은 물고기의 중재를 받느니 다 죽을 때까지 싸우겠다는 것."
+            },
+            {
+              "text": "They could not hear him over the noise of battle.",
+              "textKo": "싸움 소리에 그의 말이 들리지 않아서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "We would rather go on fighting till we're all killed than be reconciled by a Sprat like you!"
+        },
+        {
+          "type": "multiple",
+          "question": "What does the Milkmaid say she will do when the young fellows admire her gown?",
+          "questionKo": "청년들이 자기 옷을 칭찬하면 어쩌겠다고 소녀는 말하는가?",
+          "options": [
+            {
+              "text": "Sell them eggs at a high price.",
+              "textKo": "달걀을 비싸게 팔겠다고."
+            },
+            {
+              "text": "Invite them to the dairy.",
+              "textKo": "젖 짜는 곳으로 초대하겠다고."
+            },
+            {
+              "text": "Ask them to carry her pail.",
+              "textKo": "통을 들어 달라고 하겠다고."
+            },
+            {
+              "text": "Toss her head and have nothing to say to them.",
+              "textKo": "고개를 젖히고 상대하지 않겠다고."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "but I shall toss my head and have nothing to say to them"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Sprat steps in only after the battle has already lasted some time without an end in sight.",
+          "questionKo": "청어는 싸움이 끝날 기미 없이 한참 이어진 뒤에야 나선다.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "had lasted some time without any sign of coming to an end, when a Sprat thought that perhaps he could stop it"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 15,
+      "chapter_title": "The Fox and the Monkey",
+      "word_count": 430,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 31. The Fox and the Monkey\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-fox-and-the-monkey\n\nA Fox and a Monkey were on the road together, and fell into a dispute as to which of the two was the better born. They kept it up for some time, till they came to a place where the road passed through a cemetery full of monuments, when the Monkey stopped and looked about him and gave a great sigh. \"Why do you sigh?\" said the Fox. The Monkey pointed to the tombs and replied, \"All the monuments that you see here were put up in honour of my forefathers, who in their day were eminent men.\" The Fox was speechless for a moment, but quickly recovering he said, \"Oh! don't stop at any lie, sir; you're quite safe: I'm sure none of your ancestors will rise up and expose you.\"\n\nCHAPTER 32. The Ass and the Lapdog\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ass-and-the-lapdog\n\nThere was once a man who had an Ass and a Lapdog. The Ass was housed in the stable with plenty of oats and hay to eat and was as well off as an ass could be. The little Dog was made a great pet of by his master, who fondled him and often let him lie in his lap; and if he went out to dinner, he would bring back a titbit or two to give him when he ran to meet him on his return. The Ass had, it is true, a good deal of work to do, carting or grinding the corn, or carrying the burdens of the farm: and ere long he became very jealous, contrasting his own life of labour with the ease and idleness of the Lapdog. At last one day he broke his halter, and frisking into the house just as his master sat down to dinner, he pranced and capered about, mimicking the frolics of the little favourite, upsetting the table and smashing the crockery with his clumsy efforts. Not content with that, he even tried to jump on his master's lap, as he had so often seen the dog allowed to do. At that the servants, seeing the danger their master was in, belaboured the silly Ass with sticks and cudgels, and drove him back to his stable half dead with his beating. \"Alas!\" he cried, \"all this I have brought on myself. Why could I not be satisfied with my natural and honourable position, without wishing to imitate the ridiculous antics of that useless little Lapdog?\"",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does the Monkey try to prove his noble birth?",
+          "questionKo": "원숭이는 자기 가문이 훌륭하다는 것을 어떻게 증명하려 하는가?",
+          "options": [
+            {
+              "text": "He sighs at a cemetery and calls the monuments his forefathers’.",
+              "textKo": "묘지에서 한숨을 쉬며 비석들이 자기 조상의 것이라 한다."
+            },
+            {
+              "text": "He recites the names of his ancestors.",
+              "textKo": "조상들의 이름을 읊는다."
+            },
+            {
+              "text": "He shows a ring he says was his grandfather’s.",
+              "textKo": "할아버지의 것이라는 반지를 보여 준다."
+            },
+            {
+              "text": "He leads the Fox to a ruined palace.",
+              "textKo": "여우를 무너진 궁전으로 데려간다."
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "The Monkey pointed to the tombs and replied, All the monuments that you see here were put up in honour of my forefathers"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Fox turn the Monkey’s boast against him?",
+          "questionKo": "여우는 원숭이의 허풍을 어떻게 되받아치는가?",
+          "options": [
+            {
+              "text": "He reads the names carved on the stones aloud.",
+              "textKo": "비석에 새겨진 이름을 소리 내어 읽는다."
+            },
+            {
+              "text": "He says none of those ancestors will rise up to expose the lie.",
+              "textKo": "그 조상들 중 누구도 일어나 거짓을 밝히지 못할 테니 안심하라고 한다."
+            },
+            {
+              "text": "He claims the same monuments for his own family.",
+              "textKo": "같은 비석을 자기 집안 것이라 주장한다."
+            },
+            {
+              "text": "He fetches the keeper of the cemetery.",
+              "textKo": "묘지기를 데려온다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "don't stop at any lie, sir; you're quite safe: I'm sure none of your ancestors will rise up and expose you"
+        },
+        {
+          "type": "multiple",
+          "question": "What makes the Ass jealous of the Lapdog?",
+          "questionKo": "당나귀가 애완견을 질투하게 된 이유는?",
+          "options": [
+            {
+              "text": "The Dog was given oats and hay while he got none.",
+              "textKo": "개는 귀리와 건초를 받고 자기는 못 받아서."
+            },
+            {
+              "text": "The Dog was allowed into the stable at night.",
+              "textKo": "개가 밤에 마구간에 들어오게 허락돼서."
+            },
+            {
+              "text": "His own life of labour against the Dog’s ease and idleness.",
+              "textKo": "자기의 고된 노동과 개의 편안한 한가로움이 대비돼서."
+            },
+            {
+              "text": "The master took the Dog to market instead of him.",
+              "textKo": "주인이 자기 대신 개를 시장에 데려가서."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "contrasting his own life of labour with the ease and idleness of the Lapdog"
+        },
+        {
+          "type": "multiple",
+          "question": "What conclusion does the beaten Ass draw?",
+          "questionKo": "매를 맞은 당나귀가 내린 결론은?",
+          "options": [
+            {
+              "text": "That the servants were crueller than his master.",
+              "textKo": "하인들이 주인보다 잔인했다는 것."
+            },
+            {
+              "text": "That he should have waited until the master was alone.",
+              "textKo": "주인이 혼자 있을 때를 기다렸어야 했다는 것."
+            },
+            {
+              "text": "That the Lapdog had set a trap for him.",
+              "textKo": "애완견이 함정을 놓았다는 것."
+            },
+            {
+              "text": "That he brought it on himself by not being satisfied with his own honourable position.",
+              "textKo": "자기 자리에 만족하지 못해 자초한 일이라는 것."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "all this I have brought on myself. Why could I not be satisfied with my natural and honourable position"
+        },
+        {
+          "type": "blank",
+          "question": "The Ass breaks his ______ and frisks into the house just as his master sits down to dinner.",
+          "questionKo": "당나귀는 ______ 를 끊고 주인이 저녁상에 앉는 순간 집 안으로 뛰어든다.",
+          "options": [
+            {
+              "text": "halter",
+              "textKo": "고삐"
+            },
+            {
+              "text": "harness",
+              "textKo": "멍에"
+            },
+            {
+              "text": "stall door",
+              "textKo": "마구간 문"
+            },
+            {
+              "text": "chain",
+              "textKo": "사슬"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "At last one day he broke his halter, and frisking into the house"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 16,
+      "chapter_title": "The Fir-Tree and the Bramble",
+      "word_count": 336,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 33. The Fir-Tree and the Bramble\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-fir-tree-and-the-bramble\n\nA Fir-tree was boasting to a Bramble, and said, somewhat contemptuously, \"You poor creature, you are of no use whatever. Now, look at me: I am useful for all sorts of things, particularly when men build houses; they can't do without me then.\" But the Bramble replied, \"Ah, that's all very well: but you wait till they come with axes and saws to cut you down, and then you'll wish you were a Bramble and not a Fir.\"\n\nCHAPTER 34. The Frogs' Complaint Against the Sun\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-frogs-complaint-against-the-sun\n\nOnce upon a time the Sun was about to take to himself a wife. The Frogs in terror all raised their voices to the skies, and Jupiter, disturbed by the noise, asked them what they were croaking about. They replied, \"The Sun is bad enough even while he is single, drying up our marshes with his heat as he does. But what will become of us if he marries and begets other Suns?\"\n\nCHAPTER 35. The Dog, the Cock, and the Fox\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-dog-the-cock-and-the-fox\n\nA Dog and a Cock became great friends, and agreed to travel together. At nightfall the Cock flew up into the branches of a tree to roost, while the Dog curled himself up inside the trunk, which was hollow. At break of day the Cock woke up and crew, as usual. A Fox heard, and, wishing to make a breakfast of him, came and stood under the tree and begged him to come down. \"I should so like,\" said he, \"to make the acquaintance of one who has such a beautiful voice.\" The Cock replied, \"Would you just wake my porter who sleeps at the foot of the tree? He'll open the door and let you in.\" The Fox accordingly rapped on the trunk, when out rushed the Dog and tore him in pieces.",
+      "questions": [
+        {
+          "type": "multiple",
+          "question": "How does the Bramble answer the Fir-tree’s boast of usefulness?",
+          "questionKo": "전나무의 쓸모 자랑에 가시덤불은 어떻게 답하는가?",
+          "options": [
+            {
+              "text": "It says its thorns protect it from all animals.",
+              "textKo": "가시가 모든 짐승에게서 자기를 지켜 준다고 한다."
+            },
+            {
+              "text": "It says men will come with axes and saws, and then the Fir will wish it were a Bramble.",
+              "textKo": "사람들이 도끼와 톱을 들고 오면 전나무도 가시덤불이었으면 하고 바랄 거라 한다."
+            },
+            {
+              "text": "It says houses fall down but brambles grow back.",
+              "textKo": "집은 무너져도 덤불은 다시 자란다고 한다."
+            },
+            {
+              "text": "It says it feeds more creatures than the Fir does.",
+              "textKo": "전나무보다 더 많은 생물을 먹여 살린다고 한다."
+            }
+          ],
+          "correctIndex": 1,
+          "sourceSnippet": "you wait till they come with axes and saws to cut you down, and then you'll wish you were a Bramble"
+        },
+        {
+          "type": "multiple",
+          "question": "What are the Frogs afraid of when the Sun plans to marry?",
+          "questionKo": "해가 결혼하려 할 때 개구리들이 두려워하는 것은?",
+          "options": [
+            {
+              "text": "That the wedding fires will burn the marshes.",
+              "textKo": "결혼식 불길이 늪을 태울까 봐."
+            },
+            {
+              "text": "That Jupiter will drain the marshes for the feast.",
+              "textKo": "유피테르가 잔치를 위해 늪을 말릴까 봐."
+            },
+            {
+              "text": "That the Sun will beget other Suns.",
+              "textKo": "해가 또 다른 해들을 낳을까 봐."
+            },
+            {
+              "text": "That the Sun will stop rising over their pond.",
+              "textKo": "해가 자기들 연못 위로 안 뜰까 봐."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "But what will become of us if he marries and begets other Suns?"
+        },
+        {
+          "type": "multiple",
+          "question": "How does the Cock defeat the Fox?",
+          "questionKo": "수탉은 여우를 어떻게 물리치는가?",
+          "options": [
+            {
+              "text": "He flies higher into the branches out of reach.",
+              "textKo": "더 높은 가지로 날아올라 닿지 않게 한다."
+            },
+            {
+              "text": "He crows so loudly that the farmer comes running.",
+              "textKo": "크게 울어 농부를 불러온다."
+            },
+            {
+              "text": "He pretends to be ill so the Fox loses interest.",
+              "textKo": "아픈 척해서 여우가 흥미를 잃게 한다."
+            },
+            {
+              "text": "He sends the Fox to wake the \"porter\" — the Dog asleep in the hollow trunk.",
+              "textKo": "\"문지기\" 를 깨우라며 여우를 속이 빈 줄기에 잠든 개에게 보낸다."
+            }
+          ],
+          "correctIndex": 3,
+          "sourceSnippet": "Would you just wake my porter who sleeps at the foot of the tree? He’ll open the door and let you in."
+        },
+        {
+          "type": "multiple",
+          "question": "What excuse does the Fox give for wanting the Cock to come down?",
+          "questionKo": "여우가 수탉에게 내려오라고 하며 대는 구실은?",
+          "options": [
+            {
+              "text": "He says a storm is coming and the tree is unsafe.",
+              "textKo": "폭풍이 오니 나무가 위험하다고 한다."
+            },
+            {
+              "text": "He says the Dog has sent for him.",
+              "textKo": "개가 그를 불렀다고 한다."
+            },
+            {
+              "text": "He says he would like to meet one with such a beautiful voice.",
+              "textKo": "그렇게 아름다운 목소리의 주인을 만나고 싶다고 한다."
+            },
+            {
+              "text": "He says he has food to share below.",
+              "textKo": "아래에 나눠 먹을 먹이가 있다고 한다."
+            }
+          ],
+          "correctIndex": 2,
+          "sourceSnippet": "I should so like to make the acquaintance of one who has such a beautiful voice"
+        },
+        {
+          "type": "truefalse",
+          "question": "The Dog and the Cock sleep in different places — one in the branches, one inside the hollow trunk.",
+          "questionKo": "개와 수탉은 서로 다른 곳에서 잔다 — 하나는 가지 위, 하나는 속 빈 줄기 안.",
+          "options": [
+            {
+              "text": "True",
+              "textKo": "맞다"
+            },
+            {
+              "text": "False",
+              "textKo": "아니다"
+            }
+          ],
+          "correctIndex": 0,
+          "sourceSnippet": "the Cock flew up into the branches of a tree to roost, while the Dog curled himself up inside the trunk"
+        }
+      ]
+    },
+    {
+      "chapter_idx": 21,
+      "chapter_title": "The Boy and the Snails",
+      "word_count": 362,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 43. The Boy and the Snails\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-boy-and-the-snails\n\nA Farmer's Boy went looking for Snails, and, when he had picked up both his hands full, he set about making a fire at which to roast them; for he meant to eat them. When it got well alight and the Snails began to feel the heat, they gradually withdrew more and more into their shells with the hissing noise they always make when they do so. When the Boy heard it, he said, \"You abandoned creatures, how can you find heart to whistle when your houses are burning?\"\n\nCHAPTER 44. The Apes and the Two Travellers\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-apes-and-the-two-travellers\n\nTwo men were travelling together, one of whom never spoke the truth, whereas the other never told a lie: and they came in the course of their travels to the land of Apes. The King of the Apes, hearing of their arrival, ordered them to be brought before him; and by way of impressing them with his magnificence, he received them sitting on a throne, while the Apes, his subjects, were ranged in long rows on either side of him. When the Travellers came into his presence he asked them what they thought of him as a King. The lying Traveller said, \"Sire, everyone must see that you are a most noble and mighty monarch.\" \"And what do you think of my subjects?\" continued the King. \"They,\" said the Traveller, \"are in every way worthy of their royal master.\" The Ape was so delighted with his answer that he gave him a very handsome present. The other Traveller thought that if his companion was rewarded so splendidly for telling a lie, he himself would certainly receive a still greater reward for telling the truth; so, when the Ape turned to him and said, \"And what, sir, is your opinion?\" he replied, \"I think you are a very fine Ape, and all your subjects are fine Apes too.\" The King of the Apes was so enraged at his reply that he ordered him to be taken away and clawed to death.",
+      "questions": []
+    },
+    {
+      "chapter_idx": 23,
+      "chapter_title": "The Shepherd's Boy and the Wolf",
+      "word_count": 395,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 46. The Shepherd's Boy and the Wolf\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-shepherd-s-boy-and-the-wolf\n\nA Shepherd's Boy was tending his flock near a village, and thought it would be great fun to hoax the villagers by pretending that a Wolf was attacking the sheep: so he shouted out, \"Wolf! wolf!\" and when the people came running up he laughed at them for their pains. He did this more than once, and every time the villagers found they had been hoaxed, for there was no Wolf at all. At last a Wolf really did come, and the Boy cried, \"Wolf! wolf!\" as loud as he could: but the people were so used to hearing him call that they took no notice of his cries for help. And so the Wolf had it all his own way, and killed off sheep after sheep at his leisure.\n\nCHAPTER 47. The Fox and the Goat\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-fox-and-the-goat\n\nA Fox fell into a well and was unable to get out again. By and by a thirsty Goat came by, and seeing the Fox in the well asked him if the water was good. \"Good?\" said the Fox, \"it's the best water I ever tasted in all my life. Come down and try it yourself.\" The Goat thought of nothing but the prospect of quenching his thirst, and jumped in at once. When he had had enough to drink, he looked about, like the Fox, for some way of getting out, but could find none. Presently the Fox said, \"I have an idea. You stand on your hind legs, and plant your forelegs firmly against the side of the well, and then I'll climb on to your back, and, from there, by stepping on your horns, I can get out. And when I'm out, I'll help you out too.\" The Goat did as he was requested, and the Fox climbed on to his back and so out of the well; and then he coolly walked away. The Goat called loudly after him and reminded him of his promise to help him out: but the Fox merely turned and said, \"If you had as much sense in your head as you have hair in your beard you wouldn't have got into the well without making certain that you could get out again.\"",
+      "questions": []
+    },
+    {
+      "chapter_idx": 26,
+      "chapter_title": "The Farmer and His Sons",
+      "word_count": 364,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 52. The Farmer and His Sons\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-farmer-and-his-sons\n\nA Farmer, being at death's door, and desiring to impart to his Sons a secret of much moment, called them round him and said, \"My sons, I am shortly about to die; I would have you know, therefore, that in my vineyard there lies a hidden treasure. Dig, and you will find it.\" As soon as their father was dead, the Sons took spade and fork and turned up the soil of the vineyard over and over again, in their search for the treasure which they supposed to lie buried there. They found none, however: but the vines, after so thorough a digging, produced a crop such as had never before been seen.\n\nCHAPTER 53. The Dog and the Cook\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-dog-and-the-cook\n\nA rich man once invited a number of his friends and acquaintances to a banquet. His dog thought it would be a good opportunity to invite another Dog, a friend of his; so he went to him and said, \"My master is giving a feast: there'll be a fine spread, so come and dine with me tonight.\" The Dog thus invited came, and when he saw the preparations being made in the kitchen he said to himself, \"My word, I'm in luck: I'll take care to eat enough tonight to last me two or three days.\" At the same time he wagged his tail briskly, by way of showing his friend how delighted he was to have been asked. But just then the Cook caught sight of him, and, in his annoyance at seeing a strange Dog in the kitchen, caught him up by the hind legs and threw him out of the window. He had a nasty fall, and limped away as quickly as he could, howling dismally. Presently some other dogs met him, and said, \"Well, what sort of a dinner did you get?\" To which he replied, \"I had a splendid time: the wine was so good, and I drank so much of it, that I really don't remember how I got out of the house!\"",
+      "questions": []
+    },
+    {
+      "chapter_idx": 42,
+      "chapter_title": "The Fox Without a Tail",
+      "word_count": 334,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 83. The Fox Without a Tail\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-fox-without-a-tail\n\nA fox once fell into a trap, and after a struggle managed to get free, but with the loss of his brush. He was then so much ashamed of his appearance that he thought life was not worth living unless he could persuade the other Foxes to part with their tails also, and thus divert attention from his own loss. So he called a meeting of all the Foxes, and advised them to cut off their tails: \"They're ugly things anyhow,\" he said, \"and besides they're heavy, and it's tiresome to be always carrying them about with you.\" But one of the other Foxes said, \"My friend, if you hadn't lost your own tail, you wouldn't be so keen on getting us to cut off ours.\"\n\nCHAPTER 84. The Vain Jackdaw\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-vain-jackdaw\n\nJupiter announced that he intended to appoint a king over the birds, and named a day on which they were to appear before his throne, when he would select the most beautiful of them all to be their ruler. Wishing to look their best on the occasion they repaired to the banks of a stream, where they busied themselves in washing and preening their feathers. The Jackdaw was there along with the rest, and realised that, with his ugly plumage, he would have no chance of being chosen as he was: so he waited till they were all gone, and then picked up the most gaudy of the feathers they had dropped, and fastened them about his own body, with the result that he looked gayer than any of them. When the appointed day came, the birds assembled before Jupiter's throne; and, after passing them in review, he was about to make the Jackdaw king, when all the rest set upon the king-elect, stripped him of his borrowed plumes, and exposed him for the Jackdaw that he was.",
+      "questions": []
+    },
+    {
+      "chapter_idx": 48,
+      "chapter_title": "Mercury and the Tradesmen",
+      "word_count": 301,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 95. Mercury and the Tradesmen\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#mercury-and-the-tradesmen\n\nWhen Jupiter was creating man, he told Mercury to make an infusion of lies, and to add a little of it to the other ingredients which went to the making of the Tradesmen. Mercury did so, and introduced an equal amount into each in turn⁠--the tallow-chandler, and the greengrocer, and the haberdasher, and all, till he came to the horse-dealer, who was last on the list, when, finding that he had a quantity of the infusion still left, he put it all into him. This is why all Tradesmen lie more or less, but they none of them lie like a horse-dealer.\n\nCHAPTER 96. The Mice and the Weasels\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-mice-and-the-weasels\n\nThere was war between the Mice and the Weasels, in which the Mice always got the worst of it, numbers of them being killed and eaten by the Weasels. So they called a council of war, in which an old Mouse got up and said, \"It's no wonder we are always beaten, for we have no generals to plan our battles and direct our movements in the field.\" Acting on his advice, they chose the biggest Mice to be their leaders, and these, in order to be distinguished from the rank and file, provided themselves with helmets bearing large plumes of straw. They then led out the Mice to battle, confident of victory: but they were defeated as usual, and were soon scampering as fast as they could to their holes. All made their way to safety without difficulty except the leaders, who were so hampered by the badges of their rank that they could not get into their holes, and fell easy victims to their pursuers.",
+      "questions": []
+    },
+    {
+      "chapter_idx": 50,
+      "chapter_title": "The Ass and the Old Peasant",
+      "word_count": 302,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 99. The Ass and the Old Peasant\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ass-and-the-old-peasant\n\nAn old Peasant was sitting in a meadow watching his Ass, which was grazing close by, when all of a sudden he caught sight of armed men stealthily approaching. He jumped up in a moment, and begged the Ass to fly with him as fast as he could, \"Or else,\" said he, \"we shall both be captured by the enemy.\" But the Ass just looked round lazily and said, \"And if so, do you think they'll make me carry heavier loads than I have to now?\" \"No,\" said his master. \"Oh, well, then,\" said the Ass, \"I don't mind if they do take me, for I shan't be any worse off.\"\n\nCHAPTER 100. The Ox and the Frog\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ox-and-the-frog\n\nTwo little Frogs were playing about at the edge of a pool when an Ox came down to the water to drink, and by accident trod on one of them and crushed the life out of him. When the old Frog missed him, she asked his brother where he was. \"He is dead, mother,\" said the little Frog; \"an enormous big creature with four legs came to our pool this morning and trampled him down in the mud.\" \"Enormous, was he? Was he as big as this?\" said the Frog, puffing herself out to look as big as possible. \"Oh! yes, much bigger,\" was the answer. The Frog puffed herself out still more. \"Was he as big as this?\" said she. \"Oh! yes, yes, mother, much bigger,\" said the little Frog. And yet again she puffed and puffed herself out till she was almost as round as a ball. \"As big as⁠ ⁠... ?\" she began⁠--but then she burst.",
+      "questions": []
+    },
+    {
+      "chapter_idx": 71,
+      "chapter_title": "The Hare and the Hound",
+      "word_count": 374,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 140. The Hare and the Hound\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-hare-and-the-hound\n\nA Hound started a Hare from her form, and pursued her for some distance; but as she gradually gained upon him, he gave up the chase. A rustic who had seen the race met the Hound as he was returning, and taunted him with his defeat. \"The little one was too much for you,\" said he. \"Ah, well,\" said the Hound, \"don't forget it's one thing to be running for your dinner, but quite another to be running for your life.\"\n\nCHAPTER 141. The Town Mouse and the Country Mouse\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-town-mouse-and-the-country-mouse\n\nA Town Mouse and a Country Mouse were acquaintances, and the Country Mouse one day invited his friend to come and see him at his home in the fields. The Town Mouse came, and they sat down to a dinner of barleycorns and roots, the latter of which had a distinctly earthy flavour. The fare was not much to the taste of the guest, and presently he broke out with \"My poor dear friend, you live here no better than the ants. Now, you should just see how I fare! My larder is a regular horn of plenty. You must come and stay with me, and I promise you you shall live on the fat of the land.\" So when he returned to town he took the Country Mouse with him, and showed him into a larder containing flour and oatmeal and figs and honey and dates. The Country Mouse had never seen anything like it, and sat down to enjoy the luxuries his friend provided: but before they had well begun, the door of the larder opened and someone came in. The two Mice scampered off and hid themselves in a narrow and exceedingly uncomfortable hole. Presently, when all was quiet, they ventured out again; but someone else came in, and off they scuttled again. This was too much for the visitor. \"Goodbye,\" said he, \"I'm off. You live in the lap of luxury, I can see, but you are surrounded by dangers; whereas at home I can enjoy my simple dinner of roots and corn in peace.\"",
+      "questions": []
+    },
+    {
+      "chapter_idx": 86,
+      "chapter_title": "The Eagle, the Jackdaw, and the Shepherd",
+      "word_count": 346,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 170. The Eagle, the Jackdaw, and the Shepherd\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-eagle-the-jackdaw-and-the-shepherd\n\nOne day a Jackdaw saw an Eagle swoop down on a lamb and carry it off in its talons. \"My word,\" said the Jackdaw, \"I'll do that myself.\" So it flew high up into the air, and then came shooting down with a great whirring of wings on to the back of a big ram. It had no sooner alighted than its claws got caught fast in the wool, and nothing it could do was of any use: there it stuck, flapping away, and only making things worse instead of better. By and by up came the Shepherd. \"Oho,\" he said, \"so that's what you'd be doing, is it?\" And he took the Jackdaw, and clipped its wings and carried it home to his children. It looked so odd that they didn't know what to make of it. \"What sort of bird is it, father?\" they asked. \"It's a Jackdaw,\" he replied, \"and nothing but a Jackdaw: but it wants to be taken for an Eagle.\"\n\nCHAPTER 171. The Wolf and the Boy\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-wolf-and-the-boy\n\nA Wolf, who had just enjoyed a good meal and was in a playful mood, caught sight of a Boy lying flat upon the ground, and, realising that he was trying to hide, and that it was fear of himself that made him do this, he went up to him and said, \"Aha, I've found you, you see; but if you can say three things to me, the truth of which cannot be disputed, I will spare your life.\" The Boy plucked up courage and thought for a moment, and then he said, \"First, it is a pity you saw me; secondly, I was a fool to let myself be seen; and thirdly, we all hate wolves because they are always making unprovoked attacks upon our flocks.\" The Wolf replied, \"Well, what you say is true enough from your point of view; so you may go.\"",
+      "questions": []
+    },
+    {
+      "chapter_idx": 96,
+      "chapter_title": "The Cage-Bird and the Bat",
+      "word_count": 323,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 189. The Cage-Bird and the Bat\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-cage-bird-and-the-bat\n\nA Singing-bird was confined in a cage which hung outside a window, and had a way of singing at night when all other birds were asleep. One night a Bat came and clung to the bars of the cage, and asked the Bird why she was silent by day and sang only at night. \"I have a very good reason for doing so,\" said the Bird: \"it was once when I was singing in the daytime that a fowler was attracted by my voice, and set his nets for me and caught me. Since then I have never sung except by night.\" But the Bat replied, \"It is no use your doing that now when you are a prisoner: if only you had done so before you were caught, you might still have been free.\"\n\nCHAPTER 190. The Ass and His Purchaser\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ass-and-his-purchaser\n\nA Man who wanted to buy an Ass went to market, and, coming across a likely-looking beast, arranged with the owner that he should be allowed to take him home on trial to see what he was like. When he reached home, he put him into his stable along with the other asses. The newcomer took a look round, and immediately went and chose a place next to the laziest and greediest beast in the stable. When the master saw this he put a halter on him at once, and led him off and handed him over to his owner again. The latter was a good deal surprised to see him back so soon, and said, \"Why, do you mean to say you have tested him already?\" \"I don't want to put him through any more tests,\" replied the other: \"I could see what sort of beast he is from the companion he chose for himself.\"",
+      "questions": []
+    },
+    {
+      "chapter_idx": 97,
+      "chapter_title": "The Kid and the Wolf",
+      "word_count": 361,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 191. The Kid and the Wolf\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-kid-and-the-wolf\n\nA Kid strayed from the flock and was chased by a Wolf. When he saw he must be caught he turned round and said to the Wolf, \"I know, sir, that I can't escape being eaten by you: and so, as my life is bound to be short, I pray you let it be as merry as may be. Will you not play me a tune to dance to before I die?\" The Wolf saw no objection to having some music before his dinner: so he took out his pipe and began to play, while the Kid danced before him. Before many minutes were passed the gods who guarded the flock heard the sound and came up to see what was going on. They no sooner clapped eyes on the Wolf than they gave chase and drove him away. As he ran off, he turned and said to the Kid, \"It's what I thoroughly deserve: my trade is the butcher's, and I had no business to turn piper to please you.\"\n\nCHAPTER 192. The Debtor and His Sow\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-debtor-and-his-sow\n\nA Man of Athens fell into debt and was pressed for the money by his creditor; but he had no means of paying at the time, so he begged for delay. But the creditor refused and said he must pay at once. Then the Debtor fetched a Sow⁠--the only one he had⁠--and took her to market to offer her for sale. It happened that his creditor was there too. Presently a buyer came along and asked if the Sow produced good litters. \"Yes,\" said the Debtor, \"very fine ones; and the remarkable thing is that she produces females at the Mysteries and males at the Panathenea.\" (Festivals these were: and the Athenians always sacrifice a sow at one, and a boar at the other; while at the Dionysia they sacrifice a kid.) At that the creditor, who was standing by, put in, \"Don't be surprised, sir; why, still better, at the Dionysia this Sow has kids!\"",
+      "questions": []
+    },
+    {
+      "chapter_idx": 106,
+      "chapter_title": "The Ass and the Dog",
+      "word_count": 323,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 207. The Ass and the Dog\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ass-and-the-dog\n\nAn Ass and a Dog were on their travels together, and, as they went along, they found a sealed packet lying on the ground. The Ass picked it up, broke the seal, and found it contained some writing, which he proceeded to read out aloud to the Dog. As he read on it turned out to be all about grass and barley and hay⁠--in short, all the kinds of fodder that Asses are fond of. The Dog was a good deal bored with listening to all this, till at last his impatience got the better of him, and he cried, \"Just skip a few pages, friend, and see if there isn't something about meat and bones.\" The Ass glanced all through the packet, but found nothing of the sort, and said so. Then the Dog said in disgust, \"Oh, throw it away, do: what's the good of a thing like that?\"\n\nCHAPTER 208. The Ass Carrying the Image\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-ass-carrying-the-image\n\nA certain man put an Image on the back of his Ass to take it to one of the temples of the town. As they went along the road all the people they met uncovered and bowed their heads out of reverence for the Image; but the Ass thought they were doing it out of respect for himself, and began to give himself airs accordingly. At last he became so conceited that he imagined he could do as he liked, and, by way of protest against the load he was carrying, he came to a full stop and flatly declined to proceed any further. His driver, finding him so obstinate, hit him hard and long with his stick, saying the while, \"Oh, you dunder-headed idiot, do you suppose it's come to this, that men pay worship to an Ass?\"",
+      "questions": []
+    },
+    {
+      "chapter_idx": 108,
+      "chapter_title": "The Sheep and the Dog",
+      "word_count": 343,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 211. The Sheep and the Dog\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-sheep-and-the-dog\n\nOnce upon a time the Sheep complained to the shepherd about the difference in his treatment of themselves and his Dog. \"Your conduct,\" said they, \"is very strange and, we think, very unfair. We provide you with wool and lambs and milk and you give us nothing but grass, and even that we have to find for ourselves: but you get nothing at all from the Dog, and yet you feed him with titbits from your own table.\" Their remarks were overheard by the Dog, who spoke up at once and said, \"Yes, and quite right, too: where would you be if it wasn't for me? Thieves would steal you! Wolves would eat you! Indeed, if I didn't keep constant watch over you, you would be too terrified even to graze!\" The Sheep were obliged to acknowledge that he spoke the truth, and never again made a grievance of the regard in which he was held by his master.\n\nCHAPTER 212. The Shepherd and the Wolf\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-shepherd-and-the-wolf\n\nA Shepherd found a Wolf's Cub straying in the pastures, and took him home and reared him along with his dogs. When the Cub grew to his full size, if ever a wolf stole a sheep from the flock, he used to join the dogs in hunting him down. It sometimes happened that the dogs failed to come up with the thief, and, abandoning the pursuit, returned home. The Wolf would on such occasions continue the chase by himself, and when he overtook the culprit, would stop and share the feast with him, and then return to the Shepherd. But if some time passed without a sheep being carried off by the wolves, he would steal one himself and share his plunder with the dogs. The Shepherd's suspicions were aroused, and one day he caught him in the act; and, fastening a rope round his neck, hung him on the nearest tree.",
+      "questions": []
+    },
+    {
+      "chapter_idx": 113,
+      "chapter_title": "The Bat, the Bramble, and the Seagull",
+      "word_count": 350,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 220. The Bat, the Bramble, and the Seagull\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-bat-the-bramble-and-the-seagull\n\nA Bat, a Bramble, and a Seagull went into partnership and determined to go on a trading voyage together. The Bat borrowed a sum of money for his venture; the Bramble laid in a stock of clothes of various kinds; and the Seagull took a quantity of lead: and so they set out. By and by a great storm came on, and their boat with all the cargo went to the bottom, but the three travellers managed to reach land. Ever since then the Seagull flies to and fro over the sea, and every now and then dives below the surface, looking for the lead he's lost; while the Bat is so afraid of meeting his creditors that he hides away by day and only comes out at night to feed; and the Bramble catches hold of the clothes of everyone who passes by, hoping some day to recognise and recover the lost garments.\n\nCHAPTER 221. The Dog and the Wolf\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-dog-and-the-wolf\n\nA Dog was lying in the sun before a farmyard gate when a Wolf pounced upon him and was just going to eat him up; but he begged for his life and said, \"You see how thin I am and what a wretched meal I should make you now: but if you will only wait a few days my master is going to give a feast. All the rich scraps and pickings will fall to me and I shall get nice and fat: then will be the time for you to eat me.\" The Wolf thought this was a very good plan and went away. Some time afterwards he came to the farmyard again, and found the Dog lying out of reach on the stable roof. \"Come down,\" he called, \"and be eaten: you remember our agreement?\" But the Dog said coolly, \"My friend, if ever you catch me lying down by the gate there again, don't you wait for any feast.\"",
+      "questions": []
+    },
+    {
+      "chapter_idx": 114,
+      "chapter_title": "The Wasp and the Snake",
+      "word_count": 351,
+      "chapter_v_level": 6,
+      "content": "CHAPTER 222. The Wasp and the Snake\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-wasp-and-the-snake\n\nA Wasp settled on the head of a Snake, and not only stung him several times, but clung obstinately to the head of his victim. Maddened with pain the Snake tried every means he could think of to get rid of the creature, but without success. At last he became desperate, and crying, \"Kill you I will, even at the cost of my own life,\" he laid his head with the Wasp on it under the wheel of a passing wagon, and they both perished together.\n\nCHAPTER 223. The Eagle and the Beetle\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-eagle-and-the-beetle\n\nAn Eagle was chasing a hare, which was running for dear life and was at her wits' end to know where to turn for help. Presently she espied a Beetle, and begged it to aid her. So when the Eagle came up the Beetle warned her not to touch the hare, which was under its protection. But the Eagle never noticed the Beetle because it was so small, seized the hare and ate her up. The Beetle never forgot this, and used to keep an eye on the Eagle's nest, and whenever the Eagle laid an egg it climbed up and rolled it out of the nest and broke it. At last the Eagle got so worried over the loss of her eggs that she went up to Jupiter, who is the special protector of Eagles, and begged him to give her a safe place to nest in: so he let her lay her eggs in his lap. But the Beetle noticed this and made a ball of dirt the size of an Eagle's egg, and flew up and deposited it in Jupiter's lap. When Jupiter saw the dirt, he stood up to shake it out of his robe, and, forgetting about the eggs, he shook them out too, and they were broken just as before. Ever since then, they say, Eagles never lay their eggs at the season when Beetles are about.",
+      "questions": []
+    },
+    {
+      "chapter_idx": 127,
+      "chapter_title": "The Farmer and His Dogs",
+      "word_count": 364,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 249. The Farmer and His Dogs\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-farmer-and-his-dogs\n\nA Farmer was snowed up in his farmstead by a severe storm, and was unable to go out and procure provisions for himself and his family. So he first killed his sheep and used them for food; then, as the storm still continued, he killed his goats; and, last of all, as the weather showed no signs of improving, he was compelled to kill his oxen and eat them. When his Dogs saw the various animals being killed and eaten in turn, they said to one another, \"We had better get out of this or we shall be the next to go!\"\n\nCHAPTER 250. The Eagle and the Fox\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-eagle-and-the-fox\n\nAn Eagle and a Fox became great friends and determined to live near one another: they thought that the more they saw of each other the better friends they would be. So the Eagle built a nest at the top of a high tree, while the Fox settled in a thicket at the foot of it and produced a litter of cubs. One day the Fox went out foraging for food, and the Eagle, who also wanted food for her young, flew down into the thicket, caught up the Fox's cubs, and carried them up into the tree for a meal for herself and her family. When the Fox came back, and found out what had happened, she was not so much sorry for the loss of her cubs as furious because she couldn't get at the Eagle and pay her out for her treachery. So she sat down not far off and cursed her. But it wasn't long before she had her revenge. Some villagers happened to be sacrificing a goat on a neighbouring altar, and the Eagle flew down and carried off a piece of burning flesh to her nest. There was a strong wind blowing, and the nest caught fire, with the result that her fledglings fell half-roasted to the ground. Then the Fox ran to the spot and devoured them in full sight of the Eagle.",
+      "questions": []
+    },
+    {
+      "chapter_idx": 129,
+      "chapter_title": "The Fox Who Served a Lion",
+      "word_count": 388,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 253. The Fox Who Served a Lion\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-fox-who-served-a-lion\n\nA Lion had a Fox to attend on him, and whenever they went hunting the Fox found the prey and the Lion fell upon it and killed it, and then they divided it between them in certain proportions. But the Lion always got a very large share, and the Fox a very small one, which didn't please the latter at all; so he determined to set up on his own account. He began by trying to steal a lamb from a flock of sheep: but the shepherd saw him and set his dogs on him. The hunter was now the hunted, and was very soon caught and despatched by the dogs.\n\nCHAPTER 254. The Quack Doctor\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-quack-doctor\n\nA certain man fell sick and took to his bed. He consulted a number of doctors from time to time, and they all, with one exception, told him that his life was in no immediate danger, but that his illness would probably last a considerable time. The one who took a different view of his case, who was also the last to be consulted, bade him prepare for the worst: \"You have not twenty-four hours to live,\" said he, \"and I fear I can do nothing.\" As it turned out, however, he was quite wrong; for at the end of a few days the sick man quitted his bed and took a walk abroad, looking, it is true, as pale as a ghost. In the course of his walk he met the Doctor who had prophesied his death. \"Dear me,\" said the latter, \"how do you do? You are fresh from the other world, no doubt. Pray, how are our departed friends getting on there?\" \"Most comfortably,\" replied the other, \"for they have drunk the water of oblivion, and have forgotten all the troubles of life. By the way, just before I left, the authorities were making arrangements to prosecute all the doctors, because they won't let sick men die in the course of nature, but use their arts to keep them alive. They were going to charge you along with the rest, till I assured them that you were no doctor, but a mere impostor.\"",
+      "questions": []
+    },
+    {
+      "chapter_idx": 134,
+      "chapter_title": "The Foxes and the River",
+      "word_count": 328,
+      "chapter_v_level": 5,
+      "content": "CHAPTER 263. The Foxes and the River\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-foxes-and-the-river\n\nA number of Foxes assembled on the bank of a river and wanted to drink; but the current was so strong and the water looked so deep and dangerous that they didn't dare to do so, but stood near the edge encouraging one another not to be afraid. At last one of them, to shame the rest, and show how brave he was, said, \"I am not a bit frightened! See, I'll step right into the water!\" He had no sooner done so than the current swept him off his feet. When the others saw him being carried downstream they cried, \"Don't go and leave us! Come back and show us where we too can drink with safety.\" But he replied, \"I'm afraid I can't yet: I want to go to the seaside, and this current will take me there nicely. When I come back I'll show you with pleasure.\"\n\nCHAPTER 264. The Horse and the Stag\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-horse-and-the-stag\n\nThere was once a Horse who used to graze in a meadow which he had all to himself. But one day a Stag came into the meadow, and said he had as good a right to feed there as the Horse, and moreover chose all the best places for himself. The Horse, wishing to be revenged upon his unwelcome visitor, went to a man and asked if he would help him to turn out the Stag. \"Yes,\" said the man, \"I will by all means; but I can only do so if you let me put a bridle in your mouth and mount on your back.\" The Horse agreed to this, and the two together very soon turned the Stag out of the pasture: but when that was done, the Horse found to his dismay that in the man he had got a master for good.",
+      "questions": []
+    },
+    {
+      "chapter_idx": 141,
+      "chapter_title": "Prometheus and the Making of Man",
+      "word_count": 327,
+      "chapter_v_level": 7,
+      "content": "CHAPTER 279. Prometheus and the Making of Man\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#prometheus-and-the-making-of-man\n\nAt the bidding of Jupiter, Prometheus set about the creation of Man and the other animals. Jupiter, seeing that Mankind, the only rational creatures, were far outnumbered by the irrational beasts, bade him redress the balance by turning some of the latter into men. Prometheus did as he was bidden, and this is the reason why some people have the forms of men but the souls of beasts.\n\nCHAPTER 280. The Swallow and the Crow\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-swallow-and-the-crow\n\nA Swallow was once boasting to a Crow about her birth. \"I was once a princess,\" said she, \"the daughter of a King of Athens, but my husband used me cruelly, and cut out my tongue for a slight fault. Then, to protect me from further injury, I was turned by Juno into a bird.\" \"You chatter quite enough as it is,\" said the Crow. \"What you would have been like if you hadn't lost your tongue, I can't think.\"\n\nCHAPTER 281. The Hunter and the Horseman\u001ehttps://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/fables#the-hunter-and-the-horseman\n\nA Hunter went out after game, and succeeded in catching a hare, which he was carrying home with him when he met a man on horseback, who said to him, \"You have had some sport I see, sir,\" and offered to buy it. The Hunter readily agreed; but the Horseman had no sooner got the hare in his hands than he set spurs to his horse and went off at full gallop. The Hunter ran after him for some little distance; but it soon dawned upon him that he had been tricked, and he gave up trying to overtake the Horseman, and, to save his face, called after him as loud as he could, \"All right, sir, all right, take your hare: it was meant all along as a present.\"",
+      "questions": []
+    }
+  ]
+}
