@@ -174,14 +174,35 @@ for (const r of await fetchAllIn(
   existing.add(`${r.ref_id}|${r.type}|${r.paragraph_idx}`)
 }
 
+/**
+ * 후보 문장의 낱말 수 창 — **밴드마다 다르다.**
+ *
+ * ⚠️ **2026-08-30 정정 — 하한 8 이 모든 밴드에 걸려 있었다.** 그 값은 수능 산문에
+ *   맞춘 것인데, 초등 규격(`GRADE_BANDS.elementary`)은 **평균 문장 9어**라 절반 이상이
+ *   그 아래로 떨어진다. 실측(2단 각색본 17편 · 253문장):
+ *
+ *     하한 8   117문장 (46.2%)   ← 초등 교재를 규격대로 잘 쓸수록 문항이 덜 나온다
+ *     하한 6   214문장 (84.6%)
+ *     하한 5   241문장 (95.3%)
+ *     하한 4   251문장 (99.2%)   ← `Rain falls.` 같은 두 낱말 조각까지 들어온다
+ *
+ *   초등 하한을 **6** 으로 둔다 — 목표 평균 9어의 3분의 2이고, 그 아래는 조각이라
+ *   문항이 못 된다. **다른 밴드는 건드리지 않는다**(이미 만들어진 권이 달라지면 안 된다).
+ *
+ *   이 저장소는 다른 자리에서 이미 밴드·유형별로 자를 갈라 댄다
+ *   (`MIDDLE_ITEM_WORDS` 40~152 · `compose-unit.itemWordSpec`). 이 창만 몰랐다.
+ */
+const SENTENCE_WORDS = (band) => (band >= 1 && band <= 2 ? { min: 6, max: 20 } : { min: 8, max: 20 })
+
 // ── 후보 풀 (같은 밴드 안에서만 빌려 온다) ──────────────────────────
 const poolByBand = new Map()
 for (const a of usable) {
   const band = a.article_v_level ?? -1
+  const win = SENTENCE_WORDS(band)
   for (const p of paras(a.content)) {
     for (const s of sents(p)) {
       const n = s.split(/\s+/).length
-      if (n < 8 || n > 20) continue
+      if (n < win.min || n > win.max) continue
       const arr = poolByBand.get(band) ?? []
       arr.push({ text: s, ref: a.id })
       poolByBand.set(band, arr)
