@@ -385,6 +385,35 @@ CEFR-J 근거가 있는 6,098 낱말로 대조한 결과(2026-08-30 실측):
 곁가지로 `base_word` 뒤집힌 행 4건 정리(`separable → inseparable` 처럼 **접두형이 기본형으로**
 들어가 있었다 — 학습자에게 거꾸로 된 형태론을 가르친다): `separable`·`ordinate`·`tolerable`·`comprehensible`.
 
+### 완료한 장에서 단어를 추출하면 **완료가 취소되고 있었다**
+
+앞 항목의 "두 목록이 갈린다" 패턴을 DB 의 닫힌 목록(CHECK 제약 90여 개) 전체에 대고 훑다가 나왔다.
+
+`texts.status` 는 5값(`not_started`·`in_progress`·`extracted`·`conquered`·`completed`)인데
+화면마다 아는 값이 다르다 — `scriptquiz/queue.ts` 는 `extracted`·`conquered` 를 "읽음" 으로 세고,
+`/library/books` 는 `completed` 만 센다. 그 자체는 각자 맞을 수 있다. 문제는 **쓰는 쪽**이었다:
+
+`adaptive-extract.ts` 가 추출 후 `.update({ status: 'extracted' }).eq('id', textId)` 를
+**아무 가드 없이** 실행한다. 그래서 이미 끝낸 장에서 단어를 한 번 더 추출하면
+`completed` → `extracted` 로 **내려간다**:
+
+- `/library/books` 의 완료 수가 줄고 enrollment 가 '완료' → '학습 중' 으로 되돌아간다
+- `complete-chapter` 의 `alreadyCompleted` 판정이 풀려 완료 후처리가 다시 돈다
+- `progress_percent` 는 100 그대로라 **두 진도 정의가 갈린다**
+  (`complete-chapter` 는 status 와 progress_percent 를 함께 쓰므로 원래는 일치한다)
+
+추출은 학습을 되돌리는 행위가 아니므로 상태를 낮출 이유가 없다 —
+`.not('status','in','("completed","conquered")')` 가드를 걸었다.
+실 DB 로 검증: `completed` 행에 같은 UPDATE 를 걸면 **덮어쓴 행 0 · 상태 유지**(검증 행은 정리).
+
+⚠️ 현재 데이터로는 재현되지 않는다 — 완료된 장이 **0개**라 아무도 못 밟았다.
+가입자 3명·완주 0인 지금은 이런 결함이 **데이터가 아니라 코드에서만 보인다.**
+
+**함께 확인한 잠재 불일치(현재 실害 없음, 기록만)**:
+- `getResumeTarget` 의 반환 타입이 `extracted`·`conquered` 를 모르고, 모든 장이 `extracted` 면
+  `status: 'completed'` 로 보고한다. 호출부가 `textId` 만 쓰고 있어 화면에 닿지는 않는다.
+- `useTexts.pickResumeTextId` 가 `getResumeTarget` 을 클라이언트에 복제하고 있다. 지금은 규칙이 같다.
+
 ### 교사 채널의 가장 강한 신호가 **한 건도 전송되지 않고 있었다**
 
 진입로 작업을 마치고 다음 목표를 고르려 학습 루프를 재다가(챕터당 본문 11,080/11,080 ·
