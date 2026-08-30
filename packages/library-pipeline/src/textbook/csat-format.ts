@@ -64,9 +64,43 @@ export function hasCitationResidue(text: string): boolean {
  */
 const NON_PROSE = /_{4,}|[–—-]\s*(?:v|n|adj|adv|prep|conj|pron)\.\s/i
 
+/**
+ * **기사 껍데기** — 본문이 아니라 웹 기사에 붙어 오는 것.
+ *
+ * ── 실측 2026-08-30 ─────────────────────────────────────────────────
+ * 빈칸 드레인 청크(8편)를 직접 채우다 **3편이 문항이 안 되는 것**을 발견했다. 그래서
+ * V5 대기열 전체를 재 봤다 — 창을 통과한 3,215편 중 `isPrintablePassage` 는 98.6%를
+ * 통과시키는데, 실제로는 이런 것들이 그대로 들어와 있었다:
+ *
+ *   날짜 도장        160편 (5.0%)  "Aug 03, 2026"
+ *   읽기시간 머리말   143편 (4.4%)  "5 Min Read"
+ *   Q&A 표지        108편 (3.4%)  "Q What is lenacapavir … A Lenacapavir is …"
+ *   크레딧            48편 (1.5%)  "Credits: NASA"
+ *   캡션 나열         10편 (0.3%)  "Close Meeting a Crucial Need"
+ *
+ * 용어풀이(VOA)를 막은 것과 **같은 종류의 자국**이다 — 그때도 "표본을 눈으로 보다
+ * 발견" 했고, 이번에도 그랬다. 규칙을 여기 모아 두는 이유가 그것이다.
+ *
+ * ⚠️ 본문에 정상적으로 나올 수 있는 표현은 넣지 않았다. 예컨대 `Q4`(분기)나
+ *   문장 안의 `credit` 은 걸리지 않는다 — 대문자 라벨 꼴만 본다.
+ */
+const ARTICLE_CHROME = [
+  /\b\d+\s*Min\s*Read\b/i,                                    // 읽기시간 머리말
+  /\bCredits?:\s/i,                                            // 크레딧 라벨
+  /\bImage credit\b|\bPhoto:\s/i,
+  /\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s*\d{4}\b/, // 날짜 도장
+  /(?:^|\s)Q\s+(?:What|How|Why|When|Who|Where)\b/,             // Q&A 표지
+  /\b(?:Close|Read More|Share|Download|Print)\b\s+[A-Z]/,      // 캡션·버튼 나열
+]
+
+/** 기사 껍데기 자국이 있는가. */
+export function hasArticleChrome(text: string): boolean {
+  return ARTICLE_CHROME.some((re) => re.test(text))
+}
+
 /** 용어풀이·구분선 같은 비산문 자국이 있는가. */
 export function hasNonProse(text: string): boolean {
-  return NON_PROSE.test(text)
+  return NON_PROSE.test(text) || hasArticleChrome(text)
 }
 
 /** 교재 지문으로 인쇄할 수 있는가 — 인용 잔해도 비산문 자국도 없어야 한다. */

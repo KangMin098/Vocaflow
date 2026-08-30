@@ -6,8 +6,10 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  hasArticleChrome,
   CSAT_INSERT_BODY_SENTENCES,
   hasCitationResidue,
+  isPrintablePassage,
   ORDER_PERMS,
   splitIntoThree,
   toCsatInsert,
@@ -170,5 +172,28 @@ describe('splitIntoThree', () => {
     for (const n of [3, 4, 5, 6, 7, 8]) {
       expect(splitIntoThree(n)!.reduce((a, b) => a + b, 0), `n=${n}`).toBe(n)
     }
+  })
+})
+
+describe('hasArticleChrome — 기사 껍데기', () => {
+  // 실측 2026-08-30: V5 대기열 3,215편 중 이런 자국이 있는 채로 통과하던 것들.
+  it.each([
+    ['읽기시간 머리말', '5 Min Read Ike Theriot Helps Prepare Astronauts to Work on the Moon'],
+    ['크레딧', 'Credits: NASA Sumer Loggins wrote the article for the agency.'],
+    ['날짜 도장', 'Sumer Loggins Aug 03, 2026 Article From serving in the U.S. Army'],
+    ['Q&A 표지', 'Q What is lenacapavir and how does it work? A Lenacapavir is a drug.'],
+    ['캡션 나열', 'Micro Ocean-Bottom Seismometers Being Deployed Close Meeting a Crucial Need'],
+  ])('%s 를 잡는다', (_label, text) => {
+    expect(hasArticleChrome(text)).toBe(true)
+    expect(isPrintablePassage(text)).toBe(false)
+  })
+
+  it.each([
+    ['평범한 산문', 'The people who ruled the roads wanted one fixed way to measure a route.'],
+    ['문장 속 credit', 'Farmers could not get credit from the bank, so they sold the land.'],
+    ['분기 표기', 'Sales in Q4 rose sharply after the new plant opened in March.'],
+    ['월 이름만', 'In August the river runs low and the ferries stop for a week.'],
+  ])('%s 는 걸리지 않는다 — 본문을 버리면 안 된다', (_label, text) => {
+    expect(hasArticleChrome(text)).toBe(false)
   })
 })
