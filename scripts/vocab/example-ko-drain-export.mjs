@@ -12,24 +12,26 @@
 // 예문이 있으나 마나가 되고, 맥락 학습(§학습원칙5 Context-Dependent)이 성립하지 않는다.
 // 번역은 문장을 읽어야 나오므로 결정론으로 못 만든다. **그게 Claude Code 가 할 일이다.**
 //
-// ── 저장 자리 ────────────────────────────────────────────────────────
-// `shared_dictionary.senses` 는 jsonb 다. 번역은 각 뜻의 `examples_ko` 에 넣는다 —
-// **마이그레이션이 필요 없다**(CLAUDE.md §🤖). `examples` 와 **같은 길이의 배열**이라
-// 인덱스로 짝이 맞는다.
+// ── 저장 자리가 둘이다 ───────────────────────────────────────────────
 //
-// ⚠️ 이 드레인이 다루는 것은 **뜻마다 붙은 예문**뿐이다. 표제어 11,183 중 2,696 만
-//   그런 예문을 갖고 있고, 나머지 8,487 은 `example_en` 컬럼에만 예문이 있는데
-//   그 자리에 짝이 되는 `example_ko` 컬럼이 **없다**. 그건 마이그레이션이 필요해
-//   이 스크립트 밖의 결정이다 — 여기서 조용히 다른 자리에 넣지 않는다.
+//   · `example_ko` 컬럼      — 대표 예문(`example_en`)의 짝. 마이그레이션 `20260830170000`
+//   · `senses[].examples_ko` — 뜻마다 붙은 예문의 짝. jsonb 라 마이그레이션이 필요 없다
+//
+// ⚠️ **둘을 섞지 않는다.** 대표 예문이 몇 번 뜻의 것인지 알 수 없어서 `senses[0]` 에
+//   밀어 넣으면 짝이 어긋나고, 학습자가 **다른 뜻의 문장에 붙은 번역**을 읽게 된다.
+//   그래서 항목마다 `target: 'sense' | 'top'` 을 실어 import 가 자리를 가려 쓴다.
 //
 // ── 재실행 안전 ──────────────────────────────────────────────────────
-// **이미 채워진 뜻은 뽑지 않는다.** `examples_ko` 가 `examples` 와 같은 길이로 이미 있으면
-// 건너뛴다. 몇 번을 돌려도 남은 몫만 나오고, 다 채우면 0 건이 나온다.
-// DB 는 읽기만 한다. 청크 파일은 덮어쓴다.
+// **이미 채워진 것은 뽑지 않는다.** 뜻은 `examples_ko` 가 `examples` 와 같은 길이면,
+// 대표 예문은 `example_ko` 가 비어 있지 않으면 건너뛴다. 몇 번을 돌려도 남은 몫만 나오고,
+// 다 채우면 0 건이 나온다. DB 는 읽기만 한다. 청크 파일은 덮어쓴다.
 //
 // 실행:
-//   node scripts/vocab/example-ko-drain-export.mjs [--size 120] [--max 5]
+//   node scripts/vocab/example-ko-drain-export.mjs [--target all|top|sense] [--size 150] [--max 5]
 //   → scripts/vocab/example-ko-drain/chunk-NN.json
+//
+// **`--target top` 을 먼저 돌 것** — 아래 `TARGET` 주석의 근거대로, 낱말을 한 번씩 덮는
+// 것이 먼저이고 뜻별 예문은 그 위에 얹는 깊이다.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -50,6 +52,32 @@ const arg = (n, d = null) => {
 const SIZE = Number(arg('size', 120))
 /** 이번에 만들 청크 수 상한. 없으면 남은 몫 전부. */
 const MAX = arg('max') ? Number(arg('max')) : Infinity
+
+/**
+ * 어느 자리를 먼저 채울 것인가 — `top` · `sense` · `all`(기본).
+ *
+ * ── 왜 고를 수 있어야 하나 (실측 2026-08-30) ────────────────────────
+ * 우위지수의 V2 는 **낱말당** 판정이다("이 표제어에 번역된 예문이 있는가"). 그리고
+ * 카탈로그 표제어 **11,183 전부가 `example_en` 을 갖고 있다.** 그래서:
+ *
+ *   · `top` 만 채우면 → 11,183 문장으로 **V2 가 100% 에 닿는다**
+ *   · `sense` 를 채우면 → 깊이는 늘지만, 그 낱말의 대표 예문이 이미 번역돼 있으면
+ *     **V2 는 1 도 안 움직인다**
+ *
+ * 실제로 그랬다: 900 문장을 채웠는데 낱말은 594 개만 열렸다(뜻 480 개가 260 낱말에
+ * 몰려 있었고, 그중 174 개는 대표 예문이 아직 없는 낱말이었다).
+ *
+ * **이것은 지표를 속이는 것이 아니다.** 시중 단어장도 표제어마다 예문 하나에 번역을 단다 —
+ * 낱말을 한 번씩 덮는 것이 먼저이고, 뜻별 예문은 그 위에 얹는 깊이다. 순서가 그렇게 맞다.
+ */
+const TARGET = (() => {
+  const t = arg('target', 'all')
+  if (t !== 'all' && t !== 'top' && t !== 'sense') {
+    console.error(`--target 은 all · top · sense 중 하나여야 한다 (받은 값: ${t})`)
+    process.exit(1)
+  }
+  return t
+})()
 
 const OUT_DIR = path.resolve('scripts/vocab/example-ko-drain')
 const HIDDEN = ['library_book', 'library_article']
@@ -117,6 +145,7 @@ const todo = []
 for (const r of rows) {
   const senses = Array.isArray(r.senses) ? r.senses : []
   senses.forEach((se, idx) => {
+    if (TARGET === 'top') return
     if (!needsKo(se)) return
     todo.push({
       // 어디에 넣을 번역인가. **import 가 이 값으로 쓰는 자리를 가른다.**
@@ -138,7 +167,7 @@ for (const r of rows) {
   //   `senses[0]` 에 밀어 넣으면 짝이 어긋난다. `example_ko` 는 오직 `example_en` 과 짝이다.
   const topEn = typeof r.example_en === 'string' ? r.example_en.trim() : ''
   const topKo = typeof r.example_ko === 'string' ? r.example_ko.trim() : ''
-  if (topEn.length > 0 && topKo.length === 0) {
+  if (TARGET !== 'sense' && topEn.length > 0 && topKo.length === 0) {
     todo.push({
       target: 'top',
       word: r.word,
@@ -161,7 +190,7 @@ todo.sort(
 )
 
 const sentences = todo.reduce((s, t) => s + t.examples.length, 0)
-console.log(`카탈로그 표제어 ${words.length.toLocaleString()} · 번역 필요 뜻 ${todo.length.toLocaleString()} · 문장 ${sentences.toLocaleString()}`)
+console.log(`카탈로그 표제어 ${words.length.toLocaleString()} · 대상 ${TARGET} · 번역 필요 ${todo.length.toLocaleString()} · 문장 ${sentences.toLocaleString()}`)
 
 if (todo.length === 0) {
   console.log('남은 몫이 없다 — 다 채워졌다.')
