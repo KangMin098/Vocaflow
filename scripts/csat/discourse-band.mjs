@@ -30,6 +30,7 @@ import path from 'node:path'
 
 import { allRows, itemBlocks, passageOf } from './lib-passage.mjs'
 import { cleanPassage, looksInterleaved } from './clean-passage.mjs'
+import { looksLikeProse } from './prose-gate.mjs'
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -37,6 +38,7 @@ const arg = (n) => {
 }
 const APPLY = process.argv.includes('--apply')
 const onlyType = arg('type')
+const onlySource = arg('source')
 const LIMIT = arg('limit') ? Number(arg('limit')) : Infinity
 const outPath = arg('out')
 
@@ -136,11 +138,12 @@ if (APPLY) {
 
   const rows = []
   for (let from = 0; rows.length < LIMIT; from += 200) {
-    const { data, error } = await db
+    let qy = db
       .from('library_articles')
-      .select('id, content, display_only')
+      .select('id, source, content, display_only')
       .not('content', 'is', null)
-      .range(from, from + 199)
+    if (onlySource) qy = qy.eq('source', onlySource)
+    const { data, error } = await qy.range(from, from + 199)
     if (error) throw new Error('조회 실패: ' + error.message)
     if (!data || data.length === 0) break
     rows.push(...data.filter((r) => !r.display_only))
@@ -176,6 +179,8 @@ if (APPLY) {
           wordLen: acc.reduce((s, x) => s + x.length, 0) / acc.length,
         }
         if (!inShape(m)) continue
+        // 두 자가 같은 것을 재도록 산문 게이트를 공유한다 (prose-gate.mjs 주석 참조).
+        if (!looksLikeProse(sents.slice(i, j).join(' '), acc)) continue
         hit = j
         break
       }

@@ -31,6 +31,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { looksLikeProse } from './prose-gate.mjs'
+
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
@@ -77,41 +79,6 @@ function metricsOf(words, sentCount) {
   }
 }
 
-/**
- * **산문 게이트** — 수치 대역만 보면 서지 블록이 통과한다.
- *
- * 실측 2026-08-30: PLOS 글의 첫 in-band 창이 지문이 아니라 인용 서지였다 —
- *   "Citation: Suthar AB, Bärnighausen T (2017) … PLoS Med 14(12): e1002469.
- *    https://doi.org/… Published: December 12, 2017 This is an open access article…"
- *   낱말 155 · 문장당 22.1 · 낱말길이 5.10 — 세 대역을 전부 만족한다.
- *   DOI·저자명이 **긴 낱말**로 세어지고 서지 블록이 **긴 문장**이 되기 때문이다.
- *
- * 즉 대역은 필요조건이지 충분조건이 아니다. 이 게이트가 없으면 수확량이 부풀려지고,
- * 그 숫자로 "소스가 충분하다" 는 결론을 내리게 된다. 걸러 내는 것은 산문이 아닌 것뿐이다.
- */
-const NON_PROSE = [
-  /https?:\/\//i,
-  /\bdoi\.org\b|\bdoi:\s*10\./i,
-  /\bCitation:\s/,
-  /\bPublished:\s/,
-  /\bCopyright:\s|\ball copyright\b|\bopen access article\b/i,
-  /\bReceived:\s|\bAccepted:\s/,
-  /\bFunding:\s|\bCompeting interests:\s|\bData Availability\b/i,
-  /\bPLoS\b|\bPLOS\s(?:ONE|Med|Biol|Genet)\b/,
-  /\be\d{6,}\b/, // PLOS 논문번호 e1002469
-]
-
-function looksLikeProse(text, words) {
-  for (const re of NON_PROSE) if (re.test(text)) return false
-  // 아주 긴 토큰(URL 잔재·식별자)과 숫자 과다는 산문이 아니다.
-  if (words.some((w) => w.length > 24)) return false
-  const digits = (text.match(/\d/g) ?? []).length
-  if (digits / Math.max(1, text.length) > 0.05) return false
-  // 대문자 약어·이니셜이 과하면 저자 목록이다 (예: "Suthar AB, Bärnighausen T").
-  const initials = (text.match(/\b[A-Z]{1,3}\b/g) ?? []).length
-  if (initials / Math.max(1, words.length) > 0.08) return false
-  return true
-}
 
 const inBand = (m, b) =>
   m.words >= b.words.lo && m.words <= b.words.hi &&
@@ -242,8 +209,6 @@ function distinctSlots(text) {
   }
   return byType
 }
-
-const MAX_BAND_WORDS = Math.max(...TYPES.map((t) => BANDS[t].words.hi))
 
 /**
  * 슬롯을 셀 때 쓰는 **본문 지문 유형**만 — 최소 낱말 수 105 이상.
