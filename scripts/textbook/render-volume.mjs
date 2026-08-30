@@ -11,7 +11,8 @@
 // 조합 규칙은 `compose-unit.ts` 에 있고 인쇄 형식은 `csat-format.ts` 에 있다.
 // 여기서는 **둘을 붙여 HTML 로 낼 뿐** 새 규칙을 만들지 않는다.
 //
-// 재실행 안전: DB 는 읽기만. 결과는 지정한 파일에 쓴다(덮어쓴다).
+// 재실행 안전: DB 읽기 + **조판 기록 한 행**(band 당 하나, 덮어씀). 결과 HTML 은 지정한 파일에 쓴다(덮어쓴다).
+// 몇 번 돌려도 행 수가 안 늘고 마지막 조판이 정본이 된다 — 그 기록을 /admin/textbook 이 읽는다.
 //
 // 실행:
 //   pnpm dlx tsx scripts/textbook/render-volume.mjs --band 5 --units 20 --out volume-v5.html
@@ -19,7 +20,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { SCHOOL_TYPES, loadEnv, loadVolume } from './volume-pool.mjs'
+import { ELEMENTARY_TYPES, SCHOOL_TYPES, loadEnv, loadVolume } from './volume-pool.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -42,6 +43,7 @@ const {
   typeMixFit,
   // 브랜딩 — 값은 `@vocaflow/design-tokens` 에서 온다. 여기서 색을 적지 않는다.
   VOLUME_FONTS,
+  brandFingerprint,
   buildColophon,
   ladderStrip,
   volumeCssVariables,
@@ -231,9 +233,57 @@ function renderSchool(item, no) {
   return null
 }
 
+/**
+ * 초등 저학년 3종 — 운율 · 낱말 뜻 · 철자 완성.
+ *
+ * 지문이 없다. 물음 한 줄 + 보기(또는 답 쓰는 자리)가 전부다.
+ * 이 갈래가 없으면 사다리 1단이 통째로 인쇄되지 않는다(실측: V1 0단원).
+ */
+function renderElementary(item, no) {
+  const p = item.payload ?? {}
+  const ak = item.answer_key ?? {}
+  const stem = String(p.prompt_ko ?? "")
+  const shown = String(p.stem ?? "")
+  const choices = Array.isArray(p.choices) ? p.choices : []
+
+  if (choices.length >= 3) {
+    const answer = Number(ak.answer)
+    if (!Number.isInteger(answer) || answer < 1 || answer > choices.length) return null
+    return {
+      html: `
+<div class="q">
+  <p class="stem"><b>${no}.</b> ${esc(stem)}</p>
+  <div class="given">${esc(shown)}</div>
+  <ol class="choices">${choices
+    .map((c) => `<li>${esc(typeof c === "string" ? c : (c?.text ?? ""))}</li>`)
+    .join("")}</ol>
+</div>`,
+      answer,
+      explanation: pickExplanation(item, null),
+      source: item.ref_title,
+    }
+  }
+
+  // 철자 완성 — 단답.
+  const text = String(ak.text ?? p.answer_text ?? "")
+  if (!text) return null
+  return {
+    html: `
+<div class="q">
+  <p class="stem"><b>${no}.</b> ${esc(stem)}</p>
+  <div class="given">${esc(shown)}</div>
+  <p class="answer-line">답: ____________</p>
+</div>`,
+    answer: text,
+    explanation: pickExplanation(item, null),
+    source: item.ref_title,
+  }
+}
+
 function renderItem(item, no) {
   // ⚠️ **생성형을 여기서 안 받으면 조합기가 넣어도 인쇄가 안 된다.** 재료·조합·조판 셋이
   //   다 열려야 학습자에게 닿는다 — 하나만 막혀도 문항은 DB 에만 남는다.
+  if (ELEMENTARY_TYPES.has(item.type)) return renderElementary(item, no)
   if (SCHOOL_TYPES.has(item.type)) return renderSchool(item, no)
   if (item.type !== 'order' && item.type !== 'insert') return renderExtra(item, no)
   if (item.type === 'order') {
@@ -433,13 +483,24 @@ console.log(`자동 검수 ${passed}/${card.auto.length} 통과`)
 // **한 권을 만들 수 있는 것과 여러 권을 줄 수 있는 것은 다르다.** 학습자가 늘면
 // 같은 책을 돌려주게 되는데, 그 한계가 지금까지 어디에도 안 찍혔다.
 // 한 권이 원글 몇 편을 쓰는지 세고, 재고를 그것으로 나눠 **겹치지 않는 권수**를 낸다.
+// ⚠️ **`ref_id` 가 전부 원글인 것은 아니다.** 초등 저학년 3종은 사전에서 나오므로
+//    `ref_id` 가 `word:<낱말>` 이다(`volume-pool.ELEMENTARY_TYPES`). 그것을 원글로 세면
+//    분모(원글 재고)와 분자(쓴 낱말)가 다른 것을 나누게 된다 — 실측 2026-08-30 V1:
+//    "쓴 원글 33편 · 재고 22편 → 0권" 으로 찍혔는데, 실제로는 원글을 한 편도 안 썼다.
+//    그래서 **`byId` 에 있는 것만** 원글로 센다.
 const usedArticles = new Set()
-for (const u of units) for (const it of u.items) if (it.ref_id) usedArticles.add(it.ref_id)
-const distinctVolumes = usedArticles.size ? Math.floor(byId.size / usedArticles.size) : 0
-console.log(
-  `카탈로그 용량  이 권이 쓴 원글 ${usedArticles.size}편 · ` +
-    `재고 ${byId.size}편 → 겹치지 않는 책 **${distinctVolumes}권**`,
-)
+for (const u of units) for (const it of u.items) if (it.ref_id && byId.has(it.ref_id)) usedArticles.add(it.ref_id)
+if (usedArticles.size === 0) {
+  console.log(
+    `카탈로그 용량  이 권은 원글을 쓰지 않는다 — 사전에서 나오는 유형뿐이라 ` +
+      `**원글 재고가 상한이 아니다**(재고 ${byId.size}편은 아직 문항이 없다)`,
+  )
+} else {
+  console.log(
+    `카탈로그 용량  이 권이 쓴 원글 ${usedArticles.size}편 · ` +
+      `재고 ${byId.size}편 → 겹치지 않는 책 **${Math.floor(byId.size / usedArticles.size)}권**`,
+  )
+}
 console.log(
   `유형-학년 적합도 ${(fit * 100).toFixed(1)}% (시중 밀도 대비) — ` +
     Object.entries(actualMix)
@@ -459,3 +520,66 @@ console.log(
     `없음 ${answerRows.length - byBatch - byRule}`,
 )
 console.log(`\n→ ${path.resolve(OUT)}`)
+
+// ── 조판 기록 ────────────────────────────────────────────────────────
+// **조판했다는 사실을 화면이 알아야 한다.** 여기 남기지 않으면 결과가 각자 PC 의
+// HTML 파일에만 있어서 /admin/textbook 이 "몇 권까지 조판됐나" 를 못 답한다.
+//
+// 재실행 안전: **권(band)당 한 행**을 덮어쓴다. 열 번 돌려도 행 수가 안 늘고
+// 마지막 조판이 정본이 된다(찍은 횟수는 render_count, 첫 조판은 first_rendered_at 이 지킨다).
+//
+// `brand_fingerprint` 는 지금 규격의 지문이다 — 나중에 토큰이 바뀌면 값이 달라져
+// 화면이 그 권을 "옛 규격" 으로 표시한다.
+const record = {
+  band: BAND,
+  volume_title: colophon.title,
+  step: rung?.step ?? null,
+  school_band: rung?.schoolBand ?? null,
+  units: units.length,
+  items: answerRows.length,
+  auto_passed: passed,
+  auto_total: card.auto.length,
+  failed_checks: card.auto.filter((c) => !c.pass).map((c) => c.label),
+  explained_batch: byBatch,
+  explained_rule: byRule,
+  // 못 쟀으면 NULL — 0 으로 뭉개면 "적합도 0%" 라는 거짓 경보가 된다.
+  type_mix_fit: Number.isFinite(fit) ? Number(fit.toFixed(4)) : null,
+  // 원글을 안 쓰는 권(초등 3종)은 원글 재고가 상한이 아니다 — **NULL 이지 0 이 아니다.**
+  // 0 으로 적으면 화면이 "한 권도 못 준다" 는 거짓 경보를 낸다.
+  distinct_volumes: usedArticles.size === 0 ? null : Math.floor(byId.size / usedArticles.size),
+  brand_fingerprint: brandFingerprint(),
+  colophon,
+  out_path: path.resolve(OUT),
+  rendered_at: new Date().toISOString(),
+}
+
+const { data: prior, error: priorErr } = await db
+  .from('textbook_volume_renders')
+  .select('render_count, first_rendered_at')
+  .eq('band', BAND)
+  .maybeSingle()
+
+if (priorErr) {
+  // 조판 자체는 끝났다 — 여기서 죽이지 않는다. 다만 조용히 넘어가지도 않는다.
+  console.error(
+    `\n⚠️  조판 기록 실패 — ${priorErr.message}\n` +
+      `   마이그레이션 20260830140000_textbook_volume_renders 가 적용됐는지 확인할 것.\n` +
+      `   기록이 없으면 /admin/textbook 의 "조판" 표에 이 권이 안 뜬다.`,
+  )
+} else {
+  const renderCount = (prior?.render_count ?? 0) + 1
+  const { error: upErr } = await db.from('textbook_volume_renders').upsert(
+    {
+      ...record,
+      render_count: renderCount,
+      first_rendered_at: prior?.first_rendered_at ?? record.rendered_at,
+    },
+    { onConflict: 'band' },
+  )
+  if (upErr) console.error(`\n⚠️  조판 기록 실패 — ${upErr.message}`)
+  else
+    console.log(
+      `조판 기록  band ${BAND} · 규격 ${record.brand_fingerprint} · ` +
+        `${prior ? `${renderCount}번째 조판` : '첫 조판'}`,
+    )
+}
