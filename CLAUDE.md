@@ -200,9 +200,9 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 **공급 측**
 
 - `shared_dictionary` **48,969** row · meaning_ko 100%
-- `library_books` **401** — published 316 · failed 77 · queued 6 · archived 2
-- `library_articles` **5,873** — queued 840 · published 160
-- `shared_word_sets` 11,131 (published 11,128) · `library_chapter_quiz` 1,171
+- `library_books` **401** — published 312 · failed 77 · archived 6 · queued 6
+- `library_articles` **14,944** — queued 839 · published 160 · analyzing 1
+- `shared_word_sets` 11,131 (published 10,970) · `library_chapter_quiz` 1,901
 - `texts` 277 · `vocabularies` 2,205
 - 만화: `pd_comic_issues` 969 · 시리즈 101 · 발행 `comic_books` 1
 
