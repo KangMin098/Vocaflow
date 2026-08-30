@@ -35,6 +35,26 @@ import path from 'node:path'
  * @param values `.in()` 에 넣을 값들. 20개씩 나눠 묻는다(URL 길이 때문).
  * @param orderBy `range` 페이징이 성립하려면 정렬이 고정돼야 한다.
  */
+/**
+ * 조건이 `.in()` 이 아닌 조회를 **끝까지** 받는다.
+ *
+ * PostgREST 는 요청 크기와 무관하게 1000행에서 자른다. `.limit(20000)` 을 적어도 소용없다.
+ * 그래서 `range()` 로 실제로 넘겨 받는다 — **정렬이 고정돼야** 페이지가 겹치거나 새지 않는다.
+ *
+ * @param build 질의를 만드는 함수. `db` 를 받아 `.from(...).select(...)...` 를 돌려준다.
+ */
+export async function fetchAllPaged(db, build, page = 1000) {
+  const out = []
+  for (let from = 0; ; from += page) {
+    const { data, error } = await build(db).range(from, from + page - 1)
+    if (error) throw new Error(`조회 실패: ${error.message}`)
+    if (!data?.length) break
+    out.push(...data)
+    if (data.length < page) break
+  }
+  return out
+}
+
 export async function fetchAllIn(db, table, columns, column, values, orderBy, apply) {
   const PAGE = 1000
   const out = []
@@ -114,13 +134,18 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
 
   // ── 원글 ──────────────────────────────────────────────────────────
   // 밴드는 **원글** 기준이다. 문항의 `v_level` 로 거르면 조판과 어긋난다.
-  const { data: arts, error } = await db
-    .from('library_articles')
-    .select('id, title, source, article_v_level, display_only')
-    .in('status', ['ready', 'published'])
-    .eq('article_v_level', band)
-    .order('id')
-  if (error) throw new Error('기사 조회 실패: ' + error.message)
+  //
+  // ⚠️ **페이징 없이 읽으면 안 된다.** 밴드 하나가 1,000편을 넘는다 —
+  //   실측 2026-08-30: V5 **3,055편** · V6 **2,339편**. 페이징이 없던 동안
+  //   이 두 밴드의 권과 해설 드레인이 **앞 1,000편만 보고** 만들어지고 있었다.
+  //   (같은 함정에 이 저장소가 다섯 번째다. 그래서 `scan-unpaged-queries.mjs` 를 만들었다.)
+  const arts = await fetchAllPaged(db, (q) =>
+    q
+      .from('library_articles')
+      .select('id, title, source, article_v_level, display_only')
+      .in('status', ['ready', 'published'])
+      .eq('article_v_level', band)
+      .order('id'))
   // `display_only` 는 표시만 허용된 원글이다 — 문항으로 실을 수 없다.
   const usable = (arts ?? []).filter((a) => !a.display_only)
   const byId = new Map(usable.map((a) => [a.id, a]))

@@ -27,7 +27,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
 
-import { loadEnv } from './volume-pool.mjs'
+import { loadEnv, fetchAllPaged } from './volume-pool.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -140,12 +140,14 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 //   목록으로 찍고, 이어서 `store-new-types.mjs --prune` 으로 낡은 것을 정리하라고 안내한다.
 //   되돌릴 수 없는 일이라 `--commit` 없이는 미리보기만 한다.
 if (process.argv.includes('--repaginate')) {
-  const { data, error } = await db
-    .from('library_articles')
-    .select('id, title, content, source_id')
-    .eq('source', 'original')
-    .eq('composed_spec->>written_by', 'claude_code_drain')
-  if (error) throw new Error('조회 실패: ' + error.message)
+  // ⚠️ 페이징 없이 읽으면 1,000행에서 잘린다 — 재조판 대상이 조용히 줄어든다.
+  const data = await fetchAllPaged(db, (q) =>
+    q
+      .from('library_articles')
+      .select('id, title, content, source_id')
+      .eq('source', 'original')
+      .eq('composed_spec->>written_by', 'claude_code_drain')
+      .order('id'))
   const need = []
   for (const a of data ?? []) {
     const next = repaginate(String(a.content ?? ''))
@@ -301,6 +303,8 @@ if (process.argv.includes('--update-existing')) {
 // ── 이미 있는 것 ────────────────────────────────────────────────────
 const sourceIds = ok.map((r) => `original:v${BAND}-${r.slot}`)
 const existing = new Set()
+// 50개씩 끊어 묻는다 — 한 번에 50행을 넘지 않으므로 1,000행 상한과 무관하다.
+// ( 가 여기를 의심으로 내지만 오탐이다.)
 for (let i = 0; i < sourceIds.length; i += 50) {
   const { data, error } = await db
     .from('library_articles')

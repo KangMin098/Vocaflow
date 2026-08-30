@@ -16,6 +16,7 @@
 // 실행: pnpm dlx tsx scripts/textbook/caption-probe.mjs
 
 import fs from 'node:fs'
+import { fetchAllPaged } from './volume-pool.mjs'
 import path from 'node:path'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -83,11 +84,13 @@ function captionShape(s) {
   return startsProper && TAIL_PREP.test(s.trim())
 }
 
-const { data: arts, error } = await db
-  .from('library_articles')
-  .select('id, source, article_v_level, display_only, content')
-  .not('content', 'is', null)
-if (error) throw new Error('지문 조회 실패: ' + error.message)
+// ⚠️ 페이징 없이 읽으면 1,000행에서 잘려 **리포트 수치가 조용히 틀린다**(원글 6,633편).
+const arts = await fetchAllPaged(db, (q) =>
+  q
+    .from('library_articles')
+    .select('id, source, article_v_level, display_only, content')
+    .not('content', 'is', null)
+    .order('id'))
 
 const rules = {
   'A: 정형표지 없음': noFiniteMarker,

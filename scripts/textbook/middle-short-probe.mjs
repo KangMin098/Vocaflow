@@ -12,6 +12,7 @@
 // 실행: pnpm dlx tsx scripts/textbook/middle-short-probe.mjs
 
 import fs from 'node:fs'
+import { fetchAllPaged } from './volume-pool.mjs'
 import path from 'node:path'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -53,11 +54,13 @@ for (const [w, m] of dict) hintIdx.set(`${w[0]}|${m}`, (hintIdx.get(`${w[0]}|${m
 const hintUnique = (w, m) => (hintIdx.get(`${w[0]}|${m}`) ?? 0) <= 1
 
 // 중등 밴드(V2~V4)를 겨냥하되, 비교를 위해 전 밴드를 함께 센다.
-const { data: arts, error } = await db
-  .from('library_articles')
-  .select('id, title, article_v_level, display_only, content')
-  .not('content', 'is', null)
-if (error) throw new Error('지문 조회 실패: ' + error.message)
+// ⚠️ 페이징 없이 읽으면 1,000행에서 잘려 **리포트 수치가 조용히 틀린다**(원글 6,633편).
+const arts = await fetchAllPaged(db, (q) =>
+  q
+    .from('library_articles')
+    .select('id, title, article_v_level, display_only, content')
+    .not('content', 'is', null)
+    .order('id'))
 
 const stat = new Map()
 const bump = (band, key) => {

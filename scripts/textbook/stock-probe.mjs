@@ -15,6 +15,7 @@
 //   pnpm dlx tsx scripts/textbook/stock-probe.mjs
 
 import fs from 'node:fs'
+import { fetchAllPaged } from './volume-pool.mjs'
 import path from 'node:path'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -33,12 +34,14 @@ const db = createClient(
   { auth: { persistSession: false } },
 )
 
-const { data, error } = await db
-  .from('library_articles')
-  .select('id, title, source, status, article_v_level, register, display_only, content')
-  .in('status', ['ready', 'published'])
-  .not('content', 'is', null)
-if (error) throw new Error('조회 실패: ' + error.message)
+// ⚠️ 페이징 없이 읽으면 1,000행에서 잘려 **리포트 수치가 조용히 틀린다**(원글 6,633편).
+const data = await fetchAllPaged(db, (q) =>
+  q
+    .from('library_articles')
+    .select('id, title, source, status, article_v_level, register, display_only, content')
+    .in('status', ['ready', 'published'])
+    .not('content', 'is', null)
+    .order('id'))
 
 const rows = (data ?? []).filter((a) => (a.content ?? '').trim())
 

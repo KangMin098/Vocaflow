@@ -17,6 +17,7 @@
 // 실행: pnpm dlx tsx scripts/textbook/grammar-yield-probe.mjs [--sample]
 
 import fs from 'node:fs'
+import { fetchAllPaged } from './volume-pool.mjs'
 import path from 'node:path'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -35,13 +36,15 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
   auth: { persistSession: false },
 })
 
-const { data: arts, error } = await db
-  .from('library_articles')
-  .select('id, title, article_v_level, display_only, content')
-  .in('status', ['ready', 'published'])
-  .not('content', 'is', null)
+// ⚠️ 페이징 없이 읽으면 1,000행에서 잘려 **리포트 수치가 조용히 틀린다**(원글 6,633편).
+const arts = await fetchAllPaged(db, (q) =>
+  q
+    .from('library_articles')
+    .select('id, title, article_v_level, display_only, content')
+    .in('status', ['ready', 'published'])
+    .not('content', 'is', null)
+    .order('id'))
   .order('id')
-if (error) throw new Error(error.message)
 const usable = (arts ?? []).filter((a) => !a.display_only)
 
 const paras = (c) =>

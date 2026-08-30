@@ -24,6 +24,7 @@
 // 실행: pnpm dlx tsx scripts/textbook/new-types-health.mjs
 
 import fs from 'node:fs'
+import { fetchAllPaged } from './volume-pool.mjs'
 import path from 'node:path'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -89,11 +90,15 @@ const meaningOf = (w) => (byWord.has(w) ? firstSense(byWord.get(w).meaningKo) : 
 const lookup = (w) => byWord.get(w) ?? null
 
 // ── 지문 ────────────────────────────────────────────────────────────
-const { data: arts, error } = await db
-  .from('library_articles')
-  .select('id, article_v_level, display_only, content')
-  .not('content', 'is', null)
-if (error) throw new Error('지문 조회 실패: ' + error.message)
+// ⚠️ 페이징 없이 읽으면 PostgREST 가 1,000행에서 자른다 — 실측 2026-08-30:
+//   status ready/published 원글이 **6,633편**, V5 만 3,055편이다.
+//   `scan-unpaged-queries.mjs` 가 이 자리를 잡아냈다.
+const arts = await fetchAllPaged(db, (q) =>
+  q
+    .from('library_articles')
+    .select('id, article_v_level, display_only, content')
+    .not('content', 'is', null)
+    .order('id'))
 
 const items = []
 const ambiguous = []

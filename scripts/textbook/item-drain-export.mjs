@@ -25,7 +25,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { loadEnv, fetchAllIn } from './volume-pool.mjs'
+import { loadEnv, fetchAllIn, fetchAllPaged } from './volume-pool.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -218,13 +218,16 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 
 // ── 재료 ────────────────────────────────────────────────────────────
 // 이 유형은 **글 하나를 통째로** 쓰므로 문단이 아니라 원글이 단위다.
-const { data: arts, error } = await db
-  .from('library_articles')
-  .select('id, title, content, article_v_level, display_only, status, word_count, compose_batch_id')
-  .in('status', ['ready', 'published'])
-  .eq('article_v_level', BAND)
-  .order('id')
-if (error) throw new Error('기사 조회 실패: ' + error.message)
+// ⚠️ 페이징 없이 읽으면 PostgREST 가 1,000행에서 자른다 — 실측 2026-08-30:
+//   status ready/published 원글이 **6,633편**, V5 만 3,055편이다.
+//   `scan-unpaged-queries.mjs` 가 이 자리를 잡아냈다.
+const arts = await fetchAllPaged(db, (q) =>
+  q
+    .from('library_articles')
+    .select('id, title, content, article_v_level, display_only, status, word_count, compose_batch_id')
+    .in('status', ['ready', 'published'])
+    .eq('article_v_level', BAND)
+    .order('id'))
 // ⚠️ **지문이 창(90~200어) 안이어야 한다.** 조합기가 문항 지문을 그 창으로 거르므로,
 //   창 밖 글로 문항을 만들면 **적재는 되는데 책에는 영영 안 실린다.**
 //   실측(2026-08-21): V5 에 생성형 30문항을 만들었는데 26개가 이 이유로 걸려 4개만 실렸다.

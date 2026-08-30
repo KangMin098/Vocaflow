@@ -39,7 +39,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { loadEnv, fetchAllIn } from './volume-pool.mjs'
+import { loadEnv, fetchAllIn, fetchAllPaged } from './volume-pool.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -365,11 +365,15 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 })
 
 // ── 재고 실측 ───────────────────────────────────────────────────────
-const { data: arts, error } = await db
-  .from('library_articles')
-  .select('id, title, article_v_level, display_only, status, word_count, source')
-  .in('status', ['ready', 'published'])
-if (error) throw new Error('기사 조회 실패: ' + error.message)
+// ⚠️ 페이징 없이 읽으면 PostgREST 가 1,000행에서 자른다 — 실측 2026-08-30:
+//   status ready/published 원글이 **6,633편**, V5 만 3,055편이다.
+//   `scan-unpaged-queries.mjs` 가 이 자리를 잡아냈다.
+const arts = await fetchAllPaged(db, (q) =>
+  q
+    .from('library_articles')
+    .select('id, title, article_v_level, display_only, status, word_count, source')
+    .in('status', ['ready', 'published'])
+    .order('id'))
 const usable = (arts ?? []).filter((a) => !a.display_only)
 const inBand = usable.filter((a) => a.article_v_level === BAND)
 
@@ -525,12 +529,14 @@ const takenTitles = new Set(usable.map((a) => String(a.title).toLowerCase().trim
 //   그래서 **아직 적재되지 않은 청크 파일의 슬롯 번호까지** 함께 센다.
 let slotBase = 0
 {
-  const { data, error } = await db
-    .from('library_articles')
-    .select('source_id')
-    .eq('source', 'original')
-    .like('source_id', `original:v${BAND}-%`)
-  if (error) throw new Error('슬롯 조회 실패: ' + error.message)
+  // ⚠️ 잘리면 slotBase 가 낮게 나오고, 다음 드레인이 **이미 쓴 슬롯 번호를 다시 쓴다.**
+  const data = await fetchAllPaged(db, (q) =>
+    q
+      .from('library_articles')
+      .select('source_id')
+      .eq('source', 'original')
+      .like('source_id', `original:v${BAND}-%`)
+      .order('source_id'))
   for (const r of data ?? []) {
     const n = Number(String(r.source_id).split('-').pop())
     if (Number.isFinite(n) && n > slotBase) slotBase = n

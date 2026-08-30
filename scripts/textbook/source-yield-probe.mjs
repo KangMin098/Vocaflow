@@ -27,6 +27,7 @@
 //   pnpm dlx tsx scripts/textbook/source-yield-probe.mjs --out <경로.json>
 
 import fs from 'node:fs'
+import { fetchAllPaged } from './volume-pool.mjs'
 import path from 'node:path'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -77,11 +78,13 @@ const db = createClient(
 )
 
 // ── 이미 가진 것 — 새로 얻는 양을 세려면 빼야 한다 ──────────────────
-const { data: haveRows, error: haveErr } = await db
-  .from('library_articles')
-  .select('source_id')
-  .not('source_id', 'is', null)
-if (haveErr) throw new Error('보유 지문 조회 실패: ' + haveErr.message)
+// ⚠️ 페이징 없이 읽으면 1,000행에서 잘려 **리포트 수치가 조용히 틀린다**(원글 6,633편).
+const haveRows = await fetchAllPaged(db, (q) =>
+  q
+    .from('library_articles')
+    .select('source_id')
+    .not('source_id', 'is', null)
+    .order('id'))
 const HAVE = new Set((haveRows ?? []).map((r) => r.source_id))
 
 /** 피드 하나 = 계측 단위. `run()` 은 관리자 화면이 부르는 함수를 그대로 부른다. */

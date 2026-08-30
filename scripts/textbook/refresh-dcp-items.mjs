@@ -19,7 +19,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { fetchAllIn } from './volume-pool.mjs'
+import { fetchAllIn, fetchAllPaged } from './volume-pool.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -36,12 +36,16 @@ const db = createClient(
   { auth: { persistSession: false } },
 )
 
-const { data: arts, error } = await db
-  .from('library_articles')
-  .select('id, title, article_v_level, display_only, content, status')
-  .in('status', ['ready', 'published'])
-  .not('content', 'is', null)
-if (error) throw new Error('기사 조회 실패: ' + error.message)
+// ⚠️ 페이징 없이 읽으면 PostgREST 가 1,000행에서 자른다 — 실측 2026-08-30:
+//   status ready/published 원글이 **6,633편**, V5 만 3,055편이다.
+//   `scan-unpaged-queries.mjs` 가 이 자리를 잡아냈다.
+const arts = await fetchAllPaged(db, (q) =>
+  q
+    .from('library_articles')
+    .select('id, title, article_v_level, display_only, content, status')
+    .in('status', ['ready', 'published'])
+    .not('content', 'is', null)
+    .order('id'))
 
 // 이미 있는 조합 — 나눠 받는다(1,000행 제한에 조용히 잘린 적이 있다).
 // ⚠️ 조각이 1000행을 넘으면 뒤가 조용히 잘리고, 잘린 만큼 "이미 있음" 판정이 빠져

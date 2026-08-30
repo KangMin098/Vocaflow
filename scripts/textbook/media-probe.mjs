@@ -26,6 +26,7 @@
 //   pnpm dlx tsx scripts/textbook/media-probe.mjs --n 808    # 전수 (느리다)
 
 import fs from 'node:fs'
+import { fetchAllPaged } from './volume-pool.mjs'
 import path from 'node:path'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -50,12 +51,14 @@ const db = createClient(
   { auth: { persistSession: false } },
 )
 
-const { data: rows, error } = await db
-  .from('shared_dictionary')
-  .select('word, meaning_ko')
-  .contains('list_tags', ['kcurr2022_1'])
-  .order('word')
-if (error) throw new Error('어휘 조회 실패: ' + error.message)
+// ⚠️ 지금은 808낱말이라 안 잘리지만 상한(1,000)에 가깝다. 잘리면 아래 "고르게 훑기" 가
+//   알파벳 앞쪽만 보게 되어 **표본이 조용히 편향된다.** 미리 페이징해 둔다.
+const rows = await fetchAllPaged(db, (q) =>
+  q
+    .from('shared_dictionary')
+    .select('word, meaning_ko')
+    .contains('list_tags', ['kcurr2022_1'])
+    .order('word'))
 
 // 표본은 **앞에서 자르지 않고 고르게 훑는다** — 알파벳 앞쪽만 보면 편향된다.
 const all = (rows ?? []).filter((r) => /^[a-z]+$/i.test(r.word ?? ''))
