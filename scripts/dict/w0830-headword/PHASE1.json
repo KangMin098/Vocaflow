@@ -1,0 +1,556 @@
+{
+ "safe": [
+  {
+   "word": "provincal",
+   "verdict": "misspelling",
+   "correct": "provincial"
+  },
+  {
+   "word": "beseige",
+   "verdict": "misspelling",
+   "correct": "besiege"
+  },
+  {
+   "word": "flewed",
+   "verdict": "inflection",
+   "correct": "fly"
+  },
+  {
+   "word": "fondation",
+   "verdict": "misspelling",
+   "correct": "foundation"
+  },
+  {
+   "word": "shored",
+   "verdict": "inflection",
+   "correct": "shore"
+  },
+  {
+   "word": "donned",
+   "verdict": "inflection",
+   "correct": "don"
+  },
+  {
+   "word": "cousin's",
+   "verdict": "inflection",
+   "correct": "cousin"
+  },
+  {
+   "word": "leaner",
+   "verdict": "inflection",
+   "correct": "lean"
+  },
+  {
+   "word": "pursed",
+   "verdict": "inflection",
+   "correct": "purse"
+  },
+  {
+   "word": "dago",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "arquebuse",
+   "verdict": "misspelling",
+   "correct": "arquebus"
+  },
+  {
+   "word": "hate, be sick of, etc. the sight of somebody/something",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "stubbed",
+   "verdict": "inflection",
+   "correct": "stub"
+  },
+  {
+   "word": "cottoned",
+   "verdict": "inflection",
+   "correct": "cotton"
+  },
+  {
+   "word": "byes",
+   "verdict": "inflection",
+   "correct": "bye"
+  },
+  {
+   "word": "paged",
+   "verdict": "inflection",
+   "correct": "page"
+  },
+  {
+   "word": "miaoue",
+   "verdict": "misspelling",
+   "correct": "miaow"
+  },
+  {
+   "word": "exongenous",
+   "verdict": "misspelling",
+   "correct": "exogenous"
+  },
+  {
+   "word": "beefed",
+   "verdict": "inflection",
+   "correct": "beef"
+  },
+  {
+   "word": "buffeted",
+   "verdict": "inflection",
+   "correct": "buffet"
+  },
+  {
+   "word": "fairs",
+   "verdict": "inflection",
+   "correct": "fair"
+  },
+  {
+   "word": "colone",
+   "verdict": "misspelling",
+   "correct": "colon"
+  },
+  {
+   "word": "epicopal",
+   "verdict": "misspelling",
+   "correct": "episcopal"
+  },
+  {
+   "word": "formers",
+   "verdict": "inflection",
+   "correct": "former"
+  },
+  {
+   "word": "friesan",
+   "verdict": "misspelling",
+   "correct": "friesian"
+  },
+  {
+   "word": "gibbete",
+   "verdict": "misspelling",
+   "correct": "gibbet"
+  },
+  {
+   "word": "innervated",
+   "verdict": "inflection",
+   "correct": "innervate"
+  },
+  {
+   "word": "mitochondria",
+   "verdict": "inflection",
+   "correct": "mitochondrion"
+  },
+  {
+   "word": "harped",
+   "verdict": "inflection",
+   "correct": "harp"
+  },
+  {
+   "word": "miniscule",
+   "verdict": "misspelling",
+   "correct": "minuscule"
+  },
+  {
+   "word": "marched",
+   "verdict": "inflection",
+   "correct": "march"
+  },
+  {
+   "word": "nickle",
+   "verdict": "misspelling",
+   "correct": "nickel"
+  },
+  {
+   "word": "percentiles",
+   "verdict": "inflection",
+   "correct": "percentile"
+  },
+  {
+   "word": "sat",
+   "verdict": "inflection",
+   "correct": "sit"
+  },
+  {
+   "word": "scotched",
+   "verdict": "inflection",
+   "correct": "scotch"
+  },
+  {
+   "word": "slights",
+   "verdict": "inflection",
+   "correct": "slight"
+  },
+  {
+   "word": "sion",
+   "verdict": "misspelling",
+   "correct": "scion"
+  },
+  {
+   "word": "titres",
+   "verdict": "inflection",
+   "correct": "titre"
+  },
+  {
+   "word": "buf",
+   "verdict": "misspelling",
+   "correct": "buff"
+  },
+  {
+   "word": "mugged",
+   "verdict": "inflection",
+   "correct": "mug"
+  },
+  {
+   "word": "illus",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "havens",
+   "verdict": "inflection",
+   "correct": "haven"
+  },
+  {
+   "word": "altho",
+   "verdict": "misspelling",
+   "correct": "although"
+  },
+  {
+   "word": "loafed",
+   "verdict": "inflection",
+   "correct": "loaf"
+  },
+  {
+   "word": "microelctronics",
+   "verdict": "misspelling",
+   "correct": "microelectronics"
+  },
+  {
+   "word": "mooning",
+   "verdict": "inflection",
+   "correct": "moon"
+  },
+  {
+   "word": "bint",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "pottered",
+   "verdict": "inflection",
+   "correct": "potter"
+  },
+  {
+   "word": "peles",
+   "verdict": "ocr",
+   "correct": null
+  },
+  {
+   "word": "messieur",
+   "verdict": "misspelling",
+   "correct": "monsieur"
+  },
+  {
+   "word": "numan",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "sacks",
+   "verdict": "inflection",
+   "correct": "sack"
+  },
+  {
+   "word": "foresake",
+   "verdict": "misspelling",
+   "correct": "forsake"
+  },
+  {
+   "word": "cichlids",
+   "verdict": "inflection",
+   "correct": "cichlid"
+  },
+  {
+   "word": "soles",
+   "verdict": "inflection",
+   "correct": "sole"
+  },
+  {
+   "word": "daguerrotype",
+   "verdict": "misspelling",
+   "correct": "daguerreotype"
+  },
+  {
+   "word": "limed",
+   "verdict": "inflection",
+   "correct": "lime"
+  },
+  {
+   "word": "fasts",
+   "verdict": "inflection",
+   "correct": "fast"
+  },
+  {
+   "word": "tendered",
+   "verdict": "inflection",
+   "correct": "tender"
+  },
+  {
+   "word": "slagged",
+   "verdict": "inflection",
+   "correct": "slag"
+  },
+  {
+   "word": "circumcize",
+   "verdict": "misspelling",
+   "correct": "circumcise"
+  },
+  {
+   "word": "hotpoints",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "cthonic",
+   "verdict": "misspelling",
+   "correct": "chthonic"
+  },
+  {
+   "word": "fillete",
+   "verdict": "misspelling",
+   "correct": "fillet"
+  },
+  {
+   "word": "combats",
+   "verdict": "inflection",
+   "correct": "combat"
+  },
+  {
+   "word": "cartes",
+   "verdict": "inflection",
+   "correct": "carte"
+  },
+  {
+   "word": "eumenical",
+   "verdict": "misspelling",
+   "correct": "ecumenical"
+  },
+  {
+   "word": "miri",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "skirted",
+   "verdict": "inflection",
+   "correct": "skirt"
+  },
+  {
+   "word": "klux",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "nellist",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "nacro",
+   "verdict": "ocr",
+   "correct": null
+  },
+  {
+   "word": "purchas",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "rosing",
+   "verdict": "inflection",
+   "correct": "rose"
+  },
+  {
+   "word": "demerits",
+   "verdict": "inflection",
+   "correct": "demerit"
+  },
+  {
+   "word": "jist",
+   "verdict": "misspelling",
+   "correct": "gist"
+  },
+  {
+   "word": "minerology",
+   "verdict": "misspelling",
+   "correct": "mineralogy"
+  },
+  {
+   "word": "amal",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "eduldamer",
+   "verdict": "ocr",
+   "correct": null
+  },
+  {
+   "word": "hypothesi",
+   "verdict": "misspelling",
+   "correct": "hypothesis"
+  },
+  {
+   "word": "langues",
+   "verdict": "inflection",
+   "correct": "langue"
+  },
+  {
+   "word": "moonlighted",
+   "verdict": "inflection",
+   "correct": "moonlight"
+  },
+  {
+   "word": "poring",
+   "verdict": "inflection",
+   "correct": "pore"
+  },
+  {
+   "word": "brel",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "painsfully",
+   "verdict": "misspelling",
+   "correct": "painfully"
+  },
+  {
+   "word": "coursed",
+   "verdict": "inflection",
+   "correct": "course"
+  },
+  {
+   "word": "fly into a rage, temper, etc.",
+   "verdict": "unusable",
+   "correct": null
+  },
+  {
+   "word": "estoppal",
+   "verdict": "misspelling",
+   "correct": "estoppel"
+  },
+  {
+   "word": "exacted",
+   "verdict": "inflection",
+   "correct": "exact"
+  },
+  {
+   "word": "for fear of something/of doing something",
+   "verdict": "unusable",
+   "correct": null
+  }
+ ],
+ "defer": [
+  {
+   "word": "goddamit",
+   "verdict": "misspelling",
+   "correct": "goddammit"
+  },
+  {
+   "word": "muggs",
+   "verdict": "misspelling",
+   "correct": "mugs"
+  },
+  {
+   "word": "lach",
+   "verdict": "misspelling",
+   "correct": "laches"
+  },
+  {
+   "word": "petered",
+   "verdict": "inflection",
+   "correct": "peter"
+  },
+  {
+   "word": "rechecked",
+   "verdict": "inflection",
+   "correct": "recheck"
+  },
+  {
+   "word": "revs",
+   "verdict": "inflection",
+   "correct": "rev"
+  },
+  {
+   "word": "shamen",
+   "verdict": "misspelling",
+   "correct": "shamans"
+  },
+  {
+   "word": "somedays",
+   "verdict": "misspelling",
+   "correct": "some days"
+  },
+  {
+   "word": "muppets",
+   "verdict": "inflection",
+   "correct": "muppet"
+  },
+  {
+   "word": "fannies",
+   "verdict": "inflection",
+   "correct": "fanny"
+  },
+  {
+   "word": "rungs",
+   "verdict": "inflection",
+   "correct": "rung"
+  },
+  {
+   "word": "fasce",
+   "verdict": "misspelling",
+   "correct": "fasces"
+  },
+  {
+   "word": "scatologicy",
+   "verdict": "misspelling",
+   "correct": "scatology"
+  },
+  {
+   "word": "smelted",
+   "verdict": "inflection",
+   "correct": "smelt"
+  },
+  {
+   "word": "charlies",
+   "verdict": "inflection",
+   "correct": "charlie"
+  },
+  {
+   "word": "singletons",
+   "verdict": "inflection",
+   "correct": "singleton"
+  },
+  {
+   "word": "pylori",
+   "verdict": "inflection",
+   "correct": "pylorus"
+  },
+  {
+   "word": "preprints",
+   "verdict": "inflection",
+   "correct": "preprint"
+  },
+  {
+   "word": "anthropaphagi",
+   "verdict": "misspelling",
+   "correct": "anthropophagi"
+  },
+  {
+   "word": "clich",
+   "verdict": "misspelling",
+   "correct": "cliché"
+  }
+ ]
+}

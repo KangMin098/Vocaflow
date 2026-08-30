@@ -669,3 +669,58 @@ T6-2 에서 같은 구멍을 고쳤는데 여기 또 있었다.
 - `shared_dictionary` 에 `archived` 플래그(또는 보관 테이블) — **마이그레이션이므로 승인 필요**
 - 발행 단어장에서 결함 낱말을 빼는 절차 — **학습자 화면 변경이므로 승인 필요**
 - `word_register` CHECK 제약에 결함 표시값 추가 여부 — 현재 8값 고정
+
+## T7 1차 실행 — 승인 후 적용 (2026-08-30)
+
+사용자 승인을 받아 **1차 90낱말**만 처리했다. `foreign` 84 · `fragment` 37 · 보류 20건은
+답을 기다리는 중이다.
+
+### 마이그레이션 3건
+
+| | 무엇을 |
+|---|---|
+| `shared_dictionary_archived_flag` | `archived` · `archived_reason` · `archived_at` 추가. **행은 지우지 않는다** — 되돌리기는 `archived = false` 한 줄 |
+| `extraction_rpc_exclude_archived_headwords` | `select_book_chapter_vocab` · `select_article_vocab` 가 보관 표제어를 빼도록 |
+| `resolve_dict_headword_skip_archived` | 되짚기 5단계 전부에서 보관 행을 건너뛰도록 |
+
+### ⚠️ 세 번째 마이그레이션은 실측으로 드러난 결함이다
+
+앞의 두 개만 적용하고 확인했더니 **`buffeted` 가 대체 없이 사라졌다.**
+`resolve_dict_headword` 의 L1(정확 일치)이 보관 여부를 안 보고 `buffeted` 를 그대로 돌려주고,
+호출부의 `NOT sd.archived` 가 그 행을 버린 것이다.
+
+**굴절형을 보관하는 목적은 원형으로 되짚게 하는 것이지 낱말을 없애는 게 아니다.**
+5단계 전부에서 보관 행을 건너뛰게 하니 L3(규칙 굴절 역생성)이 원형을 찾았다:
+
+```
+buffeted → buffet   ·   donned → don   ·   (대조군) running → running
+```
+
+**"막았다" 를 확인 없이 "고쳤다" 로 읽으면 안 된다** — 이 회차에서 같은 실수를 다섯 번째로 잡았다.
+
+### 데이터 변경
+
+- `shared_dictionary` **90행** `archived = true` + 사유 기록
+- 발행 단어장 **322개**에서 **340행** 제거 · `word_count` 재계산
+  (지운 행은 `scripts/dict/w0830-headword/DELETED-shared_words.json` 에 전체 필드로 보존)
+- 영향 세트는 **전부 자동 큐레이션**이었고, 337/340 이 도서 어휘에서 온 것이라
+  RPC 를 안 고쳤으면 재발행 때 되살아났을 자리다
+
+### 남는 손실 — 정직하게 적는다
+
+보관 낱말 90개 중 **41개가 도서 어휘에 실제로 나타난다**(717행).
+그중 **10낱말 / 23행은 되짚을 원형이 없어 대체 없이 빠진다**:
+
+```
+dago(3) arquebuse(3) cousin's(1) altho(1) painsfully(1)
+nickle(3) hypothesi(1) flewed(2) jist(7) purchas(1)
+```
+
+`dago`(멸칭) · `cousin's`(소유격) · `purchas`(고유명사) 5행은 **빠지는 게 맞다.**
+나머지 18행은 옛 책 본문의 오철자다 — 학습자는 본문에서 그 형태를 보지만 카드를 못 받는다.
+**`jist` 를 낱말로 가르치는 것보다는 낫다.** 7낱말을 위해 리다이렉트 표를 만들지 않았다.
+
+### 검증
+
+- `extraction-rpc.integration` 골든 스냅샷 3건 통과 (P&P 1장 상위 20 불변)
+- 발행 세트에 남은 보관 낱말 **0행** (미발행 세트 11행은 학습자에게 안 보인다)
