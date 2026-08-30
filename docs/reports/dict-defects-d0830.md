@@ -288,3 +288,60 @@ where exists (select 1 from unnest(coalesce(collocations,'{}')) v where v ~ pat.
    ⚠️ 인덱스를 바꾸면 T2 가 채운 예문이 엉뚱한 뜻에 붙는다 — 예문을 함께 옮겨야 한다.
 3. **T6-3 예문 교체** — `EXAMPLE-QUEUE.json` 5건 + 앞서 모은 문장 아닌 예문 142건.
 4. `top`(4,365) · `rest`(약 23,000) 파장 — 위 근거로 **후순위**.
+
+---
+
+# T6-1b 실행 기록 — 대표 뜻 연어 보강 (2026-08-30)
+
+파이프라인 `scripts/dict/w0830-repcolloc.mjs` · 청크 `scripts/dict/w0830-repcolloc/`
+
+T6-1 의 `COREFILL-QUEUE.json` **97건**을 받는 배치다. 값은 전부 맞는데 전부 부차적 뜻에만
+붙어 있어, **지울 것이 없어 T6-1 이 손대지 못한** 낱말들이다.
+
+## 왜 기존 `corefill` 로 안 되는가
+
+`w0830-corefill` 의 그물은 `empty(r.collocations)` 다 — **배열이 비어 있을 때만** 채운다.
+이 건들은 값이 차 있어 그 그물을 통과한다. 반대로 T6-1 이 통째로 비운 낱말(`electric` 등 **4개**)은
+corefill 소관이라 이 배치가 건너뛴다 — **같은 칸을 두 배치가 건드리면 무엇이 누구 값인지 못 가린다.**
+
+## 실측
+
+| | |
+|---|--:|
+| 큐 → 대상 | 97 → **93** (4는 corefill 로) |
+| 적재한 낱말 | **91** (skip 2: `however` · `nick`) |
+| 더한 연어 | **269** |
+| 게이트 거부 | 표제어 없음 0 · 중복 0 · 길이 위반 0 · 비ASCII 0 · 상한 초과 0 |
+
+게이트 거부가 **전 항목 0** 이다 — 서브에이전트가 규칙을 그대로 지켰다.
+
+| 표제어 | 대표 뜻 | 앞에 놓인 새 연어 | 뒤에 남은 기존 값 |
+|---|---|---|---|
+| `pen` | 펜 | `ballpoint pen` · `pen and paper` · `write in pen` | `sheep pen` · `pig pen` · `playpen` |
+| `swallow` | 삼키다 | `swallow a pill` · `swallow hard` · `hard to swallow` | `barn swallow` · `swallow nest` |
+| `pin` | 핀 | `safety pin` · `straight pin` · `drawing pin` | `enter pin` · `pin number` |
+| `train` | 기차 | `catch a train` · `train station` · `board the train` | `train hard` · `train for` |
+| `tender` | 다정한 | `tender meat` · `tender age` · `tender loving care` | `submit a tender` |
+
+**더하기만 한다.** 기존 값을 지우지 않고 새 연어를 **앞에** 놓는다 — 컴포저가 이 배열을
+목차로 쓰므로 대표 뜻이 먼저 읽혀야 한다. 더한 값은 `field_provenance.t6_repcolloc_added` 에 남는다.
+
+## 곁가지로 잰 것 — `primary_pos` 가 자기 뜻과 어긋난다
+
+서브에이전트들이 구간마다 반복해 짚었다(`overall` `surround` `combine` `burn` `constant`
+`swallow` `rub` `thrust` `roast` `treasure` `whizz` `snaffle` `blinker` `potty` …).
+사전이 **스스로 적어 둔 두 값**이 어긋나는 것이라 판단이 개입하지 않는다:
+
+```sql
+select count(*) from shared_dictionary
+where primary_pos is not null and meanings_ko is not null
+  and jsonb_array_length(meanings_ko) >= 1 and meanings_ko->0->>'pos' is not null
+  and lower(primary_pos) <> lower(meanings_ko->0->>'pos');
+```
+
+**298행** (검사 대상 47,182 중 0.6%) · 시험 밴드 **103** · rank 5,000 이내 **96**.
+
+작지만 학습자에게 닿는다 — 카드가 품사를 표시하고, 컴포저가 품사별 세트를 만든다.
+다만 어느 쪽이 맞는지는 낱말마다 다르므로(`treasure` 는 둘 다 실재한다) **자동 수정 대상이 아니다.**
+`primary_pos` 를 고칠지 `meanings_ko` 순서를 바꿀지는 뜻 갈래 정리(T6-2)와 같은 회차에서 정해야 한다.
+⚠️ **순서를 바꾸는 배치는 T2 가 채운 예문을 함께 옮겨야 한다.**
