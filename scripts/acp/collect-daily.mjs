@@ -227,12 +227,33 @@ if (!targets.length) {
   process.exit(2)
 }
 
-// 이미 담긴 주소 — 재실행해도 늘지 않게 한다.
-const { data: existing } = await db
-  .from('library_articles')
-  .select('source_url')
-  .not('source_url', 'is', null)
-const have = new Set((existing ?? []).map((r) => r.source_url))
+// 이미 담긴 것 — 재실행해도 늘지 않게 한다.
+//
+// ⚠️ 주소로만 대조하면 **이미 가진 글을 다시 가져온다.** 실측 2026-08-30:
+//   PLOS 목록이 만드는 URL 은 `plosJournalSlug()` 추정값이라 저장된 정규 URL 과 다르다
+//   (저널 매핑에 없는 학술지는 전부 'plosone' 으로 떨어진다 → 리다이렉트 후 실제 주소가
+//   달라진다). 그래서 909편을 보유한 상태에서 목록이 "새 것 1,531" 을 보고했고,
+//   배치는 그 900여 편을 **전부 다시 GET 한 뒤에야** (source, source_id) 중복 검사에서
+//   버렸다 — 남의 서버를 900번 헛치고 10분을 버린다.
+//
+//   항목은 이미 `source_id`(PLOS 는 DOI)를 들고 있고 그건 주소와 달리 안 변한다.
+//   그걸로도 대조하면 GET 전에 걸러진다.
+//   ⚠️ 그리고 더 단순한 원인이 하나 더 있었다 — **PostgREST 는 기본 1,000행만 돌려준다.**
+//   지문이 1,000편을 넘어선 뒤부터 이 집합은 **조용히 잘려 있었고**, 잘린 만큼이 매번
+//   "새 것" 으로 보여 다시 GET 됐다. 3,182편 시점에 plos/essay 가 946편을 보유한 채
+//   "새 것 1,530" 을 보고한 게 그 결과다. 그래서 range 로 끝까지 읽는다.
+const existing = []
+for (let from = 0; ; from += 1000) {
+  const { data, error } = await db
+    .from('library_articles')
+    .select('source_url, source_id')
+    .range(from, from + 999)
+  if (error) throw new Error('보유 목록 조회 실패: ' + error.message)
+  existing.push(...(data ?? []))
+  if (!data || data.length < 1000) break
+}
+const have = new Set(existing.map((r) => r.source_url).filter(Boolean))
+const haveIds = new Set(existing.map((r) => r.source_id).filter(Boolean))
 
 console.log(`ACP 수집 ${commit ? '' : '(읽기 전용 — --commit 을 붙이면 담는다)'}\n`)
 console.log(['소스/피드'.padEnd(34), '목록', '새 것', ' 적합%', '부적합%'].join(' '))
@@ -287,7 +308,8 @@ for (const s of targets) {
       console.log(`  ✗ ${label.padEnd(32)} 목록을 못 가져왔다`)
       continue
     }
-    const fresh = items.filter((i) => i.url && !have.has(i.url))
+    // 주소 **또는** source_id 로 이미 가진 것을 뺀다 — 둘 중 하나만 맞아도 보유한 글이다.
+    const fresh = items.filter((i) => i.url && !have.has(i.url) && !(i.source_id && haveIds.has(i.source_id)))
     totalNew += fresh.length
 
     // ⚠️ **목록 0건은 "다 담았다" 와 다르다.** 이번(2026-08-20) 결함이 정확히 여기 숨었다 —
@@ -331,6 +353,7 @@ for (const s of targets) {
           .maybeSingle()
         if (dup) {
           have.add(item.url)
+          if (article.source_id) haveIds.add(article.source_id)
           continue
         }
         const { error } = await db.from('library_articles').insert({
@@ -359,6 +382,7 @@ for (const s of targets) {
         else {
           saved++
           have.add(item.url)
+          if (article.source_id) haveIds.add(article.source_id)
         }
       } catch (e) {
         failures.push(`${label} ${item.url}: ${e instanceof Error ? e.message : String(e)}`)
