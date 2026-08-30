@@ -22,13 +22,24 @@
 import { cefrToVLevel } from '@/lib/learner/plan-activities'
 import { rungForVLevel, VOCAB_SPINE, type VocabRung } from '@vocaflow/library-pipeline/vocab-brand'
 
-import type { PublishedVocabSet } from './queries'
-
 /**
  * 계단을 무엇으로 정했는지. 화면이 근거를 밝힐 수 있어야 한다 —
  * "왜 이 책이 5단인가" 에 답하지 못하면 사다리를 믿을 수 없다.
  */
 export type RungBasis = 'category' | 'cefr' | 'none'
+
+/**
+ * 계단을 정하는 데 필요한 두 신호.
+ *
+ * ⚠️ `category` 를 `VocabCategory` 유니온으로 좁히지 않는다. **DB 컬럼이 free text 라서**
+ *   유니온에 없는 값이 실제로 들어온다(2026-08-15 에 칩에는 있고 타입에는 없던 칸이
+ *   두 개 있었다 — `queries.ts` 주석). 모르는 칸은 타입 오류가 아니라 **CEFR 로 내려가야 할
+ *   경우**다. 좁혀 두면 발행 경로가 컴파일되지 않고, 억지로 캐스팅하면 그 사실이 숨는다.
+ */
+export interface SetLevelSignals {
+  category: string
+  cefrLevel: string | null
+}
 
 export interface SetRung {
   /** 앉힌 계단. 근거가 없으면 null. */
@@ -56,7 +67,7 @@ const CATEGORY_STEP: Record<string, number> = {
  * (`lib/library/book-cover` 의 동명 함수는 **표지 명도 매핑용**이라 값이 다르다 —
  * A2 를 3 이 아니라 2 로 준다). 계단은 의미이지 명도가 아니므로 이쪽이 맞다.
  */
-export function rungForSet(set: Pick<PublishedVocabSet, 'category' | 'cefrLevel'>): SetRung {
+export function rungForSet(set: SetLevelSignals): SetRung {
   const byCategory = CATEGORY_STEP[set.category]
   if (byCategory != null) {
     const rung = VOCAB_SPINE.find((r) => r.step === byCategory) ?? null
@@ -95,7 +106,7 @@ export interface LadderFill {
  * 빈 계단을 숨기면 학습자는 "내 학년이 없다" 가 아니라 "이 브랜드는 이상하다" 로 읽는다.
  */
 export function measureLadderFill(
-  sets: ReadonlyArray<Pick<PublishedVocabSet, 'category' | 'cefrLevel' | 'wordCount'>>,
+  sets: ReadonlyArray<SetLevelSignals & { wordCount: number }>,
 ): LadderFill {
   const byStep = new Map<number, { volumes: number; words: number }>()
   for (const r of VOCAB_SPINE) byStep.set(r.step, { volumes: 0, words: 0 })

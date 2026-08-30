@@ -24,7 +24,10 @@ import {
   colorsDark, colorsLight, fontFamily, iosColors, iosColorsDark,
 } from '@vocaflow/design-tokens'
 
-export { VOCAB_SERIES_BRAND, VOCAB_SPINE, vocabRungs, rungForVLevel, opensAtStep } from './series'
+export {
+  VOCAB_SERIES_BRAND, VOCAB_SPINE, vocabRungs, rungForVLevel, opensAtStep,
+  stepOpeningBlueprint, resolveLadderStep,
+} from './series'
 export type { VocabRung, VocabBlueprintId } from './series'
 
 /**

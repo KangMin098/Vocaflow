@@ -7,6 +7,9 @@
 // 곧바로 발행했고, 잘못 뽑혔다는 사실은 발행 뒤에야(또는 영원히) 드러났다.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
+import { resolveLadderStep, vocabBrandFingerprint } from '@vocaflow/library-pipeline/vocab-brand'
+
+import { rungForSet } from '@/lib/library/vocab/rung'
 import { PASS_THRESHOLD, evaluateSet, type Scorecard } from './evaluate'
 import { evaluateMarket } from './market'
 import type { ComposedSet } from './types'
@@ -222,6 +225,21 @@ export async function publishComposedSet(
       word_count: 0,
       curation_query: buildCurationQuery(set, scorecard),
       version: nextVersion,
+      // 출판 정보 — 교재의 `textbook_volume_renders` 와 같은 자리(마이그레이션 20260830160000).
+      //
+      //   · 지문: 지금 규격의 해시. **색을 복사하지 않는다** — 토큰이 정본이다.
+      //     나중에 토큰이 바뀌면 이 값이 현재 지문과 달라지므로, 화면이 "옛 규격으로
+      //     만들어진 권" 을 가려낼 수 있다.
+      //   · 계단: 청사진이 열리는 바닥과 표제어 난이도 중 **높은 쪽**. 둘 다 모르면 null 로
+      //     두고 화면이 추정으로 내려간다 — 짐작한 값을 굳혀 두지 않는다.
+      brand_fingerprint: vocabBrandFingerprint(),
+      ladder_step: resolveLadderStep({
+        blueprint: set.recipe.blueprint,
+        suggested: rungForSet({
+          category: meta.category,
+          cefrLevel: meta.target_cefr_range[0] ?? null,
+        }).rung?.step ?? null,
+      }),
     }
 
     let setId: string

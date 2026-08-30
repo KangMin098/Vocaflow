@@ -187,6 +187,46 @@ export function opensAtStep(step: number): VocabBlueprintId[] {
   return [...(OPENS_AT.find((o) => o.step === step)?.opens ?? [])]
 }
 
+/**
+ * 이 청사진이 **처음 열리는** 계단 — 그 아래로는 내려갈 수 없는 바닥이다.
+ *
+ * 사다리에 없는 청사진이면 null. (`compose/blueprints.ts` 에 청사진을 늘리고
+ * `OPENS_AT` 에 안 넣으면 여기가 null 을 돌려준다 — 그 사실이 드러나야 한다.)
+ */
+export function stepOpeningBlueprint(blueprint: string | null | undefined): number | null {
+  if (!blueprint) return null
+  const found = OPENS_AT.find((o) => (o.opens as readonly string[]).includes(blueprint))
+  return found?.step ?? null
+}
+
+/**
+ * 발행할 권의 계단을 정한다.
+ *
+ * ── 왜 둘 중 큰 값인가 ──────────────────────────────────────────────
+ * 두 신호가 서로 다른 말을 한다:
+ *
+ *   · **바닥** — 이 청사진이 열리는 계단. '유의어 비교' 는 4단에서 열리므로,
+ *     그 원리로 묶은 권은 초등에 놓을 수 없다. 원리 자체가 그 나이의 과제가 아니다.
+ *   · **제안** — 표제어 난이도가 가리키는 계단(호출자가 카테고리·CEFR 로 계산해 넘긴다).
+ *
+ * 제안이 바닥보다 낮으면 **바닥을 쓴다.** 쉬운 낱말로 만들었어도 묶는 원리가 어려우면
+ * 그 권은 어려운 권이다 — 반대로 놓으면 초등 학습자가 유의어 변별을 만난다.
+ *
+ * 한쪽만 있으면 그것을 쓰고, **둘 다 없으면 null 이다** — 짐작해서 계단을 채우지 않는다.
+ */
+export function resolveLadderStep(input: {
+  blueprint?: string | null
+  suggested?: number | null
+}): number | null {
+  const floor = stepOpeningBlueprint(input.blueprint)
+  const suggested =
+    input.suggested != null && input.suggested >= 1 && input.suggested <= OPENS_AT.length
+      ? input.suggested
+      : null
+  if (floor == null && suggested == null) return null
+  return Math.max(floor ?? 0, suggested ?? 0)
+}
+
 /** V-Level → 계단. 사다리 밖(V0 유치원 · V8+ 성인)이면 null. */
 export function rungForVLevel(vLevel: number): VocabRung | null {
   return vocabRungs().find((r) => r.vLevels.includes(vLevel)) ?? null

@@ -16,7 +16,9 @@ import {
   catalogCssVariables,
   ladderStrip,
   opensAtStep,
+  resolveLadderStep,
   rungForVLevel,
+  stepOpeningBlueprint,
   vocabBrandFingerprint,
   vocabBrandSpecRows,
 } from './brand'
@@ -253,6 +255,56 @@ describe('조회 도우미', () => {
 
   it('7단은 새로 여는 축이 없다 — 수준과 하루치가 다를 뿐이다', () => {
     expect(opensAtStep(7)).toEqual([])
+  })
+})
+
+describe('발행할 권의 계단 정하기', () => {
+  it('청사진이 열리는 계단을 바닥으로 안다', () => {
+    expect(stepOpeningBlueprint('rhyme-phonics')).toBe(1)
+    expect(stepOpeningBlueprint('root-etymology')).toBe(3)
+    expect(stepOpeningBlueprint('synonym-cluster')).toBe(4)
+  })
+
+  it('사다리에 없는 청사진은 null — 빠뜨린 것이 드러나야 한다', () => {
+    expect(stepOpeningBlueprint('uncovered')).toBeNull()
+    expect(stepOpeningBlueprint(null)).toBeNull()
+  })
+
+  it('제안이 바닥보다 낮으면 바닥을 쓴다 — 원리가 어려우면 어려운 권이다', () => {
+    // 쉬운 낱말로 만든 유의어 세트라도 초등(1단)에 놓지 않는다.
+    expect(resolveLadderStep({ blueprint: 'synonym-cluster', suggested: 1 })).toBe(4)
+  })
+
+  it('제안이 바닥보다 높으면 제안을 쓴다', () => {
+    expect(resolveLadderStep({ blueprint: 'topic-field', suggested: 6 })).toBe(6)
+  })
+
+  it('한쪽만 있으면 그것을 쓴다', () => {
+    expect(resolveLadderStep({ blueprint: 'root-etymology' })).toBe(3)
+    expect(resolveLadderStep({ suggested: 5 })).toBe(5)
+  })
+
+  it('둘 다 없으면 null — 짐작으로 계단을 채우지 않는다', () => {
+    expect(resolveLadderStep({})).toBeNull()
+    expect(resolveLadderStep({ blueprint: 'uncovered', suggested: null })).toBeNull()
+  })
+
+  it('범위 밖 제안은 무시한다 — DB CHECK(1..7)에 걸릴 값을 만들지 않는다', () => {
+    expect(resolveLadderStep({ suggested: 0 })).toBeNull()
+    expect(resolveLadderStep({ suggested: 9 })).toBeNull()
+    expect(resolveLadderStep({ blueprint: 'topic-field', suggested: 99 })).toBe(1)
+  })
+
+  it('돌려주는 값은 언제나 1..7 이다', () => {
+    for (const bp of ['rhyme-phonics', 'synonym-cluster', 'exam-items', 'uncovered']) {
+      for (const s of [null, 0, 1, 4, 7, 12]) {
+        const step = resolveLadderStep({ blueprint: bp, suggested: s })
+        if (step != null) {
+          expect(step).toBeGreaterThanOrEqual(1)
+          expect(step).toBeLessThanOrEqual(7)
+        }
+      }
+    }
   })
 })
 
