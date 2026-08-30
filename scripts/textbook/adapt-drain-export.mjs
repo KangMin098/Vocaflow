@@ -47,7 +47,11 @@ const arg = (n) => {
 const BAND = arg('band') ?? 'elementary'
 const SIZE = Number(arg('size') ?? 6)
 const LIMIT = Number(arg('limit') ?? 60)
-const DIR = path.resolve(arg('dir') ?? `scripts/textbook/adapt-drain/${BAND}`)
+// 목표 단수가 지정되면 폴더도 갈라 둔다 — 1단 몫과 2단 몫이 한 폴더에 섞이면
+// import 가 어느 단으로 넣을지 청크마다 달라진다.
+const DIR = path.resolve(
+  arg('dir') ?? `scripts/textbook/adapt-drain/${BAND}${arg('v-level') ? `-v${arg('v-level')}` : ''}`,
+)
 
 const { createClient } = await import('@supabase/supabase-js')
 const { GRADE_BANDS } = await import('@vocaflow/library-pipeline')
@@ -113,6 +117,25 @@ const REGISTER_EXCLUDE = {
   high: [],
 }
 
+/**
+ * 각색본이 설 밴드. 기본은 그 학령대의 **맨 아래 단**이다.
+ *
+ * ⚠️ **기본값만 쓰면 초등 각색이 전부 1단으로 간다. 그런데 1단은 원글이 필요 없는
+ *    유일한 단이다** — 운율·낱말 뜻·철자는 사전(교육과정 별표 808낱말)에서 나온다
+ *    (`volume-pool.loadElementaryPool`). 실제로 원글이 모자란 곳은 **2단**이다
+ *    (실측 2026-08-30: 원글 145편 → 겹치지 않는 책 **2권**. 3단 위는 5~108권).
+ *
+ *    그래서 1단에 22편을 써 넣고도 **어느 책에도 한 줄이 안 들어갔다.**
+ *    필요한 단을 `--v-level` 로 지정한다.
+ */
+const TARGET_V = Number(arg('v-level') ?? spec.vRange.min)
+if (!(TARGET_V >= spec.vRange.min && TARGET_V <= spec.vRange.max)) {
+  console.error(
+    `--v-level ${TARGET_V} 는 ${spec.label} 밴드(V${spec.vRange.min}~V${spec.vRange.max}) 밖이다.`,
+  )
+  process.exit(1)
+}
+
 /** 원본은 목표보다 위에 있어야 한다 — 같은 레벨을 '쉬운 판' 이라 부를 수 없다. */
 const SOURCE_MIN_LEVEL = spec.vRange.max + 1
 
@@ -166,8 +189,21 @@ for (const r of usable) {
   byFeed.get(k).push(r)
 }
 const feeds = [...byFeed.keys()].sort()
+
+/**
+ * 피드마다 **몇 번째부터** 뽑을지. 기본 0.
+ *
+ * ⚠️ **없으면 같은 후보가 영원히 다시 올라온다.** 이 뽑기는 결정론이라 피드별 앞머리를
+ *   늘 같은 순서로 준다. 제외되는 것은 "이미 각색된 원본" 뿐인데, 소재가 안 맞아 **비워 둔**
+ *   것은 각색된 적이 없으므로 제외되지 않는다.
+ *
+ *   실측 2026-08-30: 초등 소재 적합률이 39% → 44% → 74% 부적합으로 계속 나빠졌는데,
+ *   그중 상당 부분이 **같은 부적합 후보를 반복해서 본** 탓이었다(COP28 · 네덜란드 ·
+ *   벌 입틀이 세 번 연속 나왔다). 다음 몫을 보려면 `--offset` 을 올린다.
+ */
+const OFFSET = Number(arg('offset') ?? 0)
 const picked = []
-for (let i = 0; picked.length < LIMIT; i++) {
+for (let i = OFFSET; picked.length < LIMIT; i++) {
   let tookAny = false
   for (const f of feeds) {
     const list = byFeed.get(f)
@@ -186,7 +222,7 @@ for (const [n, chunk] of chunks.entries()) {
     adapted_from_id: r.id,
     target_band: spec.key,
     target_label: spec.label,
-    target_v_level: spec.vRange.min,
+    target_v_level: TARGET_V,
     target_cefr: spec.cefrj,
     words: spec.words,
     avg_sentence_words: spec.avgSentenceWords,
@@ -208,7 +244,10 @@ for (const [n, chunk] of chunks.entries()) {
   fs.writeFileSync(path.join(DIR, `chunk-${String(n).padStart(2, '0')}.json`), `${JSON.stringify(rows, null, 2)}\n`)
 }
 
-console.log(`\n레벨 적응 — ${spec.label} (V${spec.vRange.min}~${spec.vRange.max} · ${spec.cefrj.join('/')})`)
+console.log(
+  `\n레벨 적응 — ${spec.label} **V${TARGET_V}** ` +
+    `(밴드 V${spec.vRange.min}~${spec.vRange.max} · ${spec.cefrj.join('/')})`,
+)
 console.log(`  규격  ${spec.words.min}~${spec.words.max}어 · 평균 문장 ${spec.avgSentenceWords}어`)
 console.log(`  각색 가능 라이선스 원본  ${sources.length}편 (V${SOURCE_MIN_LEVEL} 이상 · ${ADAPTABLE.join('/')})`)
 if (excludeRegisters.length) {

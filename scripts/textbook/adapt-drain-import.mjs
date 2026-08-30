@@ -34,7 +34,11 @@ const arg = (n) => {
 }
 const commit = process.argv.includes('--commit')
 const BAND = arg('band') ?? 'elementary'
-const DIR = path.resolve(arg('dir') ?? `scripts/textbook/adapt-drain/${BAND}`)
+// export 와 **같은 규칙**으로 폴더를 찾는다. 어긋나면 채운 청크를 못 읽고
+// "out.json 이 없다" 로 끝난다 — 그 자리에서 원인을 알기 어렵다.
+const DIR = path.resolve(
+  arg('dir') ?? `scripts/textbook/adapt-drain/${BAND}${arg('v-level') ? `-v${arg('v-level')}` : ''}`,
+)
 
 const { createClient } = await import('@supabase/supabase-js')
 const { GRADE_BANDS, buildFingerprint, isAdaptationPublishable, runAdaptationGates } = await import(
