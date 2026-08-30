@@ -1,0 +1,174 @@
+{
+  "$schema": "vocab-market-spec/1",
+  "generatedAt": "2026-08-30T05:22:08.319Z",
+  "provenance": {
+    "corpus": "시중 영어 교재 79종 중 어휘 교재 (저장소 밖 store)",
+    "documentsConsidered": 6,
+    "documentsMeasured": 4,
+    "entriesMeasured": 140,
+    "publishers": [
+      "NE능률",
+      "미상",
+      "참고자료"
+    ],
+    "limitation": "표본이 한 출판사(NE능률) 미리보기본에 쏠려 있다. 구조의 유무는 갈리지만 보유율은 **하한**으로만 읽는다 — PDF 추출이 빠뜨린 칸은 없는 것으로 세어진다.",
+    "rule": "집계 통계와 구조 신호만 담는다. 표제어·뜻·예문 원문은 담지 않는다."
+  },
+  "entryFields": {
+    "entriesMeasured": 140,
+    "booksMeasured": 4,
+    "rates": {
+      "exampleEn": 0.914,
+      "exampleKo": 0.921,
+      "derived": 0.414,
+      "synAnt": 0.257,
+      "polysemy": 0.443,
+      "pos": 0.921
+    },
+    "perBook": [
+      {
+        "series": "능률VOCA",
+        "publisher": "NE능률",
+        "gradeBand": "중3~고1",
+        "role": "미리보기",
+        "pages": 37,
+        "unitKind": "DAY",
+        "unitCount": 26,
+        "entriesMeasured": 61,
+        "rates": {
+          "exampleEn": 0.967,
+          "exampleKo": 0.951,
+          "derived": 0.361,
+          "synAnt": 0.082,
+          "polysemy": 0.557,
+          "pos": 0.967
+        }
+      },
+      {
+        "series": "능률VOCA",
+        "publisher": "NE능률",
+        "gradeBand": "중3~고2",
+        "role": "미리보기",
+        "pages": 31,
+        "unitKind": "DAY",
+        "unitCount": 60,
+        "entriesMeasured": 29,
+        "rates": {
+          "exampleEn": 0.897,
+          "exampleKo": 0.828,
+          "derived": 0.517,
+          "synAnt": 0.966,
+          "polysemy": 0,
+          "pos": 0.862
+        }
+      },
+      {
+        "series": "능률VOCA",
+        "publisher": "NE능률",
+        "gradeBand": "고2~고3",
+        "role": "미리보기",
+        "pages": 27,
+        "unitKind": "DAY",
+        "unitCount": 16,
+        "entriesMeasured": 34,
+        "rates": {
+          "exampleEn": 0.853,
+          "exampleKo": 0.971,
+          "derived": 0.324,
+          "synAnt": 0.059,
+          "polysemy": 0.412,
+          "pos": 0.853
+        }
+      },
+      {
+        "series": "능률VOCA",
+        "publisher": "NE능률",
+        "gradeBand": "고3",
+        "role": "미리보기",
+        "pages": 17,
+        "unitKind": "DAY",
+        "unitCount": 20,
+        "entriesMeasured": 16,
+        "rates": {
+          "exampleEn": 0.875,
+          "exampleKo": 0.875,
+          "derived": 0.625,
+          "synAnt": 0.063,
+          "polysemy": 0.875,
+          "pos": 1
+        }
+      }
+    ]
+  },
+  "pacing": {
+    "byUnitKind": {
+      "DAY": 4,
+      "(없음)": 2
+    },
+    "dayUnitCounts": [
+      16,
+      20,
+      26,
+      60
+    ],
+    "note": "미리보기본이라 권 전체의 DAY 수가 아니라 **미리보기에 실린 DAY 수**다. 하한으로 읽는다."
+  },
+  "partAxes": [
+    {
+      "label": "고등 핵심 어휘",
+      "occurrences": 2
+    },
+    {
+      "label": "어원별 어휘",
+      "occurrences": 2
+    },
+    {
+      "label": "어원으로 익히는 어휘",
+      "occurrences": 2
+    },
+    {
+      "label": "여러 가지 뜻을 가진 어휘",
+      "occurrences": 2
+    },
+    {
+      "label": "원리를 알면 쉬운 숙어",
+      "occurrences": 2
+    },
+    {
+      "label": "주제별 어휘",
+      "occurrences": 2
+    },
+    {
+      "label": "주제별로 외우는 어휘",
+      "occurrences": 2
+    },
+    {
+      "label": "최중요 어휘",
+      "occurrences": 2
+    },
+    {
+      "label": "함께 외우면 좋은 어휘",
+      "occurrences": 2
+    },
+    {
+      "label": "반의어 / 혼동어 / 다의어",
+      "occurrences": 1
+    },
+    {
+      "label": "반의어 혼동어",
+      "occurrences": 1
+    },
+    {
+      "label": "어근",
+      "occurrences": 1
+    },
+    {
+      "label": "접두사",
+      "occurrences": 1
+    },
+    {
+      "label": "접미사",
+      "occurrences": 1
+    }
+  ]
+}
