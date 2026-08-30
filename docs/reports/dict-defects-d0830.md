@@ -609,3 +609,63 @@ T6-2 에서 같은 구멍을 고쳤는데 여기 또 있었다.
 
 ⚠️ **표제어를 지우는 배치는 되돌리기 설계가 특히 중요하다** — 지운 행은 `field_provenance` 에
 남길 자리조차 없어진다. 별도 보관 테이블이나 `archived` 플래그가 먼저 있어야 한다.
+
+---
+
+# T7 실행 기록 — 표제어 판정 (2026-08-30)
+
+파이프라인 `scripts/dict/w0830-headword.mjs` · 청크 `scripts/dict/w0830-headword/`
+
+## 이 배치는 아무것도 지우지 않았다
+
+표제어를 지우면 `field_provenance` 에 남길 자리조차 없어진다 — **되돌릴 근거가 사라진다.**
+그리고 실측 결과 이 낱말들은 이미 **발행 단어장에 실려 있다.** 지우는 순간 학습자 화면의
+단어장에 구멍이 난다. 그건 사람이 정할 일이라, 이 배치는 **판정만** 하고
+`field_provenance.t7_headword` 에 남겼다.
+
+## 판정 (324 낱말 전량)
+
+| 판정 | 수 | 실례 |
+|---|--:|---|
+| **`ok`** (오탐) | **93** | `rob` · `spinster` · `tribe` · `valve` · `infection` · `investment` · `acclivity` · `admix` |
+| `foreign` 영어 아님 | 84 | `situ` · `sui` · `emptor` · `generis` · `mutandis` · `qui` · `laissez` · `infinitum` |
+| `inflection` 굴절형 | 56 | `sacks` · `rungs` · `smelted` · `slagged` · `donned` · `beefed` · `cottoned` |
+| `fragment` 조각 | 37 | `nilly` · `pocus` · `topsy` · `turvy` · `mumbo` · `higgledy` · `bona` · `gras` |
+| `misspelling` 오철자 | 37 | `beseige` · `miniscule` · `nickle` · `epicopal` · `clich` · `daguerrotype` |
+| `unusable` | 14 | `klux` · `dago` · `bint` · `fly into a rage, temper, etc.` |
+| `ocr` 오독 | 3 | `nacro` · `eduldamer` · `peles` |
+
+**`ok` 93건(29%)이 오탐이었다** — 내 모집단 추출이 자유 서술을 기계로 훑은 것이라
+`rob`·`spinster`·`valve` 같은 멀쩡한 낱말이 섞였다. 서브에이전트들이 되돌렸다.
+`why` 의 지적 대부분은 **표제어가 아니라 뜻 갈래·예문**에 관한 것이었다.
+
+⚠️ **자유 서술 마이닝은 이 회차에서 세 번 실패했다** (31,571 휴리스틱 · T7 1차 패턴 ·
+이 모집단의 29% 오탐). 노트는 **후보를 좁히는 데만** 쓰고, 판정은 반드시 낱말을 보고 해야 한다.
+
+## 학습자 노출 — 실측
+
+**결함 표제어 116개가 발행 단어장 732개에 실려 있다.** (`필수2000` 등 핵심 세트 포함)
+
+도서·글 추출로는 거의 안 나간다(도서 0 · 글 17). 닿는 경로는 **단어장**이다.
+
+## 제거는 왜 이 배치가 안 하는가
+
+1. **되돌릴 수 없다** — 행을 지우면 `field_provenance` 도 함께 사라진다.
+   보관 테이블이나 `archived` 플래그가 **먼저** 있어야 한다.
+2. **학습자 화면의 내용을 지우는 일이다** — 발행 단어장 732개에서 낱말이 빠진다.
+   CLAUDE.md 의 자동화 예외(DB 데이터 손실 변경)에 해당한다.
+3. **판정마다 옳은 처리가 다르다**:
+   - `misspelling`·`inflection` → 지우는 게 아니라 **옳은 형태로 병합**(`beseige`→`besiege`)
+   - `foreign`·`fragment` → 구 전체를 표제어로 올리는 편이 낫다(`laissez`→`laissez-faire`)
+   - `unusable` 중 **사전 표제 틀**(`fly into a rage, temper, etc.`)은 철자 문제가 아니라
+     **항목 형태**의 문제다 — 제거가 아니라 재등록 대상
+   - `unusable` 중 멸칭(`dago`·`bint`)·`klux` 만이 **제거가 맞는 갈래**다
+
+제안서: `scripts/dict/w0830-headword/REMOVAL-PROPOSAL.json`
+(판정별 낱말 목록 + 영향받는 발행 단어장 수 + 그 안의 결함 낱말 목록)
+
+## 다음에 필요한 것 — 승인이 먼저인 일
+
+- `shared_dictionary` 에 `archived` 플래그(또는 보관 테이블) — **마이그레이션이므로 승인 필요**
+- 발행 단어장에서 결함 낱말을 빼는 절차 — **학습자 화면 변경이므로 승인 필요**
+- `word_register` CHECK 제약에 결함 표시값 추가 여부 — 현재 8값 고정
