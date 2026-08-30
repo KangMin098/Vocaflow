@@ -95,15 +95,39 @@ for (const type of types) {
   const s = { scanned: 0, already: 0, wrote: 0, skipped: 0, wrongOption: 0, citation: 0, lens: [] }
   stats[type] = s
 
+  /**
+   * **커서 페이징** — `range(from, ...)` 은 OFFSET 이라 깊어질수록 느려진다.
+   *
+   * 실측 2026-08-31: V5 문항을 56,191건 넣어 `csat_dcp_items` 가 9만을 넘자
+   * `unit_vocab` 조회가 `canceling statement due to statement timeout` 으로 죽었다.
+   * 페이지 크기(500)는 그대로인데 뒤쪽 페이지가 앞의 모든 행을 세고 지나가야 해서다.
+   * 마지막 id 다음부터 읽으면 깊이와 무관하게 같은 비용이 된다.
+   */
   const PAGE = 500
-  for (let from = 0; ; from += PAGE) {
-    const { data, error } = await supabase
+  let cursor = null
+  for (;;) {
+    let q = supabase
       .from('csat_dcp_items')
       .select('id,type,payload,answer_key')
       .eq('type', type)
       .order('id')
-      .range(from, from + PAGE - 1)
+      .limit(PAGE)
+    if (cursor) q = q.gt('id', cursor)
+    // 일시적 실패(5xx·timeout)는 다시 시도한다 — 읽기라 안전하다.
+    let data = null
+    let error = null
+    for (let attempt = 0; attempt < 4; attempt += 1) {
+      const res = await q
+      data = res.data
+      error = res.error
+      if (!error) break
+      const msg = String(error.message ?? '')
+      if (!/5\d\d|timeout|schema cache|fetch failed|socket|ECONN|EAI_AGAIN|handshake/i.test(msg)) break
+      console.error(`  ↻ ${type} 재시도 ${attempt + 1}/3 — ${msg.slice(0, 60)}`)
+      await new Promise((r) => setTimeout(r, 1000 * 3 ** attempt))
+    }
     if (error) throw new Error(`${type}: ${error.message}`)
+    if (data?.length) cursor = data[data.length - 1].id
     if (data.length === 0) break
 
     const updates = []
