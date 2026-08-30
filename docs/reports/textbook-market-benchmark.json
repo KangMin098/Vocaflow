@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-29T17:24:39.910Z",
-  "specGeneratedAt": "2026-08-29T16:43:36.862Z",
+  "generatedAt": "2026-08-30T01:42:04.412Z",
+  "specGeneratedAt": "2026-08-29T23:29:12.309Z",
   "corpus": {
     "corpus": "시중 영어 교재 79종 (저장소 밖 store)",
     "documentsMeasured": 79,
@@ -9,43 +9,43 @@
     "rule": "집계 통계와 업계 공통 발문형만 담는다. 지문·해설 원문은 담지 않는다.",
     "stemRule": "서로 다른 시리즈 2곳 이상에서 같은 형태로 쓰인 발문만 표준형으로 본다"
   },
-  "itemsMeasured": 17206,
+  "itemsMeasured": 136512,
   "axes": [
     {
       "id": "A1",
       "name": "해설 보유율",
-      "ours": 0.9940137161455306,
+      "ours": 0.6134112751992499,
       "market": 1,
       "unit": "%",
       "why": "해설이 없으면 혼자 공부할 수 없다 — 시장이 교재를 고르는 첫 기준",
-      "index": 0.994
+      "index": 0.613
     },
     {
       "id": "A2",
       "name": "해설 길이 규격 적합률 (75~473자)",
-      "ours": 0.9825761562299011,
+      "ours": 0.99644128113879,
       "market": 0.65,
       "unit": "%",
       "why": "짧으면 근거가 없고 길면 안 읽는다. 시장 p25~p90 구간",
-      "index": 1.512
+      "index": 1.533
     },
     {
       "id": "A3",
       "name": "오답 배제 언급률",
-      "ours": 0.6245687891013273,
+      "ours": 0.6314098736535384,
       "market": 0.536,
       "unit": "%",
       "why": "왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다",
-      "index": 1.165
+      "index": 1.178
     },
     {
       "id": "A4",
       "name": "원문 인용률",
-      "ours": 0.9959071507922587,
+      "ours": 0.9976593661181303,
       "market": 0.497,
       "unit": "%",
       "why": "지문에서 근거를 끌어와야 검증 가능한 해설이다",
-      "index": 2.004
+      "index": 2.007
     },
     {
       "id": "A5",
@@ -60,33 +60,66 @@
     {
       "id": "A6",
       "name": "지문 어수 규격 적합률",
-      "ours": 0.8552168103971821,
+      "ours": 0.9170535679450665,
       "market": 0.8,
       "unit": "%",
       "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
-      "index": 1.069
+      "index": 1.146
+    },
+    {
+      "id": "A7",
+      "name": "선택지 수 규격 적합률",
+      "ours": 1,
+      "market": 0.861,
+      "unit": "%",
+      "why": "학교급마다 시장 지배값이 있다 — 어긋나면 그 학년 시험지가 아니다",
+      "index": 1.161
     }
   ],
-  "overallIndex": 1.373,
+  "overallIndex": 1.268,
   "overallNote": null,
   "detail": {
     "explanationsByType": [
       {
         "type": "blank_word",
-        "items": 3564,
-        "explained": 3564,
-        "pct": 100
+        "items": 46927,
+        "explained": 28009,
+        "pct": 59.7
       },
       {
         "type": "unit_vocab",
-        "items": 2848,
-        "explained": 2848,
+        "items": 28173,
+        "explained": 28173,
         "pct": 100
       },
       {
         "type": "grammar_fix",
-        "items": 2540,
+        "items": 27398,
         "explained": 2540,
+        "pct": 9.3
+      },
+      {
+        "type": "vocab_choice",
+        "items": 9526,
+        "explained": 9526,
+        "pct": 100
+      },
+      {
+        "type": "word_order",
+        "items": 9393,
+        "explained": 1337,
+        "pct": 14.2
+      },
+      {
+        "type": "unit_grammar",
+        "items": 7579,
+        "explained": 7579,
+        "pct": 100
+      },
+      {
+        "type": "grammar_choice",
+        "items": 2771,
+        "explained": 2771,
         "pct": 100
       },
       {
@@ -102,28 +135,10 @@
         "pct": 98
       },
       {
-        "type": "word_order",
-        "items": 1337,
-        "explained": 1337,
-        "pct": 100
-      },
-      {
-        "type": "unit_grammar",
-        "items": 1287,
-        "explained": 1287,
-        "pct": 100
-      },
-      {
-        "type": "vocab_choice",
-        "items": 1192,
-        "explained": 1192,
-        "pct": 100
-      },
-      {
-        "type": "grammar_choice",
-        "items": 583,
-        "explained": 583,
-        "pct": 100
+        "type": "irrelevant",
+        "items": 921,
+        "explained": 41,
+        "pct": 4.5
       },
       {
         "type": "topic",
@@ -150,10 +165,10 @@
         "pct": 100
       },
       {
-        "type": "irrelevant",
-        "items": 41,
-        "explained": 0,
-        "pct": 0
+        "type": "title",
+        "items": 40,
+        "explained": 40,
+        "pct": 100
       },
       {
         "type": "long_reference",
@@ -162,7 +177,7 @@
         "pct": 100
       },
       {
-        "type": "long_order",
+        "type": "long_vocab",
         "items": 32,
         "explained": 32,
         "pct": 100
@@ -174,13 +189,13 @@
         "pct": 100
       },
       {
-        "type": "long_title",
+        "type": "long_order",
         "items": 32,
         "explained": 32,
         "pct": 100
       },
       {
-        "type": "long_vocab",
+        "type": "long_title",
         "items": 32,
         "explained": 32,
         "pct": 100
@@ -192,19 +207,13 @@
         "pct": 100
       },
       {
-        "type": "title",
-        "items": 30,
-        "explained": 30,
-        "pct": 100
-      },
-      {
-        "type": "purpose",
+        "type": "content_match",
         "items": 16,
         "explained": 16,
         "pct": 100
       },
       {
-        "type": "claim",
+        "type": "purpose",
         "items": 16,
         "explained": 16,
         "pct": 100
@@ -216,36 +225,190 @@
         "pct": 100
       },
       {
-        "type": "content_match",
+        "type": "claim",
         "items": 16,
         "explained": 16,
         "pct": 100
       }
     ],
     "passageSpecByBucket": {
-      "고1": {
-        "in": 2249,
-        "total": 2425,
-        "p10": 47,
-        "p90": 242
-      },
-      "중1": {
-        "in": 1836,
-        "total": 2449,
-        "p10": 46,
-        "p90": 152
-      },
       "고2": {
-        "in": 2217,
-        "total": 2547,
+        "in": 29035,
+        "total": 30919,
         "p10": 43,
         "p90": 188
       },
+      "고1": {
+        "in": 14326,
+        "total": 15681,
+        "p10": 47,
+        "p90": 242
+      },
       "초6": {
-        "in": 739,
+        "in": 707,
         "total": 812,
         "p10": 44,
         "p90": 125
+      },
+      "중1": {
+        "in": 2942,
+        "total": 3850,
+        "p10": 46,
+        "p90": 152
+      }
+    },
+    "choiceCountByType": {
+      "vocab_choice": {
+        "ok": 9526,
+        "total": 9526,
+        "want": 5,
+        "seen": {
+          "5": 9526
+        }
+      },
+      "unit_vocab": {
+        "ok": 28173,
+        "total": 28173,
+        "want": 5,
+        "seen": {
+          "5": 28173
+        }
+      },
+      "unit_grammar": {
+        "ok": 7579,
+        "total": 7579,
+        "want": 5,
+        "seen": {
+          "5": 7579
+        }
+      },
+      "grammar_choice": {
+        "ok": 2771,
+        "total": 2771,
+        "want": 5,
+        "seen": {
+          "5": 2771
+        }
+      },
+      "implication": {
+        "ok": 31,
+        "total": 31,
+        "want": 5,
+        "seen": {
+          "5": 31
+        }
+      },
+      "content_match": {
+        "ok": 16,
+        "total": 16,
+        "want": 5,
+        "seen": {
+          "5": 16
+        }
+      },
+      "main_point": {
+        "ok": 45,
+        "total": 45,
+        "want": 5,
+        "seen": {
+          "5": 45
+        }
+      },
+      "blank": {
+        "ok": 74,
+        "total": 74,
+        "want": 5,
+        "seen": {
+          "5": 74
+        }
+      },
+      "topic": {
+        "ok": 78,
+        "total": 78,
+        "want": 5,
+        "seen": {
+          "5": 78
+        }
+      },
+      "purpose": {
+        "ok": 16,
+        "total": 16,
+        "want": 5,
+        "seen": {
+          "5": 16
+        }
+      },
+      "mood": {
+        "ok": 45,
+        "total": 45,
+        "want": 5,
+        "seen": {
+          "5": 45
+        }
+      },
+      "long_vocab": {
+        "ok": 32,
+        "total": 32,
+        "want": 5,
+        "seen": {
+          "5": 32
+        }
+      },
+      "long_match": {
+        "ok": 32,
+        "total": 32,
+        "want": 5,
+        "seen": {
+          "5": 32
+        }
+      },
+      "title": {
+        "ok": 40,
+        "total": 40,
+        "want": 5,
+        "seen": {
+          "5": 40
+        }
+      },
+      "long_order": {
+        "ok": 32,
+        "total": 32,
+        "want": 5,
+        "seen": {
+          "5": 32
+        }
+      },
+      "long_reference": {
+        "ok": 39,
+        "total": 39,
+        "want": 5,
+        "seen": {
+          "5": 39
+        }
+      },
+      "summary": {
+        "ok": 16,
+        "total": 16,
+        "want": 5,
+        "seen": {
+          "5": 16
+        }
+      },
+      "long_title": {
+        "ok": 32,
+        "total": 32,
+        "want": 5,
+        "seen": {
+          "5": 32
+        }
+      },
+      "claim": {
+        "ok": 16,
+        "total": 16,
+        "want": 5,
+        "seen": {
+          "5": 16
+        }
       }
     },
     "typesBeyondMarket": [

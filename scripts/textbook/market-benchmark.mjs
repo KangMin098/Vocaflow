@@ -64,9 +64,15 @@ async function fetchAll() {
   const rows = []
   const PAGE = 1000
   for (let from = 0; ; from += PAGE) {
+    // ⚠️ **정렬 없이 페이지를 넘기면 안 된다.** Postgres 는 ORDER BY 가 없으면 순서를
+    //    보장하지 않으므로, 페이지마다 같은 행이 또 나오고 그만큼 다른 행이 빠진다.
+    //    2026-08-30 에 재고가 13만 행으로 늘자 이것이 터졌다 — 희귀 유형이 표본에서
+    //    통째로 빠져 A5(유형 다양성)가 14/14 에서 **8/14 로 보였다.** 재고는 그대로였다.
+    //    (이 저장소가 IA 수집에서 이미 겪은 버그다 — CLAUDE.md §PDCP `sort[]=identifier asc`.)
     const { data, error } = await supabase
       .from('csat_dcp_items')
       .select('type,v_level,payload,answer_key')
+      .order('id')
       .range(from, from + PAGE - 1)
     if (error) throw new Error(error.message)
     rows.push(...data)

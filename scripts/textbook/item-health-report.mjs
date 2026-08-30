@@ -91,6 +91,27 @@ const SHAPE = {
   word_order: { choices: 0, answer: () => 0, passage: () => null },
 }
 
+/**
+ * 드레인으로 만드는 생성형 유형 — **모양이 하나다**
+ * (`item-drain-export.mjs`: payload `{ passage, choices[5] }` · answer_key `{ answer }`).
+ *
+ * ⚠️ 2026-08-30 까지 이 열다섯이 `SHAPE` 에 없어서 **전부 "단답이라 답지가 없다" 로
+ *    분류되어 정답 쏠림 검정에서 빠져 있었다.** 5지선다인데 안 재고 있었던 것이라,
+ *    위 ① 과 **같은 실수**다("못 잰다" 가 아니라 "안 재고 있었다").
+ *    드레인으로 수천 건을 넣을 참이라 지금 막지 않으면 쏠림이 조용히 쌓인다.
+ */
+for (const type of [
+  'purpose', 'mood', 'claim', 'implication', 'main_point', 'topic', 'title',
+  'blank', 'summary', 'content_match',
+  'long_order', 'long_reference', 'long_title', 'long_vocab', 'long_match',
+]) {
+  SHAPE[type] = {
+    choices: 5,
+    answer: (a) => a?.answer ?? 0,
+    passage: (p) => p?.passage ?? null,
+  }
+}
+
 const words = (t) => (t == null ? null : t.split(/\s+/).filter(Boolean).length)
 
 // 인쇄 변환이 실패한 문항 — 교재에 실을 수 없다. 히스토그램에서 조용히 빼지 않고 센다.
