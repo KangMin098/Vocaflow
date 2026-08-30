@@ -3,18 +3,18 @@
 // /library/vocab — 공용 단어장 (실 데이터 · Supabase shared_word_sets).
 // Server Component: 게시된 세트 + 현재 사용자 구독 상태 fetch → 클라이언트 그리드로 전달.
 
-import { Layers } from 'lucide-react'
+import { rungForVLevel } from '@vocaflow/library-pipeline/vocab-brand'
 
 import { Capsule, Screen } from '@/components/ui/ios'
 import { VocabSetGrid } from '@/components/library/vocab/VocabSetGrid'
-import { VOCAB_CATEGORIES } from '@/components/library/vocab/categories'
+import { VocabSeriesHeader } from '@/components/library/vocab/VocabSeriesHeader'
 import { createClient } from '@/lib/supabase/server'
 import {
   fetchPublishedSets,
   fetchUserSubscriptions,
   type RecommendedSet,
 } from '@/lib/library/vocab/queries'
-import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
+import { measureLadderFill } from '@/lib/library/vocab/rung'
 
 export const metadata = {
   title: '공용 단어장',
@@ -59,37 +59,27 @@ export default async function LibraryVocabPage() {
   const setCount = sets.length
   const totalWords = sets.reduce((sum, s) => sum + s.wordCount, 0)
   const subscribedCount = subscribedSet.size
-  const categoryCount = VOCAB_CATEGORIES.length - 1 // 'all' 제외
+
+  // 사다리를 **실측 재고에 대 본다.** 계단마다 몇 권인지, 학령 밖이 몇 권인지.
+  //   목업이 아니다 — 빈 계단이 있으면 빈 채로 나온다(`measureLadderFill`).
+  const ladder = measureLadderFill(sets)
+  // 학습자의 계단 — 진단을 마친 사람만. 미진단이면 null 이라 아무 칸도 '지금' 으로 서지 않는다.
+  const learnerStep = userVLevel > 0 ? (rungForVLevel(userVLevel)?.step ?? null) : null
 
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
-        <header className="flex flex-col gap-3 px-1">
-          <div className="flex items-center gap-3">
-            <span
-              aria-hidden
-              className="inline-flex h-8 w-8 items-center justify-center rounded-ios-sm bg-ios-purple text-white"
-            >
-              <Layers size={16} />
-            </span>
-            <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
-              {MATERIAL_LABEL.word_set}
-            </h1>
+        <VocabSeriesHeader
+          fill={ladder}
+          learnerStep={learnerStep}
+          totalVolumes={setCount}
+          totalWords={totalWords}
+        />
+        {subscribedCount > 0 && (
+          <div className="flex flex-wrap items-center gap-2 px-1">
+            <Capsule tone="green" label="구독" value={`${subscribedCount}개`} />
           </div>
-          <p className="font-body text-[15px] text-[var(--t2)]">
-            함께 만든 어휘 자산 — 큐레이션된 단어 컬렉션을 내 단어장에 추가하세요.
-          </p>
-          {setCount > 0 && (
-            <div className="mt-1 flex flex-wrap items-center gap-2">
-              <Capsule label={MATERIAL_LABEL.word_set} value={`${setCount}`} />
-              <Capsule label="단어" value={`${totalWords.toLocaleString()}`} />
-              <Capsule label="카테고리" value={`${categoryCount}종`} />
-              {subscribedCount > 0 && (
-                <Capsule tone="green" label="구독" value={`${subscribedCount}개`} />
-              )}
-            </div>
-          )}
-        </header>
+        )}
 
         <VocabSetGrid
           sets={sets}

@@ -20,7 +20,9 @@
 // (`#2E7D5A` = success · `#9C3A30` 계열). 사본이라 토큰이 바뀌어도 따라오지 않는다.
 // **그래서 여기서도 값을 다시 적지 않는다 — 토큰에서 읽는다.**
 
-import { colorsDark, colorsLight, fontFamily } from '@vocaflow/design-tokens'
+import {
+  colorsDark, colorsLight, fontFamily, iosColors, iosColorsDark,
+} from '@vocaflow/design-tokens'
 
 export { VOCAB_SERIES_BRAND, VOCAB_SPINE, vocabRungs, rungForVLevel, opensAtStep } from './series'
 export type { VocabRung, VocabBlueprintId } from './series'
@@ -89,25 +91,30 @@ export const CATALOG_FONTS = {
  * **다섯 계열이 `blueprints.ts` 의 `family` 와 같은 눈금이다.** 출처가 제각각인 PD 도판도
  * 같은 색으로 누르면 한 시리즈로 읽힌다 — 카테고리 칩이 못 하던 일을 표지가 한다.
  *
- * ⚠️ 값을 여기서 정하지 않는다. 토큰의 semantic 색을 **역할로** 골라 쓴다:
- *   list=info(세어서 줄 세운 것) · structure=success(갈라져 자란 것) ·
- *   corpus=warning(이야기·오래된 종이) · delivery=t3(반복·중립) · unique=p(플랫폼 고유).
+ * ⚠️ 값을 여기서 정하지 않는다. 토큰의 색을 **역할로** 골라 쓴다:
+ *   list=info(세어서 줄 세운 것 — 도표의 찬 파랑) · structure=success(갈라져 자란 것 — 식물도감) ·
+ *   corpus=warning(이야기·오래된 종이 — 세피아) · delivery=p(반복·기계 — 시계 판화의 짙은 잉크) ·
+ *   unique=ios purple(이 플랫폼만 그리는 성좌도 — Admin 액센트와 같은 계열).
  *   어느 것도 학습 상태를 뜻하는 자리가 아니라 Memory Decay 4색과 의미가 충돌하지 않는다.
+ *
+ * ⚠️ **알파가 있는 토큰을 쓰지 않는다.** `ink` 는 `mix-blend-multiply`, `paper` 는
+ *   `mix-blend-screen` 으로 도판 위에 얹힌다 — 반투명 값을 넣으면 블렌드가 흐려져
+ *   계열 색이 구별되지 않는다. 그래서 `t3`(rgba)·다크의 `*Light`(rgba) 대신 solid 를 고른다.
  */
 export const FAMILY_DUOTONE = {
   light: {
     list: { ink: colorsLight.info, paper: colorsLight.infoLight },
     structure: { ink: colorsLight.success, paper: colorsLight.successLight },
     corpus: { ink: colorsLight.warning, paper: colorsLight.warningLight },
-    delivery: { ink: colorsLight.t3, paper: colorsLight.bg3 },
-    unique: { ink: colorsLight.p, paper: colorsLight.pLight },
+    delivery: { ink: colorsLight.p, paper: colorsLight.pLight },
+    unique: { ink: iosColors.purple, paper: iosColors.purpleTint },
   },
   dark: {
-    list: { ink: colorsDark.info, paper: colorsDark.infoLight },
-    structure: { ink: colorsDark.success, paper: colorsDark.successLight },
-    corpus: { ink: colorsDark.warning, paper: colorsDark.warningLight },
-    delivery: { ink: colorsDark.t3, paper: colorsDark.bg3 },
-    unique: { ink: colorsDark.p, paper: colorsDark.pLight },
+    list: { ink: colorsDark.info, paper: colorsDark.bg3 },
+    structure: { ink: colorsDark.success, paper: colorsDark.bg3 },
+    corpus: { ink: colorsDark.warning, paper: colorsDark.bg3 },
+    delivery: { ink: colorsDark.p, paper: colorsDark.bg3 },
+    unique: { ink: iosColorsDark.purple, paper: colorsDark.bg3 },
   },
 } as const
 

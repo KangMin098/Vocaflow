@@ -23,6 +23,8 @@
 //   Memory Decay 4색(stable/shaky/risk/new) + admin 보라. 새 팔레트를 들이면
 //   화면마다 색이 늘어나 Calm UI 가 무너진다.
 
+import { FAMILY_DUOTONE } from '@vocaflow/library-pipeline/vocab-brand'
+
 import type { Blueprint } from '@/lib/vcb/compose/blueprints'
 
 export type CoverFamily = Blueprint['family']
@@ -44,38 +46,60 @@ export interface FamilyGrain {
  * 색 출처: stable `#2E7D5A` · shaky `#B5803A` · risk `#9C3A30` · new `#8A8278` (Memory Decay),
  * 보라 `#8B5CF6` (admin 액센트). 어느 쪽도 학습 상태를 뜻하지 않는 자리라 의미 충돌은 없다.
  */
-export const FAMILY_GRAIN: Record<CoverFamily, FamilyGrain> = {
+/**
+ * 계열의 **결**(방향)만 여기서 정한다. 색은 아래에서 브랜드 규격을 읽어 붙인다.
+ *
+ * 결과 소재는 아트 디렉션이라 값이 여기 있어야 맞지만, **색은 아니다** — 색은
+ * 디자인 토큰이 정본이다.
+ */
+const FAMILY_DIRECTION: Record<CoverFamily, Omit<FamilyGrain, 'ink' | 'paper'>> = {
   list: {
     grain: '축적과 질서 — 세어서 줄 세운 것',
     material: 'antique chart engraving',
-    ink: '#2F4858',
-    paper: '#F3F1EC',
   },
   structure: {
     grain: '해부와 분해 — 조각으로 나눠 본 것',
     material: 'botanical plate',
-    ink: '#2E7D5A',
-    paper: '#F1F4EF',
   },
   corpus: {
     grain: '장면과 서사 — 이야기 속에서 만난 것',
     material: 'book illustration engraving',
-    ink: '#8A5A2B',
-    paper: '#F6F1E8',
   },
   delivery: {
     grain: '리듬과 반복 — 매일 같은 자리로 돌아오는 것',
     material: 'antique clock engraving',
-    ink: '#6B655C',
-    paper: '#F4F2EE',
   },
   unique: {
     grain: '열림과 연결 — 이 플랫폼만 그릴 수 있는 지도',
     material: 'celestial chart',
-    ink: '#5B3FA8',
-    paper: '#F2F0F8',
   },
 }
+
+/**
+ * 계열 5개 × 결 + 듀오톤 색.
+ *
+ * ⚠️ **색을 여기 적지 않는다.** 2026-08-30 이전에는 열 색을 손으로 적어 두었는데,
+ *   그중 둘만 토큰값과 같고 나머지는 사본이거나 어디서도 오지 않은 값이었다.
+ *   교재 조판기가 똑같은 상태였다가 다섯 항목이 전부 어긋난 채로 발견됐다
+ *   (`packages/library-pipeline/src/textbook/brand.ts` 참조).
+ *
+ *   그래서 `vocab/brand.ts` 의 `FAMILY_DUOTONE` 에서 **읽는다** — 그쪽은 다시
+ *   `@vocaflow/design-tokens` 에서 읽으므로, 토큰이 바뀌면 표지도 같이 바뀐다.
+ */
+export const FAMILY_GRAIN: Record<CoverFamily, FamilyGrain> = Object.fromEntries(
+  (Object.keys(FAMILY_DIRECTION) as CoverFamily[]).map((family) => [
+    family,
+    { ...FAMILY_DIRECTION[family], ...FAMILY_DUOTONE.light[family] },
+  ]),
+) as Record<CoverFamily, FamilyGrain>
+
+/** 다크 테마용 듀오톤 — 같은 키, 같은 결, 색만 다르다. */
+export const FAMILY_GRAIN_DARK: Record<CoverFamily, FamilyGrain> = Object.fromEntries(
+  (Object.keys(FAMILY_DIRECTION) as CoverFamily[]).map((family) => [
+    family,
+    { ...FAMILY_DIRECTION[family], ...FAMILY_DUOTONE.dark[family] },
+  ]),
+) as Record<CoverFamily, FamilyGrain>
 
 /**
  * 유형별 검색어 — **그 유형이 무엇인지 한 장으로 떠올리게** 하는 도판을 찾는다.

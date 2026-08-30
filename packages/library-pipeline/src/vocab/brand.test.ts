@@ -3,7 +3,7 @@
 // 이 파일의 일은 **드리프트를 잡는 것**이다. 값을 여기 다시 적으면 세 곳이 되어
 // 더 나빠지므로, 토큰 패키지에서 읽어 카탈로그 팔레트와 대조한다.
 
-import { colorsDark, colorsLight, fontFamily } from '@vocaflow/design-tokens'
+import { colorsDark, colorsLight, fontFamily, iosColors } from '@vocaflow/design-tokens'
 import { describe, expect, it } from 'vitest'
 import { SERIES_SPINE } from '../textbook/series'
 import {
@@ -53,8 +53,25 @@ describe('카탈로그 팔레트가 디자인 토큰과 어긋나지 않는다',
     expect(FAMILY_DUOTONE.light.list.ink).toBe(colorsLight.info)
     expect(FAMILY_DUOTONE.light.structure.ink).toBe(colorsLight.success)
     expect(FAMILY_DUOTONE.light.corpus.ink).toBe(colorsLight.warning)
-    expect(FAMILY_DUOTONE.light.delivery.ink).toBe(colorsLight.t3)
-    expect(FAMILY_DUOTONE.light.unique.ink).toBe(colorsLight.p)
+    expect(FAMILY_DUOTONE.light.delivery.ink).toBe(colorsLight.p)
+    expect(FAMILY_DUOTONE.light.unique.ink).toBe(iosColors.purple)
+  })
+
+  it('듀오톤에 반투명 색이 없다 — multiply/screen 블렌드가 흐려진다', () => {
+    const all = [
+      ...Object.values(FAMILY_DUOTONE.light),
+      ...Object.values(FAMILY_DUOTONE.dark),
+    ].flatMap((d) => [d.ink, d.paper])
+    for (const c of all) {
+      expect(c, `${c} 에 알파가 있다`).toMatch(/^#[0-9a-fA-F]{6}$/)
+    }
+  })
+
+  it('다섯 계열의 잉크가 서로 다르다 — 같으면 색으로 계열을 못 가른다', () => {
+    for (const theme of ['light', 'dark'] as const) {
+      const inks = Object.values(FAMILY_DUOTONE[theme]).map((d) => d.ink)
+      expect(new Set(inks).size).toBe(inks.length)
+    }
   })
 
   it('covers/design.ts 가 손으로 적어 두었던 옛 듀오톤으로 되돌아가지 않는다', () => {

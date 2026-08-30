@@ -11,6 +11,7 @@
 
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
+import { FAMILY_GRAIN } from '@/lib/vcb/covers/design'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 import { VocabSetCard } from '../VocabSetCard'
 
@@ -67,9 +68,11 @@ describe('단어장 카드 — 표지와 유형', () => {
     expect(html).toMatch(/grayscale/)
   })
 
-  it('계열 색으로 듀오톤을 씌운다 — 구조 계열이면 포레스트', () => {
+  // 색 값을 여기 적지 않는다 — 적으면 정본이 하나 더 늘어 드리프트가 생긴다.
+  // 브랜드 규격에서 읽어 대조한다(그쪽은 다시 디자인 토큰을 읽는다).
+  it('계열 색으로 듀오톤을 씌운다', () => {
     const html = render(set())
-    expect(html).toContain('#2E7D5A') // FAMILY_GRAIN.structure.ink
+    expect(html).toContain(FAMILY_GRAIN.structure.ink)
   })
 
   it('계열이 다르면 다른 색이 나온다 — 색만 보고 계열을 안다', () => {
@@ -78,8 +81,8 @@ describe('단어장 카드 — 표지와 유형', () => {
         coverImageMeta: { ...set().coverImageMeta!, family: 'corpus' },
       }),
     )
-    expect(html).toContain('#8A5A2B') // FAMILY_GRAIN.corpus.ink
-    expect(html).not.toContain('#2E7D5A')
+    expect(html).toContain(FAMILY_GRAIN.corpus.ink)
+    expect(html).not.toContain(FAMILY_GRAIN.structure.ink)
   })
 
   it('표지가 없으면 그라디언트 표지 + 이모지로 폴백한다 (공백 아님)', () => {
