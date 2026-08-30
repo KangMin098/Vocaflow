@@ -20,6 +20,13 @@
 //   **v_level = 11 제외**. `write-drain-verify.mjs` 와 한 글자라도 다르면 여기서 본 낱말과
 //   저기서 센 수가 어긋나고, 그러면 이 도구는 도움이 아니라 함정이 된다.
 //
+// ── 두 조건 (2026-08-30 실측으로 확정) ──────────────────────────────
+// p75 가 목표 밴드에 앉으려면 **둘 다** 맞아야 한다. 하나만 보면 반대쪽으로 떨어진다:
+//   ① 꼬리(밴드 초과 낱말) ≤ floor(등급낱말 / 4)
+//   ② 적중(밴드 낱말)     ≥ (허용 − 꼬리) + 1
+// **꼬리를 쉬운 낱말이 아니라 밴드 낱말로 바꾸면 둘이 함께 해결된다** — 꼬리가 하나 줄고
+// 적중이 하나 는다. 쉬운 낱말로 바꾸면 ①만 고쳐지고 ②가 깨져 아래 계단으로 떨어진다.
+//
 // 재실행 안전: 읽기만 한다.
 //
 // 실행:
@@ -104,9 +111,26 @@ for (const d of perDoc) {
   const graded = d.lemmas.map((w) => [w, level.get(w)]).filter(([, v]) => v != null)
   const tail = graded.filter(([, v]) => v > BAND).sort((a, b) => b[1] - a[1])
   const at = graded.filter(([, v]) => v === BAND).length
+  // **몇 개를 줄여야 하는지 직접 말한다.** p75 는 정렬한 등급낱말의 75% 지점이므로,
+  // 그 자리가 목표 밴드 이하이려면 꼬리가 `floor(등급낱말/4)` 을 넘으면 안 된다.
+  // 이 산술을 사람이 매번 하게 두면 한 편에 두세 번씩 왕복하게 된다(실측: V3 chunk-00 이
+  // 2/9 → 4/9 → 4/9 로 두 번 헛돌았다 — 덜어내면 아래로 떨어지고 채우면 위로 떠올랐다).
+  // p75 가 목표 밴드에 **정확히** 앉으려면 조건이 둘이다. 하나만 맞추면 반대쪽으로 떨어진다.
+  //   ① 꼬리(밴드 초과) ≤ floor(등급낱말/4)    — 넘으면 위 계단으로
+  //   ② 적중(밴드) ≥ (허용 − 꼬리) + 1          — 모자라면 아래 계단으로
+  // ②를 안 적어 두면 "꼬리는 딱 맞는데 왜 떨어지지" 를 반복하게 된다(실측: V3 chunk-00·01·02 가
+  // 2/9 → 4/9 → 8/9 → 9/9 로 세 번 왕복했고, 왕복의 절반이 ② 때문이었다 — 슬롯 248 은
+  // 꼬리가 정확히 허용치인데 적중이 0 이라 V2 로 떨어졌다).
+  const allowed = Math.floor(graded.length / 4)
+  const over = tail.length - allowed
+  const needAt = Math.max(1, allowed - tail.length + 1)
+  const notes = []
+  if (over > 0) notes.push(`꼬리 ${over}개를 쉬운 낱말로 바꾼다(위쪽부터)`)
+  if (at < needAt) notes.push(`V${BAND} 낱말을 ${needAt - at}개 더 넣는다(쉬운 낱말을 밴드 낱말로 바꾸면 둘 다 해결된다)`)
   console.log(
     `### ${d.row.slot} ${d.row.title}\n` +
-      `    등급낱말 ${graded.length} · 적중(V${BAND}) ${at} · 꼬리 ${tail.length}`,
+      `    등급낱말 ${graded.length} · 적중(V${BAND}) ${at}/${needAt} · 꼬리 ${tail.length}/${allowed}` +
+      (notes.length ? `  → **${notes.join(' · ')}**` : '  → 두 조건 다 맞다'),
   )
   // 어려운 것부터 적는다 — 가장 위의 것을 바꿀 때 p75 가 가장 많이 내려간다.
   console.log('    ' + (tail.length ? tail.map(([w, v]) => `${w}:V${v}`).join(' ') : '(없음)') + '\n')
