@@ -11,7 +11,7 @@
 import { useMemo, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Compass, PlayCircle, Sparkles, TrendingUp } from 'lucide-react'
+import { BookOpen, Compass, PlayCircle, Sparkles, TrendingUp } from 'lucide-react'
 
 import { LibraryGrid } from '@/components/library/LibraryGrid'
 import {
@@ -37,6 +37,7 @@ import {
 } from '@/lib/library/genres'
 import {
   rankBooks,
+  rankStartHereBooks,
   scoreBook,
   topRecommended,
   type UserMastery,
@@ -108,6 +109,13 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
       .slice(0, RAIL_N)
       .map((r) => r.book)
   }, [books, ctx, diagnosed, userVLevel])
+  // "이 책은 여기부터" — 선정·정렬 규칙은 recommend-books.ts 가 단일 출처.
+  //   컴포넌트에 인라인으로 두면 회귀를 테스트로 잡을 수 없다.
+  const startHere = useMemo(
+    () => rankStartHereBooks(books, ctx).slice(0, RAIL_N),
+    [books, ctx],
+  )
+
   const popular = useMemo(
     () =>
       [...books]
@@ -297,6 +305,18 @@ export function BooksExplorer({ books, userVLevel, userMastery }: Props) {
         reasonsByBook={reasonsByBook}
         onOpen={openDetail}
       />
+      {startHere.length > 0 && (
+        <BookShelfRail
+          title="이 책은 여기부터"
+          hint="책 전체는 아직 어렵지만, 지금 읽을 수 있는 장이 있어요"
+          icon={<BookOpen size={16} aria-hidden />}
+          accent="var(--active)"
+          books={startHere}
+          userVLevel={userVLevel}
+          reasonsByBook={reasonsByBook}
+          onOpen={openDetail}
+        />
+      )}
       <BookShelfRail
         title="인기 도서"
         icon={<TrendingUp size={16} aria-hidden />}

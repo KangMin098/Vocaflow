@@ -128,6 +128,8 @@ export interface ReadableChapters {
   count: number
   /** 그중 i+1 sweet spot(gap = +1) 챕터 수 */
   ideal: number
+  /** 난이도가 매겨진 전체 챕터 수 — "몇 개" 만으로는 500장짜리 책의 20장을 판단할 수 없다 */
+  total: number
   /** 판정에 쓰인 학습자 V레벨 (미진단이면 5 — 한국 학습자 baseline) */
   effectiveUserVLevel: number
 }
@@ -144,12 +146,15 @@ export function countReadableChapters(
   const effectiveUserVLevel = userVLevel && userVLevel > 0 ? userVLevel : 5
   let count = 0
   let ideal = 0
+  let total = 0
   for (const [level, n] of Object.entries(hist)) {
     const v = Number(level)
     if (!Number.isFinite(v) || !Number.isFinite(n) || n <= 0) continue
+    total += n
     const gap = v - effectiveUserVLevel
     if (gap <= 1) count += n
     if (gap === 1) ideal += n
   }
-  return { count, ideal, effectiveUserVLevel }
+  if (total === 0) return null
+  return { count, ideal, total, effectiveUserVLevel }
 }
