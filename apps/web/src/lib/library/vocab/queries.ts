@@ -120,6 +120,8 @@ interface SharedSetRow {
   curation_query?: { blueprint?: string } | null
   cover_image_url?: string | null
   cover_image_meta?: CoverMeta | null
+  /** `shared_words(count)` 임베드 집계 — enrichSets 주석 참조. 조인이 비면 null. */
+  shared_words?: { count: number }[] | null
 }
 
 export async function fetchPublishedSets(
@@ -130,7 +132,7 @@ export async function fetchPublishedSets(
   const { data, error } = await sb
     .from('shared_word_sets')
     .select(
-      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids, curation_query, cover_image_url, cover_image_meta',
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids, curation_query, cover_image_url, cover_image_meta, shared_words(count)',
     )
     .eq('is_published', true)
     // 소스 종속 자동생성 세트는 공용 단어장 영역에 노출 X — 각 소스 컨텍스트에서만.
@@ -146,7 +148,7 @@ export async function fetchPublishedSets(
     // 위 select 가 실패할 수 있음 — fallback 으로 legacy 컬럼만 fetch.
     const fallback = await sb
       .from('shared_word_sets')
-      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta')
+      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta, shared_words(count)')
       .eq('is_published', true)
       .neq('category', 'library_book')
       .neq('category', 'library_article')
@@ -165,18 +167,24 @@ async function enrichSets(
 ): Promise<PublishedVocabSet[]> {
   if (sets.length === 0) return []
 
-  // 실측 단어 수 보정 — id IN (...) 한 번에 가져와 set_id 별 집계
-  const ids = sets.map((s) => s.id)
-  const { data: words, error: wErr } = await supabase
-    .from('shared_words')
-    .select('set_id')
-    .in('set_id', ids)
-
-  if (wErr) throw wErr
-
+  // 실측 단어 수는 세트 조회와 **같은 왕복**에서 온다(`shared_words(count)`).
+  //
+  // ⚠️ 예전에는 여기서 `shared_words` 를 `.in('set_id', ids)` 로 한 번 더 받아 행을 세었다.
+  //    PostgREST 는 한 응답에 1,000행까지만 주는데, 이 화면의 세트 70개가 가진 단어는
+  //    **32,792개**다. 잘린 창에 걸친 세트만 실제보다 작은 수가 되고 나머지는 캐시로
+  //    떨어지므로 **오류 없이 합계가 틀린다** — 실측 2026-08-30: 화면이 `단어 32,632` 를
+  //    팔았다(160 부족). 세는 일은 DB 에 맡긴다.
+  //
+  //    ⚠️ 캐시(`word_count`) 합은 32,793 이다 — 한 세트가 1 만큼 낡았다. 이 함수의 이름이
+  //    처음부터 "실측 보정" 이었던 이유가 그것이고, 이제 실제로 그 일을 한다.
+  //
+  //    같은 함정의 전말은 `lib/library/books/queries.ts` 의 EMBEDDED_WORD_COUNT 주석.
+  //    이 저장소에서 세 번째로 같은 자리에서 났다 — 세트 목록을 받아 단어를 다시 받는
+  //    모양을 보면 상한부터 의심할 것.
   const counts = new Map<string, number>()
-  for (const row of words ?? []) {
-    counts.set(row.set_id, (counts.get(row.set_id) ?? 0) + 1)
+  for (const s of sets) {
+    const embedded = s.shared_words?.[0]?.count
+    counts.set(s.id, typeof embedded === 'number' ? embedded : (s.word_count ?? 0))
   }
 
   // category_id 노드 lookup (한 번에 fetch)

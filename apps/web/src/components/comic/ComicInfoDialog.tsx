@@ -21,6 +21,7 @@ import Link from 'next/link'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 
 import { pdBasisLabel, type PdComicInfo } from '@/lib/pd-comic/model'
+import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
 
 /** 포커스 가능한 요소 — 트랩이 순환시킬 대상. */
 const FOCUSABLE =
@@ -42,6 +43,9 @@ export function ComicInfoDialog({
   const panelRef = useRef<HTMLDivElement>(null)
   const openerRef = useRef<HTMLButtonElement>(null)
   const titleId = useId()
+
+  // 뒤로가기로 닫는다 — 폰에는 Esc 가 없다(lib/ui/use-close-on-back.ts).
+  useCloseOnBack(open, () => setOpen(false))
 
   // 정보는 **열 때** 가져온다 — 서가에 카드가 100개면 미리 받는 것은 100번의 낭비다.
   const load = useCallback(async () => {

@@ -15,6 +15,7 @@ import CourseLauncher from '@/components/game/CourseLauncher'
 import type { ResourceKind } from '@/lib/game/sets'
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
+import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
 
 interface PWord {
   word: string
@@ -92,6 +93,9 @@ export function VocabSetPreviewModal({
   fromPath = '/library/vocab',
   courseKind = 'wordset',
 }: Props) {
+  // 뒤로가기로 닫는다 — 폰에는 Esc 가 없다(lib/ui/use-close-on-back.ts).
+  useCloseOnBack(!!set, onClose)
+
   const fromEnc = encodeURIComponent(fromPath)
   const [words, setWords] = useState<PWord[] | null>(null)
   const [chaptered, setChaptered] = useState(false)

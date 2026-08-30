@@ -40,6 +40,7 @@ import {
   type TrackStat,
 } from '@/lib/articles/source-map'
 import type { PublishedArticle } from '@/lib/articles/types'
+import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
 
 /** 개인화 훅 — fit + idealCount + 진단여부 (감정 부호화·자기효능감). */
 function appealLine(stat: TrackStat, userV: number): { lead: string; body: string } {
@@ -90,6 +91,9 @@ export function SeriesInfoModal({
   onClose: () => void
   onEnter: () => void
 }) {
+  // 이 모달은 열려 있을 때만 마운트된다 — 마운트 = 열림.
+  useCloseOnBack(true, onClose)
+
   const { track, count, cefrLabel, hasAudio, fit, sources, idealCount, vMin, vMax } = stat
   const fitMeta = TRACK_FIT_META[fit]
   const appeal = appealLine(stat, userV)

@@ -268,6 +268,74 @@ test.describe('팝업을 닫으면 제자리', () => {
     });
   }
 
+  /**
+   * ⑥ **뒤로가기로 닫힌다** — 폰에는 Esc 가 없다.
+   *
+   * ── 왜 이 축을 뒤늦게 올리나 (실측 2026-08-30) ──────────────────────────
+   * 위 다섯 축(열림·주소·스크롤·잠금·포커스)이 전부 초록인데, 이 스펙은 **뒤로가기를
+   * 한 번도 누르지 않았다**(`goBack` 호출 수가 0이었다). 그 사이 실제 동작은 이랬다:
+   *   · `/library/books` 에서 상세 시트를 열고 뒤로가기 → `/library/scripts` 로 **떠남**
+   *   · `/library/vocab` 에서 열고 뒤로가기 → `/library/books` 로 **떠남**
+   * 폰(390px)·데스크톱 양쪽 같았다. 폰에서 뒤로가기 제스처는 **덮인 것을 치우는** 가장
+   * 흔한 동작이라, 학습자는 책 하나를 들여다보다 카탈로그 밖으로 튕겨 나가고
+   * 고르던 자리(필터·펼친 만큼·스크롤)를 함께 잃는다.
+   *
+   * ── 두 가지를 함께 본다 ─────────────────────────────────────────────────
+   *   ⓐ 뒤로가기가 **시트만** 닫는다 (화면을 떠나지 않는다)
+   *   ⓑ 다른 방법으로 닫았을 때 **히스토리에 찌꺼기가 남지 않는다** —
+   *      시트가 히스토리 항목을 쌓아 놓고 안 걷으면, 닫은 뒤 뒤로가기를 **두 번**
+   *      눌러야 앞 화면으로 간다. 그것도 틀린 동작이다(시트를 연 것은 이동이 아니다).
+   */
+  for (const c of CASES) {
+    test(`${c.name} — 뒤로가기가 팝업만 닫는다`, async ({ page }) => {
+      test.skip(!!c.admin, '관리자 화면은 이 축의 대상이 아니다 — 학습자 동선이 아니다');
+      test.setTimeout(120_000);
+
+      // 앞 화면을 하나 둔다. 히스토리가 비어 있으면 뒤로가기는 about:blank 로 가고,
+      // 그걸 "화면을 떠났다" 로 세면 계측기가 틀린 것이다.
+      await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 60_000 });
+      await page.waitForTimeout(800);
+      await page.goto(c.route, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+      await page.waitForTimeout(2000);
+
+      // ⚠️ **경로만 비교하면 안 된다.** 이 화면들은 칩·필터를 누를 때 쿼리로 히스토리를
+      //    쌓는다(`/library/vocab` 의 카테고리 칩이 그렇다). 경로만 보면 뒤로가기가
+      //    그 칩 선택을 되감아도 "제자리" 로 찍힌다 — 학습자는 고르던 칸을 잃었는데
+      //    스펙은 초록이다. 전체 주소로 잰다.
+      const urlBeforeOpen = page.url();
+      const opened = await c.open(page);
+      test.skip(opened === null, `${c.route} 에 트리거가 안 보인다 — 데이터가 비었을 수 있다`);
+
+      const dialog = page.getByRole('dialog').first();
+      await expect(dialog, '트리거를 눌렀는데 다이얼로그가 안 뜬다').toBeVisible({ timeout: 15_000 });
+
+      // ⓐ 뒤로가기 → 시트만 닫힌다
+      await page.goBack({ waitUntil: 'domcontentloaded', timeout: 30_000 }).catch(() => {});
+      await page.waitForTimeout(1200);
+
+      expect(
+        page.url(),
+        '팝업이 열린 채 뒤로가기를 눌렀더니 팝업을 닫는 대신 화면을 떠났다',
+      ).toBe(urlBeforeOpen);
+      await expect(dialog, '뒤로가기를 눌렀는데 팝업이 그대로다').toBeHidden({ timeout: 10_000 });
+
+      // ⓑ 다시 열고 **Esc** 로 닫은 뒤, 뒤로가기 한 번이 앞 화면으로 가야 한다.
+      const reopened = await c.open(page);
+      if (reopened === null) return; // 한 번은 쟀다 — 재진입이 안 되는 화면은 여기까지.
+      await expect(dialog).toBeVisible({ timeout: 15_000 });
+      await page.keyboard.press('Escape');
+      await expect(dialog, 'Esc 로 안 닫힌다').toBeHidden({ timeout: 10_000 });
+      await page.waitForTimeout(600);
+
+      await page.goBack({ waitUntil: 'domcontentloaded', timeout: 30_000 }).catch(() => {});
+      await page.waitForTimeout(1200);
+      expect(
+        page.url(),
+        '팝업을 닫은 뒤 뒤로가기 한 번으로 앞 화면에 못 갔다 — 히스토리에 팝업 찌꺼기가 남는다',
+      ).not.toBe(urlBeforeOpen);
+    });
+  }
+
   test('커버리지 고지 — 이 스펙이 무엇을 안 재는지 숨기지 않는다', () => {
     // `role="dialog"` 를 그리는 컴포넌트는 **28개**다(실측 2026-08-25).
     // 전부를 여기서 열 수는 없다. 다만 **못 여는 이유를 하나씩 적어 둔다** —

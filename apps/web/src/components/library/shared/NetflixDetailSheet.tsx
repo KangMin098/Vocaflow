@@ -20,6 +20,7 @@ import { X, Clock, BookImage, BookOpen, Layers, Sparkles, Volume2 } from 'lucide
 import { bookCover } from '@/lib/library/book-cover'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import { formatReadingTime } from '@/lib/library/reading-time'
+import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
 
 export interface SampleWord {
   word: string
@@ -163,6 +164,9 @@ export function NetflixDetailSheet({ variant, onClose }: Props) {
       document.body.style.overflow = ''
     }
   }, [])
+
+  // 뒤로가기로 닫는다 — 폰에는 Esc 가 없다. 규칙은 `lib/ui/use-close-on-back.ts` 단일 출처.
+  useCloseOnBack(!!variant, onClose)
 
   if (!variant) return null
 
