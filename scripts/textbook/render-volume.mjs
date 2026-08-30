@@ -488,17 +488,25 @@ console.log(`자동 검수 ${passed}/${card.auto.length} 통과`)
 //    분모(원글 재고)와 분자(쓴 낱말)가 다른 것을 나누게 된다 — 실측 2026-08-30 V1:
 //    "쓴 원글 33편 · 재고 22편 → 0권" 으로 찍혔는데, 실제로는 원글을 한 편도 안 썼다.
 //    그래서 **`byId` 에 있는 것만** 원글로 센다.
+// ⚠️ **문항이 없는 원글은 분모에 넣으면 안 된다.** 조합기는 문항에서 권을 만들므로
+//    글만 있고 문항이 없으면 한 단원에도 못 들어간다. 실측 2026-08-30: 각색으로 넣은
+//    2단 원글 13편이 재고 157편에는 잡히면서 **문항은 0개**였다 — 카탈로그가 그만큼
+//    부풀어 보였다. 각색 드레인은 지문까지만 만들고 `store-new-types.mjs` 가 문항을 만든다.
+const withItems = new Set(pool.map((it) => it.ref_id).filter((r) => byId.has(r)))
 const usedArticles = new Set()
 for (const u of units) for (const it of u.items) if (it.ref_id && byId.has(it.ref_id)) usedArticles.add(it.ref_id)
+const idle = byId.size - withItems.size
 if (usedArticles.size === 0) {
   console.log(
     `카탈로그 용량  이 권은 원글을 쓰지 않는다 — 사전에서 나오는 유형뿐이라 ` +
-      `**원글 재고가 상한이 아니다**(재고 ${byId.size}편은 아직 문항이 없다)`,
+      `**원글 재고가 상한이 아니다**${idle ? ` (원글 ${idle}편은 아직 문항이 없다)` : ''}`,
   )
 } else {
   console.log(
     `카탈로그 용량  이 권이 쓴 원글 ${usedArticles.size}편 · ` +
-      `재고 ${byId.size}편 → 겹치지 않는 책 **${Math.floor(byId.size / usedArticles.size)}권**`,
+      `문항 있는 재고 ${withItems.size}편 → 겹치지 않는 책 ` +
+      `**${Math.floor(withItems.size / usedArticles.size)}권**` +
+      (idle ? `  (문항 없는 원글 ${idle}편은 뺐다 — store-new-types.mjs 를 돌려야 쓰인다)` : ''),
   )
 }
 console.log(
