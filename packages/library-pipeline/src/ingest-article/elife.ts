@@ -48,14 +48,41 @@ function stripTags(s: string): string {
   return decodeEntities(s.replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim()
 }
 
+/**
+ * 목록 URL 1페이지분. eLife API 는 `page` 로 과거 기사를 준다.
+ *
+ * ⚠️ 예전에는 `per-page` 만 있고 `page` 가 없었다. 그래서 **언제나 최신 perPage 편**이
+ *   상한이었고, 상류 19,461편 중 손에 있는 것이 **2편**이었다. VOA(`count`)·
+ *   위키미디어(continuation)·PLOS(`start`) 에서 이미 네 번 본 것과 같은 상한이다.
+ */
+export function buildElifeListUrl(perPage: number, page: number): string {
+  const p = Math.max(1, page)
+  return `${ELIFE_API}?per-page=${perPage}&page=${p}&order=desc`
+}
+
 /** 최근 eLife 기사 목록 (큐레이션 picker — digest 보유 여부는 단건 ingest 시 확정). 대량 GET 위해 스코어 부여. */
-export async function listElifeFeed(perPage = 20): Promise<Array<ElifeListItem & { score: ArticleScore }>> {
-  const res = await fetchWithTimeout(`${ELIFE_API}?per-page=${perPage}&order=desc`, {
+export async function listElifeFeed(
+  perPage = 20,
+  /** 생략하면 큐레이션 spec 의 maxItems 그대로 — 기존 동작 무변경. */
+  limit?: number,
+): Promise<Array<ElifeListItem & { score: ArticleScore }>> {
+  const { items } = await listElifeFeedPage(perPage, 1, limit)
+  return items
+}
+
+/** 한 페이지 — 다음 페이지 번호를 함께 돌려준다. 항목이 없으면 끝이다. */
+export async function listElifeFeedPage(
+  perPage = 100,
+  page = 1,
+  limit?: number,
+): Promise<{ items: Array<ElifeListItem & { score: ArticleScore }>; cont: number | null }> {
+  const res = await fetchWithTimeout(buildElifeListUrl(perPage, page), {
     accept: LIST_ACCEPT,
   })
   if (!res.ok) throw new Error(`eLife list failed: ${res.status}`)
   const data = JSON.parse(await res.text()) as ElifeListJson
-  const raw: ElifeListItem[] = (data.items ?? [])
+  const rawItems = data.items ?? []
+  const raw: ElifeListItem[] = rawItems
     .filter((it) => it.id && /^\d+$/.test(it.id))
     .map((it) => ({
       source_id: `elife:${it.id}`,
@@ -64,7 +91,12 @@ export async function listElifeFeed(perPage = 20): Promise<Array<ElifeListItem &
       published_at: it.published ?? null,
       description: stripTags(it.impactStatement ?? ''),
     }))
-  return applyArticleCurationSpec(raw, 'elife', 'all')
+  return {
+    items: applyArticleCurationSpec(raw, 'elife', 'all', { maxItems: limit }),
+    // 목록이 비면 끝이다. 큐레이션이 전부 걸러도 **원 목록**이 있으면 다음 쪽이 있다 —
+    // 걸러진 것을 소진으로 읽으면 뒤쪽 기사를 통째로 잃는다.
+    cont: rawItems.length > 0 ? page + 1 : null,
+  }
 }
 
 /** 단일 eLife 기사 → digest 산문 추출 (연구 본문 아님 — 접근형 요약만). */

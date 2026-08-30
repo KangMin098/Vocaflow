@@ -184,7 +184,18 @@ const SOURCES = [
     ingest: (u) => lib.ingestSimpleWikipediaArticle(u),
   },
   { key: 'owid', feeds: [{ id: 'default', run: () => lib.listOwidFeed() }], ingest: (u) => lib.ingestOwidArticle(u) },
-  { key: 'elife', feeds: [{ id: 'default', run: () => lib.listElifeFeed() }], ingest: (u) => lib.ingestElifeArticle(u) },
+  {
+    // eLife API 는 page 로 과거 기사를 준다. 예전에는 per-page 만 있어 **최신 20편**이
+    //   상한이었고, 상류 19,461편 중 손에 있는 것이 2편이었다.
+    //   VOA(count)·위키미디어(continuation)·PLOS(start)·NASA(paged) 에 이어 다섯 번째 같은 상한이다.
+    key: 'elife',
+    feeds: [{
+      id: 'default',
+      run: () => lib.listElifeFeed(),
+      runPage: async (cursor) => lib.listElifeFeedPage(100, cursor ?? 1, 100),
+    }],
+    ingest: (u) => lib.ingestElifeArticle(u),
+  },
   {
     // ⚠️ `listPlosFeed()` 를 인자 없이 부르고 있었다 → 언제나 `recent` 하나뿐이고
     //   **`essay` 피드(Essay·Perspective·Opinion·Unsolved Mystery = 논증문)가 통째로 빠졌다.**

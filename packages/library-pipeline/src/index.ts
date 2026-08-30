@@ -67,7 +67,12 @@ export {
 } from './ingest-article/factbook'
 export type { FactbookListItem, FactbookCountry } from './ingest-article/factbook'
 // ACP §18 — eLife digest (편집자 저작 과학 요약 · CC-BY · 발행 허용).
-export { ingestElifeArticle, listElifeFeed } from './ingest-article/elife'
+export {
+  ingestElifeArticle,
+  listElifeFeed,
+  listElifeFeedPage,
+  buildElifeListUrl,
+} from './ingest-article/elife'
 export type { ElifeListItem } from './ingest-article/elife'
 // ACP §18 — English Wikipedia 정규 (FA/GA 고급 백과 · CC-BY-SA · 발행 허용).
 export {
