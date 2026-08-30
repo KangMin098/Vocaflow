@@ -202,6 +202,87 @@ for (const t of TYPES) {
 const anyWindows = Object.values(report.types).reduce((s, x) => s + x.windows, 0)
 report.articlesWithAnyWindow = perArticleAny.size
 report.totalWindows = anyWindows
+
+/**
+ * **서로 겹치지 않는 지문 슬롯** — 이게 "지문 몇 개" 의 정직한 답이다.
+ *
+ * 유형별 합계(위)는 같은 대목을 여러 유형이 세므로 지문 수가 아니다. 한 글을 한 번만
+ * 훑으면서, 어느 유형이든 대역을 만족하는 창을 **겹치지 않게** 잘라 세면
+ * 실제로 뽑아낼 수 있는 지문 수의 상한이 나온다. 창 하나에 여러 유형이 맞으면
+ * 그중 하나로만 센다(문항 유형은 나중에 고르면 되고, 지문 자체는 하나다).
+ */
+function distinctSlots(text) {
+  const sents = splitSentences(text)
+  const wordsPer = sents.map((s) => W(s))
+  const byType = []
+  let i = 0
+  while (i < sents.length) {
+    let acc = []
+    let j = i
+    let matched = -1
+    let matchedType = null
+    while (j < sents.length) {
+      acc = acc.concat(wordsPer[j])
+      j++
+      // 어떤 유형의 최대 낱말 수도 못 넘으면 더 붙일 이유가 없다.
+      if (acc.length > SLOT_MAX_WORDS) break
+      const m = metricsOf(acc, j - i)
+      // ⚠️ 처음에는 `TYPES.find` 로 **먼저 나오는 유형**에 귀속시켰다. 그랬더니
+      //   R-IRRELEVANT(낱말 51~174)·R-NOTICE(68~99) 처럼 **대역이 헐거운 유형**이
+      //   슬롯의 60% 를 먹었다 — 창을 짧게 끊어 더 많이 세게 되고, 그러면 "지문 수" 가
+      //   실제보다 부풀려진다. 창은 **가장 좁게 맞는 유형**에 귀속시킨다.
+      const t = NARROW_FIRST.find((t) => inBand(m, BANDS[t]))
+      if (!t) continue
+      if (!looksLikeProse(sents.slice(i, j).join(' '), acc)) continue
+      matched = j
+      matchedType = t
+      break
+    }
+    if (matched > 0) { byType.push(matchedType); i = matched } else { i++ }
+  }
+  return byType
+}
+
+const MAX_BAND_WORDS = Math.max(...TYPES.map((t) => BANDS[t].words.hi))
+
+/**
+ * 슬롯을 셀 때 쓰는 **본문 지문 유형**만 — 최소 낱말 수 105 이상.
+ *
+ * ⚠️ 이걸 안 걸었을 때 R-IRRELEVANT(51~174)·R-NOTICE(68~99)가 슬롯의 60% 를 먹었다.
+ *   탐욕 창은 **가장 짧게 맞는 지점에서 끊기므로**, 하한이 51·68 인 유형이 있으면
+ *   51~99 낱말짜리 조각이 계속 잘려 나온다. 그건 지문이 아니라 조각이고,
+ *   그 수를 "지문 몇 개" 로 보고하면 목표 달성률이 통째로 부풀려진다.
+ *   (R-NOTICE 는 안내문, R-IRRELEVANT 는 문장 하나가 더 붙은 형식이라 하한이 낮다.)
+ */
+const SLOT_TYPES = TYPES.filter((t) => BANDS[t].words.lo >= 105)
+/** 대역 폭이 좁은 유형부터 — 창을 가장 구체적으로 맞는 유형에 귀속시킨다. */
+const SLOT_MAX_WORDS = Math.max(...SLOT_TYPES.map((t) => BANDS[t].words.hi))
+const NARROW_FIRST = [...SLOT_TYPES].sort(
+  (a, b) => (BANDS[a].words.hi - BANDS[a].words.lo) - (BANDS[b].words.hi - BANDS[b].words.lo),
+)
+const slotByType = new Map()
+let slots = 0
+for (const a of corpus) {
+  for (const t of distinctSlots(a.content)) {
+    slots++
+    slotByType.set(t, (slotByType.get(t) ?? 0) + 1)
+  }
+}
+report.distinctSlots = slots
+report.distinctByType = Object.fromEntries(slotByType)
+console.log(`\n겹치지 않는 지문 슬롯 **${slots.toLocaleString()}개** — 유형이 겹치면 하나로만 센다.`)
+// ⚠️ 이 복합 수치에는 구조적 편향이 남는다 — 탐욕 창은 가장 짧게 맞는 지점에서 끊기므로
+//   **하한(words.lo)이 가장 낮은 유형**이 절단을 독식한다. 하한 105 미만을 뺀 뒤에도
+//   R-CHART(107)가 최다가 됐다. 그래서 단위로 쓸 것은 아래가 아니라 **위의 유형별 창 수**다
+//   (각 유형 안에서는 이미 겹치지 않으므로 그 값은 그대로 "그 유형 지문 몇 개" 다).
+console.log(`  ⚠️ 복합 수치는 하한이 낮은 유형이 절단을 독식하는 편향이 있다 — 단위로는 위의 유형별 창 수를 쓸 것.`)
+for (const [t, n] of [...slotByType].sort((a, b) => b[1] - a[1]).slice(0, 6)) {
+  console.log(`  ${t.padEnd(13)} ${String(n).padStart(6)}`)
+}
+for (const [label, target] of [['1단계', 10000], ['2단계', 30000], ['3단계', 50000]]) {
+  const pct = (100 * slots) / target
+  console.log(`  ${label} ${target.toLocaleString().padStart(6)} → ${pct >= 100 ? '달성' : '미달'} ${pct.toFixed(1)}%`)
+}
 console.log(
   `\n어느 유형이든 대역에 드는 창을 가진 글 ${perArticleAny.size} / ${corpus.length}` +
     ` (${((100 * perArticleAny.size) / Math.max(1, corpus.length)).toFixed(1)}%)`,
