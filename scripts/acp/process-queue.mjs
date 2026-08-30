@@ -106,11 +106,24 @@ if (fitOnly) q = q.gt('csat_fit->>pass', '0')
 const { data: queued, error } = await q.order('created_at', { ascending: true })
 if (error) throw new Error('큐 조회 실패: ' + error.message)
 
+/**
+ * 즉시 process.exit() 하지 않는다.
+ *
+ * ⚠️ 실측 2026-08-30 (Windows) — 큐가 비었을 때 곧바로 exit 하면 supabase-js 의 열린
+ *   커넥션 핸들이 닫히는 중이라 libuv 가 터진다:
+ *     Assertion failed: !(handle->flags & UV_HANDLE_CLOSING), file src/win/async.c, line 76
+ *   작업은 정상 완료됐는데 **종료 코드만 1** 이 되어 배치 실패로 오인된다.
+ *   실제로 이 크래시 때문에 성공한 배치가 두 번 "실패" 로 보고됐다.
+ */
+async function finish(code = 0) {
+  await new Promise((r) => setTimeout(r, 100))
+  process.exit(code)
+}
 const list = queued ?? []
 console.log(`큐 ${list.length}편 ${commit ? `· 이번에 ${Math.min(LIMIT, list.length)}편 처리` : '(읽기 전용)'}\n`)
 if (!list.length) {
   console.log('처리할 것이 없다.')
-  process.exit(0)
+  await finish(0)
 }
 for (const a of list.slice(0, 12)) {
   console.log(`  · ${String(a.source).padEnd(18)} ${String(a.title ?? '').slice(0, 60)}`)
@@ -119,7 +132,7 @@ if (list.length > 12) console.log(`  … 그리고 ${list.length - 12}편`)
 
 if (!commit) {
   console.log('\n--commit 을 붙이면 처리한다. 분석은 LLM 비용이 든다.')
-  process.exit(0)
+  await finish(0)
 }
 
 let ok = 0
