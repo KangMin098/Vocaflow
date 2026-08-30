@@ -168,16 +168,39 @@ console.log(
     `담화 하한 (기출 ${FLOOR.n}편 10분위) 연결사 ${FLOOR.conn.toFixed(2)} · 지시어 ${FLOOR.ana.toFixed(2)}\n`,
 )
 
+/**
+ * 일시적 실패는 물러섰다 다시 친다.
+ *
+ * ⚠️ 실측 2026-08-30 — 수집 배치와 동시에 돌리다 한 번의
+ *   `Could not query the database for the schema cache. Retrying.` 로 **채점 배치가 통째로
+ *   죽었다.** PostgREST 가 스키마 캐시를 다시 읽는 순간(컬럼을 막 추가했다)이나 부하가
+ *   겹칠 때 나오는 과도기 오류인데, 그 한 번에 수천 편짜리 작업이 날아간다.
+ *   영구 오류(권한·문법)는 재시도해도 같으므로 횟수를 제한하고 마지막엔 던진다.
+ */
+async function withRetry(label, fn, attempts = 4) {
+  let last
+  for (let i = 0; i < attempts; i++) {
+    const { data, error } = await fn()
+    if (!error) return data
+    last = error
+    const transient = /schema cache|timeout|fetch failed|ECONN|503|502/i.test(error.message ?? '')
+    if (!transient || i === attempts - 1) break
+    await new Promise((r) => setTimeout(r, 1000 * 2 ** i))
+  }
+  throw new Error(`${label} 실패: ${last?.message ?? '알 수 없음'}`)
+}
+
 // ⚠️ PostgREST 는 한 번에 1,000행만 준다 — range 로 끝까지 읽는다.
 //   (이 상한 때문에 수집 배치가 이미 가진 글을 다시 GET 하던 적이 있다.)
 const rows = []
 for (let from = 0; ; from += 500) {
-  const { data, error } = await db
-    .from('library_articles')
-    .select('id, content, csat_fit')
-    .not('content', 'is', null)
-    .range(from, from + 499)
-  if (error) throw new Error('조회 실패: ' + error.message)
+  const data = await withRetry('조회', () =>
+    db
+      .from('library_articles')
+      .select('id, content, csat_fit')
+      .not('content', 'is', null)
+      .range(from, from + 499),
+  )
   if (!data || data.length === 0) break
   rows.push(...data)
   if (data.length < 500) break
