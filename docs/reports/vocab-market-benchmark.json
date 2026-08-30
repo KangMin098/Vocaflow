@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-08-30T11:06:38.279Z",
-  "specGeneratedAt": "2026-08-30T05:22:08.319Z",
+  "generatedAt": "2026-08-30T12:51:58.821Z",
+  "specGeneratedAt": "2026-08-30T12:51:37.328Z",
   "population": {
     "publishedSets": 70,
-    "catalogHeadwords": 11183,
+    "catalogHeadwords": 11181,
     "note": "발행 카탈로그에 실제로 실린 표제어만 센다 — 사전 전체를 세면 학습자가 만나지 않는 낱말이 섞인다."
   },
   "marketSample": {
@@ -25,7 +25,7 @@
     {
       "id": "V2",
       "name": "예문 한국어역 보유율",
-      "ours": 0.9998211571134759,
+      "ours": 0.9998211251229765,
       "market": 0.921,
       "unit": "%",
       "seenBy": "CardBack · WordLookupPopover (meanings_ko[].example_ko)",
@@ -35,17 +35,17 @@
     {
       "id": "V3",
       "name": "파생어 보유율",
-      "ours": 0.5875883036752213,
+      "ours": 0.5876934084607817,
       "market": 0.414,
       "unit": "%",
       "seenBy": "CardBack 낱말 그물 (derived_forms)",
       "why": "한 어근에서 갈라진 말을 함께 줘야 낱말당 회수가 늘어난다",
-      "index": 1.419
+      "index": 1.42
     },
     {
       "id": "V4",
       "name": "유의어·반의어 보유율",
-      "ours": 0.7917374586425825,
+      "ours": 0.7918790805831321,
       "market": 0.257,
       "unit": "%",
       "seenBy": "CardBack 낱말 그물 (synonyms·antonyms)",
@@ -55,7 +55,7 @@
     {
       "id": "V5",
       "name": "다의어 뜻 분리율",
-      "ours": 0.6466064562282036,
+      "ours": 0.6466326804400322,
       "market": 0.443,
       "unit": "%",
       "seenBy": "CardBack 다의어 표 (meanings_ko.length >= 2)",
@@ -84,8 +84,8 @@
       "index": 3.25
     }
   ],
-  "overall": 1.599,
-  "overallVisible": 1.599,
+  "overall": 1.6,
+  "overallVisible": 1.6,
   "visibleAxisIds": [
     "V1",
     "V2",
@@ -100,19 +100,19 @@
     {
       "id": "B1",
       "name": "연어 보유율",
-      "ours": 0.9332916033264776,
+      "ours": 0.933369108308738,
       "why": "시중 표제어 칸에 연어 자리가 없다 — 덩어리로 외우는 축을 통째로 더한다"
     },
     {
       "id": "B2",
       "name": "발음기호 보유율",
-      "ours": 0.957345971563981,
+      "ours": 0.9574277792684017,
       "why": "시중도 싣지만 추출로는 셀 수 없어(대괄호가 깨진다) 같은 자로 못 잰다"
     },
     {
       "id": "B3",
       "name": "한국어 학습자 노트 보유율",
-      "ours": 0.8592506483054636,
+      "ours": 0.859314909221,
       "why": "시중의 '문해력 UP' 류는 산발적이라 보유율 기준선이 없다"
     }
   ],

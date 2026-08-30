@@ -175,6 +175,54 @@ function measurePartAxes(db, docs) {
     .sort((x, y) => y.occurrences - x.occurrences || x.label.localeCompare(y.label));
 }
 
+/**
+ * **독해 교재의 어휘 코너** — 어휘 전문 교재와 합치지 않고 따로 잰다.
+ *
+ * ── 왜 재는가 ────────────────────────────────────────────────────────
+ * 어휘 전문 교재가 코퍼스에 4종(전부 NE능률)뿐이라 "표본이 한 출판사에 쏠렸다" 는 한계가
+ * 남는다. 독해 교재에는 단원마다 어휘 코너가 있고 출판사도 여럿이라, 거기서 **어휘 지면이
+ * 보통 무엇을 주는지**를 확인할 수 있다.
+ *
+ * ── 왜 합치지 않는가 ────────────────────────────────────────────────
+ * **다른 지면이다.** 독해 교재의 어휘 코너는 표제어와 뜻만 주고 예문·파생어·유의어를 싣지
+ * 않는다(지면이 지문에 가 있다). 그것을 어휘 교재의 표제어 칸과 한 모집단으로 세면
+ * 시장 기준선이 실제보다 낮아지고, 우리 우위지수가 **공짜로 올라간다.**
+ * 그래서 `entryFields` 와 섞지 않고 `readerGlossary` 로 따로 적는다.
+ */
+function measureReaderGlossary(db) {
+  const rows = db.prepare(`
+    SELECT d.publisher, d.series, d.category, d.file_name, p.text
+    FROM pages p JOIN docs d ON d.id = p.doc_id
+    WHERE d.status IN ('ok','ocr') AND d.category <> '어휘'`).all();
+
+  // 어휘 코너 쪽의 서명 — 한 쪽에 `영단어 + 한글뜻` 줄이 여럿. 지문 쪽에는 이런 줄이 없다.
+  const LINE = /^\s*[a-zA-Z][a-zA-Z'’\-]{2,}\s+[^\n]{0,6}[가-힣]/gm;
+  const MIN_LINES_FOR_GLOSSARY_PAGE = 12;
+
+  let pages = 0;
+  let lines = 0;
+  const publishers = new Set();
+  const series = new Set();
+  for (const r of rows) {
+    const m = r.text.match(LINE);
+    if (!m || m.length < MIN_LINES_FOR_GLOSSARY_PAGE) continue;
+    pages += 1;
+    lines += m.length;
+    if (r.publisher) publishers.add(r.publisher);
+    if (r.series) series.add(r.series);
+  }
+  return {
+    pagesMeasured: pages,
+    headwordLines: lines,
+    publishers: [...publishers].sort(),
+    seriesCount: series.size,
+    note:
+      '독해·구문·내신 교재의 어휘 코너. **어휘 전문 교재와 합치지 않는다** — 표제어와 뜻만 주고 '
+      + '예문·파생어·유의어를 싣지 않는 다른 지면이라, 한 모집단으로 세면 시장 기준선이 실제보다 '
+      + '낮아져 우리 우위지수가 공짜로 올라간다. 어휘 지면의 통상 정보량을 가늠하는 용도로만 쓴다.',
+  };
+}
+
 const src = loadSources();
 const sp = storePaths(src.store);
 const db = new DatabaseSync(sp.db, { readOnly: true });
@@ -195,9 +243,23 @@ const spec = {
       '표본이 한 출판사(NE능률) 미리보기본에 쏠려 있다. 구조의 유무는 갈리지만 '
       + '보유율은 **하한**으로만 읽는다 — PDF 추출이 빠뜨린 칸은 없는 것으로 세어진다.',
     rule: '집계 통계와 구조 신호만 담는다. 표제어·뜻·예문 원문은 담지 않는다.',
+    /**
+     * 표본을 넓히려고 **실제로 해 본 것과 왜 못 넓혔는지**. 다음 사람이 같은 길을 다시 파지
+     * 않게 남긴다 — "표본이 얇다" 만 적어 두면 넓힐 수 있는데 안 한 것처럼 읽힌다.
+     */
+    wideningAttempts: [
+      '어휘 전문 교재를 더 찾음 — 코퍼스에 4종이 전부다(나머지는 빈 HTML 3 + 낱말 목록 1).',
+      '추출을 느슨하게 해 표제어를 더 뽑아 봄 — 엄격/느슨이 61/61 · 34/34 로 거의 같다. '
+        + '미리보기본이라 140칸이 실제 상한이고 누락이 아니다.',
+      'AST 낱말 목록(role=단어장, 9쪽)으로 두 번째 출판사를 만들려 함 — PDF 컬럼이 깨져 '
+        + '표제어와 뜻의 짝을 맞출 수 없고, 예문이 아예 없는 교재 부록이라 제품 유형이 다르다.',
+      '독해 교재의 어휘 코너를 합치려 함 — 출판사는 여럿이지만 **다른 지면**이라 합치지 않고 '
+        + 'readerGlossary 로 따로 적었다.',
+    ],
   },
   entryFields,
   pacing: measurePacing(db, docs),
+  readerGlossary: measureReaderGlossary(db),
   partAxes: measurePartAxes(db, docs),
 };
 
