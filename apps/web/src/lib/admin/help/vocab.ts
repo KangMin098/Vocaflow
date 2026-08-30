@@ -482,10 +482,15 @@ export const VCB_HELP: HelpRegistry = {
         ],
         procedure: [
           {
-            title: 'node scripts/vocab/example-ko-drain-export.mjs --size 120 --max 3',
+            title: 'node scripts/vocab/example-ko-drain-export.mjs --target top --size 300 --max 1',
             detail:
-              '아직 번역이 없는 뜻만 문장 120개 단위로 잘라 scripts/vocab/example-ko-drain/chunk-NN.json 으로 뽑는다. **재실행 안전** — 이미 채워진 뜻(examples_ko 가 examples 와 같은 길이)은 건너뛰므로 몇 번을 돌려도 남은 몫만 나온다. DB 는 읽기만 한다.',
-            done: '"번역 필요 뜻 N · 문장 N" 이 출력되고 chunk 파일이 생긴다. 0 이면 다 채워진 것이다.',
+              '아직 번역이 없는 것만 문장 단위로 잘라 scripts/vocab/example-ko-drain/chunk-NN.json 으로 뽑는다. **재실행 안전** — 이미 채워진 것은 건너뛰므로 몇 번을 돌려도 남은 몫만 나온다. DB 는 읽기만 한다.',
+            done: '"번역 필요 N · 문장 N" 이 출력되고 chunk 파일이 생긴다. 0 이면 다 채워진 것이다.',
+          },
+          {
+            title: '⚠️ --target top 을 먼저 비운 뒤에 sense 로 넘어간다',
+            detail:
+              '우위지수의 V2 는 **낱말당** 판정이고, 카탈로그 표제어 11,183 전부가 대표 예문(example_en)을 갖고 있다. 그래서 top 만 채우면 11,183 문장으로 V2 가 100% 에 닿는 반면, sense(뜻마다 붙은 예문)는 그 낱말이 이미 열려 있으면 V2 를 전혀 못 움직인다. 실측으로 처음 900 문장이 낱말은 594 개만 열었다. 지표를 속이는 것이 아니라 시중 단어장과 같은 순서다 — 낱말을 한 번씩 덮는 것이 먼저이고, 뜻별 예문은 그 위에 얹는 깊이다.',
           },
           {
             title: 'Claude Code 가 chunk 를 채워 chunk-NN.out.json 으로 저장',
