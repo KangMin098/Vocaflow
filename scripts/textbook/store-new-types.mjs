@@ -56,6 +56,7 @@ const {
   buildUnitGrammar,
   isPrintablePassage,
   CSAT_ITEM_WORDS,
+  MIDDLE_CHOICES,
   MIDDLE_ITEM_WORDS,
   GRAMMAR_UNDERLINES,
   VOCAB_UNDERLINES,
@@ -65,14 +66,27 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
   auth: { persistSession: false },
 })
 
-const { data: arts, error } = await db
-  .from('library_articles')
-  .select('id, article_v_level, display_only, content')
-  .in('status', ['ready', 'published'])
-  .not('content', 'is', null)
-  .order('id')
-if (error) throw new Error('기사 조회 실패: ' + error.message)
-const usable = (arts ?? []).filter((a) => !a.display_only)
+// ⚠️ **여기에 페이징이 없었다 — 같은 함정에 네 번째다.**
+//   PostgREST 는 요청 크기와 무관하게 1000행에서 자른다. 이 파일 아래쪽(`existing`)에는
+//   그 경고가 적혀 있는데 정작 **원글 조회 자신**이 안 걸려 있었다. 실측 2026-08-30:
+//   쓸 수 있는 글이 **3,356편**인데 스크립트는 **981편(29%)** 만 보고 있었다.
+//   그래서 낡음 판정이 나머지 71%를 아예 안 봤고, 4지선다 2,886건이 "낡음 0건" 으로 보고됐다.
+//   `range()` 로 실제로 다 받는다.
+const arts = []
+for (let from = 0; ; from += 1000) {
+  const { data, error } = await db
+    .from('library_articles')
+    .select('id, article_v_level, display_only, content')
+    .in('status', ['ready', 'published'])
+    .not('content', 'is', null)
+    .order('id')
+    .range(from, from + 999)
+  if (error) throw new Error('기사 조회 실패: ' + error.message)
+  if (!data?.length) break
+  arts.push(...data)
+  if (data.length < 1000) break
+}
+const usable = arts.filter((a) => !a.display_only)
 
 const paras = (c) =>
   String(c)
@@ -396,6 +410,8 @@ console.log(
 // **저장본의 지문 자체가 달라졌는데** 그 판정으로는 하나도 안 걸렸을 것이다.
 /** 중등 규격(40~152어)을 쓰는 유형 — 수능 창으로 재면 전량 규격 밖이 된다. */
 const MIDDLE_TYPES = new Set(['unit_vocab', 'unit_grammar', 'blank_word', 'grammar_fix'])
+/** 보기 수 규격(`MIDDLE_CHOICES`)을 지켜야 하는 유형 — 저장된 값만으로 판정된다. */
+const MIDDLE_CHOICE_TYPES = new Set(['unit_vocab', 'unit_grammar'])
 
 const rebuilders = {
   vocab_choice: (ss) => {
@@ -451,6 +467,8 @@ for (const a of usable) {
 }
 
 const stale = []
+/** 원본 문단을 못 찾아 재생성 대조를 못 한 문항 — 유형별. 조용히 넘기지 않고 보고한다. */
+const uncomparable = {}
 {
   const rows = await fetchAllIn(
     db,
@@ -476,10 +494,23 @@ const stale = []
       stale.push({ id: r.id, type: r.type, why: `지문 규격 밖 (${n}어)` })
       continue
     }
+    // ── 규격 검사는 **원본 문단 없이도** 된다 ──────────────────────
+    // 재생성 대조는 원본 문단이 있어야 하는데, 문단을 못 찾으면 예전에는 그냥
+    // `continue` 했다. 그래서 보기 수가 규격 밖인 문항 2,886건이 "낡음 0건" 으로
+    // 보고됐다. **조용한 건너뛰기는 구멍을 영영 남긴다** — 저장된 값만 보고
+    // 판정할 수 있는 것은 여기서 먼저 본다.
+    if (MIDDLE_CHOICE_TYPES.has(r.type)) {
+      const n = r.payload?.choices?.length ?? 0
+      if (n && n !== MIDDLE_CHOICES) {
+        stale.push({ id: r.id, type: r.type, why: `보기 수 규격 밖 (${n}지)` })
+        continue
+      }
+    }
     const rebuild = rebuilders[r.type]
     if (!rebuild) continue
     const ss = paragraphOf.get(`${r.ref_id}|${r.paragraph_idx}`)
-    if (!ss) continue
+    // 문단을 못 찾으면 대조를 못 한다 — **세어서 보고한다.** 조용히 넘기지 않는다.
+    if (!ss) { uncomparable[r.type] = (uncomparable[r.type] ?? 0) + 1; continue }
     const now = rebuild(ss)
     // 지금 규칙으로는 아예 안 만들어지거나, 만들어도 내용이 다르면 낡은 것이다.
     if (!now) {
@@ -488,6 +519,14 @@ const stale = []
       stale.push({ id: r.id, type: r.type, why: '다시 만들면 달라짐' })
     }
   }
+}
+if (Object.keys(uncomparable).length) {
+  const total = Object.values(uncomparable).reduce((a, n) => a + n, 0)
+  console.log(`\n  대조 불가 ${total}건 — 원본 문단을 못 찾았다(글이 바뀌었거나 ND 로 빠졌다).`)
+  for (const [t, n] of Object.entries(uncomparable).sort((a, b) => b[1] - a[1])) {
+    console.log(`       ${t.padEnd(16)} ${n}`)
+  }
+  console.log(`     규격으로 판정되는 것(보기 수 등)은 위에서 이미 걸렀다.`)
 }
 if (stale.length) {
   const byStaleType = {}
