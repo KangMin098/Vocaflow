@@ -74,6 +74,16 @@ export interface PublishedVocabSet {
   coverImageUrl: string | null
   /** 표지 출처 — CC 표기 의무. 계열 듀오톤 색도 여기 `family` 에서 나온다. */
   coverImageMeta: CoverMeta | null
+  /**
+   * 발행 당시 브랜드 규격의 지문(FNV-1a 8자리). 지금 규격과 다르면 **옛 규격으로 만들어진
+   * 권**이다 — 색을 DB 에 복사하지 않고 지문만 남기므로 토큰이 정본으로 남는다.
+   */
+  brandFingerprint: string | null
+  /**
+   * 컴포저가 정한 사다리 계단(1~7). **파생 캐시가 아니다** — null 이면 "아직 안 정했다" 는
+   * 뜻이고, 그때만 화면이 `lib/library/vocab/rung.ts` 의 추정으로 내려간다.
+   */
+  ladderStep: number | null
 }
 
 export interface SamplePreviewWord {
@@ -120,6 +130,8 @@ interface SharedSetRow {
   curation_query?: { blueprint?: string } | null
   cover_image_url?: string | null
   cover_image_meta?: CoverMeta | null
+  brand_fingerprint?: string | null
+  ladder_step?: number | null
   /** `shared_words(count)` 임베드 집계 — enrichSets 주석 참조. 조인이 비면 null. */
   shared_words?: { count: number }[] | null
 }
@@ -132,7 +144,7 @@ export async function fetchPublishedSets(
   const { data, error } = await sb
     .from('shared_word_sets')
     .select(
-      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids, curation_query, cover_image_url, cover_image_meta, shared_words(count)',
+      'id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, category_id, additional_category_ids, curation_query, cover_image_url, cover_image_meta, brand_fingerprint, ladder_step, shared_words(count)',
     )
     .eq('is_published', true)
     // 소스 종속 자동생성 세트는 공용 단어장 영역에 노출 X — 각 소스 컨텍스트에서만.
@@ -148,7 +160,7 @@ export async function fetchPublishedSets(
     // 위 select 가 실패할 수 있음 — fallback 으로 legacy 컬럼만 fetch.
     const fallback = await sb
       .from('shared_word_sets')
-      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta, shared_words(count)')
+      .select('id, title, description, category, cefr_level, cover_emoji, sort_order, word_count, subscriber_count, created_at, curation_query, cover_image_url, cover_image_meta, brand_fingerprint, ladder_step, shared_words(count)')
       .eq('is_published', true)
       .neq('category', 'library_book')
       .neq('category', 'library_article')
@@ -225,6 +237,8 @@ async function enrichSets(
     kind: setKindOf(s.curation_query?.blueprint),
     coverImageUrl: s.cover_image_url ?? null,
     coverImageMeta: s.cover_image_meta ?? null,
+    brandFingerprint: s.brand_fingerprint ?? null,
+    ladderStep: s.ladder_step ?? null,
   }))
 }
 

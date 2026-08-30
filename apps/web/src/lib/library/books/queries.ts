@@ -111,6 +111,9 @@ export async function fetchBookChapterSets(
       kind: null,
       coverImageUrl: null,
       coverImageMeta: null,
+      // 도서 챕터 세트는 공용 서가 사다리에 앉지 않는다 — 그 책의 맥락에서만 열린다.
+      brandFingerprint: null,
+      ladderStep: null,
       chapterIdx: Number(r.curation_query?.chapter_idx ?? 0),
       curationQuery: r.curation_query ?? {},
     }))
@@ -222,6 +225,10 @@ export async function fetchBookComposerSets(
         kind: setKindOf(blueprint),
         coverImageUrl: r.cover_image_url ?? null,
         coverImageMeta: r.cover_image_meta ?? null,
+        // 이 자리는 도서 상세의 보조 단어장 줄이라 출판 정보를 싣지 않는다.
+        // 세트를 골라 온 select 에 두 컬럼이 없으므로 **있는 척하지 않고** null 로 둔다.
+        brandFingerprint: null,
+        ladderStep: null,
         blueprint,
         why: composerSetWhy(blueprint, wordCount, cq),
       }

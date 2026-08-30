@@ -12,6 +12,19 @@ const set = (category: string, cefrLevel: string | null, wordCount = 100): S =>
   ({ category, cefrLevel, wordCount }) as S
 
 describe('계단 배정 — 근거 순서', () => {
+  it('컴포저가 정한 계단이 카테고리·CEFR 추정을 이긴다', () => {
+    // 카테고리는 초등(1단 추정)인데 컴포저가 4단이라고 정해 두었다.
+    const r = rungForSet({ ...set('elementary', 'A1'), ladderStep: 4 })
+    expect(r.basis).toBe('authored')
+    expect(r.rung?.step).toBe(4)
+  })
+
+  it('저작된 계단이 사다리 밖 값이면 추정으로 내려간다 — 없는 계단을 만들지 않는다', () => {
+    const r = rungForSet({ ...set('csat', null), ladderStep: 99 })
+    expect(r.basis).toBe('category')
+    expect(r.rung?.step).toBe(7)
+  })
+
   it('학교급을 말하는 카테고리가 CEFR 보다 세다', () => {
     // 카테고리는 초등인데 CEFR 은 B2(=V7 고3). 카테고리를 따른다.
     const r = rungForSet(set('elementary', 'B2'))

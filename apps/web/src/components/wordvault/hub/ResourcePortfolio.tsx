@@ -108,6 +108,9 @@ export function ResourcePortfolio() {
       kind: null,
       coverImageUrl: null,
       coverImageMeta: null,
+      // 이 자리는 내 구독 목록이라 출판 정보를 싣지 않는다(판권면은 카탈로그에서 본다).
+      brandFingerprint: null,
+      ladderStep: null,
     })
   }
 

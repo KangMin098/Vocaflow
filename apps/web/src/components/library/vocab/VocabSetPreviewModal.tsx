@@ -15,6 +15,7 @@ import CourseLauncher from '@/components/game/CourseLauncher'
 import type { ResourceKind } from '@/lib/game/sets'
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
+import { VocabColophon } from './VocabColophon'
 import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
 
 interface PWord {
@@ -555,6 +556,8 @@ export function VocabSetPreviewModal({
           {!loading && !error && words && words.length === 0 && (
             <p className="py-6 text-center font-body text-[13px] text-[var(--t2)]">아직 등록된 단어가 없어요</p>
           )}
+
+          <VocabColophon set={set} />
         </div>
 
         {/* 푸터 CTA */}

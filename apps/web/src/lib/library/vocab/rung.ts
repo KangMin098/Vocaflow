@@ -26,7 +26,7 @@ import { rungForVLevel, VOCAB_SPINE, type VocabRung } from '@vocaflow/library-pi
  * 계단을 무엇으로 정했는지. 화면이 근거를 밝힐 수 있어야 한다 —
  * "왜 이 책이 5단인가" 에 답하지 못하면 사다리를 믿을 수 없다.
  */
-export type RungBasis = 'category' | 'cefr' | 'none'
+export type RungBasis = 'authored' | 'category' | 'cefr' | 'none'
 
 /**
  * 계단을 정하는 데 필요한 두 신호.
@@ -39,6 +39,13 @@ export type RungBasis = 'category' | 'cefr' | 'none'
 export interface SetLevelSignals {
   category: string
   cefrLevel: string | null
+  /**
+   * 컴포저가 정해 둔 계단(`shared_word_sets.ladder_step`).
+   *
+   * **있으면 이것이 이긴다.** 아래 두 신호는 그 값이 없을 때 쓰는 **추정**이고,
+   * 추정으로 저작물을 덮으면 컴포저가 정한 일이 화면에서 사라진다.
+   */
+  ladderStep?: number | null
 }
 
 export interface SetRung {
@@ -68,6 +75,12 @@ const CATEGORY_STEP: Record<string, number> = {
  * A2 를 3 이 아니라 2 로 준다). 계단은 의미이지 명도가 아니므로 이쪽이 맞다.
  */
 export function rungForSet(set: SetLevelSignals): SetRung {
+  // 컴포저가 정한 값이 있으면 그것이 정본이다 — 추정으로 덮지 않는다.
+  if (set.ladderStep != null) {
+    const authored = VOCAB_SPINE.find((r) => r.step === set.ladderStep) ?? null
+    if (authored) return { rung: authored, basis: 'authored' }
+  }
+
   const byCategory = CATEGORY_STEP[set.category]
   if (byCategory != null) {
     const rung = VOCAB_SPINE.find((r) => r.step === byCategory) ?? null
