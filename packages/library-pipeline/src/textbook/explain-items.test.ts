@@ -8,6 +8,7 @@ import {
   EXPLANATION_CHARS,
   explainBlankWord,
   explainGrammarFix,
+  explainIrrelevant,
   explainItem,
   explainUnderlinedGrammar,
   explainUnitVocab,
@@ -222,6 +223,65 @@ describe('explainWordOrder', () => {
     expect(e).not.toBeNull()
     expect(e!.ko).toContain('This happens because')
     expect(e!.ko).toContain('11개')
+  })
+})
+
+describe('explainIrrelevant', () => {
+  // 2026-08-30 DB 실측 payload 를 그대로 옮겼다.
+  const PAYLOAD = {
+    intro:
+      "An important source of heterogeneity in the transmission of monetary policy among local governments is eliminated when it is assumed that the central bank's policy rate and the borrowing costs of local governments are one to one.",
+    sentences: [
+      'This eliminates the possibility that the borrowing costs of local governments will react differently to monetary policy shocks.',
+      'In the benchmark model, there is symmetry among local governments.',
+      'To examine the impact of heterogeneity in local government borrowing cost responses, we set the borrowing cost response of region 1 to 0.43 (75th percentile) and the borrowing cost response of region 2 to 0.24, as in the benchmark model.',
+      'Abstract Humanitarian crises disrupt the continuous care required for non-communicable diseases (NCDs), yet evidence on effective health-system responses remains fragmented.',
+      "Fig 6 illustrates the monetary shock's impulse response when there is heterogeneity in local government borrowing cost responses.",
+    ],
+  }
+
+  it('시장 3규격을 한 번에 만족한다 — 길이·오답 배제·원문 인용', () => {
+    const e = explainIrrelevant(PAYLOAD, { position: 4, overlap_gap: 1 })
+    expect(e).not.toBeNull()
+    expect(e!.ko.length).toBeGreaterThanOrEqual(EXPLANATION_CHARS.min)
+    expect(e!.ko.length).toBeLessThanOrEqual(EXPLANATION_CHARS.max)
+    expect(e!.hasWrongOption).toBe(true)
+    expect(e!.hasCitation).toBe(true)
+    expect(e!.writer).toBe('irrelevant')
+  })
+
+  it('정답 문장을 번호와 함께 인용한다', () => {
+    const e = explainIrrelevant(PAYLOAD, { position: 4 })
+    expect(e!.ko).toContain('④')
+    expect(e!.ko).toContain('Abstract Humanitarian crises')
+  })
+
+  it('정답 문장에만 있는 낱말을 근거로 든다 — 인상이 아니라 확인 가능한 증거', () => {
+    const e = explainIrrelevant(PAYLOAD, { position: 4 })
+    // humanitarian·crises·diseases 는 도입부·나머지 문장 어디에도 없다.
+    expect(e!.ko).toMatch(/humanitarian|crises|diseases|continuous|fragmented/)
+  })
+
+  it('화제어가 겹치면 나머지 문장 쪽 근거도 든다', () => {
+    const e = explainIrrelevant(PAYLOAD, { position: 4 })
+    expect(e!.ko).toContain('나머지 문장은')
+    expect(e!.ko).toMatch(/governments|borrowing|monetary|heterogeneity|policy/)
+  })
+
+  it('position 이 범위를 벗어나면 쓰지 않는다 — 빈 값을 넣느니 세는 편이 낫다', () => {
+    expect(explainIrrelevant(PAYLOAD, { position: 0 })).toBeNull()
+    expect(explainIrrelevant(PAYLOAD, { position: 9 })).toBeNull()
+    expect(explainIrrelevant(PAYLOAD, {})).toBeNull()
+  })
+
+  it('도입부나 문장이 모자라면 쓰지 않는다', () => {
+    expect(explainIrrelevant({ sentences: PAYLOAD.sentences }, { position: 4 })).toBeNull()
+    expect(explainIrrelevant({ intro: PAYLOAD.intro, sentences: ['a', 'b'] }, { position: 1 })).toBeNull()
+  })
+
+  it('갈래가 irrelevant 를 explainItem 으로 이어 준다', () => {
+    const e = explainItem('irrelevant', PAYLOAD, { position: 4 })
+    expect(e?.writer).toBe('irrelevant')
   })
 })
 

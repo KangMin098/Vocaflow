@@ -388,12 +388,86 @@ export function explainWordOrder(payload: Json, answerKey: Json): ItemExplanatio
   return finish(parts.join(' '), 'word_order')
 }
 
+// ── 흐름과 관계 없는 문장 ────────────────────────────────────────────
+
+/** 선택지 번호 — `finish` 의 오답 배제 판정이 이 글자들을 본다. */
+const CIRCLED = ['①', '②', '③', '④', '⑤'] as const
+
+/**
+ * 화제를 나르는 낱말만 남긴다. 기능어는 어느 글에나 나오므로 겹침의 증거가 못 된다.
+ * 4자 미만도 버린다 — `this`·`that` 류가 화제를 나르는 것처럼 보이게 만든다.
+ */
+const FUNCTION_WORDS = new Set([
+  'this', 'that', 'these', 'those', 'there', 'their', 'them', 'they', 'then', 'than',
+  'with', 'from', 'have', 'has', 'had', 'been', 'were', 'was', 'will', 'would',
+  'when', 'what', 'which', 'while', 'where', 'because', 'about', 'into', 'also',
+  'more', 'most', 'such', 'some', 'other', 'only', 'very', 'much', 'many', 'both',
+  'each', 'same', 'through', 'between', 'after', 'before', 'over', 'under', 'does',
+  // 아래는 내용어처럼 보이지만 화제를 나르지 않는다 — 근거로 들면 해설이 약해진다.
+  'including', 'include', 'includes', 'like', 'well', 'even', 'just', 'being',
+  'however', 'therefore', 'thus', 'often', 'always', 'never', 'still', 'must',
+  'used', 'using', 'make', 'made', 'take', 'taken', 'give', 'given', 'become',
+])
+function contentWords(sentence: string): string[] {
+  return sentence
+    .toLowerCase()
+    .split(/[^a-z']+/)
+    .map((w) => w.replace(/'s$/, ''))
+    .filter((w) => w.length >= 4 && !FUNCTION_WORDS.has(w))
+}
+
+/**
+ * 정답 근거가 **문항 안에 다 있다** — 도입부와 나머지 문장이 함께 쓰는 낱말이
+ * 화제이고, 그 낱말을 하나도 잇지 않는 문장이 답이다. 읽어서 알아낼 것이 없다.
+ *
+ * 낱말 겹침이 없다는 사실을 그대로 보여 준다. "흐름이 어색하다" 는 근거가 아니라
+ * 인상이라서, 학습자가 스스로 확인할 수 없다.
+ */
+export function explainIrrelevant(payload: Json, answerKey: Json): ItemExplanation | null {
+  const intro = str(payload.intro)
+  const sentences = arr(payload.sentences).map(str).filter(Boolean)
+  const pos = Number(answerKey.position)
+  if (!intro || sentences.length < 3) return null
+  if (!Number.isInteger(pos) || pos < 1 || pos > sentences.length) return null
+
+  const odd = sentences[pos - 1] ?? ''
+  const rest = sentences.filter((_, i) => i !== pos - 1)
+  if (!odd || !rest.length) return null
+
+  const introWords = contentWords(intro)
+  const introSet = new Set(introWords)
+  const restSet = new Set(rest.flatMap(contentWords))
+  // 도입부와 나머지 문장이 **함께** 쓰는 낱말 = 이 글이 이어 가는 화제.
+  const shared = [...new Set(introWords.filter((w) => restSet.has(w)))].slice(0, 3)
+  // 정답 문장에만 있고 앞뒤 어디에도 없는 낱말 = 다른 화제라는 증거.
+  const foreign = [...new Set(contentWords(odd))]
+    .filter((w) => !introSet.has(w) && !restSet.has(w))
+    .slice(0, 3)
+
+  const list = (ws: string[]): string => ws.map((w) => `"${w}"`).join(' · ')
+  const parts: string[] = []
+  parts.push(`이 글은 "${quote(intro, 100)}" 로 시작한다.`)
+  parts.push(`정답은 ${CIRCLED[pos - 1] ?? `${pos}번`} "${quote(odd, 120)}" 다.`)
+  parts.push(
+    shared.length
+      ? `나머지 문장은 ${list(shared)} 처럼 도입부의 낱말을 그대로 이어받는데,`
+      : '나머지 문장은 도입부가 꺼낸 화제를 그대로 이어받는데,',
+  )
+  parts.push(
+    foreign.length
+      ? `이 문장만 ${list(foreign)} 처럼 앞뒤 어디에도 없는 낱말로 다른 화제를 꺼낸다.`
+      : '이 문장만 앞뒤 문장과 낱말이 하나도 이어지지 않는다.',
+  )
+  parts.push('한 문단은 한 화제를 이어 가야 하므로, 낱말이 끊기는 이 문장이 전체 흐름과 관계 없는 문장이다.')
+  return finish(parts.join(' '), 'irrelevant')
+}
+
 // ── 갈래 ────────────────────────────────────────────────────────────
 
 /** 이 모듈이 해설을 쓸 수 있는 유형. 여기 없으면 `explain.ts` 나 Claude Code 배치 몫이다. */
 export const DETERMINISTIC_EXPLAIN_TYPES = [
   'unit_vocab', 'unit_grammar', 'grammar_choice', 'vocab_choice',
-  'blank_word', 'grammar_fix', 'word_order',
+  'blank_word', 'grammar_fix', 'word_order', 'irrelevant',
 ] as const
 export type DeterministicExplainType = (typeof DETERMINISTIC_EXPLAIN_TYPES)[number]
 
@@ -414,6 +488,7 @@ export function explainItem(
     case 'blank_word': return explainBlankWord(payload, answerKey)
     case 'grammar_fix': return explainGrammarFix(payload, answerKey)
     case 'word_order': return explainWordOrder(payload, answerKey)
+    case 'irrelevant': return explainIrrelevant(payload, answerKey)
     default: return null
   }
 }
