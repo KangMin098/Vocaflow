@@ -382,12 +382,26 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   // ── 단원 어휘 ─────────────────────────────────────────────────────
   // `composeUnits` 가 이걸 조합에 쓴다 — 빈 Map 을 넘기면 **다른 문항이 뽑힌다.**
   // 원글 한 편이 1,000행을 넘기도 한다(Photosynthesis 1,072) — `fetchAllIn` 이 넘긴다.
+  // ⚠️ **문항이 없는 원글의 어휘는 받을 필요가 없다 — 읽히지 않는다.**
+  //   `composeUnits` 는 `pool` 의 문항만 순회하며 `vocabByRef` 를 `ref_id` 로 조회한다.
+  //   그런데 여기서는 **밴드의 모든 원글**(`ids`)의 어휘를 받고 있었다. 실측 2026-08-30 V6:
+  //
+  //     원글 11,368편 · 어휘 **7,396,262행** · **490초**   ← 조판 시간의 전부
+  //
+  //   10단원 한 권은 원글을 30~50편 쓴다. 코퍼스의 63%가 문항 0개인데 그 어휘까지 받았다.
+  //   pool 에 있는 원글로 좁힌다 — **산출물은 바뀔 수 없다**(없는 문항은 못 고른다).
+  //   `VOCAFLOW_VOCAB_ALL=1` 이면 옛 방식(밴드 전체)으로 돌린다 — **같은 시점에 두 방식을
+  //   비교해 산출물이 같은지 확인하기 위한 손잡이다.** 데이터가 계속 바뀌는 저장소라
+  //   "전에 잰 값과 다르다" 만으로는 원인을 못 가른다.
+  const poolRefs = process.env.VOCAFLOW_VOCAB_ALL
+    ? ids
+    : [...new Set(pool.map((it) => it.ref_id).filter((r) => byId.has(r)))]
   const vocabRows = await fetchAllIn(
     db,
     'library_article_vocabularies',
     'library_article_id, word, first_sentence, frequency_in_article',
     'library_article_id',
-    ids,
+    poolRefs,
     ['library_article_id', 'word'],
   )
   const words = [...new Set(vocabRows.map((v) => v.word))]
