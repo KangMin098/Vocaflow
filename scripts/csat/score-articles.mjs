@@ -9,16 +9,17 @@
 // 그건 측정이지 **관리**가 아니다.
 //
 // 이 스크립트는 같은 자를 한 번 대고 **결과를 원문에 붙인다.** 그러면
-//   · `where syntax_score->'csat_fit'->>'pass' <> '0'` 으로 즉시 질의된다
+//   · `where (csat_fit->>'pass')::int > 0` 으로 즉시 질의된다 (부분 인덱스 있음)
 //   · 새로 들어온 원문만 채점하면 되므로 비용이 누적되지 않는다
 //   · 기준(대역)이 바뀌면 `bandsHash` 가 달라지므로 **재채점 대상을 알 수 있다**
 //
-// ⚠️ 마이그레이션을 쓰지 않는다. `syntax_score`(jsonb)에 **키 하나를 더한다** —
-//   CLAUDE.md 의 규약이고, 기존 값을 읽어 병합하므로 `score`·`sent_p90` 은 보존된다.
-//   통째로 덮으면 구문 난이도가 날아간다.
+// ⚠️ **전용 컬럼을 쓴다**(마이그레이션 20260830120000). 처음에는 CLAUDE.md 규약대로
+//   `syntax_score`(jsonb)에 키를 더했는데, `process-queue.mjs:148` 이 부르는
+//   `compute_article_syntax` RPC 가 그 컬럼을 **통째로 덮어써** 재처리마다 조용히 사라졌다.
+//   "키만 더하면 마이그레이션이 필요 없다" 는 규약은 그 컬럼에 통째로 쓰는 주인이 없을 때만 성립한다.
 //
 // 저장 형태:
-//   syntax_score.csat_fit = {
+//   csat_fit = {
 //     v: 1,                      // 채점기 판 — 로직이 바뀌면 올린다
 //     bandsHash: "773d679f463c", // 기준 대역 값의 해시. 다르면 재채점 대상
 //     shape: 12,                 // 모양+산문 게이트를 통과한 창 수 (R-BLANK 기준)
@@ -155,7 +156,7 @@ const rows = []
 for (let from = 0; ; from += 500) {
   const { data, error } = await db
     .from('library_articles')
-    .select('id, content, syntax_score')
+    .select('id, content, csat_fit')
     .not('content', 'is', null)
     .range(from, from + 499)
   if (error) throw new Error('조회 실패: ' + error.message)
@@ -166,7 +167,7 @@ for (let from = 0; ; from += 500) {
 
 const needScore = rows.filter((r) => {
   if (force) return true
-  const f = r.syntax_score?.csat_fit
+  const f = r.csat_fit
   return !f || f.v !== SCORER_VERSION || f.bandsHash !== BANDS_HASH
 })
 const targets = needScore.slice(0, LIMIT === Infinity ? undefined : LIMIT)
@@ -181,19 +182,15 @@ for (const a of targets) {
   const s = scoreArticle(a.content)
   if (s.pass > 0) fit++
   if (!commit) continue
-  // **기존 값을 읽어 키 하나만 더한다** — 통째로 덮으면 구문 난이도가 날아간다.
-  const merged = {
-    ...(a.syntax_score ?? {}),
-    csat_fit: {
-      v: SCORER_VERSION,
-      bandsHash: BANDS_HASH,
-      type: TYPE,
-      shape: s.shape,
-      pass: s.pass,
-      measuredAt: new Date().toISOString(),
-    },
+  const record = {
+    v: SCORER_VERSION,
+    bandsHash: BANDS_HASH,
+    type: TYPE,
+    shape: s.shape,
+    pass: s.pass,
+    measuredAt: new Date().toISOString(),
   }
-  const { error } = await db.from('library_articles').update({ syntax_score: merged }).eq('id', a.id)
+  const { error } = await db.from('library_articles').update({ csat_fit: record }).eq('id', a.id)
   if (error) failures.push(`${a.id}: ${error.message}`)
   else written++
 }
@@ -206,5 +203,5 @@ if (failures.length) {
   for (const f of failures.slice(0, 10)) console.log('  · ' + f)
 }
 console.log(
-  `\n질의: select count(*) from library_articles where (syntax_score->'csat_fit'->>'pass')::int > 0;`,
+  `\n질의: select count(*) from library_articles where (csat_fit->>'pass')::int > 0;`,
 )
