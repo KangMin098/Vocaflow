@@ -859,6 +859,7 @@ v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([202608
 | `explained_batch` · `explained_rule` | 해설 출처별 수. 없음 = `items` − 둘의 합 |
 | `type_mix_fit` | 시중 밀도 대비 적합도(0~1). 못 쟀으면 **NULL** — 0 으로 뭉개지 않는다 |
 | `distinct_volumes` | 겹치지 않게 줄 수 있는 권수. 원글을 안 쓰는 권(초등 3종)은 **NULL**(20260830141000) |
+| `articles_with_items` · `articles_idle` | 문항이 붙은 원글 / 안 붙은 원글(20260830230000). 조판이 세는 재고는 앞의 것이고, 뒤의 것이 0 이 아니면 **집필보다 `store-new-types --band N` 이 먼저**다 |
 | `brand_fingerprint` | `brandFingerprint()` — 조판 CSS 변수 + 서체 스택의 8자리 해시 |
 | `colophon` (jsonb) | 판권면 전체 |
 

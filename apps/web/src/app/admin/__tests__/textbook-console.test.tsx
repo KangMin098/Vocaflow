@@ -98,6 +98,8 @@ const base: TextbookConsoleStats = {
         missingExplanations: 0,
         typeMixFit: 0.912,
         distinctVolumes: 6,
+        articlesWithItems: 540,
+        articlesIdle: 0,
         brandFingerprint: 'a1b2c3d4',
         brandCurrent: true,
         renderCount: 3,
@@ -116,6 +118,8 @@ const base: TextbookConsoleStats = {
         missingExplanations: 2,
         typeMixFit: null,
         distinctVolumes: null,
+        articlesWithItems: 61,
+        articlesIdle: 1779,
         brandFingerprint: '00000000',
         brandCurrent: false,
         renderCount: 1,
@@ -123,6 +127,7 @@ const base: TextbookConsoleStats = {
       },
     ],
     staleBands: [6],
+    idleArticles: 1779,
     renderError: null,
   },
   loadError: null,
@@ -278,5 +283,41 @@ describe('사다리 병목 — 최솟값을 이름으로 짚는다', () => {
       />,
     )
     expect(html).not.toContain('사다리 병목')
+  })
+})
+
+describe('문항이 안 붙은 원글 — 집필보다 먼저 할 일', () => {
+  it('합계를 요약 카드로 낸다 — 이 수가 안 보이면 아무도 안 돌린다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('문항 없는 원글')
+    expect(html).toContain('1,779')
+    expect(html).toContain('집필보다 이게 먼저다')
+  })
+
+  it('**분자를 함께 보여야 권수가 읽힌다** — 쓸 수 있는 원글 열', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('쓸 수 있는 원글')
+    expect(html).toContain('540')
+    expect(html).toContain('문항 없음')
+  })
+
+  it('무엇을 돌려야 하는지 명령을 적는다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    expect(html).toContain('먼저 할 일')
+    expect(html).toContain('store-new-types.mjs --band N --commit')
+  })
+
+  it('**못 잰 것과 0 을 구별한다** — null 이면 대시, 0 이면 남은 몫 없음', () => {
+    const unmeasured = renderToString(
+      <TextbookConsoleClient stats={{ ...base, brand: { ...base.brand, idleArticles: null } }} />,
+    )
+    expect(unmeasured).toContain('아직 안 쟀다')
+    expect(unmeasured).not.toContain('먼저 할 일')
+
+    const done = renderToString(
+      <TextbookConsoleClient stats={{ ...base, brand: { ...base.brand, idleArticles: 0 } }} />,
+    )
+    expect(done).toContain('남은 몫 없음')
+    expect(done).not.toContain('먼저 할 일')
   })
 })

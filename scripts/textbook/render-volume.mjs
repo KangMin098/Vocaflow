@@ -554,7 +554,14 @@ const record = {
   type_mix_fit: Number.isFinite(fit) ? Number(fit.toFixed(4)) : null,
   // 원글을 안 쓰는 권(초등 3종)은 원글 재고가 상한이 아니다 — **NULL 이지 0 이 아니다.**
   // 0 으로 적으면 화면이 "한 권도 못 준다" 는 거짓 경보를 낸다.
-  distinct_volumes: usedArticles.size === 0 ? null : Math.floor(byId.size / usedArticles.size),
+  // ⚠️ **분모가 아니라 분자가 문제였다.** 출력은 `withItems`(문항이 붙은 원글)로 나누는데
+  //   기록만 `byId`(원글 전체)로 나누고 있었다. 그래서 /admin/textbook 은 V5 를 73권,
+  //   같은 순간 조판기는 28권으로 말했다(2026-08-30 실측). 화면이 거짓말을 하면
+  //   없는 화면보다 나쁘다 — 기록과 출력은 **같은 식**이어야 한다.
+  distinct_volumes: usedArticles.size === 0 ? null : Math.floor(withItems.size / usedArticles.size),
+  // 격차 자체를 남긴다. idle 이 0 이 아니면 글을 더 쓸 것이 아니라 store-new-types 를 돌릴 몫이다.
+  articles_with_items: withItems.size,
+  articles_idle: idle,
   brand_fingerprint: brandFingerprint(),
   colophon,
   out_path: path.resolve(OUT),

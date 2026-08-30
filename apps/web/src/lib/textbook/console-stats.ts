@@ -64,6 +64,15 @@ export interface VolumeRender {
   typeMixFit: number | null
   /** 겹치지 않게 줄 수 있는 권수. 원글을 안 쓰는 권(초등 3종)은 null — 원글 재고가 상한이 아니다. */
   distinctVolumes: number | null
+  /** 문항이 붙은 원글 수 — 조판이 실제로 쓰는 재고. `distinctVolumes` 의 분자다. */
+  articlesWithItems: number | null
+  /**
+   * 쓰여 있는데 문항이 안 붙은 원글 수.
+   *
+   * 0 이 아니면 **글을 더 쓸 것이 아니라 `store-new-types --band N` 을 돌릴 몫**이다.
+   * 실측 2026-08-30 에 V6 은 원글 9,992편 중 8,235편(82%)이 여기 있었다.
+   */
+  articlesIdle: number | null
   /** 조판 당시 브랜드 규격의 지문. */
   brandFingerprint: string
   /** 현재 규격과 같은가. false 면 그 권은 옛 팔레트·서체로 찍혀 있다. */
@@ -90,6 +99,13 @@ export interface BrandPanel {
   renders: VolumeRender[]
   /** 옛 규격으로 찍힌 권 = 재조판 대상. */
   staleBands: number[]
+  /**
+   * 쓰여 있는데 문항이 안 붙은 원글의 합 — **집필보다 먼저 할 일의 크기**.
+   *
+   * 조판 기록에 남은 값만 더한다. 한 권도 못 쟀으면 0 이 아니라 **null** 이다 —
+   * "할 일 없음" 과 "안 재 봤음" 은 다른 말이고, 0 으로 보이면 아무도 안 돌린다.
+   */
+  idleArticles: number | null
   /** 조판 기록 조회가 깨졌을 때 그 이유(표를 비우는 대신 말한다). */
   renderError: string | null
 }
@@ -127,6 +143,8 @@ interface RenderRow {
   explained_rule: number
   type_mix_fit: number | string | null
   distinct_volumes: number | null
+  articles_with_items: number | null
+  articles_idle: number | null
   brand_fingerprint: string
   render_count: number
   rendered_at: string
@@ -153,6 +171,7 @@ async function getBrandPanel(
     },
     renders: [],
     staleBands: [],
+    idleArticles: null,
     renderError: null,
   }
 
@@ -166,6 +185,7 @@ async function getBrandPanel(
     .select(
       'band, volume_title, step, school_band, units, items, auto_passed, auto_total, ' +
         'failed_checks, explained_batch, explained_rule, type_mix_fit, distinct_volumes, ' +
+        'articles_with_items, articles_idle, ' +
         'brand_fingerprint, render_count, rendered_at',
     )
     .order('band')
@@ -184,16 +204,20 @@ async function getBrandPanel(
     missingExplanations: r.items - r.explained_batch - r.explained_rule,
     typeMixFit: r.type_mix_fit == null ? null : Number(r.type_mix_fit),
     distinctVolumes: r.distinct_volumes,
+    articlesWithItems: r.articles_with_items,
+    articlesIdle: r.articles_idle,
     brandFingerprint: r.brand_fingerprint,
     brandCurrent: r.brand_fingerprint === current,
     renderCount: r.render_count,
     renderedAt: r.rendered_at,
   }))
 
+  const measured = renders.filter((r) => r.articlesIdle != null)
   return {
     ...base,
     renders,
     staleBands: renders.filter((r) => !r.brandCurrent).map((r) => r.band),
+    idleArticles: measured.length ? measured.reduce((n, r) => n + (r.articlesIdle ?? 0), 0) : null,
   }
 }
 
@@ -211,6 +235,7 @@ export async function getTextbookConsoleStats(): Promise<TextbookConsoleStats> {
       fonts: { english: VOLUME_FONTS.english, body: VOLUME_FONTS.body, mono: VOLUME_FONTS.mono },
       renders: [],
       staleBands: [],
+      idleArticles: null,
       renderError: null,
     },
     loadError: null,

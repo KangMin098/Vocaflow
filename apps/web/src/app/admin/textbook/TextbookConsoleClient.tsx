@@ -53,7 +53,7 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
       ) : null}
 
       {/* ── 요약 ─────────────────────────────────────────────── */}
-      <section aria-label="요약" className="grid grid-cols-2 gap-3 md:grid-cols-5">
+      <section aria-label="요약" className="grid grid-cols-2 gap-3 md:grid-cols-6">
         <Stat label="저장 문항" value={stats.totalItems.toLocaleString()} />
         <Stat label="사다리 계단" value={`${series.rungs.length - series.brokenSteps.length}/${series.rungs.length}`} />
         <Stat
@@ -67,6 +67,18 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                 : undefined
           }
           warn={Boolean(brand.renderError) || brand.staleBands.length > 0}
+        />
+        <Stat
+          label="문항 없는 원글"
+          value={brand.idleArticles == null ? '—' : brand.idleArticles.toLocaleString()}
+          sub={
+            brand.idleArticles == null
+              ? '아직 안 쟀다'
+              : brand.idleArticles > 0
+                ? '집필보다 이게 먼저다'
+                : '남은 몫 없음'
+          }
+          warn={(brand.idleArticles ?? 0) > 0}
         />
         <Stat label="평가 우위" value={`${superiorPct}%`} sub={`${ev.byStanding.superior}/${ev.total}`} />
         <Stat
@@ -191,6 +203,7 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                   <th className="py-2 pr-3 font-[600]">자동 검수</th>
                   <th className="py-2 pr-3 font-[600]">해설 없음</th>
                   <th className="py-2 pr-3 text-right font-[600]">유형-학년 적합도</th>
+                  <th className="py-2 pr-3 text-right font-[600]">쓸 수 있는 원글</th>
                   <th className="py-2 pr-3 text-right font-[600]">겹치지 않는 권</th>
                   <th className="py-2 pr-3 font-[600]">규격</th>
                   <th className="py-2 pr-3 font-[600]">마지막 조판</th>
@@ -237,6 +250,21 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                         <span className="text-[var(--t3)]">못 잼</span>
                       ) : (
                         `${(r.typeMixFit * 100).toFixed(1)}%`
+                      )}
+                    </td>
+                    <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">
+                      {/* 분자를 함께 보여야 옆 칸의 권수가 읽힌다. 유휴분은 경고색으로 뒤에 붙인다. */}
+                      {r.articlesWithItems == null ? (
+                        <span className="text-[var(--t3)]">못 잼</span>
+                      ) : (
+                        <>
+                          {r.articlesWithItems.toLocaleString()}
+                          {r.articlesIdle ? (
+                            <span className="block text-[12px]" style={{ color: 'var(--warn)' }}>
+                              +{r.articlesIdle.toLocaleString()} 문항 없음
+                            </span>
+                          ) : null}
+                        </>
                       )}
                     </td>
                     <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">
@@ -293,6 +321,17 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                 .
               </>
             ) : null}
+          </p>
+        ) : null}
+        {brand.idleArticles ? (
+          <p className="font-body text-[13px]" style={{ color: 'var(--warn)' }}>
+            <span className="font-[700]">먼저 할 일</span> — 쓰여 있는데 문항이 안 붙은 원글이{' '}
+            <span className="tabular-nums">{brand.idleArticles.toLocaleString()}편</span> 있다. 조판은 이
+            글들을 재고로 세지 않으므로, <strong>이 상태에서는 글을 더 써도 사다리가 안 늘어난다</strong> —{' '}
+            <code className="font-mono text-[12px]">
+              scripts/textbook/store-new-types.mjs --band N --commit
+            </code>{' '}
+            이 집필보다 먼저다.
           </p>
         ) : null}
         <p className="font-body text-[12px] text-[var(--t3)]">
