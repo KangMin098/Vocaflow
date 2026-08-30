@@ -724,3 +724,51 @@ nickle(3) hypothesi(1) flewed(2) jist(7) purchas(1)
 
 - `extraction-rpc.integration` 골든 스냅샷 3건 통과 (P&P 1장 상위 20 불변)
 - 발행 세트에 남은 보관 낱말 **0행** (미발행 세트 11행은 학습자에게 안 보인다)
+
+## T7 2차 실행 — `foreign` 84 + `fragment` 37 (2026-08-30)
+
+권장안대로 **보관**했다. "구 전체 재등록"(`laissez`→`laissez-faire`)은 새 표제어를 만드는
+일이라 뜻·예문 출처가 따로 있어야 한다 — 별도 배치로 남긴다.
+
+### 2차는 1차보다 깨끗했다
+
+| | 1차 (90) | 2차 (121) |
+|---|--:|--:|
+| 도서 어휘에 등장 | 41 낱말 / 717 행 | **0** |
+| 되짚을 원형이 없어 대체 없이 빠짐 | 10 낱말 / 23 행 | 해당 없음 |
+| 발행 단어장 | 322 세트 / 340 행 | 419 세트 / 600 행 |
+
+**2차 121개는 도서 본문에 하나도 안 나타난다.** 은퇴한 `regenerate_auto_curated_set`
+(word_lexicon 경로)이 만든 세트에만 있어서, 대체 문제도 재생성 위험도 없다.
+
+### 누적
+
+- `shared_dictionary` **211행** `archived = true`
+- 발행 단어장 **741 세트**에서 **940행** 제거 · `word_count` 재계산
+- 지운 행은 전체 필드로 보존 (`DELETED-shared_words.json` · `DELETED-shared_words-phase2.json`)
+- **발행 세트에 남은 보관 낱말 0행** (미발행 12행은 학습자에게 안 보인다)
+- 골든 스냅샷 3건 통과
+
+### 보류 20건은 손대지 않았다 — 그것이 권장안이다
+
+옳은 형태가 사전에 **없는** 것들이다. 보관하면 그 낱말이 통째로 사라진다:
+
+```
+goddamit→goddammit  muggs→mugs      lach→laches      petered→peter
+rechecked→recheck   revs→rev        shamen→shamans   somedays→some days
+muppets→muppet      fannies→fanny   rungs→rung       fasce→fasces
+scatologicy→scatology  smelted→smelt  charlies→charlie  singletons→singleton
+pylori→pylorus      preprints→preprint  anthropaphagi→anthropophagi  clich→cliché
+```
+
+**먼저 옳은 형태를 만들고 나서 보관해야 한다.** 순서를 바꾸면 학습자가 그 낱말을 아예 못 본다.
+다음 배치(T8) 대상이다.
+
+## T7 총계
+
+| | |
+|---|--:|
+| 판정한 낱말 | 324 |
+| `ok`(오탐) | 93 |
+| 보관 | **211** |
+| 보류(옳은 형태 없음) | 20 |
