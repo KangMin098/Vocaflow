@@ -123,8 +123,18 @@ export const SCHOOL_PARAGRAPH_WORDS = { min: 40, max: 200 } as const
 /** 문장 유형의 창 — `middle-short.ts` 의 `MIDDLE_SENTENCE_WORDS`(6~25어)에 여유를 둔 값. */
 export const SCHOOL_SENTENCE_WORDS = { min: 6, max: 40 } as const
 
+/**
+ * 초등 저학년 3종 — **지문이 없다.** 사전 낱말 하나가 문항 하나다.
+ *
+ * 길이 자를 대면 전량 걸린다(지문이 0어다). 그래서 창을 열어 둔다 —
+ * 규격을 안 재는 것이 아니라 **잴 지문이 없는 유형**이다.
+ */
+export const ELEMENTARY_ITEM_TYPES = new Set(['rhyme', 'word_meaning', 'spell_blank'])
+export const NO_PASSAGE_WORDS = { min: 0, max: Number.MAX_SAFE_INTEGER } as const
+
 /** 이 문항이 재야 할 지문 길이 범위. 유형이 창을 정한다. */
 export function itemWordSpec(type: string): { min: number; max: number } {
+  if (ELEMENTARY_ITEM_TYPES.has(type)) return NO_PASSAGE_WORDS
   if (LONG_ITEM_TYPES.has(type)) return CSAT_LONG_ITEM_WORDS
   if (SCHOOL_SENTENCE_TYPES.has(type)) return SCHOOL_SENTENCE_WORDS
   if (SCHOOL_PARAGRAPH_TYPES.has(type)) return SCHOOL_PARAGRAPH_WORDS
@@ -322,7 +332,8 @@ export function composeUnits(
     }
     // 학술 인용 잔해(`[]`·`[12]`)가 있으면 교재에 인쇄될 수 없다.
     //   실측 758개 중 64개(8.4%) — 전부 PLOS 논문이었다.
-    if (hasCitationResidue(p.passage_text)) {
+    //   초등 3종은 사전에서 나와 논문 잔해가 있을 수 없다 — 검사 대상이 아니다.
+    if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasCitationResidue(p.passage_text)) {
       residue++
       return false
     }
@@ -334,7 +345,7 @@ export function composeUnits(
     order: fit.filter((p) => p.type === 'order'),
     insert: fit.filter((p) => p.type === 'insert'),
     // 생성형·학교 시험 축은 뼈대가 아니라 덧붙임이다 — 위 `EXTRA_ITEM_TYPES` 주석 참조.
-    extra: fit.filter((p) => EXTRA_ITEM_TYPES.has(p.type) || SCHOOL_ITEM_TYPES.has(p.type)),
+    extra: fit.filter((p) => EXTRA_ITEM_TYPES.has(p.type) || SCHOOL_ITEM_TYPES.has(p.type) || ELEMENTARY_ITEM_TYPES.has(p.type)),
   }
   for (const t of ['order', 'insert'] as const) {
     byType[t] = roundRobinByRef(byType[t])

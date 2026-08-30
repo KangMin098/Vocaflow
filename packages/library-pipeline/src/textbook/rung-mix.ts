@@ -20,6 +20,7 @@
 // 다음 사람이 왜 그 숫자인지 알 수 없고, 시장이 바뀌어도 따라가지 못한다.
 
 import spec from './market-spec.json'
+import { SERIES_SPINE } from './series'
 
 /** 밴드(V-Level) → 시장 규격의 학교급. `series.ts` 의 사다리를 따른다. */
 export function schoolOfBand(band: number): '초등' | '중등' | '고등' {
@@ -47,6 +48,8 @@ export interface RungMix {
   slots: { order: number; insert: number }
   /** 단원당 덧붙임 문항 수. 뼈대가 줄면 그만큼 늘어 단원 크기를 지킨다. */
   extraPerUnit: number
+  /** 목표 비중을 무엇에서 유도했나 — 시장 실측인가, 사다리 설계 의도인가. */
+  derivedFrom: 'market' | 'ladder'
 }
 
 /** 한 단원의 문항 수 — 시중 교재 한 단원도 대개 5~8문항이다. */
@@ -76,13 +79,42 @@ export function rungMix(band: number, available?: Iterable<string>): RungMix {
     typeDensity: { bySchool: Record<string, { densityPerPage: Record<string, number> }> }
   }).typeDensity.bySchool[school]?.densityPerPage ?? {}
 
-  const have = available ? new Set(available) : null
+  let have = available ? new Set(available) : null
+
+  // ⚠️ **시장 표가 이 단수를 아예 모를 수 있다.**
+  //   코퍼스의 "초등" 은 달곰한 Literacy·리딩튜터 스타터 같은 **초3~초6 독해서**다.
+  //   저학년 파닉스 교재 표본이 없어 `rhyme`·`word_meaning`·`spell_blank` 는 밀도 0 이다.
+  //   그런데 V1 풀에 다른 유형이 몇 개라도 섞여 있으면 그쪽이 목표를 독차지하고
+  //   **정작 그 단수가 쓰는 유형이 0 몫**이 된다 — 실측 2026-08-30: V1 조합 0단원.
+  //
+  //   그래서 **그 단수의 사다리 유형 중 밀도가 있는 것이 하나도 없을 때만**
+  //   사다리(`series.ts`)로 좁힌다. 중·고등은 밀도가 말해 주므로 그대로 시장을 따른다
+  //   (여기를 넓히면 시장 실측으로 얻은 V3 93.4% · V4 95.0% 가 후퇴한다).
+  const rungTypes = SERIES_SPINE.find((r) => r.vLevels.includes(band))?.types ?? []
+  const rungHasDensity = rungTypes.some((t) => (density[t] ?? 0) * 1000 >= RUNG_TYPE_FLOOR_PER_MILLE)
+  if (rungTypes.length > 0 && !rungHasDensity) {
+    const rung = new Set<string>(rungTypes)
+    have = have ? new Set([...have].filter((t) => rung.has(t))) : rung
+  }
+
   const kept: Array<[string, number]> = Object.entries(density)
     .filter(([type, d]) => d * 1000 >= RUNG_TYPE_FLOOR_PER_MILLE && (!have || have.has(type)))
 
   const total = kept.reduce((a, [, d]) => a + d, 0)
   const targetShare: Record<string, number> = {}
   for (const [type, d] of kept) targetShare[type] = total ? d / total : 0
+
+  // ⚠️ **시장 표가 말할 수 없는 자리가 있다.** 코퍼스의 "초등" 은 초3~초6 독해서라
+  //   저학년 파닉스 교재 표본이 없다. 그래서 `rhyme`·`word_meaning`·`spell_blank` 는
+  //   밀도 0 이고, 그대로 두면 그 유형만 가진 밴드의 목표가 **통째로 비어** 권이 안 나온다
+  //   (실측 2026-08-30: V1 조합 0단원).
+  //   그 경우에만 사다리(`series.ts`)의 설계 의도를 따라 **가진 유형에 고르게** 나눈다.
+  //   근거가 다르므로 `derivedFrom` 으로 구분해 둔다 — 시장 실측인 척하지 않는다.
+  const derivedFrom: 'market' | 'ladder' = kept.length > 0 ? 'market' : 'ladder'
+  if (derivedFrom === 'ladder' && have && have.size > 0) {
+    const each = 1 / have.size
+    for (const t of have) targetShare[t] = each
+  }
 
   // 뼈대는 순서·삽입이다. 시장 비중만큼만 준다 — 재고가 많다고 더 싣지 않는다.
   const skeletonShare = (targetShare.order ?? 0) + (targetShare.insert ?? 0)
@@ -93,7 +125,8 @@ export function rungMix(band: number, available?: Iterable<string>): RungMix {
 
   return {
     school,
-    allowedTypes: kept.map(([t]) => t).sort(),
+    allowedTypes: Object.keys(targetShare).sort(),
+    derivedFrom,
     targetShare,
     slots: { order, insert },
     extraPerUnit: Math.max(0, ITEMS_PER_UNIT - order - insert),

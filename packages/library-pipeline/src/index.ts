@@ -618,11 +618,13 @@ export type { ProofFinding, ProofStage, ProofSummary } from './textbook/proofrea
 export {
   VOLUME_FONTS,
   VOLUME_PALETTE,
+  brandFingerprint,
+  brandSpecRows,
   buildColophon,
   ladderStrip,
   volumeCssVariables,
 } from './textbook/brand'
-export type { Colophon, ColophonInput } from './textbook/brand'
+export type { BrandSpecRow, Colophon, ColophonInput, VolumePalette } from './textbook/brand'
 
 export {
   ITEMS_PER_UNIT,
@@ -642,3 +644,5 @@ export {
 
 export { explainInsertSeam, explainOrderSeam } from './textbook/explain-seam'
 export { explainShortInsertSeam } from './textbook/explain-seam'
+export { ELEMENTARY_ITEM_TYPES, NO_PASSAGE_WORDS } from './textbook/compose-unit'
+export { explainElementary } from './textbook/explain-items'

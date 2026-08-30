@@ -462,6 +462,57 @@ export function explainIrrelevant(payload: Json, answerKey: Json): ItemExplanati
   return finish(parts.join(' '), 'irrelevant')
 }
 
+// ── 초등 저학년 3종 (운율 · 낱말 뜻 · 철자 완성) ──────────────────────
+/**
+ * 사전에서 나온 문항이라 **정답 근거가 사전 자체**다 — 읽어서 알아낼 것이 없다.
+ *
+ * ⚠️ 이 유형은 `csat_dcp_items` 에 저장되지 않아(`ref_id` NOT NULL) 조판 시점에 만들어진다.
+ *   그래서 `explain-fill` 이 닿지 않고, 붙이지 않으면 **V1 한 권 120문항이 해설 0** 이 된다
+ *   (실측 2026-08-30).
+ *
+ * @param kind 문항 종류.
+ * @param stem 학습자에게 보이는 제시어 또는 빈칸 꼴.
+ * @param choices 보기(철자 완성은 빈 배열).
+ * @param answer 1-based 정답 번호. 0 이면 단답.
+ * @param answerText 단답 정답.
+ */
+export function explainElementary(
+  kind: 'rhyme' | 'word_meaning' | 'spell_blank',
+  stem: string,
+  choices: ReadonlyArray<{ label?: string; text?: string }>,
+  answer: number,
+  answerText: string,
+): ItemExplanation | null {
+  if (!answerText) return null
+  const idx = answer - 1
+  const label = choices[idx]?.label || LABELS[idx] || ''
+  const others = choices
+    .map((c, i) => ({ label: str(c.label) || LABELS[i] || `${i + 1}`, text: str(c.text), i }))
+    .filter((c) => c.i !== idx && c.text)
+
+  const parts: string[] = []
+  if (kind === 'rhyme') {
+    parts.push(`정답은 ${label} "${answerText}" 다.`)
+    parts.push(`"${stem}" 와 끝소리가 같다 — 소리를 맞추는 문제이므로 철자가 아니라 **끝소리**를 본다.`)
+    if (others.length) {
+      parts.push(`나머지 ${others.map((c) => `${c.label} "${c.text}"`).join(' · ')} 는 끝소리가 다르다.`)
+    }
+  } else if (kind === 'word_meaning') {
+    parts.push(`"${stem}" 의 뜻은 ${label} "${answerText}"${josa(answerText, I_DA)}.`)
+    if (others.length) {
+      // 오답이 어디서 왔는지는 **사실**이다 — 보기 풀이 교육과정 별표이기 때문이다.
+      // 길이를 채우려고 지어낸 말이 아니라, 학습자가 오답을 따로 외울 거리로 쓸 수 있다.
+      parts.push(
+        `나머지 ${others.map((c) => `${c.label} "${c.text}"`).join(' · ')} 는 같은 교육과정 낱말 목록에 있는 **다른 낱말**의 뜻이다.`,
+      )
+    }
+  } else {
+    parts.push(`빈칸을 채우면 "${answerText}" 가 된다.`)
+    parts.push(`주어진 꼴 "${stem}" 에서 빠진 글자를 넣는 문제다 — 같은 꼴로 만들 수 있는 낱말이 하나뿐이라 답이 정해진다.`)
+  }
+  return finish(parts.join(' '), `elementary_${kind}`)
+}
+
 // ── 갈래 ────────────────────────────────────────────────────────────
 
 /** 이 모듈이 해설을 쓸 수 있는 유형. 여기 없으면 `explain.ts` 나 Claude Code 배치 몫이다. */

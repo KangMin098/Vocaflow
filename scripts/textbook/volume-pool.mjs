@@ -110,6 +110,89 @@ export const SCHOOL_TYPES = new Set([
   'blank_word', 'grammar_fix', 'word_order',
 ])
 
+/**
+ * 초등 저학년 3종 — **사전에서 나온다. 원글이 없다.**
+ *
+ * ⚠️ 그래서 `csat_dcp_items` 에 저장되지 않는다(`ref_id` 가 NOT NULL 이다).
+ *   `store-new-types.mjs` 머리말도 "초등 3종은 순수 함수로 남는다" 고 적어 두었다.
+ *   그 결과 **사다리 1단이 책이 되지 않았다** — 실측 2026-08-30: V1 조합 0단원.
+ *   재료는 있었다(교육과정 별표 808낱말). 없던 것은 **적재·조판 경로**였다.
+ *
+ * 저장하지 않고 **조판 시점에 만든다.** 결정론이라 같은 사전이면 같은 문항이 나오고,
+ * 마이그레이션도 필요 없다. 원글이 없으므로 `ref_id` 자리에는 **낱말**을 넣는다 —
+ * 조합기의 "한 단원 안에서 같은 출처를 두 번 쓰지 않는다" 규칙이 그대로 성립한다
+ * (같은 낱말로 두 문항을 내지 않는다).
+ */
+export const ELEMENTARY_TYPES = new Set(['rhyme', 'word_meaning', 'spell_blank'])
+
+/** 교육과정 별표 태그 — 밴드별 어휘 풀. */
+const ELEMENTARY_TAG = { 1: 'kcurr2022_1', 2: 'kcurr2022_1' }
+
+/**
+ * 사전에서 초등 문항 풀을 만든다. 밴드가 별표를 안 쓰면 빈 배열.
+ */
+async function loadElementaryPool(db, band) {
+  const tag = ELEMENTARY_TAG[band]
+  if (!tag) return []
+  const { buildRhyme, buildSpellBlank, buildWordMeaning, explainElementary } = await import('@vocaflow/library-pipeline')
+
+  const rows = await fetchAllPaged(db, (q) =>
+    q
+      .from('shared_dictionary')
+      .select('word, meaning_ko, rhyme_key, synonyms')
+      .contains('list_tags', [tag])
+      .order('word'))
+
+  const pool = rows
+    .map((r) => ({
+      word: String(r.word).toLowerCase(),
+      meaningKo: String(r.meaning_ko ?? ''),
+      rhymeKey: r.rhyme_key || null,
+      synonyms: r.synonyms ?? [],
+    }))
+    .filter((x) => /^[a-z]{2,12}$/.test(x.word) && x.meaningKo)
+
+  const dictionary = new Set(pool.map((x) => x.word))
+  const items = []
+  for (const w of pool) {
+    for (const [type, built] of [
+      ['rhyme', buildRhyme(w, pool)],
+      ['word_meaning', buildWordMeaning(w, pool)],
+      ['spell_blank', buildSpellBlank(w, dictionary)],
+    ]) {
+      if (!built) continue
+      items.push({
+        // 저장된 문항이 아니므로 id 는 합성한다 — 같은 사전이면 같은 값이다.
+        id: `elem:${type}:${w.word}`,
+        type,
+        ref_id: `word:${w.word}`,
+        ref_title: w.word,
+        v_level: band,
+        // 지문이 없다. 길이 규격을 재는 자리이므로 물음+보기를 텍스트로 삼는다.
+        passage_text: `${built.promptKo} ${built.stem}`,
+        passage_words: 0,
+        body_sentences: 1,
+        payload: {
+          prompt_ko: built.promptKo,
+          stem: built.stem,
+          choices: built.choices,
+          answer_text: built.answerText,
+        },
+        // 해설도 여기서 붙인다 — 저장되지 않는 유형이라 `explain-fill` 이 닿지 않는다.
+        // 안 붙이면 V1 한 권 120문항이 해설 0 이 된다(실측 2026-08-30).
+        answer_key: {
+          ...(built.answer > 0 ? { answer: built.answer } : { text: built.answerText }),
+          ...(() => {
+            const e = explainElementary(type, built.stem, built.choices, built.answer, built.answerText)
+            return e ? { explanation_ko: e.ko, explanation_writer: e.writer } : {}
+          })(),
+        },
+      })
+    }
+  }
+  return items
+}
+
 /** `apps/web/.env.local` 을 process.env 에 얹는다. 이미 있는 키는 덮지 않는다. */
 export function loadEnv() {
   for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -260,6 +343,9 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
 
   // `marketMix` 를 켜면 유형 구성을 시장 밀도에 맞춘다(`rungMix`).
   // 기본은 꺼져 있다 — 이미 완성된 권이 조용히 달라지면 안 된다.
+  // 초등 저학년 3종은 사전에서 나온다 — 원글 풀과 합친다.
+  pool.push(...(await loadElementaryPool(db, band)))
+
   const mix = marketMix
     ? rungMix(band, new Set(pool.map((it) => it.type)))
     : null

@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 import {
   EXPLANATION_CHARS,
   explainBlankWord,
+  explainElementary,
   explainGrammarFix,
   explainIrrelevant,
   explainItem,
@@ -310,5 +311,41 @@ describe('explainItem 갈래', () => {
       sentences: SENTENCES,
     }, { answer: 3 })
     expect(e?.writer).toBe('unit_vocab')
+  })
+})
+
+describe('explainElementary — 초등 저학년 3종', () => {
+  const CH = [
+    { label: '①', text: '사과' }, { label: '②', text: '책' },
+    { label: '③', text: '물' }, { label: '④', text: '집' },
+  ]
+
+  it('낱말 뜻 — 시장 최소 길이(75자)를 넘는다', () => {
+    // ⚠️ 처음엔 짧아서 40문항이 통째로 해설 없이 나갔다. 기준을 낮추는 대신
+    //    **참인 정보**(오답이 같은 교육과정 목록의 다른 낱말 뜻이라는 사실)를 더해 넘겼다.
+    const e = explainElementary('word_meaning', 'apple', CH, 1, '사과')
+    expect(e).not.toBeNull()
+    expect(e!.ko.length).toBeGreaterThanOrEqual(EXPLANATION_CHARS.min)
+    expect(e!.hasWrongOption).toBe(true)
+  })
+
+  it('운율 — 끝소리를 근거로 든다', () => {
+    const e = explainElementary('rhyme', 'cat', [
+      { label: '①', text: 'hat' }, { label: '②', text: 'dog' },
+      { label: '③', text: 'sun' }, { label: '④', text: 'pen' },
+    ], 1, 'hat')
+    expect(e!.ko).toContain('끝소리')
+    expect(e!.hasWrongOption).toBe(true)
+  })
+
+  it('철자 완성 — 보기가 없으므로 오답 배제를 지어내지 않는다', () => {
+    const e = explainElementary('spell_blank', 'c_t', [], 0, 'cat')
+    expect(e).not.toBeNull()
+    expect(e!.ko).toContain('cat')
+    expect(e!.hasWrongOption).toBe(false)
+  })
+
+  it('정답 낱말이 없으면 쓰지 않는다', () => {
+    expect(explainElementary('rhyme', 'cat', CH, 1, '')).toBeNull()
   })
 })
