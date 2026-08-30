@@ -610,6 +610,10 @@ export {
 } from './textbook/explain-items'
 export type { DeterministicExplainType, ItemExplanation } from './textbook/explain-items'
 
+/** 교정 재교·삼교 — 초교(`isPrintablePassage`)와 겹치지 않는다. */
+export { proofreadPassage, summarizeProofread } from './textbook/proofread'
+export type { ProofFinding, ProofStage, ProofSummary } from './textbook/proofread'
+
 export {
   ITEMS_PER_UNIT,
   RUNG_TYPE_FLOOR_PER_MILLE,

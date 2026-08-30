@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-08-30T01:05:41.827Z",
+  "passages": 1668,
+  "defective": 77,
+  "defectRate": 0.0462,
+  "byRule": {
+    "apostrophe_style": {
+      "stage": "삼교",
+      "count": 31,
+      "passages": 31
+    },
+    "space_before_punct": {
+      "stage": "재교",
+      "count": 29,
+      "passages": 19
+    },
+    "repeated_word": {
+      "stage": "재교",
+      "count": 15,
+      "passages": 15
+    },
+    "quote_style": {
+      "stage": "삼교",
+      "count": 9,
+      "passages": 9
+    },
+    "dash_style": {
+      "stage": "삼교",
+      "count": 3,
+      "passages": 3
+    },
+    "unbalanced_paren": {
+      "stage": "재교",
+      "count": 2,
+      "passages": 2
+    }
+  },
+  "byType": {
+    "vocab_choice": {
+      "defective": 53,
+      "total": 1103
+    },
+    "grammar_choice": {
+      "defective": 21,
+      "total": 524
+    },
+    "irrelevant": {
+      "defective": 3,
+      "total": 41
+    }
+  },
+  "samples": {
+    "apostrophe_style": [
+      {
+        "id": "2009ff4d-3433-4165-b04d-f45d40bb4c7b",
+        "type": "irrelevant",
+        "found": "굽은 ’ 3개 · 곧은 ' 1개",
+        "hint": "아포스트로피를 한쪽 모양으로 맞춘다."
+      },
+      {
+        "id": "1e4478a4-2858-43e4-bbda-0b5fed273977",
+        "type": "grammar_choice",
+        "found": "굽은 ’ 1개 · 곧은 ' 1개",
+        "hint": "아포스트로피를 한쪽 모양으로 맞춘다."
+      },
+      {
+        "id": "5a89aa8c-2e52-408a-8977-2984948c7cb8",
+        "type": "grammar_choice",
+        "found": "굽은 ’ 1개 · 곧은 ' 2개",
+        "hint": "아포스트로피를 한쪽 모양으로 맞춘다."
+      }
+    ],
+    "space_before_punct": [
+      {
+        "id": "c1a03f3c-f37e-4487-b998-8880ee8efc3f",
+        "type": "irrelevant",
+        "found": "…edefined proximity to any , which are selected as .",
+        "hint": "구두점 \",\" 앞의 공백을 지운다."
+      },
+      {
+        "id": "c1a03f3c-f37e-4487-b998-8880ee8efc3f",
+        "type": "irrelevant",
+        "found": "…y , which are selected as .",
+        "hint": "구두점 \".\" 앞의 공백을 지운다."
+      },
+      {
+        "id": "1f8d9638-5f84-48dc-9098-7a8d0bdbb719",
+        "type": "grammar_choice",
+        "found": "…ove that may be good, and ?!",
+        "hint": "구두점 \"?\" 앞의 공백을 지운다."
+      }
+    ],
+    "quote_style": [
+      {
+        "id": "79725143-628a-4202-80e5-e05eedd9c507",
+        "type": "irrelevant",
+        "found": "굽은 “ ” 2개 · 곧은 \" 2개",
+        "hint": "큰따옴표를 한쪽 모양으로 맞춘다."
+      },
+      {
+        "id": "14cc22f7-91c6-44e9-a945-4815e945dad9",
+        "type": "grammar_choice",
+        "found": "굽은 “ ” 6개 · 곧은 \" 2개",
+        "hint": "큰따옴표를 한쪽 모양으로 맞춘다."
+      },
+      {
+        "id": "cabd159b-92df-4ff3-b3d9-26e0e5446bf1",
+        "type": "grammar_choice",
+        "found": "굽은 “ ” 2개 · 곧은 \" 8개",
+        "hint": "큰따옴표를 한쪽 모양으로 맞춘다."
+      }
+    ],
+    "repeated_word": [
+      {
+        "id": "44e15615-50e3-4282-ad59-f7125f467d85",
+        "type": "grammar_choice",
+        "found": "Production Production for the movie began in…",
+        "hint": "\"Production\" 가 두 번 붙어 있다 — 하나를 지운다."
+      },
+      {
+        "id": "8fdef7ed-cf89-4438-9ded-f2b691c054cb",
+        "type": "grammar_choice",
+        "found": "…s president to retrieve Durand Durand from the Tau Ceti plane…",
+        "hint": "\"Durand\" 가 두 번 붙어 있다 — 하나를 지운다."
+      },
+      {
+        "id": "92becbd0-aabe-41d6-9054-2d586ac4e46e",
+        "type": "grammar_choice",
+        "found": "…other people suggested those those considered \"bad stock\"…",
+        "hint": "\"those\" 가 두 번 붙어 있다 — 하나를 지운다."
+      }
+    ],
+    "dash_style": [
+      {
+        "id": "66b9aacd-9c09-43fd-9367-9f1aec3235cd",
+        "type": "grammar_choice",
+        "found": "em 대시 1개 · 하이픈 대시 1개",
+        "hint": "삽입구 부호를 한쪽으로 맞춘다."
+      },
+      {
+        "id": "2251a2ab-34cc-411d-8b02-a72c701e808a",
+        "type": "vocab_choice",
+        "found": "em 대시 1개 · 하이픈 대시 1개",
+        "hint": "삽입구 부호를 한쪽으로 맞춘다."
+      },
+      {
+        "id": "4a7a18a7-8e00-4c67-a11a-1cf4a0638a63",
+        "type": "vocab_choice",
+        "found": "em 대시 1개 · 하이픈 대시 1개",
+        "hint": "삽입구 부호를 한쪽으로 맞춘다."
+      }
+    ],
+    "unbalanced_paren": [
+      {
+        "id": "82bdd27c-a045-4a59-9b4b-c745e83d0a6a",
+        "type": "vocab_choice",
+        "found": "여는 괄호 3개 · 닫는 괄호 2개",
+        "hint": "괄호 짝이 맞지 않는다 — 잘려 나간 자리가 있는지 본다."
+      },
+      {
+        "id": "9de22d1f-60a3-4582-acc0-10443d8fa14b",
+        "type": "vocab_choice",
+        "found": "여는 괄호 4개 · 닫는 괄호 8개",
+        "hint": "괄호 짝이 맞지 않는다 — 잘려 나간 자리가 있는지 본다."
+      }
+    ]
+  }
+}
