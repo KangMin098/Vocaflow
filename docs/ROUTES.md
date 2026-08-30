@@ -330,7 +330,6 @@
 | `app/(main)/layout.tsx` | Sidebar + FlowNav + SessionFrame 자동 주입 |
 | `app/(main)/dashboard/layout.tsx` | metadata server layout (page.tsx 가 'use client') |
 | `app/(main)/library/layout.tsx` | LibraryTabs (3탭 — 도서/스크립트/공용 단어장) + max-w-wide. 만화는 최상위 `/comics` 로 분리(2026-08-09) |
-| `app/(main)/my/layout.tsx` | 내 자산 wrapper |
 | `app/(main)/text/[id]/layout.tsx` | 워크스페이스 RSC — v_text_content fetch + chapter context (library_book_id / user_book_group_id 분기) |
 | `app/(app)/layout.tsx` | 풀스크린 게임 (WordBlitz / Pirate Quest) — SessionFrame 자동 주입 |
 | `app/admin/layout.tsx` | AdminSidebar + 보라 액센트 + reports.status='open' count |

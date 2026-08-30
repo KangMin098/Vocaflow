@@ -168,9 +168,11 @@ Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라
 ⚠️ 레이트리밋은 **프로세스 메모리**다. 인스턴스가 여러 개면 한도도 그만큼 곱해진다.
 목적이 "실수·스크립트 한 대" 차단이라 지금 수준엔 충분하고, Redis 는 트래픽이 붙은 뒤에 넣는다.
 
-**미적용 의존** — `textfit_resolve_levels` RPC
-(승인 대기, `supabase/migrations/_pending_20260817_textfit_resolve_levels.sql`).
-없으면 정확 일치 폴백으로 내려가 굴절형이 미지어로 남는다 → 커버리지를 **낮게** 잡는 방향이며,
+**적용 완료** — `textfit_resolve_levels` RPC
+(`supabase/migrations/20260826102758_textfit_resolve_levels.sql`).
+⚠️ 2026-08-30 이전 이 자리는 "승인 대기 · 미적용" 이라 적고 있었다 — 적용된 뒤에도 문서가 안 따라와서,
+읽는 사람이 **멀쩡한 기능을 폴백 상태로** 오해하게 만들고 있었다.
+없을 때는 정확 일치 폴백으로 내려가 굴절형이 미지어로 남는다 → 커버리지를 **낮게** 잡는 방향이며,
 화면 근거 패널이 그 사실을 밝힌다.
 
 ### 컴포넌트 (`components/textviewer/`)
@@ -209,8 +211,13 @@ Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라
 - `InsightPanel.tsx` (북마크·기억 상태)
 - `KeyboardHints.tsx`
 
-### Sidebar (v06.32)
-`components/wordvault/WordSetSidebar.tsx` — lg breakpoint 이상 320px 고정 · focus mode 시 자동 숨김.
+### 소스 내비 (2026-08-30 정정)
+`components/wordvault/ScriptsChipNav.tsx` — 전체 + 구독 단어장(보라) + 스크립트(인디고) 칩 행.
+도서 컨텍스트(`?book=&chapter=`)로 들어오면 대신 `BrowseSourceBar.tsx` 가 챕터 셀렉터를 그린다.
+
+⚠️ 이 자리는 `components/wordvault/WordSetSidebar.tsx`(320px 고정 사이드바)를 가리키고 있었는데
+**그런 파일은 저장소에 없다** — 만들어진 적이 없거나 이름이 바뀐 뒤 문서가 안 따라왔다.
+없는 파일을 가리키는 문서는 "구현돼 있다" 는 말과 같다.
 
 ---
 

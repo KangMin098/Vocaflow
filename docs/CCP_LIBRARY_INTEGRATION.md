@@ -337,8 +337,8 @@ WHERE NOT EXISTS (
 
 | 파일 | 역할 |
 |---|---|
-| `apps/web/src/app/(main)/library/comics/page.tsx` | RSC — `list_comic_catalog()` + 진도 + V레벨 fetch → `ComicsBrowser` |
-| `apps/web/src/app/(main)/library/comics/[bookId]/page.tsx` | RSC — `preview_book_comic()` + 도서 메타 → 프리뷰 + `ComicFormatChoice` (미로그인 허용) |
+| `apps/web/src/app/(main)/comics/adapted/page.tsx` | RSC — `list_comic_catalog()` + 진도 + V레벨 fetch → `ComicsBrowser` |
+| `apps/web/src/app/(main)/comics/adapted/[bookId]/page.tsx` | RSC — `preview_book_comic()` + 도서 메타 → 프리뷰 + `ComicFormatChoice` (미로그인 허용) |
 | `apps/web/src/components/library/browse/ComicsBrowser.tsx` | 클라 — 레인 3종 + 필터(V밴드/장르/길이) + 그리드. `BooksExplorer` 패턴 재사용 |
 | `apps/web/src/components/comic/ComicFormatChoice.tsx` | 형식 선택 3카드 + 처방 배지 (§5.2·5.3) |
 | `apps/web/src/components/comic/ComicBadge.tsx` | `만화` 포맷 배지(gold, 아이콘+텍스트 — 색상 단독 정보전달 금지) |

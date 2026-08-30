@@ -10,6 +10,32 @@
 
 ## Unreleased (v06.34 → next)
 
+### 문서가 가리키는 경로를 기계가 대조한다 — 상시 결함 **F7** 의 두 번째 축
+
+F7(문서–현실 드리프트)은 이름까지 붙은 상시 결함인데 **재는 자리가 없어** 분기마다 사람이
+눈으로 찾고 있었다. DB 수치는 같은 날 스크립트 생성물이 됐고(F7 해소 행), 여기서는 **경로**를
+맡는다 — 이번 루프에서만 두 번 걸린 축이다(`lib/text-viewer/handoff.ts` · `StubPage`).
+
+`doc-path-drift.test.ts` 가 **현재 상태 문서**의 **뿌리 있는 경로**를 전수 대조한다. 실측 5건:
+
+- `docs/ROUTES.md` — `app/(main)/my/layout.tsx` 행. **그런 파일이 없다** → 행 삭제
+- `docs/CCP_LIBRARY_INTEGRATION.md` — 만화 라우트 2건이 `(main)/library/comics/…` 인데
+  2026-08-09 에 최상위 `/comics` 로 옮겼다(같은 저장소의 `ROUTES.md` 가 그 이동을 적고 있었다)
+  → `(main)/comics/adapted/…`
+- `docs/MODULES.md` — `textfit_resolve_levels` 를 **"승인 대기 · 미적용"** 이라 적고 폴백 동작을
+  설명하고 있었다. 실제로는 `20260826102758_textfit_resolve_levels.sql` 로 적용돼 있다 →
+  **멀쩡한 기능을 폴백 상태로 오해하게 만드는 서술**이라 정정
+- `docs/MODULES.md` — `components/wordvault/WordSetSidebar.tsx`(320px 사이드바)를 가리키는데
+  **저장소에 없다** → 실제로 그 자리를 맡는 `ScriptsChipNav`·`BrowseSourceBar` 로 정정
+
+`apps/web/CLAUDE.md` 의 `StubPage` 항목도 고쳤다 — 파일은 있지만 **import 하는 화면이 0개**라
+"미구현 화면이 스텁으로 표시돼 있다" 는 짐작을 부른다(규약은 남기고 사실을 함께 적었다).
+
+**세지 않는 것을 정하는 데 대부분의 시간이 들었다.** 첫 판은 963종이 없다고 했는데 대부분
+산문 속 파일명(`page.tsx`)이었다. 과거 기록(CHANGELOG·리포트·진단·제안)은 **지워진 파일을
+언급하는 것이 맞고**, `*_SPEC` 은 아직 없는 것을 적는 문서이며, "지웠다" 고 설명하는 문장은
+그 자체가 최신 상태다. 963 → 249 → 26 → **5**.
+
 ### 어느 화면에서도 **닿지 않는 코드 6,299줄** — 죽은 코드는 조용하지 않다
 
 허브 고아 8개를 계기로 저장소 전체를 셌다. Next 진입점(page·layout·route·middleware…)에서
