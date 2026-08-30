@@ -419,3 +419,60 @@ T2·T5 가 `meanings_ko[].example`·`example_ko` 를 **72,266 뜻**에 채워 �
 
 **계보가 다른 갈래는 합치지 않는다** — 한 팀이 `sat` 의 SAT(대입시험) 갈래를 일부러 남겼다.
 합쳤다면 `merged_into` 가 그 예문을 '앉았다' 쪽으로 옮겨 학습자가 틀린 짝을 보게 된다.
+
+## T6-2 완주 실측 (110/110 청크)
+
+| | |
+|---|--:|
+| 판정한 낱말 | **1,317** |
+| 갈래를 고친 낱말 | **580** |
+| 물어봤고 멀쩡했던 낱말 | 737 |
+| 구조 게이트 거부 | `bad_from` 0 · `dup_from` 0 · `example_lost` 0 · `orphan` 0 · `empty_meaning` 0 |
+| 예문 (뜻 단위) | 72,266 → **72,082** (−184) |
+
+**−184 는 전부 중복 갈래 병합분이다.** 실행 로그의 "받는 쪽에 이미 있어 둠" 합이 183 —
+중복 갈래 둘이 각자 예문을 갖고 있다가 하나로 합쳐진 경우다. 버려진 쪽은 `t6_senses_before` 에 남는다.
+(나머지 1은 이 사이 다른 세션의 변경으로 보인다.)
+
+## ⚠️ 게이트가 **기존 오배치를 굳히는** 경로가 있었다
+
+apply 는 "예문 달린 원본 갈래는 반드시 참조돼야 한다" 를 강제한다. 이 규칙은 예문 소실을 막지만,
+**원래 예문이 엉뚱한 갈래에 붙어 있던 낱말**에서는 그 오배치를 그대로 굳힌다.
+
+`it` — 갈래가 `정보 기술(IT)` **하나뿐**인데 대명사 예문
+(`It arrived yesterday and it is still in the box.`)을 달고 있었다.
+서브에이전트가 대명사 갈래를 새로 넣으면서 `from: 0` 을 규칙대로 IT 갈래에 남겼고,
+결과적으로 **IT 갈래가 대명사 예문을 보여 주게 됐다.** `he` 도 같은 모양이었다
+(갈래가 부사 '아주, 매우' 하나뿐인데 대명사 예문 보유).
+
+전수 조사: 갈래가 늘었고 · 예문이 하나뿐이고 · 그 예문이 첫 갈래에 없는 낱말 = **19건**.
+하나씩 읽어 보니 **18건은 정확했다** — 서브에이전트들이 예문을 실제 그 뜻의 갈래에 붙이고
+대표 뜻을 앞에 세운 결과였다(`put out` 의 `He was put out at…` → 4번 '짜증나게 하다',
+`set off` 의 상쇄 용례 → 4번, `strike out` 의 `struck out on a nasty slider` → 2번 야구).
+`it` · `he` 두 건만 오배치였고 그 자리에서 고쳤다.
+
+**교훈**: "잃지 마라" 는 게이트만으로는 부족하다. 원본이 이미 틀린 자리에 있으면
+**옳은 자리로 옮기라**고 명시해야 한다. 다행히 서브에이전트 대부분은 스스로 그렇게 판단했다.
+
+후보를 다시 세는 질의:
+
+```sql
+with t as (
+  select word, meanings_ko,
+    jsonb_array_length(meanings_ko) as n_now,
+    jsonb_array_length(coalesce(field_provenance->'t6_senses_before','[]'::jsonb)) as n_before,
+    (select min(ord) from jsonb_array_elements(meanings_ko) with ordinality e(v,ord) where v ? 'example') as first_ex,
+    (select count(*) from jsonb_array_elements(meanings_ko) e where e ? 'example') as n_ex
+  from shared_dictionary where field_provenance->>'t6_senses' like 'restructured%'
+)
+select word from t where n_now > n_before and n_ex = 1 and first_ex > 1;
+```
+
+## 다시 확인한 정본 사례
+
+| 표제어 | 갈래 (예문 위치) |
+|---|---|
+| `it` | 그것(**예문**) · 비인칭 주어 · 정보 기술(IT) — 대명사 뜻이 없던 것이 채워졌다 |
+| `fell` | 베어 넘어뜨리다(**예문**) · fall 과거형(**예문**) · 영국 북부 산지(**예문**) — 세 낱말이 갈렸고 예문도 각자 제자리 |
+| `pull out` | 뽑아내다(**예문**) · 빠져나오다 · 철수하다 — 예문이 가리키던 뜻을 새로 세워 제자리를 찾아 줬다 |
+| `sally` | 출격·돌진(**예문**) · 재치 있는 말 · 힘차게 나서다(**예문**) |
