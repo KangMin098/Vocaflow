@@ -175,7 +175,14 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
   )
 }
 
-function FoundBody({ result, surface }: { result: WordLookup; surface: string }) {
+/**
+ * 조회 결과 본문.
+ *
+ * `export` 인 이유는 **렌더 단언을 걸기 위해서**다. 바깥 컴포넌트는 Supabase 클라이언트와
+ * `DOMRect` 를 요구해 단위 테스트에서 세우기 어렵고, 그러면 "학습자가 본다" 를 증명할
+ * 방법이 사라진다. 이 저장소는 그 증명을 렌더로만 인정한다(`VocabSetCard.test.tsx` 머리말).
+ */
+export function FoundBody({ result, surface }: { result: WordLookup; surface: string }) {
   const showResolved =
     result.resolvedWord && result.resolvedWord.toLowerCase() !== surface.toLowerCase()
   const foreign = result.lang && result.lang !== 'en' ? LANG_META[result.lang] : undefined
@@ -235,6 +242,42 @@ function FoundBody({ result, surface }: { result: WordLookup; surface: string })
               {c}
             </span>
           ))}
+        </div>
+      )}
+
+      {/*
+        낱말 그물 — 파생어 · 유의어 · 반의어.
+
+        플래시카드 정답면(`CardBack`)과 **같은 자리에서 같은 것**을 보여 준다. 읽다가 만난
+        낱말과 카드에서 만난 낱말이 다르게 보이면 학습자는 두 곳을 다른 사전으로 여긴다.
+
+        ⚠️ 툴팁은 읽기를 **끊고** 뜬 창이라 카드보다 더 절제한다 — 줄마다 **2개**까지.
+        (카드는 3개. 카드는 학습이 목적이고, 여기는 읽던 자리로 빨리 돌아가는 것이 목적이다.)
+        유의/반의는 **이름표 글자로** 갈린다 — 색만으로 정보를 전달하지 않는다.
+      */}
+      {((result.derived?.length ?? 0) > 0
+        || (result.synonyms?.length ?? 0) > 0
+        || (result.antonyms?.length ?? 0) > 0) && (
+        <div className="flex flex-col gap-1">
+          {([
+            ['파생', result.derived],
+            ['비슷', result.synonyms],
+            ['반대', result.antonyms],
+          ] as const)
+            .filter(([, list]) => (list?.length ?? 0) > 0)
+            .map(([label, list]) => (
+              <div key={label} className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                <span className="font-body text-[10px] text-[var(--t3)]">{label}</span>
+                {list!.slice(0, 2).map((w) => (
+                  <span
+                    key={w}
+                    className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-0.5 font-english text-[11px] text-[var(--t2)]"
+                  >
+                    {w}
+                  </span>
+                ))}
+              </div>
+            ))}
         </div>
       )}
 

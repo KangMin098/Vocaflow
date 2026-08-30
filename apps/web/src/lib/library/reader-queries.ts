@@ -65,6 +65,14 @@ export interface WordLookup {
    * RPC 는 이 값을 주지 않으므로 연어와 같은 왕복에서 함께 가져온다(마이그레이션 회피).
    */
   exampleKo: string | null
+  /**
+   * 낱말 그물 — 파생어 · 유의어 · 반의어. 플래시카드 정답면(`CardBack`)과 **같은 것**을 보여 준다.
+   * 읽다가 만난 낱말과 카드에서 만난 낱말이 다르게 보이면 학습자가 두 곳을 다른 사전으로 여긴다.
+   * 없으면 null — 빈 줄이 툴팁을 흔들지 않게.
+   */
+  derived: string[] | null
+  synonyms: string[] | null
+  antonyms: string[] | null
   /** 해소 언어 — 'en'(영어) | 'fr' 등(선제형 외국어 사전). 외국어면 배지 표기 */
   lang: string | null
 }
@@ -101,10 +109,15 @@ export async function lookupWord(
   // 툴팁은 단어 1개 on-demand 라 추가 round-trip 허용. 실패해도 조회 결과는 그대로.
   let collocations: string[] | null = null
   let exampleKo: string | null = null
+  // 낱말 그물 — 파생어·유의어·반의어. 플래시카드 정답면과 **같은 자리에서 같은 것**을 보여
+  // 준다(`CardBack`). 읽다가 만난 낱말과 카드에서 만난 낱말이 다르게 보이면 안 된다.
+  let derived: string[] | null = null
+  let synonyms: string[] | null = null
+  let antonyms: string[] | null = null
   if (row.found && row.resolved_word) {
     const { data: cd, error: cErr } = await client
       .from('shared_dictionary')
-      .select('collocations, meanings_ko')
+      .select('collocations, meanings_ko, derived_forms, synonyms, antonyms')
       .eq('word', row.resolved_word)
       .maybeSingle()
     if (cErr) {
@@ -113,9 +126,26 @@ export async function lookupWord(
       const d = cd as {
         collocations: string[] | null
         meanings_ko: Array<{ example?: string; example_ko?: string }> | null
+        derived_forms: string[] | null
+        synonyms: string[] | null
+        antonyms: string[] | null
       } | null
       const c = d?.collocations
       collocations = c && c.length > 0 ? c : null
+
+      // 표제어 자신이 섞여 있으면 뺀다 — 자기를 "파생어" 로 보여 주면 오해를 만든다.
+      const self = row.resolved_word.toLowerCase()
+      const clean = (list: string[] | null | undefined): string[] | null => {
+        if (!Array.isArray(list)) return null
+        const out = [...new Set(
+          list.map((s) => (typeof s === 'string' ? s.trim() : ''))
+            .filter((s) => s.length > 0 && s.toLowerCase() !== self),
+        )]
+        return out.length > 0 ? out : null
+      }
+      derived = clean(d?.derived_forms)
+      synonyms = clean(d?.synonyms)
+      antonyms = clean(d?.antonyms)
 
       // RPC 가 준 예문과 **같은 문장**의 해석만 쓴다. 뜻이 여러 개일 때 아무 해석이나 붙이면
       // 다른 뜻을 가르치게 된다 — 틀린 해석은 없는 해석보다 나쁘다.
@@ -144,6 +174,9 @@ export async function lookupWord(
     wordRegister: row.word_register,
     collocations,
     exampleKo,
+    derived,
+    synonyms,
+    antonyms,
     lang: row.lang,
   }
 }
