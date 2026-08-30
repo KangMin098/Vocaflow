@@ -86,11 +86,34 @@ export async function fetchAllPaged(db, build, page = 1000) {
   return out
 }
 
+/**
+ * `.in()` 한 번에 넣는 값의 수 — **실측으로 정했다(2026-08-30).**
+ *
+ * V6 원글 600편의 문항 키를 묶음 크기별로 받아 보니:
+ *
+ *   묶음  20   1,129ms · 요청 30 · 행 3,950   ← 이전 값
+ *   묶음  50     406ms · 요청 12 · 행 3,950
+ *   묶음 **100**  282ms · 요청  6 · 행 3,950   ← **4배 빠르고 행 수가 같다**
+ *   묶음 200     178ms · 요청  3 · 행 2,987   ← 한 묶음이 1000행을 넘겨 **잘렸다**
+ *
+ * 200 의 행 손실은 이 함수의 문제가 아니라 계측 스크립트가 페이징을 안 해서 난 것이지만,
+ * **묶음이 커질수록 한 묶음이 1000행을 넘길 확률이 오른다** — 이 저장소가 세 번 밟은 함정이
+ * 바로 그것이다. 아래 `range` 루프가 그것을 받아 내지만, 여유를 두어 100 으로 잡는다.
+ * (UUID 100개면 URL 약 3.8KB — 실측 엔드포인트에서 통과했다.)
+ *
+ * ⚠️ 20 은 원글이 늘수록 비용이 선형으로 는다. V6 원글이 하루 만에 6천 → **10,808편**이
+ *   되자 이 조회만 541회 왕복이 됐다.
+ */
+// `VOCAFLOW_IN_CHUNK` 로 덮어쓸 수 있다 — **묶음 크기가 산출물을 바꾸지 않는다는 것을
+// 실제로 확인하기 위한 손잡이다.** 아래 전역 정렬이 그 성질을 보장하는데, 보장한다고
+// 적어 두는 것과 두 크기로 돌려 같은 책이 나오는 것을 보는 것은 다르다.
+const IN_CHUNK = Number(process.env.VOCAFLOW_IN_CHUNK) || 100
+
 export async function fetchAllIn(db, table, columns, column, values, orderBy, apply) {
   const PAGE = 1000
   const out = []
-  for (let i = 0; i < values.length; i += 20) {
-    const slice = values.slice(i, i + 20)
+  for (let i = 0; i < values.length; i += IN_CHUNK) {
+    const slice = values.slice(i, i + IN_CHUNK)
     for (let from = 0; ; from += PAGE) {
       let q = db.from(table).select(columns).in(column, slice)
       // 추가 조건(`kind`·`type` 같은)을 붙이는 자리. 호출부가 제 손으로 페이징을 다시
@@ -103,7 +126,26 @@ export async function fetchAllIn(db, table, columns, column, values, orderBy, ap
       if (data.length < PAGE) break
     }
   }
-  return out
+  // ⚠️ **묶음 안에서만 정렬하면 배열 순서가 묶음 크기에 딸린다.**
+  //   `.order()` 는 각 요청 안에서만 듣고, 묶음끼리는 그냥 이어 붙는다. 그래서 묶음을
+  //   20 → 100 으로 바꿨더니 **같은 재고인데 다른 책이 나왔다** — 실측 2026-08-30 V3:
+  //   적합도(97.7%)와 자동 검수(9/9)는 같은데 한 권이 쓴 원글이 32 → 41편이 되어
+  //   카탈로그가 6권 → 4권으로 보였다. 조합기가 이 배열 순서로 문항을 고르기 때문이다.
+  //
+  //   묶음 크기는 **성능 손잡이**여야 하고 산출물을 바꾸면 안 된다. 마지막에 전역으로
+  //   한 번 더 정렬해 그 의존을 끊는다 — 이제 20이든 100이든 같은 책이 나온다.
+  const cmp = (a, b) => {
+    for (const col of orderBy) {
+      const x = a?.[col]
+      const y = b?.[col]
+      if (x === y) continue
+      if (x == null) return -1
+      if (y == null) return 1
+      return x < y ? -1 : 1
+    }
+    return 0
+  }
+  return orderBy.length ? out.sort(cmp) : out
 }
 
 /**
