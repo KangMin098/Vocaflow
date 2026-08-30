@@ -107,7 +107,15 @@ for (const type of types) {
    * 페이지 크기(500)는 그대로인데 뒤쪽 페이지가 앞의 모든 행을 세고 지나가야 해서다.
    * 마지막 id 다음부터 읽으면 깊이와 무관하게 같은 비용이 된다.
    */
-  const PAGE = 500
+  /**
+   * **페이지를 스스로 줄인다.** 상수로 정하면 언젠가 반드시 틀린다 — 부하도 payload 크기도
+   * 유형마다 다르고 날마다 다르다. 실측 2026-08-31: 같은 500행 질의가 한가할 때 0.2초,
+   * 다른 배치 둘이 돌 때 timeout 이었다. 그래서 timeout 이 나면 절반으로 줄여 다시 묻고,
+   * 줄인 크기를 그 유형 끝까지 유지한다(다시 키우면 같은 자리에서 또 걸린다).
+   */
+  const PAGE_MAX = 500
+  const PAGE_MIN = 25
+  let page = PAGE_MAX
   let cursor = null
   for (;;) {
     // ⚠️ **매 시도마다 질의를 새로 만든다.** PostgREST 빌더는 한 번 await 하면
@@ -120,7 +128,7 @@ for (const type of types) {
         .select('id,type,payload,answer_key')
         .eq('type', type)
         .order('id')
-        .limit(PAGE)
+        .limit(page)
       if (cursor) q = q.gt('id', cursor)
       return q
     }
@@ -135,7 +143,15 @@ for (const type of types) {
       const msg = String(error.message ?? '')
       if (!/5\d\d|timeout|schema cache|fetch failed|socket|ECONN|EAI_AGAIN|handshake/i.test(msg)) break
       if (attempt === TRIES - 1) break
-      console.error(`  ↻ ${type} 재시도 ${attempt + 1}/${TRIES - 1} — ${msg.slice(0, 60)}`)
+      // 무거워서 끊긴 것이라면 더 기다려도 같다 — 덜 물어본다.
+      const smaller = Math.max(PAGE_MIN, Math.floor(page / 2))
+      const shrank = smaller !== page
+      page = smaller
+      console.error(
+        `  ↻ ${type} 재시도 ${attempt + 1}/${TRIES - 1}` +
+          (shrank ? ` · 페이지 ${page}` : '') +
+          ` — ${msg.slice(0, 60)}`,
+      )
       await new Promise((r) => setTimeout(r, 1000 * 3 ** attempt))
     }
     if (error) throw new Error(`${type}: ${error.message}`)
@@ -200,7 +216,7 @@ for (const type of types) {
         }
       }))
     }
-    if (data.length < PAGE) break
+    if (data.length < page) break
     if (LIMIT && s.scanned >= LIMIT) break
   }
 
