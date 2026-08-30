@@ -211,7 +211,19 @@ if (MODE === 'apply') {
       } else if (ne) rej.same++
     }
 
-    if (!changed) { rej.nothing++; continue }
+    if (!changed) {
+      // "멀쩡하니 두라" 는 판정이다 — 도장을 찍어야 다음 chunk 가 다시 묻지 않는다.
+      // ⚠️ 다만 **제안을 냈는데 게이트가 전부 버린 경우**는 판정이 아니다. 그건 결함이
+      //    그대로 남은 것이므로 도장을 찍지 않고 다음 회차가 다시 묻게 둔다.
+      const proposed = (Array.isArray(r.senses) && r.senses.some((x) => txt(x && x.example))) || txt(r.example_en)
+      rej.nothing++
+      if (!proposed && COMMIT) {
+        const { error } = await db.from('shared_dictionary')
+          .update({ field_provenance: { ...prov, [STAMP]: 'kept:d0830-t6' } }).eq('word', row.word)
+        if (error) fail++
+      }
+      continue
+    }
 
     // 3) ⚠️ 사본 동기화 — 같은 문자열을 들고 있는 **모든 자리**를 함께 바꾼다.
     //    한 자리라도 해석 없이 남으면 낱말을 통째로 거부한다. 반쪽만 바꾸느니 안 바꾸는 게 낫다.
