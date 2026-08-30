@@ -1,6 +1,6 @@
 {
   "$schema": "vocab-market-spec/1",
-  "generatedAt": "2026-08-30T12:51:37.328Z",
+  "generatedAt": "2026-08-30T13:58:09.077Z",
   "provenance": {
     "corpus": "시중 영어 교재 79종 중 어휘 교재 (저장소 밖 store)",
     "documentsConsidered": 6,
@@ -33,6 +33,7 @@
     },
     "perBook": [
       {
+        "id": "97ba59ec2288",
         "series": "능률VOCA",
         "publisher": "NE능률",
         "gradeBand": "중3~고1",
@@ -51,6 +52,7 @@
         }
       },
       {
+        "id": "a72adc45ddcc",
         "series": "능률VOCA",
         "publisher": "NE능률",
         "gradeBand": "중3~고2",
@@ -69,6 +71,7 @@
         }
       },
       {
+        "id": "8e193d70854d",
         "series": "능률VOCA",
         "publisher": "NE능률",
         "gradeBand": "고2~고3",
@@ -87,6 +90,7 @@
         }
       },
       {
+        "id": "99d555f37014",
         "series": "능률VOCA",
         "publisher": "NE능률",
         "gradeBand": "고3",
@@ -105,6 +109,89 @@
         }
       }
     ]
+  },
+  "shelfSignals": {
+    "booksMeasured": 4,
+    "rates": {
+      "colophon": 1,
+      "isbn": 1,
+      "toc": 1,
+      "studyPlan": 1,
+      "preface": 0.25,
+      "dayPacing": 1,
+      "reviewTest": 1,
+      "seriesGuide": 0.75,
+      "targetGrade": 1,
+      "extras": 0.5,
+      "proofread": 0
+    },
+    "meanSignalsPerBook": 8.5,
+    "signalCount": 11,
+    "perBook": [
+      {
+        "id": "97ba59ec2288",
+        "series": "능률VOCA",
+        "gradeBand": "중3~고1",
+        "signals": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras"
+        ]
+      },
+      {
+        "id": "a72adc45ddcc",
+        "series": "능률VOCA",
+        "gradeBand": "중3~고2",
+        "signals": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "preface",
+          "dayPacing",
+          "reviewTest",
+          "targetGrade"
+        ]
+      },
+      {
+        "id": "8e193d70854d",
+        "series": "능률VOCA",
+        "gradeBand": "고2~고3",
+        "signals": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade",
+          "extras"
+        ]
+      },
+      {
+        "id": "99d555f37014",
+        "series": "능률VOCA",
+        "gradeBand": "고3",
+        "signals": [
+          "colophon",
+          "isbn",
+          "toc",
+          "studyPlan",
+          "dayPacing",
+          "reviewTest",
+          "seriesGuide",
+          "targetGrade"
+        ]
+      }
+    ],
+    "note": "학습자가 한 권을 **고르기 위해** 쓰는 정보. 표제어 칸이 아니라 책 앞뒤(판권면·목차·머리말·시리즈 안내)에 있다. 분모는 어휘 전문 교재만 — 낱말 목록 부록·참고자료를 넣으면 기준선이 내려가 우리 지수가 공짜로 올라간다. 미리보기본이라 **하한**이다."
   },
   "pacing": {
     "byUnitKind": {

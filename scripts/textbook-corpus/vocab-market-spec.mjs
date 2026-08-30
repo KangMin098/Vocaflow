@@ -101,6 +101,8 @@ function measureEntryFields(db, docs) {
     for (const k of Object.keys(FIELD_PROBES)) totals[k] += hit[k];
 
     perBook.push({
+      // 문서 id — `shelfSignals` 가 **같은 문서 집합**(어휘 전문 교재)에서 재기 위해 남긴다.
+      id: d.id,
       series: d.series,
       publisher: d.publisher,
       gradeBand: d.grade_band,
@@ -223,6 +225,85 @@ function measureReaderGlossary(db) {
   };
 }
 
+/**
+ * **매대 신호** — 학습자가 한 권을 *고르기 위해* 쓰는 정보.
+ *
+ * ── 왜 `entryFields` 와 따로 재는가 ──────────────────────────────────
+ * `entryFields` 는 **산 뒤에** 쓰는 것(예문·파생어·유의어)을 잰다. 그런데 이 저장소가
+ * 실제로 진 자리는 그 앞이다 — `/library/vocab` 은 내용 우위지수가 1.60 인데도 서가가
+ * "그대로" 로 보였다(2026-08-30). **고를 근거를 안 줬기 때문이다.**
+ *
+ * 시중 단어장은 이 일을 표제어 칸이 아니라 **책의 앞뒤**에서 한다: 판권면 · 목차 ·
+ * 학습계획표 · 머리말의 선정 근거 · 시리즈 안내 · 대상 학년. 그래서 같은 자로 재려면
+ * 그 신호들을 따로 세어야 한다.
+ *
+ * ── 왜 어휘 전문 교재 4종만인가 ──────────────────────────────────────
+ * `readerGlossary` 와 같은 이유다. 낱말 목록 부록(AST)·참고자료(TED)에는 판권면도 목차도
+ * 없어서, 그것을 분모에 넣으면 **시장 기준선이 내려가 우리 지수가 공짜로 올라간다.**
+ * 그래서 표제어 칸이 실제로 세어진 문서(= `entryFields.perBook`)만 분모로 쓴다.
+ *
+ * 보유율은 **하한**이다 — 미리보기본이라 뒤표지·판권면 일부가 빠져 있을 수 있고,
+ * 빠진 것은 없는 것으로 세어진다.
+ */
+const SHELF_PROBES = {
+  /** 판권면 — 발행일·판차. "언제 만든 것인가". */
+  colophon: /(발행일|펴낸날|초판|개정판|인쇄일)/,
+  /** ISBN — 출판물의 신원. */
+  isbn: /ISBN|isbn/,
+  /** 목차 — 무엇이 어떤 순서로 들어 있는가. */
+  toc: /(목차|CONTENTS|Contents)/,
+  /** 학습계획표 — 며칠에 끝나는가. */
+  studyPlan: /(학습\s*계획|플래너|PLAN|학습법|공부법)/,
+  /** 머리말·구성과 특징 — **왜 이 낱말들인가**. 단어장에서 가장 중요한 선택 근거다. */
+  preface: /(머리말|서문|이 책의|구성과 특징|왜 이 책)/,
+  /** DAY 페이싱 — 하루치가 정해져 있는가. */
+  dayPacing: /DAY\s*0?[0-9]/,
+  /** 복습·테스트 지면 — 외운 것을 확인할 자리가 있는가. */
+  reviewTest: /(TEST|Review|복습|누적)/,
+  /** 시리즈 안내 — **다음에 무엇을 볼 것인가**. 서가에서 한 권을 고르게 하는 장치. */
+  seriesGuide: /(시리즈|Series|SERIES|단계별|레벨별|어떤 책을)/,
+  /** 대상 학년 — 내 수준인가. */
+  targetGrade: /(중1|중2|중3|고1|고2|고3|예비고|수능|초등|중등|고등)/,
+  /** 부가자료 — 음원·테스트지 등 책 밖에서 더 주는 것. */
+  extras: /(무료|부가자료|MP3|어휘테스트지|다운로드)/,
+  /** 감수·검토 — 누가 봐 줬는가. */
+  proofread: /(감수|검수|자문|원어민 검토)/,
+};
+
+function measureShelfSignals(db, docs, measuredIds) {
+  const pool = docs.filter((d) => measuredIds.has(d.id));
+  const keys = Object.keys(SHELF_PROBES);
+  const hit = Object.fromEntries(keys.map((k) => [k, 0]));
+  const perBook = [];
+
+  for (const d of pool) {
+    const txt = db.prepare('SELECT text FROM pages WHERE doc_id = ? ORDER BY p')
+      .all(d.id).map((r) => r.text).join('\n');
+    const found = keys.filter((k) => SHELF_PROBES[k].test(txt));
+    for (const k of found) hit[k] += 1;
+    perBook.push({ id: d.id, series: d.series, gradeBand: d.grade_band, signals: found });
+  }
+
+  return {
+    booksMeasured: pool.length,
+    /** 신호별 보유율 — 분모는 어휘 전문 교재 수. */
+    rates: Object.fromEntries(keys.map((k) => [k, pct(hit[k], pool.length)])),
+    /**
+     * 한 권이 평균 몇 개의 선택 근거를 주는가. **선택 지수의 분모**다
+     * (`scripts/vocab/choice-benchmark.mjs`).
+     */
+    meanSignalsPerBook: pool.length === 0
+      ? null
+      : Number((perBook.reduce((n, b) => n + b.signals.length, 0) / pool.length).toFixed(3)),
+    signalCount: keys.length,
+    perBook,
+    note:
+      '학습자가 한 권을 **고르기 위해** 쓰는 정보. 표제어 칸이 아니라 책 앞뒤(판권면·목차·'
+      + '머리말·시리즈 안내)에 있다. 분모는 어휘 전문 교재만 — 낱말 목록 부록·참고자료를 넣으면 '
+      + '기준선이 내려가 우리 지수가 공짜로 올라간다. 미리보기본이라 **하한**이다.',
+  };
+}
+
 const src = loadSources();
 const sp = storePaths(src.store);
 const db = new DatabaseSync(sp.db, { readOnly: true });
@@ -258,6 +339,11 @@ const spec = {
     ],
   },
   entryFields,
+  shelfSignals: measureShelfSignals(
+    db,
+    docs,
+    new Set(entryFields.perBook.map((b) => b.id)),
+  ),
   pacing: measurePacing(db, docs),
   readerGlossary: measureReaderGlossary(db),
   partAxes: measurePartAxes(db, docs),
