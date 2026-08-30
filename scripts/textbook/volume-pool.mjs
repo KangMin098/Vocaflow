@@ -57,11 +57,21 @@ import path from 'node:path'
  * ⚠️ 영구 오류(권한·문법)는 재시도해도 같으므로 **네 번 만에 포기하고 그대로 던진다** —
  *   조용히 빈 배열을 돌려주면 "재고 0" 이라는 거짓말이 된다.
  */
-export async function withRetry(label, run, tries = 4) {
+/**
+ * ⚠️ **기다리는 것만으로는 안 된다 — 덜 물어보는 것이 답이다.**
+ *
+ * statement timeout 은 "지금 바쁘다" 가 아니라 "이 요청이 이 부하에서 너무 크다" 는 뜻이다.
+ * 실측 2026-08-31: 같은 500행 질의가 한가할 때 0.2초, 배치 둘이 돌 때 네 번 연속 timeout.
+ * 그래서 재시도마다 페이지를 절반으로 줄인다. `run` 은 지금 쓸 크기를 인자로 받는다.
+ *
+ * 줄인 크기는 호출부가 이어서 쓴다(`page` 를 돌려준다) — 다시 키우면 같은 자리에서 또 걸린다.
+ */
+export async function withRetry(label, run, tries = 4, page = null, pageMin = 25) {
   let lastErr
+  let size = page
   for (let i = 0; i < tries; i += 1) {
-    const { data, error } = await run()
-    if (!error) return data
+    const { data, error } = await run(size)
+    if (!error) return page == null ? data : { data, page: size }
     lastErr = error
     const msg = String(error.message ?? '')
     // ⚠️ 게이트웨이는 **오류를 HTML 페이지로** 돌려준다 — 그때 message 는 문장이 아니라
@@ -72,9 +82,16 @@ export async function withRetry(label, run, tries = 4) {
       /schema cache|statement timeout|525|timeout|fetch failed|socket|ECONN|EAI_AGAIN|handshake/i.test(msg) ||
       /<html|<!doctype|error code:\s*5\d\d|\b50[234]\b|\b52[0-4]\b/i.test(msg)
     if (!transient) break
-    // 1s → 3s → 9s. 끊긴 쪽이 회복할 시간을 준다.
+    if (i === tries - 1) break
+    // 무거워서 끊긴 것이면 더 기다려도 같다 — 페이지를 절반으로.
+    if (size != null) size = Math.max(pageMin, Math.floor(size / 2))
+    // 1s → 3s → 9s. 끊긴 쪽이 회복할 시간도 준다.
     const wait = 1000 * 3 ** i
-    console.error(`  ↻ ${label} 재시도 ${i + 1}/${tries - 1} (${wait / 1000}s) — ${msg.slice(0, 80)}`)
+    console.error(
+      `  ↻ ${label} 재시도 ${i + 1}/${tries - 1} (${wait / 1000}s` +
+        (size != null ? ` · 페이지 ${size}` : '') +
+        `) — ${msg.slice(0, 70)}`,
+    )
     await new Promise((r) => setTimeout(r, wait))
   }
   throw new Error(`${label} 조회 실패: ${lastErr?.message ?? '알 수 없음'}`)
@@ -82,11 +99,17 @@ export async function withRetry(label, run, tries = 4) {
 
 export async function fetchAllPaged(db, build, page = 1000) {
   const out = []
-  for (let from = 0; ; from += page) {
-    const data = await withRetry('페이지', () => build(db).range(from, from + page - 1))
+  let size = page
+  let from = 0
+  for (;;) {
+    const res = await withRetry('페이지', (n) => build(db).range(from, from + n - 1), 4, size)
+    const data = res.data
+    // 줄어든 크기를 이어서 쓴다 — 다시 키우면 같은 자리에서 또 걸린다.
+    size = res.page
     if (!data?.length) break
     out.push(...data)
-    if (data.length < page) break
+    if (data.length < size) break
+    from += size
   }
   return out
 }
@@ -115,20 +138,31 @@ export async function fetchAllPaged(db, build, page = 1000) {
 const IN_CHUNK = Number(process.env.VOCAFLOW_IN_CHUNK) || 100
 
 export async function fetchAllIn(db, table, columns, column, values, orderBy, apply) {
-  const PAGE = 1000
   const out = []
+  // 한 번 줄인 페이지는 이 호출 내내 유지한다 — 다시 키우면 같은 자리에서 또 걸린다.
+  let size = 1000
   for (let i = 0; i < values.length; i += IN_CHUNK) {
     const slice = values.slice(i, i + IN_CHUNK)
-    for (let from = 0; ; from += PAGE) {
-      let q = db.from(table).select(columns).in(column, slice)
-      // 추가 조건(`kind`·`type` 같은)을 붙이는 자리. 호출부가 제 손으로 페이징을 다시
-      // 짜지 않게 하려고 둔다 — 그렇게 다시 짠 사본들이 전부 `.limit(20000)` 이었다.
-      if (apply) q = apply(q)
-      for (const col of orderBy) q = q.order(col)
-      const data = await withRetry(table, () => q.range(from, from + PAGE - 1))
+    let from = 0
+    for (;;) {
+      // ⚠️ **질의를 매 시도마다 새로 만든다.** PostgREST 빌더는 한 번 await 하면 결과가
+      //   붙박이라, 같은 객체를 다시 await 해도 새 요청이 나가지 않는다 — 재시도가
+      //   같은 실패를 즉시 되풀이할 뿐이다(2026-08-31 실측).
+      const build = (n) => {
+        let q = db.from(table).select(columns).in(column, slice)
+        // 추가 조건(`kind`·`type` 같은)을 붙이는 자리. 호출부가 제 손으로 페이징을 다시
+        // 짜지 않게 하려고 둔다 — 그렇게 다시 짠 사본들이 전부 `.limit(20000)` 이었다.
+        if (apply) q = apply(q)
+        for (const col of orderBy) q = q.order(col)
+        return q.range(from, from + n - 1)
+      }
+      const res = await withRetry(table, build, 4, size)
+      const data = res.data
+      size = res.page
       if (!data?.length) break
       out.push(...data)
-      if (data.length < PAGE) break
+      if (data.length < size) break
+      from += size
     }
   }
   // ⚠️ **묶음 안에서만 정렬하면 배열 순서가 묶음 크기에 딸린다.**
