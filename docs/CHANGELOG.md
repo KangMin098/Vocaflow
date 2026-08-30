@@ -10,6 +10,18 @@
 
 ## Unreleased (v06.34 → next)
 
+### 발행 게이트가 미성년자 적합성을 보지 않았다 (2026-08-30)
+
+발행 게이트(`content_gate_publishable`)는 저작권과 어휘 난이도만 본다. 그 결과 성인 소재
+도서 19권이 발행돼 있었고 **4권은 진입밴드(V≤7)** 였다. 가장 날카로운 사례는 Hemingway
+`Short Fiction`(V7·B1) — 2장 「Up in Michigan」이 명시적 성폭력 장면인데, **문장이 쉬워서
+오히려 B1 로 분류됐다.** 2026-08-29 전량 발행의 부작용이다.
+
+- 사용자 승인(진입밴드 4권만)으로 `Short Fiction`·`As I Lay Dying`·`Little Caesar`·`Notes from Underground` 를 `archived` 로. 발행 도서 316 → 312. 등록 학습자 0명이라 진도 손실 없음.
+- **내리는 경로가 없다는 것을 그 과정에서 발견**했다. `trg_lb_publish_word_sets` 는 한 방향으로만 돈다(`published` 로 바뀔 때만). 그래서 도서만 내리면 그 도서의 `shared_word_sets` **158개가 `is_published=true` 로 남아** 단어장 카탈로그로 여전히 학습자에게 닿는다. 도서와 단어장을 같은 문장에서 함께 내렸다.
+- 회귀 `unpublished-book-sets.integration.test.ts` — 발행 단어장이 가리키는 도서는 모두 `published` 여야 한다. 트리거를 양방향으로 만들려면 마이그레이션이 필요하므로, 그때까지 이 테스트가 파수꾼이다.
+
+
 ### 단어장에 출판 브랜딩 — 시장을 재서 기준선을 박고, 서가에 사다리를 얹었다 (2026-08-30)
 
 `/library/vocab` 의 발행 70권에는 출판사가 없었다 — 시리즈도, 판권면도, 사다리에서의 자리도.

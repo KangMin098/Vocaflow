@@ -356,8 +356,10 @@ function checkAnswerSpread(questions, label) {
  * 사람의 주의력은 지치지만 가드는 지치지 않는다.
  */
 const CARD_BANNED = [
-  'nigger', 'darkie', 'darky', 'pickaninny', 'blackamoor', 'negress',
-  'redskin', 'squaw', 'halfbreed', 'half-breed', 'mulatto', 'quadroon', 'octoroon',
+  'nigger', 'nigra', 'darkie', 'darky', 'pickaninny', 'blackamoor', 'negress', 'sambo',
+  // 'injun' — Huckleberry Finn 3장의 "sweat like an Injun" 에서 실제로 걸렸다.
+  // 목록을 머리로 지어내면 이런 것이 빠진다. 걸릴 때마다 여기 더한다.
+  'redskin', 'injun', 'squaw', 'halfbreed', 'half-breed', 'mulatto', 'quadroon', 'octoroon',
   'coon', 'jap', 'gook', 'wop', 'dago', 'kike', 'kaffir', 'hottentot',
   'retard', 'mongoloid', 'imbecile', 'cretin',
 ]
