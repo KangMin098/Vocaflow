@@ -19,6 +19,35 @@ describe('계단 배정 — 근거 순서', () => {
     expect(r.rung?.step).toBe(4)
   })
 
+  /*
+    실측 2026-08-31 — 주제 단어장 13권이 낱말 중앙값 V8~V9(성인)인데 `cefr_level='A2'`
+    라벨 때문에 3단(중학 1-2학년)에 앉고 있었다. 컴포저가 선언한 **목표** CEFR 은
+    그 권이 실제로 무엇을 담았는지 말하지 않는다.
+  */
+  it('낱말 실측 중앙값이 카테고리·CEFR 라벨을 이긴다', () => {
+    const r = rungForSet({ ...set('themed', 'A2'), level: { median: 6 } })
+    expect(r.basis).toBe('measured')
+    expect(r.rung?.step).toBe(6)
+  })
+
+  it('실측이 사다리 위면 계단을 비우고 멈춘다 — 라벨 추정으로 내려가지 않는다', () => {
+    // A2 라벨만 보면 3단이지만, 낱말을 세면 성인 수준이다.
+    const r = rungForSet({ ...set('themed', 'A2'), level: { median: 8 } })
+    expect(r.basis).toBe('above-ladder')
+    expect(r.rung).toBeNull()
+  })
+
+  it('학교급 카테고리여도 실측이 사다리 위면 앉히지 않는다', () => {
+    const r = rungForSet({ ...set('elementary', 'A1'), level: { median: 9 } })
+    expect(r.rung).toBeNull()
+  })
+
+  it('컴포저가 정한 계단은 실측보다도 세다 — 저작물이다', () => {
+    const r = rungForSet({ ...set('themed', 'A2'), ladderStep: 2, level: { median: 9 } })
+    expect(r.basis).toBe('authored')
+    expect(r.rung?.step).toBe(2)
+  })
+
   it('저작된 계단이 사다리 밖 값이면 추정으로 내려간다 — 없는 계단을 만들지 않는다', () => {
     const r = rungForSet({ ...set('csat', null), ladderStep: 99 })
     expect(r.basis).toBe('category')

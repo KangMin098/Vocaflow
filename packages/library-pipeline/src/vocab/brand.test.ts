@@ -295,6 +295,26 @@ describe('발행할 권의 계단 정하기', () => {
     expect(resolveLadderStep({ blueprint: 'topic-field', suggested: 99 })).toBe(1)
   })
 
+  /*
+    실측 2026-08-31 — 주제 단어장 13권이 낱말 V-Level 중앙값 8~9 인데 **1단(초등 저학년)** 에
+    앉아 있었다(`mozzarella` · `sarsaparilla` 가 든 권이 초등 칸에 있었다). 호출자가 중앙값 8 을
+    "범위 밖" 으로 보고 null 을 넘겼고, 그러면 `topic-field` 의 바닥인 1단이 답이 됐다.
+    "못 쟀다" 와 "재서 학령 밖임을 알아냈다" 는 다른 사실이다.
+  */
+  it('사다리 위라고 재졌으면 바닥으로 내려보내지 않고 비운다', () => {
+    expect(resolveLadderStep({ blueprint: 'topic-field', aboveLadder: true })).toBeNull()
+    // 바닥이 높은 청사진이어도 마찬가지다 — 성인 낱말을 4단에 앉히지 않는다.
+    expect(resolveLadderStep({ blueprint: 'synonym-cluster', aboveLadder: true })).toBeNull()
+  })
+
+  it('사다리 위 판정이 제안보다 세다 — 둘이 함께 오면 비운다', () => {
+    expect(resolveLadderStep({ blueprint: 'topic-field', suggested: 3, aboveLadder: true })).toBeNull()
+  })
+
+  it('aboveLadder 가 false 면 기존 동작 그대로다', () => {
+    expect(resolveLadderStep({ blueprint: 'topic-field', suggested: 6, aboveLadder: false })).toBe(6)
+  })
+
   it('돌려주는 값은 언제나 1..7 이다', () => {
     for (const bp of ['rhyme-phonics', 'synonym-cluster', 'exam-items', 'uncovered']) {
       for (const s of [null, 0, 1, 4, 7, 12]) {

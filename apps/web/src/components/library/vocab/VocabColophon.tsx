@@ -101,7 +101,14 @@ export function VocabColophon({ set }: { set: PublishedVocabSet }) {
                 계단을 **무엇으로 정했는지** 밝힌다. 추정이면 추정이라고 적는다 —
                 "왜 이 책이 5단인가" 에 답하지 못하면 사다리를 믿을 수 없다.
               */}
-              {basis !== 'authored' && (
+              {/*
+                실측으로 앉힌 계단은 **추정이 아니다** — 그 권의 낱말을 센 값이다.
+                둘을 같은 문구로 적으면 학습자가 센 값을 짐작으로 오해한다.
+              */}
+              {basis === 'measured' && (
+                <span className="ml-1.5 text-[var(--t3)]">(낱말 난이도 실측)</span>
+              )}
+              {basis !== 'authored' && basis !== 'measured' && (
                 <span className="ml-1.5 text-[var(--t3)]">(수준·분류로 추정)</span>
               )}
             </dd>

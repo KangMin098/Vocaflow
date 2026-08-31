@@ -217,7 +217,25 @@ export function stepOpeningBlueprint(blueprint: string | null | undefined): numb
 export function resolveLadderStep(input: {
   blueprint?: string | null
   suggested?: number | null
+  /**
+   * 표제어 난이도를 **쟀는데 사다리 위**였다(V-Level 중앙값 8 이상 = 성인 수준).
+   *
+   * ⚠️ `suggested: null` 과 **다른 사실이다.** 저쪽은 "못 쟀다", 이쪽은 "재서 학령 밖임을
+   *   알아냈다". 둘을 섞으면 성인 수준 권이 청사진 바닥으로 떨어진다 —
+   *   실측 2026-08-31: 주제 단어장 13권이 낱말 중앙값 V8~V9 인데 **1단(초등 저학년)** 에
+   *   앉아 있었다(`mozzarella` · `sarsaparilla` 가 든 권이 초등 칸에 있었다).
+   *   원인은 호출자가 중앙값 8 을 "범위 밖" 으로 보고 null 을 넘긴 것이고,
+   *   그러면 여기서 `topic-field` 의 바닥인 1단이 답이 됐다.
+   *
+   *   범위 밖 `suggested`(99 같은 쓰레기 값)는 지금처럼 무시하고 바닥을 쓴다 —
+   *   그건 측정이 아니라 오류이고, 오류 때문에 권을 서가에서 빼면 안 된다.
+   */
+  aboveLadder?: boolean
 }): number | null {
+  // 학령 밖은 **비워 둔다.** 바닥으로 내려보내면 그 권을 볼 이유가 없는 학습자에게 간다.
+  //   화면은 그때 계단 대신 '대상 수준'(V-Level 실측)을 적는다(`VocabColophon`).
+  if (input.aboveLadder) return null
+
   const floor = stepOpeningBlueprint(input.blueprint)
   const suggested =
     input.suggested != null && input.suggested >= 1 && input.suggested <= OPENS_AT.length

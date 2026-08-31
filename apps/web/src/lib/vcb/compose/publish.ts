@@ -39,6 +39,9 @@ const WORD_CHUNK = 500
 /** 중앙값을 믿으려면 이만큼은 매칭돼야 한다. 표본이 얇으면 한두 낱말이 계단을 흔든다. */
 const MIN_WORDS_FOR_MEDIAN = 20
 
+/** 사다리의 꼭대기 계단. 이보다 높은 중앙값은 **학령 밖**이지 "모른다" 가 아니다. */
+const LADDER_TOP = 7
+
 /**
  * 이 권이 앉을 계단을 **낱말 실측**으로 제안한다.
  *
@@ -56,19 +59,29 @@ const MIN_WORDS_FOR_MEDIAN = 20
  * 평균을 쓰면 학습자가 실제로 만나는 난이도보다 높게 잡힌다. 중앙값은 **"이 책을 펴면
  * 만나는 보통 낱말"** 이고, 학년을 정하는 기준은 그쪽이다.
  *
- * 낱말에 v_level 이 모자라면 null 을 낸다 — 그때는 `resolveLadderStep` 이 청사진 바닥만
- * 쓰고, 그것도 없으면 계단을 비운다(짐작으로 채우지 않는다).
+ * ── 세 가지 결과를 갈라 낸다 (실측 2026-08-31) ───────────────────────
+ * 예전에는 이 함수가 `number | null` 만 냈고, **중앙값이 사다리 위(V8+)일 때도 null** 이었다.
+ * 그런데 `resolveLadderStep` 에게 null 은 "못 쟀다" 라는 뜻이라 청사진 바닥을 쓴다 —
+ * 그래서 낱말 중앙값이 V8~V9 인 주제 단어장 **13권이 1단(초등 저학년)에 앉았다**
+ * (`mozzarella` · `sarsaparilla` 가 든 권이 초등 칸에 있었다).
+ *
+ *   · 표본 부족(v_level 있는 낱말 20개 미만) → `{ step: null }` = **못 쟀다**
+ *   · 중앙값이 사다리 안(1~7)             → `{ step: n }`
+ *   · 중앙값이 사다리 위(8 이상)          → `{ aboveLadder: true }` = **재서 학령 밖임을 알아냈다**
+ *
+ * 셋째를 첫째와 같은 값으로 내보내면 안 된다 — 그것이 위 사고의 원인이다.
  */
-function suggestedStep(set: ComposedSet): number | null {
+function suggestedStep(set: ComposedSet): { step: number | null; aboveLadder: boolean } {
   const levels = set.entries
     .map((e) => e.candidate.v_level)
     .filter((v): v is number => typeof v === 'number')
     .sort((a, b) => a - b)
-  if (levels.length < MIN_WORDS_FOR_MEDIAN) return null
+  if (levels.length < MIN_WORDS_FOR_MEDIAN) return { step: null, aboveLadder: false }
   // 짝수 개면 아래쪽 — 계단은 **틀리면 아래로** 가는 편이 안전하다(어려운 책을 제 수준으로
   // 착각하는 것보다, 쉬운 책을 먼저 만나는 쪽이 낫다).
   const med = levels[Math.floor((levels.length - 1) / 2)]!
-  return med >= 1 && med <= 7 ? Math.round(med) : null
+  if (med > LADDER_TOP) return { step: null, aboveLadder: true }
+  return { step: med >= 1 ? Math.round(med) : null, aboveLadder: false }
 }
 
 interface SharedWordRow {
@@ -266,10 +279,11 @@ export async function publishComposedSet(
       //     만들어진 권" 을 가려낼 수 있다.
       //   · 계단: 청사진이 열리는 바닥과 표제어 난이도 중 **높은 쪽**. 둘 다 모르면 null 로
       //     두고 화면이 추정으로 내려간다 — 짐작한 값을 굳혀 두지 않는다.
+      //     낱말이 **사다리 위**(중앙값 V8+)라고 재졌으면 바닥으로 내려보내지 않고 비운다.
       brand_fingerprint: vocabBrandFingerprint(),
       ladder_step: resolveLadderStep({
         blueprint: set.recipe.blueprint,
-        suggested: suggestedStep(set),
+        ...suggestedStep(set),
       }),
     }
 
