@@ -21,14 +21,15 @@ import { loadEnv } from './volume-pool.mjs'
 
 loadEnv()
 const { createClient } = await import('@supabase/supabase-js')
-const { rungMix, ITEMS_PER_UNIT } = await import('@vocaflow/library-pipeline')
+const { rungMix, ITEMS_PER_UNIT, MARKET_UNITS_PER_BOOK } = await import('@vocaflow/library-pipeline')
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
   return i >= 0 ? process.argv[i + 1] : null
 }
 const BAND = Number(arg('band') ?? 6)
-const UNITS = Number(arg('units') ?? 20)
+// 조판기와 같은 기본값을 쓴다 — 다르면 여기서 잰 부족분이 실제 인쇄와 어긋난다.
+const UNITS = Number(arg('units') ?? MARKET_UNITS_PER_BOOK.median)
 const TOTAL = UNITS * ITEMS_PER_UNIT
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {

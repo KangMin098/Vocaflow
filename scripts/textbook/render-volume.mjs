@@ -28,7 +28,6 @@ const arg = (n) => {
   return i >= 0 ? process.argv[i + 1] : null
 }
 const BAND = Number(arg('band') ?? 5)
-const UNITS = Number(arg('units') ?? 20)
 const OUT = arg('out') ?? `volume-v${BAND}.html`
 
 const { createClient } = await import('@supabase/supabase-js')
@@ -41,6 +40,7 @@ const {
   SERIES_SPINE,
   rungMix,
   typeMixFit,
+  MARKET_UNITS_PER_BOOK,
   // 브랜딩 — 값은 `@vocaflow/design-tokens` 에서 온다. 여기서 색을 적지 않는다.
   VOLUME_FONTS,
   brandFingerprint,
@@ -48,6 +48,14 @@ const {
   ladderStrip,
   volumeCssVariables,
 } = await import('@vocaflow/library-pipeline')
+
+// ⚠️ **단원 수를 바꾸면 유형-학년 적합도가 바뀐다** — 목표 몫은 인쇄 문항 수에 비례하는데
+//   손으로 쓰는 유형의 재고는 그대로라, 단원을 늘리면 같은 재고가 더 큰 미달로 잡힌다.
+//   실측(V6, 2026-08-31): 10단원 부족 5문항(8.3%) vs 20단원 부족 25문항(20.8%).
+//   그래서 기본값을 **시장 실측 중앙값**에 맞춘다 — 시중 교재 9권의 단원 수 중앙값 10.
+//   채점표도 이미 이 값으로 통과를 판정한다(`MARKET_UNITS_PER_BOOK.median`).
+//   기본값이 20 이던 동안 V5·V6 만 20단원으로 찍혀 다른 단과 비교할 수 없었다.
+const UNITS = Number(arg('units') ?? MARKET_UNITS_PER_BOOK.median)
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },

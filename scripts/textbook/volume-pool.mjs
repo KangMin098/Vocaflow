@@ -323,6 +323,23 @@ export function loadEnv() {
 //      V5 20단원 · 끔  유형-학년 적합도 **31.3%** (order 40 + insert 40 = 120문항의 67%)
 //      V5 20단원 · 켬  유형-학년 적합도 **67.4%**
 //    시장에 맞는 책을 만드는 것이 옵트인일 이유가 없다. 끄려면 `--no-market-mix`.
+/**
+ * 철회·취하된 논문인가 — **제목으로만 알 수 있다.**
+ *
+ * 재고에 `RETRACTED:` 로 시작하는 원글이 16편 있고 그중 10편에 이미 문항 268개가
+ * 붙어 있었다(한 편은 120개, 실측 2026-08-31). 철회된 연구를 지문으로 실으면 교재의
+ * 신뢰가 통째로 깎이는데, **지문 자체는 멀쩡히 읽히므로 자동 검수로는 안 걸린다.**
+ *
+ * ⚠️ 조판과 드레인이 각각 거르면 한쪽만 고쳐지고 드리프트가 난다 — 판정은 여기 하나다.
+ * 행을 지우지는 않는다. 재고에서 막으면 인쇄도 제작도 같이 막힌다.
+ *
+ * 철회를 **다룬** 글("Retraction studies in ethics")은 통과해야 한다 — 그래서 앞머리를 본다.
+ */
+export function isRetractedTitle(title) {
+  const t = String(title ?? '').trim()
+  return /^(retracted|withdrawn)/i.test(t) || t.toLowerCase().includes('[retracted')
+}
+
 export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   const { composeUnits, rungMix } = await import('@vocaflow/library-pipeline')
 
@@ -341,7 +358,13 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
       .eq('article_v_level', band)
       .order('id'))
   // `display_only` 는 표시만 허용된 원글이다 — 문항으로 실을 수 없다.
-  const usable = (arts ?? []).filter((a) => !a.display_only)
+  //
+  // ⚠️ **철회된 논문도 뺀다.** 재고에 `RETRACTED:` 로 시작하는 원글이 16편 있고
+  //   그중 10편에 이미 문항 268개가 붙어 있었다(한 편은 120개, 실측 2026-08-31).
+  //   철회된 연구를 지문으로 실으면 교재의 신뢰가 통째로 깎인다 — 지문 자체는
+  //   멀쩡히 읽히므로 자동 검수로는 절대 안 걸린다. **제목에서 막는 수밖에 없다.**
+  //   행은 지우지 않는다 — 여기서 막으면 조판도 드레인도 같은 풀을 쓰므로 충분하다.
+  const usable = (arts ?? []).filter((a) => !a.display_only && !isRetractedTitle(a.title))
   const byId = new Map(usable.map((a) => [a.id, a]))
   const ids = [...byId.keys()]
 

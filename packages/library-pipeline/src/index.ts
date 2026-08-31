@@ -239,7 +239,7 @@ export type { WordOrderItem } from './textbook/word-order'
 // 문항을 만드는 쪽은 전부 이 자를 써야 한다 — 안 쓰면 창 밖 지문으로 문항을 만들게 되고,
 // 그런 문항은 적재는 되는데 조합기가 걸러서 **책에는 영영 안 실린다**(실측: V5 30문항 중 26개).
 export { hasNonProse, isPrintablePassage, selectPassageWindow } from './textbook/csat-format'
-export { UNIT_MINUTES, scoreVolume } from './textbook/scorecard'
+export { UNIT_MINUTES, MARKET_UNITS_PER_BOOK, scoreVolume } from './textbook/scorecard'
 export type { Audience, AutoCheck, HumanCheck, Scorecard } from './textbook/scorecard'
 // 수능 인쇄 형식 변환 — 저장 형식·학습 화면은 그대로 두고 표현만 바꾼다.
 export {

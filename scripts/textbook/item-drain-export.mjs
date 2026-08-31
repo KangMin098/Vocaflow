@@ -25,7 +25,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { loadEnv, fetchAllIn, fetchAllPaged } from './volume-pool.mjs'
+import { loadEnv, fetchAllIn, fetchAllPaged, isRetractedTitle } from './volume-pool.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -260,7 +260,8 @@ const BATCH_FILTER = (arg('batch') ?? '')
   .filter(Boolean)
 
 const withBody = (arts ?? [])
-  .filter((a) => !a.display_only && String(a.content ?? '').trim())
+  // 철회된 논문은 지문으로 쓰지 않는다 — 판정은 volume-pool 한 곳에 있다(조판과 같은 잣대).
+  .filter((a) => !a.display_only && !isRetractedTitle(a.title) && String(a.content ?? '').trim())
   .filter((a) => !BATCH_FILTER.length || BATCH_FILTER.includes(String(a.compose_batch_id)))
 
 /** 이 유형이 장문 묶음(43~45)인가 — 지문을 자르지 않고 통째로 쓴다. */
