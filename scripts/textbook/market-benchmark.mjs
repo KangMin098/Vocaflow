@@ -46,7 +46,7 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
 }
 const { createClient } = await import('@supabase/supabase-js')
-const { withRetry } = await import('./volume-pool.mjs')
+const { withRetry, ELEMENTARY_TYPES } = await import('./volume-pool.mjs')
 const { explainItem, SCHOOL_SENTENCE_TYPES } = await import('@vocaflow/library-pipeline')
 
 const SPEC_PATH = path.resolve('packages/library-pipeline/src/textbook/market-spec.json')
@@ -229,12 +229,34 @@ const A3 = {
 }
 
 // ── A4 원문 인용률 ────────────────────────────────────────────────
+//
+// **인용할 원문이 있는 문항만 센다.** 초등 3종(rhyme·word_meaning·spell_blank)은
+//   원글이 아니라 사전에서 나오므로 인용할 지문이 없다.
+//
+// ⚠️ **다만 이 제외는 실제로는 아무것도 걷어내지 않는다 — 그리고 그 사실이 중요하다.**
+//   초등 3종은 조판 시점에 만들어져 `csat_dcp_items` 에 행이 없다. 그래서 이 벤치마크의
+//   모집단(창고 행)에 애초에 들어오지 않는다. 실측 2026-08-31: 제외된 건수 **0**.
+//   (그 전에 "초등 60문항이 A4 를 끌어내린다" 고 짐작했는데 틀렸다. 이 줄을 남기는 이유는
+//    같은 짐작을 다음 사람이 또 하지 않게 하려는 것이다.)
+//
+//   A4 를 실제로 끌어내리는 것은 **손으로 쓴 유형**이다 — 실측 사다리 7권:
+//   `blank 21/64` · `title 16/47` · `topic 11/38` 이 인용 없이 적혔다.
+//   병합기가 인용을 강제하기 전에 쓰인 것들이라, 고치려면 그 해설을 다시 써야 한다.
 const CITE_RE = /[A-Za-z]{4,}[^가-힣]{0,3}[A-Za-z]{4,}/
+const citable = withExplain.filter((i) => !ELEMENTARY_TYPES.has(i.type))
 const A4 = {
-  ours: withExplain.length
-    ? withExplain.filter((i) => CITE_RE.test(explanationOf(i))).length / withExplain.length
-    : 0,
+  ours: citable.length ? citable.filter((i) => CITE_RE.test(explanationOf(i))).length / citable.length : 0,
   market: spec.explanation.sourceCitationRate,
+}
+// 어느 유형이 떨어뜨리는지 — 총합만 보면 고칠 자리를 못 찾는다.
+const failBy = (list, re) => {
+  const m = {}
+  for (const i of list) {
+    m[i.type] ??= { n: 0, bad: 0 }
+    m[i.type].n += 1
+    if (!re.test(explanationOf(i))) m[i.type].bad += 1
+  }
+  return Object.entries(m).filter(([, v]) => v.bad > 0).sort((a, b) => b[1].bad - a[1].bad)
 }
 
 // ── A5 유형 다양성 ────────────────────────────────────────────────
@@ -449,6 +471,16 @@ if (process.argv.includes('--json')) {
         `  (시장 ${v.p10}~${v.p90}어)`,
     )
   }
+  const a3Bad = failBy(withOptions, WRONG_RE)
+  const a4Bad = failBy(citable, CITE_RE)
+  if (a3Bad.length) {
+    console.log(`  A3 내역  오답 배제가 없는 유형 — ${a3Bad.map(([t, v]) => `${t} ${v.bad}/${v.n}`).join(' · ')}`)
+  }
+  if (a4Bad.length) {
+    console.log(`  A4 내역  인용이 없는 유형 — ${a4Bad.map(([t, v]) => `${t} ${v.bad}/${v.n}`).join(' · ')}`)
+  }
+  console.log(`           초등 3종 ${withExplain.length - citable.length}건은 원글이 없어 이 축에서 뺐다
+`)
   console.log(
     `  A5 천장  목표 몫을 받을 수 있는 시장 표준 유형 ${reachableTypes.length}/${marketTypes.size}종` +
       ` — 나머지 ${unreachableTypes.length}종은 밀도 규격에 없어 목표가 0 이다` +
