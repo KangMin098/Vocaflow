@@ -47,7 +47,7 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
 }
 const { createClient } = await import('@supabase/supabase-js')
 const { withRetry, ELEMENTARY_TYPES } = await import('./volume-pool.mjs')
-const { explainItem, SCHOOL_SENTENCE_TYPES } = await import('@vocaflow/library-pipeline')
+const { explainItem, SCHOOL_SENTENCE_TYPES, LONG_ITEM_TYPES } = await import('@vocaflow/library-pipeline')
 // 출판사별 산술은 테스트가 있는 한 벌을 쓴다 (publisher-index.test.ts · 20 케이스).
 // 여기에 사본을 두면 테스트가 **쓰이지 않는 쪽**을 지키게 된다.
 const { geoMean, reachableMax, bindingPublisher, canScoreTypeSpread, axisCeiling } =
@@ -165,16 +165,30 @@ if (BAND != null || ALL_BANDS) {
   const { loadVolume } = await import('./volume-pool.mjs')
   const { MARKET_UNITS_PER_BOOK } = await import('@vocaflow/library-pipeline')
   const bands = ALL_BANDS ? [1, 2, 3, 4, 5, 6, 7] : [BAND]
-  const ids = new Set()
+  // ⚠️ **창고 행이 아니라 인쇄되는 사본을 잰다.**
+  //   예전에는 `all.filter((r) => ids.has(r.id))` 로 **저장된 payload** 를 골랐다. 그런데
+  //   조판은 `volume-pool` 의 정제 체인(절 이름 제거 · 반복 꼬리 절단 · 구두점 · 따옴표)을
+  //   거친 사본을 인쇄한다 — 학습자가 읽는 글은 그쪽이다. 실측 2026-09-01(V6 60문항):
+  //   **13건의 낱말 수가 다르고**, 가장 큰 것은 `blank` 저장 186어 → 인쇄 **124어**
+  //   (반복 꼬리 62어가 잘린다). 그래서 A6 가 규격 밖이라고 고발한 문항 중 일부는
+  //   **인쇄본에서는 규격 안**이었다 — 조합기가 그 자로 이미 걸렀기 때문이다.
+  //   이 파일 머리말이 `--volume` 을 "인쇄되는 것만" 이라고 적고 있으니, 그렇게 만든다.
   let unitCount = 0
   const per = []
+  const printed = []
   for (const b of bands) {
     const v = await loadVolume(supabase, { band: b, unitCount: MARKET_UNITS_PER_BOOK.median })
-    for (const id of v.itemIds) ids.add(id)
+    for (const u of v.units) for (const it of u.items) printed.push(it)
     unitCount += v.units.length
     per.push(`V${b} ${v.itemIds.size}`)
   }
-  items = all.filter((r) => ids.has(r.id))
+  items = printed.map((it) => ({
+    id: it.id,
+    type: it.type,
+    v_level: it.v_level,
+    payload: it.payload,
+    answer_key: it.answer_key,
+  }))
   scope = ALL_BANDS
     ? `사다리 7권 — ${unitCount}단원 · ${items.length}문항 (인쇄되는 것만 · ${per.join(' · ')})`
     : `V${BAND} 조판 1권 — ${unitCount}단원 · ${items.length}문항 (인쇄되는 것만)`
@@ -242,7 +256,13 @@ function computeAxes(spec) {
   //   62.5% → 45.3% 로 떨어졌는데, **선택지 있는 문항만 보면 99.8%** 였다.
   //   시장 기준선 53.6% 도 객관식 해설 위주로 잰 값이라 같은 모집단으로 맞춘다.
   const WRONG_RE = /오답|나머지|적절하지 않|틀린 이유|[①②③④⑤]/
-  const hasOptions = (i) => Array.isArray(i.payload?.choices) || Array.isArray(i.payload?.underlines)
+  // ⚠️ **`Array.isArray` 로는 모자란다 — 빈 배열도 참이다.** `spell_blank`(초등 철자 쓰기)은
+  //   `choices: []` 를 들고 있어서 이 관문을 통과했고, 선택지가 하나도 없는 20문항이
+  //   "오답 배제를 안 했다" 로 세어졌다(실측 2026-09-01, A3 1.866 → 1.744).
+  //   초등 문항은 조판 시점에 만들어져 창고에 행이 없으므로, `--volume` 이 인쇄본을
+  //   재도록 고친 **뒤에야** 이 결함이 드러났다. 길이로 판정한다.
+  const hasOptions = (i) =>
+    (i.payload?.choices?.length ?? 0) > 0 || (i.payload?.underlines?.length ?? 0) > 0
   const withOptions = withExplain.filter(hasOptions)
   const A3 = {
     ours: withOptions.length
@@ -256,11 +276,14 @@ function computeAxes(spec) {
   // **인용할 원문이 있는 문항만 센다.** 초등 3종(rhyme·word_meaning·spell_blank)은
   //   원글이 아니라 사전에서 나오므로 인용할 지문이 없다.
   //
-  // ⚠️ **다만 이 제외는 실제로는 아무것도 걷어내지 않는다 — 그리고 그 사실이 중요하다.**
-  //   초등 3종은 조판 시점에 만들어져 `csat_dcp_items` 에 행이 없다. 그래서 이 벤치마크의
-  //   모집단(창고 행)에 애초에 들어오지 않는다. 실측 2026-08-31: 제외된 건수 **0**.
-  //   (그 전에 "초등 60문항이 A4 를 끌어내린다" 고 짐작했는데 틀렸다. 이 줄을 남기는 이유는
-  //    같은 짐작을 다음 사람이 또 하지 않게 하려는 것이다.)
+  // ⚠️ **이 제외는 2026-09-01 부터 실제로 일을 한다 — 그 전에는 0건이었다.**
+  //   초등 3종은 조판 시점에 만들어져 `csat_dcp_items` 에 행이 없다. 그래서 `--volume` 이
+  //   창고 행을 고르던 동안에는 **V1 60문항이 모집단에 아예 안 들어왔다** — 벤치마크가
+  //   사다리 7권을 잰다고 하면서 실은 6권을 재고 있었던 것이다(실측 2026-08-31: 제외 0건).
+  //   `--volume` 이 인쇄되는 사본을 재도록 고치면서 이 제외가 비로소 60건을 걷어낸다.
+  //   (그때 "초등 60문항이 A4 를 끌어내린다" 는 짐작이 틀렸다고 적었는데, 짐작이 틀린 게
+  //    아니라 **그 문항들이 애초에 세어지지 않고 있었다.** 자를 고치자 A3·A7 이 실제로
+  //    내려갔다 — 1.866→1.744 · 1.161→1.000. 내려간 값이 맞는 값이다.)
   //
   //   A4 를 실제로 끌어내리는 것은 **손으로 쓴 유형**이다 — 실측 사다리 7권:
   //   `blank 21/64` · `title 16/47` · `topic 11/38` 이 인용 없이 적혔다.
@@ -350,6 +373,10 @@ function computeAxes(spec) {
   let a6SentSkipped = 0
   let a6SentWouldFail = 0
   const a6ByBucket = {}
+  // 미달을 **유형별로** 센다 — 버킷별 합계만 보면 어느 유형이 미달인지 알 수 없다.
+  //   실측 2026-08-31: A6 96.4% 의 미달 10건이 어디서 왔는지 알 방법이 없었다.
+  const a6FailByType = {}
+  const a6Fails = []
   for (const it of items) {
     const w = passageWords(it.payload)
     // ⚠️ **문장 단위 유형은 유형으로 거른다 — 길이로 어림하면 새어 나간다.**
@@ -357,7 +384,12 @@ function computeAxes(spec) {
     //   **문장 하나를 지문 길이 자로 재고 있었다.** 실측 2026-08-31(조판된 권):
     //   V7 미달 3건 = `word_order` 38어 · `blank_word` 14어 · `grammar_fix` 17어.
     //   셋 다 규격 위반이 아니라 자가 틀린 것이었다(그들의 창은 6~40어다).
-    if (SCHOOL_SENTENCE_TYPES.has(it.type)) {
+    // ⚠️ **장문(41~45)도 다른 자로 잰다.** 집필 규격이 `CSAT_LONG_ITEM_WORDS` 260~400어라
+    //   시장 p90(고1 242 · 고2 188) 밖에 있는 것이 **설계**다 — `itemWordSpec` 주석이
+    //   "장문은 시장 분포의 꼬리 자체다" 라고 적고 있다. 그런데 이 축은 문장 단위 유형만
+    //   빼고 장문은 그대로 재고 있었다(실측 2026-09-01: `long_reference` V5 337어·331어가
+    //   미달로 잡혔다). 규격 위반이 아니라 **자가 틀린 것**이다 — 문장 축과 같은 이유다.
+    if (SCHOOL_SENTENCE_TYPES.has(it.type) || LONG_ITEM_TYPES.has(it.type)) {
       a6SentSkipped += 1
       const b0 = V_TO_BUCKET[it.v_level]
       const s0 = b0 && spec.passageWords[b0]
@@ -374,6 +406,11 @@ function computeAxes(spec) {
     a6ByBucket[bucket] ??= { in: 0, total: 0, p10: s.words.p10, p90: s.words.p90 }
     a6ByBucket[bucket].total += 1
     if (ok) a6ByBucket[bucket].in += 1
+    else {
+      a6FailByType[it.type] = (a6FailByType[it.type] ?? 0) + 1
+      // 유형만으로는 자가 틀린 것인지 교재가 틀린 것인지 못 가른다 — 실제 값을 남긴다.
+      a6Fails.push({ type: it.type, w, v: it.v_level, lo: s.words.p10, hi: s.words.p90 })
+    }
   }
   const A6 = { ours: a6Total ? a6In / a6Total : 0, market: 0.80 }
 
@@ -384,10 +421,25 @@ function computeAxes(spec) {
   const VBAND_SCHOOL = (v) => (v == null ? null : v <= 2 ? '초등' : v <= 4 ? '중등' : '고등')
   let a7In = 0
   let a7Total = 0
+  let a7NoBaseline = 0
   const a7ByType = {}
   for (const it of items) {
     const choices = it.payload?.choices ?? it.payload?.underlines
     if (!Array.isArray(choices) || choices.length < 3) continue
+    // ⚠️ **초1~2 의 기준선이 코퍼스에 없다 — 없는 자로 재지 않는다.**
+    //   실측 2026-09-01: 초등 문서 19건 880쪽의 `grade_min` 범위가 **초3~초6** 이고,
+    //   초1~2 를 담는 교재는 **0건**이다. 그런데 `V_TO_BUCKET` 은 V1(초1~2)과
+    //   V2(초3~6)를 둘 다 '초6' 으로 보내므로, 초1~2 권이 초3~6 규격으로 재어졌다.
+    //
+    //   그 자로 재면 V1 의 4지선다 40문항이 전부 미달이 되어 A7 이 1.161 → 1.000 으로
+    //   떨어진다(실측). 하지만 그 판정의 근거는 **초3~6 교재**이고, 초1~2 에서 5지선다가
+    //   맞는지는 아무도 재지 않았다 — 오히려 작업기억 ~4항목(학습원칙 6)은 반대쪽을 가리킨다.
+    //   **근거 없는 임계값을 목표로 삼지 않는다.** 못 잰 것은 못 잰다고 적고 분모에서 뺀다
+    //   (출판사별 지수가 해설 축을 `—` 로 남기는 것과 같은 원칙이다).
+    if (it.v_level != null && it.v_level <= 1) {
+      a7NoBaseline += 1
+      continue
+    }
     const school = VBAND_SCHOOL(it.v_level)
     const want = spec.choiceCount?.[school]?.dominant
     if (!want) continue
@@ -418,14 +470,14 @@ function computeAxes(spec) {
 
   return {
     AXES, LO, HI, marketTypes, ourTypes, beyond, reachableTypes, unreachableTypes, missingReachable,
-    a6ByBucket, a6SentSkipped, a6SentWouldFail, a6Total, a7ByType,
+    a6ByBucket, a6FailByType, a6Fails, a6SentSkipped, a6SentWouldFail, a6Total, a7ByType, a7NoBaseline,
     withOptions, citable, failBy, WRONG_RE, CITE_RE,
   }
 }
 
 const {
   AXES, LO, HI, marketTypes, ourTypes, beyond, reachableTypes, unreachableTypes, missingReachable,
-  a6ByBucket, a6SentSkipped, a6SentWouldFail, a6Total, a7ByType,
+  a6ByBucket, a6FailByType, a6Fails, a6SentSkipped, a6SentWouldFail, a6Total, a7ByType, a7NoBaseline,
   withOptions, citable, failBy, WRONG_RE, CITE_RE,
 } = computeAxes(spec)
 
@@ -497,7 +549,26 @@ if (process.argv.includes('--json')) {
   console.log(
     `  A6 내역  문장 단위 유형 ${a6SentSkipped}건을 이 축에서 뺐다` +
       ` (지문 자로 재면 ${a6SentWouldFail}건이 미달로 잡힌다 — 자가 틀린 것이다)` +
-      ` · 분모 ${a6Total}
+      ` · 분모 ${a6Total}` +
+      (Object.keys(a6FailByType).length
+        ? `\n           미달 유형 — ${Object.entries(a6FailByType)
+            .sort((a, b) => b[1] - a[1])
+            .map(([t, n]) => `${t} ${n}`)
+            .join(' · ')}`
+        : '\n           미달 0건') +
+      // 유형별 합계로는 **자가 틀린 것인지 교재가 틀린 것인지** 못 가른다.
+      //   장문(43~45)은 규격이 260~400어라 시장 p90(188~242) 밖에 있는 것이 설계다 —
+      //   그건 미달이 아니라 다른 자로 재야 할 유형이다. 실제 값을 적어야 그것이 보인다.
+      (a6Fails.length
+        ? `\n           낱낱 — ${a6Fails
+            .map((f) => `${f.type} V${f.v} ${f.w}어(창 ${f.lo}~${f.hi})`)
+            .join(' · ')}`
+        : '') +
+      (a7NoBaseline
+        ? `\n  A7 내역  초1~2 문항 ${a7NoBaseline}건을 이 축에서 뺐다 — 코퍼스의 초등 교재 19건이` +
+          ` 전부 초3~6 이라 초1~2 의 지배값을 잰 적이 없다 (없는 자로 재지 않는다)`
+        : '') +
+      `
 `,
   )
   // 어느 버킷이 얼마나 미달인지 — 총합만 보면 어디를 고쳐야 할지 알 수 없다.
