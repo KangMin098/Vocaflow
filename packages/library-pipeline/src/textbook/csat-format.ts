@@ -117,6 +117,52 @@ export function hasArticleChrome(text: string): boolean {
 }
 
 /** 용어풀이·구분선 같은 비산문 자국이 있는가. */
+/**
+ * 학술 논문의 **절 이름 줄**. 원문에서는 자기 줄에 홀로 서 있다.
+ *
+ *     Abstract
+ *     The coexistence of diverse microbial communities…
+ *
+ * 문장으로 자른 뒤 공백으로 다시 이으면 이렇게 붙는다:
+ *
+ *     "Abstract The coexistence of diverse microbial communities…"
+ *
+ * 실측 2026-08-31 — 절 이름이 붙은 문항 **28,652개**(V6 20,050 · V7 5,700 · V5 2,881).
+ * 학술 소스가 없는 1~4단은 0이다.
+ */
+const SECTION_LABELS = [
+  'Abstract', 'Introduction', 'Background', 'Methods', 'Method',
+  'Materials and Methods', 'Results', 'Discussion', 'Conclusions', 'Conclusion',
+  'Objectives', 'Objective', 'Aims', 'Aim', 'Findings', 'Significance',
+  'Summary', 'Highlights', 'Keywords',
+]
+
+// ⚠️ **버리지 않고 지운다.** 절 이름이 있다고 지문을 버리면 상위 밴드 재고가 통째로 날아간다
+//   (같은 규칙으로 원글을 거르면 24,738편 중 18,225편이 걸린다 — 실측).
+//
+// ⚠️ **문장을 여는 자리에서만** 지운다. 앞이 글 머리이거나 문장 끝 부호여야 하고,
+//   뒤는 대문자로 시작하는 낱말이어야 한다. 그래서 "the Introduction Section" 처럼
+//   문장 안에 든 낱말은 건드리지 않고, "Results were mixed" 도 뒤가 소문자라 남는다.
+const SECTION_LABEL_RE = new RegExp(
+  `(^|[.!?]\\s+)(?:${SECTION_LABELS.join('|')})\\s+(?=[A-Z])`,
+  'g',
+)
+
+/** 홀로 선 절 이름을 떼어 낸다. 지문 자체는 그대로 남는다. */
+export function stripSectionLabels(text: string): string {
+  const s = String(text ?? '')
+  if (!s) return s
+  // 연달아 붙은 경우가 있다 — "Abstract Background The importance…".
+  let out = s
+  for (let i = 0; i < 3; i += 1) {
+    const next = out.replace(SECTION_LABEL_RE, '$1')
+    if (next === out) break
+    out = next
+  }
+  return out.trim()
+}
+
+
 export function hasNonProse(text: string): boolean {
   return NON_PROSE.test(text) || hasArticleChrome(text)
 }

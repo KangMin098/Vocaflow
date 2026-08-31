@@ -345,7 +345,7 @@ export function isRetractedTitle(title) {
 }
 
 export async function loadVolume(db, { band, unitCount, marketMix = true }) {
-  const { composeUnits, rungMix } = await import('@vocaflow/library-pipeline')
+  const { composeUnits, rungMix, stripSectionLabels } = await import('@vocaflow/library-pipeline')
 
   // ── 원글 ──────────────────────────────────────────────────────────
   // 밴드는 **원글** 기준이다. 문항의 `v_level` 로 거르면 조판과 어긋난다.
@@ -386,11 +386,34 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
     (r) => r.kind === 'article'
       && (CORE_TYPES.has(r.type) || EXTRA_TYPES.has(r.type) || SCHOOL_TYPES.has(r.type)),
   )
+  // ── 절 이름 정제 ──────────────────────────────────────────────────
+  // 학술 원문의 절 이름은 자기 줄에 홀로 서 있다가, 문장으로 자른 뒤 공백으로 다시
+  // 이으면 첫 문장에 붙는다 — "Abstract The coexistence of…". 실측 2026-08-31:
+  // 절 이름이 붙은 문항 **28,652개**(V6 20,050 · V7 5,700 · V5 2,881).
+  //
+  // ⚠️ **버리지 않고 지운다.** 절 이름을 근거로 지문을 버리면 상위 밴드 재고가 통째로
+  //   날아간다. 오탐은 실측했다 — 학술 소스가 없는 V3·V4 지문 4,452개 중 **0개**가
+  //   바뀌었다(문장을 여는 자리 + 뒤가 대문자일 때만 지우기 때문).
+  //
+  // 저장은 그대로 두고 **인쇄에 쓰는 사본만** 고친다 — 재생성이 필요 없다.
+  const clean = (v) => (typeof v === "string" ? stripSectionLabels(v) : v)
+  const cleanPayload = (raw) => {
+    if (!raw || typeof raw !== "object") return raw
+    const out = { ...raw }
+    for (const k of ["passage", "intro", "stem", "context", "insert_sentence", "summary_sentence"]) {
+      if (typeof out[k] === "string") out[k] = clean(out[k])
+    }
+    for (const k of ["sentences", "presented", "remaining", "choices"]) {
+      if (Array.isArray(out[k])) out[k] = out[k].map(clean)
+    }
+    return out
+  }
+
   const pool = []
   for (const r of itemRows) {
     const a = byId.get(r.ref_id)
     if (!a) continue
-    const p = r.payload ?? {}
+    const p = cleanPayload(r.payload ?? {})
     // ── 생성형 유형은 지문이 통째로 payload 에 있다 ──────────────────
     // ⚠️ 이걸 안 넣으면 **문항을 만들어도 책에 안 실린다.** 실제로 그랬다 —
     //   생성형 64문항을 넣고도 조합기가 못 봐서 권은 그대로였다.
