@@ -87,7 +87,7 @@ const LONGEST_ANSWER_MAX = 0.4
 const MIN_RATIONALE = 20
 
 const { createClient } = await import('@supabase/supabase-js')
-const { hasArticleChrome } = await import('@vocaflow/library-pipeline')
+const { hasArticleChrome, itemWordSpec } = await import('@vocaflow/library-pipeline')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 })
@@ -119,6 +119,9 @@ for (const r of rows) {
   const passage = String(r.passage_edited ?? r.passage ?? "").trim()
   /** 빈 줄로 가른 문단 수. 장문은 넷이어야 한다. */
   const parasCount = (t) => t.split(/\n\s*\n+/).filter((s) => s.trim()).length
+  /** 인쇄될 지문의 낱말 수와 그 유형의 창. 자는 `itemWordSpec` 이 유형별로 안다. */
+  const PASSAGE_WORDS = passage.split(/\s+/).filter(Boolean).length
+  const WORD_SPEC = itemWordSpec(TYPE)
   const why = (m) => skipped.push([r.source_title ?? id, m])
 
   if (!id) why('article_id 가 없다')
@@ -137,6 +140,13 @@ for (const r of rows) {
   //   `_{4,}` 가 있어 빈칸 유형의 `____` 를 전부 껍데기로 센다.
   else if (hasArticleChrome(String(r.passage ?? '')) || hasArticleChrome(passage))
     why('기사 껍데기가 지문에 있다 — 게이트가 생기기 전에 채운 청크다')
+  // ⚠️ **지문 길이가 유형의 창 안에 들어야 한다.** 이 관문이 없던 동안 원글이 **통째로**
+  //   지문 자리에 들어간 문항이 16건 쌓였다(실측 2026-08-31: `title` 8 · `topic` 8,
+  //   3,721어 · 14,420어짜리 Wikivoyage 여행 안내문 등). 조합기가 인쇄 단계에서 걸러
+  //   학습자에게 나가지는 않았지만, 재고에 죽은 채로 남아 검수 리포트를 계속 울린다.
+  //   자는 유형이 정한다 — 장문은 260~400어라 단문 자로 재면 전량이 걸린다.
+  else if (WORD_SPEC.max > 0 && (PASSAGE_WORDS < WORD_SPEC.min || PASSAGE_WORDS > WORD_SPEC.max))
+    why(`지문이 ${PASSAGE_WORDS}어 — 규격 ${WORD_SPEC.min}~${WORD_SPEC.max}어 밖이라 인쇄할 수 없다`)
   // 유형별 추가 조건 — 없으면 문항이 성립하지 않는다.
   else if (TYPE === 'blank' && !passage.includes('____')) why('빈칸 유형인데 지문에 `____` 가 없다')
   else if (TYPE === 'summary' && !/\(A\)[\s\S]*\(B\)/.test(String(r.summary_sentence ?? '')))

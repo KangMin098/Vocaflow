@@ -80,10 +80,32 @@ describe('한 권을 고르는 규칙은 한 벌뿐이다', () => {
     expect(read('volume-pool.mjs')).toContain('display_only')
   })
 
-  it('`composeUnits` 에 단원 어휘를 넘긴다 — 빈 Map 을 넘기면 다른 문항이 뽑힌다', () => {
+  it('책을 내는 조합은 **단원 어휘를 받은 것** 하나뿐이다', () => {
     const pool = read('volume-pool.mjs')
-    expect(pool).toContain('composeUnits(pool, vocabByRef,')
-    expect(pool).not.toContain('composeUnits(pool, new Map()')
+    // 반환되는 `units` 는 반드시 어휘를 받은 조합에서 나와야 한다.
+    expect(pool).toContain('composeUnits(pool, vocabByRef, composeOpts)')
+    // 두 조합이 **같은 옵션 객체**를 써야 문항이 갈리지 않는다.
+    expect(pool).toContain('const composeOpts = {')
+    // 빈 Map 조합은 **예행 하나만** 허용한다 — 그 결과로 책을 내면 낱말 목록이 빈다.
+    expect((pool.match(/composeUnits\(pool, new Map\(\)/g) ?? []).length).toBe(1)
+    expect(pool).toContain('const dry = composeUnits(pool, new Map(), composeOpts)')
+  })
+
+  it('적재기는 **지문 길이를 유형별 자로** 막는다 — 원글이 통째로 들어온 적이 있다', () => {
+    const imp = read('item-drain-import.mjs')
+    // 자는 유형이 정한다. 단문 자 하나로 재면 장문(260~400어)이 전량 걸린다.
+    expect(imp).toContain('itemWordSpec(TYPE)')
+    expect(imp).toContain('규격 ${WORD_SPEC.min}~${WORD_SPEC.max}어 밖이라 인쇄할 수 없다')
+  })
+
+  it('예행 조합은 초등 풀과 `rungMix` **뒤**에 온다 — 앞이면 풀이 갈린다', () => {
+    const pool = read('volume-pool.mjs')
+    const elem = pool.indexOf('pool.push(...(await loadElementaryPool(db, band)))')
+    const mix = pool.indexOf('const mix = marketMix')
+    const dry = pool.indexOf('const dry = composeUnits(pool, new Map()')
+    expect(elem).toBeGreaterThan(0)
+    expect(mix).toBeGreaterThan(elem)
+    expect(dry).toBeGreaterThan(mix)
   })
 
   it('`.in()` 조회는 전부 페이징을 거친다 — PostgREST 는 1000행에서 자른다', () => {

@@ -263,6 +263,7 @@ export type { CsatInsertItem, CsatOrderItem } from './textbook/csat-format'
 export { MINUTES_PER_ITEM as COMPOSE_MINUTES_PER_ITEM } from './textbook/compose-unit'
 export {
   CSAT_ITEM_WORDS,
+  itemWordSpec,
   DEFAULT_SLOTS,
   MAX_WORD_APPEARANCES,
   composeUnits,

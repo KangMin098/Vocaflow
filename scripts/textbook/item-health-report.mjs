@@ -17,6 +17,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { fetchAllKeyset } from './volume-pool.mjs'
+
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
@@ -25,7 +27,10 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
 const { createClient } = await import('@supabase/supabase-js')
 // **인쇄 형식으로 바꿔서 잰다.** 저장 형식의 숫자는 학습자가 보는 번호가 아니다 —
 // 첫 판에서 이걸 틀렸다(아래 SHAPE 주석 참조).
-const { assessStock, CSAT_ITEM_WORDS, toCsatOrder, toCsatInsert } = await import(
+const {
+  assessStock, CSAT_ITEM_WORDS, itemWordSpec, toCsatOrder, toCsatInsert,
+  dropRepeatedTail, stripSectionLabels,
+} = await import(
   '@vocaflow/library-pipeline'
 )
 
@@ -34,18 +39,17 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 })
 
 // 1,000행 조용한 절단에 두 번 당했다 — 페이지로 받는다.
-const raw = []
-for (let from = 0; ; from += 500) {
-  const { data, error } = await db
-    .from('csat_dcp_items')
-    .select('id, type, payload, answer_key, v_level')
-    .order('id')
-    .range(from, from + 499)
-  if (error) throw new Error('문항 조회 실패: ' + error.message)
-  if (!data?.length) break
-  raw.push(...data)
-  if (data.length < 500) break
-}
+//
+// ⚠️ **OFFSET 으로 넘기면 안 된다 — 자가 먼저 부러진다.** 제 손으로 짠 500행 `range()`
+//   루프가 재고 42만 행에서 `statement timeout` 으로 죽어 **검수 도구가 아예 안 도는
+//   상태**였다. 페이지를 500 → 25 로 줄여도 살아나지 않았다. 원인은 부하가 아니라
+//   OFFSET 그 자체다 — 실측 2026-08-31 `explain analyze`:
+//
+//     offset 400000 limit 500  →  인덱스 스캔이 400,500행을 훑고 **97.6초**
+//
+//   커서(keyset)는 pk 인덱스를 그대로 타 페이지 깊이와 무관하다. 재시도·페이지 축소
+//   정책도 `volume-pool` 것을 그대로 쓴다 — 사본을 두면 한쪽만 고쳐진다.
+const raw = await fetchAllKeyset(db, 'csat_dcp_items', 'id, type, payload, answer_key, v_level')
 
 /**
  * 유형마다 답지 수·정답·지문이 다른 자리에 있다. 한 곳에 모아 둔다.
@@ -112,7 +116,16 @@ for (const type of [
   }
 }
 
-const words = (t) => (t == null ? null : t.split(/\s+/).filter(Boolean).length)
+// ⚠️ **학습자가 보는 지문으로 잰다.** 조판은 절 이름을 떼고 반복 꼬리를 자른 사본을
+//   인쇄한다(volume-pool 의 cleanPayload). 리포트가 저장 원본을 재면 이미 고친 결함을
+//   계속 결함이라고 말한다 — 실측 2026-08-31: topic 8건 · title 8건이 그 이유로
+//   "규격 밖" 이었는데, 전부 중복된 초록이 창에 딸려 들어가 200어를 넘긴 것이었다.
+//   이 파일 머리말이 이미 같은 원칙을 적어 두었다("인쇄 형식으로 바꿔서 잰다").
+const printed = (t) => (t == null ? null : dropRepeatedTail(stripSectionLabels(t)))
+const words = (t) => {
+  const p = printed(t)
+  return p == null ? null : p.split(/\s+/).filter(Boolean).length
+}
 
 // 인쇄 변환이 실패한 문항 — 교재에 실을 수 없다. 히스토그램에서 조용히 빼지 않고 센다.
 const unprintable = new Map()
@@ -165,7 +178,8 @@ for (const a of attemptRows ?? []) {
 }
 const stats = [...agg.values()]
 
-const health = assessStock(items, CSAT_ITEM_WORDS, stats)
+// 유형마다 자가 다르다 — 장문은 260~400어다. 한 자로 재면 장문이 전량 오탐이 된다.
+const health = assessStock(items, itemWordSpec, stats)
 
 const pct = (a, b) => (b ? ((100 * a) / b).toFixed(1) + '%' : '—')
 const line = '─'.repeat(76)
@@ -194,9 +208,9 @@ for (const t of health.byType) {
     const mark = b.biased ? '⚠️ 쏠림' : '✅ 고름'
     console.log(
       `     정답 번호  ${b.counts.join(' · ')}   (인쇄 가능 ${printable})  최다 ${pct(Math.max(...b.counts), printable)}` +
-        `   χ²=${b.chi2.toFixed(1)} (df ${b.df}, 임계 9.5)  ${mark}`,
+        `   χ²=${b.chi2.toFixed(1)} (df ${b.df}, 임계 9.5) · V=${b.cramersV.toFixed(3)} (기준 0.10)  ${mark}`,
     )
-    if (b.biased) flags.push(`${t.type}: 정답 번호 쏠림 (χ²=${b.chi2.toFixed(1)})`)
+    if (b.biased) flags.push(`${t.type}: 정답 번호 쏠림 (χ²=${b.chi2.toFixed(1)} · V=${b.cramersV.toFixed(3)})`)
   } else {
     console.log(`     정답 번호  단답이라 답지가 없다`)
   }

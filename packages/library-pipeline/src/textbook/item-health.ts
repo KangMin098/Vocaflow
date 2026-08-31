@@ -76,7 +76,15 @@ export interface AnswerBias {
   maxShare: number
   chi2: number
   df: number
-  /** 균등분포와 유의하게 다른가(0.05). **참이면 찍어서 맞을 여지가 있다.** */
+  /**
+   * 효과 크기 Cramér's V = √(χ² / (n·(k−1))). **표본 크기에 둔감하다.**
+   * χ² 는 n 이 크면 3%p 차이도 임계를 73배 넘긴다 — 그 경보는 쓸모가 없다.
+   */
+  cramersV: number
+  /**
+   * 균등분포와 **유의하게 다르고(χ²) 동시에 크기가 있는가(V≥0.1)**.
+   * 참이면 지문을 안 읽고 찍어서 맞을 여지가 실제로 있다.
+   */
   biased: boolean
 }
 
@@ -93,14 +101,28 @@ export function assessAnswerBias(counts: readonly number[]): AnswerBias {
   const chi2 = expected > 0 ? counts.reduce((s, c) => s + (c - expected) ** 2 / expected, 0) : 0
   const df = n - 1
   const critical = CHI2_CRITICAL_05[df]
+  // ⚠️ **χ² 만 보면 표본이 클수록 사소한 차이가 "쏠림" 이 된다.** 실측 2026-08-31:
+  //   `insert` 52,523건의 최다 비중이 **23.4%**(기대 20%)인데 χ²=692.9 로 임계 9.5 를
+  //   73배 넘겼다. 찍는 학습자가 얻는 이득은 3.4%p 뿐인데 리포트는 최고 등급 경보를 냈다.
+  //   그렇게 늑대를 부르면 진짜 쏠림을 못 본다.
+  //
+  //   그래서 **효과 크기**를 함께 낸다 — Cramér's V = √(χ² / (n·(k−1))).
+  //   위 사례는 V=0.057 로 관행상 "무시할 수준"(0.1 미만)이다.
+  //
+  // ⚠️ **0.1 은 실측 기준선이 아니라 통계 관행이다.** `market-spec.json` 에는 시중 교재의
+  //   정답 위치 분포가 없어서(수집 대상이 아니었다) 시장에서 유도할 수가 없다.
+  //   근거가 관행이라는 사실을 숨기지 않는다 — 실측이 생기면 그때 바꾼다.
+  const cramersV = total > 0 && n > 1 ? Math.sqrt(chi2 / (total * (n - 1))) : 0
   return {
     counts: [...counts],
     total,
     maxShare: total ? Math.max(...counts) / total : 0,
     chi2,
     df,
+    cramersV,
     // 임계값을 모르는 자유도면 판정하지 않는다 — 모르는 것을 "괜찮다" 고 하지 않는다.
-    biased: critical != null && chi2 > critical,
+    // **유의미(χ²)하고 동시에 크기가 있어야(V)** 쏠림으로 센다.
+    biased: critical != null && chi2 > critical && cramersV >= 0.1,
   }
 }
 
@@ -156,7 +178,12 @@ export interface StockHealth {
  */
 export function assessStock(
   items: readonly HealthInput[],
-  spec: { min: number; max: number },
+  // ⚠️ **유형마다 자가 다르다.** 장문(43~45 · 41~42)은 260~400어 창을 쓴다 —
+  //   수능 단문 자(90~200)로 재면 **전량이 "규격 밖"** 으로 잡힌다. 실제로 그랬다:
+  //   실측 2026-08-31 리포트가 `long_reference`·`long_vocab`·`long_match`·`long_order`·
+  //   `long_title` 을 각각 **100% 규격 밖**이라고 보고했다 — 전부 오탐이었다.
+  //   `compose-unit.itemWordSpec` 이 이미 유형별 창을 안다. 함수로 받아 그걸 쓴다.
+  spec: { min: number; max: number } | ((type: string) => { min: number; max: number }),
   stats: readonly ItemAttemptStats[] = [],
 ): StockHealth {
   const statById = new Map(stats.map((s) => [s.id, s]))
@@ -181,9 +208,11 @@ export function assessStock(
       }
     }
 
+    const typeSpec = typeof spec === 'function' ? spec(type) : spec
     const withPassage = list.filter((x) => x.passageWords != null)
     const outOfSpecPassage = withPassage.length
-      ? withPassage.filter((x) => x.passageWords! < spec.min || x.passageWords! > spec.max).length
+      ? withPassage.filter((x) => x.passageWords! < typeSpec.min || x.passageWords! > typeSpec.max)
+          .length
       : null
 
     const byLevel: Record<string, number> = {}

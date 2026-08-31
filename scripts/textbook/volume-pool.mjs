@@ -100,6 +100,43 @@ export async function withRetry(label, run, tries = 4, page = null, pageMin = 25
   throw new Error(`${label} 조회 실패: ${lastErr?.message ?? '알 수 없음'}`)
 }
 
+/**
+ * 전수 조회를 **커서(keyset)** 로 넘긴다 — 표가 커져도 페이지 비용이 일정하다.
+ *
+ * ⚠️ `fetchAllPaged`(= OFFSET)는 표가 커지면 **자가 부러진다.** OFFSET 은 건너뛸 행을
+ *   매번 처음부터 세므로 깊은 페이지가 통째로 느려진다. 실측 2026-08-31 —
+ *   `csat_dcp_items` 42만 행에서 `offset 400000 limit 500` 의 **실행 시간 97.6초**
+ *   (`explain analyze`: 인덱스 스캔이 400,500행을 훑는다). 그래서 페이지를 500 → 25 로
+ *   줄여도 살아나지 않는다. 오히려 같은 오프셋 비용을 더 여러 번 낸다.
+ *
+ *   그 때문에 `item-health-report.mjs`(검수 도구)가 **아예 안 도는 상태**였다.
+ *
+ * 정렬은 커서 컬럼 하나로 고정한다 — `order(col)` 과 `gt(col, …)` 가 같은 정렬을 써야
+ * 페이지가 겹치거나 새지 않는다(uuid 는 바이트 순으로 둘이 일치한다).
+ *
+ * @param build `(q, cursor)` 를 받아 질의를 만든다. 커서 조건은 이 함수가 붙인다.
+ * @param col   커서로 쓸 컬럼. 유일하고 정렬 가능해야 한다(보통 pk).
+ */
+export async function fetchAllKeyset(db, table, columns, col = 'id', page = 1000, apply) {
+  const out = []
+  let cursor = null
+  for (;;) {
+    const at = cursor
+    const data = await withRetry(`${table} 커서`, () => {
+      let q = db.from(table).select(columns).order(col).limit(page)
+      if (apply) q = apply(q)
+      if (at != null) q = q.gt(col, at)
+      return q
+    })
+    if (!data?.length) break
+    out.push(...data)
+    if (data.length < page) break
+    cursor = data[data.length - 1][col]
+    if (cursor == null) break
+  }
+  return out
+}
+
 export async function fetchAllPaged(db, build, page = 1000) {
   const out = []
   let size = page
