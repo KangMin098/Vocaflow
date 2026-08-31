@@ -21,7 +21,7 @@
 // 그래서 단원은 "지문에서 뽑는" 것이 아니라 **"풀에서 고르는"** 것이다.
 
 import { type UnitVocab, pickVocabulary } from './assemble-unit'
-import { CSAT_INSERT_BODY, hasCitationResidue } from './csat-format'
+import { CSAT_INSERT_BODY, hasArticleChrome, hasCitationResidue } from './csat-format'
 
 export type UnitItemType = 'order' | 'insert'
 
@@ -63,7 +63,7 @@ export interface ComposeResult {
   /** 왜 더 못 만들었는지. 조용히 짧은 권을 내지 않는다. */
   stoppedBecause: string | null
   /** 규격 밖이라 쓰지 않은 문항 수 — 유형별. */
-  rejected: { tooShort: number; tooLong: number; wrongFormat: number; residue: number; outOfRung: number }
+  rejected: { tooShort: number; tooLong: number; wrongFormat: number; residue: number; chrome: number; outOfRung: number }
   /** 시장 비중을 못 지키고 양보한 횟수. targetShare 를 줬을 때만 0 이 아니다. */
   mixRelaxed: { repeatedType: number; overQuota: number }
 }
@@ -301,6 +301,7 @@ export function composeUnits(
   let tooLong = 0
   let wrongFormat = 0
   let residue = 0
+  let chrome = 0
   let outOfRung = 0
   // 사다리 단수가 쓰는 유형만 남긴다. 주지 않으면 전 유형 허용(예전 동작).
   const allowed = allowedSet
@@ -340,6 +341,18 @@ export function composeUnits(
     //   초등 3종은 사전에서 나와 논문 잔해가 있을 수 없다 — 검사 대상이 아니다.
     if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasCitationResidue(p.passage_text)) {
       residue++
+      return false
+    }
+    // 기사 껍데기("Abstract" · "Methods" 같은 절 이름, 바이라인, 저작권 줄)가 남은 지문은
+    // 교재에 실을 수 없다. 판정은 `hasArticleChrome()` 하나이고 드레인 적재기도 그걸 쓴다.
+    //
+    // ⚠️ **게이트가 적재 쪽에만 있었다.** 손으로 쓰는 드레인은 막았지만 학교 축은
+    //   `store-new-types.mjs` 가 만들어 그 문을 안 지난다 — 실측 2026-08-31:
+    //   V7 학교 축 28,684문항 중 **922개(3.2%)에 `Abstract` 가 박혀 있었고** 실제로
+    //   조판물에 인쇄됐다("Abstract Proteus mirabilis is an leading cause…").
+    //   지우지 않고 **고르는 자리에서 막는다** — 재고는 남기고 인쇄만 거른다.
+    if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasArticleChrome(p.passage_text)) {
+      chrome++
       return false
     }
     return true
@@ -538,7 +551,7 @@ export function composeUnits(
   return {
     units,
     stoppedBecause,
-    rejected: { tooShort, tooLong, wrongFormat, residue, outOfRung },
+    rejected: { tooShort, tooLong, wrongFormat, residue, chrome, outOfRung },
     mixRelaxed,
   }
 }
