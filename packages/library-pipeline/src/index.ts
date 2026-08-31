@@ -661,6 +661,7 @@ export {
   dropDuplicatedLeadWord,
   dropRepeatedTail,
   hasArticleChrome,
+  hasSensitiveTopic,
   hasUnbalancedParens,
   normalizeQuotes,
   pairStraightQuotes,

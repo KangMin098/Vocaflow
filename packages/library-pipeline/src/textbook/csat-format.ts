@@ -296,13 +296,49 @@ export function hasUnbalancedParens(text: string): boolean {
   return open !== close
 }
 
+/**
+ * **학교 교재에 실을 수 없는 소재.**
+ *
+ * ── 왜 있나 (실측 2026-08-31) ────────────────────────────────────────
+ * V6 `content_match` 드레인 8편을 손으로 채우다 첫 편이 **낙태권 논쟁**이었다.
+ * 문항으로는 아무 문제가 없다 — 지문도 규격에 맞고 선택지도 만들어진다. 그런데
+ * **한국 학교 교재에는 실을 수 없는 글**이다. 검사기 아홉 개 중 이것을 보는 것이 없었다.
+ *
+ * 저장소 전체를 재 봤다: 원글 **1,042편**(V6 6.7% · V7 4.0% · V5 3.3% · V4 1.4%)이
+ * 걸리고, 그 위에 문항 **25,316개**가 서 있다. 지문 손실은 밴드당 1.8~7.4% 로 감당된다.
+ *
+ * ⚠️ **이것은 주제에 대한 판단이 아니라 지면에 대한 판단이다.** 자살 예방 연구도
+ *   HIV 역학도 좋은 글이다 — 다만 중·고등 영어 교재의 독해 지문으로 시중 어느 출판사도
+ *   쓰지 않는다. 그래서 목록을 좁게 유지한다: 넓히면 전쟁사·선거제도·종교문화처럼
+ *   교재가 **실제로 다루는** 소재까지 잘려 나간다.
+ *
+ * ⚠️ 정밀도를 표본으로 확인했다(12편 전수 육안) — `cell suicide`(세포자멸사) 같은
+ *   생물학 용법은 표본에 없었다. 오탐이 나오면 낱말을 빼는 쪽으로 좁힌다.
+ */
+const SENSITIVE_TOPIC = [
+  /\babortions?\b|\breproductive rights\b/i,
+  /\bsuicide\b|\bself-harm\b/i,
+  /\bsexual intercourse\b|\bpornograph|\bsex work\b|\bsexually explicit\b/i,
+  /\billicit drugs?\b|\bdrug abuse\b|\bsubstance abuse\b|\bheroin\b|\bcocaine\b|\bmethamphetamine\b/i,
+]
+
+/** 학교 교재 지면에 올릴 수 없는 소재인가. */
+export function hasSensitiveTopic(text: string): boolean {
+  const s = String(text ?? '')
+  return SENSITIVE_TOPIC.some((re) => re.test(s))
+}
+
 export function hasNonProse(text: string): boolean {
   return NON_PROSE.test(text) || hasArticleChrome(text)
 }
 
 /** 교재 지문으로 인쇄할 수 있는가 — 인용 잔해도 비산문 자국도 없어야 한다. */
 export function isPrintablePassage(text: string): boolean {
-  return !hasCitationResidue(text) && !hasNonProse(text)
+  // ⚠️ **소재도 인쇄 가능 판정의 일부다.** 형식이 아무리 멀쩡해도 학교 교재에 못 싣는
+  //   글이 있다(`hasSensitiveTopic`). 여기에 넣는 이유는 이 함수를 생성기 8곳과
+  //   드레인 뽑기가 이미 공유하기 때문이다 — 한 자리에 두면 다음에 만드는 사람이
+  //   빠뜨릴 수 없다. 게이트를 각자 들게 두면 반드시 한 곳이 빠진다(이 파일에 세 번 기록됨).
+  return !hasCitationResidue(text) && !hasNonProse(text) && !hasSensitiveTopic(text)
 }
 
 /**

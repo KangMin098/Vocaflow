@@ -399,6 +399,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
     pairStraightQuotes,
     stripSpaceBeforePunct,
     dropDuplicatedLeadWord,
+    hasSensitiveTopic,
   } = await import('@vocaflow/library-pipeline')
 
   // ── 원글 ──────────────────────────────────────────────────────────
@@ -422,7 +423,14 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   //   철회된 연구를 지문으로 실으면 교재의 신뢰가 통째로 깎인다 — 지문 자체는
   //   멀쩡히 읽히므로 자동 검수로는 절대 안 걸린다. **제목에서 막는 수밖에 없다.**
   //   행은 지우지 않는다 — 여기서 막으면 조판도 드레인도 같은 풀을 쓰므로 충분하다.
-  const usable = (arts ?? []).filter((a) => !a.display_only && !isRetractedTitle(a.title))
+  // ⚠️ **제목에 드러난 소재도 막는다.** 조합기는 인쇄되는 지문만 보므로, 지문은 중립적인데
+  //   출처 줄이 "…abortion care?" 인 경우를 못 잡는다 — 출처는 문항마다 인쇄되고 원문으로
+  //   가는 길이다. 제목만으로 잡히는 것은 1,042편 중 77편(7%)뿐이라 이것만으로는 부족하고,
+  //   본문 몫은 `compose-unit` 의 `hasSensitiveTopic` 게이트가 맡는다. 두 자리가 함께 필요하다.
+  //   (원글 본문을 여기서 다 받아 오면 V6 12,170편을 매 조판마다 읽는다 — 그 값은 안 치른다.)
+  const usable = (arts ?? []).filter(
+    (a) => !a.display_only && !isRetractedTitle(a.title) && !hasSensitiveTopic(a.title),
+  )
   const byId = new Map(usable.map((a) => [a.id, a]))
   const ids = [...byId.keys()]
 

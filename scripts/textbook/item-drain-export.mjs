@@ -414,7 +414,26 @@ const existing = new Set(
     .map((r) => r.ref_id),
 )
 const todo = usable.filter((a) => !existing.has(a.id))
-const need = arg('need') ? Math.min(Number(arg('need')), todo.length) : todo.length
+// ⚠️ **기본값이 "후보 전체" 였다.** `--need` 를 빼먹으면 남은 지문을 하나도 안 남기고
+//   청크로 쏟는다 — 실측 2026-08-31: `--type content_match --band 6` 한 번에
+//   **1,401개 파일**이 작업 트리에 떨어졌다. 드레인은 사람이 앉아서 채우는 일이라
+//   한 번에 뽑을 수 있는 몫은 애초에 그만큼일 수 없다.
+//
+//   전량이 필요한 경우가 없지는 않아서 막지는 않되, **말하지 않으면 안 준다** —
+//   `--need all` 로 분명히 요구해야 전량이 나간다. 기본은 한 자리 작업량이다.
+const DEFAULT_NEED = 40
+const needArg = arg('need')
+const need =
+  needArg === 'all'
+    ? todo.length
+    : needArg
+      ? Math.min(Number(needArg), todo.length)
+      : Math.min(DEFAULT_NEED, todo.length)
+if (!needArg && todo.length > DEFAULT_NEED) {
+  console.log(
+    `※ 후보 ${todo.length}편 중 ${DEFAULT_NEED}편만 뽑았다 — 더 필요하면 --need <수> 또는 --need all`,
+  )
+}
 
 const tasks = todo.slice(0, need).map((a) => ({
   article_id: a.id,

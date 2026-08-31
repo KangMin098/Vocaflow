@@ -25,6 +25,7 @@ import {
   CSAT_INSERT_BODY,
   hasArticleChrome,
   hasCitationResidue,
+  hasSensitiveTopic,
   hasUnbalancedParens,
 } from './csat-format'
 import { V_TO_MARKET_BUCKET } from './level-chart'
@@ -78,6 +79,8 @@ export interface ComposeResult {
     chrome: number
     /** 인용 안에서 잘려 나온 조각 — 괄호 짝이 안 맞는다. */
     cutFragment: number
+    /** 학교 교재 지면에 올릴 수 없는 소재. */
+    sensitive: number
     outOfRung: number
   }
   /** 시장 비중을 못 지키고 양보한 횟수. targetShare 를 줬을 때만 0 이 아니다. */
@@ -364,6 +367,7 @@ export function composeUnits(
   let residue = 0
   let chrome = 0
   let cutFragment = 0
+  let sensitive = 0
   let outOfRung = 0
   // 사다리 단수가 쓰는 유형만 남긴다. 주지 않으면 전 유형 허용(예전 동작).
   const allowed = allowedSet
@@ -423,6 +427,14 @@ export function composeUnits(
     //   정규화로 덮지 않고 여기서 막는다. 재고 손실 0.7%(544/76,000).
     if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasUnbalancedParens(p.passage_text)) {
       cutFragment++
+      return false
+    }
+    // 학교 교재 지면에 올릴 수 없는 소재 — `hasSensitiveTopic` 참조.
+    //   ⚠️ 여기는 **지문 조각**만 본다. 낱말이 원글의 다른 곳에 있으면 못 잡으므로
+    //   `volume-pool` 이 원글 단위로 한 번 더 거른다. 두 자리 다 필요하다:
+    //   조합기는 드레인이 만든 문항도 받고, 풀은 조판만 지킨다.
+    if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasSensitiveTopic(p.passage_text)) {
+      sensitive++
       return false
     }
     return true
@@ -621,7 +633,7 @@ export function composeUnits(
   return {
     units,
     stoppedBecause,
-    rejected: { tooShort, tooLong, wrongFormat, residue, chrome, cutFragment, outOfRung },
+    rejected: { tooShort, tooLong, wrongFormat, residue, chrome, cutFragment, sensitive, outOfRung },
     mixRelaxed,
   }
 }
