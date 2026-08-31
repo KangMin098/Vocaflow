@@ -12,6 +12,16 @@
 - 주요 계열 — CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · 추출신뢰 `word_familiarity` · 어원 `word_roots`·`word_root_links` · 추출품질 `extraction_judgments`
 - 이전 기재(테이블 77 · view 7 · 함수 262 · migrations 72+)는 실측과 어긋나 있었다. **이 요약은 DB 쿼리로 재생성 가능한 값만 적는다.**
 
+### 📏 `quality_drift_checks` — M7 회전 표본 상태 (2026-08-31 신설)
+
+[20260831130000](../supabase/migrations/20260831130000_quality_drift_rotating_sample.sql).
+`book_id`(PK, FK→library_books CASCADE) · `checked_at` · `drift` · `failed_reason`.
+RLS 켜고 **정책 없음 = service_role 전용**. 인덱스 `idx_qdc_rotation(checked_at)`.
+
+야간 M7 이 전권(312) 대신 `checked_at` 이 가장 오래된 **40권/밤**만 다시 재고, 이 표가 그 순서를
+기억한다. `drift IS NULL AND failed_reason IS NOT NULL` = 그 책은 30초 안에 못 쟀다는 뜻이다 —
+**빈칸으로 두지 않는다**(조용한 실패 금지). 지표는 이번 밤 표본이 아니라 이 표 **전체**에서 낸다.
+
 ### 🧹 인덱스 정리 — 798 MB 회수, 그리고 **지우면 안 되는 "미사용" 인덱스** (2026-08-31)
 
 [20260831093411](../supabase/migrations/20260831093411_drop_unused_and_duplicate_indexes.sql) 로
