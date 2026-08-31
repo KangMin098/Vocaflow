@@ -23,10 +23,20 @@ describe('rungMix', () => {
     expect(m.targetShare.order).toBeUndefined()
   })
 
-  it('초등의 최다 유형은 영작 배열이다 — 실측 36.7‰ 로 가장 흔하다', () => {
+  // ⚠️ **이 단언은 한 번 틀린 실측을 사실로 못 박고 있었다** (2026-08-31 정정).
+  //   밀도 추출기가 표준 발문 대조표와 **다른 사본**을 들고 있었고 그게 더 좁았다 —
+  //   `제목으로 가장 **적절**` 만 봤는데 초·중등 교재는 **"알맞은"** 을 쓴다.
+  //   그래서 초등 밀도가 title·topic·blank 전부 **0** 으로 잡혔고, 남은 `word_order` 가
+  //   자동으로 1위가 됐다. 실제 초등 독해서 6종에는 title 45 · blank 43 · topic 28 회가 있다.
+  //   정정 후 초등 목표: **title 25.3% · blank 23.1% · word_order 18.0% · topic 15.7%**
+  //   (그 0 은 `rungMix` 를 거쳐 우리 초등 권에서 세 유형을 통째로 빼고 있었다.)
+  it('초등의 최다 유형은 제목이다 — 실측 51.7‰ 로 가장 흔하다', () => {
     const m = rungMix(2)
     const top = Object.entries(m.targetShare).sort((a, b) => b[1] - a[1])[0]
-    expect(top?.[0]).toBe('word_order')
+    expect(top?.[0]).toBe('title')
+    // 순서·삽입은 초등에서 여전히 0 이다 — 그건 사본 결함이 아니라 실제로 안 쓰는 유형이다.
+    expect(m.targetShare.order).toBeUndefined()
+    expect(m.targetShare.insert).toBeUndefined()
   })
 
   it('고등에서 순서·삽입 비중이 중등보다 크다', () => {
@@ -117,18 +127,30 @@ describe('유형을 새로 열면 적합도가 먼저 떨어진다 — 2026-08-3
     const before = rungMix(7, HAVE7).targetShare
     const after = rungMix(7, HAVE8).targetShare
     expect(before.topic).toBeUndefined()
-    expect(after.topic).toBeGreaterThan(0.15) // 여덟으로 나뉘며 단번에 큰 몫을 갖는다
+    // 여덟으로 나뉘며 단번에 큰 몫을 갖는다 — 실측 14.7%.
+    // (2026-08-31 밀도 정정 전에는 고등 topic 26.8‰ 였고 이 값이 15% 를 넘었다.
+    //  정정 후 17.4‰ 라 몫이 조금 줄었다. **임계값이 아니라 실측을 적는다.**)
+    expect(after.topic).toBeGreaterThan(0.14)
     // 나머지 유형의 목표는 그만큼 낮아진다 — 합이 1 이기 때문이다.
     expect(after.grammar_choice).toBeLessThan(before.grammar_choice!)
   })
 
-  it('조금만 넣으면 오히려 내려간다 — 한 청크만 보고 "효과 없음" 으로 읽으면 안 된다', () => {
+  // ⚠️ **여기 적혀 있던 "조금만 넣으면 오히려 내려간다" 는 밀도 오측의 산물이었다**
+  //   (2026-08-31 정정). 고등 topic 밀도가 26.8‰ 로 부풀려져 있어 목표 몫이 커졌고,
+  //   10문항은 그 목표에 한참 못 미쳐 적합도가 **내려갔다**(69.4% → 68.8%).
+  //   밀도를 표준 발문 대조표 한 벌로 통일하자 topic 은 17.4‰ 가 됐고, 같은 10문항이
+  //   이제 목표를 넘지 않으면서도 적합도를 **올린다**: 65.0% → 67.6% → 71.5%.
+  //
+  //   경고 자체("한 청크만 보고 효과 없음으로 읽지 말 것")는 유효하다 — 다만 그 근거는
+  //   실측이 바뀌면 함께 바뀐다. 그래서 여기서는 **방향만** 못 박는다:
+  //   목표에 가까워질수록 적합도가 오른다. 특정 지점의 하락은 목표 몫에 달린 것이라
+  //   실측이 갱신되면 사라질 수 있다.
+  it('목표에 가까워질수록 적합도가 오른다 — 20문항이 10문항보다 낫다', () => {
     const fitBefore = typeMixFit(BEFORE, rungMix(7, HAVE7).targetShare)
     const fit10 = typeMixFit(TOPIC_10, rungMix(7, HAVE8).targetShare)
     const fit20 = typeMixFit(TOPIC_20, rungMix(7, HAVE8).targetShare)
 
-    expect(fit10).toBeLessThan(fitBefore)   // 69.4% → 68.8%
-    expect(fit20).toBeGreaterThan(fitBefore) // → 77.1%
-    expect(fit20).toBeGreaterThan(fit10)
+    expect(fit20).toBeGreaterThan(fit10) // 71.5% > 67.6%
+    expect(fit10).toBeGreaterThan(fitBefore) // 67.6% > 65.0% (정정 전에는 여기가 반대였다)
   })
 })

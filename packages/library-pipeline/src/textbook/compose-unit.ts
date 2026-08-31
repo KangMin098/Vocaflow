@@ -22,6 +22,8 @@
 
 import { type UnitVocab, pickVocabulary } from './assemble-unit'
 import { CSAT_INSERT_BODY, hasArticleChrome, hasCitationResidue } from './csat-format'
+import { V_TO_MARKET_BUCKET } from './level-chart'
+import marketSpec from './market-spec.json'
 
 export type UnitItemType = 'order' | 'insert'
 
@@ -132,13 +134,58 @@ export const SCHOOL_SENTENCE_WORDS = { min: 6, max: 40 } as const
 export const ELEMENTARY_ITEM_TYPES = new Set(['rhyme', 'word_meaning', 'spell_blank'])
 export const NO_PASSAGE_WORDS = { min: 0, max: Number.MAX_SAFE_INTEGER } as const
 
-/** 이 문항이 재야 할 지문 길이 범위. 유형이 창을 정한다. */
-export function itemWordSpec(type: string): { min: number; max: number } {
+/**
+ * 이 문항이 재야 할 지문 길이 범위. **유형이 창을 정하고, 학년이 그것을 좁힌다.**
+ *
+ * ── 왜 `band` 를 받는가 (실측 2026-08-31) ────────────────────────────
+ * 처음에는 유형만 봤다. 그래서 중1 권과 고3 권이 **같은 창(90~200어)** 을 썼다.
+ * 시중 교재는 그렇지 않다 — 학년대별 실측 p10~p90 이 이만큼 다르다:
+ *
+ *   초6  44~125      중1  46~152      고1  47~242      고2  43~188
+ *
+ * 결과: 조립기가 통과시킨 지문이 **그 학년 시중 규격 밖**이었다. 밴드를 전수로 재고서야
+ * 보였다 — A6(지문 어수 규격 적합률)가 6밴드 중 5밴드에서 미달이고, **고1(V5)만 100%** 였다.
+ * 고1의 시중 창(47~242)이 조립기 창(90~200)을 통째로 품어서 우연히 맞았던 것이다.
+ *
+ *   V2 61.9%  V3 58.4%  V4 51.1%  **V5 100%**  V6 76.8%  V7 75.3%
+ *
+ * ⚠️ **한 밴드만 재면 이 결함은 안 보인다.** V5 만 보고 "규격 100%" 라고 적을 뻔했다.
+ *
+ * 좁히지 않는 유형이 둘이다:
+ *  · 장문(43~45) — 시장 분포의 **꼬리** 자체다(고1 최대 354어). p90 으로 자르면 전량 걸린다.
+ *  · 문장 단위·초등 3종 — 잴 지문이 없거나 한 문장이라 학년 창의 하한(43~47어)에 못 미친다.
+ *    (벤치마크 A6 도 같은 이유로 이 유형들을 모집단에서 뺀다.)
+ *
+ * 교차 결과가 비면 유형 창을 그대로 쓴다 — 좁히려다 **재료를 0 으로 만들지 않는다.**
+ */
+export function itemWordSpec(type: string, band?: number | null): { min: number; max: number } {
   if (ELEMENTARY_ITEM_TYPES.has(type)) return NO_PASSAGE_WORDS
   if (LONG_ITEM_TYPES.has(type)) return CSAT_LONG_ITEM_WORDS
   if (SCHOOL_SENTENCE_TYPES.has(type)) return SCHOOL_SENTENCE_WORDS
-  if (SCHOOL_PARAGRAPH_TYPES.has(type)) return SCHOOL_PARAGRAPH_WORDS
-  return CSAT_ITEM_WORDS
+  const base = SCHOOL_PARAGRAPH_TYPES.has(type) ? SCHOOL_PARAGRAPH_WORDS : CSAT_ITEM_WORDS
+
+  const grade = band == null ? null : marketPassageWindow(band)
+  if (!grade) return base
+  const min = Math.max(base.min, grade.min)
+  const max = Math.min(base.max, grade.max)
+  return min < max ? { min, max } : base
+}
+
+/**
+ * 시중 교재의 그 학년대 지문 어수 창(p10~p90). 없으면 null.
+ *
+ * 표를 여기서 다시 만들지 않는다 — `level-chart.ts` 의 `V_TO_MARKET_BUCKET` 이 정본이고
+ * 벤치마크의 `V_TO_BUCKET` 과 같은 내용이다. 셋이 갈리면 조판과 채점이 다른 자를 쓰게 된다.
+ */
+function marketPassageWindow(band: number): { min: number; max: number } | null {
+  const bucket = V_TO_MARKET_BUCKET[band]
+  if (!bucket) return null
+  const w = (marketSpec.passageWords as Record<string, { words?: Record<string, number> } | undefined>)[
+    bucket
+  ]?.words
+  const lo = w?.p10
+  const hi = w?.p90
+  return typeof lo === 'number' && typeof hi === 'number' && lo < hi ? { min: lo, max: hi } : null
 }
 
 /** 단원 기본 구성 — 순서 2 + 삽입 2. 실제 수능 배점 비율과 같다. */
@@ -310,8 +357,9 @@ export function composeUnits(
       outOfRung++
       return false
     }
-    // 유형이 창을 정한다 — 장문은 300어가 정상이고, 짧은 지문의 자로 재면 전량 걸린다.
-    const spec = itemWordSpec(p.type)
+    // 유형이 창을 정하고 **학년이 그것을 좁힌다** — 장문은 300어가 정상이고, 짧은 지문의
+    // 자로 재면 전량 걸린다. 밴드를 안 넘기면 중1 권이 고3 창을 쓴다(`itemWordSpec` 주석).
+    const spec = itemWordSpec(p.type, options.band)
     if (p.passage_words < spec.min) {
       tooShort++
       return false

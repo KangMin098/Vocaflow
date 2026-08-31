@@ -91,8 +91,14 @@ export function scoreVolume(units: ReadonlyArray<Unit>): Scorecard {
   //   창(90~200어)으로 재면 멀쩡한 문항이 "규격 밖" 으로 잡힌다 — 실제로 장문을 처음
   //   실었을 때 이 검사가 14문항을 그렇게 세어 9/9 를 8/9 로 떨어뜨렸다.
   //   **검사가 틀린 것이지 문항이 틀린 것이 아니었다.**
+  // ⚠️ **밴드도 함께 넘긴다.** 조립기는 학년 창으로 걸러 놓고 채점은 유형 창으로만 재면,
+  //   두 자가 갈려 "조립기가 통과시킨 것을 채점기가 규격 밖으로 세는" 일이 생긴다.
+  //   한 권은 한 밴드다(아래 `bands` 검사가 그것을 지킨다) — 첫 단원의 밴드를 쓴다.
+  const volumeBand = units.length === 1 || new Set(units.map((u) => u.band)).size === 1
+    ? units[0]?.band ?? null
+    : null
   const outOfSpec = allItems.filter((i) => {
-    const spec = itemWordSpec(i.type)
+    const spec = itemWordSpec(i.type, volumeBand)
     return i.passage_words < spec.min || i.passage_words > spec.max
   })
   const longCount = allItems.filter((i) => LONG_ITEM_TYPES.has(i.type)).length

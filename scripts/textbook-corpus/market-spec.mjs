@@ -279,21 +279,35 @@ function extractExplanationSpec(db) {
  * 유형은 난이도가 아니라 **학년의 신분증**이다 — 잘못 실으면 그 권은 그 학년 교재가 아니다.
  */
 function extractTypeDensity(db) {
-  const PATTERNS = {
-    order: /이어질 (글의 )?순서|순서로 가장 적절/,
-    insert: /문장이 들어가기|주어진 문장이/,
+  // ── ⚠️ 발문 대조표를 **두 벌 두지 않는다** (실측 2026-08-31) ────────
+  // 이 함수는 원래 `mapStemToOurType` 과 무관한 자기 패턴표를 들고 있었고, 그게 더 좁았다:
+  //
+  //   밀도표          `제목으로 가장 **적절**`      `전체 흐름과 관계 **띄어쓰기** 없는`
+  //   초등 교재 실제   글의 제목으로 가장 **알맞은**   전체 흐름과 관계**없는**
+  //
+  // **초·중등 교재는 "적절한" 대신 "알맞은" 을 쓴다.** 그래서 초등 밀도가
+  // title·topic·blank·main_point 전부 **0** 으로 잡혔다. 실제로는 초등 독해서 6종에서
+  // title 45 · blank 43 · topic 28 · irrelevant 15 회가 나온다.
+  //
+  // 그 0 이 `rung-mix.ts` 로 흘러 **우리 초등 권에서 그 유형들이 통째로 빠졌다** —
+  // V2 조립 결과가 `word_order 78 · blank_word 27 · unit_vocab 15` 였고 A5 가 0 종이었다.
+  // "시장을 따랐다" 고 적혀 있었지만 따른 것은 **잘못 읽은 시장**이었다.
+  //
+  // 그래서 발문이 있는 유형은 `stemRe()` + `mapStemToOurType` 한 벌로만 센다.
+  // 아래 표에는 **발문이 아예 없는**(지시문으로 나오는) 세 유형만 남긴다.
+  const INSTRUCTION_ONLY = {
     unit_vocab: /밑줄 친 .{0,12}의 뜻|뜻으로 알맞은|우리말 뜻/,
     blank_word: /빈칸에 알맞은 (말|낱말|단어)을? 쓰|철자를 쓰/,
     word_order: /배열하(여|시오)|알맞게 배열|순서대로 배열/,
-    grammar_fix: /어법상 (틀린|어색한).{0,10}(고쳐|바르게)/,
-    topic: /주제로 가장 적절/,
-    title: /제목으로 가장 적절/,
-    main_point: /요지로 가장 적절/,
-    blank: /빈칸에 들어갈 말로 가장 적절/,
-    irrelevant: /전체 흐름과 관계 없는/,
-    vocab_choice: /낱말의 쓰임이 적절하지 않은/,
-    grammar_choice: /어법상 틀린 것은|밑줄 친 부분 중 어법/,
   }
+  /** 밀도를 낼 유형 = 발문에서 나오는 것 + 지시문으로만 나오는 것. */
+  const DENSITY_TYPES = [
+    ...new Set([
+      'order', 'insert', 'grammar_fix', 'topic', 'title', 'main_point', 'blank',
+      'irrelevant', 'vocab_choice', 'grammar_choice',
+      ...Object.keys(INSTRUCTION_ONLY),
+    ]),
+  ]
   const rows = db.prepare(`
     SELECT d.grade_min, p.text
     FROM pages p JOIN docs d ON d.id = p.doc_id
@@ -306,14 +320,24 @@ function extractTypeDensity(db) {
     if (!b) continue;
     agg[b] ??= { pages: 0, hits: {} };
     agg[b].pages += 1;
-    for (const [type, re] of Object.entries(PATTERNS)) {
-      if (re.test(r.text)) agg[b].hits[type] = (agg[b].hits[type] || 0) + 1;
+    // 발문에서 나오는 유형 — 표준 발문 추출과 **같은 정규식·같은 대조표**를 쓴다.
+    const onPage = new Set();
+    for (const m of r.text.matchAll(stemRe())) {
+      const s = m[1].replace(/\s+/g, ' ').trim();
+      if (s.length < 8 || s.length > 70) continue;
+      const t = mapStemToOurType(s);
+      if (t) onPage.add(t);
     }
+    // 지시문으로만 나오는 유형.
+    for (const [type, re] of Object.entries(INSTRUCTION_ONLY)) {
+      if (re.test(r.text)) onPage.add(type);
+    }
+    for (const t of onPage) agg[b].hits[t] = (agg[b].hits[t] || 0) + 1;
   }
   const out = {};
   for (const [b, v] of Object.entries(agg)) {
     out[b] = { pagesMeasured: v.pages, densityPerPage: {} };
-    for (const type of Object.keys(PATTERNS)) {
+    for (const type of DENSITY_TYPES) {
       out[b].densityPerPage[type] = Number(((v.hits[type] || 0) / v.pages).toFixed(4));
     }
   }
