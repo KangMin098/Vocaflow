@@ -86,6 +86,32 @@ worktree 가 격리해 주지 못하는, **모든 브랜치가 공유하는** �
 | **git 인덱스(스테이징)** — 한 worktree 를 두 세션이 함께 쓸 때 | 🔴 인덱스는 worktree 당 1개 | 아래 §5.1 |
 | **`.next/`** — 같은 worktree 에서 dev 서버와 `next build` | 🟠 vendor-chunks 혼입 → 라우트 무작위 404 | 검증 빌드는 `NEXT_DIST_DIR=.next-verify` 로 격리 (`next.config.mjs` `distDir`) |
 
+### 5.0 격리한 distDir 는 아무도 안 지운다 — 17개 3.8 GB (2026-08-31 실측)
+
+위 표의 마지막 줄(`NEXT_DIST_DIR` 격리)은 **사고를 막지만 쓰레기를 남긴다.** 세션마다
+자기 이름의 distDir 를 만들고 끝나면 그냥 둔다. 2026-08-31 에 `apps/web` 에
+`.next-build-check` 987M · `.next-sweep` 1,038M · `.next-prod `(**이름 끝에 공백**) 942M 등
+**17개 3,846 MB** 가 쌓여 있었다. 같은 날 DB 에서 회수한 798 MB 의 **4.8배**다.
+`.gitignore` 가 `.next-*/` 를 막아 커밋되지는 않으므로 **아무도 눈치채지 못한다.**
+
+**살아 있는 것과 버려진 것을 구분하는 법** — `next.config.mjs` 가 이미 표식을 남긴다:
+
+```bash
+# distDir 별 소유권 확인 (표식은 60초마다 갱신 · 3분 지나면 stale)
+for d in apps/web/.next-*; do
+  f="$d/.dev-server-owner.json"
+  [ -f "$f" ] && echo "$d  살아있음? $(( $(date +%s) - $(date -r "$f" +%s) ))s 전" || echo "$d  표식 없음 — 버려짐"
+done
+```
+
+⚠️ **목록을 `tsconfig.json` 의 `include` 에서 뽑지 말 것.** Next 가 거기에 자동으로
+경로를 누적하지만 **디렉터리와 일치하지 않는다** — 실제로 tsconfig 기준으로 세면
+9개 1,247 MB 를 빠뜨린다(이미 지운 디렉터리의 경로가 남아 있고, 만들어진 뒤 tsconfig 에
+안 들어간 것도 있다). **파일 시스템(`ls -d apps/web/.next-*`)이 정본이다.**
+
+지울 때 `.next`(표준 빌드 산출물)와 표식이 살아 있는 것은 남긴다. 지운 뒤
+`curl -s -o /dev/null -w "%{http_code}" localhost:3000` 으로 dev 서버가 200 인지 확인한다.
+
 ### 5.1 인덱스 공유 사고 — `git add` 와 `git commit` 사이의 창 (2026-08-10 실측)
 
 worktree 는 브랜치를 격리하지만, **같은 worktree 를 두 에이전트 세션이 동시에 쓰면 인덱스는 하나**다.
