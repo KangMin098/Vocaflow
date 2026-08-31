@@ -136,23 +136,42 @@ function ratio(ours, market) {
  * 그래야 두 모드가 **같은 컬럼·같은 계산**을 통과한다(따로 재면 또 두 자가 된다).
  */
 const bandArg = process.argv.indexOf('--volume')
-const BAND = bandArg >= 0 ? Number(process.argv[bandArg + 1]) : null
-if (bandArg >= 0 && !Number.isFinite(BAND)) {
-  console.error('--volume 뒤에 밴드 번호가 필요하다 (예: --volume 5)')
+const bandRaw = bandArg >= 0 ? process.argv[bandArg + 1] : null
+// `--volume all` — 사다리 7단이 **실제로 인쇄하는 문항 전체**를 한 벌로 잰다.
+//
+// ⚠️ 밴드를 하나씩 따로 돌리면 **값이 서로 비교되지 않는다.** 다른 세션이 문항을 계속
+//   넣어 재고가 실행마다 바뀌고, 그래서 권 구성도 바뀐다 — 실측 2026-08-31: 같은 V7 을
+//   40분 간격으로 두 번 재니 A6 이 92.7% 와 100% 로 갈렸다. 자를 고쳐서가 아니라
+//   **재고가 달랐다.** 사다리를 한 판에 재야 한 시점의 출간물 품질이 나온다.
+const ALL_BANDS = bandRaw === 'all'
+const BAND = ALL_BANDS ? null : bandArg >= 0 ? Number(bandRaw) : null
+if (bandArg >= 0 && !ALL_BANDS && !Number.isFinite(BAND)) {
+  console.error('--volume 뒤에 밴드 번호나 all 이 필요하다 (예: --volume 5 · --volume all)')
   process.exit(1)
 }
 
 const all = await fetchAll()
 let items = all
 let scope = `csat_dcp_items ${all.length.toLocaleString()}문항 (창고 전체)`
-if (BAND != null) {
+if (BAND != null || ALL_BANDS) {
   const { loadVolume } = await import('./volume-pool.mjs')
   const { MARKET_UNITS_PER_BOOK } = await import('@vocaflow/library-pipeline')
-  const { itemIds, units } = await loadVolume(supabase, { band: BAND, unitCount: MARKET_UNITS_PER_BOOK.median })
-  items = all.filter((r) => itemIds.has(r.id))
-  scope = `V${BAND} 조판 1권 — ${units.length}단원 · ${items.length}문항 (인쇄되는 것만)`
+  const bands = ALL_BANDS ? [1, 2, 3, 4, 5, 6, 7] : [BAND]
+  const ids = new Set()
+  let unitCount = 0
+  const per = []
+  for (const b of bands) {
+    const v = await loadVolume(supabase, { band: b, unitCount: MARKET_UNITS_PER_BOOK.median })
+    for (const id of v.itemIds) ids.add(id)
+    unitCount += v.units.length
+    per.push(`V${b} ${v.itemIds.size}`)
+  }
+  items = all.filter((r) => ids.has(r.id))
+  scope = ALL_BANDS
+    ? `사다리 7권 — ${unitCount}단원 · ${items.length}문항 (인쇄되는 것만 · ${per.join(' · ')})`
+    : `V${BAND} 조판 1권 — ${unitCount}단원 · ${items.length}문항 (인쇄되는 것만)`
   if (!items.length) {
-    console.error(`V${BAND} 로 조판되는 문항이 없다.`)
+    console.error('조판되는 문항이 없다.')
     process.exit(1)
   }
 }
@@ -236,6 +255,24 @@ const ourTypes = new Set(items.map((i) => i.type))
 const covered = [...marketTypes].filter((t) => ourTypes.has(t))
 const beyond = [...ourTypes].filter((t) => !marketTypes.has(t))
 const gate = covered.length / marketTypes.size
+
+// ⚠️ **A5 에는 우리가 넘을 수 없는 천장이 있다 — 규격 두 벌이 서로 어긋난다.**
+//   `typeCoverage` 는 시장이 16종을 쓴다고 하는데, 목표 몫을 유도하는 `typeDensity` 는
+//   13종만 담고 그중 3종(unit_vocab·blank_word·word_order)은 그 16 밖이다. 그래서
+//   **목표 몫을 받을 수 있는 시장 표준 유형은 10종뿐**이고, 나머지 6종
+//   (claim·content_match·long_reference·mood·purpose·summary)은 재고가 있어도
+//   목표가 0 이라 어느 권에도 안 실린다.
+//
+//   실측 2026-08-31: 사다리 7권이 그 10종을 **전부** 싣는다 → A5 는 이미 천장이다.
+//   0.625 는 우리 파이프라인의 결함이 아니라 **기준선 두 벌의 불일치**다.
+//   고치려면 코퍼스를 다시 재야 한다(scripts/textbook-corpus/market-spec.mjs) —
+//   여기서 분모를 바꾸면 못 넘은 것을 넘었다고 적는 셈이다.
+const densityTypes = new Set(
+  Object.keys(spec.typeDensity?.bySchool?.['고등']?.densityPerPage ?? {}),
+)
+const reachableTypes = [...marketTypes].filter((t) => densityTypes.has(t))
+const missingReachable = reachableTypes.filter((t) => !ourTypes.has(t))
+const unreachableTypes = [...marketTypes].filter((t) => !densityTypes.has(t))
 /** 밴드 → 권당 기준선의 학교급. `V_TO_BUCKET` 과 같은 사다리를 따른다. */
 const BAND_SCHOOL = (v) => (v == null ? null : v <= 2 ? '초등' : v <= 4 ? '중등' : '고등')
 const perDoc = spec.typeCoverage?.perDocument
@@ -405,6 +442,26 @@ if (process.argv.includes('--json')) {
       ` · 분모 ${a6Total}
 `,
   )
+  // 어느 버킷이 얼마나 미달인지 — 총합만 보면 어디를 고쳐야 할지 알 수 없다.
+  for (const [b, v] of Object.entries(a6ByBucket)) {
+    console.log(
+      `    ${b.padEnd(4)} ${v.in}/${v.total} = ${((100 * v.in) / (v.total || 1)).toFixed(1)}%` +
+        `  (시장 ${v.p10}~${v.p90}어)`,
+    )
+  }
+  console.log(
+    `  A5 천장  목표 몫을 받을 수 있는 시장 표준 유형 ${reachableTypes.length}/${marketTypes.size}종` +
+      ` — 나머지 ${unreachableTypes.length}종은 밀도 규격에 없어 목표가 0 이다` +
+      ` (${unreachableTypes.join(' · ')})`,
+  )
+  console.log(
+    missingReachable.length
+      ? `           아직 못 실은 것 ${missingReachable.length}종 — ${missingReachable.join(' · ')}
+`
+      : `           **천장에 닿았다** — 실을 수 있는 ${reachableTypes.length}종을 다 싣고 있다.
+`,
+  )
+  console.log()
   console.log('  유형별 해설 보유율 (하위 8):')
   for (const t of report.detail.explanationsByType.slice(0, 8)) {
     console.log(`    ${t.type.padEnd(16)} ${String(t.explained).padStart(5)}/${String(t.items).padEnd(6)} ${String(t.pct).padStart(5)}%`)
