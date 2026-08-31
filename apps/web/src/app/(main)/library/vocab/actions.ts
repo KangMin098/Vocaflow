@@ -23,6 +23,8 @@
 
 import { revalidatePath } from 'next/cache'
 
+import { humanDbError } from '@/lib/supabase/error-message'
+
 import { createClient } from '@/lib/supabase/server'
 
 export type SubscribeResult =
@@ -33,7 +35,14 @@ export type UnsubscribeResult =
   | { ok: true }
   | { ok: false; reason: 'unauthenticated' | 'error'; message?: string }
 
-const VOCAB_IMPORT_CHUNK = 500 // Supabase POST payload 한도 대비 분할
+// 한 번에 보내는 행 수.
+//
+// ⚠️ 여기 주석은 "Supabase POST payload 한도 대비" 라고만 적혀 있었는데 **그 한도를
+//    아무도 재본 적이 없었다.** 실측 2026-08-30: 19.7MB 까지 크기로 거부되지 않고,
+//    48.1MB 에서 **43초 뒤** 프록시가 HTML 오류 페이지로 끊는다.
+//    즉 500행(약 65KB)은 한도 때문이 아니라 **왕복 시간과 실패 폭** 때문에 맞는 값이다 —
+//    실패하면 그 조각만 다시 하면 되고, 학습자를 43초 기다리게 하지 않는다.
+const VOCAB_IMPORT_CHUNK = 500
 
 /**
  * 도서가 아닌 세트(어원·교육과정 등)의 구독 시 첫 적재 상한.
@@ -182,7 +191,7 @@ export async function subscribeSet(setId: string): Promise<SubscribeResult> {
     const { error } = await supabase
       .from('vocabularies')
       .upsert(chunk, { onConflict: 'user_id,word', ignoreDuplicates: true })
-    if (error) return { ok: false, reason: 'error', message: error.message }
+    if (error) return { ok: false, reason: 'error', message: humanDbError(error.message) }
   }
 
   revalidatePath('/library/vocab')
@@ -209,7 +218,7 @@ export async function unsubscribeSet(setId: string): Promise<UnsubscribeResult> 
     .delete()
     .eq('user_id', user.id)
     .eq('set_id', setId)
-  if (error) return { ok: false, reason: 'error', message: error.message }
+  if (error) return { ok: false, reason: 'error', message: humanDbError(error.message) }
 
   // ⚠️ vocabularies 는 보존. 사용자가 학습한 단어와 learning_records 가 함께 사라지면
   //   복구 불가능. 정리는 /wordvault 에서 사용자 명시 액션으로만.
