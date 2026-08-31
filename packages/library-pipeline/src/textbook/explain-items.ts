@@ -30,6 +30,26 @@ import { looksPlural, standardArticle } from './grammar-choice'
 /** 시장 규격 — `market-spec.json` 의 `explanation.lengthChars` p25/p90 실측값. */
 export const EXPLANATION_CHARS = { min: 75, max: 473 } as const
 
+/**
+ * **해설이 갖춰야 할 두 가지** — 시중 해설지를 실측해서 나온 조건이다.
+ *
+ *   오답 배제 언급률  시중 **53.6%**   (`market-spec.json` explanation.wrongOptionMentionRate)
+ *   원문 인용률       시중 **49.7%**   (같은 파일 sourceCitationRate)
+ *
+ * 시중 해설의 절반은 "왜 나머지가 아닌지" 를 적고, 절반은 지문의 영어를 그대로 따온다.
+ * 둘 다 학습자가 **자기 오답을 스스로 확인**하는 데 쓰는 장치다.
+ *
+ * ⚠️ **여기 한 벌만 둔다** (2026-08-31). 이 두 규칙은 원래 `market-benchmark.mjs` 안에만
+ *   있었고, 집필 지침(`item-drain-export.mjs`)에도 적재 게이트에도 없었다. 그 결과
+ *   Claude Code 가 손으로 쓴 초등 87문항의 해설이 개념 설명만 하고 원문을 인용하지도
+ *   오답을 짚지도 않아, 같은 권에서 **A3 7.0% · A4 31.7%** 로 나왔다 —
+ *   기계가 만든 결정론 해설은 같은 축에서 99.9% 였다. **사람이 쓴 쪽이 더 나빴다.**
+ *   재는 자에만 있고 쓰는 자리에는 없는 기준은 지켜지지 않는다.
+ */
+export const EXPLANATION_MENTIONS_WRONG = /오답|나머지|적절하지 않|틀린 이유|[①②③④⑤]/
+/** 영어 낱말 두 개 이상을 이어 따온 자리 — 지문에서 근거를 그대로 가져왔다는 표시. */
+export const EXPLANATION_QUOTES_SOURCE = /[A-Za-z]{4,}[^가-힣]{0,3}[A-Za-z]{4,}/
+
 /** 앞말 받침에 맞는 조사. `explain.ts` 와 같은 규칙을 쓴다. */
 function josa(word: string, [withBatchim, without]: readonly [string, string]): string {
   return hasFinalConsonant(word) ? withBatchim : without

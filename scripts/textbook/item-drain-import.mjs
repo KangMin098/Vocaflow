@@ -87,7 +87,8 @@ const LONGEST_ANSWER_MAX = 0.4
 const MIN_RATIONALE = 20
 
 const { createClient } = await import('@supabase/supabase-js')
-const { hasArticleChrome, itemWordSpec } = await import('@vocaflow/library-pipeline')
+const { hasArticleChrome, itemWordSpec, EXPLANATION_MENTIONS_WRONG, EXPLANATION_QUOTES_SOURCE } =
+  await import('@vocaflow/library-pipeline')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 })
@@ -134,6 +135,15 @@ for (const r of rows) {
   else if (new Set(choices.map(norm)).size !== 5) why('**선택지가 서로 겹친다 — 답이 둘이 된다**')
   else if (!Number.isInteger(answer) || answer < 1 || answer > 5) why(`정답 번호가 ${r.answer} — 1~5 여야 한다`)
   else if (String(r.rationale_ko ?? '').trim().length < MIN_RATIONALE) why('근거가 비었거나 너무 짧다')
+  // ⚠️ **해설은 길이만으로 충분하지 않다.** 시중 해설지는 절반이 지문의 영어를 그대로 따오고
+  //   (49.7%) 절반이 왜 나머지가 아닌지 짚는다(53.6%). 그 둘이 학습자가 자기 오답을 스스로
+  //   확인하는 장치다. 이 관문이 없던 동안 손으로 쓴 초등 87문항이 개념 설명만 해서
+  //   같은 권에서 A4 31.7% · A3 7.0% 로 나왔다 — 기계가 만든 결정론 해설은 99.9% 였다.
+  //   규칙은 `explain-items.ts` 한 벌에 있다(재는 자와 넣는 자가 같은 것을 봐야 한다).
+  else if (!EXPLANATION_QUOTES_SOURCE.test(String(r.rationale_ko ?? '')))
+    why('근거에 지문의 영어를 인용하지 않았다 — 학습자가 본문에서 찾을 수 없다')
+  else if (!EXPLANATION_MENTIONS_WRONG.test(String(r.rationale_ko ?? '')))
+    why('근거가 왜 나머지가 아닌지 짚지 않았다 — "나머지"·"오답"·번호 중 하나로 명시할 것')
   else if (!passage) why('지문이 비었다')
   // ⚠️ **export 게이트는 과거에 뽑아 둔 청크를 되돌아보지 않는다.**
   //   2026-08-30 에 기사 껍데기 게이트를 넣었는데, 그보다 먼저(8/22) 채워 둔

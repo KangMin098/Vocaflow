@@ -458,4 +458,10 @@ console.log(`  이미 이 유형이 붙은 것 ${existing.size}편`)
 console.log(`  **배치가 쓸 몫 ${tasks.length}편**  → 청크 ${chunks.length}개 (${SIZE}편씩)`)
 console.log(`\n  ${path.relative(process.cwd(), DIR)}/chunk-NN.json`)
 console.log(`  각 항목의 choices(5개)·answer(1~5)·rationale_ko 를 채운 뒤 같은 이름 + .out.json 으로 저장하면`)
+// ⚠️ **해설 조건을 여기서 말하지 않으면 지켜지지 않는다** (실측 2026-08-31).
+//   이 두 줄이 없던 동안 손으로 쓴 초등 87문항의 해설이 개념 설명만 해서
+//   A3(오답 배제 언급) 7.0% · A4(원문 인용) 31.7% 로 나왔다 — 기계 해설은 99.9% 였다.
+console.log(`\n  **rationale_ko 는 두 가지를 반드시 담는다** (시중 해설지 실측 기준):`)
+console.log(`    ① 지문의 영어를 그대로 따온다 — 학습자가 근거를 본문에서 찾을 수 있어야 한다`)
+console.log(`    ② 왜 나머지가 아닌지 짚는다 — "나머지" · "오답" · 번호(①~⑤) 중 하나로 명시`)
 console.log(`  item-drain-import.mjs 가 DB 에 넣는다.`)

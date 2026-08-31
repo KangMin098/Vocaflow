@@ -607,6 +607,8 @@ export type { BiasFinding, BiasKind, BiasReport, PronounBalance } from './textbo
 export {
   DETERMINISTIC_EXPLAIN_TYPES,
   EXPLANATION_CHARS,
+  EXPLANATION_MENTIONS_WRONG,
+  EXPLANATION_QUOTES_SOURCE,
   explainBlankWord,
   explainGrammarFix,
   explainItem,
