@@ -7,9 +7,55 @@
 
 ## 요약
 
-- **테이블**: **87** · **Views**: **10** · **Functions**: **327** · **Migrations**: **428** (2026-08-12 DB 직접 쿼리 실측)
+- **테이블**: **107** · **Views**: **11**(+ matview 4) · **Functions**: **360** · **인덱스**: **340** · **Migrations**: **528** · **용량 7,665 MB** (2026-08-31 DB 직접 쿼리 실측)
+- RLS: 107 중 **106** enabled. 유일한 예외 `textbook_shelf_stats_meta` 는 anon 에 GRANT 되어 있지 않다.
 - 주요 계열 — CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · 추출신뢰 `word_familiarity` · 어원 `word_roots`·`word_root_links` · 추출품질 `extraction_judgments`
 - 이전 기재(테이블 77 · view 7 · 함수 262 · migrations 72+)는 실측과 어긋나 있었다. **이 요약은 DB 쿼리로 재생성 가능한 값만 적는다.**
+
+### 🧹 인덱스 정리 — 798 MB 회수, 그리고 **지우면 안 되는 "미사용" 인덱스** (2026-08-31)
+
+[20260831093411](../supabase/migrations/20260831093411_drop_unused_and_duplicate_indexes.sql) 로
+8,463 MB → **7,665 MB**. 지운 8개는 근거를 세 갈래로 교차 확인했다 — 누적 스캔 0회
+(`pg_stat_database.stats_reset` 이 NULL 이라 DB 생애 전체 누적이다) · 소비자 RPC 본문 · 생성 시점.
+
+가장 큰 `idx_lav_lv` 754 MB 는 `(library_article_id, base_learning_value DESC)` 였는데,
+**`base_learning_value` 로 정렬하는 소비자가 하나도 없었다**(RPC 4개 본문 전수 확인).
+같은 `WHERE library_article_id = X` 를 형제 UNIQUE 가 3,252,863회 처리 중이다.
+
+⚠️ **여기서 배운 것 — "스캔 0회" 만 보고 지우면 안 된다.** 0회 인덱스 중 넷은 **FK 자식 쪽**이라
+남겼다(약 56 MB):
+
+| 남긴 인덱스 | 받치는 FK | 지웠다면 |
+|---|---|---|
+| `idx_shared_words_vocab_ref` | `shared_words_library_book_vocabulary_id_fkey` SET NULL | 부모 1행 삭제 → `shared_words` 664,227행 seq scan |
+| `idx_lbv_lemma` | `library_book_vocabularies_lemma_fkey` SET NULL | 사전 낱말 삭제마다 1,678,478행 |
+| `idx_shared_words_lemma` | `shared_words_lemma_fkey` SET NULL | 〃 |
+| `idx_shared_words_source_run` | `shared_words_source_run_id_fkey` SET NULL | 〃 |
+
+**스캔 0회는 그 삭제가 아직 안 일어났다는 뜻이지 필요 없다는 뜻이 아니다.** 큐레이션
+"→ 소스 GET" 이 `library_books` 를 DELETE 하는 구조라 실제로 밟는 경로다.
+FK 판정은 `pg_constraint.conindid` 로 한다 — 한 인덱스가 **여러 FK** 를 받칠 수 있으므로
+서브쿼리가 아니라 집계로 물어야 한다(`more than one row returned by a subquery`).
+
+### 🔒 SECURITY DEFINER 뷰의 anon 노출 차단 (2026-08-31)
+
+[20260831093427](../supabase/migrations/20260831093427_close_anon_exposure_on_definer_views.sql) —
+`word_mislevel_signal` · `v_topic_word_salience` 가 `security_invoker` 가 꺼진 채 **anon 에 GRANT**
+되어 있었다. 익명 키만으로 밑단 RLS 를 우회해 읽혔다는 뜻이다. 특히 전자는 `word_familiarity` —
+**학습자의 known/unknown 응답**을 읽는다(가입자 3명이라 lemma별 집계라도 사실상 개인 이력).
+`security_invoker = on` + `REVOKE` 두 겹으로 막았다. `service_role` 은 `rolbypassrls = true` 라
+어드민·스크립트는 그대로 동작하고, 앱 코드 참조는 0건이었다.
+
+과거 [20260614011809](../supabase/migrations/20260614011809_views_security_invoker.sql) ·
+[20260709132237](../supabase/migrations/20260709132237_advisor_revoke_anon_definer.sql) 이 같은 일을
+했는데 이 둘은 그물에 걸리지 않았다 — **뷰를 새로 만들 때마다 재확인이 필요하다.**
+
+⚠️ 반대로 어드바이저 INFO "RLS 켜졌는데 정책 0개" 6종(`archaic_candidates` ·
+`english_irregular_forms` · `noise_blacklist` · `st17_timetables` · `sw_comments` · `sw_players`)은
+**의도된 상태다.** 뒤 셋은 과거 `FOR ALL TO anon USING(true)` 로 `sw_players.pass_hash` 가
+anon 키에 읽히던 사고의 수정 결과이고, 회귀 테스트
+`apps/web/src/lib/auth/__tests__/rls-surface.integration.test.ts` 가 그렇게 고정해 두었다.
+앞 셋은 service_role 전용(RPC·스크립트)이다. **고치려 들면 사고를 되돌리는 셈이 된다.**
 
 ### ⛔ 스키마 드리프트 — RPC 8개가 없는 테이블을 참조 중 (2026-08-12 발견)
 

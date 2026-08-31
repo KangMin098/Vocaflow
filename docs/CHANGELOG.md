@@ -10,6 +10,27 @@
 
 ## Unreleased (v06.34 → next)
 
+### DB 8,463 → 7,665 MB · anon 에 열려 있던 학습자 데이터 뷰 차단
+
+마이그레이션 2건. `20260831093411` 이 미사용·중복 인덱스 8개를 지워 **798 MB** 를 회수했다.
+가장 큰 `idx_lav_lv` 754 MB 는 `(library_article_id, base_learning_value DESC)` 인데
+그 컬럼으로 정렬하는 소비자가 **하나도 없었다**(RPC 4개 본문 전수 확인). 같은 WHERE 를
+형제 UNIQUE 가 325만 회 처리 중이고, 제거 후 EXPLAIN 으로 Index Only Scan·Heap Fetches 0 재확인.
+
+**"스캔 0회" 만 보고 지우면 안 된다는 것도 같이 배웠다** — 0회 인덱스 중 넷은 FK 자식 쪽이라
+남겼다(약 56 MB). 지웠다면 도서 삭제 1건이 `shared_words` 66만 행 seq scan 이 된다.
+0회는 그 삭제가 아직 안 일어났다는 뜻이지 필요 없다는 뜻이 아니다.
+
+`20260831093427` 은 `word_mislevel_signal` · `v_topic_word_salience` 의 anon 노출을 막았다.
+둘 다 `security_invoker` 가 꺼진 채 anon 에 GRANT 되어 있었고, 전자는 `word_familiarity` —
+**학습자의 known/unknown 응답** — 를 읽는다. `security_invoker=on` + `REVOKE` 두 겹.
+앱 참조 0건, service_role 은 `rolbypassrls` 라 어드민 경로는 그대로다.
+
+손대지 않은 것: 7.6 GB 는 대부분 진짜 데이터다(최대 어휘 테이블 죽은 행 0% — VACUUM 으로 안 준다).
+`ready` 원글 19,261편이 어휘 5 GB 를 쥐고 있는데, 발행된 건 160편뿐이다. 이건 정리가 아니라
+**"발행 안 할 원글을 어떻게 할지" 라는 제품 결정**이라 남겨 둔다.
+
+
 ### 판권장이 **틀린 규격을 인쇄**하고 있었다 — 전 밴드 "지문 90~200어"
 
 브랜딩을 전수 점검하다 찾았다. 조판물의 검수 칩이 `지문 90~200어` 로 하드코딩돼 있어,
