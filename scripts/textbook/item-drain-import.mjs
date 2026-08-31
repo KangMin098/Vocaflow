@@ -223,6 +223,14 @@ if (ok.length >= 8) {
   }
 }
 
+// ── 이미 있는 것 ────────────────────────────────────────────────────
+const existing = new Set(
+  (await fetchAllIn(db, 'csat_dcp_items', 'ref_id, type, kind', 'ref_id', ok.map((r) => r.article_id), ['ref_id']))
+    .filter((r) => r.kind === 'article' && r.type === TYPE)
+    .map((r) => r.ref_id),
+)
+const fresh = ok.filter((r) => !existing.has(r.article_id))
+
 // ── 배치 단위 **정답 번호** 쏠림 ────────────────────────────────────
 // ⚠️ **길이 편향은 막으면서 번호 편향은 열어 두고 있었다** (실측 2026-08-31).
 //   초등 집필분을 다 넣고 나서 세어 보니 정답 1번이 이랬다:
@@ -236,10 +244,17 @@ if (ok.length >= 8) {
 //   `item-health-report.mjs` 가 사후에 카이제곱으로 보긴 했지만, **넣고 나서 아는 것은
 //   늦다** — 이미 재고에 들어간 뒤라 되돌리려면 번호를 다시 섞어야 한다. 그래서 길이
 //   게이트와 **대칭으로** 여기서 막는다. 상한은 길이 쪽과 같은 40% 를 쓴다.
+//
+// ⚠️ **`ok` 가 아니라 `fresh` 를 본다 — 이번에 넣는 것만 판단한다.**
+//   처음에는 `ok`(청크 파일 전부)로 쟀다. 그런데 import 는 폴더의 `.out.json` 을 **모두**
+//   훑으므로, 이미 넣은 옛 청크의 번호가 통계를 지배한다. 실제로 DB 쪽 쏠림을 이미
+//   풀어 놓은 뒤에도 옛 청크 파일의 값 때문에 45.0% 가 나와 새 4문항이 막혔다
+//   (그 4문항은 1·1·1·1 로 고른 것이었다). **고칠 수 없는 것으로 막으면 게이트가 아니라
+//   벽이다** — 청크 파일은 이미 적재된 과거의 기록이라 지금 와서 고칠 대상이 아니다.
 const ANSWER_POS_MAX = 0.4
-if (ok.length >= 8) {
-  const byPos = [1, 2, 3, 4, 5].map((p) => ok.filter((r) => r.answer === p).length)
-  const worstPos = Math.max(...byPos) / ok.length
+if (fresh.length >= 8) {
+  const byPos = [1, 2, 3, 4, 5].map((p) => fresh.filter((r) => r.answer === p).length)
+  const worstPos = Math.max(...byPos) / fresh.length
   console.log(
     `  정답 번호 분포 ${byPos.join(' · ')} — 최다 ${(100 * worstPos).toFixed(1)}%  (우연이면 20%)`,
   )
@@ -253,13 +268,6 @@ if (ok.length >= 8) {
   }
 }
 
-// ── 이미 있는 것 ────────────────────────────────────────────────────
-const existing = new Set(
-  (await fetchAllIn(db, 'csat_dcp_items', 'ref_id, type, kind', 'ref_id', ok.map((r) => r.article_id), ['ref_id']))
-    .filter((r) => r.kind === 'article' && r.type === TYPE)
-    .map((r) => r.ref_id),
-)
-const fresh = ok.filter((r) => !existing.has(r.article_id))
 console.log(`  이미 있음 ${ok.length - fresh.length} · **새로 넣을 것 ${fresh.length}**`)
 
 if (!commit) {
