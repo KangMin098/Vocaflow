@@ -18,19 +18,29 @@
 
 import { DatabaseSync } from 'node:sqlite';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import {
   HERE, hasFlag, loadSources, log, storePaths, writeJson,
 } from './lib.mjs';
 
-/** 서로 다른 시리즈 이 수 이상에서 쓰였을 때만 "업계 표준형" 으로 본다. */
-const MIN_SERIES_FOR_STANDARD = 2;
+/**
+ * **출판사 한 곳으로 좁히는 SQL 조각.** `null` 이면 전체 합본이다.
+ *
+ * 왜 인자로 두는가 — 추출 로직의 사본을 만들면 합본 값과 출판사별 값이 조용히 다른 것을
+ * 세게 된다(이 파일이 `stemRe` 에서 이미 겪은 함정이다). 같은 함수에 필터만 건넨다.
+ */
+export const pubClause = (pub) => (pub ? ' AND d.publisher = ?' : '');
+export const pubArgs = (pub) => (pub ? [pub] : []);
 
-const GRADE_LABEL = {
+/** 서로 다른 시리즈 이 수 이상에서 쓰였을 때만 "업계 표준형" 으로 본다. */
+export const MIN_SERIES_FOR_STANDARD = 2;
+
+export const GRADE_LABEL = {
   1: '초1', 2: '초2', 3: '초3', 4: '초4', 5: '초5', 6: '초6',
   7: '중1', 8: '중2', 9: '중3', 10: '고1', 11: '고2', 12: '고3',
 };
 
-function quantiles(xs) {
+export function quantiles(xs) {
   if (xs.length === 0) return null;
   const v = [...xs].sort((a, b) => a - b);
   const q = (p) => v[Math.min(v.length - 1, Math.floor(v.length * p))];
@@ -46,7 +56,7 @@ function quantiles(xs) {
  * 권당 유형 폭(`perDocumentTypeSpread`)도 같은 것을 쓴다. 사본을 두면 두 수치가
  * 조용히 다른 것을 세게 된다.
  */
-const stemRe = () =>
+export const stemRe = () =>
   /(?:^|\n)\s*(?:\[?\d{1,3}[\].)]?\s*)?((?:다음|위|윗|주어진|밑줄|글의|글을|빈칸|아래|\(A\)|What)[^\n?]{4,70}\?)/g;
 
 /**
@@ -61,11 +71,11 @@ const stemRe = () =>
  * 발문이 하나도 안 잡힌 교재는 분포에서 뺀다 — 유형이 0 인 교재가 아니라 **OCR 이 못 읽은
  * 교재**다(79종 중 31종만 잡혔다). 0 을 섞으면 중앙값이 실제보다 낮아진다.
  */
-function perDocumentTypeSpread(db) {
+export function perDocumentTypeSpread(db, pub = null) {
   const rows = db.prepare(`
     SELECT d.id, d.grade_min, p.text
     FROM pages p JOIN docs d ON d.id = p.doc_id
-    WHERE d.status IN ('ok','ocr')`).all();
+    WHERE d.status IN ('ok','ocr')${pubClause(pub)}`).all(...pubArgs(pub));
 
   const byDoc = new Map();
   for (const r of rows) {
@@ -102,11 +112,11 @@ function perDocumentTypeSpread(db) {
 }
 
 /** 발문형 — `다음/윗글 …?` 꼴. 시리즈 2곳 이상 공통인 것만 표준으로 친다. */
-function extractStems(db) {
+export function extractStems(db, pub = null) {
   const rows = db.prepare(`
     SELECT d.series, d.publisher, d.grade_min, p.text
     FROM pages p JOIN docs d ON d.id = p.doc_id
-    WHERE d.status IN ('ok','ocr')`).all();
+    WHERE d.status IN ('ok','ocr')${pubClause(pub)}`).all(...pubArgs(pub));
 
   // 발문의 **첫 낱말**로 후보를 좁힌다 — 넓게 잡으면 선택지·본문 물음표가 다 들어온다.
   //
@@ -156,7 +166,7 @@ function extractStems(db) {
  * 시중 발문 → 우리 `csat_dcp_items.type`.
  * 대응이 없으면 null — **그게 우리가 아직 못 만드는 유형이라는 뜻이다.**
  */
-function mapStemToOurType(stem) {
+export function mapStemToOurType(stem) {
   const T = [
     [/제목으로/, 'title'],
     [/주장하는 바/, 'claim'],
@@ -193,12 +203,12 @@ function mapStemToOurType(stem) {
 }
 
 /** 지문 어수 — 영문 우세 줄이 3줄 이상 이어진 덩어리를 한 지문으로 본다. */
-function extractPassageSpec(db) {
+export function extractPassageSpec(db, pub = null) {
   const rows = db.prepare(`
     SELECT d.grade_min, d.grade_max, d.series, p.text
     FROM pages p JOIN docs d ON d.id = p.doc_id
     WHERE d.status = 'ok' AND d.category IN ('독해','내신','기출')
-      AND d.role IN ('본책','본문','미리보기')`).all();
+      AND d.role IN ('본책','본문','미리보기')${pubClause(pub)}`).all(...pubArgs(pub));
 
   const byGrade = new Map();
   for (const r of rows) {
@@ -235,11 +245,11 @@ function extractPassageSpec(db) {
 }
 
 /** 해설 규격 — 길이·오답배제·원문인용. 이게 시장이 고르는 기준이다. */
-function extractExplanationSpec(db) {
+export function extractExplanationSpec(db, pub = null) {
   const rows = db.prepare(`
     SELECT d.series, d.grade_min, p.text
     FROM pages p JOIN docs d ON d.id = p.doc_id
-    WHERE d.role = '정답해설' AND d.status = 'ok'`).all();
+    WHERE d.role = '정답해설' AND d.status = 'ok'${pubClause(pub)}`).all(...pubArgs(pub));
 
   const blocks = [];
   for (const r of rows) {
@@ -247,6 +257,20 @@ function extractExplanationSpec(db) {
       const t = m[1].replace(/\s+/g, ' ').trim();
       if (t.length >= 40) blocks.push({ t, series: r.series, g: r.grade_min });
     }
+  }
+  // ⚠️ 표본 0 에서 비율을 계산하면 NaN 이거나 0 이 된다. 둘 다 "이 출판사는 해설이 없다" 로
+  //    읽히는데, 실제로는 **해설지를 이 코퍼스가 안 갖고 있을 뿐**이다. 출판사별로 쪼개면
+  //    이 경우가 실제로 생긴다(EBS·쎄듀는 정답해설 문서가 0건이다).
+  if (blocks.length === 0) {
+    return {
+      blocksMeasured: 0,
+      insufficient: true,
+      reason: '이 코퍼스에 해당 출판사의 정답해설 문서가 없다 — 비율을 재지 않는다',
+      lengthChars: null,
+      wrongOptionMentionRate: null,
+      sourceCitationRate: null,
+      seriesShippingAnswerKey: null,
+    };
   }
   const lens = blocks.map((b) => b.t.length);
   const hasWrong = blocks.filter((b) => /오답|나머지|적절하지 않|틀린 이유|[①②③④⑤]/.test(b.t)).length;
@@ -258,7 +282,8 @@ function extractExplanationSpec(db) {
     SELECT count(*) AS total,
            sum(has_ans) AS with_ans
     FROM (SELECT series, max(CASE WHEN role IN ('정답해설','빠른정답') THEN 1 ELSE 0 END) AS has_ans
-          FROM docs WHERE category IN ('독해','내신','기출') GROUP BY series)`).get();
+          FROM docs WHERE category IN ('독해','내신','기출')${pub ? ' AND publisher = ?' : ''}
+          GROUP BY series)`).get(...pubArgs(pub));
 
   return {
     blocksMeasured: blocks.length,
@@ -278,7 +303,7 @@ function extractExplanationSpec(db) {
  * 반대로 **본문 어휘 뜻**과 **영작 배열**은 초·중등에서 나오고 고등에서 사라진다.
  * 유형은 난이도가 아니라 **학년의 신분증**이다 — 잘못 실으면 그 권은 그 학년 교재가 아니다.
  */
-function extractTypeDensity(db) {
+export function extractTypeDensity(db) {
   // ── ⚠️ 발문 대조표를 **두 벌 두지 않는다** (실측 2026-08-31) ────────
   // 이 함수는 원래 `mapStemToOurType` 과 무관한 자기 패턴표를 들고 있었고, 그게 더 좁았다:
   //
@@ -374,12 +399,12 @@ function extractTypeDensity(db) {
  * 동안만** 같은 묶음으로 잇는다(본문 속 원문자 잡음을 배제한다). 묶음의 최대 번호가
  * 그 문항의 보기 수다. 쪽 단위로 세면 한 쪽에 여러 문항이 있어 값이 흐려진다.
  */
-function extractChoiceCount(db) {
+export function extractChoiceCount(db, pub = null) {
   const rows = db.prepare(`
     SELECT d.grade_min, d.series, p.text
     FROM pages p JOIN docs d ON d.id = p.doc_id
     WHERE d.status = 'ok' AND d.category IN ('독해','내신')
-      AND d.role IN ('본책','본문','미리보기')`).all();
+      AND d.role IN ('본책','본문','미리보기')${pubClause(pub)}`).all(...pubArgs(pub));
 
   const LABEL = { '①': 1, '②': 2, '③': 3, '④': 4, '⑤': 5 };
   const school = (g) => (g == null ? null : g <= 6 ? '초등' : g <= 9 ? '중등' : '고등');
@@ -422,7 +447,7 @@ function extractChoiceCount(db) {
 }
 
 /** 단원 구성 — 한 권에 단원이 몇 개, 단원 간격이 몇 쪽인지. */
-function extractUnitSpec(db) {
+export function extractUnitSpec(db) {
   const rows = db.prepare(`
     SELECT d.id, d.grade_min, d.pages, d.unit_count,
            (SELECT count(*) FROM units u WHERE u.doc_id = d.id) AS units
@@ -497,4 +522,6 @@ function main() {
   }
 }
 
-main();
+// 직접 실행할 때만 spec 을 쓴다. `publisher-spec.mjs` 가 추출기를 import 하므로
+// 가드가 없으면 import 만으로 market-spec.json 이 덮어써진다.
+if (import.meta.url === pathToFileURL(process.argv[1]).href) main();
