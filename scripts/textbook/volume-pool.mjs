@@ -9,7 +9,10 @@
 //   1. 밴드 거르는 자리 — 조판은 `library_articles.article_v_level`(원글), 드레인은
 //      `csat_dcp_items.v_level`(문항). 문항 밴드가 원글과 다른 것이 섞이면 다른 책이 나온다.
 //   2. 어휘 맵 — 조판은 `composeUnits` 에 단원 어휘를 넘기고 드레인은 빈 Map 을 넘겼다.
-//      `composeUnits` 는 어휘를 조합에 쓰므로 넘기고 안 넘기고가 **고르는 문항을 바꾼다.**
+//      ⚠️ 여기 오래 "어휘가 고르는 문항을 바꾼다" 고 적혀 있었으나 **지금 코드는 아니다** —
+//      `compose-unit.ts` 에서 `vocabByRef` 는 문항을 다 고른 뒤 `refsInUnit` 으로만 조회된다.
+//      두 방식으로 조판해 **HTML 이 바이트까지 같음을 실측했다**(2026-08-31). 그 성질을
+//      아래 §단원 어휘 의 예행 조합이 쓴다. 남은 차이는 1·3 이다.
 //   3. `display_only` 원글 제외 — 조판만 걸렀다.
 //
 // 그 결과 드레인이 겨냥한 80 과 조판이 실은 80 이 2문항 어긋나, 해설을 62건 다 채웠는데도
@@ -495,7 +498,21 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   }
 
   // ── 단원 어휘 ─────────────────────────────────────────────────────
-  // `composeUnits` 가 이걸 조합에 쓴다 — 빈 Map 을 넘기면 **다른 문항이 뽑힌다.**
+  //
+  // ⚠️ **어휘는 문항 선택에 관여하지 않는다.** 예전 주석은 "빈 Map 을 넘기면 다른 문항이
+  //   뽑힌다" 고 적고 있었는데 지금 코드는 그렇지 않다 — `compose-unit.ts` 에서
+  //   `vocabByRef` 는 **문항을 다 고른 뒤** `refsInUnit` 으로만 조회된다(단원 낱말 목록을
+  //   만드는 데만 쓴다). 그래서 **두 번 조합해도 같은 책이 나온다.**
+  //
+  // 그 성질을 써서 어휘를 **이 권이 실제로 쓰는 원글에만** 묻는다:
+  //   1) 빈 Map 으로 한 번 조합해 쓸 원글을 알아낸다(순수 CPU, 조회 없음)
+  //   2) 그 30~50편의 어휘만 받는다
+  //   3) 같은 옵션으로 다시 조합한다 — 문항은 같고 낱말 목록만 채워진다
+  //
+  // 왜 필요한가 — 실측 2026-08-31(V6): pool 의 원글 11,698편치 어휘 **7,989,857행**을
+  // 1,000행씩 8,000번 왕복해 받고 있었다. 조판 한 번이 22분이었다. 한 권이 쓰는 원글은
+  // 50편 안팎이다.
+  //
   // 원글 한 편이 1,000행을 넘기도 한다(Photosynthesis 1,072) — `fetchAllIn` 이 넘긴다.
   // ⚠️ **문항이 없는 원글의 어휘는 받을 필요가 없다 — 읽히지 않는다.**
   //   `composeUnits` 는 `pool` 의 문항만 순회하며 `vocabByRef` 를 `ref_id` 로 조회한다.
@@ -508,9 +525,32 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   //   `VOCAFLOW_VOCAB_ALL=1` 이면 옛 방식(밴드 전체)으로 돌린다 — **같은 시점에 두 방식을
   //   비교해 산출물이 같은지 확인하기 위한 손잡이다.** 데이터가 계속 바뀌는 저장소라
   //   "전에 잰 값과 다르다" 만으로는 원인을 못 가른다.
+  // 초등 저학년 3종은 사전에서 나온다 — 원글 풀과 합친다.
+  pool.push(...(await loadElementaryPool(db, band)))
+
+  const mix = marketMix
+    ? rungMix(band, new Set(pool.map((it) => it.type)))
+    : null
+
+  // 두 조합이 **글자 그대로 같은 옵션**을 써야 같은 문항이 나온다 — 한 번만 만든다.
+  const composeOpts = {
+    band,
+    unitCount,
+    ...(mix ? { targetShare: mix.targetShare, itemsPerUnit: 6 } : {}),
+  }
+  // 1) 빈 Map 으로 예행 — 어떤 원글을 쓰는지만 알아낸다.
+  const dry = composeUnits(pool, new Map(), composeOpts)
+  const usedRefs = [...new Set(dry.units.flatMap((u) => u.items.map((i) => i.ref_id)))]
+
+  // `VOCAFLOW_VOCAB_ALL=1` 이면 옛 방식(밴드 전체)으로 돌린다 — **같은 시점에 두 방식을
+  // 비교해 산출물이 같은지 확인하기 위한 손잡이다.** 데이터가 계속 바뀌는 저장소라
+  // "전에 잰 값과 다르다" 만으로는 원인을 못 가른다.
+  // `VOCAFLOW_VOCAB_POOL=1` 은 그 중간 — pool 전체(예행 이전 방식).
   const poolRefs = process.env.VOCAFLOW_VOCAB_ALL
     ? ids
-    : [...new Set(pool.map((it) => it.ref_id).filter((r) => byId.has(r)))]
+    : process.env.VOCAFLOW_VOCAB_POOL
+      ? [...new Set(pool.map((it) => it.ref_id).filter((r) => byId.has(r)))]
+      : usedRefs.filter((r) => byId.has(r))
   const vocabRows = await fetchAllIn(
     db,
     'library_article_vocabularies',
@@ -561,17 +601,8 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
 
   // `marketMix` 를 켜면 유형 구성을 시장 밀도에 맞춘다(`rungMix`).
   // 기본은 꺼져 있다 — 이미 완성된 권이 조용히 달라지면 안 된다.
-  // 초등 저학년 3종은 사전에서 나온다 — 원글 풀과 합친다.
-  pool.push(...(await loadElementaryPool(db, band)))
-
-  const mix = marketMix
-    ? rungMix(band, new Set(pool.map((it) => it.type)))
-    : null
-  const { units, stoppedBecause, rejected } = composeUnits(pool, vocabByRef, {
-    band,
-    unitCount,
-    ...(mix ? { targetShare: mix.targetShare, itemsPerUnit: 6 } : {}),
-  })
+  // 3) 예행과 **같은 옵션**으로 다시 조합한다 — 문항은 같고 낱말 목록만 채워진다.
+  const { units, stoppedBecause, rejected } = composeUnits(pool, vocabByRef, composeOpts)
   const itemIds = new Set(units.flatMap((u) => u.items.map((i) => i.id)))
 
   return { units, stoppedBecause, rejected, mix, pool, articles: byId, vocabByRef, itemIds }
