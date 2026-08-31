@@ -223,6 +223,36 @@ if (ok.length >= 8) {
   }
 }
 
+// ── 배치 단위 **정답 번호** 쏠림 ────────────────────────────────────
+// ⚠️ **길이 편향은 막으면서 번호 편향은 열어 두고 있었다** (실측 2026-08-31).
+//   초등 집필분을 다 넣고 나서 세어 보니 정답 1번이 이랬다:
+//
+//     topic 13/32 = 40.6%  ·  blank 11/31 = 35.5%  ·  title 8/24 = 33.3%   (우연이면 20%)
+//
+//   사람이 쓰면 근거를 먼저 적고 그것을 1번에 놓는 습관이 붙는다 — 길이 편향과 똑같이
+//   **구조적**이라 지침만으로는 안 잡힌다. 그리고 이 쏠림은 길이보다 **더 싸게 악용된다**:
+//   "모르면 1번" 하나로 3분의 1이 맞는다.
+//
+//   `item-health-report.mjs` 가 사후에 카이제곱으로 보긴 했지만, **넣고 나서 아는 것은
+//   늦다** — 이미 재고에 들어간 뒤라 되돌리려면 번호를 다시 섞어야 한다. 그래서 길이
+//   게이트와 **대칭으로** 여기서 막는다. 상한은 길이 쪽과 같은 40% 를 쓴다.
+const ANSWER_POS_MAX = 0.4
+if (ok.length >= 8) {
+  const byPos = [1, 2, 3, 4, 5].map((p) => ok.filter((r) => r.answer === p).length)
+  const worstPos = Math.max(...byPos) / ok.length
+  console.log(
+    `  정답 번호 분포 ${byPos.join(' · ')} — 최다 ${(100 * worstPos).toFixed(1)}%  (우연이면 20%)`,
+  )
+  if (worstPos > ANSWER_POS_MAX) {
+    console.log(
+      `\n❌ **적재를 거부한다.** 정답 번호가 한쪽으로 ${(100 * ANSWER_POS_MAX).toFixed(0)}% 넘게 쏠렸다 —\n` +
+        `   "모르면 그 번호" 하나로 상당수가 맞는다. 선택지 **순서만** 섞고 answer 를 맞춰 고친 뒤\n` +
+        `   다시 돌린다(내용은 그대로여도 된다).`,
+    )
+    process.exit(1)
+  }
+}
+
 // ── 이미 있는 것 ────────────────────────────────────────────────────
 const existing = new Set(
   (await fetchAllIn(db, 'csat_dcp_items', 'ref_id, type, kind', 'ref_id', ok.map((r) => r.article_id), ['ref_id']))
