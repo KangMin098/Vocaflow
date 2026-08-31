@@ -108,7 +108,11 @@ export function buildRhyme(prompt: ElementaryWord, pool: readonly ElementaryWord
   if (!rhymes.length) return null
 
   // 결정론으로 고른다 — 같은 제시어는 늘 같은 문항이 된다.
-  const seed = hash(prompt.word)
+  // ⚠️ **유형을 seed 에 넣는다.** 예전에는 rhyme·word_meaning 이 같은 낱말에 같은 seed 를
+  //   써서 **두 유형이 정답을 같은 자리에 놓았다.** 한 권에서 같은 낱말을 두 번 묻는데
+  //   답 자리가 늘 같으면 분포가 반으로 접힌다 — 실측 2026-08-31 V1 정답 분포
+  //   [13, 1, 12, 14, 0](χ²=23.75 · V=0.385): ⑤는 한 번도 정답이 아니었다.
+  const seed = hash(`rhyme:${prompt.word}`)
   const answerWord = rhymes[seed % rhymes.length]!
 
   // **겉모습으로 못 고르게 한다.** 제시어가 `afternoon` 인데 오답이 `map` 이면 읽지 않고도
@@ -192,7 +196,8 @@ export function buildWordMeaning(
   if (new Set(senses).size !== senses.length) return null
 
   const texts = [answer, ...senses]
-  const ordered = rotate(texts, hash(prompt.word) % ELEMENTARY_CHOICES)
+  // 유형별 seed — 위 buildRhyme 주석 참조. 같은 낱말이라도 자리가 갈려야 한다.
+  const ordered = rotate(texts, hash(`word_meaning:${prompt.word}`) % ELEMENTARY_CHOICES)
 
   return {
     kind: 'word_meaning',

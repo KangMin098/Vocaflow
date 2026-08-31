@@ -122,12 +122,32 @@ const PASSAGE_CHIP = passageSpecChip(Object.keys(actualMix))
 //   주장을 지우는 대신 **실제로 수행하고 결과를 함께 찍는다** — 그래야 그 줄이 근거가 된다.
 const printedItems = units.flatMap((u) => u.items)
 // 선택지가 있는 문항만 — 단답형에는 고를 번호가 없다.
-const answered = printedItems
-  .map((it) => Number(it.answer_key?.answer ?? it.answer_key?.position))
-  .filter((n) => Number.isInteger(n) && n >= 1 && n <= 5)
-const biasCounts = [0, 0, 0, 0, 0]
-for (const n of answered) biasCounts[n - 1] += 1
-const bias = answered.length ? assessAnswerBias(biasCounts) : null
+//
+// ⚠️ **선택지 수가 유형마다 다르다.** 초등 3종은 4지선다(`ELEMENTARY_CHOICES = 4`)이고
+//   DB 에 저장된 수능형 17종은 전부 5지선다다(실측 2026-08-31). 5칸 히스토그램 하나에
+//   몰아 담으면 4지선다 문항 때문에 ⑤ 칸이 **구조적으로 영원히 0** 이 되고, 검사는
+//   **존재하지 않는 자리를 "한 번도 정답이 아니다" 라고 고발한다** — V1 이 그렇게
+//   χ²=16.25 · V=0.319 로 쏠림 판정을 받았다. 기대값이 다른 것을 한 통에 담은 것이
+//   결함이지 교재가 결함인 게 아니었다. **선택지 수별로 나눠 센다.**
+//   (`item-health.ts` 의 `assessStock` 은 이미 이렇게 하고 있었다 — 조판기만 안 따라왔다.)
+const answered = []
+for (const it of printedItems) {
+  const n = Number(it.answer_key?.answer ?? it.answer_key?.position)
+  const k = Array.isArray(it.payload?.choices) ? it.payload.choices.length : 5
+  if (Number.isInteger(n) && k >= 2 && n >= 1 && n <= k) answered.push({ n, k })
+}
+const histByChoices = new Map()
+for (const { n, k } of answered) {
+  if (!histByChoices.has(k)) histByChoices.set(k, new Array(k).fill(0))
+  histByChoices.get(k)[n - 1] += 1
+}
+const biasGroups = [...histByChoices.entries()]
+  .sort((a, b) => a[0] - b[0])
+  .map(([k, counts]) => ({ choices: k, ...assessAnswerBias(counts) }))
+// 묶음이 여럿이면 **가장 나쁜 쪽**을 대표로 찍는다 — 합치거나 평균 내면 쏠림이 묻힌다.
+const bias = biasGroups.length
+  ? biasGroups.reduce((worst, g) => (g.cramersV > worst.cramersV ? g : worst))
+  : null
 
 // 교정은 인쇄되는 지문에 건다 — 저장 원본이 아니라 **학습자가 읽는 글**이다.
 const proofPassages = printedItems
@@ -135,7 +155,9 @@ const proofPassages = printedItems
     const p2 = it.payload ?? {}
     if (Array.isArray(p2.sentences) && p2.sentences.length) return p2.sentences.map(String)
     if (typeof p2.passage === "string" && p2.passage.trim()) {
-      return p2.passage.split(/(?<=[.!?])s+/).filter((s) => s.trim())
+      // ⚠️ `s+` 로 쓰면 **글자 s** 를 찾는다 — 지문이 통째로 문장 1개가 되어 교정 분모가
+      //   문항 수와 같아진다. 이 저장소에서 같은 오타가 세 번 났다(`volume-pool.mjs` 2회).
+      return p2.passage.split(/(?<=[.!?])\s+/).filter((s) => s.trim())
     }
     return null
   })
@@ -707,7 +729,15 @@ const record = {
     review: {
       passageSpec: PASSAGE_CHIP,
       answerBias: bias
-        ? { counts: bias.counts, chi2: Number(bias.chi2.toFixed(2)), cramersV: Number(bias.cramersV.toFixed(3)), biased: bias.biased }
+        ? {
+            counts: bias.counts,
+            choices: bias.choices,
+            chi2: Number(bias.chi2.toFixed(2)),
+            cramersV: Number(bias.cramersV.toFixed(3)),
+            biased: bias.biased,
+            // 대표값만 남기면 나중에 "왜 이 숫자냐" 를 되짚을 수 없다 — 묶음 전부를 적는다.
+            groups: biasGroups.map((g) => ({ choices: g.choices, counts: g.counts, chi2: Number(g.chi2.toFixed(2)) })),
+          }
         : null,
       proofread: { passages: proof.passages, defective: proof.defective, byRule: proof.byRule },
     },

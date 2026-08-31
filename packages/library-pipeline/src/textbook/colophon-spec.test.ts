@@ -45,7 +45,9 @@ describe('판권장 규격 칩', () => {
     // ⚠️ 이 두 칩은 오래 근거 없이 찍혔다 — scoreVolume 에 정답 쏠림 검사가 없었고
     //   조판기는 proofread 를 한 번도 부르지 않았다(둘 다 참조 0건, 실측 2026-08-31).
     //   재료는 있었으니 없던 것은 호출이다. 주장을 지우는 대신 수행하게 했다.
-    expect(src).toContain('assessAnswerBias(biasCounts)')
+    // 2026-08-31 — 5칸 고정 배열(`biasCounts`)이 4지선다를 오탐하던 것을 고치면서
+    // 선택지 수별 묶음으로 바뀌었다. 상세는 `answer-bias-choices.test.ts`.
+    expect(src).toContain('assessAnswerBias(counts)')
     expect(src).toContain('summarizeProofread(proofPassages)')
     // 결과를 함께 찍어야 그 줄이 근거가 된다 — 통과 여부만 적으면 또 장식이 된다.
     expect(src).toContain('bias.chi2.toFixed(1)')
