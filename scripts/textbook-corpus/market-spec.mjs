@@ -334,10 +334,25 @@ function extractTypeDensity(db) {
     }
     for (const t of onPage) agg[b].hits[t] = (agg[b].hits[t] || 0) + 1;
   }
+  // ⚠️ **집계는 본 유형을 다 세는데 출력만 목록으로 잘라 내고 있었다.**
+  //   위 루프는 `mapStemToOurType` 이 돌려주는 무엇이든 `hits` 에 담는다. 그런데 여기서
+  //   하드코딩된 `DENSITY_TYPES` 13종만 내보내서, 시장에 **실재하는데 밀도가 없는** 유형이
+  //   생겼다 — claim · content_match · long_reference · mood · purpose · summary 6종.
+  //
+  //   그 6종은 `typeCoverage` 에는 있다(발문이 실제로 잡혔다). 그래서 같은 규격 안에서
+  //   두 근거가 어긋났고, `rung-mix` 가 밀도에서 목표를 유도하므로 **그 6종은 목표 몫이
+  //   0 이라 어느 권에도 실릴 수 없었다.** 벤치마크 A5 의 천장이 10/16 = 0.625 로 박힌
+  //   원인이 이것이다(실측 2026-08-31).
+  //
+  //   같은 실수가 이 파일에 이미 한 번 기록돼 있다(위 §발문 추출 — insert·grammar_choice 가
+  //   "시장 표준 밖" 으로 세어지던 일). 목록을 손으로 유지하면 반드시 어긋난다.
+  //   그래서 **본 것을 다 내보낸다.** 0 인 유형도 남긴다 — "재지 않았다" 와 "재 보니 0" 은
+  //   다른 말이고, 그 차이가 여기서 여섯 유형을 죽였다.
+  const emitTypes = [...new Set([...DENSITY_TYPES, ...Object.values(agg).flatMap((v) => Object.keys(v.hits))])].sort();
   const out = {};
   for (const [b, v] of Object.entries(agg)) {
     out[b] = { pagesMeasured: v.pages, densityPerPage: {} };
-    for (const type of DENSITY_TYPES) {
+    for (const type of emitTypes) {
       out[b].densityPerPage[type] = Number(((v.hits[type] || 0) / v.pages).toFixed(4));
     }
   }

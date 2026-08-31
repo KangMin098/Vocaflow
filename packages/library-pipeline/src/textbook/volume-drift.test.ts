@@ -93,8 +93,10 @@ describe('한 권을 고르는 규칙은 한 벌뿐이다', () => {
 
   it('적재기는 **지문 길이를 유형별 자로** 막는다 — 원글이 통째로 들어온 적이 있다', () => {
     const imp = read('item-drain-import.mjs')
-    // 자는 유형이 정한다. 단문 자 하나로 재면 장문(260~400어)이 전량 걸린다.
-    expect(imp).toContain('itemWordSpec(TYPE)')
+    // 자는 유형이 정하고 **학년이 좁힌다.** 단문 자 하나로 재면 장문(260~400어)이
+    // 전량 걸리고, 학년을 안 주면 중등 창(시장 46~152)을 넘는 지문이 그대로 들어온다.
+    // ⚠️ 인자를 빠뜨려도 컴파일은 된다(선택 인자다) — 그래서 여기서 지킨다.
+    expect(imp).toContain('itemWordSpec(TYPE, BAND)')
     expect(imp).toContain('규격 ${WORD_SPEC.min}~${WORD_SPEC.max}어 밖이라 인쇄할 수 없다')
   })
 
