@@ -201,6 +201,10 @@ export const CORE_TYPES = new Set(['order', 'insert'])
  */
 export const EXTRA_TYPES = new Set([
   'gist', 'main_point', 'topic', 'title', 'blank', 'purpose', 'claim', 'mood', 'implication', 'summary', 'content_match',
+  // 흐름 무관(35번) — `compose-unit.EXTRA_ITEM_TYPES` 와 **짝이어야 한다.** 한쪽만
+  //   있으면 풀에는 들어오는데 조합이 안 집거나 그 반대가 된다. 둘 다 없던 동안
+  //   1,479문항이 어느 권에도 안 실렸다(실측 2026-08-31).
+  'irrelevant',
   // 장문 ② 서사문(43~45). **지문 길이 창이 다르다**(260~400어) — 조합기가
   // `compose-unit.itemWordSpec` 으로 유형마다 자를 갈라 댄다. 이 목록에서 빠지면
   // 문항이 풀에 들어오지도 못해 "적재는 됐는데 책에는 없다" 가 된다.
@@ -390,6 +394,29 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
     // ── 생성형 유형은 지문이 통째로 payload 에 있다 ──────────────────
     // ⚠️ 이걸 안 넣으면 **문항을 만들어도 책에 안 실린다.** 실제로 그랬다 —
     //   생성형 64문항을 넣고도 조합기가 못 봐서 권은 그대로였다.
+    // ── 흐름 무관(35번)은 지문이 `intro` + `sentences` 에 있다 ──
+    //
+    // ⚠️ EXTRA_TYPES 에 넣기만 하면 `p.passage` 가 undefined 라 낱말 수가 0 으로 잡히고
+    //   조합기가 "너무 짧다" 로 **전량 버린다.** 풀에는 들어오는데 책에는 안 나온다 —
+    //   실측 2026-08-31: 목록에 넣고 조판했더니 풀 +312, 인쇄 0 이었다.
+    if (r.type === 'irrelevant') {
+      const lines2 = Array.isArray(p.sentences) ? p.sentences.map(String) : []
+      const text = [String(p.intro ?? ''), ...lines2].filter(Boolean).join(' ')
+      if (!text.trim() || lines2.length !== 5) continue
+      pool.push({
+        id: r.id,
+        type: r.type,
+        ref_id: r.ref_id,
+        ref_title: a.title,
+        v_level: r.v_level,
+        passage_text: text,
+        passage_words: text.split(/s+/).filter(Boolean).length,
+        body_sentences: lines2.length,
+        payload: p,
+        answer_key: r.answer_key ?? {},
+      })
+      continue
+    }
     if (EXTRA_TYPES.has(r.type)) {
       const passage = String(p.passage ?? '')
       pool.push({
@@ -418,7 +445,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
         ref_title: a.title,
         v_level: r.v_level,
         passage_text: text,
-        passage_words: text.split(/s+/).filter(Boolean).length,
+        passage_words: text.split(/\s+/).filter(Boolean).length,
         body_sentences: lines.length || 1,
         payload: p,
         answer_key: r.answer_key ?? {},

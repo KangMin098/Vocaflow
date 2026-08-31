@@ -300,11 +300,42 @@ function renderElementary(item, no) {
   }
 }
 
+/**
+ * 흐름 무관 문장(35번) — 도입 한 문단 뒤에 ①~⑤ 다섯 문장을 이어 붙인다.
+ *
+ * ⚠️ 이 모양은 `renderExtra` 가 못 그린다 — `payload.choices` 가 없어 null 을 돌려주고,
+ *   그러면 문항이 조용히 사라진다. 재료·조합·조판 셋이 다 열려야 학습자에게 닿는다.
+ */
+function renderIrrelevant(item, no) {
+  const p = item.payload ?? {}
+  const sents = Array.isArray(p.sentences) ? p.sentences.map(String) : []
+  if (sents.length !== 5) return null
+  const answer = Number(item.answer_key?.position)
+  if (!Number.isInteger(answer) || answer < 1 || answer > 5) return null
+  const body = sents
+    .map((s, i) => `<span class="lbl">${CIRCLED[i]}</span> ${esc(s)}`)
+    .join(' ')
+  return {
+    html: `
+<div class="q">
+  <p class="stem"><b>${no}.</b> 다음 글에서 전체 흐름과 관계 <b>없는</b> 문장은?</p>
+  <div class="passage intro">${esc(String(p.intro ?? ''))}</div>
+  <div class="passage">${body}</div>
+</div>`,
+    answer,
+    explanation: item.answer_key?.explanation_ko
+      ? { text: String(item.answer_key.explanation_ko), from: 'batch' }
+      : null,
+    source: item.ref_title,
+  }
+}
+
 function renderItem(item, no) {
   // ⚠️ **생성형을 여기서 안 받으면 조합기가 넣어도 인쇄가 안 된다.** 재료·조합·조판 셋이
   //   다 열려야 학습자에게 닿는다 — 하나만 막혀도 문항은 DB 에만 남는다.
   if (ELEMENTARY_TYPES.has(item.type)) return renderElementary(item, no)
   if (SCHOOL_TYPES.has(item.type)) return renderSchool(item, no)
+  if (item.type === 'irrelevant') return renderIrrelevant(item, no)
   if (item.type !== 'order' && item.type !== 'insert') return renderExtra(item, no)
   if (item.type === 'order') {
     const q = toCsatOrder(item.payload.presented ?? [], item.answer_key.source_order ?? [])

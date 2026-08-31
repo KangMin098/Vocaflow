@@ -170,6 +170,11 @@ export const EXTRA_ITEM_TYPES = new Set([
   'implication',
   'summary',
   'content_match',
+  // 흐름 무관(35번). ⚠️ 이 목록과 `volume-pool.EXTRA_TYPES` **둘 다**에 빠져 있어
+  //   1,479문항이 만들어지고도 어느 권에도 실리지 못했다(실측 2026-08-31:
+  //   V5 519 · V6 624 · V7 312 · V4 22 · V2 1 · V3 1). 유형 정의·라벨·해설·생성기는
+  //   모두 있었다 — 없던 것은 이 한 줄이다. 같은 실패가 이 파일에서 세 번째다.
+  'irrelevant',
   // 장문 묶음(43~45). 위 유형들과 달리 **긴 창**을 쓴다(`itemWordSpec`).
   ...LONG_ITEM_TYPES,
 ])
