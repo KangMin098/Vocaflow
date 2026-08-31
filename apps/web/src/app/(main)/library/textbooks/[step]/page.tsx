@@ -26,6 +26,7 @@ import {
 
 import { Screen } from '@/components/ui/ios'
 import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickButton'
+import { ShareVolumeButton } from '@/components/library/textbooks/ShareVolumeButton'
 import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
 import { STAGE_LABEL, neighborsOf, stageOf } from '@/lib/textbook/shelf-stage'
@@ -326,6 +327,9 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
                 signedIn={mine.signedIn}
               />
             )}
+            {/* 공유는 **로그인과 무관하게** 낸다 — 교사가 학생에게 보내는 경로이고,
+                서가는 비로그인에도 열려 있어 받은 쪽이 바로 열 수 있다. */}
+            <ShareVolumeButton step={v.step} title={v.title} />
           </div>
         </section>
       </div>

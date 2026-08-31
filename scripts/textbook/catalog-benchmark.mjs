@@ -26,19 +26,29 @@ const spec = JSON.parse(fs.readFileSync(SPEC_PATH, 'utf8'))
 const baseFlag = process.argv.indexOf('--base')
 const BASE = baseFlag >= 0 ? process.argv[baseFlag + 1] : 'http://localhost:3000'
 const SHELF_URL = `${BASE}/library/textbooks`
+// 낱권 상세는 **재고가 가장 많은 계단**으로 잰다 — 빈 권을 재면 상세 화면이 실제보다 얇아 보인다.
+const stepFlag = process.argv.indexOf('--step')
+const DETAIL_STEP = stepFlag >= 0 ? process.argv[stepFlag + 1] : '5'
+const DETAIL_URL = `${BASE}/library/textbooks/${DETAIL_STEP}`
 
-async function fetchShelf() {
+async function get(url) {
   const t0 = Date.now()
-  const res = await fetch(SHELF_URL, { headers: { 'user-agent': 'vocaflow-catalog-benchmark' } })
+  const res = await fetch(url, { headers: { 'user-agent': 'vocaflow-catalog-benchmark' } })
   const html = await res.text()
-  return { html, ms: Date.now() - t0, status: res.status }
+  return { url, html, ms: Date.now() - t0, status: res.status }
 }
 
-const page = await fetchShelf()
-if (page.status !== 200) {
-  console.error(`매대를 열지 못했다: ${SHELF_URL} → HTTP ${page.status}`)
-  console.error('dev 서버가 떠 있는지 확인할 것 (pnpm --filter web dev).')
-  process.exit(1)
+// ⚠️ dev 서버는 **첫 요청에서 그 라우트를 컴파일한다.** 그 시간을 화면 시간으로 읽으면
+//    5초짜리 페이지처럼 보인다(실측 2026-08-31: 5.1s → 0.20s). 그래서 한 번 데우고 잰다.
+await Promise.all([get(SHELF_URL), get(DETAIL_URL)])
+const [page, detail] = await Promise.all([get(SHELF_URL), get(DETAIL_URL)])
+
+for (const p of [page, detail]) {
+  if (p.status !== 200) {
+    console.error(`화면을 열지 못했다: ${p.url} → HTTP ${p.status}`)
+    console.error('dev 서버가 떠 있는지 확인할 것 (pnpm --filter web dev).')
+    process.exit(1)
+  }
 }
 
 /**
@@ -46,13 +56,14 @@ if (page.status !== 200) {
  * ⚠️ 정규식이 아니라 포함 검사인 이유: 라벨이 바뀌면 조용히 통과하는 것보다
  *    시끄럽게 실패하는 편이 낫다. 라벨을 바꾸면 spec 도 같이 고쳐야 한다.
  */
-function hit(probe) {
-  return page.html.includes(probe)
+function hitIn(html, probe) {
+  return html.includes(probe)
 }
 
-const axes = spec.axes.map((a) => {
-  const found = a.ours.filter((o) => hit(o.probe))
-  const missing = a.ours.filter((o) => !hit(o.probe))
+const scoreAxes = (list, html) =>
+  list.map((a) => {
+  const found = a.ours.filter((o) => hitIn(html, o.probe))
+  const missing = a.ours.filter((o) => !hitIn(html, o.probe))
   const ours = found.length
   return {
     id: a.id,
@@ -67,27 +78,50 @@ const axes = spec.axes.map((a) => {
     //    여기서 잡히지 않으면 영영 안 잡힌다.
     declaredButNotRendered: missing.map((o) => o.label),
   }
-})
+  })
 
-const idx = axes.map((a) => a.index).filter((x) => x != null)
+/** 축 묶음 하나의 종합 — 기하평균. 한 축이 0 이면 종합도 0 이다. */
+function overallOf(list) {
+  if (list.some((a) => a.index === 0)) return 0
+  const idx = list.map((a) => a.index).filter((x) => x != null)
+  if (idx.length === 0) return null
+  return Number(Math.exp(idx.reduce((s, x) => s + Math.log(x), 0) / idx.length).toFixed(3))
+}
+
+const axes = scoreAxes(spec.axes, page.html)
+const detailAxes = scoreAxes(spec.detailAxes ?? [], detail.html)
+
+const overall = overallOf(axes)
+const detailOverall = overallOf(detailAxes)
 const zeroAxes = axes.filter((a) => a.index === 0)
-const overall = zeroAxes.length
-  ? 0
-  : Number(Math.exp(idx.reduce((s, x) => s + Math.log(x), 0) / idx.length).toFixed(3))
 
-const structural = spec.structural.items.map((d) => ({ ...d, present: hit(d.probe) }))
+// **여정 지수** — 매대와 낱권 상세를 함께 본 값. 학습자는 둘을 차례로 지나므로
+// 한쪽만 좋아도 여정이 좋아지지 않는다. 그래서 여기서도 기하평균이다.
+const journey =
+  overall != null && detailOverall != null
+    ? Number(Math.sqrt(overall * detailOverall).toFixed(3))
+    : null
+
+const structural = spec.structural.items.map((d) => ({ ...d, present: hitIn(page.html, d.probe) }))
 
 const report = {
   generatedAt: new Date().toISOString(),
   specGeneratedAt: spec.generatedAt,
   baseline: spec.provenance.primary[0],
-  measured: { url: SHELF_URL, ms: page.ms, bytes: page.html.length },
+  measured: {
+    shelf: { url: SHELF_URL, ms: page.ms, bytes: page.html.length },
+    detail: { url: DETAIL_URL, ms: detail.ms, bytes: detail.html.length },
+  },
   axes,
   overallIndex: overall,
+  detailAxes,
+  detailIndex: detailOverall,
+  journeyIndex: journey,
   target: spec.target.overallIndex,
   zeroAxes: zeroAxes.map((a) => a.id),
   structural,
   limits: spec.provenance.limits,
+  detailNotApplicable: spec.detailProvenance?.notApplicable ?? [],
 }
 
 if (process.argv.includes('--json')) {
@@ -113,6 +147,30 @@ if (process.argv.includes('--json')) {
   if (zeroAxes.length) {
     console.log(`  ⚠ 0 인 축이 있어 종합이 0 이다: ${zeroAxes.map((a) => `${a.id} ${a.name}`).join(' · ')}`)
   }
+  if (detailAxes.length) {
+    console.log(`\n  낱권 상세 — ${DETAIL_URL.replace(BASE, '')} (${detail.ms}ms)`)
+    console.log('  축                              상업    우리    지수')
+    console.log('  ' + '─'.repeat(58))
+    for (const a of detailAxes) {
+      const mark = a.index >= 1.2 ? '✅' : a.index >= 1.0 ? '△' : a.index > 0 ? '·' : '❌'
+      console.log(
+        `  ${a.id} ${a.name.padEnd(24)} ${String(a.market).padStart(5)} ${String(a.ours).padStart(6)} ${String(a.index).padStart(7)} ${mark}`,
+      )
+      if (a.declaredButNotRendered.length) {
+        console.log(`       ⚠ 선언했으나 화면에 없음: ${a.declaredButNotRendered.join(', ')}`)
+      }
+    }
+    console.log('  ' + '─'.repeat(58))
+    console.log(`  낱권 상세 종합 ${detailOverall}`)
+    console.log(`\n  ▶ 여정 지수(매대 × 낱권) ${journey}   목표 ${report.target}`)
+    if (report.detailNotApplicable.length) {
+      console.log('\n  해당 없음 (지수에서 뺀 저쪽 항목 — 왜 뺐는지 함께 적는다):')
+      for (const n of report.detailNotApplicable) {
+        console.log(`    · ${n.field} — ${n.why}`)
+      }
+    }
+  }
+
   console.log('\n  구조적 우위 (지수에 섞지 않음 — 저쪽이 가질 수 없는 것):')
   for (const d of structural) {
     console.log(`    ${d.present ? '✅' : '❌'} ${d.id} ${d.label}`)
