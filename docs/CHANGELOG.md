@@ -10,6 +10,26 @@
 
 ## Unreleased (v06.34 → next)
 
+### 교정기가 처음 잡은 실 결함 6건 — 전부 원문 추출 잡티였다
+
+지적 내용을 볼 수 없으면 고칠 수 없다. 요약(`교정 1/44`)만으로는 어느 글의 어느 문장인지
+알 길이 없어서 결함이 그대로 인쇄됐다 — 조판기에 `--proof-detail` 을 달아 문장·규칙·조치를
+함께 찍게 했다. 그러자 여섯 건이 다 보였고, **내용 오류는 하나도 없었다.**
+
+| 지적 | 실체 | 조치 |
+|---|---|---|
+| `space_before_punct` 5 | `cultivars .` · `Lindenmayer , ,` — PDF 추출 잡티 | `stripSpaceBeforePunct` (말줄임표는 비껴간다) |
+| `repeated_word` 2 | `Filming Filming began…`(위키 절 제목) · `APOD APOD…`(사이트 머리글) | `dropDuplicatedLeadWord` — **맨 앞에서만**. 문장 가운데 겹침은 실제 이름일 수 있다(`Durand Durand`) |
+| `quote_style` 1 | 굽은 2 + 곧은 2 혼용 | `pairStraightQuotes` — 굽은 것이 이미 있고 곧은 것이 **짝수**일 때만. 모르면 안 고친다 |
+| `unbalanced_paren` 1 | `38887), particularly where…` — `(PMID 38887)` 가 문장 분리기에 잘렸다 | **정규화가 아니라 게이트.** 잡티가 아니라 잘린 글이라 덮으면 안 된다 → `hasUnbalancedParens` 로 고르는 자리에서 막는다 (재고 손실 실측 544/76,000 = 0.7%) |
+
+7권 전권 재조판 후 **교정 지적 0**. 회귀 `extraction-grime.test.ts` 10건이
+"모르면 안 고친다" 경계(홀수 따옴표 · 문장 가운데 겹침 · 말줄임표)를 못 박는다.
+
+곁가지 둘 — 동시 세션이 `loadElementaryPool` 반환을 `{ items, meanings }` 로 바꾸면서
+이른 반환 `return []` 을 못 따라가 **V2~V7 이 전부 크래시**하던 것을 고쳤고,
+호출 형태를 글자로 박아 두던 회귀를 순서 단언으로 바꿨다.
+
 ### 배선한 검수가 첫 사이클에 **자기 자를 고발했다** — 4지선다를 5칸으로 재고 있었다
 
 기록을 이은 직후 V1 이 `정답 쏠림` 으로 빨갛게 떴다 — 분포 `[13, 1, 12, 14, 0]`,

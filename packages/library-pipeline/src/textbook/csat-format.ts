@@ -210,6 +210,92 @@ export function normalizeQuotes(text: string): string {
   return String(text ?? '').replace(/'/g, '’')
 }
 
+/**
+ * **큰따옴표가 섞였을 때만** 곧은 것을 굽은 짝으로 바꾼다.
+ *
+ * 위 `normalizeQuotes` 가 아포스트로피만 건드리는 이유는 여는/닫는 짝을 모르면
+ * `”quote”` 가 되기 때문이다. 하지만 **짝수 개면 짝을 안다** — 순서대로 여닫으면 된다.
+ *
+ * 걸리는 조건을 좁게 잡는다:
+ *   · 이미 굽은 큰따옴표가 있을 때만 — 처음부터 곧은 것으로 통일된 글은 섞인 게 아니다.
+ *   · 곧은 것이 짝수 개일 때만 — 홀수면 어느 쪽이 열린 것인지 알 수 없다.
+ * 둘 다 아니면 원문 그대로 돌려준다. **모르면 안 고친다.**
+ *
+ * 실측 2026-08-31 — V4 `unit_vocab`(IPCC 6차 보고서)이 `굽은 “ ” 2개 · 곧은 " 2개` 로
+ * 삼교 `quote_style` 에 걸렸다. 한 지문 안에서 따옴표 모양이 흔들리는 교재는 없다.
+ */
+export function pairStraightQuotes(text: string): string {
+  const s = String(text ?? '')
+  if (!/[“”]/.test(s)) return s
+  const straight = (s.match(/"/g) ?? []).length
+  if (straight === 0 || straight % 2 !== 0) return s
+  let open = true
+  return s.replace(/"/g, () => {
+    const q = open ? '“' : '”'
+    open = !open
+    return q
+  })
+}
+
+/**
+ * 구두점 **앞의 공백**을 지운다 — 그리고 그 자리에서 겹친 구두점도 하나로 줄인다.
+ *
+ * PDF·XML 에서 뽑은 원문에 흔한 잡티다. 실측 2026-08-31 V6 한 권에서 5건
+ * (`cultivars .` · `mapping , ` · `Lindenmayer , ,` · …). 시중 교재에는 없는 모양이라
+ * 그대로 인쇄하면 **조판 사고**로 읽힌다.
+ *
+ * ⚠️ 말줄임표는 건드리지 않는다 — `… .` 처럼 보이는 자리가 실제로는 정상이다
+ *   (`proofread.ts` 의 같은 규칙도 그래서 `..`·`…` 를 건너뛴다).
+ */
+export function stripSpaceBeforePunct(text: string): string {
+  return String(text ?? '')
+    .replace(/\s+([,;:!?])/g, '$1')
+    .replace(/\s+\.(?![.…])/g, '.')
+    .replace(/([,;:])\s*\1+/g, '$1')
+}
+
+/**
+ * 글 **맨 앞에서** 똑같이 되풀이되는 낱말 하나를 지운다 — 절 제목이 본문에 눌어붙은 것이다.
+ *
+ * 실측 2026-08-31 — `Filming Filming began in August 2019.`(V3) ·
+ * `APOD APOD Astronomy Picture of the Day`(V5). 앞의 것은 위키 절 제목이고 뒤의 것은
+ * 사이트 머리글이다. `stripSectionLabels` 는 알려진 19개 라벨만 알아서 못 잡았다.
+ *
+ * ⚠️ **맨 앞에서만** 본다. 문장 가운데의 겹침은 실제 이름일 수 있다 —
+ *   `Durand Durand`(Barbarella 악당)가 그래서 `proofread` 에서도 단정하지 않고 확인을 청한다.
+ *   자리를 맨 앞으로 좁히면 그 위험이 사라진다: 제목이 눌어붙는 자리가 거기뿐이다.
+ */
+export function dropDuplicatedLeadWord(text: string): string {
+  const s = String(text ?? '')
+  const m = /^([A-Z][A-Za-z’'-]*)\s+\1\b/.exec(s)
+  return m?.[1] ? s.slice(m[1].length + 1).trimStart() : s
+}
+
+/**
+ * **괄호 짝이 안 맞는 지문** — 인용 안에서 잘려 나온 조각이다.
+ *
+ * 실측 2026-08-31 — V7 `irrelevant` 한 문항이 이런 문장으로 시작했다:
+ *
+ *     38887), particularly where the link between the criminal act and…
+ *
+ * 원문의 `(PMID 38887)` 을 문장 분리기가 가운데서 잘랐다. 닫는 괄호만 지우면
+ * `38887, particularly where…` 가 남는데 그건 여전히 **중간부터 시작하는 문장**이다 —
+ * 잡티가 아니라 **잘린 글**이라서 정규화로 덮으면 안 된다. 고르는 자리에서 막는다.
+ *
+ * ⚠️ 문장 하나가 아니라 **지문 전체**로 센다. 문장마다 세면 `(e.g.` 의 마침표에서
+ *   갈린 두 조각이 둘 다 짝이 안 맞는 것으로 잡힌다 — `proofread.ts` 가 같은 이유로
+ *   문장 단위 판정을 피한다.
+ *
+ * 재고 손실은 실측했다: 저장된 문항 약 7.6만 중 **544개(0.7%)**.
+ * 손으로 쓴 유형(제목·요지·주제·빈칸)은 각 1개씩뿐이다.
+ */
+export function hasUnbalancedParens(text: string): boolean {
+  const s = String(text ?? '')
+  const open = (s.match(/\(/g) ?? []).length
+  const close = (s.match(/\)/g) ?? []).length
+  return open !== close
+}
+
 export function hasNonProse(text: string): boolean {
   return NON_PROSE.test(text) || hasArticleChrome(text)
 }

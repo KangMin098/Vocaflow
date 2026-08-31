@@ -102,7 +102,10 @@ describe('한 권을 고르는 규칙은 한 벌뿐이다', () => {
 
   it('예행 조합은 초등 풀과 `rungMix` **뒤**에 온다 — 앞이면 풀이 갈린다', () => {
     const pool = read('volume-pool.mjs')
-    const elem = pool.indexOf('pool.push(...(await loadElementaryPool(db, band)))')
+    // ⚠️ **호출 형태가 아니라 순서를 못 박는다.** 예전에는 `pool.push(...(await …))` 를
+    //   글자 그대로 찾았는데, 반환값이 `{ items, meanings }` 로 바뀌자(다른 세션, 2026-08-31)
+    //   순서는 그대로인데 회귀만 빨개졌다. 이 테스트가 지키려는 것은 호출 모양이 아니다.
+    const elem = pool.indexOf('await loadElementaryPool(db, band)')
     const mix = pool.indexOf('const mix = marketMix')
     const dry = pool.indexOf('const dry = composeUnits(pool, new Map()')
     expect(elem).toBeGreaterThan(0)

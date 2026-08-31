@@ -44,6 +44,7 @@ const {
   itemWordSpec,
   assessAnswerBias,
   summarizeProofread,
+  proofreadPassage,
   SCHOOL_SENTENCE_TYPES,
   MARKET_UNITS_PER_BOOK,
   // 브랜딩 — 값은 `@vocaflow/design-tokens` 에서 온다. 여기서 색을 적지 않는다.
@@ -163,6 +164,27 @@ const proofPassages = printedItems
   })
   .filter(Boolean)
 const proof = summarizeProofread(proofPassages)
+
+// `--proof-detail` — **지적 내용을 볼 수 없으면 고칠 수 없다.** 요약(`교정 1/44`)만으로는
+// 어느 글의 어느 문장인지 알 길이 없어서, 검사를 배선하고도 결함 6건이 그대로 인쇄됐다.
+// 사람이 손볼 수 있게 문장·규칙·조치를 함께 찍는다. 조판 결과는 바꾸지 않는다.
+if (arg("proof-detail") != null) {
+  let shown = 0
+  for (const [i, sentences] of proofPassages.entries()) {
+    const found = proofreadPassage(sentences)
+    if (!found.length) continue
+    const it = printedItems.filter((x) => {
+      const p2 = x.payload ?? {}
+      return (Array.isArray(p2.sentences) && p2.sentences.length) || (typeof p2.passage === "string" && p2.passage.trim())
+    })[i]
+    console.log(`\n[${++shown}] ${it?.type ?? "?"} · ${it?.ref_title ?? "출처 미상"}`)
+    for (const f of found) {
+      console.log(`    ${f.stage} · ${f.rule} — ${f.hint}`)
+      console.log(`    · ${f.found}`)
+    }
+  }
+  if (!shown) console.log("\n교정 지적 없음")
+}
 
 // ⚠️ **위 목표는 "우리가 가진 유형" 안에서 다시 정규화된 것이다.** 재고가 0 인 유형은
 //   목표에서 통째로 빠지므로, 없는 유형이 많을수록 적합도가 **후하게** 나온다.

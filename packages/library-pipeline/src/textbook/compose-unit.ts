@@ -21,7 +21,12 @@
 // 그래서 단원은 "지문에서 뽑는" 것이 아니라 **"풀에서 고르는"** 것이다.
 
 import { type UnitVocab, pickVocabulary } from './assemble-unit'
-import { CSAT_INSERT_BODY, hasArticleChrome, hasCitationResidue } from './csat-format'
+import {
+  CSAT_INSERT_BODY,
+  hasArticleChrome,
+  hasCitationResidue,
+  hasUnbalancedParens,
+} from './csat-format'
 import { V_TO_MARKET_BUCKET } from './level-chart'
 import marketSpec from './market-spec.json'
 
@@ -65,7 +70,16 @@ export interface ComposeResult {
   /** 왜 더 못 만들었는지. 조용히 짧은 권을 내지 않는다. */
   stoppedBecause: string | null
   /** 규격 밖이라 쓰지 않은 문항 수 — 유형별. */
-  rejected: { tooShort: number; tooLong: number; wrongFormat: number; residue: number; chrome: number; outOfRung: number }
+  rejected: {
+    tooShort: number
+    tooLong: number
+    wrongFormat: number
+    residue: number
+    chrome: number
+    /** 인용 안에서 잘려 나온 조각 — 괄호 짝이 안 맞는다. */
+    cutFragment: number
+    outOfRung: number
+  }
   /** 시장 비중을 못 지키고 양보한 횟수. targetShare 를 줬을 때만 0 이 아니다. */
   mixRelaxed: { repeatedType: number; overQuota: number }
 }
@@ -349,6 +363,7 @@ export function composeUnits(
   let wrongFormat = 0
   let residue = 0
   let chrome = 0
+  let cutFragment = 0
   let outOfRung = 0
   // 사다리 단수가 쓰는 유형만 남긴다. 주지 않으면 전 유형 허용(예전 동작).
   const allowed = allowedSet
@@ -401,6 +416,13 @@ export function composeUnits(
     //   지우지 않고 **고르는 자리에서 막는다** — 재고는 남기고 인쇄만 거른다.
     if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasArticleChrome(p.passage_text)) {
       chrome++
+      return false
+    }
+    // 괄호 짝이 안 맞으면 인용 안에서 **잘려 나온 조각**이다 — `hasUnbalancedParens` 참조.
+    //   교정기를 배선하고 나서야 보였다(실측 2026-08-31 V7 1건). 잡티가 아니라 잘린 글이라
+    //   정규화로 덮지 않고 여기서 막는다. 재고 손실 0.7%(544/76,000).
+    if (!ELEMENTARY_ITEM_TYPES.has(p.type) && hasUnbalancedParens(p.passage_text)) {
+      cutFragment++
       return false
     }
     return true
@@ -599,7 +621,7 @@ export function composeUnits(
   return {
     units,
     stoppedBecause,
-    rejected: { tooShort, tooLong, wrongFormat, residue, chrome, outOfRung },
+    rejected: { tooShort, tooLong, wrongFormat, residue, chrome, cutFragment, outOfRung },
     mixRelaxed,
   }
 }

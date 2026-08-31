@@ -57,7 +57,13 @@ describe('판권장 규격 칩', () => {
   it('교정은 **인쇄되는 지문**에 건다 — 저장 원본이 아니다', () => {
     // 절 이름 제거·반복 꼬리 절단·따옴표 정규화를 거친 사본이 학습자가 읽는 글이다.
     const pool = read('volume-pool.mjs')
-    expect(pool).toContain('normalizeQuotes(dropRepeatedTail(stripSectionLabels(v)))')
+    // 2026-08-31 — 교정기가 처음 잡은 실 결함 6건(전부 원문 추출 잡티)을 이 체인에서 지운다.
+    // 상세와 순서 근거는 `extraction-grime.test.ts`.
+    expect(pool).toContain('stripSectionLabels')
+    expect(pool).toContain('dropRepeatedTail')
+    expect(pool).toContain('dropDuplicatedLeadWord')
+    expect(pool).toContain('stripSpaceBeforePunct')
+    expect(pool).toContain('pairStraightQuotes')
   })
 
   it('출처는 **지문마다** 붙는다 — 판권장이 그렇게 약속한다', () => {

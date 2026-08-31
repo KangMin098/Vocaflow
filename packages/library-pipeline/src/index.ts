@@ -657,4 +657,13 @@ export { explainShortInsertSeam } from './textbook/explain-seam'
 export { ELEMENTARY_ITEM_TYPES, NO_PASSAGE_WORDS } from './textbook/compose-unit'
 export { explainElementary } from './textbook/explain-items'
 export { largestRemainder } from './textbook/compose-unit'
-export { dropRepeatedTail, hasArticleChrome, normalizeQuotes, stripSectionLabels } from './textbook/csat-format'
+export {
+  dropDuplicatedLeadWord,
+  dropRepeatedTail,
+  hasArticleChrome,
+  hasUnbalancedParens,
+  normalizeQuotes,
+  pairStraightQuotes,
+  stripSectionLabels,
+  stripSpaceBeforePunct,
+} from './textbook/csat-format'

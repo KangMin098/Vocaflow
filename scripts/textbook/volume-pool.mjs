@@ -288,7 +288,10 @@ const ELEMENTARY_TAG = { 1: 'kcurr2022_1', 2: 'kcurr2022_1' }
  */
 async function loadElementaryPool(db, band) {
   const tag = ELEMENTARY_TAG[band]
-  if (!tag) return []
+  // ⚠️ 반환 모양은 **모든 경로에서 같아야 한다.** 여기가 빈 배열을 돌려주는 동안
+  //   호출부는 { items, meanings } 로 구조 분해하고 있어 초등 별표를 안 쓰는 밴드가
+  //   전부 크래시했다(V2~V7, 실측 2026-08-31).
+  if (!tag) return { items: [], meanings: new Map() }
   const { buildRhyme, buildSpellBlank, buildWordMeaning, explainElementary } = await import('@vocaflow/library-pipeline')
 
   const rows = await fetchAllPaged(db, (q) =>
