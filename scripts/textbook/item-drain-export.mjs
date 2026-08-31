@@ -250,6 +250,24 @@ const { itemWordSpec, selectPassageWindow, isPrintablePassage } = await import('
 //   되걸러 **집필한 것이 통째로 버려진다.** 뽑는 자와 싣는 자가 다르면 일이 헛돈다.
 //   (같은 결함이 이 저장소에서 네 번째다 — 조립기·채점기·밀도표, 그리고 여기.)
 const PASSAGE_WINDOW = itemWordSpec(TYPE, BAND)
+
+/**
+ * **발문 어투는 학교급마다 다르다.** 시험지에 그대로 인쇄되는 문장이라 여기서 맞춘다.
+ *
+ * 실측 2026-08-31 (시중 79종 코퍼스, 표준 발문 출현 횟수):
+ *
+ *   초등   `가장 적절한` **0** · `가장 알맞은` **137**   ← 초등은 "적절한" 을 아예 안 쓴다
+ *   중등   `가장 적절한`  26 · `가장 알맞은`   19        ← 섞인다(적절한 우세)
+ *   고등   `가장 적절한` 524 · `가장 알맞은`    2
+ *
+ * 초등은 머리도 다르다 — `다음 글의 제목으로…` 가 아니라 **`글의 제목으로…`** 다.
+ * 그래서 초등(V1~V2)만 바꾼다. 중등은 우세형이 `적절한` 이라 그대로 둔다 —
+ * **섞인 것을 한쪽으로 몰지 않는다**(실측이 그렇게 말하지 않는다).
+ */
+function stemForBand(stem, band) {
+  if (band > 2) return stem
+  return stem.replace(/^다음 글의 /, '글의 ').replace(/가장 적절한/g, '가장 알맞은')
+}
 /** 이 유형이 성립하려면 지문에 문장이 최소 몇 개 있어야 하는가. */
 const MIN_PASSAGE_SENTENCES = 5
 
@@ -403,7 +421,7 @@ const tasks = todo.slice(0, need).map((a) => ({
   type: TYPE,
   csat_number: spec.number,
   type_label: spec.label,
-  stem_ko: spec.stem,
+  stem_ko: stemForBand(spec.stem, BAND),
   choice_language: spec.choiceLang,
   guide: spec.guide,
   source_title: a.title,

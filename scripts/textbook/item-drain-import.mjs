@@ -121,7 +121,11 @@ for (const r of rows) {
   const parasCount = (t) => t.split(/\n\s*\n+/).filter((s) => s.trim()).length
   /** 인쇄될 지문의 낱말 수와 그 유형의 창. 자는 `itemWordSpec` 이 유형별로 안다. */
   const PASSAGE_WORDS = passage.split(/\s+/).filter(Boolean).length
-  const WORD_SPEC = itemWordSpec(TYPE)
+  // ⚠️ **밴드를 함께 넘긴다.** 안 넘기면 초등 몫도 고등 창(90~200어)으로 재서,
+  //   집필 몫을 뽑을 때(export)·권을 조립할 때와 **다른 자**가 된다. 실측 2026-08-31:
+  //   초6 은 시중 규격이 44~125 라 교차 창이 90~125 인데 여기만 200 까지 통과시켰다.
+  //   (같은 결함이 이 저장소에서 다섯 번째다 — 조립기·채점기·밀도표·집필 export·여기.)
+  const WORD_SPEC = itemWordSpec(TYPE, BAND)
   const why = (m) => skipped.push([r.source_title ?? id, m])
 
   if (!id) why('article_id 가 없다')
