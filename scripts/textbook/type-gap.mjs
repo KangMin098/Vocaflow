@@ -17,7 +17,7 @@
 //   pnpm dlx tsx scripts/textbook/type-gap.mjs --band 6 [--units 20]
 //
 // **읽기만 한다.** 아무것도 고치지 않으므로 몇 번을 돌려도 안전하다.
-import { loadEnv } from './volume-pool.mjs'
+import { loadEnv, ELEMENTARY_TYPES } from './volume-pool.mjs'
 
 loadEnv()
 const { createClient } = await import('@supabase/supabase-js')
@@ -54,25 +54,59 @@ for (const t of types) {
   have[t] = count
 }
 
-const mix = rungMix(BAND, Object.keys(have).filter((t) => have[t] > 0))
-const rows = Object.entries(mix.targetShare)
-  .map(([t, s]) => ({ t, want: Math.round(s * TOTAL), got: have[t] ?? 0 }))
-  .sort((a, b) => b.want - a.want)
+// ⚠️ **사전에서 즉석 생성되는 유형은 재고를 세면 안 된다.** `rhyme`·`word_meaning`·
+//   `spell_blank` 는 `csat_dcp_items` 에 행이 없고 조판할 때 사전에서 만들어진다.
+//   행을 세면 0 이 나와 "닫혔다" 고 보고하는데, 실제 V1 조판은 이 셋으로만 채워져
+//   적합도 100.0% 다. 이 오보를 실제로 냈다(2026-08-31) — 조판 로그를 보고서야 알았다.
+//   상한이 원글 재고가 아니므로 **항상 열려 있는 것으로 센다.**
+const GENERATED = ELEMENTARY_TYPES
+
+// ⚠️ **재고 0 인 유형은 목표에서 빠진다** — `rungMix` 는 available 안에서 다시 정규화한다.
+//   그래서 아예 없는 유형은 "부족" 으로도 안 잡히고, 적합도는 그만큼 후하게 나온다.
+//   실측 2026-08-31: V7 이 "부족 없음" 인데 89.7% 였다. 재고가 0 이라 `blank`·`title`·
+//   `main_point` 가 목표에서 통째로 빠져 있었던 것이다. **두 잣대를 같이 보여 준다.**
+const openTypes = Object.keys(have).filter((t) => have[t] > 0 || GENERATED.has(t))
+const mix = rungMix(BAND, openTypes)
+const market = rungMix(BAND).targetShare
+const union = [...new Set([...Object.keys(market), ...Object.keys(mix.targetShare)])]
+const rows = union
+  .map((t) => ({
+    t,
+    marketWant: Math.round((market[t] ?? 0) * TOTAL),
+    want: Math.round((mix.targetShare[t] ?? 0) * TOTAL),
+    got: have[t] ?? 0,
+  }))
+  .sort((x, y) => y.marketWant - x.marketWant || y.want - x.want)
 
 console.log(`V${BAND} · ${UNITS}단원 ${TOTAL}문항 기준 · 목표는 ${mix.derivedFrom === 'market' ? '시장 실측' : '사다리 설계'}에서 유도`)
-console.log('유형'.padEnd(16), '목표'.padStart(5), '재고'.padStart(9), '  부족')
+console.log('유형'.padEnd(16), '시장'.padStart(5), '현목표'.padStart(6), '재고'.padStart(9), '  부족')
 let short = 0
-for (const { t, want, got } of rows) {
-  const gap = Math.max(0, want - got)
+let closed = 0
+for (const { t, marketWant, want, got } of rows) {
+  // 사전 생성 유형은 상한이 없다 — 모자랄 수가 없으므로 부족분에서 뺀다.
+  const gap = GENERATED.has(t) ? 0 : Math.max(0, want - got)
   short += gap
-  console.log(t.padEnd(16), String(want).padStart(5), String(got).padStart(9), gap ? `  ← ${gap}` : '')
+  const shut = got === 0 && marketWant > 0 && !GENERATED.has(t)
+  if (shut) closed += marketWant
+  const note = shut ? `  ← 닫힘 (시장은 ${marketWant})` : gap ? `  ← ${gap}` : ''
+  const stock = GENERATED.has(t) ? '사전생성' : String(got)
+  console.log(t.padEnd(16), String(marketWant).padStart(5), String(want).padStart(6), stock.padStart(9), note)
+}
+
+if (closed) {
+  console.log(`**닫힌 유형이 시장 기준 ${closed}문항어치** (인쇄 ${TOTAL}문항의 ${((100 * closed) / TOTAL).toFixed(1)}%)`)
+  console.log('재고가 0 이라 목표에서 빠져 있다 — 적합도는 이만큼 후하게 나온다. 열려면 시장 몫만큼 한 번에 넣는다.')
+  for (const { t, marketWant, got } of rows) {
+    if (got === 0 && marketWant > 0 && !GENERATED.has(t)) console.log(`  item-drain-export.mjs --type ${t} --band ${BAND}   (${marketWant}문항)`)
+  }
+  console.log()
 }
 if (!short) {
-  console.log('\n모자란 유형이 없다 — 적합도가 낮다면 원인은 재고가 아니라 조합 쪽이다.')
+  console.log(closed ? '열려 있는 유형 중에는 모자란 것이 없다.' : '모자란 유형이 없다 — 적합도가 낮다면 원인은 재고가 아니라 조합 쪽이다.')
 } else {
-  console.log(`\n모자란 몫 합계 **${short}문항** (인쇄 ${TOTAL}문항의 ${((100 * short) / TOTAL).toFixed(1)}%)`)
+  console.log(`모자란 몫 합계 **${short}문항** (인쇄 ${TOTAL}문항의 ${((100 * short) / TOTAL).toFixed(1)}%)`)
   console.log('이만큼이 그대로 적합도 감점이다 — 유형별로 **모자란 만큼 한 번에** 채운다.')
   for (const { t, want, got } of rows) {
-    if (want > got) console.log(`  item-drain-export.mjs --type ${t} --band ${BAND}   (${want - got}문항)`)
+    if (want > got && got > 0 && !GENERATED.has(t)) console.log(`  item-drain-export.mjs --type ${t} --band ${BAND}   (${want - got}문항)`)
   }
 }

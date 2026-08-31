@@ -84,6 +84,18 @@ const actualMix = {}
 for (const u of units) for (const it of u.items) actualMix[it.type] = (actualMix[it.type] ?? 0) + 1
 const target = rungMix(BAND, new Set(pool.map((it) => it.type))).targetShare
 const fit = typeMixFit(actualMix, target)
+
+// ⚠️ **위 목표는 "우리가 가진 유형" 안에서 다시 정규화된 것이다.** 재고가 0 인 유형은
+//   목표에서 통째로 빠지므로, 없는 유형이 많을수록 적합도가 **후하게** 나온다.
+//   실측 2026-08-31: V1 은 초등저가 필요로 하는 세 유형(rhyme·word_meaning·spell_blank)이
+//   모두 0 인데 적합도 **100.0%** 였다. V7 은 시장 구성의 41.7%(빈칸14·제목8·요지3)가
+//   비어 있는 채로 89.7% 였다. 그 수치로는 "시중 대비" 를 말할 수 없다.
+//
+//   조합이 가진 것 안에서 최선을 다하는 것은 맞다 — 그래서 target 은 그대로 두고,
+//   **시장 전체를 분모로 한 값을 나란히 찍는다.** 둘이 벌어진 만큼이 닫힌 유형이다.
+const marketTarget = rungMix(BAND).targetShare
+const marketFit = typeMixFit(actualMix, marketTarget)
+const closedTypes = Object.keys(marketTarget).filter((t) => !pool.some((it) => it.type === t))
 const rung = SERIES_SPINE.find((r) => r.vLevels.includes(BAND))
 
 // ── 조판 ────────────────────────────────────────────────────────────
@@ -518,12 +530,19 @@ if (usedArticles.size === 0) {
   )
 }
 console.log(
-  `유형-학년 적합도 ${(fit * 100).toFixed(1)}% (시중 밀도 대비) — ` +
+  `유형-학년 적합도 ${(fit * 100).toFixed(1)}% (가진 유형 안에서) · **시장 전체 기준 ${(marketFit * 100).toFixed(1)}%** — ` +
     Object.entries(actualMix)
       .sort((x, y) => y[1] - x[1])
       .map(([t, n]) => `${t} ${n}`)
       .join(' · '),
 )
+if (closedTypes.length) {
+  const share = closedTypes.reduce((s, t) => s + (marketTarget[t] ?? 0), 0)
+  console.log(
+    `  ⚠️ 재고가 0 이라 **목표에서 빠진 유형** ${closedTypes.length}개 — ${closedTypes.join(' · ')}` +
+      ` (시장 기준 ${(share * 100).toFixed(1)}%). 왼쪽 수치는 그만큼 후하다.`,
+  )
+}
 // **떨어진 항목은 이름을 말한다.** "8/9" 만 찍으면 무엇이 걸렸는지 알 수 없어
 // 사람이 HTML 을 열어 눈으로 찾아야 한다 — 그러면 대개 안 찾는다.
 for (const c of card.auto.filter((x) => !x.pass)) {
