@@ -177,13 +177,40 @@ export async function fetchAllPaged(db, build, page = 1000) {
 // 적어 두는 것과 두 크기로 돌려 같은 책이 나오는 것을 보는 것은 다르다.
 const IN_CHUNK = Number(process.env.VOCAFLOW_IN_CHUNK) || 100
 
+/**
+ * ⚠️ **OFFSET(`range`)으로 깊이 넘기면 재고가 늘 때 자가 먼저 부러진다.**
+ *
+ * 실측 2026-09-01 — 재고가 42만 행이 되자 `--volume all` 이 통째로 죽었다:
+ *
+ *   ↻ 재시도 1/3 (페이지 500) — fetch failed
+ *   ↻ 재시도 3/3 (페이지 125) — canceling statement due to statement timeout
+ *   ↻ … 페이지 25 에서도 timeout        ← **페이지를 줄여도 안 낫는다**
+ *
+ * 페이지 크기 문제가 아니었다. OFFSET 은 건너뛸 행을 **매 요청마다 처음부터 다시 센다** —
+ * 페이지가 깊어질수록 느려지고, 어느 깊이에서 statement timeout 을 넘긴다. 페이지를
+ * 반으로 줄이면 요청 수가 두 배가 되어 **더 나빠진다.** 실측: V5 한 권 조판 **78.6초**.
+ *
+ * 그래서 정렬 열이 하나면 **커서(keyset)** 로 넘긴다 — 마지막으로 본 값 다음부터 N개.
+ * 인덱스를 그대로 타므로 깊이와 무관하게 일정하다. 덤으로 **페이지가 도중에 줄어도
+ * 안전하다**(OFFSET 은 페이지 크기가 바뀌면 그 경계에서 행을 건너뛴다).
+ *
+ * 정렬 열이 둘 이상이면(`['library_article_id','word']`) 복합 커서가 필요해 그대로 둔다 —
+ * 그 호출은 원글 묶음마다 결과가 작아 깊이 문제가 없다.
+ *
+ * (같은 교훈을 `market-benchmark.mjs` 의 `fetchAll` 이 이미 한 번 배웠다. 그때는
+ *  이 함수까지 고치지 않아, 자의 한쪽만 튼튼해진 채로 남아 있었다.)
+ */
 export async function fetchAllIn(db, table, columns, column, values, orderBy, apply) {
   const out = []
   // 한 번 줄인 페이지는 이 호출 내내 유지한다 — 다시 키우면 같은 자리에서 또 걸린다.
   let size = 1000
+  // 정렬 열이 하나일 때만 커서로 넘긴다. 그 열의 값이 겹치면 페이지 경계에서 행이 샐 수
+  // 있는데, 두 호출부 모두 고유하다(`csat_dcp_items.id` = pk · `shared_dictionary.word`).
+  const keysetCol = orderBy.length === 1 ? orderBy[0] : null
   for (let i = 0; i < values.length; i += IN_CHUNK) {
     const slice = values.slice(i, i + IN_CHUNK)
     let from = 0
+    let cursor = null
     for (;;) {
       // ⚠️ **질의를 매 시도마다 새로 만든다.** PostgREST 빌더는 한 번 await 하면 결과가
       //   붙박이라, 같은 객체를 다시 await 해도 새 요청이 나가지 않는다 — 재시도가
@@ -194,6 +221,10 @@ export async function fetchAllIn(db, table, columns, column, values, orderBy, ap
         // 짜지 않게 하려고 둔다 — 그렇게 다시 짠 사본들이 전부 `.limit(20000)` 이었다.
         if (apply) q = apply(q)
         for (const col of orderBy) q = q.order(col)
+        if (keysetCol) {
+          if (cursor != null) q = q.gt(keysetCol, cursor)
+          return q.limit(n)
+        }
         return q.range(from, from + n - 1)
       }
       const res = await withRetry(table, build, 4, size)
@@ -202,7 +233,8 @@ export async function fetchAllIn(db, table, columns, column, values, orderBy, ap
       if (!data?.length) break
       out.push(...data)
       if (data.length < size) break
-      from += size
+      if (keysetCol) cursor = data[data.length - 1][keysetCol]
+      else from += size
     }
   }
   // ⚠️ **묶음 안에서만 정렬하면 배열 순서가 묶음 크기에 딸린다.**

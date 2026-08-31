@@ -6,6 +6,7 @@ import {
   canScoreTypeSpread,
   geoMean,
   reachableMax,
+  intersectWindows,
   wilson95,
   type PublisherAxis,
 } from './publisher-index'
@@ -135,5 +136,36 @@ describe('canScoreTypeSpread', () => {
   it('근거가 없으면 재지 않는다', () => {
     expect(canScoreTypeSpread(null)).toBe(false)
     expect(canScoreTypeSpread(undefined)).toBe(false)
+  })
+})
+
+describe('intersectWindows', () => {
+  it('고1 실측 재현 — 합본 47~242 인데 교집합은 49~160 이다 (NE능률이 상한을 정한다)', () => {
+    const w = intersectWindows([
+      { min: 43, max: 160 }, // NE능률
+      { min: 47, max: 234 }, // EBS
+      { min: 49, max: 250 }, // 쎄듀
+    ])!
+    expect(w).toEqual({ min: 49, max: 160 })
+  })
+
+  it('가장 좁은 곳이 창을 정한다 — 하한은 최대, 상한은 최소', () => {
+    expect(intersectWindows([{ min: 10, max: 100 }, { min: 20, max: 90 }])).toEqual({ min: 20, max: 90 })
+  })
+
+  it('겹치지 않으면 null — 부르는 쪽이 합본 창으로 물러서야 한다', () => {
+    expect(intersectWindows([{ min: 10, max: 50 }, { min: 60, max: 100 }])).toBeNull()
+  })
+
+  it('맞닿기만 하면(min === max) 창이 아니다', () => {
+    expect(intersectWindows([{ min: 10, max: 50 }, { min: 50, max: 90 }])).toBeNull()
+  })
+
+  it('창이 하나도 없으면 null 이다 — 0~무한대로 열지 않는다', () => {
+    expect(intersectWindows([])).toBeNull()
+  })
+
+  it('유한하지 않은 값이 섞이면 null — 무한대는 창이 아니다', () => {
+    expect(intersectWindows([{ min: 10, max: Number.POSITIVE_INFINITY }])).toBeNull()
   })
 })

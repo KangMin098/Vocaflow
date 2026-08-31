@@ -117,3 +117,39 @@ export function bindingPublisher<T extends { publisher: string; overallIndex: nu
 export function canScoreTypeSpread(basis: string | null | undefined): boolean {
   return basis != null && basis !== '79종 합본'
 }
+
+/** 지문 어수 창 — `p10~p90`. */
+export interface WordWindow {
+  min: number
+  max: number
+}
+
+/**
+ * **여러 출판사 창의 교집합.**
+ *
+ * 왜 필요한가 (실측 2026-08-31) — 조립기는 `market-spec.json` 의 **합본** 창을 쓴다.
+ * 그런데 합본은 쪽수 가중평균이라 한 출판사의 창보다 넓을 수 있다:
+ *
+ *   고1  합본 47~242   ↔   NE능률 43~160 · EBS 47~234 · 쎄듀 49~250   → 교집합 **49~160**
+ *
+ * 즉 200어짜리 고1 지문은 합본 규격에는 맞고 **NE능률 규격에는 안 맞는다.** 합본만 보고
+ * 조판하면 "평균에는 맞지만 가장 엄격한 출판사에는 어긋나는" 권이 나온다 — 그리고 그것이
+ * 바로 합본 지수가 감추던 것이다.
+ *
+ * 교집합 안에 들면 **모든 출판사의 창을 동시에 만족**한다.
+ *
+ * ⚠️ 비거나 뒤집힌 교집합은 `null` 이다. 부르는 쪽이 합본 창으로 물러서야 한다 —
+ *   좁히려다 **재료를 0 으로 만들지 않는다**(`compose-unit.ts` 가 이미 쓰는 규칙).
+ */
+export function intersectWindows(windows: readonly WordWindow[]): WordWindow | null {
+  if (!windows.length) return null
+  let min = -Infinity
+  let max = Infinity
+  for (const w of windows) {
+    if (!Number.isFinite(w.min) || !Number.isFinite(w.max)) return null
+    min = Math.max(min, w.min)
+    max = Math.min(max, w.max)
+  }
+  if (!Number.isFinite(min) || !Number.isFinite(max) || min >= max) return null
+  return { min, max }
+}

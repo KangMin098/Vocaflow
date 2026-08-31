@@ -242,9 +242,9 @@ export { hasNonProse, isPrintablePassage, selectPassageWindow } from './textbook
 export { UNIT_MINUTES, MARKET_UNITS_PER_BOOK, scoreVolume } from './textbook/scorecard'
 // 출판사별 우위 지수의 산술 — 벤치마크 스크립트가 이 한 벌을 쓴다(사본 금지).
 export {
-  axisCeiling, bindingPublisher, canScoreTypeSpread, geoMean, reachableMax, wilson95,
+  axisCeiling, bindingPublisher, canScoreTypeSpread, geoMean, intersectWindows, reachableMax, wilson95,
 } from './textbook/publisher-index'
-export type { PublisherAxis } from './textbook/publisher-index'
+export type { PublisherAxis, WordWindow } from './textbook/publisher-index'
 export type { Audience, AutoCheck, HumanCheck, Scorecard } from './textbook/scorecard'
 // 수능 인쇄 형식 변환 — 저장 형식·학습 화면은 그대로 두고 표현만 바꾼다.
 export {
@@ -268,6 +268,7 @@ export type { CsatInsertItem, CsatOrderItem } from './textbook/csat-format'
 export { MINUTES_PER_ITEM as COMPOSE_MINUTES_PER_ITEM } from './textbook/compose-unit'
 export {
   CSAT_ITEM_WORDS,
+  LONG_ITEM_TYPES,
   itemWordSpec,
   DEFAULT_SLOTS,
   MAX_WORD_APPEARANCES,
