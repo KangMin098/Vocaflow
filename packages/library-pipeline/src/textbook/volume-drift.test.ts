@@ -39,8 +39,17 @@ const codeOnly = (src: string) =>
     .filter((l) => !/^\s*(\/\/|\*|\/\*)/.test(l))
     .join('\n')
 
-/** 한 권을 다루는 스크립트 전부. 새 스크립트가 늘면 여기에 더한다. */
-const VOLUME_SCRIPTS = ['render-volume.mjs', 'explain-drain-export.mjs']
+/**
+ * 한 권을 다루는 스크립트 전부. 새 스크립트가 늘면 여기에 더한다.
+ *
+ * ⚠️ **목록이 빠지면 이 가드는 조용히 통과한다** (실측 2026-08-31).
+ *   `build-volume.mjs` 가 여기 없어서, 자기 풀을 직접 만든 채로 드리프트가 방치됐다.
+ *   그 사본은 지문을 `presented`/`remaining` 에서만 찾아 나머지 유형을 전부 낱말 수 0 으로
+ *   보고 "짧음" 으로 버렸다 — 원글 190편·80문항(정본은 3,443편·120문항)인데도
+ *   자동 검수는 **9/9 통과**로 나왔다. 그래서 "재료가 모자라다" 는 틀린 진단이 섰다.
+ *   드리프트는 실패로 드러나지 않는다. 목록에 더하는 것이 유일한 방어다.
+ */
+const VOLUME_SCRIPTS = ['render-volume.mjs', 'explain-drain-export.mjs', 'build-volume.mjs']
 
 describe('한 권을 고르는 규칙은 한 벌뿐이다', () => {
   it('`volume-pool.mjs` 가 있고 `loadVolume` 을 내보낸다', () => {
