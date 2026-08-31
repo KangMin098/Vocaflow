@@ -1,11 +1,13 @@
 {
   "$schema": "market-spec/1",
-  "generatedAt": "2026-08-31T11:34:42.410Z",
+  "generatedAt": "2026-08-31T14:53:39.942Z",
   "provenance": {
     "corpus": "시중 영어 교재 79종 (저장소 밖 store)",
     "documentsMeasured": 79,
     "pagesMeasured": 5214,
     "charsMeasured": 14712945,
+    "pagesUnreadable": 234,
+    "pagesScannedForReadability": 4772,
     "rule": "집계 통계와 업계 공통 발문형만 담는다. 지문·해설 원문은 담지 않는다.",
     "stemRule": "서로 다른 시리즈 2곳 이상에서 같은 형태로 쓰인 발문만 표준형으로 본다"
   },

@@ -245,6 +245,40 @@ export function extractPassageSpec(db, pub = null) {
 }
 
 /** 해설 규격 — 길이·오답배제·원문인용. 이게 시장이 고르는 기준이다. */
+/**
+ * **글자가 깨진 쪽 수.** `status='ok'` 는 "추출이 끝났다" 는 뜻이지 "읽을 수 있다" 가 아니다.
+ *
+ * 실측 2026-08-31 — 4,772쪽 중 **234쪽(4.9%)** 이 임베드 폰트 CMap 문제로 모지바케다.
+ * 둘 다 상태가 `ok` 라 어떤 검사에도 안 걸렸다:
+ *
+ *   NE능률 빠른독해 바른독해 구문독해 · 본책   159/289쪽
+ *   쎄듀 첫단추 · 본책                      68/188쪽
+ *
+ * 실물: `޷‫੄ݽפ‬Ҋࢎ ਬഋ]ਬഋ` — 한글로도 라틴 문자로도 읽히지 않는다.
+ *
+ * ⚠️ **그냥 빠지는 것이 아니라 증거를 조용히 감춘다.** 쎄듀 첫단추 본책이 그 출판사의
+ *   유일한 해설 자료인데, 깨진 채로 `role='본책'` 에 있어 `extractExplanationSpec` 이
+ *   못 읽는다. 그래서 쎄듀는 7축 중 2축만 잴 수 있고, 목표 1.200 이 천장에 걸린다.
+ *   되살리려면 그 문서를 **OCR 로 다시 뽑아야** 한다(`ocr.mjs`) — 코드로 풀 문제가 아니다.
+ *
+ * 그래서 규격이 이 숫자를 함께 들고 다닌다. `pagesMeasured` 만 인용하면
+ * "5,214쪽 실측" 이 실제보다 튼튼해 보인다.
+ */
+function unreadablePages(db) {
+  const READABLE =
+    /[\x20-\x7E\uAC00-\uD7A3\u3000-\u303F\u4E00-\u9FFF\s\u2010-\u2027\u201C-\u201D\u2018-\u2019]/g;
+  let bad = 0;
+  let seen = 0;
+  for (const r of db.prepare(`SELECT p.text FROM pages p JOIN docs d ON d.id = p.doc_id
+      WHERE d.status IN ('ok','ocr')`).all()) {
+    const t = String(r.text ?? '');
+    if (t.length < 200) continue;
+    seen += 1;
+    if ((t.match(READABLE) ?? []).length / t.length < 0.8) bad += 1;
+  }
+  return { pagesScanned: seen, pagesUnreadable: bad };
+}
+
 export function extractExplanationSpec(db, pub = null) {
   const rows = db.prepare(`
     SELECT d.series, d.grade_min, p.text
@@ -487,6 +521,7 @@ function main() {
     SELECT count(*) docs, sum(pages) pages, sum(chars) chars
     FROM docs WHERE status IN ('ok','ocr')`).get();
 
+  const readable = unreadablePages(db);
   const stems = extractStems(db);
   const spec = {
     $schema: 'market-spec/1',
@@ -496,6 +531,9 @@ function main() {
       documentsMeasured: meta.docs,
       pagesMeasured: meta.pages,
       charsMeasured: meta.chars,
+      // 위 pagesMeasured 중 글자가 깨져 읽을 수 없는 쪽 —  참조.
+      pagesUnreadable: readable.pagesUnreadable,
+      pagesScannedForReadability: readable.pagesScanned,
       rule: '집계 통계와 업계 공통 발문형만 담는다. 지문·해설 원문은 담지 않는다.',
       stemRule: `서로 다른 시리즈 ${MIN_SERIES_FOR_STANDARD}곳 이상에서 같은 형태로 쓰인 발문만 표준형으로 본다`,
     },
