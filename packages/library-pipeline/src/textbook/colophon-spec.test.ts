@@ -57,4 +57,17 @@ describe('판권장 규격 칩', () => {
     const pool = read('volume-pool.mjs')
     expect(pool).toContain('normalizeQuotes(dropRepeatedTail(stripSectionLabels(v)))')
   })
+
+  it('출처는 **지문마다** 붙는다 — 판권장이 그렇게 약속한다', () => {
+    // 판권장의 정책 문구는 "각 지문 아래에 출처를 밝힌다" 인데, 조판은 단원 끝에
+    // "A / B / C" 로 몰아 찍고 있었다(실측 2026-08-31: 60문항에 출처줄 10개).
+    // 출처는 저작권 표시이자 원문으로 가는 길이라 **문항에 붙어야** 뜻이 있다.
+    expect(src).toContain('r.html + srcLine(r.source)')
+    expect(src).toContain('const srcLine =')
+  })
+
+  it('원글이 없는 카드는 낱말을 출처라고 적지 않는다', () => {
+    // 초등 3종은 ref_title 자리에 낱말이 들어가 "출처 · above" 가 찍혔다(V1 60문항 전부).
+    expect(src).toContain("source: '2022 개정 교육과정 별표 어휘'")
+  })
 })

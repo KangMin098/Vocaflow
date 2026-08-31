@@ -340,7 +340,10 @@ function renderElementary(item, no) {
 </div>`,
       answer,
       explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
-      source: item.ref_title,
+      // ⚠️ 초등 3종은 원글이 없어 `ref_id`·`ref_title` 자리에 **낱말**이 들어간다.
+      //   그걸 그대로 출처로 찍으면 `출처 · above` 가 되어 오히려 오류로 읽힌다
+      //   (실측 2026-08-31 V1 60문항 전부). 이 카드들의 실제 출처는 교육과정 별표다.
+      source: '2022 개정 교육과정 별표 어휘',
     }
   }
 
@@ -356,7 +359,7 @@ function renderElementary(item, no) {
 </div>`,
     answer: text,
     explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
-    source: item.ref_title,
+    source: '2022 개정 교육과정 별표 어휘',
   }
 }
 
@@ -438,6 +441,12 @@ function renderItem(item, no) {
   }
 }
 
+// ⚠️ **판권장이 "각 지문 아래에 출처를 밝힌다" 고 적는데 그렇게 하지 않고 있었다.**
+//   출처가 단원 끝에 `A / B / C / …` 로 몰려 있어(실측 2026-08-31: 60문항에 출처줄 10개)
+//   어느 글이 어디서 왔는지 이어지지 않았다. 시중 교재는 지문 바로 아래에 단다 —
+//   출처는 저작권 표시이자 학습자가 원문을 찾아가는 길이라 **문항에 붙어야** 뜻이 있다.
+const srcLine = (s) => (s ? `<p class="src">출처 · ${esc(String(s))}</p>` : '')
+
 let qNo = 0
 const unitHtml = []
 const answerRows = []
@@ -464,12 +473,12 @@ for (const u of units) {
   unitHtml.push(`
 <section class="unit">
   <h2><span class="unum">UNIT ${String(u.no).padStart(2, '0')}</span> <span class="umin">${u.estimated_minutes}분</span></h2>
-  ${rendered.map((r) => r.html).join('')}
+  ${rendered.map((r) => r.html + srcLine(r.source)).join('')}
   <div class="vocab">
     <h3>Words</h3>
     <table>${vocab}</table>
   </div>
-  <p class="src">출처 · ${esc(u.sources.join(' / '))}</p>
+  <p class="src unit-src">이 단원이 쓴 글 ${u.sources.length}편</p>
 </section>`)
 }
 
