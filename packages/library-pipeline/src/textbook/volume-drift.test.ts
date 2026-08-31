@@ -147,6 +147,31 @@ describe('한 권을 고르는 규칙은 한 벌뿐이다', () => {
     expect(offenders, 'PostgREST 는 1000행에서 자른다 — .range() 로 페이징할 것').toEqual([])
   })
 
+  it('`loadElementaryPool` 의 모든 반환이 같은 모양이다 — 이른 반환 하나가 다섯 밴드를 깨뜨렸다', () => {
+    // ⚠️ 실측 2026-08-31. 이 함수의 반환을 `items` 에서 `{ items, meanings }` 로 바꾸면서
+    //   **이른 반환 `if (!tag) return []` 을 따라가지 않았다.** `ELEMENTARY_TAG` 는
+    //   밴드 1·2 에만 있으므로, 태그가 없는 **V3~V7 은 구조분해가 `undefined` 가 되어
+    //   `pool.push(...undefined)` 로 전부 크래시**했다.
+    //
+    //   고친 사람은 검증까지 했는데 하필 **V1·V2 만** 돌려 봤다 — 태그가 있는 두 밴드다.
+    //   "바꾼 자리를 확인" 했지만 "바꾼 자리가 깨뜨릴 수 있는 곳" 은 확인하지 않았다.
+    //   그 사이 다른 세션이 크래시를 만나 고쳤다.
+    //
+    //   그래서 모양을 글자로 못 박는다 — 반환이 여럿인 함수는 **전부 같은 모양**이어야 한다.
+    const pool = read('volume-pool.mjs')
+    const fn = pool.slice(pool.indexOf('async function loadElementaryPool'))
+    const body = fn.slice(0, fn.indexOf('\n}\n') + 3)
+    // **함수 최상위 반환만 본다** — 들여쓰기 2칸. 안쪽 화살표 함수의 `return` 까지 세면
+    // 해설을 만드는 즉시실행 함수가 걸려 회귀가 엉뚱한 것을 고발한다(처음에 그랬다).
+    const returns = [...body.matchAll(/^ {2}(?:if \([^)]*\) )?return (.+)$/gm)].map((m) => m[1].trim())
+    expect(returns.length, '반환을 못 찾았다 — 함수 모양이 바뀌었으면 이 회귀도 고칠 것').toBeGreaterThan(1)
+    for (const r of returns) {
+      expect(r, `loadElementaryPool 의 반환이 { items, meanings } 가 아니다: ${r}`).toMatch(
+        /^\{\s*items[:,]/,
+      )
+    }
+  })
+
   it('드레인 청크 자리가 밴드별로 갈린다 — 밴드를 동시에 돌려도 안 섞인다', () => {
     // 한 디렉터리를 쓰면 나중 export 가 앞 밴드 청크를 지우고,
     // import 는 그 안의 `.out.json` 을 전부 읽어 밴드가 섞인다.
