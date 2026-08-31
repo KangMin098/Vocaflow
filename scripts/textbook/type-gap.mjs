@@ -17,11 +17,11 @@
 //   pnpm dlx tsx scripts/textbook/type-gap.mjs --band 6 [--units 20]
 //
 // **읽기만 한다.** 아무것도 고치지 않으므로 몇 번을 돌려도 안전하다.
-import { loadEnv, ELEMENTARY_TYPES } from './volume-pool.mjs'
+import { loadEnv, fetchAllKeyset, ELEMENTARY_TYPES } from './volume-pool.mjs'
 
 loadEnv()
 const { createClient } = await import('@supabase/supabase-js')
-const { rungMix, ITEMS_PER_UNIT, MARKET_UNITS_PER_BOOK } = await import('@vocaflow/library-pipeline')
+const { rungMix, ITEMS_PER_UNIT, MARKET_UNITS_PER_BOOK, itemWordSpec } = await import('@vocaflow/library-pipeline')
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -61,6 +61,39 @@ for (const t of types) {
 //   상한이 원글 재고가 아니므로 **항상 열려 있는 것으로 센다.**
 const GENERATED = ELEMENTARY_TYPES
 
+// ── 쓸 수 있는 재고 ────────────────────────────────────────────────
+//
+// ⚠️ **개수만 세면 못 쓰는 재고를 있다고 말한다.** 조합기는 `itemWordSpec(type, band)`
+//   창 밖 지문을 버린다. 그런데 이 도구는 행 수만 셌다 — 그래서 V3 이 `topic 16 ·
+//   title 15 · blank 16` 으로 "부족 1문항" 인데 조판은 그 47건을 **전부 버리고**
+//   적합도가 95.6% → 54.6% 로 무너졌다(실측 2026-08-31). 붕괴가 이 화면에 안 보였다.
+//
+// 그래서 손집필 유형은 **지문을 받아 창을 대 본다.** 기계 생성 유형은 재고가 수만이라
+// 목표를 훨씬 넘으므로 정밀도가 필요 없고, 다 받으면 이 도구가 조판만큼 느려진다.
+// 그 경계를 `USABLE_PROBE_MAX` 로 둔다 — 넘으면 행 수를 그대로 쓰고 그렇다고 적는다.
+const USABLE_PROBE_MAX = 800
+const usable = {}
+const wordsOf = (p) => {
+  const t = [p?.passage, p?.intro, ...(p?.sentences ?? []), ...(p?.remaining ?? []), p?.insert_sentence]
+    .filter((x) => typeof x === 'string')
+    .join(' ')
+  return t.trim() ? t.split(/\s+/).filter(Boolean).length : null
+}
+for (const t of Object.keys(have)) {
+  if (GENERATED.has(t)) { usable[t] = have[t]; continue }
+  if (have[t] === 0 || have[t] > USABLE_PROBE_MAX) { usable[t] = have[t]; continue }
+  const rows = await fetchAllKeyset(db, 'csat_dcp_items', 'id, payload', 'id', 500, (q) =>
+    q.eq('kind', 'article').eq('v_level', BAND).eq('type', t))
+  const spec = itemWordSpec(t, BAND)
+  usable[t] = rows.filter((r) => {
+    const w = wordsOf(r.payload)
+    // 지문이 없는 유형은 이 창의 대상이 아니다 — 세는 데서 빼지 않는다.
+    if (w == null || spec.max === 0) return true
+    return w >= spec.min && w <= spec.max
+  }).length
+}
+
+
 // ⚠️ **재고 0 인 유형은 목표에서 빠진다** — `rungMix` 는 available 안에서 다시 정규화한다.
 //   그래서 아예 없는 유형은 "부족" 으로도 안 잡히고, 적합도는 그만큼 후하게 나온다.
 //   실측 2026-08-31: V7 이 "부족 없음" 인데 89.7% 였다. 재고가 0 이라 `blank`·`title`·
@@ -74,7 +107,8 @@ const rows = union
     t,
     marketWant: Math.round((market[t] ?? 0) * TOTAL),
     want: Math.round((mix.targetShare[t] ?? 0) * TOTAL),
-    got: have[t] ?? 0,
+    got: usable[t] ?? 0,
+    raw: have[t] ?? 0,
   }))
   .sort((x, y) => y.marketWant - x.marketWant || y.want - x.want)
 
@@ -82,14 +116,17 @@ console.log(`V${BAND} · ${UNITS}단원 ${TOTAL}문항 기준 · 목표는 ${mix
 console.log('유형'.padEnd(16), '시장'.padStart(5), '현목표'.padStart(6), '재고'.padStart(9), '  부족')
 let short = 0
 let closed = 0
-for (const { t, marketWant, want, got } of rows) {
+for (const { t, marketWant, want, got, raw } of rows) {
   // 사전 생성 유형은 상한이 없다 — 모자랄 수가 없으므로 부족분에서 뺀다.
   const gap = GENERATED.has(t) ? 0 : Math.max(0, want - got)
   short += gap
   const shut = got === 0 && marketWant > 0 && !GENERATED.has(t)
   if (shut) closed += marketWant
   const note = shut ? `  ← 닫힘 (시장은 ${marketWant})` : gap ? `  ← ${gap}` : ''
-  const stock = GENERATED.has(t) ? '사전생성' : String(got)
+  // 행 수와 쓸 수 있는 수가 다르면 **둘 다** 보인다 — 그 차이가 곧 창 밖 재고다.
+  const stock = GENERATED.has(t)
+    ? '사전생성'
+    : raw !== got ? `${got}(${raw})` : String(got)
   console.log(t.padEnd(16), String(marketWant).padStart(5), String(want).padStart(6), stock.padStart(9), note)
 }
 
