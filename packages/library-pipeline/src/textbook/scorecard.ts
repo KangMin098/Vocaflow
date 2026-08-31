@@ -180,17 +180,25 @@ export function scoreVolume(units: ReadonlyArray<Unit>): Scorecard {
   //   실측 근거(V5): 원글 35편의 밴드±1 어휘가 글당 평균 122개(최소 16 · 최대 546),
   //   밴드±1 총계 1,844개로 20단원×20개=400개의 4.6배다. **재고는 넉넉하다.**
   //   미달이 생기는 건 어휘가 적은 글이 여러 단원에 재등장하며 소진될 때다.
+  // ⚠️ **목표를 데이터에서 끌어오면 "없음" 이 "고름" 으로 통과한다** (실측 2026-08-31).
+  //   `target` 은 단원 중 최대 어휘 수다. V1 은 초등 저학년 3종(rhyme·word_meaning·
+  //   spell_blank)만 실려 어휘가 **모든 단원에서 0** 인데, 그러면 목표도 0 이 되어
+  //   `0 < 0` 이 거짓이라 미달이 0 건으로 잡힌다 — 화면에는 **"9/9 통과"** 가 뜬다.
+  //   그 권에는 어휘 목록이 한 줄도 없다. **비어 있는 것과 고른 것은 다르다.**
+  //   그래서 최대가 0 이면 고름을 논할 대상이 없다고 말하고 실패로 센다.
   const target = Math.max(...units.map((u) => u.vocabulary.length), 0)
   const belowTarget = units.filter((u) => u.vocabulary.length < target)
+  const noVocabAtAll = target === 0
   auto.push({
     audience: 'teacher',
     label: '단원마다 어휘가 고르다',
-    pass: belowTarget.length === 0,
-    detail:
-      `${units.length}단원 중 목표(${target}개) 미달 ${belowTarget.length}` +
-      (belowTarget.length
-        ? ` — 최소 ${Math.min(...belowTarget.map((u) => u.vocabulary.length))}개`
-        : ''),
+    pass: !noVocabAtAll && belowTarget.length === 0,
+    detail: noVocabAtAll
+      ? `${units.length}단원 전부 어휘 0개 — 고를 것이 없다(어휘 목록이 실리지 않는 권이다)`
+      : `${units.length}단원 중 목표(${target}개) 미달 ${belowTarget.length}` +
+        (belowTarget.length
+          ? ` — 최소 ${Math.min(...belowTarget.map((u) => u.vocabulary.length))}개`
+          : ''),
   })
 
   human.push({
