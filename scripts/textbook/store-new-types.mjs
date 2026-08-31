@@ -189,13 +189,24 @@ const vLevelOf = new Map()
 const meaningOf = new Map()
 const antOf = new Map()
 const posOf = new Map()
-for (let from = 0; ; from += 1000) {
-  const { data, error: e } = await db
-    .from('shared_dictionary')
-    .select('word, v_level, antonyms, primary_pos, meaning_ko')
-    .order('word')
-    .range(from, from + 999)
-  if (e) throw new Error('사전 조회 실패: ' + e.message)
+// ⚠️ 4.9만 낱말을 통째로 받는다 — 부하가 있으면 여기가 먼저 끊긴다.
+//   실측 2026-08-31: 재시도가 없어 V6 배치가 이 줄에서 죽었다.
+let dictPage = 1000
+let dictFrom = 0
+for (;;) {
+  const dictRes = await withRetry(
+    '사전',
+    (n) =>
+      db
+        .from('shared_dictionary')
+        .select('word, v_level, antonyms, primary_pos, meaning_ko')
+        .order('word')
+        .range(dictFrom, dictFrom + n - 1),
+    4,
+    dictPage,
+  )
+  const data = dictRes.data
+  dictPage = dictRes.page
   if (!data?.length) break
   for (const r of data) {
     const w = String(r.word).toLowerCase()
@@ -205,7 +216,8 @@ for (let from = 0; ; from += 1000) {
     // 빈칸 단서와 본문 어휘 보기는 우리말 뜻을 탄다. 뜻이 없으면 그 낱말은 못 쓴다.
     if (r.meaning_ko) meaningOf.set(w, firstSense(String(r.meaning_ko)))
   }
-  if (data.length < 1000) break
+  if (data.length < dictPage) break
+  dictFrom += dictPage
 }
 const MAX_V = Math.max(...[...vLevelOf.values()].filter((v) => v != null))
 const isCommon = (w) => vLevelOf.has(w.toLowerCase())
@@ -716,9 +728,23 @@ if (!commit) process.exit(0)
 let inserted = 0
 for (let i = 0; i < rows.length; i += 200) {
   const chunk = rows.slice(i, i + 200)
-  const { error: e } = await db
-    .from('csat_dcp_items')
-    .upsert(chunk, { onConflict: 'kind,ref_id,type,paragraph_idx', ignoreDuplicates: true })
+  // **적재도 재시도한다.** `ignoreDuplicates` 라 같은 청크를 두 번 보내도 결과가 같다
+  //   (적재 계열이라도 멱등이면 재시도해도 된다 — 위험한 것은 멱등하지 않은 insert 다).
+  //   실측 2026-08-31: V7 이 227,603건을 다 계산해 놓고 첫 청크의 `fetch failed` 하나로
+  //   통째로 버려졌다. 계산에 든 20분이 연결 한 번에 날아간다.
+  let e = null
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    const res = await db
+      .from('csat_dcp_items')
+      .upsert(chunk, { onConflict: 'kind,ref_id,type,paragraph_idx', ignoreDuplicates: true })
+    e = res.error
+    if (!e) break
+    const msg = String(e.message ?? '')
+    if (!/5\d\d|timeout|fetch failed|socket|ECONN|EAI_AGAIN|handshake|schema cache/i.test(msg)) break
+    if (attempt === 3) break
+    console.error(`  ↻ 적재 ${i}~${i + chunk.length} 재시도 ${attempt + 1}/3 — ${msg.slice(0, 60)}`)
+    await new Promise((r) => setTimeout(r, 1000 * 3 ** attempt))
+  }
   // 조용히 삼키지 않는다 — 실패를 못 보면 "넣었다" 고 착각한다.
   if (e) throw new Error(`적재 실패 (${i}~${i + chunk.length}): ${e.message}`)
   inserted += chunk.length
