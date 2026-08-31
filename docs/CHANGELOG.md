@@ -10,6 +10,35 @@
 
 ## Unreleased (v06.34 → next)
 
+### 정리 한 바퀴 — 로컬 3.8 GB · 커밋 안 된 빌드 지뢰 · 한 번도 성공한 적 없는 cron
+
+**로컬 빌드 캐시 3,846 MB** — `NEXT_DIST_DIR` 로 격리한 distDir 17개가 아무도 안 지운 채
+쌓여 있었다(`.next-build-check` 987M · `.next-sweep` 1,038M · `".next-prod "` 942M — 이름 끝에
+공백). `.gitignore` 가 `.next-*/` 를 막아 **아무도 눈치채지 못한다.** 살아있음/버려짐은
+`next.config.mjs` 의 `.dev-server-owner.json` 으로 판정했다(60초 갱신·3분 stale) — `.next-dev` 만
+살아 있었다. 판정법과 함정은 [WORKTREE.md](./WORKTREE.md) §5.0 에. 같은 날 DB 회수분 798 MB 의 4.8배다.
+
+**빌드 지뢰** — `apps/web/src/lib/supabase/error-message.ts` 가 untracked 인데 수정된
+`actions.ts` 가 그걸 import 하고 있었다. `actions.ts` 만 먼저 커밋됐다면 빌드가 깨진다.
+내용도 실제 결함 수정이었다 — 페이로드가 크면 응답이 HTML 오류 페이지로 와서
+학습자 토스트에 `<!DOCTYPE html>` 이 그려지고 있었다. 회귀 7 통과 확인 후 함께 커밋.
+
+**cron `refresh-hot-dictionary` 제거**(`20260831124820`) — 대상 matview 가 없어
+`last_ok` 이 **NULL**, 생성 이래 한 번도 성공한 적이 없었다. `DROP ... CASCADE` 가
+`cron.job` 행은 안 건드린다는 것을 보여주는 사례. 소비자 0건이라 복원 아닌 제거.
+
+**`tsconfig.json`** — Next 가 자동 누적시킨 죽은 빌드 경로 13줄 제거(없는 디렉터리 4개 +
+이름 끝 공백 오타 1개). **멈춘 PLOS 원글 2건** 재큐(재분석은 멱등 — analyze-article 이
+INSERT 전에 해당 글 어휘를 지운다).
+
+⚠️ **미해결** — `quality-metrics-nightly` 가 08-29부터 실패 중이다. 원인은 성능 튜닝이 아니라
+**공급 증가**다: 08-29 에 274권/9,636세트가 한 번에 발행되면서 M7 드리프트 검사 대상이
+38권 → **312권** 이 됐다. 검사는 책마다 `select_book_chapter_vocab` 를 **두 번** 부르는데
+(EXCEPT 양방향) 한 번이 0.5초(그림책)~18.4초(장편)이고 함수 상한이 30초다.
+한 권이라도 30초를 넘기면 야간 작업 전체가 죽고, 안 넘겨도 40분+ 짜리 작업이 된다.
+**완주가 불가능한 구조라 타임아웃 조정으로는 못 고친다.**
+
+
 ### 시장 규격이 고등 지면의 **26.6%를 목표에서 통째로 빼고** 있었다
 
 A5(유형 다양성)가 0.625 로 박혀 있었고 주석은 "천장" 이라고 적혀 있었다. 천장이 맞았지만
