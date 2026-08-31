@@ -41,6 +41,8 @@ const {
   SERIES_SPINE,
   rungMix,
   typeMixFit,
+  itemWordSpec,
+  SCHOOL_SENTENCE_TYPES,
   MARKET_UNITS_PER_BOOK,
   // 브랜딩 — 값은 `@vocaflow/design-tokens` 에서 온다. 여기서 색을 적지 않는다.
   VOLUME_FONTS,
@@ -57,6 +59,27 @@ const {
 //   채점표도 이미 이 값으로 통과를 판정한다(`MARKET_UNITS_PER_BOOK.median`).
 //   기본값이 20 이던 동안 V5·V6 만 20단원으로 찍혀 다른 단과 비교할 수 없었다.
 const UNITS = Number(arg('units') ?? MARKET_UNITS_PER_BOOK.median)
+
+// ⚠️ **판권장에 찍는 규격은 실제로 쓴 창이어야 한다.** 여기가 `지문 90~200어` 로
+//   **하드코딩**돼 있었다. 창이 학년별로 좁아진 뒤(중등 90~152 · 고2 90~188)에도
+//   전 밴드가 90~200 을 인쇄했다 — 제품에 틀린 규격을 적는 것이고, 그건 조판물만
+//   보는 사람에게 검수의 근거로 읽힌다(실측 2026-08-31: V3·V4·V6·V7 전부 오기).
+//   유형마다 창이 다르므로 **이 권이 실제로 쓴 지문 유형들의 창**을 합쳐서 적는다.
+//   ⚠️ **지문을 싣는 유형만 본다.** 처음에 전 유형을 넣었더니 두 가지가 새어 나왔다:
+//     · V1 이 `0~9007199254740991어` — 초등 3종은 사전에서 나와 창이 무한대다.
+//     · 최소값이 6 — 그건 문장 단위 유형(`SCHOOL_SENTENCE_WORDS`)의 창이지 지문이 아니다.
+//   둘 다 판권장에 그대로 인쇄됐다. 규격 칩은 **지문 길이**를 말하는 자리다.
+const passageSpecChip = (types) => {
+  const specs = [...types]
+    .filter((t) => !ELEMENTARY_TYPES.has(t) && !SCHOOL_SENTENCE_TYPES.has(t))
+    .map((t) => itemWordSpec(t, BAND))
+    .filter((s) => s.max > 0 && s.max < 10_000)
+  // 지문을 싣는 유형이 하나도 없는 권(V1 은 낱말 카드로만 이뤄진다)은 그렇다고 적는다.
+  if (!specs.length) return '없음 — 낱말 중심'
+  const lo = Math.min(...specs.map((s) => s.min))
+  const hi = Math.max(...specs.map((s) => s.max))
+  return `${lo}~${hi}어`
+}
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
@@ -85,6 +108,8 @@ const actualMix = {}
 for (const u of units) for (const it of u.items) actualMix[it.type] = (actualMix[it.type] ?? 0) + 1
 const target = rungMix(BAND, new Set(pool.map((it) => it.type))).targetShare
 const fit = typeMixFit(actualMix, target)
+// 판권장에 찍을 규격 — **이 권이 실제로 인쇄한 유형들**의 창을 합친다.
+const PASSAGE_CHIP = passageSpecChip(Object.keys(actualMix))
 
 // ⚠️ **위 목표는 "우리가 가진 유형" 안에서 다시 정규화된 것이다.** 재고가 0 인 유형은
 //   목표에서 통째로 빠지므로, 없는 유형이 많을수록 적합도가 **후하게** 나온다.
@@ -486,7 +511,7 @@ h1{font-size:2.1rem;margin:.6rem 0 .3rem;letter-spacing:-.01em;text-wrap:balance
   <p class="meta">${units.length}단원 · ${qNo}문항 · 총 ${units.reduce((s, u) => s + u.estimated_minutes, 0)}분 · 레벨 V${BAND}</p>
   <div class="scorebar">
     <span class="chip ok">자동 검수 ${passed}/${card.auto.length} 통과</span>
-    <span class="chip">지문 90~200어</span>
+    <span class="chip">지문 ${PASSAGE_CHIP}</span>
     <span class="chip">정답 번호 균등 검정</span>
     <span class="chip">출처 표기</span>
     <span class="chip">교정 3회</span>
