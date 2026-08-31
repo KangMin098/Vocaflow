@@ -27,6 +27,7 @@ function vol(step: number, schoolBand: string): ShelfVolume {
     status: 'empty',
     maxUnits: 0,
     bySource: {},
+    explainedCount: null,
   }
 }
 

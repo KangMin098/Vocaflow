@@ -34,6 +34,7 @@ function vol(over: Partial<ShelfVolume>): ShelfVolume {
     status: 'ready',
     maxUnits: 10,
     bySource: {},
+    explainedCount: null,
     ...over,
   }
 }

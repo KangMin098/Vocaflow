@@ -29,6 +29,8 @@ function vol(step: number, title: string): ShelfVolume {
     status: 'ready',
     maxUnits: 30,
     bySource: {},
+    // 구버전 RPC 는 이 값을 못 낸다 — 화면이 그 줄을 빼는 경로를 픽스처도 탄다.
+    explainedCount: null,
   }
 }
 

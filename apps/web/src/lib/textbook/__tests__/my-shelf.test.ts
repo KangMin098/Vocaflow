@@ -27,6 +27,7 @@ function vol(step: number, over: Partial<ShelfVolume> = {}): ShelfVolume {
     status: 'ready',
     maxUnits: 10 * step,
     bySource: {},
+    explainedCount: null,
     ...over,
   }
 }

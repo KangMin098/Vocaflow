@@ -31,9 +31,28 @@ const arg = (n) => {
   return i >= 0 ? process.argv[i + 1] : null
 }
 const commit = process.argv.includes('--commit')
-const TYPE = arg('type') ?? 'topic'
-const BAND = Number(arg('band') ?? 3)
-const DIR = path.resolve(arg('dir') ?? `scripts/textbook/item-drain/${TYPE}-v${BAND}`)
+// ⚠️ **--dir 만 주면 유형·학년이 기본값으로 들어간다.** 실제로 --dir .../main_point-v6
+// 만 주고 돌렸다가 요지 9문항이 'topic'/V3 로 적혔다(2026-08-31). 중복 검사도 기본값
+// 기준이라 "이미 있음 0" 을 내며 조용히 통과했다 — 잘못 꽂힌 줄은 아무도 안 본다.
+// 그래서 **폴더 이름을 정본으로 삼는다.** <유형>-v<학년> 을 파싱해 채우고, 명시한
+// 값과 어긋나면 넣기 전에 멈춘다.
+const dirArg = arg('dir')
+const dirName = dirArg ? path.basename(path.resolve(dirArg)) : null
+const fromDir = dirName ? /^(.+)-v([0-9]+)$/.exec(dirName) : null
+if (dirArg && !fromDir) {
+  console.error('❌ 폴더 이름이 <유형>-v<학년> 형태가 아니다: ' + dirName)
+  console.error('   폴더에서 읽을 수 없으면 --type 과 --band 를 직접 준다.')
+  process.exit(1)
+}
+const TYPE = arg('type') ?? fromDir?.[1] ?? 'topic'
+const BAND = Number(arg('band') ?? fromDir?.[2] ?? 3)
+if (fromDir && (fromDir[1] !== TYPE || Number(fromDir[2]) !== BAND)) {
+  console.error('❌ 폴더와 인자가 어긋난다 — 폴더 ' + fromDir[1] + '/V' + fromDir[2] + ' vs 인자 ' + TYPE + '/V' + BAND)
+  console.error('   둘 중 하나가 오타다. 맞춰서 다시 돌린다.')
+  process.exit(1)
+}
+const DIR = path.resolve(dirArg ?? ('scripts/textbook/item-drain/' + TYPE + '-v' + BAND))
+console.log('유형 ' + TYPE + ' · V' + BAND + ' · ' + path.basename(DIR))
 
 /** 선택지 하나의 최소 길이. "yes" 같은 것을 막는다. */
 const MIN_CHOICE = 8
