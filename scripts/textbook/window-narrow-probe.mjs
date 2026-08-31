@@ -105,7 +105,7 @@ for (const it of items) {
   const bucket = V_TO_MARKET_BUCKET[band]
   if (!bucket) continue
 
-  bands[band] ??= { bucket, total: 0, now: 0, narrow: 0, lost: 0, lostByType: {} }
+  bands[band] ??= { bucket, total: 0, now: 0, narrow: 0, lost: 0, lostByType: {}, byType: {} }
   const b = bands[band]
 
   const nowSpec = itemWordSpec(t, band)
@@ -125,6 +125,10 @@ for (const it of items) {
     b.lost += 1
     b.lostByType[t] = (b.lostByType[t] ?? 0) + 1
   }
+  // **유형별 잔량** — 총량이 넉넉해도 한 유형이 마르면 권이 안 채워진다.
+  b.byType[t] ??= { now: 0, narrow: 0 }
+  if (inNow) b.byType[t].now += 1
+  if (inNarrow) b.byType[t].narrow += 1
   b.nowSpec = nowSpec
   b.narrowSpec = narrowSpec
   b.pubs = pubs
@@ -152,6 +156,72 @@ for (const [band, b] of Object.entries(bands).sort((a, c) => Number(a[0]) - Numb
   const top = Object.entries(b.lostByType).sort((a, c) => c[1] - a[1]).slice(0, 6)
   console.log(`  V${band} 잃는 유형 — ${top.map(([t, n]) => `${t} ${n}`).join(' · ')}`)
   console.log(`       출판사 창: ${b.pubs.map((p) => `${p.publisher} ${p.min}~${p.max}`).join(' | ')}`)
+}
+// ── 유형별 잔량 — 여기가 진짜 위험이 보이는 자리다 ──────────────────
+//
+// 한 권은 `MARKET_UNITS_PER_BOOK.median`(10)단원이고 단원마다 유형별 자리가 있다.
+// 그래서 **한 유형에 필요한 최소 재고는 수십 개 수준**이다. 총량이 3만이어도
+// 어느 유형이 20 밑으로 떨어지면 그 유형은 권에 못 실린다.
+//
+// 문턱을 근거로 정한다: 한 권이 한 유형에서 최대로 쓰는 수 = 단원 수(10) × 단원당
+// 그 유형 자리(최대 2) = **20**.
+//
+// ⚠️ **원래 얇은 것과 좁혀서 마른 것을 구별한다.** 첫 판은 V2 `topic 20→20(-0%)` 도
+//   ⛔ 로 찍었는데, 그건 좁힘과 무관하게 원래 그만큼인 것이다. 이 probe 가 답할 질문은
+//   "**좁히면 무엇이 나빠지는가**" 하나다. 원래 얇은 것을 같이 찍으면 진짜 신호가
+//   소음에 묻힌다 — 실제로 V5 의 9종이 0 이 되는 것이 그 소음에 묻혀 있었다.
+const NEED_PER_VOLUME = 20
+
+console.log('\n  유형별 잔량 (교집합으로 좁힌 뒤) — 마르는 유형이 있는가')
+console.log('  ' + '─'.repeat(78))
+const starved = []
+for (const [band, b] of Object.entries(bands).sort((a, c) => Number(a[0]) - Number(c[0]))) {
+  const rows = Object.entries(b.byType).filter(([, v]) => v.now > 0)
+  // **좁힘이 원인인 것만** 센다. 두 가지를 나눠 본다 —
+  //   ① 완전 소멸: 있던 유형이 0 이 된다. 문턱과 무관하게 명백하다.
+  //   ② 문턱 하향: 지금은 한 권을 채울 수 있었는데(>= 20) 좁히면 못 채운다.
+  // 원래부터 20 밑이던 유형이 4→3 이 된 것은 **좁힘이 원인이 아니다** — 그것까지
+  // ⛔ 로 찍으면 과장이 된다(첫 판이 그랬다).
+  const caused = rows
+    .filter(([, v]) => (v.narrow === 0 && v.now > 0) || (v.now >= NEED_PER_VOLUME && v.narrow < NEED_PER_VOLUME))
+    .sort((a, c) => a[1].narrow - c[1].narrow)
+  const shrunk = rows.filter(([, v]) => v.narrow < v.now)
+  if (!shrunk.length) {
+    console.log(`  V${band} — 좁혀도 줄어드는 유형이 없다`)
+    continue
+  }
+  const drop = (v) => (v.now ? (100 * (v.now - v.narrow)) / v.now : 0)
+  console.log(
+    `  V${band} 줄어드는 ${shrunk.length}종: ` +
+      shrunk
+        .sort((a, c) => drop(c[1]) - drop(a[1]))
+        .slice(0, 6)
+        .map(([t, v]) => `${t} ${v.now}→${v.narrow}(-${drop(v).toFixed(0)}%)`)
+        .join(' · '),
+  )
+  for (const [t, v] of caused) {
+    starved.push({ band, type: t, now: v.now, narrow: v.narrow })
+    console.log(
+      v.narrow === 0
+        ? `     ⛔ V${band} ${t} — ${v.now}개 → **0개**. 이 유형이 통째로 사라진다`
+        : `     ⛔ V${band} ${t} — ${v.now}개 → **${v.narrow}개**. 한 권에 ${NEED_PER_VOLUME}개가 필요한데 못 채운다`,
+    )
+  }
+}
+console.log('  ' + '─'.repeat(78))
+if (starved.length) {
+  const byBand = {}
+  for (const x of starved) (byBand[x.band] ??= []).push(x.type)
+  console.log('  ⛔ 좁히면 **권에서 사라지는 유형**이 있다 — 그대로 좁히면 안 된다:')
+  for (const [band, ts] of Object.entries(byBand)) {
+    console.log(`     V${band} ${ts.length}종 — ${ts.join(' · ')}`)
+  }
+  console.log(
+    '     지수 한 축(A6)을 올리려고 **유형 다양성(A5)을 깎는 맞바꿈**이다. 한 지표를 좋게 만들면\n' +
+      '     대개 다른 지표를 판다 — 여기서는 그 대가가 명시적으로 보인다.',
+  )
+} else {
+  console.log('  ✅ 좁혀도 권에서 사라지는 유형이 없다.')
 }
 console.log(
   '\n  ⓘ "잃는 몫" 은 지금 창에는 맞지만 교집합에는 안 맞는 재고다 — 좁히면 어느 권에도 못 실린다.',
