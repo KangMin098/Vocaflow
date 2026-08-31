@@ -488,7 +488,14 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   const vocabRows = await fetchAllIn(
     db,
     'library_article_vocabularies',
-    'library_article_id, word, first_sentence, frequency_in_article',
+    // ⚠️ **`first_sentence` 를 받지 않는다.** 조합기(`pickVocabulary`)는 `meaning_ko` 와
+    //   `frequency_in_article` 로만 고르고, 조판물의 어휘 표는 낱말+뜻만 인쇄한다.
+    //   받아서 `vocabByRef` 까지 실어 나르지만 **아무도 읽지 않는다.**
+    //   실측 2026-08-31(V6): 어휘 7,989,857행 중 이 컬럼만 **1,166 MB** 를 네트워크로
+    //   끌어오고 있었다. 조판이 10분씩 걸린 주된 이유다.
+    //   (발행 경로는 다르다 — `select_article_vocab` → `publish_article_word_set` 가
+    //    이 값을 `shared_words.source_sentence` 로 복사한다. 컬럼 자체는 지우면 안 된다.)
+    'library_article_id, word, frequency_in_article',
     'library_article_id',
     poolRefs,
     ['library_article_id', 'word'],
@@ -522,7 +529,6 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
       word: v.word,
       meaning_ko: d?.meaning_ko ?? null,
       v_level: d?.v_level ?? null,
-      first_sentence: v.first_sentence ?? null,
       frequency_in_article: v.frequency_in_article ?? 0,
     })
   }
