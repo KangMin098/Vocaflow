@@ -41,6 +41,66 @@ function quantiles(xs) {
   };
 }
 
+/**
+ * 발문 후보를 찾는 정규식. **한 곳에만 둔다** — `/g` 는 상태를 가지므로 매번 새로 만든다.
+ * 권당 유형 폭(`perDocumentTypeSpread`)도 같은 것을 쓴다. 사본을 두면 두 수치가
+ * 조용히 다른 것을 세게 된다.
+ */
+const stemRe = () =>
+  /(?:^|\n)\s*(?:\[?\d{1,3}[\].)]?\s*)?((?:다음|위|윗|주어진|밑줄|글의|글을|빈칸|아래|\(A\)|What)[^\n?]{4,70}\?)/g;
+
+/**
+ * **교재 한 권이 담는 표준 유형 수.** 79종을 합친 유형 수(=`distinctOurTypesCovered`)와
+ * 다른 값이고, **한 권을 견줄 때는 이쪽이 맞는 분모다.**
+ *
+ * ⚠️ 없으면 단위가 어긋난다 (실측 2026-08-31): 우리 V5 한 권(10종)을 79종 합본의
+ *   16종과 견줘 A5 가 **0.625(❌)** 로 나왔다. 시중 교재도 1권에 16종을 담지 않는다 —
+ *   실측 중앙값은 **5종**(고등 8)이다. 같은 10종을 권당 기준으로 재면 2.00(고등 1.25)이다.
+ *   (창고↔인쇄물 단위 오류와 같은 계열이다. `market-benchmark.mjs` 머리말 참조.)
+ *
+ * 발문이 하나도 안 잡힌 교재는 분포에서 뺀다 — 유형이 0 인 교재가 아니라 **OCR 이 못 읽은
+ * 교재**다(79종 중 31종만 잡혔다). 0 을 섞으면 중앙값이 실제보다 낮아진다.
+ */
+function perDocumentTypeSpread(db) {
+  const rows = db.prepare(`
+    SELECT d.id, d.grade_min, p.text
+    FROM pages p JOIN docs d ON d.id = p.doc_id
+    WHERE d.status IN ('ok','ocr')`).all();
+
+  const byDoc = new Map();
+  for (const r of rows) {
+    if (!byDoc.has(r.id)) byDoc.set(r.id, { types: new Set(), grade: r.grade_min });
+    const e = byDoc.get(r.id);
+    for (const m of r.text.matchAll(stemRe())) {
+      const s = m[1].replace(/\s+/g, ' ').trim();
+      if (s.length < 8 || s.length > 70) continue;
+      const t = mapStemToOurType(s);
+      if (t) e.types.add(t);
+    }
+  }
+
+  const q = (a, p) => (a.length ? a[Math.floor(p * (a.length - 1))] : null);
+  const spread = (docs) => {
+    const c = docs.map((d) => d.types.size).filter((n) => n > 0).sort((x, y) => x - y);
+    return c.length
+      ? { docs: c.length, p10: q(c, 0.1), median: q(c, 0.5), p90: q(c, 0.9), max: c[c.length - 1] }
+      : null;
+  };
+
+  const all = [...byDoc.values()];
+  return {
+    note: '교재 **한 권**이 담는 표준 유형 수. 79종을 합친 수와 다르다 — 한 권을 견줄 때 쓴다.',
+    documentsTotal: byDoc.size,
+    overall: spread(all),
+    // 학교급은 `grade_min` 으로 가른다(초 ~6 · 중 7~9 · 고 10~).
+    bySchool: {
+      초등: spread(all.filter((d) => d.grade != null && d.grade <= 6)),
+      중등: spread(all.filter((d) => d.grade != null && d.grade >= 7 && d.grade <= 9)),
+      고등: spread(all.filter((d) => d.grade != null && d.grade >= 10)),
+    },
+  };
+}
+
 /** 발문형 — `다음/윗글 …?` 꼴. 시리즈 2곳 이상 공통인 것만 표준으로 친다. */
 function extractStems(db) {
   const rows = db.prepare(`
@@ -48,8 +108,22 @@ function extractStems(db) {
     FROM pages p JOIN docs d ON d.id = p.doc_id
     WHERE d.status IN ('ok','ocr')`).all();
 
-  // `주어진 글 …`(순서·삽입) 과 `밑줄 친 …`(함의·지시어) 을 빼면 시장 유형 수를 과소 계상한다.
-  const RE = /(?:^|\n)\s*(?:\[?\d{1,3}[\].)]?\s*)?((?:다음|위|윗|주어진|밑줄)[^\n?]{4,70}\?)/g;
+  // 발문의 **첫 낱말**로 후보를 좁힌다 — 넓게 잡으면 선택지·본문 물음표가 다 들어온다.
+  //
+  // ⚠️ **접두어를 빠뜨리면 그 유형이 시장에 없는 것처럼 보인다** (실측 2026-08-31).
+  //   `글의` 가 빠져 있어 **문장 삽입 발문이 통째로 누락됐다**:
+  //
+  //     글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?   ← **6개 시리즈**
+  //
+  //   `mapStemToOurType` 에는 `insert` 규칙이 **있었다.** 매핑이 아니라 추출이 못 닿은 것이라
+  //   아무 데서도 오류로 드러나지 않았다. 결과: 같은 spec 안에서 두 근거가 어긋났다 —
+  //   `typeDensity` 는 고등 쪽에서 insert 를 0.0312(order 0.0304 보다 높다)로 재는데
+  //   `questionStems` 에는 없어서, 벤치마크 A5 가 insert 를 **"시장 표준 밖"** 으로 셌다.
+  //   `grammar_choice`(우리 권에 13문항)도 같은 이유로 표준 밖이었다 — 그 발문은 `(A)` 로 시작한다.
+  //
+  //   실측 효과: 표준 발문 **23 → 32종**. 늘어난 9종은 전부 시리즈 2곳 이상 공통이다.
+  //   `글을`(내용 불일치) · `아래` · `빈칸` · `(A)`(네모형 어법·어휘) · 영어 발문 3종을 함께 넣었다.
+  const RE = stemRe();
   const seen = new Map();
   for (const r of rows) {
     for (const m of r.text.matchAll(RE)) {
@@ -91,15 +165,28 @@ function mapStemToOurType(stem) {
     [/한 문장으로 요약/, 'summary'],
     [/빈칸.*들어갈 말/, 'blank'],
     [/목적으로/, 'purpose'],
-    [/전체 흐름과 관계 없는/, 'irrelevant'],
+    // ⚠️ 띄어쓰기가 판마다 다르다 — `관계 없는` 과 `관계없는` 이 둘 다 쓰인다.
+    //   공백을 고정하면 한쪽 판의 발문이 통째로 미대응으로 남는다.
+    [/전체 흐름과 관계\s*없는/, 'irrelevant'],
     [/어법상 틀린/, 'grammar_fix'],
     [/낱말의 쓰임이 적절하지 않은/, 'vocab_choice'],
     [/심경|분위기/, 'mood'],
-    [/내용과 일치하지 않는|내용으로 적절하지 않은/, 'content_match'],
+    // 긍정형(`일치하는`)도 같은 유형이다 — 고르는 방향만 뒤집힌 같은 과제다.
+    [/내용과 일치하지 않는|내용으로 적절하지 않은|내용과 일치하는/, 'content_match'],
     [/순서로 가장 적절한|이어질 글의 순서|이어질 내용을 순서/, 'order'],
     [/주어진 문장이 들어가기|문장이 들어가기에 가장 적절한/, 'insert'],
     [/밑줄 친.*의미하는|함축적 의미/, 'implication'],
     [/가리키는 대상이 나머지/, 'long_reference'],
+    // 네모형(㉠㉡㉢ 대신 (A)(B)(C) 를 쓰는 판) — 어법·어휘 **선택**형이다.
+    // 위 `어법상 틀린`(grammar_fix)·`낱말의 쓰임이 적절하지 않은`(vocab_choice)과 다른 발문이라
+    // 따로 잡아야 한다. 이 두 줄이 없어 `grammar_choice` 가 시장에 없는 유형으로 잡혔다.
+    [/네모 안에서.*어법/, 'grammar_choice'],
+    [/네모 안에서.*낱말|네모 안에서.*문맥/, 'vocab_choice'],
+    [/답을 알 수 없는/, 'content_match'],
+    // 영어 발문 — 중등 교재 일부 시리즈가 쓴다(각 2곳). 우리 유형 대응은 위와 같다.
+    [/best title/i, 'title'],
+    [/mainly about|main idea/i, 'topic'],
+    [/best choice for the blank|for the blank/i, 'blank'],
   ];
   for (const [re, t] of T) if (re.test(stem)) return t;
   return null;
@@ -339,6 +426,7 @@ function main() {
       mappedToOurTypes: stems.filter((s) => s.ourType).length,
       unmappedStems: stems.filter((s) => !s.ourType).map((s) => s.stem),
       distinctOurTypesCovered: [...new Set(stems.map((s) => s.ourType).filter(Boolean))].sort(),
+      perDocument: perDocumentTypeSpread(db),
     },
     passageWords: extractPassageSpec(db),
     explanation: extractExplanationSpec(db),

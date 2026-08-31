@@ -14,8 +14,29 @@
 // 종합은 산술평균이 아니라 **기하평균**이다 — 비율의 평균은 기하평균이고,
 // 한 축이 0 에 가까우면 종합도 끌어내려야 맞다(해설이 없는 교재는 다른 게 좋아도 교재가 아니다).
 //
+// ── ⚠️ 무엇을 무엇과 비교하는가 (실측 2026-08-31) ───────────────────
+// 기본 모드는 **우리 창고 전체**(`csat_dcp_items` 42만 문항)를 잰다. 그런데 기준선은
+// 시중 교재의 **인쇄된 쪽**이다 — 인쇄물에는 걸러지고 남은 것만 실린다. 창고와 인쇄물을
+// 견주면 우리 쪽만 불리하게 나온다:
+//
+//   A1 해설 보유율   창고 94.8%   ↔   같은 시점 조판한 V5 한 권 **120/120 = 100%**
+//   A6 지문 어수     창고 88.3%   ↔   같은 권 자동검수 **규격 밖 0 = 100%**
+//
+// 조립기(`composeUnits`)가 규격 밖을 이미 거르므로 **창고의 미달은 인쇄물에 안 실린다.**
+// 그래서 `--volume <band>` 를 둔다 — `loadVolume` 이 실제로 고른 문항만 같은 자로 잰다.
+// 두 값을 다 봐야 한다: 창고 값은 **재고 품질**, 권 값은 **출간물 품질**이다.
+// (같은 종류의 단위 오류를 이 저장소가 이미 한 번 겪었다 — "지문 수" 를 "원문 수" 로 센 일.)
+//
+// ── 축의 천장 ───────────────────────────────────────────────────────
+// 지수 = 우리/시장이므로 **시장 값이 천장을 정한다.** 실측 기준선에서:
+//   A1 시장 100.0%  → 우리가 만점이어도 지수 **1.000**. 120% 는 산술적으로 불가능하다.
+//   A7 시장  86.1%  → 천장 **1.161**. 우리는 이미 100% 라 더 올릴 것이 없다.
+//   A6 시장  80.0%  → 천장 1.250. 여지가 있는 유일한 규격 축이다.
+// "모든 축 120%" 를 요구하면 A1·A7 은 영원히 미달로 남는다 — 그 둘의 목표는 **천장**이다.
+//
 // 재실행 안전: 읽기만 한다.
 // 실행: node scripts/textbook/market-benchmark.mjs [--json] [--out <경로>]
+//       node scripts/textbook/market-benchmark.mjs --volume 5     # 한 권만
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -106,7 +127,33 @@ function ratio(ours, market) {
   return Number((ours / market).toFixed(3))
 }
 
-const items = await fetchAll()
+/**
+ * `--volume <band>` — 창고가 아니라 **그 밴드로 실제 조판될 한 권**을 잰다.
+ *
+ * 풀을 여기서 다시 만들지 않는다. `loadVolume` 이 조판·해설 드레인과 쓰는 그 한 벌이다
+ * (`volume-drift.test.ts` 가 지키는 규칙). 고른 문항의 id 만 받아 창고 행에서 추린다 —
+ * 그래야 두 모드가 **같은 컬럼·같은 계산**을 통과한다(따로 재면 또 두 자가 된다).
+ */
+const bandArg = process.argv.indexOf('--volume')
+const BAND = bandArg >= 0 ? Number(process.argv[bandArg + 1]) : null
+if (bandArg >= 0 && !Number.isFinite(BAND)) {
+  console.error('--volume 뒤에 밴드 번호가 필요하다 (예: --volume 5)')
+  process.exit(1)
+}
+
+const all = await fetchAll()
+let items = all
+let scope = `csat_dcp_items ${all.length.toLocaleString()}문항 (창고 전체)`
+if (BAND != null) {
+  const { loadVolume } = await import('./volume-pool.mjs')
+  const { itemIds, units } = await loadVolume(supabase, { band: BAND, unitCount: 20 })
+  items = all.filter((r) => itemIds.has(r.id))
+  scope = `V${BAND} 조판 1권 — ${units.length}단원 · ${items.length}문항 (인쇄되는 것만)`
+  if (!items.length) {
+    console.error(`V${BAND} 로 조판되는 문항이 없다.`)
+    process.exit(1)
+  }
+}
 const total = items.length
 
 // ── A1 해설 보유율 ────────────────────────────────────────────────
@@ -159,16 +206,41 @@ const A4 = {
 //   ② **폭**   — 표준 밖 유형까지 몇 종을 다루는가. 여기가 기능 우위가 나는 자리다.
 // 폭만 세면 "표준 5종이 없는데 잡다한 20종이 있다" 도 우위로 보인다. 그래서 **관문을 못 넘으면
 // 폭을 관문 값으로 눌러 둔다** — 못 넘은 채로 이겼다고 적지 않기 위해서다.
+//
+// ⚠️ **분모는 재는 범위에 따라 다르다** (실측 2026-08-31).
+//   창고를 잴 때는 79종 **합본**의 표준 유형 수(16)가 맞다 — 창고끼리 견주는 것이다.
+//   그런데 **한 권**을 그 16 으로 나누면 안 된다. 시중 교재도 1권에 16종을 담지 않는다:
+//   권당 실측은 **중앙 5종**(초 4 · 중 4 · 고 8 · p90 15 · 최대 17)이다.
+//   그 분모로 우리 V5 한 권(10종)이 **0.625(❌)** 로 나왔다 — 10종은 고등 중앙(8)보다 많다.
+//   창고↔인쇄물 오류와 같은 계열이라, 범위에 맞는 분모를 골라 쓴다.
 const marketTypes = new Set(spec.questionStems.map((s) => s.ourType).filter(Boolean))
 const ourTypes = new Set(items.map((i) => i.type))
 const covered = [...marketTypes].filter((t) => ourTypes.has(t))
 const beyond = [...ourTypes].filter((t) => !marketTypes.has(t))
 const gate = covered.length / marketTypes.size
-const A5 = {
-  ours: gate >= 1 ? ourTypes.size : covered.length,
-  market: marketTypes.size,
-  gate,
-}
+/** 밴드 → 권당 기준선의 학교급. `V_TO_BUCKET` 과 같은 사다리를 따른다. */
+const BAND_SCHOOL = (v) => (v == null ? null : v <= 2 ? '초등' : v <= 4 ? '중등' : '고등')
+const perDoc = spec.typeCoverage?.perDocument
+const perDocBase =
+  BAND == null
+    ? null
+    : perDoc?.bySchool?.[BAND_SCHOOL(BAND)]?.median ?? perDoc?.overall?.median ?? null
+const A5 =
+  perDocBase != null
+    ? {
+        // 한 권 대 한 권. 관문(표준 전 유형 보유)은 합본 기준이라 여기서는 세지 않는다 —
+        // 한 권에 전 유형을 요구하는 것은 시중 어느 교재도 안 하는 일이다.
+        ours: covered.length,
+        market: perDocBase,
+        gate: null,
+        basis: `권당 중앙값 (${BAND_SCHOOL(BAND)} ${perDoc.bySchool?.[BAND_SCHOOL(BAND)]?.docs ?? '?'}종 실측)`,
+      }
+    : {
+        ours: gate >= 1 ? ourTypes.size : covered.length,
+        market: marketTypes.size,
+        gate,
+        basis: '79종 합본',
+      }
 
 // ── A6 지문 어수 규격 적합률 ──────────────────────────────────────
 // 시장 p10~p90 안에 드는 비율. 정의상 시장 자신은 0.80 이다.
@@ -224,7 +296,7 @@ const AXES = [
   { id: 'A2', name: `해설 길이 규격 적합률 (${LO}~${HI}자)`, ...A2, unit: '%', why: '짧으면 근거가 없고 길면 안 읽는다. 시장 p25~p90 구간' },
   { id: 'A3', name: '오답 배제 언급률 (선택지 문항)', ...A3, unit: '%', why: '왜 다른 것이 아닌지까지 써야 해설의 깊이가 된다 — 단답형은 배제할 오답이 없어 모집단에서 뺀다' },
   { id: 'A4', name: '원문 인용률', ...A4, unit: '%', why: '지문에서 근거를 끌어와야 검증 가능한 해설이다' },
-  { id: 'A5', name: '유형 다양성 (표준 대비)', ...A5, unit: '종', why: '표준 유형을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다' },
+  { id: 'A5', name: `유형 다양성 (${A5.basis})`, ...A5, unit: '종', why: '표준 유형을 다 갖춘 뒤의 폭이 기능 우위다 — 관문을 못 넘으면 폭을 인정하지 않는다' },
   { id: 'A6', name: '지문 어수 규격 적합률', ...A6, unit: '%', why: '학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다' },
   { id: 'A7', name: '선택지 수 규격 적합률', ...A7, unit: '%', why: '학교급마다 시장 지배값이 있다 — 어긋나면 그 학년 시험지가 아니다' },
 ].map((a) => ({ ...a, index: ratio(a.ours, a.market) }))
@@ -237,6 +309,9 @@ const overall = idx.length === AXES.length
 
 const report = {
   generatedAt: new Date().toISOString(),
+  // **무엇을 잰 값인지 없으면 두 모드의 숫자가 뒤섞인다** — 창고 94.8% 와 권 100% 는
+  // 둘 다 맞는 값이라 라벨이 없으면 어느 쪽이 인용된 것인지 알 수 없다.
+  scope: BAND == null ? { kind: 'inventory', items: total } : { kind: 'volume', band: BAND, items: total },
   specGeneratedAt: spec.generatedAt,
   corpus: spec.provenance,
   itemsMeasured: total,
@@ -274,7 +349,7 @@ if (process.argv.includes('--json')) {
   const pct = (x) => `${(x * 100).toFixed(1)}%`
   console.log('시중 교재 대비 우위 지수')
   console.log(`  기준선: ${spec.provenance.documentsMeasured}종 · ${spec.provenance.pagesMeasured.toLocaleString()}쪽 (실측 ${spec.generatedAt.slice(0, 10)})`)
-  console.log(`  대상  : csat_dcp_items ${total.toLocaleString()}문항\n`)
+  console.log(`  대상  : ${scope}\n`)
   console.log('  축                                 시중      우리     지수')
   console.log('  ' + '─'.repeat(62))
   for (const a of AXES) {
