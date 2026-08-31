@@ -17,6 +17,8 @@
 //    (`shelf-filter.buildFacets`), 이 표에 있어도 재고가 없으면 화면에 안 나온다.
 //    반대로 표에 없는 갈래가 들어오면 키가 그대로 보이므로 테스트가 막는다.
 
+import type { SourceKey } from '@vocaflow/library-pipeline/curation-spec'
+
 export interface SourceGuide {
   /** 학습자가 읽는 이름 */
   label: string
@@ -36,7 +38,13 @@ export interface SourceGuide {
  *    한글 칩들 사이로 `futurity` 라는 **DB 키가 그대로** 학습자에게 나갔다.
  *    위 ⚠️ 가 "테스트가 막는다" 고 적어 두었지만 **그런 테스트는 없었다** — 그래서 지금 만들었다.
  */
-export const SOURCE_GUIDE: Record<string, SourceGuide> = {
+/**
+ * ⚠️ 타입이 **교집합**인 것이 핵심이다. `Record<string, …>` 하나였을 때는 키를 빠뜨려도
+ *    tsc 가 아무 말을 안 했다 — futurity 가 그렇게 샜다. `Record<SourceKey, …>` 를 겹치면
+ *    수집 출처는 컴파일이 막고, `Record<string, …>` 쪽이 수집이 아닌 갈래(book·compose·
+ *    adapt·unknown)를 계속 허용한다.
+ */
+export const SOURCE_GUIDE: Record<SourceKey, SourceGuide> & Record<string, SourceGuide> = {
   original: {
     label: '창작',
     says: '레벨에 맞춰 새로 쓴 지문입니다. 어휘와 문장 길이가 그 계단에 맞춰져 있어요.',
