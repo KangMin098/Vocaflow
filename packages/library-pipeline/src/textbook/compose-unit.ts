@@ -479,6 +479,15 @@ export function composeUnits(
   const mixRelaxed = { repeatedType: 0, overQuota: 0 }
 
   const used = new Set<string>()
+  // ⚠️ **초등 3종은 한 권 안에서 같은 낱말을 다시 묻지 않는다.**
+  //   `ref_id` 가 `word:<낱말>` 이라 단원 안 중복은 `refsInUnit` 가 막지만, 같은 낱말이
+  //   유형마다 하나씩 있어 **다른 단원에서 최대 세 번** 뽑힌다. 그러면 재등장 상한
+  //   (`MAX_WORD_APPEARANCES`)에 걸려 세 번째 단원은 그 낱말을 어휘 목록에 못 싣는다 —
+  //   실측 2026-08-31 V1: 열 단원 중 넷이 어휘 4~5개(다른 단원은 6개)라 "단원마다 어휘가
+  //   고르다" 가 실패했다. 낱말 재고는 807개인데 쓰는 것은 60개뿐이었다.
+  //   같은 낱말을 세 번 묻는 것보다 서로 다른 낱말 60개를 묻는 편이 교재로도 낫다.
+  //   원글 유형에는 걸지 않는다 — 한 글에서 여러 문항이 나오는 것은 설계다.
+  const usedElementaryRefs = new Set<string>()
   // 권 전체에서 낱말이 몇 번 실렸는지. **금지가 아니라 상한**이다 — 아래 주석 참조.
   const wordCount = new Map<string, number>()
   const units: Unit[] = []
@@ -503,10 +512,16 @@ export function composeUnits(
           .sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0]))
         for (const [t] of cands) {
           const list = byShare.pools.get(t) ?? []
-          const hit = list.find((it) => !used.has(it.id) && !refsInUnit.has(it.ref_id))
+          const hit = list.find(
+            (it) =>
+              !used.has(it.id) &&
+              !refsInUnit.has(it.ref_id) &&
+              !(ELEMENTARY_ITEM_TYPES.has(it.type) && usedElementaryRefs.has(it.ref_id)),
+          )
           if (!hit) continue
           picked.push(hit)
           refsInUnit.add(hit.ref_id)
+          if (ELEMENTARY_ITEM_TYPES.has(hit.type)) usedElementaryRefs.add(hit.ref_id)
           used.add(hit.id)
           byShare.quota[t] = (byShare.quota[t] ?? 0) - 1
           return true
