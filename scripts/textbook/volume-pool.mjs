@@ -308,6 +308,8 @@ async function loadElementaryPool(db, band) {
     .filter((x) => /^[a-z]{2,12}$/.test(x.word) && x.meaningKo)
 
   const dictionary = new Set(pool.map((x) => x.word))
+  // 낱말 → 뜻. 단원 어휘를 만들 때 되쓴다(사전을 두 번 읽지 않는다).
+  const meanings = new Map(pool.map((x) => [x.word, x.meaningKo]))
   const items = []
   for (const w of pool) {
     for (const [type, built] of [
@@ -345,7 +347,7 @@ async function loadElementaryPool(db, band) {
       })
     }
   }
-  return items
+  return { items, meanings }
 }
 
 /** `apps/web/.env.local` 을 process.env 에 얹는다. 이미 있는 키는 덮지 않는다. */
@@ -385,7 +387,16 @@ export function isRetractedTitle(title) {
 }
 
 export async function loadVolume(db, { band, unitCount, marketMix = true }) {
-  const { composeUnits, rungMix, stripSectionLabels, dropRepeatedTail, normalizeQuotes } = await import('@vocaflow/library-pipeline')
+  const {
+    composeUnits,
+    rungMix,
+    stripSectionLabels,
+    dropRepeatedTail,
+    normalizeQuotes,
+    pairStraightQuotes,
+    stripSpaceBeforePunct,
+    dropDuplicatedLeadWord,
+  } = await import('@vocaflow/library-pipeline')
 
   // ── 원글 ──────────────────────────────────────────────────────────
   // 밴드는 **원글** 기준이다. 문항의 `v_level` 로 거르면 조판과 어긋난다.
@@ -439,7 +450,15 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   // ⚠️ **순서가 중요하다.** 절 이름을 먼저 지워야 반복 꼬리가 글머리와 글자 그대로
   //   같아진다. 뒤집으면 꼬리가 "Abstract The Amazon…" 이라 접두사 대조가 실패하고
   //   중복이 그대로 인쇄된다.
-  const clean = (v) => (typeof v === "string" ? normalizeQuotes(dropRepeatedTail(stripSectionLabels(v))) : v)
+  // ⚠️ **순서는 안에서 밖으로 읽는다.** 절 이름 → 반복 꼬리 → 눌어붙은 제목 →
+  //   구두점 앞 공백 → 따옴표. 제목 제거를 꼬리 절단보다 뒤에 두는 이유는, 꼬리 대조가
+  //   **글머리와 글자 그대로** 같은지를 보기 때문이다 — 글머리를 먼저 손대면 대조가 깨진다.
+  const clean = (v) =>
+    typeof v === "string"
+      ? pairStraightQuotes(
+          normalizeQuotes(stripSpaceBeforePunct(dropDuplicatedLeadWord(dropRepeatedTail(stripSectionLabels(v))))),
+        )
+      : v
   const cleanPayload = (raw) => {
     if (!raw || typeof raw !== "object") return raw
     const out = { ...raw }
@@ -563,7 +582,8 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   //   비교해 산출물이 같은지 확인하기 위한 손잡이다.** 데이터가 계속 바뀌는 저장소라
   //   "전에 잰 값과 다르다" 만으로는 원인을 못 가른다.
   // 초등 저학년 3종은 사전에서 나온다 — 원글 풀과 합친다.
-  pool.push(...(await loadElementaryPool(db, band)))
+  const { items: elementary, meanings: elementaryMeaning } = await loadElementaryPool(db, band)
+  pool.push(...elementary)
 
   const mix = marketMix
     ? rungMix(band, new Set(pool.map((it) => it.type)))
@@ -634,6 +654,23 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
       v_level: d?.v_level ?? null,
       frequency_in_article: v.frequency_in_article ?? 0,
     })
+  }
+
+  // ⚠️ **초등 저학년 권은 단원 어휘가 통째로 비어 있었다** (실측 2026-08-31).
+  //   `vocabByRef` 는 `library_article_vocabularies` 에서만 만들어지는데, 이 3종은
+  //   원글이 아니라 **사전**에서 나오므로 그 표에 행이 없다. 결과: V1 한 권의
+  //   10단원이 전부 어휘 0 개였고, 채점기의 "어휘가 고르다" 는 목표를 데이터에서
+  //   끌어오는 탓에 **9/9 통과**로 찍혔다(`scorecard.ts` 같은 자리 주석 참조).
+  //
+  //   재료는 이미 문항 안에 있다 — `ref_id` 가 `word:<낱말>` 이고 사전에서 뜻을 받아 왔다.
+  //   시중 초등 교재도 단원마다 낱말 목록을 싣는다. 그래서 그 낱말을 어휘로 되돌려준다.
+  //   (문항과 같은 낱말이지만 인쇄물에서는 **문항과 단어장이 다른 자리**다.)
+  for (const it of elementary) {
+    if (vocabByRef.has(it.ref_id)) continue
+    const word = it.ref_title
+    const meaning = elementaryMeaning.get(word)
+    if (!word || !meaning) continue
+    vocabByRef.set(it.ref_id, [{ word, meaning_ko: meaning, v_level: band, frequency_in_article: 1 }])
   }
 
   // `marketMix` 를 켜면 유형 구성을 시장 밀도에 맞춘다(`rungMix`).
