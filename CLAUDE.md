@@ -194,15 +194,15 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 
 **수요 측** — 이 줄이 이 문서에서 가장 중요하다. 공급이 아무리 늘어도 여기가 안 늘면 진단은 `risk` 다.
 
-- 가입자 **3** (프로필 3) · 학습기록 **665** · 읽기 세션 256 · 일별 활동 44 · 점수 78
+- 가입자 **3** (프로필 3) · 학습기록 **665** · 읽기 세션 256 · 일별 활동 45 · 점수 78
 - 교사 채널: 학급 **0** · 학급 구성원 0 · 학급 과제 **0** · 퍼널 이벤트 1
 
 **공급 측**
 
 - `shared_dictionary` **48,969** row · meaning_ko 100%
 - `library_books` **401** — published 312 · failed 77 · archived 6 · queued 6
-- `library_articles` **24,738** — ready 19,261 · queued 5,315 · published 160 · analyzing 2
-- `shared_word_sets` 11,154 (published 10,952) · `library_chapter_quiz` 2,453
+- `library_articles` **24,738** — ready 19,117 · queued 5,315 · published 304 · analyzing 2
+- `shared_word_sets` 11,301 (published 11,099) · `library_chapter_quiz` 2,453
 - `texts` 277 · `vocabularies` 2,205
 - 만화: `pd_comic_issues` 969 · 시리즈 101 · 발행 `comic_books` 1
 

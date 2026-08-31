@@ -449,6 +449,73 @@ pnpm vcb:publish               # 08-publish.ts
 pnpm vcb:publish-precheck      # 08b-publish-precheck.ts
 ```
 
+### 카탈로그 파이프라인 — 발행 뒤 `/library/vocab` 한 권이 되기까지 (2026-08-31)
+
+위 8단계는 **낱말을 만드는** 일이고, 여기는 그 낱말을 **한 권으로 세우는** 일이다.
+`shared_words` 가 채워졌다고 서가에 책이 생기지 않는다 — 표지·판권면·목차·사다리 자리가
+붙어야 학습자가 고를 수 있다(선택 지수, 아래 §측정).
+
+**순서를 지켜야 한다.** 각인이 없으면 계단 재도출이 아무 일도 하지 않고, 계단이 틀린 채
+측정하면 지수가 틀린다.
+
+| # | 무엇 | 명령 | 소유 |
+|---|---|---|---|
+| ① | 조립·채점·발행 | `compose-batch.mts --plan <계획>` | `shared_word_sets` · `shared_words` · `ladder_step`(저작) |
+| ② | 표지 도판 | `fetch-covers.mts --skip-existing` | `cover_image_url` · `cover_image_meta` |
+| ③ | 발음기호 적재 | `vocab/backfill-pronunciation.mjs` | `shared_words.pronunciation` (빈 칸만) |
+| ④ | 판권면 각인 | `vocab/stamp-imprint.mts` | `curation_query.qa`·`.level`·`.imprint` · `brand_fingerprint` |
+| ⑤ | 계단 재도출 | `vocab/reconcile-ladder.mts` | `ladder_step` (발행 뒤 **유일한** writer) |
+| ⑥ | 측정 | `vocab/market-benchmark.mjs` · `vocab/choice-benchmark.mts` | 읽기만 |
+
+전부 **드라이런이 기본**이고 `--commit` 이 있어야 쓴다. 전부 **재실행 안전**이다.
+
+```bash
+# 계획 하나로 여러 권 (드라이런 → 발행)
+npx tsx --tsconfig apps/web/tsconfig.json scripts/vcb/compose-batch.mts \
+  --plan scripts/vcb/data/compose-plan-2026-08-31.json [--commit]
+
+npx tsx --tsconfig apps/web/tsconfig.json scripts/vcb/fetch-covers.mts --skip-existing --commit
+node scripts/vocab/backfill-pronunciation.mjs --commit
+npx tsx --tsconfig apps/web/tsconfig.json scripts/vocab/stamp-imprint.mts --commit
+npx tsx --tsconfig apps/web/tsconfig.json scripts/vocab/reconcile-ladder.mts --commit
+
+# 서가에서 내리기 (지우지 않는다 — `--restore` 로 되돌아온다)
+node scripts/vocab/retire-sets.mjs --list scripts/vocab/data/<목록>.txt [--restore] --commit
+```
+
+#### 지켜야 할 것 — 값을 치르고 배운 것들
+
+- **`ladder_step` 의 writer 는 둘뿐이다**: 발행 시점의 `publish.ts`, 발행 뒤의
+  `reconcile-ladder.mts`. 둘 다 `resolveLadderStep` 을 쓴다.
+  옛 `backfill-ladder-step.mjs` 는 **청사진 바닥을 몰라서** `반대말 짝`(4단에서 열리는 원리)을
+  2단에 앉혔다. 지웠다 — 한 컬럼에 규칙이 다른 writer 가 있으면 반드시 다시 갈라진다.
+- **"못 쟀다" 와 "재서 학령 밖" 은 다른 사실이다.** 섞으면 낱말 중앙값 V8~V9 인 권이
+  청사진 바닥으로 떨어져 초등 칸에 앉는다(`mozzarella` 가 든 권이 그랬다).
+  `resolveLadderStep({ aboveLadder })` 가 그 둘을 가른다.
+- **한 유형이 여러 권이면 `COVER_QUERY_BY_SLUG` 에 권별 검색어를 넣는다.** 유형 검색어는
+  하나뿐이라 주제 17권이 한 그림을 두고 경쟁했고 16권이 그라디언트로 떨어졌다.
+- **은퇴는 `is_published=false` 다.** DELETE 는 `user_word_set_subscriptions` 를 CASCADE 로
+  함께 지운다 — 되돌릴 수 없다. 대체품이 **실제로 선 뒤에** 내린다(서가에 구멍이 안 나게).
+- **jsonb 는 키만 더한다.** `curation_query` 를 통째로 덮으면 컴포저 레시피·점수표가 날아간다.
+
+#### 측정 — 두 개의 자, 서로 다른 것을 잰다
+
+| 자 | 무엇 | 기준선 |
+|---|---|---|
+| `market-benchmark.mjs` | **산 뒤에** 쓰는 것 (예문·번역·파생어·유의어·다의어·품사·묶음원리 7축) | 시중 어휘 교재 4종 140칸 |
+| `choice-benchmark.mts` | **고르기 전에** 쓰는 것 (판권면·목차·학습계획·머리말·시리즈안내 등 11신호) | 같은 4종의 `shelfSignals` |
+
+시장 기준선은 `packages/library-pipeline/src/vocab/market-spec.json` 에 고정돼 있고,
+`scripts/textbook-corpus/vocab-market-spec.mjs` 가 실제 교재에서 생성한다.
+
+⚠️ **선택 지수는 "학습자가 보는가" 로 잰다** — "DB 에 값이 있는가" 도 "판권면이 적는가" 도
+아니다. 이 자를 두 번 틀리게 잡았다: `dayPacing` 을 판권면만 보고 84% 로 셌으나 미리보기
+모달이 전권에 하루치를 그리고 있었고, `seriesGuide` 는 화면엔 띠가 없는 권에도 점수를 주고
+있었다. 화면 컴포넌트의 **렌더 조건을 그대로** 옮길 것.
+
+⚠️ **보유율 비가 아니라 신호 개수로 잰다.** 시장이 100% 인 신호에서는 비의 천장이 1.00 이라
+"120% 우위" 가 산술적으로 불가능해진다.
+
 ### Cast-2000 (2026-05-14~16) — 완료된 첫 batch
 
 **Result**: `shared_dictionary` ~7% backfilled (먼저 7%만 운영). `shared_words` 7,488 row 가 source_queue_id 로 cast-2000 lineage 보존.
