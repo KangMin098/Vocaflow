@@ -40,4 +40,21 @@ describe('판권장 규격 칩', () => {
   it('지문을 싣지 않는 권은 그렇다고 적는다', () => {
     expect(src).toContain("'없음 — 낱말 중심'")
   })
+
+  it('판권장이 주장하는 검수를 **실제로 돌린다**', () => {
+    // ⚠️ 이 두 칩은 오래 근거 없이 찍혔다 — scoreVolume 에 정답 쏠림 검사가 없었고
+    //   조판기는 proofread 를 한 번도 부르지 않았다(둘 다 참조 0건, 실측 2026-08-31).
+    //   재료는 있었으니 없던 것은 호출이다. 주장을 지우는 대신 수행하게 했다.
+    expect(src).toContain('assessAnswerBias(biasCounts)')
+    expect(src).toContain('summarizeProofread(proofPassages)')
+    // 결과를 함께 찍어야 그 줄이 근거가 된다 — 통과 여부만 적으면 또 장식이 된다.
+    expect(src).toContain('bias.chi2.toFixed(1)')
+    expect(src).toContain('proof.defective}/')
+  })
+
+  it('교정은 **인쇄되는 지문**에 건다 — 저장 원본이 아니다', () => {
+    // 절 이름 제거·반복 꼬리 절단·따옴표 정규화를 거친 사본이 학습자가 읽는 글이다.
+    const pool = read('volume-pool.mjs')
+    expect(pool).toContain('normalizeQuotes(dropRepeatedTail(stripSectionLabels(v)))')
+  })
 })

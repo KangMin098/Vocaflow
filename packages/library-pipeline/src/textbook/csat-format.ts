@@ -190,6 +190,26 @@ export function dropRepeatedTail(text: string): string {
 }
 
 
+/**
+ * 인쇄물의 **따옴표 모양을 한쪽으로 맞춘다.**
+ *
+ * 삼교 규칙 `apostrophe_style` 은 한 지문 안에 굽은 것과 곧은 것이 섞이면 걸린다.
+ * 수집한 원문이 출처마다 달라 실제로 섞인다 — 실측 2026-08-31 V3 한 권에서 44지문 중
+ * **6지문**이 이 이유로 걸렸다. 시중 교재는 한 권 안에서 모양이 흔들리지 않는다.
+ *
+ * ⚠️ 저장은 건드리지 않는다. 인쇄에 쓰는 사본에만 건다 — 그리고 **지문과 선택지에
+ *   똑같이** 걸어야 한다. 한쪽만 바꾸면 `implication`(밑줄 구절)·`long_vocab`(바뀐 낱말)이
+ *   지문에서 자기 구절을 못 찾아 문항이 성립하지 않는다.
+ */
+export function normalizeQuotes(text: string): string {
+  // ⚠️ **곧은 아포스트로피만 바꾼다.** 처음에 큰따옴표까지 한쪽으로 모았더니
+  //   `”quote”` 가 되어 오히려 틀린 조판이 됐다(여는 따옴표가 사라진다). 여는/닫는
+  //   짝을 옳게 만들려면 문맥을 봐야 하는데, 그건 이 규칙이 요구하는 바가 아니다 —
+  //   삼교가 잡는 것은 **한 지문 안에서 두 모양이 섞이는 것**이고, 곧은 것을 굽은 쪽으로
+  //   맞추면 그 섞임이 사라진다. 이미 옳게 짝지은 `‘…’` 는 건드리지 않는다.
+  return String(text ?? '').replace(/'/g, '’')
+}
+
 export function hasNonProse(text: string): boolean {
   return NON_PROSE.test(text) || hasArticleChrome(text)
 }

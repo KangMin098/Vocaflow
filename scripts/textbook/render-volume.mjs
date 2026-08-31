@@ -42,6 +42,8 @@ const {
   rungMix,
   typeMixFit,
   itemWordSpec,
+  assessAnswerBias,
+  summarizeProofread,
   SCHOOL_SENTENCE_TYPES,
   MARKET_UNITS_PER_BOOK,
   // 브랜딩 — 값은 `@vocaflow/design-tokens` 에서 온다. 여기서 색을 적지 않는다.
@@ -110,6 +112,35 @@ const target = rungMix(BAND, new Set(pool.map((it) => it.type))).targetShare
 const fit = typeMixFit(actualMix, target)
 // 판권장에 찍을 규격 — **이 권이 실제로 인쇄한 유형들**의 창을 합친다.
 const PASSAGE_CHIP = passageSpecChip(Object.keys(actualMix))
+
+// ── 판권장이 주장하는 검수를 **실제로 돌린다** ─────────────────────
+//
+// ⚠️ 이 두 칩은 오래 **아무 근거 없이** 찍히고 있었다(실측 2026-08-31):
+//   · `정답 번호 균등 검정` — `scoreVolume` 에 그 검사가 **없다**(참조 0건).
+//   · `교정 3회` — 조판기가 `proofread` 를 **한 번도 부르지 않는다**(참조 0건).
+//   재료는 둘 다 있었다(`assessAnswerBias` · `summarizeProofread`). 없던 것은 호출이다.
+//   주장을 지우는 대신 **실제로 수행하고 결과를 함께 찍는다** — 그래야 그 줄이 근거가 된다.
+const printedItems = units.flatMap((u) => u.items)
+// 선택지가 있는 문항만 — 단답형에는 고를 번호가 없다.
+const answered = printedItems
+  .map((it) => Number(it.answer_key?.answer ?? it.answer_key?.position))
+  .filter((n) => Number.isInteger(n) && n >= 1 && n <= 5)
+const biasCounts = [0, 0, 0, 0, 0]
+for (const n of answered) biasCounts[n - 1] += 1
+const bias = answered.length ? assessAnswerBias(biasCounts) : null
+
+// 교정은 인쇄되는 지문에 건다 — 저장 원본이 아니라 **학습자가 읽는 글**이다.
+const proofPassages = printedItems
+  .map((it) => {
+    const p2 = it.payload ?? {}
+    if (Array.isArray(p2.sentences) && p2.sentences.length) return p2.sentences.map(String)
+    if (typeof p2.passage === "string" && p2.passage.trim()) {
+      return p2.passage.split(/(?<=[.!?])s+/).filter((s) => s.trim())
+    }
+    return null
+  })
+  .filter(Boolean)
+const proof = summarizeProofread(proofPassages)
 
 // ⚠️ **위 목표는 "우리가 가진 유형" 안에서 다시 정규화된 것이다.** 재고가 0 인 유형은
 //   목표에서 통째로 빠지므로, 없는 유형이 많을수록 적합도가 **후하게** 나온다.
@@ -512,9 +543,9 @@ h1{font-size:2.1rem;margin:.6rem 0 .3rem;letter-spacing:-.01em;text-wrap:balance
   <div class="scorebar">
     <span class="chip ok">자동 검수 ${passed}/${card.auto.length} 통과</span>
     <span class="chip">지문 ${PASSAGE_CHIP}</span>
-    <span class="chip">정답 번호 균등 검정</span>
+    <span class="chip${bias && bias.biased ? '' : ' ok'}">정답 번호 ${bias ? `${bias.biased ? '쏠림' : '균등'} (χ²=${bias.chi2.toFixed(1)} · V=${bias.cramersV.toFixed(2)})` : '단답 위주'}</span>
     <span class="chip">출처 표기</span>
-    <span class="chip">교정 3회</span>
+    <span class="chip${proof.defective ? '' : ' ok'}">교정 3회 · 지적 ${proof.defective}/${proof.passages}</span>
   </div>
   <div class="ladder" aria-label="시리즈 일곱 단 중 이 권의 자리">
     ${ladderStrip(rung?.step ?? null)
@@ -594,6 +625,16 @@ console.log(
       .map(([t, n]) => `${t} ${n}`)
       .join(' · '),
 )
+// 교정 지적은 **규칙 이름까지** 찍는다 — 건수만 보면 무엇을 고칠지 알 수 없다.
+if (proof.defective) {
+  console.log(
+    `  교정 지적 ${proof.defective}/${proof.passages} 지문 — ` +
+      Object.entries(proof.byRule)
+        .sort((a, b) => b[1] - a[1])
+        .map(([r, n]) => `${r} ${n}`)
+        .join(' · '),
+  )
+}
 if (closedTypes.length) {
   const share = closedTypes.reduce((s, t) => s + (marketTarget[t] ?? 0), 0)
   console.log(
