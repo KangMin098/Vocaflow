@@ -74,6 +74,19 @@ describe('허용 이벤트 목록', () => {
     )
   })
 
+  it('선택 퍼널의 분모 둘이 빠지지 않는다', () => {
+    /*
+      서가에 온 사람 → 한 권을 열어 본 사람. 이 둘은 **어떤 테이블에도 흔적이 없어**
+      빠지면 전환율의 분모가 영원히 없다(구독은 `user_word_set_subscriptions` 에서 파생한다 —
+      그래서 구독 완료 이벤트는 일부러 없다).
+
+      2026-08-31 — 서가를 브랜딩해 놓고도 "그것이 선택을 바꿨는가" 를 물을 수단이 없었다.
+    */
+    expect([...ALLOWED_EVENTS]).toEqual(
+      expect.arrayContaining(['catalog_viewed', 'volume_previewed']),
+    )
+  })
+
   /**
    * 유니온 `PublicEvent` 에 정의된 이름 전부.
    * `PublicEventName` 으로 타입돼 있어 **오타는 타입 검사가** 잡고, **빠짐은 아래 테스트가** 잡는다.
@@ -87,6 +100,8 @@ describe('허용 이벤트 목록', () => {
     'fit_worksheet_printed',
     'landing_viewed',
     'landing_cta_clicked',
+    'catalog_viewed',
+    'volume_previewed',
   ]
 
   it('정의된 이벤트가 모두 허용 목록에 있다 — 빠지면 조용히 버려진다', () => {

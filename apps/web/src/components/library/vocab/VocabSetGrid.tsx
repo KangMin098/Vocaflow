@@ -9,11 +9,13 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useMemo, useState, useTransition } from 'react'
+import { useEffect, useMemo, useState, useTransition } from 'react'
 import { Search, Sparkles } from 'lucide-react'
 
 import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions'
 import type { PublishedVocabSet, RecommendedSet } from '@/lib/library/vocab/queries'
+import { rungForSet } from '@/lib/library/vocab/rung'
+import { track } from '@/lib/analytics/client'
 
 import { CategoryMatrix } from './CategoryMatrix'
 import { categoryImportance, type VocabCategoryId } from './categories'
@@ -56,12 +58,39 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
   const [query, setQuery] = useState('')
   const [sort, setSort] = useState<SortKey>('recommended')
   const [mineOnly, setMineOnly] = useState(false)
-  const [previewing, setPreviewing] = useState<PublishedVocabSet | null>(null)
+  const [previewing, setPreviewingState] = useState<PublishedVocabSet | null>(null)
   const [pendingId, setPendingId] = useState<string | null>(null)
   const [errors, setErrors] = useState<Record<string, string | null>>({})
   const [toast, setToast] = useState<SubscribeToastData | null>(null)
 
   const [, startTransition] = useTransition()
+
+  /*
+    선택 퍼널 — **분모만 수집한다.**
+
+    구독은 `user_word_set_subscriptions` 에 행이 남으므로 파생할 수 있다(수집하지 않는다 —
+    `lib/admin/retention-math.ts` 의 "수집기 대신 계산기"). 반면 "서가에 왔다" 와
+    "한 권을 열어 봤다" 는 어떤 테이블에도 흔적이 없어, 없으면 전환율의 분모가 영원히 없다.
+
+    2026-08-31 — 이 서가를 브랜딩해 놓고도 **그것이 선택을 바꿨는지 물을 수단이 없었다.**
+  */
+  useEffect(() => {
+    track({ name: 'catalog_viewed', props: { volumes: sets.length } })
+    // 서가 진입 1회만 — 필터·검색으로 목록이 바뀔 때마다 세면 분모가 부풀려진다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  /** 미리보기 열기 — 여는 자리가 하나뿐이라 여기서만 센다. */
+  function setPreviewing(set: PublishedVocabSet | null) {
+    if (set) {
+      const { rung } = rungForSet(set)
+      track({
+        name: 'volume_previewed',
+        props: { step: rung?.step ?? null, hasCover: !!set.coverImageUrl },
+      })
+    }
+    setPreviewingState(set)
+  }
 
   function handleToggle(set: PublishedVocabSet) {
     if (!isLoggedIn) {

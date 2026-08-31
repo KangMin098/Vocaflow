@@ -196,6 +196,48 @@ for (const s of sets) {
   perSet.push({ id: s.id, title: s.title, signals: got })
 }
 
+/**
+ * **시장에 칸이 없어 지수에 넣지 않은 선택 신호.**
+ *
+ * 위 열한 신호는 시중 교재에서 실측한 것이라 우리도 같은 자로 잴 수 있다. 그런데 지면이
+ * **구조상 못 하는** 선택 근거가 따로 있고, 그것을 열한 개에 섞으면 지수가 공짜로 올라간다
+ * (`market-benchmark.mjs` 의 `beyondMarket` 과 같은 규칙 — 우위는 우위이되 같은 자로 잰
+ * 값이 아니다).
+ *
+ * 그래서 **지수에서 빼고 여기 따로 적는다.**
+ */
+const beyondMarket = [
+  {
+    id: 'C1',
+    name: '진도 반영 학습 플랜',
+    ours: sets.filter((s) => (s.word_count ?? 0) > 0).length / (sets.length || 1),
+    why: '구독 뒤 미리보기가 "남은 N단어 · 약 D일 더" 로 다시 계산한다. 지면의 "30일 완성" 은 인쇄 시점에 고정돼 학습자가 어디까지 왔는지 모른다',
+  },
+  {
+    id: 'C2',
+    name: '표제어 난이도 실측 공개',
+    ours: sets.filter((s) => !!s.curation_query?.level).length / (sets.length || 1),
+    why: '판권면이 "대상 수준 V8 (V3~V11 · 500낱말 실측)" 처럼 **세어 본 값**을 싣는다. 지면은 대상 학년을 선언할 뿐 표제어를 세어 말하지 않는다',
+  },
+  {
+    id: 'C3',
+    name: '계단 근거 공개',
+    ours:
+      sets.filter((s) => s.ladder_step != null || !!s.curation_query?.level).length
+      / (sets.length || 1),
+    why: '"왜 이 권이 5단인가" 에 저작·실측·추정 중 무엇인지 판권면이 밝힌다. 근거를 밝히는 지면 단어장을 표본에서 보지 못했다',
+  },
+]
+
+/**
+ * 카탈로그 전체에 걸리는 것이라 **권별 비율로 잴 수 없는** 신호. 세지 않고 사실만 적는다.
+ * 지면은 이 자리가 구조적으로 비어 있다 — 한 번 인쇄되면 독자를 알 수 없다.
+ */
+const catalogLevelBeyond = [
+  '개인 맞춤 추천 — 진단 V-Level·트랙 기반으로 권을 골라 **이유와 함께** 보여 준다'
+  + ' (`recommend_word_sets_for_user`). 권별 비율이 아니라 화면 전체의 성질이라 지수에 넣지 않는다.',
+]
+
 const n = sets.length
 const ourRates = Object.fromEntries(
   SIGNAL_KEYS.map((k) => [k, n === 0 ? 0 : Number((hit[k] / n).toFixed(3))]),
@@ -214,6 +256,11 @@ const report = {
     rates: spec.shelfSignals.rates,
   },
   ours: { meanSignalsPerSet: Number(ourMean.toFixed(3)), rates: ourRates },
+  /** 지수에 **넣지 않은** 우위 — 시장에 그 칸이 아예 없어 같은 자로 못 잰다. */
+  beyondMarket,
+  catalogLevelBeyond,
+  beyondMarket,
+  catalogLevelBeyond,
   choiceIndex: index,
   /** 신호별 비 — 어디서 지고 있는지. 시장이 0 인 신호는 나누지 않는다(무한대가 된다). */
   perSignalRatio: Object.fromEntries(
@@ -253,5 +300,13 @@ if (process.argv.includes('--json')) {
   console.info(`  **선택 지수 = ${index.toFixed(2)}**  (목표 1.20 → 한 권당 ${(marketMean * 1.2).toFixed(2)}개)`)
   console.info('')
   console.info(`  가장 약한 신호: ${report.weakest.join(' · ')}`)
+  console.info('')
+  console.info('  시장에 칸이 없어 **지수에 넣지 않은** 선택 신호:')
+  for (const b of beyondMarket) {
+    console.info(`    ${b.id} ${pad(b.name, 24)} 우리 ${(b.ours * 100).toFixed(1)}%`)
+  }
+  for (const line of catalogLevelBeyond) {
+    console.info(`    (카탈로그 전체) ${line.split(' —')[0]}`)
+  }
   console.info(`리포트 → ${outPath}`)
 }

@@ -66,6 +66,26 @@ export type PublicEvent =
    * `signup` 은 가치를 보기 전에 바로 가입한 사람이라 `fit_signup_clicked` 와 다른 사람이다.
    */
   | { name: 'landing_cta_clicked'; props: { target: 'fit' | 'signup' } }
+  /**
+   * 공용 단어장 서가 진입 — **선택 퍼널의 분모**.
+   *
+   * 2026-08-31 실측: 이 서가를 브랜딩(표지·판권면·목차·사다리)했지만 **그것이 선택을
+   * 바꿨는지 알 방법이 없었다.** 구독은 `user_word_set_subscriptions` 에서 파생되지만
+   * "서가에 왔다" 와 "한 권을 열어 봤다" 는 **어떤 테이블에도 흔적이 남지 않는다.**
+   * 분모가 없으면 전환율이 없고, 전환율이 없으면 브랜딩의 효과는 영원히 의견이다.
+   *
+   * ⚠️ 파생 가능한 것은 수집하지 않는다(`lib/admin/retention-math.ts` 의 결정).
+   *   그래서 구독 완료 이벤트는 **일부러 없다** — 그 행은 DB 에 남는다.
+   */
+  | { name: 'catalog_viewed'; props: { volumes: number } }
+  /**
+   * 한 권을 열어 봤다 — 표지·제목이 **고르게 만들었는가**의 직접 신호.
+   *
+   * `step` 은 그 권의 사다리 계단(학령 밖이면 null)이고, `hasCover` 는 도판 유무다.
+   * 둘을 함께 보면 "표지가 있는 권이 더 열리는가" 를 **관측으로** 답할 수 있다 —
+   * 지금은 그 질문에 아무도 답할 수 없다.
+   */
+  | { name: 'volume_previewed'; props: { step: number | null; hasCover: boolean } }
 
 export type PublicEventName = PublicEvent['name']
 
@@ -92,6 +112,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   fit_worksheet_printed: true,
   landing_viewed: true,
   landing_cta_clicked: true,
+  catalog_viewed: true,
+  volume_previewed: true,
 }
 
 export const ALLOWED_EVENTS: readonly PublicEventName[] = Object.keys(
