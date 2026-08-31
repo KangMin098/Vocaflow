@@ -100,6 +100,8 @@ const base: TextbookConsoleStats = {
         distinctVolumes: 6,
         articlesWithItems: 540,
         articlesIdle: 0,
+        // 옛 조판 기록에는 검수 결과가 없다 — null 이 정상이고 0 이 거짓말이다.
+        review: { passageSpec: null, answerBias: null, proofread: null },
         brandFingerprint: 'a1b2c3d4',
         brandCurrent: true,
         renderCount: 3,
@@ -120,6 +122,8 @@ const base: TextbookConsoleStats = {
         distinctVolumes: null,
         articlesWithItems: 61,
         articlesIdle: 1779,
+        // 옛 조판 기록에는 검수 결과가 없다 — null 이 정상이고 0 이 거짓말이다.
+        review: { passageSpec: null, answerBias: null, proofread: null },
         brandFingerprint: '00000000',
         brandCurrent: false,
         renderCount: 1,

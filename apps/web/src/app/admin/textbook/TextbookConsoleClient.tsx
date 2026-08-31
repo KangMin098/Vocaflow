@@ -205,6 +205,9 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                   <th className="py-2 pr-3 text-right font-[600]">유형-학년 적합도</th>
                   <th className="py-2 pr-3 text-right font-[600]">쓸 수 있는 원글</th>
                   <th className="py-2 pr-3 text-right font-[600]">겹치지 않는 권</th>
+                  <th className="py-2 pr-3 font-[600]" title="조판물 표지에 인쇄되는 검수 주장과 같은 값">
+                    검수 결과
+                  </th>
                   <th className="py-2 pr-3 font-[600]">규격</th>
                   <th className="py-2 pr-3 font-[600]">마지막 조판</th>
                 </tr>
@@ -275,6 +278,43 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                         </span>
                       ) : (
                         r.distinctVolumes
+                      )}
+                    </td>
+                    <td className="py-2 pr-3 text-[12px] leading-relaxed">
+                      {/* 조판물이 표지에 인쇄하는 검수 주장을 **화면에서도 확인**할 수 있게 한다.
+                          그 셋(지문 규격·정답 쏠림·교정)은 오래 조판물에만 있었고, 둘은
+                          2026-08-31 까지 아예 돌지도 않았다(칩만 찍혔다). 기록이 없는 옛 권은
+                          '옛 기록' 으로 남긴다 — 0 으로 채우면 검수가 돈 것처럼 보인다. */}
+                      {r.review.proofread == null && r.review.answerBias == null ? (
+                        <span className="text-[var(--t3)]">옛 기록 — 재조판 필요</span>
+                      ) : (
+                        <>
+                          {r.review.passageSpec ? (
+                            <span className="block text-[var(--t2)]">지문 {r.review.passageSpec}</span>
+                          ) : null}
+                          {r.review.answerBias ? (
+                            <span
+                              className="block"
+                              style={{ color: r.review.answerBias.biased ? 'var(--warn)' : 'var(--ok)' }}
+                              title={`χ²=${r.review.answerBias.chi2} · Cramér's V=${r.review.answerBias.cramersV} (둘 다 넘어야 쏠림)`}
+                            >
+                              {r.review.answerBias.biased ? '⚠️ 정답 쏠림' : '✅ 정답 균등'}
+                            </span>
+                          ) : null}
+                          {r.review.proofread ? (
+                            <span
+                              className="block"
+                              style={{ color: r.review.proofread.defective ? 'var(--warn)' : 'var(--ok)' }}
+                              title={
+                                Object.entries(r.review.proofread.byRule)
+                                  .map(([rule, n]) => `${rule} ${n}`)
+                                  .join(' · ') || '지적 없음'
+                              }
+                            >
+                              교정 {r.review.proofread.defective}/{r.review.proofread.passages}
+                            </span>
+                          ) : null}
+                        </>
                       )}
                     </td>
                     <td className="py-2 pr-3">

@@ -698,7 +698,20 @@ const record = {
   articles_with_items: withItems.size,
   articles_idle: idle,
   brand_fingerprint: brandFingerprint(),
-  colophon,
+  // ⚠️ **조판물에만 찍고 기록에 안 남기면 Admin 은 그 검수를 못 본다.**
+  //   교정 지적과 정답 쏠림은 이제 권마다 실제로 돌지만(2026-08-31 배선), 기록 스키마에
+  //   자리가 없어 화면이 눈뜬장님이었다. 이 저장소의 관행대로 **jsonb 에 키를 더한다** —
+  //   마이그레이션이 필요 없고, 통째로 덮지 않으므로 기존 판권 값도 그대로 산다.
+  colophon: {
+    ...colophon,
+    review: {
+      passageSpec: PASSAGE_CHIP,
+      answerBias: bias
+        ? { counts: bias.counts, chi2: Number(bias.chi2.toFixed(2)), cramersV: Number(bias.cramersV.toFixed(3)), biased: bias.biased }
+        : null,
+      proofread: { passages: proof.passages, defective: proof.defective, byRule: proof.byRule },
+    },
+  },
   out_path: path.resolve(OUT),
   rendered_at: new Date().toISOString(),
 }

@@ -73,6 +73,22 @@ export interface VolumeRender {
    * 실측 2026-08-30 에 V6 은 원글 9,992편 중 8,235편(82%)이 여기 있었다.
    */
   articlesIdle: number | null
+  /**
+   * 조판이 **실제로 돌린 검수** — 조판물의 칩과 같은 값이다.
+   *
+   * ⚠️ 이 셋은 오래 조판물에만 있고 기록에는 없었다. 그래서 화면은 "정답 번호 균등 검정"
+   *   같은 주장을 **확인할 방법이 없었다** — 게다가 그 두 검사는 2026-08-31 까지
+   *   아예 돌지도 않았다(칩만 찍혔다). 이제 권마다 돌고 기록에 남는다.
+   *   기록이 없는 옛 행은 `null` 이다 — 0 으로 뭉개면 "지적 0건" 이라는 거짓말이 된다.
+   */
+  review: {
+    /** 이 권이 실제로 쓴 지문 길이 창. 학년마다 다르다. */
+    passageSpec: string | null
+    /** 정답 번호 쏠림. `biased` 는 χ² 와 효과크기(V≥0.1)를 **둘 다** 넘겼을 때만 참이다. */
+    answerBias: { chi2: number; cramersV: number; biased: boolean } | null
+    /** 교정 3회(초·재·삼교) 결과. `byRule` 이 무엇을 고칠지 말해 준다. */
+    proofread: { passages: number; defective: number; byRule: Record<string, number> } | null
+  }
   /** 조판 당시 브랜드 규격의 지문. */
   brandFingerprint: string
   /** 현재 규격과 같은가. false 면 그 권은 옛 팔레트·서체로 찍혀 있다. */
@@ -145,6 +161,8 @@ interface RenderRow {
   distinct_volumes: number | null
   articles_with_items: number | null
   articles_idle: number | null
+  /** 판권 jsonb — 검수 결과가 `review` 키로 함께 들어 있다(마이그레이션 없이 더한 값). */
+  colophon: { review?: VolumeRender['review'] } | null
   brand_fingerprint: string
   render_count: number
   rendered_at: string
@@ -185,7 +203,7 @@ async function getBrandPanel(
     .select(
       'band, volume_title, step, school_band, units, items, auto_passed, auto_total, ' +
         'failed_checks, explained_batch, explained_rule, type_mix_fit, distinct_volumes, ' +
-        'articles_with_items, articles_idle, ' +
+        'articles_with_items, articles_idle, colophon, ' +
         'brand_fingerprint, render_count, rendered_at',
     )
     .order('band')
@@ -206,6 +224,13 @@ async function getBrandPanel(
     distinctVolumes: r.distinct_volumes,
     articlesWithItems: r.articles_with_items,
     articlesIdle: r.articles_idle,
+    // 옛 행에는 `review` 가 없다 — **null 로 남긴다.** 0 으로 채우면 "지적 0건" 이라는
+    // 거짓말이 되고, 화면은 검수가 돌았다고 믿게 된다.
+    review: {
+      passageSpec: r.colophon?.review?.passageSpec ?? null,
+      answerBias: r.colophon?.review?.answerBias ?? null,
+      proofread: r.colophon?.review?.proofread ?? null,
+    },
     brandFingerprint: r.brand_fingerprint,
     brandCurrent: r.brand_fingerprint === current,
     renderCount: r.render_count,
