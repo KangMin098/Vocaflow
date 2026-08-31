@@ -410,7 +410,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
         ref_title: a.title,
         v_level: r.v_level,
         passage_text: text,
-        passage_words: text.split(/s+/).filter(Boolean).length,
+        passage_words: text.split(/\s+/).filter(Boolean).length,
         body_sentences: lines2.length,
         payload: p,
         answer_key: r.answer_key ?? {},
