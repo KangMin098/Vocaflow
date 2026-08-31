@@ -149,6 +149,12 @@ for (const s of sets) {
     category: s.category,
     cefrLevel: s.cefr_level,
     ladderStep: s.ladder_step,
+    // ⚠️ **실측 중앙값을 빼고 부르면 이 지수가 화면보다 후해진다.** 두 화면
+    //   (`VocabColophon` · `VocabSetCard`)은 세트를 통째로 넘기므로 `level` 이 함께 간다.
+    //   그 값이 사다리 위(V8+)면 화면은 계단을 비우는데(`basis: 'above-ladder'`),
+    //   여기서만 빼면 CEFR 라벨로 내려가 **띠가 없는 권에 `seriesGuide` 를 준다.**
+    //   기준은 "DB 에 값이 있는가" 가 아니라 **학습자가 보는가** 다.
+    level: s.curation_query?.level ?? null,
   })
   const kind = setKindOf(s.curation_query?.blueprint)
   const wordCount = words || (s.word_count ?? 0)
@@ -173,8 +179,11 @@ for (const s of sets) {
   if (wordCount > 0) got.push('dayPacing')
   // 복습 안내 — 학습 플랜 블록 안의 FSRS 문구. 같은 조건에서 함께 뜬다.
   if (wordCount > 0) got.push('reviewTest')
-  // 시리즈 안내 — `ladderStrip` 은 `rung` 이 있을 때만 그려진다.
-  if (rung) got.push('seriesGuide')
+  // 시리즈 안내 — 판권면의 사다리 띠. 계단이 있으면 그 칸을 대괄호로 세우고,
+  //   **학령 밖이어도 띠는 그린다**(어느 칸도 안 세우고 '학령 밖' 을 적는다).
+  //   띠를 통째로 빼면 그 권만 시리즈에서 떨어져 나온 것처럼 보인다 — 실측 2026-08-31
+  //   에 55권 중 18권이 그 상태였다.
+  if (rung || s.curation_query?.level) got.push('seriesGuide')
   // 대상 수준 — 계단이 있으면 판권면 '단계' 줄, 없으면 각인된 V-Level 중앙값('대상 수준' 줄).
   //   사다리 밖이라고 수준이 없는 것이 아니다.
   if (rung || s.curation_query?.level) got.push('targetGrade')

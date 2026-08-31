@@ -89,6 +89,20 @@ export function VocabColophon({ set }: { set: PublishedVocabSet }) {
             {ladderStrip(rung.step).join(' ')}
           </p>
         )}
+        {/*
+          학령 밖 권에도 띠를 그린다 — **어느 칸도 세우지 않고** 그 밖임을 적는다.
+          띠를 통째로 빼면 이 권만 시리즈에서 떨어져 나온 것처럼 보이고, 학습자는
+          "다음에 무엇을 볼지" 를 알 수 없다. 실측 2026-08-31 — 55권 중 18권이
+          그 상태였다(선택 지수의 `seriesGuide` 가 67%였던 자리).
+        */}
+        {!rung && basis === 'above-ladder' && (
+          <p
+            className="font-mono text-[11px] tabular-nums text-[var(--t3)]"
+            title="일곱 단짜리 학령 사다리 밖 — 성인·고급 수준"
+          >
+            {ladderStrip(null).join(' ')} <span className="ml-0.5">· 학령 밖</span>
+          </p>
+        )}
       </div>
 
       <dl className="mt-2.5 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">

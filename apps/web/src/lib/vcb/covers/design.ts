@@ -192,6 +192,11 @@ export const COVER_QUERY_BY_SLUG: Record<string, string> = {
   'cat-curriculum-high': 'lecture hall engraving',
   'cat-kice-purpose': 'compass rose engraving',
   'cat-kice-long': 'scroll manuscript engraving',
+  // 미수록 어휘 계열 — 계단별로 세 권. 유형 검색어(`antique blank map`) 하나로는
+  // 첫 권만 도판을 받는다(위 주석의 그 함정).
+  'cat-uncovered-v1': 'antique alphabet primer engraving',
+  'cat-uncovered-v2': 'antique globe engraving',
+  'cat-uncovered-v3': 'antique constellation chart',
 }
 
 /** 표지 출처 — CC 표기 의무를 지키기 위해 URL 과 **함께** 저장한다. */

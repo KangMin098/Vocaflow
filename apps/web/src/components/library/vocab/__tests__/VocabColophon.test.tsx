@@ -127,6 +127,16 @@ describe('판권면', () => {
     expect(html).not.toContain('5단')
   })
 
+  it('사다리 밖이어도 시리즈 띠는 그린다 — 어느 칸도 세우지 않고 그 밖임을 적는다', () => {
+    const html = render(
+      set({ cefrLevel: 'C2', category: 'themed', level: { median: 9, min: 4, max: 11, measured: 500 } }),
+    )
+    // 어느 칸도 대괄호로 서지 않는다 — `[` 하나로 보면 Tailwind 클래스에 걸린다.
+    expect(html).not.toMatch(/\[\d\]/)
+    expect(html).toContain('1 2 3 4 5 6 7')
+    expect(html).toContain('학령 밖')
+  })
+
   it('사다리 밖이면 계단 줄과 띠를 그리지 않는다', () => {
     // C2 = 성인 수준이라 학령 사다리 밖이다.
     const html = render(set({ cefrLevel: 'C2', category: 'themed' }))

@@ -1,9 +1,9 @@
 {
   "$schema": "vocab-choice-benchmark/1",
-  "generatedAt": "2026-08-31T03:33:11.371Z",
+  "generatedAt": "2026-08-31T03:54:17.758Z",
   "catalog": {
-    "sets": 52,
-    "words": 26075
+    "sets": 55,
+    "words": 27075
   },
   "market": {
     "booksMeasured": 4,
@@ -23,33 +23,33 @@
     }
   },
   "ours": {
-    "meanSignalsPerSet": 10.942,
+    "meanSignalsPerSet": 10.945,
     "rates": {
       "colophon": 1,
       "isbn": 1,
-      "toc": 0.962,
+      "toc": 0.964,
       "studyPlan": 1,
       "preface": 1,
       "dayPacing": 1,
       "reviewTest": 1,
       "seriesGuide": 1,
       "targetGrade": 1,
-      "extras": 0.981,
+      "extras": 0.982,
       "proofread": 1
     }
   },
-  "choiceIndex": 1.287,
+  "choiceIndex": 1.288,
   "perSignalRatio": {
     "colophon": 1,
     "isbn": 1,
-    "toc": 0.962,
+    "toc": 0.964,
     "studyPlan": 1,
     "preface": 4,
     "dayPacing": 1,
     "reviewTest": 1,
     "seriesGuide": 1.333,
     "targetGrade": 1,
-    "extras": 1.962,
+    "extras": 1.964,
     "proofread": null
   },
   "weakest": [
