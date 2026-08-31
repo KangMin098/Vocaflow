@@ -180,3 +180,62 @@ describe('초등 재고도 DB 를 읽는다 — 못 읽으면 0 으로 적지 �
     expect(high.every((v) => v.status !== 'unmeasured')).toBe(true)
   })
 })
+
+describe('해설 수록 수 — 분모와 같은 조합에서만 센다', () => {
+  // ⚠️ 이 블록이 생긴 이유: 처음에 집계를 **V레벨로만** 묶었다가 화면에 **1283%** 가 찍혔다
+  //    (실측 2026-08-31). 한 V레벨에는 그 계단이 쓰지 않는 유형까지 25종이 들어 있는데
+  //    총계는 그 계단이 쓰는 유형만 센다 — 분자 25종 / 분모 4종이었다.
+  //    비율을 내는 코드는 **분자와 분모가 같은 모집단인지**를 가장 먼저 의심해야 한다.
+  const key = (t: string, lv: number) => `${t}|${lv}`
+
+  it('집계를 안 넘기면 null 이다 (구버전 RPC 호환)', () => {
+    const shelf = buildShelf(dbInventory(5, 100), {}, true)
+    for (const v of shelf.volumes) expect(v.explainedCount).toBeNull()
+  })
+
+  it('그 계단이 쓰는 (유형·레벨) 만 더한다 — 안 쓰는 유형은 분자에 안 들어간다', () => {
+    const shelf = buildShelf(dbInventory(5, 100), {}, true, undefined, true, {
+      [key('vocab_choice', 5)]: 10,
+      [key('grammar_choice', 5)]: 20,
+      [key('order', 5)]: 30,
+      [key('insert', 5)]: 40,
+      // step 5 는 irrelevant 를 쓰지 않는다 — 이 1000 이 새면 그게 1283% 버그다.
+      [key('irrelevant', 5)]: 1000,
+    })
+    const step5 = shelf.volumes.find((v) => v.step === 5)!
+    expect(step5.types).not.toContain('irrelevant')
+    expect(step5.explainedCount).toBe(100)
+  })
+
+  it('해설 수가 문항 수를 넘지 않는다 — 비율이 100%를 넘으면 안 된다', () => {
+    const shelf = buildShelf(dbInventory(5, 100), {}, true, undefined, true, {
+      [key('vocab_choice', 5)]: 100,
+      [key('grammar_choice', 5)]: 100,
+      [key('order', 5)]: 100,
+      [key('insert', 5)]: 100,
+      [key('irrelevant', 5)]: 100,
+    })
+    const step5 = shelf.volumes.find((v) => v.step === 5)!
+    expect(step5.itemCount).toBe(400)
+    expect(step5.explainedCount).toBe(400)
+    expect(step5.explainedCount! / step5.itemCount).toBeLessThanOrEqual(1)
+  })
+
+  it('⚠️ 그 계단의 조합이 하나도 안 잡히면 null — 합 0 을 "해설 0%" 로 적지 않는다', () => {
+    // 초등 3종은 DB 에 없어 집계표에 안 잡힌다. 0%로 인쇄하면 거짓이다.
+    const shelf = buildShelf(dbInventory(5, 100), {}, true, undefined, true, {
+      [key('vocab_choice', 5)]: 10,
+    })
+    const elementary = shelf.volumes.filter((v) => v.vLevels.every((l) => l <= 2))
+    expect(elementary.length).toBeGreaterThan(0)
+    for (const v of elementary) expect(v.explainedCount).toBeNull()
+  })
+
+  it('조합이 잡혀 있고 값이 0 이면 0 이다 — 이때는 진짜 0 이라 적어도 된다', () => {
+    const shelf = buildShelf(dbInventory(5, 100), {}, true, undefined, true, {
+      [key('vocab_choice', 5)]: 0,
+    })
+    const step5 = shelf.volumes.find((v) => v.step === 5)!
+    expect(step5.explainedCount).toBe(0)
+  })
+})

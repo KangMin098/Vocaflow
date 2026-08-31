@@ -122,6 +122,17 @@ export interface ShelfVolume {
    *    0 과 "못 잼" 을 구별하는 이 파일의 규칙이 여기에도 그대로 적용된다.
    */
   bySource: SourceCounts
+  /**
+   * 이 권의 문항 중 **해설이 붙은 수**. 못 읽었으면 `null`.
+   *
+   * ⚠️ 0 과 `null` 을 반드시 구별한다 — 이 파일의 규칙이 여기에도 그대로 걸린다.
+   *    "해설 0개" 와 "해설 수를 못 셌다" 를 같게 적으면 화면이 조용히 거짓말한다.
+   *
+   * 왜 매대에 내는가: 시중 교재는 해설지 유무를 표지에 적을 뿐 **몇 %에 붙었는지는
+   * 말하지 않는다**(말할 방법이 없다 — 인쇄된 뒤에는 세지 못한다). 우리는 셀 수 있고,
+   * 지금 이 값은 실제로 100%가 아니다. 그러면 100%라고 적지 않는 것이 이 매대의 규칙이다.
+   */
+  explainedCount: number | null
 }
 
 /** 갈래별 문항 수. V레벨 여럿을 쓰는 권은 합산된다. */
@@ -151,6 +162,38 @@ function statusOf(
   return 'ready'
 }
 
+/** 집계 키 — 유형과 레벨을 함께 잠근다. 조회부(`shelf-query`)도 같은 키를 만든다. */
+export function explainedKey(type: string, vLevel: number): string {
+  return `${type}|${vLevel}`
+}
+
+/**
+ * 이 계단의 해설 보유 수 — **분모와 같은 조합에서만** 모은다.
+ *
+ * 하나도 안 잡히면 `null`(못 셈)이다. 0 과 구별해야 한다:
+ *   · 0    = 이 계단의 문항에 해설이 하나도 없다 (사실이면 적어도 된다)
+ *   · null = 이 계단은 집계표에 없다 (초등 생성 유형 등) — 적으면 안 된다
+ */
+function explainedCountOf(
+  map: Readonly<Record<string, number>> | null,
+  types: readonly string[],
+  vLevels: readonly number[],
+): number | null {
+  if (map == null) return null
+  let sum = 0
+  let seen = false
+  for (const t of types) {
+    for (const lv of vLevels) {
+      const k = explainedKey(t, lv)
+      if (k in map) {
+        seen = true
+        sum += map[k] ?? 0
+      }
+    }
+  }
+  return seen ? sum : null
+}
+
 /**
  * 재고 → 서가.
  *
@@ -175,6 +218,18 @@ export function buildShelf(
    * '못 잼' 이 되거나(과잉) 한쪽 실패가 묻힌다(과소) — 실제로 겪은 것은 후자다.
    */
   elementaryMeasured = true,
+  /**
+   * `"<유형>|<V레벨>"` → 해설이 붙은 문항 수. 집계표(`textbook_shelf_inventory_mv`)에서 온다.
+   *
+   * ⚠️ **레벨만으로 묶으면 안 된다.** 처음에 `Record<vLevel, number>` 로 만들었다가
+   *    화면에 **1283%** 가 찍혔다(실측 2026-08-31). 한 V레벨에는 그 계단이 쓰지 않는 유형까지
+   *    25종이 들어 있는데, 총계(`itemCount`)는 **그 계단이 쓰는 유형만** 센다. 분자는 25종,
+   *    분모는 4종이었던 것이다. 그래서 분자도 분모와 **같은 (유형, 레벨) 조합**에서만 모은다.
+   *
+   * 별도 인자인 이유는 `bySource` 와 같다 — 따로 실패할 수 있어서다. 넘기지 않으면
+   * (=구버전 RPC) 권마다 `explainedCount: null` 이고 화면은 그 줄을 내지 않는다.
+   */
+  explainedByTypeLevel: Readonly<Record<string, number>> | null = null,
 ): Shelf {
   const fill = measureSeriesFill(inventory, spine)
 
@@ -196,6 +251,12 @@ export function buildShelf(
       }
       return acc
     }, {}),
+    // 분모(`itemCount`)와 **같은 (유형, 레벨) 조합**에서만 모은다 — 위 인자 주석의 1283% 사고.
+    //
+    // ⚠️ 초등 3종은 DB 에 없고 사전에서 생성되므로 집계표에 아예 안 잡힌다. 그 계단은
+    //    합이 0 이 되는데, 0 을 그대로 적으면 "해설 0%" 라는 거짓이 된다.
+    //    그래서 **조합이 하나도 안 잡히면 null** 로 둔다.
+    explainedCount: explainedCountOf(explainedByTypeLevel, r.rung.types, r.rung.vLevels),
     // 이 계단이 쓰는 재고를 **전부** 읽었는가. 하나라도 못 읽었으면 총계는 뜻이 없다 —
     // 섞인 계단(초등 유형 + 저장 유형)에서 한쪽만 빠지면 총계가 조용히 작아진다.
     status: statusOf(

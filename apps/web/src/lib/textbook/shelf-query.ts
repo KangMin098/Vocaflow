@@ -26,7 +26,7 @@ import type { Inventory } from '@vocaflow/library-pipeline'
 
 import { createClient } from '@/lib/supabase/server'
 
-import { buildShelf, type Shelf } from './shelf'
+import { buildShelf, explainedKey, type Shelf } from './shelf'
 
 /** 교육과정 어휘 태그 → 그 어휘가 받쳐 주는 V-Level. */
 const CURRICULUM_TAG_LEVEL: Record<string, number[]> = {
@@ -65,13 +65,28 @@ export async function fetchTextbookShelf(): Promise<Shelf> {
   const { data: items, error: itemsError } = inventoryRes
   const measured = !itemsError && Array.isArray(items) && items.length > 0
 
+  // 해설 보유 수는 **집계표가 함께 내준다**(20260831090000). 요청 경로에서 세면
+  // answer_key 를 읽어야 해서 인덱스 온리 스캔이 깨지고 3초 타임아웃으로 되돌아간다(실측).
+  //
+  // ⚠️ 구버전 RPC(컬럼 없음)에서는 `explained_count` 가 undefined 다. 그때는 **집계하지 않는다** —
+  //    없는 것을 0 으로 적으면 화면이 "해설 0%" 라고 거짓말한다.
+  // ⚠️ 키를 **유형+레벨**로 잡는다. 레벨만으로 묶으면 그 계단이 쓰지 않는 유형의 해설까지
+  //    분자에 들어가 화면에 1283% 가 찍힌다(실측 2026-08-31).
+  const explainedByTypeLevel: Record<string, number> = {}
+  let sawExplained = false
+
   for (const r of (items ?? []) as Array<{
     item_type: string | null
     v_level: number | null
     item_count: number | null
+    explained_count?: number | null
   }>) {
     if (!r.item_type || r.v_level == null) continue
     inventory.push({ type: r.item_type, vLevel: r.v_level, count: Number(r.item_count ?? 0) })
+    if (r.explained_count != null) {
+      sawExplained = true
+      explainedByTypeLevel[explainedKey(r.item_type, r.v_level)] = Number(r.explained_count)
+    }
   }
 
   // ② 초등 3종 — 생성 가능 수(교육과정 어휘 보유량)
@@ -151,5 +166,6 @@ export async function fetchTextbookShelf(): Promise<Shelf> {
     measured,
     undefined,
     elementaryMeasured,
+    sawExplained ? explainedByTypeLevel : null,
   )
 }

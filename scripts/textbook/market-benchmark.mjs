@@ -25,6 +25,7 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
 }
 const { createClient } = await import('@supabase/supabase-js')
+const { withRetry } = await import('./volume-pool.mjs')
 
 const SPEC_PATH = path.resolve('packages/library-pipeline/src/textbook/market-spec.json')
 const spec = JSON.parse(fs.readFileSync(SPEC_PATH, 'utf8'))
@@ -63,20 +64,39 @@ const supabase = createClient(
 async function fetchAll() {
   const rows = []
   const PAGE = 1000
-  for (let from = 0; ; from += PAGE) {
+  let cursor = null
+
+  for (;;) {
     // ⚠️ **정렬 없이 페이지를 넘기면 안 된다.** Postgres 는 ORDER BY 가 없으면 순서를
     //    보장하지 않으므로, 페이지마다 같은 행이 또 나오고 그만큼 다른 행이 빠진다.
     //    2026-08-30 에 재고가 13만 행으로 늘자 이것이 터졌다 — 희귀 유형이 표본에서
     //    통째로 빠져 A5(유형 다양성)가 14/14 에서 **8/14 로 보였다.** 재고는 그대로였다.
     //    (이 저장소가 IA 수집에서 이미 겪은 버그다 — CLAUDE.md §PDCP `sort[]=identifier asc`.)
-    const { data, error } = await supabase
-      .from('csat_dcp_items')
-      .select('type,v_level,payload,answer_key')
-      .order('id')
-      .range(from, from + PAGE - 1)
-    if (error) throw new Error(error.message)
+    //
+    // ⚠️ **그리고 `range()`(= OFFSET)로 넘겨도 안 된다.** OFFSET 은 건너뛸 행을 매번 처음부터
+    //    세므로 페이지가 깊어질수록 느려진다. 재고가 19만 행이 되자 이 함수가 통째로
+    //    `canceling statement due to statement timeout` 으로 죽었다(실측 2026-08-30) —
+    //    **자가 먼저 부러진 것이다.** 재고가 늘어날수록 못 재는 자는 가드가 아니다.
+    //
+    //    그래서 커서(keyset) 방식으로 넘긴다: 마지막으로 본 id 다음부터 PAGE 개.
+    //    pk 인덱스를 그대로 타므로 페이지 깊이와 무관하게 일정하다.
+    // 끊긴 연결(Cloudflare 525 · schema cache · 타임아웃)은 코드 결함이 아니라 사고다.
+    // `volume-pool.mjs` 의 `withRetry` 를 그대로 쓴다 — 재시도 정책을 두 벌로 두지 않는다.
+    // ⚠️ 읽기라서 재시도해도 안전하다(쓰기였다면 중복이 생긴다).
+    const at = cursor
+    const data = await withRetry('벤치마크 페이지', () => {
+      let q = supabase
+        .from('csat_dcp_items')
+        .select('id,type,v_level,payload,answer_key')
+        .order('id')
+        .limit(PAGE)
+      if (at != null) q = q.gt('id', at)
+      return q
+    })
     rows.push(...data)
     if (data.length < PAGE) break
+    // id 는 uuid 다 — `order('id')` 와 `gt('id', …)` 가 같은 정렬(바이트 순)을 쓰므로 안전하다.
+    cursor = data[data.length - 1].id
   }
   return rows
 }

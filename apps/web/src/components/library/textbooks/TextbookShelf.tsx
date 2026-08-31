@@ -26,6 +26,8 @@ import {
   SearchSortBar,
   VolumeCard,
   VolumeCover,
+  VolumeGuide,
+  VolumeResources,
 } from '@/components/library/textbooks/ShelfControls'
 import type { Shelf, ShelfVolume } from '@/lib/textbook/shelf'
 import {
@@ -315,6 +317,14 @@ function VolumeRow({
         <p className="mt-2.5 max-w-[58ch] font-body text-[12px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
           {v.rationale.replace(/\*\*/g, '')}
         </p>
+
+        {/* 파이프라인이 이미 계산해 둔 것을 매대에 낸다 — 단원 상한과 지문 출처 구성.
+            둘 다 `shelf-query` 가 읽어 오면서 화면은 버리고 있었다. */}
+        <VolumeResources volume={v} />
+
+        {/* 가이드북에 해당하는 자리 — 펼치기 전에 "무엇을 시키는 책인지" 를 말한다.
+            `TYPE_GUIDE.says` 는 이미 쓰여 있었는데 서가가 라벨만 쓰고 버리고 있었다. */}
+        <VolumeGuide volume={v} />
       </div>
 
       {/* 상태 — 색만으로 가르지 않는다(라벨 + 위치 + 아이콘).

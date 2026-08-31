@@ -21,6 +21,8 @@ import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickB
 import type { ShelfVolume } from '@/lib/textbook/shelf'
 import { SHELF_SORTS, SHELF_VIEWS, type ShelfView } from '@/lib/textbook/shelf-search'
 import { STATUS_LABEL } from '@/lib/textbook/shelf-status'
+import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
+import { sourceLabel } from '@/lib/textbook/source-guide'
 
 /**
  * 권 **표지**.
@@ -111,6 +113,7 @@ export function VolumeCard({
           <p className="mt-1.5 font-mono text-[11px] tabular-nums text-[var(--t2)]">
             문항 {v.itemCount.toLocaleString()} · 유형 {v.types.length}종
           </p>
+          <VolumeResources volume={v} />
         </div>
       </div>
 
@@ -272,5 +275,125 @@ export function SearchSortBar({
         </p>
       </div>
     </div>
+  )
+}
+
+/**
+ * **이 권에 딸린 것** — 상업 카탈로그의 '부가자료' 칸에 대응한다.
+ *
+ * ── 왜 이 줄이 생겼나 ──────────────────────────────────────────────
+ * 매대 지수 C6(부가 리소스)이 **0/4** 였다. 그런데 조사해 보니 없어서가 아니었다 —
+ * `shelf-query` 가 이미 읽어 오는 값을 화면이 **버리고 있었다.** 단원 수 상한(`maxUnits`)과
+ * 지문 출처 구성(`bySource`)은 계산까지 다 해 놓고 아무 데도 쓰지 않았다.
+ * 파이프라인이 이미 만든 것을 매대에 내는 것이 여기서 할 일의 전부다.
+ *
+ * ⚠️ 단원 수는 **반드시 '최대' 라고 적는다.** `shelf.ts` 가 못 박아 둔 규칙이다 —
+ *    실제 조합은 지문 규격·원글 중복 규칙을 더 걸어 이보다 적다. 상한을 예측처럼 인쇄하면
+ *    그 순간 과장 광고가 된다.
+ * ⚠️ 출처를 **못 읽었으면 아무것도 적지 않는다.** '출처 없음' 은 거짓이다 —
+ *    0 과 '못 잼' 을 구별하는 이 화면의 규칙이 여기에도 그대로 걸린다.
+ */
+export function VolumeResources({ volume: v }: { volume: ShelfVolume }) {
+  const sources = Object.entries(v.bySource)
+    .filter(([, n]) => n > 0)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 4)
+
+  // 단원 상한이 0이면 적을 것이 없다 — 0단원 구성 이라고 쓰면 그것도 거짓이다.
+  const hasUnits = v.maxUnits > 0
+
+  // 해설 수록률. **못 셌으면(null) 적지 않는다** — 0%로 적는 것과 다른 말이다.
+  // ⚠️ 100%가 아닐 때 100%라고 적지 않는 것이 이 줄의 존재 이유다. 실제로 지금 100%가 아니다
+  //    (문항 드레인이 해설 드레인보다 앞서 달리면 그 사이 값이 떨어진다 — 2026-08-31 실측 66%).
+  const explainRate =
+    v.explainedCount != null && v.itemCount > 0
+      ? Math.round((v.explainedCount / v.itemCount) * 100)
+      : null
+
+  if (!hasUnits && sources.length === 0 && explainRate == null) return null
+
+  return (
+    <dl className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+      <dt className="font-mono text-[9.5px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
+        딸린 것
+      </dt>
+      {explainRate != null && (
+        <dd className="font-body text-[11.5px] leading-[1.6] text-[var(--t2)]">
+          정답·해설{' '}
+          <strong className="font-mono tabular-nums text-[var(--t1)]">{explainRate}%</strong>
+          <span className="ml-1 font-mono tabular-nums opacity-80">
+            ({v.explainedCount!.toLocaleString()}/{v.itemCount.toLocaleString()})
+          </span>
+        </dd>
+      )}
+      {hasUnits && (
+        <dd className="font-body text-[11.5px] leading-[1.6] text-[var(--t2)]">
+          단원 구성{' '}
+          <strong className="font-mono tabular-nums text-[var(--t1)]">
+            최대 {v.maxUnits.toLocaleString()}단원
+          </strong>
+        </dd>
+      )}
+      {sources.length > 0 && (
+        <dd className="min-w-0 font-body text-[11.5px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
+          {/* 위 필터 축의 '지문 출처'(고르는 축)와 구별해 **구성**이라고 부른다 —
+              같은 말을 두 뜻으로 쓰면 학습자도 계측기도 헷갈린다. */}
+          지문 갈래{' '}
+          {sources.map(([family, n], i) => (
+            <span key={family}>
+              {i > 0 && ' · '}
+              <span className="text-[var(--t1)]">{sourceLabel(family)}</span>{' '}
+              <span className="font-mono tabular-nums">{n.toLocaleString()}</span>
+            </span>
+          ))}
+        </dd>
+      )}
+    </dl>
+  )
+}
+
+/**
+ * **이 권 안내** — 상업 카탈로그의 '교재 가이드북' 에 대응한다.
+ *
+ * ── 왜 필요한가 ────────────────────────────────────────────────────
+ * NE_Books 는 낱권마다 가이드북 PDF 와 미리보기를 낸다(관측 2026-08-30). 사기 전에 안을
+ * 못 보면 안 산다는 것을 아는 것이다. 우리 매대의 C4(표본 열람) 축은 **1/2** 였다 —
+ * '지금 펼치기' 는 있었지만, 펼치기 전에 **무엇을 시키는 책인지** 말해 주는 것이 없었다.
+ *
+ * 재료는 이미 있었다. `TYPE_GUIDE[t].says` 는 "이 유형이 학습자에게 무엇을 시키는지" 를
+ * 유형마다 적어 둔 것인데, 서가는 **라벨만 쓰고 설명은 버리고 있었다.**
+ *
+ * ⚠️ 기본은 접어 둔다(Progressive Disclosure). 매대는 고르는 곳이지 읽는 곳이 아니다.
+ *    접혀 있어도 DOM 에는 있어 검색·스크린리더가 찾는다.
+ * ⚠️ 재고가 0인 유형은 **무엇을 시키는지 적지 않는다** — 못 하는 것을 설명하면 광고가 된다.
+ */
+export function VolumeGuide({ volume: v }: { volume: ShelfVolume }) {
+  const live = v.types.filter((t) => !v.emptyTypes.includes(t) && TYPE_GUIDE[t])
+  if (live.length === 0) return null
+
+  return (
+    <details className="group mt-2">
+      <summary className="inline-flex min-h-[44px] cursor-pointer list-none items-center gap-1.5 font-display text-[11.5px] font-[700] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] [&::-webkit-details-marker]:hidden">
+        <span aria-hidden className="inline-block motion-safe:transition-transform group-open:rotate-90">
+          ›
+        </span>
+        이 권은 무엇을 시키나요
+      </summary>
+      <dl className="mt-1.5 flex flex-col gap-1.5 border-l-2 border-[var(--bd)] pl-3">
+        {live.map((t) => (
+          <div key={t}>
+            <dt className="font-display text-[11.5px] font-[700] text-[var(--t1)]">
+              {TYPE_GUIDE[t]!.label}
+              <span className="ml-1.5 font-mono text-[10px] tabular-nums font-[400] text-[var(--t2)]">
+                {(v.byType[t] ?? 0).toLocaleString()}문항
+              </span>
+            </dt>
+            <dd className="font-body text-[11.5px] leading-[1.65] text-[var(--t2)] [word-break:keep-all]">
+              {TYPE_GUIDE[t]!.says}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </details>
   )
 }
