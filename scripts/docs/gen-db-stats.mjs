@@ -67,14 +67,42 @@ async function count(table, apply) {
   return n === null ? null : n
 }
 
-/** status 별 집계 — 작은 표라 통째로 받아 세는 편이 질의 수보다 싸다. */
-async function byStatus(table, column = 'status') {
-  const { data, error } = await db.from(table).select(column)
-  if (error) throw new Error(`${table}.${column}: ${error.message}`)
+/**
+ * status 별 집계.
+ *
+ * ⚠️ 한 번에 통째로 받으면 안 된다 — PostgREST 는 응답을 **1,000행에서 말없이 자른다**.
+ *    2026-08-31 에 이 함수가 `library_articles` 를 `queued 838 · published 160 · analyzing 2`
+ *    (= 정확히 1,000) 로 적어 두고 있었다. 실제 queued 는 5,315 였다. 오류가 아니라 잘림이라
+ *    아무 신호도 없었고, CLAUDE.md 는 항상 첨부되는 문서라 그 틀린 수치가 곧 판단 근거가 된다.
+ *    같은 줄의 총계(`count()` = head 요청)는 맞았기 때문에 눈으로도 안 걸렸다.
+ *
+ * 그래서 세 겹으로 막는다: (1) range 로 끝까지 넘기고 (2) **정렬을 고정하며**
+ * (3) 합이 정확 카운트와 다르면 **던진다**.
+ * (2)를 빼면 페이지 사이 순서가 보장되지 않아 행이 중복·누락된다 — 정렬 없는 range 는
+ * 페이지네이션이 아니라 표본 추출이다. (3)이 마지막 그물이다: 나중에 또 어긋나도
+ * 조용히 틀린 문서가 나오는 대신 갱신 자체가 멈춘다.
+ */
+async function byStatus(table, column = 'status', orderBy = 'id') {
+  const PAGE = 1000
   const out = new Map()
-  for (const row of data) {
-    const k = row[column] ?? '(null)'
-    out.set(k, (out.get(k) ?? 0) + 1)
+  let seen = 0
+  for (let from = 0; ; from += PAGE) {
+    const { data, error } = await db
+      .from(table)
+      .select(column)
+      .order(orderBy, { ascending: true })
+      .range(from, from + PAGE - 1)
+    if (error) throw new Error(`${table}.${column}: ${error.message}`)
+    for (const row of data) {
+      const k = row[column] ?? '(null)'
+      out.set(k, (out.get(k) ?? 0) + 1)
+    }
+    seen += data.length
+    if (data.length < PAGE) break
+  }
+  const total = await count(table)
+  if (total !== null && seen !== total) {
+    throw new Error(`${table}.${column}: ${seen}행만 셌는데 총계는 ${total}행이다 (잘림 의심 — 문서를 갱신하지 않는다).`)
   }
   return out
 }

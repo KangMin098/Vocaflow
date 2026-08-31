@@ -190,7 +190,7 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 
 > 이 블록은 `node scripts/docs/gen-db-stats.mjs` 가 DB 에서 생성한다 — **손으로 고치지 말 것.**
 > 고쳐도 다음 실행에 덮어써지고, 그 사이에는 틀린 값이 근거로 쓰인다.
-> 마지막 생성 **2026-08-30**. 낡았는지 확인만 하려면 `--check` (파일을 안 고치고 exit 1).
+> 마지막 생성 **2026-08-31**. 낡았는지 확인만 하려면 `--check` (파일을 안 고치고 exit 1).
 
 **수요 측** — 이 줄이 이 문서에서 가장 중요하다. 공급이 아무리 늘어도 여기가 안 늘면 진단은 `risk` 다.
 
@@ -201,8 +201,8 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 
 - `shared_dictionary` **48,969** row · meaning_ko 100%
 - `library_books` **401** — published 312 · failed 77 · archived 6 · queued 6
-- `library_articles` **18,757** — queued 838 · published 160 · analyzing 2
-- `shared_word_sets` 11,131 (published 10,970) · `library_chapter_quiz` 2,048
+- `library_articles` **24,738** — ready 19,261 · queued 5,315 · published 160 · analyzing 2
+- `shared_word_sets` 11,154 (published 10,952) · `library_chapter_quiz` 2,453
 - `texts` 277 · `vocabularies` 2,205
 - 만화: `pd_comic_issues` 969 · 시리즈 101 · 발행 `comic_books` 1
 
