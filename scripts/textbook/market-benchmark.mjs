@@ -47,6 +47,7 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
 }
 const { createClient } = await import('@supabase/supabase-js')
 const { withRetry } = await import('./volume-pool.mjs')
+const { explainItem, SCHOOL_SENTENCE_TYPES } = await import('@vocaflow/library-pipeline')
 
 const SPEC_PATH = path.resolve('packages/library-pipeline/src/textbook/market-spec.json')
 const spec = JSON.parse(fs.readFileSync(SPEC_PATH, 'utf8'))
@@ -146,7 +147,8 @@ let items = all
 let scope = `csat_dcp_items ${all.length.toLocaleString()}문항 (창고 전체)`
 if (BAND != null) {
   const { loadVolume } = await import('./volume-pool.mjs')
-  const { itemIds, units } = await loadVolume(supabase, { band: BAND, unitCount: 20 })
+  const { MARKET_UNITS_PER_BOOK } = await import('@vocaflow/library-pipeline')
+  const { itemIds, units } = await loadVolume(supabase, { band: BAND, unitCount: MARKET_UNITS_PER_BOOK.median })
   items = all.filter((r) => itemIds.has(r.id))
   scope = `V${BAND} 조판 1권 — ${units.length}단원 · ${items.length}문항 (인쇄되는 것만)`
   if (!items.length) {
@@ -161,9 +163,25 @@ const total = items.length
 // ⚠️ 해설은 **두 이름으로 산다** — 결정론/배치는 `explanation_ko`, 생성형 드레인은
 // `rationale_ko`. 둘 다 학습자 화면(`DcpPlayer`)과 조판(`render-volume`)이 읽는다.
 // 한쪽만 세면 534문항의 해설이 있는데도 "없음" 으로 잡힌다.
-const explanationOf = (i) => i.answer_key?.explanation_ko || i.answer_key?.rationale_ko || null
+//
+// ⚠️ **저장된 글자만 세면 학습자가 받는 것을 과소평가한다.** 조판기는 저장 해설이 없으면
+//   유형별 **규칙 해설**(`explainItem`)을 붙여 인쇄한다 — 실측 2026-08-31 V7 한 권의
+//   60문항 중 11개가 그렇게 채워졌고, 그 권의 해설은 60/60 이다. 그런데 여기서 저장 값만
+//   세면 같은 문항이 "해설 없음" 으로 잡힌다.
+//
+//   그래서 **두 수를 다 낸다** — 저장(stored)과 학습자가 실제로 받는 것(delivered).
+//   지수에는 delivered 를 쓴다(교재 품질은 학습자가 받는 것으로 정해진다). 다만 저장 값도
+//   함께 찍어, 규칙에 기대는 몫이 얼마인지 숨기지 않는다.
+const storedExplanationOf = (i) => i.answer_key?.explanation_ko || i.answer_key?.rationale_ko || null
+const ruleExplanationOf = (i) => {
+  const e = explainItem(i.type, i.payload, i.answer_key)
+  return typeof e?.ko === 'string' && e.ko.trim() ? e.ko.trim() : null
+}
+const explanationOf = (i) => storedExplanationOf(i) || ruleExplanationOf(i)
+const withStored = items.filter((i) => storedExplanationOf(i))
 const withExplain = items.filter((i) => explanationOf(i))
 const A1 = { ours: withExplain.length / total, market: 1.0 }
+const A1_STORED = withStored.length / total
 
 // ── A2 해설 규격 적합률 ───────────────────────────────────────────
 // 시장 해설 길이 p25~p90 구간 안에 드는 비율. 정의상 시장 자신은 0.65 다.
@@ -246,10 +264,25 @@ const A5 =
 // 시장 p10~p90 안에 드는 비율. 정의상 시장 자신은 0.80 이다.
 let a6In = 0
 let a6Total = 0
+// 같은 실행 안에서 두 자를 비교한다 — 재고가 계속 바뀌어 두 번 돌린 값은 못 견준다.
+let a6SentSkipped = 0
+let a6SentWouldFail = 0
 const a6ByBucket = {}
 for (const it of items) {
   const w = passageWords(it.payload)
-  if (w == null || w < 10) continue          // 문장 단위 유형은 이 축 밖이다
+  // ⚠️ **문장 단위 유형은 유형으로 거른다 — 길이로 어림하면 새어 나간다.**
+  //   전에는 `w < 10` 이었는데 학교 축 문장은 14~38어라 그 그물을 통과했고,
+  //   **문장 하나를 지문 길이 자로 재고 있었다.** 실측 2026-08-31(조판된 권):
+  //   V7 미달 3건 = `word_order` 38어 · `blank_word` 14어 · `grammar_fix` 17어.
+  //   셋 다 규격 위반이 아니라 자가 틀린 것이었다(그들의 창은 6~40어다).
+  if (SCHOOL_SENTENCE_TYPES.has(it.type)) {
+    a6SentSkipped += 1
+    const b0 = V_TO_BUCKET[it.v_level]
+    const s0 = b0 && spec.passageWords[b0]
+    if (s0 && w != null && (w < s0.words.p10 || w > s0.words.p90)) a6SentWouldFail += 1
+    continue
+  }
+  if (w == null || w < 10) continue
   const bucket = V_TO_BUCKET[it.v_level]
   const s = bucket && spec.passageWords[bucket]
   if (!s) continue
@@ -359,6 +392,19 @@ if (process.argv.includes('--json')) {
   }
   console.log('  ' + '─'.repeat(62))
   console.log(`  종합(기하평균) ${overall ?? '—'}   목표 1.200\n`)
+  // 규칙에 기대는 몫을 숨기지 않는다 — 저장 해설과 인쇄 해설을 나란히 찍는다.
+  console.log(
+    `  A1 내역  저장된 해설 ${(100 * A1_STORED).toFixed(1)}%` +
+      ` · 조판이 규칙으로 채우는 몫 ${(100 * (A1.ours - A1_STORED)).toFixed(1)}%p` +
+      ` → 학습자가 받는 ${(100 * A1.ours).toFixed(1)}%
+`,
+  )
+  console.log(
+    `  A6 내역  문장 단위 유형 ${a6SentSkipped}건을 이 축에서 뺐다` +
+      ` (지문 자로 재면 ${a6SentWouldFail}건이 미달로 잡힌다 — 자가 틀린 것이다)` +
+      ` · 분모 ${a6Total}
+`,
+  )
   console.log('  유형별 해설 보유율 (하위 8):')
   for (const t of report.detail.explanationsByType.slice(0, 8)) {
     console.log(`    ${t.type.padEnd(16)} ${String(t.explained).padStart(5)}/${String(t.items).padEnd(6)} ${String(t.pct).padStart(5)}%`)
