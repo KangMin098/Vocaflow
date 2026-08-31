@@ -345,7 +345,7 @@ export function isRetractedTitle(title) {
 }
 
 export async function loadVolume(db, { band, unitCount, marketMix = true }) {
-  const { composeUnits, rungMix, stripSectionLabels } = await import('@vocaflow/library-pipeline')
+  const { composeUnits, rungMix, stripSectionLabels, dropRepeatedTail } = await import('@vocaflow/library-pipeline')
 
   // ── 원글 ──────────────────────────────────────────────────────────
   // 밴드는 **원글** 기준이다. 문항의 `v_level` 로 거르면 조판과 어긋난다.
@@ -396,7 +396,10 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   //   바뀌었다(문장을 여는 자리 + 뒤가 대문자일 때만 지우기 때문).
   //
   // 저장은 그대로 두고 **인쇄에 쓰는 사본만** 고친다 — 재생성이 필요 없다.
-  const clean = (v) => (typeof v === "string" ? stripSectionLabels(v) : v)
+  // ⚠️ **순서가 중요하다.** 절 이름을 먼저 지워야 반복 꼬리가 글머리와 글자 그대로
+  //   같아진다. 뒤집으면 꼬리가 "Abstract The Amazon…" 이라 접두사 대조가 실패하고
+  //   중복이 그대로 인쇄된다.
+  const clean = (v) => (typeof v === "string" ? dropRepeatedTail(stripSectionLabels(v)) : v)
   const cleanPayload = (raw) => {
     if (!raw || typeof raw !== "object") return raw
     const out = { ...raw }

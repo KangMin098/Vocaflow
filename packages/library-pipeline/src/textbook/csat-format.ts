@@ -163,6 +163,33 @@ export function stripSectionLabels(text: string): string {
 }
 
 
+/**
+ * 원문 뒤에 **글머리가 통째로 다시 붙어 있는 것**을 떼어 낸다.
+ *
+ * 학술 소스 수집기가 초록을 본문 앞과 뒤에 두 번 담는다. 순환 없는 측정(2026-08-31):
+ * 원글 3,000편 표본 중 **1,048편(34.9%)** 이 첫 200자를 본문 뒤에서 그대로 반복한다.
+ * 그 구간에서 자른 지문은 학습자가 **같은 문단을 두 번 읽게** 된다 —
+ * V7 조판 지문 54개 중 7개(13%)가 그랬다.
+ *
+ * ⚠️ **꼬리가 글머리의 반복일 때만** 자른다. 자를 자리 뒤의 글이 이 지문의 **접두사와
+ *   글자 그대로 같아야** 한다(`text.startsWith(tail)`). 새 내용이 이어지면 손대지 않는다 —
+ *   "비슷해 보인다" 로 자르면 멀쩡한 뒷문단이 사라지고, 그건 조판물에서 안 보인다.
+ */
+export function dropRepeatedTail(text: string): string {
+  const s = String(text ?? '').trim()
+  if (s.length < 300) return s
+  // 첫 문장을 자른다 — 너무 짧으면 우연히 겹치고, 너무 길면 못 찾는다.
+  const m = /^[\s\S]{40,400}?[.!?](?=\s|$)/.exec(s)
+  if (!m) return s
+  const head = m[0]
+  const idx = s.indexOf(head, head.length)
+  if (idx <= 0) return s
+  const tail = s.slice(idx).trim()
+  if (!tail || !s.startsWith(tail)) return s
+  return s.slice(0, idx).trim()
+}
+
+
 export function hasNonProse(text: string): boolean {
   return NON_PROSE.test(text) || hasArticleChrome(text)
 }
