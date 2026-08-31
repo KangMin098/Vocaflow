@@ -37,6 +37,7 @@ const {
   scoreVolume,
   explainOrder,
   explainInsert,
+  explainItem,
   SERIES_SPINE,
   rungMix,
   typeMixFit,
@@ -117,6 +118,11 @@ function pickExplanation(item, deterministic) {
   // 여기서 안 보면 534문항의 해설이 있는데도 "없음" 으로 인쇄된다.
   const rationale = item.answer_key?.rationale_ko
   if (typeof rationale === 'string' && rationale.trim()) return { text: rationale.trim(), from: 'batch' }
+  // 결정론 해설은 두 모양으로 온다 — 순서·삽입은 `{ body }`(머리 두 줄이 정답 표기),
+  // 유형별 해설기(`explainItem`)는 `{ ko }`(본문만). 한쪽만 보면 나머지가 통째로 샌다.
+  if (typeof deterministic?.ko === "string" && deterministic.ko.trim()) {
+    return { text: deterministic.ko.trim(), from: "rule" }
+  }
   if (deterministic?.body) {
     // 결정론 해설의 첫 두 줄은 "정답 ③ (B)-(A)-(C)" 와 빈 줄이라 본문에서는 뺀다.
     return { text: deterministic.body.split('\n').slice(2).join('\n'), from: 'rule' }
@@ -149,9 +155,7 @@ function renderExtra(item, no) {
   <ol class="choices">${choices.map((c) => `<li>${esc(String(c))}</li>`).join('')}</ol>
 </div>`,
     answer,
-    explanation: item.answer_key?.rationale_ko
-      ? { text: String(item.answer_key.rationale_ko), from: 'batch' }
-      : null,
+    explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
     source: item.ref_title,
   }
 }
@@ -183,7 +187,7 @@ function renderSchool(item, no) {
     .join('')}</ol>
 </div>`,
       answer,
-      explanation: pickExplanation(item, null),
+      explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
       source: item.ref_title,
     }
   }
@@ -210,7 +214,7 @@ function renderSchool(item, no) {
   <div class="passage">${marked}</div>
 </div>`,
       answer,
-      explanation: pickExplanation(item, null),
+      explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
       source: item.ref_title,
     }
   }
@@ -228,7 +232,7 @@ function renderSchool(item, no) {
   <p class="answer-line">답: ____________</p>
 </div>`,
       answer: text,
-      explanation: pickExplanation(item, null),
+      explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
       source: item.ref_title,
     }
   }
@@ -246,7 +250,7 @@ function renderSchool(item, no) {
   <p class="answer-line">답: ________________________________________</p>
 </div>`,
       answer: sentence,
-      explanation: pickExplanation(item, null),
+      explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
       source: item.ref_title,
     }
   }
@@ -279,7 +283,7 @@ function renderElementary(item, no) {
     .join("")}</ol>
 </div>`,
       answer,
-      explanation: pickExplanation(item, null),
+      explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
       source: item.ref_title,
     }
   }
@@ -295,7 +299,7 @@ function renderElementary(item, no) {
   <p class="answer-line">답: ____________</p>
 </div>`,
     answer: text,
-    explanation: pickExplanation(item, null),
+    explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
     source: item.ref_title,
   }
 }
@@ -323,9 +327,7 @@ function renderIrrelevant(item, no) {
   <div class="passage">${body}</div>
 </div>`,
     answer,
-    explanation: item.answer_key?.explanation_ko
-      ? { text: String(item.answer_key.explanation_ko), from: 'batch' }
-      : null,
+    explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
     source: item.ref_title,
   }
 }

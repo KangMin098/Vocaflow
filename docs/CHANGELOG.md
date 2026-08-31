@@ -10,6 +10,25 @@
 
 ## Unreleased (v06.34 → next)
 
+### 규칙 해설기 8종이 다 있는데 조판기가 한 번도 안 부르고 있었다
+
+V7 이 60문항 중 **11문항에 해설이 없었다**(`vocab_choice` 5 · `grammar_choice` 6).
+두 유형은 배치 해설 보유율이 각각 17.3% · 23.1% 였다. 그런데 `explainItem` 은
+이 둘을 포함해 **8유형을 이미 다룬다**(`DETERMINISTIC_EXPLAIN_TYPES`).
+
+원인은 조판기였다 — `renderSchool` 이 `pickExplanation(item, null)` 로 불러
+**규칙 경로를 원천 차단**하고 있었다. `renderExtra` 는 `rationale_ko` 만 보고
+`explanation_ko` 도 규칙 해설도 못 썼다. 재료·조합·조판 중 조판이 막힌 셈이다.
+
+- `pickExplanation` 이 두 모양을 다 받는다 — 순서·삽입은 `{ body }`(머리 두 줄은
+  정답 표기라 잘라낸다), 유형별 해설기는 `{ ko }`.
+- `renderSchool`(6곳) · `renderExtra` · `renderIrrelevant` 가 `explainItem` 을 넘긴다.
+- 순서·삽입은 그대로 `explainOrder`/`explainInsert` 결과를 넘긴다(회귀 없음).
+- **실측: V7 해설 49/60 → 60/60**(배치 49 · 규칙 11 · 없음 0). 사다리 7단 전부 60/60.
+- 규칙 해설은 원문을 인용하고 규칙을 대고 오답을 배제한다 — 표본 확인.
+- 회귀 497 통과(web 92 + pipeline 405).
+
+
 ### CLAUDE.md 통계가 1,000행에서 잘리고 있었다 — 가장 큰 버킷이 통째로 안 보였다
 
 `gen-db-stats.mjs` 의 `byStatus()` 가 페이지네이션 없이 `select('status')` 만 해서
