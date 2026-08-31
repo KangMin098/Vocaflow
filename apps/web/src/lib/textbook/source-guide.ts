@@ -27,10 +27,14 @@ export interface SourceGuide {
 /**
  * 갈래 → 표기.
  *
- * 실측 2026-08-22 기준 재고가 있는 15갈래를 모두 덮는다
- * (original 1,358 · simple_wikipedia 1,128 · book 808 · plos 551 · wikipedia 520 ·
- *  wikivoyage 491 · owid 248 · noaa 241 · voa 212 · usgs 152 · nasa 149 ·
- *  compose 43 · adapt 23 · factbook 17 · elife 11).
+ * 파이프라인이 아는 **모든** 수집 출처(`SOURCE_SPECS` 의 SourceKey)와, 수집이 아닌 방식으로
+ * 생기는 갈래(book · compose · adapt · unknown)를 함께 덮는다. 앞의 절반은
+ * `__tests__/source-guide.test.ts` 가 파이프라인에서 직접 읽어 대조하므로 손으로 셀 필요가 없다.
+ *
+ * ⚠️ **재고가 있는 것만 적어 두면 늦는다.** 2026-08-30 에 futurity 가 수집 출처로 열렸는데
+ *    (마이그레이션 `20260830020000`) 이 표에 없어, 다음 날 서가의 지문 출처 칩 줄에
+ *    한글 칩들 사이로 `futurity` 라는 **DB 키가 그대로** 학습자에게 나갔다.
+ *    위 ⚠️ 가 "테스트가 막는다" 고 적어 두었지만 **그런 테스트는 없었다** — 그래서 지금 만들었다.
  */
 export const SOURCE_GUIDE: Record<string, SourceGuide> = {
   original: {
@@ -92,6 +96,23 @@ export const SOURCE_GUIDE: Record<string, SourceGuide> = {
   factbook: {
     label: '국가 정보',
     says: 'CIA World Factbook. 항목이 정형화된 자료문입니다.',
+  },
+  nih: {
+    label: '건강·의학',
+    says: 'NIH MedlinePlus 공개 자료. 몸과 질병을 짧게 설명하는 글입니다.',
+  },
+  wikinews: {
+    // voa 와 같은 '뉴스' 칩으로 접힌다 — 학습자에게 뉴스는 하나다(plos·elife → '논문' 과 같은 규칙).
+    label: '뉴스',
+    says: '위키뉴스. 사실만 짧게 전하는 보도문입니다.',
+  },
+  the_conversation: {
+    label: '전문가 칼럼',
+    says: '학자가 자기 분야를 대중에게 설명한 기고문. 주장과 근거가 뚜렷합니다.',
+  },
+  futurity: {
+    label: '연구 소식',
+    says: '대학이 자기 연구를 직접 풀어 쓴 기사. 소재는 학술인데 문장은 뉴스처럼 읽혀요.',
   },
   unknown: {
     label: '출처 미상',
