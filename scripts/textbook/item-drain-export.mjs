@@ -240,7 +240,16 @@ const arts = await fetchAllPaged(db, (q) =>
 //
 //   순서·삽입은 처음부터 **문단**을 지문으로 쓴다. 생성형만 글 전체를 쓰고 있었던 것이
 //   문제였다 — 같은 자를 대야 한다. `selectPassageWindow` 가 그 자다(이미 어법 생성기가 쓴다).
-const { CSAT_ITEM_WORDS, selectPassageWindow, isPrintablePassage } = await import('@vocaflow/library-pipeline')
+const { itemWordSpec, selectPassageWindow, isPrintablePassage } = await import('@vocaflow/library-pipeline')
+
+// **집필 몫의 창은 조립 기준과 같아야 한다.**
+//
+// ⚠️ 여기는 원래 `CSAT_ITEM_WORDS`(90~200어)를 밴드와 무관하게 썼다 (실측 2026-08-31).
+//   시중 지문 규격은 학년마다 다르다 — 초6 44~125 · 중1 46~152 · 고1 47~242 · 고2 43~188.
+//   초등 몫을 그대로 뽑으면 **190어짜리 지문에 문항을 쓰고**, 조립기가 학년 창(90~125)으로
+//   되걸러 **집필한 것이 통째로 버려진다.** 뽑는 자와 싣는 자가 다르면 일이 헛돈다.
+//   (같은 결함이 이 저장소에서 네 번째다 — 조립기·채점기·밀도표, 그리고 여기.)
+const PASSAGE_WINDOW = itemWordSpec(TYPE, BAND)
 /** 이 유형이 성립하려면 지문에 문장이 최소 몇 개 있어야 하는가. */
 const MIN_PASSAGE_SENTENCES = 5
 
@@ -299,7 +308,7 @@ function passageOf(a) {
     .split(/(?<=[.!?])\s+/)
     .map((s) => s.replace(/\s+/g, ' ').trim())
     .filter((s) => s.length > 1)
-  const win = selectPassageWindow(sentences, CSAT_ITEM_WORDS, MIN_PASSAGE_SENTENCES)
+  const win = selectPassageWindow(sentences, PASSAGE_WINDOW, MIN_PASSAGE_SENTENCES)
   if (!win) return null
   const text = win.join(' ')
   // 인쇄할 수 없는 자국(각주 잔해·용어풀이 등)이 섞인 지문은 교재에 못 낸다.
@@ -424,7 +433,7 @@ console.log(
   IS_LONG
     ? `  그중 장문 규격(문단 ${LONG_PARAGRAPHS}개 · ${LONG_WORDS.min}~${LONG_WORDS.max}어)에 드는 것 ${usable.length}편 · ` +
         `**규격 밖 ${outOfWindow.length}편**  ← 문단 수가 다르거나 길이가 안 맞는 글`
-    : `  그중 창(${CSAT_ITEM_WORDS.min}~${CSAT_ITEM_WORDS.max}어)으로 자를 수 있는 것 ${usable.length}편 · ` +
+    : `  그중 창(${PASSAGE_WINDOW.min}~${PASSAGE_WINDOW.max}어 · V${BAND} 시중 규격 교차)으로 자를 수 있는 것 ${usable.length}편 · ` +
         `**못 자름 ${outOfWindow.length}편**  ← 문장이 모자라거나 인쇄 불가 자국이 있는 글`,
 )
 console.log(`  이미 이 유형이 붙은 것 ${existing.size}편`)
