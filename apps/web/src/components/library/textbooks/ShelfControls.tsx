@@ -71,7 +71,7 @@ import { sourceLabel } from '@/lib/textbook/source-guide'
  *    돌려 놓으면 7권이 1권과 같은 색이 되어 사다리의 끝과 시작이 붙어 보인다 —
  *    이 매대의 주제가 '학년을 잇는 사다리' 라 그 착시가 특히 나쁘다.
  */
-export function VolumeCover({ volume: v, size = 'sm' }: { volume: ShelfVolume; size?: 'sm' | 'lg' }) {
+export function VolumeCover({ volume: v, size = 'sm' }: { volume: ShelfVolume; size?: 'sm' | 'lg' | 'full' }) {
   // ── 왜 그라디언트 칩에서 표지로 바꿨나 (실측 2026-09-01) ──────────────
   // 국내 교재 출판사와 같은 자로 매대를 재 보니(`shelf-visual-probe.mjs`):
   //
@@ -88,7 +88,9 @@ export function VolumeCover({ volume: v, size = 'sm' }: { volume: ShelfVolume; s
   //    달라지면 같은 상품으로 안 읽힌다.
   // ⚠️ `<img>` 가 아니라 **인라인 SVG** 다 — 토큰(`var(--…)`)과 페이지 서체를 그대로
   //    물려받아야 다크 테마가 공짜로 따라온다.
-  const width = size === 'lg' ? 132 : COVER_LIST_WIDTH
+    // full = 칸 전체 폭(격자). 좌표계 기준값만 주고 크기는 CSS 가 정한다.
+  const fluid = size === 'full'
+  const width = fluid ? 240 : size === 'lg' ? 132 : COVER_LIST_WIDTH
   const svg = coverSvg(
     {
       brand: COVER_BRAND,
@@ -98,13 +100,14 @@ export function VolumeCover({ volume: v, size = 'sm' }: { volume: ShelfVolume; s
       pending: v.status !== 'ready',
     },
     width,
+    { fluid },
   )
 
   return (
     <div
       aria-hidden
-      className="shrink-0 overflow-hidden rounded-[var(--r-sm)]"
-      style={{ width }}
+      className={fluid ? 'w-full overflow-hidden rounded-[var(--r-sm)]' : 'shrink-0 overflow-hidden rounded-[var(--r-sm)]'}
+      style={fluid ? undefined : { width }}
       dangerouslySetInnerHTML={{ __html: svg }}
     />
   )
@@ -211,8 +214,13 @@ export function VolumeCard({
           : 'border-dashed border-[var(--bd)] bg-[var(--bg2)]'
       }`}
     >
+      {/*
+        ⚠️ **표지를 위에 전폭으로 깐다** — 옆에 두면 화면이 텍스트로 읽힌다.
+           실측 2026-09-01(1280px): 표지를 132px 로 옆에 두었을 때 첫 화면 이미지 면적이
+           **4.48%** 로 다락원(31.9%)의 1/7 이었다. 상업 격자는 예외 없이 표지가 먼저다.
+      */}
+      <VolumeCover volume={v} size="full" />
       <div className="flex items-start gap-3">
-        <VolumeCover volume={v} size="lg" />
         <div className="min-w-0 flex-1">
           <h3 className="font-editorial text-[17px] font-[500] leading-snug text-[var(--t1)]">
             {v.title}

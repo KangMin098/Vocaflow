@@ -108,7 +108,26 @@ function depthMark(spec: CoverSpec, x: number, baseY: number, w: number): string
  *
  * @param width 표지 가로(px). 세로는 5:7 로 따라온다.
  */
-export function coverSvg(spec: CoverSpec, width: number = COVER_LIST_WIDTH): string {
+/**
+ * 유동 폭 옵션 — 격자 진열에서 표지를 **칸 전체 폭**으로 깐다.
+ *
+ * 실측 2026-09-01: 격자 카드가 표지를 옆에 두니(132px) 데스크톱 이미지 면적이 4.48% 로
+ * 다락원(31.9%)의 1/7 이었다. 상업 격자는 표지를 위에 전폭으로 둔다 — 그때 표지 하나가
+ * 290×406 = 117,740px² 가 되어 화면을 채운다.
+ *
+ * ⚠️ 유동일 때 width/height 를 **적지 않는다.** 적으면 CSS 가 못 늘린다 —
+ *   viewBox 만 두고 크기는 부모가 정하게 한다.
+ */
+export interface CoverOptions {
+  /** 칸 전체 폭으로 늘린다.  는 좌표계 기준값으로만 쓰인다. */
+  fluid?: boolean
+}
+
+export function coverSvg(
+  spec: CoverSpec,
+  width: number = COVER_LIST_WIDTH,
+  opts: CoverOptions = {},
+): string {
   const W = Math.round(width)
   const H = Math.round(width / COVER_RATIO)
   const pad = Math.max(7, Math.round(W * 0.1))
@@ -123,7 +142,7 @@ export function coverSvg(spec: CoverSpec, width: number = COVER_LIST_WIDTH): str
   const ground = spec.pending ? 'var(--bg3, #ECE6DA)' : 'var(--bg2, #F4F0E9)'
 
   return [
-    `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img"`,
+    `<svg viewBox="0 0 ${W} ${H}"${opts.fluid ? ' style="width:100%;height:auto;display:block"' : ` width="${W}" height="${H}"`} role="img"`,
     ` aria-label="${esc(spec.brand)} ${spec.step}권 표지 — ${esc(spec.schoolBand)}"`,
     ` xmlns="http://www.w3.org/2000/svg">`,
     // 지면 + 테두리. 테두리가 없으면 밝은 바탕에서 표지가 배경에 녹는다.

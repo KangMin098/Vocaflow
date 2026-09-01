@@ -91,7 +91,12 @@ export function TextbookShelf({
   const [sel, setSel] = useState<Selection>(EMPTY_SELECTION)
   const [query, setQuery] = useState('')
   const [sort, setSort] = useState<string>(DEFAULT_SORT)
-  const [view, setView] = useState<ShelfView>('list')
+  // ⚠️ **기본은 격자다.** 실측 2026-09-01(1280px) — 같은 매대를 두 진열로 재니 격자가
+  //    세 축 모두에서 이겼다(절충이 없다):
+  //      목록  이미지면적  4.48% · 첫화면상품 2 · 표지 17,584px²
+  //      격자  이미지면적 30.53% · 첫화면상품 3 · 표지 100,048px²
+  //    다락원 실측이 31.92% 이므로 격자라야 상업 매대와 같은 자리에 선다.
+  const [view, setView] = useState<ShelfView>('grid')
   const [readyOnly, setReadyOnly] = useState(false)
   const [refineOpen, setRefineOpen] = useState(false)
   const refineId = useId()
@@ -114,7 +119,10 @@ export function TextbookShelf({
   // ⚠️ **정렬을 고르면 매대 묶음을 푼다.** 학령으로 묶은 채 '문항 많은 순' 을 걸면
   //    묶음 안에서만 정렬되어 전체 1등이 가운데 매대에 숨는다 — 학습자는 정렬이
   //    고장 났다고 읽는다. 기본(계단 순)일 때만 묶고, 그 밖에는 한 줄로 편다.
-  const grouped = sort === DEFAULT_SORT && view === 'list'
+  // ⚠️ **격자도 묶는다.** 전에는 목록일 때만 묶었는데, 그러면 기본값을 격자로 바꾸는 순간
+  //    학령 팻말이 통째로 사라진다. 묶음을 푸는 이유는 '정렬을 골랐을 때' 이지
+  //    '격자를 골랐을 때' 가 아니다 — 진열 방식과 묶음은 서로 다른 축이다.
+  const grouped = sort === DEFAULT_SORT
   const groups = useMemo(() => (grouped ? groupByStage(ordered) : []), [grouped, ordered])
 
   const activeFilters = selectionCount(sel)
@@ -223,15 +231,30 @@ export function TextbookShelf({
                     </span>
                   )}
                 </h3>
-                <ol className="flex flex-col gap-2.5">
+                <ol
+                  className={
+                    view === 'grid'
+                      ? 'grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3'
+                      : 'flex flex-col gap-2.5'
+                  }
+                >
                   {g.volumes.map((v) => (
                     <li key={v.step}>
-                      <VolumeRow
-                        volume={v}
-                        picked={picked.includes(v.step)}
-                        canPick={canPick}
-                        signedIn={signedIn}
-                      />
+                      {view === 'grid' ? (
+                        <VolumeCard
+                          volume={v}
+                          picked={picked.includes(v.step)}
+                          canPick={canPick}
+                          signedIn={signedIn}
+                        />
+                      ) : (
+                        <VolumeRow
+                          volume={v}
+                          picked={picked.includes(v.step)}
+                          canPick={canPick}
+                          signedIn={signedIn}
+                        />
+                      )}
                     </li>
                   ))}
                 </ol>
