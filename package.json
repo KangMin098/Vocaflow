@@ -45,7 +45,9 @@
     "ux:bench:compare": "node scripts/ux-bench/compare.mjs",
     "ux:bench:selftest": "node scripts/ux-bench/score.selftest.mjs",
     "tcp:drain": "tsx --tsconfig apps/web/tsconfig.json scripts/topic-corpus/drain-loop.mts",
-    "tbp:health": "tsx --tsconfig apps/web/tsconfig.json scripts/textbook/health-bundle.mts"
+    "tbp:health": "tsx --tsconfig apps/web/tsconfig.json scripts/textbook/health-bundle.mts",
+    "tbp:bench-report": "node scripts/textbook/gen-benchmark-report.mjs",
+    "tbp:bench-report:check": "node scripts/textbook/gen-benchmark-report.mjs --check"
   },
   "repository": {
     "type": "git",

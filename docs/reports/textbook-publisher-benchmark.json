@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T04:12:48.800Z",
+  "generatedAt": "2026-09-01T05:40:31.345Z",
   "scope": "csat_dcp_items 427,592문항 (창고 전체)",
   "itemsMeasured": 427592,
   "baselineRule": "비율 축은 상대의 Wilson 95% 상한을 기준선으로 쓴다 — 상대에게 가장 유리한 해석으로도 이겨야 우위로 친다",
@@ -96,11 +96,11 @@
         {
           "id": "A6",
           "name": "지문 어수 규격 적합률",
-          "ours": 0.904501008521835,
+          "ours": 0.9022955213255257,
           "market": 0.8,
           "unit": "%",
           "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
-          "index": 1.131,
+          "index": 1.128,
           "ceiling": 1.25
         },
         {
@@ -119,7 +119,7 @@
       "gaps": [
         "유형 축 A5"
       ],
-      "overallIndex": 1.368,
+      "overallIndex": 1.367,
       "reachableMax": 1.391,
       "targetReachable": true
     },
@@ -195,11 +195,11 @@
         {
           "id": "A6",
           "name": "지문 어수 규격 적합률",
-          "ours": 0.9051883103371576,
+          "ours": 0.9025048252505902,
           "market": 0.8,
           "unit": "%",
           "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
-          "index": 1.131,
+          "index": 1.128,
           "ceiling": 1.25
         },
         {
@@ -219,7 +219,7 @@
         "해설 축 A1~A4",
         "유형 축 A5"
       ],
-      "overallIndex": 1.141,
+      "overallIndex": 1.139,
       "reachableMax": 1.199,
       "targetReachable": false
     },
@@ -299,11 +299,11 @@
         {
           "id": "A6",
           "name": "지문 어수 규격 적합률",
-          "ours": 0.8872578192157641,
+          "ours": 0.8620203222464679,
           "market": 0.8,
           "unit": "%",
           "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
-          "index": 1.109,
+          "index": 1.078,
           "ceiling": 1.25
         },
         {
@@ -323,7 +323,7 @@
         "해설 축 A1~A4",
         "유형 축 A5"
       ],
-      "overallIndex": 1.13,
+      "overallIndex": 1.114,
       "reachableMax": 1.2,
       "targetReachable": true
     },
@@ -436,6 +436,12 @@
       "why": "출판사를 특정할 수 없다 — 이름 있는 경쟁자로 세울 수 없다"
     },
     {
+      "publisher": "평가원",
+      "docs": 15,
+      "pages": 15,
+      "why": "출제 기관이지 출판사가 아니다 — 경쟁자가 아니라 규격의 원본으로 쓴다 (해설을 내지 않아 해설 축으로는 견줄 수도 없다)"
+    },
+    {
       "publisher": "참고자료",
       "docs": 3,
       "pages": 3,
@@ -443,6 +449,6 @@
     }
   ],
   "bindingPublisher": "쎄듀",
-  "bindingIndex": 1.13,
-  "pooledIndex": 1.423
+  "bindingIndex": 1.114,
+  "pooledIndex": 1.425
 }

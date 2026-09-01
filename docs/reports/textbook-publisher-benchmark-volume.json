@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T04:34:32.765Z",
+  "generatedAt": "2026-09-01T05:36:11.925Z",
   "scope": "사다리 7권 — 70단원 · 420문항 (인쇄되는 것만 · V1 60 · V2 60 · V3 60 · V4 60 · V5 60 · V6 60 · V7 60)",
   "itemsMeasured": 420,
   "baselineRule": "비율 축은 상대의 Wilson 95% 상한을 기준선으로 쓴다 — 상대에게 가장 유리한 해석으로도 이겨야 우위로 친다",
@@ -195,11 +195,11 @@
         {
           "id": "A6",
           "name": "지문 어수 규격 적합률",
-          "ours": 0.974025974025974,
+          "ours": 0.9285714285714286,
           "market": 0.8,
           "unit": "%",
           "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
-          "index": 1.218,
+          "index": 1.161,
           "ceiling": 1.25
         },
         {
@@ -219,7 +219,7 @@
         "해설 축 A1~A4",
         "유형 축 A5"
       ],
-      "overallIndex": 1.184,
+      "overallIndex": 1.156,
       "reachableMax": 1.199,
       "targetReachable": false
     },
@@ -436,6 +436,12 @@
       "why": "출판사를 특정할 수 없다 — 이름 있는 경쟁자로 세울 수 없다"
     },
     {
+      "publisher": "평가원",
+      "docs": 15,
+      "pages": 15,
+      "why": "출제 기관이지 출판사가 아니다 — 경쟁자가 아니라 규격의 원본으로 쓴다 (해설을 내지 않아 해설 축으로는 견줄 수도 없다)"
+    },
+    {
       "publisher": "참고자료",
       "docs": 3,
       "pages": 3,
@@ -443,6 +449,6 @@
     }
   ],
   "bindingPublisher": "EBS",
-  "bindingIndex": 1.184,
+  "bindingIndex": 1.156,
   "pooledIndex": 1.424
 }
