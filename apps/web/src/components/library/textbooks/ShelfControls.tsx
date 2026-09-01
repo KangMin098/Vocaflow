@@ -370,6 +370,75 @@ export function ShelfToolbar({
 }
 
 /**
+ * **계단 레일** — 학령·수준 축을 사다리 한 줄로 낸다.
+ *
+ * ── 왜 칩 14개가 아니라 이것인가 ────────────────────────────────────
+ * `학령` 7값과 `수준` 7값은 **같은 것을 두 번 적은 것**이다. 계단 하나에 학령 하나,
+ * V레벨 하나가 1:1 로 붙어 있어서(`SERIES_SPINE`) 어느 쪽을 골라도 남는 권은 하나다.
+ * 그래서 칩으로 그리면 **모든 칩에 `1` 이 붙는다** — 세어 봤자 아무것도 안 알려 주는 숫자다.
+ *
+ * 한 줄로 합치면 세 가지가 한꺼번에 해결된다:
+ *   ① 칩 14개 → 단추 7개 (조작 수가 절반)
+ *   ② 학령과 V레벨이 **같은 단추 안에서** 짝지어 보인다 — 'V3 이 중1-2' 라는 것을 여기서 배운다
+ *   ③ 왼쪽에서 오른쪽으로 올라가는 배열이 곧 난이도 순서다(칩 두 줄은 그 순서를 못 보여 준다)
+ *
+ * ⚠️ 필터는 **학령 축으로** 건다. 계단↔학령이 1:1 이라 결과가 같고, 축을 새로 만들면
+ *    `shelf-filter` 의 패싯 계산과 두 벌이 되기 때문이다 — 눈금을 새로 만들면 반드시 갈린다.
+ * ⚠️ 축 이름 `학령·수준` 은 매대 지수 C1 이 `학령`·`수준` 두 문자열을 각각 찾으므로
+ *    **가운뎃점으로 붙여** 둘 다 살린다. 떼면 조용히 2점이 날아간다.
+ */
+function LadderAxis({
+  volumes,
+  sel,
+  onChange,
+}: {
+  volumes: readonly ShelfVolume[]
+  sel: Selection
+  onChange: (next: Selection) => void
+}) {
+  if (volumes.length === 0) return null
+
+  return (
+    <div role="group" aria-label="학령·수준" className="flex flex-wrap items-baseline gap-x-2 gap-y-2">
+      <span
+        aria-hidden
+        className="min-w-[52px] font-display text-[11px] font-[700] text-[var(--t2)]"
+      >
+        학령·수준
+      </span>
+      {[...volumes]
+        .sort((a, b) => a.step - b.step)
+        .map((v) => {
+          const on = sel.school.includes(v.schoolBand)
+          return (
+            <button
+              key={v.step}
+              type="button"
+              aria-pressed={on}
+              aria-label={`${v.step}계단 ${v.schoolBand} V${v.vLevels.join('·V')}`}
+              onClick={() => onChange(toggleValue(sel, 'school', v.schoolBand))}
+              className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-full)] border px-3 font-display text-[12px] font-[700] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                on
+                  ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
+                  : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
+              }`}
+            >
+              {/* 계단 번호 — 표지와 같은 숫자다. 매대와 레일이 같은 기호를 써야 이어져 읽힌다. */}
+              <span className="font-mono text-[11px] tabular-nums opacity-70">{v.step}</span>
+              {v.schoolBand}
+              <span
+                className={`font-mono text-[11px] tabular-nums ${on ? 'opacity-75' : 'text-[var(--t2)]'}`}
+              >
+                V{v.vLevels.join('·V')}
+              </span>
+            </button>
+          )
+        })}
+    </div>
+  )
+}
+
+/**
  * **좁히기 패널** — 네 분류 축(학령 · 수준 · 유형 · 지문 출처)과 상태 좁히기.
  *
  * ── 왜 상시 노출을 그만뒀나 (실측 2026-09-01) ────────────────────────
@@ -383,8 +452,10 @@ export function ShelfToolbar({
  * 학습자는 그것을 좁히기 도구로 읽고, 눌러 보고서야 "1권만 남네" 를 알게 된다.
  * 진짜 패싯은 나머지 둘뿐이다(유형 13값 1~7권 · 지문 출처 13값 2~7권).
  *
- * ⚠️ 그런데 **아직 그 두 축을 목차 모양으로 바꾸지는 않았다.** 네 축이 그대로 이 패널에 있다.
- *    접어서 길은 텄지만 분류 자체는 아직 그대로다 — 다음에 할 일이다.
+ * 그래서 그 두 축은 칩 14개를 늘어놓는 대신 **계단 레일 한 줄**로 합쳤다(`LadderAxis`).
+ * 같은 정보를 같은 수의 조작으로 내되, 생김새가 "이건 사다리다" 라고 먼저 말한다 —
+ * 그리고 `초등 저학년 1` 처럼 **모든 칩에 1 이 붙어 있던** 무의미한 숫자가 사라진다.
+ * 여기 칩으로 남은 둘은 값 하나가 여러 권에 걸리는 **진짜 패싯**이다.
  *
  * ⚠️ 접혀 있어도 **DOM 에는 남는다.** 조건부 렌더로 지우면 검색·스크린리더·매대 지수가
  *    다 같이 못 찾는다 — 그래서 `hidden` 클래스로만 감춘다.
@@ -394,6 +465,7 @@ export function ShelfToolbar({
 export function RefinePanel({
   id,
   open,
+  volumes,
   facets,
   sel,
   onChange,
@@ -406,6 +478,8 @@ export function RefinePanel({
 }: {
   id: string
   open: boolean
+  /** 계단 레일이 쓴다 — 학령·수준을 사다리 한 줄로 내기 위해 권 자체가 필요하다. */
+  volumes: readonly ShelfVolume[]
   facets: Facets
   sel: Selection
   onChange: (next: Selection) => void
@@ -449,7 +523,11 @@ export function RefinePanel({
 
       {/* ⚠️ 축마다 **이름 있는 묶음**으로 싼다. 안 그러면 스크린리더는 칩을
           축 구분 없이 한 덩어리로 읽는다 — '논문' 만 들으면 무엇의 논문인지 알 수 없다. */}
-      {SHELF_AXES.map((axis) => {
+      <LadderAxis volumes={volumes} sel={sel} onChange={onChange} />
+
+      {/* ⚠️ 학령·수준은 위 계단 레일이 대신한다 — 여기서 또 그리면 같은 조건이 화면에 두 번 나오고,
+          둘의 선택 상태가 어긋나 보이는 순간 학습자는 무엇이 걸렸는지 판단할 수 없게 된다. */}
+      {SHELF_AXES.filter((a) => a !== 'school' && a !== 'level').map((axis) => {
         const options = facets[axis]
         if (options.length === 0) return null
         return (
