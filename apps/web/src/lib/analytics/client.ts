@@ -98,7 +98,57 @@ export function track(event: PublicEvent): void {
     return
   }
 
+  // **자체 수신구로 먼저 보낸다.** 외부 키가 없어도 계측이 살아 있어야 한다 —
+  //   2026-09-01 실측: 키가 비어 있어 정의된 10종이 **한 건도 나가지 않고 있었다.**
+  //   `/fit` 은 비로그인 화면이라 RPC(`record_funnel_event`)로는 못 받는다(auth.uid() NULL 을
+  //   버린다). 그래서 서버 라우트가 서비스 롤로 대신 쓴다.
+  sendToOwnSink(event)
+
   void ensure().then((client) => {
     client?.capture(event.name, event.props as Record<string, unknown>)
   })
+}
+
+/**
+ * 자체 수신구(`/api/analytics/event`)로 보낸다.
+ *
+ * `sendBeacon` 을 먼저 쓰는 이유: 링크를 눌러 화면을 떠나는 순간의 이벤트
+ * (`landing_cta_clicked` · `fit_signup_clicked`)는 일반 `fetch` 가 **취소된다.**
+ * 그 둘이 하필 퍼널에서 가장 중요한 전환 지점이다.
+ */
+/**
+ * 지금 어느 화면인가 — **닫힌 목록으로만** 답한다.
+ *
+ * ⚠️ `window.location.pathname` 을 그대로 보내면 안 된다. `/fit` 의 공유 링크는 **URL 에
+ *   결과 페이로드를 담고**(이 파일 상단 주석), 그것이 "붙여넣은 지문을 저장하지 않는다" 는
+ *   약속을 정면으로 깨뜨린다. 경로를 잘라 보내는 것도 안전하지 않다 — 잘린 조각도 내용이다.
+ *   그래서 아는 접두사만 라벨로 바꾸고, 모르면 `other` 로 접는다.
+ */
+function surfaceOf(): string | null {
+  if (typeof window === 'undefined') return null
+  const p = window.location.pathname
+  if (p === '/') return 'landing'
+  if (p.startsWith('/fit')) return 'fit'
+  if (p.startsWith('/library/vocab')) return 'catalog-vocab'
+  if (p.startsWith('/library/books')) return 'catalog-books'
+  if (p.startsWith('/library')) return 'library'
+  return 'other'
+}
+
+function sendToOwnSink(event: PublicEvent): void {
+  try {
+    const body = JSON.stringify({ name: event.name, props: event.props, surface: surfaceOf() })
+    if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+      navigator.sendBeacon('/api/analytics/event', new Blob([body], { type: 'application/json' }))
+      return
+    }
+    void fetch('/api/analytics/event', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body,
+      keepalive: true,
+    }).catch(() => {})
+  } catch {
+    // 계측은 부가 정보다 — 어떤 실패도 화면에 영향을 주지 않는다.
+  }
 }

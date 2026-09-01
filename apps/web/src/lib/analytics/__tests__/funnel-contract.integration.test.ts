@@ -78,8 +78,32 @@ describe.skipIf(skipIfNoEnv)('퍼널 단계 계약 (실 DB)', () => {
     await db.from('funnel_events').delete().eq('surface', 'contract-test')
   })
 
-  it('user_id 없는 행은 거부한다 — 누구의 행동인지 모르면 퍼널에 쓸 수 없다', async () => {
-    const { error } = await db.from('funnel_events').insert({ event: 'teacher_hub_view' })
-    expect(error, '주체 없는 행이 들어갔다').not.toBeNull()
+  /*
+    2026-09-01 — 이 자리에는 "user_id 없는 행은 거부한다" 가 있었다. 그 계약을 **의도적으로
+    바꿨다**(마이그레이션 `funnel_events_allow_anonymous`).
+
+    왜: `/fit` 은 **비로그인 교사**를 위한 화면이고 이 제품의 유일한 CAC 0 경로인데
+    (`PLATFORM_AUDIT.md`), 주체를 요구하면 그 퍼널은 **구조적으로 못 잡힌다**. 실제로
+    정의된 공개 이벤트 10종이 한 건도 기록되지 않고 있었다.
+
+    다만 "아무나 쓸 수 있다" 가 된 것은 아니다 — 아래 두 테스트가 그 경계를 지킨다.
+  */
+  it('RPC 는 여전히 비로그인 호출을 버린다 — 로그인 퍼널의 주체는 세션에서만 온다', async () => {
+    // `record_funnel_event` 는 auth.uid() 가 NULL 이면 NULL 을 돌려준다(행을 만들지 않는다).
+    // 서비스 롤 클라이언트에는 세션이 없으므로 여기서 그 경로를 그대로 확인할 수 있다.
+    const { data, error } = await db.rpc('record_funnel_event', {
+      p_event: 'teacher_hub_view',
+      p_surface: 'contract-test',
+    })
+    expect(error, 'RPC 가 오류를 던졌다 — 계측이 화면을 깨뜨리면 안 된다').toBeNull()
+    expect(data, '비로그인 호출이 행을 만들었다 — RPC 는 조용히 버려야 한다').toBeNull()
+  })
+
+  it('비로그인 공개 이벤트는 표에 들어간다 — 그것이 유일한 CAC 0 퍼널이다', async () => {
+    const { error } = await db
+      .from('funnel_events')
+      .insert({ event: 'fit_viewed', surface: 'contract-test', meta: { shared: false } })
+    expect(error, '익명 공개 이벤트가 거부됐다 — /fit 퍼널을 못 잰다').toBeNull()
+    await db.from('funnel_events').delete().eq('surface', 'contract-test')
   })
 })

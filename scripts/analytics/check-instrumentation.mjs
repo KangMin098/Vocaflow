@@ -50,10 +50,9 @@ console.info(`  키   ${posthogKey ? `설정됨 (${posthogKey.length}자)` : '**
 console.info(`  호스트 ${posthogHost ? `설정됨` : '**비어 있음**'}`)
 console.info(`  정의된 이벤트 ${publicEvents.length}종: ${publicEvents.join(' · ')}`)
 console.info(
-  posthogLive
-    ? '  → 전송된다.'
-    : '  → **한 건도 전송되지 않는다.** 화면은 멀쩡하고 테스트도 통과한다(조용한 실패).',
+  posthogLive ? '  → PostHog 로도 전송된다.' : '  → PostHog 로는 전송되지 않는다(키 없음).',
 )
+console.info('  자체 수신구 `/api/analytics/event` 는 키와 무관하게 항상 받는다 — 아래 표로 확인.')
 
 // 자체 DB 쪽
 if (env['NEXT_PUBLIC_SUPABASE_URL'] && env['SUPABASE_SERVICE_ROLE_KEY']) {
@@ -63,7 +62,7 @@ if (env['NEXT_PUBLIC_SUPABASE_URL'] && env['SUPABASE_SERVICE_ROLE_KEY']) {
   })
   const { data, error } = await sb.from('funnel_events').select('event, occurred_at')
   console.info('')
-  console.info('로그인 뒤 퍼널 (자체 DB · funnel_events)')
+  console.info('자체 DB (funnel_events) — 공개·로그인 이벤트가 함께 쌓인다')
   if (error) {
     console.info(`  조회 실패: ${error.message}`)
   } else {
@@ -73,15 +72,19 @@ if (env['NEXT_PUBLIC_SUPABASE_URL'] && env['SUPABASE_SERVICE_ROLE_KEY']) {
     for (const [e, n] of [...byEvent].sort((a, b) => b[1] - a[1])) {
       console.info(`  ${e.padEnd(20)} ${n}`)
     }
-    console.info('  ⚠️ 비로그인 호출은 RPC 가 조용히 버린다 — 공개 화면은 여기로 못 온다.')
+    console.info('  · 공개 화면은 `/api/analytics/event`(서비스 롤)로 들어온다 — 익명 행 허용.')
+    console.info('  · `record_funnel_event` RPC 는 여전히 비로그인을 버린다(로그인 퍼널 전용).')
+    if (data.length === 0) {
+      console.info('')
+      console.info('⚠️ 기록이 0건이다 — 배선이 끊겼는지 확인할 것. 화면은 멀쩡해도 계측만 죽는다.')
+      process.exitCode = 1
+    }
   }
 }
 
 if (!posthogLive) {
   console.info('')
-  console.info('고치는 법: apps/web/.env.local 에 아래 두 값을 채운다(외부 서비스 가입 필요).')
-  console.info('  NEXT_PUBLIC_POSTHOG_KEY=phc_...')
-  console.info('  NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com')
-  console.info('그 전까지 선택률·교사 퍼널은 **측정 자체가 불가능**하다 — 지표가 아니라 배선 문제다.')
-  process.exitCode = 1
+  console.info('PostHog 는 꺼져 있다 — **선택 사항**이다. 자체 수신구만으로 퍼널은 측정된다.')
+  console.info('외부 대시보드가 필요해지면 apps/web/.env.local 에 두 값을 채운다:')
+  console.info('  NEXT_PUBLIC_POSTHOG_KEY=phc_...  ·  NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com')
 }
