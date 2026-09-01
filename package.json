@@ -47,7 +47,8 @@
     "tcp:drain": "tsx --tsconfig apps/web/tsconfig.json scripts/topic-corpus/drain-loop.mts",
     "tbp:health": "tsx --tsconfig apps/web/tsconfig.json scripts/textbook/health-bundle.mts",
     "tbp:bench-report": "node scripts/textbook/gen-benchmark-report.mjs",
-    "tbp:bench-report:check": "node scripts/textbook/gen-benchmark-report.mjs --check"
+    "tbp:bench-report:check": "node scripts/textbook/gen-benchmark-report.mjs --check",
+    "analytics:check": "node scripts/analytics/check-instrumentation.mjs"
   },
   "repository": {
     "type": "git",
