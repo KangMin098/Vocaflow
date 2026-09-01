@@ -34,7 +34,7 @@ export function LevelChart({ chart }: { chart: LevelChartData }) {
         >
           교재 레벨 차트
         </h3>
-        <p className="min-w-0 flex-1 font-body text-[11.5px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
+        <p className="min-w-0 flex-1 font-body text-[12px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
           막대는 <strong className="font-display text-[var(--t1)]">시중 교재의 지문 길이</strong>입니다 —
           같은 학년대 교재가 실제로 몇 낱말짜리 글을 싣는지. 우리 계단을 그 위에 얹었어요.
         </p>
@@ -48,16 +48,16 @@ export function LevelChart({ chart }: { chart: LevelChartData }) {
         </caption>
         <thead>
           <tr className="border-b border-[var(--bd)]">
-            <th scope="col" className="pb-1.5 text-left font-mono text-[9.5px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+            <th scope="col" className="pb-1.5 text-left font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
               계단
             </th>
-            <th scope="col" className="pb-1.5 text-left font-mono text-[9.5px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+            <th scope="col" className="pb-1.5 text-left font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
               대상
             </th>
-            <th scope="col" className="pb-1.5 text-left font-mono text-[9.5px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+            <th scope="col" className="pb-1.5 text-left font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
               지문 어수 (시중 교재 실측)
             </th>
-            <th scope="col" className="pb-1.5 text-right font-mono text-[9.5px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
+            <th scope="col" className="pb-1.5 text-right font-mono text-[10px] font-[700] uppercase tracking-[0.12em] text-[var(--t2)]">
               문항
             </th>
           </tr>
@@ -73,7 +73,7 @@ export function LevelChart({ chart }: { chart: LevelChartData }) {
                   V{r.vLevels.join('·V')}
                 </span>
               </th>
-              <td className="py-2 pr-3 align-middle font-display text-[11.5px] font-[700] text-[var(--t2)] [word-break:keep-all]">
+              <td className="py-2 pr-3 align-middle font-display text-[12px] font-[700] text-[var(--t2)] [word-break:keep-all]">
                 {r.schoolBand}
               </td>
               <td className="py-2 pr-3 align-middle">

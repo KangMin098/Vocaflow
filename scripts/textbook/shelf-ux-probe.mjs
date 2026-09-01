@@ -62,6 +62,26 @@ const TARGETS = [
     cardEvidence: 'HTML 실측 2026-09-01 — .books 가 낱권 카드(10/페이지)',
     kind: 'market',
   },
+  // ── 기준선을 한 곳에서 셋으로 (2026-09-01) ──────────────────────────
+  // 이 자는 스스로 "표본 1이라 '업계 평균' 이 아니라 '관측된 상업 기준선'" 이라고 적어 두었다.
+  // 한 곳만 이기면 그 한 곳이 약한 축에서 우리가 강한 것처럼 보인다.
+  // 그래서 축마다 **가장 강한 경쟁사 값**을 기준선으로 쓴다(아래 bestOf) — 목표가 올라간다.
+  //
+  // ⚠️ URL 은 홈이 아니라 **낱권 목록**이어야 한다. 홈에서 재면 캐러셀이 카드로 잡혀
+  //    "첫 화면에 상품 20개" 같은 거짓 우위가 나온다(실측: 홈에서 swiper-slide 38개).
+  // ⚠️ **YBM북샘은 일부러 뺐다** (2026-09-01). 낱권 목록이 지연 로딩이라 카드 수가
+  //    대기 시간에 따라 계속 변한다 — 실측 2초 16개 · 6초 30개, 6초에도 아직 증가 중.
+  //    U3(첫 화면 상품 수)·U4(상품당 조작요소)는 **카드 수로 나누는 축**이라, 이런 값을
+  //    기준선에 넣으면 우리 지수가 남의 로딩 속도에 따라 흔들린다.
+  //    대기 시간에 따라 변하는 값은 기준선이 아니다. 안정된 선택자를 찾으면 그때 넣을 것.
+  {
+    id: 'visang',
+    name: '비상교재 고등',
+    url: 'https://book.visang.com/books/HS',
+    card: '.product-list-item',
+    cardEvidence: 'HTML 실측 2026-09-01 — .product-list-item 이 낱권 카드(9/페이지)',
+    kind: 'market',
+  },
 ]
 
 const VIEW_DESKTOP = { width: 1280, height: 900 }
@@ -274,21 +294,46 @@ if (ours?.inventoryDegraded) {
     '이 회차는 재고 조회가 막힌 상태에서 쟀다 — 카드 높이와 배너가 달라지므로 다른 회차와 비교하지 말 것.'
 }
 
+/**
+ * 축마다 **가장 강한 경쟁사 값**을 고른다 — 기준선 상향(2026-09-01).
+ *
+ * ── 왜 최강값인가 ──────────────────────────────────────────────────
+ * 한 곳(NE능률)만 기준선으로 쓰면, 그 한 곳이 약한 축에서 우리가 강한 것처럼 보인다.
+ * 예컨대 어떤 사이트는 터치타겟이 79개나 44px 미만인데, 그걸 이겼다고 "업계 대비 우위" 라
+ * 적으면 과장이다. **각 축에서 제일 잘하는 곳**을 상대로 이겨야 업계를 이겼다고 말할 수 있다.
+ *
+ * ⚠️ 사이트마다 강한 축이 다르므로 기준선은 **한 사이트가 아니라 합성**이다. 그래서
+ *    축마다 어느 사이트에서 왔는지(`marketSite`)를 반드시 함께 적는다 — 합성 기준선은
+ *    출처를 안 밝히면 검증할 수 없는 숫자가 된다.
+ * ⚠️ 못 연 사이트는 조용히 빠지지 않는다(`error` 로 남고 기준선에서 제외된다).
+ *    남은 곳이 하나뿐이면 그건 예전과 같은 표본 1이므로 그 사실을 보고에 적는다.
+ */
+function bestMarket(axis, view) {
+  let best = null
+  for (const m of market) {
+    const v = axis.pick(m[view])
+    if (v == null) continue
+    if (best == null) best = { value: v, site: m.name }
+    else if (axis.lower ? v < best.value : v > best.value) best = { value: v, site: m.name }
+  }
+  return best
+}
+
 if (ours && !ours.error && market.length > 0) {
-  const m0 = market[0]
   for (const view of ['desktop', 'mobile']) {
     for (const a of AXES) {
       const o = a.pick(ours[view])
-      const mk = a.pick(m0[view])
+      const b = bestMarket(a, view)
       report.axes.push({
         view,
         id: a.id,
         name: a.name,
         lowerIsBetter: a.lower,
         ours: o,
-        market: mk,
-        marketSite: m0.name,
-        index: indexOf(a, o, mk),
+        market: b?.value ?? null,
+        marketSite: b?.site ?? null,
+        marketSampleSize: market.length,
+        index: indexOf(a, o, b?.value ?? null),
       })
     }
   }
@@ -326,12 +371,14 @@ if (process.argv.includes('--json')) {
   }
   if (report.axes.length) {
     for (const view of ['desktop', 'mobile']) {
-      console.log(`  [${view}] 축                         우리     기준선    지수`)
-      console.log(`  ${'─'.repeat(62)}`)
+      console.log(`  [${view}] 축                         우리   최강경쟁    지수  (기준선을 세운 곳)`)
+      console.log(`  ${'─'.repeat(74)}`)
       for (const a of report.axes.filter((x) => x.view === view)) {
         const mark = a.index == null ? ' ' : a.index >= 1.2 ? '✅' : a.index >= 1.0 ? '△' : '❌'
+        // 합성 기준선은 **출처를 안 밝히면 검증할 수 없다** — 축마다 어디서 왔는지 함께 찍는다.
+        const from = a.marketSite ? a.marketSite.replace(/ 고등.*| 목록$/, '') : '—'
         console.log(
-          `  ${a.id} ${a.name.padEnd(24)} ${String(a.ours).padStart(6)} ${String(a.market).padStart(8)} ${String(a.index).padStart(7)} ${mark}`,
+          `  ${a.id} ${a.name.padEnd(24)} ${String(a.ours).padStart(6)} ${String(a.market).padStart(8)} ${String(a.index).padStart(7)} ${mark}  ${from}`,
         )
       }
       console.log('')
