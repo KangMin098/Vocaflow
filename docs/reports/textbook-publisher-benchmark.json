@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T14:13:19.789Z",
+  "generatedAt": "2026-09-01T01:51:23.937Z",
   "scope": "csat_dcp_items 427,592문항 (창고 전체)",
   "itemsMeasured": 427592,
   "baselineRule": "비율 축은 상대의 Wilson 95% 상한을 기준선으로 쓴다 — 상대에게 가장 유리한 해석으로도 이겨야 우위로 친다",
@@ -96,11 +96,11 @@
         {
           "id": "A6",
           "name": "지문 어수 규격 적합률",
-          "ours": 0.8726095687889155,
+          "ours": 0.8733454870492225,
           "market": 0.8,
           "unit": "%",
           "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
-          "index": 1.091,
+          "index": 1.092,
           "ceiling": 1.25
         },
         {
@@ -195,11 +195,11 @@
         {
           "id": "A6",
           "name": "지문 어수 규격 적합률",
-          "ours": 0.8739086135277059,
+          "ours": 0.8742740649747784,
           "market": 0.8,
           "unit": "%",
           "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
-          "index": 1.092,
+          "index": 1.093,
           "ceiling": 1.25
         },
         {
@@ -219,7 +219,7 @@
         "해설 축 A1~A4",
         "유형 축 A5"
       ],
-      "overallIndex": 1.121,
+      "overallIndex": 1.122,
       "reachableMax": 1.199,
       "targetReachable": false
     },
@@ -299,11 +299,11 @@
         {
           "id": "A6",
           "name": "지문 어수 규격 적합률",
-          "ours": 0.8747354953004282,
+          "ours": 0.8764607267886199,
           "market": 0.8,
           "unit": "%",
           "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
-          "index": 1.093,
+          "index": 1.096,
           "ceiling": 1.25
         },
         {
@@ -323,7 +323,7 @@
         "해설 축 A1~A4",
         "유형 축 A5"
       ],
-      "overallIndex": 1.122,
+      "overallIndex": 1.124,
       "reachableMax": 1.2,
       "targetReachable": true
     },
@@ -443,6 +443,6 @@
     }
   ],
   "bindingPublisher": "EBS",
-  "bindingIndex": 1.121,
-  "pooledIndex": 1.416
+  "bindingIndex": 1.122,
+  "pooledIndex": 1.417
 }
