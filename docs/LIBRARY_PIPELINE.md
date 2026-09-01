@@ -462,7 +462,7 @@ pnpm vcb:publish-precheck      # 08b-publish-precheck.ts
 |---|---|---|---|
 | ① | 조립·채점·발행 | `compose-batch.mts --plan <계획>` | `shared_word_sets` · `shared_words` · `ladder_step`(저작) |
 | ② | 표지 도판 | `fetch-covers.mts --skip-existing` | `cover_image_url` · `cover_image_meta` |
-| ③ | 발음기호 적재 | `vocab/backfill-pronunciation.mjs` | `shared_words.pronunciation` (빈 칸만) |
+| ③ | **사전 따라잡기** | `vocab/refresh-published-words.mjs` | `shared_words` 의 사전 복사본 (발음·유의어·반의어·연어·노트 — **빈 칸만**) |
 | ④ | 판권면 각인 | `vocab/stamp-imprint.mts` | `curation_query.qa`·`.level`·`.imprint` · `brand_fingerprint` |
 | ⑤ | 계단 재도출 | `vocab/reconcile-ladder.mts` | `ladder_step` (발행 뒤 **유일한** writer) |
 | ⑥ | 측정 | `vocab/market-benchmark.mjs` · `vocab/choice-benchmark.mts` | 읽기만 |
@@ -475,7 +475,7 @@ npx tsx --tsconfig apps/web/tsconfig.json scripts/vcb/compose-batch.mts \
   --plan scripts/vcb/data/compose-plan-2026-08-31.json [--commit]
 
 npx tsx --tsconfig apps/web/tsconfig.json scripts/vcb/fetch-covers.mts --skip-existing --commit
-node scripts/vocab/backfill-pronunciation.mjs --commit
+node scripts/vocab/refresh-published-words.mjs --commit
 npx tsx --tsconfig apps/web/tsconfig.json scripts/vocab/stamp-imprint.mts --commit
 npx tsx --tsconfig apps/web/tsconfig.json scripts/vocab/reconcile-ladder.mts --commit
 
@@ -497,6 +497,17 @@ node scripts/vocab/retire-sets.mjs --list scripts/vocab/data/<목록>.txt [--res
 - **은퇴는 `is_published=false` 다.** DELETE 는 `user_word_set_subscriptions` 를 CASCADE 로
   함께 지운다 — 되돌릴 수 없다. 대체품이 **실제로 선 뒤에** 내린다(서가에 구멍이 안 나게).
 - **jsonb 는 키만 더한다.** `curation_query` 를 통째로 덮으면 컴포저 레시피·점수표가 날아간다.
+- **발행은 사전의 스냅샷이다 — 게시된 권은 저절로 좋아지지 않는다.** `shared_words` 는 뜻·예문·
+  발음·유의어·연어를 자기 컬럼에 **복사해** 갖는다. 사전을 아무리 채워도 이미 게시된 권은
+  그대로다. 실측 2026-09-01 — 게시 27,075행 중 사전에는 있는데 복사본이 빈 칸이
+  **유의어 1,641 · 연어 1,161 · 반의어 466 · 노트 354** 였다. ③이 그것을 따라잡는다.
+  **사전을 손본 뒤에는 반드시 ③을 돌린다.**
+- ⚠️ **③은 `korean_learner_note` 를 목차 있는 세트에서 건드리지 않는다.** 그 세트에서 이
+  컬럼은 사전 노트가 아니라 **챕터 제목**이다(`toSharedWords`: `grouped ? group_label : ...`).
+  모르고 채우면 목차가 깨진다. (실측: 목차 있는 26,575행의 노트 격차는 0, 격차 354는 전부 평면 세트.)
+- **쓰기가 도는 중의 읽기는 끊긴다.** ③을 300개 묶음으로 돌렸더니 드라이런은 통과하고
+  `--commit` 만 `statement timeout` 이 났다. 묶음을 120으로 줄이고 지수 백오프 재시도를 넣었다
+  — 이 저장소가 교재 쪽에서 이미 치른 값이다("몇 천 행짜리 조회는 언젠가 끊긴다").
 
 #### 측정 — 두 개의 자, 서로 다른 것을 잰다
 

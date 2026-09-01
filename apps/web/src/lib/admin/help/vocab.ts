@@ -83,7 +83,7 @@ export const VCB_HELP: HelpRegistry = {
           detail:
             '**발행만으로는 한 권이 되지 않는다.** 여기서 나온 세트는 표지 도판도, 판권면의 검수·대상 수준도 없고, 사다리 자리가 낱말 실측과 어긋나 있을 수 있다. 저장소 루트에서 **이 순서로** 돌린다(전부 드라이런이 기본 · `--commit` 이 있어야 쓴다 · 몇 번을 돌려도 결과가 같다):\n'
             + '① `scripts/vcb/fetch-covers.mts --skip-existing` (표지)\n'
-            + '② `scripts/vocab/backfill-pronunciation.mjs` (발음기호 — 빈 칸만)\n'
+            + '② `scripts/vocab/refresh-published-words.mjs` (사전 따라잡기 — 발음·유의어·반의어·연어를 **빈 칸에만**. 발행은 사전의 스냅샷이라 나중에 사전이 좋아져도 게시된 권은 그대로다)\n'
             + '③ `scripts/vocab/stamp-imprint.mts` (판권면 각인 — 검수 수치·V-Level 중앙값·규격 지문)\n'
             + '④ `scripts/vocab/reconcile-ladder.mts` (계단 재도출)\n'
             + '**순서를 바꾸면 안 된다** — ④ 는 ③ 이 각인한 중앙값을 읽으므로, 각인 전에 돌리면 아무 일도 하지 않고 "고칠 것 0" 만 낸다.',
