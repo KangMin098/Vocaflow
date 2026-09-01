@@ -65,8 +65,11 @@ export function MobileUtilityBar({ signedIn }: MobileUtilityBarProps) {
             href={item.href}
             aria-current={active ? 'page' : undefined}
             aria-label={item.ariaLabel}
+            // ⚠️ 간격은 4의 배수만 쓴다(`design-tokens/spacing` 이 전부 4배수다).
+            //    여기 `gap-1.5`(6px)가 화면마다 항목 수만큼 격자를 깼고, 2026-09-01 에
+            //    `FOOTER_ITEMS` 가 셋으로 늘면서 그만큼 더 깨졌다 — UX 벤치 D4 가 잡았다.
             // 44px 하한은 프로젝트 절대 규칙 — 아이콘은 16px 이고 누를 면적만 넓힌다.
-            className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] px-3 font-body text-[12px] transition-[color,transform] duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-inset active:scale-[0.98] ${
+            className={`inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-md)] px-3 font-body text-[12px] transition-[color,transform] duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-inset active:scale-[0.98] ${
               active
                 ? 'font-[700] text-[var(--p)]'
                 : 'font-[500] text-[var(--t2)] hover:text-[var(--t1)]'

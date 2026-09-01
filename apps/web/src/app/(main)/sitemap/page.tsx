@@ -63,7 +63,7 @@ function ItemRow({ item, depth = 0 }: { item: NavItem; depth?: number }) {
     <li className={depth > 0 ? 'border-l border-[var(--bd)] pl-4' : undefined}>
       <Link
         href={item.href}
-        className="flex min-h-[44px] flex-col justify-center gap-0.5 rounded-[var(--r-md)] px-2 py-2 no-underline transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
+        className="flex min-h-[44px] flex-col justify-center gap-1 rounded-[var(--r-md)] px-2 py-2 no-underline transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
       >
         <span className="font-display text-[14px] font-[700] leading-[1.5] text-[var(--t1)]">
           {item.label}
@@ -75,7 +75,7 @@ function ItemRow({ item, depth = 0 }: { item: NavItem; depth?: number }) {
         )}
       </Link>
       {item.children && item.children.length > 0 && (
-        <ul className="mt-1 flex flex-col gap-0.5">
+        <ul className="mt-1 flex flex-col gap-1">
           {item.children.map((child) => (
             <ItemRow key={child.href} item={child} depth={depth + 1} />
           ))}
@@ -113,7 +113,7 @@ export default function SitemapPage() {
   return (
     <Screen width="wide" background="bg2" padX="md" asMain={false}>
       <div className="flex flex-col gap-3 py-6 md:py-8">
-        <header className="flex flex-col gap-1.5">
+        <header className="flex flex-col gap-2">
           <h1 className="font-editorial text-[26px] font-[500] leading-[1.25] tracking-[-0.014em] text-[var(--t1)] md:text-[30px]">
             전체 보기
           </h1>
@@ -126,7 +126,7 @@ export default function SitemapPage() {
 
         {/* 메타 표면 둘 — 앞을 보는 자리(Today)와 뒤를 보는 자리(Growth). 레일 밖이다. */}
         <Block title="어디서든 돌아오는 자리" note="지금 할 일과 지나온 기록.">
-          <ul className="flex flex-col gap-0.5">
+          <ul className="flex flex-col gap-1">
             {META_ITEMS.map((item) => (
               <ItemRow key={item.href} item={item} />
             ))}
@@ -140,7 +140,7 @@ export default function SitemapPage() {
             title={`${group.step}. ${group.label}`}
             note={group.says}
           >
-            <ul className="flex flex-col gap-0.5">
+            <ul className="flex flex-col gap-1">
               {group.items.map((item) => (
                 <ItemRow key={item.href} item={item} />
               ))}
@@ -150,7 +150,7 @@ export default function SitemapPage() {
 
         {/* 레일 밖 — 만화는 학습 단계가 아니라 읽는 방식이다(2026-08-16 결정). */}
         <Block title={ASIDE_GROUP.label} note={ASIDE_GROUP.says}>
-          <ul className="flex flex-col gap-0.5">
+          <ul className="flex flex-col gap-1">
             {ASIDE_GROUP.items.map((item) => (
               <ItemRow key={item.href} item={item} />
             ))}
@@ -160,7 +160,7 @@ export default function SitemapPage() {
         {/* ⚠️ 자기 자신(`/sitemap`)은 뺀다 — 지금 보고 있는 화면으로 가는 링크는
             길이 아니라 되돌이표다. 목록은 여전히 `FOOTER_ITEMS` 하나에서 온다. */}
         <Block title="그 밖에" note="학급 운영과 내 설정.">
-          <ul className="flex flex-col gap-0.5">
+          <ul className="flex flex-col gap-1">
             {FOOTER_ITEMS.filter((item) => item.href !== '/sitemap').map((item) => (
               <ItemRow key={item.href} item={item} />
             ))}
