@@ -78,18 +78,32 @@ if (VOLUME_UNITS) {
   rows.push(...pool.filter((p) => itemIds.has(p.id)))
 } else {
   // 재고 전체를 볼 때는 문항 자신의 밴드로 거른다.
-  for (let from = 0; ; from += 500) {
-    const { data, error } = await db
+  //
+  // ⚠️ **이 조회도 자라서 못 쓰게 됐다가 고쳤다** (실측 2026-09-01, `explain-discriminate.mjs`
+  //   와 같은 계통). 밴드 전량을 `payload` 까지 `.range()` 로 offset 페이징하면
+  //   statement timeout 이 난다 — `csat_dcp_items` 가 427,592행이다.
+  //   두 가지를 고쳤다:
+  //     ① **해설 있는 것을 서버에서 거른다.** 아래 루프가 어차피 `already` 로 버릴 것을
+  //        payload 까지 받아 오고 있었다. 실측 band 6: 받을 것이 **46건**인데 수만 건을
+  //        끌어오던 셈이다.
+  //     ② **keyset 페이징** — offset 은 뒤로 갈수록 앞을 다시 훑는다.
+  let cursor = null
+  for (;;) {
+    let q = db
       .from('csat_dcp_items')
       .select('id, type, ref_id, payload, answer_key, v_level')
       .eq('kind', 'article')
       .eq('v_level', BAND)
       .in('type', ['order', 'insert'])
+      .is('answer_key->>explanation_ko', null)
       .order('id')
-      .range(from, from + 499)
+      .limit(500)
+    if (cursor) q = q.gt('id', cursor)
+    const { data, error } = await q
     if (error) throw new Error('문항 조회 실패: ' + error.message)
     if (!data?.length) break
     rows.push(...data)
+    cursor = data[data.length - 1].id
     if (data.length < 500) break
   }
 }
