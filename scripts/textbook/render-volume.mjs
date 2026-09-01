@@ -52,6 +52,10 @@ const {
   brandFingerprint,
   buildColophon,
   ladderStrip,
+  // 표지 — **매대와 같은 함수**를 쓴다. 서점에서 본 표지와 펼친 책의 표지가
+  // 달라지면 같은 상품으로 안 읽힌다.
+  COVER_BRAND,
+  coverSvg,
   volumeCssVariables,
 } = await import('@vocaflow/library-pipeline')
 
@@ -545,6 +549,9 @@ ${volumeCssVariables()}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:${VOLUME_FONTS.english};line-height:1.72}
 .wrap{max-width:46rem;margin:0 auto;padding:3rem 1.25rem 5rem}
 .cover{border-bottom:3px double var(--line);padding-bottom:2rem;margin-bottom:2.5rem}
+.coverart{float:right;width:168px;margin:0 0 1rem 1.5rem}
+.coverart svg{display:block}
+@media print{.coverart{float:none;margin:0 auto 1.5rem}}
 .brand{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700}
 h1{font-size:2.1rem;margin:.6rem 0 .3rem;letter-spacing:-.01em;text-wrap:balance}
 .meta{color:var(--sub);font-size:.9rem}
@@ -631,7 +638,7 @@ h1{font-size:2.1rem;margin:.6rem 0 .3rem;letter-spacing:-.01em;text-wrap:balance
   .tablewrap{overflow-x:visible}
   /* 표지의 검수 칩은 **내부 QA 다** — 상업 교재 표지에 "자동 검수 9/9 통과" 는 없다.
      지우는 게 아니라 인쇄에서만 감춘다: 화면(검수용)에서는 그대로 보이고, 같은 사실이
-     판권면에 남는다(`검수 ... · 교정 초교·재교·삼교`). 그래서 정보는 안 잃는다. */
+     판권면에 남는다('검수 … · 교정 초교·재교·삼교'). 그래서 정보는 안 잃는다. */
   .scorebar{display:none}
   /* 링크 밑줄은 지면에서 읽기를 방해한다. */
   a{text-decoration:none;color:inherit}
@@ -639,6 +646,15 @@ h1{font-size:2.1rem;margin:.6rem 0 .3rem;letter-spacing:-.01em;text-wrap:balance
 </style>
 <div class="wrap">
 <header class="cover">
+  <div class="coverart">${coverSvg(
+    {
+      brand: COVER_BRAND,
+      step: rung?.step ?? BAND,
+      totalSteps: SERIES_SPINE.length,
+      schoolBand: rung?.schoolBand ?? ('V' + BAND),
+    },
+    168,
+  )}</div>
   <p class="brand">${esc(colophon.ladder)}</p>
   <h1>${esc(colophon.title)}</h1>
   <p class="meta">${units.length}단원 · ${qNo}문항 · 총 ${units.reduce((s, u) => s + u.estimated_minutes, 0)}분 · 레벨 V${BAND}</p>
