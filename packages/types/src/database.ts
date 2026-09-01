@@ -1737,44 +1737,28 @@ export type Database = {
         Row: {
           base_learning_value: number
           context_pos: string | null
-          created_at: string
           first_sentence: string | null
           frequency_in_article: number
-          id: string
-          lemma: string | null
           library_article_id: string
           word: string
         }
         Insert: {
           base_learning_value?: number
           context_pos?: string | null
-          created_at?: string
           first_sentence?: string | null
           frequency_in_article?: number
-          id?: string
-          lemma?: string | null
           library_article_id: string
           word: string
         }
         Update: {
           base_learning_value?: number
           context_pos?: string | null
-          created_at?: string
           first_sentence?: string | null
           frequency_in_article?: number
-          id?: string
-          lemma?: string | null
           library_article_id?: string
           word?: string
         }
         Relationships: [
-          {
-            foreignKeyName: "library_article_vocabularies_lemma_fkey"
-            columns: ["lemma"]
-            isOneToOne: false
-            referencedRelation: "shared_dictionary"
-            referencedColumns: ["word"]
-          },
           {
             foreignKeyName: "library_article_vocabularies_library_article_id_fkey"
             columns: ["library_article_id"]

@@ -109,11 +109,16 @@ for (const a of arts) {
   const band = spec.grade_band ?? bandForVLevel(spec.target_v_level ?? spec.targetVLevel ?? 0)
 
   // 이 글의 어휘와 V-Level — 처리 단계가 이미 뽑아 둔 것을 쓴다(다시 토큰화하지 않는다).
+  // ⚠️ 전에는 `lemma` 도 받아 `v.lemma ?? v.word` 로 골랐는데, 그 컬럼은 기사 표에서
+  //   **11,011,463행 전부 NULL** 이었다(실측 2026-09-01 · 부분 인덱스가 16 kB 인 것이 증거).
+  //   즉 항상 `word` 가 골라졌다 — 결과는 그대로고, 컬럼은 마이그레이션
+  //   `20260901040000_lav_drop_dead_columns` 가 걷었다.
+  //   (도서 표 `library_book_vocabularies.lemma` 는 94.8% 채워진 살아있는 값이다. 혼동 말 것.)
   const { data: vocab } = await db
     .from('library_article_vocabularies')
-    .select('word, lemma')
+    .select('word')
     .eq('library_article_id', a.id)
-  const keys = [...new Set((vocab ?? []).map((v) => (v.lemma ?? v.word ?? '').toLowerCase()))].filter(Boolean)
+  const keys = [...new Set((vocab ?? []).map((v) => (v.word ?? '').toLowerCase()))].filter(Boolean)
   const { data: dict } = keys.length
     ? await db.from('shared_dictionary').select('word, v_level').in('word', keys)
     : { data: [] }

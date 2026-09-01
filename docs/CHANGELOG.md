@@ -10,6 +10,55 @@
 
 ## Unreleased (v06.34 → next)
 
+### DB 의 절반이 원문에서 되만들 수 있는 캐시였다 — 죽은 컬럼 3개 제거 (`20260901040000`)
+
+`library_article_vocabularies` 가 **4,249 MB 로 DB(7,628 MB)의 55.7%** 였다. "소스 GET 해서
+원문만 보관하는데 왜 과다한가" 를 실측했더니 **원문이 비싼 게 아니었다** — 편당 원문은
+압축 저장 11.9 KB 인데 GET 직후 `analyzeArticle` 이 만드는 어휘 색인이 **편당 234 KB, 19.8배**다.
+
+증폭은 세 단이다. ① 25,636자 원문 → 낱말 종류마다 1행, **편당 579행**. ② 각 행이 원문 속
+문장을 `first_sentence` 로 190 B 복사 — 한 기사 안에서 같은 문장이 평균 **4.48번**.
+③ **압축이 안 걸린다** — `content` 는 2 KB 초과라 TOAST 로 밀려 2.13배 압축되는데,
+`first_sentence` 190자는 임계 미만이라 행 안에 그대로 앉는다(표본 22,738행 중 압축된 행 **0개**).
+같은 텍스트를 원본은 압축해 한 번, 사본은 무압축으로 4.5번 저장하고 있었다. 이 하나가 2,081 MB.
+
+행당 405 B 중 **실제 어휘 데이터는 27 B(7%)** 뿐이다. 그리고 그 행들은 **고유 정보가 0**이다 —
+보관 중인 `content` 에 `normalizePunctuation`→`reflowSoftHyphens`→`extractBookLemmas`→
+`computeLearningValue`(전부 순수 동기 함수 · LLM·네트워크 호출 0)를 돌리면 낱말·빈도·
+`first_sentence` 가 **비트 단위로 일치**한다(6편 2,565행 대조 · 불일치 0). 편당 **46.5 ms**,
+한 권 조판(지문 30편) **1.39초**, 19,384편 전량 **15분**.
+
+이번 마이그레이션은 보관 범위를 건드리지 않고 **틀림없이 낭비인 것만** 걷었다:
+
+| 걷은 것 | 근거 |
+|---|---|
+| `id` uuid 대리키 | 399 MB PK 인덱스가 `idx_scan = 0`. 참조 FK 0개 · 코드의 `.select('id')` 0곳 · RLS 도 안 봄 |
+| `lemma` | **11,011,463행 전량 NULL**(`null_frac = 1.0` · 부분 인덱스가 16 kB 인 것이 증거). FK 와 RPC 3종의 `COALESCE(lav.lemma, lav.word)` 동반 정리 |
+| `created_at` | 읽는 코드 0곳. 기사 수준에 `vrl_calculated_at` 이 있다 |
+
+**결과 4,249 → 3,850 MB(−399 MB, 즉시).** heap 385 MB 는 `VACUUM FULL` 몫으로 남겼다
+(트랜잭션 안에서 못 돌아 마이그레이션에 못 넣는다 · ACCESS EXCLUSIVE 락 + 약 2.8 GB 여유 필요).
+
+기본키는 **세우지 않았다** — 승격하려면 유니크 제약을 떨구고 다시 만들어야 하는데 그게
+11M 행에 대한 650 MB 재빌드다. `pg_publication_rel` 에 이 표가 없어(논리복제 대상 아님)
+`NOT NULL + UNIQUE (library_article_id, word)`(6,410,326 scans)로 충분하다.
+
+동작 무변경을 해시로 증명했다 — 발행 15편의 `select_article_vocab` 출력이
+`13f044f2903ded4a0c06a1900bb036c5`(585행)로 **전후 동일**, `compute_article_vrl` 재실행도
+`article_v_level`·`lemma_coverage_pct`·`matched_lemmas` 전부 동일.
+
+함께 고친 코드 3곳: [spine-report.mjs](../scripts/compose/spine-report.mjs) ·
+[audit-dict-pos-mismatch.mts](../scripts/audit-dict-pos-mismatch.mts) 는 죽은 `lemma` 를 읽고 있었고,
+[backfill-context-pos.mts](../scripts/backfill-context-pos.mts) 는 **`id` 로 UPDATE** 하고 있어
+기사 표만 복합키 `(library_article_id, word)` 로 전환했다(PostgREST 가 복합키 `.in()` 을 못 해
+기사별로 낱말을 묶어 보낸다).
+
+⚠️ **바로 아래 표의 "인덱스 754MB 삭제 → 마이그레이션 불필요" 판정을 정정한다.** 그때
+"남은 대형 0-scan 은 전부 기본키" 라고 적고 손대지 않았는데, **그 기본키가 바로 이 399 MB** 였다.
+기본키라는 이유만으로 면제하면 안 된다 — 참조하는 FK 와 코드가 있는지를 봐야 한다.
+
+⚠️ `library_book_vocabularies.lemma` 는 **94.8% 채워진 살아있는 컬럼**이다. 기사 쪽만 죽어 있었다.
+
 ### 창을 그은 자와 창으로 거르는 자가 달랐다 — A6 100.0%
 
 시장 창(`market-spec.json` 의 `passageWords` p10~p90)은 코퍼스에서 **알파벳 토큰**으로
