@@ -9,6 +9,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./vocab-brand": "./src/vocab/brand.ts",
+    "./explain-items": "./src/textbook/explain-items.ts",
     "./curation-spec": "./src/ingest-article/_curation-spec.ts",
     "./seed/curated-seed.json": "./src/seed/curated-seed.json"
   },

@@ -19,7 +19,7 @@ import {
   type DcpItem,
   type DcpOrderPayload,
   ERROR_CAUSES,
-  pickExplanationText,
+  explanationFor,
 } from '@/lib/learner/dcp'
 
 import { isChoiceDcpType } from '@/lib/learner/dcp-types'
@@ -252,9 +252,17 @@ function CauseTip({ cause }: { cause: DcpErrorCause }) {
  *   순서·삽입이 실제로 그랬다: 2026-08-30 에 2,755건을 채웠는데 화면은 정답 순서만
  *   보여 주고 **왜 그렇게 이어지는지는 한 글자도 안 보여 줬다.**
  */
-function ExplanationNote({ answerKey }: { answerKey: Record<string, unknown> }) {
-  // 두 키 중 무엇을 읽을지는 `pickExplanationText` 한 곳에만 있다.
-  const text = pickExplanationText(answerKey)
+function ExplanationNote({
+  item,
+  answerKey,
+}: {
+  item: DcpItem
+  answerKey: Record<string, unknown>
+}) {
+  // ⚠️ 저장된 해설이 없으면 **규칙 해설기**가 채운다. 조판기는 2026-08-31 에 이 배선을
+  //    받았는데 화면은 못 받아, 같은 문항이 인쇄물에는 해설이 있고 화면에는 없었다
+  //    (V7 22,062문항). 규칙은 `explanationFor` 한 곳에만 있다.
+  const text = explanationFor(item, answerKey)
   if (!text) return null
   return (
     <p className="rounded-[var(--r-sm)] bg-[var(--bg)] p-3 font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
@@ -282,7 +290,7 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
           </p>
         </div>
         {/* 해설은 **왜 나머지가 아닌지**까지 적혀 있다 — 오답 노트가 따로 필요 없게 만든 자리다. */}
-        <ExplanationNote answerKey={answerKey} />
+        <ExplanationNote item={item} answerKey={answerKey} />
       </div>
     )
   }
@@ -306,7 +314,7 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
             </li>
           ))}
         </ol>
-        <ExplanationNote answerKey={answerKey} />
+        <ExplanationNote item={item} answerKey={answerKey} />
       </div>
     )
   }
@@ -339,7 +347,7 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
           )
         })}
       </ol>
-      <ExplanationNote answerKey={answerKey} />
+      <ExplanationNote item={item} answerKey={answerKey} />
     </div>
   )
 }
