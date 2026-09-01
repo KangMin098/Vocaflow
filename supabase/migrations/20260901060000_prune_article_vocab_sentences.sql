@@ -134,18 +134,24 @@ GRANT EXECUTE ON FUNCTION public.prune_article_vocab_sentences(integer) TO servi
 COMMENT ON FUNCTION public.prune_article_vocab_sentences(integer) IS
   '어휘 표의 first_sentence 를 필요한 것만 남기고 배치로 비운다(캐시 축출 — 원문에서 46.5ms/편에 재현 가능). 남기는 것: 발행 글의 전 행 + 사전에서 안 풀리는 4자 이상 낱말. service_role 전용. 드라이버: scripts/acp/prune-vocab-sentences.mjs';
 
--- 남은 대상 수를 세는 읽기 전용 짝 — 스크립트가 진행률과 종료 판정에 쓴다.
--- (정리 함수와 **같은 술어**를 쓴다. 둘이 갈라지면 스크립트가 끝나지 않는다.)
-CREATE OR REPLACE FUNCTION public.count_article_vocab_prunable()
+-- 남은 대상 수의 **추정치** — 스크립트의 진행률 표시용이다.
+--
+-- ⚠️ **표본이다. 종료 판정에 쓰지 않는다.** 처음엔 전수를 세게 만들었다가 실행 직전에
+--   막혔다(2026-09-01): 11,011,463행마다 굴절형을 풀어야 해서 `en_inflection_bases`
+--   안에서 statement timeout 이 난다. 10분을 줘도 확실하지 않다.
+--   종료는 드레인이 **빈 배치**(pruned = 0)를 받는 것으로 판정한다 — 그쪽이 정확하고 공짜다.
+--
+-- (정리 함수와 **같은 술어**를 쓴다. 갈라지면 진행률이 거짓말을 한다.)
+CREATE OR REPLACE FUNCTION public.count_article_vocab_prunable(p_pct double precision DEFAULT 0.25)
 RETURNS bigint
 LANGUAGE sql
 STABLE
 SECURITY DEFINER
 SET search_path TO 'public'
-SET statement_timeout TO '600000'
+SET statement_timeout TO '120000'
 AS $function$
-  SELECT count(*)
-  FROM library_article_vocabularies l
+  SELECT (count(*) * (100.0 / GREATEST(p_pct, 0.0001)))::bigint
+  FROM library_article_vocabularies l TABLESAMPLE SYSTEM (p_pct)
   JOIN library_articles a ON a.id = l.library_article_id
   WHERE l.first_sentence IS NOT NULL
     AND a.status <> 'published'
@@ -175,9 +181,9 @@ AS $function$
     )
 $function$;
 
-REVOKE ALL ON FUNCTION public.count_article_vocab_prunable() FROM PUBLIC;
-REVOKE ALL ON FUNCTION public.count_article_vocab_prunable() FROM anon, authenticated;
-GRANT EXECUTE ON FUNCTION public.count_article_vocab_prunable() TO service_role;
+REVOKE ALL ON FUNCTION public.count_article_vocab_prunable(double precision) FROM PUBLIC;
+REVOKE ALL ON FUNCTION public.count_article_vocab_prunable(double precision) FROM anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.count_article_vocab_prunable(double precision) TO service_role;
 
-COMMENT ON FUNCTION public.count_article_vocab_prunable() IS
-  'prune_article_vocab_sentences 와 같은 술어로 남은 대상 수를 센다(읽기 전용). 진행률·종료 판정용.';
+COMMENT ON FUNCTION public.count_article_vocab_prunable(double precision) IS
+  'prune_article_vocab_sentences 와 같은 술어로 남은 대상 수를 **추정**한다(TABLESAMPLE · 읽기 전용). 진행률 표시 전용 — 종료 판정은 드레인이 빈 배치를 받는 것으로 한다(전수 계수는 굴절형 해석 때문에 타임아웃한다).';

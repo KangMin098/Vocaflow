@@ -62,8 +62,6 @@ const arg = (n, d = null) => {
 const commit = process.argv.includes('--commit')
 const BATCH = Number(arg('batch', 25000))
 const MAX = Number(arg('max', Infinity))
-// 몇 배치마다 진행 상황을 다시 재나. 매번 세면 세는 값이 배치보다 비싸다.
-const RECOUNT_EVERY = Number(arg('recount', 10))
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL
 const key = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -85,22 +83,28 @@ if (cErr) {
 }
 const total = Number(before)
 
-console.log(`비울 대상 ${fmt(total)}행 — 평균 188 B 이므로 약 ${Math.round((total * 188) / 1024 / 1024)} MB`)
+console.log(`비울 대상 약 ${fmt(total)}행(표본 추정) — 평균 188 B 이므로 약 ${Math.round((total * 188) / 1024 / 1024)} MB`)
 console.log('남기는 것: 발행 글의 전 행 + 사전에서 안 풀리는 4자 이상 낱말\n')
 
 if (!commit) {
   console.log('예행이다. 아무것도 안 바꿨다. 실제로 비우려면 --commit 을 붙일 것.')
   console.log('⚠️ 비운 뒤 heap 을 실제로 되찾으려면 사람이 판단해 따로 돌린다:')
   console.log('     VACUUM FULL ANALYZE public.library_article_vocabularies;')
+  // 아래 §종료 주석과 같은 이유로 여기서도 곧바로 exit 하지 않는다.
+  // (실측 2026-09-01 — 예행만 이 지연이 빠져 있어 성공한 예행이 libuv assertion 으로 끝났다.)
+  await new Promise((r) => setTimeout(r, 100))
   process.exit(0)
 }
 
 let done = 0
 let batches = 0
-let remaining = total
 const t0 = Date.now()
 
-while (remaining > 0 && done < MAX) {
+// ⚠️ **종료는 빈 배치로만 판정한다.** 남은 수를 다시 세서 끝내면 안 된다 —
+//   그 수는 TABLESAMPLE 추정이라 0 에 안 붙고, 전수 계수는 굴절형 해석 때문에
+//   타임아웃한다(실측 2026-09-01). 빈 배치는 정확하고 공짜다.
+for (;;) {
+  if (done >= MAX) break
   const limit = Math.min(BATCH, MAX - done)
   const { data, error } = await db.rpc('prune_article_vocab_sentences', { p_limit: limit })
   if (error) {
@@ -113,28 +117,14 @@ while (remaining > 0 && done < MAX) {
   done += pruned
   batches += 1
 
-  // 고를 대상이 없으면 끝이다 — 남은 수를 다시 세지 않고 바로 멈춘다.
-  if (pruned === 0) {
-    remaining = 0
-    break
-  }
-
-  if (batches % RECOUNT_EVERY === 0) {
-    const { data: c, error: e2 } = await db.rpc('count_article_vocab_prunable')
-    if (e2) {
-      console.error('\n중간 계수 실패:', e2.message)
-      process.exit(1)
-    }
-    remaining = Number(c)
-  } else {
-    remaining = Math.max(0, remaining - pruned)
-  }
+  if (pruned === 0) break
 
   const sec = (Date.now() - t0) / 1000
   const rate = done / Math.max(sec, 0.001)
-  const eta = rate > 0 ? Math.round(remaining / rate) : 0
+  const left = Math.max(0, total - done)
+  const eta = rate > 0 ? Math.round(left / rate) : 0
   process.stdout.write(
-    `\r배치 ${batches} · 비움 ${fmt(done)} / ${fmt(total)} · 남음 ${fmt(remaining)} · ${Math.round(rate)}행/s · 예상 ${eta}s   `,
+    `\r배치 ${batches} · 비움 ${fmt(done)} / 추정 ${fmt(total)} · ${Math.round(rate)}행/s · 남은 예상 ${eta}s   `,
   )
 }
 
