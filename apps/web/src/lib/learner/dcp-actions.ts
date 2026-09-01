@@ -12,7 +12,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 
 import type { DcpErrorCause, DcpGradeResult, DcpItem } from './dcp'
-import { SERIES_SPINE } from '@vocaflow/library-pipeline'
+import { SERIES_SPINE, cleanItemPayload, itemHygieneReject } from '@vocaflow/library-pipeline'
 
 import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 
@@ -161,8 +161,11 @@ export async function fetchDcpPracticeItems(): Promise<{
  *   같은 행에 `answer_key` 가 있어서 정책을 열면 브라우저에서 정답이 보인다.
  *   그래서 `textbook_practice_items` RPC 가 정답을 뺀 열만 내준다.
  *
- * ⚠️ **어떤 유형이 나오는지는 RPC 가 정한다** — 화면이 거르지 않는다. 화면에서 거르면
- *   "8문항 달라고 했는데 3개만 뜨는" 조용한 손실이 생긴다(처방에서 실제로 겪었다).
+ * ⚠️ **어떤 유형이 나오는지는 RPC 가 정한다.** 다만 2026-09-01 부터 **품질 게이트는 여기서
+ *   건다** — RPC 가 조판의 게이트를 하나도 쓰지 않아 연습 후보에 소재 부적합 14,738문항과
+ *   철회 논문 168문항이 남아 있었다. 거르되 **`limit` 의 몇 배를 받아** 거른 뒤 정확히
+ *   `limit` 을 내므로, 이 주석이 원래 경고하던 "8문항 달라고 했는데 3개만 뜨는" 조용한
+ *   손실은 생기지 않는다. 판정·정제는 `item-hygiene.ts` 한 벌이고 조판이 쓰는 것과 같다.
  */
 export async function fetchTextbookPracticeItems(
   vLevel: number,
@@ -189,14 +192,39 @@ export async function fetchTextbookPracticeItems(
   if (!user) return { items: [], unavailable: true, signedOut: true }
 
   const loose = client as unknown as SupabaseClient
+  // ⚠️ **넉넉히 받아서 거른다.** RPC 는 유형 화이트리스트와 `v_level`·발행 상태만 본다 —
+  //   조판이 세운 게이트(철회 논문 · 소재 · 기사 껍데기 · 인용 잔해 · 잘린 조각)를 하나도
+  //   쓰지 않는다. 그래서 **조판물은 깨끗한데 학습자가 받는 것은 아니었다.**
+  //   실측 2026-09-01, 연습 후보 안에 남아 있던 것:
+  //     소재 부적합 **14,738문항**(V6 12,567 · V7 1,610 · V5 526) · 철회 논문 **168문항**
+  //
+  //   판정은 TypeScript 체인(`itemHygieneReject`)이라 RPC 안으로 넣을 수 없다. 대신
+  //   **`limit` 의 몇 배를 받아 거른 뒤 정확히 `limit` 만 낸다** — 이 파일 머리말이 경고한
+  //   "8문항 달라고 했는데 3개만 뜨는 조용한 손실" 을 만들지 않기 위해서다.
+  //   RPC 상한이 50 이므로 그 안에서 넉넉히 잡는다(실측 반려율 약 8%).
+  const overFetch = Math.min(50, Math.max(limit * 3, limit + 10))
   const { data, error } = await loose.rpc('textbook_practice_items', {
     p_v_level: vLevel,
-    p_limit: limit,
+    p_limit: overFetch,
   })
   // 조회 실패를 빈 목록으로 뭉개지 않는다 — 화면이 "아직 문항이 없어요" 로 거짓말하게 된다.
   if (error) return { items: [], unavailable: true, signedOut: false }
 
-  const items = Array.isArray(data) ? data.map(parseItem).filter((x): x is DcpItem => x !== null) : []
+  const rows = Array.isArray(data) ? (data as Array<Record<string, unknown>>) : []
+  const clean = rows.filter(
+    (r) =>
+      itemHygieneReject({
+        payload: r.payload as Record<string, unknown> | null,
+        refTitle: typeof r.ref_title === 'string' ? r.ref_title : null,
+      }) === null,
+  )
+  // ⚠️ **정제도 여기서 건다.** 조판은 절 이름·반복 꼬리·구두점·따옴표를 다듬은 사본을
+  //   인쇄하는데, 연습은 저장된 payload 를 그대로 내보내고 있었다 — 같은 문항인데
+  //   책에서는 깨끗하고 화면에서는 "Abstract The coexistence…" 로 보인다.
+  const items = clean
+    .map((r) => parseItem({ ...r, payload: cleanItemPayload((r.payload ?? {}) as Record<string, unknown>) }))
+    .filter((x): x is DcpItem => x !== null)
+    .slice(0, limit)
   return { items, unavailable: false, signedOut: false }
 }
 

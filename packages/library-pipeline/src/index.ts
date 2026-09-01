@@ -239,6 +239,15 @@ export type { WordOrderItem } from './textbook/word-order'
 // 문항을 만드는 쪽은 전부 이 자를 써야 한다 — 안 쓰면 창 밖 지문으로 문항을 만들게 되고,
 // 그런 문항은 적재는 되는데 조합기가 걸러서 **책에는 영영 안 실린다**(실측: V5 30문항 중 26개).
 export { hasNonProse, isPrintablePassage, selectPassageWindow } from './textbook/csat-format'
+// 문항 하나를 학습자에게 내보내도 되는가 — 조판과 연습이 **같은 판정**을 쓰게 한다.
+export {
+  cleanItemPayload,
+  cleanPassageText,
+  isRetractedTitle,
+  itemHygieneReject,
+  passageTextOf,
+  type HygieneReject,
+} from './textbook/item-hygiene'
 export { UNIT_MINUTES, MARKET_UNITS_PER_BOOK, scoreVolume } from './textbook/scorecard'
 // 출판사별 우위 지수의 산술 — 벤치마크 스크립트가 이 한 벌을 쓴다(사본 금지).
 export {
