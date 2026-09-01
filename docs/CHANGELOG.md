@@ -1611,6 +1611,28 @@ return med >= 1 && med <= 7 ? Math.round(med) : null   ← 중앙값 8 도 null 
 
 **선택 지수 1.29 · 내용 우위지수 1.586 · 발행 55권 · 고유 표제어 11,704.**
 
+### 파생어는 만들 게 아니라 뒤집을 것이었다 (내용 지수 1.612 → 1.621)
+
+카탈로그 파생어 결측 4,985 에 두 경로가 막혀 있었다 — WordNet **0%**, 접미사 결합은
+수율 4% 에 **오탐 33%**(`apart`+`-ment`→`apartment` · `arch`→`archive`). 남은 길이
+"Claude Code 가 생성" 뿐이라고 적었는데, **그것도 틀렸다.**
+
+사전이 **반대 방향의 답을 이미 갖고 있었다.** `base_word` 가 10,400행에 차 있다
+(`w0830-family.mjs` 배치 + `base-word-backfill.mjs`). `happiness.base_word = happy` 라면
+`happy.derived_forms` 에 `happiness` 가 있어야 한다 — **같은 관계의 양방향**이다.
+그러니 생성이 아니라 **역인덱스**이고, 새 사실을 만들지 않으므로 환각이 없다.
+
+- `scripts/dict/derived-from-base.mjs` 신규 — 487 표제어 채움(카탈로그 284)
+- **V3 57.4% → 59.8%** (1.39 → 1.45) · **종합 1.612 → 1.621**
+- 표본이 앞서 기계적 방법이 틀렸던 자리를 바로 맞힌다: `arch → archly`(≠ archive) ·
+  `appetite → appetizer` · `archer → archery`
+- **출처를 남긴다**(`field_provenance.derived_forms = 'base-word-inverse'`) — 바로 앞
+  항목에서 출처 없는 533행이 하마터면 purge 될 뻔했다. 같은 실수를 되풀이하지 않는다
+
+남은 파생어 결측은 여전히 크다(카탈로그 4,701). 역인덱스는 `base_word` 가 있는 만큼만
+닿으므로, 다음 레버는 **`base_word` 를 더 채우는 것**(`w0830-family.mjs` 드레인)이고
+그쪽이 채워지면 이 스크립트를 다시 돌리면 된다 — 두 배치가 서로를 밀어 올린다.
+
 ### 라이선스 정리를 하러 갔다가 안 하고 왔다 — 지울 뻔한 533행이 우리 데이터였다
 
 앞 항목에서 "파생어·related 는 kaikki(CC BY-SA) 유래가 그대로 남았다 · 별도 판단이 필요하다"

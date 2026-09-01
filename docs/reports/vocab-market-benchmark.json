@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T05:22:22.530Z",
+  "generatedAt": "2026-09-01T11:11:58.609Z",
   "specGeneratedAt": "2026-08-30T13:58:09.077Z",
   "population": {
     "publishedSets": 55,
@@ -35,12 +35,12 @@
     {
       "id": "V3",
       "name": "파생어 보유율",
-      "ours": 0.5740772385509227,
+      "ours": 0.5983424470266575,
       "market": 0.414,
       "unit": "%",
       "seenBy": "CardBack 낱말 그물 (derived_forms)",
       "why": "한 어근에서 갈라진 말을 함께 줘야 낱말당 회수가 늘어난다",
-      "index": 1.387
+      "index": 1.445
     },
     {
       "id": "V4",
@@ -84,8 +84,8 @@
       "index": 3.25
     }
   ],
-  "overall": 1.612,
-  "overallVisible": 1.612,
+  "overall": 1.621,
+  "overallVisible": 1.621,
   "visibleAxisIds": [
     "V1",
     "V2",
