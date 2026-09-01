@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T05:40:31.345Z",
+  "generatedAt": "2026-09-01T07:36:20.099Z",
   "scope": "csat_dcp_items 427,592문항 (창고 전체)",
   "itemsMeasured": 427592,
   "baselineRule": "비율 축은 상대의 Wilson 95% 상한을 기준선으로 쓴다 — 상대에게 가장 유리한 해석으로도 이겨야 우위로 친다",
@@ -96,7 +96,7 @@
         {
           "id": "A6",
           "name": "지문 어수 규격 적합률",
-          "ours": 0.9022955213255257,
+          "ours": 0.902100984584868,
           "market": 0.8,
           "unit": "%",
           "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
@@ -195,11 +195,11 @@
         {
           "id": "A6",
           "name": "지문 어수 규격 적합률",
-          "ours": 0.9025048252505902,
+          "ours": 0.883362850296906,
           "market": 0.8,
           "unit": "%",
           "why": "학년대별 지문 길이가 규격 밖이면 시험지에 못 싣는다",
-          "index": 1.128,
+          "index": 1.104,
           "ceiling": 1.25
         },
         {
@@ -219,7 +219,7 @@
         "해설 축 A1~A4",
         "유형 축 A5"
       ],
-      "overallIndex": 1.139,
+      "overallIndex": 1.127,
       "reachableMax": 1.199,
       "targetReachable": false
     },
@@ -450,5 +450,5 @@
   ],
   "bindingPublisher": "쎄듀",
   "bindingIndex": 1.114,
-  "pooledIndex": 1.425
+  "pooledIndex": 1.423
 }

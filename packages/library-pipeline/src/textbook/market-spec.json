@@ -1,6 +1,6 @@
 {
   "$schema": "market-spec/1",
-  "generatedAt": "2026-09-01T05:19:01.897Z",
+  "generatedAt": "2026-09-01T07:24:45.469Z",
   "provenance": {
     "corpus": "시중 영어 교재 79종 (저장소 밖 store)",
     "documentsMeasured": 94,
@@ -81,7 +81,7 @@
       "publisherCount": 3,
       "occurrences": 88,
       "gradeMin": 10,
-      "gradeMax": 11,
+      "gradeMax": 12,
       "ourType": "blank"
     },
     {
@@ -99,7 +99,7 @@
       "publisherCount": 2,
       "occurrences": 42,
       "gradeMin": 9,
-      "gradeMax": 11,
+      "gradeMax": 12,
       "ourType": "insert"
     },
     {
@@ -108,7 +108,7 @@
       "publisherCount": 3,
       "occurrences": 41,
       "gradeMin": 7,
-      "gradeMax": 11,
+      "gradeMax": 12,
       "ourType": "vocab_choice"
     },
     {
@@ -144,7 +144,7 @@
       "publisherCount": 2,
       "occurrences": 22,
       "gradeMin": 9,
-      "gradeMax": 11,
+      "gradeMax": 12,
       "ourType": "summary"
     },
     {
@@ -189,7 +189,7 @@
       "publisherCount": 2,
       "occurrences": 16,
       "gradeMin": 10,
-      "gradeMax": 11,
+      "gradeMax": 12,
       "ourType": "vocab_choice"
     },
     {
@@ -198,7 +198,7 @@
       "publisherCount": 2,
       "occurrences": 10,
       "gradeMin": 10,
-      "gradeMax": 11,
+      "gradeMax": 12,
       "ourType": "order"
     },
     {
@@ -234,7 +234,7 @@
       "publisherCount": 2,
       "occurrences": 7,
       "gradeMin": 10,
-      "gradeMax": 11,
+      "gradeMax": 12,
       "ourType": "long_reference"
     },
     {
@@ -513,29 +513,29 @@
     "고2": {
       "gradeMin": 11,
       "words": {
-        "n": 308,
+        "n": 134,
         "min": 40,
-        "p10": 46,
-        "p25": 64,
-        "median": 124,
-        "p75": 169,
-        "p90": 195,
+        "p10": 54,
+        "p25": 70,
+        "median": 117,
+        "p75": 172,
+        "p90": 208,
         "max": 307,
-        "mean": 119.9
+        "mean": 125.8
       }
     },
     "고3": {
       "gradeMin": 12,
       "words": {
-        "n": 473,
+        "n": 647,
         "min": 40,
-        "p10": 68,
-        "p25": 97,
-        "median": 134,
-        "p75": 155,
-        "p90": 172,
+        "p10": 50,
+        "p25": 87,
+        "median": 132,
+        "p75": 158,
+        "p90": 178,
         "max": 319,
-        "mean": 128.5
+        "mean": 125
       }
     }
   },

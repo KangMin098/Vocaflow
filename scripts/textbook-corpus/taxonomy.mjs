@@ -49,7 +49,10 @@ export const SERIES_RULES = [
   { re: /천일문/i, series: '천일문', publisher: '쎄듀', category: '구문', band: [10, 12] },
   { re: /첫단추/i, series: '첫단추', publisher: '쎄듀', category: '독해', band: [10, 12] },
   { re: /올림포스/i, series: 'EBS 올림포스', publisher: 'EBS', category: '독해', band: [10, 11] },
-  { re: /수능특강/i, series: 'EBS 수능특강', publisher: 'EBS', category: '독해', band: [11, 12] },
+  // EBS 수능특강은 **수능 연계교재**다 — 고3 대상이고 지문도 수능 길이다.
+  //   band [11,12] 로 두면 grade_min 11 → '고2' 버킷에 들어가, 우리 V7(고3) 권을
+  //   비교할 상대가 사라진다(어느 출판사도 고3 버킷이 없어 V7 5만 문항이 통째로 빠졌다).
+  { re: /수능특강/i, series: 'EBS 수능특강', publisher: 'EBS', category: '독해', band: [12, 12] },
   { re: /수능\s*딥독|중학수능딥독/i, series: '중학 수능 딥독', publisher: '미상', category: '독해', band: [7, 9] },
   { re: /리딩\s*인사이드|Reading\s*Inside/i, series: '리딩인사이드', publisher: '미상', category: '독해', band: [7, 9] },
   { re: /수능\s*1\s*Up/i, series: '수능 1 Up', publisher: '미상', category: '독해', band: [11, 12] },
