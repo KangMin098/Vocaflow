@@ -126,7 +126,11 @@ export function VolumeCover({ volume: v, size = 'sm' }: { volume: ShelfVolume; s
       {fullyExplained && (
         <span
           data-cover-badge
-          className="absolute right-1.5 top-1.5 rounded-[var(--r-full)] bg-[var(--active)] px-2 py-0.5 font-mono text-[10px] font-[700] tabular-nums text-[var(--bg)] shadow-ios-1"
+          // ⚠️ 금색 채움 위의 글자는 **`--on-active`** 다. `--bg`(종이)를 얹으면 3.23:1 로
+          //    WCAG AA(4.5:1) 미달이다 — axe 가 serious/color-contrast 로 잡았다(실측 2026-09-01).
+          //    토큰 주석이 이미 같은 값(3.24:1)을 적어 두고 이 토큰을 만들어 뒀는데,
+          //    여기서 다시 밟았다. `--active` 는 **면·아이콘·테두리용**이다.
+          className="absolute right-1.5 top-1.5 rounded-[var(--r-full)] bg-[var(--active)] px-2 py-0.5 font-mono text-[10px] font-[700] tabular-nums text-[var(--on-active)] shadow-ios-1"
         >
           해설 100%
         </span>

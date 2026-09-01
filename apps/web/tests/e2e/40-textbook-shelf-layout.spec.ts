@@ -24,6 +24,7 @@
 // ⚠️ 임계값은 **목표가 아니라 하한**이다. 여기를 올려서 점수를 만드는 것이 아니라,
 //    "여기 밑으로 내려가면 그건 사고" 인 선을 긋는다.
 
+import AxeBuilder from '@axe-core/playwright'
 import { test, expect } from '@playwright/test'
 
 const SHELF = '/library/textbooks'
@@ -104,4 +105,45 @@ test.describe('교재 매대 레이아웃 (공개 표면)', () => {
       `본문 font-size ${sizes.length}종 (상한 ${CAP}) — ${sizes.map(([s, ex]) => `${s} ${ex}`).join(' · ')}`,
     ).toBeLessThanOrEqual(CAP)
   })
+})
+
+/**
+ * **심각 이상 접근성 위반 0** — 공개 매대는 아무나 오는 화면이다.
+ *
+ * ── 왜 여기서도 재나 (실측 2026-09-01) ────────────────────────────────
+ * `shelf-ux-probe.mjs` 에 이 축(U7)을 새로 넣자마자 **우리 쪽에서 하나가 나왔다**:
+ *   serious/color-contrast ×2 — 표지 배지가 `--active`(금색) 위에 `--bg`(종이)를 얹어
+ *   대비 3.23:1 (10px bold 는 4.5:1 필요).
+ *
+ * 뼈아픈 것은 **토큰이 이미 그 답을 갖고 있었다**는 점이다 —
+ * `--on-active` 는 주석에 같은 값(3.24:1)을 적어 두고 정확히 이 실수를 막으려고 만든 토큰이다.
+ * 그런데 새 배지가 다시 밟았고, 손으로 재기 전까지 아무도 몰랐다.
+ * 그래서 지수 리포트에만 두지 않고 여기로 내린다.
+ *
+ * ⚠️ 0 을 요구한다 — "경쟁사보다 적게" 가 아니라 **없어야** 한다.
+ *    경쟁 비교(U7)는 지수 리포트 소관이고, 여기는 우리 화면의 하한이다.
+ *    (참고 실측: NE능률 3종 · 비상교재 0~1종. 낮은 바가 아니다.)
+ */
+test.describe('교재 매대 접근성 (공개 표면)', () => {
+  for (const [label, viewport] of [
+    ['mobile', { width: 390, height: 844 }],
+    ['desktop', { width: 1280, height: 900 }],
+  ] as const) {
+    test(`${label}: 심각 이상 위반이 없다`, async ({ page }) => {
+      await page.setViewportSize(viewport)
+      await page.goto(SHELF, { waitUntil: 'networkidle' })
+
+      const res = await new AxeBuilder({ page })
+        // 태그·범위를 `shelf-ux-probe.mjs` 와 같게 맞춘다 — 자와 가드가 다른 것을 세면 둘 다 못 믿는다.
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+        .include('main')
+        .analyze()
+
+      const bad = res.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')
+      expect(
+        bad.map((v) => `${v.impact}/${v.id} ×${v.nodes.length} :: ${(v.nodes[0]?.failureSummary ?? v.help).replace(/\s+/g, ' ').slice(0, 140)}`),
+        `${label} 매대에 심각 이상 접근성 위반`,
+      ).toEqual([])
+    })
+  }
 })

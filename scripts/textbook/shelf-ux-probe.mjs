@@ -31,6 +31,8 @@ import { fileURLToPath } from 'node:url'
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const req = createRequire(path.join(HERE, '..', '..', 'apps', 'web', 'package.json'))
 const { chromium } = req('@playwright/test')
+// 접근성 위반은 **같은 자로** 양쪽에서 잰다 — 규칙·태그는 `14-learner-quality.spec.ts` 와 맞춘다.
+const AxeBuilder = req('@axe-core/playwright').default ?? req('@axe-core/playwright')
 
 const argOf = (flag, fallback = null) => {
   const i = process.argv.indexOf(flag)
@@ -88,6 +90,42 @@ const VIEW_DESKTOP = { width: 1280, height: 900 }
 const VIEW_MOBILE = { width: 390, height: 844 }
 
 /** 페이지 안에서 계산되는 측정 — 레이아웃이 끝난 뒤의 실제 값만 읽는다. */
+/**
+ * 접근성 위반 — **규칙 종류 수**로 센다(노드 수가 아니다).
+ *
+ * ── 왜 노드가 아니라 규칙인가 ──────────────────────────────────────
+ * 같은 결함이라도 카드를 20개 그리는 쪽은 노드가 20배로 잡힌다. 그러면 이 축이
+ * **상품을 많이 보여 주는 쪽을 벌주는** 자가 된다 — 재려던 것과 정반대다.
+ * 규칙 종류는 화면 크기와 무관하게 "어떤 종류의 결함이 있는가" 를 센다.
+ *
+ * ⚠️ `serious`·`critical` 만 센다. `minor`·`moderate` 까지 넣으면 총수가 커지는 대신
+ *    한 건의 무게가 흐려져, 심각한 하나와 사소한 열이 같아진다.
+ * ⚠️ 못 재면 `null` 이다 — 0 이 아니다. 0 은 "위반이 없다" 는 뜻이라 정반대 거짓이 된다.
+ */
+async function measureA11y(page) {
+  try {
+    // ⚠️ `main` 이 **없는 사이트가 있다**(NE능률 실측 2026-09-01 — axe 가
+    //    "No elements found for include" 로 통째로 실패했다). 그러면 그 사이트만 측정이
+    //    빠지고, 남은 곳이 기준선을 독차지한다 — 못 잰 것이 조용히 유리하게 작용한다.
+    //    그래서 `main` 이 없으면 `body` 로 떨어진다. 어느 범위로 쟀는지 함께 남긴다.
+    const scope = (await page.locator('main').count()) > 0 ? 'main' : 'body'
+    const res = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .include(scope)
+      .analyze()
+    const bad = res.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical')
+    return {
+      scope,
+      seriousRules: bad.length,
+      seriousNodes: bad.reduce((s, v) => s + v.nodes.length, 0),
+      // 무엇이 걸렸는지 남긴다 — 숫자만 있으면 고칠 수가 없다.
+      rules: bad.map((v) => `${v.impact}/${v.id} ×${v.nodes.length}`).sort(),
+    }
+  } catch (e) {
+    return { seriousRules: null, seriousNodes: null, rules: [], error: String((e && e.message) || e) }
+  }
+}
+
 async function measure(page, cardSel) {
   return page.evaluate((sel) => {
     const cards = Array.from(document.querySelectorAll(sel))
@@ -239,10 +277,12 @@ for (const t of TARGETS) {
     }
 
     entry.desktop = await measure(page, sel)
+    entry.desktop.a11y = await measureA11y(page)
 
     await page.setViewportSize(VIEW_MOBILE)
     await page.waitForTimeout(800)
     entry.mobile = await measure(page, sel)
+    entry.mobile.a11y = await measureA11y(page)
   } catch (e) {
     // 못 잰 것을 0 으로 적지 않는다 — 이 저장소가 못 박은 규칙이 계측기에도 걸린다.
     entry.error = String((e && e.message) || e)
@@ -273,6 +313,9 @@ const AXES = [
   },
   { id: 'U5', name: '본문 font-size 종류', pick: (m) => m.fontSizes, lower: true },
   { id: 'U6', name: '44px 미만 터치타겟', pick: (m) => m.tinyTargets, lower: true },
+  // ── 상향 (2026-09-01): 지금까지 여섯 축은 전부 '상품에 닿는 비용' 만 재고 있었다.
+  //    화면이 **실제로 쓸 만한가** 는 한 번도 안 쟀다. WCAG 위반을 같은 자로 양쪽에서 센다.
+  { id: 'U7', name: '심각 이상 접근성 위반 (규칙)', pick: (m) => m.a11y?.seriousRules ?? null, lower: true },
 ]
 
 function indexOf(axis, oursVal, marketVal) {
@@ -366,6 +409,10 @@ if (process.argv.includes('--json')) {
       console.log(
         `    ${v.padEnd(7)} 상품 ${String(m.cards).padStart(3)} · 첫상품 ${String(m.firstCardScreens).padStart(5)}화면(${m.firstCardY}px) · 첫화면노출 ${m.visibleInFold} · Tab ${m.tabsToFirstCard}${m.hasSkipLink && m.tabsAfterSkip !== m.tabsToFirstCard ? `→${m.tabsAfterSkip}(건너뛰기)` : ""} · 조작 ${m.controlsOutsideCards} · font-size ${m.fontSizes}종 · 작은타겟 ${m.tinyTargets} · 가로넘침 ${m.hOverflow}`,
       )
+      // 숫자만 있으면 못 고친다 — 무엇이 걸렸는지 함께 찍는다.
+      if (m.a11y?.rules?.length)
+        console.log(`             a11y(${m.a11y.scope}): ${m.a11y.rules.join(' · ')}`)
+      if (m.a11y?.error) console.log(`             a11y 측정 실패: ${m.a11y.error.slice(0, 80)}`)
     }
     console.log('')
   }
