@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T04:18:38.487Z",
+  "generatedAt": "2026-09-01T05:22:22.530Z",
   "specGeneratedAt": "2026-08-30T13:58:09.077Z",
   "population": {
     "publishedSets": 55,
@@ -45,12 +45,12 @@
     {
       "id": "V4",
       "name": "유의어·반의어 보유율",
-      "ours": 0.7702494873547505,
+      "ours": 0.8626110731373889,
       "market": 0.257,
       "unit": "%",
       "seenBy": "CardBack 낱말 그물 (synonyms·antonyms)",
       "why": "뜻이 겹치고 갈리는 자리를 보여야 변별이 생긴다",
-      "index": 2.997
+      "index": 3.356
     },
     {
       "id": "V5",
@@ -84,8 +84,8 @@
       "index": 3.25
     }
   ],
-  "overall": 1.586,
-  "overallVisible": 1.586,
+  "overall": 1.612,
+  "overallVisible": 1.612,
   "visibleAxisIds": [
     "V1",
     "V2",
