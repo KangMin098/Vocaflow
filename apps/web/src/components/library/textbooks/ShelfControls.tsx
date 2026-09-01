@@ -47,6 +47,10 @@ import {
 import { SHELF_SORTS, SHELF_VIEWS, type ShelfView } from '@/lib/textbook/shelf-search'
 import { STATUS_LABEL } from '@/lib/textbook/shelf-status'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
+// ⚠️ **서브패스로 들어온다.** 이 파일은 클라이언트 컴포넌트라 패키지 루트를 import 하면
+//    적재 스크립트의 `child_process` 까지 딸려와 화면이 500 이 된다(실측 2026-09-01).
+import { COVER_BRAND, COVER_LIST_WIDTH, coverSvg } from '@vocaflow/library-pipeline/textbook-cover'
+
 import { sourceLabel } from '@/lib/textbook/source-guide'
 
 /**
@@ -68,34 +72,41 @@ import { sourceLabel } from '@/lib/textbook/source-guide'
  *    이 매대의 주제가 '학년을 잇는 사다리' 라 그 착시가 특히 나쁘다.
  */
 export function VolumeCover({ volume: v, size = 'sm' }: { volume: ShelfVolume; size?: 'sm' | 'lg' }) {
-  const ready = v.status === 'ready'
-  const lg = size === 'lg'
-  // 208°(브랜드 청록) → 34°(따뜻한 황토). 7계단을 174° 안에서 편다 — 한 방향, 겹침 없음.
-  const hue = 208 - ((v.step - 1) / 6) * 174
+  // ── 왜 그라디언트 칩에서 표지로 바꿨나 (실측 2026-09-01) ──────────────
+  // 국내 교재 출판사와 같은 자로 매대를 재 보니(`shelf-visual-probe.mjs`):
+  //
+  //     축                우리      NE능률
+  //     첫화면 이미지 면적  0.56%      5.3%   ← 1/9
+  //     표지 크기         196px²  15,336px²  ← 1/78
+  //
+  // 196px² 는 14×14 — **표지가 아니라 아이콘**이었다. 46×64 그라디언트 칩은 CSS 배경이라
+  // 이미지로 세지지도 않는다. 매대에서 먼저 일어나는 일은 고르는 것이 아니라 눈에 걸리는
+  // 것이고, 그 일은 이미지가 한다.
+  //
+  // ⚠️ 표지 **모양은 여기서 정하지 않는다** — `library-pipeline/textbook/cover.ts` 가
+  //    정본이고 조판기(`render-volume.mjs`)가 같은 함수를 쓴다. 매대의 표지와 책의 표지가
+  //    달라지면 같은 상품으로 안 읽힌다.
+  // ⚠️ `<img>` 가 아니라 **인라인 SVG** 다 — 토큰(`var(--…)`)과 페이지 서체를 그대로
+  //    물려받아야 다크 테마가 공짜로 따라온다.
+  const width = size === 'lg' ? 132 : COVER_LIST_WIDTH
+  const svg = coverSvg(
+    {
+      brand: COVER_BRAND,
+      step: v.step,
+      totalSteps: 7,
+      schoolBand: v.schoolBand,
+      pending: v.status !== 'ready',
+    },
+    width,
+  )
 
   return (
     <div
       aria-hidden
-      className={`flex shrink-0 flex-col justify-between overflow-hidden rounded-[var(--r-sm)] ${
-        lg ? 'h-[118px] w-[86px] p-2.5' : 'h-[64px] w-[46px] p-1.5'
-      }`}
-      style={{
-        // 생성물이라 토큰이 없다 — 게임 전용 예외와 같은 자리다(CLAUDE.md 하드코딩 금지 예외).
-        background: ready
-          ? `linear-gradient(155deg, hsl(${hue} 44% 33%), hsl(${hue} 50% 21%))`
-          : 'var(--bg3)',
-        color: ready ? '#fff' : 'var(--t2)',
-      }}
-    >
-      <span className="font-mono text-[10px] font-[700] uppercase tracking-[0.1em] opacity-70">
-        STEP
-      </span>
-      <span
-        className={`font-display font-[800] leading-none tabular-nums ${lg ? 'text-[26px]' : 'text-[22px]'}`}
-      >
-        {v.step}
-      </span>
-    </div>
+      className="shrink-0 overflow-hidden rounded-[var(--r-sm)]"
+      style={{ width }}
+      dangerouslySetInnerHTML={{ __html: svg }}
+    />
   )
 }
 

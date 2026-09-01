@@ -642,6 +642,10 @@ export {
 } from './textbook/brand'
 export type { BrandSpecRow, Colophon, ColophonInput, VolumePalette } from './textbook/brand'
 
+/** 표지 — 매대와 조판기가 **같은 표지**를 쓴다(문자열이라 React·Node 양쪽에서 그대로). */
+export { COVER_LIST_WIDTH, COVER_RATIO, coverSpecOf, coverSvg } from './textbook/cover'
+export type { CoverSpec } from './textbook/cover'
+
 export {
   ITEMS_PER_UNIT,
   RUNG_TYPE_FLOOR_PER_MILLE,
