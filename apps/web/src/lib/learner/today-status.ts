@@ -63,6 +63,44 @@ export interface TodayStatusInput {
   streak: number
 }
 
+/**
+ * 띠에 그리는 수의 **상한**.
+ *
+ * ── 왜 상한이 필요한가 (실측 2026-08-31) ────────────────────────────
+ * 어느 계정의 띠가 `새 단어 1858` 을 그리고 있었다. 이 띠의 설계 규칙 ② 는
+ * **"조치 가능한 것만"** 인데, 1,858 은 조치 가능한 수가 아니다 — 오늘 할 수 있는 일이
+ * 아니라 못 한 일의 총량이고, 학습자가 그 앞에서 할 수 있는 것은 닫는 것뿐이다.
+ * 철학 ③(압박 금지)과 학습원칙 ⑥(작업기억 ~4항목)에 정면으로 걸린다.
+ *
+ * `fresh` 가 띠에 올라온 이유는 **선생님이 보낸 3낱말** 이었다(위 `fresh` 주석).
+ * 그 크기에서는 옳은 판단이었고, 지금도 옳다 — 틀어진 것은 판단이 아니라 **자릿수**다.
+ *
+ * ⚠️ 자르되 **거짓말하지 않는다.** `99+` 는 "99보다 많다" 는 참인 문장이라
+ *    "칩이 N 이라고 말했으면 누른 자리에 N 개가 있어야 한다" 는 이 띠의 계약을 깨지 않는다.
+ *    반올림하거나(2k) 임의의 수로 바꾸면 그 계약이 깨진다.
+ *
+ * ⚠️ 여기서 **자르는 것은 표시뿐이다.** `isEmpty` 판정과 목적지 목록은 실수를 그대로 쓴다 —
+ *    상한이 계산에 스며들면 100번째 낱말부터 조용히 사라진다.
+ */
+export const RIBBON_COUNT_CAP = 99
+
+/** 띠에 그릴 문자열. 상한을 넘으면 `99+`. */
+export function formatRibbonCount(n: number): string {
+  const v = Math.max(0, Math.floor(n))
+  return v > RIBBON_COUNT_CAP ? `${RIBBON_COUNT_CAP}+` : String(v)
+}
+
+/**
+ * 스크린리더가 읽을 표현.
+ *
+ * ⚠️ 보이는 값과 **같은 뜻**이어야 한다. 화면은 `99+` 인데 소리는 `1858개` 면
+ *    같은 링크가 두 사람에게 다른 약속을 한다.
+ */
+export function ribbonCountAria(n: number): string {
+  const v = Math.max(0, Math.floor(n))
+  return v > RIBBON_COUNT_CAP ? `${RIBBON_COUNT_CAP}개 이상` : `${v}개`
+}
+
 export function computeTodayStatus(input: TodayStatusInput): TodayStatus {
   const total = Math.max(0, input.progress.total)
   // 링 비율이 1을 넘을 수 없도록 done 을 total 로 막는다.

@@ -14,7 +14,12 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { computeTodayStatus } from '../today-status'
+import {
+  RIBBON_COUNT_CAP,
+  computeTodayStatus,
+  formatRibbonCount,
+  ribbonCountAria,
+} from '../today-status'
 
 const NO_PROGRESS = { done: 0, total: 0 }
 
@@ -139,5 +144,55 @@ describe('computeTodayStatus — 아직 안 배운 낱말', () => {
 
   it('음수는 0으로 막는다', () => {
     expect(computeTodayStatus({ ...NONE, memory: { risk: 0, shaky: 0, fresh: -4 } }).fresh).toBe(0)
+  })
+})
+
+// ── 표시 상한 ────────────────────────────────────────────────────────
+//
+// 2026-08-31 실측: 띠가 `새 단어 1858` 을 그리고 있었다. 이 띠의 규칙 ② 는
+// "조치 가능한 것만" 인데, 1,858 은 오늘 할 수 있는 일이 아니라 못 한 일의 총량이다.
+//
+// 여기서 지키는 것은 둘이다:
+//   ① 자르되 **거짓말하지 않는다** — `99+` 는 참인 문장이다
+//   ② 자르는 것은 **표시뿐** — 계산(`isEmpty`)과 목적지는 실수를 그대로 쓴다.
+//      상한이 계산에 스며들면 100번째 낱말부터 조용히 사라진다.
+
+describe('띠 표시 상한 — 자릿수도 "조치 가능" 의 일부다', () => {
+  it('상한 이하는 그대로 그린다', () => {
+    expect(formatRibbonCount(0)).toBe('0')
+    expect(formatRibbonCount(3)).toBe('3')
+    expect(formatRibbonCount(98)).toBe('98')
+  })
+
+  it('경계 — 99 는 그대로, 100 부터 잘린다', () => {
+    expect(formatRibbonCount(RIBBON_COUNT_CAP)).toBe('99')
+    expect(formatRibbonCount(RIBBON_COUNT_CAP + 1)).toBe('99+')
+  })
+
+  it('실측값 1858 이 네 자리로 나가지 않는다', () => {
+    expect(formatRibbonCount(1858)).toBe('99+')
+  })
+
+  it('스크린리더 표현이 보이는 값과 같은 뜻이다', () => {
+    // 화면은 `99+` 인데 소리가 `1858개` 면 같은 링크가 두 사람에게 다른 약속을 한다.
+    expect(ribbonCountAria(3)).toBe('3개')
+    expect(ribbonCountAria(99)).toBe('99개')
+    expect(ribbonCountAria(1858)).toBe('99개 이상')
+  })
+
+  it('음수·소수를 그대로 그리지 않는다 (계산 실패가 화면으로 새는 것 차단)', () => {
+    expect(formatRibbonCount(-5)).toBe('0')
+    expect(formatRibbonCount(3.7)).toBe('3')
+  })
+
+  it('⚠️ 상한은 계산에 스며들지 않는다 — isEmpty 와 실수는 그대로다', () => {
+    const s = computeTodayStatus({
+      progress: NO_PROGRESS,
+      memory: { risk: 0, shaky: 0, fresh: 1858 },
+      streak: 0,
+    })
+    // 표시는 잘려도 값은 실수여야 한다 — 목적지 목록이 이 수를 쓴다.
+    expect(s.fresh).toBe(1858)
+    expect(s.isEmpty).toBe(false)
   })
 })

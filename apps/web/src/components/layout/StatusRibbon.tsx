@@ -15,6 +15,11 @@
 //   ③ 진행은 링 하나. 게이지 바·퍼센트 금지 (철학 ④ Implicit Progress)
 //   ④ streak 은 숫자만, 0이면 표시하지 않는다 (철학 ③ 압박 금지)
 //   ⑤ 띠는 셸에 하나 — 페이지가 자기 상태 헤더를 또 그리지 않는다
+//   ⑥ 수는 99에서 자른다(`99+`) — 규칙 ② 의 "조치 가능한 것만" 은 **자릿수에도** 걸린다.
+//     2026-08-31 실측으로 이 띠가 `새 단어 1858` 을 그리고 있었다: 오늘 할 수 있는 일이
+//     아니라 못 한 일의 총량이라, 보는 사람이 할 수 있는 것은 닫는 것뿐이었다.
+//     자르는 것은 **표시뿐이다** — 목적지 목록과 `isEmpty` 는 실수를 그대로 쓴다
+//     (`today-status.RIBBON_COUNT_CAP`).
 
 'use client'
 
@@ -25,7 +30,11 @@ import { MEMORY_ATTENTION_LABEL, MEMORY_LABEL } from '@/lib/framework/memory-lab
 import { usePathname } from 'next/navigation'
 
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
-import type { TodayStatus } from '@/lib/learner/today-status'
+import {
+  formatRibbonCount,
+  ribbonCountAria,
+  type TodayStatus,
+} from '@/lib/learner/today-status'
 
 export interface StatusRibbonProps {
   /** 비로그인이면 null — 띠를 그리지 않는다 */
@@ -94,7 +103,7 @@ function Metrics({ status }: { status: TodayStatus }) {
       {status.attention > 0 && (
         <Link
           href="/wordvault/browse?filter=state:attention"
-          aria-label={`${MEMORY_ATTENTION_LABEL} 단어 ${status.attention}개 보기`}
+          aria-label={`${MEMORY_ATTENTION_LABEL} 단어 ${ribbonCountAria(status.attention)} 보기`}
           className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-2 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {/* 색만으로 알리지 않는다 — 점 + 라벨 + 숫자 3중 (색맹 대응) */}
@@ -104,7 +113,7 @@ function Metrics({ status }: { status: TodayStatus }) {
               {MEMORY_ATTENTION_LABEL}
             </span>
             <span className="mt-1 font-display text-[15px] font-[700] tabular-nums text-[var(--t1)]">
-              {status.attention}
+              {formatRibbonCount(status.attention)}
             </span>
           </span>
         </Link>
@@ -125,7 +134,7 @@ function Metrics({ status }: { status: TodayStatus }) {
       {status.fresh > 0 && (
         <Link
           href="/wordvault/browse?filter=state:new"
-          aria-label={`아직 안 배운 단어 ${status.fresh}개 보기`}
+          aria-label={`아직 안 배운 단어 ${ribbonCountAria(status.fresh)} 보기`}
           className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-2 transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {/* 색만으로 알리지 않는다 — 점 + 라벨 + 숫자 3중 (색맹 대응) */}
@@ -142,7 +151,7 @@ function Metrics({ status }: { status: TodayStatus }) {
               {MEMORY_LABEL.new.label}
             </span>
             <span className="mt-1 font-display text-[15px] font-[700] tabular-nums text-[var(--t1)]">
-              {status.fresh}
+              {formatRibbonCount(status.fresh)}
             </span>
           </span>
         </Link>
