@@ -36,6 +36,13 @@ describe('축마다 잴 수 있는 것만 잰다', () => {
     expect(src).toContain('SCHOOL_SENTENCE_TYPES.has(it.type) || LONG_ITEM_TYPES.has(it.type)')
   })
 
+  it('지문 키에 presented 가 있다 — 없으면 순서 문항이 통째로 사라진다', () => {
+    // DCP 순서 문항은 지문을 `presented` 에 담는다. 그 키를 안 읽으면 낱말 수가 0 으로 나오고
+    // `w < 10` 관문에 걸려 **빠졌다는 표시조차 없이** 건너뛰어진다(실측 V6: 풀 126어 vs 벤치 0어).
+    // 키를 메우자 A6 분모가 274 → 290 이 됐다.
+    expect(src).toContain("'presented'")
+  })
+
   it('A3 은 선택지 **개수**로 판정한다 — 빈 배열도 `Array.isArray` 는 참이다', () => {
     // `spell_blank` 이 `choices: []` 를 들고 있어 선택지 없는 20문항이 "오답 배제 실패" 로 세어졌다.
     expect(src).not.toContain('Array.isArray(i.payload?.choices) || Array.isArray(i.payload?.underlines)')
