@@ -586,7 +586,52 @@ h1{font-size:2.1rem;margin:.6rem 0 .3rem;letter-spacing:-.01em;text-wrap:balance
 .colophon dl{display:grid;grid-template-columns:auto 1fr;gap:.3rem 1.2rem;margin:0}
 .colophon dt{color:var(--accent);letter-spacing:.1em;text-transform:uppercase;font-size:.68rem;padding-top:.1rem}
 .colophon dd{margin:0}
-@media print{body{background:#fff}.wrap{max-width:none}}
+/* ── 인쇄 조판 ────────────────────────────────────────────────────────
+   ⚠️ **여기 있던 것은 한 줄이었다** — \`@media print{body{background:#fff}.wrap{max-width:none}}\`.
+   색만 희게 하고 쪽 나눔이 없었다. 실측 2026-09-01: \`@page\` 0 · \`page-break\` 0 ·
+   \`break-inside\` 0. 그대로 인쇄하면 **지문과 발문이 쪽 경계에서 잘리고** 선택지만 다음 쪽에
+   남는다. 시중 교재에서는 일어나지 않는 일이라, 내용이 아무리 좋아도 교재로 안 보인다.
+
+   ── 판형 ─────────────────────────────────────────────────────────────
+   188 × 257 mm = **4×6배판**. 한국 학습서·문제집의 지배 판형이다.
+   ⚠️ 이 값은 **업계 표준값이지 우리 코퍼스 실측이 아니다.** 79종 PDF 는 저장소 밖에 있고
+   이 기계에는 없다(\`C:\\Users\\Administrator\\Documents\\시중교재\` 부재 확인 2026-09-01).
+   \`market-spec.json\` 도 쪽 크기를 안 담는다(담는 것은 \`pagesPerUnit\`·\`densityPerPage\`).
+   재려면 그 PDF 들의 MediaBox 를 읽어 최빈값을 쓰면 된다 — 그때까지 이 값이 근거다.
+
+   ── 쪽 구성 근거 (79종 실측 · market-spec.json) ────────────────────────
+   \`unitsPerBook\` 중앙값 10 · \`pagesPerUnit\` 중앙값 17. 단원이 쪽의 단위라는 뜻이라
+   **단원마다 새 쪽에서 시작**한다.
+
+   ⚠️ 쪽 번호와 running head 는 여기서 못 만든다. \`@page\` 의 margin box(\`@bottom-center\`)는
+   **Chrome 이 지원하지 않는다** — 브라우저 인쇄로 뽑으면 무시된다. 진짜 쪽 번호가 필요하면
+   Paged.js 같은 조판 엔진을 얹어야 하고, 그건 별도 작업이다. 지금 여기서 얻는 것은
+   **쪽 크기 · 여백 · 잘리지 않는 덩어리**다. */
+@page{size:188mm 257mm;margin:18mm 17mm 20mm}
+@media print{
+  body{background:#fff;color:#000;line-height:1.6}
+  .wrap{max-width:none;margin:0;padding:0}
+  /* 표지·정답해설·판권면은 각자 쪽을 차지한다 — 상업 교재의 기본 구성이다. */
+  .cover{break-after:page;border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .answers{break-before:page;margin-top:0;border-top:none;padding-top:0}
+  .colophon{break-before:page;margin-top:0;border-top:none;padding-top:0}
+  /* 단원마다 새 쪽. 첫 단원은 표지가 이미 쪽을 넘겼으므로 빼야 빈 쪽이 안 생긴다. */
+  .unit{break-before:page;margin:0;padding-top:0;border-top:none}
+  .unit:first-of-type{break-before:auto}
+  /* **한 덩어리는 쪼개지 않는다** — 이게 이 블록의 핵심이다. */
+  .q{break-inside:avoid;margin:0 0 1.4rem}
+  .arow{break-inside:avoid}
+  .vocab{break-inside:avoid}
+  .given{break-inside:avoid}
+  .choices{break-inside:avoid}
+  /* 지문은 길어서 쪼개질 수 있다 — 대신 한 줄만 넘어가는 것을 막는다. */
+  .passage{orphans:2;widows:2}
+  h1,h2,h3{break-after:avoid}
+  /* 화면용 가로 스크롤 상자는 인쇄에서 내용을 잘라 먹는다. */
+  .tablewrap{overflow-x:visible}
+  /* 링크 밑줄은 지면에서 읽기를 방해한다. */
+  a{text-decoration:none;color:inherit}
+}
 </style>
 <div class="wrap">
 <header class="cover">
