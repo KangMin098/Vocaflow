@@ -31,9 +31,14 @@ export function VocabSeriesHeader({
   totalVolumes: number
   totalWords: number
 }) {
+  // ⚠️ **모바일에서 크롬을 줄인다 — 첫 화면에 상품이 없으면 매대가 아니다.**
+  // 실측 2026-09-01(390px): 첫 상품이 **y=913(1.08화면)** 이라 첫 화면에 상품이 **0개**였다.
+  // 상품 위를 차지한 것: 헤더 309px(제목 40px + 설명 72px) · 카테고리 200px · 정렬 100px.
+  // 같은 자로 잰 NE능률 모바일은 첫 상품 0.29화면 · 상품 3개다.
+  // 데스크톱은 이미 시장을 넘으므로(이미지 면적 22.0%) **모바일에서만** 줄인다.
   return (
-    <header className="flex flex-col gap-4 px-1">
-      <div className="flex flex-col gap-1.5">
+    <header className="flex flex-col gap-3 px-1 md:gap-4">
+      <div className="flex flex-col gap-1 md:gap-1.5">
         {/*
           시리즈 이름 — 판권면의 브랜드와 **같은 상수**에서 온다.
           여기에 문자열을 적으면 정본이 둘이 된다.
@@ -41,20 +46,25 @@ export function VocabSeriesHeader({
         <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--t3)]">
           {VOCAB_SERIES_BRAND}
         </p>
-        <h1 className="font-editorial text-[40px] font-[500] leading-[1.04] tracking-[-0.012em] text-[var(--t1)] md:text-[52px]">
+        {/* 390px 화면에서 40px 제목은 한 줄에 두 글자다 — 자리만 먹고 정보를 안 준다. */}
+        <h1 className="font-editorial text-[26px] font-[500] leading-[1.04] tracking-[-0.012em] text-[var(--t1)] sm:text-[40px] md:text-[52px]">
           단어장
         </h1>
         {/*
           방향성 한 줄 — **시중 단어장이 못 하는 것만** 적는다.
           종이책은 한 권에 묶음 원리를 네댓 개밖에 못 싣는다(실측: 시중 PART 축 7종).
         */}
-        <p className="font-body max-w-[62ch] text-[15px] leading-[1.6] text-[var(--t2)]">
+        {/*
+          ⚠️ 모바일에서는 **숨긴다(DOM 에는 남긴다)** — 72px 을 먹는데, 이 문장은 고르기 전에
+             읽는 글이 아니라 고른 뒤에 읽는 글이다. `sr-only` 라 검색·스크린리더는 그대로 읽는다.
+        */}
+        <p className="sr-only font-body max-w-[62ch] text-[15px] leading-[1.6] text-[var(--t2)] sm:not-sr-only">
           한 낱말을 여러 각도로 다시 만나게 엮은 서가입니다. 뜻마다 예문을 따로 두고,
           함께 쓰이는 말과 갈라져 나온 말을 같이 싣습니다.
         </p>
       </div>
 
-      <dl className="flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-[var(--bd)] py-3">
+      <dl className="sr-only flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-[var(--bd)] py-2 sm:not-sr-only md:py-3">
         <Stat label="전체" value={`${totalVolumes}권`} />
         <Stat label="표제어" value={totalWords.toLocaleString()} />
         <Stat label="사다리" value={`${fill.rungs.length}단`} />

@@ -191,7 +191,14 @@ export function VocabSetCarousel({
   return (
     <div className="flex flex-col items-center gap-5">
       {/* 카테고리 탭 (다차원 레벨 전환) */}
-      <div role="tablist" aria-label="카테고리" className="flex flex-wrap justify-center gap-2">
+      <div
+        role="tablist"
+        aria-label="카테고리"
+        // ⚠️ 모바일에서 `flex-wrap` 이 여러 줄로 접혀 **200px** 을 먹었다(실측 2026-09-01).
+        //   그만큼 상품이 첫 화면 밖으로 밀려 학습자가 상품을 하나도 못 봤다.
+        //   가로가 좁을 때는 한 줄로 굴리고, sm 위로는 원래대로 가운데 정렬해 편다.
+        className="-mx-1 flex snap-x gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0"
+      >
         {categories.map((c) => {
           const isActive = c.id === activeCat
           const cc = CATEGORY_COLOR[c.id] ?? CATEGORY_COLOR.themed!

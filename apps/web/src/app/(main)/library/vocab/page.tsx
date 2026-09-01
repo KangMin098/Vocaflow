@@ -68,7 +68,7 @@ export default async function LibraryVocabPage() {
 
   return (
     <Screen width="wide" background="bg2" padX="md">
-      <div className="flex flex-col gap-5 py-6 md:py-8">
+      <div className="flex flex-col gap-3 py-4 sm:gap-5 sm:py-6 md:py-8">
         <VocabSeriesHeader
           fill={ladder}
           learnerStep={learnerStep}

@@ -55,7 +55,9 @@ const TARGETS = [
     id: 'ours-decks',
     name: 'Vocaflow 공용 단어장',
     url: `${BASE}/library/vocab`,
-    card: 'article',
+    // 실측 2026-09-01 — 단어장 카드의 표지는 `.book-cover-premium`. 부모가 `<article>` 이
+    // 아니라 `<li>` 라 그것으로 잡으면 0 개가 나온다(첫 측정이 그렇게 0 이었다).
+    card: '.book-cover-premium',
     kind: 'ours',
   },
   {
