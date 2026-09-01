@@ -46,7 +46,10 @@ export function TextbookPickButton({
     })
   }
 
-  const pad = size === 'sm' ? 'px-3 text-[11.5px]' : 'px-4 text-[12.5px]'
+  // ⚠️ 크기는 매대 스케일(`shelf-scale.ts`)에서만 고른다. 여기 11.5/12.5px 를 쓰고 있었는데,
+  //    매대 전체가 9~12.5px 사이에 여덟 종을 쌓게 만든 조각 중 하나였다(실측 2026-09-01).
+  //    이 버튼은 매대 카드 안에서만 쓰이므로 매대 스케일을 따른다 — 테스트가 강제한다.
+  const pad = size === 'sm' ? 'px-3 text-[11px]' : 'px-4 text-[12px]'
 
   // ⚠️ 비로그인에게 **눌러도 안 되는 버튼**을 팔지 않는다. 자리를 비우지도 않는다 —
   //    비우면 "이 서가에서 할 수 있는 일이 없다" 로 읽힌다. 로그인으로 가는 길을 내되
@@ -60,7 +63,10 @@ export function TextbookPickButton({
         className={`inline-flex min-h-[44px] items-center gap-2 rounded-ios-pill border border-[var(--bd)] bg-[var(--bg)] font-display font-[700] text-[var(--t1)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 ${pad}`}
       >
         <LogIn size={14} aria-hidden />
-        담으려면 로그인
+        {/* 좁은 화면에서는 '로그인' 만 남긴다 — 이 단추가 길면 카드의 단추 줄이 두 줄로 접히고,
+            그 44px 이 첫 화면에 들어오는 권 수를 한 권 깎는다(실측 2026-09-01).
+            ⚠️ 글자만 줄인다. 접근 이름은 위 `aria-label` 이 온전히 갖고 있다. */}
+        <span className="hidden sm:inline">담으려면&nbsp;</span>로그인
       </Link>
     )
   }

@@ -11,34 +11,53 @@
 // 그래서 이 화면은 카드를 나열하지 않고 **계단 순서대로 한 줄기**로 세운다.
 // 계단 번호가 곧 진열 순서이고, 그 순서가 학습자에게는 "다음 권" 이다.
 //
+// ── 2026-09-01 재설계: 무엇이 틀렸었나 ──────────────────────────────
+// 기능은 다 있었다(`catalog-benchmark` 1.283). 그런데 실제 브라우저로 재 보니
+// (`scripts/textbook/shelf-ux-probe.mjs`) 상업 기준선 대비 **0.221** 이었다.
+//
+//   · 첫 화면에 온전히 보이는 권 **0** (NE능률 3)
+//   · 첫 권까지 Tab **74번** / 모바일에서 첫 권이 **1.61화면** 아래
+//   · 권 밖 조작요소가 권 하나당 **10.6개**
+//
+// 기능 개수를 세는 자가 통과시킨 것을, 학습자가 치르는 비용을 재는 자가 잡았다.
+// 고친 것은 셋이다:
+//
+//   ① **좁히기 도구를 접었다.** 칩 40개(379px) + 검색줄(102px)이 상품 위에 상시
+//      펼쳐져 있었다. 지금은 도구줄 한 줄(48px)이고 칩은 '좁혀 찾기' 로 연다.
+//      ⚠️ 접었을 뿐 지우지 않았다 — DOM 에 남아 검색·스크린리더·매대 지수가 다 찾는다.
+//   ② **네 축을 전부 접었다.** 접고 보니 그중 둘은 애초에 필터가 아니었다 —
+//      학령 7값·수준 7값이 **전부 1권씩**이라(값 하나 = 권 하나) 좁히기가 아니라 **목차**다.
+//      ⚠️ 다만 지금 고친 것은 **접은 것까지**다. 목차를 목차 모양(계단 레일)으로 다시 그리는
+//         일은 **아직 안 했다** — 지금도 좁히기 패널 안에 필터 칩 모양으로 들어 있다.
+//         남은 일이라고 여기 적어 둔다. 안 한 것을 한 것처럼 적으면 다음 사람이 찾다가 만다.
+//   ③ **카드 앞면을 고르는 데 필요한 것만 남겼다.** 근거 문단·유형별 raw 문항 수·부가자료는
+//      '이 권은 무엇을 시키나요' 안으로 들어갔다.
+//
 // ⚠️ 상태 셋을 **색으로만** 가르지 않는다(색맹 대응). 라벨·위치·문항 수 3중으로 말한다.
 // ⚠️ `empty`(재료 없음)를 숨기지 않는다 — 숨기면 사다리가 끊긴 것을 학습자가 모르고,
 //    그 학년 학습자는 "내 학년이 없다" 가 아니라 "이 브랜드는 이상하다" 로 읽는다.
 
 'use client'
 
-import { BookOpen, Layers, SlidersHorizontal, X } from 'lucide-react'
-import Link from 'next/link'
-import { useMemo, useState } from 'react'
+import { useId, useMemo, useState } from 'react'
 
 import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickButton'
 import {
-  SearchSortBar,
+  RefinePanel,
+  ShelfToolbar,
+  VolumeAction,
   VolumeCard,
   VolumeCover,
   VolumeGuide,
-  VolumeResources,
+  VolumeSummary,
 } from '@/components/library/textbooks/ShelfControls'
 import type { Shelf, ShelfVolume } from '@/lib/textbook/shelf'
+import { taglineOf } from '@/lib/textbook/shelf-copy'
 import {
-  AXIS_LABEL,
   EMPTY_SELECTION,
-  SHELF_AXES,
   buildFacets,
   filterVolumes,
   selectionCount,
-  toggleValue,
-  type Facets,
   type Selection,
 } from '@/lib/textbook/shelf-filter'
 import {
@@ -49,8 +68,6 @@ import {
   type ShelfView,
 } from '@/lib/textbook/shelf-search'
 import { groupByStage } from '@/lib/textbook/shelf-stage'
-import { STATUS_LABEL } from '@/lib/textbook/shelf-status'
-import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 
 export function TextbookShelf({
   shelf,
@@ -76,6 +93,8 @@ export function TextbookShelf({
   const [sort, setSort] = useState<string>(DEFAULT_SORT)
   const [view, setView] = useState<ShelfView>('list')
   const [readyOnly, setReadyOnly] = useState(false)
+  const [refineOpen, setRefineOpen] = useState(false)
+  const refineId = useId()
 
   // 축 값은 **재고에서** 뽑는다 — 손으로 적은 목록은 시리즈가 바뀌면 갈린다.
   const facets = useMemo(() => buildFacets(shelf.volumes), [shelf.volumes])
@@ -98,78 +117,78 @@ export function TextbookShelf({
   const grouped = sort === DEFAULT_SORT && view === 'list'
   const groups = useMemo(() => (grouped ? groupByStage(ordered) : []), [grouped, ordered])
 
+  const activeFilters = selectionCount(sel)
+
   return (
     <section
       aria-label="교재 서가"
-      className="flex flex-col gap-4 rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8 md:py-7"
+      // 좁은 화면의 안쪽 여백을 줄인다 — 390px 에서는 세로 픽셀이 가장 비싼 자원이고,
+      // 20px 짜리 여백 두 겹이 첫 화면에 들어오는 권 수를 실제로 한 권 깎는다.
+      className="flex flex-col gap-3 rounded-ios-2xl bg-[var(--bg)] px-4 py-4 shadow-ios-2 md:px-8 md:py-6"
     >
-      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
-          {shelf.brand}
-        </p>
-        <h2 className="font-editorial text-[24px] font-[500] leading-[1.2] tracking-[-0.014em] text-[var(--t1)] md:text-[28px]">
-          학년을 잇는 일곱 권
-        </h2>
-        <p className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">
-          펼칠 수 있는 권 {shelf.readyCount}/{shelf.volumes.length}
-        </p>
-      </header>
+      {/* ⚠️ 제목과 도구줄이 **한 줄**이다. 전에는 제목 34px + 설명 47px + 필터판 379px +
+          검색줄 102px 이 전부 상품 위에 있었다(합 562px) — 그래서 첫 화면에 권이 0개였다.
+          도구는 제목 오른쪽에 붙이고, 설명은 아래 한 줄로 줄인다. */}
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+        <div className="min-w-0 shrink-0">
+          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
+            {shelf.brand}
+          </p>
+          <h2 className="font-editorial text-[17px] font-[500] leading-[1.25] tracking-[-0.014em] text-[var(--t1)] md:text-[22px]">
+            학년을 잇는 일곱 권
+          </h2>
+        </div>
+        <div className="min-w-[260px] flex-1">
+          <ShelfToolbar
+            query={query}
+            onQuery={setQuery}
+            sort={sort}
+            onSort={setSort}
+            view={view}
+            onView={setView}
+            refineOpen={refineOpen}
+            onRefineOpen={setRefineOpen}
+            refinePanelId={refineId}
+            activeFilters={activeFilters}
+          />
+        </div>
+      </div>
 
-      <p className="max-w-[62ch] font-body text-[13px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
-        계단마다 <strong className="font-display text-[var(--t1)]">쓰는 유형이 다릅니다</strong> —
-        초등은 소리와 낱말, 중등은 문장, 고등부터 글 전체를 봅니다. 지금 학년의 권부터 펼치고,
-        다음 계단으로 올라가면 됩니다.
+      {/* 안내 한 줄. 모바일에서는 감춘다 — 세로 픽셀이 가장 비싼 곳이고, 여기서 하는 말은
+          바로 아래 매대 팻말(`STAGE_SAYS`)이 매대마다 더 정확하게 되풀이한다.
+          ⚠️ 지우지 않고 감춘다(`hidden sm:flex`) — HTML 에는 남아 스크린리더가 읽는다. */}
+      <p className="hidden flex-wrap items-baseline gap-x-3 font-body text-[12px] leading-[1.6] text-[var(--t2)] sm:flex [word-break:keep-all]">
+        <span className="font-mono tabular-nums">
+          펼칠 수 있는 권 {shelf.readyCount}/{shelf.volumes.length}
+        </span>
+        <span>지금 학년의 권부터 펼치고, 다음 계단으로 올라가면 됩니다.</span>
       </p>
 
-      {/* 못 잰 것을 조용히 넘기지 않는다 — 학습자가 빈 칸을 "없음" 으로 오해하는 것을 막는다. */}
-      {shelf.hasUnmeasured && (
-        <p
-          role="status"
-          className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[12.5px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]"
-        >
-          일부 권은 지금 <strong className="font-display text-[var(--t1)]">재고를 확인하지 못했어요</strong> —
-          비어 있다는 뜻이 아닙니다. 잠시 뒤 다시 열어 보세요.
-        </p>
-      )}
-
-      {/* ⚠️ 필터 칩이 21개다. 키보드 사용자는 **첫 권에 닿기까지 Tab 을 24번** 눌러야 했다
-          (실측 2026-08-22). 필터를 숨기면 분류 체계가 안 보이고, 그대로 두면 목록이 필터 뒤에
-          갇힌다 — 그래서 **건너뛸 길**을 낸다. 평소엔 안 보이고 포커스가 오면 나타난다. */}
-      <a
-        href="#textbook-list"
-        onClick={(e) => {
-          e.preventDefault()
-          const list = document.getElementById('textbook-list')
-          list?.focus()
-          list?.scrollIntoView({ block: 'start', behavior: 'auto' })
-        }}
-        // ⚠️ sr-only 요소에 px-4 py-2 를 **상시** 걸면 안 된다 — sr-only 의 width/height 1px 위에
-        //    패딩이 얹혀 숨긴 요소가 실제로 32×16 상자를 차지한다(실측 2026-08-25,
-        //    "44px 미만 터치 타겟" 으로도 잡혔다). 여백은 드러날 때만 준다.
-        className="sr-only rounded-[var(--r-md)] bg-[var(--p)] font-display text-[13px] font-[700] text-[var(--on-p)] no-underline focus-visible:not-sr-only focus-visible:inline-flex focus-visible:min-h-[44px] focus-visible:items-center focus-visible:px-4 focus-visible:py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-      >
-        찾기 조건을 건너뛰고 교재 목록으로
-      </a>
-
-      <FilterBar
+      <RefinePanel
+        id={refineId}
+        open={refineOpen}
         facets={facets}
         sel={sel}
         onChange={setSel}
         shown={shown.length}
         total={shelf.volumes.length}
-      />
-
-      <SearchSortBar
-        query={query}
-        onQuery={setQuery}
-        sort={sort}
-        onSort={setSort}
-        view={view}
-        onView={setView}
         readyOnly={readyOnly}
         onReadyOnly={setReadyOnly}
         readyCount={shelf.readyCount}
+        sort={sort}
       />
+
+      {/* 못 잰 것을 조용히 넘기지 않는다 — 학습자가 빈 칸을 "없음" 으로 오해하는 것을 막는다. */}
+      {shelf.hasUnmeasured && (
+        <p
+          role="status"
+          className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2.5 font-body text-[12px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]"
+        >
+          일부 권은 지금{' '}
+          <strong className="font-display text-[var(--t1)]">재고를 확인하지 못했어요</strong> — 비어
+          있다는 뜻이 아닙니다. 잠시 뒤 다시 열어 보세요.
+        </p>
+      )}
 
       {shown.length === 0 ? (
         // 0건을 빈 화면으로 두지 않는다 — 무엇을 풀어야 다시 보이는지 말해 준다.
@@ -179,33 +198,31 @@ export function TextbookShelf({
         >
           {query.trim()
             ? `'${query.trim()}' 에 걸리는 권이 없어요. 검색어를 지우거나 조건을 하나 풀어 보세요.`
-            : '고른 조건에 맞는 권이 없어요. 위에서 조건을 하나 풀어 보세요.'}
+            : "고른 조건에 맞는 권이 없어요. '좁혀 찾기' 에서 조건을 하나 풀어 보세요."}
         </p>
       ) : (
-        <div
-          id="textbook-list"
-          tabIndex={-1}
-          // 건너뛰기가 도착하는 자리. `-1` 이라 Tab 순서에는 안 들어가고 프로그램 포커스만 받는다.
-          className="flex flex-col gap-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-4"
-        >
+        // ⚠️ 전에는 여기 앞에 **건너뛰기 링크**가 있었다. 칩 40개 때문에 첫 권까지 Tab 을
+        //    24번 눌러야 했기 때문이다. 지금은 도구줄까지 5번이면 닿으므로 그 우회로를 없앴다 —
+        //    원인을 고쳤으면 우회로도 걷어야 한다. 남겨 두면 그것도 한 번의 Tab 이다.
+        <div id="textbook-list" className="flex flex-col gap-5">
           {grouped ? (
             groups.map((g) => (
-              <section key={g.label} aria-label={`${g.label} 매대`} className="flex flex-col gap-3">
-                <h3 className="flex flex-wrap items-baseline gap-x-3 border-b border-[var(--bd)] pb-2">
-                  <span className="font-editorial text-[19px] font-[500] leading-none text-[var(--t1)]">
+              <section key={g.label} aria-label={`${g.label} 매대`} className="flex flex-col gap-2.5">
+                <h3 className="flex flex-wrap items-baseline gap-x-2.5 border-b border-[var(--bd)] pb-1.5">
+                  <span className="font-display text-[13px] font-[700] text-[var(--t1)]">
                     {g.label}
                   </span>
-                  <span className="font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
+                  <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
                     {g.volumes.length}권
                   </span>
                   {/* 매대 팻말은 라벨이 말하지 않는 것만 말한다 — 이 매대가 무엇을 시키는지. */}
                   {g.says && (
-                    <span className="min-w-0 flex-1 font-body text-[11.5px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
+                    <span className="min-w-0 flex-1 font-body text-[12px] leading-[1.5] text-[var(--t2)] [word-break:keep-all]">
                       {g.says}
                     </span>
                   )}
                 </h3>
-                <ol className="flex flex-col gap-3">
+                <ol className="flex flex-col gap-2.5">
                   {g.volumes.map((v) => (
                     <li key={v.step}>
                       <VolumeRow
@@ -225,7 +242,7 @@ export function TextbookShelf({
               className={
                 view === 'grid'
                   ? 'grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3'
-                  : 'flex flex-col gap-3'
+                  : 'flex flex-col gap-2.5'
               }
             >
               {ordered.map((v) => (
@@ -255,6 +272,16 @@ export function TextbookShelf({
   )
 }
 
+/**
+ * 목록 진열의 한 권.
+ *
+ * ── 앞면에 무엇을 두는가 ────────────────────────────────────────────
+ * 표지 · 제목 · 메타 한 줄 · 태그라인 · 단추. 그게 전부다.
+ * 근거 문단·유형별 문항 수·부가자료는 '이 권은 무엇을 시키나요' 안에 있다.
+ *
+ * ⚠️ `data-volume-card` 는 **계측기가 잡는 손잡이**다(`shelf-ux-probe.mjs`).
+ *    지우면 사용성 지수가 조용히 못 재는 상태가 된다 — 0 이 아니라 '못 잼' 으로.
+ */
 function VolumeRow({
   volume: v,
   picked,
@@ -270,8 +297,15 @@ function VolumeRow({
 
   return (
     <article
-      className={`grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 rounded-[var(--r-lg)] border p-4 md:grid-cols-[auto_1fr_auto] ${
-        ready ? 'border-[var(--bd)] bg-[var(--bg)]' : 'border-dashed border-[var(--bd)] bg-[var(--bg2)]'
+      data-volume-card
+      // ⚠️ 좁은 화면과 넓은 화면의 **골격이 다르다**(실측 2026-09-01).
+      //    한 벌로 3열을 밀었더니 390px 에서 가운데 칸이 150px 로 눌려 제목이 3줄,
+      //    메타가 3줄로 접혔다 — 카드 하나가 230px 이 되어 첫 화면에 두 권밖에 안 들어왔다.
+      //    좁은 화면은 **2행**(표지+글 / 단추), 넓은 화면은 **3열**(표지 | 글 | 단추)이다.
+      className={`grid grid-cols-[46px_1fr] items-start gap-x-3 gap-y-2 rounded-[var(--r-lg)] border p-3 md:p-3.5 motion-safe:transition-colors md:grid-cols-[46px_1fr_auto] md:gap-x-5 ${
+        ready
+          ? 'border-[var(--bd)] bg-[var(--bg)] hover:border-[var(--p)]'
+          : 'border-dashed border-[var(--bd)] bg-[var(--bg2)]'
       }`}
     >
       {/* 계단 번호 = 진열 순서. 책등처럼 세운다.
@@ -280,169 +314,54 @@ function VolumeRow({
       <VolumeCover volume={v} />
 
       <div className="min-w-0">
-        <h3 className="font-editorial text-[19px] font-[500] leading-snug text-[var(--t1)] md:text-[21px]">
+        <h3 className="font-editorial text-[17px] font-[500] leading-snug text-[var(--t1)]">
           {v.title}
         </h3>
-        <p className="mt-1 flex flex-wrap items-center gap-x-3 font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
-          <span>{v.schoolBand}</span>
-          <span>· V{v.vLevels.join('·V')}</span>
-          <span>· 문항 {v.itemCount.toLocaleString()}</span>
+        <p className="mt-0.5 font-mono text-[11px] tabular-nums text-[var(--t2)]">
+          {v.schoolBand}
+          {` · V${v.vLevels.join('·V')}`}
+          {` · 문항 ${v.itemCount.toLocaleString()}`}
         </p>
-
-        {/* 수록 유형 — 서점 교재의 "구성" 란에 해당한다 */}
-        <ul className="mt-2.5 flex flex-wrap gap-2">
-          {v.types.map((t) => {
-            const missing = v.emptyTypes.includes(t)
-            return (
-              <li
-                key={t}
-                className={`inline-flex items-center gap-1 rounded-[var(--r-full)] px-3 py-1 font-display text-[11px] font-[700] ${
-                  missing
-                    ? 'bg-[var(--bg3)] text-[var(--t2)] line-through'
-                    : 'bg-[var(--p-light)] text-[var(--on-p-tint)]'
-                }`}
-                title={missing ? '아직 준비되지 않은 유형' : undefined}
-              >
-                {TYPE_GUIDE[t]?.label ?? t}
-                {!missing && (
-                  <span className="font-mono text-[10px] tabular-nums opacity-70">
-                    {(v.byType[t] ?? 0).toLocaleString()}
-                  </span>
-                )}
-              </li>
-            )
-          })}
-        </ul>
-
-        <p className="mt-2.5 max-w-[58ch] font-body text-[12px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
-          {v.rationale.replace(/\*\*/g, '')}
-        </p>
-
-        {/* 파이프라인이 이미 계산해 둔 것을 매대에 낸다 — 단원 상한과 지문 출처 구성.
-            둘 다 `shelf-query` 가 읽어 오면서 화면은 버리고 있었다. */}
-        <VolumeResources volume={v} />
-
-        {/* 가이드북에 해당하는 자리 — 펼치기 전에 "무엇을 시키는 책인지" 를 말한다.
-            `TYPE_GUIDE.says` 는 이미 쓰여 있었는데 서가가 라벨만 쓰고 버리고 있었다. */}
-        <VolumeGuide volume={v} />
+        {/* 태그라인 — 이 권이 무엇을 시키는지 한 줄. 전문은 아래 '무엇을 시키나요' 안에 있다.
+            넓은 화면에서는 같은 줄 오른쪽에 구성 요약을 붙인다 — 남는 가로를 쓰고 높이는 안 쓴다. */}
+        <div className="mt-1 flex items-baseline justify-between gap-x-4">
+          <p className="min-w-0 font-body text-[12px] leading-[1.6] text-[var(--t1)] [word-break:keep-all]">
+            {taglineOf(v.rationale)}
+          </p>
+          <VolumeSummary volume={v} />
+        </div>
       </div>
 
-      {/* 상태 — 색만으로 가르지 않는다(라벨 + 위치 + 아이콘).
-          ⚠️ ready 는 **반드시 링크**여야 한다. 처음 만들었을 때 이 자리가 span 이라
-          "지금 펼치기" 가 보이는데 눌리지 않았다 — 이 저장소가 가장 나쁜 결함으로 못 박은 종류다. */}
-      <div className="col-span-2 flex flex-wrap items-center gap-2 md:col-span-1 md:justify-end">
+      {/*
+        ⚠️ 이 껍데기는 **좁은 화면에서만 존재한다**(`md:contents` — 넓은 화면에서는 상자가
+           사라지고 안의 둘이 바로 격자 칸에 앉는다).
+           왜 이렇게까지 하나: 좁은 화면에서 '무엇을 시키나요' 줄(44px)과 단추 줄(44px)을
+           **따로** 쌓았더니 카드가 253px 이 되어 첫 화면에 두 권밖에 안 들어왔다(실측 2026-09-01).
+           둘 다 44px 짜리 한 줄짜리 물건이라 **같은 줄에 나란히** 두면 44px 이 통째로 빈다.
+           넓은 화면에서는 그럴 이유가 없으므로(가로가 남는다) 원래 자리로 되돌린다.
+      */}
+      <div className="col-start-2 mt-2 flex flex-wrap items-center gap-x-3 gap-y-2 md:contents">
+        {/* ⚠️ 좁은 화면에서는 이 줄을 **통째로** 차지하게 둔다(`w-full`). 단추와 한 줄에 욱여넣으면
+            390px 에서 반드시 접히는데, 접힌 줄을 `justify-between` 이 좌우로 벌려 놓아
+            단추가 허공에 뜬 것처럼 보였다 — 접힐 것을 미리 두 줄로 두는 편이 정직하고 단정하다. */}
+        <div className="w-full min-w-0 md:col-start-2 md:row-start-2 md:w-auto">
+          <VolumeGuide volume={v} />
+        </div>
+
         {/* 담기는 **아직 못 펼치는 권에도** 뜬다 — 근간 예정을 찜해 두는 것이 서점의 예약과 같다. */}
-        {canPick && (
-          <TextbookPickButton
-            step={v.step}
-            title={v.title}
-            picked={picked}
-            signedIn={signedIn}
-            size="sm"
-          />
-        )}
-        {ready ? (
-          <Link
-            href={`/library/textbooks/${v.step}`}
-            aria-label={`${v.title} 펼쳐 보기`}
-            className="group inline-flex min-h-[44px] items-center gap-2 rounded-ios-pill bg-[var(--p)] px-4 font-display text-[12.5px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-          >
-            <BookOpen size={14} aria-hidden />
-            {STATUS_LABEL[v.status]}
-          </Link>
-        ) : (
-          <span className="inline-flex min-h-[44px] items-center gap-2 rounded-ios-pill border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12.5px] font-[700] text-[var(--t2)]">
-            <Layers size={14} aria-hidden />
-            {STATUS_LABEL[v.status]}
-          </span>
-        )}
+        <div className="flex flex-wrap items-center gap-2 md:col-start-3 md:row-start-1 md:flex-col md:items-end">
+          <VolumeAction volume={v} />
+          {canPick && (
+            <TextbookPickButton
+              step={v.step}
+              title={v.title}
+              picked={picked}
+              signedIn={signedIn}
+              size="sm"
+            />
+          )}
+        </div>
       </div>
     </article>
-  )
-}
-
-/**
- * 세 축 필터 — 학령 · 수준 · 유형.
- *
- * ⚠️ 칩을 **끄는 방법**을 화면에 남긴다. 조건을 걸어 0건이 된 학습자가 되돌아갈 길이
- *    없으면 그 화면은 막힌 것과 같다(이 저장소가 죽은 버튼과 같은 부류로 취급하는 결함).
- * ⚠️ 축 이름을 칩 옆에 계속 적어 둔다 — 칩만 있으면 'V3' 이 무엇의 3인지 알 수 없다.
- */
-function FilterBar({
-  facets,
-  sel,
-  onChange,
-  shown,
-  total,
-}: {
-  facets: Facets
-  sel: Selection
-  onChange: (next: Selection) => void
-  shown: number
-  total: number
-}) {
-  const active = selectionCount(sel)
-
-  return (
-    <div className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-4">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <span className="inline-flex items-center gap-2 font-mono text-[10px] font-[700] uppercase tracking-[0.16em] text-[var(--t2)]">
-          <SlidersHorizontal size={12} aria-hidden />
-          찾기
-        </span>
-        <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
-          {active > 0 ? `${shown} / ${total}권` : `${total}권 전체`}
-        </span>
-        {active > 0 && (
-          <button
-            type="button"
-            onClick={() => onChange(EMPTY_SELECTION)}
-            className="ml-auto inline-flex min-h-[44px] items-center gap-1 font-display text-[11.5px] font-[700] text-[var(--p)] transition-colors hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          >
-            <X size={12} aria-hidden />
-            조건 {active}개 해제
-          </button>
-        )}
-      </div>
-
-      {/* ⚠️ 축마다 **이름 있는 묶음**으로 싼다. 안 그러면 스크린리더는 칩 21개를
-          축 구분 없이 한 덩어리로 읽는다 — 'V3' 만 들으면 무엇의 3인지 알 수 없다. */}
-      {SHELF_AXES.map((axis) => (
-        <div
-          key={axis}
-          role="group"
-          aria-label={AXIS_LABEL[axis]}
-          className="flex flex-wrap items-baseline gap-x-2 gap-y-2"
-        >
-          <span aria-hidden className="min-w-[34px] font-display text-[11px] font-[700] text-[var(--t2)]">
-            {AXIS_LABEL[axis]}
-          </span>
-          {facets[axis].map((f) => {
-            const on = sel[axis].includes(f.value)
-            return (
-              <button
-                key={f.value}
-                type="button"
-                aria-pressed={on}
-                aria-label={`${AXIS_LABEL[axis]} ${f.label} — ${f.count}권`}
-                onClick={() => onChange(toggleValue(sel, axis, f.value))}
-                className={`inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-full)] border px-3 font-display text-[11.5px] font-[700] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
-                  on
-                    ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
-                    : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)]'
-                }`}
-              >
-                {f.label}
-                <span
-                  className={`font-mono text-[10px] tabular-nums ${on ? 'opacity-75' : 'text-[var(--t2)]'}`}
-                >
-                  {f.count}
-                </span>
-              </button>
-            )
-          })}
-        </div>
-      ))}
-    </div>
   )
 }
