@@ -22,7 +22,7 @@ import {
   type DetailVariant,
   type SampleWord,
 } from '@/components/library/shared/NetflixDetailSheet'
-import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
+import { bookCover, categoryIdentity, cefrToVLevel } from '@/lib/library/book-cover'
 import { createClient } from '@/lib/supabase/client'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
@@ -31,20 +31,18 @@ import { categoryImportance, VOCAB_CATEGORIES, type VocabCategoryId } from './ca
 const IOS_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)'
 const DURATION = 600
 
-// accent = 활성 탭처럼 **흰 글자를 얹는 면**이라 흰색 대비 4.5:1 이상이어야 한다.
-//   기존 값은 csat 3.19 · middle 3.68 · elementary 3.77 로 미달이었다(2026-08-09 axe 실측).
-//   그라디언트(from/to)는 시각 정체성이라 그대로 두고 accent 만 한 단계 깊게 조정.
-const CATEGORY_COLOR: Record<string, { from: string; to: string; accent: string }> = {
-  elementary: { from: '#34D399', to: '#059669', accent: '#047857' },
-  middle: { from: '#22D3EE', to: '#0891B2', accent: '#0E7490' },
-  high: { from: '#60A5FA', to: '#2563EB', accent: '#2563EB' },
-  csat: { from: '#FBBF24', to: '#D97706', accent: '#A2570A' },
-  eng_test: { from: '#A78BFA', to: '#7C3AED', accent: '#7C3AED' },
-  civil: { from: '#94A3B8', to: '#475569', accent: '#475569' },
-  business: { from: '#F472B6', to: '#DB2777', accent: '#DB2777' },
-  etymology: { from: '#FBBF24', to: '#B45309', accent: '#B45309' },
-  themed: { from: '#818CF8', to: '#4F46E5', accent: '#4F46E5' },
-}
+/**
+ * 유형 색은 `lib/library/book-cover` 의 `categoryIdentity` 한 곳에서 온다.
+ *
+ * ⚠️ 여기 있던 지역 표(`CATEGORY_COLOR`, 형광 tailwind-400 계열 9종)를 지웠다 —
+ *   표지 색표와 **서로 다른 말을 하고 있었다**(수능·내신이 칩에서는 호박, 표지에서는 인디고).
+ *   `preschool` 도 빠져 있어 유아 단어장이 조용히 테마 색으로 떨어졌다.
+ *   유형을 더할 곳은 이제 `CATEGORY_HUE` 한 곳이다.
+ *
+ * 모르는 유형은 `null` 이 온다 — 다른 유형의 색을 빌리지 않고 중립으로 그린다.
+ */
+const NEUTRAL_IDENTITY = { accent: 'var(--t2)', tint: 'var(--bg3)', ink: 'var(--t2)', from: 'var(--bg3)', to: 'var(--bg3)' }
+const identityOf = (id: string) => categoryIdentity(id) ?? NEUTRAL_IDENTITY
 
 function cardTransform(offset: number) {
   const abs = Math.abs(offset)
@@ -99,7 +97,7 @@ export function VocabSetCarousel({
 
   async function openDetail(set: PublishedVocabSet) {
     const cat = VOCAB_CATEGORIES.find((c) => c.id === set.category)
-    const color = CATEGORY_COLOR[set.category] ?? CATEGORY_COLOR.themed!
+    const color = identityOf(set.category)
     // 단어 sample fetch (8개)
     const supabase = createClient()
     const { data } = await supabase
@@ -148,7 +146,7 @@ export function VocabSetCarousel({
   }
 
   const items = sets.filter((s) => s.category === activeCat)
-  const color = CATEGORY_COLOR[activeCat] ?? CATEGORY_COLOR.themed!
+  const color = identityOf(activeCat)
   const last = items.length - 1
   const activeSet = items[active]
 
@@ -201,7 +199,7 @@ export function VocabSetCarousel({
       >
         {categories.map((c) => {
           const isActive = c.id === activeCat
-          const cc = CATEGORY_COLOR[c.id] ?? CATEGORY_COLOR.themed!
+          const cc = identityOf(c.id)
           return (
             <button
               key={c.id}
@@ -209,10 +207,17 @@ export function VocabSetCarousel({
               aria-selected={isActive}
               onClick={() => selectCategory(c.id)}
               // 44px 하한 — 실측 32px 였다(카테고리 칩 7종 전부).
+              // **비활성 칩도 자기 유형 색을 입는다.** 활성 하나만 칠하면 나머지 일곱은
+              //   전부 같은 회색이라, 여덟 유형이 한자리에 보이는 이 유일한 줄이
+              //   "고를 것이 하나" 처럼 읽힌다(실측 2026-09-01 — 표지는 한 번에 한 유형만 뜬다).
               className={`inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[13px] font-[700] transition-all ${
-                isActive ? 'text-white shadow-[var(--sh-sm)]' : 'text-[var(--t2)] hover:bg-[var(--bg2)]'
+                isActive ? 'text-white shadow-[var(--sh-sm)]' : 'hover:brightness-[0.97]'
               }`}
-              style={isActive ? { backgroundColor: cc.accent } : undefined}
+              style={
+                isActive
+                  ? { backgroundColor: cc.accent }
+                  : { backgroundColor: cc.tint, color: cc.ink }
+              }
             >
               <span aria-hidden>{c.emoji}</span>
               {c.label}
@@ -220,7 +225,7 @@ export function VocabSetCarousel({
                 className={`rounded-[var(--r-full)] px-2 text-[10px] tabular-nums ${
                   // ⚠️ 흰 막은 강조색 바탕을 **밝혀서** 그 위의 흰 글자를 깎는다
                   //    (실측 2026-08-22: 3.34:1). 같은 분리감을 어둡히는 쪽으로 낸다.
-                  isActive ? 'bg-black/25' : 'bg-[var(--bg3)] text-[var(--t2)]'
+                  isActive ? 'bg-black/25' : 'bg-black/[0.07]'
                 }`}
               >
                 {sets.filter((s) => s.category === c.id).length}
@@ -406,12 +411,14 @@ function CoverCard({
   isPending: boolean
   onActivate: () => void
 }) {
-  // 도서와 동일한 무채도 높은(형광 아닌) 톤 — 카테고리 형광색 대신 bookCover 팔레트
+  // 도서와 동일한 무채도 높은(형광 아닌) 톤. **색상은 유형이 정한다** — 같은 갈래가
+  // 매대에서 묶여 읽혀야 하므로 카드(`VocabSetCard`)와 같은 색이 나와야 한다.
   const cover = bookCover({
     title: set.title,
     bookVLevel: cefrToVLevel(set.cefrLevel),
     coverFrom: null,
     coverTo: null,
+    category: set.category,
   })
   return (
     <button

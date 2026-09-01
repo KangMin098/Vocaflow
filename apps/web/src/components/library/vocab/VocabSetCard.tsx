@@ -52,6 +52,8 @@ export function VocabSetCard({
     bookVLevel: cefrToVLevel(set.cefrLevel),
     coverFrom: null,
     coverTo: null,
+    // 색상이 유형을 말한다 — 같은 갈래는 같은 계열로 보여야 매대에서 묶여 읽힌다.
+    category: set.category,
   })
   const cat = vocabCategoryMeta(set.category)
 
