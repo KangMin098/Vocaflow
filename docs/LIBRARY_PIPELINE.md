@@ -502,6 +502,17 @@ node scripts/vocab/retire-sets.mjs --list scripts/vocab/data/<목록>.txt [--res
   그대로다. 실측 2026-09-01 — 게시 27,075행 중 사전에는 있는데 복사본이 빈 칸이
   **유의어 1,641 · 연어 1,161 · 반의어 466 · 노트 354** 였다. ③이 그것을 따라잡는다.
   **사전을 손본 뒤에는 반드시 ③을 돌린다.**
+- ⚠️ **그런데 그 넷 중 셋은 읽는 화면이 없다.** 넷을 다 채우고 내용 지수를 다시 쟀더니
+  **1.586 그대로**였다. grep 전수로 확인한 결과:
+
+  | 칸 | 닿는 경로 |
+  |---|---|
+  | `pronunciation` · `example_en` · `meaning_ko` · `part_of_speech` · `cefr_level` | 구독·게임이 `vocabularies` 로 **복사**한다 |
+  | `korean_learner_note` | 미리보기 모달이 읽는다 |
+  | `synonyms` · `antonyms` · `collocations` | **아무도 안 읽는다** — `vocabularies` 에 그 컬럼이 없고, 학습자는 `shared_dictionary` 에서 **런타임에** 받는다(`dict-extras.ts`) |
+
+  그래서 ③의 기본값은 **닿는 칸만** 채운다(`--all-fields` 로 나머지도 채울 수 있다).
+  **내용 지수를 올리려면 `shared_words` 가 아니라 `shared_dictionary` 를 채워야 한다.**
 - ⚠️ **③은 `korean_learner_note` 를 목차 있는 세트에서 건드리지 않는다.** 그 세트에서 이
   컬럼은 사전 노트가 아니라 **챕터 제목**이다(`toSharedWords`: `grouped ? group_label : ...`).
   모르고 채우면 목차가 깨진다. (실측: 목차 있는 26,575행의 노트 격차는 0, 격차 354는 전부 평면 세트.)
