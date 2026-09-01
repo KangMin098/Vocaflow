@@ -13,7 +13,7 @@
 // 조판물은 깨끗한데 학습자가 받는 것은 아니었다.
 import { describe, expect, it } from 'vitest'
 
-import { cleanItemPayload, isRetractedTitle, itemHygieneReject, passageTextOf } from './item-hygiene'
+import { cleanItemPayload, isRetractedTitle, isTooShortForPractice, itemHygieneReject, passageTextOf } from './item-hygiene'
 
 const ok = { payload: { passage: 'Photosynthesis converts light into chemical energy in leaves.' } }
 
@@ -77,5 +77,37 @@ describe('정제는 저장이 아니라 사본에 건다', () => {
     const raw = { passage: 'Abstract The result was clear.' }
     cleanItemPayload(raw)
     expect(raw.passage).toBe('Abstract The result was clear.')
+  })
+})
+
+describe('isTooShortForPractice', () => {
+  const long = (n: number) => ({ passage: Array.from({ length: n }, () => 'word').join(' ') })
+
+  it('하한 미만이면 막는다 — 4문장 미만은 순서를 맞출 단서가 없어 찍기가 된다', () => {
+    expect(isTooShortForPractice(90, long(64))).toBe(true)
+  })
+
+  it('하한 이상이면 통과한다', () => {
+    expect(isTooShortForPractice(90, long(120))).toBe(false)
+  })
+
+  it('**상한은 보지 않는다** — 길다는 이유로 막지 않는다 (지면 제약은 연습 화면에 없다)', () => {
+    expect(isTooShortForPractice(90, long(400))).toBe(false)
+  })
+
+  it('지문이 없으면 대상이 아니다 — 문장 단위·초등 3종이 전량 걸리면 안 된다', () => {
+    expect(isTooShortForPractice(90, {})).toBe(false)
+    expect(isTooShortForPractice(90, null)).toBe(false)
+  })
+
+  it('하한이 없거나 이상하면 막지 않는다', () => {
+    expect(isTooShortForPractice(0, long(1))).toBe(false)
+    expect(isTooShortForPractice(Number.NaN, long(1))).toBe(false)
+  })
+
+  it('`presented` 에 담긴 순서 문항 지문도 센다 — 그 키를 빠뜨리면 통째로 샌다', () => {
+    const presented = { presented: Array.from({ length: 120 }, () => 'word') }
+    expect(isTooShortForPractice(90, presented)).toBe(false)
+    expect(isTooShortForPractice(90, { presented: ['one', 'two'] })).toBe(true)
   })
 })

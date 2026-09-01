@@ -9,9 +9,14 @@
 // `textbook_practice_items` RPC 로 창고에서 곧장 가져오고, 그 RPC 는 유형 화이트리스트와
 // `v_level` · 발행 상태만 본다. 그래서 연습 후보 안에 이만큼이 남아 있었다:
 //
-//   소재 부적합  **14,738문항**  (V6 12,567 · V7 1,610 · V5 526 · V4 17 · V8 18)
 //   철회 논문      **168문항**  (V6 91 · V7 77)
+//   소재 부적합   **1,187문항**  (V6 1,037 · V5 98 · V7 51 · V4 1)
 //   절 이름 잔존      56문항
+//
+// ⚠️ 소재 수치는 **학습자가 실제로 읽는 글**(제목 + payload)로 센 값이다. 원글 본문까지
+//   훑으면 14,738문항이 걸리는데, 그건 출처 논문이 그 소재를 어딘가에서 언급한다는 뜻이지
+//   보이는 지문이 그렇다는 뜻이 아니다 — **조판도 같은 예측어를 쓴다.** 둘을 섞어 적으면
+//   고친 효과를 부풀리게 된다(처음에 그렇게 적었다가 바로잡았다).
 //
 // 조판물은 깨끗한데 학습자가 받는 것은 아니었다 — 이 저장소가 되풀이해 온
 // **"만든 것과 실리는 것은 다르다"** 의 가장 비싼 판이다.
@@ -20,6 +25,7 @@
 //   판정 일부를 DB 로 옮기더라도 이 파일은 남는다. 두 경로가 같은 함수를 부르게 하는 것이
 //   목적이지, 어디서 거르느냐가 목적이 아니다.
 import {
+  countPassageWords,
   dropDuplicatedLeadWord,
   dropRepeatedTail,
   hasArticleChrome,
@@ -142,4 +148,35 @@ export function itemHygieneReject(input: {
   // 인용 잔해·비산문은 `isPrintablePassage` 가 한 벌로 판정한다.
   if (!isPrintablePassage(text)) return 'residue'
   return null
+}
+
+/**
+ * **연습으로 내보내기에 지문이 너무 짧은가** — 찍기 방지 하한만 본다.
+ *
+ * ── 왜 하한만인가 (실측 2026-09-01) ─────────────────────────────────
+ * 조판은 `itemWordSpec` = 교차(유형 창, 학년 창)로 거른다. 두 창의 근거가 다르다:
+ *
+ *  · **유형 창의 하한** — 교육적이다. `compose-unit.CSAT_ITEM_WORDS` 가 적어 둔 그대로:
+ *    "하한 90 은 64어짜리를 걸러내기 위한 것이다 — 4문장 미만으로 읽히면 순서를 맞출
+ *    단서가 부족해 **찍기가 된다**."
+ *  · **유형 창의 상한과 학년 창** — 지면 제약과 시장 적합 주장에서 나온다.
+ *    **연습 화면에는 지면도 시장 주장도 없다.**
+ *
+ * 그래서 연습에는 하한만 건다. 실측 반려율:
+ *   상·하한 모두 + 학년 창  40.5%   ← 근거 없는 것까지 버린다
+ *   **하한만**              **33.0%**  (V4 48% · V5 28% · V6 24% · V7 32%)
+ *   학년 창만                8.6%
+ *
+ * 33% 는 적지 않지만 **버리는 쪽이 옳다** — 이 저장소 자신의 기준으로 "찍기가 되는"
+ * 문항이고, 학습자가 푸는 것의 3분의 1이 그랬다. `fetchTextbookPracticeItems` 의
+ * `overFetch`(limit×3)가 흡수한다(limit=10 이면 30 중 20 생존).
+ *
+ * ⚠️ **지문이 없는 유형은 대상이 아니다** — 문장 단위·초등 3종은 지문 자체가 한 문장이라
+ *   이 자를 대면 전량 걸린다. 호출부가 그 유형을 넘기지 않거나, 여기서 지문이 비어 통과한다.
+ */
+export function isTooShortForPractice(minWords: number, payload: Record<string, unknown> | null | undefined): boolean {
+  if (!Number.isFinite(minWords) || minWords <= 0) return false
+  const text = passageTextOf(payload)
+  if (!text) return false
+  return countPassageWords(text) < minWords
 }

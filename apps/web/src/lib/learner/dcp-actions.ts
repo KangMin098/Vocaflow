@@ -12,7 +12,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 
 import type { DcpErrorCause, DcpGradeResult, DcpItem } from './dcp'
-import { SERIES_SPINE, cleanItemPayload, itemHygieneReject } from '@vocaflow/library-pipeline'
+import { SERIES_SPINE, cleanItemPayload, isTooShortForPractice, itemHygieneReject, itemWordSpec } from '@vocaflow/library-pipeline'
 
 import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 
@@ -162,8 +162,8 @@ export async function fetchDcpPracticeItems(): Promise<{
  *   그래서 `textbook_practice_items` RPC 가 정답을 뺀 열만 내준다.
  *
  * ⚠️ **어떤 유형이 나오는지는 RPC 가 정한다.** 다만 2026-09-01 부터 **품질 게이트는 여기서
- *   건다** — RPC 가 조판의 게이트를 하나도 쓰지 않아 연습 후보에 소재 부적합 14,738문항과
- *   철회 논문 168문항이 남아 있었다. 거르되 **`limit` 의 몇 배를 받아** 거른 뒤 정확히
+ *   건다** — RPC 가 조판의 게이트를 하나도 쓰지 않아 연습 후보에 철회 논문 168문항과
+ *   소재 부적합 1,187문항이 남아 있었다. 거르되 **`limit` 의 몇 배를 받아** 거른 뒤 정확히
  *   `limit` 을 내므로, 이 주석이 원래 경고하던 "8문항 달라고 했는데 3개만 뜨는" 조용한
  *   손실은 생기지 않는다. 판정·정제는 `item-hygiene.ts` 한 벌이고 조판이 쓰는 것과 같다.
  */
@@ -196,7 +196,7 @@ export async function fetchTextbookPracticeItems(
   //   조판이 세운 게이트(철회 논문 · 소재 · 기사 껍데기 · 인용 잔해 · 잘린 조각)를 하나도
   //   쓰지 않는다. 그래서 **조판물은 깨끗한데 학습자가 받는 것은 아니었다.**
   //   실측 2026-09-01, 연습 후보 안에 남아 있던 것:
-  //     소재 부적합 **14,738문항**(V6 12,567 · V7 1,610 · V5 526) · 철회 논문 **168문항**
+  //     철회 논문 **168문항**(V6 91 · V7 77) · 소재 부적합 **1,187문항**(V6 1,037 · V5 98 · V7 51)
   //
   //   판정은 TypeScript 체인(`itemHygieneReject`)이라 RPC 안으로 넣을 수 없다. 대신
   //   **`limit` 의 몇 배를 받아 거른 뒤 정확히 `limit` 만 낸다** — 이 파일 머리말이 경고한
@@ -216,7 +216,14 @@ export async function fetchTextbookPracticeItems(
       itemHygieneReject({
         payload: r.payload as Record<string, unknown> | null,
         refTitle: typeof r.ref_title === 'string' ? r.ref_title : null,
-      }) === null,
+      }) === null &&
+      // ⚠️ **찍기가 되는 문항은 내보내지 않는다** — 유형 창의 **하한만** 본다.
+      //   `CSAT_ITEM_WORDS` 가 적어 둔 그대로: "하한 90 은 64어짜리를 걸러내기 위한 것이다 —
+      //   4문장 미만으로 읽히면 순서를 맞출 단서가 부족해 찍기가 된다."
+      //   상한과 학년 창은 **걸지 않는다** — 그 둘의 근거는 지면 제약과 시장 적합 주장이고
+      //   연습 화면에는 둘 다 없다. 조판과 자가 다른 것이 아니라 **근거가 있는 쪽만** 쓴다.
+      //   실측 2026-09-01 반려율: 하한만 33.0% · 상하한+학년창 40.5% · 학년창만 8.6%.
+      !isTooShortForPractice(itemWordSpec(String(r.type ?? ''), null).min, r.payload as Record<string, unknown> | null),
   )
   // ⚠️ **정제도 여기서 건다.** 조판은 절 이름·반복 꼬리·구두점·따옴표를 다듬은 사본을
   //   인쇄하는데, 연습은 저장된 payload 를 그대로 내보내고 있었다 — 같은 문항인데

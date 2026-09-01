@@ -245,6 +245,7 @@ export {
   cleanPassageText,
   isRetractedTitle,
   itemHygieneReject,
+  isTooShortForPractice,
   passageTextOf,
   type HygieneReject,
 } from './textbook/item-hygiene'
