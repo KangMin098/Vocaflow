@@ -203,6 +203,26 @@ export function mapStemToOurType(stem) {
 }
 
 /** 지문 어수 — 영문 우세 줄이 3줄 이상 이어진 덩어리를 한 지문으로 본다. */
+/**
+ * **선택지 묶음인가 — 지문이 아니다.**
+ *
+ * 실측 2026-09-01: 수능 한 회차에서 지문 검출기가 **79블록**을 잡았는데 실제 독해 지문은
+ * 25개 안팎이다. 나머지 상당수가 영어 선택지 다섯 개가 이어 붙은 덩어리였다:
+ *
+ *   "① The Solutions to Overtourism: From Complex to Simple ② What Makes Po…"  (40어)
+ *
+ * 40~50어라 하한(40)을 그대로 넘어 **지문으로 세어졌고**, 그만큼 분포의 아래쪽이
+ * 두꺼워져 창이 실제보다 짧게 잡힌다. 평가원만의 문제가 아니다 — 시중 교재도
+ * 제목·주제 문항의 선택지를 영어로 인쇄하므로 **기존 고1·고2 창도 같은 오염**을 갖고 있었다.
+ *
+ * ⚠️ **어법 지문을 함께 버리면 안 된다.** 어법(29번)은 지문 **안에** ①~⑤ 가 박혀 있다
+ *   ("It is ① important that…"). 그래서 "①~⑤ 를 포함하면 선택지" 로 거르면 멀쩡한 지문이
+ *   날아간다. 선택지 묶음은 **① 로 시작한다** 는 성질로 가른다 — 어법 지문은 산문으로 시작한다.
+ */
+function isChoiceList(t) {
+  return /^s*①/.test(t) && /③/.test(t);
+}
+
 export function extractPassageSpec(db, pub = null) {
   const rows = db.prepare(`
     SELECT d.grade_min, d.grade_max, d.series, p.text
@@ -219,7 +239,7 @@ export function extractPassageSpec(db, pub = null) {
         const t = buf.join(' ').replace(/\s+/g, ' ');
         const w = (t.match(/[A-Za-z][A-Za-z'-]*/g) || []).length;
         // 40어 미만은 지문이 아니라 예문/보기, 400어 초과는 쪽 경계를 넘어 붙은 것이다.
-        if (w >= 40 && w <= 400) {
+        if (w >= 40 && w <= 400 && !isChoiceList(t)) {
           if (!byGrade.has(r.grade_min)) byGrade.set(r.grade_min, []);
           byGrade.get(r.grade_min).push(w);
         }
