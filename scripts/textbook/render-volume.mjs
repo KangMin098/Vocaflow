@@ -629,6 +629,10 @@ h1{font-size:2.1rem;margin:.6rem 0 .3rem;letter-spacing:-.01em;text-wrap:balance
   h1,h2,h3{break-after:avoid}
   /* 화면용 가로 스크롤 상자는 인쇄에서 내용을 잘라 먹는다. */
   .tablewrap{overflow-x:visible}
+  /* 표지의 검수 칩은 **내부 QA 다** — 상업 교재 표지에 "자동 검수 9/9 통과" 는 없다.
+     지우는 게 아니라 인쇄에서만 감춘다: 화면(검수용)에서는 그대로 보이고, 같은 사실이
+     판권면에 남는다(`검수 ... · 교정 초교·재교·삼교`). 그래서 정보는 안 잃는다. */
+  .scorebar{display:none}
   /* 링크 밑줄은 지면에서 읽기를 방해한다. */
   a{text-decoration:none;color:inherit}
 }
