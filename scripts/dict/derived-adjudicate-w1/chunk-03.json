@@ -1,0 +1,611 @@
+[
+ {
+  "word": "pool",
+  "meaning_ko": "수영장",
+  "pos": "noun",
+  "candidates": [
+   "poolroom",
+   "poolside"
+  ]
+ },
+ {
+  "word": "pour",
+  "meaning_ko": "붓다; 쏟아지다; 쇄도하다",
+  "pos": "verb",
+  "candidates": [
+   "pourri"
+  ]
+ },
+ {
+  "word": "professional",
+  "meaning_ko": "전문적인, 프로의",
+  "pos": "adjective",
+  "candidates": [
+   "professionalism",
+   "professionally"
+  ]
+ },
+ {
+  "word": "pump",
+  "meaning_ko": "펌프",
+  "pos": "noun",
+  "candidates": [
+   "pump iron",
+   "pump up",
+   "pumpkin"
+  ]
+ },
+ {
+  "word": "rabbit",
+  "meaning_ko": "토끼",
+  "pos": "noun",
+  "candidates": [
+   "rabbiting"
+  ]
+ },
+ {
+  "word": "radio",
+  "meaning_ko": "라디오, 무전기",
+  "pos": "noun",
+  "candidates": [
+   "radioactive",
+   "radiocarbon",
+   "radiogram",
+   "radiograph",
+   "radiography",
+   "radiologist",
+   "radiology",
+   "radiometer",
+   "radiometric"
+  ]
+ },
+ {
+  "word": "relief",
+  "meaning_ko": "안도; 구호",
+  "pos": "noun",
+  "candidates": [
+   "relief road"
+  ]
+ },
+ {
+  "word": "restaurant",
+  "meaning_ko": "식당",
+  "pos": "noun",
+  "candidates": [
+   "restaurant car"
+  ]
+ },
+ {
+  "word": "river",
+  "meaning_ko": "강",
+  "pos": "noun",
+  "candidates": [
+   "riverbank",
+   "riverbed",
+   "riverine",
+   "riverside",
+   "riverways"
+  ]
+ },
+ {
+  "word": "role",
+  "meaning_ko": "역할",
+  "pos": "noun",
+  "candidates": [
+   "role model"
+  ]
+ },
+ {
+  "word": "sake",
+  "meaning_ko": "~을 위함; (구문) for the sake of",
+  "pos": "noun",
+  "candidates": [
+   "saker"
+  ]
+ },
+ {
+  "word": "salad",
+  "meaning_ko": "샐러드",
+  "pos": "noun",
+  "candidates": [
+   "salad cream"
+  ]
+ },
+ {
+  "word": "sausage",
+  "meaning_ko": "소시지",
+  "pos": "noun",
+  "candidates": [
+   "sausage dog",
+   "sausage meat"
+  ]
+ },
+ {
+  "word": "shall",
+  "meaning_ko": "~할 것이다 (조동사)",
+  "pos": "verb",
+  "candidates": [
+   "shallop",
+   "shallot",
+   "shallott",
+   "shallow",
+   "shallowness",
+   "shallows",
+   "shally"
+  ]
+ },
+ {
+  "word": "shoulder",
+  "meaning_ko": "어깨; 짊어지다",
+  "pos": "noun",
+  "candidates": [
+   "shoulder blade",
+   "shoulder pad"
+  ]
+ },
+ {
+  "word": "skirt",
+  "meaning_ko": "치마",
+  "pos": "noun",
+  "candidates": [
+   "skirted"
+  ]
+ },
+ {
+  "word": "sock",
+  "meaning_ko": "양말",
+  "pos": "noun",
+  "candidates": [
+   "socket",
+   "sockeye"
+  ]
+ },
+ {
+  "word": "soup",
+  "meaning_ko": "수프",
+  "pos": "noun",
+  "candidates": [
+   "soup up",
+   "soupcon"
+  ]
+ },
+ {
+  "word": "staff",
+  "meaning_ko": "직원",
+  "pos": "noun",
+  "candidates": [
+   "staffroom"
+  ]
+ },
+ {
+  "word": "steak",
+  "meaning_ko": "스테이크",
+  "pos": "noun",
+  "candidates": [
+   "steak knife",
+   "steakhouse"
+  ]
+ },
+ {
+  "word": "step",
+  "meaning_ko": "걸음, 단계; 계단",
+  "pos": "noun",
+  "candidates": [
+   "stepchild",
+   "stepdad",
+   "stepfamily",
+   "stepfather",
+   "stepmother",
+   "stepmum",
+   "stepparent",
+   "steppe",
+   "stepsister",
+   "stepson"
+  ]
+ },
+ {
+  "word": "story",
+  "meaning_ko": "이야기",
+  "pos": "noun",
+  "candidates": [
+   "storyboard",
+   "storybook",
+   "storyline",
+   "storyteller"
+  ]
+ },
+ {
+  "word": "taxi",
+  "meaning_ko": "택시",
+  "pos": "noun",
+  "candidates": [
+   "taxi squad",
+   "taxi-meter",
+   "taxicab",
+   "taxidermy",
+   "taxing",
+   "taxiway"
+  ]
+ },
+ {
+  "word": "there",
+  "meaning_ko": "거기에, 그곳에",
+  "pos": "adverb",
+  "candidates": [
+   "thereabout",
+   "thereabouts",
+   "thereafter",
+   "thereat",
+   "thereby",
+   "therefore",
+   "therefrom",
+   "therein",
+   "thereinto",
+   "thereof",
+   "thereon",
+   "thereover",
+   "thereto",
+   "theretofore"
+  ]
+ },
+ {
+  "word": "thing",
+  "meaning_ko": "것, 사물",
+  "pos": "noun",
+  "candidates": [
+   "thingamabob",
+   "thingamajig",
+   "thingummy"
+  ]
+ },
+ {
+  "word": "through",
+  "meaning_ko": "끝난",
+  "pos": "adjective",
+  "candidates": [
+   "throughly",
+   "throughout"
+  ]
+ },
+ {
+  "word": "ticket",
+  "meaning_ko": "표, 입장권",
+  "pos": "noun",
+  "candidates": [
+   "tickety-boo"
+  ]
+ },
+ {
+  "word": "tongue",
+  "meaning_ko": "혀; 언어; 말투",
+  "pos": "noun",
+  "candidates": [
+   "tongue-tied"
+  ]
+ },
+ {
+  "word": "trunk",
+  "meaning_ko": "나무의 큰 줄기; 여행용 큰 가방·(자동차) 트렁크; 코끼리 코",
+  "pos": "noun",
+  "candidates": [
+   "trunk road"
+  ]
+ },
+ {
+  "word": "twin",
+  "meaning_ko": "쌍둥이",
+  "pos": "noun",
+  "candidates": [
+   "twine",
+   "twinge",
+   "twinkie",
+   "twinkle",
+   "twinkling",
+   "twinkly",
+   "twinset",
+   "twiny"
+  ]
+ },
+ {
+  "word": "village",
+  "meaning_ko": "마을",
+  "pos": "noun",
+  "candidates": [
+   "villagers"
+  ]
+ },
+ {
+  "word": "wage",
+  "meaning_ko": "임금; 벌이다",
+  "pos": "noun",
+  "candidates": [
+   "wage gap",
+   "wage slave",
+   "wager"
+  ]
+ },
+ {
+  "word": "wall",
+  "meaning_ko": "벽",
+  "pos": "noun",
+  "candidates": [
+   "wallaby",
+   "wallah",
+   "wallet",
+   "walleye",
+   "wallflower",
+   "wallop",
+   "wallow",
+   "wallpaper"
+  ]
+ },
+ {
+  "word": "weather",
+  "meaning_ko": "날씨, 기상",
+  "pos": "noun",
+  "candidates": [
+   "weatherbeaten",
+   "weathercock",
+   "weathergirl",
+   "weathering",
+   "weathervane"
+  ]
+ },
+ {
+  "word": "apart",
+  "meaning_ko": "떨어져, 따로",
+  "pos": "adverb",
+  "candidates": [
+   "apartheid",
+   "aparthotel",
+   "apartment"
+  ]
+ },
+ {
+  "word": "bench",
+  "meaning_ko": "벤치, 긴 의자",
+  "pos": "noun",
+  "candidates": [
+   "bench test",
+   "bench-test",
+   "benchmark"
+  ]
+ },
+ {
+  "word": "billion",
+  "meaning_ko": "10억",
+  "pos": "noun",
+  "candidates": [
+   "billionaire"
+  ]
+ },
+ {
+  "word": "catalog",
+  "meaning_ko": "목록, 카탈로그",
+  "pos": "noun",
+  "candidates": [
+   "catalogue"
+  ]
+ },
+ {
+  "word": "click",
+  "meaning_ko": "클릭하다, 딸깍 소리를 내다",
+  "pos": "verb",
+  "candidates": [
+   "clickstream"
+  ]
+ },
+ {
+  "word": "client",
+  "meaning_ko": "고객; 의뢰인; 클라이언트",
+  "pos": "noun",
+  "candidates": [
+   "client-side",
+   "clientele"
+  ]
+ },
+ {
+  "word": "county",
+  "meaning_ko": "주, 군 (행정 구역)",
+  "pos": "noun",
+  "candidates": [
+   "county court",
+   "county lines"
+  ]
+ },
+ {
+  "word": "dolphin",
+  "meaning_ko": "돌고래",
+  "pos": "noun",
+  "candidates": [
+   "dolphinarium"
+  ]
+ },
+ {
+  "word": "else",
+  "meaning_ko": "그 밖의, 다른",
+  "pos": "adverb",
+  "candidates": [
+   "elsewhere"
+  ]
+ },
+ {
+  "word": "especial",
+  "meaning_ko": "특별한, 각별한",
+  "pos": "adjective",
+  "candidates": [
+   "especially"
+  ]
+ },
+ {
+  "word": "ever",
+  "meaning_ko": "언제나, 한 번이라도",
+  "pos": "adverb",
+  "candidates": [
+   "everglades",
+   "evergreen",
+   "evermore",
+   "evert",
+   "every",
+   "everybody",
+   "everyday",
+   "everynight",
+   "everyone",
+   "everything",
+   "everywhere"
+  ]
+ },
+ {
+  "word": "exit",
+  "meaning_ko": "출구; 나가다; 퇴장",
+  "pos": "noun",
+  "candidates": [
+   "exit poll"
+  ]
+ },
+ {
+  "word": "factory",
+  "meaning_ko": "공장",
+  "pos": "noun",
+  "candidates": [
+   "factory farm",
+   "factory floor",
+   "factory ship",
+   "factory shop"
+  ]
+ },
+ {
+  "word": "flag",
+  "meaning_ko": "깃발; 표시하다",
+  "pos": "noun",
+  "candidates": [
+   "flag day",
+   "flagellant",
+   "flagellate",
+   "flagellum",
+   "flageolet",
+   "flagging",
+   "flagitious",
+   "flagon",
+   "flagrant",
+   "flagrantly",
+   "flagship",
+   "flagstaff",
+   "flagstone"
+  ]
+ },
+ {
+  "word": "forth",
+  "meaning_ko": "앞으로, 밖으로",
+  "pos": "adverb",
+  "candidates": [
+   "forthcoming",
+   "forthright",
+   "forthwith"
+  ]
+ },
+ {
+  "word": "fortunate",
+  "meaning_ko": "운이 좋은",
+  "pos": "adjective",
+  "candidates": [
+   "fortunately"
+  ]
+ },
+ {
+  "word": "glove",
+  "meaning_ko": "장갑",
+  "pos": "noun",
+  "candidates": [
+   "glovebox"
+  ]
+ },
+ {
+  "word": "while",
+  "meaning_ko": "잠시, 한동안",
+  "pos": "noun",
+  "candidates": [
+   "while away"
+  ]
+ },
+ {
+  "word": "alley",
+  "meaning_ko": "골목, 좁은 길",
+  "pos": "noun",
+  "candidates": [
+   "alley-oop"
+  ]
+ },
+ {
+  "word": "alternative",
+  "meaning_ko": "대안",
+  "pos": "noun",
+  "candidates": [
+   "alternative fuel",
+   "alternative rock",
+   "alternative vote",
+   "alternatively"
+  ]
+ },
+ {
+  "word": "label",
+  "meaning_ko": "라벨; 라벨을 붙이다",
+  "pos": "noun",
+  "candidates": [
+   "labellum"
+  ]
+ },
+ {
+  "word": "lack",
+  "meaning_ko": "부족; 부족하다",
+  "pos": "noun",
+  "candidates": [
+   "lackaday",
+   "lackey",
+   "lacklustre"
+  ]
+ },
+ {
+  "word": "menu",
+  "meaning_ko": "메뉴",
+  "pos": "noun",
+  "candidates": [
+   "menu bar"
+  ]
+ },
+ {
+  "word": "overall",
+  "meaning_ko": "전반적인; 전반적으로; 작업복",
+  "pos": "noun",
+  "candidates": [
+   "overalls"
+  ]
+ },
+ {
+  "word": "pear",
+  "meaning_ko": "배(과일)",
+  "pos": "noun",
+  "candidates": [
+   "pearl",
+   "pearly",
+   "pearmain",
+   "peart"
+  ]
+ },
+ {
+  "word": "photo",
+  "meaning_ko": "사진 (photograph 단축)",
+  "pos": "noun",
+  "candidates": [
+   "photocall",
+   "photocell",
+   "photocopier",
+   "photocopy",
+   "photodiode",
+   "photofit",
+   "photogenic",
+   "photograph",
+   "photography"
+  ]
+ }
+]

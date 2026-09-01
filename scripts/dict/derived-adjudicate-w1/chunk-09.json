@@ -1,0 +1,541 @@
+[
+ {
+  "word": "crane",
+  "meaning_ko": "기중기, 크레인",
+  "pos": "noun",
+  "candidates": [
+   "crane fly"
+  ]
+ },
+ {
+  "word": "craw",
+  "meaning_ko": "모이주머니",
+  "pos": "noun",
+  "candidates": [
+   "crawdad",
+   "crawfish",
+   "crawl",
+   "crawler",
+   "crawly"
+  ]
+ },
+ {
+  "word": "cray",
+  "meaning_ko": "민물 가재",
+  "pos": "noun",
+  "candidates": [
+   "crayfish",
+   "crayon"
+  ]
+ },
+ {
+  "word": "crest",
+  "meaning_ko": "꼭대기",
+  "pos": "noun",
+  "candidates": [
+   "crestfallen"
+  ]
+ },
+ {
+  "word": "deer",
+  "meaning_ko": "사슴",
+  "pos": "noun",
+  "candidates": [
+   "deerhound",
+   "deerskin"
+  ]
+ },
+ {
+  "word": "domesticate",
+  "meaning_ko": "길들이다, 가축화하다",
+  "pos": "verb",
+  "candidates": [
+   "domesticated"
+  ]
+ },
+ {
+  "word": "fang",
+  "meaning_ko": "(육식 동물의) 송곳니",
+  "pos": "noun",
+  "candidates": [
+   "fangirl",
+   "fangled"
+  ]
+ },
+ {
+  "word": "flea",
+  "meaning_ko": "벼룩",
+  "pos": "noun",
+  "candidates": [
+   "fleabag",
+   "fleapit"
+  ]
+ },
+ {
+  "word": "gnat",
+  "meaning_ko": "각다귀, 작은 깔따구",
+  "pos": "noun",
+  "candidates": [
+   "gnathic"
+  ]
+ },
+ {
+  "word": "goldfish",
+  "meaning_ko": "금붕어",
+  "pos": "noun",
+  "candidates": [
+   "goldfish bowl"
+  ]
+ },
+ {
+  "word": "gull",
+  "meaning_ko": "갈매기",
+  "pos": "noun",
+  "candidates": [
+   "gullah",
+   "gullet",
+   "gulley",
+   "gullible",
+   "gully"
+  ]
+ },
+ {
+  "word": "herring",
+  "meaning_ko": "청어",
+  "pos": "noun",
+  "candidates": [
+   "herring gull",
+   "herringbone"
+  ]
+ },
+ {
+  "word": "hind",
+  "meaning_ko": "뒤쪽의, 뒤의",
+  "pos": "adjective",
+  "candidates": [
+   "hinder",
+   "hindlimb",
+   "hindmost",
+   "hindrance",
+   "hindsight",
+   "hindu",
+   "hinduism",
+   "hindwings"
+  ]
+ },
+ {
+  "word": "hound",
+  "meaning_ko": "사냥개",
+  "pos": "noun",
+  "candidates": [
+   "hound dog"
+  ]
+ },
+ {
+  "word": "hover",
+  "meaning_ko": "(공중에) 떠 있다, 맴돌다",
+  "pos": "verb",
+  "candidates": [
+   "hovercraft"
+  ]
+ },
+ {
+  "word": "wannabe",
+  "meaning_ko": "~인 척하는 사람, 지망생, 워너비",
+  "pos": "noun",
+  "candidates": [
+   "wannabee"
+  ]
+ },
+ {
+  "word": "jigger",
+  "meaning_ko": "지거 (계량 컵, 칵테일용)",
+  "pos": "noun",
+  "candidates": [
+   "jiggery"
+  ]
+ },
+ {
+  "word": "kite",
+  "meaning_ko": "연 — 실에 매달아 바람으로 띄우는 놀이 기구",
+  "pos": "noun",
+  "candidates": [
+   "kitemark"
+  ]
+ },
+ {
+  "word": "kitten",
+  "meaning_ko": "새끼 고양이",
+  "pos": "noun",
+  "candidates": [
+   "kitten heels"
+  ]
+ },
+ {
+  "word": "kiwi",
+  "meaning_ko": "키위(과일), 참다래",
+  "pos": "noun",
+  "candidates": [
+   "kiwi fruit",
+   "kiwifruit"
+  ]
+ },
+ {
+  "word": "lair",
+  "meaning_ko": "굴, 보금자리; 은신처",
+  "pos": "noun",
+  "candidates": [
+   "laird"
+  ]
+ },
+ {
+  "word": "lark",
+  "meaning_ko": "종다리, 종달새 — 하늘 높이 솟구쳐 우는 작은 명금",
+  "pos": "noun",
+  "candidates": [
+   "larkspur"
+  ]
+ },
+ {
+  "word": "mane",
+  "meaning_ko": "갈기, 갈기 같은 머리",
+  "pos": "noun",
+  "candidates": [
+   "manege",
+   "maneuver"
+  ]
+ },
+ {
+  "word": "mantis",
+  "meaning_ko": "사마귀 (곤충)",
+  "pos": "noun",
+  "candidates": [
+   "mantissa"
+  ]
+ },
+ {
+  "word": "mare",
+  "meaning_ko": "암말; (영국 구어) 끔찍한 일",
+  "pos": "noun",
+  "candidates": [
+   "maremma",
+   "marengo"
+  ]
+ },
+ {
+  "word": "marlin",
+  "meaning_ko": "청새치",
+  "pos": "noun",
+  "candidates": [
+   "marlinespike"
+  ]
+ },
+ {
+  "word": "midge",
+  "meaning_ko": "각다귀, 깔따구 (작은 흡혈 모기)",
+  "pos": "noun",
+  "candidates": [
+   "midget"
+  ]
+ },
+ {
+  "word": "mink",
+  "meaning_ko": "밍크 (모피용 동물·모피)",
+  "pos": "noun",
+  "candidates": [
+   "minke"
+  ]
+ },
+ {
+  "word": "mite",
+  "meaning_ko": "진드기; 적은 양; 어린 것 (영국 구어)",
+  "pos": "noun",
+  "candidates": [
+   "miter"
+  ]
+ },
+ {
+  "word": "molly",
+  "meaning_ko": "몰리 (관상어); MDMA 별칭 (사용 주의)",
+  "pos": "noun",
+  "candidates": [
+   "mollycoddle"
+  ]
+ },
+ {
+  "word": "newt",
+  "meaning_ko": "영원, 도롱뇽",
+  "pos": "noun",
+  "candidates": [
+   "newtons"
+  ]
+ },
+ {
+  "word": "nymph",
+  "meaning_ko": "(그리스 신화) 님프 — 물·숲·동굴·바람에 깃든 여성 정령",
+  "pos": "noun",
+  "candidates": [
+   "nymphet"
+  ]
+ },
+ {
+  "word": "parrot",
+  "meaning_ko": "앵무새",
+  "pos": "noun",
+  "candidates": [
+   "parrotfish"
+  ]
+ },
+ {
+  "word": "peacock",
+  "meaning_ko": "공작",
+  "pos": "noun",
+  "candidates": [
+   "peacock blue"
+  ]
+ },
+ {
+  "word": "pigeon",
+  "meaning_ko": "비둘기",
+  "pos": "noun",
+  "candidates": [
+   "pigeonhole"
+  ]
+ },
+ {
+  "word": "polyp",
+  "meaning_ko": "폴립, 용종",
+  "pos": "noun",
+  "candidates": [
+   "polypeptide",
+   "polyphenol",
+   "polyphonic",
+   "polyphony",
+   "polyploid",
+   "polypoid",
+   "polyposis",
+   "polyptych"
+  ]
+ },
+ {
+  "word": "pony",
+  "meaning_ko": "조랑말",
+  "pos": "noun",
+  "candidates": [
+   "ponytail"
+  ]
+ },
+ {
+  "word": "puffin",
+  "meaning_ko": "바다오리, 퍼핀",
+  "pos": "noun",
+  "candidates": [
+   "puffiness"
+  ]
+ },
+ {
+  "word": "puppy",
+  "meaning_ko": "강아지",
+  "pos": "noun",
+  "candidates": [
+   "puppy love"
+  ]
+ },
+ {
+  "word": "pussy",
+  "meaning_ko": "고양이 (애칭)",
+  "pos": "noun",
+  "candidates": [
+   "pussycat",
+   "pussyfoot"
+  ]
+ },
+ {
+  "word": "raven",
+  "meaning_ko": "큰까마귀; (형용사) 칠흑같이 검고 윤이 나는",
+  "pos": "noun",
+  "candidates": [
+   "ravenous"
+  ]
+ },
+ {
+  "word": "ruff",
+  "meaning_ko": "러프 — 16~17세기 유럽에서 유행한 빳빳하게 주름잡은 둥근 목둘레 옷깃",
+  "pos": "noun",
+  "candidates": [
+   "ruffian",
+   "ruffle"
+  ]
+ },
+ {
+  "word": "salmon",
+  "meaning_ko": "연어",
+  "pos": "noun",
+  "candidates": [
+   "salmon pink",
+   "salmonberry",
+   "salmonella",
+   "salmonid"
+  ]
+ },
+ {
+  "word": "serpent",
+  "meaning_ko": "(문어) 뱀, 큰 뱀",
+  "pos": "noun",
+  "candidates": [
+   "serpentine"
+  ]
+ },
+ {
+  "word": "sett",
+  "meaning_ko": "(영국) 오소리굴 — 오소리가 파 놓은 굴 체계",
+  "pos": "noun",
+  "candidates": [
+   "settee",
+   "setter",
+   "setting",
+   "settle",
+   "settle on",
+   "settlement",
+   "settler",
+   "settlor"
+  ]
+ },
+ {
+  "word": "sparrow",
+  "meaning_ko": "참새",
+  "pos": "noun",
+  "candidates": [
+   "sparrowhawk"
+  ]
+ },
+ {
+  "word": "swan",
+  "meaning_ko": "백조, 고니",
+  "pos": "noun",
+  "candidates": [
+   "swank",
+   "swanky",
+   "swanning",
+   "swansdown",
+   "swansong"
+  ]
+ },
+ {
+  "word": "toad",
+  "meaning_ko": "두꺼비 — 피부가 거칠고 다리가 짧은 양서류",
+  "pos": "noun",
+  "candidates": [
+   "toadstool",
+   "toady"
+  ]
+ },
+ {
+  "word": "tortoise",
+  "meaning_ko": "거북이",
+  "pos": "noun",
+  "candidates": [
+   "tortoiseshell"
+  ]
+ },
+ {
+  "word": "architectural",
+  "meaning_ko": "건축의",
+  "pos": "adjective",
+  "candidates": [
+   "architecturally"
+  ]
+ },
+ {
+  "word": "attic",
+  "meaning_ko": "다락방",
+  "pos": "noun",
+  "candidates": [
+   "atticism"
+  ]
+ },
+ {
+  "word": "barbecue",
+  "meaning_ko": "바비큐(구이 요리); 바비큐 파티",
+  "pos": "noun",
+  "candidates": [
+   "barbecue sauce"
+  ]
+ },
+ {
+  "word": "cane",
+  "meaning_ko": "지팡이, 단장 — 걸을 때 몸을 받치는 짧고 단단한 막대",
+  "pos": "noun",
+  "candidates": [
+   "canebrake"
+  ]
+ },
+ {
+  "word": "chimney",
+  "meaning_ko": "굴뚝, 연통",
+  "pos": "noun",
+  "candidates": [
+   "chimney pot",
+   "chimney stack",
+   "chimney sweep",
+   "chimneypiece"
+  ]
+ },
+ {
+  "word": "condo",
+  "meaning_ko": "콘도",
+  "pos": "noun",
+  "candidates": [
+   "condole",
+   "condolence",
+   "condom",
+   "condominium",
+   "condone",
+   "condor"
+  ]
+ },
+ {
+  "word": "crypt",
+  "meaning_ko": "지하 묘실",
+  "pos": "noun",
+  "candidates": [
+   "cryptic",
+   "crypto",
+   "cryptogam",
+   "cryptogram",
+   "cryptology"
+  ]
+ },
+ {
+  "word": "greenhouse",
+  "meaning_ko": "온실",
+  "pos": "noun",
+  "candidates": [
+   "greenhouse gas"
+  ]
+ },
+ {
+  "word": "hoover",
+  "meaning_ko": "진공청소기로 청소하다",
+  "pos": "verb",
+  "candidates": [
+   "hoover™"
+  ]
+ },
+ {
+  "word": "indoor",
+  "meaning_ko": "실내의",
+  "pos": "adjective",
+  "candidates": [
+   "indoors"
+  ]
+ },
+ {
+  "word": "lost",
+  "meaning_ko": "잃어버린",
+  "pos": "adjective",
+  "candidates": [
+   "lost cause"
+  ]
+ }
+]
