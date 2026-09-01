@@ -43,6 +43,49 @@ import { SERIES_BRAND, SERIES_SPINE, type SeriesRung } from './series'
  */
 export const COVER_BRAND: string = SERIES_BRAND.split(' ').slice(-1)[0] ?? SERIES_BRAND
 
+/**
+ * **계단마다 다른 잉크색** — 표지가 서로 구별되게 하는 유일한 장치다.
+ *
+ * ── 왜 (2026-09-01 실측) ──────────────────────────────────────────
+ * 표지를 만들고 나서 재 보니 **일곱 권의 평균색이 전부 같은 베이지**였다
+ * (#E9E3DA~#ECE6DD — 채널당 3/255 차이는 숫자 획 때문이지 색이 다른 게 아니다).
+ * 즉 표지 식별률이 **1종 / 7권 = 14%** 였다. 같은 자로 잰 시중은:
+ *
+ *     NE능률   표지 10개 · 서로 다른 것 **10종**(100%)
+ *     다락원   표지 25개 · 서로 다른 것 **23종**(92%)
+ *
+ * 매대에서 일곱 권이 한 권처럼 보이면 학습자는 고를 것이 하나라고 읽는다.
+ *
+ * ── 왜 이 색들인가 ────────────────────────────────────────────────
+ * · **명도·채도를 고정하고 색상만 돌린다** — 실제 교재 시리즈가 쓰는 방식이다.
+ *   그래야 일곱 권이 *다른 책*이 아니라 *같은 시리즈의 다른 권*으로 읽힌다.
+ * · 학령 순서를 색으로도 읽히게 따뜻함(초등) → 차가움(고등)으로 돌린다.
+ * · **마지막 단은 브랜드 잉크**(`p` #0F2540)로 맺는다 — 사다리 끝이 브랜드 색이다.
+ * · 깊이는 색이 아니라 **깊이 표시**가 말한다(§depthMark). 색은 *어느 권인가*만 말한다.
+ *
+ * ── 실측 (2026-09-01) ─────────────────────────────────────────────
+ * 종이(#F4F0E9) 대비: 5.23 ~ 13.60 — **일곱 색 전부 AA(4.5) 통과**.
+ * 가장 가까운 두 색의 RGB 거리 **40.0**(5단↔6단) — 눈으로 갈린다.
+ *
+ * ⚠️ **토큰에 없는 값이다.** 토큰은 액센트를 하나만 갖는다(단일 tint 원칙) — 시리즈
+ *   식별색은 그 원칙이 다루는 대상이 아니다(앱 UI 가 아니라 상품 표지다). 그래서
+ *   여기 적되 **근거와 실측을 함께** 남긴다. 바꿀 때는 위 두 수치를 다시 재야 한다.
+ */
+export const RUNG_INK: readonly string[] = [
+  '#735C26', // 1단 초등 저학년 — 황토
+  '#702933', // 2단 초등 고학년 — 벽돌
+  '#6E2B65', // 3단 중학 1-2   — 자주
+  '#442B6E', // 4단 중학 3     — 보라
+  '#295170', // 5단 고1        — 청
+  '#297056', // 6단 고2        — 녹
+  '#0F2540', // 7단 고3·수능   — 브랜드 잉크
+]
+
+/** 그 계단의 잉크. 사다리 밖(못 앉힌 권)은 브랜드 잉크로 떨어진다. */
+export function rungInk(step: number): string {
+  return RUNG_INK[step - 1] ?? RUNG_INK[RUNG_INK.length - 1]!
+}
+
 /** 표지 비율 — 국내 교재 표지의 통상 비(5:7). 크기는 부르는 쪽이 정한다. */
 export const COVER_RATIO = 5 / 7
 
@@ -84,7 +127,14 @@ const esc = (s: string): string =>
  * 오른쪽으로 갈수록 길어진다. **진도 막대가 아니라 눈금**이다 — 채워진 칸은
  * "여기까지 왔다" 가 아니라 "이 책은 이 깊이다" 를 말한다.
  */
-function depthMark(spec: CoverSpec, x: number, baseY: number, w: number): string {
+function depthMark(
+  spec: CoverSpec,
+  x: number,
+  baseY: number,
+  w: number,
+  /** 채워진 칸의 색. 색면 위에 얹히므로 부르는 쪽이 정한다(종이색으로 뒤집는다). */
+  onColor: string,
+): string {
   const n = spec.totalSteps
   const gap = 3
   const barW = Math.max(2, (w - gap * (n - 1)) / n)
@@ -97,7 +147,7 @@ function depthMark(spec: CoverSpec, x: number, baseY: number, w: number): string
     bars.push(
       `<rect x="${(x + i * (barW + gap)).toFixed(1)}" y="${(baseY - h).toFixed(1)}" ` +
         `width="${barW.toFixed(1)}" height="${h.toFixed(1)}" rx="1" ` +
-        `fill="${on ? 'var(--active, #B0843A)' : 'var(--bd, #E0DBD0)'}"/>`,
+        `fill="${on ? onColor : 'rgba(255,255,255,0.34)'}"/>`,
     )
   }
   return bars.join('')
@@ -138,8 +188,20 @@ export function coverSvg(
   const brandSize = Math.max(6, Math.round(W * 0.072))
   const bandSize = Math.max(7, Math.round(W * 0.082))
 
-  const ink = spec.pending ? 'var(--t3, #8A8278)' : 'var(--t1, #1A1714)'
+  // 계단 색이 표지의 주인공이다 — 권 번호·책등·깊이 표시가 같은 색을 쓴다.
+  const rung = rungInk(spec.step)
+  const ink = spec.pending ? 'var(--t3, #8A8278)' : rung
   const ground = spec.pending ? 'var(--bg3, #ECE6DA)' : 'var(--bg2, #F4F0E9)'
+
+  // ── 색면 비율 ───────────────────────────────────────────────────
+  // 실측 2026-09-01: 계단 색을 책등(폭 3.5%)과 숫자에만 넣었더니 일곱 권의 **평균색이
+  // 여전히 전부 베이지**였다(#E4E2DD~#EBE5DB). 색이 있어도 면적이 없으면 매대에서
+  // 구별되지 않는다 — 시중 교재 표지가 큰 색면을 쓰는 이유가 이것이다.
+  //
+  // 그래서 아래 42% 를 계단 색으로 채우고 권 번호를 종이색으로 반전시킨다.
+  // 위 58% 는 종이 그대로 — **일곱 권이 같은 시리즈로 읽히는 것은 그 종이와 서체다.**
+  const bandTop = Math.round(H * 0.58)
+  const bandH = H - bandTop
 
   return [
     `<svg viewBox="0 0 ${W} ${H}"${opts.fluid ? ' style="width:100%;height:auto;display:block"' : ` width="${W}" height="${H}"`} role="img"`,
@@ -148,21 +210,22 @@ export function coverSvg(
     // 지면 + 테두리. 테두리가 없으면 밝은 바탕에서 표지가 배경에 녹는다.
     `<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="3" fill="${ground}"`,
     ` stroke="var(--bd, #E0DBD0)"/>`,
-    // 책등 — 왼쪽 얇은 띠. 표지가 "책" 으로 읽히게 하는 가장 싼 장치다.
-    `<rect x="0.5" y="0.5" width="${Math.max(3, Math.round(W * 0.035))}" height="${H - 1}" rx="3"`,
-    ` fill="var(--active, #B0843A)" opacity="${spec.pending ? 0.25 : 0.85}"/>`,
-    // 시리즈명
+    // 계단 색면 — 표지를 구별시키는 것은 여기다.
+    `<path d="M0.5 ${bandTop} H${W - 0.5} V${H - 3.5} a3 3 0 0 1 -3 3 H3.5 a3 3 0 0 1 -3 -3 Z"`,
+    ` fill="${spec.pending ? 'var(--bg3, #ECE6DA)' : rung}"/>`,
+    // 시리즈명 — 종이 쪽에 앉는다.
     `<text x="${pad}" y="${pad + brandSize}" font-family="Lora, Georgia, serif"`,
     ` font-size="${brandSize}" font-weight="600" letter-spacing="${(brandSize * 0.22).toFixed(2)}"`,
-    ` fill="var(--activeInk, #7E5A1B)">${esc(spec.brand.toUpperCase())}</text>`,
-    // 권 번호
-    `<text x="${pad}" y="${Math.round(H * 0.60)}" font-family="Lora, Georgia, serif"`,
-    ` font-size="${numSize}" font-weight="600" fill="${ink}">${spec.step}</text>`,
-    // 학령
-    `<text x="${pad}" y="${Math.round(H * 0.60) + bandSize + 6}" font-family="'DM Sans', system-ui, sans-serif"`,
+    ` fill="${spec.pending ? 'var(--t3, #8A8278)' : rung}">${esc(spec.brand.toUpperCase())}</text>`,
+    // 학령 — 종이 쪽. 고르는 사람이 가장 먼저 확인하는 값이라 색면 위에 얹지 않는다.
+    `<text x="${pad}" y="${bandTop - Math.round(H * 0.05)}" font-family="'DM Sans', system-ui, sans-serif"`,
     ` font-size="${bandSize}" fill="var(--t2, #4A443E)">${esc(spec.schoolBand)}</text>`,
-    // 깊이 표시
-    depthMark(spec, pad, H - pad, inner),
+    // 권 번호 — 색면 위에 종이색으로 반전. 서가에서 책등처럼 읽힌다.
+    `<text x="${pad}" y="${bandTop + Math.round(bandH * 0.62)}" font-family="Lora, Georgia, serif"`,
+    ` font-size="${Math.round(bandH * 0.62)}" font-weight="600"`,
+    ` fill="${spec.pending ? 'var(--t3, #8A8278)' : 'var(--bg, #FBFAF6)'}">${spec.step}</text>`,
+    // 깊이 표시 — 색면 위라 종이색으로 뒤집는다.
+    depthMark(spec, pad, H - pad, inner, spec.pending ? 'var(--bd, #E0DBD0)' : 'var(--bg, #FBFAF6)'),
     `</svg>`,
   ].join('')
 }

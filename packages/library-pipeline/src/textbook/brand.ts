@@ -22,6 +22,8 @@
 
 import { colorsDark, colorsLight, fontFamily } from '@vocaflow/design-tokens'
 
+import { RUNG_INK } from './cover'
+
 /** 시리즈 이름. 바꾸려면 `series.ts` 의 `SERIES_BRAND` 하나만 고친다. */
 export { SERIES_BRAND } from './series'
 
@@ -166,11 +168,15 @@ export function volumeCssVariables(): string {
  * 나와야 하기 때문이다. 암호학적 용도가 아니다 — 같은지 다른지만 본다.
  */
 export function brandFingerprint(): string {
+  // ⚠️ **계단 색도 규격이다.** 표지가 권마다 다른 색을 쓰기 시작했으므로(2026-09-01),
+  //   그 표가 바뀌면 이미 찍은 권은 옛 표지다. 지문이 이것을 안 세면 화면이 그 사실을
+  //   말하지 못한다 — 색을 바꿔도 '최신' 이라고 표시된다.
   const material = [
     volumeCssVariables(),
     VOLUME_FONTS.english,
     VOLUME_FONTS.body,
     VOLUME_FONTS.mono,
+    RUNG_INK.join(','),
   ].join('|')
   let h = 0x811c9dc5
   for (let i = 0; i < material.length; i += 1) {
