@@ -421,7 +421,41 @@ export function isRetractedTitle(title) {
   return /^(retracted|withdrawn)/i.test(t) || t.toLowerCase().includes('[retracted')
 }
 
+/**
+ * **단계별 소요 시간 — `VOCAFLOW_TIMING=1` 일 때만 찍는다.**
+ *
+ * 왜 필요한가 (실측 2026-09-01): 커서 페이징으로 고친 뒤에도 한 권 조판이 V6 **173초** ·
+ * V5 **85초** 다. 어느 단계가 먹는지 **짐작으로** 고치면 엉뚱한 곳을 고치게 된다 —
+ * 이 저장소가 A6·A4 에서 이미 두 번 그랬다("초등 60문항이 끌어내린다" 는 짐작은 틀렸고
+ * 실제 제외 건수는 0 이었다). 그래서 재는 손잡이를 코드에 둔다.
+ *
+ * 켜지 않으면 아무 비용도 없다.
+ */
+function makeTimer() {
+  const on = process.env.VOCAFLOW_TIMING === '1'
+  let last = Date.now()
+  const t0 = last
+  const rows = []
+  return {
+    mark(label) {
+      const now = Date.now()
+      rows.push({ label, ms: now - last })
+      last = now
+    },
+    done(label) {
+      if (!on) return
+      const total = Date.now() - t0
+      console.error(`  [timing] ${label} — 총 ${(total / 1000).toFixed(1)}초`)
+      for (const r of rows.sort((a, b) => b.ms - a.ms)) {
+        const pct = total ? ((100 * r.ms) / total).toFixed(1) : '0.0'
+        console.error(`    ${String(r.ms).padStart(7)}ms ${String(pct).padStart(5)}%  ${r.label}`)
+      }
+    },
+  }
+}
+
 export async function loadVolume(db, { band, unitCount, marketMix = true }) {
+  const timer = makeTimer()
   const {
     composeUnits,
     rungMix,
@@ -463,6 +497,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   const usable = (arts ?? []).filter(
     (a) => !a.display_only && !isRetractedTitle(a.title) && !hasSensitiveTopic(a.title),
   )
+  timer.mark('원글 조회 (library_articles)')
   const byId = new Map(usable.map((a) => [a.id, a]))
   const ids = [...byId.keys()]
 
@@ -624,8 +659,10 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   //   `VOCAFLOW_VOCAB_ALL=1` 이면 옛 방식(밴드 전체)으로 돌린다 — **같은 시점에 두 방식을
   //   비교해 산출물이 같은지 확인하기 위한 손잡이다.** 데이터가 계속 바뀌는 저장소라
   //   "전에 잰 값과 다르다" 만으로는 원인을 못 가른다.
+  timer.mark('문항 조회 + 손질 (csat_dcp_items)')
   // 초등 저학년 3종은 사전에서 나온다 — 원글 풀과 합친다.
   const { items: elementary, meanings: elementaryMeaning } = await loadElementaryPool(db, band)
+  timer.mark('초등 풀 (shared_dictionary)')
   pool.push(...elementary)
 
   const mix = marketMix
@@ -640,6 +677,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   }
   // 1) 빈 Map 으로 예행 — 어떤 원글을 쓰는지만 알아낸다.
   const dry = composeUnits(pool, new Map(), composeOpts)
+  timer.mark('예행 조합 (composeUnits · CPU)')
   const usedRefs = [...new Set(dry.units.flatMap((u) => u.items.map((i) => i.ref_id)))]
 
   // `VOCAFLOW_VOCAB_ALL=1` 이면 옛 방식(밴드 전체)으로 돌린다 — **같은 시점에 두 방식을
@@ -666,6 +704,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
     poolRefs,
     ['library_article_id', 'word'],
   )
+  timer.mark('어휘 조회 (library_article_vocabularies · 2열 정렬)')
   const words = [...new Set(vocabRows.map((v) => v.word))]
   // 낱말이 많으면 **사전을 통째로 받는 편이 싸다.** 사전은 48,969행뿐이라 1,000행씩
   // 49회면 끝나는데, 낱말별로 묶어 물으면 낱말 수에 비례해 요청이 는다.
@@ -679,6 +718,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
     words.length * 10 > DICT_ROWS
       ? await fetchAllPaged(db, (q) => q.from('shared_dictionary').select('word, meaning_ko, v_level').order('word'))
       : await fetchAllIn(db, 'shared_dictionary', 'word, meaning_ko, v_level', 'word', words, ['word'])
+  timer.mark('사전 조회 (shared_dictionary)')
   const dict = new Map()
   for (const r of dictRows) dict.set(r.word, r)
   vocabRows.sort(
@@ -720,7 +760,9 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   // 기본은 꺼져 있다 — 이미 완성된 권이 조용히 달라지면 안 된다.
   // 3) 예행과 **같은 옵션**으로 다시 조합한다 — 문항은 같고 낱말 목록만 채워진다.
   const { units, stoppedBecause, rejected } = composeUnits(pool, vocabByRef, composeOpts)
+  timer.mark('본 조합 (composeUnits · CPU)')
   const itemIds = new Set(units.flatMap((u) => u.items.map((i) => i.id)))
+  timer.done(`V${band} 조판`)
 
   return { units, stoppedBecause, rejected, mix, pool, articles: byId, vocabByRef, itemIds }
 }
