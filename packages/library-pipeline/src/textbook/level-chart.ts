@@ -22,14 +22,6 @@
 import spec from './market-spec.json'
 
 /**
- * V-Level → 시장 규격 버킷.
- *
- * ⚠️ 이 표는 `scripts/textbook/market-benchmark.mjs` 의 `V_TO_BUCKET` 과 **같은 내용**이다.
- *    그쪽은 .mjs 라 이 모듈을 import 할 수 없어 부득이 두 벌이다. 한쪽을 고치면 반드시
- *    다른 쪽도 고칠 것 — 갈리면 같은 교재가 두 자로 재진다.
- *    (`market-spec.json` 은 생성물이라 이 표를 거기 넣을 수 없다 — 다음 생성에 덮어써진다.)
- */
-/**
  * V-밴드 → 시장 규격 버킷. **여기가 정본이다** — `market-benchmark.mjs` 의 `V_TO_BUCKET`,
  * `compose-unit.marketPassageWindow` 가 이 표를 따른다. 셋이 갈리면 조판과 채점이 다른 자를 쓴다.
  *

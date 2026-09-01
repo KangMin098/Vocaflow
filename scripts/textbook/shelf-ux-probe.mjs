@@ -107,6 +107,42 @@ async function measure(page, cardSel) {
       }
     }
 
+    // ── 건너뛰기 링크를 쓰면 몇 번인가 ────────────────────────────────
+    // WCAG 2.4.1(Bypass Blocks)이 있는 이유가 바로 이 자리다 — 전역 내비를 매 페이지마다
+    // 다시 지나가지 않게 하는 **표준 우회로**다. 그것을 무시하고 원 Tab 수만 세면
+    // "우회로를 갖춘 화면" 과 "없는 화면" 이 같은 점수를 받는다.
+    //
+    // ⚠️ **양쪽에 같은 규칙으로 적용한다.** 우리에게만 유리하게 세면 그건 자가 아니라 자화자찬이다.
+    //    (실측 2026-09-01: 우리 32 → 11 · NE능률은 건너뛰기 링크가 **없어** 25 → 25.
+    //     NE 쪽 앵커 전체가 1개뿐이고 건너뛰기 후보는 0개였다.)
+    // ⚠️ 원 Tab 수(`tabsToFirstCard`)도 그대로 남긴다 — 우회로를 **모르는** 사용자의 비용은
+    //    여전히 그 값이고, 둘을 함께 봐야 판단할 수 있다.
+    let skipHref = null
+    for (const el of focusables) {
+      const href = el.getAttribute?.('href') ?? ''
+      if (!href.startsWith('#') || href.length < 2) continue
+      if (!/건너뛰|바로가기|skip|본문/i.test(`${el.textContent ?? ''} ${el.className ?? ''}`)) continue
+      if (!document.getElementById(href.slice(1))) continue
+      skipHref = href
+      break
+    }
+
+    let tabsAfterSkip = tabsToFirstCard
+    if (skipHref && first) {
+      const target = document.getElementById(skipHref.slice(1))
+      // 건너뛰기 표적 **뒤에 오는** 포커스 요소부터 다시 센다(+1 은 건너뛰기 링크 자신).
+      const after = focusables.filter(
+        (el) =>
+          target &&
+          !target.contains(el) &&
+          (target.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING) !== 0,
+      )
+      const inside = focusables.filter((el) => target && target.contains(el))
+      const seq = [...inside, ...after]
+      const idx = seq.findIndex((el) => first.contains(el))
+      if (idx >= 0) tabsAfterSkip = idx + 2
+    }
+
     // 조작요소 밀도 — 상품 하나를 고르기 위해 화면이 내미는 조작 요소 수.
     // 상품 카드 **밖**의 것만 센다(카드 안 버튼은 상품의 일부다).
     const controlsOutsideCards = focusables.filter(
@@ -143,6 +179,8 @@ async function measure(page, cardSel) {
       firstCardScreens: firstY == null ? null : Number((firstY / vh).toFixed(2)),
       visibleInFold,
       tabsToFirstCard,
+      tabsAfterSkip,
+      hasSkipLink: !!skipHref,
       controlsOutsideCards,
       fontSizes: sizes.size,
       fontWeights: weights.size,
@@ -205,7 +243,7 @@ const market = results.filter((r) => r.kind === 'market' && !r.error)
  */
 const AXES = [
   { id: 'U1', name: '첫 상품까지 스크롤(화면)', pick: (m) => m.firstCardScreens, lower: true },
-  { id: 'U2', name: '첫 상품까지 Tab 수', pick: (m) => m.tabsToFirstCard, lower: true },
+  { id: 'U2', name: '첫 상품까지 Tab 수 (건너뛰기 반영)', pick: (m) => m.tabsAfterSkip ?? m.tabsToFirstCard, lower: true },
   { id: 'U3', name: '첫 화면에 온전히 보이는 상품', pick: (m) => m.visibleInFold, lower: false },
   {
     id: 'U4',
@@ -281,7 +319,7 @@ if (process.argv.includes('--json')) {
     for (const v of ['desktop', 'mobile']) {
       const m = r[v]
       console.log(
-        `    ${v.padEnd(7)} 상품 ${String(m.cards).padStart(3)} · 첫상품 ${String(m.firstCardScreens).padStart(5)}화면(${m.firstCardY}px) · 첫화면노출 ${m.visibleInFold} · Tab ${m.tabsToFirstCard} · 조작 ${m.controlsOutsideCards} · font-size ${m.fontSizes}종 · 작은타겟 ${m.tinyTargets} · 가로넘침 ${m.hOverflow}`,
+        `    ${v.padEnd(7)} 상품 ${String(m.cards).padStart(3)} · 첫상품 ${String(m.firstCardScreens).padStart(5)}화면(${m.firstCardY}px) · 첫화면노출 ${m.visibleInFold} · Tab ${m.tabsToFirstCard}${m.hasSkipLink && m.tabsAfterSkip !== m.tabsToFirstCard ? `→${m.tabsAfterSkip}(건너뛰기)` : ""} · 조작 ${m.controlsOutsideCards} · font-size ${m.fontSizes}종 · 작은타겟 ${m.tinyTargets} · 가로넘침 ${m.hOverflow}`,
       )
     }
     console.log('')
