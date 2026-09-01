@@ -167,13 +167,26 @@ export async function fetchDcpPracticeItems(): Promise<{
 export async function fetchTextbookPracticeItems(
   vLevel: number,
   limit = 10,
-): Promise<{ items: DcpItem[]; unavailable: boolean }> {
+): Promise<{ items: DcpItem[]; unavailable: boolean; signedOut: boolean }> {
   const client = await createClient()
   const {
     data: { user },
   } = await client.auth.getUser()
-  // 로그인하지 않았으면 "문항이 없다" 가 아니라 "못 봤다" 다 — 둘을 구별해서 넘긴다.
-  if (!user) return { items: [], unavailable: true }
+  // ⚠️ 로그인 안 함과 조회 실패를 **한 상태로 뭉개지 않는다.**
+  //
+  //    둘 다 `unavailable` 로 넘기던 동안 화면은 익명 방문자에게
+  //    "문항을 불러오지 못했어요 — 잠시 뒤 다시 열어 볼까요?" 라고 말했다(실측 2026-09-01).
+  //    **다시 열어도 영원히 안 된다.** 로그인 링크도 없어 막다른 길이었고,
+  //    서가는 비로그인에 열려 있는 공개 표면이라 이 길로 오는 사람이 실제로 있다.
+  //
+  //    이 저장소가 "못 잼 ≠ 없음" 을 못 박은 것과 같은 규칙이다 —
+  //    **되돌릴 수 있는 상태(로그인)와 기다려야 하는 상태(오류)를 같게 적으면 안 된다.**
+  //
+  //    ⚠️ 채점(`grade_dcp_item`)이 `auth.uid()` 가 없으면 `Forbidden` 을 던진다(실측) —
+  //       attempt 를 user_id 에 묶어 기록하기 때문이다. 그래서 문항 조회 RPC 자체는
+  //       anon 에도 열려 있지만(실측: 8문항·정답 계열 키 유출 없음) 로그인 없이 연습을
+  //       시작시키면 **채점 순간에 막힌다.** 지금은 들어오기 전에 말해 주는 편을 택한다.
+  if (!user) return { items: [], unavailable: true, signedOut: true }
 
   const loose = client as unknown as SupabaseClient
   const { data, error } = await loose.rpc('textbook_practice_items', {
@@ -181,10 +194,10 @@ export async function fetchTextbookPracticeItems(
     p_limit: limit,
   })
   // 조회 실패를 빈 목록으로 뭉개지 않는다 — 화면이 "아직 문항이 없어요" 로 거짓말하게 된다.
-  if (error) return { items: [], unavailable: true }
+  if (error) return { items: [], unavailable: true, signedOut: false }
 
   const items = Array.isArray(data) ? data.map(parseItem).filter((x): x is DcpItem => x !== null) : []
-  return { items, unavailable: false }
+  return { items, unavailable: false, signedOut: false }
 }
 
 /** 서버 answer_key 로 채점(grade_dcp_item). attempt 를 기록하고 attempt_id 반환. */

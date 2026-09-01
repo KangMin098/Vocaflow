@@ -24,6 +24,7 @@ import { ArrowLeft } from 'lucide-react'
 import { SERIES_SPINE } from '@vocaflow/library-pipeline'
 
 import { DcpPlayer } from '@/components/practice/DcpPlayer'
+import { RETURN_PARAM } from '@/lib/auth/redirect'
 import { Screen } from '@/components/ui/ios'
 import { fetchTextbookPracticeItems } from '@/lib/learner/dcp-actions'
 
@@ -59,7 +60,11 @@ export default async function TextbookPracticePage({
 
   // 한 계단이 여러 V-Level 을 덮을 수 있다 — 첫 밴드를 쓴다(권의 대표 난이도).
   const vLevel = rung.vLevels[0]
-  const { items, unavailable } = await fetchTextbookPracticeItems(vLevel ?? 0, ITEM_LIMIT)
+  const { items, unavailable, signedOut } = await fetchTextbookPracticeItems(vLevel ?? 0, ITEM_LIMIT)
+
+  // 로그인 뒤 **여기로 돌아온다.** 복귀 경로가 없으면 로그인하고 나서 다시 길을 찾아야 하고,
+  // 그 지점에서 사람이 빠져나간다(`library/scripts` 가 이미 쓰는 규약을 그대로 따른다).
+  const loginHref = `/login?${RETURN_PARAM}=${encodeURIComponent(`/library/textbooks/${step}/practice`)}`
 
   return (
     <Screen width="compact" background="bg2" padX="md">
@@ -82,25 +87,50 @@ export default async function TextbookPracticePage({
           <DcpPlayer items={items} />
         ) : (
           <section
-            aria-label={unavailable ? '문항을 불러오지 못함' : '연습 문항 없음'}
+            aria-label={
+              signedOut ? '로그인이 필요함' : unavailable ? '문항을 불러오지 못함' : '연습 문항 없음'
+            }
             className="flex flex-col items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-8 text-center shadow-[var(--sh-sm)]"
           >
-            {/* ⚠️ **"못 불러왔다" 와 "없다" 를 한 문장으로 뭉개지 않는다.** 조회 실패를 빈 상태로
-                덮으면 학습자는 "아직 문항이 없나 보다" 로 읽는다 — 이 저장소의 지배적 결함 유형이다. */}
+            {/* ⚠️ 상태 **셋**을 구별한다 — 로그인 필요 · 조회 실패 · 재고 없음.
+                셋을 뭉개면 각각 할 일이 다른데 같은 말을 듣는다.
+                특히 로그인 필요를 '잠시 뒤 다시' 로 적으면 **영원히 안 되는 것을 기다리게** 한다
+                (실측 2026-09-01: 익명 방문자가 정확히 그 화면을 보고 있었다. 서가는 공개
+                표면이라 이 길로 오는 사람이 실제로 있다). */}
             <p className="font-display text-[15px] font-[700] text-[var(--t1)]">
-              {unavailable ? '문항을 불러오지 못했어요' : '이 계단에는 아직 연습 문항이 없어요'}
+              {signedOut
+                ? '로그인하면 바로 풀 수 있어요'
+                : unavailable
+                  ? '문항을 불러오지 못했어요'
+                  : '이 계단에는 아직 연습 문항이 없어요'}
             </p>
-            <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
-              {unavailable
-                ? '로그인이 필요하거나 잠시 문제가 있었어요. 잠시 뒤 다시 열어 볼까요?'
-                : '이 계단은 아직 순서·삽입 문항이 준비되지 않았어요. 다른 계단을 펼쳐 볼까요?'}
+            <p className="font-body text-[13px] leading-relaxed text-[var(--t2)] [word-break:keep-all]">
+              {signedOut
+                ? '채점과 기록이 계정에 쌓이기 때문에 로그인이 필요해요. 로그인하면 이 화면으로 돌아옵니다.'
+                : unavailable
+                  ? '잠시 문제가 있었어요. 잠시 뒤 다시 열어 볼까요?'
+                  : '이 계단은 아직 순서·삽입 문항이 준비되지 않았어요. 다른 계단을 펼쳐 볼까요?'}
             </p>
-            <Link
-              href="/library/textbooks"
-              className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-            >
-              교재 서가로
-            </Link>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {signedOut && (
+                <Link
+                  href={loginHref}
+                  className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                >
+                  로그인하고 풀기
+                </Link>
+              )}
+              <Link
+                href="/library/textbooks"
+                className={`inline-flex min-h-[44px] items-center rounded-[var(--r-md)] px-5 font-display text-[14px] font-[700] no-underline transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+                  signedOut
+                    ? 'border border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:border-[var(--p)] hover:text-[var(--p)]'
+                    : 'bg-[var(--p)] text-[var(--on-p)] shadow-[var(--sh-xs)] hover:bg-[var(--p-hover)]'
+                }`}
+              >
+                교재 서가로
+              </Link>
+            </div>
           </section>
         )}
       </div>

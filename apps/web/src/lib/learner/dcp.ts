@@ -6,8 +6,6 @@
 //   insert : payload.{remaining, insert_sentence, gap_count} · 제출 {position:슬롯 0..remaining.length}
 //   선택지 9종 : payload.{passage, choices[5], stem_ko, …} · 제출 {choice:1..5}
 
-import { explainItem } from '@vocaflow/library-pipeline/explain-items'
-
 import type { ChoiceDcpType } from './dcp-types'
 
 /**
@@ -114,33 +112,20 @@ export function pickExplanationText(answerKey: Record<string, unknown> | null | 
 }
 
 /**
- * 학습자에게 보여 줄 해설 — **저장된 것이 없으면 규칙으로 쓴다.**
+ * ⚠️ **규칙 해설 대체를 여기 넣었다가 되돌렸다 (2026-09-01). 다시 넣지 말 것 — 재 봤다.**
  *
- * ── 왜 필요한가 (실측 2026-09-01) ─────────────────────────────────
- * 해설은 세 곳에서 온다: 배치가 쓴 `explanation_ko`·`rationale_ko`, 그리고 유형별
- * **규칙 해설기**(`explainItem`). 조판기(`render-volume.mjs`)는 2026-08-31 에 세 번째를
- * 배선했고 V7 한 권이 49/60 → 60/60 이 됐다. **그런데 웹 학습 화면은 안 고쳐졌다** —
- * `explainItem` 은 `apps/web` 어디에서도 불리지 않았다(grep 실측).
+ * 조판기(render-volume.mjs)는 저장된 해설이 없으면 규칙으로 채운다. 화면에도 같은 것을
+ * 붙이면 되겠다고 생각해 두 번 시도했고, **둘 다 실측으로 0건이었다**:
  *
- * 그 결과 같은 문항이 **인쇄물에는 해설이 있고 화면에는 없었다**:
- *   · 저장된 해설 94.8% · 규칙이 채우는 몫 5.1%p
- *   · 저장 없는 22,062문항이 전부 V7 에 몰려 있다(고3/수능 — 해설이 가장 필요한 계단)
- * `market-benchmark` 의 A1 은 "학습자가 받는 100.0%" 라고 찍고 있었는데, 그 100% 는
- * **조판 경로에서만** 참이었다. 이 함수가 그 말을 화면에서도 참으로 만든다.
+ *   ① explainItem(8종) — 그 8종은 TEXTBOOK_ONLY_DCP_TYPES 와 정확히 같다.
+ *      화면에 절대 안 나가는 유형이라 플레이어에는 한 건도 안 닿는다.
+ *      (인쇄물 기준 22,000건을 덮는다는 수를 화면 기준으로 착각했다 —
+ *       비율·범위를 적을 때는 **어느 모집단인지**를 먼저 못 박아야 한다.)
+ *   ② 이음매 해설기(order·insert) — 화면이 그리는 유형은 맞다. 그런데 해설이 없는
+ *      **62건 전부**(order 31 · insert 31)를 규칙이 거부한다. hasCitationResidue 같은
+ *      안전장치에 걸리는 지문들이라 거부가 옳다.
  *
- * ⚠️ 규칙이 **먼저가 아니다.** 저장된 해설이 있으면 그것을 쓴다 — 배치·생성형이 쓴 것이
- *    글을 읽고 쓴 것이라 규칙보다 낫다. 규칙은 빈자리만 메운다.
- * ⚠️ 규칙이 못 쓰는 유형(`explainItem` 이 null)은 **그대로 null 이다.** 빈 문자열이나
- *    "해설 없음" 을 지어내지 않는다 — 없는 것을 있는 척하면 이 저장소가 계속 싸워 온 그 거짓이 된다.
+ * 즉 화면의 해설 공백은 210,462건 중 **62건(0.03%)** 이고, 그 62건은 규칙으로 못 메운다.
+ * 고치려면 지문의 인용 잔해를 상류에서 걷거나 그 문항을 연습에서 빼야 한다 —
+ * 클라이언트 대체 코드로는 안 된다(번들만 늘고 0건을 덮는다).
  */
-export function explanationFor(
-  item: Pick<DcpItem, 'type' | 'payload'> | null | undefined,
-  answerKey: Record<string, unknown> | null | undefined,
-): string | null {
-  const stored = pickExplanationText(answerKey)
-  if (stored) return stored
-  if (!item) return null
-  // `explainItem` 은 배럴이 아니라 서브패스로 가져온다 — 배럴은 supabase·anthropic·xlsx 를 끌고 온다.
-  const rule = explainItem(item.type, item.payload as never, (answerKey ?? {}) as never)
-  return typeof rule?.ko === 'string' && rule.ko.trim() ? rule.ko.trim() : null
-}
