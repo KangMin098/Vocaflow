@@ -39,18 +39,41 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
   auth: { persistSession: false },
 })
 
+/**
+ * ⚠️ **이 조회가 자라서 자를 못 쓰게 만들었다** (실측 2026-09-01).
+ *
+ * 원래는 `csat_dcp_items` **전량**을 `payload` 까지 받아 `.range(from, from+499)` 로
+ * offset 페이징했다. 표가 **426,784행**(heap 603 MB)까지 자란 지금은 statement timeout 이
+ * 나서 **판별력을 아예 못 잰다** — `production-stages.ts` 에 적힌 6.9% 가 2026-08-21 값에서
+ * 멈춰 있는 이유다. 자가 고장 나면 이긴 것도 진 것도 알 수 없다.
+ *
+ * 두 가지를 고쳤다:
+ *   ① **쓰는 유형만 받는다** — 이 자는 `order`·`insert` 만 본다(아래 `toCsatOrder`/`toCsatInsert`).
+ *      426,784 → 210,462행으로 절반이 된다. 나머지 유형은 받아서 `continue` 로 버리고 있었다.
+ *   ② **keyset 페이징** — offset 은 뒤로 갈수록 앞을 다시 훑어 비용이 선형으로 는다.
+ *      `id > 마지막값` 으로 끊으면 페이지마다 비용이 같다.
+ *      (이 저장소가 같은 함정을 여러 번 겪어 `scan-unpaged-queries.mjs` 를 만들었다.)
+ */
+const MEASURED_TYPES = ['order', 'insert']
+const PAGE = 500
 const rows = []
-for (let from = 0; ; from += 500) {
-  const { data, error } = await db
+let cursor = null
+for (;;) {
+  let q = db
     .from('csat_dcp_items')
     .select('id, type, payload, answer_key')
+    .in('type', MEASURED_TYPES)
     .order('id')
-    .range(from, from + 499)
+    .limit(PAGE)
+  if (cursor) q = q.gt('id', cursor)
+  const { data, error } = await q
   if (error) throw new Error(error.message)
   if (!data?.length) break
   rows.push(...data)
-  if (data.length < 500) break
+  cursor = data[data.length - 1].id
+  if (data.length < PAGE) break
 }
+console.log(`대상 ${rows.length.toLocaleString('en-US')}행 (order·insert 만 · keyset 페이징)`)
 
 const score = (evs) => evs.filter(isPositional).length
 
