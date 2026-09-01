@@ -43,6 +43,27 @@
  */
 const CITATION_RESIDUE = /\[\s*\]|\[\s*\d+\s*[,\-–]?\s*\d*\s*\]/
 
+/**
+ * **지문의 낱말 수 — 정의는 하나뿐이어야 한다.**
+ *
+ * 시장 창(`market-spec.json` 의 `passageWords` p10~p90)은 코퍼스에서
+ * `/[A-Za-z][A-Za-z'-]*​/g` 로 세어 만들었다. 그 창으로 문항을 거르는 쪽도 **같은 자**로
+ * 세야 한다 — 아니면 창은 A 로 그어 놓고 B 로 재는 셈이다.
+ *
+ * ⚠️ 실제로 그랬다 (실측 2026-09-01). 조합기(`volume-pool.mjs`)는 `split(/\s+/)` 로,
+ *   벤치마크와 코퍼스는 이 정의로 세고 있었다. 두 값은 **양방향으로** 어긋난다:
+ *
+ *     `U.S. Supreme`   공백 2 · 낱말 3   (마침표가 낱말을 가른다)
+ *     `125 tons`       공백 2 · 낱말 1   (숫자는 낱말이 아니다)
+ *
+ *   그래서 조합기가 "188어라 창(90~188) 안" 이라고 통과시킨 지문이 시장 자로는 194어였고,
+ *   A6 미달 6건이 전부 그렇게 1~6어씩 넘긴 것들이었다. 규격을 어긴 것이 아니라
+ *   **다른 자로 잰 것**이다.
+ */
+export function countPassageWords(text: string): number {
+  return (String(text ?? '').match(/[A-Za-z][A-Za-z'-]*/g) ?? []).length
+}
+
 /** 인용 잔해가 있으면 교재에 실을 수 없다. */
 export function hasCitationResidue(text: string): boolean {
   return CITATION_RESIDUE.test(text)

@@ -466,6 +466,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
     stripSpaceBeforePunct,
     dropDuplicatedLeadWord,
     hasSensitiveTopic,
+    countPassageWords,
   } = await import('@vocaflow/library-pipeline')
 
   // ── 원글 ──────────────────────────────────────────────────────────
@@ -573,7 +574,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
         ref_title: a.title,
         v_level: r.v_level,
         passage_text: text,
-        passage_words: text.split(/\s+/).filter(Boolean).length,
+        passage_words: countPassageWords(text),
         body_sentences: lines2.length,
         payload: p,
         answer_key: r.answer_key ?? {},
@@ -589,7 +590,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
         ref_title: a.title,
         v_level: r.v_level,
         passage_text: passage,
-        passage_words: passage.split(/\s+/).filter(Boolean).length,
+        passage_words: countPassageWords(passage),
         body_sentences: passage.split(/(?<=[.!?])\s+/).filter((s) => s.trim().length > 1).length,
         payload: p,
         answer_key: r.answer_key ?? {},
@@ -608,7 +609,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
         ref_title: a.title,
         v_level: r.v_level,
         passage_text: text,
-        passage_words: text.split(/\s+/).filter(Boolean).length,
+        passage_words: countPassageWords(text),
         body_sentences: lines.length || 1,
         payload: p,
         answer_key: r.answer_key ?? {},
@@ -624,7 +625,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
       ref_title: a.title,
       v_level: r.v_level,
       passage_text: text,
-      passage_words: text.split(/\s+/).filter(Boolean).length,
+      passage_words: countPassageWords(text),
       body_sentences: sentences.length,
       payload: p,
       answer_key: r.answer_key ?? {},
