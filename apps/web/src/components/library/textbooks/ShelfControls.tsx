@@ -103,13 +103,35 @@ export function VolumeCover({ volume: v, size = 'sm' }: { volume: ShelfVolume; s
     { fluid },
   )
 
+  // ── 표지 배지 ──────────────────────────────────────────────────────
+  // 상업 매대는 표지 모서리에 판매 신호를 붙인다(다락원 '강의용PPT' · 교보 '베스트').
+  // 실측 2026-09-01: 우리 상품 카드 안에는 배지가 **0개**였다(첫 화면의 색면 11개는
+  // 전부 도구줄·매대 팻말이었다).
+  //
+  // ⚠️ **지어낸 신호를 붙이지 않는다.** '베스트'·'추천' 은 근거가 없고, 이 저장소는
+  //    실측 없는 수치를 화면에 올리지 않는다(2026-08-16 에 요금제가 지어낸 지표를
+  //    걸고 있다가 걷어냈다). 그래서 **셀 수 있는 것만** 배지로 올린다.
+  //
+  // 해설 수록률을 고른 이유: **시중 교재가 못 하는 말**이다. 종이책은 인쇄된 뒤에
+  // 몇 %에 해설이 붙었는지 셀 방법이 없다 — 우리는 셀 수 있다(`shelf.ts` 머리말 참조).
+  const fullyExplained =
+    v.explainedCount != null && v.itemCount > 0 && v.explainedCount >= v.itemCount
+
   return (
     <div
-      aria-hidden
-      className={fluid ? 'w-full overflow-hidden rounded-[var(--r-sm)]' : 'shrink-0 overflow-hidden rounded-[var(--r-sm)]'}
+      className={`relative ${fluid ? 'w-full' : 'shrink-0'} overflow-hidden rounded-[var(--r-sm)]`}
       style={fluid ? undefined : { width }}
-      dangerouslySetInnerHTML={{ __html: svg }}
-    />
+    >
+      <div aria-hidden dangerouslySetInnerHTML={{ __html: svg }} />
+      {fullyExplained && (
+        <span
+          data-cover-badge
+          className="absolute right-1.5 top-1.5 rounded-[var(--r-full)] bg-[var(--active)] px-2 py-0.5 font-mono text-[10px] font-[700] tabular-nums text-[var(--bg)] shadow-ios-1"
+        >
+          해설 100%
+        </span>
+      )}
+    </div>
   )
 }
 
