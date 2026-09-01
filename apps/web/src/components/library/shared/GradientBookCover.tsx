@@ -14,6 +14,20 @@ interface GradientBookCoverProps {
   subtitle?: string | null
   /** ❧ 대신 표시할 상단 장식 (예: 단어장 이모지) */
   ornament?: string | null
+  /**
+   * 표지 **맨 위 시리즈 줄** (예: `Vocaflow 3`).
+   *
+   * ── 왜 필요한가 (실측 2026-09-01) ─────────────────────────────────
+   * 서가를 브랜딩했는데도 "아직 시중 단어장이 아니다" 라는 지적을 받았다. 표지를 늘어놓고
+   * 보니 **권마다 낱장으로 보였다** — 시리즈명이 어디에도 없었기 때문이다.
+   *
+   * 시중 단어장은 표지 맨 위에 시리즈를 싣는다(능률VOCA 고등 기본 / 수능 필수 …).
+   * 그 한 줄이 있어야 여러 권이 **한 출판사의 서가**로 읽힌다 — `vocab/brand.ts` 가
+   * 스스로 목적으로 적어 둔 바로 그것이고, 정작 표지에는 없었다.
+   *
+   * 값을 여기서 짓지 않는다 — 호출부가 정본 사다리(`vocabRungs().volumeTitle`)에서 읽어 넘긴다.
+   */
+  series?: string | null
   /** 작은 카드(그리드 타일)용 축소 타이포 */
   compact?: boolean
   /**
@@ -34,6 +48,7 @@ export function GradientBookCover({
   author,
   subtitle,
   ornament,
+  series,
   compact = false,
   textTone = 'light',
 }: GradientBookCoverProps) {
@@ -82,6 +97,24 @@ export function GradientBookCover({
         aria-hidden
         className={`pointer-events-none absolute inset-[14px] rounded-[1px] border ${frame2}`}
       />
+
+      {/*
+        시리즈 줄 — 표지 **맨 위**. 여러 권이 한 서가에 섰을 때 같은 자리에 같은 이름이
+        반복돼야 시리즈로 읽힌다. 제목보다 훨씬 작고 자간을 넓혀, 제목의 자리를 뺏지 않는다.
+      */}
+      {series && (
+        <p
+          className={
+            // `truncate` — 시리즈명이 길어도 표지를 넘지 않게. 그리드 타일은 폭이 150px 대라
+            //   자간을 넓히면 금방 넘친다(넘치면 표지가 깨져 보인다).
+            compact
+              ? `absolute left-0 right-0 top-[22px] truncate px-4 font-display text-[7.5px] font-[700] uppercase tracking-[0.14em] ${subInk}`
+              : `absolute left-0 right-0 top-[30px] truncate px-6 font-display text-[9.5px] font-[700] uppercase tracking-[0.22em] ${subInk}`
+          }
+        >
+          {series}
+        </p>
+      )}
 
       {/* 상단 장식 — fleuron(❧) 또는 단어장 이모지 */}
       <span aria-hidden className={ornamentCls}>

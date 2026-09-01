@@ -14,6 +14,9 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight, Check, Eye, Loader2, Plus } from 'lucide-react'
 
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
+import { VocabCoverPlate } from './VocabCoverPlate'
+import { rungForSet } from '@/lib/library/vocab/rung'
+import { VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
 import {
   NetflixDetailSheet,
   type DetailVariant,
@@ -429,11 +432,18 @@ function CoverCard({
           `,
         }}
       >
-        {/* 클로스바운드 표지 — 중앙 serif 제목 + 단어수 + 이모지 장식 */}
+        {/*
+          표지 도판 — **카드와 같은 것을 그린다**(`VocabCoverPlate`).
+          한동안 여기만 도판을 빼고 있어서, DB 에 표지가 55/55 인데 서가에서 가장 큰 이
+          요소는 그라디언트 상자였다(실측 2026-09-01).
+        */}
+        <VocabCoverPlate url={set.coverImageUrl} family={set.coverImageMeta?.family} scrim="hero" />
+        {/* 클로스바운드 표지 — 중앙 serif 제목 + 단어수. 도판이 있으면 이모지는 뺀다(카드와 같은 규칙). */}
         <GradientBookCover
           title={set.title}
           subtitle={`${set.wordCount.toLocaleString()} 단어`}
-          ornament={set.coverEmoji}
+          ornament={set.coverImageUrl ? null : set.coverEmoji}
+          series={rungForSet(set).rung?.volumeTitle ?? VOCAB_SERIES_BRAND}
         />
         {/* 상단 sheen (Apple glass) */}
         <div aria-hidden className="book-cover-sheen absolute inset-0" />

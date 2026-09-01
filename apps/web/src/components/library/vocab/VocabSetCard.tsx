@@ -12,9 +12,10 @@ import { useEffect, useState } from 'react'
 import { Check, Loader2, Minus, Plus, Users } from 'lucide-react'
 
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
+import { VocabCoverPlate } from './VocabCoverPlate'
 import { bookCover, cefrToVLevel } from '@/lib/library/book-cover'
-import { FAMILY_GRAIN } from '@/lib/vcb/covers/design'
 import { rungForSet } from '@/lib/library/vocab/rung'
+import { VOCAB_SERIES_BRAND } from '@vocaflow/library-pipeline/vocab-brand'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
 
 import { vocabCategoryMeta } from './categories'
@@ -54,10 +55,9 @@ export function VocabSetCard({
   })
   const cat = vocabCategoryMeta(set.category)
 
-  // 표지 도판 + 계열 듀오톤. 도판이 없으면 종전 그라디언트 표지가 그대로 남는다(공백 아님).
+  // 표지 도판 + 계열. 도판이 없으면 종전 그라디언트 표지가 그대로 남는다(공백 아님).
   const coverImage = set.coverImageUrl
   const family = set.coverImageMeta?.family
-  const duotone = family ? FAMILY_GRAIN[family] : FAMILY_GRAIN.list
 
   // 사다리에서의 자리. 컴포저가 정한 값이 DB 에 있으면 그것을 쓰는 것이 맞지만, 카드는
   // 아직 그 컬럼을 받지 않는다 — 여기서는 카테고리·CEFR 로 **추정**한다(`rungForSet`).
@@ -96,48 +96,17 @@ export function VocabSetCard({
           `,
         }}
       >
-        {/*
-          표지 도판 — Openverse 의 퍼블릭도메인 판화.
-
-          그냥 얹으면 29권이 스크랩북이 된다(출처가 제각각이라 채도·시대가 다 다르다).
-          계열 색으로 **듀오톤**을 씌워 눌러 두면 서로 다른 그림이 한 시리즈로 읽히고,
-          색만 보고 "저건 원서 계열" 이 된다 — 카테고리 칩이 못 하던 일이다.
-
-          구현: 이미지를 흑백으로 만든 뒤(`grayscale`) 계열 잉크색을 곱연산으로 덮는다.
-          CSS 만으로 하므로 이미지를 내려받아 가공하지 않는다(원본 링크 그대로 = 라이선스 안전).
-        */}
-        {coverImage && (
-          <div aria-hidden className="absolute inset-0">
-            <img
-              src={coverImage}
-              alt=""
-              loading="lazy"
-              className="h-full w-full object-cover opacity-90 [filter:grayscale(1)_contrast(1.15)]"
-            />
-            <div
-              className="absolute inset-0 mix-blend-multiply"
-              style={{ background: duotone.ink }}
-            />
-            <div
-              className="absolute inset-0 opacity-[0.22] mix-blend-screen"
-              style={{ background: duotone.paper }}
-            />
-            {/* 제목이 그림 위에서 읽히도록 아래쪽을 눌러 준다 */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  'linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.05) 42%, rgba(0,0,0,0.55) 100%)',
-              }}
-            />
-          </div>
-        )}
+        {/* 표지 도판 — 캐러셀과 **같은 컴포넌트**를 쓴다(왜 듀오톤인지는 그쪽 머리 주석). */}
+        <VocabCoverPlate url={coverImage} family={family} scrim="card" />
 
         {/* 클로스바운드 표지 — 중앙 serif 제목 + 단어수 + 이모지 장식 (그리드라 compact) */}
         <GradientBookCover
           title={set.title}
           subtitle={`${set.wordCount.toLocaleString()} 단어`}
           ornament={coverImage ? null : set.coverEmoji}
+          // 시리즈 줄 — 계단이 있으면 그 권 이름(`Vocaflow 3`), 학령 밖이면 시리즈명만.
+          //   값을 여기서 짓지 않는다: 정본 사다리에서 읽는다.
+          series={rung?.volumeTitle ?? VOCAB_SERIES_BRAND}
           compact
         />
         <div aria-hidden className="book-cover-sheen absolute inset-0" />
