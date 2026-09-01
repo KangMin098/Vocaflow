@@ -6,6 +6,27 @@
 
 ---
 
+> ## ⚠️ 2026-09-01 실측 — `overwritePurge` 의 전제가 더 이상 참이 아니다
+>
+> 이 설계의 §2 `overwritePurge` 는 **"잔여 = kaikki 전용"** 을 전제한다. 설계 시점에는
+> 맞았지만 지금은 아니다. `derived_forms` 잔여 533행(카탈로그 337)의 `source` 를 세어 보니:
+>
+> | source | 행 | 예 |
+> |---|--:|---|
+> | `imported` | 325 | `admiral → admiralty` · `age → aged/ageism/ageist` |
+> | `ai-generated` | 191 | `accurate → accurately/inaccurately` |
+> | `derivational-seed` | 17 | `bystreet → bystreets` |
+>
+> **전부 멀쩡한 파생어이고 상당수가 이 저장소가 직접 만든 것이다.** WordNet 교체가 돈 뒤에
+> 다른 드레인이 `cleared` 자리를 다시 채웠는데 `field_provenance` 를 안 고쳐서, 출처가
+> "없음/cleared" 로 **보일 뿐**이다.
+>
+> 지금 `apply-der --commit` 을 돌리면 좋은 데이터 533행을 **라이선스 위험도 아닌 이유로**
+> 지운다(내용 우위지수 V3 57.4% → 54.5%). 돌리려면 `source` 로 거르는 조건을 먼저 넣을 것.
+>
+> **라이선스 정리 자체는 사실상 끝나 있다** — `derived_forms` 14,263 · `related_terms`
+> 28,574 가 `wordnet-3.1` 출처다. 남은 것은 위 533 + related 7 뿐이고 kaikki 가 아니다.
+
 ## 1. 왜 병합이 아니라 (선별적) 교체인가
 
 kaikki 값은 **노이즈**(`bisexy`·`BUG`·`lesbigaytrans`·`"I'm bisexual"`)와 **라이선스(CC BY-SA share-alike)** 문제를 동시에 가진다. 따라서 "둘 다 살리는 병합"은 노이즈·라이선스를 그대로 안고 간다 → **교체가 옳다.**

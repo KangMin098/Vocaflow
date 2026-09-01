@@ -1516,6 +1516,32 @@ return med >= 1 && med <= 7 ? Math.round(med) : null   ← 중앙값 8 도 null 
 
 **선택 지수 1.29 · 내용 우위지수 1.586 · 발행 55권 · 고유 표제어 11,704.**
 
+### 라이선스 정리를 하러 갔다가 안 하고 왔다 — 지울 뻔한 533행이 우리 데이터였다
+
+앞 항목에서 "파생어·related 는 kaikki(CC BY-SA) 유래가 그대로 남았다 · 별도 판단이 필요하다"
+로 끝냈고, 그것을 다음 작업으로 잡았다. **그 진단이 틀렸다.**
+
+필드별 `field_provenance` 를 세어 보니 라이선스 정리는 **이미 사실상 끝나 있었다**:
+
+| 필드 | `wordnet-3.1` | 출처 불명(값 있음) |
+|---|--:|--:|
+| `derived_forms` | 14,263 | **533** |
+| `related_terms` | 28,574 | **7** |
+
+그리고 그 533행을 열어 보니 kaikki 가 아니었다 — `imported` 325 · `ai-generated` 191 ·
+`derivational-seed` 17, 전부 멀쩡한 파생어이고 상당수가 **이 저장소가 직접 만든 것**이다
+(`admiral → admiralty` · `accurate → accurately/inaccurately`). WordNet 교체가 돈 뒤 다른
+드레인이 `cleared` 자리를 다시 채웠는데 `field_provenance` 를 안 고쳐서 "출처 불명" 으로
+**보일 뿐**이었다.
+
+`apply-der --commit` 을 돌렸으면 **좋은 데이터 533행(카탈로그 337)을 라이선스 위험도 아닌
+이유로 지웠을** 것이다 — 내용 지수 V3 도 57.4% → 54.5% 로 내려간다.
+
+- **아무것도 지우지 않았다.** 대신 같은 함정을 다음 사람이 밟지 않게 가드를 달았다:
+  `wordnet-enrich.mjs` 정책 블록 머리 + `docs/proposals/wordnet-replacement-design.md` 상단
+- 설계의 전제("잔여 = kaikki 전용")는 **설계 시점에는 참이었다.** 그 뒤 데이터가 바뀌었고,
+  전제를 다시 재지 않고 정책만 믿으면 데이터를 지운다
+
 ### 파생어는 WordNet 이 0% 메운다 — 재 보고 범위를 갈랐다 (내용 지수 1.586 → 1.612)
 
 앞 항목에서 "내용 지수를 올리려면 `shared_dictionary` 를 채워야 한다" 로 끝났다. 새 드레인을

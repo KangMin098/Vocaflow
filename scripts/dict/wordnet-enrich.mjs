@@ -136,6 +136,22 @@ async function extract() {
 // ─────────────────────────────────────────────────────────────
 // APPLY — shared_dictionary 갱신 (필드별 선별 정책, 설계 v3 §2)
 // ─────────────────────────────────────────────────────────────
+// ⚠️ **`overwritePurge` 를 다시 돌리기 전에 잔여값의 `source` 를 볼 것 (실측 2026-09-01).**
+//
+//   이 정책의 전제는 "잔여 = kaikki 전용" 이다. 설계 시점(2026-07-20)에는 맞았지만
+//   **지금은 아니다.** `derived_forms` 의 잔여 533행을 열어 보니:
+//
+//     imported 325 · ai-generated 191 · derivational-seed 17
+//     (`admiral → admiralty` · `age → aged/ageism/ageist` · `accurate → accurately/inaccurately`)
+//
+//   전부 **멀쩡한 파생어**이고 상당수가 이 저장소가 **직접 만든 것**이다. kaikki 노이즈
+//   (`bisexy`·`BUG` 류)가 아니다. 그 사이에 다른 드레인이 `cleared` 자리를 다시 채웠는데
+//   `field_provenance` 는 안 고쳤다 — 그래서 출처가 "없음/cleared" 로 보인다.
+//
+//   지금 `apply-der --commit` 을 돌리면 **좋은 데이터 533행(카탈로그 337)을 라이선스 위험도
+//   아닌 이유로 지운다.** 내용 우위지수 V3 도 57.4% → 54.5% 로 내려간다.
+//   → 돌리려면 먼저 `source` 로 걸러 내는 조건을 이 정책에 추가할 것.
+//
 // mode:
 //   overwritePurge : WordNet 값 덮어씀. 없으면 NULL 제거(잔여=kaikki 전용) — related_terms/derived_forms
 //   overwrite      : WordNet 값 덮어씀. 없으면 잔여 유지 + 'kaikki-unverified' flag — synonyms
