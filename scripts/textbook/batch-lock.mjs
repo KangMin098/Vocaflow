@@ -26,6 +26,15 @@ import path from 'node:path'
 
 const DIR = path.resolve('scripts/textbook/.locks')
 
+/**
+ * 이보다 오래 잡힌 자물쇠는 **눈에 띄게** 경고한다.
+ *
+ * 2시간으로 잡은 근거: 이 저장소에서 가장 긴 정상 배치가 그 안에 끝난다
+ * (조판 181초 · 해설 적재 · 유형 생성 모두). 넘으면 정상이 아닐 **가능성**을 알리는 것이지
+ * 죽었다고 단정하지 않는다 — 판단은 CPU 와 산출 둘을 보고 사람이 한다.
+ */
+const STALE_MINUTES = 120
+
 /** 그 PID 가 아직 살아 있나. 시그널 0 은 죽이지 않고 존재만 본다. */
 function alive(pid) {
   try {
@@ -63,6 +72,29 @@ export function acquire(name) {
           `  하나만 남기자 같은 조회가 0.2초에 끝났다). 끝난 뒤에 다시 부른다.\n` +
           `  정말 죽은 것 같으면: ${path.relative(process.cwd(), file)} 를 지운다.\n`,
       )
+      // ⚠️ **살아 있다고 일하고 있는 것은 아니다** (실측 2026-09-01).
+      //   `store-new-types.mjs --band 6` 가 **28시간**을 잡고 있었다. PID 는 살아 있어 위
+      //   생존 검사를 통과했는데, **마지막 DB 산출이 24시간 전**이었고 그동안 CPU 를 **99%**
+      //   로 태우고 있었다(20초 표본에서 19.9초 증가). 무한 루프였다.
+      //   그 28시간 동안 `explain-fill` 과 `irrelevant` 작업이 통째로 막혔고, 경고는
+      //   "1677분째" 라는 한 조각 숫자뿐이라 **아무도 이상하다고 읽지 않았다.**
+      //   그래서 오래 잡힌 자물쇠는 **눈에 띄게** 만들고, 살았는지가 아니라
+      //   **일하고 있는지**를 확인하는 법을 함께 찍는다.
+      if (mins >= STALE_MINUTES) {
+        const hrs = (mins / 60).toFixed(1)
+        console.error(
+          `⚠️  이 자물쇠는 ${hrs}시간째다 — 정상 배치보다 길다. 살아 있는 것과 일하는 것은 다르다.\n` +
+            `   멈춘 배치인지 이렇게 가른다 (둘 다 보라):\n` +
+            `     ① CPU 가 도는가  PowerShell: $a=(Get-Process -Id ${held.pid}).CPU; sleep 20;\n` +
+            `                                  (Get-Process -Id ${held.pid}).CPU - $a\n` +
+            `        → 20초에 ~20 이면 100% 스핀. I/O 대기면 0 에 가깝다.\n` +
+            `     ② 산출이 느는가  최근 쓴 행이 있는지 DB 에 묻는다.\n` +
+            `        CPU 는 타는데 산출이 안 늘면 **무한 루프다** — 그때만 끊는다:\n` +
+            `          PowerShell: Stop-Process -Id ${held.pid} -Force\n` +
+            `          그 뒤: ${path.relative(process.cwd(), file)} 를 지운다.\n` +
+            `   ⚠️ 둘 다 확인하기 전에는 끊지 않는다. 남의 세션이 20시간 돌린 일이 날아간다.\n`,
+        )
+      }
       process.exit(1)
     }
     // 죽은 세션이 남긴 것 — 가져온다.
