@@ -10,6 +10,32 @@
 
 ## Unreleased (v06.34 → next)
 
+### 문장 사본의 83%가 아무도 안 읽는다 — 정리 함수 (`20260901060000` · **미적용**)
+
+⚠️ **함수만 만들었고 데이터는 아직 안 건드렸다.** 마이그레이션 미적용 · 드레인 미실행.
+
+`first_sentence` 는 평균 188 B × 11,011,463행 = **약 2,081 MB** 로 정리 후 heap 의 71% 다.
+읽는 곳을 다 세어 보니 **17% 만 있으면 된다**:
+
+- **학습자 몫은 이미 끝났다** — 발행 단어장 279개·8,960낱말의 `shared_words.source_sentence`
+  복사가 **8,960/8,960** 완료라 이 컬럼에 의존하지 않는다
+- **조판은 안 읽는다** — `volume-pool.mjs` 가 3열(`library_article_id, word, frequency_in_article`)만 받는다
+- 남는 것은 사전 채굴의 문맥 + 발행 글 보존분
+
+⚠️ **설계 중에 결함을 하나 냈다가 REVIEW 에서 잡았다.** 처음엔 굴절형 자(`en_inflection_bases`)만
+써서 표본 21,610 중 **975행**만 남기게 했는데, `select_extraction_residual` 은 굴절형을 안 보고
+`lexicon_clean` 을 보므로 **3,352행**이 필요하다. 그대로 적용했으면 사전 채굴 잔차 목록이
+조용히 11%p 줄고, **줄어든 목록을 근거로 "사전이 다 찼다" 고 오판**했을 것이다 —
+누락된 행은 `bool_or(fs IS NOT NULL AND …)` 가 false 가 되어 **오류 없이 사라진다.**
+두 함수의 **합집합**으로 고쳤다(남김 17.23%). 그 차이가 240 MB 이고, 그 240 MB 가 채굴 정확도다.
+
+실측 정리 대상 **83.41%**(표본 27,634행). 예상 3,850 → 약 **1,738 MB**.
+되돌리기 가능 — 삭제가 아니라 **캐시 축출**이다(원문에서 편당 46.5 ms 로 비트 단위 재현).
+
+- 신규: `supabase/migrations/20260901060000_prune_article_vocab_sentences.sql`
+  (`prune_article_vocab_sentences` · `count_article_vocab_prunable` — service_role 전용) ·
+  `scripts/acp/prune-vocab-sentences.mjs` (배치 드라이버 · 예행 기본 · `--commit` 게이트 · 재실행 안전)
+
 ### DB 의 절반이 원문에서 되만들 수 있는 캐시였다 — 죽은 컬럼 3개 제거 (`20260901040000`)
 
 `library_article_vocabularies` 가 **4,249 MB 로 DB(7,628 MB)의 55.7%** 였다. "소스 GET 해서
