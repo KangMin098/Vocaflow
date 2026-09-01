@@ -60,7 +60,12 @@ function main() {
   // 스캔 대상 = 원본 root + 전개된 staging 디렉터리. staging 은 자기 root 로 취급해
   // 압축 안쪽 경로가 그대로 상대경로가 되게 한다.
   const scanRoots = [
-    ...src.roots.map((r) => ({ id: r.id, path: r.path, label: r.label, origin: 'root' })),
+    ...src.roots.map((r) => ({
+      id: r.id, path: r.path, label: r.label, origin: 'root',
+      // root 별 제외 규칙. 같은 문서의 다른 표현(추출 .txt · zip 사본)을 함께 넣으면
+      // 지문이 두 번 세어져 시장 규격이 기운다 — 그건 조용히 틀리는 종류의 오류다.
+      exclude: (r.exclude ?? []).map((x) => new RegExp(x)),
+    })),
     ...archiveDirs.map((a) => ({
       id: `${a.rootId}#${safeSlug(path.basename(a.rel))}`,
       path: a.target,
@@ -82,6 +87,7 @@ function main() {
       if (r.origin === 'root' && slash(file).includes(slash(sp.staging))) continue;
 
       const rel = slash(path.relative(r.path, file));
+      if (r.exclude?.some((re) => re.test(rel))) continue;
       const id = docId(r.id, rel);
       const stat = fs.statSync(file);
       const before = prev.docs?.[id];
