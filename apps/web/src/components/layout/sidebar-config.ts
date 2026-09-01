@@ -45,6 +45,7 @@ import {
   GraduationCap,
   Home,
   Layers,
+  Map,
   Mic2,
   ScanLine,
   ScrollText,
@@ -306,5 +307,24 @@ export const FOOTER_ITEMS: NavItem[] = [
     href: '/settings',
     icon: Settings,
     ariaLabel: '설정 — 데이터 가져오기/내보내기 포함',
+  },
+  /**
+   * 전체 보기(사이트맵).
+   *
+   * ── 왜 레일 밖 최하단인가 ────────────────────────────────────────
+   * 단계가 아니다. 그리고 **한 화면에 닿는 두 번째 길** 이라는 것이 이 항목의 전부다 —
+   * WCAG 2.2 §2.4.5 Multiple Ways (AA) 는 내비게이션 외에 검색(G161) 또는
+   * 사이트맵(G63) 중 하나를 요구하는데, 전수 계측(2026-09-01) 학습자 52 측정 중
+   * **43 이 둘 다 없었다.** 화면마다 검색창을 붙이는 쪽은 Calm UI 와 부딪혀 택하지 않았다.
+   *
+   * ⚠️ `FOOTER_ITEMS` 에 두는 것이 핵심이다 — 이 배열만이 `Sidebar`(데스크톱)와
+   *    `MobileUtilityBar`(모바일) **양쪽에서** 렌더된다. 한쪽에만 두면 다른 뷰포트의
+   *    화면들은 여전히 길이 하나뿐이라 2.4.5 를 그대로 놓친다.
+   */
+  {
+    label: 'Sitemap',
+    href: '/sitemap',
+    icon: Map,
+    ariaLabel: '전체 보기 — 학습자 화면 전체 지도',
   },
 ]

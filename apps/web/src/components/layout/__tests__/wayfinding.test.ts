@@ -81,8 +81,16 @@ const EXEMPT = new Set(['/hub-lab', '/teacher'])
  * `/settings` 는 레일 밖 유틸리티다. 네 표면(Today·Library·Vault·Growth) 중 어디에도
  * 속하지 않고, 억지로 붙이면 그 탭이 거짓말을 한다("Growth 를 보고 있다" 아니다).
  * 데스크톱은 `FOOTER_ITEMS` 가 자기 주소로 갖고 있고, 화면 자신도 세그먼트로 위치를 말한다.
+ *
+ * `/sitemap`(전체 보기)도 **정확히 같은 경우**다 — 레일 밖 유틸리티이고,
+ * 어느 학습 표면에도 속하지 않는다. 두 화면 모두 모바일에서 위치를 잃지 않는 이유는
+ * 같다: `MobileUtilityBar` 가 `FOOTER_ITEMS` 를 그리면서 활성 항목에
+ * `aria-current="page"` 를 붙인다(색이 아니라 굵기로도 구분한다).
+ *
+ * ⚠️ 그래서 이 목록에 넣어도 되는 조건은 **`FOOTER_ITEMS` 에 있을 것** 하나다.
+ *    거기 없는 화면을 여기 넣으면 모바일에서 진짜로 위치가 사라진다.
  */
-const TABBAR_EXEMPT = new Set(['/settings'])
+const TABBAR_EXEMPT = new Set(['/settings', '/sitemap'])
 
 const allNavItems: NavItem[] = [
   ...META_ITEMS,

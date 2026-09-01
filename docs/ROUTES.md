@@ -33,6 +33,7 @@
 | `/hub-lab` | `(main)/hub-lab/page.tsx` | **내부 전용** 진입면 후보 랩 (`?v=a\|b\|c\|d`, `?t=<시각대>`). 어디에도 링크 없음. 실데이터를 렌더하므로 `PROTECTED_PREFIXES` 등록. 설계 근거·비교 점수 보존용 |
 | `/dashboard` | `(main)/dashboard/page.tsx` + `layout.tsx` | **메타 "회고"(backward, L7 단독)** — known-word 성장 헤더 · MemoryStatus · WeeklyHeatmap · **학습 관리 3카드(ManageSection: 진단·계획·리포트)** · RecentActivity. /manage 흡수(v06.108) |
 | `/settings` | `(main)/settings/page.tsx` | 계정·테마·TTS·알림 |
+| `/sitemap` | `(main)/sitemap/page.tsx` | **전체 보기** — 학습자 화면 전체 지도. 목록은 `sidebar-config` 의 `META_ITEMS`·`NAV_GROUPS`·`ASIDE_GROUP`·`FOOTER_ITEMS` 를 그대로 읽는다(사본 금지). WCAG 2.2 §2.4.5 Multiple Ways(AA) 의 두 번째 길 — 계측 2026-09-01 에 학습자 52 측정 중 43 이 내비 외 경로가 없었다. 메타 라우트 `sitemap.ts`(→ `/sitemap.xml`) 와는 다른 라우트다 |
 
 ### 스크립트 (TextViewer · L1 Acquire / L2 Comprehend)
 
