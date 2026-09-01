@@ -49,24 +49,27 @@ describe.skipIf(skipIfNoEnv)('DCP 유형 분류 (integration)', () => {
   let db: SupabaseClient
   let storedTypes: string[]
 
+  // ⚠️ **이 훅이 두 번 부러졌다 — 두 번 다 "재고가 늘어서" 다**(실측 2026-09-01).
+  //    ① 42만 행을 1,000행씩 428번 받아 distinct 를 냈다 → `beforeAll` 40초 훅 제한 초과.
+  //    ② `not.in(분류목록)` 한 방으로 바꿨더니, 위반이 **없을 때** 그것을 증명하려고
+  //       전건을 훑어 `57014`(statement timeout).
+  //    재고가 늘수록 못 도는 가드는 가드가 아니다.
+  //
+  //    그래서 **이미 미리 계산된 집계**를 읽는다(`20260831090000` 의 집계 뷰 · 114행).
+  //    유형×레벨 distinct 가 거기 그대로 있다 — 이 테스트가 원하던 바로 그 값이다.
+  //
+  //    ⚠️ 이 뷰는 `v_level IS NOT NULL` 만 담는다. 지금은 전건이 v_level 을 가지므로
+  //       (실측: 뷰 합계 427,592 = 표 전체) 사각이 없지만, **v_level 없는 행이 생기면
+  //       이 가드가 그 유형을 못 본다.** 그때는 뷰의 조건부터 다시 봐야 한다.
+  //    ⚠️ 뷰는 5분마다 갱신된다 — 방금 들어온 새 유형은 최대 5분 늦게 잡힌다.
+  //       분류 누락은 배포 전에 잡으면 되는 종류라 이 지연은 받아들인다.
   beforeAll(async () => {
     db = createClient(SUPABASE_URL!, SERVICE_KEY!, {
       auth: { persistSession: false, autoRefreshToken: false },
     })
-    // 1,000행 조용한 절단에 두 번 당한 저장소다 — 넉넉히 받고 distinct 는 여기서 낸다.
-    const seen = new Set<string>()
-    for (let from = 0; ; from += 1000) {
-      const { data, error } = await db
-        .from('csat_dcp_items')
-        .select('type')
-        .order('type')
-        .range(from, from + 999)
-      if (error) throw new Error(error.message)
-      if (!data?.length) break
-      for (const r of data) seen.add(String((r as { type: string }).type))
-      if (data.length < 1000) break
-    }
-    storedTypes = [...seen].sort()
+    const { data, error } = await db.from('textbook_shelf_inventory_mv').select('item_type')
+    if (error) throw new Error(`집계 뷰를 읽지 못했다: ${error.message}`)
+    storedTypes = [...new Set((data ?? []).map((r) => String((r as { item_type: string }).item_type)))].sort()
   })
 
   it('저장된 유형이 하나 이상 있다 — 없으면 아래 검사가 공회전한다', () => {
