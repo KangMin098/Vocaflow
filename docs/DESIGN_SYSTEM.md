@@ -56,10 +56,22 @@
 
 | 축 | Reading Room | 이전 (iOS Indigo) |
 |---|---|---|
-| **배경** | Paper `#FAF8F3` (warm) + canvas `#F2EEE6` | 흰 `#FFFFFF` + 그레이 `#F2F2F7` |
-| **텍스트** | Ink `#1C1815` (warm brown-black) + warm alpha labels | 순흑 + 쿨 알파 |
-| **브랜드** | Ink Navy `#1E3A5F` + Muted Gold `#B8893B` accent | iOS systemIndigo `#5856D6` |
+| **배경** | Paper `#FBFAF6` (warm) + canvas `#F4F0E9` | 흰 `#FFFFFF` + 그레이 `#F2F2F7` |
+| **텍스트** | Ink `#1A1714` (warm brown-black) + warm alpha labels | 순흑 + 쿨 알파 |
+| **브랜드** | Deep Ink `#0F2540` + Muted Gold `#B0843A` (작은 글자는 `#7E5A1B`) | iOS systemIndigo `#5856D6` |
 | **타이포** | **Lora editorial** hero (42-52px display) + Plus Jakarta UI 칩 + DM Sans 한글 | Plus Jakarta hero 32-34px |
+
+> ⚠️ **값의 정본은 이 문서가 아니라 `packages/design-tokens/src/colors.ts` 다.**
+> 2026-09-01 실측에서 이 표의 색 여섯이 **전부** 토큰과 달랐다 — Paper `#FAF8F3`→`#FBFAF6` ·
+> Ink `#1C1815`→`#1A1714` · 브랜드 `#1E3A5F`→`#0F2540` · 골드 `#B8893B`→`#B0843A`.
+> 토큰 파일은 그 값을 명시적으로 거부하고 있었다: `브랜드 = Deep Ink (contemporary depth,
+> **NOT old-map navy**)`. 토큰이 v06.40 으로 바뀔 때 이 표가 안 따라온 것이다.
+> (아래 §벤치마크 표는 같은 문서 안에서 이미 `#FAF8F3` 이 낡았다고 적고 있었다 —
+>  한 문서가 자기 자신과 어긋나 있었다.)
+>
+> **왜 위험한가**: 아래 §iOS Color SSoT(v06.38)에는 `--p: #5856D6` 이 적힌 **복사하기 좋은**
+> **CSS 블록**이 남아 있다. 세 곳이 서로 다른 브랜드 색을 말하면 다음 사람이 어느 것을
+> 믿을지 알 수 없다 — 교재 조판기가 자기 팔레트를 따로 갖게 된 원인이 정확히 이것이었다.
 
 ### 색상 토큰 — 면(fill) vs 잉크(ink) 분리 규칙 (v07 · 2026-08-09)
 
@@ -186,6 +198,14 @@ font-mono        = JetBrains Mono      → 캡션 · 숫자 · 9-12px
 
 ## 🎨 iOS Color SSoT (v06.38 — Indigo 학습 브랜드 + Learning Color Effect)
 
+> 🚫 **이 절의 색 값은 폐기됐다 (v06.40 에서 교체).** `--p` 는 더 이상 Indigo `#5856D6` 이
+> 아니라 **Deep Ink `#0F2540`** 이고, 액센트는 Muted Gold `#B0843A` / `#7E5A1B` 다.
+> 아래 CSS 블록을 **복사하지 말 것** — 현재 값은 `packages/design-tokens/src/colors.ts` 에 있다.
+>
+> 절을 지우지 않는 이유는 **판단 근거가 아직 유효**하기 때문이다: "3rd party iOS 앱은 자기
+> 브랜드 색 + iOS 구조" 라는 관찰이 v06.40 의 Deep Ink 선택으로 이어졌다. 바뀐 것은 어떤
+> 색이냐이지, 자기 색을 갖는다는 원칙이 아니다.
+
 > **재진단 (v06.37 → v06.38)**:
 > v06.37에서 `--p`를 `#007AFF` iOS Blue 로 정렬했으나 사용자 진단 — "색상이 플랫폼에 안맞음, 학습적 효과 색상 필요". 정확한 진단:
 >
@@ -254,11 +274,11 @@ body:    ["-apple-system", "BlinkMacSystemFont", "SF Pro Text",
 | **Label Colors** | `label` `#000000` → `quaternaryLabel` `rgba(60,60,67,.18)` (4단계 알파) | `--t1` → `--t4` | warm-neutral 라벨, 어떤 배경 위에서도 자연스러운 알파 기반 |
 | **Separator** | `#C6C6C8` light / `#38383A` dark | `--bd` | 셀 구분선 — 정확한 iOS 그레이 |
 
-### 색상 토큰 카탈로그 (v06.38)
+### 색상 토큰 카탈로그 (v06.38) — 🚫 **폐기된 값. 복사 금지**
 
 ```css
 /* Light Mode — iOS HIG 정확 + 학습 브랜드 (Indigo) */
---p           : #5856D6              /* systemIndigo — 학습 브랜드 */
+--p           : #5856D6              /* 🚫 폐기 — 현재 #0F2540 (Deep Ink) */
 --p-hover     : #4946C2
 --p-light     : #EBEAFB              /* tint badge bg */
 --p-dark      : #3C3AAB
