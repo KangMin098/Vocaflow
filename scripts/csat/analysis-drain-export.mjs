@@ -149,6 +149,7 @@ function pack(it) {
 //    완료된 것만 지운다.
 let removed = 0
 let kept = 0
+const keptNames = []
 for (const f of fs.readdirSync(WORK).filter((f) => f.startsWith('chunk-') && f.endsWith('.json') && !f.endsWith('.out.json'))) {
   let ids = []
   try {
@@ -156,7 +157,7 @@ for (const f of fs.readdirSync(WORK).filter((f) => f.startsWith('chunk-') && f.e
   } catch {
     ids = [] // 못 읽는 청크는 소모품으로 본다
   }
-  if (ids.length && !ids.every((id) => done.has(id))) { kept += 1; continue }
+  if (ids.length && !ids.every((id) => done.has(id))) { kept += 1; keptNames.push(f); continue }
   fs.rmSync(path.join(WORK, f))
   removed += 1
 }
@@ -194,6 +195,17 @@ fs.writeFileSync(path.join(WORK, '_MANIFEST.json'), JSON.stringify({ built_at: n
 
 const total = corpus.items.filter((it) => it.in_scope).length
 console.log(`  사정권 ${total} · 완료 ${done.size} · 검수 미완 ${partial} · 남은 몫 ${pool.length}`)
-console.log(`  끝난 청크 ${removed}개 삭제 · 작업 중이라 남긴 청크 ${kept}개 · 새 청크 ${n}개 (청크당 ${SIZE})`)
+console.log(`  끝난 청크 ${removed}개 삭제 · 새로 뽑은 청크 ${n}개 (청크당 ${SIZE})`)
+// ⚠️ **이미 돌고 있는 청크를 다시 띄우지 않게** 이름을 따로 찍는다.
+//    2026-09-02 에 실제로 겪었다 — 앞 배치에서 띄운 청크가 아직 out 을 안 썼으니 «남은 몫» 에
+//    그대로 있었고, 다음 export 목록만 보고 같은 청크에 에이전트를 한 번 더 띄웠다.
+//    두 판이 같은 이름으로 써서 앞 판이 덮였다(git 에는 남아 손실은 없었다).
+if (keptNames.length) {
+  console.log(`  ⚠ 아직 작업 중이라 남긴 청크 ${keptNames.length}개 — **다시 띄우지 말 것**:`)
+  for (const f of keptNames) console.log(`      ${f}`)
+}
+const fresh = manifest.map((m) => m.file).filter((f) => !keptNames.includes(f))
+console.log(`  → 이번에 띄울 것 ${fresh.length}개:`)
+for (const f of fresh) console.log(`      ${f}`)
 if (ONLY_TYPE) console.log(`  유형 한정: ${ONLY_TYPE}`)
 console.log(`→ ${WORK}`)
