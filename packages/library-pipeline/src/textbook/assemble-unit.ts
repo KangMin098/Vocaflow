@@ -98,6 +98,53 @@ export interface AssembleOptions {
  */
 export const PASSAGE_WORDS = { min: 120, max: 250 } as const
 
+/**
+ * 초·중 밴드(V1~V4 = 초6~중1)에 실을 수 있는 CEFR 상한.
+ *
+ * ── 왜 필요한가 (실측 2026-09-02) ────────────────────────────────────
+ * 조립기가 **어수만** 보고 있었다. 그래서 짧기만 하면 어떤 난이도든 통과했고,
+ * 초·중 창(42~173어)에 든 269편 중 **실제로 그 학년 난이도인 것은 135편(50%)뿐**이었다.
+ * 가장 큰 덩어리가 NASA 사진 설명글 121편인데:
+ *
+ *     FK 15.37 · 문장 26.3어 (중1 교재는 13.9어) · 2022 개정 교육과정 별표 적중 22.4%
+ *
+ * 즉 내용어의 **64%가 그 학년이 배우지 않는 낱말**이다. 100어 남짓이라는 이유로
+ * 초6 자리를 지나가고 있었다.
+ *
+ * ── 왜 CEFR 로 막는가 ────────────────────────────────────────────────
+ * `cefr_level` 은 이미 `UnitPassage` 에 있고(마이그레이션 불필요),
+ * 그 값 자체가 Flesch Reading Ease 에서 나오므로 **이미 가독성 눈금**이다.
+ * 우리 지문 269편에서 두 눈금의 대응을 실측하면 B1 과 B2 사이가 깨끗하게 갈린다:
+ *
+ *     A1 FK중앙 0.7 · A2 3.7 · **B1 6.6** ┃ **B2 12.7** · C1 18.1 · C2 32.4
+ *
+ * 시중 중1 교재가 FK 7.60 · 중3 이 10.67 이므로 **B1 까지가 중등**이고
+ * B2 부터는 중3 상단을 넘는다. V1~V4 는 `V_TO_MARKET_BUCKET` 상 초6~중1 이다.
+ *
+ * ⚠️ **CEFR 이 없는 글은 막지 않는다.** 모르는 것을 어렵다고 판정하면 재저작 지문
+ *   38편(FK 1.9 — 실제로는 쉬운 글)이 통째로 막힌다. 모름은 금지가 아니다.
+ */
+export const SCHOOL_BAND_MAX_CEFR = 'B1'
+const CEFR_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
+/** 초·중으로 보는 V-Level 상한. `V_TO_MARKET_BUCKET` 이 V5 부터 고1 로 매긴다. */
+export const SCHOOL_BAND_MAX_V = 4
+
+function blockedByLevel(passage: UnitPassage, band: number | null): UnitBlocked | null {
+  if (band == null || band > SCHOOL_BAND_MAX_V) return null
+  const cefr = passage.cefr_level
+  if (!cefr) return null // 모름은 금지가 아니다
+  const idx = CEFR_ORDER.indexOf(cefr as (typeof CEFR_ORDER)[number])
+  const max = CEFR_ORDER.indexOf(SCHOOL_BAND_MAX_CEFR)
+  if (idx < 0 || idx <= max) return null
+  return {
+    blocked: true,
+    reason:
+      `${passage.title}: ${cefr} 지문이라 초·중 밴드(V${band})에 실을 수 없다 — ` +
+      `길이는 ${passage.word_count}어로 맞지만 난이도가 ${SCHOOL_BAND_MAX_CEFR} 상한을 넘는다. ` +
+      `시중 중1 교재는 FK 7.6(≈B1)이고 B2 부터는 중3 상단을 넘는다.`,
+  }
+}
+
 /** 지문 읽기 속도(분당 낱말). `analyze-article` 의 200wpm 보다 낮다 — 문항을 풀며 읽는다. */
 export const UNIT_READ_WPM = 120
 /** 문항 1개당 소요(분). 순서·삽입은 문단을 다시 읽어야 해서 짧지 않다. */
@@ -141,6 +188,10 @@ export function assembleReadingUnit(
         `수능 지문은 130~190어다.`,
     }
   }
+
+  // 길이가 맞아도 **난이도가 그 학년이 아니면** 그 학년 교재가 아니다.
+  const tooHard = blockedByLevel(passage, options.learnerBand ?? passage.v_level ?? null)
+  if (tooHard) return tooHard
 
   const orders = items.filter((i) => i.type === 'order')
   const inserts = items.filter((i) => i.type === 'insert')
