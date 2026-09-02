@@ -178,7 +178,7 @@
    "id": "R-NOTICE",
    "name": "안내문 일치",
    "sec": "독해",
-   "match": "/(안내문의내용과|Notice의내용과)/"
+   "match": "/(안내문|Notice의내용과)/"
   },
   {
    "id": "R-FACT",

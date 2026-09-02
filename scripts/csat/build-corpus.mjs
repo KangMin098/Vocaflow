@@ -196,8 +196,32 @@ const rows = [
   ...mock.rows,
 ]
 
+/**
+ * **유형이 안 붙은 문항만** 발문에서 다시 배정한다 — 이미 붙은 것은 절대 건드리지 않는다.
+ *
+ * 모의평가 쪽 유형은 `ingest-mock` 이 붙이는데, 그때 쓴 정규식표가 그 뒤에 넓어져도
+ * 코퍼스는 옛 배정을 그대로 들고 있다(다시 붙이려면 PDF 재추출이 필요하고, 그러면 이미
+ * 발행된 분석의 인용 좌표가 통째로 흔들린다). 그래서 **빈자리만** 지금 표로 메운다.
+ *
+ * 실측 2026-09-02: M2506#27 은 단이 안 갈린 페이지에서 발문이
+ * `…다음 안내문의 / 지 않는 것은?` 두 조각으로 끊겨 좁은 규칙(`안내문의내용과`)에 안 걸렸다.
+ * 넓힌 규칙(`안내문`)은 사정권 전수 55건에서 다른 유형과 한 건도 겹치지 않는다.
+ * 유일한 히트일 때만 붙인다 — 둘 이상이면 그것은 짐작이지 배정이 아니다.
+ */
+const TYPE_RES = read('classified.json').types.map((t) => ({ id: t.id, re: new RegExp(t.match.replace(/^\/|\/$/g, '')) }))
+function rescueType(stem) {
+  const norm = String(stem ?? '').replace(/\s+/g, '')
+  if (!norm) return null
+  const hits = TYPE_RES.filter((t) => t.re.test(norm))
+  return hits.length === 1 ? hits[0].id : null
+}
+
 for (const q of rows) {
   const meta = examMeta(q.exam)
+  if (!q.type) {
+    const r = rescueType(q.stem)
+    if (r) { q.type = r; q.type_rescued = true }
+  }
   // 발문을 못 떠 세트 머리글만 붙은 장문 문항은 번호로 유형을 되찾는다(위 LONG_SET_TYPE 참조)
   if (q.no >= 41 && meta.year >= 2019 && GENERIC_SET_STEM.test((q.stem ?? '').trim()) && LONG_SET_TYPE[q.no]) {
     q.type = LONG_SET_TYPE[q.no]

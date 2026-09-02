@@ -116,6 +116,23 @@ function rawBlock(it) {
   return parts.join('\n\n') || null
 }
 
+/**
+ * 유형의 정답 번호 분포 — **분모를 함께 준다.** 사정권 문항 수와 정답표가 있는 문항 수는
+ * 다르고(모평 7회차에 정답표가 없다), 그 둘을 헷갈리면 "0회" 주장이 통째로 틀어진다.
+ */
+function answerDist(typeId) {
+  const all = corpus.items.filter((it) => it.in_scope && it.type_id === typeId)
+  const keyed = all.filter((it) => it.answer != null)
+  const by = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
+  for (const it of keyed) by[it.answer] = (by[it.answer] ?? 0) + 1
+  return {
+    in_scope: all.length,
+    keyed: keyed.length,
+    by_choice: by,
+    note: '이 유형 **전체**의 실측이다. 청크 안의 분포와 헷갈리지 말 것. 「N회」 주장은 반드시 keyed 를 분모로 쓴다.',
+  }
+}
+
 function pack(it) {
   // 지문·선지를 못 떴거나(3%) 한글이 섞였거나(5%) 하면 원문 블록을 함께 싣는다
   const bodyOk = Boolean(it.passage && it.choices) && !it.body_suspect
@@ -187,6 +204,17 @@ outer: for (const [typeId, arr] of types) {
       type_id: typeId,
       type_name: slice[0].type_name,
       count: slice.length,
+      // **유형 전체의 정답 번호 분포를 청크가 직접 들고 간다.**
+      //
+      // 안 실어 보냈더니 지어냈다 — 한 청크가 절차 1단계에 「13개년 192문항에서 1번이
+      // 정답인 적은 0회(보정 p=1.0e-25)」를 넣었는데, 분모 192는 근거가 없고(R-ORDER
+      // 사정권 56 · 정답표 42) **①은 실제로 한 번 정답이었다**(M2506#36). 저장소의 옛 문서도
+      // 같은 거짓을 HARD 주장으로 적고 있었다 — 즉 이 실수는 한 번이 아니라 되풀이된다.
+      //
+      // 게이트로 잡으려 해 봤으나 오탐이 잦았다(청크 범위의 「①은 0회」 서술과 유형 전체의
+      // 주장을 글로는 못 가른다). **오탐이 잦은 검사는 곧 무시당한다.** 그래서 잡는 대신
+      // 처음부터 사실을 쥐여 준다.
+      type_answer_distribution: answerDist(typeId),
       items: slice.map(pack),
     }
     fs.writeFileSync(path.join(WORK, name), JSON.stringify(payload, null, 1))

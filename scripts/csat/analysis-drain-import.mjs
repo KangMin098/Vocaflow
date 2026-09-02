@@ -86,7 +86,9 @@ for (const f of files) {
   //    청크를 가로질러 **합친다**(§합치기 규칙은 아래 mergeReports 에).
   if (tr?.type_id) {
     if (!typeReports.has(tr.type_id)) typeReports.set(tr.type_id, [])
-    typeReports.get(tr.type_id).push(tr)
+    // 청크가 실제로 본 문항 id 를 함께 들고 간다 — A/B형 공통 문항을 한 번만 세려면
+    // 개수가 아니라 **id** 가 있어야 한다(§distinctCount).
+    typeReports.get(tr.type_id).push({ ...tr, item_ids: (j.analyses ?? []).map((a) => a.item_id).filter(Boolean) })
   }
 }
 
@@ -158,6 +160,33 @@ process.stdout.write('\n')
  *   · `failure_modes` · `open_questions` **중복만 걷고 전부** 남긴다
  *   · `time_budget_sec` **가장 큰 값** — 모자라면 절차가 시험장에서 안 끝난다
  */
+/**
+ * **A/B형 공통 문항을 두 번 세지 않는다.**
+ *
+ * 2014학년도 수준별 시행에서 두 문제지가 문항을 공유한다(`2014A#24 ≡ 2014B#23` 등 2쌍).
+ * 분석은 양쪽 다 쓰지만 "이 유형 n문항" 은 한 번만 세야 한다 — 이것을 서브에이전트에게
+ * 맡기면 청크마다 판단이 갈리고, 게이트의 `n_analyzed === analyses.length` 검사와도 부딪힌다.
+ * **코퍼스가 이미 `same_item_as` 로 알고 있으므로 여기서 센다.**
+ */
+const CORPUS = path.resolve('scripts/csat/data/corpus.json')
+const sameAs = new Map()
+if (fs.existsSync(CORPUS)) {
+  for (const it of JSON.parse(fs.readFileSync(CORPUS, 'utf8')).items ?? []) {
+    if ((it.same_item_as ?? []).length) sameAs.set(it.id, it.same_item_as)
+  }
+}
+function distinctCount(ids) {
+  const seen = new Set()
+  let n = 0
+  for (const id of ids) {
+    if (seen.has(id)) continue
+    n += 1
+    seen.add(id)
+    for (const o of sameAs.get(id) ?? []) seen.add(o)
+  }
+  return n
+}
+
 function mergeReports(list) {
   const best = [...list].sort((a, b) => (b.n_analyzed ?? 0) - (a.n_analyzed ?? 0))[0]
   const traps = new Map()
@@ -172,7 +201,7 @@ function mergeReports(list) {
   }
   const loci = list.map((r) => r.answer_locus_pattern).filter(Boolean)
   return {
-    n_analyzed: list.reduce((a, r) => a + (r.n_analyzed ?? 0), 0),
+    n_analyzed: distinctCount(list.flatMap((r) => r.item_ids ?? [])) || list.reduce((a, r) => a + (r.n_analyzed ?? 0), 0),
     recurring_traps: [...traps.values()].sort((a, b) => b.count - a.count),
     answer_locus_pattern: loci.length ? loci.join('\n\n') : null,
     procedure_steps: best?.procedure ?? best?.procedure_steps ?? [],
