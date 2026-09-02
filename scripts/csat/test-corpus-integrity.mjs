@@ -168,6 +168,36 @@ soft('T12 사정권 문항에 본문이 있다', noBody.length === 0, `둘 다 �
   )
 }
 
+// T15 **같은 해 두 문제지가 공유하는 문항은 표시돼 있어야 한다.**
+//
+// 2014학년도 수준별(A/B형) 시행에서 `2014A#24 ≡ 2014B#23`(요지) · `2014A#32 ≡ 2014B#29`(도표)가
+// 지문 문자열까지 같다. 번호가 다르니 원장은 서로 다른 문항으로 보고, 유형별 통계는 한 문항을
+// 두 번 센다 — "이 유형 n문항" 이 그만큼 부푼다.
+//
+// 지우지 않는 이유는 회차 배점 합 100 검사(T6)가 양쪽을 다 필요로 하기 때문이다.
+// 그러니 **표시가 붙었는지**만 본다.
+{
+  const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim()
+  const byYear = new Map()
+  for (const it of readItems) {
+    if (!it.passage || it.passage.length < 150) continue
+    const k = `${it.year}|${norm(it.passage)}`
+    if (!byYear.has(k)) byYear.set(k, [])
+    byYear.get(k).push(it)
+  }
+  const unmarked = []
+  for (const group of byYear.values()) {
+    if (group.length < 2) continue
+    if (new Set(group.map((it) => it.exam)).size < group.length) continue // 같은 회차 중복은 T13 소관
+    for (const it of group) if (!(it.same_item_as ?? []).length) unmarked.push(it.id)
+  }
+  ok(
+    'T15 회차 간 공통 문항에 same_item_as 표시',
+    unmarked.length === 0,
+    `표시 없음 ${unmarked.length}: ${unmarked.slice(0, 6).join(' ')}`,
+  )
+}
+
 // T10 report 의 수치가 items 와 일치 — 리포트만 고쳐 놓고 원장은 그대로인 사고를 막는다
 ok('T10 report.items == items.length', report.items === items.length, `${report.items} vs ${items.length}`)
 ok('T10b report.typed 일치', report.typed === typed, `${report.typed} vs ${typed}`)

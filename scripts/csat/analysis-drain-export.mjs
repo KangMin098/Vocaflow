@@ -136,6 +136,9 @@ function pack(it) {
     // 정답표가 없는 회차가 7개다. 정답을 모르는 채로 "정답 근거" 를 쓰면 그건 창작이다 —
     // 분석 지시문이 이 딱지를 보고 근거 서술을 요구하지 않는다.
     answer_known: it.answer != null,
+    // 2014학년도 A/B형은 일부 문항을 공유한다(실측 2쌍). 분석은 양쪽 다 해야 하지만
+    // **유형 리포트의 `n_analyzed` 에서는 한 번만 세야 한다** — 안 그러면 "이 유형 n문항" 이 부푼다.
+    same_item_as: (it.same_item_as ?? []).length ? it.same_item_as : undefined,
     body_ok: bodyOk,
     raw_block: bodyOk ? null : rawBlock(it),
   }

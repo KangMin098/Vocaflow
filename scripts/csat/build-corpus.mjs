@@ -239,6 +239,33 @@ for (const q of rows) {
 
 items.sort((a, b) => (a.exam < b.exam ? -1 : a.exam > b.exam ? 1 : a.no - b.no))
 
+// ── A/B형 공통 문항 — 같은 문항을 두 번 세지 않게 표시한다 ───────────
+//
+// 2014학년도는 수준별(A/B형) 시행이라 **두 문제지가 일부 문항을 공유한다.**
+// 실측: `2014A#24 ≡ 2014B#23`(요지) · `2014A#32 ≡ 2014B#29`(도표) — 지문이 문자열까지 같다.
+// 번호가 다르니 원장에서는 서로 다른 문항으로 보이고, 회차 배점 합 100 검사도 **둘 다 필요하다.**
+// 그래서 지우지 않는다. 다만 유형별 통계가 이 둘을 두 번 세면 함정 분포가 그만큼 부풀고,
+// "이 유형 n문항" 이라는 신뢰의 근거가 조용히 거짓이 된다.
+//
+// 표시만 한다 — `same_item_as` 를 **양쪽에** 둔다. 한쪽만 '원본' 으로 정하면 그 선택의 근거가
+// 없고(둘 다 실제로 출제됐다), 소비하는 쪽이 어느 쪽을 남길지 스스로 고를 수 있어야 한다.
+{
+  const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim()
+  const byYear = new Map()
+  for (const it of items) {
+    if (!it.in_scope || !it.passage || it.passage.length < 150) continue
+    const k = `${it.year}|${norm(it.passage)}`
+    if (!byYear.has(k)) byYear.set(k, [])
+    byYear.get(k).push(it)
+  }
+  for (const group of byYear.values()) {
+    if (group.length < 2) continue
+    // 같은 회차 안의 중복은 여기 대상이 아니다 — 그것은 파서 결함이고 T13 이 잡는다
+    if (new Set(group.map((it) => it.exam)).size < group.length) continue
+    for (const it of group) it.same_item_as = group.filter((o) => o !== it).map((o) => o.id)
+  }
+}
+
 // ── 커버리지 — 분모를 명시한다 ───────────────────────────────────────
 const byExam = new Map()
 for (const it of items) {

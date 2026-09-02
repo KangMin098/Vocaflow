@@ -89,6 +89,12 @@
 뭉갬이므로(`sunk cost ______ This makes sense from the perspective of information fallacy`)
 **원문 창에서 좌우를 갈라 읽는다.** 복원했으면 `"body_recovered": true` 를 넣는다.
 
+**`same_item_as` 가 붙은 문항**: 2014학년도는 수준별(A/B형) 시행이라 두 문제지가 일부 문항을
+공유한다 — 지문·선지·정답이 문자열까지 같고 번호만 다르다(실측 2쌍: `2014A#24 ≡ 2014B#23` ·
+`2014A#32 ≡ 2014B#29`). **분석은 양쪽 다 쓴다**(각각 그 회차의 문항이므로 원장에 있어야 한다).
+다만 `type_report.n_analyzed` 와 `recurring_traps[].count` 에서는 **한 번만 센다** —
+두 번 세면 "이 유형 n문항" 이라는 신뢰의 근거가 그만큼 부푼다. 몇을 빼고 셌는지 리포트에 적어라.
+
 **⚠️ 청크와 코퍼스가 다르면 코퍼스가 정본이다.** 청크는 뽑힌 시점의 코퍼스를 담는데
 (`corpus_built_at` 참조), 그 사이 파서가 고쳐지면 청크가 낡는다. **인용은 반드시
 `scripts/csat/data/corpus.json` 의 현재 지문에서 뽑아라** — 게이트가 그것을 건초더미로 쓴다.
