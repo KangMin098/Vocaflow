@@ -201,6 +201,28 @@ function threePointSet(text) {
   return out
 }
 
+/**
+ * **단 나누기 품질** — 좌표계를 고르는 자.
+ *
+ * 두 가지만 센다. 둘 다 조판 구조에서 바로 읽히는 것이라 다른 코드가 바뀌어도 안 흔들린다:
+ *   ① 줄머리에 온 문항 번호의 가짓수 — 많을수록 단이 제대로 갈렸다 (최대 45)
+ *   ② **한 줄에 문항 번호가 둘 있는 줄** — 그 줄은 두 단이 붙어 있다는 증거다. 하나에 30점 벌점.
+ *
+ * ②의 벌점을 크게 준 이유: 그런 줄 하나가 문항 두 개의 지문을 통째로 망가뜨린다.
+ * 번호 하나를 더 찾는 이득보다 훨씬 크다.
+ */
+function splitQuality(text) {
+  const ls = text.split('\n')
+  const heads = new Set()
+  let merged = 0
+  for (const l of ls) {
+    const m = l.match(/^\s*(\d{1,2})\s*[.．]/)
+    if (m && +m[1] >= 1 && +m[1] <= 45) heads.add(+m[1])
+    if (/(?:^|\s)\d{1,2}\s*[.．][\s\S]*?\s{2,}\d{1,2}\s*[.．]/.test(l)) merged += 1
+  }
+  return heads.size * 10 - merged * 30
+}
+
 /** 파일 하나가 무엇인지 — 파일명이 아니라 내용으로 판정한다 */
 function kindOf(raw) {
   if (/듣기평가\s*대본/.test(raw)) return '대본'
@@ -299,10 +321,20 @@ for (const e of EXAMS) {
     continue
   }
   const raw = pdfText(e.paper)
-  // 좌표계는 회차마다 다르다 — 둘 다 돌려 **유형 배정이 많은 쪽**을 쓴다.
-  // 발문 수만으로 고르면 안 된다: 단이 안 갈린 줄도 발문 하나로 세어져 점수가 높아진다.
+  // 좌표계는 회차마다 다르다 — 둘 다 돌려 나은 쪽을 쓴다.
+  //
+  // ⚠️ **점수를 발문 분류에 묶지 않는다.** 처음엔 «유형 배정이 많은 쪽» 으로 골랐는데,
+  //    발문 손질 코드를 고칠 때마다 점수가 흔들려 **엉뚱한 회차의 복원 품질이 퇴행했다**
+  //    (2026-09-02: 발문 오염 제거를 넣었더니 M2006 이 char → wide 로 뒤집혀 33·35번 지문이
+  //    두 단 섞임이 됐다. 서브에이전트가 «퇴행» 으로 보고해 알았다).
+  //    점수는 **단 나누기 자체의 품질**만 재야 한다 — 그래야 다른 코드를 고쳐도 안 흔들린다.
+  //
+  // 그렇다고 **구조 점수만** 쓰면 안 된다 — 그것만으로 골랐더니 M2006 은 고쳐졌지만
+  // M2109·M2506·M2606 이 나빠져 유형 배정이 802→800 으로 떨어지고 T13(회차 내 지문 중복)이
+  // 새로 깨졌다. 두 목적은 서로 다른 것을 재고 있으므로 **둘을 합친다**:
+  // 발문이 얼마나 살아났나(분류) + 단이 얼마나 갈렸나(구조 벌점).
   const pick = restoreColumnsBest(raw, (text) =>
-    stemsOf(text).reduce((a, q) => a + (classify(q.stem).length === 1 ? 10 : 1), 0))
+    stemsOf(text).reduce((a, q) => a + (classify(q.stem).length === 1 ? 10 : 1), 0) + splitQuality(text))
   const cols = pick.text
   fs.writeFileSync(path.join(COL, `${e.id}.txt`), cols)
 

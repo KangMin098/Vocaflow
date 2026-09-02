@@ -85,7 +85,9 @@ function examWindow(exam, no) {
   }
   const re = new RegExp(`(?:^|\\s)${no}\\s*[.．]`)
   const at = ls.findIndex((l) => re.test(l))
-  if (at >= 0) anchors.push({ i: at, span: 60 })
+  // 창을 60줄로 잡았더니 안내문처럼 표가 긴 문항에서 근거가 창 밖으로 나갔다
+  // (실측 M2506#28: 번호 370줄, 근거 458줄). 90줄이면 한 문항 분량을 덮는다.
+  if (at >= 0) anchors.push({ i: at, span: 90 })
   if (!anchors.length) { windowCache.set(key, ''); return '' }
   const win = norm(
     anchors.map(({ i, span, back = 10 }) => ls.slice(Math.max(0, i - back), i + span).join(' ')).join(' '),
@@ -102,9 +104,12 @@ function examWindow(exam, no) {
  *   · **지어낸 인용** — 양 끝 어느 쪽도 원문에 없다 → 실패
  * 낱말이 열 개 미만인 짧은 인용은 이 완화를 쓰지 않는다(양 끝이 곧 전체라 검사가 무의미해진다).
  */
-function shingleHit(nq, hay) {
+function shingleHit(nq, hay, suspect = false) {
   const w = nq.split(' ').filter(Boolean)
-  if (w.length < 10) return false
+  // 6낱말이 하한이다 — 4낱말 창이 셋은 나와야 «60% 적중» 이 뜻을 갖는다.
+  // (처음 10으로 잡았더니 표 항목처럼 짧은 근거가 완화를 못 받았다: `Participation Fee: $70
+  //  per person (lunch included)` 7낱말 — 복원본이 `ee: $70…` 로 잘려 통째 대조는 실패한다.)
+  if (w.length < 6) return false
   // 양 끝만 보면 부족하다 — 옆 단이 **낱말 단위로 교대**하면 첫 낱말부터 어긋난다
   // (실측 M2006#33: `since the trainer tangible is replaced by intangibles` — `The` 자리에
   //  옆 단의 `trainer` 가 들어와 있다). 그래서 4낱말 창을 죽 밀며 **몇 %가 원문에 있는지** 센다.
@@ -114,7 +119,10 @@ function shingleHit(nq, hay) {
     total += 1
     if (hay.includes(w.slice(i, i + 4).join(' '))) hit += 1
   }
-  return total > 0 && hit / total >= 0.6
+  // 이미 `body_suspect` 로 표시된 문항은 코퍼스 자체가 못 미더우므로 문턱을 낮춘다.
+  // 실측 M2506#28: 복원본이 `Participation F|ee:` 로 잘려 앞 두 창이 통째로 어긋난다(2/4).
+  // 멀쩡한 문항에는 그대로 0.6 을 요구한다 — 딱지 없는 곳에서까지 낮추면 검사가 헐거워진다.
+  return total > 0 && hit / total >= (suspect ? 0.5 : 0.6)
 }
 
 // 청크 이름은 첫 문항 id 에서 나온다(`chunk-R-BLANK-M2706-31`). 일련번호가 아니므로
@@ -236,7 +244,7 @@ for (const f of files) {
           const win = examWindow(it.exam, it.no)
           if (win.includes(norm(q))) {
             warn(id, `인용이 현재 지문 파싱과 안 맞는다(회차 원문 창에는 있다) — 파서가 바뀌었을 수 있다`)
-          } else if (shingleHit(norm(q), `${hay} ${win}`)) {
+          } else if (shingleHit(norm(q), `${hay} ${win}`, it.body_suspect === true)) {
             // **손상된 지문과 지어낸 인용을 갈라야 한다.** 단이 안 갈린 페이지에서는 지문 한가운데
             // 옆 단 조각(`35. 다음 글에서…`)이 끼어들어, 원문에 있는 문장도 통째로는 안 걸린다.
             // 그렇다고 대조를 포기하면 게이트의 존재 이유가 사라진다 — 그래서 **양 끝 다섯 낱말**이

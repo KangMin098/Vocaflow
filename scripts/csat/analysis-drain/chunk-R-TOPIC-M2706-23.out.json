@@ -1,0 +1,1541 @@
+{
+ "chunk": 1,
+ "type_id": "R-TOPIC",
+ "type_name": "주제",
+ "analyses": [
+  {
+   "item_id": "M2706#23",
+   "measured_ability": "첫 문장이 내건 상관 진술(크기와 시간 척도)이 뒤에서 소형/대형 두 집단으로 갈려 각각 수명과 행동 전략으로 전개되는 것을 하나의 축으로 되묶는 능력. 대비의 한쪽만 읽고 끝내면 축이 크기가 아니라 행동 유형으로 잘못 잡힌다",
+   "design_intent": "지문 안에 소재어가 넷(시간·크기·수명·선천적 행동) 흩어져 있고 선지가 그 넷을 하나씩 머리에 얹어 놓았다. 출제자는 그중 어느 것이 독립변수이고 어느 것이 결과인지를 가려낼 수 있는가를 물었다 — 결과항(행동 패턴·의사결정)을 주어 자리에 올린 선지가 셋이다",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     8
+    ],
+    "quote": "Being longer-lived puts a greater premium on learning and memory, and less on automatic preprogrammed behaviors.",
+    "reasoning": "첫 문장 A telescoping of time correlates with size 가 독립변수를 크기로 못박고, 이 문장은 그 크기 차이가 수명(longer-lived)과 능력 배분(learning and memory 대 preprogrammed behaviors)이라는 두 결과로 나타남을 한 문장 안에 같이 담는다. 곧 크기 → (수명, 생존 기술) 이라는 세 항의 관계가 여기서 확정되고, 세 항을 모두 갖춘 선지는 하나뿐이다"
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "첫 문장의 telescoping of time 과 이어지는 시간 관련 서술(short lifetime, longer-lived)을 보고 time perceptions 를 지문 낱말의 요약으로 받아들인다. survival 도 마지막 문단의 인상과 겹친다",
+     "how_to_reject": "지문은 동물이 시간을 어떻게 지각하는지를 한 번도 말하지 않는다. 시간이 걸린 자리는 3~4번째 문장의 반응 속도와 수명(a short lifetime offers little time for learning from experience)이며, 이는 지각이 아니라 실제 시간 길이다"
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "trap": "",
+     "why_tempting": "",
+     "how_to_reject": ""
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "energy reserves 라는 낱말이 지문에 그대로 있고, 마지막 문장의 environment 와 짝지어 환경 적응 이야기로 읽힌다",
+     "how_to_reject": "3번째 문장은 minimal energy reserves offer few choices — 에너지 비축이 적어서 선택지가 줄어든다는 제약 서술이다. 선지는 minimal 이라는 부호어를 떼고 benefits 로 뒤집었다"
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "decision making 과 크기의 연결이 3번째 문장에 실제로 있어 축(크기)이 맞다고 느껴진다",
+     "how_to_reject": "의사결정은 3번째 문장 한 곳에서만 다뤄지고, 6번째 문장 이후는 반사 속도·학습·기억·수명으로 옮겨 간다. 마지막 두 문장은 의사결정을 아예 언급하지 않으므로 글 전체를 덮지 못한다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "5번째 문장 being short-lived puts a premium on the effectiveness of preprogrammed behavior patterns 가 실제 진술이라 소형 동물 절반에는 그대로 들어맞는다",
+     "how_to_reject": "8번째 문장이 대형 동물에서는 preprogrammed behaviors 의 비중이 less 라고 못박는다. 선천적 행동은 크기에 따라 갈리는 결과항이지 글이 설명하려는 원인이 아니다"
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 5개를 먼저 읽고 of 앞 머리 명사(chances / significance / benefits / limits / influences)와 of 뒤 소재를 두 칸으로 나눠 적는다",
+     "on_fail": "머리 명사가 안 잡히면 각 선지에서 반복되는 낱말(animal, size, behavior)을 지우고 남는 말만 본다"
+    },
+    {
+     "step": "지문 첫 문장이 A correlates with B 처럼 두 항을 잇는 짧은 일반 진술이면 그 문장에 밑줄을 긋고 A(원인 자리)를 동그라미 친다",
+     "on_fail": "첫 문장이 길거나 사례면 As a result / in comparison 이 붙은 문장을 찾아 밑줄을 옮긴다"
+    },
+    {
+     "step": "in comparison, Large animals 처럼 집단이 바뀌는 표지를 찾아 지문을 두 덩이로 자르고, 두 덩이에 공통으로 나오는 말이 무엇인지 한 낱말로 적는다",
+     "on_fail": "덩이가 안 갈리면 short-lived 와 longer-lived 처럼 짝을 이루는 형용사를 찾아 그 앞뒤로 자른다"
+    },
+    {
+     "step": "2단계에서 동그라미 친 원인 항이 머리 명사 뒤에 오는 선지만 남기고, 결과 쪽 낱말(behavior patterns, decision making)이 주어 자리에 온 선지를 지운다",
+     "on_fail": "남는 선지가 둘 이상이면 두 덩이 중 한쪽에만 해당하는 선지를 먼저 지운다"
+    },
+    {
+     "step": "마지막으로 남은 선지의 낱말이 지문에서 어떤 부호어와 붙어 있었는지 확인한다 — minimal, few, less, little 이 붙어 있던 낱말을 선지가 benefits 나 influences 로 바꿔 놓았으면 지운다",
+     "on_fail": "부호어가 안 보이면 그 낱말이 나온 문장을 찾아 문장 끝까지 읽고 긍정인지 제약인지만 표시한다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.58,
+    "drivers": [
+     "telescoping of time · puts a premium on 이라는 비유 표현 둘이 핵심 자리에 있다",
+     "소재어가 넷(시간·크기·수명·선천적 행동)이라 선지가 모두 지문 낱말을 쓴다",
+     "결과항을 주어로 올린 선지가 셋이라 낱말 겹침으로는 안 갈린다"
+    ]
+   },
+   "required_vocab": [
+    "telescoping",
+    "premium",
+    "preprogrammed",
+    "reflexes",
+    "reserves"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초안은 인용을 1번째 문장과 8번째 문장을 이어 붙인 형태로 적었다 — 지문에 그렇게 붙어 있는 문자열이 없으므로 8번째 문장 하나로 바꾸고 1번째 문장은 reasoning 에서 지목하도록 고쳤다",
+      "주제 유형 정의(선지가 of 구 명사구)와 서술이 어긋나지 않는다"
+     ],
+     "checked": [
+      "quote 를 corpus.json 의 passage 와 문자열 대조",
+      "sentence_index 가 실제 문장 번호와 맞는지 문장 분해 후 확인",
+      "R-TOPIC 유형 정의 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안에서 ③과 ④에 모두 어휘 함정을 달았다 — ③은 minimal 이라는 부호어를 떼고 뒤집은 것이므로 반대 진술로, ④는 한 문장 소재를 주제로 올린 것이므로 범위 과소로 갈랐다",
+      "네 오답의 라벨이 어휘 함정·반대 진술·범위 과소·부분 사실 넷으로 서로 다르다",
+      "how_to_reject 넷이 모두 문장 위치(3번째·5번째·8번째 문장, 마지막 두 문장)를 지목한다"
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 중복 검사",
+      "why_tempting 이 선지 텍스트의 실제 낱말(time perceptions, energy reserves, decision making, predetermined behavior)에 근거하는지 대조",
+      "how_to_reject 에 지문 위치가 있는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 1~2단계는 지문을 안 본 상태에서 실행된다(선지 읽기 · 첫 문장 형태 판별)",
+      "5단계 부호어 점검은 이 유형 오답의 최다 축이라 마지막에 두는 것이 맞다"
+     ],
+     "checked": [
+      "절차 5단계를 90초 안에 실행 가능한지 단계별 시간 배분(선지 20 · 지문 45 · 소거 25)",
+      "금지 표현 목록과 step 문자열 대조",
+      "required_vocab 5개가 정답 확정에 실제로 쓰이는지 확인 — premium 과 reserves 는 각각 정답 근거 문장과 오답 ③ 배제에 필요하다"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2026#23",
+   "measured_ability": "첫 문장이 예외 조건을 인정하는 양보이고 두 번째 문장의 though 가 그것을 뒤집는 배치에서, 필자가 붙드는 쪽이 speed 가 아니라 frequency 임을 확정하는 능력",
+   "design_intent": "speed 와 frequency 두 낱말이 거의 같은 횟수로 반복되게 지문을 짜 놓고, 마지막 문장에서만 둘의 우열을 못박았다. 낱말 빈도로 주제를 고르는 학습자는 speed 쪽 선지로, 마지막 절의 소재(transit map)를 무겁게 본 학습자는 지도 쪽 선지로 갈리게 설계돼 있다",
+   "answer_locus": {
+    "sentence_index": [
+     2,
+     9
+    ],
+    "quote": "speed is worthless without frequency, so a transit map that screams about speed and whispers about frequency may simply be planting confusion",
+    "reasoning": "worthless without 이 speed 를 frequency 에 종속시켜 우열을 한 방향으로 못박는다. 앞의 In all other contexts, though, it seems to be a common motorist's error 가 speed 우선을 오류로 이미 규정했으므로, 이 문장은 그 오류의 반대편(빈도 중시)을 글의 명제로 확정한다"
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "정답의 핵심어 frequency 가 그대로 들어 있어 낱말만 대조하면 가장 가까워 보인다",
+     "how_to_reject": "빈도를 조정했을 때의 결과를 말하는 문장이 지문에 없다. frequency 가 나오는 자리는 6번째 문장(it needs to be coming soon)과 마지막 문장뿐이고 둘 다 조정이 아니라 가치의 문제다"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "마지막 절에 transit map 이 실제로 나오고 planting confusion 이라는 부정 평가까지 붙어 있어 지도 설계가 논점처럼 보인다",
+     "how_to_reject": "지도는 마지막 문장의 so 뒤에 딸린 귀결 예시다. 3~7번째 문장은 지도를 한 번도 언급하지 않고 도로와 대중교통의 이용 방식만 비교한다"
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "trap": "",
+     "why_tempting": "",
+     "how_to_reject": ""
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "speed 가 지문에서 가장 자주 반복되고 a faster service 라는 표현도 있어 고속화가 소재로 보인다",
+     "how_to_reject": "2번째 문장이 속도 우선을 a common motorist's error 라 부르고 8번째 문장이 waiting time will wipe out any time savings from a faster service 라고 못박는다. 고속화의 효과는 지문이 부정하는 쪽이다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "speed 와 frequency 를 둘 다 담아 어느 쪽도 놓치지 않은 것처럼 보이고, commute services 도 1번째 문장에 있다",
+     "how_to_reject": "지문에 방법·수단을 제시하는 문장이 하나도 없다(명령문·should·by -ing 형 처방 없음). commute services 는 1번째 문장에서 speed 우선이 통하는 예외 사례로만 나온다"
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지에서 되풀이되는 두 낱말(speed, frequency)에 각각 다른 표시를 하고, 두 낱말 중 하나만 든 선지와 둘 다 든 선지를 나눠 둔다",
+     "on_fail": "되풀이 낱말이 안 보이면 각 선지의 of 뒤 명사구만 옮겨 적는다"
+    },
+    {
+     "step": "지문에서 though, however, but 이 든 문장을 찾아 그 문장에 밑줄을 긋는다. 밑줄 문장에 error, mistake, myth 가 있으면 그 앞 문장은 필자 주장이 아니라 뒤집히는 대상이므로 접어 둔다",
+     "on_fail": "역접 표지가 없으면 Unless / Otherwise 로 시작하는 문장을 찾아 밑줄을 옮긴다"
+    },
+    {
+     "step": "마지막 문장에서 A is worthless without B 나 not A but B 같은 우열 구문을 찾아 이긴 쪽 낱말에 동그라미를 친다",
+     "on_fail": "우열 구문이 없으면 so 나 therefore 뒤 절만 읽고 거기 주어가 된 낱말을 이긴 쪽으로 삼는다"
+    },
+    {
+     "step": "동그라미 친 낱말을 머리 자리에 올린 선지만 남긴다. 진 쪽 낱말(speed)을 주어로 올린 선지와 둘을 나란히 놓은 선지를 지운다",
+     "on_fail": "남는 것이 둘이면 각 선지의 머리 명사가 요구하는 서술(방법·결과·설계)이 지문에 문장으로 있는지 하나씩 묻는다"
+    },
+    {
+     "step": "ways / methods / steps 로 시작하는 선지는 지문에 명령문이나 처방 문장이 있는지만 확인하고, 없으면 지운다",
+     "on_fail": "처방 문장 여부가 애매하면 조동사 should · must · need to 가 사람에게 붙어 쓰인 문장을 찾는다"
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.75,
+    "drivers": [
+     "speed 와 frequency 가 각각 여섯 번 이상 반복돼 낱말 빈도가 단서가 되지 않는다",
+     "우열 판정이 마지막 문장에만 있다",
+     "첫 문장이 예외를 인정하는 양보라 앞부분만 읽으면 반대로 잡힌다"
+    ]
+   },
+   "required_vocab": [
+    "frequency",
+    "transit",
+    "span",
+    "worthless",
+    "wipe"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용이 마지막 문장의 중간부터 시작하지만 지문에 그대로 있는 연속 문자열이다",
+      "이 문항의 2번째 문장 a common motorist's error 는 제목 유형 청크가 보고한 첫 문장 반박 대상 표지(error/assumption)와 같은 종류다 — type_report 에 반영했다"
+     ],
+     "checked": [
+      "quote 를 corpus passage 와 문자열 대조",
+      "answer_locus 가 정답표 3번과 일치하는 근거인지 확인",
+      "유형 정의 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안은 ①과 ⑤에 모두 무관을 달았다 — ①은 정답의 핵심어 frequency 를 그대로 쓰고 술어만 바꾼 것이라 어휘 함정으로 고쳤고, 방법 제시 문장이 아예 없는 ⑤만 무관으로 남겼다",
+      "네 오답 라벨이 어휘 함정·범위 과소·반대 진술·무관 넷으로 갈린다"
+     ],
+     "checked": [
+      "trap 라벨 중복 검사",
+      "why_tempting 이 선지 텍스트(adjusting, accurate transit map, high-speed, methods)에 근거하는지 대조",
+      "how_to_reject 의 위치 표기 유무"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계 우열 구문 찾기는 지문을 안 본 학생도 실행할 수 있는 형태 판별이다",
+      "80초 안에 다섯 단계가 들어간다 — 선지 15초, 역접 찾기 20초, 마지막 문장 15초, 소거 30초"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "단계별 시간 합산",
+      "required_vocab 이 정답 확정에 쓰이는지 — worthless 와 wipe 는 우열 판정과 ④ 배제에 각각 필요하다"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2609#23",
+   "measured_ability": "두 화자 집단(전기 작가와 자기 서사 화자)을 놓고 같은 항목(개인적 기억)이 각 집단에서 어떤 지위를 갖는지 대조로 읽어, 대조의 축이 자료 종류가 아니라 개인적 기억의 지위임을 확정하는 능력",
+   "design_intent": "지문에 자료 목록이 두 번(historical documents, interviews, family archives / letters, journals, photographs, conversations) 나열돼 있어 목록의 항목 하나를 주제로 올리도록 유인한다. 출제자가 가른 것은 나열된 항목이 아니라 by contrast 앞뒤로 지위가 뒤집히는 한 항목을 집어낼 수 있는가다",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     4
+    ],
+    "quote": "For life narrators, by contrast, personal memories are the primary archival source.",
+    "reasoning": "by contrast 가 바로 앞 문장(Relatively few biographers use their personal memories ... as reliable evidence)과 이 문장을 하나의 대조쌍으로 묶는다. 같은 항목인 personal memories 가 한쪽에서는 거의 안 쓰이고 다른 쪽에서는 일차 자료가 되므로, 두 집단을 가르는 변수가 개인적 기억임이 이 문장에서 확정된다"
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "trap": "",
+     "why_tempting": "",
+     "how_to_reject": ""
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "family archives 가 2번째 문장 목록에 그대로 있고 evidence 라는 낱말도 지문의 핵심어라 근거가 있어 보인다",
+     "how_to_reject": "가족 기록은 2번째 문장 목록의 세 항목 중 하나로 한 번 나오고 다시 언급되지 않는다. 4번째 문장 이후는 전부 자기 서사 화자 쪽을 다루므로 지문의 절반을 덮지 못한다"
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "7번째 문장의 the usefulness of such evidence for their stories 를 자료 종류가 서사의 질을 좌우한다는 말로 옮겨 읽으면 그럴듯하다",
+     "how_to_reject": "그 문장은 유용성이 lies in the ways in which they employ that evidence 라고 이어져, 자료의 종류가 아니라 화자가 그것을 쓰는 방식에 달렸다고 말한다. 서사의 좋고 나쁨을 평가하는 문장은 지문에 없다"
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "양쪽 모두 letters, journals, photographs 같은 자료를 쓴다고 적혀 있어 공통점이 있는 것처럼 보인다",
+     "how_to_reject": "1번째 문장이 engage different kinds of evidence 라고 못박고 4번째 문장에 by contrast 가 붙어 있다. 글의 골격은 유사성이 아니라 차이다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "life narrators 가 지문의 한쪽 주체로 반복돼 소재어가 맞아 보인다",
+     "how_to_reject": "성공이나 실패, 조건을 말하는 문장이 지문에 없다. 마지막 문장은 자기 서사에서 기억 행위가 주장·정당화 같은 수사적 행위와 겹친다는 기술이지 성공 조건이 아니다"
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 5개에서 of 앞 머리 명사(role / advantages / influence / similarity / conditions)를 적고, 그중 대조를 전제하는 말(different types, similarity)에 표시한다",
+     "on_fail": "머리 명사가 겹치면 of 뒤 소재만 적어 둔다"
+    },
+    {
+     "step": "지문에서 by contrast, on the other hand, whereas, unlike 를 찾아 그 문장에 밑줄을 긋고, 밑줄 문장과 바로 앞 문장을 한 쌍으로 묶는다",
+     "on_fail": "대조 표지가 없으면 첫 문장에서 different, two kinds, both 같은 말을 찾아 대조 항 둘을 뽑는다"
+    },
+    {
+     "step": "묶은 두 문장에 공통으로 들어 있는 명사 하나를 찾아 동그라미 친다. 그 명사가 한쪽에서는 부정어(few, rarely, unless)와, 다른 쪽에서는 긍정 서술(primary, key)과 붙어 있는지 확인한다",
+     "on_fail": "공통 명사가 둘 이상이면 각 문장의 주어가 아닌 목적어 쪽에서 찾는다"
+    },
+    {
+     "step": "동그라미 친 명사를 머리 자리에 올리고 대조를 함께 담은 선지를 남긴다. 목록 안의 항목 하나만 든 선지는 지운다",
+     "on_fail": "남는 것이 없으면 3단계의 명사를 바꿔 말한 표현(memories = remembering)이 든 선지를 찾는다"
+    },
+    {
+     "step": "similarity, same, common 처럼 대조를 지우는 낱말이 든 선지와, 지문에 평가어(quality, success)가 없는데 평가를 요구하는 선지를 지운다",
+     "on_fail": "평가어 유무가 애매하면 지문에서 good, better, effective, successful 을 눈으로 훑어 없으면 지운다"
+    }
+   ],
+   "time_budget_sec": 85,
+   "difficulty": {
+    "predicted": 0.72,
+    "drivers": [
+     "자료 목록이 두 번 나와 목록 항목이 주제로 보이기 쉽다",
+     "life narrator 라는 개념어가 생소하다",
+     "대조 표지 by contrast 가 문장 가운데 삽입돼 눈에 덜 띈다"
+    ]
+   },
+   "required_vocab": [
+    "narrator",
+    "archival",
+    "recourse",
+    "supplement",
+    "validity"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용이 지문 4번째 문장과 문자 그대로 일치한다",
+      "이 문항은 대조형 주제문이 글 가운데(4/9 지점)에 놓인 사례로 answer_locus_pattern 에 반영했다"
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "sentence_index 를 문장 분해로 확인",
+      "유형 정의 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안에서 ③을 무관으로 달았다가 어휘 함정으로 고쳤다 — usefulness 라는 지문 낱말을 quality 로 바꿔 옮긴 것이 유인의 정체이므로 무관보다 정확하다",
+      "라벨 넷이 범위 과소·어휘 함정·반대 진술·무관으로 갈린다"
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "why_tempting 이 선지 텍스트(family histories, quality, similarity, success)에 근거하는지",
+      "how_to_reject 의 문장 번호 표기"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계의 부호어 확인(few / primary)이 이 문항의 갈림길이라 절차의 중심에 놓였다",
+      "85초 배분이 맞는다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "지문 미독 상태 실행 가능성 — 1~2단계는 선지와 표지 찾기뿐이다",
+      "required_vocab 이 정답 확정에 필요한지 — archival 은 정답 근거 문장, validity 는 오답 ③ 배제에 쓰인다"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2606#23",
+   "measured_ability": "필자가 어려움 셋을 길게 인정한 뒤 But 한 번으로 방향을 되돌리는 배치에서, 인정 구간이 아니라 되돌린 뒤 문장이 명제임을 확정하는 능력",
+   "design_intent": "필기의 어려움을 세 문장에 걸쳐 늘어놓고 주장은 뒤에서 두 문장에만 두었다. 분량으로 무게를 재는 학습자가 어려움 쪽이나 다른 학습 활동 쪽 선지로 가도록 짜여 있다",
+   "answer_locus": {
+    "sentence_index": [
+     9,
+     10
+    ],
+    "quote": "But note taking in discussions is not only manageable, it is also important.",
+    "reasoning": "앞 세 문장(Admittedly / Also / And if you are)이 모두 필기의 난점이고 이 문장의 But 이 그것을 한 번에 뒤집는다. not only A, it is also B 구문이 필자의 판정을 manageable 과 important 두 낱말로 명시하며, 바로 뒤 문장이 그 중요성을 keep you active and alert 로 풀어 첫 문장의 active participant 와 이어 준다"
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "마지막 문장에 impose some organization on the discussion 이 있고 6번째 문장이 토론은 disorganized 라고 해, 토론 절차를 정비하자는 말로 읽힌다",
+     "how_to_reject": "마지막 문장에서 조직을 부여하는 주체는 it(=note taking)이고 그 대상은 필기하는 학생 자신의 정리다. 토론 운영 방식을 바꾸자는 제안은 지문에 없다"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "마지막 문장 it can prepare you to speak 의 speak 를 public speaking 으로 옮겨 읽으면 필기와 말하기의 연결이 만들어진다",
+     "how_to_reject": "그 speak 는 토론에서 자기 의견을 말하는 것으로, 8번째 문장의 formulate what you want to say 와 같은 자리다. 청중 앞 발표를 다루는 문장은 없고, 기술 향상 방법을 제시하는 문장도 없다"
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "trap": "",
+     "why_tempting": "",
+     "how_to_reject": ""
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "필기는 나중에 복습하려고 한다는 통념이 강해, 필기의 중요성을 말한 글이면 복습 이야기가 있으리라 넘겨짚게 된다",
+     "how_to_reject": "지문이 든 필기의 효용 셋은 마지막 문장에 다 있다 — active and alert, impose some organization, prepare you to speak. 셋 다 토론이 진행되는 동안의 일이고 수업 후를 말하는 문장은 없다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "4번째 문장 Writing is an invaluable tool 때문에 글쓰기가 소재로 보인다",
+     "how_to_reject": "그 문장의 writing 은 앞 문장의 discover and express your opinions 를 이루는 수단으로 한 번 쓰였고, 이어지는 5번째 문장부터는 pens and pencils, note taking 으로 옮겨 간다. brainstorming 이나 writing tasks 는 지문에 없다"
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 5개의 of / for 뒤 목적어를 적고, 다섯 중 몇 개가 같은 소재(note taking)를 공유하는지 센다",
+     "on_fail": "공유 소재가 안 보이면 각 선지의 동명사(standardize, improve, summarizing, brainstorming)만 적어 둔다"
+    },
+    {
+     "step": "지문에서 Admittedly, Unfortunately, it is difficult 처럼 난점을 인정하는 말이 이어지는 구간을 찾아 괄호로 묶는다",
+     "on_fail": "인정 표현이 안 보이면 부정어(not easy, don't know, difficult)가 든 문장을 연달아 묶는다"
+    },
+    {
+     "step": "괄호 뒤 첫 But 문장에 밑줄을 긋고, 그 문장의 주어와 필자가 붙인 평가어 두 개를 적는다",
+     "on_fail": "But 이 없으면 괄호 다음 문장 중 평가어(important, useful, necessary)가 든 문장에 밑줄을 긋는다"
+    },
+    {
+     "step": "밑줄 문장의 주어가 머리 명사 뒤에 오는 선지만 남긴다. 괄호 안에서 온 낱말만 든 선지는 지운다",
+     "on_fail": "남는 것이 둘이면 밑줄 다음 문장에 나열된 효용 셋과 각 선지를 하나씩 대 본다"
+    },
+    {
+     "step": "남은 선지의 시점 표현(after class, for public speaking)이 지문의 시점(토론 중)과 같은지 확인하고 다르면 지운다",
+     "on_fail": "시점이 안 적힌 선지끼리 남으면 그 선지가 요구하는 낱말이 지문에 있는지 하나씩 눈으로 찾는다"
+    }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "명제 문장이 But 으로 명시되고 바로 뒤에 근거 셋이 나열된다",
+     "선지 다섯 중 셋이 필기 이외의 활동이라 소재 대조만으로 걸러진다",
+     "추상 명사가 적고 문장이 짧다"
+    ]
+   },
+   "required_vocab": [
+    "manageable",
+    "invaluable",
+    "alert",
+    "impose",
+    "formulate"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용이 9번째 문장과 문자 그대로 일치한다",
+      "난점 인정 구간이 명제보다 길다는 설계 특징을 design_intent 에 적었다 — 유형 일반론이 아니라 이 문항 고유의 배치다"
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "문장 분해로 sentence_index 확인",
+      "design_intent 가 유형 일반론에 그치지 않는지 자기 검토"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안은 ①·②·⑤ 셋에 모두 어휘 함정을 달았다 — 라벨이 정보를 잃으므로 ①은 조직화의 주체가 바뀐 것이라 주체 역전, ⑤는 brainstorming 이 지문에 아예 없어 무관으로 갈랐다",
+      "결과적으로 주체 역전·어휘 함정·지문 밖 상식·무관 넷이 서로 다르다"
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "선지 텍스트 낱말과 why_tempting 대조",
+      "how_to_reject 넷이 각각 다른 문장(마지막·8번째·4번째·6번째)을 지목하는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계의 괄호 묶기가 이 문항의 함정(난점 구간이 길다)을 그대로 겨냥한다",
+      "75초는 이 유형 평균보다 짧게 잡았으나 명제가 명시적이라 가능하다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "단계별 시간 배분(선지 15 · 괄호 25 · 소거 35)",
+      "required_vocab 5개가 지문에 실재하는지 문자열 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2025#23",
+   "measured_ability": "기계 생산량이라는 예시를 통해 무엇이 무엇으로 바뀌었는지를 추적해, 변화의 주체(산업화)와 변화한 대상(노동 시간의 위상)을 한 쌍으로 묶는 능력",
+   "design_intent": "widget 과 machine 이 지문에서 가장 자주 반복되도록 예시를 길게 깔아 놓고, 실제 명제는 첫 문장과 마지막 문장에만 두었다. 반복 낱말로 소재를 잡으면 기계-인간 관계 쪽 선지로 가게 되어 있다",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     6
+    ],
+    "quote": "Labor, previously guided by harvest cycles, became clock-oriented, and society started to reorganize around new principles of productivity.",
+    "reasoning": "previously A, became B 구문이 변화의 앞뒤 상태를 한 문장에 담아 시간 기준의 이동(수확 주기 → 시계)을 명시한다. 첫 문장 The arrival of the Industrial Age changed the relationship among time, labor, and capital 이 이 변화의 주체를 산업화로 지정했으므로, 산업화가 일으킨 노동 시간 기준의 전환이 글의 명제로 확정된다"
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "4번째 문장의 eight-hour shifts 가 절차의 표준화처럼 보이고 labor 는 첫 문장의 핵심어라 두 낱말이 다 있는 것처럼 느껴진다",
+     "how_to_reject": "labor market 을 다루는 문장이 지문에 없다. 4번째 문장의 교대제는 기계를 계속 돌리기 위한 배치(so that there will always be people on hand)로 제시되지 표준화의 사례가 아니다"
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "trap": "",
+     "why_tempting": "",
+     "how_to_reject": ""
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "machine 이 3~4번째 문장에서 네 번 반복되고 people on hand 도 있어 기계와 사람의 관계가 소재로 보인다. 첫 문장의 relationship 이라는 낱말이 그대로 쓰였다",
+     "how_to_reject": "첫 문장이 지정한 관계항은 time, labor, and capital 셋이고 machine 은 그 안에 없다. 기계는 3번째 문장 이하에서 시간당 생산량을 보여 주는 예시로만 쓰인다"
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "Industrialization raised the potential value of every single work hour 가 그대로 있어 시간의 가치라는 말이 지문 표현으로 보인다",
+     "how_to_reject": "지문에는 방법을 권하는 문장이 없다(명령문·should·by -ing 형 처방 없음). 5번째 문장은 산업화가 이미 일으킨 결과의 기술이지 효율을 높이는 방법의 제시가 아니다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "24시간 가동과 8시간 교대라는 서술에 장시간 노동은 해롭다는 통념을 얹으면 문제 제기 글로 읽힌다",
+     "how_to_reject": "지문에 부정 평가어가 하나도 없다 — 3~5번째 문장은 more widgets, more money 로 이어지고 마지막 문장도 reorganize 라는 중립어로 끝난다. 노동자의 피해를 말하는 문장은 없다"
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 5개에서 of / on 뒤 소재를 적고, 다섯 중 몇 개가 industrialization 또는 Industrial Age 를 담고 있는지 표시한다",
+     "on_fail": "소재가 겹치면 각 선지의 머리 명사(effects / shift / influence / ways / problems)만 적는다"
+    },
+    {
+     "step": "지문 첫 문장에 A changed B 나 A brought about B 형태가 있으면 밑줄을 긋고, B 자리에 나열된 명사를 모두 적어 둔다",
+     "on_fail": "첫 문장이 그런 형태가 아니면 As such 나 Thus 로 시작하는 문장을 찾아 밑줄을 옮긴다"
+    },
+    {
+     "step": "지문 마지막 문장에서 previously A, became B 나 from A to B 같은 전후 대비 표현을 찾아 A 와 B 를 각각 적는다",
+     "on_fail": "대비 표현이 없으면 마지막 문장의 동사가 과거 시작(started to, came to)인지 확인하고 그 목적어를 적는다"
+    },
+    {
+     "step": "2단계에서 적은 관계항 목록에 없는 낱말(machine, laborers, market)을 소재로 삼은 선지를 지운다",
+     "on_fail": "목록이 짧아 지울 것이 없으면 3단계의 A·B 두 낱말을 다 담은 선지를 먼저 남긴다"
+    },
+    {
+     "step": "남은 선지 중 ways / how to 형 처방과 problems 형 부정 평가는 지문에 그에 대응하는 문장(명령문 · 부정 평가어)이 있는지 확인하고 없으면 지운다",
+     "on_fail": "확인이 애매하면 지문에서 bad, harmful, suffer, excessive 같은 낱말을 눈으로 훑어 없으면 지운다"
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.8,
+    "drivers": [
+     "명제가 첫 문장과 마지막 문장에 두 번 놓인다",
+     "widget 이라는 낯선 낱말이 있으나 뜻을 몰라도 예시임이 드러난다",
+     "오답 넷이 지문에 없는 평가·처방·시장을 요구해 대조로 걸러진다"
+    ]
+   },
+   "required_vocab": [
+    "widgets",
+    "shifts",
+    "wages",
+    "harvest",
+    "productivity"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용이 마지막 문장과 문자 그대로 일치한다",
+      "명제가 첫 문장과 마지막 문장 양끝에 놓인 형태로, 이 청크에서 M2706#23 과 같은 배치다 — answer_locus_pattern 에 함께 셌다"
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "문장 분해로 sentence_index 확인",
+      "answer_locus 가 정답표 2번과 일치하는지"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안에서 ①과 ③에 모두 어휘 함정을 달았다 — ①은 labor market 이라는 대응 서술이 지문에 아예 없으므로 무관, ③은 machine 이라는 지문 낱말을 관계항으로 승격시킨 것이므로 어휘 함정으로 갈랐다",
+      "무관·어휘 함정·범위 과대·지문 밖 상식 넷이 서로 다르다"
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "선지 텍스트(labor markets, machine-human, efficient ways, excessive work hours)와 why_tempting 대조",
+      "how_to_reject 의 문장 위치 표기"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계의 A changed B 형태 찾기는 지문을 안 본 상태에서 첫 문장만 보고 판정 가능하다",
+      "5단계는 오답 둘을 한꺼번에 지워 시간을 아낀다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "80초 배분 확인",
+      "required_vocab 이 정답 확정에 필요한지 — harvest 와 productivity 는 정답 근거 문장의 전후 대비를 읽는 데 필요하다"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2509#23",
+   "body_recovered": true,
+   "measured_ability": "일식과 낙하라는 두 현상을 놓고 설명의 방향(평범한 것에서 기이한 것으로)을 확정하는 능력. 두 현상이 같은 원리로 설명된다는 서술을 방향 없이 읽으면 반대로 잡힌다",
+   "design_intent": "놀라움을 주는 현상(일식)을 앞에 길게 두고 설명의 출발점(낙하)은 뒤에 두었다. 인상에 남는 쪽이 주어가 되도록 선지를 배치해, 설명의 출발점과 도착점을 뒤바꾼 선지가 정답처럼 보이게 만들었다",
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     5
+    ],
+    "quote": "For the physicist, understanding the ordinary, the habitual, and the frequent thus allows us to account for the frightening and the singular.",
+    "reasoning": "understanding A allows us to account for B 가 설명의 방향을 A(평범·습관적·빈번한 것) → B(무섭고 특이한 것)로 한 방향으로 고정한다. 이어지는 마지막 문장이 그 A 를 Why do things fall? 이라는 물음으로 구체화하므로, 평범한 것에 관해 묻는 일이 기이한 것의 이해로 이어진다는 명제가 두 문장에서 같은 방향으로 확정된다"
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "2번째 문장에 Many cultures invented gods to explain these eclipses 가 실제로 있어 신화적 설명이 널리 있었다는 진술 자체는 참이다",
+     "how_to_reject": "그 문장은 but very few imagined a god of falling bodies 로 이어져, 신화가 아니라 사람들이 무엇에 놀라는가를 보이려는 사례다. 3번째 문장의 But 이후는 신화를 더 다루지 않는다"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "Newtonian law 와 eclipse 가 같은 문장 안에 있어 둘을 잇는 선지가 지문 요약처럼 보인다",
+     "how_to_reject": "3번째 문장이 일식의 이유가 밤낮 교대와 ultimately the same 이며 그것이 based on the Newtonian law of attraction 이라고 말한다. 뉴턴 법칙은 설명하는 쪽이지 한계를 드러내는 쪽이 아니다"
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "신을 만들어 낸 문화와 물리학자의 설명이 나란히 나와, 과학이 현실 인식을 바꾼다는 큰 이야기로 읽힌다",
+     "how_to_reject": "지문은 설명의 절차(무엇을 먼저 물어야 하는가)만 다룬다. 4번째 문장의 주어는 understanding the ordinary 이고 목적은 account for the frightening 이지, 사람들의 현실 인식이 어떻게 달라지는가를 말하는 문장은 없다"
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": "",
+     "why_tempting": "",
+     "how_to_reject": ""
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "unusual phenomena 와 일반화라는 두 요소가 모두 지문에 있어 낱말 대조로는 걸리지 않는다",
+     "how_to_reject": "4번째 문장은 평범한 것의 이해가 특이한 것의 설명을 가능하게 한다고 말한다. 이 선지는 출발점과 도착점을 맞바꿔 특이한 현상에서 일반 결론을 끌어내는 어려움으로 만들었고, 그 어려움을 말하는 문장은 지문에 없다"
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 5개에서 두 항이 어느 순서로 놓였는지 표시한다 — A over B, A in explaining B, A to understand B 처럼 방향이 든 선지에는 화살표를 그려 둔다",
+     "on_fail": "방향이 없는 선지에는 소재 두 낱말만 적어 둔다"
+    },
+    {
+     "step": "지문에서 understanding A allows us to B, A is necessary to B, in order to 같은 목적 구문을 찾아 밑줄을 긋는다",
+     "on_fail": "목적 구문이 없으면 thus, as such 뒤 문장에 밑줄을 긋는다"
+    },
+    {
+     "step": "밑줄 문장에서 수단 자리(앞)와 목적 자리(뒤)에 오는 낱말을 각각 적고, 1단계에 그린 화살표 방향과 맞는 선지만 남긴다",
+     "on_fail": "수단과 목적이 안 갈리면 allows, in order to, necessary to 바로 앞뒤로 문장을 자른다"
+    },
+    {
+     "step": "남은 선지에서 지문이 설명해 준다고 한 것(뉴턴 법칙)에 limitations, failure, problem 을 붙인 선지를 지운다",
+     "on_fail": "부정어가 없으면 각 선지의 소재가 밑줄 문장에 나온 낱말인지 확인한다"
+    },
+    {
+     "step": "도입부 사례 구간(신·문화·놀람)에서만 낱말을 따온 선지를 지운다. 사례 구간은 But 이 나오기 전까지다",
+     "on_fail": "But 이 여러 번이면 처음 But 앞까지를 사례 구간으로 삼는다"
+    }
+   ],
+   "time_budget_sec": 105,
+   "difficulty": {
+    "predicted": 0.55,
+    "drivers": [
+     "3점 문항이고 명제가 방향(수단→목적)으로만 갈린다",
+     "선지 다섯 중 넷이 지문 소재어를 담아 낱말 대조가 듣지 않는다",
+     "the ordinary, the habitual, the singular 처럼 형용사의 명사화가 이어져 주어 파악이 어렵다",
+     "OCR 잔여 문자(지학자, 선지 끝의 s·d, fromunusual)가 읽기를 방해한다"
+    ]
+   },
+   "required_vocab": [
+    "succession",
+    "accustomed",
+    "attraction",
+    "singular",
+    "habitual"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "파서 산출 지문에 OCR 잔여(지학자 ______, 선지 ①·② 끝의 s·d, ⑤의 fromunusual)가 있어 raw_block 의 회차 원문 창에서 좌우를 갈라 읽고 body_recovered 를 표시했다",
+      "인용은 잔여 문자가 없는 4번째 문장에서 뽑아 문자열 대조가 안전하다"
+     ],
+     "checked": [
+      "quote 를 corpus passage 와 문자열 대조",
+      "raw_block 원문 창과 파서 지문 대조로 결손 확인",
+      "유형 정의 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "⑤에 처음 반대 진술을 달았으나 ②와 겹쳤다 — ⑤는 부정이 아니라 수단과 목적의 순서를 맞바꾼 것이므로 인과 역전으로 고쳤다",
+      "부분 사실·반대 진술·범위 과대·인과 역전 넷이 서로 다르다"
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "선지 텍스트와 why_tempting 대조",
+      "how_to_reject 넷이 각각 2·3·4번째 문장을 지목하는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "시간을 85초로 잡았다가 105초로 늘렸다 — 3점 문항이고 선지에 방향 표시를 그리는 1단계가 다른 문항보다 손이 더 간다",
+      "1단계의 화살표 표시가 이 문항의 유일한 갈림길이라 절차 첫머리에 두었다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "단계별 시간 재배분(선지 25 · 목적 구문 찾기 30 · 대조 30 · 소거 20)",
+      "required_vocab 5개의 지문 실재 여부 문자열 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2506#23",
+   "body_recovered": true,
+   "measured_ability": "인용된 개념(the decline of the referentials)의 정의를 바로 뒤 문장의 사례와 맞물려 읽어, 글이 다루는 대상이 광고의 신뢰도나 산업 체계가 아니라 낱말의 의미임을 확정하는 능력",
+   "design_intent": "capitalism, industrial food system, ads, nature 처럼 큰 소재어를 한 문단에 몰아넣고, 그중 어느 것이 주어이고 어느 것이 배경인지는 인용 개념의 정의절(the tendency of words ... to become separated from meaningful associations) 한 곳에서만 갈리게 했다",
+   "answer_locus": {
+    "sentence_index": [
+     3,
+     4
+    ],
+    "quote": "Increasingly, food ads helped shoppers become accustomed to new definitions of words such as “fresh” and “natural,” definitions that could well be considered opposite of their traditional meanings.",
+    "reasoning": "앞 문장이 개념을 the tendency of words ... to become separated from meaningful associations 로 정의해 주어를 낱말로 지정했고, 이 문장이 그 정의를 fresh 와 natural 두 낱말의 새 정의로 구체화한다. 변한 것이 광고의 신뢰도나 식품 체계가 아니라 낱말의 의미라는 점이 두 문장에서 같은 방향으로 확정된다"
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "3번째 문장의 the decline of the referentials 에서 decline 을 그대로 가져왔고 natural foods 도 지문 소재라 요약처럼 보인다",
+     "how_to_reject": "3번째 문장에서 쇠퇴하는 것은 referentials, 곧 낱말과 의미의 연결이다. 광고가 믿을 만한가를 판정하는 문장은 없고, 마지막 문장의 pretense 도 광고의 신뢰도가 아니라 욕구 충족 방식을 가리킨다"
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "trap": "",
+     "why_tempting": "",
+     "how_to_reject": ""
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "capitalism 과 industrial food system 이 둘 다 지문에 있고 각각 3번째와 5번째 문장의 실제 표현이라 두 항을 이으면 맞아 보인다",
+     "how_to_reject": "지문에서 자본주의는 낱말이 의미와 분리되는 경향의 조건으로(under the influence of capitalism), 산업 식품 체계는 그 새 정의의 수혜자로(The new definitions better served the needs of) 나온다. 자본주의가 식품 체계에 미친 영향을 잇는 문장은 없고 가운데 항인 낱말이 빠진다"
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "food ads 와 shoppers 가 반복돼 광고가 소비자를 끌어들이는 이야기로 읽힌다",
+     "how_to_reject": "지문에 방법을 나열한 문장이 없다. 광고가 한 일은 4번째 문장의 helped shoppers become accustomed to new definitions 하나로만 서술되고 이는 방법의 나열이 아니라 결과의 기술이다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "meaningful associations 가 3번째 문장에 그대로 있어 낱말이 겹치고, 의미 연결이 끊겼다는 서술을 읽으면 그것이 필요하다는 주장으로 이어 붙이기 쉽다",
+     "how_to_reject": "지문은 끊김이 일어났다는 기술로 일관하고 필요성이나 당위를 말하는 표현(should, must, need to)이 없다. 마지막 문장도 although with pretense 라는 기술로 끝난다"
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 5개의 머리 명사(decline / changes / influence / ways / necessity)를 적고, 그중 당위를 요구하는 말(necessity)과 방법을 요구하는 말(ways)에 표시해 둔다",
+     "on_fail": "머리 명사가 겹치면 of 뒤 소재만 적는다"
+    },
+    {
+     "step": "지문에서 큰따옴표로 묶인 인용 개념이나 called 뒤 표현을 찾고, 그 뒤 or / that is 로 이어지는 정의절에 밑줄을 긋는다",
+     "on_fail": "인용 개념이 없으면 This is a case of 나 In other words 로 시작하는 문장에 밑줄을 긋는다"
+    },
+    {
+     "step": "정의절의 주어가 되는 명사 하나를 적는다. 그 명사가 다음 문장에서 어떤 사례로 바뀌어 나오는지 확인해 같은 명사에 두 번 표시한다",
+     "on_fail": "주어가 안 잡히면 정의절에서 the tendency of X to Y 처럼 of 뒤에 오는 명사를 X 로 잡는다"
+    },
+    {
+     "step": "표시한 명사를 소재로 삼은 선지만 남기고, 배경 명사(capitalism, industrial food system, shoppers)를 주어로 올린 선지를 지운다",
+     "on_fail": "남는 것이 없으면 그 명사를 바꿔 말한 표현(words = senses of words)이 든 선지를 찾는다"
+    },
+    {
+     "step": "1단계에서 표시해 둔 당위형·방법형 선지는 지문에 should · must · need to 또는 방법 나열 문장이 있는지 확인하고 없으면 지운다",
+     "on_fail": "확인이 애매하면 지문 마지막 문장의 동사가 기술형(과거형 서술)인지 권고형인지만 본다"
+    }
+   ],
+   "time_budget_sec": 95,
+   "difficulty": {
+    "predicted": 0.62,
+    "drivers": [
+     "인용된 사회학 개념의 정의절을 거쳐야 주어가 잡힌다",
+     "capitalism · industrial food system 처럼 큰 소재어가 배경 자리에 있어 주어로 오인되기 쉽다",
+     "파서 지문에 OCR 잔여(쇠약하게 하다 ______)가 끼어 마지막 문장의 경계가 흐리다"
+    ]
+   },
+   "required_vocab": [
+    "referentials",
+    "pretense",
+    "customary",
+    "attachment",
+    "accustomed"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "파서 지문에 OCR 잔여(쇠약하게 하다 ______)가 마지막 문장 안에 끼어 있어 raw_block 원문 창에서 문장을 복원하고 body_recovered 를 표시했다",
+      "인용은 잔여가 없는 4번째 문장에서 뽑았고 곡선 따옴표까지 포함해 지문과 일치한다"
+     ],
+     "checked": [
+      "quote 를 corpus passage 와 곡선 따옴표 포함 문자열 대조",
+      "raw_block 원문 창과 파서 지문 대조",
+      "유형 정의 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "③을 처음 무관으로 달았으나 두 항이 모두 지문에 실재하므로 부분 사실이 정확하다 — 유인의 정체는 가운데 항(낱말)의 누락이다",
+      "어휘 함정·부분 사실·무관·범위 과대 넷이 서로 다르다"
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "선지 텍스트(reliability, capitalism, various ways, necessity)와 why_tempting 대조",
+      "how_to_reject 의 문장 위치 표기"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계의 인용 개념 정의절 찾기는 지문을 안 본 상태에서도 큰따옴표와 called 라는 형태 단서만으로 실행된다",
+      "95초 배분이 3점 문항이 아닌데도 길지만 정의절 해독에 시간이 든다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "단계별 시간 배분(선지 20 · 정의절 35 · 대조 25 · 소거 15)",
+      "required_vocab 5개가 지문에 실재하는지 문자열 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2024#23",
+   "measured_ability": "시장 유인이라는 배경 서술과 But 뒤 반전을 갈라 읽고, 필자가 어느 쪽 가치를 우위에 두는지 비교급 문장 하나로 확정하는 능력",
+   "design_intent": "market 과 non-market 이라는 접두사 하나로 갈리는 짝을 지문 전체에 반복해 놓고, 선지에서는 그 접두사를 떼거나 둘을 나란히 놓아 우열을 지운 형태를 배치했다. 접두사와 비교급을 보는가가 갈림길이다",
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     8
+    ],
+    "quote": "But the economic benefits provided by these services, based on their non-market values, may exceed the economic value of the timber.",
+    "reasoning": "But 이 앞 세 문장의 배경(시장 유인이 벌목을 부추긴다)을 뒤집고, may exceed 라는 비교급이 비시장 가치가 목재의 시장 가치를 넘어설 수 있다는 우열을 명시한다. 마지막 문장의 markets are not sending the correct signal to favor ecosystem services over extractive uses 가 같은 우열을 되풀이하므로 비시장 가치를 저울에 올리는 일이 글의 명제로 확정된다"
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "ecosystem services 와 values 가 그대로 들어 있고, 6번째 문장에 UN 이 경제적 편익을 추정했다는 서술이 있어 산정이라는 말이 붙어 보인다",
+     "how_to_reject": "4번째 문장이 그 값을 non-market values 라고 못박는다. 이 선지는 non- 이라는 부호를 떼어 시장 가치로 만들었고, 생태계 서비스의 시장 가치를 계산하라는 서술은 지문에 없다"
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "trap": "",
+     "why_tempting": "",
+     "how_to_reject": ""
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "1~3번째 문장이 실제로 소유자가 금전적 이익을 좇아 벌목한다고 서술해 그 자체로는 참이다",
+     "how_to_reject": "그 세 문장은 4번째 문장의 But 앞 배경이다. 마지막 문장이 cutting down the trees is economically inefficient 라고 판정하므로 금전적 이익 극대화는 글이 반박하는 쪽이다"
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "market 과 non-market 을 둘 다 담아 어느 쪽도 버리지 않은 균형 잡힌 진술처럼 보이고, 두 낱말이 모두 지문 표현이다",
+     "how_to_reject": "마지막 문장은 markets are not sending the correct signal to favor ecosystem services over extractive uses 라고 하여 한쪽을 다른 쪽보다 앞세우라고 말한다. 4번째 문장의 may exceed 도 우열 판정이지 균형이 아니다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "첫 문장에 Managers of natural resources 가 있어 자원 관리 효율이 소재로 보이고 economically inefficient 라는 표현도 눈에 걸린다",
+     "how_to_reject": "지문에 관리 방법을 제시하는 문장이 없다. inefficient 는 마지막 문장에서 벌목이라는 선택에 내린 판정이지 관리 효율을 높이는 방법의 도입부가 아니다"
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 5개에서 market, non-market 처럼 접두사 하나로 갈리는 낱말 짝을 찾아 각각 다른 표시를 하고, 둘을 함께 담은 선지에는 별도 표시를 한다",
+     "on_fail": "짝이 안 보이면 각 선지의 of 뒤 명사구만 적어 둔다"
+    },
+    {
+     "step": "지문에서 But 이나 However 가 든 문장에 밑줄을 긋고, 밑줄 앞 문장들은 배경으로 묶어 괄호를 친다",
+     "on_fail": "역접 표지가 없으면 Thus 나 As a result 로 시작하는 마지막 문장에 밑줄을 긋는다"
+    },
+    {
+     "step": "밑줄 문장에서 비교 표현(exceed, greater than, more than, over)을 찾아 이긴 쪽 명사에 동그라미를 친다",
+     "on_fail": "비교 표현이 없으면 마지막 문장에서 favor A over B 나 rather than 을 찾아 A 를 이긴 쪽으로 삼는다"
+    },
+    {
+     "step": "동그라미 친 명사를 그대로 담은 선지만 남기고, 접두사를 떼어 낸 선지와 두 항을 나란히 놓아 우열을 지운 선지를 지운다",
+     "on_fail": "남는 것이 둘이면 각 선지가 괄호 안 배경에서만 낱말을 가져왔는지 확인한다"
+    },
+    {
+     "step": "ways / necessity 로 시작하는 선지는 지문에 방법이나 절차를 서술한 문장이 있는지 확인하고 없으면 지운다",
+     "on_fail": "확인이 애매하면 지문에서 명령문과 should, need to 를 눈으로 훑어 없으면 지운다"
+    }
+   ],
+   "time_budget_sec": 95,
+   "difficulty": {
+    "predicted": 0.6,
+    "drivers": [
+     "market 과 non-market 이 접두사 하나로만 갈린다",
+     "④가 두 가치를 모두 담아 무난해 보이는 형태다",
+     "예시가 둘(산림 소유자 · UN 추정) 이어서 배경 구간이 길다"
+    ]
+   },
+   "required_vocab": [
+    "exploitation",
+    "timber",
+    "hectare",
+    "erosion",
+    "extractive"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용이 4번째 문장과 문자 그대로 일치한다",
+      "정답 확정에 마지막 문장의 favor A over B 가 함께 필요해 sentence_index 에 8을 같이 적었다"
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "문장 분해로 sentence_index 확인",
+      "answer_locus 가 정답표 2번과 일치하는지"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "④를 처음 부분 사실로 달았으나 ③과 겹쳤다 — ④는 지문의 우열 판정을 균형으로 바꾼 것이므로 반대 진술이 정확하다",
+      "①은 이 청크에서 부호어를 뗀 어휘 재사용의 가장 선명한 사례라 type_report 에 별도로 세었다"
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "선지 텍스트(market values, maximize financial benefits, balancing, efficiency)와 why_tempting 대조",
+      "how_to_reject 넷이 각각 4번째·1~3번째·마지막 문장을 지목하는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "1단계의 접두사 짝 표시가 이 문항의 갈림길을 선지 단계에서 미리 드러낸다",
+      "95초 안에 다섯 단계가 들어간다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "단계별 시간 배분(선지 20 · 역접 25 · 비교 표현 20 · 소거 30)",
+      "required_vocab 5개의 지문 실재 여부 문자열 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2023#23",
+   "measured_ability": "규제와 정보 공개를 맞세운 대조에서 필자가 편드는 쪽과 그 편드는 이유(선택의 자유 보전)를 한 쌍으로 묶고, 사례 두 개가 그 이유의 예시임을 확인하는 능력",
+   "design_intent": "앞 세 문장을 규제의 결함에 쓰고 나머지를 정보 공개의 이점에 써서 분량을 비슷하게 맞췄다. 어느 쪽이 필자의 편인지는 An important advantage of 와 by contrast 두 표지에만 걸려 있어, 표지를 못 보면 규제·시장·기업 쪽 선지로 흩어지게 된다",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     4
+    ],
+    "quote": "Information provision, by contrast, respects freedom of choice.",
+    "reasoning": "by contrast 가 앞의 규제 서술과 이 문장을 대조쌍으로 묶고, respects freedom of choice 가 정보 공개의 이점을 선택의 자유로 명시한다. 첫 문장이 이미 disclosure 를 advantage 의 주어로 세웠고 마지막 문장이 promote the autonomy of individual decision-making 으로 같은 말을 되풀이하므로, 정보 공개의 이점이 자유로운 선택 보장이라는 명제가 확정된다"
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "5~6번째 문장에 제조사가 안전 정보를 공표하도록 요구받는 사례와 식당 손님에게 열량을 알리는 사례가 있어, 정보를 접하게 만드는 절차가 실제로 서술된 것처럼 보인다",
+     "how_to_reject": "그 두 문장은 If 절로 시작하는 가정 사례이고, 각 문장의 뒤 절은 그렇게 하면 소비자가 무엇을 할 수 있게 되는가로 끝난다. 글의 술어는 절차가 아니라 이점이며 첫 문장이 advantage 로 그것을 못박는다"
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "trap": "",
+     "why_tempting": "",
+     "how_to_reject": ""
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "free markets 와 automobile manufacturers 가 지문에 있어 기업과 시장이 소재로 보인다",
+     "how_to_reject": "5번째 문장에서 제조사는 are required to measure and publicize, 곧 공개를 요구받는 쪽이다. 이익을 얻는 쪽으로 서술된 주체는 purchasers 와 customers 이며 기업의 이윤을 말하는 문장은 없다"
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "규제와 시장이라는 소재가 산업 이야기로 읽혀 업계 동향이라는 상투어가 어울려 보인다",
+     "how_to_reject": "동향이나 추세를 말하는 문장이 지문에 없다. 지문의 시제는 일반 현재로 일관하고 변화나 최근이라는 표현이 한 번도 쓰이지 않는다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "2번째 문장의 neglect diversity 에서 diversity 를, 뒤쪽의 choice 를 가져와 두 낱말이 모두 지문에 있다",
+     "how_to_reject": "diversity 는 규제가 무시하는 대상으로 한 번 나올 뿐 시장이 다변화된다는 서술은 없다. 소비자의 합리적 선택을 가능하게 하는 것으로 지문이 지목한 것은 4번째 문장의 information provision 이다"
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 5개의 머리 명사(steps / benefits / strategies / necessities / effects)를 적고, 절차형(steps)과 방법형(strategies)에 표시해 둔다",
+     "on_fail": "머리 명사가 겹치면 to 부정사 뒤 목적만 적는다"
+    },
+    {
+     "step": "지문 첫 문장에서 An important advantage of A, as opposed to B 처럼 두 항을 맞세우는 표현을 찾아 A 에 동그라미, B 에 가위표를 친다",
+     "on_fail": "첫 문장에 그런 표현이 없으면 by contrast, on the other hand 가 든 문장을 찾아 그 주어에 동그라미를 친다"
+    },
+    {
+     "step": "동그라미 친 A 가 주어인 짧은 문장을 하나 더 찾아(by contrast 문장 또는 마지막 문장) 그 술어를 그대로 적는다 — respects freedom of choice 처럼 이점이 한 구로 나온다",
+     "on_fail": "짧은 문장이 없으면 does not interfere with 나 should even promote 가 든 문장의 목적어를 적는다"
+    },
+    {
+     "step": "적은 술어와 같은 말을 담은 선지만 남기고, 가위표 친 B(규제) 쪽 낱말이나 If 절 사례에서만 온 낱말로 이루어진 선지를 지운다",
+     "on_fail": "남는 것이 둘이면 각 선지의 주체가 소비자인지 기업인지 확인해 지문에서 이익을 얻는 쪽과 맞춘다"
+    },
+    {
+     "step": "표시해 둔 절차형·방법형 선지는 지문에 순서를 서술한 문장(first, then, by -ing)이 있는지 확인하고 없으면 지운다",
+     "on_fail": "확인이 애매하면 그 선지가 요구하는 낱말(steps, strategies, trends)이 지문에 있는지 눈으로 찾는다"
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.68,
+    "drivers": [
+     "3점 문항이고 사례가 셋(가전 · 자동차 · 식당)이라 사례 구간이 길다",
+     "regulatory mandates, blunt swords 같은 비유가 앞부분에 있다",
+     "선지 다섯이 모두 시장·소비자·정보라는 같은 영역의 낱말을 쓴다"
+    ]
+   },
+   "required_vocab": [
+    "disclosure",
+    "mandates",
+    "adverse",
+    "provision",
+    "autonomy"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "인용이 4번째 문장과 문자 그대로 일치한다",
+      "첫 문장이 배경이 아니라 명제인 사례로, 이 청크의 세 번째 첫문장 명제형이다 — answer_locus_pattern 에 반영했다"
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "문장 분해로 sentence_index 확인",
+      "유형 정의 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안에서 ①과 ④에 모두 무관을 달았다 — ①은 If 절 사례가 실제로 절차처럼 읽히는 자리를 이용하므로 범위 과소로 고치고, 대응 서술이 아예 없는 ④만 무관으로 남겼다",
+      "범위 과소·주체 역전·무관·어휘 함정 넷이 서로 다르다"
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "선지 텍스트(steps, companies profits, industry trends, diversified markets)와 why_tempting 대조",
+      "how_to_reject 의 문장 위치 표기"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계의 as opposed to 표지 찾기는 첫 문장만 보고 실행되어 사례 구간을 읽기 전에 방향이 잡힌다",
+      "100초는 3점 배점과 사례 셋을 감안한 값이다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "단계별 시간 배분(선지 20 · 대조 표지 25 · 술어 추출 25 · 소거 30)",
+      "required_vocab 이 정답 확정에 필요한지 — provision 과 autonomy 는 근거 문장과 마지막 문장에 각각 필요하다"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2409#23",
+   "answer_unknown": true,
+   "measured_ability": "목적 진술로 시작해 As a result 와 In consequence 로 두 번 이어지는 결과 사슬을 끝까지 따라가, 사슬의 출발점(광고주에게 청취자를 전달한다)과 종착점(플레이리스트가 좁아진다)을 한 명제로 묶는 능력",
+   "design_intent": "이 회차는 평가원 정답표가 없어 정오 판정을 적지 않는다. 지문 설계만 적으면, 앞부분에 괄호로 묶인 긴 속성 목록(demographic or psychographic profile, purchasing power ...)을 두어 그 목록의 항목이 소재로 보이게 하고, 필자가 붙드는 값은 the quantity of an audience aggregated as a mass 한 구에만 두었다. 결과 표지가 두 번 나오는 사슬형 지문이라 어디까지 따라가느냐로 갈린다",
+   "solve_procedure": [
+    {
+     "step": "선지 5개에서 반복되는 낱말(audience)에 표시하고, 남는 부분만 옆에 적어 다섯이 무엇으로 갈리는지 확인한다",
+     "on_fail": "반복 낱말이 여럿이면 각 선지의 머리 명사만 적는다"
+    },
+    {
+     "step": "지문 첫 문장에서 The primary purpose of A is to B 형태를 찾아 A 와 B 를 각각 적는다",
+     "on_fail": "그런 형태가 없으면 첫 두 문장에서 must, key, most significant 가 붙은 명사구를 찾아 적는다"
+    },
+    {
+     "step": "As a result, In consequence, Therefore 가 든 문장을 모두 찾아 순서대로 번호를 붙인다. 마지막 결과 표지 뒤 문장과 그다음 문장까지 밑줄을 긋는다",
+     "on_fail": "결과 표지가 하나뿐이면 그 문장부터 지문 끝까지를 밑줄 구간으로 삼는다"
+    },
+    {
+     "step": "밑줄 구간의 명사(risk aversion, playlists, restricted)를 적고, 2단계의 목적 B 와 이 명사들이 한 문장으로 이어지는지 확인한다. 이어지는 진술을 담은 선지만 남긴다",
+     "on_fail": "이어지지 않으면 밑줄 구간의 주어를 다시 잡아 그 주어가 앞 문장의 어느 낱말을 받는지 확인한다"
+    },
+    {
+     "step": "괄호 안 목록에서만 낱말을 가져온 선지와, 지문에 없는 평가어(difficulties, necessity)를 요구하는 선지를 지운다 — 그 평가어에 대응하는 문장이 지문에 있는지 눈으로 확인한다",
+     "on_fail": "괄호 목록의 경계가 안 보이면 여는 괄호와 닫는 괄호 사이를 통째로 접어 두고 다시 읽는다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.62,
+    "drivers": [
+     "정답표가 없어 정답률 자료로 보정할 수 없다 — 아래 근거는 지문과 선지의 언어 특성만으로 잡은 값이다",
+     "결과 표지가 두 번(As a result · In consequence) 나와 명제가 지문 뒤쪽에 몰린다",
+     "3번째 문장이 괄호 삽입 목록 때문에 40낱말을 넘는다",
+     "aggregated as a mass · risk aversion 처럼 추상 명사구가 핵심 자리에 있다",
+     "선지 다섯이 모두 audience 또는 radio 를 공유해 낱말 겹침으로는 갈리지 않는다",
+     "선지 텍스트에 OCR 붙음(outcomeof music radiobusinesses)이 있어 읽는 시간이 는다"
+    ]
+   },
+   "required_vocab": [
+    "aggregated",
+    "retention",
+    "aversion",
+    "metric",
+    "demographic"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "answer_known 이 false 인 회차이므로 answer_locus 를 만들지 않았다 — 이 지문은 명제 후보가 마지막 두 문장과 첫 문장 둘로 갈려 추정이 특히 위험하다",
+      "measured_ability 가 지문 구조(결과 사슬)만 서술하고 선지 판정을 담지 않는다"
+     ],
+     "checked": [
+      "answer_locus 키가 아예 없는지 확인",
+      "measured_ability·design_intent 에 선지 판정 표현이 섞였는지 문자열 확인",
+      "R-TOPIC 유형 정의 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안의 difficulty.drivers 가 근거 없이 값만 제시했다 — 정답을 모르는 상태에서 정답률을 예측했으므로 근거를 요구했고, 문장 길이·추상 명사구·결과 표지 위치·선지 공유 낱말이라는 언어 특성 넷으로 근거를 다시 적게 했다",
+      "answer_locus 와 choices 가 모두 비어 있어 추정이 스며들지 않았다"
+     ],
+     "checked": [
+      "answer_locus·choices 가 비어 있는지 확인",
+      "difficulty.predicted 의 근거가 drivers 에 명시됐는지",
+      "required_vocab 5개가 지문에 문자 그대로 있는지 대조(aggregated · retention · aversion · metric · demographic)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계의 결과 표지 번호 매기기는 지문을 안 본 상태에서 표지 낱말만으로 실행된다",
+      "5단계는 정답을 모르는 상태에서도 학습자가 스스로 소거할 수 있는 형태로 적혀 있다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "90초 단계별 배분(선지 20 · 첫 문장 15 · 표지 찾기 25 · 대조 30)",
+      "절차가 선지 번호를 전제하지 않는지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2406#23",
+   "answer_unknown": true,
+   "measured_ability": "보이는 공간과 안 보이는 공간의 대비에서 압력의 원인(수익 증대)과 그 압력이 안 보이는 쪽에 남기는 결과를 잇는 능력. at best 와 at worst 로 나뉘는 두 결과를 모두 세어야 한다",
+   "design_intent": "이 회차는 평가원 정답표가 없어 정오 판정을 적지 않는다. 지문 설계만 적으면, 첫 문장에 pressures 라는 원인어를 두고 In other words 로 한 번 바꿔 말한 뒤, 마지막 문장을 분사구문 둘로 길게 늘여 결과를 뒤쪽에 몰아 두었다. 영국식 철자(emphasise, prioritise, modernising)가 이어져 낯익은 낱말이 낯설게 보이도록 되어 있다",
+   "solve_procedure": [
+    {
+     "step": "선지 5개에서 museums 를 지우고 남는 부분을 적어, 다섯이 요구하는 술어(중요성 · 이점 · 필요성 · 결과 · 방법)를 표시한다",
+     "on_fail": "술어가 안 갈리면 각 선지의 머리 명사만 적는다"
+    },
+    {
+     "step": "지문 첫 문장에서 pressures, forces, causes 같은 원인어를 찾아 동그라미를 치고, 그 원인이 무엇을 무엇보다 앞세우게 하는지 over 앞뒤 두 항을 적는다",
+     "on_fail": "원인어가 없으면 In an era when 이나 As 로 시작하는 종속절을 찾아 그 절의 내용을 원인으로 삼는다"
+    },
+    {
+     "step": "In other words 나 that is 로 시작하는 문장을 찾아 밑줄을 긋는다. 이 문장은 앞 문장을 다시 말한 것이므로 두 문장에 공통으로 나오는 낱말을 하나 적는다",
+     "on_fail": "바꿔 말하기 표지가 없으면 콜론 뒤에 나열이 이어지는 문장을 대신 찾는다"
+    },
+    {
+     "step": "at best, at worst, may even 이 든 문장을 찾아 그 문장의 주어를 적는다. 2단계의 over 뒤 항(뒤로 밀린 쪽)과 이 주어가 같은지 확인한다",
+     "on_fail": "같지 않으면 마지막 문장의 소유격(their)이 무엇을 받는지 앞 문장에서 찾는다"
+    },
+    {
+     "step": "머리 명사가 방법이나 필요성을 요구하는 선지는 지문에 처방 문장(should, must, need to, 명령문)이 있는지 확인하고 없으면 지운다. 뒤로 밀린 쪽을 앞세우자는 진술이 지문에 있는지도 같은 방법으로 확인한다",
+     "on_fail": "처방 문장 여부가 애매하면 지문의 마지막 문장이 사실 서술로 끝나는지 권고로 끝나는지만 본다"
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.66,
+    "drivers": [
+     "정답표가 없어 정답률 자료로 보정할 수 없다 — 아래 근거는 지문과 선지의 언어 특성만으로 잡은 값이다",
+     "마지막 문장이 분사구문 둘로 이어져 45낱말을 넘는다",
+     "영국식 철자가 다섯 낱말 이상 나온다",
+     "at best 와 at worst 로 결과가 둘로 갈려 한쪽만 읽으면 강도가 달라진다",
+     "선지 다섯이 모두 museums 를 공유해 소재 대조가 듣지 않는다"
+    ]
+   },
+   "required_vocab": [
+    "unglamorous",
+    "infotainment",
+    "consumable",
+    "storerooms",
+    "conservation"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "answer_known 이 false 이므로 answer_locus 와 선지 판정을 만들지 않았다",
+      "design_intent 가 유형 일반론이 아니라 이 지문의 배치(In other words 로 한 번 바꿔 말하고 결과를 마지막 분사구문에 몰아 둔 것)를 가리킨다"
+     ],
+     "checked": [
+      "answer_locus 키 부재 확인",
+      "design_intent 가 선지 정오를 전제하지 않는지 문자열 확인",
+      "유형 정의 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "choices 배열이 없고 answer_locus 도 없어 추정이 스며들 자리가 없다",
+      "difficulty.predicted 0.66 의 근거가 문장 길이·철자·결과 분기·선지 공유어 넷으로 drivers 에 적혀 있다"
+     ],
+     "checked": [
+      "answer_locus·choices 공란 확인",
+      "difficulty 근거 유무",
+      "required_vocab 5개의 지문 문자열 실재 확인(unglamorous · infotainment · consumable · storerooms · conservation)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "초안 2단계가 지문을 이미 읽은 사람만 실행할 수 있는 형태였다 — 무엇이 뒤로 밀렸는지를 먼저 안다고 전제했으므로, 원인어를 찾아 over 앞뒤 두 항을 적는 형태로 바꿔 지문을 처음 보는 상태에서도 실행되게 고쳤다",
+      "100초 배분은 마지막 긴 문장을 두 번 읽는 시간을 포함한다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "각 단계를 지문 미독 상태에서 실행 가능한지 하나씩 점검",
+      "단계별 시간 배분(선지 20 · 원인어 20 · 바꿔 말하기 20 · 결과 문장 25 · 소거 15)"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2309#23",
+   "answer_unknown": true,
+   "measured_ability": "정의와 기준 나열이 앞에 오고 But 이 그 기준 중 하나를 문제로 지목하는 구조에서, 뒤집힌 뒤 문장들이 나열된 기준 가운데 몇 개를 무너뜨리는지 세는 능력",
+   "design_intent": "이 회차는 평가원 정답표가 없어 정오 판정을 적지 않는다. 지문 설계만 적으면, 큰따옴표로 묶인 개념어 셋(payoff · trialability · relative advantage)을 배치하고 그중 둘이 But 이후에서 각각 무너지도록 짜 놓았다. 개념어 하나만 붙들면 지문 후반의 나머지 하나를 놓치게 되어 있다",
+   "solve_procedure": [
+    {
+     "step": "선지 5개에서 farming 또는 agricultural 을 지우고 남는 부분을 적어, 다섯이 요구하는 술어(한계 · 도전 · 필요성 · 중요성 · 방법)를 표시한다",
+     "on_fail": "남는 부분이 비슷하면 각 선지의 머리 명사만 적는다"
+    },
+    {
+     "step": "지문에서 큰따옴표로 묶인 낱말을 모두 찾아 순서대로 적는다. 이 낱말들이 이 지문의 개념 축이다",
+     "on_fail": "큰따옴표가 없으면 such factors as 나 such as 뒤 나열을 대신 적는다"
+    },
+    {
+     "step": "But 이나 However 가 든 문장에 밑줄을 긋고, 밑줄 문장이 2단계 목록의 어느 낱말을 다시 부르는지 확인해 그 낱말에 표시한다",
+     "on_fail": "역접 표지가 없으면 real problem, flawed, hard to 같은 부정 평가어가 든 문장을 찾아 밑줄을 긋는다"
+    },
+    {
+     "step": "밑줄 문장부터 지문 끝까지 읽으며 2단계 목록의 낱말이 다시 불릴 때마다 표시를 더한다. 표시가 둘 이상 붙으면 개별 기준이 아니라 그 기준들을 쓰는 방식 전체가 문제로 지목된 것이다",
+     "on_fail": "표시가 하나뿐이면 마지막 문장의 which makes 절이 무엇을 어렵게 만든다고 했는지 다시 확인한다"
+    },
+    {
+     "step": "머리 명사가 방법이나 필요성을 요구하는 선지는 지문에 처방 문장(should, must, need to, 명령문)이 있는지 확인하고 없으면 지운다. 4단계의 표시 개수와 각 선지가 덮는 범위를 대 본다",
+     "on_fail": "덮는 범위가 안 갈리면 각 선지가 밑줄 앞 구간과 뒤 구간을 모두 설명할 수 있는지 하나씩 묻는다"
+    }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": {
+    "predicted": 0.6,
+    "drivers": [
+     "정답표가 없어 정답률 자료로 보정할 수 없다 — 아래 근거는 지문과 선지의 언어 특성만으로 잡은 값이다",
+     "큰따옴표로 묶인 개념어가 셋이라 어느 것이 문제로 지목됐는지 추적이 필요하다",
+     "But 이후가 지문의 절반을 차지해 뒤집힌 뒤 서술이 길다",
+     "would be hard to manage even if they could 처럼 가정법이 끼어 있다",
+     "선지 다섯이 모두 농업 소재를 공유한다"
+    ]
+   },
+   "required_vocab": [
+    "empirical",
+    "compatibility",
+    "trialability",
+    "criterion",
+    "plots"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초안의 measured_ability 가 특정 선지를 배제하는 서술을 담고 있었다 — 정답을 모르는 문항에서 선지를 전제하면 학습자를 추정으로 훈련시키므로, 지문 구조(나열된 기준 중 몇 개가 무너지는지 센다)만 남기도록 고쳤다",
+      "answer_locus 를 만들지 않았다"
+     ],
+     "checked": [
+      "measured_ability 에 선지 전제가 남았는지 문자열 확인",
+      "answer_locus 키 부재 확인",
+      "유형 정의 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "choices 와 answer_locus 가 모두 비어 있다",
+      "difficulty.predicted 0.6 의 근거가 개념어 수·역접 이후 분량·가정법·선지 공유어로 drivers 에 적혀 있다"
+     ],
+     "checked": [
+      "answer_locus·choices 공란 확인",
+      "difficulty 근거 유무",
+      "required_vocab 5개의 지문 문자열 실재 확인(empirical · compatibility · trialability · criterion · plots)"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계의 큰따옴표 낱말 수집은 지문을 처음 보는 상태에서 눈으로 훑기만 하면 되는 작업이다",
+      "4단계의 표시 세기가 이 지문의 함정(개념어 하나만 붙들기)을 그대로 겨냥한다"
+     ],
+     "checked": [
+      "금지 표현 대조",
+      "단계별 시간 배분(선지 20 · 개념어 15 · 역접 20 · 세기 30 · 소거 15)",
+      "절차가 선지 번호를 전제하지 않는지 확인"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-TOPIC",
+  "n_analyzed": 12,
+  "recurring_traps": [
+   {
+    "trap": "어휘 함정",
+    "count": 8,
+    "signature": "정답 근거 문장의 낱말을 그대로 쓰되 그 낱말에 붙어 있던 부호어나 걸리는 대상을 바꾼다 — 정답표가 있는 9문항 전부에 하나씩 들어 있다. 하위 유형으로 부호어 제거가 특히 잦다(non-market → market · minimal energy reserves → benefits of energy reserves · decline of the referentials → decline of reliability)"
+   },
+   {
+    "trap": "무관",
+    "count": 7,
+    "signature": "소재어는 지문 것을 쓰지만 그 선지의 머리 명사가 요구하는 서술(방법 · 절차 · 성공 조건 · 시장 동향)에 대응하는 문장이 지문에 아예 없다. ways · methods · steps · necessity 로 시작하는 선지 여섯 개가 모두 여기 걸렸고, 지문에 명령문이나 should·need to 가 있는 문항은 12개 중 0이었다"
+   },
+   {
+    "trap": "반대 진술",
+    "count": 5,
+    "signature": "지문이 오류라고 부른 것(a common motorist's error)이나 설명해 준다고 한 것(Newtonian law)을 뒤집어 그것의 효과나 한계로 만든다. 우열 판정을 균형으로 바꾸는 형태(balancing market and non-market values)도 여기 든다"
+   },
+   {
+    "trap": "범위 과소",
+    "count": 4,
+    "signature": "나열 목록의 항목 하나(family archives)나 마지막 절의 예시(transit map), If 절 가정 사례를 주제로 승격시킨다. 승격된 소재가 지문에서 몇 번 나오는지 세면 한 번뿐이다"
+   },
+   {
+    "trap": "부분 사실",
+    "count": 4,
+    "signature": "역접 앞 배경 구간이나 도입 사례가 그 자체로 참이라는 점을 이용한다 — 시장 유인에 따른 벌목 · 신화적 설명 · 선천적 행동의 이점. 참인 진술이라 지문 대조로는 안 걸리고 위치(But 앞)로만 걸린다"
+   },
+   {
+    "trap": "범위 과대",
+    "count": 3,
+    "signature": "사실 서술을 처방이나 당위로 넓히거나(efficient ways to increase · necessity of meaningful word associations) 설명 절차를 현실 인식 일반으로 부풀린다"
+   },
+   {
+    "trap": "지문 밖 상식",
+    "count": 2,
+    "signature": "소재에 따라붙는 통념을 얹는다 — 필기는 수업 후 복습용이다 · 장시간 노동은 노동자에게 해롭다. 해당 평가어가 지문에 한 번도 없는 것으로 확인된다"
+   },
+   {
+    "trap": "주체 역전",
+    "count": 2,
+    "signature": "행위는 지문과 같은데 하는 쪽이나 이익을 얻는 쪽이 바뀐다 — 조직을 부여하는 주체가 필기자에서 토론 절차로 · 정보 공개를 요구받는 기업이 이윤을 얻는 주체로"
+   },
+   {
+    "trap": "인과 역전",
+    "count": 1,
+    "signature": "수단과 목적의 순서를 맞바꾼다 — 지문은 평범한 것의 이해로 기이한 것을 설명한다고 했는데 선지는 기이한 현상에서 일반 결론을 끌어내는 어려움으로 만들었다"
+   }
+  ],
+  "answer_locus_pattern": "정답표가 있는 9문항 중 8문항은 한 문장만 읽어도 선지가 하나로 좁혀졌다(8/9). 이는 같은 대의파악 가족인 제목 유형 청크의 실측 6/8 · 7/9 보다 높다 — 주제 유형은 선지가 of 구 명사구여서 술어가 얕고, 지문 안에 그 술어를 명시하는 문장(speed is worthless without frequency · personal memories are the primary archival source · note taking is not only manageable, it is also important)이 한 곳에 몰려 있기 때문으로 보인다. 예외는 M2706#23 하나로, 첫 문장(A telescoping of time correlates with size)이 독립변수만 주고 결과 두 항은 여덟 번째 문장에 있어 두 문장이 필요했다. 명제 문장의 자리는 네 순위로 다 덮인다 — 역접·대조 표지 뒤 또는 그 문장 안이 7(2026 though+so · M2609 by contrast · M2606 But · M2506 While+정의절 · 2024 But · 2023 by contrast · M2509 But+thus), 결론 표지 뒤가 3(M2509 thus · 2025 As such/thus · 2024 Thus, 겹침 포함), 첫 문장이 명제인 경우가 3(M2706 · M2609 · 2025), 첫 문장이 반박 대상인 경우가 1(2026#23 — Emphasizing speed over frequency can make sense ... 뒤에 In all other contexts, though, it seems to be a common motorist's error). 곧 제목 유형 청크가 보고한 반례 둘 중 첫 문장 반박 대상형은 주제 유형에서도 같은 표지어(error)로 재확인됐고, 이름 붙은 가설 인용문형은 이 청크 12문항에 한 건도 없었다. 주제 유형은 제목 유형과 달리 첫 문장이 배경이 아니라 명제인 비율이 높다(9문항 중 3).",
+  "procedure": [
+   {
+    "step": "지문보다 선지 5개를 먼저 읽고 of 앞 머리 명사(significance · benefits · limits · ways · necessity · consequences)와 of 뒤 소재를 두 칸으로 나눠 적는다. 다섯이 공유하는 소재가 글감이고 갈리는 자리는 머리 명사다",
+    "on_fail": "머리 명사가 겹치면 각 선지에서 되풀이되는 낱말을 지우고 남는 부분만 적는다"
+   },
+   {
+    "step": "머리 명사가 방법·절차·필요성을 요구하는 선지(ways · methods · steps · necessity · strategies)에 미리 표시해 둔다. 이 표시는 마지막 소거에 쓴다",
+    "on_fail": "머리 명사가 애매하면 그 선지가 요구하는 것이 사실인지 처방인지만 한 낱말로 적는다"
+   },
+   {
+    "step": "지문에서 명제 문장을 이 순서로 하나만 찍는다 — ① But·However·though·by contrast·while 뒤 또는 그 문장 안 ② Thus·As such·As a result·In consequence 뒤(표지가 여럿이면 마지막 것) ③ 첫 문장이 A correlates with B, A changed B, A and B engage different C 처럼 두 항을 잇는 짧은 일반 진술이면 첫 문장 ④ 큰따옴표로 인용된 개념 뒤의 or·that is 정의절",
+    "on_fail": "①~④가 다 없으면 마지막 문장에 밑줄을 긋는다"
+   },
+   {
+    "step": "첫 문장에 error · assumption · can make sense in · commonly 가 있으면 그 문장은 뒤집히는 대상이므로 밑줄을 다음 역접 문장으로 옮긴다",
+    "on_fail": "옮길 문장이 애매하면 첫 문장과 마지막 문장 둘 다에 밑줄을 긋고 두 문장에 공통으로 나오는 낱말을 찾는다"
+   },
+   {
+    "step": "밑줄 문장에서 두 항(무엇이 → 무엇을, 무엇이 무엇보다 앞선다)과 그 사이 방향을 적는다. exceed · worthless without · primary · not only A also B · allows us to 같은 표현이 방향을 준다",
+    "on_fail": "두 항이 안 잡히면 밑줄 문장의 주어와 동사만 적고 목적어는 다음 문장에서 찾는다"
+   },
+   {
+    "step": "두 항이 모두 대응하는 선지를 남기고, 2단계에서 표시한 처방형 선지는 지문에 명령문·should·must·need to·by -ing 가 있는지 확인해 없으면 지운다",
+    "on_fail": "둘이 남으면 각 선지가 쓴 지문 낱말 앞에 붙어 있던 부호어(non- · minimal · few · no longer · not)를 찾아 그것을 뗀 선지를 지운다"
+   }
+  ],
+  "failure_modes": [
+   "지문 낱말이 가장 많이 겹치는 선지를 고른다 — 이 청크 오답 36개 중 다섯 개가 정답 근거 문장의 낱말을 그대로 쓰고 부호어만 뗐다(non-market → market · minimal → benefits · decline of the referentials → decline of reliability · 뉴턴 법칙이 설명한다 → limitations of Newtonian law · speed is worthless without frequency → impact of high-speed systems). 낱말 대조로는 안 걸리고 그 낱말 앞의 한 형태소를 봐야 걸린다",
+   "역접 앞 배경 구간이 뒤보다 길면 거기서 판단을 끝낸다 — M2606#23 은 난점 인정이 세 문장, 2024#23 은 시장 유인 배경이 세 문장, M2509#23 은 신화 사례가 두 문장으로 각각 명제 문장보다 길다",
+   "머리 명사를 안 보고 소재만 맞춰 고른다 — ways · methods · steps · necessity 형 선지 여섯 개가 모두 오답이었고, 12문항 지문 어디에도 명령문이나 should·need to 형 처방 문장이 없었다. 소재가 맞아도 요구하는 서술이 없으면 떨어진다",
+   "결과항을 원인 자리에 올린다 — M2706#23 은 크기가 원인이고 선천적 행동·의사결정이 결과인데 결과를 주어로 올린 선지가 둘이다. 2025#23 도 산업화가 원인이고 시간 기준의 이동이 결과인데 기계-인간 관계를 관계항으로 올린 선지가 있다",
+   "우열 판정을 균형으로 눅인다 — 2024#23 의 balancing 처럼 양쪽을 다 담은 선지는 무난해 보여 마지막까지 남는다. 지문에 exceed · favor A over B · worthless without 이 있으면 균형형은 떨어진다",
+   "나열 목록의 항목이나 마지막 절의 예시를 주제로 올린다 — family archives(M2609#23) · transit map(2026#23) · If 절 가정 사례(2023#23)",
+   "정답표가 없는 회차에서 추정을 근거처럼 적는다 — M2409#23 · M2406#23 · M2309#23 은 answer_locus 와 선지 판정을 비워 차단했고, 검수에서 measured_ability 에 선지 전제가 남은 것 한 건과 difficulty 근거가 빠진 것 한 건을 잡아 고쳤다"
+  ],
+  "time_budget_sec": 90,
+  "open_questions": [
+   "주제문 한 문장으로 충분한 비율이 이 청크에서 8/9 로, 제목 유형 청크의 6/8 · 7/9 보다 높게 나왔다. 표본이 9라 유형 간 차이라 단정할 수 없다 — 남은 R-TOPIC 청크(chunk-R-TOPIC-2017-21 · chunk-R-TOPIC-M2306-23)와 요지(R-GIST) 청크까지 합산해 유형별로 다시 세야 한다. 차이의 원인 가설은 적어 둔다: 주제 선지는 of 구 명사구라 술어가 얕고, 제목 선지는 은유·의문문이 섞여 명제 한 문장으로 환원되지 않는 경우가 있다",
+   "제목 유형에서 보고된 반례 둘 중 첫 문장 반박 대상형은 2026#23 에서 같은 표지어(error)로 재확인됐으나, 이름 붙은 가설 인용문형(The X hypothesis by Y suggests that)은 이 청크 12문항에 한 건도 없다. 대신 인용 개념 정의절형(what French sociologist Henri Lefebvre has called ... or the tendency of ...)이 M2506#23 에 하나 나왔다 — 인용문이 명제를 나르는 형태를 두 라벨로 갈라야 하는지 한 라벨로 묶어야 하는지 다음 청크에서 확인할 것",
+   "머리 명사가 처방을 요구하는 선지(ways · methods · steps · necessity · strategies)가 12문항에서 여섯 번 나왔고 정답표가 있는 범위에서는 모두 오답이었다. 12개 표본으로 처방형은 항상 오답이라 굳히면 반례에서 그대로 실점하므로, R-TOPIC 나머지 청크에서 처방형이 정답인 사례가 있는지 세어 확인해야 한다",
+   "반려는 setter 3 · analyst 6 · tutor 2 로 나왔다(반려 0건 신호는 발생하지 않았다). analyst 여섯 건 중 다섯이 trap 라벨 중복 지적이라 제목 유형 청크(6건 중 4건이 같은 사유)와 같은 편중이 되풀이된다 — analyst 의 나머지 두 자(선지 텍스트 근거 · 배제 위치 명시)가 무딘 것인지 초안 단계에서 이미 충족되는 것인지 아직 갈리지 않는다. 다음 청크에서는 analyst 가 how_to_reject 의 위치 표기를 문장 번호까지 요구하도록 자를 좁혀 볼 것",
+   "정답표 없는 3문항(M2409#23 · M2406#23 · M2309#23)은 명제 위치 통계의 분모에서 뺐다. 평가원 정답표가 확보되면 선지 판정과 answer_locus 를 채우는 2차 드레인이 필요하고, 그때 8/9 라는 비율도 다시 계산해야 한다"
+  ]
+ }
+}

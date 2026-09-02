@@ -1,0 +1,1540 @@
+{
+ "chunk": 7,
+ "type_id": "R-GIST",
+ "type_name": "요지",
+ "analyses": [
+  {
+   "item_id": "M2706#22",
+   "measured_ability": "인용 기사 세 건이 시간순(2006 → 21세기 초 → 2017)으로 놓인 글에서, 기사들이 공통으로 확인해 주는 하나의 현상(성난 얼굴이 팔린다)과 기사 안에 든 세부 방법·가설을 갈라내는 능력",
+   "design_intent": "지문의 볼거리를 전부 인용문 안(심리학자·인류학자 동원, 70% 통계, 안전감 가설)에 넣어 두고 글쓴이 자신의 진술은 짧은 두 문장(trend was toward angrier faces / shows no sign of slowing)으로만 남겼다. 인용문 안의 세부를 요지로 승격시키면 오답이 되도록 설계했다.",
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     6,
+     7
+    ],
+    "quote": "Buoyant sales of cars with styling which suggests power or bad temper seem to confirm that customers are happy with this look",
+    "reasoning": "Buoyant sales(판매 호조)와 customers are happy 가 '인기'를, styling which suggests power or bad temper 가 '성난 외관'을 각각 문자로 담고 있어 명제의 두 성분이 이 한 문장에서 동시에 확인된다. 앞의 shows no sign of slowing 은 이 현상이 일시적이지 않음을 덧붙일 뿐 새 축을 만들지 않고, 2006년 기사 인용(심리학자 동원·70% 통계)은 모두 이 현상의 배경 설명이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "trap": "-",
+     "why_tempting": "'성난 외관'은 angrier, scarier vehicles' faces 와 the 'scary look' 에, '인기'는 Buoyant sales·customers are happy 에, '소비자 심리 반영'은 첫 문장 emotional attachments 에 각각 대응해 세 성분이 모두 지문 문장에 걸린다.",
+     "how_to_reject": "-"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "두 번째 문장 인용 안에 tapping psychologists, anthropologists and other experts in human behavior, and even monitoring the brain waves 가 실제로 있어 '다양한 학문적 접근'이 지문에 있는 말처럼 보인다.",
+     "how_to_reject": "그 나열은 designers are focusing on faces 라는 주절에 딸린 분사구이고, 2006년 기사 인용문 안에만 있다. 뒤의 세 문장(4·6·7)은 학자를 한 번도 다시 부르지 않고 얼굴 모양과 판매만 말한다 — 마지막 문장의 주어는 Buoyant sales 이지 연구가 아니다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "첫 문장 people form emotional attachments 와 세 번째 문장 70% of drivers identify and judge vehicles by the headlights and grille 를 합치면 '구매가 감정으로 결정된다'로 읽힌다.",
+     "how_to_reject": "지문에는 이성적 판단과 감정적 판단을 견주는 문장이 없다. 70% 통계는 judge vehicles by the headlights and grille, 곧 '무엇을 보고 알아보는가'에 걸린 수치이지 구매 결정 방식의 비교가 아니다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "지문이 headlights and grille, faces, design 처럼 전면부 낱말을 반복해서, 전면 디자인이 소재라는 점만 보고 고르게 된다.",
+     "how_to_reject": "지문의 디자인 주체는 Car manufacturers 와 designers 로 시종 제조사 쪽이다. 이미 산 차를 고쳐 주는 service·customize·modify 계열 낱말이 한 번도 나오지 않는다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "다섯 번째 문장에 feel safer 와 oversize SUVs 가 나란히 있어 '안전'과 'SUV'라는 두 낱말이 선지와 겹친다.",
+     "how_to_reject": "그 문장은 these faces help drivers feel safer in heavier traffic amidst more oversize SUVs — 성난 얼굴이 안전감을 준다는 쪽이다. 선지는 안전감을 원하면 거친 차를 피한다고 방향을 뒤집었고, 마지막 문장의 판매 호조와도 어긋난다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯 개를 먼저 읽고 각 선지의 서술어에 표시한다 — 인기를 끈다 / 시도되고 있다 / 선택한다 / 있다 / 선호하지 않는다",
+     "on_fail": "서술어가 안 잡히면 각 선지를 '무엇이 어떠하다' 두 조각으로 잘라 뒤쪽 조각만 적어 둔다"
+    },
+    {
+     "step": "지문에서 큰따옴표로 묶인 인용문과 묶이지 않은 문장을 갈라 표시한다. 인용문 밖 문장에만 밑줄을 긋는다",
+     "on_fail": "따옴표 구분이 어려우면 reported·the article·site 같은 출처 표시가 붙은 문장을 인용으로 본다"
+    },
+    {
+     "step": "밑줄 친 문장(4·6번째)에서 시간 표현을 찾아 현상이 계속되는지 끝났는지 적는다 — In the first years of the twenty-first century / shows no sign of slowing",
+     "on_fail": "시간 표현이 안 보이면 마지막 문장의 동사(seem to confirm)가 무엇을 확인해 주는지만 적는다"
+    },
+    {
+     "step": "마지막 문장에서 판매를 가리키는 낱말(Buoyant sales, customers are happy)과 외관을 가리키는 낱말(power or bad temper)을 각각 동그라미 치고, 이 둘이 모두 대응되는 선지만 남긴다",
+     "on_fail": "둘이 다 대응되는 선지가 없으면 외관 쪽 낱말만이라도 담은 선지를 후보로 남기고 나머지를 지운다"
+    },
+    {
+     "step": "남은 선지 중 인용문 안에서만 나온 소재(학자·연구·통계)를 주어로 삼은 것과, 지문 문장과 방향이 반대인 것을 지운다",
+     "on_fail": "둘이 남으면 '이 선지가 참이려면 반드시 있어야 할 문장'을 하나 정하고 지문에서 그 문장을 못 찾는 쪽을 지운다"
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.82,
+    "drivers": [
+     "요지가 마지막 문장에 있고 그 앞 여섯 문장이 인용·통계로 채워져 있다",
+     "오답 넷이 모두 지문에 실제로 있는 소재어(학자·감정·전면 디자인·SUV)를 쓴다"
+    ]
+   },
+   "required_vocab": [
+    "emotional attachments",
+    "grille",
+    "hypothesized",
+    "bad temper",
+    "Buoyant"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초안은 answer_locus 를 네 번째 문장(the trend was toward angrier, scarier vehicles' faces)으로 잡았다 — 외관은 담지만 '인기'가 없어 선지의 두 성분 중 하나를 확정하지 못한다. 마지막 문장으로 교체하고 sentence_index 에 4를 보조로 남겼다.",
+      "이 지문에는 역접 표지가 하나도 없고 인용 세 건이 같은 방향으로 쌓인다 — 요지 유형에서 '역접 뒤를 보라'가 통하지 않는 형태이므로 type_report 에 올렸다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "요지 유형 정의(글쓴이의 주장 명제) 대조",
+      "design_intent 가 이 문항 고유의 인용 배치를 말하는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷의 라벨이 부분 사실·범위 과대·무관·반대 진술로 서로 다르다",
+      "선지 ⑤만이 지문과 문자로 겹치는 외래어(SUV)를 담고 있는데 그 겹침이 오히려 미끼다 — why_tempting 에 명시했다"
+     ],
+     "checked": [
+      "오답 4개의 trap 라벨 중복 여부",
+      "why_tempting 이 각 선지의 실제 낱말(학문적 접근·감정적 판단·개조 서비스·SUV)에 걸리는지",
+      "how_to_reject 마다 지문 문장 위치가 적혀 있는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계의 '인용문과 아닌 것 가르기'는 지문을 안 읽은 상태에서도 따옴표만 보고 실행할 수 있다",
+      "5단계까지 80초 안에 끝난다 — 지문 7문장 중 실제로 정독할 것은 두 문장이다"
+     ],
+     "checked": [
+      "절차를 지문 미독 상태에서 순서대로 실행 가능한지",
+      "금지 표현 목록 대조",
+      "required_vocab 5개가 정답 판별에 실제로 쓰이는지(Buoyant·bad temper 는 정답 확정, hypothesized 는 ⑤ 배제에 필요)"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2026#22",
+   "measured_ability": "정의문으로 시작해 This means 로 두 번 결론을 맺는 글에서, 인용된 학술 정의와 글쓴이가 내놓는 처방을 갈라 처방 쪽을 명제로 옮기는 능력",
+   "design_intent": "coopetition 이라는 낯선 합성어의 정의를 앞에 길게 두어 정의 자체를 요지로 착각하게 하고, 실제 처방(균형·양쪽 동시 추구)은 This means 로 시작하는 두 문장에 흩어 놓았다. 게다가 '관리자는 경쟁 쪽으로 기운다'는 진단 문장을 중간에 넣어, 그 진단만 읽으면 처방이 아니라 현상 서술을 고르게 만든다.",
+   "answer_locus": {
+    "sentence_index": [
+     6,
+     9,
+     10
+    ],
+    "quote": "This means a careful balancing act may be required in terms of the amount of emphasis placed on each activity.",
+    "reasoning": "balancing act 가 '균형 잡힌 접근'을, the amount of emphasis placed on each activity 가 '협력과 경쟁 각각'을 가리켜 선지의 두 성분이 이 문장에서 맞물린다. 뒤의 how to pursue both simultaneously 와 one is not neglected at the expense of the other 가 같은 처방을 두 번 더 되풀이하므로, 이 문장이 우연한 한 마디가 아니라 글의 결론임이 확정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "trap": "-",
+     "why_tempting": "'균형 잡힌 접근'이 a careful balancing act 에, '요구된다'가 may be required 에, '협력과 경쟁 사이'가 each activity(collaborative/competitive)에 대응하고 마지막 문장 not neglected at the expense of the other 가 같은 말을 되풀이한다.",
+     "how_to_reject": "-"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "네 번째 문장의 trust and confidence issues being paramount 를 '스포츠 정신'으로 옮기면, 스포츠 소재 글에는 스포츠맨십 교육이 결론일 것이라는 통념과 맞아떨어진다.",
+     "how_to_reject": "trust and confidence 는 This special relationship should be managed properly 의 이유로 붙은 구이고, 지문 전체에 education·training·teach 계열 낱말이 없다. 처방을 담은 세 문장(6·9·10)은 모두 관리·계획(balancing act, have plans in place)을 말한다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "일곱 번째 문장 Often sport managers will try to be more competitive due to performance reasons and less collaborative 가 선지와 거의 한 문장 대 한 문장으로 겹쳐, 지문에 그대로 있는 말이라 안심하고 고르게 된다.",
+     "how_to_reject": "그 문장 바로 뒤 두 문장이 This means it might be better to have plans in place about how to pursue both simultaneously 로 이어진다 — 경쟁 편향은 처방을 끌어내기 위한 진단이지 글이 도달한 결론이 아니다. Often 으로 시작하는 경향 서술이라는 점도 표지다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "세 번째 문장에 need to collaborate for resource efficiency purposes 가, 정의문에 leverage strategically important resources 가 있어 '효율적 자원 활용 전략'이 지문 표현의 조합처럼 보인다.",
+     "how_to_reject": "resource efficiency 는 collaborate 쪽에만 붙은 목적이고, 같은 문장 뒷부분 but potentially compete with each other 가 나머지 한 축을 세운다. 선지는 두 축 중 협력 쪽만 담아 마지막 문장 one is not neglected at the expense of the other 를 설명하지 못한다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "여덟 번째 문장의 By necessity(필연적으로)와 일곱 번째 문장의 performance reasons(성과)를 이어 붙이면 '성취는 경쟁을 필연적으로 수반한다'가 만들어진다.",
+     "how_to_reject": "By necessity 가 걸린 곳은 they may need to share information — 곧 협력 쪽 행위다. 지문에서 필연으로 서술된 것은 정보 공유이지 경쟁이 아니고, 경쟁은 Often ... will try to 라는 경향으로만 서술된다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯 개의 서술어만 뽑아 적는다 — 균형 요구 / 교육 필수 / 과소평가하기 쉽다 / 전략 필요 / 필연적으로 수반한다",
+     "on_fail": "서술어가 안 잡히면 선지마다 '이것이 참이려면 지문에 있어야 할 낱말'을 하나씩 적어 둔다(교육·효율·필연)"
+    },
+    {
+     "step": "지문에서 This means 로 시작하는 문장을 전부 찾아 표시한다",
+     "on_fail": "This means 가 없으면 Therefore·So·It might be better 같은 결론 표지를 대신 찾는다"
+    },
+    {
+     "step": "표시한 문장 안에서 처방 동사를 뽑는다 — may be required, might be better to have plans in place. 그 처방의 목적어가 무엇인지 함께 적는다",
+     "on_fail": "목적어가 지시어(both, each activity)면 바로 앞 문장에서 그 지시어가 가리키는 두 낱말을 찾아 적는다"
+    },
+    {
+     "step": "적어 둔 두 낱말(협력·경쟁)이 모두 들어간 선지만 남긴다. 한쪽만 담은 선지는 지운다",
+     "on_fail": "둘 다 담은 선지가 둘 이상이면 마지막 문장 one is not neglected at the expense of the other 를 설명할 수 있는 쪽만 남긴다"
+    },
+    {
+     "step": "남은 선지 중 Often 으로 시작하는 경향 서술을 결론으로 삼은 것과, 지문에 없는 낱말(교육)을 요구하는 것을 지운다",
+     "on_fail": "판단이 안 서면 각 선지를 지문의 마지막 문장 뒤에 이어 붙여 읽어 말이 되는지 본다"
+    }
+   ],
+   "time_budget_sec": 85,
+   "difficulty": {
+    "predicted": 0.74,
+    "drivers": [
+     "coopetition 이 사전에 없는 합성어라 정의문을 두 번 읽게 된다",
+     "오답 ③이 지문 일곱 번째 문장과 거의 한 문장 대 한 문장으로 대응한다",
+     "처방 문장이 정의문보다 짧고 뒤에 있다"
+    ]
+   },
+   "required_vocab": [
+    "coopetition",
+    "simultaneous",
+    "collaborative",
+    "neglected",
+    "at the expense of"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초안은 answer_locus 를 첫 문장(A sport ecosystem exists based on the type and rate of coopetition existing)으로 잡았다 — 소재만 말하고 처방이 없어 요지를 확정하지 못한다. 여섯 번째 문장으로 교체했다.",
+      "정의가 큰따옴표 인용으로 들어와 있어 '이름 붙은 인용문 = 요지'로 오인되기 쉬운 형태다 — 형제 유형에서 보고된 반례 유형과 같다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "요지 유형 정의 대조",
+      "인용된 정의와 글쓴이 진술의 경계 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷의 라벨이 지문 밖 상식·부분 사실·범위 과소·어휘 함정으로 서로 다르다",
+      "⑤의 배제 근거를 '경쟁이 필연이 아니다'가 아니라 'By necessity 가 걸린 대상이 정보 공유다'라는 위치로 적었다 — 한국어 선지에서는 이 대상 이동이 어휘 함정의 실제 작동 방식이다"
+     ],
+     "checked": [
+      "trap 라벨 4종 중복 여부",
+      "각 why_tempting 이 지목한 지문 문장이 실제로 존재하는지",
+      "how_to_reject 에 문장 번호나 표지어 위치가 들어 있는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계에서 This means 를 세는 것은 눈으로 할 수 있다 — 이 지문에서 두 번 나온다",
+      "85초는 정의문을 한 번 건너뛰는 것을 전제로 한 값이고, 절차 2~4단계가 그 건너뛰기를 강제한다"
+     ],
+     "checked": [
+      "절차 각 단계의 실행 가능성",
+      "금지 표현 목록 대조",
+      "required_vocab 이 정답 판별에 쓰이는지(neglected·at the expense of 는 정답 확인, simultaneous 는 처방 문장 이해)"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2609#22",
+   "measured_ability": "학자 인용문(Nan Lin)이 뒤에 붙은 글에서, 인용이 앞의 진술을 뒷받침하는 근거인지 새 주장인지 가려 글쓴이 자신의 명제를 고르는 능력",
+   "design_intent": "요지에 해당하는 문장을 두 번째 자리에 짧게 놓고, 그 뒤를 사회적 자본의 정의·구체 사례(취업 기회·추천서·블로그 프로필)·사회학자 인용으로 채웠다. 정의문의 종속절(norms and values)과 인용문의 표현(who you know)이 각각 오답 선지로 뽑혀 있어, 뒤로 갈수록 눈에 띄는 문장을 요지로 삼으면 걸리게 된다.",
+   "answer_locus": {
+    "sentence_index": [
+     2,
+     8
+    ],
+    "quote": "We increase our social capital when we successfully engage in social media.",
+    "reasoning": "'소셜 미디어를 통한'이 engage in social media 에, '사회적 자본이 된다'가 increase our social capital 에 대응해 선지의 두 성분이 이 한 문장에서 모두 확인된다. 마지막 문장 expanding our \"who you know\" to greater and greater lengths 가 '관계망의 확장'을 덧붙여 같은 방향을 닫아 주므로, 중간의 정의·인용은 이 문장을 설명하는 자리다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "trap": "-",
+     "why_tempting": "engage in social media → increase our social capital 이라는 두 번째 문장의 인과가 선지의 '소셜 미디어를 통한 … 사회적 자본이 된다'와 그대로 겹치고, 마지막 문장의 our reach of connecting is all the greater 가 '관계망의 확장'을 채운다.",
+     "how_to_reject": "-"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "세 번째 문장에 built on mutuality and sharing of identity, understanding, norms and values 가 그대로 있어 '규범과 가치의 공유'가 지문 표현으로 보인다.",
+     "how_to_reject": "그 구절은 Social capital describes the networks of relationships we have that are ... 라는 정의문의 수식절이다. 정의의 재료를 옮겨 온 것일 뿐 소셜 미디어가 한 번도 등장하지 않아, 첫 문장과 마지막 문장이 붙들고 있는 소재와 어긋난다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "마지막 문장이 With new media 로 시작해 '뉴 미디어'가 지문 낱말 그대로이고, 새로운 매체가 나오면 형성 방식이 바뀐다는 진술이 자연스럽게 들린다.",
+     "how_to_reject": "그 문장이 말하는 것은 our reach of connecting is all the greater, expanding ... to greater and greater lengths — 크기·범위가 커진다는 양의 변화다. 방식이 달라졌다는 진술(different way, changed how)에 해당하는 표현이 지문에 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "지문에 자본(capital)과 소셜 미디어가 모두 나오므로 두 낱말을 이어 붙인 문장이 요지처럼 보이고, '필수적'이라는 강한 단정이 요지답게 느껴진다.",
+     "how_to_reject": "두 번째 문장은 소셜 미디어 참여가 자본을 늘린다는 방향이다. 선지는 자본 구축이 소셜 미디어 활동의 전제라며 앞뒤를 뒤집었고, 지문의 자본은 human capital 이 아니라 social capital 로 시종 한 낱말이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "social relations·experience in society 처럼 사회 관련 낱말이 반복돼, 사회적 경험의 효용을 말한 문장으로 뭉뚱그려 읽힌다.",
+     "how_to_reject": "지문의 성과는 a job lead or a letter of recommendation 과 expected returns 처럼 관계에서 돌아오는 이득으로만 서술된다. 인격·세계관에 해당하는 낱말(character, worldview, maturity)이 지문에 없다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯의 주어를 뽑아 적는다 — 소셜 미디어를 통한 확장 / 규범과 가치의 공유 / 뉴 미디어의 등장 / 인적 자본 구축 / 사회적 경험",
+     "on_fail": "주어가 길면 각 선지에서 명사 하나씩만 골라 적는다"
+    },
+    {
+     "step": "지문에서 큰따옴표 인용과 인용자 표시(noted sociologist Nan Lin, Lin's work stresses)를 찾아 그 두 문장을 괄호로 묶어 둔다",
+     "on_fail": "인용 표시가 안 보이면 사람 이름이 나오는 문장을 묶는다"
+    },
+    {
+     "step": "괄호 밖 문장 중 첫 두 문장만 읽고, 두 번째 문장의 주어와 목적어를 적는다(we engage in social media / our social capital)",
+     "on_fail": "두 번째 문장이 어려우면 첫 문장의 because 뒤 부분(it builds social relations)을 대신 적는다"
+    },
+    {
+     "step": "마지막 문장에서 커진 것이 무엇인지 한 낱말로 적는다(reach, 곧 범위). 3단계의 두 낱말과 이 낱말이 함께 들어간 선지를 고른다",
+     "on_fail": "마지막 문장이 안 잡히면 3단계의 두 낱말만으로 선지를 거른 뒤 남은 것을 비교한다"
+    },
+    {
+     "step": "남은 선지 중 소셜 미디어가 빠진 것, 괄호로 묶은 인용문에서만 나온 표현에 기댄 것, 지문에 없는 낱말(인격·세계관)을 요구하는 것을 지운다",
+     "on_fail": "둘이 남으면 각 선지를 두 번째 문장 뒤에 이어 붙여 읽어 화살표 방향이 같은 쪽을 남긴다"
+    }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "요지 문장이 두 번째에 있어 일찍 잡힌다",
+     "다만 오답 ③이 마지막 문장의 new media 를 그대로 쓴다",
+     "social capital·new media 같은 외래어가 선지에 그대로 옮겨져 소재 대조로는 걸러지지 않는다"
+    ]
+   },
+   "required_vocab": [
+    "social capital",
+    "mutuality",
+    "premise",
+    "expected returns",
+    "reach"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "Nan Lin 인용이 요지 문장 뒤에 오는 구조라, '이름 붙은 인용문이 요지'라는 오독이 성립하지 않는 사례다 — 형제 유형에서 보고된 반례와 반대 방향이므로 type_report 에 대조로 올렸다",
+      "answer_locus 를 두 번째 문장 단독으로 잡아도 선지의 두 성분이 모두 확인된다 — 이 청크에서 드문 경우다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "요지 유형 정의 대조",
+      "인용문과 글쓴이 진술의 경계 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 라벨이 부분 사실·어휘 함정·인과 역전·무관으로 서로 다르다",
+      "③의 배제 근거를 '뉴 미디어가 지문에 없다'가 아니라 '커진 것이 방식이 아니라 범위다'로 적었다 — 낱말이 아니라 서술어를 대조해야 갈리는 자리다"
+     ],
+     "checked": [
+      "trap 라벨 중복 여부",
+      "각 선지의 한국어 표현이 지문 어느 구절의 번역인지 대응 확인",
+      "how_to_reject 에 문장 위치가 있는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계에서 인용을 괄호로 묶는 조작이 이 지문에서 두 문장을 실제로 덜어 낸다 — 읽을 양이 8문장에서 6문장으로 준다",
+      "75초 안에 5단계가 끝난다"
+     ],
+     "checked": [
+      "절차의 지문 미독 실행 가능성",
+      "금지 표현 목록 대조",
+      "required_vocab 5개가 지문에 실제로 있는지와 정답 판별 기여 여부"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2606#22",
+   "measured_ability": "대조 정의(the former / the latter)로 시작해 예시를 거쳐 마지막 한 문장으로 닫는 글에서, 정의의 두 항 중 글쓴이가 무게를 실은 쪽을 찾아 명제로 옮기는 능력",
+   "design_intent": "첫 두 문장에서 정보와 의미를 갈라 놓되 정보 쪽 설명에 probability·measured 같은 눈에 띄는 낱말을 붙여 두고, 정작 결론은 예시 뒤 마지막 한 문장(Interpretation is at the core)에 몰아 놓았다. 동전 던지기 예시가 길어 예시 안의 확률·속임수를 요지로 삼으면 오답으로 빠진다.",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     2,
+     6
+    ],
+    "quote": "Interpretation is at the core of everything we do, think about, and feel.",
+    "reasoning": "선지의 '해석'이 Interpretation 에 대응하고, 그 해석이 무엇을 낳는지는 두 번째 문장 the latter refers to the interpretation of the data or sensory states 가 meaning 을 the latter 로 받아 확정한다. 곧 첫 문장에서 갈라 놓은 두 항 중 '의미 = 해석의 결과'가 정의로 못 박히고, 마지막 문장이 그 해석에 전면적 지위를 준다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "trap": "-",
+     "why_tempting": "두 번째 문장에서 meaning(the latter)이 the interpretation of the data 로 정의되고 마지막 문장이 Interpretation is at the core 로 닫아, '정보를 해석함으로써 의미를 만든다'가 두 문장의 합과 그대로 겹친다.",
+     "how_to_reject": "-"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "두 번째 문장에 whose probability in a certain situation can be easily measured 가, 예시에 throwing three heads in a row 가 있어 확률이 지문의 중심 낱말처럼 보인다.",
+     "how_to_reject": "probability 는 information(the former)을 설명하는 수식절에만 붙어 있고, 예시의 결말은 확률 계산이 아니라 we tend to interpret the outcome 이다. 미래 예측(predict, forecast)에 해당하는 낱말이 지문에 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "정보를 다룬 글이면 정보 과잉을 말할 것이라는 통념이 있고, 지문에 any type of information, from alarm signals to sophisticated statements 처럼 정보의 종류를 넓히는 구절이 있어 양을 말한 것처럼 읽힌다.",
+     "how_to_reject": "그 구절은 This applies to any type of information — 앞의 정의가 모든 종류에 적용된다는 말이지 양의 문제가 아니다. amount·too much·overload 계열 표현이 지문에 한 번도 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "예시에서 undetectable cheating 이 나와 진위 판별을 다룬 글처럼 보이고, '출처 확인'은 정보 관련 선지로 무난하게 들린다.",
+     "how_to_reject": "cheating 은 we tend to interpret the outcome either as the work of Fortune, or else as ... cheating 에서 사람들이 내리는 두 해석 중 하나로 제시된 것이다. source·verify·check 에 해당하는 낱말이 지문에 없다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "마지막 문장에 feel 이, 예시에 the work of Fortune 처럼 주관적 판단이 나와 감정 개입을 다룬 글로 읽히고, '왜곡'은 부정적 결론으로 그럴듯하다.",
+     "how_to_reject": "지문은 해석을 왜곡의 원인이 아니라 at the core of everything we do, think about, and feel 로 놓아 긍정적·전면적 지위를 준다. distort·bias·wrong 계열 낱말이 없고, 두 번째 문장은 nuances and values 를 의미의 구성 요소로 인정한다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯의 서술어를 적는다 — 만들어 낸다 / 예측한다 / 어려워진다 / 필수이다 / 왜곡된다",
+     "on_fail": "서술어가 안 잡히면 선지가 긍정적 결론인지 부정적 결론인지만 표시한다"
+    },
+    {
+     "step": "지문 첫 문장에서 견주고 있는 두 낱말을 적는다(Information / meaning). 이어 the former 와 the latter 가 각각 무엇을 받는지 화살표로 잇는다",
+     "on_fail": "the former/the latter 가 헷갈리면 세미콜론 앞뒤를 각각 첫 낱말과 둘째 낱말에 대응시킨다"
+    },
+    {
+     "step": "the latter 쪽 설명에서 핵심 동사·명사를 뽑는다(the interpretation of the data or sensory states)",
+     "on_fail": "설명이 길면 the latter refers to 뒤 세 낱말만 적는다"
+    },
+    {
+     "step": "Take, for instance 로 시작하는 예시 구간을 통째로 괄호로 묶고 그 뒤 마지막 문장만 읽는다",
+     "on_fail": "예시 시작 표시가 안 보이면 코인·게임 같은 구체 명사가 나오는 문장부터 묶는다"
+    },
+    {
+     "step": "3단계의 낱말과 마지막 문장의 주어(Interpretation)가 함께 들어간 선지를 고르고, 예시 안에서만 나온 소재(확률·속임수)를 주어로 삼은 선지를 지운다",
+     "on_fail": "둘이 남으면 마지막 문장이 긍정 서술인지 부정 서술인지로 갈라 방향이 같은 쪽을 남긴다"
+    }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": {
+    "predicted": 0.87,
+    "drivers": [
+     "결론 문장이 짧고 마지막에 단독으로 있다",
+     "the former/the latter 대응을 놓치면 정의 두 항이 뒤바뀐다",
+     "예시 구간이 지문의 3분의 1을 차지한다"
+    ]
+   },
+   "required_vocab": [
+    "uninterpreted",
+    "sensory states",
+    "entails",
+    "constitutes",
+    "at the core of"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초안은 answer_locus 를 두 번째 문장(the latter refers to the interpretation ...)으로 잡았다 — 정의문이라 '의미가 해석의 결과'까지는 나오지만 그것이 글의 결론이라는 지위를 주지 못한다. 마지막 문장으로 옮기고 두 번째 문장을 sentence_index 에 보조로 남겼다.",
+      "첫 문장이 배경이 아니라 대조 명제라 요지의 절반을 담고 있다 — 이 청크에서 첫 문장이 쓸모 있는 몇 안 되는 사례다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "요지 유형 정의 대조",
+      "the former/the latter 지시 대응 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 라벨이 어휘 함정·지문 밖 상식·무관·반대 진술로 서로 다르다",
+      "②의 미끼가 probability 라는 한 낱말에 걸려 있어, 그 낱말이 information 쪽 수식절에만 붙어 있다는 위치를 how_to_reject 에 명시했다"
+     ],
+     "checked": [
+      "trap 라벨 중복 여부",
+      "각 선지 표현이 지문 어느 구절에서 왔는지 대응",
+      "배제 근거의 위치 표기"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "4단계의 '예시 괄호 묶기'가 이 지문에서 두 문장을 덜어 낸다",
+      "2단계의 the former/the latter 대응은 세미콜론 위치만 보면 되므로 지문을 안 읽고도 지시할 수 있다"
+     ],
+     "checked": [
+      "절차의 실행 가능성",
+      "금지 표현 목록 대조",
+      "required_vocab 이 정답 판별에 쓰이는지(uninterpreted·at the core of 는 정답 확정에 직접 쓰인다)"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2025#22",
+   "measured_ability": "능력 하나가 어떤 결과들을 낳는지 나열하는 글에서, 정의에 딸린 구성 요소(감정 어휘)와 그 능력이 낳는 결과(소통·협력)를 갈라 결과 쪽을 명제로 삼는 능력",
+   "design_intent": "첫 문장의 대시 삽입구에 감정 어휘·원인과 결과라는 정의 요소를 넣어 두고, 실제 결과(clear communication, cooperate, group functioning)는 그 뒤 문장들에 분산했다. 갈등 상황 예시를 길게 넣어 '갈등 해소'만 남기면 감정 이해가 감정 조절로 바뀐 선지에 걸리도록 했다.",
+   "answer_locus": {
+    "sentence_index": [
+     2,
+     3,
+     6
+    ],
+    "quote": "are able to express emotions, feelings and moods accurately and thus, may facilitate clear communication between co-workers",
+    "reasoning": "facilitate clear communication 이 선지의 '원활한 소통을 촉진한다'와 낱말 단위로 맞물리고, 바로 다음 문장 more likely to act in ways that accommodate ... the needs of others (i.e. cooperate) 가 '협력'을 괄호로 못 박는다. 마지막 문장의 promotes constructive conflict resolution and improved group functioning 이 그 결과가 집단 단위임을 확인해 준다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "trap": "-",
+     "why_tempting": "'감정 이해 능력'이 The ability to understand emotions 에, '소통'이 clear communication 에, '협력'이 (i.e. cooperate) 에, '집단 내'가 in group settings·group functioning 에 각각 대응해 네 성분이 모두 지문 낱말에 걸린다.",
+     "how_to_reject": "-"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "다섯 번째 문장 take the perspective of the other group members 가 공감으로, 두 번째 문장 able to express emotions 가 감정 표현으로 읽혀 두 요소가 모두 지문에 있다.",
+     "how_to_reject": "지문에서 두 요소는 모두 understand emotions 라는 하나의 능력에서 갈라져 나온 결과다(Individuals who are skilled in this domain are able to express ... / He also should be able to take the perspective). 공감이 표현 능력을 향상시킨다는 방향의 문장은 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "네 번째 문장이 express how he feels about the problem and why he feels this way 로 자기 감정을 말하는 장면이라, 자기 이해가 핵심으로 보인다.",
+     "how_to_reject": "바로 다음 문장이 He also should be able to take the perspective of the other group members 로 대상을 타인까지 넓힌다. 결과도 group functioning 이라는 집단 단위인데 선지는 개인의 사회성으로 좁혔다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "첫 문장 대시 안에 to have a diverse emotion vocabulary 가 그대로 있어 '감정 관련 어휘'가 지문 표현이다.",
+     "how_to_reject": "그 구는 The ability to understand emotions 를 풀어 쓴 삽입구의 한 항목이고, 나머지 한 항목(the causes and consequences of emotion)과 대등하다. 어휘 지식이 무엇의 기반이 된다는 진술은 지문에 없고, 지문이 말하는 결과는 소통·협력·집단 기능이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "마지막 문장에 constructive conflict resolution 이, 네 번째 문장에 In a group conflict situation 이 있어 갈등 해소가 지문의 결론처럼 보인다.",
+     "how_to_reject": "지문이 다루는 능력은 시종 understand emotion(감정 이해)이고, 조절·통제에 해당하는 regulate·control·manage emotion 이 한 번도 나오지 않는다. 갈등 상황은 for example 로 도입된 예시이며 마지막 문장은 갈등 해소를 여러 결과 중 하나로 나열한다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯에서 '무엇이'에 해당하는 능력 이름을 뽑아 적는다 — 감정 이해 / 공감 / 자기 감정 이해 / 감정 어휘 지식 / 감정 조절",
+     "on_fail": "이름이 겹쳐 보이면 각 선지에서 서술어(촉진한다·향상한다·필수적이다·기반이 된다·중요하다)만 적는다"
+    },
+    {
+     "step": "지문 첫 문장에서 대시(―) 사이에 낀 부분을 괄호로 묶어 덜어 내고, 남은 뼈대만 읽는다",
+     "on_fail": "대시가 안 보이면 첫 문장의 주어와 동사(is particularly relevant)만 남기고 나머지를 지운다"
+    },
+    {
+     "step": "두 번째·세 번째 문장에서 thus 와 Furthermore 뒤에 오는 결과를 각각 한 낱말로 적는다(communication / cooperate)",
+     "on_fail": "결과가 안 잡히면 괄호 안 표기 (i.e. cooperate) 를 먼저 찾는다"
+    },
+    {
+     "step": "for example 로 시작하는 예시 구간을 괄호로 묶고 마지막 문장만 읽어 결과 목록을 확인한다(open communication, conflict resolution, group functioning)",
+     "on_fail": "마지막 문장이 길면 promotes 뒤 목적어만 적는다"
+    },
+    {
+     "step": "1단계에서 적은 능력 이름이 지문의 understand emotion 과 같은 선지만 남기고, 3·4단계의 결과 두 개가 모두 들어간 것을 고른다",
+     "on_fail": "능력 이름이 같은 선지가 둘이면 결과가 개인 단위인지 집단 단위인지로 가른다"
+    }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": {
+    "predicted": 0.86,
+    "drivers": [
+     "결과 낱말(communication, cooperate)이 선지와 거의 직역 대응한다",
+     "오답 넷이 모두 '감정'으로 시작해 첫 낱말로는 갈리지 않는다",
+     "선지 ⑤가 이해를 조절로 바꾼 한 낱말 차이다"
+    ]
+   },
+   "required_vocab": [
+    "facilitate",
+    "accommodate",
+    "perspective",
+    "appreciation",
+    "constructive"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "첫 문장은 능력의 정의와 적용 범위만 말하고 결과가 없어 요지를 확정하지 못한다 — 근거를 두 번째·세 번째 문장으로 잡았다",
+      "코퍼스의 선지 ⑤ 끝에 페이지 번호 '38'이 붙어 있다(원문 조판 잔여). 뜻에는 영향이 없어 분석은 그대로 두되 결함으로 기록한다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "요지 유형 정의 대조",
+      "선지 텍스트의 조판 잔여 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 라벨이 인과 역전·범위 과소·부분 사실·어휘 함정으로 서로 다르다",
+      "⑤를 무관으로 달았던 초안을 어휘 함정으로 고쳤다 — 갈등 해소는 지문에 실제로 있고 갈리는 자리는 '이해 대 조절'이라는 능력 이름 한 낱말이다"
+     ],
+     "checked": [
+      "trap 라벨 중복 여부",
+      "각 선지의 능력 이름이 지문 표현과 어긋나는 지점 확인",
+      "how_to_reject 의 위치 표기"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "초안 required_vocab 에 group settings·emotion vocabulary 등 지문 어휘를 여덟 개 늘어놓았다 — 정답 판별에 실제로 쓰이는 다섯 개만 남겼다",
+      "2단계의 대시 삽입구 덜어 내기가 오답 ④를 만드는 자리를 그대로 무력화한다"
+     ],
+     "checked": [
+      "절차의 실행 가능성",
+      "금지 표현 목록 대조",
+      "required_vocab 각 낱말이 지문에 있는지와 정답 기여 여부"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2509#22",
+   "measured_ability": "개 사례로 시작해 부정문(is not some universal concept)으로 통념을 걷어 낸 뒤 긍정 규정을 내놓는 글에서, 걷어 낸 것과 새로 세운 것을 갈라 세운 쪽의 세 성분(문화적 도구·학습됨·인간 사회 한정)을 모두 담은 명제를 고르는 능력",
+   "design_intent": "요지를 한 문장에 담지 않고 세 문장에 나눠 놓았다 — morals are cultural tools(정체), They are learnt, not given at birth(획득 방식), only within human society(적용 범위). 그래서 세 성분 중 둘만 담은 선지, 걷어 낸 통념(도덕적 책임)을 그대로 옮긴 선지가 각각 매력적인 오답이 된다.",
+   "answer_locus": {
+    "sentence_index": [
+     4,
+     5,
+     6
+    ],
+    "quote": "morals are cultural tools developed to influence social behaviour: to cultivate the desirable and discourage the harmful. They are learnt, not given at birth.",
+    "reasoning": "cultural tools 가 '문화적 도구'를, learnt, not given at birth 가 '학습되는'을 문자로 확정한다. 남은 성분인 '인간 사회에만'은 바로 뒤 문장 but only within human society do we come to understand this as moral behaviour 의 only 가 못 박는다. 곧 세 성분이 연속한 세 문장에 하나씩 놓여 있어, 이 구간 밖(개 사례·엔트로피 비유)은 모두 통념을 걷어 내는 준비 구간이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "첫 문장에 capable of making choices and plans 가, 두 번째 문장 첫머리에 Moral responsibility 가 그대로 있어 '선택'과 '책임'이 둘 다 지문 낱말이다.",
+     "how_to_reject": "두 번째 문장은 Moral responsibility is not some universal concept — 도덕적 책임이 무엇인지 정의하는 문장이 아니라 그것이 보편 개념이 아님을 부정하는 문장이다. 선지는 부정문의 소재만 떼어다 정의문으로 바꿔 놓았다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "세 번째 문장에 no more or less than languages are 로 언어가, 네 번째 문장에 sentience and volition 이 나와 '분별력과 언어'가 둘 다 지문에 있는 낱말처럼 보인다.",
+     "how_to_reject": "첫 문장이 there is good reason to consider a dog a sentient being 이라고 못 박아 sentience 를 인간의 전유물에서 빼 놓았다. 언어는 도덕이 인간용으로 만들어졌음을 견주는 비유(no more or less than languages are)일 뿐 구별 기준으로 제시되지 않는다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "trap": "-",
+     "why_tempting": "'문화적 도구'가 cultural tools 에, '학습되는'이 They are learnt, not given at birth 에, '인간 사회에만'이 only within human society 에 각각 대응해 세 성분이 연속한 세 문장에서 모두 확인된다.",
+     "how_to_reject": "-"
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "마지막 문장 앞부분 we are born with a predisposition to cooperate with others 가 협력 성향을 실제로 인정하고, 첫 문장에 개가 나와 동물과 인간을 함께 말한 것처럼 보인다.",
+     "how_to_reject": "그 구절 뒤에 but only within human society do we come to understand this as moral behaviour 가 붙어 있어, 협력 성향은 양보이고 무게는 but 뒤에 있다. 또 협력 성향의 주어는 we(인간)이며 동물이 협력한다는 문장은 지문에 없다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "네 번째 문장 cultural tools developed to influence social behaviour 를 거의 그대로 옮긴 문장이라 지문 표현과 가장 많이 겹친다.",
+     "how_to_reject": "influence 가 걸린 대상은 social behaviour(사회적 행동)이지 개체의 의사 결정이 아니다. 더 결정적으로 이 선지에는 다섯 번째 문장(learnt, not given at birth)과 마지막 문장의 only within human society 가 빠져 있어, 글이 통념을 걷어 내며 세운 두 축을 담지 못한다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯을 읽고 각 선지가 요구하는 성분을 표시한다 — 책임 / 구별 기준 / 문화적 도구+학습+인간 한정 / 동물과 인간의 공통점 / 문화적 도구+의사 결정",
+     "on_fail": "성분 나누기가 어려우면 각 선지에 '동물이 나오는가'만 O·X 로 표시한다"
+    },
+    {
+     "step": "지문에서 not 이 든 문장을 전부 찾는다 — is not some universal concept, not given at birth. 앞의 not 은 걷어 내는 자리, 뒤의 not 은 세우는 자리로 갈라 표시한다",
+     "on_fail": "not 문장이 안 잡히면 while·but·even though 로 시작하는 문장에 표시한다"
+    },
+    {
+     "step": "morals 가 주어인 문장을 찾아 보어를 그대로 적는다(cultural tools developed to influence social behaviour)",
+     "on_fail": "그 문장이 안 보이면 They are ... 로 시작하는 문장의 They 가 무엇을 받는지 앞 문장에서 확인한다"
+    },
+    {
+     "step": "마지막 문장에서 but 뒤 부분만 읽고 only 가 붙은 명사구를 적는다(only within human society)",
+     "on_fail": "but 이 안 보이면 마지막 문장에서 only 를 찾아 그 뒤 명사구를 적는다"
+    },
+    {
+     "step": "3단계와 4단계에서 적은 두 조각이 모두 들어간 선지를 고른다. 한 조각만 든 선지, 2단계에서 '걷어 내는 자리'로 표시한 문장의 소재를 주어로 삼은 선지를 지운다",
+     "on_fail": "둘이 남으면 다섯 번째 문장(learnt)이 설명되는지 물어 안 되는 쪽을 지운다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "요지가 세 문장에 흩어져 한 문장으로 확정되지 않는다",
+     "오답 ⑤가 지문 표현과 가장 많이 겹치는데 빠진 성분으로만 갈린다",
+     "첫 문장이 even though 로 시작하는 긴 양보절이고 대시 삽입구가 겹쳐 있다"
+    ]
+   },
+   "required_vocab": [
+    "sentient",
+    "volition",
+    "notion",
+    "cultivate",
+    "predisposition"
+   ],
+   "body_recovered": true,
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "청크에 body_ok:false 로 실려 있어 raw_block 의 문항 블록과 코퍼스 지문을 대조했다 — 본문·선지가 모두 복원돼 있고 차이는 OCR 잔여 두 곳뿐이다(지문의 'that w are born' 에서 e 탈락, 선지 ⑤ 끝의 페이지 번호 38). 뜻과 정답 판별에 영향이 없어 body_recovered 로 표시했다.",
+      "인용 문자열을 코퍼스 지문에서 뽑되 OCR 결손 구간(w are born)을 피해 잡았다"
+     ],
+     "checked": [
+      "raw_block 문항 블록과 코퍼스 지문 문자열 대조",
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "요지 유형 정의 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 라벨이 어휘 함정·반대 진술·부분 사실·범위 과소로 서로 다르다",
+      "⑤가 이 문항의 실제 최대 오답으로 보인다 — 지문 표현 재사용률이 가장 높고 틀린 이유가 '없는 것'이라 눈에 안 띈다. how_to_reject 에 빠진 두 성분의 위치를 명시했다"
+     ],
+     "checked": [
+      "trap 라벨 중복 여부",
+      "각 선지 표현이 지문 어느 문장에서 왔는지 대응",
+      "정답 3이 평가원 정답표와 일치하는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "초안은 4단계였고 마지막 문장의 but 뒤를 따로 읽는 단계가 없어, 오답 ④를 걸러 낼 조작이 절차에 없었다 — 4단계를 추가했다",
+      "90초는 첫 문장의 긴 양보절을 한 번 건너뛰는 것을 전제로 한 값이다"
+     ],
+     "checked": [
+      "절차가 오답 넷을 각각 어느 단계에서 걸러 내는지 대조",
+      "금지 표현 목록 대조",
+      "required_vocab 다섯 개가 지문에 있는지 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2506#22",
+   "measured_ability": "고대와 현대를 나란히 놓고 서술하는 글에서, 시대 비교 자체가 요지인지 두 시대에 공통으로 작동한 인과(말의 평등 → 공유 가치)가 요지인지 가르는 능력. 더해 지문이 말한 것이 '가치·믿음의 형성'인지 '사회의 실현'인지 구별하는 능력",
+   "design_intent": "정답과 매우 비슷한 선지를 하나 더 두어, 지문이 시종 believed·we believe·notion·values 처럼 믿음의 층위에서만 말한다는 점을 보지 못하면 갈리지 않게 만들었다. 또 여섯 번째 문장에 고대와 현대의 정도 차이를 넣어, 그 한 문장만 보면 시대 비교를 요지로 삼게 된다.",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     5,
+     7
+    ],
+    "quote": "equal access to speech and hearing promoted the notion that property should be held in common",
+    "reasoning": "equal access to speech and hearing 이 '의사소통의 평등성'을, promoted the notion 이 '가치 기반을 형성했다'를, 이어지는 목적절(should be shared / duty to take care of everyone else)이 '공유와 공조'를 각각 담아 선지의 세 성분이 이 한 문장에 모인다. promoted the notion(관념을 촉진했다)이라는 술어가 결과를 믿음의 층위로 한정하는 것이 이 문항의 갈림목이고, 마지막에서 두 번째 문장 we believe that sharing and mutual aid are right and proper 가 같은 층위를 되풀이한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "첫 문장이 In both the ancient hunter-gatherer band and our intimate speech communities today 로 두 시대를 나란히 놓아, 둘의 유사성이 글의 뼈대처럼 보인다.",
+     "how_to_reject": "그 병렬은 the diffusion of speech shaped values 라는 주절을 위한 배경 한정구다. 게다가 여섯 번째 문장 This was probably more true among hunter-gatherers than it is in the modern family 가 둘이 같지 않다고 명시한다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "지문에 property·goods and food·shared 같은 자원 낱말이 몰려 있어 자원 배분을 다룬 글로 읽히고, 언어가 그 수단이라는 진술이 자연스럽게 들린다.",
+     "how_to_reject": "그 낱말들이 걸린 술어는 promoted the notion that ... should be held in common — 어떻게 나눌지가 아니라 나눠야 한다는 관념이다. efficient·efficiency 계열 낱말이 지문에 한 번도 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "여섯 번째 문장이 고대와 현대를 견주고 있어 어느 쪽이 더 평등한지 말한 문장이 있다는 인상을 준다.",
+     "how_to_reject": "그 문장은 This was probably more true among hunter-gatherers than it is in the modern family, circle of friends, or workplace — 더 평등했던 쪽은 수렵채집 사회다. 선지는 방향을 뒤집었다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": "-",
+     "why_tempting": "'의사소통의 평등성'이 equal access to speech and hearing 에, '형성했다'가 promoted the notion 에, '공유와 공조'가 held in common·shared·take care of everyone else 와 sharing and mutual aid 에 대응한다.",
+     "how_to_reject": "-"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "정답과 낱말이 거의 같다 — 의사소통·평등·공유가 모두 들어 있고 문장 길이도 비슷해, 둘 중 하나를 고르는 단계에서 더 완결돼 보이는 쪽으로 손이 간다.",
+     "how_to_reject": "지문의 술어는 시종 믿음의 층위다 — it was believed they should be equal, promoted the notion that, we believe that sharing and mutual aid are right and proper. 평등한 사회를 실제로 건설했다는 진술은 없고, 오히려 여섯 번째 문장이 현대에는 그 정도가 덜하다고 말한다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯의 서술어를 적는다 — 가지고 있다 / 배분해 왔다 / 운영된다 / 형성했다 / 건설했다. 서술어가 사실의 층위인지 믿음·가치의 층위인지 표시한다",
+     "on_fail": "층위 구분이 어려우면 '가치·관념'이라는 말이 든 선지에만 표시해 둔다"
+    },
+    {
+     "step": "지문에서 believe·believed·notion·values 처럼 믿음을 가리키는 낱말에 모두 동그라미를 친다",
+     "on_fail": "그런 낱말이 안 보이면 should 가 든 문장을 대신 표시한다(여기서는 세 문장에 나온다)"
+    },
+    {
+     "step": "Moreover 로 시작하는 문장을 찾아 주어와 동사를 적는다(equal access to speech and hearing / promoted)",
+     "on_fail": "Moreover 가 없으면 문장 첫머리에 등위 접속 부사가 붙은 가장 긴 문장을 고른다"
+    },
+    {
+     "step": "그 동사의 목적어를 세 조각으로 적는다 — property held in common / goods and food shared / duty to take care of everyone else",
+     "on_fail": "세 조각이 길면 that 절 세 개의 동사만 적는다(held, shared, take care)"
+    },
+    {
+     "step": "3·4단계의 주어와 목적어가 모두 대응되는 선지를 고른다. 후보가 둘이면 1단계의 층위 표시를 꺼내 사실 층위 서술어(건설했다·운영된다)를 지운다",
+     "on_fail": "그래도 갈리지 않으면 여섯 번째 문장(고대가 더 그러했다)을 설명할 수 있는 선지만 남긴다"
+    }
+   ],
+   "time_budget_sec": 95,
+   "difficulty": {
+    "predicted": 0.55,
+    "drivers": [
+     "정답과 오답 ⑤가 소재어를 거의 공유하고 서술어의 층위 하나로만 갈린다",
+     "지문이 고대와 현대를 오가며 시대 비교 선지를 두 개 만들어 낸다",
+     "근거 문장이 that 절 세 개로 길다"
+    ]
+   },
+   "required_vocab": [
+    "diffusion",
+    "egalitarianism",
+    "accommodated",
+    "held in common",
+    "mutual aid"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "근거를 다섯 번째 문장 단독으로 잡아도 선지 성분이 모두 확인되는 드문 경우다 — 다만 ⑤를 지우려면 세 번째·일곱 번째 문장의 believed 가 필요해 sentence_index 에 1과 7을 함께 남겼다",
+      "이 문항은 요지 유형에서 정답과 오답이 같은 명제의 강도 차이로만 갈리는 형태다 — type_report 에 실패 유형으로 올렸다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "요지 유형 정의 대조",
+      "정답 4가 평가원 정답표와 일치하는지"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안은 ⑤를 무관으로 달았다 — 소재가 전부 지문에서 왔으므로 명백한 오라벨이었다. 범위 과대로 고치고 '믿음의 형성 대 사회의 실현'이라는 갈림목을 how_to_reject 에 넣었다.",
+      "고친 뒤 오답 라벨이 부분 사실·무관·반대 진술·범위 과대로 서로 다르다"
+     ],
+     "checked": [
+      "trap 라벨 중복 여부",
+      "④와 ⑤의 낱말 대조표 작성 후 차이 나는 서술어 확인",
+      "how_to_reject 의 위치 표기"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "1단계에 '층위 표시'라는 조작을 넣어 마지막 단계에서 ④와 ⑤를 실제로 가를 수 있게 했다 — 이 조작이 없으면 절차가 후보 둘에서 멈춘다",
+      "95초는 이 청크에서 가장 긴 배정이고, 이 문항이 유일하게 선지 둘을 끝까지 견주는 문항이라 타당하다"
+     ],
+     "checked": [
+      "절차가 최종 두 후보를 가르는 조작을 포함하는지",
+      "금지 표현 목록 대조",
+      "required_vocab 다섯 개가 지문에 있는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2024#22",
+   "measured_ability": "고객의 칭찬이 왜 생기는지 설명한 뒤 the sad fact 로 현실을 지적하고 lost opportunities 로 닫는 글에서, 지적된 현실의 뒷면(응답하라)을 명제로 되짚는 능력",
+   "design_intent": "글의 처방을 명령문으로 적지 않고 '응답되지 않는다'는 결핍과 '잃어버린 기회'라는 평가로만 남겼다. 그래서 앞부분의 prioritize your responses(응답의 우선순위)를 속도로 읽거나, understand what drove the compliments 를 분석으로 읽으면 서술어가 어긋난 선지에 걸린다.",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     5,
+     6
+    ],
+    "quote": "These are lost opportunities to understand what drove the compliments and create a solid fan based on them.",
+    "reasoning": "These 가 바로 앞 문장의 most brand compliments go unanswered 를 받으므로, '응답하지 않는 것 = 기회 상실'이라는 판단이 성립하고 그 뒤집힌 형태가 '칭찬에 응답하는 것이 중요하다'가 된다. create a solid fan 이 '고객과의 관계 증진'에 대응해, 첫 문장의 connect more deeply with individual customers 와 수미상관을 이룬다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "trap": "-",
+     "why_tempting": "'브랜드 칭찬'이 brand compliments 에, '응답'이 unanswered 의 뒤집힘에, '관계 증진'이 connect more deeply with individual customers·create a solid fan 에 대응해 세 성분이 모두 지문 문장에 걸린다.",
+     "how_to_reject": "-"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "마지막 문장에 understand what drove the compliments 가 있어 '면밀히 분석함으로써'가 그 번역처럼 보이고, '브랜드의 성공'은 solid fan 을 성과로 바꿔 읽으면 이어진다.",
+     "how_to_reject": "understand what drove the compliments 는 lost opportunities to 뒤에 놓인 부정사구, 곧 응답하지 않아서 못 하게 된 것이다. 분석 자체를 권하는 문장이 아니며 analyze·data·research 계열 낱말이 지문에 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "첫 문장의 prioritize your responses 를 '신속한 응대'로 옮기면, 빠른 응대가 좋은 반응을 부른다는 익숙한 문장이 만들어진다.",
+     "how_to_reject": "prioritize 는 어느 응답을 먼저 할지 고르는 것이지 속도가 아니고, 지문에 quick·fast·prompt 계열 낱말이 없다. 순서도 반대다 — 지문에서는 고객이 먼저 긍정적 댓글을 올리고(when people post positive comments) 브랜드가 거기에 응답하지 않는 것이 문제다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "첫 문장에 a particularly delightful or upsetting experience 가 있어 부정적 경험도 다룬 것처럼 보이고, brand manager 가 지문에 그대로 나온다.",
+     "how_to_reject": "upsetting 은 응답 대상의 예시를 넓히는 한 낱말이고, 네 번째 문장부터 마지막까지 주어는 positive comments 와 compliments 로 고정된다. 부정적 의견을 수용하라는 진술은 지문에 없다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "'고객의 의견을 경청'은 브랜드 소재 글에 무난하게 어울리고, 지문에도 people post because they have something to say 가 있어 듣기가 주제처럼 들린다.",
+     "how_to_reject": "지문이 지적하는 결핍은 듣지 않는 것이 아니라 답하지 않는 것(go unanswered)이고, 얻는 것은 새 이미지가 아니라 a solid fan 이다. image·reputation·rebrand 계열 낱말이 지문에 없다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯에서 브랜드가 할 일에 해당하는 동사를 뽑아 적는다 — 응답한다 / 분석한다 / 신속히 응대한다 / 부정 의견을 수용한다 / 경청한다",
+     "on_fail": "동사가 안 잡히면 각 선지에서 '무엇을'에 해당하는 목적어(칭찬·피드백·부정적 의견·의견)만 적는다"
+    },
+    {
+     "step": "지문에서 문제를 지적하는 표현을 찾는다 — the sad fact is that, lost opportunities. 그 문장 두 개에만 밑줄을 긋는다",
+     "on_fail": "그런 표현이 안 보이면 부정 접두사가 붙은 낱말(unanswered, lost)을 찾는다"
+    },
+    {
+     "step": "밑줄 친 문장에서 무엇이 이뤄지지 않고 있는지 한 구절로 적는다(most brand compliments go unanswered)",
+     "on_fail": "주어가 길면 동사구(go unanswered)만 적고 그 주어를 앞 문장에서 확인한다"
+    },
+    {
+     "step": "적은 결핍을 그대로 뒤집어 '무엇을 해야 한다'로 바꾼 뒤(칭찬에 응답해야 한다), 1단계의 동사 목록과 대조해 같은 동사를 가진 선지를 고른다",
+     "on_fail": "같은 동사가 없으면 목적어가 '칭찬'인 선지를 먼저 남긴다"
+    },
+    {
+     "step": "남은 선지 중 지문에 없는 낱말을 요구하는 것을 지운다 — 신속(quick), 분석(analyze), 이미지(image), 부정적 의견 수용",
+     "on_fail": "둘이 남으면 마지막 문장의 얻는 것(a solid fan)이 설명되는 쪽을 남긴다"
+    }
+   ],
+   "time_budget_sec": 80,
+   "difficulty": {
+    "predicted": 0.84,
+    "drivers": [
+     "처방이 명령문이 아니라 결핍 서술로만 제시돼 한 번 뒤집어야 한다",
+     "첫 문장이 관계절·삽입구로 길다",
+     "오답 넷이 모두 고객 응대라는 같은 소재를 공유해 소재로는 갈리지 않는다"
+    ]
+   },
+   "required_vocab": [
+    "prioritize",
+    "compliment",
+    "unanswered",
+    "appreciation",
+    "acknowledged"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "요지가 긍정 명령이 아니라 lost opportunities 라는 부정 평가로 제시된 형태다 — 학습자가 한 번 뒤집어야 하므로 절차 4단계에 그 조작을 명시했다",
+      "첫 문장도 요지 방향과 같지만(connect more deeply) 그 문장만으로는 '칭찬에 응답'이라는 대상이 나오지 않아 근거를 5·6번째 문장으로 잡았다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "These 의 선행사가 앞 문장인지 확인",
+      "정답 1이 평가원 정답표와 일치하는지"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안은 ②와 ③을 둘 다 어휘 함정으로 달아 라벨이 겹쳤다 — ③은 prioritize 를 속도로 오독하는 것에 더해 '응대가 긍정 반응을 낳는다'로 순서를 뒤집으므로 인과 역전으로 고쳤다",
+      "고친 뒤 라벨이 어휘 함정·인과 역전·반대 진술·무관으로 서로 다르다"
+     ],
+     "checked": [
+      "trap 라벨 중복 여부",
+      "각 선지 표현이 지문 어느 구절의 오독인지 대응",
+      "how_to_reject 마다 지문 위치 또는 없는 낱말군 표기"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계의 the sad fact·lost opportunities 찾기는 지문을 안 읽은 상태에서도 눈으로 훑어 실행할 수 있다",
+      "5단계의 '지문에 없는 낱말 목록'을 미리 적어 둔 덕에 마지막 배제가 검색 한 번으로 끝난다 — 80초 안에 들어온다"
+     ],
+     "checked": [
+      "절차의 실행 가능성",
+      "금지 표현 목록 대조",
+      "required_vocab 다섯 개가 지문에 있는지와 정답 기여 여부"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2409#22",
+   "answer_unknown": true,
+   "measured_ability": "however 가 두 번 꺾이고 Eventually 로 세대가 넘어가는 서술에서, 마지막에 the challenge is to 로 제시된 요구가 앞의 사례들을 어떤 명제로 묶는지 잡아내는 능력",
+   "design_intent": "이민 소재 글의 서술 층이 넷이다 — 다문화주의자의 제안, however 로 오는 동화 압력, 19~20세기 유럽 이민자의 전례, however 로 다시 오는 유색인종의 현재. 층마다 다른 명제를 세울 수 있게 짜여 있어, 어느 층에서 읽기를 멈추느냐가 그대로 선택으로 이어진다. 마지막 두 문장(Once again, the challenge is to recognize / Perhaps, in the not too distant future)이 층들을 하나로 묶는 자리에 놓였다.",
+   "solve_procedure": [
+    {
+     "step": "선지 다섯의 서술어를 뽑아 적는다 — 인식이 필요하다 / 정책 수립이 중요하다 / 역할을 수행할 수 있다 / 협력이 요구된다 / 이루어진다. 요구·주장인지 사실 서술인지 표시한다",
+     "on_fail": "서술어가 붙어 있는 선지(공백이 뭉개진 곳)가 있으면 마지막 어절만 떼어 읽는다"
+    },
+    {
+     "step": "지문에서 however 를 전부 찾아 표시하고, 각 however 앞뒤 문장이 서로 무엇을 뒤집는지 한 낱말로 적는다",
+     "on_fail": "however 위치가 문장 가운데라 눈에 안 띄면 문장마다 주어를 적어 주어가 바뀌는 지점을 표시한다"
+    },
+    {
+     "step": "the challenge is to 로 시작하는 구절을 찾아 to 뒤 동사와 목적어를 그대로 적는다",
+     "on_fail": "그 구절이 안 보이면 Once again 이나 Perhaps 로 시작하는 문장을 대신 적는다"
+    },
+    {
+     "step": "3단계에서 적은 동사·목적어와 1단계의 서술어 목록을 대조해, 요구의 주체와 대상이 같은 선지만 남긴다",
+     "on_fail": "주체가 명시되지 않은 선지가 있으면 지문의 그 구절 주어(the challenge 를 받는 쪽)를 확인해 대조한다"
+    },
+    {
+     "step": "남은 선지에 대해 '이 선지가 참이려면 지문에 반드시 있어야 할 낱말'을 하나씩 정하고 지문에서 찾는다 — 정책(policy), 국제(international), 점진(gradual) 계열",
+     "on_fail": "낱말을 못 정하겠으면 선지의 목적어(정책·협력·과정)가 지문 문장의 목적어 자리에 나온 적이 있는지만 확인한다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "평가원 정답표가 없어 실제 정답률을 알 수 없다 — 이 값은 같은 청크에서 정답이 확인된 9문항의 예측치 중앙값(0.84)에서, 아래 두 가지를 이유로 낮춰 잡은 추정이다",
+     "선지 다섯이 모두 이민·다문화라는 같은 소재를 담고 있어 소재 대조로는 하나도 걸러지지 않는다",
+     "지문에 however 가 두 번 나와 마지막 주장의 위치가 표지만으로는 정해지지 않는다",
+     "선지 넷째·다섯째가 조판에서 공백을 잃어 붙어 있어 읽는 데 시간이 더 든다"
+    ]
+   },
+   "required_vocab": [
+    "assimilate",
+    "Multiculturalists",
+    "conform",
+    "exclusion",
+    "enlightenment"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답표가 없는 회차이므로 answer_locus 와 choices 를 비웠다 — 지문 구조 서술만 남겼다",
+      "코퍼스 선지 ④⑤에서 공백이 소실돼 있다(다문화사회의안정을위해서는국제적차원의지속적인 협력이요구된다). 뜻은 복원되지만 읽기 부담이 늘어 difficulty.drivers 에 적었다"
+     ],
+     "checked": [
+      "answer_locus·choices 가 비어 있는지 확인",
+      "요지 유형 정의 대조",
+      "선지 텍스트의 조판 결손 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안 difficulty.drivers 에 특정 선지를 지목하는 표현(정책 선지가 매력적이다)이 남아 있었다 — 정답을 모르는 상태에서 오답을 지목한 셈이므로 지우고, 소재 공유·표지 중복이라는 구조 근거로 바꿨다",
+      "고친 뒤 measured_ability·design_intent·solve_procedure 어디에도 선지 번호나 정답 지목이 없다",
+      "required_vocab 다섯 개를 코퍼스 지문에서 문자열로 확인했다 — assimilate·Multiculturalists·conform·exclusion·enlightenment 모두 있다"
+     ],
+     "checked": [
+      "answer_locus 와 choices 가 정말 비어 있는지",
+      "difficulty.predicted 의 근거가 적혀 있는지",
+      "required_vocab 낱말의 지문 내 존재를 문자열 대조",
+      "measured_ability 가 선지를 전제하지 않는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차가 정답을 모르는 상태에서도 그대로 실행된다 — however 세기·the challenge is to 찾기·없는 낱말 확인은 모두 눈으로 하는 조작이다",
+      "5단계의 '있어야 할 낱말 정하기'는 정답을 몰라도 자기 답을 검산하는 수단이 된다"
+     ],
+     "checked": [
+      "절차의 지문 미독 실행 가능성",
+      "금지 표현 목록 대조",
+      "90초 안에 5단계가 끝나는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2406#22",
+   "answer_unknown": true,
+   "measured_ability": "현실 세계의 검증 절차를 길게 예시한 뒤 However 로 가상 세계를 맞세우는 글에서, 예시 구간과 대비의 결론을 갈라 글쓴이가 권하는 태도를 명제로 옮기는 능력",
+   "design_intent": "주장에 해당하는 짧은 문장을 맨 앞 두 문장에 두고(paranoid / question the validity), 그 사이를 길거리에서 낯선 사람을 만났을 때의 검증 절차라는 구체 장면으로 채웠다. 마지막 문장은 However 로 시작하지만 처방이 아니라 현상 진단(가상 세계에서는 방어가 덜하다)이라, 앞머리와 끝을 붙여야 명제가 완성되도록 짜여 있다.",
+   "solve_procedure": [
+    {
+     "step": "선지 다섯의 주어를 적는다 — 익명성 / 검증 기술 / 가상 세계 / 보안 프로그램 / 방어 기제가 덜 작동하는 가상 세계. 그리고 각 선지가 사실 서술인지 권고인지 표시한다",
+     "on_fail": "주어가 길면 각 선지의 마지막 서술어(남용된다·향상되고 있다·가능하다·좋다·중요하다)만 적는다"
+    },
+    {
+     "step": "지문 첫 두 문장에서 글쓴이가 권하는 태도를 나타내는 표현에 밑줄을 긋는다 — it just pays to be a little paranoid, it's sensible to question the validity",
+     "on_fail": "권고 표현이 안 보이면 it is 로 시작하는 문장의 형용사(paranoid, sensible)만 적는다"
+    },
+    {
+     "step": "Typically 부터 시작하는 현실 세계 장면(길에서 만난 사람·시나리오·사진 확인)을 통째로 괄호로 묶어 덜어 낸다",
+     "on_fail": "장면의 시작이 헷갈리면 sidewalk·photographs 같은 구체 명사가 처음 나오는 문장부터 묶는다"
+    },
+    {
+     "step": "However 로 시작하는 마지막 문장을 읽고 가상 세계에서 무엇이 덜한지 한 낱말로 적는다(less defensive)",
+     "on_fail": "However 가 안 보이면 virtual world 가 나오는 문장을 찾는다"
+    },
+    {
+     "step": "2단계의 권고와 4단계의 진단이 한 문장 안에 함께 들어간 선지를 고른다. 한쪽만 든 선지, 지문에 없는 소재(기술 향상·보안 프로그램·표현의 자유)를 주어로 삼은 선지를 지운다",
+     "on_fail": "둘이 남으면 각 선지를 지문 마지막 문장 뒤에 이어 붙여 읽어 말이 이어지는 쪽을 남긴다"
+    }
+   ],
+   "time_budget_sec": 90,
+   "difficulty": {
+    "predicted": 0.75,
+    "drivers": [
+     "평가원 정답표가 없어 실제 정답률은 알 수 없다 — 같은 청크의 정답 확인 9문항 예측치 중앙값(0.84)을 아래 이유로 낮춘 추정이다",
+     "권고 문장과 진단 문장이 지문의 맨 앞과 맨 끝으로 갈라져 있어 두 문장을 붙여야 명제가 선다",
+     "가운데 여섯 문장이 전부 현실 세계 장면이라 분량의 3분의 2가 예시다",
+     "선지 다섯이 모두 인터넷·가상 세계라는 같은 소재를 담아 소재 대조로는 걸러지지 않는다"
+    ]
+   },
+   "required_vocab": [
+    "paranoid",
+    "anonymity",
+    "validity",
+    "validate",
+    "defense mechanism"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답표가 없는 회차라 answer_locus 와 choices 를 비웠다",
+      "이 지문은 이 청크에서 첫 문장이 그대로 주장인 몇 안 되는 형태다 — 다만 그 주장만으로는 명제의 한쪽 성분만 서므로 절차에서 마지막 문장을 따로 읽게 했다",
+      "코퍼스 선지 ⑤ 끝에 페이지 번호 38 이 붙어 있고 마침표가 빠져 있다(조판 잔여)"
+     ],
+     "checked": [
+      "answer_locus·choices 가 비어 있는지",
+      "요지 유형 정의 대조",
+      "선지 텍스트의 조판 잔여 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "measured_ability·design_intent·solve_procedure 어디에도 선지 번호나 정답 지목이 없다",
+      "difficulty.predicted 0.75 의 근거를 세 가지 구조 특성으로 적었다 — 정답을 모르는 상태에서 정답률만 던지지 않도록 요구했고 충족됐다",
+      "required_vocab 다섯 개를 코퍼스 지문에서 문자열로 확인했다 — paranoid·anonymity·validity·validate·defense mechanism 모두 있다"
+     ],
+     "checked": [
+      "answer_locus 와 choices 의 공백 확인",
+      "difficulty.predicted 의 근거 유무",
+      "required_vocab 의 지문 내 존재 문자열 대조",
+      "measured_ability 가 선지를 전제하지 않는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계의 예시 괄호 묶기가 이 지문에서 여섯 문장 중 넷을 덜어 내 90초 배정이 성립한다",
+      "5단계에서 '지문에 없는 소재'를 미리 목록으로 준 덕분에 정답을 몰라도 배제가 기계적으로 진행된다"
+     ],
+     "checked": [
+      "절차의 지문 미독 실행 가능성",
+      "금지 표현 목록 대조",
+      "시간 배정의 타당성"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2023#22",
+   "measured_ability": "두 번째 문장에서 세운 명제를 나라별 사례(네덜란드·인도네시아·프랑스)로 되풀이하는 글에서, 사례의 개별 특징을 요지로 승격시키지 않고 사례들이 공통으로 뒷받침하는 명제를 고르는 능력",
+   "design_intent": "요지를 앞쪽에 두고 나머지를 전부 사례로 채운 뒤, 사례마다 다른 축(개인 화물·저렴한 비용·전기 삼륜차·자동차 진입 제한 정책)을 하나씩 붙여 놓았다. 어느 사례에서 멈추느냐에 따라 서로 다른 오답이 그럴듯해 보이도록 만든 배치다.",
+   "answer_locus": {
+    "sentence_index": [
+     1,
+     2
+    ],
+    "quote": "The latter have the potential to become a preferred ‘last-mile’ vehicle, particularly in high-density and congested areas.",
+    "reasoning": "The latter 가 앞 문장의 bicycles 를 받고, a preferred 'last-mile' vehicle 이 '효율적인 배송 수단'을, in high-density and congested areas 가 '도시에서'를 각각 담아 선지의 세 성분이 이 문장과 바로 앞 문장에서 확정된다. 뒤에 이어지는 네 문장은 나라 이름이 바뀔 뿐 모두 이 문장을 뒷받침하는 사례이고, 마지막 문장 Using bicycles as cargo vehicles is particularly encouraged 가 같은 방향으로 닫는다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "trap": "-",
+     "why_tempting": "'도시에서'가 urban distribution·high-density and congested areas 에, '배송 수단'이 delivery vehicles·last-mile vehicle·cargo vehicles 에, '효율적'이 low acquisition and maintenance costs·successfully implemented 에 대응해 사례 넷이 모두 이 명제로 모인다.",
+     "how_to_reject": "-"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "두 번째 문장의 preferred 와 congested areas 가 있어 '선호'와 '혼잡'이 지문 낱말이고, 혼잡한 도시에서 자전거라면 통근 이야기가 자연스럽게 떠오른다.",
+     "how_to_reject": "preferred 가 걸린 명사는 'last-mile' vehicle 이고 congested areas 는 그 수식구다. commute·commuting·travel time 계열 낱말이 지문에 한 번도 없고, 자전거의 용도는 시종 delivery 와 cargo 다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "네 번째 문장에 Due to their low acquisition and maintenance costs 가 있어 경제성이 실제로 논의된 축이고, '장단점을 모두'라는 균형 잡힌 표현이 무난해 보인다.",
+     "how_to_reject": "비용이 언급된 곳은 그 한 문장뿐이고 방향은 장점 한쪽이다(convey much potential). 단점·한계에 해당하는 표현(however, drawback, limitation)이 지문에 없어 '단점'을 받쳐 줄 문장을 지목할 수 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "다섯 번째 문장 끝의 for services as varied as parcel and catering deliveries 에 '다양한'이 있고, becak 이나 electrically assisted tricycles 처럼 여러 종류의 탈것이 나와 '다양한 용도의 자전거 개발'로 읽힌다.",
+     "how_to_reject": "varied 가 걸린 명사는 services(배달 서비스의 종류)이지 자전거가 아니다. 지문의 동사는 adapted·used·implemented·adopted 처럼 기존 탈것을 쓰는 쪽이고 develop·design 계열이 없다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "다섯 번째 문장에 electrically assisted delivery tricycles 가, 마지막 문장에 policies 와 dedicated bike lanes 가 있어 '전기 자전거'와 '정책'이 둘 다 지문 낱말이다.",
+     "how_to_reject": "전기 삼륜차는 프랑스·유럽에 한정된 한 사례이고(implemented in France ... adopted across Europe), 마지막 문장의 정책은 restrict motor vehicle access to specific areas of a city — 자동차 진입을 막는 정책이지 전기 자전거를 장려하는 정책이 아니다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "선지 다섯에서 자전거에 붙은 역할을 적는다 — 배송 수단 / 출퇴근 대안 / 경제적 장단점 / 다양한 용도 개발 / 전기 자전거 정책",
+     "on_fail": "역할이 안 잡히면 각 선지의 서술어만 적는다"
+    },
+    {
+     "step": "지문에서 고유명사와 나라 이름이 든 문장(the Netherlands, Indonesia, France, Europe)에 괄호를 쳐 사례 구간으로 표시한다",
+     "on_fail": "고유명사가 안 보이면 such as·e.g. 가 든 문장을 사례로 묶는다"
+    },
+    {
+     "step": "괄호 밖에 남은 앞 두 문장만 읽고, 자전거가 무엇이 될 수 있다고 했는지 그대로 적는다(a preferred 'last-mile' vehicle)",
+     "on_fail": "The latter 가 무엇을 받는지 헷갈리면 첫 문장 끝의 including bicycles 를 확인한다"
+    },
+    {
+     "step": "3단계에서 적은 역할과 같은 역할을 자전거에 부여한 선지만 남긴다",
+     "on_fail": "같은 역할이 둘 이상이면 마지막 문장(policies that restrict motor vehicle access)이 설명되는 쪽을 남긴다"
+    },
+    {
+     "step": "남은 선지 중 괄호 친 사례 구간에서만 나온 소재(네덜란드의 개인 화물, 인도네시아 becak, 프랑스 전기 삼륜차, 비용)를 주어로 삼은 것을 지운다",
+     "on_fail": "판단이 안 서면 그 선지가 참이려면 있어야 할 낱말(통근·단점·개발)을 정하고 지문에서 찾는다"
+    }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": {
+    "predicted": 0.88,
+    "drivers": [
+     "요지가 두 번째 문장에 있고 나머지가 전부 사례다",
+     "사례마다 다른 축을 붙여 놓아 오답 넷이 각각 다른 문장에 근거를 갖는다",
+     "last-mile 이라는 업계 용어가 선지에는 '배송 수단'으로 풀려 있다"
+    ]
+   },
+   "required_vocab": [
+    "last-mile",
+    "congested",
+    "acquisition",
+    "cargo",
+    "dedicated bike lanes"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "이 청크에서 유일하게 근거가 지문 뒤쪽이 아니라 두 번째 문장에 있는 문항이다 — answer_locus_pattern 의 반례로 type_report 에 올렸다",
+      "마지막 문장은 요지를 되풀이할 뿐 새 축을 만들지 않는다는 점을 reasoning 에 적었다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "The latter 의 선행사 확인",
+      "정답 1이 평가원 정답표와 일치하는지"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 라벨이 무관·범위 과대·어휘 함정·부분 사실로 서로 다르다",
+      "④의 배제 근거를 '다양한이라는 말이 없다'가 아니라 'varied 가 걸린 명사가 services 다'로 적었다 — 수식 대상 이동이 이 문항의 실제 함정이다"
+     ],
+     "checked": [
+      "trap 라벨 중복 여부",
+      "각 선지 표현이 지문 어느 사례 문장에서 왔는지 대응",
+      "how_to_reject 의 위치 표기"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계의 나라 이름 괄호 묶기가 여섯 문장 중 넷을 덜어 낸다 — 실제로 읽는 양이 두 문장으로 준다",
+      "5단계가 오답 넷을 각각 다른 사례 구간과 짝지어 지우므로 후보가 남지 않는다"
+     ],
+     "checked": [
+      "절차가 오답 넷을 각각 어느 단계에서 거르는지 대조",
+      "금지 표현 목록 대조",
+      "required_vocab 다섯 개의 지문 내 존재 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2309#22",
+   "answer_unknown": true,
+   "measured_ability": "Historically 로 관행을 서술한 뒤 But, in fact 와 Rather than 으로 그 관행을 뒤집는 글에서, 첫 문장이 주장이 아니라 반박 대상임을 알아보고 뒤집힌 뒤의 진술을 명제로 옮기는 능력",
+   "design_intent": "첫 두 문장이 '도덕 문제는 밀려난다'는 관행을 길게 서술해, 그 구간에서 멈추면 글의 방향과 반대인 명제를 세우게 된다. 뒤쪽에는 economics can go a long way towards ... but economics cannot 처럼 부분 인정 뒤 제한을 붙이는 문장을 두어, 인정 부분만 읽으면 또 다른 명제가 서도록 했다. 마지막 문장은 requires 로 요구를 명시하는 자리다.",
+   "solve_procedure": [
+    {
+     "step": "선지 다섯에서 '무엇을 해야 한다·무엇이 중요하다'에 해당하는 대상을 적는다 — 시민 단체 / 사회적 합의 / 성실한 납세 / 경제학의 이론적 근거 / 도덕적 목표 설정",
+     "on_fail": "대상이 안 잡히면 각 선지의 주어 명사 하나씩만 적는다"
+    },
+    {
+     "step": "지문에서 방향을 뒤집는 표지를 전부 찾아 표시한다 — But, in fact / Rather than. 표지 앞 구간과 뒤 구간을 선으로 갈라 둔다",
+     "on_fail": "표지가 안 보이면 Historically 나 often 처럼 관행·경향을 나타내는 말이 든 문장을 앞 구간으로 묶는다"
+    },
+    {
+     "step": "표지 뒤 구간의 문장들에서 되풀이되는 낱말을 하나 고른다(moral 계열이 몇 번 나오는지 세어 본다)",
+     "on_fail": "되풀이가 안 보이면 마지막 문장의 목적어를 적는다"
+    },
+    {
+     "step": "but 이 든 긴 문장을 찾아 but 앞에서 인정한 것과 뒤에서 부정한 것을 각각 적는다(economics can go a long way / economics cannot identify the goal)",
+     "on_fail": "그 문장이 길면 cannot 뒤 동사구만 적는다"
+    },
+    {
+     "step": "3단계의 되풀이 낱말과 4단계의 '부정된 것'을 함께 만족하는 선지를 고른다. 2단계에서 앞 구간으로 묶은 문장의 소재를 주어로 삼은 선지, 지문에 없는 낱말(시민 단체·합의·납세)을 요구하는 선지를 지운다",
+     "on_fail": "둘이 남으면 마지막 문장(requires identifying ...)의 목적어와 같은 말을 담은 쪽을 남긴다"
+    }
+   ],
+   "time_budget_sec": 85,
+   "difficulty": {
+    "predicted": 0.8,
+    "drivers": [
+     "평가원 정답표가 없어 실제 정답률은 알 수 없다 — 같은 청크의 정답 확인 9문항 예측치 중앙값(0.84)에 구조 특성을 반영한 추정이다",
+     "But, in fact 와 Rather than 이라는 뒤집기 표지가 두 개나 있어 방향 판정 단서가 뚜렷하다",
+     "다만 첫 두 문장이 관행 서술로 길어 앞 구간에서 멈추면 반대 방향 명제가 선다",
+     "distributive justice·in a vacuum 같은 추상 표현이 근거 구간에 있다"
+    ]
+   },
+   "required_vocab": [
+    "legislation",
+    "attentive",
+    "distributive justice",
+    "imposition",
+    "in a vacuum"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답표가 없는 회차이므로 answer_locus 와 choices 를 비웠다",
+      "이 지문은 첫 문장이 반박 대상인 형태의 표본이다 — 형제 유형(제목·주제)에서 보고된 반례와 같은 구조이므로 type_report 에 합산했다",
+      "코퍼스 선지 ⑤ 끝에 페이지 번호 38 이 붙어 있다(조판 잔여)"
+     ],
+     "checked": [
+      "answer_locus·choices 가 비어 있는지",
+      "요지 유형 정의 대조",
+      "But, in fact / Rather than 표지의 실제 위치 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "measured_ability·design_intent·solve_procedure 어디에도 선지 번호나 정답 지목이 없다 — 5단계가 배제 기준을 '앞 구간 소재'와 '지문에 없는 낱말'로만 적고 특정 선지를 정답으로 부르지 않는다",
+      "difficulty.predicted 0.8 의 근거를 표지 개수·앞 구간 길이·추상 표현으로 적었다",
+      "required_vocab 다섯 개를 코퍼스 지문에서 문자열로 확인했다 — legislation·attentive·distributive justice·imposition·in a vacuum 모두 있다"
+     ],
+     "checked": [
+      "answer_locus 와 choices 의 공백 확인",
+      "difficulty.predicted 의 근거 유무",
+      "required_vocab 의 지문 내 존재 문자열 대조",
+      "measured_ability 가 선지를 전제하지 않는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계의 '되풀이 낱말 세기'는 뜻을 몰라도 같은 어근을 세는 것으로 실행된다 — 이 지문에서 moral 계열이 뒤 구간에만 몰려 있다",
+      "85초 안에 5단계가 끝난다 — 지문이 8문장으로 짧다"
+     ],
+     "checked": [
+      "절차의 지문 미독 실행 가능성",
+      "금지 표현 목록 대조",
+      "시간 배정의 타당성"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-GIST",
+  "n_analyzed": 12,
+  "recurring_traps": [
+   {
+    "trap": "부분 사실",
+    "count": 7,
+    "signature": "지문에 실제로 있는 종속절·삽입구·경향 서술 한 개를 요지로 승격시킨다. 이 유형에서는 특히 '정의문의 수식절'(M2609#22 ② norms and values · 2025#22 ④ emotion vocabulary)과 'Often 으로 시작하는 경향 문장'(2026#22 ③)이 승격 대상이다"
+   },
+   {
+    "trap": "어휘 함정",
+    "count": 7,
+    "signature": "선지가 지문 낱말을 문자로 옮기는 것이 아니라 서술어를 인접 개념으로 갈아 끼운다 — 이해→조절(2025#22 ⑤) · 응답→분석(2024#22 ②) · 활용→개발(2023#22 ④) · 확대→변화(M2609#22 ③) · 확률→예측(M2606#22 ②). 또는 수식·한정이 걸린 대상을 옮긴다(2026#22 ⑤ By necessity 가 정보 공유에서 경쟁으로, 2023#22 ④ varied 가 services 에서 자전거로)"
+   },
+   {
+    "trap": "무관",
+    "count": 6,
+    "signature": "소재는 지문과 같은데 그 소재에 대해 지문이 한 번도 쓰지 않은 술어를 붙인다. 배제 근거가 늘 '없는 낱말군'이라 확인이 빠르다 — commute(2023#22 ②) · efficient(M2506#22 ②) · source·verify(M2606#22 ④) · image(2024#22 ⑤)"
+   },
+   {
+    "trap": "반대 진술",
+    "count": 5,
+    "signature": "지문이 한 문장에서 명시한 방향을 뒤집는다. 뒤집기의 재료가 되는 문장은 대개 비교·양보 문장이다(M2506#22 ③ more true among hunter-gatherers · M2706#22 ⑤ faces help drivers feel safer · M2509#22 ② consider a dog a sentient being)"
+   },
+   {
+    "trap": "범위 과대",
+    "count": 3,
+    "signature": "믿음·가능성 층위의 진술을 사실·실현 층위로 올리거나(M2506#22 ⑤ 가치 형성→사회 건설), 지문에 없는 반대쪽 축을 더해 양면 평가로 만든다(2023#22 ③ 장점→장단점)"
+   },
+   {
+    "trap": "범위 과소",
+    "count": 3,
+    "signature": "두 축으로 세운 명제에서 한 축만 담는다(2026#22 ④ 협력만 · M2509#22 ⑤ 문화적 도구만 · 2025#22 ③ 자기 감정만). 지문 표현과 겹치는 정도는 가장 높은데 틀린 이유가 '없는 것'이라 눈에 안 띈다"
+   },
+   {
+    "trap": "인과 역전",
+    "count": 3,
+    "signature": "지문의 화살표를 뒤집는다 — 소셜 미디어→자본을 자본→소셜 미디어로(M2609#22 ④), 감정 이해→표현·공감을 공감→표현으로(2025#22 ②), 고객 칭찬→브랜드 응답을 응답→고객 반응으로(2024#22 ③)"
+   },
+   {
+    "trap": "지문 밖 상식",
+    "count": 2,
+    "signature": "소재에 붙은 사회적 통념을 얹는다 — 스포츠 글이니 스포츠 정신 교육(2026#22 ②), 정보 글이니 정보 과잉(M2606#22 ③)"
+   },
+   {
+    "trap": "주체 역전",
+    "count": 0,
+    "signature": "이 청크 오답 36개에 한 건도 없었다. 요지 선지는 대개 '무엇이 어떠하다'라는 무주체 명제로 쓰여 행위 주체를 바꿔 넣을 자리가 잘 안 생긴다"
+   }
+  ],
+  "answer_locus_pattern": "정답이 확인된 9문항 중 8문항의 근거가 지문 뒤쪽 세 문장 안에 있다(M2706#22 6·7 · 2026#22 6·9·10 · M2609#22 2와 8 · M2606#22 6 · 2025#22 2·3·6 · M2509#22 4·5·6 · M2506#22 5·7 · 2024#22 5·6). 유일한 반례가 2023#22 로 두 번째 문장에 명제를 세우고 나머지를 전부 나라별 사례로 채운다. 더 중요한 실측은 '주제문 한 문장이면 충분한가'다 — 선지의 두 성분(주어부·서술부)이 모두 그 한 문장에서 확인되는가로 재면 9문항 중 2문항(M2609#22 · M2506#22)뿐이다. 형제 유형인 제목·주제에서 보고된 6/8·7/9 와 크게 어긋나며, 이유는 유형이 아니라 선지 언어에 있다. 한국어 선지는 'A는 B를 C한다' 꼴의 복합 명제로 쓰이는데 A·B·C 가 서로 다른 문장에 흩어져 있으면 한 문장으로는 못 맞춘다(M2509#22 는 문화적 도구·학습됨·인간 사회 한정이 연속 세 문장에 하나씩 있다). 첫 문장이 요지인 경우는 9문항 중 2문항뿐이고(M2606#22 대조 명제 · M2609#22 소재 제시), 첫 문장이 배경·정의·양보절·반박 대상인 경우가 6문항이다(M2706#22 · 2026#22 · M2509#22 · M2506#22 · 2024#22 의 긴 관계절 · 정답표 없는 M2309#22 는 Historically 관행 서술).",
+  "procedure": [
+   {
+    "step": "선지 다섯을 먼저 읽고 서술어만 세로로 적는다. 한국어 선지는 소재어가 거의 같으므로 갈리는 자리는 서술어다 — 촉진한다/향상한다/필수적이다/기반이 된다/중요하다 처럼",
+    "on_fail": "서술어가 안 잡히면 각 선지를 '무엇이 / 어떠하다' 두 조각으로 자르고 뒤 조각만 남긴다. 조판에서 공백이 뭉개진 선지는 마지막 어절만 떼어 읽는다"
+   },
+   {
+    "step": "지문에서 덜어 낼 구간을 먼저 괄호로 묶는다 — 큰따옴표 인용과 출처 표시(reported, noted, the article), for instance·Take, for instance 로 열리는 예시, 고유명사·나라 이름이 든 사례 문장, 첫 문장의 대시 삽입구",
+    "on_fail": "묶을 것이 안 보이면 구체 명사(사람 이름·나라·숫자)가 처음 나오는 문장부터 사례로 묶는다"
+   },
+   {
+    "step": "괄호 밖에 남은 문장에서 방향 표지를 찾는다 — But, in fact / However / Rather than / not A but B / This means / the sad fact is that / the challenge is to. 표지가 하나도 없으면(이 청크에서 M2706#22·M2609#22·2023#22 셋) 마지막 문장과 두 번째 문장을 후보로 삼는다",
+    "on_fail": "표지가 여럿이면 뒤쪽 것을 우선한다. Often·Typically·Historically 로 시작하는 문장은 결론이 아니라 관행·경향 서술이므로 후보에서 뺀다"
+   },
+   {
+    "step": "후보 문장에서 선지의 두 성분에 대응할 낱말을 각각 하나씩 뽑아 적는다. 지시어(This, These, The latter, They)가 있으면 바로 앞 문장에서 선행사를 확인해 함께 적는다 — 이 청크 9문항 중 7문항이 두 문장 이상을 붙여야 성분이 채워진다",
+    "on_fail": "한 문장에서 두 성분이 안 나오면 그 문장 앞뒤로 한 문장씩 넓혀 다시 뽑는다. 그래도 안 되면 결핍 서술(unanswered, lost opportunities)을 뒤집어 '무엇을 해야 한다'로 바꿔 적는다"
+   },
+   {
+    "step": "두 성분이 모두 대응되는 선지만 남기고, 남은 것을 셋으로 거른다 — (a) 2단계에서 괄호 친 구간의 소재를 주어로 삼은 것, (b) 서술어가 지문 동사와 다른 것(이해/조절 · 활용/개발 · 응답/분석), (c) 지문이 믿음·가능성으로 말한 것을 사실·실현으로 올린 것",
+    "on_fail": "그래도 둘이 남으면 각 선지가 지문의 마지막 문장을 설명할 수 있는지 물어 못 하는 쪽을 지운다. 두 선지가 소재어를 거의 공유하면(M2506#22 ④⑤) 서술어의 층위 하나만 견준다"
+   }
+  ],
+  "failure_modes": [
+   "선지의 소재어가 지문에 있는지로 거르려 한다 — 이 청크 오답 36개 전부가 지문의 소재어를 담고 있어 이 방식으로 걸러지는 오답은 0개다. 한국어 선지와 영어 지문은 문자로 겹칠 수 없으므로 '지문에 있는 말인가'라는 물음 자체가 이 유형에서는 작동하지 않는다",
+   "서술어 대조를 건너뛴다 — 오답 36개 중 8개가 소재어를 그대로 두고 서술어만 인접 개념으로 갈아 끼운 것이다(이해→조절 · 응답→분석 · 활용→개발 · 확대→변화 · 확률→예측 · 우선순위→신속 · 부정문→정의문 · 필연이 걸리는 대상 이동)",
+   "첫 문장을 요지로 삼는다 — 9문항 중 첫 문장이 요지인 것은 2문항뿐이고, 배경·정의·양보절·반박 대상인 것이 6문항이다. 특히 M2309#22 는 첫 문장이 But, in fact 로 뒤집히는 반박 대상이라 그 자리에서 멈추면 정반대 명제를 세운다",
+   "인용·사례에서 판단을 끝낸다 — 이 유형의 지문은 분량의 3분의 1에서 3분의 2가 인용문(M2706#22 세 건) · 학자 인용(M2609#22 Nan Lin) · 나라별 사례(2023#22 넷) · 장면 예시(M2406#22 여섯 문장)다",
+   "한 문장만 보고 결정한다 — 선지의 두 성분이 한 문장에서 다 확인되는 문항은 9개 중 2개뿐이다. 나머지 7개는 지시어를 풀거나 이웃 문장을 붙여야 성분이 채워진다",
+   "정답과 오답이 같은 명제의 강도 차이로만 갈릴 때 더 완결돼 보이는 쪽을 고른다 — M2506#22 ④와 ⑤가 그 형태이고, 지문의 술어가 believed·notion·we believe 로 믿음의 층위에 묶여 있다는 것이 유일한 갈림목이다",
+   "정답표가 없는 회차에서 추정 정답을 근거처럼 적는다 — 산출물 층위의 실패다. M2409#22·M2406#22·M2309#22 셋은 answer_locus 와 choices 를 비우고 절차·난이도 근거만 남겼다"
+  ],
+  "time_budget_sec": 82,
+  "open_questions": [
+   "한국어 선지 유형에서 '어휘 함정'의 정의를 갱신해야 한다. 라벨표의 어휘 함정은 영어 선지 유형에서 '지문 낱말이 선지에 그대로 옮겨져 있으나 걸리는 대상이 다르다'로 쓰였는데, 한국어 선지에서는 문자 겹침이 원리상 불가능하다. 이 청크에서 지문 낱말이 선지에 문자 그대로 나타난 자리는 외래어·고유명사 6곳뿐이고(M2706#22 ⑤ SUV · M2609#22 ①④ 소셜 미디어 · M2609#22 ③ 뉴 미디어 · 2024#22 ④ 브랜드 매니저 · 2026#22 전 선지 스포츠 · 2023#22 ⑤ 전기 자전거), 그 6곳 중 오답 판별에 쓸 수 있는 것은 0곳이다 — 오히려 SUV·뉴 미디어·브랜드 매니저는 미끼 쪽에 붙어 있다. 대신 이 유형의 어휘 함정 7건은 전부 '서술어 또는 수식 대상의 인접 개념 치환'이었다. 라벨 설명에 이 두 작동 방식을 갈라 적을 것을 제안한다",
+   "'주제문 한 문장이면 충분' 비율이 요지에서 2/9 로 나와 제목·주제의 6/8·7/9 와 크게 어긋난다. 다만 잣대가 다를 수 있다 — 여기서는 '선지의 주어부와 서술부가 모두 그 한 문장에서 확인되는가'로 엄격히 쟀고, 지시어를 앞 문장으로 풀어 주는 것을 허용하면 4~5/9 가 된다. 세 유형의 잣대를 하나로 맞춰 다시 세어야 비교가 성립한다",
+   "'무관'과 '지문 밖 상식'의 경계가 이 청크에서도 흐렸다. 소재에 붙은 사회적 통념(스포츠 정신·정보 과잉)만 지문 밖 상식으로 두고 나머지를 무관으로 갈랐는데, 판단자에 따라 2024#22 ⑤(경청→이미지 창출)가 넘어갈 수 있다",
+   "정답 확인 표본이 9뿐이라 '근거가 뒤쪽 세 문장'(8/9)이 유형 상수인지 이 회차 묶음의 우연인지 말할 수 없다. 다음 R-GIST 청크(chunk-R-GIST-M2306-22)와 합산해 재야 한다",
+   "이 청크의 반려는 setter 2건(M2706#22·2026#22 의 answer_locus 교체) · analyst 3건(2024#22 라벨 중복 · M2506#22 오라벨 · M2409#22 의 선지 지목 표현) · tutor 3건(2025#22 어휘 나열 · M2509#22 절차 누락 · M2706#22 초안 단계 부족은 setter 지적과 합쳐 처리)으로 세 자가 서로 다른 것을 잡았다. 다만 answer_unknown 3문항에서는 analyst 반려가 1건뿐이라, 정답표 없는 문항에 대한 analyst 의 검사 항목 넷이 실제로 다른 결과를 내는지는 표본이 모자란다"
+  ]
+ }
+}

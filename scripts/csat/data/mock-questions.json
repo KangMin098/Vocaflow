@@ -37,7 +37,7 @@
   {
    "exam": "M2006",
    "file": "202006_영어영역_문제지.pdf",
-   "space": "wide",
+   "space": "char",
    "stems": 45,
    "assigned": 45,
    "multi": 0,
@@ -59,11 +59,11 @@
   {
    "exam": "M2106",
    "file": "202106_영어영역_문제지.pdf",
-   "space": "char",
+   "space": "wide",
    "stems": 45,
-   "assigned": 45,
+   "assigned": 42,
    "multi": 0,
-   "none": 0,
+   "none": 3,
    "keys": 45
   },
   {
@@ -89,41 +89,41 @@
   {
    "exam": "M2209",
    "file": "202209_영어영역_문제지.pdf",
-   "space": "char",
-   "stems": 45,
-   "assigned": 45,
+   "space": "wide",
+   "stems": 44,
+   "assigned": 42,
    "multi": 0,
-   "none": 0,
+   "none": 2,
    "keys": 0
   },
   {
    "exam": "M2306",
    "file": "202306_영어영역_문제지.pdf",
-   "space": "char",
-   "stems": 45,
-   "assigned": 45,
+   "space": "wide",
+   "stems": 44,
+   "assigned": 41,
    "multi": 0,
-   "none": 0,
+   "none": 3,
    "keys": 0
   },
   {
    "exam": "M2309",
    "file": "202309_영어영역_문제지.pdf",
-   "space": "char",
-   "stems": 45,
-   "assigned": 45,
+   "space": "wide",
+   "stems": 44,
+   "assigned": 41,
    "multi": 0,
-   "none": 0,
+   "none": 3,
    "keys": 0
   },
   {
    "exam": "M2406",
    "file": "202406_영어영역_문제지.pdf",
-   "space": "char",
+   "space": "wide",
    "stems": 45,
-   "assigned": 44,
+   "assigned": 43,
    "multi": 0,
-   "none": 1,
+   "none": 2,
    "keys": 0
   },
   {
@@ -139,21 +139,21 @@
   {
    "exam": "M2506",
    "file": "202506_영어영역_문제지.pdf",
-   "space": "char",
+   "space": "wide",
    "stems": 45,
-   "assigned": 44,
+   "assigned": 38,
    "multi": 0,
-   "none": 1,
+   "none": 7,
    "keys": 45
   },
   {
    "exam": "M2509",
    "file": "202509_영어영역_문제지.pdf",
-   "space": "char",
+   "space": "wide",
    "stems": 45,
-   "assigned": 43,
+   "assigned": 41,
    "multi": 0,
-   "none": 2,
+   "none": 4,
    "keys": 45
   },
   {
@@ -971,11 +971,11 @@
   {
    "exam": "M2006",
    "no": 34,
-   "stem": "Not all Golden Rules are alike; two kinds emerged over          [36～37] 주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+   "stem": "다음 빈칸에 들어갈 말로 가장 적절한 것을 고르시오.",
    "high_score": false,
    "rescued": false,
    "section": "독해",
-   "type": "R-ORDER",
+   "type": "R-BLANK",
    "hit_count": 1
   },
   {
@@ -983,7 +983,7 @@
    "no": 35,
    "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "독해",
    "type": "R-IRRELEVANT",
    "hit_count": 1
@@ -1041,7 +1041,7 @@
   {
    "exam": "M2006",
    "no": 41,
-   "stem": "윗글의 제목으로 가장 적절한 것은? 가장 적절한 것은?",
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
    "high_score": false,
    "rescued": false,
    "section": "장문",
@@ -1051,8 +1051,8 @@
   {
    "exam": "M2006",
    "no": 42,
-   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은",
-   "high_score": false,
+   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은? [3점]",
+   "high_score": true,
    "rescued": false,
    "section": "장문",
    "type": "X-VOCAB",
@@ -1061,7 +1061,7 @@
   {
    "exam": "M2006",
    "no": 43,
-   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로",
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
    "high_score": false,
    "rescued": false,
    "section": "장문",
@@ -1071,17 +1071,17 @@
   {
    "exam": "M2006",
    "no": 44,
-   "stem": "다음 글을 읽고, 물음에 답하시오.                                            45. 윗글에 관한 내용으로 적절하지 않은 것은? (A)                               ① Joe는 바이올린에 천부적인 재능이 있었다.",
+   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
    "high_score": false,
    "rescued": false,
    "section": "장문",
-   "type": "X-FACT",
+   "type": "X-REFER",
    "hit_count": 1
   },
   {
    "exam": "M2006",
    "no": 45,
-   "stem": "다음 글을 읽고, 물음에 답하시오.                                            45. 윗글에 관한 내용으로 적절하지 않은 것은? (A)                               ① Joe는 바이올린에 천부적인 재능이 있었다.",
+   "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
    "high_score": false,
    "rescued": false,
    "section": "장문",
@@ -1091,7 +1091,7 @@
   {
    "exam": "M2106",
    "no": 1,
-   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을       ③ 중간고사 기간이 얼마 남지 않아서",
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -1111,7 +1111,7 @@
   {
    "exam": "M2106",
    "no": 3,
-   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시오.",
+   "stem": "대화를 듣고, 두 사람의 관계를 가장 잘 나타낸 것을 고르시",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -1121,7 +1121,7 @@
   {
    "exam": "M2106",
    "no": 4,
-   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을      ① Graphic Design $50 Greenville             5 p.m. 고르시오.                                 ②  Coding      $70 Greenville               7 p.m.",
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.                                 ②  Coding",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -1131,7 +1131,7 @@
   {
    "exam": "M2106",
    "no": 5,
-   "stem": "대화를 듣고, 여자가 남자를 위해 할 일로 가장 적절한 것을",
+   "stem": "대화를 듣고, 여자가 남자를 위해 할 일로 가장 적절한 것을 고르시오.                                   적절한 것을 고",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -1141,7 +1141,7 @@
   {
    "exam": "M2106",
    "no": 6,
-   "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오. [3점]         ⑤ We finished dinner already.",
+   "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오. [3점]",
    "high_score": true,
    "rescued": false,
    "section": "듣기",
@@ -1153,7 +1153,7 @@
    "no": 7,
    "stem": "대화를 듣고, 동아리 봉사 활동이 연기된 이유를 고르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-REASON",
    "hit_count": 1
@@ -1161,9 +1161,9 @@
   {
    "exam": "M2106",
    "no": 8,
-   "stem": "대화를 듣고, Annual Charity Baseball Game에 관해 언급되지 않은 것을 고르시오.",
+   "stem": "대화를 듣고, Annual Charity Baseball Game에 관해 언급되지 않은 것을 고르시오. 가 선수        ② 일시  ③ 입장료 장소",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-NOTMENTION",
    "hit_count": 1
@@ -1171,29 +1171,29 @@
   {
    "exam": "M2106",
    "no": 9,
-   "stem": "Kaufman Special Exhibition에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "stem": "Kaufman Special Exhibition에 관한 다음 내용을 듣고, 일치하지 것을 고르시오. 1995년에 처음 개최되었다.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
-   "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2106",
    "no": 10,
-   "stem": "다음 표를 보면서 대화를 듣고, 여자가 등록할 강좌를 고르시오.",
+   "stem": "다음",
    "high_score": false,
    "rescued": true,
    "section": "듣기",
-   "type": "L-TABLE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2106",
    "no": 11,
-   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-RESPONSE",
    "hit_count": 1
@@ -1201,12 +1201,12 @@
   {
    "exam": "M2106",
    "no": 12,
-   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "stem": "대화를 듣고, 여 적절한 것을 고르시",
    "high_score": false,
    "rescued": true,
    "section": "듣기",
-   "type": "L-RESPONSE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2106",
@@ -2441,7 +2441,7 @@
   {
    "exam": "M2209",
    "no": 1,
-   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을         ① 초청 강사의 요청이 있어서",
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -2471,7 +2471,7 @@
   {
    "exam": "M2209",
    "no": 4,
-   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.  ①A       2 hours               $49.99    Silicone",
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -2491,7 +2491,7 @@
   {
    "exam": "M2209",
    "no": 6,
-   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.                ③ Right. We don’t have biology class today.",
+   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.                ③",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -2500,30 +2500,20 @@
   },
   {
    "exam": "M2209",
-   "no": 7,
-   "stem": "대화를 듣고, 남자가 Career Day 행사 장소를 변경하려는 이유를 고르시오.",
-   "high_score": false,
-   "rescued": true,
-   "section": "듣기",
-   "type": "L-REASON",
-   "hit_count": 1
-  },
-  {
-   "exam": "M2209",
    "no": 8,
-   "stem": "대화를 듣고, Digital Publishing Workshop에 관해 언급되지 않은 것을 고르시오.",
+   "stem": "대",
    "high_score": false,
    "rescued": true,
    "section": "듣기",
-   "type": "L-NOTMENTION",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2209",
    "no": 9,
    "stem": "2021 Playground in the Park에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-ANNOUNCE",
    "hit_count": 1
@@ -2531,9 +2521,9 @@
   {
    "exam": "M2209",
    "no": 10,
-   "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 블루투스 이어폰을 고르시오.",
+   "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 블루투스 이어폰을 르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-TABLE",
    "hit_count": 1
@@ -2541,9 +2531,9 @@
   {
    "exam": "M2209",
    "no": 11,
-   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 을 고르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-RESPONSE",
    "hit_count": 1
@@ -2551,12 +2541,12 @@
   {
    "exam": "M2209",
    "no": 12,
-   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "stem": "대화를 듣고, 남자 적절한 것을 고르시오",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
-   "type": "L-RESPONSE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2209",
@@ -2891,7 +2881,7 @@
   {
    "exam": "M2306",
    "no": 1,
-   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을         ① 실험 사진을 포함시키지 않아서",
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -2921,7 +2911,7 @@
   {
    "exam": "M2306",
    "no": 4,
-   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.        Model  Price   Material  Foldable      Color",
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -2941,7 +2931,7 @@
   {
    "exam": "M2306",
    "no": 6,
-   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오. [3점]           ③ Okay. We can buy it at the store after work.",
+   "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오. [3점]",
    "high_score": true,
    "rescued": false,
    "section": "듣기",
@@ -2950,40 +2940,30 @@
   },
   {
    "exam": "M2306",
-   "no": 7,
-   "stem": "대화를 듣고, 남자가 과학 보고서 대회에서 상을 받지 못한 이유를 고르시오.",
-   "high_score": false,
-   "rescued": true,
-   "section": "듣기",
-   "type": "L-REASON",
-   "hit_count": 1
-  },
-  {
-   "exam": "M2306",
    "no": 8,
-   "stem": "대화를 듣고, 2022 Technology Fair에 관해 언급되지 않은 것을 고르시오.",
+   "stem": "대 고르",
    "high_score": false,
    "rescued": true,
    "section": "듣기",
-   "type": "L-NOTMENTION",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2306",
    "no": 9,
-   "stem": "Junior Money Smart Course에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "stem": "Junior Money Smart Course에 관한 다음 내용을 듣고, 일치하지 것을 고르시오. 강사는 경제학 교수이다.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
-   "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2306",
    "no": 10,
    "stem": "다음 표를 보면서 대화를 듣고, 여자가 구입할 책상용 태블릿 거치대를 고르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-TABLE",
    "hit_count": 1
@@ -2993,7 +2973,7 @@
    "no": 11,
    "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-RESPONSE",
    "hit_count": 1
@@ -3001,12 +2981,12 @@
   {
    "exam": "M2306",
    "no": 12,
-   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "stem": "대화를 듣고, 남자 적절한 것을 고르시오",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
-   "type": "L-RESPONSE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2306",
@@ -3341,7 +3321,7 @@
   {
    "exam": "M2309",
    "no": 1,
-   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을         ① 기타에 문제가 생겨서",
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -3371,7 +3351,7 @@
   {
    "exam": "M2309",
    "no": 4,
-   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.        Model  Price            Color    Material",
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -3391,7 +3371,7 @@
   {
    "exam": "M2309",
    "no": 6,
-   "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오. [3점]           ③ You shouldn’t. Your hands are still dirty.",
+   "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오. [3점]",
    "high_score": true,
    "rescued": false,
    "section": "듣기",
@@ -3400,40 +3380,30 @@
   },
   {
    "exam": "M2309",
-   "no": 7,
-   "stem": "대화를 듣고, 여자가 밴드 오디션에 참가하지 않은 이유를 고르시오.",
-   "high_score": false,
-   "rescued": true,
-   "section": "듣기",
-   "type": "L-REASON",
-   "hit_count": 1
-  },
-  {
-   "exam": "M2309",
    "no": 8,
-   "stem": "대화를 듣고, Kint Chocolate Museum에 관해 언급되지 않은 것을 고르시오.",
+   "stem": "대 것",
    "high_score": false,
    "rescued": true,
    "section": "듣기",
-   "type": "L-NOTMENTION",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2309",
    "no": 9,
-   "stem": "Endangered Animals Photo Exhibition에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "stem": "Endangered Animals Photo Exhibition에 관한 다음 내용을 듣고, 하지 않는 것을 고르시오. 3주 동안 지속된다.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
-   "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2309",
    "no": 10,
-   "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 주문할 기내 휴대용 가방을 고르시오.",
+   "stem": "다음 표를 보면서 대화를 듣고, 두 사람이 주문할 기내 휴대용 을 고르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-TABLE",
    "hit_count": 1
@@ -3441,9 +3411,9 @@
   {
    "exam": "M2309",
    "no": 11,
-   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 을 고르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-RESPONSE",
    "hit_count": 1
@@ -3451,12 +3421,12 @@
   {
    "exam": "M2309",
    "no": 12,
-   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "stem": "대화를 듣고, 여자 적절한 것을 고르시오",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
-   "type": "L-RESPONSE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2309",
@@ -3741,7 +3711,7 @@
   {
    "exam": "M2309",
    "no": 41,
-   "stem": "윗글의 제목으로 가장 적절한 것은?",
+   "stem": "윗글의 제목으로 가장 적절한 것은?                                               how he communicated the feelings of isolation and loneliness in",
    "high_score": false,
    "rescued": false,
    "section": "장문",
@@ -3751,8 +3721,8 @@
   {
    "exam": "M2309",
    "no": 42,
-   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은? [3점]",
-   "high_score": true,
+   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은",
+   "high_score": false,
    "rescued": false,
    "section": "장문",
    "type": "X-VOCAB",
@@ -3761,27 +3731,27 @@
   {
    "exam": "M2309",
    "no": 43,
-   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
+   "stem": "다음 글을 읽고, 물음에 답하시오.                                           45. 윗글에 관한 내용으로 적절하지 않은 것은? (A)                              ① Emilia와 Layla는 유럽 여행 중이었다.",
    "high_score": false,
    "rescued": false,
    "section": "장문",
-   "type": "X-ORDER",
+   "type": "X-FACT",
    "hit_count": 1
   },
   {
    "exam": "M2309",
    "no": 44,
-   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
+   "stem": "다음 글을 읽고, 물음에 답하시오.                                           45. 윗글에 관한 내용으로 적절하지 않은 것은? (A)                              ① Emilia와 Layla는 유럽 여행 중이었다.",
    "high_score": false,
    "rescued": false,
    "section": "장문",
-   "type": "X-REFER",
+   "type": "X-FACT",
    "hit_count": 1
   },
   {
    "exam": "M2309",
    "no": 45,
-   "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
+   "stem": "다음 글을 읽고, 물음에 답하시오.                                           45. 윗글에 관한 내용으로 적절하지 않은 것은? (A)                              ① Emilia와 Layla는 유럽 여행 중이었다.",
    "high_score": false,
    "rescued": false,
    "section": "장문",
@@ -3791,7 +3761,7 @@
   {
    "exam": "M2406",
    "no": 1,
-   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을",
+   "stem": "다음을 듣고, 남자가 하는 말의 목적으로 가장 적절한 것을 고르시오.                                     ① 고객과의",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -3801,7 +3771,7 @@
   {
    "exam": "M2406",
    "no": 2,
-   "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오. 않은 것을 고르시오.",
+   "stem": "대화를 듣고, 여자의 의견으로 가장 적절한 것을 고르시오. 않은 것을 고르시",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -3811,7 +3781,7 @@
   {
    "exam": "M2406",
    "no": 3,
-   "stem": "다음을 듣고, 남자가 하는 말의 요지로 가장 적절한 것을          ① H-rail 기차에서 분실한 물건에 대한 정보를 제공한다.",
+   "stem": "다음을 듣고, 남자가 하는 말의 요지로 가장 적절한 것을",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -3821,7 +3791,7 @@
   {
    "exam": "M2406",
    "no": 4,
-   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -3843,7 +3813,7 @@
    "no": 6,
    "stem": "대화를 듣고, 남자가 지불할 금액을 고르시오. [3점]",
    "high_score": true,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-MONEY",
    "hit_count": 1
@@ -3851,9 +3821,9 @@
   {
    "exam": "M2406",
    "no": 7,
-   "stem": "대화를 듣고, 여자가 독서 모임에 참석하지 못한 이유를 고르시오.",
+   "stem": "대화를 듣고, 여자가 독서 모임에 참석하지 못한 이유를 고르시오. 대화가 계획보다 오래 걸려서 아이를 돌봐 줄 사람을 찾지 못해서",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-REASON",
    "hit_count": 1
@@ -3861,7 +3831,7 @@
   {
    "exam": "M2406",
    "no": 8,
-   "stem": "대화를 듣고, Now-and-Then Tech Showcase에 관해 언급되지",
+   "stem": "대화를 듣고, N",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -3873,7 +3843,7 @@
    "no": 9,
    "stem": "Found 211에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-ANNOUNCE",
    "hit_count": 1
@@ -3881,9 +3851,9 @@
   {
    "exam": "M2406",
    "no": 10,
-   "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 쿠키 커터 세트를 고르시오.",
+   "stem": "다음 표를 보면서 대화를 듣고, 여자가 구매할 쿠키 커터",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-TABLE",
    "hit_count": 1
@@ -3891,19 +3861,19 @@
   {
    "exam": "M2406",
    "no": 11,
-   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "stem": "대화를 듣고, 적절한 것을 고르",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
-   "type": "L-RESPONSE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2406",
    "no": 12,
-   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오.",
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 것을 고르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-RESPONSE",
    "hit_count": 1
@@ -4691,7 +4661,7 @@
   {
    "exam": "M2506",
    "no": 1,
-   "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을",
+   "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을 고르시오.                                     수 없는 이유를",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -4711,7 +4681,7 @@
   {
    "exam": "M2506",
    "no": 3,
-   "stem": "다음을 듣고, 여자가 하는 말의 요지로 가장 적절한 것을",
+   "stem": "다음을 듣고, 여자가 하는 말의 요지로 가장 적절한 것을 고르시오.                                     않는 것을 고르",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -4721,7 +4691,7 @@
   {
    "exam": "M2506",
    "no": 4,
-   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.",
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -4743,7 +4713,7 @@
    "no": 6,
    "stem": "대화를 듣고, 여자가 지불할 금액을 고르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-MONEY",
    "hit_count": 1
@@ -4751,17 +4721,17 @@
   {
    "exam": "M2506",
    "no": 7,
-   "stem": "대화를 듣고, 남자가 Prime Travel Writing Contest에 참가할 수 없는 이유를 고르시오.",
+   "stem": "대화를 듣고, 남자가 Prime Travel Writing Contest에 참가할 고르시오. 행이 계획되어 있어서 결혼식에 참석해야 해서 글쓰기 수업을 들어야 해서",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
-   "type": "L-REASON",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2506",
    "no": 8,
-   "stem": "대화를 듣고, Starry Family Reading Night 행사에 관해 언급",
+   "stem": "대화를 듣고, Sta",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -4771,39 +4741,39 @@
   {
    "exam": "M2506",
    "no": 9,
-   "stem": "Wondrous Tastes 행사에 관한 다음 내용을 듣고, 일치하지 않는 것을 고르시오.",
+   "stem": "Wondrous Tastes 행사에 관한 다음 내용을 듣고, 일치하지 시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
-   "type": "L-ANNOUNCE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2506",
    "no": 10,
-   "stem": "다음 표를 보면서 대화를 듣고, 여자가 주문할 연필꽂이를 고르시오.",
+   "stem": "다음 표를 보면서 고르시오.",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
-   "type": "L-TABLE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2506",
    "no": 11,
-   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오. [3점]",
-   "high_score": true,
+   "stem": "대화를 듣고, 남 적절한 것을 고르시",
+   "high_score": false,
    "rescued": false,
    "section": "듣기",
-   "type": "L-RESPONSE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2506",
    "no": 12,
-   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 적절한 것을 고르시오.",
+   "stem": "대화를 듣고, 여자의 마지막 말에 대한 남자의 응답으로 가장 절한 것을 고르시오.",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "듣기",
    "type": "L-RESPONSE",
    "hit_count": 1
@@ -4931,7 +4901,7 @@
   {
    "exam": "M2506",
    "no": 25,
-   "stem": "다음 도표의 내용과 일치하지 않는 것은?",
+   "stem": "다음 도표의 내용과 일치하지 않는 것은? 내용과 일치하",
    "high_score": false,
    "rescued": false,
    "section": "독해",
@@ -4951,22 +4921,22 @@
   {
    "exam": "M2506",
    "no": 27,
-   "stem": "Summer Job at Wildlife Rescue Center에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+   "stem": "Summer Job at Wildlife Rescue Center에 관한 다음 안내문의 지 않는 것은?",
    "high_score": false,
    "rescued": false,
    "section": "독해",
-   "type": "R-NOTICE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2506",
    "no": 28,
-   "stem": "LCU Geography Field Trip에 관한 다음 안내문의 내용과 일치하는 것은?",
+   "stem": "LCU Geograp 일치하는 것은",
    "high_score": false,
    "rescued": false,
    "section": "독해",
-   "type": "R-NOTICE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2506",
@@ -5141,7 +5111,7 @@
   {
    "exam": "M2509",
    "no": 1,
-   "stem": "다음을 듣고, 여자가 하는 말의 목적으로 가장 적절한 것을",
+   "stem": "다음을 듣고, 여자가 하는 말의 목적으로 고르시오.",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -5151,17 +5121,17 @@
   {
    "exam": "M2509",
    "no": 2,
-   "stem": "대화를 듣고, 남자의 의견으로 가장 적절한 것을 고르시오.",
+   "stem": "대화를 듣고, 남자의 의견으로 가장 적절",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
-   "type": "L-OPINION",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2509",
    "no": 3,
-   "stem": "다음을 듣고, 여자가 하는 말의 요지로 가장 적절한 것을",
+   "stem": "다음을 듣고, 여자가 하는 말의 요지로 가 고르시오.",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -5171,17 +5141,17 @@
   {
    "exam": "M2509",
    "no": 4,
-   "stem": "대화를 듣고, 그림에서 대화의 내용과 일치하지 않는 것을 고르시오.    ⑤ 종료 후 참가 인턴 중 절반이 호텔에 고용될 것이다.",
+   "stem": "대화를 듣고, 그림에서 대화의 내용과 일",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
-   "type": "L-PICTURE",
-   "hit_count": 1
+   "type": null,
+   "hit_count": 0
   },
   {
    "exam": "M2509",
    "no": 5,
-   "stem": "대화를 듣고, 남자가 할 일로 가장 적절한 것을 고르시오.",
+   "stem": "대화를 듣고, 남자가 할 일로 가장 적절한",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -5201,27 +5171,27 @@
   {
    "exam": "M2509",
    "no": 7,
-   "stem": "대화를 듣고, 여자가 Kenton Biotech Career Fair에 갈 수 없는 이유를 고르시오.",
+   "stem": "대화를 듣고, 여자가 Kenton Biotech Career Fair에 갈 수 없는",
    "high_score": false,
    "rescued": true,
-   "section": "듣기",
-   "type": "L-REASON",
-   "hit_count": 1
-  },
-  {
-   "exam": "M2509",
-   "no": 8,
-   "stem": "대화를 듣고, Dallers City Sharks의 우승 축하 행사에 관해",
-   "high_score": false,
-   "rescued": false,
    "section": "듣기",
    "type": null,
    "hit_count": 0
   },
   {
    "exam": "M2509",
+   "no": 8,
+   "stem": "대화를 듣고, Dallers City Sharks의 우승 축하 행사에 관해 않다. 한다.               언급되지 않은 것을 고르시오. 이다. 된다.             ① 날짜               ② 장소           ③ 경품 수 있다.           ④ 입장료",
+   "high_score": false,
+   "rescued": false,
+   "section": "듣기",
+   "type": "L-NOTMENTION",
+   "hit_count": 1
+  },
+  {
+   "exam": "M2509",
    "no": 9,
-   "stem": "Williamton Hotel Internship에 관한 다음 내용을 듣고, 일치하지 고르시오.",
+   "stem": "Williamton Hotel Internship에 관한 다음 내용을 듣고, 일치하지 줄 필요가 있다.          않는 것을 고르시오. 을 갖추어야 한다. 를 파악해야 한다.         ① 8주간 이어질 것이다. 대화가 필수적이다.        ② 근무 시간 동안 유니폼을 입고 있어야 한다. 은 관계 형성에 기여한다.    ③ 회의가 월요일 아침마다 있을 것이다.",
    "high_score": false,
    "rescued": false,
    "section": "듣기",
@@ -5251,7 +5221,7 @@
   {
    "exam": "M2509",
    "no": 12,
-   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 적절한 것을 고르시오. [3점]",
+   "stem": "대화를 듣고, 남자의 마지막 말에 대한 여자의 응답으로 가장 절한 것을 고르시오. [3점]",
    "high_score": true,
    "rescued": true,
    "section": "듣기",
