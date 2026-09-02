@@ -150,6 +150,31 @@ function suspectBody(passage, typeId) {
   return false
 }
 
+/** 순서 배열형 선지 — `(A) － (C) － (B)`. 전각 붙임표(－)와 반각을 다 받는다 */
+const ORDER_CHOICE = /^\(([ABC])\)(?:\s*[-‐-―－]\s*\(([ABC])\)){2}/
+
+/**
+ * **선지가 이 문항의 것이 아니다.**
+ *
+ * `suspectBody` 는 지문만 본다. 그런데 단이 안 갈린 페이지에서는 지문이 아니라 **선지**가
+ * 옆 문항 것으로 바뀐다 — 실측 M2406#40·M2306#40 은 지문이 `null` 인데 선지 다섯 개가
+ * **37번 순서 배열**(`(A) － (C) － (B)` …)이었고, `body_suspect` 는 `false` 였다.
+ * 지문이 없으니 지문 신호가 하나도 안 걸린 것이다. 그 상태로 나가면 분석자는
+ * "요약 유형인데 선지가 순서 배열" 이라는 **말이 안 되는 문항**을 손에 쥔다.
+ *
+ * 딱지를 붙이면 export 가 회차 원문 창을 함께 실어 주고 게이트가 인용 검사를 느슨하게 잡는다.
+ * 즉 **고치는 것이 아니라 모른다고 말하는 것**이다 — 조용히 틀린 것보다 낫다.
+ */
+function suspectChoices(choices, typeId) {
+  const cs = (choices ?? []).map((c) => String(c))
+  if (!cs.length) return false
+  // ⑦ 순서 배열 선지인데 순서 유형이 아니다 (옆 문항 선지가 통째로 넘어왔다)
+  if (!/ORDER/.test(typeId ?? '') && cs.filter((c) => ORDER_CHOICE.test(c)).length >= 3) return true
+  // ⑧ 선지 끝에 발문 조각이 붙어 있다 — 블록 경계가 어긋났다는 뜻
+  if (cs.some((c) => /(?:것은\?|고르시오|하시오)$/.test(c.trim()))) return true
+  return false
+}
+
 /**
  * **장문 세트(41~45)의 번호별 고정 유형** — 발문을 못 뜬 문항의 대체 규칙.
  *
@@ -204,7 +229,7 @@ for (const q of rows) {
     // 지문이 미덥지 않다는 딱지. 파서를 더 깎는 대신 **딱지를 붙여** 드레인이 원문 블록을
     // 함께 싣게 한다 — 분석하는 쪽이 원문을 볼 수 있으면 파서의 마지막 몇 %는 병목이 아니다.
     // 신호 넷은 전부 실측에서 나왔다(2026-09-02, 서브에이전트 6종 보고):
-    body_suspect: suspectBody(passage, q.type),
+    body_suspect: suspectBody(passage, q.type) || suspectChoices(choices, q.type),
     // **분석 파이프라인의 사정권.** 듣기는 제외한다 — 사용자 지시(2026-09-02).
     // 원장에서 빼지 않고 딱지만 붙이는 이유: 회차 배점 합이 100 인지 보는 검사가
     // 듣기를 포함해야 성립하고, 듣기 대본 9회차가 새로 들어와 있어 나중에 되살릴 수 있다.

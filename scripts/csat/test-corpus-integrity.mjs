@@ -140,6 +140,34 @@ soft('T12 사정권 문항에 본문이 있다', noBody.length === 0, `둘 다 �
   ok('T13 한 회차 안 지문 중복 없음(장문 제외)', dupPassage.length === 0, dupPassage.slice(0, 6).join(' '))
 }
 
+// T14 **선지가 옆 문항 것이면 반드시 딱지가 붙어 있어야 한다.**
+//
+// 실측 2026-09-02: M2406#40·M2306#40(요약 유형)의 선지 다섯 개가 **37번 순서 배열**
+// (`(A) － (C) － (B)` …)이었는데 `body_suspect` 는 `false` 였다. 지문이 `null` 이라
+// 지문 쪽 신호가 하나도 안 걸렸기 때문이다. 그 상태로 드레인에 나가면 분석자는
+// "요약 유형인데 선지가 순서 배열" 이라는 말이 안 되는 문항을 손에 쥐고,
+// 원문 창도 못 받는다(딱지가 없으니 export 가 안 싣는다).
+//
+// 검사는 **딱지가 붙었는지**만 본다 — 파서가 이것을 고치기를 요구하지 않는다.
+// 단이 안 갈린 페이지가 12회차에 남아 있고, 그것을 고치는 일은 이미 발행된 분석의
+// 인용 좌표를 통째로 흔든다. 지금 필요한 것은 **모른다고 말하는 것**이다.
+{
+  const orderShape = /^\(([ABC])\)(?:\s*[-‐-―－]\s*\(([ABC])\)){2}/
+  const stemTail = /(?:것은\?|고르시오|하시오)$/
+  const unflagged = items.filter((it) => {
+    if (it.body_suspect) return false
+    const cs = (it.choices ?? []).map((c) => String(c).trim())
+    if (!cs.length) return false
+    if (!/ORDER/.test(it.type_id ?? '') && cs.filter((c) => orderShape.test(c)).length >= 3) return true
+    return cs.some((c) => stemTail.test(c))
+  })
+  ok(
+    'T14 옆 문항 선지가 섞였는데 딱지가 없는 문항 없음',
+    unflagged.length === 0,
+    `${unflagged.length}건: ${unflagged.slice(0, 6).map((it) => it.id).join(' ')}`,
+  )
+}
+
 // T10 report 의 수치가 items 와 일치 — 리포트만 고쳐 놓고 원장은 그대로인 사고를 막는다
 ok('T10 report.items == items.length', report.items === items.length, `${report.items} vs ${items.length}`)
 ok('T10b report.typed 일치', report.typed === typed, `${report.typed} vs ${typed}`)

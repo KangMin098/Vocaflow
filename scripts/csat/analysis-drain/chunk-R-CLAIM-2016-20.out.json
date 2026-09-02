@@ -1,0 +1,216 @@
+{
+ "chunk": 16,
+ "type_id": "R-CLAIM",
+ "type_name": "필자 주장",
+ "analyses": [
+  {
+   "item_id": "2016#20",
+   "measured_ability": "지문의 대부분이 「~이 아니다」 부정 서술로 채워졌을 때, 유일하게 살아 있는 요구 문장(should)을 찾아 그 문장의 대명사 주어가 가리키는 것과 그 요구를 받을 사람을 짝지어 「누가 무엇을 해야 한다」 한 줄로 옮기는 능력",
+   "design_intent": "assertive 를 「공격적·비협조적」으로 오해하면 ③(항상 친절)이나 ①(농담 금지)로 끌려가도록, 여섯 문장 중 넷을 never disagrees / does not have to mean / does not mean that 같은 부정 서술로 채웠다. 필자가 하라고 말하는 것은 마지막 한 문장에만 있고 그 문장의 주어가 대명사 it 이라, 부정문 더미에서 긍정 처방을 복원하는지를 가른다.",
+   "answer_locus": {
+    "sentence_index": [
+     6
+    ],
+    "quote": "Being assertive is a highly developed skill ― it should fit nicely in the counselor’s repertoire of techniques.",
+    "reasoning": "여섯 문장 중 필자의 요구(should)가 부정어 밖에서 살아 있는 문장은 이것뿐이다. 셋째·넷째 문장은 does not have to mean · does not mean that 으로 「~라는 뜻은 아니다」만 말하고, 넷째 문장 안의 should 는 does not mean that 에 갇혀 요구가 아니다. 이 문장은 (a) should 로 요구를 걸고 (b) 그 요구가 놓일 자리를 the counselor 의 repertoire of techniques 로 못 박아 주체를 상담사로 고정한다. 주어 it 의 선행사는 같은 문장 앞부분 Being assertive 라서 앞 문장을 되짚지 않고도 채워지므로 「상담사는 assertiveness 를 갖춰야 한다」가 이 한 문장에서 나온다. 그 assertiveness 는 둘째 문장이 부정한 never disagrees / always goes along 의 반대쪽, 즉 자기 생각을 드러내는 쪽이므로 ②로 확정된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "racist joke 와 how it offended the hearer 가 지문에 문자 그대로 있어 「상대방의 감정을 해치는 농담」과 낱말이 겹친다. 상담사가 그 농담을 문제 삼는 장면이므로 농담을 둘러싼 금지 처방으로 읽으면 이 선지에 닿는다.",
+     "how_to_reject": "다섯째 문장 An assertive counselor would find a way to call that person 의 attention … 을 보면 농담을 한 쪽은 that person(someone tells a racist joke)이고 상담사는 그것을 지적하는 쪽이다. 여섯 문장 어디에도 상담사가 농담의 발화자로 나오지 않으므로 상담사에게 「농담을 하지 말라」고 요구하는 문장은 없다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "trap": "",
+     "why_tempting": "마지막 문장의 should 가 걸린 요구(Being assertive … should fit nicely in the counselor 의 repertoire)를 그대로 옮긴 선지다. 「~할 줄도」의 「도」는 셋째 문장 Being assertive does not have to mean being disagreeable 이 남긴 단서 — 동조를 버리라는 것이 아니라 자기 생각을 드러내는 쪽도 갖추라는 것 — 와 맞는다.",
+     "how_to_reject": "배제 대상이 아니다. 마지막 문장의 주어 it 을 Being assertive 로 채우고 소유격 the counselor 를 주체로 세우면 「상담사는 assertiveness 를 갖춰야 한다」가 되고, 그 assertiveness 의 내용은 둘째 문장이 부정한 never disagrees / always goes along 의 반대쪽이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "반대 진술",
+     "why_tempting": "wants everything to be nice all the time 이 「항상 친절한 태도」와 거의 직역으로 겹치고, 상담사라는 직업에 대한 통념과도 맞아 지문을 안 봐도 그럴듯하다.",
+     "how_to_reject": "그 표현이 든 둘째 문장은 조건절이고 주절이 this is not a picture of an assertive counselor 다 — 필자가 「아니다」로 밀어낸 그림을 처방으로 되돌린 선지다. 둘째 문장의 부정 주절 하나만 확인하면 걸린다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "마지막 문장에 a highly developed skill 과 repertoire of techniques 가 있어 「상담 기술」이 근거 문장 안에 그대로 있는 것처럼 보인다. 기술이라는 명사가 보이면 기술 교육으로 이어 붙이기 쉽다.",
+     "how_to_reject": "같은 문장의 술어는 fit nicely in the counselor 의 repertoire(상담사가 갖춘 기술 목록 안에 들어가야 한다)이지 배우거나 이수하라는 요구가 아니다. 지문에 training·course·learn·regularly 에 해당하는 표현이 한 건도 없어 「정기적으로 교육을 받는다」는 서술어를 댈 문장이 없다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "상담사라는 소재어만 유지한 채 상담 실무에서 흔히 요구되는 일을 얹었다. 나머지 선지가 모두 「상담사는 ~해야 한다」 꼴이라 형태만으로는 구별되지 않는다.",
+     "how_to_reject": "기록·문서·보관에 해당하는 낱말이 지문에 0건이다. 여섯 문장의 술어가 disagrees, goes along, be silent, call attention, fit in the repertoire 로 전부 태도·발화에 관한 것이어서 기록 관리를 요구한 문장 자체가 없다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "지문을 보기 전에 선지 다섯을 「주체 / 해야 할 행동」 두 칸으로 쪼개 적는다. 이 문항은 주체 칸이 다섯 다 상담사이므로 행동 칸 다섯(농담 금지 · 자기 생각 표현 · 항상 친절 · 정기 교육 · 기록 관리)만 남는다",
+     "on_fail": "행동 칸이 겹치는 선지가 있으면 목적어(무엇을)만 따로 뽑아 나란히 적는다"
+    },
+    {
+     "step": "지문에서 should · must · have to · need to · 명령형이 든 문장에 표시한다. 표시가 둘 이상이면 does not mean that · never · not a picture of 처럼 부정어 안에 갇힌 것을 지운다 — 이 지문은 넷째 문장의 should 가 does not mean that 에 갇혀 지워지고 마지막 문장 하나만 남는다",
+     "on_fail": "표시가 전부 지워지면 마지막 문장의 주절을 후보로 쓴다"
+    },
+    {
+     "step": "남은 요구 문장의 주어가 it · they 같은 대명사이면 같은 문장 앞부분을 먼저 보고, 거기 없을 때만 앞 문장에서 가리키는 명사구를 찾아 대명사 자리에 적어 넣는다",
+     "on_fail": "후보 명사구가 둘이면 그 문장 안에서 이미 반복된 쪽을 쓴다"
+    },
+    {
+     "step": "같은 문장에서 사람을 가리키는 명사(주어 또는 소유격 the counselor)를 찾아 요구를 받을 사람으로 정하고, 1단계 주체 칸이 그 사람과 어긋나는 선지를 지운다",
+     "on_fail": "사람 명사가 그 문장에 없으면 첫 문장의 주어를 그 자리에 쓴다"
+    },
+    {
+     "step": "not · never · does not have to mean 이 붙은 문장에서 부정어 뒤 동사구만 목록으로 뽑고, 그 동사구를 요구로 내건 선지를 지운다",
+     "on_fail": "부정문이 길면 조건절은 버리고 주절의 보어(a picture of an assertive counselor)만 옮겨 적는다"
+    },
+    {
+     "step": "남은 선지 중 지문 낱말이 그대로 보이는 것은 그 낱말이 든 문장의 술어가 무엇을 요구하는지 확인하고, 술어가 선지의 서술어와 다르면 지운다",
+     "on_fail": "술어 판정이 안 서면 그 낱말이 문장에서 요구의 대상인지 배경인지만 본다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "지문 여섯 문장 · 2점 · 추상 명사 적음",
+     "assertive / assertiveness 의 뜻을 모르면 ①과 ③ 사이에서 갈린다",
+     "긍정 요구가 마지막 한 문장뿐이고 앞 네 문장이 전부 부정 서술이라 근거 문장 선택에서 미끄러질 수 있다",
+     "근거 문장의 주어가 대명사 it 이지만 선행사가 같은 문장 안에 있어 되짚는 비용이 거의 없다"
+    ]
+   },
+   "required_vocab": [
+    "assertiveness",
+    "assertive",
+    "disagreeable",
+    "repertoire",
+    "racist"
+   ],
+   "revised": true,
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "초안은 answer_locus 를 다섯째 문장(An assertive counselor would find a way …)으로 잡았다. 그 문장은 필자의 요구가 아니라 assertive counselor 가 어떻게 행동할지를 보인 사례(would)이고 요구 표지가 없어 반려했다. 마지막 문장(should fit nicely … repertoire of techniques)으로 옮겨 재검수했다.",
+      "넷째 문장에도 should 가 있으나 does not mean that 안에 있어 요구가 아니다. 이 유형 25문항에서 처음 관측된 형태이므로 reasoning 과 절차 2단계에 명시하게 했다.",
+      "발문이 「필자가 주장하는 바」이고 정답 선지가 처방형이라 유형 정의와 어긋나지 않는다."
+     ],
+     "checked": [
+      "answer_locus.quote 를 corpus.json 2016#20 passage 에서 문자열 대조 — 마지막 문장 전체와 일치",
+      "지문 여섯 문장에서 요구 표지(should·must·have to·need to·명령형) 전수 확인 — 두 건, 그중 하나는 부정절 안",
+      "stem 과 R-CLAIM 유형 정의 대조",
+      "초안 인용(다섯째 문장)이 요구를 담는지 재검토한 뒤 교체"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "초안에서 ①을 「부분 사실」로 달았으나 지문에 상담사가 농담을 한다는 진술 자체가 없어 「부분」이 성립하지 않는다. 행위는 지문과 같고 하는 사람만 바뀐 형태이므로 「주체 역전」으로 고쳤다. 결과적으로 오답 넷의 라벨이 주체 역전 · 반대 진술 · 어휘 함정 · 무관 넷으로 모두 갈린다.",
+      "how_to_reject 넷이 각각 지문 위치(다섯째 문장 · 둘째 문장 주절 · 마지막 문장 술어 · 여섯 문장 술어 목록)를 대고 있음을 확인했다.",
+      "④의 why_tempting 이 실제 선지 문자열(상담 기술 교육)과 지문 낱말(skill · techniques)의 겹침에 근거하는지 대조했다."
+     ],
+     "checked": [
+      "오답 4개 trap 라벨 중복 여부 확인 — 4종 전부 다름",
+      "why_tempting 을 선지 한국어 문자열과 하나씩 대조",
+      "how_to_reject 마다 지문 위치가 적혀 있는지 확인",
+      "평가원 정답표(answer=2)와 correct 선지 번호 일치 확인",
+      "①의 라벨을 부분 사실에서 주체 역전으로 교체"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "초안 2단계가 「should 가 든 문장에 전부 표시한다」로 끝나 있어 이 지문에서는 후보가 둘 남고, 부정절 안의 should(you should simply be silent)를 요구로 읽으면 ③ 쪽으로 끌려간다. 부정어 안에 갇힌 표지를 지우는 규칙을 2단계에 넣어 반려를 해소했다.",
+      "절차 1단계가 지문을 보기 전에 선지만으로 실행되는지 확인했다. 3·4단계는 요구 문장 한 개에만 적용되므로 70초 안에 끝난다.",
+      "required_vocab 다섯 낱말이 모두 지문에 실제로 있고, repertoire 를 모르면 마지막 문장의 요구를 못 읽으므로 나열이 아니다."
+     ],
+     "checked": [
+      "solve_procedure 6단계를 지문을 안 본 상태에서 순서대로 실행해 ② 하나만 남는지 재현",
+      "금지 표현(흐름을 파악하면 등) 문자열 검사",
+      "required_vocab 5개를 지문 문자열에서 대조",
+      "2단계에 부정절 배제 규칙을 추가한 뒤 재실행"
+     ]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-CLAIM",
+  "n_analyzed": 1,
+  "recurring_traps": [
+   {
+    "trap": "주체 역전",
+    "count": 1,
+    "signature": "행위(인종차별 농담)는 지문에 있는 그대로인데 그 행위를 하는 사람이 someone/that person 에서 상담사로 바뀐다(2016 ①). 다섯째 문장에서 상담사가 그 농담을 지적하는 쪽임을 확인하면 걸린다. 앞 두 청크 4+3 을 더해 누적 8건."
+   },
+   {
+    "trap": "반대 진술",
+    "count": 1,
+    "signature": "필자가 this is not a picture of an assertive counselor 로 밀어낸 그림(wants everything to be nice all the time)을 그대로 처방으로 되돌린다(2016 ③). 부정 주절 하나만 확인하면 걸린다."
+   },
+   {
+    "trap": "어휘 함정",
+    "count": 1,
+    "signature": "근거 문장 안에 있는 명사(skill · repertoire of techniques)를 가져오되 술어를 바꾼다 — fit nicely in the repertoire(갖춰라)를 「교육을 받아라」로(2016 ④). 명사가 인용문·부정절이 아니라 근거 문장 자체에 있다는 점에서 앞 청크의 어휘 함정보다 한 단계 위험하다."
+   },
+   {
+    "trap": "무관",
+    "count": 1,
+    "signature": "소재어(상담사)만 유지하고 지문에 축이 없는 활동(기록 관리)을 요구한다(2016 ⑤)."
+   }
+  ],
+  "answer_locus_pattern": "1문항 표본이나 앞 두 청크와 같은 자리다 — 근거는 마지막 문장의 당위 표현(should fit nicely in the counselor 의 repertoire of techniques)이다. 이 문항이 더한 것은 당위 표지가 둘인데 하나가 부정절 안에 갇힌 첫 사례라는 점이다: 넷째 문장 Being a counselor does not mean that you should simply be silent 의 should 는 요구가 아니다. 앞 두 청크의 절차(should·must 가 든 문장에 전부 번호를 매긴다)는 이 지문에서 후보를 둘 남기고, 갇힌 쪽을 요구로 읽으면 ③(항상 친절)으로 끌려간다. 표지 수집 뒤에 부정어 안에 갇힌 표지를 지우는 단계를 반드시 붙여야 한다.",
+  "procedure": [
+   {
+    "step": "지문을 보기 전에 선지 다섯을 「주체 / 서술어+목적어」로 쪼개 적고, 주체가 다섯 다 같으면 서술어+목적어만 비교 대상으로 남긴다",
+    "on_fail": "주체가 생략된 선지는 누가 하는 일인지 채워 적는다"
+   },
+   {
+    "step": "지문에서 should · must · have to · need to · It is critical/desirable that · 명령형이 든 문장을 전부 찾는다",
+    "on_fail": "하나도 없으면 not A but B 대체 구문, 다음으로 The strategy is to ~ / has proved a potent way of ~ 같은 방법 지정 서술문, 그다음 부정 판정 문장(are not useful) 순으로 내려간다"
+   },
+   {
+    "step": "찾은 표지 중 does not mean that · never · not a picture of 처럼 부정어 안에 갇힌 것을 지운다 — 남은 것이 필자의 요구다",
+    "on_fail": "전부 지워지면 마지막 문장의 주절을 요구로 쓴다"
+   },
+   {
+    "step": "남은 요구 문장의 주어가 대명사·지시어면 같은 문장 앞부분을 먼저 보고, 거기 없을 때만 앞 문장으로 되짚어 명사구를 채운다",
+    "on_fail": "후보가 둘이면 Unlike·Compared to 절 안의 명사는 후보에서 뺀다"
+   },
+   {
+    "step": "요구 문장에서 사람을 가리키는 명사(주어 또는 소유격)를 골라 처방을 받을 주체로 세우고, 그 주체와 어긋나는 선지를 지운다",
+    "on_fail": "사람 명사가 없으면 첫 문장의 주어를 쓴다"
+   },
+   {
+    "step": "남은 선지 중 지문 낱말이 그대로 보이는 것은 그 낱말이 든 문장의 술어가 무엇을 요구하는지 확인해 선지 서술어와 다르면 지운다",
+    "on_fail": "술어 판정이 안 서면 그 낱말이 요구의 대상인지 배경인지만 본다"
+   }
+  ],
+  "failure_modes": [
+   "당위 표지를 세기만 하고 그 표지가 부정어 안에 있는지 안 본다 — 2016#20 은 should 가 둘이고 하나가 does not mean that 안에 있다. 갇힌 쪽을 요구로 읽으면 「상담사는 침묵해야 한다」가 되어 통념형 오답 ③으로 간다",
+   "부정 서술이 지문 대부분을 차지할 때 「아니라고 한 것」만 모으고 「하라고 한 것」을 못 찾는다 — 이 지문은 여섯 문장 중 넷이 부정형이고 긍정 요구는 마지막 한 문장뿐이다",
+   "근거 문장 안의 명사(skill · techniques)를 보고 술어를 확인하지 않는다 — ④가 정확히 그 자리에 놓여 있다",
+   "행위는 맞는데 하는 사람을 안 본다 — ①은 racist joke 를 그대로 품고 배역만 바꾼다"
+  ],
+  "time_budget_sec": 70,
+  "open_questions": [
+   "검증 1 — 「당위 표현이 근거 자리」 이 청크 1/1, 누적 18/22. 2016#20 의 근거는 마지막 문장 should fit nicely in the counselor 의 repertoire of techniques 로 should 를 달고 있어 예외가 아니다. 다만 이 문항은 가설을 깨지 않으면서 절차를 깬 사례다 — 당위 표지가 지문에 둘이고(넷째 문장 you should simply be silent, 여섯째 문장 it should fit) 하나가 does not mean that 안에 갇혀 있다. 앞 두 청크가 세운 절차(should·must 든 문장에 전부 번호를 매긴다)는 여기서 후보를 둘 남기고, 갇힌 쪽은 「침묵해야 한다」라는 정반대 요구로 읽힌다. 앞선 24문항에서 안 나온 형태이므로 부정절 배제 단계를 유형 절차에 정식 편입할 것을 제안한다.",
+   "검증 2 — 「주제문 한 문장이면 정답 확정」 이 청크 1/1, 주장 누적 13/18. 성분 수 설명은 지지, 대명사 주어 설명은 반증되어 수정이 필요하다. 정답 ②는 「상담사(주체) + 자기 생각을 분명히 드러내야(당위)」의 2성분이고 마지막 한 문장이 주체(the counselor 의 repertoire)와 당위(should)와 내용(Being assertive)을 모두 담아 한 문장으로 확정된다 — 성분 수 가설 지지. 그러나 그 문장의 주어는 대명사 it 이다. 앞 청크는 「근거 문장 주어가 대명사면 한 문장으로 부족」을 실패 예측 변수로 지목했는데(2026 Their · M2509 participants · 2024 those behaviors) 여기서는 대명사 주어인데도 충분했다. 차이는 선행사의 위치다 — 앞 세 건은 선행사가 앞 문장에 있어 되짚어야 했고 2016 의 it 은 선행사 Being assertive 가 같은 문장 앞부분에 있다. 변수를 「주어가 대명사인가」가 아니라 「선행사가 그 문장 밖에 있는가」로 좁혀 다시 셀 것을 제안한다. 좁힌 변수로 재면 누적 실패 4건(2026·M2509·2024·2020)이 모두 문장 밖 선행사 또는 세 성분 분산으로 설명되고 반례는 아직 없다.",
+   "검증 3 — 주체 역전 이 청크 1건(①), 누적 8건. 형태가 앞 7건과 다르다. 앞 7건은 당위 문장의 주어(we · 어른 · 사용자 · 인간)와 선지 주어가 어긋나는 형태였는데 2016 ①은 당위 문장이 아니라 사례 문장(다섯째)의 등장인물(someone / that person 대 counselor)이 뒤바뀐 형태다. 곧 주체 대조를 당위 문장에만 걸면 이 오답을 못 거른다 — 사례 문장에 사람이 둘 이상 나오면 그 배역까지 적어야 한다. 표본 1건이므로 다음 옛 회차 청크에서 「사례 문장 배역 역전」이 재현되는지 세어야 한다.",
+   "20번이 주장 자리가 아니었던 회차 — 있다. 코퍼스 독해 20번 전수(27회차)에서 R-CLAIM 이 아닌 회차는 둘이다: 2015학년도 수능 20번 = R-TOPIC(주제), 2017학년도 수능 20번 = R-GIST(요지). 더 나아가 두 회차는 독해 18~24 어디에도 R-CLAIM 이 없다(2015: 18 요지 · 19 심경 · 20·21 주제 · 22·23 제목, 2017: 18 목적 · 19 심경 · 20 요지 · 21 주제 · 22·23 제목). 코퍼스의 R-CLAIM 25문항에 2015·2017 이 한 건도 없는 것으로 교차 확인된다. 곧 주장 유형은 2016 에 처음 20번에 놓였고 2017 에 한 번 빠졌다가 2018 부터 고정됐다. 이 유형의 옛 표본이 얇은 이유가 여기 있다.",
+   "표본이 1문항이라 recurring_traps 의 분포(각 1건)는 통계가 아니다. 다만 라벨 넷이 앞 두 청크의 상위 라벨(반대 진술 · 어휘 함정 · 주체 역전 · 무관)과 정확히 겹쳐, 옛 회차에서도 오답 설계가 같은 네 축으로 만들어졌다는 것은 말할 수 있다. 지문 밖 상식 오답은 이 문항에 없다.",
+   "반려는 3건 나왔고 세 자가 서로 다른 것을 잡았다 — setter 는 answer_locus 를 사례 문장(다섯째)에서 요구 문장(여섯째)으로 교체, analyst 는 ①의 라벨을 부분 사실에서 주체 역전으로 교체(지문에 상담사가 농담한다는 진술이 없어 「부분」이 성립하지 않는다), tutor 는 절차 2단계에 부정절 배제 규칙이 없어 이 지문에서 후보가 둘 남는 것을 잡았다. 셋 다 고친 뒤 pass."
+  ]
+ }
+}
