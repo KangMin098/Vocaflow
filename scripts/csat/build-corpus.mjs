@@ -110,6 +110,15 @@ function bodyOf(exam, no) {
 const BLANK_TYPES = new Set(['R-BLANK', 'R-BLANK2', 'R-SUMMARY', 'X-BLANK', 'X-BLANK2'])
 
 /**
+ * **선지가 지문 안에 기호로 박히는 유형.** 여기서는 지문에 ①~⑤ 가 있는 것이 정상이다.
+ * 실측(2026-09-02): R-INSERT 52/52 · R-GRAMMAR 30/30 · R-CHART 28/30 · R-IRRELEVANT 26/28.
+ */
+const SYMBOL_CHOICE_TYPES = new Set([
+  'R-INSERT', 'R-ORDER', 'R-IRRELEVANT', 'R-GRAMMAR', 'R-VOCAB', 'R-CHART', 'R-REFER',
+  'X-ORDER', 'X-REFER', 'X-VOCAB',
+])
+
+/**
  * **지문을 믿어도 되는가.** 넷 중 하나라도 걸리면 드레인이 원문 블록을 함께 싣는다.
  *
  *   ① 한글이 남았다 — 발문 꼬리·각주·옆 단이 섞였다
@@ -132,6 +141,12 @@ function suspectBody(passage, typeId) {
   // ⑤ 지문 안에 **다른 문항의 번호**가 박혀 있다 — 단이 안 갈린 페이지에서 두 문항이 한 줄에
   //    붙어 같은 블록을 쓰게 된 것이다(실측: M2306 의 `37.        39.` 한 줄 → 37·39 지문 동일).
   if (/(?:^|\s)\d{1,2}\.\s+[A-Z]/.test(passage)) return true
+  // ⑥ **선지 기호가 지문에 있는데 그럴 유형이 아니다.**
+  //    삽입·순서·어법·어휘·도표·무관은 ①~⑤ 가 본문에 박히는 것이 설계다. 그 밖의 유형에서
+  //    기호가 지문에 있으면 선지 블록이 지문 꼬리에 뭉개진 것이다 — 이때 `choices` 는
+  //    비어 있지 않아서 `body_ok` 가 true 로 남는다(실측 2016#31: 선지 5개가 지문 끝에 붙어
+  //    있었는데 딱지가 안 붙어 원문 블록이 안 실렸다. 서브에이전트가 손으로 복원해야 했다).
+  if (!SYMBOL_CHOICE_TYPES.has(typeId) && /[①②③④⑤]/.test(passage)) return true
   return false
 }
 
