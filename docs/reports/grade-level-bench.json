@@ -1,0 +1,2714 @@
+{
+  "measuredAt": "2026-09-02T08:08:34.041Z",
+  "window": {
+    "min": 42,
+    "max": 173
+  },
+  "formula": "Flesch-Kincaid — textbook-corpus/analyze.mjs 와 동일 (0.39·문장길이 + 11.8·음절/낱말 − 15.59)",
+  "caveat": "FK 는 어휘 친숙도를 모른다. NASA 사진설명은 FK 가 낮아도 CEFR C1 이다 — 반드시 CEFR·V-Level 과 함께 본다.",
+  "marketBands": [
+    {
+      "grade_band": "초3~초4",
+      "grade_min": 3,
+      "docs": 4,
+      "fk": 3.33,
+      "sent": 8,
+      "syl": 1.339
+    },
+    {
+      "grade_band": "초4",
+      "grade_min": 4,
+      "docs": 2,
+      "fk": 1.81,
+      "sent": 6.4,
+      "syl": 1.265
+    },
+    {
+      "grade_band": "초5",
+      "grade_min": 5,
+      "docs": 2,
+      "fk": 3.62,
+      "sent": 8.3,
+      "syl": 1.353
+    },
+    {
+      "grade_band": "초5~초6",
+      "grade_min": 5,
+      "docs": 4,
+      "fk": 4.42,
+      "sent": 9.3,
+      "syl": 1.389
+    },
+    {
+      "grade_band": "초6",
+      "grade_min": 6,
+      "docs": 2,
+      "fk": 4.57,
+      "sent": 10.3,
+      "syl": 1.368
+    },
+    {
+      "grade_band": "초6~중1",
+      "grade_min": 6,
+      "docs": 2,
+      "fk": 5.34,
+      "sent": 10.7,
+      "syl": 1.419
+    },
+    {
+      "grade_band": "초6~중3",
+      "grade_min": 6,
+      "docs": 2,
+      "fk": 6.15,
+      "sent": 12.8,
+      "syl": 1.417
+    },
+    {
+      "grade_band": "중1~중3",
+      "grade_min": 7,
+      "docs": 3,
+      "fk": 6.8,
+      "sent": 12.5,
+      "syl": 1.484
+    },
+    {
+      "grade_band": "중1~중2",
+      "grade_min": 7,
+      "docs": 2,
+      "fk": 7.17,
+      "sent": 13.9,
+      "syl": 1.468
+    },
+    {
+      "grade_band": "중1",
+      "grade_min": 7,
+      "docs": 4,
+      "fk": 7.6,
+      "sent": 13.9,
+      "syl": 1.505
+    },
+    {
+      "grade_band": "중2~중3",
+      "grade_min": 8,
+      "docs": 2,
+      "fk": 6.93,
+      "sent": 14.6,
+      "syl": 1.425
+    },
+    {
+      "grade_band": "중2",
+      "grade_min": 8,
+      "docs": 2,
+      "fk": 7.47,
+      "sent": 13,
+      "syl": 1.523
+    },
+    {
+      "grade_band": "중3~고1",
+      "grade_min": 9,
+      "docs": 2,
+      "fk": 7.74,
+      "sent": 15.4,
+      "syl": 1.468
+    },
+    {
+      "grade_band": "중3",
+      "grade_min": 9,
+      "docs": 4,
+      "fk": 10.67,
+      "sent": 19.1,
+      "syl": 1.593
+    }
+  ],
+  "bands": [
+    {
+      "id": "초3~4",
+      "min": 1.5,
+      "max": 4
+    },
+    {
+      "id": "초5~6",
+      "min": 3.5,
+      "max": 5.5
+    },
+    {
+      "id": "초6~중1",
+      "min": 4.5,
+      "max": 7
+    },
+    {
+      "id": "중1~2",
+      "min": 6.5,
+      "max": 9
+    },
+    {
+      "id": "중3",
+      "min": 8.5,
+      "max": 12
+    }
+  ],
+  "ourByBand": [
+    {
+      "band": "초3 미만",
+      "n": 36
+    },
+    {
+      "band": "초3~4",
+      "n": 43
+    },
+    {
+      "band": "초5~6",
+      "n": 9
+    },
+    {
+      "band": "초6~중1",
+      "n": 33
+    },
+    {
+      "band": "중1~2",
+      "n": 26
+    },
+    {
+      "band": "중3",
+      "n": 24
+    },
+    {
+      "band": "중3 초과",
+      "n": 98
+    }
+  ],
+  "ourBySource": [
+    {
+      "source": "original",
+      "n": 62,
+      "fkMedian": 6.76,
+      "sentMedian": 17.2,
+      "curriculumElemPct": 53.9,
+      "curriculumElemMidPct": 76.9,
+      "band": "초6~중1",
+      "cefr": {
+        "A2": 17,
+        "B1": 42,
+        "B2": 3
+      }
+    },
+    {
+      "source": "nasa",
+      "n": 121,
+      "fkMedian": 15.37,
+      "sentMedian": 26.3,
+      "curriculumElemPct": 22.4,
+      "curriculumElemMidPct": 35.7,
+      "band": "중3 초과",
+      "cefr": {
+        "C1": 65,
+        "C2": 8,
+        "B2": 33,
+        "-": 12,
+        "B1": 2,
+        "A2": 1
+      }
+    },
+    {
+      "source": "voa",
+      "n": 16,
+      "fkMedian": 1.49,
+      "sentMedian": 7,
+      "curriculumElemPct": 65.6,
+      "curriculumElemMidPct": 78.7,
+      "band": "초3 미만",
+      "cefr": {
+        "-": 16
+      }
+    },
+    {
+      "source": "futurity",
+      "n": 17,
+      "fkMedian": 12.55,
+      "sentMedian": 22.1,
+      "curriculumElemPct": 36.4,
+      "curriculumElemMidPct": 53.9,
+      "band": "중3 초과",
+      "cefr": {
+        "C1": 7,
+        "B2": 9,
+        "-": 1
+      }
+    },
+    {
+      "source": "noaa",
+      "n": 1,
+      "fkMedian": 1.95,
+      "sentMedian": 7.6,
+      "curriculumElemPct": 73.6,
+      "curriculumElemMidPct": 88.9,
+      "band": "초3~4",
+      "cefr": {
+        "-": 1
+      }
+    },
+    {
+      "source": "usgs",
+      "n": 8,
+      "fkMedian": 2.28,
+      "sentMedian": 7,
+      "curriculumElemPct": 61.3,
+      "curriculumElemMidPct": 76.1,
+      "band": "초3~4",
+      "cefr": {
+        "-": 8
+      }
+    },
+    {
+      "source": "factbook",
+      "n": 2,
+      "fkMedian": 16.33,
+      "sentMedian": 30.8,
+      "curriculumElemPct": 32.2,
+      "curriculumElemMidPct": 52.2,
+      "band": "중3 초과",
+      "cefr": {
+        "B2": 1,
+        "C1": 1
+      }
+    },
+    {
+      "source": "storyweaver",
+      "n": 42,
+      "fkMedian": 1.42,
+      "sentMedian": 6.4,
+      "curriculumElemPct": 60,
+      "curriculumElemMidPct": 69.1,
+      "band": "초3 미만",
+      "cefr": {
+        "A2": 16,
+        "A1": 14,
+        "B1": 8,
+        "B2": 4
+      }
+    }
+  ],
+  "items": [
+    {
+      "source": "original",
+      "title": "The Margin Was Not a Mistake",
+      "fk": 6.25,
+      "sent": 15.4,
+      "words": 169,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "nasa",
+      "title": "Psyche Spacecraft Completes Mars Flyby - NASA",
+      "fk": 21.64,
+      "sent": 41.5,
+      "words": 83,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Train Ride to NASA Kennedy for Artemis III Booster Segments - NASA",
+      "fk": 39.22,
+      "sent": 84,
+      "words": 84,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "original",
+      "title": "The Colour That Time Removed",
+      "fk": 6.43,
+      "sent": 16.9,
+      "words": 169,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "nasa",
+      "title": "Roman Space Telescope Plaque Install - NASA",
+      "fk": 35.6,
+      "sent": 69,
+      "words": 69,
+      "cefr": "C2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "original",
+      "title": "Why Bridges Are Built With Gaps",
+      "fk": 8.5,
+      "sent": 18.9,
+      "words": 170,
+      "cefr": "B2",
+      "band": "중1~2"
+    },
+    {
+      "source": "nasa",
+      "title": "Black Eye Galaxy - NASA",
+      "fk": 13.42,
+      "sent": 14.6,
+      "words": 131,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "original",
+      "title": "When More Metal Does Not Help",
+      "fk": 7.6,
+      "sent": 20.9,
+      "words": 167,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Frog That Freezes and Wakes",
+      "fk": 5.41,
+      "sent": 15.4,
+      "words": 169,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Ache That Proves Nothing",
+      "fk": 7.97,
+      "sent": 19,
+      "words": 171,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "After the Tall Tree Falls",
+      "fk": 6.17,
+      "sent": 17,
+      "words": 170,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Opening a Machine on a Calm Morning",
+      "fk": 6.76,
+      "sent": 17.8,
+      "words": 160,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Hidden Until the Moment It Shows",
+      "fk": 6.88,
+      "sent": 17.1,
+      "words": 171,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Picking Up Where You Left Off",
+      "fk": 5.65,
+      "sent": 16.5,
+      "words": 165,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Different Clocks Inside One Body",
+      "fk": 6.54,
+      "sent": 17.8,
+      "words": 160,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "What a Name Does to a Picture",
+      "fk": 6.63,
+      "sent": 18.2,
+      "words": 164,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Where You Are Meant to Stand",
+      "fk": 7.19,
+      "sent": 18.9,
+      "words": 170,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "A Night Is Not One Long Rest",
+      "fk": 5.43,
+      "sent": 18.3,
+      "words": 165,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "When Copying Was the Lesson",
+      "fk": 6.61,
+      "sent": 16.7,
+      "words": 167,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Sign Nobody Reads",
+      "fk": 7.65,
+      "sent": 20.1,
+      "words": 161,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Measuring What No One Can Reach",
+      "fk": 6.38,
+      "sent": 19,
+      "words": 171,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Hours That Do Not Add Up",
+      "fk": 6.96,
+      "sent": 17.2,
+      "words": 155,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Hot Water Without a Volcano",
+      "fk": 8.54,
+      "sent": 21,
+      "words": 168,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Calendar Behind a Festival",
+      "fk": 8.87,
+      "sent": 21.3,
+      "words": 170,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Two High Waters a Day",
+      "fk": 5.86,
+      "sent": 19.1,
+      "words": 172,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "One Oven for the Whole Village",
+      "fk": 7.16,
+      "sent": 17.1,
+      "words": 171,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Season Behind the Festival",
+      "fk": 6.2,
+      "sent": 16.8,
+      "words": 168,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Water on the Skin, Heat in the Air",
+      "fk": 5.66,
+      "sent": 17.2,
+      "words": 172,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Not Every Seed Is in a Hurry",
+      "fk": 5.62,
+      "sent": 15.7,
+      "words": 173,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "nasa",
+      "title": "Actively Steerable Femtosat Constellations",
+      "fk": 28.59,
+      "sent": 52,
+      "words": 156,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Curiosity Finds Evidence of an Ancient Sandstorm - NASA Science",
+      "fk": 15.37,
+      "sent": 26.3,
+      "words": 158,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "voa",
+      "title": "A Man Rows Across the Sea",
+      "fk": 0.15,
+      "sent": 6,
+      "words": 127,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "nasa",
+      "title": "Curiosity Sees Martian Sulfur Up Close - NASA",
+      "fk": 12.49,
+      "sent": 26.8,
+      "words": 107,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Antenna Testing for NASA’s SkyFall Mission - NASA Science",
+      "fk": 20.8,
+      "sent": 35.2,
+      "words": 176,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA Astronaut Chris Williams Returns to Earth - NASA",
+      "fk": 14.43,
+      "sent": 24.3,
+      "words": 97,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Stages of Star Formation - NASA",
+      "fk": 9.75,
+      "sent": 9.4,
+      "words": 85,
+      "cefr": "C1",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "Journey to the Center of the Virgo Cluster - NASA",
+      "fk": 12.91,
+      "sent": 19.3,
+      "words": 58,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Hanging in the Balance - NASA",
+      "fk": 26.28,
+      "sent": 51,
+      "words": 51,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "futurity",
+      "title": "What 'Abbott Elementary' gets right about teaching and learning",
+      "fk": 23.72,
+      "sent": 45,
+      "words": 90,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "futurity",
+      "title": "Can your DNA predict your income, education, and love life?",
+      "fk": 13.1,
+      "sent": 24.1,
+      "words": 169,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "futurity",
+      "title": "How did pirates really talk?",
+      "fk": 18.38,
+      "sent": 39,
+      "words": 117,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "voa",
+      "title": "The Old Round Knob",
+      "fk": 1.31,
+      "sent": 6.6,
+      "words": 112,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "futurity",
+      "title": "Why a physicist hates this 1 Star Trek scene",
+      "fk": 20.84,
+      "sent": 51,
+      "words": 102,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "voa",
+      "title": "Footprints by the Old Lake",
+      "fk": 0.94,
+      "sent": 7.6,
+      "words": 106,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "futurity",
+      "title": "Why you should look beyond happiness for a good life",
+      "fk": 12.91,
+      "sent": 22.1,
+      "words": 177,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "futurity",
+      "title": "How living electronics could heal bodies and minds",
+      "fk": 11.52,
+      "sent": 21.6,
+      "words": 108,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "voa",
+      "title": "Like Watching Grass Grow",
+      "fk": 1.47,
+      "sent": 5.8,
+      "words": 98,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "voa",
+      "title": "The First Soft Landing",
+      "fk": 1.48,
+      "sent": 6.3,
+      "words": 100,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "futurity",
+      "title": "What's the secret behind 'SuperAgers'?",
+      "fk": 12.55,
+      "sent": 20.8,
+      "words": 125,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "voa",
+      "title": "The Big Airship in the Sky",
+      "fk": 1.64,
+      "sent": 7,
+      "words": 105,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "futurity",
+      "title": "Artificial intelligence decodes whale 'alphabet'",
+      "fk": 12.65,
+      "sent": 24.6,
+      "words": 172,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "futurity",
+      "title": "What do young voters think about the 2024 election?",
+      "fk": 12.74,
+      "sent": 25.3,
+      "words": 177,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "noaa",
+      "title": "The Ring of Cold Wind",
+      "fk": 1.95,
+      "sent": 7.6,
+      "words": 106,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "usgs",
+      "title": "Rivers in the Sky",
+      "fk": 2.28,
+      "sent": 7.5,
+      "words": 113,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "voa",
+      "title": "The Bright Blue Hotel",
+      "fk": 2.17,
+      "sent": 7.5,
+      "words": 105,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "voa",
+      "title": "How to Push a Rock in Space",
+      "fk": 2.1,
+      "sent": 7.1,
+      "words": 113,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "A Chandelier of Stars",
+      "fk": 1.97,
+      "sent": 7.2,
+      "words": 108,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "futurity",
+      "title": "Could a fungal pandemic make 'The Last of Us' a reality?",
+      "fk": 12.67,
+      "sent": 24.7,
+      "words": 173,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "futurity",
+      "title": "Why shaming countries for human rights abuses can backfire",
+      "fk": 11.78,
+      "sent": 21,
+      "words": 168,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "usgs",
+      "title": "The Snakes That Came to the Island",
+      "fk": 1.25,
+      "sent": 6.9,
+      "words": 111,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "voa",
+      "title": "Why Mars Looks Red",
+      "fk": 1.47,
+      "sent": 6.4,
+      "words": 103,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "voa",
+      "title": "A Bird Eye View",
+      "fk": 1.6,
+      "sent": 7.4,
+      "words": 103,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "voa",
+      "title": "A Small Machine Helps People Walk",
+      "fk": 1.69,
+      "sent": 6.3,
+      "words": 113,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "voa",
+      "title": "Why the Ice Comes and Goes",
+      "fk": 1.21,
+      "sent": 6.9,
+      "words": 117,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "nasa",
+      "title": "First Steps: America’s Grueling Second Spacewalk - NASA",
+      "fk": 21.6,
+      "sent": 36.5,
+      "words": 73,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "futurity",
+      "title": "Protein in a Flower Pot",
+      "fk": 3.36,
+      "sent": 6.9,
+      "words": 103,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "Colorful, Chaotic Jupiter - NASA",
+      "fk": 34.22,
+      "sent": 73,
+      "words": 73,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "original",
+      "title": "Who Really Sets the Price",
+      "fk": 5.83,
+      "sent": 15.5,
+      "words": 155,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The evening the sky went dark",
+      "fk": 2.31,
+      "sent": 8.7,
+      "words": 130,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "Pretty in Pink - NASA",
+      "fk": 6.85,
+      "sent": 9.1,
+      "words": 118,
+      "cefr": "C1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "nasa",
+      "title": "Hubble Sights Galaxy in Transition - NASA",
+      "fk": 14.06,
+      "sent": 15.5,
+      "words": 93,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Students Build Moon Robots for NASA’s 2026 Lunabotics Challenge - NASA",
+      "fk": 23.87,
+      "sent": 42.3,
+      "words": 127,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Soccer Meets Space Science - NASA",
+      "fk": 27.16,
+      "sent": 52,
+      "words": 52,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Going Low and Slow in Testing - NASA",
+      "fk": 23.9,
+      "sent": 48,
+      "words": 96,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Euclid Sees Heart of Milky Way - NASA",
+      "fk": 11.07,
+      "sent": 19.2,
+      "words": 173,
+      "cefr": "C1",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "Soccer Meets Space Science - NASA",
+      "fk": 15.99,
+      "sent": 26,
+      "words": 104,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "original",
+      "title": "When a river fails, the grid answers",
+      "fk": 11.07,
+      "sent": 19,
+      "words": 171,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "Colorful Collage of Tarantula Nebula - NASA",
+      "fk": 13.58,
+      "sent": 21,
+      "words": 126,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "original",
+      "title": "Taking the Ocean's Temperature",
+      "fk": 7.57,
+      "sent": 17.1,
+      "words": 171,
+      "cefr": "B2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Handful the Mind Can Hold",
+      "fk": 7.21,
+      "sent": 19,
+      "words": 171,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "What the Spice Was Really For",
+      "fk": 8.46,
+      "sent": 21.6,
+      "words": 173,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "factbook",
+      "title": "United States",
+      "fk": 15.12,
+      "sent": 30.8,
+      "words": 154,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "original",
+      "title": "The Body Keeps What It Uses",
+      "fk": 5.08,
+      "sent": 16.2,
+      "words": 162,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "nasa",
+      "title": "Artemis III Crew Announced - NASA",
+      "fk": 27.2,
+      "sent": 49.5,
+      "words": 99,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "original",
+      "title": "The List That Would Not Stick",
+      "fk": 3.58,
+      "sent": 14.3,
+      "words": 172,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "original",
+      "title": "What Makes a Desert a Desert",
+      "fk": 8.31,
+      "sent": 19,
+      "words": 171,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Valley the Ice Widened",
+      "fk": 5.78,
+      "sent": 18.6,
+      "words": 167,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Pushed into the Dark",
+      "fk": 7.35,
+      "sent": 18.2,
+      "words": 164,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Glass That Was Never Broken",
+      "fk": 7.67,
+      "sent": 17.4,
+      "words": 157,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Worn Line Across the Lawn",
+      "fk": 7.15,
+      "sent": 16.5,
+      "words": 165,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "factbook",
+      "title": "France",
+      "fk": 16.33,
+      "sent": 23.7,
+      "words": 142,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "original",
+      "title": "The Trouble with Reading It Again",
+      "fk": 7.24,
+      "sent": 17.2,
+      "words": 172,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Where the Mapmaker Had Never Been",
+      "fk": 5.31,
+      "sent": 15.2,
+      "words": 167,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Bare Hill and the Fallen Wood",
+      "fk": 6.53,
+      "sent": 18.1,
+      "words": 163,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "What the Quiet Hour Sorts Out",
+      "fk": 5.85,
+      "sent": 14.5,
+      "words": 159,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "How the Rails Stretched the City",
+      "fk": 6.17,
+      "sent": 19,
+      "words": 171,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Why the Arches Keep Coming",
+      "fk": 8.23,
+      "sent": 16.7,
+      "words": 167,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "What a Coat Once Said About Rank",
+      "fk": 7.14,
+      "sent": 17,
+      "words": 170,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Song That Stopped Changing",
+      "fk": 6.42,
+      "sent": 17.2,
+      "words": 172,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Why Toes Move Away With Age",
+      "fk": 6.92,
+      "sent": 17.4,
+      "words": 157,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Report That Waited",
+      "fk": 7.11,
+      "sent": 15.6,
+      "words": 172,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Water You Lose Without Sweating",
+      "fk": 5.98,
+      "sent": 16.9,
+      "words": 152,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Where the Air Stops Being Simple",
+      "fk": 7.14,
+      "sent": 18.7,
+      "words": 168,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Rules That Hold a Crowd Together",
+      "fk": 6.9,
+      "sent": 16.2,
+      "words": 162,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Taking Turns on a Narrow Road",
+      "fk": 7.25,
+      "sent": 17.3,
+      "words": 173,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "A Wall That Must Let Water Through",
+      "fk": 6.43,
+      "sent": 16.9,
+      "words": 169,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "A Wall That Is Meant to Leak",
+      "fk": 5.98,
+      "sent": 17.1,
+      "words": 171,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "When Everyone Is Copying Someone Else",
+      "fk": 6.65,
+      "sent": 16,
+      "words": 160,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Where the Metal Is Thick",
+      "fk": 6.81,
+      "sent": 17.1,
+      "words": 171,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Why the Body Needs a Slow Start",
+      "fk": 5.69,
+      "sent": 15.7,
+      "words": 173,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "nasa",
+      "title": "Chennai City Lights - NASA",
+      "fk": 19.96,
+      "sent": 37.5,
+      "words": 75,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "original",
+      "title": "The Room Under the Kitchen Floor",
+      "fk": 5.65,
+      "sent": 15.5,
+      "words": 171,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "nasa",
+      "title": "Total Solar Eclipse in Sunflower Field - NASA",
+      "fk": 11.55,
+      "sent": 20.8,
+      "words": 83,
+      "cefr": "C1",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "Astronauts Anil Menon and Sophie Adenot on Spacewalk - NASA",
+      "fk": 37.44,
+      "sent": 80,
+      "words": 80,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA Astronaut Chris Williams Returns to Earth - NASA",
+      "fk": 24.89,
+      "sent": 48,
+      "words": 96,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Understanding How Martian Auroras Are Made - NASA",
+      "fk": 30.48,
+      "sent": 62,
+      "words": 62,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA Astronaut Chris Williams Preps for Spacewalk - NASA",
+      "fk": 19.99,
+      "sent": 39,
+      "words": 117,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA Takes Flight For America's 250th - NASA",
+      "fk": 34.14,
+      "sent": 67,
+      "words": 67,
+      "cefr": "C2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Roman Space Telescope Travels to SpaceX Hangar - NASA",
+      "fk": 18.79,
+      "sent": 35,
+      "words": 70,
+      "cefr": "C2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Millions of Stars in Cigar Galaxy - NASA",
+      "fk": 40.95,
+      "sent": 83,
+      "words": 83,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "2026 Total Solar Eclipse in Spain - NASA",
+      "fk": 16.33,
+      "sent": 26,
+      "words": 52,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Ancient Milky Way Merger - NASA",
+      "fk": 15.74,
+      "sent": 30.7,
+      "words": 92,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Webb Opens Treasure Chest - NASA",
+      "fk": 10.77,
+      "sent": 13.1,
+      "words": 105,
+      "cefr": "C1",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "APOD: 2026 August 27 - Colorful Aurora over Icenlandic Waterfall",
+      "fk": 11.09,
+      "sent": 19.9,
+      "words": 159,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "Artemis III Orion Crew and Service Modules Joined - NASA",
+      "fk": 20.48,
+      "sent": 35,
+      "words": 70,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Hubble Sees Crimson Cloud and Stars - NASA",
+      "fk": 13.58,
+      "sent": 17.3,
+      "words": 121,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Crews Move Artemis IV Liquid Hydrogen Tank - NASA",
+      "fk": 37.89,
+      "sent": 77,
+      "words": 77,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "New Crew Members Welcomed to International Space Station - NASA",
+      "fk": 35.28,
+      "sent": 74,
+      "words": 74,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "futurity",
+      "title": "How your hand gestures reveal your thoughts",
+      "fk": 9.88,
+      "sent": 18.5,
+      "words": 148,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "voa",
+      "title": "The Moon Turns Red",
+      "fk": 1.21,
+      "sent": 6.8,
+      "words": 116,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "voa",
+      "title": "A Ring of Old Wood",
+      "fk": 1.49,
+      "sent": 7.4,
+      "words": 118,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "futurity",
+      "title": "Science-backed tips to get out of feeling stuck",
+      "fk": 11.56,
+      "sent": 25,
+      "words": 175,
+      "cefr": "C1",
+      "band": "중3"
+    },
+    {
+      "source": "futurity",
+      "title": "Why do we die? Do we have to?",
+      "fk": 9.86,
+      "sent": 18.2,
+      "words": 164,
+      "cefr": "C1",
+      "band": "중3"
+    },
+    {
+      "source": "usgs",
+      "title": "Watching a Forest Change",
+      "fk": 3.03,
+      "sent": 7,
+      "words": 98,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "usgs",
+      "title": "A Map of Every Farm",
+      "fk": 1.2,
+      "sent": 8.2,
+      "words": 98,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "futurity",
+      "title": "What dogs teach us about aging",
+      "fk": 11.83,
+      "sent": 21.9,
+      "words": 153,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "futurity",
+      "title": "Can psychedelics without hallucinations improve mental health?",
+      "fk": 11.85,
+      "sent": 16.6,
+      "words": 166,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "usgs",
+      "title": "Watching the River",
+      "fk": 2.68,
+      "sent": 6.6,
+      "words": 112,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "original",
+      "title": "When the Floor Became a Wall",
+      "fk": 8.11,
+      "sent": 19,
+      "words": 171,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Box That Everyone Agreed On",
+      "fk": 7.35,
+      "sent": 19,
+      "words": 171,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "usgs",
+      "title": "The Leaning Trees",
+      "fk": 2.28,
+      "sent": 6.3,
+      "words": 95,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "usgs",
+      "title": "The Rock Left Behind",
+      "fk": 1.71,
+      "sent": 7,
+      "words": 98,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "usgs",
+      "title": "The Glacier That Grows",
+      "fk": 3.07,
+      "sent": 7.5,
+      "words": 105,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "voa",
+      "title": "What We Got Wrong about Uranus",
+      "fk": 2.92,
+      "sent": 7.9,
+      "words": 111,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "voa",
+      "title": "The Advertisement with No Computer",
+      "fk": 4.56,
+      "sent": 7.8,
+      "words": 93,
+      "cefr": null,
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Jam With Nothing At The Front",
+      "fk": 5.96,
+      "sent": 17,
+      "words": 170,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "From Theft to Partnership",
+      "fk": 7.63,
+      "sent": 17.7,
+      "words": 159,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "nasa",
+      "title": "Landing on the Red Planet",
+      "fk": 2.54,
+      "sent": 7.3,
+      "words": 95,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Kite",
+      "fk": -0.54,
+      "sent": 3.4,
+      "words": 92,
+      "cefr": "A2",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Who is it?",
+      "fk": 0.28,
+      "sent": 5.1,
+      "words": 102,
+      "cefr": "A2",
+      "band": "초3 미만"
+    },
+    {
+      "source": "nasa",
+      "title": "Understanding How Martian Auroras Are Made - NASA",
+      "fk": 15.14,
+      "sent": 26.3,
+      "words": 79,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Fat King Thin Dog",
+      "fk": -0.86,
+      "sent": 6.2,
+      "words": 68,
+      "cefr": "A1",
+      "band": "초3 미만"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA's B777 Gets New Coat of Paint - NASA",
+      "fk": 13.92,
+      "sent": 25.4,
+      "words": 127,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA's IXPE Studies Magnetar - NASA",
+      "fk": 20.61,
+      "sent": 34.5,
+      "words": 69,
+      "cefr": "C2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Webb Opens Treasure Chest - NASA",
+      "fk": 7.21,
+      "sent": 12,
+      "words": 84,
+      "cefr": "B2",
+      "band": "중1~2"
+    },
+    {
+      "source": "nasa",
+      "title": "Crews Move Artemis IV Liquid Hydrogen Tank - NASA",
+      "fk": 21.44,
+      "sent": 47,
+      "words": 94,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "A New Look – and Sound – for Messier 94 - NASA",
+      "fk": 10.58,
+      "sent": 21,
+      "words": 126,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "Young Galaxy Cluster - NASA",
+      "fk": 10.7,
+      "sent": 18.6,
+      "words": 93,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "Anil Menon Launches to Space Station - NASA",
+      "fk": 15.24,
+      "sent": 26.8,
+      "words": 107,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Hubble Sees Crimson Cloud and Stars - NASA",
+      "fk": 10.67,
+      "sent": 17,
+      "words": 119,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA Astronaut Anil Menon - NASA",
+      "fk": 13.69,
+      "sent": 22,
+      "words": 110,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA Takes Flight For America's 250th - NASA",
+      "fk": 16.17,
+      "sent": 29,
+      "words": 116,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Artemis II Crew and Apollo 14 Moon Tree - NASA",
+      "fk": 12.02,
+      "sent": 22.6,
+      "words": 113,
+      "cefr": "B1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "The Galaxy with a Dark Band",
+      "fk": 2.48,
+      "sent": 8.3,
+      "words": 124,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "Anil Menon Launches to Space Station - NASA",
+      "fk": 38.69,
+      "sent": 82,
+      "words": 82,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Hubble Captures Star-Studded Cluster - NASA",
+      "fk": 12.95,
+      "sent": 20.6,
+      "words": 103,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Starry Chandelier Cluster - NASA",
+      "fk": 11.7,
+      "sent": 12.4,
+      "words": 62,
+      "cefr": "C2",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA's Artemis II Crew Receives Congressional Space Medal of Honor - NASA",
+      "fk": 15.95,
+      "sent": 27.6,
+      "words": 138,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA Astronaut Reid Wiseman at Freedom 250 Grand Prix - NASA",
+      "fk": 14.86,
+      "sent": 31.5,
+      "words": 63,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Ancient Milky Way Merger - NASA",
+      "fk": 12.06,
+      "sent": 21.4,
+      "words": 107,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Astronauts Anil Menon and Sophie Adenot on Spacewalk - NASA",
+      "fk": 11.3,
+      "sent": 16,
+      "words": 80,
+      "cefr": "C1",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA's IXPE Studies Magnetar - NASA",
+      "fk": 13.98,
+      "sent": 26.3,
+      "words": 105,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Artemis Mission Patches - NASA",
+      "fk": 16.77,
+      "sent": 29.3,
+      "words": 88,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Lion Nebula Roars in Webb's Sights - NASA",
+      "fk": 9.69,
+      "sent": 19.3,
+      "words": 77,
+      "cefr": "C1",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "Taking Flight to Prepare for Space - NASA",
+      "fk": 17.82,
+      "sent": 37,
+      "words": 74,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Taking Flight to Prepare for Space - NASA",
+      "fk": 27.1,
+      "sent": 55,
+      "words": 55,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "San Francisco's Patchwork Streets - NASA",
+      "fk": 21.18,
+      "sent": 40.5,
+      "words": 81,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Starburst Galaxy Centaurus A - NASA",
+      "fk": 16.91,
+      "sent": 27.5,
+      "words": 110,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA Astronaut Anil Menon - NASA",
+      "fk": 30.42,
+      "sent": 59,
+      "words": 59,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA's Newest Wind Tunnel Opens at NASA Langley - NASA",
+      "fk": 19.64,
+      "sent": 35,
+      "words": 105,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Our First View of the Surface of Mars - NASA",
+      "fk": 34.35,
+      "sent": 78,
+      "words": 78,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Roman Telescope Comes to Kennedy - NASA",
+      "fk": 32.35,
+      "sent": 69,
+      "words": 69,
+      "cefr": "C2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Curiosity Sees Martian Sulfur Up Close - NASA",
+      "fk": 34.3,
+      "sent": 70,
+      "words": 70,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Starburst Galaxy Centaurus A - NASA",
+      "fk": 46.4,
+      "sent": 102,
+      "words": 102,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA's Chandra Finds Possible Supernova Remnant - NASA",
+      "fk": 11.3,
+      "sent": 16.7,
+      "words": 117,
+      "cefr": "C1",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "Perseids Meteor Shower - NASA",
+      "fk": 16.8,
+      "sent": 25.5,
+      "words": 51,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Waxing Gibbous Moon - NASA",
+      "fk": 28.17,
+      "sent": 57,
+      "words": 57,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Good Morning, Earth! - NASA",
+      "fk": 18.2,
+      "sent": 31,
+      "words": 62,
+      "cefr": "C2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Hubble Captures Star-Studded Cluster - NASA",
+      "fk": 21.53,
+      "sent": 30.3,
+      "words": 91,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "LINK Spacecraft Set for Mission to Boost NASA's Swift Observatory - NASA",
+      "fk": 36.47,
+      "sent": 75,
+      "words": 75,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Psyche Approaches Mars - NASA",
+      "fk": 11.02,
+      "sent": 22.5,
+      "words": 90,
+      "cefr": "C1",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "Astronauts Come Home",
+      "fk": 2.07,
+      "sent": 6,
+      "words": 114,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "Two Jets Get New Paint",
+      "fk": 1.44,
+      "sent": 7.5,
+      "words": 112,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "nasa",
+      "title": "The Day the Sun Goes Dark",
+      "fk": 1.86,
+      "sent": 7.1,
+      "words": 107,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA's B777 Gets New Coat of Paint - NASA",
+      "fk": 25.81,
+      "sent": 55,
+      "words": 55,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Total Solar Eclipse in Sunflower Field - NASA",
+      "fk": 18.12,
+      "sent": 29.5,
+      "words": 59,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Euclid Sees Heart of Milky Way - NASA (초등 쉬운 판)",
+      "fk": 5.36,
+      "sent": 10.1,
+      "words": 131,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "nasa",
+      "title": "Hubble Sees Swarm of Galaxies - NASA Science (초등 쉬운 판)",
+      "fk": 3.74,
+      "sent": 8.8,
+      "words": 150,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "Lion Nebula Roars in Webb's Sights - NASA",
+      "fk": 45.39,
+      "sent": 104,
+      "words": 104,
+      "cefr": "C2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Good Morning, Earth! - NASA",
+      "fk": 8.9,
+      "sent": 13.5,
+      "words": 54,
+      "cefr": "B2",
+      "band": "중1~2"
+    },
+    {
+      "source": "nasa",
+      "title": "Psyche Approaches Mars - NASA",
+      "fk": 21.69,
+      "sent": 48,
+      "words": 96,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Artemis II Crew and Apollo 14 Moon Tree - NASA",
+      "fk": 19.49,
+      "sent": 37.5,
+      "words": 75,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Civil Servants Sworn in at NASA Ames - NASA",
+      "fk": 11.91,
+      "sent": 22.3,
+      "words": 89,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA's Newest Wind Tunnel Opens at NASA Langley - NASA",
+      "fk": 42.33,
+      "sent": 88,
+      "words": 88,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Roman Space Telescope Travels to SpaceX Hangar - NASA",
+      "fk": 12.51,
+      "sent": 19.2,
+      "words": 115,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Artemis Mission Patches - NASA",
+      "fk": 12.66,
+      "sent": 22.2,
+      "words": 133,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Perseids Meteor Shower - NASA",
+      "fk": 6,
+      "sent": 11,
+      "words": 88,
+      "cefr": "B2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "nasa",
+      "title": "2026 Total Solar Eclipse in Spain - NASA",
+      "fk": 10.37,
+      "sent": 19.8,
+      "words": 99,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA Astronaut Reid Wiseman at Freedom 250 Grand Prix - NASA",
+      "fk": 21.04,
+      "sent": 43.5,
+      "words": 87,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Colorful Collage of Tarantula Nebula - NASA",
+      "fk": 12.99,
+      "sent": 22.1,
+      "words": 155,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Guinea-Bissau Tidal Waters - NASA",
+      "fk": 25.62,
+      "sent": 41.5,
+      "words": 83,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Hubble Sees Swarm of Galaxies - NASA",
+      "fk": 13.64,
+      "sent": 14,
+      "words": 70,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Young Galaxy Cluster - NASA",
+      "fk": 12.26,
+      "sent": 20.8,
+      "words": 83,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "The Golden Crown of the Sun",
+      "fk": 2.49,
+      "sent": 7.9,
+      "words": 111,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "Artemis III Orion Crew and Service Modules Joined - NASA",
+      "fk": 19.58,
+      "sent": 36.3,
+      "words": 109,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Roman Space Telescope Plaque Install - NASA",
+      "fk": 14.25,
+      "sent": 22.5,
+      "words": 135,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Guinea-Bissau Tidal Waters - NASA",
+      "fk": 13.13,
+      "sent": 25.8,
+      "words": 103,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA's Artemis II Crew Receives Congressional Space Medal of Honor - NASA",
+      "fk": 16.81,
+      "sent": 27.7,
+      "words": 83,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "The Lopsided Galaxy",
+      "fk": 2.41,
+      "sent": 7.3,
+      "words": 102,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "New Crew Members Welcomed to International Space Station - NASA",
+      "fk": 14.05,
+      "sent": 24.6,
+      "words": 123,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Aurora Australis - NASA",
+      "fk": 20.85,
+      "sent": 37,
+      "words": 74,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Civil Servants Sworn in at NASA Ames - NASA",
+      "fk": 32.82,
+      "sent": 65,
+      "words": 65,
+      "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "A New Look – and Sound – for Messier 94 - NASA",
+      "fk": 10.57,
+      "sent": 18.6,
+      "words": 93,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA's Chandra and IXPE Study Pulsar in Lighthouse Nebula - NASA",
+      "fk": 12.54,
+      "sent": 19.6,
+      "words": 137,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Euclid Sees Heart of Milky Way - NASA",
+      "fk": 14.29,
+      "sent": 21,
+      "words": 105,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "A Bird Shape in the Ice",
+      "fk": 2.97,
+      "sent": 7.9,
+      "words": 103,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "The Man Who Trains Moon Walkers",
+      "fk": 0.54,
+      "sent": 6.3,
+      "words": 120,
+      "cefr": null,
+      "band": "초3 미만"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA Astronaut Jessica Meir Uses VR Goggles - NASA",
+      "fk": 38.29,
+      "sent": 81,
+      "words": 81,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "The Galaxy with Shells",
+      "fk": 2.54,
+      "sent": 7.1,
+      "words": 100,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "Two Kinds of Coast",
+      "fk": 1.53,
+      "sent": 6.5,
+      "words": 98,
+      "cefr": null,
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Can and Can't",
+      "fk": -1.12,
+      "sent": 5.8,
+      "words": 58,
+      "cefr": "A2",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Piggy Wants to Fly",
+      "fk": 0.24,
+      "sent": 5.8,
+      "words": 87,
+      "cefr": "A2",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Weather Report",
+      "fk": 2.76,
+      "sent": 4,
+      "words": 52,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Bee and the Elephant",
+      "fk": 0.37,
+      "sent": 4.2,
+      "words": 79,
+      "cefr": "A2",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Who Is Our Friend?",
+      "fk": 0.21,
+      "sent": 6.3,
+      "words": 107,
+      "cefr": "A1",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Anand",
+      "fk": 2.08,
+      "sent": 5.5,
+      "words": 82,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Race",
+      "fk": 1.18,
+      "sent": 4.9,
+      "words": 54,
+      "cefr": "A2",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "a street or a zoo",
+      "fk": 2.22,
+      "sent": 8.2,
+      "words": 172,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Smile Please!",
+      "fk": 1.07,
+      "sent": 6.9,
+      "words": 104,
+      "cefr": "B2",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Little Leaf",
+      "fk": 5.18,
+      "sent": 18.4,
+      "words": 92,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "My Best Friend",
+      "fk": 0.3,
+      "sent": 6.9,
+      "words": 111,
+      "cefr": "A1",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Mango Tree",
+      "fk": 0.54,
+      "sent": 6.3,
+      "words": 75,
+      "cefr": "A2",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "My Sister and Me",
+      "fk": 0.71,
+      "sent": 6.4,
+      "words": 70,
+      "cefr": "A1",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Bed-Time Stories",
+      "fk": 3.34,
+      "sent": 7.8,
+      "words": 78,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "My Brother and Me",
+      "fk": -0.19,
+      "sent": 3.4,
+      "words": 99,
+      "cefr": "A1",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Aaloo-Maaloo-Kaaloo",
+      "fk": 5.27,
+      "sent": 8.4,
+      "words": 143,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Is There Anyone Like Me?",
+      "fk": 1.42,
+      "sent": 6.5,
+      "words": 110,
+      "cefr": "A1",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Ting Tong",
+      "fk": 2.17,
+      "sent": 8.8,
+      "words": 79,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Watch Out! The Tiger is Here!",
+      "fk": 2.25,
+      "sent": 3.8,
+      "words": 106,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Bunty and Bubbly",
+      "fk": 1.99,
+      "sent": 7.6,
+      "words": 121,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Foxy Joxy Plays a Trick",
+      "fk": 4.63,
+      "sent": 8.1,
+      "words": 161,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Who Ate All That Up?",
+      "fk": 0.93,
+      "sent": 4.6,
+      "words": 133,
+      "cefr": "B2",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Wild Cat! Wild Cat!",
+      "fk": 0.34,
+      "sent": 6.1,
+      "words": 129,
+      "cefr": "A2",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Moon and The Cap",
+      "fk": 0.98,
+      "sent": 7.2,
+      "words": 143,
+      "cefr": "A1",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Food Monster",
+      "fk": 3.41,
+      "sent": 6.9,
+      "words": 97,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "What's Ameena Up To?",
+      "fk": 3.61,
+      "sent": 6.8,
+      "words": 102,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "My Home",
+      "fk": 1.47,
+      "sent": 7.1,
+      "words": 114,
+      "cefr": "A1",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Lost and Found",
+      "fk": 0.82,
+      "sent": 5.7,
+      "words": 149,
+      "cefr": "A2",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Fishing in My Village",
+      "fk": 3.84,
+      "sent": 10.4,
+      "words": 135,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "How Many?",
+      "fk": 1.6,
+      "sent": 8,
+      "words": 104,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Three Little Kittens",
+      "fk": 2.07,
+      "sent": 6.4,
+      "words": 109,
+      "cefr": "A1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "I Can Help!",
+      "fk": 2.31,
+      "sent": 8.6,
+      "words": 120,
+      "cefr": "A1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "My Friends",
+      "fk": -1.25,
+      "sent": 4.3,
+      "words": 69,
+      "cefr": "A1",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Gappu Can't Dance",
+      "fk": 2.11,
+      "sent": 5.2,
+      "words": 155,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Animal Homes",
+      "fk": 1.42,
+      "sent": 7.1,
+      "words": 121,
+      "cefr": "A1",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Roti Roll",
+      "fk": 2.57,
+      "sent": 8.8,
+      "words": 140,
+      "cefr": "B2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "colours on the street",
+      "fk": 2.9,
+      "sent": 6.7,
+      "words": 107,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "I Can Make Things!",
+      "fk": -0.26,
+      "sent": 6.1,
+      "words": 91,
+      "cefr": "A1",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "I Can Climb!",
+      "fk": 0.38,
+      "sent": 5.9,
+      "words": 89,
+      "cefr": "A1",
+      "band": "초3 미만"
+    }
+  ]
+}

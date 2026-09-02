@@ -35,6 +35,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { syllables } from '../textbook-corpus/analyze.mjs'
+
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
   return i >= 0 ? process.argv[i + 1] : null
@@ -139,6 +141,39 @@ const strip = (h) =>
     .trim()
 
 const words = (t) => (t ? t.split(/\s+/).filter(Boolean).length : 0)
+
+/**
+ * Flesch-Kincaid 학년 — **시중 코퍼스와 같은 공식**(`textbook-corpus/analyze.mjs`).
+ *
+ * 어수만 보고 소스를 고르던 동안 **길이는 맞는데 난이도가 틀린** 것이 쌓였다(실측 2026-09-02):
+ *   NASA 사진설명 121편 FK 15.37 · 문장 26.3어 — 중3 교재(10.67 · 19.1어)보다 한참 위
+ *   StoryWeaver     42편 FK  1.42 · 문장  6.4어 — 초4 교재(1.81 · 6.4어)보다도 아래
+ * 초·중 창이라 세던 269편 중 실제로 그 학년 난이도인 것은 **135편(50%)뿐**이었다.
+ *
+ * ⚠️ FK 는 **어휘 친숙도를 모른다** — `photosynthesis` 와 `unhappiness` 를 같은 5음절로 센다.
+ *   그래서 이 값만으로 판정하지 않고 재료의 성격(백과·사진설명·이야기)과 함께 읽는다.
+ */
+const fkGrade = (t) => {
+  const sents = (String(t ?? '').match(/[.!?]["')\]]*(\s|$)/g) || []).length
+  const ws = String(t ?? '').match(/[A-Za-z][A-Za-z'-]*/g) || []
+  if (!sents || !ws.length) return null
+  let syl = 0
+  for (const w of ws) syl += syllables(w.toLowerCase())
+  return +(0.39 * (ws.length / sents) + 11.8 * (syl / ws.length) - 15.59).toFixed(2)
+}
+
+/** 시중 실측 학년 밴드 — `grade-level-bench.mjs` 와 같은 표. 두 곳이 갈리면 판정이 갈린다. */
+const BANDS = [
+  { id: '초3~4', min: 1.5, max: 4.0 },
+  { id: '초5~6', min: 3.5, max: 5.5 },
+  { id: '초6~중1', min: 4.5, max: 7.0 },
+  { id: '중1~2', min: 6.5, max: 9.0 },
+  { id: '중3', min: 8.5, max: 12.0 },
+]
+const bandOf = (fk) =>
+  fk == null
+    ? '-'
+    : (BANDS.find((b) => fk >= b.min && fk <= b.max)?.id ?? (fk < 1.5 ? '초3미만' : '중3초과'))
 /** 그림책 쪽번호("3/10")는 글이 아니다. */
 const depaginate = (t) =>
   t
@@ -561,6 +596,7 @@ for (const { id: baseId, src, level } of runs) {
       id: item.id,
       title: item.title,
       words: w,
+      fk: fkGrade(t.body),
       license: t.license ?? null,
       level: t.level ?? null,
       unit: t.unit ?? 'full',
@@ -572,6 +608,17 @@ for (const { id: baseId, src, level } of runs) {
   const inElem = good.filter((m) => m.words >= ELEM.min && m.words <= ELEM.max).length
   const inMid = good.filter((m) => m.words >= MID.min && m.words <= MID.max).length
   const ws = good.map((m) => m.words).sort((a, b) => a - b)
+  const fks = good
+    .map((m) => m.fk)
+    .filter((x) => x != null)
+    .sort((a, b) => a - b)
+  const fkMed = fks.length ? fks[Math.floor(fks.length / 2)] : null
+  // **어느 학년 칸을 채우는가** — 이 소스를 쓸지 말지는 결국 이 한 줄로 정해진다.
+  const bandHits = {}
+  for (const m of good) {
+    const b = bandOf(m.fk)
+    bandHits[b] = (bandHits[b] ?? 0) + 1
+  }
   const pct = (p) =>
     ws.length ? ws[Math.min(ws.length - 1, Math.floor((ws.length * p) / 100))] : null
   // ⚠️ 처음에 /CC/i 로만 셸다가 **CC BY 4.0 인 20건을 0건으로** 적을 뻔했다 —
@@ -600,6 +647,9 @@ for (const { id: baseId, src, level } of runs) {
       p75: pct(75),
       max: ws[ws.length - 1] ?? null,
     },
+    fkMedian: fkMed,
+    band: bandOf(fkMed),
+    bandHits,
     inElementary: inElem,
     inMiddle: inMid,
     pctElementary: good.length ? +((inElem / good.length) * 100).toFixed(1) : 0,
@@ -625,6 +675,8 @@ console.log(
     lpad('전체', 8) +
     lpad('표본', 5) +
     lpad('중앙어', 7) +
+    lpad('FK', 7) +
+    lpad('밴드', 9) +
     lpad('초창%', 7) +
     lpad('중창%', 7) +
     lpad('CC', 6) +
@@ -651,6 +703,8 @@ for (const s of report.sources) {
       lpad(s.total?.toLocaleString() ?? '—', 8) +
       lpad(s.extracted, 5) +
       lpad(s.words.median ?? '—', 7) +
+      lpad(s.fkMedian ?? '—', 7) +
+      lpad(s.band ?? '—', 9) +
       lpad(s.pctElementary, 7) +
       lpad(s.pctMiddle, 7) +
       lpad(`${s.licenseConfirmedInBand}/${s.extracted}`, 6) +
