@@ -260,3 +260,62 @@ pnpm dlx tsx scripts/textbook/kid-source-probe.mjs --sample 100       # 오차 �
 | Wikijunior | 분류가 아니라 **책 구조**(`Wikijunior/…` 접두사). `Category:Wikijunior` 는 0건, 검색 215건은 대부분 책의 속장이라 독립된 짧은 글이 적다 |
 | Gutendex (Project Gutenberg) | **열린다** — 영어 아동물 **7,634권** · PD. 다만 본래 단위가 **책 한 권**이라 발췌해야 창에 든다. 발췌 경로가 생기면 **가장 큰 PD 서사 재고**다 |
 | Storybooks Canada | `storybookscanada.ca` 는 200 이나 `global-asp.github.io/storybooks-canada` 는 404 — 목록 받는 경로를 못 찾았다 |
+
+---
+
+## 11. B5 결함의 원인과 수정 — 그리고 축이 두 번 더 틀렸다
+
+### 원인: NASA 이미지 쪽은 날짜를 **다른 이름**으로 싣는다
+
+`ingest-article/nasa.ts` 가 `article:published_time` 과 `<time datetime>` 만 봤다.
+그 둘은 기사 쪽에는 있지만 `image-article`·`image-detail` 쪽에는 **없다** — 실측:
+
+```
+image-article   parsely-pub-date + og:updated_time
+image-detail    og:updated_time 만
+```
+
+**이 결함은 아무 오류도 내지 않는다.** 글은 정상으로 들어오고 본문도 멀쩡하고
+`published_at` 만 null 이다. 원문 축을 만들고 나서야 보였다.
+
+- 패턴 4개로 확장. **순서가 뜻을 정한다** — `og:updated_time` 은 *고친* 시각이라 맨 뒤에 뒀다.
+  없는 것보다 낫지만 같은 값은 아니다.
+- 패턴 목록을 `NASA_DATE_PATTERNS` 로 빼서 **망 없이** 회귀 테스트를 걸었다
+  (`nasa-dates.test.ts` 5종 — 예전 두 패턴으로는 못 찾는다는 **결함 재현**까지).
+  `ingest-article` 126 tests 통과 · `tsc --noEmit` exit 0.
+- 되메움 `scripts/textbook/nasa-date-backfill.mjs` — **146편 채움 · 실패 0**
+  (그중 54편은 수정시각이라 따로 셈 · 1편은 끝내 날짜를 못 찾음).
+  `published_at IS NULL` 인 것만 고르고 쓰기 시점에도 같은 조건을 다시 건다
+  (워크스페이스를 여러 세션이 나눠 쓴다). 몇 번 돌려도 결과가 같다.
+
+### 축이 두 번 더 틀렸다 — 한 번은 우리에게 유리한 쪽으로
+
+**B4 진본성 72.8% → 56.1% (하향).** 우리가 쓴 글은 두 갈래인데 한 갈래만 빼고 있었다:
+
+| | 편수 | |
+|---|---|---|
+| `source='original'` | 62 | 아예 자작 |
+| `license_class='restricted'` | 38 | **재저작** — 원문 게재 권리가 없어 사실만 뽑아 다시 썼다 |
+
+둘째 갈래는 `source_url` 이 **진짜 VOA 주소**를 가리켜서 진본처럼 보인다. 하지만 제목도
+본문도 우리 것이다 — *"Australian Navy Rescues Rower Crossing Pacific from California"* 가
+*"A Man Rows Across the Sea"* 로 바뀌어 있다. **자를 우리에게 유리한 쪽으로 잘못 읽고 있었다.**
+(38편이 한 무리라는 근거: `restricted` 는 전체 38행뿐이고 register 가 **0/38**, 평균 107어다.)
+
+**B5 발행일 61.0% → 99.2% (분모 정정).** 자작·재저작 글에 발행일이 없는 것은 **맞다** —
+어디에도 발행된 적이 없으니까. 그걸 분모에 넣으면 고칠 수 없는 몫이 영영 미달로 남고,
+정말 고쳐야 할 "진본인데 날짜를 못 읽은" 몫이 그 안에 묻힌다. 진본만 분모로 삼으니
+**128편 중 127편**이고 남은 1편이 실제 결함이다.
+
+### 지금 축 (2026-09-02 확정)
+
+| 축 | 우리 | 시중 | 판정 |
+|---|---|---|---|
+| B1 지문 출처 명시율 | 73.7% | 0/1,924쪽 | 범주차 |
+| B2 재배포 가능 라이선스 | 83.3% | 0% | 범주차 |
+| B4 진본 원문 비율 | **56.1%** | 0% | 범주차 |
+| B3 register 다양성 | 3종 (**narrative 0**) | — | **FAIL** |
+| B5 발행일 명시율(진본 기준) | **99.2%** | — | ok |
+
+남은 결함 셋 — **narrative 0** · 우리가 쓴 글 100편(44%) · 재배포 불가 38편.
+셋 다 §10 의 소스를 배선하면 분모가 커지며 함께 옅어진다. **B3 는 배선 말고는 답이 없다.**

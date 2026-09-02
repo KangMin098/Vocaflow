@@ -139,10 +139,31 @@ const n = rows.length
 const CLEAN = new Set(['public_domain', 'cc0', 'cc_by', 'cc_by_sa'])
 const hasUrl = rows.filter((r) => r.source_url).length
 const clean = rows.filter((r) => CLEAN.has(r.license_class)).length
-// **진본 = 우리가 쓰지 않은 글.** `source='original'` 은 이 저장소가 써 넣은 것이라
-//   "시중은 자작이고 우리는 진본" 이라고 말할 때 그 자작에 해당한다. 빼고 센다.
-const authentic = rows.filter((r) => r.source !== 'original').length
-const dated = rows.filter((r) => r.published_at).length
+/**
+ * **진본 = 우리가 쓰지 않은 글.** 우리가 쓴 것은 두 갈래이고, 처음엔 한 갈래만 뺐다.
+ *
+ *   `source='original'`        62편 — 아예 자작
+ *   `license_class='restricted'` 38편 — **재저작**. 원문 게재 권리가 없어 사실만 뽑아 다시 썼다
+ *
+ * 둘째 갈래를 진본으로 세고 있었다. `source_url` 이 진짜 VOA 주소를 가리켜서 진본처럼
+ * 보이지만 제목도 본문도 우리 것이다 — "Australian Navy Rescues Rower Crossing Pacific"
+ * 이 "A Man Rows Across the Sea" 로 바뀌어 있다. 그래서 **B4 가 72.8% 로 부풀어 있었고
+ * 실제로는 56.1%** 다. 이 자를 우리에게 유리한 쪽으로 잘못 읽고 있었던 것이다.
+ *
+ * 38편이 한 무리라는 근거: `restricted` 는 전체 38행뿐이고 **register 가 0/38**,
+ * 평균 107어로 다른 어떤 라이선스 등급과도 겹치지 않는다.
+ */
+const OURS_WRITTEN = (r) => r.source === 'original' || r.license_class === 'restricted'
+const authenticRows = rows.filter((r) => !OURS_WRITTEN(r))
+const authentic = authenticRows.length
+/**
+ * 발행일은 **진본만** 분모로 삼는다.
+ *
+ * 자작·재저작 글에는 발행일이 없는 것이 맞다 — 어디에도 발행된 적이 없으니까.
+ * 그것까지 분모에 넣으면 고칠 수 없는 몫이 영영 미달로 남아, 정말 고쳐야 할
+ * "진본인데 날짜를 못 읽은" 몫이 그 안에 묻힌다.
+ */
+const dated = authenticRows.filter((r) => r.published_at).length
 const registers = new Set(rows.map((r) => r.register).filter(Boolean))
 const narrative = rows.filter((r) => r.register === 'narrative').length
 const srcCount = new Set(rows.map((r) => r.source)).size
@@ -235,12 +256,16 @@ const B5 = {
   id: 'B5',
   name: '발행일 명시율',
   why: '언제 쓰인 글인지 모르면 시의성을 판단할 수 없고, 낡은 사실을 그대로 가르치게 된다',
-  ours: +pct(dated, n).toFixed(4),
+  ours: +pct(dated, authentic).toFixed(4),
+  oursDetail: `진본 ${authentic}편 중 ${dated}편 — 자작·재저작 ${n - authentic}편은 분모에서 뺀다`,
   market: null,
   unit: '%',
   categorical: false,
   index: null,
-  verdict: pct(dated, n) < 0.9 ? `FAIL — ${n - dated}/${n}편이 발행일 미상` : 'ok',
+  verdict:
+    pct(dated, authentic) < 0.9
+      ? `FAIL — 진본 ${authentic - dated}/${authentic}편이 발행일 미상`
+      : 'ok',
 }
 
 const report = {
@@ -254,11 +279,15 @@ const report = {
   ourDefects: [
     ...(narrative === 0 ? ['narrative 0편 — 이야기 지문이 없다'] : []),
     ...(n - authentic > 0
-      ? [`자작 지문 ${n - authentic}편 (${((1 - authentic / n) * 100).toFixed(0)}%)`]
+      ? [
+          `우리가 쓴 글 ${n - authentic}편 (${((1 - authentic / n) * 100).toFixed(0)}%) — ` +
+            `자작 ${rows.filter((r) => r.source === 'original').length} · ` +
+            `재저작 ${rows.filter((r) => r.license_class === 'restricted').length}`,
+        ]
       : []),
-    ...(n - dated > 0
-      ? [`발행일 미상 ${n - dated}편 (${((1 - dated / n) * 100).toFixed(0)}%)`]
-      : []),
+    // 분모는 **진본**이다. `n - dated` 로 세면 자작·재저작(발행일이 없는 게 맞는 것)까지
+    //   결함으로 세어 고칠 수 없는 몫이 영영 미달로 남는다.
+    ...(authentic - dated > 0 ? [`진본인데 발행일 미상 ${authentic - dated}/${authentic}편`] : []),
     ...(n - clean > 0 ? [`재배포 불가 라이선스 ${n - clean}편`] : []),
   ],
 }

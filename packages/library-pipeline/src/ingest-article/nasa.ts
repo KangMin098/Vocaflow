@@ -115,6 +115,30 @@ function toNasaItem(it: RssListItem): NasaListItem {
  * 단일 NASA article fetch — body 추출.
  * APOD 은 explanation 단락 추출, 일반 nasa.gov 페이지는 article/main 본문.
  */
+/**
+ * NASA 쪽에서 발행 시각을 찾는 자리 — **쪽 종류마다 다른 이름에 담긴다** (실측 2026-09-02).
+ *
+ * 처음엔 `article:published_time` 과 `<time datetime>` 둘만 봤다. 기사 쪽에는 있지만
+ * `image-article`·`image-detail` 쪽에는 **둘 다 없다.** 그래서 우리가 가진 NASA 초·중 지문
+ * 110편 중 **92편이 발행일 없음**으로 들어와 있었다 — 원문 축 B5(발행일 명시율 15.8%)가
+ * 이걸 잡아냈다. 그 쪽들이 날짜를 안 싣는 게 아니라 다른 이름으로 싣는다:
+ *
+ *     image-article   parsely-pub-date + og:updated_time
+ *     image-detail    og:updated_time 만
+ *
+ * **순서가 뜻을 정한다** — 앞의 셋은 *발행* 시각이고 `og:updated_time` 은 *고친* 시각이라
+ * 발행일과 다를 수 있다. 그래서 맨 뒤에 둔다. 없는 것보다 낫지만 같은 값은 아니다.
+ *
+ * 목록으로 빼 둔 것은 **망 없이 회귀 테스트를 걸기 위해서**다 — 함수 안에 인라인으로 두면
+ * 이 결함을 재현하려면 NASA 를 실제로 두드려야 한다.
+ */
+export const NASA_DATE_PATTERNS: RegExp[] = [
+  /<meta\s+property="article:published_time"\s+content="([^"]+)"/i,
+  /<meta\s+name="parsely-pub-date"\s+content="([^"]+)"/i,
+  /<time[^>]*datetime="([^"]+)"/i,
+  /<meta\s+property="og:updated_time"\s+content="([^"]+)"/i,
+]
+
 export async function ingestNasaArticle(itemUrl: string): Promise<RawArticle> {
   const res = await fetchWithTimeout(itemUrl, { accept: 'text/html' })
   if (!res.ok) throw new Error(`NASA article fetch failed: ${res.status} ${itemUrl}`)
@@ -127,10 +151,7 @@ export async function ingestNasaArticle(itemUrl: string): Promise<RawArticle> {
       /<title>([^<]+?)(?:\s*[-|]\s*NASA)?<\/title>/i,
     ]) ?? '(제목 미상)'
 
-  const publishedAt = extractFirst(html, [
-    /<meta\s+property="article:published_time"\s+content="([^"]+)"/i,
-    /<time[^>]*datetime="([^"]+)"/i,
-  ])
+  const publishedAt = extractFirst(html, NASA_DATE_PATTERNS)
 
   // APOD 페이지: <b>Explanation:</b> 아래 본문이 다음 <p> 까지
   const isApod = /apod\.nasa\.gov/i.test(itemUrl)
