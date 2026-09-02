@@ -207,10 +207,53 @@ for (const t of order) {
   }
 }
 
+// ── 선지 형식이 바뀐 자리 — 코퍼스에서 바로 센다 ─────────────────────
+//
+// 서브에이전트가 세 유형에서 「연도에 따라 설계가 다르다」를 보고했다. 그중 **선지 형식**은
+// 기계로 셀 수 있으므로 여기서 센다 — 손으로 적으면 다음 회차에 낡고, 그때 이 문서가
+// 학습자에게 틀린 말을 하게 된다.
+{
+  /** 선지 형식의 지문(指紋) — 화살표가 있으면 「변화 쌍」, 슬래시가 있으면 「네모 선택형」 */
+  const shape = (it) => {
+    const j = (it.choices ?? []).join(' ')
+    if (/[→⇒↔]/.test(j)) return '변화 쌍 (A → B)'
+    if (/\S\s*\/\s*\S/.test(j) && (it.type_id === 'R-VOCAB' || it.type_id === 'X-VOCAB')) return '네모 선택형 (A / B)'
+    return null
+  }
+  const rows = []
+  for (const [tid, meta] of typeMeta) {
+    const its = inScope.filter((it) => it.type_id === tid && it.choices?.length).sort((a, b) => a.year - b.year)
+    if (its.length < 8) continue
+    const marked = its.filter((it) => shape(it))
+    if (!marked.length || marked.length === its.length) continue // 늘 그랬거나 한 번도 없었으면 전환이 아니다
+    const form = shape(marked[0])
+    const years = marked.map((it) => it.year)
+    const lo = Math.min(...years)
+    const hi = Math.max(...years)
+    const others = its.filter((it) => !shape(it)).map((it) => it.year)
+    // 두 형식이 **연도로 갈리는지** 본다 — 섞여 있으면 전환이 아니라 공존이다
+    const clean = others.every((y) => y < lo) || others.every((y) => y > hi)
+    rows.push({ tid, name: meta.name, form, lo, hi, n: marked.length, total: its.length, clean, others })
+  }
+  if (rows.length) {
+    L.push('## 4. 선지 형식이 바뀐 자리')
+    L.push('')
+    L.push('옛 기출로 형식을 익히면 지금 시험에서 **첫 동작이 어긋난다**. 발문만 보고 절차를 고르려면')
+    L.push('여기가 언제 바뀌었는지 알아야 한다. (선지가 파싱된 문항만 셈)')
+    L.push('')
+    L.push('| 유형 | 형식 | 그 형식인 문항 | 연도 | 두 형식이 연도로 갈리나 |')
+    L.push('|---|---|---|---|---|')
+    for (const r of rows) {
+      L.push(`| ${r.name} \`${r.tid}\` | ${r.form} | ${r.n}/${r.total} | ${r.lo}~${r.hi}학년도 | ${r.clean ? '갈린다' : '**섞여 있다(공존)**'} |`)
+    }
+    L.push('')
+  }
+}
+
 // ── 아직 분석 전 ──────────────────────────────────────────────────────
 const pending = order.filter((t) => !reports.has(t.id))
 if (pending.length) {
-  L.push('## 4. 아직 분석 전')
+  L.push('## 5. 아직 분석 전')
   L.push('')
   L.push('**숨기지 않는다** — 없는 것을 안 적으면 다 된 것처럼 읽힌다.')
   L.push('')
