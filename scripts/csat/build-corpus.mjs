@@ -109,6 +109,10 @@ for (const q of rows) {
     points: key?.points ?? null,
     high_score: q.high_score === true || key?.points === 3,
     rescued: q.rescued === true,
+    // 지문에 한글이 남아 있으면 발문·각주·옆 단이 섞여 들어온 것이다. 5% 안팎 남는다 —
+    // 파서를 더 깎는 대신 **딱지를 붙여** 드레인이 원문 블록을 함께 싣게 한다.
+    // 분석하는 쪽이 원문을 볼 수 있으면 파서의 마지막 5%는 병목이 아니다.
+    body_suspect: Boolean(passage && (passage.match(/[가-힣]/g) ?? []).length >= 4),
     // **분석 파이프라인의 사정권.** 듣기는 제외한다 — 사용자 지시(2026-09-02).
     // 원장에서 빼지 않고 딱지만 붙이는 이유: 회차 배점 합이 100 인지 보는 검사가
     // 듣기를 포함해야 성립하고, 듣기 대본 9회차가 새로 들어와 있어 나중에 되살릴 수 있다.
@@ -169,6 +173,7 @@ const report = {
     keyed: sum((it) => it.in_scope && it.answer),
     passaged: sum((it) => it.in_scope && it.passage),
     choiced: sum((it) => it.in_scope && it.choices),
+    body_suspect: sum((it) => it.in_scope && it.body_suspect),
     // 정답표가 온전한 회차만 배점 합이 의미 있다
     exams_fully_keyed: scopeExams.filter((e) => e.keyed === e.n).length,
     // 유형 정규식은 듣기 유형에 `L-` 을 붙인다. 사정권 안에 `L-` 이 남아 있으면

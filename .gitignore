@@ -155,3 +155,9 @@ scripts/dict/w0830-*/*
 # 근거로 쓰는 것은 옆의 corpus-report.json 이고, 그건 커밋한다.
 #   재생성: node scripts/csat/build-corpus.mjs
 scripts/csat/data/corpus.json
+
+# 기출 분석 드레인 — 청크는 export 가 매번 다시 뽑는 소모품이다.
+#   **명세(_PROMPT.md)와 결과(*.out.json)는 남긴다** — out 이 원장이고, 그게 없으면
+#   재실행 안전(이미 채운 몫 건너뛰기)이 성립하지 않는다.
+scripts/csat/analysis-drain/chunk-*.json
+scripts/csat/analysis-drain/_MANIFEST.json

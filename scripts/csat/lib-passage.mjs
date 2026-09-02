@@ -121,22 +121,81 @@ function choiceStart(block) {
   return -1
 }
 
-/** 블록에서 영어 지문만 — 발문(한글)·선택지 블록을 걷어낸다 */
+/** 한글 비율 — 공백을 뺀 글자 중 한글이 차지하는 몫 */
+function koRatio(s) {
+  const chars = s.replace(/\s/g, '')
+  if (!chars.length) return 0
+  return (chars.match(/[가-힣]/g) ?? []).length / chars.length
+}
+
+/**
+ * 블록에서 **영어 지문만.**
+ *
+ * ⚠️ 2026-09-02 이전 구현은 두 가지를 조용히 틀리고 있었다. 둘 다 실측으로 잡았다:
+ *
+ *   ① **번호 줄을 통째로 버렸다.** 그런데 지문이 번호와 같은 줄에서 시작하는 회차가 많다
+ *      (`31. Ever since the early Enlightenment, preservation and`). 사정권 830문항 중
+ *      **143문항(17%)** 의 지문 첫 줄이 사라져 있었다. 대의파악처럼 첫 문장이 주제문인
+ *      유형에서는 정답 근거 자체가 없어진다.
+ *   ② **발문 꼬리를 지문에 넣었다.** 번호 줄만 건너뛰고 그다음 줄부터 다 넣었으므로
+ *      여러 줄 발문의 2행("적절한 것은? [3점]")이 지문 머리에 붙었다. **806개 중 473개(59%)**
+ *      가 오염돼 있었다.
+ *
+ * 그래서 줄을 버리고 남기는 기준을 **한글 비율**로 바꾼다. 발문·각주·[3점] 표기는 한글이
+ * 우세하고, 지문은 라틴 문자가 우세하다. 번호는 떼고 뒤에 남은 것으로 판정한다.
+ */
+// 발문은 **덩어리로 끝난다** — 이 표지 뒤부터가 지문이다. 줄 단위로 한글 비율만 보면
+// 고유명사가 섞인 발문(`Harmony Youth Orchestra Auditions에 관한 다음 안내문의`)이 빠져나간다.
+const STEM_END = /(?:것은\s*\??|것을\s*고르시오\s*\.?|고르시오\s*\.?|하시오\s*\.?|답하시오\s*\.?)/g
+
 export function passageOf(block) {
   const cut = choiceStart(block)
+  const head = cut >= 0 ? cut : block.length
+
+  // 발문 종료 지점 — 앞쪽 8줄 안에서 **마지막** 종결 표지. 없으면 -1(줄 단위 규칙으로 간다).
+  let stemEnd = -1
+  let stemTail = ''
+  for (let i = 0; i < Math.min(head, 8); i += 1) {
+    const raw = block[i]
+    if (!/[가-힣]/.test(raw)) continue
+    const hits = [...raw.matchAll(STEM_END)]
+    if (!hits.length) continue
+    const last = hits[hits.length - 1]
+    stemEnd = i
+    stemTail = raw.slice(last.index + last[0].length)
+  }
+
   const body = []
-  for (let i = 0; i < block.length; i += 1) {
-    if (cut >= 0 && i >= cut) break                             // 선택지 블록 시작
-    const l = block[i].trim()
+  if (stemEnd >= 0) {
+    const t = stemTail.replace(/\[\s*[23]\s*점\s*\]/g, '').trim()
+    if (t && /[A-Za-z]/.test(t)) body.push(t)
+  }
+
+  for (let i = stemEnd + 1; i < block.length; i += 1) {
+    if (i >= head) break // 선택지 블록 시작
+    let l = block[i].trim()
     if (!l) continue
-    if (/^\s*\d+\s*[.．]/.test(l)) continue                     // 발문 줄
-    if (/^\[\d+[~～∼〜–—-]\d+\]/.test(l)) continue               // 세트 안내
-    body.push(l)
+    // 번호·세트 머리는 **떼고** 뒤를 본다 — 버리지 않는다
+    l = l.replace(/^\s*\d{1,2}\s*[.．]\s*/, '')
+    l = l.replace(/^\[\s*\d{1,2}\s*[~～∼〜–—-]\s*\d{1,2}\s*\]\s*/, '')
+    if (!l) continue
+    // 각주 — `* monist: 일원론의` · `* be entitled to: (~할) 권한이 있다` · `** entail: 내포하다`.
+    // 낱말에 공백이 있어 `\S+` 로는 안 잡힌다(실측: 2014A#33 의 `be entitled to`).
+    if (/^\*+\s/.test(l) || /^\*+[^:：]{1,40}[:：]/.test(l)) continue
+    if (koRatio(l) >= 0.3) continue // 발문·안내·배점 표기
+    // 발문 꼬리가 문장 앞에 붙어 있으면 거기까지 떼어 낸다 (`적절한 것은? [3점] As we all know,`).
+    // 고유명사가 섞인 발문(`Harmony Youth Orchestra Auditions에 관한 다음 안내문의`)은
+    // 한글 비율이 낮아 위 필터를 빠져나온다 — 조사·어미로 끝나는 한글 꼬리를 여기서 턴다.
+    l = l.replace(/^.*?[가-힣][^A-Za-z]*?(?:것은\??|하시오\.?|고르시오\.?)\s*/, '')
+    l = l.replace(/^.*[가-힣](?:의|을|를|은|는|에|와|과|로|으로)\s+(?=[A-Z])/, '')
+    l = l.replace(/\[\s*[23]\s*점\s*\]/g, '')
+    if (!l.trim()) continue
+    body.push(l.trim())
   }
   return body
     .join(' ')
     .replace(/\s+/g, ' ')
-    .replace(/([a-z])- ([a-z])/g, '$1$2')                       // 줄바꿈 하이픈 복원
+    .replace(/([a-z])- ([a-z])/g, '$1$2') // 줄바꿈 하이픈 복원
     .trim()
 }
 

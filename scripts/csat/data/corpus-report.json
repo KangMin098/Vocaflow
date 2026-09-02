@@ -6,15 +6,16 @@
  "expected": 1350,
  "typed": 1340,
  "keyed": 1035,
- "passaged": 1097,
+ "passaged": 954,
  "choiced": 1169,
  "in_scope": {
   "items": 830,
   "expected": 830,
   "typed": 830,
   "keyed": 634,
-  "passaged": 806,
+  "passaged": 805,
   "choiced": 793,
+  "body_suspect": 42,
   "exams_fully_keyed": 23,
   "listening_type_in_scope": [],
   "reading_type_out_of_scope": [],
@@ -125,7 +126,7 @@
     "n": 28,
     "typed": 28,
     "keyed": 28,
-    "passaged": 26,
+    "passaged": 25,
     "choiced": 25,
     "points": 63
    },
@@ -359,7 +360,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 39,
+   "passaged": 28,
    "choiced": 44,
    "points": 100
   },
@@ -370,7 +371,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 40,
+   "passaged": 26,
    "choiced": 44,
    "points": 100
   },
@@ -381,7 +382,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 40,
+   "passaged": 33,
    "choiced": 44,
    "points": 100
   },
@@ -392,7 +393,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 39,
+   "passaged": 32,
    "choiced": 44,
    "points": 100
   },
@@ -403,7 +404,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 37,
+   "passaged": 31,
    "choiced": 44,
    "points": 100
   },
@@ -414,7 +415,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 38,
+   "passaged": 32,
    "choiced": 44,
    "points": 100
   },
@@ -425,7 +426,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 40,
+   "passaged": 32,
    "choiced": 44,
    "points": 100
   },
@@ -436,7 +437,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 38,
+   "passaged": 32,
    "choiced": 44,
    "points": 100
   },
@@ -447,7 +448,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 34,
+   "passaged": 33,
    "choiced": 36,
    "points": 100
   },
@@ -458,7 +459,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 33,
+   "passaged": 31,
    "choiced": 33,
    "points": 100
   },
@@ -469,7 +470,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 36,
+   "passaged": 35,
    "choiced": 36,
    "points": 100
   },
@@ -480,7 +481,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 35,
+   "passaged": 32,
    "choiced": 35,
    "points": 100
   },
@@ -491,7 +492,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 36,
+   "passaged": 33,
    "choiced": 36,
    "points": 100
   },
@@ -502,7 +503,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 38,
+   "passaged": 32,
    "choiced": 43,
    "points": 100
   },
@@ -513,7 +514,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 39,
+   "passaged": 31,
    "choiced": 44,
    "points": 100
   },
@@ -524,7 +525,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 39,
+   "passaged": 32,
    "choiced": 44,
    "points": 100
   },
@@ -557,7 +558,7 @@
    "n": 45,
    "typed": 43,
    "keyed": 0,
-   "passaged": 35,
+   "passaged": 34,
    "choiced": 32,
    "points": 0
   },
@@ -568,7 +569,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 0,
-   "passaged": 39,
+   "passaged": 32,
    "choiced": 44,
    "points": 0
   },
@@ -579,7 +580,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 0,
-   "passaged": 33,
+   "passaged": 32,
    "choiced": 34,
    "points": 0
   },
@@ -601,7 +602,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 0,
-   "passaged": 35,
+   "passaged": 34,
    "choiced": 36,
    "points": 0
   },
@@ -612,7 +613,7 @@
    "n": 45,
    "typed": 43,
    "keyed": 0,
-   "passaged": 36,
+   "passaged": 30,
    "choiced": 33,
    "points": 0
   },
@@ -623,7 +624,7 @@
    "n": 45,
    "typed": 44,
    "keyed": 0,
-   "passaged": 38,
+   "passaged": 33,
    "choiced": 36,
    "points": 0
   },
@@ -634,7 +635,7 @@
    "n": 45,
    "typed": 44,
    "keyed": 45,
-   "passaged": 34,
+   "passaged": 31,
    "choiced": 29,
    "points": 100
   },
@@ -645,7 +646,7 @@
    "n": 45,
    "typed": 41,
    "keyed": 45,
-   "passaged": 37,
+   "passaged": 32,
    "choiced": 39,
    "points": 100
   },
@@ -656,7 +657,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 39,
+   "passaged": 32,
    "choiced": 43,
    "points": 100
   },
@@ -667,7 +668,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 37,
+   "passaged": 31,
    "choiced": 42,
    "points": 100
   },
@@ -678,7 +679,7 @@
    "n": 45,
    "typed": 45,
    "keyed": 45,
-   "passaged": 38,
+   "passaged": 33,
    "choiced": 44,
    "points": 100
   }
