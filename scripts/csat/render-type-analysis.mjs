@@ -250,10 +250,55 @@ for (const t of order) {
   }
 }
 
+// ── 선지 번호 편중 — 보정을 견디는 것만 싣는다 ───────────────────────
+//
+// 서브에이전트가 청크마다 「이 유형은 ①이 정답인 적이 없다」를 보고했다. 표본 20~22 에서
+// 0회는 **흔한 일**이다 — 유형 26 에 Bonferroni 를 걸면 대부분 사라진다. 그래서 여기서
+// 전수로 세고 **보정을 견딘 것만** 싣는다. 견디지 못한 것은 「견디지 못했다」고 함께 적는다.
+{
+  const cand = []
+  for (const [tid, meta] of typeMeta) {
+    const xs = inScope.filter((it) => it.type_id === tid && it.answer)
+    if (xs.length < 15) continue
+    const has = (n) => xs.some((it) => it.answer === n)
+    // ①만 피하나, ①·⑤ 둘 다 피하나
+    const tests = []
+    if (!has(1)) tests.push({ what: '① 이 정답인 적 없음', p: Math.pow(0.8, xs.length) })
+    if (!has(1) && !has(5)) tests.push({ what: '①·⑤ 가 정답인 적 없음', p: Math.pow(0.6, xs.length) })
+    for (const t of tests) cand.push({ tid, name: meta.name, n: xs.length, ...t, adj: t.p * typeMeta.size })
+  }
+  if (cand.length) {
+    cand.sort((a, b) => a.adj - b.adj)
+    L.push('## 5. 선지 번호 편중 — 보정 뒤에도 남는 것')
+    L.push('')
+    L.push('기저는 균등(선지 5개)으로 잡고, **사정권 유형 수만큼 Bonferroni 보정**했다.')
+    L.push('보정을 못 견딘 줄은 «찍기 근거로 쓰면 안 된다» 는 뜻이다 — 지우지 않고 함께 싣는 이유는,')
+    L.push('안 적으면 다음 사람이 같은 관찰을 또 «발견» 하기 때문이다.')
+    L.push('')
+    L.push('| 유형 | 관찰 | 표본 | raw p | 보정 p | 쓸 수 있나 |')
+    L.push('|---|---|---|---|---|---|')
+    for (const x of cand) {
+      L.push(`| ${x.name} \`${x.tid}\` | ${x.what} | ${x.n} | ${x.p.toExponential(1)} | ${x.adj.toExponential(1)} | ${x.adj < 0.05 ? '**검산용으로만**' : '아니오 (보정 탈락)'} |`)
+    }
+    L.push('')
+    L.push('> **견디는 것도 「검산용」이지 근거가 아니다.** 배열·위치를 먼저 정하고, 그 결과가 여기')
+    L.push('> 어긋나면 다시 보라는 신호일 뿐이다. 이것을 첫 근거로 쓰면 변형 문항에서 그대로 틀린다.')
+    L.push('')
+    // 반례가 있으면 반드시 적는다 — 명제가 깨진 자리가 가장 중요한 정보다
+    const ord = inScope.filter((it) => it.type_id === 'R-ORDER' && it.answer === 1)
+    if (ord.length) {
+      L.push(`> ⚠️ **저장소의 기존 HARD 명제 「순서 대응형에서 ①은 정답이 아니다」(수능 13개년 0/192)는`)
+      L.push(`> 모의평가를 넣자 깨졌다** — ${ord.map((it) => `${it.exam_label} ${it.no}번`).join(' · ')}. 그 명제는`)
+      L.push('> **수능 전용 관행**이지 평가원 설계의 일반 규칙이 아니었다. 홀드아웃을 넣은 목적이 이것이다.')
+      L.push('')
+    }
+  }
+}
+
 // ── 아직 분석 전 ──────────────────────────────────────────────────────
 const pending = order.filter((t) => !reports.has(t.id))
 if (pending.length) {
-  L.push('## 5. 아직 분석 전')
+  L.push('## 6. 아직 분석 전')
   L.push('')
   L.push('**숨기지 않는다** — 없는 것을 안 적으면 다 된 것처럼 읽힌다.')
   L.push('')
