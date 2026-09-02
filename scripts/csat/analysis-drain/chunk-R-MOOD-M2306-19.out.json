@@ -1,0 +1,1385 @@
+{
+  "chunk": 5,
+  "type_id": "R-MOOD",
+  "type_name": "심경·분위기",
+  "analyses": [
+    {
+      "item_id": "M2306#19",
+      "answer_unknown": true,
+      "measured_ability": "서사에서 지정된 인물의 감정 신호(감정 형용사·신체 반응·직접인용)를 시간 순으로 두 덩이로 갈라, 전환 표지 앞의 감정과 뒤의 감정을 각각 따로 확정하는 능력",
+      "design_intent": "출발할 때의 걱정 진술('sighed with concern')과 도착 후의 감탄 진술을 한 문단 안에 나란히 놓되, 그 사이에 'She was about to give up' 이라는 두 번째 하강을 끼워 넣었다. 하강이 두 번 오므로 중간에서 읽기를 멈추면 뒤 감정을 부정 쪽으로 잡게 되고, 마지막 직접인용까지 가야 뒤 감정이 정해진다.",
+      "solve_procedure": [
+        {
+          "step": "발문에서 심경의 주체 이름(Jessica)과 '변화'를 묻는지 단일 심경을 묻는지 먼저 확인하고, 지문에서 그 이름이 주어인 문장에만 표시한다",
+          "on_fail": "등장인물이 둘 이상이면 발문의 이름이 주어인 문장과 그 인물의 직접인용만 남기고 나머지 인물의 반응은 지운다"
+        },
+        {
+          "step": "첫 세 문장에서 감정 형용사·감정 동사(sigh, worry, wonder)와 배경 묘사(sky was getting dark)를 갈라 표시하고, 감정 동사 쪽만 앞 심경 후보로 적는다",
+          "on_fail": "감정 동사가 안 보이면 인물의 직접인용 첫 개를 찾아 그 안의 부정어(miss, can't, won't)를 앞 심경 근거로 쓴다"
+        },
+        {
+          "step": "however / but / Just then / all of a sudden / As soon as 를 찾아 지문에 세로줄을 긋고, 표지가 여러 개면 마지막 것을 기준선으로 삼는다",
+          "on_fail": "표지가 하나도 없으면 시제·장소가 바뀌는 문장(도착·시작을 알리는 문장)을 기준선으로 삼는다"
+        },
+        {
+          "step": "기준선 뒤의 마지막 두 문장, 특히 따옴표 안 인물의 말에서 평가어(beautiful, better than expected)를 뽑아 뒤 심경을 확정한다",
+          "on_fail": "마지막 문장에 평가어가 없으면 마지막 동작 동사(shouted, cheered, sighed)의 방향으로 대신 정한다"
+        },
+        {
+          "step": "선지 다섯 쌍을 앞 칸만 먼저 대조해 앞 심경 근거와 어긋나는 것을 지우고, 남은 것끼리 뒤 칸을 대조한다",
+          "on_fail": "앞 칸으로 둘 이상 남으면 뒤 칸 중 마지막 인용의 평가어와 부호(긍정/부정)가 같은 것만 남긴다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.9,
+        "drivers": [
+          "감정어가 직접 명시된다(sighed with concern / so beautiful)",
+          "전환 표지 Just then 이 문장 머리에 노출된다",
+          "어휘 수준이 평이하고 추상 명사가 없다",
+          "다만 'She was about to give up' 이 하강을 한 번 더 만들어 중간에서 멈춘 학습자를 흔든다"
+        ]
+      },
+      "required_vocab": ["sighed", "concern", "glow", "expected"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "answer_known:false 회차이므로 answer_locus 를 비운 것이 맞다",
+            "design_intent 이 '심경 변화 유형은 전환을 본다' 는 일반론이 아니라 이 지문 고유의 이중 하강(도착 후 give up)을 지목한다"
+          ],
+          "checked": [
+            "코퍼스 M2306#19 의 answer 가 null 임을 대조",
+            "출력에 answer_locus 키가 없음을 확인",
+            "design_intent 이 유형 일반론인지 이 지문 고유 서술인지 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 초안은 difficulty.predicted 0.9 에 근거가 없었다 — 정답표가 없는데 정답률만 적은 셈이라 반려했고, drivers 에 '감정어 명시·전환 표지 노출·어휘 평이' 세 근거를 넣어 다시 통과시켰다",
+            "answer_locus·choices 둘 다 비어 있고 산문 어디에도 선지 번호나 정답 지목 표현이 없다",
+            "required_vocab 4개 전부 지문에 문자 그대로 있다(sighed with concern / The glow of the sun / than I expected)"
+          ],
+          "checked": [
+            "answer_locus·choices 가 비었는지 확인",
+            "measured_ability·design_intent·solve_procedure 에 선지 배제 서술이 스몄는지 문자열 검색",
+            "required_vocab 4개를 지문에 문자열 대조",
+            "difficulty.predicted 의 근거가 drivers 에 있는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1~5단계 전부 지문을 읽기 전에 시작할 수 있다(발문에서 이름 뽑기 → 첫 세 문장 표시 → 표지 찾기 순)",
+            "선지를 앞 칸·뒤 칸으로 쪼개 두 번 대조하는 5단계가 이 유형의 실점을 실제로 막는 자리다",
+            "60초 안에 끝난다 — 지문 10문장, 표시할 자리 4곳"
+          ],
+          "checked": [
+            "각 단계를 지문 미독 상태에서 실행 가능한지 순서대로 시뮬레이션",
+            "금지 표현 8종 문자열 검색",
+            "지문 낱말 수(약 130) 대비 60초 배분 타당성 확인"
+          ]
+        }
+      ]
+    },
+
+    {
+      "item_id": "2022#19",
+      "measured_ability": "기대를 나타내는 도입부 어구와 결말의 자기 발화를 각각 따로 확정한 뒤, 선지의 두 칸을 앞·뒤로 나눠 대조하는 능력",
+      "design_intent": "도입 두 문장에 기대를 몰아 놓고(overflowing with anticipation / dream ... about to come true), 중간의 however 한 개로 뒤집은 뒤 결말을 인물의 직접 발화로 못박았다. 배경 묘사가 'the sun was beginning to set', 'slowly darkening ground' 로 어둡게 깔려 있어, 감정어 대신 배경 색조를 근거로 삼으면 결말 감정을 공포·우울 쪽으로 과장하게 된다.",
+      "answer_locus": {
+        "sentence_index": [2, 8],
+        "quote": "she sighed to herself, “I can’t believe I came all this way for nothing. What a waste of time!”",
+        "reasoning": "뒤 심경을 정하는 것은 배경 묘사가 아니라 이 직접 발화다. 'came all this way for nothing' 은 목표 미달성에 대한 자기 평가이고 'What a waste of time' 은 그 평가의 부호를 부정으로 못박는다. 공포(무서움)나 분노 대상이 문장에 없고 대상은 자기 자신의 헛수고이므로 실망 계열로 확정된다. 앞 심경은 2문장의 'she was overflowing with anticipation' 이 직접 준다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "correct",
+          "trap": "",
+          "why_tempting": "앞 칸은 2문장 'overflowing with anticipation' 과 4문장 'dream ... was about to come true' 가, 뒤 칸은 8문장의 'What a waste of time!' 이 각각 직접 지지한다",
+          "how_to_reject": "배제 대상이 아니다 — 2문장과 8문장 둘 다에 근거가 있는 유일한 쌍이다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "'deserted lands', 'the sun was beginning to set', 'slowly darkening ground' 라는 배경 묘사가 이어져, 황량하고 어두워지는 곳에 혼자 있으면 무섭다는 통념으로 뒤 칸 scared 를 고르게 된다",
+          "how_to_reject": "8문장 발화에 두려움의 대상이 없다 — 'for nothing', 'waste of time' 은 시간·노력에 대한 평가어다. 앞 칸 confused 도 2문장 'overflowing with anticipation' 과 어긋난다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "뒤 칸 annoyed 는 8문장 감탄문의 부정 부호와 방향이 같아 반쯤 맞아 보인다",
+          "how_to_reject": "앞 칸에서 걸린다 — 2문장이 'overflowing with anticipation'(가득 찬 기대)이지 relaxed(느긋함)가 아니고, 5문장 'She began eagerly searching' 의 eagerly 가 그 반대를 한 번 더 준다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "뒤 칸 depressed 가 8문장 탄식의 방향과 같아 보이고, 앞 칸 indifferent 는 '흔한 종의 뼈에는 관심 없었다'(3문장)를 무관심으로 잘못 옮기면 성립하는 듯하다",
+          "how_to_reject": "3문장은 흔한 종을 향한 무관심이 아니라 희귀 화석에 대한 기대를 강조하는 문장이고 4문장이 그 기대를 명시한다. 뒤 칸도 8문장이 '헛걸음' 한 번의 탄식이지 우울 상태를 진술하지 않는다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "지문에 낙담(unsuccessful)과 강한 의욕(eagerly, life-long dream)이 둘 다 있어, 둘의 시간 순서를 뒤집으면 그럴듯한 쌍이 된다",
+          "how_to_reject": "6문장의 however 가 순서를 고정한다 — 기대(2·4문장)가 앞, 실패(6문장)와 탄식(8문장)이 뒤다. 마지막 문장이 부정으로 끝나므로 confident 로 끝날 수 없다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문에서 인물 이름(Evelyn)을 뽑고, 지문 첫 두 문장에서 감정 형용사·감정 명사를 찾아 앞 심경 후보로 적는다",
+          "on_fail": "첫 두 문장에 감정어가 없으면 인물의 목표를 서술하는 문장(dream, hope, plan)을 앞 심경 근거로 대신 쓴다"
+        },
+        {
+          "step": "however / but 을 찾아 지문에 세로줄을 긋는다",
+          "on_fail": "역접 표지가 없으면 시간 표현이 바뀌는 문장(After many hours / Now)을 기준선으로 삼는다"
+        },
+        {
+          "step": "기준선 뒤에서 배경 묘사 문장과 인물 발화 문장을 갈라 표시하고, 뒤 심경은 발화 문장에서만 뽑는다",
+          "on_fail": "발화가 없으면 인물의 신체 반응 동사(sighed, shook)를 대신 쓰고 배경 형용사(darkening, deserted)는 근거에서 뺀다"
+        },
+        {
+          "step": "선지 다섯 쌍의 앞 칸만 먼저 훑어 1단계 근거와 충돌하는 것을 지운다",
+          "on_fail": "앞 칸으로 둘 이상 남으면 남은 것의 뒤 칸을 3단계 발화의 부호(긍정/부정)와 대조한다"
+        },
+        {
+          "step": "남은 쌍의 뒤 칸이 발화의 대상(자기 자신 / 타인 / 위험)과 맞는지 확인해 하나로 좁힌다",
+          "on_fail": "여전히 둘이면 뒤 칸 두 낱말 중 발화보다 강한 상태어(depressed, terrified)를 먼저 버린다"
+        }
+      ],
+      "time_budget_sec": 65,
+      "difficulty": {
+        "predicted": 0.93,
+        "drivers": ["앞 심경이 anticipation 으로 직접 명시", "결말이 직접 발화", "배경 어휘(deserted, darkening)가 강도 과장을 유인"]
+      },
+      "required_vocab": ["anticipation", "unsuccessful", "sighed", "waste"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 코퍼스 지문 마지막 문장과 문자 그대로 일치한다(곡선 따옴표 포함)",
+            "정답 판정 1번이 평가원 정답표 1과 일치",
+            "심경 변화 유형의 설계(도입 감정어 → 역접 → 결말 발화)를 벗어난 서술이 없다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
+            "choices[].verdict correct 의 n(1) 과 코퍼스 answer(1) 대조",
+            "design_intent 이 이 지문의 배경 묘사 배치를 지목하는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 초안에서 ③과 ④에 모두 '부분 사실' 을 달았다 — 함정이 같으면 오답 4개가 서로 다른 층을 시험한다는 설계가 안 보이므로 반려했다. ④는 depressed 가 탄식 한 번보다 강한 상태어라는 점이 본질이므로 '범위 과대' 로 고쳤다",
+            "고친 뒤 오답 4개의 라벨이 지문 밖 상식·부분 사실·범위 과대·인과 역전 4종으로 갈린다",
+            "how_to_reject 네 건 모두 문장 번호를 명시한다"
+          ],
+          "checked": [
+            "오답 4개의 trap 라벨 중복 여부 집계",
+            "why_tempting 이 선지 텍스트의 낱말(scared/annoyed/depressed/confident)에 각각 걸리는지 대조",
+            "how_to_reject 에 문장 위치가 적혔는지 4건 전수 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계 '뒤 심경은 발화 문장에서만 뽑는다' 가 이 문항의 핵심 처방이고, 배경 형용사를 근거에서 빼라는 지시가 명시적이라 실행 가능하다",
+            "required_vocab 4개가 실제로 판정에 쓰이는 낱말이다 — anticipation 은 앞 칸, waste 는 뒤 칸을 정한다",
+            "65초 안에 5단계가 끝난다"
+          ],
+          "checked": [
+            "5단계를 지문 미독 상태에서 순차 실행 가능한지 확인",
+            "금지 표현 8종 문자열 검색",
+            "required_vocab 이 정답 판정에 실제로 필요한 낱말인지 답 근거와 대조"
+          ]
+        }
+      ]
+    },
+
+    {
+      "item_id": "M2209#19",
+      "answer_unknown": true,
+      "measured_ability": "회상(과거완료)으로 서술된 감정과 현재 장면의 감정을 갈라, 심경 변화의 앞 칸을 회상 속 사건이 아니라 현재 시점 인물의 상태에서 뽑는 능력",
+      "design_intent": "앞 심경의 근거가 과거완료 회상(the day he had gotten injured / Remembering the surgery)에 섞여 있다. 회상 속 문장('I thought my basketball career was completely over')을 그대로 앞 심경으로 옮기면 강도가 과장되고, 실제 현재 시점의 상태는 'froze' 와 'was not sure if he could play as well as before' 다. 시제를 구분하지 못하면 앞 칸에서 미끄러진다.",
+      "solve_procedure": [
+        {
+          "step": "발문의 이름(David)을 확인하고, 지문에서 과거완료(had + p.p.)와 'Remembering' 으로 시작하는 회상 문장에 괄호를 쳐 본문에서 분리한다",
+          "on_fail": "과거완료를 못 가리면 last season / that day 처럼 과거 시점을 가리키는 명사구가 든 문장을 회상으로 묶는다"
+        },
+        {
+          "step": "괄호 밖에 남은 현재 장면 문장에서 인물의 신체·심리 반응 동사(froze, was not sure)를 찾아 앞 심경 후보로 적는다",
+          "on_fail": "반응 동사가 없으면 인물이 말없이 한 동작(멈춤·되돌아봄)을 앞 심경 근거로 쓴다"
+        },
+        {
+          "step": "However / As soon as 를 찾아 세로줄을 긋고, 그 뒤에 오는 인물의 발화와 결과 서술(득점·성공 여부)을 따로 표시한다",
+          "on_fail": "표지가 여럿이면 경기 시작처럼 장면이 바뀌는 문장을 기준선으로 삼는다"
+        },
+        {
+          "step": "기준선 뒤 마지막 발화의 부호(긍정/부정)와 자기 능력에 대한 평가인지 타인에 대한 평가인지를 적는다",
+          "on_fail": "발화가 짧아 판단이 안 서면 직전 문장의 결과 서술(성공/실패)로 부호를 정한다"
+        },
+        {
+          "step": "선지 다섯 쌍을 앞 칸만 먼저 대조해 회상 속 강한 표현을 그대로 옮긴 것을 지우고, 남은 것의 뒤 칸을 4단계 부호와 맞춘다",
+          "on_fail": "앞 칸으로 하나도 안 남으면 2단계 후보를 회상 문장까지 넓혀 다시 대조한다"
+        }
+      ],
+      "time_budget_sec": 65,
+      "difficulty": {
+        "predicted": 0.88,
+        "drivers": [
+          "앞 심경 근거가 과거완료 회상 안에 섞여 있어 시제 구분이 필요하다",
+          "뒤 심경은 마지막 발화와 득점 서술이 함께 지지해 명확하다",
+          "wrist injury / surgery 등 명사는 평이하고 추상 개념이 없다"
+        ]
+      },
+      "required_vocab": ["injured", "froze", "surgery", "cheers", "energy"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "코퍼스에 정답이 없는 회차이므로 answer_locus·choices 를 비운 것이 맞다",
+            "design_intent 이 이 지문 고유의 장치(회상과 현재 장면의 겹침)를 지목한다 — 유형 일반론이 아니다"
+          ],
+          "checked": [
+            "코퍼스 M2209#19 의 answer 가 null 임을 확인",
+            "출력에 answer_locus 키·choices 배열이 없음을 확인",
+            "design_intent 서술을 지문의 시제 배열과 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "산문 어디에도 선지 번호나 '정답은' 류 표현이 없다",
+            "difficulty.predicted 0.88 의 근거가 drivers 세 줄에 있다 — 시제 구분 부담을 감점 요인으로, 결말 발화의 명확성을 가점 요인으로 적었다",
+            "required_vocab 5개가 지문에 문자 그대로 있다(gotten injured / froze / the surgery / wild cheers / filled with energy)"
+          ],
+          "checked": [
+            "answer_locus·choices 가 비었는지 확인",
+            "required_vocab 5개를 지문에 문자열 대조",
+            "measured_ability 가 선지를 전제하지 않는지 확인",
+            "difficulty 근거 존재 여부 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 초안 1단계가 '회상과 현재를 구분한다' 로만 적혀 있어 학생이 무엇을 표시할지 알 수 없었다 — 'had + p.p. 와 Remembering 문장에 괄호' 로 조작 지시를 넣어 다시 통과시켰다",
+            "5단계 on_fail 이 앞 칸으로 아무것도 안 남는 경우까지 처리한다",
+            "65초 배분 타당 — 괄호 치기 15초, 표지 찾기 10초, 선지 두 칸 대조 25초"
+          ],
+          "checked": [
+            "각 단계에 학생이 손으로 할 조작이 적혀 있는지 확인",
+            "금지 표현 8종 문자열 검색",
+            "단계별 소요 시간 합이 time_budget_sec 안에 드는지 계산"
+          ]
+        }
+      ]
+    },
+
+    {
+      "item_id": "M2206#19",
+      "answer_unknown": true,
+      "measured_ability": "인물의 의문문 발화와 'wasn't sure' 류 유보 표현을 앞 심경 근거로 삼고, 결말의 미소·재방문 약속에서 뒤 심경을 뽑는 능력",
+      "design_intent": "앞 부분에 긍정 정보(시간을 아낀다는 판단)와 유보(wasn't sure if it would be as helpful)를 섞어 놓았다. 긍정 정보 쪽을 앞 심경으로 잡으면 앞 칸이 통째로 어긋나는데, 이 지문에서 앞 심경을 정하는 것은 편익 계산이 아니라 인물의 자문(自問) 발화와 확신 없음의 진술이다.",
+      "solve_procedure": [
+        {
+          "step": "발문의 이름(Natalie)을 확인하고, 지문에서 물음표로 끝나는 인물의 발화와 'wasn't sure / wondered' 가 든 문장에 밑줄을 긋는다",
+          "on_fail": "물음표 발화가 없으면 'How can I ~' 같은 의문사 절이나 whether/if 절이 든 문장을 대신 표시한다"
+        },
+        {
+          "step": "밑줄 친 문장이 무엇에 대한 유보인지 한 낱말로 적는다(효과 / 안전 / 시간 중 무엇인가)",
+          "on_fail": "대상이 안 잡히면 밑줄 문장의 목적어 명사구를 그대로 옮겨 적는다"
+        },
+        {
+          "step": "however / Once ~ began 을 찾아 세로줄을 긋고, 그 뒤에서 유보가 해소되었다고 말하는 문장(concerns went away 류)을 찾는다",
+          "on_fail": "해소 문장이 안 보이면 기준선 뒤 첫 평가 형용사(convenient, helpful)가 든 문장을 대신 표시한다"
+        },
+        {
+          "step": "마지막 문장의 동반 표현(with a smile, shouted, sighed)과 발화 내용을 함께 읽어 뒤 심경의 부호를 정한다",
+          "on_fail": "동반 표현이 없으면 마지막 발화의 미래 계획(다시 하겠다 / 그만두겠다)으로 부호를 정한다"
+        },
+        {
+          "step": "선지의 앞 칸을 2단계에 적은 유보 대상과 대조해 지우고, 남은 것의 뒤 칸을 4단계 부호와 맞춘다",
+          "on_fail": "앞 칸으로 둘 이상 남으면 앞 칸 낱말 중 지문에 근거 문장이 하나도 없는 것을 먼저 버린다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.91,
+        "drivers": [
+          "앞 심경이 의문문 발화와 wasn't sure 로 두 번 명시된다",
+          "however 가 문장 가운데 있어 전환 위치가 눈에 덜 띈다",
+          "결말에 with a smile 이라는 동반 표현이 붙어 뒤 심경의 부호가 분명하다"
+        ]
+      },
+      "required_vocab": ["counseling", "wondered", "concerns", "convenient"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "정답표 없는 회차라 answer_locus·choices 를 비운 것이 맞다",
+            "design_intent 이 이 지문 고유의 함정(편익 정보와 유보의 병치)을 지목한다"
+          ],
+          "checked": [
+            "코퍼스 M2206#19 의 answer 가 null 임을 확인",
+            "출력에 answer_locus·choices 가 없음을 확인",
+            "design_intent 을 지문 2~3문장 배열과 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "산문에 선지 번호·정답 지목 표현이 없다",
+            "difficulty.predicted 0.91 의 근거가 drivers 에 있다 — however 의 문장 중간 위치를 유일한 감점 요인으로 명시했다",
+            "required_vocab 4개가 지문에 문자 그대로 있다(online counseling session / she wondered / her concerns went away / much more convenient)"
+          ],
+          "checked": [
+            "answer_locus·choices 가 비었는지 확인",
+            "required_vocab 4개를 지문에 문자열 대조",
+            "measured_ability 에 선지 배제 서술이 없는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 초안 2단계가 '유보의 성격을 판단한다' 로 추상적이어서 반려했다 — '효과 / 안전 / 시간 중 무엇인가' 로 선택지를 주는 형태로 고쳐 학생이 한 낱말을 적을 수 있게 했다",
+            "1단계가 물음표와 wasn't sure 라는 눈에 보이는 표식을 쓰므로 지문 미독 상태에서 시작 가능하다",
+            "60초 안에 끝난다"
+          ],
+          "checked": [
+            "각 단계의 지시가 조작 가능한 형태인지 확인",
+            "금지 표현 8종 문자열 검색",
+            "지문 길이(약 110낱말) 대비 60초 타당성 확인"
+          ]
+        }
+      ]
+    },
+
+    {
+      "item_id": "2021#19",
+      "measured_ability": "1인칭 화자의 신체 반응 서술(shaking, heart beat quickly)을 앞 심경으로, 조언 회상 뒤의 신체 반응 서술(breathed out, hands were steady)을 뒤 심경으로 짝지어 읽는 능력",
+      "design_intent": "감정 형용사 대신 신체 반응으로 앞뒤를 각각 서술하고, 그 사이에 교사의 인용문을 통째로 끼워 넣었다. 인용문은 화자의 감정이 아니라 화자가 받아들이는 관점이므로, 인용문에 대한 수긍('He was absolutely right')을 뒤 심경으로 옮기면 감사·안도 쪽으로 미끄러진다. 뒤 심경을 정하는 것은 인용문이 아니라 그 뒤의 신체 상태 서술이다.",
+      "answer_locus": {
+        "sentence_index": [2, 14],
+        "quote": "I breathed out slowly. My hands were steady now. At last, my mind was at peace.",
+        "reasoning": "앞 심경은 2~4문장의 'deeply troubled and unhappy', 'shaking with uneasiness', 'heart beat quickly' 가 몸의 동요로 준다. 이 인용은 그 세 서술을 하나씩 되짚어 뒤집는다 — 숨을 고르고(shaking 해소), 손이 안정되고(heart beat 해소), 마음이 평온해진다. 곧 뒤 심경이 안도나 감사가 아니라 '동요의 가라앉음' 임을 지문이 신체 서술의 대칭으로 확정한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "correct",
+          "trap": "",
+          "why_tempting": "앞 칸은 2문장 'deeply troubled and unhappy' 와 3문장 'shaking with uneasiness' 가, 뒤 칸은 마지막 세 문장의 신체 안정 서술과 'my mind was at peace' 가 직접 지지한다",
+          "how_to_reject": "배제 대상이 아니다 — 앞뒤 근거가 신체 서술로 대칭을 이루는 유일한 쌍이다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "지문에 교사의 조언에 대한 수긍('He was absolutely right')과 패배로 인한 슬픔이 둘 다 있어, 둘의 순서를 뒤집으면 감사로 시작해 슬픔으로 끝나는 쌍이 만들어진다",
+          "how_to_reject": "2문장(패배 직후의 troubled)이 앞, 12~14문장(breathed out, steady, at peace)이 뒤라는 순서가 시간 표현 'At last' 로 고정된다. 마지막 문장이 평온으로 끝나므로 sorrowful 로 끝날 수 없다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "1문장 'lost the piano contest to my friend' 와 2문장 'Linda had won' 이 나란히 오므로, 친구에게 졌으면 부러워했을 것이라는 통념으로 앞 칸 envious 를 고르게 된다",
+          "how_to_reject": "10문장이 'I had no reason to oppose my friend' 로 친구를 향한 감정 자체를 부정한다. 뒤 칸 doubtful 도 14문장 'my mind was at peace' 와 정면으로 어긋난다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "앞 칸 surprised 는 2문장 'When I learned that Linda had won' 을 결과를 처음 알게 된 충격으로 읽으면 성립하는 듯하고, 뒤 칸 disappointed 는 패배라는 사건과 방향이 같다",
+          "how_to_reject": "1문장 'Once again' 이 이 패배가 반복된 일임을 밝혀 놀람을 배제한다. 뒤 칸도 12~14문장의 안정 서술과 어긋나며, 실망은 앞쪽 감정이지 결말이 아니다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "뒤 칸 relieved 가 마지막 문장의 평온과 가까워 절반은 맞아 보인다",
+          "how_to_reject": "앞 칸 bored 를 지지하는 문장이 지문에 하나도 없다 — 2~5문장은 전부 동요(troubled, shaking, heart beat quickly, run out)를 서술한다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 'I' 의 심경을 묻는지 등장인물의 심경을 묻는지 확인하고, 'I' 라면 다른 사람의 말(따옴표 안 교사·친구의 발화)에 X 표시를 해 근거에서 뺀다",
+          "on_fail": "발화자가 누구인지 불분명하면 따옴표 앞뒤의 said/recalled 의 주어를 확인해 화자를 정한다"
+        },
+        {
+          "step": "앞 세 문장에서 몸의 반응을 서술하는 동사·형용사(shaking, beat quickly, reddish)를 표시해 앞 심경 후보로 적는다",
+          "on_fail": "신체 서술이 없으면 감정 형용사(troubled, unhappy)를 대신 쓴다"
+        },
+        {
+          "step": "마지막 세 문장에서 같은 종류의 몸 서술(breathed out, steady)을 찾아 2단계 표시와 하나씩 짝지어 어느 방향으로 뒤집혔는지 적는다",
+          "on_fail": "짝이 안 맞으면 마지막 문장의 상태 명사(peace, joy)로 뒤 심경을 정한다"
+        },
+        {
+          "step": "선지의 앞 칸을 2단계 후보와 대조해 지우고, 남은 것의 뒤 칸을 3단계 방향과 맞춘다",
+          "on_fail": "둘 이상 남으면 X 표시한 타인의 발화에서 끌어온 감정어(감사·존경)를 먼저 버린다"
+        }
+      ],
+      "time_budget_sec": 65,
+      "difficulty": {
+        "predicted": 0.92,
+        "drivers": ["앞뒤가 신체 반응 서술로 대칭", "중간에 타인 인용문이 길게 끼어 근거 혼동 유발", "감정 형용사 troubled/at peace 가 직접 노출"]
+      },
+      "required_vocab": ["troubled", "uneasiness", "steady", "peace"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 세 문장이 코퍼스 지문 끝부분과 문자 그대로 일치",
+            "정답 1번이 평가원 정답표 1과 일치",
+            "design_intent 이 '타인 인용문이 화자 감정이 아니다' 라는 이 지문 고유의 설계를 지목한다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
+            "correct 선지 n(1) 과 코퍼스 answer(1) 대조",
+            "화자와 등장인물 구분이 서술에 반영됐는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개 라벨이 인과 역전·지문 밖 상식·부분 사실·무관 4종으로 갈린다",
+            "why_tempting 이 각 선지의 낱말(sorrowful/envious/surprised/bored)에 하나씩 걸린다",
+            "④ 배제 근거로 1문장 'Once again' 을 든 것이 이 문항의 실질적 변별점이다 — 놀람을 지우는 단서가 첫 두 낱말에 있다"
+          ],
+          "checked": [
+            "오답 4개 trap 라벨 중복 여부 집계",
+            "how_to_reject 4건에 문장 번호가 있는지 전수 확인",
+            "why_tempting 이 선지 텍스트에 근거하는지 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 초안 1단계에 타인 발화 제거 지시가 없었다 — 이 지문의 최대 오답 원인이 교사 인용문을 화자 감정으로 읽는 것이므로 반려했고, 'X 표시를 해 근거에서 뺀다' 를 1단계에 넣어 다시 통과시켰다",
+            "2·3단계가 같은 종류(신체 서술)를 앞뒤에서 찾아 짝짓는 형태라 학생이 기계적으로 실행할 수 있다",
+            "65초 안에 4단계가 끝난다"
+          ],
+          "checked": [
+            "화자/등장인물 구분 처방이 절차에 있는지 확인",
+            "금지 표현 8종 문자열 검색",
+            "각 단계 실행 가능성 시뮬레이션"
+          ]
+        }
+      ]
+    },
+
+    {
+      "item_id": "M2109#19",
+      "answer_unknown": true,
+      "measured_ability": "인물이 상대를 기다리는 동안의 심리 서술과, 상대가 나타난 뒤의 발화·동작을 갈라 앞뒤 심경을 각각 확정하는 능력",
+      "design_intent": "뒤 부분에 상대방의 사과와 악재(traffic, phone at home)가 이어져 부정적 정보가 계속 들어온다. 그 정보는 상대의 사정이지 이 인물의 심경이 아닌데, 정보의 부호를 그대로 인물 감정으로 옮기면 뒤 칸을 부정 쪽으로 잡게 된다. 뒤 심경은 'She started to relax' 와 인물 자신의 발화가 정한다.",
+      "solve_procedure": [
+        {
+          "step": "발문의 이름(Annette)을 확인하고, 지문의 따옴표 발화마다 말한 사람이 그 인물인지 상대인지 옆에 표시한다",
+          "on_fail": "발화자가 안 적힌 따옴표는 앞뒤 문장의 said/asked/explained 의 주어로 정한다"
+        },
+        {
+          "step": "상대가 등장하기 전 구간에서 인물의 심리 동사·분사(started thinking, Getting concerned)를 찾아 앞 심경 후보로 적는다",
+          "on_fail": "심리 동사가 없으면 반복된 행동(다시 전화 걸기, 계속 기다리기)을 앞 심경 근거로 쓴다"
+        },
+        {
+          "step": "At that moment / Just then 처럼 장면이 바뀌는 표지에 세로줄을 긋는다",
+          "on_fail": "표지가 없으면 새 인물이 처음 등장하는 문장을 기준선으로 삼는다"
+        },
+        {
+          "step": "기준선 뒤에서 상대의 설명 문장과 인물 자신의 상태·발화 문장을 갈라 표시하고, 뒤 심경은 인물 쪽 문장에서만 뽑는다",
+          "on_fail": "인물 쪽 문장이 짧으면 마지막 동작 서술(함께 들어갔다 / 돌아섰다)의 방향으로 정한다"
+        },
+        {
+          "step": "선지 앞 칸을 2단계 후보와 대조해 지우고, 남은 것의 뒤 칸을 4단계에서 표시한 인물 쪽 문장과 맞춘다",
+          "on_fail": "뒤 칸으로 둘 이상 남으면 상대의 악재 서술에서만 끌어올 수 있는 감정어를 먼저 버린다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.9,
+        "drivers": [
+          "앞 심경이 'Getting concerned' 로 분사구에 직접 명시된다",
+          "전환 뒤에 상대의 악재 서술(terrible traffic / left his phone)이 이어져 부호 혼동을 유인한다",
+          "마지막에 인물 자신의 상태 서술과 발화가 둘 다 있어 뒤 심경 근거가 겹으로 있다"
+        ]
+      },
+      "required_vocab": ["registration", "concerned", "response", "relax"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "정답표 없는 회차이므로 answer_locus·choices 를 비운 것이 맞다",
+            "design_intent 이 이 지문 고유의 함정(상대의 악재 정보와 인물 감정의 분리)을 지목한다"
+          ],
+          "checked": [
+            "코퍼스 M2109#19 의 answer 가 null 임을 확인",
+            "출력에 answer_locus·choices 가 없음을 확인",
+            "design_intent 을 지문 후반 문장 배열과 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 초안 difficulty.drivers 에 '오답 쌍이 앞 칸만 맞게 짜였다' 는 문장이 있었다 — 정답을 모르는 문항에서 오답을 지목한 셈이라 반려했고, 선지를 전제하지 않는 지문 근거 세 줄로 바꿔 다시 통과시켰다",
+            "고친 뒤 산문 전체에 선지 번호·정답 지목 표현이 없다",
+            "required_vocab 4개가 지문에 문자 그대로 있다(registration point / Getting concerned / no response / started to relax)"
+          ],
+          "checked": [
+            "answer_locus·choices 가 비었는지 확인",
+            "difficulty.drivers 에 선지 전제가 남았는지 문자열 검색",
+            "required_vocab 4개를 지문에 문자열 대조",
+            "measured_ability 가 선지를 전제하지 않는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계 발화자 표시가 이 지문에서 실질적이다 — 따옴표가 세 번 나오고 그중 둘이 상대의 말이다",
+            "4단계 '인물 쪽 문장에서만 뽑는다' 가 처방으로 분명하다",
+            "60초 안에 끝난다"
+          ],
+          "checked": [
+            "지문의 따옴표 개수와 화자를 세어 1단계의 실효성 확인",
+            "금지 표현 8종 문자열 검색",
+            "각 단계 실행 가능성 시뮬레이션"
+          ]
+        }
+      ]
+    },
+
+    {
+      "item_id": "M2106#19",
+      "measured_ability": "타인의 평가(혹평)에서 비롯된 인물의 유보 심리를 앞 심경으로 잡고, 공연 시작 이후의 감탄 발화와 평가 문장에서 뒤 심경을 확정하는 능력",
+      "design_intent": "부정 정보를 두 겹으로 깔았다 — 리뷰어의 혹평('an awful performance')과 공연장의 낡음(ancient and run-down). 둘 다 인물의 감정이 아니라 인물이 마주한 대상의 속성이고, 인물의 감정은 그 사이에 낀 'wondered ... whether it was worthwhile' 과 'again wondered' 다. 대상의 속성을 감정으로 옮기면 앞 칸이 어긋나고, 후반의 'shook her body and soul' 을 부정적 동요로 읽으면 뒤 칸이 어긋난다.",
+      "answer_locus": {
+        "sentence_index": [6, 7, 10],
+        "quote": "Looking around, Sharon again wondered what kind of show she could expect. But as soon as the tango started, everything changed.",
+        "reasoning": "앞 문장의 again 이 4문장의 'whether it was worthwhile to go' 를 되받아, 공연 직전까지 인물의 상태가 의심의 지속임을 못박는다. 뒤 문장의 'everything changed' 가 전환점을 한 문장으로 선언하고, 그 뒤 10문장의 'What fantastic music!' 과 12문장 'far beyond her expectations' 가 바뀐 방향을 감탄 쪽으로 확정한다. 곧 이 두 문장이 앞뒤 두 칸의 경계선이다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "공연 티켓을 선물받는다는 도입 상황에서 설렘을 앞 칸으로 놓고, 혹평과 낡은 공연장이라는 부정 정보를 결말의 지루함으로 옮기면 순서만 뒤집힌 그럴듯한 쌍이 된다",
+          "how_to_reject": "7문장 'as soon as the tango started, everything changed' 가 전환을 공연 시작 지점에 고정하고, 그 뒤 10~12문장이 전부 긍정이다. 지루함으로 끝날 수 없다"
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "trap": "",
+          "why_tempting": "앞 칸은 4문장 'whether it was worthwhile to go' 와 6문장 'again wondered' 가, 뒤 칸은 10문장 감탄 발화와 12문장 'far beyond her expectations' 가 지지한다",
+          "how_to_reject": "배제 대상이 아니다 — 전환점(7문장) 앞뒤 근거가 모두 갖춰진 유일한 쌍이다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "11문장 'shook her body and soul' 의 shake 를 불쾌한 동요로 읽으면 뒤 칸 upset 이 성립해 보이고, 4문장 'reluctantly decided' 를 담담한 수용으로 읽으면 앞 칸 calm 도 붙는다",
+          "how_to_reject": "11문장의 shake 는 'so energetic and sensational that' 이라는 결과절에 묶여 있어 부호가 긍정이다. reluctantly 는 침착함이 아니라 내키지 않음이며, 6문장 again wondered 가 그 상태를 의심으로 다시 못박는다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "1문장에서 친구가 표를 주었으므로 공연이 좋았다면 친구에게 고마웠을 것이라는 통념으로 뒤 칸 grateful 을 고르게 된다",
+          "how_to_reject": "지문에 친구를 향한 감사 진술이 없다 — 10~12문장의 평가 대상은 전부 음악과 공연이다. 앞 칸 ashamed 를 지지하는 문장도 없다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "선물받은 표, 환호하는 청중 같은 소재가 있어 타인과의 비교 감정을 떠올리기 쉽다",
+          "how_to_reject": "9문장 'The audience cheered' 는 청중의 반응이지 인물의 부러움이 아니고, 앞 칸 envious·뒤 칸 indifferent 를 지지하는 문장이 지문에 하나도 없다 — 12문장은 오히려 강한 관여를 진술한다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 이름(Sharon)을 확인하고, 지문에서 인물이 아닌 것(리뷰, 공연장, 청중)을 묘사하는 형용사에 괄호를 쳐 감정 근거에서 뺀다",
+          "on_fail": "형용사가 인물의 것인지 대상의 것인지 헷갈리면 그 형용사가 걸린 명사가 사람인지 사물인지 본다"
+        },
+        {
+          "step": "괄호 밖에 남은 인물의 심리 동사(wondered, decided, expected)를 찾아 앞 심경 후보로 적는다",
+          "on_fail": "심리 동사가 없으면 인물의 행동을 수식하는 부사(reluctantly, eagerly)를 대신 쓴다"
+        },
+        {
+          "step": "But / However / as soon as 를 찾아 세로줄을 긋고 전환 지점을 한 곳으로 정한다",
+          "on_fail": "표지가 여럿이면 'everything changed' 처럼 변화를 직접 선언하는 문장을 기준선으로 삼는다"
+        },
+        {
+          "step": "기준선 뒤의 감탄 발화와 마지막 평가 문장을 표시하고, 그 안의 강도어(fantastic, far beyond)를 뒤 심경의 강도 기준으로 삼는다",
+          "on_fail": "감탄 발화가 없으면 마지막 문장의 비교 표현(expected 보다 나은가 못한가)으로 부호를 정한다"
+        },
+        {
+          "step": "선지 앞 칸을 2단계 후보와 대조해 지우고, 남은 것의 뒤 칸 강도가 4단계 강도어와 맞는지 본다",
+          "on_fail": "뒤 칸으로 둘 이상 남으면 1단계에서 괄호 친 대상 묘사에서만 끌어올 수 있는 낱말을 버린다"
+        }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": {
+        "predicted": 0.9,
+        "drivers": ["부정 정보가 대상 묘사로 두 겹", "전환 선언 문장이 명시적", "shook her body and soul 이 부호 오독을 유인"]
+      },
+      "required_vocab": ["harsh", "reluctantly", "run-down", "sensational", "expectations"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 두 문장이 코퍼스 지문과 문자 그대로 일치",
+            "정답 2번이 평가원 정답표 2와 일치",
+            "design_intent 이 '대상의 속성 vs 인물의 감정' 이라는 이 지문 고유의 배치를 지목한다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
+            "correct 선지 n(2) 과 코퍼스 answer(2) 대조",
+            "quote 길이(126자)가 근거로 충분한지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개 라벨이 인과 역전·어휘 함정·지문 밖 상식·무관 4종으로 갈린다",
+            "③의 배제 근거로 'so ~ that' 결과절을 든 것이 실질적이다 — shake 의 부호를 문법 구조로 확정한다",
+            "how_to_reject 4건 전부 문장 번호를 명시"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부 집계",
+            "why_tempting 이 각 선지 낱말(bored/upset/grateful/envious)에 걸리는지 대조",
+            "how_to_reject 의 위치 명시 여부 전수 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계 '대상 묘사 형용사에 괄호' 가 이 지문에서 awful·ancient·run-down 셋을 한꺼번에 처리한다",
+            "required_vocab 5개가 판정에 실제로 쓰인다 — reluctantly 는 앞 칸, sensational·expectations 는 뒤 칸을 정한다",
+            "70초 배분 타당 — 지문이 이 청크에서 가장 길다(약 140낱말)"
+          ],
+          "checked": [
+            "1단계 괄호 대상이 지문에 몇 개인지 세어 실효성 확인",
+            "금지 표현 8종 문자열 검색",
+            "지문 길이 대비 시간 배분 확인"
+          ]
+        }
+      ]
+    },
+
+    {
+      "item_id": "2020#19",
+      "measured_ability": "기대를 서술하는 도입부(부정문 형태의 감정 서술 포함)와 도착 후 실제 광경의 대비를 읽어, 마지막 자문 발화에서 뒤 심경을 확정하는 능력",
+      "design_intent": "앞 심경을 'could not stay calm' 이라는 부정문으로 제시했다. 부정문을 액면대로 읽으면 불안·놀람 쪽으로 갈 수 있는데, 곧바로 이어지는 'had been looking forward to', 'signed up enthusiastically', 'was the first to board' 세 문장이 그 동요의 방향을 기대 쪽으로 고정한다. 뒤 심경은 마지막 자문 발화의 boring 과 with a sigh 가 정한다.",
+      "answer_locus": {
+        "sentence_index": [2, 10],
+        "quote": "“What can I learn from these boring fields?” Jonas said to himself with a sigh.",
+        "reasoning": "뒤 심경의 근거가 이 한 문장에 둘 겹친다 — 발화 안의 boring 이 대상 평가를, 동반 표현 with a sigh 가 인물의 반응을 준다. 반문 형태여서 '배울 것이 없다' 는 판단이 되고, 9문장의 'He had expected to see some old castles ... but now he saw nothing like that' 이 그 판단이 기대와 실제의 차이에서 왔음을 밝힌다. 곧 뒤 심경은 공포나 안도가 아니라 기대 미달로 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "correct",
+          "trap": "",
+          "why_tempting": "앞 칸은 2문장 'had been looking forward to' 와 4문장 'signed up enthusiastically' 가, 뒤 칸은 10문장의 boring 과 with a sigh 가 지지한다",
+          "how_to_reject": "배제 대상이 아니다 — however(7문장) 앞뒤 근거가 모두 갖춰진 유일한 쌍이다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "지문에 무관심해 보이는 표현(nothing but endless fields, hardly appealed)과 강한 기대(enthusiastically, fascinating)가 둘 다 있어, 순서를 뒤집으면 무관심에서 감격으로 끝나는 쌍이 만들어진다",
+          "how_to_reject": "7문장의 however 가 순서를 고정한다 — 기대(2~6문장)가 앞, 실망(7~10문장)이 뒤다. 마지막 문장이 with a sigh 로 끝나므로 thrilled 로 끝날 수 없다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "6문장 'The landscape looked fascinating' 을 amazed 로, 8~9문장의 실망을 horrified 로 각각 한 단계씩 올리면 방향은 맞는 쌍이 된다",
+          "how_to_reject": "6문장의 fascinating 은 창밖 풍경에 대한 서술이지 인물의 경탄 상태가 아니고, 10문장의 반응은 sigh 한 번이다. 공포를 지지하는 표현이 지문에 없다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "1문장 'could not stay calm' 을 침착함을 잃은 상태 곧 놀람으로 읽으면 앞 칸 surprised 가 붙고, 도착이라는 사건에서 뒤 칸 relieved 를 떠올리게 된다",
+          "how_to_reject": "2~5문장이 그 동요의 방향을 기대(looking forward to, enthusiastically, first to board)로 못박는다. 뒤 칸도 10문장의 sigh 와 정반대다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "'could not stay calm' 이라는 부정 표현이 앞에 있어 걱정으로 시작한다고 읽기 쉽고, 여행이 잘 풀렸다면 자신감으로 끝난다는 서사 통념이 뒤 칸을 지지하는 듯하다",
+          "how_to_reject": "앞 칸은 2문장 'looking forward to' 와, 뒤 칸은 10문장 'boring fields ... with a sigh' 와 각각 정면으로 어긋난다 — 두 칸 모두 지문과 부호가 반대다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 이름(Jonas)을 확인하고, 첫 문장이 부정문(could not ~)이면 그 부정문만으로 앞 심경을 정하지 말고 뒤 두세 문장을 이어 읽어 방향을 정한다",
+          "on_fail": "이어지는 문장에 감정 근거가 없으면 인물의 행동(먼저 탑승·신청)이 적극인지 소극인지로 방향을 정한다"
+        },
+        {
+          "step": "however / but 을 찾아 세로줄을 긋고, 그 문장에서 인물이 무엇을 보았는지(saw / found)를 한 낱말로 적는다",
+          "on_fail": "역접 표지가 없으면 장소 도착을 알리는 분사구문(Finally arriving ~)을 기준선으로 삼는다"
+        },
+        {
+          "step": "기준선 뒤에서 '기대했던 것'과 '실제 본 것'을 대비시키는 문장(had expected ~ but now)을 찾아 둘을 나란히 적는다",
+          "on_fail": "대비 문장이 없으면 기준선 뒤 첫 평가 형용사(vast, boring)의 부호로 정한다"
+        },
+        {
+          "step": "마지막 문장의 발화와 동반 표현(with a sigh / with a smile)을 함께 읽어 뒤 심경의 부호를 정한다",
+          "on_fail": "동반 표현이 없으면 발화가 반문인지 감탄인지 보고, 반문이면 부정으로 센다"
+        },
+        {
+          "step": "선지 앞 칸을 1단계 방향과 대조해 지우고, 남은 것의 뒤 칸 강도를 4단계 반응 한 번의 크기와 맞춘다",
+          "on_fail": "뒤 칸으로 둘 이상 남으면 공포·경악처럼 sigh 한 번보다 큰 상태어를 먼저 버린다"
+        }
+      ],
+      "time_budget_sec": 65,
+      "difficulty": {
+        "predicted": 0.91,
+        "drivers": ["앞 심경이 부정문(could not stay calm)으로 제시돼 방향 판정이 한 단계 더 필요", "however 가 문장 중간", "마지막 문장에 boring 과 sigh 가 겹으로 노출"]
+      },
+      "required_vocab": ["enthusiastically", "fascinating", "appealed", "sigh"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 코퍼스 지문 마지막 문장과 문자 그대로 일치",
+            "정답 1번이 평가원 정답표 1과 일치",
+            "design_intent 이 부정문 도입이라는 이 지문 고유의 장치를 지목한다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
+            "correct 선지 n(1) 과 코퍼스 answer(1) 대조",
+            "design_intent 이 유형 일반론인지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개 라벨이 인과 역전·범위 과대·어휘 함정·반대 진술 4종으로 갈린다",
+            "④의 why_tempting 이 'could not stay calm' 이라는 실제 지문 표현에 걸려 있어, 이 선지가 왜 매력적인지 설명이 텍스트에 근거한다",
+            "⑤는 두 칸 모두 어긋나는 유형이라 '반대 진술' 라벨이 적절하다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부 집계",
+            "why_tempting 이 선지 낱말(thrilled/horrified/relieved/confident)에 걸리는지 대조",
+            "how_to_reject 4건의 위치 명시 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계가 '부정문 하나로 앞 심경을 정하지 말라' 는 이 문항의 실질 처방을 맨 앞에 둔다",
+            "4단계 '반문이면 부정으로 센다' 가 마지막 문장 판정을 기계적으로 만든다",
+            "65초 안에 5단계가 끝난다"
+          ],
+          "checked": [
+            "각 단계 실행 가능성 시뮬레이션",
+            "금지 표현 8종 문자열 검색",
+            "required_vocab 이 정답 판정에 실제로 필요한지 확인"
+          ]
+        }
+      ]
+    },
+
+    {
+      "item_id": "M2006#19",
+      "measured_ability": "마감 압박 상황의 심리 서술을 앞 심경으로 잡고, 발견을 알리는 문장 뒤의 감각 변화(시계 소리의 의미 전환)와 발화에서 뒤 심경을 확정하는 능력",
+      "design_intent": "전환을 역접 접속사가 아니라 'All of a sudden and unexpectedly, something was found' 라는 사건 문장으로 처리했다. 게다가 전환의 신호가 감정어가 아니라 같은 사물(시계 소리)에 대한 평가가 뒤집히는 것(ticking ... sounded encouraging)이어서, 역접 표지만 찾는 학습자는 경계선을 놓친다.",
+      "answer_locus": {
+        "sentence_index": [4, 12],
+        "quote": "From this moment, the ticking of the clock sounded encouraging to her. “Yes, I can do it!” Claire said as she grabbed her pencil again.",
+        "reasoning": "앞 심경은 4문장 'She wasn’t even sure whether she could submit it on time' 이 능력에 대한 불확신으로 준다. 이 인용은 그 불확신이 무엇으로 바뀌었는지를 두 겹으로 말한다 — 압박의 상징이던 시계 소리가 격려로 재평가되고, 발화 'I can do it' 이 능력 판단을 긍정으로 뒤집는다. 곧 뒤 심경은 단순한 기쁨이나 안도가 아니라 할 수 있다는 확신으로 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "결말이 밝게 끝나므로 뒤 칸이 아니라 앞 칸에 긍정어를 놓아도 된다고 착각하기 쉽고, 원고가 엉망이라는 서술에서 뒤 칸 ashamed 를 떠올리게 된다",
+          "how_to_reject": "1~4문장은 마감 압박과 불확신뿐이라 delighted 를 지지하는 문장이 없고, 6문장 'scribbled words ... disjointed ideas' 는 원고 상태 서술이지 인물이 부끄러워한다는 진술이 아니다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "지문에 걱정(wasn’t even sure)과 해소(sounded encouraging)가 둘 다 있어, 순서를 뒤집으면 안도로 시작해 걱정으로 끝나는 쌍이 된다",
+          "how_to_reject": "9문장 'All of a sudden and unexpectedly, something was found' 와 11문장 'From this moment' 가 해소를 뒤쪽에 고정한다. 마지막 발화가 'Yes, I can do it!' 이므로 걱정으로 끝날 수 없다"
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "trap": "",
+          "why_tempting": "앞 칸은 2~4문장의 struggling·Pressed for time·wasn’t even sure 가, 뒤 칸은 11~12문장의 encouraging 과 'Yes, I can do it!' 이 지지한다",
+          "how_to_reject": "배제 대상이 아니다 — 전환 문장(9문장) 앞뒤 근거가 모두 갖춰진 유일한 쌍이다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "뒤 칸 excited 는 마지막 발화의 부호와 방향이 같아 절반은 맞아 보인다",
+          "how_to_reject": "앞 칸에서 걸린다 — 4문장 'She wasn’t even sure whether she could submit it on time' 과 2문장 'was still struggling' 이 무관심의 반대인 긴장을 서술한다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "글이 안 써지고 같은 원고를 반복해 읽는(reading it over and over) 장면에서 지루함을, 원고가 엉망이라는 데서 창피함을 떠올리는 통념이 작동한다",
+          "how_to_reject": "8문장의 반복 읽기는 마감 두 시간 전의 해결 시도이고, 3문장 'Pressed for time and stuck in a deadlock' 이 상태를 압박으로 못박는다. 뒤 칸 embarrassed 도 12문장의 발화와 어긋난다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 이름(Claire)을 확인하고, 첫 세 문장에서 시간 압박을 나타내는 표현(deadline, two hours before, Pressed for time)과 인물의 상태 동사(struggling)를 표시한다",
+          "on_fail": "상태 동사가 없으면 인물이 '무엇을 못 하고 있는지' 를 서술한 문장(had no idea how to ~)을 앞 심경 근거로 쓴다"
+        },
+        {
+          "step": "역접 표지가 없으면 사건을 알리는 부사구(All of a sudden / unexpectedly / From this moment)를 찾아 세로줄을 긋는다",
+          "on_fail": "부사구도 없으면 콜론(:)이나 발견을 서술하는 동사(was found, realized)가 든 문장을 기준선으로 삼는다"
+        },
+        {
+          "step": "기준선 앞뒤에서 같은 사물이 두 번 나오는지 보고(시계·원고), 그 사물에 붙은 평가어가 어떻게 바뀌었는지 두 낱말을 적는다",
+          "on_fail": "같은 사물이 없으면 기준선 뒤 첫 평가 형용사의 부호로 대신 정한다"
+        },
+        {
+          "step": "마지막 발화가 능력에 대한 판단인지(can do / can't do) 감정 표출인지 구분해 적는다",
+          "on_fail": "판단인지 표출인지 애매하면 발화 뒤의 동작(다시 연필을 쥐었다 / 자리를 떴다)으로 정한다"
+        },
+        {
+          "step": "선지 앞 칸을 1단계 표시와 대조해 지우고, 남은 것의 뒤 칸이 4단계에서 적은 '능력 판단' 과 같은 종류인지 본다",
+          "on_fail": "뒤 칸으로 둘 이상 남으면 능력이 아니라 기분만 말하는 낱말을 먼저 버린다"
+        }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": {
+        "predicted": 0.88,
+        "drivers": ["역접 접속사 없이 사건 문장으로 전환", "뒤 심경이 감정어가 아니라 사물 평가의 반전으로 제시", "deadlock·scribbled·disjointed 등 낱말이 다소 낯설다"]
+      },
+      "required_vocab": ["deadlock", "scribbled", "disjointed", "encouraging"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 두 문장이 코퍼스 지문 끝부분과 문자 그대로 일치",
+            "정답 3번이 평가원 정답표 3과 일치",
+            "design_intent 이 '역접 없는 전환' 이라는 이 지문 고유의 설계를 지목한다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
+            "correct 선지 n(3) 과 코퍼스 answer(3) 대조",
+            "지문에 however/but 이 실제로 없는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개 라벨이 무관·인과 역전·부분 사실·지문 밖 상식 4종으로 갈린다",
+            "④의 배제 근거를 앞 칸에 둔 것이 정확하다 — 뒤 칸만 보면 정답과 구분되지 않는 선지다",
+            "how_to_reject 4건 전부 문장 번호 명시"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부 집계",
+            "④와 정답의 뒤 칸이 얼마나 가까운지 대조해 배제 근거 위치가 앞 칸인지 확인",
+            "why_tempting 이 선지 낱말에 걸리는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 초안 2단계가 'however 를 찾는다' 로만 되어 있었다 — 이 지문에는 however 가 없어 학생이 그 자리에서 멈춘다. 반려하고 '역접 표지가 없으면 사건 부사구를 찾는다' 로 조건을 앞세워 고쳤다",
+            "3단계 '같은 사물의 평가 반전' 이 이 지문의 전환을 정확히 겨눈다",
+            "70초 배분 타당 — 낱말 난도가 이 청크에서 가장 높다"
+          ],
+          "checked": [
+            "지문에 however/but 이 있는지 문자열 검색해 2단계 실행 가능성 확인",
+            "금지 표현 8종 문자열 검색",
+            "required_vocab 4개가 지문에 있는지 대조"
+          ]
+        }
+      ]
+    },
+
+    {
+      "item_id": "2019#19",
+      "measured_ability": "반복 실패 서술에서 앞 심경을, 재시도 이후의 성공 서술과 감탄 발화에서 뒤 심경을 확정하고 두 칸의 강도를 함께 맞추는 능력",
+      "design_intent": "앞 심경을 감정 형용사 없이 '열 번 넘게 시도했지만 한 번도 못 했다'는 사실 서술과 'He felt that he would never succeed' 로 제시하고, 뒤 심경도 형용사 대신 동작 부사(joyfully)와 감탄('Wow, I did it!')으로 제시했다. 두 칸 모두 감정어를 직접 주지 않으므로, 사실 서술에서 감정 강도를 읽어 내야 하고 강도를 낮춰 잡으면 뒤 칸에서 미끄러진다.",
+      "answer_locus": {
+        "sentence_index": [4, 12],
+        "quote": "Walking out of the water joyfully, he cheered, “Wow, I did it!”",
+        "reasoning": "뒤 심경 근거가 이 한 문장에 셋 겹친다 — 부사 joyfully, 동사 cheered, 감탄 발화 'I did it'. 셋 다 강한 긍정이므로 뒤 칸이 '위안'이나 '안도' 정도로 낮아질 수 없다. 앞 심경은 4문장 'He felt that he would never succeed' 가 반복 실패 뒤의 좌절로 준다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "correct",
+          "trap": "",
+          "why_tempting": "앞 칸은 3문장 'tried more than ten times ... but never managed it' 과 4문장 'would never succeed' 가, 뒤 칸은 12문장의 joyfully·cheered·'I did it' 이 지지한다",
+          "how_to_reject": "배제 대상이 아니다 — 두 칸의 강도가 지문 근거와 함께 맞는 유일한 쌍이다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "뒤 칸 comforted 는 성공 뒤의 긍정이라는 방향이 맞고, 앞 칸 bored 는 같은 시도를 열 번 넘게 반복했다는 서술에서 지루함을 연상하면 붙는다",
+          "how_to_reject": "12문장의 joyfully·cheered·감탄부호가 '위로받음' 보다 강도가 높고, 4문장 'would never succeed' 는 지루함이 아니라 포기 직전의 좌절이다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "7문장 'Taking a deep breath' 를 침착함으로 읽으면 앞 칸 calm 이 붙고, 파도와 싸웠다(battled the wave)는 표현에서 뒤 칸의 부정 감정을 떠올리게 된다",
+          "how_to_reject": "7문장의 심호흡은 이미 전환 뒤 재시도를 준비하는 동작이라 앞 심경의 근거가 될 수 없고(앞 심경은 2~4문장), 11문장 battled 는 12문장 'I did it' 이 이어져 결과가 성공이다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "'swelling waves' 라는 표현과 바다에서 반복해 넘어지는 장면에서 위험·공포를 떠올리는 통념이 작동하고, 앞 칸 relieved 는 무사히 물 밖으로 나왔다는 결말과 엮이기 쉽다",
+          "how_to_reject": "6문장에서 swelling waves 는 'Come on, Dave. One more try!' 라고 말을 거는 격려자로 그려진다. 뒤 칸 frightened 는 12문장 joyfully 와 정반대이고, 안도는 앞이 아니라 결말 쪽 감정이다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "지문에 좌절과 기쁨이 둘 다 있으므로 순서를 뒤집으면 기쁨으로 시작해 속상함으로 끝나는 쌍이 만들어진다",
+          "how_to_reject": "2문장의 however 와 5문장 'He was about to give up' 이 좌절을 앞쪽에 고정하고, 12문장이 감탄으로 끝난다 — upset 으로 끝날 수 없다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 이름(Dave)을 확인하고, 첫 네 문장에서 감정 형용사가 없으면 횟수·결과를 말하는 사실 서술(tried more than ten times / never managed it)에 밑줄을 긋는다",
+          "on_fail": "사실 서술도 없으면 인물이 무엇을 느꼈다고 말하는 절(He felt that ~)을 찾아 그 안의 부정어를 앞 심경 근거로 쓴다"
+        },
+        {
+          "step": "'was about to give up' 처럼 포기 직전을 알리는 표현을 찾아 그 다음 문장에 세로줄을 긋는다",
+          "on_fail": "그런 표현이 없으면 인물이 다시 행동을 시작하는 문장(picked up, ran into)을 기준선으로 삼는다"
+        },
+        {
+          "step": "기준선 뒤에서 감정 형용사 대신 동작 부사(joyfully)·동사(cheered)·감탄부호를 표시하고, 그 셋의 개수로 뒤 심경의 강도를 상·중으로 정한다",
+          "on_fail": "표시할 것이 하나뿐이면 강도를 '중' 으로 두고 선지의 강한 낱말과 약한 낱말을 모두 남긴다"
+        },
+        {
+          "step": "선지 앞 칸을 1단계 밑줄과 대조해 지우고, 남은 것의 뒤 칸 강도가 3단계에서 정한 강도와 같은지 본다",
+          "on_fail": "뒤 칸으로 둘 이상 남으면 강도가 낮은 낱말(위안·안도)을 먼저 버린다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.94,
+        "drivers": ["앞뒤 모두 감정 형용사 없이 사실·동작으로 제시", "결말 문장에 강한 긍정 신호가 셋 겹침", "어휘가 평이하다"]
+      },
+      "required_vocab": ["managed", "swelling", "upright", "joyfully"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 코퍼스 지문 마지막 문장과 문자 그대로 일치",
+            "정답 1번이 평가원 정답표 1과 일치",
+            "design_intent 이 '두 칸 모두 감정어 없이 제시' 라는 이 지문 고유의 설계를 지목한다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
+            "correct 선지 n(1) 과 코퍼스 answer(1) 대조",
+            "지문에 앞 심경 형용사가 실제로 없는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "1차 초안에서 ③과 ④에 모두 '어휘 함정' 을 달았다 — ④의 유인은 낱말 오독이 아니라 '큰 파도는 무섭다' 는 통념이므로 반려하고 '지문 밖 상식' 으로 고쳤다",
+            "고친 뒤 라벨이 범위 과소·어휘 함정·지문 밖 상식·인과 역전 4종으로 갈린다",
+            "②의 배제 근거를 강도 비교로 쓴 것이 이 문항 고유의 변별점이다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부 집계",
+            "④의 유인이 낱말 오독인지 통념인지 선지 텍스트로 재판정",
+            "how_to_reject 4건의 위치 명시 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계 '강한 긍정 신호의 개수로 강도를 정한다' 가 이 문항의 실질 처방이다 — 강도 축소 오답이 여기서 걸린다",
+            "1단계가 감정어가 없는 지문에서 무엇을 밑줄 그을지 지정한다",
+            "60초 안에 4단계가 끝난다"
+          ],
+          "checked": [
+            "각 단계 실행 가능성 시뮬레이션",
+            "금지 표현 8종 문자열 검색",
+            "required_vocab 4개를 지문에 문자열 대조"
+          ]
+        }
+      ]
+    },
+
+    {
+      "item_id": "2018#19",
+      "body_recovered": true,
+      "measured_ability": "기대에 못 미친 도입부와 However 이후 새 광경에 대한 반응 동사(thrilled, fascinated, charmed)를 갈라, 1인칭 화자의 앞뒤 심경을 확정하는 능력",
+      "design_intent": "도입 네 문장을 감정어 없이 부정 사실(None of the wildlife was exotic / only dull gray rocks / so hot and humid that I could not enjoy)로만 채우고, 후반은 반대로 수동형 반응 동사를 세 번 반복해(thrilled me / was fascinated / was charmed) 감정을 몰아 준다. 앞 칸은 사실 서술에서 감정을 역산해야 하고, 뒤 칸은 세 번 반복된 강도를 낮추지 않고 받아야 한다.",
+      "answer_locus": {
+        "sentence_index": [1, 7, 12],
+        "quote": "The mangrove forest alongside the canal thrilled me as we entered its cool shade.",
+        "reasoning": "뒤 심경을 정하는 첫 문장이다 — 주어가 숲, 목적어가 화자인 thrill 구문이라 화자가 강한 흥분을 받았다는 진술이 되고, 이어지는 fascinated·charmed 와 마지막 'What a wonderful adventure!' 가 같은 방향을 두 번 더 준다. 앞 심경은 1문장 'far from what I had expected' 와 3문장 'only see dull gray rocks' 가 기대 미달로 준다. 곧 뒤 칸이 '편안함'이나 '안도' 로 낮아질 수 없다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "recovered_text": "ashamed → relaxed",
+          "why_tempting": "7문장의 'its cool shade' 를 시원해서 편안해졌다는 뜻으로 읽으면 뒤 칸 relaxed 가 붙는다 — 앞에 'so hot and humid' 가 있어 더위에서 벗어난 안락함이라는 이야기가 만들어진다",
+          "how_to_reject": "cool shade 는 thrilled me 의 부대 상황일 뿐이고 7~10문장의 반응 동사 셋이 전부 강한 감흥이다. 앞 칸 ashamed 를 지지하는 문장도 1~4문장에 없다"
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "recovered_text": "disappointed → excited",
+          "trap": "",
+          "why_tempting": "앞 칸은 1문장 'far from what I had expected' 와 2~3문장의 부정 사실이, 뒤 칸은 7·9·10문장의 thrilled·fascinated·charmed 와 11문장 감탄이 지지한다",
+          "how_to_reject": "배제 대상이 아니다 — However(5문장) 앞뒤 근거가 모두 갖춰지고 강도도 맞는 유일한 쌍이다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "recovered_text": "delighted → confused",
+          "why_tempting": "결말의 기쁨을 앞 칸으로 끌어오면 delighted 가 성립하는 듯하고, 'A whole new world came into sight' 를 낯섦으로 읽으면 뒤 칸 confused 가 붙는다",
+          "how_to_reject": "5문장 However 가 순서를 고정한다 — 기대 미달(1~4문장)이 앞, 감흥(7~11문장)이 뒤다. 6문장의 새 세계는 곧이어 thrilled 로 평가되므로 혼란이 아니다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "무관",
+          "recovered_text": "pleased → lonely",
+          "why_tempting": "보트 투어라는 소재에서 앞 칸의 만족을, 야생 지역이라는 배경에서 뒤 칸의 외로움을 떠올리게 된다",
+          "how_to_reject": "1~4문장은 전부 기대 미달 서술이라 pleased 를 지지하지 않고, 5문장에 어머니가 함께 있으며 8문장 'as we entered' 도 동행을 밝힌다 — 외로움을 지지하는 문장이 없다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "recovered_text": "scared → relieved",
+          "why_tempting": "야생동물·정글·습한 더위라는 배경에서 두려움을 연상하고, 시원한 그늘에 들어갔다는 서술을 위기 해소로 읽으면 두 칸이 모두 붙는 듯하다",
+          "how_to_reject": "2문장은 야생동물이 '이국적이지 않았다' 는 불만이지 위협 서술이 아니고, 10문장의 새·원숭이·도마뱀은 화자를 매혹시키는 대상이다(was charmed by). 위험을 말하는 문장이 지문에 없다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문이 'I' 의 심경을 묻는지 확인하고, 지문 첫 문장에 비교·기대 표현(far from what I had expected)이 있으면 그 문장을 앞 심경의 기준으로 삼는다",
+          "on_fail": "기대 표현이 없으면 첫 세 문장의 부정어(None, only, could not)를 세어 앞 심경의 부호를 정한다"
+        },
+        {
+          "step": "However / But 을 찾아 세로줄을 긋고, 그 뒤 문장에서 화자를 목적어로 삼는 동사(thrilled me, charmed me)와 수동 표현(was fascinated by)에 표시한다",
+          "on_fail": "그런 동사가 없으면 기준선 뒤 감탄문과 느낌표 개수를 대신 센다"
+        },
+        {
+          "step": "2단계 표시가 몇 개인지 세어 뒤 심경의 강도를 정한다 — 셋 이상이면 강한 낱말만 남긴다",
+          "on_fail": "표시가 하나뿐이면 강도를 낮춰 잡지 말고 마지막 감탄문의 형용사(wonderful)로 다시 확인한다"
+        },
+        {
+          "step": "선지 앞 칸을 1단계 기준과 대조해 지우고, 남은 것의 뒤 칸 강도가 3단계에서 정한 강도와 같은지 본다",
+          "on_fail": "선지 인쇄가 흐트러져 순서가 뒤섞여 보이면 번호가 아니라 낱말 쌍 자체를 옮겨 적고 대조한다"
+        }
+      ],
+      "time_budget_sec": 65,
+      "difficulty": {
+        "predicted": 0.93,
+        "drivers": ["앞 심경이 부정 사실 서술로만 제시", "뒤 심경 근거가 반응 동사 셋으로 반복", "cool shade 가 강도 축소를 유인"]
+      },
+      "required_vocab": ["exotic", "dull", "thrilled", "fascinated", "charmed"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "revised": true,
+          "findings": [
+            "코퍼스의 choices 배열이 깨져 있었다 — ③에 '⑤ scared → relieved' 가 붙고 ④가 빈 문자열이며 ⑤에 '④ pleased → lonely' 가 섞여 있다. raw_block 의 문항 블록에서 인쇄 순서(①②③ 다음 줄에 ⑤ 와 ④ 가 한 줄에 나온다)를 확인해 다섯 쌍을 복원하고 recovered_text 로 남겼다",
+            "복원 결과 정답 2번이 'disappointed → excited' 이고 평가원 정답표 2와 일치",
+            "quote 는 지문 본문(선지 잔여가 붙기 전 구간)에서 뽑아 오염이 없다"
+          ],
+          "checked": [
+            "raw_block 의 선지 인쇄 배열과 corpus.json choices 배열을 한 쌍씩 대조",
+            "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
+            "correct 선지 n(2) 과 코퍼스 answer(2) 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개 라벨이 범위 과소·인과 역전·무관·지문 밖 상식 4종으로 갈린다",
+            "①의 why_tempting 이 'cool shade' 라는 실제 지문 표현에 걸려 있어, 강도 축소 오답의 유인 경로가 텍스트로 설명된다",
+            "④ 배제에 동행 근거(어머니 등장 · as we entered)를 든 것이 검증 가능하다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부 집계",
+            "복원한 선지 텍스트를 기준으로 why_tempting 이 각 낱말에 걸리는지 재대조",
+            "how_to_reject 4건의 위치 명시 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "4단계 on_fail 이 시험지 인쇄가 흐트러진 경우를 다룬다 — 이 문항이 실제로 그런 사례라 처방이 겉돌지 않는다",
+            "2단계 '화자를 목적어로 삼는 동사' 지시가 thrill/charm 구문을 한 번에 잡는다",
+            "65초 안에 4단계가 끝난다"
+          ],
+          "checked": [
+            "각 단계 실행 가능성 시뮬레이션",
+            "금지 표현 8종 문자열 검색",
+            "required_vocab 5개를 지문에 문자열 대조"
+          ]
+        }
+      ]
+    },
+
+    {
+      "item_id": "M1809#19",
+      "measured_ability": "울음·불안 서술로 시작하는 도입에서 앞 심경을, 분실물이 돌아온 뒤의 상태 서술에서 뒤 심경을 확정하고 눈물의 의미를 앞뒤로 나눠 읽는 능력",
+      "design_intent": "첫 문장을 '눈물이 흘렀다' 로 열어 감정의 부호를 일부러 모호하게 두었다. 눈물은 기쁨일 수도 슬픔일 수도 있는데, 이어지는 3문장 'she was anxious' 와 4문장의 걱정이 부호를 불안으로 고정한다. 결말은 상태 형용사 둘(calm and comforted)로 직접 준다 — 첫 문장만 보고 부호를 정하면 앞 칸에서 미끄러진다.",
+      "answer_locus": {
+        "sentence_index": [3, 14],
+        "quote": "Lindsay felt calm and comforted now that she had her toy again.",
+        "reasoning": "뒤 심경을 상태 형용사 둘로 직접 진술하고, 'now that she had her toy again' 이 그 상태의 원인을 분실물의 회수로 못박는다. 곧 앞 심경은 그 분실 때문에 생긴 것이어야 하며, 3문장 'she was anxious' 와 4문장 'might be angry that she had forgotten to bring it' 이 그 불안을 준다. 앞뒤가 같은 사건(장난감 분실·회수)의 양끝이므로 다른 감정 쌍이 들어올 자리가 없다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "'show and tell' 수업에 좋아하는 장난감을 가져가는 상황이라 아이가 들떠 있었을 것이라는 통념으로 앞 칸 excited 를 고르게 되고, 물건이 사라진 장면에서 뒤 칸 confused 를 떠올린다",
+          "how_to_reject": "3문장이 'she was anxious' 로 상태를 직접 말하고 1문장은 눈물이다. 뒤 칸도 14문장 'felt calm and comforted' 와 어긋난다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "뒤 칸 relaxed 는 14문장 calm 과 거의 같은 뜻이라 절반이 맞아 보인다",
+          "how_to_reject": "앞 칸에서 걸린다 — 지문에 다른 사람이 가진 것을 부러워하는 서술이 없다. 3~4문장의 불안 대상은 선생님의 반응과 분실이지 타인의 소유가 아니다"
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "trap": "",
+          "why_tempting": "앞 칸은 3문장 'she was anxious' 와 7문장 'It was nowhere to be found' 가, 뒤 칸은 14문장 'felt calm and comforted' 가 지지한다",
+          "how_to_reject": "배제 대상이 아니다 — 앞 칸이 3문장에, 뒤 칸이 14문장에 각각 문자 그대로 있는 유일한 쌍이다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "지문에 편안함과 압박이 둘 다 있어 순서를 뒤집으면 만족으로 시작해 스트레스로 끝나는 쌍이 된다",
+          "how_to_reject": "8문장 'Just then, Mrs. Cline appeared' 이후가 해소 구간이고 14문장이 calm 으로 끝난다. 1~7문장에는 pleased 를 지지하는 문장이 없다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "1문장 'A tear rolled down' 을 감격의 눈물로, 11문장 'Lindsay cried' 의 cry 를 울음이 아닌 외침으로 읽으면 앞 칸 joyful 이 성립하는 듯하다",
+          "how_to_reject": "3문장 'she was anxious' 가 첫 문장의 눈물 부호를 불안으로 고정하고, 11문장의 발화 내용이 'I can’t find my toy ... I’m sorry!' 라 기쁨이 아니다. 뒤 칸 upset 도 14문장과 정반대다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 이름(Lindsay)을 확인하고, 첫 문장이 눈물·비명·웃음처럼 부호가 두 가지로 읽히는 신체 반응이면 앞 심경을 그 문장으로 정하지 말고 표시만 해 둔다",
+          "on_fail": "첫 문장이 사실 서술이면 그냥 배경으로 두고 다음 문장으로 넘어간다"
+        },
+        {
+          "step": "이어지는 두세 문장에서 감정 형용사(anxious, angry)나 걱정 대상을 찾아 1단계 신체 반응의 부호를 확정한다",
+          "on_fail": "감정 형용사가 없으면 인물이 반복한 행동(searched, checked one more time)의 다급함으로 부호를 정한다"
+        },
+        {
+          "step": "Just then / At that moment 처럼 새 인물이나 사건이 들어오는 문장에 세로줄을 긋고, 그 뒤에서 문제가 해결되었는지 확인한다",
+          "on_fail": "표지가 없으면 사라졌던 대상이 다시 등장하는 문장을 기준선으로 삼는다"
+        },
+        {
+          "step": "마지막 문장에 상태 형용사가 둘 이상 나오면 그 둘을 모두 옮겨 적고 뒤 칸 판정 기준으로 삼는다",
+          "on_fail": "상태 형용사가 없으면 마지막 발화의 감사·사과 여부로 부호를 정한다"
+        },
+        {
+          "step": "선지 앞 칸을 2단계 부호와 대조해 지우고, 남은 것의 뒤 칸을 4단계 형용사와 맞춘다",
+          "on_fail": "뒤 칸으로 둘 이상 남으면 앞 칸이 지문에 근거 문장을 갖는지로 최종 판정한다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.93,
+        "drivers": ["첫 문장의 눈물이 부호 모호", "앞뒤 심경이 각각 형용사로 직접 명시", "어휘가 평이하다"]
+      },
+      "required_vocab": ["anxious", "precious", "gently", "comforted"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 코퍼스 지문 마지막 문장과 문자 그대로 일치",
+            "정답 3번이 평가원 정답표 3과 일치",
+            "design_intent 이 '첫 문장 눈물의 부호 모호' 라는 이 지문 고유의 장치를 지목한다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
+            "correct 선지 n(3) 과 코퍼스 answer(3) 대조",
+            "design_intent 이 유형 일반론인지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개 라벨이 지문 밖 상식·부분 사실·인과 역전·어휘 함정 4종으로 갈린다",
+            "②의 배제 근거를 앞 칸에 둔 것이 정확하다 — 뒤 칸 relaxed 는 정답의 relieved 와 거의 구분되지 않으므로 앞 칸에서 갈라야 한다",
+            "⑤의 why_tempting 이 cry 의 두 뜻을 짚어 선지 텍스트에 근거한다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부 집계",
+            "②와 정답의 뒤 칸 의미 거리를 대조해 배제 근거 위치가 앞 칸인지 확인",
+            "how_to_reject 4건의 위치 명시 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계 '부호가 두 가지로 읽히는 신체 반응은 표시만 해 둔다' 가 이 지문의 함정을 정면으로 막는다",
+            "required_vocab 4개 중 anxious·comforted 가 앞뒤 칸을 직접 정한다",
+            "60초 안에 5단계가 끝난다"
+          ],
+          "checked": [
+            "각 단계 실행 가능성 시뮬레이션",
+            "금지 표현 8종 문자열 검색",
+            "required_vocab 4개를 지문에 문자열 대조"
+          ]
+        }
+      ]
+    }
+  ],
+
+  "type_report": {
+    "type_id": "R-MOOD",
+    "n_analyzed": 12,
+    "recurring_traps": [
+      {
+        "trap": "인과 역전",
+        "count": 8,
+        "signature": "정답표가 있는 8문항 **전부**에 하나씩 들어 있다 — 지문의 앞 감정과 뒤 감정을 그대로 쓰되 **순서만 뒤집은** 쌍. 지문에 두 감정이 실제로 있으므로 낱말 대조로는 안 걸리고, 전환 표지(however / But / Just then / All of a sudden)의 **앞뒤 어느 쪽인지**로만 걸린다"
+      },
+      {
+        "trap": "지문 밖 상식",
+        "count": 7,
+        "signature": "배경 묘사나 상황 소재에서 통념을 끌어온다 — 어두워지는 벌판→scared(2022) · 친구에게 패배→envious(2021) · 큰 파도→frightened(2019) · 정글→scared(2018) · show and tell→excited(M1809). 배경 형용사는 대상의 속성이지 인물의 감정이 아니다"
+      },
+      {
+        "trap": "어휘 함정",
+        "count": 4,
+        "signature": "부호가 두 가지로 읽히는 표현을 미끼로 쓴다 — shook her body and soul(M2106) · could not stay calm(2020) · Taking a deep breath(2019) · A tear rolled down / cried(M1809). 부호는 그 표현이 걸린 결과절·발화 내용이 정한다"
+      },
+      {
+        "trap": "부분 사실",
+        "count": 4,
+        "signature": "뒤 칸만 정답에 가깝게 두고 앞 칸을 어긋나게 한다(relaxed→annoyed · surprised→disappointed · indifferent→excited · jealous→relaxed). 뒤 칸 하나만 보고 고르면 걸린다"
+      },
+      {
+        "trap": "무관",
+        "count": 4,
+        "signature": "두 칸 중 하나를 지문에 근거 문장이 아예 없는 낱말로 채운다(bored · envious · delighted · pleased→lonely). 배제가 가장 쉬운 자리라 실제 오답률은 낮다"
+      },
+      {
+        "trap": "범위 과대 / 범위 과소",
+        "count": 4,
+        "signature": "방향은 맞고 **강도만** 어긋난다 — 탄식 한 번을 depressed 로(2022) · 실망을 horrified 로(2020) 올리거나, 환호를 comforted 로(2019) · 감흥 셋을 relaxed 로(2018) 낮춘다. 방향만 보는 학습자가 마지막까지 남기는 선지가 대개 이것이다"
+      },
+      {
+        "trap": "반대 진술",
+        "count": 1,
+        "signature": "두 칸이 모두 지문과 부호가 반대(worried→confident, 2020). 표본 1건뿐이라 이 유형의 상시 함정으로 보기는 이르다"
+      }
+    ],
+    "answer_locus_pattern": "정답표가 있는 8문항의 **결정 근거 위치**를 세면: 마지막 문장 6 (2022 · 2021 · 2020 · M2006 · 2019 · M1809) · 전환 표지 직후 2 (M2106의 'everything changed' 선언, 2018의 thrilled me). 앞 심경 근거는 8문항 전부 **첫 2~4문장** 안에 있고, 첫 문단 밖으로 나가는 경우가 없다. 곧 이 유형의 근거는 **첫 세 문장과 마지막 두 문장**에 갇혀 있으며, 가운데 문장들은 사건 서술이지 감정 근거가 아니다. 결정 근거 8건 중 6건이 **인물의 직접 발화 또는 동반 표현**(with a sigh / with a smile / he cheered)을 포함한다 — 따옴표가 있으면 거기가 답이다.",
+    "procedure": [
+      {
+        "step": "발문에서 심경의 주체가 'I'(화자)인지 제3자 이름인지 확인하고, 'I' 라면 지문의 따옴표 발화마다 말한 사람을 옆에 적어 **타인의 말을 근거에서 뺀다**",
+        "on_fail": "발화자가 불분명하면 따옴표 앞뒤 said/asked/explained/recalled 의 주어로 정한다"
+      },
+      {
+        "step": "첫 2~4문장에서 **인물에게 붙은 감정어**만 앞 심경 후보로 적는다. 대상(공연·풍경·원고·날씨)에 붙은 형용사에는 괄호를 쳐 근거에서 뺀다",
+        "on_fail": "감정어가 없으면 사실 서술(횟수·결과·부정어)이나 행동 부사(eagerly, reluctantly, enthusiastically)로 부호를 정한다. 첫 문장이 눈물·비명처럼 부호가 두 갈래면 다음 문장까지 읽고 정한다"
+      },
+      {
+        "step": "전환 표지에 세로줄을 긋는다 — however / but / Once ~ began / As soon as / Just then / At that moment / All of a sudden 순으로 찾는다",
+        "on_fail": "역접 접속사가 없는 회차가 있다(M2006). 그때는 사건 부사구나 변화를 선언하는 문장('everything changed', 'something was found')을 기준선으로 삼는다"
+      },
+      {
+        "step": "마지막 두 문장에서 뒤 심경을 뽑되, **인물의 발화·동반 표현·상태 형용사**만 쓰고 배경 묘사는 뺀다. 강한 긍정/부정 신호의 **개수**를 세어 강도를 상·중으로 적는다",
+        "on_fail": "발화가 반문이면 부정으로 세고, 신호가 하나뿐이면 강도를 낮춰 잡지 말고 마지막 형용사로 다시 확인한다"
+      },
+      {
+        "step": "선지 다섯 쌍을 **앞 칸만** 먼저 세로로 훑어 2단계와 어긋나는 것을 지운다",
+        "on_fail": "앞 칸으로 셋 이상 남으면 앞 칸 낱말 중 지문에 근거 문장이 하나도 없는 것부터 버린다"
+      },
+      {
+        "step": "남은 쌍의 **뒤 칸**을 4단계 부호와 **강도**에 함께 맞춘다. 부호가 같아도 강도가 다르면 버린다",
+        "on_fail": "둘이 남으면 앞 칸으로 되돌아가 근거 문장 번호를 댈 수 있는 쪽을 고른다 — 뒤 칸끼리 뜻이 가까운 쌍(relieved/relaxed, calm/relieved)은 앞 칸에서만 갈린다"
+      }
+    ],
+    "failure_modes": [
+      "**뒤 칸만 보고 고른다.** 결말이 밝은지 어두운지 부호만 맞추면 두세 개가 남는데, 그 남은 것들은 앞 칸에서만 갈린다(M2006의 indifferent→excited, M1809의 jealous→relaxed). 실점은 대개 여기서 난다",
+      "**전환 표지를 못 찾고 중간에서 멈춘다.** M2306은 도착 후에도 'She was about to give up' 으로 한 번 더 내려가고, M2006에는 역접 접속사가 아예 없다. 표지 목록을 however/but 둘로만 갖고 있으면 경계선이 어긋난다",
+      "**배경 형용사를 인물 감정으로 옮긴다.** deserted / darkening(2022) · ancient and run-down(M2106) · hot and humid(2018) 은 전부 대상의 속성이다. 이 오독이 '지문 밖 상식' 오답 7건의 입구다",
+      "**강도를 맞추지 않는다.** 방향만 맞추면 depressed/horrified(과장)나 comforted/relaxed(축소)가 끝까지 남는다. 마지막 문장의 긍정·부정 신호 개수를 세는 절차가 없으면 이 둘을 가를 수 없다",
+      "**화자와 등장인물을 섞는다.** 2021은 교사의 인용문이 길게 들어 있고 M2109는 상대의 사과·악재 설명이 뒤쪽을 채운다. 타인의 말을 화자 감정으로 읽으면 뒤 칸이 통째로 뒤집힌다",
+      "**부호가 두 갈래인 첫 문장에 앞 칸을 걸어 버린다.** '눈물'(M1809) · 'could not stay calm'(2020) 은 다음 문장을 읽어야 방향이 정해지는데, 첫 문장에서 판단을 확정하면 되돌아오지 않는다"
+    ],
+    "time_budget_sec": 65,
+    "open_questions": [
+      "**반려가 6건 나왔고 그중 4건이 tutor·analyst 에 몰렸다** — setter 는 12건 중 1건(2018의 선지 복원)만 반려했다. setter 가 재는 것(인용 실재·정답표 일치)이 이 유형에서는 기계 게이트와 겹쳐, 사람 판단으로 더할 것이 적다. 다음 청크에서는 setter 에게 '선지 다섯 쌍이 어떤 축(방향·강도·주체·시점)으로 갈리도록 설계됐는지'를 재도록 자를 바꿔 볼 것을 제안한다",
+      "정답표가 없는 4문항(M2306 · M2209 · M2206 · M2109)이 이 청크의 3분의 1이다. 이들의 함정 분포를 못 세었으므로 recurring_traps 의 count 는 **8문항 32오답 기준**이다 — 12문항 48오답으로 일반화하지 말 것",
+      "'인과 역전' 이 8문항 전부에 정확히 하나씩 있다는 관찰은 표본 8이라 우연일 수 있다. 다음 R-MOOD 청크에서 같은 패턴이 재현되면 '모든 심경 변화 문항에는 순서만 뒤집은 오답이 하나 있다' 를 절차로 승격할 수 있다 — 그러면 선지 다섯 중 하나를 무조건 먼저 지울 수 있다",
+      "'분위기' 를 묻는 문항(심경 변화가 아니라 글의 분위기 단일 선지)이 이 청크에 하나도 없다. 같은 type_id 안에 다른 발문 형태가 섞이는지 다음 청크에서 확인해야 하며, 섞인다면 위 procedure 의 5·6단계(앞 칸/뒤 칸 분리)가 그 문항에는 통하지 않는다"
+    ]
+  }
+}
