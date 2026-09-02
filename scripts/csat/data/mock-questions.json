@@ -67,9 +67,9 @@
    "file": "202109_영어영역_문제지.pdf",
    "space": "char",
    "stems": 45,
-   "assigned": 40,
+   "assigned": 41,
    "multi": 2,
-   "none": 3,
+   "none": 2,
    "keys": 0
   },
   {
@@ -87,9 +87,9 @@
    "file": "202209_영어영역_문제지.pdf",
    "space": "char",
    "stems": 45,
-   "assigned": 42,
+   "assigned": 43,
    "multi": 2,
-   "none": 1,
+   "none": 0,
    "keys": 0
   },
   {
@@ -2401,8 +2401,8 @@
    "high_score": true,
    "rescued": false,
    "section": "장문",
-   "type": null,
-   "hit_count": 0
+   "type": "X-VOCAB",
+   "hit_count": 1
   },
   {
    "exam": "M2109",
@@ -3301,8 +3301,8 @@
    "high_score": false,
    "rescued": false,
    "section": "장문",
-   "type": null,
-   "hit_count": 0
+   "type": "X-VOCAB",
+   "hit_count": 1
   },
   {
    "exam": "M2209",

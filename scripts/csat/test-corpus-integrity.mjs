@@ -40,8 +40,18 @@ ok('T2 문항 id 유일', dup.length === 0, dup.slice(0, 5).join(' '))
 // T3 번호는 1~45, 영역은 번호와 일치
 const badNo = items.filter((it) => it.no < 1 || it.no > 45)
 ok('T3a 번호 1~45', badNo.length === 0, badNo.slice(0, 5).map((it) => it.id).join(' '))
-const badSec = items.filter((it) => it.section !== (it.no <= 17 ? '듣기' : it.no <= 40 ? '독해' : '장문'))
+// 듣기 마지막 번호는 2014학년도만 22, 나머지는 17 (A/B 수준별 시행 회차)
+const lend = (exam) => (exam.startsWith('2014') ? 22 : 17)
+const badSec = items.filter((it) => it.section !== (it.no <= lend(it.exam) ? '듣기' : it.no <= 40 ? '독해' : '장문'))
 ok('T3b 영역이 번호와 일치', badSec.length === 0, badSec.slice(0, 5).map((it) => it.id).join(' '))
+
+// T3c 사정권(듣기 제외) 딱지가 영역과 일치 — 두 자리에 규칙을 적어 두면 반드시 어긋난다
+const badScope = items.filter((it) => it.in_scope !== (it.section !== '듣기'))
+ok('T3c in_scope 가 영역과 일치', badScope.length === 0, badScope.slice(0, 5).map((it) => it.id).join(' '))
+
+// T3d 사정권 안에 듣기 유형(L-)이 남아 있으면 경계를 잘못 그은 것이다
+const lInScope = items.filter((it) => it.in_scope && it.type_id?.startsWith('L-'))
+ok('T3d 사정권에 듣기 유형 없음', lInScope.length === 0, `${lInScope.length}개: ${lInScope.slice(0, 5).map((it) => it.id).join(' ')}`)
 
 // T4 정답이 있으면 1~5, 배점은 2 또는 3
 const badAns = items.filter((it) => it.answer != null && (it.answer < 1 || it.answer > 5))
@@ -74,7 +84,7 @@ const typed = items.filter((it) => it.type_id).length
 soft('T7 유형 배정 99% 이상', typed / items.length >= 0.99, `${typed}/${items.length}`)
 
 // T8 독해·장문은 지문이 있어야 한다 (듣기는 문제지에 지문이 없다 — 대본은 별도 파일)
-const readItems = items.filter((it) => it.section !== '듣기')
+const readItems = items.filter((it) => it.in_scope)
 const noPass = readItems.filter((it) => !it.passage)
 soft('T8 독해 지문 97% 이상', 1 - noPass.length / readItems.length >= 0.97, `없음 ${noPass.length}/${readItems.length}`)
 
