@@ -10,6 +10,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   STORYWEAVER_FEEDS,
+  listStoryweaverFeed,
   storyweaverAuthor,
   storyweaverBookUrl,
   storyweaverLicense,
@@ -79,10 +80,18 @@ describe('StoryWeaver 라이선스', () => {
 })
 
 describe('StoryWeaver 배선', () => {
-  it('적중 0% 인 Level 3 이상은 피드 목록에 없다', () => {
-    // 실측: L3 중앙 738어 · 초·중 창 적중 0%. 목록에 두면 고를 수 있게 되고,
-    // 고르면 창 밖 글만 쌓인다.
-    expect(STORYWEAVER_FEEDS.map((f) => f.level).sort()).toEqual(['1', '2'])
+  it('통째로 쓸 수 있는 것은 L1 뿐이다 — 나머지는 발췌용으로 표시된다', () => {
+    // 실측: L2 중앙 335어 · L3 807어 로 교재 창(44~121·42~173어) 밖이다.
+    // 다만 **지우지는 않는다** — L3 은 난이도가 초5~6 에 가장 가까워
+    // 발췌 경로의 유일한 재료다(그 칸이 표본 400건 중 0건이었다).
+    expect(STORYWEAVER_FEEDS.filter((f) => f.wholeBookUsable).map((f) => f.level)).toEqual(['1'])
+    expect(STORYWEAVER_FEEDS.map((f) => f.level)).toEqual(['1', '2', '3'])
+  })
+
+  it('모르는 피드 이름에 조용히 Level 1 을 주지 않는다', async () => {
+    // 예전엔 폴백했고, `--level 3` 으로 부른 스크립트가 **L1 책을 받아 놓고
+    // "이미 있음 16" 이라고 보고했다.** 오류가 안 나니 "L3 은 다 넣었구나" 로 읽힌다.
+    await expect(listStoryweaverFeed('level-9', 1)).rejects.toThrow(/level-9/)
   })
 
   it('register 기본값이 narrative 다 — 이 소스를 넣은 이유 자체다', () => {
@@ -117,7 +126,7 @@ describe('StoryWeaver 배선', () => {
 
   it('책 주소를 slug 로 만든다', () => {
     expect(storyweaverBookUrl('369-the-red-raincoat')).toBe(
-      'https://storyweaver.org.in/stories/369-the-red-raincoat',
+      'https://storyweaver.org.in/stories/369-the-red-raincoat'
     )
   })
 })

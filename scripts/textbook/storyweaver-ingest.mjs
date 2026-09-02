@@ -48,10 +48,47 @@ const LIMIT = Number(arg('limit') ?? 12)
  */
 const PROCESS = process.argv.includes('--process')
 const DEV_BASE = arg('base') ?? 'http://localhost:3000'
+/**
+ * `--band <이름>` — 통째로 넣지 않고 **그 학년 칸에 드는 조각만** 떼어 넣는다.
+ *
+ * 초5~6 칸(FK 3.5~5.5 ∩ 44~121어)이 후보 표본 400건 중 **0건**이었다. 난이도가 없어서가
+ * 아니라 그 난이도의 글이 137~2,787어로 **너무 길어서**였다. L2·L3 을 앞에서 잘라 넣으면
+ * 실측 28.6% 가 그 칸에 든다.
+ *
+ * ⚠️ **발췌는 CC BY 가 말하는 "변경" 이다** — 라이선스가 "indicate if changes were made" 를
+ *   요구하므로 제목에 발췌임을 적고 `source_id` 에 쪽 범위를 남긴다. 그래야 원본과 다른
+ *   글로 dedup 되고, 나중에 "이게 원문인가 조각인가" 를 물을 수 있다.
+ */
+const BAND = arg('band')
 
 const { createClient } = await import('@supabase/supabase-js')
-const { listStoryweaverFeed, ingestStoryweaverArticle } =
-  await import('../../packages/library-pipeline/src/index.ts')
+const {
+  listStoryweaverFeed,
+  ingestStoryweaverArticle,
+  storyweaverPageText,
+  stripPageNumbers,
+  excerptForBand,
+  gradeBand,
+} = await import('../../packages/library-pipeline/src/index.ts')
+
+const targetBand = BAND ? gradeBand(BAND) : null
+if (BAND && !targetBand) {
+  console.error(`알 수 없는 학년 칸: ${BAND}`)
+  process.exit(1)
+}
+
+/** 그림책 쪽 글을 순서대로. 발췌기는 문단 배열을 받는다 — 쪽이 곧 문단이다. */
+async function storyPages(slug) {
+  const res = await fetch(`https://storyweaver.org.in/api/v1/stories/${slug}/read`, {
+    headers: { 'user-agent': 'Vocaflow-SourceProbe/1.0 (+https://vocaflow.app)' },
+  })
+  if (!res.ok) return null
+  const j = await res.json()
+  return (j?.data?.pages ?? [])
+    .filter((p) => p.pageType === 'StoryPage')
+    .map((p) => stripPageNumbers(storyweaverPageText(p.html ?? '')))
+    .filter(Boolean)
+}
 
 const db = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -84,6 +121,8 @@ let existed = 0
 let noLicense = 0
 let failed = 0
 let alsoBook = 0
+/** 발췌해도 그 칸에 못 든 책. **세서 말한다** — 조용히 건너뛰면 수율을 모른다. */
+let outOfBand = 0
 
 for (const item of list) {
   const { data: dup } = await db
@@ -113,17 +152,62 @@ for (const item of list) {
     continue
   }
 
-  const words = article.content.split(/\s+/).filter(Boolean).length
+  // ── 발췌 모드 ──────────────────────────────────────────────────────
+  // 통째로는 창 밖인 책에서 그 학년 칸에 드는 조각만 떼어 낸다.
+  let row = {
+    source_id: article.source_id,
+    title: article.title,
+    content: article.content,
+    note: null,
+  }
+  if (targetBand) {
+    // 목록 항목은 `id` 를 갖지 않는다 — 주소에서 slug 를 뽑는다.
+    //   처음에 `item.id` 를 썼다가 24건 전부 "쪽을 못 읽었다" 로 나왔다.
+    const slug = String(item.url).match(/stories\/([a-z0-9-]+)/i)?.[1]
+    const pages = slug ? await storyPages(slug) : null
+    if (!pages?.length) {
+      failed++
+      console.log(`  ✗ 쪽을 못 읽었다: ${article.title.slice(0, 46)}`)
+      continue
+    }
+    const ex = excerptForBand(pages, targetBand)
+    if (!ex) {
+      outOfBand++
+      continue
+    }
+    row = {
+      // 쪽 범위를 열쇠에 남긴다 — 원본과 다른 글로 dedup 되고,
+      //   나중에 "이게 원문인가 조각인가" 를 물을 수 있다.
+      source_id: `${article.source_id}#p${ex.start + 1}-${ex.end}`,
+      // **CC BY 는 변경을 밝히라고 한다.** 발췌는 변경이다 — 제목에 적는다.
+      title: `${article.title} (${ex.start === 0 ? '앞부분' : `${ex.start + 1}쪽부터`} 발췌)`,
+      content: ex.text,
+      note: `FK ${ex.fk} · ${ex.band} · ${ex.words}어 · ${ex.end - ex.start}쪽`,
+    }
+    // 발췌본은 열쇠가 다르므로 중복 검사를 다시 한다.
+    const { data: dup2 } = await db
+      .from('library_articles')
+      .select('id')
+      .eq('source', 'storyweaver')
+      .eq('source_id', row.source_id)
+      .maybeSingle()
+    if (dup2) {
+      existed++
+      continue
+    }
+  }
+
+  const words = row.content.split(/\s+/).filter(Boolean).length
   if (COMMIT) {
     const { error } = await db.from('library_articles').insert({
       source: article.source,
-      source_id: article.source_id,
-      title: article.title,
+      source_id: row.source_id,
+      title: row.title,
       author: article.author,
       source_url: article.source_url,
       published_at: null,
       license: article.license,
-      content: article.content,
+      content: row.content,
       status: 'queued',
     })
     if (error) {
@@ -135,7 +219,8 @@ for (const item of list) {
   if (bookUrls.has(article.source_url)) alsoBook++
   added++
   console.log(
-    `  ${COMMIT ? '✓' : '·'} ${String(words).padStart(4)}어  ${article.license.padEnd(11)} ${article.title.slice(0, 44)}`
+    `  ${COMMIT ? '✓' : '·'} ${String(words).padStart(4)}어  ${article.license.padEnd(11)} ` +
+      `${row.note ? row.note.padEnd(30) : ''}${row.title.slice(0, 44)}`
   )
 }
 

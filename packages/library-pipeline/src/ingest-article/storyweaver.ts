@@ -10,13 +10,16 @@
 // **종류 부재**다. 편수를 늘려도 같은 사진 설명글이 늘 뿐이라 해결되지 않는다.
 //
 // ── 수준이 어수를 거의 결정한다 (실측 표본 149편) ────────────────────
-//   Level 1  중앙 122어 · 초창 적중 49% · 중창 69%   ← 이 어댑터가 쓰는 것
-//   Level 2  중앙 335어 · 초창 2%      · 중창 14%
-//   Level 3  중앙 738어 · 적중 0%
+//   Level 1  중앙 139어 · FK 1.99 · 중창 적중 69%   ← 통째로 쓴다
+//   Level 2  중앙 335어 · FK 2.77 · 중창 14%        ← 발췌해야 한다
+//   Level 3  중앙 807어 · FK 4.13 · 적중 0%         ← 발췌해야 한다
 //
 // 처음에 수준을 섞어 쟀을 때는 "중앙 193어 · 적중 20%" 로 나와 못 쓸 소스처럼 보였다.
 // **평균이 답을 가렸다** — 이 소스는 "너무 길다" 가 아니라 어느 수준을 가져오느냐의 문제다.
-// 그래서 기본 피드를 Level 1·2 로 두고 Level 3 이상은 넣지 않는다.
+//
+// ⚠️ L3 을 목록에서 **지우지 않는다.** 통째로는 적중 0% 지만 난이도가 초5~6 에 가장 가깝고
+//   (FK 4.13 vs 시중 4.42) **발췌 경로의 유일한 재료**다 — 그 칸이 후보 표본 400건 중
+//   0건이었다. 지우면 메울 방법이 사라진다.
 //
 // ── 라이선스는 책마다 다르고, 책 안에 적혀 있다 ──────────────────────
 // 뒷장(`BackInnerCoverPage`)에 "Story Attribution: … Released under CC BY 4.0 license."
@@ -38,12 +41,38 @@ import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 const API = 'https://storyweaver.org.in/api/v1'
 
 /**
- * 피드 = 읽기 수준. **Level 3 이상은 넣지 않는다** — 실측 적중 0% 라 목록에 두면
- * 대량 GET 화면에서 고를 수 있게 되고, 고르면 창 밖 글만 쌓인다.
+ * 피드 = 읽기 수준. **통째로 쓸 수 있는 것과 발췌해야 쓸 수 있는 것을 갈라 적는다.**
+ *
+ * 실측(표본 40/수준): L1 중앙 139어·FK 1.99 · L2 335어·2.77 · L3 807어·4.13.
+ * L3 은 통째로는 어수창 적중이 **0%** 지만, 난이도는 초5~6(3.5~5.5) 에 가장 가깝다 —
+ * 그래서 **발췌 경로에서만** 쓴다(`excerptForBand`). 목록에서 지우면
+ * 초5~6 칸을 메울 유일한 재료가 사라진다.
  */
-export const STORYWEAVER_FEEDS: Array<{ id: string; label: string; level: string }> = [
-  { id: 'level-1', label: 'StoryWeaver Level 1 — 초등 (중앙 122어)', level: '1' },
-  { id: 'level-2', label: 'StoryWeaver Level 2 — 중등 (중앙 335어)', level: '2' },
+export const STORYWEAVER_FEEDS: Array<{
+  id: string
+  label: string
+  level: string
+  /** 통째로 넣어도 되는가. `false` 면 발췌해야 교재 창에 든다. */
+  wholeBookUsable: boolean
+}> = [
+  {
+    id: 'level-1',
+    label: 'StoryWeaver Level 1 — 초3~4 (중앙 139어 · FK 1.99)',
+    level: '1',
+    wholeBookUsable: true,
+  },
+  {
+    id: 'level-2',
+    label: 'StoryWeaver Level 2 — 발췌용 (중앙 335어 · FK 2.77)',
+    level: '2',
+    wholeBookUsable: false,
+  },
+  {
+    id: 'level-3',
+    label: 'StoryWeaver Level 3 — 발췌용 · 초5~6 재료 (중앙 807어 · FK 4.13)',
+    level: '3',
+    wholeBookUsable: false,
+  },
 ]
 
 export interface StoryweaverListItem {
@@ -87,9 +116,18 @@ function toItem(b: RawBook): StoryweaverListItem {
 
 export async function listStoryweaverFeed(
   feedId: string = 'level-1',
-  limit?: number,
+  limit?: number
 ): Promise<StoryweaverListItem[]> {
-  const feed = STORYWEAVER_FEEDS.find((f) => f.id === feedId) ?? STORYWEAVER_FEEDS[0]!
+  // ⚠️ **모르는 피드 이름에 조용히 Level 1 을 주지 않는다.**
+  //   예전에는 `?? STORYWEAVER_FEEDS[0]` 이었고, `--level 3` 으로 부른 스크립트가
+  //   **Level 1 책을 받아 놓고 "이미 있음 16" 이라고 보고했다.** 오류가 나지 않으니
+  //   "L3 은 이미 다 넣었구나" 로 읽힌다 — 틀린 재고 판단으로 이어진다.
+  const feed = STORYWEAVER_FEEDS.find((f) => f.id === feedId)
+  if (!feed) {
+    throw new Error(
+      `StoryWeaver 피드 '${feedId}' 를 모른다. 쓸 수 있는 것: ${STORYWEAVER_FEEDS.map((f) => f.id).join(' · ')}`
+    )
+  }
   const want = limit ?? PER_PAGE * 2
   const items: StoryweaverListItem[] = []
 
@@ -151,7 +189,7 @@ export function stripPageNumbers(text: string): string {
  */
 export function storyweaverLicense(backMatter: string): string | null {
   const m = backMatter.match(
-    /Released under\s+(CC[ -]BY(?:[ -](?:NC|SA|ND|NC[ -]SA|NC[ -]ND))?)\s*([\d.]+)?\s*licen[cs]e/i,
+    /Released under\s+(CC[ -]BY(?:[ -](?:NC|SA|ND|NC[ -]SA|NC[ -]ND))?)\s*([\d.]+)?\s*licen[cs]e/i
   )
   if (!m) return null
   const kind = m[1]!.replace(/\s+/g, '-').toUpperCase()
@@ -193,7 +231,9 @@ export async function ingestStoryweaverArticle(itemUrl: string): Promise<RawArti
     source: 'storyweaver',
     source_id: `storyweaver:${slug}`,
     source_url: itemUrl,
-    title: (back.match(/^([^:]{2,90}?)\s+Author:/)?.[1] ?? slug.replace(/^\d+-/, '').replace(/-/g, ' ')).trim(),
+    title: (
+      back.match(/^([^:]{2,90}?)\s+Author:/)?.[1] ?? slug.replace(/^\d+-/, '').replace(/-/g, ' ')
+    ).trim(),
     author: author ?? 'StoryWeaver (Pratham Books)',
     language: 'en',
     // 못 읽었으면 `restricted` — "모른다" 를 "허용" 으로 바꾸지 않는다.
