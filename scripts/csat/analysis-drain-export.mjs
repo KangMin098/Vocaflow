@@ -113,7 +113,7 @@ function pack(it) {
 
 // 기존 청크는 지운다 — 남은 몫이 줄었는데 옛 청크가 남아 있으면 두 번 일한다
 let removed = 0
-for (const f of fs.readdirSync(WORK).filter((f) => /^chunk-\d+\.json$/.test(f))) {
+for (const f of fs.readdirSync(WORK).filter((f) => f.startsWith('chunk-') && f.endsWith('.json') && !f.endsWith('.out.json'))) {
   fs.rmSync(path.join(WORK, f))
   removed += 1
 }
@@ -125,7 +125,11 @@ outer: for (const [typeId, arr] of types) {
     if (n >= LIMIT) break outer
     const slice = arr.slice(i, i + SIZE)
     n += 1
-    const name = `chunk-${String(n).padStart(2, '0')}.json`
+    // **청크 이름에 일련번호를 쓰지 않는다.** export 를 다시 돌리면 남은 몫이 줄어
+    // `chunk-01` 이 어제와 다른 문항을 담는다. 그러면 `chunk-01.out.json` 이
+    // 다른 문항의 원장을 덮어쓴다 — 재실행 안전이 정반대로 뒤집힌다.
+    // 첫 문항 id 로 이름을 지으면 같은 몫은 늘 같은 이름, 다른 몫은 늘 다른 이름이다.
+    const name = `chunk-${typeId}-${slice[0].id.replace('#', '-')}.json`
     const payload = {
       chunk: n,
       type_id: typeId,
@@ -134,7 +138,7 @@ outer: for (const [typeId, arr] of types) {
       items: slice.map(pack),
     }
     fs.writeFileSync(path.join(WORK, name), JSON.stringify(payload, null, 1))
-    manifest.push({ chunk: n, file: name, type_id: typeId, type_name: slice[0].type_name, count: slice.length })
+    manifest.push({ seq: n, file: name, type_id: typeId, type_name: slice[0].type_name, count: slice.length })
   }
 }
 

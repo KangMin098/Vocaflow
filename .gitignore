@@ -159,5 +159,8 @@ scripts/csat/data/corpus.json
 # 기출 분석 드레인 — 청크는 export 가 매번 다시 뽑는 소모품이다.
 #   **명세(_PROMPT.md)와 결과(*.out.json)는 남긴다** — out 이 원장이고, 그게 없으면
 #   재실행 안전(이미 채운 몫 건너뛰기)이 성립하지 않는다.
+#   청크 이름은 첫 문항 id 에서 나온다 — 일련번호를 쓰면 export 를 다시 돌릴 때
+#   chunk-01 이 다른 문항을 담게 되고, out 원장이 덮어써진다.
 scripts/csat/analysis-drain/chunk-*.json
+!scripts/csat/analysis-drain/*.out.json
 scripts/csat/analysis-drain/_MANIFEST.json
