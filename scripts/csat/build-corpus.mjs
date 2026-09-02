@@ -147,8 +147,17 @@ function suspectBody(passage, typeId) {
   //    비어 있지 않아서 `body_ok` 가 true 로 남는다(실측 2016#31: 선지 5개가 지문 끝에 붙어
   //    있었는데 딱지가 안 붙어 원문 블록이 안 실렸다. 서브에이전트가 손으로 복원해야 했다).
   if (!SYMBOL_CHOICE_TYPES.has(typeId) && /[①②③④⑤]/.test(passage)) return true
+  // ⑨ **지문이 기능어로 끝난다** — `…and` · `…of the` · `…trying to` · `…was so`.
+  //    영어 문단은 기능어로 끝나지 않는다. 끝났다면 그 자리에서 잘린 것이다.
+  //    「마침표가 없다」로 재면 144건이 걸리는데 대부분 쪽번호·각주·서명 줄이라 못 쓴다(오탐 88).
+  //    기능어 목록으로 좁히면 **13건 · 오탐 0** 이다(2026-09-02 전수 확인). 좁은 자가 쓰인다.
+  if (TRUNCATED_TAIL.test(passage.trim())) return true
   return false
 }
+
+/** 영어 문단이 여기서 끝날 리 없는 낱말들 — 끝났다면 잘린 것이다 */
+const TRUNCATED_TAIL =
+  /\b(?:a|an|the|of|to|in|on|at|for|with|and|or|but|that|which|is|are|was|were|be|been|as|by|from|it|its|their|his|her|this|these|those|not|has|have|had|can|will|would|should|could|may|might|than|then|when|while|because|if|so|such|into|about|over|under|between|through)\s*$/i
 
 /** 순서 배열형 선지 — `(A) － (C) － (B)`. 전각 붙임표(－)와 반각을 다 받는다 */
 const ORDER_CHOICE = /^\(([ABC])\)(?:\s*[-‐-―－]\s*\(([ABC])\)){2}/
