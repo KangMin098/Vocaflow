@@ -95,7 +95,14 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
 
               {detail.recurring_traps.length ? (
                 <section>
-                  <h2 className="font-display text-sm font-bold text-[var(--t1)]">되풀이되는 함정</h2>
+                  <h2 className="font-display text-sm font-bold text-[var(--t1)]">
+                    되풀이되는 함정
+                    {detail.recurring_traps_total > detail.recurring_traps.length ? (
+                      <span className="ml-2 font-sans text-xs font-normal text-[var(--t3)]">
+                        잦은 것 {detail.recurring_traps.length} / {detail.recurring_traps_total}
+                      </span>
+                    ) : null}
+                  </h2>
                   <ul className="mt-2 space-y-2">
                     {detail.recurring_traps.map((t, i) => (
                       <li
@@ -121,7 +128,14 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
 
               {detail.failure_modes.length ? (
                 <section>
-                  <h2 className="font-display text-sm font-bold text-[var(--t1)]">여기서 미끄러집니다</h2>
+                  <h2 className="font-display text-sm font-bold text-[var(--t1)]">
+                    여기서 미끄러집니다
+                    {detail.failure_modes_total > detail.failure_modes.length ? (
+                      <span className="ml-2 font-sans text-xs font-normal text-[var(--t3)]">
+                        {detail.failure_modes.length} / {detail.failure_modes_total}
+                      </span>
+                    ) : null}
+                  </h2>
                   <ul className="mt-2 space-y-2">
                     {detail.failure_modes.map((m, i) => (
                       <li

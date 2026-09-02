@@ -46,7 +46,10 @@ export interface CsatTypeDetail {
   answer_locus_pattern: string | null
   procedure: { step: string; on_fail?: string }[]
   recurring_traps: { trap: string; count?: number; signature?: string }[]
+  /** 접어 두기 전 전체 개수 — 화면이 «6/31» 처럼 말할 수 있어야 한다 */
+  recurring_traps_total: number
   failure_modes: string[]
+  failure_modes_total: number
   time_budget_sec: number | null
 }
 
@@ -157,7 +160,9 @@ export async function loadCsatTypeDetail(typeId: string): Promise<{ detail: Csat
         answer_locus_pattern: null,
         procedure: [],
         recurring_traps: [],
+        recurring_traps_total: 0,
         failure_modes: [],
+        failure_modes_total: 0,
         time_budget_sec: null,
       },
       error: null,
@@ -172,8 +177,15 @@ export async function loadCsatTypeDetail(typeId: string): Promise<{ detail: Csat
       n_analyzed: rep.n_analyzed,
       answer_locus_pattern: rep.answer_locus_pattern,
       procedure: arr<{ step: string; on_fail?: string }>(rep.procedure_steps),
-      recurring_traps: arr<{ trap: string; count?: number; signature?: string }>(rep.recurring_traps),
-      failure_modes: arr<string>(rep.failure_modes),
+      // **화면에 다 쏟지 않는다.** 청크를 합치면 한 유형의 함정 31종·실패 지점 61개가 된다.
+      // 그것은 원장의 값이지 학습자가 한 번에 읽을 것이 아니다(작업기억 ~4항목 · Cognitive Load).
+      // 잘라 낸 것이 아니라 **접어 둔 것**이므로 화면이 전체 개수를 함께 말한다.
+      recurring_traps: arr<{ trap: string; count?: number; signature?: string }>(rep.recurring_traps)
+        .sort((a, b) => (b.count ?? 0) - (a.count ?? 0))
+        .slice(0, 6),
+      recurring_traps_total: arr<unknown>(rep.recurring_traps).length,
+      failure_modes: arr<string>(rep.failure_modes).slice(0, 6),
+      failure_modes_total: arr<unknown>(rep.failure_modes).length,
       time_budget_sec: rep.time_budget_sec,
     },
     error: null,

@@ -81,7 +81,13 @@ for (const f of files) {
     reviewsOf.set(a.item_id, a.reviews ?? [])
   }
   const tr = j.type_report
-  if (tr?.type_id) typeReports.set(tr.type_id, tr)
+  // ⚠️ **덮어쓰면 안 된다.** 한 유형이 청크 여러 개로 나뉘므로 `set` 하면 마지막 청크만 남고,
+  //    학습자 화면은 그 한 청크(n=12)만 읽게 된다 — 실제로 DB 의 리포트 17개가 전부 n=12 였다.
+  //    청크를 가로질러 **합친다**(§합치기 규칙은 아래 mergeReports 에).
+  if (tr?.type_id) {
+    if (!typeReports.has(tr.type_id)) typeReports.set(tr.type_id, [])
+    typeReports.get(tr.type_id).push(tr)
+  }
 }
 
 console.log(`\n  파일 ${files.length} · 적재 대상 ${analyses.length} · 건너뜀 ${skipped.length} · 유형 리포트 ${typeReports.size}`)
@@ -140,21 +146,46 @@ for (const a of analyses) {
 }
 process.stdout.write('\n')
 
-// ── 유형 리포트 ───────────────────────────────────────────────────────
-for (const [tid, tr] of typeReports) {
+// ── 유형 리포트 — 청크를 가로질러 합친다 ─────────────────────────────
+/**
+ * 합치기 규칙. 항목마다 다른 이유가 있다:
+ *   · `n_analyzed` **더한다** — 유형이 실제로 몇 문항을 보고 쓴 것인지가 신뢰의 근거다
+ *   · `recurring_traps` 같은 라벨끼리 **건수를 더한다** — 표본이 커져야 순위가 뜻을 갖는다
+ *   · `procedure` **문항을 가장 많이 본 청크 것 하나**를 쓴다. 합치면 단계가 뒤엉킨다
+ *     (다른 청크의 절차는 버리지 않고 `open_questions` 에 남는 서술로 이어진다)
+ *   · `answer_locus_pattern` **이어 붙인다** — 청크마다 다르면 그 다름이 곧 발견이다
+ *     (실측: 빈칸추론 근거 위치가 옛 회차와 최근 회차에서 반대였다). 합쳐 지우면 반증이 사라진다
+ *   · `failure_modes` · `open_questions` **중복만 걷고 전부** 남긴다
+ *   · `time_budget_sec` **가장 큰 값** — 모자라면 절차가 시험장에서 안 끝난다
+ */
+function mergeReports(list) {
+  const best = [...list].sort((a, b) => (b.n_analyzed ?? 0) - (a.n_analyzed ?? 0))[0]
+  const traps = new Map()
+  for (const r of list) {
+    for (const t of r.recurring_traps ?? []) {
+      if (!t?.trap) continue
+      const e = traps.get(t.trap) ?? { trap: t.trap, count: 0, signature: null }
+      e.count += typeof t.count === 'number' ? t.count : 1
+      if (!e.signature && t.signature) e.signature = t.signature
+      traps.set(t.trap, e)
+    }
+  }
+  const loci = list.map((r) => r.answer_locus_pattern).filter(Boolean)
+  return {
+    n_analyzed: list.reduce((a, r) => a + (r.n_analyzed ?? 0), 0),
+    recurring_traps: [...traps.values()].sort((a, b) => b.count - a.count),
+    answer_locus_pattern: loci.length ? loci.join('\n\n') : null,
+    procedure_steps: best?.procedure ?? best?.procedure_steps ?? [],
+    failure_modes: [...new Set(list.flatMap((r) => r.failure_modes ?? []))],
+    open_questions: [...new Set(list.flatMap((r) => r.open_questions ?? []))],
+    time_budget_sec: Math.max(0, ...list.map((r) => r.time_budget_sec ?? 0)) || null,
+  }
+}
+
+for (const [tid, list] of typeReports) {
+  const m = mergeReports(list)
   const { error } = await db.from('csat_type_reports').upsert(
-    {
-      type_id: tid,
-      n_analyzed: tr.n_analyzed ?? 0,
-      recurring_traps: tr.recurring_traps ?? [],
-      answer_locus_pattern: tr.answer_locus_pattern ?? null,
-      procedure_steps: tr.procedure ?? [],
-      failure_modes: tr.failure_modes ?? [],
-      time_budget_sec: tr.time_budget_sec ?? null,
-      open_questions: tr.open_questions ?? [],
-      status: 'published',
-      updated_at: new Date().toISOString(),
-    },
+    { type_id: tid, ...m, status: 'published', updated_at: new Date().toISOString() },
     { onConflict: 'type_id' },
   )
   if (error) throw new Error(`유형 리포트 ${tid}: ${error.message}`)
