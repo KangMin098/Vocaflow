@@ -190,7 +190,10 @@ export function passageOf(block) {
     l = l.replace(/^.*[가-힣](?:의|을|를|은|는|에|와|과|로|으로)\s+(?=[A-Z])/, '')
     l = l.replace(/\[\s*[23]\s*점\s*\]/g, '')
     if (!l.trim()) continue
-    body.push(l.trim())
+    // **빈칸을 잃어버리지 않는다.** 평가원 PDF 의 빈칸은 밑줄이 아니라 **공백 폭**으로 온다
+    // (`a(n)        state`). 뒤에서 공백을 접으면 빈칸이 그냥 한 칸이 되어,
+    // 빈칸추론 117문항의 **빈칸 위치가 통째로 사라진다** — 이 유형은 정답 근거가 위치다.
+    body.push(l.trim().replace(/ {4,}/g, ' ______ '))
   }
   return body
     .join(' ')
@@ -216,6 +219,10 @@ function trimChoice(s) {
   t = t.replace(/\s*\*?\s*확인\s*사항[\s\S]*$/, '')
   t = t.replace(/\s*문제지의\s*지시[\s\S]*$/, '')
   t = t.replace(/(?:\s*,\s*){2,}[\s\S]*$/, '')
+  // 지면 하단 고지가 마지막 선지에 붙는다 — 실측: M2706#32 의 ⑤ 끝에 통째로 들어왔다
+  t = t.replace(/\s*\d*\s*이\s*문제지에\s*관한\s*저작권[\s\S]*$/, '')
+  t = t.replace(/\s+\d{1,2}\s*$/, '') // 쪽번호 잔재
+  t = t.replace(/\s+[가-힣]{1,3}\s*$/, '') // 옆 단에서 넘어온 한글 토막
   return t.replace(/[\s,]+$/, '').trim()
 }
 

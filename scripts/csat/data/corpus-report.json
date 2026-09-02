@@ -7,14 +7,14 @@
  "typed": 1340,
  "keyed": 1035,
  "passaged": 954,
- "choiced": 1169,
+ "choiced": 1173,
  "in_scope": {
   "items": 830,
   "expected": 830,
   "typed": 830,
   "keyed": 634,
   "passaged": 805,
-  "choiced": 793,
+  "choiced": 796,
   "body_suspect": 42,
   "exams_fully_keyed": 23,
   "listening_type_in_scope": [],
@@ -171,7 +171,7 @@
     "typed": 28,
     "keyed": 28,
     "passaged": 28,
-    "choiced": 27,
+    "choiced": 28,
     "points": 63
    },
    {
@@ -325,7 +325,7 @@
     "typed": 28,
     "keyed": 28,
     "passaged": 28,
-    "choiced": 27,
+    "choiced": 28,
     "points": 63
    },
    {
@@ -336,7 +336,7 @@
     "typed": 28,
     "keyed": 28,
     "passaged": 27,
-    "choiced": 26,
+    "choiced": 27,
     "points": 63
    },
    {
@@ -449,7 +449,7 @@
    "typed": 45,
    "keyed": 45,
    "passaged": 33,
-   "choiced": 36,
+   "choiced": 37,
    "points": 100
   },
   {
@@ -504,7 +504,7 @@
    "typed": 45,
    "keyed": 45,
    "passaged": 32,
-   "choiced": 43,
+   "choiced": 44,
    "points": 100
   },
   {
@@ -658,7 +658,7 @@
    "typed": 45,
    "keyed": 45,
    "passaged": 32,
-   "choiced": 43,
+   "choiced": 44,
    "points": 100
   },
   {
@@ -669,7 +669,7 @@
    "typed": 45,
    "keyed": 45,
    "passaged": 31,
-   "choiced": 42,
+   "choiced": 43,
    "points": 100
   },
   {
