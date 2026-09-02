@@ -29,6 +29,23 @@ register 로 세니 expository 126 · news 62 · reference 2 · **narrative 0**.
   영어를 ASCII *비율*로 골라 3,182권을 144권으로. **`fetch` 의 timeout 은 연결을 못 늘린다**
   (undici `connectTimeout` 10초 고정) → `node:https` 경로 `getSlow()` 분리
 - 리포트 `docs/reports/kid-source-discovery-20260902.md` — 표본 16의 오차(±12%p)를 명시
+- 표본 100 재측정 — 초창 **5,246** · 중창 **9,117** (자릿수 유지). FrYM 중창 100%는 n=50에서도 그대로.
+  다만 `--sample 100` 이 실제로 100을 받은 것은 ASB 셋뿐(StoryWeaver `per_page` 24 · Vikidia·Crossref 50 상한)
+
+### 원문 축(B1~B5) — 지문 자체를 재는 자가 없었다
+
+`scripts/textbook/passage-axis-bench.mjs`. 기존 7축(A1~A7)은 전부 문항·해설 축이고 원문은
+A6(길이)만 봤다 — **"원문이 시중보다 우위인가" 에 답하는 축이 하나도 없었다.**
+우리 228편(42~173어) vs 시중 초·중 독해 37종 1,924쪽.
+
+- **B1 출처 명시율** 73.7% vs **0/1,924쪽** · **B2 라이선스** 83.3% vs 0% · **B4 진본성** 72.8% vs 0% — 셋 다 **범주차**
+- **B3 register 다양성 FAIL**(narrative 0편) · **B5 발행일 명시율 FAIL**(15.8%)
+- **시중 기준선 1% 미만이면 지수를 내지 않는다** — 사진 크레딧 2쪽을 출처로 오인했을 때
+  **250.772×** 가 찍혔다. 우위가 아니라 표본 잡음의 역수다. 그 2쪽은 같은 책 사본 2벌의
+  `Photo Credits` 쪽이었고, 낱말로 센 "출처" 9·"Source" 58·"adapted" 8쪽도 전부 지문·해설
+  본문 안의 낱말이었다(`resource` · `has adapted to`)
+- **이 자가 우리 결함 넷을 먼저 찾았다** — narrative 0 · 자작 지문 62편(27%) ·
+  발행일 미상 192편(84%) · 재배포 불가 38편
 
 ### 평가원 기출 원장 — "전체" 라고 적으려면 분모부터 세어야 했다
 
