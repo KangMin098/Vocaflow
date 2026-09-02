@@ -10,6 +10,26 @@
 
 ## Unreleased (v06.34 → next)
 
+### 초·중 지문 소스 발굴 — 이야기 지문이 **0편**이었다
+
+초·중 창(초 44~121어 · 중 42~173어)에 드는 글이 19,350편 중 **141/154편**뿐이고 그중
+70%가 NASA 한 곳인데, 그 몫이 전부 `image-article`·`image-detail` — **사진 설명글**이었다.
+register 로 세니 expository 126 · news 62 · reference 2 · **narrative 0**. 재고 부족이 아니라
+**종류 부재**라 편수를 늘려도 해결되지 않는다.
+
+- `scripts/textbook/kid-source-probe.mjs` — 후보 소스를 어수·라이선스·register 세 축으로 실측.
+  창은 `market-spec.json`(시중 79종 p10~p90)을 그대로 쓴다 — 자를 새로 만들지 않는다
+- 실측 5곳 전부 CC 확인(16/16) — **Frontiers for Young Minds** 1,975편(초록이 곧 지문,
+  중창 적중 **100%**, CC BY 4.0 · Crossref) · **StoryWeaver L1** 5,281권(narrative, CC BY 4.0,
+  수준이 API 파라미터) · **African Storybook** 3,182권 · **Vikidia EN** 6,099항목
+- 추정 재고 **초창 4,088 · 중창 7,584** (현재 141/154 → 29배·49배) · narrative 중창 **0 → 4,462**
+- 못 연 곳 9곳을 이유와 함께 기록 — 403(Cloudflare) 3 · API 소멸 3 · 404 3. UA 위장 안 함
+- 프로브가 스스로 틀린 것 4건을 코드 주석에 남김 — `<script>` 미제거로 231어가 997어 ·
+  수준을 섞어 재 "적중 20%" · 라이선스를 `/CC/i` 로만 세 CC BY 20건을 0건으로 ·
+  영어를 ASCII *비율*로 골라 3,182권을 144권으로. **`fetch` 의 timeout 은 연결을 못 늘린다**
+  (undici `connectTimeout` 10초 고정) → `node:https` 경로 `getSlow()` 분리
+- 리포트 `docs/reports/kid-source-discovery-20260902.md` — 표본 16의 오차(±12%p)를 명시
+
 ### 평가원 기출 원장 — "전체" 라고 적으려면 분모부터 세어야 했다
 
 수능 14회차(630문항)만 있던 기출 코퍼스에 **모의평가를 전 회차 편입**. 손목록으로 4회차만

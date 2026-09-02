@@ -1,0 +1,1330 @@
+{
+  "measured_at": "2026-09-02T04:51:44.149Z",
+  "sample": 16,
+  "windows": {
+    "elementary": {
+      "min": 44,
+      "max": 121
+    },
+    "middle": {
+      "min": 42,
+      "max": 173
+    }
+  },
+  "sources": [
+    {
+      "id": "storyweaver:L1",
+      "source": "storyweaver",
+      "level": "1",
+      "label": "StoryWeaver (Pratham Books)",
+      "register": "narrative",
+      "ok": true,
+      "licenseDeclared": "CC BY 4.0 (책마다 다름 — 글 안에서 확인)",
+      "note": "읽기 수준 1~4 가 메타데이터에 있다. 인도 발행이라 영어가 제2언어인 독자를 상정하고 쓰였다.",
+      "total": 5281,
+      "sampled": 16,
+      "extracted": 16,
+      "failed": 0,
+      "words": {
+        "min": 51,
+        "p25": 102,
+        "median": 151,
+        "p75": 198,
+        "max": 291
+      },
+      "inElementary": 7,
+      "inMiddle": 9,
+      "pctElementary": 43.8,
+      "pctMiddle": 56.3,
+      "licenseConfirmedInBand": 16,
+      "ms": 37311,
+      "items": [
+        {
+          "id": "369-the-red-raincoat",
+          "title": "The Red Raincoat",
+          "words": 231,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "2-smile-please",
+          "title": "Smile Please!",
+          "words": 102,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "98-rani-s-first-day-at-school",
+          "title": "Rani's First Day at School",
+          "words": 179,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "7-fat-king-thin-dog",
+          "title": "Fat King Thin Dog",
+          "words": 68,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "16411-too-big-too-small",
+          "title": "Too Big! Too Small!",
+          "words": 193,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "1042-my-best-friend",
+          "title": "My Best Friend",
+          "words": 111,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "49-my-fish-no-my-fish",
+          "title": "My fish! No, my fish!",
+          "words": 185,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "82-i-want-that-one",
+          "title": "I Want That One!",
+          "words": 291,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "332-bheema-the-sleepyhead",
+          "title": "Bheema, the Sleepyhead",
+          "words": 279,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "48016-gappu-can-t-dance",
+          "title": "Gappu Can't Dance",
+          "words": 151,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "202-bunty-and-bubbly",
+          "title": "Bunty and Bubbly",
+          "words": 120,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "12294-the-race",
+          "title": "The Race",
+          "words": 55,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "356-lost-and-found",
+          "title": "Lost and Found",
+          "words": 149,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "37232-the-bee-and-the-elephant",
+          "title": "The Bee and the Elephant",
+          "words": 78,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "1052-busy-ants",
+          "title": "Busy Ants",
+          "words": 198,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "137-can-and-can-t",
+          "title": "Can and Can't",
+          "words": 51,
+          "license": "CC-BY-4.0",
+          "level": "1",
+          "unit": "full"
+        }
+      ],
+      "projectedElementary": 2313,
+      "projectedMiddle": 2973
+    },
+    {
+      "id": "storyweaver:L2",
+      "source": "storyweaver",
+      "level": "2",
+      "label": "StoryWeaver (Pratham Books)",
+      "register": "narrative",
+      "ok": true,
+      "licenseDeclared": "CC BY 4.0 (책마다 다름 — 글 안에서 확인)",
+      "note": "읽기 수준 1~4 가 메타데이터에 있다. 인도 발행이라 영어가 제2언어인 독자를 상정하고 쓰였다.",
+      "total": 5453,
+      "sampled": 16,
+      "extracted": 16,
+      "failed": 0,
+      "words": {
+        "min": 155,
+        "p25": 243,
+        "median": 351,
+        "p75": 500,
+        "max": 650
+      },
+      "inElementary": 0,
+      "inMiddle": 2,
+      "pctElementary": 0,
+      "pctMiddle": 12.5,
+      "licenseConfirmedInBand": 16,
+      "ms": 85254,
+      "items": [
+        {
+          "id": "10118-ammachi-s-amazing-machines",
+          "title": "Ammachi's Amazing Machines",
+          "words": 190,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "1281-it-s-all-the-cat-s-fault",
+          "title": "It's All the Cat's Fault!",
+          "words": 189,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "283-annual-haircut-day",
+          "title": "Annual Haircut Day",
+          "words": 243,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "208-too-many-bananas",
+          "title": "Too Many Bananas",
+          "words": 500,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "1208-singing-in-the-rain",
+          "title": "Singing in the Rain",
+          "words": 351,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "10115-what-s-neema-eating-today",
+          "title": "What's Neema Eating Today?",
+          "words": 348,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "876-mouse-in-the-house",
+          "title": "Mouse in the House",
+          "words": 261,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "12433-angry-akku",
+          "title": "Angry Akku",
+          "words": 582,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "39753-rabbit-becomes-a-chef",
+          "title": "Rabbit Becomes a Chef",
+          "words": 155,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "27121-when-will-amma-be-back",
+          "title": "When Will Amma Be Back?",
+          "words": 443,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "61394-get-down-rocky",
+          "title": "Get Down, Rocky!",
+          "words": 171,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "122-no-smiles-today",
+          "title": "No Smiles Today",
+          "words": 243,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "946-too-much-noise",
+          "title": "Too Much Noise",
+          "words": 626,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "7263-brushing-is-no-fun",
+          "title": "Brushing is No Fun!",
+          "words": 650,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "26650-the-magic-block",
+          "title": "The Magic Block",
+          "words": 401,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "258-goodnight-tinku",
+          "title": "Goodnight, Tinku!",
+          "words": 420,
+          "license": "CC-BY-4.0",
+          "level": "2",
+          "unit": "full"
+        }
+      ],
+      "projectedElementary": 0,
+      "projectedMiddle": 682
+    },
+    {
+      "id": "storyweaver:L3",
+      "source": "storyweaver",
+      "level": "3",
+      "label": "StoryWeaver (Pratham Books)",
+      "register": "narrative",
+      "ok": true,
+      "licenseDeclared": "CC BY 4.0 (책마다 다름 — 글 안에서 확인)",
+      "note": "읽기 수준 1~4 가 메타데이터에 있다. 인도 발행이라 영어가 제2언어인 독자를 상정하고 쓰였다.",
+      "total": 3683,
+      "sampled": 16,
+      "extracted": 16,
+      "failed": 0,
+      "words": {
+        "min": 240,
+        "p25": 552,
+        "median": 837,
+        "p75": 1038,
+        "max": 2787
+      },
+      "inElementary": 0,
+      "inMiddle": 0,
+      "pctElementary": 0,
+      "pctMiddle": 0,
+      "licenseConfirmedInBand": 16,
+      "ms": 69133,
+      "items": [
+        {
+          "id": "59108-the-girl-who-could-not-stop-laughing",
+          "title": "The Girl Who Could Not Stop Laughing",
+          "words": 935,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "24620-a-book-for-puchku",
+          "title": "A Book for Puchku",
+          "words": 552,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "11627-a-butterfly-smile",
+          "title": "A Butterfly Smile",
+          "words": 807,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "34971-sailing-ships-and-sinking-spoons",
+          "title": "Sailing Ships and Sinking Spoons",
+          "words": 1188,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "355071-sweet-sunday",
+          "title": "Sweet Sunday",
+          "words": 240,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "61025-the-animals-meeting",
+          "title": "The Animals Meeting",
+          "words": 811,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "37744-the-night-the-moon-went-missing",
+          "title": "The Night the Moon Went Missing",
+          "words": 838,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "5052-jadav-and-the-tree-place",
+          "title": "Jadav and the Tree-Place",
+          "words": 1437,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "1091-the-boy-and-the-drum",
+          "title": "The Boy and the Drum",
+          "words": 2787,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "89567-ammachi-s-incredible-investigation",
+          "title": "Ammachi's Incredible Investigation",
+          "words": 452,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "114216-when-i-grow-up",
+          "title": "When I Grow Up",
+          "words": 493,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "26727-welcome-to-the-forest",
+          "title": "Welcome to the Forest",
+          "words": 837,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "60744-whoop-goes-the-pufferfish",
+          "title": "Whoop, Goes the Pufferfish",
+          "words": 352,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "58964-stage-fright",
+          "title": "Stage Fright",
+          "words": 552,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "10727-the-will",
+          "title": "The Will",
+          "words": 1038,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "150744-annual-haircut-day-once-again",
+          "title": "Annual Haircut Day - ONCE AGAIN!",
+          "words": 934,
+          "license": "CC-BY-4.0",
+          "level": "3",
+          "unit": "full"
+        }
+      ],
+      "projectedElementary": 0,
+      "projectedMiddle": 0
+    },
+    {
+      "id": "african_storybook:L1",
+      "source": "african_storybook",
+      "level": "1",
+      "label": "African Storybook (Saide)",
+      "register": "narrative",
+      "ok": true,
+      "licenseDeclared": "CC BY 4.0 (책마다 다름)",
+      "note": "읽기 수준 1~5. 목록이 JS 배열(`bookItems.push`)이라 파서가 따로 필요하다. 이용자 투고본이 섞여 길이 분포가 넓다.",
+      "total": 298,
+      "sampled": 16,
+      "extracted": 16,
+      "failed": 0,
+      "words": {
+        "min": 73,
+        "p25": 145,
+        "median": 170,
+        "p75": 192,
+        "max": 290
+      },
+      "inElementary": 2,
+      "inMiddle": 9,
+      "pctElementary": 12.5,
+      "pctMiddle": 56.3,
+      "licenseConfirmedInBand": 16,
+      "ms": 42014,
+      "items": [
+        {
+          "id": "34093",
+          "title": "A Day with Ada and Eze",
+          "words": 150,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "918",
+          "title": "A very tall man",
+          "words": 164,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "32142",
+          "title": "A very tall man (Colour-in)",
+          "words": 170,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "915",
+          "title": "Accident",
+          "words": 140,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "24646",
+          "title": "AIDS kills even the handsome",
+          "words": 179,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "37336",
+          "title": "Animal Alphabet",
+          "words": 113,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "10257",
+          "title": "Animals and their noises",
+          "words": 145,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "20884",
+          "title": "Animals get legs",
+          "words": 209,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "24674",
+          "title": "Animals of the jungle",
+          "words": 143,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "20874",
+          "title": "Animals run away",
+          "words": 192,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "19749",
+          "title": "Ape and Crocodile",
+          "words": 226,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "19751",
+          "title": "Baboon\\'s orders",
+          "words": 191,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "20910",
+          "title": "Baby and cranes",
+          "words": 153,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "21446",
+          "title": "Bad king",
+          "words": 290,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "21979",
+          "title": "Beauty",
+          "words": 73,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        },
+        {
+          "id": "19752",
+          "title": "Beloved daughter",
+          "words": 178,
+          "license": "CC(형태 미확정)",
+          "level": "1",
+          "unit": "full"
+        }
+      ],
+      "projectedElementary": 37,
+      "projectedMiddle": 168
+    },
+    {
+      "id": "african_storybook:L2",
+      "source": "african_storybook",
+      "level": "2",
+      "label": "African Storybook (Saide)",
+      "register": "narrative",
+      "ok": true,
+      "licenseDeclared": "CC BY 4.0 (책마다 다름)",
+      "note": "읽기 수준 1~5. 목록이 JS 배열(`bookItems.push`)이라 파서가 따로 필요하다. 이용자 투고본이 섞여 길이 분포가 넓다.",
+      "total": 386,
+      "sampled": 16,
+      "extracted": 16,
+      "failed": 0,
+      "words": {
+        "min": 151,
+        "p25": 160,
+        "median": 183,
+        "p75": 221,
+        "max": 317
+      },
+      "inElementary": 0,
+      "inMiddle": 7,
+      "pctElementary": 0,
+      "pctMiddle": 43.8,
+      "licenseConfirmedInBand": 16,
+      "ms": 32991,
+      "items": [
+        {
+          "id": "12968",
+          "title": "A careless man",
+          "words": 154,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "33736",
+          "title": "A garden in Congo",
+          "words": 152,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "24219",
+          "title": "A happy family",
+          "words": 198,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "5394",
+          "title": "A Hot Saturday",
+          "words": 236,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "9118",
+          "title": "A House for Mouse",
+          "words": 183,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "7263",
+          "title": "A Trip to Zanzibar",
+          "words": 167,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "35666",
+          "title": "A Young Dressmaker",
+          "words": 164,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "11604",
+          "title": "Aardvark Digs for Ants",
+          "words": 160,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "36725",
+          "title": "Abby and Layla",
+          "words": 153,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "12926",
+          "title": "Ah! Football!",
+          "words": 317,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "37753",
+          "title": "Aha! Said the animals",
+          "words": 151,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "23165",
+          "title": "Alake loves Visitors",
+          "words": 223,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "23465",
+          "title": "Alake loves visitors",
+          "words": 210,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "33933",
+          "title": "An Orphan",
+          "words": 180,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "34206",
+          "title": "An orphan",
+          "words": 218,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        },
+        {
+          "id": "33962",
+          "title": "An Orphan",
+          "words": 221,
+          "license": "CC(형태 미확정)",
+          "level": "2",
+          "unit": "full"
+        }
+      ],
+      "projectedElementary": 0,
+      "projectedMiddle": 169
+    },
+    {
+      "id": "african_storybook:L3",
+      "source": "african_storybook",
+      "level": "3",
+      "label": "African Storybook (Saide)",
+      "register": "narrative",
+      "ok": true,
+      "licenseDeclared": "CC BY 4.0 (책마다 다름)",
+      "note": "읽기 수준 1~5. 목록이 JS 배열(`bookItems.push`)이라 파서가 따로 필요하다. 이용자 투고본이 섞여 길이 분포가 넓다.",
+      "total": 1881,
+      "sampled": 16,
+      "extracted": 16,
+      "failed": 0,
+      "words": {
+        "min": 63,
+        "p25": 240,
+        "median": 281,
+        "p75": 401,
+        "max": 921
+      },
+      "inElementary": 2,
+      "inMiddle": 4,
+      "pctElementary": 12.5,
+      "pctMiddle": 25,
+      "licenseConfirmedInBand": 16,
+      "ms": 33680,
+      "items": [
+        {
+          "id": "37519",
+          "title": "(:) The Goffy Kid (:)",
+          "words": 682,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "35408",
+          "title": "26 Letter Alphabet",
+          "words": 675,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "52224",
+          "title": "26 Letter Sign Language Alphabet",
+          "words": 275,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "39840",
+          "title": "A bad lady learns her lesson",
+          "words": 264,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "37606",
+          "title": "A big bang",
+          "words": 170,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "48424",
+          "title": "A big blue bus",
+          "words": 401,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "47845",
+          "title": "A blessed man",
+          "words": 63,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "38785",
+          "title": "A Bloody lake",
+          "words": 278,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "46526",
+          "title": "A boy named Tiago who loved sugar",
+          "words": 300,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "45456",
+          "title": "A braai day",
+          "words": 293,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "37035",
+          "title": "A braai day",
+          "words": 297,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "36849",
+          "title": "A braai day",
+          "words": 281,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "36889",
+          "title": "A Breathe Of Freedom",
+          "words": 921,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "39928",
+          "title": "A car accident",
+          "words": 135,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "46660",
+          "title": "A car got an accident",
+          "words": 240,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        },
+        {
+          "id": "45849",
+          "title": "A computer is like a brain",
+          "words": 69,
+          "license": "CC(형태 미확정)",
+          "level": "3",
+          "unit": "full"
+        }
+      ],
+      "projectedElementary": 235,
+      "projectedMiddle": 470
+    },
+    {
+      "id": "vikidia_en",
+      "source": "vikidia_en",
+      "level": null,
+      "label": "Vikidia (English) — 8~13세 백과",
+      "register": "expository",
+      "ok": true,
+      "licenseDeclared": "CC BY-SA 3.0",
+      "note": "도입부(exintro)가 본래 44~173어 언저리다. MediaWiki API 라 무작위 표집이 공짜다.",
+      "total": 6099,
+      "sampled": 16,
+      "extracted": 16,
+      "failed": 0,
+      "words": {
+        "min": 6,
+        "p25": 14,
+        "median": 35,
+        "p75": 197,
+        "max": 274
+      },
+      "inElementary": 2,
+      "inMiddle": 3,
+      "pctElementary": 12.5,
+      "pctMiddle": 18.8,
+      "licenseConfirmedInBand": 16,
+      "ms": 28948,
+      "items": [
+        {
+          "id": "Balboa",
+          "title": "Balboa",
+          "words": 24,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Immaculate Conception",
+          "title": "Immaculate Conception",
+          "words": 53,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Marvel villains created by Stan Lee",
+          "title": "Marvel villains created by Stan Lee",
+          "words": 274,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Bill Gates",
+          "title": "Bill Gates",
+          "words": 163,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Milwaukee, Wisconsin",
+          "title": "Milwaukee, Wisconsin",
+          "words": 11,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Grimer",
+          "title": "Grimer",
+          "words": 13,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Government",
+          "title": "Government",
+          "words": 63,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Totalitarianism",
+          "title": "Totalitarianism",
+          "words": 35,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Mi Mama! ( My Mother)",
+          "title": "Mi Mama! ( My Mother)",
+          "words": 197,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Dodge",
+          "title": "Dodge",
+          "words": 6,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Honduras",
+          "title": "Honduras",
+          "words": 15,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Missile",
+          "title": "Missile",
+          "words": 11,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Hœnir",
+          "title": "Hœnir",
+          "words": 216,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "91",
+          "title": "91",
+          "words": 14,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Ancient Greece",
+          "title": "Ancient Greece",
+          "words": 223,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        },
+        {
+          "id": "Data.gouv.fr",
+          "title": "Data.gouv.fr",
+          "words": 19,
+          "license": "CC-BY-SA-3.0",
+          "level": null,
+          "unit": "full"
+        }
+      ],
+      "projectedElementary": 762,
+      "projectedMiddle": 1147
+    },
+    {
+      "id": "frontiers_young_minds",
+      "source": "frontiers_young_minds",
+      "level": null,
+      "label": "Frontiers for Young Minds — 8~15세 심사 과학지",
+      "register": "expository",
+      "ok": true,
+      "licenseDeclared": "CC BY 4.0 (Crossref 메타데이터로 확인)",
+      "note": "Crossref(ISSN 2296-6846) 로 목록·라이선스가 나온다. 본문 길이는 재 봐야 안다.",
+      "total": 1975,
+      "sampled": 16,
+      "extracted": 16,
+      "failed": 0,
+      "words": {
+        "min": 89,
+        "p25": 118,
+        "median": 139,
+        "p75": 145,
+        "max": 153
+      },
+      "inElementary": 6,
+      "inMiddle": 16,
+      "pctElementary": 37.5,
+      "pctMiddle": 100,
+      "licenseConfirmedInBand": 16,
+      "ms": 22823,
+      "items": [
+        {
+          "id": "10.3389/frym.2026.1845973",
+          "title": "AI in Medicine: Advisor, Copilot, or Navigator?",
+          "words": 132,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1669558",
+          "title": "The Amazing Thalamus: Your Brain’s Message Center",
+          "words": 121,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1768077",
+          "title": "Molecular “Pumpkins” That Trap Molecules and Speed Up Reactions",
+          "words": 134,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1629049",
+          "title": "More Than Seaweed: the Hidden Importance and Uncertain Future of Kelp Forests",
+          "words": 145,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1684490",
+          "title": "What is Guillain-Barré Syndrome?",
+          "words": 117,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1723690",
+          "title": "How Does Your Brain Predict the Future When You Hear Speech?",
+          "words": 99,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1678122",
+          "title": "When Floods Stir Up Hidden Contaminants",
+          "words": 118,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1648189",
+          "title": "Tiny Ticks, Big Appetite: Why do They Drink Blood?",
+          "words": 151,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1892859",
+          "title": "Tiny Metal Carriers Help Doctors See Inside the Body",
+          "words": 139,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1673545",
+          "title": "Drawing Into Early Writing: It All Starts with Scribble Lines",
+          "words": 115,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1611962",
+          "title": "How Do Bilingual People Avoid Falling for Tricky Words?",
+          "words": 142,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1697043",
+          "title": "Do Your School Results Show Everything You Learn?",
+          "words": 144,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1685400",
+          "title": "Using Math to Help Treat Brain Cancer",
+          "words": 143,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1572719",
+          "title": "What Makes a Poison Dart Frog Poisonous?",
+          "words": 89,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1829826",
+          "title": "Could Mitochondrial Energy Problems Make People Sick?",
+          "words": 153,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        },
+        {
+          "id": "10.3389/frym.2026.1676601",
+          "title": "Plant Fingerprints: How Tiny DNA Changes Make A Big Difference",
+          "words": 145,
+          "license": "https://creativecommons.org/licenses/by/4.0/",
+          "level": null,
+          "unit": "abstract"
+        }
+      ],
+      "projectedElementary": 741,
+      "projectedMiddle": 1975
+    }
+  ],
+  "unreachable": [
+    {
+      "id": "science_journal_for_kids",
+      "why": "HTTP 403 (봇 차단). 라이선스는 CC BY 로 명시돼 있어 협의 여지는 있다."
+    },
+    {
+      "id": "loc_free_to_use",
+      "why": "HTTP 403 — Cloudflare 관문. UA 를 위장하지 않는다(저장소 규칙)."
+    },
+    {
+      "id": "nih_news_in_health",
+      "why": "HTTP 403 — Cloudflare 관문. PD 라 아깝지만 지금은 못 연다."
+    },
+    {
+      "id": "global_digital_library",
+      "why": "api.digitallibrary.io DNS/연결 실패, content.digitallibrary.io/api 404. API 가 사라진 것으로 보인다."
+    },
+    {
+      "id": "bloom_library",
+      "why": "api.bloomlibrary.org/v1/classes/books 404 — 주소가 바뀐 듯. 다시 찾아야 한다."
+    },
+    {
+      "id": "lets_read_asia",
+      "why": "api.letsreadasia.org 연결 실패(000)."
+    },
+    {
+      "id": "nasa_space_place",
+      "why": "spaceplace.nasa.gov/rss.xml 연결 실패(000)."
+    },
+    {
+      "id": "nps_gov",
+      "why": "www.nps.gov/rss/news.xml 404."
+    },
+    {
+      "id": "wikijunior",
+      "why": "en.wikibooks.org Category:Wikijunior 가 비어 있다(0건) — 분류명이 다르다."
+    }
+  ],
+  "projected": {
+    "elementary": 4088,
+    "middle": 7584
+  }
+}
