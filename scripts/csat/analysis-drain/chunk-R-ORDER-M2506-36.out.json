@@ -1,0 +1,732 @@
+{
+ "chunk": 7,
+ "type_id": "R-ORDER",
+ "type_name": "글의 순서",
+ "analyses": [
+  {
+   "item_id": "M2506#36",
+   "body_recovered": true,
+   "revised": true,
+   "measured_ability": "주어진 글이 세운 시간 축(원주민의 오래된 소각 → 목축업자가 들여온 새 소각) 위에서, 각 문단 첫 문장의 인물 지시어(their animals · they returned)와 정관사구(the burnt areas · such regrowth)가 어느 문단에서 처음 소개된 명사를 받는지 짚어 배열을 확정하는 능력",
+   "design_intent": "세 문단이 모두 불·식생이라는 같은 어휘장을 써서 낱말 겹침으로는 갈리지 않게 만들어 두고, 등장인물(목축업자와 그 가축)을 (A)에서만 처음 내놓았다. (C)의 their animals ... when they returned 와 (B)의 the burnt areas · such regrowth 가 그것을 받도록 배치해, 지시 관계 두 개만으로 배열이 잠기게 한 문항이다.",
+   "answer_locus": {
+    "sentence_index": [5, 8],
+    "quote": "The young shoots were a ready food source for their animals when they returned.",
+    "reasoning": "(A) 마지막 문장이 stimulated new plant growth in the following spring 으로 새싹을 처음 내놓고, 이 문장이 그것을 The young shoots 로 받는다. 같은 문장의 their animals ... they returned 는 (A)의 they moved their animals out for the winter 의 목축업자와 가축을 받는다 — 주어진 글에는 가축도 목축업자도 한 번도 나오지 않으므로 (C)는 (A) 뒤에만 놓인다. 그리고 (C) 마지막 문장의 the scrubby growth 를 (B)의 such regrowth 가 받아 (C)-(B)가 붙는다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "correct",
+     "trap": null,
+     "why_tempting": "(A)의 However 가 주어진 글의 수천 년 원주민 소각과 목축업자가 들여온 소각을 직접 대비하고, (A) 끝의 new plant growth → (C)의 The young shoots → (C) 끝의 the scrubby growth → (B)의 woody plants and shrubs 로 지시 연쇄가 한 번도 끊기지 않는다.",
+     "how_to_reject": "배제 대상이 아니다 — 검산은 세 지점이다. ① (A) 첫 문장의 previous regimes 가 주어진 글의 millennia 관행을 받는가 ② (C)의 they returned 앞에 동물을 데리고 나간 문장이 있는가 ③ (B)의 such regrowth 앞에 재생장이 언급됐는가."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "정관사 첫 등장 역전",
+     "why_tempting": "(B)의 Although grasses were the first kinds of plants to recolonize the burnt areas 가 주어진 글의 불을 놓는다와 곧바로 이어지는 것처럼 읽힌다 — 불 → 탄 자리 → 풀 이라는 상식 순서를 지문 순서로 착각한다.",
+     "how_to_reject": "(B) 첫 문장의 the burnt areas 는 정관사다. 어느 소각으로 탄 자리인지 앞에서 지정돼 있어야 하는데, 주어진 글은 소각을 millennia 단위 관행으로만 말하고 특정 화재를 지목하지 않는다. 게다가 (B) 둘째 문장의 such regrowth 가 받을 재생장은 (C) 마지막 문장 the scrubby growth 에서 처음 나온다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "인물 지시어 선행사 없음",
+     "why_tempting": "(B)의 grasses 와 (C)의 The young shoots 를 이어 읽으면 풀이 먼저, 그다음 어린싹으로 식물 이야기가 자연스럽게 흘러 보인다.",
+     "how_to_reject": "(C) 첫 문장 their animals when they returned 의 their·they 가 가리킬 사람이 (B) 안에는 없다. (B)에 나오는 명사는 grasses · woody plants · shrubs · burning 뿐이다. 목축업자와 가축은 (A)의 they would set fire ... as they moved their animals out for the winter 에서 처음 나온다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "시간 순서 역전",
+     "why_tempting": "(C)를 첫 자리에 두면 주어진 글의 소각 → 새싹 → 가축 먹이로 인과가 이어지는 것처럼 보이고, (A)의 However 가 그 뒤의 반전으로 읽힌다.",
+     "how_to_reject": "(C)는 동물이 돌아왔을 때(when they returned)를 말하는데, 동물을 데리고 나가는 장면은 (A)의 they moved their animals out for the winter 다. (C)를 앞에 두면 돌아오는 문장이 나가는 문장보다 먼저 와 시간이 뒤집힌다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "역접 대비 대상 상실",
+     "why_tempting": "(C) 끝의 reinforce the scrubby growth 와 (B)의 succeeded by further woody plants and shrubs 는 실제로 붙는 짝이라, 그 짝을 먼저 찾은 학생이 두 문단을 통째로 앞으로 당긴다.",
+     "how_to_reject": "(A) 첫 문장 However, the pattern of burning that stockmen introduced was unlike previous regimes 의 previous regimes 는 주어진 글의 원주민이 수천 년 해 온 소각을 받는다. (A)가 세 번째로 밀리면 대비 대상이 두 문단 앞으로 떨어지고, 그 사이 (C)(B)에서 목축업자의 소각을 이미 서술해 버려 introduced 라는 도입 표현이 뒤늦게 나온다."
+    }
+   ],
+   "solve_procedure": [
+    { "step": "주어진 글에서 등장하는 사람·동물 명사를 동그라미 친다 (여기서는 Aboriginal people 뿐이고 가축은 없다)", "on_fail": "명사를 못 고르면 주어를 기준으로 사람인지 사물인지만 표시한다" },
+    { "step": "(A)(B)(C) 첫 문장에서 앞을 가리키는 표지를 표시한다 — 대명사(their·they), 정관사+처음 보는 명사(the burnt areas), 지시형용사(such regrowth), 접속부사(However)", "on_fail": "표지가 안 보이면 첫 문장의 주어와 목적어만 옮겨 적고 그 명사가 주어진 글에 있는지만 본다" },
+    { "step": "1단계에서 적은 명사 목록으로 2단계 표지를 하나씩 대조해, 받을 말이 주어진 글에 없는 문단을 첫 자리 후보에서 지운다", "on_fail": "두 문단 이상 남으면 사람 지시어가 있는 문단부터 지운다 — 사람이 처음 등장하는 문단이 그 앞에 있어야 한다" },
+    { "step": "각 문단 마지막 문장의 명사와 다른 문단 첫 문장의 지시어를 짝지어 확정 인접쌍을 만든다 (new plant growth → The young shoots / the scrubby growth → such regrowth)", "on_fail": "짝이 안 만들어지면 마지막 문장에서 처음 나온 명사에만 표시하고 그 명사가 반복되는 문단을 찾는다" },
+    { "step": "확정 인접쌍을 모두 포함하는 선지만 남긴다. 남은 것이 둘 이상이면 3단계의 첫 자리 후보로 자른다", "on_fail": "그래도 둘이 남으면 시간 표현(out for the winter / when they returned / in the following spring)의 앞뒤로 판정한다" }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": { "predicted": 0.55, "drivers": ["세 문단이 같은 어휘장(불·식생)이라 낱말 겹침이 단서가 안 된다", "(C)의 they/their 가 사람 지시어인데 문장 뒤쪽에 숨어 있다", "정답 배열이 However 로 시작하는 (A)를 첫 문단에 두는 형태 — 역접은 첫 문단이 아니라는 통념과 어긋난다"] },
+   "required_vocab": ["stockmen", "regimes", "recolonize", "shoots", "scrubby"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["코퍼스에 이 문항의 지문·선지가 통째로 비어 있었다(passage null · choices null). 원본 columns2/M2506.txt 629~676행 오른쪽 단에서 복구했고, 복구본의 (A)-(C)-(B) 연쇄가 평가원 정답표 ①과 일치해 복구가 옳음을 교차 확인했다", "출제 의도 서술이 순서 유형 일반론이 아니라 이 문항 고유의 배치(인물이 (A)에만 처음 등장)를 짚는다"],
+     "checked": ["복구한 지문을 corpus.json 에 반영한 뒤 quote 를 문자열 대조", "복구본의 문단 연쇄와 평가원 정답표 ① 대조", "R-ORDER 유형 정의(주어진 글 다음 배열) 대조"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["초안에서 ③과 ⑤의 trap 라벨이 둘 다 지시어 선행사 없음이었다 — 반려 후 ⑤를 역접 대비 대상 상실로 고치고 배제 근거도 (A) 첫 문장 previous regimes 로 옮겼다", "오답 4개의 배제 근거가 각각 다른 문장을 가리킨다: ② (B) 첫 문장 · ③ (C) 첫 문장 · ④ (A) 둘째 문장 · ⑤ (A) 첫 문장"],
+     "checked": ["오답 4개의 trap 라벨 중복 여부", "why_tempting 이 실제 배열 기호 조합과 맞는지(②③⑤가 모두 (B)/(C) 선두)", "how_to_reject 마다 지문 위치가 적혀 있는지"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["5단계 절차가 지문을 읽기 전에 시작된다 — 1단계가 주어진 글의 사람 명사 표시로 실행 가능하다", "100초 안에 끝난다: 표지 표시 30초 · 인접쌍 확정 40초 · 선지 대조 20초"],
+     "checked": ["절차 각 단계를 지문 없이 실행 가능한지 소리 내 따라감", "금지 표현(순환논법 8종) 문자열 검색", "required_vocab 5개가 정답 확정 문장에 실제로 쓰이는지 — stockmen·shoots 는 인접쌍 판정에 직접 쓰인다"]
+    }
+   ]
+  },
+  {
+   "item_id": "M2506#37",
+   "measured_ability": "일반 진술 → 예시(For example) → 그 예시가 낳은 변화 → 그 변화가 만들어 낸 사람(learning facilitators) → 그 사람을 받는 소유격(Their role) 의 연쇄를 따라, 사람 지시어의 선행사가 처음 나오는 자리를 찾아내는 능력",
+   "design_intent": "(A) 첫머리 Their role 이 받을 복수 사람 명사를 (C) 맨 끝 한 곳(human resource development professionals must become learning facilitators)에만 두었다. 주어진 글의 명사는 practices(사람이 아님)뿐이라, 이 한 쌍만 확인하면 (C)-(A)가 붙고 나머지는 For example 의 방향으로 결정되도록 설계했다.",
+   "answer_locus": {
+    "sentence_index": [9, 2],
+    "quote": "Rather, human resource development professionals must become learning facilitators.",
+    "reasoning": "(A)는 Their role should be to assist, consult, and advise teams 로 시작한다. Their 가 받을 복수 사람 명사는 지문 전체에서 이 문장의 human resource development professionals 가 처음이자 유일한 도입이다(주어진 글은 practices 만 말한다). 따라서 (A)는 (C) 바로 뒤에 고정되고, For example 로 시작하는 (B)만이 일반 진술인 주어진 글에 이어질 수 있으므로 (B)-(C)-(A)로 잠긴다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "사람 지시어 선행사 없음",
+     "why_tempting": "(A) 끝의 promote learning within groups and across the organization 과 (C) 첫머리 In a learning organization 이 organization 이라는 같은 낱말로 이어져 보인다.",
+     "how_to_reject": "(A) 첫 문장 Their role should be to assist 의 Their 가 받을 복수 사람이 주어진 글에 없다. 주어진 글의 명사는 human resource management practices 이고, 사람은 (C) 마지막 문장에서 처음 나온다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "기능과 사람의 지시 대상 혼동",
+     "why_tempting": "(B)를 주어진 글 다음에 두는 것까지는 맞고, (B) 마지막 문장이 the human resource development function may be dramatically changed 로 끝나 HRD 이야기가 (A)로 이어지는 것처럼 보인다.",
+     "how_to_reject": "(B) 마지막 문장의 주어는 function(기능)이지 사람이 아니다. (A)의 Their 는 복수 사람을 받아야 하고, 그 명사는 (C) 마지막 문장에만 있다. 또 (C)의 Formal training programs ... are insufficient 에 이어지는 Rather 문장이 (A)의 그렇다면 그들의 역할은 무엇인가를 부른다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "trap": null,
+     "why_tempting": "(B)의 For example 이 주어진 글의 a number of ... practices 를 예시하고, (B) 끝의 기능이 극적으로 바뀔 수 있다를 (C)가 어떻게 바뀌는지로 풀며, (C) 끝의 learning facilitators 를 (A)의 Their role 이 받는다.",
+     "how_to_reject": "배제 대상이 아니다 — 검산은 두 지점이다. ① (B)의 performance evaluation and reward systems 가 주어진 글의 practices 의 예인가 ② (A)의 Their 가 바로 앞 문장의 professionals 를 받는가."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "옳은 인접쌍 앞당김",
+     "why_tempting": "(C)-(A)는 실제로 붙는 쌍이라, 그 쌍을 먼저 찾은 학생이 쌍째로 첫 자리에 놓고 (B)를 남은 자리에 밀어 넣는다.",
+     "how_to_reject": "(B) 첫머리 For example 은 예시 표지라 바로 앞에 예시받을 일반 진술이 있어야 한다. 그 일반 진술은 주어진 글(a number of human resource management practices that are necessary to support organizational learning)이다. (A) 마지막 문장(think systematically ... across the organization)은 예시로 받을 일반 진술이 아니다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "For example 의 상위 진술 오인",
+     "why_tempting": "(A)를 마지막에 두는 것은 맞고, (C)의 In a learning organization, every employee ... 가 큰 틀을 세우는 첫 문단처럼 들린다.",
+     "how_to_reject": "(B)의 For example 이 (C)를 예시한다고 보면, 예로 든 것이 employee 의 책임이 아니라 performance evaluation and reward systems(조직이 운영하는 제도)라서 예시 관계가 어긋난다. 또 (C) 마지막 문장 learning facilitators 와 (A) 첫머리 Their 사이에 (B)가 끼면 지시 연쇄가 끊긴다."
+    }
+   ],
+   "solve_procedure": [
+    { "step": "주어진 글의 명사가 사람인지 제도·기능인지 표시한다 (여기서는 practices — 사람이 아니다)", "on_fail": "판단이 안 서면 주어진 글에 -er/-or/professionals 같은 사람 명사가 있는지만 찾는다" },
+    { "step": "(A)(B)(C) 첫 문장에서 앞을 받는 표지를 표시한다 — 소유격·대명사(Their), 예시 표지(For example), 장소·상황 한정(In a learning organization)", "on_fail": "표지가 없으면 첫 문장의 주어를 옮겨 적고 그 낱말이 다른 문단 마지막 문장에 있는지 찾는다" },
+    { "step": "사람 지시어가 있는 문단을 골라, 그 사람 명사가 처음 나오는 문단 마지막 문장을 지문에서 찾는다", "on_fail": "못 찾으면 사람 명사(professionals·facilitators·employees)에 전부 밑줄을 긋고 가장 먼저 나오는 자리를 표시한다" },
+    { "step": "예시 표지(For example)가 있는 문단은 일반 진술 바로 뒤에만 놓을 수 있다 — 주어진 글과 각 문단 마지막 문장 중 어느 것이 일반 진술인지 대조한다", "on_fail": "둘 다 일반 진술로 보이면 예시된 대상(제도인가 사람의 책임인가)이 무엇인지로 가른다" },
+    { "step": "3단계에서 확정한 인접쌍과 4단계의 첫 문단 후보를 동시에 만족하는 선지만 남긴다", "on_fail": "둘 이상 남으면 (A)를 첫 자리에 둔 선지부터 지운다 — Their 의 선행사가 주어진 글에 없다" }
+   ],
+   "time_budget_sec": 120,
+   "difficulty": { "predicted": 0.5, "drivers": ["3점 문항", "human resource development 라는 같은 명사구가 세 문단에 반복돼 낱말 겹침이 단서가 안 된다", "정답 배열이 (B)로 시작해 예시 문단을 첫 자리에 두는 형태 — 예시는 뒤라는 통념과 어긋난다"] },
+   "required_vocab": ["facilitators", "cross-training", "preset", "insufficient", "reinforce"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["quote 가 (C) 마지막 문장이고 이 유형의 근거 위치(문단 끝과 다음 문단 첫머리)와 맞는다", "의도 서술이 이 문항 고유의 배치(사람 명사를 (C) 끝 한 곳에만 둠)를 짚는다"],
+     "checked": ["quote 를 corpus.json 지문에서 문자열 대조", "정답표 ③=(B)-(C)-(A) 와 분석 결론 대조", "R-ORDER 유형 정의 대조"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["①과 ②가 모두 Their 문제를 다루지만 배제 근거 문장이 다르다(① 주어진 글의 명사 · ② (B) 마지막 문장의 function) — 라벨도 분리했다", "④⑤는 For example 축으로 갈렸다"],
+     "checked": ["오답 4개의 trap 라벨 중복 여부", "각 why_tempting 이 그 배열 기호 조합에서 실제로 일어나는 오독인지", "how_to_reject 에 지문 위치가 있는지"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["1단계가 사람 명사인가라는 단일 판정이라 지문을 안 본 학생도 실행 가능하다", "120초 배분: 표지 표시 40초 · 사람 명사 추적 40초 · 선지 대조 40초"],
+     "checked": ["절차 5단계 실행 가능성", "금지 표현 문자열 검색", "required_vocab 이 정답 확정에 쓰이는 낱말인지 — facilitators 는 Their 의 선행사 문장 자체다"]
+    }
+   ]
+  },
+  {
+   "item_id": "2024#36",
+   "revised": true,
+   "measured_ability": "정의문이 내놓은 outcome 을 어느 문단이 곧바로 받는지, 그리고 In these ... forms of negotiation 의 these 가 가리킬 협상 유형이 어디에서 처음 구획되는지를 대조해 배열을 잠그는 능력",
+   "design_intent": "(B) 첫머리 In these and sometimes other forms of negotiation 의 these 가 받을 것을 (A) 마지막 문장의 적대적·양극화된 당사자 사례 한 곳에만 두었다. 주어진 글은 협상을 하나의 일반 활동으로 정의할 뿐 유형을 나눈 적이 없어, 이 지시어 하나가 (B)의 자리를 마지막으로 고정한다.",
+   "answer_locus": {
+    "sentence_index": [4, 3],
+    "quote": "In these and sometimes other forms of negotiation, negotiation serves functions other than reconciling conflicting interests.",
+    "reasoning": "these ... forms 가 받을 협상 유형은 (A) 마지막 문장 In those instances in which the parties have highly antagonistic or polarised relations ... 에서 처음 구획된다. 주어진 글에는 유형 구분이 없으므로 (B)는 (A) 뒤에만 올 수 있고, (A)의 Areas of difference ... remain 은 공통 이익 영역의 식별을 전제하므로 그 식별을 진술한 (C)가 주어진 글 다음 자리가 된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "정보 첫 등장 역전",
+     "why_tempting": "(A)의 Areas of difference can and do frequently remain 이 주어진 글의 conflicting positions 를 바로 잇는 것처럼 보인다.",
+     "how_to_reject": "(A)는 차이 영역이 남는다(remain)고 말해 공통 이익 영역이 이미 가려진 뒤임을 전제한다. 그 식별은 (C)의 the purpose of negotiation is the identification of areas of common interest and conflict 에서 처음 제시된다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "지시어 선행사 없음",
+     "why_tempting": "(B)의 negotiation serves functions other than reconciling conflicting interests 가 주어진 글의 reconcile 을 곧바로 뒤집는 말이라 붙여 읽기 쉽다.",
+     "how_to_reject": "(B) 첫머리 these ... forms 는 앞에서 구획된 유형을 받아야 한다. 주어진 글에는 유형이 없다 — 유형은 (A)의 In those instances in which the parties have highly antagonistic or polarised relations 에서만 나온다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "마무리 문단 위치 오판",
+     "why_tempting": "(C)의 In this sense 와 clarified, refined and given negotiated form and substance 가 마무리처럼 들려 가운데나 끝에 두게 되고, (B)를 앞세우면 조정 이외의 기능이 화제 전환처럼 읽힌다.",
+     "how_to_reject": "(C) 첫머리 Whatever the nature of the outcome 은 주어진 글의 an acceptable outcome 을 그대로 받는 표현이라 주어진 글 다음 자리를 요구한다. 또 (A)를 끝에 두면 (B)의 these ... forms 가 받을 사례가 뒤로 가 버린다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": null,
+     "why_tempting": "(C)가 outcome 을 받아 협상의 목적을 세우고, (A)가 그럼에도 남는 차이 영역과 적대적 사례를 덧붙이며, (B)의 these forms 가 그 사례를 받아 다른 기능(지연·홍보·정보 수집)으로 확장된다.",
+     "how_to_reject": "배제 대상이 아니다 — 검산은 두 지점이다. ① (C) 첫머리 Whatever the nature of the outcome 이 주어진 글의 outcome 을 받는가 ② (B)의 these forms 바로 앞에 유형을 구획한 문장이 있는가."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "인접쌍 한 칸 밀림",
+     "why_tempting": "(C)를 첫 자리에 두는 것은 맞고, (C)가 conflict 를 언급하니 (B)의 갈등 조정 이외의 기능이 바로 이어지는 것처럼 보인다.",
+     "how_to_reject": "(C)는 협상 일반을 말할 뿐 유형을 나누지 않는다. (B)의 these ... forms 가 받을 특수 사례는 (A) 마지막 문장에만 있고, (A)를 맨 뒤로 보내면 그 사례가 (B) 뒤로 간다."
+    }
+   ],
+   "solve_procedure": [
+    { "step": "주어진 글에서 정의된 대상이 하나의 활동인지 여러 유형인지 표시한다 (an attempt to explore and reconcile ... — 유형 구분이 없다)", "on_fail": "판단이 안 서면 주어진 글에 복수형 유형 명사(forms·types·kinds)가 있는지만 확인한다" },
+    { "step": "(A)(B)(C) 첫 문장에서 앞을 받는 표지를 표시한다 — 지시형용사(these forms · those instances), 양보·총칭(Whatever), 명사 반복(Areas of difference)", "on_fail": "표지가 없으면 첫 문장 주어를 옮겨 적고 주어진 글에 그 명사가 있는지만 본다" },
+    { "step": "지시형용사가 붙은 복수 명사(these forms)가 받을 말이 주어진 글에 있는지 대조하고, 없으면 그 문단을 첫 자리 후보에서 지운다", "on_fail": "지운 뒤에도 후보가 둘이면 주어진 글의 마지막 명사(outcome)를 반복하는 문단을 첫 자리로 잡는다" },
+    { "step": "남은 두 문단의 마지막 문장을 읽고, 지시형용사가 받을 사례를 담은 문장이 어느 문단 끝에 있는지 표시해 인접쌍을 확정한다", "on_fail": "사례 문장을 못 찾으면 in those instances 와 in these ... 처럼 짝이 되는 표현끼리 선을 그어 연결한다" },
+    { "step": "확정한 인접쌍을 포함하고 첫 자리 후보와도 맞는 선지만 남긴다", "on_fail": "둘 이상 남으면 (B)를 첫 자리에 둔 선지부터 지운다 — these 가 받을 말이 앞에 없다" }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": { "predicted": 0.45, "drivers": ["추상 명사 위주(areas of common interest · functions · exposition)", "these 가 받을 것이 단일 명사가 아니라 앞 문단이 서술한 상황 전체다", "(A)와 (C)가 모두 outcome/conflict 를 언급해 어휘 겹침이 단서를 흐린다"] },
+   "required_vocab": ["reconcile", "irreconcilable", "antagonistic", "polarised", "exposition"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["초안의 design_intent 가 순서 유형은 지시어의 선행사를 묻는다는 유형 일반론이었다 — 반려 후 이 문항 고유의 설계(유형 구획을 (A) 마지막 문장 한 곳에만 둠)로 다시 썼다", "quote 가 (B) 첫 문장이며 근거가 (A) 마지막 문장과 짝을 이룬다"],
+     "checked": ["quote 를 corpus.json 지문에서 문자열 대조", "정답표 ④=(C)-(A)-(B) 와 분석 결론 대조", "design_intent 가 유형 일반론인지 문항 고유 서술인지 판정"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["②와 ⑤가 모두 these 를 다루지만 ②는 받을 말이 아예 없음, ⑤는 받을 말이 뒤로 밀림으로 실패 지점이 다르다", "①은 remain 의 전제, ③은 마무리 문장의 위치라 축이 겹치지 않는다"],
+     "checked": ["오답 4개 trap 라벨 중복 여부", "각 why_tempting 이 해당 배열에서 실제로 생기는 오독인지", "how_to_reject 의 지문 위치 표기 유무"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["1단계가 주어진 글 한 문장만 보고 끝나 부담이 적다", "110초 배분: 표지 표시 35초 · 지시어 대조 45초 · 선지 대조 30초"],
+     "checked": ["절차 5단계를 지문 없이 실행 가능한지", "금지 표현 문자열 검색", "required_vocab 5개가 지문에 있고 판정에 쓰이는지 — antagonistic·polarised 는 these 의 선행사 문장에 있다"]
+    }
+   ]
+  },
+  {
+   "item_id": "2024#37",
+   "body_recovered": true,
+   "measured_ability": "한 사람(she)의 행동이 여러 사람(others · them · some)으로 번지는 서술에서, 복수 대명사와 수량 표현이 앞 문단의 어느 명사구를 받아야 하는지를 짚어 배열을 확정하는 능력",
+   "design_intent": "(A)의 them 과 (B)의 some others 가 받을 말을 지문 안 한 곳씩에만 두었다 — them 은 (C) 첫 문장의 Others, some others 는 (A) 마지막 문장의 some 이다. 주어진 글에는 one person(she)밖에 없어, 복수 지시어로 시작하는 문단은 첫 자리에 올 수 없게 만든 문항이다.",
+   "answer_locus": {
+    "sentence_index": [11, 3],
+    "quote": "The person who performed the initial action may think that others ought to behave as she behaves in situations of this sort.",
+    "reasoning": "(A)는 Thus, she may prescribe the behavior to them 으로 시작해 그렇게 생각하므로 처방한다는 귀결을 말한다. 그 생각을 진술한 문장이 바로 이것이고, them 이 받을 복수 사람도 (C) 첫 문장 Others may then conform to this behavior 에서 처음 나온다. 그래서 (C)-(A)가 붙고, (A) 마지막 문장의 some 을 (B)의 But some others 가 받아 (A)-(B)가 이어진다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "복수 대명사 선행사 없음",
+     "why_tempting": "(A)의 Thus 가 주어진 글의 because she thinks she ought to 를 그대로 잇는 것처럼 읽힌다.",
+     "how_to_reject": "(A) 첫 문장 prescribe the behavior to them 의 them 은 복수 사람이다. 주어진 글의 사람은 one person(she) 하나뿐이고, 복수는 (C) 첫 문장 Others 에서 처음 나온다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "대조 대상 오인",
+     "why_tempting": "(B)의 But some others 를 주어진 글의 one person 과 대조되는 나머지 사람들로 읽으면 곧바로 이어진다.",
+     "how_to_reject": "(B)는 will not need to have the behavior prescribed to them 이라고 해서 처방받는 사람들이 이미 있어야 성립한다. 그 사람들은 (A) 마지막 문장 This will cause some to conform to her wishes 의 some 이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "시간 표지 무시",
+     "why_tempting": "(B)의 either rational or moral reasons 와 (C)의 for a number of reasons 가 reasons 라는 같은 낱말로 이어져 보인다.",
+     "how_to_reject": "(C)의 Others may then conform to this behavior 에서 then 은 주어진 글의 최초 행동 직후를 가리키고 this behavior 도 그 행동을 받는다. 또 (A)를 끝에 두면 (B)의 some others 가 받을 some 이 뒤로 간다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": null,
+     "why_tempting": "(C)가 최초 행동에 대한 타인의 동조와 행위자의 생각을 서술하고, (A)의 Thus 가 그 생각의 귀결로 처방을 말하며, (B)의 But some others 가 (A)의 some 과 대조된다.",
+     "how_to_reject": "배제 대상이 아니다 — 검산은 두 지점이다. ① (A)의 them 이 바로 앞 문단에서 복수 사람을 받는가 ② (B)의 some others 앞에 some 이 있는가."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "정보 첫 등장 역전",
+     "why_tempting": "(C)를 첫 자리에 두는 것까지는 맞아서, 그다음 (B)의 But 이 어떤 사람들은 다르다로 자연스럽게 들린다.",
+     "how_to_reject": "(B)의 have the behavior prescribed to them 은 처방이 이미 나온 뒤라야 성립한다. prescribe 는 (A) 첫 문장 she may prescribe the behavior to them 에서 처음 나오므로 (B)는 (A) 뒤여야 한다."
+    }
+   ],
+   "solve_procedure": [
+    { "step": "주어진 글에 나오는 사람을 수로 표시한다 (one person = she 단수 하나, 복수 사람 없음)", "on_fail": "표시가 어려우면 주어진 글의 대명사를 모두 동그라미 치고 단수/복수만 적는다" },
+    { "step": "(A)(B)(C) 첫 문장에서 복수 대명사·수량 표현·접속부사를 표시한다 (them · some others · Others ... then)", "on_fail": "표지가 안 보이면 첫 문장의 목적어만 옮겨 적는다" },
+    { "step": "복수 표현이 있는 문단은 첫 자리 후보에서 지운다 — 주어진 글에 복수 사람이 없기 때문", "on_fail": "후보가 하나도 안 남으면 지시 대상이 가장 약한 표지(then 처럼 시간만 나타내는 것)를 가진 문단을 남긴다" },
+    { "step": "각 문단 마지막 문장에서 새로 등장한 사람 명사·수량어(some)에 밑줄을 긋고, 다른 문단 첫 문장의 대명사와 짝짓는다", "on_fail": "짝이 안 지어지면 prescribe 처럼 반복되는 동사를 찾아 처음 나온 자리를 표시한다" },
+    { "step": "확정 인접쌍을 포함하고 3단계의 첫 자리 후보와도 맞는 선지만 남긴다", "on_fail": "둘 이상 남으면 (A)나 (B)를 첫 자리에 둔 선지부터 지운다" }
+   ],
+   "time_budget_sec": 120,
+   "difficulty": { "predicted": 0.42, "drivers": ["3점 문항", "대명사 밀도가 높고(she · her · them · they · others · some) 지시 대상이 사람으로만 이루어져 눈에 덜 띈다", "세 문단이 모두 conform 을 반복해 낱말 겹침으로는 갈리지 않는다"] },
+   "required_vocab": ["norm", "prescribe", "conform", "regularity", "sanction"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["코퍼스 지문 끝에 선지 기호와 각주가 섞여 들어와 있다(① (A) － (C) － (B) ... sanction 각주). 지문 본문 자체는 온전해 raw_block 과 대조해 확인했고 분석은 본문만 근거로 삼았다", "quote 가 (C) 마지막 문장으로 이 유형의 근거 위치와 맞는다"],
+     "checked": ["quote 를 corpus.json 지문에서 문자열 대조", "chunk 의 raw_block 과 corpus 지문 본문 대조(문단 3개 · 각 문장 수)", "정답표 ④=(C)-(A)-(B) 와 분석 결론 대조"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["②와 ⑤가 모두 (B)의 prescribed 를 다루지만 ②는 대조 대상(some)이 없다, ⑤는 동사 prescribe 가 아직 안 나왔다로 근거 문장이 다르다", "③은 시간 표지 then, ①은 them 으로 축이 갈린다"],
+     "checked": ["오답 4개 trap 라벨 중복 여부", "why_tempting 이 각 배열 조합에서 실제로 생기는 오독인지", "how_to_reject 의 지문 위치 표기 유무"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["3단계(복수 표현이 있으면 첫 자리에서 지운다)가 이 문항에서 선지 5개 중 3개를 한 번에 줄인다", "120초 배분: 대명사 표시 40초 · 짝짓기 50초 · 선지 대조 30초"],
+     "checked": ["절차 5단계 실행 가능성", "금지 표현 문자열 검색", "required_vocab 이 판정에 쓰이는 낱말인지 — prescribe·conform 은 배제 근거 문장에 직접 들어 있다"]
+    }
+   ]
+  },
+  {
+   "item_id": "M2409#36",
+   "answer_unknown": true,
+   "body_recovered": true,
+   "measured_ability": "(B)의 these tasks 처럼 앞 문단이 서술한 작업 전체를 받는 지시어와, (C)의 the word stereotype arouses negative connotations 처럼 용어의 어감을 처음 규정하는 문장을 구분해, 어느 문단이 다른 문단 없이는 성립하지 않는지 판정하는 능력",
+   "design_intent": "세 문단이 모두 stereotype 을 말하되 하는 일이 다르다 — 하나는 낱말의 어감을 규정하고, 하나는 분류가 일어나는 절차(sort → Only afterwards do we examine)를 서술하며, 하나는 그 절차를 these tasks 로 묶어 위험을 진단한다. 낱말 겹침이 아니라 무엇이 앞에 있어야 이 문장이 성립하는가를 묻도록 짜인 배치다.",
+   "solve_procedure": [
+    { "step": "주어진 글의 마지막 명사구를 옮겨 적는다 (our tendency to stereotype generalizations about people and situations)", "on_fail": "명사구가 길면 핵심 명사 두 개(tendency · generalizations)만 적는다" },
+    { "step": "(A)(B)(C) 첫 문장에서 앞을 받는 표지를 표시한다 — 지시형용사+복수명사(these tasks), 정관사+명사(the word stereotype), 부사구(Intuitively and quickly)", "on_fail": "표지가 없으면 첫 문장의 주어를 옮겨 적고 주어진 글에 그 명사가 있는지만 본다" },
+    { "step": "these tasks 가 받을 작업이 어느 문단 안에 복수로 서술돼 있는지 찾는다 (sort things into groups / examine more evidence 처럼 동사가 둘 이상인 문단)", "on_fail": "찾지 못하면 각 문단에서 we 가 주어인 동사를 세어 둘 이상인 문단을 표시한다" },
+    { "step": "용어의 어감을 규정하는 문장(negative connotations · negative bias)이 있는 문단은 그 용어를 처음 다루는 자리인지, 이미 다룬 것을 되받는 자리인지 표시한다", "on_fail": "판단이 안 서면 But, in fact 같은 역접 표지가 무엇을 뒤집는지 그 문단 안에서만 확인한다" },
+    { "step": "3·4단계에서 확정한 인접 관계를 모두 만족하는 선지만 남긴다", "on_fail": "둘 이상 남으면 these tasks 가 있는 문단을 첫 자리에 둔 선지를 먼저 지운다" }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": { "predicted": 0.5, "drivers": ["정답표가 없는 회차라 정답률 추정 근거를 구조 지표로만 잡았다(실측 정답률 아님)", "앞을 받는 표지가 (B)의 these tasks 하나로 좁고 나머지 두 문단은 표지가 약하다", "stereotype·generalization 이 세 문단에 고루 퍼져 낱말 겹침으로는 갈리지 않는다"] },
+   "required_vocab": ["stereotype", "generalizations", "connotations", "inaccuracy", "differentiated"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["코퍼스 지문 끝에 선지 기호와 각주가 섞여 있으나 (A)(B)(C) 본문은 raw_block 과 일치한다", "정답표가 없는 회차라 정답 근거 서술을 넣지 않았다 — 대신 학습자가 확인할 표지(these tasks · the word stereotype)만 절차에 적었다"],
+     "checked": ["chunk 의 raw_block 과 corpus 지문 본문 대조", "answer_known=false 확인 후 answer_locus 미작성 확인", "R-ORDER 유형 정의 대조"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["answer_locus 와 choices 가 비어 있다 — 추정 정답이 서술에 스며들지 않았다(절차가 어느 배열이 답이라고 말하지 않는다)", "difficulty.predicted 0.5 의 근거가 drivers 첫 줄에 명시돼 있다", "required_vocab 5개 모두 지문에 문자열로 존재한다"],
+     "checked": ["answer_locus·choices 공란 확인", "difficulty 근거 명시 여부", "required_vocab 5개를 지문 문자열과 대조", "measured_ability 가 선지를 전제하지 않는지"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["3단계(these tasks 가 받을 복수 작업 찾기)가 이 문항에서 가장 짧은 길이다 — we 가 주어인 동사를 세는 것으로 실행 가능하다", "100초 안에 끝난다"],
+     "checked": ["절차 5단계를 지문 없이 실행 가능한지", "금지 표현 문자열 검색", "required_vocab 이 판정에 쓰이는 낱말인지"]
+    }
+   ]
+  },
+  {
+   "item_id": "M2409#37",
+   "answer_unknown": true,
+   "measured_ability": "In contrast(A) · Research in this area(B) · But if a plant does not have a caretaker(C) 세 표지가 각각 무엇과 대비되고 무엇을 받는지를 지문 안 명사구와 맞춰, 대비쌍과 조건절의 짝을 찾아내는 능력",
+   "design_intent": "영양 변동을 겪은 식물의 위험 감수와 풍족했던 식물의 위험 회피라는 대비쌍, 그리고 정원사가 돌본다와 돌보는 이가 없다는 조건 대비를 겹쳐 놓았다. 표지만 세면 두 축이 서로 다른 배열을 가리키는 것처럼 보이므로, 대비의 짝을 명사 수준(nutrient abundance ↔ variable nutrient availability, gardeners ↔ caretaker)에서 맞추게 만든 배치다.",
+   "solve_procedure": [
+    { "step": "주어진 글 두 문장에서 등장 대상을 적는다 (plants · gardeners · fertilizer)", "on_fail": "적기 어려우면 주어와 목적어 명사만 옮긴다" },
+    { "step": "(A)(B)(C) 첫 문장에서 대비·조건 표지를 표시한다 — In contrast(A) · this area(B) · But if ... does not have a caretaker(C)", "on_fail": "표지가 안 보이면 각 문단 첫 문장의 주어를 옮겨 적는다" },
+    { "step": "In contrast 가 있는 문단의 첫 문장에서 대비되는 성질을 적고(risk averse and save energy), 그 반대 성질(risk-taking behaviors)이 서술된 문장을 다른 문단에서 찾는다", "on_fail": "반대 성질을 못 찾으면 energy 를 포함한 문장을 모두 표시해 비교한다" },
+    { "step": "this area 가 받을 영역이 어느 문단 마지막 문장에 제시돼 있는지 확인한다 (memory · histories of temporal or spatial variation 처럼 연구 주제로 읽히는 명사구)", "on_fail": "못 찾으면 Research 와 짝이 되는 명사(memory · position in the environment)를 모두 표시한다" },
+    { "step": "3·4단계의 인접 관계를 동시에 만족하는 선지만 남긴다", "on_fail": "둘 이상 남으면 caretaker 가 주어진 글의 gardeners 를 받는지로 첫 자리를 가른다" }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": { "predicted": 0.45, "drivers": ["정답표가 없는 회차라 구조 지표로만 추정했다(실측 정답률 아님)", "대비 표지 In contrast 의 짝이 같은 문단이 아니라 다른 문단 둘째 문장에 있다", "nutrient 계열 명사가 네 문장에 반복돼 낱말 겹침이 단서를 흐린다"] },
+   "required_vocab": ["nutrient", "fertilizer", "abundance", "supplemental", "foraging"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["지문·선지가 온전하다(body_ok true) — 복구 표기가 필요 없다", "정답표 없는 회차라 근거 서술 대신 확인 지점(In contrast 의 짝 · this area 의 선행 명사구)만 남겼다"],
+     "checked": ["answer_known=false 확인 후 answer_locus 미작성 확인", "지문에 (A)(B)(C) 세 문단이 온전한지 확인", "R-ORDER 유형 정의 대조"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["answer_locus·choices 가 비어 있고, 절차 어디에도 특정 배열을 답으로 지목한 문장이 없다", "difficulty 0.45 의 근거가 표지 위치·어휘 반복이라는 구조 지표로 적혀 있다", "required_vocab 5개가 지문에 문자열로 있다(nutrient 는 nutrients / nutrient availability 로 등장)"],
+     "checked": ["answer_locus·choices 공란 확인", "difficulty 근거 명시 여부", "required_vocab 을 지문 문자열과 대조", "measured_ability 가 선지를 전제하지 않는지"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["3단계가 반대 성질을 찾아 적는다라 손이 움직이는 지시가 된다", "110초 배분: 표지 표시 35초 · 대비쌍 찾기 45초 · 선지 대조 30초"],
+     "checked": ["절차 5단계 실행 가능성", "금지 표현 문자열 검색", "required_vocab 이 판정에 쓰이는 낱말인지 — abundance·foraging 은 대비쌍 판정 문장에 들어 있다"]
+    }
+   ]
+  },
+  {
+   "item_id": "M2406#36",
+   "answer_unknown": true,
+   "body_recovered": true,
+   "measured_ability": "all this code(A) · these computer bugs(B) · Physical things(C) 처럼 앞 문단의 어느 명사를 축약해 되받는지를 표시해, 문단 사이의 전제 관계를 판정하는 능력",
+   "design_intent": "주어진 글이 우리가 의존하는 물리적 사물이 코드로 바뀐다를 말하고, 세 문단이 각각 그 사물의 예(자동차·비행기), 코드의 양과 오류, 그 오류를 이용하는 악성코드를 맡는다. code 와 bugs 라는 같은 낱말이 세 문단에 반복되도록 해 두어, 반복 자체가 아니라 지시형용사(this · these)가 붙은 자리를 따져야 갈리게 만든 배치다.",
+   "solve_procedure": [
+    { "step": "주어진 글에서 마지막에 나온 명사구를 적는다 (transform themselves into computer code)", "on_fail": "길면 핵심 명사 두 개(physical objects · computer code)만 적는다" },
+    { "step": "(A)(B)(C) 첫 문장에서 지시형용사가 붙은 명사구를 표시한다 — all this code(A) · This is the basis ... these computer bugs(B) · (C)는 지시형용사 없음", "on_fail": "표시가 어려우면 this/these/that 을 지문에서 모두 동그라미 친다" },
+    { "step": "지시형용사가 없는 문단을 첫 자리 후보로 둔다 — 첫 문단은 주어진 글만 받으면 되기 때문", "on_fail": "후보가 둘이면 주어진 글의 명사를 그대로 반복하는 문단을 고른다" },
+    { "step": "these computer bugs 가 받을 버그가 어느 문단에서 처음 도입되는지 찾는다 (twenty to thirty bugs for every thousand lines of code 처럼 수치로 처음 제시되는 자리)", "on_fail": "못 찾으면 bugs 가 나오는 모든 문장에 밑줄을 긋고 수량 표현이 붙은 첫 자리를 표시한다" },
+    { "step": "3·4단계 결과를 동시에 만족하는 선지만 남긴다", "on_fail": "둘 이상 남으면 (B)를 첫 자리에 둔 선지부터 지운다 — This 와 these 가 받을 말이 앞에 없다" }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": { "predicted": 0.55, "drivers": ["정답표가 없는 회차라 구조 지표로만 추정했다(실측 정답률 아님)", "지시형용사(this·these)가 두 문단 첫머리에 명시적으로 붙어 있어 첫 자리 후보가 빨리 좁혀진다", "다만 code·bugs 반복과 인용부호 예시가 시선을 끌어 표지 확인을 건너뛰기 쉽다"] },
+   "required_vocab": ["malware", "bugs", "elaborate", "implantable", "exploited"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["코퍼스 지문 끝에 선지 기호·각주·페이지 잡음(ion K 7)이 섞여 있다 — 본문 세 문단은 raw_block 과 일치해 그 부분만 근거로 삼았다", "정답표가 없어 근거 서술 대신 확인 지점만 남겼다"],
+     "checked": ["chunk 의 raw_block 과 corpus 지문 본문 대조", "answer_known=false 확인 후 answer_locus 미작성 확인", "R-ORDER 유형 정의 대조"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["answer_locus·choices 가 비어 있고 절차가 특정 배열을 지목하지 않는다", "difficulty 0.55 의 근거를 지시형용사가 명시적이라는 구조 지표로 적었다 — 정답률 실측이 아님을 drivers 첫 줄에 밝혔다", "required_vocab 5개가 지문에 문자열로 있다"],
+     "checked": ["answer_locus·choices 공란 확인", "difficulty 근거 명시 여부", "required_vocab 을 지문 문자열과 대조", "measured_ability 가 선지를 전제하지 않는지"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["2단계가 동그라미 친다는 물리적 동작이라 지문을 안 본 학생도 실행할 수 있다", "100초 안에 끝난다: 표지 표시 30초 · 첫 도입 자리 찾기 40초 · 선지 대조 30초"],
+     "checked": ["절차 5단계 실행 가능성", "금지 표현 문자열 검색", "required_vocab 이 판정에 쓰이는 낱말인지 — bugs·malware 는 지시형용사 대조에 직접 쓰인다"]
+    }
+   ]
+  },
+  {
+   "item_id": "M2406#37",
+   "answer_unknown": true,
+   "body_recovered": true,
+   "revised": true,
+   "measured_ability": "However(C) · Maybe(A) · 조건절 If we feel ...(B) 가 각각 주어진 글의 어느 주장(불수의적 반응 · 사회적 환경)을 받는지 가려, 반전 표지와 확장 표지를 구분해 배열하는 능력",
+   "design_intent": "다윈의 얼굴 붉힘은 당혹감이 낳은 불수의적 반응이라는 규정을 세 문단이 각각 다른 방향으로 잇는다 — 하나는 However 로 뒤집어 긍정적 사회 기능을 내세우고, 하나는 Maybe 로 그 기능을 집단 결속까지 밀고 가며, 하나는 in a social environment 라는 조건을 혼자 있을 때와 대조해 풀어 쓴다. 세 문단이 모두 주어진 글에 직접 붙을 수 있어 보이도록 만든 배치다.",
+   "solve_procedure": [
+    { "step": "주어진 글에서 규정된 성질을 두 개로 나눠 적는다 (involuntary physical reaction / in a social environment)", "on_fail": "나누기 어려우면 caused by 뒤의 명사만 적는다" },
+    { "step": "(A)(B)(C) 첫 문장에서 방향 표지를 표시한다 — However(C) · Maybe(A) · If we feel ... when we are alone(B)", "on_fail": "표지가 없으면 첫 문장의 주어와 동사를 옮겨 적는다" },
+    { "step": "역접 표지가 있는 문단이 무엇을 뒤집는지 그 문단 안에서 확인한다 (psychologists argue that blushing actually serves a positive social purpose 가 뒤집는 대상)", "on_fail": "확인이 안 되면 actually 나 in fact 가 붙은 문장만 읽고 그 반대 진술이 어디 있는지 찾는다" },
+    { "step": "긍정적 기능을 처음 내세운 문장과 그것을 한 걸음 더 미는 문장(benefits the long-term cohesion of the group)을 짝지어 인접쌍을 만든다", "on_fail": "짝이 안 지어지면 social purpose · cohesion · apology 처럼 기능을 가리키는 명사에 모두 밑줄을 긋고 추상도가 낮은 것부터 배열한다" },
+    { "step": "3·4단계의 인접 관계를 만족하는 선지만 남긴다", "on_fail": "둘 이상 남으면 조건절 문단(B)이 주어진 글의 social environment 를 직접 되받는지로 자른다" }
+   ],
+   "time_budget_sec": 120,
+   "difficulty": { "predicted": 0.4, "drivers": ["정답표가 없는 회차라 구조 지표로만 추정했다(실측 정답률 아님)", "세 문단 모두 주어진 글의 낱말(blush · social)을 되받아 첫 자리 후보가 좁혀지지 않는다", "앞 문단의 명사를 그대로 받는 지시어가 없고 논지 방향(반전 → 확장)으로만 갈린다", "3점 문항"] },
+   "required_vocab": ["blushing", "involuntary", "cohesion", "embarrassed", "faux pas"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["코퍼스 지문이 옆 단 39번(나무·광합성 지문)과 줄 단위로 뒤섞여 있다 — chunk 의 raw_block 왼쪽 단만 읽어 37번 본문(주어진 글 + (A)(B)(C))을 복구했고, 39번 문장은 분석에서 전부 배제했다", "정답표가 없어 근거 서술을 넣지 않았다"],
+     "checked": ["raw_block 의 왼쪽 단과 오른쪽 단을 분리해 37번 본문만 추출", "answer_known=false 확인 후 answer_locus 미작성 확인", "R-ORDER 유형 정의 대조"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["초안 required_vocab 에 bereft 와 photosynthesize 가 들어 있었다 — 둘 다 옆 단 39번 지문의 낱말이라 반려했다. 코퍼스 지문이 두 문항을 합쳐 놓아 문자열 대조만으로는 걸러지지 않는 함정이다. 37번 본문 낱말 5개로 교체했다", "answer_locus·choices 는 비어 있고 절차가 특정 배열을 지목하지 않는다", "difficulty 0.4 의 근거가 drivers 에 구조 지표로 적혀 있다"],
+     "checked": ["answer_locus·choices 공란 확인", "required_vocab 5개가 37번 본문(옆 단이 아닌)에 있는지 낱말별 확인", "difficulty 근거 명시 여부", "measured_ability 가 선지를 전제하지 않는지"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["1단계에서 주어진 글의 규정을 둘로 쪼개게 한 것이 (B)와 (C)를 가르는 손잡이가 된다", "120초 배분: 규정 쪼개기 25초 · 표지 표시 35초 · 짝짓기 40초 · 선지 대조 20초"],
+     "checked": ["절차 5단계 실행 가능성", "금지 표현 문자열 검색", "required_vocab 이 판정에 쓰이는 낱말인지 — cohesion·involuntary 는 문단 방향 판정에 직접 쓰인다"]
+    }
+   ]
+  },
+  {
+   "item_id": "2023#36",
+   "body_recovered": true,
+   "revised": true,
+   "measured_ability": "지시대명사 That 이 받을 행동이 어느 문단에 서술돼 있는지, spines and a helmet 이 처음 소개되는 자리가 어디인지를 대조해 사례 → 평가 → 결론의 배열을 세우는 능력",
+   "design_intent": "물벼룩의 조건부 방어(포식자 신호가 있을 때만 투구와 가시를 만든다)를 (B)에서 처음 내놓고, (A)는 That's a clever trick 과 producing spines and a helmet 으로 그것을 받아 에너지 비용을 따지며, (C)의 So 가 그 비용 논리를 적응(adaptation)으로 맺도록 짰다. 결론 표지 So 와 지시대명사 That 을 각각 어디에 걸 것인지가 유일한 갈림길이다.",
+   "answer_locus": {
+    "sentence_index": [4, 2],
+    "quote": "That’s a clever trick, because producing spines and a helmet is costly, in terms of energy, and conserving energy is essential for an organism’s ability to survive and reproduce.",
+    "reasoning": "That 이 받는 영리한 수법은 (B)가 서술한 조건부 발달(포식자 신호가 있으면 만들고 없으면 안 만든다)이다. 또 spines and a helmet 은 (B)의 it develops a helmet and spines 에서 처음 소개되므로 (A)는 (B) 뒤에만 놓인다. 이 문장이 대는 근거(에너지 절약이 생존·번식에 필수)가 (C)의 because it contributed to reproductive fitness 로 이어져 (A)-(C)가 붙는다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "정보 첫 등장 역전",
+     "why_tempting": "That's a clever trick 의 That 을 주어진 글의 adaptive plasticity 로 받으면 곧바로 이어진다.",
+     "how_to_reject": "(A)는 producing spines and a helmet 을 이미 아는 것처럼 말하지만, 가시와 투구는 주어진 글에 한 번도 나오지 않고 (B)의 it develops a helmet and spines 에서 처음 나온다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "trap": null,
+     "why_tempting": "(B)가 조건부 발달을 처음 서술하고, (A)의 That 이 그 행동을 받아 비용을 따지며, (C)의 So 가 그 비용 논리를 적응이라는 결론으로 맺는다.",
+     "how_to_reject": "배제 대상이 아니다 — 검산은 두 지점이다. ① (A)의 That 바로 앞에 행동이 서술돼 있는가 ② (C)의 So 앞에 번식·생존을 언급한 근거 문장이 있는가."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "근거 문단 건너뜀",
+     "why_tempting": "(B)를 첫 자리에 두는 것은 맞고, (C)의 So 가 (B)의 조건부 행동을 곧바로 결론짓는 것처럼 들린다.",
+     "how_to_reject": "(C)의 So it may well be that this plasticity is an adaptation ... because it contributed to reproductive fitness 는 번식 적합도를 근거로 삼는데, 그 연결은 (A)의 conserving energy is essential for an organism’s ability to survive and reproduce 에서만 제공된다. 또 (C)는 There are many cases, across many species 로 일반화하며 닫히므로 뒤에 (A)의 That’s a clever trick 이 올 수 없다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "지시대명사가 받을 대상 어긋남",
+     "why_tempting": "(C)의 this plasticity 가 주어진 글의 adaptive plasticity 를 그대로 받아 첫 자리처럼 보인다.",
+     "how_to_reject": "(C)를 앞에 두면 (A)의 That 이 받을 것이 적응이라는 판정이 되어 clever trick(영리한 수법 = 행동)과 어긋난다. 행동은 (B)에만 서술돼 있고, (B)를 맨 뒤로 보내면 사례가 평가·결론 뒤에 온다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "결론 표지 선치",
+     "why_tempting": "(C)-(B)를 결론 먼저, 사례 나중인 두괄식으로 읽으면 그럴듯하고 (A)가 마무리 평가처럼 보인다.",
+     "how_to_reject": "(C)의 So 는 앞 내용의 귀결을 표시하는데 (C)가 첫 자리면 So 가 받을 근거가 주어진 글의 정의 한 문장뿐이다. 또 (C) 마지막 Plasticity is conducive to fitness if there is sufficient variation in the environment 는 조건을 일반화한 마무리라, 그 뒤에 한 종의 사례가 다시 오면 서술 범위가 되좁아진다."
+    }
+   ],
+   "solve_procedure": [
+    { "step": "각 문단 첫 문장에서 지시어와 논리 표지를 표시한다 — That(A) · If(B) · So ... this plasticity(C)", "on_fail": "표시가 어려우면 That/this/So 를 지문에서 모두 동그라미 친다" },
+    { "step": "That 이 받을 것이 명사인지 행동인지 판별한다 (That's a clever trick 의 trick 은 행동을 가리키는 명사다)", "on_fail": "판별이 안 되면 That 다음 명사(trick)를 우리말로 옮겨 적고 사람·사물·행동 중 무엇인지만 고른다" },
+    { "step": "그 행동이 서술된 문단을 찾아 (A)의 앞자리로 고정한다 — 조건절 If ... 로 행동을 서술한 문단이 그 자리다", "on_fail": "못 찾으면 spines·helmet 이 처음 나오는 문장을 찾아 그 문단을 앞자리로 삼는다" },
+    { "step": "So 로 시작하는 문단은 근거가 앞에 있어야 하므로, 근거로 쓸 문장(survive and reproduce 같은 표현)이 어느 문단 안에 있는지 확인한다", "on_fail": "근거 문장을 못 고르면 because 가 들어간 문장을 모두 표시해 비교한다" },
+    { "step": "2~4단계의 고정 관계를 모두 만족하는 선지만 남긴다", "on_fail": "둘 이상 남으면 (A)를 첫 자리에 둔 선지부터 지운다 — 주어진 글에 가시·투구가 없다" }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": { "predicted": 0.6, "drivers": ["That · this plasticity · So 세 표지가 문단 첫머리에 뚜렷하다", "다만 (C)의 this plasticity 가 주어진 글의 낱말을 그대로 되받아 첫 자리처럼 보이는 덫이 있다", "2점 문항"] },
+   "required_vocab": ["plasticity", "spines", "expends", "predators", "conducive"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["코퍼스 지문 끝에 옆 단 조각(t is)과 각주가 붙어 있다 — 본문 네 덩이는 raw_block 과 일치해 그 부분만 근거로 삼았다", "quote 가 (A) 첫 문장이고 근거가 (B) 마지막 문장과 짝을 이룬다"],
+     "checked": ["quote 를 corpus.json 지문에서 문자열 대조(굽은 아포스트로피 포함)", "chunk 의 raw_block 과 corpus 지문 본문 대조", "정답표 ②=(B)-(A)-(C) 와 분석 결론 대조"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["④와 ⑤가 모두 (C) 선두 배열이지만 ④는 That 의 지시 대상, ⑤는 So 의 근거 부재로 배제 근거가 다르다", "①은 가시·투구의 첫 등장, ③은 근거 문단 누락이라 축이 겹치지 않는다"],
+     "checked": ["오답 4개 trap 라벨 중복 여부", "why_tempting 이 각 배열에서 실제로 생기는 오독인지", "how_to_reject 의 지문 위치 표기 유무"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["초안 required_vocab 에 signatures 가 들어 있었다 — chemical signatures 는 (B) 이해에는 필요하지만 배열 판정에는 쓰이지 않아 반려했고, 실제 판정에 쓰이는 expends 로 바꿨다", "100초 배분: 표지 표시 25초 · That 판별 30초 · So 근거 찾기 25초 · 선지 대조 20초"],
+     "checked": ["절차 5단계 실행 가능성", "금지 표현 문자열 검색", "required_vocab 5개가 배열 판정 문장에 쓰이는지 낱말별 확인"]
+    }
+   ]
+  },
+  {
+   "item_id": "2023#37",
+   "measured_ability": "Therefore 가 받을 전제(성공해야 보수를 받는 구조)가 어느 문단에 서술돼 있는지 찾고, 두려움과 그 해소라는 문제-해결 짝을 이어 배열을 확정하는 능력",
+   "design_intent": "성공보수의 작동 방식을 (C)에만 서술하고 (A)의 Therefore 가 그것을 받게 했다. 다시 (A) 끝의 Their biggest fears are high fees 를 (B) 첫 문장 clients are ensured that they pay no fees until they receive a settlement 이 풀도록 두어, 연결사 하나와 문제-해결 짝 하나로 배열이 잠긴다.",
+   "answer_locus": {
+    "sentence_index": [8, 2],
+    "quote": "In this approach, lawyers do not receive fees or payment until the case is settled, when they are paid a percentage of the money that the client receives.",
+    "reasoning": "(A) 첫 문장 Therefore, only an outcome in the client’s favor is compensated 는 이겨야 보수가 있다는 귀결인데, 그 전제인 판결이 날 때까지 보수가 없고 의뢰인이 받은 돈의 일부를 받는다는 이 문장에만 있다. 주어진 글은 명칭과 사용 주체(lawyers)만 말하므로 (C)-(A)가 붙고, (A) 끝의 두려움을 (B) 첫 문장이 풀어 (A)-(B)가 이어진다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "연결사 근거 없음",
+     "why_tempting": "주어진 글이 contingency pricing 을 지목했으니 Therefore 가 그 정의에서 곧장 따라 나오는 것처럼 보인다.",
+     "how_to_reject": "주어진 글은 결과 기반 가격의 가장 널리 알려진 형태라는 명칭과 사용 주체만 말할 뿐 보수 조건을 말하지 않는다. Therefore 가 받을 전제는 (C)의 lawyers do not receive fees or payment until the case is settled 다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "문제-해결 순서 역전",
+     "why_tempting": "(B)가 contingency pricing 의 이점을 요약해 정의 바로 뒤에 붙는 것처럼 읽힌다.",
+     "how_to_reject": "(B) 첫 문장은 의뢰인이 안심한다는 해결인데, 그 걱정은 (A) 마지막 Their biggest fears are high fees for a case that may take years to settle 에서 처음 나온다. 해결이 걱정보다 앞서면 clients are ensured 가 무엇을 달래는지 사라진다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "일반화 문장 위치 오판",
+     "why_tempting": "(B)의 In these and other instances of contingency pricing 을 앞서 말한 사례들로 읽으면 그 뒤에 설명이 더 와도 무방해 보인다.",
+     "how_to_reject": "(B) 둘째 문장은 사례를 묶어 일반화하는 마무리다. 그 뒤에 (C)의 Contingency pricing is the major way that personal injury and certain consumer cases are billed 라는 기본 설명이 오면 설명이 요약 뒤로 밀리고, 맨 끝의 (A)는 Therefore 가 받을 전제를 잃는다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "trap": null,
+     "why_tempting": "(C)가 성공보수의 작동 방식을 설명하고, (A)의 Therefore 가 그 귀결과 의뢰인의 두려움을 말하며, (B)가 그 두려움을 해소하고 사례를 일반화하며 닫는다.",
+     "how_to_reject": "배제 대상이 아니다 — 검산은 두 지점이다. ① Therefore 바로 앞에 판결 전에는 보수가 없다는 문장이 있는가 ② (B)의 clients are ensured 바로 앞에 의뢰인의 두려움이 있는가."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "인접쌍 한 칸 밀림",
+     "why_tempting": "(C)를 첫 자리에 두는 것은 맞고, (C)의 판결 전에는 보수 없음과 (B)의 pay no fees until they receive a settlement 이 같은 말이라 붙여 읽기 쉽다.",
+     "how_to_reject": "(B)는 의뢰인 관점의 안심을 말하는데, 의뢰인 관점(From the client’s point of view)과 그 두려움은 (A)에서 처음 도입된다. (A)를 끝으로 보내면 글이 Their biggest fears are high fees 로 끝나 해결이 사라진다."
+    }
+   ],
+   "solve_procedure": [
+    { "step": "주어진 글이 말하는 것이 명칭인지 작동 방식인지 표시한다 (a practice called contingency pricing, used by lawyers — 명칭과 사용 주체뿐이다)", "on_fail": "구분이 어려우면 주어진 글에 돈·시점을 나타내는 표현(fees · until · percentage)이 있는지만 확인한다" },
+    { "step": "(A)(B)(C) 첫 문장에서 연결사와 지시 표현을 표시한다 — Therefore(A) · By using ... clients are ensured(B) · 표지 없음(C)", "on_fail": "표지가 없으면 첫 문장의 주어를 옮겨 적는다" },
+    { "step": "Therefore 가 받을 전제 문장을 다른 문단에서 찾는다 — 보수를 언제 받는가를 말한 문장이 그것이다", "on_fail": "못 찾으면 fees·payment 가 들어간 문장에 모두 밑줄을 긋고 조건(until)이 붙은 것을 고른다" },
+    { "step": "걱정을 말한 문장과 그 걱정을 푸는 문장을 짝지어 인접쌍을 만든다 (biggest fears ↔ ensured that they pay no fees)", "on_fail": "짝이 안 지어지면 fear·ensure·risk 같은 감정·보증 낱말에 표시하고 앞뒤를 정한다" },
+    { "step": "3·4단계의 인접쌍을 모두 포함하는 선지만 남긴다", "on_fail": "둘 이상 남으면 (A)나 (B)를 첫 자리에 둔 선지부터 지운다 — Therefore 의 전제와 두려움이 앞에 없다" }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": { "predicted": 0.55, "drivers": ["3점 문항", "(B)와 (C)가 판결 전에는 보수 없음을 거의 같은 말로 되풀이해 인접 판정이 흔들린다", "Therefore 라는 강한 연결사가 있어 전제를 찾으면 한 번에 잠긴다"] },
+   "required_vocab": ["contingency", "compensated", "intimidated", "settlement", "billed"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["지문·선지가 온전하다", "quote 가 (C) 마지막 문장으로 이 유형의 근거 위치(문단 끝과 다음 문단 첫머리)와 맞는다"],
+     "checked": ["quote 를 corpus.json 지문에서 문자열 대조", "정답표 ④=(C)-(A)-(B) 와 분석 결론 대조", "R-ORDER 유형 정의 대조"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["②와 ⑤가 모두 (B)의 위치를 다루지만 ②는 해결이 걱정보다 앞선다, ⑤는 의뢰인 관점이 아직 도입되지 않았다로 근거 문장이 다르다", "①은 Therefore 의 전제, ③은 일반화 문장의 위치라 축이 겹치지 않는다"],
+     "checked": ["오답 4개 trap 라벨 중복 여부", "why_tempting 이 각 배열에서 실제로 생기는 오독인지", "how_to_reject 의 지문 위치 표기 유무"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["3단계가 보수를 언제 받는가 한 가지만 찾게 해 실행이 단순하다", "110초 배분: 표지 표시 30초 · 전제 찾기 40초 · 짝짓기 20초 · 선지 대조 20초"],
+     "checked": ["절차 5단계 실행 가능성", "금지 표현 문자열 검색", "required_vocab 이 판정 문장에 쓰이는지 — compensated·settlement 는 Therefore 전제 대조에 직접 쓰인다"]
+    }
+   ]
+  },
+  {
+   "item_id": "M2309#36",
+   "answer_unknown": true,
+   "revised": true,
+   "measured_ability": "장치를 처음 정의하는 문장(A lock is an artificial water basin)과 그 장치를 정관사로 되받는 문장(the lock · the upper gates), 그리고 Then 이 표시하는 절차 단계를 구분해 설명문의 진행 순서를 세우는 능력",
+   "design_intent": "운하 갑문의 작동을 상행(upstream)과 하행(downstream) 두 절차로 쪼개고 장치 자체의 정의는 한 문단에만 두었다. 절차문이라 시간 부사(Then)와 정관사가 곧 순서 표지가 되도록 만든 배치다.",
+   "solve_procedure": [
+    { "step": "주어진 글에서 제시된 것이 문제인지 해법인지 표시한다 (building a canal between them presents a complicated engineering problem — 문제 제기다)", "on_fail": "구분이 어려우면 problem · solution · make up for 같은 낱말에만 표시한다" },
+    { "step": "(A)(B)(C) 첫 문장에서 순서 표지와 관사를 표시한다 — Then the upper gates(A) · When a vessel is going upstream ... the upper gates(B) · To make up for the difference in level(C)", "on_fail": "표지가 안 보이면 the 가 붙은 명사구를 전부 동그라미 친다" },
+    { "step": "장치 이름(lock)이 정의되는 문장을 찾는다 — A lock is an artificial water basin 처럼 부정관사로 규정하는 자리가 그 장치의 첫 등장이다", "on_fail": "못 찾으면 called 나 is a 가 들어간 문장을 찾는다" },
+    { "step": "Then 으로 시작하는 문단은 앞 단계가 있어야 하므로, 그 앞 단계(문이 닫히고 물이 채워지는 장면)를 서술한 문단을 찾아 인접쌍을 만든다", "on_fail": "못 찾으면 gates 가 나오는 문장을 모두 표시해 열림·닫힘 순서로 늘어놓는다" },
+    { "step": "3·4단계 결과를 동시에 만족하는 선지만 남긴다", "on_fail": "둘 이상 남으면 정의 문장이 있는 문단을 첫 자리에 두지 않은 선지부터 지운다" }
+   ],
+   "time_budget_sec": 100,
+   "difficulty": { "predicted": 0.6, "drivers": ["정답표가 없는 회차라 구조 지표로만 추정했다(실측 정답률 아님)", "절차문이라 Then·When 같은 단계 표지가 문단 첫머리에 뚜렷하다", "다만 코퍼스 지문에 옆 단 조각이 섞여 있어 문장 경계를 잘못 잡을 여지가 있다"] },
+   "required_vocab": ["locks", "vessel", "upstream", "downstream", "basin"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["코퍼스 지문 가운데에 옆 단 조각이 끼어 있으나 세 문단 구획은 온전하다", "정답표가 없어 근거 서술 대신 확인 지점(정의 문장 · Then 의 앞 단계)만 남겼다"],
+     "checked": ["answer_known=false 확인 후 answer_locus 미작성 확인", "지문에서 (A)(B)(C) 구획과 각 첫 문장 확인", "R-ORDER 유형 정의 대조"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["answer_locus·choices 가 비어 있고 절차가 특정 배열을 답으로 지목하지 않는다", "difficulty 0.6 의 근거를 단계 표지가 명시적이라는 구조 지표와 지문 잡음으로 나눠 적었다", "required_vocab 5개가 지문에 문자열로 있다(locks · vessel · upstream · downstream · basin)"],
+     "checked": ["answer_locus·choices 공란 확인", "difficulty 근거 명시 여부", "required_vocab 을 지문 문자열과 대조", "measured_ability 가 선지를 전제하지 않는지"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["초안 1단계가 지문 전체를 읽고 절차문인지 본다로 되어 있어 지문을 안 본 학생에게 실행 불가였다 — 주어진 글 한 문장에서 문제 제기인지 표시하는 동작으로 바꿨다", "100초 안에 끝난다: 표지 표시 25초 · 정의 문장 찾기 30초 · 단계 짝짓기 25초 · 선지 대조 20초"],
+     "checked": ["절차 5단계를 지문 없이 실행 가능한지 재확인(1단계 수정 후)", "금지 표현 문자열 검색", "required_vocab 이 판정에 쓰이는 낱말인지"]
+    }
+   ]
+  },
+  {
+   "item_id": "M2309#37",
+   "answer_unknown": true,
+   "measured_ability": "주어진 글이 한 문장에 담은 두 갈래(의식적으로 다루는 방식 · 훨씬 덜 자각하는 방식) 중 각 문단이 어느 갈래를 잇는지 확인하고, however 가 갈래를 바꾸는 자리인지 판정하는 능력",
+   "design_intent": "주어진 글 한 문장이 두 갈래를 함께 내놓고, 두 문단이 의식적 갈래를 도구 비유로 이어받으며(as we would use a particular tool → as we would select a screwdriver) 한 문단이 In some cases, however 로 덜 자각하는 갈래로 넘어간다. 비유가 두 문단에 걸쳐 이어지도록 만들어, 비유의 연결 고리를 표지로 쓸 수 있는지 본다.",
+   "solve_procedure": [
+    { "step": "주어진 글 한 문장을 두 갈래로 쪼개 적는다 (consciously consider and discuss / far less cognizant)", "on_fail": "쪼개기 어려우면 but 앞뒤를 그대로 옮겨 적는다" },
+    { "step": "(A)(B)(C) 첫 문장에서 갈래 표지를 표시한다 — In some cases, however ... far less aware(A) · When we have to offer an account ... consciously understand(B) · We select the cultural notion(C)", "on_fail": "표지가 없으면 각 첫 문장에서 conscious·aware 계열 낱말에만 표시한다" },
+    { "step": "비유가 이어지는 두 문장을 찾아 붙인다 — as we would use a particular tool 과 as we would select a screwdriver 는 같은 비유의 앞뒤다", "on_fail": "비유를 못 찾으면 as we would 라는 같은 구문을 지문에서 훑어 표시한다" },
+    { "step": "however 가 붙은 문단은 앞에 반대 갈래가 서술돼 있어야 하므로, 의식적 갈래를 다룬 문단이 그 앞에 오는지 확인한다", "on_fail": "확인이 안 되면 not hidden 과 less aware 처럼 상반된 표현 두 개를 찾아 앞뒤를 정한다" },
+    { "step": "3·4단계의 관계를 동시에 만족하는 선지만 남긴다", "on_fail": "둘 이상 남으면 비유가 끊기는 배열부터 지운다" }
+   ],
+   "time_budget_sec": 110,
+   "difficulty": { "predicted": 0.5, "drivers": ["정답표가 없는 회차라 구조 지표로만 추정했다(실측 정답률 아님)", "앞 문단의 명사를 되받는 지시어가 거의 없고 비유의 연속(tool → screwdriver)이 사실상 유일한 연결 표지다", "cognizant · discursively 같은 추상 낱말이 판정 문장에 들어 있다"] },
+   "required_vocab": ["cognizant", "discursively", "screwdriver", "excuses", "worldview"],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": ["지문·선지가 온전하다", "정답표가 없어 근거 서술을 넣지 않았고, 학습자가 확인할 표지(두 갈래 · 비유의 앞뒤 · however)만 남겼다"],
+     "checked": ["answer_known=false 확인 후 answer_locus 미작성 확인", "지문에서 (A)(B)(C) 첫 문장 표지 확인", "R-ORDER 유형 정의 대조"]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": ["answer_locus·choices 가 비어 있고 절차가 특정 배열을 지목하지 않는다", "difficulty 0.5 의 근거를 지시어가 거의 없고 비유 연속이 유일한 표지라는 구조 지표로 적었다", "required_vocab 5개가 지문에 문자열로 있다"],
+     "checked": ["answer_locus·choices 공란 확인", "difficulty 근거 명시 여부", "required_vocab 을 지문 문자열과 대조", "measured_ability 가 선지를 전제하지 않는지"]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": ["3단계에서 as we would 라는 같은 구문을 찾게 한 것이 이 문항에서 가장 빠른 손잡이다", "110초 배분: 갈래 쪼개기 25초 · 표지 표시 30초 · 비유 짝짓기 30초 · 선지 대조 25초"],
+     "checked": ["절차 5단계 실행 가능성", "금지 표현 문자열 검색", "required_vocab 이 판정에 쓰이는 낱말인지 — cognizant·discursively 는 갈래 판정 문장에 들어 있다"]
+    }
+   ]
+  }
+ ],
+ "type_report": {
+  "type_id": "R-ORDER",
+  "type_name": "글의 순서",
+  "n_analyzed": 12,
+  "recurring_traps": [
+   { "trap": "지시어 선행사 없음", "count": 8, "signature": "오답 배열의 첫 문단이 대명사·소유격·지시형용사(Their · them · these forms · they/their)로 시작하는데 그것이 받을 명사가 주어진 글에 없다. 주어진 글에 없는 사람 복수나 유형 구분을 첫 문단이 이미 아는 것처럼 말한다" },
+   { "trap": "연결사 근거 없음 · 방향 어긋남", "count": 5, "signature": "Therefore · So · For example 가 받을 전제나 상위 진술이 앞 문단에 없다. 특히 For example 문단을 뒤로 미루면 예시가 예시할 일반 진술을 잃는다" },
+   { "trap": "정보 첫 등장 역전", "count": 4, "signature": "정관사·기지 정보로 언급된 명사(the burnt areas · producing spines and a helmet · prescribed)가 그것을 처음 도입한 문단보다 앞에 온다" },
+   { "trap": "인접쌍 위치 이동", "count": 3, "signature": "맞는 인접쌍 하나를 찾은 학생이 그 쌍을 통째로 앞당기거나 한 칸 민다. 쌍은 맞으므로 읽으면 자연스럽고 어긋난 것은 쌍 밖의 문단이다" },
+   { "trap": "마무리·일반화 문장 위치 오판", "count": 2, "signature": "In this sense · In these and other instances · There are many cases 처럼 사례를 묶어 닫는 문장이 글 중간에 놓인다" },
+   { "trap": "시간·절차 순서 역전", "count": 2, "signature": "나가는 장면보다 돌아오는 장면이, 앞 단계보다 Then 이 붙은 뒤 단계가 먼저 온다" }
+  ],
+  "answer_locus_pattern": "정답표가 있는 6문항 모두 근거가 한 문단의 마지막 문장과 다른 문단의 첫 문장 사이에 걸쳐 있었다(6/6). 그중 5문항은 뒤 문단 첫 문장의 지시어·정관사구가 앞 문단 마지막 문장의 명사를 받는 형태였고(M2506#36 The young shoots · M2506#37 Their role · 2024#36 In these ... forms · 2024#37 them · 2023#36 That), 1문항은 연결사 Therefore 가 앞 문단 마지막 문장을 전제로 삼는 형태였다(2023#37). 곧 이 유형에서 읽어야 할 곳은 문단 가운데가 아니라 문단의 첫 문장과 마지막 문장 여섯 개다.",
+  "procedure": [
+   { "step": "주어진 글에 등장한 명사를 성격별로 적는다 — 사람(복수인가 단수인가) · 사물·제도 · 시점. 이것이 뒤 문단의 지시어가 받을 수 있는 후보 전부다", "on_fail": "적기 어려우면 주어와 마지막 명사구 두 개만 옮긴다" },
+   { "step": "(A)(B)(C) 첫 문장에만 표시를 한다 — ① 대명사·소유격 ② 지시형용사+명사(this/these/such) ③ 정관사+처음 보는 명사 ④ 연결사(However · Thus · Therefore · So · For example · But) ⑤ 시간 부사(Then · afterwards)", "on_fail": "표지가 없는 문단은 표지 없음이라고 적어 둔다 — 그 자체가 첫 자리 후보라는 신호다" },
+   { "step": "1단계 목록으로 2단계 표지를 대조해, 받을 말이 주어진 글에 없는 문단을 첫 자리 후보에서 지운다. 이 한 단계로 보통 선지 5개 중 2~3개가 지워진다", "on_fail": "후보가 하나도 안 남으면 표지가 가장 약한 문단(시간 부사만 있는 것)을 남긴다" },
+   { "step": "각 문단 마지막 문장에서 새로 등장한 명사에 밑줄을 긋고, 다른 문단 첫 문장의 지시어와 짝짓는다. 짝이 성립하는 것만 확정 인접쌍으로 적는다", "on_fail": "짝이 안 지어지면 두 문단에 공통으로 나오는 낱말을 찾되 처음 나온 자리가 어느 쪽인지 표시한다" },
+   { "step": "확정 인접쌍을 포함하고 3단계의 첫 자리 후보와도 맞는 선지만 남긴다", "on_fail": "둘 이상 남으면 연결사(For example · Therefore · So)가 받을 전제·상위 진술이 바로 앞에 있는 배열만 남긴다" },
+   { "step": "고른 순서대로 문단 첫 문장만 다시 보며 지시어가 바로 앞 문단 안의 명사를 가리키는지 확인한다 (20초)", "on_fail": "하나라도 가리킬 말이 없으면 그 배열을 버리고 5단계로 돌아간다" }
+  ],
+  "failure_modes": [
+   "맞는 인접쌍 하나를 찾고 만족해 그 쌍을 첫 자리에 놓는다 — 이 청크의 오답 24개 중 3개가 이 형태이며, 쌍이 맞아 읽으면 자연스럽기 때문에 검산에서 걸리지 않는다",
+   "지시어를 가리키는 대상이 있는가가 아니라 말이 되는가로 판정한다. them·their 처럼 사람을 받는 대명사는 주어진 글에 사람이 하나뿐인데도 복수로 읽어 넘긴다(2024#37 ① · M2506#36 ③)",
+   "For example 문단을 예시는 뒤라는 통념으로 뒤로 미룬다. 실제로는 주어진 글이 일반 진술이면 예시 문단이 첫 자리다(M2506#37 정답이 (B) 선두)",
+   "역접(However)으로 시작하는 문단을 첫 자리에서 배제한다. 주어진 글이 통념·기존 관행을 말하면 역접 문단이 곧바로 온다(M2506#36 정답이 (A) 선두)",
+   "정관사·기지 정보를 놓친다. the burnt areas · producing spines and a helmet 처럼 이미 아는 것처럼 말하는 명사구가 어디서 처음 소개됐는지 확인하지 않는다"
+  ],
+  "time_budget_sec": 110,
+  "open_questions": [
+   "trap 라벨표 보강 제안 — 이 유형에서 실제로 작동한 축은 어휘 계열이 아니라 결속 장치였다. 지시어 선행사 없음 · 정보 첫 등장 역전(정관사·기지 정보) · 연결사 근거 없음/방향 어긋남 · 인접쌍 위치 이동 · 시간·절차 순서 역전 · 마무리·일반화 문장 위치 오판 여섯을 R-ORDER(및 R-INSERT) 전용 라벨로 추가할 것을 제안한다. 기존 라벨(범위 과대·인과 역전 등)로는 이 여섯이 전부 무관으로 뭉개진다",
+   "함정 통계의 분모가 절반이다 — 12문항 중 6문항이 answer_known false(M2409#36·37 · M2406#36·37 · M2309#36·37)라 선지 판정이 없다. recurring_traps 의 count 합 24는 정답표가 있는 6문항의 오답에서만 나왔다. 다음 R-ORDER 청크에서 표본을 채워야 지시어 선행사 없음 8/24 같은 비율을 유형 성질로 말할 수 있다",
+   "코퍼스 지문 결손을 이 청크에서 처음 만났다 — M2506#36 은 corpus.json 에 passage·choices 가 통째로 null 이었다(단 나누기 실패: columns2/M2506.txt 632행에서 왼쪽 단 선지와 오른쪽 단 문항 번호 36. 이 한 줄에 붙어 itemBlocks 가 문항 시작줄을 못 찾는다). 검수 게이트의 인용 대조는 corpus 만 보므로 이런 문항은 어떤 분석을 써도 통과할 수 없다. data/bodies-manual.json 을 만들어 원본 텍스트에서 받아 적고 build-corpus.mjs 가 자동 추출이 빈손일 때만 그것을 쓰도록 배선했다(자동 추출본은 덮지 않는다). 재빌드 결과는 M2506#36 한 문항만 채워지고 나머지 1,304 문항은 완전히 동일했다. 사정권 802 중 지문 없는 22문항에 같은 결손이 더 있는지는 다음 청크들에서 확인이 필요하다",
+   "반려는 5건 나왔다 — M2506#36 analyst(함정 라벨 중복) · 2024#36 setter(의도가 유형 일반론) · M2406#37 analyst(required_vocab 에 옆 단 39번 지문 낱말 혼입) · 2023#36 tutor(정답 판정에 안 쓰이는 낱말) · M2309#36 tutor(1단계가 실행 불가). 이 중 M2406#37 은 코퍼스 지문이 두 문항을 합쳐 놓아 문자열 대조로는 걸러지지 않는 종류라, 게이트에 옆 단 혼입 지문 딱지가 있으면 좋겠다"
+  ]
+ }
+}

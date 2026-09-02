@@ -179,3 +179,112 @@ export async function loadCsatTypeDetail(typeId: string): Promise<{ detail: Csat
     error: null,
   }
 }
+
+/** 한 회차를 번호 순서로 푸는 계획의 한 줄 */
+export interface CsatPlanRow {
+  no: number
+  type_id: string
+  type_name: string
+  points: number | null
+  time_budget_sec: number | null
+  ready: boolean
+  /** 이 유형의 첫 단계 — 번호를 만났을 때 가장 먼저 할 동작 */
+  first_step: string | null
+}
+
+export interface CsatPlan {
+  exam_id: string
+  exam_label: string
+  rows: CsatPlanRow[]
+  scope_points: number
+  /** 절차가 준비된 문항의 시간 예산 합 */
+  budget_sec: number
+  ready_items: number
+  /** 시험에서 독해에 쓸 수 있는 시간(초). 영어 70분 중 듣기 약 25분을 뺀 값 */
+  available_sec: number
+  error: string | null
+}
+
+/** 영어 시험 70분 = 4,200초. 듣기 방송이 약 25분(1,500초)이므로 독해 몫은 2,700초다. */
+export const CSAT_READING_SECONDS = 2700
+
+/**
+ * **한 회차 주파 계획.**
+ *
+ * 유형별 분석을 낱개로 읽는 것과, 그것을 **번호 순서로 늘어놓는 것**은 다른 물건이다.
+ * 시험장에서 학습자가 만나는 것은 유형 목록이 아니라 18번부터 45번까지의 줄이고,
+ * 그 줄을 시간 안에 통과할 수 있는지가 99점의 실제 조건이다.
+ *
+ * 그래서 이 화면은 **시간 예산 합계를 시험 시간과 나란히 적는다.** 합이 넘으면 절차가
+ * 아무리 옳아도 쓸 수 없다 — 그건 분석의 결함이지 학습자의 결함이 아니다.
+ *
+ * 번호별 유형은 2019학년도부터 고정이므로(이 저장소 실측 명제 E11) 최신 회차 하나를
+ * 본으로 쓴다. 본이 될 회차가 없으면 빈 계획을 돌려준다.
+ */
+export async function loadCsatPlan(): Promise<CsatPlan> {
+  const db = await csatDb()
+  const empty: CsatPlan = {
+    exam_id: '',
+    exam_label: '',
+    rows: [],
+    scope_points: 0,
+    budget_sec: 0,
+    ready_items: 0,
+    available_sec: CSAT_READING_SECONDS,
+    error: null,
+  }
+
+  const examRes = await db
+    .from('csat_exams')
+    .select('id, label, year, month, kind')
+    .eq('kind', 'suneung')
+    .order('year', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+  if (examRes.error) return { ...empty, error: examRes.error.message }
+  const exam = examRes.data as { id: string; label: string } | null
+  if (!exam) return empty
+
+  const [itemsRes, typesRes, repsRes] = await Promise.all([
+    db.from('csat_items_public').select('no, type_id, points').eq('exam_id', exam.id).eq('in_scope', true),
+    db.from('csat_types').select('id, name'),
+    db.from('csat_type_reports').select('type_id, time_budget_sec, procedure_steps').eq('status', 'published'),
+  ])
+  const bad = [itemsRes, typesRes, repsRes].find((r) => r.error)
+  if (bad?.error) return { ...empty, exam_id: exam.id, exam_label: exam.label, error: bad.error.message }
+
+  const nameOf = new Map(((typesRes.data ?? []) as { id: string; name: string }[]).map((t) => [t.id, t.name]))
+  const repOf = new Map(
+    ((repsRes.data ?? []) as { type_id: string; time_budget_sec: number | null; procedure_steps: unknown }[]).map(
+      (r) => [r.type_id, r],
+    ),
+  )
+
+  const rows: CsatPlanRow[] = ((itemsRes.data ?? []) as { no: number; type_id: string | null; points: number | null }[])
+    .filter((i) => i.type_id)
+    .map((i) => {
+      const rep = repOf.get(i.type_id as string)
+      const steps = arr<{ step?: string }>(rep?.procedure_steps)
+      return {
+        no: i.no,
+        type_id: i.type_id as string,
+        type_name: nameOf.get(i.type_id as string) ?? i.type_id!,
+        points: i.points,
+        time_budget_sec: rep?.time_budget_sec ?? null,
+        ready: Boolean(rep),
+        first_step: steps[0]?.step ?? null,
+      }
+    })
+    .sort((a, b) => a.no - b.no)
+
+  return {
+    exam_id: exam.id,
+    exam_label: exam.label,
+    rows,
+    scope_points: rows.reduce((a, r) => a + (r.points ?? 0), 0),
+    budget_sec: rows.reduce((a, r) => a + (r.time_budget_sec ?? 0), 0),
+    ready_items: rows.filter((r) => r.ready).length,
+    available_sec: CSAT_READING_SECONDS,
+    error: null,
+  }
+}

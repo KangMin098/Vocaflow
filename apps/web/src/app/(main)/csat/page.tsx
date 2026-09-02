@@ -35,6 +35,15 @@ export default async function CsatHubPage() {
             분석이 준비된 유형 {ready} / {cards.length} · 듣기는 다루지 않습니다
           </p>
         ) : null}
+
+        {/* 유형을 낱개로 읽는 것과 번호 순서로 늘어놓는 것은 다른 물건이다 —
+            시험장에서 만나는 것은 유형 목록이 아니라 18번부터 45번까지의 줄이다. */}
+        <Link
+          href="/csat/plan"
+          className="mt-4 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+        >
+          한 회차 주파 계획 보기 →
+        </Link>
       </header>
 
       {error ? (

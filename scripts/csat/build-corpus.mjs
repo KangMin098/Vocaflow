@@ -83,14 +83,24 @@ function bodyOf(exam, no) {
   if (!blocks.length) {
     return man ? { passage: man.passage ?? null, choices: man.choices ?? null } : { passage: null, choices: null }
   }
-  const block = blocks[0]
-  let passage = passageOf(block)
+  // `itemBlocks` 는 후보를 여럿 준다(줄머리 · 줄 가운데 · 세트 머리글). 첫 번째가 늘 옳지는
+  // 않다 — 문항 번호가 옆 단 꼬리에 붙어 첫 후보가 빈손인 경우가 있다. **가장 실한 것**을 쓴다.
+  // ⚠️ **더 긴 쪽을 고르면 안 된다.** 후보 블록에는 옆 문항의 것이 섞여 들어올 수 있고,
+  //    옆 문항 지문이 더 길면 그쪽이 이긴다 — 2026-09-02 에 31번 지문이 32·34번에 복사됐다.
+  //    후보는 `itemBlocks` 가 **확실한 것부터** 준다(줄머리 → 줄 가운데 → 장문 세트 머리글).
+  //    그러니 **앞 후보가 빈손일 때만** 뒤로 넘어간다. "더 나은" 이 아니라 "없을 때" 다.
+  let passage = null
+  let choices = null
+  for (const b of blocks) {
+    if (!passage) passage = passageOf(b) || null
+    if (!choices) choices = choicesOf(b)
+    if (passage && choices) break
+  }
   const set = setBlockFor(exam, no)
   if (set && (!passage || passage.length < 200)) {
     const sp = passageOf(set)
     if (sp && sp.length > (passage?.length ?? 0)) passage = sp
   }
-  const choices = choicesOf(block)
   // 자동 추출이 빈손일 때만 손으로 적은 것을 쓴다
   if (man && !passage) return { passage: man.passage ?? null, choices: choices ?? man.choices ?? null }
   return { passage: passage || null, choices }
@@ -119,6 +129,9 @@ function suspectBody(passage, typeId) {
   if (/\s\.\s/.test(passage)) return true
   if (/(?:^|\s)(?![aAI](?:$|\s))[A-Za-z](?=$|\s)/.test(passage)) return true
   if (BLANK_TYPES.has(typeId) && !passage.includes('______')) return true
+  // ⑤ 지문 안에 **다른 문항의 번호**가 박혀 있다 — 단이 안 갈린 페이지에서 두 문항이 한 줄에
+  //    붙어 같은 블록을 쓰게 된 것이다(실측: M2306 의 `37.        39.` 한 줄 → 37·39 지문 동일).
+  if (/(?:^|\s)\d{1,2}\.\s+[A-Z]/.test(passage)) return true
   return false
 }
 

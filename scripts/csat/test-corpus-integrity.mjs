@@ -117,6 +117,29 @@ ok('T11 두 회차가 같은 본문을 갖지 않음', twins.length === 0, twins
 const noBody = readItems.filter((it) => !it.passage && !it.choices)
 soft('T12 사정권 문항에 본문이 있다', noBody.length === 0, `둘 다 없음 ${noBody.length}: ${noBody.slice(0, 5).map((it) => it.id).join(' ')}`)
 
+// T13 **한 회차 안에서 지문이 겹치면 안 된다.**
+// 장문 세트(41~45)만 예외다 — 거기서는 두세 문항이 한 지문을 공유하는 것이 설계다.
+//
+// 실측 2026-09-02: `itemBlocks` 에 세트 머리글 대체 진입점을 넣으면서 `[31~34]`(발문만 묶은 것)를
+// 지문 공유로 오인해 **31번 지문이 32·33·34번에 복사됐다.** 지문은 멀쩡해 보이고 길이도 정상이라
+// 눈으로는 안 보인다 — 드레인 게이트의 인용 대조 23건이 한꺼번에 어긋나서야 드러났다.
+// 그 신호는 우연이었으므로(분석이 이미 있어야 한다) 원장 쪽에 직접 검사를 둔다.
+{
+  const dupPassage = []
+  const byExamPassage = new Map()
+  for (const it of items) {
+    if (!it.passage || it.passage.length < 200) continue
+    if (it.no >= 41) continue // 장문 세트는 공유가 설계다
+    // 이미 `body_suspect` 로 표시된 문항은 뺀다 — 드레인이 원문 블록을 함께 실어 보내므로
+    // 분석이 잘못될 경로가 막혀 있다. 여기서 세면 **이미 처리한 것을 계속 실패로 부르게** 된다.
+    if (it.body_suspect) continue
+    const key = `${it.exam}|${it.passage.slice(0, 200)}`
+    if (byExamPassage.has(key)) dupPassage.push(`${byExamPassage.get(key)}↔${it.id}`)
+    else byExamPassage.set(key, it.id)
+  }
+  ok('T13 한 회차 안 지문 중복 없음(장문 제외)', dupPassage.length === 0, dupPassage.slice(0, 6).join(' '))
+}
+
 // T10 report 의 수치가 items 와 일치 — 리포트만 고쳐 놓고 원장은 그대로인 사고를 막는다
 ok('T10 report.items == items.length', report.items === items.length, `${report.items} vs ${items.length}`)
 ok('T10b report.typed 일치', report.typed === typed, `${report.typed} vs ${typed}`)

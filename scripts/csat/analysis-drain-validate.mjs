@@ -49,6 +49,20 @@ function norm(s) {
     .toLowerCase()
 }
 
+/**
+ * 회차 원문(2단 복원본) — 인용 대조의 **안정된 건초더미**.
+ * 파서를 고쳐도 이 파일은 그대로이므로, 여기 있으면 지어낸 인용이 아니다.
+ */
+const COL = path.resolve('scripts/csat/data/columns2')
+const examCache = new Map()
+function examText(exam) {
+  if (!examCache.has(exam)) {
+    const p = path.join(COL, `${exam}.txt`)
+    examCache.set(exam, fs.existsSync(p) ? norm(fs.readFileSync(p, 'utf8')) : '')
+  }
+  return examCache.get(exam)
+}
+
 // 청크 이름은 첫 문항 id 에서 나온다(`chunk-R-BLANK-M2706-31`). 일련번호가 아니므로
 // `--chunk` 는 **이름 조각**으로 받는다 — `--chunk R-BLANK` · `--chunk M2706-31` 둘 다 된다.
 const all = fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json')).sort()
@@ -139,7 +153,16 @@ for (const f of files) {
       else {
         const hay = norm(`${it.passage ?? ''} ${it.raw_block ?? ''} ${(it.choices ?? []).join(' ')}`)
         if (!hay.includes(norm(q))) {
-          bad(id, `인용이 지문에 없다 — "${String(q).slice(0, 60)}…"`)
+          // **건초더미가 움직이는 표적이면 안 된다.** 인용은 분석을 쓴 시점의 코퍼스에서 뽑는데,
+          // 파서를 고치면 지문 문자열이 달라져 멀쩡한 인용 23건이 한꺼번에 "지어냈다" 로 뒤집힌다
+          // (2026-09-02 실제로 겪었다). 검사가 물어야 하는 것은 "우리 파서의 현재 산출물과 같은가"
+          // 가 아니라 **"이 회차 원문에 실제로 있는가"** 다. 그래서 회차 원문으로 한 번 더 본다.
+          // 지어낸 인용은 회차 원문에도 없으므로 이 완화가 원래 목적을 깎지 않는다.
+          if (examText(it.exam).includes(norm(q))) {
+            warn(id, `인용이 현재 지문 파싱과 안 맞는다(회차 원문에는 있다) — 파서가 바뀌었을 수 있다`)
+          } else {
+            bad(id, `인용이 회차 원문에 없다 — "${String(q).slice(0, 60)}…"`)
+          }
         }
         if (norm(q).length < 20) warn(id, '인용이 20자 미만 — 근거로 삼기엔 짧다')
       }
