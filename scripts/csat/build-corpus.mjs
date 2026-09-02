@@ -150,6 +150,21 @@ function suspectBody(passage, typeId) {
   return false
 }
 
+/**
+ * **장문 세트(41~45)의 번호별 고정 유형** — 발문을 못 뜬 문항의 대체 규칙.
+ *
+ * 이 저장소는 "번호로 유형을 가르지 않는다" 를 원칙으로 둔다(번호는 해마다 밀린다).
+ * 장문 세트만 예외로 두는 근거는 **실측**이다 — 2019학년도 이후 사정권에서
+ * 41=X-TITLE 22/22 · 42=X-VOCAB 22/22 · 43=X-ORDER **21/22** · 44=X-REFER **21/22** ·
+ * 45=X-FACT 22/22. 어긋난 1건이 바로 이 규칙이 고치려는 그 문항이다(M2406#43·44 —
+ * 개별 발문을 못 떠 세트 머리글 `다음 글을 읽고, 물음에 답하시오.` 가 셋 다에 붙었고
+ * 셋 다 X-FACT 로 배정됐다. 서브에이전트가 raw_block 의 발문을 읽고 잡아냈다).
+ *
+ * **발문이 있는 문항은 건드리지 않는다** — 규칙이 실측을 덮으면 그때부터 이 표가 거짓말을 한다.
+ */
+const LONG_SET_TYPE = { 41: 'X-TITLE', 42: 'X-VOCAB', 43: 'X-ORDER', 44: 'X-REFER', 45: 'X-FACT' }
+const GENERIC_SET_STEM = /^다음\s*글을\s*읽고,?\s*물음에\s*답하시오/
+
 const items = []
 const rows = [
   ...suneung.questions.map((q) => ({ ...q, ...(classified.get(`${q.exam}#${q.no}`) ?? {}) })),
@@ -158,6 +173,10 @@ const rows = [
 
 for (const q of rows) {
   const meta = examMeta(q.exam)
+  // 발문을 못 떠 세트 머리글만 붙은 장문 문항은 번호로 유형을 되찾는다(위 LONG_SET_TYPE 참조)
+  if (q.no >= 41 && meta.year >= 2019 && GENERIC_SET_STEM.test((q.stem ?? '').trim()) && LONG_SET_TYPE[q.no]) {
+    q.type = LONG_SET_TYPE[q.no]
+  }
   const key = keyOf.get(`${q.exam}#${q.no}`) ?? null
   const { passage, choices } = bodyOf(q.exam, q.no)
   items.push({

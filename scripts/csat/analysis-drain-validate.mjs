@@ -140,6 +140,27 @@ for (const f of files) {
       // 사람 판단에 맡기지 않고 기계가 막는다.
       if ((a.choices ?? []).length) bad(id, 'answer_unknown 인데 선지 판정이 있다 — 추정을 정답처럼 적지 않는다')
       if (a.answer_locus) bad(id, 'answer_unknown 인데 answer_locus 가 있다 — 정답을 모르면 정답 근거도 없다')
+      // **자유서술로 새어 나가는 정답 전제.** 구조화된 자리를 막았더니 산문 쪽으로 갔다 —
+      // `measured_ability` 에 선지 배제를 적거나 `difficulty.drivers` 에 "오답 ②·③" 을 지목한
+      // 사례를 검수가 잡았다(2026-09-02, M2306#24 · M2109#24). 검수가 잡은 것은 다음에 안 잡힐 수
+      // 있으므로 기계에 옮긴다. 선지 번호를 부르는 말이 산문에 있으면 정답을 안다는 뜻이다.
+      {
+        const prose = [
+          a.measured_ability, a.design_intent,
+          ...(a.difficulty?.drivers ?? []),
+          ...(a.solve_procedure ?? []).flatMap((s) => [s.step, s.on_fail]),
+        ].filter(Boolean).join(' ')
+        // ⚠️ **선지 기호가 있다는 것만으로 걸면 안 된다.** 위치형(삽입·순서)은 선지가 지문에
+        //    박힌 위치라 절차가 «①~⑤ 앞 문장만 읽어…» 처럼 정당하게 부른다. 결함 서술
+        //    («선지 ③에 OCR 잔여») 도 정답 주장이 아니다. 처음 넓게 걸었더니 12건이 전부
+        //    오탐이었다 — 오탐이 잦은 검사는 곧 무시당하고, 무시당하는 검사는 없는 것과 같다.
+        //    그래서 **정답·오답을 명시적으로 지목하는 말**에만 건다.
+        const hit =
+          prose.match(/(?:정답|오답|답)\s*(?:은|는|이|가|을|를)?\s*[①②③④⑤]/) ??
+          prose.match(/[①②③④⑤]\s*(?:이|가|은|는)\s*(?:정답|답|맞)/) ??
+          prose.match(/(?:정답|오답)\s*(?:은|는|이|가)?\s*[1-5]\s*(?:번|이다|입니다)/)
+        if (hit) bad(id, `answer_unknown 인데 서술이 정답을 지목한다 — "${hit[0]}"`)
+      }
     } else {
       const ch = a.choices ?? []
       if (ch.length !== 5) bad(id, `선지 판정이 ${ch.length}개 — 5개여야 한다`)
