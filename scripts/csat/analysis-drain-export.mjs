@@ -111,9 +111,22 @@ function pack(it) {
   }
 }
 
-// 기존 청크는 지운다 — 남은 몫이 줄었는데 옛 청크가 남아 있으면 두 번 일한다
+// 끝난 청크는 지운다 — 남은 몫이 줄었는데 옛 청크가 남아 있으면 두 번 일한다.
+//
+// ⚠️ **아직 안 끝난 청크는 건드리지 않는다.** 청크는 서브에이전트의 **입력 파일**이고,
+//    돌고 있는 에이전트의 입력을 지우면 그 몫이 통째로 날아간다(2026-09-02 실제로 겪었다 —
+//    `--limit 0` 으로 재실행했더니 작업 중이던 청크가 사라졌다). 그 청크의 문항이 전부
+//    완료된 것만 지운다.
 let removed = 0
+let kept = 0
 for (const f of fs.readdirSync(WORK).filter((f) => f.startsWith('chunk-') && f.endsWith('.json') && !f.endsWith('.out.json'))) {
+  let ids = []
+  try {
+    ids = (JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8')).items ?? []).map((i) => i.item_id)
+  } catch {
+    ids = [] // 못 읽는 청크는 소모품으로 본다
+  }
+  if (ids.length && !ids.every((id) => done.has(id))) { kept += 1; continue }
   fs.rmSync(path.join(WORK, f))
   removed += 1
 }
@@ -146,6 +159,6 @@ fs.writeFileSync(path.join(WORK, '_MANIFEST.json'), JSON.stringify({ built_at: n
 
 const total = corpus.items.filter((it) => it.in_scope).length
 console.log(`  사정권 ${total} · 완료 ${done.size} · 검수 미완 ${partial} · 남은 몫 ${pool.length}`)
-console.log(`  옛 청크 ${removed}개 삭제 · 새 청크 ${n}개 (청크당 ${SIZE})`)
+console.log(`  끝난 청크 ${removed}개 삭제 · 작업 중이라 남긴 청크 ${kept}개 · 새 청크 ${n}개 (청크당 ${SIZE})`)
 if (ONLY_TYPE) console.log(`  유형 한정: ${ONLY_TYPE}`)
 console.log(`→ ${WORK}`)
