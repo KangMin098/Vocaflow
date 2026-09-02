@@ -1,115 +1,57 @@
 // scripts/csat/ingest-mock.mjs
 //
-// **6·9월 모의평가를 코퍼스에 넣는다 — 규칙 도출에 한 번도 쓰이지 않은 순수 홀드아웃.**
+// **평가원 6·9월 모의평가를 코퍼스에 넣는다 — 규칙 도출에 한 번도 쓰이지 않은 순수 홀드아웃.**
 //
 // 지금까지 이 저장소의 홀드아웃은 **2014A 한 회차**뿐이었고, 그래서
 // "유형별 명제는 회차당 문항이 1~4개라 n=14 가 구조적 상한" 이라고 적어 두었다.
 // 모의평가를 넣으면 그 상한이 풀린다 — 평가원이 같은 설계로 내는 시험이기 때문이다.
 //
-//   202606  2026학년도 6월 모의평가  (문제 + 정답표)
-//   202609  2026학년도 9월 모의평가  (문제 + 정답표)
-//   202706  2027학년도 6월 모의평가  (문제 + 정답표)
-//   202509  2025학년도 9월 모의평가  (문제만 — 정답표 없음, 형식 검사에서만 쓴다)
-//
 // ⚠️ **이 회차들은 어떤 규칙 도출에도 쓰이지 않았다.** 그러므로 여기에 HARD 10 을 걸면
 //    사후 서술이 아니라 **예측**이다. 예측이 깨지면 그 규칙은 수능 전용 관행이지
 //    평가원 설계의 일반 규칙이 아니라는 뜻이고, 그것도 발견이다.
 //
-// 실행: pnpm dlx tsx scripts/csat/ingest-mock.mjs
+// 2026-09-02 전면 재작업 — 회차 4개(손목록)에서 **폴더의 전 회차**로. 알아낸 것 셋:
+//   ① 파일명이 내용을 말하지 않는다. `..._정답표.pdf` 인데 **듣기 대본**인 회차가 7,
+//      `..._문제지.pdf` 인데 **듣기 대본**인 회차가 2 (2019학년도 6·9월 = 문제지 자체가 없다).
+//      그래서 파일명이 아니라 **내용으로 판정**하고, 없는 것은 없다고 적는다.
+//   ② pdftotext -layout 의 좌표계가 회차마다 다르다 — `lib-columns.mjs` 참조.
+//   ③ 그래도 한 페이지씩 단 나누기가 실패하는 회차가 남는다. 그 페이지의 오른쪽 단 문항이
+//      통째로 사라지므로, **못 찾은 번호에 한해** 줄 가운데 발문을 2차로 줍는다.
+//
+// 실행: node scripts/csat/ingest-mock.mjs
+// 산출: data/mock-questions.json · data/mock-answers.json · data/mock-inventory.json · columns2/M*.txt
 
 import fs from 'node:fs'
 import path from 'node:path'
 import os from 'node:os'
 import { execFileSync } from 'node:child_process'
+import { restoreColumnsBest } from './lib-columns.mjs'
 
-const SRC = 'C:/Users/Administrator/Document' + 's/수능영어기출/모의평가'
+// 원본 위치는 옮겨진 적이 있다(`Documents/수능영어기출/모의평가` → `Documents/영어/모의평가`).
+// 하드코딩 하나만 두면 폴더가 움직인 날 스크립트가 조용히 0회분을 넣는다 — 후보를 훑는다.
+const SRC_CANDIDATES = [
+  process.env.CSAT_MOCK_DIR,
+  'C:/Users/Administrator/Documents/영어/모의평가',
+  'C:/Users/Administrator/Documents/수능영어기출/모의평가',
+].filter(Boolean)
+const SRC = SRC_CANDIDATES.find((d) => fs.existsSync(d))
+if (!SRC) throw new Error(`모의평가 원본 폴더를 못 찾았다: ${SRC_CANDIDATES.join(' · ')}`)
+
 const PDFTOTEXT = 'C:/Program Files/Git/mingw64/bin/pdftotext.exe'
 const DIR = path.resolve('scripts/csat/data')
 const COL = path.join(DIR, 'columns2')
 
-const EXAMS = [
-  { id: 'M2606', q: '202606_영어영역_문제지.pdf', k: '202606_영어영역_정답표.pdf' },
-  { id: 'M2609', q: '202609_영어영역_문제지.pdf', k: '202609_영어영역_정답표.pdf' },
-  { id: 'M2706', q: '202706_영어영역_문제지.pdf', k: '202706_영어영역_정답표.pdf' },
-  { id: 'M2509', q: '202509_영어영역_문제지.pdf', k: null },
-]
-
 function pdfText(file) {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'mock-'))
-  const src = path.join(tmp, 'in.pdf'), dst = path.join(tmp, 'out.txt')
+  const src = path.join(tmp, 'in.pdf')
+  const dst = path.join(tmp, 'out.txt')
   try {
     fs.copyFileSync(path.join(SRC, file), src)
     execFileSync(PDFTOTEXT, ['-layout', '-enc', 'UTF-8', src, dst], { stdio: 'pipe' })
     return fs.readFileSync(dst, 'utf8').replace(/\r/g, '')
-  } finally { fs.rmSync(tmp, { recursive: true, force: true }) }
-}
-
-// ── 2단 복원 (pdf-columns2 와 같은 알고리즘) ──────────────────────────
-function occupancy(ls) {
-  const live = ls.filter((l) => l.trim().length)
-  if (!live.length) return null
-  const width = Math.max(...live.map((l) => l.length))
-  const occ = new Array(width).fill(0)
-  for (const l of live) for (let i = 0; i < l.length; i += 1) if (l[i] !== ' ') occ[i] += 1
-  return { occ, width, n: live.length }
-}
-function findGutter(ls, minRun = 4) {
-  const p = occupancy(ls)
-  if (!p || p.n < 10 || p.width < 70) return null
-  const thr = Math.max(1, Math.floor(p.n * 0.04))
-  const lo = Math.floor(p.width * 0.28), hi = Math.floor(p.width * 0.72)
-  let best = null, run = null
-  for (let i = lo; i <= hi; i += 1) {
-    if (p.occ[i] <= thr) { if (run) run.e = i; else run = { s: i, e: i } }
-    else { if (run && (!best || run.e - run.s > best.e - best.s)) best = run; run = null }
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true })
   }
-  if (run && (!best || run.e - run.s > best.e - best.s)) best = run
-  if (!best || best.e - best.s + 1 < minRun) return null
-  return Math.floor((best.s + best.e) / 2)
-}
-function isGutterAt(ls, cut, slack = 2) {
-  const p = occupancy(ls)
-  if (!p) return false
-  if (cut >= p.width) return true
-  let hits = 0
-  for (let i = Math.max(0, cut - slack); i <= Math.min(p.width - 1, cut + slack); i += 1) hits += p.occ[i]
-  return hits / (p.n * (slack * 2 + 1)) <= 0.10
-}
-function rescueCut(ls) {
-  const cols = []
-  for (const l of ls) {
-    const m = l.match(/^(.{40,}?)\s{2,}(\d{1,2}\s*[.．]\s)/)
-    if (m) cols.push(m[1].length + m[0].slice(m[1].length).search(/\d/))
-  }
-  if (cols.length < 2) return null
-  cols.sort((a, b) => a - b)
-  const med = cols[Math.floor(cols.length / 2)]
-  if (cols.filter((c) => Math.abs(c - med) <= 3).length / cols.length < 0.5) return null
-  return Math.max(1, med - 1)
-}
-function cutPage(ls, cut) {
-  const L = [], R = []
-  for (const l of ls) { L.push(l.slice(0, cut).replace(/\s+$/, '')); R.push(l.slice(cut).replace(/\s+$/, '')) }
-  const t = (a) => { while (a.length && !a[0].trim()) a.shift(); while (a.length && !a[a.length - 1].trim()) a.pop(); return a }
-  return [...t(L), '', ...t(R)]
-}
-function restoreColumns(raw) {
-  const pages = raw.split('\f').map((p) => p.split('\n')).filter((ls) => ls.some((l) => l.trim()))
-  const found = pages.map((ls) => findGutter(ls)).filter((c) => c != null)
-  const tally = new Map()
-  for (const c of found) tally.set(c, (tally.get(c) ?? 0) + 1)
-  let grid = null, bn = 0
-  for (const [c, k] of tally) if (k > bn || (k === bn && c < grid)) { grid = c; bn = k }
-  const out = []
-  for (const ls of pages) {
-    const p = occupancy(ls)
-    let cut = null
-    if (grid != null && p && isGutterAt(ls, grid)) { if (grid < p.width) cut = grid }
-    else cut = findGutter(ls)
-    if (cut == null) { const r = rescueCut(ls); if (r != null) { out.push(...cutPage(ls, r), ''); continue } out.push(...ls, ''); continue }
-    out.push(...cutPage(ls, cut), '')
-  }
-  return out.join('\n')
 }
 
 // ── 정답표 ────────────────────────────────────────────────────────────
@@ -136,11 +78,11 @@ const TYPES = JSON.parse(fs.readFileSync(path.join(DIR, 'classified.json'), 'utf
 const RE_SET = /^\s*\[\s*(\d{1,2})\s*[~～∼〜–—-]\s*(\d{1,2})\s*\]\s*(.*)$/
 
 /**
- * 발문을 모은다. 두 가지를 처리해야 한다:
+ * 발문을 모은다. 세 가지를 처리해야 한다:
  *  ① **여러 줄로 이어지는 발문** — 빈 줄을 건너뛰고 한글 줄을 계속 붙인다.
- *    (`문맥상 낱말의 쓰임이 적절하지` / 빈 줄 / `않은 것은?`)
- *  ② **세트 머리글** `[31~34] 다음 빈칸에 …` — 31~34 는 자기 발문이 없고
- *    머리글이 발문이다. 이걸 안 물려주면 빈칸·순서·삽입 12문항이 통째로 미배정된다.
+ *  ② **세트 머리글** `[31~34] 다음 빈칸에 …` — 31~34 는 자기 발문이 없고 머리글이 발문이다.
+ *  ③ **줄 가운데에서 시작하는 발문** — 단 나누기가 실패한 페이지의 잔해. ②까지로 못 찾은
+ *     번호에 한해서만 줍는다(1차에 쓰면 지문 속 숫자를 발문으로 삼킨다).
  */
 function stemsOf(text) {
   const ls = text.split('\n')
@@ -153,7 +95,7 @@ function stemsOf(text) {
       if (/^[①②③④⑤]/.test(l)) break
       if (/^\s*\d{1,2}\s*[.．]/.test(ls[j])) break
       if (RE_SET.test(ls[j])) break
-      if (!/[가-힣]/.test(l)) break          // 영어 지문이 시작되면 발문 끝
+      if (!/[가-힣]/.test(l)) break // 영어 지문이 시작되면 발문 끝
       s += ' ' + l
     }
     return s
@@ -164,7 +106,22 @@ function stemsOf(text) {
   ls.forEach((l, i) => {
     const m = l.match(RE_SET)
     if (!m) return
-    const from = +m[1], to = +m[2]
+    const from = +m[1]
+    const to = +m[2]
+    if (from < 1 || to > 45 || to < from) return
+    const stem = (m[3] + collect(i + 1)).trim()
+    if (!/[가-힣]/.test(stem)) return
+    for (let n = from; n <= to; n += 1) if (!setStems.has(n)) setStems.set(n, stem)
+  })
+
+  // ②-b 세트 머리글도 줄 가운데에서 시작할 수 있다 — 단 나누기가 실패한 페이지에서
+  //     `① affect our …        [36~37] 주어진 글 다음에 …` 처럼 앞 단 꼬리에 붙는다.
+  //     이걸 놓치면 순서·삽입 세트의 첫 문항(36번)이 회차마다 통째로 빠진다(M2109·M2506 실측).
+  ls.forEach((l, i) => {
+    const m = l.match(/\s{2,}\[\s*(\d{1,2})\s*[~～∼〜–—-]\s*(\d{1,2})\s*\]\s*(.*)$/)
+    if (!m) return
+    const from = +m[1]
+    const to = +m[2]
     if (from < 1 || to > 45 || to < from) return
     const stem = (m[3] + collect(i + 1)).trim()
     if (!/[가-힣]/.test(stem)) return
@@ -185,47 +142,124 @@ function stemsOf(text) {
   // 문항 번호 줄이 아예 없는 세트 문항도 살린다
   for (const [no, stem] of setStems) if (!out.has(no)) out.set(no, { no, stem, high_score: false })
 
+  // ③ 줄 가운데 발문 — 못 찾은 번호에 한해
+  for (let no = 1; no <= 45; no += 1) {
+    if (out.has(no)) continue
+    const re = new RegExp(String.raw`\s{2,}(` + no + String.raw`\s*[.．]\s*)(\S.*)$`)
+    for (let i = 0; i < ls.length; i += 1) {
+      const m = ls[i].match(re)
+      if (!m || !/[가-힣]/.test(m[2])) continue
+      const col = ls[i].length - m[2].length
+      let stem = m[2]
+      // 같은 단(= 같은 시작 열)에서 이어지는 한글 줄을 붙인다
+      for (let j = i + 1, blanks = 0; j < ls.length && j < i + 5; j += 1) {
+        const cont = ls[j].length > col - 4 ? ls[j].slice(Math.max(0, col - 4)).trim() : ''
+        if (!cont) { if (++blanks > 1) break; continue }
+        if (/^[①②③④⑤]/.test(cont) || /^\d{1,2}\s*[.．]/.test(cont)) break
+        if (!/[가-힣]/.test(cont)) break
+        stem += ' ' + cont
+      }
+      stem = stem.trim()
+      out.set(no, { no, stem, high_score: /\[\s*3\s*점\s*\]/.test(stem), rescued: true })
+      break
+    }
+  }
+
   return [...out.values()].sort((a, b) => a.no - b.no)
 }
 
 function classify(stem) {
   const norm = stem.replace(/\s+/g, '')
-  const hits = TYPES.filter((t) => t.re.test(norm))
-  return hits
+  return TYPES.filter((t) => t.re.test(norm))
 }
 
+/** 파일 하나가 무엇인지 — 파일명이 아니라 내용으로 판정한다 */
+function kindOf(raw) {
+  if (/듣기평가\s*대본/.test(raw)) return '대본'
+  if (parseKey(raw).length >= 40) return '정답표'
+  const stems = new Set([...raw.matchAll(/^\s*(\d{1,2})\s*[.．]/gm)].map((m) => +m[1]).filter((n) => n >= 1 && n <= 45))
+  if (stems.size >= 18) return '문제지'
+  return '미상'
+}
+
+// ── 회차 목록 — 폴더를 읽고 **내용으로** 역할을 정한다 ────────────────
+// 손목록을 두면 폴더에 회차가 늘어도 그대로라 "전체를 넣었다" 가 조용히 거짓이 된다
+// (실제로 18회분 중 4회분만 들어와 있었다).
+const FILES = fs.readdirSync(SRC).filter((f) => /^\d{6}_영어영역_.+\.pdf$/.test(f)).sort()
+const exams = new Map()
+const inventory = []
+for (const f of FILES) {
+  const code = f.slice(0, 6)
+  const raw = pdfText(f)
+  const kind = kindOf(raw)
+  inventory.push({ file: f, code, kind })
+  const e = exams.get(code) ?? { id: 'M' + code.slice(2), code, paper: null, key: null, script: null }
+  if (kind === '문제지' && !e.paper) e.paper = f
+  if (kind === '정답표' && !e.key) e.key = f
+  if (kind === '대본' && !e.script) e.script = f
+  exams.set(code, e)
+}
+const EXAMS = [...exams.values()].sort((a, b) => a.code.localeCompare(b.code))
+if (!EXAMS.length) throw new Error(`${SRC} 에 회차 PDF 가 없다`)
+
+console.log(`  원본 ${SRC}`)
+console.log(`  회차 ${EXAMS.length} — 문제지 ${EXAMS.filter((e) => e.paper).length} · 정답표 ${EXAMS.filter((e) => e.key).length} · 대본 ${EXAMS.filter((e) => e.script).length}`)
+const noPaper = EXAMS.filter((e) => !e.paper).map((e) => e.id)
+if (noPaper.length) console.log(`  ⚠ 문제지 없음: ${noPaper.join(' ')} — 이 회차는 문항을 못 넣는다`)
+const noKey = EXAMS.filter((e) => e.paper && !e.key).map((e) => e.id)
+if (noKey.length) console.log(`  ⚠ 정답표 없음: ${noKey.join(' ')} — 정답·배점 미상으로 남는다`)
+console.log()
+
 // ── 실행 ──────────────────────────────────────────────────────────────
-const questions = [], answers = [], report = []
+const questions = []
+const answers = []
+const report = []
 for (const e of EXAMS) {
-  const raw = pdfText(e.q)
-  const cols = restoreColumns(raw)
+  if (!e.paper) {
+    report.push({ exam: e.id, file: null, space: null, stems: 0, assigned: 0, multi: 0, none: 0, keys: 0, missing_paper: true })
+    continue
+  }
+  const raw = pdfText(e.paper)
+  // 좌표계는 회차마다 다르다 — 둘 다 돌려 **유형 배정이 많은 쪽**을 쓴다.
+  // 발문 수만으로 고르면 안 된다: 단이 안 갈린 줄도 발문 하나로 세어져 점수가 높아진다.
+  const pick = restoreColumnsBest(raw, (text) =>
+    stemsOf(text).reduce((a, q) => a + (classify(q.stem).length === 1 ? 10 : 1), 0))
+  const cols = pick.text
   fs.writeFileSync(path.join(COL, `${e.id}.txt`), cols)
 
   const stems = stemsOf(cols)
-  let assigned = 0, multi = 0, none = 0
+  let assigned = 0
+  let multi = 0
+  let none = 0
   for (const q of stems) {
     const hits = classify(q.stem)
     if (hits.length === 1) assigned += 1
     else if (hits.length > 1) multi += 1
     else none += 1
     questions.push({
-      exam: e.id, no: q.no, stem: q.stem, high_score: q.high_score,
+      exam: e.id,
+      no: q.no,
+      stem: q.stem,
+      high_score: q.high_score,
+      rescued: q.rescued === true,
       section: q.no <= 17 ? '듣기' : q.no <= 40 ? '독해' : '장문',
-      type: hits.length ? hits[0].id : null, hit_count: hits.length,
+      type: hits.length ? hits[0].id : null,
+      hit_count: hits.length,
     })
   }
 
   let keyRows = []
-  if (e.k) {
-    keyRows = parseKey(pdfText(e.k))
+  if (e.key) {
+    keyRows = parseKey(pdfText(e.key))
     for (const r of keyRows) answers.push({ exam: e.id, ...r })
   }
-  report.push({ exam: e.id, file: e.q, stems: stems.length, assigned, multi, none, keys: keyRows.length })
-  console.log(`  ${e.id}  발문 ${String(stems.length).padStart(2)}  배정 ${String(assigned).padStart(2)}  중복 ${multi}  미배정 ${none}  정답 ${keyRows.length}`)
+  report.push({ exam: e.id, file: e.paper, space: pick.wide ? 'wide' : 'char', stems: stems.length, assigned, multi, none, keys: keyRows.length })
+  console.log(`  ${e.id} ${pick.wide ? 'W' : 'C'} 발문 ${String(stems.length).padStart(2)}  배정 ${String(assigned).padStart(2)}  중복 ${multi}  미배정 ${none}  정답 ${keyRows.length}`)
 }
 
 fs.writeFileSync(path.join(DIR, 'mock-questions.json'), JSON.stringify({ report, rows: questions }, null, 1))
 fs.writeFileSync(path.join(DIR, 'mock-answers.json'), JSON.stringify({ answers }, null, 1))
+fs.writeFileSync(path.join(DIR, 'mock-inventory.json'), JSON.stringify({ src: SRC, files: inventory, exams: EXAMS }, null, 1))
 console.log()
 console.log(`  문항 ${questions.length} · 정답 ${answers.length}`)
-console.log(`→ mock-questions.json · mock-answers.json · columns2/M*.txt`)
+console.log('→ mock-questions.json · mock-answers.json · mock-inventory.json · columns2/M*.txt')

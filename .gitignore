@@ -150,3 +150,8 @@ skills-lock.json
 #   (w0817-* 는 디렉터리째 무시해서 나중에 명세를 되찾을 수 없었다. 같은 실수를 반복하지 않는다)
 scripts/dict/w0830-*/*
 !scripts/dict/w0830-*/_PROMPT.md
+
+# 기출 원장 통합 산출물 — columns2/*.txt + questions/answers 에서 통째로 재생성된다(2 MB).
+# 근거로 쓰는 것은 옆의 corpus-report.json 이고, 그건 커밋한다.
+#   재생성: node scripts/csat/build-corpus.mjs
+scripts/csat/data/corpus.json
