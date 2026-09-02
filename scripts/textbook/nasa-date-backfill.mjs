@@ -40,14 +40,18 @@ const COMMIT = process.argv.includes('--commit')
 const LIMIT = Number(arg('limit') ?? 500)
 
 const { createClient } = await import('@supabase/supabase-js')
-const { NASA_DATE_PATTERNS } = await import('../../packages/library-pipeline/src/ingest-article/nasa.ts')
-const { extractFirst } = await import(
-  '../../packages/library-pipeline/src/ingest-article/_helpers.ts'
-)
+const { NASA_DATE_PATTERNS } =
+  await import('../../packages/library-pipeline/src/ingest-article/nasa.ts')
+const { extractFirst } =
+  await import('../../packages/library-pipeline/src/ingest-article/_helpers.ts')
 
-const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
-  auth: { persistSession: false },
-})
+const db = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+  {
+    auth: { persistSession: false },
+  }
+)
 
 const UA = 'Vocaflow-DateBackfill/1.0 (+https://vocaflow.app; contact killerapp51@empal.com)'
 

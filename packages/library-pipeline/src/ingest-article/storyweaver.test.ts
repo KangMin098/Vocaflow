@@ -16,7 +16,12 @@ import {
   storyweaverPageText,
   stripPageNumbers,
 } from './storyweaver'
-import { SOURCE_POLICIES, SOURCE_REGISTER_DEFAULT, SOURCE_SPECS } from './_curation-spec'
+import {
+  SOURCE_POLICIES,
+  SOURCE_REGISTER_DEFAULT,
+  SOURCE_SPECS,
+  resolveArticleRegister,
+} from './_curation-spec'
 
 /** 실측 형태 — 뷰어가 쪽마다 스크립트를 함께 낸다. */
 const storyPage = `
@@ -82,6 +87,16 @@ describe('StoryWeaver 배선', () => {
 
   it('register 기본값이 narrative 다 — 이 소스를 넣은 이유 자체다', () => {
     expect(SOURCE_REGISTER_DEFAULT.storyweaver).toBe('narrative')
+  })
+
+  it('처리 단계가 실제로 부르는 함수도 narrative 를 돌려준다', () => {
+    // ⚠️ 표에 'narrative' 라고 적혀 있는 것과 **처리 경로가 그 표를 읽는 것**은 다른 일이다.
+    //   `dev-process` 는 `resolveArticleRegister(source, feed_id)` 를 부르고 그 값을 저장한다.
+    //   이 연결이 끊기면 글은 정상으로 들어오고 register 만 null 이 되어,
+    //   **"이야기 지문을 넣었는데 narrative 재고가 그대로 0"** 이라는 조용한 실패가 된다.
+    expect(resolveArticleRegister('storyweaver', null)).toBe('narrative')
+    expect(resolveArticleRegister('storyweaver', 'level-1')).toBe('narrative')
+    expect(resolveArticleRegister('storyweaver', 'level-2')).toBe('narrative')
   })
 
   it('초급 밴드를 겨냥한다', () => {

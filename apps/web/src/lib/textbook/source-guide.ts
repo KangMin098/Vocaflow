@@ -89,6 +89,10 @@ export const SOURCE_GUIDE: Record<SourceKey, SourceGuide> & Record<string, Sourc
     label: '기후·해양',
     says: 'NOAA 공개 자료. 자료와 추세를 다루는 글입니다.',
   },
+  storyweaver: {
+    label: '이야기',
+    says: '전 세계 아이들을 위해 쓰인 그림책 이야기입니다. 짧고, 사람이 나오고, 끝이 있습니다.',
+  },
   usgs: {
     label: '지구·재난',
     says: 'USGS 공개 자료. 지질·재해를 설명하는 글입니다.',

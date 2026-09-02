@@ -252,19 +252,40 @@ const B3 = {
   index: null,
   verdict: narrative === 0 ? 'FAIL — 이야기 지문 0편' : 'ok',
 }
+/**
+ * 발행일 — **두 수치를 나란히 낸다. 하나로 줄이면 반드시 한쪽을 속인다.**
+ *
+ * 이야기 지문(StoryWeaver 그림책)을 넣자 이 축이 99.2% → 74.7% 로 떨어졌다.
+ * 원인은 미상 43편 중 **42편이 그림책**이라는 것이고, 그림책에는 발행일이 없다 —
+ * 어댑터가 일부러 `null` 을 넣는다(없는 날짜를 지어내지 않는다).
+ *
+ * 여기서 갈림길이 둘이었다:
+ *   ① 그대로 둔다 — 74.7% 를 보고 "발행일 관리가 나빠졌다" 고 읽게 된다. 틀린 읽기다.
+ *   ② 분모에서 뺀다 — 99.2% 가 되지만, **지표를 좋아 보이게 고친 것**과 구별되지 않는다.
+ *
+ * 둘 다 안 하고 **둘 다 낸다.** 이 축의 존재 이유가 "시의성을 판단하고 낡은 사실을 거르는
+ * 것" 이므로 그 잣대가 닿는 것은 사실문이다 — 그래서 `factual` 이 이 축의 본래 물음에
+ * 답하는 값이고, `all` 은 그 판단이 미치지 않는 몫이 얼마나 되는지를 함께 말한다.
+ */
+const factualRows = authenticRows.filter((r) => r.register !== 'narrative')
+const factualDated = factualRows.filter((r) => r.published_at).length
 const B5 = {
   id: 'B5',
-  name: '발행일 명시율',
-  why: '언제 쓰인 글인지 모르면 시의성을 판단할 수 없고, 낡은 사실을 그대로 가르치게 된다',
-  ours: +pct(dated, authentic).toFixed(4),
-  oursDetail: `진본 ${authentic}편 중 ${dated}편 — 자작·재저작 ${n - authentic}편은 분모에서 뺀다`,
+  name: '발행일 명시율 (사실문)',
+  why: '언제 쓰인 글인지 모르면 시의성을 판단할 수 없고, 낡은 사실을 그대로 가르치게 된다 — 그 잣대가 닿는 것은 사실문이다',
+  ours: +pct(factualDated, factualRows.length).toFixed(4),
+  oursAllAuthentic: +pct(dated, authentic).toFixed(4),
+  oursDetail:
+    `사실문 ${factualRows.length}편 중 ${factualDated}편. ` +
+    `진본 전체로는 ${dated}/${authentic}편 — 차이는 이야기 ${authentic - factualRows.length}편이고, ` +
+    `그림책에는 발행일이 없다(없는 날짜를 지어내지 않는다)`,
   market: null,
   unit: '%',
   categorical: false,
   index: null,
   verdict:
-    pct(dated, authentic) < 0.9
-      ? `FAIL — 진본 ${authentic - dated}/${authentic}편이 발행일 미상`
+    pct(factualDated, factualRows.length) < 0.9
+      ? `FAIL — 사실문 ${factualRows.length - factualDated}/${factualRows.length}편이 발행일 미상`
       : 'ok',
 }
 
@@ -287,7 +308,10 @@ const report = {
       : []),
     // 분모는 **진본**이다. `n - dated` 로 세면 자작·재저작(발행일이 없는 게 맞는 것)까지
     //   결함으로 세어 고칠 수 없는 몫이 영영 미달로 남는다.
-    ...(authentic - dated > 0 ? [`진본인데 발행일 미상 ${authentic - dated}/${authentic}편`] : []),
+    // 그림책 미상은 결함이 아니라 매체의 사실이다 — 여기 세면 고칠 수 없는 몫이 영영 빨간 채 남는다.
+    ...(factualRows.length - factualDated > 0
+      ? [`사실문인데 발행일 미상 ${factualRows.length - factualDated}/${factualRows.length}편`]
+      : []),
     ...(n - clean > 0 ? [`재배포 불가 라이선스 ${n - clean}편`] : []),
   ],
 }

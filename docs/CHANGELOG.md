@@ -139,7 +139,7 @@ A6(길이)만 봤다 — **"원문이 시중보다 우위인가" 에 답하는 �
 - 안 되는 것도 남긴다 — **NOAA Ocean Facts** 중앙 439어·적중 0%(`<main>`·`<article>`·`<p>` 가 없어
   추출이 거칠어 **이 어수는 상한**) · 못 연 곳 11(Gutendex 는 열리나 단위가 책 한 권)
 
-### StoryWeaver 배선 — narrative 0 을 메우는 코드 (마이그레이션 승인 대기)
+### StoryWeaver 배선 — **narrative 0 이 해소됐다** (마이그레이션 `20260902160000` 적용)
 
 - `ingest-article/storyweaver.ts` + 정책 6곳(`SOURCE_SPECS`·`SOURCE_DEFAULT_SPEC`·
   `SOURCE_POLICIES`·`SOURCE_REGISTER_DEFAULT`=**narrative**·`beginner` 랭킹 1순위·배럴)
@@ -150,9 +150,19 @@ A6(길이)만 봤다 — **"원문이 시중보다 우위인가" 에 답하는 �
   소스를 넣고도 한 편도 안 들어온다
 - 회귀 `storyweaver.test.ts` **13종**(망 미사용) · 패키지 전체 **1,188 tests 통과(87 파일)** ·
   `tsc --noEmit` exit 0. 타입체커가 빠진 registry 하나를 잡아 줬다
-- ⏸ **`supabase/migrations/_pending_storyweaver_source.sql` 승인 대기** —
-  `library_articles.source` CHECK 에 `storyweaver` 가 없어 적재가 막힌다.
+- 마이그레이션 `20260902160000_storyweaver_source.sql` **적용·검증 완료**(`convalidated: true`).
   `NOT VALID`→`VALIDATE` 2단(24,738행 전수 스캔 중 ACCESS EXCLUSIVE 창을 줄인다)
+- 적재 **59편 · 실패 0 · 라이선스 미확인 0**(전량 CC BY 4.0 이 책 안에서 확인) · 처리 59편 · 실패 0
+- **B3 FAIL 해소** — register 3종→4종 · 초·중 창 지문 228→**270편** ·
+  B1 73.7→77.8% · B2 83.3→85.9% · B4 56.1→63.0%
+- 적재 스크립트 `storyweaver-ingest.mjs` — `--process` 는 **화면과 같은 라우트**를 부른다.
+  `queued` 로 두면 재고 질의가 `ready|published` 만 세서 **"넣었는데 0"** 이 된다
+- **B5 가 74.7% 로 떨어졌다** — 미상 43편 중 42편이 그림책이고 그림책에는 발행일이 없다.
+  그대로 두면 틀리게 읽히고 분모에서 빼면 지표를 고친 것과 구별되지 않는다 —
+  축 이름을 `발행일 명시율(사실문)` 으로 바꾸고 **두 수치를 나란히** 낸다(99.2% / 74.7%)
+- ⚠️ **StoryWeaver 는 이미 배선돼 있었다 — 다른 표에.** `library_books` 에 20권
+  (2026-06 LCP 경로). 내가 넣은 59편 중 **7편이 그것과 같은 이야기**라 학습자가
+  서가와 지문 양쪽에서 만난다. 지우는 것은 데이터 결정이라 하지 않고 스크립트가 **세어서 말하게** 했다
 
 ### NASA 이미지 쪽의 발행일이 조용히 비어 있었다 (B5)
 

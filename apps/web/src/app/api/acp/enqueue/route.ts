@@ -15,6 +15,7 @@ import {
   ingestElifeArticle,
   ingestFactbookArticle,
   ingestNasaArticle,
+  ingestStoryweaverArticle,
   ingestNihArticle,
   ingestNoaaArticle,
   ingestOwidArticle,
@@ -39,7 +40,7 @@ export const dynamic = 'force-dynamic'
 
 // v06.69 — arxiv 제거 (사용자 명시: "플랫폼 전체에서 삭제"). 6종.
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa' | 'storyweaver'
 
 interface EnqueueBody {
   feed_id?: string
@@ -65,6 +66,7 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https?:\/\/en\.wikivoyage\.org\/wiki\//, source: 'wikivoyage' },
   { pattern: /^https?:\/\/(?:www\.)?usgs\.gov\/news\//, source: 'usgs' },
   { pattern: /^https?:\/\/(?:www\.)?climate\.gov\/news-features\//, source: 'noaa' },
+  { pattern: /^https?:\/\/storyweaver\.org\.in\/stories\//, source: 'storyweaver' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -158,6 +160,10 @@ export async function POST(request: Request): Promise<NextResponse> {
       }
       case 'noaa': {
         article = await ingestNoaaArticle(body.item_url)
+        break
+      }
+      case 'storyweaver': {
+        article = await ingestStoryweaverArticle(body.item_url)
         break
       }
     }
