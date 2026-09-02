@@ -84,8 +84,15 @@
 `measured_ability` · `solve_procedure` · `difficulty` · `required_vocab` 만 채운다.
 **추정한 정답을 정답인 척 적지 않는다.** 그 한 줄이 학습자를 반대로 훈련시킨다.
 
-**`body_ok: false` 문항**: `passage`·`choices` 가 비어 있고 `raw_block` 에 원문이 통째로 있다.
-raw_block 을 읽어 채우고, 결과에 `"body_recovered": true` 를 넣는다.
+**`body_ok: false` 문항**: 지문·선지를 못 떴거나 미덥지 않다. `raw_block` 에 **문항 블록 + 회차
+원문 창**이 함께 들어 있다. 단이 안 갈린 페이지에서는 블록 자체가 두 단이 낱말 단위로 섞인
+뭉갬이므로(`sunk cost ______ This makes sense from the perspective of information fallacy`)
+**원문 창에서 좌우를 갈라 읽는다.** 복원했으면 `"body_recovered": true` 를 넣는다.
+
+**⚠️ 청크와 코퍼스가 다르면 코퍼스가 정본이다.** 청크는 뽑힌 시점의 코퍼스를 담는데
+(`corpus_built_at` 참조), 그 사이 파서가 고쳐지면 청크가 낡는다. **인용은 반드시
+`scripts/csat/data/corpus.json` 의 현재 지문에서 뽑아라** — 게이트가 그것을 건초더미로 쓴다.
+청크 본문에서 뽑으면 멀쩡한 인용이 "지어냈다" 로 걸린다(실측으로 겪었다).
 
 ---
 

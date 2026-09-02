@@ -77,13 +77,43 @@ for (const arr of byType.values()) {
 // 문항이 많은 유형부터 — 회차 커버 곡선이 가장 빨리 오른다
 const types = [...byType.entries()].sort((a, b) => b[1].length - a[1].length)
 
-/** 파서가 지문·선지를 못 뜬 문항이 3~4% 있다. 그 문항은 **원문 블록을 통째로 실어** 보낸다. */
+/**
+ * 지문이 미덥지 않은 문항에 싣는 **원문**.
+ *
+ * ⚠️ 문항 블록만 실으면 부족하다. 단 나누기가 실패한 페이지에서는 **블록 자체가 두 단이 섞인
+ *    뭉갬**이라(실측 M2306#39: `sunk cost ______ This makes sense from the perspective of
+ *    information fallacy` — 두 단이 낱말 단위로 교대) 블록을 줘도 복원할 수 없다.
+ *    서브에이전트가 결국 `columns2/*.txt` 를 직접 열어야 했다.
+ *
+ * 그래서 **회차 원문의 창(window)** 을 함께 싣는다 — 문항 번호가 나온 줄 앞뒤 40줄.
+ * 그 안에 옆 단이 통째로 들어 있으므로 사람이(=분석하는 쪽이) 눈으로 갈라 읽을 수 있다.
+ */
+const COL_DIR = path.resolve('scripts/csat/data/columns2')
+const colCache = new Map()
+function colLines(exam) {
+  if (!colCache.has(exam)) {
+    const p = path.join(COL_DIR, `${exam}.txt`)
+    colCache.set(exam, fs.existsSync(p) ? fs.readFileSync(p, 'utf8').replace(/\r/g, '').split('\n') : [])
+  }
+  return colCache.get(exam)
+}
+
 function rawBlock(it) {
   const blocks = itemBlocks(it.exam, it.no)
   const lines = blocks.length ? blocks[0] : []
   const set = setBlockFor(it.exam, it.no)
   const all = set ? [...set, '', ...lines] : lines
-  return all.join('\n').replace(/\n{3,}/g, '\n\n').trim() || null
+  const block = all.join('\n').replace(/\n{3,}/g, '\n\n').trim()
+
+  const ls = colLines(it.exam)
+  const re = new RegExp(`(?:^|\\s)${it.no}\\s*[.．]`)
+  const at = ls.findIndex((l) => re.test(l))
+  const window = at >= 0 ? ls.slice(Math.max(0, at - 6), at + 40).join('\n').replace(/\n{3,}/g, '\n\n') : ''
+
+  const parts = []
+  if (block) parts.push('── 문항 블록 ──\n' + block)
+  if (window) parts.push('── 회차 원문 창(단이 안 갈렸으면 여기서 좌우를 갈라 읽는다) ──\n' + window)
+  return parts.join('\n\n') || null
 }
 
 function pack(it) {
@@ -145,6 +175,11 @@ outer: for (const [typeId, arr] of types) {
     const name = `chunk-${typeId}-${slice[0].id.replace('#', '-')}.json`
     const payload = {
       chunk: n,
+      // 청크는 뽑힌 시점의 코퍼스를 담는다. 파서를 고치면 코퍼스가 바뀌므로 **작업 중이던
+      // 청크는 낡는다** — 실측: 서브에이전트가 낡은 청크 본문으로 인용을 뽑아 게이트가 어긋났다.
+      // 게이트는 코퍼스를 건초더미로 쓰므로, 둘이 다르면 **코퍼스가 정본**이다.
+      corpus_built_at: corpus.report?.built_at ?? null,
+      exported_at: new Date().toISOString(),
       type_id: typeId,
       type_name: slice[0].type_name,
       count: slice.length,
