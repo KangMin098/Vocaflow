@@ -688,6 +688,24 @@ export {
 export { explainInsertSeam, explainOrderSeam } from './textbook/explain-seam'
 export { explainShortInsertSeam } from './textbook/explain-seam'
 export { ELEMENTARY_ITEM_TYPES, NO_PASSAGE_WORDS } from './textbook/compose-unit'
+// 학년 난이도 눈금(정본) + 긴 이야기에서 그 칸에 드는 조각 떼내기.
+//   눈금을 세 군데 복사해 두었더니 시중 값과 우리 값이 다른 자로 재어질 뻔했다.
+export {
+  syllables,
+  readability,
+  fkGrade,
+  bandOf,
+  gradeBand,
+  READING_LEVEL_BANDS,
+  type ReadingLevelBand,
+  type Readability,
+} from './textbook/readability'
+export {
+  excerptForBand,
+  fitExcerptToAnyBand,
+  type ExcerptCandidate,
+  type ExcerptFit,
+} from './textbook/excerpt'
 export { explainElementary } from './textbook/explain-items'
 export { largestRemainder } from './textbook/compose-unit'
 export {
