@@ -99,6 +99,19 @@ raw_block 을 읽어 채우고, 결과에 `"body_recovered": true` 를 넣는다
 | `analyst` | 오답 분석가 (채점·문항반응 통계) | 오답 4개의 `trap` 이 **서로 다른가**. `why_tempting` 이 선지 텍스트에 실제로 근거하나. `how_to_reject` 에 지문 위치가 있나 | 함정 라벨 중복 · 선지 텍스트와 무관한 서술 · 배제 근거에 위치가 없다 |
 | `tutor` | 현장 강사 (학습자 대리) | `solve_procedure` 를 **지문을 아직 안 본 학생**이 실행할 수 있나. 순환논법이 없나. `time_budget_sec` 안에 끝나나. `required_vocab` 이 실제로 정답에 필요한 것인가 | 실행 불가 · 순환논법 · 시간 초과 · 어휘 나열 |
 
+### 정답표 없는 문항에서 `analyst` 는 무엇을 보나
+
+`answer_unknown: true` 문항에는 선지 판정이 없으므로 `analyst` 가 잴 것이 없어 보인다.
+실제로 그런 일이 있었다 — 정답표 없는 5문항에서 반려가 한 건도 안 나왔고, 그건 검수가
+아니라 도장이다. **그 경우 `analyst` 는 이것을 대신 잰다:**
+
+1. `answer_locus` 와 `choices` 가 **정말로 비어 있는가** — 추정 정답이 스며들지 않았는지
+2. `difficulty.predicted` 가 무엇을 근거로 나왔는가 — 정답을 모르는데 정답률을 예측했다면 근거를 요구한다
+3. `required_vocab` 의 낱말이 **지문에 실제로 있는가** (문자열 대조)
+4. `measured_ability` 가 선지를 전제하지 않는가 — "①을 배제하려면" 같은 서술이 남아 있으면 반려
+
+`checked` 에 이 넷 중 무엇을 했는지 적는다.
+
 ```jsonc
 "reviews": [
   {

@@ -74,6 +74,8 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
       { href: '/admin/topic-corpus', label: 'TCP Pipeline', Icon: Workflow },
       // TBP — 교재. 조작 버튼이 없는 관측 화면이다(생성은 Claude Code 드레인).
       { href: '/admin/textbook', label: 'TBP Pipeline', Icon: BookMarked },
+      // CSAT — 평가원 기출 분석. 조작 버튼 없는 관측 화면(분석·검수는 Claude Code 드레인).
+      { href: '/admin/csat', label: 'CSAT Pipeline', Icon: Scale },
       { href: '/admin/pending-words', label: 'Pending Words', Icon: Database },
     ],
   },

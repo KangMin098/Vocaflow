@@ -17,6 +17,7 @@ import type { HelpRegistry } from './types'
 import { ACP_HELP } from './articles'
 import { CCP_HELP } from './comic'
 import { COMPOSE_HELP } from './compose'
+import { CSAT_HELP } from './csat'
 import { LCP_HELP } from './curation'
 import { OPS_HELP } from './ops'
 import { PDCP_HELP } from './pd-comics'
@@ -29,6 +30,7 @@ import { VRL_HELP } from './vrl'
 export const HELP_REGISTRY: HelpRegistry = {
   ...ACP_HELP,
   ...COMPOSE_HELP,
+  ...CSAT_HELP,
   ...LCP_HELP,
   ...CCP_HELP,
   ...PDCP_HELP,

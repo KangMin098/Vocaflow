@@ -104,7 +104,12 @@ for (const f of files) {
     // V3 선지 5개 · 정답 1개 · 정답표와 일치
     if (a.answer_unknown) {
       if (it.answer != null) bad(id, 'answer_unknown 인데 코퍼스에는 정답이 있다')
-      if ((a.choices ?? []).length) warn(id, 'answer_unknown 인데 선지 판정을 적었다 — 추정을 정답처럼 적지 않는다')
+      // **경고가 아니라 오류다.** 실측(2026-09-02, M2409#34): 분석자가 정답표 없는 문항에
+      // answer_locus 와 선지 5개 판정을 채워 넣었다. 검수에서 잡아 지웠지만, 안 잡혔다면
+      // **추정을 정답으로 배운 학습자**가 나온다. 이 작업에서 가장 해로운 산출물이므로
+      // 사람 판단에 맡기지 않고 기계가 막는다.
+      if ((a.choices ?? []).length) bad(id, 'answer_unknown 인데 선지 판정이 있다 — 추정을 정답처럼 적지 않는다')
+      if (a.answer_locus) bad(id, 'answer_unknown 인데 answer_locus 가 있다 — 정답을 모르면 정답 근거도 없다')
     } else {
       const ch = a.choices ?? []
       if (ch.length !== 5) bad(id, `선지 판정이 ${ch.length}개 — 5개여야 한다`)
