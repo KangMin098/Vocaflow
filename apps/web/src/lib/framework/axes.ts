@@ -279,7 +279,10 @@ export const SURFACES: Record<SurfaceId, Surface> = {
     href: '/dashboard',
     says: '지나온 것과 증빙',
     absorbs: ['/dashboard', '/reports'],
-    owns: ['/reports', '/diagnostic', '/plan'],
+    // `/csat`(기출 유형 분석)이 Growth 소관인 이유: 진단(Level)이 **어느 유형이 약한지**를
+    // 말하고, 기출 분석이 **그 유형을 어떻게 푸는지**를 말한다. 둘은 한 쌍이라 같은 표면에 둔다.
+    // (Library 는 읽을 것을 고르는 곳이고, Practice 는 단어를 익히는 곳이라 둘 다 아니다.)
+    owns: ['/reports', '/diagnostic', '/plan', '/csat'],
   },
 }
 

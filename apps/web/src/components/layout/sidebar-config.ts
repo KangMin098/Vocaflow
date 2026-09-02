@@ -48,6 +48,7 @@ import {
   Map,
   Mic2,
   ScanLine,
+  Scale,
   ScrollText,
   Settings,
   type LucideIcon,
@@ -296,6 +297,21 @@ export const ASIDE_GROUP: { label: string; says: string; accent: string; items: 
 }
 
 export const FOOTER_ITEMS: NavItem[] = [
+  /**
+   * 기출 유형 분석.
+   *
+   * ── 왜 레일이 아니라 레일 밖인가 ──────────────────────────────
+   * 레일(① Read → ⑤ Complete)은 **학습 단계**이고 번호가 곧 순서다. 기출 분석은 단계가
+   * 아니라 **참조면**이다 — 아무 단계에서나 들춰 보는 것이고, 여섯 번째 단계로 읽히면
+   * "다섯 단계를 끝내야 볼 수 있는 것"이 된다(LEARNING_FRAMEWORK §4① 자물쇠 금지와 같은 문제).
+   * Comics 를 ASIDE_GROUP 에 둔 것과 같은 이유다.
+   */
+  {
+    label: 'CSAT Types',
+    href: '/csat',
+    icon: Scale,
+    ariaLabel: '기출 유형 분석 — 평가원 수능·모의평가 독해 유형별 풀이 절차',
+  },
   {
     label: 'Class',
     href: '/teacher',

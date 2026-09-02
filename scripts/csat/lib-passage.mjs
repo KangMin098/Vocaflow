@@ -68,6 +68,23 @@ export function itemBlocks(exam, no) {
   // 40번은 바로 뒤가 장문 세트라, 머리글을 무시하면 41번 줄까지 넘어가
   // 장문 지문을 40번 것으로 착각한다(실제로 겪었다).
   const reSet = /^\s*\[\s*\d{2}\s*[~～∼〜–—-]\s*\d{2}\s*\]/
+
+  // **줄머리에 번호가 없는 문항**이 있다. 단 나누기가 실패한 페이지에서 번호가 줄 가운데로
+  // 밀리거나, 세트 머리글(`[38~39]`)만 있고 개별 번호 줄이 아예 없는 경우다.
+  // 그대로 두면 그 문항은 지문·선지·원문 블록이 **전부 null** 이 되어 분석 자체가 불가능하다
+  // (실측 2026-09-02: 사정권 802문항 중 22문항 · 대부분 39·40번).
+  if (!starts.length) {
+    const mid = new RegExp(`\\s{2,}${no}\\s*[.．]\\s`)
+    ls.forEach((l, i) => { if (mid.test(l)) starts.push(i) })
+  }
+  // 그래도 없으면 이 번호를 품은 **세트 머리글**부터 잡는다 — 발문·지문이 거기 있다.
+  if (!starts.length) {
+    ls.forEach((l, i) => {
+      const m = l.match(/\[\s*(\d{1,2})\s*[~～∼〜–—-]\s*(\d{1,2})\s*\]/)
+      if (m && no >= +m[1] && no <= +m[2]) starts.push(i)
+    })
+  }
+
   const out = []
   for (const i of starts) {
     let j = ls.findIndex((l, k) => k > i && (reNext.test(l) || reSet.test(l)))

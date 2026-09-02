@@ -64,9 +64,25 @@ function examMeta(exam) {
  * 장문 세트(41~45)는 지문이 문항 번호 밑이 아니라 `[41~42]` 머리글 밑에 한 번만 있어서
  * 세트 블록을 따로 봐야 한다. 그걸 안 하면 장문 10문항의 지문이 전부 빈다.
  */
+/**
+ * **단 나누기가 실패해 한 글자도 못 뜬 문항**을 손으로 받아 적은 것(`bodies-manual.json`).
+ * `answers-manual.json` 과 같은 취급 — 출처와 검산을 파일 안에 적어 둔다.
+ * **자동 추출이 성공한 지문은 덮지 않는다** — 덮게 두면 손으로 적은 것이 파서 개선을 가린다.
+ */
+// 파일이 없어도 돌아야 한다 — 새 체크아웃이나 다른 세션에서 이 스크립트가 죽으면
+// 코퍼스 재생성이 통째로 막힌다(손으로 적은 것은 **보완**이지 전제가 아니다).
+const manualBody = new Map(
+  (fs.existsSync(path.join(DIR, 'bodies-manual.json')) ? (read('bodies-manual.json').entries ?? []) : []).map(
+    (e) => [`${e.exam}#${e.no}`, e],
+  ),
+)
+
 function bodyOf(exam, no) {
+  const man = manualBody.get(`${exam}#${no}`)
   const blocks = itemBlocks(exam, no)
-  if (!blocks.length) return { passage: null, choices: null }
+  if (!blocks.length) {
+    return man ? { passage: man.passage ?? null, choices: man.choices ?? null } : { passage: null, choices: null }
+  }
   const block = blocks[0]
   let passage = passageOf(block)
   const set = setBlockFor(exam, no)
@@ -74,7 +90,10 @@ function bodyOf(exam, no) {
     const sp = passageOf(set)
     if (sp && sp.length > (passage?.length ?? 0)) passage = sp
   }
-  return { passage: passage || null, choices: choicesOf(block) }
+  const choices = choicesOf(block)
+  // 자동 추출이 빈손일 때만 손으로 적은 것을 쓴다
+  if (man && !passage) return { passage: man.passage ?? null, choices: choices ?? man.choices ?? null }
+  return { passage: passage || null, choices }
 }
 
 /** 빈칸이 지문 안에 있어야 하는 유형 — 빈칸 위치가 곧 정답 근거다 */

@@ -48,6 +48,10 @@ export const PROTECTED_PREFIXES = [
   // ⚠️ `/arcade`(Game Lab **카탈로그**)는 여기 없다 — 일부러 공개다. 아래 §Game Lab 참조.
   //    실제 플레이(`/play/*`)는 FSRS·scores 를 쓰므로 보호한다.
   '/play',
+  // 기출 유형 분석 — 우리가 쓴 분석문이다(평가원 지문 원문은 싣지 않는다).
+  // 공개해도 저작권 문제는 없지만 `csat_type_reports` 의 RLS 가 authenticated 만 열어 두었으므로
+  // 지금 공개하면 **빈 화면이 공개 표면이 된다.** 공개로 돌리려면 RLS 정책부터 고칠 것.
+  '/csat',
   // 사용자 텍스트 (개인 콘텐츠)
   '/text',
 ] as const

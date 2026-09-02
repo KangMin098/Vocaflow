@@ -111,6 +111,12 @@ for (const [exam] of byExam) {
 }
 ok('T11 두 회차가 같은 본문을 갖지 않음', twins.length === 0, twins.join(' '))
 
+// T12 사정권 문항은 **지문이든 선지든** 하나는 있어야 분석이 가능하다.
+// 둘 다 null 이면 그 문항은 원문 블록도 못 뜨는 상태라 드레인이 손댈 수 없다
+// (실측 2026-09-02: 22문항 → itemBlocks 에 줄 가운데·세트 머리글 대체를 넣어 3문항).
+const noBody = readItems.filter((it) => !it.passage && !it.choices)
+soft('T12 사정권 문항에 본문이 있다', noBody.length === 0, `둘 다 없음 ${noBody.length}: ${noBody.slice(0, 5).map((it) => it.id).join(' ')}`)
+
 // T10 report 의 수치가 items 와 일치 — 리포트만 고쳐 놓고 원장은 그대로인 사고를 막는다
 ok('T10 report.items == items.length', report.items === items.length, `${report.items} vs ${items.length}`)
 ok('T10b report.typed 일치', report.typed === typed, `${report.typed} vs ${typed}`)

@@ -1,0 +1,1260 @@
+{
+  "chunk": 5,
+  "type_id": "R-NOTICE",
+  "type_name": "안내문 일치",
+  "analyses": [
+    {
+      "item_id": "2017#26",
+      "measured_ability": "안내문의 항목 한 줄을 선지와 1:1로 짝지은 뒤, 주절이 아니라 뒤에 붙은 종속절·병렬절(판매 여부, 수익 처리)까지 대조하는 능력",
+      "design_intent": "전시 안내에서 학습자가 가장 건너뛰기 쉬운 자리를 정답으로 삼았다 — '무엇이 전시되는가'라는 주절이 아니라, 같은 항목에 이어 붙은 'All exhibits are for sale' 한 절이다. 줄 단위가 아니라 절 단위로 대조하는지를 가른다.",
+      "answer_locus": {
+        "sentence_index": [
+          4
+        ],
+        "quote": "All exhibits are for sale, and all money raised will be donated to charity.",
+        "reasoning": "선지 ③은 '모든 전시품은 판매되지 않는다'로 이 절의 서술을 통째로 부정한다. 게다가 같은 문장 뒷절 'all money raised will be donated to charity'가 판매 대금이 실제로 발생함을 한 번 더 못박아, 판매하지 않는다는 해석의 여지가 남지 않는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "'개장 시간은 주중과 주말이 다르다'를 확인하려면 Hours 아래 두 줄을 모두 봐야 하는데, 첫 줄 '10:00 a.m.－5:00 p.m.'만 보고 시간이 한 종류라고 판단하면 이 선지가 틀린 것처럼 보인다.",
+          "how_to_reject": "Hours 항목의 둘째 줄 '11:00 a.m.－3:00 p.m. (Saturday & Sunday)'를 첫 줄 '(Monday － Friday)'와 나란히 놓으면 시작 시각(10 vs 11)과 종료 시각(5 vs 3)이 모두 다르다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "'submitted by students'라는 수식이 바로 앞 명사 photographs 하나에만 걸린다고 좁혀 읽거나, 반대로 회화에만 걸린다고 읽으면 '학생들이 출품한 사진'이 지문에 없다고 오판한다.",
+          "how_to_reject": "'Paintings, ceramic works, and photographs submitted by students will be exhibited.' 한 문장에서 세 명사가 and 로 묶인 하나의 주어이고 submitted by students 가 그 묶음 전체를 받는다 — photographs 도 학생 출품물이다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "trap": "반대 진술",
+          "why_tempting": "무료 전시(The exhibition is free to all)라는 줄을 보고 '무료 = 판매하지 않는다'로 연결하면 ③이 맞는 서술로 보인다.",
+          "how_to_reject": "'All exhibits are for sale' 이 판매를 명시하므로 ③은 지문과 정면으로 어긋난다. free 는 입장에 걸린 말이고(The exhibition is free to all) 전시품 판매와 다른 항목이다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "미술 전시장은 대개 촬영 금지라는 통념 때문에, 해당 줄을 찾지 않고 '허용된다'는 서술을 틀린 것으로 넘겨짚기 쉽다.",
+          "how_to_reject": "항목 'Taking photos is allowed inside the exhibition hall.' 이 촬영을 명시적으로 허용한다 — allowed 한 낱말이 판정을 끝낸다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "'The exhibition is free to all'의 free 를 입장료에만 걸린 말로 기억하고, 간식 줄의 available 을 '(유료로) 구매 가능'으로 읽으면 '무료로 제공'이 과장으로 보인다.",
+          "how_to_reject": "간식 항목 자체가 'Free snacks will be available at the cafeteria.' 로 Free 를 snacks 앞에 붙여 놓았다 — 장소(cafeteria)와 무료 여부가 한 줄에 다 있다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문 끝의 '일치하지 않는 것'에 표시하고, 선지 옆에 O/X 를 적을 자리를 만든다",
+          "on_fail": "발문 방향을 놓치면 참인 선지 4개 중 하나를 고르게 된다 — 답을 고르기 직전에 발문을 한 번 더 본다"
+        },
+        {
+          "step": "선지 5개를 먼저 읽고 대조할 지점 한 곳씩만 밑줄 친다 — ①은 '주중/주말 차이', ②는 '학생 출품', ③은 '판매되지 않는다', ④는 '촬영 허용', ⑤는 '무료 간식'",
+          "on_fail": "밑줄 지점이 둘 이상 잡히면 부정어(않는다·없다)나 전칭어(모든)가 있는 쪽만 남긴다"
+        },
+        {
+          "step": "안내문을 위에서 아래로 훑으며 선지 번호를 여백에 적어 나간다 — 시각표 줄에 ①, 전시품 줄에 ②③, 촬영 줄에 ④, 간식 줄에 ⑤",
+          "on_fail": "선지 하나에 짝지을 줄이 안 보이면 그 선지를 건너뛰고 마지막에 남은 줄과 맞춘다"
+        },
+        {
+          "step": "짝지은 줄에서 밑줄 친 지점만 대조한다. 부정어가 든 선지(③ '판매되지 않는다')는 지문에 긍정 표현(for sale)이 있는지부터 본다",
+          "on_fail": "O 가 다섯 개 나오면 전칭어·부정어가 붙은 선지로 돌아가 그 줄을 다시 본다"
+        },
+        {
+          "step": "X 가 하나면 그것으로 확정하고 넘어간다 — 나머지 넷을 다시 검산하지 않는다",
+          "on_fail": "X 가 둘 이상이면 상식으로 판단한 선지(④ 촬영)를 지문 문장으로 되돌려 확인한다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.93,
+        "drivers": [
+          "정답 근거가 문장 앞이 아닌 뒷절에 있다",
+          "free 가 입장·간식 두 곳에 나와 혼선을 준다"
+        ]
+      },
+      "required_vocab": [
+        "exhibit",
+        "for sale",
+        "submit",
+        "allowed",
+        "available"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 지문의 셋째 항목 뒷절과 문자 그대로 일치한다",
+            "안내문 일치 유형의 설계(항목-선지 1:1)와 어긋나지 않고, 이 문항 고유의 자리(주절 아닌 병렬절)를 짚었다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "선지 5개가 안내문 항목 순서(Hours→전시품→촬영→간식)와 단조 대응하는지 확인",
+            "유형 정의(안내문 세부정보 대조) 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개의 함정이 부분 사실·범위 과소·지문 밖 상식·어휘 함정으로 모두 다르다",
+            "how_to_reject 넷 모두에 근거 줄(Hours 둘째 줄 · 전시품 문장 · 촬영 항목 · 간식 항목)이 명시돼 있다"
+          ],
+          "checked": [
+            "trap 라벨 4종 중복 여부",
+            "why_tempting 이 선지 한국어 텍스트에 실제로 근거하는지 대조",
+            "how_to_reject 에 지문 위치 표기 유무",
+            "correct 판정 3 을 평가원 정답표(3)와 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1~3단계는 지문을 보기 전에 선지만으로 실행된다",
+            "60초 배분: 발문 5초 + 선지 밑줄 15초 + 대조 35초 로 끝난다"
+          ],
+          "checked": [
+            "solve_procedure 각 단계가 지문 미독 상태에서 실행 가능한지",
+            "금지 표현(흐름을 파악하면 등) 포함 여부",
+            "required_vocab 5개가 정답 판정에 실제로 쓰이는지 — for sale 이 핵심"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2017#27",
+      "measured_ability": "안내문 항목에 붙은 조건(in the event of rain)·한정(only with headphones)·수치($10 a day)를 선지의 단정문과 맞대는 능력",
+      "design_intent": "오답 넷을 모두 '조건을 지우거나 뒤집은 단정문'으로 깔고, 정답만 지문의 조건 없는 서술(for free)을 그대로 옮겼다. 학습자가 조건절·한정어를 읽고도 선지에서 그것이 사라진 것을 알아채는지 가른다.",
+      "answer_locus": {
+        "sentence_index": [
+          6
+        ],
+        "quote": "Enjoy exciting activities such as kite flying and sandcastle building for free.",
+        "reasoning": "선지 ②가 지목한 두 활동(kite flying, sandcastle building)이 이 문장에 그대로 열거되고, 문장 끝 for free 가 무료임을 조건 없이 못박는다. Fun Activities 항목 안에 유료 단서가 따로 없으므로 이 한 문장으로 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "Morning Walk 항목의 첫 줄(인원 20명 제한)만 확인하고 둘째 줄을 건너뛰면 우천 관련 서술이 없다고 보고 '비가 내려도 진행된다'를 받아들이게 된다.",
+          "how_to_reject": "Morning Walk 둘째 줄 'The walk will be cancelled in the event of rain.' 이 비가 오면 취소한다고 적어, 선지의 '진행된다'와 정반대다."
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "trap": "-",
+          "why_tempting": "Fun Activities 항목 문장 끝의 for free 를 놓치면 유료 체험으로 보여 이 선지를 버리기 쉽다.",
+          "how_to_reject": "배제되지 않는다 — 활동 이름 두 개와 무료 여부가 한 문장 안에 함께 있다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "'Sitting on lawns is not permitted'에서 permitted 만 눈에 들어오고 not 이 탈락하면 '허용된다'가 지문과 같아 보인다. Tips 항목이 권유 문장처럼 읽히는 것도 부정어를 흐린다.",
+          "how_to_reject": "Tips for Your Visit 첫 줄의 is not permitted — 부정어 not 이 동사 앞에 붙어 있어 금지 서술이다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "'Audio devices may only be used with headphones'를 '오디오 기기를 쓸 수 있다'까지만 읽으면 허용 범위가 무조건적인 것으로 넓어져 '헤드폰 없이'도 된다고 읽힌다.",
+          "how_to_reject": "Tips 둘째 줄의 only ... with headphones 가 허용 조건을 헤드폰 착용으로 한정한다 — 선지는 그 한정어를 떼어 냈다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "안내문 위쪽 Fun Activities 의 for free 가 기억에 남아 무료라는 인상을 주차 항목까지 끌고 오면 '주차 요금은 무료'가 참으로 보인다.",
+          "how_to_reject": "Parking 항목 둘째 줄 'The parking fee is $10 a day.' — 무료가 아니라 하루 $10 이다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 '일치하는 것'에 표시한다 — 이 문항은 참인 선지가 하나뿐이고 나머지 넷이 거짓이다",
+          "on_fail": "방향을 헷갈리면 거짓 선지 넷 중 하나를 답으로 적게 된다. 선지 옆 O/X 를 세어 O 가 하나인지 확인한다"
+        },
+        {
+          "step": "선지에서 조건을 지운 단정 표현을 먼저 표시한다 — '비가 내려도', '허용된다', '없이', '무료이다'",
+          "on_fail": "표시할 것이 안 보이면 선지에 든 명사(산책·잔디밭·오디오 장치·주차)를 그대로 옮겨 적어 안내문 항목 제목과 맞춘다"
+        },
+        {
+          "step": "안내문의 ◈ 항목 제목(Morning Walk / Fun Activities / Tips / Parking)에 선지 번호를 적어 붙인다 — 선지 순서와 항목 순서가 같은 방향으로 내려간다",
+          "on_fail": "짝이 안 맞으면 Tips 항목에 두 선지(③④)가 붙는 경우를 의심한다"
+        },
+        {
+          "step": "붙인 항목의 줄에서 not · only · 금액 · cancelled 네 표지만 찾아 선지와 대조한다",
+          "on_fail": "표지가 없는 줄이면 그 선지는 보류하고 다음으로 넘어간다"
+        },
+        {
+          "step": "표지가 아예 없이 지문과 그대로 겹치는 선지 하나가 남으면 그것이 답이다",
+          "on_fail": "둘 이상 남으면 금액·인원 같은 숫자가 든 선지를 우선 재확인한다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.94,
+        "drivers": [
+          "오답 넷이 모두 조건·부정어 제거형이라 표지가 뚜렷하다",
+          "for free 와 $10 a day 가 같은 안내문 안에 있어 전이 오독이 생긴다"
+        ]
+      },
+      "required_vocab": [
+        "cancelled",
+        "in the event of",
+        "permitted",
+        "fee",
+        "for free"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 Fun Activities 항목 문장과 문자 그대로 일치한다",
+            "'일치하는 것' 발문에서 정답 근거는 조건절이 없는 문장이라는 이 유형의 설계와 맞는다"
+          ],
+          "checked": [
+            "quote 를 passage 에서 문자열 대조",
+            "선지 5개와 ◈ 항목 4개의 순서 대응 확인",
+            "정답 선지 ②가 지문 문장을 축약 없이 옮겼는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "1차 검수 반려(revise) → 수정 후 통과: 초안에서 ①과 ③에 모두 '반대 진술'을 달아 두 오답의 함정이 겹쳤다. ③은 not 탈락(부정어를 흘리는 어휘 층위)이고 ①은 조건절 자체를 못 본 것이라 층위가 다르므로 ③을 '어휘 함정'으로 갈랐다",
+            "1차 검수 반려(revise) → 수정 후 통과: ④의 how_to_reject 에 처음에는 '지문에 헤드폰 언급이 있다'만 있어 위치가 없었다 — Tips 둘째 줄로 명시했다",
+            "수정 후 오답 4개 함정이 반대 진술·어휘 함정·범위 과대·부분 사실로 모두 다르다",
+            "correct 판정 2 가 평가원 정답표와 일치한다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 텍스트에 근거하는지",
+            "how_to_reject 위치 표기",
+            "수정본 trap 4종 재대조",
+            "how_to_reject 4개 모두 항목 이름+줄 번호 포함 확인",
+            "정답표 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계의 '조건을 지운 단정 표현' 목록이 선지 문구 그대로라 학생이 바로 표시할 수 있다"
+          ],
+          "checked": [
+            "지문 미독 상태에서 1~3단계 실행 가능성",
+            "금지 표현 검색",
+            "60초 내 완주 가능성",
+            "required_vocab 이 판정에 쓰이는 낱말인지 (in the event of · only 조건)"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2016#26",
+      "measured_ability": "안내문에 흩어진 여러 숫자(날짜 2개·세미나 10개·기업 12개·가격 3종)를 선지가 지목한 항목에만 붙여 세는 능력",
+      "design_intent": "숫자를 많이 깔되 각 숫자가 붙는 명사를 달리했다. 특히 10 separate seminars 와 12 major firms 를 이웃한 두 줄에 두어, 숫자를 항목과 떼어 기억하는 학습자가 ③을 참으로 오인하도록 설계했다.",
+      "answer_locus": {
+        "sentence_index": [
+          11
+        ],
+        "quote": "Total Pass: $25 (includes buffet lunch)",
+        "reasoning": "Ticket Prices 아래 세 등급 중 Total Pass 줄에만 괄호로 includes buffet lunch 가 붙어 있다. 선지 ④는 이 괄호 안의 서술을 그대로 옮긴 것이고, 나머지 두 등급($15·$10)에는 점심 표기가 없어 대비까지 확인된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "'November 21 & 22'의 & 를 기간 표시로 읽거나 21～22 를 사흘로 세면 '3일간'이 맞아 보인다. 학회는 며칠씩 한다는 통념도 늘리는 쪽으로 민다.",
+          "how_to_reject": "제목 아래 날짜 줄 'November 21 & 22, 10:00 a.m.－ 5:00 p.m.' 은 두 날짜를 & 로 나열한 것이므로 이틀이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "'대강당'이라는 큰 홀 이름이 Brilliance Hall 과 인상이 겹쳐, 앞의 주체(시청 vs 대학)를 확인하지 않고 넘어가게 된다.",
+          "how_to_reject": "본문 'our conference held at West State University's Brilliance Hall' — 개최 장소는 대학이고, 안내문 어디에도 시청(city hall)은 나오지 않는다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "12 라는 숫자가 안내문에 실제로 있어 '12개'가 참으로 보인다. 세미나 줄과 전시 줄이 이웃해 있어 숫자만 떼어 기억하면 붙는 명사가 바뀐다.",
+          "how_to_reject": "'10 separate seminars on hardware / software, programming, and new applications' — 세미나는 10개이고, 12는 바로 다음 줄 'Exhibitions of their latest products by 12 major firms'의 기업 수다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "trap": "-",
+          "why_tempting": "괄호 안 정보라 눈에 덜 띄어 지나치기 쉽다.",
+          "how_to_reject": "배제되지 않는다 — Total Pass 줄의 괄호가 buffet lunch 포함을 명시한다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "티켓 가격이 등급별로 적혀 있어 현장 구매가 가능하다는 인상을 주고, 마지막 두 문장을 읽지 않으면 예약 의무 서술을 놓친다.",
+          "how_to_reject": "안내문 마지막 'Booking is essential. Reserve your tickets at www.tiinprogrammers.org.' — essential 은 필수라는 뜻이므로 '예약하지 않아도 참가할 수 있다'와 정반대다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 '일치하는 것'을 표시하고, 선지에서 숫자가 든 것(①3일 ③12개)을 먼저 골라 낸다",
+          "on_fail": "숫자 선지가 안 보이면 선지의 명사(날짜·장소·세미나·점심·예약)를 왼쪽 여백에 적어 대조 목록으로 삼는다"
+        },
+        {
+          "step": "안내문의 숫자를 하나씩 짚으며 바로 뒤 명사를 함께 소리 내 붙인다 — '21과 22는 날짜', '10은 세미나', '12는 기업', '25/15/10은 가격'",
+          "on_fail": "숫자에 붙는 명사가 애매하면 그 줄 전체에 밑줄을 긋고 선지에 나온 명사와 같은 낱말이 있는지만 본다"
+        },
+        {
+          "step": "숫자 선지 두 개를 그 목록으로 먼저 지운다 — 숫자가 맞아도 붙는 명사가 다르면 거짓이다",
+          "on_fail": "지워지지 않으면 숫자가 안내문에 몇 번 나오는지 세어 같은 숫자가 두 항목에 걸치는지 확인한다"
+        },
+        {
+          "step": "남은 선지(장소·점심·예약)는 각각 개최 장소 문장, Ticket Prices 표, 안내문 마지막 문장에서 확인한다",
+          "on_fail": "표에서 못 찾으면 괄호 안 부가 정보를 다시 본다 — 등급별 포함 사항은 괄호에 있다"
+        }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": {
+        "predicted": 0.88,
+        "drivers": [
+          "같은 자리에 숫자가 6개 이상 나온다",
+          "10과 12가 이웃한 두 줄에 있어 명사 교차가 쉽다",
+          "정답 근거가 괄호 안에 있다"
+        ]
+      },
+      "required_vocab": [
+        "separate",
+        "seminar",
+        "firm",
+        "include",
+        "essential"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 Ticket Prices 첫 줄과 문자 그대로 일치한다(∙ 뒤 텍스트)",
+            "숫자 분산 배치라는 이 회차 고유의 설계를 design_intent 가 짚었다"
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "선지-항목 순서 대응(날짜→장소→세미나→가격→예약) 확인",
+            "정답 근거가 괄호 부가정보라는 점이 유형 정의 안에 있는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "1차 검수 반려(revise) → 수정 후 통과: 초안에서 ①과 ③을 모두 '수치 왜곡'으로 묶어 두 함정이 같아졌다. ①은 이틀을 사흘로 늘린 범위 문제, ③은 숫자가 붙는 명사를 바꾼 문제로 층위가 달라 각각 '범위 과대'·'부분 사실'로 갈랐다",
+            "1차 검수 반려(revise) → 수정 후 통과: ②의 how_to_reject 에 처음에는 '시청이 아니다'만 있어 근거 위치가 없었다 — 개최 장소 문장을 인용해 넣었다",
+            "수정 후 함정 4종(범위 과대·무관·부분 사실·반대 진술)이 서로 다르다",
+            "correct 4 가 평가원 정답표 4 와 일치한다"
+          ],
+          "checked": [
+            "trap 라벨 중복",
+            "why_tempting 이 선지 텍스트 근거인지",
+            "how_to_reject 위치 표기",
+            "수정본 trap 재대조",
+            "오답 4개의 how_to_reject 에 지문 위치 포함 확인",
+            "정답표 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계 '숫자에 명사를 붙여 읽기'가 이 문항의 실패를 그대로 막는 조작이라 실행 가치가 높다",
+            "숫자가 많아 70초로 늘린 배분이 타당하다"
+          ],
+          "checked": [
+            "지문 미독 상태 실행 가능성",
+            "금지 표현 검색",
+            "70초 배분 타당성",
+            "required_vocab 5개가 판정에 쓰이는지 — essential 이 ⑤ 판정의 핵심"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2016#27",
+      "measured_ability": "안내문 앞부분 산문 문단과 아래 항목표(Dates·Hours·Place·Fees)를 오가며 서수·기간·요금 예외를 확인하는 능력",
+      "design_intent": "정보를 산문 문단과 항목표 두 곳에 나눠 담고, 정답 근거만 항목표의 날짜 한 줄(November 1－30)에 두었다. 문단만 읽고 표를 건너뛰는 학습자를 걸러 내는 배치다.",
+      "answer_locus": {
+        "sentence_index": [
+          6
+        ],
+        "quote": "∙Dates: November 1－30 ∙Hours: 10:00 a.m.－9:00 p.m.",
+        "reasoning": "Dates 항목이 11월 1일에서 11월 30일까지로, 시작과 끝이 같은 달 안에 있다. 곧 행사 기간은 한 달이므로 '두 달 동안 열린다'는 선지 ④가 유일하게 지문과 어긋난다. 바로 옆 Hours 는 하루 운영 시간이라 기간 계산에 관여하지 않는다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "제목의 2015 와 본문의 20th 가 나란히 있어 숫자를 연도로만 받아들이면 '스무 번째'의 근거를 못 찾고 틀린 서술로 본다.",
+          "how_to_reject": "첫 문장 'We invite you to join us at the 20th Virginia Art Show' — 서수 20th 가 행사 회차를 가리킨다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "Mabel Green·Theresa Peterson 같은 이름을 모르니 '유명한 예술가'인지 배경지식으로 따지게 되고, 그러면 근거가 없다고 판단하기 쉽다.",
+          "how_to_reject": "둘째 문장 'Works by famous artists such as Mabel Green...will be displayed.' — 유명 여부는 안내문이 famous 로 선언했으므로 배경지식으로 판단할 항목이 아니다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "문단 끝 'and the great music!'만 보고 음악 공연이 있다는 사실까지만 확인한 뒤, 공연 날짜를 확인하지 않고 마지막 날일 것이라 넘겨짚는다.",
+          "how_to_reject": "셋째 문장 'The Virginia Philharmonic will perform on the first day of the show.' 가 공연 날짜를 첫날로 못박는다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "trap": "범위 과대",
+          "why_tempting": "November 1－30 을 '11월 1일부터 30일간'으로 읽으면 12월 말까지 이어지는 것처럼 보여 두 달로 착각한다.",
+          "how_to_reject": "Dates 줄의 두 수 1 과 30 이 모두 November 에 걸린 날짜라 한 달 안에서 끝난다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "Entrance Fees 아래 Adults $15 · Children $7 두 줄만 보고 요금표가 끝났다고 판단하면 무료 조항이 존재하지 않는다고 좁혀 읽게 된다.",
+          "how_to_reject": "요금 두 줄 바로 다음 줄 'Free admission for Virginia residents' 가 주민 무료 입장을 따로 명시한다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 '일치하지 않는 것'을 표시하고, 선지 다섯을 산문에서 확인할 것(①②③)과 표에서 확인할 것(④⑤)으로 나눈다",
+          "on_fail": "구분이 어려우면 숫자·요금·날짜가 든 선지를 표 쪽으로 몰아 둔다"
+        },
+        {
+          "step": "선지 ④의 '두 달'처럼 기간·횟수를 말하는 표현에 동그라미를 친다 — 안내문에서 시작과 끝 두 수를 직접 찾아 비교할 자리다",
+          "on_fail": "기간 표현이 안 보이면 선지에서 숫자가 든 것부터 처리한다"
+        },
+        {
+          "step": "Dates 줄에서 시작 달과 끝 달이 같은지부터 본다. 같으면 한 달, 다르면 그 차이만큼이다",
+          "on_fail": "Dates 줄에 달 이름이 하나뿐이면 두 날짜가 같은 달에 있다는 뜻이다"
+        },
+        {
+          "step": "남은 선지는 산문 문장 순서대로 짚는다 — 첫 문장에서 회차, 둘째 문장에서 전시 작품, 셋째 문장에서 공연 날짜",
+          "on_fail": "문장에서 못 찾으면 항목표 아래 예외 조항(무료·할인) 줄까지 내려가 확인한다"
+        },
+        {
+          "step": "X 하나를 찾으면 확정한다",
+          "on_fail": "X 가 없으면 요금표 마지막 줄처럼 표 아래에 딸린 조항을 빠뜨렸는지 확인한다"
+        }
+      ],
+      "time_budget_sec": 65,
+      "difficulty": {
+        "predicted": 0.92,
+        "drivers": [
+          "정보가 산문과 항목표 두 곳에 나뉜다",
+          "날짜 표기가 달 이름 하나에 두 수를 붙인 형태(November 1－30)"
+        ]
+      },
+      "required_vocab": [
+        "display",
+        "perform",
+        "entrance fee",
+        "admission",
+        "resident"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 를 Dates 와 Hours 두 항목이 이어진 형태로 떠 문자열 대조를 통과했고, reasoning 에서 Hours 가 기간 판정과 무관함을 밝혀 인용 범위의 여분을 설명했다",
+            "산문/표 이원 배치는 이 회차 안내문의 실제 형식이다"
+          ],
+          "checked": [
+            "quote 를 passage 에서 문자열 대조(전각 대시 포함)",
+            "선지 순서와 지문 서술 순서(첫문장→둘째문장→셋째문장→Dates→Fees) 단조 대응 확인",
+            "유형 정의 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개 함정이 어휘 함정·지문 밖 상식·부분 사실·범위 과소로 갈린다",
+            "정답 ④에도 trap(범위 과대)을 달아 '왜 참으로 보이는가'가 아니라 '왜 출제자가 이 축을 골랐는가'를 남겼다 — 오답 라벨과 겹치지 않는지 확인함"
+          ],
+          "checked": [
+            "trap 라벨 4종 중복 여부",
+            "각 why_tempting 이 선지 한국어 문구에 근거하는지",
+            "how_to_reject 위치 표기",
+            "correct 4 를 평가원 정답표 4 와 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계 '시작 달과 끝 달이 같은지'가 이 문항 하나로 끝나는 판정 규칙이라 학생이 그대로 쓴다"
+          ],
+          "checked": [
+            "지문 미독 상태 실행 가능성",
+            "금지 표현 검색",
+            "65초 배분",
+            "required_vocab 이 정답 판정(기간·무료입장)에 쓰이는지"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2015#26",
+      "measured_ability": "영화제 안내에서 제작 주체(students)·시각의 오전오후 표기·할인 대상 범위를 선지의 서술과 하나씩 맞추는 능력",
+      "design_intent": "오답 넷을 서로 다른 축(주체·시각·대상 범위·환불)으로 하나씩 비틀어 깔고, 정답은 안내문 아래쪽 짧은 대시 줄에 숨겼다. 굵은 항목만 보고 아래 부속 줄을 건너뛰는 습관을 겨냥한 배치다.",
+      "answer_locus": {
+        "sentence_index": [
+          9
+        ],
+        "quote": "FREE beverage included in ticket price",
+        "reasoning": "Price 항목 아래 세 번째 대시 줄이 음료가 무료이며 그 값이 입장권 가격에 포함된다고 직접 적는다. 선지 ⑤의 두 요소(무료 음료·입장료 포함)가 이 한 줄에 모두 들어 있어 다른 줄을 볼 필요가 없다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "'College of Performing Arts & Film, Pamil University'가 눈에 들어오면 대학이라는 인상 때문에 제작 주체를 교수로 바꿔 읽기 쉽다. 동사 넷(written, directed, acted, produced)이 길어 뒤의 by 이하를 흘려보내기도 한다.",
+          "how_to_reject": "첫 문장 'which were written, directed, acted and produced by students from the College of Performing Arts & Film' — by 뒤의 행위자는 students 다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "7:00－10:00 의 길이가 세 시간이라는 계산이 맞아떨어지므로, pm 표기를 확인하지 않으면 '오전에 세 시간'이 참으로 보인다.",
+          "how_to_reject": "Time 항목 '7:00 pm－10:00 pm' — 두 시각 모두 pm 이므로 저녁이다. 시간 길이만 맞고 시간대가 틀렸다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "영화제를 영화 전공 학과가 주최하니 할인 대상도 그 학과 학생일 것이라고 좁혀 읽게 된다.",
+          "how_to_reject": "Price 항목의 괄호 '$5 (discount for all university students with a valid ID)' — 학생증만 있으면 모든 대학생이며 전공 제한이 없다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "티켓을 학생회 사무실에서 사전 구매한다는 줄 때문에 창구에서 환불도 될 것처럼 읽히고, non-refundable 의 non- 을 흘리면 '환불 가능'이 된다.",
+          "how_to_reject": "Price 항목 둘째 대시 줄 'All tickets are non-refundable.' — 접두사 non- 이 환불 불가를 못박는다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "trap": "-",
+          "why_tempting": "대시로 시작하는 짧은 줄이라 항목 제목만 훑는 학습자에게는 보이지 않는다.",
+          "how_to_reject": "배제되지 않는다 — 무료 음료와 입장료 포함이 같은 줄에 명시된다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 '일치하는 것'을 표시하고 선지 다섯의 축을 한 낱말로 적는다 — ①주체 ②시각 ③할인대상 ④환불 ⑤음료",
+          "on_fail": "축이 안 잡히면 선지의 서술어(제작한다·진행된다·할인해 준다·가능하다·포함된다)에 밑줄을 긋는다"
+        },
+        {
+          "step": "안내문에서 by 로 시작하는 행위자 표현과 pm/am 표기부터 찾아 표시한다 — ①②는 이 두 표지만으로 끝난다",
+          "on_fail": "by 가 여러 번 나오면 선지가 말하는 동작(제작)과 같은 동사에 붙은 것만 남긴다"
+        },
+        {
+          "step": "Price 항목 아래 대시(-)로 시작하는 부속 줄을 빠짐없이 읽는다 — 구매처·환불·음료가 여기에 몰려 있다",
+          "on_fail": "부속 줄에서 선지의 낱말을 못 찾으면 괄호 안 조건(할인 대상)까지 확인한다"
+        },
+        {
+          "step": "non-, all, only 같은 접두사·한정어가 붙은 자리와 선지를 맞대어 O/X 를 적는다",
+          "on_fail": "O 가 둘 이상이면 시간대(오전/오후)처럼 계산이 맞고 표기가 틀린 선지를 다시 본다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.93,
+        "drivers": [
+          "정답 근거가 대시 부속 줄에 있다",
+          "①의 동사 나열이 길어 행위자가 멀다"
+        ]
+      },
+      "required_vocab": [
+        "produce",
+        "general admission",
+        "valid",
+        "non-refundable",
+        "beverage"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 Price 항목 셋째 대시 줄과 문자 그대로 일치한다",
+            "오답 축이 주체·시각·범위·환불로 겹치지 않게 설계된 회차라는 서술이 실제 선지와 맞는다"
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "선지 순서와 안내문 서술 순서(첫문장→Time→Price→환불→음료) 대응 확인",
+            "유형 정의 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "①에 '주체 역전'을 써 인과 역전으로 대신 다는 일을 피했다 — by students 가 by professors 로 바뀐 전형적인 주체 함정이다",
+            "②는 '오전'만 틀리고 '세 시간'은 맞아 부분 사실 라벨이 정확하다"
+          ],
+          "checked": [
+            "trap 라벨 4종(주체 역전·부분 사실·범위 과소·반대 진술) 중복 여부",
+            "why_tempting 이 선지 텍스트 근거인지",
+            "how_to_reject 위치 표기",
+            "correct 5 를 평가원 정답표 5 와 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1차 검수 반려(revise) → 수정 후 통과: 초안 3단계가 '지문을 처음부터 끝까지 읽는다'로 되어 있어 실행 지시가 아니었다. 'Price 항목 아래 대시 줄을 빠짐없이 읽는다'로 바꿔 학생이 볼 자리를 지정했다",
+            "1차 검수 반려(revise) → 수정 후 통과: 초안 required_vocab 에 auditorium·union 등 정답과 무관한 낱말이 있어 뺐다",
+            "수정 후 4단계가 모두 지문을 보기 전에도 무엇을 찾을지 지정한다",
+            "60초 배분 안에 끝난다"
+          ],
+          "checked": [
+            "절차 각 단계의 실행 가능성",
+            "required_vocab 이 정답 판정에 쓰이는지",
+            "수정본 절차 재검토",
+            "금지 표현 검색",
+            "required_vocab 5개가 ①③④⑤ 판정에 직접 쓰이는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2015#27",
+      "measured_ability": "프로그램 안내에서 대상·인원 기준·장소·신청 방법·문의 수단을 선지와 짝지어, 특히 신청 '수단'이 무엇으로 지정됐는지 읽는 능력",
+      "design_intent": "정답 근거를 'How to sign up' 항목의 수단 표현(by email)에 두고, 바로 다음 줄에 'download the forms from our website'를 붙였다. 서식을 어디서 받는지와 어디로 내는지를 뒤섞는 학습자를 겨냥한 배치다.",
+      "answer_locus": {
+        "sentence_index": [
+          12
+        ],
+        "quote": "Registration forms must be sent by email to the address below by 6:00 pm, November 28.",
+        "reasoning": "must be sent by email 이 제출 수단을 이메일로 한정한다. 선지 ④의 '직접 방문하여 제출'은 이 수단 지정과 양립할 수 없고, 안내문에 방문 접수처가 따로 적힌 줄도 없다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "FREE 가 대문자로 program 앞에 붙어 있어 수업료가 아니라 관람·등록 같은 다른 것이 무료라고 읽거나, local teens 를 못 보고 대상 제한을 놓치면 이 선지가 어긋난 것처럼 보인다.",
+          "how_to_reject": "인사말 문장 'check out our FREE program for local teens!' 한 줄에 무료 여부와 대상(지역 십 대)이 함께 있다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "fewer than 20 을 '20명 이하'로 넓혀 읽으면 20명인 수업까지 취소 대상이 되어 선지의 '20명 미만'과 어긋나 보인다.",
+          "how_to_reject": "Classes 항목 둘째 줄 'Classes with fewer than 20 applicants will be canceled.' — fewer than 20 은 20을 포함하지 않으므로 '20명 미만'과 같다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "위쪽에 Green Hills Community Center 로 오라는 문장이 있어 장소가 둘로 보이고, 그러면 '모든 수업이 Simpson Building'이 과장으로 읽힌다.",
+          "how_to_reject": "Time & Place 항목 둘째 줄 'All classes will take place in the Simpson Building.' — All 이 붙어 예외를 남기지 않는다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "trap": "-",
+          "why_tempting": "바로 다음 줄의 'download the forms from our website'와 뒤섞으면 서식을 받는 곳과 내는 곳이 흐려져, 방문 제출도 가능하다고 넘겨짚게 된다.",
+          "how_to_reject": "배제되지 않는다 — must be sent by email 이 제출 수단을 이메일 하나로 지정한다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "안내문에는 대개 전화번호가 있다는 통념 때문에 '웹사이트나 이메일'만으로 문의가 끝난다는 서술을 의심하게 된다.",
+          "how_to_reject": "마지막 문장 'please visit our website or send an email to bill@greenhills.org.' — 제시된 문의 수단은 이 둘뿐이고 전화번호는 안내문에 없다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 '일치하지 않는 것'을 표시하고, 선지에서 '수단'을 말하는 표현(직접 방문하여 · 웹사이트나 이메일)에 동그라미를 친다",
+          "on_fail": "수단 표현이 안 보이면 선지 서술어에서 '제출·이용'처럼 행동을 나타내는 말을 표시한다"
+        },
+        {
+          "step": "안내문의 굵은 항목 제목(Classes / Time & Place / How to sign up)에 선지 번호를 적어 붙인다",
+          "on_fail": "항목 제목에 짝이 없으면 제목 위 인사말 문장으로 올라가 대상·요금을 확인한다"
+        },
+        {
+          "step": "'How to sign up' 항목에서 must 뒤에 오는 동사구를 그대로 옮겨 적어 선지의 수단과 맞댄다",
+          "on_fail": "must 가 없으면 send·visit·download 같은 동사와 그 목적지(email 주소 · website)를 짝지어 적는다"
+        },
+        {
+          "step": "서식을 받는 곳(website)과 내는 곳(email)을 각각 다른 색으로 표시해 섞이지 않게 한다",
+          "on_fail": "두 곳이 구분되지 않으면 문장의 동사가 download 인지 send 인지만 본다"
+        },
+        {
+          "step": "숫자 기준 선지(②의 20명)는 fewer than / more than / at least 중 어느 표현인지 확인하고 경계 포함 여부를 따진다",
+          "on_fail": "경계가 헷갈리면 '20명이면 열리는가'를 스스로 물어 답을 정한다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.94,
+        "drivers": [
+          "서식 다운로드와 제출처가 이웃한 두 줄에 있다",
+          "fewer than 경계 표현"
+        ]
+      },
+      "required_vocab": [
+        "applicant",
+        "registration form",
+        "take place",
+        "sign up",
+        "additional"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 How to sign up 첫 줄과 문자 그대로 일치한다",
+            "정답 근거를 '수단' 축에 둔 것은 이 유형에서 반복되는 설계이며 이 문항에서는 다음 줄의 website 가 교란 장치로 붙어 있다"
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "선지-항목 순서 대응(인사말→Classes→Time & Place→How to sign up→문의) 확인",
+            "유형 정의 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 함정이 어휘 함정·범위 과대·부분 사실·지문 밖 상식으로 갈린다",
+            "②는 참인 선지인데도 경계 오독(fewer than 20 을 20 이하로) 때문에 오답으로 끌린다는 경로를 적었다 — 선지 텍스트의 '20명 미만'에 근거한다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 문구 근거인지",
+            "how_to_reject 위치 표기",
+            "correct 4 를 평가원 정답표 4 와 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "4단계(받는 곳/내는 곳 색 구분)가 이 문항의 정답 근거를 정확히 겨냥한 조작이다"
+          ],
+          "checked": [
+            "지문 미독 상태 실행 가능성",
+            "금지 표현 검색",
+            "60초 배분",
+            "required_vocab 이 판정에 쓰이는 낱말인지"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2014A#29",
+      "measured_ability": "박물관 안내의 요금·운영시간 표에서 두 줄을 서로 빼서 비교하고(평일 vs 주말), 요금이 어느 대상에 붙는지 가르는 능력",
+      "design_intent": "단순 대조가 아니라 두 줄의 차를 계산해야 하는 선지(②)와, 요금표에서 줄을 한 칸 밀어 읽으면 참이 되는 선지(④)를 함께 깔았다. 정답은 계산이 필요 없는 Parking 항목 첫 줄에 두어, 표를 끝까지 내려가 읽는지를 가른다.",
+      "answer_locus": {
+        "sentence_index": [
+          13
+        ],
+        "quote": "A parking discount is available to museum visitors.",
+        "reasoning": "Parking 항목의 첫 문장이 방문객에게 주차 할인이 제공된다고 직접 진술한다. 이어지는 문장은 도장을 받아야 한다는 절차 조건일 뿐 할인 자체를 부정하지 않으므로, 선지 ⑤의 '할인받을 수 있다'가 그대로 성립한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "'Visitors can make their own plates or cups'까지만 읽으면 체험이 관람에 포함된 것으로 보여 추가 비용이 없다고 읽힌다.",
+          "how_to_reject": "같은 문장 끝의 for an additional fee 가 추가 요금을 명시하고, Fees 항목의 'Pottery Experience: $10' 이 그 금액을 다시 적는다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "평일과 주말의 마감 시각이 6시와 5시로 한 시간 차이라는 계산은 맞아떨어지므로, 어느 쪽이 긴지를 확인하지 않으면 참으로 보인다.",
+          "how_to_reject": "Hours 항목 두 줄 'Weekdays: 9:00 a.m. － 6:00 p.m.' 과 'Weekends: 9:00 a.m. － 5:00 p.m.' — 시작이 같고 마감이 주말에 한 시간 이르므로 주말이 한 시간 짧다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "박물관은 월요일에 쉰다는 통념이 강해, 휴관 주기를 안내문에서 확인하지 않고 '매주 월요일'을 참으로 받아들인다.",
+          "how_to_reject": "Hours 에 별표(*)가 붙어 각주가 딸려 있고 그 각주는 'month.'로 끝난다 — 휴관 주기가 달(month) 단위로 걸려 있으므로 '매주'와 다르다. 각주 문장 전체가 인쇄면에서 잘려 있으면 이 선지는 근거로 확정하지 말고 다른 선지에서 참인 것을 찾는 쪽으로 간다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "Fees 아래 항목이 세 줄로 붙어 있어 한 칸 밀려 읽으면 'General Admission: $5'의 금액이 그 아래 Children 줄에 붙는다.",
+          "how_to_reject": "'Children under 12: Free' — 12세 미만은 무료이고, $5 는 바로 위 General Admission 에 붙은 금액이다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "trap": "-",
+          "why_tempting": "Parking 항목이 안내문 맨 끝이라 요금표까지만 보고 멈추면 눈에 들어오지 않는다.",
+          "how_to_reject": "배제되지 않는다 — 주차 할인이 방문객에게 제공된다고 첫 문장에 적혀 있다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 '일치하는 것'을 표시하고, 선지 중 계산이 필요한 것(②의 '1시간 더 길다')과 금액이 붙은 것(④의 $5)을 골라 뒤로 미룬다",
+          "on_fail": "미룰 것이 없으면 선지 순서대로 처리하되 숫자가 없는 선지부터 본다"
+        },
+        {
+          "step": "숫자가 없는 선지(⑤ 주차 할인)를 안내문 마지막 항목에서 먼저 확인한다 — 계산이 없어 가장 빨리 끝난다",
+          "on_fail": "마지막 항목에 해당 낱말이 없으면 위로 거슬러 올라가며 같은 낱말을 찾는다"
+        },
+        {
+          "step": "운영시간은 시작 시각과 마감 시각을 각각 두 줄에서 뽑아 나란히 적은 뒤 빼서 비교한다 — 차이의 크기와 함께 어느 쪽이 더 긴지를 화살표로 표시한다",
+          "on_fail": "차이만 맞고 방향을 못 정하면 마감 시각이 늦은 줄이 더 긴 쪽이라고 정리한다"
+        },
+        {
+          "step": "요금표는 대상과 금액을 손가락으로 같은 줄에 두고 읽는다 — 대상 이름과 금액이 한 칸 어긋나지 않았는지 확인한다",
+          "on_fail": "줄이 밀린 것 같으면 Free 라고 적힌 줄이 어느 대상에 붙었는지부터 본다"
+        },
+        {
+          "step": "휴관·마감 같은 예외는 별표(*)나 각주 표시가 붙은 자리를 찾아 확인하고, 각주가 잘려 읽히지 않으면 그 선지로 답을 정하지 않는다",
+          "on_fail": "각주가 없으면 그 선지는 판정 불가로 두고 다른 선지에서 참인 것을 찾는다"
+        }
+      ],
+      "time_budget_sec": 70,
+      "difficulty": {
+        "predicted": 0.86,
+        "drivers": [
+          "②가 두 줄의 차와 방향을 함께 요구한다",
+          "요금표 세 줄이 한 칸 밀려 읽히기 쉽다",
+          "휴관 각주가 인쇄본에서 잘려 있다"
+        ]
+      },
+      "required_vocab": [
+        "additional fee",
+        "weekday",
+        "admission",
+        "discount",
+        "stamp"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "1차 검수 반려(revise) → 수정 후 통과: 초안이 ③의 배제 근거로 '매월 첫째 월요일 휴관'이라는 문장을 들었으나, 코퍼스 지문에는 그 각주가 'month.' 조각으로만 남아 있다. 지문에 없는 문장을 근거로 세우는 것은 이 작업의 최악 실패이므로, 남아 있는 별표(*)와 'month.' 조각까지만 근거로 삼고 각주가 잘렸을 때의 대처를 함께 적도록 고쳤다",
+            "1차 검수 반려(revise) → 수정 후 통과: answer_locus 는 Parking 첫 문장으로 두어 인용 문제 없음",
+            "수정 후 ③의 how_to_reject 가 지문에 실제로 남아 있는 표지(별표와 month.)만 인용한다",
+            "각주 손실은 type_report.open_questions 로 올렸다"
+          ],
+          "checked": [
+            "quote 를 passage 에서 문자열 대조",
+            "③의 배제 근거가 지문 텍스트 안에 있는지 확인",
+            "선지-항목 순서 대응 확인",
+            "수정본 ③ 근거 재대조",
+            "quote 문자열 재대조",
+            "유형 정의 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 함정이 반대 진술·부분 사실·지문 밖 상식·어휘 함정으로 갈린다",
+            "②의 '차이 1시간은 맞고 방향이 반대'라는 서술이 선지 문구('주말은 평일보다 1시간 더 길다')와 정확히 맞물린다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 텍스트 근거인지",
+            "how_to_reject 위치 표기",
+            "correct 5 를 평가원 정답표 5 와 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계 '계산 없는 선지부터'가 시간 절약 조작이면서 이 문항에서는 곧바로 정답에 닿는다",
+            "5단계가 각주 손실 상황에서 학생이 멈춰 서지 않도록 대안을 준다"
+          ],
+          "checked": [
+            "지문 미독 상태 실행 가능성",
+            "금지 표현 검색",
+            "70초 배분",
+            "required_vocab 이 판정에 쓰이는지"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2014A#30",
+      "measured_ability": "회원 혜택 목록에서 각 혜택에 붙은 주기(monthly/weekly)와 비율(10%/20%)이 어느 항목에 걸리는지 가려 읽는 능력",
+      "design_intent": "혜택을 두 묶음(Members receive / Members also get)으로 나누고 각 묶음 안에 주기어와 비율을 하나씩 더 깔았다. 정답은 이웃한 두 줄의 주기어(monthly ↔ weekly)를 맞바꾼 것이어서, 항목과 수식어를 함께 기억하는지를 가른다.",
+      "answer_locus": {
+        "sentence_index": [
+          6
+        ],
+        "quote": "A weekly newsletter about upcoming events held by the Foundation.",
+        "reasoning": "뉴스레터에 붙은 주기어는 weekly 이며, monthly 는 바로 위 줄의 잡지(Nature World)에 붙어 있다. 선지 ③은 '재단 주최 행사에 관한'이라는 내용은 그대로 두고 주기만 월간으로 바꿔 놓았으므로 이 한 줄로 어긋남이 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "혜택이 'Members receive'와 'Members also get' 두 묶음으로 나뉘어 있어, $50 가 앞 묶음에만 해당하고 뒤 묶음은 별도 비용이라고 좁혀 읽으면 '모든 혜택'이 과장으로 보인다.",
+          "how_to_reject": "머리글 문장 'enjoy all the benefits of membership for only $50 per year' 가 all the benefits 를 연회비 $50 에 묶는다 — 뒤 묶음도 membership 혜택이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "monthly 와 weekly 가 이웃한 두 줄에 있어 짝을 바꿔 기억하면 잡지 쪽이 주간으로 보이고, 그러면 ②를 어긋난 선지로 고르게 된다.",
+          "how_to_reject": "Members receive 첫 줄 'Our monthly magazine, Nature World, for one year.' — 잡지에 붙은 주기어는 monthly 이고 기간도 for one year 로 명시된다."
+        },
+        {
+          "n": 3,
+          "verdict": "correct",
+          "trap": "어휘 함정",
+          "why_tempting": "'재단 주최 행사에 관한'이라는 내용이 지문과 정확히 겹쳐서, 주기어만 바뀐 것을 놓치면 참으로 보인다.",
+          "how_to_reject": "뉴스레터 줄의 수식어는 weekly 다 — 월간은 바로 위 잡지에 붙는다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "할인율이 10%와 20% 두 개라 도서에 20%를 붙이면 이 선지가 어긋난 것으로 보인다.",
+          "how_to_reject": "Members also get 첫 줄 'A 10% discount on books published by the Foundation.' — 도서가 10%, 그다음 줄의 20%는 다른 잡지(Nature Kids)에 걸린다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "환경 재단이 국립공원 입장료를 깎아 줄 권한이 없다는 배경지식으로 판단하면 근거가 없는 서술로 보인다.",
+          "how_to_reject": "Members also get 마지막 줄 'Discounted admission to national parks.' 가 국립공원 할인 입장을 혜택으로 적는다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 '일치하지 않는 것'을 표시하고, 선지에서 주기어(월간·일 년)와 비율(10%)에 동그라미를 친다 — 이 문항이 비트는 축이 여기다",
+          "on_fail": "동그라미 칠 것이 없으면 선지의 명사(잡지·뉴스레터·도서·국립공원)를 적어 대조 목록으로 삼는다"
+        },
+        {
+          "step": "혜택 목록의 각 줄에서 명사와 그 앞의 수식어를 한 덩어리로 묶어 옮겨 적는다 — 'monthly-잡지', 'weekly-뉴스레터', '10%-도서', '20%-잡지', '할인-국립공원'",
+          "on_fail": "수식어가 안 보이면 그 줄의 첫 낱말을 그대로 적는다 — 이 안내문은 혜택마다 수식어가 앞에 온다"
+        },
+        {
+          "step": "선지의 동그라미와 그 덩어리 목록을 하나씩 맞댄다 — 명사가 같은데 수식어가 다르면 그 선지가 답이다",
+          "on_fail": "명사가 안 맞으면 두 묶음(Members receive / Members also get) 중 다른 쪽에서 같은 명사를 찾는다"
+        },
+        {
+          "step": "수식어가 없는 선지(①의 '모든 혜택')는 머리글 문장에서 금액과 함께 확인한다",
+          "on_fail": "머리글에서 못 찾으면 안내문 마지막의 문의 문장까지 훑어 금액이 다시 나오는지 본다"
+        }
+      ],
+      "time_budget_sec": 60,
+      "difficulty": {
+        "predicted": 0.9,
+        "drivers": [
+          "monthly/weekly 가 이웃한 두 줄에 있다",
+          "할인율이 10%·20% 두 개다"
+        ]
+      },
+      "required_vocab": [
+        "monthly",
+        "weekly",
+        "benefit",
+        "discount",
+        "admission"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 Members receive 둘째 줄과 문자 그대로 일치한다",
+            "정답을 '이웃한 두 줄의 수식어 맞바꾸기'로 만든 설계가 선지 ②③의 짝 구조로 확인된다"
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "선지 순서와 혜택 목록 순서(회비→잡지→뉴스레터→도서→공원) 단조 대응 확인",
+            "유형 정의 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 함정이 범위 과소·어휘 함정·부분 사실·지문 밖 상식으로 갈린다",
+            "정답 ③에도 '어휘 함정' 라벨을 달았는데 오답 ②의 라벨과 같다 — 다만 ②는 오답 함정으로, ③은 출제 축으로 쓰인 것이라 오답 4개 사이의 중복은 아니다(오답 라벨 4종은 서로 다르다)"
+          ],
+          "checked": [
+            "오답 4개의 trap 중복 여부(정답 라벨 제외)",
+            "why_tempting 이 선지 텍스트 근거인지",
+            "how_to_reject 위치 표기",
+            "correct 3 을 평가원 정답표 3 과 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계 '수식어-명사 덩어리로 옮겨 적기'가 이 문항의 실패를 그대로 차단한다"
+          ],
+          "checked": [
+            "지문 미독 상태 실행 가능성",
+            "금지 표현 검색",
+            "60초 배분",
+            "required_vocab 이 판정에 쓰이는 낱말인지 — monthly/weekly 가 정답 판정 그 자체"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2014A#31",
+      "body_recovered": true,
+      "measured_ability": "오디션 안내에서 지원 자격·제출 기한·통지 수단과 시점을 선지와 짝짓고, 통지가 무엇으로 오는지(e-mail)를 두 번 확인하는 능력",
+      "design_intent": "You must / You will 두 묶음으로 지원자가 할 일과 받을 것을 나누고, 받을 것 두 줄에 e-mail 을 연달아 두었다. 마지막 줄의 수단만 전화로 바꾼 선지를 정답으로 삼아, 같은 낱말이 반복될 때 끝까지 확인하는지를 가른다.",
+      "answer_locus": {
+        "sentence_index": [
+          10
+        ],
+        "quote": "be notified of the final results by e-mail about a week after the audition.",
+        "reasoning": "최종 결과 통지 수단이 by e-mail 로 명시된다. 선지 ⑤는 통지 대상(최종 결과)과 시점 구조를 그대로 두고 수단만 전화로 바꾸었으므로, 이 줄의 by e-mail 하나로 어긋남이 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "제목 아래 'For the 2014 Season'과 날짜의 2013 이 붙어 있어 연도를 2014로 옮겨 읽으면 선지의 '2013년'이 틀린 것처럼 보인다.",
+          "how_to_reject": "'Audition Dates: December 16th-20th, 2013' — 날짜 줄에 붙은 연도는 2013 이고, 2014 는 시즌 이름이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "'a middle or high school student'의 or 를 한쪽만 남겨 읽으면 중학생 또는 고등학생 한 부류만 지원할 수 있는 것으로 좁혀져, 선지의 '중·고등학생'이 넓어 보인다.",
+          "how_to_reject": "You must 첫 줄 'currently be a middle or high school student.' — or 가 두 학교급을 모두 자격에 넣는다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "제출물이 지원서와 추천서 둘인데 문장이 길어 and 뒤의 recommendation 을 놓치면 '지원서와 추천서'가 과장으로 보이고, 기한 November 30th 도 오디션 날짜(12월)와 달라 의심하게 된다.",
+          "how_to_reject": "You must 둘째 줄 'send in a completed audition application form and a recommendation from your music teacher by November 30th.' — 제출물 둘과 기한이 한 문장에 있다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "오디션 시간·장소는 홈페이지 공지로 확인한다는 통념이 있고, 그 줄에 '10일 전'이라는 숫자가 붙어 있어 숫자만 확인하고 수단을 넘어가기 쉽다.",
+          "how_to_reject": "You will 첫 줄 'receive an e-mail with your audition time and place about 10 days before your audition day.' — 수단은 e-mail 이다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "trap": "-",
+          "why_tempting": "④에서 이미 e-mail 을 확인했으므로 통지 항목을 다 봤다고 여기고 마지막 줄을 건너뛰면, 전화 통지가 그럴듯하게 남는다.",
+          "how_to_reject": "배제되지 않는다 — 최종 결과 통지 수단도 e-mail 이므로 '전화로'가 지문과 어긋난다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "발문의 '일치하지 않는 것'을 표시하고, 선지에서 수단을 말하는 표현(이메일로 · 전화로)에 동그라미를 친다 — 두 선지가 같은 축을 쓰면 그중 하나가 답일 가능성이 높다",
+          "on_fail": "수단 표현이 하나뿐이면 날짜·기한이 든 선지부터 처리한다"
+        },
+        {
+          "step": "안내문의 'You must...'와 'You will...' 두 묶음에 선지 번호를 나눠 붙인다 — 지원자가 할 일(②③)과 받을 것(④⑤)이 갈린다",
+          "on_fail": "묶음 제목이 안 보이면 동사가 send/prepare 인 줄과 receive/be notified 인 줄로 나눈다"
+        },
+        {
+          "step": "'You will' 묶음의 두 줄에서 by 또는 with 뒤의 수단 낱말을 각각 표시한다 — 두 줄 모두 확인하고 하나만 보고 멈추지 않는다",
+          "on_fail": "수단 낱말이 같아 보이면 각 줄의 통지 내용(시간·장소 / 최종 결과)을 적어 어느 줄이 어느 선지인지 짝짓는다"
+        },
+        {
+          "step": "연도·기한이 든 선지는 그 숫자가 붙어 있는 명사를 함께 본다 — Season 에 붙은 연도와 Dates 에 붙은 연도를 구분한다",
+          "on_fail": "연도가 둘이면 날짜 줄에 직접 붙은 쪽을 택한다"
+        }
+      ],
+      "time_budget_sec": 65,
+      "difficulty": {
+        "predicted": 0.91,
+        "drivers": [
+          "e-mail 이 연달아 두 줄에 나온다",
+          "2013과 2014 두 연도가 섞여 있다",
+          "인쇄면에서 선지 끝에 쪽 번호가 붙어 나온다"
+        ]
+      },
+      "required_vocab": [
+        "audition",
+        "recommendation",
+        "notify",
+        "currently",
+        "application form"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "1차 검수 반려(revise) → 수정 후 통과: 이 문항은 body_ok:false 로 들어왔고, 파싱된 선지 ⑤ 끝에 쪽 번호 '58'이 붙어 있었다. raw_block 의 원문 선지('오디션의 최종 결과를 전화로 통지받는다.')로 읽어 분석하고 body_recovered 를 표시하도록 고쳤다",
+            "1차 검수 반려(revise) → 수정 후 통과: raw_block 과 passage 를 대조해 본문 항목(You must 3줄 · You will 2줄)이 누락 없이 들어와 있음을 확인했다",
+            "수정 후 선지 ⑤를 쪽 번호 없이 다루고 body_recovered:true 를 넣었다",
+            "quote 가 You will 둘째 줄과 문자 그대로 일치한다"
+          ],
+          "checked": [
+            "raw_block 과 passage 대조",
+            "선지 5개를 raw_block 원문에서 재확인",
+            "quote 문자열 대조",
+            "수정본 quote 재대조",
+            "body_recovered 표시 확인",
+            "유형 정의 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 함정이 어휘 함정·범위 과소·부분 사실·지문 밖 상식으로 갈린다",
+            "④와 ⑤가 같은 수단 축(e-mail)을 공유하는데, ④의 유혹 경로를 '통념+숫자에 시선 뺏김'으로, ⑤를 '앞 줄 확인으로 만족'으로 달리 적어 중복을 피했다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 텍스트 근거인지",
+            "how_to_reject 위치 표기",
+            "correct 5 를 평가원 정답표 5 와 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계 '두 줄 모두 확인'이 이 문항의 유일한 실패 지점을 정면으로 막는다",
+            "1단계의 '같은 축을 쓰는 선지 둘' 관찰은 지문을 보기 전 선지만으로 실행된다"
+          ],
+          "checked": [
+            "지문 미독 상태 실행 가능성",
+            "금지 표현 검색",
+            "65초 배분",
+            "required_vocab 이 판정에 쓰이는지 — notify/by e-mail 이 정답 판정 그 자체"
+          ]
+        }
+      ],
+      "revised": true
+    }
+  ],
+  "type_report": {
+    "type_id": "R-NOTICE",
+    "n_analyzed": 9,
+    "recurring_traps": [
+      {
+        "trap": "부분 사실",
+        "count": 9,
+        "signature": "한 항목의 두 줄 중 한 줄만 보고 판정한다 — 시각표 첫 줄만(2017#26 ①), 시간 길이만 맞고 오전/오후는 안 봄(2015#26 ②), 차이 1시간은 맞고 방향이 반대(2014A#29 ②). 9문항 전부에 한 개씩 들어 있다"
+      },
+      {
+        "trap": "어휘 함정",
+        "count": 7,
+        "signature": "같은 종류의 수식어가 이웃한 두 줄에 놓여 붙는 명사가 바뀐다 — monthly↔weekly(2014A#30), 10 seminars↔12 firms(2016#26), $5↔Free(2014A#29 ④), 2013↔2014(2014A#31 ①)"
+      },
+      {
+        "trap": "지문 밖 상식",
+        "count": 6,
+        "signature": "안내문 관행(미술관은 촬영 금지·박물관은 월요일 휴관·안내문에는 전화번호가 있다·공지는 홈페이지로)으로 판정해 해당 줄을 찾지 않는다"
+      },
+      {
+        "trap": "범위 과소",
+        "count": 5,
+        "signature": "all/or 로 묶인 대상을 한쪽으로 좁혀 읽는다 — all university students→영화 전공만(2015#26 ③), submitted by students 의 수식 범위(2017#26 ②), all the benefits→앞 묶음만(2014A#30 ①)"
+      },
+      {
+        "trap": "반대 진술",
+        "count": 4,
+        "signature": "부정 표지(not permitted · non-refundable · cancelled · essential · additional fee)를 흘리면 선지의 단정문이 그대로 참이 된다"
+      },
+      {
+        "trap": "범위 과대",
+        "count": 3,
+        "signature": "한정어를 떼거나 경계를 넓힌다 — only with headphones 에서 only 제거(2017#27 ④), 21 & 22 를 3일로(2016#26 ①), fewer than 20 을 20 이하로(2015#27 ②)"
+      },
+      {
+        "trap": "무관 / 주체 역전",
+        "count": 2,
+        "signature": "지문에 없는 기관을 넣거나(시청, 2016#26 ②) 행위자를 바꾼다(students→교수, 2015#26 ①)"
+      }
+    ],
+    "answer_locus_pattern": "9문항 모두 정답 근거가 **선지 번호에 대응하는 안내문의 그 한 줄**에 있고, 두 줄 이상을 종합해야 하는 정답은 하나도 없었다. 그리고 9문항 모두 선지 ①→⑤가 안내문의 위→아래 서술 순서를 단조로 따라간다(2017#27 은 Tips 항목에 ③④가 함께 붙는 것이 유일한 압축). 따라서 선지 하나를 확인한 뒤에는 그 줄 아래에서만 다음 근거를 찾으면 되고, 위로 되돌아갈 필요가 없다. 정답 번호는 ③②④④⑤④⑤③⑤ 로 ④·⑤에 5개가 몰렸다 — 정답 근거가 안내문 아래쪽(요금·환불·주차·통지)에 자주 놓인다는 뜻이고, 표 위쪽만 읽고 답을 정하면 그 5개를 놓친다.",
+    "procedure": [
+      {
+        "step": "발문 끝이 '일치하는' 인지 '일치하지 않는' 인지에 표시한다. 이 유형은 두 발문이 섞여 출제되고 방향을 놓치면 참인 선지 넷 중 하나를 고르게 된다",
+        "on_fail": "답을 적기 직전에 발문을 한 번 더 본다. O 가 하나면 '일치하는', X 가 하나면 '일치하지 않는' 문항이 맞다"
+      },
+      {
+        "step": "지문보다 선지를 먼저 읽고, 선지마다 대조할 지점 한 곳에만 밑줄을 긋는다 — 숫자(금액·인원·기간) · 시각 표기(am/pm·요일) · 수단(이메일/전화/방문) · 대상(모든/일부) · 부정어(않는다·없다) 다섯 축 중 하나다",
+        "on_fail": "밑줄 지점이 둘 이상 잡히면 부정어나 전칭어가 든 쪽만 남긴다"
+      },
+      {
+        "step": "안내문을 위에서 아래로 한 번만 내려가며 선지 번호를 여백에 적어 붙인다. 선지 순서와 안내문 서술 순서가 같으므로 붙인 자리보다 위로 되돌아가지 않는다",
+        "on_fail": "짝지을 줄이 안 보이는 선지가 생기면 건너뛰고, 마지막에 남은 줄(각주·대시 부속 줄·괄호)과 맞춘다"
+      },
+      {
+        "step": "짝지은 줄에서 밑줄 친 축만 대조하고 선지 옆에 O/X 를 적는다. 숫자는 반드시 바로 뒤 명사와 함께 읽고(10은 세미나, 12는 기업), 수식어는 붙는 명사와 한 덩어리로 옮겨 적는다(monthly-잡지, weekly-뉴스레터)",
+        "on_fail": "숫자나 수식어가 안내문에 두 번 이상 나오면 그 둘을 나란히 적어 어느 명사에 붙는지 확정한다"
+      },
+      {
+        "step": "괄호·대시 부속 줄·별표 각주·표 마지막 줄을 반드시 훑는다 — 정답 근거가 여기 있는 문항이 9개 중 5개다(Total Pass 괄호 · FREE beverage 대시 줄 · Free admission 마지막 줄 · Parking 항목 · 통지 둘째 줄)",
+        "on_fail": "훑을 시간이 없으면 아직 O/X 를 못 적은 선지가 가리키는 항목만 확인한다"
+      },
+      {
+        "step": "찾는 표시(불일치면 X, 일치면 O)가 하나 나오면 확정하고 나머지를 검산하지 않는다",
+        "on_fail": "둘 이상이면 상식으로 판정한 선지와 계산이 든 선지(시간 차·기간)를 그 순서로 다시 본다"
+      }
+    ],
+    "failure_modes": [
+      "발문 방향 혼동 — '일치하는 것'과 '일치하지 않는 것'이 같은 회차 26·27번에 나란히 나온다(2017·2016·2015 모두 그렇다). 26번 방식대로 27번을 풀면 정답과 반대편을 고른다",
+      "항목의 첫 줄에서 멈춤 — Hours 두 줄, Morning Walk 두 줄, You will 두 줄처럼 한 항목에 줄이 둘일 때 첫 줄만 보고 판정한다. 9문항 중 6문항의 오답이 이 자리에 있다",
+      "숫자를 명사에서 떼어 기억 — 12·$5·20 같은 수가 안내문에 실제로 있어서 '봤다'는 감각만 남고 어느 항목에 붙었는지는 지워진다",
+      "괄호와 대시 부속 줄 건너뛰기 — 굵은 항목 제목만 훑는 습관 때문에 정답 근거가 있는 짧은 줄을 못 본다",
+      "상식으로 대체 — 촬영 금지·월요일 휴관·전화 문의 같은 통념이 확인 절차를 삼킨다. 이 경로로 만들어진 오답이 6개다",
+      "다 맞다고 판정한 뒤 시간 초과 — X 를 못 찾고 처음부터 다시 읽으면 60초 문항이 3분을 먹는다. 못 찾으면 전체 재독이 아니라 부정어·한정어가 든 선지로만 되돌아가야 한다"
+    ],
+    "time_budget_sec": 63,
+    "open_questions": [
+      "2014A#29 는 코퍼스 지문에서 Hours 의 별표 각주가 'month.' 조각으로만 남았다(원 인쇄면의 휴관 각주 소실). 선지 ③('매주 월요일에 휴관한다')의 배제 근거를 지문 문자열만으로는 완전히 세울 수 없어, 남은 표지(별표·month.)까지만 인용하고 각주 손실 시의 대처를 절차에 넣었다. 파서 개선 시 이 문항의 ③ 분석을 다시 봐야 한다",
+      "2014A#31 은 body_ok:false 인데 passage 와 choices 가 채워져 있었고 선지 ⑤ 끝에만 쪽 번호 '58'이 붙어 있었다. 실질 손실은 그 한 곳뿐이라 raw_block 으로 복원했다 — body_ok 플래그가 '전면 손실'과 '꼬리 오염'을 구분하지 못한다는 뜻이다",
+      "옛 회차 형식 차이: 이 청크는 2014~2017 회차로, (a) 문항 번호가 2014A 에서는 29·30·31 로 세 문항이 연속하고 2015 이후 26·27 두 문항으로 줄었으며, (b) 지문이 표·글머리표 중심이고 최근 회차에 흔한 '※ 안내 사항' 각주 묶음이 없다. (c) 오답 축도 요금·시각·수단 같은 사실 축에 머물러, 최근 회차에서 늘어난 '조건부 서술(단, ~인 경우에 한해)' 함정이 이 9문항에는 한 건도 없다. 최근 회차 청크와 비교해 이 차이가 실제 추세인지 확인해야 한다",
+      "반려는 5건 나왔다 — 2017#27 analyst(함정 라벨 중복) · 2016#26 analyst(함정 라벨 중복 + 배제 근거 위치 누락) · 2015#26 tutor(절차가 실행 지시가 아님 + 어휘 나열) · 2014A#29 setter(지문에 없는 각주 문장을 근거로 삼음) · 2014A#31 setter(쪽 번호로 오염된 선지). 게이트가 pass 아닌 검수 기록을 남겨 두지 못하게 하므로, 반려 내용은 같은 페르소나의 최종 pass 기록 findings 에 '1차 검수 반려(revise) → 수정 후 통과' 로 접어 넣고 문항에 revised:true 를 달았다. 다만 setter 반려 2건이 모두 데이터 손실 사유라, 정답표가 있고 지문이 온전한 문항에서는 setter 가 반려할 거리가 거의 없다 — 이 유형에서 setter 의 자를 '인용 검증'에서 '선지-지문 순서 대응이 실제로 단조인가'로 넓혀야 반려가 의미를 갖는다."
+    ]
+  }
+}
