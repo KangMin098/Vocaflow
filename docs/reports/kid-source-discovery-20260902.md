@@ -319,3 +319,43 @@ image-detail    og:updated_time 만
 
 남은 결함 셋 — **narrative 0** · 우리가 쓴 글 100편(44%) · 재배포 불가 38편.
 셋 다 §10 의 소스를 배선하면 분모가 커지며 함께 옅어진다. **B3 는 배선 말고는 답이 없다.**
+
+---
+
+## 12. 배선 — StoryWeaver (코드 완료 · 마이그레이션 승인 대기)
+
+**B3(narrative 0)는 소스를 배선하지 않으면 풀 수 없는 축이다.** 그래서 배선했다.
+
+| | |
+|---|---|
+| 어댑터 | `packages/library-pipeline/src/ingest-article/storyweaver.ts` |
+| 피드 | `level-1`(중앙 122어 · 초창 49% · 중창 69%) · `level-2`(중앙 335어 · 중창 14%) |
+| 정책 | `SOURCE_SPECS` · `SOURCE_DEFAULT_SPEC` · `SOURCE_POLICIES` · `SOURCE_REGISTER_DEFAULT`(**narrative**) · `beginner` 랭킹 1순위 |
+| 회귀 | `storyweaver.test.ts` **13종** — 망을 안 탄다 |
+| 검증 | 패키지 전체 **1,188 tests 통과 (87 파일)** · `tsc --noEmit` exit 0 |
+
+### 배선에서 지킨 것 셋
+
+1. **적중 0% 인 Level 3 이상은 피드 목록에 넣지 않았다.** 목록에 두면 대량 GET 화면에서
+   고를 수 있게 되고, 고르면 창 밖 글만 쌓인다. 테스트가 이 목록을 잠근다.
+2. **라이선스를 못 읽으면 `restricted` 로 떨어뜨린다.** 못 읽었다는 것은 "CC 다" 가 아니라
+   "모른다" 이고, 모르는 것을 발행하면 그때는 되돌릴 수 없다. `SOURCE_SPECS` 에 적힌
+   `CC-BY-4.0` 은 **다수값**이지 그 책의 값이 아니다 — 정본은 책 뒷장의 표시다.
+3. **`recencyDays: null`.** 그림책에는 발행일이 없다. recency 를 켜 두면 전량이 0점이 되어
+   큐레이션이 통째로 걸러 낸다 — **소스를 넣고도 한 편도 안 들어오는 실패**다.
+
+타입체커가 빠진 registry 하나(`SOURCE_POLICIES`)를 잡아 줬다. 이 저장소의 소스 배선은
+`Record<SourceKey, …>` 가 여섯 군데라 하나만 빠져도 컴파일이 막힌다 — 좋은 설계다.
+
+### 막고 있는 것 — CHECK 제약 하나
+
+`library_articles.source` 에 CHECK 제약이 있고 거기에 `storyweaver` 가 없다.
+**마이그레이션은 자동 적용하지 않는다**(저장소 규칙) — SQL 을 `supabase/migrations/
+_pending_storyweaver_source.sql` 에 두고 승인을 기다린다.
+
+`NOT VALID` → `VALIDATE` 2단으로 나눴다. `ALTER TABLE ... ADD CONSTRAINT` 는
+ACCESS EXCLUSIVE 를 잡고 CHECK 검증이 24,738행 전수 스캔이라, 한 번에 하면 그동안 표가 멈춘다.
+
+**적용 뒤 순서**: 마이그레이션 → `listStoryweaverFeed('level-1')` 로 소량 GET →
+`passage-axis-bench` 재실행해 B3 가 실제로 바뀌었는지 확인. 그 전에는 "narrative 를 메웠다"
+고 적지 않는다 — 코드가 있는 것과 재고가 생긴 것은 다르다.

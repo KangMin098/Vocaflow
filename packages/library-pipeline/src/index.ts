@@ -108,6 +108,19 @@ export {
   FUTURITY_FEEDS,
 } from './ingest-article/futurity'
 export type { FuturityListItem } from './ingest-article/futurity'
+// StoryWeaver (Pratham Books · 초·중 이야기 · 책마다 CC — 책 안에서 읽는다).
+//   초·중 창의 narrative 재고가 **0편**이라 넣는다. 자세한 근거는 어댑터 머리말에.
+export {
+  ingestStoryweaverArticle,
+  listStoryweaverFeed,
+  storyweaverBookUrl,
+  storyweaverLicense,
+  storyweaverAuthor,
+  storyweaverPageText,
+  stripPageNumbers,
+  STORYWEAVER_FEEDS,
+} from './ingest-article/storyweaver'
+export type { StoryweaverListItem } from './ingest-article/storyweaver'
 export type { NoaaListItem } from './ingest-article/noaa'
 // CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
 export { generateDcpItems, explainDcpEligibility } from './dcp/generate-items'

@@ -33,6 +33,10 @@ export type SourceKey =
   //   학술 소재 × 읽히는 문장. 기존 재고가 "쉬운데 학술 아님(VOA·NASA)" 과
   //   "학술인데 C1–C2(PLOS·위키)" 로 양극화돼 있어 그 사이를 메운다.
   | 'futurity'
+  // 초·중 **이야기** 지문 (Pratham Books StoryWeaver). 2026-09-02 추가.
+  //   초·중 창에 드는 글 154편의 register 를 세니 **narrative 0** 이었다 —
+  //   재고 부족이 아니라 종류 부재라 편수를 늘려도 해결되지 않는다.
+  | 'storyweaver'
   // ACP §20 — 사실 재저작. 외부 본문을 가져오지 않으므로 수집 대상이 아니지만,
   // 발행 후에는 다른 소스와 같은 자리(정책·트랙·표시)에 서야 하므로 SourceKey 를 갖는다.
   // ⚠ SOURCE_RANKINGS_BY_LEVEL 에는 넣지 않는다 — 대량 GET 화면의 선택지가 아니다.
@@ -340,6 +344,19 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 240,
     noiseKeywords: ['listen:', 'watch:', 'podcast'], // 오디오/영상 포스트는 본문이 짧다
     maxItems: 20,
+  },
+  storyweaver: {
+    // 그림책은 시의성이 없다 — 1990년대 이야기도 오늘 읽힌다. 따라서 recency 를 끄다.
+    //   게다가 발행일 자체가 없어(null) recency 를 켜 두면 전량이 0점이 된다.
+    recencyDays: null,
+    minDescriptionLen: 0, // 목록의 description 이 빈 책이 많다 — 없다고 버리면 재고가 날아간다
+    minTitleLen: 3,       // "Too Big! Too Small!" 처럼 짧은 그림책 제목이 정상이다
+    sourceWeight: 0.90,   // 유일한 narrative 공급선 — 대체가 없다
+    levelBonus: 0.05,     // A1-A2 — 초·중 밴드에서는 가점
+    idealDescLen: 120,
+    // 번역본·음성판은 같은 이야기가 두 번 들어오는 길이다.
+    noiseKeywords: ['(translated)', 'audio version'],
+    maxItems: 24,         // 목록 한 쪽의 상한과 맞춘다
   },
   // PLOS: CC-BY 오픈 학술 논문(C1-C2), S4 킬러급. solr API list.
   plos: {
@@ -757,6 +774,24 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
     styleGuide: '대학 공보의 연구 소개 기사 (B1-B2) · 학술 소재를 일반 독자용으로 재서술',
     preferredFeedMix: [{ feedId: 'all', weight: 1.00 }],
   },
+  // StoryWeaver: 초·중 이야기. **register 구멍을 메우려고 넣는다.**
+  storyweaver: {
+    targetLevels: ['beginner'],
+    targetCefr: { min: 'A1', max: 'A2' },
+    maxItemsPerBatch: 24,
+    minScore: 0.30, // 발행일도 설명도 없는 그림책이라 점수가 구조적으로 낮다
+    bulkPriority: 2,
+    // 책마다 다르다 — 여기 적힌 것은 다수이고, 정본은 **책 뒷장의 표시**다.
+    //   어댑터가 못 읽으면 restricted 로 떨어뜨린다.
+    license: 'CC-BY-4.0',
+    attributionRequired: true,
+    topicDomain: ['story', 'family', 'school', 'animals', 'everyday'],
+    styleGuide: '그림책 서사 (A1-A2) · 영어가 제2언어인 독자를 상정하고 쓰였다',
+    preferredFeedMix: [
+      { feedId: 'level-1', weight: 0.75 }, // 적중 초창 49% · 중창 69%
+      { feedId: 'level-2', weight: 0.25 }, // 적중 중창 14% — 적지만 0은 아니다
+    ],
+  },
   // PLOS: CC-BY 오픈 학술 논문, C1-C2 심화(S4 킬러급). abstract+본문 산문(methods/refs 스트립).
   plos: {
     targetLevels: ['advanced'],
@@ -855,7 +890,7 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  * BulkArticlesTab 에서 학습자 수준 선택 시 이 순서로 소스 자동 재정렬.
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
-  beginner:     ['voa', 'simple_wikipedia', 'wikivoyage', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
+  beginner:     ['storyweaver', 'voa', 'simple_wikipedia', 'wikivoyage', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
   intermediate: ['voa', 'simple_wikipedia', 'futurity', 'wikivoyage', 'factbook', 'nasa', 'usgs', 'noaa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
   advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'futurity', 'nih', 'nasa', 'usgs', 'noaa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
@@ -920,6 +955,7 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   usgs: 'expository', // 지구과학·자연재해 과학 저널리즘 (설명문)
   noaa: 'expository', // 기후과학 explainer (설명문)
   futurity: 'expository', // 대학 연구 소개 — 주장이 아니라 설명이다
+  storyweaver: 'narrative', // 그림책 이야기 — 이 자리가 비어 있었다
   // ACP §20 — 재저작 기본은 시사. 발주가 다른 register 를 지정하면 dev-process 가 아니라
   //   composed_spec 이 권위이므로, 이 값은 발주 없이 들어온 경우의 안전 기본값이다.
   original: 'news',
@@ -1146,6 +1182,10 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   wikivoyage: getSourcePolicy('wikivoyage'),
   usgs: getSourcePolicy('usgs'),
   noaa: getSourcePolicy('noaa'),
+  // ⚠️ 여기 적힌 `CC-BY-4.0` 은 **다수값**이지 그 책의 값이 아니다. StoryWeaver 는
+  //   책마다 라이선스가 다르고 정본은 **책 뒷장의 표시**다 — 어댑터가 거기서 읽고,
+  //   못 읽으면 `restricted` 로 떨어뜨린다. 이 표는 화면에 보여 줄 기본값일 뿐이다.
+  storyweaver: getSourcePolicy('storyweaver'),
   original: getSourcePolicy('original'),
 }
 
