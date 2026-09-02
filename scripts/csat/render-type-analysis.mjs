@@ -172,10 +172,45 @@ for (const t of order) {
   }
 }
 
+// ── 배점 설계 — 코퍼스에서 바로 센다 ─────────────────────────────────
+//
+// 서브에이전트가 「어법은 3점 비율이 높다」는 저장소 기존 실측이 자기 표본(최근 9문항)에서
+// 재현되지 않는다고 보고했다. 둘 다 맞았다 — **연도가 갈린다.** 이런 것은 분석문이 아니라
+// 원장이 답할 수 있으므로 여기서 센다(손으로 적으면 다음 회차에 낡는다).
+{
+  const keyed = inScope.filter((it) => it.points != null)
+  const rows = new Map()
+  for (const it of keyed) {
+    const e = rows.get(it.type_id) ?? { n: 0, p3: 0, oldN: 0, oldP3: 0, newN: 0, newP3: 0 }
+    const old = it.year <= 2022
+    e.n += 1
+    if (it.points === 3) e.p3 += 1
+    if (old) { e.oldN += 1; if (it.points === 3) e.oldP3 += 1 } else { e.newN += 1; if (it.points === 3) e.newP3 += 1 }
+    rows.set(it.type_id, e)
+  }
+  const shift = [...rows]
+    .filter(([, e]) => e.oldN >= 5 && e.newN >= 5 && Math.abs(e.oldP3 / e.oldN - e.newP3 / e.newN) >= 0.4)
+    .sort((a, b) => (b[1].oldP3 / b[1].oldN - b[1].newP3 / b[1].newN) - (a[1].oldP3 / a[1].oldN - a[1].newP3 / a[1].newN))
+  if (shift.length) {
+    L.push('## 3. 배점 설계가 바뀐 자리')
+    L.push('')
+    L.push('**3점 비율이 2023학년도를 기점으로 40%p 이상 움직인 유형.** 옛 기출로 「이 유형은 3점」을')
+    L.push('외우면 지금 시험에서 시간 배분이 어긋난다. (정답표가 있는 문항만 셈)')
+    L.push('')
+    L.push('| 유형 | ~2022학년도 | 2023학년도~ |')
+    L.push('|---|---|---|')
+    for (const [id, e] of shift) {
+      const nm = typeMeta.get(id)?.name ?? id
+      L.push(`| ${nm} \`${id}\` | ${e.oldP3}/${e.oldN} (${Math.round((100 * e.oldP3) / e.oldN)}%) | ${e.newP3}/${e.newN} (${Math.round((100 * e.newP3) / e.newN)}%) |`)
+    }
+    L.push('')
+  }
+}
+
 // ── 아직 분석 전 ──────────────────────────────────────────────────────
 const pending = order.filter((t) => !reports.has(t.id))
 if (pending.length) {
-  L.push('## 3. 아직 분석 전')
+  L.push('## 4. 아직 분석 전')
   L.push('')
   L.push('**숨기지 않는다** — 없는 것을 안 적으면 다 된 것처럼 읽힌다.')
   L.push('')

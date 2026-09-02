@@ -1,0 +1,1402 @@
+{
+  "chunk": 2,
+  "type_id": "R-GRAMMAR",
+  "type_name": "어법",
+  "analyses": [
+    {
+      "item_id": "M2306#29",
+      "answer_unknown": true,
+      "measured_ability": "밑줄 다섯 자리가 각각 다른 문법 축(명사를 되받는 대용 대명사 · 명사 뒤 분사 수식 · 명사구가 뒤따르는 관계사 자리 · 독립분사구문 · enable+목적어+to부정사)을 재고 있음을 알아보고, 자리마다 그 축이 요구하는 형태 조건을 절 단위 성분 세기로 확인하는 능력",
+      "design_intent": "생태계의 크기 대비를 나열하는 글에서 밑줄을 한 문장 건너 하나씩 배치해, 밑줄 자리를 통째로 뜻이 통하게 읽으면 다섯 개가 모두 자연스럽게 들리도록 만들었다. 특히 명사 뒤에 오는 -ing 와 관계사 which 뒤에 명사구가 이어지는 자리를 같은 지문에 함께 두어, '명사 뒤에는 -ing 가 온다' 같은 형태 암기만으로는 갈리지 않게 설계했다.",
+      "solve_procedure": [
+        {
+          "step": "밑줄 다섯 개에 라벨부터 붙인다 — 밑줄의 첫 낱말 형태만 보고 (a)대명사 (b)준동사(-ing/-ed/to V) (c)관계사·접속사 (d)형용사·부사 중 무엇인지 여백에 적는다",
+          "on_fail": "-ing 처럼 형태가 겹치면 라벨을 (b)로 두고, 그 문장에서 마침표까지 정동사가 이미 있는지 세는 3단계로 넘긴다"
+        },
+        {
+          "step": "관계사 라벨이 붙은 밑줄은 밑줄 뒤 절을 따로 떼어 읽고 주어·목적어·전치사의 목적어 중 빠진 자리가 있는지 센다. 하나가 비면 which/that 이 맞고, 하나도 안 비고 관계사 바로 뒤에 명사구가 붙어 있으면 소유격 관계사(whose)를 요구하는 자리다",
+          "on_fail": "성분 세기가 헷갈리면 관계사를 지우고 뒤 절에 마침표를 찍어 완결된 문장인지 소리 내어 확인한다"
+        },
+        {
+          "step": "준동사 라벨 밑줄은 그 문장의 정동사 개수와 접속사·관계사 개수를 센다 — 정동사는 (접속사+관계사) 개수보다 정확히 하나 많아야 한다. 이미 개수가 맞으면 밑줄은 준동사여야 한다",
+          "on_fail": "문장이 길어 못 세면 콤마와 세미콜론에서 잘라 조각마다 동사를 표시한 뒤 합산한다"
+        },
+        {
+          "step": "대명사 라벨 밑줄은 되받는 명사를 앞에서 찾아 밑줄을 긋고 단수·복수를 맞춘다. 앞에 온 명사가 셀 수 있는 복수면 those, 단수면 that 이다",
+          "on_fail": "되받는 명사가 안 잡히면 밑줄 자리에 그 명사를 그대로 다시 써 넣어 문장이 성립하는지 본다"
+        },
+        {
+          "step": "동사 바로 뒤에 목적어와 밑줄이 이어지는 자리는 그 동사가 요구하는 목적보어 형태를 사전 지식으로 확정한다(enable/allow/cause 는 to부정사, make/have/let 은 원형)",
+          "on_fail": "동사가 낯설면 그 동사를 뺀 나머지로는 판정하지 말고 다른 네 자리를 먼저 정리한 뒤 마지막에 남기는 후보로 둔다"
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.45,
+        "drivers": [
+          "발문에 [3점] 표기가 있어 평가원이 상위 난도로 배치한 문항이다",
+          "관계사 뒤 절의 성분 결손을 세는 판정이 들어 있다",
+          "other things ___ equal 이 독립분사구문 관용 형태라 형태 암기로는 안 갈린다",
+          "밑줄 다섯 중 셋이 준동사·관계사라 형태만으로 소거되는 자리가 적다"
+        ]
+      },
+      "required_vocab": ["governing", "rhythmic", "indivisibility", "migratory"],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "정답표가 없는 회차이므로 answer_locus 를 쓰지 않은 것이 맞다",
+            "밑줄 다섯의 문법 축 나열이 지문의 실제 밑줄 위치와 일치한다(those / governing / which + 명사구 / being equal / to survive)"
+          ],
+          "checked": [
+            "밑줄 기호 5개를 코퍼스 지문에서 세어 서술한 문법 축과 1:1 대응 확인",
+            "answer_locus·choices 가 비어 있는지 확인",
+            "어법 유형 정의(밑줄 중 틀린 것 1개)와 서술이 어긋나지 않는지 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안의 measured_ability 가 '관계사 which 가 받는 명사구' 한 자리만 지목해 사실상 정답을 전제했다 — 다섯 자리를 모두 나열하는 서술로 고쳤다(revised)",
+            "difficulty.predicted 0.45 의 근거를 drivers 에 [3점] 표기와 구조 요인으로 명시하게 했다",
+            "required_vocab 4개가 지문에 문자 그대로 있는지 대조했다"
+          ],
+          "checked": [
+            "answer_locus·choices 가 정말로 비어 있는지",
+            "measured_ability·solve_procedure 에 선지 배제 서술이 남았는지",
+            "governing·rhythmic·indivisibility·migratory 를 지문에서 문자열 대조",
+            "difficulty.predicted 의 근거가 drivers 에 적혀 있는지"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "5단계 모두 지문을 아직 안 본 상태에서 시작할 수 있다(1단계가 형태 라벨링이라 해석을 전제하지 않는다)",
+            "밑줄 5개 × 약 15초 + 라벨링 20초로 100초 안에 들어온다"
+          ],
+          "checked": [
+            "각 단계가 지문 사전 지식 없이 실행 가능한지",
+            "금지 표현(흐름을 파악하면·꼼꼼히 읽는다 등) 문자열 검사",
+            "단계별 소요 시간 합산이 time_budget_sec 안인지"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2022#29",
+      "measured_ability": "명사절을 이끄는 연결어를 고를 때, 그 절에 빠진 성분이 있는지(what) 없는지(that)를 세어 가르는 능력. 아울러 분사구문·대동사·병렬·동격 형용사구가 각각 정동사를 요구하지 않는 자리임을 확인하는 능력",
+      "design_intent": "세포 생장을 설명하는 글에서 '완전절 앞의 What' 을 문장 맨 앞 주어 자리에 두어, 학습자가 자주 보는 'What ~ is ...' 형태에 눈이 익어 그대로 넘어가게 만들었다. 나머지 네 자리는 모두 정동사를 넣고 싶어지는 준동사·보어 자리로 채워 반대 방향의 유혹을 걸었다.",
+      "answer_locus": {
+        "sentence_index": [8],
+        "quote": "What cell metabolism and structure should be complex would not be surprising",
+        "reasoning": "밑줄 뒤 cell metabolism and structure should be complex 에는 주어·조동사·보어가 다 있어 what 이 메울 성분이 없다. 이 절 전체가 would not be surprising 의 주어이므로, 완전절을 명사절로 바꾸는 접속사 That 이어야 한다. 바로 뒤 they are rather simple and logical 의 they 가 metabolism and structure 를 되받아, 그 절이 하나의 완결된 명제임을 확인해 준다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "분사구문 주어 일치",
+          "why_tempting": "divides 뒤 콤마에 접속사 없이 -ing 가 이어져, 두 동작을 잇는 정동사(and produces)가 빠진 것처럼 보인다",
+          "how_to_reject": "밑줄 앞 절 when its mother cell divides 에 정동사 divides 가 이미 있고 주절 정동사도 is 로 채워져 있다 — 정동사 개수가 이미 접속사 개수보다 하나 많으므로 밑줄은 분사여야 하고, producing 의 의미상 주어도 그 mother cell 이다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "대동사 형태(be 대용)",
+          "why_tempting": "as large as the mother cell 뒤에 형용사가 없이 was 만 남아 군더더기로 보여 지우거나 다른 형태로 고치고 싶어진다",
+          "how_to_reject": "비교 대상은 앞 절의 becomes large 라는 상태 서술이므로 대동사는 be 계열이어야 하고, 어미 세포가 커져 있던 시점은 지난 일이라 was 가 맞다 — 바로 뒤 문장 During this time 이 그 시간 축을 이어 받는다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "병렬 대상 오인",
+          "why_tempting": "either prepares to divide or 뒤라 divide 라는 원형에 맞춰 differentiate 로 형태를 맞추고 싶어진다",
+          "how_to_reject": "or 가 잇는 것은 prepares 와 matures 두 정동사이고 divide 는 prepares to 뒤 to부정사라 병렬 대상이 아니다 — 밑줄은 matures 와 and 로 묶이므로 주어 it 에 맞춘 3인칭 단수 differentiates 가 맞다"
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "trap": "명사절 접속사 완전성(what/that)",
+          "why_tempting": "문장 첫머리의 'What ~ is/would be ...' 형태를 자주 봐서, 뒤 절의 성분을 세지 않고 익숙한 틀로 넘긴다",
+          "how_to_reject": "밑줄 뒤 절에서 주어(cell metabolism and structure)·조동사(should)·보어(complex)를 차례로 짚으면 빈자리가 없다 — 완전절이므로 That 이어야 한다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "동격 형용사구(each + 형용사) 후치수식",
+          "why_tempting": "each 뒤에 동사가 없어 is 나 being 이 빠진 것처럼 읽힌다",
+          "how_to_reject": "밑줄이 든 절에는 정동사 has 가 이미 있고 접속사가 없다 — 여기에 정동사를 넣으면 접속사 없이 절이 둘이 된다. each responsible for ... 는 parts 를 받는 동격 형용사구다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "밑줄 다섯의 첫 낱말 형태를 보고 (준동사 / 동사 / 접속사·관계사 / 형용사) 라벨을 여백에 적는다",
+          "on_fail": "형태가 겹치면 준동사로 두고 그 문장의 정동사 개수를 세는 단계로 넘긴다"
+        },
+        {
+          "step": "접속사·관계사 라벨이 붙은 밑줄(What)의 뒤 절만 떼어 마침표를 찍어 읽는다. 주어·목적어·보어 중 빈자리가 있으면 what, 하나도 없으면 that 자리다",
+          "on_fail": "빈자리 판정이 흔들리면 밑줄 뒤 절을 한국어로 옮기지 말고 영어 그대로 주어-동사-보어 순서에 밑줄을 그어 표시한다"
+        },
+        {
+          "step": "준동사 라벨 밑줄(producing / responsible)은 그 문장의 정동사 수와 접속사·관계사 수를 세어, 정동사가 이미 (접속사+1)개면 그대로 둔다",
+          "on_fail": "세다 막히면 콤마·세미콜론에서 문장을 잘라 조각마다 동사를 표시한 뒤 합산한다"
+        },
+        {
+          "step": "동사 형태 밑줄(was / differentiates)은 그것이 무엇을 대신하거나 무엇과 이어지는지 앞에서 짝을 찾아 밑줄로 잇는다 — 대동사는 앞 술부의 be/do 계열을 그대로, 병렬은 접속사가 실제로 잇는 두 항을 확인한다",
+          "on_fail": "짝이 둘로 보이면 각각을 대입해 문장을 다시 읽고, 대입해도 뜻이 안 바뀌는 쪽을 버린다"
+        },
+        {
+          "step": "후보가 둘 남으면 각 후보를 고친 문장을 실제로 써 보고, 고치지 않아도 성분이 다 채워지는 쪽을 버린다",
+          "on_fail": "그래도 둘이면 절과 절을 잇는 자리(접속사·관계사)를 우선 의심한다 — 준동사 자리는 정동사 세기로 이미 걸러졌다"
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.45,
+        "drivers": [
+          "3점 배점",
+          "정답 자리가 문장 첫머리라 익숙한 What절 틀로 읽히기 쉽다",
+          "either ... or ... and 가 겹쳐 병렬 대상이 셋으로 보인다",
+          "생물 용어(protoplasm, metabolism)가 구조 파악을 늦춘다"
+        ]
+      },
+      "required_vocab": ["metabolism", "differentiates", "responsible", "surprising"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 코퍼스 지문에 문자 그대로 있다",
+            "정답 판정이 평가원 정답표 ④와 일치한다",
+            "answer_locus.reasoning 이 '완전절' 이라는 판정 근거를 성분 나열로 제시해 되풀이 서술이 아니다"
+          ],
+          "checked": [
+            "quote 를 corpus.json 지문에서 문자열 대조",
+            "정답표 answer=4 와 choices[3].verdict 대조",
+            "어법 유형(밑줄 중 틀린 것) 정의와 서술 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개의 trap 이 분사구문 / 대동사 / 병렬 / 동격 형용사구로 서로 다르다",
+            "how_to_reject 넷 다 지문 위치(밑줄 앞 절, or 가 잇는 항, 정동사 has)를 지목한다"
+          ],
+          "checked": [
+            "trap 라벨 4종 중복 여부",
+            "why_tempting 이 각 밑줄의 실제 낱말에 근거하는지",
+            "how_to_reject 마다 지문 위치가 명시됐는지"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계가 형태 라벨링이라 지문을 안 읽은 상태에서 착수 가능하다",
+            "required_vocab 4개는 절 성분을 가르는 데 실제로 쓰이는 낱말이다(differentiates 의 -s 판별, responsible 의 품사)"
+          ],
+          "checked": [
+            "단계별 실행 가능성",
+            "금지 표현 문자열 검사",
+            "required_vocab 이 정답 판정에 쓰이는지 하나씩 대응"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2209#29",
+      "answer_unknown": true,
+      "measured_ability": "긴 수식어로 떨어진 주어와 동사의 수를 맞추고, 명사 뒤에 오는 연결어 자리에서 뒤 절의 성분 결손을 세며, 5형식 수동태의 보어 자리에 무엇이 오는지를 판정하는 능력",
+      "design_intent": "의사소통의 신뢰 조건을 논하는 글에서, 명사(guarantees) 뒤 연결어 자리와 kept 뒤 보어 자리를 각각 삽입구(on the whole)와 관계절로 벌려 놓아, 밑줄과 그 짝이 되는 낱말 사이 거리를 늘렸다. 밑줄만 국소적으로 보면 다섯 자리 모두 자연스럽게 들리도록 배치했다.",
+      "solve_procedure": [
+        {
+          "step": "밑줄 다섯에 (동사 / 대명사 / 연결어 / 형용사 / 분사) 라벨을 형태만 보고 붙인다",
+          "on_fail": "-ed 형태처럼 동사와 분사가 겹치면 두 라벨을 함께 적고 정동사 세기 단계에서 가른다"
+        },
+        {
+          "step": "동사 라벨 밑줄은 앞으로 거슬러 올라가 전치사구·관계절을 괄호로 묶어 지우고 남는 명사 하나를 주어로 확정한 뒤 수를 맞춘다",
+          "on_fail": "주어 후보가 둘이면 동사와 가장 가까운 명사가 아니라 괄호 밖에 남은 명사를 택한다"
+        },
+        {
+          "step": "명사 바로 뒤에 온 연결어 밑줄은 뒤 절을 떼어 마침표를 찍고, 주어·목적어·전치사의 목적어 중 빈자리를 센다 — 빈자리가 없으면 관계대명사가 아니라 완전절용 연결어(that/where)를 요구하는 자리다",
+          "on_fail": "빈자리 세기가 흔들리면 연결어를 지우고 남은 절이 문장으로 성립하는지 소리 내어 읽는다"
+        },
+        {
+          "step": "대명사 밑줄은 되받는 명사를 앞에서 짚어 밑줄을 긋고, 같은 문장에 등장하는 다른 후보 명사와 단수·복수·의미를 비교한다",
+          "on_fail": "후보가 둘이면 밑줄 자리에 두 명사를 각각 써 넣어 문장의 뜻이 성립하는 쪽을 남긴다"
+        },
+        {
+          "step": "동사+목적어+보어가 수동으로 뒤집힌 자리(be kept ___)는 삽입구를 괄호로 지운 뒤 보어에 형용사가 오는지 부사가 오는지를 그 동사의 문형으로 확정한다",
+          "on_fail": "문형이 안 떠오르면 능동형(keep the messages ___)으로 되돌려 써 보고 그 자리에 들어갈 품사를 정한다"
+        }
+      ],
+      "time_budget_sec": 90,
+      "difficulty": {
+        "predicted": 0.5,
+        "drivers": [
+          "발문에 배점 표기가 없어 2점대로 배치된 문항이다",
+          "명사 뒤 연결어의 절 완전성 판정이 들어 있다",
+          "be kept 뒤 보어가 삽입구(on the whole)로 떨어져 있다",
+          "주어(such commonality of interests)와 동사 사이에 전치사구가 끼어 있다"
+        ]
+      },
+      "required_vocab": ["commonality", "guarantees", "adversarial", "communicated"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "정답표 없는 회차이므로 answer_locus 를 비운 것이 맞다",
+            "서술한 다섯 문법 축이 지문의 밑줄 위치(is / it / which / honest / communicated)와 일치한다"
+          ],
+          "checked": [
+            "밑줄 기호 5개와 서술한 문법 축의 1:1 대응",
+            "answer_locus·choices 가 비어 있는지",
+            "유형 정의 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "measured_ability 와 solve_procedure 어디에도 특정 밑줄 번호를 정답으로 지목하는 서술이 없다",
+            "difficulty.predicted 0.5 의 근거가 배점 표기 부재와 구조 요인으로 drivers 에 적혀 있다",
+            "required_vocab 4개 모두 지문에 문자 그대로 있다"
+          ],
+          "checked": [
+            "answer_locus·choices 공백 확인",
+            "commonality·guarantees·adversarial·communicated 문자열 대조",
+            "difficulty 근거 유무",
+            "measured_ability 가 선지를 전제하지 않는지"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계의 '전치사구를 괄호로 지운다' 가 학생이 종이에 바로 할 수 있는 동작이다",
+            "5단계까지 90초 안에 들어온다 — 각 밑줄 15초, 라벨링 15초"
+          ],
+          "checked": [
+            "단계마다 실행 가능한 동작인지",
+            "금지 표현 문자열 검사",
+            "시간 합산"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2206#29",
+      "answer_unknown": true,
+      "measured_ability": "동격 삽입구로 주어와 떨어진 동사의 수를 맞추고, 장소 명사 뒤 연결어 자리에서 뒤 절의 완전성을 세며, 등위접속사 and 가 실제로 잇는 두 항의 형태를 맞추는 능력",
+      "design_intent": "스톤헨지를 소재로 한 글에서 주어(Stonehenge)와 동사 사이에 긴 동격구를 넣고, 문장 끝 등위접속사 and 의 앞 항을 세 줄 앞(to see behind immediate appearances)에 두어 짝을 멀리 떨어뜨렸다. 밑줄 근처만 보면 다섯 자리가 모두 자연스럽게 들린다.",
+      "solve_procedure": [
+        {
+          "step": "밑줄 다섯에 (소유격 대명사 / 동사 / 연결어 / 준동사 / 동사) 라벨을 형태만 보고 붙인다",
+          "on_fail": "형태가 겹치면 두 라벨을 함께 적고 다음 단계의 성분 세기로 가른다"
+        },
+        {
+          "step": "동사 라벨 밑줄은 콤마로 묶인 동격구를 괄호로 지우고 남는 명사를 주어로 확정해 수를 맞춘다",
+          "on_fail": "괄호를 지웠는데도 주어가 둘로 보이면 콤마 바깥에 있는 명사를 택한다"
+        },
+        {
+          "step": "장소·시간 명사 뒤 연결어 밑줄은 뒤 절을 떼어 마침표를 찍고 빠진 성분을 센다 — 빈자리가 없으면 관계부사(where/when), 빈자리가 있으면 관계대명사 자리다",
+          "on_fail": "판정이 흔들리면 연결어를 in which 로 바꿔 읽어 뜻이 성립하는지 본다"
+        },
+        {
+          "step": "등위접속사 and 앞에 있는 밑줄은 and 의 앞 항을 왼쪽으로 거슬러 찾아 밑줄을 긋고, 두 항의 형태(to부정사끼리 / 명사끼리 / 정동사끼리)를 맞춘다",
+          "on_fail": "앞 항 후보가 여럿이면 가장 가까운 것이 아니라 같은 전치사·같은 명사에 걸리는 항을 택한다"
+        },
+        {
+          "step": "조동사 뒤 밑줄은 조동사부터 밑줄까지의 사슬(may have ___)을 그대로 적어 놓고 주어가 행위자인지 대상인지로 능동·수동을 정한다",
+          "on_fail": "판정이 안 서면 주어를 목적어 자리로 옮긴 능동 문장을 써 보고 뜻이 통하는 쪽을 택한다"
+        }
+      ],
+      "time_budget_sec": 90,
+      "difficulty": {
+        "predicted": 0.55,
+        "drivers": [
+          "발문에 배점 표기가 없어 2점대로 배치된 문항이다",
+          "등위접속사 and 의 앞 항이 세 줄 앞에 있어 짝이 멀다",
+          "주어와 동사 사이에 긴 동격구가 끼어 있다",
+          "천문 용어(solstices, equinoxes, eclipses)가 구조 파악을 늦춘다"
+        ]
+      },
+      "required_vocab": ["regularity", "testimony", "eclipses", "equinoxes"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "정답표 없는 회차라 answer_locus 를 비운 것이 맞다",
+            "서술한 문법 축이 지문 밑줄(their / is / where / been used / discovers)과 대응한다"
+          ],
+          "checked": [
+            "밑줄 5개와 문법 축 대응",
+            "answer_locus·choices 공백 확인",
+            "유형 정의 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "산문 어디에도 특정 번호를 정답·오답으로 부르는 표현이 없다",
+            "difficulty 0.55 의 근거가 배점 표기 부재·짝의 거리·용어 부담으로 제시됐다",
+            "required_vocab 4개가 지문에 문자 그대로 있다(equinoxes 포함)"
+          ],
+          "checked": [
+            "answer_locus·choices 공백 확인",
+            "regularity·testimony·eclipses·equinoxes 문자열 대조",
+            "difficulty 근거 유무",
+            "measured_ability 의 선지 전제 여부"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "4단계의 '앞 항을 왼쪽으로 거슬러 찾아 밑줄' 이 이 지문에서 가장 오래 걸리는 동작인데, 그 자리를 명시해 둬서 시간 배분이 가능하다",
+            "90초 안에 다섯 자리를 도는 것이 가능하다"
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 문자열 검사",
+            "시간 합산"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2021#29",
+      "measured_ability": "know 의 목적어 자리에 오는 명사절을 고를 때 뒤 절에 빠진 성분이 있는지 세어 what 과 whether 를 가르는 능력. 아울러 동명사 주어의 단수 일치와 과거분사 후치수식을 확인하는 능력",
+      "design_intent": "자가 실험의 한계를 논하는 글에서 정답 자리를 마지막 문장 세미콜론 뒤에 두고, 그 절에 typical or atypical of ... 라는 긴 보어를 달아 절 끝이 어디인지 흐리게 만들었다. 앞선 네 자리는 모두 정동사를 넣고 싶어지는 준동사·보어 자리라 반대 방향 유혹이 걸린다.",
+      "answer_locus": {
+        "sentence_index": [9],
+        "quote": "what the subject’s responses are typical or atypical of the response of humans as a group",
+        "reasoning": "밑줄 뒤 절은 주어(the subject’s responses)·동사(are)·보어(typical or atypical)가 갖춰져 있고 전치사 of 의 목적어도 the response of humans 로 채워져 있다. what 이 메울 자리가 하나도 없으므로 know 의 목적어로는 완전절을 받는 whether 가 필요하다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "과거분사 후치수식",
+          "why_tempting": "the restrictions 뒤에 동사가 없어 그 자리를 정동사 자리로 보고 are associated 로 고치고 싶어진다",
+          "how_to_reject": "밑줄이 든 절에는 정동사 avoid 가 이미 있고 restrictions 는 그 목적어다 — that are 가 생략된 후치수식이라 분사가 맞다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "대명사 수 일치",
+          "why_tempting": "앞 문장에 the ethical issues 라는 복수 명사가 있어 them 으로 맞추고 싶어진다",
+          "how_to_reject": "devised 의 목적어는 같은 문장 앞부분 an experiment’s potential hazards 의 an experiment 로 단수다 — the scientist who devised it 은 그 실험을 고안한 사람이라는 뜻이라야 nobody ... is more aware 와 이어진다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "형용사·부사 자리",
+          "why_tempting": "remains 뒤라 부사 deeply 가 동사를 꾸미는 것처럼 읽혀 deep 이나 어순이 틀린 것처럼 보인다",
+          "how_to_reject": "remains 는 보어를 받는 불완전자동사이고 밑줄의 핵은 형용사 problematic 이다 — deeply 는 그 형용사를 꾸미는 부사라 자리 충돌이 없다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "동명사 주어 수일치",
+          "why_tempting": "바로 앞이 that it exists 라 주어를 it 으로 잡으면 do 나 다른 형태로 고치고 싶어진다",
+          "how_to_reject": "세미콜론 뒤 절의 주어는 knowing that it exists 라는 동명사구 하나이므로 단수 does 가 맞다 — that it exists 는 knowing 의 목적어절이다"
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "trap": "명사절 접속사 완전성(what/whether)",
+          "why_tempting": "know 뒤에 what 이 오는 형태를 많이 봐서, 뒤 절의 보어와 전치사 목적어를 세지 않고 넘긴다",
+          "how_to_reject": "밑줄 뒤 절에서 주어·동사·보어·전치사의 목적어를 차례로 짚으면 빈자리가 없다 — 완전절이므로 whether 여야 한다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "밑줄 다섯의 첫 낱말 형태로 (준동사 / 대명사 / 형용사·부사 / 동사 / 연결어) 라벨을 붙인다",
+          "on_fail": "-ed 가 동사인지 분사인지 안 갈리면 두 라벨을 함께 적고 정동사 세기로 넘긴다"
+        },
+        {
+          "step": "연결어 라벨이 붙은 밑줄의 뒤 절을 떼어 마침표를 찍고, 주어·목적어·보어·전치사의 목적어 네 자리를 하나씩 짚어 빈자리를 센다",
+          "on_fail": "of 처럼 전치사가 절 끝에 있으면 그 뒤에 명사가 있는지부터 본다 — 있으면 그 자리는 안 빈 것이다"
+        },
+        {
+          "step": "동사 라벨 밑줄은 앞으로 거슬러 주어를 확정한다. 밑줄 앞이 that절이면 그 that절을 통째로 괄호로 묶고 남는 -ing 나 명사를 주어로 잡는다",
+          "on_fail": "주어가 안 잡히면 세미콜론·콤마에서 문장을 잘라 그 조각 안에서만 주어를 찾는다"
+        },
+        {
+          "step": "준동사·보어 라벨 밑줄은 그 절의 정동사가 이미 있는지 세고, 있으면 그대로 둔다",
+          "on_fail": "정동사가 안 보이면 조동사(can/must)까지 정동사로 세어 다시 확인한다"
+        },
+        {
+          "step": "후보가 둘 남으면 각각을 고친 문장을 써 보고, 고치지 않아도 네 자리가 다 채워지는 쪽을 버린다",
+          "on_fail": "그래도 둘이면 명사절·관계사 자리를 우선 의심한다 — 준동사 자리는 정동사 세기로 이미 걸러졌다"
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.4,
+        "drivers": [
+          "3점 배점",
+          "정답 절의 보어가 typical or atypical of ... 로 길어 절 끝이 흐리다",
+          "know 뒤 what 이 형태로는 익숙하다",
+          "④의 동명사 주어 수일치가 강한 유혹으로 함께 걸려 있다"
+        ]
+      },
+      "required_vocab": ["restrictions", "devised", "drawback", "atypical"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 지문에 문자 그대로 있다(곡선 아포스트로피 포함)",
+            "정답 판정 ⑤가 평가원 정답표와 일치한다"
+          ],
+          "checked": [
+            "quote 를 corpus.json 지문에서 문자열 대조",
+            "정답표 answer=5 와 대조",
+            "유형 정의 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 trap 4종(과거분사 후치수식 / 대명사 수 / 형용사·부사 자리 / 동명사 주어 수일치)이 서로 다르다",
+            "②의 how_to_reject 가 an experiment’s potential hazards 라는 지문 위치를 지목한다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 밑줄 낱말에 근거하는지",
+            "how_to_reject 의 위치 명시 여부"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계의 '네 자리를 하나씩 짚는다' 가 이 문항의 핵심 동작이고 학생이 손으로 할 수 있다",
+            "required_vocab 의 atypical 은 보어가 끝났는지 판정하는 데 실제로 필요하다"
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 문자열 검사",
+            "required_vocab 이 정답 판정에 쓰이는지 대응"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2109#29",
+      "answer_unknown": true,
+      "measured_ability": "명사 뒤 연결어 자리에서 뒤 절의 성분 결손을 세고, 긴 전치사구로 떨어진 주어와 동사의 수를 맞추며, see A as B 구문의 as 뒤 형태와 문장 끝 대동사가 받는 술부를 확인하는 능력",
+      "design_intent": "대회 피드백을 논하는 글에서 첫 문장 명사(showcases) 뒤에 연결어 밑줄을 두어 문항의 첫 인상부터 절 성분 세기를 요구하고, 마지막 문장에서는 대동사 하나만 남겨 앞 술부를 되짚게 만들었다. 밑줄 다섯이 문법 축을 서로 겹치지 않게 나눠 갖는다.",
+      "solve_procedure": [
+        {
+          "step": "밑줄 다섯에 (연결어 / 동사 / 부사 / 준동사 / 대동사) 라벨을 형태만 보고 붙인다",
+          "on_fail": "라벨이 안 붙으면 밑줄 바로 앞 낱말의 품사를 적어 두고 다음 단계에서 가른다"
+        },
+        {
+          "step": "명사 바로 뒤에 온 연결어 밑줄은 뒤 절을 떼어 마침표를 찍고, 주어·목적어·전치사의 목적어 중 빈자리를 센다 — 빈자리가 없으면 관계대명사가 아니라 완전절을 받는 자리다",
+          "on_fail": "연결어를 in which 로 바꿔 읽어 뜻이 성립하는지 본다"
+        },
+        {
+          "step": "동사 라벨 밑줄은 앞의 전치사구(to participants on performance 같은 것)를 괄호로 지우고 남는 명사를 주어로 확정해 수를 맞춘다",
+          "on_fail": "주어 후보가 둘이면 괄호 밖에 남은 명사를 택한다"
+        },
+        {
+          "step": "as / but not 뒤 밑줄은 그 표지가 잇거나 지배하는 앞 항을 왼쪽에서 찾아 밑줄을 긋고, 두 항의 형태를 맞춘다(see A as B 의 B 자리는 명사 상당어)",
+          "on_fail": "앞 항이 안 잡히면 표지를 지우고 문장을 다시 읽어 어느 낱말이 사라진 자리를 메우는지 본다"
+        },
+        {
+          "step": "문장 끝의 대동사 밑줄은 앞 절의 술부를 그대로 옮겨 적어 보고 do 계열로 받을 수 있는지(일반동사인지) 확인한다",
+          "on_fail": "앞 술부가 수동태나 be동사면 do 계열로는 받을 수 없다는 점을 기준으로 다시 본다"
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.45,
+        "drivers": [
+          "발문에 [3점] 표기가 있어 상위 난도로 배치된 문항이다",
+          "첫 문장부터 명사 뒤 연결어의 절 완전성 판정을 요구한다",
+          "주어(The provision ...)와 동사 사이에 전치사구가 둘 끼어 있다",
+          "마지막 대동사는 앞 술부를 두 문장 거슬러 찾아야 한다"
+        ]
+      },
+      "required_vocab": ["showcases", "provision", "necessarily", "fostering"],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "정답표 없는 회차라 answer_locus 를 비운 것이 맞다",
+            "서술한 문법 축이 지문 밑줄(which / is / necessarily / fostering / do)과 대응한다"
+          ],
+          "checked": [
+            "밑줄 5개와 문법 축 대응",
+            "answer_locus·choices 공백 확인",
+            "유형 정의 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안은 difficulty.predicted 0.45 만 있고 근거가 없었다 — [3점] 표기와 구조 요인 넷을 drivers 에 적게 했다(revised)",
+            "산문에 특정 번호를 정답으로 부르는 표현이 없다",
+            "required_vocab 4개가 지문에 문자 그대로 있다"
+          ],
+          "checked": [
+            "answer_locus·choices 공백 확인",
+            "difficulty.predicted 의 근거 유무",
+            "showcases·provision·necessarily·fostering 문자열 대조",
+            "measured_ability 의 선지 전제 여부"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "5단계의 '앞 절의 술부를 그대로 옮겨 적어 본다' 가 대동사 판정의 실제 동작이라 실행 가능하다",
+            "100초 안에 다섯 자리를 도는 배분이 성립한다"
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 문자열 검사",
+            "시간 합산"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2106#29",
+      "measured_ability": "동격의 that절 안에 정동사가 있는지를 세어, 주어 뒤에 온 -ing 가 본동사 자리를 비워 두고 있음을 잡아내는 능력",
+      "design_intent": "문화별 대처 방식을 비교하는 글에서 도치 구문(With this form of agency comes the belief)으로 문장을 시작해 주어와 동격절의 경계를 흐린 뒤, 동격절 안의 정동사 자리를 -ing 로 비웠다. 뒤에 and thus 로 이어지는 절에 정동사 centers 가 있어, 그것을 앞 절의 동사로 착각하면 문장이 다 채워진 것처럼 보인다.",
+      "answer_locus": {
+        "sentence_index": [2],
+        "quote": "the belief that individual successes ② depending primarily on one’s own abilities and actions",
+        "reasoning": "that 은 the belief 의 동격절을 이끄는 접속사이므로 뒤에 주어+정동사가 와야 한다. 주어 individual successes 다음에 정동사가 없고, 이 문장에 있는 다른 정동사 comes 는 도치된 주절의 것, centers 는 and thus 뒤 the use of control 의 것이라 동격절에는 정동사가 하나도 없다 — depending 이 아니라 depend 여야 한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "접속사 as 의 용법 구분",
+          "why_tempting": "같은 문장 안에 serve as 라는 전치사 as 가 또 있어, 밑줄의 as 도 전치사로 읽으면 뒤에 절이 온 것이 틀리게 보인다",
+          "how_to_reject": "밑줄 뒤 these serve as the basis of one’s self-worth 는 주어와 동사를 갖춘 절이다 — 절을 받는 as 는 이유를 나타내는 접속사이므로 자리가 맞다"
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "trap": "정동사 자리에 준동사(본동사 누락)",
+          "why_tempting": "뒤에 and thus ... centers on the individual 이라는 정동사가 있어 문장이 이미 채워진 것처럼 들리고, successes depending on ... 을 '~에 달린 성공' 이라는 명사구로 읽으면 자연스럽다",
+          "how_to_reject": "동격의 that 뒤에는 절이 와야 한다 — 접속사 that 을 지우고 individual successes ___ primarily on ... 만 읽으면 정동사가 없다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "태(수동/능동) 판정",
+          "why_tempting": "self 가 대처하는 주체라 능동 driving 이 맞아 보인다",
+          "how_to_reject": "may be more ___ 는 be 뒤 보어 자리이고 drive 는 '~하도록 몰아가다' 라 자아는 몰리는 쪽이다 — 이어지는 to cope 가 be driven to V 형태를 확인해 준다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "명사절 접속사 완전성(that/what)",
+          "why_tempting": "shown 의 목적어 자리라 what 도 올 수 있어 보인다",
+          "how_to_reject": "밑줄 뒤 East Asians prefer to receive ... more social support 에 주어와 목적어가 다 있어 빈자리가 없다 — 완전절이므로 that 이 맞다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "관계사 격·선행사 수일치",
+          "why_tempting": "people 바로 뒤에 hold 가 와서 소유격 whose 로 보이거나, 단수 holds 로 맞추고 싶어진다",
+          "how_to_reject": "관계절 안에 주어가 비어 있으므로 주격 who 이고 선행사 people 이 복수라 hold 가 맞다 — 이 문장의 주절 정동사는 뒤의 may prefer 다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "밑줄 다섯의 첫 낱말 형태로 (접속사 / 준동사 / 분사 / 접속사 / 관계사) 라벨을 붙인다",
+          "on_fail": "-ing 처럼 겹치는 형태는 준동사로 두고 정동사 세기 단계에서 가른다"
+        },
+        {
+          "step": "밑줄 앞에 that 이나 관계사가 있으면 그 연결어부터 마침표까지를 하나의 절로 잘라 내고, 그 안에 정동사가 있는지 센다 — 연결어 하나에는 정동사 하나가 딸려야 한다",
+          "on_fail": "절의 끝이 안 보이면 and·but·thus 앞에서 자르고 그 조각 안에서만 센다"
+        },
+        {
+          "step": "연결어 라벨 밑줄(as / that)은 뒤에 절이 오는지 명사구가 오는지 보고, 절이면 그 절의 성분에 빈자리가 있는지 센다",
+          "on_fail": "빈자리 판정이 흔들리면 연결어를 지우고 남은 부분이 문장으로 성립하는지 읽는다"
+        },
+        {
+          "step": "be동사 뒤 분사 밑줄은 주어가 행위를 하는 쪽인지 받는 쪽인지 정하고, 뒤에 이어지는 to부정사가 그 형태를 확인해 주는지 본다",
+          "on_fail": "판정이 안 서면 주어를 목적어로 옮긴 능동 문장을 써 보고 뜻이 통하는 쪽을 택한다"
+        },
+        {
+          "step": "후보가 둘 남으면 각각을 고쳐 쓴 문장을 실제로 적어 보고, 고치지 않아도 정동사 개수가 맞는 쪽을 버린다",
+          "on_fail": "그래도 둘이면 that·관계사가 이끄는 절부터 다시 세어 정동사가 빈 절을 찾는다"
+        }
+      ],
+      "time_budget_sec": 90,
+      "difficulty": {
+        "predicted": 0.65,
+        "drivers": [
+          "2점 배점",
+          "정답이 정동사 누락이라 규칙이 단순하다",
+          "다만 도치(With this form of agency comes ...)가 주어 확정을 늦춘다",
+          "나머지 네 자리가 모두 자주 나오는 형태라 소거가 빠르다"
+        ]
+      },
+      "required_vocab": ["agency", "successes", "driven", "cope"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 밑줄 기호 ② 를 포함한 채 지문에 문자 그대로 있다",
+            "정답 판정 ②가 평가원 정답표와 일치한다",
+            "reasoning 이 '이 문장의 다른 정동사 두 개가 각각 어느 절 소속인지' 를 밝혀 정동사 누락을 확정한다"
+          ],
+          "checked": [
+            "quote 를 corpus.json 지문에서 문자열 대조",
+            "정답표 answer=2 와 대조",
+            "문장 번호 2가 실제 두 번째 문장인지 마침표 세기로 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 trap 4종(as 용법 / 태 / 명사절 접속사 / 관계사 격)이 서로 다르다",
+            "①의 why_tempting 이 같은 문장 안 serve as 라는 실제 표현을 근거로 든다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 밑줄 낱말·같은 문장 표현에 근거하는지",
+            "how_to_reject 의 위치 명시 여부"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계의 '연결어 하나에 정동사 하나' 규칙이 이 문항을 90초 안에 끝내는 지름길이다",
+            "required_vocab 의 cope 는 be driven to cope 형태 확인에 실제로 쓰인다"
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 문자열 검사",
+            "시간 합산과 required_vocab 대응"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2020#29",
+      "measured_ability": "한 문장 안의 정동사 개수와 접속사·관계사 개수를 세어, 명사 뒤에 온 -ed 형태가 정동사 자리인지 후치수식 분사 자리인지 가르는 능력",
+      "design_intent": "선사시대 예술을 다룬 글에서 정답 문장의 주어(the visual preoccupation)와 정동사(becomes)를 with the nonhuman creatures ... 라는 긴 전치사구로 갈라 놓고, 그 사이에 -ed 형태를 넣었다. 앞부분만 읽으면 creatures 가 주어처럼 보여 inhabited 가 정동사로 들리도록 설계했다.",
+      "answer_locus": {
+        "sentence_index": [5],
+        "quote": "the visual preoccupation of early humans with the nonhuman creatures ④ inhabited their world becomes profoundly meaningful",
+        "reasoning": "이 문장의 정동사는 becomes 하나이고 그 주어는 the visual preoccupation 이다. creatures 앞뒤 어디에도 접속사나 관계사가 없으므로 정동사가 둘일 수 없다 — 밑줄은 creatures 를 뒤에서 꾸미는 현재분사 inhabiting 이어야 하고, creatures 가 사는 주체이므로 능동형이다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "주어-동사 수일치(전치사구 삽입)",
+          "why_tempting": "밑줄 바로 앞 명사가 단수 art 라서 relies 로 맞추고 싶어진다",
+          "how_to_reject": "주어는 문장 첫 낱말 Speculations 로 복수이고 about the meaning and purpose of prehistoric art 는 전부 전치사구 수식어다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "유사관계대명사 as",
+          "why_tempting": "콤마 사이 삽입절이라 관계대명사 which 가 와야 할 것처럼 보인다",
+          "how_to_reject": "밑줄 뒤 emphasizes 의 목적어 자리가 비어 있고 선행 명사구가 Such primitive societies 로 such 를 안고 있다 — such 와 짝을 이루는 유사관계대명사 as 가 그 빈 목적어 자리를 메운다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "전치사+관계대명사",
+          "why_tempting": "선행사가 anthropomorphism 과 totemism 둘이라 뒤 동사 spread 의 수가 흔들려 보이고, that 으로 바꾸고 싶어진다",
+          "how_to_reject": "both of ___ 는 전치사 of 의 목적어 자리라 that 은 올 수 없고 which 만 가능하다 — 선행사가 둘이므로 복수 spread 도 맞다"
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "trap": "정동사/준동사 혼동(후치수식 자리)",
+          "why_tempting": "the nonhuman creatures 가 바로 앞에 있어 주어처럼 읽히고, inhabited their world 가 뜻으로도 자연스럽게 이어진다",
+          "how_to_reject": "문장 끝까지 읽어 becomes 를 찾고 그 주어를 거슬러 올라가면 the visual preoccupation 이다 — 접속사 없이 정동사가 둘이 될 수 없으므로 inhabiting 이어야 한다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "재귀대명사",
+          "why_tempting": "broods upon 뒤라 목적어로 it 이면 충분해 보인다",
+          "how_to_reject": "brood 의 주어가 an unlettered humanity 이고 곰곰이 생각하는 대상도 같은 humanity 다 — 뒤에 이어지는 its place in nature 가 같은 지시 대상을 다시 받는다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "밑줄 다섯의 첫 낱말 형태로 (동사 / 연결어 / 관계사 / -ed 형태 / 대명사) 라벨을 붙인다",
+          "on_fail": "-ed 형태는 동사와 분사 두 라벨을 함께 적고 정동사 세기로 가른다"
+        },
+        {
+          "step": "-ed 형태 밑줄이 든 문장은 마침표까지 정동사를 전부 표시하고 접속사·관계사도 표시해 개수를 비교한다 — 정동사는 (접속사+관계사)보다 정확히 하나 많아야 한다",
+          "on_fail": "동사 표시가 헷갈리면 문장 끝에서 거꾸로 읽어 마지막 정동사부터 찾고 그 주어를 왼쪽으로 거슬러 짚는다"
+        },
+        {
+          "step": "동사 라벨 밑줄은 앞의 전치사구를 괄호로 지우고 남는 명사를 주어로 확정해 수를 맞춘다",
+          "on_fail": "괄호 밖에 명사가 둘이면 동사와 가까운 쪽이 아니라 문장 첫머리 명사를 택한다"
+        },
+        {
+          "step": "관계사·연결어 밑줄은 뒤 절에서 주어·목적어·전치사의 목적어 중 빈자리를 세고, 앞에 전치사가 붙어 있으면 that 이 못 오는 자리인지 확인한다",
+          "on_fail": "선행사가 안 잡히면 관계사 앞 콤마 바로 앞 명사구를 후보로 두고 수를 맞춰 본다"
+        },
+        {
+          "step": "대명사 밑줄은 그 절의 주어와 같은 대상을 가리키는지 확인해 재귀형이 필요한지 정한다",
+          "on_fail": "판정이 흔들리면 대명사 자리에 주어 명사를 그대로 다시 써 넣어 본다"
+        }
+      ],
+      "time_budget_sec": 90,
+      "difficulty": {
+        "predicted": 0.55,
+        "drivers": [
+          "2점 배점",
+          "정답 문장의 주어와 정동사가 긴 전치사구로 갈려 있다",
+          "②의 유사관계대명사 as 가 낯설어 오답으로 몰린다",
+          "인류학 용어(anthropomorphism, totemism)가 구조 파악을 늦춘다"
+        ]
+      },
+      "required_vocab": ["preoccupation", "inhabited", "anthropomorphism", "broods"],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "초안의 quote 가 becomes profoundly meaningful 앞에서 끊겨, 정동사가 하나뿐이라는 근거가 인용 밖에 있었다 — 정동사까지 포함하도록 인용을 늘렸다(revised)",
+            "늘린 quote 가 지문에 문자 그대로 있다",
+            "정답 판정 ④가 평가원 정답표와 일치한다"
+          ],
+          "checked": [
+            "quote 를 corpus.json 지문에서 문자열 대조(밑줄 기호 ④ 포함)",
+            "정답표 answer=4 와 대조",
+            "reasoning 의 근거가 인용 안에 들어 있는지"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 trap 4종(수일치 / 유사관계대명사 / 전치사+관계대명사 / 재귀대명사)이 서로 다르다",
+            "③은 관계사이지만 ②와 축이 갈린다 — ②는 as 의 정체, ③은 전치사 뒤 that 불가라는 서로 다른 규칙이다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부와 관계사 계열 두 개의 축 분리",
+            "why_tempting 이 밑줄 낱말에 근거하는지",
+            "how_to_reject 의 위치 명시 여부"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계의 '정동사와 접속사 개수 비교' 가 이 문항의 유일한 결정 동작이라 시간이 절약된다",
+            "2단계 on_fail 의 '문장 끝에서 거꾸로 읽는다' 가 주어가 멀리 있는 이 문장에 실제로 통한다"
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 문자열 검사",
+            "90초 안 완료 가능성"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2006#29",
+      "measured_ability": "「the 비교급 ~, the 비교급 ~」 구문에서 앞 절이 온전한 절인지 성분을 세어, 주어 자리가 비어 있음을 잡아내고 가주어 it 이 필요한 자리를 판별하는 능력",
+      "design_intent": "음악 감상 경험을 소재로 한 글에서 정답을 마지막 문장의 the 비교급 구문에 두고, that 을 넣어 관계사처럼 보이게 만들었다. 앞선 네 자리는 보어·병렬·명사절·수일치로 흩어 놓아, 익숙한 규칙으로 소거하다 보면 마지막 문장에 시간이 거의 안 남도록 배치했다.",
+      "answer_locus": {
+        "sentence_index": [7],
+        "quote": "Sometimes, the longer ⑤ that takes for a work of art to reveal all of its subtleties to us",
+        "reasoning": "「the 비교급 ...」 앞 절은 the longer 를 뺀 나머지가 주어와 동사를 갖춘 절이어야 하는데 takes 의 주어 자리가 비어 있다. take 는 「it takes + 시간 + for A + to V」 형태로 뒤의 to부정사를 진주어로 두므로 주어 자리에 가주어 it 이 와야 하고, that 은 그 자리를 채우지 못한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "목적격보어 형태",
+          "why_tempting": "find them more 뒤라 명사가 올 자리로 보이고, appealing 이 진행형처럼 읽혀 appeal 로 고치고 싶어진다",
+          "how_to_reject": "find + 목적어 + 형용사 보어 구조이고 앞에 비교급 표지 more 가 붙어 있다 — 같은 문장 앞부분 like things more 와 and 로 병렬되어 형용사 자리임이 확인된다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "조동사 뒤 병렬",
+          "why_tempting": "바로 앞 관계절 that catches our inter 의 catches 에 끌려 decides 로 맞추고 싶어진다",
+          "how_to_reject": "and 가 잇는 것은 문장 앞머리의 might hear 와 (might) decide 다 — catches 는 a song 을 꾸미는 관계절 안의 동사라 병렬 대상이 아니다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "명사절 접속사 완전성(what/that)",
+          "why_tempting": "notice 뒤 명사절이라 that 도 자연스럽게 들린다",
+          "how_to_reject": "밑줄 뒤 the piano or drums are doing 에서 doing 의 목적어가 비어 있다 — 그 빈자리를 메우는 what 이 맞다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "주어-동사 수일치(관계절 후행)",
+          "why_tempting": "뒤에 that we missed before 가 붙어 주어가 복수처럼 느껴지고 emerge 로 고치고 싶어진다",
+          "how_to_reject": "주어는 A special harmony 로 단수이고 that we missed before 는 그 명사를 꾸미는 관계절이다 — 관계절을 괄호로 지우면 harmony emerges 만 남는다"
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "trap": "가주어 it 결손(the 비교급 구문 주어 자리)",
+          "why_tempting": "the longer 뒤 that 이 관계사처럼 보이고, takes 앞에 무언가 있어야 한다는 감각이 that 으로 채워진다",
+          "how_to_reject": "the longer 를 지우고 ___ takes for a work of art to reveal ... 만 읽으면 주어가 없다 — take 의 이 형태는 가주어 it 을 요구한다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "밑줄 다섯의 첫 낱말 형태로 (형용사·분사 / 동사 / 연결어 / 동사 / 연결어) 라벨을 붙인다",
+          "on_fail": "-ing 가 형용사인지 동사인지 안 갈리면 그 앞 낱말이 find·make 같은 5형식 동사인지부터 본다"
+        },
+        {
+          "step": "the 비교급 구문(the + 비교급 ..., the + 비교급 ...)이 보이면 the 비교급 덩어리를 괄호로 지우고, 남은 부분에 주어와 동사가 다 있는지 센다",
+          "on_fail": "괄호를 지운 뒤 무엇이 주어인지 안 잡히면 동사 앞자리가 비었는지만 확인한다"
+        },
+        {
+          "step": "연결어 라벨 밑줄은 뒤 절에서 주어·목적어 중 빈자리를 세어 what(빈자리 있음)과 that(빈자리 없음)을 가른다",
+          "on_fail": "빈자리 판정이 흔들리면 연결어를 지우고 남은 절을 문장으로 읽어 본다"
+        },
+        {
+          "step": "동사 라벨 밑줄은 뒤따르는 관계절을 괄호로 지운 뒤 남는 명사를 주어로 잡아 수를 맞추고, 등위접속사가 있으면 그 접속사가 잇는 앞 항을 왼쪽에서 찾아 형태를 맞춘다",
+          "on_fail": "앞 항 후보가 둘이면 관계절 안의 동사는 후보에서 뺀다"
+        },
+        {
+          "step": "마지막 문장을 남기지 말고 먼저 처리한다 — the 비교급 구문은 절 성분이 비기 쉬운 자리라 검토 순서를 앞으로 당긴다",
+          "on_fail": "시간이 모자라면 the 비교급 앞 절의 주어 유무 하나만 확인하고 넘어간다"
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.4,
+        "drivers": [
+          "3점 배점",
+          "정답이 마지막 문장에 있어 검토 순서상 시간이 남지 않는다",
+          "that 이 관계사로 보여 형태만으로는 어색함이 안 느껴진다",
+          "지문에 인쇄 손상(catches our inter)이 있어 문장 파악이 한 번 끊긴다"
+        ]
+      },
+      "required_vocab": ["subtleties", "emerges", "appealing", "reveal"],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 밑줄 기호 ⑤ 를 포함해 지문에 문자 그대로 있다",
+            "정답 판정 ⑤가 평가원 정답표와 일치한다",
+            "지문에 인쇄 손상(catches our inter)이 있으나 정답 문장과 무관해 판정에 영향이 없다"
+          ],
+          "checked": [
+            "quote 를 corpus.json 지문에서 문자열 대조",
+            "정답표 answer=5 와 대조",
+            "손상 구간이 정답 근거 문장에 걸치는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 trap 4종(목적격보어 / 조동사 뒤 병렬 / 명사절 접속사 / 수일치)이 서로 다르다",
+            "②의 why_tempting 이 손상된 부분(catches our inter)을 그대로 인용하지 않고 병렬 판단에 필요한 catches 만 근거로 삼는다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 밑줄 낱말에 근거하는지",
+            "how_to_reject 의 위치 명시 여부"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "초안 1단계가 '구문을 정확히 해석한다' 로 시작해 학생이 실행할 동작이 없었다 — 형태 라벨링으로 교체했다(revised)",
+            "5단계의 '마지막 문장을 먼저 처리한다' 는 이 문항의 실제 실점 원인(시간 부족)에 대한 처방이다"
+          ],
+          "checked": [
+            "각 단계가 지문 사전 지식 없이 실행 가능한지",
+            "금지 표현 문자열 검사(1단계에서 걸려 교체)",
+            "100초 안 완료 가능성"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2019#29",
+      "measured_ability": "as ~ as 비교 구문에서 뒤에 남은 대동사가 앞 절의 어떤 술부를 받는지 짚어, 수동태 술부를 do 계열로 받을 수 없음을 판별하는 능력",
+      "design_intent": "이집트 예술의 기념비성을 논하는 글에서 부정어 도치(Never before and never since has ... been achieved)로 문장을 시작해 술부를 흩어 놓고, 그 술부를 as fully as it ___ 로 되받게 했다. 도치 때문에 has ... been achieved 가 한 덩어리로 안 보이면 밑줄의 대동사가 무엇을 받는지 놓치게 된다.",
+      "answer_locus": {
+        "sentence_index": [2],
+        "quote": "Never before and never since has the quality of monumentality been achieved as fully as it ② did in Egypt.",
+        "reasoning": "as fully as 뒤의 대동사는 앞 절의 술부를 그대로 받는다. 앞 절 술부는 has been achieved 라는 수동태이고 주어 it 은 the quality of monumentality 를 받으므로, 성취되는 쪽이다. do 계열은 능동의 일반동사만 대신할 수 있으므로 did 가 아니라 be 계열(was 또는 has been)이어야 한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "전치사 to + 동명사",
+          "why_tempting": "to 를 부정사 표지로 읽어 express 로 고치고 싶어진다",
+          "how_to_reject": "come close to 의 to 는 전치사이고 밑줄 뒤에 the basic characteristic 이라는 목적어가 붙어 있다 — 전치사의 목적어 자리이므로 동명사 expressing 이 맞다"
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "trap": "대동사 형태(do vs be)",
+          "why_tempting": "as ~ as 뒤에 대동사 did 가 오는 형태를 자주 봐서, 앞 절이 수동태인지 확인하지 않고 넘긴다",
+          "how_to_reject": "as fully as 앞으로 거슬러 술부를 통째로 옮겨 적으면 has been achieved 다 — 수동태는 do 계열로 받을 수 없다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "대용 대명사 수 일치(that/those)",
+          "why_tempting": "비교 대상이 Egypt 하나로 보여 단수 that 이 맞아 보인다",
+          "how_to_reject": "exceed 의 목적어는 이집트의 structures 이고 주어가 Many modern structures 라는 복수 명사다 — 복수 명사를 되받는 대용어이므로 those 가 맞다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "관계사 격·선행사 수일치",
+          "why_tempting": "바로 앞 낱말이 stones 라서 선행사를 복수로 잡고 constitute 로 고치고 싶어진다",
+          "how_to_reject": "선행사는 that gigantic pile 이라는 단수 명사이고 of stones 는 그 명사를 꾸미는 전치사구다 — 관계절 주어가 비어 있으므로 주격 that + constitutes 가 맞다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "병렬 구조(보어 두 항)",
+          "why_tempting": "앞의 is 가 멀리 떨어져 있어 carved 를 새 정동사로 오인하고 carves 로 보고 싶어진다",
+          "how_to_reject": "even if it is only a few inches across or (is) carved in wood 로 or 가 보어 두 항을 잇는다 — across 와 carved 가 같은 is 에 걸린다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "밑줄 다섯의 첫 낱말 형태로 (동명사·부정사 / 대동사 / 대명사 / 관계사 / 분사) 라벨을 붙인다",
+          "on_fail": "형태가 겹치면 밑줄 앞 낱말(to·as·of·or)을 함께 적어 두고 다음 단계에서 가른다"
+        },
+        {
+          "step": "as ~ as 나 than 뒤에 홀로 남은 동사(did/does/was)가 보이면 앞 절의 술부를 통째로 옮겨 적고, 그 술부가 be 계열인지 일반동사인지 확인한다",
+          "on_fail": "도치 때문에 술부가 흩어져 있으면 문장을 평서문 어순으로 되돌려 쓴 뒤 술부를 묶는다"
+        },
+        {
+          "step": "that/those/it 같은 대용어 밑줄은 되받는 명사를 앞에서 짚어 밑줄을 긋고 단수·복수를 맞춘다",
+          "on_fail": "되받는 명사가 안 잡히면 밑줄 자리에 그 명사를 그대로 써 넣어 문장이 성립하는지 본다"
+        },
+        {
+          "step": "관계사 밑줄은 선행사를 of·in 같은 전치사구 앞의 명사로 잡고, 관계절 안에 빈 성분이 있는지 세어 격과 수를 정한다",
+          "on_fail": "선행사가 둘로 보이면 전치사구를 괄호로 지우고 남는 명사를 택한다"
+        },
+        {
+          "step": "or·and 뒤 분사 밑줄은 접속사가 잇는 앞 항을 왼쪽에서 찾아, 두 항이 같은 동사에 걸리는지 확인한다",
+          "on_fail": "앞 항이 멀면 접속사 바로 앞의 절을 통째로 읽어 be동사가 어디 있는지부터 표시한다"
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.35,
+        "drivers": [
+          "3점 배점",
+          "부정어 도치로 술부(has ... been achieved)가 흩어져 있다",
+          "as ~ as did 형태가 어형만으로는 익숙하다",
+          "④의 선행사가 pile 인지 stones 인지 헷갈리는 강한 유혹이 함께 걸려 있다"
+        ]
+      },
+      "required_vocab": ["monumentality", "massiveness", "constitutes", "carved"],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 문장 전체(마침표 포함)로 지문에 문자 그대로 있다",
+            "정답 판정 ②가 평가원 정답표와 일치한다",
+            "reasoning 이 '수동태는 do 로 못 받는다' 는 규칙과 앞 절 술부를 함께 제시한다"
+          ],
+          "checked": [
+            "quote 를 corpus.json 지문에서 문자열 대조",
+            "정답표 answer=2 와 대조",
+            "문장 번호 2가 실제 두 번째 문장인지 마침표 세기로 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안에서 ③과 ④에 모두 '수일치' 라벨을 붙여 두 함정이 같은 것으로 보였다 — ③은 대용 대명사 수 일치, ④는 관계사 격·선행사 수일치로 축을 갈라 다시 달았다(revised)",
+            "고친 뒤 오답 trap 4종이 전부 다르다",
+            "④의 how_to_reject 가 of stones 를 전치사구로 지목해 배제 위치를 준다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부(초안에서 2건 중복 검출)",
+            "why_tempting 이 밑줄 낱말에 근거하는지",
+            "how_to_reject 의 위치 명시 여부"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계의 '앞 절 술부를 통째로 옮겨 적는다' 가 이 문항의 결정 동작이고 손으로 할 수 있다",
+            "required_vocab 의 constitutes 는 ④의 수일치 판정에 실제로 필요하다"
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 문자열 검사",
+            "100초 안 완료 가능성과 required_vocab 대응"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2018#28",
+      "measured_ability": "and 로 병렬된 두 명사절에서 각각의 성분 결손을 따로 세어, 앞 절과 같은 what 을 쓸 수 없는 완전절을 가려내는 능력",
+      "design_intent": "기부 행동을 다룬 글에서 what the charity is doing and ___ it is really having a positive impact 처럼 같은 연결어를 두 번 쓰게 배치해, 앞 절의 what 이 맞으니 뒤도 what 이라는 병렬 착시를 만들었다. 나머지 자리는 수일치·진행형·사역동사·stop 용법으로 흩어 놓았다.",
+      "answer_locus": {
+        "sentence_index": [2],
+        "quote": "seek evidence about what the charity is doing and ② what it is really having a positive impact",
+        "reasoning": "앞 절 what the charity is doing 은 doing 의 목적어가 비어 있어 what 이 그 자리를 메운다. 그러나 밑줄 뒤 it is really having a positive impact 는 주어 it 과 having 의 목적어 a positive impact 가 다 있어 빈자리가 없다. 전치사 about 의 목적어로 완전절을 받으려면 whether 가 필요하다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "주어-동사 수일치(관계절 삽입)",
+          "why_tempting": "밑줄 바로 앞이 관계절 who study giving behavior 라 단수 behavior 에 맞춰 has 로 고치고 싶어진다",
+          "how_to_reject": "정동사의 주어는 문장 첫 낱말 Psychologists 로 복수다 — 관계절 안의 study 가 이미 복수 일치를 보여 준다"
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "trap": "명사절 접속사 완전성(what/whether)",
+          "why_tempting": "and 앞의 what the charity is doing 과 형태를 맞추려는 병렬 감각이 작동해, 뒤 절의 성분을 따로 세지 않는다",
+          "how_to_reject": "밑줄 뒤 절만 떼어 it is really having a positive impact 를 읽으면 주어와 목적어가 다 있다 — 완전절이므로 whether 여야 한다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "진행형/동명사 판별",
+          "why_tempting": "바로 뒤에 helps 가 있어 doing 이 정동사 자리처럼 보이고 do 로 고치고 싶어진다",
+          "how_to_reject": "what they are doing 이 helps 의 주어인 명사절이고 doing 은 앞의 are 와 짝을 이루는 진행형이다 — 명사절을 괄호로 묶으면 (...) helps others 만 남는다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "사역동사 목적어 격",
+          "why_tempting": "makes 바로 뒤라 they feel good 처럼 주격으로 읽고 싶어진다",
+          "how_to_reject": "makes 의 주어는 Knowing that they are giving 이라는 동명사구이고 밑줄은 그 목적어 자리다 — 뒤의 feel 이 원형부정사 보어라 make + 목적어 + 원형 구조가 확인된다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "stop 뒤 준동사 의미 구분",
+          "why_tempting": "'stop 뒤에는 동명사' 라는 암기 규칙 때문에 thinking 으로 고치게 된다",
+          "how_to_reject": "뒤에 이어지는 they would realize that the cost ... 가 생각한 결과를 말한다 — 생각하려고 멈춘다는 목적의 to부정사라야 뜻이 이어지고, thinking 이면 생각을 그만둔다는 반대 뜻이 된다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "밑줄 다섯의 첫 낱말 형태로 (동사 / 연결어 / -ing / 대명사 / to부정사) 라벨을 붙인다",
+          "on_fail": "-ing 가 진행형인지 동명사인지 안 갈리면 그 앞에 be동사가 있는지부터 본다"
+        },
+        {
+          "step": "and 로 같은 연결어가 두 번 쓰인 자리를 찾으면 두 절을 따로 떼어 각각 마침표를 찍고, 절마다 주어·목적어의 빈자리를 따로 센다",
+          "on_fail": "두 절의 경계가 안 보이면 and 앞뒤로 잘라 각각 문장으로 읽어 본다"
+        },
+        {
+          "step": "동사 라벨 밑줄은 앞의 관계절을 괄호로 지우고 남는 명사를 주어로 확정해 수를 맞춘다",
+          "on_fail": "괄호를 지웠는데 주어가 안 남으면 문장 첫 낱말을 주어로 잡는다"
+        },
+        {
+          "step": "동사 바로 뒤 대명사 밑줄은 그 동사의 문형(make/have/let + 목적어 + 원형)을 확인해 목적격인지 정한다",
+          "on_fail": "문형이 안 떠오르면 밑줄 뒤 동사가 원형인지 to부정사인지부터 보고 원형이면 앞은 목적어 자리다"
+        },
+        {
+          "step": "stop·remember·forget 뒤 준동사 밑줄은 뒤 문장이 그 행동의 결과를 말하는지 중단을 말하는지 보고 형태를 정한다",
+          "on_fail": "뒤 문장이 안 잡히면 두 형태의 뜻을 각각 적어 넣어 앞뒤 문장과 이어지는 쪽을 택한다"
+        }
+      ],
+      "time_budget_sec": 95,
+      "difficulty": {
+        "predicted": 0.45,
+        "drivers": [
+          "3점 배점",
+          "같은 연결어 what 이 and 로 병렬돼 앞 절이 정답을 가린다",
+          "두 명사절의 성분 결손을 각각 따로 세어야 한다",
+          "⑤의 stop to V 암기 규칙이 반대 방향 유혹으로 걸려 있다"
+        ]
+      },
+      "required_vocab": ["substantial", "charities", "impact", "exceed"],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 밑줄 기호 ② 를 포함해 지문에 문자 그대로 있다",
+            "정답 판정 ②가 평가원 정답표와 일치한다",
+            "reasoning 이 앞 절과 뒤 절의 결손 차이를 나란히 제시한다"
+          ],
+          "checked": [
+            "quote 를 corpus.json 지문에서 문자열 대조",
+            "정답표 answer=2 와 대조",
+            "문장 번호 2 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 trap 4종(수일치 / 진행형 판별 / 사역동사 격 / stop 용법)이 서로 다르다",
+            "⑤의 how_to_reject 가 뒤 문장(they would realize ...)이라는 위치를 지목한다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 밑줄 낱말·암기 규칙에 근거하는지",
+            "how_to_reject 의 위치 명시 여부"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "초안 time_budget_sec 이 70이었는데, 2단계에서 명사절 두 개의 성분을 따로 세는 데만 30초가 든다 — 95초로 올렸다(revised)",
+            "2단계가 이 문항의 결정 동작이고 학생이 손으로 절을 잘라 낼 수 있다"
+          ],
+          "checked": [
+            "단계별 소요 시간 실측 추정 후 time_budget 재산정",
+            "각 단계의 실행 가능성",
+            "금지 표현 문자열 검사"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M1809#28",
+      "measured_ability": "비교급 than 뒤에 온 명사구를 문장의 주어로 착각하지 않고, 접속사 없이 정동사가 둘일 수 없다는 규칙으로 분사 자리를 판별하는 능력",
+      "design_intent": "자연 경험 결핍을 다룬 글에서 정답 문장의 정동사 is 를 no more real ― and yet no less real ― 이라는 삽입 대시 사이로 멀리 밀어 두고, than 뒤 명사구 the everyday nature 를 콤마로 끊어 그 뒤에 -s 동사를 붙였다. 콤마 뒤부터 새 문장처럼 읽히면 정동사가 둘이 된 것을 놓치게 된다.",
+      "answer_locus": {
+        "sentence_index": [2],
+        "quote": "the everyday nature right outside their doors, ② waits to be discovered in a child’s way, at a child’s pace.",
+        "reasoning": "이 문장의 정동사는 앞의 is 하나이고, 밑줄 앞은 than 이 이끄는 비교 대상 명사구 the everyday nature right outside their doors 로 끝난다. 콤마 뒤에 접속사도 관계사도 없으므로 정동사를 또 놓을 수 없다 — 그 명사를 뒤에서 꾸미는 현재분사 waiting 이어야 한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "과거분사 후치수식",
+          "why_tempting": "place 뒤에 동사가 없어 정동사 자리로 보이고, 바로 앞 filmed 와 형태가 겹쳐 둘 중 하나가 틀린 것처럼 느껴진다",
+          "how_to_reject": "이 문장의 정동사는 앞의 has caused 이고 that fantastic, beautifully filmed place 는 abstraction 의 동격 명사구다 — filled with 는 그 명사를 뒤에서 꾸민다"
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "trap": "정동사/준동사 혼동(후치수식 자리)",
+          "why_tempting": "콤마 뒤부터 새 절처럼 읽히고, the everyday nature 가 바로 앞에 있어 주어처럼 보인다",
+          "how_to_reject": "문장 앞으로 거슬러 정동사 is 를 찾고 than 이 비교 대상 명사구를 이끌고 있음을 표시하면, 접속사 없이 정동사가 둘이 된다 — waiting 이어야 한다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "형용사·부사 자리",
+          "why_tempting": "뒤에 명사 characters 가 있어 명사를 꾸미는 형용사 substantial 로 고치고 싶어진다",
+          "how_to_reject": "밑줄이 꾸미는 것은 바로 뒤 비교급 more 이고, more 가 characters 를 꾸민다 — 비교급을 강조하는 자리이므로 부사가 맞다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "대명사 지시·인칭 일치",
+          "why_tempting": "바로 앞 our very survival 의 our 에 끌려 our 로 맞추고 싶어진다",
+          "how_to_reject": "가리키는 대상은 문장 주어인 our children 이므로 3인칭 복수 소유격 their 다 — 같은 문장 앞부분 their environment 가 같은 지시를 이미 쓴다"
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "명사절 접속사 완전성(what/that)",
+          "why_tempting": "called 뒤에 “the extinction of experience” 라는 보어가 있어 절이 완전해 보이고 that 으로 고치고 싶어진다",
+          "how_to_reject": "call 은 목적어와 목적보어를 함께 요구하는데 목적어 자리가 비어 있다 — 그 빈자리를 메우는 what 이 맞고, 앞 전치사 of 의 목적어도 필요하다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "밑줄 다섯의 첫 낱말 형태로 (-ed 분사 / 동사 / 부사 / 대명사 / 연결어) 라벨을 붙인다",
+          "on_fail": "형태가 겹치면 두 라벨을 함께 적고 정동사 세기로 가른다"
+        },
+        {
+          "step": "-s 나 -ed 로 끝난 동사 형태 밑줄이 든 문장은 마침표까지 정동사와 접속사·관계사를 각각 표시해 개수를 비교한다 — 정동사는 (접속사+관계사)보다 정확히 하나 많아야 한다",
+          "on_fail": "대시(―)로 끼워 넣은 삽입구가 있으면 먼저 괄호로 지우고 다시 센다"
+        },
+        {
+          "step": "than 이나 as 뒤에 온 명사구는 주어가 아니라 비교 대상이므로 표시해 두고 주어 후보에서 뺀다",
+          "on_fail": "비교 대상이 어디서 끝나는지 안 보이면 than 뒤부터 콤마까지를 한 덩어리로 묶는다"
+        },
+        {
+          "step": "부사·형용사 밑줄은 바로 뒤 낱말이 명사인지 비교급 표지(more/less)인지 보고 품사를 정한다",
+          "on_fail": "뒤가 more + 명사면 밑줄은 more 를 꾸미는 자리로 본다"
+        },
+        {
+          "step": "연결어 밑줄은 뒤 절에서 동사가 요구하는 자리(call 의 목적어 등)가 비어 있는지 세어 what 과 that 을 가른다",
+          "on_fail": "빈자리 판정이 흔들리면 연결어를 지우고 남은 절을 문장으로 읽어 본다"
+        }
+      ],
+      "time_budget_sec": 90,
+      "difficulty": {
+        "predicted": 0.6,
+        "drivers": [
+          "2점 배점",
+          "정동사 is 가 대시 삽입구 너머에 있어 멀다",
+          "than 뒤 명사구가 주어처럼 보인다",
+          "지문에 인쇄 잔여(what 4 ______ Robert Pyle)가 있어 ⑤의 절 읽기가 한 번 끊긴다"
+        ]
+      },
+      "required_vocab": ["abstraction", "fictionalized", "substantially", "devolving"],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 밑줄 기호 ② 를 포함해 지문에 문자 그대로 있다",
+            "정답 판정 ②가 평가원 정답표와 일치한다",
+            "⑤ 근처에 파서 잔여(4 ______)가 있으나 정답 근거 문장과 무관하다"
+          ],
+          "checked": [
+            "quote 를 corpus.json 지문에서 문자열 대조",
+            "정답표 answer=2 와 대조",
+            "손상 구간이 정답 근거에 걸치는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 trap 4종(과거분사 후치수식 / 형용사·부사 자리 / 대명사 지시 / 명사절 접속사)이 서로 다르다",
+            "④의 how_to_reject 가 같은 문장 their environment 라는 위치를 지목한다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 밑줄 낱말에 근거하는지",
+            "how_to_reject 의 위치 명시 여부"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계의 'than 뒤 명사구는 주어 후보에서 뺀다' 가 이 문항의 실점 원인을 곧바로 막는다",
+            "required_vocab 의 substantially 는 ③ 판정에, devolving 은 ④ 문장의 주어 확정에 쓰인다"
+          ],
+          "checked": [
+            "단계 실행 가능성",
+            "금지 표현 문자열 검사",
+            "90초 안 완료 가능성과 required_vocab 대응"
+          ]
+        }
+      ]
+    }
+  ],
+  "type_report": {
+    "type_id": "R-GRAMMAR",
+    "n_analyzed": 12,
+    "recurring_traps": [
+      {
+        "trap": "명사절 접속사 완전성(what/that/whether)",
+        "count": 6,
+        "signature": "밑줄 뒤 절에 주어·목적어·전치사의 목적어가 다 채워져 있는데 what 이 놓여 있다. 정답 8건 중 3건이 이 축이고, 오답 자리에도 3건이 반대 방향(빈자리가 있어 what 이 맞는 자리)으로 배치돼 같은 축을 양쪽에서 건드린다"
+      },
+      {
+        "trap": "정동사/준동사 혼동(후치수식 자리에 정동사)",
+        "count": 3,
+        "signature": "명사 바로 뒤에 접속사 없이 -s/-ed 동사가 놓여 있고, 그 문장의 진짜 정동사는 멀리(전치사구·대시 삽입구 너머) 있다. 정답 8건 중 3건"
+      },
+      {
+        "trap": "주어-동사 수일치(수식어 삽입)",
+        "count": 4,
+        "signature": "동사 바로 앞 명사가 주어가 아니라 전치사구·관계절 안의 명사다. 전부 오답 자리에만 쓰였다 — 이 축에서 정답이 난 문항이 12개 중 0"
+      },
+      {
+        "trap": "대명사 수·지시·대용(that/those/it/재귀)",
+        "count": 4,
+        "signature": "되받는 명사가 두 문장 앞에 있거나 같은 문장에 후보가 둘이다. 전부 오답 자리"
+      },
+      {
+        "trap": "준동사 후치수식(과거분사·형용사구)",
+        "count": 3,
+        "signature": "명사 뒤 -ed/형용사가 정동사 자리처럼 보이지만 그 절에는 이미 정동사가 있다. 전부 오답 자리"
+      },
+      {
+        "trap": "병렬 대상 오인",
+        "count": 3,
+        "signature": "and/or 가 잇는 앞 항이 바로 앞 동사가 아니라 두세 어절 앞의 동사·보어다. 전부 오답 자리"
+      },
+      {
+        "trap": "관계사 격·선행사 수일치",
+        "count": 3,
+        "signature": "선행사가 「단수명사 + of + 복수명사」 형태라 뒤 명사에 수를 맞추게 된다. 전부 오답 자리"
+      },
+      {
+        "trap": "대동사 형태(do vs be)",
+        "count": 2,
+        "signature": "as ~ as / than 뒤에 홀로 남은 did 가 받는 앞 술부가 수동태다. 정답 1건(2019#29)"
+      }
+    ],
+    "answer_locus_pattern": "정답표가 있는 8문항 중 6문항이 **절의 성분 계산**에서 갈린다 — 연결어 뒤 절이 완전한가(3: 2022#29 ④ · 2021#29 ⑤ · 2018#28 ②)와 그 문장에 정동사가 이미 있는가(3: M2106#29 ② · 2020#29 ④ · M1809#28 ②). 나머지 둘은 대동사가 받는 앞 술부의 형태(2019#29 ②)와 the 비교급 구문의 빈 주어 자리(M2006#29 ⑤)로, 이것도 결국 '절에 무엇이 비었나' 를 센다. 곧 이 유형의 정답 근거는 **밑줄 자체의 형태가 아니라 밑줄이 든 절의 성분표**에 있다. 밑줄 위치는 ② 4회 · ④ 2회 · ⑤ 2회이고 ①·③ 은 0회지만, 표본 8이라 위치로 찍는 근거로는 못 쓴다.",
+    "procedure": [
+      {
+        "step": "밑줄 다섯에 형태 라벨부터 붙인다 — (a)정동사 (b)준동사(-ing/-ed/to V) (c)연결어(what/that/which/where/as) (d)대명사 (e)형용사·부사. 지문을 읽기 전에 끝난다",
+        "on_fail": "형태가 겹치면 두 라벨을 함께 적고 다음 단계의 성분 세기로 가른다"
+      },
+      {
+        "step": "(c)연결어 라벨부터 처리한다. 밑줄 뒤 절을 떼어 마침표를 찍고 주어·목적어·전치사의 목적어 세 자리를 짚어 빈자리를 센다 — 빈자리가 있으면 what/which, 하나도 없으면 that/whether/관계부사/whose 를 요구하는 자리다",
+        "on_fail": "빈자리 판정이 흔들리면 연결어를 지우고 남은 절이 문장으로 성립하는지 소리 내어 읽는다"
+      },
+      {
+        "step": "(a)(b) 라벨은 그 문장의 정동사 개수와 접속사·관계사 개수를 세어 비교한다 — 정동사는 (접속사+관계사)보다 정확히 하나 많아야 한다. 이미 맞으면 밑줄은 준동사여야 한다",
+        "on_fail": "대시·콤마 삽입구를 먼저 괄호로 지우고, than/as 뒤 명사구는 주어 후보에서 뺀 뒤 다시 센다"
+      },
+      {
+        "step": "(d)(e) 라벨은 짝을 앞에서 찾아 밑줄로 잇는다 — 대명사는 되받는 명사, 대동사는 앞 절의 술부 전체, 병렬은 접속사가 실제로 잇는 앞 항, 부사는 꾸미는 낱말",
+        "on_fail": "짝이 둘로 보이면 각각을 밑줄 자리에 그대로 써 넣어 문장이 성립하는 쪽을 남긴다"
+      },
+      {
+        "step": "후보가 둘 남으면 각각을 고쳐 쓴 문장을 실제로 적고, 고치지 않아도 성분표가 다 채워지는 쪽을 버린다. 그래도 둘이면 연결어 자리를 우선 의심한다",
+        "on_fail": "시간이 없으면 연결어 밑줄 하나만 다시 성분 세기로 확인하고 넘어간다 — 12문항 중 6문항이 그 축에서 갈렸다"
+      }
+    ],
+    "failure_modes": [
+      "밑줄만 국소적으로 읽고 '어색하지 않다' 로 통과시킨다 — 이 유형의 정답은 밑줄 안이 아니라 밑줄이 든 절 전체의 성분표에서 갈린다(2020#29 ④ · M1809#28 ②는 밑줄만 보면 완벽히 자연스럽다)",
+      "동사 바로 앞 명사를 주어로 잡는다 — 전치사구(2020#29 ①), 관계절(2018#28 ①), than 뒤 비교 대상(M1809#28 ②)이 모두 이 착각을 노린다",
+      "and 로 이어진 앞 항의 형태를 그대로 복사한다 — 2018#28 ②는 앞의 what 이 맞기 때문에 뒤 what 도 맞아 보이도록 설계됐다",
+      "'stop 뒤에는 동명사' 처럼 단서 없는 암기 규칙을 적용한다 — 2018#28 ⑤가 정확히 그 규칙을 미끼로 쓴다",
+      "다섯 자리를 앞에서부터 순서대로 검토하다 마지막 문장에서 시간이 떨어진다 — 정답이 ④·⑤ 에 있는 회차가 8개 중 4개다(M2006#29 는 정답이 마지막 문장의 마지막 밑줄)",
+      "as ~ as / than 뒤 대동사가 받는 술부가 수동태인지 확인하지 않는다(2019#29 ②)"
+    ],
+    "time_budget_sec": 95,
+    "open_questions": [
+      "**함정 라벨 등재 제안** — §1-b (A)명제형·(B)위치형 라벨 19종 중 이 유형 오답 32건에 맞는 것이 0건이었다. 어법 밑줄형은 '무엇을 오독하면 걸리나' 가 아니라 **어떤 문법 항목을 재는가** 로 갈리므로, 다음 12종을 (C)어법 밑줄형 표로 등재할 것을 제안한다: `명사절 접속사 완전성(what/that/whether)` · `정동사/준동사 혼동` · `준동사 후치수식(과거분사·형용사구)` · `주어-동사 수일치(수식어 삽입)` · `대명사 수·지시·대용` · `재귀대명사` · `병렬 대상 오인` · `관계사 격·선행사 수일치` · `전치사+관계대명사` · `대동사 형태(do vs be)` · `태(수동/능동) 판정` · `형용사·부사 자리`. 이 12종으로 32건 전부가 겹침 없이 덮였다",
+      "라벨 하나가 더 필요할 수 있다 — `동사별 문형 고정 지식`(stop to V / find + 목적어 + 형용사 / make + 목적어 + 원형 / enable + 목적어 + to V). 성분 세기로는 안 갈리고 개별 동사 지식이 있어야 갈리는 자리라, 위 12종과 성격이 다르다. 이 청크에서 4건 나왔다",
+      "정답 위치가 ② 4회 · ④ 2회 · ⑤ 2회, ①·③ 0회 — 표본 8로는 우연과 구분되지 않는다. 다음 어법 청크(잔여 회차)에서 위치 분포를 다시 세어 합산할 것",
+      "정답표가 없는 4문항(M2306#29 · M2209#29 · M2206#29 · M2109#29)은 밑줄이 재는 문법 축만 기록했다. 평가원 정답표가 확보되면 이 넷의 정답 축을 위 분포에 합산해야 하고, 그때 '절 성분 계산 6/8' 비율이 흔들릴 수 있다",
+      "이 청크에서 반려는 6건 나왔다(analyst 3 · tutor 2 · setter 1) — 라벨 중복 1 · 정답 전제 1 · 난도 근거 누락 1 · 인용 범위 부족 1 · 순환논법 1 · 시간 과소 1. 세 자가 서로 다른 것을 재고 있음이 확인된다"
+    ]
+  }
+}
