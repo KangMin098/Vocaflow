@@ -77,6 +77,32 @@ function bodyOf(exam, no) {
   return { passage: passage || null, choices: choicesOf(block) }
 }
 
+/** 빈칸이 지문 안에 있어야 하는 유형 — 빈칸 위치가 곧 정답 근거다 */
+const BLANK_TYPES = new Set(['R-BLANK', 'R-BLANK2', 'R-SUMMARY', 'X-BLANK', 'X-BLANK2'])
+
+/**
+ * **지문을 믿어도 되는가.** 넷 중 하나라도 걸리면 드레인이 원문 블록을 함께 싣는다.
+ *
+ *   ① 한글이 남았다 — 발문 꼬리·각주·옆 단이 섞였다
+ *   ② 홀로 선 마침표(` . `) — 옆 단 조각이 문장 사이로 들어왔다
+ *      (실측 2023#34: `it is not that . I that the realities…`)
+ *   ③ 한 글자짜리 낱말이 a·A·I 가 아니다 — 단 자르기가 낱말 가운데를 지났다
+ *      (실측 M2306#31: `computer r artist`)
+ *   ④ 빈칸 유형인데 빈칸 표시가 없다 — 빈칸이 빈 줄로 와서 위치가 사라졌다
+ *      (실측 M2309#34: `may have to order to` — 빈칸과 `in` 이 함께 증발)
+ *
+ * ④가 가장 중요하다. 빈칸추론은 **빈칸 위치가 정답 근거**라, 위치를 모르면 분석이
+ * 성립하지 않는데도 지문은 멀쩡해 보인다. 사람 눈에 안 띄는 실패라 기계가 잡아야 한다.
+ */
+function suspectBody(passage, typeId) {
+  if (!passage) return false
+  if ((passage.match(/[가-힣]/g) ?? []).length >= 4) return true
+  if (/\s\.\s/.test(passage)) return true
+  if (/(?:^|\s)(?![aAI](?:$|\s))[A-Za-z](?=$|\s)/.test(passage)) return true
+  if (BLANK_TYPES.has(typeId) && !passage.includes('______')) return true
+  return false
+}
+
 const items = []
 const rows = [
   ...suneung.questions.map((q) => ({ ...q, ...(classified.get(`${q.exam}#${q.no}`) ?? {}) })),
@@ -109,10 +135,10 @@ for (const q of rows) {
     points: key?.points ?? null,
     high_score: q.high_score === true || key?.points === 3,
     rescued: q.rescued === true,
-    // 지문에 한글이 남아 있으면 발문·각주·옆 단이 섞여 들어온 것이다. 5% 안팎 남는다 —
-    // 파서를 더 깎는 대신 **딱지를 붙여** 드레인이 원문 블록을 함께 싣게 한다.
-    // 분석하는 쪽이 원문을 볼 수 있으면 파서의 마지막 5%는 병목이 아니다.
-    body_suspect: Boolean(passage && (passage.match(/[가-힣]/g) ?? []).length >= 4),
+    // 지문이 미덥지 않다는 딱지. 파서를 더 깎는 대신 **딱지를 붙여** 드레인이 원문 블록을
+    // 함께 싣게 한다 — 분석하는 쪽이 원문을 볼 수 있으면 파서의 마지막 몇 %는 병목이 아니다.
+    // 신호 넷은 전부 실측에서 나왔다(2026-09-02, 서브에이전트 6종 보고):
+    body_suspect: suspectBody(passage, q.type),
     // **분석 파이프라인의 사정권.** 듣기는 제외한다 — 사용자 지시(2026-09-02).
     // 원장에서 빼지 않고 딱지만 붙이는 이유: 회차 배점 합이 100 인지 보는 검사가
     // 듣기를 포함해야 성립하고, 듣기 대본 9회차가 새로 들어와 있어 나중에 되살릴 수 있다.

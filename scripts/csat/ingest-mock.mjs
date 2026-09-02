@@ -24,6 +24,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import os from 'node:os'
+import crypto from 'node:crypto'
 import { execFileSync } from 'node:child_process'
 import { restoreColumnsBest } from './lib-columns.mjs'
 
@@ -173,6 +174,28 @@ function classify(stem) {
   return TYPES.filter((t) => t.re.test(norm))
 }
 
+/**
+ * 문제지에서 **3점 문항 번호 집합**을 읽는다.
+ *
+ * 배점 자리는 회차마다 다르고, 그 자리는 그 회차 정답표에만 맞는다. 그래서 문제지가 누구
+ * 것인지 가릴 때 이보다 나은 지문(指紋)이 없다 — 파일명이 아니라 내용끼리 대조하는 것이다.
+ */
+function threePointSet(text) {
+  const ls = text.split('\n')
+  const marks = []
+  ls.forEach((l, i) => {
+    const m = l.match(/^\s*(\d{1,2})\s*[.．]/)
+    if (m && +m[1] >= 1 && +m[1] <= 45) marks.push({ i, no: +m[1] })
+  })
+  const out = new Set()
+  for (let k = 0; k < marks.length; k += 1) {
+    const from = marks[k].i
+    const to = k + 1 < marks.length ? marks[k + 1].i : ls.length
+    if (ls.slice(from, to).some((l) => /\[\s*3\s*점\s*\]/.test(l))) out.add(marks[k].no)
+  }
+  return out
+}
+
 /** 파일 하나가 무엇인지 — 파일명이 아니라 내용으로 판정한다 */
 function kindOf(raw) {
   if (/듣기평가\s*대본/.test(raw)) return '대본'
@@ -202,6 +225,57 @@ for (const f of FILES) {
 const EXAMS = [...exams.values()].sort((a, b) => a.code.localeCompare(b.code))
 if (!EXAMS.length) throw new Error(`${SRC} 에 회차 PDF 가 없다`)
 
+// ── 같은 문제지가 두 회차에 붙어 있으면 하나는 가짜다 ────────────────
+//
+// 실측 2026-09-02: `202009_영어영역_문제지.pdf` 와 `202106_영어영역_문제지.pdf` 가
+// **md5 동일**이었다. 그래서 2020학년도 9월 모평 45문항이 통째로 2021학년도 6월 것으로
+// 채워졌고, 두 정답표가 45문항 중 31문항에서 어긋나므로 **31문항의 정답이 거짓**이 됐다.
+// 그 상태로 분석하면 학습자를 반대로 훈련시킨다.
+//
+// 어느 쪽이 진짜인지는 **문제지의 `[3점]` 표시가 정한다** — 배점은 회차마다 자리가 다르고,
+// 그 자리는 그 회차 정답표에만 맞는다. 파일명이 아니라 내용끼리 대조하는 것이라 믿을 수 있다.
+{
+  const byHash = new Map()
+  for (const e of EXAMS) {
+    if (!e.paper) continue
+    const h = crypto.createHash('md5').update(fs.readFileSync(path.join(SRC, e.paper))).digest('hex')
+    if (!byHash.has(h)) byHash.set(h, [])
+    byHash.get(h).push(e)
+  }
+  for (const [, group] of byHash) {
+    if (group.length < 2) continue
+    const raw = pdfText(group[0].paper)
+    const pick = restoreColumnsBest(raw, (t) =>
+      stemsOf(t).reduce((a, q) => a + (classify(q.stem).length === 1 ? 10 : 1), 0))
+    // `[3점]` 은 발문 안에 있기도 하고 **별도 줄**에 있기도 하다(오른쪽 정렬로 조판된다).
+    // 발문만 보면 이 회차에서 0개가 잡혔다 — 문항 번호로 구간을 갈라 구간마다 찾는다.
+    const marked = threePointSet(pick.text)
+
+    let best = null
+    for (const e of group) {
+      if (!e.key) continue
+      const three = new Set(parseKey(pdfText(e.key)).filter((r) => r.points === 3).map((r) => r.no))
+      let hit = 0
+      for (const n of marked) if (three.has(n)) hit += 1
+      const score = three.size ? hit / three.size : 0
+      if (!best || score > best.score) best = { exam: e, score, hit, of: three.size }
+    }
+    const names = group.map((e) => e.id).join(' = ')
+    if (!best || best.score < 0.9) {
+      // 어느 쪽인지 못 가리면 **둘 다 버린다.** 절반의 확률로 맞는 자료는 자료가 아니다.
+      console.log(`  ⚠ 같은 문제지가 ${names} 에 붙어 있고 주인을 못 가렸다 — 전부 제외`)
+      for (const e of group) { e.paper = null; e.dup_note = `문제지 PDF 중복(${names}) · 주인 미상` }
+      continue
+    }
+    console.log(`  ⚠ 같은 문제지가 ${names} — [3점] 대조로 ${best.exam.id} 것으로 판정 (${best.hit}/${best.of})`)
+    for (const e of group) {
+      if (e === best.exam) continue
+      e.paper = null
+      e.dup_note = `문제지 PDF 가 ${best.exam.id} 것과 동일 — 이 회차 문제지는 없다`
+    }
+  }
+}
+
 console.log(`  원본 ${SRC}`)
 console.log(`  회차 ${EXAMS.length} — 문제지 ${EXAMS.filter((e) => e.paper).length} · 정답표 ${EXAMS.filter((e) => e.key).length} · 대본 ${EXAMS.filter((e) => e.script).length}`)
 const noPaper = EXAMS.filter((e) => !e.paper).map((e) => e.id)
@@ -216,7 +290,7 @@ const answers = []
 const report = []
 for (const e of EXAMS) {
   if (!e.paper) {
-    report.push({ exam: e.id, file: null, space: null, stems: 0, assigned: 0, multi: 0, none: 0, keys: 0, missing_paper: true })
+    report.push({ exam: e.id, file: null, space: null, stems: 0, assigned: 0, multi: 0, none: 0, keys: 0, missing_paper: true, note: e.dup_note ?? null })
     continue
   }
   const raw = pdfText(e.paper)

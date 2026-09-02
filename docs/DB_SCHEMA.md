@@ -1079,6 +1079,40 @@ anon 세션으로 실측 검증: 미발행 호 0건 노출.
 
 ---
 
+## CSAT 기출 분석 파이프라인 ([20260902055354](../supabase/migrations/20260902055354_csat_analysis_pipeline.sql))
+
+원장 6표 + 검수 게이트 2종 + 커버리지 RPC 1.
+
+| 테이블 | 무엇 | 행(2026-09-02) |
+|---|---|---|
+| `csat_types` | 문항 유형(정본은 `scripts/csat/classify-types.mjs`) | 44 (사정권 26) |
+| `csat_exams` | 회차. `listening_end` 로 듣기 경계를 회차마다 갖는다 | 30 |
+| `csat_items` | 문항. `in_scope` = 듣기 아님. `passage` 는 평가원 저작물 | 1,350 (사정권 830) |
+| `csat_item_analyses` | 문항 분석. 덮지 않고 `version` 을 올린다 | 60 published |
+| `csat_analysis_reviews` | 3인 검수. `unique(analysis_id, persona)` | 180 |
+| `csat_type_reports` | 유형별 분석 결과 | 1 |
+
+### 검수 3인을 스키마가 강제한다
+
+`csat_guard_published()` (BEFORE INSERT/UPDATE OF status) — `status='published'` 는 **서로 다른
+페르소나 3인의 pass** 가 있어야 통과한다. `csat_demote_on_review_change()` (AFTER on reviews) —
+검수가 내려가면 published 도 `in_review` 로 자동 강등한다. 삽입 시점에만 사는 문이면 게이트가 아니다.
+
+적용 직후 실측 5종: 검수 0 → 차단 · 같은 페르소나 2회 → 차단 · 2인 → 차단 · 3인 → published ·
+한 명이 revise → in_review 강등. **"3인 검수" 가 문서상 약속이 아니라 DB 제약이다.**
+
+### RPC
+
+`csat_coverage()` — 회차별 `(in_scope_items, analyzed, published, scope_points, covered_points, covers_99)`.
+`covers_99` 는 사정권 배점을 **전부** 덮었을 때만 true. 총점 100 = 듣기 37 + 독해 63이고 배점
+단위가 2·3점이라 99점 이상은 곧 독해 실점 0이기 때문이다. 커버리지는 저장하지 않고 그때 센다.
+
+### RLS — 지문 원문은 학습자에게 열지 않는다
+
+`csat_items` 는 authenticated 에 `USING (false)` 다. 학습자는 뷰 `csat_items_public`(=
+`passage`·`choices`·`raw_block` 를 뺀 것)만 본다. 분석·유형 리포트는 `status='published'` 만 열린다.
+검수 기록은 정책이 없어 service_role 전용이다.
+
 ## 🔴 user_profiles 권한 상승 차단 ([20260814150000](../supabase/migrations/20260814150000_user_profiles_privilege_escalation_guard.sql))
 
 **실측한 결함** (2026-08-14, anon key 만으로 재현). RLS 정책 `"own data"` 가

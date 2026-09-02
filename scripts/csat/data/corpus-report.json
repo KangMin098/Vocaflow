@@ -1,22 +1,22 @@
 {
  "built_at": "2026-09-02",
  "scope": "독해·장문 — 듣기 제외 (듣기 마지막 번호: 2014학년도 22 · 그 외 17)",
- "exams": 30,
- "items": 1350,
- "expected": 1350,
- "typed": 1340,
- "keyed": 1035,
- "passaged": 954,
- "choiced": 1173,
+ "exams": 29,
+ "items": 1305,
+ "expected": 1305,
+ "typed": 1295,
+ "keyed": 990,
+ "passaged": 922,
+ "choiced": 1141,
  "in_scope": {
-  "items": 830,
-  "expected": 830,
-  "typed": 830,
-  "keyed": 634,
-  "passaged": 805,
-  "choiced": 796,
-  "body_suspect": 42,
-  "exams_fully_keyed": 23,
+  "items": 802,
+  "expected": 802,
+  "typed": 802,
+  "keyed": 606,
+  "passaged": 779,
+  "choiced": 771,
+  "body_suspect": 187,
+  "exams_fully_keyed": 22,
   "listening_type_in_scope": [],
   "reading_type_out_of_scope": [],
   "by_exam": [
@@ -194,17 +194,6 @@
     "keyed": 28,
     "passaged": 28,
     "choiced": 28,
-    "points": 63
-   },
-   {
-    "exam": "M2009",
-    "label": "2020학년도 9월 모의평가",
-    "kind": "mock",
-    "n": 28,
-    "typed": 28,
-    "keyed": 28,
-    "passaged": 26,
-    "choiced": 25,
     "points": 63
    },
    {
@@ -527,17 +516,6 @@
    "keyed": 45,
    "passaged": 32,
    "choiced": 44,
-   "points": 100
-  },
-  {
-   "exam": "M2009",
-   "label": "2020학년도 9월 모의평가",
-   "kind": "mock",
-   "n": 45,
-   "typed": 45,
-   "keyed": 45,
-   "passaged": 32,
-   "choiced": 32,
    "points": 100
   },
   {

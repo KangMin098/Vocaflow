@@ -214,9 +214,10 @@
   {
    "id": "M2009",
    "code": "202009",
-   "paper": "202009_영어영역_문제지.pdf",
+   "paper": null,
    "key": "202009_영어영역_정답표.pdf",
-   "script": null
+   "script": null,
+   "dup_note": "문제지 PDF 가 M2106 것과 동일 — 이 회차 문제지는 없다"
   },
   {
    "id": "M2106",

@@ -92,6 +92,25 @@ soft('T8 독해 지문 97% 이상', 1 - noPass.length / readItems.length >= 0.97
 const shortPass = readItems.filter((it) => it.passage && it.passage.length < 120)
 soft('T9 지문 길이 120자 이상', shortPass.length === 0, `${shortPass.length}개: ${shortPass.slice(0, 5).map((it) => it.id).join(' ')}`)
 
+// T11 **두 회차가 같은 문항 본문을 갖지 않는다.**
+// 실측 2026-09-02: `202009_영어영역_문제지.pdf` 와 `202106_영어영역_문제지.pdf` 가 md5 동일이라
+// 2020학년도 9월 45문항이 통째로 2021학년도 6월 것으로 채워져 있었다. 두 정답표가 45문항 중
+// 31문항에서 어긋나므로 **31문항의 정답이 거짓**이었고, 그걸로 분석하면 학습자를 반대로 훈련시킨다.
+// 검사 아홉 개를 통과하면서도 이게 남아 있었다 — 서브에이전트가 문항을 읽다 잡았다.
+const stemSig = new Map()
+const twins = []
+for (const [exam] of byExam) {
+  const sig = items
+    .filter((it) => it.exam === exam)
+    .sort((a, b) => a.no - b.no)
+    .map((it) => `${it.no}:${(it.stem ?? '').slice(0, 40)}|${(it.passage ?? '').slice(0, 60)}`)
+    .join('\n')
+  if (!sig) continue
+  if (stemSig.has(sig)) twins.push(`${stemSig.get(sig)}=${exam}`)
+  else stemSig.set(sig, exam)
+}
+ok('T11 두 회차가 같은 본문을 갖지 않음', twins.length === 0, twins.join(' '))
+
 // T10 report 의 수치가 items 와 일치 — 리포트만 고쳐 놓고 원장은 그대로인 사고를 막는다
 ok('T10 report.items == items.length', report.items === items.length, `${report.items} vs ${items.length}`)
 ok('T10b report.typed 일치', report.typed === typed, `${report.typed} vs ${typed}`)
