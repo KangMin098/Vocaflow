@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-09-02T08:08:34.041Z",
+  "measuredAt": "2026-09-02T09:44:59.542Z",
   "window": {
     "min": 42,
     "max": 173
@@ -154,11 +154,11 @@
     },
     {
       "band": "초3~4",
-      "n": 43
+      "n": 67
     },
     {
       "band": "초5~6",
-      "n": 9
+      "n": 58
     },
     {
       "band": "초6~중1",
@@ -207,6 +207,21 @@
         "-": 12,
         "B1": 2,
         "A2": 1
+      }
+    },
+    {
+      "source": "storyweaver",
+      "n": 115,
+      "fkMedian": 3.89,
+      "sentMedian": 8.4,
+      "curriculumElemPct": 49.1,
+      "curriculumElemMidPct": 62.5,
+      "band": "초3~4",
+      "cefr": {
+        "B1": 39,
+        "A2": 45,
+        "A1": 19,
+        "B2": 12
       }
     },
     {
@@ -270,21 +285,6 @@
       "cefr": {
         "B2": 1,
         "C1": 1
-      }
-    },
-    {
-      "source": "storyweaver",
-      "n": 42,
-      "fkMedian": 1.42,
-      "sentMedian": 6.4,
-      "curriculumElemPct": 60,
-      "curriculumElemMidPct": 69.1,
-      "band": "초3 미만",
-      "cefr": {
-        "A2": 16,
-        "A1": 14,
-        "B1": 8,
-        "B2": 4
       }
     }
   ],
@@ -558,6 +558,15 @@
       "words": 156,
       "cefr": "C1",
       "band": "중3 초과"
+    },
+    {
+      "source": "storyweaver",
+      "title": "A Whistling Good Idea (3쪽부터 발췌)",
+      "fk": 3.82,
+      "sent": 9.4,
+      "words": 66,
+      "cefr": "B1",
+      "band": "초3~4"
     },
     {
       "source": "nasa",
@@ -1469,6 +1478,15 @@
       "band": "초3 미만"
     },
     {
+      "source": "storyweaver",
+      "title": "Book of Bhoots (8쪽부터 발췌)",
+      "fk": 3.56,
+      "sent": 7.7,
+      "words": 46,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
       "source": "futurity",
       "title": "Science-backed tips to get out of feeling stuck",
       "fk": 11.56,
@@ -1530,6 +1548,15 @@
       "words": 112,
       "cefr": null,
       "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Will (2쪽부터 발췌)",
+      "fk": 5.32,
+      "sent": 12,
+      "words": 48,
+      "cefr": "A2",
+      "band": "초5~6"
     },
     {
       "source": "original",
@@ -1623,6 +1650,24 @@
     },
     {
       "source": "storyweaver",
+      "title": "Lazy Mama (앞부분 발췌)",
+      "fk": 4.59,
+      "sent": 7.7,
+      "words": 46,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Magic Powder - A Folktale from Myanmar (7쪽부터 발췌)",
+      "fk": 5.17,
+      "sent": 10.5,
+      "words": 63,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
       "title": "The Kite",
       "fk": -0.54,
       "sent": 3.4,
@@ -1656,6 +1701,15 @@
       "words": 68,
       "cefr": "A1",
       "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Jadav and the Tree-Place (앞부분 발췌)",
+      "fk": 4.66,
+      "sent": 9.7,
+      "words": 58,
+      "cefr": "B1",
+      "band": "초5~6"
     },
     {
       "source": "nasa",
@@ -2532,6 +2586,15 @@
     },
     {
       "source": "storyweaver",
+      "title": "More or Less? Need to Guess! (앞부분 발췌)",
+      "fk": 4.13,
+      "sent": 7.8,
+      "words": 70,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
       "title": "Bunty and Bubbly",
       "fk": 1.99,
       "sent": 7.6,
@@ -2622,11 +2685,38 @@
     },
     {
       "source": "storyweaver",
+      "title": "Gul in Space (9쪽부터 발췌)",
+      "fk": 3.89,
+      "sent": 16.7,
+      "words": 50,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "When I Grow Up (3쪽부터 발췌)",
+      "fk": 3.86,
+      "sent": 10.5,
+      "words": 63,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
       "title": "How Many?",
       "fk": 1.6,
       "sent": 8,
       "words": 104,
       "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "How Do Aeroplanes Fly? (앞부분 발췌)",
+      "fk": 3.77,
+      "sent": 12.4,
+      "words": 87,
+      "cefr": "A1",
       "band": "초3~4"
     },
     {
@@ -2658,6 +2748,15 @@
     },
     {
       "source": "storyweaver",
+      "title": "The Boy and the Drum (2쪽부터 발췌)",
+      "fk": 5.18,
+      "sent": 14.9,
+      "words": 119,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
       "title": "Gappu Can't Dance",
       "fk": 2.11,
       "sent": 5.2,
@@ -2673,6 +2772,15 @@
       "words": 121,
       "cefr": "A1",
       "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "What happened to the shawl? (앞부분 발췌)",
+      "fk": 3.7,
+      "sent": 10.8,
+      "words": 54,
+      "cefr": "B1",
+      "band": "초3~4"
     },
     {
       "source": "storyweaver",
@@ -2694,6 +2802,24 @@
     },
     {
       "source": "storyweaver",
+      "title": "The Tiffin Gang (2쪽부터 발췌)",
+      "fk": 3.7,
+      "sent": 6.9,
+      "words": 103,
+      "cefr": "B2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Puchku Seeks a Song (2쪽부터 발췌)",
+      "fk": 4.34,
+      "sent": 11.4,
+      "words": 103,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
       "title": "I Can Make Things!",
       "fk": -0.26,
       "sent": 6.1,
@@ -2709,6 +2835,537 @@
       "words": 89,
       "cefr": "A1",
       "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
+      "title": "One by Two (앞부분 발췌)",
+      "fk": 4.31,
+      "sent": 4.7,
+      "words": 66,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "I Love Me (앞부분 발췌)",
+      "fk": 4.13,
+      "sent": 14.3,
+      "words": 86,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Same-same or Different? (13쪽부터 발췌)",
+      "fk": 3.58,
+      "sent": 7,
+      "words": 84,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Elephant Bird (2쪽부터 발췌)",
+      "fk": 4.46,
+      "sent": 13,
+      "words": 78,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "the novel coronavirus we can stay safe (9쪽부터 발췌)",
+      "fk": 4.5,
+      "sent": 13.8,
+      "words": 69,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Annual Haircut Day - ONCE AGAIN! (앞부분 발췌)",
+      "fk": 4.83,
+      "sent": 12.2,
+      "words": 73,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Rainbow Girls (6쪽부터 발췌)",
+      "fk": 3.66,
+      "sent": 12.1,
+      "words": 121,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "A Butterfly Smile (앞부분 발췌)",
+      "fk": 4,
+      "sent": 8.5,
+      "words": 111,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Anna's Extraordinary Experiments with Weather (앞부분 발췌)",
+      "fk": 3.65,
+      "sent": 6.5,
+      "words": 84,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Welcome to the Forest (앞부분 발췌)",
+      "fk": 4.81,
+      "sent": 10.3,
+      "words": 72,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Time-Travelling River (앞부분 발췌)",
+      "fk": 4.8,
+      "sent": 10.4,
+      "words": 73,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Many Mangoes to Share (앞부분 발췌)",
+      "fk": 4.25,
+      "sent": 10.8,
+      "words": 65,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Grand Patch-up (앞부분 발췌)",
+      "fk": 4.32,
+      "sent": 8.3,
+      "words": 58,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Birthday Menu (3쪽부터 발췌)",
+      "fk": 5.43,
+      "sent": 11.1,
+      "words": 111,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Pranav the Pattern Detective (3쪽부터 발췌)",
+      "fk": 4.34,
+      "sent": 11.4,
+      "words": 103,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Bone Puzzle (앞부분 발췌)",
+      "fk": 4.1,
+      "sent": 8.4,
+      "words": 59,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Password, please? (앞부분 발췌)",
+      "fk": 5.17,
+      "sent": 12.3,
+      "words": 74,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Wailers Three - A Folktale From China (앞부분 발췌)",
+      "fk": 4.11,
+      "sent": 12.9,
+      "words": 90,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Laddoo Code (앞부분 발췌)",
+      "fk": 3.56,
+      "sent": 5.8,
+      "words": 58,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Best House of All (앞부분 발췌)",
+      "fk": 5.01,
+      "sent": 11,
+      "words": 55,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Unni's Wish (앞부분 발췌)",
+      "fk": 4.17,
+      "sent": 10.3,
+      "words": 93,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Power of One (앞부분 발췌)",
+      "fk": 4.62,
+      "sent": 8.3,
+      "words": 91,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Right Way School (앞부분 발췌)",
+      "fk": 4.16,
+      "sent": 14.8,
+      "words": 59,
+      "cefr": "A1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Goplu's Train Ride (앞부분 발췌)",
+      "fk": 4.6,
+      "sent": 8,
+      "words": 56,
+      "cefr": "A1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Whoop, Goes the Pufferfish (앞부분 발췌)",
+      "fk": 3.51,
+      "sent": 7.3,
+      "words": 58,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Kottavi Raja and his Sleepy Kingdom (앞부분 발췌)",
+      "fk": 4.6,
+      "sent": 8.2,
+      "words": 107,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Hakeem's Hiccups (앞부분 발췌)",
+      "fk": 5.23,
+      "sent": 12.4,
+      "words": 62,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Little Bird in the Big Mountains (앞부분 발췌)",
+      "fk": 4.63,
+      "sent": 12,
+      "words": 60,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Night the Moon Went Missing (8쪽부터 발췌)",
+      "fk": 3.64,
+      "sent": 14,
+      "words": 84,
+      "cefr": "A1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Animals Meeting (5쪽부터 발췌)",
+      "fk": 5.03,
+      "sent": 10.4,
+      "words": 52,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "A Book for Puchku (17쪽부터 발췌)",
+      "fk": 4.31,
+      "sent": 15.8,
+      "words": 79,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Beauty Is Missing (4쪽부터 발췌)",
+      "fk": 4.97,
+      "sent": 6.6,
+      "words": 59,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Fire! Fire! (2쪽부터 발췌)",
+      "fk": 5.4,
+      "sent": 10.8,
+      "words": 97,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Magic Mirror (3쪽부터 발췌)",
+      "fk": 4.43,
+      "sent": 18.3,
+      "words": 55,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Sweet Sunday (2쪽부터 발췌)",
+      "fk": 3.91,
+      "sent": 9.9,
+      "words": 89,
+      "cefr": "B2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Teaching Pa (앞부분 발췌)",
+      "fk": 4.09,
+      "sent": 7.8,
+      "words": 78,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Magical Glasses (2쪽부터 발췌)",
+      "fk": 4.51,
+      "sent": 12.2,
+      "words": 73,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Haru (11쪽부터 발췌)",
+      "fk": 5.26,
+      "sent": 11.9,
+      "words": 107,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Whale in the Sky (앞부분 발췌)",
+      "fk": 3.9,
+      "sent": 10.4,
+      "words": 52,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Let's Go Seed Collecting! (5쪽부터 발췌)",
+      "fk": 5.01,
+      "sent": 15,
+      "words": 60,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Have You Ever Climbed a Tree? (5쪽부터 발췌)",
+      "fk": 3.97,
+      "sent": 12.8,
+      "words": 64,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Shoecat Thoocat (5쪽부터 발췌)",
+      "fk": 3.99,
+      "sent": 7.5,
+      "words": 83,
+      "cefr": "B2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Shiro's Friends Save the Day (앞부분 발췌)",
+      "fk": 5.17,
+      "sent": 9.4,
+      "words": 85,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "City of Stories (앞부분 발췌)",
+      "fk": 3.89,
+      "sent": 10.2,
+      "words": 51,
+      "cefr": "A1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Sailing Ships and Sinking Spoons (앞부분 발췌)",
+      "fk": 4.39,
+      "sent": 10.5,
+      "words": 115,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Auto That Flew (앞부분 발췌)",
+      "fk": 5.49,
+      "sent": 9,
+      "words": 45,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Sunshower Song (앞부분 발췌)",
+      "fk": 4.05,
+      "sent": 11.3,
+      "words": 79,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "DIVE! (5쪽부터 발췌)",
+      "fk": 5.15,
+      "sent": 16,
+      "words": 48,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Nani's Walk to the Park (앞부분 발췌)",
+      "fk": 3.63,
+      "sent": 11.2,
+      "words": 112,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Stage Fright (3쪽부터 발췌)",
+      "fk": 3.55,
+      "sent": 8.3,
+      "words": 75,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Seed Savers (8쪽부터 발췌)",
+      "fk": 3.74,
+      "sent": 11.2,
+      "words": 67,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "How Far is Far? (2쪽부터 발췌)",
+      "fk": 5.45,
+      "sent": 16.3,
+      "words": 65,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Weightlifting Princess (앞부분 발췌)",
+      "fk": 4.73,
+      "sent": 8.7,
+      "words": 78,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Savio Finds the Right Angle (3쪽부터 발췌)",
+      "fk": 3.59,
+      "sent": 8.3,
+      "words": 91,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Girl Who Could Not Stop Laughing (앞부분 발췌)",
+      "fk": 4.72,
+      "sent": 7,
+      "words": 49,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "The Magic Letter (앞부분 발췌)",
+      "fk": 5.07,
+      "sent": 9,
+      "words": 108,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Three for Free - A Folktale from Taiwan (2쪽부터 발췌)",
+      "fk": 4.57,
+      "sent": 11.6,
+      "words": 104,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Ammachi's Incredible Investigation (앞부분 발췌)",
+      "fk": 4.49,
+      "sent": 8,
+      "words": 48,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "storyweaver",
+      "title": "Making Friends with Snakes (But from a Distance) (9쪽부터 발췌)",
+      "fk": 3.78,
+      "sent": 7.3,
+      "words": 87,
+      "cefr": "B1",
+      "band": "초3~4"
     }
   ]
 }
