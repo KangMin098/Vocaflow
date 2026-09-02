@@ -203,6 +203,50 @@ async function asbCatalog() {
   return asbCache
 }
 
+/**
+ * MediaWiki 무작위 표집 — **`rnlimit` 상한(50)을 넘겨 모은다.**
+ *
+ * 한 번에 50 이 최대라 `--sample 100` 을 줘도 50건만 왔다. 표본 수가 요청보다 적으면
+ * 같이 적은 오차 폭이 거짓이 되므로, 채울 때까지 여러 번 부른다.
+ * 무작위라 같은 항목이 다시 올 수 있어 제목으로 걸러 낸다.
+ */
+async function mediawikiRandom(api, n) {
+  const seen = new Set()
+  const items = []
+  let total = null
+  for (let round = 0; items.length < n && round < 12; round++) {
+    const r = await get(
+      `${api}?action=query&list=random&rnnamespace=0&rnlimit=${Math.min(n, 50)}` +
+        `&meta=siteinfo&siprop=statistics&format=json`,
+      { json: true }
+    )
+    if (!r.ok) {
+      if (items.length) break
+      return { error: r.error ? `연결 실패 — ${r.error}` : `HTTP ${r.status}`, items: [] }
+    }
+    // 전체 규모를 짐작하지 않는다 — siteinfo 가 스스로 말한다.
+    total ??= r.data?.query?.statistics?.articles ?? null
+    for (const p of r.data?.query?.random ?? []) {
+      if (seen.has(p.title)) continue
+      seen.add(p.title)
+      items.push({ id: p.title, title: p.title })
+    }
+    await new Promise((z) => setTimeout(z, 400))
+  }
+  return { total, items: items.slice(0, n) }
+}
+
+/** MediaWiki 도입부(`exintro`). 본문 전체가 아니라 **도입부가 곧 지문 단위**다. */
+async function mediawikiLead(api, title) {
+  const r = await get(
+    `${api}?action=query&prop=extracts&explaintext=1&exintro=1&titles=${encodeURIComponent(title)}&format=json`,
+    { json: true }
+  )
+  if (!r.ok) return { error: r.error ? `연결 실패 — ${r.error}` : `HTTP ${r.status}` }
+  const pages = r.data?.query?.pages ?? {}
+  return { body: (Object.values(pages)[0]?.extract ?? '').replace(/\s+/g, ' ').trim() }
+}
+
 const SOURCES = {
   // ── narrative — 이 조사의 목적 ────────────────────────────────────
   storyweaver: {
@@ -219,18 +263,28 @@ const SOURCES = {
      */
     levels: ['1', '2', '3'],
     async list(n, level) {
-      const per = Math.min(n, 24)
+      // **쪽을 넘겨 가며 모은다.** `per_page` 를 100 으로 줘도 24 에서 잘린다(실측) —
+      //   `--sample 100` 을 주고 24건만 받아 놓고 "표본 100" 이라 적으면 함께 적은
+      //   **오차 폭이 거짓이 된다.** 요청한 표본과 받은 표본은 같아야 한다.
       const lv = level ? `&levels%5B%5D=${level}` : ''
-      const r = await get(
-        `https://storyweaver.org.in/api/v1/books-search?page=1&per_page=${per}&languages%5B%5D=English${lv}`,
-        { json: true }
-      )
-      if (!r.ok)
-        return { error: r.error ? `연결 실패 — ${r.error}` : `HTTP ${r.status}`, items: [] }
-      return {
-        total: r.data?.metadata?.hits ?? null,
-        items: (r.data?.data ?? []).map((b) => ({ id: b.slug, title: b.title, level: b.level })),
+      const items = []
+      let total = null
+      for (let page = 1; items.length < n && page <= 20; page++) {
+        const r = await get(
+          `https://storyweaver.org.in/api/v1/books-search?page=${page}&per_page=24&languages%5B%5D=English${lv}`,
+          { json: true }
+        )
+        if (!r.ok) {
+          if (items.length) break
+          return { error: r.error ? `연결 실패 — ${r.error}` : `HTTP ${r.status}`, items: [] }
+        }
+        total ??= r.data?.metadata?.hits ?? null
+        const got = r.data?.data ?? []
+        if (!got.length) break
+        for (const b of got) items.push({ id: b.slug, title: b.title, level: b.level })
+        await new Promise((z) => setTimeout(z, 400))
       }
+      return { total, items: items.slice(0, n) }
     },
     async text(item) {
       const r = await get(`https://storyweaver.org.in/api/v1/stories/${item.id}/read`, {
@@ -290,28 +344,86 @@ const SOURCES = {
     licenseDeclared: 'CC BY-SA 3.0',
     note: '도입부(exintro)가 본래 44~173어 언저리다. MediaWiki API 라 무작위 표집이 공짜다.',
     async list(n) {
-      const r = await get(
-        `https://en.vikidia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=${Math.min(n, 50)}` +
-          `&meta=siteinfo&siprop=statistics&format=json`,
-        { json: true }
-      )
-      if (!r.ok)
-        return { error: r.error ? `연결 실패 — ${r.error}` : `HTTP ${r.status}`, items: [] }
-      return {
-        // 전체 규모를 짐작하지 않는다 — siteinfo 가 스스로 말한다.
-        total: r.data?.query?.statistics?.articles ?? null,
-        items: (r.data?.query?.random ?? []).map((p) => ({ id: p.title, title: p.title })),
-      }
+      return mediawikiRandom('https://en.vikidia.org/w/api.php', n)
     },
     async text(item) {
-      const r = await get(
-        `https://en.vikidia.org/w/api.php?action=query&prop=extracts&explaintext=1&exintro=1&titles=${encodeURIComponent(item.id)}&format=json`,
-        { json: true }
-      )
+      const t = await mediawikiLead('https://en.vikidia.org/w/api.php', item.id)
+      return t.error ? t : { ...t, license: 'CC-BY-SA-3.0', level: null, unit: 'lead' }
+    },
+  },
+
+  /**
+   * Simple English Wikipedia **도입부**.
+   *
+   * 이 소스는 이미 배선돼 있다 — 다만 **글 전체**로 들어와서 평균 2,526어다(초·중 창 밖).
+   * 같은 소스라도 **어느 단위를 가져오느냐가 다른 소스를 만든다**: 도입부만 보면
+   * 표본에서 36~187어로 나온다. 규모가 28만 항목이라 이 조사에서 가장 큰 후보다.
+   */
+  simple_wikipedia_lead: {
+    label: 'Simple English Wikipedia — 도입부만',
+    register: 'reference',
+    licenseDeclared: 'CC BY-SA 4.0',
+    note: '어휘·문장을 일부러 제한해 쓰는 판이라 초·중 독자에 맞는다. 배선된 `simple_wikipedia` 와 소스는 같고 **단위가 다르다**.',
+    async list(n) {
+      return mediawikiRandom('https://simple.wikipedia.org/w/api.php', n)
+    },
+    async text(item) {
+      const t = await mediawikiLead('https://simple.wikipedia.org/w/api.php', item.id)
+      return t.error ? t : { ...t, license: 'CC-BY-SA-4.0', level: null, unit: 'lead' }
+    },
+  },
+
+  /**
+   * NOAA National Ocean Service **Ocean Facts** — 질문 하나에 답하는 짧은 PD 설명글.
+   *
+   * 정부 저작물이라 PD 이고, "쓰나미란 무엇인가" 처럼 **한 물음에 한 편**이라 본래 단위가 짧다.
+   * 다만 쪽마다 정부 공통 머리말("An official website of the United States government…")이
+   * 붙어 있어 그대로 세면 어수가 부풀어 오른다 — 그 껍데기를 잘라 내고 잰다.
+   */
+  noaa_ocean_facts: {
+    label: 'NOAA Ocean Service — Ocean Facts',
+    register: 'expository',
+    licenseDeclared: 'Public Domain (미 연방정부 저작물)',
+    note:
+      '한 물음에 한 편이라 짧을 것으로 보고 넣었으나 **실측은 중앙 472어로 초·중 창 밖**이다(적중 0%). ' +
+      '다만 이 쪽들은 `<main>`도 `<article>`도 없고 본문이 `<p>` 에도 없어 추출이 거침다 — ' +
+      '**이 어수는 상한이다.** 꺼데기를 완전히 가려도 200~600어대로 보여 재수정해도 창에 들기 어렵다. ' +
+      '버리지 않고 남긴다 — **안 되는 것을 알려 주는 것도 프로브의 일**이다.',
+    async list(n) {
+      const seen = new Set()
+      const items = []
+      for (const cat of ['oceanfacts-basics', 'oceanfacts-oceanlife', 'oceanfacts-ecosystems']) {
+        if (items.length >= n) break
+        const r = await get(`https://oceanservice.noaa.gov/facts/${cat}.html`)
+        if (!r.ok) continue
+        for (const m of r.body.matchAll(/facts\/([a-z0-9-]+)\.html/g)) {
+          const slug = m[1]
+          // 분류 쪽 자신은 글이 아니다.
+          if (slug.startsWith('oceanfacts-') || seen.has(slug)) continue
+          seen.add(slug)
+          items.push({ id: slug, title: slug.replace(/-/g, ' ') })
+        }
+        await new Promise((z) => setTimeout(z, 400))
+      }
+      if (!items.length) return { error: '목록 쪽에서 링크를 못 찾았다', items: [] }
+      return { total: items.length, items: items.slice(0, n) }
+    },
+    async text(item) {
+      const r = await get(`https://oceanservice.noaa.gov/facts/${item.id}.html`)
       if (!r.ok) return { error: r.error ? `연결 실패 — ${r.error}` : `HTTP ${r.status}` }
-      const pages = r.data?.query?.pages ?? {}
-      const body = Object.values(pages)[0]?.extract ?? ''
-      return { body: body.replace(/\s+/g, ' ').trim(), license: 'CC-BY-SA-3.0', level: null }
+      let h = r.body
+        .replace(/<head[\s\S]*?<\/head>/i, ' ')
+        .replace(/<nav[\s\S]*?<\/nav>/gi, ' ')
+        .replace(/<header[\s\S]*?<\/header>/gi, ' ')
+        .replace(/<footer[\s\S]*?<\/footer>/gi, ' ')
+      const main = h.match(/<main[\s\S]*?<\/main>/i)
+      let body = strip(main ? main[0] : h)
+      // 정부 공통 머리말 — 모든 쪽에 똑같이 붙는 껍데기라 글이 아니다.
+      body = body
+        .replace(/^[\s\S]*?official,?\s*secure websites?\.?/i, '')
+        .replace(/^[\s\S]*?Here'?s how you know we'?re official\.?/i, '')
+        .trim()
+      return { body, license: 'PUBLIC-DOMAIN', level: null }
     },
   },
 
@@ -321,8 +433,10 @@ const SOURCES = {
     licenseDeclared: 'CC BY 4.0 (Crossref 메타데이터로 확인)',
     note: 'Crossref(ISSN 2296-6846) 로 목록·라이선스가 나온다. 본문 길이는 재 봐야 안다.',
     async list(n) {
+      // Crossref 는 한 번에 100까지만 준다. 그 이상은 offset 으로 넘긴다.
+      const off = 0
       const r = await get(
-        `https://api.crossref.org/journals/2296-6846/works?rows=${Math.min(n, 50)}&sort=published&order=desc&select=DOI,title,license,URL,abstract`,
+        `https://api.crossref.org/journals/2296-6846/works?rows=${Math.min(n, 100)}&offset=${off}&sort=published&order=desc&select=DOI,title,license,URL,abstract`,
         { json: true }
       )
       if (!r.ok)
@@ -371,7 +485,19 @@ const UNREACHABLE = [
   { id: 'nps_gov', why: 'www.nps.gov/rss/news.xml 404.' },
   {
     id: 'wikijunior',
-    why: 'en.wikibooks.org Category:Wikijunior 가 비어 있다(0건) — 분류명이 다르다.',
+    why:
+      '분류가 아니라 **책 구조**다(`Wikijunior/…` 접두사). `Category:Wikijunior` 는 0건이고 ' +
+      '검색으로는 215건이 잡히지만 대부분 책의 속장이라 독립된 짧은 글이 적다. 공은 들고 재고는 작다.',
+  },
+  {
+    id: 'gutendex',
+    why:
+      'Project Gutenberg API 는 열린다 — 영어 아동물 **7,634권** · PD. 다만 본래 단위가 ' +
+      '**책 한 권**이라 발췌해야 초·중 창에 든다. 발췌 경로가 생기면 가장 큰 PD 서사 재고다.',
+  },
+  {
+    id: 'storybooks_canada',
+    why: 'storybookscanada.ca 는 200 이지만 `global-asp.github.io/storybooks-canada` 는 404 — 목록 받는 경로를 못 찾았다.',
   },
 ]
 
@@ -450,7 +576,9 @@ for (const { id: baseId, src, level } of runs) {
     ws.length ? ws[Math.min(ws.length - 1, Math.floor((ws.length * p) / 100))] : null
   // ⚠️ 처음에 /CC/i 로만 셸다가 **CC BY 4.0 인 20건을 0건으로** 적을 뻔했다 —
   //   Crossref 는 라이선스를 URL(creativecommons.org/licenses/by/4.0)로 준다.
-  const licensed = good.filter((m) => m.license && /CC|creativecommons/i.test(m.license)).length
+  const licensed = good.filter(
+    (m) => m.license && /CC|creativecommons|PUBLIC-DOMAIN|PD/i.test(m.license)
+  ).length
 
   const row = {
     id,
