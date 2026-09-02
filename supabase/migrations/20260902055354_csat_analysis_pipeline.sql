@@ -1,9 +1,10 @@
--- supabase/migrations/_pending_csat_analysis.sql
+-- supabase/migrations/20260902055354_csat_analysis_pipeline.sql
 --
 -- 평가원 기출 분석 파이프라인 — 원장 6표 + 검수 게이트 + 커버리지 RPC
 --
--- ⚠️ **아직 적용하지 않았다.** CLAUDE.md 의 "마이그레이션 자동 적용 금지" 에 따라
---    승인 뒤 `apply_migration` 으로 올린다. 파일명이 `_pending_` 인 이유가 그것이다.
+-- 적용 2026-09-02 (사용자 승인). 적용 직후 게이트 5종을 실측 검증했다:
+--   G1 검수 0인데 published 시도 → 차단 · G2 같은 페르소나 2회 → 차단 · G3 2인 → 차단
+--   G4 3인 pass → published · G5 한 명이 revise 로 내려가면 in_review 로 자동 강등
 --
 -- 설계 원칙 셋:
 --   ① **검수 3인을 스키마가 강제한다.** `status='published'` 는 서로 다른 페르소나 3인이
