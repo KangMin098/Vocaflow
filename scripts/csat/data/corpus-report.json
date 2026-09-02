@@ -4,17 +4,17 @@
  "exams": 29,
  "items": 1305,
  "expected": 1305,
- "typed": 1295,
+ "typed": 1298,
  "keyed": 990,
  "passaged": 961,
- "choiced": 1165,
+ "choiced": 1162,
  "in_scope": {
   "items": 802,
   "expected": 802,
   "typed": 802,
   "keyed": 606,
   "passaged": 798,
-  "choiced": 783,
+  "choiced": 780,
   "body_suspect": 212,
   "exams_fully_keyed": 22,
   "listening_type_in_scope": [],
@@ -193,7 +193,7 @@
     "typed": 28,
     "keyed": 28,
     "passaged": 28,
-    "choiced": 28,
+    "choiced": 25,
     "points": 63
    },
    {
@@ -515,7 +515,7 @@
    "typed": 45,
    "keyed": 45,
    "passaged": 32,
-   "choiced": 44,
+   "choiced": 41,
    "points": 100
   },
   {
@@ -589,10 +589,10 @@
    "label": "2024학년도 6월 모의평가",
    "kind": "mock",
    "n": 45,
-   "typed": 43,
+   "typed": 44,
    "keyed": 0,
-   "passaged": 34,
-   "choiced": 37,
+   "passaged": 33,
+   "choiced": 36,
    "points": 0
   },
   {
@@ -614,7 +614,7 @@
    "typed": 44,
    "keyed": 45,
    "passaged": 35,
-   "choiced": 31,
+   "choiced": 32,
    "points": 100
   },
   {
@@ -622,9 +622,9 @@
    "label": "2025학년도 9월 모의평가",
    "kind": "mock",
    "n": 45,
-   "typed": 41,
+   "typed": 43,
    "keyed": 45,
-   "passaged": 32,
+   "passaged": 33,
    "choiced": 41,
    "points": 100
   },

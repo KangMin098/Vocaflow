@@ -72,11 +72,49 @@ function examWindow(exam, no) {
     linesCache.set(exam, fs.existsSync(p) ? fs.readFileSync(p, 'utf8').replace(/\r/g, '').split('\n') : [])
   }
   const ls = linesCache.get(exam)
+  // 장문 세트(41~45)는 지문이 **세트 머리글 아래 한 번만** 있고 문항 번호는 그 한참 뒤에 온다.
+  // 문항 번호에 창을 걸면 지문이 창 밖으로 나간다. 게다가 단이 안 갈린 페이지에서는 지문이
+  // 머리글보다 **앞**에 오기도 한다(실측 M2006#45: 머리글 905줄인데 근거 문장은 875줄).
+  // 그래서 세트 문항은 머리글을 중심으로 **앞뒤로 넓게** 잡는다.
+  const anchors = []
+  if (no >= 41) {
+    ls.forEach((l, i) => {
+      const m = l.match(/\[\s*(\d{2})\s*[~～∼〜–—-]\s*(\d{2})\s*\]/)
+      if (m && no >= +m[1] && no <= +m[2]) anchors.push({ i, span: 140, back: 90 })
+    })
+  }
   const re = new RegExp(`(?:^|\\s)${no}\\s*[.．]`)
   const at = ls.findIndex((l) => re.test(l))
-  const win = at < 0 ? '' : norm(ls.slice(Math.max(0, at - 10), at + 60).join(' '))
+  if (at >= 0) anchors.push({ i: at, span: 60 })
+  if (!anchors.length) { windowCache.set(key, ''); return '' }
+  const win = norm(
+    anchors.map(({ i, span, back = 10 }) => ls.slice(Math.max(0, i - back), i + span).join(' ')).join(' '),
+  )
   windowCache.set(key, win)
   return win
+}
+
+/**
+ * 인용의 **양 끝 다섯 낱말**이 둘 다 건초더미에 있는가.
+ *
+ * 통째 대조가 실패하는 두 원인을 가른다:
+ *   · **지문 손상** — 문장 한가운데 옆 단 조각이 끼어들었다. 양 끝은 그대로 남는다 → 통과(경고)
+ *   · **지어낸 인용** — 양 끝 어느 쪽도 원문에 없다 → 실패
+ * 낱말이 열 개 미만인 짧은 인용은 이 완화를 쓰지 않는다(양 끝이 곧 전체라 검사가 무의미해진다).
+ */
+function shingleHit(nq, hay) {
+  const w = nq.split(' ').filter(Boolean)
+  if (w.length < 10) return false
+  // 양 끝만 보면 부족하다 — 옆 단이 **낱말 단위로 교대**하면 첫 낱말부터 어긋난다
+  // (실측 M2006#33: `since the trainer tangible is replaced by intangibles` — `The` 자리에
+  //  옆 단의 `trainer` 가 들어와 있다). 그래서 4낱말 창을 죽 밀며 **몇 %가 원문에 있는지** 센다.
+  let hit = 0
+  let total = 0
+  for (let i = 0; i + 4 <= w.length; i += 1) {
+    total += 1
+    if (hay.includes(w.slice(i, i + 4).join(' '))) hit += 1
+  }
+  return total > 0 && hit / total >= 0.6
 }
 
 // 청크 이름은 첫 문항 id 에서 나온다(`chunk-R-BLANK-M2706-31`). 일련번호가 아니므로
@@ -195,8 +233,15 @@ for (const f of files) {
           // (2026-09-02 실제로 겪었다). 검사가 물어야 하는 것은 "우리 파서의 현재 산출물과 같은가"
           // 가 아니라 **"이 회차 원문에 실제로 있는가"** 다. 그래서 회차 원문으로 한 번 더 본다.
           // 지어낸 인용은 회차 원문에도 없으므로 이 완화가 원래 목적을 깎지 않는다.
-          if (examWindow(it.exam, it.no).includes(norm(q))) {
+          const win = examWindow(it.exam, it.no)
+          if (win.includes(norm(q))) {
             warn(id, `인용이 현재 지문 파싱과 안 맞는다(회차 원문 창에는 있다) — 파서가 바뀌었을 수 있다`)
+          } else if (shingleHit(norm(q), `${hay} ${win}`)) {
+            // **손상된 지문과 지어낸 인용을 갈라야 한다.** 단이 안 갈린 페이지에서는 지문 한가운데
+            // 옆 단 조각(`35. 다음 글에서…`)이 끼어들어, 원문에 있는 문장도 통째로는 안 걸린다.
+            // 그렇다고 대조를 포기하면 게이트의 존재 이유가 사라진다 — 그래서 **양 끝 다섯 낱말**이
+            // 둘 다 있는지 본다. 지어낸 문장은 양 끝 어느 쪽도 안 걸리고, 손상된 문장은 둘 다 걸린다.
+            warn(id, `인용이 조각으로만 확인된다(지문 손상) — "${String(q).slice(0, 50)}…"`)
           } else {
             bad(id, `인용이 이 문항 언저리에 없다 — "${String(q).slice(0, 60)}…"`)
           }

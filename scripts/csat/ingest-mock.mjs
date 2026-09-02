@@ -136,6 +136,11 @@ function stemsOf(text) {
     const no = +m[1]
     if (no < 1 || no > 45 || out.has(no)) continue
     let stem = (m[2] + collect(i + 1)).trim()
+    // **옆 단에서 넘어온 다음 문항의 발문을 잘라낸다.** 단이 안 갈린 페이지에서는
+    // `Because the environment plays a significant role in      35. 다음 글에서 전체 흐름과…`
+    // 처럼 이 문항의 지문 조각 뒤에 **다른 번호의 발문**이 붙는다. 그대로 두면 유형이
+    // 그 발문으로 배정된다(실측 M2506#33 이 빈칸추론인데 R-IRRELEVANT 로 실렸다).
+    stem = stem.replace(/\s{2,}\d{1,2}\s*[.．]\s*(?=[^\s])[\s\S]*$/, '').trim()
     // 자기 발문에 한글이 없으면(= 지문이 바로 시작) 세트 머리글이 발문이다
     if (!/[가-힣]/.test(stem) && setStems.has(no)) stem = setStems.get(no)
     out.set(no, { no, stem, high_score: /\[\s*3\s*점\s*\]/.test(stem) })
