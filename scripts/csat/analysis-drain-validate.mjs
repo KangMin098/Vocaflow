@@ -50,17 +50,33 @@ function norm(s) {
 }
 
 /**
- * 회차 원문(2단 복원본) — 인용 대조의 **안정된 건초더미**.
- * 파서를 고쳐도 이 파일은 그대로이므로, 여기 있으면 지어낸 인용이 아니다.
+ * 회차 원문에서 **이 문항 언저리만** 잘라 낸 창 — 인용 대조의 안정된 건초더미.
+ *
+ * ⚠️ 처음에는 회차 파일 **전체**를 건초더미로 썼다. 파서 표류에는 강했지만 구멍이 났다 —
+ *    **같은 회차의 다른 문항 본문에서 인용해도 통과한다.** 그런데 실제로 겪는 사고가 바로
+ *    그것이다(단 나누기가 실패해 옆 문항 지문이 이 문항에 들어오는 것). 서브에이전트가
+ *    "지금 게이트는 이 사고를 못 잡는다" 고 지적했고, 맞는 지적이다.
+ *
+ * 그래서 창으로 좁힌다 — 문항 번호가 나온 줄 앞뒤 60줄. 파서를 고쳐도 이 창은 그대로이므로
+ * 표류에는 여전히 강하고, 옆 문항 본문은 대개 이 창 밖이라 구멍이 줄어든다.
+ * (한 페이지가 안 갈린 회차에서는 옆 단이 창 안에 들어오지만, 그 문항은 이미 `body_suspect` 다.)
  */
 const COL = path.resolve('scripts/csat/data/columns2')
-const examCache = new Map()
-function examText(exam) {
-  if (!examCache.has(exam)) {
+const linesCache = new Map()
+const windowCache = new Map()
+function examWindow(exam, no) {
+  const key = `${exam}#${no}`
+  if (windowCache.has(key)) return windowCache.get(key)
+  if (!linesCache.has(exam)) {
     const p = path.join(COL, `${exam}.txt`)
-    examCache.set(exam, fs.existsSync(p) ? norm(fs.readFileSync(p, 'utf8')) : '')
+    linesCache.set(exam, fs.existsSync(p) ? fs.readFileSync(p, 'utf8').replace(/\r/g, '').split('\n') : [])
   }
-  return examCache.get(exam)
+  const ls = linesCache.get(exam)
+  const re = new RegExp(`(?:^|\\s)${no}\\s*[.．]`)
+  const at = ls.findIndex((l) => re.test(l))
+  const win = at < 0 ? '' : norm(ls.slice(Math.max(0, at - 10), at + 60).join(' '))
+  windowCache.set(key, win)
+  return win
 }
 
 // 청크 이름은 첫 문항 id 에서 나온다(`chunk-R-BLANK-M2706-31`). 일련번호가 아니므로
@@ -158,10 +174,10 @@ for (const f of files) {
           // (2026-09-02 실제로 겪었다). 검사가 물어야 하는 것은 "우리 파서의 현재 산출물과 같은가"
           // 가 아니라 **"이 회차 원문에 실제로 있는가"** 다. 그래서 회차 원문으로 한 번 더 본다.
           // 지어낸 인용은 회차 원문에도 없으므로 이 완화가 원래 목적을 깎지 않는다.
-          if (examText(it.exam).includes(norm(q))) {
-            warn(id, `인용이 현재 지문 파싱과 안 맞는다(회차 원문에는 있다) — 파서가 바뀌었을 수 있다`)
+          if (examWindow(it.exam, it.no).includes(norm(q))) {
+            warn(id, `인용이 현재 지문 파싱과 안 맞는다(회차 원문 창에는 있다) — 파서가 바뀌었을 수 있다`)
           } else {
-            bad(id, `인용이 회차 원문에 없다 — "${String(q).slice(0, 60)}…"`)
+            bad(id, `인용이 이 문항 언저리에 없다 — "${String(q).slice(0, 60)}…"`)
           }
         }
         if (norm(q).length < 20) warn(id, '인용이 20자 미만 — 근거로 삼기엔 짧다')
