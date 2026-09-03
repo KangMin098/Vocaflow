@@ -551,13 +551,14 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "결정 통보 'we have decided to cancel the race' 에서 동사 cancel 과 목적어 the race 가 선지 ①의 '경기 취소' 와 그대로 맞물린다. 앞의 'As a result' 가 폭우라는 사유를 이 한 귀결로 묶고, 뒤 문장은 'we promise to hold another race in the near future' 라는 위로여서 새 용건을 만들지 않는다.",
+          "why_correct": "화행과 목적어를 따로 짚을 수 있다. 목적어 — 'we have decided to cancel the race' 의 cancel the race 가 선지 ①의 '마라톤 경기 취소' 와 그대로 맞물린다. 화행 — 수신자가 'all of you who have signed up for the 10th Rosydale City Marathon' 이고 이 편지가 그들에게 요구하는 행동이 하나도 없이 'We hope you understand' 로 양해만 구하므로, 취소라는 사실을 알리는 것 자체가 용건이다 — 곧 ①의 '공지하려고' 다. 앞의 'As a result' 가 폭우라는 사유를 이 한 귀결로 묶고, 뒤 문장 'we promise to hold another race in the near future' 는 다음 대회 약속일 뿐 새 용건을 만들지 않는다.",
           "confirmed_at": {
             "sentence_index": [
               5,
-              6
+              6,
+              7
             ],
-            "note": "취소는 5번 문장에서 확정되고 6번 문장은 위로라 용건이 아니다"
+            "note": "취소는 5번 문장에서 확정되고 6번 문장은 위로라 용건이 아니다. 'the heavy rain will make the roads too slippery and dangerous' 만 보면 ⑤의 도로 통제 쪽으로 목적어가 옮겨 간다 — 화행 동사(decided to cancel)의 목적어가 무엇인지로 갈라야 한다"
           }
         },
         {
@@ -628,13 +629,17 @@
           "verdict": "pass",
           "findings": [
             "처음 인용을 we have decided to cancel the race 로만 잡았으나 As a result 를 포함해 인과 표지까지 담도록 넓혔다 — 넓힌 문자열도 코퍼스와 그대로 일치한다",
-            "cancel 의 목적어가 the race 라는 것과 As a result 가 앞 사유를 하나의 귀결로 묶는지 대조했다"
+            "cancel 의 목적어가 the race 라는 것과 As a result 가 앞 사유를 하나의 귀결로 묶는지 대조했다",
+            "setter revise — why_correct 가 방향만 요약하고 지문 표현을 지목하지 않아 대응이 낱말 단위로 확인되지 않았다. 앞쪽 근거와 뒤쪽 근거를 모두 인용해 다시 썼고, 같은 자로 재검수해 pass 로 확정했다"
           ],
           "checked": [
             "quote 를 corpus.json 2025#18 passage 와 문자열 대조(확장 전후 두 번)",
             "정답표 answer=1 대조",
             "why_correct 의 영어 인용 3개를 코퍼스 지문(손상 문항은 회차 원문 창)에서 정규화 후 문자열 대조: \"we have decided to cancel the race\" · \"As a result\" · \"we promise to hold another race in the near future\"",
-            "그 인용이 정답 선지 1 의 어느 부분과 맞물리는지 선지 텍스트와 낱말 단위로 대조"
+            "그 인용이 정답 선지 1 의 어느 부분과 맞물리는지 선지 텍스트와 낱말 단위로 대조",
+            "다시 쓴 why_correct 안의 영어 어구를 corpus.json 해당 문항의 passage 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 서술을 같은 자로 재검수"
           ]
         },
         {
@@ -642,13 +647,17 @@
           "verdict": "pass",
           "findings": [
             "선지 3과 5가 모두 취소 이후를 상상하는 함정이지만, 3은 상식 보충이고 5는 지문 낱말 재활용이라 층이 다르다",
-            "환불 절차·도로 통제 같은 뒷일이 아니라 취소 사실 자체가 통보 대상이라는 근거가 5번 문장에 있는지 확인했다"
+            "환불 절차·도로 통제 같은 뒷일이 아니라 취소 사실 자체가 통보 대상이라는 근거가 5번 문장에 있는지 확인했다",
+            "다시 쓴 why_correct 가 「나머지가 틀렸으므로」에 기대지 않고 정답 자리 자체의 근거(앞·뒤 양쪽)로 서 있음을 확인했다"
           ],
           "checked": [
             "trap 라벨 4종 중복 확인",
             "선지 5의 roads 가 지문 넷째 문장에 실제로 있는지 문자열 확인",
             "why_correct 가 소거법(나머지가 틀렸으므로)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인",
-            "정답 번호 1 을 코퍼스 정답표와 재대조"
+            "정답 번호 1 을 코퍼스 정답표와 재대조",
+            "why_correct 가 소거법에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드가 남아 있지 않은지 확인",
+            "기존 관찰을 confirmed_at.note 로 옮겨 보존했는지 확인"
           ]
         },
         {
@@ -656,13 +665,17 @@
           "verdict": "pass",
           "findings": [
             "4단계의 낱말 유무 확인이 환불·통제 선지를 기계적으로 걸러 낸다",
-            "학생이 As a result 한 표지만 찾아도 문장이 특정되는지 확인했다"
+            "학생이 As a result 한 표지만 찾아도 문장이 특정되는지 확인했다",
+            "다시 쓴 why_correct 가 앞 근거와 뒤 근거를 모두 인용해, 지문을 아직 안 읽은 학생도 두 자리를 직접 찾아 맞춰 볼 수 있다"
           ],
           "checked": [
             "절차를 지문 미열람 상태로 모의 실행",
             "60초 예산 확인",
             "지문을 아직 안 본 학생이 why_correct 가 지목한 자리를 직접 짚을 수 있는지 confirmed_at 의 문장 번호로 확인",
-            "why_correct 에 \"주제를 잘 나타내므로\" 류의 되풀이 서술이 없는지 확인"
+            "why_correct 에 \"주제를 잘 나타내므로\" 류의 되풀이 서술이 없는지 확인",
+            "학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "순환논법 표현 대조",
+            "인용한 어구가 지문에 실제로 있는지 확인"
           ]
         }
       ]

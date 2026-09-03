@@ -162,7 +162,15 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "(B)의 For example 이 주어진 글의 a number of ... practices 를 예시하고, (B) 끝의 기능이 극적으로 바뀔 수 있다를 (C)가 어떻게 바뀌는지로 풀며, (C) 끝의 learning facilitators 를 (A)의 Their role 이 받는다."
+          "why_correct": "이 선지는 (B)-(C)-(A) 이고 이음매 셋이 다 잠긴다. ① (B) 첫머리 'For example, performance evaluation and reward systems' 이 주어진 글의 'a number of human resource management practices that are necessary to support organizational learning' 을 예시하므로 (B)가 첫 덩어리다. ② (B) 마지막 'the human resource development function may be dramatically changed to keep the emphasis on continuous learning' 이 '무엇이 왜 바뀌어야 하는지' 를 남기고, (C)의 'Formal training programs, developed in advance and delivered according to a preset schedule, are insufficient to address shifting training needs' 가 그 이유를 적는다 — preset schedule 과 continuous 가 대립쌍이다. ③ (C) 마지막 'Rather, human resource development professionals must become learning facilitators' 의 그 복수 명사구를 (A) 첫 문장 'Their role should be to assist, consult, and advise teams' 의 소유격 Their 가 받는다. (A) 안에는 Their 가 가리킬 사람이 없으므로 (A)는 (C) 뒤여야 한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              7,
+              10,
+              11
+            ],
+            "note": "(A)와 (C)에 human resource development professionals 가 함께 나와 순서를 뒤집어도 읽히지만, 그 사람들을 처음 세우는 쪽은 (C)이고 (A)는 소유격 Their 로 받기만 한다"
+          }
         },
         {
           "n": 4,
@@ -223,12 +231,16 @@
           "verdict": "pass",
           "findings": [
             "quote 가 (C) 마지막 문장이고 이 유형의 근거 위치(문단 끝과 다음 문단 첫머리)와 맞는다",
-            "의도 서술이 이 문항 고유의 배치(사람 명사를 (C) 끝 한 곳에만 둠)를 짚는다"
+            "의도 서술이 이 문항 고유의 배치(사람 명사를 (C) 끝 한 곳에만 둠)를 짚는다",
+            "setter revise — why_correct 가 방향만 요약하고 지문 표현을 지목하지 않아 대응이 낱말 단위로 확인되지 않았다. 앞쪽 근거와 뒤쪽 근거를 모두 인용해 다시 썼고, 같은 자로 재검수해 pass 로 확정했다"
           ],
           "checked": [
             "quote 를 corpus.json 지문에서 문자열 대조",
             "정답표 ③=(B)-(C)-(A) 와 분석 결론 대조",
-            "R-ORDER 유형 정의 대조"
+            "R-ORDER 유형 정의 대조",
+            "다시 쓴 why_correct 안의 영어 어구를 corpus.json 해당 문항의 passage 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 서술을 같은 자로 재검수"
           ]
         },
         {
@@ -236,12 +248,16 @@
           "verdict": "pass",
           "findings": [
             "①과 ②가 모두 Their 문제를 다루지만 배제 근거 문장이 다르다(① 주어진 글의 명사 · ② (B) 마지막 문장의 function) — 라벨도 분리했다",
-            "④⑤는 For example 축으로 갈렸다"
+            "④⑤는 For example 축으로 갈렸다",
+            "다시 쓴 why_correct 가 「나머지가 틀렸으므로」에 기대지 않고 정답 자리 자체의 근거(앞·뒤 양쪽)로 서 있음을 확인했다"
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부",
             "각 why_tempting 이 그 배열 기호 조합에서 실제로 일어나는 오독인지",
-            "how_to_reject 에 지문 위치가 있는지"
+            "how_to_reject 에 지문 위치가 있는지",
+            "why_correct 가 소거법에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드가 남아 있지 않은지 확인",
+            "기존 관찰을 confirmed_at.note 로 옮겨 보존했는지 확인"
           ]
         },
         {
@@ -249,15 +265,20 @@
           "verdict": "pass",
           "findings": [
             "1단계가 사람 명사인가라는 단일 판정이라 지문을 안 본 학생도 실행 가능하다",
-            "120초 배분: 표지 표시 40초 · 사람 명사 추적 40초 · 선지 대조 40초"
+            "120초 배분: 표지 표시 40초 · 사람 명사 추적 40초 · 선지 대조 40초",
+            "다시 쓴 why_correct 가 앞 근거와 뒤 근거를 모두 인용해, 지문을 아직 안 읽은 학생도 두 자리를 직접 찾아 맞춰 볼 수 있다"
           ],
           "checked": [
             "절차 5단계 실행 가능성",
             "금지 표현 문자열 검색",
-            "required_vocab 이 정답 확정에 쓰이는 낱말인지 — facilitators 는 Their 의 선행사 문장 자체다"
+            "required_vocab 이 정답 확정에 쓰이는 낱말인지 — facilitators 는 Their 의 선행사 문장 자체다",
+            "학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "순환논법 표현 대조",
+            "인용한 어구가 지문에 실제로 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2024#36",
@@ -297,7 +318,15 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "(C)가 outcome 을 받아 협상의 목적을 세우고, (A)가 그럼에도 남는 차이 영역과 적대적 사례를 덧붙이며, (B)의 these forms 가 그 사례를 받아 다른 기능(지연·홍보·정보 수집)으로 확장된다."
+          "why_correct": "이 선지는 (C)-(A)-(B) 이고 이음매 셋이 다 잠긴다. ① (C) 첫머리 'Whatever the nature of the outcome' 의 정관사 the outcome 이 받을 말은 주어진 글 마지막의 'in order to reach an acceptable outcome' 뿐이다. ② (C) 마지막 'the areas of common interest may be clarified, refined and given negotiated form and substance' 가 '공통 이해 영역' 이 정리되는 쪽을 말하고, (A) 첫 문장 'Areas of difference can and do frequently remain, and will perhaps be the subject of future negotiations, or indeed remain irreconcilable' 이 그 짝인 '차이 영역' 은 남는다고 뒤집는다 — 이 두 항은 (C)가 'the identification of areas of common interest and conflict' 로 함께 세워 둔 것이다. ③ (B) 첫머리 'In these and sometimes other forms of negotiation' 의 these 가 받을 협상 형태는 (A) 마지막의 'the parties have highly antagonistic or polarised relations' 인 경우뿐이고, (B)의 'negotiation serves functions other than reconciling conflicting interests' 가 주어진 글의 'reconcile conflicting positions' 를 other than 으로 넘어서므로 (B)가 끝이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              1,
+              4,
+              5
+            ],
+            "note": "(B)를 앞에 두면 these 가 가리킬 복수의 협상 형태가 앞에 없다 — 정관사·지시어가 무엇을 받는지가 세 이음매를 다 정한다"
+          }
         },
         {
           "n": 5,
@@ -351,12 +380,16 @@
           "verdict": "pass",
           "findings": [
             "초안의 design_intent 가 순서 유형은 지시어의 선행사를 묻는다는 유형 일반론이었다 — 반려 후 이 문항 고유의 설계(유형 구획을 (A) 마지막 문장 한 곳에만 둠)로 다시 썼다",
-            "quote 가 (B) 첫 문장이며 근거가 (A) 마지막 문장과 짝을 이룬다"
+            "quote 가 (B) 첫 문장이며 근거가 (A) 마지막 문장과 짝을 이룬다",
+            "setter revise — why_correct 가 방향만 요약하고 지문 표현을 지목하지 않아 대응이 낱말 단위로 확인되지 않았다. 앞쪽 근거와 뒤쪽 근거를 모두 인용해 다시 썼고, 같은 자로 재검수해 pass 로 확정했다"
           ],
           "checked": [
             "quote 를 corpus.json 지문에서 문자열 대조",
             "정답표 ④=(C)-(A)-(B) 와 분석 결론 대조",
-            "design_intent 가 유형 일반론인지 문항 고유 서술인지 판정"
+            "design_intent 가 유형 일반론인지 문항 고유 서술인지 판정",
+            "다시 쓴 why_correct 안의 영어 어구를 corpus.json 해당 문항의 passage 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 서술을 같은 자로 재검수"
           ]
         },
         {
@@ -364,12 +397,16 @@
           "verdict": "pass",
           "findings": [
             "②와 ⑤가 모두 these 를 다루지만 ②는 받을 말이 아예 없음, ⑤는 받을 말이 뒤로 밀림으로 실패 지점이 다르다",
-            "①은 remain 의 전제, ③은 마무리 문장의 위치라 축이 겹치지 않는다"
+            "①은 remain 의 전제, ③은 마무리 문장의 위치라 축이 겹치지 않는다",
+            "다시 쓴 why_correct 가 「나머지가 틀렸으므로」에 기대지 않고 정답 자리 자체의 근거(앞·뒤 양쪽)로 서 있음을 확인했다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "각 why_tempting 이 해당 배열에서 실제로 생기는 오독인지",
-            "how_to_reject 의 지문 위치 표기 유무"
+            "how_to_reject 의 지문 위치 표기 유무",
+            "why_correct 가 소거법에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드가 남아 있지 않은지 확인",
+            "기존 관찰을 confirmed_at.note 로 옮겨 보존했는지 확인"
           ]
         },
         {
@@ -377,12 +414,16 @@
           "verdict": "pass",
           "findings": [
             "1단계가 주어진 글 한 문장만 보고 끝나 부담이 적다",
-            "110초 배분: 표지 표시 35초 · 지시어 대조 45초 · 선지 대조 30초"
+            "110초 배분: 표지 표시 35초 · 지시어 대조 45초 · 선지 대조 30초",
+            "다시 쓴 why_correct 가 앞 근거와 뒤 근거를 모두 인용해, 지문을 아직 안 읽은 학생도 두 자리를 직접 찾아 맞춰 볼 수 있다"
           ],
           "checked": [
             "절차 5단계를 지문 없이 실행 가능한지",
             "금지 표현 문자열 검색",
-            "required_vocab 5개가 지문에 있고 판정에 쓰이는지 — antagonistic·polarised 는 these 의 선행사 문장에 있다"
+            "required_vocab 5개가 지문에 있고 판정에 쓰이는지 — antagonistic·polarised 는 these 의 선행사 문장에 있다",
+            "학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "순환논법 표현 대조",
+            "인용한 어구가 지문에 실제로 있는지 확인"
           ]
         }
       ]
@@ -425,7 +466,15 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "(C)가 최초 행동에 대한 타인의 동조와 행위자의 생각을 서술하고, (A)의 Thus 가 그 생각의 귀결로 처방을 말하며, (B)의 But some others 가 (A)의 some 과 대조된다."
+          "why_correct": "이 선지는 (C)-(A)-(B) 이고 이음매 셋이 다 잠긴다. ① (C) 첫 문장 'Others may then conform to this behavior for a number of reasons' 의 this behavior 가 주어진 글 마지막의 'one person acts in a particular manner in a particular situation' 을 받고 then 이 그 다음 단계임을 표시한다. ② (A) 첫머리 'Thus, she may prescribe the behavior to them' 의 Thus 가 도출되는 전제는 (C) 마지막 'The person who performed the initial action may think that others ought to behave as she behaves in situations of this sort' 이고, (A)의 she 가 그 The person 을, them 이 그 others 를 받는다. ③ (A) 마지막 'This will cause some to conform to her wishes and act as she acts' 의 some 을 (B) 첫머리 'But some others will not need to have the behavior prescribed to them' 의 some others 가 But 으로 대조해 받고, prescribed 도 (A)의 prescribe 를 되받으므로 (B)가 끝이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5,
+              8,
+              9
+            ],
+            "note": "(A)의 she 와 (C)의 The person 이 같은 사람인데 그 사람을 관계절로 처음 규정하는 것은 (C)다 — 대명사만 세면 (A)를 앞에 두게 된다"
+          }
         },
         {
           "n": 5,
@@ -479,12 +528,16 @@
           "verdict": "pass",
           "findings": [
             "코퍼스 지문 끝에 선지 기호와 각주가 섞여 들어와 있다(① (A) － (C) － (B) ... sanction 각주). 지문 본문 자체는 온전해 raw_block 과 대조해 확인했고 분석은 본문만 근거로 삼았다",
-            "quote 가 (C) 마지막 문장으로 이 유형의 근거 위치와 맞는다"
+            "quote 가 (C) 마지막 문장으로 이 유형의 근거 위치와 맞는다",
+            "setter revise — why_correct 가 방향만 요약하고 지문 표현을 지목하지 않아 대응이 낱말 단위로 확인되지 않았다. 앞쪽 근거와 뒤쪽 근거를 모두 인용해 다시 썼고, 같은 자로 재검수해 pass 로 확정했다"
           ],
           "checked": [
             "quote 를 corpus.json 지문에서 문자열 대조",
             "chunk 의 raw_block 과 corpus 지문 본문 대조(문단 3개 · 각 문장 수)",
-            "정답표 ④=(C)-(A)-(B) 와 분석 결론 대조"
+            "정답표 ④=(C)-(A)-(B) 와 분석 결론 대조",
+            "다시 쓴 why_correct 안의 영어 어구를 corpus.json 해당 문항의 passage 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 서술을 같은 자로 재검수"
           ]
         },
         {
@@ -492,12 +545,16 @@
           "verdict": "pass",
           "findings": [
             "②와 ⑤가 모두 (B)의 prescribed 를 다루지만 ②는 대조 대상(some)이 없다, ⑤는 동사 prescribe 가 아직 안 나왔다로 근거 문장이 다르다",
-            "③은 시간 표지 then, ①은 them 으로 축이 갈린다"
+            "③은 시간 표지 then, ①은 them 으로 축이 갈린다",
+            "다시 쓴 why_correct 가 「나머지가 틀렸으므로」에 기대지 않고 정답 자리 자체의 근거(앞·뒤 양쪽)로 서 있음을 확인했다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "why_tempting 이 각 배열 조합에서 실제로 생기는 오독인지",
-            "how_to_reject 의 지문 위치 표기 유무"
+            "how_to_reject 의 지문 위치 표기 유무",
+            "why_correct 가 소거법에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드가 남아 있지 않은지 확인",
+            "기존 관찰을 confirmed_at.note 로 옮겨 보존했는지 확인"
           ]
         },
         {
@@ -505,15 +562,20 @@
           "verdict": "pass",
           "findings": [
             "3단계(복수 표현이 있으면 첫 자리에서 지운다)가 이 문항에서 선지 5개 중 3개를 한 번에 줄인다",
-            "120초 배분: 대명사 표시 40초 · 짝짓기 50초 · 선지 대조 30초"
+            "120초 배분: 대명사 표시 40초 · 짝짓기 50초 · 선지 대조 30초",
+            "다시 쓴 why_correct 가 앞 근거와 뒤 근거를 모두 인용해, 지문을 아직 안 읽은 학생도 두 자리를 직접 찾아 맞춰 볼 수 있다"
           ],
           "checked": [
             "절차 5단계 실행 가능성",
             "금지 표현 문자열 검색",
-            "required_vocab 이 판정에 쓰이는 낱말인지 — prescribe·conform 은 배제 근거 문장에 직접 들어 있다"
+            "required_vocab 이 판정에 쓰이는 낱말인지 — prescribe·conform 은 배제 근거 문장에 직접 들어 있다",
+            "학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "순환논법 표현 대조",
+            "인용한 어구가 지문에 실제로 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2409#36",
@@ -893,7 +955,15 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "(B)가 조건부 발달을 처음 서술하고, (A)의 That 이 그 행동을 받아 비용을 따지며, (C)의 So 가 그 비용 논리를 적응이라는 결론으로 맺는다."
+          "why_correct": "이 선지는 (B)-(A)-(C) 이고 이음매 셋이 다 잠긴다. ① (B) 첫 문장 'If the baby water flea is developing into an adult in water that includes the chemical signatures of creatures that prey on water fleas, it develops a helmet and spines to defend itself against predators' 가 주어진 글이 이름만 붙인 adaptive plasticity 의 내용을 처음 서술하고 a helmet and spines 를 부정관사로 처음 들여온다. ② (A) 첫머리 'That’s a clever trick, because producing spines and a helmet is costly' 의 That 이 받을 행동은 (B)의 그 조건부 발달뿐이고, 'producing spines and a helmet' 은 (B)가 이미 그 두 기관을 들여놓아야 성립한다. ③ (C) 첫머리 'So it may well be that this plasticity is an adaptation: a trait that came to exist in a species because it contributed to reproductive fitness' 의 So 가 받는 전제는 (A)의 'conserving energy is essential for an organism’s ability to survive and reproduce' 이고, contributed to reproductive fitness 가 그 survive and reproduce 를 결론어로 바꾼 것이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              4,
+              7
+            ],
+            "note": "(A)의 That 과 (C)의 So 가 각각 무엇을 받는지가 두 이음매를 정한다 — 셋 다 water flea 이야기라 소재만 보면 어느 순서든 읽힌다"
+          }
         },
         {
           "n": 3,
@@ -961,12 +1031,16 @@
           "verdict": "pass",
           "findings": [
             "코퍼스 지문 끝에 옆 단 조각(t is)과 각주가 붙어 있다 — 본문 네 덩이는 raw_block 과 일치해 그 부분만 근거로 삼았다",
-            "quote 가 (A) 첫 문장이고 근거가 (B) 마지막 문장과 짝을 이룬다"
+            "quote 가 (A) 첫 문장이고 근거가 (B) 마지막 문장과 짝을 이룬다",
+            "setter revise — why_correct 가 방향만 요약하고 지문 표현을 지목하지 않아 대응이 낱말 단위로 확인되지 않았다. 앞쪽 근거와 뒤쪽 근거를 모두 인용해 다시 썼고, 같은 자로 재검수해 pass 로 확정했다"
           ],
           "checked": [
             "quote 를 corpus.json 지문에서 문자열 대조(굽은 아포스트로피 포함)",
             "chunk 의 raw_block 과 corpus 지문 본문 대조",
-            "정답표 ②=(B)-(A)-(C) 와 분석 결론 대조"
+            "정답표 ②=(B)-(A)-(C) 와 분석 결론 대조",
+            "다시 쓴 why_correct 안의 영어 어구를 corpus.json 해당 문항의 passage 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 서술을 같은 자로 재검수"
           ]
         },
         {
@@ -974,12 +1048,16 @@
           "verdict": "pass",
           "findings": [
             "④와 ⑤가 모두 (C) 선두 배열이지만 ④는 That 의 지시 대상, ⑤는 So 의 근거 부재로 배제 근거가 다르다",
-            "①은 가시·투구의 첫 등장, ③은 근거 문단 누락이라 축이 겹치지 않는다"
+            "①은 가시·투구의 첫 등장, ③은 근거 문단 누락이라 축이 겹치지 않는다",
+            "다시 쓴 why_correct 가 「나머지가 틀렸으므로」에 기대지 않고 정답 자리 자체의 근거(앞·뒤 양쪽)로 서 있음을 확인했다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "why_tempting 이 각 배열에서 실제로 생기는 오독인지",
-            "how_to_reject 의 지문 위치 표기 유무"
+            "how_to_reject 의 지문 위치 표기 유무",
+            "why_correct 가 소거법에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드가 남아 있지 않은지 확인",
+            "기존 관찰을 confirmed_at.note 로 옮겨 보존했는지 확인"
           ]
         },
         {
@@ -987,12 +1065,16 @@
           "verdict": "pass",
           "findings": [
             "초안 required_vocab 에 signatures 가 들어 있었다 — chemical signatures 는 (B) 이해에는 필요하지만 배열 판정에는 쓰이지 않아 반려했고, 실제 판정에 쓰이는 expends 로 바꿨다",
-            "100초 배분: 표지 표시 25초 · That 판별 30초 · So 근거 찾기 25초 · 선지 대조 20초"
+            "100초 배분: 표지 표시 25초 · That 판별 30초 · So 근거 찾기 25초 · 선지 대조 20초",
+            "다시 쓴 why_correct 가 앞 근거와 뒤 근거를 모두 인용해, 지문을 아직 안 읽은 학생도 두 자리를 직접 찾아 맞춰 볼 수 있다"
           ],
           "checked": [
             "절차 5단계 실행 가능성",
             "금지 표현 문자열 검색",
-            "required_vocab 5개가 배열 판정 문장에 쓰이는지 낱말별 확인"
+            "required_vocab 5개가 배열 판정 문장에 쓰이는지 낱말별 확인",
+            "학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "순환논법 표현 대조",
+            "인용한 어구가 지문에 실제로 있는지 확인"
           ]
         }
       ]
@@ -1034,7 +1116,15 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "(C)가 성공보수의 작동 방식을 설명하고, (A)의 Therefore 가 그 귀결과 의뢰인의 두려움을 말하며, (B)가 그 두려움을 해소하고 사례를 일반화하며 닫는다."
+          "why_correct": "이 선지는 (C)-(A)-(B) 이고 이음매 셋이 다 잠긴다. ① (C)의 'In this approach, lawyers do not receive fees or payment until the case is settled, when they are paid a percentage of the money that the client receives' 가 주어진 글이 이름만 댄 contingency pricing 의 작동 방식을 처음 적는다. ② (A) 첫머리 'Therefore, only an outcome in the client’s favor is compensated' 의 Therefore 가 도출되는 전제는 그 문장뿐이다 — 의뢰인이 받는 돈에서 비율로 떼므로 의뢰인에게 유리한 결과라야 보수가 생긴다. ③ (A) 마지막 'Their biggest fears are high fees for a case that may take years to settle' 가 두려움을 세우고, (B) 첫 문장 'By using contingency pricing, clients are ensured that they pay no fees until they receive a settlement' 의 pay no fees 가 그 high fees 를 정확히 해소한다. (B)의 'In these and other instances of contingency pricing' 의 these 도 (C)의 상해·소비자 사건과 (A)의 의뢰인 사정이 다 나온 뒤라야 복수를 채운다.",
+          "confirmed_at": {
+            "sentence_index": [
+              7,
+              2,
+              5
+            ],
+            "note": "(B)의 'By using contingency pricing' 은 주어진 글 바로 다음처럼 읽히지만, 그 문장이 해소하는 두려움(high fees)은 (A)에서만 나온다 — 앞 덩어리의 마지막 문장을 봐야 갈린다"
+          }
         },
         {
           "n": 5,
@@ -1088,12 +1178,16 @@
           "verdict": "pass",
           "findings": [
             "지문·선지가 온전하다",
-            "quote 가 (C) 마지막 문장으로 이 유형의 근거 위치(문단 끝과 다음 문단 첫머리)와 맞는다"
+            "quote 가 (C) 마지막 문장으로 이 유형의 근거 위치(문단 끝과 다음 문단 첫머리)와 맞는다",
+            "setter revise — why_correct 가 방향만 요약하고 지문 표현을 지목하지 않아 대응이 낱말 단위로 확인되지 않았다. 앞쪽 근거와 뒤쪽 근거를 모두 인용해 다시 썼고, 같은 자로 재검수해 pass 로 확정했다"
           ],
           "checked": [
             "quote 를 corpus.json 지문에서 문자열 대조",
             "정답표 ④=(C)-(A)-(B) 와 분석 결론 대조",
-            "R-ORDER 유형 정의 대조"
+            "R-ORDER 유형 정의 대조",
+            "다시 쓴 why_correct 안의 영어 어구를 corpus.json 해당 문항의 passage 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 서술을 같은 자로 재검수"
           ]
         },
         {
@@ -1101,12 +1195,16 @@
           "verdict": "pass",
           "findings": [
             "②와 ⑤가 모두 (B)의 위치를 다루지만 ②는 해결이 걱정보다 앞선다, ⑤는 의뢰인 관점이 아직 도입되지 않았다로 근거 문장이 다르다",
-            "①은 Therefore 의 전제, ③은 일반화 문장의 위치라 축이 겹치지 않는다"
+            "①은 Therefore 의 전제, ③은 일반화 문장의 위치라 축이 겹치지 않는다",
+            "다시 쓴 why_correct 가 「나머지가 틀렸으므로」에 기대지 않고 정답 자리 자체의 근거(앞·뒤 양쪽)로 서 있음을 확인했다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "why_tempting 이 각 배열에서 실제로 생기는 오독인지",
-            "how_to_reject 의 지문 위치 표기 유무"
+            "how_to_reject 의 지문 위치 표기 유무",
+            "why_correct 가 소거법에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드가 남아 있지 않은지 확인",
+            "기존 관찰을 confirmed_at.note 로 옮겨 보존했는지 확인"
           ]
         },
         {
@@ -1114,15 +1212,20 @@
           "verdict": "pass",
           "findings": [
             "3단계가 보수를 언제 받는가 한 가지만 찾게 해 실행이 단순하다",
-            "110초 배분: 표지 표시 30초 · 전제 찾기 40초 · 짝짓기 20초 · 선지 대조 20초"
+            "110초 배분: 표지 표시 30초 · 전제 찾기 40초 · 짝짓기 20초 · 선지 대조 20초",
+            "다시 쓴 why_correct 가 앞 근거와 뒤 근거를 모두 인용해, 지문을 아직 안 읽은 학생도 두 자리를 직접 찾아 맞춰 볼 수 있다"
           ],
           "checked": [
             "절차 5단계 실행 가능성",
             "금지 표현 문자열 검색",
-            "required_vocab 이 판정 문장에 쓰이는지 — compensated·settlement 는 Therefore 전제 대조에 직접 쓰인다"
+            "required_vocab 이 판정 문장에 쓰이는지 — compensated·settlement 는 Therefore 전제 대조에 직접 쓰인다",
+            "학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "순환논법 표현 대조",
+            "인용한 어구가 지문에 실제로 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2309#36",

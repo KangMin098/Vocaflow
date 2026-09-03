@@ -319,7 +319,15 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "이 선지는 (C)-(B)-(A) 이고 이음매 둘이 다 걸린다. (C) 첫 문장 'But one may ask why audiences would find such movies enjoyable' 이 지문의 유일한 물음이고, (B) 첫 문장 'The simple answer to this question' 의 this question 이 그것을 받는다. 그리고 (B) 마지막 'They also tell stories that, in the end, we find satisfying.' 가 이야기를 예고하고, (A)의 'The bad guys are usually punished; the romantic couple almost always find each other' 가 그 이야기의 관습을 나열한 각론이다."
+          "why_correct": "이 선지는 (C)-(B)-(A) 이고 이음매 셋이 다 잠긴다. ① (C) 첫 문장 'But one may ask why audiences would find such movies enjoyable if all they do is give cultural directives and prescriptions for proper living' 의 such movies 가 주어진 글의 'support the dominant culture and to serve as a means for its reproduction over time' 을 받는다. ② (B) 첫머리 'The simple answer to this question' 의 this question 이 받을 물음은 (C)의 그 물음뿐이고 지문에 다른 물음이 없다. ③ (B) 마지막 'They also tell stories that, in the end, we find satisfying' 이 stories 를 예고하고, (A) 첫 문장 'The bad guys are usually punished; the romantic couple almost always find each other' 가 연결어 없이 그 이야기의 관습을 나열한다. 게다가 (A) 마지막 'it is this utopian aspect of movies that accounts for why we enjoy them so much' 가 (C)의 물음 'why audiences would find such movies enjoyable' 에 답을 달아 글을 닫으므로 (A)가 끝이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4,
+              5,
+              6
+            ],
+            "note": "(A)의 The bad guys 는 정관사이지만 앞에 선행사가 없어 지시 사슬만으로는 자리가 안 정해진다 — (A)를 끝으로 미는 것은 마지막 문장이 (C)의 물음에 답한다는 사실이다"
+          }
         }
       ],
       "solve_procedure": [
@@ -366,14 +374,18 @@
           "findings": [
             "인용이 (B) 첫 문장 그대로다",
             "이 유형의 근거가 블록 경계(질문-답)에 있다는 유형 성질과 맞는다",
-            "'The simple answer to this question' 의 this question 이 받을 물음이 (C) 첫 문장 하나뿐이라는 것을 지문 전체에서 물음표·ask 검색으로 확인했다"
+            "'The simple answer to this question' 의 this question 이 받을 물음이 (C) 첫 문장 하나뿐이라는 것을 지문 전체에서 물음표·ask 검색으로 확인했다",
+            "setter revise — why_correct 가 방향만 요약하고 지문 표현을 지목하지 않아 대응이 낱말 단위로 확인되지 않았다. 앞쪽 근거와 뒤쪽 근거를 모두 인용해 다시 썼고, 같은 자로 재검수해 pass 로 확정했다"
           ],
           "checked": [
             "quote 를 corpus.json 2020#36 passage 와 문자열 대조",
             "정답 5가 평가원 정답표와 같은지 대조",
             "design_intent 가 유형 일반론이 아니라 이 문항의 반문-답-예시 구조를 말하는지 확인",
             "why_correct 의 영어 조각 4개를 corpus.json 2020#36 passage 와 문자열 대조",
-            "지문 안에 물음 문장이 (C) 말고 또 있는지 ask/why 검색"
+            "지문 안에 물음 문장이 (C) 말고 또 있는지 ask/why 검색",
+            "다시 쓴 why_correct 안의 영어 어구를 corpus.json 해당 문항의 passage 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 서술을 같은 자로 재검수"
           ]
         },
         {
@@ -382,14 +394,18 @@
           "findings": [
             "②와 ③이 모두 (B) 첫 블록이지만, ②는 선행사 부재 ③은 선행사 후치라는 다른 오독 경로다",
             "④는 첫 블록을 맞히고도 틀리는 유형의 대표 미끼라 별도 라벨을 유지했다",
-            "두 이음매 (C)→(B)·(B)→(A) 가 각각 독립 근거라 셋 중 하나만 맞아도 되는 서술이 아니다"
+            "두 이음매 (C)→(B)·(B)→(A) 가 각각 독립 근거라 셋 중 하나만 맞아도 되는 서술이 아니다",
+            "다시 쓴 why_correct 가 「나머지가 틀렸으므로」에 기대지 않고 정답 자리 자체의 근거(앞·뒤 양쪽)로 서 있음을 확인했다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "why_tempting 이 각 배열의 실제 첫 블록에 근거하는지",
             "how_to_reject 에 (A)(B)(C) 위치가 적혔는지",
             "why_correct 에 소거법 표현이 없는지 확인",
-            "선지 ⑤의 배열 문자열이 (C)-(B)-(A) 임을 선지 텍스트로 확인"
+            "선지 ⑤의 배열 문자열이 (C)-(B)-(A) 임을 선지 텍스트로 확인",
+            "why_correct 가 소거법에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드가 남아 있지 않은지 확인",
+            "기존 관찰을 confirmed_at.note 로 옮겨 보존했는지 확인"
           ]
         },
         {
@@ -398,16 +414,21 @@
           "findings": [
             "1단계 ‘물음표가 있는지 본다’ 는 지문을 안 본 학생이 바로 실행할 수 있다",
             "required_vocab 에서 utopian·didactic 은 판정에 직접 쓰이지는 않지만 (A)(C)의 오독을 막는 데 필요해 남겼다",
-            "'물음을 찾고 그 답을 찾는다' 는 한 줄이라 지문을 안 본 학생도 바로 실행한다"
+            "'물음을 찾고 그 답을 찾는다' 는 한 줄이라 지문을 안 본 학생도 바로 실행한다",
+            "다시 쓴 why_correct 가 앞 근거와 뒤 근거를 모두 인용해, 지문을 아직 안 읽은 학생도 두 자리를 직접 찾아 맞춰 볼 수 있다"
           ],
           "checked": [
             "금지 표현 대조",
             "required_vocab 4낱말이 지문에 실제로 있는지 문자열 확인",
             "5단계 총 소요가 100초 안인지 확인",
-            "인용 위치가 (C) 첫 · (B) 첫 · (B) 마지막 · (A) 첫으로 모두 덩어리 경계인지 확인"
+            "인용 위치가 (C) 첫 · (B) 첫 · (B) 마지막 · (A) 첫으로 모두 덩어리 경계인지 확인",
+            "학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "순환논법 표현 대조",
+            "인용한 어구가 지문에 실제로 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2020#37",
