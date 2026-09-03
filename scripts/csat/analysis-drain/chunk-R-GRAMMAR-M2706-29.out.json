@@ -8,7 +8,9 @@
       "measured_ability": "밑줄 앞에 선행사가 될 명사가 있는지를 확인해 관계사(what/which/that)를 가려내고, 나머지 밑줄은 be+p.p.·목적의 to부정사·분사구문 주어 일치·소유격 대명사로 각각 다른 항목을 재는 능력",
       "design_intent": "다섯 밑줄 중 넷을 '형태는 낯설지만 규칙상 옳은' 것으로 깔아 두고(부사가 끼어 갈라진 수동태, 문두 과거분사구문, 목적의 to부정사), 정작 오류는 선행사가 바로 앞에 놓인 자리에 what을 얹어 놓았다. 밑줄 근처 두세 낱말만 보는 학생은 what 앞의 styles를 선행사로 세지 않는다.",
       "answer_locus": {
-        "sentence_index": [3],
+        "sentence_index": [
+          3
+        ],
         "quote": "fashion began moving toward styles ② what were more elaborate and form-fitting",
         "reasoning": "what은 선행사를 따로 갖지 못하는 관계대명사인데, 밑줄 바로 왼쪽에 명사 styles가 놓여 있다. 게다가 what 뒤 절은 were의 주어가 비어 있어 주격 관계대명사 자리다 — 선행사 있음 + 주어 결손이 겹치므로 which 또는 that 이어야 한다."
       },
@@ -23,9 +25,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "관계사 선택",
-          "why_tempting": "what 뒤가 'were more elaborate and form-fitting' 으로 보어까지 갖춰 완결돼 보여, what을 '~한 것' 으로 옮기면 뜻이 통하는 것처럼 읽힌다.",
-          "how_to_reject": "밑줄 바로 왼쪽 낱말이 styles(명사)다. 선행사가 있는 자리에는 what을 쓸 수 없고, what 뒤 절은 were의 주어가 비어 있으므로 which/that 으로 바꿔야 한다."
+          "why_correct": "what 뒤가 'were more elaborate and form-fitting' 으로 보어까지 갖춰 완결돼 보여, what을 '~한 것' 으로 옮기면 뜻이 통하는 것처럼 읽힌다."
         },
         {
           "n": 3,
@@ -79,7 +79,12 @@
           "나머지 넷이 부사 삽입 수동태·문두 분사구문 등 형태만 낯설고 규칙은 표준"
         ]
       },
-      "required_vocab": ["elaborate", "form-fitting", "enact", "pronounced"],
+      "required_vocab": [
+        "elaborate",
+        "form-fitting",
+        "enact",
+        "pronounced"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -128,7 +133,9 @@
       "measured_ability": "긴 명사구 주어 뒤에서 그 절의 정동사가 실제로 존재하는지 세어, being 같은 준동사가 본동사 자리를 차지하고 있는 것을 잡아내는 능력",
       "design_intent": "주어 명사구를 tools, foraging techniques, ecological knowledge, and social arrangements 로 네 겹 늘이고 뒤에 used by any group of foragers 라는 분사구까지 붙여, 정동사가 나올 자리를 스무 낱말 넘게 미룬다. 학생이 주어 끝에 다다랐을 때는 이미 동사를 하나 읽었다고 착각하게 만드는 설계다.",
       "answer_locus": {
-        "sentence_index": [3],
+        "sentence_index": [
+          3
+        ],
         "quote": "social arrangements used by any group of foragers ② being far too complex for any individual to create",
         "reasoning": "이 문장에는 접속사도 관계사도 없는데 정동사가 하나도 없다. The package ... 가 주어이고 used by ... 는 그 주어를 뒤에서 꾸미는 분사구이므로, being 자리에 단수 정동사 was/is 가 와야 문장이 성립한다."
       },
@@ -143,9 +150,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "정동사 자리 결손",
-          "why_tempting": "앞의 used by any group of foragers 를 정동사(과거시제 used)로 잘못 읽으면 이미 동사가 나온 것처럼 보여, being 이 분사구문으로 이어지는 것이 자연스럽게 느껴진다.",
-          "how_to_reject": "used 앞뒤에 조동사·be동사가 없고 by 행위자구가 붙어 있으므로 used 는 과거분사 후치수식이다. 그러면 The package ... 로 시작한 이 문장에 정동사가 남지 않으므로 being → was/is 여야 한다."
+          "why_correct": "앞의 used by any group of foragers 를 정동사(과거시제 used)로 잘못 읽으면 이미 동사가 나온 것처럼 보여, being 이 분사구문으로 이어지는 것이 자연스럽게 느껴진다."
         },
         {
           "n": 3,
@@ -200,7 +205,13 @@
           "⑤가 pools of information 형태라 수일치 오답 유인이 겹친다"
         ]
       },
-      "required_vocab": ["forager", "adaptive", "arrangement", "inventive", "exceed"],
+      "required_vocab": [
+        "forager",
+        "adaptive",
+        "arrangement",
+        "inventive",
+        "exceed"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -248,7 +259,9 @@
       "measured_ability": "관계사 뒤 절에 빠진 성분이 있는지를 세어, 완전한 절 앞에 놓인 which 가 틀렸음을 판정하는 능력",
       "design_intent": "‘blended honey’ 라는 인용부호 명사 바로 뒤에 콤마+which 를 붙여, 계속적 용법의 관계대명사처럼 보이게 했다. 뒤 절 honeys ... are blended together 는 주어·목적어가 모두 차 있어 which 가 들어갈 빈자리가 없는데, 콤마 뒤 which 를 '그런데 그것은' 으로 옮겨 읽으면 뜻이 통해 버린다.",
       "answer_locus": {
-        "sentence_index": [4],
+        "sentence_index": [
+          4
+        ],
         "quote": "Natural honey can also be called ‘blended honey’, ② which honeys from various sources are blended together",
         "reasoning": "which 뒤 절은 주어 honeys from various sources 와 수동태 정동사 are blended 가 모두 갖춰진 완전한 절이다. 관계대명사 which 는 뒤 절에서 주어나 목적어 자리를 비워야 하므로 여기서는 쓸 수 없고, in which(= where) 여야 한다."
       },
@@ -263,9 +276,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "관계사 선택",
-          "why_tempting": "콤마 뒤 which 라 계속적 용법으로 보이고, 뒤에 '여러 출처의 꿀이 섞인다' 는 설명이 이어져 의미가 매끄럽게 연결된다.",
-          "how_to_reject": "which 뒤 절에서 빠진 성분을 센다 — 주어 honeys 도 있고 are blended 도 있어 빈자리가 없다. 빈자리가 없으면 관계대명사가 아니라 in which/where 자리다."
+          "why_correct": "콤마 뒤 which 라 계속적 용법으로 보이고, 뒤에 '여러 출처의 꿀이 섞인다' 는 설명이 이어져 의미가 매끄럽게 연결된다."
         },
         {
           "n": 3,
@@ -320,7 +331,13 @@
           "③ 형용사 보어가 too 와 붙어 부사처럼 읽힌다"
         ]
       },
-      "required_vocab": ["additives", "undiluted", "blended", "palatable", "uniform"],
+      "required_vocab": [
+        "additives",
+        "undiluted",
+        "blended",
+        "palatable",
+        "uniform"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -369,7 +386,9 @@
       "measured_ability": "가목적어 it 뒤 for+목적어 다음에 오는 진목적어가 to부정사여야 함을 알고, 원형동사가 놓인 자리를 잡아내는 능력",
       "design_intent": "make it easier for us 까지가 한 덩어리로 굳어 있어 학생이 그 뒤를 '동사가 올 자리' 로 느끼도록 만든 문항이다. help/let/make 의 사역·지각동사 원형부정사 규칙과 가목적어 구문을 뒤섞어, 원형 perceive 를 그럴듯하게 만든다.",
       "answer_locus": {
-        "sentence_index": [6],
+        "sentence_index": [
+          6
+        ],
         "quote": "Such closeness and familiarity make it easier for us ③ perceive the imaginary story to be a real one.",
         "reasoning": "make 의 목적어 자리에 가목적어 it 이 있고 easier 가 목적격보어다. it 이 받는 진목적어가 뒤에 와야 하는데 그 자리에 원형 perceive 가 놓였다 — for us 는 to부정사의 의미상 주어이므로 to perceive 가 되어야 한다. make + 목적어 + 원형부정사는 목적어가 명사(us)일 때 성립하는데, 여기서는 목적어가 이미 it 으로 채워져 있다."
       },
@@ -391,9 +410,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "정동사·준동사 자리 혼동",
-          "why_tempting": "앞에 make 가 있어 사역동사 + 원형부정사(make us perceive)로 읽히고, for us 의 us 를 make 의 목적어로 잘못 잡으면 원형이 옳아 보인다.",
-          "how_to_reject": "make 뒤 목적어 자리를 본다 — 이미 it 이 채우고 있고 easier 가 보어다. it 은 가목적어이므로 뒤에 진목적어 to부정사가 와야 하고, for us 는 그 to부정사의 의미상 주어다. 따라서 to perceive."
+          "why_correct": "앞에 make 가 있어 사역동사 + 원형부정사(make us perceive)로 읽히고, for us 의 us 를 make 의 목적어로 잘못 잡으면 원형이 옳아 보인다."
         },
         {
           "n": 4,
@@ -441,7 +458,13 @@
           "④⑤가 모두 과거분사라 그쪽에 시간을 뺏긴다"
         ]
       },
-      "required_vocab": ["intensity", "induced", "fictional", "imaginary", "citizenry"],
+      "required_vocab": [
+        "intensity",
+        "induced",
+        "fictional",
+        "imaginary",
+        "citizenry"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -490,7 +513,9 @@
       "measured_ability": "주어와 동사 사이에 낀 분사구를 걷어 내고 실제 주어의 수를 세어 동사 수일치를 판정하는 능력",
       "design_intent": "as 절 안에서 주어 patients 뒤에 recovering from a brain injury affecting the motor system 이라는 분사구를 두 겹으로 붙여, 동사 바로 왼쪽에 단수 명사 the motor system 이 오도록 배치했다. 밑줄 근처 명사만 보는 학생을 정확히 걸러 내는 배치다.",
       "answer_locus": {
-        "sentence_index": [4],
+        "sentence_index": [
+          4
+        ],
         "quote": "as patients recovering from a brain injury affecting the motor system ② knows",
         "reasoning": "as 절의 주어는 patients(복수)이고, recovering ... 과 affecting ... 은 각각 patients 와 a brain injury 를 꾸미는 분사구다. 분사구를 걷어 내면 as patients ... know 로 남으므로 단수형 knows 는 성립하지 않는다."
       },
@@ -505,9 +530,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "수일치 유인",
-          "why_tempting": "밑줄 바로 왼쪽 낱말이 단수 the motor system 이라 knows 가 자연스럽게 읽힌다.",
-          "how_to_reject": "as 뒤 첫 명사까지 거슬러 올라간다 — patients(복수)가 주어이고, recovering·affecting 은 모두 -ing 분사이므로 정동사가 아니다. 분사구를 지우면 as patients know 가 남는다."
+          "why_correct": "밑줄 바로 왼쪽 낱말이 단수 the motor system 이라 knows 가 자연스럽게 읽힌다."
         },
         {
           "n": 3,
@@ -562,7 +585,13 @@
           "④가 It-that 강조구문이라 수일치 판단이 한 번 더 필요하다"
         ]
       },
-      "required_vocab": ["contracted", "tiresome", "autopilot", "crude", "awareness"],
+      "required_vocab": [
+        "contracted",
+        "tiresome",
+        "autopilot",
+        "crude",
+        "awareness"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -610,7 +639,9 @@
       "measured_ability": "관계사 뒤에 명사가 붙었다는 이유로 소유격 whose 를 고르지 않고, 뒤 절에 동사만 있고 주어가 빈 것을 세어 주격 관계대명사 자리임을 판정하는 능력",
       "design_intent": "앞의 네 밑줄을 모두 '분사·부사·수동태·병렬' 처럼 형태만 확인하면 끝나는 것으로 채워 두고, 마지막 밑줄에서만 관계사를 묻는다. whose 뒤에 result 라는 명사로도 동사로도 읽히는 낱말을 놓아, 소유격 관계대명사 규칙(whose + 명사)이 충족된 것처럼 보이게 했다.",
       "answer_locus": {
-        "sentence_index": [6],
+        "sentence_index": [
+          6
+        ],
         "quote": "showing all the crime, evil, and mise ⑤ whose result from overpopulation and unplanned growth",
         "reasoning": "whose 는 소유격 관계대명사라 뒤에 '명사 + 그 명사를 주어로 하는 정동사' 가 이어져야 하는데, 여기서는 result 뒤에 동사가 없고 result from(~에서 비롯되다)이라는 자동사구가 곧바로 전치사를 받는다. 선행사 the crime, evil, and mise(ry) 를 주어로 받는 주격 관계대명사 which/that 이어야 한다."
       },
@@ -646,9 +677,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "관계사 선택",
-          "why_tempting": "whose 뒤에 result 라는 명사가 붙어 '소유격 관계대명사 + 명사' 형태가 갖춰진 것처럼 보이고, '그 결과' 로 옮기면 뜻도 통하는 듯하다.",
-          "how_to_reject": "whose 뒤 절에서 정동사를 찾는다 — result 다음에 오는 것이 전치사 from 뿐이라 정동사가 없다. 즉 result 는 명사가 아니라 동사이고, 그 주어가 비어 있으므로 주격 관계대명사 which/that 자리다."
+          "why_correct": "whose 뒤에 result 라는 명사가 붙어 '소유격 관계대명사 + 명사' 형태가 갖춰진 것처럼 보이고, '그 결과' 로 옮기면 뜻도 통하는 듯하다."
         }
       ],
       "solve_procedure": [
@@ -682,7 +711,13 @@
           "지문 끝 misery 가 mise 로 잘려 있어 선행사 파악이 더 어렵다"
         ]
       },
-      "required_vocab": ["enterprising", "humble", "overcrowded", "conscious", "overpopulation"],
+      "required_vocab": [
+        "enterprising",
+        "humble",
+        "overcrowded",
+        "conscious",
+        "overpopulation"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -731,7 +766,9 @@
       "measured_ability": "행위의 주체와 대상을 문장 안 다른 문장과 대조해 태(능동·수동)를 판정하는 능력 — 능동으로 읽어도 뜻이 통하는 자리에서 태 오류를 잡아내는 힘",
       "design_intent": "cued recall tests(단서를 주는 회상 시험)의 정의를 학생이 모른다는 것을 전제로, students give hints 를 능동으로 놓았다. 앞 문장의 free recall tests 정의(without prompting)와 대조해야만 학생이 단서를 '주는' 쪽이 아니라 '받는' 쪽임이 드러난다.",
       "answer_locus": {
-        "sentence_index": [3],
+        "sentence_index": [
+          3
+        ],
         "quote": "cued recall tests, in which students ② give hints about what they need to remember",
         "reasoning": "바로 앞에 놓인 free recall tests 의 정의가 students need to recall ... without prompting 이고, cued 는 그 반대(단서가 주어짐)다. 시험에서 힌트를 주는 주체는 시험이지 학생이 아니므로 students are given hints 로 수동이어야 한다."
       },
@@ -746,9 +783,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "태 판별",
-          "why_tempting": "students 가 주어이고 give 가 능동이라 문법 형태 자체는 흠이 없어 보인다 — 태 오류는 형태가 아니라 의미 관계로만 드러난다.",
-          "how_to_reject": "같은 문장 앞부분 free recall tests, in which students need to recall as much as they can remember without prompting 과 대조한다. cued 는 prompting 이 있는 쪽이므로 학생은 힌트를 받는 대상이다 → are given hints."
+          "why_correct": "students 가 주어이고 give 가 능동이라 문법 형태 자체는 흠이 없어 보인다 — 태 오류는 형태가 아니라 의미 관계로만 드러난다."
         },
         {
           "n": 3,
@@ -803,7 +838,13 @@
           "⑤ barrier to + 동명사가 to부정사와 헷갈린다"
         ]
       },
-      "required_vocab": ["retrieval", "prompting", "cued", "recognition", "barrier"],
+      "required_vocab": [
+        "retrieval",
+        "prompting",
+        "cued",
+        "recognition",
+        "barrier"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -852,7 +893,9 @@
       "measured_ability": "관계사 뒤 절이 완전한지 세어, 전치사가 빠진 관계대명사를 잡아내는 능력",
       "design_intent": "have difficulty 라는 숙어를 match gestures 와 붙여 놓아, '어려움을 겪는 몸짓' 이라는 뜻이 which 만으로도 통하는 것처럼 보이게 했다. 나머지 넷은 강조의 do, 대명사 those, 5형식 to be 등 형태로 확인되는 항목이라 시간이 덜 든다.",
       "answer_locus": {
-        "sentence_index": [4],
+        "sentence_index": [
+          4
+        ],
         "quote": "They will even try to match gestures ② which they have some difficulty",
         "reasoning": "which 뒤 절은 주어 they, 동사 have, 목적어 some difficulty 가 모두 차 있어 관계대명사가 들어갈 빈자리가 없다. 원래 문장은 they have some difficulty with the gestures 이므로 with which(또는 that ... with)여야 한다."
       },
@@ -867,9 +910,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "관계사 선택",
-          "why_tempting": "선행사 gestures 가 바로 앞에 있고 which 로 이으면 '어려움을 겪는 몸짓' 으로 뜻이 통해 보인다.",
-          "how_to_reject": "which 뒤 절의 성분을 센다 — they(주어) have(동사) some difficulty(목적어)로 빈자리가 없다. 선행사를 되돌려 넣으면 have difficulty with the gestures 이므로 전치사 with 가 필요하다."
+          "why_correct": "선행사 gestures 가 바로 앞에 있고 which 로 이으면 '어려움을 겪는 몸짓' 으로 뜻이 통해 보인다."
         },
         {
           "n": 3,
@@ -924,7 +965,13 @@
           "④ those of others 가 대명사 함정으로 시선을 뺏는다"
         ]
       },
-      "required_vocab": ["disposition", "protrusions", "kinaesthetically", "innate", "gestures"],
+      "required_vocab": [
+        "disposition",
+        "protrusions",
+        "kinaesthetically",
+        "innate",
+        "gestures"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -1004,7 +1051,13 @@
           "밑줄 다섯 중 셋이 동사 형태(원형·-ing·to부정사)라 형태만으로는 안 갈린다"
         ]
       },
-      "required_vocab": ["physiology", "welcoming", "quickening", "willingness", "tension"],
+      "required_vocab": [
+        "physiology",
+        "welcoming",
+        "quickening",
+        "willingness",
+        "tension"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -1085,7 +1138,13 @@
           "밑줄 다섯이 서로 다른 항목(대명사·부정사·준동사 자리·관계사·분사)이라 형태 분류만으로 절반이 걸러진다"
         ]
       },
-      "required_vocab": ["adversaries", "attributes", "fulfill", "likelihood", "internal"],
+      "required_vocab": [
+        "adversaries",
+        "attributes",
+        "fulfill",
+        "likelihood",
+        "internal"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -1135,7 +1194,9 @@
       "measured_ability": "동사의 목적어가 그 절의 주어와 같은 사람인지 확인해 재귀대명사 자리를 판정하는 능력",
       "design_intent": "how people present them to the world 에서 them 을 앞 문장의 Clothes 로 받으면 뜻이 통하도록 배치했다. 그러나 present 의 주체는 people 이고 세상에 내보이는 대상도 people 자신이므로, 대명사가 가리킬 후보를 둘 만들어 놓고 주어와의 동일성만으로 갈리게 한 설계다.",
       "answer_locus": {
-        "sentence_index": [4],
+        "sentence_index": [
+          4
+        ],
         "quote": "Clothes are part of how people present ② them to the world",
         "reasoning": "present 의 주어가 people 이고, 이어지는 절 fashion locates them in the present 가 '사람들을 현재에 위치시킨다' 로 people 을 가리키므로 present 의 목적어도 people 자신이다. 목적어가 주어와 같은 사람이면 재귀대명사 themselves 여야 한다."
       },
@@ -1150,9 +1211,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "대명사 지시·수·격",
-          "why_tempting": "바로 앞 문장 주어가 Clothes 라 them 이 옷을 가리키는 것으로 읽히고, '사람들이 옷을 세상에 내보인다' 로도 뜻이 통한다.",
-          "how_to_reject": "them 이 든 절의 주어를 본다 — how people present 의 주어는 people 이다. 이어지는 fashion locates them in the present 의 them 도 사람을 가리키므로, present 의 목적어는 주어와 같은 사람이고 재귀대명사 themselves 여야 한다."
+          "why_correct": "바로 앞 문장 주어가 Clothes 라 them 이 옷을 가리키는 것으로 읽히고, '사람들이 옷을 세상에 내보인다' 로도 뜻이 통한다."
         },
         {
           "n": 3,
@@ -1207,7 +1266,13 @@
           "④가 be동사와 분사 사이라 형용사·부사 판단에 시간이 든다"
         ]
       },
-      "required_vocab": ["costumery", "ambiguities", "agency", "stature", "constitutes"],
+      "required_vocab": [
+        "costumery",
+        "ambiguities",
+        "agency",
+        "stature",
+        "constitutes"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -1286,7 +1351,13 @@
           "문두 동사형과 or 뒤 동사형이 둘 다 형태 판정을 요구한다"
         ]
       },
-      "required_vocab": ["identifiable", "alternatives", "competence", "conduct", "dilemmas"],
+      "required_vocab": [
+        "identifiable",
+        "alternatives",
+        "competence",
+        "conduct",
+        "dilemmas"
+      ],
       "revised": true,
       "reviews": [
         {

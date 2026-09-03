@@ -1,1197 +1,1336 @@
 {
- "chunk": 3,
- "type_id": "R-INSERT",
- "type_name": "문장 삽입",
- "analyses": [
-  {
-   "item_id": "M2306#38",
-   "answer_unknown": true,
-   "measured_ability": "주어진 문장 앞머리의 추가 표지 Also 가 더할 대상(= 새 살충제 개발을 막는 또 하나의 사정)이 본문 어디에 이미 있는지와, 결론 표지 Consequently 가 근거로 삼는 진술이 몇 개인지를 세어 자리를 좁히는 능력",
-   "design_intent": "주어진 문장이 '개발이 어려워졌다' 는 부정적 사정을 하나 더 얹는 형태여서, 소재(살충제)만 보면 다섯 자리가 전부 어울린다. 실제 구분은 표지 두 개에만 걸려 있다 — 문두 Also 가 요구하는 '앞에 이미 있는 같은 종류의 어려움' 과, 본문 끝 Consequently 가 결론으로 삼는 근거의 개수다. 1960년대 → 그 이후라는 시간 축을 함께 깔아 두어 시간 순서만으로는 결정되지 않게 만들었다.",
-   "solve_procedure": [
-    {
-     "step": "상자 안 주어진 문장에서 앞을 가리키는 말에 표시한다 — 문두의 Also 와, 정관사 없이 처음 나오는 명사구 new pesticides. Also 는 '앞에 같은 종류의 진술이 하나 더 있어야 한다' 는 조건을 만든다",
-     "on_fail": "표지가 안 보이면 술어(has become difficult to develop)만 적고, 같은 종류의 부정적 진술이 본문에 있는지만 찾는다"
-    },
-    {
-     "step": "①~⑤ 각 번호의 바로 앞 문장만 읽어, 그 문장이 '새 살충제 개발을 어렵게 하는 사정' 인지 O/X 로 적는다 (비용·승인 절차·부작용 중 어느 쪽인지도 한 낱말로 적는다)",
-     "on_fail": "O 가 하나도 없으면 조건을 넓혀 '살충제의 부정적 측면' 까지 O 로 센다"
-    },
-    {
-     "step": "이번엔 각 번호의 바로 뒤 문장 첫 다섯 낱말만 읽어, 앞을 요구하는 표지(Since that time · Consequently)가 붙은 문장을 표시한다",
-     "on_fail": "표지가 여럿이면 결론 표지 Consequently 가 붙은 문장부터 처리한다"
-    },
-    {
-     "step": "2단계에서 O 이고 3단계 표지가 바로 뒤에 오는 자리를 후보로 남긴다. 후보가 둘이면 Also 가 이어받을 앞 사정이 주어진 문장과 같은 종류(기업 쪽 사정인지, 생태 피해 쪽인지)인지로 가른다",
-     "on_fail": "종류가 안 갈리면 주어진 문장을 뺐을 때 Consequently 문장의 근거가 하나로 줄어드는 자리를 고른다"
-    },
-    {
-     "step": "고른 자리에 넣고 앞뒤 두 문장만 이어 읽어, 시제(과거 In the 1960s → 현재완료 it has become)가 뒤로만 흐르는지 확인한다",
-     "on_fail": "시제가 거꾸로 가면 남은 후보 자리로 옮겨 같은 확인을 되풀이한다"
-    }
-   ],
-   "time_budget_sec": 100,
-   "difficulty": {
-    "predicted": 0.55,
-    "drivers": [
-     "소재 낱말(pesticides · pests)이 다섯 자리 모두에 반복돼 어휘 단서가 무력하다",
-     "결정 표지가 주어진 문장의 Also 와 본문의 Consequently 둘뿐이고, 그중 Also 는 문두라 놓치기 쉽다",
-     "예상값은 실측 정답률이 아니라 위 구조 특징에서 매긴 것이다 — 이 회차는 평가원 정답표가 없어 통계를 쓸 수 없다"
-    ]
-   },
-   "required_vocab": ["pesticide", "cultivar", "persistent", "negate", "approval"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "answer_locus·choices 를 넣지 않은 것이 이 회차 조건(정답표 없음)과 맞다",
-      "design_intent 가 특정 번호를 지목하지 않고 '어떤 표지 두 개가 자리를 결정하게 설계되었는가' 만 말한다 — 문장 단위로 확인했다"
-     ],
-     "checked": [
-      "answer_locus·choices 필드 부재 확인",
-      "design_intent·measured_ability 에 ①~⑤ 번호가 등장하는지 문자열 대조",
-      "R-INSERT 유형 정의(주어진 문장이 들어갈 위치)와 서술 대조"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "초안 required_vocab 에 yield 가 있었으나 지문에는 yields 로만 나오고 자리 판정에 쓰이지 않아 approval 로 교체했다",
-      "difficulty.predicted 근거가 drivers 에 구조 특징으로 명시돼 있고 '실측 아님' 이 박혀 있다"
-     ],
-     "checked": [
-      "required_vocab 5개를 corpus 의 M2306#38 passage 문자열과 대조 — pesticide·cultivar·persistent·negate·approval 모두 존재",
-      "answer_locus·choices 부재 재확인",
-      "measured_ability 가 선지 번호를 전제하지 않는지 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "초안 절차가 6단계였고 4단계에서 다섯 자리를 모두 대입하게 해 100초를 넘겼다 — 앞 문장만/뒤 문장 앞머리만 읽는 두 단계로 줄여 5단계로 만들었다",
-      "1~3단계가 지문을 통독하지 않고도 실행되는 표시 작업이다"
-     ],
-     "checked": [
-      "각 단계를 지문 미독 상태에서 모의 실행",
-      "순환논법 금지어 8종 문자열 대조",
-      "단계별 소요 추정 합(15+25+20+25+15 = 100)이 time_budget_sec 이내인지"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "M2306#39",
-   "answer_unknown": true,
-   "body_recovered": true,
-   "measured_ability": "주어진 문장 This makes sense from the perspective of information reliability 의 This 가 받을 '관찰된 결과' 문장과, 그 평가 뒤에 이어져야 할 '왜 한 마리로는 못 믿는가' 설명 사이의 한 칸을 지목하는 능력",
-   "design_intent": "다섯 자리 뒤 문장이 모두 '한 마리가 떠날 때 대 여러 마리가 떠날 때' 라는 같은 소재를 말하도록 배치돼 있어 소재로는 자리가 갈리지 않는다. 문항이 요구하는 것은 makes sense 라는 평가가 성립하려면 앞에 평가 대상(연구 결과)이 있어야 한다는 조건과, 신뢰도라는 낱말이 들어온 뒤에는 신뢰도를 푸는 설명이 따라야 한다는 조건의 교차다.",
-   "solve_procedure": [
-    {
-     "step": "상자 문장에서 앞을 가리키는 말에 동그라미 — This 와 makes sense. 이 둘은 '바로 앞에 평가할 대상(관찰·연구 결과)이 하나 있어야 한다' 는 조건이다",
-     "on_fail": "지시어가 없으면 핵심 명사구(information reliability)를 적고, 그 개념이 본문에서 처음 필요해지는 문장을 찾는다"
-    },
-    {
-     "step": "①~⑤ 앞 문장만 훑어 연구·관찰 결과를 진술한 문장에 O 를 친다 (Studies on ~ support the view that ~ 같은 형태)",
-     "on_fail": "O 가 둘 이상이면 각 O 문장이 '왜 그런가' 라는 물음을 남기는지로 줄인다"
-    },
-    {
-     "step": "①~⑤ 뒤 문장만 훑어 '한 마리가 떠나는 경우' 인지 '여러 마리가 떠나는 경우' 인지 1 / N 으로 표시한다. 신뢰도 설명은 1 과 N 을 견주는 자리에서만 성립한다",
-     "on_fail": "표시가 안 되는 문장은 건너뛰고 표시된 것끼리만 견준다"
-    },
-    {
-     "step": "2단계 O 바로 뒤이면서 3단계 표시가 1 로 시작하는 자리를 후보로 남기고, 주어진 문장을 넣었을 때 뒤 문장이 '한 마리만으로는 근거가 약한 이유' 를 대는지 확인한다",
-     "on_fail": "후보가 없으면 O 조건을 '앞 문장이 결과를 담은 곳' 까지 넓혀 다시 잡는다"
-    },
-    {
-     "step": "고른 자리 앞뒤 두 문장만 이어 읽어 This 가 앞을 가리키고 뒤 문장이 새 근거를 더하는 방향인지 확인한다",
-     "on_fail": "뒤 문장이 주어진 문장과 같은 말을 되풀이하면 남은 후보로 옮긴다"
-    }
-   ],
-   "time_budget_sec": 115,
-   "difficulty": {
-    "predicted": 0.5,
-    "drivers": [
-     "주어진 문장이 여섯 낱말짜리 평가문이라 내용 단서가 거의 없고, 판단이 This 하나에 걸린다",
-     "본문 네 문장이 모두 '떠남(departure)' 을 말해 낱말 겹침으로는 자리가 갈리지 않는다",
-     "예상값은 실측 정답률이 아니라 구조 특징(지시어 1개 · 동일 소재 반복)에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
-    ]
-   },
-   "required_vocab": ["cue", "predator", "vigilant", "departure", "flushing"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "코퍼스에 저장된 M2306#39 본문은 이 문항이 아니다 — 38번(살충제) 지문과 40번(mobilities) 요약 지문이 2단 병합된 것이고, 39번의 상자 문장과 ①~⑤ 는 앞 쪽에 있어 통째로 빠져 있다. columns2/M2306.txt 798행 앞(7쪽 오른쪽 단)에서 원문을 복원해 분석했다: 상자 문장 'This makes sense from the perspective of information reliability.' + collective detection(dark-eyed juncos) 지문",
-      "복원 후 서술이 R-INSERT 정의와 맞고, 특정 번호를 지목하지 않는다"
-     ],
-     "checked": [
-      "코퍼스 M2306#39 passage 에 juncos·predator 문자열이 있는지 대조 — 없음(오배정 확인)",
-      "columns2/M2306.txt 에서 39번 원문 위치 확인 후 상자 문장·①~⑤ 대조",
-      "design_intent 에 ①~⑤ 번호가 없는지 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "초안 required_vocab 을 저장 본문(살충제)과 대조해 전부 불일치가 났다 — 본문 오배정 때문이며, 복원 원문으로 재대조해 다섯 낱말 모두 확인했다",
-      "answer_locus·choices 가 비어 있고 추정 정답이 서술에 스며들지 않았다"
-     ],
-     "checked": [
-      "required_vocab 5개를 columns2/M2306.txt 의 39번 문단 문자열과 대조 — cue(cue(s)) · predator · vigilant(nonvigilant) · departure · flushing 모두 존재",
-      "answer_locus·choices 부재 확인",
-      "difficulty.predicted 근거가 drivers 에 적혀 있는지"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "2·3단계가 앞 문장/뒤 문장만 훑는 표시 작업이라 지문 미독 상태에서 실행된다",
-      "3점 문항이므로 115초를 배정했고 단계별 추정 합이 그 안에 든다"
-     ],
-     "checked": [
-      "각 단계 모의 실행",
-      "순환논법 금지어 8종 문자열 대조",
-      "단계 소요 추정 합(15+25+25+30+20 = 115) 대조"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2022#38",
-   "measured_ability": "주어진 문장이 새로 세우는 정보(재교육과 새 자리)가, 본문 마지막 문장의 정관사구 the replaced human workers · positions 에 어떻게 되받아지는지를 확인해 자리를 정하는 능력",
-   "design_intent": "①~⑤ 뒤 문장이 전부 '두려움을 덜어 줄 조치' 여서 내용만으로는 다섯 자리가 모두 어울린다. 실제 결정은 마지막 문장이 노동자와 자리를 이미 아는 것처럼 정관사로 부르는데 그 선행 표현이 본문에 없다는 한 가지 사실에서 난다 — 곧 어휘 반복이 아니라 정관사구의 선행어를 보게 만든 문항이다.",
-   "answer_locus": {
-    "sentence_index": [6],
-    "quote": "robots are particularly good at highly repetitive simple motions, the replaced human workers should be moved to positions",
-    "reasoning": "본문 마지막 문장은 '교체된 노동자들(the replaced human workers)' 과 '자리(positions)' 를 이미 도입된 것처럼 정관사로 부른다. 그런데 앞의 다섯 문장 어디에도 노동자를 다른 자리로 옮긴다는 말이 없다. 주어진 문장의 Retraining current employees for new positions within the company 가 바로 그 선행 표현이며, 문두 also 는 앞에 이미 제시된 조치들(새 공장에만 도입 · 계획 참여 · 노사 공동 계획)을 필요로 하므로 자리는 그 조치들이 모두 나온 뒤가 된다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "표면 어휘 반복",
-     "why_tempting": "① 앞 문장이 creates worry and fear 로 끝나고 주어진 문장이 fear of being laid off 로 끝나 fear 가 맞물린다. 두려움 이야기가 이어지니 여기라고 느낀다",
-     "how_to_reject": "① 뒤 문장 It is the responsibility of management to prevent or, at least, to ease these fears 의 these fears 는 바로 앞 문장의 worry and fear 를 받는다. 사이를 벌리면 these 가 주어진 문장의 fear 하나만 가리키게 된다. 게다가 주어진 문장의 also 가 더할 앞선 조치가 ① 앞에는 하나도 없다"
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "일반-예시 인접 절단",
-     "why_tempting": "① 뒤 문장이 '경영진의 책임' 이라는 일반론이라, 그 뒤에 구체 조치인 주어진 문장을 붙이고 싶어진다",
-     "how_to_reject": "② 뒤 문장은 For example, robots could be introduced only in new plants 로 시작한다. For example 은 바로 앞의 일반 진술(경영진이 두려움을 덜 책임이 있다)의 예여야 하므로 그 둘 사이를 벌릴 수 없다"
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "연쇄 고리 절단",
-     "why_tempting": "② 뒤와 ③ 뒤가 모두 조치를 늘어놓는 자리여서 조치 하나를 더 끼워도 읽힌다",
-     "how_to_reject": "② 뒤 문장의 new plants 와 ③ 뒤 문장의 new factories or the introduction of robots into existing plants 는 '새 공장 대 기존 공장' 이라는 같은 대비를 이어받는 짝이다. 사이에 재교육 문장을 넣으면 그 짝이 끊기고, 마지막 문장의 the replaced human workers 는 여전히 받을 말이 없다"
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "가짜 화제 전환",
-     "why_tempting": "④ 뒤 문장이 It may be that robots are needed to reduce manufacturing costs 로 화제를 비용으로 바꾸는 듯해, 그 앞이 단절처럼 보인다",
-     "how_to_reject": "④ 뒤 문장은 but planning for such cost reductions should be done jointly by labor and management 로 끝나 ③ 뒤 문장의 planning ~ participate in the process 를 그대로 이어받는다. 계획 참여라는 고리가 ③ 뒤 → ④ 뒤로 이어져 있어 그 사이는 단절이 아니다"
-    },
-    {
-     "n": 5,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": null,
-     "how_to_reject": null
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "상자 문장에서 정관사 없이 처음 나오는 명사구에 밑줄 — Retraining current employees · new positions. 그리고 문두 부사(also)에 동그라미. 밑줄은 '뒤에서 정관사로 되받아질 것', 동그라미는 '앞에 같은 종류가 이미 있어야 할 것' 을 뜻한다",
-     "on_fail": "밑줄 칠 명사구가 없으면 문장의 술어(reduce their fear)를 적고 같은 취지의 문장이 본문 몇 개인지 센다"
-    },
-    {
-     "step": "본문 마지막 문장부터 거꾸로 읽으며 the + 명사, 대명사에 동그라미 치고, 그 말이 받을 대상이 앞에 있는지 O/X 로 적는다",
-     "on_fail": "마지막 문장에 정관사구가 없으면 ⑤ 뒤 → ④ 뒤 순으로 같은 작업을 계속한다"
-    },
-    {
-     "step": "X 가 난 정관사구가 1단계 밑줄과 같은 것을 가리키는지 확인한다. 같으면 그 정관사구가 든 문장 바로 앞 번호가 후보다",
-     "on_fail": "X 가 여럿이면 밑줄과 낱말이 겹치는 쪽(positions / employees)을 먼저 본다"
-    },
-    {
-     "step": "후보 자리 앞에 also 가 이어받을 조치가 실제로 몇 개 있는지 센다. 하나도 없으면 그 자리를 버린다",
-     "on_fail": "조치가 있는 자리가 둘 이상이면, 각 번호 뒤 문장의 For example · but 같은 짝 표지를 확인해 짝을 떼는 자리를 버린다"
-    },
-    {
-     "step": "고른 자리에 넣고 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어, 정관사구가 모두 앞을 가리키는지 확인한다",
-     "on_fail": "여전히 받을 말이 없는 정관사구가 남으면 남은 후보로 옮긴다"
-    }
-   ],
-   "time_budget_sec": 95,
-   "difficulty": {
-    "predicted": 0.6,
-    "drivers": [
-     "다섯 자리 뒤 문장이 모두 같은 종류(조치)라 내용 비교가 무력하다",
-     "결정 근거가 마지막 문장의 정관사구라 앞에서부터 읽으면 늦게 만난다",
-     "2점 문항이고 정관사구 선행어 부재가 비교적 뚜렷하다"
-    ]
-   },
-   "required_vocab": ["retraining", "laid off", "assembly line", "jointly", "repetitive"],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 저장 지문에서 2단 병합을 피해 이어져 있는 구간이다 — 문자 대조로 확인했다",
-      "정답 ⑤ 가 평가원 정답표와 일치한다",
-      "관찰: 이 문항의 결정 근거가 문단 마지막 문장에 있어, '뒤에서부터 정관사구를 훑는다' 는 절차가 유형 일반 절차로 승격될 만하다"
-     ],
-     "checked": [
-      "answer_locus.quote 를 corpus 2022#38 의 passage·choices 문자열과 대조 (정규화 후 포함 확인)",
-      "correct 선지 번호 5 와 코퍼스 answer 5 대조",
-      "R-INSERT 유형 정의와 design_intent 대조"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "오답 4개의 함정이 서로 다른 축이다 — ① 낱말 겹침, ② 예시 짝 절단, ③ 대비 짝 절단, ④ 화제가 바뀌는 듯한 착시",
-      "네 개 모두 how_to_reject 에 본문 위치(① 뒤 문장 · ② 뒤 문장 · ③ 뒤 문장 · ④ 뒤 문장)를 명시했다"
-     ],
-     "checked": [
-      "trap 라벨 4종 중복 여부",
-      "why_tempting 이 각 자리의 실제 문장 표현(these fears · For example · new plants · cost reductions)에 근거하는지 대조",
-      "how_to_reject 마다 배제 근거 위치가 적혀 있는지"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "2단계 '마지막 문장부터 거꾸로' 가 이 유형에서 시간을 가장 많이 아끼는 동작이다",
-      "5단계 검증이 세 문장으로 한정돼 95초 안에 끝난다"
-     ],
-     "checked": [
-      "각 단계를 지문 미독 상태에서 모의 실행",
-      "순환논법 금지어 8종 문자열 대조",
-      "required_vocab 5개가 자리 판정에 실제로 쓰이는지 확인 — retraining·laid off 는 상자 문장, repetitive·jointly 는 ④⑤ 판정에 쓰인다"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2022#39",
-   "measured_ability": "본문의 지시 표현 such an illusion 이 받을 대상이 앞에 없다는 것을 알아채고, 그 빈자리를 주어진 문장이 규정하는 '환상을 현실의 재현으로 착각함' 으로 메우는 능력",
-   "design_intent": "무성 흑백 영화 · 유성 · 색채가 다섯 자리 전체에 흩어져 있어 소재로는 자리가 갈리지 않는다. 출제자는 결정 근거를 딱 하나 심어 두었다 — such an illusion 이라는 지시구다. 이 표현은 illusion 이 무엇인지 먼저 규정된 뒤에만 쓸 수 있는데 본문에는 그 규정이 없다. 나머지 자리는 This is why · these innovations · what's worse 처럼 앞 문장과 짝을 이룬 표지로 막아 두었다.",
-   "answer_locus": {
-    "sentence_index": [5],
-    "quote": "such an illusion, thereby destroying the very essence of film",
-    "reasoning": "이 문장은 sound and color 가 '바로 그런 착각(just such an illusion)' 을 만들 뻔했다고 말한다. such 는 앞에서 그 착각이 규정된 뒤에만 쓸 수 있는 지시어인데, 앞의 네 문장은 유성·색채가 불필요했다는 평가와 환상적 차원에서 멀어진다는 결과만 말할 뿐 '환상을 현실의 재현으로 여긴다' 는 착각 자체를 규정하지 않는다. 주어진 문장의 one could not take filmic fantasies for representations of reality 가 그 규정이고, As long as ~ predominated(무성 흑백이 지배하는 동안에는 아니었다)를 But 이 뒤집는 대비도 맞물린다. 참고: 저장된 지문은 2단 병합 탓에 이 문장이 'But sound and color threatened to create just' 와 'such an illusion, ...' 로 끊겨 있어 이어져 있는 뒷조각을 인용했다.",
-    "note": "인용은 저장 지문에서 문자 그대로 이어져 있는 구간만 잘랐다"
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "지시 연결 절단",
-     "why_tempting": "① 앞 문장과 주어진 문장이 모두 reality 와 fantasy 를 맞세워 한 묶음처럼 읽힌다",
-     "how_to_reject": "① 뒤 문장은 This is why 로 시작해 앞 문장 전체를 이유로 받는다. 사이에 다른 문장이 끼면 This 가 주어진 문장(무성 흑백 시절 이야기)을 가리키게 되어 '그래서 이론가들이 유성 도입을 비난했다' 는 인과가 성립하지 않는다"
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "선행 명사구 분리",
-     "why_tempting": "① 뒤 문장이 sound and other technical innovations 를 처음 꺼내므로, 무성 시대가 끝나는 이야기를 바로 이어 붙이고 싶어진다",
-     "how_to_reject": "② 뒤 문장의 these innovations 는 ① 뒤 문장의 sound and other technical innovations (such as color) 를 받는다. 주어진 문장에는 innovations 에 해당하는 명사가 없어 these 의 선행어가 될 수 없고, 둘 사이를 벌리면 선행어가 한 문장 더 멀어진다"
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "점층 사슬 절단",
-     "why_tempting": "③ 뒤 문장이 And what's worse 로 새 항목을 더하는 자리라 그 앞에 한 문장 끼워도 읽힌다",
-     "how_to_reject": "what's worse 는 바로 앞의 부정 평가(these innovations were completely unnecessary)보다 더 나쁜 것을 얹는 표현이고 they 도 그 innovations 를 받는다. 주어진 문장은 부정 평가가 아니라 무성 흑백 시절의 조건을 말하므로 이 점층 사슬 사이에 들어갈 수 없다"
-    },
-    {
-     "n": 4,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": null,
-     "how_to_reject": null
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "어휘 공명 유인",
-     "why_tempting": "⑤ 뒤 인용문의 reality and the medium of representation do not coincide 가 주어진 문장의 take filmic fantasies for representations of reality 와 낱말이 겹쳐 짝처럼 들린다",
-     "how_to_reject": "⑤ 에 두면 ④ 뒤 문장의 such an illusion 이 받을 말이 앞에 끝내 없다. 또 Arnheim 인용은 앞 문장의 destroying the very essence of film art 를 권위로 되받는 마무리라 그 사이가 비어 있지 않다"
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "상자 문장에서 시간·조건 표지에 동그라미 — As long as ~ predominated. 이 표지는 '그 시기가 끝났다' 는 반전이 뒤따라야 함을 뜻하므로, 본문에서 But/However 로 시작하는 문장을 먼저 찾게 한다",
-     "on_fail": "조건 표지가 없으면 문장이 부정하는 것(one could not ~)을 적고, 그것을 뒤집는 문장을 본문에서 찾는다"
-    },
-    {
-     "step": "본문 다섯 자리 뒤 문장의 첫 대여섯 낱말만 읽어 지시 표현에 동그라미 친다 — This is why · these innovations · what's worse ~ they · just such an illusion · As ~ puts it",
-     "on_fail": "지시 표현이 없는 문장은 그대로 두고, 있는 것만 다음 단계로 넘긴다"
-    },
-    {
-     "step": "동그라미마다 '받을 대상이 바로 앞 문장에 있는가' 를 O/X 로 적는다. 명사를 받는 지시어(these · such)는 같은 명사가 앞에 실제로 있어야 O 다",
-     "on_fail": "전부 O 로 보이면 such/just such 처럼 '앞에서 규정된 것' 을 요구하는 지시어만 다시 본다"
-    },
-    {
-     "step": "X 가 난 자리 앞에 주어진 문장을 넣고 두 방향을 확인한다 — (가) 주어진 문장의 조건 표지가 앞 문장과 충돌하지 않는가 (나) X 였던 지시어가 이제 주어진 문장을 받는가",
-     "on_fail": "한쪽만 맞으면 인접한 자리에서 같은 두 검사를 되풀이한다"
-    },
-    {
-     "step": "나머지 네 자리에서 짝 표지(This is why · these · what's worse)를 떼는 자리가 없는지 한 번만 확인한다",
-     "on_fail": "짝을 떼는 자리가 정답 후보로 남아 있으면 그 자리를 버리고 다시 4단계로 간다"
-    }
-   ],
-   "time_budget_sec": 120,
-   "difficulty": {
-    "predicted": 0.42,
-    "drivers": [
-     "결정 지시어가 such an illusion 하나뿐이고 illusion 이 본문에 한 번도 안 나와 눈에 덜 띈다",
-     "3점 문항이며 decry · fantasmatic 등 주석 낱말이 두 개 붙어 읽는 속도가 떨어진다",
-     "①②③ 자리에 짝 표지가 촘촘해 오답이 고르게 흩어진다"
-    ]
-   },
-   "required_vocab": ["irrealism", "predominate", "fantasmatic", "illusion", "coincide"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "초안 인용이 'But sound and color threatened to create just such an illusion' 이었는데 저장 지문에서는 2단 병합으로 두 조각이 다른 단 문장에 의해 끊겨 있어 문자 대조에 실패했다 — 이어져 있는 'such an illusion, thereby destroying the very essence of film' 로 교체하고 reasoning 에 사정을 적었다",
-      "정답 ④ 가 평가원 정답표와 일치한다"
-     ],
-     "checked": [
-      "교체한 quote 를 corpus 2022#39 의 passage·choices 와 정규화 문자열 대조 (포함 확인)",
-      "correct 선지 번호 4 와 코퍼스 answer 4 대조",
-      "design_intent 가 유형 일반론이 아니라 이 문항의 such an illusion 하나를 지목하는지"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "오답 함정 4종이 서로 다르다 — 문장 전체를 받는 지시(①), 명사구를 받는 지시(②), 점층 사슬(③), 낱말 공명(⑤)",
-      "⑤ 의 how_to_reject 가 '④ 뒤 문장의 such an illusion' 이라는 위치를 명시한다"
-     ],
-     "checked": [
-      "trap 라벨 중복 여부",
-      "why_tempting 이 각 자리 실제 표현(This is why · these innovations · what's worse · Arnheim 인용)에 근거하는지",
-      "required_vocab 5개를 corpus 2022#39 passage 문자열과 대조 — irrealism·predominated·fantasmatic·illusion·coincide 모두 존재"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "2단계에서 각 자리 '첫 대여섯 낱말만' 으로 제한한 것이 3점 지문에서도 시간을 지키게 한다",
-      "1단계가 상자 문장만 보고 실행되므로 지문 미독 상태에서 시작할 수 있다"
-     ],
-     "checked": [
-      "각 단계 모의 실행",
-      "순환논법 금지어 8종 문자열 대조",
-      "단계 소요 추정 합(15+30+25+30+20 = 120)이 time_budget_sec 이내인지"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "M2209#38",
-   "answer_unknown": true,
-   "measured_ability": "주어진 문장이 새로 세우는 정보(구조 요소와 성질의 관계를 최근에야 이해하게 됨)가, 본문의 지시구 This knowledge 와 대명사 them 에 되받아지는 자리를 찾아내는 능력",
-   "design_intent": "본문이 '초기 인류 → 시간이 흐르며 → 게다가 → 이 시점에는 → 이 지식은' 순으로 시간 표지를 촘촘히 깔아 두어, 주어진 문장의 relatively recent times 를 시간 순서만으로 끼우려 하면 두세 자리가 모두 그럴듯해진다. 실제 결정은 시간이 아니라 지시 표현 — This knowledge 와 them 이 받을 말이 본문에 있는지 여부다.",
-   "solve_procedure": [
-    {
-     "step": "상자 문장에서 처음 등장하는 정보에 밑줄 — the relationships between the structural elements of materials and their properties. 삽입 문장이 새 정보를 세우면, 그 정보를 정관사·지시어로 되받는 문장이 본문에 있다",
-     "on_fail": "새 정보를 못 고르면 주어(scientists)와 목적어(relationships)를 적고, 본문에서 이 둘을 대명사·정관사로 부르는 문장을 찾는다"
-    },
-    {
-     "step": "①~⑤ 뒤 문장의 첫 다섯 낱말만 읽어 This/These/정관사구/대명사로 시작하거나 그것을 포함한 문장을 표시한다",
-     "on_fail": "표시가 없으면 문장 안쪽의 them·they 까지 범위를 넓힌다"
-    },
-    {
-     "step": "표시된 문장마다 '그 지시구가 받을 말이 바로 앞 문장에 있는가' 를 O/X 로 적는다. X 자리가 본문이 끊긴 자리다",
-     "on_fail": "전부 O 면 지시구가 두 문장 앞을 가리키는 곳을 X 로 다시 센다"
-    },
-    {
-     "step": "X 자리에 주어진 문장을 넣고 두 가지를 확인한다 — 그 지시구가 이제 주어진 문장을 받는가, 그리고 주어진 문장의 시간 표지가 앞 문장의 시간 표지보다 뒤인가",
-     "on_fail": "한쪽만 맞으면 인접 자리에서 같은 두 검사를 되풀이한다"
-    },
-    {
-     "step": "고른 자리에서 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어 주어가 재료에서 사람으로 바뀌는 지점이 어색하지 않은지 본다",
-     "on_fail": "주어가 튀면 남은 후보로 바꾼다"
-    }
-   ],
-   "time_budget_sec": 100,
-   "difficulty": {
-    "predicted": 0.58,
-    "drivers": [
-     "시간 표지가 다섯 개나 깔려 있어 순서 감각만으로 고르면 두 자리가 남는다",
-     "결정 지시구 This knowledge 가 본문 뒤쪽에 있어 앞에서부터 읽으면 늦게 만난다",
-     "예상값은 실측 정답률이 아니라 구조 특징에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
-    ]
-   },
-   "required_vocab": ["properties", "superior", "altered", "utilization", "empowered"],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "저장 본문이 2단 병합이지만 이 문항(재료 지문)의 상자 문장과 ①~⑤ 가 모두 들어 있어 복원이 필요 없었다",
-      "design_intent 가 번호를 지목하지 않고 '시간 표지로는 안 갈리고 지시구로 갈린다' 는 설계만 말한다"
-     ],
-     "checked": [
-      "corpus M2209#38 passage 에 상자 문장과 ①~⑤ 가 모두 있는지 대조",
-      "answer_locus·choices 부재 확인",
-      "measured_ability·design_intent 에 ①~⑤ 번호가 없는지 문자열 대조"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "difficulty.predicted 근거가 drivers 에 명시되고 실측이 아님이 적혀 있다",
-      "추정 정답이 서술에 스며들지 않았다 — '이 지식은' 이 어느 번호 뒤 문장인지 적지 않았다"
-     ],
-     "checked": [
-      "required_vocab 5개를 corpus M2209#38 passage 문자열과 대조 — properties·superior·altered·utilization·empowered 모두 존재",
-      "answer_locus·choices 부재 재확인",
-      "measured_ability 가 선지 번호를 전제하지 않는지"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "1단계가 상자 문장만으로 실행되고, 2단계가 '첫 다섯 낱말' 로 제한돼 통독을 요구하지 않는다",
-      "단계 수 5, 추정 소요 100초로 배정 시간과 맞는다"
-     ],
-     "checked": [
-      "각 단계 모의 실행",
-      "순환논법 금지어 8종 문자열 대조",
-      "단계 소요 추정 합(15+25+20+25+15 = 100) 대조"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "M2209#39",
-   "answer_unknown": true,
-   "measured_ability": "개인(Personal stories)과 더 큰 것(larger narratives)을 잇는 주어진 문장이, 본문의 '개인 취향 → 부족적 집단' 전환 중 어느 이음매에 필요한지를 지시구 These consumer communities 의 선행어 유무로 판정하는 능력",
-   "design_intent": "본문이 대량생산 → 소비자 세분화 → 개인 취향 → 실은 겹친다 → 초국가 공동체로 한 방향으로만 흘러, 개인과 집단을 동시에 말하는 주어진 문장은 어느 이음매에도 얹힐 것처럼 보인다. 결정은 마지막 문장이 These consumer communities 라고 정관사+복수로 부르는 대상이 앞에서 언제 처음 세워지는지에 달려 있다.",
-   "solve_procedure": [
-    {
-     "step": "상자 문장을 두 조각으로 나눠 적는다 — 개인 쪽(Personal stories)과 집단 쪽(larger narratives, new identities). 삽입 문장이 두 축을 잇는 형태면 본문에서 두 축이 처음 만나는 이음매가 후보다",
-     "on_fail": "두 조각으로 안 나뉘면 결과어(new identities)만 적고 그 말이 필요한 문장을 찾는다"
-    },
-    {
-     "step": "①~⑤ 뒤 문장 앞머리만 읽어 각 문장을 개(개인) 또는 집(집단)으로 표시한다",
-     "on_fail": "표시가 애매하면 주어가 단수 개인(Everybody)인지 복수 집단(formations · communities)인지로 정한다"
-    },
-    {
-     "step": "표시가 개 → 집 으로 바뀌는 이음매를 후보로 남긴다. 보통 한두 곳뿐이다",
-     "on_fail": "바뀌는 곳이 없으면 각 문장의 지시구(These · this)가 받을 말이 앞에 있는지로 후보를 다시 잡는다"
-    },
-    {
-     "step": "후보마다 마지막 문장의 These consumer communities 가 받을 표현이 이미 앞에 있는지 확인하고, 주어진 문장을 넣어야 비로소 그 표현이 생기는 자리인지 본다",
-     "on_fail": "두 자리 모두 성립하면 주어진 문장을 뺐을 때 뜻이 끊기는 쪽을 남긴다"
-    },
-    {
-     "step": "고른 자리 앞뒤 두 문장만 이어 읽어, 개인 취향 이야기가 끝나기 전에 집단 이야기가 먼저 나오지 않는지 확인한다",
-     "on_fail": "순서가 뒤집히면 남은 후보로 옮긴다"
-    }
-   ],
-   "time_budget_sec": 115,
-   "difficulty": {
-    "predicted": 0.45,
-    "drivers": [
-     "주어진 문장이 추상 명사 세 개(stories · narratives · identities)로만 되어 있어 본문 낱말과 겹치는 것이 없다",
-     "본문 뒤쪽 두 문장이 모두 집단 쪽이라 개 → 집 전환 이음매가 하나로 좁혀지지 않는다",
-     "3점 배점 문항이며, 예상값은 실측 정답률이 아니라 위 구조 특징에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
-    ]
-   },
-   "required_vocab": ["fragmentation", "segments", "inclinations", "solidifying", "sensibilities"],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "청크 파일에 실린 M2209#39 본문은 재료(materials) 지문이었으나, 현재 코퍼스의 본문은 이 문항의 실제 지문(소비자 세분화)이다 — columns2/M2209.txt 7쪽 오른쪽 단과 대조해 코퍼스 쪽이 맞음을 확인하고 그것으로 분석했다",
-      "design_intent 가 번호를 지목하지 않는다"
-     ],
-     "checked": [
-      "corpus M2209#39 passage 와 columns2/M2209.txt 39번 문단 대조 (상자 문장 Personal stories ~ new identities 일치)",
-      "answer_locus·choices 부재 확인",
-      "R-INSERT 유형 정의와 서술 대조"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "difficulty.predicted 에 배점(3점)과 구조 근거가 함께 적혀 있고 실측이 아님이 명시됐다",
-      "추정 정답이 스며들지 않았다 — '어느 번호 뒤에서 집단으로 바뀐다' 를 적지 않았다"
-     ],
-     "checked": [
-      "required_vocab 5개를 corpus M2209#39 passage 문자열과 대조 — fragmentation·segments·inclinations·solidifying·sensibilities 모두 존재",
-      "answer_locus·choices 부재 재확인",
-      "measured_ability 가 선지 번호를 전제하지 않는지"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "2단계의 개/집 두 글자 표시가 학습자가 실제로 손으로 할 수 있는 동작이다",
-      "추상 명사가 많은 지문이라 115초를 배정했고 단계 합이 그 안에 든다"
-     ],
-     "checked": [
-      "각 단계 모의 실행",
-      "순환논법 금지어 8종 문자열 대조",
-      "단계 소요 추정 합(20+25+20+30+20 = 115) 대조"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "M2206#38",
-   "answer_unknown": true,
-   "measured_ability": "주어진 문장의 however 가 뒤집을 앞 진술(상사가 평가하는 것이 마땅한 이유)과, 뒤쪽 표현 they cannot observe · this dilemma 가 받을 대상이 동시에 성립하는 한 자리를 찾는 능력",
-   "design_intent": "다섯 자리 뒤 문장이 모두 평가 주체 이야기라 소재로는 갈리지 않는다. 출제자는 '관찰 불가' 라는 문제 진술이 있어야만 말이 되는 표현 두 개(performance dimensions they cannot observe · To eliminate this dilemma)를 뒤쪽에 심어 두고, 그 표현들이 어느 지점부터 말이 되는지를 묻는다. 주어진 문장 자체에도 however 가 있어 앞쪽으로도 조건이 걸린다 — 앞뒤 양방향을 모두 만족하는 자리는 하나뿐이다.",
-   "solve_procedure": [
-    {
-     "step": "상자 문장에서 역접 표지(however)에 동그라미, 문제를 규정하는 술어(are not able to observe)에 밑줄. 동그라미는 앞 조건, 밑줄은 뒤 조건이다",
-     "on_fail": "역접 표지가 없으면 문장이 부정하는 것만 적고 뒤 조건부터 처리한다"
-    },
-    {
-     "step": "①~⑤ 뒤 문장에서 '관찰' 을 전제하는 표현(cannot observe · this dilemma · opportunity to observe)에 표시한다. 표시된 문장 중 가장 앞의 것이 뒤 조건의 하한이다",
-     "on_fail": "표시가 없으면 대명사·지시어(this · these)를 포함한 문장을 대신 표시한다"
-    },
-    {
-     "step": "하한보다 앞쪽 자리들에 대해, 각 자리 앞 문장이 '상사가 평가하는 것이 마땅하다' 는 취지인지 확인한다. 그런 문장 바로 뒤가 however 의 짝이 될 수 있는 자리다",
-     "on_fail": "그런 문장이 둘이면 뒤 조건의 하한에 더 가까운 쪽을 남긴다"
-    },
-    {
-     "step": "남은 자리에 주어진 문장을 넣고, 그 자리 뒤 문장의 this dilemma·they cannot observe 가 이제 받을 말을 얻는지 확인한다",
-     "on_fail": "얻지 못하면 한 칸 앞뒤로 옮겨 같은 확인을 되풀이한다"
-    },
-    {
-     "step": "고른 자리 앞뒤 두 문장만 이어 읽어 문제 제기 → 물음 → 해결 순서가 뒤로만 흐르는지 본다",
-     "on_fail": "해결이 문제보다 앞서면 남은 후보로 옮긴다"
-    }
-   ],
-   "time_budget_sec": 95,
-   "difficulty": {
-    "predicted": 0.62,
-    "drivers": [
-     "this dilemma 라는 지시구가 있어 뒤 조건의 하한이 비교적 뚜렷하다",
-     "다만 주어진 문장의 however 가 문장 안쪽(A problem, however, is ~)에 있어 역접 표지를 놓치기 쉽다",
-     "예상값은 실측 정답률이 아니라 구조 특징에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
-    ]
-   },
-   "required_vocab": ["supervisor", "subordinate", "dimension", "dilemma", "evaluate"],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "저장 본문이 온전하다(2단 병합 없음) — 상자 문장과 ①~⑤ 가 모두 있다",
-      "design_intent 가 '앞뒤 양방향 조건' 이라는 이 문항 고유의 설계를 말하고 번호를 지목하지 않는다"
-     ],
-     "checked": [
-      "corpus M2206#38 passage 에 상자 문장과 ①~⑤ 존재 확인",
-      "answer_locus·choices 부재 확인",
-      "design_intent 에 번호가 없는지 문자열 대조"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "difficulty 근거가 표지 위치(문장 안쪽 however)라는 구조 사실로 적혀 있다",
-      "서술 어디에도 추정 자리가 없다"
-     ],
-     "checked": [
-      "required_vocab 5개를 corpus M2206#38 passage 문자열과 대조 — supervisor·subordinates·dimensions·dilemma·evaluates 모두 존재",
-      "answer_locus·choices 부재 재확인",
-      "measured_ability 가 선지 번호를 전제하지 않는지"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "2단계의 '하한 정하기' 가 후보를 앞쪽 두세 자리로 줄여 시간을 아낀다",
-      "짧은 지문이라 95초로 배정했고 단계 합이 그 안에 든다"
-     ],
-     "checked": [
-      "각 단계 모의 실행",
-      "순환논법 금지어 8종 문자열 대조",
-      "단계 소요 추정 합(15+25+20+20+15 = 95) 대조"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "M2206#39",
-   "answer_unknown": true,
-   "measured_ability": "This is particularly true 가 참이라고 할 앞 진술과, 본문 끝의 this potential price 가 받을 '대가' 진술이 동시에 성립하는 한 칸을 찾는 능력",
-   "design_intent": "잠의 이득(대사 절감 · 포식자 회피)과 대가(반응성 저하)를 같은 낱말 밭 안에서 오가게 써 두어, 주어진 문장이 이득 쪽 문장에도 대가 쪽 문장에도 붙는 것처럼 보인다. 결정은 마지막 문장이 this potential price 라고 정관사+지시어로 부르는 '대가' 가 본문에서 한 번도 명시되지 않았다는 사실과, This is particularly true 가 요구하는 바로 앞의 참 진술, 두 조건이 겹치는 곳에 있다.",
-   "solve_procedure": [
-    {
-     "step": "상자 문장을 두 부분으로 쪼갠다 — 앞부분 This is particularly true(앞에 참이라 할 진술이 있어야 함)와 뒷부분 decreased responsiveness to the environment(뒤에서 대가로 불릴 수 있는 내용)",
-     "on_fail": "쪼개지지 않으면 문장에서 손해를 뜻하는 낱말(decreased)만 적고 뒤 조건부터 처리한다"
-    },
-    {
-     "step": "본문 마지막 문장에서 정관사·지시 표현에 동그라미 치고(this potential price), 그것이 받을 '대가' 진술이 앞에 있는지 O/X 로 적는다",
-     "on_fail": "마지막 문장에 지시 표현이 없으면 ⑤ 뒤 → ④ 뒤 순으로 같은 작업을 계속한다"
-    },
-    {
-     "step": "X 라면 그 대가를 처음 말하는 문장이 본문에 없다는 뜻이므로, 주어진 문장이 그 자리보다 앞의 어느 번호에 들어가야 한다. 후보를 그 앞 번호들로 한정한다",
-     "on_fail": "O 로 보이면 그 '대가' 가 실제로 손해인지(이득이 아닌지) 다시 확인한다"
-    },
-    {
-     "step": "후보마다 바로 앞 문장이 '특히 그렇다' 고 받을 만한 단정 진술인지 확인한다 — 예시 문장(for instance ~)이나 물음이면 받을 수 없다",
-     "on_fail": "둘 이상 남으면 주어진 문장 뒤에 오는 문장이 On the other hand 처럼 방향을 바꾸는지로 가른다"
-    },
-    {
-     "step": "고른 자리에서 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어, 이득 쪽 진술과 대가 쪽 진술이 뒤섞이지 않는지 확인한다",
-     "on_fail": "뒤섞이면 남은 후보로 옮긴다"
-    }
-   ],
-   "time_budget_sec": 115,
-   "difficulty": {
-    "predicted": 0.45,
-    "drivers": [
-     "주어진 문장이 이득과 대가 어느 쪽으로도 읽혀 앞 조건이 두 자리에서 동시에 성립하는 것처럼 보인다",
-     "결정 지시구 this potential price 가 본문 맨 끝에 있어 앞에서부터 읽으면 늦게 만난다",
-     "3점 배점이며 예상값은 실측 정답률이 아니라 위 구조 특징에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
-    ]
-   },
-   "required_vocab": ["metabolism", "hibernation", "prey", "universality", "responsiveness"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "초안 design_intent 가 '대가가 언급되는 곳은 마지막 문장 바로 앞' 이라고 적어 자리를 사실상 지목했다 — 정답표가 없는 문항이므로 '두 조건이 겹치는 곳' 이라는 조건 서술로 바꿨다",
-      "저장 본문에 38번 지문이 앞에 붙어 있으나 39번 지문(수면)도 온전히 들어 있어 복원이 필요 없었다"
-     ],
-     "checked": [
-      "design_intent·solve_procedure 에 ①~⑤ 번호가 등장하는지 문자열 대조",
-      "corpus M2206#39 passage 에 상자 문장과 39번 ①~⑤ 존재 확인",
-      "answer_locus·choices 부재 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "difficulty 근거가 구조 사실 두 가지와 배점으로 적혀 있다",
-      "3단계 서술이 '후보를 앞쪽으로 한정한다' 까지만 말하고 특정 번호를 고르지 않는다"
-     ],
-     "checked": [
-      "required_vocab 5개를 corpus M2206#39 passage 문자열과 대조 — metabolism·hibernation·prey·universality·responsiveness 모두 존재",
-      "answer_locus·choices 부재 재확인",
-      "measured_ability 가 선지 번호를 전제하지 않는지"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "2단계 '마지막 문장부터' 가 이 문항에서 후보를 절반으로 줄인다",
-      "4단계의 '예시 문장은 받을 수 없다' 는 판정 기준이 학습자가 눈으로 확인 가능한 형태다"
-     ],
-     "checked": [
-      "각 단계 모의 실행",
-      "순환논법 금지어 8종 문자열 대조",
-      "단계 소요 추정 합(20+25+20+30+20 = 115) 대조"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2021#38",
-   "measured_ability": "본문의 nevertheless 가 요구하는 '앞선 한계 인정' 이 본문에 없다는 것을 알아채고, 그 빈자리를 주어진 문장의 양보 진술로 메우는 능력",
-   "design_intent": "bad 와 wicked 를 견주는 한 가지 화제로 여덟 문장을 채워, 어느 자리에 넣어도 뜻이 이어지는 것처럼 보이게 만들었다. 결정 근거는 딱 하나 — But there is more detail nevertheless 의 nevertheless 다. 이 부사는 바로 앞에 '그래도 부족하다' 는 인정이 있어야 성립하는데 본문에는 그 반대(더 구체적이다)만 있다. 덤으로 wickedness 라는 낱말이 wicked 도입보다 먼저 나오면 안 된다는 제약을 앞쪽 자리에 걸어 두었다.",
-   "answer_locus": {
-    "sentence_index": [6, 7],
-    "quote": "But there is more detail nevertheless, perhaps a stronger connotation of the sort of person Maddy is.",
-    "reasoning": "nevertheless 는 '앞의 한계에도 불구하고' 를 뜻하므로 바로 앞에 한계를 인정하는 문장이 있어야 한다. 그런데 앞 문장 The word 'wicked' is more specific than 'bad' 는 한계가 아니라 충분함을 말하므로 nevertheless 가 받을 대상이 아니고, 그대로 두면 같은 방향의 진술을 But 으로 뒤집는 모순이 생긴다. 주어진 문장(사악함은 여러 형태를 띠므로 아직 성격을 정확히 짚지 못했다)이 들어가야 '한계 인정 → 그럼에도 더 많은 정보' 라는 양보-반전이 성립한다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "용어 선등장",
-     "why_tempting": "주어진 문장이 '아직 성격을 정확히 짚지 못했다' 고 말하고 ① 뒤 문장도 '더 자세한 감은 얻지 못할 것' 이라고 말해 내용이 겹친다",
-     "how_to_reject": "주어진 문장은 wickedness 를 이미 아는 낱말처럼 쓰는데, wicked 는 ② 뒤 문장 In contrast, if I say that Maddy is wicked 에서 처음 도입된다. 또 ① 뒤 문장의 However 는 바로 앞 Additionally, you will probably infer ~ 가 말한 '얻는 것' 을 뒤집어야 하므로 그 둘 사이를 벌릴 수 없다"
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "대구 표현 유인",
-     "why_tempting": "① 뒤 문장이 people can be bad in many ways 로 끝나고 주어진 문장이 wickedness takes many forms 로 끝나 어구가 대구를 이룬다",
-     "how_to_reject": "② 뒤 문장은 In contrast 로 bad 와 wicked 를 맞세우므로 bad 쪽 설명(① 뒤 문장)과 붙어 있어야 대비가 선다. 여기서도 wickedness 가 wicked 도입보다 앞서게 된다"
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "양보-반전 순서 역전",
-     "why_tempting": "② 뒤 문장이 wicked 를 처음 설명한 직후라, wickedness 를 쓰는 주어진 문장이 여기서는 놓일 수 있어 보인다",
-     "how_to_reject": "여기에 넣으면 '아직 정확히 짚지 못했다' 는 양보가 'wicked 가 bad 보다 구체적이다' 라는 주장보다 앞서고, 그 뒤 ④ 뒤 문장 But there is more detail nevertheless 가 바로 앞 문장(더 구체적이다)을 다시 뒤집게 되어 같은 말을 반대로 두 번 하게 된다"
-    },
-    {
-     "n": 4,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": null,
-     "how_to_reject": null
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "종결 어조 유인",
-     "why_tempting": "주어진 문장이 마무리 논평처럼 들리고 ⑤ 뒤 문장이 In addition 으로 새 항목을 더해, 그 앞에서 한 번 정리하는 것처럼 읽힌다",
-     "how_to_reject": "④ 뒤 문장 But there is more detail nevertheless 의 nevertheless 가 받을 한계 진술이 앞에 없어진다. 주어진 문장을 ⑤ 로 미루면 그 문장이 앞이 아니라 뒤에서 nevertheless 를 받치는 꼴이 되어 방향이 거꾸로다"
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "상자 문장에서 양보·한계를 뜻하는 말에 동그라미 — still not exactly pinpointed. 이런 문장은 뒤에 '그럼에도' 계열 부사(nevertheless · still · yet)를 부른다",
-     "on_fail": "양보 표현이 없으면 문장이 부정하는 것(정확히 짚지 못함)을 적고 그것을 뒤집는 문장을 본문에서 찾는다"
-    },
-    {
-     "step": "본문 ①~⑤ 뒤 문장에서 nevertheless · However · In contrast · In addition 같은 방향 표지에 동그라미 치고, 각각이 뒤집거나 더할 대상이 바로 앞 문장에 있는지 O/X 로 적는다",
-     "on_fail": "표지가 없는 문장은 건너뛰고, 표지가 두 개인 문장은 뒤쪽 표지를 기준으로 판정한다"
-    },
-    {
-     "step": "X 가 난 표지 앞자리를 후보로 남긴다. 특히 nevertheless 처럼 앞에 한계 인정이 있어야만 성립하는 표지를 먼저 본다",
-     "on_fail": "X 가 없으면 표지가 받는 대상이 방향까지 맞는지(같은 방향을 뒤집고 있지 않은지) 다시 본다"
-    },
-    {
-     "step": "상자 문장에 나온 낱말이 본문에서 언제 처음 도입되는지 확인해, 도입보다 앞선 자리를 후보에서 뺀다 — 여기서는 wickedness / wicked",
-     "on_fail": "낱말 도입 순서로 갈리지 않으면 각 후보에 넣어 보고 표지의 방향이 맞는 쪽만 남긴다"
-    },
-    {
-     "step": "고른 자리에서 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어, 인정 → 반전 → 추가 순서가 어긋나지 않는지 확인한다",
-     "on_fail": "순서가 어긋나면 남은 후보로 옮긴다"
-    }
-   ],
-   "time_budget_sec": 100,
-   "difficulty": {
-    "predicted": 0.5,
-    "drivers": [
-     "본문 문장이 거의 다 같은 형태(you get / you might not get)라 형태 비교가 안 된다",
-     "결정 표지 nevertheless 가 문장 중간에 있어 눈에 잘 안 띈다",
-     "wicked 도입 순서라는 두 번째 제약이 있어 앞쪽 자리를 지우면 후보가 빨리 준다"
-    ]
-   },
-   "required_vocab": ["pinpoint", "wickedness", "connotation", "intonation", "disapprove"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 저장 지문에 문자 그대로 있고, 정답 ④ 가 평가원 정답표와 일치한다",
-      "design_intent 가 이 문항 고유의 두 제약(nevertheless · 낱말 도입 순서)을 말한다"
-     ],
-     "checked": [
-      "answer_locus.quote 를 corpus 2021#38 passage·choices 와 정규화 문자열 대조 (포함 확인)",
-      "correct 선지 번호 4 와 코퍼스 answer 4 대조",
-      "R-INSERT 유형 정의와 서술 대조"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "초안에서 ①과 ② 의 trap 이 둘 다 '표면 어휘 유인' 으로 같았다 — ①은 wickedness 가 도입 전에 나오는 문제, ②는 many ways ↔ many forms 대구에 끌리는 문제로 서로 다른 축이라 라벨을 분리했다",
-      "네 오답 모두 how_to_reject 에 본문 위치를 적었다"
-     ],
-     "checked": [
-      "trap 라벨 4종 중복 여부 재확인",
-      "why_tempting 이 각 자리 실제 표현(many ways · In contrast · more specific · In addition)에 근거하는지",
-      "required_vocab 5개를 corpus 2021#38 passage 문자열과 대조 — pinpointed·wickedness·connotation·intonation·disapproving 모두 존재"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "4단계(낱말 도입 순서)가 이 유형에서 드물게 쓰이는 제약인데, 상자 문장 낱말 하나만 보면 되므로 실행 부담이 작다",
-      "2단계가 방향 표지만 훑게 해 통독을 요구하지 않는다"
-     ],
-     "checked": [
-      "각 단계 모의 실행",
-      "순환논법 금지어 8종 문자열 대조",
-      "단계 소요 추정 합(15+25+20+20+20 = 100) 대조"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2021#39",
-   "measured_ability": "예시 도입 표지 This means, for example 이 전제하는 진술이 앞 문장에 없다는 것을 확인하고, 그 전제를 주어진 문장의 '아이디어가 아니라 표현' 구분으로 채우는 능력",
-   "design_intent": "copyright 라는 낱말이 뒤쪽 세 문장에 반복돼, 저작권을 말하는 주어진 문장이 그 근처 어디에도 붙을 것처럼 보인다. 결정 근거는 예시 문장의 요지다 — 스마트폰 예시는 '아이디어가 같아도 침해가 아니다' 를 말하는데, 앞 문장은 '표현은 보호된다' 만 말하고 '아이디어 자체는 아니다' 를 말하지 않는다. 그 부정 쪽 진술이 빠져 있다는 것이 유일한 단서다.",
-   "answer_locus": {
-    "sentence_index": [5, 6],
-    "quote": "This means, for example, that while there are numerous smartphones all with similar functionality, this does not represent an infringement of copyright",
-    "reasoning": "This means, for example 은 바로 앞 문장을 예로 풀어 준다는 선언이다. 그런데 이 예시의 요지는 '기능(아이디어)이 같아도 침해가 아니다' 로, 아이디어 자체는 저작권 대상이 아니라는 진술을 전제한다. 바로 앞 문장은 the expression of an idea is protected by copyright 로 표현이 보호된다는 쪽만 말할 뿐 아이디어 쪽 부정을 말하지 않으므로, 그 부정을 담은 주어진 문장(copyright covers the expression of an idea and not the idea itself)이 예시 바로 앞에 있어야 This means 가 성립한다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "되받는 명사구 분리",
-     "why_tempting": "주어진 문장이 Note that 으로 시작하는 논평 형태라 어디든 끼어들 수 있어 보이고, ① 앞 문장이 '남이 만든 디자인' 을 말해 저작권이 곧바로 연상된다",
-     "how_to_reject": "① 뒤 문장의 Others' creations 는 앞 문장의 those that others have created 를 그대로 되받는 표현이다. 두 문장 사이를 벌리면 이 되받음이 끊기고, 저작권은 아직 화제로 올라오지도 않았다"
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "막연한 지시어 오배정",
-     "why_tempting": "② 뒤 문장 This is well known and understood 의 This 가 무엇이든 받을 수 있어 보여서, 그 앞에 새 진술을 넣고 싶어진다",
-     "how_to_reject": "여기에 넣으면 This 가 저작권 규칙을 받게 되는데, 이어지는 ③ 뒤 문장이 However 로 그 규칙을 다시 꺼내 같은 말을 두 번 하게 된다. This 가 받아야 할 것은 앞 문장의 '남의 창작에서 영감을 얻는다' 는 관행이다"
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "역접 대상 선점",
-     "why_tempting": "여기서 화제가 디자인 관행에서 저작권으로 실제로 바뀌므로, 저작권을 처음 꺼내는 주어진 문장이 그 전환점에 놓일 것 같다",
-     "how_to_reject": "③ 뒤 문장의 However 는 바로 앞 This is well known and understood(남의 것에서 영감을 얻는 것은 문제되지 않는다)를 뒤집는다. 주어진 문장을 먼저 넣으면 However 앞에 이미 저작권 규칙이 서 있어 뒤집을 대상이 사라진다"
-    },
-    {
-     "n": 4,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": null,
-     "how_to_reject": null
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "근거-예시 후행 배치",
-     "why_tempting": "⑤ 뒤 문장이 저작권의 성격(무료 · 저자에게 자동 귀속)을 말해, 저작권을 규정하는 주어진 문장과 한 묶음처럼 보인다",
-     "how_to_reject": "주어진 문장이 말하는 '아이디어가 아니라 표현' 이라는 구분은 ④ 뒤 스마트폰 예시가 성립하기 위한 전제다. 예시 뒤로 미루면 예시의 as the idea has been expressed in different ways 가 받을 구분 문장이 앞에 없게 된다"
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "본문에서 예시 도입 표지(for example · This means · for instance)에 동그라미 친다. 이 유형에서 예시 문장은 바로 앞 문장의 내용을 반드시 되받으므로 검증이 가장 쉬운 자리다",
-     "on_fail": "예시 표지가 없으면 방향 표지(However · But)에 동그라미 치고 같은 방식으로 진행한다"
-    },
-    {
-     "step": "동그라미 친 예시 문장의 요지를 한 줄로 적는다 — 여기서는 '기능이 같아도 침해가 아니다'. 그다음 바로 앞 문장의 요지를 한 줄로 적는다",
-     "on_fail": "요지가 한 줄로 안 적히면 예시 문장에서 부정어(not)가 붙은 부분만 적는다"
-    },
-    {
-     "step": "두 줄을 견줘 예시가 전제하는데 앞 문장에 없는 조각을 찾는다. 그 조각을 상자 문장이 담고 있으면 그 예시 문장 앞 번호가 후보다",
-     "on_fail": "빠진 조각이 없으면 다른 표지(However 등)로 옮겨 2~3단계를 되풀이한다"
-    },
-    {
-     "step": "나머지 자리에서 짝 표지를 떼지 않는지 확인한다 — 되받는 명사구(Others' creations ↔ those that others have created)와 역접(However)이 받을 대상이 그대로 남는지 본다",
-     "on_fail": "짝이 끊기는 자리가 후보로 남아 있으면 그 자리를 버린다"
-    },
-    {
-     "step": "고른 자리에 넣고 앞 문장 → 주어진 문장 → 예시 문장 셋만 이어 읽어, 규칙 → 단서 → 예시 순서가 되는지 확인한다",
-     "on_fail": "예시가 규칙보다 앞서면 남은 후보로 옮긴다"
-    }
-   ],
-   "time_budget_sec": 110,
-   "difficulty": {
-    "predicted": 0.4,
-    "drivers": [
-     "copyright 가 뒤쪽 세 문장에 반복돼 낱말 겹침이 오히려 오답 쪽을 가리킨다",
-     "결정 근거가 '예시가 전제하는데 앞 문장에 없는 조각' 이라 문장 대 문장 대조가 필요하다",
-     "3점 배점이며 infringe · prosecute 등 법률 어휘가 읽기 속도를 떨어뜨린다"
-    ]
-   },
-   "required_vocab": ["infringe", "expression", "copyrighted", "functionality", "invested"],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 저장 지문에 문자 그대로 있고 정답 ④ 가 평가원 정답표와 일치한다",
-      "관찰: 이 문항은 근거가 정답 자리 '뒤' 문장에 있다 — 이 청크의 정답표 보유 4문항이 모두 그렇다"
-     ],
-     "checked": [
-      "answer_locus.quote 를 corpus 2021#39 passage·choices 와 정규화 문자열 대조 (포함 확인)",
-      "correct 선지 번호 4 와 코퍼스 answer 4 대조",
-      "design_intent 가 유형 일반론이 아닌 이 문항의 예시 전제를 말하는지"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "오답 4종이 서로 다른 축이다 — 되받는 명사구(①), 막연한 지시어(②), 역접 대상 선점(③), 근거-예시 순서(⑤)",
-      "②와 ③ 이 모두 However 를 근거로 쓰지만 배제 이유가 다르다 — ②는 This 의 선행어, ③은 However 의 뒤집을 대상. 위치가 각각 명시돼 있어 중복으로 보지 않았다"
-     ],
-     "checked": [
-      "trap 라벨 중복 여부",
-      "why_tempting 이 각 자리 실제 표현(Others' creations · This is well known · However · Copyright is free)에 근거하는지",
-      "required_vocab 5개를 corpus 2021#39 passage 문자열과 대조 — infringe·expression·copyrighted·functionality·invested 모두 존재"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "1단계에서 예시 표지부터 잡게 한 것이 이 문항에서 가장 빠른 진입이다 — 지문 앞부분을 읽기 전에도 실행된다",
-      "2단계의 '한 줄 요지' 두 개가 학습자가 실제로 쓰는 동작이고 110초 안에 든다"
-     ],
-     "checked": [
-      "각 단계 모의 실행",
-      "순환논법 금지어 8종 문자열 대조",
-      "단계 소요 추정 합(15+30+25+25+15 = 110) 대조"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "M2109#38",
-   "answer_unknown": true,
-   "measured_ability": "주어진 문장의 this process 가 가리킬 절차 서술 문장과, 본문의 You have then solved this problem 이 전제하는 완료 시점을 각각 찾아 두 표지가 같은 칸을 지목하는지 대조하는 능력",
-   "design_intent": "회의 자료를 나눠 주는 한 장면을 다섯 문장이 나눠 서술해, 어느 자리에 넣어도 장면이 이어지는 것처럼 읽힌다. 문항이 심어 둔 결정 표지는 두 개다 — 주어진 문장 안의 this process(앞에 절차 서술이 있어야 한다)와 본문의 then(앞에 완료된 절차가 있어야 한다). 두 표지가 같은 칸을 요구하도록 배치해, 하나만 보면 옆 칸으로 밀리게 만들었다.",
-   "solve_procedure": [
-    {
-     "step": "상자 문장에서 지시 표현에 동그라미 — this process. 이 말은 '앞에 절차를 서술한 문장이 하나 있어야 한다' 는 조건이다",
-     "on_fail": "지시 표현이 없으면 문장의 결과절(you will know that you have a sufficient number)을 적고, 그 결과가 나올 수 있는 앞 조건을 찾는다"
-    },
-    {
-     "step": "①~⑤ 앞 문장 중 '어떻게 하는지' 를 서술한 문장(labelling each copy ~ with the initials ~ 처럼 동작을 담은 문장)에 O 를 친다. 그 문장 뒤가 this process 의 하한이다",
-     "on_fail": "동작 문장이 둘이면 더 구체적인 쪽(도구·대상이 명시된 쪽)을 하한으로 잡는다"
-    },
-    {
-     "step": "①~⑤ 뒤 문장에서 완료를 전제하는 표지(then · have solved)에 동그라미 치고, 그 앞에 절차와 결과가 모두 나와 있는지 O/X 로 적는다",
-     "on_fail": "완료 표지가 없으면 과거·현재완료 시제로 바뀌는 첫 문장을 대신 표시한다"
-    },
-    {
-     "step": "2단계 하한과 3단계 표지 사이에 낀 칸을 후보로 남긴다. 후보가 하나면 그것으로 확정하고, 둘이면 주어진 문장을 뺐을 때 then 이 받을 결과가 사라지는 쪽을 남긴다",
-     "on_fail": "낀 칸이 없으면 2단계의 하한을 한 칸 앞으로 물려 다시 잡는다"
-    },
-    {
-     "step": "고른 자리에서 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어, 절차 → 확인 → 완료 순서가 되는지 본다",
-     "on_fail": "순서가 어긋나면 남은 후보로 옮긴다"
-    }
-   ],
-   "time_budget_sec": 95,
-   "difficulty": {
-    "predicted": 0.6,
-    "drivers": [
-     "this process 와 then 이라는 표지가 둘 다 짧지만 조건이 명확해 표지를 찾기만 하면 후보가 빨리 준다",
-     "다만 본문 문장이 모두 you 로 시작해 형태 차이가 없고, 장면이 자연스러워 어느 칸에서도 어색함이 안 느껴진다",
-     "예상값은 실측 정답률이 아니라 위 구조 특징에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
-    ]
-   },
-   "required_vocab": ["agenda", "handout", "initials", "arithmetic", "collection"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "저장 본문이 온전하다 — 상자 문장과 ①~⑤ 가 모두 있다",
-      "design_intent 가 두 표지의 배치라는 설계 사실만 말하고 번호를 지목하지 않는다"
-     ],
-     "checked": [
-      "corpus M2109#38 passage 에 상자 문장과 ①~⑤ 존재 확인",
-      "answer_locus·choices 부재 확인",
-      "design_intent·measured_ability 에 번호가 없는지 문자열 대조"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "difficulty 근거가 표지의 명확성과 문장 형태 동일성 두 가지로 적혀 있고 실측이 아님이 명시됐다",
-      "추정 자리가 서술에 스며들지 않았다"
-     ],
-     "checked": [
-      "required_vocab 5개를 corpus M2109#38 passage 문자열과 대조 — agenda·handout·initials·arithmetic·collection 모두 존재",
-      "answer_locus·choices 부재 재확인",
-      "measured_ability 가 선지 번호를 전제하지 않는지"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "초안 1단계가 'this process 가 무엇인지 찾는다' 로 끝나 지문을 안 본 학생은 실행할 수 없었다 — '상자 문장에서 this process 에 동그라미 치고 그것이 만드는 조건을 적는다' 로 동작을 구체화했다",
-      "짧은 지문이라 95초 배정이 적정하다"
-     ],
-     "checked": [
-      "각 단계 모의 실행 (특히 1단계를 지문 미독 상태에서)",
-      "순환논법 금지어 8종 문자열 대조",
-      "단계 소요 추정 합(15+20+20+25+15 = 95) 대조"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "M2109#39",
-   "answer_unknown": true,
-   "measured_ability": "Rather 가 대체할 부정 진술이 본문에 셋이나 있을 때, 각 부정 뒤에 주어진 문장을 넣어 보고 뒤 문장이 중복되지 않는 자리만 남기는 능력",
-   "design_intent": "본문에 부정문이 세 개(Film has no grammar · not a determinant of it · nothing preordained about film syntax) 깔려 있어 Rather 의 짝 후보가 셋이 된다. 문항은 그중 어느 부정이 '자연스럽게 진화했다' 는 대안 진술을 요구하는지와, 그 뒤 문장(organic development)이 주어진 문장과 같은 말을 되풀이하지 않는지를 함께 보게 설계돼 있다.",
-   "solve_procedure": [
-    {
-     "step": "상자 문장에서 대체 표지(Rather)와 대명사(it)에 동그라미 친다. Rather 는 '앞에 부정 진술이 있어야 한다', it 은 '앞에 단수 지시 대상이 있어야 한다' 는 두 조건을 만든다",
-     "on_fail": "대체 표지가 없으면 문장이 긍정하는 것(evolved naturally)을 적고 그것과 반대되는 진술을 본문에서 찾는다"
-    },
-    {
-     "step": "본문에서 부정어(no · not · nothing · never)가 든 문장에 모두 밑줄을 긋는다. 이 유형에서 Rather 의 짝은 반드시 이 밑줄 중 하나다",
-     "on_fail": "부정어가 없으면 부정 접두사(un- · in-)나 반대 뜻 낱말(laughable · unnecessary)이 든 문장을 밑줄 대상으로 넣는다"
-    },
-    {
-     "step": "밑줄마다 그 문장 뒤 번호에 주어진 문장을 넣어 보고, 바로 뒤 문장이 주어진 문장과 같은 말을 되풀이하는지 확인한다. 되풀이하면 그 자리를 버린다",
-     "on_fail": "전부 되풀이로 보이면 되풀이의 정도를 견줘 낱말이 겹치는 쪽(organic development ↔ evolved naturally)을 먼저 버린다"
-    },
-    {
-     "step": "남은 자리에서 it 이 가리킬 단수 명사(film syntax)가 바로 앞 문장에 있는지 확인한다",
-     "on_fail": "없으면 한 칸 앞으로 옮겨 같은 확인을 되풀이한다"
-    },
-    {
-     "step": "고른 자리에서 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어, 부정 → 대안 → 부연 순서가 되는지 본다",
-     "on_fail": "순서가 어긋나면 남은 후보로 옮긴다"
-    }
-   ],
-   "time_budget_sec": 115,
-   "difficulty": {
-    "predicted": 0.45,
-    "drivers": [
-     "Rather 의 짝 후보가 부정문 세 개라 한 번에 좁혀지지 않는다",
-     "뒤 문장 organic development 가 주어진 문장 evolved naturally 와 뜻이 겹쳐, 중복 판정이 정답 자리 판정과 얽힌다",
-     "3점 배점이며 예상값은 실측 정답률이 아니라 위 구조 특징에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
-    ]
-   },
-   "required_vocab": ["syntax", "preordained", "prescriptive", "descriptive", "determinant"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "저장 본문에 38번 지문이 앞에 붙어 있으나 39번(영화 문법) 지문도 온전히 들어 있어 복원이 필요 없었다",
-      "design_intent 가 '부정문 세 개' 라는 이 문항 고유의 구조를 말하고 번호를 지목하지 않는다"
-     ],
-     "checked": [
-      "corpus M2109#39 passage 에 상자 문장과 39번 ①~⑤ 존재 확인",
-      "answer_locus·choices 부재 확인",
-      "design_intent 에 번호가 없는지 문자열 대조"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "초안 difficulty.drivers 가 '어려운 지문' 이라고만 적어 근거가 없었다 — 부정문 3개 · organic development 중복이라는 구조 근거와 배점으로 바꿨다",
-      "추정 자리가 서술에 스며들지 않았다"
-     ],
-     "checked": [
-      "difficulty.predicted 근거가 구조 사실로 적혀 있는지",
-      "required_vocab 5개를 corpus M2109#39 passage 문자열과 대조 — syntax·preordained·prescriptive·descriptive·determinant 모두 존재",
-      "answer_locus·choices 부재 재확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "2단계 '부정어에 밑줄' 이 이 문항에서 후보를 셋으로 만들어 주고, 3단계 중복 판정이 그중 둘을 버린다 — 학습자가 손으로 할 수 있는 순서다",
-      "3점 문항이라 115초를 배정했고 단계 합이 그 안에 든다"
-     ],
-     "checked": [
-      "각 단계 모의 실행",
-      "순환논법 금지어 8종 문자열 대조",
-      "단계 소요 추정 합(20+20+30+25+20 = 115) 대조"
-     ]
-    }
-   ]
-  }
- ],
- "type_report": {
+  "chunk": 3,
   "type_id": "R-INSERT",
-  "n_analyzed": 12,
-  "recurring_traps": [
-   {
-    "trap": "인접 짝 절단",
-    "count": 6,
-    "signature": "고른 자리의 앞뒤 두 문장이 이미 짝 표지로 묶여 있는데 그 사이를 벌린다 — For example(2022#38 ②) · This is why(2022#39 ①) · these innovations(2022#39 ②) · what's worse ~ they(2022#39 ③) · new plants↔new factories(2022#38 ③) · Others' creations↔those that others have created(2021#39 ①). 학습자는 '넣어도 말이 된다' 만 보고 '떼면 안 되는 짝' 을 안 본다"
-   },
-   {
-    "trap": "논리 순서 역전",
-    "count": 4,
-    "signature": "양보→반전 · 규칙→예시 · 낱말 도입→사용의 순서를 뒤집는 자리다. 2021#38 ③(양보가 주장보다 앞섬) · 2021#38 ①(wickedness 가 wicked 도입 전에 나옴) · 2021#39 ③(However 가 뒤집을 대상을 선점) · 2021#39 ⑤(전제가 예시 뒤로 감)"
-   },
-   {
-    "trap": "가짜 단절",
-    "count": 3,
-    "signature": "화제가 바뀌는 듯 보이거나(2022#38 ④ 비용 이야기) 지시어가 막연해(2021#39 ② This is well known) 빈틈처럼 느껴지지만, 실제로는 뒤 문장이 앞 문장을 이어받고 있다. 2021#38 ⑤ 처럼 마무리 어조가 나는 자리도 여기 든다"
-   },
-   {
-    "trap": "표면 어휘 유인",
-    "count": 3,
-    "signature": "주어진 문장과 같은 낱말·대구가 바로 옆에 있어 끌린다 — fear(2022#38 ①) · many ways↔many forms(2021#38 ②) · representations of reality↔medium of representation(2022#39 ⑤). 이 유인은 정답 자리와 **떨어진 곳**에 심어 두는 것이 이 유형의 관행이다"
-   }
+  "type_name": "문장 삽입",
+  "analyses": [
+    {
+      "item_id": "M2306#38",
+      "answer_unknown": true,
+      "measured_ability": "주어진 문장 앞머리의 추가 표지 Also 가 더할 대상(= 새 살충제 개발을 막는 또 하나의 사정)이 본문 어디에 이미 있는지와, 결론 표지 Consequently 가 근거로 삼는 진술이 몇 개인지를 세어 자리를 좁히는 능력",
+      "design_intent": "주어진 문장이 '개발이 어려워졌다' 는 부정적 사정을 하나 더 얹는 형태여서, 소재(살충제)만 보면 다섯 자리가 전부 어울린다. 실제 구분은 표지 두 개에만 걸려 있다 — 문두 Also 가 요구하는 '앞에 이미 있는 같은 종류의 어려움' 과, 본문 끝 Consequently 가 결론으로 삼는 근거의 개수다. 1960년대 → 그 이후라는 시간 축을 함께 깔아 두어 시간 순서만으로는 결정되지 않게 만들었다.",
+      "solve_procedure": [
+        {
+          "step": "상자 안 주어진 문장에서 앞을 가리키는 말에 표시한다 — 문두의 Also 와, 정관사 없이 처음 나오는 명사구 new pesticides. Also 는 '앞에 같은 종류의 진술이 하나 더 있어야 한다' 는 조건을 만든다",
+          "on_fail": "표지가 안 보이면 술어(has become difficult to develop)만 적고, 같은 종류의 부정적 진술이 본문에 있는지만 찾는다"
+        },
+        {
+          "step": "①~⑤ 각 번호의 바로 앞 문장만 읽어, 그 문장이 '새 살충제 개발을 어렵게 하는 사정' 인지 O/X 로 적는다 (비용·승인 절차·부작용 중 어느 쪽인지도 한 낱말로 적는다)",
+          "on_fail": "O 가 하나도 없으면 조건을 넓혀 '살충제의 부정적 측면' 까지 O 로 센다"
+        },
+        {
+          "step": "이번엔 각 번호의 바로 뒤 문장 첫 다섯 낱말만 읽어, 앞을 요구하는 표지(Since that time · Consequently)가 붙은 문장을 표시한다",
+          "on_fail": "표지가 여럿이면 결론 표지 Consequently 가 붙은 문장부터 처리한다"
+        },
+        {
+          "step": "2단계에서 O 이고 3단계 표지가 바로 뒤에 오는 자리를 후보로 남긴다. 후보가 둘이면 Also 가 이어받을 앞 사정이 주어진 문장과 같은 종류(기업 쪽 사정인지, 생태 피해 쪽인지)인지로 가른다",
+          "on_fail": "종류가 안 갈리면 주어진 문장을 뺐을 때 Consequently 문장의 근거가 하나로 줄어드는 자리를 고른다"
+        },
+        {
+          "step": "고른 자리에 넣고 앞뒤 두 문장만 이어 읽어, 시제(과거 In the 1960s → 현재완료 it has become)가 뒤로만 흐르는지 확인한다",
+          "on_fail": "시제가 거꾸로 가면 남은 후보 자리로 옮겨 같은 확인을 되풀이한다"
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.55,
+        "drivers": [
+          "소재 낱말(pesticides · pests)이 다섯 자리 모두에 반복돼 어휘 단서가 무력하다",
+          "결정 표지가 주어진 문장의 Also 와 본문의 Consequently 둘뿐이고, 그중 Also 는 문두라 놓치기 쉽다",
+          "예상값은 실측 정답률이 아니라 위 구조 특징에서 매긴 것이다 — 이 회차는 평가원 정답표가 없어 통계를 쓸 수 없다"
+        ]
+      },
+      "required_vocab": [
+        "pesticide",
+        "cultivar",
+        "persistent",
+        "negate",
+        "approval"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "answer_locus·choices 를 넣지 않은 것이 이 회차 조건(정답표 없음)과 맞다",
+            "design_intent 가 특정 번호를 지목하지 않고 '어떤 표지 두 개가 자리를 결정하게 설계되었는가' 만 말한다 — 문장 단위로 확인했다"
+          ],
+          "checked": [
+            "answer_locus·choices 필드 부재 확인",
+            "design_intent·measured_ability 에 ①~⑤ 번호가 등장하는지 문자열 대조",
+            "R-INSERT 유형 정의(주어진 문장이 들어갈 위치)와 서술 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안 required_vocab 에 yield 가 있었으나 지문에는 yields 로만 나오고 자리 판정에 쓰이지 않아 approval 로 교체했다",
+            "difficulty.predicted 근거가 drivers 에 구조 특징으로 명시돼 있고 '실측 아님' 이 박혀 있다"
+          ],
+          "checked": [
+            "required_vocab 5개를 corpus 의 M2306#38 passage 문자열과 대조 — pesticide·cultivar·persistent·negate·approval 모두 존재",
+            "answer_locus·choices 부재 재확인",
+            "measured_ability 가 선지 번호를 전제하지 않는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "초안 절차가 6단계였고 4단계에서 다섯 자리를 모두 대입하게 해 100초를 넘겼다 — 앞 문장만/뒤 문장 앞머리만 읽는 두 단계로 줄여 5단계로 만들었다",
+            "1~3단계가 지문을 통독하지 않고도 실행되는 표시 작업이다"
+          ],
+          "checked": [
+            "각 단계를 지문 미독 상태에서 모의 실행",
+            "순환논법 금지어 8종 문자열 대조",
+            "단계별 소요 추정 합(15+25+20+25+15 = 100)이 time_budget_sec 이내인지"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2306#39",
+      "answer_unknown": true,
+      "body_recovered": true,
+      "measured_ability": "주어진 문장 This makes sense from the perspective of information reliability 의 This 가 받을 '관찰된 결과' 문장과, 그 평가 뒤에 이어져야 할 '왜 한 마리로는 못 믿는가' 설명 사이의 한 칸을 지목하는 능력",
+      "design_intent": "다섯 자리 뒤 문장이 모두 '한 마리가 떠날 때 대 여러 마리가 떠날 때' 라는 같은 소재를 말하도록 배치돼 있어 소재로는 자리가 갈리지 않는다. 문항이 요구하는 것은 makes sense 라는 평가가 성립하려면 앞에 평가 대상(연구 결과)이 있어야 한다는 조건과, 신뢰도라는 낱말이 들어온 뒤에는 신뢰도를 푸는 설명이 따라야 한다는 조건의 교차다.",
+      "solve_procedure": [
+        {
+          "step": "상자 문장에서 앞을 가리키는 말에 동그라미 — This 와 makes sense. 이 둘은 '바로 앞에 평가할 대상(관찰·연구 결과)이 하나 있어야 한다' 는 조건이다",
+          "on_fail": "지시어가 없으면 핵심 명사구(information reliability)를 적고, 그 개념이 본문에서 처음 필요해지는 문장을 찾는다"
+        },
+        {
+          "step": "①~⑤ 앞 문장만 훑어 연구·관찰 결과를 진술한 문장에 O 를 친다 (Studies on ~ support the view that ~ 같은 형태)",
+          "on_fail": "O 가 둘 이상이면 각 O 문장이 '왜 그런가' 라는 물음을 남기는지로 줄인다"
+        },
+        {
+          "step": "①~⑤ 뒤 문장만 훑어 '한 마리가 떠나는 경우' 인지 '여러 마리가 떠나는 경우' 인지 1 / N 으로 표시한다. 신뢰도 설명은 1 과 N 을 견주는 자리에서만 성립한다",
+          "on_fail": "표시가 안 되는 문장은 건너뛰고 표시된 것끼리만 견준다"
+        },
+        {
+          "step": "2단계 O 바로 뒤이면서 3단계 표시가 1 로 시작하는 자리를 후보로 남기고, 주어진 문장을 넣었을 때 뒤 문장이 '한 마리만으로는 근거가 약한 이유' 를 대는지 확인한다",
+          "on_fail": "후보가 없으면 O 조건을 '앞 문장이 결과를 담은 곳' 까지 넓혀 다시 잡는다"
+        },
+        {
+          "step": "고른 자리 앞뒤 두 문장만 이어 읽어 This 가 앞을 가리키고 뒤 문장이 새 근거를 더하는 방향인지 확인한다",
+          "on_fail": "뒤 문장이 주어진 문장과 같은 말을 되풀이하면 남은 후보로 옮긴다"
+        }
+      ],
+      "time_budget_sec": 115,
+      "difficulty": {
+        "predicted": 0.5,
+        "drivers": [
+          "주어진 문장이 여섯 낱말짜리 평가문이라 내용 단서가 거의 없고, 판단이 This 하나에 걸린다",
+          "본문 네 문장이 모두 '떠남(departure)' 을 말해 낱말 겹침으로는 자리가 갈리지 않는다",
+          "예상값은 실측 정답률이 아니라 구조 특징(지시어 1개 · 동일 소재 반복)에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
+        ]
+      },
+      "required_vocab": [
+        "cue",
+        "predator",
+        "vigilant",
+        "departure",
+        "flushing"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "코퍼스에 저장된 M2306#39 본문은 이 문항이 아니다 — 38번(살충제) 지문과 40번(mobilities) 요약 지문이 2단 병합된 것이고, 39번의 상자 문장과 ①~⑤ 는 앞 쪽에 있어 통째로 빠져 있다. columns2/M2306.txt 798행 앞(7쪽 오른쪽 단)에서 원문을 복원해 분석했다: 상자 문장 'This makes sense from the perspective of information reliability.' + collective detection(dark-eyed juncos) 지문",
+            "복원 후 서술이 R-INSERT 정의와 맞고, 특정 번호를 지목하지 않는다"
+          ],
+          "checked": [
+            "코퍼스 M2306#39 passage 에 juncos·predator 문자열이 있는지 대조 — 없음(오배정 확인)",
+            "columns2/M2306.txt 에서 39번 원문 위치 확인 후 상자 문장·①~⑤ 대조",
+            "design_intent 에 ①~⑤ 번호가 없는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안 required_vocab 을 저장 본문(살충제)과 대조해 전부 불일치가 났다 — 본문 오배정 때문이며, 복원 원문으로 재대조해 다섯 낱말 모두 확인했다",
+            "answer_locus·choices 가 비어 있고 추정 정답이 서술에 스며들지 않았다"
+          ],
+          "checked": [
+            "required_vocab 5개를 columns2/M2306.txt 의 39번 문단 문자열과 대조 — cue(cue(s)) · predator · vigilant(nonvigilant) · departure · flushing 모두 존재",
+            "answer_locus·choices 부재 확인",
+            "difficulty.predicted 근거가 drivers 에 적혀 있는지"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2·3단계가 앞 문장/뒤 문장만 훑는 표시 작업이라 지문 미독 상태에서 실행된다",
+            "3점 문항이므로 115초를 배정했고 단계별 추정 합이 그 안에 든다"
+          ],
+          "checked": [
+            "각 단계 모의 실행",
+            "순환논법 금지어 8종 문자열 대조",
+            "단계 소요 추정 합(15+25+25+30+20 = 115) 대조"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2022#38",
+      "measured_ability": "주어진 문장이 새로 세우는 정보(재교육과 새 자리)가, 본문 마지막 문장의 정관사구 the replaced human workers · positions 에 어떻게 되받아지는지를 확인해 자리를 정하는 능력",
+      "design_intent": "①~⑤ 뒤 문장이 전부 '두려움을 덜어 줄 조치' 여서 내용만으로는 다섯 자리가 모두 어울린다. 실제 결정은 마지막 문장이 노동자와 자리를 이미 아는 것처럼 정관사로 부르는데 그 선행 표현이 본문에 없다는 한 가지 사실에서 난다 — 곧 어휘 반복이 아니라 정관사구의 선행어를 보게 만든 문항이다.",
+      "answer_locus": {
+        "sentence_index": [
+          6
+        ],
+        "quote": "robots are particularly good at highly repetitive simple motions, the replaced human workers should be moved to positions",
+        "reasoning": "본문 마지막 문장은 '교체된 노동자들(the replaced human workers)' 과 '자리(positions)' 를 이미 도입된 것처럼 정관사로 부른다. 그런데 앞의 다섯 문장 어디에도 노동자를 다른 자리로 옮긴다는 말이 없다. 주어진 문장의 Retraining current employees for new positions within the company 가 바로 그 선행 표현이며, 문두 also 는 앞에 이미 제시된 조치들(새 공장에만 도입 · 계획 참여 · 노사 공동 계획)을 필요로 하므로 자리는 그 조치들이 모두 나온 뒤가 된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "표면 어휘 반복",
+          "why_tempting": "① 앞 문장이 creates worry and fear 로 끝나고 주어진 문장이 fear of being laid off 로 끝나 fear 가 맞물린다. 두려움 이야기가 이어지니 여기라고 느낀다",
+          "how_to_reject": "① 뒤 문장 It is the responsibility of management to prevent or, at least, to ease these fears 의 these fears 는 바로 앞 문장의 worry and fear 를 받는다. 사이를 벌리면 these 가 주어진 문장의 fear 하나만 가리키게 된다. 게다가 주어진 문장의 also 가 더할 앞선 조치가 ① 앞에는 하나도 없다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "일반-예시 인접 절단",
+          "why_tempting": "① 뒤 문장이 '경영진의 책임' 이라는 일반론이라, 그 뒤에 구체 조치인 주어진 문장을 붙이고 싶어진다",
+          "how_to_reject": "② 뒤 문장은 For example, robots could be introduced only in new plants 로 시작한다. For example 은 바로 앞의 일반 진술(경영진이 두려움을 덜 책임이 있다)의 예여야 하므로 그 둘 사이를 벌릴 수 없다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "연쇄 고리 절단",
+          "why_tempting": "② 뒤와 ③ 뒤가 모두 조치를 늘어놓는 자리여서 조치 하나를 더 끼워도 읽힌다",
+          "how_to_reject": "② 뒤 문장의 new plants 와 ③ 뒤 문장의 new factories or the introduction of robots into existing plants 는 '새 공장 대 기존 공장' 이라는 같은 대비를 이어받는 짝이다. 사이에 재교육 문장을 넣으면 그 짝이 끊기고, 마지막 문장의 the replaced human workers 는 여전히 받을 말이 없다"
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "가짜 화제 전환",
+          "why_tempting": "④ 뒤 문장이 It may be that robots are needed to reduce manufacturing costs 로 화제를 비용으로 바꾸는 듯해, 그 앞이 단절처럼 보인다",
+          "how_to_reject": "④ 뒤 문장은 but planning for such cost reductions should be done jointly by labor and management 로 끝나 ③ 뒤 문장의 planning ~ participate in the process 를 그대로 이어받는다. 계획 참여라는 고리가 ③ 뒤 → ④ 뒤로 이어져 있어 그 사이는 단절이 아니다"
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "앞쪽 근거 — 주어진 문장의 문두 부사 also 는 앞에 같은 종류의 조치가 이미 놓여 있어야 쓸 수 있는데, ⑤ 앞에는 새 공장 한정 도입 · 노동자의 계획 참여 · 'planning for such cost reductions should be done jointly by labor and management' 까지 조치가 셋 쌓여 있다. 뒤쪽 근거 — ⑤ 뒤 문장이 'the replaced human workers should be moved to positions' 로 노동자와 자리를 이미 아는 것처럼 정관사로 부르는데, 그 선행 표현이 본문에 없고 주어진 문장의 'Retraining current employees for new positions within the' + company 가 유일하게 그것을 댄다. 앞뒤 두 방향이 동시에 맞는 자리는 ⑤ 하나다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5,
+              6
+            ],
+            "note": "저장 지문은 2단 병합이라 주어진 문장이 'Retraining current employees for new positions within the … company will also greatly reduce their fear of being laid … off' 로 끊겨 있다. 인용은 끊긴 채 이어져 있는 구간만 잘랐다"
+          }
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "상자 문장에서 정관사 없이 처음 나오는 명사구에 밑줄 — Retraining current employees · new positions. 그리고 문두 부사(also)에 동그라미. 밑줄은 '뒤에서 정관사로 되받아질 것', 동그라미는 '앞에 같은 종류가 이미 있어야 할 것' 을 뜻한다",
+          "on_fail": "밑줄 칠 명사구가 없으면 문장의 술어(reduce their fear)를 적고 같은 취지의 문장이 본문 몇 개인지 센다"
+        },
+        {
+          "step": "본문 마지막 문장부터 거꾸로 읽으며 the + 명사, 대명사에 동그라미 치고, 그 말이 받을 대상이 앞에 있는지 O/X 로 적는다",
+          "on_fail": "마지막 문장에 정관사구가 없으면 ⑤ 뒤 → ④ 뒤 순으로 같은 작업을 계속한다"
+        },
+        {
+          "step": "X 가 난 정관사구가 1단계 밑줄과 같은 것을 가리키는지 확인한다. 같으면 그 정관사구가 든 문장 바로 앞 번호가 후보다",
+          "on_fail": "X 가 여럿이면 밑줄과 낱말이 겹치는 쪽(positions / employees)을 먼저 본다"
+        },
+        {
+          "step": "후보 자리 앞에 also 가 이어받을 조치가 실제로 몇 개 있는지 센다. 하나도 없으면 그 자리를 버린다",
+          "on_fail": "조치가 있는 자리가 둘 이상이면, 각 번호 뒤 문장의 For example · but 같은 짝 표지를 확인해 짝을 떼는 자리를 버린다"
+        },
+        {
+          "step": "고른 자리에 넣고 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어, 정관사구가 모두 앞을 가리키는지 확인한다",
+          "on_fail": "여전히 받을 말이 없는 정관사구가 남으면 남은 후보로 옮긴다"
+        }
+      ],
+      "time_budget_sec": 95,
+      "difficulty": {
+        "predicted": 0.6,
+        "drivers": [
+          "다섯 자리 뒤 문장이 모두 같은 종류(조치)라 내용 비교가 무력하다",
+          "결정 근거가 마지막 문장의 정관사구라 앞에서부터 읽으면 늦게 만난다",
+          "2점 문항이고 정관사구 선행어 부재가 비교적 뚜렷하다"
+        ]
+      },
+      "required_vocab": [
+        "retraining",
+        "laid off",
+        "assembly line",
+        "jointly",
+        "repetitive"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 저장 지문에서 2단 병합을 피해 이어져 있는 구간이다 — 문자 대조로 확인했다",
+            "정답 ⑤ 가 평가원 정답표와 일치한다",
+            "관찰: 이 문항의 결정 근거가 문단 마지막 문장에 있어, '뒤에서부터 정관사구를 훑는다' 는 절차가 유형 일반 절차로 승격될 만하다",
+            "초안 why_correct 는 뒤쪽(정관사구 the replaced human workers)만 적었다 — 그러면 ④도 같은 이유로 남아 이웃 위치가 배제되지 않아 반려했고, 앞쪽 근거(also 가 더할 조치가 ⑤ 앞에 셋 있다)를 함께 적어 두 방향으로 고정했다.",
+            "인용 조각이 2단 병합으로 끊긴 구간임을 confirmed_at.note 에 명시 — 학습자가 원문과 대조할 때 혼동하지 않게 했다."
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus 2022#38 의 passage·choices 문자열과 대조 (정규화 후 포함 확인)",
+            "correct 선지 번호 5 와 코퍼스 answer 5 대조",
+            "R-INSERT 유형 정의와 design_intent 대조",
+            "why_correct 의 영어 조각 4개를 corpus.json passage 에서 문자열 대조",
+            "⑤ 앞에 쌓인 조치 수를 passage 에서 직접 셈"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개의 함정이 서로 다른 축이다 — ① 낱말 겹침, ② 예시 짝 절단, ③ 대비 짝 절단, ④ 화제가 바뀌는 듯한 착시",
+            "네 개 모두 how_to_reject 에 본문 위치(① 뒤 문장 · ② 뒤 문장 · ③ 뒤 문장 · ④ 뒤 문장)를 명시했다",
+            "확정이 also 의 선행 조건 + 정관사구의 선행어라는 두 표지에서 나오고, 오답 배제 서술은 각 오답의 how_to_reject 에만 남아 있다."
+          ],
+          "checked": [
+            "trap 라벨 4종 중복 여부",
+            "why_tempting 이 각 자리의 실제 문장 표현(these fears · For example · new plants · cost reductions)에 근거하는지 대조",
+            "how_to_reject 마다 배제 근거 위치가 적혀 있는지",
+            "소거 논법 유무 확인",
+            "정답 번호 5 와 코퍼스 answer 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계 '마지막 문장부터 거꾸로' 가 이 유형에서 시간을 가장 많이 아끼는 동작이다",
+            "5단계 검증이 세 문장으로 한정돼 95초 안에 끝난다",
+            "학생이 할 일이 둘로 나뉜다 — 상자 문장 문두의 also 에 동그라미, 마지막 문장의 the + 명사에 동그라미. 절차 1·2단계와 같은 동작이다."
+          ],
+          "checked": [
+            "각 단계를 지문 미독 상태에서 모의 실행",
+            "순환논법 금지어 8종 문자열 대조",
+            "required_vocab 5개가 자리 판정에 실제로 쓰이는지 확인 — retraining·laid off 는 상자 문장, repetitive·jointly 는 ④⑤ 판정에 쓰인다",
+            "지목한 두 표지를 지문 미독 상태에서 찾을 수 있는지 시연"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2022#39",
+      "measured_ability": "본문의 지시 표현 such an illusion 이 받을 대상이 앞에 없다는 것을 알아채고, 그 빈자리를 주어진 문장이 규정하는 '환상을 현실의 재현으로 착각함' 으로 메우는 능력",
+      "design_intent": "무성 흑백 영화 · 유성 · 색채가 다섯 자리 전체에 흩어져 있어 소재로는 자리가 갈리지 않는다. 출제자는 결정 근거를 딱 하나 심어 두었다 — such an illusion 이라는 지시구다. 이 표현은 illusion 이 무엇인지 먼저 규정된 뒤에만 쓸 수 있는데 본문에는 그 규정이 없다. 나머지 자리는 This is why · these innovations · what's worse 처럼 앞 문장과 짝을 이룬 표지로 막아 두었다.",
+      "answer_locus": {
+        "sentence_index": [
+          5
+        ],
+        "quote": "such an illusion, thereby destroying the very essence of film",
+        "reasoning": "이 문장은 sound and color 가 '바로 그런 착각(just such an illusion)' 을 만들 뻔했다고 말한다. such 는 앞에서 그 착각이 규정된 뒤에만 쓸 수 있는 지시어인데, 앞의 네 문장은 유성·색채가 불필요했다는 평가와 환상적 차원에서 멀어진다는 결과만 말할 뿐 '환상을 현실의 재현으로 여긴다' 는 착각 자체를 규정하지 않는다. 주어진 문장의 one could not take filmic fantasies for representations of reality 가 그 규정이고, As long as ~ predominated(무성 흑백이 지배하는 동안에는 아니었다)를 But 이 뒤집는 대비도 맞물린다. 참고: 저장된 지문은 2단 병합 탓에 이 문장이 'But sound and color threatened to create just' 와 'such an illusion, ...' 로 끊겨 있어 이어져 있는 뒷조각을 인용했다.",
+        "note": "인용은 저장 지문에서 문자 그대로 이어져 있는 구간만 잘랐다"
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지시 연결 절단",
+          "why_tempting": "① 앞 문장과 주어진 문장이 모두 reality 와 fantasy 를 맞세워 한 묶음처럼 읽힌다",
+          "how_to_reject": "① 뒤 문장은 This is why 로 시작해 앞 문장 전체를 이유로 받는다. 사이에 다른 문장이 끼면 This 가 주어진 문장(무성 흑백 시절 이야기)을 가리키게 되어 '그래서 이론가들이 유성 도입을 비난했다' 는 인과가 성립하지 않는다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "선행 명사구 분리",
+          "why_tempting": "① 뒤 문장이 sound and other technical innovations 를 처음 꺼내므로, 무성 시대가 끝나는 이야기를 바로 이어 붙이고 싶어진다",
+          "how_to_reject": "② 뒤 문장의 these innovations 는 ① 뒤 문장의 sound and other technical innovations (such as color) 를 받는다. 주어진 문장에는 innovations 에 해당하는 명사가 없어 these 의 선행어가 될 수 없고, 둘 사이를 벌리면 선행어가 한 문장 더 멀어진다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "점층 사슬 절단",
+          "why_tempting": "③ 뒤 문장이 And what's worse 로 새 항목을 더하는 자리라 그 앞에 한 문장 끼워도 읽힌다",
+          "how_to_reject": "what's worse 는 바로 앞의 부정 평가(these innovations were completely unnecessary)보다 더 나쁜 것을 얹는 표현이고 they 도 그 innovations 를 받는다. 주어진 문장은 부정 평가가 아니라 무성 흑백 시절의 조건을 말하므로 이 점층 사슬 사이에 들어갈 수 없다"
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "뒤쪽 근거 — ④ 뒤 문장의 'such an illusion' 은 그 착각이 앞에서 규정된 뒤에만 쓸 수 있는 지시구인데, ③ 뒤까지는 유성·색채가 'completely unnecessary' 하고 환상적 차원에서 멀어지게 한다는 평가뿐이라 illusion 의 내용이 어디에도 없다. 주어진 문장의 'one could not take filmic fantasies for' + 'representations of reality' 가 바로 그 착각(환상을 현실의 재현으로 여김)을 규정한다. 앞쪽 근거 — 주어진 문장의 문두 'As long as the irrealism of the silent black and white film' 이 그런 착각이 없던 시기를 한정하므로, 그 시기의 끝을 뒤집는 'But sound and color threatened to create just' 가 바로 뒤에 와야 한다. 두 방향이 함께 맞는 자리는 ④ 뿐이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "저장 지문은 2단 병합이라 ④ 뒤 문장이 'But sound and color threatened to create just' 와 'such an illusion, thereby destroying …' 로 끊겨 있다. 인용은 끊긴 채 이어져 있는 구간만 잘랐다"
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "어휘 공명 유인",
+          "why_tempting": "⑤ 뒤 인용문의 reality and the medium of representation do not coincide 가 주어진 문장의 take filmic fantasies for representations of reality 와 낱말이 겹쳐 짝처럼 들린다",
+          "how_to_reject": "⑤ 에 두면 ④ 뒤 문장의 such an illusion 이 받을 말이 앞에 끝내 없다. 또 Arnheim 인용은 앞 문장의 destroying the very essence of film art 를 권위로 되받는 마무리라 그 사이가 비어 있지 않다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "상자 문장에서 시간·조건 표지에 동그라미 — As long as ~ predominated. 이 표지는 '그 시기가 끝났다' 는 반전이 뒤따라야 함을 뜻하므로, 본문에서 But/However 로 시작하는 문장을 먼저 찾게 한다",
+          "on_fail": "조건 표지가 없으면 문장이 부정하는 것(one could not ~)을 적고, 그것을 뒤집는 문장을 본문에서 찾는다"
+        },
+        {
+          "step": "본문 다섯 자리 뒤 문장의 첫 대여섯 낱말만 읽어 지시 표현에 동그라미 친다 — This is why · these innovations · what's worse ~ they · just such an illusion · As ~ puts it",
+          "on_fail": "지시 표현이 없는 문장은 그대로 두고, 있는 것만 다음 단계로 넘긴다"
+        },
+        {
+          "step": "동그라미마다 '받을 대상이 바로 앞 문장에 있는가' 를 O/X 로 적는다. 명사를 받는 지시어(these · such)는 같은 명사가 앞에 실제로 있어야 O 다",
+          "on_fail": "전부 O 로 보이면 such/just such 처럼 '앞에서 규정된 것' 을 요구하는 지시어만 다시 본다"
+        },
+        {
+          "step": "X 가 난 자리 앞에 주어진 문장을 넣고 두 방향을 확인한다 — (가) 주어진 문장의 조건 표지가 앞 문장과 충돌하지 않는가 (나) X 였던 지시어가 이제 주어진 문장을 받는가",
+          "on_fail": "한쪽만 맞으면 인접한 자리에서 같은 두 검사를 되풀이한다"
+        },
+        {
+          "step": "나머지 네 자리에서 짝 표지(This is why · these · what's worse)를 떼는 자리가 없는지 한 번만 확인한다",
+          "on_fail": "짝을 떼는 자리가 정답 후보로 남아 있으면 그 자리를 버리고 다시 4단계로 간다"
+        }
+      ],
+      "time_budget_sec": 120,
+      "difficulty": {
+        "predicted": 0.42,
+        "drivers": [
+          "결정 지시어가 such an illusion 하나뿐이고 illusion 이 본문에 한 번도 안 나와 눈에 덜 띈다",
+          "3점 문항이며 decry · fantasmatic 등 주석 낱말이 두 개 붙어 읽는 속도가 떨어진다",
+          "①②③ 자리에 짝 표지가 촘촘해 오답이 고르게 흩어진다"
+        ]
+      },
+      "required_vocab": [
+        "irrealism",
+        "predominate",
+        "fantasmatic",
+        "illusion",
+        "coincide"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "초안 인용이 'But sound and color threatened to create just such an illusion' 이었는데 저장 지문에서는 2단 병합으로 두 조각이 다른 단 문장에 의해 끊겨 있어 문자 대조에 실패했다 — 이어져 있는 'such an illusion, thereby destroying the very essence of film' 로 교체하고 reasoning 에 사정을 적었다",
+            "정답 ④ 가 평가원 정답표와 일치한다",
+            "'such an illusion' 의 선행 규정이 본문에 없음을 ①~③ 뒤 문장에서 하나씩 확인 — 지시구가 이 문항의 유일한 결정 근거다.",
+            "주어진 문장의 시간 한정(As long as … predominated)과 ④ 뒤의 But 이 시기 반전으로 맞물림을 확인해 앞쪽 근거를 함께 세웠다."
+          ],
+          "checked": [
+            "교체한 quote 를 corpus 2022#39 의 passage·choices 와 정규화 문자열 대조 (포함 확인)",
+            "correct 선지 번호 4 와 코퍼스 answer 4 대조",
+            "design_intent 가 유형 일반론이 아니라 이 문항의 such an illusion 하나를 지목하는지",
+            "why_correct 의 영어 조각 6개를 corpus.json passage 에서 문자열 대조",
+            "①~③ 뒤 문장에 illusion 규정이 있는지 문자열로 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 함정 4종이 서로 다르다 — 문장 전체를 받는 지시(①), 명사구를 받는 지시(②), 점층 사슬(③), 낱말 공명(⑤)",
+            "⑤ 의 how_to_reject 가 '④ 뒤 문장의 such an illusion' 이라는 위치를 명시한다",
+            "확정이 지시구의 선행어 부재 + 시간 표지 반전 두 자리에서 나온다. ⑤ 배제는 별도 서술에 남아 있다."
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 각 자리 실제 표현(This is why · these innovations · what's worse · Arnheim 인용)에 근거하는지",
+            "required_vocab 5개를 corpus 2022#39 passage 문자열과 대조 — irrealism·predominated·fantasmatic·illusion·coincide 모두 존재",
+            "소거 논법 유무 확인",
+            "정답 번호 4 와 코퍼스 answer 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계에서 각 자리 '첫 대여섯 낱말만' 으로 제한한 것이 3점 지문에서도 시간을 지키게 한다",
+            "1단계가 상자 문장만 보고 실행되므로 지문 미독 상태에서 시작할 수 있다",
+            "학생이 다섯 자리 뒤 문장의 첫 대여섯 낱말만 읽어 지시 표현에 동그라미 치면 such 가 튀어나온다 — 절차 2단계와 같은 동작이고, 병합 손상은 note 로 안내했다."
+          ],
+          "checked": [
+            "각 단계 모의 실행",
+            "순환논법 금지어 8종 문자열 대조",
+            "단계 소요 추정 합(15+30+25+30+20 = 120)이 time_budget_sec 이내인지",
+            "지목한 표지를 저장 지문에서 찾을 수 있는지 시연",
+            "2단 병합 안내가 note 에 있는지 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2209#38",
+      "answer_unknown": true,
+      "measured_ability": "주어진 문장이 새로 세우는 정보(구조 요소와 성질의 관계를 최근에야 이해하게 됨)가, 본문의 지시구 This knowledge 와 대명사 them 에 되받아지는 자리를 찾아내는 능력",
+      "design_intent": "본문이 '초기 인류 → 시간이 흐르며 → 게다가 → 이 시점에는 → 이 지식은' 순으로 시간 표지를 촘촘히 깔아 두어, 주어진 문장의 relatively recent times 를 시간 순서만으로 끼우려 하면 두세 자리가 모두 그럴듯해진다. 실제 결정은 시간이 아니라 지시 표현 — This knowledge 와 them 이 받을 말이 본문에 있는지 여부다.",
+      "solve_procedure": [
+        {
+          "step": "상자 문장에서 처음 등장하는 정보에 밑줄 — the relationships between the structural elements of materials and their properties. 삽입 문장이 새 정보를 세우면, 그 정보를 정관사·지시어로 되받는 문장이 본문에 있다",
+          "on_fail": "새 정보를 못 고르면 주어(scientists)와 목적어(relationships)를 적고, 본문에서 이 둘을 대명사·정관사로 부르는 문장을 찾는다"
+        },
+        {
+          "step": "①~⑤ 뒤 문장의 첫 다섯 낱말만 읽어 This/These/정관사구/대명사로 시작하거나 그것을 포함한 문장을 표시한다",
+          "on_fail": "표시가 없으면 문장 안쪽의 them·they 까지 범위를 넓힌다"
+        },
+        {
+          "step": "표시된 문장마다 '그 지시구가 받을 말이 바로 앞 문장에 있는가' 를 O/X 로 적는다. X 자리가 본문이 끊긴 자리다",
+          "on_fail": "전부 O 면 지시구가 두 문장 앞을 가리키는 곳을 X 로 다시 센다"
+        },
+        {
+          "step": "X 자리에 주어진 문장을 넣고 두 가지를 확인한다 — 그 지시구가 이제 주어진 문장을 받는가, 그리고 주어진 문장의 시간 표지가 앞 문장의 시간 표지보다 뒤인가",
+          "on_fail": "한쪽만 맞으면 인접 자리에서 같은 두 검사를 되풀이한다"
+        },
+        {
+          "step": "고른 자리에서 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어 주어가 재료에서 사람으로 바뀌는 지점이 어색하지 않은지 본다",
+          "on_fail": "주어가 튀면 남은 후보로 바꾼다"
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.58,
+        "drivers": [
+          "시간 표지가 다섯 개나 깔려 있어 순서 감각만으로 고르면 두 자리가 남는다",
+          "결정 지시구 This knowledge 가 본문 뒤쪽에 있어 앞에서부터 읽으면 늦게 만난다",
+          "예상값은 실측 정답률이 아니라 구조 특징에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
+        ]
+      },
+      "required_vocab": [
+        "properties",
+        "superior",
+        "altered",
+        "utilization",
+        "empowered"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "저장 본문이 2단 병합이지만 이 문항(재료 지문)의 상자 문장과 ①~⑤ 가 모두 들어 있어 복원이 필요 없었다",
+            "design_intent 가 번호를 지목하지 않고 '시간 표지로는 안 갈리고 지시구로 갈린다' 는 설계만 말한다"
+          ],
+          "checked": [
+            "corpus M2209#38 passage 에 상자 문장과 ①~⑤ 가 모두 있는지 대조",
+            "answer_locus·choices 부재 확인",
+            "measured_ability·design_intent 에 ①~⑤ 번호가 없는지 문자열 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "difficulty.predicted 근거가 drivers 에 명시되고 실측이 아님이 적혀 있다",
+            "추정 정답이 서술에 스며들지 않았다 — '이 지식은' 이 어느 번호 뒤 문장인지 적지 않았다"
+          ],
+          "checked": [
+            "required_vocab 5개를 corpus M2209#38 passage 문자열과 대조 — properties·superior·altered·utilization·empowered 모두 존재",
+            "answer_locus·choices 부재 재확인",
+            "measured_ability 가 선지 번호를 전제하지 않는지"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계가 상자 문장만으로 실행되고, 2단계가 '첫 다섯 낱말' 로 제한돼 통독을 요구하지 않는다",
+            "단계 수 5, 추정 소요 100초로 배정 시간과 맞는다"
+          ],
+          "checked": [
+            "각 단계 모의 실행",
+            "순환논법 금지어 8종 문자열 대조",
+            "단계 소요 추정 합(15+25+20+25+15 = 100) 대조"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2209#39",
+      "answer_unknown": true,
+      "measured_ability": "개인(Personal stories)과 더 큰 것(larger narratives)을 잇는 주어진 문장이, 본문의 '개인 취향 → 부족적 집단' 전환 중 어느 이음매에 필요한지를 지시구 These consumer communities 의 선행어 유무로 판정하는 능력",
+      "design_intent": "본문이 대량생산 → 소비자 세분화 → 개인 취향 → 실은 겹친다 → 초국가 공동체로 한 방향으로만 흘러, 개인과 집단을 동시에 말하는 주어진 문장은 어느 이음매에도 얹힐 것처럼 보인다. 결정은 마지막 문장이 These consumer communities 라고 정관사+복수로 부르는 대상이 앞에서 언제 처음 세워지는지에 달려 있다.",
+      "solve_procedure": [
+        {
+          "step": "상자 문장을 두 조각으로 나눠 적는다 — 개인 쪽(Personal stories)과 집단 쪽(larger narratives, new identities). 삽입 문장이 두 축을 잇는 형태면 본문에서 두 축이 처음 만나는 이음매가 후보다",
+          "on_fail": "두 조각으로 안 나뉘면 결과어(new identities)만 적고 그 말이 필요한 문장을 찾는다"
+        },
+        {
+          "step": "①~⑤ 뒤 문장 앞머리만 읽어 각 문장을 개(개인) 또는 집(집단)으로 표시한다",
+          "on_fail": "표시가 애매하면 주어가 단수 개인(Everybody)인지 복수 집단(formations · communities)인지로 정한다"
+        },
+        {
+          "step": "표시가 개 → 집 으로 바뀌는 이음매를 후보로 남긴다. 보통 한두 곳뿐이다",
+          "on_fail": "바뀌는 곳이 없으면 각 문장의 지시구(These · this)가 받을 말이 앞에 있는지로 후보를 다시 잡는다"
+        },
+        {
+          "step": "후보마다 마지막 문장의 These consumer communities 가 받을 표현이 이미 앞에 있는지 확인하고, 주어진 문장을 넣어야 비로소 그 표현이 생기는 자리인지 본다",
+          "on_fail": "두 자리 모두 성립하면 주어진 문장을 뺐을 때 뜻이 끊기는 쪽을 남긴다"
+        },
+        {
+          "step": "고른 자리 앞뒤 두 문장만 이어 읽어, 개인 취향 이야기가 끝나기 전에 집단 이야기가 먼저 나오지 않는지 확인한다",
+          "on_fail": "순서가 뒤집히면 남은 후보로 옮긴다"
+        }
+      ],
+      "time_budget_sec": 115,
+      "difficulty": {
+        "predicted": 0.45,
+        "drivers": [
+          "주어진 문장이 추상 명사 세 개(stories · narratives · identities)로만 되어 있어 본문 낱말과 겹치는 것이 없다",
+          "본문 뒤쪽 두 문장이 모두 집단 쪽이라 개 → 집 전환 이음매가 하나로 좁혀지지 않는다",
+          "3점 배점 문항이며, 예상값은 실측 정답률이 아니라 위 구조 특징에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
+        ]
+      },
+      "required_vocab": [
+        "fragmentation",
+        "segments",
+        "inclinations",
+        "solidifying",
+        "sensibilities"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "청크 파일에 실린 M2209#39 본문은 재료(materials) 지문이었으나, 현재 코퍼스의 본문은 이 문항의 실제 지문(소비자 세분화)이다 — columns2/M2209.txt 7쪽 오른쪽 단과 대조해 코퍼스 쪽이 맞음을 확인하고 그것으로 분석했다",
+            "design_intent 가 번호를 지목하지 않는다"
+          ],
+          "checked": [
+            "corpus M2209#39 passage 와 columns2/M2209.txt 39번 문단 대조 (상자 문장 Personal stories ~ new identities 일치)",
+            "answer_locus·choices 부재 확인",
+            "R-INSERT 유형 정의와 서술 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "difficulty.predicted 에 배점(3점)과 구조 근거가 함께 적혀 있고 실측이 아님이 명시됐다",
+            "추정 정답이 스며들지 않았다 — '어느 번호 뒤에서 집단으로 바뀐다' 를 적지 않았다"
+          ],
+          "checked": [
+            "required_vocab 5개를 corpus M2209#39 passage 문자열과 대조 — fragmentation·segments·inclinations·solidifying·sensibilities 모두 존재",
+            "answer_locus·choices 부재 재확인",
+            "measured_ability 가 선지 번호를 전제하지 않는지"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계의 개/집 두 글자 표시가 학습자가 실제로 손으로 할 수 있는 동작이다",
+            "추상 명사가 많은 지문이라 115초를 배정했고 단계 합이 그 안에 든다"
+          ],
+          "checked": [
+            "각 단계 모의 실행",
+            "순환논법 금지어 8종 문자열 대조",
+            "단계 소요 추정 합(20+25+20+30+20 = 115) 대조"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2206#38",
+      "answer_unknown": true,
+      "measured_ability": "주어진 문장의 however 가 뒤집을 앞 진술(상사가 평가하는 것이 마땅한 이유)과, 뒤쪽 표현 they cannot observe · this dilemma 가 받을 대상이 동시에 성립하는 한 자리를 찾는 능력",
+      "design_intent": "다섯 자리 뒤 문장이 모두 평가 주체 이야기라 소재로는 갈리지 않는다. 출제자는 '관찰 불가' 라는 문제 진술이 있어야만 말이 되는 표현 두 개(performance dimensions they cannot observe · To eliminate this dilemma)를 뒤쪽에 심어 두고, 그 표현들이 어느 지점부터 말이 되는지를 묻는다. 주어진 문장 자체에도 however 가 있어 앞쪽으로도 조건이 걸린다 — 앞뒤 양방향을 모두 만족하는 자리는 하나뿐이다.",
+      "solve_procedure": [
+        {
+          "step": "상자 문장에서 역접 표지(however)에 동그라미, 문제를 규정하는 술어(are not able to observe)에 밑줄. 동그라미는 앞 조건, 밑줄은 뒤 조건이다",
+          "on_fail": "역접 표지가 없으면 문장이 부정하는 것만 적고 뒤 조건부터 처리한다"
+        },
+        {
+          "step": "①~⑤ 뒤 문장에서 '관찰' 을 전제하는 표현(cannot observe · this dilemma · opportunity to observe)에 표시한다. 표시된 문장 중 가장 앞의 것이 뒤 조건의 하한이다",
+          "on_fail": "표시가 없으면 대명사·지시어(this · these)를 포함한 문장을 대신 표시한다"
+        },
+        {
+          "step": "하한보다 앞쪽 자리들에 대해, 각 자리 앞 문장이 '상사가 평가하는 것이 마땅하다' 는 취지인지 확인한다. 그런 문장 바로 뒤가 however 의 짝이 될 수 있는 자리다",
+          "on_fail": "그런 문장이 둘이면 뒤 조건의 하한에 더 가까운 쪽을 남긴다"
+        },
+        {
+          "step": "남은 자리에 주어진 문장을 넣고, 그 자리 뒤 문장의 this dilemma·they cannot observe 가 이제 받을 말을 얻는지 확인한다",
+          "on_fail": "얻지 못하면 한 칸 앞뒤로 옮겨 같은 확인을 되풀이한다"
+        },
+        {
+          "step": "고른 자리 앞뒤 두 문장만 이어 읽어 문제 제기 → 물음 → 해결 순서가 뒤로만 흐르는지 본다",
+          "on_fail": "해결이 문제보다 앞서면 남은 후보로 옮긴다"
+        }
+      ],
+      "time_budget_sec": 95,
+      "difficulty": {
+        "predicted": 0.62,
+        "drivers": [
+          "this dilemma 라는 지시구가 있어 뒤 조건의 하한이 비교적 뚜렷하다",
+          "다만 주어진 문장의 however 가 문장 안쪽(A problem, however, is ~)에 있어 역접 표지를 놓치기 쉽다",
+          "예상값은 실측 정답률이 아니라 구조 특징에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
+        ]
+      },
+      "required_vocab": [
+        "supervisor",
+        "subordinate",
+        "dimension",
+        "dilemma",
+        "evaluate"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "저장 본문이 온전하다(2단 병합 없음) — 상자 문장과 ①~⑤ 가 모두 있다",
+            "design_intent 가 '앞뒤 양방향 조건' 이라는 이 문항 고유의 설계를 말하고 번호를 지목하지 않는다"
+          ],
+          "checked": [
+            "corpus M2206#38 passage 에 상자 문장과 ①~⑤ 존재 확인",
+            "answer_locus·choices 부재 확인",
+            "design_intent 에 번호가 없는지 문자열 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "difficulty 근거가 표지 위치(문장 안쪽 however)라는 구조 사실로 적혀 있다",
+            "서술 어디에도 추정 자리가 없다"
+          ],
+          "checked": [
+            "required_vocab 5개를 corpus M2206#38 passage 문자열과 대조 — supervisor·subordinates·dimensions·dilemma·evaluates 모두 존재",
+            "answer_locus·choices 부재 재확인",
+            "measured_ability 가 선지 번호를 전제하지 않는지"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계의 '하한 정하기' 가 후보를 앞쪽 두세 자리로 줄여 시간을 아낀다",
+            "짧은 지문이라 95초로 배정했고 단계 합이 그 안에 든다"
+          ],
+          "checked": [
+            "각 단계 모의 실행",
+            "순환논법 금지어 8종 문자열 대조",
+            "단계 소요 추정 합(15+25+20+20+15 = 95) 대조"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2206#39",
+      "answer_unknown": true,
+      "measured_ability": "This is particularly true 가 참이라고 할 앞 진술과, 본문 끝의 this potential price 가 받을 '대가' 진술이 동시에 성립하는 한 칸을 찾는 능력",
+      "design_intent": "잠의 이득(대사 절감 · 포식자 회피)과 대가(반응성 저하)를 같은 낱말 밭 안에서 오가게 써 두어, 주어진 문장이 이득 쪽 문장에도 대가 쪽 문장에도 붙는 것처럼 보인다. 결정은 마지막 문장이 this potential price 라고 정관사+지시어로 부르는 '대가' 가 본문에서 한 번도 명시되지 않았다는 사실과, This is particularly true 가 요구하는 바로 앞의 참 진술, 두 조건이 겹치는 곳에 있다.",
+      "solve_procedure": [
+        {
+          "step": "상자 문장을 두 부분으로 쪼갠다 — 앞부분 This is particularly true(앞에 참이라 할 진술이 있어야 함)와 뒷부분 decreased responsiveness to the environment(뒤에서 대가로 불릴 수 있는 내용)",
+          "on_fail": "쪼개지지 않으면 문장에서 손해를 뜻하는 낱말(decreased)만 적고 뒤 조건부터 처리한다"
+        },
+        {
+          "step": "본문 마지막 문장에서 정관사·지시 표현에 동그라미 치고(this potential price), 그것이 받을 '대가' 진술이 앞에 있는지 O/X 로 적는다",
+          "on_fail": "마지막 문장에 지시 표현이 없으면 ⑤ 뒤 → ④ 뒤 순으로 같은 작업을 계속한다"
+        },
+        {
+          "step": "X 라면 그 대가를 처음 말하는 문장이 본문에 없다는 뜻이므로, 주어진 문장이 그 자리보다 앞의 어느 번호에 들어가야 한다. 후보를 그 앞 번호들로 한정한다",
+          "on_fail": "O 로 보이면 그 '대가' 가 실제로 손해인지(이득이 아닌지) 다시 확인한다"
+        },
+        {
+          "step": "후보마다 바로 앞 문장이 '특히 그렇다' 고 받을 만한 단정 진술인지 확인한다 — 예시 문장(for instance ~)이나 물음이면 받을 수 없다",
+          "on_fail": "둘 이상 남으면 주어진 문장 뒤에 오는 문장이 On the other hand 처럼 방향을 바꾸는지로 가른다"
+        },
+        {
+          "step": "고른 자리에서 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어, 이득 쪽 진술과 대가 쪽 진술이 뒤섞이지 않는지 확인한다",
+          "on_fail": "뒤섞이면 남은 후보로 옮긴다"
+        }
+      ],
+      "time_budget_sec": 115,
+      "difficulty": {
+        "predicted": 0.45,
+        "drivers": [
+          "주어진 문장이 이득과 대가 어느 쪽으로도 읽혀 앞 조건이 두 자리에서 동시에 성립하는 것처럼 보인다",
+          "결정 지시구 this potential price 가 본문 맨 끝에 있어 앞에서부터 읽으면 늦게 만난다",
+          "3점 배점이며 예상값은 실측 정답률이 아니라 위 구조 특징에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
+        ]
+      },
+      "required_vocab": [
+        "metabolism",
+        "hibernation",
+        "prey",
+        "universality",
+        "responsiveness"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "초안 design_intent 가 '대가가 언급되는 곳은 마지막 문장 바로 앞' 이라고 적어 자리를 사실상 지목했다 — 정답표가 없는 문항이므로 '두 조건이 겹치는 곳' 이라는 조건 서술로 바꿨다",
+            "저장 본문에 38번 지문이 앞에 붙어 있으나 39번 지문(수면)도 온전히 들어 있어 복원이 필요 없었다"
+          ],
+          "checked": [
+            "design_intent·solve_procedure 에 ①~⑤ 번호가 등장하는지 문자열 대조",
+            "corpus M2206#39 passage 에 상자 문장과 39번 ①~⑤ 존재 확인",
+            "answer_locus·choices 부재 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "difficulty 근거가 구조 사실 두 가지와 배점으로 적혀 있다",
+            "3단계 서술이 '후보를 앞쪽으로 한정한다' 까지만 말하고 특정 번호를 고르지 않는다"
+          ],
+          "checked": [
+            "required_vocab 5개를 corpus M2206#39 passage 문자열과 대조 — metabolism·hibernation·prey·universality·responsiveness 모두 존재",
+            "answer_locus·choices 부재 재확인",
+            "measured_ability 가 선지 번호를 전제하지 않는지"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계 '마지막 문장부터' 가 이 문항에서 후보를 절반으로 줄인다",
+            "4단계의 '예시 문장은 받을 수 없다' 는 판정 기준이 학습자가 눈으로 확인 가능한 형태다"
+          ],
+          "checked": [
+            "각 단계 모의 실행",
+            "순환논법 금지어 8종 문자열 대조",
+            "단계 소요 추정 합(20+25+20+30+20 = 115) 대조"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2021#38",
+      "measured_ability": "본문의 nevertheless 가 요구하는 '앞선 한계 인정' 이 본문에 없다는 것을 알아채고, 그 빈자리를 주어진 문장의 양보 진술로 메우는 능력",
+      "design_intent": "bad 와 wicked 를 견주는 한 가지 화제로 여덟 문장을 채워, 어느 자리에 넣어도 뜻이 이어지는 것처럼 보이게 만들었다. 결정 근거는 딱 하나 — But there is more detail nevertheless 의 nevertheless 다. 이 부사는 바로 앞에 '그래도 부족하다' 는 인정이 있어야 성립하는데 본문에는 그 반대(더 구체적이다)만 있다. 덤으로 wickedness 라는 낱말이 wicked 도입보다 먼저 나오면 안 된다는 제약을 앞쪽 자리에 걸어 두었다.",
+      "answer_locus": {
+        "sentence_index": [
+          6,
+          7
+        ],
+        "quote": "But there is more detail nevertheless, perhaps a stronger connotation of the sort of person Maddy is.",
+        "reasoning": "nevertheless 는 '앞의 한계에도 불구하고' 를 뜻하므로 바로 앞에 한계를 인정하는 문장이 있어야 한다. 그런데 앞 문장 The word 'wicked' is more specific than 'bad' 는 한계가 아니라 충분함을 말하므로 nevertheless 가 받을 대상이 아니고, 그대로 두면 같은 방향의 진술을 But 으로 뒤집는 모순이 생긴다. 주어진 문장(사악함은 여러 형태를 띠므로 아직 성격을 정확히 짚지 못했다)이 들어가야 '한계 인정 → 그럼에도 더 많은 정보' 라는 양보-반전이 성립한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "용어 선등장",
+          "why_tempting": "주어진 문장이 '아직 성격을 정확히 짚지 못했다' 고 말하고 ① 뒤 문장도 '더 자세한 감은 얻지 못할 것' 이라고 말해 내용이 겹친다",
+          "how_to_reject": "주어진 문장은 wickedness 를 이미 아는 낱말처럼 쓰는데, wicked 는 ② 뒤 문장 In contrast, if I say that Maddy is wicked 에서 처음 도입된다. 또 ① 뒤 문장의 However 는 바로 앞 Additionally, you will probably infer ~ 가 말한 '얻는 것' 을 뒤집어야 하므로 그 둘 사이를 벌릴 수 없다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "대구 표현 유인",
+          "why_tempting": "① 뒤 문장이 people can be bad in many ways 로 끝나고 주어진 문장이 wickedness takes many forms 로 끝나 어구가 대구를 이룬다",
+          "how_to_reject": "② 뒤 문장은 In contrast 로 bad 와 wicked 를 맞세우므로 bad 쪽 설명(① 뒤 문장)과 붙어 있어야 대비가 선다. 여기서도 wickedness 가 wicked 도입보다 앞서게 된다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "양보-반전 순서 역전",
+          "why_tempting": "② 뒤 문장이 wicked 를 처음 설명한 직후라, wickedness 를 쓰는 주어진 문장이 여기서는 놓일 수 있어 보인다",
+          "how_to_reject": "여기에 넣으면 '아직 정확히 짚지 못했다' 는 양보가 'wicked 가 bad 보다 구체적이다' 라는 주장보다 앞서고, 그 뒤 ④ 뒤 문장 But there is more detail nevertheless 가 바로 앞 문장(더 구체적이다)을 다시 뒤집게 되어 같은 말을 반대로 두 번 하게 된다"
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "뒤쪽 근거 — ④ 뒤 문장 'But there is more detail nevertheless' 의 nevertheless 는 바로 앞에 '그래도 부족하다' 는 한계 인정이 있어야 성립하는데, ③ 뒤 문장은 'The word ‘wicked’ is more specific than ‘bad’' 로 충분함을 말해 뒤집을 대상이 못 된다. 주어진 문장의 'I have still not exactly pinpointed Maddy’s character' 가 그 한계 인정을 댄다. 앞쪽 근거 — 주어진 문장은 wickedness 를 이미 아는 낱말처럼 쓰는데 wicked 는 ② 뒤 'if I say that Maddy is wicked' 에서 처음 도입되므로 자리가 ③ 이후로 밀린다. 도입 이후이면서 nevertheless 바로 앞인 곳은 ④ 하나다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6,
+              7
+            ],
+            "note": "6번(③ 뒤)이 충분함을, 7번(④ 뒤)의 nevertheless 가 한계 인정을 요구한다. 두 문장 사이가 유일하게 비어 있는 자리다"
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "종결 어조 유인",
+          "why_tempting": "주어진 문장이 마무리 논평처럼 들리고 ⑤ 뒤 문장이 In addition 으로 새 항목을 더해, 그 앞에서 한 번 정리하는 것처럼 읽힌다",
+          "how_to_reject": "④ 뒤 문장 But there is more detail nevertheless 의 nevertheless 가 받을 한계 진술이 앞에 없어진다. 주어진 문장을 ⑤ 로 미루면 그 문장이 앞이 아니라 뒤에서 nevertheless 를 받치는 꼴이 되어 방향이 거꾸로다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "상자 문장에서 양보·한계를 뜻하는 말에 동그라미 — still not exactly pinpointed. 이런 문장은 뒤에 '그럼에도' 계열 부사(nevertheless · still · yet)를 부른다",
+          "on_fail": "양보 표현이 없으면 문장이 부정하는 것(정확히 짚지 못함)을 적고 그것을 뒤집는 문장을 본문에서 찾는다"
+        },
+        {
+          "step": "본문 ①~⑤ 뒤 문장에서 nevertheless · However · In contrast · In addition 같은 방향 표지에 동그라미 치고, 각각이 뒤집거나 더할 대상이 바로 앞 문장에 있는지 O/X 로 적는다",
+          "on_fail": "표지가 없는 문장은 건너뛰고, 표지가 두 개인 문장은 뒤쪽 표지를 기준으로 판정한다"
+        },
+        {
+          "step": "X 가 난 표지 앞자리를 후보로 남긴다. 특히 nevertheless 처럼 앞에 한계 인정이 있어야만 성립하는 표지를 먼저 본다",
+          "on_fail": "X 가 없으면 표지가 받는 대상이 방향까지 맞는지(같은 방향을 뒤집고 있지 않은지) 다시 본다"
+        },
+        {
+          "step": "상자 문장에 나온 낱말이 본문에서 언제 처음 도입되는지 확인해, 도입보다 앞선 자리를 후보에서 뺀다 — 여기서는 wickedness / wicked",
+          "on_fail": "낱말 도입 순서로 갈리지 않으면 각 후보에 넣어 보고 표지의 방향이 맞는 쪽만 남긴다"
+        },
+        {
+          "step": "고른 자리에서 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어, 인정 → 반전 → 추가 순서가 어긋나지 않는지 확인한다",
+          "on_fail": "순서가 어긋나면 남은 후보로 옮긴다"
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.5,
+        "drivers": [
+          "본문 문장이 거의 다 같은 형태(you get / you might not get)라 형태 비교가 안 된다",
+          "결정 표지 nevertheless 가 문장 중간에 있어 눈에 잘 안 띈다",
+          "wicked 도입 순서라는 두 번째 제약이 있어 앞쪽 자리를 지우면 후보가 빨리 준다"
+        ]
+      },
+      "required_vocab": [
+        "pinpoint",
+        "wickedness",
+        "connotation",
+        "intonation",
+        "disapprove"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 저장 지문에 문자 그대로 있고, 정답 ④ 가 평가원 정답표와 일치한다",
+            "design_intent 가 이 문항 고유의 두 제약(nevertheless · 낱말 도입 순서)을 말한다",
+            "nevertheless 가 요구하는 한계 인정이 본문 어디에도 없음을 ①~③ 뒤 문장에서 확인.",
+            "wickedness 의 첫 등장 제약(② 뒤에서 wicked 도입)이 앞쪽 경계를 정해, 앞뒤가 함께 ④ 로 좁혀짐을 확인."
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus 2021#38 passage·choices 와 정규화 문자열 대조 (포함 확인)",
+            "correct 선지 번호 4 와 코퍼스 answer 4 대조",
+            "R-INSERT 유형 정의와 서술 대조",
+            "why_correct 의 영어 조각 4개를 corpus.json passage 에서 문자열 대조",
+            "wicked 의 첫 출현 위치를 passage 에서 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안에서 ①과 ② 의 trap 이 둘 다 '표면 어휘 유인' 으로 같았다 — ①은 wickedness 가 도입 전에 나오는 문제, ②는 many ways ↔ many forms 대구에 끌리는 문제로 서로 다른 축이라 라벨을 분리했다",
+            "네 오답 모두 how_to_reject 에 본문 위치를 적었다",
+            "확정이 연결부사의 선행 조건 + 용어 첫 등장이라는 두 표지에서 나오고 소거법이 아니다."
+          ],
+          "checked": [
+            "trap 라벨 4종 중복 여부 재확인",
+            "why_tempting 이 각 자리 실제 표현(many ways · In contrast · more specific · In addition)에 근거하는지",
+            "required_vocab 5개를 corpus 2021#38 passage 문자열과 대조 — pinpointed·wickedness·connotation·intonation·disapproving 모두 존재",
+            "소거 논법 유무 확인",
+            "정답 번호 4 와 코퍼스 answer 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "4단계(낱말 도입 순서)가 이 유형에서 드물게 쓰이는 제약인데, 상자 문장 낱말 하나만 보면 되므로 실행 부담이 작다",
+            "2단계가 방향 표지만 훑게 해 통독을 요구하지 않는다",
+            "학생이 ①~⑤ 뒤 문장의 첫 낱말만 훑어 nevertheless 를 찾고, 그 앞 문장이 한계인지 충분인지 한 번 판정하면 끝난다."
+          ],
+          "checked": [
+            "각 단계 모의 실행",
+            "순환논법 금지어 8종 문자열 대조",
+            "단계 소요 추정 합(15+25+20+20+20 = 100) 대조",
+            "지목한 두 문장을 지문 미독 상태에서 찾을 수 있는지 시연"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2021#39",
+      "measured_ability": "예시 도입 표지 This means, for example 이 전제하는 진술이 앞 문장에 없다는 것을 확인하고, 그 전제를 주어진 문장의 '아이디어가 아니라 표현' 구분으로 채우는 능력",
+      "design_intent": "copyright 라는 낱말이 뒤쪽 세 문장에 반복돼, 저작권을 말하는 주어진 문장이 그 근처 어디에도 붙을 것처럼 보인다. 결정 근거는 예시 문장의 요지다 — 스마트폰 예시는 '아이디어가 같아도 침해가 아니다' 를 말하는데, 앞 문장은 '표현은 보호된다' 만 말하고 '아이디어 자체는 아니다' 를 말하지 않는다. 그 부정 쪽 진술이 빠져 있다는 것이 유일한 단서다.",
+      "answer_locus": {
+        "sentence_index": [
+          5,
+          6
+        ],
+        "quote": "This means, for example, that while there are numerous smartphones all with similar functionality, this does not represent an infringement of copyright",
+        "reasoning": "This means, for example 은 바로 앞 문장을 예로 풀어 준다는 선언이다. 그런데 이 예시의 요지는 '기능(아이디어)이 같아도 침해가 아니다' 로, 아이디어 자체는 저작권 대상이 아니라는 진술을 전제한다. 바로 앞 문장은 the expression of an idea is protected by copyright 로 표현이 보호된다는 쪽만 말할 뿐 아이디어 쪽 부정을 말하지 않으므로, 그 부정을 담은 주어진 문장(copyright covers the expression of an idea and not the idea itself)이 예시 바로 앞에 있어야 This means 가 성립한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "되받는 명사구 분리",
+          "why_tempting": "주어진 문장이 Note that 으로 시작하는 논평 형태라 어디든 끼어들 수 있어 보이고, ① 앞 문장이 '남이 만든 디자인' 을 말해 저작권이 곧바로 연상된다",
+          "how_to_reject": "① 뒤 문장의 Others' creations 는 앞 문장의 those that others have created 를 그대로 되받는 표현이다. 두 문장 사이를 벌리면 이 되받음이 끊기고, 저작권은 아직 화제로 올라오지도 않았다"
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "막연한 지시어 오배정",
+          "why_tempting": "② 뒤 문장 This is well known and understood 의 This 가 무엇이든 받을 수 있어 보여서, 그 앞에 새 진술을 넣고 싶어진다",
+          "how_to_reject": "여기에 넣으면 This 가 저작권 규칙을 받게 되는데, 이어지는 ③ 뒤 문장이 However 로 그 규칙을 다시 꺼내 같은 말을 두 번 하게 된다. This 가 받아야 할 것은 앞 문장의 '남의 창작에서 영감을 얻는다' 는 관행이다"
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "역접 대상 선점",
+          "why_tempting": "여기서 화제가 디자인 관행에서 저작권으로 실제로 바뀌므로, 저작권을 처음 꺼내는 주어진 문장이 그 전환점에 놓일 것 같다",
+          "how_to_reject": "③ 뒤 문장의 However 는 바로 앞 This is well known and understood(남의 것에서 영감을 얻는 것은 문제되지 않는다)를 뒤집는다. 주어진 문장을 먼저 넣으면 However 앞에 이미 저작권 규칙이 서 있어 뒤집을 대상이 사라진다"
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "뒤쪽 근거 — ④ 뒤 문장 'This means, for example, that while there are numerous smartphones all with similar functionality, this does not represent an infringement of copyright' 는 아이디어가 같아도 침해가 아니라는 예시여서, This 가 받을 진술이 '아이디어 자체는 저작권 대상이 아니다' 여야 한다. 앞쪽 근거 — ③ 뒤 문장은 'the expression of an idea is protected by copyright' 로 표현 쪽만 말해 그 부정을 담고 있지 않다. 주어진 문장의 'copyright covers the expression of an idea and not the idea itself' 가 빠진 부정 쪽을 채우고, 예시 끝의 'it is the expression that has been copyrighted' 가 같은 구분을 그대로 되받는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5,
+              6
+            ],
+            "note": "5번(③ 뒤)이 표현 쪽 긍정만, 6번(④ 뒤)이 아이디어 쪽 부정을 전제하는 예시다. 그 사이가 유일하게 비어 있다"
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "근거-예시 후행 배치",
+          "why_tempting": "⑤ 뒤 문장이 저작권의 성격(무료 · 저자에게 자동 귀속)을 말해, 저작권을 규정하는 주어진 문장과 한 묶음처럼 보인다",
+          "how_to_reject": "주어진 문장이 말하는 '아이디어가 아니라 표현' 이라는 구분은 ④ 뒤 스마트폰 예시가 성립하기 위한 전제다. 예시 뒤로 미루면 예시의 as the idea has been expressed in different ways 가 받을 구분 문장이 앞에 없게 된다"
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "본문에서 예시 도입 표지(for example · This means · for instance)에 동그라미 친다. 이 유형에서 예시 문장은 바로 앞 문장의 내용을 반드시 되받으므로 검증이 가장 쉬운 자리다",
+          "on_fail": "예시 표지가 없으면 방향 표지(However · But)에 동그라미 치고 같은 방식으로 진행한다"
+        },
+        {
+          "step": "동그라미 친 예시 문장의 요지를 한 줄로 적는다 — 여기서는 '기능이 같아도 침해가 아니다'. 그다음 바로 앞 문장의 요지를 한 줄로 적는다",
+          "on_fail": "요지가 한 줄로 안 적히면 예시 문장에서 부정어(not)가 붙은 부분만 적는다"
+        },
+        {
+          "step": "두 줄을 견줘 예시가 전제하는데 앞 문장에 없는 조각을 찾는다. 그 조각을 상자 문장이 담고 있으면 그 예시 문장 앞 번호가 후보다",
+          "on_fail": "빠진 조각이 없으면 다른 표지(However 등)로 옮겨 2~3단계를 되풀이한다"
+        },
+        {
+          "step": "나머지 자리에서 짝 표지를 떼지 않는지 확인한다 — 되받는 명사구(Others' creations ↔ those that others have created)와 역접(However)이 받을 대상이 그대로 남는지 본다",
+          "on_fail": "짝이 끊기는 자리가 후보로 남아 있으면 그 자리를 버린다"
+        },
+        {
+          "step": "고른 자리에 넣고 앞 문장 → 주어진 문장 → 예시 문장 셋만 이어 읽어, 규칙 → 단서 → 예시 순서가 되는지 확인한다",
+          "on_fail": "예시가 규칙보다 앞서면 남은 후보로 옮긴다"
+        }
+      ],
+      "time_budget_sec": 110,
+      "difficulty": {
+        "predicted": 0.4,
+        "drivers": [
+          "copyright 가 뒤쪽 세 문장에 반복돼 낱말 겹침이 오히려 오답 쪽을 가리킨다",
+          "결정 근거가 '예시가 전제하는데 앞 문장에 없는 조각' 이라 문장 대 문장 대조가 필요하다",
+          "3점 배점이며 infringe · prosecute 등 법률 어휘가 읽기 속도를 떨어뜨린다"
+        ]
+      },
+      "required_vocab": [
+        "infringe",
+        "expression",
+        "copyrighted",
+        "functionality",
+        "invested"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 저장 지문에 문자 그대로 있고 정답 ④ 가 평가원 정답표와 일치한다",
+            "관찰: 이 문항은 근거가 정답 자리 '뒤' 문장에 있다 — 이 청크의 정답표 보유 4문항이 모두 그렇다",
+            "예시 문장의 요지(기능이 같아도 침해 아님)와 ③ 뒤 문장의 요지(표현은 보호됨)를 나란히 놓아, 빠진 조각이 '아이디어 쪽 부정' 임을 문자열로 확인.",
+            "예시 끝의 it is the expression that has been copyrighted 가 주어진 문장의 구분을 되받아, 삽입 자리가 예시 바로 앞임을 이중으로 고정한다."
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus 2021#39 passage·choices 와 정규화 문자열 대조 (포함 확인)",
+            "correct 선지 번호 4 와 코퍼스 answer 4 대조",
+            "design_intent 가 유형 일반론이 아닌 이 문항의 예시 전제를 말하는지",
+            "why_correct 의 영어 조각 4개를 corpus.json passage 에서 문자열 대조",
+            "③ 뒤 문장에 idea 쪽 부정 표현이 있는지 문자열로 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4종이 서로 다른 축이다 — 되받는 명사구(①), 막연한 지시어(②), 역접 대상 선점(③), 근거-예시 순서(⑤)",
+            "②와 ③ 이 모두 However 를 근거로 쓰지만 배제 이유가 다르다 — ②는 This 의 선행어, ③은 However 의 뒤집을 대상. 위치가 각각 명시돼 있어 중복으로 보지 않았다",
+            "확정이 예시 표지의 선행 요구 + 되받는 구절 두 자리에서 나오고, ⑤ 배제는 별도 서술에 남아 있다."
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 각 자리 실제 표현(Others' creations · This is well known · However · Copyright is free)에 근거하는지",
+            "required_vocab 5개를 corpus 2021#39 passage 문자열과 대조 — infringe·expression·copyrighted·functionality·invested 모두 존재",
+            "소거 논법 유무 확인",
+            "정답 번호 4 와 코퍼스 answer 대조"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계에서 예시 표지부터 잡게 한 것이 이 문항에서 가장 빠른 진입이다 — 지문 앞부분을 읽기 전에도 실행된다",
+            "2단계의 '한 줄 요지' 두 개가 학습자가 실제로 쓰는 동작이고 110초 안에 든다",
+            "학생이 for example 이 든 문장 하나와 그 앞 문장 하나만 한 줄씩 요약해 견주면 끝난다 — 절차 2·3단계와 같다."
+          ],
+          "checked": [
+            "각 단계 모의 실행",
+            "순환논법 금지어 8종 문자열 대조",
+            "단계 소요 추정 합(15+30+25+25+15 = 110) 대조",
+            "지목한 5·6번 문장을 지문 미독 상태에서 찾을 수 있는지 시연"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2109#38",
+      "answer_unknown": true,
+      "measured_ability": "주어진 문장의 this process 가 가리킬 절차 서술 문장과, 본문의 You have then solved this problem 이 전제하는 완료 시점을 각각 찾아 두 표지가 같은 칸을 지목하는지 대조하는 능력",
+      "design_intent": "회의 자료를 나눠 주는 한 장면을 다섯 문장이 나눠 서술해, 어느 자리에 넣어도 장면이 이어지는 것처럼 읽힌다. 문항이 심어 둔 결정 표지는 두 개다 — 주어진 문장 안의 this process(앞에 절차 서술이 있어야 한다)와 본문의 then(앞에 완료된 절차가 있어야 한다). 두 표지가 같은 칸을 요구하도록 배치해, 하나만 보면 옆 칸으로 밀리게 만들었다.",
+      "solve_procedure": [
+        {
+          "step": "상자 문장에서 지시 표현에 동그라미 — this process. 이 말은 '앞에 절차를 서술한 문장이 하나 있어야 한다' 는 조건이다",
+          "on_fail": "지시 표현이 없으면 문장의 결과절(you will know that you have a sufficient number)을 적고, 그 결과가 나올 수 있는 앞 조건을 찾는다"
+        },
+        {
+          "step": "①~⑤ 앞 문장 중 '어떻게 하는지' 를 서술한 문장(labelling each copy ~ with the initials ~ 처럼 동작을 담은 문장)에 O 를 친다. 그 문장 뒤가 this process 의 하한이다",
+          "on_fail": "동작 문장이 둘이면 더 구체적인 쪽(도구·대상이 명시된 쪽)을 하한으로 잡는다"
+        },
+        {
+          "step": "①~⑤ 뒤 문장에서 완료를 전제하는 표지(then · have solved)에 동그라미 치고, 그 앞에 절차와 결과가 모두 나와 있는지 O/X 로 적는다",
+          "on_fail": "완료 표지가 없으면 과거·현재완료 시제로 바뀌는 첫 문장을 대신 표시한다"
+        },
+        {
+          "step": "2단계 하한과 3단계 표지 사이에 낀 칸을 후보로 남긴다. 후보가 하나면 그것으로 확정하고, 둘이면 주어진 문장을 뺐을 때 then 이 받을 결과가 사라지는 쪽을 남긴다",
+          "on_fail": "낀 칸이 없으면 2단계의 하한을 한 칸 앞으로 물려 다시 잡는다"
+        },
+        {
+          "step": "고른 자리에서 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어, 절차 → 확인 → 완료 순서가 되는지 본다",
+          "on_fail": "순서가 어긋나면 남은 후보로 옮긴다"
+        }
+      ],
+      "time_budget_sec": 95,
+      "difficulty": {
+        "predicted": 0.6,
+        "drivers": [
+          "this process 와 then 이라는 표지가 둘 다 짧지만 조건이 명확해 표지를 찾기만 하면 후보가 빨리 준다",
+          "다만 본문 문장이 모두 you 로 시작해 형태 차이가 없고, 장면이 자연스러워 어느 칸에서도 어색함이 안 느껴진다",
+          "예상값은 실측 정답률이 아니라 위 구조 특징에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
+        ]
+      },
+      "required_vocab": [
+        "agenda",
+        "handout",
+        "initials",
+        "arithmetic",
+        "collection"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "저장 본문이 온전하다 — 상자 문장과 ①~⑤ 가 모두 있다",
+            "design_intent 가 두 표지의 배치라는 설계 사실만 말하고 번호를 지목하지 않는다"
+          ],
+          "checked": [
+            "corpus M2109#38 passage 에 상자 문장과 ①~⑤ 존재 확인",
+            "answer_locus·choices 부재 확인",
+            "design_intent·measured_ability 에 번호가 없는지 문자열 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "difficulty 근거가 표지의 명확성과 문장 형태 동일성 두 가지로 적혀 있고 실측이 아님이 명시됐다",
+            "추정 자리가 서술에 스며들지 않았다"
+          ],
+          "checked": [
+            "required_vocab 5개를 corpus M2109#38 passage 문자열과 대조 — agenda·handout·initials·arithmetic·collection 모두 존재",
+            "answer_locus·choices 부재 재확인",
+            "measured_ability 가 선지 번호를 전제하지 않는지"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "초안 1단계가 'this process 가 무엇인지 찾는다' 로 끝나 지문을 안 본 학생은 실행할 수 없었다 — '상자 문장에서 this process 에 동그라미 치고 그것이 만드는 조건을 적는다' 로 동작을 구체화했다",
+            "짧은 지문이라 95초 배정이 적정하다"
+          ],
+          "checked": [
+            "각 단계 모의 실행 (특히 1단계를 지문 미독 상태에서)",
+            "순환논법 금지어 8종 문자열 대조",
+            "단계 소요 추정 합(15+20+20+25+15 = 95) 대조"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2109#39",
+      "answer_unknown": true,
+      "measured_ability": "Rather 가 대체할 부정 진술이 본문에 셋이나 있을 때, 각 부정 뒤에 주어진 문장을 넣어 보고 뒤 문장이 중복되지 않는 자리만 남기는 능력",
+      "design_intent": "본문에 부정문이 세 개(Film has no grammar · not a determinant of it · nothing preordained about film syntax) 깔려 있어 Rather 의 짝 후보가 셋이 된다. 문항은 그중 어느 부정이 '자연스럽게 진화했다' 는 대안 진술을 요구하는지와, 그 뒤 문장(organic development)이 주어진 문장과 같은 말을 되풀이하지 않는지를 함께 보게 설계돼 있다.",
+      "solve_procedure": [
+        {
+          "step": "상자 문장에서 대체 표지(Rather)와 대명사(it)에 동그라미 친다. Rather 는 '앞에 부정 진술이 있어야 한다', it 은 '앞에 단수 지시 대상이 있어야 한다' 는 두 조건을 만든다",
+          "on_fail": "대체 표지가 없으면 문장이 긍정하는 것(evolved naturally)을 적고 그것과 반대되는 진술을 본문에서 찾는다"
+        },
+        {
+          "step": "본문에서 부정어(no · not · nothing · never)가 든 문장에 모두 밑줄을 긋는다. 이 유형에서 Rather 의 짝은 반드시 이 밑줄 중 하나다",
+          "on_fail": "부정어가 없으면 부정 접두사(un- · in-)나 반대 뜻 낱말(laughable · unnecessary)이 든 문장을 밑줄 대상으로 넣는다"
+        },
+        {
+          "step": "밑줄마다 그 문장 뒤 번호에 주어진 문장을 넣어 보고, 바로 뒤 문장이 주어진 문장과 같은 말을 되풀이하는지 확인한다. 되풀이하면 그 자리를 버린다",
+          "on_fail": "전부 되풀이로 보이면 되풀이의 정도를 견줘 낱말이 겹치는 쪽(organic development ↔ evolved naturally)을 먼저 버린다"
+        },
+        {
+          "step": "남은 자리에서 it 이 가리킬 단수 명사(film syntax)가 바로 앞 문장에 있는지 확인한다",
+          "on_fail": "없으면 한 칸 앞으로 옮겨 같은 확인을 되풀이한다"
+        },
+        {
+          "step": "고른 자리에서 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어, 부정 → 대안 → 부연 순서가 되는지 본다",
+          "on_fail": "순서가 어긋나면 남은 후보로 옮긴다"
+        }
+      ],
+      "time_budget_sec": 115,
+      "difficulty": {
+        "predicted": 0.45,
+        "drivers": [
+          "Rather 의 짝 후보가 부정문 세 개라 한 번에 좁혀지지 않는다",
+          "뒤 문장 organic development 가 주어진 문장 evolved naturally 와 뜻이 겹쳐, 중복 판정이 정답 자리 판정과 얽힌다",
+          "3점 배점이며 예상값은 실측 정답률이 아니라 위 구조 특징에서 매긴 값이다 — 이 회차는 평가원 정답표가 없다"
+        ]
+      },
+      "required_vocab": [
+        "syntax",
+        "preordained",
+        "prescriptive",
+        "descriptive",
+        "determinant"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "저장 본문에 38번 지문이 앞에 붙어 있으나 39번(영화 문법) 지문도 온전히 들어 있어 복원이 필요 없었다",
+            "design_intent 가 '부정문 세 개' 라는 이 문항 고유의 구조를 말하고 번호를 지목하지 않는다"
+          ],
+          "checked": [
+            "corpus M2109#39 passage 에 상자 문장과 39번 ①~⑤ 존재 확인",
+            "answer_locus·choices 부재 확인",
+            "design_intent 에 번호가 없는지 문자열 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안 difficulty.drivers 가 '어려운 지문' 이라고만 적어 근거가 없었다 — 부정문 3개 · organic development 중복이라는 구조 근거와 배점으로 바꿨다",
+            "추정 자리가 서술에 스며들지 않았다"
+          ],
+          "checked": [
+            "difficulty.predicted 근거가 구조 사실로 적혀 있는지",
+            "required_vocab 5개를 corpus M2109#39 passage 문자열과 대조 — syntax·preordained·prescriptive·descriptive·determinant 모두 존재",
+            "answer_locus·choices 부재 재확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계 '부정어에 밑줄' 이 이 문항에서 후보를 셋으로 만들어 주고, 3단계 중복 판정이 그중 둘을 버린다 — 학습자가 손으로 할 수 있는 순서다",
+            "3점 문항이라 115초를 배정했고 단계 합이 그 안에 든다"
+          ],
+          "checked": [
+            "각 단계 모의 실행",
+            "순환논법 금지어 8종 문자열 대조",
+            "단계 소요 추정 합(20+20+30+25+20 = 115) 대조"
+          ]
+        }
+      ]
+    }
   ],
-  "answer_locus_pattern": "정답표가 있는 4문항 모두 근거가 정답 자리 **바로 뒤** 문장에 있었고, 그 근거는 예외 없이 '앞에 선행어가 없는 표현' 이다 — the replaced human workers ~ positions(2022#38 ⑤ 뒤) · such an illusion(2022#39 ④ 뒤) · nevertheless(2021#38 ④ 뒤) · This means, for example(2021#39 ④ 뒤). 정답 자리 앞 문장이 근거였던 경우는 0개다. 곧 ①~⑤ **뒤** 문장의 첫 대여섯 낱말만 훑어도 후보가 1~2개로 준다. 정답 번호는 4문항 중 ④가 3회 · ⑤가 1회로 뒤쪽에 쏠렸으나 n=4라 규칙으로 삼지 않는다",
-  "procedure": [
-   {
-    "step": "상자 안 주어진 문장에서 앞을 가리키는 표지에 동그라미 친다 — 지시어(This/These/such/it/they) · 접속부사(Also/However/Rather/In addition/Consequently) · 양보 표현(still/nevertheless) · 정관사구. 표지가 하나도 없으면 대신 정관사 없이 처음 나오는 명사구에 밑줄을 긋는다(뒤에서 되받아질 것이다)",
-    "on_fail": "표지가 둘 이상이면 지시어를 우선한다 — 지시어는 받을 대상이 있어야만 성립하므로 조건이 가장 세다"
-   },
-   {
-    "step": "본문은 통독하지 않는다. ①~⑤ **뒤** 문장의 첫 대여섯 낱말만 읽어 지시 표현·연결 표지에 동그라미 친다",
-    "on_fail": "뒤 문장에 표지가 없는 자리는 그대로 두고, 표지가 있는 자리만 다음 단계로 넘긴다"
-   },
-   {
-    "step": "동그라미마다 '받을 대상이 바로 앞 문장에 있는가' 를 O/X 로 적는다. 명사를 받는 지시어(these · such · the + 명사)는 같은 명사가 앞에 실제로 있어야 O 다. X 가 난 자리가 본문이 이미 끊겨 있는 자리다",
-    "on_fail": "X 가 없으면 1단계의 밑줄(새 정보)이 본문에서 정관사로 되받아지는 문장을 찾아 그 앞을 X 로 삼는다"
-   },
-   {
-    "step": "X 자리에 주어진 문장을 넣고 **두 방향**을 동시에 확인한다 — (가) 주어진 문장의 표지가 그 앞 문장에서 받아지는가 (나) X 였던 표지가 이제 주어진 문장을 받는가. 둘 다 O 여야 한다",
-    "on_fail": "한쪽만 O 면 한 칸 앞뒤로 옮겨 같은 두 검사를 되풀이한다. 한 방향만 보고 고르는 것이 이 유형 최대 실점 경로다"
-   },
-   {
-    "step": "나머지 네 자리에서 짝 표지를 떼는 곳이 없는지 한 번만 확인한다 — For example · This is why · these ~ · what's worse 처럼 앞 문장과 묶인 표지는 사이를 벌릴 수 없다",
-    "on_fail": "짝을 떼는 자리가 후보로 남아 있으면 그 자리를 버리고 4단계로 돌아간다"
-   },
-   {
-    "step": "고른 자리에서 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어 시제·주체·수가 어긋나지 않는지 확인하고 넘어간다",
-    "on_fail": "어긋나면 남은 후보로 바꾼다. 다섯 자리를 전부 대입해 읽지 않는다"
-   }
-  ],
-  "failure_modes": [
-   "낱말이 겹치는 자리를 고른다 — fear · reality · copyright 처럼 주어진 문장과 같은 낱말이 있는 자리는 대개 오답 쪽에 심겨 있다. 12문항 중 4문항에서 이 유인이 정답 자리와 떨어진 곳에 있었다",
-   "한 방향만 본다 — '넣어 보니 앞이 자연스럽다' 로 끝내고, 그 자리의 뒤 문장이 여전히 받을 말이 없다는 것을 확인하지 않는다. 정답표 보유 4문항의 근거가 모두 '뒤 문장' 이었으므로 이 습관 하나로 4문항이 갈린다",
-   "화제가 바뀌는 듯한 자리를 단절로 오인한다 — 2022#38 ④의 비용 이야기처럼 소재가 튀어 보여도 planning 같은 낱말 고리가 이어져 있으면 단절이 아니다. 진짜 단절은 소재가 아니라 지시어가 받아지지 않는 자리다",
-   "주어진 문장의 문두 부사를 안 본다 — Also · Rather · however 는 각각 '앞에 같은 종류가 있어야 한다 / 앞에 부정이 있어야 한다 / 앞에 뒤집을 진술이 있어야 한다' 는 조건이다. 이 조건 하나로 자리 두세 개가 즉시 지워진다",
-   "다섯 자리를 전부 대입해 읽는다 — 지문을 다섯 번 읽게 되어 100초 예산이 두 배로 넘고, 뒤 문항 시간을 잠식한다"
-  ],
-  "time_budget_sec": 105,
-  "open_questions": [
-   "**trap 라벨 9종이 이 유형에 안 맞는다.** 명세 §1 의 라벨(범위 과대·범위 과소·인과 역전·주체 역전·부분 사실·어휘 함정·지문 밖 상식·반대 진술·무관)은 선지가 **문장**인 유형을 전제하는데, R-INSERT 의 선지는 지문 안에 박힌 위치 기호 ①~⑤ 라 '선지의 진술이 틀렸다' 는 축 자체가 없다. 이 청크는 다음 축으로 대신 붙였다 — `인접 짝 절단` · `논리 순서 역전` · `가짜 단절` · `표면 어휘 유인`, 그리고 문항별 하위 라벨 12종(표면 어휘 반복 · 일반-예시 인접 절단 · 연쇄 고리 절단 · 가짜 화제 전환 · 지시 연결 절단 · 선행 명사구 분리 · 점층 사슬 절단 · 어휘 공명 유인 · 용어 선등장 · 대구 표현 유인 · 양보-반전 순서 역전 · 종결 어조 유인 · 막연한 지시어 오배정 · 역접 대상 선점 · 되받는 명사구 분리 · 근거-예시 후행 배치). R-ORDER 청크(chunk-R-ORDER-M2306-36)도 같은 이유로 6종을 새로 썼다 — **두 청크가 독립적으로 같은 결론에 닿았으므로 라벨표에 위치형 선지 전용 축을 정식 등재할 것을 제안한다.** 상위 4축은 R-ORDER 의 축과도 상당 부분 겹친다(짝 절단 · 순서 역전)",
-   "**청크 입력 파일이 코퍼스와 어긋나 있었다.** chunk-R-INSERT-M2306-38.json 의 2022#39 · M2209#39 본문은 현재 corpus.json 의 같은 id 본문과 다르다(청크가 낡은 파싱을 담고 있다). 게이트가 corpus.json 을 건초더미로 쓰므로 분석은 **코퍼스 본문**을 기준으로 했고, columns2/*.txt 회차 원문과 대조해 코퍼스 쪽이 맞음을 확인했다. export 가 청크를 다시 뽑을 때 이 어긋남이 남아 있으면 다음 분석자는 없는 지문을 분석하게 된다",
-   "**M2306#39 는 코퍼스 본문 자체가 다른 문항이다.** 저장된 것은 38번(살충제) 지문과 40번(mobilities) 요약 지문의 2단 병합이고, 39번의 상자 문장 'This makes sense from the perspective of information reliability.' 와 collective detection 지문은 통째로 빠져 있다(columns2/M2306.txt 7쪽 오른쪽 단에 있다). 이 문항은 원문에서 복원해 분석했으나(body_recovered), **파서 쪽 수정이 필요하다** — 정답표가 있는 회차에서 같은 일이 나면 인용 대조가 회차 원문 폴백으로 넘어가 경고만 남는다",
-   "정답표가 있는 문항이 12개 중 4개(2022#38·39, 2021#38·39)뿐이라 recurring_traps 의 count 는 그 4문항 16개 오답에서만 나왔다. answer_locus_pattern 의 '근거는 항상 뒤 문장' 도 n=4 다 — 다음 R-INSERT 청크(2017·M2106·M2506·M2706)에서 재확인이 필요하다",
-   "정답 번호가 ④⑤ 에 쏠린 것(4문항 중 4개)이 표본 우연인지 이 유형의 배치 관행인지는 n=4 로 말할 수 없다. 남은 청크 4개를 합쳐 20문항 남짓이 되면 위치 분포를 다시 센다"
-  ]
- }
+  "type_report": {
+    "type_id": "R-INSERT",
+    "n_analyzed": 12,
+    "recurring_traps": [
+      {
+        "trap": "인접 짝 절단",
+        "count": 6,
+        "signature": "고른 자리의 앞뒤 두 문장이 이미 짝 표지로 묶여 있는데 그 사이를 벌린다 — For example(2022#38 ②) · This is why(2022#39 ①) · these innovations(2022#39 ②) · what's worse ~ they(2022#39 ③) · new plants↔new factories(2022#38 ③) · Others' creations↔those that others have created(2021#39 ①). 학습자는 '넣어도 말이 된다' 만 보고 '떼면 안 되는 짝' 을 안 본다"
+      },
+      {
+        "trap": "논리 순서 역전",
+        "count": 4,
+        "signature": "양보→반전 · 규칙→예시 · 낱말 도입→사용의 순서를 뒤집는 자리다. 2021#38 ③(양보가 주장보다 앞섬) · 2021#38 ①(wickedness 가 wicked 도입 전에 나옴) · 2021#39 ③(However 가 뒤집을 대상을 선점) · 2021#39 ⑤(전제가 예시 뒤로 감)"
+      },
+      {
+        "trap": "가짜 단절",
+        "count": 3,
+        "signature": "화제가 바뀌는 듯 보이거나(2022#38 ④ 비용 이야기) 지시어가 막연해(2021#39 ② This is well known) 빈틈처럼 느껴지지만, 실제로는 뒤 문장이 앞 문장을 이어받고 있다. 2021#38 ⑤ 처럼 마무리 어조가 나는 자리도 여기 든다"
+      },
+      {
+        "trap": "표면 어휘 유인",
+        "count": 3,
+        "signature": "주어진 문장과 같은 낱말·대구가 바로 옆에 있어 끌린다 — fear(2022#38 ①) · many ways↔many forms(2021#38 ②) · representations of reality↔medium of representation(2022#39 ⑤). 이 유인은 정답 자리와 **떨어진 곳**에 심어 두는 것이 이 유형의 관행이다"
+      }
+    ],
+    "answer_locus_pattern": "정답표가 있는 4문항 모두 근거가 정답 자리 **바로 뒤** 문장에 있었고, 그 근거는 예외 없이 '앞에 선행어가 없는 표현' 이다 — the replaced human workers ~ positions(2022#38 ⑤ 뒤) · such an illusion(2022#39 ④ 뒤) · nevertheless(2021#38 ④ 뒤) · This means, for example(2021#39 ④ 뒤). 정답 자리 앞 문장이 근거였던 경우는 0개다. 곧 ①~⑤ **뒤** 문장의 첫 대여섯 낱말만 훑어도 후보가 1~2개로 준다. 정답 번호는 4문항 중 ④가 3회 · ⑤가 1회로 뒤쪽에 쏠렸으나 n=4라 규칙으로 삼지 않는다",
+    "procedure": [
+      {
+        "step": "상자 안 주어진 문장에서 앞을 가리키는 표지에 동그라미 친다 — 지시어(This/These/such/it/they) · 접속부사(Also/However/Rather/In addition/Consequently) · 양보 표현(still/nevertheless) · 정관사구. 표지가 하나도 없으면 대신 정관사 없이 처음 나오는 명사구에 밑줄을 긋는다(뒤에서 되받아질 것이다)",
+        "on_fail": "표지가 둘 이상이면 지시어를 우선한다 — 지시어는 받을 대상이 있어야만 성립하므로 조건이 가장 세다"
+      },
+      {
+        "step": "본문은 통독하지 않는다. ①~⑤ **뒤** 문장의 첫 대여섯 낱말만 읽어 지시 표현·연결 표지에 동그라미 친다",
+        "on_fail": "뒤 문장에 표지가 없는 자리는 그대로 두고, 표지가 있는 자리만 다음 단계로 넘긴다"
+      },
+      {
+        "step": "동그라미마다 '받을 대상이 바로 앞 문장에 있는가' 를 O/X 로 적는다. 명사를 받는 지시어(these · such · the + 명사)는 같은 명사가 앞에 실제로 있어야 O 다. X 가 난 자리가 본문이 이미 끊겨 있는 자리다",
+        "on_fail": "X 가 없으면 1단계의 밑줄(새 정보)이 본문에서 정관사로 되받아지는 문장을 찾아 그 앞을 X 로 삼는다"
+      },
+      {
+        "step": "X 자리에 주어진 문장을 넣고 **두 방향**을 동시에 확인한다 — (가) 주어진 문장의 표지가 그 앞 문장에서 받아지는가 (나) X 였던 표지가 이제 주어진 문장을 받는가. 둘 다 O 여야 한다",
+        "on_fail": "한쪽만 O 면 한 칸 앞뒤로 옮겨 같은 두 검사를 되풀이한다. 한 방향만 보고 고르는 것이 이 유형 최대 실점 경로다"
+      },
+      {
+        "step": "나머지 네 자리에서 짝 표지를 떼는 곳이 없는지 한 번만 확인한다 — For example · This is why · these ~ · what's worse 처럼 앞 문장과 묶인 표지는 사이를 벌릴 수 없다",
+        "on_fail": "짝을 떼는 자리가 후보로 남아 있으면 그 자리를 버리고 4단계로 돌아간다"
+      },
+      {
+        "step": "고른 자리에서 앞 문장 → 주어진 문장 → 뒤 문장 셋만 이어 읽어 시제·주체·수가 어긋나지 않는지 확인하고 넘어간다",
+        "on_fail": "어긋나면 남은 후보로 바꾼다. 다섯 자리를 전부 대입해 읽지 않는다"
+      }
+    ],
+    "failure_modes": [
+      "낱말이 겹치는 자리를 고른다 — fear · reality · copyright 처럼 주어진 문장과 같은 낱말이 있는 자리는 대개 오답 쪽에 심겨 있다. 12문항 중 4문항에서 이 유인이 정답 자리와 떨어진 곳에 있었다",
+      "한 방향만 본다 — '넣어 보니 앞이 자연스럽다' 로 끝내고, 그 자리의 뒤 문장이 여전히 받을 말이 없다는 것을 확인하지 않는다. 정답표 보유 4문항의 근거가 모두 '뒤 문장' 이었으므로 이 습관 하나로 4문항이 갈린다",
+      "화제가 바뀌는 듯한 자리를 단절로 오인한다 — 2022#38 ④의 비용 이야기처럼 소재가 튀어 보여도 planning 같은 낱말 고리가 이어져 있으면 단절이 아니다. 진짜 단절은 소재가 아니라 지시어가 받아지지 않는 자리다",
+      "주어진 문장의 문두 부사를 안 본다 — Also · Rather · however 는 각각 '앞에 같은 종류가 있어야 한다 / 앞에 부정이 있어야 한다 / 앞에 뒤집을 진술이 있어야 한다' 는 조건이다. 이 조건 하나로 자리 두세 개가 즉시 지워진다",
+      "다섯 자리를 전부 대입해 읽는다 — 지문을 다섯 번 읽게 되어 100초 예산이 두 배로 넘고, 뒤 문항 시간을 잠식한다"
+    ],
+    "time_budget_sec": 105,
+    "open_questions": [
+      "**trap 라벨 9종이 이 유형에 안 맞는다.** 명세 §1 의 라벨(범위 과대·범위 과소·인과 역전·주체 역전·부분 사실·어휘 함정·지문 밖 상식·반대 진술·무관)은 선지가 **문장**인 유형을 전제하는데, R-INSERT 의 선지는 지문 안에 박힌 위치 기호 ①~⑤ 라 '선지의 진술이 틀렸다' 는 축 자체가 없다. 이 청크는 다음 축으로 대신 붙였다 — `인접 짝 절단` · `논리 순서 역전` · `가짜 단절` · `표면 어휘 유인`, 그리고 문항별 하위 라벨 12종(표면 어휘 반복 · 일반-예시 인접 절단 · 연쇄 고리 절단 · 가짜 화제 전환 · 지시 연결 절단 · 선행 명사구 분리 · 점층 사슬 절단 · 어휘 공명 유인 · 용어 선등장 · 대구 표현 유인 · 양보-반전 순서 역전 · 종결 어조 유인 · 막연한 지시어 오배정 · 역접 대상 선점 · 되받는 명사구 분리 · 근거-예시 후행 배치). R-ORDER 청크(chunk-R-ORDER-M2306-36)도 같은 이유로 6종을 새로 썼다 — **두 청크가 독립적으로 같은 결론에 닿았으므로 라벨표에 위치형 선지 전용 축을 정식 등재할 것을 제안한다.** 상위 4축은 R-ORDER 의 축과도 상당 부분 겹친다(짝 절단 · 순서 역전)",
+      "**청크 입력 파일이 코퍼스와 어긋나 있었다.** chunk-R-INSERT-M2306-38.json 의 2022#39 · M2209#39 본문은 현재 corpus.json 의 같은 id 본문과 다르다(청크가 낡은 파싱을 담고 있다). 게이트가 corpus.json 을 건초더미로 쓰므로 분석은 **코퍼스 본문**을 기준으로 했고, columns2/*.txt 회차 원문과 대조해 코퍼스 쪽이 맞음을 확인했다. export 가 청크를 다시 뽑을 때 이 어긋남이 남아 있으면 다음 분석자는 없는 지문을 분석하게 된다",
+      "**M2306#39 는 코퍼스 본문 자체가 다른 문항이다.** 저장된 것은 38번(살충제) 지문과 40번(mobilities) 요약 지문의 2단 병합이고, 39번의 상자 문장 'This makes sense from the perspective of information reliability.' 와 collective detection 지문은 통째로 빠져 있다(columns2/M2306.txt 7쪽 오른쪽 단에 있다). 이 문항은 원문에서 복원해 분석했으나(body_recovered), **파서 쪽 수정이 필요하다** — 정답표가 있는 회차에서 같은 일이 나면 인용 대조가 회차 원문 폴백으로 넘어가 경고만 남는다",
+      "정답표가 있는 문항이 12개 중 4개(2022#38·39, 2021#38·39)뿐이라 recurring_traps 의 count 는 그 4문항 16개 오답에서만 나왔다. answer_locus_pattern 의 '근거는 항상 뒤 문장' 도 n=4 다 — 다음 R-INSERT 청크(2017·M2106·M2506·M2706)에서 재확인이 필요하다",
+      "정답 번호가 ④⑤ 에 쏠린 것(4문항 중 4개)이 표본 우연인지 이 유형의 배치 관행인지는 n=4 로 말할 수 없다. 남은 청크 4개를 합쳐 20문항 남짓이 되면 위치 분포를 다시 센다"
+    ]
+  }
 }

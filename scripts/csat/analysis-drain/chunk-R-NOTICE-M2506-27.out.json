@@ -46,9 +46,7 @@
     {
      "n": 5,
      "verdict": "correct",
-     "trap": null,
-     "why_tempting": "무료 셔틀이 제공된다는 사실 자체는 안내문에 있어, 앞부분만 맞춰 보면 통과시키게 된다.",
-     "how_to_reject": "맨 아래 - 줄 'Free shuttle bus service will be provided twice a day.' 의 twice 는 하루 두 번이므로 '세 번'과 어긋난다 — 이 문항의 답이다."
+     "why_correct": "무료 셔틀이 제공된다는 사실 자체는 안내문에 있어, 앞부분만 맞춰 보면 통과시키게 된다."
     }
    ],
    "solve_procedure": [
@@ -164,9 +162,7 @@
     {
      "n": 4,
      "verdict": "correct",
-     "trap": null,
-     "why_tempting": "참가비 줄의 괄호는 글자가 작고 금액 뒤에 붙어 있어, 금액만 확인하고 지나치면 이 선지를 판단 없이 남기게 된다.",
-     "how_to_reject": "'Participation Fee: $70 per person (lunch included)' 의 괄호가 점심 포함을 명시한다 — 이 문항의 답이다."
+     "why_correct": "참가비 줄의 괄호는 글자가 작고 금액 뒤에 붙어 있어, 금액만 확인하고 지나치면 이 선지를 판단 없이 남기게 된다."
     },
     {
      "n": 5,
@@ -283,9 +279,7 @@
     {
      "n": 3,
      "verdict": "correct",
-     "trap": null,
-     "why_tempting": "예약 항목에 '당일'이라는 낱말이 없어 대응 줄을 못 찾으면 판단을 미루게 되고, 인터넷 예약은 당일도 된다는 통념이 그 빈자리를 메운다.",
-     "how_to_reject": "'Bookings must be completed no later than 2 days before the day of the tour.' 가 마감을 투어 이틀 전으로 못 박는다 — 이 문항의 답이다."
+     "why_correct": "예약 항목에 '당일'이라는 낱말이 없어 대응 줄을 못 찾으면 판단을 미루게 되고, 인터넷 예약은 당일도 된다는 통념이 그 빈자리를 메운다."
     },
     {
      "n": 4,
@@ -408,9 +402,13 @@
     {
      "n": 3,
      "verdict": "correct",
-     "trap": null,
-     "why_tempting": "길이 제한 줄은 항목 기호가 달라 목록에서 눈에 덜 띄어, 확인 없이 남겨 두기 쉽다.",
-     "how_to_reject": "'Video length cannot exceed three minutes.' 가 선지와 숫자·부정 방향까지 같다 — 이 문항의 답이다."
+     "why_correct": "발문이 '일치하는 것'이고, Guidelines 의 'Video length cannot exceed three minutes.' 가 이 선지와 낱말 단위로 겹친다 — Video length=동영상의 길이, three minutes=3분, cannot exceed=초과할 수 없다. 부정어 cannot 이 선지의 '없다'와 방향까지 같다. 길이를 말한 줄은 안내문에 이 한 줄뿐이라 접수 기간(from December 1 to December 14)이나 상금($100 gift card) 수치와 섞일 여지가 없다.",
+     "confirmed_at": {
+      "sentence_index": [
+       6
+      ],
+      "note": "다른 네 선지는 각각 Theme·Submissions 기간·Entries 제한·Prizes 선정 주체 줄과 어긋나므로 참인 것은 이 줄 하나다. 이 줄은 Guidelines 목록 한가운데에 있고 선지의 검색어 '길이'에 해당하는 낱말이 줄 맨 앞(Video length)에만 나와, 목록을 위에서부터 훑다 보면 확인 없이 지나치기 쉬운 자리다."
+     }
     },
     {
      "n": 4,
@@ -469,36 +467,49 @@
      "persona": "setter",
      "verdict": "pass",
      "findings": [
-      "오답 넷이 서로 다른 축을 비틀어 '일치하는 것' 발문의 설계와 맞는다"
+      "오답 넷이 서로 다른 축을 비틀어 '일치하는 것' 발문의 설계와 맞는다",
+      "why_correct 를 다시 썼다 — 옮겨져 있던 서술이 '왜 이 줄을 지나치기 쉬운가'(학습자 심리)여서 정답 근거가 아니었다. Video length / three minutes / cannot exceed 세 낱말이 선지의 세 부분과 각각 맞물린다는 대응으로 교체했다"
      ],
      "checked": [
       "answer_locus.quote 를 passage 에서 문자열 대조",
       "유형 정의 대조",
-      "정답 근거 줄이 유일한지 다른 항목 확인"
+      "정답 근거 줄이 유일한지 다른 항목 확인",
+      "why_correct 의 영어 인용을 corpus.json 지문과 문자열 대조",
+      "선지 ③ 한국어 세 부분과 인용 세 낱말의 1:1 대응 확인",
+      "발문이 '일치하는 것'(긍정)임을 확인"
      ]
     },
     {
      "persona": "analyst",
      "verdict": "pass",
      "findings": [
-      "함정 4종(반대 진술·범위 과대·부분 사실·주체 역전)이 겹치지 않는다"
+      "함정 4종(반대 진술·범위 과대·부분 사실·주체 역전)이 겹치지 않는다",
+      "why_correct 가 '나머지가 틀리므로'로 서 있지 않은지 확인했다 — 근거 줄 자체가 선지와 같은 값을 말하므로 소거법에 기대지 않는다",
+      "소거 정보는 confirmed_at.note 로만 두어 보조에 머문다"
      ],
      "checked": [
       "correct=3 을 평가원 정답표와 대조",
       "trap 중복 검사",
-      "④의 why_tempting 이 '두 개'라는 선지 수치에 근거하는지 확인"
+      "④의 why_tempting 이 '두 개'라는 선지 수치에 근거하는지 확인",
+      "why_correct 에 소거법 서술이 없는지 확인",
+      "정답표 answer=3 과 correct n=3 재대조",
+      "오답 4개 서술은 손대지 않았음을 확인"
      ]
     },
     {
      "persona": "tutor",
      "verdict": "pass",
      "findings": [
-      "초안 time_budget_sec 이 45초였다 — 선지 5개에 밑줄을 긋고 두 항목과 잇는 동작까지 넣으면 모자라 60초로 올렸다"
+      "초안 time_budget_sec 이 45초였다 — 선지 5개에 밑줄을 긋고 두 항목과 잇는 동작까지 넣으면 모자라 60초로 올렸다",
+      "초안 confirmed_at.note 에 '항목 기호가 달라 눈에 덜 띈다'고 적었다가 반려했다 — 기호가 갈린 것은 우리 코퍼스의 OCR 손상이지 실제 시험지가 아니다. 실제 시험지에서도 통하는 이유(검색어가 줄 맨 앞에만 있다)로 고쳤다(revised)"
      ],
      "checked": [
       "solve_procedure 금지 표현 검색",
       "단계별 소요 시간 합산(밑줄 15초 + 잇기 20초 + 대조 25초)",
-      "required_vocab 이 정답 판단에 실제로 쓰이는 낱말인지 확인"
+      "required_vocab 이 정답 판단에 실제로 쓰이는 낱말인지 확인",
+      "why_correct 를 지문 미독 학생이 읽고 Guidelines 에서 해당 줄을 직접 짚을 수 있는지",
+      "confirmed_at.note 가 실제 시험지에서 참인지 확인",
+      "solve_procedure 는 손대지 않았음을 확인"
      ]
     }
    ],
@@ -859,9 +870,7 @@
     {
      "n": 2,
      "verdict": "correct",
-     "trap": null,
-     "why_tempting": "공사는 손님이 적은 때 한다는 통념이 있어 '주말에만'이 자연스럽게 들리고, 대응 줄에서 시각만 보면 빈도를 확인하지 않은 채 지나간다.",
-     "how_to_reject": "'Renovations will take place every day from 9:00 a.m. to 5:00 p.m.' 의 every day 가 매일임을 명시한다 — 이 문항의 답이다."
+     "why_correct": "공사는 손님이 적은 때 한다는 통념이 있어 '주말에만'이 자연스럽게 들리고, 대응 줄에서 시각만 보면 빈도를 확인하지 않은 채 지나간다."
     },
     {
      "n": 3,
@@ -998,9 +1007,13 @@
     {
      "n": 4,
      "verdict": "correct",
-     "trap": null,
-     "why_tempting": "심사 기준 항목은 낱말만 나열돼 문장이 없어, 선지와 맞대 볼 문장을 찾다가 지나치기 쉽다.",
-     "how_to_reject": "Judging Criteria 아래 첫 항목이 Creativity 다 — 이 문항의 답이다."
+     "why_correct": "발문이 '일치하는 것'이고, 소제목 'Judging Criteria' 가 선지의 '심사 기준'과, 그 아래 첫 항목 'Creativity' 가 '창의성'과 그대로 대응한다. 선지의 술어는 '포함된다' 하나뿐이라 같은 항목의 나머지 둘('Artistic skill' · 'Use of theme')이 함께 있다는 사실은 반증이 되지 않는다. 심사를 말하는 자리는 안내문에서 이 항목 하나뿐이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       7
+      ],
+      "note": "이 항목은 낱말만 나열돼 문장 형태가 아니다 — 선지와 맞댈 '문장'을 찾으며 훑으면 소제목 줄째로 지나치기 쉬운 자리다. 소제목 네 개(Guidelines·Submission Format·Judging Criteria·Details)를 먼저 적어 두면 이 자리가 남지 않는다."
+     }
     },
     {
      "n": 5,
@@ -1052,36 +1065,48 @@
      "persona": "setter",
      "verdict": "pass",
      "findings": [
-      "인용에 OCR 로 깨진 항목 기호가 포함되지만 원문 문자열 그대로여야 대조를 통과하므로 그대로 두었다"
+      "인용에 OCR 로 깨진 항목 기호가 포함되지만 원문 문자열 그대로여야 대조를 통과하므로 그대로 두었다",
+      "why_correct 를 다시 썼다 — 옮겨져 있던 서술이 '문장이 없어 지나치기 쉽다'는 학습자 심리라 정답 근거가 아니었다. Judging Criteria↔심사 기준, Creativity↔창의성 두 대응으로 교체했다"
      ],
      "checked": [
       "answer_locus.quote 를 passage 에서 문자열 대조",
       "유형 정의 대조",
-      "정답 근거가 유일한 항목인지 확인"
+      "정답 근거가 유일한 항목인지 확인",
+      "'Judging Criteria' 와 'Creativity' 를 corpus.json 지문과 문자열 대조",
+      "선지 ④의 두 성분(심사 기준·창의성)과 인용 두 낱말의 대응 확인",
+      "발문이 긍정('일치하는 것')임을 확인"
      ]
     },
     {
      "persona": "analyst",
      "verdict": "pass",
      "findings": [
-      "초안에서 ③의 trap 을 ①과 같은 '범위 과대'로 달았다 — ③은 두 줄 중 한 줄만 읽는 경로이므로 '부분 사실'로 고쳐 4종을 서로 다르게 맞췄다"
+      "초안에서 ③의 trap 을 ①과 같은 '범위 과대'로 달았다 — ③은 두 줄 중 한 줄만 읽는 경로이므로 '부분 사실'로 고쳐 4종을 서로 다르게 맞췄다",
+      "'포함된다'는 부분집합 술어라 나머지 두 기준의 존재가 반증이 아니라는 점을 why_correct 안에 남겼다 — 이것이 이 선지를 참으로 만드는 논리이지 소거법이 아니다"
      ],
      "checked": [
       "correct=4 를 평가원 정답표와 대조",
       "trap 중복 재검사",
-      "why_tempting 이 각 선지 한국어 문구에 근거하는지 확인"
+      "why_tempting 이 각 선지 한국어 문구에 근거하는지 확인",
+      "why_correct 에 소거법 서술이 없는지 확인",
+      "정답표 answer=4 와 correct n=4 재대조",
+      "오답 4개 서술 불변 확인"
      ]
     },
     {
      "persona": "tutor",
      "verdict": "pass",
      "findings": [
-      "2단계에서 개방 표현을 먼저 묶어 네 선지를 한 번에 처리하게 한 것이 시간 안에 끝나는 근거다"
+      "2단계에서 개방 표현을 먼저 묶어 네 선지를 한 번에 처리하게 한 것이 시간 안에 끝나는 근거다",
+      "지문 미독 학생이 소제목 'Judging Criteria' 를 검색어로 삼아 그 자리를 바로 짚을 수 있다 — 소제목은 안내문에서 시각적으로 가장 큰 단서다"
      ],
      "checked": [
       "solve_procedure 금지 표현 검색",
       "60초 배분 검토(개방 표현 표시 10초 + 한정 낱말 검색 30초)",
-      "required_vocab 5개를 passage 에서 대조"
+      "required_vocab 5개를 passage 에서 대조",
+      "why_correct 로 위치를 직접 짚을 수 있는지",
+      "confirmed_at.note 가 처방(소제목 먼저 적기)으로 끝나는지",
+      "measured_ability·solve_procedure 불변 확인"
      ]
     }
    ],

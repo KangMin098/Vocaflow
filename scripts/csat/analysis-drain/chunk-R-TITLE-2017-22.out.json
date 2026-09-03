@@ -1,1020 +1,1085 @@
 {
- "chunk": 3,
- "type_id": "R-TITLE",
- "type_name": "제목",
- "analyses": [
-  {
-   "item_id": "2017#22",
-   "measured_ability": "양보(꿀벌 신호 체계가 정확하다)와 주장(그러나 언어의 값은 다른 데 있다)을 However 로 갈라 놓고, 마지막 It is ~ that 강조구문이 지목한 두 낱말(ambiguity·adaptability)을 제목의 주어 자리로 옮겨 오는 능력",
-   "design_intent": "첫 문장에 정답과 정반대인 매력적인 진술(모호성 없는 전달이 우월하다)을 통째로 깔아 두고 However 로 뒤집는다. 앞 두 줄만 읽고 제목을 정하면 ①·⑤ 두 개가 동시에 맞아 보이도록 설계했다 — 곧 '어디서부터가 필자 주장인가'를 표지로 끊는지를 가른다. 정답 선지가 의문문(What in Language Creates ~?)이라 '단정문이 제목답다'는 통념도 함께 시험한다.",
-   "answer_locus": {
-    "sentence_index": [
-     2,
-     7
-    ],
-    "quote": "It is the inherent ambiguity and adaptability of language as a meaning-making system that makes the relationship between language and thinking so special.",
-    "reasoning": "강조구문 It is X that Y 는 X(모호성과 적응성)를 Y(언어와 사고의 특별한 관계)의 원인으로 못박는다. 제목 ④의 'What in Language'가 묻는 것이 바로 이 X 자리이고, 'Varied Understanding'은 앞 문장들이 그 X의 결과로 든 것(listeners or readers bring their own perspectives · creating new understanding)과 같은 것을 가리킨다. 즉 ④는 이 한 문장의 주어·술어를 의문사로 바꿔 놓은 것이다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "부분 사실",
-     "why_tempting": "'Ambiguity'는 지문의 핵심 낱말이고, 첫 문장이 실제로 'without any distortion or ambiguity'를 꿀벌 체계의 장점으로 말한다. However 앞 한 문장만 근거로 삼으면 모호성은 없애야 할 결함으로 읽힌다.",
-     "how_to_reject": "여섯째 문장 'is a reflection of its powerful strength as a medium for creating new understanding'과 마지막 문장의 'inherent ambiguity'가 모호성을 strength·inherent 로 규정한다 — 없애라는 명령형 제목과 정면으로 어긋난다."
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "'The Way Language Works'라는 뒷부분이 지문의 소재와 맞아 보이고, 앞부분 'Not Creative but Simple'은 첫 문장의 '왜곡 없는 단순 전달'과 겹쳐 보인다.",
-     "how_to_reject": "셋째 문장 'the act of communicating is always a joint, creative effort'가 creative 를 명시한다. 선지가 부정한 낱말이 지문에 always 와 함께 긍정문으로 있다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "'Communication'과 'Language Use'가 지문 전면에 나오는 낱말이라 소재가 맞는 것처럼 보이고, 제목치고 무난해 보인다.",
-     "how_to_reject": "지문은 의사소통이 보편적 목표인지(Universal Goal)를 한 번도 묻지 않는다. 둘째 문장은 언어가 'more valuable than mere information exchange'라며 목표의 보편성이 아니라 정보 교환을 넘어선 값어치를 논점으로 세운다."
-    },
-    {
-     "n": 4,
-     "verdict": "correct",
-     "trap": "-",
-     "why_tempting": "제목이 의문문이라 '주장이 없다'고 느껴 건너뛰기 쉽다.",
-     "how_to_reject": "마지막 문장 It is ~ that 구문이 답할 대상(ambiguity and adaptability)을 제시하고, 넷째 문장 'listeners or readers bring their own perspectives to the language they encounter'가 'Varied Understanding'의 내용을 그대로 준다."
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "주체 역전",
-     "why_tempting": "'왜곡·모호성 없이 정확히 전달한다'는 서술이 지문 첫 문장에 실제로 있어, 그 속성의 임자를 언어로 착각하면 '수정처럼 맑은 거울'이 제목으로 보인다.",
-     "how_to_reject": "첫 문장의 주어는 'the sign system of honey-bees'이고 언어는 그 비교 대상으로 진 쪽이다. 여섯째 문장은 언어를 'not always reliable for causing precise meanings'라고 못박는다 — 맑은 유리는 벌의 속성이지 언어의 속성이 아니다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "선지 5개를 먼저 읽고 되풀이되는 낱말 축을 잡는다 — 여기서는 ambiguity/creative/communication/varied/clear 로 '언어가 명확한가 모호한가' 한 축이다. 축을 잡으면 지문에서 확인할 것이 한 가지로 준다",
-     "on_fail": "축이 안 잡히면 선지에서 서로 반대인 짝(①과 ④, ②와 ⑤)을 찾아 표시해 둔다 — 반대 짝이 있으면 정답은 그 축 위에 있다"
-    },
-    {
-     "step": "지문에서 However·But·Yet 을 찾아 동그라미 치고, 그 앞은 접어 둔다. 이 글은 둘째 문장이 However 로 시작하므로 첫 문장은 근거로 쓰지 않는다",
-     "on_fail": "역접 표지가 없으면 In fact·The fact that·It is ~ that 같은 강조 표지를 찾는다"
-    },
-    {
-     "step": "마지막 문장을 읽고 It is X that Y 구조가 있으면 X를 그대로 옮겨 적는다 — 여기서는 inherent ambiguity and adaptability",
-     "on_fail": "마지막 문장에 강조구문이 없으면 However 바로 뒤 문장의 주어·목적어를 옮겨 적는다"
-    },
-    {
-     "step": "옮겨 적은 X가 선지의 주어 자리(무엇에 관한 글인가)에 들어 있는 선지만 남긴다. X를 부정하거나 없애라고 하는 선지(①·②·⑤)는 이 단계에서 지운다",
-     "on_fail": "둘 이상 남으면 X의 결과에 해당하는 낱말(understanding·thinking)이 함께 있는 쪽을 고른다"
-    },
-    {
-     "step": "남은 선지를 첫 문장(꿀벌)에 대 본다. 첫 문장으로 설명되는 선지는 필자 주장이 아니라 양보이므로 버린다",
-     "on_fail": "그래도 결정이 안 되면 의문문 형태라고 배제하지 않는다 — 이 유형에서 의문문 제목은 정답이 될 수 있다"
-    }
-   ],
-   "time_budget_sec": 95,
-   "difficulty": {
-    "predicted": 0.7,
-    "drivers": [
-     "첫 문장이 정답과 반대인 진술이라 앞부분만 읽으면 ①·⑤로 간다",
-     "정답 근거가 마지막 문장 강조구문 하나에 몰려 있다",
-     "정답 선지만 의문문이라 형태로 배제하기 쉽다",
-     "invariable·inherent·adaptability 등 추상 명사 밀도가 높다"
-    ]
-   },
-   "required_vocab": [
-    "ambiguity",
-    "invariable",
-    "interpretation",
-    "adaptability",
-    "stimulating"
-   ],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "quote 가 지문 마지막 문장과 문자 그대로 일치한다",
-      "제목 유형의 설계(주제문 한 문장 → 제목으로 압축)와 어긋나지 않으면서, 이 문항 고유의 장치인 '첫 문장 양보 + 마지막 강조구문' 두 축을 짚었다"
-     ],
-     "checked": [
-      "answer_locus.quote 를 passage 에서 문자열 대조",
-      "However 위치가 둘째 문장임을 확인해 '역접 앞은 접는다' 절차의 근거로 삼음",
-      "유형 정의(제목 = 주제의 압축 표현) 대조"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "오답 4개의 라벨이 부분 사실·반대 진술·무관·주체 역전으로 서로 다르다",
-      "⑤를 처음에 '반대 진술'로 달았다가 ②와 겹쳐, 첫 문장의 주어가 honey-bees 임을 근거로 '주체 역전'으로 바꿨다 — 속성의 임자가 바뀐 함정이므로 라벨이 더 정확하다",
-      "how_to_reject 넷 모두 문장 번호 또는 원문 어구를 위치로 제시한다"
-     ],
-     "checked": [
-      "trap 라벨 4종 중복 여부",
-      "각 why_tempting 이 선지 영문 표현(Erase Ambiguity · Not Creative · Universal Goal · Crystal-Clear)에 실제로 걸리는지 대조",
-      "how_to_reject 에 지문 위치(문장 순서·인용 어구)가 있는지 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "1단계가 지문을 읽기 전에 실행 가능하다(선지만 본다)",
-      "'의문문이라고 배제하지 않는다'는 5단계 on_fail 이 실제 학습자 오답 습관을 겨냥한다",
-      "95초는 선지 5개 읽기 25초 + 역접·마지막 문장 확인 40초 + 소거 30초로 맞는다"
-     ],
-     "checked": [
-      "solve_procedure 5단계에 금지 표현(흐름을 파악하면 등) 유무 확인",
-      "각 단계를 지문 없이 수행 가능한지 순서대로 시연",
-      "required_vocab 5개가 정답 판정에 실제로 쓰이는지 확인 — ambiguity·adaptability 는 정답 근거 문장, invariable·interpretation 은 ②배제, stimulating 은 ③배제에 쓰인다"
-     ]
-    }
-   ],
-   "revised": true
-  },
-  {
-   "item_id": "2017#23",
-   "measured_ability": "not A but B 대조구문에서 B(새로운 현실의 창조)를 주장으로 집고, 앞에서 길게 나열된 수단(자르고 바꾸고 이어붙임)을 주제로 잘못 승격시키지 않는 능력",
-   "design_intent": "글 대부분이 편집 작업의 물리적 서술(strips·shortened·altered·assembled)이라 소재 낱말이 '편집 기술'과 '시간·공간'에 몰려 있다. 정작 주장은 넷째 문장의 does not ~ but ~ 한 곳에만 있고, 감독이 현실을 '가공'하는 것이 아니라 '지배해 새 현실을 만든다'는 방향을 잡았는지를 가른다. 오답 ②·③은 지문 낱말을 그대로 쓴 미끼다.",
-   "answer_locus": {
-    "sentence_index": [
-     4,
-     5
-    ],
-    "quote": "He does not adapt reality, but uses it for the creation of a new reality",
-    "reasoning": "이 대조구문이 감독과 현실의 관계를 확정한다 — 현실에 맞추는 쪽이 아니라 현실을 재료로 쓰는 쪽이다. 이어지는 'laws of space and time invariable and inescapable in work with actuality become obedient'가 obedient(복종한다)로 그 지배 관계를 한 번 더 못박고, 마지막 문장 'a new reality proper only to itself'가 새 현실의 귀속을 감독의 작품 쪽으로 돌린다. 제목 ④의 'in the Film Director's Hands'가 바로 이 지배 관계다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "영화 제작을 소재로 한 글이면 '미지의 탐험'류 제목이 늘 그럴듯해 보이고, 'creation of a new reality'를 낭만적으로 읽으면 미지의 세계를 여는 이야기처럼 들린다.",
-     "how_to_reject": "지문에 unknown·discover·explore 계열 표현이 한 번도 없다. 넷째 문장이 말하는 것은 미지의 발견이 아니라 laws of space and time 이 become obedient 하는 통제다."
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "셋째 문장에 'filmic' time 과 'filmic' space 가 따옴표까지 붙어 두 번 나오므로, 선지의 'Lost in Time and Space'가 지문 낱말과 가장 많이 겹쳐 보인다.",
-     "how_to_reject": "같은 셋째 문장의 술어가 'the director builds up his own'이다 — 시간·공간은 잃어버리는 것이 아니라 감독이 세우는 것이고, 넷째 문장에서 그 법칙들이 become obedient 한다. 겹치는 낱말의 기능(주어가 아니라 감독의 목적어)이 다르다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "범위 과소",
-     "why_tempting": "둘째 문장의 shortened, altered, and assembled 는 그대로 편집 작업이라 '편집'이라는 낱말이 강하게 떠오른다.",
-     "how_to_reject": "그 서술은 넷째 문장의 주장(새 현실의 창조)에 이르는 수단으로만 쓰인다. 게다가 지문에는 technology·innovative 에 해당하는 서술이 없고, 재료를 말하는 첫 문장은 기술이 아니라 celluloid 라는 물질을 가리킨다."
-    },
-    {
-     "n": 4,
-     "verdict": "correct",
-     "trap": "-",
-     "why_tempting": "'in the Director's Hands'가 비유라서 지문 어구와 1:1로 겹치지 않아 근거가 약해 보인다.",
-     "how_to_reject": "'according to his will'(둘째 문장) · 'according to his desire'(셋째 문장) · 'become obedient'(넷째 문장)가 세 번 반복해 감독의 통제를 말한다 — Hands 는 이 반복의 압축이다."
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "넷째 문장 안의 'invariable and inescapable'을 감독 쪽 서술로 읽으면 '감독의 현실은 변하지 않는다'가 지문 낱말로 뒷받침되는 것처럼 보인다.",
-     "how_to_reject": "invariable and inescapable 은 'in work with actuality'(실제를 다루는 작업)에 걸린 수식이고, 그 문장의 결론은 그 법칙들이 become obedient 한다는 것이다. 마지막 문장도 'a new reality'라고 해 변화를 못박는다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "선지 5개에서 명사구 핵을 하나씩 적는다 — 탐험/시공간 상실/편집 기술/감독의 손안 현실/불변. 다섯 개가 '감독이 현실을 어떻게 다루는가' 한 축 위에 놓인다",
-     "on_fail": "핵이 안 잡히면 콜론 뒤쪽만 읽는다 — 이 유형 선지는 콜론 뒤에 논점이 온다"
-    },
-    {
-     "step": "지문에서 not A but B · does not ~ but ~ 구문을 찾아 B에 밑줄을 긋는다. 여기서는 넷째 문장 'not adapt reality, but uses it for the creation of a new reality'",
-     "on_fail": "대조구문이 없으면 마지막 문장을 밑줄 대상으로 삼는다"
-    },
-    {
-     "step": "밑줄 친 B의 명사(new reality)와 그 임자(He=the director)를 함께 옮겨 적는다. 제목은 이 둘을 잇는 말이어야 한다",
-     "on_fail": "임자가 불분명하면 앞 문장들의 소유격(his material · his will · his desire)을 세어 반복되는 임자를 찾는다"
-    },
-    {
-     "step": "선지 중 '새 현실'과 '감독'을 함께 담은 것만 남기고, 둘 중 하나만 담았거나 반대로 말한 것은 지운다 — 편집 기술(③)은 수단이라 지우고, 불변(⑤)은 방향이 반대라 지운다",
-     "on_fail": "둘 다 담은 선지가 없으면 감독 쪽 낱말(director·his)이 든 선지를 우선 남긴다"
-    },
-    {
-     "step": "남은 선지를 지문 낱말과의 겹침이 아니라 술어의 방향으로 검산한다 — 겹치는 낱말이 가장 많은 ②는 술어(lost)가 지문 술어(builds up)와 반대다",
-     "on_fail": "검산이 안 끝나면 마지막 문장 'a new reality proper only to itself' 한 줄만 다시 보고 결정한다"
-    }
-   ],
-   "time_budget_sec": 100,
-   "difficulty": {
-    "predicted": 0.6,
-    "drivers": [
-     "정답 선지가 비유라 지문 어구와 직접 겹치지 않는다",
-     "오답 ②가 지문 낱말(filmic time·space)과 가장 많이 겹친다",
-     "celluloid·stage-sets·actuality 등 소재 어휘가 낯설다",
-     "핵심 술어 become obedient 가 긴 삽입구 뒤에 있어 주어를 놓치기 쉽다"
-    ]
-   },
-   "required_vocab": [
-    "celluloid",
-    "assemble",
-    "actuality",
-    "obedient",
-    "adapt"
-   ],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "quote 가 넷째 문장 앞부분과 문자 그대로 일치한다",
-      "이 문항 고유의 설계(수단 서술의 부피 vs 주장 한 절)를 짚었고, 제목 유형 일반론으로 끝내지 않았다"
-     ],
-     "checked": [
-      "answer_locus.quote 를 passage 에서 문자열 대조",
-      "according to his will / his desire / become obedient 세 어구의 실재 확인",
-      "유형 정의 대조 — 제목이 주장의 압축인지, 소재의 나열인지 구분"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "라벨 4종(무관·어휘 함정·범위 과소·반대 진술)이 서로 다르다",
-      "③을 '무관'으로 달았다가 ①과 겹쳐, 편집 서술이 지문에 실재하는 수단이라는 점을 근거로 '범위 과소'로 고쳤다",
-      "⑤의 how_to_reject 가 invariable 의 수식 대상(in work with actuality)을 명시해 오독 경로를 정확히 끊는다"
-     ],
-     "checked": [
-      "trap 라벨 중복 여부",
-      "why_tempting 이 선지 영문(Exploration into the Unknown · Lost in Time and Space · Innovative Technology · Never Changes)에 걸리는지 대조",
-      "how_to_reject 넷에 문장 위치가 있는지 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "5단계의 '겹침이 아니라 술어 방향으로 검산' 이 이 문항의 최대 오답(②)을 정확히 겨눈다",
-      "100초는 어휘 부담을 감안한 값이며, 2단계에서 대조구문 한 곳만 찾으면 되므로 초과하지 않는다"
-     ],
-     "checked": [
-      "금지 표현 유무 확인",
-      "지문 미열람 상태에서 1~2단계 실행 가능성 시연",
-      "required_vocab 5개가 정답 판정 경로에 실제로 등장하는지 확인(obedient·adapt 는 정답 근거, celluloid·actuality 는 ③·⑤ 배제)"
-     ]
-    }
-   ],
-   "revised": true
-  },
-  {
-   "item_id": "2016#23",
-   "measured_ability": "'What we would like to have is ~' 같은 소망·필요 진술을 필자의 논점으로 알아보고, 그것이 아직 없는 것(찾는 중)인지 이미 있는 것(밝혀진 것)인지 시제·서법으로 구분하는 능력",
-   "design_intent": "지문에 chronological age 와 biological age 두 낱말을 계속 겹쳐 놓고, 재는 대상이 어느 쪽인지 뒤집은 선지(③)와 이미 찾았다고 완료형으로 바꾼 선지(④)를 나란히 배치했다. 정답 제목이 지문의 동사 mirror 를 그대로 쓰므로, 그 낱말이 '비추는 척도'라는 뜻으로 쓰였음을 붙잡는지를 가른다.",
-   "answer_locus": {
-    "sentence_index": [
-     4,
-     5
-    ],
-    "quote": "What we would like to have is one or a few measurable biological changes that mirror all other biological age changes without reference to the passage of time",
-    "reasoning": "would like to have 는 아직 갖지 못한 것을 가리키므로 글의 논점이 '찾는 중'(In Search of)임을 확정하고, mirror all other biological age changes 가 제목의 'a Mirror Reflecting Biological Aging'과 같은 것을 가리킨다. 바로 앞 문장 'biological aging resists easy measurement'가 그 척도가 아직 없는 이유를 대므로, 제목은 발견 완료가 아니라 탐색이어야 한다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "correct",
-     "trap": "-",
-     "why_tempting": "'Mirror'를 비유로만 읽으면 지문과의 연결이 약해 보여 건너뛰기 쉽다.",
-     "how_to_reject": "다섯째 문장의 동사 mirror 가 그대로 쓰였고, would like to have 가 In Search of 를 뒷받침한다."
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "'looks young'·'youthful qualities' 같은 표현 때문에 노화를 늦추는 이야기로 읽히고, 현대라는 시대 배경도 상식적으로 붙기 쉽다.",
-     "how_to_reject": "지문에는 노화 속도를 늦추는 방법이나 시대 비교가 한 줄도 없다. 첫 문장은 사람마다 노화 속도가 다르다는 관찰이고, 넷째 문장부터는 그 속도를 재는 척도 이야기로만 이어진다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "chronological age 가 첫 문장과 다섯째 문장에 반복돼 눈에 남고, '나이를 알아맞힌다'는 첫 문장의 'looks young for his or her chronological age'와 겹쳐 보인다.",
-     "how_to_reject": "다섯째 문장에서 재려는 대상은 biological 쪽이고 chronological 은 이미 아는 값(chronologically eighty years old)으로 주어져 있다. 넷째 문장 'biological aging resists easy measurement'가 어느 쪽이 문제인지 명시한다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "'Biological Aging'이 지문의 핵심어 그대로이고, 둘째 문장 'Scientists have good evidence'를 보면 이미 밝혀진 이야기처럼 들린다.",
-     "how_to_reject": "둘째 문장이 증거를 대는 대상은 '사람마다 생물학적 노화 속도가 다르다'는 사실 하나뿐이고, 다섯째 문장은 척도를 아직 갖고 싶어 한다(would like to have)고 말한다. Disclosed(밝혀졌다)는 넷째 문장의 resists easy measurement 와 어긋난다."
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "지문 밖 상식",
-     "why_tempting": "노화 글에는 '젊음의 샘'이 으레 따라붙는다는 통념 때문에, In Search of 로 시작하는 ①과 비슷한 어감으로 읽혀 함께 남는다.",
-     "how_to_reject": "지문이 찾는 것은 젊어지는 방법이 아니라 재는 척도(measurable biological changes)다. 마지막 문장도 두 여든 살의 차이를 '설명'하는 데 쓰겠다고만 한다 — 젊음을 되찾는 서술이 없다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "선지에서 동사·전치사구의 시상을 먼저 표시한다 — In Search of(찾는 중) / Reasons for(원인) / Tips to Guess(방법) / Disclosed(완료) / Looking for(찾는 중). 이 유형은 '아직인가 이미인가'로 반이 갈린다",
-     "on_fail": "시상이 안 보이면 명사구 핵만 적어 둔다"
-    },
-    {
-     "step": "지문에서 we would like to have · we need · what is needed 같은 소망·필요 표현을 찾는다. 있으면 그 문장이 논점이고, 글은 아직 못 가진 것을 말하는 중이다",
-     "on_fail": "소망 표현이 없으면 Unlike·resists·difficult 같은 문제 제기 어구를 찾아 그 뒤 문장을 논점으로 잡는다"
-    },
-    {
-     "step": "논점 문장에서 재는 대상과 재는 도구를 갈라 적는다 — 대상 biological age changes, 도구 measurable biological changes that mirror them",
-     "on_fail": "둘이 안 갈리면 문장 안에 두 번 나오는 낱말(biological)을 표시하고 그 낱말이 붙은 명사를 대상으로 삼는다"
-    },
-    {
-     "step": "선지에서 대상이 뒤바뀐 것(chronological 쪽)과 시상이 뒤바뀐 것(완료형)을 지운다. 여기서는 ③·④가 이 단계에서 빠진다",
-     "on_fail": "지울 것이 없으면 지문에 없는 소재(시대·젊음의 샘)를 담은 선지부터 지운다"
-    },
-    {
-     "step": "남은 둘 중 논점 문장의 낱말(mirror·measurable)을 담은 쪽을 고른다",
-     "on_fail": "둘 다 담았으면 문제 제기 문장(resists easy measurement)과 이어지는 쪽을 고른다"
-    }
-   ],
-   "time_budget_sec": 90,
-   "difficulty": {
-    "predicted": 0.68,
-    "drivers": [
-     "chronological 과 biological 이 한 문장 안에서 교차한다",
-     "정답 제목의 Mirror 가 비유처럼 보이지만 지문의 동사에서 온 것이라는 연결이 필요하다",
-     "①과 ⑤가 모두 '찾는 중'이라 시상만으로는 안 갈린다",
-     "정답 선지 문자열 끝에 파싱 잔여 기호(:)가 붙어 있어 시각적으로 어수선하다"
-    ]
-   },
-   "required_vocab": [
-    "chronological",
-    "biological",
-    "measurable",
-    "mirror",
-    "resist"
-   ],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "quote 가 다섯째 문장 앞부분과 문자 그대로 일치한다",
-      "'소망 진술이 논점'이라는 이 문항 고유의 장치를 짚었다"
-     ],
-     "checked": [
-      "answer_locus.quote 를 passage 에서 문자열 대조",
-      "would like to have · resists easy measurement 두 어구의 실재 확인",
-      "유형 정의 대조 — 제목이 탐색인지 결론인지 구분되는 설계인지 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "③을 처음에 '주체 역전'으로 달았으나, 바뀐 것이 행위자가 아니라 재는 대상 낱말(chronological↔biological)이므로 '어휘 함정'으로 고쳤다 — 라벨표 정의에 맞춘다",
-      "고친 뒤 라벨이 무관·어휘 함정·반대 진술·지문 밖 상식 4종으로 서로 다르다",
-      "④의 배제 근거가 둘째 문장(증거의 대상 한정)까지 짚어 '증거가 있다=밝혀졌다' 오독 경로를 끊는다"
-     ],
-     "checked": [
-      "trap 라벨 중복 여부 및 라벨 정의와의 부합",
-      "why_tempting 이 선지 영문(Slow Aging in the Modern Era · Guess Chronological Age · Disclosed · Fountain of Youth)에 걸리는지 대조",
-      "how_to_reject 넷에 문장 위치가 있는지 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "1단계에서 선지의 시상을 먼저 표시하게 한 것이 ④를 빠르게 지우는 실행 가능한 조작이다",
-      "90초 안에 소망 표현 한 곳 + 선지 소거로 끝난다"
-     ],
-     "checked": [
-      "금지 표현 유무 확인",
-      "지문을 안 본 상태에서 1단계 수행 가능성 시연",
-      "required_vocab 5개가 지문에 실재하는지 문자열 대조(chronological·biological·measurable·mirror·resists)"
-     ]
-    }
-   ],
-   "revised": true
-  },
-  {
-   "item_id": "2015#22",
-   "measured_ability": "But 한 문장이 만든 전환('원칙을 믿는다'에서 '원칙이 행동을 몰고 간다')을 잡고, 뒤따르는 감정 서술(죄책감·존경)을 결과로 종속시켜 읽는 능력",
-   "design_intent": "앞 두 문장은 도덕 원칙을 '믿는 대상'으로 서술하다가 셋째 문장 'But there is more to moral principles than that.'에서 '행동을 이끄는 동기'로 갈아탄다. 그 뒤의 guilty·esteem 같은 감정 낱말을 선지 ①이 그대로 가져가 제목처럼 꾸며 놓았으므로, 전환 문장 앞뒤 중 어느 쪽이 논점인지 표지로 끊는지를 가른다.",
-   "answer_locus": {
-    "sentence_index": [
-     3,
-     4
-    ],
-    "quote": "that person is strongly motivated toward the conduct required by the principle, and against behavior that conflicts with that principle",
-    "reasoning": "'But there is more to ~ than that' 바로 뒤에 오는 이 절이 원칙과 행동의 관계를 처음으로 명시한다 — 원칙이 특정 conduct 로 이끌고(toward) 반대 행동을 막는다(against). 제목 ⑤의 'Guiding Our Conduct'는 이 두 방향을 한 낱말로 묶은 것이고, 이어지는 다섯째·여섯째 문장(죄책감·존경)은 모두 이 동기의 결과 서술이라 제목 자리를 차지할 수 없다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "다섯째 문장의 feel guilty 와 여섯째 문장의 hold in esteem 이 선지의 Guilty·Self-Esteem 과 낱말 수준에서 겹친다.",
-     "how_to_reject": "여섯째 문장의 esteem 은 'hold in esteem those whose conduct'로 남을 존경한다는 뜻이지 자기 존중감(self-esteem)이 아니다. 게다가 두 문장 모두 넷째 문장의 동기에서 파생된 예시이며, 앞에 붙은 Likewise 가 그 종속 관계를 표시한다."
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "지문 밖 상식",
-     "why_tempting": "'도덕 원칙은 흔들리면 안 된다'는 일반 통념과 명령형 제목의 단호함이 맞물려 도덕 소재의 글에 잘 어울려 보인다.",
-     "how_to_reject": "지문은 원칙이 바뀌는지 지켜지는지를 논하지 않는다. 첫 문장은 오히려 사람들이 'what principles people should have'를 다시 생각한다고 하고, 넷째 문장부터는 원칙이 이미 도덕 규범의 일부일 때 무슨 일이 생기는지만 서술한다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "범위 과대",
-     "why_tempting": "'Moral'이 지문의 핵심어이고 첫 문장에 moral standards·justified 같은 철학적 어휘가 있어, 도덕철학 개론처럼 격상해 읽기 쉽다.",
-     "how_to_reject": "지문은 철학의 원리를 세우는 글이 아니라 한 사람의 moral code 안에서 원칙이 어떻게 작동하는지를 서술한다(넷째~여섯째 문장 주어가 모두 that person·The person). integrity 라는 개념도 지문에 없다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "동기·죄책감·타인 평가가 나오므로 성격 형성에 관한 심리 글처럼 읽힌다.",
-     "how_to_reject": "지문에 personality·character 형성 과정에 해당하는 서술이 없다. 넷째 문장은 원칙이 이미 규범의 일부가 된 뒤의 결과만 다루고, 어떻게 그런 사람이 되는지는 묻지 않는다."
-    },
-    {
-     "n": 5,
-     "verdict": "correct",
-     "trap": "-",
-     "why_tempting": "표현이 평범해 '너무 뻔한 제목'으로 보여 버려질 수 있다.",
-     "how_to_reject": "넷째 문장의 motivated toward the conduct 와 against behavior 가 Guiding Our Conduct 의 직접 근거이고, 다섯째·여섯째 문장은 그 안내가 자기 행동과 타인 평가로 확장되는 예다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "선지 5개에서 제목의 주어가 무엇인지 표시한다 — 죄책감/원칙 유지/도덕적 통합성/성격 형성/도덕 원칙. 주어가 서로 다르면 지문에서 확인할 것은 '누가 주인공인가' 하나다",
-     "on_fail": "주어가 안 잡히면 콜론·물음표 앞부분만 읽는다"
-    },
-    {
-     "step": "지문에서 But·However 를 찾아 표시하고, 그 문장이 'there is more to X than that' 같은 전환 문형이면 바로 다음 문장을 논점으로 잡는다",
-     "on_fail": "역접이 없으면 When ~, ~ 형태의 조건문 중 주절이 가장 일반적인 것을 논점으로 잡는다"
-    },
-    {
-     "step": "논점 문장에서 주어(that person)와 그 사람이 무엇을 하게 되는지(motivated toward the conduct)를 옮겨 적는다 — 제목은 이 둘의 관계여야 한다",
-     "on_fail": "술어가 길면 toward·against 같은 방향 전치사만 표시하고 그 뒤 명사를 적는다"
-    },
-    {
-     "step": "논점 문장 뒤의 문장이 Likewise·For example 로 시작하면 예시로 표시하고, 그 문장에서만 낱말을 따온 선지를 지운다 — ①이 여기서 빠진다",
-     "on_fail": "표지가 없으면 The person will tend to 처럼 같은 주어가 반복되는 문장을 예시로 본다"
-    },
-    {
-     "step": "남은 선지 중 논점 문장의 두 낱말(principle · conduct)을 함께 담은 것을 고른다",
-     "on_fail": "둘을 함께 담은 선지가 없으면 지문에 없는 소재(성격·통합성)를 담은 쪽부터 지운다"
-    }
-   ],
-   "time_budget_sec": 80,
-   "difficulty": {
-    "predicted": 0.85,
-    "drivers": [
-     "정답 선지가 논점 문장의 낱말을 거의 그대로 쓴다",
-     "오답 ①이 예시 문장의 낱말 둘(guilty·esteem)을 한꺼번에 가져가 눈에 띈다",
-     "esteem 이 self-esteem 과 다른 뜻으로 쓰였다"
-    ]
-   },
-   "required_vocab": [
-    "conduct",
-    "motivated",
-    "esteem",
-    "violate",
-    "disapprove"
-   ],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "quote 가 넷째 문장 뒷부분과 문자 그대로 일치한다",
-      "'But there is more to ~ than that' 전환이 이 문항의 설계 축이라는 서술이 유형 일반론을 넘어선다"
-     ],
-     "checked": [
-      "answer_locus.quote 를 passage 에서 문자열 대조",
-      "But 문장의 위치(셋째 문장)와 Likewise 의 위치(여섯째 문장) 확인",
-      "유형 정의 대조"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "라벨 4종(어휘 함정·지문 밖 상식·범위 과대·무관)이 서로 다르다",
-      "②를 처음 '무관'으로 달았다가 ④와 겹쳐, 통념이 유인 경로라는 점을 근거로 '지문 밖 상식'으로 고쳤다",
-      "①의 배제 근거가 esteem 의 실제 용법(hold in esteem those whose conduct)을 인용해 낱말 겹침을 끊는다"
-     ],
-     "checked": [
-      "trap 라벨 중복 여부",
-      "why_tempting 이 선지 영문(Check Your Self-Esteem First · Do Not Let ~ Change · Moral Integrity · Form Their Personalities)에 걸리는지 대조",
-      "how_to_reject 넷에 문장 위치가 있는지 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "4단계(Likewise 로 시작하는 문장은 예시로 표시)가 ① 소거를 기계적으로 만든다",
-      "80초는 문장 수가 여섯이고 논점이 셋째 문장 뒤에 있어 충분하다"
-     ],
-     "checked": [
-      "금지 표현 유무 확인",
-      "지문 미열람 상태에서 1~2단계 실행 가능성 시연",
-      "required_vocab 5개가 지문에 실재하고 판정에 쓰이는지 확인(conduct·motivated 는 정답 근거, esteem 은 ① 배제, violate·disapprove 는 예시 문장 해석에 필요)"
-     ]
-    }
-   ],
-   "revised": true
-  },
-  {
-   "item_id": "2015#23",
-   "measured_ability": "첫 문장의 처방과 둘째 문장의 실수 진단을 짝으로 묶어 읽고, 뒤의 스키어 사례가 그 짝의 예시임을 확인해 사례 낱말(impossible mountain)을 제목으로 승격시키지 않는 능력",
-   "design_intent": "글의 뼈대가 '처방(다음 단계) vs 실수(최종 결과)'라는 두 항 대비 하나뿐이고, 스키어 사례는 그 대비를 두 번 반복한다. 정답 선지가 대비를 그대로 A, not B 형태로 옮겨 놓았으므로, 학습자가 사례의 마지막 낱말(impossible mountain)이나 소재 낱말(risk)에 끌려가지 않고 대비 축을 유지하는지를 가른다.",
-   "answer_locus": {
-    "sentence_index": [
-     1,
-     2,
-     5
-    ],
-    "quote": "The ones that decide to make it change their focus by analyzing what they need to do to master the first step",
-    "reasoning": "성공하는 쪽이 한 일이 초점의 이동(change their focus)이고 옮긴 자리가 the first step 이다. 둘째 문장이 실수를 'our tendency to focus on the end result'로 규정했으므로 이 문장은 그 실수의 정확한 대칭이고, 제목 ②의 'Focus on the Next Step, Not the Final Result'가 두 문장을 한 줄로 합친 것이 된다. 여섯째 문장의 'they concentrate on the next mogul'이 next step 이라는 표현까지 대준다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "마지막 문장의 'what others thought was an impossible mountain'과 넷째 문장의 'too steep for them to try'가 가능/불가능 판정처럼 읽혀, 선지의 Possible·Impossible 이 지문 낱말과 겹쳐 보인다.",
-     "how_to_reject": "그 낱말들은 결과를 묘사하는 자리에만 나온다. 성공한 스키어가 한 일은 가능·불가능을 가르는 것이 아니라 다섯째 문장의 change their focus 다 — 지문에 둘을 '구분한다'는 서술이 없다."
-    },
-    {
-     "n": 2,
-     "verdict": "correct",
-     "trap": "-",
-     "why_tempting": "두 항을 다 담아 길어 보여 '제목치고 설명적'이라는 이유로 미뤄 두기 쉽다.",
-     "how_to_reject": "둘째 문장(focus on the end result = 실수)과 다섯째 문장(change their focus ~ the first step = 성공)이 정확히 이 두 항이다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "'목표를 염두에 두고 시작하라'는 자기계발서의 정석 문구이고, 지문에 end result 라는 낱말이 실제로 나와 뒷받침되는 것처럼 들린다.",
-     "how_to_reject": "둘째 문장이 end result 에 초점을 두는 것을 'One of the mistakes we often make'라고 못박는다 — 선지는 지문이 실수라고 부른 것을 처방으로 뒤집는다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "범위 과대",
-     "why_tempting": "스키어가 끝까지 내려가는 이야기라 '헌신적 노력의 경이'로 요약해도 틀린 말처럼 들리지 않는다.",
-     "how_to_reject": "지문은 노력의 양이 아니라 초점의 위치를 문제 삼는다. 다섯째 문장에서 성공한 쪽과 실패한 쪽을 가른 것은 노력의 정도가 아니라 analyzing what they need to do to master the first step 이라는 대상의 차이다."
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "부분 사실",
-     "why_tempting": "넷째 문장에 실제로 슬로프가 너무 가팔라 시도하지 않는 스키어가 나오므로, 회피가 지문 속 선택지로 서술된 것처럼 보인다.",
-     "how_to_reject": "그 스키어들은 셋째 문장에서 'Skiers who are unsure of themselves often do this'로 실수의 예로 도입된다. 첫 문장은 글의 주제를 successful risk taking 이라고 못박으므로 회피는 성공의 경로가 아니다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "선지에서 두 항 대비(A, not B) 형태가 있는지 먼저 본다. 있으면 그 두 항이 지문에 나란히 있는지만 확인하면 되므로 검사 대상이 준다",
-     "on_fail": "대비형 선지가 없으면 각 선지의 명사구 핵만 적는다"
-    },
-    {
-     "step": "지문 첫 두 문장을 읽고 'The key to X is ~' · 'One of the mistakes ~ is ~' 같은 정의·진단 문형을 찾아 각각 처방과 실수로 표시한다",
-     "on_fail": "그런 문형이 없으면 사례가 시작되는 지점(고유명사·인물 등장) 바로 앞 문장을 논점으로 잡는다"
-    },
-    {
-     "step": "사례가 시작되면(Skiers ~) 사례 안에서 실패한 쪽과 성공한 쪽이 무엇을 달리했는지 동사 하나만 뽑는다 — 여기서는 change their focus",
-     "on_fail": "동사가 안 잡히면 사례 안에서 앞 논점 문장의 낱말이 되풀이되는 자리(focus)를 찾는다"
-    },
-    {
-     "step": "사례의 마지막 문장에서 낱말을 따온 선지를 지운다. 사례의 결말은 예시의 마무리이지 주장이 아니다 — ①·④가 여기서 빠진다",
-     "on_fail": "사례 경계가 불분명하면 논점 문장에 없는 낱말만으로 이루어진 선지부터 지운다"
-    },
-    {
-     "step": "남은 선지 중 처방과 실수 두 항의 방향이 지문과 같은 것을 고른다. 방향이 뒤집힌 선지(③)와 주제 전제를 뒤집는 선지(⑤ 회피)는 버린다",
-     "on_fail": "방향 판정이 안 되면 둘째 문장의 mistakes 라는 낱말 하나만 다시 보고 그것과 같은 편에 선 선지를 지운다"
-    }
-   ],
-   "time_budget_sec": 75,
-   "difficulty": {
-    "predicted": 0.88,
-    "drivers": [
-     "처방과 실수가 첫 두 문장에 연달아 나온다",
-     "정답 선지가 지문의 대비를 그대로 옮겼다",
-     "사례 마지막 낱말(impossible)이 오답 ①으로 회수돼 있다"
-    ]
-   },
-   "required_vocab": [
-    "confront",
-    "tendency",
-    "steep",
-    "master",
-    "mogul"
-   ],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "quote 가 다섯째 문장 앞부분과 문자 그대로 일치한다",
-      "이 문항의 설계(처방-실수 두 항이 첫 두 문장, 사례가 반복)를 짚었고 유형 일반론에 머무르지 않았다"
-     ],
-     "checked": [
-      "answer_locus.quote 를 passage 에서 문자열 대조",
-      "One of the mistakes ~ end result 어구의 실재 확인",
-      "유형 정의 대조"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "⑤를 처음 '반대 진술'로 달았으나 ③과 겹쳤고, 넷째 문장에 회피하는 스키어가 실제로 서술돼 있다는 점을 근거로 '부분 사실'로 고쳤다 — 유인 경로가 더 정확해졌다",
-      "고친 뒤 라벨이 어휘 함정·반대 진술·범위 과대·부분 사실 4종으로 서로 다르다",
-      "①의 배제 근거가 impossible 이 등장하는 자리(결과 묘사)를 명시한다"
-     ],
-     "checked": [
-      "trap 라벨 중복 여부",
-      "why_tempting 이 선지 영문(Separating the Possible ~ · Ultimate Goals · Committed Efforts · Risk Avoidance)에 걸리는지 대조",
-      "how_to_reject 넷에 문장 위치가 있는지 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "4단계(사례 마지막 문장에서 온 선지를 지운다)가 이 문항의 두 오답을 한 번에 걷어낸다",
-      "75초 안에 첫 두 문장 + 사례 동사 하나로 끝난다"
-     ],
-     "checked": [
-      "금지 표현 유무 확인",
-      "지문 미열람 상태에서 1단계 실행 가능성 시연",
-      "required_vocab 5개가 지문에 실재하는지 문자열 대조(confronting·tendency·steep·master·mogul)"
-     ]
-    }
-   ],
-   "revised": true
-  },
-  {
-   "item_id": "2014B#25",
-   "measured_ability": "'This is entirely arbitrary.' 한 문장을 논점으로 집고, 뒤에 오는 두 사례(Led Zeppelin·purists)가 그 임의성을 뒷받침하는 예임을 확인해 사례의 소재로 제목을 삼지 않는 능력",
-   "design_intent": "440 Hz 라는 숫자와 439·424, A440 표준 같은 수치가 앞에 몰려 있어 '측정·주파수'가 소재처럼 보이게 해 두고, 정작 주장은 셋 낱말짜리 문장(This is entirely arbitrary) 하나다. 정답 선지가 그 주장을 의문문(Should ~ Always ~?)으로 바꿔 놓았으므로, 짧은 주장 문장을 논점으로 알아보고 의문형 제목을 배제하지 않는지를 가른다.",
-   "answer_locus": {
-    "sentence_index": [
-     3,
-     4
-    ],
-    "quote": "This is entirely arbitrary. We could fix ‘A’ at any frequency, such as 439 or 424",
-    "reasoning": "앞 문장이 A440 표준을 설명한 직후 This is entirely arbitrary 가 그 표준에 '임의적'이라는 판정을 내리고, 다음 절이 439·424 라는 대안을 들어 판정을 구체화한다. 제목 ①의 'Should A Always Be Tuned at 440 Hz?'는 이 판정을 의문형으로 옮긴 것이며, 뒤의 Led Zeppelin(표준에서 벗어난 조율)과 purists(원래 조율 기준)가 실제로 다른 답이 존재함을 보여 물음이 성립함을 확인해 준다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "correct",
-     "trap": "-",
-     "why_tempting": "물음표로 끝나 주장이 없어 보이고, 440 Hz 라는 수치가 세부 정보처럼 느껴진다.",
-     "how_to_reject": "셋째 문장이 그 표준을 entirely arbitrary 라고 판정하고, 여섯째·일곱째 문장이 표준에서 벗어난 실제 사례를 둘 든다 — 물음의 답이 '아니오'로 정해지는 구조다."
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "'Arbitrary'가 논점 문장의 낱말 그대로여서 정답의 핵심어를 담은 것처럼 보인다.",
-     "how_to_reject": "덧붙은 'A New Trend'가 지문과 어긋난다 — 넷째 문장은 'different standards were used in the time of Mozart than today'로 과거를 가리키고, 일곱째 문장의 purists 는 baroque 시대의 original tuning standard 를 좇는다. 새 유행이 아니라 옛 기준으로 돌아가는 사례다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "440·439·424 Hz 라는 수치와 frequency values 라는 어구가 첫 문장부터 반복돼 측정 이야기로 읽힌다.",
-     "how_to_reject": "지문에 주파수를 재는 방법(도구·절차)이 한 줄도 없다. 첫 문장은 이름과 값이 짝지어져 있다는 사실만 말하고, 논점은 셋째 문장에서 그 짝이 임의적이라는 데로 넘어간다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "부분 사실",
-     "why_tempting": "다섯째 문장 'Some people claim that the precise frequencies affect the overall sound'와 일곱째 문장 'the instruments have a different sound'가 소리 차이를 알아채는 이야기로 읽혀, 연주자의 지각 능력이 논점처럼 보인다.",
-     "how_to_reject": "그 두 문장은 기준이 달라지면 결과가 달라진다는 근거로만 쓰이고, 차이를 어떻게 감지하는지는 다루지 않는다. 논점 문장은 셋째 문장의 arbitrary 판정이다."
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "범위 과대",
-     "why_tempting": "표준이 임의적이고 시대마다 달랐다는 서술을 '음정이 불안정하다'로 바꿔 읽으면 음악 전반의 특징처럼 들린다.",
-     "how_to_reject": "지문이 임의적이라고 한 것은 기준값을 정하는 일(We could fix A at any frequency)이지 연주된 음정이 흔들린다는 뜻이 아니다. 둘째 문장은 A가 440 Hz 로 'has been fixed'되어 있다고 해 오히려 고정을 말한다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "선지에서 의문문 형태를 따로 표시해 둔다. 이 유형은 의문형 제목이 정답이 되는 회차가 있으므로 형태만으로 지우지 않는다",
-     "on_fail": "의문문이 둘 이상이면(①·④) 각각이 묻는 대상(기준값 / 연주자 지각)을 적어 둔다"
-    },
-    {
-     "step": "지문에서 열 낱말 안팎의 짧은 단정문을 찾는다 — This is ~ / That is why ~ 형태다. 여기서는 셋째 문장 This is entirely arbitrary 가 그것이다",
-     "on_fail": "짧은 단정문이 없으면 수치·고유명사가 없는 문장만 골라 그중 첫 문장을 논점으로 잡는다"
-    },
-    {
-     "step": "논점 문장의 This 가 가리키는 앞 명사를 확정해 옮겨 적는다 — 앞 문장의 A440 기준(A를 440 Hz 로 고정한 것)",
-     "on_fail": "지시어 대상이 불분명하면 바로 뒤 문장(We could fix A at any frequency)에서 반복되는 명사를 대상으로 삼는다"
-    },
-    {
-     "step": "고유명사가 나오는 문장(Led Zeppelin·baroque purists)은 사례로 표시하고, 그 문장에서만 소재를 따온 선지를 지운다",
-     "on_fail": "사례 경계가 불분명하면 such as·often·insist 가 든 문장을 사례로 본다"
-    },
-    {
-     "step": "남은 선지 중 논점 대상(440 Hz 기준)과 판정(임의적이다)을 함께 담은 것을 고른다. 판정 낱말만 담고 다른 주장을 덧붙인 선지(② A New Trend)는 덧붙인 부분을 지문과 대 본다",
-     "on_fail": "결정이 안 되면 넷째 문장의 'in the time of Mozart'와 일곱째 문장의 baroque 를 보고 시간 방향(과거 vs 새 유행)이 맞는지 검산한다"
-    }
-   ],
-   "time_budget_sec": 90,
-   "difficulty": {
-    "predicted": 0.75,
-    "drivers": [
-     "논점 문장이 짧아 눈에 안 띈다",
-     "오답 ②가 논점 낱말 arbitrary 를 그대로 담고 있어 낱말 겹침만으로는 안 갈린다",
-     "수치와 고유명사가 많아 소재 판단이 흔들린다",
-     "정답이 의문문이라 형태로 배제되기 쉽다"
-    ]
-   },
-   "required_vocab": [
-    "arbitrary",
-    "pitch",
-    "tune",
-    "frequency",
-    "purist"
-   ],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "quote 가 셋째·넷째 문장과 문자 그대로 일치한다(따옴표는 원문의 홑따옴표를 유니코드로 그대로 적었다)",
-      "'짧은 단정문이 논점'이라는 이 문항 고유의 장치를 짚었고, 정답이 의문문이라는 설계도 함께 기록했다"
-     ],
-     "checked": [
-      "answer_locus.quote 를 passage 에서 문자열 대조(홑따옴표 문자 포함)",
-      "different standards were used in the time of Mozart / original tuning standard 두 어구의 실재 확인",
-      "유형 정의 대조"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "라벨 4종(어휘 함정·무관·부분 사실·범위 과대)이 서로 다르다",
-      "②가 논점 낱말을 그대로 쓴 오답이라는 점을 짚고, 배제 근거를 '덧붙인 수식어(A New Trend)'로 특정했다 — 이 유형에서 낱말 겹침이 단서가 아님을 보여주는 사례다",
-      "⑤ 배제 근거가 fixed 라는 상반 어구를 인용한다"
-     ],
-     "checked": [
-      "trap 라벨 중복 여부",
-      "why_tempting 이 선지 영문(A New Trend · Correctly Measure · Detect Pitch Differences · Unstable Pitches)에 걸리는지 대조",
-      "how_to_reject 넷에 문장 위치가 있는지 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "2단계(짧은 단정문 찾기)가 지문을 안 본 상태에서도 실행 가능한 시각 조작이다",
-      "5단계의 '덧붙인 부분만 대 본다'가 ② 소거를 구체적 조작으로 만든다",
-      "90초는 수치 확인에 시간이 새지 않도록 3단계에서 지시어 대상만 확정하게 해 지킬 수 있다"
-     ],
-     "checked": [
-      "금지 표현 유무 확인",
-      "지문 미열람 상태에서 1~2단계 실행 가능성 시연",
-      "required_vocab 5개가 지문에 실재하는지 대조(arbitrary·pitches·tuned/tuning·frequency·purists)"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2014A#26",
-   "measured_ability": "상식(큰 동물이 위험하다)을 뒤집는 But 문장을 주장으로 잡고, 마지막 For these reasons 문장이 그 주장을 되풀이하는 수미상관 구조임을 확인하는 능력",
-   "design_intent": "첫 문장과 마지막 문장이 같은 주장을 두 번 말하고, 가운데는 뱀·벌 두 사례로만 채워져 있다. 사례 낱말(allergies·bee stings)과 상식 낱말(tigers·bears)을 각각 오답으로 회수해 두었으므로, 주장 문장 두 개와 사례 문장을 갈라 읽는지를 가른다. A형 문항이라 문장 구조는 쉬우나 선지 다섯이 모두 동물 소재여서 소거 기준이 필요하다.",
-   "answer_locus": {
-    "sentence_index": [
-     3,
-     8
-    ],
-    "quote": "For these reasons, hikers should be careful about small dangerous creatures.",
-    "reasoning": "마지막 문장이 앞의 근거들을 For these reasons 로 묶어 '작은 생물을 조심하라'는 명령형 결론을 낸다. 셋째 문장 'But smaller animals are actually more threatening than bigger animals'가 같은 주장을 역접으로 먼저 제시했으므로 주장이 두 번 반복된 셈이고, 제목 ②의 'Watch Out for Small Animals!'는 이 결론 문장을 그대로 명령형으로 옮긴 것이다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "범위 과소",
-     "why_tempting": "일곱째 문장이 'allergic reactions to common bee stings'로 가장 많은 사망을 말하므로, 가장 강한 사례가 곧 주제로 보인다.",
-     "how_to_reject": "그 문장은 Even more people 로 시작해 앞 사례(독사)에 이어 붙은 두 번째 예시이고, 마지막 문장은 결론을 'small dangerous creatures' 전체로 되돌린다. 게다가 지문에 알레르기 대처 방법(How to Deal)이 한 줄도 없다."
-    },
-    {
-     "n": 2,
-     "verdict": "correct",
-     "trap": "-",
-     "why_tempting": "너무 단순한 제목이라 '더 그럴듯한' 선지를 찾다 놓치기 쉽다.",
-     "how_to_reject": "셋째 문장(But smaller animals are actually more threatening)과 마지막 문장(hikers should be careful about small dangerous creatures)이 같은 말을 두 번 한다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "동물 소재의 글이면 우호적 제목이 늘 후보로 남고, 다섯째 문장 'most of these incidents are caused by the people themselves'가 동물을 두둔하는 말처럼 읽힌다.",
-     "how_to_reject": "그 문장은 큰 동물의 공격이 드물다는 근거일 뿐이고, 마지막 문장은 조심하라(be careful)로 끝난다 — 친구라는 규정과 어긋난다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "attack 이라는 낱말이 다섯째 문장(are attacked by tigers or bears)에 실제로 나와 공격 장면이 지문에 있는 것처럼 보인다.",
-     "how_to_reject": "그 문장의 주어는 사람이고 장소는 등산로(hikers)다. 지문에 village·town 등 마을이 한 번도 나오지 않으며, 공격 빈도도 'only a few people'로 적다고 말한다."
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "주체 역전",
-     "why_tempting": "'dangerous'와 'endangered'가 형태가 비슷하고, 야생동물 글의 흔한 제목이라 자연스러워 보인다.",
-     "how_to_reject": "지문에서 위험에 처하는 쪽은 사람(hikers)이고 위협하는 쪽이 동물이다 — 셋째 문장 'smaller animals are actually more threatening'과 마지막 문장의 hikers should be careful 이 그 방향을 고정한다. 동물이 멸종 위기라는 서술은 없다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "선지 5개의 방향을 부호로 적는다 — 동물이 위험하다(+)인지 동물이 보호 대상이다(-)인지. ②④는 +, ③⑤는 - 쪽이고 ①은 중립이다",
-     "on_fail": "부호가 안 정해지면 명령형·감탄형 선지에 표시만 해 둔다"
-    },
-    {
-     "step": "지문 첫 문장과 마지막 문장만 먼저 읽는다. 마지막 문장이 For these reasons·Therefore·So 로 시작하면 그 문장이 결론이다",
-     "on_fail": "마지막 문장에 결론 표지가 없으면 But·However 로 시작하는 문장을 찾아 그것을 주장으로 잡는다"
-    },
-    {
-     "step": "결론 문장에서 대상(small dangerous creatures)과 요구(should be careful)를 옮겨 적고, 선지의 부호가 이와 같은 것만 남긴다 — ③⑤가 여기서 빠진다",
-     "on_fail": "요구 동사가 없으면 첫 문장의 비교 대상(Large ~ less dangerous than smaller ones)에서 어느 쪽이 위험한지를 가져온다"
-    },
-    {
-     "step": "남은 선지 중 사례 문장(뱀·벌)에서만 소재를 따온 것을 지운다. Each year·Even more people 처럼 통계로 시작하는 문장은 사례다 — ①이 여기서 빠진다",
-     "on_fail": "사례 경계가 불분명하면 결론 문장에 나오는 낱말(small·creatures)이 든 선지를 남긴다"
-    },
-    {
-     "step": "남은 둘 중 장소·주체가 지문과 같은 것을 고른다 — 지문의 무대는 등산로이고 주체는 hikers 다",
-     "on_fail": "장소 판단이 안 되면 첫 문장의 to hikers 를 다시 보고 마을·야생 보전 소재를 담은 선지를 지운다"
-    }
-   ],
-   "time_budget_sec": 65,
-   "difficulty": {
-    "predicted": 0.93,
-    "drivers": [
-     "주장이 첫 문장과 마지막 문장에 두 번 나온다",
-     "정답 선지가 결론 문장의 낱말을 그대로 쓴다",
-     "선지 다섯이 모두 동물 소재라 소거 기준이 없으면 헤맨다",
-     "dangerous 와 endangered 의 형태 유사성"
-    ]
-   },
-   "required_vocab": [
-    "threatening",
-    "poisonous",
-    "sting",
-    "disadvantage",
-    "allergic"
-   ],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "quote 가 마지막 문장과 문자 그대로 일치한다",
-      "수미상관(첫 문장·마지막 문장 반복)이라는 이 문항의 설계를 짚었고, A형 난도에 맞춰 사례-주장 분리를 축으로 삼았다"
-     ],
-     "checked": [
-      "answer_locus.quote 를 passage 에서 문자열 대조",
-      "But smaller animals are actually more threatening 어구의 실재 확인",
-      "유형 정의 대조 — 제목이 결론 문장의 압축인지 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "라벨 4종(범위 과소·반대 진술·무관·주체 역전)이 서로 다르다",
-      "⑤를 '어휘 함정'으로 달았다가, 바뀐 것이 낱말 형태만이 아니라 위험의 가해·피해 임자라는 점을 근거로 '주체 역전'으로 고쳤다",
-      "④의 배제 근거가 장소(마을)의 부재와 주어(사람)를 함께 짚는다"
-     ],
-     "checked": [
-      "trap 라벨 중복 여부",
-      "why_tempting 이 선지 영문(Deal with Allergies · True Friends · Attack Human Villages · Endangered)에 걸리는지 대조",
-      "how_to_reject 넷에 문장 위치가 있는지 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "1단계의 부호 붙이기가 선지 다섯이 같은 소재일 때 쓸 수 있는 실제 조작이다",
-      "2단계에서 첫 문장과 마지막 문장만 읽게 해 65초 안에 끝난다",
-      "선지 ⑤의 원문에 파싱 잔여 문자(3 8)가 붙어 있으나 판정에 영향이 없음을 확인했다"
-     ],
-     "checked": [
-      "금지 표현 유무 확인",
-      "지문 미열람 상태에서 1~3단계 실행 가능성 시연",
-      "required_vocab 5개가 지문에 실재하는지 대조(threatening·poisonous·stings·disadvantages·allergic)"
-     ]
-    }
-   ],
-   "revised": true
-  }
- ],
- "type_report": {
+  "chunk": 3,
   "type_id": "R-TITLE",
-  "n_analyzed": 7,
-  "recurring_traps": [
-   {
-    "trap": "무관",
-    "count": 6,
-    "signature": "지문의 소재 영역(언어·영화·노화·도덕·조율·동물)에 어울리는 상투적 제목을 만들되, 지문이 한 번도 묻지 않은 물음으로 바꾼다 — Universal Goal(2017#22 ③) · Exploration into the Unknown(2017#23 ①) · Slow Aging in the Modern Era(2016#23 ②) · Form Their Personalities(2015#22 ④) · How to Correctly Measure(2014B ③) · Attack Human Villages(2014A ④). 7문항 중 6문항에 하나씩 들어 있다"
-   },
-   {
-    "trap": "어휘 함정",
-    "count": 5,
-    "signature": "지문 낱말을 그대로 쓰되 그 낱말이 놓였던 기능 자리를 바꾼다 — filmic time·space 가 감독의 목적어였는데 선지에서는 주어(2017#23 ②) · esteem 이 '남을 존경한다'였는데 self-esteem 으로(2015#22 ①) · chronological 이 이미 아는 값이었는데 재는 대상으로(2016#23 ③) · arbitrary 는 맞고 덧붙인 'A New Trend'가 틀림(2014B ②) · impossible 이 결과 묘사였는데 논점으로(2015#23 ①)"
-   },
-   {
-    "trap": "반대 진술",
-    "count": 5,
-    "signature": "지문이 '실수·결함'이라고 부른 것을 처방으로, 또는 '강점'이라 한 것을 제거 대상으로 뒤집는다 — Erase Ambiguity(2017#22 ①) · Not Creative(② ) · Never Changes(2017#23 ⑤) · Disclosed(2016#23 ④) · Start with Ultimate Goals(2015#23 ③) · True Friends(2014A ③)"
-   },
-   {
-    "trap": "범위 과대",
-    "count": 3,
-    "signature": "구체적 작동 기제를 상위 범주로 격상한다 — Moral Integrity: A Principle of Philosophy(2015#22 ③) · The Wonders of Committed Efforts(2015#23 ④) · Unstable Pitches: A Common Thread in Music(2014B ⑤)"
-   },
-   {
-    "trap": "부분 사실",
-    "count": 3,
-    "signature": "역접 앞 양보문이나 사례 한 줄이 실제로 지문에 있다는 점을 이용한다 — 첫 문장 꿀벌 우위(2017#22 ①) · 회피하는 스키어가 실재(2015#23 ⑤) · 소리 차이 서술이 실재(2014B ④)"
-   },
-   {
-    "trap": "주체 역전",
-    "count": 2,
-    "signature": "속성이나 피해의 임자가 뒤바뀐다 — 왜곡 없는 전달은 꿀벌의 속성인데 언어에 붙임(2017#22 ⑤) · 위험에 처한 쪽이 사람인데 동물로(2014A ⑤)"
-   },
-   {
-    "trap": "범위 과소",
-    "count": 2,
-    "signature": "주장에 이르는 수단이나 사례 하나를 제목으로 승격시킨다 — Innovative Technology in Film Editing(2017#23 ③) · How to Deal with Allergies(2014A ①)"
-   },
-   {
-    "trap": "지문 밖 상식",
-    "count": 2,
-    "signature": "소재에 따라붙는 통념을 제목으로 만든다 — Fountain of Youth(2016#23 ⑤) · Do Not Let Your Moral Principles Change(2015#22 ②)"
-   }
+  "type_name": "제목",
+  "analyses": [
+    {
+      "item_id": "2017#22",
+      "measured_ability": "양보(꿀벌 신호 체계가 정확하다)와 주장(그러나 언어의 값은 다른 데 있다)을 However 로 갈라 놓고, 마지막 It is ~ that 강조구문이 지목한 두 낱말(ambiguity·adaptability)을 제목의 주어 자리로 옮겨 오는 능력",
+      "design_intent": "첫 문장에 정답과 정반대인 매력적인 진술(모호성 없는 전달이 우월하다)을 통째로 깔아 두고 However 로 뒤집는다. 앞 두 줄만 읽고 제목을 정하면 ①·⑤ 두 개가 동시에 맞아 보이도록 설계했다 — 곧 '어디서부터가 필자 주장인가'를 표지로 끊는지를 가른다. 정답 선지가 의문문(What in Language Creates ~?)이라 '단정문이 제목답다'는 통념도 함께 시험한다.",
+      "answer_locus": {
+        "sentence_index": [
+          2,
+          7
+        ],
+        "quote": "It is the inherent ambiguity and adaptability of language as a meaning-making system that makes the relationship between language and thinking so special.",
+        "reasoning": "강조구문 It is X that Y 는 X(모호성과 적응성)를 Y(언어와 사고의 특별한 관계)의 원인으로 못박는다. 제목 ④의 'What in Language'가 묻는 것이 바로 이 X 자리이고, 'Varied Understanding'은 앞 문장들이 그 X의 결과로 든 것(listeners or readers bring their own perspectives · creating new understanding)과 같은 것을 가리킨다. 즉 ④는 이 한 문장의 주어·술어를 의문사로 바꿔 놓은 것이다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "'Ambiguity'는 지문의 핵심 낱말이고, 첫 문장이 실제로 'without any distortion or ambiguity'를 꿀벌 체계의 장점으로 말한다. However 앞 한 문장만 근거로 삼으면 모호성은 없애야 할 결함으로 읽힌다.",
+          "how_to_reject": "여섯째 문장 'is a reflection of its powerful strength as a medium for creating new understanding'과 마지막 문장의 'inherent ambiguity'가 모호성을 strength·inherent 로 규정한다 — 없애라는 명령형 제목과 정면으로 어긋난다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "'The Way Language Works'라는 뒷부분이 지문의 소재와 맞아 보이고, 앞부분 'Not Creative but Simple'은 첫 문장의 '왜곡 없는 단순 전달'과 겹쳐 보인다.",
+          "how_to_reject": "셋째 문장 'the act of communicating is always a joint, creative effort'가 creative 를 명시한다. 선지가 부정한 낱말이 지문에 always 와 함께 긍정문으로 있다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "'Communication'과 'Language Use'가 지문 전면에 나오는 낱말이라 소재가 맞는 것처럼 보이고, 제목치고 무난해 보인다.",
+          "how_to_reject": "지문은 의사소통이 보편적 목표인지(Universal Goal)를 한 번도 묻지 않는다. 둘째 문장은 언어가 'more valuable than mere information exchange'라며 목표의 보편성이 아니라 정보 교환을 넘어선 값어치를 논점으로 세운다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "제목 ④ 'What in Language Creates Varied Understanding?' 의 두 자리가 지문 끝에 그대로 있다. 'What in Language' 가 묻는 자리는 강조구문 'It is the inherent ambiguity and adaptability of language' 의 X 이고, 'Varied Understanding' 은 4번째 문장의 'listeners or readers bring their own perspectives to the language they encounter' 와 6번째 문장의 'creating new understanding' 이 가리키는 것이다. 곧 ④는 이 문장의 주어(모호성·적응성)를 의문사로 바꾸고 술어를 그 결과로 바꿔 놓은 것이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6,
+              7
+            ],
+            "note": "6번 문장의 not always reliable 이 '모호성' 을, 7번 문장의 강조구문이 그 모호성을 원인 자리에 놓는다"
+          }
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "'왜곡·모호성 없이 정확히 전달한다'는 서술이 지문 첫 문장에 실제로 있어, 그 속성의 임자를 언어로 착각하면 '수정처럼 맑은 거울'이 제목으로 보인다.",
+          "how_to_reject": "첫 문장의 주어는 'the sign system of honey-bees'이고 언어는 그 비교 대상으로 진 쪽이다. 여섯째 문장은 언어를 'not always reliable for causing precise meanings'라고 못박는다 — 맑은 유리는 벌의 속성이지 언어의 속성이 아니다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 5개를 먼저 읽고 되풀이되는 낱말 축을 잡는다 — 여기서는 ambiguity/creative/communication/varied/clear 로 '언어가 명확한가 모호한가' 한 축이다. 축을 잡으면 지문에서 확인할 것이 한 가지로 준다",
+          "on_fail": "축이 안 잡히면 선지에서 서로 반대인 짝(①과 ④, ②와 ⑤)을 찾아 표시해 둔다 — 반대 짝이 있으면 정답은 그 축 위에 있다"
+        },
+        {
+          "step": "지문에서 However·But·Yet 을 찾아 동그라미 치고, 그 앞은 접어 둔다. 이 글은 둘째 문장이 However 로 시작하므로 첫 문장은 근거로 쓰지 않는다",
+          "on_fail": "역접 표지가 없으면 In fact·The fact that·It is ~ that 같은 강조 표지를 찾는다"
+        },
+        {
+          "step": "마지막 문장을 읽고 It is X that Y 구조가 있으면 X를 그대로 옮겨 적는다 — 여기서는 inherent ambiguity and adaptability",
+          "on_fail": "마지막 문장에 강조구문이 없으면 However 바로 뒤 문장의 주어·목적어를 옮겨 적는다"
+        },
+        {
+          "step": "옮겨 적은 X가 선지의 주어 자리(무엇에 관한 글인가)에 들어 있는 선지만 남긴다. X를 부정하거나 없애라고 하는 선지(①·②·⑤)는 이 단계에서 지운다",
+          "on_fail": "둘 이상 남으면 X의 결과에 해당하는 낱말(understanding·thinking)이 함께 있는 쪽을 고른다"
+        },
+        {
+          "step": "남은 선지를 첫 문장(꿀벌)에 대 본다. 첫 문장으로 설명되는 선지는 필자 주장이 아니라 양보이므로 버린다",
+          "on_fail": "그래도 결정이 안 되면 의문문 형태라고 배제하지 않는다 — 이 유형에서 의문문 제목은 정답이 될 수 있다"
+        }
+      ],
+      "time_budget_sec": 95,
+      "difficulty": {
+        "predicted": 0.7,
+        "drivers": [
+          "첫 문장이 정답과 반대인 진술이라 앞부분만 읽으면 ①·⑤로 간다",
+          "정답 근거가 마지막 문장 강조구문 하나에 몰려 있다",
+          "정답 선지만 의문문이라 형태로 배제하기 쉽다",
+          "invariable·inherent·adaptability 등 추상 명사 밀도가 높다"
+        ]
+      },
+      "required_vocab": [
+        "ambiguity",
+        "invariable",
+        "interpretation",
+        "adaptability",
+        "stimulating"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 지문 마지막 문장과 문자 그대로 일치한다",
+            "제목 유형의 설계(주제문 한 문장 → 제목으로 압축)와 어긋나지 않으면서, 이 문항 고유의 장치인 '첫 문장 양보 + 마지막 강조구문' 두 축을 짚었다",
+            "영어 조각 3개(It is the inherent ambiguity and adaptability of language / listeners or readers bring their own perspectives to the language they encounter / creating new understanding)를 대조 — 전부 있다. 제목의 What in Language 가 강조구문의 X 자리, Varied Understanding 이 결과 자리와 맞물린다."
+          ],
+          "checked": [
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "However 위치가 둘째 문장임을 확인해 '역접 앞은 접는다' 절차의 근거로 삼음",
+            "유형 정의(제목 = 주제의 압축 표현) 대조",
+            "why_correct 의 영어 인용을 corpus.json 현재 지문에 문자열 대조",
+            "정답 선지 텍스트와 인용의 대응을 낱말 단위로 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "오답 4개의 라벨이 부분 사실·반대 진술·무관·주체 역전으로 서로 다르다",
+            "⑤를 처음에 '반대 진술'로 달았다가 ②와 겹쳐, 첫 문장의 주어가 honey-bees 임을 근거로 '주체 역전'으로 바꿨다 — 속성의 임자가 바뀐 함정이므로 라벨이 더 정확하다",
+            "how_to_reject 넷 모두 문장 번호 또는 원문 어구를 위치로 제시한다",
+            "제목의 의문사형이 지문 문장의 주어를 물음으로 바꾼 것이라는 대응을 댔으므로, 나머지 제목을 지우지 않아도 ④가 선다."
+          ],
+          "checked": [
+            "trap 라벨 4종 중복 여부",
+            "각 why_tempting 이 선지 영문 표현(Erase Ambiguity · Not Creative · Universal Goal · Crystal-Clear)에 실제로 걸리는지 대조",
+            "how_to_reject 에 지문 위치(문장 순서·인용 어구)가 있는지 확인",
+            "why_correct 가 소거법(나머지가 틀렸으므로)에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드(why_tempting/how_to_reject)가 남아 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계가 지문을 읽기 전에 실행 가능하다(선지만 본다)",
+            "'의문문이라고 배제하지 않는다'는 5단계 on_fail 이 실제 학습자 오답 습관을 겨냥한다",
+            "95초는 선지 5개 읽기 25초 + 역접·마지막 문장 확인 40초 + 소거 30초로 맞는다",
+            "학생이 It is ~ that 강조구문을 찾는 한 동작으로 끝나 시간 예산 안이다."
+          ],
+          "checked": [
+            "solve_procedure 5단계에 금지 표현(흐름을 파악하면 등) 유무 확인",
+            "각 단계를 지문 없이 수행 가능한지 순서대로 시연",
+            "required_vocab 5개가 정답 판정에 실제로 쓰이는지 확인 — ambiguity·adaptability 는 정답 근거 문장, invariable·interpretation 은 ②배제, stimulating 은 ③배제에 쓰인다",
+            "why_correct 가 지목한 자리를 지문을 아직 안 읽은 학생이 직접 짚을 수 있는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2017#23",
+      "measured_ability": "not A but B 대조구문에서 B(새로운 현실의 창조)를 주장으로 집고, 앞에서 길게 나열된 수단(자르고 바꾸고 이어붙임)을 주제로 잘못 승격시키지 않는 능력",
+      "design_intent": "글 대부분이 편집 작업의 물리적 서술(strips·shortened·altered·assembled)이라 소재 낱말이 '편집 기술'과 '시간·공간'에 몰려 있다. 정작 주장은 넷째 문장의 does not ~ but ~ 한 곳에만 있고, 감독이 현실을 '가공'하는 것이 아니라 '지배해 새 현실을 만든다'는 방향을 잡았는지를 가른다. 오답 ②·③은 지문 낱말을 그대로 쓴 미끼다.",
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          5
+        ],
+        "quote": "He does not adapt reality, but uses it for the creation of a new reality",
+        "reasoning": "이 대조구문이 감독과 현실의 관계를 확정한다 — 현실에 맞추는 쪽이 아니라 현실을 재료로 쓰는 쪽이다. 이어지는 'laws of space and time invariable and inescapable in work with actuality become obedient'가 obedient(복종한다)로 그 지배 관계를 한 번 더 못박고, 마지막 문장 'a new reality proper only to itself'가 새 현실의 귀속을 감독의 작품 쪽으로 돌린다. 제목 ④의 'in the Film Director's Hands'가 바로 이 지배 관계다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "영화 제작을 소재로 한 글이면 '미지의 탐험'류 제목이 늘 그럴듯해 보이고, 'creation of a new reality'를 낭만적으로 읽으면 미지의 세계를 여는 이야기처럼 들린다.",
+          "how_to_reject": "지문에 unknown·discover·explore 계열 표현이 한 번도 없다. 넷째 문장이 말하는 것은 미지의 발견이 아니라 laws of space and time 이 become obedient 하는 통제다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "셋째 문장에 'filmic' time 과 'filmic' space 가 따옴표까지 붙어 두 번 나오므로, 선지의 'Lost in Time and Space'가 지문 낱말과 가장 많이 겹쳐 보인다.",
+          "how_to_reject": "같은 셋째 문장의 술어가 'the director builds up his own'이다 — 시간·공간은 잃어버리는 것이 아니라 감독이 세우는 것이고, 넷째 문장에서 그 법칙들이 become obedient 한다. 겹치는 낱말의 기능(주어가 아니라 감독의 목적어)이 다르다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "둘째 문장의 shortened, altered, and assembled 는 그대로 편집 작업이라 '편집'이라는 낱말이 강하게 떠오른다.",
+          "how_to_reject": "그 서술은 넷째 문장의 주장(새 현실의 창조)에 이르는 수단으로만 쓰인다. 게다가 지문에는 technology·innovative 에 해당하는 서술이 없고, 재료를 말하는 첫 문장은 기술이 아니라 celluloid 라는 물질을 가리킨다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "'in the Director's Hands'가 비유라서 지문 어구와 1:1로 겹치지 않아 근거가 약해 보인다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "넷째 문장 안의 'invariable and inescapable'을 감독 쪽 서술로 읽으면 '감독의 현실은 변하지 않는다'가 지문 낱말로 뒷받침되는 것처럼 보인다.",
+          "how_to_reject": "invariable and inescapable 은 'in work with actuality'(실제를 다루는 작업)에 걸린 수식이고, 그 문장의 결론은 그 법칙들이 become obedient 한다는 것이다. 마지막 문장도 'a new reality'라고 해 변화를 못박는다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 5개에서 명사구 핵을 하나씩 적는다 — 탐험/시공간 상실/편집 기술/감독의 손안 현실/불변. 다섯 개가 '감독이 현실을 어떻게 다루는가' 한 축 위에 놓인다",
+          "on_fail": "핵이 안 잡히면 콜론 뒤쪽만 읽는다 — 이 유형 선지는 콜론 뒤에 논점이 온다"
+        },
+        {
+          "step": "지문에서 not A but B · does not ~ but ~ 구문을 찾아 B에 밑줄을 긋는다. 여기서는 넷째 문장 'not adapt reality, but uses it for the creation of a new reality'",
+          "on_fail": "대조구문이 없으면 마지막 문장을 밑줄 대상으로 삼는다"
+        },
+        {
+          "step": "밑줄 친 B의 명사(new reality)와 그 임자(He=the director)를 함께 옮겨 적는다. 제목은 이 둘을 잇는 말이어야 한다",
+          "on_fail": "임자가 불분명하면 앞 문장들의 소유격(his material · his will · his desire)을 세어 반복되는 임자를 찾는다"
+        },
+        {
+          "step": "선지 중 '새 현실'과 '감독'을 함께 담은 것만 남기고, 둘 중 하나만 담았거나 반대로 말한 것은 지운다 — 편집 기술(③)은 수단이라 지우고, 불변(⑤)은 방향이 반대라 지운다",
+          "on_fail": "둘 다 담은 선지가 없으면 감독 쪽 낱말(director·his)이 든 선지를 우선 남긴다"
+        },
+        {
+          "step": "남은 선지를 지문 낱말과의 겹침이 아니라 술어의 방향으로 검산한다 — 겹치는 낱말이 가장 많은 ②는 술어(lost)가 지문 술어(builds up)와 반대다",
+          "on_fail": "검산이 안 끝나면 마지막 문장 'a new reality proper only to itself' 한 줄만 다시 보고 결정한다"
+        }
+      ],
+      "time_budget_sec": 100,
+      "difficulty": {
+        "predicted": 0.6,
+        "drivers": [
+          "정답 선지가 비유라 지문 어구와 직접 겹치지 않는다",
+          "오답 ②가 지문 낱말(filmic time·space)과 가장 많이 겹친다",
+          "celluloid·stage-sets·actuality 등 소재 어휘가 낯설다",
+          "핵심 술어 become obedient 가 긴 삽입구 뒤에 있어 주어를 놓치기 쉽다"
+        ]
+      },
+      "required_vocab": [
+        "celluloid",
+        "assemble",
+        "actuality",
+        "obedient",
+        "adapt"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 넷째 문장 앞부분과 문자 그대로 일치한다",
+            "이 문항 고유의 설계(수단 서술의 부피 vs 주장 한 절)를 짚었고, 제목 유형 일반론으로 끝내지 않았다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "according to his will / his desire / become obedient 세 어구의 실재 확인",
+            "유형 정의 대조 — 제목이 주장의 압축인지, 소재의 나열인지 구분"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "라벨 4종(무관·어휘 함정·범위 과소·반대 진술)이 서로 다르다",
+            "③을 '무관'으로 달았다가 ①과 겹쳐, 편집 서술이 지문에 실재하는 수단이라는 점을 근거로 '범위 과소'로 고쳤다",
+            "⑤의 how_to_reject 가 invariable 의 수식 대상(in work with actuality)을 명시해 오독 경로를 정확히 끊는다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 영문(Exploration into the Unknown · Lost in Time and Space · Innovative Technology · Never Changes)에 걸리는지 대조",
+            "how_to_reject 넷에 문장 위치가 있는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "5단계의 '겹침이 아니라 술어 방향으로 검산' 이 이 문항의 최대 오답(②)을 정확히 겨눈다",
+            "100초는 어휘 부담을 감안한 값이며, 2단계에서 대조구문 한 곳만 찾으면 되므로 초과하지 않는다"
+          ],
+          "checked": [
+            "금지 표현 유무 확인",
+            "지문 미열람 상태에서 1~2단계 실행 가능성 시연",
+            "required_vocab 5개가 정답 판정 경로에 실제로 등장하는지 확인(obedient·adapt 는 정답 근거, celluloid·actuality 는 ③·⑤ 배제)"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2016#23",
+      "measured_ability": "'What we would like to have is ~' 같은 소망·필요 진술을 필자의 논점으로 알아보고, 그것이 아직 없는 것(찾는 중)인지 이미 있는 것(밝혀진 것)인지 시제·서법으로 구분하는 능력",
+      "design_intent": "지문에 chronological age 와 biological age 두 낱말을 계속 겹쳐 놓고, 재는 대상이 어느 쪽인지 뒤집은 선지(③)와 이미 찾았다고 완료형으로 바꾼 선지(④)를 나란히 배치했다. 정답 제목이 지문의 동사 mirror 를 그대로 쓰므로, 그 낱말이 '비추는 척도'라는 뜻으로 쓰였음을 붙잡는지를 가른다.",
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          5
+        ],
+        "quote": "What we would like to have is one or a few measurable biological changes that mirror all other biological age changes without reference to the passage of time",
+        "reasoning": "would like to have 는 아직 갖지 못한 것을 가리키므로 글의 논점이 '찾는 중'(In Search of)임을 확정하고, mirror all other biological age changes 가 제목의 'a Mirror Reflecting Biological Aging'과 같은 것을 가리킨다. 바로 앞 문장 'biological aging resists easy measurement'가 그 척도가 아직 없는 이유를 대므로, 제목은 발견 완료가 아니라 탐색이어야 한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "correct",
+          "why_correct": "제목의 In Search of 는 다섯째 문장 「What we would like to have is」 가 아직 갖지 못한 것을 가리키고 넷째 문장 「biological aging resists easy measurement」 가 그것이 없는 까닭을 대는 데서 나온다. a Mirror Reflecting 은 같은 다섯째 문장의 「measurable biological changes that mirror all other biological age changes」 에서 동사 mirror 를 명사로 바꾼 것이고, 뒤의 Biological Aging 은 그 mirror 가 비추는 대상 all other biological age changes 와 같다. 곧 도구(mirror)와 대상(생물학적 노화)의 자리가 지문과 그대로 맞는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4,
+              5
+            ],
+            "note": "탐색인지 완료인지는 다섯째 문장의 would like to have 하나로는 약하고, 넷째 문장 resists easy measurement 가 함께 있어야 확정된다. Mirror 는 지문의 동사 mirror 를 비유로 세운 말이라, 제목을 낱말 뜻으로만 훑으면 지문과의 연결이 얇아 보인다."
+          }
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "'looks young'·'youthful qualities' 같은 표현 때문에 노화를 늦추는 이야기로 읽히고, 현대라는 시대 배경도 상식적으로 붙기 쉽다.",
+          "how_to_reject": "지문에는 노화 속도를 늦추는 방법이나 시대 비교가 한 줄도 없다. 첫 문장은 사람마다 노화 속도가 다르다는 관찰이고, 넷째 문장부터는 그 속도를 재는 척도 이야기로만 이어진다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "chronological age 가 첫 문장과 다섯째 문장에 반복돼 눈에 남고, '나이를 알아맞힌다'는 첫 문장의 'looks young for his or her chronological age'와 겹쳐 보인다.",
+          "how_to_reject": "다섯째 문장에서 재려는 대상은 biological 쪽이고 chronological 은 이미 아는 값(chronologically eighty years old)으로 주어져 있다. 넷째 문장 'biological aging resists easy measurement'가 어느 쪽이 문제인지 명시한다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "'Biological Aging'이 지문의 핵심어 그대로이고, 둘째 문장 'Scientists have good evidence'를 보면 이미 밝혀진 이야기처럼 들린다.",
+          "how_to_reject": "둘째 문장이 증거를 대는 대상은 '사람마다 생물학적 노화 속도가 다르다'는 사실 하나뿐이고, 다섯째 문장은 척도를 아직 갖고 싶어 한다(would like to have)고 말한다. Disclosed(밝혀졌다)는 넷째 문장의 resists easy measurement 와 어긋난다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "노화 글에는 '젊음의 샘'이 으레 따라붙는다는 통념 때문에, In Search of 로 시작하는 ①과 비슷한 어감으로 읽혀 함께 남는다.",
+          "how_to_reject": "지문이 찾는 것은 젊어지는 방법이 아니라 재는 척도(measurable biological changes)다. 마지막 문장도 두 여든 살의 차이를 '설명'하는 데 쓰겠다고만 한다 — 젊음을 되찾는 서술이 없다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지에서 동사·전치사구의 시상을 먼저 표시한다 — In Search of(찾는 중) / Reasons for(원인) / Tips to Guess(방법) / Disclosed(완료) / Looking for(찾는 중). 이 유형은 '아직인가 이미인가'로 반이 갈린다",
+          "on_fail": "시상이 안 보이면 명사구 핵만 적어 둔다"
+        },
+        {
+          "step": "지문에서 we would like to have · we need · what is needed 같은 소망·필요 표현을 찾는다. 있으면 그 문장이 논점이고, 글은 아직 못 가진 것을 말하는 중이다",
+          "on_fail": "소망 표현이 없으면 Unlike·resists·difficult 같은 문제 제기 어구를 찾아 그 뒤 문장을 논점으로 잡는다"
+        },
+        {
+          "step": "논점 문장에서 재는 대상과 재는 도구를 갈라 적는다 — 대상 biological age changes, 도구 measurable biological changes that mirror them",
+          "on_fail": "둘이 안 갈리면 문장 안에 두 번 나오는 낱말(biological)을 표시하고 그 낱말이 붙은 명사를 대상으로 삼는다"
+        },
+        {
+          "step": "선지에서 대상이 뒤바뀐 것(chronological 쪽)과 시상이 뒤바뀐 것(완료형)을 지운다. 여기서는 ③·④가 이 단계에서 빠진다",
+          "on_fail": "지울 것이 없으면 지문에 없는 소재(시대·젊음의 샘)를 담은 선지부터 지운다"
+        },
+        {
+          "step": "남은 둘 중 논점 문장의 낱말(mirror·measurable)을 담은 쪽을 고른다",
+          "on_fail": "둘 다 담았으면 문제 제기 문장(resists easy measurement)과 이어지는 쪽을 고른다"
+        }
+      ],
+      "time_budget_sec": 90,
+      "difficulty": {
+        "predicted": 0.68,
+        "drivers": [
+          "chronological 과 biological 이 한 문장 안에서 교차한다",
+          "정답 제목의 Mirror 가 비유처럼 보이지만 지문의 동사에서 온 것이라는 연결이 필요하다",
+          "①과 ⑤가 모두 '찾는 중'이라 시상만으로는 안 갈린다",
+          "정답 선지 문자열 끝에 파싱 잔여 기호(:)가 붙어 있어 시각적으로 어수선하다"
+        ]
+      },
+      "required_vocab": [
+        "chronological",
+        "biological",
+        "measurable",
+        "mirror",
+        "resist"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 다섯째 문장 앞부분과 문자 그대로 일치한다",
+            "'소망 진술이 논점'이라는 이 문항 고유의 장치를 짚었다",
+            "why_correct 를 다시 썼다 — 옛 서술은 이 정답을 왜 못 고르는가(학습자 심리)여서 정답 근거가 아니었다. 정답 선지를 성분으로 갈라 성분마다 지문 대응 어구를 지정하고, 인용은 corpus.json 2016#23 passage 에서 문자열로 복사했다. 옮긴 심리 관찰은 confirmed_at.note 에 남겼다."
+          ],
+          "checked": [
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "would like to have · resists easy measurement 두 어구의 실재 확인",
+            "유형 정의 대조 — 제목이 탐색인지 결론인지 구분되는 설계인지 확인",
+            "why_correct 안의 영어 어구를 corpus.json 2016#23 passage 와 문자열 대조",
+            "정답 선지를 성분(주어부·술어부·한정어)으로 갈라 성분마다 대응 어구가 지정됐는지 확인",
+            "why_tempting · how_to_reject · trap 이 정답 선지에 들어가 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "③을 처음에 '주체 역전'으로 달았으나, 바뀐 것이 행위자가 아니라 재는 대상 낱말(chronological↔biological)이므로 '어휘 함정'으로 고쳤다 — 라벨표 정의에 맞춘다",
+            "고친 뒤 라벨이 무관·어휘 함정·반대 진술·지문 밖 상식 4종으로 서로 다르다",
+            "④의 배제 근거가 둘째 문장(증거의 대상 한정)까지 짚어 '증거가 있다=밝혀졌다' 오독 경로를 끊는다",
+            "새 why_correct 가 소거법에 기대지 않는지 다시 쟀다 — 다른 선지를 근거로 삼지 않고 정답 선지 자체의 성분 대응만으로 서 있다. 오답 4개의 trap·why_tempting·how_to_reject 는 이번에 손대지 않았고 라벨 4종이 여전히 서로 다르다."
+          ],
+          "checked": [
+            "trap 라벨 중복 여부 및 라벨 정의와의 부합",
+            "why_tempting 이 선지 영문(Slow Aging in the Modern Era · Guess Chronological Age · Disclosed · Fountain of Youth)에 걸리는지 대조",
+            "how_to_reject 넷에 문장 위치가 있는지 확인",
+            "why_correct 에 '나머지가 틀렸으므로' 류의 소거 서술이 없는지 확인",
+            "정답 선지의 성분 중 오답과 공유하지 않는 성분에도 근거가 붙었는지 대조",
+            "trap 라벨 4종 중복 재확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계에서 선지의 시상을 먼저 표시하게 한 것이 ④를 빠르게 지우는 실행 가능한 조작이다",
+            "90초 안에 소망 표현 한 곳 + 선지 소거로 끝난다",
+            "지문을 아직 안 읽은 학생이 이 설명만 들고 그 자리를 직접 짚을 수 있는지 시연했다 — 인용 어구가 지문에 있는 그대로여서 눈으로 찾아 대조된다. confirmed_at.sentence_index 가 몇 번째 문장을 볼지 알려 주므로 찾는 시간이 준다."
+          ],
+          "checked": [
+            "금지 표현 유무 확인",
+            "지문을 안 본 상태에서 1단계 수행 가능성 시연",
+            "required_vocab 5개가 지문에 실재하는지 문자열 대조(chronological·biological·measurable·mirror·resists)",
+            "인용 어구를 지문에서 눈으로 찾는 과정을 순서대로 시연",
+            "금지 표현 문자열 검색(why_correct 신규 서술 대상)",
+            "confirmed_at.sentence_index 가 가리키는 문장이 실제 근거 문장인지 대조"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2015#22",
+      "measured_ability": "But 한 문장이 만든 전환('원칙을 믿는다'에서 '원칙이 행동을 몰고 간다')을 잡고, 뒤따르는 감정 서술(죄책감·존경)을 결과로 종속시켜 읽는 능력",
+      "design_intent": "앞 두 문장은 도덕 원칙을 '믿는 대상'으로 서술하다가 셋째 문장 'But there is more to moral principles than that.'에서 '행동을 이끄는 동기'로 갈아탄다. 그 뒤의 guilty·esteem 같은 감정 낱말을 선지 ①이 그대로 가져가 제목처럼 꾸며 놓았으므로, 전환 문장 앞뒤 중 어느 쪽이 논점인지 표지로 끊는지를 가른다.",
+      "answer_locus": {
+        "sentence_index": [
+          3,
+          4
+        ],
+        "quote": "that person is strongly motivated toward the conduct required by the principle, and against behavior that conflicts with that principle",
+        "reasoning": "'But there is more to ~ than that' 바로 뒤에 오는 이 절이 원칙과 행동의 관계를 처음으로 명시한다 — 원칙이 특정 conduct 로 이끌고(toward) 반대 행동을 막는다(against). 제목 ⑤의 'Guiding Our Conduct'는 이 두 방향을 한 낱말로 묶은 것이고, 이어지는 다섯째·여섯째 문장(죄책감·존경)은 모두 이 동기의 결과 서술이라 제목 자리를 차지할 수 없다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "다섯째 문장의 feel guilty 와 여섯째 문장의 hold in esteem 이 선지의 Guilty·Self-Esteem 과 낱말 수준에서 겹친다.",
+          "how_to_reject": "여섯째 문장의 esteem 은 'hold in esteem those whose conduct'로 남을 존경한다는 뜻이지 자기 존중감(self-esteem)이 아니다. 게다가 두 문장 모두 넷째 문장의 동기에서 파생된 예시이며, 앞에 붙은 Likewise 가 그 종속 관계를 표시한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "'도덕 원칙은 흔들리면 안 된다'는 일반 통념과 명령형 제목의 단호함이 맞물려 도덕 소재의 글에 잘 어울려 보인다.",
+          "how_to_reject": "지문은 원칙이 바뀌는지 지켜지는지를 논하지 않는다. 첫 문장은 오히려 사람들이 'what principles people should have'를 다시 생각한다고 하고, 넷째 문장부터는 원칙이 이미 도덕 규범의 일부일 때 무슨 일이 생기는지만 서술한다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "'Moral'이 지문의 핵심어이고 첫 문장에 moral standards·justified 같은 철학적 어휘가 있어, 도덕철학 개론처럼 격상해 읽기 쉽다.",
+          "how_to_reject": "지문은 철학의 원리를 세우는 글이 아니라 한 사람의 moral code 안에서 원칙이 어떻게 작동하는지를 서술한다(넷째~여섯째 문장 주어가 모두 that person·The person). integrity 라는 개념도 지문에 없다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "동기·죄책감·타인 평가가 나오므로 성격 형성에 관한 심리 글처럼 읽힌다.",
+          "how_to_reject": "지문에 personality·character 형성 과정에 해당하는 서술이 없다. 넷째 문장은 원칙이 이미 규범의 일부가 된 뒤의 결과만 다루고, 어떻게 그런 사람이 되는지는 묻지 않는다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "제목 ⑤ 'Moral Principles: Guiding Our Conduct' 의 Conduct 는 4번째 문장의 'strongly motivated toward the conduct required by the principle, and against behavior that conflicts with that principle' 에 conduct 로 그대로 있고, Guiding 은 그 문장의 toward(권하는 쪽)와 against(막는 쪽) 두 방향을 한 낱말로 묶은 것이다. 앞 문장의 'But there is more to moral principles than that' 이 '중요하다고 믿는 것' 을 넘어 행동으로 나아가라고 예고하므로, 제목이 가리켜야 할 자리도 여기다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "5·6번 문장(feel guilty · hold in esteem)은 이 동기의 결과라 제목의 중심어가 되지 못한다"
+          }
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 5개에서 제목의 주어가 무엇인지 표시한다 — 죄책감/원칙 유지/도덕적 통합성/성격 형성/도덕 원칙. 주어가 서로 다르면 지문에서 확인할 것은 '누가 주인공인가' 하나다",
+          "on_fail": "주어가 안 잡히면 콜론·물음표 앞부분만 읽는다"
+        },
+        {
+          "step": "지문에서 But·However 를 찾아 표시하고, 그 문장이 'there is more to X than that' 같은 전환 문형이면 바로 다음 문장을 논점으로 잡는다",
+          "on_fail": "역접이 없으면 When ~, ~ 형태의 조건문 중 주절이 가장 일반적인 것을 논점으로 잡는다"
+        },
+        {
+          "step": "논점 문장에서 주어(that person)와 그 사람이 무엇을 하게 되는지(motivated toward the conduct)를 옮겨 적는다 — 제목은 이 둘의 관계여야 한다",
+          "on_fail": "술어가 길면 toward·against 같은 방향 전치사만 표시하고 그 뒤 명사를 적는다"
+        },
+        {
+          "step": "논점 문장 뒤의 문장이 Likewise·For example 로 시작하면 예시로 표시하고, 그 문장에서만 낱말을 따온 선지를 지운다 — ①이 여기서 빠진다",
+          "on_fail": "표지가 없으면 The person will tend to 처럼 같은 주어가 반복되는 문장을 예시로 본다"
+        },
+        {
+          "step": "남은 선지 중 논점 문장의 두 낱말(principle · conduct)을 함께 담은 것을 고른다",
+          "on_fail": "둘을 함께 담은 선지가 없으면 지문에 없는 소재(성격·통합성)를 담은 쪽부터 지운다"
+        }
+      ],
+      "time_budget_sec": 80,
+      "difficulty": {
+        "predicted": 0.85,
+        "drivers": [
+          "정답 선지가 논점 문장의 낱말을 거의 그대로 쓴다",
+          "오답 ①이 예시 문장의 낱말 둘(guilty·esteem)을 한꺼번에 가져가 눈에 띈다",
+          "esteem 이 self-esteem 과 다른 뜻으로 쓰였다"
+        ]
+      },
+      "required_vocab": [
+        "conduct",
+        "motivated",
+        "esteem",
+        "violate",
+        "disapprove"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 넷째 문장 뒷부분과 문자 그대로 일치한다",
+            "'But there is more to ~ than that' 전환이 이 문항의 설계 축이라는 서술이 유형 일반론을 넘어선다",
+            "영어 조각 2개(strongly motivated toward the conduct required by the principle, and against behavior that conflicts with that principle / But there is more to moral principles than that)를 대조 — 전부 있다. 제목의 Conduct 가 지문의 conduct 와 같은 낱말이다."
+          ],
+          "checked": [
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "But 문장의 위치(셋째 문장)와 Likewise 의 위치(여섯째 문장) 확인",
+            "유형 정의 대조",
+            "why_correct 의 영어 인용을 corpus.json 현재 지문에 문자열 대조",
+            "정답 선지 텍스트와 인용의 대응을 낱말 단위로 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "라벨 4종(어휘 함정·지문 밖 상식·범위 과대·무관)이 서로 다르다",
+            "②를 처음 '무관'으로 달았다가 ④와 겹쳐, 통념이 유인 경로라는 점을 근거로 '지문 밖 상식'으로 고쳤다",
+            "①의 배제 근거가 esteem 의 실제 용법(hold in esteem those whose conduct)을 인용해 낱말 겹침을 끊는다",
+            "Guiding 이 toward 와 against 두 방향을 묶은 것이라고 적어, 제목의 동명사가 지문 어디서 나오는지 지목했다."
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 영문(Check Your Self-Esteem First · Do Not Let ~ Change · Moral Integrity · Form Their Personalities)에 걸리는지 대조",
+            "how_to_reject 넷에 문장 위치가 있는지 확인",
+            "why_correct 가 소거법(나머지가 틀렸으므로)에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드(why_tempting/how_to_reject)가 남아 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "4단계(Likewise 로 시작하는 문장은 예시로 표시)가 ① 소거를 기계적으로 만든다",
+            "80초는 문장 수가 여섯이고 논점이 셋째 문장 뒤에 있어 충분하다",
+            "학생이 ‘원칙이 행동에 무엇을 하는가’ 를 말하는 문장 하나를 찾으면 되므로 실행 가능하다."
+          ],
+          "checked": [
+            "금지 표현 유무 확인",
+            "지문 미열람 상태에서 1~2단계 실행 가능성 시연",
+            "required_vocab 5개가 지문에 실재하고 판정에 쓰이는지 확인(conduct·motivated 는 정답 근거, esteem 은 ① 배제, violate·disapprove 는 예시 문장 해석에 필요)",
+            "why_correct 가 지목한 자리를 지문을 아직 안 읽은 학생이 직접 짚을 수 있는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2015#23",
+      "measured_ability": "첫 문장의 처방과 둘째 문장의 실수 진단을 짝으로 묶어 읽고, 뒤의 스키어 사례가 그 짝의 예시임을 확인해 사례 낱말(impossible mountain)을 제목으로 승격시키지 않는 능력",
+      "design_intent": "글의 뼈대가 '처방(다음 단계) vs 실수(최종 결과)'라는 두 항 대비 하나뿐이고, 스키어 사례는 그 대비를 두 번 반복한다. 정답 선지가 대비를 그대로 A, not B 형태로 옮겨 놓았으므로, 학습자가 사례의 마지막 낱말(impossible mountain)이나 소재 낱말(risk)에 끌려가지 않고 대비 축을 유지하는지를 가른다.",
+      "answer_locus": {
+        "sentence_index": [
+          1,
+          2,
+          5
+        ],
+        "quote": "The ones that decide to make it change their focus by analyzing what they need to do to master the first step",
+        "reasoning": "성공하는 쪽이 한 일이 초점의 이동(change their focus)이고 옮긴 자리가 the first step 이다. 둘째 문장이 실수를 'our tendency to focus on the end result'로 규정했으므로 이 문장은 그 실수의 정확한 대칭이고, 제목 ②의 'Focus on the Next Step, Not the Final Result'가 두 문장을 한 줄로 합친 것이 된다. 여섯째 문장의 'they concentrate on the next mogul'이 next step 이라는 표현까지 대준다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "마지막 문장의 'what others thought was an impossible mountain'과 넷째 문장의 'too steep for them to try'가 가능/불가능 판정처럼 읽혀, 선지의 Possible·Impossible 이 지문 낱말과 겹쳐 보인다.",
+          "how_to_reject": "그 낱말들은 결과를 묘사하는 자리에만 나온다. 성공한 스키어가 한 일은 가능·불가능을 가르는 것이 아니라 다섯째 문장의 change their focus 다 — 지문에 둘을 '구분한다'는 서술이 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "제목 ②의 'Not the Final Result' 는 2번째 문장의 'our tendency to focus on the end result' 를 부정한 것이고 — end result 가 Final Result 다 — 'Focus on the Next Step' 은 5번째 문장의 'change their focus by analyzing what they need to do to master the first step' 과 6번째 문장의 'they concentrate on the next mogul' 이다. focus·next 라는 낱말이 지문에 그대로 있고, 첫 문장의 'the actions you’re taking should be the natural next step' 이 그 표현을 미리 못박아 둔다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              5,
+              6
+            ],
+            "note": "고칠 것(end result)과 옮길 자리(first step / next mogul)가 서로 다른 문장에 있어 두 자리가 다 필요하다"
+          }
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "'목표를 염두에 두고 시작하라'는 자기계발서의 정석 문구이고, 지문에 end result 라는 낱말이 실제로 나와 뒷받침되는 것처럼 들린다.",
+          "how_to_reject": "둘째 문장이 end result 에 초점을 두는 것을 'One of the mistakes we often make'라고 못박는다 — 선지는 지문이 실수라고 부른 것을 처방으로 뒤집는다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "스키어가 끝까지 내려가는 이야기라 '헌신적 노력의 경이'로 요약해도 틀린 말처럼 들리지 않는다.",
+          "how_to_reject": "지문은 노력의 양이 아니라 초점의 위치를 문제 삼는다. 다섯째 문장에서 성공한 쪽과 실패한 쪽을 가른 것은 노력의 정도가 아니라 analyzing what they need to do to master the first step 이라는 대상의 차이다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "넷째 문장에 실제로 슬로프가 너무 가팔라 시도하지 않는 스키어가 나오므로, 회피가 지문 속 선택지로 서술된 것처럼 보인다.",
+          "how_to_reject": "그 스키어들은 셋째 문장에서 'Skiers who are unsure of themselves often do this'로 실수의 예로 도입된다. 첫 문장은 글의 주제를 successful risk taking 이라고 못박으므로 회피는 성공의 경로가 아니다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지에서 두 항 대비(A, not B) 형태가 있는지 먼저 본다. 있으면 그 두 항이 지문에 나란히 있는지만 확인하면 되므로 검사 대상이 준다",
+          "on_fail": "대비형 선지가 없으면 각 선지의 명사구 핵만 적는다"
+        },
+        {
+          "step": "지문 첫 두 문장을 읽고 'The key to X is ~' · 'One of the mistakes ~ is ~' 같은 정의·진단 문형을 찾아 각각 처방과 실수로 표시한다",
+          "on_fail": "그런 문형이 없으면 사례가 시작되는 지점(고유명사·인물 등장) 바로 앞 문장을 논점으로 잡는다"
+        },
+        {
+          "step": "사례가 시작되면(Skiers ~) 사례 안에서 실패한 쪽과 성공한 쪽이 무엇을 달리했는지 동사 하나만 뽑는다 — 여기서는 change their focus",
+          "on_fail": "동사가 안 잡히면 사례 안에서 앞 논점 문장의 낱말이 되풀이되는 자리(focus)를 찾는다"
+        },
+        {
+          "step": "사례의 마지막 문장에서 낱말을 따온 선지를 지운다. 사례의 결말은 예시의 마무리이지 주장이 아니다 — ①·④가 여기서 빠진다",
+          "on_fail": "사례 경계가 불분명하면 논점 문장에 없는 낱말만으로 이루어진 선지부터 지운다"
+        },
+        {
+          "step": "남은 선지 중 처방과 실수 두 항의 방향이 지문과 같은 것을 고른다. 방향이 뒤집힌 선지(③)와 주제 전제를 뒤집는 선지(⑤ 회피)는 버린다",
+          "on_fail": "방향 판정이 안 되면 둘째 문장의 mistakes 라는 낱말 하나만 다시 보고 그것과 같은 편에 선 선지를 지운다"
+        }
+      ],
+      "time_budget_sec": 75,
+      "difficulty": {
+        "predicted": 0.88,
+        "drivers": [
+          "처방과 실수가 첫 두 문장에 연달아 나온다",
+          "정답 선지가 지문의 대비를 그대로 옮겼다",
+          "사례 마지막 낱말(impossible)이 오답 ①으로 회수돼 있다"
+        ]
+      },
+      "required_vocab": [
+        "confront",
+        "tendency",
+        "steep",
+        "master",
+        "mogul"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 다섯째 문장 앞부분과 문자 그대로 일치한다",
+            "이 문항의 설계(처방-실수 두 항이 첫 두 문장, 사례가 반복)를 짚었고 유형 일반론에 머무르지 않았다",
+            "기존 why_correct 가 ‘두 항을 다 담아 길어 보여 미뤄 두기 쉽다’ 로, 왜 정답인지가 아니라 왜 고르기를 망설이는지를 적고 있었다(오답용 서술이 이름만 바뀌어 옮겨진 흔적). 반려하고 다시 썼다. 새 서술의 영어 조각 4개(our tendency to focus on the end result / change their focus by analyzing what they need to do to master the first step / they concentrate on the next mogul / the actions you’re taking should be the natural next step)를 대조 — 전부 있다."
+          ],
+          "checked": [
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "One of the mistakes ~ end result 어구의 실재 확인",
+            "유형 정의 대조",
+            "why_correct 의 영어 인용을 corpus.json 현재 지문에 문자열 대조",
+            "정답 선지 텍스트와 인용의 대응을 낱말 단위로 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "⑤를 처음 '반대 진술'로 달았으나 ③과 겹쳤고, 넷째 문장에 회피하는 스키어가 실제로 서술돼 있다는 점을 근거로 '부분 사실'로 고쳤다 — 유인 경로가 더 정확해졌다",
+            "고친 뒤 라벨이 어휘 함정·반대 진술·범위 과대·부분 사실 4종으로 서로 다르다",
+            "①의 배제 근거가 impossible 이 등장하는 자리(결과 묘사)를 명시한다",
+            "제목의 두 항(Next Step / Not the Final Result)이 각각 지문 문장을 갖게 되어, 소거법 없이 ②가 선다. 이전 서술은 정답 근거가 아예 없었다."
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 영문(Separating the Possible ~ · Ultimate Goals · Committed Efforts · Risk Avoidance)에 걸리는지 대조",
+            "how_to_reject 넷에 문장 위치가 있는지 확인",
+            "why_correct 가 소거법(나머지가 틀렸으므로)에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드(why_tempting/how_to_reject)가 남아 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "4단계(사례 마지막 문장에서 온 선지를 지운다)가 이 문항의 두 오답을 한 번에 걷어낸다",
+            "75초 안에 첫 두 문장 + 사례 동사 하나로 끝난다",
+            "학생이 ‘고쳐야 할 초점’ 과 ‘옮길 초점’ 두 자리를 따로 찾도록 나뉘어 있어 실행 가능하다."
+          ],
+          "checked": [
+            "금지 표현 유무 확인",
+            "지문 미열람 상태에서 1단계 실행 가능성 시연",
+            "required_vocab 5개가 지문에 실재하는지 문자열 대조(confronting·tendency·steep·master·mogul)",
+            "why_correct 가 지목한 자리를 지문을 아직 안 읽은 학생이 직접 짚을 수 있는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    },
+    {
+      "item_id": "2014B#25",
+      "measured_ability": "'This is entirely arbitrary.' 한 문장을 논점으로 집고, 뒤에 오는 두 사례(Led Zeppelin·purists)가 그 임의성을 뒷받침하는 예임을 확인해 사례의 소재로 제목을 삼지 않는 능력",
+      "design_intent": "440 Hz 라는 숫자와 439·424, A440 표준 같은 수치가 앞에 몰려 있어 '측정·주파수'가 소재처럼 보이게 해 두고, 정작 주장은 셋 낱말짜리 문장(This is entirely arbitrary) 하나다. 정답 선지가 그 주장을 의문문(Should ~ Always ~?)으로 바꿔 놓았으므로, 짧은 주장 문장을 논점으로 알아보고 의문형 제목을 배제하지 않는지를 가른다.",
+      "answer_locus": {
+        "sentence_index": [
+          3,
+          4
+        ],
+        "quote": "This is entirely arbitrary. We could fix ‘A’ at any frequency, such as 439 or 424",
+        "reasoning": "앞 문장이 A440 표준을 설명한 직후 This is entirely arbitrary 가 그 표준에 '임의적'이라는 판정을 내리고, 다음 절이 439·424 라는 대안을 들어 판정을 구체화한다. 제목 ①의 'Should A Always Be Tuned at 440 Hz?'는 이 판정을 의문형으로 옮긴 것이며, 뒤의 Led Zeppelin(표준에서 벗어난 조율)과 purists(원래 조율 기준)가 실제로 다른 답이 존재함을 보여 물음이 성립함을 확인해 준다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "correct",
+          "why_correct": "물음표로 끝나 주장이 없어 보이고, 440 Hz 라는 수치가 세부 정보처럼 느껴진다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "'Arbitrary'가 논점 문장의 낱말 그대로여서 정답의 핵심어를 담은 것처럼 보인다.",
+          "how_to_reject": "덧붙은 'A New Trend'가 지문과 어긋난다 — 넷째 문장은 'different standards were used in the time of Mozart than today'로 과거를 가리키고, 일곱째 문장의 purists 는 baroque 시대의 original tuning standard 를 좇는다. 새 유행이 아니라 옛 기준으로 돌아가는 사례다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "440·439·424 Hz 라는 수치와 frequency values 라는 어구가 첫 문장부터 반복돼 측정 이야기로 읽힌다.",
+          "how_to_reject": "지문에 주파수를 재는 방법(도구·절차)이 한 줄도 없다. 첫 문장은 이름과 값이 짝지어져 있다는 사실만 말하고, 논점은 셋째 문장에서 그 짝이 임의적이라는 데로 넘어간다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "다섯째 문장 'Some people claim that the precise frequencies affect the overall sound'와 일곱째 문장 'the instruments have a different sound'가 소리 차이를 알아채는 이야기로 읽혀, 연주자의 지각 능력이 논점처럼 보인다.",
+          "how_to_reject": "그 두 문장은 기준이 달라지면 결과가 달라진다는 근거로만 쓰이고, 차이를 어떻게 감지하는지는 다루지 않는다. 논점 문장은 셋째 문장의 arbitrary 판정이다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "표준이 임의적이고 시대마다 달랐다는 서술을 '음정이 불안정하다'로 바꿔 읽으면 음악 전반의 특징처럼 들린다.",
+          "how_to_reject": "지문이 임의적이라고 한 것은 기준값을 정하는 일(We could fix A at any frequency)이지 연주된 음정이 흔들린다는 뜻이 아니다. 둘째 문장은 A가 440 Hz 로 'has been fixed'되어 있다고 해 오히려 고정을 말한다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지에서 의문문 형태를 따로 표시해 둔다. 이 유형은 의문형 제목이 정답이 되는 회차가 있으므로 형태만으로 지우지 않는다",
+          "on_fail": "의문문이 둘 이상이면(①·④) 각각이 묻는 대상(기준값 / 연주자 지각)을 적어 둔다"
+        },
+        {
+          "step": "지문에서 열 낱말 안팎의 짧은 단정문을 찾는다 — This is ~ / That is why ~ 형태다. 여기서는 셋째 문장 This is entirely arbitrary 가 그것이다",
+          "on_fail": "짧은 단정문이 없으면 수치·고유명사가 없는 문장만 골라 그중 첫 문장을 논점으로 잡는다"
+        },
+        {
+          "step": "논점 문장의 This 가 가리키는 앞 명사를 확정해 옮겨 적는다 — 앞 문장의 A440 기준(A를 440 Hz 로 고정한 것)",
+          "on_fail": "지시어 대상이 불분명하면 바로 뒤 문장(We could fix A at any frequency)에서 반복되는 명사를 대상으로 삼는다"
+        },
+        {
+          "step": "고유명사가 나오는 문장(Led Zeppelin·baroque purists)은 사례로 표시하고, 그 문장에서만 소재를 따온 선지를 지운다",
+          "on_fail": "사례 경계가 불분명하면 such as·often·insist 가 든 문장을 사례로 본다"
+        },
+        {
+          "step": "남은 선지 중 논점 대상(440 Hz 기준)과 판정(임의적이다)을 함께 담은 것을 고른다. 판정 낱말만 담고 다른 주장을 덧붙인 선지(② A New Trend)는 덧붙인 부분을 지문과 대 본다",
+          "on_fail": "결정이 안 되면 넷째 문장의 'in the time of Mozart'와 일곱째 문장의 baroque 를 보고 시간 방향(과거 vs 새 유행)이 맞는지 검산한다"
+        }
+      ],
+      "time_budget_sec": 90,
+      "difficulty": {
+        "predicted": 0.75,
+        "drivers": [
+          "논점 문장이 짧아 눈에 안 띈다",
+          "오답 ②가 논점 낱말 arbitrary 를 그대로 담고 있어 낱말 겹침만으로는 안 갈린다",
+          "수치와 고유명사가 많아 소재 판단이 흔들린다",
+          "정답이 의문문이라 형태로 배제되기 쉽다"
+        ]
+      },
+      "required_vocab": [
+        "arbitrary",
+        "pitch",
+        "tune",
+        "frequency",
+        "purist"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 셋째·넷째 문장과 문자 그대로 일치한다(따옴표는 원문의 홑따옴표를 유니코드로 그대로 적었다)",
+            "'짧은 단정문이 논점'이라는 이 문항 고유의 장치를 짚었고, 정답이 의문문이라는 설계도 함께 기록했다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 passage 에서 문자열 대조(홑따옴표 문자 포함)",
+            "different standards were used in the time of Mozart / original tuning standard 두 어구의 실재 확인",
+            "유형 정의 대조"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "라벨 4종(어휘 함정·무관·부분 사실·범위 과대)이 서로 다르다",
+            "②가 논점 낱말을 그대로 쓴 오답이라는 점을 짚고, 배제 근거를 '덧붙인 수식어(A New Trend)'로 특정했다 — 이 유형에서 낱말 겹침이 단서가 아님을 보여주는 사례다",
+            "⑤ 배제 근거가 fixed 라는 상반 어구를 인용한다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 영문(A New Trend · Correctly Measure · Detect Pitch Differences · Unstable Pitches)에 걸리는지 대조",
+            "how_to_reject 넷에 문장 위치가 있는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계(짧은 단정문 찾기)가 지문을 안 본 상태에서도 실행 가능한 시각 조작이다",
+            "5단계의 '덧붙인 부분만 대 본다'가 ② 소거를 구체적 조작으로 만든다",
+            "90초는 수치 확인에 시간이 새지 않도록 3단계에서 지시어 대상만 확정하게 해 지킬 수 있다"
+          ],
+          "checked": [
+            "금지 표현 유무 확인",
+            "지문 미열람 상태에서 1~2단계 실행 가능성 시연",
+            "required_vocab 5개가 지문에 실재하는지 대조(arbitrary·pitches·tuned/tuning·frequency·purists)"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2014A#26",
+      "measured_ability": "상식(큰 동물이 위험하다)을 뒤집는 But 문장을 주장으로 잡고, 마지막 For these reasons 문장이 그 주장을 되풀이하는 수미상관 구조임을 확인하는 능력",
+      "design_intent": "첫 문장과 마지막 문장이 같은 주장을 두 번 말하고, 가운데는 뱀·벌 두 사례로만 채워져 있다. 사례 낱말(allergies·bee stings)과 상식 낱말(tigers·bears)을 각각 오답으로 회수해 두었으므로, 주장 문장 두 개와 사례 문장을 갈라 읽는지를 가른다. A형 문항이라 문장 구조는 쉬우나 선지 다섯이 모두 동물 소재여서 소거 기준이 필요하다.",
+      "answer_locus": {
+        "sentence_index": [
+          3,
+          8
+        ],
+        "quote": "For these reasons, hikers should be careful about small dangerous creatures.",
+        "reasoning": "마지막 문장이 앞의 근거들을 For these reasons 로 묶어 '작은 생물을 조심하라'는 명령형 결론을 낸다. 셋째 문장 'But smaller animals are actually more threatening than bigger animals'가 같은 주장을 역접으로 먼저 제시했으므로 주장이 두 번 반복된 셈이고, 제목 ②의 'Watch Out for Small Animals!'는 이 결론 문장을 그대로 명령형으로 옮긴 것이다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "일곱째 문장이 'allergic reactions to common bee stings'로 가장 많은 사망을 말하므로, 가장 강한 사례가 곧 주제로 보인다.",
+          "how_to_reject": "그 문장은 Even more people 로 시작해 앞 사례(독사)에 이어 붙은 두 번째 예시이고, 마지막 문장은 결론을 'small dangerous creatures' 전체로 되돌린다. 게다가 지문에 알레르기 대처 방법(How to Deal)이 한 줄도 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "제목 ② 'Watch Out for Small Animals!' 의 두 성분이 마지막 문장에 하나씩 있다 — 'hikers should be careful about' 이 Watch Out for 이고 'small dangerous creatures' 가 Small Animals 다. 3번째 문장 'But smaller animals are actually more threatening than bigger animals' 이 같은 주장을 역접으로 먼저 세우고 마지막 문장이 'For these reasons' 로 근거를 묶어 되풀이하므로, 명령형 제목이 지문의 결론 형태와도 맞는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3,
+              8
+            ],
+            "note": "5·6·7번 문장(호랑이·뱀·벌 사망자 비교)은 근거일 뿐이라 제목으로 올리면 범위가 좁아진다"
+          }
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "동물 소재의 글이면 우호적 제목이 늘 후보로 남고, 다섯째 문장 'most of these incidents are caused by the people themselves'가 동물을 두둔하는 말처럼 읽힌다.",
+          "how_to_reject": "그 문장은 큰 동물의 공격이 드물다는 근거일 뿐이고, 마지막 문장은 조심하라(be careful)로 끝난다 — 친구라는 규정과 어긋난다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "attack 이라는 낱말이 다섯째 문장(are attacked by tigers or bears)에 실제로 나와 공격 장면이 지문에 있는 것처럼 보인다.",
+          "how_to_reject": "그 문장의 주어는 사람이고 장소는 등산로(hikers)다. 지문에 village·town 등 마을이 한 번도 나오지 않으며, 공격 빈도도 'only a few people'로 적다고 말한다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "'dangerous'와 'endangered'가 형태가 비슷하고, 야생동물 글의 흔한 제목이라 자연스러워 보인다.",
+          "how_to_reject": "지문에서 위험에 처하는 쪽은 사람(hikers)이고 위협하는 쪽이 동물이다 — 셋째 문장 'smaller animals are actually more threatening'과 마지막 문장의 hikers should be careful 이 그 방향을 고정한다. 동물이 멸종 위기라는 서술은 없다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "선지 5개의 방향을 부호로 적는다 — 동물이 위험하다(+)인지 동물이 보호 대상이다(-)인지. ②④는 +, ③⑤는 - 쪽이고 ①은 중립이다",
+          "on_fail": "부호가 안 정해지면 명령형·감탄형 선지에 표시만 해 둔다"
+        },
+        {
+          "step": "지문 첫 문장과 마지막 문장만 먼저 읽는다. 마지막 문장이 For these reasons·Therefore·So 로 시작하면 그 문장이 결론이다",
+          "on_fail": "마지막 문장에 결론 표지가 없으면 But·However 로 시작하는 문장을 찾아 그것을 주장으로 잡는다"
+        },
+        {
+          "step": "결론 문장에서 대상(small dangerous creatures)과 요구(should be careful)를 옮겨 적고, 선지의 부호가 이와 같은 것만 남긴다 — ③⑤가 여기서 빠진다",
+          "on_fail": "요구 동사가 없으면 첫 문장의 비교 대상(Large ~ less dangerous than smaller ones)에서 어느 쪽이 위험한지를 가져온다"
+        },
+        {
+          "step": "남은 선지 중 사례 문장(뱀·벌)에서만 소재를 따온 것을 지운다. Each year·Even more people 처럼 통계로 시작하는 문장은 사례다 — ①이 여기서 빠진다",
+          "on_fail": "사례 경계가 불분명하면 결론 문장에 나오는 낱말(small·creatures)이 든 선지를 남긴다"
+        },
+        {
+          "step": "남은 둘 중 장소·주체가 지문과 같은 것을 고른다 — 지문의 무대는 등산로이고 주체는 hikers 다",
+          "on_fail": "장소 판단이 안 되면 첫 문장의 to hikers 를 다시 보고 마을·야생 보전 소재를 담은 선지를 지운다"
+        }
+      ],
+      "time_budget_sec": 65,
+      "difficulty": {
+        "predicted": 0.93,
+        "drivers": [
+          "주장이 첫 문장과 마지막 문장에 두 번 나온다",
+          "정답 선지가 결론 문장의 낱말을 그대로 쓴다",
+          "선지 다섯이 모두 동물 소재라 소거 기준이 없으면 헤맨다",
+          "dangerous 와 endangered 의 형태 유사성"
+        ]
+      },
+      "required_vocab": [
+        "threatening",
+        "poisonous",
+        "sting",
+        "disadvantage",
+        "allergic"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "quote 가 마지막 문장과 문자 그대로 일치한다",
+            "수미상관(첫 문장·마지막 문장 반복)이라는 이 문항의 설계를 짚었고, A형 난도에 맞춰 사례-주장 분리를 축으로 삼았다",
+            "영어 조각 3개(hikers should be careful about / small dangerous creatures / But smaller animals are actually more threatening than bigger animals)를 대조 — 전부 있다. should be careful about ↔ Watch Out for, small dangerous creatures ↔ Small Animals."
+          ],
+          "checked": [
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "But smaller animals are actually more threatening 어구의 실재 확인",
+            "유형 정의 대조 — 제목이 결론 문장의 압축인지 확인",
+            "why_correct 의 영어 인용을 corpus.json 현재 지문에 문자열 대조",
+            "정답 선지 텍스트와 인용의 대응을 낱말 단위로 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "라벨 4종(범위 과소·반대 진술·무관·주체 역전)이 서로 다르다",
+            "⑤를 '어휘 함정'으로 달았다가, 바뀐 것이 낱말 형태만이 아니라 위험의 가해·피해 임자라는 점을 근거로 '주체 역전'으로 고쳤다",
+            "④의 배제 근거가 장소(마을)의 부재와 주어(사람)를 함께 짚는다",
+            "결론 문장과 3번째 문장이 같은 주장을 두 번 준다는 점을 근거로 삼아, 사망자 비교 문장(근거)에 기대지 않았다."
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 영문(Deal with Allergies · True Friends · Attack Human Villages · Endangered)에 걸리는지 대조",
+            "how_to_reject 넷에 문장 위치가 있는지 확인",
+            "why_correct 가 소거법(나머지가 틀렸으므로)에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드(why_tempting/how_to_reject)가 남아 있지 않은지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계의 부호 붙이기가 선지 다섯이 같은 소재일 때 쓸 수 있는 실제 조작이다",
+            "2단계에서 첫 문장과 마지막 문장만 읽게 해 65초 안에 끝난다",
+            "선지 ⑤의 원문에 파싱 잔여 문자(3 8)가 붙어 있으나 판정에 영향이 없음을 확인했다",
+            "학생이 For these reasons 로 시작하는 문장을 찾는 한 동작으로 끝난다."
+          ],
+          "checked": [
+            "금지 표현 유무 확인",
+            "지문 미열람 상태에서 1~3단계 실행 가능성 시연",
+            "required_vocab 5개가 지문에 실재하는지 대조(threatening·poisonous·stings·disadvantages·allergic)",
+            "why_correct 가 지목한 자리를 지문을 아직 안 읽은 학생이 직접 짚을 수 있는지 확인"
+          ]
+        }
+      ],
+      "revised": true
+    }
   ],
-  "answer_locus_pattern": "7문항 전부 **한 문장**이 정답을 확정했고, 두 문장을 종합해야 하는 문항은 없었다. 다만 그 한 문장을 찾는 표지가 회차별로 갈린다. (a) 2014~2016 세 회차는 논점이 **글 앞쪽의 명시적 정의·소망·판정 문형**에 놓인다 — 'The key to successful risk taking is ~'(2015#23, 1번째 문장) · 'This is entirely arbitrary.'(2014B, 3번째) · 'What we would like to have is ~'(2016, 5번째 중 4/6 지점) · 'Large animals are actually less dangerous ~'(2014A, 1번째). (b) 2017 두 문항은 논점이 **마지막 문장의 특수 구문**에 놓인다 — It is X that Y 강조구문(2017#22, 7/7) · does not A but B 대조구문 + 마지막 재진술(2017#23, 4~5/5). (c) 역접 표지가 논점 앞에 서는 문항은 7 중 4(2017#22 However 2번째 · 2015#22 But 3번째 · 2014A But 3번째 · 2015#23 은 mistakes 라는 부정 진단이 역접 구실). 곧 '역접 뒤를 본다'는 기존 실측은 옛 회차에도 통하지만 **단독으로는 3문항을 놓친다**. 정답 번호는 ④④①⑤②①② 로 특정 번호 쏠림이 없다. 그리고 7문항 모두 정답 제목이 논점 문장의 핵심어를 거의 그대로 쓴다(mirror·conduct·focus/next step·440 Hz·small animals·reality·ambiguity) — 다만 **오답도 지문 낱말을 쓰므로 낱말 겹침 자체는 단서가 아니고, 그 낱말이 어느 문장에서 왔는가(논점 문장 vs 사례·양보문)가 단서다.**",
-  "procedure": [
-   {
-    "step": "지문보다 선지 5개를 먼저 읽고 되풀이되는 대립 축 하나를 잡는다(명확/모호 · 지배/상실 · 찾는 중/찾음 · 위험함/보호 대상). 선지가 서로 반대인 짝을 이루면 정답은 그 축 위에 있다",
-    "on_fail": "축이 안 잡히면 각 선지의 콜론 뒤·물음표 앞 명사구 핵만 한 낱말씩 적어 둔다"
-   },
-   {
-    "step": "지문에서 논점 문장을 표지로 하나만 찍는다. 우선순위는 ① 역접(However·But·Yet) 바로 뒤 ② It is ~ that 강조구문·does not A but B 대조구문 ③ 'The key to ~ is' · 'What we would like to have is' · 'This is ~' 같은 짧은 정의·판정문 ④ For these reasons·Therefore 로 시작하는 마지막 문장 순이다",
-    "on_fail": "표지가 하나도 없으면 고유명사·수치·통계가 없는 문장만 남겨 그중 첫째와 마지막을 후보로 삼는다"
-   },
-   {
-    "step": "논점 문장에서 **임자(누가/무엇이)와 술어의 방향(만든다/없앤다, 아직 없다/이미 있다, 위협한다/위협받는다)** 두 가지를 여백에 적는다. 제목은 이 둘을 잇는 말이어야 한다",
-    "on_fail": "임자가 대명사면 앞 문장에서 되풀이되는 소유격·명사를 찾아 채운다. 방향이 안 잡히면 논점 문장의 부정어(not·does not·resists)에 표시한다"
-   },
-   {
-    "step": "고유명사·수치·Each year·Even more·such as·often 이 든 문장을 사례로 표시하고, 사례 문장에서만 낱말을 따온 선지를 지운다. 역접 표지 앞의 양보 문장도 같이 접는다",
-    "on_fail": "사례 경계가 불분명하면 논점 문장에 안 나오는 낱말만으로 이루어진 선지부터 지운다"
-   },
-   {
-    "step": "남은 선지를 3단계에 적은 임자·방향과 대 본다. 지문 낱말을 담았어도 임자가 바뀌었거나(주체 역전) 방향이 뒤집힌(반대 진술) 선지를 여기서 지운다",
-    "on_fail": "둘이 남으면 각 선지가 덧붙인 수식어(New Trend · Universal · Innovative)만 떼어 지문에 있는지 대 본다 — 덧붙인 한 낱말이 갈림길인 문항이 7 중 2다"
-   },
-   {
-    "step": "형태로 배제하지 않는다 — 의문문(2017#22 ④ · 2014B ①)과 명령·감탄문(2014A ②)이 정답인 문항이 7 중 3이다. 남은 하나를 골라 확정하고 되돌아가지 않는다",
-    "on_fail": "확신이 안 서면 논점 문장 한 줄만 다시 읽고, 그 문장을 영어 여덟 낱말로 줄인다면 어느 선지에 가장 가까운지로 정한다"
-   }
-  ],
-  "failure_modes": [
-   "역접 앞 양보문을 주장으로 읽는다 — 2017#22 는 첫 문장 전체가 정답과 정반대 진술이고 However 는 둘째 문장에 있다. 첫 두 줄만 읽고 제목을 정하면 ①·⑤ 두 오답이 동시에 그럴듯해진다",
-   "사례의 마지막 낱말을 주제로 승격시킨다 — impossible mountain(2015#23 ①) · bee stings(2014A ①) · filmic time and space(2017#23 ②). 사례는 인상에 오래 남고 제목은 인상으로 고르기 쉽다",
-   "낱말 겹침을 근거로 삼는다 — 2014B ②는 논점 낱말 arbitrary 를 그대로 쓰고도 오답이다. 갈림길은 덧붙인 'A New Trend' 한 구이며, 겹치는 낱말이 아니라 덧붙은 수식어를 지문과 대조해야 한다",
-   "의문문·명령문 제목을 형태만 보고 지운다 — 7문항 중 3문항의 정답이 의문문 또는 명령·감탄문이다. '제목은 명사구'라는 습관이 그대로 실점이 된다",
-   "시상(아직/이미)을 안 본다 — 2016#23 은 would like to have(아직 못 가짐)와 Disclosed(이미 밝혀짐)의 대립이 정답과 최다 오답을 가른다. 소재가 맞으면 시상은 안 보게 된다",
-   "임자를 바꿔 읽는다 — 2017#22 ⑤(속성의 임자가 꿀벌→언어) · 2014A ⑤(위험에 처한 쪽이 사람→동물). 서술 내용이 지문과 같아 보여 마지막까지 남는다"
-  ],
-  "time_budget_sec": 85,
-  "open_questions": [
-   "표본 7 중 2017 두 문항만 '마지막 문장 특수구문' 설계였다. 2018~2023 회차 청크(chunk-R-TITLE-M2306-24 · M2706-24)에서 논점 위치가 뒤쪽으로 옮겨 가는 추세가 확인되는지 대조해야 한다 — 옛 회차만 보고 '앞쪽 정의문을 찾아라'로 절차를 굳히면 최근 회차에서 미끄러진다",
-   "정답 제목의 형태(의문문 3 · 명령/감탄 1 · 명사구 3)가 회차별로 배분되는지, 아니면 우연인지 표본 7로는 말할 수 없다. 다음 청크에서 형태별 빈도를 세어 붙일 것",
-   "라벨 '무관'이 6건으로 가장 잦은데, 이 중 절반(2017#23 ① · 2016#23 ② · 2014A ④)은 '소재는 같고 물음이 다르다'는 공통 성격이라 별도 라벨('논점 이동')이 필요할 수 있다. 다른 R-TITLE 청크에서도 같은 성격이 반복되면 라벨 등재를 제안한다",
-   "반려는 analyst 가 6건(2017#22 ⑤ · 2017#23 ③ · 2016#23 ③ · 2015#22 ② · 2015#23 ⑤ · 2014A#26 ⑤ 의 함정 라벨 중복)을 냈고 setter·tutor 는 한 건도 내지 않았다. 세 자가 같은 것을 재지는 않았으나 setter 와 tutor 의 반려 기준이 이 유형에서 느슨하게 작동한다 — 다음 청크에서 setter 는 '정답 제목의 각 낱말이 논점 문장의 어느 낱말에서 왔는지 1:1로 짚었는가', tutor 는 '절차 1단계가 지문을 안 본 상태에서 실행되는가' 를 반려 사유로 명시해 자를 좁힐 것"
-  ]
- }
+  "type_report": {
+    "type_id": "R-TITLE",
+    "n_analyzed": 7,
+    "recurring_traps": [
+      {
+        "trap": "무관",
+        "count": 6,
+        "signature": "지문의 소재 영역(언어·영화·노화·도덕·조율·동물)에 어울리는 상투적 제목을 만들되, 지문이 한 번도 묻지 않은 물음으로 바꾼다 — Universal Goal(2017#22 ③) · Exploration into the Unknown(2017#23 ①) · Slow Aging in the Modern Era(2016#23 ②) · Form Their Personalities(2015#22 ④) · How to Correctly Measure(2014B ③) · Attack Human Villages(2014A ④). 7문항 중 6문항에 하나씩 들어 있다"
+      },
+      {
+        "trap": "어휘 함정",
+        "count": 5,
+        "signature": "지문 낱말을 그대로 쓰되 그 낱말이 놓였던 기능 자리를 바꾼다 — filmic time·space 가 감독의 목적어였는데 선지에서는 주어(2017#23 ②) · esteem 이 '남을 존경한다'였는데 self-esteem 으로(2015#22 ①) · chronological 이 이미 아는 값이었는데 재는 대상으로(2016#23 ③) · arbitrary 는 맞고 덧붙인 'A New Trend'가 틀림(2014B ②) · impossible 이 결과 묘사였는데 논점으로(2015#23 ①)"
+      },
+      {
+        "trap": "반대 진술",
+        "count": 5,
+        "signature": "지문이 '실수·결함'이라고 부른 것을 처방으로, 또는 '강점'이라 한 것을 제거 대상으로 뒤집는다 — Erase Ambiguity(2017#22 ①) · Not Creative(② ) · Never Changes(2017#23 ⑤) · Disclosed(2016#23 ④) · Start with Ultimate Goals(2015#23 ③) · True Friends(2014A ③)"
+      },
+      {
+        "trap": "범위 과대",
+        "count": 3,
+        "signature": "구체적 작동 기제를 상위 범주로 격상한다 — Moral Integrity: A Principle of Philosophy(2015#22 ③) · The Wonders of Committed Efforts(2015#23 ④) · Unstable Pitches: A Common Thread in Music(2014B ⑤)"
+      },
+      {
+        "trap": "부분 사실",
+        "count": 3,
+        "signature": "역접 앞 양보문이나 사례 한 줄이 실제로 지문에 있다는 점을 이용한다 — 첫 문장 꿀벌 우위(2017#22 ①) · 회피하는 스키어가 실재(2015#23 ⑤) · 소리 차이 서술이 실재(2014B ④)"
+      },
+      {
+        "trap": "주체 역전",
+        "count": 2,
+        "signature": "속성이나 피해의 임자가 뒤바뀐다 — 왜곡 없는 전달은 꿀벌의 속성인데 언어에 붙임(2017#22 ⑤) · 위험에 처한 쪽이 사람인데 동물로(2014A ⑤)"
+      },
+      {
+        "trap": "범위 과소",
+        "count": 2,
+        "signature": "주장에 이르는 수단이나 사례 하나를 제목으로 승격시킨다 — Innovative Technology in Film Editing(2017#23 ③) · How to Deal with Allergies(2014A ①)"
+      },
+      {
+        "trap": "지문 밖 상식",
+        "count": 2,
+        "signature": "소재에 따라붙는 통념을 제목으로 만든다 — Fountain of Youth(2016#23 ⑤) · Do Not Let Your Moral Principles Change(2015#22 ②)"
+      }
+    ],
+    "answer_locus_pattern": "7문항 전부 **한 문장**이 정답을 확정했고, 두 문장을 종합해야 하는 문항은 없었다. 다만 그 한 문장을 찾는 표지가 회차별로 갈린다. (a) 2014~2016 세 회차는 논점이 **글 앞쪽의 명시적 정의·소망·판정 문형**에 놓인다 — 'The key to successful risk taking is ~'(2015#23, 1번째 문장) · 'This is entirely arbitrary.'(2014B, 3번째) · 'What we would like to have is ~'(2016, 5번째 중 4/6 지점) · 'Large animals are actually less dangerous ~'(2014A, 1번째). (b) 2017 두 문항은 논점이 **마지막 문장의 특수 구문**에 놓인다 — It is X that Y 강조구문(2017#22, 7/7) · does not A but B 대조구문 + 마지막 재진술(2017#23, 4~5/5). (c) 역접 표지가 논점 앞에 서는 문항은 7 중 4(2017#22 However 2번째 · 2015#22 But 3번째 · 2014A But 3번째 · 2015#23 은 mistakes 라는 부정 진단이 역접 구실). 곧 '역접 뒤를 본다'는 기존 실측은 옛 회차에도 통하지만 **단독으로는 3문항을 놓친다**. 정답 번호는 ④④①⑤②①② 로 특정 번호 쏠림이 없다. 그리고 7문항 모두 정답 제목이 논점 문장의 핵심어를 거의 그대로 쓴다(mirror·conduct·focus/next step·440 Hz·small animals·reality·ambiguity) — 다만 **오답도 지문 낱말을 쓰므로 낱말 겹침 자체는 단서가 아니고, 그 낱말이 어느 문장에서 왔는가(논점 문장 vs 사례·양보문)가 단서다.**",
+    "procedure": [
+      {
+        "step": "지문보다 선지 5개를 먼저 읽고 되풀이되는 대립 축 하나를 잡는다(명확/모호 · 지배/상실 · 찾는 중/찾음 · 위험함/보호 대상). 선지가 서로 반대인 짝을 이루면 정답은 그 축 위에 있다",
+        "on_fail": "축이 안 잡히면 각 선지의 콜론 뒤·물음표 앞 명사구 핵만 한 낱말씩 적어 둔다"
+      },
+      {
+        "step": "지문에서 논점 문장을 표지로 하나만 찍는다. 우선순위는 ① 역접(However·But·Yet) 바로 뒤 ② It is ~ that 강조구문·does not A but B 대조구문 ③ 'The key to ~ is' · 'What we would like to have is' · 'This is ~' 같은 짧은 정의·판정문 ④ For these reasons·Therefore 로 시작하는 마지막 문장 순이다",
+        "on_fail": "표지가 하나도 없으면 고유명사·수치·통계가 없는 문장만 남겨 그중 첫째와 마지막을 후보로 삼는다"
+      },
+      {
+        "step": "논점 문장에서 **임자(누가/무엇이)와 술어의 방향(만든다/없앤다, 아직 없다/이미 있다, 위협한다/위협받는다)** 두 가지를 여백에 적는다. 제목은 이 둘을 잇는 말이어야 한다",
+        "on_fail": "임자가 대명사면 앞 문장에서 되풀이되는 소유격·명사를 찾아 채운다. 방향이 안 잡히면 논점 문장의 부정어(not·does not·resists)에 표시한다"
+      },
+      {
+        "step": "고유명사·수치·Each year·Even more·such as·often 이 든 문장을 사례로 표시하고, 사례 문장에서만 낱말을 따온 선지를 지운다. 역접 표지 앞의 양보 문장도 같이 접는다",
+        "on_fail": "사례 경계가 불분명하면 논점 문장에 안 나오는 낱말만으로 이루어진 선지부터 지운다"
+      },
+      {
+        "step": "남은 선지를 3단계에 적은 임자·방향과 대 본다. 지문 낱말을 담았어도 임자가 바뀌었거나(주체 역전) 방향이 뒤집힌(반대 진술) 선지를 여기서 지운다",
+        "on_fail": "둘이 남으면 각 선지가 덧붙인 수식어(New Trend · Universal · Innovative)만 떼어 지문에 있는지 대 본다 — 덧붙인 한 낱말이 갈림길인 문항이 7 중 2다"
+      },
+      {
+        "step": "형태로 배제하지 않는다 — 의문문(2017#22 ④ · 2014B ①)과 명령·감탄문(2014A ②)이 정답인 문항이 7 중 3이다. 남은 하나를 골라 확정하고 되돌아가지 않는다",
+        "on_fail": "확신이 안 서면 논점 문장 한 줄만 다시 읽고, 그 문장을 영어 여덟 낱말로 줄인다면 어느 선지에 가장 가까운지로 정한다"
+      }
+    ],
+    "failure_modes": [
+      "역접 앞 양보문을 주장으로 읽는다 — 2017#22 는 첫 문장 전체가 정답과 정반대 진술이고 However 는 둘째 문장에 있다. 첫 두 줄만 읽고 제목을 정하면 ①·⑤ 두 오답이 동시에 그럴듯해진다",
+      "사례의 마지막 낱말을 주제로 승격시킨다 — impossible mountain(2015#23 ①) · bee stings(2014A ①) · filmic time and space(2017#23 ②). 사례는 인상에 오래 남고 제목은 인상으로 고르기 쉽다",
+      "낱말 겹침을 근거로 삼는다 — 2014B ②는 논점 낱말 arbitrary 를 그대로 쓰고도 오답이다. 갈림길은 덧붙인 'A New Trend' 한 구이며, 겹치는 낱말이 아니라 덧붙은 수식어를 지문과 대조해야 한다",
+      "의문문·명령문 제목을 형태만 보고 지운다 — 7문항 중 3문항의 정답이 의문문 또는 명령·감탄문이다. '제목은 명사구'라는 습관이 그대로 실점이 된다",
+      "시상(아직/이미)을 안 본다 — 2016#23 은 would like to have(아직 못 가짐)와 Disclosed(이미 밝혀짐)의 대립이 정답과 최다 오답을 가른다. 소재가 맞으면 시상은 안 보게 된다",
+      "임자를 바꿔 읽는다 — 2017#22 ⑤(속성의 임자가 꿀벌→언어) · 2014A ⑤(위험에 처한 쪽이 사람→동물). 서술 내용이 지문과 같아 보여 마지막까지 남는다"
+    ],
+    "time_budget_sec": 85,
+    "open_questions": [
+      "표본 7 중 2017 두 문항만 '마지막 문장 특수구문' 설계였다. 2018~2023 회차 청크(chunk-R-TITLE-M2306-24 · M2706-24)에서 논점 위치가 뒤쪽으로 옮겨 가는 추세가 확인되는지 대조해야 한다 — 옛 회차만 보고 '앞쪽 정의문을 찾아라'로 절차를 굳히면 최근 회차에서 미끄러진다",
+      "정답 제목의 형태(의문문 3 · 명령/감탄 1 · 명사구 3)가 회차별로 배분되는지, 아니면 우연인지 표본 7로는 말할 수 없다. 다음 청크에서 형태별 빈도를 세어 붙일 것",
+      "라벨 '무관'이 6건으로 가장 잦은데, 이 중 절반(2017#23 ① · 2016#23 ② · 2014A ④)은 '소재는 같고 물음이 다르다'는 공통 성격이라 별도 라벨('논점 이동')이 필요할 수 있다. 다른 R-TITLE 청크에서도 같은 성격이 반복되면 라벨 등재를 제안한다",
+      "반려는 analyst 가 6건(2017#22 ⑤ · 2017#23 ③ · 2016#23 ③ · 2015#22 ② · 2015#23 ⑤ · 2014A#26 ⑤ 의 함정 라벨 중복)을 냈고 setter·tutor 는 한 건도 내지 않았다. 세 자가 같은 것을 재지는 않았으나 setter 와 tutor 의 반려 기준이 이 유형에서 느슨하게 작동한다 — 다음 청크에서 setter 는 '정답 제목의 각 낱말이 논점 문장의 어느 낱말에서 왔는지 1:1로 짚었는가', tutor 는 '절차 1단계가 지문을 안 본 상태에서 실행되는가' 를 반려 사유로 명시해 자를 좁힐 것"
+    ]
+  }
 }

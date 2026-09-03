@@ -19,9 +19,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "6번 문장의 next questions 와 8번 문장의 new ignorance 를 what is left unknown 으로 옮기고, results 대신 beyond what is known 을 두어 대조축의 양쪽을 그대로 보존한 유일한 선지다.",
-          "how_to_reject": "1번 문장의 refining 이 '무지를 없앤다'가 아니라 '무지를 다듬는다'임을 8번 문장이 확인해 준다 — looking beyond 가 그 다듬기의 방향이다."
+          "why_correct": "6번 문장의 next questions 와 8번 문장의 new ignorance 를 what is left unknown 으로 옮기고, results 대신 beyond what is known 을 두어 대조축의 양쪽을 그대로 보존한 유일한 선지다."
         },
         {
           "n": 2,
@@ -150,9 +148,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "seemingly 가 11번 문장의 look like·appearance 를, not rooted in firm knowledge 가 같은 문장의 know nothing 과 9번 문장의 don't have depth of knowledge 를 각각 받는다.",
-          "how_to_reject": "겉(창의적으로 보임)과 속(지식 없음)을 모두 요구하는 선지는 이것뿐이다 — 한쪽만 있는 선지는 11번 문장의 but 앞뒤 중 절반을 버린 것이다."
+          "why_correct": "seemingly 가 11번 문장의 look like·appearance 를, not rooted in firm knowledge 가 같은 문장의 know nothing 과 9번 문장의 don't have depth of knowledge 를 각각 받는다."
         },
         {
           "n": 2,
@@ -290,9 +286,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "4번 문장의 입법자 설득 + 6번 문장의 unsustainable + 10번 문장의 changed our thinking 을 한 문장으로 접은 것이 a shift to sustainable human behaviour for nature 다.",
-          "how_to_reject": "8번 문장이 cut down on consumption · alter lifestyles · decrease population growth 라는 요구 항목을 나열해 shift 의 내용을 확인해 준다."
+          "why_correct": "4번 문장의 입법자 설득 + 6번 문장의 unsustainable + 10번 문장의 changed our thinking 을 한 문장으로 접은 것이 a shift to sustainable human behaviour for nature 다."
         },
         {
           "n": 3,
@@ -416,9 +410,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "specialized experts 가 8번 문장의 designated experts 를, readily applicable 이 '출근 준비 여부를 곧바로 정할 수 있음'을 각각 받는다.",
-          "how_to_reject": "5·6번 문장의 our trust needs to be limited, and focused / very particular 가 신뢰 대상을 전문가로 한정해 두어, 전문가 아닌 출처를 넣은 선지와 갈린다."
+          "why_correct": "specialized experts 가 8번 문장의 designated experts 를, readily applicable 이 '출근 준비 여부를 곧바로 정할 수 있음'을 각각 받는다."
         },
         {
           "n": 2,
@@ -576,9 +568,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "7번 문장의 asked for activity / activity was what it got 을 원인·결과로 접고, 1번 문장의 confuse activities and results 와 3번 문장의 rather than what's effective 가 ineffective 를 뒷받침한다.",
-          "how_to_reject": "2번 문장의 milestones in the form of activities 가 '활동에 초점을 둔 프로세스'라는 주어를 문자로 확인해 준다."
+          "why_correct": "7번 문장의 asked for activity / activity was what it got 을 원인·결과로 접고, 1번 문장의 confuse activities and results 와 3번 문장의 rather than what's effective 가 ineffective 를 뒷받침한다."
         }
       ],
       "solve_procedure": [
@@ -709,9 +699,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "extra services 가 2·6번 문장의 support · Maintenance, installation, training, delivery 를, beyond customers' primary purchase 가 4번 문장의 another step in the journey 를 각각 받는다.",
-          "how_to_reject": "1번 문장의 ancillary businesses(부수 사업)라는 첫 낱말이 이미 '본체 뒤에 딸린 것'이라는 뜻이라 ⑤와 겹친다."
+          "why_correct": "extra services 가 2·6번 문장의 support · Maintenance, installation, training, delivery 를, beyond customers' primary purchase 가 4번 문장의 another step in the journey 를 각각 받는다."
         }
       ],
       "solve_procedure": [

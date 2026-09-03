@@ -9,7 +9,10 @@
       "measured_ability": "①~⑤ 각 문장 앞머리의 되돌아보는 표지(this last element · This · This should also · Hence)가 어느 문장을 받는지 화살표로 이어, 화살표가 건너뛴 문장을 찾아내는 능력. SNS 라는 화제어를 공유하면서도 논지의 방향(위험·권리 존중)이 반대인 문장을 가려내는 것이 핵심이다",
       "design_intent": "도입 인용문이 '권리 인식'과 '타인의 권리를 존중하는 행동' 두 가지를 내놓고 ①이 뒤엣것만 this last element 로 집어 든다. 그 뒤 ②(오프라인 황금률) → ④(This should also be a golden rule) → ⑤(Hence)로 지시·연결 사슬을 한 줄로 깔아 두고, 그 사이에 SNS·children 이라는 같은 화제어를 쓰되 평가 방향이 정반대인 '권장·지식 축적' 문장을 끼워 넣었다. 낱말 겹침으로는 절대 걸리지 않고 지시 사슬로만 걸리게 만든 문항이다.",
       "answer_locus": {
-        "sentence_index": [3, 5],
+        "sentence_index": [
+          3,
+          5
+        ],
         "quote": "This should also be a golden rule with regard to SNS, but for children and young people it is much more difficult",
         "reasoning": "이 문장의 주어 This 와 also 는 '이것 역시 SNS에서도 황금률이어야 한다'는 뜻이므로, 앞에서 이미 황금률로 제시된 것을 받아야 한다. 그 대상은 ②의 'do not do to others what you would not want others to do to you' 뿐이다. 그런데 ②와 ④ 사이에 놓인 ③은 황금률도 원칙도 말하지 않고 'SNS 활동을 권장해야 한다'는 편익 주장을 한다 — 즉 ④의 This 가 ③을 건너뛰어 ②에 닿는다. 게다가 ③이 내놓은 accumulate knowledge(지식 축적)는 뒤의 ④·⑤ 어디에서도 다시 다뤄지지 않고, ⑤의 raising awareness ... potential long-term impact 는 ④의 estimate the consequences and potential serious impact 를 곧장 받는다."
       },
@@ -31,9 +34,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "SNS·children 이라는 지문 화제어를 그대로 쓰고 '아이들을 돕는다'는 온정적 서술이라 위화감이 적다. 그러나 이 지문이 다루는 축은 아이들이 남의 권리를 침해할 위험과 그 인식 제고이고, 이 문장만 SNS 활동의 편익(지식 축적)을 권장하는 반대 방향의 평가다.",
-          "how_to_reject": "배제 대상이 아니다 — 검산 두 곳이다. ① 이 문장을 빼고 ②→④를 붙여 읽으면 This should also be a golden rule 의 This 가 ②의 격언을 곧장 받는가(받는다). ② 이 문장의 accumulate knowledge 를 뒤에서 받는 말이 있는가(⑤는 raising awareness 로 ④를 받을 뿐, 지식 축적은 다시 나오지 않는다)."
+          "why_correct": "SNS·children 이라는 지문 화제어를 그대로 쓰고 '아이들을 돕는다'는 온정적 서술이라 위화감이 적다. 그러나 이 지문이 다루는 축은 아이들이 남의 권리를 침해할 위험과 그 인식 제고이고, 이 문장만 SNS 활동의 편익(지식 축적)을 권장하는 반대 방향의 평가다."
         },
         {
           "n": 4,
@@ -75,9 +76,19 @@
       "time_budget_sec": 100,
       "difficulty": {
         "predicted": 0.7,
-        "drivers": ["도입 인용문이 길고 항목이 둘이라 this last element 의 선행사 확정이 어렵다", "정답 문장이 SNS·children 화제어를 그대로 반복한다", "②의 오프라인 격언이 더 눈에 띄는 이탈처럼 보인다"]
+        "drivers": [
+          "도입 인용문이 길고 항목이 둘이라 this last element 의 선행사 확정이 어렵다",
+          "정답 문장이 SNS·children 화제어를 그대로 반복한다",
+          "②의 오프라인 격언이 더 눈에 띄는 이탈처럼 보인다"
+        ]
       },
-      "required_vocab": ["literacy", "principle", "accumulate", "consequences", "trivial"],
+      "required_vocab": [
+        "literacy",
+        "principle",
+        "accumulate",
+        "consequences",
+        "trivial"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -86,7 +97,11 @@
             "quote 를 코퍼스 지문에서 문자열로 대조했다 — ④ 문장 앞부분 그대로다",
             "지문 ② 자리에 파싱 잔여 'This use ______ relates' 가 있다. 선지 텍스트에는 'This use relates' 로 남아 원문('This relates')과 다르지만 판단에는 영향이 없어 선지 ②의 why_tempting 에 결함으로 적어 두었다"
           ],
-          "checked": ["answer_locus.quote 를 corpus.json 2018#35 passage 와 문자열 대조", "무관한 문장 유형 정의(나머지 넷이 한 줄로 이어지는가) 대조", "설계 의도가 이 문항 고유의 지시 사슬을 지목하는지 확인"]
+          "checked": [
+            "answer_locus.quote 를 corpus.json 2018#35 passage 와 문자열 대조",
+            "무관한 문장 유형 정의(나머지 넷이 한 줄로 이어지는가) 대조",
+            "설계 의도가 이 문항 고유의 지시 사슬을 지목하는지 확인"
+          ]
         },
         {
           "persona": "analyst",
@@ -96,7 +111,12 @@
             "초안에서 ①과 ④에 모두 '연결사 방향 충돌'을 달아 라벨이 겹쳤다 — ①의 실제 미끼는 인용문 끝을 받는 this last element 이므로 '지시어 선행사 절단'으로 고쳤다",
             "고친 뒤 오답 4개 라벨이 지시어·총론각론·연결사·결론신정보 넷으로 갈린다"
           ],
-          "checked": ["오답 4개의 trap 라벨 중복 여부", "why_tempting 이 각 선지 텍스트의 실제 표현(this last element · offline world · but · Hence)에 근거하는지", "how_to_reject 마다 지문 위치(②의 격언 · ⑤의 Hence 등)가 적혀 있는지", "correct 번호 3 과 평가원 정답표 3 대조"]
+          "checked": [
+            "오답 4개의 trap 라벨 중복 여부",
+            "why_tempting 이 각 선지 텍스트의 실제 표현(this last element · offline world · but · Hence)에 근거하는지",
+            "how_to_reject 마다 지문 위치(②의 격언 · ⑤의 Hence 등)가 적혀 있는지",
+            "correct 번호 3 과 평가원 정답표 3 대조"
+          ]
         },
         {
           "persona": "tutor",
@@ -105,7 +125,11 @@
             "3단계(화살표가 두 칸 앞에 닿는 자리 찾기)가 이 문항에서 실제로 ③을 집어낸다 — 지문을 안 본 상태에서도 실행 가능한 표지 찾기로만 구성돼 있다",
             "100초 안에 도입 항목 적기 20초 + 표지 동그라미 25초 + 화살표 30초 + 검산 15초로 배분된다"
           ],
-          "checked": ["solve_procedure 5단계를 지문 없이 실행 가능한지 시뮬레이션", "금지 표현(흐름을 파악하면 등) 문자열 확인", "required_vocab 5개가 지문에 실제로 있는지 대조"]
+          "checked": [
+            "solve_procedure 5단계를 지문 없이 실행 가능한지 시뮬레이션",
+            "금지 표현(흐름을 파악하면 등) 문자열 확인",
+            "required_vocab 5개가 지문에 실제로 있는지 대조"
+          ]
         }
       ]
     },
@@ -115,7 +139,10 @@
       "measured_ability": "판단 기준을 다루는 논의(말림 정도로 맛을 판단할 수 있는가)와 제조 공정을 서술하는 문장을 갈라내는 능력. rolling · leaves 라는 같은 낱말이 '등급 판단의 지표'로 쓰였는지 '공정의 목적'으로 쓰였는지를 구별해야 한다",
       "design_intent": "도입에서 말림 정도가 등급 판단의 특징이라고 세운 뒤, ②의 With that said 로 '말림은 맛보다 우려냄에 관계된다'고 축을 꺾고 ④의 Therefore 로 '말림으로 맛을 평가하지 말라'는 처방을 낸다. 그 ②→④ 사이에 rolling · leaves 를 가장 많이 반복하면서도 논점(맛 판단)과 무관한 공정 설명(세포벽을 깨 정유를 내보낸다)을 넣어, 낱말 겹침을 단서로 삼는 학생을 정확히 반대로 이끈다.",
       "answer_locus": {
-        "sentence_index": [4, 6],
+        "sentence_index": [
+          4,
+          6
+        ],
         "quote": "Therefore, one should not evaluate the tea’s drinkability or taste merely because its leaves are not tightly rolled.",
         "reasoning": "Therefore 는 바로 앞에 근거가 있어야 하는 결론 표지다. 이 결론(말림 정도로 맛을 평가하지 말라)의 근거는 ②의 the tightness of the roll has more to do with the steepability of a leaf than it does with the taste 뿐이다. 그런데 ②와 ④ 사이의 ③은 말림이 기계나 손으로 이뤄지고 세포벽을 깨 정유를 낸다는 공정 서술이어서, 여기서 '그러므로 맛을 평가하지 말라'가 나올 수 없다 — Therefore 가 ③을 건너뛴다. ③이 내놓은 machine · cell walls · essential oils 는 ⑤에서도 다시 나오지 않고, ⑤는 ④의 taste · tightly rolled 를 그대로 이어받는다."
       },
@@ -137,9 +164,15 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "rolling · leaves 를 지문에서 가장 많이 반복하는 문장이라 낱말 겹침만 보면 가장 본론처럼 보인다. 그러나 다루는 것은 '말림이 무엇을 알려 주는가'가 아니라 '말림을 어떻게 하며 왜 하는가'라는 공정이고, 이 문항의 논점(맛 판단 기준)과 층이 다르다.",
-          "how_to_reject": "배제 대상이 아니다 — 검산 두 곳이다. ① 이 문장을 빼고 ②→④를 이어 읽으면 Therefore 가 근거를 갖는가(갖는다). ② 이 문장의 machine · cell walls · essential oils 를 뒤에서 받는 말이 있는가(④·⑤ 어디에도 없다)."
+          "why_correct": "③은 'is done by machine or, sometimes, by hand to break the cell walls of the leaves and release essential oils' 로 말림의 공정과 그 목적을 말한다 — 이 글이 다투는 축은 '말림 정도로 무엇을 판단할 수 있는가'(등급 · steepability · taste)이고, ③이 꺼낸 machine · cell walls · essential oils 는 뒤 두 문장에서 한 번도 다시 나오지 않는다. ③을 빼면 앞뒤가 곧바로 이어진다 — ②의 'the tightness of the roll has more to do with the steepability of a leaf than it does with the taste of a tea' 가 ④의 'Therefore, one should not evaluate the tea’s drinkability or taste merely because its leaves are not tightly rolled' 의 전제 그 자체이기 때문이다. Therefore 는 바로 앞에 근거를 요구하는 표지인데 ③에는 맛에 대한 진술이 없어 그 근거가 되지 못한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3,
+              4,
+              5
+            ],
+            "note": "근거는 ②와 ④의 결론 표지 연결이다 — Therefore 의 전제가 한 칸이 아니라 두 칸 앞에 있다는 것이 사이에 낀 ③을 지목한다. ③은 rolling·leaves 를 지문에서 가장 많이 반복하는 문장이라 낱말 겹침만 보면 본론으로 읽히고, Therefore 가 붙은 ④가 근거 없이 떠 있는 문장으로 읽혀 끊긴 자리를 ④에서 찾게 되기도 한다."
+          }
         },
         {
           "n": 4,
@@ -181,18 +214,37 @@
       "time_budget_sec": 95,
       "difficulty": {
         "predicted": 0.58,
-        "drivers": ["정답 문장이 지문 핵심어 rolling·leaves 를 가장 많이 반복한다", "각주 낱말 steepability 가 ②에 있어 ②를 이탈로 오판하기 쉽다", "④의 Therefore 근거가 두 칸 앞에 있어 ④를 의심하게 만든다"]
+        "drivers": [
+          "정답 문장이 지문 핵심어 rolling·leaves 를 가장 많이 반복한다",
+          "각주 낱말 steepability 가 ②에 있어 ②를 이탈로 오판하기 쉽다",
+          "④의 Therefore 근거가 두 칸 앞에 있어 ④를 의심하게 만든다"
+        ]
       },
-      "required_vocab": ["hallmark", "graded", "tightly", "steepability", "drinkability"],
+      "required_vocab": [
+        "hallmark",
+        "graded",
+        "tightly",
+        "steepability",
+        "drinkability"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
           "findings": [
             "quote 를 코퍼스 지문과 문자열 대조했다 — ④ 문장 전체가 그대로 있다(작은따옴표는 곡선형)",
-            "지문 끝과 선지 ⑤ 끝에 파싱 잔여 'he' 와 각주 텍스트가 붙어 있으나 문장 판단에는 영향이 없다"
+            "지문 끝과 선지 ⑤ 끝에 파싱 잔여 'he' 와 각주 텍스트가 붙어 있으나 문장 판단에는 영향이 없다",
+            "인용 셋을 corpus passage 와 문자열 대조했다(tea’s 의 굽은 아포스트로피 포함). machine·cell walls·essential oils 가 ④⑤에 다시 나오지 않는 것도 문자열로 확인했다.",
+            "정답 선지에 있던 「낱말 겹침이 가장 많아 본론으로 읽힌다」는 학습자 심리 관찰을 confirmed_at.note 로 옮겼다."
           ],
-          "checked": ["answer_locus.quote 를 corpus.json M1809#35 passage 와 문자열 대조", "정답 문장을 뺀 나머지 넷이 도입→②→④→⑤ 한 줄로 이어지는지 확인", "design_intent 가 이 문항의 어휘 반복 배치를 지목하는지 확인"]
+          "checked": [
+            "answer_locus.quote 를 corpus.json M1809#35 passage 와 문자열 대조",
+            "정답 문장을 뺀 나머지 넷이 도입→②→④→⑤ 한 줄로 이어지는지 확인",
+            "design_intent 가 이 문항의 어휘 반복 배치를 지목하는지 확인",
+            "why_correct 의 영어 인용을 corpus.json 해당 id 의 passage 와 문자열 대조",
+            "why_correct 가 정답 선지 자체의 근거로 서는지(소거법 의존 여부) 확인",
+            "게이트 금지 어휘(「왜 놓치기 쉬운가」 계열 18종) 정규식 대조"
+          ]
         },
         {
           "persona": "analyst",
@@ -200,18 +252,36 @@
           "revised": true,
           "findings": [
             "초안에서 ②와 ④에 모두 '연결사 방향 충돌'을 달았다 — ④의 미끼는 방향이 아니라 Therefore 의 근거가 바로 앞에 없다는 점이므로 '조건-귀결 절단'으로 고쳤다",
-            "고친 뒤 라벨이 어휘 반복 · 연결사 방향 · 조건-귀결 · 마무리 위치 넷으로 갈린다"
+            "고친 뒤 라벨이 어휘 반복 · 연결사 방향 · 조건-귀결 · 마무리 위치 넷으로 갈린다",
+            "why_correct 가 ③ 제거 후 ②→④ 가 Therefore 로 직접 이어짐을 보이는지, 화제 이탈(공정)과 연결 복원 두 짝을 다 갖췄는지 확인했다."
           ],
-          "checked": ["오답 4개 trap 중복 여부", "why_tempting 이 선지 텍스트의 실제 표현(on the other hand · With that said · Therefore · more expensive)에 근거하는지", "how_to_reject 에 지문 위치가 명시됐는지", "correct 번호 3 과 평가원 정답표 3 대조"]
+          "checked": [
+            "오답 4개 trap 중복 여부",
+            "why_tempting 이 선지 텍스트의 실제 표현(on the other hand · With that said · Therefore · more expensive)에 근거하는지",
+            "how_to_reject 에 지문 위치가 명시됐는지",
+            "correct 번호 3 과 평가원 정답표 3 대조",
+            "why_correct 의 영어 인용을 corpus.json 해당 id 의 passage 와 문자열 대조",
+            "why_correct 가 정답 선지 자체의 근거로 서는지(소거법 의존 여부) 확인",
+            "게이트 금지 어휘(「왜 놓치기 쉬운가」 계열 18종) 정규식 대조"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
             "3단계를 '결론 표지에서 거꾸로 근거 찾기'로 두어, 지문을 처음 보는 학생도 Therefore 한 곳만 잡으면 후보가 좁혀진다",
-            "4단계의 '기능을 한 낱말로 적기'가 이 유형 최대 함정(어휘 반복)에 직접 대응한다"
+            "4단계의 '기능을 한 낱말로 적기'가 이 유형 최대 함정(어휘 반복)에 직접 대응한다",
+            "학생 동작은 결론 표지 Therefore 에서 위로 거슬러 근거 문장을 찾는 것 — 화살표가 한 문장을 건너뛰면 그 문장이 답이다."
           ],
-          "checked": ["절차 5단계 실행 가능성 시뮬레이션", "금지 표현 문자열 확인", "required_vocab 5개가 지문에 실재하는지 대조(steepability·drinkability 포함)", "95초 배분 검산"]
+          "checked": [
+            "절차 5단계 실행 가능성 시뮬레이션",
+            "금지 표현 문자열 확인",
+            "required_vocab 5개가 지문에 실재하는지 대조(steepability·drinkability 포함)",
+            "95초 배분 검산",
+            "why_correct 의 영어 인용을 corpus.json 해당 id 의 passage 와 문자열 대조",
+            "why_correct 가 정답 선지 자체의 근거로 서는지(소거법 의존 여부) 확인",
+            "게이트 금지 어휘(「왜 놓치기 쉬운가」 계열 18종) 정규식 대조"
+          ]
         }
       ]
     },
@@ -221,7 +291,10 @@
       "measured_ability": "지문의 평가 방향(직업으로 자신을 소개하는 관행에 대한 부정적 진단)을 문장마다 부호로 표시해, 혼자만 반대 부호를 가진 문장을 찾아내는 능력. 표지가 아예 없는 문장을 후보로 올릴 줄 아는 것도 함께 잰다",
       "design_intent": "도입 두 문장이 '직업으로 자기를 소개하는 사람들'을 세우고, ①의 we become what we believe → ③의 lose their individuality → ④의 jobs may not be permanent → ⑤의 In such a case ... trauma 로 부정적 귀결을 한 줄로 잇는다. 그 사이에 같은 직업·직장 어휘를 쓰면서 평가 부호만 뒤집은 문장(직장에서 할 수 있는 일을 규정하면 경력의 질이 높아진다)을 심어, 어휘장 겹침만 보는 학생을 그대로 통과시키게 만든 문항이다.",
       "answer_locus": {
-        "sentence_index": [3, 5],
+        "sentence_index": [
+          3,
+          5
+        ],
         "quote": "People who follow this practice tend to lose their individuality and begin to live with the notion",
         "reasoning": "this practice 가 받을 관행은 도입의 '자기를 직업으로 소개하기'와 ①의 doing this 다. 그리고 그 관행의 귀결이 lose their individuality — 부정 평가다. ②는 같은 직장 어휘를 쓰면서도 identifying what we can do ... serves to enhance the quality of our professional career 로 이득을 말한다. 만약 ②가 흐름 안에 있다면 바로 다음 문장의 this practice 는 '직장에서 할 수 있는 일을 규정하기'를 받게 되어, 경력의 질을 높인다던 관행이 개성을 잃게 한다는 모순이 된다. 곧 ③의 지시어가 ②를 건너뛰어 ①·도입에 닿는다. ②의 professional career 는 뒤의 ④·⑤ 어디에서도 다시 다뤄지지 않는다."
       },
@@ -236,9 +309,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "workplace · professional career 처럼 지문의 직업 어휘장을 그대로 써서 화제가 같아 보인다. 그러나 이 문장만 관행을 이득(enhance the quality)으로 평가하고, 나머지 넷은 같은 관행을 개성 상실·정체성 상실로 평가한다.",
-          "how_to_reject": "배제 대상이 아니다 — 검산 두 곳이다. ① 이 문장을 빼고 ①→③을 붙이면 this practice 가 '직업으로 자기를 소개하기'를 곧장 받는가(받는다). ② 이 문장의 professional career · enhance 를 뒤에서 받는 말이 있는가(④는 lose your job, ⑤는 trauma 로 반대 방향뿐이다)."
+          "why_correct": "workplace · professional career 처럼 지문의 직업 어휘장을 그대로 써서 화제가 같아 보인다. 그러나 이 문장만 관행을 이득(enhance the quality)으로 평가하고, 나머지 넷은 같은 관행을 개성 상실·정체성 상실로 평가한다."
         },
         {
           "n": 3,
@@ -287,9 +358,19 @@
       "time_budget_sec": 90,
       "difficulty": {
         "predicted": 0.68,
-        "drivers": ["정답 문장에 앞을 받는 표지가 없어 오히려 자연스러운 일반 진술로 읽힌다", "직장·경력 어휘장이 지문과 완전히 겹친다", "③의 this practice 선행사를 바로 앞으로 잡으면 ③을 의심하게 된다"]
+        "drivers": [
+          "정답 문장에 앞을 받는 표지가 없어 오히려 자연스러운 일반 진술로 읽힌다",
+          "직장·경력 어휘장이 지문과 완전히 겹친다",
+          "③의 this practice 선행사를 바로 앞으로 잡으면 ③을 의심하게 된다"
+        ]
       },
-      "required_vocab": ["executive", "criminal", "individuality", "notion", "disassociated"],
+      "required_vocab": [
+        "executive",
+        "criminal",
+        "individuality",
+        "notion",
+        "disassociated"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -298,7 +379,11 @@
             "quote 를 코퍼스 지문과 대조했다 — ③ 문장 앞부분 그대로다",
             "이 문항은 지시 사슬보다 '평가 부호 뒤집기'가 설계의 중심이라, design_intent 를 그 축으로 다시 썼다"
           ],
-          "checked": ["answer_locus.quote 를 corpus.json 2017#35 passage 와 문자열 대조", "무관한 문장 유형 정의 대조(정답 문장을 빼면 ①→③→④→⑤가 한 줄로 이어지는지)", "measured_ability 가 유형 일반론이 아니라 이 문항의 부호 뒤집기를 지목하는지"]
+          "checked": [
+            "answer_locus.quote 를 corpus.json 2017#35 passage 와 문자열 대조",
+            "무관한 문장 유형 정의 대조(정답 문장을 빼면 ①→③→④→⑤가 한 줄로 이어지는지)",
+            "measured_ability 가 유형 일반론이 아니라 이 문항의 부호 뒤집기를 지목하는지"
+          ]
         },
         {
           "persona": "analyst",
@@ -307,7 +392,12 @@
             "오답 4개 라벨이 연결사 방향 · 지시어 절단 · 조건-귀결 · 결론 신정보 넷으로 갈린다",
             "③의 why_tempting 은 실제 오답 유인과 일치한다 — this practice 를 바로 앞 문장으로 잡는 순간 ③이 모순의 원인처럼 보인다"
           ],
-          "checked": ["trap 라벨 중복 여부", "why_tempting 이 선지 텍스트의 표현(nothing criminal · this practice · However · In such a case)에 근거하는지", "how_to_reject 마다 지문 위치가 있는지", "correct 번호 2 와 평가원 정답표 2 대조"]
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 텍스트의 표현(nothing criminal · this practice · However · In such a case)에 근거하는지",
+            "how_to_reject 마다 지문 위치가 있는지",
+            "correct 번호 2 와 평가원 정답표 2 대조"
+          ]
         },
         {
           "persona": "tutor",
@@ -317,7 +407,12 @@
             "초안 절차는 '역접·지시 표지를 찾아라'로만 되어 있었는데, 이 문항의 정답 문장(②)에는 표지가 아예 없어 3단계가 헛돌았다 — 2단계를 평가 부호 표시로 바꾸고 3단계 on_fail 에 '표지 없는 문장을 후보로 올린다'를 명시했다",
             "고친 절차로는 표지가 없는 문장이 오히려 먼저 후보가 된다"
           ],
-          "checked": ["지문 없이 절차 실행 시뮬레이션", "금지 표현 문자열 확인", "required_vocab 5개가 지문에 실재하는지 대조", "90초 배분 검산"]
+          "checked": [
+            "지문 없이 절차 실행 시뮬레이션",
+            "금지 표현 문자열 확인",
+            "required_vocab 5개가 지문에 실재하는지 대조",
+            "90초 배분 검산"
+          ]
         }
       ]
     },
@@ -327,7 +422,10 @@
       "measured_ability": "감각 판단이 일어나는 순서(겉모습·냄새 → 입 안 → 삼킴 판정)를 문장마다 어느 단계인지 표시해, 단계 사슬에 자리를 갖지 않는 문장을 찾아내는 능력. 같은 명사구 the value of a food 가 감각 판단의 대상인지 영양가의 정의인지 구별하는 것이 핵심이다",
       "design_intent": "도입이 '인간은 다섯 감각을 다 써서 음식의 질을 분석한다'를 세우고, ①(겉모습·냄새) → ②(입 안으로) → ④(Here, 복합 감각 분석으로 삼킬지 뱉을지 결정) → ⑤(그 상호작용을 taste 라 부르는 것은 부적절하다)로 단계를 잇는다. 그 중간에 ①과 같은 명사구 the value of a ... food 를 다시 쓰되 기준을 감각이 아니라 비타민·미네랄·칼로리로 바꾼 정의문을 끼워, 명사구 겹침을 단서로 삼으면 ①을 의심하게 만든다.",
       "answer_locus": {
-        "sentence_index": [5, 7],
+        "sentence_index": [
+          5,
+          7
+        ],
         "quote": "Food that looks and smells attractive is taken into the mouth.",
         "reasoning": "④는 Here 로 시작한다 — 장소를 받는 부사이므로 앞에 장소가 지정돼 있어야 하고, 지문에서 장소를 말하는 표현은 이 문장의 into the mouth 뿐이다. 그런데 ②와 ④ 사이에 놓인 ③은 장소도 감각 판단 단계도 말하지 않고 음식의 가치를 비타민·미네랄·칼로리 기준으로 정의한다. 곧 ④의 Here 가 ③을 건너뛰어 ②에 닿는다. 또 ①이 the value of a food source is made on its appearance and smell 로 가치 판단의 기준을 감각으로 못 박아 둔 반면 ③은 같은 명사구의 기준을 영양소로 바꿔 도입의 five senses 축과 충돌하고, ③의 vitamins · minerals · calories 는 ④·⑤에서 한 번도 다시 나오지 않는다."
       },
@@ -349,9 +447,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "the value of a particular food 라는 ①과 겹치는 명사구로 시작해 본론의 정의문처럼 보이고, 비타민·미네랄·칼로리라는 구체 정보가 있어 정보량이 많아 보인다. 그러나 이 지문이 다루는 가치 판단은 감각을 통한 판정이고, 이 문장만 판단 주체를 감각이 아닌 영양소 함량으로 바꾼다.",
-          "how_to_reject": "배제 대상이 아니다 — 검산 두 곳이다. ① 이 문장을 빼고 ②→④를 이으면 Here 가 the mouth 를 곧장 받는가(받는다). ② 이 문장의 vitamins · minerals · calories 를 뒤에서 받는 말이 있는가(④는 smell·touch·hearing, ⑤는 flavor perception 으로 감각뿐이다)."
+          "why_correct": "the value of a particular food 라는 ①과 겹치는 명사구로 시작해 본론의 정의문처럼 보이고, 비타민·미네랄·칼로리라는 구체 정보가 있어 정보량이 많아 보인다. 그러나 이 지문이 다루는 가치 판단은 감각을 통한 판정이고, 이 문장만 판단 주체를 감각이 아닌 영양소 함량으로 바꾼다."
         },
         {
           "n": 4,
@@ -393,9 +489,19 @@
       "time_budget_sec": 95,
       "difficulty": {
         "predicted": 0.64,
-        "drivers": ["정답 문장이 ①과 같은 명사구 the value of a food 를 공유해 ①을 의심하게 만든다", "④가 길고 삽입구가 많아 ④를 이탈로 오판하기 쉽다", "정답 문장 자체가 사전적 정의문이라 문장 자체로는 아무 잘못이 없다"]
+        "drivers": [
+          "정답 문장이 ①과 같은 명사구 the value of a food 를 공유해 ①을 의심하게 만든다",
+          "④가 길고 삽입구가 많아 ④를 이탈로 오판하기 쉽다",
+          "정답 문장 자체가 사전적 정의문이라 문장 자체로는 아무 잘못이 없다"
+        ]
       },
-      "required_vocab": ["spoiled", "estimation", "restricted", "swallow", "perception"],
+      "required_vocab": [
+        "spoiled",
+        "estimation",
+        "restricted",
+        "swallow",
+        "perception"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -404,7 +510,11 @@
             "quote 를 코퍼스 지문과 대조했다 — ② 문장 전체가 그대로 있다",
             "근거를 ④의 Here 로만 쓰지 않고 ①과의 명사구 충돌까지 함께 적어, 정답 확정 근거가 두 겹이 되도록 했다"
           ],
-          "checked": ["answer_locus.quote 를 corpus.json 2016#39 passage 와 문자열 대조", "정답 문장을 빼면 ①→②→④→⑤ 단계가 이어지는지 확인", "유형 정의(무관한 문장) 대조"]
+          "checked": [
+            "answer_locus.quote 를 corpus.json 2016#39 passage 와 문자열 대조",
+            "정답 문장을 빼면 ①→②→④→⑤ 단계가 이어지는지 확인",
+            "유형 정의(무관한 문장) 대조"
+          ]
         },
         {
           "persona": "analyst",
@@ -413,7 +523,12 @@
             "오답 4개 라벨이 어휘 반복 · 열거 절단 · 지시어 절단 · 결론 신정보 넷으로 갈린다",
             "①의 why_tempting 이 실제 오답 유인과 맞다 — ①과 ③이 같은 명사구를 쓰므로 둘 중 하나를 지우는 판단으로 몰린다"
           ],
-          "checked": ["trap 라벨 중복 여부", "why_tempting 이 선지 텍스트(the value of a food source · into the mouth · Here · flavor perception)에 근거하는지", "how_to_reject 의 지문 위치 명시 여부", "correct 번호 3 과 평가원 정답표 3 대조"]
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 텍스트(the value of a food source · into the mouth · Here · flavor perception)에 근거하는지",
+            "how_to_reject 의 지문 위치 명시 여부",
+            "correct 번호 3 과 평가원 정답표 3 대조"
+          ]
         },
         {
           "persona": "tutor",
@@ -423,7 +538,12 @@
             "초안 4단계가 '핵심어가 겹치는 문장을 의심한다'로 되어 있었다 — 이 문항에서는 겹치는 쪽이 ①이라 학생을 오답으로 밀어붙인다. '겹치는 명사구의 판단 기준을 적어 비교한다'로 고쳤다",
             "고친 4단계는 겹침 자체가 아니라 기준의 차이를 묻는다"
           ],
-          "checked": ["지문 없이 절차 실행 시뮬레이션(4단계가 ①이 아니라 ③을 가리키는지)", "금지 표현 문자열 확인", "required_vocab 5개가 지문에 실재하는지 대조", "95초 배분 검산"]
+          "checked": [
+            "지문 없이 절차 실행 시뮬레이션(4단계가 ①이 아니라 ③을 가리키는지)",
+            "금지 표현 문자열 확인",
+            "required_vocab 5개가 지문에 실재하는지 대조",
+            "95초 배분 검산"
+          ]
         }
       ]
     },
@@ -433,7 +553,10 @@
       "measured_ability": "글이 반박하려는 통념(기술 탓)과 그에 맞세운 논지(기술은 사람들이 무엇을 문제로 삼고 무엇을 원하는지에 반응한다)를 구별하고, 논지의 축이 아니라 화제 분야만 같은 문장을 가려내는 능력",
       "design_intent": "도입 두 문장이 '기술 탓하기'를 통념으로 세우고 이를 misguided 라 못 박은 뒤, ①(오염이 설계 요건이 아니었기 때문) → ③(이제 깨끗한 차가 요구되니 만들어질 것) → ④(This last option 은 시간과 투자가 든다) → ⑤(기술은 사람들의 뜻에 반응하지만 즉각적이지도 공짜도 아니다)로 한 논증을 세운다. 그 사이에 환경·에너지라는 같은 분야에 속하지만 논증의 어느 자리도 차지하지 않는 태양광 문장을 넣었다. 분야 일치만 보는 학생은 통과시키고, ④의 This last option 이 무엇을 받는지 따지는 학생만 걸러 낸다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "This last option, however, would require several years and much investment.",
         "reasoning": "This last option 은 '앞에서 열거된 선택지 중 마지막 것'을 받아야 한다. 선택지를 나열한 곳은 ③뿐이다 — less polluting cars will be produced; cars which scarcely pollute at all could even be made 에서 덜 오염시키는 차와 아예 오염시키지 않는 차 둘이 나오고, 그 마지막이 후자다. ②의 태양광은 열거된 선택지가 아니라 단독 진술이고, ②를 선행사로 잡으면 ⑤의 결론(기술은 사람들의 뜻에 반응하지만 즉각적이지 않고 공짜가 아니다)이 자동차 논의와 연결을 잃는다. 또 ②의 solar energy 는 지문 어디에서도 다시 나오지 않는 반면 ①의 pollution·engineers, ③의 cars, ④의 investment 는 ⑤의 seldom respond instantaneously and is never free 로 그대로 회수된다."
       },
@@ -448,9 +571,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "환경·에너지라는 분야가 지문과 같고 alternative energy source 가 환경 문제 해결책처럼 들려 논지에 봉사하는 문장으로 보인다. 그러나 이 지문의 논지는 '기술은 사람들이 요구하는 바에 반응한다'이지 어떤 에너지원이 실용적인가가 아니며, 이 문장만 사람들의 요구와 기술의 반응이라는 축을 건드리지 않는다.",
-          "how_to_reject": "배제 대상이 아니다 — 검산 두 곳이다. ① 이 문장을 빼고 ①→③을 이으면 오염이 요건이 아니었다 → 이제 요구되니 만들어진다로 대비가 살아나는가(살아난다). ② solar energy 를 뒤에서 받는 말이 있는가(③은 cars, ④는 This last option 으로 ③의 차를 받고, ⑤는 technology 일반으로 닫는다 — 태양광은 다시 나오지 않는다)."
+          "why_correct": "환경·에너지라는 분야가 지문과 같고 alternative energy source 가 환경 문제 해결책처럼 들려 논지에 봉사하는 문장으로 보인다. 그러나 이 지문의 논지는 '기술은 사람들이 요구하는 바에 반응한다'이지 어떤 에너지원이 실용적인가가 아니며, 이 문장만 사람들의 요구와 기술의 반응이라는 축을 건드리지 않는다."
         },
         {
           "n": 3,
@@ -499,9 +620,19 @@
       "time_budget_sec": 90,
       "difficulty": {
         "predicted": 0.74,
-        "drivers": ["정답 문장이 환경·에너지라는 같은 분야여서 분야 일치만 보면 걸리지 않는다", "④의 This last option 선행사를 ②로 오인하기 쉽다", "⑤에 파싱 잔여 'ort' 가 있어 마지막 문장을 이탈로 오판할 여지가 있다"]
+        "drivers": [
+          "정답 문장이 환경·에너지라는 같은 분야여서 분야 일치만 보면 걸리지 않는다",
+          "④의 This last option 선행사를 ②로 오인하기 쉽다",
+          "⑤에 파싱 잔여 'ort' 가 있어 마지막 문장을 이탈로 오판할 여지가 있다"
+        ]
       },
-      "required_vocab": ["misguided", "pollute", "scarcely", "instantaneously", "investment"],
+      "required_vocab": [
+        "misguided",
+        "pollute",
+        "scarcely",
+        "instantaneously",
+        "investment"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -511,7 +642,11 @@
             "초안은 ⑤ 문장을 인용으로 삼았는데, 코퍼스 지문의 ⑤에 파싱 잔여('Although ort ______ technology')가 끼어 있어 인용이 지문과 문자열로 어긋났다 — 잔여가 없는 ④ 문장으로 교체했고 대조에 통과한다",
             "교체 후에도 근거의 힘은 유지된다. ④의 This last option 이 ③의 열거를 받는다는 것이 ②를 배제하는 직접 근거이기 때문이다"
           ],
-          "checked": ["answer_locus.quote 를 corpus.json 2015#35 passage 와 문자열 대조(교체 전후 두 번)", "정답 문장을 빼면 ①→③→④→⑤가 한 논증으로 이어지는지 확인", "유형 정의 대조"]
+          "checked": [
+            "answer_locus.quote 를 corpus.json 2015#35 passage 와 문자열 대조(교체 전후 두 번)",
+            "정답 문장을 빼면 ①→③→④→⑤가 한 논증으로 이어지는지 확인",
+            "유형 정의 대조"
+          ]
         },
         {
           "persona": "analyst",
@@ -520,7 +655,12 @@
             "오답 4개 라벨이 조건-귀결 · 연결사 방향 · 지시어 절단 · 총론각론 넷으로 갈린다",
             "⑤의 why_tempting 에 파싱 결함을 함께 적었다 — 학습자가 실제로 보는 화면에도 같은 잔여가 있을 수 있어 오판 요인이 된다"
           ],
-          "checked": ["trap 라벨 중복 여부", "why_tempting 이 선지 텍스트(If · Obviously ... but · This last option · Although)에 근거하는지", "how_to_reject 의 지문 위치 명시 여부", "correct 번호 2 와 평가원 정답표 2 대조"]
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 텍스트(If · Obviously ... but · This last option · Although)에 근거하는지",
+            "how_to_reject 의 지문 위치 명시 여부",
+            "correct 번호 2 와 평가원 정답표 2 대조"
+          ]
         },
         {
           "persona": "tutor",
@@ -529,7 +669,12 @@
             "3단계가 This last option 처럼 '항목을 받는 지시어'를 다루는 구체 지침이라, 지문을 안 본 학생도 열거 문장 찾기라는 눈에 보이는 작업으로 실행할 수 있다",
             "90초 안에 통념·반박 적기 20초 + 표지 25초 + 선행사 추적 30초 + 검산 15초로 배분된다"
           ],
-          "checked": ["지문 없이 절차 실행 시뮬레이션", "금지 표현 문자열 확인", "required_vocab 5개가 지문에 실재하는지 대조", "시간 배분 검산"]
+          "checked": [
+            "지문 없이 절차 실행 시뮬레이션",
+            "금지 표현 문자열 확인",
+            "required_vocab 5개가 지문에 실재하는지 대조",
+            "시간 배분 검산"
+          ]
         }
       ]
     },
@@ -539,7 +684,10 @@
       "measured_ability": "비유가 놓인 글에서 you 가 누구를 가리키는지, roller coaster 가 비유 매체로 쓰였는지 실물로 쓰였는지 문장마다 확인해 대응 관계 밖으로 나간 문장을 찾아내는 능력",
       "design_intent": "첫 문장이 '인생은 롤러코스터를 타는 것과 같다'는 비유를 세우고, ①~③·⑤가 모두 타는 사람인 you 를 주어로 삼아 트랙·아래위·끝남을 인생의 국면에 대응시킨다. 여기에 roller coaster 라는 같은 낱말을 쓰되 you 를 놀이공원 설계자로 바꾼 문장을 하나 넣었다. 낱말 겹침은 최대이고 지시 관계는 끊기지 않으므로, 겹치는 낱말의 역할(비유 매체 대 설계 대상)과 인칭의 지시 대상을 보는 학생만 걸러 내는 설계다.",
       "answer_locus": {
-        "sentence_index": [5, 7],
+        "sentence_index": [
+          5,
+          7
+        ],
         "quote": "When you’re starting out, accept how you feel and try to enjoy the ride.",
         "reasoning": "이 문장의 you 는 롤러코스터를 타는 사람이고 the ride 는 정관사로 첫 문장의 riding a roller coaster 를 받는다. ⑤의 When it’s over 의 it 도 같은 ride 를 받아, 타기 시작할 때(starting out)와 끝났을 때(it’s over)가 한 사람의 한 번의 탑승으로 이어진다. 그 사이에 낀 ④는 you 를 놀이공원을 설계하는 사람으로 바꾸고 roller coaster 를 배치를 고려할 설비로 다룬다 — 곧 ⑤의 it 이 ④를 건너뛰어 ③의 the ride 에 닿는다. ④의 amusement park · location 은 지문 어디에서도 다시 나오지 않는다."
       },
@@ -568,9 +716,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "roller coaster 를 지문에서 유일하게 첫 문장과 똑같이 되풀이하는 문장이라 낱말만 보면 가장 붙어 보인다. 그러나 여기서 roller coaster 는 인생을 빗대는 매체가 아니라 놀이공원에 배치할 설비이고, you 도 타는 사람이 아니라 설계자로 바뀐다.",
-          "how_to_reject": "배제 대상이 아니다 — 검산 두 곳이다. ① 이 문장의 you 가 나머지 네 문장의 you 와 같은 사람인가(설계자 대 타는 사람으로 다르다). ② amusement park · location 을 뒤에서 받는 말이 있는가(⑤의 it 은 the ride 를 받고 설계 이야기는 다시 나오지 않는다)."
+          "why_correct": "roller coaster 를 지문에서 유일하게 첫 문장과 똑같이 되풀이하는 문장이라 낱말만 보면 가장 붙어 보인다. 그러나 여기서 roller coaster 는 인생을 빗대는 매체가 아니라 놀이공원에 배치할 설비이고, you 도 타는 사람이 아니라 설계자로 바뀐다."
         },
         {
           "n": 5,
@@ -605,9 +751,19 @@
       "time_budget_sec": 70,
       "difficulty": {
         "predicted": 0.88,
-        "drivers": ["정답 문장이 인칭과 낱말 역할을 동시에 바꿔 이탈이 눈에 띈다", "지문이 짧고 문장 구조가 단순하다", "다만 roller coaster 반복이 강해 낱말만 보는 학생은 오히려 ①·② 쪽을 의심한다"]
+        "drivers": [
+          "정답 문장이 인칭과 낱말 역할을 동시에 바꿔 이탈이 눈에 띈다",
+          "지문이 짧고 문장 구조가 단순하다",
+          "다만 roller coaster 반복이 강해 낱말만 보는 학생은 오히려 ①·② 쪽을 의심한다"
+        ]
       },
-      "required_vocab": ["bumps", "upside down", "track", "amusement park", "ride"],
+      "required_vocab": [
+        "bumps",
+        "upside down",
+        "track",
+        "amusement park",
+        "ride"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -616,7 +772,11 @@
             "quote 를 코퍼스 지문과 대조했다 — ③ 문장 그대로다(작은따옴표 곡선형)",
             "이 문항은 지시 사슬이 아니라 인칭 지시 대상과 비유 매체의 역할이 설계 축이라 design_intent 를 그 축으로 썼다"
           ],
-          "checked": ["answer_locus.quote 를 corpus.json 2014A#38 passage 와 문자열 대조", "정답 문장을 빼면 ①→②→③→⑤가 한 사람의 한 번의 탑승으로 이어지는지 확인", "유형 정의 대조"]
+          "checked": [
+            "answer_locus.quote 를 corpus.json 2014A#38 passage 와 문자열 대조",
+            "정답 문장을 빼면 ①→②→③→⑤가 한 사람의 한 번의 탑승으로 이어지는지 확인",
+            "유형 정의 대조"
+          ]
         },
         {
           "persona": "analyst",
@@ -626,7 +786,12 @@
             "초안에서 ①과 ②에 모두 '핵심어 부재 착시'를 달았다 — ①은 괄호로 대응이 명시돼 있어 성격이 다르므로 ①을 '어휘 반복 유인'으로 고쳤다",
             "고친 뒤 라벨이 어휘 반복 · 핵심어 부재 · 총론각론 · 마무리 위치 넷으로 갈린다. '핵심어 부재 착시'는 기존 (B) 표에 없는 라벨이라 type_report.open_questions 에 등재를 제안했다"
           ],
-          "checked": ["trap 라벨 중복 여부", "why_tempting 이 선지 텍스트(track 괄호 · bottom/top · 명령문 · really cool)에 근거하는지", "how_to_reject 의 지문 위치 명시 여부", "correct 번호 4 와 평가원 정답표 4 대조"]
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 텍스트(track 괄호 · bottom/top · 명령문 · really cool)에 근거하는지",
+            "how_to_reject 의 지문 위치 명시 여부",
+            "correct 번호 4 와 평가원 정답표 4 대조"
+          ]
         },
         {
           "persona": "tutor",
@@ -635,7 +800,12 @@
             "2단계(주어가 누구인지 한 낱말로 적기)만으로 이 문항이 끝난다 — 70초면 충분하고 실제로는 40초대에 결론이 난다",
             "3단계의 '빗댄 말인가 실물인가' 표시가 이 유형 최대 함정에 직접 대응한다"
           ],
-          "checked": ["지문 없이 절차 실행 시뮬레이션", "금지 표현 문자열 확인", "required_vocab 5개가 지문에 실재하는지 대조(upside down · amusement park 포함)", "70초 배분 검산"]
+          "checked": [
+            "지문 없이 절차 실행 시뮬레이션",
+            "금지 표현 문자열 확인",
+            "required_vocab 5개가 지문에 실재하는지 대조(upside down · amusement park 포함)",
+            "70초 배분 검산"
+          ]
         }
       ]
     }

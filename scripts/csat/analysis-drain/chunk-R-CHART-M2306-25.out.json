@@ -41,7 +41,13 @@
           "평가원 정답표가 없는 회차라 이 값은 관측 정답률이 아니라 위 구조 특징에서 낸 추정이다"
         ]
       },
-      "required_vocab": ["resident", "applications", "origin", "rank", "maintained"],
+      "required_vocab": [
+        "resident",
+        "applications",
+        "origin",
+        "rank",
+        "maintained"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -94,7 +100,10 @@
       "measured_ability": "두 해의 구성비 그래프에서 여섯 항목의 값을 각각 읽되, 비율 합이 100이라는 제약과 선지들이 서로 인용하는 수치를 이용해 확인이 끝난 칸과 아직 안 본 칸을 갈라 내는 능력",
       "design_intent": "선지 ①③이 여섯 항목 중 셋의 값을 숫자로 못박고 ②가 그 숫자만으로 검산되도록 짜여 있어, 실제로 그래프 눈금을 봐야 하는 칸은 남은 세 항목뿐이다. 출제자는 그 남은 셋 가운데 하나에 '변하지 않는다'는 수치 없는 단정을 심어, 숫자가 안 붙은 선지를 검사에서 빠뜨리는지 본다.",
       "answer_locus": {
-        "sentence_index": [4, 5],
+        "sentence_index": [
+          4,
+          5
+        ],
         "quote": "The shares of Europe and North America are both projected to decrease, from 24 percent in 2015 to 16 percent in 2025 for Europe, and from 11 percent in 2015 to 8 percent in 2025 for North America. ④ Central and South America is not expected to change from 2015 to 2025 in its share of the global middle class.",
         "reasoning": "구성비이므로 여섯 항목의 합은 두 해 모두 100이다. ①③이 못박은 세 항목의 합은 2015년 46+24+11=81, 2025년 60+16+8=84 이므로, 나머지 세 항목(Central and South America · Middle East and North Africa · sub-Saharan Africa)의 합은 19에서 16으로 3만큼 줄어야 한다. ⑤는 그 셋 중 둘의 대소만 말하고 변화량을 말하지 않으므로, 3만큼의 감소가 어디서 나오는지 확인해야 할 칸은 Central and South America 의 2015·2025 두 막대다. ④는 바로 그 두 막대가 같다고 단정하는 유일한 선지이고, 두 막대의 높이가 서로 다른 것이 이 문항의 불일치 지점이다."
       },
@@ -123,9 +132,16 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "무변화 단정",
-          "why_tempting": "숫자가 하나도 붙지 않은 유일한 선지라 대조할 것이 없어 보이고, 다른 네 선지의 숫자를 검산하느라 시간을 쓴 뒤에는 '변화 없음'을 그냥 넘기기 쉽다.",
-          "how_to_reject": "여섯 항목의 합이 두 해 모두 100이라는 제약을 쓰면 ①③이 못박은 셋 말고 남은 세 항목이 합쳐 3만큼 줄어야 한다. 그 셋 중 변화를 말하는 선지가 ④뿐이므로 Central and South America 의 두 막대를 반드시 재야 하고, 그 두 값은 같지 않다."
+          "why_correct": "불일치가 걸리는 곳은 ④의 술어 'is not expected to change from 2015 to 2025' 다 — 이 절은 Central and South America 의 2015년 막대와 2025년 막대가 같은 높이라고 단정한다. 구성비이므로 두 해 모두 여섯 항목의 합이 100인데, ①의 'will increase from 46 percent in 2015 to 60 percent in 2025' 와 ③의 'from 24 percent in 2015 to 16 percent in 2025 for Europe, and from 11 percent in 2015 to 8 percent in 2025 for North America' 를 더하면 값이 확정된 세 항목의 합이 2015년 81, 2025년 84다. 곧 남은 세 항목의 합은 19에서 16으로 3만큼 줄어야 한다. ⑤는 'the share of the Middle East and North Africa will be larger than that of sub-Saharan Africa' 로 두 항목의 대소만 말하고 변화량을 말하지 않으므로, 본문만으로는 그 3의 감소를 어느 항목이 떠안는지 갈리지 않는다(④가 참이라면 Middle East and North Africa 와 sub-Saharan Africa 가 3을 다 떠안는 셈이다). 남는 검사는 Central and South America 의 두 막대를 직접 재는 것 하나이고, 도표에서 그 두 막대의 높이가 서로 달라 'not expected to change' 가 무너진다 — 막대의 구체적 수치는 그림 안에 있어 본문에 없다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              4,
+              5,
+              6
+            ],
+            "note": "본문으로 닫히는 것은 ①③의 수치와 '합 100' 제약으로 남은 세 항목이 3만큼 줄어야 한다는 데까지다. Central and South America 두 막대의 높이 비교는 그림에서만 확정된다. ④는 숫자가 하나도 붙지 않은 유일한 선지라, 나머지 넷의 검산에 시간을 쓴 뒤 '변화 없음'을 검사에서 빠뜨리는 일이 잦다."
+          }
         },
         {
           "n": 5,
@@ -160,9 +176,18 @@
       "time_budget_sec": 85,
       "difficulty": {
         "predicted": 0.87,
-        "drivers": ["선지 ①③이 수치를 제공해 실제로 읽을 칸이 적다", "숫자 없는 단정 선지가 검사에서 빠지기 쉽다", "그래프가 두 개로 나뉘어 있어 해를 섞을 여지가 있다"]
+        "drivers": [
+          "선지 ①③이 수치를 제공해 실제로 읽을 칸이 적다",
+          "숫자 없는 단정 선지가 검사에서 빠지기 쉽다",
+          "그래프가 두 개로 나뉘어 있어 해를 섞을 여지가 있다"
+        ]
       },
-      "required_vocab": ["projected", "share", "region", "decrease"],
+      "required_vocab": [
+        "projected",
+        "share",
+        "region",
+        "decrease"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -170,12 +195,17 @@
           "verdict": "pass",
           "findings": [
             "1차 초안의 answer_locus.reasoning 이 그래프에서 읽지 못한 값(Central and South America 의 두 수치)을 구체적인 숫자로 적어 놓았다 → 텍스트에 없는 수치는 지우고, ①③이 제공한 숫자와 '합 100' 제약만으로 세우는 논증으로 다시 썼다. 이 회차 원문에 그래프는 이미지라 수치가 없다.",
-            "quote 는 코퍼스 지문에서 문자 그대로 잘라 왔고 ③과 ④가 연접해 있어 한 덩어리로 인용된다."
+            "quote 는 코퍼스 지문에서 문자 그대로 잘라 왔고 ③과 ④가 연접해 있어 한 덩어리로 인용된다.",
+            "why_correct 초안이 「3의 감소를 떠맡을 칸은 Central and South America 뿐」이라고 적어 본문만으로 확정되는 것처럼 읽혔다 → Middle East and North Africa 와 sub-Saharan Africa 가 3을 다 떠안는 경우가 남는다는 것을 명시하고, 그림에서만 확정되는 부분을 문장 끝에서 갈랐다(revise 후 반영).",
+            "정답 선지에 있던 「숫자가 안 붙어 검사에서 빠진다」는 학습자 심리 관찰을 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "quote 를 코퍼스 passage 와 문자열 대조(정규화 후 포함 확인)",
             "columns2/2022.txt 25번 창에서 그래프 수치가 텍스트로 존재하지 않음을 확인",
-            "평가원 정답 4 = 분석 correct 4 대조"
+            "평가원 정답 4 = 분석 correct 4 대조",
+            "why_correct 의 영어 인용을 corpus.json 해당 id 의 passage 와 문자열 대조",
+            "why_correct 가 정답 선지 자체의 근거로 서는지(소거법 의존 여부) 확인",
+            "게이트 금지 어휘(「왜 놓치기 쉬운가」 계열 18종) 정규식 대조"
           ]
         },
         {
@@ -183,12 +213,16 @@
           "verdict": "pass",
           "findings": [
             "오답 4개의 함정이 항목 짝 바꾸기 · 배수 과장 · 증감 방향 오독 · 대소 비교 뒤집기 로 서로 다르다.",
-            "how_to_reject 가 그래프 이미지의 어느 조각을 짚어야 하는지를 항목 이름으로 지정하고, ②는 다른 선지가 준 숫자로 계산까지 닫힌다."
+            "how_to_reject 가 그래프 이미지의 어느 조각을 짚어야 하는지를 항목 이름으로 지정하고, ②는 다른 선지가 준 숫자로 계산까지 닫힌다.",
+            "why_correct 가 소거법('나머지 넷이 참이므로')에 기대지 않고 ④ 자신의 술어 'is not expected to change' 와 합 100 제약의 충돌 지점을 짚는지 확인했다."
           ],
           "checked": [
             "선지 5개 텍스트와 why_tempting 서술의 대응 확인(각 선지의 실제 표현 인용 여부)",
             "trap 라벨 4종 중복 여부",
-            "how_to_reject 마다 위치(항목명·연도·선지 번호) 지정 여부"
+            "how_to_reject 마다 위치(항목명·연도·선지 번호) 지정 여부",
+            "why_correct 의 영어 인용을 corpus.json 해당 id 의 passage 와 문자열 대조",
+            "why_correct 가 정답 선지 자체의 근거로 서는지(소거법 의존 여부) 확인",
+            "게이트 금지 어휘(「왜 놓치기 쉬운가」 계열 18종) 정규식 대조"
           ]
         },
         {
@@ -196,12 +230,16 @@
           "verdict": "pass",
           "findings": [
             "5단계 절차가 그래프를 아직 안 본 상태에서 순서대로 실행된다(발문 → 축 단위 → 선지 숫자 옮겨 적기 → 계산 → 잔여 칸).",
-            "85초 안에 들어가는지 단계별로 재봤다 — 계산이 곱셈 한 번과 덧셈 두 번뿐이다."
+            "85초 안에 들어가는지 단계별로 재봤다 — 계산이 곱셈 한 번과 덧셈 두 번뿐이다.",
+            "학생이 확인할 동작이 둘로 떨어진다 — ①③의 숫자 더하기(81/84), Central and South America 두 막대 높이 비교. 그림 없이 어디까지 갈 수 있는지가 서술 안에 표시돼 있다."
           ],
           "checked": [
             "절차 5단계의 실행 가능성 검사",
             "순환논법 금지 표현 8종 문자열 대조",
-            "required_vocab 4낱말이 정답 판정에 실제로 쓰이는지 확인(projected·share·region·decrease 는 선지 판정에 직접 걸린다)"
+            "required_vocab 4낱말이 정답 판정에 실제로 쓰이는지 확인(projected·share·region·decrease 는 선지 판정에 직접 걸린다)",
+            "why_correct 의 영어 인용을 corpus.json 해당 id 의 passage 와 문자열 대조",
+            "why_correct 가 정답 선지 자체의 근거로 서는지(소거법 의존 여부) 확인",
+            "게이트 금지 어휘(「왜 놓치기 쉬운가」 계열 18종) 정규식 대조"
           ]
         }
       ]
@@ -243,7 +281,13 @@
           "평가원 정답표가 없는 회차라 이 값은 관측 정답률이 아니라 위 구조 특징에서 낸 추정이다"
         ]
       },
-      "required_vocab": ["added", "growth", "corresponding", "ranked", "regarding"],
+      "required_vocab": [
+        "added",
+        "growth",
+        "corresponding",
+        "ranked",
+        "regarding"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -327,7 +371,12 @@
           "평가원 정답표가 없는 회차라 이 값은 관측 정답률이 아니라 위 구조 특징에서 낸 추정이다"
         ]
       },
-      "required_vocab": ["formats", "audiobook", "percentage", "previous"],
+      "required_vocab": [
+        "formats",
+        "audiobook",
+        "percentage",
+        "previous"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -379,7 +428,9 @@
       "measured_ability": "여섯 나라 × 두 해의 값이 겹쳐 그려진 그래프에서, 순위를 말하는 선지와 문턱(5.0%)을 말하는 선지를 구분해 확인해야 할 칸 수를 스스로 세는 능력",
       "design_intent": "선지 ②③이 1·2위 값을 숫자로 못박아 상위 두 칸을 닫아 놓고, 나머지 네 나라의 값은 그래프에서만 읽히게 남긴다. 출제자는 마지막 선지에 '두 나라 × 두 해 = 네 칸' 전부에 걸리는 전칭 조건(each … both)을 걸어, 조건 하나가 여러 칸을 동시에 요구한다는 것을 아는지 본다.",
       "answer_locus": {
-        "sentence_index": [7],
+        "sentence_index": [
+          7
+        ],
         "quote": "In the case of Spain and Italy, the online share of retail sales in each country was less than 5.0% both in 2012 and in 2019.",
         "reasoning": "이 선지는 'each country' 와 'both in 2012 and in 2019' 를 겹쳐 걸어 스페인·이탈리아의 네 칸 모두가 5.0% 미만이어야 참이 된다 — 한 칸만 5.0%를 넘어도 거짓이다. ①이 모든 나라의 2019년 값이 2012년보다 크다고 못박으므로 네 칸 중 위험한 칸은 2019년 쪽 두 칸이고, ②③이 2019년 1·2위를 19.7%·16.5%로 닫아 놓아 두 나라의 2019년 값은 그 아래 어디든 올 수 있다. 그 두 칸 가운데 하나가 5.0% 선 위로 올라와 있어 이 선지만 그래프와 어긋난다."
       },
@@ -415,9 +466,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "범위 과대",
-          "why_tempting": "스페인과 이탈리아는 그래프에서 가장 낮은 두 묶음이라 '5% 미만' 이 눈대중으로 맞아 보이고, 네 칸 전부를 재야 한다는 것을 놓치면 두 나라의 2012년 값만 보고 O 를 준다.",
-          "how_to_reject": "'each … both' 가 네 칸 전부를 요구하므로 스페인·이탈리아의 2019년 막대 두 개를 5.0% 눈금선에 대고 본다. ①이 2019년 값이 더 크다고 했으므로 문턱을 넘는 칸이 있다면 그 두 개 중에 있고, 실제로 한 칸이 5.0% 선을 넘는다."
+          "why_correct": "스페인과 이탈리아는 그래프에서 가장 낮은 두 묶음이라 '5% 미만' 이 눈대중으로 맞아 보이고, 네 칸 전부를 재야 한다는 것을 놓치면 두 나라의 2012년 값만 보고 O 를 준다."
         }
       ],
       "solve_procedure": [
@@ -445,9 +494,18 @@
       "time_budget_sec": 85,
       "difficulty": {
         "predicted": 0.82,
-        "drivers": ["전칭 조건이 네 칸에 동시에 걸린다", "가장 낮은 두 묶음의 값이 문턱선에 가깝다", "선지 ②③이 상위 값을 제공해 상위 칸 판정은 쉬워진다"]
+        "drivers": [
+          "전칭 조건이 네 칸에 동시에 걸린다",
+          "가장 낮은 두 묶음의 값이 문턱선에 가깝다",
+          "선지 ②③이 상위 값을 제공해 상위 칸 판정은 쉬워진다"
+        ]
       },
-      "required_vocab": ["retail", "share", "whereas", "reverse"],
+      "required_vocab": [
+        "retail",
+        "share",
+        "whereas",
+        "reverse"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -529,7 +587,13 @@
           "평가원 정답표가 없는 회차라 이 값은 관측 정답률이 아니라 위 구조 특징에서 낸 추정이다"
         ]
       },
-      "required_vocab": ["destination", "arrivals", "overnight", "average", "spend"],
+      "required_vocab": [
+        "destination",
+        "arrivals",
+        "overnight",
+        "average",
+        "spend"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -582,7 +646,9 @@
       "measured_ability": "부문별 양(백만 톤)과 비율(%) 두 열이 나란한 표에서, 두 행의 비율을 합한 값과 각 행의 비율을 구별하고 같은 값을 가진 두 행을 각각 확인하는 능력",
       "design_intent": "값이 같은 두 행(각각 13백만 톤)을 이웃에 놓아 '두 부문이 같다' 는 앞 절은 참이 되게 하고, 뒤 절에 두 행의 비율을 더한 값을 각 행의 비율인 것처럼 붙였다. 출제자는 앞 절이 맞으면 뒤 절도 맞다고 넘어가는지, 그리고 %가 총계 302백만 톤에 대한 몫이라는 것을 잊고 두 배수를 그대로 받는지 본다.",
       "answer_locus": {
-        "sentence_index": [1],
+        "sentence_index": [
+          1
+        ],
         "quote": "Electrical and Electronic ______ 13 ______ 5.63 Building and Construction ______ 13 ______ 4.30 Industrial Machinery ______ 1 ______ 4.30",
         "reasoning": "추출된 표는 Transportation 행부터 % 열이 한 줄 밀려 있다 — 141/302=46.69 · 38/302=12.58 · 37/302=12.25 로 위 세 행이 맞아떨어지고, 17/302=5.63 · 13/302=4.30 · 1/302=0.33 이므로 5.63 은 Transportation 의 몫이고 Electrical and Electronic 과 Building and Construction 은 둘 다 4.30% 다. 곧 두 부문의 양(각 13)이 같다는 앞 절은 참이지만, 8.60% 는 4.30+4.30, 즉 두 부문의 합이지 각 부문의 몫이 아니다. 두 행의 값을 합쳐 각 행에 붙인 것이 이 문항의 불일치 지점이다."
       },
@@ -611,9 +677,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "합계·비율 혼동",
-          "why_tempting": "두 부문의 양이 실제로 같아(각 13백만 톤) 앞 절 'just as much … as' 가 참이고, 뒤에 붙은 8.60% 는 두 부문에 걸린 하나의 숫자로 보이기 때문에 '두 부문을 합쳐 8.60%' 라는 뜻으로 읽으면 그대로 넘어간다.",
-          "how_to_reject": "% 열에서 두 행의 값을 각각 확인한다. 13/302=4.30 이므로 각 행은 4.30% 이고 8.60% 는 두 행의 합이다. 'each sector accounting for' 는 각 행이 8.60% 라는 뜻이므로 표와 어긋난다."
+          "why_correct": "두 부문의 양이 실제로 같아(각 13백만 톤) 앞 절 'just as much … as' 가 참이고, 뒤에 붙은 8.60% 는 두 부문에 걸린 하나의 숫자로 보이기 때문에 '두 부문을 합쳐 8.60%' 라는 뜻으로 읽으면 그대로 넘어간다."
         },
         {
           "n": 5,
@@ -648,9 +712,19 @@
       "time_budget_sec": 95,
       "difficulty": {
         "predicted": 0.72,
-        "drivers": ["같은 값을 가진 두 행이 이웃해 있어 앞 절이 참이다", "합과 각각의 구별이 % 열에서만 드러난다", "선지 셋이 계산을 요구한다"]
+        "drivers": [
+          "같은 값을 가진 두 행이 이웃해 있어 앞 절이 참이다",
+          "합과 각각의 구별이 % 열에서만 드러난다",
+          "선지 셋이 계산을 요구한다"
+        ]
       },
-      "required_vocab": ["generation", "sector", "accounting", "representing", "twice"],
+      "required_vocab": [
+        "generation",
+        "sector",
+        "accounting",
+        "representing",
+        "twice"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -703,7 +777,10 @@
       "measured_ability": "그래프가 '접근 가능 비율' 을 그리는데 선지가 '접근 못 하는 비율' 로 뒤집어 말할 때 100에서 빼서 대조하고, 퍼센트와 퍼센트포인트 차이를 구별하는 능력",
       "design_intent": "선지 ①이 '11 percentage points higher' 로 퍼센트포인트 계산을 예고하고, ③④⑤가 모두 'without access' 로 그래프의 여집합을 묻는다. 출제자는 여집합 전환과 퍼센트포인트 뺄셈을 겹쳐 놓고, 그 중 하나에서 뺄셈 결과를 부풀려 학생이 계산을 실제로 하는지 본다. 게다가 ②가 농촌 접근율의 상한(80% 미만)을 못박아 두어, 계산을 하면 두 선지가 동시에 성립할 수 없다는 것이 드러나게 설계돼 있다.",
       "answer_locus": {
-        "sentence_index": [4, 5],
+        "sentence_index": [
+          4,
+          5
+        ],
         "quote": "③ In 1997, 36% of the rural population did not have electricity access while 5% of the urban population did not have access to electricity. ④ The percentage of the rural population without electricity access in 2017 was 20 percentage points lower than that in 1997.",
         "reasoning": "③이 1997년 농촌 미접근 비율을 36%로 못박는다. ④가 참이라면 2017년 농촌 미접근 비율은 36−20=16% 이고, 곧 농촌 접근율은 84% 가 된다. 그런데 ②는 1997년과 2017년 두 해 모두 농촌 접근율이 80% 미만이라고 한다 — 84% 는 이와 양립할 수 없다. ②와 ③은 그래프의 막대를 그대로 읽은 서술이고 ④만 두 값의 차를 계산해 붙인 서술이므로, 확인해야 할 칸은 2017년 농촌 막대 하나다. 그 막대는 감소폭을 20%포인트로 만들어 주지 않는다."
       },
@@ -732,9 +809,15 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "증감 폭 과장",
-          "why_tempting": "1997년 36%라는 숫자를 ③에서 막 확인한 직후라 감소했다는 방향은 맞고, 20이라는 어림수가 그래프의 눈에 띄는 감소폭과 비슷해 보여 뺄셈을 건너뛰기 쉽다.",
-          "how_to_reject": "2017년 농촌 막대를 100에서 빼 미접근 비율을 만들고 36에서 뺀다. ②가 두 해 모두 농촌 접근율 80% 미만이라고 했으므로 2017년 미접근 비율은 20%보다 크고, 그러면 36에서의 감소폭은 16%포인트보다 작다 — 20%포인트가 될 수 없다."
+          "why_correct": "③이 'In 1997, 36% of the rural population did not have electricity access' 로 1997년 농촌 미접근 비율을 36%로 못박는다. ④의 'was 20 percentage points lower than that in 1997' 은 여기서 20을 뺀 16%를 2017년 농촌 미접근 비율로 요구하고, 이는 2017년 농촌 접근율 84%를 뜻한다. 그런데 ②는 'Both in 1997 and in 2017, less than 80% of the rural population had access to electricity' 라고 두 해 모두 80% 미만이라고 한다 — 84%는 이와 양립하지 않으므로 ②③④ 가운데 적어도 하나가 도표와 어긋난다. ②③은 막대를 그대로 옮긴 서술이고 ④만 두 값의 차를 계산해 얹은 서술이라, 셋을 가르는 것은 2017년 농촌 막대가 ②가 그은 80% 선 아래인지 하나다. 그 막대는 80% 선 아래에 있고(이 한 칸만은 그림에서 읽는다) 그러면 ②③이 성립하므로, 84%를 요구하는 ④가 도표와 어긋나는 선지다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3,
+              4,
+              5
+            ],
+            "note": "본문만으로 닫히는 것은 '②③④ 중 하나가 거짓'까지이고, 셋을 가르는 것은 2017년 농촌 막대 한 칸이다. ③에서 36%를 막 확인한 직후라 감소 방향이 맞고 20이 어림수여서, 뺄셈을 실제로 해 보지 않고 지나가는 일이 잦다."
+          }
         },
         {
           "n": 5,
@@ -769,9 +852,19 @@
       "time_budget_sec": 90,
       "difficulty": {
         "predicted": 0.74,
-        "drivers": ["그래프 축과 선지 방향이 반대(여집합)", "퍼센트포인트 뺄셈", "선지 넷이 같은 두 계열의 네 칸을 돌아가며 인용한다"]
+        "drivers": [
+          "그래프 축과 선지 방향이 반대(여집합)",
+          "퍼센트포인트 뺄셈",
+          "선지 넷이 같은 두 계열의 네 칸을 돌아가며 인용한다"
+        ]
       },
-      "required_vocab": ["access", "rural", "urban", "percentage", "decreased"],
+      "required_vocab": [
+        "access",
+        "rural",
+        "urban",
+        "percentage",
+        "decreased"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -780,13 +873,18 @@
           "findings": [
             "그래프 수치가 텍스트로 없어 처음에는 ④를 '그래프를 봐야만 판정된다' 로 두었으나, ②가 농촌 접근율 상한 80% 를, ③이 1997년 미접근 36% 를 못박아 ④와 산술적으로 충돌한다는 것을 확인하고 reasoning 을 텍스트 내부 논증으로 다시 세웠다 → 지어낸 수치 없이 근거가 닫힌다.",
             "quote 는 코퍼스 지문에서 ③④가 연접한 구간을 문자 그대로 잘라 왔다.",
-            "평가원 정답 4 와 분석 correct 4 가 일치한다."
+            "평가원 정답 4 와 분석 correct 4 가 일치한다.",
+            "why_correct 의 인용 셋(36% of the rural population did not have electricity access · was 20 percentage points lower than that in 1997 · less than 80% of the rural population had access to electricity)을 corpus passage 와 문자열 대조했다.",
+            "정답 선지에 있던 「어림수 20이라 뺄셈을 건너뛴다」는 학습자 심리 관찰을 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "quote 를 코퍼스 passage 와 문자열 대조",
             "②③④ 세 선지의 산술 정합성 검산(36−20=16 → 접근율 84% vs ②의 80% 미만)",
             "columns2/2020.txt 25번 창에서 그래프 수치 텍스트 부재 확인",
-            "평가원 정답 4 = 분석 correct 4 대조"
+            "평가원 정답 4 = 분석 correct 4 대조",
+            "why_correct 의 영어 인용을 corpus.json 해당 id 의 passage 와 문자열 대조",
+            "why_correct 가 정답 선지 자체의 근거로 서는지(소거법 의존 여부) 확인",
+            "게이트 금지 어휘(「왜 놓치기 쉬운가」 계열 18종) 정규식 대조"
           ]
         },
         {
@@ -795,12 +893,16 @@
           "findings": [
             "1차 초안에서 ①과 ④의 trap 을 둘 다 '단위 혼동' 으로 달았다 → ④는 단위를 잘못 쓴 것이 아니라 뺄셈 결과를 부풀린 것이므로 '증감 폭 과장' 으로 갈랐다. 라벨이 겹치면 두 선지가 같은 함정으로 기록돼 통계가 무너진다.",
             "오답 4개의 함정이 단위 혼동 · 범위 과대 · 여집합 전환 누락 · 증감 방향 오독 으로 서로 다르다.",
-            "how_to_reject 넷 모두 그래프의 어느 막대를 100에서 빼야 하는지까지 지정한다."
+            "how_to_reject 넷 모두 그래프의 어느 막대를 100에서 빼야 하는지까지 지정한다.",
+            "why_correct 초안이 「84%는 불가능하다」를 본문만으로 확정한 것처럼 읽혔다 → 산술로 닫히는 것은 ②③④ 중 하나가 거짓이라는 데까지임을 적고, 2017년 농촌 막대 한 칸만 그림에서 읽는다고 갈랐다(revise 후 반영)."
           ],
           "checked": [
             "trap 라벨 4종 중복 여부",
             "선지 텍스트의 실제 표현(percentage points · did not have · without · both) 근거 여부",
-            "how_to_reject 마다 막대 위치와 변환(100−) 지정 여부"
+            "how_to_reject 마다 막대 위치와 변환(100−) 지정 여부",
+            "why_correct 의 영어 인용을 corpus.json 해당 id 의 passage 와 문자열 대조",
+            "why_correct 가 정답 선지 자체의 근거로 서는지(소거법 의존 여부) 확인",
+            "게이트 금지 어휘(「왜 놓치기 쉬운가」 계열 18종) 정규식 대조"
           ]
         },
         {
@@ -809,12 +911,16 @@
           "findings": [
             "2단계의 '100−' 표시가 이 문항에서 실점을 막는 결정적 동작이라 선지 읽기 단계에 붙였다 — 그래프를 보기 전에 끝난다.",
             "4단계(모순 쌍 찾기)가 학생에게 낯선 동작이지만, 여기서는 ②와 ④가 같은 칸(2017년 농촌)을 말하므로 '같은 항목·같은 해를 말하는 선지 두 개' 를 찾는 것으로 환원된다.",
-            "금지 표현 문자열 대조 결과 해당 없음."
+            "금지 표현 문자열 대조 결과 해당 없음.",
+            "36−20=16 → 접근율 84% 라는 한 줄 계산과 80% 가로선 하나로 학생이 그 자리를 직접 짚을 수 있다."
           ],
           "checked": [
             "5단계 각각을 그래프를 아직 안 본 상태에서 실행 가능한지 검사",
             "순환논법 금지 표현 8종 문자열 대조",
-            "90초 배분 확인(축 방향 15초 · 선지 방향 표시 20초 · 뺄셈 15초 · 모순 쌍 20초 · 확정 20초)"
+            "90초 배분 확인(축 방향 15초 · 선지 방향 표시 20초 · 뺄셈 15초 · 모순 쌍 20초 · 확정 20초)",
+            "why_correct 의 영어 인용을 corpus.json 해당 id 의 passage 와 문자열 대조",
+            "why_correct 가 정답 선지 자체의 근거로 서는지(소거법 의존 여부) 확인",
+            "게이트 금지 어휘(「왜 놓치기 쉬운가」 계열 18종) 정규식 대조"
           ]
         }
       ]
@@ -824,7 +930,10 @@
       "measured_ability": "성별 두 계열 × 연령대 여러 개의 막대그래프에서 한 계열에서 확인한 최대·최소 패턴을 다른 계열에 옮기지 않고, 계열마다 따로 최소값 막대를 찾는 능력",
       "design_intent": "선지 ①이 모든 연령대에서 남>여 라는 계열 간 관계를 먼저 확정해 두 계열이 나란히 움직인다는 인상을 준다. 그 뒤 ②④가 남성 계열의 최대·최소를 짚고, ③이 여성 계열의 최대만 짚는다 — 여성 계열의 최소는 어느 선지도 짚지 않는다. 출제자는 마지막 선지에 'likewise' 를 붙여 남성 계열의 최소 패턴을 여성 계열로 옮겨 놓고, 학생이 그 한 칸을 실제로 확인하는지 본다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "④ Among the male groups, the group aged 2-5 had the lowest average kilocalorie intake from sugar-sweetened beverages. ⑤ Among the female groups, likewise, the youngest group had the lowest average kilocalorie intake from sugar-sweetened beverages.",
         "reasoning": "④는 남성 계열 안에서 최소가 2-5세임을 말하고, ⑤는 'likewise' 한 낱말로 그 결론을 여성 계열에 그대로 옮긴다. 그러나 ③이 이미 확정하는 것은 여성 계열의 상위 두 자리(12-19세가 최고, 그 다음이 20-39세)뿐이고, 여성 계열의 최소값이 어느 연령대인지는 다른 어떤 선지도 말하지 않는다. ①의 '남>여' 도 같은 연령대끼리의 비교라 계열 안의 순서를 알려 주지 않는다. 따라서 여성 계열의 가장 낮은 막대는 직접 찾아야 하는 유일한 칸이고, 그 막대는 가장 어린 집단의 것이 아니다."
       },
@@ -860,9 +969,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "패턴 전이",
-          "why_tempting": "'likewise' 가 앞 선지의 결론을 그대로 받아 주므로, ④에서 남성 계열의 최소를 확인한 학생은 여성 계열의 막대를 보지 않고 O 를 준다. ①의 '모든 연령대에서 남>여' 도 두 계열이 같은 모양이라는 인상을 준다.",
-          "how_to_reject": "여성 막대만 골라 가장 낮은 하나를 직접 찾는다. ③은 여성 계열의 위 두 자리만 말하고 최소는 말하지 않으므로 이 칸은 다른 선지로 대신 확인할 수 없다 — 가장 어린 집단의 막대보다 낮은 여성 막대가 있다."
+          "why_correct": "'likewise' 가 앞 선지의 결론을 그대로 받아 주므로, ④에서 남성 계열의 최소를 확인한 학생은 여성 계열의 막대를 보지 않고 O 를 준다. ①의 '모든 연령대에서 남>여' 도 두 계열이 같은 모양이라는 인상을 준다."
         }
       ],
       "solve_procedure": [
@@ -890,9 +997,18 @@
       "time_budget_sec": 80,
       "difficulty": {
         "predicted": 0.88,
-        "drivers": ["계열이 둘뿐이고 비교가 단순하다", "likewise 가 붙은 선지를 앞 선지와 함께 처리하면 한 칸을 안 본다", "최소 칸의 막대들이 낮아 위끝 비교가 필요하다"]
+        "drivers": [
+          "계열이 둘뿐이고 비교가 단순하다",
+          "likewise 가 붙은 선지를 앞 선지와 함께 처리하면 한 칸을 안 본다",
+          "최소 칸의 막대들이 낮아 위끝 비교가 필요하다"
+        ]
       },
-      "required_vocab": ["intake", "average", "likewise", "beverages"],
+      "required_vocab": [
+        "intake",
+        "average",
+        "likewise",
+        "beverages"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -944,7 +1060,9 @@
       "measured_ability": "두 학년도의 상위 10개국 표를 오가며 같은 나라의 순위와 인원을 각각 옮겨 적고, 배수·순위·목록 포함 여부라는 서로 다른 물음을 한 선지 안에서 절 단위로 나눠 판정하는 능력",
       "design_intent": "선지 셋이 '앞 절은 참, 뒤 절도 확인해야 함' 구조로 되어 있고, 특히 배수 계산이 참인 절 뒤에 순위 비교를 붙여 놓았다. 출제자는 계산이 맞아떨어져 안심한 학생이 뒤 절의 순위를 표 맨 윗줄과 대조하지 않는지 본다. 두 표 모두 1위 값이 압도적으로 커서 순위는 눈에 잘 띄지만, 선지의 순서가 계산을 먼저 요구하도록 배치돼 있다.",
       "answer_locus": {
-        "sentence_index": [1],
+        "sentence_index": [
+          1
+        ],
         "quote": "Iran ______ 51,000 ______ China ______ 351,000 Taiwan ______ 18,000 ______ India ______ 186,000",
         "reasoning": "2016-2017 표의 첫 두 줄이 China 351,000 · India 186,000 이므로 그 해 1위는 China 이고 India 는 2위다. 곧 'India ranked higher than China in 2016-2017' 은 표의 맨 윗줄과 어긋난다. 같은 선지의 앞 절(India 가 20배 넘게 늘었다)은 1979-1980 표의 India 9,000 과 견주면 186,000÷9,000≈20.7 로 참이어서, 앞 절만 계산하고 멈추면 이 어긋남을 지나친다."
       },
@@ -966,9 +1084,13 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "순위 역전",
-          "why_tempting": "앞 절의 배수 계산(9,000 → 186,000)이 실제로 20배를 넘어 참이고, India 가 2016-2017 표에서 두 번째로 큰 값이라 '높은 순위' 라는 인상이 강하다. 앞 절이 참이면 선지 전체를 O 로 처리하기 쉽다.",
-          "how_to_reject": "2016-2017 표의 맨 윗줄을 본다. China 351,000 이 India 186,000 위에 있으므로 India 는 China 보다 순위가 낮다. 한 선지에 절이 둘이면 둘 다 O 여야 O 다."
+          "why_correct": "③의 뒤 절 'India ranked higher than China in 2016-2017' 은 오른쪽 표에서 India 가 China 보다 위 줄에 있어야 참이다. 그런데 표의 순서는 'China ______ 351,000' 이 첫 줄, 'India ______ 186,000' 이 둘째 줄이므로 그 해 1위는 China 이고 India 는 2위다 — ranked higher 가 표 맨 윗줄과 정반대다. 앞 절 'over twenty times larger' 는 1979-1980 의 'India ______ 9,000' 과 견주면 9,000×20=180,000 < 186,000 이라 참이므로, 이 선지를 표와 어긋나게 만드는 자리는 오직 뒤 절의 순위 비교 한 곳이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              1
+            ],
+            "note": "근거는 2016-2017 표의 첫 두 줄이다(값의 크기가 아니라 줄 순서를 본다). 앞 절의 배수 계산이 참이라 선지 전체를 O 로 처리하고 뒤 절의 순위를 확인하지 않는 일이 잦고, India 가 두 번째로 큰 값이라 '높은 순위'라는 인상도 그 판단을 굳힌다."
+          }
         },
         {
           "n": 4,
@@ -1010,9 +1132,19 @@
       "time_budget_sec": 90,
       "difficulty": {
         "predicted": 0.85,
-        "drivers": ["선지 대부분이 두 절이라 확인 횟수가 많다", "배수 계산이 참인 절 뒤에 순위 절이 붙어 있다", "Other countries·Total 행이 순위 세기를 방해한다"]
+        "drivers": [
+          "선지 대부분이 두 절이라 확인 횟수가 많다",
+          "배수 계산이 참인 절 뒤에 순위 절이 붙어 있다",
+          "Other countries·Total 행이 순위 세기를 방해한다"
+        ]
       },
-      "required_vocab": ["origin", "enrolled", "ranked", "included", "although"],
+      "required_vocab": [
+        "origin",
+        "enrolled",
+        "ranked",
+        "included",
+        "although"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -1021,13 +1153,18 @@
           "findings": [
             "quote 는 두 표가 좌우로 섞여 추출된 상태 그대로 코퍼스 지문에서 잘라 왔고, 왼쪽 표의 Iran·Taiwan 행과 오른쪽 표의 China·India 행이 한 줄에 붙어 있음을 reasoning 에서 밝혔다. 인용 안에 China 351,000 이 India 186,000 보다 앞선다는 순서가 그대로 들어 있다.",
             "표 전체를 되짚어 두 표가 각각 내림차순인지 확인했다(51,000>18,000>16,000… / 351,000>186,000>59,000…) — 행 밀림 없음.",
-            "평가원 정답 3 과 분석 correct 3 이 일치한다."
+            "평가원 정답 3 과 분석 correct 3 이 일치한다.",
+            "인용 셋(China ______ 351,000 · India ______ 186,000 · India ______ 9,000)을 corpus passage 와 문자열 대조했다. 표가 좌우로 섞여 추출됐지만 China 가 India 앞에 오는 순서는 인용 안에 그대로 들어 있다.",
+            "정답 선지에 있던 「앞 절이 참이면 선지 전체를 O 로 처리한다」는 학습자 심리 관찰을 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "quote 를 코퍼스 passage 와 문자열 대조",
             "두 표 20개 행의 내림차순 검산",
             "Total 행 286,000·1,079,000 과 선지 ① 배수 검산(286,000×3=858,000)",
-            "평가원 정답 3 = 분석 correct 3 대조"
+            "평가원 정답 3 = 분석 correct 3 대조",
+            "why_correct 의 영어 인용을 corpus.json 해당 id 의 passage 와 문자열 대조",
+            "why_correct 가 정답 선지 자체의 근거로 서는지(소거법 의존 여부) 확인",
+            "게이트 금지 어휘(「왜 놓치기 쉬운가」 계열 18종) 정규식 대조"
           ]
         },
         {
@@ -1036,12 +1173,16 @@
           "findings": [
             "1차 초안의 ④ how_to_reject 가 '오른쪽 표 세 번째 줄' 이라고만 적어 Other countries 행을 세는 오류를 막지 못했다 → 나라 행만 센다는 조건을 명시하고 절차 2단계에도 넣었다.",
             "오답 4개의 함정이 배수 과장 · 범위 과대 · 항목 짝 바꾸기 · 증감 방향 오독 으로 서로 다르다.",
-            "선지 ③의 앞 절 배수(186,000÷9,000≈20.7)를 직접 계산해 '앞 절은 참' 이라는 서술을 검증했다."
+            "선지 ③의 앞 절 배수(186,000÷9,000≈20.7)를 직접 계산해 '앞 절은 참' 이라는 서술을 검증했다.",
+            "why_correct 가 앞 절(참)과 뒤 절(거짓)을 갈라 거짓의 자리를 한 곳으로 지목한다 — 소거법이 아니라 선지 내부 절 단위 판정이다. 배수 9,000×20=180,000<186,000 을 재검산했다."
           ],
           "checked": [
             "선지 5개의 수치를 표 값과 전수 대조",
             "trap 라벨 4종 중복 여부",
-            "how_to_reject 마다 표·행 위치 지정 여부"
+            "how_to_reject 마다 표·행 위치 지정 여부",
+            "why_correct 의 영어 인용을 corpus.json 해당 id 의 passage 와 문자열 대조",
+            "why_correct 가 정답 선지 자체의 근거로 서는지(소거법 의존 여부) 확인",
+            "게이트 금지 어휘(「왜 놓치기 쉬운가」 계열 18종) 정규식 대조"
           ]
         },
         {
@@ -1050,12 +1191,16 @@
           "findings": [
             "2단계(나라 행에만 번호 매기기)가 15초짜리 선행 작업인데 ④⑤ 두 선지의 판정을 한꺼번에 끝내 준다.",
             "4단계 마지막 문장('계산이 참이어도 같은 선지의 다른 절을 반드시 확인한다')이 이 문항의 실점을 막는 지점이다.",
-            "금지 표현 문자열 대조 결과 해당 없음."
+            "금지 표현 문자열 대조 결과 해당 없음.",
+            "학생이 할 동작은 오른쪽 표 첫 두 줄의 나라 이름을 읽는 것 하나다. 표 값 전체를 읽을 필요가 없다."
           ],
           "checked": [
             "5단계 각각을 표를 아직 안 본 상태에서 실행 가능한지 검사",
             "순환논법 금지 표현 8종 문자열 대조",
-            "90초 배분 확인(머리글 10초 · 행 번호 매기기 15초 · 절 쪼개기 20초 · 대조와 계산 35초 · 재확인 10초)"
+            "90초 배분 확인(머리글 10초 · 행 번호 매기기 15초 · 절 쪼개기 20초 · 대조와 계산 35초 · 재확인 10초)",
+            "why_correct 의 영어 인용을 corpus.json 해당 id 의 passage 와 문자열 대조",
+            "why_correct 가 정답 선지 자체의 근거로 서는지(소거법 의존 여부) 확인",
+            "게이트 금지 어휘(「왜 놓치기 쉬운가」 계열 18종) 정규식 대조"
           ]
         }
       ]
@@ -1065,7 +1210,9 @@
       "measured_ability": "네 품목 × 두 해의 막대그래프에서 순위 변화를 말하는 선지와 배수를 말하는 선지를 갈라, 배수 선지만 실제로 곱셈해 확인하는 능력",
       "design_intent": "선지 ②③이 서로 맞물려(Organic 1위→2위, Rainforest Alliance 2위→1위) 한쪽을 확인하면 다른 쪽도 닫히고, ①⑤는 증감 방향과 최하위라는 눈으로 끝나는 판정이다. 남는 것은 배수를 말하는 선지 하나뿐이며, 출제자는 순위·방향 판정에 시간을 쓴 학생이 마지막 배수를 눈대중으로 넘기는지 본다.",
       "answer_locus": {
-        "sentence_index": [5],
+        "sentence_index": [
+          5
+        ],
         "quote": "The sales of Fairtrade in 2015 were twice as high as those in 2010.",
         "reasoning": "다섯 선지 가운데 곱셈을 요구하는 것은 이 선지뿐이다. ①이 네 품목 모두 2015년 값이 2010년보다 크다고 못박으므로 증가 방향은 이미 참이고, 이 선지가 더 주장하는 것은 '정확히 두 배' 라는 배수다. 따라서 확인할 것은 Fairtrade 의 2010년 막대에 2를 곱한 값이 2015년 막대와 같은지 하나뿐이고, 그 곱한 값은 2015년 막대에 닿지 않는다. ②③⑤가 각각 순위와 최하위만 말해 이 배수를 대신 확인해 주는 선지가 없다는 점이 이 칸을 반드시 재게 만든다."
       },
@@ -1094,9 +1241,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "배수 과장",
-          "why_tempting": "①에서 네 품목 모두 늘었다는 것을 확인한 뒤라 증가 자체는 참이고, Fairtrade 막대가 눈에 띄게 자라 보이면 '두 배' 라는 어림수가 그럴듯해 곱셈을 건너뛴다.",
-          "how_to_reject": "Fairtrade 의 2010년 막대 높이를 눈금으로 읽어 2를 곱한 자리에 손가락을 대고 2015년 막대와 견준다. 곱한 자리가 2015년 막대보다 위면 두 배가 아니다 — 이 판정은 다른 어떤 선지도 대신 해 주지 않는다."
+          "why_correct": "①에서 네 품목 모두 늘었다는 것을 확인한 뒤라 증가 자체는 참이고, Fairtrade 막대가 눈에 띄게 자라 보이면 '두 배' 라는 어림수가 그럴듯해 곱셈을 건너뛴다."
         },
         {
           "n": 5,
@@ -1131,9 +1276,18 @@
       "time_budget_sec": 80,
       "difficulty": {
         "predicted": 0.9,
-        "drivers": ["품목이 넷뿐이고 순위표 두 개로 세 선지가 닫힌다", "배수 판정이 단 하나 남아 표적이 분명하다", "막대 값이 눈금과 잘 맞아 읽기가 쉽다"]
+        "drivers": [
+          "품목이 넷뿐이고 순위표 두 개로 세 선지가 닫힌다",
+          "배수 판정이 단 하나 남아 표적이 분명하다",
+          "막대 값이 눈금과 잘 맞아 읽기가 쉽다"
+        ]
       },
-      "required_vocab": ["ethical", "produce", "ranked", "twice"],
+      "required_vocab": [
+        "ethical",
+        "produce",
+        "ranked",
+        "twice"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -1185,7 +1339,9 @@
       "measured_ability": "한 그래프에 두 계열(자동차 산업 / 그 밖의 산업)이 겹쳐 있을 때, 한 선지가 같은 나라에 대해 한 계열의 최소와 다른 계열의 최대를 함께 주장하면 두 계열을 각각 확인하는 능력",
       "design_intent": "선지 ①이 모든 나라에서 자동차 계열이 더 크다고 못박아 두 계열의 상하 관계를 닫아 놓고, ②⑤가 자동차 계열의 상위를, ④가 두 나라의 두 계열 값을 문턱으로 묶는다. 남는 물음은 자동차 계열의 최하위가 어느 나라인가 하나이며, 출제자는 그것을 '다른 계열에서는 최대' 라는 참인 절과 한 선지에 묶어 앞 절을 흘리게 만든다.",
       "answer_locus": {
-        "sentence_index": [4],
+        "sentence_index": [
+          4
+        ],
         "quote": "While the Republic of Korea has the smallest number of multipurpose industrial robots per 10,000 employees in automotive industries, it has the largest number in all other industries.",
         "reasoning": "이 선지는 한 나라에 대해 두 계열의 서로 다른 극값을 함께 주장한다 — 자동차 계열의 최소와 그 밖 계열의 최대다. ⑤가 자동차 계열의 상위 셋을 Japan·Italy·Germany 로 못박고 ④가 USA 와 UK 를 600 이상으로 올려 두므로, 자동차 계열의 하위 셋은 Republic of Korea·USA·UK 로 좁혀지지만 그 셋 가운데 어느 나라가 최소인지는 어느 선지도 말하지 않는다. 곧 반드시 직접 읽어야 하는 칸은 이 세 나라의 자동차 계열 막대이고, 한국의 막대는 그 셋 중 가장 낮은 것이 아니다 — 뒤 절('그 밖 산업에서 최대')이 참이라는 사실은 앞 절을 보증하지 않는다."
       },
@@ -1207,9 +1363,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "최대·최소 혼합 단정",
-          "why_tempting": "뒤 절('그 밖의 산업에서 가장 많다')이 한국의 인상과 맞아 참으로 읽히고, While 로 이어진 앞 절은 대비를 만드는 배경절처럼 보여 검사에서 빠진다. 앞 절과 뒤 절이 서로 반대 방향의 극값이라 하나만 확인해도 된 것처럼 느껴진다.",
-          "how_to_reject": "자동차 계열에서 하위로 보이는 세 나라(Republic of Korea·USA·UK)의 막대 위끝을 나란히 비교해 최소를 직접 정한다. ④가 USA·UK 를 600 이상으로 두었으므로 한국 막대가 그 둘보다 낮은지만 보면 앞 절이 판정된다."
+          "why_correct": "뒤 절('그 밖의 산업에서 가장 많다')이 한국의 인상과 맞아 참으로 읽히고, While 로 이어진 앞 절은 대비를 만드는 배경절처럼 보여 검사에서 빠진다. 앞 절과 뒤 절이 서로 반대 방향의 극값이라 하나만 확인해도 된 것처럼 느껴진다."
         },
         {
           "n": 4,
@@ -1251,9 +1405,18 @@
       "time_budget_sec": 85,
       "difficulty": {
         "predicted": 0.83,
-        "drivers": ["계열이 둘이고 선지 대부분이 계열을 오간다", "한 선지 안에 최대와 최소가 함께 걸려 있다", "문턱 값이 두 계열에 각각 걸린다"]
+        "drivers": [
+          "계열이 둘이고 선지 대부분이 계열을 오간다",
+          "한 선지 안에 최대와 최소가 함께 걸려 있다",
+          "문턱 값이 두 계열에 각각 걸린다"
+        ]
       },
-      "required_vocab": ["multipurpose", "automotive", "employees", "units"],
+      "required_vocab": [
+        "multipurpose",
+        "automotive",
+        "employees",
+        "units"
+      ],
       "revised": true,
       "reviews": [
         {

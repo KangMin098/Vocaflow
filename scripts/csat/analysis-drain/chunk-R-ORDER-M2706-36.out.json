@@ -47,9 +47,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "(C)의 예고문 → (B)의 이웃 협력 → (A)의 총괄 순으로 읽힌다.",
-          "how_to_reject": "정답. (C) 끝의 Nor are individual plants entirely on their own while under attack. 이 (B)를, (A)의 The back-and-forth 와 maintain the stalemate 가 마지막 자리를 확정한다."
+          "why_correct": "(C)의 예고문 → (B)의 이웃 협력 → (A)의 총괄 순으로 읽힌다."
         }
       ],
       "solve_procedure": [
@@ -172,9 +170,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "(C)의 In saying that → (A)의 By extension → (B)의 must also 순으로 표지가 한 줄로 이어진다.",
-          "how_to_reject": "정답. 세 표지의 지시 대상이 각각 주어진 글, (C)의 비유, (A)의 미해결 조건으로 채워진다."
+          "why_correct": "(C)의 In saying that → (A)의 By extension → (B)의 must also 순으로 표지가 한 줄로 이어진다."
         },
         {
           "n": 5,
@@ -304,9 +300,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "(C)의 정의·기본 예시 → (A)의 예외처럼 보이는 양초 → (B)의 같은 유형 추가 사례로 이어진다.",
-          "how_to_reject": "정답. (B)의 another ... also appears to be like this 가 (A)의 양초를 선행 사례로 삼는다."
+          "why_correct": "(C)의 정의·기본 예시 → (A)의 예외처럼 보이는 양초 → (B)의 같은 유형 추가 사례로 이어진다."
         },
         {
           "n": 5,
@@ -442,9 +436,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "(C)의 규정 → (B)의 요구 → (A)의 귀결로 이어진다.",
-          "how_to_reject": "정답. (B) 끝의 close collaboration between philosophy and neuroscience is required 와 (A) 첫 문장의 This means that 이 요구-귀결 쌍을 이룬다."
+          "why_correct": "이음매 셋이 모두 표지로 잡힌다. ① 주어진 글의 끝 'the relationships between different areas of knowledge' 를 (C)의 첫 문장 'Philosophy is particularly important for the interdisciplinary efforts of cognitive science, where it helps to bridge gaps between different disciplines' 가 different disciplines 로 좁혀 받는다. ② (C)의 끝 'philosophizing is a non-empirical approach that attempts to validate concepts through logical thinking and argumentation' 이 (B)의 첫 문장 'Philosophers tend to ask questions rather than provide definitive answers' 의 전제다 — 비경험적 방법이 먼저 규정돼야 '확답 대신 질문' 이 그 귀결로 읽힌다. ③ (B)의 끝 'close collaboration between philosophy and neuroscience is required' 를 (A)의 첫 낱말 This 가 받고, 같은 문장의 'to reach a more comprehensive understanding' 이 (B)의 'for a more comprehensive understanding of the nature of consciousness' 를 그대로 되풀이한다. 따라서 (C)-(B)-(A)."
         }
       ],
       "solve_procedure": [
@@ -487,12 +479,15 @@
           "verdict": "pass",
           "findings": [
             "quote 를 corpus passage 에서 문자열로 확인했다",
-            "귀결문과 요구문의 쌍이라는 근거가 순서 유형 설계와 맞고, 유형 일반론에 기대지 않았다"
+            "귀결문과 요구문의 쌍이라는 근거가 순서 유형 설계와 맞고, 유형 일반론에 기대지 않았다",
+            "영어 조각 5개(the relationships between different areas of knowledge / Philosophy is particularly important for the interdisciplinary efforts of cognitive science, where it helps to bridge gaps between different disciplines / philosophizing is a non-empirical approach that attempts to validate concepts through logical thinking and argumentation / Philosophers tend to ask questions rather than provide definitive answers / close collaboration between philosophy and neuroscience is required / for a more comprehensive understanding of the nature of consciousness)를 대조 — 전부 있다."
           ],
           "checked": [
             "quote 문자열 대조",
             "정답 5 = (C)-(B)-(A) 대조",
-            "design_intent 가 이 지문 고유의 장치를 지목하는지 확인"
+            "design_intent 가 이 지문 고유의 장치를 지목하는지 확인",
+            "why_correct 의 영어 인용을 corpus.json 현재 지문에 문자열 대조",
+            "정답 선지 텍스트와 인용의 대응을 낱말 단위로 확인"
           ]
         },
         {
@@ -500,12 +495,15 @@
           "verdict": "pass",
           "findings": [
             "4번이 이 문항 최대 오답 후보다 — (C)의 non-empirical 과 (A)의 empirical 이 어휘로 직접 맞물리기 때문이다. why_tempting 에 그 대응을 명시했다",
-            "trap 4종이 서로 다르다"
+            "trap 4종이 서로 다르다",
+            "이음매 셋을 다 적었고, 마지막 이음매는 지시어 This 와 more comprehensive understanding 반복 두 겹이라 (B)-(A) 인접이 홀로 선다. 선지 번호 통계는 쓰지 않았다."
           ],
           "checked": [
             "라벨 중복 검사",
             "why_tempting 의 근거가 배열이 만드는 인접쌍인지",
-            "how_to_reject 에 블록·문장 위치가 적혔는지"
+            "how_to_reject 에 블록·문장 위치가 적혔는지",
+            "why_correct 가 소거법(나머지가 틀렸으므로)에 기대지 않는지 확인",
+            "정답 선지에 오답용 필드(why_tempting/how_to_reject)가 남아 있지 않은지 확인"
           ]
         },
         {
@@ -514,15 +512,18 @@
           "revised": true,
           "findings": [
             "1차 절차는 5단계였고 마지막 두 단계가 같은 일(인접 확인)을 반복했다. 4단계로 줄이고 마지막 단계에 첫 등장 개념어 위치 적기라는 실행 가능한 판별을 넣었다",
-            "125초 안에 4단계가 들어간다"
+            "125초 안에 4단계가 들어간다",
+            "학생이 각 덩어리의 첫 낱말(This · Philosophers · Philosophy)만 훑어도 앞가리킴 표지가 어디 있는지 보인다."
           ],
           "checked": [
             "단계 중복 제거 후 실행 가능성 재확인",
             "금지 표현 검색",
-            "required_vocab 5개가 판정에 쓰이는 낱말인지 확인"
+            "required_vocab 5개가 판정에 쓰이는 낱말인지 확인",
+            "why_correct 가 지목한 자리를 지문을 아직 안 읽은 학생이 직접 짚을 수 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2609#36",
@@ -564,9 +565,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "(C)의 마지막 단계와 성격 규정 → (A)의 대조 → (B)의 효과와 요약으로 이어진다.",
-          "how_to_reject": "정답. (C)의 product-oriented 규정이 (A)의 on the other hand 를 받고, (A)가 처음 꺼낸 process writing 을 (B)가 이어받는다."
+          "why_correct": "(C)의 마지막 단계와 성격 규정 → (A)의 대조 → (B)의 효과와 요약으로 이어진다."
         },
         {
           "n": 5,
@@ -683,9 +682,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "(B)의 대꾸와 질문 → (A)의 겉보기 답 → (C)의 다듬어진 기준으로 이어진다.",
-          "how_to_reject": "정답. You would not be the first 가 주어진 글의 2인칭 진술을 받고, (B) 끝의 질문이 (A)를 부르며, (A)의 시대 언급을 (C)가 이어받는다."
+          "why_correct": "(B)의 대꾸와 질문 → (A)의 겉보기 답 → (C)의 다듬어진 기준으로 이어진다."
         },
         {
           "n": 3,
@@ -824,9 +821,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "(C)의 한 세기 전과 현대 규정 → (A)의 구체 나열과 예고 → (B)의 문제 목록으로 이어진다.",
-          "how_to_reject": "정답. (C)의 such activity 선언을 (A)가 항목으로 풀고, (A)의 many problems 예고를 (B)가 17개 질환으로 채운다."
+          "why_correct": "(C)의 한 세기 전과 현대 규정 → (A)의 구체 나열과 예고 → (B)의 문제 목록으로 이어진다."
         },
         {
           "n": 5,
@@ -947,9 +942,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "(B)의 실험 → (C)의 두 번의 결과와 개념 도입 → (A)의 조건 좁히기로 이어진다.",
-          "how_to_reject": "정답. (C)의 on the two occasions 가 (B)의 두 번 놓기를 받고, (A)의 the iteration 이 (C)의 첫 등장을 받는다."
+          "why_correct": "(B)의 실험 → (C)의 두 번의 결과와 개념 도입 → (A)의 조건 좁히기로 이어진다."
         },
         {
           "n": 4,
@@ -1087,9 +1080,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "(C)의 행위자·평판 소개 → (B)의 감시와 농부의 태만 → (A)의 지주 쪽 태만과 귀결로 이어진다.",
-          "how_to_reject": "정답. (B) 끝의 a farmer can ... 과 (A) 첫머리의 Similarly, a landowner can ... 이 나란한 쌍을 이룬다."
+          "why_correct": "(C)의 행위자·평판 소개 → (B)의 감시와 농부의 태만 → (A)의 지주 쪽 태만과 귀결로 이어진다."
         }
       ],
       "solve_procedure": [
@@ -1200,9 +1191,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "(B)의 연구 소개와 조정력 결과 → (C)의 불안 관찰 추가 → (A)의 해석으로 이어진다.",
-          "how_to_reject": "정답. (C)의 not only ... but also 가 (B)의 결과를 받고, (A)의 물음이 (C)의 불안 관찰을 받는다."
+          "why_correct": "(B)의 연구 소개와 조정력 결과 → (C)의 불안 관찰 추가 → (A)의 해석으로 이어진다."
         },
         {
           "n": 4,
@@ -1342,9 +1331,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "(C)의 가정 이어받기와 이론 도입 → (B)의 작은 조정 → (A)의 큰 조정으로 이어진다.",
-          "how_to_reject": "정답. (C)의 would 가 주어진 글의 가정을, (B)의 The adjustments 가 (C)의 첫 등장을, (A)의 larger 가 (B)의 smallest 를 받는다."
+          "why_correct": "(C)의 가정 이어받기와 이론 도입 → (B)의 작은 조정 → (A)의 큰 조정으로 이어진다."
         }
       ],
       "solve_procedure": [
@@ -1457,9 +1444,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "(B)의 사후 대처 → (C)의 대등한 사전 대처 전환 → (A)의 선제 행동 설명으로 이어진다.",
-          "how_to_reject": "정답. (C)의 equally good 이 (B)를 받고, (A)의 pre-emptive action 이 (C)의 anticipating and avoiding 을 푼다."
+          "why_correct": "(B)의 사후 대처 → (C)의 대등한 사전 대처 전환 → (A)의 선제 행동 설명으로 이어진다."
         },
         {
           "n": 4,

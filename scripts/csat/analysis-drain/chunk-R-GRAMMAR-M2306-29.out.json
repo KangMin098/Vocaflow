@@ -40,7 +40,12 @@
           "밑줄 다섯 중 셋이 준동사·관계사라 형태만으로 소거되는 자리가 적다"
         ]
       },
-      "required_vocab": ["governing", "rhythmic", "indivisibility", "migratory"],
+      "required_vocab": [
+        "governing",
+        "rhythmic",
+        "indivisibility",
+        "migratory"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -91,7 +96,9 @@
       "measured_ability": "명사절을 이끄는 연결어를 고를 때, 그 절에 빠진 성분이 있는지(what) 없는지(that)를 세어 가르는 능력. 아울러 분사구문·대동사·병렬·동격 형용사구가 각각 정동사를 요구하지 않는 자리임을 확인하는 능력",
       "design_intent": "세포 생장을 설명하는 글에서 '완전절 앞의 What' 을 문장 맨 앞 주어 자리에 두어, 학습자가 자주 보는 'What ~ is ...' 형태에 눈이 익어 그대로 넘어가게 만들었다. 나머지 네 자리는 모두 정동사를 넣고 싶어지는 준동사·보어 자리로 채워 반대 방향의 유혹을 걸었다.",
       "answer_locus": {
-        "sentence_index": [8],
+        "sentence_index": [
+          8
+        ],
         "quote": "What cell metabolism and structure should be complex would not be surprising",
         "reasoning": "밑줄 뒤 cell metabolism and structure should be complex 에는 주어·조동사·보어가 다 있어 what 이 메울 성분이 없다. 이 절 전체가 would not be surprising 의 주어이므로, 완전절을 명사절로 바꾸는 접속사 That 이어야 한다. 바로 뒤 they are rather simple and logical 의 they 가 metabolism and structure 를 되받아, 그 절이 하나의 완결된 명제임을 확인해 준다."
       },
@@ -120,9 +127,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "명사절 접속사 완전성(what/that)",
-          "why_tempting": "문장 첫머리의 'What ~ is/would be ...' 형태를 자주 봐서, 뒤 절의 성분을 세지 않고 익숙한 틀로 넘긴다",
-          "how_to_reject": "밑줄 뒤 절에서 주어(cell metabolism and structure)·조동사(should)·보어(complex)를 차례로 짚으면 빈자리가 없다 — 완전절이므로 That 이어야 한다"
+          "why_correct": "문장 첫머리의 'What ~ is/would be ...' 형태를 자주 봐서, 뒤 절의 성분을 세지 않고 익숙한 틀로 넘긴다"
         },
         {
           "n": 5,
@@ -164,7 +169,12 @@
           "생물 용어(protoplasm, metabolism)가 구조 파악을 늦춘다"
         ]
       },
-      "required_vocab": ["metabolism", "differentiates", "responsible", "surprising"],
+      "required_vocab": [
+        "metabolism",
+        "differentiates",
+        "responsible",
+        "surprising"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -245,7 +255,12 @@
           "주어(such commonality of interests)와 동사 사이에 전치사구가 끼어 있다"
         ]
       },
-      "required_vocab": ["commonality", "guarantees", "adversarial", "communicated"],
+      "required_vocab": [
+        "commonality",
+        "guarantees",
+        "adversarial",
+        "communicated"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -327,7 +342,12 @@
           "천문 용어(solstices, equinoxes, eclipses)가 구조 파악을 늦춘다"
         ]
       },
-      "required_vocab": ["regularity", "testimony", "eclipses", "equinoxes"],
+      "required_vocab": [
+        "regularity",
+        "testimony",
+        "eclipses",
+        "equinoxes"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -377,7 +397,9 @@
       "measured_ability": "know 의 목적어 자리에 오는 명사절을 고를 때 뒤 절에 빠진 성분이 있는지 세어 what 과 whether 를 가르는 능력. 아울러 동명사 주어의 단수 일치와 과거분사 후치수식을 확인하는 능력",
       "design_intent": "자가 실험의 한계를 논하는 글에서 정답 자리를 마지막 문장 세미콜론 뒤에 두고, 그 절에 typical or atypical of ... 라는 긴 보어를 달아 절 끝이 어디인지 흐리게 만들었다. 앞선 네 자리는 모두 정동사를 넣고 싶어지는 준동사·보어 자리라 반대 방향 유혹이 걸린다.",
       "answer_locus": {
-        "sentence_index": [9],
+        "sentence_index": [
+          9
+        ],
         "quote": "what the subject’s responses are typical or atypical of the response of humans as a group",
         "reasoning": "밑줄 뒤 절은 주어(the subject’s responses)·동사(are)·보어(typical or atypical)가 갖춰져 있고 전치사 of 의 목적어도 the response of humans 로 채워져 있다. what 이 메울 자리가 하나도 없으므로 know 의 목적어로는 완전절을 받는 whether 가 필요하다."
       },
@@ -413,9 +435,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "명사절 접속사 완전성(what/whether)",
-          "why_tempting": "know 뒤에 what 이 오는 형태를 많이 봐서, 뒤 절의 보어와 전치사 목적어를 세지 않고 넘긴다",
-          "how_to_reject": "밑줄 뒤 절에서 주어·동사·보어·전치사의 목적어를 차례로 짚으면 빈자리가 없다 — 완전절이므로 whether 여야 한다"
+          "why_correct": "know 뒤에 what 이 오는 형태를 많이 봐서, 뒤 절의 보어와 전치사 목적어를 세지 않고 넘긴다"
         }
       ],
       "solve_procedure": [
@@ -450,7 +470,12 @@
           "④의 동명사 주어 수일치가 강한 유혹으로 함께 걸려 있다"
         ]
       },
-      "required_vocab": ["restrictions", "devised", "drawback", "atypical"],
+      "required_vocab": [
+        "restrictions",
+        "devised",
+        "drawback",
+        "atypical"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -530,7 +555,12 @@
           "마지막 대동사는 앞 술부를 두 문장 거슬러 찾아야 한다"
         ]
       },
-      "required_vocab": ["showcases", "provision", "necessarily", "fostering"],
+      "required_vocab": [
+        "showcases",
+        "provision",
+        "necessarily",
+        "fostering"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -581,7 +611,9 @@
       "measured_ability": "동격의 that절 안에 정동사가 있는지를 세어, 주어 뒤에 온 -ing 가 본동사 자리를 비워 두고 있음을 잡아내는 능력",
       "design_intent": "문화별 대처 방식을 비교하는 글에서 도치 구문(With this form of agency comes the belief)으로 문장을 시작해 주어와 동격절의 경계를 흐린 뒤, 동격절 안의 정동사 자리를 -ing 로 비웠다. 뒤에 and thus 로 이어지는 절에 정동사 centers 가 있어, 그것을 앞 절의 동사로 착각하면 문장이 다 채워진 것처럼 보인다.",
       "answer_locus": {
-        "sentence_index": [2],
+        "sentence_index": [
+          2
+        ],
         "quote": "the belief that individual successes ② depending primarily on one’s own abilities and actions",
         "reasoning": "that 은 the belief 의 동격절을 이끄는 접속사이므로 뒤에 주어+정동사가 와야 한다. 주어 individual successes 다음에 정동사가 없고, 이 문장에 있는 다른 정동사 comes 는 도치된 주절의 것, centers 는 and thus 뒤 the use of control 의 것이라 동격절에는 정동사가 하나도 없다 — depending 이 아니라 depend 여야 한다."
       },
@@ -596,9 +628,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "정동사 자리에 준동사(본동사 누락)",
-          "why_tempting": "뒤에 and thus ... centers on the individual 이라는 정동사가 있어 문장이 이미 채워진 것처럼 들리고, successes depending on ... 을 '~에 달린 성공' 이라는 명사구로 읽으면 자연스럽다",
-          "how_to_reject": "동격의 that 뒤에는 절이 와야 한다 — 접속사 that 을 지우고 individual successes ___ primarily on ... 만 읽으면 정동사가 없다"
+          "why_correct": "뒤에 and thus ... centers on the individual 이라는 정동사가 있어 문장이 이미 채워진 것처럼 들리고, successes depending on ... 을 '~에 달린 성공' 이라는 명사구로 읽으면 자연스럽다"
         },
         {
           "n": 3,
@@ -654,7 +684,12 @@
           "나머지 네 자리가 모두 자주 나오는 형태라 소거가 빠르다"
         ]
       },
-      "required_vocab": ["agency", "successes", "driven", "cope"],
+      "required_vocab": [
+        "agency",
+        "successes",
+        "driven",
+        "cope"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -703,7 +738,9 @@
       "measured_ability": "한 문장 안의 정동사 개수와 접속사·관계사 개수를 세어, 명사 뒤에 온 -ed 형태가 정동사 자리인지 후치수식 분사 자리인지 가르는 능력",
       "design_intent": "선사시대 예술을 다룬 글에서 정답 문장의 주어(the visual preoccupation)와 정동사(becomes)를 with the nonhuman creatures ... 라는 긴 전치사구로 갈라 놓고, 그 사이에 -ed 형태를 넣었다. 앞부분만 읽으면 creatures 가 주어처럼 보여 inhabited 가 정동사로 들리도록 설계했다.",
       "answer_locus": {
-        "sentence_index": [5],
+        "sentence_index": [
+          5
+        ],
         "quote": "the visual preoccupation of early humans with the nonhuman creatures ④ inhabited their world becomes profoundly meaningful",
         "reasoning": "이 문장의 정동사는 becomes 하나이고 그 주어는 the visual preoccupation 이다. creatures 앞뒤 어디에도 접속사나 관계사가 없으므로 정동사가 둘일 수 없다 — 밑줄은 creatures 를 뒤에서 꾸미는 현재분사 inhabiting 이어야 하고, creatures 가 사는 주체이므로 능동형이다."
       },
@@ -732,9 +769,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "정동사/준동사 혼동(후치수식 자리)",
-          "why_tempting": "the nonhuman creatures 가 바로 앞에 있어 주어처럼 읽히고, inhabited their world 가 뜻으로도 자연스럽게 이어진다",
-          "how_to_reject": "문장 끝까지 읽어 becomes 를 찾고 그 주어를 거슬러 올라가면 the visual preoccupation 이다 — 접속사 없이 정동사가 둘이 될 수 없으므로 inhabiting 이어야 한다"
+          "why_correct": "the nonhuman creatures 가 바로 앞에 있어 주어처럼 읽히고, inhabited their world 가 뜻으로도 자연스럽게 이어진다"
         },
         {
           "n": 5,
@@ -776,7 +811,12 @@
           "인류학 용어(anthropomorphism, totemism)가 구조 파악을 늦춘다"
         ]
       },
-      "required_vocab": ["preoccupation", "inhabited", "anthropomorphism", "broods"],
+      "required_vocab": [
+        "preoccupation",
+        "inhabited",
+        "anthropomorphism",
+        "broods"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -826,7 +866,9 @@
       "measured_ability": "「the 비교급 ~, the 비교급 ~」 구문에서 앞 절이 온전한 절인지 성분을 세어, 주어 자리가 비어 있음을 잡아내고 가주어 it 이 필요한 자리를 판별하는 능력",
       "design_intent": "음악 감상 경험을 소재로 한 글에서 정답을 마지막 문장의 the 비교급 구문에 두고, that 을 넣어 관계사처럼 보이게 만들었다. 앞선 네 자리는 보어·병렬·명사절·수일치로 흩어 놓아, 익숙한 규칙으로 소거하다 보면 마지막 문장에 시간이 거의 안 남도록 배치했다.",
       "answer_locus": {
-        "sentence_index": [7],
+        "sentence_index": [
+          7
+        ],
         "quote": "Sometimes, the longer ⑤ that takes for a work of art to reveal all of its subtleties to us",
         "reasoning": "「the 비교급 ...」 앞 절은 the longer 를 뺀 나머지가 주어와 동사를 갖춘 절이어야 하는데 takes 의 주어 자리가 비어 있다. take 는 「it takes + 시간 + for A + to V」 형태로 뒤의 to부정사를 진주어로 두므로 주어 자리에 가주어 it 이 와야 하고, that 은 그 자리를 채우지 못한다."
       },
@@ -862,9 +904,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "가주어 it 결손(the 비교급 구문 주어 자리)",
-          "why_tempting": "the longer 뒤 that 이 관계사처럼 보이고, takes 앞에 무언가 있어야 한다는 감각이 that 으로 채워진다",
-          "how_to_reject": "the longer 를 지우고 ___ takes for a work of art to reveal ... 만 읽으면 주어가 없다 — take 의 이 형태는 가주어 it 을 요구한다"
+          "why_correct": "the longer 뒤 that 이 관계사처럼 보이고, takes 앞에 무언가 있어야 한다는 감각이 that 으로 채워진다"
         }
       ],
       "solve_procedure": [
@@ -899,7 +939,12 @@
           "지문에 인쇄 손상(catches our inter)이 있어 문장 파악이 한 번 끊긴다"
         ]
       },
-      "required_vocab": ["subtleties", "emerges", "appealing", "reveal"],
+      "required_vocab": [
+        "subtleties",
+        "emerges",
+        "appealing",
+        "reveal"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -949,7 +994,9 @@
       "measured_ability": "as ~ as 비교 구문에서 뒤에 남은 대동사가 앞 절의 어떤 술부를 받는지 짚어, 수동태 술부를 do 계열로 받을 수 없음을 판별하는 능력",
       "design_intent": "이집트 예술의 기념비성을 논하는 글에서 부정어 도치(Never before and never since has ... been achieved)로 문장을 시작해 술부를 흩어 놓고, 그 술부를 as fully as it ___ 로 되받게 했다. 도치 때문에 has ... been achieved 가 한 덩어리로 안 보이면 밑줄의 대동사가 무엇을 받는지 놓치게 된다.",
       "answer_locus": {
-        "sentence_index": [2],
+        "sentence_index": [
+          2
+        ],
         "quote": "Never before and never since has the quality of monumentality been achieved as fully as it ② did in Egypt.",
         "reasoning": "as fully as 뒤의 대동사는 앞 절의 술부를 그대로 받는다. 앞 절 술부는 has been achieved 라는 수동태이고 주어 it 은 the quality of monumentality 를 받으므로, 성취되는 쪽이다. do 계열은 능동의 일반동사만 대신할 수 있으므로 did 가 아니라 be 계열(was 또는 has been)이어야 한다."
       },
@@ -964,9 +1011,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "대동사 형태(do vs be)",
-          "why_tempting": "as ~ as 뒤에 대동사 did 가 오는 형태를 자주 봐서, 앞 절이 수동태인지 확인하지 않고 넘긴다",
-          "how_to_reject": "as fully as 앞으로 거슬러 술부를 통째로 옮겨 적으면 has been achieved 다 — 수동태는 do 계열로 받을 수 없다"
+          "why_correct": "as ~ as 뒤에 대동사 did 가 오는 형태를 자주 봐서, 앞 절이 수동태인지 확인하지 않고 넘긴다"
         },
         {
           "n": 3,
@@ -1022,7 +1067,12 @@
           "④의 선행사가 pile 인지 stones 인지 헷갈리는 강한 유혹이 함께 걸려 있다"
         ]
       },
-      "required_vocab": ["monumentality", "massiveness", "constitutes", "carved"],
+      "required_vocab": [
+        "monumentality",
+        "massiveness",
+        "constitutes",
+        "carved"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -1073,7 +1123,9 @@
       "measured_ability": "and 로 병렬된 두 명사절에서 각각의 성분 결손을 따로 세어, 앞 절과 같은 what 을 쓸 수 없는 완전절을 가려내는 능력",
       "design_intent": "기부 행동을 다룬 글에서 what the charity is doing and ___ it is really having a positive impact 처럼 같은 연결어를 두 번 쓰게 배치해, 앞 절의 what 이 맞으니 뒤도 what 이라는 병렬 착시를 만들었다. 나머지 자리는 수일치·진행형·사역동사·stop 용법으로 흩어 놓았다.",
       "answer_locus": {
-        "sentence_index": [2],
+        "sentence_index": [
+          2
+        ],
         "quote": "seek evidence about what the charity is doing and ② what it is really having a positive impact",
         "reasoning": "앞 절 what the charity is doing 은 doing 의 목적어가 비어 있어 what 이 그 자리를 메운다. 그러나 밑줄 뒤 it is really having a positive impact 는 주어 it 과 having 의 목적어 a positive impact 가 다 있어 빈자리가 없다. 전치사 about 의 목적어로 완전절을 받으려면 whether 가 필요하다."
       },
@@ -1088,9 +1140,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "명사절 접속사 완전성(what/whether)",
-          "why_tempting": "and 앞의 what the charity is doing 과 형태를 맞추려는 병렬 감각이 작동해, 뒤 절의 성분을 따로 세지 않는다",
-          "how_to_reject": "밑줄 뒤 절만 떼어 it is really having a positive impact 를 읽으면 주어와 목적어가 다 있다 — 완전절이므로 whether 여야 한다"
+          "why_correct": "and 앞의 what the charity is doing 과 형태를 맞추려는 병렬 감각이 작동해, 뒤 절의 성분을 따로 세지 않는다"
         },
         {
           "n": 3,
@@ -1146,7 +1196,12 @@
           "⑤의 stop to V 암기 규칙이 반대 방향 유혹으로 걸려 있다"
         ]
       },
-      "required_vocab": ["substantial", "charities", "impact", "exceed"],
+      "required_vocab": [
+        "substantial",
+        "charities",
+        "impact",
+        "exceed"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -1196,7 +1251,9 @@
       "measured_ability": "비교급 than 뒤에 온 명사구를 문장의 주어로 착각하지 않고, 접속사 없이 정동사가 둘일 수 없다는 규칙으로 분사 자리를 판별하는 능력",
       "design_intent": "자연 경험 결핍을 다룬 글에서 정답 문장의 정동사 is 를 no more real ― and yet no less real ― 이라는 삽입 대시 사이로 멀리 밀어 두고, than 뒤 명사구 the everyday nature 를 콤마로 끊어 그 뒤에 -s 동사를 붙였다. 콤마 뒤부터 새 문장처럼 읽히면 정동사가 둘이 된 것을 놓치게 된다.",
       "answer_locus": {
-        "sentence_index": [2],
+        "sentence_index": [
+          2
+        ],
         "quote": "the everyday nature right outside their doors, ② waits to be discovered in a child’s way, at a child’s pace.",
         "reasoning": "이 문장의 정동사는 앞의 is 하나이고, 밑줄 앞은 than 이 이끄는 비교 대상 명사구 the everyday nature right outside their doors 로 끝난다. 콤마 뒤에 접속사도 관계사도 없으므로 정동사를 또 놓을 수 없다 — 그 명사를 뒤에서 꾸미는 현재분사 waiting 이어야 한다."
       },
@@ -1211,9 +1268,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "정동사/준동사 혼동(후치수식 자리)",
-          "why_tempting": "콤마 뒤부터 새 절처럼 읽히고, the everyday nature 가 바로 앞에 있어 주어처럼 보인다",
-          "how_to_reject": "문장 앞으로 거슬러 정동사 is 를 찾고 than 이 비교 대상 명사구를 이끌고 있음을 표시하면, 접속사 없이 정동사가 둘이 된다 — waiting 이어야 한다"
+          "why_correct": "밑줄 ②가 든 문장의 정동사는 앞의 is('is no more real')뿐이고, 밑줄 앞 콤마 뒤에는 접속사도 관계사도 없다. 그런데 waits 는 정동사 형태라 절을 하나 더 요구하므로 세울 자리가 없다 — 여기는 'the everyday nature right outside their doors' 를 뒤에서 꾸미는 현재분사 waiting 자리다. 앞 밑줄 ① 'filled with endangered rainforests' 가 같은 후치수식 틀을 이미 보여 준다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2
+            ],
+            "note": "콤마 뒤부터 새 절처럼 읽히고 the everyday nature 가 바로 왼쪽에 있어 주어처럼 보인다 — 정동사 개수를 세지 않으면 그대로 통과시키는 자리다. than 뒤 명사구는 비교 대상이지 주어가 아니라는 점이 이 문항의 갈림길이다."
+          }
         },
         {
           "n": 3,
@@ -1269,7 +1330,12 @@
           "지문에 인쇄 잔여(what 4 ______ Robert Pyle)가 있어 ⑤의 절 읽기가 한 번 끊긴다"
         ]
       },
-      "required_vocab": ["abstraction", "fictionalized", "substantially", "devolving"],
+      "required_vocab": [
+        "abstraction",
+        "fictionalized",
+        "substantially",
+        "devolving"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -1277,12 +1343,17 @@
           "findings": [
             "quote 가 밑줄 기호 ② 를 포함해 지문에 문자 그대로 있다",
             "정답 판정 ②가 평가원 정답표와 일치한다",
-            "⑤ 근처에 파서 잔여(4 ______)가 있으나 정답 근거 문장과 무관하다"
+            "⑤ 근처에 파서 잔여(4 ______)가 있으나 정답 근거 문장과 무관하다",
+            "why_correct 를 다시 썼다 — 옮겨져 있던 서술이 '왜 주어처럼 보이는가'(학습자 심리)라 어법 근거가 아니었다. 그 자리를 지배하는 것(문장에 정동사가 이미 있고 접속사가 없다)으로 교체했다",
+            "than 뒤 명사구가 주어가 아니라는 지적은 정답 근거의 일부가 아니라 오독 경로이므로 confirmed_at.note 로 옮겼다"
           ],
           "checked": [
             "quote 를 corpus.json 지문에서 문자열 대조",
             "정답표 answer=2 와 대조",
-            "손상 구간이 정답 근거에 걸치는지 확인"
+            "손상 구간이 정답 근거에 걸치는지 확인",
+            "'is no more real' · 'the everyday nature right outside their doors' · 'filled with endangered rainforests' 를 corpus.json 지문과 문자열 대조",
+            "그 문장 안 정동사·접속사 개수 재계수(정동사 is 1 · 접속사 0)",
+            "밑줄 ②의 지배 요소가 준동사 자리임을 유형 정의와 대조"
           ]
         },
         {
@@ -1290,12 +1361,17 @@
           "verdict": "pass",
           "findings": [
             "오답 trap 4종(과거분사 후치수식 / 형용사·부사 자리 / 대명사 지시 / 명사절 접속사)이 서로 다르다",
-            "④의 how_to_reject 가 같은 문장 their environment 라는 위치를 지목한다"
+            "④의 how_to_reject 가 같은 문장 their environment 라는 위치를 지목한다",
+            "why_correct 가 오답 넷의 정오에 기대지 않고 ② 자체의 절 구조로 서 있다",
+            "①을 근거로 든 부분은 배제가 아니라 같은 틀의 확인이므로 소거법이 아니다"
           ],
           "checked": [
             "trap 라벨 중복 여부",
             "why_tempting 이 밑줄 낱말에 근거하는지",
-            "how_to_reject 의 위치 명시 여부"
+            "how_to_reject 의 위치 명시 여부",
+            "why_correct 에 소거법 서술이 없는지",
+            "정답표 answer=2 와 correct n=2 재대조",
+            "오답 4개의 trap 라벨 4종이 여전히 서로 다른지"
           ]
         },
         {
@@ -1303,15 +1379,20 @@
           "verdict": "pass",
           "findings": [
             "3단계의 'than 뒤 명사구는 주어 후보에서 뺀다' 가 이 문항의 실점 원인을 곧바로 막는다",
-            "required_vocab 의 substantially 는 ③ 판정에, devolving 은 ④ 문장의 주어 확정에 쓰인다"
+            "required_vocab 의 substantially 는 ③ 판정에, devolving 은 ④ 문장의 주어 확정에 쓰인다",
+            "학생이 셀 것이 '정동사 개수 대 접속사+관계사 개수' 둘뿐이라 이미 있는 solve_procedure 2단계와 그대로 맞물린다"
           ],
           "checked": [
             "단계 실행 가능성",
             "금지 표현 문자열 검사",
-            "90초 안 완료 가능성과 required_vocab 대응"
+            "90초 안 완료 가능성과 required_vocab 대응",
+            "why_correct 로 지문 미독 학생이 ②가 든 문장의 정동사를 직접 짚을 수 있는지",
+            "confirmed_at.note 의 오독 경로가 실제 시험지에서 참인지",
+            "solve_procedure 불변 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     }
   ],
   "type_report": {

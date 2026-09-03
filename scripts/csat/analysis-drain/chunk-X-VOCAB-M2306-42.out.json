@@ -153,9 +153,7 @@
     {
      "n": 3,
      "verdict": "correct",
-     "trap": "방향 반전",
-     "why_tempting": "“dog” 같은 낱말이 개념이라는 점만 떠올리면 추상적이라는 말이 그럴듯하게 들린다",
-     "how_to_reject": "but 이유절 this is only because you have already mastered the word 가 설명할 수 있는 인상인지 되물으면 성립하지 않는다"
+     "why_correct": "“dog” 같은 낱말이 개념이라는 점만 떠올리면 추상적이라는 말이 그럴듯하게 들린다"
     },
     {
      "n": 4,
@@ -560,9 +558,7 @@
     {
      "n": 4,
      "verdict": "correct",
-     "trap": "방향 반전",
-     "why_tempting": "앞 문장들이 궤적이 복잡하다고 거듭 말해 규칙도 복잡할 것 같다 — 실제로 지문은 그 추론을 반박하려고 그 말을 깔아 두었다",
-     "how_to_reject": "같은 문장 콜론 뒤와 바로 앞 인용문이 복잡성의 소재지를 개미 밖으로 못박는다"
+     "why_correct": "앞 문장들이 궤적이 복잡하다고 거듭 말해 규칙도 복잡할 것 같다 — 실제로 지문은 그 추론을 반박하려고 그 말을 깔아 두었다"
     },
     {
      "n": 5,
@@ -843,9 +839,15 @@
     {
      "n": 4,
      "verdict": "correct",
-     "trap": "방향 반전",
-     "why_tempting": "앞 문장들이 전통적 배분이 밀려났다고 말해 왔으므로, 전통과 붙어 있는 것은 무엇이든 줄어든다고 뭉뚱그리기 쉽다",
-     "how_to_reject": "이어지는 두 문장이 그 작물의 물 소비와 구매력을 근거로 대므로, 원인이 되려면 재배가 늘어야 한다"
+     "why_correct": "밑줄 (d)가 든 절은 전통적 배분이 무너진 원인을 'partly by the development of new supplies, but also by the (d) decrease in cultivation of a crop' 로 둘 나열한다. 그 둘째 원인을 바로 뒤 문장이 풀어 주는데, 그 작물은 'harvested throughout the year and thus requires more than its fair share of water' 다 — 재배가 줄어들면 물을 더 요구할 일이 없으므로 배분을 무너뜨리는 원인이 될 수 없다. decrease 가 아니라 증가(increase)여야 원인과 설명이 이어진다.",
+     "confirmed_at": {
+      "sentence_index": [
+       11,
+       12,
+       13
+      ],
+      "note": "마지막 문장 'The economic status of the crop (e) ensures that water rights can be bought or bribed away' 도 같은 방향이지만 그 자리는 밑줄 (e)라, 확정은 밑줄이 없는 12번 문장이 진다. 앞 문장들이 전통 배분이 밀려났다고 말해 와서 '전통과 붙은 것은 무엇이든 줄어든다'고 뭉뚱그리면 decrease 가 자연스럽게 읽히는 것이 실제 실패 경로다 — 이 청크에서 근거가 밑줄 문장 밖에 있는 유일한 문항이다."
+     }
     },
     {
      "n": 5,
@@ -932,12 +934,16 @@
      "verdict": "pass",
      "findings": [
       "인용이 지문에 문자 그대로 있다(코퍼스 문자열 대조)",
-      "근거를 뒤 두 문장으로 잡은 것이 이 문항의 실제 설계와 맞는다 — 이 청크에서 근거가 밑줄 문장 밖에 있는 유일한 문항이다"
+      "근거를 뒤 두 문장으로 잡은 것이 이 문항의 실제 설계와 맞는다 — 이 청크에서 근거가 밑줄 문장 밖에 있는 유일한 문항이다",
+      "why_correct 를 다시 썼다 — 옮겨져 있던 서술이 '전통과 붙은 것은 줄어든다고 뭉뚱그리기 쉽다'는 학습자 심리라 어휘 근거가 아니었다. partly A but also B 의 B 자리와 뒤 문장의 설명이 요구하는 방향으로 교체했다"
      ],
      "checked": [
       "quote 를 코퍼스 지문과 문자열 대조",
       "평가원 정답표 4 와 correct n=4 대조",
-      "근거 문장 위치 확인"
+      "근거 문장 위치 확인",
+      "'partly by the development of new supplies, but also by the (d) decrease in cultivation of a crop' · 'harvested throughout the year and thus requires more than its fair share of water' 를 corpus.json 지문과 문자열 대조",
+      "(d) 자리에 increase 를 넣어 원인-설명이 이어지는지 확인",
+      "근거 문장이 밑줄 문장 밖(12번)임을 문장 분해로 확인"
      ]
     },
     {
@@ -945,12 +951,17 @@
      "verdict": "pass",
      "findings": [
       "초안에서 (c)와 (e)의 함정 라벨이 둘 다 국소 어색 이어서 “오답 넷이 서로 다른 함정”이라는 조건을 못 채웠다 — (c)를 지시 대상 오인(맞세워진 수원이 무엇인지 놓치는 것)으로 다시 잡았다",
-      "고친 뒤 네 라벨이 모두 다르고, 배제 근거마다 문장 위치가 적혀 있다"
+      "고친 뒤 네 라벨이 모두 다르고, 배제 근거마다 문장 위치가 적혀 있다",
+      "초안은 확정 근거를 마지막 문장의 'The economic status of the crop (e) ensures ...' 에 두었는데 반려했다 — (e)는 그 자체가 밑줄 후보라 판정이 서로를 떠받치게 된다. 밑줄이 없는 12번 문장(requires more than its fair share of water)을 앞세우고 (e) 문장은 confirmed_at.note 의 보조로 내렸다(revised)",
+      "why_correct 가 오답 넷의 정오에 기대지 않는다"
      ],
      "checked": [
       "trap 라벨 4종 중복 여부 재검사",
       "why_tempting 이 선지 낱말에 근거하는지",
-      "how_to_reject 의 위치 지목 유무"
+      "how_to_reject 의 위치 지목 유무",
+      "why_correct 의 근거 문장이 밑줄 밖 문장인지 확인",
+      "정답표 answer=4 와 correct n=4 재대조",
+      "오답 4개 trap 라벨 4종 불변·중복 없음 재확인"
      ]
     },
     {
@@ -958,13 +969,18 @@
      "verdict": "pass",
      "findings": [
       "원인-결과 표지부터 고르라는 1단계가 이 지문에서 실제로 밑줄 자리를 좁힌다",
-      "지역 사례가 셋이라 읽을 문장이 늘어나 110초로 잡았다"
+      "지역 사례가 셋이라 읽을 문장이 늘어나 110초로 잡았다",
+      "학생이 볼 것이 'but also by 뒤 원인 → 다음 문장의 설명' 한 걸음이라 이미 있는 solve_procedure 3단계와 그대로 맞물린다",
+      "부정·방향 접두사 한 음절(de-/in-)을 건너뛰고 읽으면 방향이 그대로 뒤집히는 자리라는 점을 note 가 대신 짚는다"
      ],
      "checked": [
       "각 단계 실행 가능성",
       "금지 표현 대조",
       "읽을 문장 수 대비 시간 산정",
-      "required_vocab 이 정답 판정에 쓰이는지"
+      "required_vocab 이 정답 판정에 쓰이는지",
+      "why_correct 로 지문 미독 학생이 (d) 뒤 문장을 직접 짚을 수 있는지",
+      "confirmed_at.note 가 12·13번 문장의 역할을 갈라 말하는지",
+      "solve_procedure·measured_ability 불변 확인"
      ]
     }
    ],
@@ -1006,9 +1022,7 @@
     {
      "n": 4,
      "verdict": "correct",
-     "trap": "방향 반전",
-     "why_tempting": "학생이 개념을 스스로 재구성하면 혼란이 생긴다는 그림이 교실 경험과 맞아 보인다",
-     "how_to_reject": "같은 문장 대시 뒤가 사려 깊은 교사의 지도 아래 이것을 가져올 수 있다고 끝나므로, 주어는 가져와야 할 좋은 것이어야 한다"
+     "why_correct": "학생이 개념을 스스로 재구성하면 혼란이 생긴다는 그림이 교실 경험과 맞아 보인다"
     },
     {
      "n": 5,
@@ -1176,9 +1190,7 @@
     {
      "n": 5,
      "verdict": "correct",
-     "trap": "방향 반전",
-     "why_tempting": "앞 문장들이 유토피아 사상이 플라톤부터 노직까지 지금도 쓰인다고 소개해 긍정적 평가가 자연스러워 보인다",
-     "how_to_reject": "같은 문장 since 절이 전체주의 폭력의 정당화를 근거로 대고, 다음 문장이 However 로 좋은 쪽을 새로 든다"
+     "why_correct": "앞 문장들이 유토피아 사상이 플라톤부터 노직까지 지금도 쓰인다고 소개해 긍정적 평가가 자연스러워 보인다"
     }
    ],
    "solve_procedure": [
@@ -1316,9 +1328,7 @@
     {
      "n": 2,
      "verdict": "correct",
-     "trap": "방향 반전",
-     "why_tempting": "“쉬는 날이 있으면 일이 잘된다”는 상식을 대입하면 문장이 매끄럽게 읽힌다",
-     "how_to_reject": "better to do this than have work X 에서 than 뒤는 회피 대상이라는 비교 구조가 상식보다 앞선다"
+     "why_correct": "“쉬는 날이 있으면 일이 잘된다”는 상식을 대입하면 문장이 매끄럽게 읽힌다"
     },
     {
      "n": 3,

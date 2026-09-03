@@ -8,7 +8,10 @@
       "measured_ability": "회계 은유(overdrawn accounts, balance sheets, capital, debt, collect)로 덮인 글에서 은유가 가리키는 실제 명제를 은유 밖 평서문으로 환원하고, 글이 다루는 대립축이 국가 축(rich/poor)이 아니라 세대 축(we/future generations)임을 주어 반복으로 확정하는 능력",
       "design_intent": "경제·회계 낱말을 지문 전체에 깔아 두어 '경제력', '국제 공조' 같은 경제·정치 선지가 소재상 자연스럽게 붙게 만들어 놓고, 실제 주어는 여섯 문장 내내 We(현세대)와 They(미래 세대) 둘뿐임을 마지막 문장의 콜론 뒤 삼중 나열에서만 못 박는다. 첫 문장의 in both the rich and poor nations 는 부유국 한정을 미리 차단하는 장치인데 오히려 ④의 미끼로 재활용된다.",
       "answer_locus": {
-        "sentence_index": [4, 6],
+        "sentence_index": [
+          4,
+          6
+        ],
         "quote": "We borrow environmental capital from future generations with no intention or prospect of repaying.",
         "reasoning": "이 한 문장이 정답 선지의 세 성분을 모두 담는다 — 주어 We(현세대), 대상 environmental capital(환경 자원), 미래 세대에 대한 태도 with no intention or prospect of repaying(고려 없음). '남용'의 정도는 2번 문장 too heavily, too quickly ... already overdrawn 이 보태고, '고려 없음'의 이유는 6번 문장 future generations do not vote 이하 세 나열이 보탠다. 반대로 이 문장은 협력·공조·선점 중 어느 것도 말하지 않아, 나머지 네 선지를 동시에 배제하는 자리이기도 하다."
       },
@@ -30,9 +33,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "4번 문장의 borrow ... with no intention or prospect of repaying 와 2번 문장의 too heavily, too quickly on already overdrawn accounts 를 은유 밖으로 옮기면 그대로 이 문장이 된다",
-          "how_to_reject": null
+          "why_correct": "4번 문장의 borrow ... with no intention or prospect of repaying 와 2번 문장의 too heavily, too quickly on already overdrawn accounts 를 은유 밖으로 옮기면 그대로 이 문장이 된다"
         },
         {
           "n": 4,
@@ -80,7 +81,13 @@
           "오답 넷 모두 지문의 핵심 명사를 담고 있어 소재 대조로는 하나도 걸러지지 않는다"
         ]
       },
-      "required_vocab": ["unsustainable", "overdrawn", "inherit", "repaying", "get away with"],
+      "required_vocab": [
+        "unsustainable",
+        "overdrawn",
+        "inherit",
+        "repaying",
+        "get away with"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -133,7 +140,9 @@
       "measured_ability": "Since·Although·when 으로 열리는 종속절을 주절에서 떼어 내고, 마지막 문장의 주절 하나만 결론으로 남기는 능력. 그 앞 세 문장이 전부 연구 보고(documented, we agree with, Another consistent research finding, three decades of evidence)임을 알아보고 근거를 결론으로 승격시키지 않는 능력",
       "design_intent": "결론은 마지막 문장의 주절 단 하나에만 있고, 앞 세 문장은 모두 그 결론을 떠받치는 보고문이다. 출제자는 ①에 2번 문장의 '삶의 만족'을, ④에 지문 표층에 세 번 반복되는 '연구'라는 낱말을, ③에 마지막 문장의 '문화적 다양성 · 이론'을 각각 심어 두어, 근거 문장이나 결론 문장의 부속 성분을 결론으로 착각하게 만든다. 결론 술어가 appears to be 로 완화돼 있어 단정적인 처방형 오답이 오히려 더 강해 보인다.",
       "answer_locus": {
-        "sentence_index": [4],
+        "sentence_index": [
+          4
+        ],
         "quote": "using a pedagogy based on theories of intrinsic motivation appears to be a more reasonable and effective approach to enhancing learning among culturally diverse students",
         "reasoning": "이 주절 하나에 정답 선지의 세 성분이 모두 있다 — 주어부 using a pedagogy based on theories of intrinsic motivation(내적 동기 부여), 대상 among culturally diverse students(문화적 배경이 다른 학생), 서술부 a more reasonable and effective approach to enhancing learning(교육에 효과적이다). 같은 문장의 Since 절(three decades of evidence ... may contribute to inferior learning)은 근거이지 주장이 아니므로, 종속절과 주절을 가르는 것만으로 결론이 확정된다."
       },
@@ -169,9 +178,13 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "마지막 문장 주절의 주어·서술어·대상이 그대로 옮겨진 형태다",
-          "how_to_reject": null
+          "why_correct": "근거 주절의 세 성분이 선지의 세 성분과 그대로 맞물린다 — ‘using a pedagogy based on theories of intrinsic motivation’ 이 ‘내적 동기 부여’와, ‘among culturally diverse students’ 가 ‘문화적 배경이 다른 학생들’과, ‘a more reasonable and effective approach to enhancing learning’ 이 ‘교육에 효과적이다’와 대응한다. 같은 문장의 Since 절(there are three decades of evidence …)은 근거이므로, 종속절을 떼고 주절만 남기면 선지 문장이 그대로 나온다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "앞 세 문장은 documented · we agree with · Another consistent research finding 으로 열리는 보고문이라 결론이 아니다 — 결론은 마지막 문장 주절 하나뿐이다"
+          }
         }
       ],
       "solve_procedure": [
@@ -205,7 +218,13 @@
           "오답 ③이 마지막 문장의 명사 둘을 그대로 쓴다"
         ]
       },
-      "required_vocab": ["extrinsic", "intrinsic", "pedagogy", "diminishing", "inferior"],
+      "required_vocab": [
+        "extrinsic",
+        "intrinsic",
+        "pedagogy",
+        "diminishing",
+        "inferior"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -213,12 +232,15 @@
           "verdict": "pass",
           "findings": [
             "인용이 마지막 문장의 주절과 정확히 일치하고 종속절을 포함하지 않는다 — 요지 유형에서 근거로 삼아야 할 자리를 정확히 잘랐다",
-            "근거 문장 하나로 정답 선지의 세 성분이 모두 채워지는 드문 경우이고, 그 사실을 reasoning 에 명시했다"
+            "근거 문장 하나로 정답 선지의 세 성분이 모두 채워지는 드문 경우이고, 그 사실을 reasoning 에 명시했다",
+            "마지막 문장 주절의 세 성분이 선지의 세 성분과 각각 대응하고, 세 어구 모두 지문에 문자 그대로 있다"
           ],
           "checked": [
             "quote 를 corpus.json 2016#21 passage 에 문자열 대조 (Since 절을 뺀 주절만 인용됐는지 확인)",
             "정답 ⑤의 성분 셋과 인용 어구의 1:1 대응 확인",
-            "요지 유형 정의(필자 결론 명제) 대조"
+            "요지 유형 정의(필자 결론 명제) 대조",
+            "why_correct 안의 영어 어구를 corpus.json 2016#21 의 passage·choices 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지 5 의 대응을 낱말 단위로 짝지어 확인"
           ]
         },
         {
@@ -227,12 +249,15 @@
           "findings": [
             "오답 라벨 4종이 서로 다르다(반대 진술·부분 사실·어휘 함정·무관)",
             "④를 '반대 진술'로도 볼 수 있으나(연구 시급 대 30년 증거) ①이 이미 반대 진술이고 ④는 축 자체가 연구 정책으로 옮겨 간 형태이므로 무관으로 두었다 — 배제 근거는 three decades of evidence 로 명시했다",
-            "why_tempting 넷 모두 선지 한국어 텍스트의 실제 어구를 지목한다"
+            "why_tempting 넷 모두 선지 한국어 텍스트의 실제 어구를 지목한다",
+            "종속절(Since …)을 떼는 절차가 근거이지 ①~④를 지운 결과가 아니다"
           ],
           "checked": [
             "trap 라벨 중복 확인",
             "④의 라벨 선택 근거를 무관과 반대 진술 두 정의에 각각 대 보고 판정",
-            "how_to_reject 마다 문장 번호 또는 인용 어구가 있는지 확인"
+            "how_to_reject 마다 문장 번호 또는 인용 어구가 있는지 확인",
+            "why_correct 가 소거법(나머지가 틀리므로)에 기대지 않고 정답 선지 자체의 근거로 서 있는지 확인",
+            "정답 선지에 오답용 필드(why_tempting·how_to_reject·trap)가 남아 있지 않은지 확인"
           ]
         },
         {
@@ -241,12 +266,15 @@
           "findings": [
             "초안 절차에는 종속절 괄호 치기와 주절 대조만 있어 처방형 선지 셋(②③④)을 내릴 근거가 절차 안에 없었다 — 반려하고 '지문에 명령문·must·should 가 있는지 확인' 단계를 4단계로 넣었다(revised)",
             "추가한 단계는 같은 청크의 2014 문항에서 정답이 처방형이었으므로 무조건 배제가 아니라 조건부 배제로 썼다",
-            "85초 배분을 단계별로 확인했다 — 선지 분류 15초, 주절 분리 20초, 낱말 적기 15초, 당위 확인 10초, 대조 25초"
+            "85초 배분을 단계별로 확인했다 — 선지 분류 15초, 주절 분리 20초, 낱말 적기 15초, 당위 확인 10초, 대조 25초",
+            "「종속절을 떼고 주절만 남긴다」는 동작이 학생이 실행할 수 있는 형태로 적혀 있다"
           ],
           "checked": [
             "절차만 보고 문항을 다시 풀어 정답에 도달하는지 재현",
             "금지 표현 목록 대조",
-            "처방형 선지 배제 규칙이 이 청크의 다른 문항에서도 안전한지 교차 확인"
+            "처방형 선지 배제 규칙이 이 청크의 다른 문항에서도 안전한지 교차 확인",
+            "지문을 아직 안 읽은 학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "근거와 정답 자리 사이의 거리(몇 문장)가 서술에 적혀 있는지 확인"
           ]
         }
       ]
@@ -256,7 +284,10 @@
       "measured_ability": "That's why · Thus 같은 귀결 표지를 세어 명제 문장을 골라내고, 비유(volcanic ash)와 학자 인용을 근거에서 제외하는 능력. 앞부분에 깔린 경영 소재어(companies, professionals, team)가 화제일 뿐 결론이 아님을 마지막 문장으로 확정하는 능력",
       "design_intent": "글은 기업·전문가·팀이라는 경영 소재로 문을 열고 결론은 '실패 후 회복'이라는 일반 명제로 닫는다. ①②는 그 앞부분 소재어만 가져가고 ④는 결론의 절반(성공)만 가져간다. 특히 ③은 지문과 소재가 전혀 겹치지 않는 채움 선지라, 오답 넷 사이에 난이도 격차를 크게 벌려 놓은 옛 회차형 설계다.",
       "answer_locus": {
-        "sentence_index": [4, 8],
+        "sentence_index": [
+          4,
+          8
+        ],
         "quote": "Thus, a key factor in high achievement is bouncing back from the low points.",
         "reasoning": "Thus 로 열리는 마지막 문장이 'A는 B다' 꼴의 완결 등식이라, 주어부 bouncing back from the low points(실패에서 되돌아오는 것)와 서술부 a key factor in high achievement(성공의 열쇠)가 한 문장에서 모두 확인된다. 정답 선지의 수식어 '빨리'만 이 문장에 없고 4번 문장 the ability to recover quickly is so important 가 보충하므로, 두 문장을 함께 근거로 잡았다."
       },
@@ -292,9 +323,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "마지막 문장의 주어와 보어를 그대로 뒤집어 한국어로 옮긴 형태이고, '빨리'는 4번 문장의 recover quickly 가 보충한다",
-          "how_to_reject": null
+          "why_correct": "마지막 문장의 주어와 보어를 그대로 뒤집어 한국어로 옮긴 형태이고, '빨리'는 4번 문장의 recover quickly 가 보충한다"
         }
       ],
       "solve_procedure": [
@@ -328,7 +357,13 @@
           "문장이 짧고 종속 구조가 얕다"
         ]
       },
-      "required_vocab": ["punctuated", "lag behind", "ubiquitous", "prominent", "bouncing back"],
+      "required_vocab": [
+        "punctuated",
+        "lag behind",
+        "ubiquitous",
+        "prominent",
+        "bouncing back"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -380,7 +415,10 @@
       "measured_ability": "역접 But 이 여는 문장이 앞 세 문장의 서술을 뒤집는 자리임을 잡아내고, 그 뒤에 이어지는 명령문 두 개를 필자의 처방으로 읽어 '~할 필요가 있다' 꼴의 한국어 선지로 옮기는 능력",
       "design_intent": "앞 세 문장이 '남을 기쁘게 하려다 겪는 손실'을 서술해 관계 중심 오답(②④)에 재료를 준다. 요지 유형인데도 마지막 두 문장이 명령문(So don't be afraid to say no. / Try to catch yourself in the moment ...)이라 필자 주장 유형과 구조가 같고, 그래서 처방형 선지가 정답이 된다. 요지에서 처방형 선지를 기계적으로 내리는 습관이 정확히 여기서 실점하도록 설계돼 있다. 이 문항은 2014학년도 수능 A형 24번과 지문·선지·정답이 완전히 동일하다.",
       "answer_locus": {
-        "sentence_index": [4, 5],
+        "sentence_index": [
+          4,
+          5
+        ],
         "quote": "But when we learn to say no to what we don't feel like doing in order to say yes to our true self, we feel empowered, and our relationships with others improve.",
         "reasoning": "이 문장이 정답 선지의 대상 성분을 준다 — say no to what we don't feel like doing(자신이 원하지 않는 일을 거절하는 것). 다만 이 문장의 술어는 we feel empowered ... improve 라는 이익 서술이라 '필요가 있다'는 당위가 아직 없다. 당위는 바로 다음 문장 So don't be afraid to say no. 와 그다음 Try to catch yourself ... 두 명령문이 준다. 즉 정답을 확정하려면 역접 문장(대상)과 명령문(당위)을 붙여 읽어야 하고, 어느 한쪽만으로는 선지 하나로 좁혀지지 않는다."
       },
@@ -402,9 +440,14 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "4번 문장이 대상(원하지 않는 일의 거절)을, 5·6번 명령문이 당위를 각각 준다",
-          "how_to_reject": null
+          "why_correct": "4번 문장의 ‘learn to say no to what we don’t feel like doing’ 에서 say no 가 선지의 ‘거절’과, what we don’t feel like doing 이 ‘자신이 원하지 않는 일’과 대응한다. 당위는 5번 명령문 ‘So don’t be afraid to say no’ 가 주므로, 대상과 당위가 인접한 두 문장에서 각각 나온다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4,
+              5
+            ],
+            "note": "4번 문장은 조건과 효과(we feel empowered)를, 5번 명령문은 당위를 맡는다 — 둘을 합쳐야 요지 문장이 된다"
+          }
         },
         {
           "n": 4,
@@ -452,7 +495,13 @@
           "요지 유형에서 드물게 정답이 처방형 선지다"
         ]
       },
-      "required_vocab": ["uncomplaining", "boundaries", "set healthy limits", "distress", "empowered"],
+      "required_vocab": [
+        "uncomplaining",
+        "boundaries",
+        "set healthy limits",
+        "distress",
+        "empowered"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -461,12 +510,17 @@
           "findings": [
             "인용을 코퍼스 지문에 문자열로 대조했고 4번 문장 전체와 일치한다(어포스트로피는 게이트가 정규화한다)",
             "이 문항은 요지 유형이면서 결론이 명령문이라, 근거를 역접 문장 하나로 끝내면 '거절하면 좋다'까지만 나오고 '필요가 있다'가 안 나온다 — reasoning 에 명령문 두 문장을 당위의 출처로 명시했다",
-            "2014A#24 와 지문·선지·정답이 동일한 문항임을 design_intent 에 적어 두었다"
+            "2014A#24 와 지문·선지·정답이 동일한 문항임을 design_intent 에 적어 두었다",
+            "learn to say no to what we don’t feel like doing 과 So don’t be afraid to say no 가 지문에 그대로 있고, say no↔거절 · what we don’t feel like doing↔원하지 않는 일 이 대응한다",
+            "setter revise — 기존 why_correct 가 「4번 문장이 대상을, 5·6번 명령문이 당위를 준다」라고만 적어 지문 표현이 하나도 없었다. 대응이 낱말 단위로 확인되지 않으므로 영어 어구를 넣어 다시 썼다"
           ],
           "checked": [
             "quote 를 corpus.json 2014B#23 passage 에 문자열 대조",
             "정답 선지의 두 성분(대상·당위)이 각각 어느 문장에서 나오는지 분리 확인",
-            "2014A#24 와 passage·choices·answer 문자열 동일성 확인"
+            "2014A#24 와 passage·choices·answer 문자열 동일성 확인",
+            "why_correct 안의 영어 어구를 corpus.json 2014B#23 의 passage·choices 에 문자열 대조(불일치 0)",
+            "근거 어구와 정답 선지 3 의 대응을 낱말 단위로 짝지어 확인",
+            "반려 후 다시 쓴 why_correct 를 같은 자로 재검수해 pass 로 확정"
           ]
         },
         {
@@ -475,12 +529,15 @@
           "findings": [
             "초안에서 ⑤를 '무관'으로 달았으나 반려했다 — Try to catch yourself 의 catch 와 say yes/say no 축이 실제 미끼로 작동하므로 소재가 없는 것이 아니라 겹치는 낱말의 대상이 바뀐 형태다. '어휘 함정'으로 교체했다(revised)",
             "교체 후 라벨 4종이 전부 다르다(지문 밖 상식·반대 진술·인과 역전·어휘 함정)",
-            "④의 배제 근거를 '원인 자리에 들어간 항'으로 특정해 인과 역전 라벨과 서술을 일치시켰다"
+            "④의 배제 근거를 '원인 자리에 들어간 항'으로 특정해 인과 역전 라벨과 서술을 일치시켰다",
+            "대상과 당위가 서로 다른 두 문장에서 나온다는 점을 밝혀, 요지 선지의 두 성분을 각각 확정한다"
           ],
           "checked": [
             "trap 라벨 중복 확인 및 ⑤ 라벨 교체 후 재검수",
             "오답 4개가 지문 소재어를 담는지 낱말 단위 대조(①의 '난관'은 대응 표현 없음 · '성취감'만 empowered 에 대응 — 절반 겹침으로 기록)",
-            "why_tempting 이 선지 한국어 텍스트에 근거하는지 확인"
+            "why_tempting 이 선지 한국어 텍스트에 근거하는지 확인",
+            "why_correct 가 소거법(나머지가 틀리므로)에 기대지 않고 정답 선지 자체의 근거로 서 있는지 확인",
+            "정답 선지에 오답용 필드(why_tempting·how_to_reject·trap)가 남아 있지 않은지 확인"
           ]
         },
         {
@@ -489,12 +546,15 @@
           "findings": [
             "2단계가 이 문항의 갈림목이다 — 명령문 확인을 먼저 하지 않으면 1단계에서 처방형 셋을 내려 정답까지 함께 지운다. 순서를 그대로 지키면 안전하다",
             "70초 배분 확인 — 선지 분류 15초, 명령문 확인 10초, 역접 찾기 10초, 두 조각 적기 15초, 대조 20초",
-            "required_vocab 다섯이 모두 판단에 쓰인다(uncomplaining 은 ②의 미끼 나열, boundaries·set healthy limits·distress 는 ④의 인과 확인, empowered 는 ①의 미끼 확인)"
+            "required_vocab 다섯이 모두 판단에 쓰인다(uncomplaining 은 ②의 미끼 나열, boundaries·set healthy limits·distress 는 ④의 인과 확인, empowered 는 ①의 미끼 확인)",
+            "인접한 두 문장이라 학생이 한 번에 짚을 수 있다"
           ],
           "checked": [
             "절차만으로 정답 도달 재현",
             "1·2단계 순서를 바꿔 실행했을 때 정답이 지워지는지 확인",
-            "금지 표현 목록 대조"
+            "금지 표현 목록 대조",
+            "지문을 아직 안 읽은 학생이 why_correct 만 읽고 근거 자리를 찾아갈 수 있는지 확인",
+            "근거와 정답 자리 사이의 거리(몇 문장)가 서술에 적혀 있는지 확인"
           ]
         }
       ]
@@ -504,7 +564,10 @@
       "measured_ability": "앞부분의 서술(남을 기쁘게 하려다 겪는 손실)과 뒷부분의 처방(거절하라)을 역접 But 에서 갈라 읽고, 마지막 두 명령문을 요지의 서술어로 옮기는 능력. 지문에 명령문이 있을 때는 처방형 한국어 선지가 정답이 될 수 있음을 아는 것이 이 문항의 실질 능력이다",
       "design_intent": "2014학년도 수능 A형은 듣기가 22번까지라 독해가 23번에서 시작하고 요지는 24번에 놓였다. 문항 자체는 같은 해 B형 23번과 지문·선지·정답이 완전히 동일하다. 설계의 핵심은 오답 ④에 있다 — 3번 문장 it causes distress in our relationships 를 거의 그대로 옮기되 원인 자리만 바꿔 놓아, 낱말 대조로 푸는 학생이 정확히 걸리게 만든다.",
       "answer_locus": {
-        "sentence_index": [4, 5],
+        "sentence_index": [
+          4,
+          5
+        ],
         "quote": "So don't be afraid to say no.",
         "reasoning": "이 명령문이 정답 선지의 당위 성분('~할 필요가 있다')을 직접 준다. 거절의 대상이 무엇인지는 바로 앞 문장 when we learn to say no to what we don't feel like doing 이 지정하므로, 두 문장을 붙이면 '원하지 않는 일을 거절하라'가 되어 선지 ③과 성분이 일치한다. 명령문이 So 로 열려 앞 문장의 귀결임이 표시돼 있어, 이 자리가 서술의 끝이 아니라 필자의 처방임을 문장 부호 수준에서 확인할 수 있다."
       },
@@ -526,9 +589,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "5번 명령문이 당위를, 4번 문장의 what we don't feel like doing 이 대상을 각각 제공한다",
-          "how_to_reject": null
+          "why_correct": "5번 명령문이 당위를, 4번 문장의 what we don't feel like doing 이 대상을 각각 제공한다"
         },
         {
           "n": 4,
@@ -576,7 +637,13 @@
           "A형 문항이라 지문 길이와 구문 난도가 낮다"
         ]
       },
-      "required_vocab": ["uncomplaining", "cooperative", "boundaries", "distress", "empowered"],
+      "required_vocab": [
+        "uncomplaining",
+        "cooperative",
+        "boundaries",
+        "distress",
+        "empowered"
+      ],
       "revised": true,
       "reviews": [
         {

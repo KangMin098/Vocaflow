@@ -8,7 +8,9 @@
       "measured_ability": "시대 대비 구조(1950년대 이전 대 중반 이후)에서 산업의 상태가 무엇에서 무엇으로 바뀌었는지 두 축을 짚어, 제목이 그 이동 자체를 담고 있는지 판별하는 능력",
       "design_intent": "지문 전반부(호텔·항공·여행사가 따로 영업)만 읽고 멈추면 '통합 실패'·'투어 오퍼레이터 역할 축소' 같은 반대 방향 제목에 걸리도록, 변화의 방향을 알리는 문장을 지문 한가운데(mid-1950s)에 두고 앞뒤를 같은 소재(호텔·항공·여행사)로 채웠다.",
       "answer_locus": {
-        "sentence_index": [5],
+        "sentence_index": [
+          5
+        ],
         "quote": "From the mid-1950s onwards, particularly in the UK, the growth of tour operators began to change the nature of the industry from essentially individual business activities to more integrated activities.",
         "reasoning": "이 한 문장에 출발점(essentially individual business activities)과 도착점(more integrated activities)이 모두 들어 있어 제목이 담아야 할 두 축이 확정된다. 뒤에 이어지는 호텔의 상점가·항공사의 보험 판매는 도착점의 예시일 뿐 새 축을 만들지 않으므로, 이 문장과 어긋나는 제목은 예시를 아무리 끌어와도 성립하지 않는다."
       },
@@ -23,9 +25,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "Separate(따로)와 Combined(합쳐짐)가 정답 근거 문장의 individual → integrated 를 그대로 옮긴 것이고, Changes 가 change the nature of the industry 에 대응한다.",
-          "how_to_reject": "-"
+          "why_correct": "Separate(따로)와 Combined(합쳐짐)가 정답 근거 문장의 individual → integrated 를 그대로 옮긴 것이고, Changes 가 change the nature of the industry 에 대응한다."
         },
         {
           "n": 3,
@@ -70,9 +70,18 @@
       "time_budget_sec": 80,
       "difficulty": {
         "predicted": 0.78,
-        "drivers": ["정답 선지가 지문의 individual/integrated 를 Separate/Combined 로 바꿔 놓아 축자 일치가 없다", "오답 셋이 지문의 주요 명사(tour operators, customers, tourism)를 그대로 쓴다"]
+        "drivers": [
+          "정답 선지가 지문의 individual/integrated 를 Separate/Combined 로 바꿔 놓아 축자 일치가 없다",
+          "오답 셋이 지문의 주요 명사(tour operators, customers, tourism)를 그대로 쓴다"
+        ]
       },
-      "required_vocab": ["fragmented", "integrated", "tour operators", "integral", "accommodation"],
+      "required_vocab": [
+        "fragmented",
+        "integrated",
+        "tour operators",
+        "integral",
+        "accommodation"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -82,19 +91,36 @@
             "초안은 answer_locus 를 첫 문장(tourism was very much an industry which was fragmented)으로 잡았다 — 그 문장은 출발 상태만 말해 '변화'를 담은 정답을 확정하지 못한다. 다섯 번째 문장으로 교체했다.",
             "이 지문에는 역접 표지가 없고 주제문이 다섯 번째 문장에 있다 — '역접 뒤가 주제문, 없으면 첫 문장'이라는 규칙의 예외이므로 type_report 에 올렸다"
           ],
-          "checked": ["answer_locus.quote 를 코퍼스 지문과 문자열 대조", "제목 유형 정의(주제의 압축 표현) 대조", "design_intent 가 이 문항 고유의 배치를 말하는지 확인"]
+          "checked": [
+            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+            "제목 유형 정의(주제의 압축 표현) 대조",
+            "design_intent 가 이 문항 고유의 배치를 말하는지 확인"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["④의 배제 근거가 처음엔 '실패 언급 없음'뿐이어서 위치가 없었다 — So hotels began to develop shopping arcades 문장으로 특정했다"],
-          "checked": ["오답 4개의 trap 이 서로 다른지 확인(무관·반대 진술·인과 역전·지문 밖 상식)", "why_tempting 이 선지 원문 낱말(Collapsing, Reduced, Failure, Challenges)에 근거하는지 대조", "how_to_reject 마다 지문 위치가 지목됐는지 확인"]
+          "findings": [
+            "④의 배제 근거가 처음엔 '실패 언급 없음'뿐이어서 위치가 없었다 — So hotels began to develop shopping arcades 문장으로 특정했다"
+          ],
+          "checked": [
+            "오답 4개의 trap 이 서로 다른지 확인(무관·반대 진술·인과 역전·지문 밖 상식)",
+            "why_tempting 이 선지 원문 낱말(Collapsing, Reduced, Failure, Challenges)에 근거하는지 대조",
+            "how_to_reject 마다 지문 위치가 지목됐는지 확인"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["2단계는 연도 표현이 없는 지문에서 멈추므로 on_fail 에 역접 표지 대안을 넣었다"],
-          "checked": ["4단계를 지문 미독 상태에서 실행 가능한지 순서대로 시뮬레이션", "금지 표현 8종 문자열 대조", "80초 배분(선지 20초·지문 40초·대조 20초) 확인", "required_vocab 5개가 정답 판정에 실제로 쓰이는지 확인"]
+          "findings": [
+            "2단계는 연도 표현이 없는 지문에서 멈추므로 on_fail 에 역접 표지 대안을 넣었다"
+          ],
+          "checked": [
+            "4단계를 지문 미독 상태에서 실행 가능한지 순서대로 시뮬레이션",
+            "금지 표현 8종 문자열 대조",
+            "80초 배분(선지 20초·지문 40초·대조 20초) 확인",
+            "required_vocab 5개가 정답 판정에 실제로 쓰이는지 확인"
+          ]
         }
       ]
     },
@@ -103,7 +129,10 @@
       "measured_ability": "이익(economic benefit)과 훼손(losing its original message) 두 방향이 한 지문에 같은 분량으로 놓였을 때, 글이 한쪽 편을 드는지 둘의 저울질을 말하는지 가려 제목의 무게중심을 정하는 능력",
       "design_intent": "앞 두 문장은 상업적 이익만, However 이후 세 문장은 위험만 말하도록 갈라 놓고 마지막 문장에서 healthy growth sector 와 delicate 를 다시 붙였다. 어느 한쪽 구간에서 읽기를 멈춘 학습자가 이익 쪽 제목과 해악 쪽 제목으로 갈라지도록 설계돼 있다.",
       "answer_locus": {
-        "sentence_index": [3, 5],
+        "sentence_index": [
+          3,
+          5
+        ],
         "quote": "This is something that planners and stakeholders will need to balance against potential financial gain.",
         "reasoning": "balance against potential financial gain 이 이 글의 결론 형식을 지정한다 — 이익 서술도 위험 서술도 결론이 아니라 저울의 양쪽이라는 뜻이다. 앞의 However 문장이 저울의 한쪽(원래 메시지의 상실)을, 이 문장이 다른 쪽(재정적 이득)을 이름 붙이므로 제목은 둘을 마주 세운 것이어야 하고 한쪽을 단정한 제목은 이 문장을 설명할 수 없다."
       },
@@ -118,9 +147,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "Cash 가 economic benefit·financial gain 에, Soul 이 original 'message' 에 대응하고, or 와 물음표가 balance 라는 결론 형식을 그대로 옮긴다.",
-          "how_to_reject": "-"
+          "why_correct": "Cash 가 economic benefit·financial gain 에, Soul 이 original 'message' 에 대응하고, or 와 물음표가 balance 라는 결론 형식을 그대로 옮긴다."
         },
         {
           "n": 3,
@@ -165,28 +192,60 @@
       "time_budget_sec": 95,
       "difficulty": {
         "predicted": 0.55,
-        "drivers": ["3점 문항", "이익 서술과 위험 서술의 분량이 비슷해 무게중심이 한눈에 안 잡힌다", "정답 선지가 은유(Cash or Soul)여서 지문 표현과 축자 일치가 없다", "culturtainment 가 사전에 없는 합성어"]
+        "drivers": [
+          "3점 문항",
+          "이익 서술과 위험 서술의 분량이 비슷해 무게중심이 한눈에 안 잡힌다",
+          "정답 선지가 은유(Cash or Soul)여서 지문 표현과 축자 일치가 없다",
+          "culturtainment 가 사전에 없는 합성어"
+        ]
       },
-      "required_vocab": ["culturtainment", "commercialization", "homogeneous", "dilution", "stakeholders", "exploitation"],
+      "required_vocab": [
+        "culturtainment",
+        "commercialization",
+        "homogeneous",
+        "dilution",
+        "stakeholders",
+        "exploitation"
+      ],
       "revised": true,
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote 를 However 문장으로 잡을지 balance 문장으로 잡을지 갈렸다 — 제목이 '저울질'을 요구하므로 저울의 이름을 붙인 balance 문장을 근거로 두고, However 문장은 sentence_index 로 함께 표시했다"],
-          "checked": ["answer_locus.quote 를 코퍼스 지문과 문자열 대조", "정답 ②가 평가원 정답표와 일치하는지 확인", "design_intent 가 이 지문의 문장 배치(2+3+1)를 근거로 하는지 확인"]
+          "findings": [
+            "quote 를 However 문장으로 잡을지 balance 문장으로 잡을지 갈렸다 — 제목이 '저울질'을 요구하므로 저울의 이름을 붙인 balance 문장을 근거로 두고, However 문장은 sentence_index 로 함께 표시했다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+            "정답 ②가 평가원 정답표와 일치하는지 확인",
+            "design_intent 가 이 지문의 문장 배치(2+3+1)를 근거로 하는지 확인"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["⑤를 처음 '무관'으로 달았으나 선지의 Balanced 는 지문의 balance 에서 나온 미끼다 — 층이 다르므로 '어휘 함정'으로 고쳤다", "③에 '인과 역전'을 붙였다가 ④와 겹쳐, 행위는 같고 주체가 바뀐 경우이므로 '주체 역전'으로 고쳤다"],
-          "checked": ["오답 4개 trap 중복 확인", "각 why_tempting 이 선지 원문 낱말(Unexpected, Ambition, Poisonous, Balanced)에 근거하는지 대조", "how_to_reject 의 지문 위치 유무 확인"]
+          "findings": [
+            "⑤를 처음 '무관'으로 달았으나 선지의 Balanced 는 지문의 balance 에서 나온 미끼다 — 층이 다르므로 '어휘 함정'으로 고쳤다",
+            "③에 '인과 역전'을 붙였다가 ④와 겹쳐, 행위는 같고 주체가 바뀐 경우이므로 '주체 역전'으로 고쳤다"
+          ],
+          "checked": [
+            "오답 4개 trap 중복 확인",
+            "각 why_tempting 이 선지 원문 낱말(Unexpected, Ambition, Poisonous, Balanced)에 근거하는지 대조",
+            "how_to_reject 의 지문 위치 유무 확인"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["3단계가 마지막 문장 판단에서 막힐 수 있어 on_fail 에 balance 계열 낱말 찾기를 넣었다"],
-          "checked": ["4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션", "금지 표현 8종 문자열 대조", "3점 문항 95초 배분 확인", "required_vocab 6개가 지문에 실제로 있는지 대조"]
+          "findings": [
+            "3단계가 마지막 문장 판단에서 막힐 수 있어 on_fail 에 balance 계열 낱말 찾기를 넣었다"
+          ],
+          "checked": [
+            "4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션",
+            "금지 표현 8종 문자열 대조",
+            "3점 문항 95초 배분 확인",
+            "required_vocab 6개가 지문에 실제로 있는지 대조"
+          ]
         }
       ]
     },
@@ -195,7 +254,10 @@
       "measured_ability": "'격리'와 '사회 기여'처럼 겉보기에 모순되는 두 서술이 한 지문에 놓였을 때, 어느 하나를 버리지 않고 둘의 관계를 하나의 제목으로 묶는 능력",
       "design_intent": "수도원의 사회적 기여(1~2문장)와 자발적 격리(3~5문장)를 나눠 서술한 뒤 '수도 생활이 더 넓은 사회를 위한 것'이라는 문장으로 둘을 잇는다. 어느 한 구간만 취한 학습자가 격리 쪽 제목이나 개인 수혜 쪽 제목으로 갈리도록 배치했다.",
       "answer_locus": {
-        "sentence_index": [3, 7],
+        "sentence_index": [
+          3,
+          7
+        ],
         "quote": "Both those following this life and those outside believed that monastic lives were led for the benefit of wider society",
         "reasoning": "격리된 삶(detached)이 바깥 사회를 위한 것(attached)이라고 이 문장이 직접 잇는다. 세 번째 문장의 self-imposed isolation 과 합치면 '떨어져 있으면서 이어져 있다'는 두 축이 동시에 성립하므로, 두 축 중 하나만 말한 제목은 나머지 축의 문장을 설명하지 못한 채 남긴다."
       },
@@ -217,9 +279,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "Detached 가 self-imposed isolation·set apart from the world 에, Attached 가 for the benefit of wider society 에 대응해 두 축을 한 줄에 담는다.",
-          "how_to_reject": "-"
+          "why_correct": "Detached 가 self-imposed isolation·set apart from the world 에, Attached 가 for the benefit of wider society 에 대응해 두 축을 한 줄에 담는다."
         },
         {
           "n": 4,
@@ -257,27 +317,59 @@
       "time_budget_sec": 95,
       "difficulty": {
         "predicted": 0.5,
-        "drivers": ["3점 문항", "정답이 Detached/Attached 라는 대조 어휘로만 되어 있어 지문 낱말과 겹치지 않는다", "penances·deliverance 등 종교 어휘", "격리 서술이 기여 서술보다 분량이 많아 한쪽으로 기울기 쉽다"]
+        "drivers": [
+          "3점 문항",
+          "정답이 Detached/Attached 라는 대조 어휘로만 되어 있어 지문 낱말과 겹치지 않는다",
+          "penances·deliverance 등 종교 어휘",
+          "격리 서술이 기여 서술보다 분량이 많아 한쪽으로 기울기 쉽다"
+        ]
       },
-      "required_vocab": ["monastery", "isolation", "observance", "penance", "deliverance", "solitude", "detached"],
+      "required_vocab": [
+        "monastery",
+        "isolation",
+        "observance",
+        "penance",
+        "deliverance",
+        "solitude",
+        "detached"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["세 번째 문장의 while apparently observing self-imposed isolation 이 역접 기능을 하지만 등위 접속의 역접 표지는 아니다 — 표지 목록을 while·apparently 까지 넓혀야 이 문항이 규칙 안에 들어온다"],
-          "checked": ["answer_locus.quote 를 코퍼스 지문과 문자열 대조", "정답 ③이 평가원 정답표와 일치하는지 확인", "제목 유형 정의 대조"]
+          "findings": [
+            "세 번째 문장의 while apparently observing self-imposed isolation 이 역접 기능을 하지만 등위 접속의 역접 표지는 아니다 — 표지 목록을 while·apparently 까지 넓혀야 이 문항이 규칙 안에 들어온다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+            "정답 ③이 평가원 정답표와 일치하는지 확인",
+            "제목 유형 정의 대조"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["②를 처음 '반대 진술'로 달았으나 고립이라는 행위는 지문과 같고 부과한 주체만 바뀐 경우여서 '주체 역전'으로 고쳤다"],
-          "checked": ["오답 4개 trap 중복 확인(어휘 함정·주체 역전·범위 과대·무관)", "why_tempting 이 선지 원문(How to Gain, Demanded, No Sacrificial Leaders, Politics)에 근거하는지 대조", "how_to_reject 의 지문 위치 유무 확인"]
+          "findings": [
+            "②를 처음 '반대 진술'로 달았으나 고립이라는 행위는 지문과 같고 부과한 주체만 바뀐 경우여서 '주체 역전'으로 고쳤다"
+          ],
+          "checked": [
+            "오답 4개 trap 중복 확인(어휘 함정·주체 역전·범위 과대·무관)",
+            "why_tempting 이 선지 원문(How to Gain, Demanded, No Sacrificial Leaders, Politics)에 근거하는지 대조",
+            "how_to_reject 의 지문 위치 유무 확인"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["required_vocab 에 monasticism·parallel lives 를 넣었다가 정답 판정에 쓰이지 않아 뺐다 — 남긴 7개는 정답 선지(Solitude·Detached) 또는 배제 근거 문장(self-imposed isolation, penances)을 읽는 데 필요한 것만이다"],
-          "checked": ["4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션", "금지 표현 8종 문자열 대조", "3점 문항 95초 배분 확인", "required_vocab 이 지문 또는 선지에 실제로 있는지 대조"]
+          "findings": [
+            "required_vocab 에 monasticism·parallel lives 를 넣었다가 정답 판정에 쓰이지 않아 뺐다 — 남긴 7개는 정답 선지(Solitude·Detached) 또는 배제 근거 문장(self-imposed isolation, penances)을 읽는 데 필요한 것만이다"
+          ],
+          "checked": [
+            "4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션",
+            "금지 표현 8종 문자열 대조",
+            "3점 문항 95초 배분 확인",
+            "required_vocab 이 지문 또는 선지에 실제로 있는지 대조"
+          ]
         }
       ]
     },
@@ -286,7 +378,10 @@
       "measured_ability": "'필수'에서 '문화'로 넘어가는 전환 문장을 찾아 지문 앞부분의 산업 나열을 배경으로 강등하고 뒷부분을 주제로 삼는 능력",
       "design_intent": "앞 세 문장에 농업·가공·소매·외식 같은 산업 어휘를 깔아 두어 전환 문장(But ...)을 놓친 학습자가 산업화 쪽 제목으로 가게 했다. 전환 뒤에는 restaurant·table service·critic·foodie 를 촘촘히 배치해, 이번에는 뒷부분의 한 소재로 제목을 좁히는 오답이 걸리게 했다.",
       "answer_locus": {
-        "sentence_index": [4, 5],
+        "sentence_index": [
+          4,
+          5
+        ],
         "quote": "But in the late 18th century this began to change. Food became more than just a life necessity.",
         "reasoning": "But 이 앞 문장들의 실용적 관심(production, preservation, distribution, pricing)을 배경으로 밀어내고, 이어지는 문장이 새 축을 'life necessity 를 넘어선 것'으로 명시한다. 제목은 이 넘어섬을 담아야 하며, 식당 고르기나 식탁 예절처럼 뒷부분의 한 소재로 좁힌 선지는 이 두 문장을 다 설명하지 못한다."
       },
@@ -301,9 +396,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "Beyond Mere Necessity 가 more than just a life necessity 를, The Rise of Food Culture 가 restaurants·socialization·critics of taste 로 이어지는 뒷부분을 그대로 받는다.",
-          "how_to_reject": "-"
+          "why_correct": "Beyond Mere Necessity 가 more than just a life necessity 를, The Rise of Food Culture 가 restaurants·socialization·critics of taste 로 이어지는 뒷부분을 그대로 받는다."
         },
         {
           "n": 3,
@@ -348,27 +441,56 @@
       "time_budget_sec": 75,
       "difficulty": {
         "predicted": 0.8,
-        "drivers": ["역접 표지 But 이 시대 표현과 붙어 있어 전환점이 눈에 띈다", "정답 선지가 more than just a life necessity 를 거의 그대로 옮긴다"]
+        "drivers": [
+          "역접 표지 But 이 시대 표현과 붙어 있어 전환점이 눈에 띈다",
+          "정답 선지가 more than just a life necessity 를 거의 그대로 옮긴다"
+        ]
       },
-      "required_vocab": ["necessity", "preservation", "distribution", "parlance", "culinary", "socialization"],
+      "required_vocab": [
+        "necessity",
+        "preservation",
+        "distribution",
+        "parlance",
+        "culinary",
+        "socialization"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote 가 두 문장이지만 But 문장만으로는 '무엇을 넘어섰는지'가 안 나와 다음 문장까지 필요하다 — 근거 단위를 두 문장으로 둔 이유를 reasoning 에 적었다"],
-          "checked": ["answer_locus.quote 를 코퍼스 지문과 문자열 대조", "정답 ②가 평가원 정답표와 일치하는지 확인", "design_intent 가 어휘 배치(앞=산업어, 뒤=식당어)를 근거로 하는지 확인"]
+          "findings": [
+            "quote 가 두 문장이지만 But 문장만으로는 '무엇을 넘어섰는지'가 안 나와 다음 문장까지 필요하다 — 근거 단위를 두 문장으로 둔 이유를 reasoning 에 적었다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+            "정답 ②가 평가원 정답표와 일치하는지 확인",
+            "design_intent 가 어휘 배치(앞=산업어, 뒤=식당어)를 근거로 하는지 확인"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["③과 ④를 둘 다 '무관'으로 달았다가, ④는 지문의 인용문에서 출발한 통념 확장이므로 '지문 밖 상식'으로 갈랐다"],
-          "checked": ["오답 4개 trap 중복 확인(어휘 함정·무관·지문 밖 상식·부분 사실)", "why_tempting 이 선지 원문(Return of Fine Dining, Tips, Table Manners, Industrialization)에 근거하는지 대조", "how_to_reject 의 지문 위치 유무 확인"]
+          "findings": [
+            "③과 ④를 둘 다 '무관'으로 달았다가, ④는 지문의 인용문에서 출발한 통념 확장이므로 '지문 밖 상식'으로 갈랐다"
+          ],
+          "checked": [
+            "오답 4개 trap 중복 확인(어휘 함정·무관·지문 밖 상식·부분 사실)",
+            "why_tempting 이 선지 원문(Return of Fine Dining, Tips, Table Manners, Industrialization)에 근거하는지 대조",
+            "how_to_reject 의 지문 위치 유무 확인"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["1단계에서 조언형 선지를 먼저 지우게 하면 2점 문항을 75초 안에 끝낼 수 있다 — 실제로 ③이 이 단계에서 떨어진다"],
-          "checked": ["4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션", "금지 표현 8종 문자열 대조", "75초 배분 확인", "required_vocab 6개가 지문에 실제로 있는지 대조"]
+          "findings": [
+            "1단계에서 조언형 선지를 먼저 지우게 하면 2점 문항을 75초 안에 끝낼 수 있다 — 실제로 ③이 이 단계에서 떨어진다"
+          ],
+          "checked": [
+            "4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션",
+            "금지 표현 8종 문자열 대조",
+            "75초 배분 확인",
+            "required_vocab 6개가 지문에 실제로 있는지 대조"
+          ]
         }
       ]
     },
@@ -377,7 +499,10 @@
       "measured_ability": "'A 때문이 아니라 B 때문'이라는 첫 문장에서 B를 주제로 취하고, 마지막 문장이 그 B를 어떤 명사구로 다시 말하는지 대응시키는 능력",
       "design_intent": "첫 문장이 not because it is new 로 새로움을 부정해 놓아, 이를 '셀피는 별것 아니다'로 옮겨 읽게 유도한다. 정답은 그 부정된 낱말(new)을 Latest 로 되살리되 자화상 계보의 최신 단계라는 자리를 주는 선지여서, 첫 문장의 부정을 문장 단위로 끝까지 읽었는지가 갈림길이 된다.",
       "answer_locus": {
-        "sentence_index": [1, 7],
+        "sentence_index": [
+          1,
+          7
+        ],
         "quote": "Today’s young, urban, networked majority has reworked the history of the self-portrait to make the selfie into the first visual signature of the new era.",
         "reasoning": "reworked the history of the self-portrait 가 셀피를 자화상 역사의 연장선 위에 놓고, the first visual signature of the new era 가 그 선의 맨 끝(최신)에 자리를 준다. 곧 셀피는 자화상을 끝낸 것도 지나갈 유행도 아니라 우리를 재현해 온 방식의 최신 단계이며, 계보를 끊거나 부정하는 선지는 이 문장과 정면으로 충돌한다."
       },
@@ -413,9 +538,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "Latest 가 the new era 와 first visual signature 에, Representing Ourselves 가 self-portrait·depict themselves 에 대응한다.",
-          "how_to_reject": "-"
+          "why_correct": "Latest 가 the new era 와 first visual signature 에, Representing Ourselves 가 self-portrait·depict themselves 에 대응한다."
         }
       ],
       "solve_procedure": [
@@ -439,28 +562,57 @@
       "time_budget_sec": 80,
       "difficulty": {
         "predicted": 0.7,
-        "drivers": ["정답 선지의 Latest 가 첫 문장에서 부정된 new 와 겹쳐 보인다", "resonates·intensifies 등 추상 동사", "선지 다섯 중 넷이 selfie/self-portrait 를 그대로 쓴다"]
+        "drivers": [
+          "정답 선지의 Latest 가 첫 문장에서 부정된 new 와 겹쳐 보인다",
+          "resonates·intensifies 등 추상 동사",
+          "선지 다섯 중 넷이 selfie/self-portrait 를 그대로 쓴다"
+        ]
       },
-      "required_vocab": ["resonates", "intensifies", "self-portrait", "depict", "signature"],
+      "required_vocab": [
+        "resonates",
+        "intensifies",
+        "self-portrait",
+        "depict",
+        "signature"
+      ],
       "revised": true,
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["첫 문장의 not~but 이 이 유형에서 역접 표지 구실을 한다 — 표지 목록에 not A but B 를 포함해야 이 문항이 규칙 안에 들어온다"],
-          "checked": ["answer_locus.quote 를 코퍼스 지문과 문자열 대조", "정답 ⑤가 평가원 정답표와 일치하는지 확인", "design_intent 가 이 문항 고유의 유인(부정된 new 를 정답이 되살림)을 말하는지 확인"]
+          "findings": [
+            "첫 문장의 not~but 이 이 유형에서 역접 표지 구실을 한다 — 표지 목록에 not A but B 를 포함해야 이 문항이 규칙 안에 들어온다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+            "정답 ⑤가 평가원 정답표와 일치하는지 확인",
+            "design_intent 가 이 문항 고유의 유인(부정된 new 를 정답이 되살림)을 말하는지 확인"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["①과 ④가 둘 다 계보를 부정한다는 점에서 겹쳐 보였으나, ①은 지속성을 부정하고 ④는 대체를 주장하므로 근거 문장이 다르다 — ①은 마지막 문장, ④는 첫 문장으로 배제 위치를 갈랐다"],
-          "checked": ["오답 4개 trap 중복 확인(반대 진술·부분 사실·범위 과대·어휘 함정)", "why_tempting 이 선지 원문(Temporary Trend, Not the Real You, Self-oriented, Taking Over)에 근거하는지 대조", "how_to_reject 의 지문 위치 유무 확인"]
+          "findings": [
+            "①과 ④가 둘 다 계보를 부정한다는 점에서 겹쳐 보였으나, ①은 지속성을 부정하고 ④는 대체를 주장하므로 근거 문장이 다르다 — ①은 마지막 문장, ④는 첫 문장으로 배제 위치를 갈랐다"
+          ],
+          "checked": [
+            "오답 4개 trap 중복 확인(반대 진술·부분 사실·범위 과대·어휘 함정)",
+            "why_tempting 이 선지 원문(Temporary Trend, Not the Real You, Self-oriented, Taking Over)에 근거하는지 대조",
+            "how_to_reject 의 지문 위치 유무 확인"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["초안 1단계에 '전체를 읽고 첫 문장으로 돌아온다'는 표현이 있었다 — 금지 표현이자 실행 순서가 뒤집힌 지시라, 첫 문장의 not~but 만 먼저 처리하는 지시로 바꿨다"],
-          "checked": ["4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션", "금지 표현 8종 문자열 대조", "80초 배분 확인", "required_vocab 5개가 지문에 실제로 있는지 대조"]
+          "findings": [
+            "초안 1단계에 '전체를 읽고 첫 문장으로 돌아온다'는 표현이 있었다 — 금지 표현이자 실행 순서가 뒤집힌 지시라, 첫 문장의 not~but 만 먼저 처리하는 지시로 바꿨다"
+          ],
+          "checked": [
+            "4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션",
+            "금지 표현 8종 문자열 대조",
+            "80초 배분 확인",
+            "required_vocab 5개가 지문에 실제로 있는지 대조"
+          ]
         }
       ]
     },
@@ -470,7 +622,10 @@
       "measured_ability": "'직선적 진보'와 '순환'이 맞서는 지문에서 어느 쪽이 글의 결론인지 가려, 지문 낱말이 하나도 겹치지 않는 관용구 제목이 그 결론과 같은 뜻인지 판별하는 능력",
       "design_intent": "open-office 라는 화제어를 첫 문장에 놓고 partitions·cubicles·contemporary office spaces 같은 하위 소재를 뒤에 흩어, 지문 낱말이 든 선지로 손이 가게 했다. 정답만 지문 표현과 겹치는 낱말이 없는 관용구여서, 낱말 대조로 고르는 습관이 그대로 실점이 된다.",
       "answer_locus": {
-        "sentence_index": [7, 8],
+        "sentence_index": [
+          7,
+          8
+        ],
         "quote": "Surveying office spaces from the past eighty years, one can see a cycle that repeats.",
         "reasoning": "바로 앞 문장이 직선적 진보를 a myth 라며 부정하고, 이 문장이 그 자리에 반복되는 주기를 놓는다. 뒤 문장은 1940년대와 2000년대가 같은 양식으로 돌아왔음을 실제 사례로 확인해 주므로, 제목은 이 순환을 담아야 하고 개방형 사무실의 장단이나 칸막이의 효과는 순환을 보여 주는 재료에 그친다."
       },
@@ -499,9 +654,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "What Goes Around Comes Around 가 a cycle that repeats 와 circled back around 를 관용구로 옮긴 것이고, Office Designs 가 office plans 를 받는다.",
-          "how_to_reject": "-"
+          "why_correct": "What Goes Around Comes Around 가 a cycle that repeats 와 circled back around 를 관용구로 옮긴 것이고, Office Designs 가 office plans 를 받는다."
         },
         {
           "n": 5,
@@ -532,27 +685,58 @@
       "time_budget_sec": 85,
       "difficulty": {
         "predicted": 0.72,
-        "drivers": ["정답이 관용구여서 지문과 축자 대응이 없다", "오답 넷 중 셋이 지문 낱말을 그대로 포함한다", "지문에 연대(1940s·1980s·2000s)가 셋 나와 구간 혼동이 생긴다"]
+        "drivers": [
+          "정답이 관용구여서 지문과 축자 대응이 없다",
+          "오답 넷 중 셋이 지문 낱말을 그대로 포함한다",
+          "지문에 연대(1940s·1980s·2000s)가 셋 나와 구간 혼동이 생긴다"
+        ]
       },
-      "required_vocab": ["currency", "rigid", "take-away", "partitions", "cubicles", "myth"],
+      "required_vocab": [
+        "currency",
+        "rigid",
+        "take-away",
+        "partitions",
+        "cubicles",
+        "myth"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["코퍼스의 body_ok 가 false 여서 raw_block 에서 본문과 선지를 복원해 분석했다(본문에 섞인 OCR 잡음 'e', 'ition: 의지'는 원문 각주·인접 단의 조각이므로 판단에서 제외)", "quote 는 복원한 본문과 raw_block 양쪽에서 문자열로 확인했다"],
-          "checked": ["raw_block 원문에서 지문·선지 5개 복원", "answer_locus.quote 를 raw_block 과 문자열 대조", "정답 ④가 평가원 정답표와 일치하는지 확인"]
+          "findings": [
+            "코퍼스의 body_ok 가 false 여서 raw_block 에서 본문과 선지를 복원해 분석했다(본문에 섞인 OCR 잡음 'e', 'ition: 의지'는 원문 각주·인접 단의 조각이므로 판단에서 제외)",
+            "quote 는 복원한 본문과 raw_block 양쪽에서 문자열로 확인했다"
+          ],
+          "checked": [
+            "raw_block 원문에서 지문·선지 5개 복원",
+            "answer_locus.quote 를 raw_block 과 문자열 대조",
+            "정답 ④가 평가원 정답표와 일치하는지 확인"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["①의 배제 근거를 '비용 언급 없음'만 두었다가 첫 문장 안의 but 제한까지 지목해 위치를 채웠다"],
-          "checked": ["오답 4개 trap 중복 확인(지문 밖 상식·어휘 함정·부분 사실·무관)", "why_tempting 이 선지 원문(Cost-efficient, Retro, Partitions, Tips)에 근거하는지 대조", "how_to_reject 의 지문 위치 유무 확인"]
+          "findings": [
+            "①의 배제 근거를 '비용 언급 없음'만 두었다가 첫 문장 안의 but 제한까지 지목해 위치를 채웠다"
+          ],
+          "checked": [
+            "오답 4개 trap 중복 확인(지문 밖 상식·어휘 함정·부분 사실·무관)",
+            "why_tempting 이 선지 원문(Cost-efficient, Retro, Partitions, Tips)에 근거하는지 대조",
+            "how_to_reject 의 지문 위치 유무 확인"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["1단계(지문 낱말이 안 겹치는 선지 표시)는 선지를 먼저 보는 순서라야 실행된다 — 절차 순서를 선지 먼저로 고정했다"],
-          "checked": ["4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션", "금지 표현 8종 문자열 대조", "85초 배분 확인", "required_vocab 6개가 복원한 본문에 실제로 있는지 대조"]
+          "findings": [
+            "1단계(지문 낱말이 안 겹치는 선지 표시)는 선지를 먼저 보는 순서라야 실행된다 — 절차 순서를 선지 먼저로 고정했다"
+          ],
+          "checked": [
+            "4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션",
+            "금지 표현 8종 문자열 대조",
+            "85초 배분 확인",
+            "required_vocab 6개가 복원한 본문에 실제로 있는지 대조"
+          ]
         }
       ]
     },
@@ -561,7 +745,10 @@
       "measured_ability": "시대 순으로 나열된 지문에서 시작점과 끝점을 모두 덮는 제목을 고르고, 한 시대나 한 소재로 잘린 제목을 걸러 내는 능력",
       "design_intent": "선사시대 동굴(32,000년 전) → 고대 이집트·그리스 → 기원전 400년 아테네 → 그 이후로 시간이 이어지도록 배열하고, 오답에는 그 구간을 각기 다르게 자른 제목(로마까지·현대만·인간 그림자만)을 배치했다. 정답과 ⑤가 같은 From-to 형식이어서 형식만 보고 고르면 갈린다.",
       "answer_locus": {
-        "sentence_index": [1, 8],
+        "sentence_index": [
+          1,
+          8
+        ],
         "quote": "Ever since, the practice of portraying shadows has evolved along with critical analysis of them",
         "reasoning": "Ever since 가 고대 아테네 이후로도 이야기가 계속됨을 못 박아, 첫 문장의 32,000년 전과 합쳐 지문의 시간 범위를 선사시대부터 지금까지로 확정한다. 제목은 이 범위 전체를 덮어야 하므로, 특정 시대에서 끊기거나 한 시대에만 걸린 선지는 이 문장을 설명하지 못한 채 남긴다."
       },
@@ -569,9 +756,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "The Journey 가 evolved 와 transition 을, from Prehistoric Caves Onward 가 As far back as 32,000 years ago 부터 Ever since 까지의 시간 범위를 그대로 덮는다.",
-          "how_to_reject": "-"
+          "why_correct": "The Journey 가 evolved 와 transition 을, from Prehistoric Caves Onward 가 As far back as 32,000 years ago 부터 Ever since 까지의 시간 범위를 그대로 덮는다."
         },
         {
           "n": 2,
@@ -623,28 +808,58 @@
       "time_budget_sec": 95,
       "difficulty": {
         "predicted": 0.62,
-        "drivers": ["3점 문항", "시대 표현이 다섯 개 이상이라 순서를 놓치기 쉽다", "정답과 ⑤가 같은 From-to 구조", "cast shadows 와 modeling shadows 의 구별이 대상 범위 판단에 걸린다"]
+        "drivers": [
+          "3점 문항",
+          "시대 표현이 다섯 개 이상이라 순서를 놓치기 쉽다",
+          "정답과 ⑤가 같은 From-to 구조",
+          "cast shadows 와 modeling shadows 의 구별이 대상 범위 판단에 걸린다"
+        ]
       },
-      "required_vocab": ["cast shadow", "modeling shadow", "silhouette", "representation", "projection"],
+      "required_vocab": [
+        "cast shadow",
+        "modeling shadow",
+        "silhouette",
+        "representation",
+        "projection"
+      ],
       "revised": true,
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["이 지문에는 주제문 한 문장이 없다 — But cast shadows do not appear ... 는 역접이지만 주제문이 아니고, 제목은 첫 문장(시작점)과 마지막 문장(끝점) 두 개를 함께 봐야 확정된다. 대의파악의 '한 문장' 규칙이 깨지는 사례로 type_report 에 올렸다"],
-          "checked": ["answer_locus.quote 를 코퍼스 지문과 문자열 대조", "정답 ①이 평가원 정답표와 일치하는지 확인", "역접 표지(But) 뒤 문장이 주제문인지 확인 — 아니었다"]
+          "findings": [
+            "이 지문에는 주제문 한 문장이 없다 — But cast shadows do not appear ... 는 역접이지만 주제문이 아니고, 제목은 첫 문장(시작점)과 마지막 문장(끝점) 두 개를 함께 봐야 확정된다. 대의파악의 '한 문장' 규칙이 깨지는 사례로 type_report 에 올렸다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+            "정답 ①이 평가원 정답표와 일치하는지 확인",
+            "역접 표지(But) 뒤 문장이 주제문인지 확인 — 아니었다"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["③과 ⑤에 모두 '범위 과소'를 달았다 — 라벨 중복이라 반려하고, ③은 지문에 없는 위상(현대 미술의 핵심)을 얹은 것이므로 '범위 과대'로, ⑤는 끝점을 자른 것이므로 '범위 과소'로 갈랐다"],
-          "checked": ["오답 4개 trap 중복 확인(부분 사실·범위 과대·무관·범위 과소)", "why_tempting 이 선지 원문(Human Shadows, Contemporary Art, Challenges, to Romans)에 근거하는지 대조", "how_to_reject 의 지문 위치 유무 확인"]
+          "findings": [
+            "③과 ⑤에 모두 '범위 과소'를 달았다 — 라벨 중복이라 반려하고, ③은 지문에 없는 위상(현대 미술의 핵심)을 얹은 것이므로 '범위 과대'로, ⑤는 끝점을 자른 것이므로 '범위 과소'로 갈랐다"
+          ],
+          "checked": [
+            "오답 4개 trap 중복 확인(부분 사실·범위 과대·무관·범위 과소)",
+            "why_tempting 이 선지 원문(Human Shadows, Contemporary Art, Challenges, to Romans)에 근거하는지 대조",
+            "how_to_reject 의 지문 위치 유무 확인"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["시간 양끝만 표시하면 ③·④·⑤가 한 번에 떨어져 3점 문항을 95초 안에 끝낼 수 있다"],
-          "checked": ["4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션", "금지 표현 8종 문자열 대조", "95초 배분 확인", "required_vocab 5개가 지문에 실제로 있는지 대조"]
+          "findings": [
+            "시간 양끝만 표시하면 ③·④·⑤가 한 번에 떨어져 3점 문항을 95초 안에 끝낼 수 있다"
+          ],
+          "checked": [
+            "4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션",
+            "금지 표현 8종 문자열 대조",
+            "95초 배분 확인",
+            "required_vocab 5개가 지문에 실제로 있는지 대조"
+          ]
         }
       ]
     },
@@ -653,7 +868,10 @@
       "measured_ability": "지문이 어떤 개념을 설명하는지 그 개념이 딛고 선 전제를 문제 삼는지 가려, 제목이 같은 층위(현상이냐 전제냐)에서 말하고 있는지 재는 능력",
       "design_intent": "첫 문장이 overtourism 을 rests on a particular assumption 이라 규정해 글의 과녁을 현상이 아니라 전제로 옮겨 둔다. 이 규정을 놓치면 심각성·해결책·승패처럼 현상 층위의 제목으로 가게 되고, 그 셋이 오답 넷 중 셋을 차지한다.",
       "answer_locus": {
-        "sentence_index": [1, 10],
+        "sentence_index": [
+          1,
+          10
+        ],
         "quote": "What is excessive or out of proportion is highly relative and might be more related to other aspects than physical capacity",
         "reasoning": "'사람이 몰려 물리적으로 꽉 찼다'는 전제를 이 문장이 상대화하고 그 자리에 다른 요인(natural degradation, economic leakages)을 놓는다. 곧 오버투어리즘은 사람과 장소만의 문제가 아니라는 것이 결론이므로, 제목은 이 부정 형식을 담아야 하고 현상의 정도나 대책을 말한 선지는 이 문장을 설명하지 못한다."
       },
@@ -689,9 +907,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "Not Simply a Matter of People and Places 가 첫 문장의 전제(people and places)를 그대로 받아 마지막 문장의 상대화를 부정 형식으로 옮긴다.",
-          "how_to_reject": "-"
+          "why_correct": "Not Simply a Matter of People and Places 가 첫 문장의 전제(people and places)를 그대로 받아 마지막 문장의 상대화를 부정 형식으로 옮긴다."
         }
       ],
       "solve_procedure": [
@@ -715,27 +931,58 @@
       "time_budget_sec": 95,
       "difficulty": {
         "predicted": 0.55,
-        "drivers": ["3점 문항", "정답이 부정 형식(Not Simply)이라 단정형 오답보다 약해 보인다", "assumption·demarcated·out of proportion 등 추상 어휘", "전제를 겨눈다는 첫 문장의 기능을 놓치기 쉽다"]
+        "drivers": [
+          "3점 문항",
+          "정답이 부정 형식(Not Simply)이라 단정형 오답보다 약해 보인다",
+          "assumption·demarcated·out of proportion 등 추상 어휘",
+          "전제를 겨눈다는 첫 문장의 기능을 놓치기 쉽다"
+        ]
       },
-      "required_vocab": ["assumption", "demarcated", "bounded", "excessive", "out of proportion", "leakage"],
+      "required_vocab": [
+        "assumption",
+        "demarcated",
+        "bounded",
+        "excessive",
+        "out of proportion",
+        "leakage"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote 를 However 문장으로 잡으면 '복잡해진다'까지만 나오고 무엇으로 대체되는지가 빠진다 — 마지막 문장을 근거로 두었다"],
-          "checked": ["answer_locus.quote 를 코퍼스 지문과 문자열 대조", "정답 ⑤가 평가원 정답표와 일치하는지 확인", "design_intent 가 첫 문장의 기능(전제 규정)에 근거하는지 확인"]
+          "findings": [
+            "quote 를 However 문장으로 잡으면 '복잡해진다'까지만 나오고 무엇으로 대체되는지가 빠진다 — 마지막 문장을 근거로 두었다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+            "정답 ⑤가 평가원 정답표와 일치하는지 확인",
+            "design_intent 가 첫 문장의 기능(전제 규정)에 근거하는지 확인"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["①을 '무관'으로 달았다가 ②와 겹쳐, ①은 진행 방향이 지문과 반대(단순→복잡의 역)이므로 '반대 진술'로 갈랐다"],
-          "checked": ["오답 4개 trap 중복 확인(반대 진술·무관·어휘 함정·지문 밖 상식)", "why_tempting 이 선지 원문(Complex to Simple, Attractive, Winners or Losers, Much Worse)에 근거하는지 대조", "how_to_reject 의 지문 위치 유무 확인"]
+          "findings": [
+            "①을 '무관'으로 달았다가 ②와 겹쳐, ①은 진행 방향이 지문과 반대(단순→복잡의 역)이므로 '반대 진술'로 갈랐다"
+          ],
+          "checked": [
+            "오답 4개 trap 중복 확인(반대 진술·무관·어휘 함정·지문 밖 상식)",
+            "why_tempting 이 선지 원문(Complex to Simple, Attractive, Winners or Losers, Much Worse)에 근거하는지 대조",
+            "how_to_reject 의 지문 위치 유무 확인"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["3단계에서 such as 뒤 예시를 적게 한 것이 ⑤와 나머지를 가르는 실질 작업이다 — 이 단계가 없으면 ④와 ⑤ 사이에서 시간을 쓴다"],
-          "checked": ["4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션", "금지 표현 8종 문자열 대조", "3점 문항 95초 배분 확인", "required_vocab 6개가 지문에 실제로 있는지 대조"]
+          "findings": [
+            "3단계에서 such as 뒤 예시를 적게 한 것이 ⑤와 나머지를 가르는 실질 작업이다 — 이 단계가 없으면 ④와 ⑤ 사이에서 시간을 쓴다"
+          ],
+          "checked": [
+            "4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션",
+            "금지 표현 8종 문자열 대조",
+            "3점 문항 95초 배분 확인",
+            "required_vocab 6개가 지문에 실제로 있는지 대조"
+          ]
         }
       ]
     },
@@ -770,25 +1017,54 @@
           "근거로 삼은 관찰: 지문 910자에 emergent qualities·manifest outcomes 같은 추상 명사구가 이어지고, 마지막 한 문장이 60낱말이 넘는 장문이며, 선지 다섯 중 넷이 online/web/news 를 그대로 포함해 낱말 대조로는 갈리지 않는다"
         ]
       },
-      "required_vocab": ["archives", "shelf life", "cited", "emergent", "manifest", "spectacles"],
+      "required_vocab": [
+        "archives",
+        "shelf life",
+        "cited",
+        "emergent",
+        "manifest",
+        "spectacles"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["answer_known 이 false 이므로 answer_locus 와 choices 를 넣지 않았다 — measured_ability·design_intent 도 특정 선지를 전제하지 않는 서술로만 썼다", "design_intent 는 정답 지목 없이 지문의 두 축 배치만 진술한다"],
-          "checked": ["코퍼스에서 answer 가 null 임을 확인", "산출물에 answer_locus·choices 키가 없는지 확인", "measured_ability 에 선지 번호나 정답 암시가 없는지 확인"]
+          "findings": [
+            "answer_known 이 false 이므로 answer_locus 와 choices 를 넣지 않았다 — measured_ability·design_intent 도 특정 선지를 전제하지 않는 서술로만 썼다",
+            "design_intent 는 정답 지목 없이 지문의 두 축 배치만 진술한다"
+          ],
+          "checked": [
+            "코퍼스에서 answer 가 null 임을 확인",
+            "산출물에 answer_locus·choices 키가 없는지 확인",
+            "measured_ability 에 선지 번호나 정답 암시가 없는지 확인"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["difficulty.predicted 0.6 의 근거가 처음엔 비어 있었다 — 정답을 모르는 채 정답률을 적은 셈이라 반려하고, 정답 판정 없이 셀 수 있는 관찰(지문 길이·추상 명사구·선지 낱말 겹침)만으로 근거를 다시 적게 했다", "required_vocab 6개를 지문 문자열과 대조해 전부 실재함을 확인했다(archives, shelf life, cited, emergent, manifest, spectacles)"],
-          "checked": ["answer_locus·choices 가 비어 있는지 확인(추정 정답 유입 여부)", "difficulty.predicted 의 근거 진술 확인", "required_vocab 을 지문과 문자열 대조", "measured_ability 가 선지를 전제하지 않는지 확인"]
+          "findings": [
+            "difficulty.predicted 0.6 의 근거가 처음엔 비어 있었다 — 정답을 모르는 채 정답률을 적은 셈이라 반려하고, 정답 판정 없이 셀 수 있는 관찰(지문 길이·추상 명사구·선지 낱말 겹침)만으로 근거를 다시 적게 했다",
+            "required_vocab 6개를 지문 문자열과 대조해 전부 실재함을 확인했다(archives, shelf life, cited, emergent, manifest, spectacles)"
+          ],
+          "checked": [
+            "answer_locus·choices 가 비어 있는지 확인(추정 정답 유입 여부)",
+            "difficulty.predicted 의 근거 진술 확인",
+            "required_vocab 을 지문과 문자열 대조",
+            "measured_ability 가 선지를 전제하지 않는지 확인"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["2단계의 '특징을 센다'가 학습자에게는 막연할 수 있어 on_fail 에 셀 대상(마지막 문장의 명사구 두 개)을 명시했다"],
-          "checked": ["4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션", "금지 표현 8종 문자열 대조", "85초 배분 확인", "정답 없이도 절차가 하나의 선지로 수렴하는지 확인"]
+          "findings": [
+            "2단계의 '특징을 센다'가 학습자에게는 막연할 수 있어 on_fail 에 셀 대상(마지막 문장의 명사구 두 개)을 명시했다"
+          ],
+          "checked": [
+            "4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션",
+            "금지 표현 8종 문자열 대조",
+            "85초 배분 확인",
+            "정답 없이도 절차가 하나의 선지로 수렴하는지 확인"
+          ]
         }
       ]
     },
@@ -823,25 +1099,53 @@
           "근거로 삼은 관찰: 지문 1,177자로 이 청크에서 가장 길고, 통계 문장이 넷·역접 이후 문장이 셋으로 앞 구간이 더 길다. externalities·unsustainable 같은 추상 어휘가 결론부에 몰려 있고, 선지 다섯 중 셋이 hyper-mobility 또는 accessibility 를 그대로 포함한다"
         ]
       },
-      "required_vocab": ["hyper-mobility", "freight", "externalities", "unsustainable", "unprecedented"],
+      "required_vocab": [
+        "hyper-mobility",
+        "freight",
+        "externalities",
+        "unsustainable",
+        "unprecedented"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["answer_known 이 false 이므로 answer_locus 와 choices 를 넣지 않았다", "design_intent 를 '통계 구간이 길다'는 지문 자체의 배치로만 썼다 — 어느 선지가 답인지 암시하지 않는다"],
-          "checked": ["코퍼스에서 answer 가 null 임을 확인", "산출물에 answer_locus·choices 키가 없는지 확인", "measured_ability 에 선지 번호나 정답 암시가 없는지 확인"]
+          "findings": [
+            "answer_known 이 false 이므로 answer_locus 와 choices 를 넣지 않았다",
+            "design_intent 를 '통계 구간이 길다'는 지문 자체의 배치로만 썼다 — 어느 선지가 답인지 암시하지 않는다"
+          ],
+          "checked": [
+            "코퍼스에서 answer 가 null 임을 확인",
+            "산출물에 answer_locus·choices 키가 없는지 확인",
+            "measured_ability 에 선지 번호나 정답 암시가 없는지 확인"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["difficulty.predicted 의 근거에 '정답률이 낮을 것'이라는 순환 서술이 있었다 — 지문 길이·문장 배분·선지 낱말 겹침이라는 셀 수 있는 관찰로 바꿨다", "required_vocab 5개를 지문 문자열과 대조해 전부 실재함을 확인했다"],
-          "checked": ["answer_locus·choices 가 비어 있는지 확인(추정 정답 유입 여부)", "difficulty.predicted 의 근거 진술 확인", "required_vocab 을 지문과 문자열 대조", "measured_ability 가 선지를 전제하지 않는지 확인"]
+          "findings": [
+            "difficulty.predicted 의 근거에 '정답률이 낮을 것'이라는 순환 서술이 있었다 — 지문 길이·문장 배분·선지 낱말 겹침이라는 셀 수 있는 관찰로 바꿨다",
+            "required_vocab 5개를 지문 문자열과 대조해 전부 실재함을 확인했다"
+          ],
+          "checked": [
+            "answer_locus·choices 가 비어 있는지 확인(추정 정답 유입 여부)",
+            "difficulty.predicted 의 근거 진술 확인",
+            "required_vocab 을 지문과 문자열 대조",
+            "measured_ability 가 선지를 전제하지 않는지 확인"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["1단계에서 대시 사이 정의를 옮겨 적게 한 것이 이 지문에서 가장 시간을 아끼는 지시다 — 통계 세 문장을 읽지 않아도 화제가 확정된다"],
-          "checked": ["4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션", "금지 표현 8종 문자열 대조", "1,177자 지문을 85초 안에 처리 가능한지(통계 문장 건너뛰기 포함) 확인", "정답 없이도 절차가 하나의 선지로 수렴하는지 확인"]
+          "findings": [
+            "1단계에서 대시 사이 정의를 옮겨 적게 한 것이 이 지문에서 가장 시간을 아끼는 지시다 — 통계 세 문장을 읽지 않아도 화제가 확정된다"
+          ],
+          "checked": [
+            "4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션",
+            "금지 표현 8종 문자열 대조",
+            "1,177자 지문을 85초 안에 처리 가능한지(통계 문장 건너뛰기 포함) 확인",
+            "정답 없이도 절차가 하나의 선지로 수렴하는지 확인"
+          ]
         }
       ]
     },
@@ -850,7 +1154,10 @@
       "measured_ability": "'~라고 가정하기 쉽다 / 그러나 실제는' 구조에서 반박 쪽 문장을 주제로 삼고, 그 문장의 열거(모양·색·위치·운동)를 하나의 표현으로 묶는 능력",
       "design_intent": "앞 세 문장이 어떤 세포는 무엇을 알아야 하는지를 각각 다르게 서술해 분업을 미리 깔아 두고, 통념 문장(It is natural to assume ...) 뒤 However 에서 그 분업을 못 박는다. 색·얼굴·뇌 손상 같은 소재어가 오답 선지에 하나씩 흩어져 있어, 소재로 고르면 그대로 걸린다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "However, one part of your brain sees its shape, another sees color, another detects location, and another perceives movement.",
         "reasoning": "바로 앞 문장이 '한 대상을 보면 그것의 전부를 본다'는 통념을 세우고, 이 문장이 그것을 뒤집어 모양·색·위치·운동을 서로 다른 부분이 따로 맡는다고 못 박는다. 제목은 이 분리와 독립을 담아야 하며, 네 항목 중 하나만 든 선지나 뇌의 미지·회복을 말한 선지는 이 문장을 설명하지 못한다."
       },
@@ -886,9 +1193,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "Separate and Independent 가 one part ... another ... another ... and another 의 분업을, Brain Cells' Visual Perceptions 가 열거된 네 항목 전체를 받는다.",
-          "how_to_reject": "-"
+          "why_correct": "Separate and Independent 가 one part ... another ... another ... and another 의 분업을, Brain Cells' Visual Perceptions 가 열거된 네 항목 전체를 받는다."
         }
       ],
       "solve_procedure": [
@@ -912,27 +1217,55 @@
       "time_budget_sec": 75,
       "difficulty": {
         "predicted": 0.8,
-        "drivers": ["역접 표지 However 가 통념 문장 바로 뒤에 있어 근거 문장이 눈에 띈다", "정답 선지의 Separate and Independent 가 열거 구조를 그대로 요약한다"]
+        "drivers": [
+          "역접 표지 However 가 통념 문장 바로 뒤에 있어 근거 문장이 눈에 띈다",
+          "정답 선지의 Separate and Independent 가 열거 구조를 그대로 요약한다"
+        ]
       },
-      "required_vocab": ["need-to-know", "localized", "perceive", "aspects", "assume"],
+      "required_vocab": [
+        "need-to-know",
+        "localized",
+        "perceive",
+        "aspects",
+        "assume"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["통념(It is natural to assume) 다음 역접이라는 배치가 이 유형에서 가장 표준적인 형태다 — 근거 문장이 한 문장으로 확정되는 사례로 type_report 에 반영했다"],
-          "checked": ["answer_locus.quote 를 코퍼스 지문과 문자열 대조", "정답 ⑤가 평가원 정답표와 일치하는지 확인", "design_intent 가 오답 소재어의 배치를 근거로 하는지 확인"]
+          "findings": [
+            "통념(It is natural to assume) 다음 역접이라는 배치가 이 유형에서 가장 표준적인 형태다 — 근거 문장이 한 문장으로 확정되는 사례로 type_report 에 반영했다"
+          ],
+          "checked": [
+            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+            "정답 ⑤가 평가원 정답표와 일치하는지 확인",
+            "design_intent 가 오답 소재어의 배치를 근거로 하는지 확인"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["③과 ④를 둘 다 '무관'으로 달았다가, ③은 Blind·damage 라는 지문 어휘를 미끼로 쓴 경우여서 '어휘 함정'으로 갈랐다"],
-          "checked": ["오답 4개 trap 중복 확인(반대 진술·범위 과소·어휘 함정·무관)", "why_tempting 이 선지 원문(Never Betray, Color-Sensitive, Blind Spots, Recovery Process)에 근거하는지 대조", "how_to_reject 의 지문 위치 유무 확인"]
+          "findings": [
+            "③과 ④를 둘 다 '무관'으로 달았다가, ③은 Blind·damage 라는 지문 어휘를 미끼로 쓴 경우여서 '어휘 함정'으로 갈랐다"
+          ],
+          "checked": [
+            "오답 4개 trap 중복 확인(반대 진술·범위 과소·어휘 함정·무관)",
+            "why_tempting 이 선지 원문(Never Betray, Color-Sensitive, Blind Spots, Recovery Process)에 근거하는지 대조",
+            "how_to_reject 의 지문 위치 유무 확인"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["2단계에서 another 의 개수만 세게 한 on_fail 이 실제로 더 빠르다 — 열거를 낱말로 옮겨 적지 않아도 항목 수가 나온다"],
-          "checked": ["4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션", "금지 표현 8종 문자열 대조", "75초 배분 확인", "required_vocab 5개가 지문에 실제로 있는지 대조"]
+          "findings": [
+            "2단계에서 another 의 개수만 세게 한 on_fail 이 실제로 더 빠르다 — 열거를 낱말로 옮겨 적지 않아도 항목 수가 나온다"
+          ],
+          "checked": [
+            "4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션",
+            "금지 표현 8종 문자열 대조",
+            "75초 배분 확인",
+            "required_vocab 5개가 지문에 실제로 있는지 대조"
+          ]
         }
       ]
     },
@@ -967,25 +1300,52 @@
           "근거로 삼은 관찰: 핵심 개념이 다섯 낱말로 되풀이되고 We generally call this 'expressivity' 처럼 개념에 이름을 붙여 주는 문장이 지문 한가운데 있다. 반면 선지 다섯 중 셋은 지문에 없는 영역(비평 경력·음악 치료·무대 공포)을 끌어와 낱말 대조만으로도 갈린다"
         ]
       },
-      "required_vocab": ["deviation", "expressivity", "intonation", "diverges", "repertoire"],
+      "required_vocab": [
+        "deviation",
+        "expressivity",
+        "intonation",
+        "diverges",
+        "repertoire"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["answer_known 이 false 이므로 answer_locus 와 choices 를 넣지 않았다", "design_intent 를 동의어 반복이라는 지문 자체의 짜임으로만 썼다 — 특정 선지를 지목하지 않는다"],
-          "checked": ["코퍼스에서 answer 가 null 임을 확인", "산출물에 answer_locus·choices 키가 없는지 확인", "measured_ability 에 선지 번호나 정답 암시가 없는지 확인"]
+          "findings": [
+            "answer_known 이 false 이므로 answer_locus 와 choices 를 넣지 않았다",
+            "design_intent 를 동의어 반복이라는 지문 자체의 짜임으로만 썼다 — 특정 선지를 지목하지 않는다"
+          ],
+          "checked": [
+            "코퍼스에서 answer 가 null 임을 확인",
+            "산출물에 answer_locus·choices 키가 없는지 확인",
+            "measured_ability 에 선지 번호나 정답 암시가 없는지 확인"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["required_vocab 에 처음 'improvisation' 을 넣었으나 지문에 없는 낱말이었다 — 문자열 대조에서 걸려 빼고, 실제로 있는 diverges·repertoire 로 교체했다"],
-          "checked": ["answer_locus·choices 가 비어 있는지 확인(추정 정답 유입 여부)", "difficulty.predicted 의 근거 진술 확인", "required_vocab 5개를 지문과 문자열 대조", "measured_ability 가 선지를 전제하지 않는지 확인"]
+          "findings": [
+            "required_vocab 에 처음 'improvisation' 을 넣었으나 지문에 없는 낱말이었다 — 문자열 대조에서 걸려 빼고, 실제로 있는 diverges·repertoire 로 교체했다"
+          ],
+          "checked": [
+            "answer_locus·choices 가 비어 있는지 확인(추정 정답 유입 여부)",
+            "difficulty.predicted 의 근거 진술 확인",
+            "required_vocab 5개를 지문과 문자열 대조",
+            "measured_ability 가 선지를 전제하지 않는지 확인"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["4단계의 '지문에 없는 영역어를 지운다'가 이 지문에서는 선지 셋을 한 번에 떨어뜨린다 — 80초 배분이 성립한다"],
-          "checked": ["4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션", "금지 표현 8종 문자열 대조", "80초 배분 확인", "정답 없이도 절차가 하나의 선지로 수렴하는지 확인"]
+          "findings": [
+            "4단계의 '지문에 없는 영역어를 지운다'가 이 지문에서는 선지 셋을 한 번에 떨어뜨린다 — 80초 배분이 성립한다"
+          ],
+          "checked": [
+            "4단계를 지문 미독 상태에서 실행 가능한지 시뮬레이션",
+            "금지 표현 8종 문자열 대조",
+            "80초 배분 확인",
+            "정답 없이도 절차가 하나의 선지로 수렴하는지 확인"
+          ]
         }
       ]
     }
@@ -994,23 +1354,74 @@
     "type_id": "R-TITLE",
     "n_analyzed": 12,
     "recurring_traps": [
-      { "trap": "무관", "count": 7, "signature": "지문의 소재(관광지·사무실·수도원)는 맞지만 그 소재로 무엇을 말했는지가 지문에 없다 — 특히 Tips·How to 형 조언 제목은 지문에 명령문·2인칭이 없으면 무조건 떨어진다" },
-      { "trap": "어휘 함정", "count": 7, "signature": "지문의 낱말이 선지에 그대로 옮겨져 있으나 그 낱말이 걸리는 대상이 다르다(2026#24 balance→Balanced Investments · 2025#24 reworked→Taking Over · 2024#24 victims→Winners or Losers)" },
-      { "trap": "부분 사실", "count": 5, "signature": "역접 앞 배경 구간이나 삽입구 한 개(1980년대 칸막이 · 산업 나열 · 내면 감정과의 긴장)를 주제로 승격시킨다" },
-      { "trap": "반대 진술", "count": 4, "signature": "지문이 말한 방향의 역(역할 축소 · 일시적 유행 · 복잡에서 단순으로 · 결코 배신하지 않는다)" },
-      { "trap": "지문 밖 상식", "count": 4, "signature": "소재에 대한 통념(개방형 사무실은 저렴하다 · 오버투어리즘은 심각하다 · 현대 관광은 도전에 직면했다)을 지문 확인 없이 얹는다" },
-      { "trap": "범위 과대", "count": 3, "signature": "지문의 한 서술을 문명·현대미술·세계문화 전체의 위상으로 부풀린다" },
-      { "trap": "인과 역전", "count": 2, "signature": "선후를 뒤집는다(새 문화→culturtainment 를 반대로 · 고객 요구 인식→서비스 확대를 실패로)" },
-      { "trap": "주체 역전", "count": 2, "signature": "행위는 지문과 같은데 하는 쪽이 바뀐다(자발적 격리→시대가 요구 · 정부가 문화를 상품화→오락이 문화가 되려 함)" },
-      { "trap": "범위 과소", "count": 2, "signature": "시간 구간이나 대상을 자른다(로마까지 · 색 담당 세포만)" }
+      {
+        "trap": "무관",
+        "count": 7,
+        "signature": "지문의 소재(관광지·사무실·수도원)는 맞지만 그 소재로 무엇을 말했는지가 지문에 없다 — 특히 Tips·How to 형 조언 제목은 지문에 명령문·2인칭이 없으면 무조건 떨어진다"
+      },
+      {
+        "trap": "어휘 함정",
+        "count": 7,
+        "signature": "지문의 낱말이 선지에 그대로 옮겨져 있으나 그 낱말이 걸리는 대상이 다르다(2026#24 balance→Balanced Investments · 2025#24 reworked→Taking Over · 2024#24 victims→Winners or Losers)"
+      },
+      {
+        "trap": "부분 사실",
+        "count": 5,
+        "signature": "역접 앞 배경 구간이나 삽입구 한 개(1980년대 칸막이 · 산업 나열 · 내면 감정과의 긴장)를 주제로 승격시킨다"
+      },
+      {
+        "trap": "반대 진술",
+        "count": 4,
+        "signature": "지문이 말한 방향의 역(역할 축소 · 일시적 유행 · 복잡에서 단순으로 · 결코 배신하지 않는다)"
+      },
+      {
+        "trap": "지문 밖 상식",
+        "count": 4,
+        "signature": "소재에 대한 통념(개방형 사무실은 저렴하다 · 오버투어리즘은 심각하다 · 현대 관광은 도전에 직면했다)을 지문 확인 없이 얹는다"
+      },
+      {
+        "trap": "범위 과대",
+        "count": 3,
+        "signature": "지문의 한 서술을 문명·현대미술·세계문화 전체의 위상으로 부풀린다"
+      },
+      {
+        "trap": "인과 역전",
+        "count": 2,
+        "signature": "선후를 뒤집는다(새 문화→culturtainment 를 반대로 · 고객 요구 인식→서비스 확대를 실패로)"
+      },
+      {
+        "trap": "주체 역전",
+        "count": 2,
+        "signature": "행위는 지문과 같은데 하는 쪽이 바뀐다(자발적 격리→시대가 요구 · 정부가 문화를 상품화→오락이 문화가 되려 함)"
+      },
+      {
+        "trap": "범위 과소",
+        "count": 2,
+        "signature": "시간 구간이나 대상을 자른다(로마까지 · 색 담당 세포만)"
+      }
     ],
     "answer_locus_pattern": "정답이 확인된 9문항 중 6문항(2026#24 However · M2606#24 But · 2025#24 not~but · M2509#24 but+Instead · 2024#24 However · 2023#24 However)의 근거가 역접·전환 표지 바로 뒤 또는 그 문장 안에 있다. M2609#24 는 등위 역접 표지 없이 while apparently 라는 양보 표현이 같은 구실을 한다(사실상 7). 규칙이 깨지는 것은 둘이다 — M2706#24 는 역접이 하나도 없고 주제문이 다섯 번째 문장의 시점 전환구(From the mid-1950s onwards)에 있으며, M2506#24 는 통시 나열형이라 주제문 한 문장이 아예 없고 첫 문장(32,000년 전)과 마지막 문장(Ever since)을 함께 봐야 시간 범위가 확정된다. 또 '주제문 한 문장만 읽고 나머지를 가려도 정답이 나온다'는 관찰은 9문항 중 7문항에서만 유지된다 — M2506#24 는 두 문장이 필요하고, 2026#24 도 근거 문장의 This 가 앞 문장을 가리켜 앞 문장 없이는 무엇과 균형인지 잡히지 않는다. 곧 제목 유형에서는 첫 문장이 배경일 확률이 요지·주제 유형보다 높다(9개 중 M2706·M2506·M2606 셋에서 첫 문장이 배경이었다).",
     "procedure": [
-      { "step": "선지 5개를 먼저 읽고 세 가지를 표시한다 — (a) 조언형(Tips·How to), (b) 지문 낱말이 하나도 안 겹치는 것, (c) 판단이 실린 낱말(Failure·Reduced·Poisonous·Never)", "on_fail": "표시가 안 되면 각 선지의 명사 하나씩만 적어 둔다" },
-      { "step": "지문에서 방향 전환 표지를 찾는다 — But·However·Yet·Instead·not A but B·while apparently. 없으면 시점 전환구(From the mid-1950s onwards, in the late 18th century)나 통념 표시(It is natural to assume)를 대신 찾는다", "on_fail": "둘 다 없으면 통시 나열형을 의심하고 첫 문장과 마지막 문장의 시점 표현만 뽑아 시간 양끝을 정한다" },
-      { "step": "전환 뒤 문장에서 '무엇에서 무엇으로' 또는 '무엇이 아니라 무엇'의 두 낱말을 지문 표현 그대로 옮겨 적는다", "on_fail": "그 문장에 지시어(This, such)가 있으면 앞 문장까지 붙여 두 문장을 근거 단위로 삼는다" },
-      { "step": "두 낱말이 모두 대응되는 선지를 고른다. 관용구·은유 선지는 한국어로 풀어 적은 뒤 대조한다 — 정답은 자주 지문 표현을 바꿔 말한 쪽이다", "on_fail": "대응되는 선지가 없으면 1단계 (b)로 표시해 둔 선지부터 다시 본다" },
-      { "step": "남은 선지를 셋으로 거른다 — 조언 문장이 지문에 없으면 조언형 제거, 요구하는 낱말(cost·productivity·challenges·investments)이 지문에 없으면 제거, 전환 앞 배경 구간에서 온 명사만 든 것 제거", "on_fail": "그래도 둘이면 각 선지가 지문의 첫 문장과 마지막 문장을 둘 다 설명할 수 있는지 물어 하나만 설명하는 쪽을 지운다" }
+      {
+        "step": "선지 5개를 먼저 읽고 세 가지를 표시한다 — (a) 조언형(Tips·How to), (b) 지문 낱말이 하나도 안 겹치는 것, (c) 판단이 실린 낱말(Failure·Reduced·Poisonous·Never)",
+        "on_fail": "표시가 안 되면 각 선지의 명사 하나씩만 적어 둔다"
+      },
+      {
+        "step": "지문에서 방향 전환 표지를 찾는다 — But·However·Yet·Instead·not A but B·while apparently. 없으면 시점 전환구(From the mid-1950s onwards, in the late 18th century)나 통념 표시(It is natural to assume)를 대신 찾는다",
+        "on_fail": "둘 다 없으면 통시 나열형을 의심하고 첫 문장과 마지막 문장의 시점 표현만 뽑아 시간 양끝을 정한다"
+      },
+      {
+        "step": "전환 뒤 문장에서 '무엇에서 무엇으로' 또는 '무엇이 아니라 무엇'의 두 낱말을 지문 표현 그대로 옮겨 적는다",
+        "on_fail": "그 문장에 지시어(This, such)가 있으면 앞 문장까지 붙여 두 문장을 근거 단위로 삼는다"
+      },
+      {
+        "step": "두 낱말이 모두 대응되는 선지를 고른다. 관용구·은유 선지는 한국어로 풀어 적은 뒤 대조한다 — 정답은 자주 지문 표현을 바꿔 말한 쪽이다",
+        "on_fail": "대응되는 선지가 없으면 1단계 (b)로 표시해 둔 선지부터 다시 본다"
+      },
+      {
+        "step": "남은 선지를 셋으로 거른다 — 조언 문장이 지문에 없으면 조언형 제거, 요구하는 낱말(cost·productivity·challenges·investments)이 지문에 없으면 제거, 전환 앞 배경 구간에서 온 명사만 든 것 제거",
+        "on_fail": "그래도 둘이면 각 선지가 지문의 첫 문장과 마지막 문장을 둘 다 설명할 수 있는지 물어 하나만 설명하는 쪽을 지운다"
+      }
     ],
     "failure_modes": [
       "선지의 낱말이 지문에 있는지만 대조하고 그 낱말이 걸리는 대상을 확인하지 않는다 — 이 청크 오답 36개 중 7개가 이 방식으로 만들어졌고, 정답 쪽은 반대로 지문 표현을 바꿔 말한 경우가 많다(M2509#24 관용구 · 2026#24 은유)",

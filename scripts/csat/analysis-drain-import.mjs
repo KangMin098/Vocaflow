@@ -99,16 +99,42 @@ if (skipped.length > 10) console.log(`    · … 외 ${skipped.length - 10}건`)
 if (!COMMIT) { console.log('\n  미리보기다 — 아무것도 쓰지 않았다. 올리려면 --commit'); process.exit(0) }
 
 // ── 적재 ──────────────────────────────────────────────────────────────
+//
+// **일시적 5xx 에 통째로 죽지 않는다.** 이 스크립트는 800행을 한 줄씩 쓰므로, 중간에서
+// 끊기면 DB 가 **반만 갱신된 채** 남는다(재실행하면 복구되지만, 끊긴 줄 모르면 그 상태가 유지된다).
+// 실측 2026-09-03: Cloudflare 522(origin 연결 시간 초과, `retryable: true`)로 2015#33 에서 멎었다.
+// 데이터 문제가 아니므로 **물러섰다가 다시 건다** — 그래도 안 되면 그때 죽는 것이 맞다.
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+async function retry(label, fn, tries = 4) {
+  for (let i = 1; ; i += 1) {
+    const res = await fn()
+    if (!res.error) return res
+    const msg = res.error.message ?? JSON.stringify(res.error)
+    // 재시도해도 소용없는 것(정책 거부·제약 위반)까지 물고 늘어지면 실패가 늦게 드러난다
+    // Cloudflare 는 오류를 **HTML 페이지**로 돌려주기도 한다 — 그때 msg 는 <!DOCTYPE html> 로 시작한다.
+    // JSON 문자열만 보고 판정하면 그 경우를 못 잡아 「재시도 가능한 오류」에 그대로 죽는다.
+    const transient =
+      /5dd|timed out|timeout|fetch failed|ECONNRESET|socket hang up|unavailable|<!DOCTYPE html|cloudflare/i.test(msg)
+    if (!transient || i >= tries) throw new Error(`${label}: ${msg}`)
+    const wait = 15_000 * i
+    console.log(`
+  ⚠ ${label} — 일시적 오류, ${wait / 1000}초 뒤 재시도 (${i}/${tries - 1}): ${msg.slice(0, 90)}`)
+    await sleep(wait)
+  }
+}
+
 let inserted = 0
 let republished = 0
 for (const a of analyses) {
   // 같은 문항의 최신 버전을 보고, 내용이 같으면 건너뛴다(재실행 안전).
-  const { data: prev } = await db
-    .from('csat_item_analyses')
-    .select('id, version, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, status')
-    .eq('item_id', a.item_id)
-    .order('version', { ascending: false })
-    .limit(1)
+  const { data: prev } = await retry(`${a.item_id} 조회`, () =>
+    db
+      .from('csat_item_analyses')
+      .select('id, version, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, status')
+      .eq('item_id', a.item_id)
+      .order('version', { ascending: false })
+      .limit(1),
+  )
   const last = prev?.[0]
   // ⚠️ **바뀐 것을 두 필드로만 재면 안 된다.** 예전에는 `measured_ability`·`design_intent` 만 비교했는데,
   //    보강 드레인은 그 둘을 **그대로 두고** `choice_analysis` 에 「왜 이것이 정답인가」를 더한다.
@@ -119,12 +145,13 @@ for (const a of analyses) {
   let aid = last?.id
 
   if (!same) {
-    const { data, error } = await db
-      .from('csat_item_analyses')
-      .insert({ ...a, version: (last?.version ?? 0) + 1, status: 'draft' })
-      .select('id')
-      .single()
-    if (error) throw new Error(`${a.item_id}: ${error.message}`)
+    const { data } = await retry(a.item_id, () =>
+      db
+        .from('csat_item_analyses')
+        .insert({ ...a, version: (last?.version ?? 0) + 1, status: 'draft' })
+        .select('id')
+        .single(),
+    )
     aid = data.id
     inserted += 1
   }
@@ -138,8 +165,9 @@ for (const a of analyses) {
     checked: r.checked ?? [],
   }))
   if (rows.length) {
-    const { error } = await db.from('csat_analysis_reviews').upsert(rows, { onConflict: 'analysis_id,persona' })
-    if (error) throw new Error(`${a.item_id} 검수: ${error.message}`)
+    await retry(`${a.item_id} 검수`, () =>
+      db.from('csat_analysis_reviews').upsert(rows, { onConflict: 'analysis_id,persona' }),
+    )
   }
 
   // published 승격 — 트리거가 3인 pass 를 다시 확인한다. 여기서 막히면 그게 맞는 것이다.

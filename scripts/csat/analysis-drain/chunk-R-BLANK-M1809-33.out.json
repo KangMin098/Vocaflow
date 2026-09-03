@@ -10,7 +10,9 @@
       "measured_ability": "빈칸 앞 문장이 서술한 상담 절차를 지시어 These 가 무엇으로 받는지 정하고, 그 절차의 대상을 한 낱말 구로 명명하는 능력",
       "design_intent": "빈칸이 'These ___ help the child create a new and preferred story' 의 주어 자리에 있어, 바로 앞 문장에서 상담자와 아이가 찾은 것(문제가 영향을 미치지 '않았던' 때)을 다시 이름 붙이게 한다. 외현화(externalization) 라는 용어를 몰라도 부정문 'has not influenced' 를 붙잡으면 답이 나오도록 설계됐다.",
       "answer_locus": {
-        "sentence_index": [5],
+        "sentence_index": [
+          5
+        ],
         "quote": "search for times when the problem has not influenced the child or the child’s life",
         "reasoning": "빈칸 문장의 These 는 앞 문장 목적어 'times when the problem has not influenced' 를 받는다. '문제가 영향을 미치지 않았던 때' 는 문제 이야기가 성립하지 않는 사례, 즉 문제 이야기의 예외다. 빈칸에는 이 목적어를 한 구로 다시 이름 붙인 표현이 들어가야 하므로 'exceptions to the problem story' 로 확정된다."
       },
@@ -18,9 +20,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "앞 문장의 'times when the problem has not influenced the child' 를 명사구 하나로 압축한 것이 exceptions 이고, problem story 는 지문의 'the problem' 과 'old stories' 를 합친 표현이다.",
-          "how_to_reject": "배제 대상 아님 — 5번째 문장의 부정문 'has not influenced' 가 이 선지의 exceptions 와 일대일로 대응한다."
+          "why_correct": "앞 문장의 'times when the problem has not influenced the child' 를 명사구 하나로 압축한 것이 exceptions 이고, problem story 는 지문의 'the problem' 과 'old stories' 를 합친 표현이다."
         },
         {
           "n": 2,
@@ -135,7 +135,10 @@
       "measured_ability": "빈칸 뒤에 이어지는 두 문장이 주민의 태도를 어떤 방향으로 서술하는지 읽어, 빈칸 동사구의 방향(수용인가 저항인가)을 정하는 능력",
       "design_intent": "빈칸 앞은 '주민이 그 산업에서 나온 장소 정의에 강하게 애착을 갖는다' 까지만 말하고 끊긴다. 태도의 방향을 확정하는 근거는 빈칸 뒤 두 문장(resent the invasion / sacrifice what is unique)에 있어, 빈칸 앞만 읽고 답하는 학습자를 걸러 내도록 설계됐다.",
       "answer_locus": {
-        "sentence_index": [6, 7],
+        "sentence_index": [
+          6,
+          7
+        ],
         "quote": "may resent the invasion of outsiders who they believe are different and challenge their common identity",
         "reasoning": "빈칸 뒤 문장이 주민의 반응을 resent(분개한다)로, 그 다음 문장이 sacrifice what is unique and special about their place 로 서술한다. 둘 다 관광 산업 기반의 새 장소 정의를 받아들이는 것이 아니라 기존 정체성을 잃는 데 대한 반발이다. 따라서 빈칸에는 'in favor of one based on a tourism industry(관광 산업 기반 정의를 위해)' 라는 후행 구와 결합해 '기존 정체성을 잃는 데 저항한다' 가 들어가야 한다."
       },
@@ -143,9 +146,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "'that identity' 가 앞 문장의 'the definitions of place that stem from involvement in that industry' 를 받고, resist 가 뒤 문장의 resent·sacrifice 와 같은 방향이다.",
-          "how_to_reject": "배제 대상 아님 — 빈칸 뒤 두 문장(resent the invasion / they sacrifice what is unique and special about their place)이 모두 저항 방향이다."
+          "why_correct": "'that identity' 가 앞 문장의 'the definitions of place that stem from involvement in that industry' 를 받고, resist 가 뒤 문장의 resent·sacrifice 와 같은 방향이다."
         },
         {
           "n": 2,
@@ -259,7 +260,9 @@
       "measured_ability": "'a(n) ___ in and of themselves' 라는 관용 틀에서 빈칸이 '수단이 아니라 그 자체가 목적' 이라는 자리임을 알아보고, 앞 문단의 predetermined 계열 서술로 그 자리를 채우는 능력",
       "design_intent": "한 낱말짜리 빈칸이지만 실제로 묻는 것은 'in and of themselves' 와 'require little of the individual other than to master the planned objective' 가 만드는 목적/수단 대립이다. cognitive intrigue(호기심) 를 잃게 만드는 장난감이란 그 자체가 종착점인 물건이라는 것을 앞 문단의 predetermined results·predetermined conclusions 로 확인시킨다.",
       "answer_locus": {
-        "sentence_index": [8],
+        "sentence_index": [
+          8
+        ],
         "quote": "the sole use of play items with predetermined conclusions and reinforced by rote instruction in school",
         "reasoning": "빈칸 문장은 This is exemplified by 로 앞 문장을 예시한다. 앞 문장이 말한 것은 '결론이 미리 정해진 놀이 도구' 이고, 결론이 미리 정해졌다는 것은 그 물건에서 더 나아갈 곳이 없다는 뜻이다. 빈칸 뒤 'require little of the individual other than to master the planned objective' 가 같은 말을 반복하므로, 빈칸에는 그 자체로 끝나는 것 = end 가 들어간다."
       },
@@ -281,9 +284,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "'an end in and of themselves' 는 '그 자체가 목적' 이라는 정형 표현이고, 앞 문장의 predetermined conclusions·뒤 구절의 planned objective 와 같은 자리를 가리킨다.",
-          "how_to_reject": "배제 대상 아님 — 4번째 문장 'devised to eliminate different options and to focus on predetermined results' 부터 8번째 문장까지 '미리 정해진 종착점' 이 반복된다."
+          "why_correct": "'an end in and of themselves' 는 '그 자체가 목적' 이라는 정형 표현이고, 앞 문장의 predetermined conclusions·뒤 구절의 planned objective 와 같은 자리를 가리킨다."
         },
         {
           "n": 4,
@@ -383,7 +384,9 @@
       "measured_ability": "세미콜론으로 나열된 세 직군의 서로 다른 요구를 하나의 일반 명제로 접어 올리는 능력",
       "design_intent": "기상학자·도시계획가·교통계획가가 각각 다른 시간 해상도를 필요로 한다는 나열을 준 뒤, Again 으로 그 나열을 한 문장에 되접게 한다. 앞부분의 '위성 영상이 많고 빠르게 늘고 있다' 에 끌려 '해상도는 높을수록 좋다' 로 답하는 학습자를 걸러 내는 구조다.",
       "answer_locus": {
-        "sentence_index": [6],
+        "sentence_index": [
+          6
+        ],
         "quote": "Meteorologists may require visible, infrared, and radar information at sub-hourly temporal resolution",
         "reasoning": "이 문장은 세미콜론으로 세 직군을 잇는다 — 기상학자는 시간 단위 이하, 도시계획가는 월·연 단위, 교통계획가는 시계열 자체가 불필요. 요구되는 해상도가 직군(=탐구 목적)마다 다르다는 것이 유일한 공통점이므로, Again 으로 시작하는 빈칸 문장의 일반 명제는 '해상도는 그 탐구가 요구하는 바에 맞춰야 한다' 로 확정된다."
       },
@@ -398,9 +401,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "'the requirements of your inquiry' 가 6번째 문장에서 세 번 반복된 require 를 그대로 받고, 직군의 차이를 '탐구' 라는 상위어로 접는다.",
-          "how_to_reject": "배제 대상 아님 — 5번째 문장 'most applications ... do not require extremely fine-grained temporal resolution' 과 6번째 문장의 require 반복이 모두 요구 기준을 가리킨다."
+          "why_correct": "'the requirements of your inquiry' 가 6번째 문장에서 세 번 반복된 require 를 그대로 받고, 직군의 차이를 '탐구' 라는 상위어로 접는다."
         },
         {
           "n": 3,
@@ -507,7 +508,9 @@
       "measured_ability": "'in the absence of the positive occurrent feelings' 라는 조건절이 무엇의 부재인지 확인하고, 그 부재가 낳는 의심의 내용을 앞 문장의 부정 명제에서 끌어오는 능력",
       "design_intent": "빈칸은 suspect 의 목적절이다. 앞 문장이 '사랑·존경이 참인 기간 내내 그 감정이 실제로 느껴질 필요는 없다' 고 말했으므로, 감정이 안 느껴질 때 드는 의심은 '이제 사랑하지 않는 것 아닌가' 뿐이다. 슬픔·부정 감정이라는 소재에 끌려 감정 일반을 답으로 고르면 조건절과 어긋나게 설계됐다.",
       "answer_locus": {
-        "sentence_index": [8],
+        "sentence_index": [
+          8
+        ],
         "quote": "No occurrent feelings of love and respect need to be present throughout the period in which it is true that one loves or respects.",
         "reasoning": "이 문장이 '사랑이 참인 동안에도 사랑의 느낌은 없을 수 있다' 는 간극을 만든다. 빈칸 문장의 therefore 는 그 간극에서 곧바로 따라 나오는 결과를 요구하고, 조건절이 'in the absence of the positive occurrent feelings' 이므로 의심의 내용은 사랑의 부재여야 한다. 빈칸 뒤 문장이 'negative emotions like grief offer a kind of testimonial to the authenticity of love or respect' 로 그 의심을 슬픔이 해소해 준다고 마무리해 답이 고정된다."
       },
@@ -515,9 +518,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "'one no longer loves' 가 앞 문장의 'it is true that one loves' 를 부정형으로 뒤집은 것이고, 빈칸 뒤 문장이 그 의심에 대한 반증(testimonial to the authenticity of love)을 제시한다.",
-          "how_to_reject": "배제 대상 아님 — 8번째 문장의 loves 와 빈칸 뒤 문장의 authenticity of love 가 같은 대상을 가리킨다."
+          "why_correct": "'one no longer loves' 가 앞 문장의 'it is true that one loves' 를 부정형으로 뒤집은 것이고, 빈칸 뒤 문장이 그 의심에 대한 반증(testimonial to the authenticity of love)을 제시한다."
         },
         {
           "n": 2,
@@ -632,7 +633,9 @@
       "measured_ability": "빈칸이 문단 첫 문장에 놓인 글에서, 뒤따르는 예시(극장 무대 뒤·법정 좌석)가 공통으로 무엇을 증명하는지 모아 첫 문장을 복원하는 능력",
       "design_intent": "빈칸이 첫 문장 끝에 있어 근거가 전부 뒤에 있다. 건물의 형태가 '어떻게 쓰여야 하는지' 를 알려 준다는 예시 두 개(무대 뒤에 함부로 안 들어간다 · 법정의 자리 배치)가 모두 기능 인지를 가리키므로, 문화·환경 같은 주변 낱말에 끌리지 않고 use/function 축을 잡아야 한다.",
       "answer_locus": {
-        "sentence_index": [6],
+        "sentence_index": [
+          6
+        ],
         "quote": "They tell stories, for their form and spatial organization give us hints about how they should be used.",
         "reasoning": "빈칸 문장은 '건물이 진화해 우리가 나중에 ___ 하게 된 형태가 되었다' 이고, 그 형태가 우리에게 무엇을 하게 하는지를 이 문장이 직접 말한다 — 형태와 공간 구성이 '어떻게 쓰여야 하는지' 에 대한 단서를 준다. 곧 우리가 하게 된 일은 그 건물의 기능을 알아보고 결부시키는 것이다. 다음 문장의 극장 무대 뒤 예시와 마지막 문장의 법정 좌석 예시가 같은 것을 반복한다."
       },
@@ -647,9 +650,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "'recognize and associate with those buildings’ function' 이 6번째 문장의 'give us hints about how they should be used' 를 두 동사로 나눈 것이다.",
-          "how_to_reject": "배제 대상 아님 — 6·7·8번째 문장이 모두 '형태가 용도를 알려 준다' 를 예시한다."
+          "why_correct": "'recognize and associate with those buildings’ function' 이 6번째 문장의 'give us hints about how they should be used' 를 두 동사로 나눈 것이다."
         },
         {
           "n": 3,
@@ -757,7 +758,9 @@
       "measured_ability": "두 예시(아프리카의 흰머리 염색약 · 미국의 미터법)가 각각 무엇을 반례로 삼는지 구분해, 빈칸이 든 양보절이 어떤 대상을 가리키는지 정하는 능력",
       "design_intent": "빈칸 문장은 'Even when a(n) ___ is consistent with a society’s needs, there is still no guarantee that it will be accepted' 라는 양보 구문이다. 앞의 염색약 예시는 '필요와 맞지 않아 안 퍼진 경우' 이고 뒤의 미터법 예시는 '필요와 맞는데도 안 퍼진 경우' 다. 빈칸은 뒤 예시가 가리키는 대상, 곧 문화 간에 전파되는 새 문물의 상위어를 요구한다.",
       "answer_locus": {
-        "sentence_index": [7],
+        "sentence_index": [
+          7
+        ],
         "quote": "have resisted adopting the metric system even though making such a change would enable US citizens",
         "reasoning": "빈칸 문장 바로 뒤의 For example 예시다. 미터법은 미국인이 세계와 더 효율적으로 맞물리게 해 주는데도 거부된 것 — 즉 사회의 필요에 부합하지만 수용되지 않은 사례다. 그 예시가 예시하는 상위어가 빈칸이므로, 빈칸에는 미터법 같은 '새로 도입되는 문물' 을 가리키는 낱말이 들어가야 하고 3번째 문장 'only a small number of cultural elements ever spread from one culture to another' 의 전파 대상과 같은 것이다."
       },
@@ -772,9 +775,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "미터법·염색약이 모두 한 문화가 다른 문화로부터 새로 들여오는 것이고, 3번째 문장의 'cultural elements ever spread from one culture to another' 를 한 낱말로 받는다.",
-          "how_to_reject": "배제 대상 아님 — 7번째 문장의 'resisted adopting' 이 새 문물의 채택 여부를 말하고, 4번째 문장의 'Which cultural item is accepted' 와 빈칸 문장의 accepted 가 같은 술어다."
+          "why_correct": "미터법·염색약이 모두 한 문화가 다른 문화로부터 새로 들여오는 것이고, 3번째 문장의 'cultural elements ever spread from one culture to another' 를 한 낱말로 받는다."
         },
         {
           "n": 3,
@@ -881,7 +882,9 @@
       "measured_ability": "쾌락이 무엇의 방향을 가리키는지를, 앞의 '기준점은 상황에 따라 변한다' 는 명제와 뒤의 '안도는 오래가지 않는다' 는 서술 사이에서 정하는 능력",
       "design_intent": "바위 뒤 피난이라는 서사적 예시를 준 뒤, 그 순간의 쾌감이 무엇을 가리키는 신호인지 묻는다. 빈칸 뒤에서 그 안도가 곧 사라지고 다시 더 나은 피난처를 찾게 된다고 해, 쾌감이 '상태' 가 아니라 '상황 개선의 방향' 을 표시한다는 것을 확정한다.",
       "answer_locus": {
-        "sentence_index": [3],
+        "sentence_index": [
+          3
+        ],
         "quote": "the boundary between good and bad is a reference point that changes over time and depends on the immediate circumstances",
         "reasoning": "좋음/나쁨의 경계가 상황에 따라 움직이는 기준점이라면, 쾌감은 절대적 상태가 아니라 그 기준점 대비 상황이 나아지는 방향을 표시하는 신호다. 첫 문장 'Some distinctions between good and bad are hardwired into our biology' 가 그 신호를 생물학적인 것으로 못박고, 빈칸 뒤 'The pleasant relief will not last very long' 이 그것이 지속 상태가 아님을 확인한다. 따라서 빈칸은 '생물학적으로 유의미한 상황 개선' 이다."
       },
@@ -903,9 +906,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "바위가 주는 shelter 는 상황의 개선이고, 첫 문장의 hardwired into our biology 가 그 개선을 생물학적으로 유의미하게 만든다. 'direction of' 뒤에 오는 말로 '개선' 이 자연스럽다.",
-          "how_to_reject": "배제 대상 아님 — 3번째 문장의 기준점 개념과 빈칸 뒤 문장의 일시성이 둘 다 '방향 신호' 해석을 지지한다."
+          "why_correct": "바위가 주는 shelter 는 상황의 개선이고, 첫 문장의 hardwired into our biology 가 그 개선을 생물학적으로 유의미하게 만든다. 'direction of' 뒤에 오는 말로 '개선' 이 자연스럽다."
         },
         {
           "n": 4,
@@ -1006,7 +1007,9 @@
       "measured_ability": "The combination 이라는 지시 명사구가 앞 문장의 어떤 두 사실을 묶는지 확인하고, 그 둘이 합쳐졌을 때 농민에게 강제되는 결과를 도출하는 능력",
       "design_intent": "빈칸 문장은 'The combination guarantees that farmers will have to ___' 로, 앞 문장의 두 조건(회사가 모계통을 농민에게 주지 않는다 + 수확한 알곡은 씨앗으로 다시 심기에 부적합하다)이 합쳐진 결과를 요구한다. 두 조건이 각각 무엇을 막는지 보면 답이 하나로 좁혀지는데, 농업이라는 소재에서 오는 상식(비료·수확량·농촌)에 끌리면 빗나가게 설계됐다.",
       "answer_locus": {
-        "sentence_index": [7],
+        "sentence_index": [
+          7
+        ],
         "quote": "keep the distinct parent lines from farmers, and the grain that they produce is not suited for seed saving and replanting",
         "reasoning": "농민이 씨앗을 얻는 길은 둘이다 — 직접 채종하거나 회사에서 사거나. 이 문장이 그 둘 중 첫째를 두 겹으로 막는다(모계통 비공개 + 수확 알곡의 채종 부적합). 남는 길은 매 절기 회사에서 다시 사는 것뿐이므로 빈칸은 'buy more seed from the company each season' 으로 확정된다. 빈칸 뒤 문장이 이것이 종자 회사의 시장을 키운다고 이어 붙여 방향을 확인해 준다."
       },
@@ -1014,9 +1017,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "앞 문장이 채종·재파종 경로를 막았고, 빈칸 뒤 문장이 'a growing market for private seed companies' 로 그 결과를 회사 매출 증가로 받는다.",
-          "how_to_reject": "배제 대상 아님 — 7번째 문장이 막은 경로의 유일한 대안이다."
+          "why_correct": "앞 문장이 채종·재파종 경로를 막았고, 빈칸 뒤 문장이 'a growing market for private seed companies' 로 그 결과를 회사 매출 증가로 받는다."
         },
         {
           "n": 2,
@@ -1130,7 +1131,10 @@
       "measured_ability": "'Other poets ... / Whitman’s poet ...' 라는 대조 짝에서 앞 항의 반대편을 고르고, 빈칸 뒤 문장의 celebrity 정의로 그것을 확정하는 능력",
       "design_intent": "옛 시인들의 명성(지면 위의 불멸)과 휘트먼이 '더한' 새 명성(군중의 환호)을 앞부분에서 나란히 세운 뒤, 빈칸 바로 앞 문장에서 '다른 시인은 시의 여신에게서 영감을 구한다' 로 대조 짝을 만든다. 옛 시인 쪽 서술을 그대로 답으로 고르면 틀리도록, 두 종류의 명성을 끝까지 구분하게 하는 설계다.",
       "answer_locus": {
-        "sentence_index": [8, 10],
+        "sentence_index": [
+          8,
+          10
+        ],
         "quote": "Whitman defined poetic fame in relation to the crowd",
         "reasoning": "빈칸 문장 바로 앞에 놓인 이 문장이 휘트먼의 명성을 '군중과의 관계' 로 정의한다. 빈칸 뒤 문장은 'fame would be dependent on celebrity, on the degree to which the people rejoiced in the poet and his work' 로 그 군중을 '사람들의 환호' 로 다시 풀어 준다. 앞 문장의 대조 항이 '시의 여신에게서 영감을 구함' 이므로, 휘트먼의 시인이 구한 것은 초월적 원천이 아니라 동시대 사람들의 인정이다."
       },
@@ -1159,9 +1163,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "'his contemporaries' 가 앞 문장의 the crowd 와 뒤 문장의 the people 을 함께 받고, approval 이 rejoiced in the poet and his work 를 받는다.",
-          "how_to_reject": "배제 대상 아님 — 빈칸 앞뒤 두 문장이 모두 동시대 대중의 반응을 명성의 근거로 삼는다."
+          "why_correct": "'his contemporaries' 가 앞 문장의 the crowd 와 뒤 문장의 the people 을 함께 받고, approval 이 rejoiced in the poet and his work 를 받는다."
         },
         {
           "n": 5,
@@ -1254,7 +1256,9 @@
       "measured_ability": "빈칸 뒤 that절이 참인지 거짓인지 먼저 판정하고, 그 판정에 맞는 동사구를 고르는 능력",
       "design_intent": "빈칸은 'The speed ... ___ that everything happens at the same time' 의 술어 자리다. 앞 문단이 '컴퓨터조차 한 번에 한 조각의 코드만 처리한다' 고 못박았으므로 that절 내용은 거짓이고, 빈칸에는 거짓 믿음을 키우는 동사가 들어가야 한다. 거짓인 that절을 사실로 오독하면 conceals 쪽으로 끌려가도록 설계됐다.",
       "answer_locus": {
-        "sentence_index": [8],
+        "sentence_index": [
+          8
+        ],
         "quote": "It was a clever turn of phrase that’s misleading, for even computers can process only one piece of code at a time.",
         "reasoning": "이 문장이 '동시에 일어난다' 는 생각이 사실이 아님을 확정한다 — 컴퓨터조차 한 번에 코드 한 조각만 처리한다. 따라서 빈칸 뒤 that절은 거짓이고, 빈칸에는 그 거짓을 키우는 동사가 와야 한다. 같은 문장의 misleading 과 5번째 문장의 'inherently deceptive' 가 그 방향을 두 번 지시하므로 'feeds the illusion' 이 확정된다."
       },
@@ -1269,9 +1273,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "'feeds the illusion' 이 5번째 문장 deceptive·8번째 문장 misleading 과 같은 방향이고, 빈칸 뒤 that절(모든 것이 동시에 일어난다)이 바로 그 착각의 내용이다.",
-          "how_to_reject": "배제 대상 아님 — 8번째 문장이 that절 내용을 명시적으로 부정한다."
+          "why_correct": "'feeds the illusion' 이 5번째 문장 deceptive·8번째 문장 misleading 과 같은 방향이고, 빈칸 뒤 that절(모든 것이 동시에 일어난다)이 바로 그 착각의 내용이다."
         },
         {
           "n": 3,
@@ -1378,7 +1380,9 @@
       "measured_ability": "'~는 정당한 견해다, 그러나 ___' 라는 양보-역접 틀에서, 필자가 정당하다고 인정한 것과 구별해야 할 것이 무엇인지 짚어 내는 능력",
       "design_intent": "필자는 친구의 실망 자체는 정당하다고 인정한 뒤 but 으로 잘못된 부분만 도려낸다. 빈칸 뒤 문장이 그 도려낼 부분을 '지식이 진보하지 않는다고 주장하는 것' 으로 다시 말하므로, 빈칸은 '이것(사회악 미해결)을 지식의 진보와 혼동하는 것' 이어야 한다. 지식이 amoral 하다는 명제만 보고 도덕 관련 선지를 고르면 but 의 자리를 놓치게 설계됐다.",
       "answer_locus": {
-        "sentence_index": [7],
+        "sentence_index": [
+          7
+        ],
         "quote": "Knowledge of the world is one thing; its uses create a separate issue.",
         "reasoning": "세미콜론으로 지식 자체와 그 쓰임을 '별개' 로 갈라 놓은 문장이다. 빈칸 앞 절은 쓰임 쪽(사회악이 해결되지 않은 것)에 대한 실망을 정당하다고 인정했으므로, but 뒤에 올 것은 그 실망을 지식 자체(=지식의 진보)와 뒤섞는 일에 대한 부정이다. 빈칸 뒤 문장 'To argue that knowledge is not progressing because of the African or Middle Eastern conflicts misses the point' 가 같은 말을 반복해 확정한다."
       },
@@ -1386,9 +1390,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "'this' 가 빈칸 앞 절의 실망을 받고, 'the progress of knowledge' 가 7번째 문장의 'Knowledge of the world' 쪽을 받아, 세미콜론이 갈라 놓은 두 항을 그대로 잇는다.",
-          "how_to_reject": "배제 대상 아님 — 빈칸 뒤 문장의 misses the point 가 이 선지의 absurd 와 같은 판정이다."
+          "why_correct": "'this' 가 빈칸 앞 절의 실망을 받고, 'the progress of knowledge' 가 7번째 문장의 'Knowledge of the world' 쪽을 받아, 세미콜론이 갈라 놓은 두 항을 그대로 잇는다."
         },
         {
           "n": 2,

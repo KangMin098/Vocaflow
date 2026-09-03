@@ -119,9 +119,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "요청 문장의 화행(ask)과 목적어(a special lecture)와 자리(at the workshop)가 그대로 대응한다",
-          "how_to_reject": "-"
+          "why_correct": "요청 문장의 화행(ask)과 목적어(a special lecture)와 자리(at the workshop)가 그대로 대응한다"
         },
         {
           "n": 4,
@@ -417,9 +415,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "예고문 This is how you participate 와 뒤따르는 장소·시간·품목 문장이 참여 절차로 그대로 대응한다",
-          "how_to_reject": "-"
+          "why_correct": "예고문 This is how you participate 와 뒤따르는 장소·시간·품목 문장이 참여 절차로 그대로 대응한다"
         },
         {
           "n": 4,
@@ -619,9 +615,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "요구 문장의 동사(asking)와 목적어(an additional course)가 그대로 대응한다",
-          "how_to_reject": "-"
+          "why_correct": "요구 문장의 동사(asking)와 목적어(an additional course)가 그대로 대응한다"
         },
         {
           "n": 2,
@@ -758,9 +752,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "요구 문장의 동사(ask you to take measures)와 목적어(prevent the noise at night)가 그대로 대응한다",
-          "how_to_reject": "-"
+          "why_correct": "요구 문장의 동사(ask you to take measures)와 목적어(prevent the noise at night)가 그대로 대응한다"
         },
         {
           "n": 4,
@@ -878,9 +870,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "첫 문장의 announce 와 will offer 가 개최 통보에 그대로 대응하고, 이후 문장이 모두 그 캠프의 세부다",
-          "how_to_reject": "-"
+          "why_correct": "첫 문장의 announce 와 will offer 가 개최 통보에 그대로 대응하고, 이후 문장이 모두 그 캠프의 세부다"
         },
         {
           "n": 3,
@@ -1013,9 +1003,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "Please let me know if I can change 가 가능 여부 문의 화행과 문의 내용을 그대로 담는다",
-          "how_to_reject": "-"
+          "why_correct": "Please let me know if I can change 가 가능 여부 문의 화행과 문의 내용을 그대로 담는다"
         },
         {
           "n": 4,
@@ -1139,9 +1127,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "물음표 문장의 화행(let me know if it is possible)과 목적어(a group reservation)가 그대로 대응한다",
-          "how_to_reject": "-"
+          "why_correct": "물음표 문장의 화행(let me know if it is possible)과 목적어(a group reservation)가 그대로 대응한다"
         },
         {
           "n": 4,
@@ -1260,9 +1246,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "첫 문장의 introduce 와 수신 대상 for teachers, 끝의 웹사이트 유도가 상품 권유로 그대로 대응한다",
-          "how_to_reject": "-"
+          "why_correct": "첫 문장의 introduce 와 수신 대상 for teachers, 끝의 웹사이트 유도가 상품 권유로 그대로 대응한다"
         },
         {
           "n": 3,

@@ -34,9 +34,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "정답 — 이 자리만 Cora",
-          "why_tempting": "밑줄 앞뒤로 Anna 라는 이름이 연달아 나와 관성으로 Anna 를 적어 넣기 쉬운 자리다.",
-          "how_to_reject": "정답 자리다. 이름을 넣어 읽으면 Anna really liked Cora 가 되어 자연스럽고, Anna 를 넣으면 자기 자신을 좋아했다는 뜻이 되어 무너진다."
+          "why_correct": "밑줄 앞뒤로 Anna 라는 이름이 연달아 나와 관성으로 Anna 를 적어 넣기 쉬운 자리다."
         },
         {
           "n": 4,
@@ -339,9 +337,13 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "정답 — 이 자리만 Felix",
-          "why_tempting": "앞 네 자리가 모두 Sean 이라 관성으로 다섯 번째도 Sean 으로 적기 쉽고, 같은 문장에 his little brother 가 또 있어 두 his 를 같은 사람으로 묶기 쉽다.",
-          "how_to_reject": "정답 자리다. 혀를 내미는 주체가 Felix 이고 그 상대가 his little brother 로 따로 적혀 있어 두 자리가 다른 사람임이 한 문장 안에서 갈린다."
+          "why_correct": "밑줄이 든 절은 Felix argued against Sean’s accusation 과 and 로 이어진 등위절이라 주어가 Felix 로 이어지고, 소유격 (e) his 의 임자는 그 주어다. 같은 문장 끝 at his little brother 가 혀를 내미는 상대를 Sean 으로 따로 세우므로 임자와 상대가 같은 사람일 수 없다. 나머지 넷 The kindergartener · the policeman · the playful and curious boy · his little brother 는 모두 Sean 을 부르는 이름이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              29
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — 앞 네 자리가 모두 Sean 이라 관성으로 다섯 번째도 Sean 으로 적고, 같은 문장에 his little brother 가 또 있어 두 his 를 한 사람으로 묶는다."
+          }
         }
       ],
       "solve_procedure": [
@@ -383,39 +385,52 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
-            "밑줄 다섯 중 셋이 대명사가 아니라 별칭 명사구인 드문 배치다 — 유형 안의 하위 갈래로 볼 만하다"
+            "밑줄 다섯 중 셋이 대명사가 아니라 별칭 명사구인 드문 배치다 — 유형 안의 하위 갈래로 볼 만하다",
+            "why_correct 를 「왜 놓치기 어려운가」가 아니라 「이 밑줄이 무엇을 가리키는가」로 다시 썼다 — 지시 대상을 확정하는 문법 근거(등위절 주어 승계 · 소유격 임자 · 인용 화자와 호격 · 재귀형이 아닌 목적어)를 지문 표현으로 지목하고, 나머지 넷이 한 사람으로 모인다는 것을 한 줄로 붙였다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에서 문자열 대조",
             "밑줄 다섯의 지시 대상을 Sean/Sean/Sean/Sean/Felix 로 재계산",
-            "평가원 정답표 5 와 correct 대조"
+            "평가원 정답표 5 와 correct 대조",
+            "새 why_correct 안의 영어 어구를 corpus.json 지문에서 문자열 대조(전 어구 통과)",
+            "why_correct 가 정답 밑줄의 지시 대상과 나머지 넷의 공통 대상 두 짝을 다 대는지 확인",
+            "평가원 정답표 번호와 correct 번호 재대조"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "오답 함정 4종이 모두 다르다 — 별칭 명사구 지시 · 앞 문단 별칭 이월 · 수식어 이끌림 · 소유격 이중 지시"
+            "오답 함정 4종이 모두 다르다 — 별칭 명사구 지시 · 앞 문단 별칭 이월 · 수식어 이끌림 · 소유격 이중 지시",
+            "새 why_correct 가 소거법(「나머지가 다 X 이므로」)이 아니라 정답 밑줄 자체의 문법 근거로 서 있는지 확인했다",
+            "앞서 why_correct 에 있던 심리 관찰은 지우지 않고 confirmed_at.note 로 자리를 옮겨 보존했다 — distractor 서술은 손대지 않았다"
           ],
           "checked": [
             "trap 중복 검사",
             "각 how_to_reject 에 지문 문장 인용이 붙어 있는지 확인",
-            "why_tempting 이 밑줄 문장의 실제 문면에 근거하는지 대조"
+            "why_tempting 이 밑줄 문장의 실제 문면에 근거하는지 대조",
+            "why_correct 에 「왜 놓치기 어려운가」 계열 어휘가 남았는지 정규식 검사",
+            "distractor 4개의 trap·why_tempting·how_to_reject 무변경 확인",
+            "confirmed_at.sentence_index 가 answer_locus 와 같은 자리를 가리키는지 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계가 대명사와 명사구를 먼저 가르게 해 이 문항의 실제 난점에 바로 들어간다"
+            "2단계가 대명사와 명사구를 먼저 가르게 해 이 문항의 실제 난점에 바로 들어간다",
+            "지문을 아직 안 읽은 학생이 why_correct 의 영어 어구를 지문에서 찾아 그 자리를 직접 짚을 수 있도록 근거를 어구 단위로 적었다"
           ],
           "checked": [
             "절차 금지 표현 검사",
             "75초 예산 검토 — 별칭 출처 찾기에 자리당 15초",
-            "required_vocab 4개가 지문에 존재하고 지시 판정에 걸리는지 확인"
+            "required_vocab 4개가 지문에 존재하고 지시 판정에 걸리는지 확인",
+            "why_correct 의 영어 어구가 지문에서 그대로 검색되는 연속 문자열인지 확인",
+            "정답 밑줄 기호((b)·④ 등)가 서술 안에 함께 적혀 자리 찾기가 되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2109#44",
@@ -526,9 +541,14 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "정답 — 이 자리만 아버지",
-          "why_tempting": "인용 안 1인칭이라 화자를 확인하지 않으면 앞뒤 문장의 주어인 Steven 으로 적기 쉽다.",
-          "how_to_reject": "정답 자리다. 인용 안에서 청자를 Steven 이라고 이름으로 부르므로 화자는 Steven 이 아니고, 앞 문장의 his dad was very pleased 가 그 화자를 아버지로 준다."
+          "why_correct": "인용 바로 앞 문장 That night, his dad was very pleased to hear what he had done at school 이 이 말의 화자를 dad 로 주고, 인용 안에서 I am so proud of you, Steven 이라며 상대를 이름으로 부르므로 1인칭 (b) I 는 Steven 이 아니라 아버지다. 나머지 넷 (a) he said, puzzled · (c) Son · (d) He looked at the tickets · (e) he would feel ashamed 은 모두 Steven 을 가리킨다.",
+          "confirmed_at": {
+            "sentence_index": [
+              17,
+              18
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — 인용 안 1인칭이라 화자를 따로 확인하지 않고 앞뒤 문장의 주어인 Steven 을 그대로 적는다."
+          }
         },
         {
           "n": 3,
@@ -596,24 +616,33 @@
           "verdict": "pass",
           "findings": [
             "코퍼스 지문 (D) 문단에 OCR 잔여 두 곳이 있으나 밑줄 다섯 자리와 화자 표시는 온전하다",
-            "정답 자리가 인용 안 호명이라 근거가 한 문장 안에서 닫힌다"
+            "정답 자리가 인용 안 호명이라 근거가 한 문장 안에서 닫힌다",
+            "why_correct 를 「왜 놓치기 어려운가」가 아니라 「이 밑줄이 무엇을 가리키는가」로 다시 썼다 — 지시 대상을 확정하는 문법 근거(등위절 주어 승계 · 소유격 임자 · 인용 화자와 호격 · 재귀형이 아닌 목적어)를 지문 표현으로 지목하고, 나머지 넷이 한 사람으로 모인다는 것을 한 줄로 붙였다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에서 문자열 대조",
             "평가원 정답표 2 와 correct 대조",
-            "밑줄 다섯의 지시 대상을 Steven/아버지/Steven/Steven/Steven 으로 재계산"
+            "밑줄 다섯의 지시 대상을 Steven/아버지/Steven/Steven/Steven 으로 재계산",
+            "새 why_correct 안의 영어 어구를 corpus.json 지문에서 문자열 대조(전 어구 통과)",
+            "why_correct 가 정답 밑줄의 지시 대상과 나머지 넷의 공통 대상 두 짝을 다 대는지 확인",
+            "평가원 정답표 번호와 correct 번호 재대조"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "함정 4종이 최근접 명사 이끌림 · 호격 지시 · 단락 순서 오판 · 주어 교대 이끌림 으로 갈린다"
+            "함정 4종이 최근접 명사 이끌림 · 호격 지시 · 단락 순서 오판 · 주어 교대 이끌림 으로 갈린다",
+            "새 why_correct 가 소거법(「나머지가 다 X 이므로」)이 아니라 정답 밑줄 자체의 문법 근거로 서 있는지 확인했다",
+            "앞서 why_correct 에 있던 심리 관찰은 지우지 않고 confirmed_at.note 로 자리를 옮겨 보존했다 — distractor 서술은 손대지 않았다"
           ],
           "checked": [
             "trap 중복 검사",
             "how_to_reject 마다 지문 위치가 인용되어 있는지 확인",
-            "why_tempting 이 각 밑줄 문장의 실제 문면에 근거하는지 대조"
+            "why_tempting 이 각 밑줄 문장의 실제 문면에 근거하는지 대조",
+            "why_correct 에 「왜 놓치기 어려운가」 계열 어휘가 남았는지 정규식 검사",
+            "distractor 4개의 trap·why_tempting·how_to_reject 무변경 확인",
+            "confirmed_at.sentence_index 가 answer_locus 와 같은 자리를 가리키는지 확인"
           ]
         },
         {
@@ -621,15 +650,19 @@
           "verdict": "pass",
           "revised": true,
           "findings": [
-            "초안 3단계가 인용 안 인칭을 화자에 붙이라 로만 되어 있어 호격 명사(Son) 자리를 다루지 못했다 — 이름·호칭이 불리면 그 사람이 청자 라는 규칙을 넣어 다섯 자리를 모두 덮게 고쳤다"
+            "초안 3단계가 인용 안 인칭을 화자에 붙이라 로만 되어 있어 호격 명사(Son) 자리를 다루지 못했다 — 이름·호칭이 불리면 그 사람이 청자 라는 규칙을 넣어 다섯 자리를 모두 덮게 고쳤다",
+            "지문을 아직 안 읽은 학생이 why_correct 의 영어 어구를 지문에서 찾아 그 자리를 직접 짚을 수 있도록 근거를 어구 단위로 적었다"
           ],
           "checked": [
             "절차를 밑줄 다섯 자리에 하나씩 대입해 전부 처리되는지 확인",
             "절차 금지 표현 검사",
-            "75초 예산 적정성 추정"
+            "75초 예산 적정성 추정",
+            "why_correct 의 영어 어구가 지문에서 그대로 검색되는 연속 문자열인지 확인",
+            "정답 밑줄 기호((b)·④ 등)가 서술 안에 함께 적혀 자리 찾기가 되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2020#44",
@@ -654,9 +687,14 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "정답 — 이 자리만 연어",
-          "why_tempting": "다섯 자리가 모두 they/them 이라 앞의 (a) 를 사람으로 정한 뒤 관성으로 같은 집합을 적어 넣기 쉽다.",
-          "how_to_reject": "정답 자리다. 주어가 단수 She 여서 목적어 them 이 그 사람을 포함할 수 없고, 앞 두 문장의 화제가 연어다."
+          "why_correct": "밑줄 문장의 주어 She 는 Nina 한 사람이고, 자기를 목적어로 받으려면 herself 여야 하므로 (b) them 은 Nina 와 Marie 가 아니다. 바로 앞 두 문장 a small one turned a complete circle 과 More salmon then followed and succeeded 가 복수 화제로 연어를 올려 두어 them 은 연어다. 나머지 넷 (a) them to stop · (c) they could still hear the fish · (d) They found the falls · (e) They were standing without a word 는 모두 Marie 와 Nina 두 사람이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              11,
+              12
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — 다섯 자리가 모두 they/them 이라 (a) 를 사람으로 정한 뒤 같은 집합을 다섯 칸에 그대로 옮겨 적는다."
+          }
         },
         {
           "n": 3,
@@ -719,12 +757,16 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
-            "이 청크에서 유일하게 지시 대상이 사람이 아닌 문항이다 — 유형 안에서 따로 다룰 값이 있다"
+            "이 청크에서 유일하게 지시 대상이 사람이 아닌 문항이다 — 유형 안에서 따로 다룰 값이 있다",
+            "why_correct 를 「왜 놓치기 어려운가」가 아니라 「이 밑줄이 무엇을 가리키는가」로 다시 썼다 — 지시 대상을 확정하는 문법 근거(등위절 주어 승계 · 소유격 임자 · 인용 화자와 호격 · 재귀형이 아닌 목적어)를 지문 표현으로 지목하고, 나머지 넷이 한 사람으로 모인다는 것을 한 줄로 붙였다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에서 문자열 대조",
             "평가원 정답표 2 와 correct 대조",
-            "밑줄 다섯의 지시 대상을 사람/연어/사람/사람/사람 으로 재계산"
+            "밑줄 다섯의 지시 대상을 사람/연어/사람/사람/사람 으로 재계산",
+            "새 why_correct 안의 영어 어구를 corpus.json 지문에서 문자열 대조(전 어구 통과)",
+            "why_correct 가 정답 밑줄의 지시 대상과 나머지 넷의 공통 대상 두 짝을 다 대는지 확인",
+            "평가원 정답표 번호와 correct 번호 재대조"
           ]
         },
         {
@@ -733,27 +775,37 @@
           "revised": true,
           "findings": [
             "초안에서 (a) 와 (d) 에 같은 최근접 명사 이끌림 라벨을 달았다 — (d) 는 인쇄 문단 순서 때문에 생기는 오독이라 단락 순서 오판 으로 갈랐다. 고친 뒤 함정 4종",
-            "네 오답 모두 배제 근거에 지문 문장이 붙어 있다"
+            "네 오답 모두 배제 근거에 지문 문장이 붙어 있다",
+            "새 why_correct 가 소거법(「나머지가 다 X 이므로」)이 아니라 정답 밑줄 자체의 문법 근거로 서 있는지 확인했다",
+            "앞서 why_correct 에 있던 심리 관찰은 지우지 않고 confirmed_at.note 로 자리를 옮겨 보존했다 — distractor 서술은 손대지 않았다"
           ],
           "checked": [
             "trap 중복 검사와 재분류",
             "how_to_reject 의 지문 위치 유무 확인",
-            "why_tempting 이 실제 선지 문장에 근거하는지 대조"
+            "why_tempting 이 실제 선지 문장에 근거하는지 대조",
+            "why_correct 에 「왜 놓치기 어려운가」 계열 어휘가 남았는지 정규식 검사",
+            "distractor 4개의 trap·why_tempting·how_to_reject 무변경 확인",
+            "confirmed_at.sentence_index 가 answer_locus 와 같은 자리를 가리키는지 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "1단계가 사람 후보만 세우는 습관을 미리 끊는다 — 이 문항의 실점은 대부분 거기서 난다"
+            "1단계가 사람 후보만 세우는 습관을 미리 끊는다 — 이 문항의 실점은 대부분 거기서 난다",
+            "지문을 아직 안 읽은 학생이 why_correct 의 영어 어구를 지문에서 찾아 그 자리를 직접 짚을 수 있도록 근거를 어구 단위로 적었다",
+            "첫 초안은 「주어가 단수라서 them 이 아니다」까지만 적어 학생이 확인할 길이 없었다 — 자기를 목적어로 받으려면 herself 여야 한다는 형태 근거를 넣어, 지문의 She 와 (b) them 두 낱말만으로 판정되게 고쳤다"
           ],
           "checked": [
             "절차 금지 표현 검사",
             "85초 예산 검토 — 후보 두 벌을 세우는 시간 15초를 더했다",
-            "required_vocab 4개가 지문에 존재하는지 대조"
+            "required_vocab 4개가 지문에 존재하는지 대조",
+            "why_correct 의 영어 어구가 지문에서 그대로 검색되는 연속 문자열인지 확인",
+            "정답 밑줄 기호((b)·④ 등)가 서술 안에 함께 적혀 자리 찾기가 되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2006#44",
@@ -799,9 +851,13 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "정답 — 이 자리만 아버지",
-          "why_tempting": "앞의 (c) 도 인용 안 2인칭이었고 그때는 Joe 를 가리켰으므로, 같은 형태를 같은 사람으로 이어 적기 쉽다.",
-          "how_to_reject": "정답 자리다. 이 인용의 화자는 Joe 이고 호격 Father 가 청자를 아버지로 확정하므로, 앞 자리와 형태가 같아도 가리키는 사람이 뒤집힌다."
+          "why_correct": "인용을 여는 Joe took a deep breath and continued 가 화자를 Joe 로 못 박고, 그 인용이 “Father,” 라는 호격 뒤에 이어지므로 I respect your views 의 your 와 (e) you 는 청자인 아버지 Master Brooks 다. 나머지 넷 (a) his way to becoming a virtuoso · said Master Brooks to (b) him · (c) You can tell us about it after practice · (d) he might pull out of the concert 는 모두 Joe 를 가리킨다.",
+          "confirmed_at": {
+            "sentence_index": [
+              31
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — 앞의 (c) 도 인용 안 2인칭이었고 그때는 Joe 를 가리켰으므로, 같은 형태를 같은 사람으로 이어 적는다."
+          }
         }
       ],
       "solve_procedure": [
@@ -848,12 +904,16 @@
           "verdict": "pass",
           "findings": [
             "코퍼스 지문에 keeping d the spirit 등 OCR 잔여가 있으나 밑줄과 화자 표시는 온전하다",
-            "같은 형태의 2인칭이 두 번 나오되 화자가 달라 유형의 핵심 장치가 선명하다"
+            "같은 형태의 2인칭이 두 번 나오되 화자가 달라 유형의 핵심 장치가 선명하다",
+            "why_correct 를 「왜 놓치기 어려운가」가 아니라 「이 밑줄이 무엇을 가리키는가」로 다시 썼다 — 지시 대상을 확정하는 문법 근거(등위절 주어 승계 · 소유격 임자 · 인용 화자와 호격 · 재귀형이 아닌 목적어)를 지문 표현으로 지목하고, 나머지 넷이 한 사람으로 모인다는 것을 한 줄로 붙였다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에서 문자열 대조",
             "평가원 정답표 5 와 correct 대조",
-            "밑줄 다섯의 지시 대상을 Joe/Joe/Joe/Joe/아버지 로 재계산"
+            "밑줄 다섯의 지시 대상을 Joe/Joe/Joe/Joe/아버지 로 재계산",
+            "새 why_correct 안의 영어 어구를 corpus.json 지문에서 문자열 대조(전 어구 통과)",
+            "why_correct 가 정답 밑줄의 지시 대상과 나머지 넷의 공통 대상 두 짝을 다 대는지 확인",
+            "평가원 정답표 번호와 correct 번호 재대조"
           ]
         },
         {
@@ -861,27 +921,36 @@
           "verdict": "pass",
           "findings": [
             "함정 4종이 비교 대조항 이끌림 · 화자 표시 도치 · 직접화법 인칭 전환 · 목적절 주어 이월 로 갈린다",
-            "(c) 와 (e) 가 같은 인용 안 2인칭인데 서로 다른 함정으로 갈린 것이 이 문항의 값이다"
+            "(c) 와 (e) 가 같은 인용 안 2인칭인데 서로 다른 함정으로 갈린 것이 이 문항의 값이다",
+            "새 why_correct 가 소거법(「나머지가 다 X 이므로」)이 아니라 정답 밑줄 자체의 문법 근거로 서 있는지 확인했다",
+            "앞서 why_correct 에 있던 심리 관찰은 지우지 않고 confirmed_at.note 로 자리를 옮겨 보존했다 — distractor 서술은 손대지 않았다"
           ],
           "checked": [
             "trap 중복 검사",
             "why_tempting 이 각 밑줄 문장의 문면에 근거하는지 대조",
-            "how_to_reject 의 지문 위치 유무 확인"
+            "how_to_reject 의 지문 위치 유무 확인",
+            "why_correct 에 「왜 놓치기 어려운가」 계열 어휘가 남았는지 정규식 검사",
+            "distractor 4개의 trap·why_tempting·how_to_reject 무변경 확인",
+            "confirmed_at.sentence_index 가 answer_locus 와 같은 자리를 가리키는지 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계의 앞 인용의 화자를 이어 쓰지 않는다 가 이 문항에서 실점을 막는 지점이다"
+            "2단계의 앞 인용의 화자를 이어 쓰지 않는다 가 이 문항에서 실점을 막는 지점이다",
+            "지문을 아직 안 읽은 학생이 why_correct 의 영어 어구를 지문에서 찾아 그 자리를 직접 짚을 수 있도록 근거를 어구 단위로 적었다"
           ],
           "checked": [
             "절차 금지 표현 검사",
             "85초 예산 검토 — 인용 넷의 화자 확인에 자리당 12초",
-            "required_vocab 4개가 지문에 존재하는지 대조"
+            "required_vocab 4개가 지문에 존재하는지 대조",
+            "why_correct 의 영어 어구가 지문에서 그대로 검색되는 연속 문자열인지 확인",
+            "정답 밑줄 기호((b)·④ 등)가 서술 안에 함께 적혀 자리 찾기가 되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2019#44",
@@ -927,9 +996,14 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "정답 — 이 자리만 할머니",
-          "why_tempting": "앞 네 자리가 모두 Olivia 였고 밑줄 앞에도 Olivia 라는 이름이 붙어 있어, 인식 동사의 주체를 그대로 보문 주어로 옮겨 적기 쉽다.",
-          "how_to_reject": "정답 자리다. 깨달은 사람과 옳았던 사람이 같으면 문장이 뜻을 잃고, 앞 문장의 발언 주체가 Grandma 이며 뒤 문장 Grandma added 가 같은 사람을 잇는다."
+          "why_correct": "깨달은 주체는 밑줄 앞에 이름으로 적힌 Olivia 이고, realized 뒤 절의 주어 (e) she 는 옳았던 쪽이다. 그 자리는 바로 앞에서 Why wrestle with Mother Nature? 라고 말한 Grandma 이고, 이어지는 Grandma added that 이 같은 논지를 계속 펴는 사람을 할머니로 지목해 주절 주어와 보문 주어가 갈린다. 나머지 넷 (a) I learned about it in biology class · laughing at (b) her · (c) She kept filling her bucket · (d) she and Ellie started on the first cabbage 는 모두 Olivia 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              28,
+              29
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — 앞 네 자리가 모두 Olivia 였고 밑줄 앞에도 Olivia 라는 이름이 붙어 있어, 인식 동사의 주체를 그대로 보문 주어로 옮겨 적는다."
+          }
         }
       ],
       "solve_procedure": [
@@ -977,39 +1051,52 @@
           "revised": true,
           "findings": [
             "초안 인용이 Olivia 하다 ______ realized ... 처럼 OCR 잡음을 안고 있어 인용 대조가 잡음 위치에 좌우될 위험이 있었다 — 잡음 뒤 realized 부터 시작하도록 인용을 다시 잘랐고, 잘라 낸 인용도 코퍼스 지문과 문자열이 정확히 일치함을 확인했다",
-            "정답 근거가 앞 문장의 발언과 뒤 문장의 Grandma added 양쪽에서 잠긴다"
+            "정답 근거가 앞 문장의 발언과 뒤 문장의 Grandma added 양쪽에서 잠긴다",
+            "why_correct 를 「왜 놓치기 어려운가」가 아니라 「이 밑줄이 무엇을 가리키는가」로 다시 썼다 — 지시 대상을 확정하는 문법 근거(등위절 주어 승계 · 소유격 임자 · 인용 화자와 호격 · 재귀형이 아닌 목적어)를 지문 표현으로 지목하고, 나머지 넷이 한 사람으로 모인다는 것을 한 줄로 붙였다"
           ],
           "checked": [
             "고친 answer_locus.quote 를 corpus.json 지문에서 문자열 대조",
             "평가원 정답표 5 와 correct 대조",
-            "밑줄 다섯의 지시 대상을 Olivia/Olivia/Olivia/Olivia/Grandma 로 재계산"
+            "밑줄 다섯의 지시 대상을 Olivia/Olivia/Olivia/Olivia/Grandma 로 재계산",
+            "새 why_correct 안의 영어 어구를 corpus.json 지문에서 문자열 대조(전 어구 통과)",
+            "why_correct 가 정답 밑줄의 지시 대상과 나머지 넷의 공통 대상 두 짝을 다 대는지 확인",
+            "평가원 정답표 번호와 correct 번호 재대조"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "함정 4종이 직접화법 인칭 전환 · 동반 인물 이끌림 · 주어 교대 이끌림 · 분사구문 주어 절단 으로 갈린다"
+            "함정 4종이 직접화법 인칭 전환 · 동반 인물 이끌림 · 주어 교대 이끌림 · 분사구문 주어 절단 으로 갈린다",
+            "새 why_correct 가 소거법(「나머지가 다 X 이므로」)이 아니라 정답 밑줄 자체의 문법 근거로 서 있는지 확인했다",
+            "앞서 why_correct 에 있던 심리 관찰은 지우지 않고 confirmed_at.note 로 자리를 옮겨 보존했다 — distractor 서술은 손대지 않았다"
           ],
           "checked": [
             "trap 중복 검사",
             "how_to_reject 마다 지문 문장이 인용되어 있는지 확인",
-            "why_tempting 이 밑줄 문장의 문면에 근거하는지 대조"
+            "why_tempting 이 밑줄 문장의 문면에 근거하는지 대조",
+            "why_correct 에 「왜 놓치기 어려운가」 계열 어휘가 남았는지 정규식 검사",
+            "distractor 4개의 trap·why_tempting·how_to_reject 무변경 확인",
+            "confirmed_at.sentence_index 가 answer_locus 와 같은 자리를 가리키는지 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "3단계가 이 문항의 갈림길(인식 동사와 보문 주어)을 직접 겨눈다"
+            "3단계가 이 문항의 갈림길(인식 동사와 보문 주어)을 직접 겨눈다",
+            "지문을 아직 안 읽은 학생이 why_correct 의 영어 어구를 지문에서 찾아 그 자리를 직접 짚을 수 있도록 근거를 어구 단위로 적었다"
           ],
           "checked": [
             "절차 금지 표현 검사",
             "80초 예산 검토",
-            "required_vocab 4개가 지문에 존재하는지 대조"
+            "required_vocab 4개가 지문에 존재하는지 대조",
+            "why_correct 의 영어 어구가 지문에서 그대로 검색되는 연속 문자열인지 확인",
+            "정답 밑줄 기호((b)·④ 등)가 서술 안에 함께 적혀 자리 찾기가 되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2018#44",
@@ -1049,9 +1136,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "정답 — 이 자리만 Dave",
-          "why_tempting": "(C) 문단은 Steve 가 달려가 말을 거는 장면으로 시작해 주어가 Steve 로 이어지므로, 이어지는 He 도 Steve 로 적기 쉽다.",
-          "how_to_reject": "정답 자리다. 인용 안에서 청자를 Steve 라고 부르므로 화자는 Steve 가 아니고, 앞 문장이 그 화자를 Dave 로 준다."
+          "why_correct": "인용 안에서 청자를 don’t think you’ll win the election, Steve 라고 이름으로 부르므로 이 말의 화자는 Steve 가 아니다. 바로 앞 문장 Dave cleared his throat and replied with surprise 가 그 화자를 Dave 로 주고, 바로 뒤 Dave walked quickly away 가 같은 사람을 이어 받아 (d) He 는 Dave 로 확정된다. 나머지 넷 (a) he wanted to run for student president · congratulated (b) him, shaking his hand · (c) His dad laughed 의 소유격 임자 · apologize to (e) him later that day 는 모두 Steve 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              22,
+              23
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — (C) 문단이 Steve 가 달려가 말을 거는 장면으로 시작해 주어가 Steve 로 이어지므로, 이어지는 He 도 Steve 로 적는다."
+          }
         },
         {
           "n": 5,
@@ -1105,12 +1197,17 @@
           "verdict": "pass",
           "findings": [
             "OCR 로 f loor · f lat 이 갈라져 있으나 밑줄 다섯 자리와 인용 경계는 온전하다",
-            "정답 근거가 인용 안 호명 한 곳에서 닫혀 유형의 전형에 맞는다"
+            "정답 근거가 인용 안 호명 한 곳에서 닫혀 유형의 전형에 맞는다",
+            "why_correct 를 「왜 놓치기 어려운가」가 아니라 「이 밑줄이 무엇을 가리키는가」로 다시 썼다 — 지시 대상을 확정하는 문법 근거(등위절 주어 승계 · 소유격 임자 · 인용 화자와 호격 · 재귀형이 아닌 목적어)를 지문 표현으로 지목하고, 나머지 넷이 한 사람으로 모인다는 것을 한 줄로 붙였다",
+            "(c) His dad 는 밑줄 범위를 명사구 전체로 잡으면 대상이 아버지가 되어 4대1 이 깨진다 — 소유격 임자를 묻는 자리임을 서술에 명시했다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에서 문자열 대조",
             "평가원 정답표 4 와 correct 대조",
-            "밑줄 다섯의 지시 대상을 Steve/Steve/Steve/Dave/Steve 로 재계산"
+            "밑줄 다섯의 지시 대상을 Steve/Steve/Steve/Dave/Steve 로 재계산",
+            "새 why_correct 안의 영어 어구를 corpus.json 지문에서 문자열 대조(전 어구 통과)",
+            "why_correct 가 정답 밑줄의 지시 대상과 나머지 넷의 공통 대상 두 짝을 다 대는지 확인",
+            "평가원 정답표 번호와 correct 번호 재대조"
           ]
         },
         {
@@ -1118,12 +1215,17 @@
           "verdict": "pass",
           "findings": [
             "함정 4종이 최근접 명사 이끌림 · 동사 방향 오판 · 소유격 이중 지시 · 단락 순서 오판 으로 갈린다",
-            "(b) 는 명제형 표의 주체 역전 과 겹치는 면이 있으나 여기서는 지시 대상 판정이 아니라 동사의 방향을 뒤집는 오독이라 따로 이름을 붙였다"
+            "(b) 는 명제형 표의 주체 역전 과 겹치는 면이 있으나 여기서는 지시 대상 판정이 아니라 동사의 방향을 뒤집는 오독이라 따로 이름을 붙였다",
+            "새 why_correct 가 소거법(「나머지가 다 X 이므로」)이 아니라 정답 밑줄 자체의 문법 근거로 서 있는지 확인했다",
+            "앞서 why_correct 에 있던 심리 관찰은 지우지 않고 confirmed_at.note 로 자리를 옮겨 보존했다 — distractor 서술은 손대지 않았다"
           ],
           "checked": [
             "trap 중복 검사",
             "why_tempting 이 각 밑줄 문장의 문면에 근거하는지 대조",
-            "how_to_reject 의 지문 위치 유무 확인"
+            "how_to_reject 의 지문 위치 유무 확인",
+            "why_correct 에 「왜 놓치기 어려운가」 계열 어휘가 남았는지 정규식 검사",
+            "distractor 4개의 trap·why_tempting·how_to_reject 무변경 확인",
+            "confirmed_at.sentence_index 가 answer_locus 와 같은 자리를 가리키는지 확인"
           ]
         },
         {
@@ -1131,15 +1233,19 @@
           "verdict": "pass",
           "revised": true,
           "findings": [
-            "초안 1단계가 사람 이름만 뽑아라 였는데 이 지문은 아버지가 둘이라 이름 목록만으로는 (c)(e) 를 가를 수 없었다 — 누구의 아버지인지까지 적게 고쳤다"
+            "초안 1단계가 사람 이름만 뽑아라 였는데 이 지문은 아버지가 둘이라 이름 목록만으로는 (c)(e) 를 가를 수 없었다 — 누구의 아버지인지까지 적게 고쳤다",
+            "지문을 아직 안 읽은 학생이 why_correct 의 영어 어구를 지문에서 찾아 그 자리를 직접 짚을 수 있도록 근거를 어구 단위로 적었다"
           ],
           "checked": [
             "절차를 밑줄 다섯 자리에 대입해 전부 처리되는지 확인",
             "절차 금지 표현 검사",
-            "80초 예산 검토"
+            "80초 예산 검토",
+            "why_correct 의 영어 어구가 지문에서 그대로 검색되는 연속 문자열인지 확인",
+            "정답 밑줄 기호((b)·④ 등)가 서술 안에 함께 적혀 자리 찾기가 되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M1809#44",
@@ -1171,9 +1277,14 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "정답 — 이 자리만 형",
-          "why_tempting": "이 문단의 문장이 거의 다 Ricky 로 시작해 관성으로 him 도 Ricky 로 적기 쉽다.",
-          "how_to_reject": "정답 자리다. 같은 문장 머리의 For Ricky 가 Ricky 를 따로 세워 두었으므로 with him 이 그와 같은 사람일 수 없고, 앞 문장이 형을 새로 도입했다."
+          "why_correct": "밑줄 문장이 For Ricky, playing baseball with (c) him 처럼 Ricky 를 전치사구로 따로 세우므로 함께 야구한 상대는 Ricky 자신이 아니다. 바로 앞 문장 Ricky began to follow his older brother who used to play sandlot ball 이 그 상대를 새로 도입한 형으로 준다. 나머지 넷 call (a) him that · moments of (b) his life · (d) he had become a legend · (e) His income went to the family 는 모두 Ricky 를 가리킨다.",
+          "confirmed_at": {
+            "sentence_index": [
+              13,
+              14
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — 이 문단의 문장이 거의 다 Ricky 로 시작해 관성으로 him 도 Ricky 로 적는다."
+          }
         },
         {
           "n": 4,
@@ -1230,39 +1341,52 @@
           "verdict": "pass",
           "findings": [
             "같은 이름을 쓰는 부자를 깔아 둔 것이 이 문항 고유의 장치다",
-            "정답 근거가 For Ricky 라는 한 구에 걸려 있어 근거 위치가 좁고 선명하다"
+            "정답 근거가 For Ricky 라는 한 구에 걸려 있어 근거 위치가 좁고 선명하다",
+            "why_correct 를 「왜 놓치기 어려운가」가 아니라 「이 밑줄이 무엇을 가리키는가」로 다시 썼다 — 지시 대상을 확정하는 문법 근거(등위절 주어 승계 · 소유격 임자 · 인용 화자와 호격 · 재귀형이 아닌 목적어)를 지문 표현으로 지목하고, 나머지 넷이 한 사람으로 모인다는 것을 한 줄로 붙였다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에서 문자열 대조",
             "평가원 정답표 3 과 correct 대조",
-            "밑줄 다섯의 지시 대상을 Ricky/Ricky/형/Ricky/Ricky 로 재계산"
+            "밑줄 다섯의 지시 대상을 Ricky/Ricky/형/Ricky/Ricky 로 재계산",
+            "새 why_correct 안의 영어 어구를 corpus.json 지문에서 문자열 대조(전 어구 통과)",
+            "why_correct 가 정답 밑줄의 지시 대상과 나머지 넷의 공통 대상 두 짝을 다 대는지 확인",
+            "평가원 정답표 번호와 correct 번호 재대조"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "함정 4종이 동명이인 이끌림 · 최근접 명사 이끌림 · 종속절 주어 분리 · 단락 순서 오판 으로 갈린다"
+            "함정 4종이 동명이인 이끌림 · 최근접 명사 이끌림 · 종속절 주어 분리 · 단락 순서 오판 으로 갈린다",
+            "새 why_correct 가 소거법(「나머지가 다 X 이므로」)이 아니라 정답 밑줄 자체의 문법 근거로 서 있는지 확인했다",
+            "앞서 why_correct 에 있던 심리 관찰은 지우지 않고 confirmed_at.note 로 자리를 옮겨 보존했다 — distractor 서술은 손대지 않았다"
           ],
           "checked": [
             "trap 중복 검사",
             "how_to_reject 마다 지문 문장이 인용되어 있는지 확인",
-            "why_tempting 이 밑줄 문장의 문면에 근거하는지 대조"
+            "why_tempting 이 밑줄 문장의 문면에 근거하는지 대조",
+            "why_correct 에 「왜 놓치기 어려운가」 계열 어휘가 남았는지 정규식 검사",
+            "distractor 4개의 trap·why_tempting·how_to_reject 무변경 확인",
+            "confirmed_at.sentence_index 가 answer_locus 와 같은 자리를 가리키는지 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계의 한 문장 안에 이름이 이미 있으면 밑줄은 그 사람이 아니다 가 이 문항을 한 번에 끝낸다"
+            "2단계의 한 문장 안에 이름이 이미 있으면 밑줄은 그 사람이 아니다 가 이 문항을 한 번에 끝낸다",
+            "지문을 아직 안 읽은 학생이 why_correct 의 영어 어구를 지문에서 찾아 그 자리를 직접 짚을 수 있도록 근거를 어구 단위로 적었다"
           ],
           "checked": [
             "절차 금지 표현 검사",
             "75초 예산 검토",
-            "required_vocab 4개가 지문에 존재하고 지시 판정에 걸리는지 확인"
+            "required_vocab 4개가 지문에 존재하고 지시 판정에 걸리는지 확인",
+            "why_correct 의 영어 어구가 지문에서 그대로 검색되는 연속 문자열인지 확인",
+            "정답 밑줄 기호((b)·④ 등)가 서술 안에 함께 적혀 자리 찾기가 되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2017#44",
@@ -1286,9 +1410,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "정답 — 이 자리만 Keith",
-          "why_tempting": "이 문단이 Erik too was deeply touched 로 Erik 을 한 번 부르고 나서 소유격이 이어지므로, 앞 문장의 사람을 그대로 임자로 적기 쉽다.",
-          "how_to_reject": "정답 자리다. 왼손으로 리프를 치는 것은 연주 동작이고, 앞뒤 문장이 그 연주자를 Keith 로 준다."
+          "why_correct": "소유격 (b) His 의 임자는 왼손으로 베이스 리프를 치는 연주자이고, 앞 문장 When Keith began to play 와 뒤 문장 Keith really had to play that piano very hard 가 그 연주 동작을 Keith 로 이어 받는다. 같은 문단의 Erik too was deeply touched 는 Erik 을 듣는 쪽에 세워 둔다. 나머지 넷 (a) The youngest concert promoter in Germany · (c) the German teenager · Only for (d) you · Manfred came to (e) him 은 모두 Erik 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              8
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — 이 문단이 Erik too was deeply touched 로 Erik 을 한 번 부르고 나서 소유격이 이어지므로, 앞 문장의 사람을 그대로 임자로 적는다."
+          }
         },
         {
           "n": 3,
@@ -1355,12 +1483,16 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
-            "실화 소재라 인물의 직업 정보가 지시 판정의 근거로 쓰인다 — 이 청크에서 술어의 의미가 근거가 되는 유일한 문항이다"
+            "실화 소재라 인물의 직업 정보가 지시 판정의 근거로 쓰인다 — 이 청크에서 술어의 의미가 근거가 되는 유일한 문항이다",
+            "why_correct 를 「왜 놓치기 어려운가」가 아니라 「이 밑줄이 무엇을 가리키는가」로 다시 썼다 — 지시 대상을 확정하는 문법 근거(등위절 주어 승계 · 소유격 임자 · 인용 화자와 호격 · 재귀형이 아닌 목적어)를 지문 표현으로 지목하고, 나머지 넷이 한 사람으로 모인다는 것을 한 줄로 붙였다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에서 문자열 대조",
             "평가원 정답표 2 와 correct 대조",
-            "밑줄 다섯의 지시 대상을 Erik/Keith/Erik/Erik/Erik 으로 재계산"
+            "밑줄 다섯의 지시 대상을 Erik/Keith/Erik/Erik/Erik 으로 재계산",
+            "새 why_correct 안의 영어 어구를 corpus.json 지문에서 문자열 대조(전 어구 통과)",
+            "why_correct 가 정답 밑줄의 지시 대상과 나머지 넷의 공통 대상 두 짝을 다 대는지 확인",
+            "평가원 정답표 번호와 correct 번호 재대조"
           ]
         },
         {
@@ -1368,27 +1500,36 @@
           "verdict": "pass",
           "findings": [
             "함정 4종이 별칭 명사구 지시 · 단락 순서 오판 · 직접화법 인칭 전환 · 호격 지시 로 갈린다",
-            "(a) 와 (c) 가 둘 다 별칭이지만 오독의 경로가 달라 라벨을 갈랐다"
+            "(a) 와 (c) 가 둘 다 별칭이지만 오독의 경로가 달라 라벨을 갈랐다",
+            "새 why_correct 가 소거법(「나머지가 다 X 이므로」)이 아니라 정답 밑줄 자체의 문법 근거로 서 있는지 확인했다",
+            "앞서 why_correct 에 있던 심리 관찰은 지우지 않고 confirmed_at.note 로 자리를 옮겨 보존했다 — distractor 서술은 손대지 않았다"
           ],
           "checked": [
             "trap 중복 검사",
             "why_tempting 이 밑줄 문장의 문면에 근거하는지 대조",
-            "how_to_reject 의 지문 위치 유무 확인"
+            "how_to_reject 의 지문 위치 유무 확인",
+            "why_correct 에 「왜 놓치기 어려운가」 계열 어휘가 남았는지 정규식 검사",
+            "distractor 4개의 trap·why_tempting·how_to_reject 무변경 확인",
+            "confirmed_at.sentence_index 가 answer_locus 와 같은 자리를 가리키는지 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "3단계에서 술어로 인물을 고르게 한 것이 이 문항의 정답 자리를 바로 겨눈다"
+            "3단계에서 술어로 인물을 고르게 한 것이 이 문항의 정답 자리를 바로 겨눈다",
+            "지문을 아직 안 읽은 학생이 why_correct 의 영어 어구를 지문에서 찾아 그 자리를 직접 짚을 수 있도록 근거를 어구 단위로 적었다"
           ],
           "checked": [
             "절차 금지 표현 검사",
             "80초 예산 검토 — 별칭 두 자리 확인에 25초",
-            "required_vocab 4개가 지문에 존재하는지 대조"
+            "required_vocab 4개가 지문에 존재하는지 대조",
+            "why_correct 의 영어 어구가 지문에서 그대로 검색되는 연속 문자열인지 확인",
+            "정답 밑줄 기호((b)·④ 등)가 서술 안에 함께 적혀 자리 찾기가 되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     }
   ],
   "type_report": {

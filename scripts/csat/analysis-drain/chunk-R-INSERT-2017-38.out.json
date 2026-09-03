@@ -8,7 +8,10 @@
       "measured_ability": "주어진 문장이 공급하는 복수 지시 대상(readers=them)과, 그것이 없으면 성립하지 않는 뒤 문장의 인과 표지(Therefore)를 짝지어 자리를 확정하는 능력",
       "design_intent": "주어진 문장에는 대명사도 연결어도 없다. 대신 뒤 문장이 'to rehearse to them'과 'unnecessary reminders'라는 두 개의 빈 고리를 들고 있어, 학습자가 삽입문 쪽이 아니라 지문 쪽의 결핍을 찾아 자리를 정하도록 설계했다. 앞부분에 reports·papers·writers 같은 겹치는 낱말을 깔아 ①로 유인한다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "Therefore, to rehearse to them the findings of previous work is simply to bore them with unnecessary reminders.",
         "reasoning": "이 문장의 'them'은 복수 사람이고, 앞에 나온 복수 명사는 'Too many writers'뿐인데 writers는 previous work를 되풀이해 '들려주는' 쪽이지 '들려받는' 쪽이 아니다. 또 'unnecessary reminders'는 이미 알고 있는 사람에게만 성립하는 표현이라 '독자가 그 주제를 이미 안다'는 전제 문장이 바로 앞에 있어야 한다. 주어진 문장이 readers와 'know something about the subject'를 동시에 공급하므로 ②가 유일한 자리다."
       },
@@ -23,9 +26,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "정답. 앞 문장 'this is tactically weak'가 왜 약한지에 대한 근거를 요구하고, 뒤 문장이 그 근거를 'Therefore'로 받는다.",
-          "how_to_reject": "-"
+          "why_correct": "정답. 앞 문장 'this is tactically weak'가 왜 약한지에 대한 근거를 요구하고, 뒤 문장이 그 근거를 'Therefore'로 받는다."
         },
         {
           "n": 3,
@@ -76,7 +77,13 @@
           "①에 reports·papers 어휘 중복 미끼"
         ]
       },
-      "required_vocab": ["rehearse", "tactically", "chronological", "reminders", "habitual"],
+      "required_vocab": [
+        "rehearse",
+        "tactically",
+        "chronological",
+        "reminders",
+        "habitual"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -125,7 +132,10 @@
       "measured_ability": "주어진 문장의 역접 표지(Rather)가 부정할 앞 진술과, 뒤 문장의 단수 대명사(It)가 받을 선행사를 동시에 만족시키는 한 자리를 찾는 능력",
       "design_intent": "①~④ 앞이 'Much of this investment ... Another share ... Some ... And a lot'이라는 네 겹 열거로 채워져 있어 어디를 끊어도 문장은 이어지는 듯 보인다. 실제 잠금장치는 열거가 끝난 뒤에 있다 — 'would not come about if ... left to the market'(부정)과 'It will be either direct ... or indirect'(단수 It)가 주어진 문장을 사이에 두고만 맞물린다.",
       "answer_locus": {
-        "sentence_index": [7, 8],
+        "sentence_index": [
+          7,
+          8
+        ],
         "quote": "These huge increases in investment would not come about if investment was left to the market.",
         "reasoning": "주어진 문장의 'Rather'는 앞에 부정 진술을 요구하는데, 지문에서 부정형은 이 문장 하나뿐이다('would not come about'). 게다가 이 문장의 주어는 복수 'These huge increases'인데 ⑤ 뒤 문장은 단수 'It will be either direct ... or indirect'로 시작한다 — 그 It이 받을 단수 명사는 주어진 문장의 'state intervention'밖에 없다. 부정 진술(앞)과 단수 대명사(뒤)가 양쪽에서 잠그므로 ⑤가 유일하다."
       },
@@ -161,9 +171,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "정답. 앞의 부정 진술을 Rather가 뒤집고, 뒤 문장의 It이 state intervention을 받는다.",
-          "how_to_reject": "-"
+          "why_correct": "정답. 앞의 부정 진술을 Rather가 뒤집고, 뒤 문장의 It이 state intervention을 받는다."
         }
       ],
       "solve_procedure": [
@@ -193,7 +201,13 @@
           "④가 화제 전환처럼 보여 최다 오답 후보"
         ]
       },
-      "required_vocab": ["intervention", "parliamentary", "conventional", "come about", "adaptation"],
+      "required_vocab": [
+        "intervention",
+        "parliamentary",
+        "conventional",
+        "come about",
+        "adaptation"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -241,7 +255,10 @@
       "measured_ability": "삽입문의 지시 형용사(these dogs)가 요구하는 '구체 사례가 이미 나왔을 것'이라는 조건으로, 일반 진술과 사례 진술의 경계를 찾는 능력",
       "design_intent": "삽입문은 'these dogs'라는 특정 개들을 전제하는데, 지문 앞부분은 개 일반에 대한 진술로만 채워져 있다. 사례가 처음 등장하는 문장(새 헤어스타일·새 코트에 짖은 개들)을 찾아내는 한 수로 자리가 정해지도록 설계했고, 코와 눈의 대비를 ③·④에 미리 깔아 사례 전에 넣도록 유인한다.",
       "answer_locus": {
-        "sentence_index": [7, 8],
+        "sentence_index": [
+          7,
+          8
+        ],
         "quote": "Many owners have been snapped at by their dogs when they returned home with a new hairdo or a new coat.",
         "reasoning": "삽입문의 'these dogs'는 앞에서 이미 언급된 특정 개 무리를 가리킨다. 지문에서 특정 개들이 처음 등장하는 문장은 이것뿐이다(그 앞은 모두 dogs 일반). 게다가 삽입문은 그 개들이 짖은 이유를 '낯선 실루엣을 눈으로 봤기 때문'이라고 설명하고, ⑤ 뒤 마지막 문장 'Their noses ... not always switched on'이 그 설명을 결론으로 받는다. 사례→설명→결론 순서가 ⑤에서만 성립한다."
       },
@@ -277,9 +294,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "정답. 앞 문장이 특정 개들을 처음 제시하고, 삽입문이 그 이유를 설명하며, 뒤 문장이 결론을 낸다.",
-          "how_to_reject": "-"
+          "why_correct": "정답. 앞 문장이 특정 개들을 처음 제시하고, 삽입문이 그 이유를 설명하며, 뒤 문장이 결론을 낸다."
         }
       ],
       "solve_procedure": [
@@ -309,7 +324,13 @@
           "정답이 마지막 자리라 '마지막은 아닐 것'이라는 선입견이 방해한다"
         ]
       },
-      "required_vocab": ["silhouette", "snapped at", "intensify", "with respect to", "remarkable"],
+      "required_vocab": [
+        "silhouette",
+        "snapped at",
+        "intensify",
+        "with respect to",
+        "remarkable"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -358,7 +379,10 @@
       "measured_ability": "삽입문의 양보 표지(Even so)가 요구하는 '앞에 긍정적 진술 묶음이 끝나 있을 것'이라는 조건으로, 열거의 끝 지점을 확정하는 능력",
       "design_intent": "②~④가 돈의 이점을 세 개 잇달아 쌓아 올린다. Even so는 그 더미 전체를 받아야 하므로 더미 중간이 아니라 끝에서만 성립한다. 게다가 마지막 문장의 'in and of itself'가 삽입문의 'per se'를 그대로 되받아, 열거의 끝과 어구 호응이 같은 자리를 가리키게 설계했다.",
       "answer_locus": {
-        "sentence_index": [8, 9],
+        "sentence_index": [
+          8,
+          9
+        ],
         "quote": "Material wealth in and of itself does not necessarily generate meaning or lead to emotional wealth.",
         "reasoning": "이 문장의 'in and of itself'는 삽입문 'it is not the money per se that is valuable'의 per se와 같은 뜻의 되풀이이고, 두 문장은 '그 자체로는 가치가 없다'는 같은 주장을 잇는다. 곧 삽입문이 이 문장 바로 앞에 와야 per se → in and of itself 연결이 생긴다. 동시에 Even so는 ②~④에 쌓인 '돈의 이점' 세 문장을 모두 받아야 하므로 그 더미가 끝난 뒤인 ⑤가 유일한 자리다."
       },
@@ -394,9 +418,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "정답. 이점 열거가 ④ 뒤 문장에서 끝나고, 뒤 문장의 in and of itself가 삽입문의 per se를 받는다.",
-          "how_to_reject": "-"
+          "why_correct": "정답. 이점 열거가 ④ 뒤 문장에서 끝나고, 뒤 문장의 in and of itself가 삽입문의 per se를 받는다."
         }
       ],
       "solve_procedure": [
@@ -426,7 +448,13 @@
           "①의 in itself가 per se와 겹쳐 보이는 어휘 미끼"
         ]
       },
-      "required_vocab": ["per se", "in and of itself", "prosperity", "elevated", "liberate"],
+      "required_vocab": [
+        "per se",
+        "in and of itself",
+        "prosperity",
+        "elevated",
+        "liberate"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -474,7 +502,10 @@
       "measured_ability": "실험 서술에서 '결과 → 그 결과를 만든 조작 → 조작의 효과'라는 세 마디를 구분해, 앞의 this(결과)와 뒤의 By doing this(조작)를 동시에 만족시키는 자리를 찾는 능력",
       "design_intent": "삽입문 자체가 '앞의 this를 받고 뒤의 By doing this에 먹이를 주는' 이중 고리다. 학습자가 대명사 하나만 보고 자리를 정하면 ②나 ④로 새게 되어 있고, 두 고리를 동시에 만족시키는 자리는 ③ 하나뿐이다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "By doing this, the trees were “tricked” into flowering twice during the year rather than the usual once.",
         "reasoning": "'By doing this'의 this는 연구자가 한 **조작**이어야 하는데, ③ 앞까지 서술된 것은 '15년생 약충을 사육장으로 옮겼다'와 '2년 걸릴 것이 1년 만에 나왔다'는 결과뿐이고 나무를 속일 수 있는 조작은 없다. 삽입문의 '일조 시간을 늘렸다'가 들어와야 By doing this가 가리킬 행위가 생긴다. 동시에 삽입문의 'made this happen'은 앞 문장의 '1년 만에 성체가 됨'을 받으므로 자리는 ③뿐이다."
       },
@@ -496,9 +527,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "정답. 앞 문장이 결과를, 삽입문이 조작을, 뒤 문장이 그 조작의 효과를 잇는다.",
-          "how_to_reject": "-"
+          "why_correct": "정답. 앞 문장이 결과를, 삽입문이 조작을, 뒤 문장이 그 조작의 효과를 잇는다."
         },
         {
           "n": 4,
@@ -542,7 +571,14 @@
           "cicada·nymph 등 소재 어휘가 낯설다"
         ]
       },
-      "required_vocab": ["nymph", "enclosure", "emerge", "coincides", "sap", "lengthening"],
+      "required_vocab": [
+        "nymph",
+        "enclosure",
+        "emerge",
+        "coincides",
+        "sap",
+        "lengthening"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -590,7 +626,10 @@
       "measured_ability": "첨가 표지(also)와 주어 대명사(They)가 동시에 요구하는 '앞 문장이 같은 주체의 다른 측정 행위'라는 조건으로 자리를 확정하는 능력",
       "design_intent": "실험 절차가 시간 순서로 늘어서 있어 어디에 넣어도 사건이 어긋나 보이지 않는다. 진짜 잠금은 also와 They 두 낱말이다 — 앞에 같은 주체(he and his team)의 측정 행위가 있어야만 성립한다. 뒤쪽에서는 ③ 뒤 문장이 '가짜 외향인이 설득력 있었다'는 평가 결과를 말하므로, 평가 행위가 그보다 앞서야 한다는 두 번째 제약이 걸린다.",
       "answer_locus": {
-        "sentence_index": [3, 4],
+        "sentence_index": [
+          3,
+          4
+        ],
         "quote": "Then he and his team, with video cameras in hand, measured the length of their strides",
         "reasoning": "삽입문의 'They also rated'는 (1) 주어 They가 받을 복수 주체와 (2) also가 더해질 앞선 측정 행위를 동시에 요구한다. 둘 다 이 문장이 공급한다(he and his team / measured ...). 또 삽입문의 'those fake extroverts'는 외향인을 연기한 내향인들을 가리키므로, 실제 외향인이 등장하는 ② 뒤 문장보다 앞에 있어야 한다. 따라서 자리는 ②다."
       },
@@ -605,9 +644,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "정답. 앞 문장이 연구팀의 첫 측정(보폭·시선·발화량·성량)을 서술하고, 삽입문이 '녹음된 목소리와 몸짓에 근거한 외향성 평가'를 also로 덧붙인다.",
-          "how_to_reject": "-"
+          "why_correct": "정답. 앞 문장이 연구팀의 첫 측정(보폭·시선·발화량·성량)을 서술하고, 삽입문이 '녹음된 목소리와 몸짓에 근거한 외향성 평가'를 also로 덧붙인다."
         },
         {
           "n": 3,
@@ -658,7 +695,13 @@
           "④에 fake extroverts 어휘 반복 미끼"
         ]
       },
-      "required_vocab": ["extroverted", "introverts", "strides", "came across as", "convincing"],
+      "required_vocab": [
+        "extroverted",
+        "introverts",
+        "strides",
+        "came across as",
+        "convincing"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -707,7 +750,10 @@
       "measured_ability": "서사에서 사건의 완료 시점(had helped)과 신정보(book bag)의 최초 등장 지점을 맞춰, 뒤 문장이 전제하는 정보가 생기는 자리를 찾는 능력",
       "design_intent": "일화형 지문이라 사건이 시간 순서로만 늘어서 있다. 삽입문은 '횡단을 마친 뒤'라는 시점 표시와 'book bag'이라는 신정보를 함께 들고 있고, 뒤 문장이 그 book bag을 이미 아는 것처럼 'his book bag'으로 받는다. 시점 하나만 보면 ③으로, 신정보만 보면 ⑤로 새도록 배치했다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "When Tom looked back at the bus stop bench, he saw another man sitting next to his book bag.",
         "reasoning": "이 문장은 'his book bag'을 처음부터 아는 물건처럼 다루지만, 삽입문 앞까지 가방은 한 번도 언급되지 않는다. 곧 가방을 도입하는 삽입문이 이 문장 바로 앞에 와야 한다. 또 삽입문의 'When Tom had helped the blind man to cross the street'는 횡단이 끝났음을 말하는데, 횡단 과정 서술(said yes → latched onto → began their walk)이 끝나는 지점이 바로 ④ 앞이다. 시점과 신정보가 같은 자리를 가리킨다."
       },
@@ -736,9 +782,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "정답. 앞 문장에서 횡단이 시작·진행되고, 삽입문이 완료 시점과 가방을 도입하며, 뒤 문장이 그 가방을 받는다.",
-          "how_to_reject": "-"
+          "why_correct": "정답. 앞 문장에서 횡단이 시작·진행되고, 삽입문이 완료 시점과 가방을 도입하며, 뒤 문장이 그 가방을 받는다."
         },
         {
           "n": 5,
@@ -775,7 +819,11 @@
           "③에 제안→응답 인접쌍 미끼가 있으나 said yes로 바로 걸러진다"
         ]
       },
-      "required_vocab": ["latched onto", "readily", "crosswalk"],
+      "required_vocab": [
+        "latched onto",
+        "readily",
+        "crosswalk"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -823,7 +871,10 @@
       "measured_ability": "삽입문이 공급하는 주어(the news media)를 뒤 문장의 대명사 They가 요구한다는 것을 알아채고, 삽입문의 인과 표지 So가 받을 앞 진술까지 맞추는 능력",
       "design_intent": "지문 전체가 media를 화제로 삼아 어느 자리든 낱말이 맞물린다. 실제 잠금은 ② 뒤 문장의 They 하나다 — 그 앞 문장 주어는 War이므로 They가 받을 복수 주체가 없다. ④의 'this crucial role'이 삽입문의 responsibility를 받는 것처럼 보이게 배치해, 대명사 대신 명사구 호응을 좇으면 ④로 가도록 유도한다.",
       "answer_locus": {
-        "sentence_index": [4, 5],
+        "sentence_index": [
+          4,
+          5
+        ],
         "quote": "They should be providing the most intense scrutiny on our behalf, so the public can see the other side of things.",
         "reasoning": "이 문장의 주어 They는 복수 주체를 요구하는데, 바로 앞 문장은 'War should be a last resort ...'로 주어가 War(단수)다. 지문에서 They가 받을 수 있는 복수 주체는 삽입문의 'the news media'뿐이므로 삽입문이 이 문장 바로 앞에 와야 한다. 또 삽입문의 So는 '전쟁은 최후 수단이어야 한다'는 앞 문장을 근거로 받으므로 두 조건이 같은 자리(②)에서 맞는다."
       },
@@ -838,9 +889,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "정답. 앞 문장이 So의 근거를 대고, 뒤 문장의 They가 삽입문의 the news media를 받는다.",
-          "how_to_reject": "-"
+          "why_correct": "정답. 앞 문장이 So의 근거를 대고, 뒤 문장의 They가 삽입문의 the news media를 받는다."
         },
         {
           "n": 3,
@@ -891,7 +940,13 @@
           "정답 단서가 대명사 They 하나에 몰려 있다"
         ]
       },
-      "required_vocab": ["scrutiny", "last resort", "mounting", "watchdogs", "drawn into"],
+      "required_vocab": [
+        "scrutiny",
+        "last resort",
+        "mounting",
+        "watchdogs",
+        "drawn into"
+      ],
       "reviews": [
         {
           "persona": "setter",

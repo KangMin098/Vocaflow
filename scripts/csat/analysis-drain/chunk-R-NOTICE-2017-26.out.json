@@ -32,9 +32,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "반대 진술",
-          "why_tempting": "무료 전시(The exhibition is free to all)라는 줄을 보고 '무료 = 판매하지 않는다'로 연결하면 ③이 맞는 서술로 보인다.",
-          "how_to_reject": "'All exhibits are for sale' 이 판매를 명시하므로 ③은 지문과 정면으로 어긋난다. free 는 입장에 걸린 말이고(The exhibition is free to all) 전시품 판매와 다른 항목이다."
+          "why_correct": "무료 전시(The exhibition is free to all)라는 줄을 보고 '무료 = 판매하지 않는다'로 연결하면 ③이 맞는 서술로 보인다."
         },
         {
           "n": 4,
@@ -153,9 +151,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "Fun Activities 항목 문장 끝의 for free 를 놓치면 유료 체험으로 보여 이 선지를 버리기 쉽다.",
-          "how_to_reject": "배제되지 않는다 — 활동 이름 두 개와 무료 여부가 한 문장 안에 함께 있다."
+          "why_correct": "근거 줄 'Enjoy exciting activities such as kite flying and sandcastle building for free.' 에 선지가 지목한 두 활동 kite flying 과 sandcastle building 이 그대로 열거되고, 줄 끝의 for free 가 선지의 '무료이다' 와 낱말 단위로 대응한다. 같은 Fun Activities 항목의 다른 줄 'Spend a day or two camping.' 에는 요금 표기가 없고 금액은 Parking 항목의 'The parking fee is $10 a day.' 에만 붙어 있어, 무료라는 진술이 이 줄에서만 확정된다."
         },
         {
           "n": 3,
@@ -222,13 +218,17 @@
           "verdict": "pass",
           "findings": [
             "quote 가 Fun Activities 항목 문장과 문자 그대로 일치한다",
-            "'일치하는 것' 발문에서 정답 근거는 조건절이 없는 문장이라는 이 유형의 설계와 맞는다"
+            "'일치하는 것' 발문에서 정답 근거는 조건절이 없는 문장이라는 이 유형의 설계와 맞는다",
+            "기계가 옮긴 옛 why_correct 는 'for free 를 놓치면 유료로 보여 이 선지를 버리기 쉽다'는 오답 심리 서술이었다. 활동 이름 둘과 for free 의 낱말 대응으로 다시 썼다"
           ],
           "checked": [
             "quote 를 passage 에서 문자열 대조",
             "선지 5개와 ◈ 항목 4개의 순서 대응 확인",
-            "정답 선지 ②가 지문 문장을 축약 없이 옮겼는지 확인"
-          ]
+            "정답 선지 ②가 지문 문장을 축약 없이 옮겼는지 확인",
+            "why_correct 의 영어 조각 3개를 corpus.json 2017#27 passage 와 문자열 대조",
+            "안내문에서 금액이 적힌 줄이 Parking 뿐인지 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "analyst",
@@ -237,7 +237,8 @@
             "1차 검수 반려(revise) → 수정 후 통과: 초안에서 ①과 ③에 모두 '반대 진술'을 달아 두 오답의 함정이 겹쳤다. ③은 not 탈락(부정어를 흘리는 어휘 층위)이고 ①은 조건절 자체를 못 본 것이라 층위가 다르므로 ③을 '어휘 함정'으로 갈랐다",
             "1차 검수 반려(revise) → 수정 후 통과: ④의 how_to_reject 에 처음에는 '지문에 헤드폰 언급이 있다'만 있어 위치가 없었다 — Tips 둘째 줄로 명시했다",
             "수정 후 오답 4개 함정이 반대 진술·어휘 함정·범위 과대·부분 사실로 모두 다르다",
-            "correct 판정 2 가 평가원 정답표와 일치한다"
+            "correct 판정 2 가 평가원 정답표와 일치한다",
+            "정답 근거를 '활동 이름이 열거된 줄' 로 한정해, 다른 선지의 배제 근거 줄(잔디·헤드폰·주차)과 겹치지 않는다"
           ],
           "checked": [
             "trap 라벨 중복 여부",
@@ -245,20 +246,25 @@
             "how_to_reject 위치 표기",
             "수정본 trap 4종 재대조",
             "how_to_reject 4개 모두 항목 이름+줄 번호 포함 확인",
-            "정답표 대조"
-          ]
+            "정답표 대조",
+            "why_correct 가 소거법에 기대지 않는지 확인",
+            "정답 근거 줄과 오답 4개의 배제 근거 줄을 대조"
+          ],
+          "revised": true
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계의 '조건을 지운 단정 표현' 목록이 선지 문구 그대로라 학생이 바로 표시할 수 있다"
+            "2단계의 '조건을 지운 단정 표현' 목록이 선지 문구 그대로라 학생이 바로 표시할 수 있다",
+            "'선지에 나온 활동 이름을 안내문에서 찾아 그 줄 끝까지 읽는다' 로 절차와 이어진다"
           ],
           "checked": [
             "지문 미독 상태에서 1~3단계 실행 가능성",
             "금지 표현 검색",
             "60초 내 완주 가능성",
-            "required_vocab 이 판정에 쓰이는 낱말인지 (in the event of · only 조건)"
+            "required_vocab 이 판정에 쓰이는 낱말인지 (in the event of · only 조건)",
+            "지문 미독 학생이 Fun Activities 항목을 찾아 해당 줄을 짚을 수 있는지 확인"
           ]
         }
       ],
@@ -300,9 +306,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "괄호 안 정보라 눈에 덜 띄어 지나치기 쉽다.",
-          "how_to_reject": "배제되지 않는다 — Total Pass 줄의 괄호가 buffet lunch 포함을 명시한다."
+          "why_correct": "근거 줄 'Total Pass: $25 (includes buffet lunch)' 의 괄호 안 includes buffet lunch 가 선지의 '점심 뷔페가 포함된다'와 그대로 대응하고, 괄호가 붙은 등급 이름 Total Pass 가 선지의 주어와 같다. 나머지 두 등급 'Lectures & Seminars Only: $15' 와 'Exhibitions Only: $10' 에는 같은 괄호가 없어, 점심이 Total Pass 에만 걸린다는 것까지 대비로 확인된다."
         },
         {
           "n": 5,
@@ -352,12 +356,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 Ticket Prices 첫 줄과 문자 그대로 일치한다(∙ 뒤 텍스트)",
-            "숫자 분산 배치라는 이 회차 고유의 설계를 design_intent 가 짚었다"
+            "숫자 분산 배치라는 이 회차 고유의 설계를 design_intent 가 짚었다",
+            "Total Pass 줄의 괄호 (includes buffet lunch) 가 선지 ④와 낱말 단위로 대응하고, 다른 두 등급 줄에는 같은 괄호가 없다 — 세 줄을 다 문자열로 확인했다"
           ],
           "checked": [
             "quote 문자열 대조",
             "선지-항목 순서 대응(날짜→장소→세미나→가격→예약) 확인",
-            "정답 근거가 괄호 부가정보라는 점이 유형 정의 안에 있는지 확인"
+            "정답 근거가 괄호 부가정보라는 점이 유형 정의 안에 있는지 확인",
+            "why_correct 의 영어 조각 3개를 corpus.json 2016#26 passage 와 문자열 대조",
+            "Ticket Prices 아래 세 줄의 표기를 전부 대조"
           ]
         },
         {
@@ -367,7 +374,8 @@
             "1차 검수 반려(revise) → 수정 후 통과: 초안에서 ①과 ③을 모두 '수치 왜곡'으로 묶어 두 함정이 같아졌다. ①은 이틀을 사흘로 늘린 범위 문제, ③은 숫자가 붙는 명사를 바꾼 문제로 층위가 달라 각각 '범위 과대'·'부분 사실'로 갈랐다",
             "1차 검수 반려(revise) → 수정 후 통과: ②의 how_to_reject 에 처음에는 '시청이 아니다'만 있어 근거 위치가 없었다 — 개최 장소 문장을 인용해 넣었다",
             "수정 후 함정 4종(범위 과대·무관·부분 사실·반대 진술)이 서로 다르다",
-            "correct 4 가 평가원 정답표 4 와 일치한다"
+            "correct 4 가 평가원 정답표 4 와 일치한다",
+            "정답 근거를 '가격표에서 점심이 붙은 줄' 로 한정해, 숫자 함정(10/12)이 걸린 ①③과 다른 자리에 서 있다"
           ],
           "checked": [
             "trap 라벨 중복",
@@ -375,7 +383,9 @@
             "how_to_reject 위치 표기",
             "수정본 trap 재대조",
             "오답 4개의 how_to_reject 에 지문 위치 포함 확인",
-            "정답표 대조"
+            "정답표 대조",
+            "why_correct 가 다른 선지를 지우는 방식이 아닌지 확인",
+            "정답 근거 줄이 오답 4개의 배제 근거 줄과 겹치지 않는지 대조"
           ]
         },
         {
@@ -383,13 +393,15 @@
           "verdict": "pass",
           "findings": [
             "2단계 '숫자에 명사를 붙여 읽기'가 이 문항의 실패를 그대로 막는 조작이라 실행 가치가 높다",
-            "숫자가 많아 70초로 늘린 배분이 타당하다"
+            "숫자가 많아 70초로 늘린 배분이 타당하다",
+            "'선지에 나온 항목 이름(Total Pass)을 안내문에서 찾아 그 줄만 읽는다' 로 절차와 이어진다"
           ],
           "checked": [
             "지문 미독 상태 실행 가능성",
             "금지 표현 검색",
             "70초 배분 타당성",
-            "required_vocab 5개가 판정에 쓰이는지 — essential 이 ⑤ 판정의 핵심"
+            "required_vocab 5개가 판정에 쓰이는지 — essential 이 ⑤ 판정의 핵심",
+            "지문 미독 학생이 Ticket Prices 블록을 찾아 해당 줄을 짚을 수 있는지 확인"
           ]
         }
       ],
@@ -431,9 +443,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "범위 과대",
-          "why_tempting": "November 1－30 을 '11월 1일부터 30일간'으로 읽으면 12월 말까지 이어지는 것처럼 보여 두 달로 착각한다.",
-          "how_to_reject": "Dates 줄의 두 수 1 과 30 이 모두 November 에 걸린 날짜라 한 달 안에서 끝난다."
+          "why_correct": "November 1－30 을 '11월 1일부터 30일간'으로 읽으면 12월 말까지 이어지는 것처럼 보여 두 달로 착각한다."
         },
         {
           "n": 5,
@@ -566,9 +576,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "대시로 시작하는 짧은 줄이라 항목 제목만 훑는 학습자에게는 보이지 않는다.",
-          "how_to_reject": "배제되지 않는다 — 무료 음료와 입장료 포함이 같은 줄에 명시된다."
+          "why_correct": "근거 줄 'FREE beverage included in ticket price' 한 줄에 선지 ⑤의 두 요소가 다 들어 있다 — FREE beverage 가 '무료 음료' 와, included in ticket price 가 '입장료에 포함된다' 와 그대로 대응한다. 같은 Price 항목의 '$10 (general admission)' 과 'All tickets are non-refundable.' 는 값과 환불만 말하고 음료를 다루지 않으므로, 포함 관계가 확정되는 곳은 이 줄뿐이다."
         }
       ],
       "solve_procedure": [
@@ -610,27 +618,35 @@
           "verdict": "pass",
           "findings": [
             "quote 가 Price 항목 셋째 대시 줄과 문자 그대로 일치한다",
-            "오답 축이 주체·시각·범위·환불로 겹치지 않게 설계된 회차라는 서술이 실제 선지와 맞는다"
+            "오답 축이 주체·시각·범위·환불로 겹치지 않게 설계된 회차라는 서술이 실제 선지와 맞는다",
+            "기계가 옮긴 옛 why_correct 는 '대시 줄이라 눈에 안 띈다'는 오답 심리 서술이었다. FREE beverage / included in ticket price 두 조각과 선지 두 요소의 대응으로 다시 썼다"
           ],
           "checked": [
             "quote 문자열 대조",
             "선지 순서와 안내문 서술 순서(첫문장→Time→Price→환불→음료) 대응 확인",
-            "유형 정의 대조"
-          ]
+            "유형 정의 대조",
+            "why_correct 의 영어 조각 3개를 corpus.json 2015#26 passage 와 문자열 대조",
+            "Price 항목 아래 세 대시 줄을 전부 대조"
+          ],
+          "revised": true
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
             "①에 '주체 역전'을 써 인과 역전으로 대신 다는 일을 피했다 — by students 가 by professors 로 바뀐 전형적인 주체 함정이다",
-            "②는 '오전'만 틀리고 '세 시간'은 맞아 부분 사실 라벨이 정확하다"
+            "②는 '오전'만 틀리고 '세 시간'은 맞아 부분 사실 라벨이 정확하다",
+            "선지 ⑤가 두 요소(무료 · 포함)로 되어 있어 한 요소만 맞아도 참으로 보일 수 있는데, 두 요소가 같은 줄에서 확인된다는 점을 적었다"
           ],
           "checked": [
             "trap 라벨 4종(주체 역전·부분 사실·범위 과소·반대 진술) 중복 여부",
             "why_tempting 이 선지 텍스트 근거인지",
             "how_to_reject 위치 표기",
-            "correct 5 를 평가원 정답표 5 와 대조"
-          ]
+            "correct 5 를 평가원 정답표 5 와 대조",
+            "why_correct 가 선지의 두 요소를 각각 지목했는지 확인",
+            "정답 근거 줄이 오답 ③④의 배제 근거 줄과 다른지 대조"
+          ],
+          "revised": true
         },
         {
           "persona": "tutor",
@@ -639,14 +655,16 @@
             "1차 검수 반려(revise) → 수정 후 통과: 초안 3단계가 '지문을 처음부터 끝까지 읽는다'로 되어 있어 실행 지시가 아니었다. 'Price 항목 아래 대시 줄을 빠짐없이 읽는다'로 바꿔 학생이 볼 자리를 지정했다",
             "1차 검수 반려(revise) → 수정 후 통과: 초안 required_vocab 에 auditorium·union 등 정답과 무관한 낱말이 있어 뺐다",
             "수정 후 4단계가 모두 지문을 보기 전에도 무엇을 찾을지 지정한다",
-            "60초 배분 안에 끝난다"
+            "60초 배분 안에 끝난다",
+            "'선지의 두 요소를 각각 안내문에서 찾는다' 로 절차와 이어진다"
           ],
           "checked": [
             "절차 각 단계의 실행 가능성",
             "required_vocab 이 정답 판정에 쓰이는지",
             "수정본 절차 재검토",
             "금지 표현 검색",
-            "required_vocab 5개가 ①③④⑤ 판정에 직접 쓰이는지 확인"
+            "required_vocab 5개가 ①③④⑤ 판정에 직접 쓰이는지 확인",
+            "지문 미독 학생이 Price 항목의 대시 줄까지 읽는지 확인"
           ]
         }
       ],
@@ -688,9 +706,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "바로 다음 줄의 'download the forms from our website'와 뒤섞으면 서식을 받는 곳과 내는 곳이 흐려져, 방문 제출도 가능하다고 넘겨짚게 된다.",
-          "how_to_reject": "배제되지 않는다 — must be sent by email 이 제출 수단을 이메일 하나로 지정한다."
+          "why_correct": "바로 다음 줄의 'download the forms from our website'와 뒤섞으면 서식을 받는 곳과 내는 곳이 흐려져, 방문 제출도 가능하다고 넘겨짚게 된다."
         },
         {
           "n": 5,
@@ -823,9 +839,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "Parking 항목이 안내문 맨 끝이라 요금표까지만 보고 멈추면 눈에 들어오지 않는다.",
-          "how_to_reject": "배제되지 않는다 — 주차 할인이 방문객에게 제공된다고 첫 문장에 적혀 있다."
+          "why_correct": "Parking 항목이 안내문 맨 끝이라 요금표까지만 보고 멈추면 눈에 들어오지 않는다."
         }
       ],
       "solve_procedure": [
@@ -945,9 +959,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "어휘 함정",
-          "why_tempting": "'재단 주최 행사에 관한'이라는 내용이 지문과 정확히 겹쳐서, 주기어만 바뀐 것을 놓치면 참으로 보인다.",
-          "how_to_reject": "뉴스레터 줄의 수식어는 weekly 다 — 월간은 바로 위 잡지에 붙는다."
+          "why_correct": "이 문항은 일치하지 '않는' 것을 고르는 것이고, 근거 줄 'A weekly newsletter about upcoming events held by the Foundation.' 에서 뉴스레터에 붙은 주기어는 weekly 다. 선지 ③은 내용어(about upcoming events held by the Foundation ↔ '재단 주최 행사에 관한')를 그대로 두고 주기어만 '월간' 으로 바꿔 놓았으므로 어긋나는 곳이 그 한 낱말이다. monthly 는 바로 위 줄 'Our monthly magazine, Nature World, for one year.' 의 잡지에 붙어 있어, 두 줄을 견주면 주기어가 옮겨 붙은 자리가 드러난다."
         },
         {
           "n": 4,
@@ -1003,42 +1015,53 @@
           "verdict": "pass",
           "findings": [
             "quote 가 Members receive 둘째 줄과 문자 그대로 일치한다",
-            "정답을 '이웃한 두 줄의 수식어 맞바꾸기'로 만든 설계가 선지 ②③의 짝 구조로 확인된다"
+            "정답을 '이웃한 두 줄의 수식어 맞바꾸기'로 만든 설계가 선지 ②③의 짝 구조로 확인된다",
+            "기계가 옮긴 옛 why_correct 는 '내용이 겹쳐서 주기어가 바뀐 것을 놓치면 참으로 보인다'는 오답 심리 서술이었다. 발문이 불일치형임을 밝히고, weekly 대 monthly 두 줄의 대조로 다시 썼다"
           ],
           "checked": [
             "quote 문자열 대조",
             "선지 순서와 혜택 목록 순서(회비→잡지→뉴스레터→도서→공원) 단조 대응 확인",
-            "유형 정의 대조"
-          ]
+            "유형 정의 대조",
+            "why_correct 의 영어 조각 2개를 corpus.json 2014A#30 passage 와 문자열 대조",
+            "발문이 '일치하지 않는 것' 인지 stem 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
             "오답 함정이 범위 과소·어휘 함정·부분 사실·지문 밖 상식으로 갈린다",
-            "정답 ③에도 '어휘 함정' 라벨을 달았는데 오답 ②의 라벨과 같다 — 다만 ②는 오답 함정으로, ③은 출제 축으로 쓰인 것이라 오답 4개 사이의 중복은 아니다(오답 라벨 4종은 서로 다르다)"
+            "정답 ③에도 '어휘 함정' 라벨을 달았는데 오답 ②의 라벨과 같다 — 다만 ②는 오답 함정으로, ③은 출제 축으로 쓰인 것이라 오답 4개 사이의 중복은 아니다(오답 라벨 4종은 서로 다르다)",
+            "불일치형에서 정답 근거는 '선지의 어느 낱말이 지문의 어느 낱말과 어긋나는가' 여야 하므로, 주기어 한 낱말로 좁혀 적었다"
           ],
           "checked": [
             "오답 4개의 trap 중복 여부(정답 라벨 제외)",
             "why_tempting 이 선지 텍스트 근거인지",
             "how_to_reject 위치 표기",
-            "correct 3 을 평가원 정답표 3 과 대조"
-          ]
+            "correct 3 을 평가원 정답표 3 과 대조",
+            "why_correct 가 어긋나는 낱말을 하나로 좁혔는지 확인",
+            "monthly 가 붙은 줄이 잡지 줄뿐인지 대조"
+          ],
+          "revised": true
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계 '수식어-명사 덩어리로 옮겨 적기'가 이 문항의 실패를 그대로 차단한다"
+            "2단계 '수식어-명사 덩어리로 옮겨 적기'가 이 문항의 실패를 그대로 차단한다",
+            "'주기어(monthly/weekly)에 동그라미를 치며 읽는다' 로 옮겨져 학생이 실행할 수 있다"
           ],
           "checked": [
             "지문 미독 상태 실행 가능성",
             "금지 표현 검색",
             "60초 배분",
-            "required_vocab 이 판정에 쓰이는 낱말인지 — monthly/weekly 가 정답 판정 그 자체"
+            "required_vocab 이 판정에 쓰이는 낱말인지 — monthly/weekly 가 정답 판정 그 자체",
+            "지문 미독 학생이 위아래 두 줄을 견줄 수 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2014A#31",
@@ -1084,9 +1107,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "-",
-          "why_tempting": "④에서 이미 e-mail 을 확인했으므로 통지 항목을 다 봤다고 여기고 마지막 줄을 건너뛰면, 전화 통지가 그럴듯하게 남는다.",
-          "how_to_reject": "배제되지 않는다 — 최종 결과 통지 수단도 e-mail 이므로 '전화로'가 지문과 어긋난다."
+          "why_correct": "④에서 이미 e-mail 을 확인했으므로 통지 항목을 다 봤다고 여기고 마지막 줄을 건너뛰면, 전화 통지가 그럴듯하게 남는다."
         }
       ],
       "solve_procedure": [

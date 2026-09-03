@@ -19,9 +19,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "2문장의 '달리 할 일이 없어서 갔다' + 3~4문장의 시계 확인·멍한 시선·회색 창밖이 무료함을, 6~7문장의 입 벌림·믿기 어려움이 놀라움을 각각 직접 서술한다.",
-          "how_to_reject": "배제 대상이 아니다 — 앞은 2~4문장, 뒤는 6~7문장이 각각 뒷받침한다."
+          "why_correct": "2문장의 '달리 할 일이 없어서 갔다' + 3~4문장의 시계 확인·멍한 시선·회색 창밖이 무료함을, 6~7문장의 입 벌림·믿기 어려움이 놀라움을 각각 직접 서술한다."
         },
         {
           "n": 2,
@@ -147,9 +145,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "1·4·5문장이 ‘어디지?·Uncertain·unsure about which way to go’ 로 혼란을 직접 말하고, 10~11문장이 미소와 ‘At last’ 로 잔잔한 기쁨을 말한다.",
-          "how_to_reject": "배제 대상이 아니다 — 앞은 1~5문장, 뒤는 10~11문장이 뒷받침한다."
+          "why_correct": "1·4·5문장이 ‘어디지?·Uncertain·unsure about which way to go’ 로 혼란을 직접 말하고, 10~11문장이 미소와 ‘At last’ 로 잔잔한 기쁨을 말한다."
         },
         {
           "n": 2,
@@ -289,9 +285,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "1·3·4문장의 떨림·‘Oh, no.’·땀난 손이 불안을, 6문장의 밝은 미소와 감탄이 큰 기쁨을 직접 서술한다.",
-          "how_to_reject": "배제 대상이 아니다 — 앞은 1~4문장, 뒤는 5~6문장이 뒷받침한다."
+          "why_correct": "1·3·4문장의 떨림·‘Oh, no.’·땀난 손이 불안을, 6문장의 밝은 미소와 감탄이 큰 기쁨을 직접 서술한다."
         },
         {
           "n": 4,
@@ -404,9 +398,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "3~5문장의 한숨·사라져 가는 꿈·‘한 마리도 못 잡았다’ 가 실망을, 7~9문장의 excitedly·심장 박동·큰 미소가 강한 흥분을 직접 서술한다.",
-          "how_to_reject": "배제 대상이 아니다 — 앞은 2~5문장, 뒤는 7~9문장이 뒷받침한다."
+          "why_correct": "3~5문장의 한숨·사라져 가는 꿈·‘한 마리도 못 잡았다’ 가 실망을, 7~9문장의 excitedly·심장 박동·큰 미소가 강한 흥분을 직접 서술한다."
         },
         {
           "n": 2,
@@ -547,9 +539,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "1·4문장의 ‘certain’·‘absolutely sure’ 가 확신을, 6~7문장의 사라진 미소와 ‘That’s too bad’ 가 실망을 직접 서술한다.",
-          "how_to_reject": "배제 대상이 아니다 — 앞은 1·4문장, 뒤는 6~7문장이 뒷받침한다."
+          "why_correct": "1·4문장의 ‘certain’·‘absolutely sure’ 가 확신을, 6~7문장의 사라진 미소와 ‘That’s too bad’ 가 실망을 직접 서술한다."
         },
         {
           "n": 4,
@@ -676,9 +666,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "1·4·5문장의 chaotic·시계 확인·‘Worried’ 가 초조를, 7문장의 한숨과 ‘felt at ease’ 가 안도를 직접 서술한다.",
-          "how_to_reject": "배제 대상이 아니다 — 앞은 1~5문장, 뒤는 7~8문장이 뒷받침한다."
+          "why_correct": "1·4·5문장의 chaotic·시계 확인·‘Worried’ 가 초조를, 7문장의 한숨과 ‘felt at ease’ 가 안도를 직접 서술한다."
         },
         {
           "n": 4,
@@ -788,9 +776,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "책장을 다급히 넘기다 책을 덮고 책상을 치며 ‘This is impossible!’ 이라고 외치는 장면이 좌절을, 마지막 대사의 ‘Thank you’ 가 고마움을 직접 서술한다.",
-          "how_to_reject": "배제 대상이 아니다 — 앞은 지문 앞 세 줄(desperately turning the pages / no idea where to start / This is impossible!), 뒤는 마지막 대사가 뒷받침한다."
+          "why_correct": "책장을 다급히 넘기다 책을 덮고 책상을 치며 ‘This is impossible!’ 이라고 외치는 장면이 좌절을, 마지막 대사의 ‘Thank you’ 가 고마움을 직접 서술한다."
         },
         {
           "n": 2,
@@ -916,9 +902,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "2~4문장이 시계 확인·지각 걱정·‘couldn’t feel at ease’ 로 초조를, 8문장이 깊은 숨과 ‘able to relax’ 로 안도를 직접 서술한다.",
-          "how_to_reject": "배제 대상이 아니다 — 앞은 2~4문장, 뒤는 7~8문장이 뒷받침한다."
+          "why_correct": "2~4문장이 시계 확인·지각 걱정·‘couldn’t feel at ease’ 로 초조를, 8문장이 깊은 숨과 ‘able to relax’ 로 안도를 직접 서술한다."
         },
         {
           "n": 2,
@@ -1222,9 +1206,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "2~3문장이 실망과 헛수고를, 5~6문장이 ‘felt confident’·‘now motivated’·미소를 직접 서술한다.",
-          "how_to_reject": "배제 대상이 아니다 — 앞은 2~3문장, 뒤는 5~6문장이 뒷받침한다."
+          "why_correct": "2~3문장이 실망과 헛수고를, 5~6문장이 ‘felt confident’·‘now motivated’·미소를 직접 서술한다."
         },
         {
           "n": 4,

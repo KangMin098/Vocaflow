@@ -9,7 +9,10 @@
       "measured_ability": "밑줄 친 동사의 주어를 왼쪽으로 거슬러 확정하고, 'the + 형용사'(the aged)가 복수 보통명사임을 알아 수 일치를 판정하는 능력",
       "design_intent": "정답 자리를 '준동사 위장'이 아니라 수 일치로 잡았다. 앞선 ④에 'what their parents or grandparents once were'라는 정답 형태를 먼저 보여 주고, 같은 구조를 ⑤에서 단수 was로 되풀이해 두 자리를 나란히 놓았다. 학습자가 ④를 what/that 문제로만 소비하면 ⑤의 짝을 못 본다.",
       "answer_locus": {
-        "sentence_index": [4, 9],
+        "sentence_index": [
+          4,
+          9
+        ],
         "quote": "They have no memories about what the aged once ⑤ was and greet them as if they were children.",
         "reasoning": "was의 주어는 the aged 하나뿐이고, 같은 지문 4문장 'the institutionalized aged'와 바로 뒤 'greet them as if they were children'의 them·they가 the aged를 복수로 받는다. 그러므로 was는 were여야 한다. 판정에 지문 의미가 아니라 대명사 수의 일치만 쓰인다."
       },
@@ -45,9 +48,13 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "수 일치 — the+형용사(복수)",
-          "why_tempting": "was 바로 왼쪽 낱말이 once라 주어가 눈에 안 들어오고, the aged를 '노년'이라는 추상 단수로 읽으면 was가 자연스러워 보인다.",
-          "how_to_reject": "정답이다. 9문장에서 was의 주어는 the aged뿐이고, 같은 문장 뒤 them·they가 그것을 복수로 받는다. 4문장 'the institutionalized aged'도 사람들의 무리를 가리킨다 — were로 고쳐야 한다."
+          "why_correct": "밑줄 ⑤가 든 절 'what the aged once ⑤ was' 에서 그 동사의 주어는 'the aged' 하나뿐이다. 'the + 형용사' 는 사람 무리를 가리키는 복수 주어이고, 같은 문장 뒤 'greet them as if they were children' 의 목적격 대명사 them 이 그 무리를 복수로 받는다. 그러므로 단수 was 가 아니라 were 여야 한다 — 앞 4문장의 'the institutionalized aged' 도 같은 무리를 가리킨다.",
+          "confirmed_at": {
+            "sentence_index": [
+              9
+            ],
+            "note": "was 바로 왼쪽 낱말이 once 라 주어가 눈에 들어오지 않고, the aged 를 '노년'이라는 추상 단수로 읽으면 was 가 자연스럽게 느껴진다 — 이 자리를 통과시키는 실제 경로다. 판정에 쓰는 것은 지문 의미가 아니라 주어의 수 하나뿐이다."
+          }
         }
       ],
       "solve_procedure": [
@@ -82,7 +89,12 @@
           "3점 배점"
         ]
       },
-      "required_vocab": ["aged", "institutionalized", "enduring", "advantage"],
+      "required_vocab": [
+        "aged",
+        "institutionalized",
+        "enduring",
+        "advantage"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -90,12 +102,17 @@
           "findings": [
             "quote가 코퍼스 지문에 문자 그대로 있다",
             "이 회차 정답표 ⑤와 분석 correct가 일치한다",
-            "지문 끝의 '8 4'는 배점·페이지 잔여 OCR로, 판정에 쓰이지 않는다"
+            "지문 끝의 '8 4'는 배점·페이지 잔여 OCR로, 판정에 쓰이지 않는다",
+            "why_correct 를 다시 썼다 — 옮겨져 있던 서술이 '왜 was 를 자연스럽게 느끼는가'(학습자 심리)라 어법 근거가 아니었다. 그 자리를 지배하는 것(주어 the aged 의 수)으로 교체했다",
+            "초안은 'greet them as if they were children' 의 were 도 복수의 증거로 들었으나 반려했다 — as if 절의 were 는 가정법이라 수의 증거가 못 된다. 복수 증거를 목적격 대명사 them 하나로 좁혔다(revised)"
           ],
           "checked": [
             "answer_locus.quote를 corpus.json 2017#28 passage와 문자열 대조",
             "밑줄 다섯 개가 각각 다른 문법 항목을 재는지 대조(후치수식·분사 태·수동태·관계사·수 일치)",
-            "design_intent가 어법 일반론이 아니라 ④와 ⑤를 짝지은 이 문항 고유 설계를 말하는지 확인"
+            "design_intent가 어법 일반론이 아니라 ④와 ⑤를 짝지은 이 문항 고유 설계를 말하는지 확인",
+            "'what the aged once ⑤ was' · 'greet them as if they were children' · 'the institutionalized aged' 를 corpus.json 지문과 문자열 대조",
+            "as if 절 were 가 가정법이라 수 판정에 쓸 수 없음을 재검토",
+            "밑줄 ⑤의 지배 요소가 주어 수 일치임을 유형 정의와 대조"
           ]
         },
         {
@@ -103,12 +120,17 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ①과 ④에 모두 '관계사' 계열 라벨을 달아 함정이 겹쳤다 — ①은 those+분사 후치수식이 쟁점이므로 '후치수식 오판'으로 갈랐다(revised)",
-            "오답 넷의 라벨이 넷 다 다르다"
+            "오답 넷의 라벨이 넷 다 다르다",
+            "why_correct 가 '나머지 넷이 옳으므로'에 기대지 않고 ⑤ 자체의 수 불일치로 서 있다",
+            "오답 ①~④의 trap 4종(후치수식·분사 태·수동태 관용구·관계사 완전성)은 손대지 않았고 서로 다르다"
           ],
           "checked": [
             "distractor 4개의 trap 라벨 중복 여부 대조",
             "why_tempting이 밑줄에 실제로 쓰인 표현(those enduring / are used to / what ~ were)에 근거하는지 대조",
-            "how_to_reject 넷 모두에 문장 번호나 인용 문구로 위치가 있는지 확인"
+            "how_to_reject 넷 모두에 문장 번호나 인용 문구로 위치가 있는지 확인",
+            "why_correct 에 소거법 서술이 없는지",
+            "정답표 answer=5 와 correct n=5 재대조",
+            "오답 4개 서술 불변 확인"
           ]
         },
         {
@@ -116,12 +138,16 @@
           "verdict": "pass",
           "findings": [
             "1단계가 지문을 안 읽고도 실행된다(밑줄 형태만 본다)",
-            "3단계의 '받는 대명사로 수를 확정한다'가 이 문항의 결정타이면서 다른 어법 문항에도 그대로 쓰인다"
+            "3단계의 '받는 대명사로 수를 확정한다'가 이 문항의 결정타이면서 다른 어법 문항에도 그대로 쓰인다",
+            "학생이 실행할 것이 '주어를 왼쪽으로 찾아 수를 표시' 하나로 좁혀져 있어, 이미 있는 solve_procedure 2~3단계와 그대로 이어진다"
           ],
           "checked": [
             "solve_procedure 5단계를 지문 미독 상태 기준으로 실행 가능성 점검",
             "금지 표현(흐름을 파악하면·문맥을 파악한다 등) 문자열 검사",
-            "required_vocab 4개가 각각 어느 밑줄 판정에 쓰이는지 대응(aged·institutionalized→⑤, enduring→①, advantage→③)"
+            "required_vocab 4개가 각각 어느 밑줄 판정에 쓰이는지 대응(aged·institutionalized→⑤, enduring→①, advantage→③)",
+            "why_correct 로 지문 미독 학생이 ⑤의 주어를 직접 짚을 수 있는지",
+            "confirmed_at.note 가 실패 경로를 낱말 위치(once 바로 오른쪽)로 말하는지",
+            "solve_procedure·required_vocab 불변 확인"
           ]
         }
       ]
@@ -132,7 +158,9 @@
       "measured_ability": "긴 수식어에 밀려 보이지 않는 절의 정동사 자리를 세어, 밑줄이 준동사인지 문장의 술어여야 하는지 판정하는 능력",
       "design_intent": "so로 이어진 두 번째 절에 술어를 아예 없애고 그 자리를 분사(causing)로 채웠다. 앞 절(the Chinese saw ~)에 동사가 있으므로 학습자가 '동사는 이미 있다'고 넘기면 놓친다. 나머지 넷은 소유격·분사 태·부사 자리·동격 that으로 흩어 놓아 검사 항목이 겹치지 않게 했다.",
       "answer_locus": {
-        "sentence_index": [6],
+        "sentence_index": [
+          6
+        ],
         "quote": "so their attempts to understand it ④ causing them to be oriented toward the complexities",
         "reasoning": "so 뒤는 등위접속사가 이끄는 독립절이고 그 주어는 their attempts다. to understand it은 attempts를 꾸미는 형용사적 용법이라 술어가 될 수 없으므로 이 절에는 정동사가 하나도 없다. causing을 caused로 고쳐야 절이 성립한다 — 앞 절의 saw는 so 앞쪽 절의 동사라 이 절을 못 메운다."
       },
@@ -161,9 +189,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "정동사 누락(준동사 위장)",
-          "why_tempting": "앞 절에 saw가 있어 '이 문장에는 동사가 있다'고 세어 버리고, causing이 앞 내용의 결과를 자연스럽게 이어 주기 때문에 뜻으로는 걸리지 않는다.",
-          "how_to_reject": "정답이다. 6문장에서 so 뒤 절의 주어 their attempts에 딸린 정동사가 없다. to understand it은 attempts를 꾸미는 수식어라 술어가 못 된다 — caused로 고쳐야 한다."
+          "why_correct": "앞 절에 saw가 있어 '이 문장에는 동사가 있다'고 세어 버리고, causing이 앞 내용의 결과를 자연스럽게 이어 주기 때문에 뜻으로는 걸리지 않는다."
         },
         {
           "n": 5,
@@ -205,7 +231,12 @@
           "3점 배점 · 추상 명사(causality, notion) 다수"
         ]
       },
-      "required_vocab": ["attempts", "notion", "tossed", "exclusively"],
+      "required_vocab": [
+        "attempts",
+        "notion",
+        "tossed",
+        "exclusively"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -255,7 +286,9 @@
       "measured_ability": "and로 묶인 긴 주어 뒤에서 술어 자리를 찾아, 밑줄이 분사구인지 문장의 정동사여야 하는지 판정하는 능력",
       "design_intent": "주어를 'a general lack of knowledge and insufficient care being taken when ~'처럼 두 겹으로 늘려 술어 자리를 시야 밖으로 밀어냈다. being taken이라는 준동사를 미리 넣어 '동사는 이미 나왔다'는 착시를 만든 뒤, 실제 술어 자리에 meaning을 놓았다.",
       "answer_locus": {
-        "sentence_index": [4],
+        "sentence_index": [
+          4
+        ],
         "quote": "Furthermore, a general lack of knowledge and insufficient care being taken when fish pens were initially constructed ③ meaning that pollution from excess feed and fish waste created huge barren underwater deserts.",
         "reasoning": "주어는 and로 묶인 'a general lack of knowledge'와 'insufficient care'다. being taken은 care를 꾸미는 분사이고 were constructed는 when절 안의 동사라 주절 술어가 못 된다. 따라서 주절에는 정동사가 없고 meaning이 meant여야 문장이 성립한다."
       },
@@ -277,9 +310,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "정동사 누락(준동사 위장)",
-          "why_tempting": "앞에 being taken과 were constructed가 있어 동사를 이미 본 것처럼 세게 되고, meaning that ~이 '그 결과 ~을 뜻했다'로 매끄럽게 읽혀 뜻으로는 걸리지 않는다.",
-          "how_to_reject": "정답이다. 4문장의 주어 'a general lack of knowledge and insufficient care'에 딸린 술어가 없다. being taken은 care를 꾸미는 분사, were constructed는 when절 동사다 — meant로 고쳐야 한다."
+          "why_correct": "앞에 being taken과 were constructed가 있어 동사를 이미 본 것처럼 세게 되고, meaning that ~이 '그 결과 ~을 뜻했다'로 매끄럽게 읽혀 뜻으로는 걸리지 않는다."
         },
         {
           "n": 4,
@@ -328,7 +359,12 @@
           "3점 배점 · 양식업 전문 어휘(pens, rearing)"
         ]
       },
-      "required_vocab": ["insufficient", "devastated", "inhabiting", "in addition to"],
+      "required_vocab": [
+        "insufficient",
+        "devastated",
+        "inhabiting",
+        "in addition to"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -377,7 +413,10 @@
       "measured_ability": "stop 뒤 to부정사와 동명사가 각각 무엇을 뜻하는지 갈라, 형태가 적법해도 문맥이 요구하는 뜻과 어긋나는 자리를 잡아내는 능력",
       "design_intent": "이 청크에서 유일하게 '형태 자체는 문법적인데 뜻이 반대인' 자리를 정답으로 삼았다. stopped to operate는 그 자체로 적법한 영어라 형태만 훑는 학습자는 그냥 지나친다. 앞 문장 'the machine is no longer working'을 근거로 심어 두고 그것을 읽었는지 물었다.",
       "answer_locus": {
-        "sentence_index": [2, 7],
+        "sentence_index": [
+          2,
+          7
+        ],
         "quote": "Initially, it made a lot of noise, and later, it stopped ④ to operate entirely.",
         "reasoning": "stop + to부정사는 '~하려고 하던 일을 멈추다'라서 stopped to operate는 '작동하려고 멈췄다'가 된다. 2문장에서 기계는 이미 'no longer working' 상태이고 이 문장은 고장 경과(소음 → 완전 정지)를 적고 있으므로 필요한 뜻은 '작동을 멈췄다' — stopped operating이어야 한다."
       },
@@ -406,9 +445,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "준동사 목적어 형태(to부정사/동명사)",
-          "why_tempting": "stop 뒤에 to부정사가 오는 형태 자체가 문법적으로 존재하므로 형태만 훑으면 아무 문제가 없어 보이고, '작동하는 것을 멈췄다'로 뜻까지 자기도 모르게 보정해 읽게 된다.",
-          "how_to_reject": "정답이다. 7문장은 소음에서 완전 정지로 이어지는 고장 경과이고 2문장이 'the machine is no longer working'을 이미 적었다. stop + to V는 '~하려고 멈추다'이므로 뜻이 뒤집힌다 — stopped operating으로 고쳐야 한다."
+          "why_correct": "stop 뒤에 to부정사가 오는 형태 자체가 문법적으로 존재하므로 형태만 훑으면 아무 문제가 없어 보이고, '작동하는 것을 멈췄다'로 뜻까지 자기도 모르게 보정해 읽게 된다."
         },
         {
           "n": 5,
@@ -450,7 +487,12 @@
           "3점 배점"
         ]
       },
-      "required_vocab": ["stopped", "operate", "supplied", "unfair"],
+      "required_vocab": [
+        "stopped",
+        "operate",
+        "supplied",
+        "unfair"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -500,7 +542,9 @@
       "measured_ability": "주어와 술어 사이에 관계절이 끼어든 문장에서 주절의 정동사 유무를 세어, 밑줄 -ing가 술어여야 하는지 판정하는 능력",
       "design_intent": "주어 The combustion of oxygen 뒤에 관계절 that keeps us alive and active를 끼워 넣어, 학습자가 keeps를 주절 동사로 세게 만들었다. 나머지 넷은 관계절 동사 수 일치·부정사 용법·부사 자리·분사 태로 흩어 놓아 같은 검사가 두 번 쓰이지 않게 했다.",
       "answer_locus": {
-        "sentence_index": [5],
+        "sentence_index": [
+          5
+        ],
         "quote": "The combustion of oxygen that keeps us alive and active ② sending out by-products called oxygen free radicals.",
         "reasoning": "주어는 The combustion이고 that keeps us alive and active는 oxygen(또는 combustion)을 꾸미는 관계절이라 주절 술어가 못 된다. 관계절을 지우면 'The combustion ② sending out by-products'만 남아 시제를 가진 동사가 없다 — sends로 고쳐야 한다."
       },
@@ -515,9 +559,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "정동사 누락(준동사 위장)",
-          "why_tempting": "바로 앞 관계절의 keeps가 시제를 갖고 있어 '동사를 이미 봤다'고 세게 되고, sending out ~이 앞 문장 'breathing has a price'의 결과로 매끄럽게 읽혀 뜻으로는 안 걸린다.",
-          "how_to_reject": "정답이다. 5문장에서 that keeps us alive and active를 괄호로 지우면 주어 The combustion에 딸린 술어가 남지 않는다. keeps는 관계절 안의 동사이므로 주절을 못 메운다 — sends로 고쳐야 한다."
+          "why_correct": "바로 앞 관계절의 keeps가 시제를 갖고 있어 '동사를 이미 봤다'고 세게 되고, sending out ~이 앞 문장 'breathing has a price'의 결과로 매끄럽게 읽혀 뜻으로는 안 걸린다."
         },
         {
           "n": 3,
@@ -573,7 +615,12 @@
           "3점 배점 · 과학 어휘(combustion, radicals, membranes)"
         ]
       },
-      "required_vocab": ["combustion", "by-products", "mobilizes", "uncontrollably"],
+      "required_vocab": [
+        "combustion",
+        "by-products",
+        "mobilizes",
+        "uncontrollably"
+      ],
       "reviews": [
         {
           "persona": "setter",

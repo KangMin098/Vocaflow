@@ -10,7 +10,10 @@
       "measured_ability": "네 단락으로 흩어진 서사에 여성 인물이 둘(Hannah와 그 어머니) 나오고 밑줄이 전부 she/her 한 형태일 때, 각 밑줄을 그 문장의 동사가 요구하는 인물에 따로 배정하는 능력",
       "design_intent": "밑줄 다섯을 모두 she/her 로 통일해 형태 단서를 지운 뒤, (b)만 '딸을 렌즈로 당겨 찍었다'는 술어로 어머니임을 드러냈다. 그러면서 (d)에 'Her mother ... gave (d) her' 처럼 어머니가 주어인 문장을 하나 더 깔아, '어머니가 주어인 자리는 다 어머니'로 밀어 버리는 학생을 (d)에서 되잡는다. 곧 주어의 인물과 밑줄의 인물을 분리할 수 있는지를 두 자리에서 교차로 묻는 설계다.",
       "answer_locus": {
-        "sentence_index": [14, 19],
+        "sentence_index": [
+          14,
+          19
+        ],
         "quote": "(b) She hurried out her cell phone, zoomed in on her daughter, and realized suddenly that she was looking at a young lady.",
         "reasoning": "이 문장의 주어가 (b) She 이고 목적어가 her daughter 다. 딸을 렌즈에 담아 찍는 사람은 그 딸일 수 없으므로 주어는 어머니로 확정된다. 확정을 보강하는 것이 문장 14 'her mother said, \"stand over there . . . and smile, Hannah.\"' 로, 사진 찍히는 쪽에 서라고 말한 사람이 곧 다음 문장에서 휴대전화를 꺼내 든 주어다. 나머지 넷은 각각 '지난 몇 년의 삶'(a) · '2학년을 잊을 수 있겠는가'(c) · 꽃다발을 받는 쪽(d) · 담임을 배정받은 신입생(e)이라 전부 Hannah를 요구한다."
       },
@@ -25,9 +28,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "친족 관계어 역전",
-          "why_tempting": "(b) 앞뒤가 모두 Hannah 이야기이고 밑줄 형태도 다른 넷과 똑같은 She 라, 대사 단락 안에서 주어가 어머니로 넘어간 지점에 표시가 없다. 관성으로 읽으면 그대로 Hannah가 된다.",
-          "how_to_reject": "확정 근거는 같은 문장의 'zoomed in on her daughter' 다 — 딸을 당겨 찍는 사람은 딸이 아니다. 여기에 문장 14 'her mother said, \"stand over there . . . and smile, Hannah.\"' 가 붙어, 사진을 찍는 쪽이 어머니임을 두 번 확인해 준다. 그래서 (b)만 나머지 넷과 다르다."
+          "why_correct": "(b) 앞뒤가 모두 Hannah 이야기이고 밑줄 형태도 다른 넷과 똑같은 She 라, 대사 단락 안에서 주어가 어머니로 넘어간 지점에 표시가 없다. 관성으로 읽으면 그대로 Hannah가 된다."
         },
         {
           "n": 3,
@@ -83,7 +84,12 @@
           "결정 근거가 daughter 한 낱말이라 그 구를 놓치면 근거가 사라진다"
         ]
       },
-      "required_vocab": ["daughter", "zoom in on", "bundle", "homeroom teacher"],
+      "required_vocab": [
+        "daughter",
+        "zoom in on",
+        "bundle",
+        "homeroom teacher"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -135,7 +141,10 @@
       "measured_ability": "he/his 가 다섯 번 반복되고 남성 인물이 둘(Jeremy와 그의 교감) 나오는 서사에서, 소유격 his 가 붙은 명사구의 임자를 가까운 대명사가 아니라 그 절의 주어로 되돌려 잡는 능력",
       "design_intent": "밑줄 다섯 중 넷을 주어 자리 He 로 두고 (d) 하나만 소유격 his 로 바꿔, 형태가 다른 자리에 답을 놓았다. 그 문장은 'his assistant principal ... asked him to take over (d) his math class' 로 him(Jeremy)과 his 가 한 절 안에 붙어 있어, 소유격을 가장 가까운 대명사에 묶는 습관을 정면으로 친다. 게다가 그 수업은 결국 Jeremy가 맡게 되므로 결과만 기억하면 (d)도 Jeremy로 읽힌다.",
       "answer_locus": {
-        "sentence_index": [16, 17],
+        "sentence_index": [
+          16,
+          17
+        ],
         "quote": "his assistant principal took note of Jeremy's high expectations and asked him to take over (d) his math class.",
         "reasoning": "take over 는 임자가 바뀌는 동사여서 '넘겨주는 쪽'과 '넘겨받는 쪽'이 달라야 문장이 성립한다. 넘겨받는 쪽은 목적어 him(=Jeremy)으로 이미 정해져 있으므로, 넘겨주는 쪽이자 원래 임자는 이 절의 주어인 his assistant principal 이다. 자기 수업을 자기가 넘겨받으라는 부탁은 성립하지 않는다. 반면 (a)(b)(c)(e)는 모두 주어 자리 he/He 로, 각각 문장 7·11·16·22의 주어 사슬을 통해 Jeremy를 받는다."
       },
@@ -164,9 +173,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "소유격 임자 근접 오결속",
-          "why_tempting": "같은 절 안에 him(=Jeremy)이 먼저 나오고 his 가 바로 뒤따라, 소유격을 가장 가까운 대명사에 묶으면 (d)도 Jeremy가 된다. 게다가 다음 문장 18 'He took charge of about a dozen failing \"special ed\" kids' 가 결국 그 수업을 Jeremy가 맡은 결과를 말해, 결과를 근거로 삼으면 더 그럴듯해진다.",
-          "how_to_reject": "확정 근거는 동사 take over 다 — 임자가 옮겨 가는 동사이므로 넘겨받기 전 임자는 목적어 him 이 아니라 절의 주어 his assistant principal 이어야 한다. 나머지 (a)(b)(c)(e)는 전부 주어 자리의 he/He 로 Jeremy를 받으므로, 형태(소유격)와 임자(교감) 둘 다에서 (d)만 다르다."
+          "why_correct": "같은 절 안에 him(=Jeremy)이 먼저 나오고 his 가 바로 뒤따라, 소유격을 가장 가까운 대명사에 묶으면 (d)도 Jeremy가 된다. 게다가 다음 문장 18 'He took charge of about a dozen failing \"special ed\" kids' 가 결국 그 수업을 Jeremy가 맡은 결과를 말해, 결과를 근거로 삼으면 더 그럴듯해진다."
         },
         {
           "n": 5,
@@ -208,7 +215,13 @@
           "단락 배열이 (A)-(B)-(C)-(D) 인쇄 순과 사건 순((A)-(C)-(B)-(D))이 달라 인물 추적이 끊긴다"
         ]
       },
-      "required_vocab": ["take over", "assistant principal", "distribute", "assign", "former"],
+      "required_vocab": [
+        "take over",
+        "assistant principal",
+        "distribute",
+        "assign",
+        "former"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -260,7 +273,10 @@
       "measured_ability": "한 단락 안에 같은 형태의 she 가 두 번 나오되 각각의 선행사가 다른 여성(할머니와 어머니)일 때, 밑줄 바로 앞 절이 들여온 인물로 각 she 를 따로 묶는 능력",
       "design_intent": "밑줄 (b)와 (c)를 같은 단락 (B) 안에 두 문장 간격으로 나란히 넣고 형태를 she 로 통일했다. 그리고 어머니를 'I talked to my mom about it' 이라는 한 절에만 등장시켜, 단락 하나를 한 인물의 것으로 통째 처리하는 학생이 (b)와 (c)를 구분하지 못하게 만들었다. 인물이 바뀌는 신호가 대명사가 아니라 바로 앞 절의 목적어 하나뿐이라는 점이 이 문항의 급소다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "I talked to my mom about it, and (c) she was delighted with my plan.",
         "reasoning": "and 로 이어진 앞 절의 목적어가 my mom 이고, 뒤 절의 주어 (c) she 가 그 대화의 상대다. 기뻐한 대상이 'my plan' 인데 그 계획의 내용은 앞 문장 5 'it hit upon me to teach her to read English' 곧 할머니에게 영어 읽기를 가르치겠다는 것이다. 계획의 대상인 할머니는 이 시점에 계획을 전해 들은 사람이 아니므로, 화자가 계획을 말한 상대인 my mom 이 (c)다. 나머지 (a)(b)(d)(e)는 각각 이민 생활에 떠밀린 사람 · 영어 표지판을 못 읽은 사람 · 케이크에 글자를 쓴 사람 · 이야기의 임자로 전부 할머니를 요구한다."
       },
@@ -282,9 +298,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "직전 절 목적어 인물 전환",
-          "why_tempting": "단락 (B) 전체가 할머니 이야기이고 밑줄 형태도 (b)와 똑같은 she 라, 한 문장 사이에 인물이 바뀐 지점에 아무 표시가 없다. 관성으로 읽으면 (c)도 할머니가 된다.",
-          "how_to_reject": "확정 근거는 and 앞 절 'I talked to my mom about it' 이다 — 계획을 전해 들은 사람이 my mom 이고 뒤 절이 그 반응을 말한다. 기뻐한 대상이 'my plan'(할머니에게 읽기를 가르치겠다는 계획)이라는 점도 겹친다. 계획의 대상이 아니라 계획을 전해 들은 제3자가 기뻐하는 구도다."
+          "why_correct": "단락 (B) 전체가 할머니 이야기이고 밑줄 형태도 (b)와 똑같은 she 라, 한 문장 사이에 인물이 바뀐 지점에 아무 표시가 없다. 관성으로 읽으면 (c)도 할머니가 된다."
         },
         {
           "n": 4,
@@ -333,7 +347,13 @@
           "화자(I)가 거의 모든 문장의 주어라 여성 인물 둘을 가르는 데 주어가 도움이 안 된다"
         ]
       },
-      "required_vocab": ["by chance", "in return for", "delighted", "basics", "moral"],
+      "required_vocab": [
+        "by chance",
+        "in return for",
+        "delighted",
+        "basics",
+        "moral"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -385,7 +405,11 @@
       "measured_ability": "3대(할아버지·아버지·화자)가 등장하고 밑줄이 전부 he/him 인 글에서, 직접인용 안팎과 단락 안 주어 전환을 근거로 각 대명사를 세 사람 중 하나에 배정하는 능력",
       "design_intent": "밑줄 다섯을 모두 남성 대명사로 통일해 형태 단서를 지운 뒤, (d)를 아버지의 직접인용 안에 넣어 '말하는 사람이 곧 가리키는 사람' 으로 읽도록 유인했다. 정작 답은 인용 밖의 (e)에 두었다 — (D) 단락에서 주어가 my grandpa 계열에서 My dad 로 바뀌는 한 지점(문장 21~22)을 잡아내는지가 갈림길이다. 인용이라는 눈에 띄는 장치로 시선을 끌어 놓고 정작 무표지 전환에서 가르는 설계다.",
       "answer_locus": {
-        "sentence_index": [21, 22, 23],
+        "sentence_index": [
+          21,
+          22,
+          23
+        ],
         "quote": "Dad didn't mind living in an unfinished house. (e) He described Pleasant Hill as \"open and private.",
         "reasoning": "(D)의 앞 두 문장(21 'My dad recalled looking up at the stars in the roofless house as a twelve-year-old kid' · 22 'Dad didn't mind living in an unfinished house.')이 주어를 연달아 아버지로 세우고, (e) He 는 그 사슬을 그대로 잇는다. 지붕 없는 집에서 별을 보던 열두 살 아이는 집을 지은 할아버지가 아니라 아버지이고, Pleasant Hill 을 '열려 있고 사적이었다' 고 회상하는 사람도 그곳에서 자란 쪽이다. 나머지 (a)(b)(c)(d)는 각각 큰 집을 마다한 사람 · 검약을 가르쳐 준 사람 · 오두막을 지어 앉힌 사람 · 재활용을 실천한 사람으로 전부 grandpa Otto를 요구한다."
       },
@@ -421,9 +445,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "단락 주어 전환 무표지",
-          "why_tempting": "앞의 네 자리가 모두 grandpa 여서 다섯째도 관성으로 grandpa 로 읽힌다. (D) 뒤쪽 문장 25 'my dad and grandpa noticed dramatic changes' 에서 둘이 나란히 나오는 것도 구분을 흐린다.",
-          "how_to_reject": "확정 근거는 (D)의 앞 두 문장이다 — 문장 21 'My dad recalled looking up at the stars in the roofless house as a twelve-year-old kid' 과 문장 22 'Dad didn't mind living in an unfinished house.' 로 주어가 이미 아버지로 바뀌어 있고, 문장 23의 (e) He described 는 그 회상을 이어받는다. 지붕이 없던 시절 그 집에 살던 열두 살 아이는 집을 지은 할아버지가 아니라 아버지다."
+          "why_correct": "앞의 네 자리가 모두 grandpa 여서 다섯째도 관성으로 grandpa 로 읽힌다. (D) 뒤쪽 문장 25 'my dad and grandpa noticed dramatic changes' 에서 둘이 나란히 나오는 것도 구분을 흐린다."
         }
       ],
       "solve_procedure": [
@@ -458,7 +480,13 @@
           "단락 인쇄 순서와 사건 시간 순서가 달라 세대 추적이 끊긴다"
         ]
       },
-      "required_vocab": ["recall", "unfinished", "roofless", "describe", "remark"],
+      "required_vocab": [
+        "recall",
+        "unfinished",
+        "roofless",
+        "describe",
+        "remark"
+      ],
       "reviews": [
         {
           "persona": "setter",

@@ -34,9 +34,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "6번째 문장 must raise participants’ awareness 와 8번째 문장 understand the principles 가 각각 '도와야 한다'와 '원리를 알고'에 대응한다.",
-          "how_to_reject": "배제되지 않는다 — 주어(Instructors=체육지도자)·수단(awareness/principles=원리를 알게 함)·당위(must=도와야 한다) 셋이 모두 지문 문장에 있다."
+          "why_correct": "6번째 문장 must raise participants’ awareness 와 8번째 문장 understand the principles 가 각각 '도와야 한다'와 '원리를 알고'에 대응한다."
         },
         {
           "n": 4,
@@ -159,9 +157,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "1번째 문장 failed to recognize ... contributions 와 마지막 문장 must be recognized 가 한 쌍이고, 그 사이 3·4번째 문장이 '가사를 통해(through their music)'라는 수단을 채운다.",
-          "how_to_reject": "배제되지 않는다 — 주체(작사가)·수단(가사)·행위(기여를 인정)가 각각 2번째·3번째·5번째 문장에 있다."
+          "why_correct": "1번째 문장 failed to recognize ... contributions 와 마지막 문장 must be recognized 가 한 쌍이고, 그 사이 3·4번째 문장이 '가사를 통해(through their music)'라는 수단을 채운다."
         },
         {
           "n": 3,
@@ -290,9 +286,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "6번째 문장의 create clear standards 와 educate their employees 가 선지의 '명확한 규정을 마련하여 직원을 교육해야'와 순서까지 같다.",
-          "how_to_reject": "배제되지 않는다 — 주어·수단 두 개·당위(must)가 모두 6번째 문장 안에 있다."
+          "why_correct": "6번째 문장의 create clear standards 와 educate their employees 가 선지의 '명확한 규정을 마련하여 직원을 교육해야'와 순서까지 같다."
         },
         {
           "n": 3,
@@ -415,9 +409,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "마지막 문장의 stop worrying endlessly about events you may not experience 가 선지와 대상·행위 모두 일치한다.",
-          "how_to_reject": "배제되지 않는다 — 대상(일어날 것 같지 않은 일=unlikely events / events you may not experience)과 행위(지나치게 걱정하지 말라=stop worrying endlessly)가 3번째·8번째 문장에 있다."
+          "why_correct": "마지막 문장의 stop worrying endlessly about events you may not experience 가 선지와 대상·행위 모두 일치한다."
         },
         {
           "n": 3,
@@ -562,9 +554,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "5번째 문장의 develop games that connect to the learning outcomes 가 선지의 '학습 효과 증진에 활용될 수 있는 게임을 개발'과 동사·목적어까지 맞는다.",
-          "how_to_reject": "배제되지 않는다 — 당위 표현(it is desirable that)·동사(develop)·목적어(학습 성과에 연결된 게임)가 5번째 문장 한 자리에 있다."
+          "why_correct": "5번째 문장의 develop games that connect to the learning outcomes 가 선지의 '학습 효과 증진에 활용될 수 있는 게임을 개발'과 동사·목적어까지 맞는다."
         }
       ],
       "solve_procedure": [
@@ -678,9 +668,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "5번째 문장의 ensure accuracy 와 6번째 문장의 safeguard the reliability of information 이 선지의 '정확성과 신뢰성 확보'에 하나씩 대응한다.",
-          "how_to_reject": "배제되지 않는다 — 주체(사용자=creators and consumers/participants)·대상(정확성·신뢰성)·당위(It is critical that)가 5·6번째 문장에 있다."
+          "why_correct": "5번째 문장의 ensure accuracy 와 6번째 문장의 safeguard the reliability of information 이 선지의 '정확성과 신뢰성 확보'에 하나씩 대응한다."
         },
         {
           "n": 4,
@@ -821,9 +809,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "마지막 문장의 we utilize our capacity to overcome such failures 가 '인간은 오류 극복 능력을 활용해야 한다'와, ever-expanding influence 와 overseers of AI’s own growth 가 'AI의 영향력 확산에 대비하여'와 각각 대응한다.",
-          "how_to_reject": "배제되지 않는다 — 주체(we)·수단(오류 극복 능력)·당위(It is crucial that)가 마지막 문장 한 자리에 있다."
+          "why_correct": "마지막 문장의 we utilize our capacity to overcome such failures 가 '인간은 오류 극복 능력을 활용해야 한다'와, ever-expanding influence 와 overseers of AI’s own growth 가 'AI의 영향력 확산에 대비하여'와 각각 대응한다."
         }
       ],
       "solve_procedure": [
@@ -949,9 +935,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "4번째 문장의 shared and distributed 와 a clear and concise description of what is expected 가 선지의 '행동의 공유'와 '명시적 지침'에 하나씩 대응한다.",
-          "how_to_reject": "배제되지 않는다 — 대상(가치를 반영한 행동)·요구(공유)·수단(명시적 지침)이 4번째 문장에 함께 있고 6번째 문장이 되풀이한다."
+          "why_correct": "4번째 문장의 shared and distributed 와 a clear and concise description of what is expected 가 선지의 '행동의 공유'와 '명시적 지침'에 하나씩 대응한다."
         }
       ],
       "solve_procedure": [
@@ -1235,9 +1219,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "6번째 문장의 what proportion of them lead to success or failure 가 '성공 가능성을 확률적으로 분석'과, 마지막 문장의 decisions about which path to choose 가 '더 나은 선택'과 대응한다.",
-          "how_to_reject": "배제되지 않는다 — 수단(수치화·비율 분석)과 목적(더 나은 선택)이 4·6·7번째 문장에 있다."
+          "why_correct": "6번째 문장의 what proportion of them lead to success or failure 가 '성공 가능성을 확률적으로 분석'과, 마지막 문장의 decisions about which path to choose 가 '더 나은 선택'과 대응한다."
         },
         {
           "n": 4,

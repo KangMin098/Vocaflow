@@ -40,9 +40,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "",
-          "how_to_reject": ""
+          "why_correct": "이 선지는 (C)-(A)-(B) 이고 이음매 둘이 다 걸린다. (C) 마지막의 'found a curvilinear relationship between lifetime adversity and mental health' 가 곡선 관계를 처음 이름 붙이고, (A) 첫 문장이 'High levels of adversity' · 'intermediate levels of adversity' · 'little adversity' 세 구간으로 그 곡선의 모양을 풀어 쓴다 — 이름이 먼저다. 그리고 (A) 마지막의 'A follow-up study found a similar link' 가 후속 연구를 예고하고, (B) 첫 문장 'Intermediate levels of adversity were predictive of the greatest resilience.' 는 새 연구를 도입하지 않은 채 그 결과만 말하므로 예고 뒤에만 설 수 있다."
         },
         {
           "n": 5,
@@ -95,24 +93,30 @@
           "verdict": "pass",
           "findings": [
             "인용이 (C) 마지막 문장에서 그대로 나온다",
-            "순서형 정의(블록 경계에서 근거가 난다)와 어긋나지 않는다"
+            "순서형 정의(블록 경계에서 근거가 난다)와 어긋나지 않는다",
+            "why_correct 의 두 이음매를 corpus 문자열로 확인했다 — 'found a curvilinear relationship' 은 (C) 마지막, 'Intermediate levels of adversity were predictive of the greatest resilience.' 는 (B) 첫 문장이다. 곡선의 명명이 그 구간 서술보다 앞이라는 순서 주장이 두 문자열의 실제 위치와 맞는다"
           ],
           "checked": [
             "quote 를 corpus.json 의 M2106#36 passage 와 문자열 대조",
             "정답 4가 평가원 정답표와 같은지 대조",
-            "design_intent 가 이 문항 고유 설계(연구 도입 대 결과)를 말하는지 확인"
+            "design_intent 가 이 문항 고유 설계(연구 도입 대 결과)를 말하는지 확인",
+            "why_correct 의 영어 조각 6개를 corpus.json M2106#36 passage 와 문자열 대조",
+            "선지 ④ 표기 (A)-(C)-(B) 가 아니라 (C)-(A)-(B) 인지 선지 텍스트로 확인"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "처음에는 ②와 ③에 모두 ‘마무리 문장 위치 오판’ 을 달았다 — 둘 다 (B)가 첫 블록이라 같은 사유로 뭉쳤다. ③은 (C)의 In other words 가 (B)를 되받는다고 착각하게 만드는 것이 별개 미끼이므로 ‘연결사 방향 충돌’ 로 갈랐다"
+            "처음에는 ②와 ③에 모두 ‘마무리 문장 위치 오판’ 을 달았다 — 둘 다 (B)가 첫 블록이라 같은 사유로 뭉쳤다. ③은 (C)의 In other words 가 (B)를 되받는다고 착각하게 만드는 것이 별개 미끼이므로 ‘연결사 방향 충돌’ 로 갈랐다",
+            "why_correct 가 다른 선지를 지우는 방식이 아니라 (C)→(A)·(A)→(B) 두 이음매를 각각 세우는 방식이라 소거법이 아니다"
           ],
           "checked": [
             "오답 4개의 trap 라벨이 서로 다른지 확인",
             "why_tempting 이 각 선지의 실제 배열에 근거하는지 확인",
-            "how_to_reject 마다 (A)/(B)/(C) 중 어느 문장인지 위치가 적혔는지 확인"
+            "how_to_reject 마다 (A)/(B)/(C) 중 어느 문장인지 위치가 적혔는지 확인",
+            "why_correct 에 '나머지가 틀렸으므로' 류 서술이 없는지 확인",
+            "정답 서술이 오답 4개의 trap 라벨과 겹치지 않는지 확인"
           ],
           "revised": true
         },
@@ -121,12 +125,14 @@
           "verdict": "pass",
           "findings": [
             "2단계가 지문을 안 본 학생도 실행 가능한 형태(낱말 study 찾기)인지 확인했다",
-            "5단계 검산이 15초라 100초 안에 든다"
+            "5단계 검산이 15초라 100초 안에 든다",
+            "학생이 (C) 마지막 한 줄과 (A) 마지막 한 줄만 짚으면 두 이음매를 모두 재현할 수 있다"
           ],
           "checked": [
             "절차 5단계에 금지 표현이 없는지 대조",
             "required_vocab 4개가 모두 지문에 있고 판정에 쓰이는지 확인",
-            "time_budget 100초 안에 5단계가 끝나는지 단계별 시간 배분"
+            "time_budget 100초 안에 5단계가 끝나는지 단계별 시간 배분",
+            "지문 미독 학생이 why_correct 의 인용 위치((C) 마지막 · (A) 첫/마지막 · (B) 첫)를 지문에서 직접 찾을 수 있는지 확인"
           ]
         }
       ]
@@ -176,9 +182,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "",
-          "how_to_reject": ""
+          "why_correct": "이 선지는 (C)-(B)-(A) 이고 이음매 둘이 다 걸린다. (C) 마지막의 'other fruits are, therefore, usually picked and transported when they are unripe' 가 복수의 덜 익은 과일을 세우고, (B) 첫 문장 'In some countries they are then sprayed with ethylene' 의 they(복수 과일)와 then(수확·운송 다음)이 그것을 받는다 — 주어진 글에는 복수 과일이 없다. 그리고 (B) 마지막의 'Biotechnologists therefore saw' 와 'an opportunity in delaying the ripening and softening' 이 (A)의 'If ripening could be slowed down by interfering with' 라는 가정을 부른다."
         }
       ],
       "solve_procedure": [
@@ -225,12 +229,16 @@
           "verdict": "pass",
           "findings": [
             "처음 잡은 인용이 옆 단 39번 지문(fireflies)의 문장과 걸쳐 있었다 — corpus.json 의 M2106#37 passage 는 좌우 두 단이 낱말 단위로 섞인 상태다. raw_block 의 회차 원문 창에서 좌우를 갈라 (B) 왼쪽 단만 읽고, 끊기지 않는 구간인 첫 문장 앞부분으로 인용을 바꿨다",
-            "복원한 본문이 시험지의 37번 세 블록과 일치함을 raw_block 으로 확인했다"
+            "복원한 본문이 시험지의 37번 세 블록과 일치함을 raw_block 으로 확인했다",
+            "초안은 (B) 마지막을 'Biotechnologists therefore saw an opportunity in delaying the ripening and softening process in fruit.' 한 문장으로 인용했는데, 2단 조판이 안 갈린 코퍼스 지문에서는 그 사이에 옆 단 조각이 끼어 통 문자열이 없다. 문자열 대조에 걸려 'Biotechnologists therefore saw' 와 'an opportunity in delaying the ripening and softening' 두 조각으로 갈라 다시 썼다",
+            "(C) 마지막도 같은 이유로 'Tomatoes and other fruits' 대신 'other fruits are, therefore, usually picked and transported when they are unripe' 로 잘라 인용했다"
           ],
           "checked": [
             "quote 를 corpus.json passage 와 문자열 대조(통과)",
             "raw_block 좌우 단 분리 후 37번 본문만 재구성",
-            "정답 5가 평가원 정답표와 같은지 대조"
+            "정답 5가 평가원 정답표와 같은지 대조",
+            "why_correct 의 영어 조각 5개를 corpus.json M2106#37 passage 와 문자열 대조",
+            "columns2/M2106.txt 에서 (B)(C) 원문 순서를 갈라 읽어 조각이 같은 문장에서 나온 것인지 확인"
           ],
           "revised": true
         },
@@ -238,12 +246,15 @@
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "②와 ③은 둘 다 (B)가 첫 블록이지만 학생이 걸리는 지점이 다르다 — ②는 they 의 선행사가 뒤에 있다는 것, ③은 문제 제기와 해결 착수의 앞뒤다. 라벨을 각각 다르게 유지했다"
+            "②와 ③은 둘 다 (B)가 첫 블록이지만 학생이 걸리는 지점이 다르다 — ②는 they 의 선행사가 뒤에 있다는 것, ③은 문제 제기와 해결 착수의 앞뒤다. 라벨을 각각 다르게 유지했다",
+            "they 와 then 이라는 두 표지를 각각 어느 낱말이 받는지 지목해, 낱말 겹침(ethylene)에 기댄 서술이 아니다"
           ],
           "checked": [
             "오답 4개 trap 라벨이 서로 다른지 확인",
             "①의 why_tempting 이 실제 겹치는 낱말(ethylene)을 지목하는지 확인",
-            "how_to_reject 마다 (A)(B)(C) 중 어느 문장인지 명시됐는지 확인"
+            "how_to_reject 마다 (A)(B)(C) 중 어느 문장인지 명시됐는지 확인",
+            "why_correct 가 ⑤ 이외 선지를 지우는 문장을 쓰지 않는지 확인",
+            "오답 서술의 '어휘 반복 유인'(ethylene) 과 정답 근거가 다른 낱말에 걸려 있는지 대조"
           ]
         },
         {
@@ -251,15 +262,18 @@
           "verdict": "pass",
           "findings": [
             "1단계를 ‘복수 명사가 있는지 확인’ 으로 좁혀, 지문을 안 본 학생도 첫 줄부터 실행할 수 있게 했다",
-            "3점 문항이라 115초를 배정했고 5단계가 그 안에 든다"
+            "3점 문항이라 115초를 배정했고 5단계가 그 안에 든다",
+            "지문이 손상돼 학생이 통 문장을 못 볼 수 있으므로, 인용을 조각으로 준 것이 오히려 실제 시험지 화면과 맞는다"
           ],
           "checked": [
             "절차 5단계 금지 표현 대조",
             "required_vocab 4개가 37번 본문(옆 단 아님)에 있는지 확인 — fireflies·bats 계열 낱말이 섞이지 않았다",
-            "단계별 소요 추정 합이 115초 이내인지 확인"
+            "단계별 소요 추정 합이 115초 이내인지 확인",
+            "조각 인용만으로 (C)→(B) 이음매를 학생이 찾을 수 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2020#36",
@@ -305,9 +319,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "",
-          "how_to_reject": ""
+          "why_correct": "이 선지는 (C)-(B)-(A) 이고 이음매 둘이 다 걸린다. (C) 첫 문장 'But one may ask why audiences would find such movies enjoyable' 이 지문의 유일한 물음이고, (B) 첫 문장 'The simple answer to this question' 의 this question 이 그것을 받는다. 그리고 (B) 마지막 'They also tell stories that, in the end, we find satisfying.' 가 이야기를 예고하고, (A)의 'The bad guys are usually punished; the romantic couple almost always find each other' 가 그 이야기의 관습을 나열한 각론이다."
         }
       ],
       "solve_procedure": [
@@ -353,12 +365,15 @@
           "verdict": "pass",
           "findings": [
             "인용이 (B) 첫 문장 그대로다",
-            "이 유형의 근거가 블록 경계(질문-답)에 있다는 유형 성질과 맞는다"
+            "이 유형의 근거가 블록 경계(질문-답)에 있다는 유형 성질과 맞는다",
+            "'The simple answer to this question' 의 this question 이 받을 물음이 (C) 첫 문장 하나뿐이라는 것을 지문 전체에서 물음표·ask 검색으로 확인했다"
           ],
           "checked": [
             "quote 를 corpus.json 2020#36 passage 와 문자열 대조",
             "정답 5가 평가원 정답표와 같은지 대조",
-            "design_intent 가 유형 일반론이 아니라 이 문항의 반문-답-예시 구조를 말하는지 확인"
+            "design_intent 가 유형 일반론이 아니라 이 문항의 반문-답-예시 구조를 말하는지 확인",
+            "why_correct 의 영어 조각 4개를 corpus.json 2020#36 passage 와 문자열 대조",
+            "지문 안에 물음 문장이 (C) 말고 또 있는지 ask/why 검색"
           ]
         },
         {
@@ -366,12 +381,15 @@
           "verdict": "pass",
           "findings": [
             "②와 ③이 모두 (B) 첫 블록이지만, ②는 선행사 부재 ③은 선행사 후치라는 다른 오독 경로다",
-            "④는 첫 블록을 맞히고도 틀리는 유형의 대표 미끼라 별도 라벨을 유지했다"
+            "④는 첫 블록을 맞히고도 틀리는 유형의 대표 미끼라 별도 라벨을 유지했다",
+            "두 이음매 (C)→(B)·(B)→(A) 가 각각 독립 근거라 셋 중 하나만 맞아도 되는 서술이 아니다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "why_tempting 이 각 배열의 실제 첫 블록에 근거하는지",
-            "how_to_reject 에 (A)(B)(C) 위치가 적혔는지"
+            "how_to_reject 에 (A)(B)(C) 위치가 적혔는지",
+            "why_correct 에 소거법 표현이 없는지 확인",
+            "선지 ⑤의 배열 문자열이 (C)-(B)-(A) 임을 선지 텍스트로 확인"
           ]
         },
         {
@@ -379,12 +397,14 @@
           "verdict": "pass",
           "findings": [
             "1단계 ‘물음표가 있는지 본다’ 는 지문을 안 본 학생이 바로 실행할 수 있다",
-            "required_vocab 에서 utopian·didactic 은 판정에 직접 쓰이지는 않지만 (A)(C)의 오독을 막는 데 필요해 남겼다"
+            "required_vocab 에서 utopian·didactic 은 판정에 직접 쓰이지는 않지만 (A)(C)의 오독을 막는 데 필요해 남겼다",
+            "'물음을 찾고 그 답을 찾는다' 는 한 줄이라 지문을 안 본 학생도 바로 실행한다"
           ],
           "checked": [
             "금지 표현 대조",
             "required_vocab 4낱말이 지문에 실제로 있는지 문자열 확인",
-            "5단계 총 소요가 100초 안인지 확인"
+            "5단계 총 소요가 100초 안인지 확인",
+            "인용 위치가 (C) 첫 · (B) 첫 · (B) 마지막 · (A) 첫으로 모두 덩어리 경계인지 확인"
           ]
         }
       ]
@@ -412,9 +432,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "",
-          "how_to_reject": ""
+          "why_correct": "이 선지는 (B)-(A)-(C) 이고 이음매 둘이 다 걸린다. (B) 마지막이 'led historians to ask whether the dates of discoveries and their discoverers can be identified precisely' 라는 물음을 던지고, (A) 첫 문장 'Some discoveries seem to entail numerous phases and discoverers, none of which can be identified as definitive' 가 identified 를 그대로 되받아 답한다. 그리고 (A) 마지막의 'does not allow us to see' 가 부정문이라, 앞에 부정문을 요구하는 (C) 첫 문장 'Nor does the traditional view recognise' 가 그 뒤에만 설 수 있다."
         },
         {
           "n": 3,
@@ -482,12 +500,15 @@
           "verdict": "pass",
           "findings": [
             "인용이 (B) 첫 문장 그대로다",
-            "근거가 블록 첫 문장(This)과 다른 블록 마지막 문장(does not allow) 사이에 걸쳐 있어 이 유형의 정본 설계와 맞는다"
+            "근거가 블록 첫 문장(This)과 다른 블록 마지막 문장(does not allow) 사이에 걸쳐 있어 이 유형의 정본 설계와 맞는다",
+            "(A) 마지막이 'does not allow us to see' 로 부정문이라는 것과 (C) 첫 문장이 'Nor does the traditional view recognise' 라는 도치 부정이라는 것을 둘 다 문자열로 확인했다. Nor 가 앞 부정문을 요구한다는 문법 사실이 이 이음매의 유일한 근거다"
           ],
           "checked": [
             "quote 를 corpus.json 2020#37 passage 와 문자열 대조",
             "정답 2가 평가원 정답표와 같은지 대조",
-            "measured_ability 가 이 문항의 두 판정 지점(This · Nor)을 모두 담는지 확인"
+            "measured_ability 가 이 문항의 두 판정 지점(This · Nor)을 모두 담는지 확인",
+            "why_correct 의 영어 조각 4개를 corpus.json 2020#37 passage 와 문자열 대조",
+            "(B)(A)(C) 각 덩어리의 첫·마지막 문장 위치 확인"
           ]
         },
         {
@@ -495,12 +516,15 @@
           "verdict": "pass",
           "findings": [
             "④와 ⑤가 모두 (C) 첫 블록이지만 ④는 정관사 첫 등장, ⑤는 This 의 선행사 이탈로 갈렸다",
-            "③은 첫 블록을 맞히고 둘째에서 틀리는 배열이라 실제 최다 오답 후보로 본다"
+            "③은 첫 블록을 맞히고 둘째에서 틀리는 배열이라 실제 최다 오답 후보로 본다",
+            "'identified' 라는 같은 낱말이 (B) 마지막과 (A) 첫 문장에 겹치는데, 겹침 자체가 아니라 물음-답 관계를 근거로 썼으므로 '어휘 반복 유인' 함정에 빠지지 않았다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "③의 why_tempting 이 실제 겹치는 표현(the traditional view ↔ this view of history)을 지목하는지",
-            "how_to_reject 4건에 모두 블록 위치가 적혔는지"
+            "how_to_reject 4건에 모두 블록 위치가 적혔는지",
+            "why_correct 가 낱말 겹침만으로 이음매를 주장하지 않는지 확인",
+            "선지 ②의 배열이 (B)-(A)-(C) 임을 선지 텍스트로 확인"
           ]
         },
         {
@@ -508,12 +532,14 @@
           "verdict": "pass",
           "findings": [
             "처음 required_vocab 에 historiography · socio-economic 을 넣었다가 뺐다 — 둘 다 순서 판정에 쓰이지 않는 지문 어휘 나열이었다. 판정에 실제로 쓰이는 entail · definitive · apparent · breakthroughs 만 남겼다",
-            "2단계를 ‘첫 낱말만 본다’ 로 좁혀 3점 문항의 시간 압박에서도 실행되게 했다"
+            "2단계를 ‘첫 낱말만 본다’ 로 좁혀 3점 문항의 시간 압박에서도 실행되게 했다",
+            "Nor 로 시작하는 덩어리는 마지막이거나 부정문 뒤라는 규칙 한 줄로 학생이 검산할 수 있다"
           ],
           "checked": [
             "금지 표현 대조",
             "required_vocab 이 정답 판정에 실제로 쓰이는지 단계별 확인",
-            "5단계 총 소요 115초 이내 확인"
+            "5단계 총 소요 115초 이내 확인",
+            "학생이 부정 표지(does not / Nor)만 훑어 두 번째 이음매를 재현할 수 있는지 확인"
           ],
           "revised": true
         }
@@ -542,9 +568,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "",
-          "how_to_reject": ""
+          "why_correct": "이 선지는 (B)-(A)-(C) 이고 이음매 둘이 다 걸린다. (B) 마지막 'At the same time, there are downsides.' 가 예고한 단점을 (A) 첫 문장 'Written notes freeze the music rather than allowing it to develop in the hands of individuals' 이 채운다. 그리고 (A) 마지막 'Before notation arrived, in all history music was largely carried on as an aural tradition' 이 aural 을 처음 들여오고, (C) 첫 문장 'Most world music is still basically aural' 의 still 이 그것을 이어받는다. (B) 첫 문장 'It changed the nature of the art itself.' 의 It 이 주어진 글의 단수 주어 Notation 을 받아 (B)가 첫 덩어리다."
         },
         {
           "n": 3,
@@ -611,24 +635,30 @@
           "verdict": "pass",
           "findings": [
             "인용이 (B) 첫 문장 그대로다",
-            "근거가 블록 첫 문장의 대명사와 다른 블록 마지막 문장의 예고어에 걸쳐 있어 유형 설계와 맞는다"
+            "근거가 블록 첫 문장의 대명사와 다른 블록 마지막 문장의 예고어에 걸쳐 있어 유형 설계와 맞는다",
+            "'At the same time, there are downsides.' 가 (B) 마지막, 'Written notes freeze the music' 이 (A) 첫 문장임을 문자열로 확인했다 — 예고와 내용이 덩어리 경계에서 맞물린다"
           ],
           "checked": [
             "quote 를 corpus.json M2006#36 passage 와 문자열 대조",
             "정답 2가 평가원 정답표와 같은지 대조",
-            "design_intent 에 이 문항 고유의 예고(more than)-충족 구조가 적혔는지"
+            "design_intent 에 이 문항 고유의 예고(more than)-충족 구조가 적혔는지",
+            "why_correct 의 영어 조각 5개를 corpus.json M2006#36 passage 와 문자열 대조",
+            "aural 이 (A) 마지막보다 앞에 나오는 자리가 없는지 지문 전체 검색"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "④와 ⑤가 모두 (C) 첫 블록이라 라벨이 겹칠 뻔했다 — ④는 It 의 선행사가 끊기는 것, ⑤는 사례 나열 블록을 도입부로 오판하는 것으로 갈랐다"
+            "④와 ⑤가 모두 (C) 첫 블록이라 라벨이 겹칠 뻔했다 — ④는 It 의 선행사가 끊기는 것, ⑤는 사례 나열 블록을 도입부로 오판하는 것으로 갈랐다",
+            "세 조각(단점 예고 · aural 첫 등장 · It 의 선행사)이 각각 다른 층위의 근거라 하나가 무너져도 나머지가 남는다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "①의 why_tempting 이 (A) 첫 문장의 실제 표현(Written notes)에 근거하는지",
-            "how_to_reject 4건 모두 블록 위치 명시 확인"
+            "how_to_reject 4건 모두 블록 위치 명시 확인",
+            "why_correct 에 소거법 표현이 없는지 확인",
+            "정답 근거가 오답 ①③④⑤의 how_to_reject 와 같은 문장을 재활용하지 않는지 대조"
           ],
           "revised": true
         },
@@ -637,12 +667,14 @@
           "verdict": "pass",
           "findings": [
             "2단계에서 대명사의 수(단수·복수)를 맞추게 한 것이 이 문항에서 가장 빨리 끝나는 판정이다",
-            "5단계 검산이 낱말 하나(aural) 짚기라 15초 안에 든다"
+            "5단계 검산이 낱말 하나(aural) 짚기라 15초 안에 든다",
+            "'downsides 라는 예고어를 찾아 그 내용을 다음 덩어리에서 찾는다' 로 절차와 이어진다"
           ],
           "checked": [
             "금지 표현 대조",
             "required_vocab 4낱말이 지문에 있는지 문자열 확인",
-            "총 소요 100초 이내 확인"
+            "총 소요 100초 이내 확인",
+            "인용 네 자리가 모두 덩어리 첫·마지막 문장인지 확인"
           ]
         }
       ]
@@ -678,9 +710,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "",
-          "how_to_reject": ""
+          "why_correct": "이 선지는 (B)-(C)-(A) 이고 이음매 둘이 다 걸린다. (C) 첫 문장 'A closer look reveals the flaw in this analogy' 의 this analogy 가 받을 유추는 (B)의 'we can think of technology as our extended body' 뿐이다. 그리고 (C) 마지막 'They inherit the basic blueprints of what they make.' 가 blueprints 라는 낱말을 처음 들여오고, (A) 첫 문장 'The blueprints for our shells' 의 정관사 The 가 그것을 되받는다."
         },
         {
           "n": 4,
@@ -741,12 +771,15 @@
           "verdict": "pass",
           "findings": [
             "처음 쓴 design_intent 가 ‘순서 문항은 결속 장치로 푼다’ 는 유형 일반론이었다 — 이 문항 고유의 3단 반전(사례 → 유추 명제 → 결함 → 새 결론)과 blueprints 의 첫 등장 설계로 다시 썼다",
-            "인용이 (C) 첫 문장 그대로다"
+            "인용이 (C) 첫 문장 그대로다",
+            "blueprints 가 (C) 마지막 'They inherit the basic blueprints of what they make.' 보다 앞에 나오는 자리가 없음을 지문 전체 검색으로 확인했다. (A) 첫 문장의 정관사 The 가 그 첫 등장을 되받는다"
           ],
           "checked": [
             "quote 를 corpus.json M2006#37 passage 와 문자열 대조",
             "정답 3이 평가원 정답표와 같은지 대조",
-            "design_intent 가 유형 일반론이 아닌지 재확인"
+            "design_intent 가 유형 일반론이 아닌지 재확인",
+            "why_correct 의 영어 조각 4개를 corpus.json M2006#37 passage 와 문자열 대조",
+            "blueprints 의 지문 내 등장 위치를 전부 세어 첫 등장이 (C)인지 확인"
           ],
           "revised": true
         },
@@ -755,12 +788,15 @@
           "verdict": "pass",
           "findings": [
             "④⑤ 가 모두 (C) 첫 블록이지만 ④는 this analogy 의 선행사 부재, ⑤는 In this way 의 방향 뒤집힘으로 갈렸다",
-            "②는 첫 블록을 맞히고 둘째에서 틀리는 배열이라 최다 오답 후보로 본다"
+            "②는 첫 블록을 맞히고 둘째에서 틀리는 배열이라 최다 오답 후보로 본다",
+            "this analogy 의 선행사와 blueprints 의 첫 등장, 두 이음매가 서로 다른 표지 계열(지시어 / 정관사)이라 한 근거의 되풀이가 아니다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "②의 how_to_reject 가 (C)의 실제 문장 세 개를 인용해 전제 부재를 보이는지",
-            "why_tempting 이 선지 배열과 맞는지"
+            "why_tempting 이 선지 배열과 맞는지",
+            "why_correct 가 두 이음매를 다 적었는지 확인 — 하나만 적으면 (B)-(C)-(A) 와 (C)-(A)-(B) 가 갈리지 않는다",
+            "선지 ③의 배열이 (B)-(C)-(A) 임을 선지 텍스트로 확인"
           ]
         },
         {
@@ -768,12 +804,14 @@
           "verdict": "pass",
           "findings": [
             "1단계 ‘The + 명사 표시’ 는 지문을 안 본 학생이 첫 문장 세 줄만 보고 실행할 수 있다",
-            "3단계에서 선지가 셋 지워지므로 3점 문항이어도 115초 안에 끝난다"
+            "3단계에서 선지가 셋 지워지므로 3점 문항이어도 115초 안에 끝난다",
+            "관사 하나가 판정 근거이므로 학생에게 'The + 명사' 를 표시하며 읽으라는 지시로 옮겨진다"
           ],
           "checked": [
             "금지 표현 대조",
             "required_vocab 4낱말이 지문에 있는지 확인",
-            "단계별 시간 배분 합이 115초 이내인지 확인"
+            "단계별 시간 배분 합이 115초 이내인지 확인",
+            "지문 미독 학생이 this analogy 의 선행사를 (B)에서 찾을 수 있는지 확인"
           ]
         }
       ]
@@ -809,9 +847,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "",
-          "how_to_reject": ""
+          "why_correct": "이 선지는 (B)-(C)-(A) 이고 이음매 둘이 다 걸린다. (B) 마지막이 'without altering their thinking, called reactivity' 로 반응성을 이름 붙이고, (C) 첫 문장 'Simply knowing they are being observed may cause people to behave differently' 가 그 이름의 내용을 설명한다. 그리고 (A) 첫 문장 'But for all of these difficulties for psychology' 의 these difficulties 는 복수 목록을 요구하는데, 그 목록은 (B)의 'It often requires compromises' · 'It often requires great cleverness' 와 (C)의 'People may give answers that they feel are more socially desirable than their true feelings' 가 다 쌓인 뒤에야 채워지므로 (A)가 마지막이다."
         },
         {
           "n": 4,
@@ -871,12 +907,15 @@
           "verdict": "pass",
           "findings": [
             "인용이 (A) 첫 문장 앞부분 그대로다",
-            "근거가 블록 첫 문장의 지시어와 다른 두 블록의 목록 사이에 있어 유형 설계와 맞는다"
+            "근거가 블록 첫 문장의 지시어와 다른 두 블록의 목록 사이에 있어 유형 설계와 맞는다",
+            "reactivity 라는 이름이 (B) 마지막에서 붙고 (C) 첫 문장이 그 내용을 설명한다는 순서를 문자열 위치로 확인했다"
           ],
           "checked": [
             "quote 를 corpus.json 2019#36 passage 와 문자열 대조",
             "정답 3이 평가원 정답표와 같은지 대조",
-            "measured_ability 가 이 문항의 판정 지점(these difficulties)을 지목하는지"
+            "measured_ability 가 이 문항의 판정 지점(these difficulties)을 지목하는지",
+            "why_correct 의 영어 조각 5개를 corpus.json 2019#36 passage 와 문자열 대조",
+            "reactivity 가 (C)에 다시 나오지 않는지 검색"
           ]
         },
         {
@@ -884,12 +923,15 @@
           "verdict": "pass",
           "findings": [
             "④⑤ 가 모두 (C) 첫 블록이라 라벨이 겹칠 뻔했다 — ④는 명명 전 각론, ⑤는 어휘 반복에 낚이는 경로로 갈랐다",
-            "⑤에 이 유형 최대 함정인 어휘 반복 유인을 붙이면서 겹치는 낱말의 기능이 왜 근거가 못 되는지 적었다"
+            "⑤에 이 유형 최대 함정인 어휘 반복 유인을 붙이면서 겹치는 낱말의 기능이 왜 근거가 못 되는지 적었다",
+            "these difficulties 가 요구하는 목록을 낱개로 지목해, '어렵다는 내용이니까' 같은 뭉뚱그림이 아니다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "⑤의 why_tempting 이 실제 겹치는 낱말(people·behave·answers)을 지목하는지",
-            "how_to_reject 4건 모두 블록 위치 명시 확인"
+            "how_to_reject 4건 모두 블록 위치 명시 확인",
+            "why_correct 의 목록 항목이 실제로 (B)(C)에 있는 문장인지 확인",
+            "선지 ③의 배열이 (B)-(C)-(A) 임을 선지 텍스트로 확인"
           ],
           "revised": true
         },
@@ -898,16 +940,20 @@
           "verdict": "pass",
           "findings": [
             "처음 1단계가 ‘주어진 글이 무엇을 말하는지 본다’ 여서 지문을 안 본 학생에게는 실행 지시가 되지 못했다 — ‘challenging·difficult 같은 예고어가 있는지 확인한다’ 로 바꿨다",
-            "3단계에서 (A)가 마지막으로 고정되면 선지가 둘로 줄어 시간이 남는다"
+            "3단계에서 (A)가 마지막으로 고정되면 선지가 둘로 줄어 시간이 남는다",
+            "초안은 목록의 (C) 쪽을 '관찰 효과' 라고 한국어로만 뭉뚱그려, 학생이 (C)의 어느 줄을 세어야 하는지 짚을 수 없었다. (C)의 'People may give answers that they feel are more socially desirable than their true feelings' 를 인용으로 넣어 셀 수 있게 고쳤다"
           ],
           "checked": [
             "금지 표현 대조",
             "required_vocab 4낱말이 지문에 있는지 확인",
-            "총 소요 100초 이내 확인"
+            "총 소요 100초 이내 확인",
+            "학생이 these difficulties 의 항목을 지문에서 손가락으로 셀 수 있는지 확인",
+            "인용 위치가 모두 덩어리 첫·마지막 문장인지 확인"
           ],
           "revised": true
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2019#37",
@@ -954,9 +1000,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "",
-          "how_to_reject": ""
+          "why_correct": "이 선지는 (C)-(B)-(A) 이고 이음매 둘이 다 걸린다. (C) 마지막 'they tell you, in essence, what’s typical or ordinary in a given situation' 이 '정상'의 내용을 규정하고, (B) 첫 문장 'this information about what’s “normal.”' 의 this 가 그것을 받는다. 그리고 (B)의 'if there are things you don’t notice while viewing a situation or event' 와 (A) 첫 문장 'Likewise, if there are things you can’t recall' 이 not notice : not recall 병렬쌍이고 Likewise 는 뒤쪽 짝에만 붙으므로 (A)가 마지막이다."
         }
       ],
       "solve_procedure": [
@@ -1003,12 +1047,15 @@
           "verdict": "pass",
           "findings": [
             "처음 인용을 (B)의 this information 구절 일부로 잡았더니 20자에 못 미치는 조각이 되고 문장 중간에서 끊겼다 — (C) 첫 문장 전체로 바꿔 첫 블록 판정 근거를 통째로 담게 했다",
-            "바꾼 인용이 corpus 지문과 문자 그대로 일치한다"
+            "바꾼 인용이 corpus 지문과 문자 그대로 일치한다",
+            "(C) 마지막의 what's typical or ordinary 와 (B) 첫 문장의 this information about what's \"normal.\" 이 서로 다른 낱말로 같은 것을 가리킨다는 점을 두 문자열을 나란히 놓고 확인했다"
           ],
           "checked": [
             "quote 를 corpus.json 2019#37 passage 와 문자열 대조",
             "정답 5가 평가원 정답표와 같은지 대조",
-            "reasoning 이 (C)→(B)→(A) 세 자리를 모두 설명하는지"
+            "reasoning 이 (C)→(B)→(A) 세 자리를 모두 설명하는지",
+            "why_correct 의 영어 조각 4개를 corpus.json 2019#37 passage 와 문자열 대조",
+            "normal / typical 의 지문 내 등장 순서 확인"
           ],
           "revised": true
         },
@@ -1017,12 +1064,15 @@
           "verdict": "pass",
           "findings": [
             "②③ 이 모두 (B) 첫 블록이지만 ②는 this information 의 선행사 부재, ③은 But 의 역접 대상 이탈로 갈렸다",
-            "④는 첫 블록을 맞히고 둘째에서 틀리는 배열이라 최다 오답 후보로 본다"
+            "④는 첫 블록을 맞히고 둘째에서 틀리는 배열이라 최다 오답 후보로 본다",
+            "둘째 이음매를 don't notice : can't recall 병렬쌍으로 잡아, Likewise 가 어느 쪽에 붙는지까지 방향을 정했다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "①의 why_tempting 이 (A) 첫머리 Likewise 에 근거하는지",
-            "how_to_reject 4건 모두 블록 위치 명시 확인"
+            "how_to_reject 4건 모두 블록 위치 명시 확인",
+            "why_correct 가 Likewise 의 방향(뒤쪽 짝)을 명시했는지 확인",
+            "선지 ⑤의 배열이 (C)-(B)-(A) 임을 선지 텍스트로 확인"
           ]
         },
         {
@@ -1030,12 +1080,14 @@
           "verdict": "pass",
           "findings": [
             "2단계 ‘첫 낱말을 적는다’ 는 세 줄만 보고 끝나므로 3점 문항의 시간 안에 든다",
-            "5단계 검산이 화살표 방향 확인 하나라 15초에 든다"
+            "5단계 검산이 화살표 방향 확인 하나라 15초에 든다",
+            "Likewise 를 보면 앞 짝을 찾으라는 지시로 바로 옮겨져 절차와 어긋나지 않는다"
           ],
           "checked": [
             "금지 표현 대조",
             "required_vocab 4낱말이 지문에 있는지 확인",
-            "총 소요 115초 이내 확인"
+            "총 소요 115초 이내 확인",
+            "지문 미독 학생이 (C) 마지막 → (B) 첫 → (A) 첫 순으로 세 줄만 읽어 답을 낼 수 있는지 확인"
           ]
         }
       ]
@@ -1072,9 +1124,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "",
-          "how_to_reject": ""
+          "why_correct": "이 선지는 (B)-(C)-(A) 이고 이음매 둘이 다 걸린다. (B) 첫 문장 'However, single-copy sales are important: they bring in more revenue per magazine' 이 주어진 글 마지막의 'Single-copy, or newsstand, sales account for the rest' 를 However 로 뒤집어 (B)가 첫 덩어리이고, (C) 첫 문장 'Further, potential readers explore a new magazine by buying a single issue' 는 이유를 하나 더 얹는 말이라 이유 하나가 이미 나온 (B) 뒤다. 그리고 (C) 마지막 'They usually feature highly targeted advertising.' 를 (A) 첫 문장 'For example, the Columbia Journalism Review is marketed toward professional journalists' 가 예시한다."
         },
         {
           "n": 4,
@@ -1135,12 +1185,15 @@
           "verdict": "pass",
           "findings": [
             "이 문항은 chunk 에 body_ok:false 로 왔다 — corpus 지문의 (C) 안에 ‘. ______’ 와 ‘: 복제하다 ______’ 라는 OCR 잔여가 끼어 문장이 한 번 끊긴다. raw_block 의 문항 블록으로 세 블록을 그대로 확인했고, 인용은 잔여가 끼지 않은 (B) 첫 문장 구간에서 뽑았다",
-            "복원한 본문과 raw_block 의 시험지 배치가 일치한다"
+            "복원한 본문과 raw_block 의 시험지 배치가 일치한다",
+            "(C) 마지막 'They usually feature highly targeted advertising.' 와 (A) 첫 문장의 For example 예시가 광고 하나로 맞물린다는 것을 확인했다. 지문이 2단 손상이라 (C) 중간에 옆 단 조각이 끼지만 인용한 두 조각은 통으로 남아 있다"
           ],
           "checked": [
             "quote 를 corpus.json 2018#36 passage 와 문자열 대조(통과)",
             "raw_block 문항 블록으로 (A)(B)(C) 세 블록 원문 확인",
-            "정답 3이 평가원 정답표와 같은지 대조"
+            "정답 3이 평가원 정답표와 같은지 대조",
+            "why_correct 의 영어 조각 5개를 corpus.json 2018#36 passage 와 문자열 대조",
+            "손상 구간(insert cards … 복제하다)이 인용 범위에 들어가지 않는지 확인"
           ],
           "revised": true
         },
@@ -1148,12 +1201,15 @@
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "처음에는 ①②④⑤ 중 셋에 ‘연결사 방향 충돌’ 을 달았다 — 세 블록이 모두 연결사로 시작하니 라벨이 한 곳으로 몰렸고, 그러면 학습자는 네 오답을 구별할 수단을 잃는다. ①은 예시 대상 부재(총론-각론 역전), ②는 겹치는 낱말에 낚이는 경로(어휘 반복 유인), ④는 추가할 논거 부재(열거·병렬 절단)로 갈라 ⑤에만 연결사 방향 충돌을 남겼다"
+            "처음에는 ①②④⑤ 중 셋에 ‘연결사 방향 충돌’ 을 달았다 — 세 블록이 모두 연결사로 시작하니 라벨이 한 곳으로 몰렸고, 그러면 학습자는 네 오답을 구별할 수단을 잃는다. ①은 예시 대상 부재(총론-각론 역전), ②는 겹치는 낱말에 낚이는 경로(어휘 반복 유인), ④는 추가할 논거 부재(열거·병렬 절단)로 갈라 ⑤에만 연결사 방향 충돌을 남겼다",
+            "첫 이음매를 However 의 뒤집기 대상으로, 둘째를 For example 의 예시 대상으로 잡아 두 표지가 서로 다른 계열이다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부(수정 전 3중복 → 수정 후 0)",
             "why_tempting 이 각 배열의 실제 첫 블록에 근거하는지",
-            "how_to_reject 4건 모두 블록 위치 명시 확인"
+            "how_to_reject 4건 모두 블록 위치 명시 확인",
+            "why_correct 가 Further 와 For example 을 각각 어느 문장에 붙였는지 확인",
+            "선지 ③의 배열이 (B)-(C)-(A) 임을 선지 텍스트로 확인"
           ],
           "revised": true
         },
@@ -1162,12 +1218,14 @@
           "verdict": "pass",
           "findings": [
             "2단계 ‘첫 낱말을 적는다’ 만으로 세 연결사가 드러나므로 지문을 안 본 학생도 실행할 수 있다",
-            "3단계에서 선지가 셋 지워져 3점 문항이어도 115초 안에 끝난다"
+            "3단계에서 선지가 셋 지워져 3점 문항이어도 115초 안에 끝난다",
+            "광고 이야기가 (C) 마지막에서 처음 나온다는 점만 짚으면 (A)가 마지막임이 곧바로 나온다"
           ],
           "checked": [
             "금지 표현 대조",
             "required_vocab 4낱말이 (C)의 OCR 잔여가 아닌 실제 본문에 있는지 확인",
-            "총 소요 115초 이내 확인"
+            "총 소요 115초 이내 확인",
+            "지문 미독 학생이 advertising 이라는 낱말의 첫 등장을 찾아 둘째 이음매를 재현할 수 있는지 확인"
           ]
         }
       ]
@@ -1209,9 +1267,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "",
-          "how_to_reject": ""
+          "why_correct": "이 선지는 (C)-(A)-(B) 이고 이음매 둘이 다 걸린다. (C) 마지막 'The gods who send disease are usually angered by the moral offences of the individual.' 이 병을 내리는 복수 주체를 세우고, (A) 첫 문장 'Sometimes they may not strike the guilty person himself' 의 they 가 그 gods 를 받는다 — 주어진 글에는 복수 주체가 없다. 그리고 (A) 마지막 'of vital concern to the whole primitive community' 가 공동체를 세우고 (B) 첫 문장의 'such societies' 가 그것을 받으므로 (B)가 마지막이다."
         },
         {
           "n": 5,
@@ -1265,12 +1321,15 @@
           "verdict": "pass",
           "findings": [
             "인용이 (A) 첫 문장 앞부분 그대로다",
-            "근거가 (C) 마지막 문장과 (A) 첫 문장 사이, (A) 마지막 문장과 (B) 첫 문장 사이 두 고리에 있어 유형 설계와 맞는다"
+            "근거가 (C) 마지막 문장과 (A) 첫 문장 사이, (A) 마지막 문장과 (B) 첫 문장 사이 두 고리에 있어 유형 설계와 맞는다",
+            "(A)의 they 가 받을 복수 주체가 주어진 글에 없고 (C) 마지막의 The gods 뿐임을 지문 전체에서 복수 명사 검색으로 확인했다"
           ],
           "checked": [
             "quote 를 corpus.json 2018#37 passage 와 문자열 대조",
             "정답 4가 평가원 정답표와 같은지 대조",
-            "design_intent 가 이 문항의 두 고리(they · such societies)를 지목하는지"
+            "design_intent 가 이 문항의 두 고리(they · such societies)를 지목하는지",
+            "why_correct 의 영어 조각 4개를 corpus.json 2018#37 passage 와 문자열 대조",
+            "주어진 글의 명사가 단수(disease · modern man)뿐인지 확인"
           ]
         },
         {
@@ -1278,12 +1337,15 @@
           "verdict": "pass",
           "findings": [
             "②③ 이 모두 (B) 첫 블록이지만 ②는 지시어 후치, ③은 총괄 문장을 논지로 오판하는 경로로 갈렸다",
-            "⑤는 첫 블록을 맞히고 둘째에서 틀리는 배열이라 최다 오답 후보로 본다"
+            "⑤는 첫 블록을 맞히고 둘째에서 틀리는 배열이라 최다 오답 후보로 본다",
+            "대명사 they 와 지시형용사 such 라는 서로 다른 앞가리킴 표지를 두 이음매에 각각 썼다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "⑤의 how_to_reject 가 두 근거(such societies 의 선행 · they 의 주체 뒤바뀜)를 모두 대는지",
-            "why_tempting 이 각 배열의 실제 첫 블록에 근거하는지"
+            "why_tempting 이 각 배열의 실제 첫 블록에 근거하는지",
+            "why_correct 가 두 이음매를 다 적었는지 확인",
+            "선지 ④의 배열이 (C)-(A)-(B) 임을 선지 텍스트로 확인"
           ]
         },
         {
@@ -1291,12 +1353,14 @@
           "verdict": "pass",
           "findings": [
             "처음 time_budget_sec 를 150으로 잡았다 — 독해 63점 70분 배분에서 순서 3점 문항 하나에 150초는 다른 문항을 갉아먹는다. 절차 3단계에서 선지가 셋 지워지는 것을 확인하고 115초로 낮췄다",
-            "1단계 ‘복수 명사 찾기’ 는 주어진 글 두 문장만 보면 끝난다"
+            "1단계 ‘복수 명사 찾기’ 는 주어진 글 두 문장만 보면 끝난다",
+            "'they 가 누구인가' 한 물음으로 첫 이음매가 결정돼 시간 배분 안에 든다"
           ],
           "checked": [
             "금지 표현 대조",
             "required_vocab 4낱말이 지문에 있는지 확인",
-            "단계별 소요 재계산(20+20+25+30+15=110초)"
+            "단계별 소요 재계산(20+20+25+30+15=110초)",
+            "지문 미독 학생이 they 의 선행사를 (C) 마지막에서 찾을 수 있는지 확인"
           ],
           "revised": true
         }
@@ -1339,9 +1403,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "",
-          "how_to_reject": ""
+          "why_correct": "이 선지는 (C)-(A)-(B) 이고 이음매 둘이 다 걸린다. (C) 마지막 'We can also look directly at something without paying attention to it.' 이 구체적 경험을 하나 세우고, (A) 첫 문장 'You may have had this experience' 의 this experience 가 그것을 받는다 — 주어진 글에는 경험 진술이 없다. 그리고 (A)가 'moving your eyes across the page and “reading” the words' 로 낱말을 들여온 뒤에야 (B) 첫 문장 'Even though you were looking at the words' 의 정관사 the words 가 성립한다."
         },
         {
           "n": 5,
@@ -1394,24 +1456,30 @@
           "verdict": "pass",
           "findings": [
             "인용이 (A) 첫 문장 앞부분 그대로다",
-            "근거가 (C) 마지막 문장과 (A) 첫 문장 경계에 있어 유형 설계와 맞는다"
+            "근거가 (C) 마지막 문장과 (A) 첫 문장 경계에 있어 유형 설계와 맞는다",
+            "this experience 가 받을 경험 진술이 주어진 글에 없고 (C) 마지막 문장이 유일함을 확인했다. (B)의 the words 정관사도 (A)에서 처음 나온 낱말을 되받는 관계다"
           ],
           "checked": [
             "quote 를 corpus.json M1809#36 passage 와 문자열 대조",
             "정답 4가 평가원 정답표와 같은지 대조",
-            "design_intent 가 이 문항의 예고-지시어 고리를 지목하는지"
+            "design_intent 가 이 문항의 예고-지시어 고리를 지목하는지",
+            "why_correct 의 영어 조각 4개를 corpus.json M1809#36 passage 와 문자열 대조",
+            "the words 가 (A)보다 앞에 나오는 자리가 없는지 검색"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "②③ 이 모두 (B) 첫 블록이라 라벨이 겹칠 뻔했다 — ②는 the words 정관사 첫 등장, ③은 결론 문장을 논지로 오판하는 경로로 갈랐다"
+            "②③ 이 모두 (B) 첫 블록이라 라벨이 겹칠 뻔했다 — ②는 the words 정관사 첫 등장, ③은 결론 문장을 논지로 오판하는 경로로 갈랐다",
+            "두 이음매가 지시어(this experience)와 정관사(the words)로 갈려 있어 한 근거의 되풀이가 아니다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부",
             "①의 why_tempting 이 (A)의 실제 표현(this experience)에 근거하는지",
-            "how_to_reject 4건 모두 블록 위치 명시 확인"
+            "how_to_reject 4건 모두 블록 위치 명시 확인",
+            "why_correct 에 소거법 표현이 없는지 확인",
+            "선지 ④의 배열이 (C)-(A)-(B) 임을 선지 텍스트로 확인"
           ],
           "revised": true
         },
@@ -1420,12 +1488,14 @@
           "verdict": "pass",
           "findings": [
             "3단계에서 선지가 셋 지워져 2점 문항 100초 안에 충분히 끝난다",
-            "required_vocab 의 evidenced 는 (C)의 as evidenced by 를 오독하지 않기 위해 남겼다"
+            "required_vocab 의 evidenced 는 (C)의 as evidenced by 를 오독하지 않기 위해 남겼다",
+            "'this + 명사' 를 만나면 앞 덩어리 마지막 줄을 본다는 규칙이 이 문항에서 그대로 통한다"
           ],
           "checked": [
             "금지 표현 대조",
             "required_vocab 4낱말이 지문에 있는지 문자열 확인",
-            "총 소요 100초 이내 확인"
+            "총 소요 100초 이내 확인",
+            "지문 미독 학생이 (C) 마지막 한 줄만 보고 첫 이음매를 재현할 수 있는지 확인"
           ]
         }
       ]
@@ -1453,9 +1523,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "",
-          "why_tempting": "",
-          "how_to_reject": ""
+          "why_correct": "이 선지는 (B)-(A)-(C) 이고 이음매 둘이 다 걸린다. (B) 마지막 'this tradition has been concerned with recognizing individual achievements' 가 개인의 공적 인정을 세우고, (A) 첫 문장 'Inventions, ideas, and discoveries have been credited to the persons who originated them.' 이 그 인정의 내용을 편다. 그리고 (A) 마지막 'combining into one “entity.”' 가 '하나됨'을 만들고 (C) 첫 문장 'Art history has reinforced this oneness' 의 this oneness 가 그것을 받으므로 (C)가 마지막이다."
         },
         {
           "n": 3,
@@ -1523,12 +1591,15 @@
           "verdict": "pass",
           "findings": [
             "인용이 (C) 첫 문장 앞부분 그대로다 — 인용부호가 붙은 “a Picasso.” 앞에서 끊어 문자열 대조가 안정되게 했다",
-            "근거가 (A) 마지막 문장과 (C) 첫 문장 경계에 있어 유형 설계와 맞는다"
+            "근거가 (A) 마지막 문장과 (C) 첫 문장 경계에 있어 유형 설계와 맞는다",
+            "this oneness 가 받을 '하나됨' 표현이 (A) 마지막의 combining into one \"entity.\" 뿐임을 지문 전체에서 one/oneness 검색으로 확인했다"
           ],
           "checked": [
             "quote 를 corpus.json M1809#37 passage 와 문자열 대조",
             "정답 2가 평가원 정답표와 같은지 대조",
-            "design_intent 가 이 문항 고유의 oneness 고리를 지목하는지"
+            "design_intent 가 이 문항 고유의 oneness 고리를 지목하는지",
+            "why_correct 의 영어 조각 4개를 corpus.json M1809#37 passage 와 문자열 대조",
+            "oneness 와 entity 의 지문 내 등장 순서 확인"
           ]
         },
         {
@@ -1536,12 +1607,15 @@
           "verdict": "pass",
           "findings": [
             "④⑤ 가 모두 (C) 첫 블록이라 처음에는 둘 다 ‘지시어 선행사 절단’ 이었다 — ⑤는 (C) 마지막 문장이 글을 닫는 규정이라는 별개 근거가 있으므로 ‘마무리 문장 위치 오판’ 으로 갈랐다",
-            "③은 첫 블록을 맞히고 둘째에서 틀리는 배열이라 최다 오답 후보로 본다"
+            "③은 첫 블록을 맞히고 둘째에서 틀리는 배열이라 최다 오답 후보로 본다",
+            "첫 이음매(개인 공적 인정 → 그 내용)와 둘째 이음매(entity → this oneness)가 각각 내용 대응과 지시어 대응이라 층위가 다르다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부(수정 전 2중복 → 수정 후 0)",
             "why_tempting 이 각 배열의 실제 첫 블록에 근거하는지",
-            "how_to_reject 4건 모두 블록 위치 명시 확인"
+            "how_to_reject 4건 모두 블록 위치 명시 확인",
+            "why_correct 가 두 이음매를 다 적었는지 확인",
+            "선지 ②의 배열이 (B)-(A)-(C) 임을 선지 텍스트로 확인"
           ],
           "revised": true
         },
@@ -1550,12 +1624,14 @@
           "verdict": "pass",
           "findings": [
             "4단계를 ‘같은 낱말 찾기’ 가 아니라 ‘하나됨을 뜻하는 표현 찾기’ 로 적었다 — this oneness 와 one “entity” 는 낱말이 달라 문자 대조로는 안 걸린다",
-            "3점 문항 115초 안에 5단계가 든다"
+            "3점 문항 115초 안에 5단계가 든다",
+            "Picasso 예시가 든 (C)를 마지막으로 미는 근거가 낱말 하나(oneness)라 학생이 표시하며 읽기 쉽다"
           ],
           "checked": [
             "금지 표현 대조",
             "required_vocab 4낱말이 지문에 있는지 문자열 확인",
-            "단계별 소요 합(20+20+25+35+15=115초) 확인"
+            "단계별 소요 합(20+20+25+35+15=115초) 확인",
+            "지문 미독 학생이 this oneness 의 선행사를 (A) 마지막에서 찾을 수 있는지 확인"
           ]
         }
       ]

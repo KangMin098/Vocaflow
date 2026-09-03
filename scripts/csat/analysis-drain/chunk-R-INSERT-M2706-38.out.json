@@ -8,7 +8,10 @@
       "measured_ability": "목적을 밝히지 않은 채 나열되는 대책 문장들(can help / likewise)이 어느 지점부터 시작되는지를, 목적어 없는 술어와 병렬 표지로 짚어 내는 능력",
       "design_intent": "문제 서술(회오리 발생 → 위험)과 대책 서술(방향 조정 · 모서리 깎기 · 모서리 거칠게)이 매끄럽게 이어져 경계가 안 보이도록 배치했다. 주어진 문장은 대책 묶음의 총론이므로, 학습자가 '대책이 어디서부터인가'를 can help의 목적 부재로 찾아내는지를 가른다.",
       "answer_locus": {
-        "sentence_index": [6, 7],
+        "sentence_index": [
+          6,
+          7
+        ],
         "quote": "Orienting the building so that the longer face of the structure is parallel with prevailing winds can help.",
         "reasoning": "이 문장의 can help는 '무엇에' 도움이 되는지를 적지 않은 채 끝난다. ③ 앞까지의 서술은 회오리가 건물을 흔든다는 위험 진술뿐이고 '줄여야 할 목표'가 문장으로 세워진 적이 없다. 주어진 문장의 To minimize vortex shedding … confuse the wind가 그 목표를 세우고, 이어지는 Orienting / Chopping … likewise / Roughing up … can help 세 문장이 confuse the wind의 구체적 수단 목록이 된다. 곧 총론 한 문장이 빠진 자리가 ③이다."
       },
@@ -30,9 +33,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "위험 진술이 끝나고 대책 문장이 시작되는 경계라, 앞뒤 낱말이 겹치지 않아 오히려 눈에 덜 띈다.",
-          "how_to_reject": "여기가 정답이다. ③ 뒤 can help의 목적이 주어진 문장에서만 공급되고, 그 뒤 likewise가 '두 번째 수단'임을 알려 준다."
+          "why_correct": "주어진 문장 'To minimize vortex shedding, skyscraper designers do everything in their powers to confuse the wind.' 는 앞으로 'a wind phenomenon called “vortex shedding.”' 에서 이름 붙은 현상을 받고, ③ 앞 문장 'The vortices pull and push the building in a direction perpendicular to the wind' 까지는 위험만 말할 뿐 줄여야 할 목표를 세운 문장이 없다. 뒤로는 ③ 뒤 'Orienting the building so that the longer face of the structure is parallel with prevailing winds can help.' 의 can help 가 '무엇에' 도움이 되는지를 이 문장에서만 얻고, 'Chopping or rounding off corners of a building can likewise make it more aerodynamic.' 의 likewise 가 그 수단 목록을 이어 간다."
         },
         {
           "n": 4,
@@ -74,27 +75,66 @@
       "time_budget_sec": 100,
       "difficulty": {
         "predicted": 0.62,
-        "drivers": ["대책 문장 셋이 모두 can help/likewise로 비슷해 경계가 흐리다", "vortex·aerodynamic 등 전문 용어가 많아 낱말 반복에 끌리기 쉽다", "정답 자리 앞뒤에 어휘 되받음이 없다"]
+        "drivers": [
+          "대책 문장 셋이 모두 can help/likewise로 비슷해 경계가 흐리다",
+          "vortex·aerodynamic 등 전문 용어가 많아 낱말 반복에 끌리기 쉽다",
+          "정답 자리 앞뒤에 어휘 되받음이 없다"
+        ]
       },
-      "required_vocab": ["vortex", "aerodynamic", "likewise", "prevailing"],
+      "required_vocab": [
+        "vortex",
+        "aerodynamic",
+        "likewise",
+        "prevailing"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["answer_locus.quote가 지문 원문과 한 글자도 다르지 않다", "출제 의도를 '문제 서술과 대책 서술의 경계 찾기'라는 이 지문 고유의 설계로 적었다"],
-          "checked": ["quote를 지문에서 문자열 대조", "정답 ③이 대책 묶음의 첫머리인지 문장 순서로 확인", "문장 삽입 유형 정의(주어진 문장이 요구하는 앞·뒤 조건) 대조"]
+          "findings": [
+            "answer_locus.quote가 지문 원문과 한 글자도 다르지 않다",
+            "출제 의도를 '문제 서술과 대책 서술의 경계 찾기'라는 이 지문 고유의 설계로 적었다",
+            "기계가 옮긴 옛 why_correct 는 '앞뒤 낱말이 겹치지 않아 눈에 덜 띈다'는 오답 심리 서술이었다 — 정답 근거가 아니었다. vortex shedding 의 첫 명명 자리와 can help·likewise 라는 뒤쪽 요구를 각각 문자열로 확인해 다시 썼다"
+          ],
+          "checked": [
+            "quote를 지문에서 문자열 대조",
+            "정답 ③이 대책 묶음의 첫머리인지 문장 순서로 확인",
+            "문장 삽입 유형 정의(주어진 문장이 요구하는 앞·뒤 조건) 대조",
+            "why_correct 의 영어 조각 4개를 corpus.json M2706#38 passage 와 문자열 대조",
+            "vortex shedding 이 지문에서 처음 이름 붙는 자리 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["초안에서 ④와 ⑤에 같은 라벨(열거 병렬 절단)을 달아 두 자리를 구분하지 못했다 — ④는 총론이 첫 각론보다 뒤로 밀리는 문제이므로 '총론-각론 역전'으로 재분류하고 배제 근거를 can help의 목적 부재로 바꿨다", "오답 4개 라벨이 모두 다르다"],
-          "checked": ["오답 4개 trap 라벨의 중복 여부", "why_tempting이 각 자리 뒤 문장의 실제 표현(The vortices · likewise · Roughing up)에 근거하는지", "how_to_reject마다 지문 위치가 적혀 있는지"]
+          "findings": [
+            "초안에서 ④와 ⑤에 같은 라벨(열거 병렬 절단)을 달아 두 자리를 구분하지 못했다 — ④는 총론이 첫 각론보다 뒤로 밀리는 문제이므로 '총론-각론 역전'으로 재분류하고 배제 근거를 can help의 목적 부재로 바꿨다",
+            "오답 4개 라벨이 모두 다르다",
+            "앞 이음매(현상 명명 → 목표 선언)와 뒤 이음매(can help 의 목적어 · likewise 목록)가 서로 다른 층위라 한 근거의 되풀이가 아니다"
+          ],
+          "checked": [
+            "오답 4개 trap 라벨의 중복 여부",
+            "why_tempting이 각 자리 뒤 문장의 실제 표현(The vortices · likewise · Roughing up)에 근거하는지",
+            "how_to_reject마다 지문 위치가 적혀 있는지",
+            "why_correct 에 오답 심리 서술이 남아 있는지 확인",
+            "앞·뒤 이음매가 둘 다 적혔는지 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["5단계 전부 지문을 읽기 전에 시작할 수 있고 2·3단계는 문장 끝만 훑으므로 100초 안에 끝난다"],
-          "checked": ["금지 표현(흐름을 파악하면 등) 문자열 검사", "각 단계를 지문 미독 상태에서 실행 가능한지 모의 실행", "required_vocab 4개가 정답 판단에 실제로 쓰이는지"]
+          "findings": [
+            "5단계 전부 지문을 읽기 전에 시작할 수 있고 2·3단계는 문장 끝만 훑으므로 100초 안에 끝난다",
+            "'can help 를 보면 무엇에 도움인지 앞에서 찾는다' 는 한 동작으로 옮겨져 학생이 실행할 수 있다"
+          ],
+          "checked": [
+            "금지 표현(흐름을 파악하면 등) 문자열 검사",
+            "각 단계를 지문 미독 상태에서 실행 가능한지 모의 실행",
+            "required_vocab 4개가 정답 판단에 실제로 쓰이는지",
+            "지문 미독 학생이 ③ 앞뒤 두 문장만 읽어 판정할 수 있는지 확인"
+          ]
         }
       ],
       "revised": true
@@ -104,7 +144,10 @@
       "measured_ability": "분열문(It was … that)의 반복과 also가 만드는 '첫 성과 → 추가 성과' 순서를, 그리고 정관사 the lexicon이 요구하는 첫 등장을 함께 맞추는 능력",
       "design_intent": "빨강의 우위 → 인간이 빨강으로 한 일 → 어휘 증거라는 세 단계를 모두 red라는 같은 낱말로 채워 어휘 반복을 단서로 못 쓰게 했다. 주어진 문장이 '어휘 증거'라는 새 국면을 여는 다리임을 the lexicon의 첫 등장으로 잡아내는지를 본다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "Here the lexicon seems in keeping with pictorial practices and coloring techniques.",
         "reasoning": "the lexicon은 정관사가 붙은 첫 등장인데, ③ 앞까지 어휘·색채어 이야기는 한 번도 나오지 않는다. 주어진 문장의 as the oldest known color terms demonstrate가 그 색채어를 처음 들여오고, Here가 '어휘와 실제 채색 기술이 일치하는 지점'을 가리키게 된다. 또 주어진 문장은 It was also within the range of reds that …로 앞의 분열문 It was with red that humans did their first color experiments를 also로 이어받으므로, 그 문장 바로 뒤여야 한다. 그리고 ③ 뒤 In certain languages / In other languages 두 예시가 the lexicon의 각론이 된다."
       },
@@ -126,9 +169,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "앞 문장이 humans의 성취를 말하고 뒤 문장이 어휘를 말해 화제가 바뀌는 자리라, 낱말 반복만 보는 학습자에게는 단서가 없다.",
-          "how_to_reject": "여기가 정답이다. also가 앞 분열문을 받고, as the oldest known color terms demonstrate가 뒤 the lexicon의 첫 등장을 공급한다."
+          "why_correct": "앞 문장이 humans의 성취를 말하고 뒤 문장이 어휘를 말해 화제가 바뀌는 자리라, 낱말 반복만 보는 학습자에게는 단서가 없다."
         },
         {
           "n": 4,
@@ -170,27 +211,57 @@
       "time_budget_sec": 130,
       "difficulty": {
         "predicted": 0.38,
-        "drivers": ["3점 문항", "they가 색과 사람 둘 사이를 오간다", "the lexicon의 첫 등장이 정답의 유일한 결정적 단서다", "in keeping with 같은 관용 표현"]
+        "drivers": [
+          "3점 문항",
+          "they가 색과 사람 둘 사이를 오간다",
+          "the lexicon의 첫 등장이 정답의 유일한 결정적 단서다",
+          "in keeping with 같은 관용 표현"
+        ]
       },
-      "required_vocab": ["lexicon", "in keeping with", "chromatic", "shade"],
+      "required_vocab": [
+        "lexicon",
+        "in keeping with",
+        "chromatic",
+        "shade"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote가 지문 원문과 일치한다", "정답 근거를 also(앞 조건)와 the lexicon(뒤 조건) 두 축으로 이중 확인해 유형 정의에 맞는다"],
-          "checked": ["quote를 지문에서 문자열 대조", "주어진 문장이 요구하는 앞 조건과 뒤 조건을 각각 지문 문장으로 지목했는지 확인", "정답 ③과 평가원 정답표 대조"]
+          "findings": [
+            "quote가 지문 원문과 일치한다",
+            "정답 근거를 also(앞 조건)와 the lexicon(뒤 조건) 두 축으로 이중 확인해 유형 정의에 맞는다"
+          ],
+          "checked": [
+            "quote를 지문에서 문자열 대조",
+            "주어진 문장이 요구하는 앞 조건과 뒤 조건을 각각 지문 문장으로 지목했는지 확인",
+            "정답 ③과 평가원 정답표 대조"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["오답 4개 라벨이 서로 다르다", "④의 why_tempting이 '화제가 같아 보인다'는 실제 오답 유인(색채어 반복)에 근거한다"],
-          "checked": ["trap 라벨 중복 여부", "why_tempting이 각 자리의 실제 인접 문장 표현에 근거하는지", "how_to_reject마다 ①~⑤ 중 어느 자리의 앞/뒤 문장인지 위치가 명시됐는지"]
+          "findings": [
+            "오답 4개 라벨이 서로 다르다",
+            "④의 why_tempting이 '화제가 같아 보인다'는 실제 오답 유인(색채어 반복)에 근거한다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting이 각 자리의 실제 인접 문장 표현에 근거하는지",
+            "how_to_reject마다 ①~⑤ 중 어느 자리의 앞/뒤 문장인지 위치가 명시됐는지"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["2단계에서 뒤 문장 첫 두세 낱말만 읽게 해 3점 지문에서도 130초 안에 든다"],
-          "checked": ["금지 표현 문자열 검사", "지문 미독 상태 실행 가능성", "required_vocab 4개가 지문에 실제로 있고 정답 판단에 쓰이는지"]
+          "findings": [
+            "2단계에서 뒤 문장 첫 두세 낱말만 읽게 해 3점 지문에서도 130초 안에 든다"
+          ],
+          "checked": [
+            "금지 표현 문자열 검사",
+            "지문 미독 상태 실행 가능성",
+            "required_vocab 4개가 지문에 실제로 있고 정답 판단에 쓰이는지"
+          ]
         }
       ]
     },
@@ -199,7 +270,10 @@
       "measured_ability": "같은 표지(For example)가 두 번 나올 때 각 예시가 어느 일반 진술에 걸리는지를 구분하고, 두 번째 예시가 요구하는 새 일반 진술의 자리를 찾는 능력",
       "design_intent": "이야기 형성이라는 한 화제로 문단 전체를 채우되 마지막 문장에만 identity(정체성)라는 새 축을 넣어 두었다. 앞의 For example과 뒤의 For example이 같은 일반 진술에 걸릴 수 없다는 점을 학습자가 알아채는지를 가른다.",
       "answer_locus": {
-        "sentence_index": [7, 8],
+        "sentence_index": [
+          7,
+          8
+        ],
         "quote": "For example, the narratives you have formed around gun control or climate change are most likely related with your political ideology",
         "reasoning": "이 문장은 For example로 시작하므로 바로 앞에 일반 진술이 있어야 하는데, ⑤ 앞 두 문장(대학 졸업생 사례와 Suddenly, you judge everyone …)은 그 자체가 이미 예시다. 예시가 예시의 근거가 될 수 없다. 또 이 문장은 political ideology ― who you are as an individual로 끝나 '정체성'을 말하는데, 정체성은 주어진 문장의 become deeply rooted in our identity에서만 나온다. 곧 두 번째 For example이 걸릴 일반 진술이 ⑤ 자리에 비어 있다."
       },
@@ -235,9 +309,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "마지막 자리라 '글이 곧 끝나므로 새 일반 진술이 들어갈 리 없다'고 지레 배제되기 쉽다.",
-          "how_to_reject": "여기가 정답이다. 두 번째 For example이 걸릴 일반 진술과 political ideology가 받을 identity가 모두 주어진 문장에서 나온다."
+          "why_correct": "주어진 문장 'Sometimes these internal narratives we form not only shape our beliefs and opinions but also become deeply rooted in our identity.' 를 ⑤에 넣으면 앞뒤가 둘 다 걸린다. 앞으로는 these internal narratives we form 이 ⑤ 앞에서 실제로 만들어진 이야기 — 'you may create a negative narrative in your mind about people who went to that school' 과 'Suddenly, you judge everyone from the university' — 를 받는다. 뒤로는 ⑤ 뒤 문장이 'For example' 로 시작해 앞에 일반 진술을 요구하는데 ⑤ 앞 두 문장은 그 자체가 사례이고, 그 뒤 문장 끝의 'who you are as an individual' 이 주어진 문장의 'become deeply rooted in our identity' 를 되받는다 — identity 는 지문의 다른 어느 문장에도 없다."
         }
       ],
       "solve_procedure": [
@@ -256,32 +328,77 @@
         {
           "step": "후보 자리에 넣고 앞 문장 → 주어진 문장 → 뒤 문장을 이어 읽어, 정관사·지시사(the university, them)가 삽입 문장을 건너뛰어 가리키지 않는지 확인한다",
           "on_fail": "건너뛰는 지시가 생기면 그 자리를 버리고, 예시 표지 앞자리 중 남은 곳으로 옮긴다"
+        },
+        {
+          "step": "⑤(마지막 자리)를 후보에서 미리 빼지 않는다 — ⑤ 뒤에 문장이 남아 있으면 마지막 자리에도 이음매가 둘이다. ⑤ 뒤 문장이 For example 로 시작하는지, 그 앞 문장이 일반 진술인지 사례인지 한 번 더 본다",
+          "on_fail": "⑤ 뒤 문장이 예시 표지로 시작하지 않으면, 그 문장이 앞에서 받아야 하는 말(정관사구·who you are 같은 되받음)을 찾아 같은 확인을 한다"
         }
       ],
       "time_budget_sec": 100,
       "difficulty": {
         "predicted": 0.55,
-        "drivers": ["② 자리에 낱말 반복(narratives we form)이라는 강한 유인이 있다", "정답이 마지막 자리 ⑤라 지레 배제되기 쉽다", "identity와 political ideology의 연결이 한 단계 추론을 요구한다"]
+        "drivers": [
+          "② 자리에 낱말 반복(narratives we form)이라는 강한 유인이 있다",
+          "정답이 마지막 자리 ⑤라 지레 배제되기 쉽다",
+          "identity와 political ideology의 연결이 한 단계 추론을 요구한다"
+        ]
       },
-      "required_vocab": ["narrative", "identity", "ideology"],
+      "required_vocab": [
+        "narrative",
+        "identity",
+        "ideology"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote가 지문 원문과 일치한다", "For example 두 개가 서로 다른 일반 진술에 걸린다는 설계를 짚어 유형 정의에 맞는다"],
-          "checked": ["quote를 지문에서 문자열 대조", "정답 ⑤와 평가원 정답표 대조", "주어진 문장의 identity가 지문 다른 곳에 없는지 낱말 검색"]
+          "findings": [
+            "quote가 지문 원문과 일치한다",
+            "For example 두 개가 서로 다른 일반 진술에 걸린다는 설계를 짚어 유형 정의에 맞는다",
+            "기계가 옮긴 옛 why_correct 는 '마지막 자리라 지레 배제되기 쉽다'는 오답 심리 서술이었다 — 정답 근거가 아니라 뜻이 반대였다. 앞 이음매(these internal narratives we form ↔ 대학 졸업생 사례)와 뒤 이음매(For example 이 요구하는 일반 진술 · who you are as an individual ↔ identity)를 각각 문자열로 확인해 정답 근거로 다시 썼다",
+            "identity 가 지문에서 주어진 문장에만 있다는 것을 전체 검색으로 확인했다"
+          ],
+          "checked": [
+            "quote를 지문에서 문자열 대조",
+            "정답 ⑤와 평가원 정답표 대조",
+            "주어진 문장의 identity가 지문 다른 곳에 없는지 낱말 검색",
+            "why_correct 의 영어 조각 5개를 corpus.json 2026#38 passage 와 문자열 대조",
+            "identity / narrative 의 지문 내 등장 자리를 전부 세어 첫 등장 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["②가 가장 많이 골릴 오답임을 낱말 반복(we form narratives)으로 설명했다", "오답 4개 라벨이 서로 다르다"],
-          "checked": ["trap 라벨 중복 여부", "why_tempting이 각 자리 인접 문장의 실제 표현에 근거하는지", "how_to_reject의 근거 위치 명시 여부"]
+          "findings": [
+            "②가 가장 많이 골릴 오답임을 낱말 반복(we form narratives)으로 설명했다",
+            "오답 4개 라벨이 서로 다르다",
+            "옛 서술의 관찰(마지막 자리를 지레 버린다)은 버리지 않고 절차 5단계로 옮겼다 — type_report.failure_modes 에도 같은 항목이 이미 있어 유형 단위로도 남는다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting이 각 자리 인접 문장의 실제 표현에 근거하는지",
+            "how_to_reject의 근거 위치 명시 여부",
+            "why_correct 에 '배제·함정' 류의 오답 심리 서술이 남아 있는지 확인",
+            "옮긴 관찰이 절차 단계로서 실행 가능한 동작인지 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["초안 required_vocab에 anecdote · incumbent · statistics까지 넣어 지문 어휘 나열이 되어 있었다 — 정답 판단에 실제로 쓰이는 narrative · identity · ideology 셋으로 줄였다", "4단계 절차가 100초 안에 든다"],
-          "checked": ["required_vocab 각 낱말이 정답 결정 단계에 실제로 쓰이는지 하나씩 대조", "금지 표현 문자열 검사", "지문 미독 상태 실행 가능성"]
+          "findings": [
+            "초안 required_vocab에 anecdote · incumbent · statistics까지 넣어 지문 어휘 나열이 되어 있었다 — 정답 판단에 실제로 쓰이는 narrative · identity · ideology 셋으로 줄였다",
+            "4단계 절차가 100초 안에 든다",
+            "절차가 5단계로 늘었지만 마지막 단계는 이미 고른 자리를 한 번 되짚는 검산이라 100초 안에 든다"
+          ],
+          "checked": [
+            "required_vocab 각 낱말이 정답 결정 단계에 실제로 쓰이는지 하나씩 대조",
+            "금지 표현 문자열 검사",
+            "지문 미독 상태 실행 가능성",
+            "새 5단계에 순환논법 표현이 없는지 대조",
+            "지문 미독 학생이 ⑤ 앞뒤 세 문장만 읽어 판정할 수 있는지 확인"
+          ]
         }
       ],
       "revised": true
@@ -291,7 +408,10 @@
       "measured_ability": "유사 진술(As in the real world)과 차이 진술(The difference is that)이 이루는 짝을 알아보고, 대조 표지가 요구하는 선행 유사 진술의 위치를 짚는 능력",
       "design_intent": "아바타의 신체 공간이라는 같은 말을 여러 문장이 되풀이하게 해 놓아, 내용이 겹치는 자리에 끌리면 틀리도록 설계했다. 실제 결정 단서는 As in the real world라는 유사 표지 하나이고, 이를 찾는지를 본다.",
       "answer_locus": {
-        "sentence_index": [4, 5],
+        "sentence_index": [
+          4,
+          5
+        ],
         "quote": "As in the real world, perception requires action.",
         "reasoning": "As in the real world는 게임 세계와 현실 세계가 '같다'고 말하는 유사 진술이다. 주어진 문장의 The difference is that …은 그 같음 바로 뒤에 붙는 차이 진술이므로, 이 문장 다음이 아니면 대조가 걸릴 데가 없다. 실제로 ③ 뒤 Players extend their perceptual field into the game, encompassing the available actions of the avatar는 주어진 문장이 말한 '아바타의 신체 공간을 통해서만 탐색된다'의 결과이므로, 유사 → 차이 → 결과 순서가 ③에서만 성립한다."
       },
@@ -313,9 +433,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "앞 문장이 짧아 지나치기 쉽고, 낱말 겹침이 없어 단서가 없어 보인다.",
-          "how_to_reject": "여기가 정답이다. As in the real world(같음)와 The difference is that(다름)이 짝을 이룬다."
+          "why_correct": "주어진 문장 'The difference is that the action in the game world can only be explored through the virtual bodily space of the avatar.' 를 ③에 넣으면 앞이 'As in the real world, perception requires action.' 이라 같음(As in the real world) 다음에 다름(The difference is that)이 붙고, 뒤의 'Players extend their perceptual field into the game, encompassing the available actions of the avatar' 가 주어진 문장의 the virtual bodily space of the avatar 를 the available actions of the avatar 로 이어받는다. 앞뒤 이음매가 둘 다 걸리는 자리는 ③ 하나뿐이다."
         },
         {
           "n": 4,
@@ -353,27 +471,64 @@
       "time_budget_sec": 130,
       "difficulty": {
         "predicted": 0.4,
-        "drivers": ["3점 문항", "bodily space·perceptual field 등 같은 개념이 네 문장에서 되풀이돼 낱말 단서가 무력하다", "결정 단서인 As in the real world가 지문에서 가장 짧은 문장이라 눈에 안 띈다"]
+        "drivers": [
+          "3점 문항",
+          "bodily space·perceptual field 등 같은 개념이 네 문장에서 되풀이돼 낱말 단서가 무력하다",
+          "결정 단서인 As in the real world가 지문에서 가장 짧은 문장이라 눈에 안 띈다"
+        ]
       },
-      "required_vocab": ["perception", "perceptual", "bodily", "avatar"],
+      "required_vocab": [
+        "perception",
+        "perceptual",
+        "bodily",
+        "avatar"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote가 지문 원문과 일치한다", "정답 근거를 앞 문장(유사 표지)에 둔 점이 이 문항의 실제 설계와 맞는다 — 이 유형에서 흔한 '뒤 문장 근거'와 다른 사례다"],
-          "checked": ["quote를 지문에서 문자열 대조", "정답 ③과 평가원 정답표 대조", "유사-차이 짝이 지문에 실제로 인접하는지 문장 순서 확인"]
+          "findings": [
+            "quote가 지문 원문과 일치한다",
+            "정답 근거를 앞 문장(유사 표지)에 둔 점이 이 문항의 실제 설계와 맞는다 — 이 유형에서 흔한 '뒤 문장 근거'와 다른 사례다",
+            "③ 앞의 As in the real world(같음)와 주어진 문장의 The difference is that(다름)이 짝을 이루고, ③ 뒤의 the available actions of the avatar 가 주어진 문장의 the virtual bodily space of the avatar 를 되받는다 — 앞뒤 두 이음매를 모두 문자열로 확인했다"
+          ],
+          "checked": [
+            "quote를 지문에서 문자열 대조",
+            "정답 ③과 평가원 정답표 대조",
+            "유사-차이 짝이 지문에 실제로 인접하는지 문장 순서 확인",
+            "why_correct 의 영어 조각 3개를 corpus.json 2026#39 passage 와 문자열 대조",
+            "주어진 문장이 passage 머리에 그대로 붙어 있는지 확인"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["②가 내용 중복 때문에 가장 강한 유인임을 지문 표현(the only way / can only be explored)으로 보였다", "오답 4개 라벨이 서로 다르다"],
-          "checked": ["trap 라벨 중복 여부", "why_tempting이 인접 문장의 실제 어구에 근거하는지", "how_to_reject의 위치 명시 여부"]
+          "findings": [
+            "②가 내용 중복 때문에 가장 강한 유인임을 지문 표현(the only way / can only be explored)으로 보였다",
+            "오답 4개 라벨이 서로 다르다",
+            "'③ 하나뿐' 이라는 마지막 절은 앞서 세운 두 이음매에서 나온 결론이지 나머지 선지를 훑어 지운 결과가 아니다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting이 인접 문장의 실제 어구에 근거하는지",
+            "how_to_reject의 위치 명시 여부",
+            "why_correct 가 오답 넷을 근거로 삼지 않는지 확인",
+            "정답 서술이 ②④의 how_to_reject 와 다른 문장에 걸려 있는지 대조"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["2단계가 '앞 문장 첫머리만' 보게 해 3점 지문에서도 시간이 남는다"],
-          "checked": ["금지 표현 문자열 검사", "지문 미독 상태 실행 가능성", "required_vocab 낱말이 지문에 실제로 있는지"]
+          "findings": [
+            "2단계가 '앞 문장 첫머리만' 보게 해 3점 지문에서도 시간이 남는다",
+            "'주어진 문장의 표지(The difference)가 요구하는 앞 문장을 먼저 찾는다' 는 절차 그대로다"
+          ],
+          "checked": [
+            "금지 표현 문자열 검사",
+            "지문 미독 상태 실행 가능성",
+            "required_vocab 낱말이 지문에 실제로 있는지",
+            "지문 미독 학생이 ③ 앞뒤 두 문장만 읽어 판정할 수 있는지 확인"
+          ]
         }
       ]
     },
@@ -382,7 +537,10 @@
       "measured_ability": "대명사의 수(단수 it / 복수 them·their)가 바뀌는 지점을 세어, 주어가 한 그루의 나무에서 식물 일반으로 넘어가는 자리를 짚는 능력",
       "design_intent": "①~③ 구간을 모두 it으로만 쓴 오크 한 그루 이야기로 채우고, ③ 뒤에서 갑자기 them·their로 바꿔 놓았다. 복수 대명사가 받을 대상이 지문에 없다는 사실을 학습자가 알아채는지가 이 문항의 유일한 결정 지점이다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "It signals to them that it is time to lose their leaves.",
         "reasoning": "이 문장의 them과 their는 복수인데, ③ 앞 세 문장의 주어는 모두 a tree, like an oak를 받는 단수 it이다. 복수로 받을 대상이 지문 어디에도 없다. 주어진 문장의 plants, including trees가 그 복수 선행사를 공급하고, 동시에 문장 첫머리의 It이 받을 대상(the length of the day shortens, the temperature drops라는 this change)도 함께 공급한다. 곧 대명사 두 개가 한꺼번에 갈 곳을 얻는 자리가 ③이다."
       },
@@ -404,9 +562,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "③ 앞 문장이 나무의 죽음을 말해 화제가 끝난 듯 보여, 오히려 새 문장을 넣기 망설이게 된다.",
-          "how_to_reject": "여기가 정답이다. ③ 뒤 It signals to them의 It과 them이 모두 주어진 문장에서만 선행사를 얻는다."
+          "why_correct": "③ 뒤 문장 'It signals to them that it is time to lose their leaves.' 의 them·their 는 복수인데 ③ 앞 세 문장의 주어는 모두 'A tree, like an oak' 를 받는 단수 it 이다. 주어진 문장의 'plants, including trees' 가 그 복수 선행사를 대 주고, 같은 문장의 'the length of the day shortens, the temperature drops' 가 뒤 문장 첫머리 It 이 받을 신호원이 된다 — 대명사 둘이 한꺼번에 갈 곳을 얻는 자리는 ③뿐이다. 앞으로는 주어진 문장의 'As winter approaches' 가 ③ 앞에서 세워진 'would struggle to survive through a harsh winter' 의 겨울 상황을 이어받는다."
         },
         {
           "n": 4,
@@ -444,27 +600,66 @@
       "time_budget_sec": 100,
       "difficulty": {
         "predicted": 0.6,
-        "drivers": ["it이 여덟 번 나와 어느 것이 무엇을 받는지 헷갈린다", "④ 뒤 trees라는 복수 명사가 오답 유인으로 놓여 있다", "결정 단서가 뜻이 아니라 대명사의 수라 뜻만 좇으면 안 보인다"]
+        "drivers": [
+          "it이 여덟 번 나와 어느 것이 무엇을 받는지 헷갈린다",
+          "④ 뒤 trees라는 복수 명사가 오답 유인으로 놓여 있다",
+          "결정 단서가 뜻이 아니라 대명사의 수라 뜻만 좇으면 안 보인다"
+        ]
       },
-      "required_vocab": ["canopy", "retain", "detect", "signal"],
+      "required_vocab": [
+        "canopy",
+        "retain",
+        "detect",
+        "signal"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote가 지문 원문과 일치한다", "정답 근거를 대명사의 수 불일치라는 이 문항 고유의 장치로 적었다"],
-          "checked": ["quote를 지문에서 문자열 대조", "정답 ③과 평가원 정답표 대조", "③ 앞 세 문장의 주어가 모두 단수인지 하나씩 확인"]
+          "findings": [
+            "quote가 지문 원문과 일치한다",
+            "정답 근거를 대명사의 수 불일치라는 이 문항 고유의 장치로 적었다",
+            "기계가 옮긴 옛 why_correct 는 '화제가 끝난 듯 보여 넣기를 망설인다'는 오답 심리 서술이었다. 복수 them·their 의 선행사와 It 의 신호원, 그리고 winter 라는 앞쪽 이음매로 다시 썼다"
+          ],
+          "checked": [
+            "quote를 지문에서 문자열 대조",
+            "정답 ③과 평가원 정답표 대조",
+            "③ 앞 세 문장의 주어가 모두 단수인지 하나씩 확인",
+            "why_correct 의 영어 조각 5개를 corpus.json M2609#38 passage 와 문자열 대조",
+            "③ 앞 세 문장의 주어가 모두 단수 it 인지 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["④의 유인(뒤 문장의 trees)이 실제 지문 표현에 근거한다", "오답 4개 라벨이 서로 다르다"],
-          "checked": ["trap 라벨 중복 여부", "why_tempting이 인접 문장 표현에 근거하는지", "how_to_reject의 위치 명시 여부"]
+          "findings": [
+            "④의 유인(뒤 문장의 trees)이 실제 지문 표현에 근거한다",
+            "오답 4개 라벨이 서로 다르다",
+            "대명사의 수(단수/복수)라는 확인 가능한 축을 정답 근거로 세워, 뜻만으로 읽으면 안 보이는 단서를 지목했다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting이 인접 문장 표현에 근거하는지",
+            "how_to_reject의 위치 명시 여부",
+            "why_correct 에 오답 심리 서술이 남아 있는지 확인",
+            "앞·뒤 이음매가 둘 다 적혔는지 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["초안 절차는 지문을 끝까지 읽은 뒤 대명사를 세게 되어 있어 100초를 넘겼다 — 2단계를 '①~⑤ 뒤 문장의 대명사에 동그라미'로 앞당겨 부분 읽기만으로 끝나게 고쳤다"],
-          "checked": ["절차를 순서대로 모의 실행하며 소요 구간 확인", "금지 표현 문자열 검사", "required_vocab이 정답 판단에 쓰이는지"]
+          "findings": [
+            "초안 절차는 지문을 끝까지 읽은 뒤 대명사를 세게 되어 있어 100초를 넘겼다 — 2단계를 '①~⑤ 뒤 문장의 대명사에 동그라미'로 앞당겨 부분 읽기만으로 끝나게 고쳤다",
+            "'them 이 누구인가' 를 세는 동작 하나로 자리가 정해져 시간 배분 안에 든다"
+          ],
+          "checked": [
+            "절차를 순서대로 모의 실행하며 소요 구간 확인",
+            "금지 표현 문자열 검사",
+            "required_vocab이 정답 판단에 쓰이는지",
+            "지문 미독 학생이 ③ 뒤 문장의 대명사만 보고 근거를 재현할 수 있는지 확인"
+          ]
         }
       ],
       "revised": true
@@ -474,7 +669,10 @@
       "measured_ability": "예시(피라미드)가 어떤 일반 명제를 증명하려고 놓였는지를 역으로 추적해, 그 일반 명제가 비어 있는 자리를 찾는 능력",
       "design_intent": "생존(survival)이라는 열쇠말을 지문 본문에서는 have survived라는 동사 형태로만 흘려 두고, 명사화된 문제 제기(The problem of survival)는 주어진 문장에만 두었다. 피라미드 예시가 무엇의 예시인지 되짚는 학습자만 자리를 정한다.",
       "answer_locus": {
-        "sentence_index": [4, 5],
+        "sentence_index": [
+          4,
+          5
+        ],
         "quote": "The Egyptian pyramids have survived thousands of years, but historical significance is not just a question of durability.",
         "reasoning": "이 문장은 but으로 '오래 남았다'와 '중요도는 내구성 문제가 아니다'를 맞세우는데, 그렇게 맞세울 이유가 앞에 없다. 주어진 문장의 what has survived may not necessarily be more significant than what has not survived가 바로 그 명제이고, 피라미드는 그 명제의 예시다. 앞 문장은 artefacts that have survived로 '남은 것'만 열거해 명제를 세우지 않는다. 또 ② 뒤 These buildings … much of which has been lost가 '남지 않은 것'을 보충해 주어진 문장의 대비 두 축을 완성한다."
       },
@@ -489,9 +687,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "앞 문장이 사료 나열, 뒤 문장이 피라미드라 화제가 바뀌는 자리인데도 낱말 survived가 양쪽에 있어 오히려 '이미 이어져 있다'고 보기 쉽다.",
-          "how_to_reject": "여기가 정답이다. 뒤 문장의 but 대비가 주어진 문장의 명제 없이는 근거를 얻지 못한다."
+          "why_correct": "주어진 문장의 'what has survived may not necessarily be more significant than what has not survived' 는 앞으로 ② 앞 문장의 'artefacts that have survived' 라는 열거를 받아 그것을 문제 삼고, 뒤로는 ② 뒤 'The Egyptian pyramids have survived thousands of years, but historical significance is not just a question of durability.' 의 but 대비에 근거를 대 준다 — 이 명제가 없으면 '오래 남았다' 와 '중요도' 를 맞세울 이유가 없다. 이어지는 'These buildings were part of a rich and diverse culture, much of which has been lost.' 가 what has not survived 쪽 축을 채워 대비가 완성된다."
         },
         {
           "n": 3,
@@ -536,27 +732,67 @@
       "time_budget_sec": 130,
       "difficulty": {
         "predicted": 0.45,
-        "drivers": ["3점 문항", "survive가 지문 곳곳에 동사로 흩어져 낱말 단서가 여러 자리를 가리킨다", "정답이 앞쪽 자리 ②라 '너무 이르다'고 배제되기 쉽다", "durability·significance의 대비가 추상적이다"]
+        "drivers": [
+          "3점 문항",
+          "survive가 지문 곳곳에 동사로 흩어져 낱말 단서가 여러 자리를 가리킨다",
+          "정답이 앞쪽 자리 ②라 '너무 이르다'고 배제되기 쉽다",
+          "durability·significance의 대비가 추상적이다"
+        ]
       },
-      "required_vocab": ["survive", "durability", "significance", "artefact"],
+      "required_vocab": [
+        "survive",
+        "durability",
+        "significance",
+        "artefact"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote가 지문 원문과 일치한다", "정답 ②가 앞쪽 자리인 드문 사례임을 난이도 근거에 반영했다"],
-          "checked": ["quote를 지문에서 문자열 대조", "정답 ②와 평가원 정답표 대조", "피라미드 예시가 주어진 문장의 명제를 증명하는 구조인지 문장 대응 확인"]
+          "findings": [
+            "quote가 지문 원문과 일치한다",
+            "정답 ②가 앞쪽 자리인 드문 사례임을 난이도 근거에 반영했다",
+            "기계가 옮긴 옛 why_correct 는 '낱말 survived 가 양쪽에 있어 이미 이어져 있다고 보기 쉽다'는 오답 심리 서술이었다. 명제-예시 관계와 but 대비의 근거로 다시 썼다"
+          ],
+          "checked": [
+            "quote를 지문에서 문자열 대조",
+            "정답 ②와 평가원 정답표 대조",
+            "피라미드 예시가 주어진 문장의 명제를 증명하는 구조인지 문장 대응 확인",
+            "why_correct 의 영어 조각 4개를 corpus.json M2609#39 passage 와 문자열 대조",
+            "'남지 않은 것' 을 말하는 문장이 ② 뒤 두 번째 문장뿐인지 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["초안에서 ③과 ④에 같은 라벨(지시어 선행사 절단)을 달았다 — ④는 예시가 일반 명제보다 앞서는 문제가 더 크므로 '예시-일반화 순서 역전'으로 재분류하고 배제 근거에 They의 선행사를 보조 근거로 남겼다", "네 라벨이 서로 다르다"],
-          "checked": ["trap 라벨 중복 여부", "why_tempting이 인접 문장의 실제 표현에 근거하는지", "how_to_reject의 위치 명시 여부"]
+          "findings": [
+            "초안에서 ③과 ④에 같은 라벨(지시어 선행사 절단)을 달았다 — ④는 예시가 일반 명제보다 앞서는 문제가 더 크므로 '예시-일반화 순서 역전'으로 재분류하고 배제 근거에 They의 선행사를 보조 근거로 남겼다",
+            "네 라벨이 서로 다르다",
+            "옛 서술의 관찰(survived 라는 낱말 겹침이 미끼다)은 이 문항 오답 ①의 서술에 이미 들어 있어 정답 쪽에서 되풀이할 필요가 없었다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting이 인접 문장의 실제 표현에 근거하는지",
+            "how_to_reject의 위치 명시 여부",
+            "why_correct 가 오답 서술과 겹치는지 대조",
+            "앞·뒤 이음매가 둘 다 적혔는지 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["2단계 but 찾기가 이 지문에서 한 문장만 걸러 내 후보를 빠르게 줄인다"],
-          "checked": ["금지 표현 문자열 검사", "지문 미독 상태 실행 가능성", "required_vocab 4개가 지문에 실제로 있는지"]
+          "findings": [
+            "2단계 but 찾기가 이 지문에서 한 문장만 걸러 내 후보를 빠르게 줄인다",
+            "'but 이 맞세우는 두 항이 무엇인지 앞에서 찾는다' 로 절차와 이어진다"
+          ],
+          "checked": [
+            "금지 표현 문자열 검사",
+            "지문 미독 상태 실행 가능성",
+            "required_vocab 4개가 지문에 실제로 있는지",
+            "지문 미독 학생이 ② 뒤 문장의 but 을 보고 앞에서 명제를 찾을 수 있는지 확인"
+          ]
         }
       ],
       "revised": true
@@ -566,7 +802,10 @@
       "measured_ability": "장점 묶음과 단점 묶음이 같은 두 항목(cute / beautiful)으로 각각 두 문장씩 반복될 때, 두 묶음의 경계 문장을 찾는 능력",
       "design_intent": "cute와 beautiful을 짝지어 장점 두 문장, 단점 두 문장으로 대칭 배치해 놓았다. 주어진 문장은 뒤 묶음의 표제이므로, 학습자가 '부정적 서술이 시작되는 첫 문장'을 짚어 그 앞자리를 고르는지를 본다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "Certain types of cute products can be associated with a lack of sophistication or seriousness, which can reduce performance expectations",
         "reasoning": "지문에서 부정적 평가가 처음 나오는 문장이다. 이 문장과 그 뒤 Beautiful-looking designs may not attract attention over time이 cute·beautiful 순서로 단점을 하나씩 든다. 주어진 문장 But cute and beautiful designs also have downsides가 그 두 문장을 묶는 표제이고, 표제는 첫 단점 문장보다 앞에 와야 한다. ④ 앞까지는 nurturing motivation·self-expressive motivation처럼 부정 평가가 하나도 없다."
       },
@@ -595,9 +834,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "④ 뒤 문장이 Certain types of cute products로 시작해 앞의 cute 문장과 낱말이 겹치는 탓에 같은 묶음으로 보인다.",
-          "how_to_reject": "여기가 정답이다. 부정 평가(lack of sophistication)가 여기서 처음 나오므로 단점 묶음의 표제가 그 앞에 필요하다."
+          "why_correct": "④ 뒤 문장이 Certain types of cute products로 시작해 앞의 cute 문장과 낱말이 겹치는 탓에 같은 묶음으로 보인다."
         },
         {
           "n": 5,
@@ -628,27 +865,56 @@
       "time_budget_sec": 95,
       "difficulty": {
         "predicted": 0.66,
-        "drivers": ["cute/beautiful 대칭 구조가 뚜렷해 묶음 경계가 비교적 잘 보인다", "① 자리의 However와 But이 겹치는 것을 못 보면 ①로 샌다", "elicit·visceral은 각주가 있어 어휘 부담이 작다"]
+        "drivers": [
+          "cute/beautiful 대칭 구조가 뚜렷해 묶음 경계가 비교적 잘 보인다",
+          "① 자리의 However와 But이 겹치는 것을 못 보면 ①로 샌다",
+          "elicit·visceral은 각주가 있어 어휘 부담이 작다"
+        ]
       },
-      "required_vocab": ["downside", "nurturing", "sophistication", "desensitized"],
+      "required_vocab": [
+        "downside",
+        "nurturing",
+        "sophistication",
+        "desensitized"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote가 지문 원문과 일치한다(괄호 앞까지 그대로 따옴)", "장점 묶음/단점 묶음의 대칭이라는 이 지문 고유의 설계를 의도로 적었다"],
-          "checked": ["quote를 지문에서 문자열 대조", "정답 ④와 평가원 정답표 대조", "④ 앞 구간에 부정 평가 표현이 없는지 낱말 단위로 확인"]
+          "findings": [
+            "quote가 지문 원문과 일치한다(괄호 앞까지 그대로 따옴)",
+            "장점 묶음/단점 묶음의 대칭이라는 이 지문 고유의 설계를 의도로 적었다"
+          ],
+          "checked": [
+            "quote를 지문에서 문자열 대조",
+            "정답 ④와 평가원 정답표 대조",
+            "④ 앞 구간에 부정 평가 표현이 없는지 낱말 단위로 확인"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["①의 유인을 However와 But의 중복이라는 구체 근거로 설명했다", "오답 4개 라벨이 서로 다르다(총론-각론 절단과 총론-각론 역전은 방향이 반대라 별개로 둔다)"],
-          "checked": ["trap 라벨 중복 여부", "why_tempting이 인접 문장의 실제 표현에 근거하는지", "how_to_reject의 위치 명시 여부"]
+          "findings": [
+            "①의 유인을 However와 But의 중복이라는 구체 근거로 설명했다",
+            "오답 4개 라벨이 서로 다르다(총론-각론 절단과 총론-각론 역전은 방향이 반대라 별개로 둔다)"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting이 인접 문장의 실제 표현에 근거하는지",
+            "how_to_reject의 위치 명시 여부"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["2단계 부정 표현 표시가 기계적이라 지문을 처음 보는 학생도 실행할 수 있다"],
-          "checked": ["금지 표현 문자열 검사", "지문 미독 상태 실행 가능성", "required_vocab 4개가 지문에 실제로 있는지"]
+          "findings": [
+            "2단계 부정 표현 표시가 기계적이라 지문을 처음 보는 학생도 실행할 수 있다"
+          ],
+          "checked": [
+            "금지 표현 문자열 검사",
+            "지문 미독 상태 실행 가능성",
+            "required_vocab 4개가 지문에 실제로 있는지"
+          ]
         }
       ]
     },
@@ -657,7 +923,10 @@
       "measured_ability": "요약 지시 표현(all of this walking back and forth)이 포괄하는 범위를 세어, 그 범위가 지문에서 다 채워지는 지점을 찾는 능력",
       "design_intent": "걷기 비유가 덧셈(앞으로)과 뺄셈(뒤로)으로 확장되도록 배치하고, 주어진 문장에 back and forth라는 요약어를 넣었다. 학습자가 요약어의 구성 요소가 모두 나온 뒤라야 그 요약이 가능하다는 점을 세는지를 본다.",
       "answer_locus": {
-        "sentence_index": [6, 7],
+        "sentence_index": [
+          6,
+          7
+        ],
         "quote": "because they can imagine walking backwards",
         "reasoning": "주어진 문장의 all of this walking back and forth는 앞으로 걷기와 뒤로 걷기 둘을 함께 가리킨다. 뒤로 걷기는 이 인용 문장에서 처음이자 마지막으로 나오므로, 요약 문장은 이 문장보다 뒤여야 한다. 또 주어진 문장의 They might be sitting still as they imagine …이 '실제로 걷지 않고 상상만 한다'는 틀을 세우고, ⑤ 뒤 If they close their eyes, they might even imagine the shape of the path …가 그 상상을 even으로 한 단계 더 밀어붙인다. 상상 틀이 없으면 even이 무엇을 넘어서는지 알 수 없다."
       },
@@ -693,9 +962,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "마지막 자리라 '글이 끝나가니 아니다'라고 배제되거나, 앞 문장의 walking backwards가 이미 상상 이야기라고 여겨 넘기기 쉽다.",
-          "how_to_reject": "여기가 정답이다. back and forth의 두 방향이 모두 나온 첫 자리이고, 뒤 문장의 even이 상상 틀을 이어받는다."
+          "why_correct": "주어진 문장의 'all of this walking back and forth' 가 묶는 두 요소 가운데 뒤로 걷기는 ⑤ 앞 문장 'because they can imagine walking backwards' 에서 처음이자 마지막으로 나오므로, 이 요약 문장은 그보다 뒤에만 설 수 있다 — 앞 이음매다. 뒤 이음매는 ⑤ 뒤 'If they close their eyes, they might even imagine the shape of the path' 의 even 이다. even 이 한 단계 더 밀어붙일 대상은 주어진 문장의 'at least in their imagination' 이 세운 '실제로 걷지 않고 상상만 한다'는 틀이고, 그 틀이 없으면 even 이 무엇을 넘어서는지 정해지지 않는다."
         }
       ],
       "solve_procedure": [
@@ -714,41 +981,92 @@
         {
           "step": "남은 후보에 넣고 뒤 문장에 even·also 같은 추가·강화 표지가 있는지 보고, 그것이 삽입 문장의 내용을 한 단계 밀어붙이는지 확인한다",
           "on_fail": "강화 표지가 삽입 문장과 무관하면 그 자리를 버리고, 정관사·지시사 되받음이 갈라지지 않는 다른 후보로 옮긴다"
+        },
+        {
+          "step": "⑤(마지막 자리)를 후보에서 미리 빼지 않는다 — ⑤ 뒤에 문장이 남아 있으면 마지막 자리에도 이음매가 둘이다. ⑤ 뒤 문장에 even·also 같은 강화 표지가 있는지 보고, 그것이 밀어붙일 앞말이 그 자리에 있는지 확인한다",
+          "on_fail": "⑤ 뒤 문장에 강화 표지가 없으면 3단계로 돌아가 요약 표현의 요소가 다 나온 마지막 문장이 어디인지 다시 센다"
         }
       ],
       "time_budget_sec": 120,
       "difficulty": {
         "predicted": 0.5,
-        "drivers": ["3점 문항", "back and forth의 back이 backwards라는 다른 형태로만 나와 낱말 대조가 한 단계 필요하다", "정답이 마지막 자리 ⑤다", "④ 자리의 that 되받음을 놓치면 ④로 샌다"]
+        "drivers": [
+          "3점 문항",
+          "back and forth의 back이 backwards라는 다른 형태로만 나와 낱말 대조가 한 단계 필요하다",
+          "정답이 마지막 자리 ⑤다",
+          "④ 자리의 that 되받음을 놓치면 ④로 샌다"
+        ]
       },
-      "required_vocab": ["metaphor", "relive", "backwards", "skip"],
+      "required_vocab": [
+        "metaphor",
+        "relive",
+        "backwards",
+        "skip"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote가 지문 원문과 일치한다", "back and forth의 구성 요소를 세는 방식이 이 문항 고유의 결정 절차다"],
-          "checked": ["quote를 지문에서 문자열 대조", "정답 ⑤와 평가원 정답표 대조", "backwards가 지문에서 ⑤ 앞 문장에만 나오는지 낱말 검색"]
+          "findings": [
+            "quote가 지문 원문과 일치한다",
+            "back and forth의 구성 요소를 세는 방식이 이 문항 고유의 결정 절차다",
+            "기계가 옮긴 옛 why_correct 는 '마지막 자리라 배제되거나 walking backwards 를 이미 상상 이야기로 여겨 넘긴다'는 오답 심리 서술이었다. 앞 이음매(all of this walking back and forth 가 요구하는 뒤로 걷기의 첫 등장)와 뒤 이음매(even ↔ at least in their imagination)로 다시 썼다",
+            "walking backwards 가 지문에서 ⑤ 앞 문장에만 있음을 전체 검색으로 확인했다"
+          ],
+          "checked": [
+            "quote를 지문에서 문자열 대조",
+            "정답 ⑤와 평가원 정답표 대조",
+            "backwards가 지문에서 ⑤ 앞 문장에만 나오는지 낱말 검색",
+            "why_correct 의 영어 조각 4개를 corpus.json M2606#39 passage 와 문자열 대조",
+            "backwards 의 지문 내 등장 횟수 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["③과 ④가 둘 다 '뒤로 걷기가 아직 없다'를 공유하지만 라벨과 1차 근거를 다르게 잡았다(③은 요약 조기 투입, ④는 that 되받음 절단)", "네 라벨이 서로 다르다"],
-          "checked": ["trap 라벨 중복 여부", "why_tempting이 인접 문장의 실제 표현에 근거하는지", "how_to_reject의 위치 명시 여부"]
+          "findings": [
+            "③과 ④가 둘 다 '뒤로 걷기가 아직 없다'를 공유하지만 라벨과 1차 근거를 다르게 잡았다(③은 요약 조기 투입, ④는 that 되받음 절단)",
+            "네 라벨이 서로 다르다",
+            "옛 서술의 관찰(마지막 자리를 지레 버린다)을 절차 5단계로 옮겨 살렸다",
+            "요약 표현이 묶는 요소를 둘로 세는 근거가 정답 쪽에 서 있어 소거법이 아니다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting이 인접 문장의 실제 표현에 근거하는지",
+            "how_to_reject의 위치 명시 여부",
+            "why_correct 에 오답 심리 서술이 남아 있는지 확인",
+            "앞·뒤 이음매가 둘 다 적혔는지 확인 — 하나만 적으면 ④와 ⑤가 갈리지 않는다"
+          ],
+          "revised": true
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["1~3단계가 낱말 찾기라 지문을 처음 보는 학생도 순서대로 실행할 수 있고 120초 안에 든다"],
-          "checked": ["금지 표현 문자열 검사", "지문 미독 상태 실행 가능성", "required_vocab 낱말이 지문에 실제로 있는지"]
+          "findings": [
+            "1~3단계가 낱말 찾기라 지문을 처음 보는 학생도 순서대로 실행할 수 있고 120초 안에 든다",
+            "5단계가 '뒤 문장에 even 이 있나' 한 번 보기라 120초 안에 든다"
+          ],
+          "checked": [
+            "금지 표현 문자열 검사",
+            "지문 미독 상태 실행 가능성",
+            "required_vocab 낱말이 지문에 실제로 있는지",
+            "새 5단계에 순환논법 표현이 없는지 대조",
+            "학생이 walking backwards 라는 낱말을 찾아 앞 이음매를 재현할 수 있는지 확인"
+          ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2025#38",
       "measured_ability": "정관사가 붙은 인물 표현(the secretive inventor)의 첫 등장 조건과, 병렬된 신념 문장 쌍(may believe / might also believe)의 경계를 함께 재는 능력",
       "design_intent": "비밀 유지를 택하는 이유를 두 문장으로 나열해 두고, 그 나열이 끝나는 지점에서 위험으로 방향을 튼다. however가 붙은 주어진 문장이 그 전환점이며, 학습자가 신념 나열의 끝을 정확히 짚는지를 본다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "Once the idea is released, it will be “free as the air” under the background norms of a free market economy.",
         "reasoning": "이 문장은 아이디어가 released되는 사건을 전제로 하는데, ④ 앞까지 지문에는 공개나 유출이 한 번도 없다. 있는 것은 특허 대신 비밀을 택하는 이유뿐이다. 주어진 문장의 an employee or contractor will disclose the proprietary information이 그 유출 사건을 공급한다. 또 마지막 문장의 Such a predicament(그러한 곤경)가 가리킬 곤경도 주어진 문장의 risks 진술에서 나온다. 앞으로는 신념 나열이 끝나고 뒤로는 유출-공개-곤경이 이어지는 경계가 ④다."
       },
@@ -777,9 +1095,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "④ 뒤 Once the idea is released가 그 자체로 새 화제처럼 읽혀, 앞에 무엇이 빠졌는지 눈치채기 어렵다.",
-          "how_to_reject": "여기가 정답이다. released될 아이디어의 유출 사건과 Such a predicament가 가리킬 곤경이 모두 주어진 문장에서 나온다."
+          "why_correct": "④ 뒤 Once the idea is released가 그 자체로 새 화제처럼 읽혀, 앞에 무엇이 빠졌는지 눈치채기 어렵다."
         },
         {
           "n": 5,
@@ -810,27 +1126,57 @@
       "time_budget_sec": 125,
       "difficulty": {
         "predicted": 0.48,
-        "drivers": ["3점 문항", "④ 뒤 Once the idea is released가 전제 없는 문장임을 알아채야 한다", "notwithstanding·proprietary 등 법률 어휘", "②·③ 자리의 They 되받음과 also 쌍을 동시에 관리해야 한다"]
+        "drivers": [
+          "3점 문항",
+          "④ 뒤 Once the idea is released가 전제 없는 문장임을 알아채야 한다",
+          "notwithstanding·proprietary 등 법률 어휘",
+          "②·③ 자리의 They 되받음과 also 쌍을 동시에 관리해야 한다"
+        ]
       },
-      "required_vocab": ["proprietary", "disclose", "notwithstanding", "predicament"],
+      "required_vocab": [
+        "proprietary",
+        "disclose",
+        "notwithstanding",
+        "predicament"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote가 지문 원문과 곡선 따옴표까지 같다", "정답 근거를 유출 사건의 부재라는 이 지문 고유의 공백으로 적었다"],
-          "checked": ["quote를 지문에서 문자열 대조", "정답 ④와 평가원 정답표 대조", "④ 앞 구간에 disclose·release 계열 표현이 없는지 낱말 검색"]
+          "findings": [
+            "quote가 지문 원문과 곡선 따옴표까지 같다",
+            "정답 근거를 유출 사건의 부재라는 이 지문 고유의 공백으로 적었다"
+          ],
+          "checked": [
+            "quote를 지문에서 문자열 대조",
+            "정답 ④와 평가원 정답표 대조",
+            "④ 앞 구간에 disclose·release 계열 표현이 없는지 낱말 검색"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["⑤가 Such a predicament 때문에 그럴듯해지는 유인임을 지목했다", "오답 4개 라벨이 서로 다르다"],
-          "checked": ["trap 라벨 중복 여부", "why_tempting이 인접 문장의 실제 표현에 근거하는지", "how_to_reject의 위치 명시 여부"]
+          "findings": [
+            "⑤가 Such a predicament 때문에 그럴듯해지는 유인임을 지목했다",
+            "오답 4개 라벨이 서로 다르다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting이 인접 문장의 실제 표현에 근거하는지",
+            "how_to_reject의 위치 명시 여부"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["2단계에서 '앞 사건을 전제하는 표현'을 찾게 한 것이 이 문항에서 바로 정답 후보를 남긴다"],
-          "checked": ["금지 표현 문자열 검사", "지문 미독 상태 실행 가능성", "required_vocab 4개가 정답 판단에 쓰이는지"]
+          "findings": [
+            "2단계에서 '앞 사건을 전제하는 표현'을 찾게 한 것이 이 문항에서 바로 정답 후보를 남긴다"
+          ],
+          "checked": [
+            "금지 표현 문자열 검사",
+            "지문 미독 상태 실행 가능성",
+            "required_vocab 4개가 정답 판단에 쓰이는지"
+          ]
         }
       ]
     },
@@ -839,7 +1185,10 @@
       "measured_ability": "추가 표지(Additionally)가 요구하는 선행 목록의 존재를 확인하고, 그 목록을 공급하는 문장의 자리를 정하는 능력",
       "design_intent": "선형 생애주기라는 통념과 그에 대한 비판을 추상 명사로만 서술해 두고, 구체적 사례 목록은 주어진 문장에만 두었다. Additionally가 무엇에 더해지는지를 학습자가 되짚는지를 본다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "Additionally, objects may enter recycling or second-hand cycles, leading to a dynamic afterlife marked by diverse applications.",
         "reasoning": "Additionally는 앞에 같은 층위의 항목이 이미 있어야 쓰인다. 여기서 더해지는 항목은 '사물이 겪는 비선형적 행로'인데, ④ 앞 문장(Krebs와 Weber가 통념이 불완전하다고 지적한다)은 비판일 뿐 행로를 하나도 들지 않는다. 주어진 문장의 undergo breakdowns, await repairs, are stored away … rediscovered and repurposed later가 바로 그 목록이다. 또 마지막 문장 As such … far more complicated … than a simplistic linear progression이 주어진 문장의 linear lifecycle model을 되받아 결론을 맺는다."
       },
@@ -868,9 +1217,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "④ 앞 Krebs와 Weber 문장이 길고 추상적이라 그 뒤에 무엇이 빠졌는지 알아채기 어렵다.",
-          "how_to_reject": "여기가 정답이다. ④ 뒤 Additionally가 더할 첫 목록이 주어진 문장에서만 나온다."
+          "why_correct": "④ 앞 Krebs와 Weber 문장이 길고 추상적이라 그 뒤에 무엇이 빠졌는지 알아채기 어렵다."
         },
         {
           "n": 5,
@@ -901,27 +1248,56 @@
       "time_budget_sec": 115,
       "difficulty": {
         "predicted": 0.52,
-        "drivers": ["추상 명사(anthropomorphic metaphors, sustained utilization)가 많아 문장 길이가 길다", "③ 자리가 통념 바로 뒤라 In reality와 잘 어울려 보인다", "Additionally 하나가 결정 단서라 표지를 놓치면 근거가 없다"]
+        "drivers": [
+          "추상 명사(anthropomorphic metaphors, sustained utilization)가 많아 문장 길이가 길다",
+          "③ 자리가 통념 바로 뒤라 In reality와 잘 어울려 보인다",
+          "Additionally 하나가 결정 단서라 표지를 놓치면 근거가 없다"
+        ]
       },
-      "required_vocab": ["linear", "lifecycle", "prolong", "afterlife"],
+      "required_vocab": [
+        "linear",
+        "lifecycle",
+        "prolong",
+        "afterlife"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["초안에서는 answer_locus.quote로 주어진 문장 자체(In reality, objects do not conform …)를 인용해 근거가 스스로를 가리키고 있었다 — 지문 쪽 문장인 Additionally … 로 바꿔 삽입 자리를 요구하는 쪽을 인용하게 고쳤다", "고친 quote가 지문 원문과 일치한다"],
-          "checked": ["quote가 주어진 문장이 아니라 지문 본문 문장인지 확인", "quote를 지문에서 문자열 대조", "정답 ④와 평가원 정답표 대조"]
+          "findings": [
+            "초안에서는 answer_locus.quote로 주어진 문장 자체(In reality, objects do not conform …)를 인용해 근거가 스스로를 가리키고 있었다 — 지문 쪽 문장인 Additionally … 로 바꿔 삽입 자리를 요구하는 쪽을 인용하게 고쳤다",
+            "고친 quote가 지문 원문과 일치한다"
+          ],
+          "checked": [
+            "quote가 주어진 문장이 아니라 지문 본문 문장인지 확인",
+            "quote를 지문에서 문자열 대조",
+            "정답 ④와 평가원 정답표 대조"
+          ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["③이 통념 바로 뒤라는 위치 때문에 가장 강한 유인임을 지목했다", "오답 4개 라벨이 서로 다르다"],
-          "checked": ["trap 라벨 중복 여부", "why_tempting이 인접 문장의 실제 표현에 근거하는지", "how_to_reject의 위치 명시 여부"]
+          "findings": [
+            "③이 통념 바로 뒤라는 위치 때문에 가장 강한 유인임을 지목했다",
+            "오답 4개 라벨이 서로 다르다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting이 인접 문장의 실제 표현에 근거하는지",
+            "how_to_reject의 위치 명시 여부"
+          ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["2단계가 뒤 문장 첫 낱말만 보게 해 긴 지문에서도 115초 안에 든다"],
-          "checked": ["금지 표현 문자열 검사", "지문 미독 상태 실행 가능성", "required_vocab 4개가 지문에 실제로 있는지"]
+          "findings": [
+            "2단계가 뒤 문장 첫 낱말만 보게 해 긴 지문에서도 115초 안에 든다"
+          ],
+          "checked": [
+            "금지 표현 문자열 검사",
+            "지문 미독 상태 실행 가능성",
+            "required_vocab 4개가 지문에 실제로 있는지"
+          ]
         }
       ],
       "revised": true
@@ -931,7 +1307,10 @@
       "measured_ability": "생략 조건절(If not)이 부정할 앞 조건을 찾고, 뒤에 오는 가정법 결과문이 조건절 없이 남지 않도록 자리를 정하는 능력",
       "design_intent": "로봇 제작 과정을 Imagine → Even this simple task → Suppose → To be successful로 단계마다 가정 표현을 반복해 두어, 어느 가정이든 If not이 붙을 것처럼 보이게 했다. 실제로는 마지막 요건만이 부정될 수 있고, 그 뒤 문장이 조건 없는 would 문장이라는 점이 결정 단서다.",
       "answer_locus": {
-        "sentence_index": [7, 8],
+        "sentence_index": [
+          7,
+          8
+        ],
         "quote": "To be successful your machine will have to have some built-in system enabling it to discriminate",
         "reasoning": "If not은 바로 앞에 있는 긍정 조건·요건을 통째로 부정한다. 이 문장이 지문에서 유일하게 have to have로 요건을 못 박는 문장이다. 게다가 ⑤ 뒤 Your robot would engage in circular, self-centered acts는 조건절 없는 가정법 would 문장이어서, 앞에 If절이 있어야 성립한다. 주어진 문장 If not, the robot might endlessly chase itself rather than the blocks가 그 조건절이자 chase itself를 circular, self-centered acts로 풀어 주는 다리다."
       },
@@ -967,9 +1346,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "마지막 자리라 배제되기 쉽고, 앞 문장이 길어 have to have라는 요건 표현이 눈에 안 들어온다.",
-          "how_to_reject": "여기가 정답이다. If not이 부정할 요건과, 조건절을 기다리는 would 문장이 양쪽에 있다."
+          "why_correct": "주어진 문장 'If not, the robot might endlessly chase itself rather than the blocks.' 의 If not 이 부정할 요건은 ⑤ 앞 문장 'To be successful your machine will have to have some built-in system enabling it to discriminate' 하나뿐이고, chase itself rather than the blocks 가 그 요건의 두 항 'between the detection of a block and the detection of its own arm' 을 그대로 뒤집는다 — 앞 이음매다. 뒤 이음매는 ⑤ 뒤 'Your robot would engage in circular, self-centered acts' 로, 조건절 없는 would 문장이라 앞에 If 절을 요구하고 circular, self-centered acts 가 주어진 문장의 chase itself 를 풀어 쓴 말이다."
         }
       ],
       "solve_procedure": [
@@ -988,41 +1365,90 @@
         {
           "step": "후보 자리에 넣고 If not이 부정하는 것이 무엇인지 한 문장으로 말해 본 뒤, 그 부정이 바로 뒤 문장의 전제와 어긋나지 않는지 확인한다",
           "on_fail": "부정 대상이 뒤 문장의 전제를 무너뜨리면 그 자리를 버리고, 정관사 명사의 첫 등장보다 뒤인 자리 중 남은 곳으로 옮긴다"
+        },
+        {
+          "step": "⑤(마지막 자리)를 후보에서 미리 빼지 않는다 — ⑤ 앞 문장이 길면 요건 표현(will have to have)이 눈에 안 들어오므로, ①~⑤ 앞 문장에서 조동사만 따로 훑어 요건 문장을 다시 센다",
+          "on_fail": "요건 문장이 둘 이상이면, 그 뒤 문장이 조건절 없는 would 문장인 자리를 고른다"
         }
       ],
       "time_budget_sec": 100,
       "difficulty": {
         "predicted": 0.55,
-        "drivers": ["Imagine · Suppose · would require · will have to로 가정 표현이 네 번 나와 If not의 짝이 여럿처럼 보인다", "정답이 마지막 자리 ⑤다", "마지막 문장이 조건 없는 would 문장이라는 점을 알아채야 한다"]
+        "drivers": [
+          "Imagine · Suppose · would require · will have to로 가정 표현이 네 번 나와 If not의 짝이 여럿처럼 보인다",
+          "정답이 마지막 자리 ⑤다",
+          "마지막 문장이 조건 없는 would 문장이라는 점을 알아채야 한다"
+        ]
       },
-      "required_vocab": ["discriminate", "stimulation", "pile", "circular"],
+      "required_vocab": [
+        "discriminate",
+        "stimulation",
+        "pile",
+        "circular"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote가 지문 원문과 일치한다(문장 앞부분만 따와 길이를 맞췄다)", "If not과 조건 없는 would 문장이라는 두 축이 이 문항의 실제 설계와 맞는다"],
-          "checked": ["quote를 지문에서 문자열 대조", "정답 ⑤와 평가원 정답표 대조", "지문 마지막 문장에 If절이 없는지 확인"]
+          "findings": [
+            "quote가 지문 원문과 일치한다(문장 앞부분만 따와 길이를 맞췄다)",
+            "If not과 조건 없는 would 문장이라는 두 축이 이 문항의 실제 설계와 맞는다",
+            "기계가 옮긴 옛 why_correct 는 '마지막 자리라 배제되기 쉽고 요건 표현이 눈에 안 들어온다'는 오답 심리 서술이었다. If not 이 부정할 요건(will have to have)과 뒤 문장의 조건절 없는 would, 두 이음매로 다시 썼다",
+            "have to have 가 지문에서 ⑤ 앞 문장에만 있음을 확인했다(② 앞 문장은 would require 라 표현이 다르다)"
+          ],
+          "checked": [
+            "quote를 지문에서 문자열 대조",
+            "정답 ⑤와 평가원 정답표 대조",
+            "지문 마지막 문장에 If절이 없는지 확인",
+            "why_correct 의 영어 조각 4개를 corpus.json M2509#38 passage 와 문자열 대조",
+            "요건·의무 표현(have to · must · would require)의 지문 내 등장 자리를 전부 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["①의 유인이 Without such an ability라는 실제 표현에 근거한다", "오답 4개 라벨이 서로 다르다"],
-          "checked": ["trap 라벨 중복 여부", "why_tempting이 인접 문장의 실제 표현에 근거하는지", "how_to_reject의 위치 명시 여부"]
+          "findings": [
+            "①의 유인이 Without such an ability라는 실제 표현에 근거한다",
+            "오답 4개 라벨이 서로 다르다",
+            "옛 서술의 관찰(긴 앞 문장 때문에 요건 표현을 놓친다)을 절차 5단계의 '조동사만 훑기'로 옮겨 실행 가능한 동작으로 바꿨다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부",
+            "why_tempting이 인접 문장의 실제 표현에 근거하는지",
+            "how_to_reject의 위치 명시 여부",
+            "why_correct 에 오답 심리 서술이 남아 있는지 확인",
+            "앞·뒤 이음매가 둘 다 적혔는지 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["3단계('조건절 없는 would 문장 찾기')가 이 지문에서 곧바로 한 자리만 남긴다"],
-          "checked": ["금지 표현 문자열 검사", "지문 미독 상태 실행 가능성", "required_vocab 4개가 지문에 실제로 있는지"]
+          "findings": [
+            "3단계('조건절 없는 would 문장 찾기')가 이 지문에서 곧바로 한 자리만 남긴다",
+            "'조동사만 훑는다'는 긴 문장에서도 실행 가능한 동작이라 100초 배분을 넘기지 않는다"
+          ],
+          "checked": [
+            "금지 표현 문자열 검사",
+            "지문 미독 상태 실행 가능성",
+            "required_vocab 4개가 지문에 실제로 있는지",
+            "새 5단계에 순환논법 표현이 없는지 대조",
+            "지문 미독 학생이 would 문장 하나로 뒤 이음매를 재현할 수 있는지 확인"
+          ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2509#39",
       "measured_ability": "예시 도입 표현(To illustrate this)의 this가 가리킬 명제를 앞에서 찾고, 그 명제가 없는 자리를 삽입 지점으로 정하는 능력",
       "design_intent": "보호구역 관리의 전통적 절차를 네 문장에 걸쳐 쌓아 올린 뒤 곧바로 불확실성 예시로 넘어가게 배치했다. 예시가 무엇을 예시하는지 되짚으면 명제 한 문장이 비어 있음이 드러나며, 학습자가 그 되짚기를 하는지를 본다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "To illustrate this, consider the uncertainties involved in predicting climatic changes",
         "reasoning": "To illustrate this의 this는 예시가 증명할 명제를 가리키는데, ④ 앞 문장들은 예측 능력이 필요하다는 요건을 말할 뿐 불확실하다는 명제를 담지 않는다. 예시는 uncertainties를 든다. 주어진 문장의 the future not only promises to be unprecedented, but it also promises to be unpredictable가 그 명제이고, 그 문장의 at the scales, accuracy, and precision most useful to protected area management가 ④ 앞 문장의 appropriate spatial and temporal scales, often localized and near-term을 그대로 받는다. 요건 진술 바로 다음, 예시 바로 앞이 그 자리다."
       },
@@ -1051,9 +1477,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": "④ 앞 문장이 길고 요건 나열로 끝나서, 그 뒤에 명제 한 문장이 빠졌다는 것이 눈에 안 띈다.",
-          "how_to_reject": "여기가 정답이다. To illustrate this의 this가 가리킬 명제와, scales·accuracy·precision의 되받음이 모두 주어진 문장에서 나온다."
+          "why_correct": "주어진 문장은 앞으로 ④ 앞 문장의 'predictions must be developed at appropriate spatial and temporal scales, often localized and near-term' 을 'at the scales, accuracy, and precision most useful to protected area management' 로 되짚어 같은 척도를 받고, 뒤로는 ④ 뒤 'To illustrate this, consider the uncertainties involved in predicting climatic changes' 의 this 에 가리킬 명제를 대 준다 — 'it also promises to be unpredictable' 이 있어야 예시가 드는 uncertainties 가 무엇의 예시인지 정해진다. 요건 진술과 예시 사이가 그 자리다."
         },
         {
           "n": 5,
@@ -1084,27 +1508,67 @@
       "time_budget_sec": 130,
       "difficulty": {
         "predicted": 0.45,
-        "drivers": ["3점 문항", "전통적 접근을 쌓는 네 문장이 서로 비슷해 묶음 경계가 흐리다", "scales라는 낱말 되받음을 봐야 ①을 확실히 지운다", "unprecedented·unpredictable의 대비가 한 문장 안에 있어 놓치기 쉽다"]
+        "drivers": [
+          "3점 문항",
+          "전통적 접근을 쌓는 네 문장이 서로 비슷해 묶음 경계가 흐리다",
+          "scales라는 낱말 되받음을 봐야 ①을 확실히 지운다",
+          "unprecedented·unpredictable의 대비가 한 문장 안에 있어 놓치기 쉽다"
+        ]
       },
-      "required_vocab": ["unprecedented", "unpredictable", "spatial", "temporal"],
+      "required_vocab": [
+        "unprecedented",
+        "unpredictable",
+        "spatial",
+        "temporal"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
-          "findings": ["quote가 지문 원문과 일치한다", "scales·accuracy·precision의 되받음을 보조 근거로 함께 제시해 근거가 하나에 기대지 않는다"],
-          "checked": ["quote를 지문에서 문자열 대조", "정답 ④와 평가원 정답표 대조", "④ 앞 구간에 uncertainty 계열 표현이 없는지 낱말 검색"]
+          "findings": [
+            "quote가 지문 원문과 일치한다",
+            "scales·accuracy·precision의 되받음을 보조 근거로 함께 제시해 근거가 하나에 기대지 않는다",
+            "기계가 옮긴 옛 why_correct 는 '앞 문장이 길어 빠진 것이 눈에 안 띈다'는 오답 심리 서술이었다. scales 되짚음(앞)과 To illustrate this 의 this(뒤) 두 이음매로 다시 썼다"
+          ],
+          "checked": [
+            "quote를 지문에서 문자열 대조",
+            "정답 ④와 평가원 정답표 대조",
+            "④ 앞 구간에 uncertainty 계열 표현이 없는지 낱말 검색",
+            "why_correct 의 영어 조각 4개를 corpus.json M2509#39 passage 와 문자열 대조",
+            "unpredictable·uncertainties 가 ④ 앞에는 없다는 것을 검색으로 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "analyst",
           "verdict": "pass",
-          "findings": ["초안에서 ①·②·③이 모두 '전통적 접근 묶음을 자른다'는 같은 서술이라 라벨이 사실상 하나였다 — ①은 척도 요건의 첫 등장 문제, ②는 This approach가 받을 묶음의 분할, ③은 서술과 요약 이름 사이의 절단으로 나누고 라벨도 셋으로 분리했다", "네 라벨이 서로 다르다"],
-          "checked": ["trap 라벨 중복 여부와 라벨별 근거가 실제로 다른 문장을 가리키는지", "why_tempting이 인접 문장의 실제 표현에 근거하는지", "how_to_reject의 위치 명시 여부"]
+          "findings": [
+            "초안에서 ①·②·③이 모두 '전통적 접근 묶음을 자른다'는 같은 서술이라 라벨이 사실상 하나였다 — ①은 척도 요건의 첫 등장 문제, ②는 This approach가 받을 묶음의 분할, ③은 서술과 요약 이름 사이의 절단으로 나누고 라벨도 셋으로 분리했다",
+            "네 라벨이 서로 다르다",
+            "예시가 가리킬 명제가 앞에 없다는 것을 근거로 삼아, 위치형 유형에서 가장 확인 가능한 축(예시-명제 짝)에 서 있다"
+          ],
+          "checked": [
+            "trap 라벨 중복 여부와 라벨별 근거가 실제로 다른 문장을 가리키는지",
+            "why_tempting이 인접 문장의 실제 표현에 근거하는지",
+            "how_to_reject의 위치 명시 여부",
+            "why_correct 에 오답 심리 서술이 남아 있는지 확인",
+            "앞·뒤 이음매가 둘 다 적혔는지 확인"
+          ],
+          "revised": true
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "findings": ["2단계에서 this가 가리킬 명제를 '한 줄로 적어 보게' 한 것이 실행 가능한 확인 동작이다"],
-          "checked": ["금지 표현 문자열 검사", "지문 미독 상태 실행 가능성", "required_vocab 4개가 지문에 실제로 있는지"]
+          "findings": [
+            "2단계에서 this가 가리킬 명제를 '한 줄로 적어 보게' 한 것이 실행 가능한 확인 동작이다",
+            "'To illustrate this 의 this 를 앞에서 짚는다' 는 한 동작이라 130초 배분 안에 든다"
+          ],
+          "checked": [
+            "금지 표현 문자열 검사",
+            "지문 미독 상태 실행 가능성",
+            "required_vocab 4개가 지문에 실제로 있는지",
+            "지문 미독 학생이 ④ 뒤 문장의 this 를 앞에서 찾을 수 있는지 확인"
+          ]
         }
       ],
       "revised": true

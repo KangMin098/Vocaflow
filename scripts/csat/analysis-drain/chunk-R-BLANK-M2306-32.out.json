@@ -264,7 +264,10 @@
       "measured_ability": "빈칸 문장의 부정 구조(not to provide ______ information)에서 부정되는 것이 무엇인지 정하고, 글이 앞서 세워 둔 대립축(참·거짓)을 그 자리에 되가져오는 능력",
       "design_intent": "유머의 인지적 이탈을 '참·거짓을 따지지 않음' 한 축으로만 정의한 뒤, 마지막 문장에서 그 축을 빈칸으로 비워 둔 문항이다. 출제자는 빈칸 바로 앞의 'for the pleasure those ideas will bring' 과 짝지어 '즐거움 대 ___' 를 만들게 해 놓고, 그 ___ 를 채우는 근거는 다섯 문장 위(문장 2)의 정의와 중간의 정정 일화(문장 5)에만 두었다. 빈칸 근처만 읽으면 다섯 선지가 모두 자연스럽게 읽히도록 설계돼 있다.",
       "answer_locus": {
-        "sentence_index": [2, 5],
+        "sentence_index": [
+          2,
+          5
+        ],
         "quote": "we are for the moment not concerned with whether it is real or fictional, true or false",
         "reasoning": "이 문장이 유머의 인지적 이탈을 '참·거짓을 따지지 않는 상태' 로 못박는다. 곧 유머가 제공하지 않는 것은 '사실에 부합함' 이다. 문장 5의 정정 일화가 같은 축을 행동으로 보여 준다 — 청자가 사실관계를 바로잡으려 하자(스파게티를 키보드와 모니터가 아니라 키보드에만 쏟았다) 다른 청자들이 방해하지 말라고 한다. 정정 대상이 '양' 이 아니라 '사실 여부' 라는 것이 이 일화의 요점이고, 그래서 빈칸은 참·거짓 축의 낱말을 요구한다. 빈칸 문장만으로는 다섯 선지가 모두 문법적·의미적으로 들어가므로 이 두 문장이 유일한 확정 근거다."
       },
@@ -279,9 +282,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": null,
-          "how_to_reject": null
+          "why_correct": "빈칸 문장은 'putting ideas into people's heads for the pleasure those ideas will bring, not to provide ___ information' 으로, 유머가 주지 않는 정보의 성질을 받는다. 근거 문장 'we are for the moment not concerned with whether it is real or fictional, true or false' 가 유머의 인지적 이탈을 참·거짓 축으로 못박으므로 빈칸에도 그 축의 낱말이 온다 — ② accurate 는 'true or false' 를 한 낱말로 옮긴 패러프레이즈다. 4문장 'making up a few details'(세부를 지어내도 봐준다)가 같은 축을 행동으로 보여 준다. 근거는 빈칸보다 네 문장 앞."
         },
         {
           "n": 3,
@@ -346,13 +347,16 @@
           "findings": [
             "quote 를 corpus passage 에서 문자열 대조 — 문장 2와 일치.",
             "body_ok=false 문항이었다. raw_block 에서 선지 배열을 복원했다: ① detailed ② accurate ③ useful ④ additional ⑤ alternative. 파싱된 choices 배열은 각주(* cognitive: 인식의)와 선지가 뒤섞여 2·4번이 빈 문자열이었고, 그대로 두면 선지 판정이 불가능했다.",
-            "복원한 ②(accurate)가 평가원 정답표 2와 일치한다 — 복원이 옳았다는 교차 확인이 된다."
+            "복원한 ②(accurate)가 평가원 정답표 2와 일치한다 — 복원이 옳았다는 교차 확인이 된다.",
+            "accurate 는 지문에 없는 낱말이고 대응은 'true or false' 가 맡는다 — 패러프레이즈형임을 명시했다."
           ],
           "checked": [
             "quote 를 corpus passage 에서 문자열 대조",
             "raw_block 의 ①~⑤ 배치를 2단 조판 순서로 재구성",
             "복원 선지 번호와 평가원 정답표(answer=2) 대조",
-            "R-BLANK 유형 정의 대조"
+            "R-BLANK 유형 정의 대조",
+            "'not concerned with whether it is real or fictional, true or false' · 'making up a few details' 를 corpus 지문에서 대조",
+            "코퍼스 선지가 뭉개져 있어 원문 배열(① detailed ② accurate ③ useful ④ additional ⑤ alternative)로 ②를 재확인"
           ]
         },
         {
@@ -361,12 +365,15 @@
           "findings": [
             "초안에서 ①과 ④를 둘 다 '부분 사실' 로 달았다 — 함정 라벨 중복이라 반려했다. ①은 지문 낱말(details)을 그대로 옮겨 심은 것이므로 '어휘 함정' 으로, ④는 지문의 참인 서술을 잘못된 축에 놓은 것이므로 '부분 사실' 로 갈랐다.",
             "네 오답의 함정이 어휘 함정 · 지문 밖 상식 · 부분 사실 · 무관 4종으로 서로 다르다.",
-            "how_to_reject 넷 모두 문장 번호 또는 인용 가능한 지문 표현을 담고 있다."
+            "how_to_reject 넷 모두 문장 번호 또는 인용 가능한 지문 표현을 담고 있다.",
+            "초안이 '①·④는 양(量) 축이라 대응이 없다' 로 끝나 소거법이었다 — 반려하고 'true or false → accurate' 라는 정답 자체의 대응으로 바꿨다."
           ],
           "checked": [
             "선지 텍스트와 why_tempting 대조",
             "함정 라벨 4개의 중복 여부",
-            "how_to_reject 마다 지문 위치 존재 확인"
+            "how_to_reject 마다 지문 위치 존재 확인",
+            "why_correct 의 소거법 서술 유무",
+            "정답 선지에 오답용 필드가 없는지"
           ],
           "revised": true
         },
@@ -376,12 +383,15 @@
           "findings": [
             "부정문 빈칸이라 1단계에 '문장 전체의 참·거짓을 따진다' 는 판정 방식을 명시했다 — 이걸 빼면 학생이 선지만 지문과 견주다 ①에 걸린다.",
             "95초 안에 4단계 실행 가능. 3단계가 문장 되짚기라 30초를 잡았다.",
-            "required_vocab 5개 중 leeway·licence 는 각주가 붙어 있어 실제 부담은 3개다."
+            "required_vocab 5개 중 leeway·licence 는 각주가 붙어 있어 실제 부담은 3개다.",
+            "'빈칸이 information 을 꾸미는 형용사 자리' 라는 문법 관찰이 앞에 있어 학생이 축을 먼저 정하고 근거를 찾을 수 있다."
           ],
           "checked": [
             "각 단계를 지문 미독 상태에서 실행 가능한지",
             "금지 표현 문자열 점검",
-            "required_vocab 이 정답 도출에 실제로 필요한지(각주 제공 어휘 제외 여부 포함)"
+            "required_vocab 이 정답 도출에 실제로 필요한지(각주 제공 어휘 제외 여부 포함)",
+            "근거 위치(네 문장 앞) 표기",
+            "지문 미독 실행 가능성"
           ]
         }
       ],
@@ -392,7 +402,10 @@
       "measured_ability": "'not only A but B' 에서 B가 A와 겹치면 안 된다는 제약을 쓰고, 바로 다음 문장의 동의어 재진술(Presentational styles)과 그 아래 열거된 예시 목록으로 B의 내용을 확정하는 능력",
       "design_intent": "빈칸을 첫 문장에 두고 근거를 전부 아래에 깔아 둔 문항이다. 'not only its choice of topics and stories but its ______' 라는 구조 자체가 답의 절반을 정해 준다 — 무엇을 다루는가(A)와 겹치는 선지는 구조상 들어갈 수 없다. 출제자는 그 제약을 쓰지 않고 '뉴스에 대한 통념' 으로 고르는 학생을 ②로, 지문 낱말만 보고 고르는 학생을 ⑤로 흘려보내도록 오답을 배치했다.",
       "answer_locus": {
-        "sentence_index": [2, 4],
+        "sentence_index": [
+          2,
+          4
+        ],
         "quote": "Presentational styles have been subject to a tension between an informational-educational purpose and the need to engage us entertainingly",
         "reasoning": "빈칸 문장 바로 다음 문장이 새 주어를 아무 연결어 없이 'Presentational styles' 로 받는다. 새 주어가 예고 없이 등장하면 그것은 앞 문장 빈칸의 동의어 재진술이다 — 곧 빈칸은 presentational style(제시 방식)이다. 그 방식의 내용은 문장 4가 열거한다: 'faster editing tempos', 'logos, sound-bites, rapid visual cuts', 'star quality of news readers'. 로고·시각적 컷은 시각, 사운드바이트·앵커의 말투는 언어이므로 빈칸은 언어와 시각 두 갈래를 함께 담아야 한다. 문장 3의 'a friendly, lighter, idiom' 이 그 언어 갈래를 idiom 이라는 낱말로 직접 부른다."
       },
@@ -400,9 +413,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": null,
-          "how_to_reject": null
+          "why_correct": "빈칸 문장 바로 다음이 아무 연결어 없이 새 주어 'Presentational styles have been subject to a tension' 으로 시작하므로, 그 주어가 빈칸의 재진술이다 — 곧 빈칸은 '제시 방식', ①의 'modes of address' 다. 그 방식의 두 갈래도 지문이 준다: 4문장 'logos, sound-bites, rapid visual cuts' 의 시각 요소가 visual, 3문장 'a friendly, lighter, idiom' 이 verbal 과 idiom 을 낱말 그대로 준다. 근거는 빈칸 바로 뒤 문장."
         },
         {
           "n": 2,
@@ -475,13 +486,15 @@
           "findings": [
             "quote 를 corpus passage 에서 문자열 대조 — 문장 2와 일치.",
             "빈칸을 첫 문장에 두고 근거를 아래에 까는 것은 R-BLANK 의 표준 설계다. 이 문항은 거기에 'not only A but B' 라는 구조 제약을 더해 A와 겹치는 선지(②)를 구조만으로 지울 수 있게 했다 — design_intent 에 그 점을 명시했다.",
-            "선지 ⑤ 끝의 'K' 는 OCR 잔재이며 선지 의미에 영향이 없다."
+            "선지 ⑤ 끝의 'K' 는 OCR 잔재이며 선지 의미에 영향이 없다.",
+            "idiom 은 지문 낱말 그대로(3문장), verbal·visual 은 4문장 열거의 분류다 — 대응을 갈라 적었다."
           ],
           "checked": [
             "quote 를 corpus passage 에서 문자열 대조",
             "빈칸 문장의 not only/but 구조 확인",
             "정답 ①과 평가원 정답표(answer=1) 대조",
-            "R-BLANK 유형 정의 대조"
+            "R-BLANK 유형 정의 대조",
+            "'Presentational styles have been subject to a tension' · 'a friendly, lighter, idiom' · 'rapid visual cuts' 를 corpus 지문에서 대조"
           ]
         },
         {
@@ -490,12 +503,14 @@
           "findings": [
             "네 오답의 함정이 지문 밖 상식 · 부분 사실 · 반대 진술 · 어휘 함정 4종으로 서로 다르다.",
             "초안에서 ④와 ⑤를 둘 다 '반대 진술' 로 달았다 — 중복이라 반려했다. ⑤는 뒷부분(display techniques)이 지문 목록을 그대로 베끼고 한정어에서만 뒤집히므로 '어휘 함정' 이 정확하다. 학습자가 봐야 할 자리가 다르다(④는 문장 전체 방향, ⑤는 한정어 한 낱말).",
-            "②의 배제 근거를 지문 내용이 아니라 빈칸 문장의 구조에 둔 것이 이 문항에서 가장 재활용 가치가 크다."
+            "②의 배제 근거를 지문 내용이 아니라 빈칸 문장의 구조에 둔 것이 이 문항에서 가장 재활용 가치가 크다.",
+            "② prompt and full coverage 는 첫 문장의 topics and stories 와 겹쳐 강한 함정인데, why_correct 는 '연결어 없는 새 주어 = 재진술' 이라는 구조 근거로 ①을 세운다."
           ],
           "checked": [
             "선지 텍스트와 why_tempting 대조",
             "함정 라벨 4개의 중복 여부",
-            "how_to_reject 마다 지문 위치(문장 번호 또는 인용) 존재 확인"
+            "how_to_reject 마다 지문 위치(문장 번호 또는 인용) 존재 확인",
+            "소거법 서술 유무"
           ],
           "revised": true
         },
@@ -505,12 +520,15 @@
           "findings": [
             "정답이 지문 낱말 idiom 을 그대로 담고 있어, 앞 청크에서 세운 '지문 낱말이 든 선지를 마지막까지 의심한다' 는 규칙과 정면으로 충돌한다. 절차 4단계를 '두 갈래를 모두 담는가' 라는 적극적 조건으로 써서 그 규칙에 걸려 정답을 버리지 않게 했다.",
             "100초 안에 4단계 실행 가능.",
-            "required_vocab 6개 중 mode of address 는 선지에만 나오지만 선지 해석에 필수라 남겼다."
+            "required_vocab 6개 중 mode of address 는 선지에만 나오지만 선지 해석에 필수라 남겼다.",
+            "'빈칸 다음 문장의 주어를 보라' 는 지시가 다른 문항에도 그대로 쓰이는 절차라 학습 전이가 크다."
           ],
           "checked": [
             "각 단계를 지문 미독 상태에서 실행 가능한지",
             "금지 표현 문자열 점검",
-            "앞 청크(M2706) type_report 의 절차 ⑤와 이 문항의 정답이 충돌하는지 대조"
+            "앞 청크(M2706) type_report 의 절차 ⑤와 이 문항의 정답이 충돌하는지 대조",
+            "근거 위치 표기",
+            "절차 재사용 가능성"
           ]
         }
       ],
@@ -521,7 +539,10 @@
       "measured_ability": "빈칸 문장의 권리 내용을 아래 문장들이 같은 말로 두 번 다시 말한다는 것을 알아보고, 'For that reason' 이 이끄는 결과절을 역으로 되짚어 원인 자리인 빈칸을 채우는 능력",
       "design_intent": "오스트롬의 공유자원 관리 조건을 한 문장으로 압축한 자리를 비웠다. 빈칸 문장 자체는 'the actors affected by the rules ... must have the right to ______' 로 열려 있어 다섯 선지가 모두 문법적으로 들어간다. 출제자는 근거를 빈칸 바로 아래(For that reason 절)와 문단 끝(devise their own regulations) 두 곳에 두고, 공유지에 대한 통념(자유 이용·이윤 극대화·사유화)으로 채우려는 학생을 ②③④로 흘려보낸다.",
       "answer_locus": {
-        "sentence_index": [5, 6],
+        "sentence_index": [
+          5,
+          6
+        ],
         "quote": "Political institutions at central, regional, and local levels must allow users to devise their own regulations and independently ensure observance",
         "reasoning": "빈칸이 요구하는 것은 '규칙의 영향을 받는 행위자가 가져야 할 권리' 다. 이 마지막 문장이 그 권리를 낱말 그대로 말한다 — 사용자가 자기 규칙을 스스로 만들 수 있어야 한다(devise their own regulations). 문장 5의 'the importance of democratic decision processes' 와 'access to local forums' 가 같은 것을 결정 절차 쪽에서 다시 말한다. 문장 3의 'For that reason' 도 같은 방향을 확인해 준다 — 감시·통제하는 사람이 사용자여야 하는 이유가 앞 문장(빈칸)에 있으므로, 빈칸은 사용자가 규칙 쪽에 관여할 권리여야 한다. 빈칸 문장만으로는 다섯 선지가 모두 성립하므로 이 두 문장이 확정 근거다."
       },
@@ -557,9 +578,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": null,
-          "how_to_reject": null
+          "why_correct": "빈칸은 'the actors affected by the rules … must have the right to ___' 로 사용자가 가져야 할 권리를 받는다. 마지막 문장 'Political institutions … must allow users to devise their own regulations and independently ensure observance' 가 그 권리를 낱말로 적는다 — ⑤의 'the rules' 는 지문의 regulations/rules 를 그대로 받은 것이고, 'participate in decisions to change' 는 'devise their own regulations' 와 5문장 'the importance of democratic decision processes' 의 decision 을 합친 말이다. 근거는 빈칸에서 네 문장 뒤(마지막 문장)."
         }
       ],
       "solve_procedure": [
@@ -603,13 +622,15 @@
           "verdict": "pass",
           "findings": [
             "quote 를 corpus passage 에서 문자열 대조 — 마지막 문장과 일치.",
-            "근거를 빈칸 '아래' 에 두고 'For that reason' 으로 역방향 되짚기를 요구하는 설계다. 유형 정의(R-BLANK)와 부합하며 유형 일반론이 아닌 이 문항 고유의 배치를 design_intent 에 적었다."
+            "근거를 빈칸 '아래' 에 두고 'For that reason' 으로 역방향 되짚기를 요구하는 설계다. 유형 정의(R-BLANK)와 부합하며 유형 일반론이 아닌 이 문항 고유의 배치를 design_intent 에 적었다.",
+            "decision 은 5문장에 낱말 그대로 있고 'change the rules' 는 'devise their own regulations' 의 패러프레이즈 — 두 갈래를 갈라 적었다."
           ],
           "checked": [
             "quote 를 corpus passage 에서 문자열 대조",
             "정답 ⑤와 평가원 정답표(answer=5) 대조",
             "빈칸 문장의 주체(the actors affected by the rules) 확인",
-            "R-BLANK 유형 정의 대조"
+            "R-BLANK 유형 정의 대조",
+            "'allow users to devise their own regulations' · 'the importance of democratic decision processes' 를 corpus 지문에서 대조"
           ]
         },
         {
@@ -618,12 +639,14 @@
           "findings": [
             "네 오답의 함정이 무관 · 지문 밖 상식 · 반대 진술 · 범위 과대 4종으로 서로 다르다.",
             "②③④가 모두 '자원 자체' 를 목적어로 삼고 정답만 '규칙·결정' 을 목적어로 삼는다 — 오답 넷 중 셋이 한 축에 몰려 있어서, 절차 4단계를 그 축(자원 대 규칙)으로 쓴 것이 맞다.",
-            "①만 축이 다르고(분배) 지문 근거가 아예 없다 — how_to_reject 를 '해당 서술의 부재' 로 쓸 수밖에 없어, 다른 셋보다 위치 지정이 약하다. 그래서 문장 5·6을 대조 자리로 명시했다."
+            "①만 축이 다르고(분배) 지문 근거가 아예 없다 — how_to_reject 를 '해당 서술의 부재' 로 쓸 수밖에 없어, 다른 셋보다 위치 지정이 약하다. 그래서 문장 5·6을 대조 자리로 명시했다.",
+            "②·③처럼 commons 라는 소재에서 오는 상식형 선지를 부르지 않고, 빈칸이 '권리' 를 받는 자리라는 문장 구조로만 선다."
           ],
           "checked": [
             "선지 5개의 목적어를 표로 분해해 축 분류",
             "함정 라벨 4개의 중복 여부",
-            "how_to_reject 마다 지문 위치 존재 확인"
+            "how_to_reject 마다 지문 위치 존재 확인",
+            "소거법 서술 유무"
           ],
           "revised": true
         },
@@ -633,12 +656,14 @@
           "findings": [
             "초안 3단계가 '문단 전체를 읽고 요지를 정리한다' 였다 — 금지 표현이라 반려하고 '마지막 두 문장의 동사구를 옮긴다' 로 좁혔다.",
             "3점 문항이라 110초를 배정했다. 2단계 되짚기가 이 문항의 병목이라 20초를 따로 잡았다.",
-            "required_vocab 5개는 모두 절차 2~4단계에서 실제로 읽어야 하는 낱말이다 — mandate·devise·observance 를 모르면 3단계가 실행되지 않는다."
+            "required_vocab 5개는 모두 절차 2~4단계에서 실제로 읽어야 하는 낱말이다 — mandate·devise·observance 를 모르면 3단계가 실행되지 않는다.",
+            "근거가 마지막 문장이라는 것을 명시해, 3문장 'For that reason' 에서 멈추지 않고 끝까지 읽게 한다."
           ],
           "checked": [
             "각 단계를 지문 미독 상태에서 실행 가능한지",
             "금지 표현 문자열 점검",
-            "required_vocab 각각이 절차 어느 단계에서 쓰이는지 대응 확인"
+            "required_vocab 각각이 절차 어느 단계에서 쓰이는지 대응 확인",
+            "빈칸-근거 거리 표기"
           ],
           "revised": true
         }
@@ -650,7 +675,10 @@
       "measured_ability": "'A rather than B' 의 B(과학의 진리 접근)가 주어졌을 때 A(역사의 혼란 만들기)가 무엇을 의심하는 것인지를, 바로 앞 문장의 'unmasking of previous illusions of X' 에서 X를 그대로 가져와 채우는 능력",
       "design_intent": "과학과 역사 서술을 정밀성 축으로 맞세운 뒤, 마지막 문장에서 역사 쪽의 활동을 'a continuous questioning of ______' 로 비웠다. 근거는 바로 앞 문장의 'unmasking of previous illusions of determinacy and precision' 한 자리에 있고, 그 문장은 questioning 의 대상을 낱말 그대로 준다. 출제자는 같은 문단에 흩뿌려 둔 매력적인 낱말들(alternative representations · possible points of view · right and wrong)로, 앞 문장을 되짚지 않고 낯익은 낱말을 고르는 학생을 걸러낸다.",
       "answer_locus": {
-        "sentence_index": [4, 5],
+        "sentence_index": [
+          4,
+          5
+        ],
         "quote": "It therefore aims at the unmasking of previous illusions of determinacy and precision by the production of new and alternative representations",
         "reasoning": "빈칸 문장은 역사적 통찰의 발전을 'a continuous questioning of ______' 로 부르고 'rather than ... an ever greater approximation to the truth' 로 과학과 대비한다. 곧 빈칸에는 역사 서술이 '의심하는 대상' 이 들어간다. 바로 앞 문장이 그 대상을 명시한다 — 벗겨내려는 것은 이전의 determinacy 와 precision 이라는 환상(illusions)이다. 환상이라는 말이 '이미 얻은 줄 알았던' 이라는 한정을 함께 준다. 문장 1이 precision·determinacy 를 과학의 요건으로 세워 두었으므로, 역사 쪽이 의심하는 것은 그 두 낱말이 이미 성취된 것처럼 보이는 상태다. 빈칸 문장 안에는 대상이 없으므로 이 앞 문장이 유일한 확정 근거다."
       },
@@ -665,9 +693,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": null,
-          "why_tempting": null,
-          "how_to_reject": null
+          "why_correct": "빈칸 문장은 역사적 통찰을 'questioning of ___'(코퍼스·회차 원문 모두 앞 낱말이 continuo 로 잘려 있다) 라 부르므로 빈칸에는 '의심의 대상' 이 온다. 바로 앞 문장 'It therefore aims at the unmasking of previous illusions of determinacy and precision' 이 그 대상을 적는다 — ②의 'precision' 은 낱말 그대로이고 'certainty' 는 determinacy 의, 'seemingly … already' 는 previous illusions 의 패러프레이즈다(환상이었으므로 '이미 얻은 줄 알았던'). 1문장이 'Precision and determinacy are a necessary requirement for all meaningful scientific debate' 로 그 두 낱말을 과학 쪽에 세워 두었기에 대비가 성립한다. 근거는 빈칸 바로 앞 문장."
         },
         {
           "n": 3,
@@ -734,13 +760,17 @@
           "findings": [
             "quote 를 corpus passage 에서 문자열 대조 — 문장 4와 일치.",
             "빈칸 바로 앞 문장이 답의 낱말을 직접 준다는 점에서 근거 거리는 짧다. 대신 오답 둘이 같은 문장 안의 다른 낱말을 쓰므로 난도가 유지되는 설계다 — design_intent 에 그 대비를 적었다.",
-            "초안의 measured_ability 가 '추상적 지문을 읽는 능력' 이었다 — 유형 일반론이라 반려했고, 'unmasking of previous illusions of X 에서 X를 가져오는 조작' 으로 구체화했다."
+            "초안의 measured_ability 가 '추상적 지문을 읽는 능력' 이었다 — 유형 일반론이라 반려했고, 'unmasking of previous illusions of X 에서 X를 가져오는 조작' 으로 구체화했다.",
+            "precision 은 문자열이 그대로 겹치고 certainty·seemingly already 는 패러프레이즈다 — 낱말별로 갈라 적었다.",
+            "빈칸 문장의 continuous 가 회차 원문에서 continuo 로 잘려 있어(2022.txt 702줄) 인용에서 그 낱말을 빼고 잘림을 명시했다 — 없는 문자열을 인용한 것처럼 적지 않기 위해서다."
           ],
           "checked": [
             "quote 를 corpus passage 에서 문자열 대조",
             "정답 ②와 평가원 정답표(answer=2) 대조",
             "빈칸 문장의 rather than 대비축 확인",
-            "R-BLANK 유형 정의 대조"
+            "R-BLANK 유형 정의 대조",
+            "'unmasking of previous illusions of determinacy and precision' · 'Precision and determinacy are a necessary requirement' 를 corpus 지문에서 대조",
+            "why_correct 의 영어 조각 전부를 corpus.json 지문에 문자열 포함 여부로 기계 대조(빈칸 표시 ___ 제외)"
           ],
           "revised": true
         },
@@ -750,12 +780,14 @@
           "findings": [
             "네 오답의 함정이 무관 · 반대 진술 · 어휘 함정 · 범위 과소 4종으로 서로 다르다.",
             "③과 ④는 둘 다 '지문이 늘리려는 것' 을 의심 대상 자리에 놓는다는 점에서 같은 뿌리지만, ③은 문장 4의 낱말을 그대로 옮겨 부호만 뒤집고(반대 진술) ④는 문장 2·3의 낱말을 재조합한다(어휘 함정) — 학습자가 봐야 할 문장이 다르므로 라벨을 갈랐다.",
-            "⑤는 방향이 맞고 대상만 좁아진 경우라 가장 마지막까지 남는다. how_to_reject 를 '이 지문은 사료의 정확성을 한 번도 다루지 않는다' 로 부재 근거까지 붙였다."
+            "⑤는 방향이 맞고 대상만 좁아진 경우라 가장 마지막까지 남는다. how_to_reject 를 '이 지문은 사료의 정확성을 한 번도 다루지 않는다' 로 부재 근거까지 붙였다.",
+            "③ alternative interpretations 는 같은 문장의 'new and alternative representations' 에서 오는 강한 함정인데, why_correct 는 그 선지를 부르지 않고 'unmasking 의 목적어' 라는 자리로 ②를 세운다."
           ],
           "checked": [
             "선지 5개의 대상 명사를 지문 문장 번호에 매핑",
             "함정 라벨 4개의 중복 여부",
-            "how_to_reject 마다 지문 위치 존재 확인"
+            "how_to_reject 마다 지문 위치 존재 확인",
+            "소거법 서술 유무"
           ],
           "revised": true
         },
@@ -765,13 +797,15 @@
           "findings": [
             "4단계를 '두 무더기로 가른다' 는 물리적 조작으로 쓴 것이 이 문항의 핵심이다 — 선지 넷이 모두 지문에 있는 낱말을 담고 있어, 낱말 대조로는 갈리지 않는다.",
             "3점·추상 어휘 문항이라 115초를 배정했다. 2단계까지 40초, 4단계 분류에 50초.",
-            "required_vocab 6개가 모두 절차 2~4단계에서 실제로 필요하다 — unmask 와 illusion 을 모르면 2단계가 실행되지 않는다."
+            "required_vocab 6개가 모두 절차 2~4단계에서 실제로 필요하다 — unmask 와 illusion 을 모르면 2단계가 실행되지 않는다.",
+            "'questioning of 는 목적어를 받는다' 는 문법 관찰이 먼저 나와 학생이 무엇을 찾을지 정한 뒤 앞 문장을 본다."
           ],
           "checked": [
             "각 단계를 지문 미독 상태에서 실행 가능한지",
             "금지 표현 문자열 점검",
             "required_vocab 각각이 절차 어느 단계에서 쓰이는지 대응 확인",
-            "115초 배분을 단계별로 나눠 검산"
+            "115초 배분을 단계별로 나눠 검산",
+            "근거 위치 표기"
           ]
         }
       ],

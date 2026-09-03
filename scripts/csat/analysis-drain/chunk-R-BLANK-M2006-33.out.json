@@ -1,1548 +1,1632 @@
 {
- "chunk": 6,
- "type_id": "R-BLANK",
- "type_name": "빈칸 추론",
- "analyses": [
-  {
-   "item_id": "M2006#33",
-   "body_recovered": true,
-   "measured_ability": "'A가 B로 대체된다'는 치환 관계를 지문 전체에서 추적해, 빈칸 문장의 as if 절이 어느 쪽 항(대체하는 쪽)을 받아야 하는지 고르는 능력",
-   "design_intent": "dematerialization(비물질화)을 '물질 → 서비스', '무거운 원자 → 무게 없는 비트', '만질 수 있는 것 → 만질 수 없는 것'이라는 같은 방향의 치환 세 겹으로 쌓아 두고, 빈칸에서 그 방향을 한 번이라도 뒤집으면 오답이 되도록 설계했다. software·hardware·digital goods 같은 지문 낱말을 오답 넷에 흩뿌려 낱말 일치로 고르면 방향이 뒤집히게 만든 것이 이 문항의 고유한 장치다.",
-   "answer_locus": {
-    "sentence_index": [1, 5, 6],
-    "quote": "The tangible is replaced by intangibles ― intangibles like better design, innovative processes, smart chips",
-    "reasoning": "치환의 방향이 여기서 못 박힌다 — 만질 수 있는 것(물질 재화)이 '대체되는 쪽', 만질 수 없는 것이 '대체하는 쪽'이다. 빈칸 문장의 주어는 Material goods(대체되는 쪽)이고 'act as if ___'는 그것이 무엇처럼 행세하는지를 묻는다. 따라서 빈칸에는 대체하는 쪽의 성질, 즉 intangible 이 들어간다. 남은 낱말 services 는 첫 문장 'the migration from products to services' 와 둘째 문장 'services ... don't have to be bound to materials' 가 공급한다 — 물질에 매이지 않는다는 성질이 곧 물질 재화가 흉내 내는 상태다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": "정답. intangible 은 5번째 문장의 intangibles 를, services 는 첫 두 문장의 services 를 그대로 받는다 — 지문 낱말을 담고도 정답인 경우다. 낱말이 같아서가 아니라 두 낱말이 지문에서 맡은 역할(대체하는 쪽 · 물질에 매이지 않는 것)이 빈칸 자리와 같아서 정답이다.",
-     "how_to_reject": ""
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "주체 역전",
-     "why_tempting": "replaced 와 digital goods 가 둘 다 지문에 있는 낱말이라 '대체'라는 핵심어를 잡았다고 느끼게 한다.",
-     "how_to_reject": "5번째 문장은 'The tangible is replaced by intangibles' — 물질 재화는 대체하는 쪽이 아니라 대체되는 쪽이다. 게다가 3번째 문장 'But dematerialization is not just about digital goods.' 가 디지털 재화를 논의의 중심에서 빼 두었으므로, 물질 재화가 디지털 재화를 대체한다는 관계는 지문 어디에도 없다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "빈칸 바로 뒤 두 문장에 hardware 와 software 가 나란히 나와, 그 둘의 관계를 묻는 문장이라고 착각하게 한다.",
-     "how_to_reject": "빈칸 다음다음 문장 'Hardware behaves like software.' 와 마지막 인용 'Software eats everything.' 이 정확히 반대 방향이다 — 하드웨어가 소프트웨어를 이겨 살아남는 것이 아니라 소프트웨어처럼 굴게 된다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "digital 이라는 낱말과 '서비스'가 함께 들어 있어 첫 문장(products to services)과 겹쳐 보인다.",
-     "how_to_reject": "지문은 디지털 서비스의 이용 가능 여부를 한 번도 논하지 않는다. 5번째 문장은 online connectivity 를 이미 작동하는 요소로 나열하고 있어, '이용할 수 없다'는 가정은 지문의 어느 문장으로도 뒷받침되지 않는다."
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "software 와 hardware 라는 지문 낱말을 그대로 담고 있고, '무거운 원자 대 무게 없는 비트'라는 대비를 갈등 관계로 읽으면 그럴듯해진다.",
-     "how_to_reject": "6번째 문장의 관계어가 conflict 가 아니라 embedded into 다 — 'Soft things, like intelligence, are thus embedded into hard things'. 둘은 충돌하는 것이 아니라 한쪽이 다른 쪽 안으로 들어가는 관계다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "빈칸 문장을 먼저 읽고 주어와 술어를 적는다 — 주어 Material goods, 술어 act as if ___. 즉 '물질 재화가 무엇인 것처럼 행동하는가'를 묻는 자리임을 확정한다",
-     "on_fail": "as if 절이 안 보이면 빈칸 문장에서 동사만 찾아 그 동사의 주어를 표시한다"
-    },
-    {
-     "step": "지문에서 replaced · substituted · migration 같은 치환 동사가 든 문장 세 개에 밑줄을 긋고, 각 문장마다 '대체되는 쪽 → 대체하는 쪽'을 화살표로 적는다",
-     "on_fail": "치환 동사를 못 찾으면 by 나 from-to 가 붙은 문장을 찾는다"
-    },
-    {
-     "step": "화살표의 오른쪽(대체하는 쪽)에 모인 낱말을 모은다 — services, weightless bits, intangibles. 빈칸에는 이 무리의 낱말이 들어간다",
-     "on_fail": "무리가 둘로 갈리면 빈칸 문장의 주어가 속한 쪽(왼쪽)을 지우고 남은 쪽을 택한다"
-    },
-    {
-     "step": "선지 다섯을 화살표 방향으로만 채점한다 — 주어(물질 재화)를 대체하는 쪽에 놓은 선지는 버리고, 하드웨어를 소프트웨어 위에 놓거나 둘을 충돌시키는 선지도 버린다",
-     "on_fail": "둘 이상 남으면 빈칸 뒤 세 문장(Nouns morph to verbs / Hardware behaves like software / Software eats everything)과 같은 방향인 것을 남긴다"
-    }
-   ],
-   "time_budget_sec": 110,
-   "difficulty": {
-    "predicted": 0.45,
-    "drivers": [
-     "dematerialization·intangible 등 추상 명사가 정의 없이 등장",
-     "오답 넷 중 셋이 지문 낱말(digital goods·software·hardware)을 그대로 담음",
-     "빈칸이 문단 뒤쪽이라 앞의 치환 관계를 기억해 와야 함",
-     "3점"
-    ]
-   },
-   "required_vocab": ["dematerialization", "tangible", "intangible", "substitute", "embed"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 corpus 지문과 문자 그대로 일치한다(대시 ― 포함).",
-      "빈칸 추론 유형 정의(문단의 논리 관계를 빈칸에서 재서술)에 부합한다 — 근거가 요약 문장이 아니라 치환 관계 문장이라는 점이 이 문항 고유의 서술로 남아 있다.",
-      "body_ok:false 문항이라 raw_block 으로 대조했고, passage 에 파서 손상이 없음을 확인했다."
-     ],
-     "checked": [
-      "answer_locus.quote 를 corpus passage 와 문자열 대조",
-      "raw_block 과 passage 를 문장 단위로 대조(손상 없음)",
-      "design_intent 가 빈칸 유형 일반론이 아니라 이 지문의 치환 3겹을 가리키는지 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "초안에서 ②를 '반대 진술'로 달았는데 ③과 라벨이 겹쳤다. ②의 실제 오독 경로는 '대체하는 주체가 누구인가'가 뒤집힌 것이므로 주체 역전으로 고쳤고, how_to_reject 에 5번째 문장 위치를 명시했다(revised).",
-      "네 함정이 주체 역전 · 반대 진술 · 무관 · 어휘 함정으로 서로 다르다.",
-      "정답 ①이 지문 낱말(intangibles·services)을 담고 있어, '지문 낱말 = 오답'이라는 통념의 반례임을 why_tempting 에 남겼다."
-     ],
-     "checked": [
-      "오답 4개 trap 라벨 중복 검사",
-      "선지 원문 낱말과 why_tempting 대조(digital goods · hardware · software · conflicted)",
-      "how_to_reject 마다 문장 번호 또는 인용 위치가 있는지 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "1단계가 지문을 안 본 학생도 실행 가능하다 — 빈칸 문장만 보고 주어·술어를 적게 한다.",
-      "치환 동사 세 개에 밑줄 긋는 작업은 실측상 40초 안에 끝난다. 110초 예산 안이다.",
-      "required_vocab 5개가 모두 정답 판정에 직접 쓰인다(substitute·embed 는 방향 판정어)."
-     ],
-     "checked": [
-      "절차 4단계에 금지 표현(흐름/문맥/꼼꼼히) 유무 확인",
-      "required_vocab 낱말이 지문에 실제로 있는지 문자열 대조",
-      "각 단계 on_fail 이 다음 행동을 지정하는지 확인"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "M2006#34",
-   "body_recovered": true,
-   "measured_ability": "양보절 'while A, they ___' 에서 A가 이미 인정한 내용을 빈칸이 반복하지 않고, 빈칸 뒤 문장이 붙이는 단서(nonetheless ... partly self-referential)를 빈칸의 한정어로 옮겨 오는 능력",
-   "design_intent": "황금률의 두 판본(소극·적극)을 길게 대비해 두고 정작 정답은 두 판본의 '공통 잔여물' — 자기 자신을 기준으로 삼는다는 점 — 에 걸어 두었다. 대비를 따라온 학습자가 '두 판본의 차이/모순'을 답으로 고르게 유도하는 것이 이 문항의 함정 축이다.",
-   "answer_locus": {
-    "sentence_index": [7, 8],
-    "quote": "The purposeful displacement of concern away from the ego nonetheless remains partly self-referential.",
-    "reasoning": "빈칸 바로 다음 문장이다. nonetheless 와 partly 가 빈칸의 내용을 두 번 한정한다 — 관심을 자기에게서 떼어 놓아도 '부분적으로는' 자기 참조가 남는다. 곧 빈칸은 '자기 관심을 완전히 버리라고 요구하지는 않는다'가 되어야 partly 와 아귀가 맞는다. 마지막 문장 'Both the negative and the positive versions invoke the ego as the fundamental measure' 가 그 남은 자기 참조가 두 판본 모두에 있음을 확인해 준다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "선지에 concerns for others 가 들어 있어 빈칸 앞 절(care for an other)과 낱말이 겹치고, '그럼에도 자기중심적'이라는 결론을 극단으로 밀면 '타인을 위해 행동하지 않는다'로 읽힌다.",
-     "how_to_reject": "빈칸 앞 절이 이미 'these Golden Rules encourage an agent to care for an other' 라고 인정했고, 5번째 문장 'Both versions insist on caring for others' 가 못을 박는다. 양보절이 인정한 것을 주절에서 부정할 수 없다."
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "부분 사실",
-     "why_tempting": "2·3번째 문장이 소극 판본과 적극 판본을 restraint 대 intervention 으로 정면 대비해 두어, 두 판본 사이의 모순을 지적하는 문장이 올 자리처럼 보인다.",
-     "how_to_reject": "대비는 지문에 있지만 마지막 문장이 'Both the negative and the positive versions invoke the ego as the fundamental measure' 라고 두 판본의 공통점으로 문단을 닫는다. 빈칸 뒤가 공통점으로 가는데 빈칸에서 모순을 드러낼 수는 없다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "지문 밖 상식",
-     "why_tempting": "황금률이라는 소재에서 '도덕적 딜레마 앞에서는 지침이 못 된다'는 윤리학 수업의 상투적 비판이 떠오른다.",
-     "how_to_reject": "지문에 dilemma 나 판단이 갈리는 상황이 한 번도 나오지 않는다. 빈칸 뒤 두 문장이 문제 삼는 것은 지침의 무력함이 아니라 기준점이 ego 라는 점이다."
-    },
-    {
-     "n": 4,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": "정답. abandoning self-concern altogether 의 altogether 가 뒤 문장의 partly 와 짝을 이룬다 — '완전히 버릴 것을 요구하지는 않는다' = '부분적으로 자기 참조가 남는다'.",
-     "how_to_reject": ""
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "타인을 배려한다는 소재에서 '사회적 상호작용의 이익'이라는 사회과학적 표현이 자연스럽게 붙어 보인다.",
-     "how_to_reject": "지문에는 benefit 이나 상호작용의 이득을 다루는 문장이 없다. 빈칸 뒤 두 문장의 화제는 이익이 아니라 평가 기준(measure)으로서의 ego 다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "빈칸 문장에서 while 이 이끄는 양보절을 괄호로 묶는다 — 괄호 안(타인을 배려하게 한다)은 이미 참으로 인정된 것이므로, 그것을 되풀이하거나 부정하는 선지는 미리 지운다",
-     "on_fail": "양보 표지가 안 보이면 Yet·while·although 를 찾아 그 절 끝까지 괄호를 친다"
-    },
-    {
-     "step": "빈칸 다음 문장에서 정도를 깎는 낱말(nonetheless · partly · still · to some extent)에 동그라미를 친다. 이 낱말이 빈칸에 들어갈 진술의 세기를 지정한다",
-     "on_fail": "그런 낱말이 없으면 다음 문장의 주어가 빈칸 문장의 무엇을 되받는지 화살표로 잇는다"
-    },
-    {
-     "step": "동그라미 친 낱말과 짝이 되는 정도 표현(altogether · entirely · completely · not necessarily)이 든 선지를 먼저 후보로 올린다",
-     "on_fail": "정도 표현이 든 선지가 없으면 마지막 문장의 핵심어(ego)를 그대로 다루는 선지를 후보로 올린다"
-    },
-    {
-     "step": "남은 선지를 마지막 문장으로 채점한다 — 두 판본의 '공통점'을 말하는 문단이므로 두 판본의 차이·모순을 말하는 선지를 버린다",
-     "on_fail": "여전히 둘이 남으면 지문에 한 번도 안 나온 명사(dilemma, benefit)가 든 쪽을 버린다"
-    }
-   ],
-   "time_budget_sec": 120,
-   "difficulty": {
-    "predicted": 0.35,
-    "drivers": [
-     "정답이 부정문 + altogether 라는 정도 한정으로만 구별됨",
-     "빈칸 앞 대비(소극/적극)가 오답 ②로 강하게 유인",
-     "self-referential · acts of omission/commission 등 추상 표현",
-     "3점"
-    ]
-   },
-   "required_vocab": ["restraint", "omission", "commission", "self-referential", "invoke"],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 지문에 문자 그대로 있다.",
-      "근거가 빈칸 '뒤' 문장이라는 점을 answer_locus.reasoning 이 명시한다 — 빈칸 추론 유형에서 근거가 뒤에 놓이는 설계를 정확히 짚었다.",
-      "design_intent 가 '대비를 미끼로 공통점을 묻는다'는 이 문항 고유의 설계를 말한다."
-     ],
-     "checked": [
-      "quote 를 corpus passage 와 문자열 대조",
-      "raw_block 과 passage 대조(손상 없음, choices 5개 일치)",
-      "정답표 ④와 correct 표시 일치 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "네 함정이 반대 진술 · 부분 사실 · 지문 밖 상식 · 무관으로 서로 다르다.",
-      "②의 why_tempting 이 선지 텍스트(inner contradiction between the two versions)와 지문의 실제 대비 문장을 짝지어 서술한다.",
-      "①은 '지문 낱말(concerns for others)을 담았지만 양보절이 이미 인정한 내용'이라는 점에서 이 청크의 낱말-역할 관찰과 일치한다."
-     ],
-     "checked": [
-      "trap 라벨 중복 검사",
-      "선지 5개 원문과 why_tempting 대조",
-      "how_to_reject 의 근거 문장 번호 유무 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "2단계(정도 부사에 동그라미)가 지문을 안 본 학생도 기계적으로 실행 가능하다.",
-      "3단계가 선지의 altogether 를 직접 겨냥해 후보를 좁히므로 120초 안에 끝난다.",
-      "required_vocab 5개 모두 지문에 실재하고 판정에 쓰인다."
-     ],
-     "checked": [
-      "금지 표현 검사",
-      "required_vocab 문자열이 지문에 있는지 대조",
-      "절차 실행 시간 추정(양보절 표시 20초 + 뒤 문장 20초 + 선지 채점 50초)"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2019#31",
-   "measured_ability": "'The more A, the more B' 비교 구문이 만든 조건을 마지막 문장의 형용사 자리로 옮겨, 어떤 성질의 공유가 realism 에 기여하는지 지정하는 능력",
-   "design_intent": "빈칸이 마지막 문장의 형용사 한 자리뿐이고 선지도 낱말 하나씩이라, 실험 소개(플래시벌브 기억)를 다 읽고도 '비교 구문 하나'를 못 찾으면 어감으로 고르게 된다. 정답 낱말 repetitive 는 지문에 없고, 'The more ... the more' 라는 구조를 형용사로 압축할 수 있는지만 묻는다.",
-   "answer_locus": {
-    "sentence_index": [5, 6],
-    "quote": "The more an event is socially shared, the more it will be fixed in people’s minds.",
-    "reasoning": "공유가 기억을 고정시키는 조건이 '많이/거듭'이라는 양으로 명시된 유일한 문장이다. 마지막 문장은 그 고정 효과가 나쁜 소식을 부인하려는 성향을 눌러 realism 에 기여한다고 말하므로, 빈칸에는 공유의 양을 가리키는 형용사가 들어가야 한다. 다음 문장 'Social sharing may in this way help to counteract some natural tendency' 의 in this way 가 앞 문장을 근거로 지목한다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": "정답. 'The more ... the more' 를 형용사 하나로 줄이면 '거듭되는(repetitive)' 공유다. 지문에 없는 낱말이지만 비교 구문의 재서술이다.",
-     "how_to_reject": ""
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "왕의 죽음·언론 보도 같은 소재가 나와 법적 문제를 연상시키고, 남은 넷 중 뜻이 가장 튀어 '특이해서 정답'이라는 감으로 잡히기도 한다.",
-     "how_to_reject": "지문에 법·규제·위법을 가리키는 표현이 한 번도 없다. 5번째 문장이 지정하는 변수는 공유의 합법성이 아니라 공유의 양이다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "3번째 문장의 'constructed a social narrative and a collective memory' 를 '집단이 이야기를 만들어 낸다 = 왜곡/편향'으로 읽으면 biased 가 그럴듯해진다.",
-     "how_to_reject": "마지막 문장의 술어가 contributes to realism 이다 — 편향된 공유가 현실 직시에 기여한다는 것은 같은 문장 안에서 앞뒤가 맞지 않는다. 3번째 문장의 constructed 는 왜곡이 아니라 함께 만든다는 뜻으로 쓰였고, 뒤이어 consolidated(공고히 했다)로 이어진다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "8번째 문장의 'tends initially to deny' 에서 initially 를 보고 '일시적'이라는 낱말을 빈칸으로 옮기게 된다.",
-     "how_to_reject": "initially 가 걸린 것은 부인(deny)이지 공유가 아니다. 5번째 문장은 공유가 많을수록 기억이 fixed 된다고 하므로, 일시적 공유는 그 조건과 정반대다."
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "지문 밖 상식",
-     "why_tempting": "realism(현실 직시)이라는 결과를 보고 원인 쪽에도 '이성적'이라는 성질을 넣고 싶어진다 — 원인과 결과의 어감을 맞추려는 습관이다.",
-     "how_to_reject": "지문은 공유의 '질'이 아니라 '빈도'만 변수로 둔다(5번째 문장). rational 을 뒷받침할 문장이 없고, 오히려 6~8번째 문장은 사람들의 자연스러운 반응(부인)을 비이성적 성향으로 그린다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "빈칸이 형용사 한 자리인지 절 전체인지부터 확인한다 — 한 자리면 지문에서 그 명사(social sharing)가 주어로 쓰인 문장만 골라 읽는다",
-     "on_fail": "빈칸 명사가 여러 번 나오면 빈칸 문장과 같은 술어(contributes·helps)를 쓴 문장을 먼저 본다"
-    },
-    {
-     "step": "그 문장들 중 비교·조건 구문(The more ~, the more ~ / if / when)이 든 문장을 찾아 표시한다. 형용사 빈칸의 답은 거의 이 구문을 한 낱말로 줄인 것이다",
-     "on_fail": "비교 구문이 없으면 빈도 부사(often·gradually·repeatedly)가 든 문장을 찾는다"
-    },
-    {
-     "step": "표시한 문장의 변수(무엇이 많아지는가)를 한국어로 한 낱말로 적는다 — 여기서는 '공유 횟수'",
-     "on_fail": "변수를 못 적으면 그 문장에서 more 가 걸린 명사 두 개를 그대로 적는다"
-    },
-    {
-     "step": "선지 다섯을 그 변수와 대조한다 — 양을 가리키지 않는 낱말(합법성·편향·이성)은 지우고, 양을 가리키되 방향이 반대인 낱말(일시적)도 지운다",
-     "on_fail": "둘이 남으면 마지막 문장의 결과어(realism)와 모순되는 쪽을 버린다"
-    }
-   ],
-   "time_budget_sec": 85,
-   "difficulty": {
-    "predicted": 0.65,
-    "drivers": [
-     "선지가 단어 하나씩이라 구조가 단순",
-     "정답 낱말 repetitive 가 지문에 없어 재서술이 필요",
-     "flashbulb memory 등 고유명사·전문어가 읽기 속도를 늦춤",
-     "2점"
-    ]
-   },
-   "required_vocab": ["consolidate", "counteract", "undesirable", "realism"],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 지문에 문자 그대로 있다(’ 포함).",
-      "빈칸이 형용사 한 자리인 하위 유형(단어 빈칸)의 설계 — '구문을 한 낱말로 압축'이라는 측정점이 유형과 맞는다.",
-      "body_ok:true 문항이라 파서 손상 확인은 불필요했다."
-     ],
-     "checked": [
-      "quote 문자열 대조",
-      "정답표 ①과 correct 일치 확인",
-      "design_intent 가 이 문항의 단어 빈칸 특성을 짚는지 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "네 함정이 무관 · 어휘 함정 · 반대 진술 · 지문 밖 상식으로 서로 다르다.",
-      "④의 오독 경로를 initially 라는 실제 지문 낱말로 특정했다 — 막연한 '반대'가 아니다.",
-      "②(illegal)는 근거 문장이 없다는 것 자체가 배제 근거이므로 how_to_reject 에 '법·규제 표현이 지문에 0회'라고 셈으로 적었다."
-     ],
-     "checked": [
-      "trap 라벨 중복 검사",
-      "선지 5개 낱말과 why_tempting 대조",
-      "지문에서 legal/illegal/law 문자열 검색(0건) 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "1단계가 발문과 선지 형태만 보고 실행 가능하다.",
-      "2점 문항이므로 85초로 잡았고, 비교 구문 찾기 → 변수 적기 → 선지 대조가 그 안에 든다.",
-      "required_vocab 이 4개로 좁고 모두 지문에 있다."
-     ],
-     "checked": [
-      "금지 표현 검사",
-      "required_vocab 문자열 대조",
-      "단계마다 on_fail 이 다음 행동을 지정하는지 확인"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2019#32",
-   "body_recovered": true,
-   "measured_ability": "'the way ___' 라는 명사절 빈칸이 뒤 문장들의 사례(참정권 운동)와 결론(converted others to its point of view)에서 어느 주체의 무슨 행위를 받아야 하는지 지정하는 능력",
-   "design_intent": "소수와 다수라는 두 주체를 문단 내내 번갈아 등장시켜 놓고, 빈칸 자리는 소수의 '행동 방식(behavioural style)'으로 못 박아 두었다. 오답 넷 중 둘이 주어를 the majority 로 바꿔 놓은 것이 이 문항의 핵심 장치다 — 낱말은 전부 지문 것이지만 주어만 다르다.",
-   "answer_locus": {
-    "sentence_index": [4, 6],
-    "quote": "Such change has often occurred because a minority has converted others to its point of view.",
-    "reasoning": "빈칸 앞 절이 '답은 그들(소수)의 행동 방식에 있다'라고 주어를 이미 소수로 고정했고, 이 문장이 그 행동 방식의 결과를 '자기 관점으로 남을 돌려세웠다'로 진술한다. 곧 빈칸은 소수가 자기 관점을 남에게 관철시키는 방식이어야 한다. 바로 앞 4번째 문장 'its supporters were consistent in their views, and this created a considerable degree of social influence' 가 그 방식의 내용(일관성)을 채운다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "지문 밖 상식",
-     "why_tempting": "소수가 다수에게 영향을 미치려면 협력해야 한다는 사회적 통념이 강해, 빈칸에 '협력'을 넣고 싶어진다.",
-     "how_to_reject": "5번째 문장은 소수가 다수 사이에 'social conflict, doubt and uncertainty' 를 만든다고 한다 — 협력이 아니라 갈등을 일으키는 방식이다."
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "주체 역전",
-     "why_tempting": "social change 가 지문의 결론어라 그것을 담은 선지가 정답처럼 보인다.",
-     "how_to_reject": "빈칸 앞 절이 'the answer lies in their behavioural style' 로 주어를 소수(their)로 고정했고, 6번째 문장도 변화의 원인을 a minority 로 돌린다. 변화를 일으키는 주체가 다수로 바뀌면 문장이 성립하지 않는다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "the majority 와 the minority 라는 두 지문 낱말이 다 들어 있어 관계를 진술한 문장처럼 보인다.",
-     "how_to_reject": "다수가 소수를 키운다(cultivate)는 관계는 지문 어디에도 없다. 지문이 말하는 다수의 역할은 5번째 문장에서 갈등·의심·불확실성을 '겪는' 쪽이다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "1번째 문장에서 소수가 troublemakers·weirdos 로 일축된다고 했으므로, 영향력을 얻으려면 목소리를 낮춰야 한다고 읽기 쉽다.",
-     "how_to_reject": "4·5번째 문장은 consistent · active and organised · support and defend their position 을, 마지막 문장은 an outspoken minority 를 성공 조건으로 든다 — 목소리를 낮추는 것과 정반대다."
-    },
-    {
-     "n": 5,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": "정답. get its point across 는 6번째 문장의 converted others to its point of view 를 그대로 받는다(point 라는 낱말까지 겹친다).",
-     "how_to_reject": ""
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "빈칸 앞 절에서 소유격·대명사(their·its)를 찾아 그것이 가리키는 주어를 지문에서 확정하고 여백에 크게 적는다 — 여기서는 '소수'",
-     "on_fail": "대명사가 없으면 빈칸이 포함된 명사구(behavioural style)의 소유자를 앞 문장에서 찾는다"
-    },
-    {
-     "step": "선지 다섯의 주어만 먼저 본다. 앞에서 적은 주어와 다른 주어를 가진 선지를 그 자리에서 지운다",
-     "on_fail": "선지 주어가 모두 같으면 술어의 방향(무엇을 누구에게)을 대신 본다"
-    },
-    {
-     "step": "빈칸 뒤에서 성공 사례가 나온 문장을 찾아 그 사례가 강조하는 성질에 밑줄을 긋는다 — consistent · active and organised · outspoken",
-     "on_fail": "사례가 없으면 because 나 due to 가 든 문장을 찾아 원인 쪽을 본다"
-    },
-    {
-     "step": "남은 선지를 그 성질과 대조한다 — 성질을 약화시키는 선지(목소리를 낮춘다)는 버리고, 지문에 없는 관계를 새로 만드는 선지(다수가 소수를 키운다)도 버린다",
-     "on_fail": "둘이 남으면 결론 문장(converted others to its point of view)과 낱말이 겹치는 쪽을 택한다"
-    }
-   ],
-   "time_budget_sec": 95,
-   "difficulty": {
-    "predicted": 0.6,
-    "drivers": [
-     "빈칸이 문단 앞쪽이라 근거를 뒤에서 가져와야 함",
-     "오답 둘이 주어만 다수로 바꾼 형태라 낱말만 보면 걸림",
-     "정답 표현 get one's point across 가 관용구",
-     "2점"
-    ]
-   },
-   "required_vocab": ["consistent", "convert", "outspoken", "get one's point across"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 지문에 문자 그대로 있다.",
-      "근거가 빈칸보다 세 문장 뒤에 있다는 점이 유형 설계(빈칸 뒤 근거)와 맞고 answer_locus 에 명시돼 있다.",
-      "파서가 선지 ⑤에 페이지 번호 '8'을 붙였으나 판정에는 영향이 없고, raw_block 으로 원 선지를 확인했다."
-     ],
-     "checked": [
-      "quote 문자열 대조",
-      "raw_block 의 선지 5개와 passage choices 대조(⑤ 끝의 '8'은 페이지 번호)",
-      "정답표 ⑤와 correct 일치 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "초안에서 ①을 '반대 진술'로 달아 ④와 겹쳤다. ①의 진짜 유인은 지문이 아니라 '영향을 주려면 협력해야 한다'는 통념이므로 지문 밖 상식으로 고치고, 대신 5번째 문장(social conflict)을 배제 근거로 붙였다(revised).",
-      "네 함정이 지문 밖 상식 · 주체 역전 · 무관 · 반대 진술로 서로 다르다.",
-      "②·③이 주어만 바꾼 쌍이라는 점을 두 선지의 how_to_reject 에서 서로 다른 문장으로 배제했다."
-     ],
-     "checked": [
-      "trap 라벨 중복 검사",
-      "선지 5개 주어 비교(minority 3 · majority 2)",
-      "how_to_reject 의 근거 문장 위치 유무 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "2단계(선지 주어만 먼저 보기)가 30초 안에 오답 둘을 지워 준다 — 2점 문항 95초 예산에 여유가 생긴다.",
-      "required_vocab 에 관용구 get one's point across 를 넣은 이유가 정답 선지 해독에 직결되기 때문임을 확인했다(지문이 아니라 선지 어휘).",
-      "절차가 지문을 안 본 상태에서 빈칸 앞 절만 보고 시작하도록 되어 있다."
-     ],
-     "checked": [
-      "금지 표현 검사",
-      "required_vocab 4개 중 3개는 지문, 1개는 정답 선지 출처임을 확인",
-      "단계별 실행 시간 추정(주어 확정 15초 + 선지 주어 대조 20초 + 사례 확인 30초)"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2019#33",
-   "measured_ability": "'선택된다'는 진술의 이면(선택되지 않은 것은 버려진다)을 읽어, 마지막 Thus 문장의 요약어로 옮기는 능력",
-   "design_intent": "heritage 를 '현재의 요구에 따라 선별되고 다시 버려지는 자원'으로 그려 놓고, 정답을 지문에 한 번도 나오지 않은 낱말 forgetting 으로 두었다. 지문의 명사(artefacts · memories · traditions · values)를 그대로 담은 선지 넷을 배치해, 낱말 일치로 고르면 전부 오답이 되게 한 것이 이 문항의 설계다.",
-   "answer_locus": {
-    "sentence_index": [5, 6],
-    "quote": "In turn, they may later be discarded as the demands of present societies change",
-    "reasoning": "앞 문장이 의미들이 '과거의 무한에 가까운 것들 중에서 선택된 이유'를 설명한다고 했고, 이 문장은 그 선택이 뒤집혀 폐기될 수 있음을 말한다. 선택과 폐기가 한 쌍이므로 Thus 로 시작하는 마지막 문장의 요약어는 '기억하는 것만큼 잊는 것'이 된다. discarded 와 selected 가 같은 문단에서 짝을 이루는 유일한 대립쌍이다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "범위 과대",
-     "why_tempting": "heritage 하면 보편적 문화 가치의 보존이라는 통념이 있고, 지문에도 value 라는 낱말이 나온다.",
-     "how_to_reject": "1번째 문장이 'very selective' 로, 3번째 문장이 'defined in the present' 로 한정어를 걸어 두었다. universal(보편적)은 그 한정어를 떨어뜨린 것이고, 6번째 문장은 폐기 가능성까지 말한다."
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "부분 사실",
-     "why_tempting": "지문 첫 문장에 material artefacts 가 있고 heritage 가 과거에서 온다는 것도 사실이라, '과거의 유물을 비추는 거울'이 절반쯤 맞아 보인다.",
-     "how_to_reject": "4번째 문장이 'heritage is more concerned with meanings than material artefacts' 라고 무게중심을 유물에서 의미로 옮긴다. 거울이라는 비유는 현재의 요구가 내용을 고른다는 2·3번째 문장과도 어긋난다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "heritage 가 과거의 것이라는 상식과, 유산이 현재·미래와 무관하다는 냉소적 요약이 결합하면 고르게 된다.",
-     "how_to_reject": "2번째 문장이 'selected according to the demands of the present' 와 'passed onto an imagined future' 로 현재와 미래를 모두 명시한다 — 정확히 반대다."
-    },
-    {
-     "n": 4,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": "정답. selected(선택)와 discarded(폐기)의 쌍을 remembering 과 forgetting 으로 옮긴 재서술이다. 지문에 forget 이라는 낱말은 없다.",
-     "how_to_reject": ""
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "1번째 문장의 memories and traditions 를 그대로 담고 있어, 지문 첫 문장을 요약한 것처럼 보인다.",
-     "how_to_reject": "1번째 문장에서 그 낱말들이 맡은 역할은 '현재를 위한 자원이 되는 재료'이고, 앞에 very selective 라는 한정이 붙어 있다. 단순한 모음(collection)이라는 서술은 선별과 폐기를 말하는 5·6번째 문장을 버리는 것이다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "빈칸 문장이 Thus·So·In short 로 시작하는지 확인한다. 그렇다면 근거는 바로 앞 한두 문장이므로 거기부터 읽는다",
-     "on_fail": "요약 표지가 없으면 빈칸 문장의 주어(heritage)가 주어로 쓰인 문장을 앞에서부터 모은다"
-    },
-    {
-     "step": "앞 문장들에서 서로 반대되는 동사 쌍을 찾아 나란히 적는다 — selected ↔ discarded",
-     "on_fail": "쌍이 안 보이면 or even · in turn · rather 같은 표지가 든 문장에서 동사를 뽑는다"
-    },
-    {
-     "step": "선지 다섯 중 그 쌍을 둘 다 담은 것을 찾는다. 한쪽만 담은 선지(보존만 · 기억만)는 지운다",
-     "on_fail": "쌍을 담은 선지가 없으면 폐기 쪽 동사를 담은 선지를 우선 후보로 둔다"
-    },
-    {
-     "step": "남은 선지를 한정어로 채점한다 — 지문의 very selective · in the present 를 지우는 낱말(universal · neither ... nor)이 든 선지를 버린다",
-     "on_fail": "둘이 남으면 지문 명사를 그대로 나열만 한 쪽을 버린다"
-    }
-   ],
-   "time_budget_sec": 110,
-   "difficulty": {
-    "predicted": 0.4,
-    "drivers": [
-     "정답 낱말 forgetting 이 지문에 없어 대립쌍 추론이 필요",
-     "오답 넷 중 셋이 지문 명사를 그대로 담음",
-     "the former/the latter 대명사 지시가 겹침",
-     "3점"
-    ]
-   },
-   "required_vocab": ["heritage", "artefact", "discard", "infinity", "selective"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "초안의 인용이 빈칸 문장 자체('Thus heritage is')였다 — 빈칸 문장을 근거로 드는 것은 순환이므로 6번째 문장(discarded)으로 바꿨다(revised).",
-      "바뀐 인용이 지문에 문자 그대로 있다.",
-      "design_intent 가 '정답 낱말이 지문에 없다'는 이 문항 고유의 설계를 짚는다."
-     ],
-     "checked": [
-      "quote 문자열 대조(교체 후 재대조)",
-      "지문에서 forget/forgetting 문자열 검색(0건) 확인",
-      "정답표 ④와 correct 일치 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "네 함정이 범위 과대 · 부분 사실 · 반대 진술 · 어휘 함정으로 서로 다르다.",
-      "⑤의 배제 근거를 '낱말이 같다'가 아니라 '그 낱말이 1번째 문장에서 맡은 역할이 다르다'로 적었다 — 낱말 일치만으로 오답 판정하지 않도록 했다.",
-      "①의 범위 과대는 universal 이라는 선지 낱말과 지문 한정어(very selective)의 대조로 특정된다."
-     ],
-     "checked": [
-      "trap 라벨 중복 검사",
-      "선지 5개 원문과 지문 명사(artefacts·memories·traditions·values) 겹침 여부 대조",
-      "how_to_reject 마다 문장 번호 유무 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "1단계가 빈칸 문장의 첫 낱말만 보고 실행되므로 지문을 안 본 학생도 시작할 수 있다.",
-      "2단계(반대 동사 쌍 적기)가 이 유형에서 가장 재사용성이 높은 동작이다.",
-      "required_vocab 5개 모두 지문에 있고 discard·selective 는 정답 판정에 직접 쓰인다."
-     ],
-     "checked": [
-      "금지 표현 검사",
-      "required_vocab 문자열 대조",
-      "110초 예산 내 단계별 시간 추정"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2019#34",
-   "body_recovered": true,
-   "measured_ability": "because 뒤 빈칸에 들어갈 '원인'을, 뒤이어 나열되는 사례 셋(읽기·숫자·손가락 셈)이 공유하는 동작 하나로 압축하는 능력",
-   "design_intent": "빈칸이 because 절이라 원인 자리임이 문법으로 드러나고, 뒤 세 사례가 모두 '기존 뇌 영역을 새 용도로 돌려쓴다'는 같은 동작을 보인다. 마지막 문장이 그것을 cultural recycling 이라는 이름으로 봉인해, 사례를 하나라도 끝까지 따라가면 정답이 확정되도록 설계했다.",
-   "answer_locus": {
-    "sentence_index": [4, 5],
-    "quote": "When we learn to read, we recycle a specific region of our visual system known as the visual word-form area",
-    "reasoning": "빈칸 다음 문장이자 첫 사례다. recycle a specific region 이 '이미 있던 영역(old areas)을 새 용도로 동원한다'는 정답 진술과 일대일로 대응한다. 다음 문장이 Likewise 로 같은 구조의 두 번째 사례를 잇고, 마지막 문장이 This “cultural recycling” 으로 그 동작을 이름 붙여 되받으므로 원인 자리에 들어갈 것은 '옛 영역의 새로운 동원'이다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "마지막 문장의 cultural constraints 를 '뇌가 문화에 한계를 지운다'로 옮겨 읽으면 그대로 이 선지가 된다.",
-     "how_to_reject": "마지막 문장의 constraints 는 biological and cultural 양쪽에 걸린 '제약들의 혼합'이지 뇌가 문화 다양성을 제한한다는 뜻이 아니다. 게다가 1번째 문장은 인간이 새 문화 도구로 기능을 '확장한다'고 하므로, 원인 자리에 한계를 넣으면 빈칸 문장의 they were made possible 과 어긋난다."
-    },
-    {
-     "n": 2,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": "정답. old areas 는 4·5번째 문장의 a specific region of our visual system, bilateral visual areas 를, in novel ways 는 recycle 을 받는다.",
-     "how_to_reject": ""
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "인과 역전",
-     "why_tempting": "cultural tools 가 지문 첫 문장의 낱말이고 마지막 문장도 문화를 원인 쪽에 두는 듯 보여, 도구가 뇌에 작용한다는 방향이 자연스럽게 느껴진다.",
-     "how_to_reject": "빈칸이 든 문장은 'they(문화 도구들) were made possible because ___' 다 — 설명해야 할 것은 도구의 결과가 아니라 도구를 가능하게 한 뇌 쪽 조건이다. 방향이 뒤집혀 있다. 6번째 문장도 도구가 인지 능력을 '극적으로 바꾼다'고 하므로 안정화(stabilize)와도 맞지 않는다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "visual word-form area, parietal quantity area 처럼 영역 이름이 계속 나와 뇌가 구획으로 나뉘어 작동한다는 인상을 준다.",
-     "how_to_reject": "4번째 문장은 'connect them to language areas', 5번째 문장은 'a fast connection from bilateral visual areas to the parietal quantity area' 라고 영역 사이의 연결을 명시한다 — 고립된 작동과 정반대다."
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "'뇌가 진화할 시간이 없었다'는 3번째 문장을 적응 실패로 읽으면 그럴듯해진다.",
-     "how_to_reject": "지문에 자연적 도전(natural challenges)에 대한 적응 여부를 다룬 문장이 없다. 3번째 문장의 요지는 진화 시간이 없었는데도 문화 도구가 가능했다는 것이고, because 절은 그 '가능했던 이유'를 요구한다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "빈칸이 because · since · so that 뒤에 있는지 확인한다. because 뒤라면 빈칸은 원인 자리이고, 빈칸 문장의 주어(they)가 무엇을 가리키는지 앞 문장에서 확정한다",
-     "on_fail": "접속사가 안 보이면 빈칸 문장을 '무엇이 무엇을 가능하게 했나' 꼴로 바꿔 적는다"
-    },
-    {
-     "step": "빈칸 뒤 사례 문장을 두 개만 읽고, 각 사례에서 사람이 하는 동작 동사를 하나씩 뽑아 적는다 — recycle, build a circuit",
-     "on_fail": "사례가 안 보이면 When we · For example · Likewise 로 시작하는 문장을 찾는다"
-    },
-    {
-     "step": "뽑은 동사 둘의 공통 목적어를 적는다 — 이미 있던 뇌 영역. 원인 자리에는 이 공통 동작이 들어간다",
-     "on_fail": "공통점을 못 적으면 마지막 문장에서 따옴표가 붙은 표현(“cultural recycling”)을 그대로 가져온다"
-    },
-    {
-     "step": "선지 다섯을 방향으로 채점한다 — 원인 자리에 도구·문화를 놓아 뇌 쪽 조건을 안 말하는 선지, 영역 간 연결을 부정하는 선지, 확장이 아니라 한계를 말하는 선지를 버린다",
-     "on_fail": "둘이 남으면 4·5번째 문장의 connect / connection 과 충돌하는 쪽을 버린다"
-    }
-   ],
-   "time_budget_sec": 110,
-   "difficulty": {
-    "predicted": 0.35,
-    "drivers": [
-     "빈칸이 문단 앞쪽 because 절이라 근거를 뒤 세 문장에서 모아야 함",
-     "visual word-form area · parietal 등 신경과학 용어",
-     "오답 ③이 마지막 문장의 문화-생물 혼합 서술과 겹쳐 보임",
-     "3점"
-    ]
-   },
-   "required_vocab": ["recycle", "mobilize", "circuit", "elementary", "constraint"],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 지문에 문자 그대로 있다.",
-      "근거가 빈칸 바로 다음 문장이고, 문단 끝의 이름 붙이기(cultural recycling)가 그것을 다시 확인한다는 이중 구조를 answer_locus 가 서술한다.",
-      "raw_block 의 각주가 '*** constrain' 에서 잘렸으나 본문·선지에는 손상이 없다."
-     ],
-     "checked": [
-      "quote 문자열 대조",
-      "raw_block 과 passage 문장 대조(각주 절단 외 손상 없음)",
-      "정답표 ②와 correct 일치 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "네 함정이 어휘 함정 · 인과 역전 · 반대 진술 · 무관으로 서로 다르다.",
-      "③의 인과 역전 판정 근거를 빈칸 문장의 수동태(were made possible because)로 특정했다 — 방향이 문법으로 확정되는 자리다.",
-      "①은 마지막 문장의 constraints 오독 경로를 그대로 재현해 서술했다."
-     ],
-     "checked": [
-      "trap 라벨 중복 검사",
-      "선지 5개 원문과 why_tempting 대조",
-      "how_to_reject 마다 문장 위치 유무 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "2단계에서 사례를 '두 개만' 읽게 제한해 시간을 아꼈다 — 세 번째 사례(아마존 부족)는 판정에 불필요하다.",
-      "required_vocab 에 선지 낱말 mobilize 를 포함했다(정답 선지 해독에 필수).",
-      "110초 예산 안에 실행 가능하다."
-     ],
-     "checked": [
-      "금지 표현 검사",
-      "required_vocab 중 recycle·circuit·elementary·constraint 는 지문, mobilize 는 정답 선지 출처임을 확인",
-      "단계별 실행 시간 추정"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2018#31",
-   "body_recovered": true,
-   "measured_ability": "'than they would have if the film had been ___' 라는 반사실 가정절이 실제 영화의 어떤 선택과 반대되는 상태를 가리키는지 지정하는 능력",
-   "design_intent": "영화가 실제로 한 일(배경을 당대 베트남으로 옮김)을 여러 문장에 걸쳐 서술한 뒤, 마지막 문장에서 '만약 그러지 않았다면'이라는 반사실을 세워 그 반대편을 빈칸으로 뚫었다. 오답 넷이 모두 '실제 영화에 해당하는 참인 서술'이어서, 참·거짓이 아니라 반사실이라는 자리 값으로만 갈리게 한 것이 이 문항의 설계다.",
-   "answer_locus": {
-    "sentence_index": [2, 3, 6],
-    "quote": "By giving Apocalypse Now a setting that was contemporary at the time of its release",
-    "reasoning": "빈칸 문장의 앞부분이 실제 영화의 선택을 명시한다 — 개봉 당시의 동시대 배경을 주었다. 빈칸은 'if the film had been ___' 이라는 그 선택의 반대 가정이므로, 배경을 바꾸지 않은 상태, 즉 19세기 콩고를 배경으로 한 원작을 글자 그대로 옮긴 상태가 들어가야 한다. 2번째 문장(원작은 19세기 아프리카 콩고 배경)과 3번째 문장(Unlike the original novel ... Vietnam)이 그 대립을 미리 깔아 둔다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "contemporary 와 civilisation 이 둘 다 지문에 있는 낱말이라 빈칸 자리에 그대로 옮겨 넣고 싶어진다.",
-     "how_to_reject": "지문에서 contemporary 는 '개봉 당시와 동시대인 배경'을 수식하고 civilisation 은 Kurtz 인물이 대표하는 것을 가리킨다 — 둘 다 실제 영화가 한 일 쪽에 있다. 빈칸은 그 반대 가정 자리이므로 실제 영화의 성질을 넣을 수 없다."
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "부분 사실",
-     "why_tempting": "5번째 문장이 실제로 'reflecting the central character’s mental and spiritual journey' 라고 하므로 이 선지는 영화에 대한 참인 서술이다.",
-     "how_to_reject": "참이기 때문에 오히려 들어갈 수 없다. 빈칸은 관객이 주제에 공감하기 '더 어려웠을' 반사실 상태를 요구하는데, 심리적 여정의 생생한 극화는 지문이 영화의 장점으로 든 것이다(5번째 문장)."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "3번째 문장에 베트남 전쟁이 나오므로 전쟁을 충실히 그렸다는 서술이 지문과 이어져 보인다.",
-     "how_to_reject": "지문은 베트남 전쟁을 '배경(setting)'으로만 언급하고 그 묘사의 충실성은 한 번도 평가하지 않는다. 또 그것은 실제 영화의 배경이므로 반대 가정 자리에 놓일 수 없다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "주체 역전",
-     "why_tempting": "adaptation · novel 이라는 지문 낱말이 들어 있어 소설과 영화의 관계를 말한 선지처럼 보인다.",
-     "how_to_reject": "2번째 문장이 'The film is an adaptation of Joseph Conrad’s novel' 이라고 방향을 못 박는다 — 소설이 먼저이고 영화가 각색이다. 영화가 소설의 영감 원천이라는 것은 선후가 뒤집힌 진술이다."
-    },
-    {
-     "n": 5,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": "정답. literal adaptation = 배경·시대를 바꾸지 않고 원작을 그대로 옮긴 상태로, 빈칸 문장 앞부분(동시대 배경을 준 것)의 정확한 반대다.",
-     "how_to_reject": ""
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "빈칸 문장에 if · had been · would have 가 있는지 본다. 있으면 빈칸은 '실제와 반대인 상태'를 넣는 자리라고 여백에 적는다",
-     "on_fail": "가정법 표지가 없으면 빈칸 문장에서 비교급(more easily than)을 찾아 무엇과 무엇을 비교하는지 적는다"
-    },
-    {
-     "step": "빈칸 문장 앞부분에서 실제로 한 일을 한 줄로 적는다 — '개봉 당시와 같은 시대를 배경으로 삼았다'",
-     "on_fail": "그 문장에서 못 찾으면 Unlike · but 이 든 앞 문장에서 바뀐 항목(setting, time period)을 적는다"
-    },
-    {
-     "step": "적어 둔 문장을 부정해 본다 — '배경·시대를 바꾸지 않았다면'. 이 부정문과 같은 뜻인 선지를 찾는다",
-     "on_fail": "같은 뜻이 안 보이면 원작 소설의 배경(19세기 콩고)을 그대로 두는 상태를 가리키는 선지를 찾는다"
-    },
-    {
-     "step": "남은 선지를 참·거짓이 아니라 자리로 채점한다 — 실제 영화에 대해 참인 서술(심리적 여정의 극화, 동시대 문명 비판)은 반대 가정 자리에 못 들어가므로 버린다",
-     "on_fail": "판단이 안 서면 각 선지 앞에 '이 영화는 실제로 ~이다'를 붙여 읽고, 참이 되는 것을 지운다"
-    }
-   ],
-   "time_budget_sec": 115,
-   "difficulty": {
-    "predicted": 0.45,
-    "drivers": [
-     "오답 넷이 실제 영화에 대해 참이거나 참처럼 보이는 서술",
-     "가정법 과거완료가 빈칸의 자리 값을 결정",
-     "literal 의 뜻(글자 그대로의)을 정확히 알아야 함",
-     "3점"
-    ]
-   },
-   "required_vocab": ["adaptation", "literal", "incidental", "depiction", "contemporary"],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 지문에 문자 그대로 있다.",
-      "빈칸 추론 중 '반사실 가정' 설계를 정확히 짚었다 — 이 유형에서 참인 진술이 오답이 되는 드문 구조다.",
-      "raw_block 의 'ref lecting' 는 PDF 자간 손상이며 판정에 영향이 없음을 확인했다."
-     ],
-     "checked": [
-      "quote 문자열 대조",
-      "raw_block 과 passage 대조('ref lecting' 손상 확인)",
-      "정답표 ⑤와 correct 일치 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "네 함정이 어휘 함정 · 부분 사실 · 무관 · 주체 역전으로 서로 다르다.",
-      "②의 how_to_reject 가 '참이라서 오답'이라는 이 문항 특유의 논리를 명시한다 — 다른 문항에 복사되지 않는 서술이다.",
-      "④의 주체 역전은 2번째 문장의 of 구조(소설의 각색물)로 확정된다."
-     ],
-     "checked": [
-      "trap 라벨 중복 검사",
-      "선지 5개를 '실제 영화에 대해 참인가'로 각각 표시",
-      "how_to_reject 마다 문장 번호 유무 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "4단계의 '선지 앞에 이 영화는 실제로 ~이다를 붙여 읽기'가 학생이 바로 쓸 수 있는 조작이다.",
-      "1단계가 지문을 안 본 상태에서 빈칸 문장만 보고 실행된다.",
-      "required_vocab 5개 중 literal 은 정답 선지, 나머지는 지문에서 판정에 쓰인다."
-     ],
-     "checked": [
-      "금지 표현 검사",
-      "required_vocab 문자열 대조(literal 은 선지 출처)",
-      "115초 예산 내 단계별 시간 추정"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2018#32",
-   "body_recovered": true,
-   "measured_ability": "'기억이 사라진 것이 아니라 묻힌 것'이라는 진단을 빈칸의 결핍 대상(you lack ___)으로 뒤집어 옮기는 능력",
-   "design_intent": "망각의 원인을 '소멸'이 아니라 '인출 단서의 부재'로 못 박아 두고, 빈칸을 lack 의 목적어로 뚫었다. 비유(hook · glue · channel · pool · sea)를 선지마다 다르게 깔아, 비유의 방향(빼내는 것인가 붙이는 것인가)을 뒤집으면 오답이 되도록 설계했다.",
-   "answer_locus": {
-    "sentence_index": [8, 9, 10],
-    "quote": "if provided with the right cue, like where you ate it, or whom you ate it with, you would likely recall what had been on your plate",
-    "reasoning": "결핍된 것이 무엇인지가 여기서 확정된다 — 알맞은 단서(the right cue)만 주어지면 기억은 되살아난다. 곧 빈칸의 lack 목적어는 그 단서, 즉 묻힌 기억을 '끄집어내는' 도구다. 뒤이어 9번째 문장이 그 기억이 다른 점심 기억들과 함께 filed away 되었다고 하고 10번째 문장이 many memories compete 라고 하므로, 도구의 기능은 무리 속에서 하나를 끌어내는 것이 된다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "인과 역전",
-     "why_tempting": "pool of ordinary memories 가 9번째 문장의 '다른 점심들과 함께 보관됨'과 겹쳐 보여, 기억이 그 무리로 흘러들 통로가 필요하다는 말이 그럴듯해진다.",
-     "how_to_reject": "9번째 문장은 기억이 이미 그 무리 안에 들어가 있다고 말한다(filed it away with all the other lunches). 들어갈 통로가 없어서 문제인 것이 아니라 이미 들어가 있어서 문제이므로 원인과 결과가 뒤집혀 있다."
-    },
-    {
-     "n": 2,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": "정답. hook to pull it out 이 8번째 문장의 the right cue(단서를 주면 되살아난다)와 10번째 문장의 many memories compete 를 한꺼번에 받는다.",
-     "how_to_reject": ""
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "'just another lunch' 라는 표현이 9번째 문장에 글자 그대로 나와, 지문을 그대로 옮긴 선지처럼 보인다.",
-     "how_to_reject": "9번째 문장에서 그 기억은 이미 '또 하나의 점심'으로 붙어 있는 상태다. 필요한 것은 더 붙이는 접착제가 아니라 떼어 내는 도구이므로 방향이 반대다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "지문 밖 상식",
-     "why_tempting": "기억이 안 나는 이유는 용량이 모자라서라는 일상적 통념이 강하다.",
-     "how_to_reject": "8번째 문장이 'It’s not so much that your memory of last week’s lunch has disappeared' 로, 11번째 문장이 'isn’t necessarily gone' 으로 소멸·용량 부족 설명을 두 번 부정한다."
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "10번째 문장의 'many memories compete for our attention' 을 거의 그대로 담아, 지문의 핵심 문장을 옮긴 선지로 보인다.",
-     "how_to_reject": "지문은 경쟁자가 '많다'고 하는데 이 선지는 경쟁자가 '충분히 많지 않아서' 문제라고 한다 — 같은 낱말을 쓰면서 수량 관계를 뒤집었다. 13번째 문장의 'a memory without rivals' 도 경쟁자가 없는 쪽이 잘 기억된다고 말한다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "빈칸 문장의 동사를 확인한다 — you lack ___ 이면 빈칸은 '없어서 문제가 되는 것'이다. 여백에 '없는 것'이라고 적어 둔다",
-     "on_fail": "동사가 lack 이 아니면 빈칸이 목적어인지 보어인지만 표시하고 다음 단계로 간다"
-    },
-    {
-     "step": "빈칸 앞에서 if · provided · when 이 든 조건 문장을 찾아, 무엇이 주어지면 문제가 풀리는지 적는다 — 여기서는 the right cue",
-     "on_fail": "조건 문장이 없으면 not so much A as B 나 Rather 로 시작하는 문장에서 필자가 고른 설명을 적는다"
-    },
-    {
-     "step": "그 '주어지면 되는 것'의 기능을 동사 하나로 적는다 — 끌어낸다. 선지의 비유를 이 동사로 채점한다(끌어낸다 / 붙인다 / 흘려보낸다 / 저장한다)",
-     "on_fail": "비유가 어려우면 선지의 동사구(pull out · attach · flow into · keep)만 뽑아 나란히 적는다"
-    },
-    {
-     "step": "지문이 이미 부정한 설명을 담은 선지를 지운다 — 기억이 사라졌다(용량 부족), 경쟁자가 적다는 서술은 8·10·11번째 문장과 충돌한다",
-     "on_fail": "둘이 남으면 마지막 두 문장(a wine that talks / without rivals)이 말하는 '경쟁자 없는 기억이 잘 남는다'와 어긋나는 쪽을 버린다"
-    }
-   ],
-   "time_budget_sec": 115,
-   "difficulty": {
-    "predicted": 0.4,
-    "drivers": [
-     "선지 다섯이 모두 비유라 방향 판정이 필요",
-     "빈칸이 lack 의 목적어라 진술을 한 번 뒤집어야 함",
-     "지문 낱말을 그대로 담은 오답이 둘(③ just another lunch, ⑤ compete for attention)",
-     "3점"
-    ]
-   },
-   "required_vocab": ["cue", "file away", "instance", "compete", "rival"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 지문에 문자 그대로 있다.",
-      "corpus.json 의 이 문항 passage 가 2018#31(Apocalypse Now) 지문으로 오염돼 있어 인용 대조가 불가능했다. 청크의 passage·raw_block(둘 다 정상)과 원문 블록으로 대조해 corpus 를 바로잡은 뒤 재대조했다(revised).",
-      "빈칸이 lack 의 목적어인 하위 설계를 design_intent 가 짚는다."
-     ],
-     "checked": [
-      "quote 를 청크 passage·raw_block 및 corpus(수정 후)와 문자열 대조",
-      "corpus 오염 확인 — 2018#32 passage 가 2018#31 과 동일 문자열이었음",
-      "정답표 ②와 correct 일치 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "초안에서 ③과 ⑤를 모두 어휘 함정으로 달았다. ③은 표현을 그대로 쓰되 비유의 방향이 반대이므로 반대 진술로, ⑤는 낱말을 그대로 쓰되 수량 관계를 뒤집은 것이므로 어휘 함정으로 갈랐다(revised).",
-      "네 함정이 인과 역전 · 반대 진술 · 지문 밖 상식 · 어휘 함정으로 서로 다르다.",
-      "④의 배제 근거를 8번째·11번째 두 문장의 부정 표현으로 이중 확인했다."
-     ],
-     "checked": [
-      "trap 라벨 중복 검사",
-      "선지 5개의 동사구 비교(flow into · pull out · attach · keep · number of)",
-      "how_to_reject 마다 문장 번호 유무 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "3단계가 선지의 동사구만 뽑게 해서 비유 해석 부담을 줄인다 — 실행 가능하다.",
-      "1단계가 빈칸 문장의 동사 하나만 보므로 지문을 안 본 학생도 시작한다.",
-      "required_vocab 5개 모두 지문에 있고 cue 는 정답 판정의 열쇠다."
-     ],
-     "checked": [
-      "금지 표현 검사",
-      "required_vocab 문자열 대조",
-      "115초 예산 내 단계별 시간 추정"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2018#33",
-   "body_recovered": true,
-   "measured_ability": "빈칸 뒤의 사례(케냐)와 마지막 요약 문장이 공통으로 그리는 '외부 원인이 소농의 생산을 좌우한다'는 구도를, 빈칸 주어(대다수 소농)의 술어로 옮기는 능력",
-   "design_intent": "빈칸이 Indeed 문장의 술어 자리이고 그 뒤에 'because of larger global causes' 가 붙어 있어, 빈칸에는 '더 큰 외부 원인 때문에 일어난 일'이 들어가야 한다. 소농을 능동적 행위자로 만드는 선지 넷을 배치해, 소농이 당하는 쪽이라는 구도를 놓치면 전부 걸리도록 설계했다.",
-   "answer_locus": {
-    "sentence_index": [4, 6],
-    "quote": "the capitalist mode of production is affecting peasant production in the less developed world in such a way as to limit the production of staple foods",
-    "reasoning": "마지막 문장이 문단의 논지를 명시한다 — 작용하는 주체는 자본주의 생산 양식이고, 소농의 생산은 그 작용을 받아 제한된다. 빈칸 문장의 'because of larger global causes' 와 정확히 겹치므로 빈칸에는 소농이 자기 생산에 대한 결정권을 잃었다는 수동적 결과가 들어간다. 4번째 문장의 'farmers are actively encouraged to grow export crops ... at the expense of basic food production' 이 그 상실을 사례로 보여 준다(권장받는 쪽은 소농, 권장하는 주체는 밖에 있다)."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": "정답. lost control over their own production 이 마지막 문장의 '자본주의 생산 양식이 소농 생산을 제한한다'와 4번째 문장의 수동태(are encouraged)를 함께 받는다.",
-     "how_to_reject": ""
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "주체 역전",
-     "why_tempting": "2번째 문장에 'a very few commercial agriculturalists are technologically advanced' 가 있어, 기술을 붙잡은 주체를 대다수 소농으로 옮겨 읽기 쉽다.",
-     "how_to_reject": "그 문장에서 기술을 갖춘 것은 '아주 소수의 상업 농민'이고 대다수는 while 뒤에서 경쟁할 수 없다고 대비된다. 1번째 문장도 'those remaining in agriculture are not benefiting from technological advances' 라고 못 박는다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "마지막 문장의 the capitalist mode of production 을 통째로 담고 있어 논지를 그대로 옮긴 선지로 보인다.",
-     "how_to_reject": "그 표현이 마지막 문장에서 맡은 역할은 '소농에 작용하는 주체'다. 소농이 그것에 맞선다는 진술로 바꾸면 작용 방향이 반대가 되고, 지문에 저항·challenge 를 나타내는 문장도 없다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "지문이 주식 작물 부족을 문제 삼으므로 소농이 환금 작물을 줄였다는 서술이 문제의식과 같은 편처럼 느껴진다.",
-     "how_to_reject": "4번째 문장은 케냐 농민들이 차·커피 같은 수출 작물을 기르도록 적극 권장받는다고 한다 — 환금 작물 관여는 줄어든 것이 아니라 늘었고, 그 결과가 5번째 문장의 주식 작물 부족이다."
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "지문 밖 상식",
-     "why_tempting": "regained 라는 낱말이 '한때 경쟁력이 있었다가 되찾았다'는 서사를 끌어들이고, 개발도상국 농업이 세계 시장에 편입된다는 배경 지식과 붙는다.",
-     "how_to_reject": "그런 회복 서사는 지문에 없다. 2번째 문장이 대다수는 'incapable of competing' 이라고 현재 상태를 못 박고, 빈칸 뒤 'because of larger global causes' 도 상실의 원인을 요구하지 회복의 원인을 요구하지 않는다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "빈칸 문장에서 빈칸 뒤에 붙은 원인구(because of larger global causes)를 먼저 읽는다. 빈칸에는 '외부의 큰 원인 때문에 벌어진 일'이 들어간다고 여백에 적는다",
-     "on_fail": "원인구가 없으면 빈칸 문장의 접속 부사(Indeed·Thus)를 보고 앞 문장을 강화하는 자리인지 표시한다"
-    },
-    {
-     "step": "빈칸 주어가 누구인지 앞 문장에서 확정한다 — this vast majority = 경쟁할 수 없는 대다수 소농",
-     "on_fail": "지시어가 가리키는 대상이 모호하면 앞 문장의 대비쌍(a very few ↔ the vast majority)을 표로 적는다"
-    },
-    {
-     "step": "빈칸 뒤 사례 문장에서 소농에게 붙은 동사의 태를 확인한다 — are encouraged(수동). 소농이 당하는 쪽이면 능동적 행위를 진술한 선지를 지운다",
-     "on_fail": "태가 헷갈리면 사례 문장에서 '누가 누구에게' 시켰는지 화살표로 적는다"
-    },
-    {
-     "step": "마지막 요약 문장(The essential argument here is that ...)에서 작용 주체와 대상을 뽑아 남은 선지와 대조한다 — 주체가 소농으로 바뀐 선지는 버린다",
-     "on_fail": "둘이 남으면 케냐 사례에서 환금 작물이 늘었는지 줄었는지로 채점한다"
-    }
-   ],
-   "time_budget_sec": 115,
-   "difficulty": {
-    "predicted": 0.35,
-    "drivers": [
-     "빈칸이 문단 앞쪽이고 근거가 마지막 요약 문장(세 문장 뒤)",
-     "오답 넷 모두 소농을 능동 주체로 세워 태 판정을 요구",
-     "at the expense of · staple crop 등 표현",
-     "3점"
-    ]
-   },
-   "required_vocab": ["staple", "peasant", "at the expense of", "commercial", "capitalist mode of production"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 지문에 문자 그대로 있다.",
-      "corpus.json 의 이 문항 passage 도 2018#31 지문으로 오염돼 있었다. 청크 passage·raw_block 및 원문 블록과 대조해 corpus 를 바로잡고 재대조했다(revised).",
-      "청크의 passage 에는 파서가 'this vast majority beca of larger global causes' 로 빈칸 표시를 뭉갠 자리가 있으나, raw_block 에서 빈칸 위치가 확인된다."
-     ],
-     "checked": [
-      "quote 문자열 대조(수정된 corpus 기준 재대조)",
-      "raw_block 으로 빈칸 위치와 선지 5개 확인",
-      "정답표 ①과 correct 일치 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "초안에서 ②·④·⑤를 모두 반대 진술로 달았다. ②는 기술을 가진 주체를 바꿔 읽는 것이므로 주체 역전, ⑤는 지문에 없는 '회복' 서사를 끌어들이는 것이므로 지문 밖 상식으로 갈라 네 라벨을 서로 다르게 만들었다(revised).",
-      "③의 배제 근거를 '낱말이 같지만 역할이 다르다'로 적었다 — 이 청크에서 되풀이되는 함정 형태다.",
-      "why_tempting 이 모두 선지 원문의 특정 낱말(technology · capitalist mode of production · cash crops · regained)에 걸려 있다."
-     ],
-     "checked": [
-      "trap 라벨 중복 검사(초안 3중복 → 해소)",
-      "선지 5개 원문과 지문 낱말 겹침 대조",
-      "how_to_reject 마다 문장 번호 유무 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "3단계(동사의 태 확인)가 이 문항의 승부처를 바로 겨눈다 — 학생이 기계적으로 실행 가능하다.",
-      "1단계가 빈칸 뒤 원인구만 읽고 시작하므로 지문을 안 본 상태에서도 출발점이 있다.",
-      "required_vocab 5개 모두 지문에 있고 at the expense of 는 케냐 사례 판정에 필요하다."
-     ],
-     "checked": [
-      "금지 표현 검사",
-      "required_vocab 문자열 대조",
-      "115초 예산 내 단계별 시간 추정"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "2018#34",
-   "body_recovered": true,
-   "measured_ability": "'가장 큰 이득은 A가 아니라 ___' 라는 부정-대조 구문에서, 앞 문단이 반복해 던진 물음(무엇이 우리를 인간답게 하는가)을 답의 자리로 옮기는 능력",
-   "design_intent": "AI의 통념적 이득(생산성·풍요·새로운 과학)을 빈칸 앞에서 미리 부정해 두고, 문단 내내 반복된 정체성 물음을 답으로 삼게 했다. irony 라는 낱말이 '이득이 뜻밖의 것'임을 예고하므로, 통념적 이득을 담은 선지를 고르면 그 예고를 무시한 것이 된다.",
-   "answer_locus": {
-    "sentence_index": [4, 5],
-    "quote": "If we aren’t unique toolmakers, or artists, or moral ethicists, then what, if anything, makes us special?",
-    "reasoning": "문단이 반복해 던지는 물음이 여기서 한 문장으로 압축된다 — 무엇이 우리를 특별하게 만드는가. 1번째 문장의 'change our minds about what sets us apart' 와 4번째 문장의 'continually asking ourselves what humans are good for' 가 같은 물음의 변주다. 빈칸은 AI가 주는 가장 큰 이득 자리이고, 그 이득이 통념적 이득이 아니라고 앞에서 부정했으므로 남는 것은 이 물음에 답하게 해 준다는 것 — 곧 인간이 무엇인지 규정하도록 돕는다는 진술이다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "주체 역전",
-     "why_tempting": "1번째 문장이 기계가 인간의 행동과 재능을 복제해 왔다고 하므로, 두 쪽이 닮아 간다는 진술이 지문과 이어져 보인다.",
-     "how_to_reject": "1번째 문장의 방향은 기계가 인간을 닮는 쪽이다. 인간이 AI를 닮는다는 진술은 방향이 뒤집혔고, 빈칸이 요구하는 것은 닮음이 아니라 'AI 도래의 가장 큰 이득'이다."
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "지문 밖 상식",
-     "why_tempting": "AI의 이득 하면 노동 해방·생산성 증가가 먼저 떠오른다.",
-     "how_to_reject": "빈칸 바로 앞 문장이 그 통념을 명시적으로 배제한다 — 'the greatest benefit ... will not be increased productivity or an economics of abundance or a new way of doing science'. 노동 해방은 그 목록과 같은 종류다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "AI와 인간 지능을 나란히 놓는 구도가 익숙해, 인간 지능의 저하를 보완한다는 서술이 자연스럽게 들린다.",
-     "how_to_reject": "지문에 인간 지능이 떨어진다는 문장이 없다. 4·5번째 문장이 말하는 것은 능력의 저하가 아니라 '무엇이 우리를 특별하게 하는가'라는 정체성의 물음이다."
-    },
-    {
-     "n": 4,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "5번째 문장에 moral ethicists 가 나오므로 도덕 문제를 다룬 선지가 지문과 붙어 보인다.",
-     "how_to_reject": "그 낱말은 '우리가 더 이상 유일한 도덕 윤리가가 아닐 수 있다'는 상실 목록의 한 항목이지, AI가 도덕적 딜레마를 풀어 준다는 이득이 아니다. 지문에 AI가 판단을 대신한다는 문장은 없다."
-    },
-    {
-     "n": 5,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": "정답. define humanity 가 1번째 문장(what sets us apart)·4번째 문장(what humans are good for)·5번째 문장(what makes us special)의 반복된 물음을 한 낱말로 받는다.",
-     "how_to_reject": ""
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "빈칸 앞 문장에서 not A or B or C 형태의 부정 목록을 찾아 통째로 표시한다. 이 목록에 든 것과 같은 종류의 선지는 먼저 지운다",
-     "on_fail": "부정 목록이 없으면 빈칸 문장 바로 앞의 not·rather than·instead of 를 찾는다"
-    },
-    {
-     "step": "문단에서 물음표로 끝나는 문장을 모두 찾아 밑줄을 긋는다. 빈칸이 '가장 큰 이득' 자리이고 앞에서 통념이 부정됐다면, 답은 그 물음에 답하는 것이다",
-     "on_fail": "물음표 문장이 없으면 같은 뜻이 반복되는 명사구(identity crisis · what sets us apart)를 두 곳 이상 찾는다"
-    },
-    {
-     "step": "밑줄 친 물음들의 공통 주어를 적는다 — 인간이 무엇인가. 이 주어를 담은 선지를 후보로 올린다",
-     "on_fail": "공통 주어가 안 잡히면 반복 등장하는 형용사(unique · special)를 담은 선지를 후보로 올린다"
-    },
-    {
-     "step": "남은 선지를 방향으로 채점한다 — 인간이 AI를 닮는다는 진술, AI가 인간 능력을 대신·보완한다는 진술은 1번째 문장의 방향(기계가 인간을 복제)과 어긋나므로 버린다",
-     "on_fail": "판단이 안 서면 irony 라는 낱말을 근거로, 예상 밖의 이득을 말하는 쪽을 남긴다"
-    }
-   ],
-   "time_budget_sec": 110,
-   "difficulty": {
-    "predicted": 0.5,
-    "drivers": [
-     "빈칸 앞 문장이 통념 오답 둘을 미리 배제해 줌",
-     "정답 표현 define humanity 가 지문의 물음을 압축한 추상어",
-     "identity crisis · moral ethicists 등 추상 명사",
-     "3점"
-    ]
-   },
-   "required_vocab": ["surrender", "utilitarian", "abundance", "irony", "humanity"],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 지문에 문자 그대로 있다(’ 포함).",
-      "빈칸 앞의 부정 목록이 오답 후보를 미리 제거하는 설계를 design_intent 가 짚는다.",
-      "raw_block 의 각주가 '* replicate' 에서 잘렸으나 본문·선지에는 손상이 없다."
-     ],
-     "checked": [
-      "quote 문자열 대조",
-      "raw_block 과 passage 대조",
-      "정답표 ⑤와 correct 일치 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "네 함정이 주체 역전 · 지문 밖 상식 · 무관 · 어휘 함정으로 서로 다르다.",
-      "②의 배제 근거가 빈칸 바로 앞 문장의 부정 목록이라 위치가 명확하다.",
-      "④의 유인이 moral ethicists 라는 실제 지문 낱말에 걸려 있음을 확인했다."
-     ],
-     "checked": [
-      "trap 라벨 중복 검사",
-      "선지 5개 원문과 why_tempting 대조",
-      "how_to_reject 마다 문장 위치 유무 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "1단계(부정 목록 표시)만으로 ②가 즉시 지워지므로 시간이 절약된다.",
-      "2단계의 '물음표 문장 찾기'는 지문을 안 본 학생도 눈으로 훑어 실행 가능하다.",
-      "required_vocab 5개 중 humanity 는 정답 선지, 나머지는 지문에서 판정에 쓰인다."
-     ],
-     "checked": [
-      "금지 표현 검사",
-      "required_vocab 문자열 대조",
-      "110초 예산 내 단계별 시간 추정"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "M1809#31",
-   "body_recovered": true,
-   "measured_ability": "'A가 아니라 B다' 구문의 B 자리를, 뒤 문단이 반복하는 양(量)의 논리 — 많이 시도해서 많이 실패한다 — 를 한 낱말로 압축해 채우는 능력",
-   "design_intent": "창의성의 통념(재능·상상력)을 빈칸 앞에서 부정해 두고, 뒤에 '순전한 숫자 게임'이라는 명시적 재서술을 심어 두었다. 선지가 단어 하나씩이라 문단의 논리를 한 낱말로 압축하지 못하면 어감이 좋은 낱말(imagination·achievement)로 손이 가게 설계했다.",
-   "answer_locus": {
-    "sentence_index": [3, 4],
-    "quote": "Geniuses don’t necessarily have a higher success rate than other creators; they simply do more",
-    "reasoning": "빈칸이 요구하는 성질이 여기서 확정된다 — 천재를 가르는 것은 성공률(질)이 아니라 산출량(many)이다. 바로 앞 문장 'It’s a pure numbers game.' 이 그 성질을 '숫자'로 이름 붙이므로, wild talent 와 대비되는 빈칸 자리에는 많이 만들어 내는 성질, 곧 생산성이 들어간다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "창의성 담론에서 감수성이 흔히 함께 거론되고, 남은 낱말 중 뜻이 부드러워 무난해 보인다.",
-     "how_to_reject": "지문에 감각·감수성을 가리키는 문장이 하나도 없다. 3번째 문장이 논의를 'a pure numbers game' 으로 한정한다."
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "천재(Geniuses)가 등장하므로 남보다 뛰어남을 가리키는 낱말이 그 자리를 채울 것 같다.",
-     "how_to_reject": "4번째 문장이 바로 그 우월성을 부정한다 — 천재라고 해서 성공률이 더 높지는 않고 단지 더 많이 할 뿐이다. 게다가 빈칸 앞의 'not about wild talent' 가 재능 우위 계열을 이미 배제했다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "지문 밖 상식",
-     "why_tempting": "창의성 = 상상력이라는 통념이 가장 강한 선택지다.",
-     "how_to_reject": "빈칸 앞 절이 'it isn’t about wild talent so much as it is about ___' 이므로 빈칸에는 타고난 재능과 대비되는 것이 와야 한다. 상상력은 재능 계열이라 대비가 성립하지 않고, 뒤 문단이 드는 근거(시도 횟수·실패 수)와도 연결되지 않는다."
-    },
-    {
-     "n": 4,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": "정답. productivity 는 4번째 문장의 they simply do more 와 3번째 문장의 numbers game 을 한 낱말로 압축한 것이다.",
-     "how_to_reject": ""
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "부분 사실",
-     "why_tempting": "5번째 문장에 'They have more successes' 가 있어 성취가 많다는 것이 사실로 보인다.",
-     "how_to_reject": "같은 문장이 'and more failures' 로 이어진다. 지문이 재는 변수는 성취의 양이 아니라 시도의 양이고, 마지막 문장도 '더 빨리 실패하라'로 끝난다 — 성취만 담은 낱말은 실패 쪽을 버린다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "빈칸 앞의 대비 구문(not A so much as B / not A but B)을 찾아 A를 적는다 — wild talent. 빈칸에는 A와 대비되는 성질이 들어간다",
-     "on_fail": "대비 구문이 없으면 빈칸 문장에서 부정어(isn’t·not)를 찾아 부정된 명사를 적는다"
-    },
-    {
-     "step": "A와 같은 계열의 낱말(재능·천부·상상력·우월성)이 든 선지를 먼저 지운다 — 대비 자리에는 같은 계열이 올 수 없다",
-     "on_fail": "계열이 헷갈리면 선지를 '타고나는 것'과 '하면서 쌓이는 것' 두 칸에 나눠 적는다"
-    },
-    {
-     "step": "빈칸 뒤에서 논지를 한 문장으로 요약한 표지 문장을 찾는다 — It’s a pure numbers game. 그 문장의 핵심어(숫자·양)를 적는다",
-     "on_fail": "요약 문장이 안 보이면 more 나 a lot of 가 반복되는 문장 두 개를 찾는다"
-    },
-    {
-     "step": "남은 선지를 그 핵심어로 채점한다 — 양을 가리키지 않는 낱말은 버리고, 양을 가리키되 성공 쪽만 담은 낱말도 버린다(지문은 실패도 함께 늘어난다고 한다)",
-     "on_fail": "둘이 남으면 마지막 문장의 'try to fail faster' 와 맞물리는 쪽을 택한다"
-    }
-   ],
-   "time_budget_sec": 85,
-   "difficulty": {
-    "predicted": 0.7,
-    "drivers": [
-     "선지가 단어 하나씩이고 정답 낱말이 평이함",
-     "'a pure numbers game' 이라는 명시적 재서술이 근거로 노출됨",
-     "통념 오답(imagination)이 강하게 유인",
-     "2점"
-    ]
-   },
-   "required_vocab": ["unspoken", "generate", "at the outset", "productivity"],
-   "revised": true,
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 지문에 문자 그대로 있다(세미콜론 앞뒤 포함).",
-      "빈칸이 문단 첫 문장이고 근거가 세 문장 뒤라는 구조를 answer_locus 가 명시한다.",
-      "청크 passage 에 OCR 로 섞여 든 '게 하다' 는 판정과 무관하며 raw_block 에서 같은 자리를 확인했다."
-     ],
-     "checked": [
-      "quote 문자열 대조",
-      "raw_block 과 passage 대조(한글 혼입 위치 확인)",
-      "정답표 ④와 correct 일치 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "네 함정이 무관 · 반대 진술 · 지문 밖 상식 · 부분 사실로 서로 다르다.",
-      "⑤의 배제 근거가 같은 문장 안의 'and more failures' 라 위치가 짧고 명확하다.",
-      "②의 유인을 '천재'라는 지문 낱말과 연결해 서술했다."
-     ],
-     "checked": [
-      "trap 라벨 중복 검사",
-      "선지 5개 낱말을 '타고난 성질 / 산출량' 으로 분류",
-      "how_to_reject 마다 문장 번호 유무 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "초안의 required_vocab 이 7개였고 그중 numbers game·success rate 는 정답 판정에 없어도 되는 항목이라 4개로 줄였다(revised).",
-      "2단계(같은 계열 지우기)가 단어 빈칸에서 가장 빨리 듣는 조작이고 20초면 끝난다.",
-      "2점 문항 85초 예산 안에 든다."
-     ],
-     "checked": [
-      "금지 표현 검사",
-      "required_vocab 4개가 지문에 실재하는지 문자열 대조",
-      "단계별 실행 시간 추정"
-     ]
-    }
-   ]
-  },
-  {
-   "item_id": "M1809#32",
-   "body_recovered": true,
-   "measured_ability": "빈칸 바로 뒤에 오는 부연(The person notices this rather than that ...)과 두 친구의 대조 사례가 공통으로 가리키는 것을 명사구 하나로 묶는 능력",
-   "design_intent": "빈칸이 문단 셋째 문장이고 그 앞에 'What I mean is this.' 라는 예고 표지를 두어, 빈칸의 정의가 바로 뒤 문장에 온다는 것을 구조로 알려 준다. 대신 사례를 가게·과일·돈으로 구체화해 두어, 사례의 소재(쇼핑·선호)를 답으로 착각하도록 오답을 배치했다.",
-   "answer_locus": {
-    "sentence_index": [4, 7],
-    "quote": "The person notices this rather than that, and she has feelings and makes judgements about one rather than another aspect of events.",
-    "reasoning": "'What I mean is this.' 다음에 놓인 빈칸의 내용을 이 문장이 곧바로 풀어 쓴다 — 사람은 사건의 이 측면을 주목하고 저 측면은 주목하지 않으며, 그에 대해 감정과 판단을 갖는다. 곧 빈칸은 '지금 벌어지는 일에 대한 그 사람 특유의 파악'이 된다. 7번째 문장 'the two friends are experiencing the same shop and its contents, but they are having quite different experiences' 가 그 파악이 사람마다 다르다는 점을 확인한다."
-   },
-   "choices": [
-    {
-     "n": 1,
-     "verdict": "distractor",
-     "trap": "지문 밖 상식",
-     "why_tempting": "배고픔·돈 부족이라는 사례가 나와, 사람이 상황에 따라 더 나은 선택을 하려 한다는 익숙한 설명으로 이어 붙이게 된다.",
-     "how_to_reject": "5·6번째 문장에서 두 사람의 차이는 선택의 좋고 나쁨이 아니라 '무엇을 알아차리는가'다(notice that a shop is selling groceries / notice only that it sells newspapers). 지문에 더 나은 선택을 논하는 문장이 없다."
-    },
-    {
-     "n": 2,
-     "verdict": "distractor",
-     "trap": "반대 진술",
-     "why_tempting": "1번째 문장이 '다른 사람의 정신적 지향에 맞추기'를 화제로 내걸어, 관점이 서로 비슷하다는 진술이 그 화제와 이어져 보인다.",
-     "how_to_reject": "7번째 문장이 같은 가게를 겪으면서도 'quite different experiences' 를 한다고 못 박는다. 4번째 문장의 'one rather than another' 도 사람마다 고르는 측면이 다르다는 뜻이다."
-    },
-    {
-     "n": 3,
-     "verdict": "distractor",
-     "trap": "어휘 함정",
-     "why_tempting": "shop 이 지문에 네 번 나오고 사례가 모두 가게 안에서 벌어져, 쇼핑 장소 선호가 화제처럼 보인다.",
-     "how_to_reject": "가게는 5~7번째 문장에서 예시 무대일 뿐이고, 8번째 문장은 가게를 영화관으로 잘못 아는 극단적 사례로 넘어간다 — 화제는 장소 선호가 아니라 같은 대상을 저마다 다르게 파악한다는 것이다."
-    },
-    {
-     "n": 4,
-     "verdict": "correct",
-     "trap": null,
-     "why_tempting": "정답. particular take on what is happening 이 4번째 문장의 'notices this rather than that ... about one rather than another aspect of events' 를 그대로 압축한다.",
-     "how_to_reject": ""
-    },
-    {
-     "n": 5,
-     "verdict": "distractor",
-     "trap": "무관",
-     "why_tempting": "'개인마다 다른 성향'이라는 큰 틀이 맞아 보이고, tendency 라는 낱말이 빈칸의 명사구 형태와 어울린다.",
-     "how_to_reject": "지문에 전통·관습을 가리키는 낱말이 한 번도 없다. 4번째 문장이 지정하는 차이의 축은 시간에 걸친 습관이 아니라 '지금 이 순간(At any moment)' 무엇을 알아차리는가다."
-    }
-   ],
-   "solve_procedure": [
-    {
-     "step": "빈칸 앞에 예고 표지(What I mean is this. / Let me explain. / That is)가 있는지 본다. 있으면 빈칸의 정의는 바로 다음 문장에 있으므로 거기부터 읽는다",
-     "on_fail": "예고 표지가 없으면 빈칸 문장 다음 문장의 주어가 빈칸의 무엇을 되받는지 화살표로 잇는다"
-    },
-    {
-     "step": "다음 문장에서 되풀이되는 구조를 뽑는다 — this rather than that / one rather than another. 빈칸은 이 '골라 보는 성질'을 명사구로 바꾼 것이다",
-     "on_fail": "구조가 안 보이면 그 문장의 동사 두 개(notices · makes judgements)를 적고 공통 목적어를 찾는다"
-    },
-    {
-     "step": "사례 문장에서 두 사람이 갈리는 지점을 적는다 — 같은 가게를 두고 한쪽은 식료품을, 다른 쪽은 신문을 알아차린다. 갈리는 축이 '주목 대상'임을 확인한다",
-     "on_fail": "사례가 길면 각 사람 뒤의 동사(notice·resent·feel tempted)만 뽑아 비교한다"
-    },
-    {
-     "step": "선지를 그 축으로 채점한다 — 사례의 소재(쇼핑 장소 선호), 사람들 사이의 유사성, 시간에 걸친 습관을 말하는 선지는 축이 다르므로 버린다",
-     "on_fail": "둘이 남으면 7번째 문장의 'quite different experiences' 와 어긋나는 쪽을 버린다"
-    }
-   ],
-   "time_budget_sec": 110,
-   "difficulty": {
-    "predicted": 0.5,
-    "drivers": [
-     "근거가 빈칸 바로 다음 문장이라 위치는 쉬움",
-     "정답 표현 take on ~ 의 명사 용법(파악·해석)이 낯섦",
-     "사례의 소재(가게)가 오답 ③으로 강하게 유인",
-     "3점"
-    ]
-   },
-   "required_vocab": ["orientation", "resent", "comprehend", "peculiar", "take (n.)"],
-   "reviews": [
-    {
-     "persona": "setter",
-     "verdict": "pass",
-     "findings": [
-      "인용이 지문에 문자 그대로 있다.",
-      "'What I mean is this.' 라는 예고 표지가 근거 위치를 지정하는 설계를 design_intent 와 절차 1단계가 함께 짚는다.",
-      "청크 passage 에 섞인 '자매(의)' 는 OCR 혼입이며 raw_block 에서 해당 위치가 본문 연결부임을 확인했다."
-     ],
-     "checked": [
-      "quote 문자열 대조",
-      "raw_block 과 passage 대조(한글 혼입 위치 확인)",
-      "정답표 ④와 correct 일치 확인"
-     ]
-    },
-    {
-     "persona": "analyst",
-     "verdict": "pass",
-     "findings": [
-      "네 함정이 지문 밖 상식 · 반대 진술 · 어휘 함정 · 무관으로 서로 다르다.",
-      "③의 유인을 'shop 이 지문에 네 번 등장'이라는 셈으로 특정했다.",
-      "⑤는 지문에 tradition 계열 낱말이 0회임을 배제 근거로 삼았다."
-     ],
-     "checked": [
-      "trap 라벨 중복 검사",
-      "지문에서 shop(4회) · tradition(0회) 문자열 계수",
-      "how_to_reject 마다 문장 번호 유무 확인"
-     ]
-    },
-    {
-     "persona": "tutor",
-     "verdict": "pass",
-     "findings": [
-      "1단계가 빈칸 앞 두 문장만 보고 실행되므로 지문을 안 본 학생도 시작한다.",
-      "required_vocab 에 명사 take 를 넣은 이유가 정답 선지 해독에 직결되기 때문임을 확인했다.",
-      "110초 예산 안에 든다."
-     ],
-     "checked": [
-      "금지 표현 검사",
-      "required_vocab 중 orientation·resent·comprehend·peculiar 는 지문, take(n.) 는 정답 선지 출처임을 확인",
-      "단계별 실행 시간 추정"
-     ]
-    }
-   ]
-  }
- ],
- "type_report": {
+  "chunk": 6,
   "type_id": "R-BLANK",
-  "n_analyzed": 12,
-  "recurring_traps": [
-   {
-    "trap": "반대 진술",
-    "count": 10,
-    "signature": "지문의 핵심 관계를 그대로 쓰되 방향만 뒤집는다 — hardware가 software를 이긴다 · 목소리를 낮춘다 · 기억을 더 붙인다 · 환금 작물을 줄였다"
-   },
-   {
-    "trap": "어휘 함정",
-    "count": 9,
-    "signature": "지문 낱말을 통째로 옮겨 담지만 그 낱말이 지문에서 맡던 역할(주체인가 대상인가, 많은가 적은가)을 바꿔 놓는다 — capitalist mode of production · just another lunch · memories and traditions · moral ethicists"
-   },
-   {
-    "trap": "무관",
-    "count": 9,
-    "signature": "소재에서 연상되는 개념을 넣지만 그 개념을 가리키는 낱말이 지문에 0회다 — illegal · dilemma · natural challenges · traditions"
-   },
-   {
-    "trap": "지문 밖 상식",
-    "count": 8,
-    "signature": "그 주제의 통념(창의성=상상력, AI=노동 해방, 소수의 영향=협력, 망각=용량 부족)을 넣는다. 빈칸 앞뒤에 그 통념을 미리 부정하는 문장이 있는 경우가 많다"
-   },
-   {
-    "trap": "주체 역전",
-    "count": 5,
-    "signature": "행위는 지문과 같은데 하는 쪽과 당하는 쪽이 바뀐다 — 다수가 변화를 일으킨다 · 영화가 소설의 영감이다 · 소농이 기술을 붙잡았다"
-   },
-   {
-    "trap": "부분 사실",
-    "count": 4,
-    "signature": "지문에서 참인 진술이지만 빈칸이 요구하는 자리 값(반사실 · 공통점 · 원인)이 아니다"
-   },
-   {
-    "trap": "인과 역전",
-    "count": 2,
-    "signature": "원인 자리와 결과 자리를 맞바꾼다 — 문화 도구가 뇌를 안정시킨다 · 기억이 무리로 흘러들 통로가 없다"
-   },
-   {
-    "trap": "범위 과대",
-    "count": 1,
-    "signature": "지문의 한정어(very selective · in the present)를 떨어뜨리고 보편으로 키운다"
-   }
+  "type_name": "빈칸 추론",
+  "analyses": [
+    {
+      "item_id": "M2006#33",
+      "body_recovered": true,
+      "measured_ability": "'A가 B로 대체된다'는 치환 관계를 지문 전체에서 추적해, 빈칸 문장의 as if 절이 어느 쪽 항(대체하는 쪽)을 받아야 하는지 고르는 능력",
+      "design_intent": "dematerialization(비물질화)을 '물질 → 서비스', '무거운 원자 → 무게 없는 비트', '만질 수 있는 것 → 만질 수 없는 것'이라는 같은 방향의 치환 세 겹으로 쌓아 두고, 빈칸에서 그 방향을 한 번이라도 뒤집으면 오답이 되도록 설계했다. software·hardware·digital goods 같은 지문 낱말을 오답 넷에 흩뿌려 낱말 일치로 고르면 방향이 뒤집히게 만든 것이 이 문항의 고유한 장치다.",
+      "answer_locus": {
+        "sentence_index": [
+          1,
+          5,
+          6
+        ],
+        "quote": "The tangible is replaced by intangibles ― intangibles like better design, innovative processes, smart chips",
+        "reasoning": "치환의 방향이 여기서 못 박힌다 — 만질 수 있는 것(물질 재화)이 '대체되는 쪽', 만질 수 없는 것이 '대체하는 쪽'이다. 빈칸 문장의 주어는 Material goods(대체되는 쪽)이고 'act as if ___'는 그것이 무엇처럼 행세하는지를 묻는다. 따라서 빈칸에는 대체하는 쪽의 성질, 즉 intangible 이 들어간다. 남은 낱말 services 는 첫 문장 'the migration from products to services' 와 둘째 문장 'services ... don't have to be bound to materials' 가 공급한다 — 물질에 매이지 않는다는 성질이 곧 물질 재화가 흉내 내는 상태다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "correct",
+          "why_correct": "정답. intangible 은 5번째 문장의 intangibles 를, services 는 첫 두 문장의 services 를 그대로 받는다 — 지문 낱말을 담고도 정답인 경우다. 낱말이 같아서가 아니라 두 낱말이 지문에서 맡은 역할(대체하는 쪽 · 물질에 매이지 않는 것)이 빈칸 자리와 같아서 정답이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "replaced 와 digital goods 가 둘 다 지문에 있는 낱말이라 '대체'라는 핵심어를 잡았다고 느끼게 한다.",
+          "how_to_reject": "5번째 문장은 'The tangible is replaced by intangibles' — 물질 재화는 대체하는 쪽이 아니라 대체되는 쪽이다. 게다가 3번째 문장 'But dematerialization is not just about digital goods.' 가 디지털 재화를 논의의 중심에서 빼 두었으므로, 물질 재화가 디지털 재화를 대체한다는 관계는 지문 어디에도 없다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "빈칸 바로 뒤 두 문장에 hardware 와 software 가 나란히 나와, 그 둘의 관계를 묻는 문장이라고 착각하게 한다.",
+          "how_to_reject": "빈칸 다음다음 문장 'Hardware behaves like software.' 와 마지막 인용 'Software eats everything.' 이 정확히 반대 방향이다 — 하드웨어가 소프트웨어를 이겨 살아남는 것이 아니라 소프트웨어처럼 굴게 된다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "digital 이라는 낱말과 '서비스'가 함께 들어 있어 첫 문장(products to services)과 겹쳐 보인다.",
+          "how_to_reject": "지문은 디지털 서비스의 이용 가능 여부를 한 번도 논하지 않는다. 5번째 문장은 online connectivity 를 이미 작동하는 요소로 나열하고 있어, '이용할 수 없다'는 가정은 지문의 어느 문장으로도 뒷받침되지 않는다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "software 와 hardware 라는 지문 낱말을 그대로 담고 있고, '무거운 원자 대 무게 없는 비트'라는 대비를 갈등 관계로 읽으면 그럴듯해진다.",
+          "how_to_reject": "6번째 문장의 관계어가 conflict 가 아니라 embedded into 다 — 'Soft things, like intelligence, are thus embedded into hard things'. 둘은 충돌하는 것이 아니라 한쪽이 다른 쪽 안으로 들어가는 관계다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "빈칸 문장을 먼저 읽고 주어와 술어를 적는다 — 주어 Material goods, 술어 act as if ___. 즉 '물질 재화가 무엇인 것처럼 행동하는가'를 묻는 자리임을 확정한다",
+          "on_fail": "as if 절이 안 보이면 빈칸 문장에서 동사만 찾아 그 동사의 주어를 표시한다"
+        },
+        {
+          "step": "지문에서 replaced · substituted · migration 같은 치환 동사가 든 문장 세 개에 밑줄을 긋고, 각 문장마다 '대체되는 쪽 → 대체하는 쪽'을 화살표로 적는다",
+          "on_fail": "치환 동사를 못 찾으면 by 나 from-to 가 붙은 문장을 찾는다"
+        },
+        {
+          "step": "화살표의 오른쪽(대체하는 쪽)에 모인 낱말을 모은다 — services, weightless bits, intangibles. 빈칸에는 이 무리의 낱말이 들어간다",
+          "on_fail": "무리가 둘로 갈리면 빈칸 문장의 주어가 속한 쪽(왼쪽)을 지우고 남은 쪽을 택한다"
+        },
+        {
+          "step": "선지 다섯을 화살표 방향으로만 채점한다 — 주어(물질 재화)를 대체하는 쪽에 놓은 선지는 버리고, 하드웨어를 소프트웨어 위에 놓거나 둘을 충돌시키는 선지도 버린다",
+          "on_fail": "둘 이상 남으면 빈칸 뒤 세 문장(Nouns morph to verbs / Hardware behaves like software / Software eats everything)과 같은 방향인 것을 남긴다"
+        }
+      ],
+      "time_budget_sec": 110,
+      "difficulty": {
+        "predicted": 0.45,
+        "drivers": [
+          "dematerialization·intangible 등 추상 명사가 정의 없이 등장",
+          "오답 넷 중 셋이 지문 낱말(digital goods·software·hardware)을 그대로 담음",
+          "빈칸이 문단 뒤쪽이라 앞의 치환 관계를 기억해 와야 함",
+          "3점"
+        ]
+      },
+      "required_vocab": [
+        "dematerialization",
+        "tangible",
+        "intangible",
+        "substitute",
+        "embed"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 corpus 지문과 문자 그대로 일치한다(대시 ― 포함).",
+            "빈칸 추론 유형 정의(문단의 논리 관계를 빈칸에서 재서술)에 부합한다 — 근거가 요약 문장이 아니라 치환 관계 문장이라는 점이 이 문항 고유의 서술로 남아 있다.",
+            "body_ok:false 문항이라 raw_block 으로 대조했고, passage 에 파서 손상이 없음을 확인했다."
+          ],
+          "checked": [
+            "answer_locus.quote 를 corpus passage 와 문자열 대조",
+            "raw_block 과 passage 를 문장 단위로 대조(손상 없음)",
+            "design_intent 가 빈칸 유형 일반론이 아니라 이 지문의 치환 3겹을 가리키는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안에서 ②를 '반대 진술'로 달았는데 ③과 라벨이 겹쳤다. ②의 실제 오독 경로는 '대체하는 주체가 누구인가'가 뒤집힌 것이므로 주체 역전으로 고쳤고, how_to_reject 에 5번째 문장 위치를 명시했다(revised).",
+            "네 함정이 주체 역전 · 반대 진술 · 무관 · 어휘 함정으로 서로 다르다.",
+            "정답 ①이 지문 낱말(intangibles·services)을 담고 있어, '지문 낱말 = 오답'이라는 통념의 반례임을 why_tempting 에 남겼다."
+          ],
+          "checked": [
+            "오답 4개 trap 라벨 중복 검사",
+            "선지 원문 낱말과 why_tempting 대조(digital goods · hardware · software · conflicted)",
+            "how_to_reject 마다 문장 번호 또는 인용 위치가 있는지 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계가 지문을 안 본 학생도 실행 가능하다 — 빈칸 문장만 보고 주어·술어를 적게 한다.",
+            "치환 동사 세 개에 밑줄 긋는 작업은 실측상 40초 안에 끝난다. 110초 예산 안이다.",
+            "required_vocab 5개가 모두 정답 판정에 직접 쓰인다(substitute·embed 는 방향 판정어)."
+          ],
+          "checked": [
+            "절차 4단계에 금지 표현(흐름/문맥/꼼꼼히) 유무 확인",
+            "required_vocab 낱말이 지문에 실제로 있는지 문자열 대조",
+            "각 단계 on_fail 이 다음 행동을 지정하는지 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M2006#34",
+      "body_recovered": true,
+      "measured_ability": "양보절 'while A, they ___' 에서 A가 이미 인정한 내용을 빈칸이 반복하지 않고, 빈칸 뒤 문장이 붙이는 단서(nonetheless ... partly self-referential)를 빈칸의 한정어로 옮겨 오는 능력",
+      "design_intent": "황금률의 두 판본(소극·적극)을 길게 대비해 두고 정작 정답은 두 판본의 '공통 잔여물' — 자기 자신을 기준으로 삼는다는 점 — 에 걸어 두었다. 대비를 따라온 학습자가 '두 판본의 차이/모순'을 답으로 고르게 유도하는 것이 이 문항의 함정 축이다.",
+      "answer_locus": {
+        "sentence_index": [
+          7,
+          8
+        ],
+        "quote": "The purposeful displacement of concern away from the ego nonetheless remains partly self-referential.",
+        "reasoning": "빈칸 바로 다음 문장이다. nonetheless 와 partly 가 빈칸의 내용을 두 번 한정한다 — 관심을 자기에게서 떼어 놓아도 '부분적으로는' 자기 참조가 남는다. 곧 빈칸은 '자기 관심을 완전히 버리라고 요구하지는 않는다'가 되어야 partly 와 아귀가 맞는다. 마지막 문장 'Both the negative and the positive versions invoke the ego as the fundamental measure' 가 그 남은 자기 참조가 두 판본 모두에 있음을 확인해 준다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "선지에 concerns for others 가 들어 있어 빈칸 앞 절(care for an other)과 낱말이 겹치고, '그럼에도 자기중심적'이라는 결론을 극단으로 밀면 '타인을 위해 행동하지 않는다'로 읽힌다.",
+          "how_to_reject": "빈칸 앞 절이 이미 'these Golden Rules encourage an agent to care for an other' 라고 인정했고, 5번째 문장 'Both versions insist on caring for others' 가 못을 박는다. 양보절이 인정한 것을 주절에서 부정할 수 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "2·3번째 문장이 소극 판본과 적극 판본을 restraint 대 intervention 으로 정면 대비해 두어, 두 판본 사이의 모순을 지적하는 문장이 올 자리처럼 보인다.",
+          "how_to_reject": "대비는 지문에 있지만 마지막 문장이 'Both the negative and the positive versions invoke the ego as the fundamental measure' 라고 두 판본의 공통점으로 문단을 닫는다. 빈칸 뒤가 공통점으로 가는데 빈칸에서 모순을 드러낼 수는 없다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "황금률이라는 소재에서 '도덕적 딜레마 앞에서는 지침이 못 된다'는 윤리학 수업의 상투적 비판이 떠오른다.",
+          "how_to_reject": "지문에 dilemma 나 판단이 갈리는 상황이 한 번도 나오지 않는다. 빈칸 뒤 두 문장이 문제 삼는 것은 지침의 무력함이 아니라 기준점이 ego 라는 점이다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "정답. abandoning self-concern altogether 의 altogether 가 뒤 문장의 partly 와 짝을 이룬다 — '완전히 버릴 것을 요구하지는 않는다' = '부분적으로 자기 참조가 남는다'."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "타인을 배려한다는 소재에서 '사회적 상호작용의 이익'이라는 사회과학적 표현이 자연스럽게 붙어 보인다.",
+          "how_to_reject": "지문에는 benefit 이나 상호작용의 이득을 다루는 문장이 없다. 빈칸 뒤 두 문장의 화제는 이익이 아니라 평가 기준(measure)으로서의 ego 다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "빈칸 문장에서 while 이 이끄는 양보절을 괄호로 묶는다 — 괄호 안(타인을 배려하게 한다)은 이미 참으로 인정된 것이므로, 그것을 되풀이하거나 부정하는 선지는 미리 지운다",
+          "on_fail": "양보 표지가 안 보이면 Yet·while·although 를 찾아 그 절 끝까지 괄호를 친다"
+        },
+        {
+          "step": "빈칸 다음 문장에서 정도를 깎는 낱말(nonetheless · partly · still · to some extent)에 동그라미를 친다. 이 낱말이 빈칸에 들어갈 진술의 세기를 지정한다",
+          "on_fail": "그런 낱말이 없으면 다음 문장의 주어가 빈칸 문장의 무엇을 되받는지 화살표로 잇는다"
+        },
+        {
+          "step": "동그라미 친 낱말과 짝이 되는 정도 표현(altogether · entirely · completely · not necessarily)이 든 선지를 먼저 후보로 올린다",
+          "on_fail": "정도 표현이 든 선지가 없으면 마지막 문장의 핵심어(ego)를 그대로 다루는 선지를 후보로 올린다"
+        },
+        {
+          "step": "남은 선지를 마지막 문장으로 채점한다 — 두 판본의 '공통점'을 말하는 문단이므로 두 판본의 차이·모순을 말하는 선지를 버린다",
+          "on_fail": "여전히 둘이 남으면 지문에 한 번도 안 나온 명사(dilemma, benefit)가 든 쪽을 버린다"
+        }
+      ],
+      "time_budget_sec": 120,
+      "difficulty": {
+        "predicted": 0.35,
+        "drivers": [
+          "정답이 부정문 + altogether 라는 정도 한정으로만 구별됨",
+          "빈칸 앞 대비(소극/적극)가 오답 ②로 강하게 유인",
+          "self-referential · acts of omission/commission 등 추상 표현",
+          "3점"
+        ]
+      },
+      "required_vocab": [
+        "restraint",
+        "omission",
+        "commission",
+        "self-referential",
+        "invoke"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 지문에 문자 그대로 있다.",
+            "근거가 빈칸 '뒤' 문장이라는 점을 answer_locus.reasoning 이 명시한다 — 빈칸 추론 유형에서 근거가 뒤에 놓이는 설계를 정확히 짚었다.",
+            "design_intent 가 '대비를 미끼로 공통점을 묻는다'는 이 문항 고유의 설계를 말한다."
+          ],
+          "checked": [
+            "quote 를 corpus passage 와 문자열 대조",
+            "raw_block 과 passage 대조(손상 없음, choices 5개 일치)",
+            "정답표 ④와 correct 표시 일치 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "네 함정이 반대 진술 · 부분 사실 · 지문 밖 상식 · 무관으로 서로 다르다.",
+            "②의 why_tempting 이 선지 텍스트(inner contradiction between the two versions)와 지문의 실제 대비 문장을 짝지어 서술한다.",
+            "①은 '지문 낱말(concerns for others)을 담았지만 양보절이 이미 인정한 내용'이라는 점에서 이 청크의 낱말-역할 관찰과 일치한다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "선지 5개 원문과 why_tempting 대조",
+            "how_to_reject 의 근거 문장 번호 유무 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계(정도 부사에 동그라미)가 지문을 안 본 학생도 기계적으로 실행 가능하다.",
+            "3단계가 선지의 altogether 를 직접 겨냥해 후보를 좁히므로 120초 안에 끝난다.",
+            "required_vocab 5개 모두 지문에 실재하고 판정에 쓰인다."
+          ],
+          "checked": [
+            "금지 표현 검사",
+            "required_vocab 문자열이 지문에 있는지 대조",
+            "절차 실행 시간 추정(양보절 표시 20초 + 뒤 문장 20초 + 선지 채점 50초)"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2019#31",
+      "measured_ability": "'The more A, the more B' 비교 구문이 만든 조건을 마지막 문장의 형용사 자리로 옮겨, 어떤 성질의 공유가 realism 에 기여하는지 지정하는 능력",
+      "design_intent": "빈칸이 마지막 문장의 형용사 한 자리뿐이고 선지도 낱말 하나씩이라, 실험 소개(플래시벌브 기억)를 다 읽고도 '비교 구문 하나'를 못 찾으면 어감으로 고르게 된다. 정답 낱말 repetitive 는 지문에 없고, 'The more ... the more' 라는 구조를 형용사로 압축할 수 있는지만 묻는다.",
+      "answer_locus": {
+        "sentence_index": [
+          5,
+          6
+        ],
+        "quote": "The more an event is socially shared, the more it will be fixed in people’s minds.",
+        "reasoning": "공유가 기억을 고정시키는 조건이 '많이/거듭'이라는 양으로 명시된 유일한 문장이다. 마지막 문장은 그 고정 효과가 나쁜 소식을 부인하려는 성향을 눌러 realism 에 기여한다고 말하므로, 빈칸에는 공유의 양을 가리키는 형용사가 들어가야 한다. 다음 문장 'Social sharing may in this way help to counteract some natural tendency' 의 in this way 가 앞 문장을 근거로 지목한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "correct",
+          "why_correct": "정답. 'The more ... the more' 를 형용사 하나로 줄이면 '거듭되는(repetitive)' 공유다. 지문에 없는 낱말이지만 비교 구문의 재서술이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "왕의 죽음·언론 보도 같은 소재가 나와 법적 문제를 연상시키고, 남은 넷 중 뜻이 가장 튀어 '특이해서 정답'이라는 감으로 잡히기도 한다.",
+          "how_to_reject": "지문에 법·규제·위법을 가리키는 표현이 한 번도 없다. 5번째 문장이 지정하는 변수는 공유의 합법성이 아니라 공유의 양이다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "3번째 문장의 'constructed a social narrative and a collective memory' 를 '집단이 이야기를 만들어 낸다 = 왜곡/편향'으로 읽으면 biased 가 그럴듯해진다.",
+          "how_to_reject": "마지막 문장의 술어가 contributes to realism 이다 — 편향된 공유가 현실 직시에 기여한다는 것은 같은 문장 안에서 앞뒤가 맞지 않는다. 3번째 문장의 constructed 는 왜곡이 아니라 함께 만든다는 뜻으로 쓰였고, 뒤이어 consolidated(공고히 했다)로 이어진다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "8번째 문장의 'tends initially to deny' 에서 initially 를 보고 '일시적'이라는 낱말을 빈칸으로 옮기게 된다.",
+          "how_to_reject": "initially 가 걸린 것은 부인(deny)이지 공유가 아니다. 5번째 문장은 공유가 많을수록 기억이 fixed 된다고 하므로, 일시적 공유는 그 조건과 정반대다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "realism(현실 직시)이라는 결과를 보고 원인 쪽에도 '이성적'이라는 성질을 넣고 싶어진다 — 원인과 결과의 어감을 맞추려는 습관이다.",
+          "how_to_reject": "지문은 공유의 '질'이 아니라 '빈도'만 변수로 둔다(5번째 문장). rational 을 뒷받침할 문장이 없고, 오히려 6~8번째 문장은 사람들의 자연스러운 반응(부인)을 비이성적 성향으로 그린다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "빈칸이 형용사 한 자리인지 절 전체인지부터 확인한다 — 한 자리면 지문에서 그 명사(social sharing)가 주어로 쓰인 문장만 골라 읽는다",
+          "on_fail": "빈칸 명사가 여러 번 나오면 빈칸 문장과 같은 술어(contributes·helps)를 쓴 문장을 먼저 본다"
+        },
+        {
+          "step": "그 문장들 중 비교·조건 구문(The more ~, the more ~ / if / when)이 든 문장을 찾아 표시한다. 형용사 빈칸의 답은 거의 이 구문을 한 낱말로 줄인 것이다",
+          "on_fail": "비교 구문이 없으면 빈도 부사(often·gradually·repeatedly)가 든 문장을 찾는다"
+        },
+        {
+          "step": "표시한 문장의 변수(무엇이 많아지는가)를 한국어로 한 낱말로 적는다 — 여기서는 '공유 횟수'",
+          "on_fail": "변수를 못 적으면 그 문장에서 more 가 걸린 명사 두 개를 그대로 적는다"
+        },
+        {
+          "step": "선지 다섯을 그 변수와 대조한다 — 양을 가리키지 않는 낱말(합법성·편향·이성)은 지우고, 양을 가리키되 방향이 반대인 낱말(일시적)도 지운다",
+          "on_fail": "둘이 남으면 마지막 문장의 결과어(realism)와 모순되는 쪽을 버린다"
+        }
+      ],
+      "time_budget_sec": 85,
+      "difficulty": {
+        "predicted": 0.65,
+        "drivers": [
+          "선지가 단어 하나씩이라 구조가 단순",
+          "정답 낱말 repetitive 가 지문에 없어 재서술이 필요",
+          "flashbulb memory 등 고유명사·전문어가 읽기 속도를 늦춤",
+          "2점"
+        ]
+      },
+      "required_vocab": [
+        "consolidate",
+        "counteract",
+        "undesirable",
+        "realism"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 지문에 문자 그대로 있다(’ 포함).",
+            "빈칸이 형용사 한 자리인 하위 유형(단어 빈칸)의 설계 — '구문을 한 낱말로 압축'이라는 측정점이 유형과 맞는다.",
+            "body_ok:true 문항이라 파서 손상 확인은 불필요했다."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "정답표 ①과 correct 일치 확인",
+            "design_intent 가 이 문항의 단어 빈칸 특성을 짚는지 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "네 함정이 무관 · 어휘 함정 · 반대 진술 · 지문 밖 상식으로 서로 다르다.",
+            "④의 오독 경로를 initially 라는 실제 지문 낱말로 특정했다 — 막연한 '반대'가 아니다.",
+            "②(illegal)는 근거 문장이 없다는 것 자체가 배제 근거이므로 how_to_reject 에 '법·규제 표현이 지문에 0회'라고 셈으로 적었다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "선지 5개 낱말과 why_tempting 대조",
+            "지문에서 legal/illegal/law 문자열 검색(0건) 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계가 발문과 선지 형태만 보고 실행 가능하다.",
+            "2점 문항이므로 85초로 잡았고, 비교 구문 찾기 → 변수 적기 → 선지 대조가 그 안에 든다.",
+            "required_vocab 이 4개로 좁고 모두 지문에 있다."
+          ],
+          "checked": [
+            "금지 표현 검사",
+            "required_vocab 문자열 대조",
+            "단계마다 on_fail 이 다음 행동을 지정하는지 확인"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2019#32",
+      "body_recovered": true,
+      "measured_ability": "'the way ___' 라는 명사절 빈칸이 뒤 문장들의 사례(참정권 운동)와 결론(converted others to its point of view)에서 어느 주체의 무슨 행위를 받아야 하는지 지정하는 능력",
+      "design_intent": "소수와 다수라는 두 주체를 문단 내내 번갈아 등장시켜 놓고, 빈칸 자리는 소수의 '행동 방식(behavioural style)'으로 못 박아 두었다. 오답 넷 중 둘이 주어를 the majority 로 바꿔 놓은 것이 이 문항의 핵심 장치다 — 낱말은 전부 지문 것이지만 주어만 다르다.",
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          6
+        ],
+        "quote": "Such change has often occurred because a minority has converted others to its point of view.",
+        "reasoning": "빈칸 앞 절이 '답은 그들(소수)의 행동 방식에 있다'라고 주어를 이미 소수로 고정했고, 이 문장이 그 행동 방식의 결과를 '자기 관점으로 남을 돌려세웠다'로 진술한다. 곧 빈칸은 소수가 자기 관점을 남에게 관철시키는 방식이어야 한다. 바로 앞 4번째 문장 'its supporters were consistent in their views, and this created a considerable degree of social influence' 가 그 방식의 내용(일관성)을 채운다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "소수가 다수에게 영향을 미치려면 협력해야 한다는 사회적 통념이 강해, 빈칸에 '협력'을 넣고 싶어진다.",
+          "how_to_reject": "5번째 문장은 소수가 다수 사이에 'social conflict, doubt and uncertainty' 를 만든다고 한다 — 협력이 아니라 갈등을 일으키는 방식이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "social change 가 지문의 결론어라 그것을 담은 선지가 정답처럼 보인다.",
+          "how_to_reject": "빈칸 앞 절이 'the answer lies in their behavioural style' 로 주어를 소수(their)로 고정했고, 6번째 문장도 변화의 원인을 a minority 로 돌린다. 변화를 일으키는 주체가 다수로 바뀌면 문장이 성립하지 않는다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "the majority 와 the minority 라는 두 지문 낱말이 다 들어 있어 관계를 진술한 문장처럼 보인다.",
+          "how_to_reject": "다수가 소수를 키운다(cultivate)는 관계는 지문 어디에도 없다. 지문이 말하는 다수의 역할은 5번째 문장에서 갈등·의심·불확실성을 '겪는' 쪽이다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "1번째 문장에서 소수가 troublemakers·weirdos 로 일축된다고 했으므로, 영향력을 얻으려면 목소리를 낮춰야 한다고 읽기 쉽다.",
+          "how_to_reject": "4·5번째 문장은 consistent · active and organised · support and defend their position 을, 마지막 문장은 an outspoken minority 를 성공 조건으로 든다 — 목소리를 낮추는 것과 정반대다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "정답. get its point across 는 6번째 문장의 converted others to its point of view 를 그대로 받는다(point 라는 낱말까지 겹친다)."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "빈칸 앞 절에서 소유격·대명사(their·its)를 찾아 그것이 가리키는 주어를 지문에서 확정하고 여백에 크게 적는다 — 여기서는 '소수'",
+          "on_fail": "대명사가 없으면 빈칸이 포함된 명사구(behavioural style)의 소유자를 앞 문장에서 찾는다"
+        },
+        {
+          "step": "선지 다섯의 주어만 먼저 본다. 앞에서 적은 주어와 다른 주어를 가진 선지를 그 자리에서 지운다",
+          "on_fail": "선지 주어가 모두 같으면 술어의 방향(무엇을 누구에게)을 대신 본다"
+        },
+        {
+          "step": "빈칸 뒤에서 성공 사례가 나온 문장을 찾아 그 사례가 강조하는 성질에 밑줄을 긋는다 — consistent · active and organised · outspoken",
+          "on_fail": "사례가 없으면 because 나 due to 가 든 문장을 찾아 원인 쪽을 본다"
+        },
+        {
+          "step": "남은 선지를 그 성질과 대조한다 — 성질을 약화시키는 선지(목소리를 낮춘다)는 버리고, 지문에 없는 관계를 새로 만드는 선지(다수가 소수를 키운다)도 버린다",
+          "on_fail": "둘이 남으면 결론 문장(converted others to its point of view)과 낱말이 겹치는 쪽을 택한다"
+        }
+      ],
+      "time_budget_sec": 95,
+      "difficulty": {
+        "predicted": 0.6,
+        "drivers": [
+          "빈칸이 문단 앞쪽이라 근거를 뒤에서 가져와야 함",
+          "오답 둘이 주어만 다수로 바꾼 형태라 낱말만 보면 걸림",
+          "정답 표현 get one's point across 가 관용구",
+          "2점"
+        ]
+      },
+      "required_vocab": [
+        "consistent",
+        "convert",
+        "outspoken",
+        "get one's point across"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 지문에 문자 그대로 있다.",
+            "근거가 빈칸보다 세 문장 뒤에 있다는 점이 유형 설계(빈칸 뒤 근거)와 맞고 answer_locus 에 명시돼 있다.",
+            "파서가 선지 ⑤에 페이지 번호 '8'을 붙였으나 판정에는 영향이 없고, raw_block 으로 원 선지를 확인했다."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "raw_block 의 선지 5개와 passage choices 대조(⑤ 끝의 '8'은 페이지 번호)",
+            "정답표 ⑤와 correct 일치 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안에서 ①을 '반대 진술'로 달아 ④와 겹쳤다. ①의 진짜 유인은 지문이 아니라 '영향을 주려면 협력해야 한다'는 통념이므로 지문 밖 상식으로 고치고, 대신 5번째 문장(social conflict)을 배제 근거로 붙였다(revised).",
+            "네 함정이 지문 밖 상식 · 주체 역전 · 무관 · 반대 진술로 서로 다르다.",
+            "②·③이 주어만 바꾼 쌍이라는 점을 두 선지의 how_to_reject 에서 서로 다른 문장으로 배제했다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "선지 5개 주어 비교(minority 3 · majority 2)",
+            "how_to_reject 의 근거 문장 위치 유무 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계(선지 주어만 먼저 보기)가 30초 안에 오답 둘을 지워 준다 — 2점 문항 95초 예산에 여유가 생긴다.",
+            "required_vocab 에 관용구 get one's point across 를 넣은 이유가 정답 선지 해독에 직결되기 때문임을 확인했다(지문이 아니라 선지 어휘).",
+            "절차가 지문을 안 본 상태에서 빈칸 앞 절만 보고 시작하도록 되어 있다."
+          ],
+          "checked": [
+            "금지 표현 검사",
+            "required_vocab 4개 중 3개는 지문, 1개는 정답 선지 출처임을 확인",
+            "단계별 실행 시간 추정(주어 확정 15초 + 선지 주어 대조 20초 + 사례 확인 30초)"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2019#33",
+      "measured_ability": "'선택된다'는 진술의 이면(선택되지 않은 것은 버려진다)을 읽어, 마지막 Thus 문장의 요약어로 옮기는 능력",
+      "design_intent": "heritage 를 '현재의 요구에 따라 선별되고 다시 버려지는 자원'으로 그려 놓고, 정답을 지문에 한 번도 나오지 않은 낱말 forgetting 으로 두었다. 지문의 명사(artefacts · memories · traditions · values)를 그대로 담은 선지 넷을 배치해, 낱말 일치로 고르면 전부 오답이 되게 한 것이 이 문항의 설계다.",
+      "answer_locus": {
+        "sentence_index": [
+          5,
+          6
+        ],
+        "quote": "In turn, they may later be discarded as the demands of present societies change",
+        "reasoning": "앞 문장이 의미들이 '과거의 무한에 가까운 것들 중에서 선택된 이유'를 설명한다고 했고, 이 문장은 그 선택이 뒤집혀 폐기될 수 있음을 말한다. 선택과 폐기가 한 쌍이므로 Thus 로 시작하는 마지막 문장의 요약어는 '기억하는 것만큼 잊는 것'이 된다. discarded 와 selected 가 같은 문단에서 짝을 이루는 유일한 대립쌍이다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "heritage 하면 보편적 문화 가치의 보존이라는 통념이 있고, 지문에도 value 라는 낱말이 나온다.",
+          "how_to_reject": "1번째 문장이 'very selective' 로, 3번째 문장이 'defined in the present' 로 한정어를 걸어 두었다. universal(보편적)은 그 한정어를 떨어뜨린 것이고, 6번째 문장은 폐기 가능성까지 말한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "지문 첫 문장에 material artefacts 가 있고 heritage 가 과거에서 온다는 것도 사실이라, '과거의 유물을 비추는 거울'이 절반쯤 맞아 보인다.",
+          "how_to_reject": "4번째 문장이 'heritage is more concerned with meanings than material artefacts' 라고 무게중심을 유물에서 의미로 옮긴다. 거울이라는 비유는 현재의 요구가 내용을 고른다는 2·3번째 문장과도 어긋난다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "heritage 가 과거의 것이라는 상식과, 유산이 현재·미래와 무관하다는 냉소적 요약이 결합하면 고르게 된다.",
+          "how_to_reject": "2번째 문장이 'selected according to the demands of the present' 와 'passed onto an imagined future' 로 현재와 미래를 모두 명시한다 — 정확히 반대다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "정답. selected(선택)와 discarded(폐기)의 쌍을 remembering 과 forgetting 으로 옮긴 재서술이다. 지문에 forget 이라는 낱말은 없다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "1번째 문장의 memories and traditions 를 그대로 담고 있어, 지문 첫 문장을 요약한 것처럼 보인다.",
+          "how_to_reject": "1번째 문장에서 그 낱말들이 맡은 역할은 '현재를 위한 자원이 되는 재료'이고, 앞에 very selective 라는 한정이 붙어 있다. 단순한 모음(collection)이라는 서술은 선별과 폐기를 말하는 5·6번째 문장을 버리는 것이다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "빈칸 문장이 Thus·So·In short 로 시작하는지 확인한다. 그렇다면 근거는 바로 앞 한두 문장이므로 거기부터 읽는다",
+          "on_fail": "요약 표지가 없으면 빈칸 문장의 주어(heritage)가 주어로 쓰인 문장을 앞에서부터 모은다"
+        },
+        {
+          "step": "앞 문장들에서 서로 반대되는 동사 쌍을 찾아 나란히 적는다 — selected ↔ discarded",
+          "on_fail": "쌍이 안 보이면 or even · in turn · rather 같은 표지가 든 문장에서 동사를 뽑는다"
+        },
+        {
+          "step": "선지 다섯 중 그 쌍을 둘 다 담은 것을 찾는다. 한쪽만 담은 선지(보존만 · 기억만)는 지운다",
+          "on_fail": "쌍을 담은 선지가 없으면 폐기 쪽 동사를 담은 선지를 우선 후보로 둔다"
+        },
+        {
+          "step": "남은 선지를 한정어로 채점한다 — 지문의 very selective · in the present 를 지우는 낱말(universal · neither ... nor)이 든 선지를 버린다",
+          "on_fail": "둘이 남으면 지문 명사를 그대로 나열만 한 쪽을 버린다"
+        }
+      ],
+      "time_budget_sec": 110,
+      "difficulty": {
+        "predicted": 0.4,
+        "drivers": [
+          "정답 낱말 forgetting 이 지문에 없어 대립쌍 추론이 필요",
+          "오답 넷 중 셋이 지문 명사를 그대로 담음",
+          "the former/the latter 대명사 지시가 겹침",
+          "3점"
+        ]
+      },
+      "required_vocab": [
+        "heritage",
+        "artefact",
+        "discard",
+        "infinity",
+        "selective"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "초안의 인용이 빈칸 문장 자체('Thus heritage is')였다 — 빈칸 문장을 근거로 드는 것은 순환이므로 6번째 문장(discarded)으로 바꿨다(revised).",
+            "바뀐 인용이 지문에 문자 그대로 있다.",
+            "design_intent 가 '정답 낱말이 지문에 없다'는 이 문항 고유의 설계를 짚는다."
+          ],
+          "checked": [
+            "quote 문자열 대조(교체 후 재대조)",
+            "지문에서 forget/forgetting 문자열 검색(0건) 확인",
+            "정답표 ④와 correct 일치 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "네 함정이 범위 과대 · 부분 사실 · 반대 진술 · 어휘 함정으로 서로 다르다.",
+            "⑤의 배제 근거를 '낱말이 같다'가 아니라 '그 낱말이 1번째 문장에서 맡은 역할이 다르다'로 적었다 — 낱말 일치만으로 오답 판정하지 않도록 했다.",
+            "①의 범위 과대는 universal 이라는 선지 낱말과 지문 한정어(very selective)의 대조로 특정된다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "선지 5개 원문과 지문 명사(artefacts·memories·traditions·values) 겹침 여부 대조",
+            "how_to_reject 마다 문장 번호 유무 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계가 빈칸 문장의 첫 낱말만 보고 실행되므로 지문을 안 본 학생도 시작할 수 있다.",
+            "2단계(반대 동사 쌍 적기)가 이 유형에서 가장 재사용성이 높은 동작이다.",
+            "required_vocab 5개 모두 지문에 있고 discard·selective 는 정답 판정에 직접 쓰인다."
+          ],
+          "checked": [
+            "금지 표현 검사",
+            "required_vocab 문자열 대조",
+            "110초 예산 내 단계별 시간 추정"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2019#34",
+      "body_recovered": true,
+      "measured_ability": "because 뒤 빈칸에 들어갈 '원인'을, 뒤이어 나열되는 사례 셋(읽기·숫자·손가락 셈)이 공유하는 동작 하나로 압축하는 능력",
+      "design_intent": "빈칸이 because 절이라 원인 자리임이 문법으로 드러나고, 뒤 세 사례가 모두 '기존 뇌 영역을 새 용도로 돌려쓴다'는 같은 동작을 보인다. 마지막 문장이 그것을 cultural recycling 이라는 이름으로 봉인해, 사례를 하나라도 끝까지 따라가면 정답이 확정되도록 설계했다.",
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          5
+        ],
+        "quote": "When we learn to read, we recycle a specific region of our visual system known as the visual word-form area",
+        "reasoning": "빈칸 다음 문장이자 첫 사례다. recycle a specific region 이 '이미 있던 영역(old areas)을 새 용도로 동원한다'는 정답 진술과 일대일로 대응한다. 다음 문장이 Likewise 로 같은 구조의 두 번째 사례를 잇고, 마지막 문장이 This “cultural recycling” 으로 그 동작을 이름 붙여 되받으므로 원인 자리에 들어갈 것은 '옛 영역의 새로운 동원'이다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "마지막 문장의 cultural constraints 를 '뇌가 문화에 한계를 지운다'로 옮겨 읽으면 그대로 이 선지가 된다.",
+          "how_to_reject": "마지막 문장의 constraints 는 biological and cultural 양쪽에 걸린 '제약들의 혼합'이지 뇌가 문화 다양성을 제한한다는 뜻이 아니다. 게다가 1번째 문장은 인간이 새 문화 도구로 기능을 '확장한다'고 하므로, 원인 자리에 한계를 넣으면 빈칸 문장의 they were made possible 과 어긋난다."
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "정답. old areas 는 4·5번째 문장의 a specific region of our visual system, bilateral visual areas 를, in novel ways 는 recycle 을 받는다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "cultural tools 가 지문 첫 문장의 낱말이고 마지막 문장도 문화를 원인 쪽에 두는 듯 보여, 도구가 뇌에 작용한다는 방향이 자연스럽게 느껴진다.",
+          "how_to_reject": "빈칸이 든 문장은 'they(문화 도구들) were made possible because ___' 다 — 설명해야 할 것은 도구의 결과가 아니라 도구를 가능하게 한 뇌 쪽 조건이다. 방향이 뒤집혀 있다. 6번째 문장도 도구가 인지 능력을 '극적으로 바꾼다'고 하므로 안정화(stabilize)와도 맞지 않는다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "visual word-form area, parietal quantity area 처럼 영역 이름이 계속 나와 뇌가 구획으로 나뉘어 작동한다는 인상을 준다.",
+          "how_to_reject": "4번째 문장은 'connect them to language areas', 5번째 문장은 'a fast connection from bilateral visual areas to the parietal quantity area' 라고 영역 사이의 연결을 명시한다 — 고립된 작동과 정반대다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "'뇌가 진화할 시간이 없었다'는 3번째 문장을 적응 실패로 읽으면 그럴듯해진다.",
+          "how_to_reject": "지문에 자연적 도전(natural challenges)에 대한 적응 여부를 다룬 문장이 없다. 3번째 문장의 요지는 진화 시간이 없었는데도 문화 도구가 가능했다는 것이고, because 절은 그 '가능했던 이유'를 요구한다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "빈칸이 because · since · so that 뒤에 있는지 확인한다. because 뒤라면 빈칸은 원인 자리이고, 빈칸 문장의 주어(they)가 무엇을 가리키는지 앞 문장에서 확정한다",
+          "on_fail": "접속사가 안 보이면 빈칸 문장을 '무엇이 무엇을 가능하게 했나' 꼴로 바꿔 적는다"
+        },
+        {
+          "step": "빈칸 뒤 사례 문장을 두 개만 읽고, 각 사례에서 사람이 하는 동작 동사를 하나씩 뽑아 적는다 — recycle, build a circuit",
+          "on_fail": "사례가 안 보이면 When we · For example · Likewise 로 시작하는 문장을 찾는다"
+        },
+        {
+          "step": "뽑은 동사 둘의 공통 목적어를 적는다 — 이미 있던 뇌 영역. 원인 자리에는 이 공통 동작이 들어간다",
+          "on_fail": "공통점을 못 적으면 마지막 문장에서 따옴표가 붙은 표현(“cultural recycling”)을 그대로 가져온다"
+        },
+        {
+          "step": "선지 다섯을 방향으로 채점한다 — 원인 자리에 도구·문화를 놓아 뇌 쪽 조건을 안 말하는 선지, 영역 간 연결을 부정하는 선지, 확장이 아니라 한계를 말하는 선지를 버린다",
+          "on_fail": "둘이 남으면 4·5번째 문장의 connect / connection 과 충돌하는 쪽을 버린다"
+        }
+      ],
+      "time_budget_sec": 110,
+      "difficulty": {
+        "predicted": 0.35,
+        "drivers": [
+          "빈칸이 문단 앞쪽 because 절이라 근거를 뒤 세 문장에서 모아야 함",
+          "visual word-form area · parietal 등 신경과학 용어",
+          "오답 ③이 마지막 문장의 문화-생물 혼합 서술과 겹쳐 보임",
+          "3점"
+        ]
+      },
+      "required_vocab": [
+        "recycle",
+        "mobilize",
+        "circuit",
+        "elementary",
+        "constraint"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 지문에 문자 그대로 있다.",
+            "근거가 빈칸 바로 다음 문장이고, 문단 끝의 이름 붙이기(cultural recycling)가 그것을 다시 확인한다는 이중 구조를 answer_locus 가 서술한다.",
+            "raw_block 의 각주가 '*** constrain' 에서 잘렸으나 본문·선지에는 손상이 없다."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "raw_block 과 passage 문장 대조(각주 절단 외 손상 없음)",
+            "정답표 ②와 correct 일치 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "네 함정이 어휘 함정 · 인과 역전 · 반대 진술 · 무관으로 서로 다르다.",
+            "③의 인과 역전 판정 근거를 빈칸 문장의 수동태(were made possible because)로 특정했다 — 방향이 문법으로 확정되는 자리다.",
+            "①은 마지막 문장의 constraints 오독 경로를 그대로 재현해 서술했다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "선지 5개 원문과 why_tempting 대조",
+            "how_to_reject 마다 문장 위치 유무 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "2단계에서 사례를 '두 개만' 읽게 제한해 시간을 아꼈다 — 세 번째 사례(아마존 부족)는 판정에 불필요하다.",
+            "required_vocab 에 선지 낱말 mobilize 를 포함했다(정답 선지 해독에 필수).",
+            "110초 예산 안에 실행 가능하다."
+          ],
+          "checked": [
+            "금지 표현 검사",
+            "required_vocab 중 recycle·circuit·elementary·constraint 는 지문, mobilize 는 정답 선지 출처임을 확인",
+            "단계별 실행 시간 추정"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2018#31",
+      "body_recovered": true,
+      "measured_ability": "'than they would have if the film had been ___' 라는 반사실 가정절이 실제 영화의 어떤 선택과 반대되는 상태를 가리키는지 지정하는 능력",
+      "design_intent": "영화가 실제로 한 일(배경을 당대 베트남으로 옮김)을 여러 문장에 걸쳐 서술한 뒤, 마지막 문장에서 '만약 그러지 않았다면'이라는 반사실을 세워 그 반대편을 빈칸으로 뚫었다. 오답 넷이 모두 '실제 영화에 해당하는 참인 서술'이어서, 참·거짓이 아니라 반사실이라는 자리 값으로만 갈리게 한 것이 이 문항의 설계다.",
+      "answer_locus": {
+        "sentence_index": [
+          2,
+          3,
+          6
+        ],
+        "quote": "By giving Apocalypse Now a setting that was contemporary at the time of its release",
+        "reasoning": "빈칸 문장의 앞부분이 실제 영화의 선택을 명시한다 — 개봉 당시의 동시대 배경을 주었다. 빈칸은 'if the film had been ___' 이라는 그 선택의 반대 가정이므로, 배경을 바꾸지 않은 상태, 즉 19세기 콩고를 배경으로 한 원작을 글자 그대로 옮긴 상태가 들어가야 한다. 2번째 문장(원작은 19세기 아프리카 콩고 배경)과 3번째 문장(Unlike the original novel ... Vietnam)이 그 대립을 미리 깔아 둔다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "contemporary 와 civilisation 이 둘 다 지문에 있는 낱말이라 빈칸 자리에 그대로 옮겨 넣고 싶어진다.",
+          "how_to_reject": "지문에서 contemporary 는 '개봉 당시와 동시대인 배경'을 수식하고 civilisation 은 Kurtz 인물이 대표하는 것을 가리킨다 — 둘 다 실제 영화가 한 일 쪽에 있다. 빈칸은 그 반대 가정 자리이므로 실제 영화의 성질을 넣을 수 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "5번째 문장이 실제로 'reflecting the central character’s mental and spiritual journey' 라고 하므로 이 선지는 영화에 대한 참인 서술이다.",
+          "how_to_reject": "참이기 때문에 오히려 들어갈 수 없다. 빈칸은 관객이 주제에 공감하기 '더 어려웠을' 반사실 상태를 요구하는데, 심리적 여정의 생생한 극화는 지문이 영화의 장점으로 든 것이다(5번째 문장)."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "3번째 문장에 베트남 전쟁이 나오므로 전쟁을 충실히 그렸다는 서술이 지문과 이어져 보인다.",
+          "how_to_reject": "지문은 베트남 전쟁을 '배경(setting)'으로만 언급하고 그 묘사의 충실성은 한 번도 평가하지 않는다. 또 그것은 실제 영화의 배경이므로 반대 가정 자리에 놓일 수 없다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "adaptation · novel 이라는 지문 낱말이 들어 있어 소설과 영화의 관계를 말한 선지처럼 보인다.",
+          "how_to_reject": "2번째 문장이 'The film is an adaptation of Joseph Conrad’s novel' 이라고 방향을 못 박는다 — 소설이 먼저이고 영화가 각색이다. 영화가 소설의 영감 원천이라는 것은 선후가 뒤집힌 진술이다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "정답. literal adaptation = 배경·시대를 바꾸지 않고 원작을 그대로 옮긴 상태로, 빈칸 문장 앞부분(동시대 배경을 준 것)의 정확한 반대다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "빈칸 문장에 if · had been · would have 가 있는지 본다. 있으면 빈칸은 '실제와 반대인 상태'를 넣는 자리라고 여백에 적는다",
+          "on_fail": "가정법 표지가 없으면 빈칸 문장에서 비교급(more easily than)을 찾아 무엇과 무엇을 비교하는지 적는다"
+        },
+        {
+          "step": "빈칸 문장 앞부분에서 실제로 한 일을 한 줄로 적는다 — '개봉 당시와 같은 시대를 배경으로 삼았다'",
+          "on_fail": "그 문장에서 못 찾으면 Unlike · but 이 든 앞 문장에서 바뀐 항목(setting, time period)을 적는다"
+        },
+        {
+          "step": "적어 둔 문장을 부정해 본다 — '배경·시대를 바꾸지 않았다면'. 이 부정문과 같은 뜻인 선지를 찾는다",
+          "on_fail": "같은 뜻이 안 보이면 원작 소설의 배경(19세기 콩고)을 그대로 두는 상태를 가리키는 선지를 찾는다"
+        },
+        {
+          "step": "남은 선지를 참·거짓이 아니라 자리로 채점한다 — 실제 영화에 대해 참인 서술(심리적 여정의 극화, 동시대 문명 비판)은 반대 가정 자리에 못 들어가므로 버린다",
+          "on_fail": "판단이 안 서면 각 선지 앞에 '이 영화는 실제로 ~이다'를 붙여 읽고, 참이 되는 것을 지운다"
+        }
+      ],
+      "time_budget_sec": 115,
+      "difficulty": {
+        "predicted": 0.45,
+        "drivers": [
+          "오답 넷이 실제 영화에 대해 참이거나 참처럼 보이는 서술",
+          "가정법 과거완료가 빈칸의 자리 값을 결정",
+          "literal 의 뜻(글자 그대로의)을 정확히 알아야 함",
+          "3점"
+        ]
+      },
+      "required_vocab": [
+        "adaptation",
+        "literal",
+        "incidental",
+        "depiction",
+        "contemporary"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 지문에 문자 그대로 있다.",
+            "빈칸 추론 중 '반사실 가정' 설계를 정확히 짚었다 — 이 유형에서 참인 진술이 오답이 되는 드문 구조다.",
+            "raw_block 의 'ref lecting' 는 PDF 자간 손상이며 판정에 영향이 없음을 확인했다."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "raw_block 과 passage 대조('ref lecting' 손상 확인)",
+            "정답표 ⑤와 correct 일치 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "네 함정이 어휘 함정 · 부분 사실 · 무관 · 주체 역전으로 서로 다르다.",
+            "②의 how_to_reject 가 '참이라서 오답'이라는 이 문항 특유의 논리를 명시한다 — 다른 문항에 복사되지 않는 서술이다.",
+            "④의 주체 역전은 2번째 문장의 of 구조(소설의 각색물)로 확정된다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "선지 5개를 '실제 영화에 대해 참인가'로 각각 표시",
+            "how_to_reject 마다 문장 번호 유무 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "4단계의 '선지 앞에 이 영화는 실제로 ~이다를 붙여 읽기'가 학생이 바로 쓸 수 있는 조작이다.",
+            "1단계가 지문을 안 본 상태에서 빈칸 문장만 보고 실행된다.",
+            "required_vocab 5개 중 literal 은 정답 선지, 나머지는 지문에서 판정에 쓰인다."
+          ],
+          "checked": [
+            "금지 표현 검사",
+            "required_vocab 문자열 대조(literal 은 선지 출처)",
+            "115초 예산 내 단계별 시간 추정"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2018#32",
+      "body_recovered": true,
+      "measured_ability": "'기억이 사라진 것이 아니라 묻힌 것'이라는 진단을 빈칸의 결핍 대상(you lack ___)으로 뒤집어 옮기는 능력",
+      "design_intent": "망각의 원인을 '소멸'이 아니라 '인출 단서의 부재'로 못 박아 두고, 빈칸을 lack 의 목적어로 뚫었다. 비유(hook · glue · channel · pool · sea)를 선지마다 다르게 깔아, 비유의 방향(빼내는 것인가 붙이는 것인가)을 뒤집으면 오답이 되도록 설계했다.",
+      "answer_locus": {
+        "sentence_index": [
+          8,
+          9,
+          10
+        ],
+        "quote": "if provided with the right cue, like where you ate it, or whom you ate it with, you would likely recall what had been on your plate",
+        "reasoning": "결핍된 것이 무엇인지가 여기서 확정된다 — 알맞은 단서(the right cue)만 주어지면 기억은 되살아난다. 곧 빈칸의 lack 목적어는 그 단서, 즉 묻힌 기억을 '끄집어내는' 도구다. 뒤이어 9번째 문장이 그 기억이 다른 점심 기억들과 함께 filed away 되었다고 하고 10번째 문장이 many memories compete 라고 하므로, 도구의 기능은 무리 속에서 하나를 끌어내는 것이 된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "pool of ordinary memories 가 9번째 문장의 '다른 점심들과 함께 보관됨'과 겹쳐 보여, 기억이 그 무리로 흘러들 통로가 필요하다는 말이 그럴듯해진다.",
+          "how_to_reject": "9번째 문장은 기억이 이미 그 무리 안에 들어가 있다고 말한다(filed it away with all the other lunches). 들어갈 통로가 없어서 문제인 것이 아니라 이미 들어가 있어서 문제이므로 원인과 결과가 뒤집혀 있다."
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "정답. hook to pull it out 이 8번째 문장의 the right cue(단서를 주면 되살아난다)와 10번째 문장의 many memories compete 를 한꺼번에 받는다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "'just another lunch' 라는 표현이 9번째 문장에 글자 그대로 나와, 지문을 그대로 옮긴 선지처럼 보인다.",
+          "how_to_reject": "9번째 문장에서 그 기억은 이미 '또 하나의 점심'으로 붙어 있는 상태다. 필요한 것은 더 붙이는 접착제가 아니라 떼어 내는 도구이므로 방향이 반대다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "기억이 안 나는 이유는 용량이 모자라서라는 일상적 통념이 강하다.",
+          "how_to_reject": "8번째 문장이 'It’s not so much that your memory of last week’s lunch has disappeared' 로, 11번째 문장이 'isn’t necessarily gone' 으로 소멸·용량 부족 설명을 두 번 부정한다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "10번째 문장의 'many memories compete for our attention' 을 거의 그대로 담아, 지문의 핵심 문장을 옮긴 선지로 보인다.",
+          "how_to_reject": "지문은 경쟁자가 '많다'고 하는데 이 선지는 경쟁자가 '충분히 많지 않아서' 문제라고 한다 — 같은 낱말을 쓰면서 수량 관계를 뒤집었다. 13번째 문장의 'a memory without rivals' 도 경쟁자가 없는 쪽이 잘 기억된다고 말한다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "빈칸 문장의 동사를 확인한다 — you lack ___ 이면 빈칸은 '없어서 문제가 되는 것'이다. 여백에 '없는 것'이라고 적어 둔다",
+          "on_fail": "동사가 lack 이 아니면 빈칸이 목적어인지 보어인지만 표시하고 다음 단계로 간다"
+        },
+        {
+          "step": "빈칸 앞에서 if · provided · when 이 든 조건 문장을 찾아, 무엇이 주어지면 문제가 풀리는지 적는다 — 여기서는 the right cue",
+          "on_fail": "조건 문장이 없으면 not so much A as B 나 Rather 로 시작하는 문장에서 필자가 고른 설명을 적는다"
+        },
+        {
+          "step": "그 '주어지면 되는 것'의 기능을 동사 하나로 적는다 — 끌어낸다. 선지의 비유를 이 동사로 채점한다(끌어낸다 / 붙인다 / 흘려보낸다 / 저장한다)",
+          "on_fail": "비유가 어려우면 선지의 동사구(pull out · attach · flow into · keep)만 뽑아 나란히 적는다"
+        },
+        {
+          "step": "지문이 이미 부정한 설명을 담은 선지를 지운다 — 기억이 사라졌다(용량 부족), 경쟁자가 적다는 서술은 8·10·11번째 문장과 충돌한다",
+          "on_fail": "둘이 남으면 마지막 두 문장(a wine that talks / without rivals)이 말하는 '경쟁자 없는 기억이 잘 남는다'와 어긋나는 쪽을 버린다"
+        }
+      ],
+      "time_budget_sec": 115,
+      "difficulty": {
+        "predicted": 0.4,
+        "drivers": [
+          "선지 다섯이 모두 비유라 방향 판정이 필요",
+          "빈칸이 lack 의 목적어라 진술을 한 번 뒤집어야 함",
+          "지문 낱말을 그대로 담은 오답이 둘(③ just another lunch, ⑤ compete for attention)",
+          "3점"
+        ]
+      },
+      "required_vocab": [
+        "cue",
+        "file away",
+        "instance",
+        "compete",
+        "rival"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 지문에 문자 그대로 있다.",
+            "corpus.json 의 이 문항 passage 가 2018#31(Apocalypse Now) 지문으로 오염돼 있어 인용 대조가 불가능했다. 청크의 passage·raw_block(둘 다 정상)과 원문 블록으로 대조해 corpus 를 바로잡은 뒤 재대조했다(revised).",
+            "빈칸이 lack 의 목적어인 하위 설계를 design_intent 가 짚는다."
+          ],
+          "checked": [
+            "quote 를 청크 passage·raw_block 및 corpus(수정 후)와 문자열 대조",
+            "corpus 오염 확인 — 2018#32 passage 가 2018#31 과 동일 문자열이었음",
+            "정답표 ②와 correct 일치 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안에서 ③과 ⑤를 모두 어휘 함정으로 달았다. ③은 표현을 그대로 쓰되 비유의 방향이 반대이므로 반대 진술로, ⑤는 낱말을 그대로 쓰되 수량 관계를 뒤집은 것이므로 어휘 함정으로 갈랐다(revised).",
+            "네 함정이 인과 역전 · 반대 진술 · 지문 밖 상식 · 어휘 함정으로 서로 다르다.",
+            "④의 배제 근거를 8번째·11번째 두 문장의 부정 표현으로 이중 확인했다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "선지 5개의 동사구 비교(flow into · pull out · attach · keep · number of)",
+            "how_to_reject 마다 문장 번호 유무 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계가 선지의 동사구만 뽑게 해서 비유 해석 부담을 줄인다 — 실행 가능하다.",
+            "1단계가 빈칸 문장의 동사 하나만 보므로 지문을 안 본 학생도 시작한다.",
+            "required_vocab 5개 모두 지문에 있고 cue 는 정답 판정의 열쇠다."
+          ],
+          "checked": [
+            "금지 표현 검사",
+            "required_vocab 문자열 대조",
+            "115초 예산 내 단계별 시간 추정"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2018#33",
+      "body_recovered": true,
+      "measured_ability": "빈칸 뒤의 사례(케냐)와 마지막 요약 문장이 공통으로 그리는 '외부 원인이 소농의 생산을 좌우한다'는 구도를, 빈칸 주어(대다수 소농)의 술어로 옮기는 능력",
+      "design_intent": "빈칸이 Indeed 문장의 술어 자리이고 그 뒤에 'because of larger global causes' 가 붙어 있어, 빈칸에는 '더 큰 외부 원인 때문에 일어난 일'이 들어가야 한다. 소농을 능동적 행위자로 만드는 선지 넷을 배치해, 소농이 당하는 쪽이라는 구도를 놓치면 전부 걸리도록 설계했다.",
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          6
+        ],
+        "quote": "the capitalist mode of production is affecting peasant production in the less developed world in such a way as to limit the production of staple foods",
+        "reasoning": "마지막 문장이 문단의 논지를 명시한다 — 작용하는 주체는 자본주의 생산 양식이고, 소농의 생산은 그 작용을 받아 제한된다. 빈칸 문장의 'because of larger global causes' 와 정확히 겹치므로 빈칸에는 소농이 자기 생산에 대한 결정권을 잃었다는 수동적 결과가 들어간다. 4번째 문장의 'farmers are actively encouraged to grow export crops ... at the expense of basic food production' 이 그 상실을 사례로 보여 준다(권장받는 쪽은 소농, 권장하는 주체는 밖에 있다)."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "correct",
+          "why_correct": "정답. lost control over their own production 이 마지막 문장의 '자본주의 생산 양식이 소농 생산을 제한한다'와 4번째 문장의 수동태(are encouraged)를 함께 받는다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "2번째 문장에 'a very few commercial agriculturalists are technologically advanced' 가 있어, 기술을 붙잡은 주체를 대다수 소농으로 옮겨 읽기 쉽다.",
+          "how_to_reject": "그 문장에서 기술을 갖춘 것은 '아주 소수의 상업 농민'이고 대다수는 while 뒤에서 경쟁할 수 없다고 대비된다. 1번째 문장도 'those remaining in agriculture are not benefiting from technological advances' 라고 못 박는다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "마지막 문장의 the capitalist mode of production 을 통째로 담고 있어 논지를 그대로 옮긴 선지로 보인다.",
+          "how_to_reject": "그 표현이 마지막 문장에서 맡은 역할은 '소농에 작용하는 주체'다. 소농이 그것에 맞선다는 진술로 바꾸면 작용 방향이 반대가 되고, 지문에 저항·challenge 를 나타내는 문장도 없다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "지문이 주식 작물 부족을 문제 삼으므로 소농이 환금 작물을 줄였다는 서술이 문제의식과 같은 편처럼 느껴진다.",
+          "how_to_reject": "4번째 문장은 케냐 농민들이 차·커피 같은 수출 작물을 기르도록 적극 권장받는다고 한다 — 환금 작물 관여는 줄어든 것이 아니라 늘었고, 그 결과가 5번째 문장의 주식 작물 부족이다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "regained 라는 낱말이 '한때 경쟁력이 있었다가 되찾았다'는 서사를 끌어들이고, 개발도상국 농업이 세계 시장에 편입된다는 배경 지식과 붙는다.",
+          "how_to_reject": "그런 회복 서사는 지문에 없다. 2번째 문장이 대다수는 'incapable of competing' 이라고 현재 상태를 못 박고, 빈칸 뒤 'because of larger global causes' 도 상실의 원인을 요구하지 회복의 원인을 요구하지 않는다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "빈칸 문장에서 빈칸 뒤에 붙은 원인구(because of larger global causes)를 먼저 읽는다. 빈칸에는 '외부의 큰 원인 때문에 벌어진 일'이 들어간다고 여백에 적는다",
+          "on_fail": "원인구가 없으면 빈칸 문장의 접속 부사(Indeed·Thus)를 보고 앞 문장을 강화하는 자리인지 표시한다"
+        },
+        {
+          "step": "빈칸 주어가 누구인지 앞 문장에서 확정한다 — this vast majority = 경쟁할 수 없는 대다수 소농",
+          "on_fail": "지시어가 가리키는 대상이 모호하면 앞 문장의 대비쌍(a very few ↔ the vast majority)을 표로 적는다"
+        },
+        {
+          "step": "빈칸 뒤 사례 문장에서 소농에게 붙은 동사의 태를 확인한다 — are encouraged(수동). 소농이 당하는 쪽이면 능동적 행위를 진술한 선지를 지운다",
+          "on_fail": "태가 헷갈리면 사례 문장에서 '누가 누구에게' 시켰는지 화살표로 적는다"
+        },
+        {
+          "step": "마지막 요약 문장(The essential argument here is that ...)에서 작용 주체와 대상을 뽑아 남은 선지와 대조한다 — 주체가 소농으로 바뀐 선지는 버린다",
+          "on_fail": "둘이 남으면 케냐 사례에서 환금 작물이 늘었는지 줄었는지로 채점한다"
+        }
+      ],
+      "time_budget_sec": 115,
+      "difficulty": {
+        "predicted": 0.35,
+        "drivers": [
+          "빈칸이 문단 앞쪽이고 근거가 마지막 요약 문장(세 문장 뒤)",
+          "오답 넷 모두 소농을 능동 주체로 세워 태 판정을 요구",
+          "at the expense of · staple crop 등 표현",
+          "3점"
+        ]
+      },
+      "required_vocab": [
+        "staple",
+        "peasant",
+        "at the expense of",
+        "commercial",
+        "capitalist mode of production"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 지문에 문자 그대로 있다.",
+            "corpus.json 의 이 문항 passage 도 2018#31 지문으로 오염돼 있었다. 청크 passage·raw_block 및 원문 블록과 대조해 corpus 를 바로잡고 재대조했다(revised).",
+            "청크의 passage 에는 파서가 'this vast majority beca of larger global causes' 로 빈칸 표시를 뭉갠 자리가 있으나, raw_block 에서 빈칸 위치가 확인된다."
+          ],
+          "checked": [
+            "quote 문자열 대조(수정된 corpus 기준 재대조)",
+            "raw_block 으로 빈칸 위치와 선지 5개 확인",
+            "정답표 ①과 correct 일치 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "초안에서 ②·④·⑤를 모두 반대 진술로 달았다. ②는 기술을 가진 주체를 바꿔 읽는 것이므로 주체 역전, ⑤는 지문에 없는 '회복' 서사를 끌어들이는 것이므로 지문 밖 상식으로 갈라 네 라벨을 서로 다르게 만들었다(revised).",
+            "③의 배제 근거를 '낱말이 같지만 역할이 다르다'로 적었다 — 이 청크에서 되풀이되는 함정 형태다.",
+            "why_tempting 이 모두 선지 원문의 특정 낱말(technology · capitalist mode of production · cash crops · regained)에 걸려 있다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사(초안 3중복 → 해소)",
+            "선지 5개 원문과 지문 낱말 겹침 대조",
+            "how_to_reject 마다 문장 번호 유무 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "3단계(동사의 태 확인)가 이 문항의 승부처를 바로 겨눈다 — 학생이 기계적으로 실행 가능하다.",
+            "1단계가 빈칸 뒤 원인구만 읽고 시작하므로 지문을 안 본 상태에서도 출발점이 있다.",
+            "required_vocab 5개 모두 지문에 있고 at the expense of 는 케냐 사례 판정에 필요하다."
+          ],
+          "checked": [
+            "금지 표현 검사",
+            "required_vocab 문자열 대조",
+            "115초 예산 내 단계별 시간 추정"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "2018#34",
+      "body_recovered": true,
+      "measured_ability": "'가장 큰 이득은 A가 아니라 ___' 라는 부정-대조 구문에서, 앞 문단이 반복해 던진 물음(무엇이 우리를 인간답게 하는가)을 답의 자리로 옮기는 능력",
+      "design_intent": "AI의 통념적 이득(생산성·풍요·새로운 과학)을 빈칸 앞에서 미리 부정해 두고, 문단 내내 반복된 정체성 물음을 답으로 삼게 했다. irony 라는 낱말이 '이득이 뜻밖의 것'임을 예고하므로, 통념적 이득을 담은 선지를 고르면 그 예고를 무시한 것이 된다.",
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          5
+        ],
+        "quote": "If we aren’t unique toolmakers, or artists, or moral ethicists, then what, if anything, makes us special?",
+        "reasoning": "문단이 반복해 던지는 물음이 여기서 한 문장으로 압축된다 — 무엇이 우리를 특별하게 만드는가. 1번째 문장의 'change our minds about what sets us apart' 와 4번째 문장의 'continually asking ourselves what humans are good for' 가 같은 물음의 변주다. 빈칸은 AI가 주는 가장 큰 이득 자리이고, 그 이득이 통념적 이득이 아니라고 앞에서 부정했으므로 남는 것은 이 물음에 답하게 해 준다는 것 — 곧 인간이 무엇인지 규정하도록 돕는다는 진술이다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "1번째 문장이 기계가 인간의 행동과 재능을 복제해 왔다고 하므로, 두 쪽이 닮아 간다는 진술이 지문과 이어져 보인다.",
+          "how_to_reject": "1번째 문장의 방향은 기계가 인간을 닮는 쪽이다. 인간이 AI를 닮는다는 진술은 방향이 뒤집혔고, 빈칸이 요구하는 것은 닮음이 아니라 'AI 도래의 가장 큰 이득'이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "AI의 이득 하면 노동 해방·생산성 증가가 먼저 떠오른다.",
+          "how_to_reject": "빈칸 바로 앞 문장이 그 통념을 명시적으로 배제한다 — 'the greatest benefit ... will not be increased productivity or an economics of abundance or a new way of doing science'. 노동 해방은 그 목록과 같은 종류다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "AI와 인간 지능을 나란히 놓는 구도가 익숙해, 인간 지능의 저하를 보완한다는 서술이 자연스럽게 들린다.",
+          "how_to_reject": "지문에 인간 지능이 떨어진다는 문장이 없다. 4·5번째 문장이 말하는 것은 능력의 저하가 아니라 '무엇이 우리를 특별하게 하는가'라는 정체성의 물음이다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "5번째 문장에 moral ethicists 가 나오므로 도덕 문제를 다룬 선지가 지문과 붙어 보인다.",
+          "how_to_reject": "그 낱말은 '우리가 더 이상 유일한 도덕 윤리가가 아닐 수 있다'는 상실 목록의 한 항목이지, AI가 도덕적 딜레마를 풀어 준다는 이득이 아니다. 지문에 AI가 판단을 대신한다는 문장은 없다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "정답. define humanity 가 1번째 문장(what sets us apart)·4번째 문장(what humans are good for)·5번째 문장(what makes us special)의 반복된 물음을 한 낱말로 받는다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "빈칸 앞 문장에서 not A or B or C 형태의 부정 목록을 찾아 통째로 표시한다. 이 목록에 든 것과 같은 종류의 선지는 먼저 지운다",
+          "on_fail": "부정 목록이 없으면 빈칸 문장 바로 앞의 not·rather than·instead of 를 찾는다"
+        },
+        {
+          "step": "문단에서 물음표로 끝나는 문장을 모두 찾아 밑줄을 긋는다. 빈칸이 '가장 큰 이득' 자리이고 앞에서 통념이 부정됐다면, 답은 그 물음에 답하는 것이다",
+          "on_fail": "물음표 문장이 없으면 같은 뜻이 반복되는 명사구(identity crisis · what sets us apart)를 두 곳 이상 찾는다"
+        },
+        {
+          "step": "밑줄 친 물음들의 공통 주어를 적는다 — 인간이 무엇인가. 이 주어를 담은 선지를 후보로 올린다",
+          "on_fail": "공통 주어가 안 잡히면 반복 등장하는 형용사(unique · special)를 담은 선지를 후보로 올린다"
+        },
+        {
+          "step": "남은 선지를 방향으로 채점한다 — 인간이 AI를 닮는다는 진술, AI가 인간 능력을 대신·보완한다는 진술은 1번째 문장의 방향(기계가 인간을 복제)과 어긋나므로 버린다",
+          "on_fail": "판단이 안 서면 irony 라는 낱말을 근거로, 예상 밖의 이득을 말하는 쪽을 남긴다"
+        }
+      ],
+      "time_budget_sec": 110,
+      "difficulty": {
+        "predicted": 0.5,
+        "drivers": [
+          "빈칸 앞 문장이 통념 오답 둘을 미리 배제해 줌",
+          "정답 표현 define humanity 가 지문의 물음을 압축한 추상어",
+          "identity crisis · moral ethicists 등 추상 명사",
+          "3점"
+        ]
+      },
+      "required_vocab": [
+        "surrender",
+        "utilitarian",
+        "abundance",
+        "irony",
+        "humanity"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 지문에 문자 그대로 있다(’ 포함).",
+            "빈칸 앞의 부정 목록이 오답 후보를 미리 제거하는 설계를 design_intent 가 짚는다.",
+            "raw_block 의 각주가 '* replicate' 에서 잘렸으나 본문·선지에는 손상이 없다."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "raw_block 과 passage 대조",
+            "정답표 ⑤와 correct 일치 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "네 함정이 주체 역전 · 지문 밖 상식 · 무관 · 어휘 함정으로 서로 다르다.",
+            "②의 배제 근거가 빈칸 바로 앞 문장의 부정 목록이라 위치가 명확하다.",
+            "④의 유인이 moral ethicists 라는 실제 지문 낱말에 걸려 있음을 확인했다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "선지 5개 원문과 why_tempting 대조",
+            "how_to_reject 마다 문장 위치 유무 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계(부정 목록 표시)만으로 ②가 즉시 지워지므로 시간이 절약된다.",
+            "2단계의 '물음표 문장 찾기'는 지문을 안 본 학생도 눈으로 훑어 실행 가능하다.",
+            "required_vocab 5개 중 humanity 는 정답 선지, 나머지는 지문에서 판정에 쓰인다."
+          ],
+          "checked": [
+            "금지 표현 검사",
+            "required_vocab 문자열 대조",
+            "110초 예산 내 단계별 시간 추정"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M1809#31",
+      "body_recovered": true,
+      "measured_ability": "'A가 아니라 B다' 구문의 B 자리를, 뒤 문단이 반복하는 양(量)의 논리 — 많이 시도해서 많이 실패한다 — 를 한 낱말로 압축해 채우는 능력",
+      "design_intent": "창의성의 통념(재능·상상력)을 빈칸 앞에서 부정해 두고, 뒤에 '순전한 숫자 게임'이라는 명시적 재서술을 심어 두었다. 선지가 단어 하나씩이라 문단의 논리를 한 낱말로 압축하지 못하면 어감이 좋은 낱말(imagination·achievement)로 손이 가게 설계했다.",
+      "answer_locus": {
+        "sentence_index": [
+          3,
+          4
+        ],
+        "quote": "Geniuses don’t necessarily have a higher success rate than other creators; they simply do more",
+        "reasoning": "빈칸이 요구하는 성질이 여기서 확정된다 — 천재를 가르는 것은 성공률(질)이 아니라 산출량(many)이다. 바로 앞 문장 'It’s a pure numbers game.' 이 그 성질을 '숫자'로 이름 붙이므로, wild talent 와 대비되는 빈칸 자리에는 많이 만들어 내는 성질, 곧 생산성이 들어간다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "창의성 담론에서 감수성이 흔히 함께 거론되고, 남은 낱말 중 뜻이 부드러워 무난해 보인다.",
+          "how_to_reject": "지문에 감각·감수성을 가리키는 문장이 하나도 없다. 3번째 문장이 논의를 'a pure numbers game' 으로 한정한다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "천재(Geniuses)가 등장하므로 남보다 뛰어남을 가리키는 낱말이 그 자리를 채울 것 같다.",
+          "how_to_reject": "4번째 문장이 바로 그 우월성을 부정한다 — 천재라고 해서 성공률이 더 높지는 않고 단지 더 많이 할 뿐이다. 게다가 빈칸 앞의 'not about wild talent' 가 재능 우위 계열을 이미 배제했다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "창의성 = 상상력이라는 통념이 가장 강한 선택지다.",
+          "how_to_reject": "빈칸 앞 절이 'it isn’t about wild talent so much as it is about ___' 이므로 빈칸에는 타고난 재능과 대비되는 것이 와야 한다. 상상력은 재능 계열이라 대비가 성립하지 않고, 뒤 문단이 드는 근거(시도 횟수·실패 수)와도 연결되지 않는다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "정답. productivity 는 4번째 문장의 they simply do more 와 3번째 문장의 numbers game 을 한 낱말로 압축한 것이다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "5번째 문장에 'They have more successes' 가 있어 성취가 많다는 것이 사실로 보인다.",
+          "how_to_reject": "같은 문장이 'and more failures' 로 이어진다. 지문이 재는 변수는 성취의 양이 아니라 시도의 양이고, 마지막 문장도 '더 빨리 실패하라'로 끝난다 — 성취만 담은 낱말은 실패 쪽을 버린다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "빈칸 앞의 대비 구문(not A so much as B / not A but B)을 찾아 A를 적는다 — wild talent. 빈칸에는 A와 대비되는 성질이 들어간다",
+          "on_fail": "대비 구문이 없으면 빈칸 문장에서 부정어(isn’t·not)를 찾아 부정된 명사를 적는다"
+        },
+        {
+          "step": "A와 같은 계열의 낱말(재능·천부·상상력·우월성)이 든 선지를 먼저 지운다 — 대비 자리에는 같은 계열이 올 수 없다",
+          "on_fail": "계열이 헷갈리면 선지를 '타고나는 것'과 '하면서 쌓이는 것' 두 칸에 나눠 적는다"
+        },
+        {
+          "step": "빈칸 뒤에서 논지를 한 문장으로 요약한 표지 문장을 찾는다 — It’s a pure numbers game. 그 문장의 핵심어(숫자·양)를 적는다",
+          "on_fail": "요약 문장이 안 보이면 more 나 a lot of 가 반복되는 문장 두 개를 찾는다"
+        },
+        {
+          "step": "남은 선지를 그 핵심어로 채점한다 — 양을 가리키지 않는 낱말은 버리고, 양을 가리키되 성공 쪽만 담은 낱말도 버린다(지문은 실패도 함께 늘어난다고 한다)",
+          "on_fail": "둘이 남으면 마지막 문장의 'try to fail faster' 와 맞물리는 쪽을 택한다"
+        }
+      ],
+      "time_budget_sec": 85,
+      "difficulty": {
+        "predicted": 0.7,
+        "drivers": [
+          "선지가 단어 하나씩이고 정답 낱말이 평이함",
+          "'a pure numbers game' 이라는 명시적 재서술이 근거로 노출됨",
+          "통념 오답(imagination)이 강하게 유인",
+          "2점"
+        ]
+      },
+      "required_vocab": [
+        "unspoken",
+        "generate",
+        "at the outset",
+        "productivity"
+      ],
+      "revised": true,
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 지문에 문자 그대로 있다(세미콜론 앞뒤 포함).",
+            "빈칸이 문단 첫 문장이고 근거가 세 문장 뒤라는 구조를 answer_locus 가 명시한다.",
+            "청크 passage 에 OCR 로 섞여 든 '게 하다' 는 판정과 무관하며 raw_block 에서 같은 자리를 확인했다."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "raw_block 과 passage 대조(한글 혼입 위치 확인)",
+            "정답표 ④와 correct 일치 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "네 함정이 무관 · 반대 진술 · 지문 밖 상식 · 부분 사실로 서로 다르다.",
+            "⑤의 배제 근거가 같은 문장 안의 'and more failures' 라 위치가 짧고 명확하다.",
+            "②의 유인을 '천재'라는 지문 낱말과 연결해 서술했다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "선지 5개 낱말을 '타고난 성질 / 산출량' 으로 분류",
+            "how_to_reject 마다 문장 번호 유무 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "초안의 required_vocab 이 7개였고 그중 numbers game·success rate 는 정답 판정에 없어도 되는 항목이라 4개로 줄였다(revised).",
+            "2단계(같은 계열 지우기)가 단어 빈칸에서 가장 빨리 듣는 조작이고 20초면 끝난다.",
+            "2점 문항 85초 예산 안에 든다."
+          ],
+          "checked": [
+            "금지 표현 검사",
+            "required_vocab 4개가 지문에 실재하는지 문자열 대조",
+            "단계별 실행 시간 추정"
+          ]
+        }
+      ]
+    },
+    {
+      "item_id": "M1809#32",
+      "body_recovered": true,
+      "measured_ability": "빈칸 바로 뒤에 오는 부연(The person notices this rather than that ...)과 두 친구의 대조 사례가 공통으로 가리키는 것을 명사구 하나로 묶는 능력",
+      "design_intent": "빈칸이 문단 셋째 문장이고 그 앞에 'What I mean is this.' 라는 예고 표지를 두어, 빈칸의 정의가 바로 뒤 문장에 온다는 것을 구조로 알려 준다. 대신 사례를 가게·과일·돈으로 구체화해 두어, 사례의 소재(쇼핑·선호)를 답으로 착각하도록 오답을 배치했다.",
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          7
+        ],
+        "quote": "The person notices this rather than that, and she has feelings and makes judgements about one rather than another aspect of events.",
+        "reasoning": "'What I mean is this.' 다음에 놓인 빈칸의 내용을 이 문장이 곧바로 풀어 쓴다 — 사람은 사건의 이 측면을 주목하고 저 측면은 주목하지 않으며, 그에 대해 감정과 판단을 갖는다. 곧 빈칸은 '지금 벌어지는 일에 대한 그 사람 특유의 파악'이 된다. 7번째 문장 'the two friends are experiencing the same shop and its contents, but they are having quite different experiences' 가 그 파악이 사람마다 다르다는 점을 확인한다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "배고픔·돈 부족이라는 사례가 나와, 사람이 상황에 따라 더 나은 선택을 하려 한다는 익숙한 설명으로 이어 붙이게 된다.",
+          "how_to_reject": "5·6번째 문장에서 두 사람의 차이는 선택의 좋고 나쁨이 아니라 '무엇을 알아차리는가'다(notice that a shop is selling groceries / notice only that it sells newspapers). 지문에 더 나은 선택을 논하는 문장이 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "1번째 문장이 '다른 사람의 정신적 지향에 맞추기'를 화제로 내걸어, 관점이 서로 비슷하다는 진술이 그 화제와 이어져 보인다.",
+          "how_to_reject": "7번째 문장이 같은 가게를 겪으면서도 'quite different experiences' 를 한다고 못 박는다. 4번째 문장의 'one rather than another' 도 사람마다 고르는 측면이 다르다는 뜻이다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "shop 이 지문에 네 번 나오고 사례가 모두 가게 안에서 벌어져, 쇼핑 장소 선호가 화제처럼 보인다.",
+          "how_to_reject": "가게는 5~7번째 문장에서 예시 무대일 뿐이고, 8번째 문장은 가게를 영화관으로 잘못 아는 극단적 사례로 넘어간다 — 화제는 장소 선호가 아니라 같은 대상을 저마다 다르게 파악한다는 것이다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "정답. particular take on what is happening 이 4번째 문장의 'notices this rather than that ... about one rather than another aspect of events' 를 그대로 압축한다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "'개인마다 다른 성향'이라는 큰 틀이 맞아 보이고, tendency 라는 낱말이 빈칸의 명사구 형태와 어울린다.",
+          "how_to_reject": "지문에 전통·관습을 가리키는 낱말이 한 번도 없다. 4번째 문장이 지정하는 차이의 축은 시간에 걸친 습관이 아니라 '지금 이 순간(At any moment)' 무엇을 알아차리는가다."
+        }
+      ],
+      "solve_procedure": [
+        {
+          "step": "빈칸 앞에 예고 표지(What I mean is this. / Let me explain. / That is)가 있는지 본다. 있으면 빈칸의 정의는 바로 다음 문장에 있으므로 거기부터 읽는다",
+          "on_fail": "예고 표지가 없으면 빈칸 문장 다음 문장의 주어가 빈칸의 무엇을 되받는지 화살표로 잇는다"
+        },
+        {
+          "step": "다음 문장에서 되풀이되는 구조를 뽑는다 — this rather than that / one rather than another. 빈칸은 이 '골라 보는 성질'을 명사구로 바꾼 것이다",
+          "on_fail": "구조가 안 보이면 그 문장의 동사 두 개(notices · makes judgements)를 적고 공통 목적어를 찾는다"
+        },
+        {
+          "step": "사례 문장에서 두 사람이 갈리는 지점을 적는다 — 같은 가게를 두고 한쪽은 식료품을, 다른 쪽은 신문을 알아차린다. 갈리는 축이 '주목 대상'임을 확인한다",
+          "on_fail": "사례가 길면 각 사람 뒤의 동사(notice·resent·feel tempted)만 뽑아 비교한다"
+        },
+        {
+          "step": "선지를 그 축으로 채점한다 — 사례의 소재(쇼핑 장소 선호), 사람들 사이의 유사성, 시간에 걸친 습관을 말하는 선지는 축이 다르므로 버린다",
+          "on_fail": "둘이 남으면 7번째 문장의 'quite different experiences' 와 어긋나는 쪽을 버린다"
+        }
+      ],
+      "time_budget_sec": 110,
+      "difficulty": {
+        "predicted": 0.5,
+        "drivers": [
+          "근거가 빈칸 바로 다음 문장이라 위치는 쉬움",
+          "정답 표현 take on ~ 의 명사 용법(파악·해석)이 낯섦",
+          "사례의 소재(가게)가 오답 ③으로 강하게 유인",
+          "3점"
+        ]
+      },
+      "required_vocab": [
+        "orientation",
+        "resent",
+        "comprehend",
+        "peculiar",
+        "take (n.)"
+      ],
+      "reviews": [
+        {
+          "persona": "setter",
+          "verdict": "pass",
+          "findings": [
+            "인용이 지문에 문자 그대로 있다.",
+            "'What I mean is this.' 라는 예고 표지가 근거 위치를 지정하는 설계를 design_intent 와 절차 1단계가 함께 짚는다.",
+            "청크 passage 에 섞인 '자매(의)' 는 OCR 혼입이며 raw_block 에서 해당 위치가 본문 연결부임을 확인했다."
+          ],
+          "checked": [
+            "quote 문자열 대조",
+            "raw_block 과 passage 대조(한글 혼입 위치 확인)",
+            "정답표 ④와 correct 일치 확인"
+          ]
+        },
+        {
+          "persona": "analyst",
+          "verdict": "pass",
+          "findings": [
+            "네 함정이 지문 밖 상식 · 반대 진술 · 어휘 함정 · 무관으로 서로 다르다.",
+            "③의 유인을 'shop 이 지문에 네 번 등장'이라는 셈으로 특정했다.",
+            "⑤는 지문에 tradition 계열 낱말이 0회임을 배제 근거로 삼았다."
+          ],
+          "checked": [
+            "trap 라벨 중복 검사",
+            "지문에서 shop(4회) · tradition(0회) 문자열 계수",
+            "how_to_reject 마다 문장 번호 유무 확인"
+          ]
+        },
+        {
+          "persona": "tutor",
+          "verdict": "pass",
+          "findings": [
+            "1단계가 빈칸 앞 두 문장만 보고 실행되므로 지문을 안 본 학생도 시작한다.",
+            "required_vocab 에 명사 take 를 넣은 이유가 정답 선지 해독에 직결되기 때문임을 확인했다.",
+            "110초 예산 안에 든다."
+          ],
+          "checked": [
+            "금지 표현 검사",
+            "required_vocab 중 orientation·resent·comprehend·peculiar 는 지문, take(n.) 는 정답 선지 출처임을 확인",
+            "단계별 실행 시간 추정"
+          ]
+        }
+      ]
+    }
   ],
-  "answer_locus_pattern": "12개 중 7개가 빈칸에서 두 문장 이상 떨어진 곳에 근거를 두고(2019#31은 네 문장 앞), 6개는 근거가 빈칸 **뒤**에 있다(M2006#34 · 2019#32 · 2019#34 · 2018#33 · M1809#31 · M1809#32). 근거 위치를 지정하는 것은 거의 언제나 표지다 — 요약 표지(Thus · The essential argument here is that · This “cultural recycling” implies · It’s a pure numbers game), 양보·역접 표지(Yet while ... nonetheless · Rather · But), 예고 표지(What I mean is this.), 사례 표지(As an example · When we ... Likewise), 반사실 표지(than they would have if ... had been). 앞선 청크의 관찰 ①·③은 이 청크에서 재확인된다.",
-  "procedure": [
-   {
-    "step": "지문을 읽기 전에 빈칸 문장만 읽고 빈칸의 문법 자리를 확정한다 — 주어인가 술어인가, because 뒤 원인인가, lack의 목적어인가, 가정법 보어인가",
-    "on_fail": "자리가 안 잡히면 빈칸 앞뒤 세 낱말을 그대로 적어 두고 다음 단계로 간다"
-   },
-   {
-    "step": "빈칸 문장에 붙은 표지를 표시한다 — 대비(not A but B / so much as), 양보(while·Yet), 요약(Thus·In short), 원인구(because of ...), 가정법(had been). 표지가 근거 문장의 위치를 지정한다",
-    "on_fail": "표지가 없으면 빈칸 다음 문장을 근거 후보 1순위로 삼는다"
-   },
-   {
-    "step": "지정된 자리(요약 표지면 앞 한두 문장, 예고·사례 표지면 뒤 한두 문장)에서 근거 문장 하나를 고르고, 그 문장의 관계를 화살표로 적는다 — 무엇이 무엇을 대체/제한/끌어내는가",
-    "on_fail": "근거가 안 잡히면 지문에서 같은 뜻이 두 번 이상 되풀이되는 문장 쌍을 찾는다"
-   },
-   {
-    "step": "선지 다섯을 낱말이 아니라 화살표 방향으로 채점한다 — 주체와 대상이 바뀐 선지, 원인과 결과가 바뀐 선지를 먼저 지운다. 지문 낱말을 담았다는 이유만으로 지우지 않는다(M2006#33의 정답은 지문 낱말 둘을 그대로 담았다)",
-    "on_fail": "둘 이상 남으면 지문에 그 개념을 가리키는 낱말이 몇 번 나오는지 센다 — 0회면 버린다"
-   },
-   {
-    "step": "남은 하나를 빈칸에 넣어 읽고, 빈칸 앞뒤 문장의 한정어(partly · altogether · not just · very selective)와 충돌하지 않는지 확인한다",
-    "on_fail": "충돌하면 같은 방향이면서 세기가 약한 선지로 바꾼다"
-   }
-  ],
-  "failure_modes": [
-   "빈칸 앞 문장만 읽고 답을 고른다 — 이 청크의 절반(6/12)은 근거가 빈칸 뒤에 있어 앞만 보면 근거 자체를 못 본다",
-   "선지에 지문 낱말이 있으면 정답으로, 없으면 오답으로 센다 — 이 청크에서 지문 낱말을 담은 오답이 9개였지만, M2006#33의 정답도 지문 낱말(intangibles·services)을 그대로 담았다. 낱말 일치는 신호가 아니다",
-   "관계의 방향을 확인하지 않는다 — 주체 역전 5개 · 인과 역전 2개는 낱말이 전부 지문 것이라 방향을 안 보면 걸러지지 않는다",
-   "빈칸이 요구하는 자리 값을 무시하고 참·거짓만 따진다 — 2018#31은 오답 둘이 실제 영화에 대해 참인 진술이었다",
-   "정도 한정어를 흘려 읽는다 — M2006#34는 뒤 문장의 partly 와 정답의 altogether 가 짝을 이루는 것이 유일한 갈림길이었다",
-   "통념으로 빈칸을 메운다 — 지문 밖 상식 8개는 대부분 빈칸 바로 앞뒤에 그 통념을 부정하는 문장이 있었다(2018#34는 부정 목록이 통째로 앞 문장에 있다)"
-  ],
-  "time_budget_sec": 108,
-  "open_questions": [
-   "정답 낱말이 지문에 없고 대립쌍 추론이 필요한 문항(2019#33 forgetting)이 이 청크에 1개뿐이다 — 그 비율이 유형 전체에서 얼마나 되는지는 표본이 모자라 말할 수 없다.",
-   "'주체 역전' 라벨이 5회로 이 청크에서 세 번째로 잦다. 라벨을 도입한 이후 청크들과 도입 전 청크의 계수가 비교 가능한지(도입 전에는 인과 역전으로 흡수됐을 가능성) 확인이 필요하다.",
-   "2점 문항(2019#31 · 2019#32 · M1809#31)은 모두 선지가 단어 또는 짧은 절이고 근거가 명시적 재서술 문장이었다. 배점과 근거 노출 정도가 상관되는지 더 많은 2점 표본이 필요하다.",
-   "검수 반려는 6건(M2006#33 analyst · 2019#32 analyst · 2019#33 setter · 2018#32 setter+analyst · 2018#33 setter+analyst · M1809#31 tutor)으로 세 페르소나에 고루 분포했다 — 세 자가 서로 다른 것을 재고 있다는 신호로 본다.",
-   "데이터 결함: corpus.json 의 2018#32 · 2018#33 passage 가 2018#31 지문으로 덮여 있었다(청크 파일은 정상). 같은 형태의 오염이 in_scope 독해 653문항 중 97개에서 의심된다(#32·#33·#34·#37·#39 번호에 집중). 이 두 문항만 원문 블록과 대조해 바로잡았고, 나머지는 build-corpus 쪽에서 봐야 한다 — 오염된 채로 분석하면 **엉뚱한 지문에서 인용해도 게이트를 통과한다.**"
-  ]
- }
+  "type_report": {
+    "type_id": "R-BLANK",
+    "n_analyzed": 12,
+    "recurring_traps": [
+      {
+        "trap": "반대 진술",
+        "count": 10,
+        "signature": "지문의 핵심 관계를 그대로 쓰되 방향만 뒤집는다 — hardware가 software를 이긴다 · 목소리를 낮춘다 · 기억을 더 붙인다 · 환금 작물을 줄였다"
+      },
+      {
+        "trap": "어휘 함정",
+        "count": 9,
+        "signature": "지문 낱말을 통째로 옮겨 담지만 그 낱말이 지문에서 맡던 역할(주체인가 대상인가, 많은가 적은가)을 바꿔 놓는다 — capitalist mode of production · just another lunch · memories and traditions · moral ethicists"
+      },
+      {
+        "trap": "무관",
+        "count": 9,
+        "signature": "소재에서 연상되는 개념을 넣지만 그 개념을 가리키는 낱말이 지문에 0회다 — illegal · dilemma · natural challenges · traditions"
+      },
+      {
+        "trap": "지문 밖 상식",
+        "count": 8,
+        "signature": "그 주제의 통념(창의성=상상력, AI=노동 해방, 소수의 영향=협력, 망각=용량 부족)을 넣는다. 빈칸 앞뒤에 그 통념을 미리 부정하는 문장이 있는 경우가 많다"
+      },
+      {
+        "trap": "주체 역전",
+        "count": 5,
+        "signature": "행위는 지문과 같은데 하는 쪽과 당하는 쪽이 바뀐다 — 다수가 변화를 일으킨다 · 영화가 소설의 영감이다 · 소농이 기술을 붙잡았다"
+      },
+      {
+        "trap": "부분 사실",
+        "count": 4,
+        "signature": "지문에서 참인 진술이지만 빈칸이 요구하는 자리 값(반사실 · 공통점 · 원인)이 아니다"
+      },
+      {
+        "trap": "인과 역전",
+        "count": 2,
+        "signature": "원인 자리와 결과 자리를 맞바꾼다 — 문화 도구가 뇌를 안정시킨다 · 기억이 무리로 흘러들 통로가 없다"
+      },
+      {
+        "trap": "범위 과대",
+        "count": 1,
+        "signature": "지문의 한정어(very selective · in the present)를 떨어뜨리고 보편으로 키운다"
+      }
+    ],
+    "answer_locus_pattern": "12개 중 7개가 빈칸에서 두 문장 이상 떨어진 곳에 근거를 두고(2019#31은 네 문장 앞), 6개는 근거가 빈칸 **뒤**에 있다(M2006#34 · 2019#32 · 2019#34 · 2018#33 · M1809#31 · M1809#32). 근거 위치를 지정하는 것은 거의 언제나 표지다 — 요약 표지(Thus · The essential argument here is that · This “cultural recycling” implies · It’s a pure numbers game), 양보·역접 표지(Yet while ... nonetheless · Rather · But), 예고 표지(What I mean is this.), 사례 표지(As an example · When we ... Likewise), 반사실 표지(than they would have if ... had been). 앞선 청크의 관찰 ①·③은 이 청크에서 재확인된다.",
+    "procedure": [
+      {
+        "step": "지문을 읽기 전에 빈칸 문장만 읽고 빈칸의 문법 자리를 확정한다 — 주어인가 술어인가, because 뒤 원인인가, lack의 목적어인가, 가정법 보어인가",
+        "on_fail": "자리가 안 잡히면 빈칸 앞뒤 세 낱말을 그대로 적어 두고 다음 단계로 간다"
+      },
+      {
+        "step": "빈칸 문장에 붙은 표지를 표시한다 — 대비(not A but B / so much as), 양보(while·Yet), 요약(Thus·In short), 원인구(because of ...), 가정법(had been). 표지가 근거 문장의 위치를 지정한다",
+        "on_fail": "표지가 없으면 빈칸 다음 문장을 근거 후보 1순위로 삼는다"
+      },
+      {
+        "step": "지정된 자리(요약 표지면 앞 한두 문장, 예고·사례 표지면 뒤 한두 문장)에서 근거 문장 하나를 고르고, 그 문장의 관계를 화살표로 적는다 — 무엇이 무엇을 대체/제한/끌어내는가",
+        "on_fail": "근거가 안 잡히면 지문에서 같은 뜻이 두 번 이상 되풀이되는 문장 쌍을 찾는다"
+      },
+      {
+        "step": "선지 다섯을 낱말이 아니라 화살표 방향으로 채점한다 — 주체와 대상이 바뀐 선지, 원인과 결과가 바뀐 선지를 먼저 지운다. 지문 낱말을 담았다는 이유만으로 지우지 않는다(M2006#33의 정답은 지문 낱말 둘을 그대로 담았다)",
+        "on_fail": "둘 이상 남으면 지문에 그 개념을 가리키는 낱말이 몇 번 나오는지 센다 — 0회면 버린다"
+      },
+      {
+        "step": "남은 하나를 빈칸에 넣어 읽고, 빈칸 앞뒤 문장의 한정어(partly · altogether · not just · very selective)와 충돌하지 않는지 확인한다",
+        "on_fail": "충돌하면 같은 방향이면서 세기가 약한 선지로 바꾼다"
+      }
+    ],
+    "failure_modes": [
+      "빈칸 앞 문장만 읽고 답을 고른다 — 이 청크의 절반(6/12)은 근거가 빈칸 뒤에 있어 앞만 보면 근거 자체를 못 본다",
+      "선지에 지문 낱말이 있으면 정답으로, 없으면 오답으로 센다 — 이 청크에서 지문 낱말을 담은 오답이 9개였지만, M2006#33의 정답도 지문 낱말(intangibles·services)을 그대로 담았다. 낱말 일치는 신호가 아니다",
+      "관계의 방향을 확인하지 않는다 — 주체 역전 5개 · 인과 역전 2개는 낱말이 전부 지문 것이라 방향을 안 보면 걸러지지 않는다",
+      "빈칸이 요구하는 자리 값을 무시하고 참·거짓만 따진다 — 2018#31은 오답 둘이 실제 영화에 대해 참인 진술이었다",
+      "정도 한정어를 흘려 읽는다 — M2006#34는 뒤 문장의 partly 와 정답의 altogether 가 짝을 이루는 것이 유일한 갈림길이었다",
+      "통념으로 빈칸을 메운다 — 지문 밖 상식 8개는 대부분 빈칸 바로 앞뒤에 그 통념을 부정하는 문장이 있었다(2018#34는 부정 목록이 통째로 앞 문장에 있다)"
+    ],
+    "time_budget_sec": 108,
+    "open_questions": [
+      "정답 낱말이 지문에 없고 대립쌍 추론이 필요한 문항(2019#33 forgetting)이 이 청크에 1개뿐이다 — 그 비율이 유형 전체에서 얼마나 되는지는 표본이 모자라 말할 수 없다.",
+      "'주체 역전' 라벨이 5회로 이 청크에서 세 번째로 잦다. 라벨을 도입한 이후 청크들과 도입 전 청크의 계수가 비교 가능한지(도입 전에는 인과 역전으로 흡수됐을 가능성) 확인이 필요하다.",
+      "2점 문항(2019#31 · 2019#32 · M1809#31)은 모두 선지가 단어 또는 짧은 절이고 근거가 명시적 재서술 문장이었다. 배점과 근거 노출 정도가 상관되는지 더 많은 2점 표본이 필요하다.",
+      "검수 반려는 6건(M2006#33 analyst · 2019#32 analyst · 2019#33 setter · 2018#32 setter+analyst · 2018#33 setter+analyst · M1809#31 tutor)으로 세 페르소나에 고루 분포했다 — 세 자가 서로 다른 것을 재고 있다는 신호로 본다.",
+      "데이터 결함: corpus.json 의 2018#32 · 2018#33 passage 가 2018#31 지문으로 덮여 있었다(청크 파일은 정상). 같은 형태의 오염이 in_scope 독해 653문항 중 97개에서 의심된다(#32·#33·#34·#37·#39 번호에 집중). 이 두 문항만 원문 블록과 대조해 바로잡았고, 나머지는 build-corpus 쪽에서 봐야 한다 — 오염된 채로 분석하면 **엉뚱한 지문에서 인용해도 게이트를 통과한다.**"
+    ]
+  }
 }

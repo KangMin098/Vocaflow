@@ -8,7 +8,9 @@
       "measured_ability": "네 문단이 인쇄 순서와 다른 시간 순서로 놓인 서사에서, 한국어 선지 하나가 가리키는 장면을 찾아 그 장면의 영어 문장과 낱말 단위로 대조하는 능력",
       "design_intent": "Sally의 '재능이 없다'는 과거 기억((C))과 '재능은 필요 없다'는 노부인의 말을 한 문단 안에 붙여 놓았다. 두 발화를 뭉뚱그려 '음악 이야기'로 기억하면 누가 무엇을 말했는지가 지워지도록 설계했고, 정답 선지는 그 지워진 자리에서 화자만 바꿔 만든다.",
       "answer_locus": {
-        "sentence_index": [18],
+        "sentence_index": [
+          18
+        ],
         "quote": "Beatrice had said, “You just have no musical talent.”",
         "reasoning": "선지 ④는 Beatrice가 재능을 '칭찬했다'고 하는데, Beatrice의 유일한 발화는 이 한 문장이고 내용이 재능의 부재 선언이다. 같은 문단 뒤에 오는 격려('You don’t need talent to enjoy playing')는 노부인의 말이므로 화자를 Beatrice로 옮길 수 없다. 즉 선지 ④는 발화 내용과 화자 둘 다에서 지문과 어긋난다."
       },
@@ -37,9 +39,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "반대 진술",
-          "why_tempting": "재능이라는 낱말과 Beatrice 라는 이름이 지문에 그대로 있어, 이름과 낱말만 맞춰 보면 대조가 끝난 것처럼 느껴진다.",
-          "how_to_reject": "(C)의 'Beatrice had said, “You just have no musical talent.”' 가 칭찬이 아니라 부정 선언이다. 이 선지가 답이다."
+          "why_correct": "재능이라는 낱말과 Beatrice 라는 이름이 지문에 그대로 있어, 이름과 낱말만 맞춰 보면 대조가 끝난 것처럼 느껴진다."
         },
         {
           "n": 5,
@@ -80,7 +80,13 @@
           "다만 재능 관련 발화가 (C) 한 문단에 둘 있어 화자 혼동 여지"
         ]
       },
-      "required_vocab": ["talent", "unpolished", "welcoming", "basics", "embarrassed"],
+      "required_vocab": [
+        "talent",
+        "unpolished",
+        "welcoming",
+        "basics",
+        "embarrassed"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -129,7 +135,10 @@
       "measured_ability": "가족 구성원 셋(Julia · Sam · Mia)의 발화와 행동이 뒤섞인 서사에서 각 선지의 주어를 지문의 행위 주체와 맞춰 확인하는 능력",
       "design_intent": "Mia가 제안을 받아들이는 과정을 마지막 문단 (D)에 두고, 거절→설득→마지못한 수락의 3단계를 한 문단 안에 넣었다. 마지막 결과(agreed)만 기억하면 첫 반응(shook her head)이 지워지도록 만들어, '결국 참여했다'와 '처음부터 환영했다'를 구별하는지를 잰다.",
       "answer_locus": {
-        "sentence_index": [23, 26],
+        "sentence_index": [
+          23,
+          26
+        ],
         "quote": "Mia immediately shook her head and said, “No, Dad. I don’t have time to read books.",
         "reasoning": "선지 ⑤의 '처음부터'가 가리키는 시점이 바로 이 문장이다. immediately 가 제안 직후를 못박고 shook her head + No, Dad 가 거절이므로, 뒤의 'After some persuasion, Mia reluctantly agreed.' 는 설득 이후의 반응이지 첫 반응이 아니다. 첫 반응이 거절인 이상 '처음부터 환영'은 성립하지 않는다."
       },
@@ -165,9 +174,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "반대 진술",
-          "why_tempting": "(D) 끝에서 Mia 가 수락하고 첫 책까지 고르겠다고 하므로, 결과만 보면 적극적으로 보인다. '환영했다'가 결과와 겹쳐 참으로 느껴진다.",
-          "how_to_reject": "(D) 첫 문장의 'immediately shook her head' 와 뒤의 'reluctantly agreed' 가 '처음부터 환영'을 정면으로 뒤집는다. 이 선지가 답이다."
+          "why_correct": "(D) 끝에서 Mia 가 수락하고 첫 책까지 고르겠다고 하므로, 결과만 보면 적극적으로 보인다. '환영했다'가 결과와 겹쳐 참으로 느껴진다."
         }
       ],
       "solve_procedure": [
@@ -197,7 +204,13 @@
           "나머지 넷의 근거가 각 문단 첫 문장이라 찾기는 쉽다"
         ]
       },
-      "required_vocab": ["reluctantly", "persuasion", "absorbed", "genre", "scanned"],
+      "required_vocab": [
+        "reluctantly",
+        "persuasion",
+        "absorbed",
+        "genre",
+        "scanned"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -246,7 +259,9 @@
       "measured_ability": "부정문으로 쓰인 한국어 선지('~하지 못했다')를 지문의 긍정 서술문과 맞춰 참·거짓을 뒤집지 않고 판정하는 능력",
       "design_intent": "다섯 선지 중 하나만 부정문으로 만들어 두고, 그 부정문의 근거를 (B) 첫 문장이라는 눈에 띄는 자리에 배치했다. 근거를 못 찾아 틀리는 문항이 아니라 근거를 찾고도 부정 판정을 한 번 더 뒤집는지를 보는 설계다.",
       "answer_locus": {
-        "sentence_index": [8],
+        "sentence_index": [
+          8
+        ],
         "quote": "Several hours later, Mike’s favorite team hit a home run and won the game.",
         "reasoning": "선지 ②는 '홈런을 치지 못했다'인데 이 문장은 hit a home run 을 긍정으로 진술한다. Mike’s favorite team 은 (A)에서 the Arrows 로 지정되었으므로 팀 지시 대상도 일치한다. 곧 선지와 지문이 같은 주어·같은 동사에서 부정만 어긋난다."
       },
@@ -261,9 +276,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "trap": "반대 진술",
-          "why_tempting": "다섯 중 유일한 부정 선지라 판정 방향을 한 번 더 뒤집어야 한다. 홈런과 승리가 지문에 있으므로 낱말만 맞추면 참으로 처리된다.",
-          "how_to_reject": "(B) 첫 문장 'hit a home run and won the game' 이 긍정 진술이므로 '치지 못했다'는 거짓이다. 이 선지가 답이다."
+          "why_correct": "다섯 중 유일한 부정 선지라 판정 방향을 한 번 더 뒤집어야 한다. 홈런과 승리가 지문에 있으므로 낱말만 맞추면 참으로 처리된다."
         },
         {
           "n": 3,
@@ -314,7 +327,13 @@
           "나머지 넷의 근거가 각 문단 첫·끝 문장"
         ]
       },
-      "required_vocab": ["in person", "fly ball", "stands", "warming up", "clapped"],
+      "required_vocab": [
+        "in person",
+        "fly ball",
+        "stands",
+        "warming up",
+        "clapped"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -363,7 +382,10 @@
       "measured_ability": "두 인물이 각자 다른 물건을 사는 장면에서 '누가 무엇을 어떻게 평가했는지'를 인물별로 갈라 확인하는 능력",
       "design_intent": "Cathy 가 복숭아를 더 사는 이유를 '이번 주까지만 판다'는 판매자의 말과 '정말 싸다'는 본인의 말 두 겹으로 만들었다. 더 산 행위만 기억하면 이유가 '희소성'으로 남아 가격 판단이 지워지도록 하고, 정답 선지는 그 가격 판단을 반대로 뒤집어 만든다.",
       "answer_locus": {
-        "sentence_index": [26, 27],
+        "sentence_index": [
+          26,
+          27
+        ],
         "quote": "Hearing that, Cathy said, “Oh, I’ll get some more then! They’re really cheap!”",
         "reasoning": "선지 ⑤는 Cathy 가 가격을 비싸다고 여겼다고 하는데, 가격에 대한 Cathy 의 유일한 발화가 really cheap 이다. 발화자도 Cathy 로 명시되어 있어 주체를 바꿔 볼 여지가 없고, 평가의 방향만 정확히 반대다."
       },
@@ -399,9 +421,14 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "반대 진술",
-          "why_tempting": "판매자가 '이번 주까지만'이라고 말해 희귀하다는 인상이 남고, Cathy 가 두 봉지나 샀으므로 값을 치렀다는 사실이 '비쌌다'로 연결되기 쉽다.",
-          "how_to_reject": "(D) 끝의 Cathy 발화 'They’re really cheap!' 가 정반대다. 이 선지가 답이다."
+          "why_correct": "선지 ⑤에서 어긋나는 성분은 평가어 「비싸다」다. 값에 대한 Cathy 의 유일한 발화가 마지막 단락 (D) 끝의 ‘Oh, I’ll get some more then! They’re really cheap!’ 이고, 인용 앞의 ‘Hearing that, Cathy said’ 가 발화자를 Cathy 로 못박아 주체를 바꿔 볼 여지도 없다. 평가 대상(복숭아 값)은 선지와 같고 방향만 cheap ↔ 비싸다로 정확히 반대다.",
+          "confirmed_at": {
+            "sentence_index": [
+              26,
+              27
+            ],
+            "note": "판매자의 ‘they’re only here until this week’ 가 희소하다는 인상을 남기고, 두 봉지를 샀다는 사실이 값을 치렀다는 그림을 만든다. 구매량은 가격 평가의 근거가 아니다 — 평가어는 따옴표 안 형용사에서만 읽는다."
+          }
         }
       ],
       "solve_procedure": [
@@ -431,19 +458,30 @@
           "인물이 둘뿐이라 주체 추적 부담이 작다"
         ]
       },
-      "required_vocab": ["freshly-picked", "crowded", "ripe", "booths", "wandering"],
+      "required_vocab": [
+        "freshly-picked",
+        "crowded",
+        "ripe",
+        "booths",
+        "wandering"
+      ],
       "reviews": [
         {
           "persona": "setter",
           "verdict": "pass",
           "findings": [
             "인용이 (D) 끝 문장과 문자 그대로 일치한다",
-            "정답 근거를 판매자 발화가 아니라 Cathy 발화로 잡은 것이 선지 주어와 맞다"
+            "정답 근거를 판매자 발화가 아니라 Cathy 발화로 잡은 것이 선지 주어와 맞다",
+            "Oh, I’ll get some more then! They’re really cheap! 와 Hearing that, Cathy said 를 지문에 문자열 대조했다 — 발화자 표기가 인용 바로 앞에 있어 주체가 고정된다",
+            "이 단락에는 OCR 잔해(The fruit seller 다 ______ told her)가 있으나 인용 조각은 그 밖이다"
           ],
           "checked": [
             "quote 를 지문 (D) 와 문자열 대조",
             "정답 5번과 평가원 정답표 대조",
-            "선지 ⑤의 주어(Cathy)와 인용 문장의 화자가 같은지"
+            "선지 ⑤의 주어(Cathy)와 인용 문장의 화자가 같은지",
+            "영어 조각 2개 문자열 대조",
+            "손상 구간과 인용 위치 비교",
+            "cheap ↔ 선지 「비싸다」의 방향 대응"
           ]
         },
         {
@@ -451,12 +489,16 @@
           "verdict": "pass",
           "findings": [
             "오답 4개가 주체 역전 · 등장인물 혼동 · 어휘 함정 · 부분 사실로 갈린다",
-            "선지 ③의 어휘 함정은 '다양한 나이 ↔ of all ages' 라는 실제 표현 차이에 근거한다"
+            "선지 ③의 어휘 함정은 '다양한 나이 ↔ of all ages' 라는 실제 표현 차이에 근거한다",
+            "정답 근거를 형용사 cheap 하나로 좁혔다 — 구매량·판매자 발화는 근거가 아니라는 점을 note 로 갈라 두었다"
           ],
           "checked": [
             "trap 라벨 중복 여부",
             "why_tempting 이 선지 한국어 표현과 지문 영어 표현의 차이에 근거하는지",
-            "how_to_reject 에 문단 기호가 있는지"
+            "how_to_reject 에 문단 기호가 있는지",
+            "근거가 평가어에 걸려 있는지",
+            "심리 관찰의 note 이관 여부",
+            "정답 선지에 trap 라벨이 남아 있지 않은지"
           ]
         },
         {
@@ -464,15 +506,19 @@
           "verdict": "pass",
           "findings": [
             "인물-물건 짝 표를 먼저 만드는 동작이 지문 열람 전에 가능하다",
-            "3단계의 '평가어 밑줄'은 정답이 대사 안에 있는 이 유형에서 반복 사용 가능하다"
+            "3단계의 '평가어 밑줄'은 정답이 대사 안에 있는 이 유형에서 반복 사용 가능하다",
+            "「(D) 끝」이라는 위치와 따옴표 안 형용사라는 형태 단서가 함께 있어, 학생이 마지막 두 줄만 보면 판정된다"
           ],
           "checked": [
             "1단계가 지문 열람 전 동작인지",
             "금지 표현 문자열 검색",
-            "required_vocab 이 선지 판정에 실제로 필요한지(crowded 는 ③, ripe·booths 는 ⑤의 장면 식별)"
+            "required_vocab 이 선지 판정에 실제로 필요한지(crowded 는 ③, ripe·booths 는 ⑤의 장면 식별)",
+            "위치 지시의 실재",
+            "설명이 정답을 아는 상태를 전제하지 않는지"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2025#45",
@@ -480,7 +526,10 @@
       "measured_ability": "선지에 붙은 한정 부사어('혼자서')를 지문의 동반 관계와 대조해, 사건의 발생 여부가 아니라 동반자 유무로 판정하는 능력",
       "design_intent": "세탁소에 간 사건 자체는 참으로 두고 '혼자서'만 거짓으로 만들었다. 근거를 (A) 끝(같이 가자고 부탁)과 (B) 첫 문장(둘이 함께 돌아옴), (C)(세탁소에서 Grace가 끼어듦) 세 곳에 흩어 놓아, 한 곳만 보고 판정하면 걸리도록 설계했다.",
       "answer_locus": {
-        "sentence_index": [7, 8],
+        "sentence_index": [
+          7,
+          8
+        ],
         "quote": "Ethan and Grace came back home with the jackets and checked if Sean had everything else he needed for hiking.",
         "reasoning": "선지 ④는 Ethan 이 '혼자서' 재킷을 찾으러 갔다고 한다. 이 문장은 재킷을 들고 돌아온 주어가 Ethan and Grace 임을 명시하므로 동반자가 있었다. (A) 끝의 'he asked his wife to g and pick them up with him' 과 (C)에서 세탁소 대화에 Grace 가 끼어드는 장면이 같은 사실을 두 번 더 확인해 준다."
       },
@@ -509,9 +558,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "부분 사실",
-          "why_tempting": "Ethan 이 세탁소에서 점원과 대화하고 사과까지 하므로 '갔다'는 사실은 참이다. 참인 사건에 '혼자서'가 붙어 있어 문장 전체가 참으로 넘어간다.",
-          "how_to_reject": "(B) 첫 문장의 주어가 'Ethan and Grace' 이고, (C)에서 Grace 가 세탁소 대화에 직접 끼어든다. '혼자서'만 거짓이므로 이 선지가 답이다."
+          "why_correct": "Ethan 이 세탁소에서 점원과 대화하고 사과까지 하므로 '갔다'는 사실은 참이다. 참인 사건에 '혼자서'가 붙어 있어 문장 전체가 참으로 넘어간다."
         },
         {
           "n": 5,
@@ -548,7 +595,13 @@
           "(A) 끝 문장에 인쇄 결손(‘to g’)이 있어 그 문장만으로는 확정하기 어렵다"
         ]
       },
-      "required_vocab": ["laundry", "drawers", "collect", "storage", "hesitation"],
+      "required_vocab": [
+        "laundry",
+        "drawers",
+        "collect",
+        "storage",
+        "hesitation"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -598,7 +651,9 @@
       "measured_ability": "이름이 셋(Helen · Anna · Julia) 나오고 그중 둘이 대명사로만 지시되는 대화에서, 각 발화의 화자를 확정해 선지의 주어와 맞추는 능력",
       "design_intent": "판매자(Anna)와 대리인(Julia)을 분리해 놓고, 식물 관리 조언의 출처를 Anna 로 돌리는 발화를 Julia 의 입에 넣었다. 조언 내용을 말한 사람과 아는 사람을 구분하지 못하면 'Julia가 전문가'라는 선지가 참으로 보이도록 설계했다.",
       "answer_locus": {
-        "sentence_index": [24],
+        "sentence_index": [
+          24
+        ],
         "quote": "Julia replied, “I’m not a plant expert, but I know that Anna kept them away from windows to avoid direct sunlight.",
         "reasoning": "선지 ⑤는 Julia 가 자신을 식물 전문가라고 말했다고 한다. 이 문장은 Julia 를 화자로 명시한 채 not a plant expert 라고 부정하고, 이어지는 정보도 Anna 에게서 들은 것으로 돌린다. 화자와 진술 방향이 모두 확정되므로 선지가 성립할 자리가 없다."
       },
@@ -634,9 +689,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "반대 진술",
-          "why_tempting": "Julia 가 햇빛을 피하라는 구체적 관리법을 말해 주므로 아는 사람처럼 보이고, expert 라는 낱말이 그 문장에 실제로 들어 있어 낱말 대조만 하면 참으로 처리된다.",
-          "how_to_reject": "(D)의 Julia 발화가 'I’m not a plant expert' 로 시작한다. not 을 포함해야 문장 하나가 완성되므로 이 선지가 답이다."
+          "why_correct": "Julia 가 햇빛을 피하라는 구체적 관리법을 말해 주므로 아는 사람처럼 보이고, expert 라는 낱말이 그 문장에 실제로 들어 있어 낱말 대조만 하면 참으로 처리된다."
         }
       ],
       "solve_procedure": [
@@ -666,7 +719,13 @@
           "문단 인쇄 순서와 사건 순서가 A→C→B→D 로 어긋난다"
         ]
       },
-      "required_vocab": ["expert", "housemate", "second-hand", "glossy", "sticking out"],
+      "required_vocab": [
+        "expert",
+        "housemate",
+        "second-hand",
+        "glossy",
+        "sticking out"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -715,7 +774,9 @@
       "measured_ability": "선택 장면에서 '제안한 것'과 '실제로 산 것'을 갈라, 선지가 어느 쪽을 가리키는지 판정하는 능력",
       "design_intent": "Garcia 가 가리킨 옷(빨간 무늬 셔츠·노란 바지)과 실제로 산 옷(흰 셔츠·검정 청바지)을 한 문단 안에서 어긋나게 배치했다. 옷을 산 사람이 Garcia 라는 사실은 참이므로, 구매자만 확인하고 색을 확인하지 않으면 정답 선지를 참으로 넘기게 된다.",
       "answer_locus": {
-        "sentence_index": [31],
+        "sentence_index": [
+          31
+        ],
         "quote": "Garcia bought the recommended clothes, saying, “Maybe I’ll wear these for tonight’s rehearsal, too.”",
         "reasoning": "선지 ⑤는 'Garcia가 본인이 가리킨 색상의 옷을 구매했다'인데, 이 문장의 the recommended clothes 는 바로 앞에서 Jeff 가 고른 'a white shirt and black jeans' 를 받는다. Garcia 가 가리킨 것은 그보다 앞의 'a patterned red shirt and yellow pants' 이므로, 구매 행위의 주체는 맞지만 대상이 다르다."
       },
@@ -751,9 +812,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "주체 역전",
-          "why_tempting": "옷을 고르는 장면에서 말을 먼저 꺼낸 쪽도, 계산한 쪽도 Garcia 라 '가리킨 색상'이 그대로 구매로 이어졌다고 읽힌다.",
-          "how_to_reject": "(D)에서 Garcia 가 가리킨 것은 'a patterned red shirt and yellow pants' 이고, 'Instead, Jeff picked out a white shirt and black jeans.' 뒤에 the recommended clothes 를 샀다. 고른 사람이 Jeff 이므로 이 선지가 답이다."
+          "why_correct": "옷을 고르는 장면에서 말을 먼저 꺼낸 쪽도, 계산한 쪽도 Garcia 라 '가리킨 색상'이 그대로 구매로 이어졌다고 읽힌다."
         }
       ],
       "solve_procedure": [
@@ -783,7 +842,13 @@
           "구매자 자체는 Garcia 로 참이라 부분적으로 참인 선지"
         ]
       },
-      "required_vocab": ["objected", "patterned", "flawless", "nervousness", "rehearsal"],
+      "required_vocab": [
+        "objected",
+        "patterned",
+        "flawless",
+        "nervousness",
+        "rehearsal"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -831,7 +896,9 @@
       "measured_ability": "과거 사건(수영 선수 시절)과 현재 사건(자전거 여행)이 다른 문단에 놓인 서사에서, 선지가 말하는 사건이 실제로 일어난 것인지 무산된 것인지 가려내는 능력",
       "design_intent": "Clara 의 과거를 '재능 있는 수영 선수였다'와 '어깨 부상으로 꿈을 접었다'로 한 문장 안에 붙여 놓았다. 앞절만 남으면 선수 경력이 성취로 기억되므로, 정답 선지는 그 성취를 메달 획득이라는 일어나지 않은 사건으로 바꿔 만든다.",
       "answer_locus": {
-        "sentence_index": [14],
+        "sentence_index": [
+          14
+        ],
         "quote": "she had to give up her dream of becoming an Olympic medalist in swimming because of shoulder injuries",
         "reasoning": "선지 ③은 Clara 가 올림픽 수영에서 메달을 땄다고 한다. 이 문장에서 Olympic medalist 는 dream 의 내용이고 그 꿈을 give up 했다고 진술한다. 곧 지문은 메달 획득이 아니라 메달을 향한 꿈의 포기를 말하므로, 선지는 무산된 사건을 일어난 사건으로 바꿔 놓은 것이다."
       },
@@ -853,9 +920,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "반대 진술",
-          "why_tempting": "'talented swimmer', 'Olympic medalist', 'incredible recovery' 가 한 문단에 몰려 있어 낱말만 훑으면 성취 서사로 읽힌다.",
-          "how_to_reject": "(C)의 'she had to give up her dream of becoming an Olympic medalist' 가 메달이 꿈의 내용이자 포기된 것임을 밝힌다. 이 선지가 답이다."
+          "why_correct": "'talented swimmer', 'Olympic medalist', 'incredible recovery' 가 한 문단에 몰려 있어 낱말만 훑으면 성취 서사로 읽힌다."
         },
         {
           "n": 4,
@@ -899,7 +964,13 @@
           "인물이 둘뿐이라 주체 추적 부담이 작다"
         ]
       },
-      "required_vocab": ["medalist", "constructive", "boundless", "recovery", "silence"],
+      "required_vocab": [
+        "medalist",
+        "constructive",
+        "boundless",
+        "recovery",
+        "silence"
+      ],
       "reviews": [
         {
           "persona": "setter",
@@ -979,7 +1050,14 @@
           "밤의 바람 상태처럼 방향(세졌다/잦아들었다)을 판정해야 하는 선지가 있어 낱말 대조만으로는 끝나지 않는다"
         ]
       },
-      "required_vocab": ["complained", "fiercely", "companion", "renewed", "anxiously", "protective gear"],
+      "required_vocab": [
+        "complained",
+        "fiercely",
+        "companion",
+        "renewed",
+        "anxiously",
+        "protective gear"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -1057,7 +1135,13 @@
           "순서 배열은 장문 세트에서 오답률이 내용 일치보다 일관되게 높다"
         ]
       },
-      "required_vocab": ["invited", "hesitantly", "persisted", "assignment", "around the corner"],
+      "required_vocab": [
+        "invited",
+        "hesitantly",
+        "persisted",
+        "assignment",
+        "around the corner"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -1135,7 +1219,13 @@
           "등장 인물이 모두 여성(Ellen · 어머니 · 카페 직원 추정)이면 she 만으로는 갈리지 않아 난도가 올라간다"
         ]
       },
-      "required_vocab": ["invited", "hesitantly", "persisted", "assignment", "around the corner"],
+      "required_vocab": [
+        "invited",
+        "hesitantly",
+        "persisted",
+        "assignment",
+        "around the corner"
+      ],
       "revised": true,
       "reviews": [
         {
@@ -1213,7 +1303,13 @@
           "부정 진술 선지가 하나 있어 판정 뒤집기가 한 번 더 들어간다"
         ]
       },
-      "required_vocab": ["invited", "hesitantly", "persisted", "assignment", "around the corner"],
+      "required_vocab": [
+        "invited",
+        "hesitantly",
+        "persisted",
+        "assignment",
+        "around the corner"
+      ],
       "revised": true,
       "reviews": [
         {

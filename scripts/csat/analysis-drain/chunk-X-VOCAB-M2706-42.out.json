@@ -48,9 +48,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "정답 — 극성 역행",
-          "why_tempting": "\"유리는 평범한 물질이 아니다\"라는 결론을 읽고도 obey 앞의 seems to 를 완화 표현으로 받아들여 그냥 넘긴다.",
-          "how_to_reject": "앞 문장(아직 이해 못 한다)과 뒤 문장(물질이 아니라 상태다) 사이에 놓이려면 법칙을 거스른다는 말이어야 한다. obey 에 부정을 넣어 읽으면 세 문장이 한 방향이 된다."
+          "why_correct": "\"유리는 평범한 물질이 아니다\"라는 결론을 읽고도 obey 앞의 seems to 를 완화 표현으로 받아들여 그냥 넘긴다."
         }
       ],
       "solve_procedure": [
@@ -176,9 +174,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "정답 — 부정 접두사 역행",
-          "why_tempting": "unlikely 가 문장 끝의 부정적 표현(awkward imitations)과 나란히 놓여 두 부정이 자연스럽게 읽힌다.",
-          "how_to_reject": "Without 절이 이미 부정을 하나 걸었다. 조건을 없앴으면 나쁜 결과가 일어난다(likely)여야 하므로, 접두사 un- 을 떼고 다시 읽으면 앞 문단과 방향이 맞는다."
+          "why_correct": "unlikely 가 문장 끝의 부정적 표현(awkward imitations)과 나란히 놓여 두 부정이 자연스럽게 읽힌다."
         }
       ],
       "solve_procedure": [
@@ -297,9 +293,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "정답 — 정도어 역전",
-          "why_tempting": "less rich media 가 바로 앞에 있어 less 가 한 번 더 나오는 것이 리듬상 자연스럽게 읽힌다.",
-          "how_to_reject": "같은 문장의 대칭을 표로 그린다 — rich↔lean 이면 메시지 쪽도 ambiguous↔routine 이어야 한다. 뒤 두 예시(복잡한 계약=대면 / 회의 시간 변경=단체 메일)가 그 표를 확인한다."
+          "why_correct": "less rich media 가 바로 앞에 있어 less 가 한 번 더 나오는 것이 리듬상 자연스럽게 읽힌다."
         },
         {
           "n": 5,
@@ -428,9 +422,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "정답 — 부정 접두사 탈락",
-          "why_tempting": "distinguishable 자체가 긍정적으로 들리고, 로봇을 인간과 구별할 수 있어야 한다는 윤리적 상식이 끼어들어 자연스럽게 읽힌다.",
-          "how_to_reject": "Similarly 가 앞의 목표를 그대로 옮기라고 지시한다. 두 번째 문장의 정의(차이를 인식하지 못하게)를 대입하면 in- 이 빠진 것이 드러난다."
+          "why_correct": "distinguishable 자체가 긍정적으로 들리고, 로봇을 인간과 구별할 수 있어야 한다는 윤리적 상식이 끼어들어 자연스럽게 읽힌다."
         }
       ],
       "solve_procedure": [
@@ -558,9 +550,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "정답 — 인과 뒤집기",
-          "why_tempting": "excludes 뒤에 나열된 것들이 거칠고 부정적으로 들려, 정밀한 손놀림과 대비되는 것으로 읽힌다.",
-          "how_to_reject": "바로 앞 문장이 석기에 손이 필요하다고 했고 바로 뒤 문장이 it can be a bloody business 로 손을 험하게 쓴다는 것을 확인한다. 배제가 아니라 요구여야 세 문장이 한 방향이 된다."
+          "why_correct": "excludes 뒤에 나열된 것들이 거칠고 부정적으로 들려, 정밀한 손놀림과 대비되는 것으로 읽힌다."
         }
       ],
       "solve_procedure": [
@@ -674,9 +664,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "trap": "정답 — 직유 방향 역행",
-          "why_tempting": "앞 절의 accustomed 와 no longer hear it 을 읽고도, 주절 형용사를 \"말이 쏟아지니 예민해졌다\"로 자연스럽게 이어 읽는다.",
-          "how_to_reject": "직유는 두 항이 같은 방향이어야 성립한다. 파도 소리를 더는 듣지 못한다면 말의 홍수에도 둔감해진 것이고, 다음 문장의 listen to language once again 이 이를 확인한다."
+          "why_correct": "앞 절의 accustomed 와 no longer hear it 을 읽고도, 주절 형용사를 \"말이 쏟아지니 예민해졌다\"로 자연스럽게 이어 읽는다."
         },
         {
           "n": 4,
@@ -818,9 +806,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "정답 — 전제 뒤집기",
-          "why_tempting": "coincide 가 alongside recognizing and accepting 과 나란히 놓여, 자기 요인과 타인 요인이 만나는 그림으로 읽힌다.",
-          "how_to_reject": "alongside 뒤 절이 타인의 요인은 다를 수 있다고 이미 말한다. 앞 절은 자기 안의 요인을 다루는 자리이고, 원칙이 within individuals 로도 갈린다고 했으므로 부딪힌다여야 한다."
+          "why_correct": "coincide 가 alongside recognizing and accepting 과 나란히 놓여, 자기 요인과 타인 요인이 만나는 그림으로 읽힌다."
         }
       ],
       "solve_procedure": [
@@ -948,9 +934,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "trap": "정답 — 지문 내 표현 전용",
-          "why_tempting": "앞에서 읽은 runs the risk 가 그대로 다시 나와 낯설지 않고 오히려 앞뒤가 이어지는 것처럼 느껴진다.",
-          "how_to_reject": "그 표현이 처음 나온 자리를 되짚으면 주어가 Speaking with members of the media 다. 마지막 문장의 주체는 그 반대인 resist speaking with reporters 이므로 thereby 뒤에는 위험을 피한다가 와야 한다."
+          "why_correct": "앞에서 읽은 runs the risk 가 그대로 다시 나와 낯설지 않고 오히려 앞뒤가 이어지는 것처럼 느껴진다."
         }
       ],
       "solve_procedure": [
@@ -1243,9 +1227,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "trap": "정답 — 조건 자리 역전",
-          "why_tempting": "느긋할 때 실수한다는 말이 일상 감각으로는 그럴듯하고, 그 문장 안에 반박하는 표현이 없어 그냥 지나간다.",
-          "how_to_reject": "다음 문장이 조건을 그린다 — 하루 수백 가지 조치, 한 번의 실수가 생명. 압박 상황에서 누락이 생기므로 조건 자리는 반대말이어야 한다."
+          "why_correct": "느긋할 때 실수한다는 말이 일상 감각으로는 그럴듯하고, 그 문장 안에 반박하는 표현이 없어 그냥 지나간다."
         },
         {
           "n": 5,
