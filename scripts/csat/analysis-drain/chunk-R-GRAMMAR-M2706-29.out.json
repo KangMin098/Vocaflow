@@ -25,7 +25,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "what 뒤가 'were more elaborate and form-fitting' 으로 보어까지 갖춰 완결돼 보여, what을 '~한 것' 으로 옮기면 뜻이 통하는 것처럼 읽힌다."
+          "why_correct": "밑줄 ②의 자리를 지배하는 것은 왼쪽에 이미 놓인 선행사다. 'fashion began moving toward styles ② what were more elaborate and form-fitting' 에서 전치사 toward 의 목적어 자리는 명사 styles 로 차 있고, 밑줄 뒤 절은 were 의 주어가 비어 있다. what 은 선행사를 제 안에 품는 관계대명사라 앞에 명사를 둘 수 없으므로, 선행사 styles 를 받아 주어 자리를 메우는 which 또는 that 이 와야 한다. 곧 어법상 틀린 자리는 ② 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3
+            ],
+            "note": "「학습자가 미끄러지는 자리」 밑줄 바로 앞 styles 를 선행사로 세지 않으면, what 뒤가 'were more elaborate and form-fitting' 으로 보어까지 갖춰 완결돼 보여 what 을 '~한 것' 으로 옮겨도 뜻이 통하는 것처럼 읽힌다."
+          }
         },
         {
           "n": 3,
@@ -92,12 +98,15 @@
           "verdict": "pass",
           "findings": [
             "초안의 quote 가 밑줄 기호 ② 를 뺀 채였다. 코퍼스 지문에는 기호가 문자열에 포함돼 있어 문자 그대로가 아니었으므로, corpus.json 의 passage 에서 통째로 복사해 교체했다 (revised)",
-            "다섯 밑줄이 서로 다른 문법 항목(태·관계사·부정사·분사구문·대명사)을 재도록 배치된 표준 설계와 맞는다"
+            "다섯 밑줄이 서로 다른 문법 항목(태·관계사·부정사·분사구문·대명사)을 재도록 배치된 표준 설계와 맞는다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 M2706#29 passage 와 문자열 대조",
             "밑줄 다섯 곳의 위치를 지문의 ①~⑤ 기호 위치와 대조",
-            "어법 유형 정의(밑줄 다섯 중 틀린 하나) 대조"
+            "어법 유형 정의(밑줄 다섯 중 틀린 하나) 대조",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
           ]
         },
         {
@@ -105,12 +114,16 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 trap 이 태 판별 · 준동사 형태 선택 · 분사구문 주어 일치 · 대명사 지시·수·격 으로 전부 다르다",
-            "how_to_reject 넷 모두 지문 위치(같은 문장 앞쪽 and · were enacted · 콤마 뒤 주절 주어 · upperclass styles)를 지목한다"
+            "how_to_reject 넷 모두 지문 위치(같은 문장 앞쪽 and · were enacted · 콤마 뒤 주절 주어 · upperclass styles)를 지목한다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
           ],
           "checked": [
             "정답 번호 2 를 평가원 정답표(answer=2)와 대조",
             "trap 라벨 4종 중복 여부 확인",
-            "why_tempting 이 각 밑줄의 실제 표기(frequently 삽입 · to limit · Allowed · their wearers')에 근거하는지 확인"
+            "why_tempting 이 각 밑줄의 실제 표기(frequently 삽입 · to limit · Allowed · their wearers')에 근거하는지 확인",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -118,12 +131,15 @@
           "verdict": "pass",
           "findings": [
             "5단계가 모두 지문을 안 본 상태에서 시작 가능하다 — 1단계가 형태 분류이므로 뜻을 몰라도 착수된다",
-            "90초 안에 관계사 밑줄 하나만 확인해도 끝나는 구조라 시간 여유가 있다"
+            "90초 안에 관계사 밑줄 하나만 확인해도 끝나는 구조라 시간 여유가 있다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
           ],
           "checked": [
             "solve_procedure 각 단계에 금지 표현(흐름을 파악하면 등) 유무 검사",
             "required_vocab 4개가 밑줄 판정에 실제로 쓰이는지 확인 (elaborate·form-fitting 은 what절의 보어 판별, enact 는 수동태 인식, pronounced 는 so~that 절 인식)",
-            "1단계를 지문 첫 줄 없이 실행 가능한지 모의"
+            "1단계를 지문 첫 줄 없이 실행 가능한지 모의",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
           ]
         }
       ]
@@ -150,7 +166,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "앞의 used by any group of foragers 를 정동사(과거시제 used)로 잘못 읽으면 이미 동사가 나온 것처럼 보여, being 이 분사구문으로 이어지는 것이 자연스럽게 느껴진다."
+          "why_correct": "밑줄 ②의 자리를 지배하는 것은 그 문장에 정동사가 하나도 없다는 사실이다. 'The package of tools, foraging techniques, ecological knowledge, and social arrangements used by any group of foragers ② being far too complex for any individual to create.' 에서 주어는 맨 앞의 The package 이고, used by any group of foragers 는 그 주어를 뒤에서 꾸미는 과거분사구라 동사가 아니다. 그 분사구를 걷어 내면 술어 자리가 비어 문장이 서지 못하므로, being 을 정동사 is 로 되돌려야 한다. 곧 틀린 자리는 ② 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3
+            ],
+            "note": "「학습자가 미끄러지는 자리」 앞의 used by any group of foragers 를 정동사(과거시제 used)로 잘못 읽으면 이미 동사가 나온 것처럼 보여, being 이 분사구문으로 이어지는 것이 자연스럽게 느껴진다. 밑줄 바로 왼쪽 명사 foragers 를 주어로 잡는 것도 같은 미끄러짐이다."
+          }
         },
         {
           "n": 3,
@@ -218,12 +240,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 지문에 문자 그대로 있다",
-            "밑줄 ②가 '주어 확장 → 정동사 결손' 이라는 어법 단골 설계와 정확히 맞아, 유형 일반론이 아닌 이 문항 고유의 설계를 서술했다"
+            "밑줄 ②가 '주어 확장 → 정동사 결손' 이라는 어법 단골 설계와 정확히 맞아, 유형 일반론이 아닌 이 문항 고유의 설계를 서술했다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2026#29 passage 와 문자열 대조",
             "정동사 결손 판정을 위해 문장 3의 접속사·관계사 유무를 실제로 셈",
-            "밑줄 ①③④⑤가 각각 다른 문법 항목인지 확인"
+            "밑줄 ①③④⑤가 각각 다른 문법 항목인지 확인",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
           ]
         },
         {
@@ -231,12 +256,16 @@
           "verdict": "pass",
           "findings": [
             "오답 trap 4종(준동사 형태 선택 · 관계사 선택 · 태 판별 · 수일치 유인)이 전부 다르다",
-            "⑤의 how_to_reject 가 'of 이하를 지운다' 는 실행 가능한 조작을 지목한다"
+            "⑤의 how_to_reject 가 'of 이하를 지운다' 는 실행 가능한 조작을 지목한다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
           ],
           "checked": [
             "정답 2 를 평가원 정답표와 대조",
             "①의 why_tempting 이 지문의 not nearly smart enough as individuals 표기에 근거하는지 확인",
-            "trap 라벨 중복 검사"
+            "trap 라벨 중복 검사",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -244,15 +273,19 @@
           "verdict": "pass",
           "findings": [
             "2단계의 '정동사 세기' 가 이 유형에서 가장 값이 큰 조작인데, 세는 기준(시제·수 표시가 있는 형태만)을 on_fail 에 넣어 실행 가능해졌다",
-            "required_vocab 이 5개로 지문 나열 수준은 아니다"
+            "required_vocab 이 5개로 지문 나열 수준은 아니다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
           ],
           "checked": [
             "solve_procedure 5단계 금지 표현 검사",
             "100초 안에 5단계가 끝나는지 — 밑줄당 20초로 계산",
-            "required_vocab 5낱말이 밑줄 판정에 쓰이는지 확인 (forager·arrangement 는 주어 명사구 경계 판정, exceed 는 수일치 판정)"
+            "required_vocab 5낱말이 밑줄 판정에 쓰이는지 확인 (forager·arrangement 는 주어 명사구 경계 판정, exceed 는 수일치 판정)",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2609#29",
@@ -276,7 +309,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "콤마 뒤 which 라 계속적 용법으로 보이고, 뒤에 '여러 출처의 꿀이 섞인다' 는 설명이 이어져 의미가 매끄럽게 연결된다."
+          "why_correct": "밑줄 ②의 자리를 지배하는 것은 뒤 절에 빈 명사 자리가 있는가다. 'which honeys from various sources are blended together' 는 주어(honeys from various sources)와 수동태 동사(are blended)가 다 있고 together 까지 붙어, 관계대명사 which 가 대신 메울 자리가 하나도 없다. 선행사 'blended honey' 는 그 섞임이 일어나는 틀에 해당하므로 전치사를 앞세운 in which(=where)가 되어야 한다. 곧 틀린 자리는 ② 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "「학습자가 미끄러지는 자리」 콤마 뒤 which 라 계속적 용법으로 보이고, 뒤에 '여러 출처의 꿀이 섞인다' 는 설명이 이어져 의미가 매끄럽게 연결되므로 절이 완전한지를 세지 않고 넘긴다."
+          }
         },
         {
           "n": 3,
@@ -345,12 +384,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 지문에 문자 그대로 있다(작은따옴표는 지문의 곡선 부호를 그대로 복사)",
-            "‘blended honey’ 뒤 콤마+which 라는 배치가 계속적 용법 오인을 노린 설계임을 서술에 반영했다"
+            "‘blended honey’ 뒤 콤마+which 라는 배치가 계속적 용법 오인을 노린 설계임을 서술에 반영했다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json M2609#29 passage 와 문자열 대조",
             "which 뒤 절의 주어·목적어 충족 여부를 실제로 셈",
-            "밑줄 ①~⑤가 지문의 기호 위치와 일치하는지 확인"
+            "밑줄 ①~⑤가 지문의 기호 위치와 일치하는지 확인",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
           ]
         },
         {
@@ -358,12 +400,16 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ⑤의 why_tempting 을 '대명사가 무엇을 가리키는지 모호하다' 로만 적어 선지 텍스트 근거가 없었다. its 와 have 가 서로 다른 명사를 받는다는 실제 표기로 고쳤다 (revised)",
-            "고친 뒤 오답 trap 4종이 분사구문 주어 일치 · 형용사·부사 자리 · 수일치 유인 · 대명사 지시·수·격 으로 전부 다르다"
+            "고친 뒤 오답 trap 4종이 분사구문 주어 일치 · 형용사·부사 자리 · 수일치 유인 · 대명사 지시·수·격 으로 전부 다르다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
           ],
           "checked": [
             "정답 2 를 평가원 정답표와 대조",
             "trap 라벨 중복 검사",
-            "how_to_reject 넷에 지문 위치(콤마 뒤 주절 · find 목적어 · producers and retailers · Clover)가 있는지 확인"
+            "how_to_reject 넷에 지문 위치(콤마 뒤 주절 · find 목적어 · producers and retailers · Clover)가 있는지 확인",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -371,12 +417,15 @@
           "verdict": "pass",
           "findings": [
             "2단계 '관계사를 지우고 뒤 절만 읽어 본다' 가 학생이 바로 쓸 수 있는 조작이다",
-            "5단계가 ⑤의 겹친 함정을 실제로 풀어 준다"
+            "5단계가 ⑤의 겹친 함정을 실제로 풀어 준다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
           ],
           "checked": [
             "solve_procedure 5단계 금지 표현 검사",
             "required_vocab 5낱말이 지문에 있는지 문자열 확인 (additives·undiluted·blended·palatable·uniform)",
-            "95초 배분 — 관계사 밑줄 하나만 검사해도 끝나므로 여유 확인"
+            "95초 배분 — 관계사 밑줄 하나만 검사해도 끝나므로 여유 확인",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
           ]
         }
       ]
@@ -410,7 +459,13 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "앞에 make 가 있어 사역동사 + 원형부정사(make us perceive)로 읽히고, for us 의 us 를 make 의 목적어로 잘못 잡으면 원형이 옳아 보인다."
+          "why_correct": "밑줄 ③의 자리를 지배하는 것은 make 가 사역동사가 아니라 가목적어 it 을 받는 구조라는 점이다. 'Such closeness and familiarity make it easier for us ③ perceive the imaginary story to be a real one' 에서 make 의 목적어는 it 이고 목적격보어는 형용사 easier 다. 사역의 원형부정사는 목적어가 곧 행위자일 때만 오는데 여기서 목적어는 it 이고, for us 는 뒤 to부정사의 의미상 주어를 표시하는 전치사구다. 가목적어 it 이 실제로 받는 것은 to부정사구이므로 to perceive 여야 한다. 곧 틀린 자리는 ③ 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6
+            ],
+            "note": "「학습자가 미끄러지는 자리」 앞에 make 가 있어 사역동사 + 원형부정사(make us perceive)로 읽히고, for us 의 us 를 make 의 목적어로 잘못 잡으면 원형이 옳아 보인다."
+          }
         },
         {
           "n": 4,
@@ -472,12 +527,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 지문에 문자 그대로 있다",
-            "가목적어 구문과 사역동사 원형부정사를 겹쳐 놓은 것이 이 문항 고유 설계임을 서술했다"
+            "가목적어 구문과 사역동사 원형부정사를 겹쳐 놓은 것이 이 문항 고유 설계임을 서술했다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json M2606#29 passage 와 문자열 대조",
             "make it easier for us 의 성분(가목적어·보어·의미상 주어)을 실제로 분해",
-            "정답 3 이 어법 유형의 '준동사 자리' 항목에 해당하는지 확인"
+            "정답 3 이 어법 유형의 '준동사 자리' 항목에 해당하는지 확인",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
           ]
         },
         {
@@ -485,12 +543,16 @@
           "verdict": "pass",
           "findings": [
             "오답 trap 4종(수일치 유인 · 형용사·부사 자리 · 분사 후치수식 · 태 판별)이 전부 다르다",
-            "④와 ⑤가 둘 다 과거분사이지만 걸리는 층(후치수식 vs 수동태 보어)이 달라 라벨을 갈랐다"
+            "④와 ⑤가 둘 다 과거분사이지만 걸리는 층(후치수식 vs 수동태 보어)이 달라 라벨을 갈랐다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
           ],
           "checked": [
             "정답 3 을 평가원 정답표와 대조",
             "trap 라벨 중복 검사",
-            "①의 how_to_reject 가 지문 첫 낱말 Changes 를 실제로 지목하는지 확인"
+            "①의 how_to_reject 가 지문 첫 낱말 Changes 를 실제로 지목하는지 확인",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -498,12 +560,15 @@
           "verdict": "pass",
           "findings": [
             "초안 3단계가 '가목적어 it 을 찾는다' 한 줄뿐이어서, it 이 가목적어인지 학생이 판별할 수단이 없었다. it 이 가리킬 앞 명사를 찾아 없으면 가목적어라는 판별법을 on_fail 에 넣었다 (revised)",
-            "고친 뒤 5단계 모두 지문을 안 본 상태에서 착수 가능하다"
+            "고친 뒤 5단계 모두 지문을 안 본 상태에서 착수 가능하다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
           ],
           "checked": [
             "solve_procedure 5단계 금지 표현 검사",
             "3단계를 지문 없이 실행 가능한지 모의 — 원형 탐색 → 사역동사 탐색 → 목적어 확인 순서로 진행됨을 확인",
-            "required_vocab 5낱말이 밑줄 판정에 필요한지 확인"
+            "required_vocab 5낱말이 밑줄 판정에 필요한지 확인",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
           ]
         }
       ]
@@ -530,7 +595,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "밑줄 바로 왼쪽 낱말이 단수 the motor system 이라 knows 가 자연스럽게 읽힌다."
+          "why_correct": "밑줄 ② 의 자리를 지배하는 주어는 as 절의 patients 다. ‘as patients recovering from a brain injury affecting the motor system ② knows’ 에서 recovering … 과 affecting … 은 각각 patients 와 a brain injury 를 꾸미는 분사구라 동사가 아니므로, 걷어 내면 as patients … know 만 남는다. 복수 주어 patients 에 3인칭 단수형 knows 가 붙었으니 수 일치가 깨진 자리는 ② 이다. 밑줄 뒤의 ‘The autopilot parts of our brain do it for us automatically’ 는 마침표로 끊긴 새 문장이므로 ② 은 그 문장의 주어를 받는 자리가 아니다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "「학습자가 미끄러지는 자리」 밑줄 바로 왼쪽 낱말이 단수 the motor system 이라 knows 가 자연스럽게 읽힌다 — 분사구 두 개가 주어와 동사 사이를 벌려 놓은 것이 이 문항의 장치다."
+          }
         },
         {
           "n": 3,
@@ -598,12 +669,14 @@
           "verdict": "pass",
           "findings": [
             "quote 가 지문에 문자 그대로 있다",
-            "④가 It-that 강조구문이면서 동시에 수일치를 요구해, 정답 ②와 같은 항목이 오답에도 깔려 있다는 점을 서술에 반영했다"
+            "④가 It-that 강조구문이면서 동시에 수일치를 요구해, 정답 ②와 같은 항목이 오답에도 깔려 있다는 점을 서술에 반영했다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「밑줄 바로 왼쪽 낱말이 단수 the motor system 이라 knows 가 자연스럽게 읽힌다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2025#29 passage 와 문자열 대조",
             "as 절 주어 patients 와 분사구 두 겹을 실제로 분해",
-            "④의 It is ~ that 이 강조구문인지 It 지우기로 검증"
+            "④의 It is ~ that 이 강조구문인지 It 지우기로 검증",
+            "as 절에서 분사구를 걷어 낸 뒤 남는 주어·동사를 지문 문자열로 대조"
           ]
         },
         {
@@ -611,12 +684,14 @@
           "verdict": "pass",
           "findings": [
             "오답 trap 4종(시제·가정법 · 분사구문 주어 일치 · 강조 구문 · 관계사 선택)이 전부 다르다",
-            "②와 ④가 같은 수일치를 요구하지만 ④는 강조구문 인식이 먼저라 라벨을 갈랐다"
+            "②와 ④가 같은 수일치를 요구하지만 ④는 강조구문 인식이 먼저라 라벨을 갈랐다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「밑줄 바로 왼쪽 낱말이 단수 the motor system 이라 knows 가 자연스럽게 읽힌다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "정답 2 를 평가원 정답표와 대조",
             "trap 라벨 중복 검사",
-            "①의 how_to_reject 가 지문의 It would be tiresome 이라는 실제 문장을 지목하는지 확인"
+            "①의 how_to_reject 가 지문의 It would be tiresome 이라는 실제 문장을 지목하는지 확인",
+            "수 일치 근거가 가정법 were 같은 다른 기제와 섞이지 않았는지 확인"
           ]
         },
         {
@@ -624,15 +699,18 @@
           "verdict": "pass",
           "findings": [
             "2단계 '-ing 는 일단 다 지운다' 가 이 문항에서 정확히 정답으로 이끄는 조작이다",
-            "지문에 ar far less automated 처럼 OCR 손상이 있으나 밑줄 판정에 걸리는 자리가 아니어서 절차에 영향 없다"
+            "지문에 ar far less automated 처럼 OCR 손상이 있으나 밑줄 판정에 걸리는 자리가 아니어서 절차에 영향 없다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「밑줄 바로 왼쪽 낱말이 단수 the motor system 이라 knows 가 자연스럽게 읽힌다.」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "solve_procedure 5단계 금지 표현 검사",
             "지문의 OCR 손상 위치(ar far less automated)가 밑줄 ①~⑤와 겹치는지 확인",
-            "required_vocab 5낱말이 지문에 있는지 문자열 확인"
+            "required_vocab 5낱말이 지문에 있는지 문자열 확인",
+            "학생이 분사구를 괄호로 묶는 조작만으로 ② 에 닿는지 점검"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2509#29",
@@ -677,7 +755,13 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "whose 뒤에 result 라는 명사가 붙어 '소유격 관계대명사 + 명사' 형태가 갖춰진 것처럼 보이고, '그 결과' 로 옮기면 뜻도 통하는 듯하다."
+          "why_correct": "밑줄 ⑤의 자리를 지배하는 것은 밑줄 바로 뒤가 명사인가 동사인가다. 'whose result from overpopulation and unplanned growth' 에서 result 뒤에 곧바로 전치사 from 이 붙어 result from(~에서 비롯되다)이라는 동사구를 이루므로, result 는 whose 가 소유할 명사가 아니라 관계절의 동사다. 그러면 그 동사의 주어 자리가 비므로 소유격 whose 가 아니라 주격 관계대명사 which(that)가 와야 하고, 선행사 'all the crime, evil, and mise' 가 복수라 동사 result 의 형태와도 맞는다. 곧 틀린 자리는 ⑤ 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "「학습자가 미끄러지는 자리」 whose 뒤에 result 라는 명사가 붙어 '소유격 관계대명사 + 명사' 형태가 갖춰진 것처럼 보이고, '그 결과' 로 옮기면 뜻도 통하는 듯해 result 뒤의 from 을 세지 않는다."
+          }
         }
       ],
       "solve_procedure": [
@@ -725,12 +809,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 지문에 문자 그대로 있다 — 지문의 OCR 손상(misery → mise)까지 그대로 복사했다",
-            "정답을 ⑤에 두어 앞 넷을 모두 검사하게 만드는 배치가 이 문항의 설계다"
+            "정답을 ⑤에 두어 앞 넷을 모두 검사하게 만드는 배치가 이 문항의 설계다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json M2509#29 passage 와 문자열 대조",
             "whose 뒤 절에 정동사가 없음을 실제로 확인",
-            "정답 5 가 관계사 항목인지 확인"
+            "정답 5 가 관계사 항목인지 확인",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
           ]
         },
         {
@@ -738,12 +825,16 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ④의 how_to_reject 를 '과거시제 동사이므로 맞다' 로만 적어 병렬 상대가 어디 있는지 위치가 없었다. and 왼쪽의 provided some of the worst examples 를 명시하도록 고쳤다 (revised)",
-            "고친 뒤 오답 trap 4종이 분사 후치수식 · 형용사·부사 자리 · 수일치 유인 · 병렬 대상 오인 으로 전부 다르다"
+            "고친 뒤 오답 trap 4종이 분사 후치수식 · 형용사·부사 자리 · 수일치 유인 · 병렬 대상 오인 으로 전부 다르다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
           ],
           "checked": [
             "정답 5 를 평가원 정답표와 대조",
             "trap 라벨 중복 검사",
-            "오답 넷의 how_to_reject 에 지문 위치가 있는지 하나씩 확인"
+            "오답 넷의 how_to_reject 에 지문 위치가 있는지 하나씩 확인",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -751,12 +842,15 @@
           "verdict": "pass",
           "findings": [
             "2단계의 'whose 뒤 명사 다음에 정동사가 오는지 한 번 더 센다' 가 이 문항의 핵심 조작이고 학생이 바로 실행 가능하다",
-            "정답이 마지막 밑줄이라 100초를 배정했다 — 밑줄 다섯을 다 검사해야 한다"
+            "정답이 마지막 밑줄이라 100초를 배정했다 — 밑줄 다섯을 다 검사해야 한다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
           ],
           "checked": [
             "solve_procedure 5단계 금지 표현 검사",
             "100초 안에 밑줄 5개 검사가 끝나는지 — 밑줄당 20초로 계산",
-            "required_vocab 5낱말이 지문에 있는지 문자열 확인"
+            "required_vocab 5낱말이 지문에 있는지 문자열 확인",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
           ]
         }
       ]
@@ -783,7 +877,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "students 가 주어이고 give 가 능동이라 문법 형태 자체는 흠이 없어 보인다 — 태 오류는 형태가 아니라 의미 관계로만 드러난다."
+          "why_correct": "밑줄 ② 의 자리를 지배하는 것은 바로 앞 병렬 항의 정의다. ‘Free recall tests, in which students need to recall as much as they can remember without prompting’ 과 맞세워진 cued recall tests 는 단서가 주어지는 시험이므로, 그 관계절에서 students 는 힌트를 주는 쪽이 아니라 받는 쪽이다. 그런데 밑줄은 ‘give hints about what they need to remember’ 로 능동이어서 students 가 스스로에게 힌트를 준다는 뜻이 되고 같은 절의 they(=students)와 충돌한다. are given 으로 태를 되돌려야 without prompting ↔ cued 의 대비가 서므로 어법상 틀린 자리는 ② 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3
+            ],
+            "note": "「학습자가 미끄러지는 자리」 students 가 주어이고 give 가 능동이라 형태만 훑으면 흠이 없어 보인다 — 태 오류는 앞 병렬 항의 정의와 맞춰 볼 때만 드러난다."
+          }
         },
         {
           "n": 3,
@@ -852,12 +952,14 @@
           "verdict": "pass",
           "findings": [
             "quote 가 지문에 문자 그대로 있다",
-            "이 문항은 어법 밑줄이면서도 앞 문장과의 의미 대조를 요구하는 드문 설계이고, 그 점을 design_intent 에 담았다"
+            "이 문항은 어법 밑줄이면서도 앞 문장과의 의미 대조를 요구하는 드문 설계이고, 그 점을 design_intent 에 담았다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「students 가 주어이고 give 가 능동이라 문법 형태 자체는 흠이 없어 보인다 — 태 오류는 형태가 」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json M2506#29 passage 와 문자열 대조",
             "free recall / cued recall 정의 대비가 지문에 실제로 있는지 확인 (without prompting)",
-            "정답 2 가 태 항목인지 확인"
+            "정답 2 가 태 항목인지 확인",
+            "free recall 의 정의와 cued 의 뜻이 맞물리는 자리를 지문 문자열로 대조"
           ]
         },
         {
@@ -865,12 +967,14 @@
           "verdict": "pass",
           "findings": [
             "오답 trap 4종(수일치 유인 · 관계사 선택 · 대명사 지시·수·격 · 전치사 to vs 부정사 to)이 전부 다르다",
-            "②의 why_tempting 이 '형태에는 흠이 없다' 는 이 문항 고유의 어려움을 짚는다"
+            "②의 why_tempting 이 '형태에는 흠이 없다' 는 이 문항 고유의 어려움을 짚는다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「students 가 주어이고 give 가 능동이라 문법 형태 자체는 흠이 없어 보인다 — 태 오류는 형태가 」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "정답 2 를 평가원 정답표와 대조",
             "trap 라벨 중복 검사",
-            "⑤의 how_to_reject 가 barrier to 라는 지문 표기에 근거하는지 확인"
+            "⑤의 how_to_reject 가 barrier to 라는 지문 표기에 근거하는지 확인",
+            "태 오류 근거가 의미 관계로 지목되었는지, 소거법이 아닌지 확인"
           ]
         },
         {
@@ -878,12 +982,14 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ⑤의 trap 을 '분사구문' 으로 잘못 달아 학습자가 엉뚱한 것을 확인하게 되어 있었다. a barrier to 의 to 는 전치사이므로 '전치사 to vs 부정사 to' 로 고치고, 4단계 절차도 to 앞 품사를 보는 조작으로 바꿨다 (revised)",
-            "고친 뒤 4단계 on_fail 의 'to 자리에 for 를 넣어 본다' 가 학생이 바로 쓸 수 있는 판별법이다"
+            "고친 뒤 4단계 on_fail 의 'to 자리에 for 를 넣어 본다' 가 학생이 바로 쓸 수 있는 판별법이다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「students 가 주어이고 give 가 능동이라 문법 형태 자체는 흠이 없어 보인다 — 태 오류는 형태가 」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "solve_procedure 5단계 금지 표현 검사",
             "⑤ 밑줄의 실제 형태(making retrieval work)와 trap 라벨의 일치 재확인",
-            "110초 배정 — 의미 대조가 필요한 문항이라 다른 어법보다 길게 잡음"
+            "110초 배정 — 의미 대조가 필요한 문항이라 다른 어법보다 길게 잡음",
+            "학생이 앞 병렬 항 한 줄만 되읽어 수령자를 판정할 수 있는지 점검"
           ]
         }
       ]
@@ -910,7 +1016,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "선행사 gestures 가 바로 앞에 있고 which 로 이으면 '어려움을 겪는 몸짓' 으로 뜻이 통해 보인다."
+          "why_correct": "밑줄 ②의 자리를 지배하는 것은 뒤 절이 완전한가다. 'which they have some difficulty' 는 주어(they)·동사(have)·목적어(some difficulty)가 다 차 있어 관계대명사가 메울 명사 자리가 없다. have difficulty 는 대상을 with 로 받는 표현이므로, 선행사 gestures 를 그 with 의 목적어로 넘기는 with which 가 되어야 한다. 바로 앞 문장의 'facial gestures that are presented to them' 은 are presented 의 주어가 비어 있어 관계대명사만으로 성립하지만, ②의 절에는 그런 빈자리가 없다. 곧 틀린 자리는 ② 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3
+            ],
+            "note": "「학습자가 미끄러지는 자리」 선행사 gestures 가 바로 앞에 있고 which 로 이으면 '어려움을 겪는 몸짓' 으로 뜻이 통해 보여, 뒤 절의 성분을 세지 않고 넘긴다."
+          }
         },
         {
           "n": 3,
@@ -979,12 +1091,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 지문에 문자 그대로 있다",
-            "숙어(have difficulty with)에 전치사를 묻어 놓은 것이 이 문항 고유의 설계다"
+            "숙어(have difficulty with)에 전치사를 묻어 놓은 것이 이 문항 고유의 설계다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2024#29 passage 와 문자열 대조",
             "which 뒤 절의 주어·동사·목적어 충족 여부를 실제로 셈",
-            "정답 2 가 관계사 항목인지 확인"
+            "정답 2 가 관계사 항목인지 확인",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
           ]
         },
         {
@@ -992,12 +1107,16 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ③ do succeed 와 ⑤ to be 의 trap 을 둘 다 '동사 형태' 로 묶어 라벨이 겹쳤다. ③은 강조 구문, ⑤는 5형식 보어 자리의 준동사 형태 선택으로 갈랐다 (revised)",
-            "고친 뒤 오답 trap 4종이 전부 다르다"
+            "고친 뒤 오답 trap 4종이 전부 다르다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
           ],
           "checked": [
             "정답 2 를 평가원 정답표와 대조",
             "trap 라벨 중복 재검사",
-            "④의 why_tempting 이 those of others 라는 실제 표기에 근거하는지 확인"
+            "④의 why_tempting 이 those of others 라는 실제 표기에 근거하는지 확인",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -1005,12 +1124,15 @@
           "verdict": "pass",
           "findings": [
             "3단계 '선행사를 뒤 절 끝에 되돌려 넣기' 가 전치사 누락을 드러내는 유일한 조작이라 절차의 핵심이다",
-            "kinaesthetically 같은 낱말은 뜻을 몰라도 밑줄 판정에 지장이 없으나, ④의 대용 대상(movements)을 잡는 데 필요해 남겼다"
+            "kinaesthetically 같은 낱말은 뜻을 몰라도 밑줄 판정에 지장이 없으나, ④의 대용 대상(movements)을 잡는 데 필요해 남겼다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
           ],
           "checked": [
             "solve_procedure 5단계 금지 표현 검사",
             "required_vocab 5낱말이 지문에 있는지 문자열 확인",
-            "100초 안에 5단계가 끝나는지 확인"
+            "100초 안에 5단계가 끝나는지 확인",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
           ]
         }
       ]
@@ -1211,7 +1333,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "바로 앞 문장 주어가 Clothes 라 them 이 옷을 가리키는 것으로 읽히고, '사람들이 옷을 세상에 내보인다' 로도 뜻이 통한다."
+          "why_correct": "밑줄 ②의 자리를 지배하는 것은 같은 절 안에서 present 의 주어와 목적어가 같은 대상인가다. 'Clothes are part of how people present ② them to the world' 에서 present 의 주어는 people 이고, 세상에 내보이는 대상도 그 people 자신이다 — 이어지는 'fashion locates them in the present' 의 them 이 사람을 받고, 첫 문장 'opportunities for individuals to restage themselves' 도 같은 자기 제시 틀을 재귀형으로 적어 두었다. 한 절 안에서 주어와 목적어가 같은 대상을 가리키면 재귀대명사 themselves 를 써야 하므로 틀린 자리는 ② 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "「학습자가 미끄러지는 자리」 바로 앞 문장 주어가 Clothes 라 them 이 옷을 가리키는 것으로 읽히고, '사람들이 옷을 세상에 내보인다' 로도 뜻이 통한다."
+          }
         },
         {
           "n": 3,
@@ -1279,12 +1407,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 지문에 문자 그대로 있다",
-            "선행사 후보를 둘 만들어 놓고 주어 동일성으로만 갈리게 한 것이 이 문항 고유 설계다"
+            "선행사 후보를 둘 만들어 놓고 주어 동일성으로만 갈리게 한 것이 이 문항 고유 설계다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2023#29 passage 와 문자열 대조",
             "present 의 주어가 people 임을 절 단위로 확인",
-            "정답 2 가 대명사 항목인지 확인"
+            "정답 2 가 대명사 항목인지 확인",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
           ]
         },
         {
@@ -1292,12 +1423,16 @@
           "verdict": "pass",
           "findings": [
             "오답 trap 4종(접속사 that vs 관계사 · 분사 후치수식 · 형용사·부사 자리 · 분사구문 주어 일치)이 전부 다르다",
-            "③과 ⑤가 둘 다 분사이지만 하나는 명사 후치수식, 하나는 절 수식이라 라벨을 갈랐다"
+            "③과 ⑤가 둘 다 분사이지만 하나는 명사 후치수식, 하나는 절 수식이라 라벨을 갈랐다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
           ],
           "checked": [
             "정답 2 를 평가원 정답표와 대조",
             "trap 라벨 중복 검사",
-            "①의 how_to_reject 가 밑줄 왼쪽 is 라는 위치를 지목하는지 확인"
+            "①의 how_to_reject 가 밑줄 왼쪽 is 라는 위치를 지목하는지 확인",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -1305,15 +1440,19 @@
           "verdict": "pass",
           "findings": [
             "1단계가 '대명사 밑줄은 가리키는 대상보다 주어 동일성을 먼저 본다' 로 순서를 못박아 학습자가 헤매지 않는다",
-            "required_vocab 의 costumery·stature 는 지문에 잘린 형태(stat)로도 나오나 밑줄 판정에는 영향 없다"
+            "required_vocab 의 costumery·stature 는 지문에 잘린 형태(stat)로도 나오나 밑줄 판정에는 영향 없다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
           ],
           "checked": [
             "solve_procedure 5단계 금지 표현 검사",
             "3단계 on_fail 의 present oneself 표현이 학습자에게 실행 가능한 단서인지 확인",
-            "95초 배분 확인"
+            "95초 배분 확인",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2309#29",

@@ -327,7 +327,14 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "(C)의 고발 → (D)의 해명 → (B)의 확인. (B) 첫 대사의 수신자가 Felix 이고 그 해명이 (D) 끝에 있다."
+          "why_correct": "(C)에서 Sean 이 주방 쪽으로 외친 고발을 (D)의 'Felix argued against Sean’s accusation' 이 accusation 으로 받고, 그 해명 'I’m watching a lecture video for my science class.' 를 (B) 첫머리의 'Mom replied' 가 대답으로 받는다. 두 이음매가 동시에 이어지는 배열은 (C)-(D)-(B) 하나뿐이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              8,
+              28
+            ],
+            "note": "3차 보강 전 서술: (C)의 고발 → (D)의 해명 → (B)의 확인. (B) 첫 대사의 수신자가 Felix 이고 그 해명이 (D) 끝에 있다."
+          }
         },
         {
           "n": 4,
@@ -383,12 +390,15 @@
           "verdict": "pass",
           "findings": [
             "인용을 corpus.json 지문에서 문자 그대로 확인했다.",
-            "출제 의도를 \"대사의 수신자\" 라는 이 문항 고유 장치로 좁혔다 — 유형 일반론에 머물지 않는다."
+            "출제 의도를 \"대사의 수신자\" 라는 이 문항 고유 장치로 좁혔다 — 유형 일반론에 머물지 않는다.",
+            "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
           ],
           "checked": [
             "quote 문자열 대조",
             "유형 정의 대조",
-            "design_intent 가 문항 고유 장치를 짚는지 확인"
+            "design_intent 가 문항 고유 장치를 짚는지 확인",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -396,25 +406,30 @@
           "verdict": "pass",
           "findings": [
             "오답 4개의 함정이 마무리 위치 오판 · 어휘 반복 유인 · 지시어 선행사 절단 · 시간·인과 순서 역전 4종으로 갈렸다.",
-            "②의 why_tempting 이 실제 선지 (C)-(B)-(D) 순열과 맞는지 대조했다."
+            "②의 why_tempting 이 실제 선지 (C)-(B)-(D) 순열과 맞는지 대조했다.",
+            "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 검사",
             "선지 순열과 서술 일치 확인",
             "how_to_reject 의 근거 문단 표기 확인",
-            "정답 ③ 과 정답표 3 대조"
+            "정답 ③ 과 정답표 3 대조",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "초안 2단계가 \"대사의 주인을 찾는다\" 였는데 이 지문은 말한 사람이 아니라 **듣는 사람**이 갈림길이라, 대사 안의 표현으로 수신자를 정하도록 고쳐 실행 가능하게 만들었다."
+            "초안 2단계가 \"대사의 주인을 찾는다\" 였는데 이 지문은 말한 사람이 아니라 **듣는 사람**이 갈림길이라, 대사 안의 표현으로 수신자를 정하도록 고쳐 실행 가능하게 만들었다.",
+            "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "단계 실행 가능성 점검",
             "금지 표현 검색",
-            "required_vocab 이 판정에 쓰이는지 확인"
+            "required_vocab 이 판정에 쓰이는지 확인",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
       ],
@@ -657,7 +672,14 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "(A)의 정차 판단을 (C)가 실행하고, (D)의 \"a big one … in vain\" 뒤에 (B)의 \"a small one … made it over\" 가 온다."
+          "why_correct": "(A) 끝의 'a good place for them to stop' 을 (C) 첫 문장 'Marie pulled over into the parking lot.' 이 실행으로 받고, (D)의 'a big one suddenly leapt … but in vain' 을 (B)의 'a small one turned a complete circle and made it over the falls' 가 성공 쪽 짝으로 받는다. 두 이음매가 함께 성립하는 배열은 (C)-(D)-(B) 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              20,
+              30
+            ],
+            "note": "3차 보강 전 서술: (A)의 정차 판단을 (C)가 실행하고, (D)의 \"a big one … in vain\" 뒤에 (B)의 \"a small one … made it over\" 가 온다."
+          }
         },
         {
           "n": 4,
@@ -713,12 +735,15 @@
           "verdict": "pass",
           "findings": [
             "인용을 corpus.json 지문에서 문자 그대로 확인했다.",
-            "출제 의도를 \"관사·수량 표현으로만 이음매를 남겼다\" 는 이 문항 고유 장치로 좁혔다."
+            "출제 의도를 \"관사·수량 표현으로만 이음매를 남겼다\" 는 이 문항 고유 장치로 좁혔다.",
+            "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
           ],
           "checked": [
             "quote 문자열 대조",
             "유형 정의 대조",
-            "design_intent 의 문항 고유성 확인"
+            "design_intent 의 문항 고유성 확인",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -726,12 +751,15 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 함정이 첫 등장 위반 · 어휘 반복 유인 · 지시어 선행사 절단 · 조건-귀결 절단 4종이다.",
-            "②의 배제 근거를 \"salmon 이 겹친다\" 가 아니라 \"More salmon then followed 가 앞선 시도를 요구한다\" 는 문장 위치로 바꿔 적었다."
+            "②의 배제 근거를 \"salmon 이 겹친다\" 가 아니라 \"More salmon then followed 가 앞선 시도를 요구한다\" 는 문장 위치로 바꿔 적었다.",
+            "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
           ],
           "checked": [
             "trap 중복 검사",
             "how_to_reject 의 위치 표기 확인",
-            "정답 ③ 과 정답표 3 대조"
+            "정답 ③ 과 정답표 3 대조",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -739,12 +767,14 @@
           "verdict": "pass",
           "findings": [
             "초안 2단계가 \"연어 관련 표현을 본다\" 여서 무엇을 볼지 불명확했다 — 관사 비교라는 판정 기준으로 고쳤다.",
-            "95초 안에 관사 비교 → 배열 → 밑줄 검산이 끝난다."
+            "95초 안에 관사 비교 → 배열 → 밑줄 검산이 끝난다.",
+            "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "단계 실행 가능성 점검",
             "금지 표현 검색",
-            "required_vocab 이 정답 판정에 쓰이는지 확인"
+            "required_vocab 이 정답 판정에 쓰이는지 확인",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
       ],
@@ -796,7 +826,14 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "(D)의 허락 요청과 \"내일 연습\" 초대를 (C)가 \"the following day\" 로 받고, 그 연습이 끝난 자리에서 (B)가 시작한다."
+          "why_correct": "(D) 끝의 'Why don’t you come and listen to our practice tomorrow?' 를 (C) 첫 문장의 'the following day' 와 Brian 의 'did you get permission?' 이 함께 받고, 그 연습 장면을 (B) 첫머리 'When they finished practicing' 이 닫는다. 두 이음매가 함께 성립하는 배열은 (D)-(C)-(B) 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              12,
+              32
+            ],
+            "note": "3차 보강 전 서술: (D)의 허락 요청과 \"내일 연습\" 초대를 (C)가 \"the following day\" 로 받고, 그 연습이 끝난 자리에서 (B)가 시작한다."
+          }
         }
       ],
       "solve_procedure": [
@@ -839,12 +876,15 @@
           "verdict": "pass",
           "findings": [
             "초안 인용이 (B)의 \"keeping d the spirit of the violin\" 구간을 포함해 OCR 잔여 문자 d 가 섞여 있었다 — 반려하고 손상 없는 (C) 첫 문장으로 교체해 재검수했다.",
-            "교체한 인용을 corpus.json 지문에서 문자 그대로 확인했다."
+            "교체한 인용을 corpus.json 지문에서 문자 그대로 확인했다.",
+            "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
           ],
           "checked": [
             "quote 문자열 대조",
             "OCR 손상 구간 회피 확인",
-            "유형 정의 대조"
+            "유형 정의 대조",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -852,25 +892,30 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 함정이 4종으로 갈렸고, ③의 배제 근거가 이 문항 고유의 시간 표지 충돌(\"tomorrow\" vs \"the following day\")이다.",
-            "분석 정답 ⑤ 가 평가원 정답표 5 와 일치한다."
+            "분석 정답 ⑤ 가 평가원 정답표 5 와 일치한다.",
+            "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
           ],
           "checked": [
             "trap 중복 검사",
             "선지 순열과 서술 대조",
             "정답표 대조",
-            "how_to_reject 위치 표기 확인"
+            "how_to_reject 위치 표기 확인",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계가 \"표현을 표시한다\" 라는 동작이라 실행 가능하고, 3단계에 방향 규칙(내일 < 다음 날)을 명시해 학생이 스스로 판정한다."
+            "2단계가 \"표현을 표시한다\" 라는 동작이라 실행 가능하고, 3단계에 방향 규칙(내일 < 다음 날)을 명시해 학생이 스스로 판정한다.",
+            "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "단계 실행 가능성 점검",
             "금지 표현 검색",
-            "time_budget 대조"
+            "time_budget 대조",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
       ]
@@ -898,7 +943,14 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "(A)의 준비를 (C)가 마치고, (B) 끝의 질문에 (D) 첫 대사가 답한다."
+          "why_correct": "(A) 끝의 'went back to the house to get ready' 를 (C)의 'armed with a small bucket each, Olivia and Ellie went back to Grandma' 가 준비 완료로 받고, (B) 끝의 질문 'Why don’t we just get rid of all the butterflies …?' 을 (D) 첫 대사 'Why wrestle with Mother Nature?' 가 답한다. 두 이음매가 함께 성립하는 배열은 (C)-(B)-(D) 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              26,
+              16
+            ],
+            "note": "3차 보강 전 서술: (A)의 준비를 (C)가 마치고, (B) 끝의 질문에 (D) 첫 대사가 답한다."
+          }
         },
         {
           "n": 3,
@@ -961,24 +1013,30 @@
           "verdict": "pass",
           "findings": [
             "인용 \"Grandma smiled gently and said, “Why wrestle with Mother Nature?\" 를 코퍼스 지문에서 문자 그대로 확인했다.",
-            "이 문항의 갈림길이 앞이 아니라 뒤 두 문단에 있다는 점을 design_intent 에 명시했다."
+            "이 문항의 갈림길이 앞이 아니라 뒤 두 문단에 있다는 점을 design_intent 에 명시했다.",
+            "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
           ],
           "checked": [
             "quote 문자열 대조",
             "유형 정의 대조",
-            "갈림길 위치가 서술과 맞는지 확인"
+            "갈림길 위치가 서술과 맞는지 확인",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "오답 4개 함정이 4종이고, ⑤의 배제 근거를 \"겹치는 낱말의 기능 차이\" 로 적어 어휘 반복 유인 라벨과 서술이 일치한다."
+            "오답 4개 함정이 4종이고, ⑤의 배제 근거를 \"겹치는 낱말의 기능 차이\" 로 적어 어휘 반복 유인 라벨과 서술이 일치한다.",
+            "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
           ],
           "checked": [
             "trap 중복 검사",
             "why_tempting 이 선지 순열과 맞는지 확인",
-            "정답 ② 와 정답표 2 대조"
+            "정답 ② 와 정답표 2 대조",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -986,12 +1044,14 @@
           "verdict": "pass",
           "findings": [
             "초안 3단계가 \"시간 표지를 확인한다\" 였는데 이 지문에는 시간 표지가 \"Soon\" 하나뿐이라 실행이 막혔다 — \"물음표로 끝나는 대사를 찾는다\" 로 고쳐 재검수했다.",
-            "95초 안에 4단계가 끝난다."
+            "95초 안에 4단계가 끝난다.",
+            "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "단계 실행 가능성 점검",
             "금지 표현 검색",
-            "required_vocab 의 정답 기여도 확인"
+            "required_vocab 의 정답 기여도 확인",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
       ],
@@ -1028,7 +1088,14 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "(A)의 출마 결심을 (C)가 받고, (D) 끝의 \"사과해야겠다\" 는 예고를 (B)의 실제 사과가 실행한다."
+          "why_correct": "(A) 끝의 출마 수락 'Sure, it’ll be a great experience.' 를 (C)의 'I’m going for student president' 가 받고, (D) 끝의 'Dave felt the need to apologize to (e) him later that day' 라는 예고를 (B)의 실제 사과 'I’m so sorry, Steve!' 가 실행한다. 예고가 실행보다 앞서야 하므로 배열은 (C)-(D)-(B) 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              33,
+              7
+            ],
+            "note": "3차 보강 전 서술: (A)의 출마 결심을 (C)가 받고, (D) 끝의 \"사과해야겠다\" 는 예고를 (B)의 실제 사과가 실행한다."
+          }
         },
         {
           "n": 4,
@@ -1084,12 +1151,15 @@
           "verdict": "pass",
           "findings": [
             "초안 인용이 (D)의 \"his bicycle had a f lat tire\" 구간을 포함해 OCR 이 낱말을 쪼갠 자리(\"f lat\")가 섞여 있었다 — 반려하고 손상 없는 (D) 마지막 두 문장으로 교체해 재검수했다.",
-            "교체한 인용을 corpus.json 지문에서 문자 그대로 확인했다."
+            "교체한 인용을 corpus.json 지문에서 문자 그대로 확인했다.",
+            "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
           ],
           "checked": [
             "quote 문자열 대조",
             "OCR 손상 구간 회피 확인",
-            "유형 정의 대조"
+            "유형 정의 대조",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -1097,12 +1167,15 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 함정이 4종이고, ②와 ⑤가 각각 시간 표지·첫 등장이라는 다른 자를 쓴다.",
-            "분석 정답 ③ 이 평가원 정답표 3 과 일치한다."
+            "분석 정답 ③ 이 평가원 정답표 3 과 일치한다.",
+            "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
           ],
           "checked": [
             "trap 중복 검사",
             "정답표 대조",
-            "how_to_reject 위치 표기 확인"
+            "how_to_reject 위치 표기 확인",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -1110,12 +1183,14 @@
           "verdict": "pass",
           "findings": [
             "3단계의 \"예고–실행 짝짓기\" 가 이 지문의 결정 장치라 절차가 문항에 붙어 있다.",
-            "95초 배분이 세트 전체(43~45)에서 무리가 없다."
+            "95초 배분이 세트 전체(43~45)에서 무리가 없다.",
+            "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "단계 실행 가능성 점검",
             "금지 표현 검색",
-            "time_budget 대조"
+            "time_budget 대조",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
       ],

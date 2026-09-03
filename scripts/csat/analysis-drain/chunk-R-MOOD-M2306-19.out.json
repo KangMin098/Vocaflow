@@ -108,7 +108,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "앞 칸은 2문장 'overflowing with anticipation' 과 4문장 'dream ... was about to come true' 가, 뒤 칸은 8문장의 'What a waste of time!' 이 각각 직접 지지한다"
+          "why_correct": "선지 ①은 'hopeful → disappointed' 다. 앞 칸 hopeful 은 2문장 'she was overflowing with anticipation' 과 4문장 'Her life-long dream to find rare fossils ... was about to come true' 가 직접 주고, 뒤 칸 disappointed 는 8문장의 발화 'I can't believe I came all this way for nothing. What a waste of time!' 과 그 앞의 'she sighed to herself' 가 준다 — 탄식의 대상이 자기 헛수고여서 방향이 실망으로 고정된다. 두 칸의 경계는 6문장 'however, she was unsuccessful' 이다."
         },
         {
           "n": 2,
@@ -183,12 +183,14 @@
           "findings": [
             "quote 가 코퍼스 지문 마지막 문장과 문자 그대로 일치한다(곡선 따옴표 포함)",
             "정답 판정 1번이 평가원 정답표 1과 일치",
-            "심경 변화 유형의 설계(도입 감정어 → 역접 → 결말 발화)를 벗어난 서술이 없다"
+            "심경 변화 유형의 설계(도입 감정어 → 역접 → 결말 발화)를 벗어난 서술이 없다",
+            "3차 재검수: why_correct 가 앞뒤 두 칸의 감정어를 이름으로 짚지 않아 revise → 선지의 두 감정어 각각에 붙는 지문 표현(감정어·신체 반응·발화)을 낱말 단위로 다시 씀. pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
             "choices[].verdict correct 의 n(1) 과 코퍼스 answer(1) 대조",
-            "design_intent 이 이 지문의 배경 묘사 배치를 지목하는지 확인"
+            "design_intent 이 이 지문의 배경 묘사 배치를 지목하는지 확인",
+            "why_correct ↔ 선지 감정어 쌍 문자열 대조"
           ]
         },
         {
@@ -198,12 +200,14 @@
           "findings": [
             "1차 초안에서 ③과 ④에 모두 '부분 사실' 을 달았다 — 함정이 같으면 오답 4개가 서로 다른 층을 시험한다는 설계가 안 보이므로 반려했다. ④는 depressed 가 탄식 한 번보다 강한 상태어라는 점이 본질이므로 '범위 과대' 로 고쳤다",
             "고친 뒤 오답 4개의 라벨이 지문 밖 상식·부분 사실·범위 과대·인과 역전 4종으로 갈린다",
-            "how_to_reject 네 건 모두 문장 번호를 명시한다"
+            "how_to_reject 네 건 모두 문장 번호를 명시한다",
+            "3차 재검수: 새 why_correct 가 소거법에 기대지 않고 두 칸을 각각 확정하는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부 집계",
             "why_tempting 이 선지 텍스트의 낱말(scared/annoyed/depressed/confident)에 각각 걸리는지 대조",
-            "how_to_reject 에 문장 위치가 적혔는지 4건 전수 확인"
+            "how_to_reject 에 문장 위치가 적혔는지 4건 전수 확인",
+            "정답 선지 서술에 소거법 표현이 없는지 재확인"
           ]
         },
         {
@@ -212,15 +216,18 @@
           "findings": [
             "3단계 '뒤 심경은 발화 문장에서만 뽑는다' 가 이 문항의 핵심 처방이고, 배경 형용사를 근거에서 빼라는 지시가 명시적이라 실행 가능하다",
             "required_vocab 4개가 실제로 판정에 쓰이는 낱말이다 — anticipation 은 앞 칸, waste 는 뒤 칸을 정한다",
-            "65초 안에 5단계가 끝난다"
+            "65초 안에 5단계가 끝난다",
+            "3차 재검수: 학습자가 앞 칸·뒤 칸을 지문의 어느 자리에서 각각 확인하는지, 전환점 문장이 어디인지 짚히는지 확인. pass."
           ],
           "checked": [
             "5단계를 지문 미독 상태에서 순차 실행 가능한지 확인",
             "금지 표현 8종 문자열 검색",
-            "required_vocab 이 정답 판정에 실제로 필요한 낱말인지 답 근거와 대조"
+            "required_vocab 이 정답 판정에 실제로 필요한 낱말인지 답 근거와 대조",
+            "앞 칸·뒤 칸 근거 위치가 문장 번호로 지목되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2209#19",
@@ -414,7 +421,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "앞 칸은 2문장 'deeply troubled and unhappy' 와 3문장 'shaking with uneasiness' 가, 뒤 칸은 마지막 세 문장의 신체 안정 서술과 'my mind was at peace' 가 직접 지지한다"
+          "why_correct": "선지 ①은 'upset → calm' 이다. 앞 칸 upset 은 2문장 'deeply troubled and unhappy' 와 3~4문장의 신체 반응 'My body was shaking with uneasiness'·'My heart beat quickly and my face became reddish' 가 주고, 뒤 칸 calm 은 같은 신체를 하나씩 되짚어 뒤집는 12~14문장 'I breathed out slowly'·'My hands were steady now'·'my mind was at peace' 가 준다. 전환점은 7문장에서 교사의 말을 떠올리는 대목이고, 마지막 문장의 'At last' 가 두 칸의 시간 순서를 고정한다."
         },
         {
           "n": 2,
@@ -485,12 +492,14 @@
           "findings": [
             "quote 세 문장이 코퍼스 지문 끝부분과 문자 그대로 일치",
             "정답 1번이 평가원 정답표 1과 일치",
-            "design_intent 이 '타인 인용문이 화자 감정이 아니다' 라는 이 지문 고유의 설계를 지목한다"
+            "design_intent 이 '타인 인용문이 화자 감정이 아니다' 라는 이 지문 고유의 설계를 지목한다",
+            "3차 재검수: why_correct 가 앞뒤 두 칸의 감정어를 이름으로 짚지 않아 revise → 선지의 두 감정어 각각에 붙는 지문 표현(감정어·신체 반응·발화)을 낱말 단위로 다시 씀. pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
             "correct 선지 n(1) 과 코퍼스 answer(1) 대조",
-            "화자와 등장인물 구분이 서술에 반영됐는지 확인"
+            "화자와 등장인물 구분이 서술에 반영됐는지 확인",
+            "why_correct ↔ 선지 감정어 쌍 문자열 대조"
           ]
         },
         {
@@ -499,12 +508,14 @@
           "findings": [
             "오답 4개 라벨이 인과 역전·지문 밖 상식·부분 사실·무관 4종으로 갈린다",
             "why_tempting 이 각 선지의 낱말(sorrowful/envious/surprised/bored)에 하나씩 걸린다",
-            "④ 배제 근거로 1문장 'Once again' 을 든 것이 이 문항의 실질적 변별점이다 — 놀람을 지우는 단서가 첫 두 낱말에 있다"
+            "④ 배제 근거로 1문장 'Once again' 을 든 것이 이 문항의 실질적 변별점이다 — 놀람을 지우는 단서가 첫 두 낱말에 있다",
+            "3차 재검수: 새 why_correct 가 소거법에 기대지 않고 두 칸을 각각 확정하는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부 집계",
             "how_to_reject 4건에 문장 번호가 있는지 전수 확인",
-            "why_tempting 이 선지 텍스트에 근거하는지 대조"
+            "why_tempting 이 선지 텍스트에 근거하는지 대조",
+            "정답 선지 서술에 소거법 표현이 없는지 재확인"
           ]
         },
         {
@@ -514,15 +525,18 @@
           "findings": [
             "1차 초안 1단계에 타인 발화 제거 지시가 없었다 — 이 지문의 최대 오답 원인이 교사 인용문을 화자 감정으로 읽는 것이므로 반려했고, 'X 표시를 해 근거에서 뺀다' 를 1단계에 넣어 다시 통과시켰다",
             "2·3단계가 같은 종류(신체 서술)를 앞뒤에서 찾아 짝짓는 형태라 학생이 기계적으로 실행할 수 있다",
-            "65초 안에 4단계가 끝난다"
+            "65초 안에 4단계가 끝난다",
+            "3차 재검수: 학습자가 앞 칸·뒤 칸을 지문의 어느 자리에서 각각 확인하는지, 전환점 문장이 어디인지 짚히는지 확인. pass."
           ],
           "checked": [
             "화자/등장인물 구분 처방이 절차에 있는지 확인",
             "금지 표현 8종 문자열 검색",
-            "각 단계 실행 가능성 시뮬레이션"
+            "각 단계 실행 가능성 시뮬레이션",
+            "앞 칸·뒤 칸 근거 위치가 문장 번호로 지목되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2109#19",
@@ -636,7 +650,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "앞 칸은 4문장 'whether it was worthwhile to go' 와 6문장 'again wondered' 가, 뒤 칸은 10문장 감탄 발화와 12문장 'far beyond her expectations' 가 지지한다"
+          "why_correct": "선지 ②는 'doubtful → amazed' 다. 앞 칸 doubtful 은 4문장 'whether it was worthwhile to go' 와 6문장 'again wondered what kind of show she could expect' 가 주고, 뒤 칸 amazed 는 10문장의 감탄 'What fantastic music!' 과 12문장 'far beyond her expectations' 가 준다. 두 칸을 가르는 전환점은 'But as soon as the tango started, everything changed.' 한 문장이다."
         },
         {
           "n": 3,
@@ -705,12 +719,14 @@
           "findings": [
             "quote 두 문장이 코퍼스 지문과 문자 그대로 일치",
             "정답 2번이 평가원 정답표 2와 일치",
-            "design_intent 이 '대상의 속성 vs 인물의 감정' 이라는 이 지문 고유의 배치를 지목한다"
+            "design_intent 이 '대상의 속성 vs 인물의 감정' 이라는 이 지문 고유의 배치를 지목한다",
+            "3차 재검수: why_correct 가 앞뒤 두 칸의 감정어를 이름으로 짚지 않아 revise → 선지의 두 감정어 각각에 붙는 지문 표현(감정어·신체 반응·발화)을 낱말 단위로 다시 씀. pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
             "correct 선지 n(2) 과 코퍼스 answer(2) 대조",
-            "quote 길이(126자)가 근거로 충분한지 확인"
+            "quote 길이(126자)가 근거로 충분한지 확인",
+            "why_correct ↔ 선지 감정어 쌍 문자열 대조"
           ]
         },
         {
@@ -719,12 +735,14 @@
           "findings": [
             "오답 4개 라벨이 인과 역전·어휘 함정·지문 밖 상식·무관 4종으로 갈린다",
             "③의 배제 근거로 'so ~ that' 결과절을 든 것이 실질적이다 — shake 의 부호를 문법 구조로 확정한다",
-            "how_to_reject 4건 전부 문장 번호를 명시"
+            "how_to_reject 4건 전부 문장 번호를 명시",
+            "3차 재검수: 새 why_correct 가 소거법에 기대지 않고 두 칸을 각각 확정하는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 중복 여부 집계",
             "why_tempting 이 각 선지 낱말(bored/upset/grateful/envious)에 걸리는지 대조",
-            "how_to_reject 의 위치 명시 여부 전수 확인"
+            "how_to_reject 의 위치 명시 여부 전수 확인",
+            "정답 선지 서술에 소거법 표현이 없는지 재확인"
           ]
         },
         {
@@ -733,15 +751,18 @@
           "findings": [
             "1단계 '대상 묘사 형용사에 괄호' 가 이 지문에서 awful·ancient·run-down 셋을 한꺼번에 처리한다",
             "required_vocab 5개가 판정에 실제로 쓰인다 — reluctantly 는 앞 칸, sensational·expectations 는 뒤 칸을 정한다",
-            "70초 배분 타당 — 지문이 이 청크에서 가장 길다(약 140낱말)"
+            "70초 배분 타당 — 지문이 이 청크에서 가장 길다(약 140낱말)",
+            "3차 재검수: 학습자가 앞 칸·뒤 칸을 지문의 어느 자리에서 각각 확인하는지, 전환점 문장이 어디인지 짚히는지 확인. pass."
           ],
           "checked": [
             "1단계 괄호 대상이 지문에 몇 개인지 세어 실효성 확인",
             "금지 표현 8종 문자열 검색",
-            "지문 길이 대비 시간 배분 확인"
+            "지문 길이 대비 시간 배분 확인",
+            "앞 칸·뒤 칸 근거 위치가 문장 번호로 지목되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2020#19",
@@ -759,7 +780,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "앞 칸은 2문장 'had been looking forward to' 와 4문장 'signed up enthusiastically' 가, 뒤 칸은 10문장의 boring 과 with a sigh 가 지지한다"
+          "why_correct": "선지 ①은 'excited → disappointed' 다. 앞 칸 excited 는 2문장 'had been looking forward to' 와 4문장 'signed up enthusiastically' 가 주고, 뒤 칸 disappointed 는 10문장의 발화 'What can I learn from these boring fields?' 와 동반 표현 'with a sigh' 가 준다. 9문장 'He had expected to see some old castles ... but now he saw nothing like that' 이 그 탄식을 기대와 실제의 차이로 못박아, 뒤 칸이 공포나 안도가 아니라 기대 미달임을 확정한다."
         },
         {
           "n": 2,
@@ -834,12 +855,14 @@
           "findings": [
             "quote 가 코퍼스 지문 마지막 문장과 문자 그대로 일치",
             "정답 1번이 평가원 정답표 1과 일치",
-            "design_intent 이 부정문 도입이라는 이 지문 고유의 장치를 지목한다"
+            "design_intent 이 부정문 도입이라는 이 지문 고유의 장치를 지목한다",
+            "3차 재검수: why_correct 가 앞뒤 두 칸의 감정어를 이름으로 짚지 않아 revise → 선지의 두 감정어 각각에 붙는 지문 표현(감정어·신체 반응·발화)을 낱말 단위로 다시 씀. pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
             "correct 선지 n(1) 과 코퍼스 answer(1) 대조",
-            "design_intent 이 유형 일반론인지 확인"
+            "design_intent 이 유형 일반론인지 확인",
+            "why_correct ↔ 선지 감정어 쌍 문자열 대조"
           ]
         },
         {
@@ -848,12 +871,14 @@
           "findings": [
             "오답 4개 라벨이 인과 역전·범위 과대·어휘 함정·반대 진술 4종으로 갈린다",
             "④의 why_tempting 이 'could not stay calm' 이라는 실제 지문 표현에 걸려 있어, 이 선지가 왜 매력적인지 설명이 텍스트에 근거한다",
-            "⑤는 두 칸 모두 어긋나는 유형이라 '반대 진술' 라벨이 적절하다"
+            "⑤는 두 칸 모두 어긋나는 유형이라 '반대 진술' 라벨이 적절하다",
+            "3차 재검수: 새 why_correct 가 소거법에 기대지 않고 두 칸을 각각 확정하는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 중복 여부 집계",
             "why_tempting 이 선지 낱말(thrilled/horrified/relieved/confident)에 걸리는지 대조",
-            "how_to_reject 4건의 위치 명시 확인"
+            "how_to_reject 4건의 위치 명시 확인",
+            "정답 선지 서술에 소거법 표현이 없는지 재확인"
           ]
         },
         {
@@ -862,15 +887,18 @@
           "findings": [
             "1단계가 '부정문 하나로 앞 심경을 정하지 말라' 는 이 문항의 실질 처방을 맨 앞에 둔다",
             "4단계 '반문이면 부정으로 센다' 가 마지막 문장 판정을 기계적으로 만든다",
-            "65초 안에 5단계가 끝난다"
+            "65초 안에 5단계가 끝난다",
+            "3차 재검수: 학습자가 앞 칸·뒤 칸을 지문의 어느 자리에서 각각 확인하는지, 전환점 문장이 어디인지 짚히는지 확인. pass."
           ],
           "checked": [
             "각 단계 실행 가능성 시뮬레이션",
             "금지 표현 8종 문자열 검색",
-            "required_vocab 이 정답 판정에 실제로 필요한지 확인"
+            "required_vocab 이 정답 판정에 실제로 필요한지 확인",
+            "앞 칸·뒤 칸 근거 위치가 문장 번호로 지목되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2006#19",
@@ -902,7 +930,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "앞 칸은 2~4문장의 struggling·Pressed for time·wasn’t even sure 가, 뒤 칸은 11~12문장의 encouraging 과 'Yes, I can do it!' 이 지지한다"
+          "why_correct": "선지 ③은 'nervous → confident' 다. 앞 칸 nervous 는 2~4문장의 'struggling'·'Pressed for time'·'She wasn't even sure whether she could submit it on time' 이 주고, 뒤 칸 confident 는 12문장의 발화 'Yes, I can do it!' 이 준다 — 능력에 대한 판단이 불확신에서 긍정으로 뒤집힌 것이라 뒤 칸이 기쁨이나 안도로 대체되지 않는다. 전환점은 11문장 'the ticking of the clock sounded encouraging to her' 로, 압박의 상징이던 시계 소리가 격려로 재평가되는 자리다."
         },
         {
           "n": 4,
@@ -963,12 +991,14 @@
           "findings": [
             "quote 두 문장이 코퍼스 지문 끝부분과 문자 그대로 일치",
             "정답 3번이 평가원 정답표 3과 일치",
-            "design_intent 이 '역접 없는 전환' 이라는 이 지문 고유의 설계를 지목한다"
+            "design_intent 이 '역접 없는 전환' 이라는 이 지문 고유의 설계를 지목한다",
+            "3차 재검수: why_correct 가 앞뒤 두 칸의 감정어를 이름으로 짚지 않아 revise → 선지의 두 감정어 각각에 붙는 지문 표현(감정어·신체 반응·발화)을 낱말 단위로 다시 씀. pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
             "correct 선지 n(3) 과 코퍼스 answer(3) 대조",
-            "지문에 however/but 이 실제로 없는지 확인"
+            "지문에 however/but 이 실제로 없는지 확인",
+            "why_correct ↔ 선지 감정어 쌍 문자열 대조"
           ]
         },
         {
@@ -977,12 +1007,14 @@
           "findings": [
             "오답 4개 라벨이 무관·인과 역전·부분 사실·지문 밖 상식 4종으로 갈린다",
             "④의 배제 근거를 앞 칸에 둔 것이 정확하다 — 뒤 칸만 보면 정답과 구분되지 않는 선지다",
-            "how_to_reject 4건 전부 문장 번호 명시"
+            "how_to_reject 4건 전부 문장 번호 명시",
+            "3차 재검수: 새 why_correct 가 소거법에 기대지 않고 두 칸을 각각 확정하는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 중복 여부 집계",
             "④와 정답의 뒤 칸이 얼마나 가까운지 대조해 배제 근거 위치가 앞 칸인지 확인",
-            "why_tempting 이 선지 낱말에 걸리는지 확인"
+            "why_tempting 이 선지 낱말에 걸리는지 확인",
+            "정답 선지 서술에 소거법 표현이 없는지 재확인"
           ]
         },
         {
@@ -992,15 +1024,18 @@
           "findings": [
             "1차 초안 2단계가 'however 를 찾는다' 로만 되어 있었다 — 이 지문에는 however 가 없어 학생이 그 자리에서 멈춘다. 반려하고 '역접 표지가 없으면 사건 부사구를 찾는다' 로 조건을 앞세워 고쳤다",
             "3단계 '같은 사물의 평가 반전' 이 이 지문의 전환을 정확히 겨눈다",
-            "70초 배분 타당 — 낱말 난도가 이 청크에서 가장 높다"
+            "70초 배분 타당 — 낱말 난도가 이 청크에서 가장 높다",
+            "3차 재검수: 학습자가 앞 칸·뒤 칸을 지문의 어느 자리에서 각각 확인하는지, 전환점 문장이 어디인지 짚히는지 확인. pass."
           ],
           "checked": [
             "지문에 however/but 이 있는지 문자열 검색해 2단계 실행 가능성 확인",
             "금지 표현 8종 문자열 검색",
-            "required_vocab 4개가 지문에 있는지 대조"
+            "required_vocab 4개가 지문에 있는지 대조",
+            "앞 칸·뒤 칸 근거 위치가 문장 번호로 지목되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2019#19",
@@ -1018,7 +1053,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "앞 칸은 3문장 'tried more than ten times ... but never managed it' 과 4문장 'would never succeed' 가, 뒤 칸은 12문장의 joyfully·cheered·'I did it' 이 지지한다"
+          "why_correct": "선지 ①은 'frustrated → delighted' 다. 앞 칸 frustrated 는 3문장 'tried more than ten times ... but never managed it' 과 4문장 'He felt that he would never succeed' 가 주고, 뒤 칸 delighted 는 12문장에 겹쳐 있는 부사·동사·발화 'Walking out of the water joyfully, he cheered, \"Wow, I did it!\"' 이 준다. 셋 다 강한 긍정이므로 뒤 칸이 안도·위안 수준으로 낮아지지 않는다."
         },
         {
           "n": 2,
@@ -1089,12 +1124,14 @@
           "findings": [
             "quote 가 코퍼스 지문 마지막 문장과 문자 그대로 일치",
             "정답 1번이 평가원 정답표 1과 일치",
-            "design_intent 이 '두 칸 모두 감정어 없이 제시' 라는 이 지문 고유의 설계를 지목한다"
+            "design_intent 이 '두 칸 모두 감정어 없이 제시' 라는 이 지문 고유의 설계를 지목한다",
+            "3차 재검수: why_correct 가 앞뒤 두 칸의 감정어를 이름으로 짚지 않아 revise → 선지의 두 감정어 각각에 붙는 지문 표현(감정어·신체 반응·발화)을 낱말 단위로 다시 씀. pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
             "correct 선지 n(1) 과 코퍼스 answer(1) 대조",
-            "지문에 앞 심경 형용사가 실제로 없는지 확인"
+            "지문에 앞 심경 형용사가 실제로 없는지 확인",
+            "why_correct ↔ 선지 감정어 쌍 문자열 대조"
           ]
         },
         {
@@ -1104,12 +1141,14 @@
           "findings": [
             "1차 초안에서 ③과 ④에 모두 '어휘 함정' 을 달았다 — ④의 유인은 낱말 오독이 아니라 '큰 파도는 무섭다' 는 통념이므로 반려하고 '지문 밖 상식' 으로 고쳤다",
             "고친 뒤 라벨이 범위 과소·어휘 함정·지문 밖 상식·인과 역전 4종으로 갈린다",
-            "②의 배제 근거를 강도 비교로 쓴 것이 이 문항 고유의 변별점이다"
+            "②의 배제 근거를 강도 비교로 쓴 것이 이 문항 고유의 변별점이다",
+            "3차 재검수: 새 why_correct 가 소거법에 기대지 않고 두 칸을 각각 확정하는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 중복 여부 집계",
             "④의 유인이 낱말 오독인지 통념인지 선지 텍스트로 재판정",
-            "how_to_reject 4건의 위치 명시 확인"
+            "how_to_reject 4건의 위치 명시 확인",
+            "정답 선지 서술에 소거법 표현이 없는지 재확인"
           ]
         },
         {
@@ -1118,15 +1157,18 @@
           "findings": [
             "3단계 '강한 긍정 신호의 개수로 강도를 정한다' 가 이 문항의 실질 처방이다 — 강도 축소 오답이 여기서 걸린다",
             "1단계가 감정어가 없는 지문에서 무엇을 밑줄 그을지 지정한다",
-            "60초 안에 4단계가 끝난다"
+            "60초 안에 4단계가 끝난다",
+            "3차 재검수: 학습자가 앞 칸·뒤 칸을 지문의 어느 자리에서 각각 확인하는지, 전환점 문장이 어디인지 짚히는지 확인. pass."
           ],
           "checked": [
             "각 단계 실행 가능성 시뮬레이션",
             "금지 표현 8종 문자열 검색",
-            "required_vocab 4개를 지문에 문자열 대조"
+            "required_vocab 4개를 지문에 문자열 대조",
+            "앞 칸·뒤 칸 근거 위치가 문장 번호로 지목되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2018#19",
@@ -1155,7 +1197,7 @@
           "n": 2,
           "verdict": "correct",
           "recovered_text": "disappointed → excited",
-          "why_correct": "앞 칸은 1문장 'far from what I had expected' 와 2~3문장의 부정 사실이, 뒤 칸은 7·9·10문장의 thrilled·fascinated·charmed 와 11문장 감탄이 지지한다"
+          "why_correct": "선지 ②는 'disappointed → excited' 다. 앞 칸 disappointed 는 1문장 'far from what I had expected' 와 3문장 'only see dull gray rocks' 가 주고, 뒤 칸 excited 는 7문장 'The mangrove forest alongside the canal thrilled me' 와 뒤따르는 fascinated·charmed, 11문장 감탄 'What a wonderful adventure!' 가 준다. thrill 구문의 목적어가 화자 자신이어서 뒤 칸이 편안함·안도로 낮아질 수 없다."
         },
         {
           "n": 3,
@@ -1224,12 +1266,14 @@
           "findings": [
             "코퍼스의 choices 배열이 깨져 있었다 — ③에 '⑤ scared → relieved' 가 붙고 ④가 빈 문자열이며 ⑤에 '④ pleased → lonely' 가 섞여 있다. raw_block 의 문항 블록에서 인쇄 순서(①②③ 다음 줄에 ⑤ 와 ④ 가 한 줄에 나온다)를 확인해 다섯 쌍을 복원하고 recovered_text 로 남겼다",
             "복원 결과 정답 2번이 'disappointed → excited' 이고 평가원 정답표 2와 일치",
-            "quote 는 지문 본문(선지 잔여가 붙기 전 구간)에서 뽑아 오염이 없다"
+            "quote 는 지문 본문(선지 잔여가 붙기 전 구간)에서 뽑아 오염이 없다",
+            "3차 재검수: why_correct 가 앞뒤 두 칸의 감정어를 이름으로 짚지 않아 revise → 선지의 두 감정어 각각에 붙는 지문 표현(감정어·신체 반응·발화)을 낱말 단위로 다시 씀. pass."
           ],
           "checked": [
             "raw_block 의 선지 인쇄 배열과 corpus.json choices 배열을 한 쌍씩 대조",
             "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
-            "correct 선지 n(2) 과 코퍼스 answer(2) 대조"
+            "correct 선지 n(2) 과 코퍼스 answer(2) 대조",
+            "why_correct ↔ 선지 감정어 쌍 문자열 대조"
           ]
         },
         {
@@ -1238,12 +1282,14 @@
           "findings": [
             "오답 4개 라벨이 범위 과소·인과 역전·무관·지문 밖 상식 4종으로 갈린다",
             "①의 why_tempting 이 'cool shade' 라는 실제 지문 표현에 걸려 있어, 강도 축소 오답의 유인 경로가 텍스트로 설명된다",
-            "④ 배제에 동행 근거(어머니 등장 · as we entered)를 든 것이 검증 가능하다"
+            "④ 배제에 동행 근거(어머니 등장 · as we entered)를 든 것이 검증 가능하다",
+            "3차 재검수: 새 why_correct 가 소거법에 기대지 않고 두 칸을 각각 확정하는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 중복 여부 집계",
             "복원한 선지 텍스트를 기준으로 why_tempting 이 각 낱말에 걸리는지 재대조",
-            "how_to_reject 4건의 위치 명시 확인"
+            "how_to_reject 4건의 위치 명시 확인",
+            "정답 선지 서술에 소거법 표현이 없는지 재확인"
           ]
         },
         {
@@ -1252,15 +1298,18 @@
           "findings": [
             "4단계 on_fail 이 시험지 인쇄가 흐트러진 경우를 다룬다 — 이 문항이 실제로 그런 사례라 처방이 겉돌지 않는다",
             "2단계 '화자를 목적어로 삼는 동사' 지시가 thrill/charm 구문을 한 번에 잡는다",
-            "65초 안에 4단계가 끝난다"
+            "65초 안에 4단계가 끝난다",
+            "3차 재검수: 학습자가 앞 칸·뒤 칸을 지문의 어느 자리에서 각각 확인하는지, 전환점 문장이 어디인지 짚히는지 확인. pass."
           ],
           "checked": [
             "각 단계 실행 가능성 시뮬레이션",
             "금지 표현 8종 문자열 검색",
-            "required_vocab 5개를 지문에 문자열 대조"
+            "required_vocab 5개를 지문에 문자열 대조",
+            "앞 칸·뒤 칸 근거 위치가 문장 번호로 지목되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M1809#19",
@@ -1292,7 +1341,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "앞 칸은 3문장 'she was anxious' 와 7문장 'It was nowhere to be found' 가, 뒤 칸은 14문장 'felt calm and comforted' 가 지지한다"
+          "why_correct": "선지 ③은 'worried → relieved' 다. 앞 칸 worried 는 3문장 'she was anxious' 와 4문장 'might be angry that she had forgotten to bring it', 7문장 'It was nowhere to be found' 가 주고, 뒤 칸 relieved 는 14문장 'Lindsay felt calm and comforted now that she had her toy again' 이 준다. 'now that she had her toy again' 이 그 안정의 원인을 분실물 회수로 못박아, 앞뒤 두 칸이 같은 사건의 양끝임을 확정한다."
         },
         {
           "n": 4,
@@ -1353,12 +1402,14 @@
           "findings": [
             "quote 가 코퍼스 지문 마지막 문장과 문자 그대로 일치",
             "정답 3번이 평가원 정답표 3과 일치",
-            "design_intent 이 '첫 문장 눈물의 부호 모호' 라는 이 지문 고유의 장치를 지목한다"
+            "design_intent 이 '첫 문장 눈물의 부호 모호' 라는 이 지문 고유의 장치를 지목한다",
+            "3차 재검수: why_correct 가 앞뒤 두 칸의 감정어를 이름으로 짚지 않아 revise → 선지의 두 감정어 각각에 붙는 지문 표현(감정어·신체 반응·발화)을 낱말 단위로 다시 씀. pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
             "correct 선지 n(3) 과 코퍼스 answer(3) 대조",
-            "design_intent 이 유형 일반론인지 확인"
+            "design_intent 이 유형 일반론인지 확인",
+            "why_correct ↔ 선지 감정어 쌍 문자열 대조"
           ]
         },
         {
@@ -1367,12 +1418,14 @@
           "findings": [
             "오답 4개 라벨이 지문 밖 상식·부분 사실·인과 역전·어휘 함정 4종으로 갈린다",
             "②의 배제 근거를 앞 칸에 둔 것이 정확하다 — 뒤 칸 relaxed 는 정답의 relieved 와 거의 구분되지 않으므로 앞 칸에서 갈라야 한다",
-            "⑤의 why_tempting 이 cry 의 두 뜻을 짚어 선지 텍스트에 근거한다"
+            "⑤의 why_tempting 이 cry 의 두 뜻을 짚어 선지 텍스트에 근거한다",
+            "3차 재검수: 새 why_correct 가 소거법에 기대지 않고 두 칸을 각각 확정하는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 중복 여부 집계",
             "②와 정답의 뒤 칸 의미 거리를 대조해 배제 근거 위치가 앞 칸인지 확인",
-            "how_to_reject 4건의 위치 명시 확인"
+            "how_to_reject 4건의 위치 명시 확인",
+            "정답 선지 서술에 소거법 표현이 없는지 재확인"
           ]
         },
         {
@@ -1381,15 +1434,18 @@
           "findings": [
             "1단계 '부호가 두 가지로 읽히는 신체 반응은 표시만 해 둔다' 가 이 지문의 함정을 정면으로 막는다",
             "required_vocab 4개 중 anxious·comforted 가 앞뒤 칸을 직접 정한다",
-            "60초 안에 5단계가 끝난다"
+            "60초 안에 5단계가 끝난다",
+            "3차 재검수: 학습자가 앞 칸·뒤 칸을 지문의 어느 자리에서 각각 확인하는지, 전환점 문장이 어디인지 짚히는지 확인. pass."
           ],
           "checked": [
             "각 단계 실행 가능성 시뮬레이션",
             "금지 표현 8종 문자열 검색",
-            "required_vocab 4개를 지문에 문자열 대조"
+            "required_vocab 4개를 지문에 문자열 대조",
+            "앞 칸·뒤 칸 근거 위치가 문장 번호로 지목되는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     }
   ],
   "type_report": {

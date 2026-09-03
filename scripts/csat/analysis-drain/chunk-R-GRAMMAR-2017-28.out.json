@@ -189,7 +189,13 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "앞 절에 saw가 있어 '이 문장에는 동사가 있다'고 세어 버리고, causing이 앞 내용의 결과를 자연스럽게 이어 주기 때문에 뜻으로는 걸리지 않는다."
+          "why_correct": "밑줄 ④ 의 자리를 지배하는 것은 등위접속사 so 가 연 절이 아직 정동사를 갖지 않았다는 사실이다. 'But the Chinese saw the world as consisting of continuously interacting substances, so their attempts to understand it ④ causing them to be oriented toward the complexities' 에서 so 앞 절의 정동사 saw 는 주어 the Chinese 를 이미 다 썼으므로 so 뒤 절에는 자기 정동사가 따로 있어야 하는데, 그 절에서 정동사가 들어갈 자리는 ④ 뿐이다. 그 주어는 바로 왼쪽 명사 it 이 아니라 their attempts 이고 사이의 to understand it 은 그 명사를 뒤에서 꾸미는 부정사다. 그러므로 준동사 causing 이 아니라 정동사 caused 여야 한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6
+            ],
+            "note": "학습자가 미끄러지는 자리 — 앞 절에 saw 가 있어 '이 문장에는 동사가 있다'고 세어 버리고, causing 이 앞 내용의 결과를 자연스럽게 이어 주어 뜻으로는 걸리지 않는다. 판정에 쓰는 것은 so 뒤 절에 정동사가 있는가 하나뿐이다."
+          }
         },
         {
           "n": 5,
@@ -244,12 +250,14 @@
           "findings": [
             "quote가 코퍼스 지문에 문자 그대로 있다(굽은 따옴표 구간을 피해 잘랐다)",
             "정답표 ④와 분석 correct 일치",
-            "밑줄 다섯이 소유격·분사 태·부사 자리·정동사·동격 that으로 겹침 없이 배치돼 있다"
+            "밑줄 다섯이 소유격·분사 태·부사 자리·정동사·동격 that으로 겹침 없이 배치돼 있다",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "answer_locus.quote를 corpus.json 2016#28 passage와 문자열 대조",
             "so 뒤 절의 정동사 부재를 절 단위로 재확인(saw는 so 앞 절 소속)",
-            "⑤ that 뒤 절의 완전성 점검(주어 events · 동사 occur · 부사구 in a field of forces)"
+            "⑤ that 뒤 절의 완전성 점검(주어 events · 동사 occur · 부사구 in a field of forces)",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -257,12 +265,14 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 넷 다 다르다(대명사 격 · 분사 태 · 부사 자리 · 동격 that)",
-            "②의 why_tempting이 'floats가 남아 동사가 둘로 보인다'는 실제 오독 경로를 짚는다"
+            "②의 why_tempting이 'floats가 남아 동사가 둘로 보인다'는 실제 오독 경로를 짚는다",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "distractor 4개 trap 중복 대조",
             "각 why_tempting이 밑줄 표현(their failure · tossed · exclusively · that events)에 근거하는지 대조",
-            "how_to_reject 넷에 문장 번호 또는 인용된 구절로 위치가 있는지 확인"
+            "how_to_reject 넷에 문장 번호 또는 인용된 구절로 위치가 있는지 확인",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -270,12 +280,14 @@
           "verdict": "pass",
           "findings": [
             "초안 절차가 '정동사가 있는지 센다'에서 끝나 ⑤의 동격 that과 ③의 부사 자리를 처리할 단계가 없었다 — 연결어군·자리군 단계를 더해 다섯 단계로 고쳤다(revised)",
-            "5단계 '지워 보기' 시험은 시간 안에 실행된다"
+            "5단계 '지워 보기' 시험은 시간 안에 실행된다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "solve_procedure가 밑줄 다섯 종류를 모두 덮는지 항목별 대응 확인",
             "금지 표현 문자열 검사",
-            "105초 안에 절 자르기 1회 + 완전성 검사 2회가 끝나는지 시간 배분 점검"
+            "105초 안에 절 자르기 1회 + 완전성 검사 2회가 끝나는지 시간 배분 점검",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]
@@ -310,7 +322,13 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "앞에 being taken과 were constructed가 있어 동사를 이미 본 것처럼 세게 되고, meaning that ~이 '그 결과 ~을 뜻했다'로 매끄럽게 읽혀 뜻으로는 걸리지 않는다."
+          "why_correct": "밑줄 ③ 이 든 문장은 Furthermore 로 시작해 ③ 에 이를 때까지 주절 정동사를 한 번도 쓰지 않았다. 'a general lack of knowledge and insufficient care being taken when fish pens were initially constructed ③ meaning that pollution from excess feed and fish waste created huge barren underwater deserts' 에서 주어는 and 로 묶인 a general lack of knowledge and insufficient care 이고, being taken 은 insufficient care 를 뒤에서 꾸미는 분사, were constructed 는 when 절 안에 갇힌 동사라 둘 다 주절을 채우지 못한다. that 절 안의 created 도 마찬가지다. 그러므로 ③ 자리는 주절 정동사여야 하고 meaning 이 아니라 meant 다 — 같은 지문 ⑤ 의 'This, in addition to other methods that decrease the overall amount of uneaten food, ⑤ has helped' 는 주어 This 뒤에 정동사가 제자리에 온 대조 사례다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "학습자가 미끄러지는 자리 — being taken 과 were constructed 가 앞에 있어 동사를 이미 본 것처럼 세게 되고, meaning that ~ 이 '그 결과 ~을 뜻했다'로 매끄럽게 읽혀 뜻으로는 걸리지 않는다. 판정에 쓰는 것은 주절 정동사의 유무 하나다."
+          }
         },
         {
           "n": 4,
@@ -371,12 +389,14 @@
           "verdict": "pass",
           "findings": [
             "초안은 5문장('These were 4 ______ costly lessons')에서 인용을 뽑았는데 그 문장에는 OCR 잔여 '4 ______'가 섞여 있어 근거로 삼기에 부적절했다 — 정답 밑줄이 실제로 있는 4문장으로 인용을 옮겼다(revised)",
-            "정답표 ③과 분석 correct 일치"
+            "정답표 ③과 분석 correct 일치",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "answer_locus.quote를 corpus.json 2015#28 passage와 문자열 대조",
             "주절 술어 부재를 절 단위로 재확인(being taken=분사, were constructed=when절)",
-            "지문 손상 구간('4 ______')이 인용에 섞이지 않았는지 확인"
+            "지문 손상 구간('4 ______')이 인용에 섞이지 않았는지 확인",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -384,12 +404,14 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 넷 다 다르다(관계절 동사 · 후치수식 · 관계부사 · 수 일치 차단)",
-            "⑤가 이 청크에서 유일한 '삽입구로 주어 가리기' 사례라 유형 통계에 남길 값이 있다"
+            "⑤가 이 청크에서 유일한 '삽입구로 주어 가리기' 사례라 유형 통계에 남길 값이 있다",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "distractor 4개 trap 중복 대조",
             "각 why_tempting이 밑줄 표현(devastated · close to · where there is · has helped)에 근거하는지 대조",
-            "how_to_reject 넷에 문장 번호가 붙어 있는지 확인"
+            "how_to_reject 넷에 문장 번호가 붙어 있는지 확인",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -397,12 +419,14 @@
           "verdict": "pass",
           "findings": [
             "3단계의 '괄호로 지우고 남는 명사가 주어'가 ⑤ 판정에 그대로 쓰여 절차가 헛돌지 않는다",
-            "지문이 길어 110초를 배정했다"
+            "지문이 길어 110초를 배정했다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "solve_procedure 5단계를 지문 미독 상태 기준으로 실행 가능성 점검",
             "금지 표현 문자열 검사",
-            "required_vocab 4개의 쓰임 대응(insufficient→③ 주어 파악, devastated→①, inhabiting→②, in addition to→⑤)"
+            "required_vocab 4개의 쓰임 대응(insufficient→③ 주어 파악, devastated→①, inhabiting→②, in addition to→⑤)",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]
@@ -445,7 +469,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "stop 뒤에 to부정사가 오는 형태 자체가 문법적으로 존재하므로 형태만 훑으면 아무 문제가 없어 보이고, '작동하는 것을 멈췄다'로 뜻까지 자기도 모르게 보정해 읽게 된다."
+          "why_correct": "밑줄 ④ 의 자리를 지배하는 것은 앞 절과의 병렬이다. ‘Initially, it made a lot of noise, and later, it stopped ④ to operate entirely.’ 에서 and later 로 이어진 두 절은 고장이 진행된 두 단계이고, 앞의 ‘the machine is no longer working’ 이 그 끝 상태를 이미 못박았다. stop 은 뒤에 to부정사를 두면 「(무엇을 하려고) 하던 일을 멈추다」가 되어 to operate entirely 는 「완전히 작동하려고 멈췄다」로 읽히므로 no longer working 과 정반대가 된다. 멈춘 대상이 작동 자체이니 목적어는 동명사 operating 이어야 하고, 어법상 틀린 자리는 ④ 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              7
+            ],
+            "note": "「학습자가 미끄러지는 자리」 stop 뒤에 to부정사가 오는 형태 자체가 존재하므로 형태만 훑으면 문제가 없어 보이고, 뜻까지 「작동하는 것을 멈췄다」로 자기도 모르게 보정해 읽게 된다."
+          }
         },
         {
           "n": 5,
@@ -500,12 +531,14 @@
           "findings": [
             "quote가 코퍼스 지문에 문자 그대로 있다",
             "정답표 ④와 분석 correct 일치",
-            "이 문항만 정답 성격이 다르다(형태 적법·의미 충돌) — 유형 리포트에 남길 값이 있다"
+            "이 문항만 정답 성격이 다르다(형태 적법·의미 충돌) — 유형 리포트에 남길 값이 있다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「stop 뒤에 to부정사가 오는 형태 자체가 문법적으로 존재하므로 형태만 훑으면 아무 문제가 없어 보이고, 」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote를 corpus.json 2014A#27 passage와 문자열 대조",
             "근거 문장 2문장('the machine is no longer working')이 지문에 실제로 있는지 대조",
-            "밑줄 다섯이 분사 태·명사절 접속사·감각동사 보어·준동사 선택·사역동사 보어로 겹침 없이 배치됐는지 확인"
+            "밑줄 다섯이 분사 태·명사절 접속사·감각동사 보어·준동사 선택·사역동사 보어로 겹침 없이 배치됐는지 확인",
+            "stopped + to부정사 / 동명사의 뜻 차이를 지문의 고장 경과 서술과 대조"
           ]
         },
         {
@@ -513,12 +546,14 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 넷 다 다르다",
-            "⑤의 how_to_reject에서 같은 문장 앞부분의 'to correct the defect'를 미끼로 명시해 둔 점이 실제 오답 경로와 맞는다"
+            "⑤의 how_to_reject에서 같은 문장 앞부분의 'to correct the defect'를 미끼로 명시해 둔 점이 실제 오답 경로와 맞는다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「stop 뒤에 to부정사가 오는 형태 자체가 문법적으로 존재하므로 형태만 훑으면 아무 문제가 없어 보이고, 」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "distractor 4개 trap 중복 대조",
             "why_tempting이 밑줄 표현(supplied to us · that you provide · sounds unfair · make us pay)에 근거하는지 대조",
-            "how_to_reject 넷에 문장 번호가 있는지 확인"
+            "how_to_reject 넷에 문장 번호가 있는지 확인",
+            "근거가 의미 충돌(no longer working)로 위치까지 지목되었는지 확인"
           ]
         },
         {
@@ -526,12 +561,14 @@
           "verdict": "pass",
           "findings": [
             "초안 required_vocab에 spare parts·labor·warranty·defect가 들어 있었다 — 정답 판정에 쓰이지 않는 지문 어휘라 stopped·operate·supplied·unfair로 교체했다(revised)",
-            "지문이 짧아 90초로 줄였다"
+            "지문이 짧아 90초로 줄였다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「stop 뒤에 to부정사가 오는 형태 자체가 문법적으로 존재하므로 형태만 훑으면 아무 문제가 없어 보이고, 」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "required_vocab 각 낱말이 어느 밑줄 판정에 쓰이는지 대응 확인",
             "금지 표현 문자열 검사",
-            "solve_procedure 2단계(stop류 동사 목록)를 지문 미독 상태에서 실행 가능한지 점검"
+            "solve_procedure 2단계(stop류 동사 목록)를 지문 미독 상태에서 실행 가능한지 점검",
+            "학생이 앞 문장 한 줄만 되읽어 뜻 충돌을 잡을 수 있는지 점검"
           ]
         }
       ]
@@ -559,7 +596,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "바로 앞 관계절의 keeps가 시제를 갖고 있어 '동사를 이미 봤다'고 세게 되고, sending out ~이 앞 문장 'breathing has a price'의 결과로 매끄럽게 읽혀 뜻으로는 안 걸린다."
+          "why_correct": "밑줄 ② 가 든 문장에는 주절 정동사가 없다. 'The combustion of oxygen that keeps us alive and active ② sending out by-products called oxygen free radicals.' 에서 주어의 핵은 맨 앞 The combustion 이고, 바로 왼쪽에 있는 oxygen 이나 us 가 아니다 — keeps 는 that 이 이끄는 관계절 안의 동사라 주절을 채우지 못하고 called 는 by-products 를 꾸미는 과거분사다. 그러므로 ② 는 준동사 sending 이 아니라 단수 주어 The combustion 에 맞춘 정동사 sends 여야 한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "학습자가 미끄러지는 자리 — 바로 앞 관계절의 keeps 가 시제를 갖고 있어 '동사를 이미 봤다'고 세게 되고, sending out ~ 이 앞 문장 'breathing has a price' 의 결과로 매끄럽게 읽혀 뜻으로는 안 걸린다. 관계절 안의 동사는 주절을 채우지 못한다는 것만 보면 된다."
+          }
         },
         {
           "n": 3,
@@ -628,12 +671,14 @@
           "findings": [
             "quote가 코퍼스 지문에 문자 그대로 있다",
             "정답표 ②와 분석 correct 일치",
-            "①은 콤마 뒤 that이라는 별개 논점을 품고 있으나 평가원 정답이 ②이므로 수 일치 쪽으로만 판정을 적었다"
+            "①은 콤마 뒤 that이라는 별개 논점을 품고 있으나 평가원 정답이 ②이므로 수 일치 쪽으로만 판정을 적었다",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "answer_locus.quote를 corpus.json 2014B#27 passage와 문자열 대조",
             "관계절을 지운 뒤 주절 술어 부재를 재확인",
-            "밑줄 다섯의 검사 항목이 서로 다른지 대조(수 일치·정동사·부정사 용법·부사 자리·분사 태)"
+            "밑줄 다섯의 검사 항목이 서로 다른지 대조(수 일치·정동사·부정사 용법·부사 자리·분사 태)",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -641,12 +686,14 @@
           "verdict": "pass",
           "findings": [
             "초안의 ①과 ③ how_to_reject에 문장 위치가 없어 '어디를 보면 배제되는지'가 비어 있었다 — 3문장·8문장을 명시하도록 고쳤다(revised)",
-            "오답 넷의 라벨이 넷 다 다르다"
+            "오답 넷의 라벨이 넷 다 다르다",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "distractor 4개 trap 중복 대조",
             "why_tempting이 밑줄 표현(that burn · to fight off · uncontrollably · built into life)에 근거하는지 대조",
-            "how_to_reject 넷 전부에 문장 번호가 붙었는지 재확인"
+            "how_to_reject 넷 전부에 문장 번호가 붙었는지 재확인",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -654,12 +701,14 @@
           "verdict": "pass",
           "findings": [
             "2단계 '관계절을 괄호로 지우고 뼈대를 센다'가 이 문항의 결정타이고 2015#28·2016#28에도 그대로 통한다",
-            "5단계가 ⑤를 통과 처리하는 근거를 제시해 마지막 밑줄에서 시간을 안 쓴다"
+            "5단계가 ⑤를 통과 처리하는 근거를 제시해 마지막 밑줄에서 시간을 안 쓴다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "solve_procedure 5단계를 지문 미독 상태 기준으로 실행 가능성 점검",
             "금지 표현 문자열 검사",
-            "required_vocab 4개가 지문에 실제로 있는지, 각각 어느 밑줄 판정에 쓰이는지 대응 확인"
+            "required_vocab 4개가 지문에 실제로 있는지, 각각 어느 밑줄 판정에 쓰이는지 대응 확인",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]

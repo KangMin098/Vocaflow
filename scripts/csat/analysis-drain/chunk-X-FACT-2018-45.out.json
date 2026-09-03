@@ -176,7 +176,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "(A) 'Good-for-Nothing' 별명, (C) 'his father saw no value in them', (D) 'his father was strongly dissatisfied with him' 이 세 번 반복되어 아버지의 태도가 끝까지 부정적이라는 인상이 굳는다."
+          "why_correct": "선지 ②에서 지문과 어긋나는 성분은 뒷부분 「아버지가 자랑스러워하지 않았다」다. 앞부분(야구 선수로 성공했다)은 (B)의 'The nation came to know Ricky as the most complete player of his generation, and he was voted into the Hall of Fame.' 이 그대로 뒷받침해 글자 그대로 맞고, 뒷부분만 (B) 문장 8 'Though he had wanted all of his sons to join the family business, he was finally proud of Ricky and respected his accomplishments.' 의 주절과 정면으로 어긋난다. Though 절이 인정하는 것은 아들들이 가업을 잇기를 바랐다는 과거의 바람이고, 주절의 finally proud of Ricky 와 respected his accomplishments 가 최종 태도를 적으므로, 선지는 이 술어 하나만 반대로 갈아 끼운 것이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              8
+            ],
+            "note": "(A)의 별명 Good-for-Nothing · (C)의 'his father saw no value in them' · (D)의 'his father was strongly dissatisfied with him' 이 세 번 되풀이돼 아버지의 태도가 끝까지 부정적이라는 인상을 남긴다. 확정력은 그 세 문장이 아니라 태도가 바뀐 뒤를 적은 (B) 문장 8에 있다."
+          }
         },
         {
           "n": 3,
@@ -246,12 +252,17 @@
           "findings": [
             "quote 가 (B) 문장 8에 문자 그대로 있다",
             "발문이 'Ricky에 관한'으로 인물을 한정하므로 절차 1단계에 인물 확인을 넣은 것이 유형 설계와 맞는다",
-            "정답 근거가 여러 문장의 종합이 아니라 한 문장이라는 이 유형의 성질을 지켰다"
+            "정답 근거가 여러 문장의 종합이 아니라 한 문장이라는 이 유형의 성질을 지켰다",
+            "3차 판정에서 setter 가 revise 를 냈다 — 기존 서술은 (A)(C)(D)의 부정적 서술이 되풀이된다는 관찰만 적어, 「왜 ②가 정답인가」가 아니라 「왜 놓치는가」였다. 어긋난 성분(아버지의 태도)과 그 근거 문장의 주절을 지목해 다시 썼다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "quote 문자열 대조",
             "발문 인물 한정 여부와 선지 주어 대조",
-            "정답 ②가 평가원 정답표와 일치하는지"
+            "정답 ②가 평가원 정답표와 일치하는지",
+            "why_correct 안의 지문 인용을 corpus.json 지문에 문자열 대조",
+            "정답 선지 텍스트와 서술의 대응을 낱말 단위로 확인",
+            "정답 번호를 평가원 정답표와 재대조"
           ]
         },
         {
@@ -259,12 +270,17 @@
           "verdict": "pass",
           "findings": [
             "오답 라벨 4종 중 ②·⑤가 모두 '반대 진술' 계열로 보일 수 있으나 ②는 정답이므로 오답 라벨은 어휘 함정·단락 순서 착시·주체 역전·반대 진술 4종으로 갈린다",
-            "④의 why_tempting 이 because 절 대명사라는 구체적 오독 지점을 짚는다"
+            "④의 why_tempting 이 because 절 대명사라는 구체적 오독 지점을 짚는다",
+            "3차 판정에서 analyst 가 revise 를 냈다 — 되풀이 인상 서술은 값진 관찰이지만 정답 근거가 아니어서 confirmed_at.note 로 옮겼다. 선지 앞부분이 지문과 글자 그대로 일치한다는 점을 명시해 성분 단위 대조가 되게 했다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "오답 4개 trap 중복 여부",
             "how_to_reject 의 문장 번호 존재",
-            "정답 선지의 복합 진술 구조를 why_tempting 이 반영하는지"
+            "정답 선지의 복합 진술 구조를 why_tempting 이 반영하는지",
+            "why_correct 가 근거 서술인지 학습자 심리 서술인지 판정",
+            "소거법에 기대지 않는지 확인",
+            "오답 넷의 trap·why_tempting·how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -272,12 +288,17 @@
           "verdict": "pass",
           "findings": [
             "1차안 required_vocab 에 'sandlot'(공터 야구)이 들어 있었으나 어느 선지 판정에도 쓰이지 않아 어휘 나열이었다 — 제거하고 선지 판정에 실제로 필요한 fisherman·dissatisfied 로 교체했다(revised)",
-            "3단계(두 마디 선지 쪼개기)가 이 문항의 실점을 막는 핵심이고 실행 가능하다"
+            "3단계(두 마디 선지 쪼개기)가 이 문항의 실점을 막는 핵심이고 실행 가능하다",
+            "3차 판정에서 tutor 가 revise 를 냈다 — 학생이 확인할 문장이 (A)(C)(D) 셋으로 흩어져 있었다. (B) 문장 8 하나로 좁혔다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "required_vocab 각 낱말이 어느 선지 판정에 쓰이는지 1:1 확인",
             "절차의 금지 표현 유무",
-            "90초 내 5단계 수행 가능성"
+            "90초 내 5단계 수행 가능성",
+            "학생이 서술에 적힌 위치를 지문에서 실제로 짚을 수 있는지 확인",
+            "solve_procedure 와 서술이 어긋나지 않는지 대조",
+            "time_budget_sec 안에서 확인 가능한 분량인지"
           ]
         }
       ]
@@ -318,7 +339,13 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "(C) 문장 13~14에서 Keith가 연주를 거부하고 차로 가 버리는 장면이 강해, 뒤 문장을 안 읽고 '외면'을 참으로 판정한다. 정답 근거는 같은 단락 두 문장 뒤에 있다."
+          "why_correct": "선지 ④에서 어긋나는 성분은 술어 「보고도 외면했다」다. 장면(빗속에 서 있는 Erik)은 (C)의 'The pianist looked out at him standing in the rain, completely soaked, and took pity on him.' 과 그대로 같고, 앞 동사 looked out at 도 선지의 '보고'와 맞는다. 어긋나는 것은 and 로 이어진 뒤 동사 하나 — took pity on him(연민을 느꼈다)이 '외면했다'와 정반대다. 같은 단락의 승낙 대사 Never forget · Only for you 와 마지막 문장 'A few hours later, Keith walked out to the unplayable piano in front of a packed concert hall.' 이 실제 연주로 이어졌음을 적어 태도를 확정한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              16
+            ],
+            "note": "바로 앞 두 문장(Keith didn’t want to perform · 차로 가 버림)이 거절 장면이라 그 인상만으로 판정하면 ④가 참으로 읽힌다. 확정은 and 뒤 동사 took pity on him 에서 난다."
+          }
         },
         {
           "n": 5,
@@ -369,12 +396,17 @@
           "verdict": "pass",
           "findings": [
             "quote 가 (C) 문장 16에 그대로 있다",
-            "정답 근거가 '거부 → 연민 → 승낙' 3단 중 가운데 문장이라는 설계를 design_intent 가 문항 고유로 서술한다"
+            "정답 근거가 '거부 → 연민 → 승낙' 3단 중 가운데 문장이라는 설계를 design_intent 가 문항 고유로 서술한다",
+            "3차 판정에서 setter 가 revise 를 냈다 — 기존 서술은 「거절 장면이 강해 뒤 문장을 안 읽는다」는 학습자 행동 서술이었다. 선지와 지문이 같은 성분(장면·앞 동사)과 어긋나는 성분(뒤 동사)을 갈라 다시 썼다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "quote 문자열 대조",
             "정답 ④와 평가원 정답표 대조",
-            "선지 순서와 단락 순서 대응(①A ②③B ④C ⑤D) 확인"
+            "선지 순서와 단락 순서 대응(①A ②③B ④C ⑤D) 확인",
+            "why_correct 안의 지문 인용을 corpus.json 지문에 문자열 대조",
+            "정답 선지 텍스트와 서술의 대응을 낱말 단위로 확인",
+            "정답 번호를 평가원 정답표와 재대조"
           ]
         },
         {
@@ -382,12 +414,17 @@
           "verdict": "pass",
           "findings": [
             "1차안 ③의 how_to_reject 가 '지문에 음량 노력이 나온다'로 위치가 없었다 — (B) 문장 9로 문장 번호를 명시하고 lack of resonance 가 문장 8의 이유절임을 덧붙였다(revised)",
-            "오답 4종(어휘 함정·단락 순서 착시·반대 진술·주체 역전)이 갈린다"
+            "오답 4종(어휘 함정·단락 순서 착시·반대 진술·주체 역전)이 갈린다",
+            "3차 판정에서 analyst 가 revise 를 냈다 — 심리 관찰을 confirmed_at.note 로 옮기고, 정답 근거를 and 로 이어진 두 동사의 대비로 적었다 — 소거법이 아니라 한 문장 안의 대조다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "how_to_reject 4건의 위치 표기 유무",
             "trap 중복 여부",
-            "why_tempting 이 선지 한국어 표현과 지문 영어 표현을 잇는지"
+            "why_tempting 이 선지 한국어 표현과 지문 영어 표현을 잇는지",
+            "why_correct 가 근거 서술인지 학습자 심리 서술인지 판정",
+            "소거법에 기대지 않는지 확인",
+            "오답 넷의 trap·why_tempting·how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -395,12 +432,17 @@
           "verdict": "pass",
           "findings": [
             "3단계(부정 서술 뒤 두 문장 더 읽기)가 이 문항의 실점 지점을 정확히 막는다",
-            "required_vocab 5개가 모두 선지 판정에 직접 관여한다"
+            "required_vocab 5개가 모두 선지 판정에 직접 관여한다",
+            "3차 판정에서 tutor 가 revise 를 냈다 — 학생이 볼 자리를 (C)의 한 문장으로 좁히고, 승낙 대사와 마지막 문장을 확인용으로 덧붙였다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "절차 금지 표현 유무",
             "각 단계가 지문 미독 상태에서 실행 가능한지",
-            "required_vocab 낱말의 지문 내 존재 확인"
+            "required_vocab 낱말의 지문 내 존재 확인",
+            "학생이 서술에 적힌 위치를 지문에서 실제로 짚을 수 있는지 확인",
+            "solve_procedure 와 서술이 어긋나지 않는지 대조",
+            "time_budget_sec 안에서 확인 가능한 분량인지"
           ]
         }
       ]
@@ -736,7 +778,13 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "(B)(C)에서 필자가 할머니를 가르치는 관계가 강조되어 '할머니=배우고 듣는 쪽'이라는 인상이 굳는다. 선지도 '재미있는 이야기'라는 지문 어구를 그대로 써서 대조를 마친 느낌을 준다."
+          "why_correct": "선지 ⑤ '필자에게 밤에 재미있는 이야기를 듣는 것을 좋아했다' 에서 어긋나는 성분은 이야기가 오가는 방향, 곧 '필자에게 … 듣는 것' 이다. (D) 첫 문장 'My grandmother liked to tell me these interesting stories at' 은 좋아한 주체(My grandmother=할머니)와 대상(these interesting stories=재미있는 이야기), 때(night=밤)까지 선지와 같게 두고 동사만 tell me 로 적는다 — 들려주는 쪽이 할머니, 듣는 쪽이 me(필자)다. 선지는 그 동사 하나를 '듣는 것' 으로 뒤집었고, 이어지는 'While listening to the stories, I decided that I would not break any promises.' 에서 listening 의 주어가 I 라는 점이 듣는 쪽을 필자로 한 번 더 못박는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              15
+            ],
+            "note": "(B)(C)에서 필자가 할머니에게 영어 읽기를 가르치는 관계가 이어져 '할머니=배우고 듣는 쪽'이라는 인상이 굳는다. 선지도 '재미있는 이야기'라는 지문 어구를 그대로 써서 대조를 마친 느낌을 준다."
+          }
         }
       ],
       "solve_procedure": [
@@ -780,12 +828,16 @@
           "verdict": "pass",
           "findings": [
             "1차안 quote 가 문장 15 전체였는데 그 문장에는 인쇄 잡음 '타, 단타 ______' 이 끼어 있어 근거로 제시하면 학습자가 원문으로 오해한다 — 잡음 앞까지로 잘라 문자 그대로 남는 구간만 인용했다(revised)",
-            "발문이 grandmother 한정이고 정답이 그 인물의 주체성을 뒤집은 형태라는 유형 설계와 맞는다"
+            "발문이 grandmother 한정이고 정답이 그 인물의 주체성을 뒤집은 형태라는 유형 설계와 맞는다",
+            "1차 판정 revise — why_correct 가 지문↔선지 대응이 아니라 학습자가 왜 놓치는가(심리)를 적고 있었다. 근거 문장의 낱말과 선지가 갈아 끼운 성분을 지목하는 서술로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "quote 를 passage 에 문자열 대조",
             "정답 ⑤와 평가원 정답표 대조",
-            "선지-단락 대응(①②A ③B ④C ⑤D) 확인"
+            "선지-단락 대응(①②A ③B ④C ⑤D) 확인",
+            "why_correct 의 인용을 코퍼스 지문에서 문자열 대조",
+            "why_correct 가 선지 문구를 인용하는지 확인",
+            "갈아 끼운 성분이 하나로 지목되는지 확인"
           ]
         },
         {
@@ -793,12 +845,16 @@
           "verdict": "pass",
           "findings": [
             "오답 4종(주체 역전·범위 과대·부분 사실·어휘 함정)이 갈린다. 정답도 주체 역전 계열이지만 오답 ①과는 유인 경로(수 18의 귀속 vs 동사 방향)가 다르다",
-            "④의 why_tempting 이 '지문에 필자 이름이 없다'는 실제 확인 가능한 결손을 짚는다"
+            "④의 why_tempting 이 '지문에 필자 이름이 없다'는 실제 확인 가능한 결손을 짚는다",
+            "다시 쓴 why_correct 가 소거법(\"나머지가 맞으므로\")에 기대지 않고 정답 선지 한 개의 성분 대응만으로 확정하는지 확인했다. 오답 넷의 서술은 손대지 않았다."
           ],
           "checked": [
             "trap 중복 여부",
             "how_to_reject 문장 번호 표기",
-            "선지 ④의 근거가 지문에 실제로 있는지(Betty 명시 여부까지) 확인"
+            "선지 ④의 근거가 지문에 실제로 있는지(Betty 명시 여부까지) 확인",
+            "소거법 서술 유무 검사",
+            "정답 선지에 why_tempting/how_to_reject 가 섞이지 않았는지 확인",
+            "confirmed_at.note 로 옮긴 심리 서술이 근거 자리를 흐리지 않는지 확인"
           ]
         },
         {
@@ -806,12 +862,16 @@
           "verdict": "pass",
           "findings": [
             "3단계(동사 방향 화살표)가 이 문항의 정답 장치와 정확히 맞물리고 85초 안에 가능하다",
-            "required_vocab 이 구 단위(liked to tell·never learned to read)라 학습자가 그대로 대조에 쓸 수 있다"
+            "required_vocab 이 구 단위(liked to tell·never learned to read)라 학습자가 그대로 대조에 쓸 수 있다",
+            "학생이 근거 자리를 짚을 수 있도록 단락 표시와 문장 위치를 서술에 남겼는지 확인했다. 기존 심리 서술은 버리지 않고 confirmed_at.note 로 옮겨 실제 미끄러지는 자리를 보존했다."
           ],
           "checked": [
             "절차 금지 표현 유무",
             "각 단계 실행 가능성",
-            "required_vocab 문자열의 지문 내 존재 확인"
+            "required_vocab 문자열의 지문 내 존재 확인",
+            "금지 표현 목록 대조",
+            "근거 위치(단락·문장) 표기 유무 확인",
+            "solve_procedure 와 새 서술이 어긋나지 않는지 확인"
           ]
         }
       ]

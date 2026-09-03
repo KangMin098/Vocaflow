@@ -39,7 +39,13 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "재능이라는 낱말과 Beatrice 라는 이름이 지문에 그대로 있어, 이름과 낱말만 맞춰 보면 대조가 끝난 것처럼 느껴진다."
+          "why_correct": "선지 ④ 'Beatrice는 Sally의 음악적 재능을 칭찬했다' 에서 어긋나는 성분은 술어 '칭찬했다' 다. (C)의 'Beatrice had said, “You just have no musical talent.”' 이 말한 사람을 Beatrice 로, 화제를 musical talent(음악적 재능)로 선지와 같게 두고 그 내용을 have no 로 적는다 — 재능이 없다는 선언이므로 '칭찬했다' 와 정반대다. 재능을 두둔하는 말은 같은 단락에 한 번 더 나오지만 'The old woman winked, handed the violin to Sally, and said, “You don’t need talent to enjoy playing.”' 이라 화자가 노부인이고, 내용도 재능이 필요 없다는 것이지 재능을 칭찬한 것이 아니다.",
+          "confirmed_at": {
+            "sentence_index": [
+              18
+            ],
+            "note": "talent 라는 낱말과 Beatrice 라는 이름이 지문에 그대로 있어, 이름과 낱말만 맞춰 보면 대조가 끝난 것처럼 느껴진다."
+          }
         },
         {
           "n": 5,
@@ -94,12 +100,16 @@
           "verdict": "pass",
           "findings": [
             "인용이 (C)의 Beatrice 발화 원문과 문자 그대로 일치한다",
-            "정답 근거를 '노부인의 격려'가 아니라 'Beatrice의 발화'로 좁힌 것이 이 유형의 설계와 맞다 — 출제자는 같은 문단에 재능 관련 발화 둘을 붙여 화자 혼동을 만들었다"
+            "정답 근거를 '노부인의 격려'가 아니라 'Beatrice의 발화'로 좁힌 것이 이 유형의 설계와 맞다 — 출제자는 같은 문단에 재능 관련 발화 둘을 붙여 화자 혼동을 만들었다",
+            "1차 판정 revise — why_correct 가 지문↔선지 대응이 아니라 학습자가 왜 놓치는가(심리)를 적고 있었다. 근거 문장의 낱말과 선지가 갈아 끼운 성분을 지목하는 서술로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 지문 (C) 와 문자열 대조",
             "정답 4번이 평가원 정답표와 일치하는지 대조",
-            "design_intent 가 '내용 일치 유형은 대조하는 문항' 같은 일반론이 아닌지 확인"
+            "design_intent 가 '내용 일치 유형은 대조하는 문항' 같은 일반론이 아닌지 확인",
+            "why_correct 의 인용을 코퍼스 지문에서 문자열 대조",
+            "why_correct 가 선지 문구를 인용하는지 확인",
+            "갈아 끼운 성분이 하나로 지목되는지 확인"
           ]
         },
         {
@@ -107,12 +117,16 @@
           "verdict": "pass",
           "findings": [
             "초안에서 선지 ①과 ③에 모두 '어휘 함정'을 달았다. 두 선지의 실제 실수 경로가 다르므로(①은 같은 인물의 뒤 장면으로 판정, ③은 약속의 주체를 노부인으로 이동) ①을 '시점 이동', ③을 '등장인물 혼동'으로 다시 달았다",
-            "오답 4개의 함정이 시점 이동 · 부분 사실 · 등장인물 혼동 · 어휘 함정 4종으로 갈린다"
+            "오답 4개의 함정이 시점 이동 · 부분 사실 · 등장인물 혼동 · 어휘 함정 4종으로 갈린다",
+            "다시 쓴 why_correct 가 소거법(\"나머지가 맞으므로\")에 기대지 않고 정답 선지 한 개의 성분 대응만으로 확정하는지 확인했다. 오답 넷의 서술은 손대지 않았다."
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부",
             "why_tempting 이 선지 한국어 문장과 지문 영어 문장 양쪽에 근거하는지",
-            "how_to_reject 마다 문단 기호((A)~(D))가 적혔는지"
+            "how_to_reject 마다 문단 기호((A)~(D))가 적혔는지",
+            "소거법 서술 유무 검사",
+            "정답 선지에 why_tempting/how_to_reject 가 섞이지 않았는지 확인",
+            "confirmed_at.note 로 옮긴 심리 서술이 근거 자리를 흐리지 않는지 확인"
           ]
         },
         {
@@ -120,12 +134,16 @@
           "verdict": "pass",
           "findings": [
             "1단계가 지문을 안 본 상태에서 실행 가능하다(선지만 본다)",
-            "5단계는 문단 4개 훑기 + 대사 화자 적기까지 90초 안에 들어간다 — 43·44번을 이미 푼 뒤라 지문 재독이 아니라 재검색이기 때문"
+            "5단계는 문단 4개 훑기 + 대사 화자 적기까지 90초 안에 들어간다 — 43·44번을 이미 푼 뒤라 지문 재독이 아니라 재검색이기 때문",
+            "학생이 근거 자리를 짚을 수 있도록 단락 표시와 문장 위치를 서술에 남겼는지 확인했다. 기존 심리 서술은 버리지 않고 confirmed_at.note 로 옮겨 실제 미끄러지는 자리를 보존했다."
           ],
           "checked": [
             "solve_procedure 1단계의 실행 시점(지문 열람 전인지) 확인",
             "금지 표현('흐름을 파악하면' 등) 문자열 검색",
-            "required_vocab 5개가 정답 판정에 실제로 쓰이는 낱말인지(talent 는 정답 문장, unpolished/welcoming 은 선지 ①·②의 장면 식별에 필요)"
+            "required_vocab 5개가 정답 판정에 실제로 쓰이는 낱말인지(talent 는 정답 문장, unpolished/welcoming 은 선지 ①·②의 장면 식별에 필요)",
+            "금지 표현 목록 대조",
+            "근거 위치(단락·문장) 표기 유무 확인",
+            "solve_procedure 와 새 서술이 어긋나지 않는지 확인"
           ]
         }
       ]
@@ -174,7 +192,14 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "(D) 끝에서 Mia 가 수락하고 첫 책까지 고르겠다고 하므로, 결과만 보면 적극적으로 보인다. '환영했다'가 결과와 겹쳐 참으로 느껴진다."
+          "why_correct": "선지 ⑤에서 어긋나는 성분은 시점 부사 '처음부터 환영했다' 의 '처음부터' 다. 제안 직후 Mia 의 첫 반응이 'Mia immediately shook her head and said, \"No, Dad. I don't have time to read books.\"' 곧 거절이고, immediately 가 그것이 첫 반응임을 못박는다. 뒤의 'After some persuasion, Mia reluctantly agreed.' 는 설득 이후의 반응이며 reluctantly 가 환영이 아님을 한 번 더 준다.",
+          "confirmed_at": {
+            "note": "(D) 끝에서 Mia 가 수락하고 첫 책까지 고르겠다고 하므로, 결과만 보면 적극적으로 보인다. '환영했다'가 결과와 겹쳐 참으로 느껴지는 자리다.",
+            "sentence_index": [
+              23,
+              26
+            ]
+          }
         }
       ],
       "solve_procedure": [
@@ -218,12 +243,14 @@
           "verdict": "pass",
           "findings": [
             "인용이 (D) 첫 문장과 문자 그대로 일치한다(닫는 따옴표가 원문에 없어 인용에서도 뺐다)",
-            "정답 근거를 'reluctantly agreed' 가 아니라 첫 반응 문장에 둔 것이 선지의 '처음부터'와 대응한다"
+            "정답 근거를 'reluctantly agreed' 가 아니라 첫 반응 문장에 둔 것이 선지의 '처음부터'와 대응한다",
+            "3차 재검수: why_correct 가 「왜 놓치기 쉬운가」(학습자 심리)로 쓰여 있어 revise → 「선지의 어느 성분이 지문의 어느 문장과 어떻게 어긋나는가」로 다시 씀. 옛 서술은 confirmed_at.note 로 옮겼다. pass."
           ],
           "checked": [
             "quote 를 지문 (D) 와 문자열 대조(닫는 따옴표 유무까지)",
             "정답 5번과 평가원 정답표 대조",
-            "선지 ⑤의 한정어 '처음부터'가 인용 문장의 immediately 와 대응하는지"
+            "선지 ⑤의 한정어 '처음부터'가 인용 문장의 immediately 와 대응하는지",
+            "why_correct ↔ 선지 문자열 대조 · 인용 ↔ 코퍼스 지문 대조"
           ]
         },
         {
@@ -231,12 +258,14 @@
           "verdict": "pass",
           "findings": [
             "선지 ④의 함정을 처음에는 '주체 역전'으로 달았으나 선지 ①과 겹쳐, mystery 라는 같은 낱말이 다른 문단에 있는 점을 실수 경로로 잡아 '어휘 함정'으로 고쳤다",
-            "오답 4개가 주체 역전 · 등장인물 혼동 · 시점 이동 · 어휘 함정으로 갈린다"
+            "오답 4개가 주체 역전 · 등장인물 혼동 · 시점 이동 · 어휘 함정으로 갈린다",
+            "3차 재검수: 새 why_correct 가 어긋나는 성분 하나를 지목하고 나머지가 지문과 일치함을 전제로 삼는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 4종 중복 여부",
             "why_tempting 이 실제 선지 텍스트(‘처음부터’, ‘거의 한 시간’)에 근거하는지",
-            "how_to_reject 에 문단 기호와 문장 위치가 있는지"
+            "how_to_reject 에 문단 기호와 문장 위치가 있는지",
+            "어긋나는 성분이 하나로 특정되는지 확인"
           ]
         },
         {
@@ -244,12 +273,14 @@
           "verdict": "pass",
           "findings": [
             "초안 1단계가 '지문을 읽고 선지와 대조한다'였다 — 지문을 안 본 학생이 실행할 수 없고 90초를 넘긴다. '선지에서 부사어에 동그라미'로 바꿨다",
-            "부사어 표시는 이 유형 전체에 옮겨 쓸 수 있는 동작이라 4단계까지 90초 안에 끝난다"
+            "부사어 표시는 이 유형 전체에 옮겨 쓸 수 있는 동작이라 4단계까지 90초 안에 끝난다",
+            "3차 재검수: 학습자가 선지의 그 성분과 지문 문장을 눈으로 맞대 볼 수 있는 형태인지 확인. pass."
           ],
           "checked": [
             "1단계가 지문 열람 전 동작인지",
             "금지 표현 문자열 검색",
-            "required_vocab 이 정답 판정에 쓰이는지(reluctantly · persuasion 이 ⑤ 판정의 핵심)"
+            "required_vocab 이 정답 판정에 쓰이는지(reluctantly · persuasion 이 ⑤ 판정의 핵심)",
+            "대조할 두 문장(선지·지문)이 모두 인용되어 있는지 확인"
           ]
         }
       ]
@@ -276,7 +307,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "다섯 중 유일한 부정 선지라 판정 방향을 한 번 더 뒤집어야 한다. 홈런과 승리가 지문에 있으므로 낱말만 맞추면 참으로 처리된다."
+          "why_correct": "선지 ②에서 어긋나는 성분은 부정 '홈런을 치지 못했다' 의 '못했다' 하나다. 지문의 'Several hours later, Mike's favorite team hit a home run and won the game.' 이 같은 주어에 hit a home run 을 긍정으로 진술한다. 주어도 어긋나지 않는다 — Mike's favorite team 은 (A)에서 the Arrows 로 지정된 그 팀이다. 곧 선지는 같은 문장의 극성만 뒤집었다.",
+          "confirmed_at": {
+            "note": "다섯 중 유일한 부정 선지라 판정 방향을 한 번 더 뒤집어야 한다. 홈런과 승리가 지문에 있으므로 낱말만 맞추면 참으로 처리된다.",
+            "sentence_index": [
+              8
+            ]
+          }
         },
         {
           "n": 3,
@@ -341,12 +378,14 @@
           "verdict": "pass",
           "findings": [
             "초안 인용이 'Mike의 팀이 홈런을 치고 이겼다'라는 요약이어서 지문 문자열과 대조되지 않았다 — (B) 첫 문장 원문으로 교체했다",
-            "'Mike’s favorite team = the Arrows' 연결이 (A)에 있어 선지 ⑤와의 지시 일관성도 유지된다"
+            "'Mike’s favorite team = the Arrows' 연결이 (A)에 있어 선지 ⑤와의 지시 일관성도 유지된다",
+            "3차 재검수: why_correct 가 「왜 놓치기 쉬운가」(학습자 심리)로 쓰여 있어 revise → 「선지의 어느 성분이 지문의 어느 문장과 어떻게 어긋나는가」로 다시 씀. 옛 서술은 confirmed_at.note 로 옮겼다. pass."
           ],
           "checked": [
             "교체한 quote 를 지문 (B) 와 문자열 대조",
             "정답 2번과 평가원 정답표 대조",
-            "부정 선지를 하나만 둔 설계가 이 유형의 실제 출제 관행과 맞는지"
+            "부정 선지를 하나만 둔 설계가 이 유형의 실제 출제 관행과 맞는지",
+            "why_correct ↔ 선지 문자열 대조 · 인용 ↔ 코퍼스 지문 대조"
           ]
         },
         {
@@ -354,12 +393,14 @@
           "verdict": "pass",
           "findings": [
             "오답 4개가 어휘 함정 · 부분 사실 · 등장인물 혼동 · 범위 과소로 갈린다",
-            "선지 ⑤의 '범위 과소'는 직전 문장 Both teams kept scoring 이라는 실제 텍스트에 근거한다"
+            "선지 ⑤의 '범위 과소'는 직전 문장 Both teams kept scoring 이라는 실제 텍스트에 근거한다",
+            "3차 재검수: 새 why_correct 가 어긋나는 성분 하나를 지목하고 나머지가 지문과 일치함을 전제로 삼는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 중복 여부",
             "why_tempting 이 선지 텍스트와 지문 문장 양쪽에 근거하는지",
-            "how_to_reject 에 문단 기호가 있는지"
+            "how_to_reject 에 문단 기호가 있는지",
+            "어긋나는 성분이 하나로 특정되는지 확인"
           ]
         },
         {
@@ -367,12 +408,14 @@
           "verdict": "pass",
           "findings": [
             "부정 선지를 긍정문으로 옮겨 적는 동작이 손으로 실행 가능하고 5초 안에 끝난다",
-            "85초 배분이 43·44번 뒤 잔여 시간과 맞는다"
+            "85초 배분이 43·44번 뒤 잔여 시간과 맞는다",
+            "3차 재검수: 학습자가 선지의 그 성분과 지문 문장을 눈으로 맞대 볼 수 있는 형태인지 확인. pass."
           ],
           "checked": [
             "1~2단계가 지문 열람 전 동작인지",
             "금지 표현 문자열 검색",
-            "required_vocab 이 선지 판정에 쓰이는지(fly ball · stands 가 ④ 판정에 필요)"
+            "required_vocab 이 선지 판정에 쓰이는지(fly ball · stands 가 ④ 판정에 필요)",
+            "대조할 두 문장(선지·지문)이 모두 인용되어 있는지 확인"
           ]
         }
       ]
@@ -421,7 +464,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "선지 ⑤에서 어긋나는 성분은 평가어 「비싸다」다. 값에 대한 Cathy 의 유일한 발화가 마지막 단락 (D) 끝의 ‘Oh, I’ll get some more then! They’re really cheap!’ 이고, 인용 앞의 ‘Hearing that, Cathy said’ 가 발화자를 Cathy 로 못박아 주체를 바꿔 볼 여지도 없다. 평가 대상(복숭아 값)은 선지와 같고 방향만 cheap ↔ 비싸다로 정확히 반대다.",
+          "why_correct": "선지 ⑤ '가격이 비싸다고 생각했다' 에서 어긋나는 성분은 평가어다. 값에 대한 Cathy 의 유일한 발화가 마지막 단락 (D) 끝의 'Oh, I'll get some more then! They're really cheap!' 이고, 인용 앞의 'Hearing that, Cathy said' 가 발화자를 Cathy 로 못박아 주체를 바꿔 볼 여지도 없다. 평가 대상(복숭아 값)은 선지와 같고 방향만 really cheap ↔ 비싸다로 정확히 반대다.",
           "confirmed_at": {
             "sentence_index": [
               26,
@@ -473,7 +516,8 @@
             "인용이 (D) 끝 문장과 문자 그대로 일치한다",
             "정답 근거를 판매자 발화가 아니라 Cathy 발화로 잡은 것이 선지 주어와 맞다",
             "Oh, I’ll get some more then! They’re really cheap! 와 Hearing that, Cathy said 를 지문에 문자열 대조했다 — 발화자 표기가 인용 바로 앞에 있어 주체가 고정된다",
-            "이 단락에는 OCR 잔해(The fruit seller 다 ______ told her)가 있으나 인용 조각은 그 밖이다"
+            "이 단락에는 OCR 잔해(The fruit seller 다 ______ told her)가 있으나 인용 조각은 그 밖이다",
+            "3차 재검수: why_correct 가 「왜 놓치기 쉬운가」(학습자 심리)로 쓰여 있어 revise → 「선지의 어느 성분이 지문의 어느 문장과 어떻게 어긋나는가」로 다시 씀. 옛 서술은 confirmed_at.note 로 옮겼다. pass."
           ],
           "checked": [
             "quote 를 지문 (D) 와 문자열 대조",
@@ -481,7 +525,8 @@
             "선지 ⑤의 주어(Cathy)와 인용 문장의 화자가 같은지",
             "영어 조각 2개 문자열 대조",
             "손상 구간과 인용 위치 비교",
-            "cheap ↔ 선지 「비싸다」의 방향 대응"
+            "cheap ↔ 선지 「비싸다」의 방향 대응",
+            "why_correct ↔ 선지 문자열 대조 · 인용 ↔ 코퍼스 지문 대조"
           ]
         },
         {
@@ -490,7 +535,8 @@
           "findings": [
             "오답 4개가 주체 역전 · 등장인물 혼동 · 어휘 함정 · 부분 사실로 갈린다",
             "선지 ③의 어휘 함정은 '다양한 나이 ↔ of all ages' 라는 실제 표현 차이에 근거한다",
-            "정답 근거를 형용사 cheap 하나로 좁혔다 — 구매량·판매자 발화는 근거가 아니라는 점을 note 로 갈라 두었다"
+            "정답 근거를 형용사 cheap 하나로 좁혔다 — 구매량·판매자 발화는 근거가 아니라는 점을 note 로 갈라 두었다",
+            "3차 재검수: 새 why_correct 가 어긋나는 성분 하나를 지목하고 나머지가 지문과 일치함을 전제로 삼는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 중복 여부",
@@ -498,7 +544,8 @@
             "how_to_reject 에 문단 기호가 있는지",
             "근거가 평가어에 걸려 있는지",
             "심리 관찰의 note 이관 여부",
-            "정답 선지에 trap 라벨이 남아 있지 않은지"
+            "정답 선지에 trap 라벨이 남아 있지 않은지",
+            "어긋나는 성분이 하나로 특정되는지 확인"
           ]
         },
         {
@@ -507,14 +554,16 @@
           "findings": [
             "인물-물건 짝 표를 먼저 만드는 동작이 지문 열람 전에 가능하다",
             "3단계의 '평가어 밑줄'은 정답이 대사 안에 있는 이 유형에서 반복 사용 가능하다",
-            "「(D) 끝」이라는 위치와 따옴표 안 형용사라는 형태 단서가 함께 있어, 학생이 마지막 두 줄만 보면 판정된다"
+            "「(D) 끝」이라는 위치와 따옴표 안 형용사라는 형태 단서가 함께 있어, 학생이 마지막 두 줄만 보면 판정된다",
+            "3차 재검수: 학습자가 선지의 그 성분과 지문 문장을 눈으로 맞대 볼 수 있는 형태인지 확인. pass."
           ],
           "checked": [
             "1단계가 지문 열람 전 동작인지",
             "금지 표현 문자열 검색",
             "required_vocab 이 선지 판정에 실제로 필요한지(crowded 는 ③, ripe·booths 는 ⑤의 장면 식별)",
             "위치 지시의 실재",
-            "설명이 정답을 아는 상태를 전제하지 않는지"
+            "설명이 정답을 아는 상태를 전제하지 않는지",
+            "대조할 두 문장(선지·지문)이 모두 인용되어 있는지 확인"
           ]
         }
       ],
@@ -558,7 +607,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "Ethan 이 세탁소에서 점원과 대화하고 사과까지 하므로 '갔다'는 사실은 참이다. 참인 사건에 '혼자서'가 붙어 있어 문장 전체가 참으로 넘어간다."
+          "why_correct": "선지 ④ '혼자서 세탁소에 하이킹 재킷을 찾으러 갔다' 에서 어긋나는 성분은 '혼자서' 하나다. 지문의 'Ethan and Grace came back home with the jackets and checked if Sean had everything else he needed for hiking.' 이 재킷을 찾아 돌아온 주어를 두 사람으로 명시하고, (A) 끝에서 Ethan 이 아내에게 함께 찾으러 가자고 부탁하는 대목과 (C)의 세탁소 대화에 Grace 가 끼어드는 장면이 동반을 두 번 더 확인한다.",
+          "confirmed_at": {
+            "note": "Ethan 이 세탁소에서 점원과 대화하고 사과까지 하므로 '갔다'는 사실 자체는 참이다. 참인 사건에 '혼자서'가 얹혀 있어 문장 전체가 참으로 넘어간다.",
+            "sentence_index": [
+              7,
+              8
+            ]
+          }
         },
         {
           "n": 5,
@@ -609,12 +665,14 @@
           "verdict": "pass",
           "findings": [
             "초안에 body_recovered 표시가 없었다 — 이 문항은 body_ok:false 이고 지문·선지를 raw_block 에서 읽었으므로 body_recovered: true 를 넣었다",
-            "인용을 (A) 끝 문장('he asked his wife to g and pick them up with him')이 아니라 (B) 첫 문장으로 잡았다. (A) 문장은 원문 인쇄가 깨져 있어(‘to g’) 근거로 제시하면 학습자가 오히려 헷갈린다"
+            "인용을 (A) 끝 문장('he asked his wife to g and pick them up with him')이 아니라 (B) 첫 문장으로 잡았다. (A) 문장은 원문 인쇄가 깨져 있어(‘to g’) 근거로 제시하면 학습자가 오히려 헷갈린다",
+            "3차 재검수: why_correct 가 「왜 놓치기 쉬운가」(학습자 심리)로 쓰여 있어 revise → 「선지의 어느 성분이 지문의 어느 문장과 어떻게 어긋나는가」로 다시 씀. 옛 서술은 confirmed_at.note 로 옮겼다. pass."
           ],
           "checked": [
             "quote 를 raw_block 과 문자열 대조(줄바꿈은 정규화 대상)",
             "정답 4번과 평가원 정답표 대조",
-            "raw_block 의 선지 5개가 코퍼스 choices 와 같은지"
+            "raw_block 의 선지 5개가 코퍼스 choices 와 같은지",
+            "why_correct ↔ 선지 문자열 대조 · 인용 ↔ 코퍼스 지문 대조"
           ]
         },
         {
@@ -622,12 +680,14 @@
           "verdict": "pass",
           "findings": [
             "오답 4개가 어휘 함정 · 주체 역전 · 부분 사실 · 등장인물 혼동으로 갈린다",
-            "정답 선지에도 '부분 사실' 라벨을 달았다 — 사건은 참이고 부사어만 거짓인 구조라 '반대 진술'로는 설명되지 않는다"
+            "정답 선지에도 '부분 사실' 라벨을 달았다 — 사건은 참이고 부사어만 거짓인 구조라 '반대 진술'로는 설명되지 않는다",
+            "3차 재검수: 새 why_correct 가 어긋나는 성분 하나를 지목하고 나머지가 지문과 일치함을 전제로 삼는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "오답 4개의 trap 중복 여부",
             "why_tempting 이 선지 한국어 표현에 근거하는지",
-            "how_to_reject 에 문단 기호와 주어가 명시되었는지"
+            "how_to_reject 에 문단 기호와 주어가 명시되었는지",
+            "어긋나는 성분이 하나로 특정되는지 확인"
           ]
         },
         {
@@ -635,12 +695,14 @@
           "verdict": "pass",
           "findings": [
             "3단계('사건이 나오는 문단을 모두 찾는다')가 이 문항의 실제 실패 지점을 정면으로 겨눈다",
-            "근거가 세 문단에 흩어져 있어 100초를 배정했다 — 다른 문항보다 10~15초 길다"
+            "근거가 세 문단에 흩어져 있어 100초를 배정했다 — 다른 문항보다 10~15초 길다",
+            "3차 재검수: 학습자가 선지의 그 성분과 지문 문장을 눈으로 맞대 볼 수 있는 형태인지 확인. pass."
           ],
           "checked": [
             "1단계가 지문 열람 전 동작인지",
             "금지 표현 문자열 검색",
-            "required_vocab 이 판정에 필요한지(laundry·drawers 가 ③④ 구분의 축)"
+            "required_vocab 이 판정에 필요한지(laundry·drawers 가 ③④ 구분의 축)",
+            "대조할 두 문장(선지·지문)이 모두 인용되어 있는지 확인"
           ]
         }
       ]
@@ -689,7 +751,13 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "Julia 가 햇빛을 피하라는 구체적 관리법을 말해 주므로 아는 사람처럼 보이고, expert 라는 낱말이 그 문장에 실제로 들어 있어 낱말 대조만 하면 참으로 처리된다."
+          "why_correct": "선지 ⑤ '자신이 식물 전문가라고 말했다' 에서 어긋나는 것은 부정어의 유무다. 해당 발화가 'Julia replied, \"I'm not a plant expert, but I know that Anna kept them away from windows to avoid direct sunlight.' 라 화자는 Julia 로 선지와 같지만 not 이 붙어 있고, 이어지는 관리법의 출처도 Anna 로 돌린다. 곧 expert 는 지문에 있으나 선지는 그 앞의 not 을 떨어뜨린 것이다.",
+          "confirmed_at": {
+            "note": "Julia 가 햇빛을 피하라는 구체적 관리법을 말해 주므로 아는 사람처럼 읽히고, expert 라는 낱말이 그 문장에 실제로 들어 있어 낱말 대조만 하면 참으로 처리된다.",
+            "sentence_index": [
+              24
+            ]
+          }
         }
       ],
       "solve_procedure": [
@@ -732,12 +800,14 @@
           "verdict": "pass",
           "findings": [
             "body_ok:false 문항이라 raw_block 에서 지문·선지를 읽었고 body_recovered: true 를 표시했다",
-            "인용이 (D)의 Julia 발화 원문과 일치한다(원문에 닫는 따옴표가 그 문장 끝에 없어 인용도 거기서 끊었다)"
+            "인용이 (D)의 Julia 발화 원문과 일치한다(원문에 닫는 따옴표가 그 문장 끝에 없어 인용도 거기서 끊었다)",
+            "3차 재검수: why_correct 가 「왜 놓치기 쉬운가」(학습자 심리)로 쓰여 있어 revise → 「선지의 어느 성분이 지문의 어느 문장과 어떻게 어긋나는가」로 다시 씀. 옛 서술은 confirmed_at.note 로 옮겼다. pass."
           ],
           "checked": [
             "quote 를 raw_block 과 문자열 대조",
             "정답 5번과 평가원 정답표 대조",
-            "raw_block 의 한국어 선지 5개가 코퍼스 choices 와 같은지"
+            "raw_block 의 한국어 선지 5개가 코퍼스 choices 와 같은지",
+            "why_correct ↔ 선지 문자열 대조 · 인용 ↔ 코퍼스 지문 대조"
           ]
         },
         {
@@ -745,12 +815,14 @@
           "verdict": "pass",
           "findings": [
             "오답 4개가 어휘 함정 · 등장인물 혼동 · 부분 사실 · 주체 역전으로 갈린다",
-            "선지 ②의 함정은 (b) She 의 지시 대상이라는 실제 지시어에 근거한다 — 44번 지칭 문항과 근거 자리가 겹치므로 학습자에게 이득이 크다"
+            "선지 ②의 함정은 (b) She 의 지시 대상이라는 실제 지시어에 근거한다 — 44번 지칭 문항과 근거 자리가 겹치므로 학습자에게 이득이 크다",
+            "3차 재검수: 새 why_correct 가 어긋나는 성분 하나를 지목하고 나머지가 지문과 일치함을 전제로 삼는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 중복 여부",
             "why_tempting 이 선지 텍스트와 지문 대명사에 근거하는지",
-            "how_to_reject 에 문단 기호와 문장 위치가 있는지"
+            "how_to_reject 에 문단 기호와 문장 위치가 있는지",
+            "어긋나는 성분이 하나로 특정되는지 확인"
           ]
         },
         {
@@ -758,15 +830,18 @@
           "verdict": "pass",
           "findings": [
             "'대사 옆에 화자 이름 적기'는 44번(지칭)을 풀 때 이미 하는 동작이라 45번에서 추가 시간이 거의 안 든다",
-            "4단계의 not/never 확인이 이 문항의 정답을 직접 집어낸다"
+            "4단계의 not/never 확인이 이 문항의 정답을 직접 집어낸다",
+            "3차 재검수: 학습자가 선지의 그 성분과 지문 문장을 눈으로 맞대 볼 수 있는 형태인지 확인. pass."
           ],
           "checked": [
             "1단계가 지문 열람 전 동작인지",
             "금지 표현 문자열 검색",
-            "required_vocab 이 판정에 필요한지(expert 는 정답 문장, housemate 는 Anna–Julia 관계 확정에 필요)"
+            "required_vocab 이 판정에 필요한지(expert 는 정답 문장, housemate 는 Anna–Julia 관계 확정에 필요)",
+            "대조할 두 문장(선지·지문)이 모두 인용되어 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2506#45",
@@ -812,7 +887,13 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "옷을 고르는 장면에서 말을 먼저 꺼낸 쪽도, 계산한 쪽도 Garcia 라 '가리킨 색상'이 그대로 구매로 이어졌다고 읽힌다."
+          "why_correct": "선지 ⑤ 'Garcia는 본인이 가리킨 색상의 옷을 구매했다' 에서 어긋나는 성분은 옷의 색, 곧 '본인이 가리킨 색상' 이다. Garcia 가 가리킨 옷은 (D) 첫 문장 'Garcia asked, pointing at a patterned red shirt and yellow pants' 의 빨강·노랑이고, 실제로 산 옷을 적은 'Garcia bought the recommended clothes' 의 the recommended clothes 는 바로 앞 문장 'Instead, Jeff picked out a white shirt and black jeans.' 를 받으므로 흰색·검은색이다. 산 사람(Garcia)과 산 행위(bought=구매했다)는 선지와 그대로 같고 색만 다르다.",
+          "confirmed_at": {
+            "sentence_index": [
+              31
+            ],
+            "note": "옷 고르는 장면에서 말을 먼저 꺼낸 쪽도, 계산한 쪽도 Garcia 라 '가리킨 색상' 이 그대로 구매로 이어졌다고 읽힌다. recommended 가 누구의 추천인지 되짚지 않으면 걸리지 않는다."
+          }
         }
       ],
       "solve_procedure": [
@@ -855,12 +936,16 @@
           "verdict": "pass",
           "findings": [
             "body_ok:false 문항이라 raw_block 에서 읽었고 body_recovered: true 를 표시했다",
-            "인용이 (D) 마지막 문장과 일치하며, the recommended clothes 의 선행 표현이 같은 문단 안에 있어 근거가 자족적이다"
+            "인용이 (D) 마지막 문장과 일치하며, the recommended clothes 의 선행 표현이 같은 문단 안에 있어 근거가 자족적이다",
+            "1차 판정 revise — why_correct 가 지문↔선지 대응이 아니라 학습자가 왜 놓치는가(심리)를 적고 있었다. 근거 문장의 낱말과 선지가 갈아 끼운 성분을 지목하는 서술로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "quote 를 raw_block 과 문자열 대조",
             "정답 5번과 평가원 정답표 대조",
-            "the recommended clothes 가 받는 명사구가 지문에 실제로 있는지"
+            "the recommended clothes 가 받는 명사구가 지문에 실제로 있는지",
+            "why_correct 의 인용을 코퍼스 지문에서 문자열 대조",
+            "why_correct 가 선지 문구를 인용하는지 확인",
+            "갈아 끼운 성분이 하나로 지목되는지 확인"
           ]
         },
         {
@@ -868,12 +953,16 @@
           "verdict": "pass",
           "findings": [
             "오답 4개가 주체 역전 · 등장인물 혼동 · 시점 이동 · 어휘 함정으로 갈린다",
-            "선지 ③의 시점 이동은 '연주 시작 시 침묵 / 연주 후 환호'라는 같은 문단 안 두 시점에 근거한다"
+            "선지 ③의 시점 이동은 '연주 시작 시 침묵 / 연주 후 환호'라는 같은 문단 안 두 시점에 근거한다",
+            "다시 쓴 why_correct 가 소거법(\"나머지가 맞으므로\")에 기대지 않고 정답 선지 한 개의 성분 대응만으로 확정하는지 확인했다. 오답 넷의 서술은 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 여부",
             "why_tempting 이 선지 텍스트에 근거하는지",
-            "how_to_reject 에 문단 기호와 표지어(however · Instead)가 있는지"
+            "how_to_reject 에 문단 기호와 표지어(however · Instead)가 있는지",
+            "소거법 서술 유무 검사",
+            "정답 선지에 why_tempting/how_to_reject 가 섞이지 않았는지 확인",
+            "confirmed_at.note 로 옮긴 심리 서술이 근거 자리를 흐리지 않는지 확인"
           ]
         },
         {
@@ -881,15 +970,20 @@
           "verdict": "pass",
           "findings": [
             "3단계('제안한 물건 / 산 물건을 두 줄로')가 이 문항의 정답을 바로 만든다",
-            "선지가 짧아 90초 배분으로 충분하다"
+            "선지가 짧아 90초 배분으로 충분하다",
+            "학생이 근거 자리를 짚을 수 있도록 단락 표시와 문장 위치를 서술에 남겼는지 확인했다. 기존 심리 서술은 버리지 않고 confirmed_at.note 로 옮겨 실제 미끄러지는 자리를 보존했다."
           ],
           "checked": [
             "1단계가 지문 열람 전 동작인지",
             "금지 표현 문자열 검색",
-            "required_vocab 이 판정에 필요한지(objected·patterned 가 ⑤ 판정, nervousness 가 ④ 판정)"
+            "required_vocab 이 판정에 필요한지(objected·patterned 가 ⑤ 판정, nervousness 가 ④ 판정)",
+            "금지 표현 목록 대조",
+            "근거 위치(단락·문장) 표기 유무 확인",
+            "solve_procedure 와 새 서술이 어긋나지 않는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2024#45",
@@ -920,7 +1014,13 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "'talented swimmer', 'Olympic medalist', 'incredible recovery' 가 한 문단에 몰려 있어 낱말만 훑으면 성취 서사로 읽힌다."
+          "why_correct": "선지 ③은 'Clara는 올림픽 수영 경기에서 메달을 땄다' 인데, 지문의 'she had to give up her dream of becoming an Olympic medalist in swimming because of shoulder injuries' 에서 Olympic medalist 는 dream 의 내용어이고 그 꿈을 give up 했다고 진술한다. 어긋나는 성분은 사건의 성립 여부 하나다 — 선지는 무산된 목표를 일어난 사건으로 바꿔 놓았다.",
+          "confirmed_at": {
+            "note": "'talented swimmer', 'Olympic medalist', 'incredible recovery' 가 한 문단에 몰려 있어 낱말만 훑으면 성취 서사로 읽힌다.",
+            "sentence_index": [
+              14
+            ]
+          }
         },
         {
           "n": 4,
@@ -977,12 +1077,14 @@
           "verdict": "pass",
           "findings": [
             "인용이 (C) 첫 문장의 뒷절과 문자 그대로 일치한다",
-            "'꿈의 내용 vs 일어난 일'을 가르는 설계는 이 유형에서 반복되는 정답 제작 방식이라 유형 정의에 부합한다"
+            "'꿈의 내용 vs 일어난 일'을 가르는 설계는 이 유형에서 반복되는 정답 제작 방식이라 유형 정의에 부합한다",
+            "3차 재검수: why_correct 가 「왜 놓치기 쉬운가」(학습자 심리)로 쓰여 있어 revise → 「선지의 어느 성분이 지문의 어느 문장과 어떻게 어긋나는가」로 다시 씀. 옛 서술은 confirmed_at.note 로 옮겼다. pass."
           ],
           "checked": [
             "quote 를 지문 (C) 와 문자열 대조",
             "정답 3번과 평가원 정답표 대조",
-            "design_intent 가 이 문항 고유의 문장 구조(앞절 talented / 뒷절 give up)에 근거하는지"
+            "design_intent 가 이 문항 고유의 문장 구조(앞절 talented / 뒷절 give up)에 근거하는지",
+            "why_correct ↔ 선지 문자열 대조 · 인용 ↔ 코퍼스 지문 대조"
           ]
         },
         {
@@ -990,12 +1092,14 @@
           "verdict": "pass",
           "findings": [
             "오답 4개가 어휘 함정 · 주체 역전 · 시점 이동 · 등장인물 혼동으로 갈린다",
-            "선지 ②는 Emma 의 unlike 물음과 Clara 의 similar 답이라는 실제 대비에 근거한다"
+            "선지 ②는 Emma 의 unlike 물음과 Clara 의 similar 답이라는 실제 대비에 근거한다",
+            "3차 재검수: 새 why_correct 가 어긋나는 성분 하나를 지목하고 나머지가 지문과 일치함을 전제로 삼는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 중복 여부",
             "why_tempting 이 선지 텍스트와 지문 표현에 근거하는지",
-            "how_to_reject 에 문단 기호와 주어가 있는지"
+            "how_to_reject 에 문단 기호와 주어가 있는지",
+            "어긋나는 성분이 하나로 특정되는지 확인"
           ]
         },
         {
@@ -1003,15 +1107,18 @@
           "verdict": "pass",
           "findings": [
             "'무산·소망 표지(give up · dream of · hope)를 찾는다'는 동작이 이 유형 전체에 재사용된다 — 정답이 '일어나지 않은 일'인 문항이 자주 나온다",
-            "85초 배분 안에 4단계가 들어간다"
+            "85초 배분 안에 4단계가 들어간다",
+            "3차 재검수: 학습자가 선지의 그 성분과 지문 문장을 눈으로 맞대 볼 수 있는 형태인지 확인. pass."
           ],
           "checked": [
             "1단계가 지문 열람 전 동작인지",
             "금지 표현 문자열 검색",
-            "required_vocab 이 판정에 필요한지(medalist 는 정답 문장, recovery 는 ③의 유혹 경로)"
+            "required_vocab 이 판정에 필요한지(medalist 는 정답 문장, recovery 는 ③의 유혹 경로)",
+            "대조할 두 문장(선지·지문)이 모두 인용되어 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2409#45",

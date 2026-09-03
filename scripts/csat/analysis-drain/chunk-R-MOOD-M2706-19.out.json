@@ -19,7 +19,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "2문장의 '달리 할 일이 없어서 갔다' + 3~4문장의 시계 확인·멍한 시선·회색 창밖이 무료함을, 6~7문장의 입 벌림·믿기 어려움이 놀라움을 각각 직접 서술한다."
+          "why_correct": "선지 ①의 앞 항 'bored' 는 2문장 'he went because he had nothing better to do' 와 3문장의 'checked his watch'·'blankly looked out the window' 가 준다(할 일이 없어 따라감 + 멍한 시선). 전환점은 5문장 'the monorail rose above the clouds' 이고, 뒤 항 'amazed' 는 6문장의 신체 반응 'He opened his mouth' 와 7문장 'couldn’t believe how marvelous nature could be' 가 준다. 곧 'bored → amazed' 의 두 항이 전환점 앞뒤 문장에 각각 실려 있다."
         },
         {
           "n": 2,
@@ -93,12 +93,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 코퍼스 지문에 문자 그대로 있다(6문장 전체).",
-            "심경 변화 유형의 설계(앞 심경을 형용사가 아닌 행동으로 깔기)와 design_intent 가 일치한다."
+            "심경 변화 유형의 설계(앞 심경을 형용사가 아닌 행동으로 깔기)와 design_intent 가 일치한다.",
+            "3차 검수에서 revise: 대응은 있었으나 선지 쪽을 우리말로 뭉뚱그려 학습자가 두 쪽을 눈으로 맞출 수 없었다. 선지 문면을 그대로 인용하고 성분 대응을 낱말 단위로 다시 적었다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json M2706#19 지문과 문자열 대조",
             "R-MOOD 유형 정의(심경 쌍 A→B) 대조",
-            "앞 심경 근거 문장(2문장)이 실제로 존재하는지 확인"
+            "앞 심경 근거 문장(2문장)이 실제로 존재하는지 확인",
+            "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+            "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인"
           ]
         },
         {
@@ -106,12 +109,16 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 함정이 반대 진술·무관·지문 밖 상식·부분 사실로 서로 다르다.",
-            "⑤의 why_tempting 이 선지 텍스트(nervous, pleased) 양쪽을 모두 다룬다."
+            "⑤의 why_tempting 이 선지 텍스트(nervous, pleased) 양쪽을 모두 다룬다.",
+            "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 4종 중복 여부",
             "how_to_reject 마다 문장 번호가 있는지 확인",
-            "correct=1 이 코퍼스 정답 1과 일치하는지 대조"
+            "correct=1 이 코퍼스 정답 1과 일치하는지 대조",
+            "why_correct 에 소거법 서술이 없는지",
+            "오답 선지 필드 불변 확인",
+            "정답표 answer 와 correct 선지 번호 재대조"
           ]
         },
         {
@@ -119,15 +126,19 @@
           "verdict": "pass",
           "findings": [
             "5단계가 모두 지문을 읽기 전에 실행 가능한 지시로 되어 있다.",
-            "required_vocab 4개가 모두 선지 판별에 실제로 쓰인다(marvelous·blankly 는 지문, amazed·discouraged 는 선지)."
+            "required_vocab 4개가 모두 선지 판별에 실제로 쓰인다(marvelous·blankly 는 지문, amazed·discouraged 는 선지).",
+            "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다."
           ],
           "checked": [
             "solve_procedure 금지 표현 대조",
             "60초 안에 5단계가 끝나는지 실측 낭독",
-            "required_vocab 이 지문·선지에 실제로 있는지 문자열 확인"
+            "required_vocab 이 지문·선지에 실제로 있는지 문자열 확인",
+            "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+            "solve_procedure 불변 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2026#19",
@@ -145,7 +156,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "1·4·5문장이 ‘어디지?·Uncertain·unsure about which way to go’ 로 혼란을 직접 말하고, 10~11문장이 미소와 ‘At last’ 로 잔잔한 기쁨을 말한다."
+          "why_correct": "선지 ①의 앞 항 'confused' 는 1문장의 물음 '“Where could it be?”' 와 4문장 'Uncertain, she awkwardly looked around', 5문장 'unsure about which way to go' 가 준다. 전환점은 6문장 'Suddenly, Sophie saw a familiar sight' 이고, 뒤 항 'pleased' 는 10문장 'Sophie nodded, smiled brightly' 와 11문장 'At last, she had finally found the house' 가 준다. 'confused → pleased' 의 뒤 항이 excited 가 아니라 pleased 인 근거도 이 조용한 반응(고개 끄덕임·미소)이다."
         },
         {
           "n": 2,
@@ -220,11 +231,14 @@
           "verdict": "pass",
           "findings": [
             "quote 가 코퍼스 지문 10~11문장과 문자 그대로 일치한다.",
-            "design_intent 가 이 문항 고유의 배치(확신 어구를 전환 뒤에 둠)를 말한다."
+            "design_intent 가 이 문항 고유의 배치(확신 어구를 전환 뒤에 둠)를 말한다.",
+            "3차 검수에서 revise: 대응은 있었으나 선지 쪽을 우리말로 뭉뚱그려 학습자가 두 쪽을 눈으로 맞출 수 없었다. 선지 문면을 그대로 인용하고 성분 대응을 낱말 단위로 다시 적었다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2026#19 지문과 문자열 대조",
-            "‘Yes, this must be it’ 이 Suddenly 뒤에 오는지 문장 순서 확인"
+            "‘Yes, this must be it’ 이 Suddenly 뒤에 오는지 문장 순서 확인",
+            "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+            "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인"
           ]
         },
         {
@@ -232,12 +246,16 @@
           "verdict": "pass",
           "findings": [
             "1차 초안에서 ④와 ⑤에 모두 ‘부분 사실’ 을 달아 함정이 3종으로 줄었고, 두 선지의 오답 경로가 실제로 다르다(④는 심경 낱말의 자리 오판, ⑤는 부호쌍이 맞는데 강도가 과함)고 판단해 ⑤를 ‘강도 과장’ 으로 고쳤다 — 수정 후 4종.",
-            "④의 why_tempting 이 relieved 라는 선지 낱말에 직접 근거한다."
+            "④의 why_tempting 이 relieved 라는 선지 낱말에 직접 근거한다.",
+            "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 재검",
             "각 how_to_reject 의 문장 번호 존재 확인",
-            "correct=1 과 코퍼스 정답 1 대조"
+            "correct=1 과 코퍼스 정답 1 대조",
+            "why_correct 에 소거법 서술이 없는지",
+            "오답 선지 필드 불변 확인",
+            "정답표 answer 와 correct 선지 번호 재대조"
           ]
         },
         {
@@ -245,12 +263,15 @@
           "verdict": "pass",
           "findings": [
             "3단계의 ‘세로줄 긋기’ 가 지문을 읽기 전에도 실행 가능한 지시다.",
-            "required_vocab 이 4개로 짧고 모두 판별에 쓰인다."
+            "required_vocab 이 4개로 짧고 모두 판별에 쓰인다.",
+            "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다."
           ],
           "checked": [
             "금지 표현 대조",
             "5단계 소요 시간 추정(60초)",
-            "uncertain·faded 가 지문에, confused·embarrassed 가 선지에 있는지 확인"
+            "uncertain·faded 가 지문에, confused·embarrassed 가 선지에 있는지 확인",
+            "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+            "solve_procedure 불변 확인"
           ]
         }
       ]
@@ -285,7 +306,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "1·3·4문장의 떨림·‘Oh, no.’·땀난 손이 불안을, 6문장의 밝은 미소와 감탄이 큰 기쁨을 직접 서술한다."
+          "why_correct": "선지 ③의 앞 항 'nervous' 는 1문장 'Sierra shook as she walked back and forth', 3문장 'What if she thinks my paintings are horrible?', 4문장 'sweating hand' 라는 신체 반응이 준다. 전환점은 5문장의 교수 대사 'your paintings were amazing and so unique!' 이고, 뒤 항 'delighted' 는 6문장 'Sierra smiled brightly as she exclaimed' 와 'This is the best day ever!' 가 준다. 곧 'nervous → delighted' 의 두 항이 교수의 말 앞뒤로 갈린다."
         },
         {
           "n": 4,
@@ -345,12 +366,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 코퍼스 지문 6문장 앞부분과 문자 그대로 일치한다.",
-            "무표지 전환이라는 이 문항 고유의 설계가 design_intent 에 적혀 있다."
+            "무표지 전환이라는 이 문항 고유의 설계가 design_intent 에 적혀 있다.",
+            "3차 검수에서 revise: 대응은 있었으나 선지 쪽을 우리말로 뭉뚱그려 학습자가 두 쪽을 눈으로 맞출 수 없었다. 선지 문면을 그대로 인용하고 성분 대응을 낱말 단위로 다시 적었다."
           ],
           "checked": [
             "answer_locus.quote 문자열 대조",
             "지문에 전환 부사(Suddenly/Just then)가 없는지 검색",
-            "R-MOOD 유형 정의 대조"
+            "R-MOOD 유형 정의 대조",
+            "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+            "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인"
           ]
         },
         {
@@ -358,12 +382,16 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 함정이 어휘 함정·반대 진술·부분 사실·강도 과장으로 서로 다르다.",
-            "①의 why_tempting 이 지문 첫 낱말 shook 에 직접 근거한다."
+            "①의 why_tempting 이 지문 첫 낱말 shook 에 직접 근거한다.",
+            "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 확인",
             "how_to_reject 문장 번호 존재 확인",
-            "correct=3 과 코퍼스 정답 3 대조"
+            "correct=3 과 코퍼스 정답 3 대조",
+            "why_correct 에 소거법 서술이 없는지",
+            "오답 선지 필드 불변 확인",
+            "정답표 answer 와 correct 선지 번호 재대조"
           ]
         },
         {
@@ -371,15 +399,19 @@
           "verdict": "pass",
           "findings": [
             "3단계가 ‘전환 부사가 없을 때 무엇을 볼지’ 를 지정해 실행 가능하다.",
-            "지문이 짧아 55초 배분이 타당하다."
+            "지문이 짧아 55초 배분이 타당하다.",
+            "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다."
           ],
           "checked": [
             "금지 표현 대조",
             "단계별 실행 가능성 점검",
-            "required_vocab 4개가 지문·선지에 실제로 있는지 확인"
+            "required_vocab 4개가 지문·선지에 실제로 있는지 확인",
+            "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+            "solve_procedure 불변 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2606#19",
@@ -398,7 +430,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "3~5문장의 한숨·사라져 가는 꿈·‘한 마리도 못 잡았다’ 가 실망을, 7~9문장의 excitedly·심장 박동·큰 미소가 강한 흥분을 직접 서술한다."
+          "why_correct": "선지 ①의 앞 항 'disappointed' 는 3문장 'With a deep sigh', 4문장 'Her dream of catching a big fish was fading', 5문장 'I can’t believe I haven’t caught a fish yet' 이 준다. 전환점은 6문장 'the fishing line suddenly became tense' 이고, 뒤 항 'thrilled' 는 7문장 'Jessie excitedly held onto the fishing pole' 와 8문장 'Her eyes widened and her heart began to beat faster with excitement' 라는 신체 반응이 준다 — 'disappointed → thrilled' 의 뒤 항이 ⑤ 의 pleased 가 아닌 근거가 이 강도다."
         },
         {
           "n": 2,
@@ -473,12 +505,15 @@
           "verdict": "pass",
           "findings": [
             "초안은 청크 choices 배열(②가 ‘indifferent → discouraged ④ delighted → bored’ 로 뭉개지고 ③이 빈 문자열)을 그대로 믿어 ③·④ 판정이 어긋나 있었다. raw_block 의 이단 배치(①② 윗줄 / ④ 오른쪽 / ③ 아랫줄 / ⑤ 따로)에서 ① disappointed→thrilled, ② indifferent→discouraged, ③ jealous→anxious, ④ delighted→bored, ⑤ relieved→pleased 로 복원해 다시 썼다.",
-            "quote 는 복원 전후 모두 코퍼스 지문에 그대로 있다."
+            "quote 는 복원 전후 모두 코퍼스 지문에 그대로 있다.",
+            "3차 검수에서 revise: 대응은 있었으나 선지 쪽을 우리말로 뭉뚱그려 학습자가 두 쪽을 눈으로 맞출 수 없었다. 선지 문면을 그대로 인용하고 성분 대응을 낱말 단위로 다시 적었다."
           ],
           "checked": [
             "raw_block 의 선지 이단 배치를 번호 순으로 복원",
             "answer_locus.quote 를 corpus.json M2606#19 지문과 문자열 대조",
-            "복원한 ① 이 코퍼스 정답 1과 같은 심경 쌍인지 확인"
+            "복원한 ① 이 코퍼스 정답 1과 같은 심경 쌍인지 확인",
+            "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+            "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인"
           ]
         },
         {
@@ -486,12 +521,16 @@
           "verdict": "pass",
           "findings": [
             "복원 후 오답 4개 함정이 결말 미독·어휘 함정·반대 진술·부분 사실로 서로 다르다.",
-            "③의 근거를 ‘tense 의 주어가 낚싯줄’ 이라는 문법 사실로 잡아 배제가 검증 가능하다."
+            "③의 근거를 ‘tense 의 주어가 낚싯줄’ 이라는 문법 사실로 잡아 배제가 검증 가능하다.",
+            "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "복원된 선지 텍스트와 why_tempting 대조",
             "trap 라벨 중복 확인",
-            "correct=1 과 코퍼스 정답 1 대조"
+            "correct=1 과 코퍼스 정답 1 대조",
+            "why_correct 에 소거법 서술이 없는지",
+            "오답 선지 필드 불변 확인",
+            "정답표 answer 와 correct 선지 번호 재대조"
           ]
         },
         {
@@ -499,12 +538,15 @@
           "verdict": "pass",
           "findings": [
             "‘마지막 세 문장 먼저’ 순서가 이 문항의 조기 종결 함정에 직접 대응한다.",
-            "선지 인쇄가 뭉개진 회차이므로 번호와 쌍을 손으로 다시 적는 습관이 필요하다는 점이 절차 5단계에 녹아 있다."
+            "선지 인쇄가 뭉개진 회차이므로 번호와 쌍을 손으로 다시 적는 습관이 필요하다는 점이 절차 5단계에 녹아 있다.",
+            "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다."
           ],
           "checked": [
             "금지 표현 대조",
             "65초 배분 점검",
-            "required_vocab 이 지문(tense·fading)과 선지(thrilled·discouraged)에 있는지 확인"
+            "required_vocab 이 지문(tense·fading)과 선지(thrilled·discouraged)에 있는지 확인",
+            "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+            "solve_procedure 불변 확인"
           ]
         }
       ]
@@ -539,7 +581,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "1·4문장의 ‘certain’·‘absolutely sure’ 가 확신을, 6~7문장의 사라진 미소와 ‘That’s too bad’ 가 실망을 직접 서술한다."
+          "why_correct": "선지 ③의 앞 항 'confident' 는 1문장 'Peter was certain that his wife, Amy, was going to love his surprise' 와 4문장 'he was absolutely sure that she would love going to the new, five-star restaurant' 가 준다. 전환점은 6문장 'Unfortunately, his smile quickly disappeared' 이고, 뒤 항 'disappointed' 는 그 이유 'the restaurant was fully reserved' 와 7문장 '“That’s too bad,” he said quietly' 가 준다. 곧 'confident → disappointed' 는 부호가 +에서 -로 가는 유일한 선지이면서 두 항의 낱말까지 지문에 실려 있다."
         },
         {
           "n": 4,
@@ -600,12 +642,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 코퍼스 지문 6문장과 문자 그대로 일치한다.",
-            "‘분량이 많은 쪽을 답으로 고르는 습관’ 이라는 설계 서술이 이 문항의 문장 배분(5:2)과 맞는다."
+            "‘분량이 많은 쪽을 답으로 고르는 습관’ 이라는 설계 서술이 이 문항의 문장 배분(5:2)과 맞는다.",
+            "3차 검수에서 revise: 대응은 있었으나 선지 쪽을 우리말로 뭉뚱그려 학습자가 두 쪽을 눈으로 맞출 수 없었다. 선지 문면을 그대로 인용하고 성분 대응을 낱말 단위로 다시 적었다."
           ],
           "checked": [
             "answer_locus.quote 문자열 대조",
             "문장 수 세기(전환 앞 5문장 / 뒤 2문장)",
-            "R-MOOD 유형 정의 대조"
+            "R-MOOD 유형 정의 대조",
+            "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+            "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인"
           ]
         },
         {
@@ -613,12 +658,16 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ④와 ⑤에 모두 ‘부분 사실’ 을 달았다. ⑤는 앞자리(jealous)의 근거가 지문에 아예 없는 경우라 성격이 달라 ‘무관’ 으로 고쳤고, 그 결과 함정이 4종이 되었다.",
-            "①의 배제 근거가 ‘quietly 가 수식하는 대사 내용’ 이라 검증 가능하다."
+            "①의 배제 근거가 ‘quietly 가 수식하는 대사 내용’ 이라 검증 가능하다.",
+            "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 재검",
             "why_tempting 이 선지 낱말에 근거하는지 확인",
-            "correct=3 과 코퍼스 정답 3 대조"
+            "correct=3 과 코퍼스 정답 3 대조",
+            "why_correct 에 소거법 서술이 없는지",
+            "오답 선지 필드 불변 확인",
+            "정답표 answer 와 correct 선지 번호 재대조"
           ]
         },
         {
@@ -626,12 +675,15 @@
           "verdict": "pass",
           "findings": [
             "1단계에서 ‘부호가 같은 쌍’ 을 미리 표시하게 한 것이 이 유형 전반에 유용하다.",
-            "60초 안에 5단계가 끝난다."
+            "60초 안에 5단계가 끝난다.",
+            "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다."
           ],
           "checked": [
             "금지 표현 대조",
             "단계 실행 가능성 점검",
-            "required_vocab 이 지문(certain·reserved)과 선지(confident·disappointed)에 있는지 확인"
+            "required_vocab 이 지문(certain·reserved)과 선지(confident·disappointed)에 있는지 확인",
+            "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+            "solve_procedure 불변 확인"
           ]
         }
       ]
@@ -666,7 +718,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "1·4·5문장의 chaotic·시계 확인·‘Worried’ 가 초조를, 7문장의 한숨과 ‘felt at ease’ 가 안도를 직접 서술한다."
+          "why_correct": "선지 ③의 앞 항 'anxious' 는 1문장 'The whole morning had been chaotic', 4문장 'Sophie kept glancing at her watch', 5문장 'Worried that she could not get to the boarding gate in time' 이 준다. 전환점은 6문장의 안내 방송 'her flight had been “delayed.”' 이고, 뒤 항 'relieved' 는 7문장 'Letting out a deep sigh, she finally felt at ease' 의 한숨과 'at ease' 가 준다. 지연 소식이 여기서는 실망이 아니라 안도로 이어지므로 'anxious → relieved' 가 두 항 모두 맞는다."
         },
         {
           "n": 4,
@@ -723,12 +775,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 코퍼스 지문 7~8문장에 문자 그대로 있다(8문장 앞부분까지 이어 붙였고 문자열 대조로 확인).",
-            "‘사건의 통념 대 인물의 반응’ 이라는 설계 축이 이 문항 고유의 것이다."
+            "‘사건의 통념 대 인물의 반응’ 이라는 설계 축이 이 문항 고유의 것이다.",
+            "3차 검수에서 revise: 대응은 있었으나 선지 쪽을 우리말로 뭉뚱그려 학습자가 두 쪽을 눈으로 맞출 수 없었다. 선지 문면을 그대로 인용하고 성분 대응을 낱말 단위로 다시 적었다."
           ],
           "checked": [
             "answer_locus.quote 문자열 대조",
             "6문장(delayed)과 7문장(at ease)의 인접 여부 확인",
-            "R-MOOD 유형 정의 대조"
+            "R-MOOD 유형 정의 대조",
+            "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+            "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인"
           ]
         },
         {
@@ -736,12 +791,16 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 함정이 반대 진술·어휘 함정·지문 밖 상식·부분 사실로 서로 다르다.",
-            "④의 why_tempting 이 지문 낱말 delayed 에 직접 근거한다."
+            "④의 why_tempting 이 지문 낱말 delayed 에 직접 근거한다.",
+            "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 확인",
             "how_to_reject 문장 번호 존재 확인",
-            "correct=3 과 코퍼스 정답 3 대조"
+            "correct=3 과 코퍼스 정답 3 대조",
+            "why_correct 에 소거법 서술이 없는지",
+            "오답 선지 필드 불변 확인",
+            "정답표 answer 와 correct 선지 번호 재대조"
           ]
         },
         {
@@ -749,12 +808,15 @@
           "verdict": "pass",
           "findings": [
             "초안 절차가 5단계였는데 4·5단계가 ‘강도 비교’ 와 ‘근거 짚기’ 로 겹쳐 60초를 넘겼다. 이 문항은 남는 후보가 강도 차이가 아니라 앞 부호로 갈리므로 두 단계를 하나로 합쳐 4단계로 줄였다.",
-            "3단계에 ‘사건만으로 부호를 정하지 않는다’ 는 금지 지시를 넣어 이 문항의 핵심 함정을 절차에 박았다."
+            "3단계에 ‘사건만으로 부호를 정하지 않는다’ 는 금지 지시를 넣어 이 문항의 핵심 함정을 절차에 박았다.",
+            "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다."
           ],
           "checked": [
             "금지 표현 대조",
             "단계별 소요 시간 추정 후 재배분",
-            "required_vocab 이 지문(chaotic·delayed)과 선지(anxious·relieved)에 있는지 확인"
+            "required_vocab 이 지문(chaotic·delayed)과 선지(anxious·relieved)에 있는지 확인",
+            "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+            "solve_procedure 불변 확인"
           ]
         }
       ]
@@ -776,7 +838,14 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "책장을 다급히 넘기다 책을 덮고 책상을 치며 ‘This is impossible!’ 이라고 외치는 장면이 좌절을, 마지막 대사의 ‘Thank you’ 가 고마움을 직접 서술한다."
+          "why_correct": "선지 ①의 앞 항 'frustrated' 는 1문장 'desperately turning the pages of his science book', 2문장 'he had no idea where to start', 3문장 'he closed his book, hit the table, and shouted, “This is impossible!”' 이 준다 — 책상을 치는 신체 반응과 '불가능하다' 는 외침이 두려움이 아니라 막힘·좌절을 가리킨다. 전환점은 4문장 'His sister, Amelia, drawn by the noise, came into his room.' 부터 7문장의 제안까지이고, 뒤 항 'grateful' 은 9문장의 대사 'Thank you. You are the best sister ever!' 가 직접 준다 — 감탄의 대상이 자기 성취가 아니라 누나이고 인사말이 감사이므로 뒤 칸이 thrilled 나 indifferent 로 대체되지 않는다. 곧 'frustrated → grateful' 의 두 항이 각각 3문장과 9문장에 실려 있다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3,
+              9
+            ],
+            "note": "전환 부사가 없어 앞뒤 경계를 사건(누나의 등장)으로 잡아야 한다. 마지막 대사에 감탄부호가 셋이라 강도만 보면 ③의 thrilled 쪽으로 끌린다."
+          }
         },
         {
           "n": 2,
@@ -851,12 +920,15 @@
           "verdict": "pass",
           "findings": [
             "초안 인용을 ‘he closed his book, hit the table, and shouted’ 로 잡았는데, 이 문장은 이단 인쇄에서 줄이 바뀌며 왼쪽 단(듣기 15번 선지 ‘③ Get the dust off your clothes…’)이 사이에 끼어 회차 원문 창에서 이어지지 않는다. 오른쪽 단만으로 이어지는 구간(마지막 두 줄)으로 인용을 바꿨고 예행 대조에서 확인했다.",
-            "코퍼스 passage 가 ‘Jason: ______ Timothy sat at his desk…’ 로 잘려 있어 raw_block 의 오른쪽 단에서 본문을 복원했다(body_recovered)."
+            "코퍼스 passage 가 ‘Jason: ______ Timothy sat at his desk…’ 로 잘려 있어 raw_block 의 오른쪽 단에서 본문을 복원했다(body_recovered).",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 두 칸을 짚기는 하나 선지의 낱말(frustrated · grateful)을 대지 않고 줄거리로만 말해 반쪽이었다. 같은 청크의 다른 문항과 같은 틀(앞 항 근거 · 전환점 · 뒤 항 근거)로 다시 썼다."
           ],
           "checked": [
             "회차 원문 M2506.txt 169~183줄에서 오른쪽 단만 이어지는 구간 확인",
             "게이트와 같은 방식(회차 원문 창)으로 인용 예행 대조",
-            "raw_block 에서 선지 5개 복원 후 정답 1(frustrated → grateful)과 대조"
+            "raw_block 에서 선지 5개 복원 후 정답 1(frustrated → grateful)과 대조",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
           ]
         },
         {
@@ -864,12 +936,15 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 함정이 어휘 함정·부분 사실·지문 밖 상식·강도 과장으로 서로 다르다.",
-            "③은 뒷자리가 정답과 같은 계열이라 앞자리로 갈라야 하는 유형인데 how_to_reject 가 앞자리 근거를 지목한다."
+            "③은 뒷자리가 정답과 같은 계열이라 앞자리로 갈라야 하는 유형인데 how_to_reject 가 앞자리 근거를 지목한다.",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "복원한 선지 텍스트와 why_tempting 대조",
             "trap 라벨 중복 확인",
-            "correct=1 과 코퍼스 정답 1 대조"
+            "correct=1 과 코퍼스 정답 1 대조",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
           ]
         },
         {
@@ -877,12 +952,14 @@
           "verdict": "pass",
           "findings": [
             "5단계의 ‘상대를 향한 감정 대 자기 상태’ 기준이 grateful/thrilled 를 가르는 실행 가능한 규칙이다.",
-            "이단 인쇄 회차라 지문 줄 사이에 다른 문항 선지가 끼는 것을 미리 알려 줄 필요가 있다 — difficulty.drivers 에 적혀 있다."
+            "이단 인쇄 회차라 지문 줄 사이에 다른 문항 선지가 끼는 것을 미리 알려 줄 필요가 있다 — difficulty.drivers 에 적혀 있다.",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
           ],
           "checked": [
             "금지 표현 대조",
             "65초 배분 점검",
-            "required_vocab 이 지문(desperately·solution)과 선지(grateful·envious)에 있는지 확인"
+            "required_vocab 이 지문(desperately·solution)과 선지(grateful·envious)에 있는지 확인",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
           ]
         }
       ]
@@ -902,7 +979,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "2~4문장이 시계 확인·지각 걱정·‘couldn’t feel at ease’ 로 초조를, 8문장이 깊은 숨과 ‘able to relax’ 로 안도를 직접 서술한다."
+          "why_correct": "선지 ①의 앞 항 'nervous' 는 2문장 'He kept looking back and forth between his watch and the direction the bus would come from', 3문장 'I can’t be late on my first day', 4문장 'David couldn’t feel at ease' 가 준다. 전환점은 5문장 'he saw a different bus coming that was going right to his work' 이고, 뒤 항 'relieved' 는 7문장 'Phew! Luckily, this bus came just in time' 과 8문장 'took a deep breath, finally able to relax' 라는 신체 반응이 준다. 곧 'nervous → relieved' 의 두 항이 각각 다른 문장에 명시돼 있다."
         },
         {
           "n": 2,
@@ -972,12 +1049,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 코퍼스 지문 마지막 문장과 문자 그대로 일치한다.",
-            "design_intent 가 ‘different bus’ 라는 이 문항 고유의 미끼를 지목한다."
+            "design_intent 가 ‘different bus’ 라는 이 문항 고유의 미끼를 지목한다.",
+            "3차 검수에서 revise: 대응은 있었으나 선지 쪽을 우리말로 뭉뚱그려 학습자가 두 쪽을 눈으로 맞출 수 없었다. 선지 문면을 그대로 인용하고 성분 대응을 낱말 단위로 다시 적었다."
           ],
           "checked": [
             "answer_locus.quote 문자열 대조",
             "5문장에 ‘going right to his work’ 가 실제로 있는지 확인",
-            "R-MOOD 유형 정의 대조"
+            "R-MOOD 유형 정의 대조",
+            "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+            "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인"
           ]
         },
         {
@@ -985,12 +1065,16 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 함정이 무관·반대 진술·강도 과장·지문 밖 상식으로 서로 다르다.",
-            "④와 ⑤가 모두 강도 문제로 보이지만 ⑤는 앞자리가 통념(버스 기다림=지루함)에서 나온다는 점에서 경로가 다르다."
+            "④와 ⑤가 모두 강도 문제로 보이지만 ⑤는 앞자리가 통념(버스 기다림=지루함)에서 나온다는 점에서 경로가 다르다.",
+            "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 확인",
             "④·⑤ 오답 경로가 실제로 다른지 재검",
-            "correct=1 과 코퍼스 정답 1 대조"
+            "correct=1 과 코퍼스 정답 1 대조",
+            "why_correct 에 소거법 서술이 없는지",
+            "오답 선지 필드 불변 확인",
+            "정답표 answer 와 correct 선지 번호 재대조"
           ]
         },
         {
@@ -998,15 +1082,19 @@
           "verdict": "pass",
           "findings": [
             "1단계에서 뒷자리 형용사를 강약으로 미리 갈라 두게 한 것이 이 문항의 실제 갈림(안도 대 기쁨)에 바로 쓰인다.",
-            "55초 안에 4단계가 끝난다."
+            "55초 안에 4단계가 끝난다.",
+            "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다."
           ],
           "checked": [
             "금지 표현 대조",
             "단계 실행 가능성 점검",
-            "required_vocab 이 지문(unoccupied·at ease)과 선지(relieved·indifferent)에 있는지 확인"
+            "required_vocab 이 지문(unoccupied·at ease)과 선지(relieved·indifferent)에 있는지 확인",
+            "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+            "solve_procedure 불변 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2409#19",
@@ -1206,7 +1294,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "2~3문장이 실망과 헛수고를, 5~6문장이 ‘felt confident’·‘now motivated’·미소를 직접 서술한다."
+          "why_correct": "선지 ③의 앞 항 'frustrated' 는 2문장 'To her disappointment, she had failed to beat her personal best time, again' 과 3문장 'it was all for nothing' 이 준다. 전환점은 4문장에서 팀 동료가 건네는 말 'your performances have improved dramatically' 이고, 뒤 항 'encouraged' 는 5문장 'After hearing his comments, she felt confident about herself' 와 6문장 'now motivated to keep pushing for her goal, replied with a smile' 가 준다. 감정의 출처가 남의 말이라는 점이 'frustrated → encouraged' 의 뒤 항을 excited 가 아닌 encouraged 로 고정한다."
         },
         {
           "n": 4,
@@ -1266,12 +1354,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 코퍼스 지문 5~6문장과 문자 그대로 일치한다.",
-            "‘대사의 주인과 심경의 주인을 가른다’ 는 설계 서술이 이 문항의 구성과 맞는다."
+            "‘대사의 주인과 심경의 주인을 가른다’ 는 설계 서술이 이 문항의 구성과 맞는다.",
+            "3차 검수에서 revise: 대응은 있었으나 선지 쪽을 우리말로 뭉뚱그려 학습자가 두 쪽을 눈으로 맞출 수 없었다. 선지 문면을 그대로 인용하고 성분 대응을 낱말 단위로 다시 적었다."
           ],
           "checked": [
             "answer_locus.quote 문자열 대조",
             "Ken 의 대사가 4문장 안에 끝나는지 확인",
-            "R-MOOD 유형 정의 대조"
+            "R-MOOD 유형 정의 대조",
+            "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+            "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인"
           ]
         },
         {
@@ -1279,12 +1370,16 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 함정이 결말 미독·지문 밖 상식·강도 과장·부분 사실로 서로 다르다.",
-            "⑤는 뒷자리가 정답과 같은 부호라 앞자리와 계기 서술로 갈라야 하는데 how_to_reject 가 둘 다 짚는다."
+            "⑤는 뒷자리가 정답과 같은 부호라 앞자리와 계기 서술로 갈라야 하는데 how_to_reject 가 둘 다 짚는다.",
+            "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 확인",
             "how_to_reject 의 문장 번호 존재 확인",
-            "correct=3 과 코퍼스 정답 3 대조"
+            "correct=3 과 코퍼스 정답 3 대조",
+            "why_correct 에 소거법 서술이 없는지",
+            "오답 선지 필드 불변 확인",
+            "정답표 answer 와 correct 선지 번호 재대조"
           ]
         },
         {
@@ -1292,15 +1387,19 @@
           "verdict": "pass",
           "findings": [
             "5단계의 ‘계기가 다른 사람의 말인지’ 기준이 encouraged/excited 를 가르는 실행 가능한 규칙이다.",
-            "1단계에서 다른 사람 대사 속 형용사를 미리 배제하게 한 것이 이 유형의 인물 혼동을 막는다."
+            "1단계에서 다른 사람 대사 속 형용사를 미리 배제하게 한 것이 이 유형의 인물 혼동을 막는다.",
+            "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다."
           ],
           "checked": [
             "금지 표현 대조",
             "65초 배분 점검",
-            "required_vocab 이 지문(dramatically·motivated)과 선지(encouraged·regretful)에 있는지 확인"
+            "required_vocab 이 지문(dramatically·motivated)과 선지(encouraged·regretful)에 있는지 확인",
+            "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+            "solve_procedure 불변 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2309#19",

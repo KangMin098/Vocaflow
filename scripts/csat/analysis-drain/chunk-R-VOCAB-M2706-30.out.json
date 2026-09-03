@@ -40,7 +40,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "libretto 라는 낯선 낱말과 book 이라는 익숙한 낱말이 붙어 있어 두꺼운 책이라는 그림이 먼저 떠오른다."
+          "why_correct": "근거 문장 앞의 4번 문장이 뮤지컬 대본을 'the diminished emphasis on dialogue' 라고 못 박는데, 선지 ④가 든 절은 그 남은 대사의 분량을 'what is left is the dialogue, known as the book or libretto, and it can be very thick.' 로 준다. 같은 대상(dialogue)의 양을 diminished 와 thick 이 정반대로 매기고, 문장 첫머리 For example 이 앞 문장의 예시임을 선언해 두 문장의 부호가 같아야 하므로 어긋나는 낱말은 thick 하나다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4,
+              5
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리(3차에 why_correct 에서 이관): libretto 라는 낯선 낱말과 book 이라는 익숙한 낱말이 붙어 있어 두꺼운 책이라는 그림이 먼저 떠오른다."
+          }
         },
         {
           "n": 5,
@@ -91,12 +98,15 @@
           "verdict": "pass",
           "findings": [
             "인용을 밑줄 ④가 든 문장 통째로 잡아 근거 자리가 명확하다",
-            "설계 축은 반의어 치환 — 이 유형의 전형이다"
+            "설계 축은 반의어 치환 — 이 유형의 전형이다",
+            "3차 재검수 — why_correct 가 정답 근거가 아니라 「왜 놓치기 쉬운가」(학습자 심리)여서 revise 로 반려했다. 근거 문장과 정답 선지 문자열의 대응으로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 M2706#30 passage 와 문자열 대조",
             "밑줄 다섯 위치가 코퍼스 지문의 원 번호와 일치하는지 대조",
-            "유형 정의(문맥상 쓰임이 적절하지 않은 것) 대조"
+            "유형 정의(문맥상 쓰임이 적절하지 않은 것) 대조",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -104,12 +114,15 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 역설/전이/대조쌍/역접절단으로 서로 다르다",
-            "④의 why_tempting 이 libretto 라는 실제 선지 문자열에 근거한다"
+            "④의 why_tempting 이 libretto 라는 실제 선지 문자열에 근거한다",
+            "3차 재검수 — 새 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 정답 선지 자체의 어긋난 낱말을 지목하는지 확인했다. 이관된 심리 서술은 confirmed_at.note 에 보존했다."
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부 확인",
             "why_tempting 이 각 선지 문자열에 실제로 있는 낱말을 지목하는지 확인",
-            "how_to_reject 마다 문장 번호 또는 접속 표지 위치가 적혔는지 확인"
+            "how_to_reject 마다 문장 번호 또는 접속 표지 위치가 적혔는지 확인",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -117,15 +130,18 @@
           "verdict": "pass",
           "findings": [
             "4단계 모두 지문을 아직 안 읽은 상태에서 순서대로 실행 가능하다",
-            "110초가 접속 표지 표시 30초 + 부호 배정 40초 + 대조 40초로 들어간다"
+            "110초가 접속 표지 표시 30초 + 부호 배정 40초 + 대조 40초로 들어간다",
+            "3차 재검수 — 학생이 눈으로 맞춰 볼 두 자리(지문 근거 문구·정답 선지 문구)가 모두 적혔는지 봤다. solve_procedure·time_budget_sec·required_vocab 은 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "solve_procedure 를 금지 표현 목록과 대조",
             "각 단계가 지문 선행 지식 없이 실행 가능한지 확인",
-            "required_vocab 다섯이 정답 판정 또는 오답 배제에 실제로 쓰이는지 확인"
+            "required_vocab 다섯이 정답 판정 또는 오답 배제에 실제로 쓰이는지 확인",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2026#30",
@@ -171,7 +187,13 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "앞 문장들이 상황윤리를 기준을 버리는 태도로 그려 왔기 때문에 버린다 계열 동사가 낯익게 들린다."
+          "why_correct": "밑줄이 든 목적절 'trying to get away with as many actions on the field or court as possible to abandon competitive advantages' 에서 to 부정사는 반칙을 최대한 들키지 않고 해내는 행위의 목적 자리다. 그 목적은 이득을 얻는 쪽이어야 하는데 선지 ⑤의 'abandon competitive advantages' 는 그 이득을 버린다는 정반대 값이고, 3번 문장의 the end justifies the means 와 7번 문장의 winning is more important 도 모두 이득 확보 방향이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              8
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리(3차에 why_correct 에서 이관): 앞 문장들이 상황윤리를 기준을 버리는 태도로 그려 왔기 때문에 버린다 계열 동사가 낯익게 들린다."
+          }
         }
       ],
       "solve_procedure": [
@@ -215,12 +237,15 @@
           "verdict": "pass",
           "findings": [
             "코퍼스 passage 필드가 두 문장에서 잘려 있고 나머지 본문이 choices 배열에 이어져 있다 — 인용은 이어 붙인 본문에서 문자열 대조로 확인했다",
-            "마지막 문장 목적절 하나로 승부를 보는 전형적 배치다"
+            "마지막 문장 목적절 하나로 승부를 보는 전형적 배치다",
+            "3차 재검수 — why_correct 가 정답 근거가 아니라 「왜 놓치기 쉬운가」(학습자 심리)여서 revise 로 반려했다. 근거 문장과 정답 선지 문자열의 대응으로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 passage + choices 이어 붙인 본문과 문자열 대조",
             "밑줄 다섯의 원문 위치를 choices 배열 경계에서 복원해 확인",
-            "유형 정의 대조"
+            "유형 정의 대조",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -228,12 +253,15 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 형용사 강도 / 관용구 / 인과 방향 / 부호 착시로 갈린다",
-            "④의 배제 근거를 more important than 이라는 구문 위치로 못 박았다"
+            "④의 배제 근거를 more important than 이라는 구문 위치로 못 박았다",
+            "3차 재검수 — 새 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 정답 선지 자체의 어긋난 낱말을 지목하는지 확인했다. 이관된 심리 서술은 confirmed_at.note 에 보존했다."
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부 확인",
             "why_tempting 이 각 밑줄 인근 실제 문자열에 근거하는지 확인",
-            "how_to_reject 에 문장 번호 또는 구문 위치가 있는지 확인"
+            "how_to_reject 에 문장 번호 또는 구문 위치가 있는지 확인",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -241,15 +269,18 @@
           "verdict": "pass",
           "findings": [
             "1단계가 정답을 전제하지 않고 한 낱말 메모로 시작해 실행 가능하다",
-            "농구 예시가 길지만 2단계가 밑줄 인근만 보게 해 115초에 들어간다"
+            "농구 예시가 길지만 2단계가 밑줄 인근만 보게 해 115초에 들어간다",
+            "3차 재검수 — 학생이 눈으로 맞춰 볼 두 자리(지문 근거 문구·정답 선지 문구)가 모두 적혔는지 봤다. solve_procedure·time_budget_sec·required_vocab 은 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "금지 표현 목록 대조",
             "단계별 실행 가능성 확인",
-            "required_vocab 이 정답 판정에 실제로 필요한 다섯인지 확인"
+            "required_vocab 이 정답 판정에 실제로 필요한 다섯인지 확인",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2609#30",
@@ -295,7 +326,14 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "until proven otherwise 라는 유보 표현이 붙어 있어 일단은 대수롭지 않게 본다는 진술이 절차적으로 그럴듯하게 들린다."
+          "why_correct": "바로 다음 문장이 backwaters·wetlands·braids·swamps 를 'presumed by soft-path engineers to be ecologically important' 라고 못 박는데, 선지 ⑤가 든 절은 같은 주어(soft-path engineering)가 하천의 변동성을 'insignificant until proven otherwise' 로 받는다고 한다. ecologically important 와 insignificant 는 같은 대상에 정반대 값이고, 문두 In contrast to hard-path engineering 이 hard-path 의 all undesirable 과 반대 값을 요구하므로 어긋나는 낱말은 insignificant 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              9,
+              10
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리(3차에 why_correct 에서 이관): until proven otherwise 라는 유보 표현이 붙어 있어 일단은 대수롭지 않게 본다는 진술이 절차적으로 그럴듯하게 들린다."
+          }
         }
       ],
       "solve_procedure": [
@@ -339,12 +377,15 @@
           "verdict": "pass",
           "findings": [
             "인용이 ⑤ 밑줄 문장 통째이고 판정 근거가 바로 다음 문장에 있어 근거 자리가 둘로 나뉜다 — reasoning 에 두 자리를 모두 적었다",
-            "개입 강도 사다리 설계는 이 문항 고유의 것이고 유형 일반론이 아니다"
+            "개입 강도 사다리 설계는 이 문항 고유의 것이고 유형 일반론이 아니다",
+            "3차 재검수 — why_correct 가 정답 근거가 아니라 「왜 놓치기 쉬운가」(학습자 심리)여서 revise 로 반려했다. 근거 문장과 정답 선지 문자열의 대응으로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 M2609#30 passage 와 문자열 대조",
             "밑줄 다섯 번호와 위치 대조",
-            "유형 정의 대조"
+            "유형 정의 대조",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -352,12 +393,15 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 척도 단계 / 비교급 수식 / 동사-맥락 충돌 / 칭찬-겸양으로 갈린다",
-            "①의 배제 근거를 앞 문장의 redirect the trail 로 위치와 함께 지목했다"
+            "①의 배제 근거를 앞 문장의 redirect the trail 로 위치와 함께 지목했다",
+            "3차 재검수 — 새 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 정답 선지 자체의 어긋난 낱말을 지목하는지 확인했다. 이관된 심리 서술은 confirmed_at.note 에 보존했다."
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부 확인",
             "각 why_tempting 이 해당 밑줄 문장의 실제 낱말을 지목하는지 확인",
-            "how_to_reject 의 위치 명시 여부 확인"
+            "how_to_reject 의 위치 명시 여부 확인",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -365,15 +409,18 @@
           "verdict": "pass",
           "findings": [
             "두 칸 그리기가 이 유형의 대조 구조를 손으로 잡게 해 실행 가능하다",
-            "110초에 두 칸 20초 + 사다리 30초 + 배정 40초 + 확인 20초로 들어간다"
+            "110초에 두 칸 20초 + 사다리 30초 + 배정 40초 + 확인 20초로 들어간다",
+            "3차 재검수 — 학생이 눈으로 맞춰 볼 두 자리(지문 근거 문구·정답 선지 문구)가 모두 적혔는지 봤다. solve_procedure·time_budget_sec·required_vocab 은 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "금지 표현 목록 대조",
             "단계별 실행 가능성 확인",
-            "required_vocab 다섯이 정답 판정과 오답 배제에 실제로 쓰이는지 확인"
+            "required_vocab 다섯이 정답 판정과 오답 배제에 실제로 쓰이는지 확인",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2606#30",
@@ -419,7 +466,14 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "impression 앞에 붙는 형용사로 temporary 가 문법적으로 자연스럽고, 한 문장만 떼어 읽으면 어색한 데가 없다."
+          "why_correct": "2번 문장이 브랜드의 목적을 'makes them memorable and distinct from their competitors' 로 규정했는데, 선지 ⑤가 든 마지막 문장은 unique voice 를 기르는 목적을 'temporary impression on your audience' 로 준다. 독자에게 남는 인상이라는 같은 자리에 memorable(기억에 남는)과 temporary(잠깐인)가 정반대 값으로 놓이므로 lasting 계열이 올 자리다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              7
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리(3차에 why_correct 에서 이관): impression 앞에 붙는 형용사로 temporary 가 문법적으로 자연스럽고, 한 문장만 떼어 읽으면 어색한 데가 없다."
+          }
         }
       ],
       "solve_procedure": [
@@ -463,12 +517,15 @@
           "verdict": "pass",
           "findings": [
             "인용이 마지막 문장 통째이고 판정 근거는 2번 문장의 memorable 이라 sentence_index 를 [2, 7] 로 잡았다",
-            "이 문항 고유의 설계(기업가-학자 겹치기)를 의도 서술에 담았다"
+            "이 문항 고유의 설계(기업가-학자 겹치기)를 의도 서술에 담았다",
+            "3차 재검수 — why_correct 가 정답 근거가 아니라 「왜 놓치기 쉬운가」(학습자 심리)여서 revise 로 반려했다. 근거 문장과 정답 선지 문자열의 대응으로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 M2606#30 passage 와 문자열 대조",
             "sentence_index 두 자리가 실제 근거 문장인지 대조",
-            "유형 정의 대조"
+            "유형 정의 대조",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -476,12 +533,15 @@
           "verdict": "pass",
           "findings": [
             "수정 후 재검수 — 처음에 ①의 how_to_reject 가 앞 문장이라고만 되어 있어 학습자가 어느 문장인지 셀 수 없었다. 2번 문장의 distinct from their competitors 로 위치를 못 박아 고쳤다",
-            "오답 넷의 라벨이 범위 착시 / 양보절 / 지시 대상 / 지문 밖 상식으로 갈린다"
+            "오답 넷의 라벨이 범위 착시 / 양보절 / 지시 대상 / 지문 밖 상식으로 갈린다",
+            "3차 재검수 — 새 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 정답 선지 자체의 어긋난 낱말을 지목하는지 확인했다. 이관된 심리 서술은 confirmed_at.note 에 보존했다."
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부 확인",
             "how_to_reject 네 건 모두에 문장 번호나 인용 문자열이 있는지 재확인",
-            "why_tempting 이 선지 문자열에 근거하는지 확인"
+            "why_tempting 이 선지 문자열에 근거하는지 확인",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -489,12 +549,14 @@
           "verdict": "pass",
           "findings": [
             "1단계 형용사 뽑기가 지문 첫 두 문장만으로 실행 가능하다",
-            "3단계가 양보절 예외를 명시해 ②에서 헛되이 시간을 쓰지 않게 한다"
+            "3단계가 양보절 예외를 명시해 ②에서 헛되이 시간을 쓰지 않게 한다",
+            "3차 재검수 — 학생이 눈으로 맞춰 볼 두 자리(지문 근거 문구·정답 선지 문구)가 모두 적혔는지 봤다. solve_procedure·time_budget_sec·required_vocab 은 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "금지 표현 목록 대조",
             "단계별 실행 가능성 확인",
-            "required_vocab 다섯이 지문에 실제로 있는 낱말인지 문자열 확인"
+            "required_vocab 다섯이 지문에 실제로 있는 낱말인지 문자열 확인",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
       ],
@@ -537,7 +599,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "바로 앞 삽입구가 죄책감을 high motivation for goal-achievement 와 묶어 두었기 때문에, 결과절에 강한 동기가 오는 것이 문장 안에서는 매끄럽다."
+          "why_correct": "선지 ④가 든 절 'stronger motivation and performance in the pursuit of competitive goals' 바로 뒤 문장이 같은 감정 상태를 'Consequences of this emotional state inclu lower task motivation in a competition' 으로 받는다. this emotional state 가 가리키는 것이 앞 절의 Feelings of guilt 이므로 한 감정의 결과가 stronger 와 lower 로 갈릴 수 없고, 1번 문장의 competitive incentives resulted in lower task effort 도 lower 쪽을 못 박는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6,
+              7
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리(3차에 why_correct 에서 이관): 바로 앞 삽입구가 죄책감을 high motivation for goal-achievement 와 묶어 두었기 때문에, 결과절에 강한 동기가 오는 것이 문장 안에서는 매끄럽다."
+          }
         },
         {
           "n": 5,
@@ -588,12 +657,15 @@
           "verdict": "pass",
           "findings": [
             "수정 후 재검수 — 처음에는 인용을 ④ 밑줄 문장 하나로만 잡았는데, 그 문장만으로는 삽입구 때문에 stronger 가 오히려 자연스러워 근거가 반쪽이었다. 다음 문장의 lower task motivation 까지 이어 붙여 근거를 닫았다",
-            "지문에 inclu 라는 OCR 손상이 있으나 include 로 읽히고 판정에 영향이 없다"
+            "지문에 inclu 라는 OCR 손상이 있으나 include 로 읽히고 판정에 영향이 없다",
+            "3차 재검수 — why_correct 가 정답 근거가 아니라 「왜 놓치기 쉬운가」(학습자 심리)여서 revise 로 반려했다. 근거 문장과 정답 선지 문자열의 대응으로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 2025#30 passage 와 문자열 대조",
             "삽입구를 지운 뼈대가 실제로 반대 방향인지 재확인",
-            "유형 정의 대조"
+            "유형 정의 대조",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -601,12 +673,15 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 대립항 / 내부-외부 축 / 비교 방향 / 열거 부호로 갈린다",
-            "③의 배제 근거를 다음 문장의 감정 목록으로 위치와 함께 지목했다"
+            "③의 배제 근거를 다음 문장의 감정 목록으로 위치와 함께 지목했다",
+            "3차 재검수 — 새 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 정답 선지 자체의 어긋난 낱말을 지목하는지 확인했다. 이관된 심리 서술은 confirmed_at.note 에 보존했다."
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부 확인",
             "why_tempting 이 각 밑줄 문장의 실제 낱말에 근거하는지 확인",
-            "how_to_reject 의 문장 번호 명시 여부 확인"
+            "how_to_reject 의 문장 번호 명시 여부 확인",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -614,12 +689,14 @@
           "verdict": "pass",
           "findings": [
             "2단계 삽입구 괄호 치기가 이 문항의 핵심 조작을 손으로 무력화한다",
-            "115초에 화살표 15초 + 삽입구 정리 40초 + 대조 40초 + 확인 20초로 들어간다"
+            "115초에 화살표 15초 + 삽입구 정리 40초 + 대조 40초 + 확인 20초로 들어간다",
+            "3차 재검수 — 학생이 눈으로 맞춰 볼 두 자리(지문 근거 문구·정답 선지 문구)가 모두 적혔는지 봤다. solve_procedure·time_budget_sec·required_vocab 은 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "금지 표현 목록 대조",
             "단계별 실행 가능성 확인",
-            "required_vocab 다섯이 지문에 있는 낱말인지 문자열 확인"
+            "required_vocab 다섯이 지문에 있는 낱말인지 문자열 확인",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
       ],
@@ -669,7 +746,14 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "바로 앞 4번 밑줄이 든 문장이 more rational 로 끝나 rational 계열 낱말의 잔상이 남고, 우리 마음에 합리성이 내장돼 있다는 말도 그 자체로는 그럴듯하다."
+          "why_correct": "3번 문장이 We are, in fact, predictably irrational 로 실제 층을 못 박고 6번 문장이 numerous biases inhibit or override reflective, deliberative thought 로 그 내용을 채우는데, 선지 ⑤가 든 마지막 문장은 'rationality of our mental processes' 를 built-in 이라고 한다. 우리 사고 과정에 붙박이인 것은 편향과 비합리성이므로 built-in 뒤의 rationality 는 실제 층을 믿음 층으로 뒤집는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3,
+              8
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리(3차에 why_correct 에서 이관): 바로 앞 4번 밑줄이 든 문장이 more rational 로 끝나 rational 계열 낱말의 잔상이 남고, 우리 마음에 합리성이 내장돼 있다는 말도 그 자체로는 그럴듯하다."
+          }
         }
       ],
       "solve_procedure": [
@@ -713,12 +797,15 @@
           "verdict": "pass",
           "findings": [
             "인용이 마지막 문장 통째이고 근거 층은 3번 문장이라 sentence_index 를 [3, 8] 로 잡았다",
-            "믿음 층과 사실 층을 가르는 설계는 이 지문 고유의 것이다"
+            "믿음 층과 사실 층을 가르는 설계는 이 지문 고유의 것이다",
+            "3차 재검수 — why_correct 가 정답 근거가 아니라 「왜 놓치기 쉬운가」(학습자 심리)여서 revise 로 반려했다. 근거 문장과 정답 선지 문자열의 대응으로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 M2509#30 passage 와 문자열 대조",
             "sentence_index 두 자리가 실제 근거 문장인지 확인",
-            "유형 정의 대조"
+            "유형 정의 대조",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -726,12 +813,15 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 층위 혼동 / 노력 방향 / 방해 동사 / 비교급 뒤집기로 갈린다",
-            "④의 배제 근거를 같은 문장 안 병렬 항목으로 못 박아 위치가 명확하다"
+            "④의 배제 근거를 같은 문장 안 병렬 항목으로 못 박아 위치가 명확하다",
+            "3차 재검수 — 새 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 정답 선지 자체의 어긋난 낱말을 지목하는지 확인했다. 이관된 심리 서술은 confirmed_at.note 에 보존했다."
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부 확인",
             "why_tempting 이 선지 문자열에 근거하는지 확인",
-            "how_to_reject 의 위치 명시 여부 확인"
+            "how_to_reject 의 위치 명시 여부 확인",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -740,15 +830,18 @@
           "findings": [
             "두 줄 긋기가 이 지문의 구조와 정확히 맞아 실행 가능하다",
             "3단계에 예외 규칙을 넣어 ④에서 헛걸음하지 않게 했다",
-            "110초에 들어간다"
+            "110초에 들어간다",
+            "3차 재검수 — 학생이 눈으로 맞춰 볼 두 자리(지문 근거 문구·정답 선지 문구)가 모두 적혔는지 봤다. solve_procedure·time_budget_sec·required_vocab 은 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "금지 표현 목록 대조",
             "단계별 실행 가능성 확인",
-            "required_vocab 다섯이 지문에 있는 낱말인지 문자열 확인"
+            "required_vocab 다섯이 지문에 있는 낱말인지 문자열 확인",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2506#30",
@@ -788,7 +881,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "문장이 짧고 self-responsibility 라는 좋은 말이 들어 있어 교육적으로 옳은 문장처럼 읽힌다. 외적 통제가 책임감을 길러 준다는 통념도 이를 돕는다."
+          "why_correct": "바로 앞 문장이 보상·강요로 숙제를 시킨 부모는 'a child who does so only when rewarded, cajoled, or forced' 를 얻는다고 했다. 선지 ④가 든 요약 문장 'drives the acquisition of self-responsibility' 는 외적 통제가 자기 책임의 획득을 촉진한다고 하는데, only when rewarded 는 자기 책임이 자라지 못한 상태이므로 drives 는 사례와 정반대 부호이고 undermines 계열이 올 자리다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6,
+              7
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리(3차에 why_correct 에서 이관): 문장이 짧고 self-responsibility 라는 좋은 말이 들어 있어 교육적으로 옳은 문장처럼 읽힌다. 외적 통제가 책임감을 길러 준다는 통념도 이를 돕는다."
+          }
         },
         {
           "n": 5,
@@ -839,12 +939,15 @@
           "verdict": "pass",
           "findings": [
             "코퍼스 passage 필드가 두 문장에서 잘려 있고 나머지가 choices 배열에 이어져 있다 — 인용은 이어 붙인 본문에서 문자열 대조로 확인했다",
-            "인용이 79자로 짧지만 밑줄 ④를 포함한 완결 문장이라 근거로 충분하다"
+            "인용이 79자로 짧지만 밑줄 ④를 포함한 완결 문장이라 근거로 충분하다",
+            "3차 재검수 — why_correct 가 정답 근거가 아니라 「왜 놓치기 쉬운가」(학습자 심리)여서 revise 로 반려했다. 근거 문장과 정답 선지 문자열의 대응으로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 passage + choices 이어 붙인 본문과 문자열 대조",
             "밑줄 다섯 위치를 choices 경계에서 복원해 확인",
-            "유형 정의 대조"
+            "유형 정의 대조",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -852,12 +955,15 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 최상급 / 이중부정 / 부정어 관할 / 대조 문단으로 갈린다",
-            "②와 ③이 모두 부정 계산이지만 걸리는 층이 달라(문장 전체 vs 동사구) 라벨을 갈랐다"
+            "②와 ③이 모두 부정 계산이지만 걸리는 층이 달라(문장 전체 vs 동사구) 라벨을 갈랐다",
+            "3차 재검수 — 새 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 정답 선지 자체의 어긋난 낱말을 지목하는지 확인했다. 이관된 심리 서술은 confirmed_at.note 에 보존했다."
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부 확인",
             "②와 ③의 함정이 실제로 다른 층인지 문장 구조로 확인",
-            "how_to_reject 의 위치 명시 여부 확인"
+            "how_to_reject 의 위치 명시 여부 확인",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -865,12 +971,14 @@
           "verdict": "pass",
           "findings": [
             "수정 후 재검수 — 처음 절차가 5단계였고 부정어 처리를 독립 단계로 두어 115초를 넘겼다. 부정어 처리를 3단계의 on_fail 로 접어 4단계로 줄였다",
-            "4단계가 요약 자리 확인이라 이 문항의 결정 지점과 맞는다"
+            "4단계가 요약 자리 확인이라 이 문항의 결정 지점과 맞는다",
+            "3차 재검수 — 학생이 눈으로 맞춰 볼 두 자리(지문 근거 문구·정답 선지 문구)가 모두 적혔는지 봤다. solve_procedure·time_budget_sec·required_vocab 은 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "금지 표현 목록 대조",
             "단계 수와 시간 예산 재계산(한 줄 적기 20초 + 편 가르기 35초 + 규칙 대조 40초 + 확인 20초)",
-            "required_vocab 다섯이 본문에 있는 낱말인지 문자열 확인"
+            "required_vocab 다섯이 본문에 있는 낱말인지 문자열 확인",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
       ],
@@ -913,7 +1021,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "careful not to 라는 부정과 low 라는 낮은 값이 겹쳐 판매자가 손해를 피한다는 그림이 얼핏 성립한다."
+          "why_correct": "선지 ④가 든 절의 이유가 'because at no point will the buyer see possession of them as an absolute necessity' 다. 필수품으로 보지 않는 구매자에게 판매자가 삼갈 것은 비싼 값 부르기이므로 'careful not to directly ask for very low prices' 의 low 는 부호가 뒤집혔고, 앞 문장의 they are not a necessity at the same level as other household purchases 도 같은 방향이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5,
+              6
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리(3차에 why_correct 에서 이관): careful not to 라는 부정과 low 라는 낮은 값이 겹쳐 판매자가 손해를 피한다는 그림이 얼핏 성립한다."
+          }
         },
         {
           "n": 5,
@@ -964,12 +1079,15 @@
           "verdict": "pass",
           "findings": [
             "인용이 정답 밑줄과 이유절을 한 문장 안에 모두 담아 근거가 자족적이다",
-            "문항 고유의 조작(부정 + 이유절 + 도치)을 의도 서술에 담았다"
+            "문항 고유의 조작(부정 + 이유절 + 도치)을 의도 서술에 담았다",
+            "3차 재검수 — why_correct 가 정답 근거가 아니라 「왜 놓치기 쉬운가」(학습자 심리)여서 revise 로 반려했다. 근거 문장과 정답 선지 문자열의 대응으로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 2024#30 passage 와 문자열 대조",
             "밑줄 다섯 번호와 위치 대조",
-            "유형 정의 대조"
+            "유형 정의 대조",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -977,12 +1095,15 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 낯섦 회피 / 과대 의심 / 부정문 치환 / 동질-이질 축으로 갈린다",
-            "①과 ⑤의 배제 근거가 모두 1번 문장을 쓰지만 각각 다른 구절(ties of shared culture 와 enduring ties)이라 중복이 아니다"
+            "①과 ⑤의 배제 근거가 모두 1번 문장을 쓰지만 각각 다른 구절(ties of shared culture 와 enduring ties)이라 중복이 아니다",
+            "3차 재검수 — 새 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 정답 선지 자체의 어긋난 낱말을 지목하는지 확인했다. 이관된 심리 서술은 confirmed_at.note 에 보존했다."
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부 확인",
             "배제 근거로 쓰인 문장이 서로 겹치지 않는지 확인",
-            "why_tempting 이 선지 문자열에 근거하는지 확인"
+            "why_tempting 이 선지 문자열에 근거하는지 확인",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -991,15 +1112,18 @@
           "findings": [
             "1단계가 이유 표지 찾기라 지문을 처음 보는 학생도 바로 실행한다",
             "2단계 도치 되돌리기 지시가 at no point will 에서 막히는 지점을 미리 푼다",
-            "110초에 들어간다"
+            "110초에 들어간다",
+            "3차 재검수 — 학생이 눈으로 맞춰 볼 두 자리(지문 근거 문구·정답 선지 문구)가 모두 적혔는지 봤다. solve_procedure·time_budget_sec·required_vocab 은 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "금지 표현 목록 대조",
             "단계별 실행 가능성 확인",
-            "required_vocab 다섯이 지문에 있는 낱말인지 문자열 확인"
+            "required_vocab 다섯이 지문에 있는 낱말인지 문자열 확인",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2409#30",
@@ -1220,7 +1344,14 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "natural fusion with our lives 라는 긍정 명사구와 maintain 이 잘 붙어, 문장만 떼어 읽으면 좋은 결말처럼 들린다."
+          "why_correct": "선지 ⑤가 든 절 'The longer we continue to believe that computers will take us to a magical new world, the longer we will maintain their natural fusion with our lives' 에서 앞 절의 태도는 2번 문장이 hype 로 규정한 그 믿음이다. 이 글은 모터의 'This absorption has been so complete' 를 성공 사례로 들어 융합을 목표로 놓았으므로 잘못된 믿음이 길어질수록 융합은 늦춰져야 한다 — the longer … the longer 상관구문에서 maintain 은 방향이 뒤집혔고 delay 계열이 올 자리다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5,
+              11
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리(3차에 why_correct 에서 이관): natural fusion with our lives 라는 긍정 명사구와 maintain 이 잘 붙어, 문장만 떼어 읽으면 좋은 결말처럼 들린다."
+          }
         }
       ],
       "solve_procedure": [
@@ -1264,12 +1395,15 @@
           "verdict": "pass",
           "findings": [
             "인용이 마지막 문장의 상관 비교 구문 전체를 담아 판정 근거가 자족적이고, 지지 근거인 5번 문장을 sentence_index 에 함께 적었다",
-            "이 지문 고유의 설계(모터 흡수 사례를 컴퓨터에 옮김)를 의도 서술에 담았다"
+            "이 지문 고유의 설계(모터 흡수 사례를 컴퓨터에 옮김)를 의도 서술에 담았다",
+            "3차 재검수 — why_correct 가 정답 근거가 아니라 「왜 놓치기 쉬운가」(학습자 심리)여서 revise 로 반려했다. 근거 문장과 정답 선지 문자열의 대응으로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 2023#30 passage 와 문자열 대조",
             "sentence_index 두 자리가 실제 근거 문장인지 확인",
-            "유형 정의 대조"
+            "유형 정의 대조",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -1277,12 +1411,15 @@
           "verdict": "pass",
           "findings": [
             "수정 후 재검수 — 처음에 ①과 ②의 라벨을 둘 다 낯섦 회피 계열로 달아 함정이 겹쳤다. ②는 This 의 선행사를 잘못 잡는 데서 오므로 지시어 선행사 오판으로 갈랐다",
-            "네 오답의 배제 근거가 각각 다른 문장을 쓴다(4번 · 5번 · 6번 · 7·8번)"
+            "네 오답의 배제 근거가 각각 다른 문장을 쓴다(4번 · 5번 · 6번 · 7·8번)",
+            "3차 재검수 — 새 why_correct 가 소거법(\"나머지가 틀리므로\")에 기대지 않고 정답 선지 자체의 어긋난 낱말을 지목하는지 확인했다. 이관된 심리 서술은 confirmed_at.note 에 보존했다."
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부 확인",
             "배제 근거 문장이 서로 겹치지 않는지 확인",
-            "why_tempting 이 선지 문자열에 근거하는지 확인"
+            "why_tempting 이 선지 문자열에 근거하는지 확인",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -1291,12 +1428,14 @@
           "findings": [
             "1단계 틀린 주장 한 줄 적기가 이 지문의 비판 구조를 바로 잡아 준다",
             "3단계가 상관 비교 구문 처리법을 규칙으로 줘서 계산이 재현 가능하다",
-            "110초에 들어간다"
+            "110초에 들어간다",
+            "3차 재검수 — 학생이 눈으로 맞춰 볼 두 자리(지문 근거 문구·정답 선지 문구)가 모두 적혔는지 봤다. solve_procedure·time_budget_sec·required_vocab 은 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "금지 표현 목록 대조",
             "단계별 실행 가능성 확인",
-            "required_vocab 다섯이 지문에 있는 낱말인지 문자열 확인"
+            "required_vocab 다섯이 지문에 있는 낱말인지 문자열 확인",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
       ],

@@ -33,7 +33,13 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "'대중교통은 어느 지역에서든 자동차보다 적다'는 인상 때문에 최소값 주장을 검증 없이 참으로 넘긴다. 게다가 ⑤가 같은 public transport 계열을 다시 다루므로, ⑤에서 이미 봤다고 착각해 ③을 건너뛴다."
+          "why_correct": "선지 ③에서 어긋나는 절은 'was the lowest among the three types of transportation' 이다. Asia 한 지역 안에서 public transport 막대를 walking or cycling 막대와 한 번, cars 막대와 한 번, 모두 두 번 견주어야 서는 최소 주장이고 그중 한 번만 뒤집혀도 무너진다. 이 두 번을 다른 선지가 대신해 주지 못한다 — ①은 North and South America, ②는 Europe, ④는 Africa 와 Australia and New Zealand 로 각각 다른 지역을 맡고, Asia 의 public transport 를 함께 건드리는 ⑤조차 'the percentage of weekday trips made by public transport was less than 50%' 라는 위쪽 임계일 뿐이라 세 계열 중 최소인지에 대해서는 아무것도 정하지 않는다(50% 미만이면서 최소가 아닐 수 있다). 곧 ③이 도표와 일치하지 않는다는 것은 Asia 에서 public transport 보다 낮은 계열이 따로 있다는 뜻이고, 그 계열이 무엇인지는 Asia 세 막대를 그림에서 읽어 정한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "학습자가 미끄러지는 자리 — '대중교통은 어느 지역에서든 자동차보다 적다'는 인상 때문에 최소 주장을 검증 없이 참으로 넘긴다. 게다가 ⑤가 같은 public transport 계열을 다시 다루므로 '⑤에서 이미 봤다'고 착각해 ③을 건너뛴다."
+          }
         },
         {
           "n": 4,
@@ -94,12 +100,14 @@
           "verdict": "pass",
           "findings": [
             "answer_locus.reasoning 이 그래프 수치를 특정하지 않고 정답표에서 도출 가능한 범위(둘 중 하나가 더 낮다)까지만 말한다 — 수치 미추출 상태에서 옳은 서술 수위다",
-            "도표 유형 정의(진술-도표 대조)와 어긋나는 서술 없음"
+            "도표 유형 정의(진술-도표 대조)와 어긋나는 서술 없음",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "quote 를 corpus.json 의 M2706#25 passage 와 문자열 대조",
             "선지 다섯의 연산 종류가 서로 겹치지 않는지 확인",
-            "columns2/M2706.txt 393행 창에 수치·축 라벨이 없음을 확인"
+            "columns2/M2706.txt 393행 창에 수치·축 라벨이 없음을 확인",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -107,12 +115,14 @@
           "verdict": "pass",
           "findings": [
             "초판에서 ④와 ⑤의 trap 이 둘 다 '전칭 검증 부담'으로 겹쳐 라벨이 정보를 잃었다 → ④를 '복합 절 후반 누락'으로 갈랐다(revise 후 반영)",
-            "오답 4종 라벨이 모두 다르다"
+            "오답 4종 라벨이 모두 다르다",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부",
             "why_tempting 이 각 선지 문장의 실제 표현(Over 70% · each of the above regions · while)에 근거하는지",
-            "how_to_reject 마다 볼 막대 위치가 지정되었는지"
+            "how_to_reject 마다 볼 막대 위치가 지정되었는지",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -120,12 +130,14 @@
           "verdict": "pass",
           "findings": [
             "절차 3단계가 소거 순서를 정해 주므로 85초 안에 끝난다",
-            "required_vocab 4개가 모두 선지 판정에 직접 쓰인다"
+            "required_vocab 4개가 모두 선지 판정에 직접 쓰인다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "절차를 그래프를 아직 안 본 상태에서 순서대로 실행 가능한지",
             "금지 표현 목록 대조",
-            "required_vocab 4개를 passage 문자열에서 확인"
+            "required_vocab 4개를 passage 문자열에서 확인",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]
@@ -167,7 +179,13 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "'second highest'는 최고 막대만 확인하는 습관에 걸리지 않는다. 최고가 아닌 것을 보고 '그럼 2위겠지'로 넘기면 그대로 통과시킨다."
+          "why_correct": "선지 ④에서 어긋나는 절은 'was the second highest in percentage' 다. Less Often 범주에서 emailing 보다 높은 계열이 정확히 하나뿐이라는 순위 주장인데, 그 하나가 무엇인지는 본문이 좁혀 준다 — ②의 'In the category of Less Often, the percentage of teenagers who spent time with friends through talking on the phone was more than twice that of teenagers who did so through text messaging' 이 같은 범주에서 talking on the phone > text messaging 을 못박으므로, 만약 text messaging 이 emailing 보다 높다면 talking on the phone 도 자동으로 그러해 emailing 위가 둘이 되고 'second' 가 그 자리에서 깨진다. 그러니 ④의 진위는 Less Often 의 emailing 막대와 talking on the phone 막대를 한 번 견주는 일로 줄어들고, ④가 일치하지 않는다는 것은 그 비교에서 emailing 이 아래에 있지 않다는 뜻이다 — 두 막대의 높이는 그림에서 읽는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "학습자가 미끄러지는 자리 — 'second highest'는 최고 막대만 확인하는 습관에 걸리지 않는다. 최고가 아닌 것을 보고 '그럼 2위겠지'로 넘기면 그대로 통과시킨다."
+          }
         },
         {
           "n": 5,
@@ -221,11 +239,13 @@
           "verdict": "pass",
           "findings": [
             "정답 선지의 반증 경로가 두 갈래(1위이거나 3위 이하)라는 점을 수치 없이 설명했다 — 이 유형에서 가장 재사용 가능한 관찰이다",
-            "인용이 지문 문장과 완전히 일치"
+            "인용이 지문 문장과 완전히 일치",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "quote 를 corpus.json 의 2026#25 passage 와 문자열 대조",
-            "출제 의도가 유형 일반론이 아니라 '빈도 범주 가로축'이라는 이 문항 고유 구조를 짚는지"
+            "출제 의도가 유형 일반론이 아니라 '빈도 범주 가로축'이라는 이 문항 고유 구조를 짚는지",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -233,12 +253,14 @@
           "verdict": "pass",
           "findings": [
             "③과 ⑤가 같은 구조라 라벨이 겹칠 뻔했으나, ③은 계열 짚기 오류(계열 짝 바꾸기)·⑤는 앞 선지 판정 전이(대소 비교 뒤집기)로 실제 유인이 다르다",
-            "오답 4종 라벨 전부 다름"
+            "오답 4종 라벨 전부 다름",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "오답 4개 trap 중복 여부",
             "why_tempting 이 선지 문장의 실제 표현(second highest · more than twice)에 근거하는지",
-            "how_to_reject 마다 볼 범주·계열이 지정되었는지"
+            "how_to_reject 마다 볼 범주·계열이 지정되었는지",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -246,12 +268,14 @@
           "verdict": "pass",
           "findings": [
             "초판 절차 1단계가 '네 계열을 모두 읽고 값을 적는다'로 시작해 90초를 넘겼다 → 범주 고정 후 필요한 막대만 짚는 순서로 바꿨다(revise 후 반영)",
-            "required_vocab 의 'second highest'가 정답 판정에 직접 쓰인다"
+            "required_vocab 의 'second highest'가 정답 판정에 직접 쓰인다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "절차 실행 시간 추정(선지당 15초 × 5 + 축 확인 15초)",
             "금지 표현 대조",
-            "required_vocab 4개를 passage 문자열에서 확인"
+            "required_vocab 4개를 passage 문자열에서 확인",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]
@@ -300,7 +324,13 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "마지막 선지이고 '옷은 후기를 덜 볼 것'이라는 상식과 맞아떨어져, 앞 네 개를 검증하느라 지친 상태에서 확인 없이 참으로 넘긴다. 30%라는 낮은 임계도 '옷이니 그 아래겠지'라는 인상을 준다."
+          "why_correct": "선지 ⑤의 'less than 30% for each of the three age groups' 는 clothes 범주의 세 막대 전부에 '30% 미만' 이라는 절대 임계를 거는 전칭 주장이고, 도표에서 그 세 막대 중 적어도 하나가 30% 눈금선에 닿거나 넘어 전칭이 깨진다. 대조할 자리는 두 곳뿐이다 — 'before buying clothes' 가 지정하는 범주와 30% 눈금선. ※ 그래프 수치는 그림 안에 있어 텍스트에는 없다. 세 막대 중 어느 연령대가 30%에 닿는지는 그림에서 확인해야 하며, 여기서는 거기까지만 적는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6
+            ],
+            "note": "마지막 선지인 데다 '옷은 후기를 덜 볼 것' 이라는 상식과 맞아떨어져, 앞 네 개를 검증한 뒤에는 확인 없이 참으로 처리한다. 30%라는 낮은 임계도 '옷이니 그 아래겠지' 라는 인상을 준다."
+          }
         }
       ],
       "solve_procedure": [
@@ -347,24 +377,28 @@
           "verdict": "pass",
           "findings": [
             "초판 answer_locus.reasoning 이 'clothes 막대가 30%를 넘는다'고 수치를 특정했다 — 코퍼스에 그래프 수치가 없으므로 지어낸 근거가 된다 → '30% 선 아래에 있지 않다(닿거나 넘는다)'로 정답표에서 도출 가능한 범위까지만 남겼다(revise 후 반영)",
-            "다섯 선지의 연산이 전부 다른 설계임을 확인"
+            "다섯 선지의 연산이 전부 다른 설계임을 확인",
+            "[재검수] why_correct 를 다시 썼다 — 선지 ⑤ 영문을 그대로 인용해 '무엇과 무엇을 대조하는가'(clothes 세 막대 · 30% 눈금선)를 지목했고, 그림에만 있는 수치는 지어내지 않고 한계를 명시했다"
           ],
           "checked": [
             "quote 를 corpus.json 의 M2609#25 passage 와 문자열 대조",
             "columns2/M2609.txt 382행 창에 그래프 수치가 없음을 확인",
-            "reasoning 에 수치 특정이 남아 있는지 재검"
+            "reasoning 에 수치 특정이 남아 있는지 재검",
+            "why_correct 재작성분 재검수(정답 근거 ↔ 정답 선지 대응)"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "오답 4종 라벨이 서로 다르고, 각 why_tempting 이 선지의 실제 표현(each age group · least likely · more than twice · higher than ~ and lower than ~)에 붙어 있다"
+            "오답 4종 라벨이 서로 다르고, 각 why_tempting 이 선지의 실제 표현(each age group · least likely · more than twice · higher than ~ and lower than ~)에 붙어 있다",
+            "[재검수] 초안에 있던 '나머지 넷은 상대 비교라 눈금값이 필요 없다' 는 소거법에 기대는 서술이어서 빼도록 요구했고 반영되었다. 남은 서술은 선지 ⑤ 자체의 임계 주장만 다룬다"
           ],
           "checked": [
             "trap 중복 여부",
             "how_to_reject 마다 볼 묶음·막대가 지정되었는지",
-            "정답 판정이 코퍼스 answer=5 와 일치하는지"
+            "정답 판정이 코퍼스 answer=5 와 일치하는지",
+            "why_correct 재작성분 재검수(정답 근거 ↔ 정답 선지 대응)"
           ]
         },
         {
@@ -372,12 +406,14 @@
           "verdict": "pass",
           "findings": [
             "①의 '열두 칸이 아니라 세 칸'이라는 축약이 학습자에게 바로 시간이 된다",
-            "90초 배분 안에 다섯 선지가 들어간다"
+            "90초 배분 안에 다섯 선지가 들어간다",
+            "[재검수] 학생이 실행할 동작이 'clothes 세 막대와 30% 눈금선을 한 번 비교한다' 로 확정된다 — 없는 수치를 외우게 하지 않는다"
           ],
           "checked": [
             "절차를 그래프 미열람 상태에서 실행 가능한지",
             "금지 표현 대조",
-            "required_vocab 4개를 passage 문자열에서 확인"
+            "required_vocab 4개를 passage 문자열에서 확인",
+            "why_correct 재작성분 재검수(정답 근거 ↔ 정답 선지 대응)"
           ]
         }
       ]
@@ -419,7 +455,13 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "'교육·훈련 참여율은 시간이 지나면 오른다'는 인상과 ②의 참 판정이 겹쳐, Italy 도 올랐을 것이라 보고 두 막대를 실제로 비교하지 않는다."
+          "why_correct": "선지 ④는 절이 하나뿐인 진술이다 — 'In Italy, the percentage of adults who participated in education and training in 2016 was lower than that in 2022' 는 Italy 한 나라의 두 해 막대를 견주는 부등호 하나이고, 어긋날 자리가 그 부등호밖에 없으므로 ④가 도표와 일치하지 않는다는 것은 곧 방향이 뒤집혀 있다는 뜻이다(2016 이 2022 보다 낮지 않다). 이 한 번의 비교를 대신해 주는 선지가 없다 — Italy 를 언급하는 선지는 ④ 하나뿐이고, 같은 형식으로 두 해를 견주는 ②는 'In Germany, the percentage of adults who participated in education and training in 2022 was higher than that in 2016' 으로 나라가 다르며, ①은 the Netherlands 의 매년 최고, ③은 2022 년 Spain 과 Germany, ⑤는 Greece 의 'less than 20%' 다. 곧 판정에 드는 연산은 Italy 두 막대의 높이 비교 한 번이고, 그 두 값은 그림 안에 있다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "학습자가 미끄러지는 자리 — '교육·훈련 참여율은 시간이 지나면 오른다'는 인상과 ②가 참이라는 판정이 겹쳐, Italy 도 올랐을 것이라 보고 두 막대를 실제로 비교하지 않는다."
+          }
         },
         {
           "n": 5,
@@ -469,11 +511,13 @@
           "verdict": "pass",
           "findings": [
             "출제 의도를 '동형 문장 두 개(②④)의 방향 분기'라는 이 문항 고유 설계로 적었다 — 유형 일반론이 아니다",
-            "인용이 지문 문장과 완전 일치"
+            "인용이 지문 문장과 완전 일치",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "quote 를 corpus.json 의 M2606#25 passage 와 문자열 대조",
-            "②와 ④의 문형이 실제로 동형인지 두 문장 대조"
+            "②와 ④의 문형이 실제로 동형인지 두 문장 대조",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -481,12 +525,14 @@
           "verdict": "pass",
           "findings": [
             "초판에서 ②의 trap 이 정답 ④와 같은 '증감 방향 오독'이었다 — 같은 라벨이면 '②는 왜 오답인가'가 설명되지 않는다 → ②를 '동형 진술 동조'로 갈랐다(revise 후 반영)",
-            "오답 4종 라벨 전부 다름"
+            "오답 4종 라벨 전부 다름",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 중복 여부",
             "why_tempting 이 선지 문장 표현(in each year listed · less than 20%)에 근거하는지",
-            "정답 판정이 코퍼스 answer=4 와 일치하는지"
+            "정답 판정이 코퍼스 answer=4 와 일치하는지",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -494,12 +540,14 @@
           "verdict": "pass",
           "findings": [
             "연도 비교/국가 비교로 가르는 2단계가 이 문항에서 가장 빠른 분류다",
-            "80초 안에 끝난다 — 막대가 열 개뿐"
+            "80초 안에 끝난다 — 막대가 열 개뿐",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "절차 실행 가능성(그래프 미열람 상태 시작)",
             "금지 표현 대조",
-            "required_vocab 4개를 passage 문자열에서 확인"
+            "required_vocab 4개를 passage 문자열에서 확인",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]
@@ -541,7 +589,13 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "editors 는 네 계열 중 낮은 쪽이라는 인상이 강해 '20% 미만'이 당연하게 들리고, ③의 계산에 시간을 쓴 뒤라 확인이 밀린다."
+          "why_correct": "선지 ④의 'was less than 20% in each of the three years' 는 editors 계열의 세 해 막대 전부에 20% 라는 절대 임계를 거는 전칭 주장이고, 한 해만 20% 에 닿거나 넘어도 전칭이 깨진다 — ④가 도표와 일치하지 않는다는 것은 세 해 가운데 적어도 하나가 20% 아래에 있지 않다는 뜻이다. editors 를 다루는 선지는 ④ 하나뿐이라 다른 진술로 메울 수 없다 — ①은 producers 가 매년 최고, ②는 directors 의 세 해 순서, ③은 writers 의 증가폭(4 percentage points · 1 percentage point), ⑤는 producers 의 2022 와 2020 이 같다는 것이다. ①이 producers 를 매년 최고로 못박아도 그 아래 세 역할의 순서는 정해지지 않으므로 editors 가 낮은 쪽이라는 보증도 없다. 곧 editors 세 막대를 20% 눈금선과 각각 견주는 세 번의 비교를 그림에서 직접 해야 하고, 어느 해가 임계를 깨는지도 거기서 정해진다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "학습자가 미끄러지는 자리 — editors 는 네 계열 중 낮은 쪽이라는 인상이 강해 '20% 미만'이 당연하게 들리고, ③의 증가폭 계산에 시간을 쓴 뒤라 확인이 밀린다."
+          }
         },
         {
           "n": 5,
@@ -595,12 +649,14 @@
           "verdict": "pass",
           "findings": [
             "출제 의도가 '계산 선지(③)로 시간을 뺏고 정답은 전칭 임계에 둔다'는 이 문항 고유 배치를 짚는다",
-            "인용이 지문 문장과 완전 일치"
+            "인용이 지문 문장과 완전 일치",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "quote 를 corpus.json 의 2025#25 passage 와 문자열 대조",
             "다섯 선지의 연산이 모두 다른지 문장별 확인",
-            "columns2/2025.txt 354행 창에 수치가 없음을 확인"
+            "columns2/2025.txt 354행 창에 수치가 없음을 확인",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -608,12 +664,14 @@
           "verdict": "pass",
           "findings": [
             "⑤의 '동일값 판정'은 이 청크에서 한 번만 나오는 함정이라 라벨을 새로 세웠다 — 등재 제안에 포함",
-            "오답 4종 라벨 전부 다름"
+            "오답 4종 라벨 전부 다름",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 중복 여부",
             "why_tempting 이 선지 표현(percentage points · the same as)에 근거하는지",
-            "정답 판정이 코퍼스 answer=4 와 일치하는지"
+            "정답 판정이 코퍼스 answer=4 와 일치하는지",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -621,12 +679,14 @@
           "verdict": "pass",
           "findings": [
             "초판 required_vocab 에 'behind the scenes'·'compared with' 등 판정에 안 쓰이는 낱말이 섞여 있었다 → 정답 판정에 실제로 필요한 4개로 줄였다(revise 후 반영)",
-            "'칸 수를 세어 적은 것부터'라는 2·3단계가 90초 배분을 지킨다"
+            "'칸 수를 세어 적은 것부터'라는 2·3단계가 90초 배분을 지킨다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "required_vocab 각 낱말이 어느 선지 판정에 쓰이는지 대응 확인",
             "절차 실행 가능성",
-            "금지 표현 대조"
+            "금지 표현 대조",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]
@@ -675,7 +735,13 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "'respectively'를 '각각'이라는 장식어로 흘려 읽으면 부등호가 하나뿐인 문장으로 보여, VR 쪽만 확인하고 참으로 넘긴다. 스위스가 일본보다 작은 나라라는 인상도 두 값 모두 낮을 것이라는 예단을 만든다."
+          "why_correct": "선지 ⑤의 'respectively' 는 한 문장에 비교를 둘 묶는다 — VR 쌍(Switzerland 대 Japan)과 AR 쌍(Switzerland 대 Japan)이 모두 'were lower in Switzerland than in Japan' 이어야 하고, 한 쌍만 어긋나도 선지 전체가 도표와 일치하지 않는 것이 된다. 그 두 쌍은 다른 선지가 대신 확인해 주지 못한다 — ②의 'The country with the highest percentage of respondents familiar with AR was South Korea' 는 최고가 한국이라는 것뿐이라 Switzerland 와 Japan 의 앞뒤를 정하지 않고, ③은 격차 최대가 Canada 라는 다른 연산이며, ④의 'In Japan, the percentage of respondents familiar with VR was greater than 60%' 는 한쪽 값의 임계일 뿐이고, ①의 'For each country, the percentage of respondents familiar with VR was greater than the percentage of respondents familiar with AR' 은 나라 안의 VR-AR 상하만 정할 뿐 나라 사이를 정하지 않는다. 곧 Switzerland 와 Japan 의 네 막대를 두 쌍으로 읽는 두 번의 비교가 판정이고, 어느 쌍이 어긋나는지는 그림에서 정해진다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6
+            ],
+            "note": "학습자가 미끄러지는 자리 — 'respectively'를 '각각'이라는 장식어로 흘려 읽으면 부등호가 하나뿐인 문장으로 보여, VR 쪽만 확인하고 참으로 넘긴다. 스위스가 일본보다 작은 나라라는 인상도 두 값 모두 낮을 것이라는 예단을 만든다."
+          }
         }
       ],
       "solve_procedure": [
@@ -722,11 +788,13 @@
           "verdict": "pass",
           "findings": [
             "respectively 가 부등호 두 개를 만든다는 점이 이 문항의 설계 핵심이고, 그것이 answer_locus.reasoning 에 명시되어 있다",
-            "인용이 지문 문장과 완전 일치(선지 배열의 각주 잔여 '* augmented reality:'는 인용 구간 밖)"
+            "인용이 지문 문장과 완전 일치(선지 배열의 각주 잔여 '* augmented reality:'는 인용 구간 밖)",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "quote 를 corpus.json 의 M2509#25 passage 와 문자열 대조",
-            "선지 ⑤의 코퍼스 choices 판본에 붙은 각주 잔여가 인용에 섞이지 않았는지 확인"
+            "선지 ⑤의 코퍼스 choices 판본에 붙은 각주 잔여가 인용에 섞이지 않았는지 확인",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -734,12 +802,14 @@
           "verdict": "pass",
           "findings": [
             "③의 '차이 폭 비교'는 값 비교와 다른 층의 함정이라 별도 라벨로 세웠다",
-            "오답 4종 라벨 전부 다름"
+            "오답 4종 라벨 전부 다름",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 중복 여부",
             "why_tempting 이 선지 표현(For each country · largest gap · greater than 60%)에 근거하는지",
-            "정답 판정이 코퍼스 answer=5 와 일치하는지"
+            "정답 판정이 코퍼스 answer=5 와 일치하는지",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -747,12 +817,14 @@
           "verdict": "pass",
           "findings": [
             "초판 time_budget_sec 이 120초였다 — 막대가 여덟 개뿐인 문항에 독해 63점 70분 배분에서 과하다 → 85초로 줄이고 절차 3단계에 소거 순서를 넣었다(revise 후 반영)",
-            "'부등호 개수를 세어 적는다'는 2단계가 ⑤를 놓치지 않게 만든다"
+            "'부등호 개수를 세어 적는다'는 2단계가 ⑤를 놓치지 않게 만든다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "시간 배분 재산정(막대 8개 · 선지 5개)",
             "절차 실행 가능성",
-            "required_vocab 4개를 passage 문자열에서 확인"
+            "required_vocab 4개를 passage 문자열에서 확인",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]
@@ -788,7 +860,13 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "'41%'라는 구체적 수치가 문장 앞에 있어 신뢰를 주고, 뒤에 붙은 관계사절(which was smaller than that in the United States)은 부속 정보처럼 읽혀 검증에서 빠진다."
+          "why_correct": "선지 ③은 한 문장 안에 검증을 둘 담는다 — 'was 41%' 라는 절대값 읽기와, 관계사절 'which was smaller than that in the United States' 의 나라 간 비교다. 같은 틀을 쓴 ①의 관계사절 'which was 58%' 는 앞 명사의 값을 되풀이할 뿐이어서 조각 라벨 한 번으로 끝나는 반면, ③의 관계사절은 the United States 라는 다른 막대를 새로 불러오므로 연산이 한 번 더 붙는다. ③이 도표와 일치하지 않는다는 것은 그 둘 중 적어도 하나가 어긋난다는 뜻인데, 어느 쪽인지는 나머지 선지로 가려지지 않는다 — ②는 Germany 와 Mexico 의 남녀 격차, ④는 the United States 와 South Korea 의 여성, ⑤는 South Korea 가 성별마다 최소라는 것이라 Mexico 남성과 the United States 남성을 직접 견주는 선지가 하나도 없다. 곧 41 이라는 라벨과 두 나라 남성 막대의 앞뒤, 이 두 가지를 그림에서 확인해야 한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "학습자가 미끄러지는 자리 — '41%'라는 구체적 수치가 문장 앞에 있어 신뢰를 주고, 뒤에 붙은 관계사절(which was smaller than that in the United States)은 부속 정보처럼 읽혀 검증에서 빠진다. 코퍼스 지문은 두 단이 섞인 손상본이라 선지 사이에 다른 문항 조각(Schedule · Tasks 등)이 끼어 있으나, 판정에 쓰는 낱말은 그 조각 바깥에 있다."
+          }
         },
         {
           "n": 4,
@@ -846,12 +924,14 @@
           "verdict": "pass",
           "findings": [
             "초판 인용이 옆 단 조각(∙Only thos)이 낀 구간을 포함해, 지문에는 있으나 학습자에게 읽히지 않는 문자열이었다 → 옆 단이 끼지 않은 연속 구간 'hobbies in Mexico was 41%, which was smaller than that in' 으로 바꿨다(revise 후 반영)",
-            "raw_block 의 회차 원문 창에서 좌우 단을 갈라 왼쪽 단만 읽어 다섯 선지를 복원했다 — 오른쪽 단은 27번 안내문과 28번 문항이다"
+            "raw_block 의 회차 원문 창에서 좌우 단을 갈라 왼쪽 단만 읽어 다섯 선지를 복원했다 — 오른쪽 단은 27번 안내문과 28번 문항이다",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "quote 를 corpus.json 의 M2506#25 passage 와 문자열 대조",
             "raw_block 회차 원문 창에서 좌우 단 분리 후 선지 다섯 개 복원",
-            "복원한 선지가 코퍼스 choices 배열과 낱말 단위로 대응하는지 확인"
+            "복원한 선지가 코퍼스 choices 배열과 낱말 단위로 대응하는지 확인",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -859,12 +939,14 @@
           "verdict": "pass",
           "findings": [
             "③(정답)과 ④가 모두 나라 간 대소를 다루지만 ④의 실제 유인은 계열 혼동이라 라벨을 갈랐다",
-            "오답 4종 라벨 전부 다름"
+            "오답 4종 라벨 전부 다름",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 중복 여부",
             "why_tempting 이 복원한 선지 문장(58% · gap · 41% · respectively)에 근거하는지",
-            "정답 판정이 코퍼스 answer=3 과 일치하는지"
+            "정답 판정이 코퍼스 answer=3 과 일치하는지",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -872,12 +954,14 @@
           "verdict": "pass",
           "findings": [
             "지문 손상 문항이라 시간을 95초로 늘렸다 — 실제 시험지에서는 손상이 없으므로 이 값은 상한이다",
-            "'숫자가 박힌 선지에 표시'라는 2단계가 이 문항의 핵심 습관이다"
+            "'숫자가 박힌 선지에 표시'라는 2단계가 이 문항의 핵심 습관이다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "절차 실행 가능성(손상 없는 시험지 기준)",
             "금지 표현 대조",
-            "required_vocab 4개를 passage 문자열에서 확인"
+            "required_vocab 4개를 passage 문자열에서 확인",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]
@@ -919,7 +1003,13 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "'which was also true for Japan'이 앞 절을 보충하는 설명처럼 읽혀, Finland 두 막대만 확인하고 참으로 판정한다. Japan 은 ⑤에서 따로 다뤄지므로 '거기서 봤다'는 착각도 생긴다."
+          "why_correct": "선지 ④는 'which was also true for Japan' 때문에 두 나라에 걸친 연언이다 — Finland 의 2019 < 2017 과 Japan 의 2019 < 2017 이 둘 다 참이어야 하고, 한쪽만 어긋나도 선지 전체가 도표와 일치하지 않는다. 검증은 네 막대(Finland 의 2017·2019, Japan 의 2017·2019)를 두 번 견주는 일이다. 다른 선지는 그중 어느 것도 대신하지 않는다 — Japan 을 다루는 ⑤는 'did not exceed 15% in each of the three years' 라는 위쪽 임계일 뿐이라 두 해의 앞뒤를 정하지 않고(15% 아래에서 오를 수도 내릴 수도 있다), ①은 Ireland 의 매년 최고, ②는 Germany 의 30% 미만, ③은 Denmark 의 세 해 순서다. Finland 를 다루는 선지도 ④ 하나뿐이다. 곧 어느 나라 쪽 부등호가 뒤집히는지는 그 네 막대를 그림에서 읽어 정한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "학습자가 미끄러지는 자리 — 'which was also true for Japan'이 앞 절을 보충하는 설명처럼 읽혀, Finland 두 막대만 확인하고 참으로 판정한다. Japan 은 ⑤에서 따로 다뤄지므로 '거기서 봤다'는 착각도 생긴다."
+          }
         },
         {
           "n": 5,
@@ -973,11 +1063,13 @@
           "verdict": "pass",
           "findings": [
             "확장 절을 독립 문장으로 풀어 쓰라는 처방이 이 문항 설계에 정확히 대응한다",
-            "인용이 지문 문장의 연속 구간과 일치하며 ③의 유사 표현과 겹치지 않는다"
+            "인용이 지문 문장의 연속 구간과 일치하며 ③의 유사 표현과 겹치지 않는다",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "quote 를 corpus.json 의 2024#25 passage 와 문자열 대조",
-            "인용 구간이 선지 ③의 'in 2019 was higher than that in 2017' 과 구별되는지 확인"
+            "인용 구간이 선지 ③의 'in 2019 was higher than that in 2017' 과 구별되는지 확인",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -985,12 +1077,14 @@
           "verdict": "pass",
           "findings": [
             "초판에서 ⑤의 trap 이 ②와 같은 '임계값 경계'였다 — 두 선지가 실제로 다른 지점에서 걸린다(②는 눈금 경계, ⑤는 부정 표현 방향) → ⑤를 '부정 표현 임계'로 갈랐다(revise 후 반영)",
-            "오답 4종 라벨 전부 다름"
+            "오답 4종 라벨 전부 다름",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 중복 여부",
             "why_tempting 이 선지 표현(did not exceed · which was also true for)에 근거하는지",
-            "정답 판정이 코퍼스 answer=4 와 일치하는지"
+            "정답 판정이 코퍼스 answer=4 와 일치하는지",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -998,12 +1092,14 @@
           "verdict": "pass",
           "findings": [
             "'나라 이름이 몇 개 나오는지 센다'는 2단계는 지문을 안 본 상태에서도 실행 가능하고 ④를 바로 후보로 올린다",
-            "90초 안에 다섯 선지가 들어간다"
+            "90초 안에 다섯 선지가 들어간다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "절차 실행 가능성",
             "금지 표현 대조",
-            "required_vocab 4개를 passage 문자열에서 확인"
+            "required_vocab 4개를 passage 문자열에서 확인",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]
@@ -1046,7 +1142,13 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "'도시 선호는 나이가 들수록 줄어든다'는 상식이 55세 이상에서 Big/Small City 를 최소로 두는 진술과 맞아떨어져, 세 막대를 실제로 비교하지 않는다."
+          "why_correct": "선지 ④에서 어긋나는 절은 'among the three preferred types of place to liv was the lowest' 이고(코퍼스 지문은 live 가 liv 로 잘려 있다), 55세 이상 한 집단에서 Big/Small City 가 세 계열 중 최소라는 주장이다. 본문이 이 최소 주장을 한 번의 비교로 좁혀 준다 — ①의 'In each of the three age groups, Town/Rural Area was the most preferred type of place to live' 가 55세 이상에서도 Town/Rural Area 를 최대로 못박으므로 최소 후보는 Big/Small City 와 Suburb of Big/Small City 둘만 남는다. 그러니 ④가 도표와 일치하지 않는다는 것은 그 한 번의 비교에서 Suburb of Big/Small City 쪽이 더 낮다는 뜻이다. 그 두 막대는 그림에서 견주어야 하며, ②의 'the percentage of those who preferred Big/Small City was higher than that of those who preferred Suburb of Big/Small City'(18-34)와 ③의 'the percentage of those who preferred Suburb of Big/Small City exceeded that of those who preferred Big/Small City'(35-54)가 이미 두 계열의 앞뒤가 한 번 뒤집혔음을 보여 주므로, 앞 집단의 순서를 55세 이상으로 옮겨 오는 것은 근거가 되지 않는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "학습자가 미끄러지는 자리 — '도시 선호는 나이가 들수록 줄어든다'는 상식이 55세 이상에서 Big/Small City 를 최소로 두는 진술과 맞아떨어져, 세 막대를 실제로 비교하지 않는다. 코퍼스의 chos·liv 는 파서 손상이며 원문 시험지에는 chose·live 다."
+          }
         },
         {
           "n": 5,
@@ -1096,12 +1198,14 @@
           "verdict": "pass",
           "findings": [
             "초판 인용이 손상 구간('who chos')을 문장 머리부터 포함해 학습자에게 오독을 유발할 수 있었다 → 판정에 필요한 뒷부분으로 좁히고 손상 사실을 note 에 명시했다(revise 후 반영)",
-            "코퍼스 지문의 OCR 손상(chos · liv)은 원문 시험지에는 없는 파서 산물이다"
+            "코퍼스 지문의 OCR 손상(chos · liv)은 원문 시험지에는 없는 파서 산물이다",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "quote 를 corpus.json 의 2023#25 passage 와 문자열 대조",
             "columns2/2023.txt 349행 창에서 손상 위치 확인",
-            "손상이 정답 판정에 쓰이는 낱말(lowest · three)에는 없음을 확인"
+            "손상이 정답 판정에 쓰이는 낱말(lowest · three)에는 없음을 확인",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -1109,12 +1213,14 @@
           "verdict": "pass",
           "findings": [
             "②(계열 짝 바꾸기)와 ③(동형 진술 동조)은 같은 두 계열을 다루지만 걸리는 지점이 다르다 — ②는 범례 짚기, ③은 앞 판정 전이",
-            "오답 4종 라벨 전부 다름"
+            "오답 4종 라벨 전부 다름",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 중복 여부",
             "why_tempting 이 선지 표현(exceeded · across the three age groups)에 근거하는지",
-            "정답 판정이 코퍼스 answer=4 와 일치하는지"
+            "정답 판정이 코퍼스 answer=4 와 일치하는지",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -1122,12 +1228,14 @@
           "verdict": "pass",
           "findings": [
             "'범례 이름을 앞머리 낱말로 갈라 적는다'는 1단계가 이 문항의 최대 실점 원인을 앞에서 막는다",
-            "85초 안에 아홉 칸을 다 처리할 수 있다"
+            "85초 안에 아홉 칸을 다 처리할 수 있다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "절차 실행 가능성(그래프 미열람 상태 시작)",
             "금지 표현 대조",
-            "required_vocab 4개를 passage 문자열에서 확인"
+            "required_vocab 4개를 passage 문자열에서 확인",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]

@@ -127,6 +127,32 @@ function shingleHit(nq, hay, suspect = false) {
 
 // 청크 이름은 첫 문항 id 에서 나온다(`chunk-R-BLANK-M2706-31`). 일련번호가 아니므로
 // `--chunk` 는 **이름 조각**으로 받는다 — `--chunk R-BLANK` · `--chunk M2706-31` 둘 다 된다.
+/**
+ * **why_correct 가 정답 선지의 표현을 실제로 인용하는가.**
+ *
+ * 「왜 이것이 정답인가」는 두 쪽을 잇는 주장이다 — 지문의 이 표현이 **선지의 저 부분**과 맞물린다.
+ * 그러니 선지 쪽 표현이 서술 안에 들어와야 한다. 심리 서술(「…처럼 보인다」·「넘기기 쉽다」)은
+ * 선지를 인용할 이유가 없으므로 이 검사에 걸린다.
+ *
+ * **낱말 목록으로는 못 잡는다 — 세 번 해 보고 접었다.** 배제 어휘로 재니 4건, 어미까지 넓혀
+ * 52건이었는데, 표본 25건을 손으로 읽으니 실제로는 **7건(28%)** 이 남아 있었고 그 7건을
+ * 정규식은 **하나도** 못 잡았다(어미 한 글자 차이로 빠져나간다).
+ * 이 검사는 같은 표본에서 심리 서술 **7/7 을 전부** 잡았다(근거 18건 중 4건은 오탐).
+ *
+ * 오탐이 있으므로 **막지 않고 표시한다** — 선지가 기호뿐인 유형(순서·지칭)이나 선지를
+ * 우리말로 풀어 쓴 경우가 정당하게 걸린다.
+ */
+function quotesChoice(why, it) {
+  const ch = (it.choices ?? [])[(it.answer ?? 0) - 1] ?? ''
+  const c = norm(ch)
+  if (c.length < 6) return null // 선지를 못 떴으면 판정하지 않는다
+  const n = norm(why)
+  for (let L = Math.min(24, c.length); L >= 6; L -= 1) {
+    for (let i = 0; i + L <= c.length; i += 1) if (n.includes(c.slice(i, i + L))) return true
+  }
+  return false
+}
+
 const all = fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json')).sort()
 const files = arg('chunk') ? all.filter((f) => f.includes(arg('chunk'))) : all
 
@@ -245,6 +271,9 @@ for (const f of files) {
         // 그 유형의 정답 근거는 "이 선지의 어느 부분이 지문·도표와 어긋나는가" 다.
         if (/배제|지운다|지우면|오답|함정|미끄러|유인|고르면 안|골라선|기 쉽|하기 쉬|처럼 보인|보이기 쉽|눈에 안|지레|넘기기 쉽|끌린다|끌리기/.test(w)) {
           warn(id, `정답 선지 ${c.n} 의 why_correct 가 「왜 놓치기 쉬운가」로 읽힌다 — 정답 근거로 다시 쓸 것`)
+        }
+        if (quotesChoice(w, it) === false) {
+          warn(id, `정답 선지 ${c.n} 의 why_correct 가 선지 표현을 인용하지 않는다 — 대응이 아니라 심리 서술일 수 있다`)
         }
         if (c.why_tempting || c.how_to_reject) {
           warn(id, `정답 선지 ${c.n} 에 오답용 필드(why_tempting/how_to_reject)가 붙어 있다 — why_correct 로 옮길 것`)

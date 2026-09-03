@@ -169,7 +169,14 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "앞 문장이 humans의 성취를 말하고 뒤 문장이 어휘를 말해 화제가 바뀌는 자리라, 낱말 반복만 보는 학습자에게는 단서가 없다."
+          "why_correct": "③ 앞 문장 'It was with red that humans did their first color experiments, achieved their first successes, and then constructed a chromatic universe.' 의 분열문을 주어진 문장 'It was also within the range of reds that they learned early on to diversify the palette ...' 이 also 와 대명사 they 로 그대로 이어받는다(앞쪽 대응). 그 문장 끝의 'as the oldest known color terms demonstrate' 가 색채어를 처음 들여오므로, ③ 뒤 문장 'Here the lexicon seems in keeping with pictorial practices and coloring techniques.' 의 정관사구 the lexicon 이 선행어를 얻고 Here 가 '어휘와 채색 기술이 맞아떨어지는 지점' 을 가리키게 된다(뒤쪽 대응). ④·⑤ 뒤의 In certain languages / In other languages 는 the lexicon 의 각론이므로 그 뒤에 넣으면 총론이 각론 뒤로 밀린다.",
+          "confirmed_at": {
+            "note": "앞 문장이 humans 의 성취를 말하고 뒤 문장이 어휘를 말해 화제가 바뀌는 자리라, 겹치는 낱말만 세는 학습자에게는 단서가 잡히지 않는다.",
+            "sentence_index": [
+              5,
+              6
+            ]
+          }
         },
         {
           "n": 4,
@@ -230,12 +237,14 @@
           "verdict": "pass",
           "findings": [
             "quote가 지문 원문과 일치한다",
-            "정답 근거를 also(앞 조건)와 the lexicon(뒤 조건) 두 축으로 이중 확인해 유형 정의에 맞는다"
+            "정답 근거를 also(앞 조건)와 the lexicon(뒤 조건) 두 축으로 이중 확인해 유형 정의에 맞는다",
+            "3차 재검수: why_correct 가 한쪽(앞 문맥 또는 학습자 심리)만 말해 revise → 주어진 문장의 표지가 앞 문장의 어느 낱말을 받는지, 그 자리에 넣어야 뒤 문장이 왜 성립하는지 양쪽을 다 씀. pass."
           ],
           "checked": [
             "quote를 지문에서 문자열 대조",
             "주어진 문장이 요구하는 앞 조건과 뒤 조건을 각각 지문 문장으로 지목했는지 확인",
-            "정답 ③과 평가원 정답표 대조"
+            "정답 ③과 평가원 정답표 대조",
+            "why_correct ↔ 슬롯 뒤 문장(선지 텍스트) 문자열 대조"
           ]
         },
         {
@@ -243,27 +252,32 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 라벨이 서로 다르다",
-            "④의 why_tempting이 '화제가 같아 보인다'는 실제 오답 유인(색채어 반복)에 근거한다"
+            "④의 why_tempting이 '화제가 같아 보인다'는 실제 오답 유인(색채어 반복)에 근거한다",
+            "3차 재검수: 새 why_correct 가 이웃 위치(앞뒤 한 칸)를 실제로 배제하는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 중복 여부",
             "why_tempting이 각 자리의 실제 인접 문장 표현에 근거하는지",
-            "how_to_reject마다 ①~⑤ 중 어느 자리의 앞/뒤 문장인지 위치가 명시됐는지"
+            "how_to_reject마다 ①~⑤ 중 어느 자리의 앞/뒤 문장인지 위치가 명시됐는지",
+            "이웃 슬롯 배제 근거가 서술 안에 있는지 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계에서 뒤 문장 첫 두세 낱말만 읽게 해 3점 지문에서도 130초 안에 든다"
+            "2단계에서 뒤 문장 첫 두세 낱말만 읽게 해 3점 지문에서도 130초 안에 든다",
+            "3차 재검수: 학습자가 슬롯 앞 문장과 뒤 문장만 읽어 판정할 수 있는 형태인지 확인. pass."
           ],
           "checked": [
             "금지 표현 문자열 검사",
             "지문 미독 상태 실행 가능성",
-            "required_vocab 4개가 지문에 실제로 있고 정답 판단에 쓰이는지"
+            "required_vocab 4개가 지문에 실제로 있고 정답 판단에 쓰이는지",
+            "앞쪽 대응·뒤쪽 대응이 각각 명시되었는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2026#38",
@@ -834,7 +848,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "④ 뒤 문장이 Certain types of cute products로 시작해 앞의 cute 문장과 낱말이 겹치는 탓에 같은 묶음으로 보인다."
+          "why_correct": "주어진 문장의 문두 also 는 '앞에 이미 놓인 묶음'을 요구한다. 그 묶음은 ② 앞 'two very different motivations' 가 예고한 두 동기이고, 둘째 항인 ④ 앞 문장 'The beautiful product or package design elicits a self-expressive, or signaling, motivation' 에서 열거가 닫힌다(앞쪽 대응). 뒤로는 ④ 뒤 'Certain types of cute products can be associated with a lack of sophistication or seriousness' 와 ⑤ 뒤 'Beautiful-looking designs may not attract attention over time' 이 주어진 문장의 'cute and beautiful' 순서를 그대로 따라 단점을 하나씩 드는데, 두 문장 어디에도 그 둘을 downsides 로 묶는 표제가 없다 — 그 표제를 주어진 문장이 댄다(뒤쪽 대응).",
+          "confirmed_at": {
+            "sentence_index": [
+              5,
+              6
+            ],
+            "note": "④ 뒤 문장이 Certain types of cute products 로 시작해 ② 뒤 A cute product … 문장과 낱말이 겹치는 탓에, 학습자는 두 문장을 같은 묶음으로 묶고 ④ 를 지나친다. 겹치는 낱말이 단서가 아니라 미끼인 자리다."
+          }
         },
         {
           "n": 5,
@@ -883,12 +904,17 @@
           "verdict": "pass",
           "findings": [
             "quote가 지문 원문과 일치한다(괄호 앞까지 그대로 따옴)",
-            "장점 묶음/단점 묶음의 대칭이라는 이 지문 고유의 설계를 의도로 적었다"
+            "장점 묶음/단점 묶음의 대칭이라는 이 지문 고유의 설계를 의도로 적었다",
+            "다시 쓴 why_correct 가 앞뒤 두 이음매를 모두 대는지 확인했다 — 받는 표지와 받히는 낱말의 짝을 양쪽에서 지목한다",
+            "인용한 영어 표현을 corpus.json 지문과 문자열 대조했다"
           ],
           "checked": [
             "quote를 지문에서 문자열 대조",
             "정답 ④와 평가원 정답표 대조",
-            "④ 앞 구간에 부정 평가 표현이 없는지 낱말 단위로 확인"
+            "④ 앞 구간에 부정 평가 표현이 없는지 낱말 단위로 확인",
+            "why_correct 안의 영어 인용을 corpus.json 지문에서 문자열 대조",
+            "answer_locus.quote 문자열 대조",
+            "정답 번호를 평가원 정답표와 대조"
           ]
         },
         {
@@ -896,27 +922,37 @@
           "verdict": "pass",
           "findings": [
             "①의 유인을 However와 But의 중복이라는 구체 근거로 설명했다",
-            "오답 4개 라벨이 서로 다르다(총론-각론 절단과 총론-각론 역전은 방향이 반대라 별개로 둔다)"
+            "오답 4개 라벨이 서로 다르다(총론-각론 절단과 총론-각론 역전은 방향이 반대라 별개로 둔다)",
+            "소거법(\"나머지가 어색하므로\")에 기대지 않고 인접 두 자리가 왜 안 되는지를 표지 단위로 댄다",
+            "옛 서술의 학습자 심리 관찰은 버리지 않고 confirmed_at.note 로 옮겼다"
           ],
           "checked": [
             "trap 라벨 중복 여부",
             "why_tempting이 인접 문장의 실제 표현에 근거하는지",
-            "how_to_reject의 위치 명시 여부"
+            "how_to_reject의 위치 명시 여부",
+            "why_correct 가 인접 위치(±1)를 실제로 배제하는지",
+            "오답 4개 trap 라벨 중복 여부",
+            "심리 서술이 why_correct 에 남아 있지 않은지 낱말 검사"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계 부정 표현 표시가 기계적이라 지문을 처음 보는 학생도 실행할 수 있다"
+            "2단계 부정 표현 표시가 기계적이라 지문을 처음 보는 학생도 실행할 수 있다",
+            "학습자가 지문에서 짚을 자리가 앞 문장·뒤 문장 두 곳으로 특정된다"
           ],
           "checked": [
             "금지 표현 문자열 검사",
             "지문 미독 상태 실행 가능성",
-            "required_vocab 4개가 지문에 실제로 있는지"
+            "required_vocab 4개가 지문에 실제로 있는지",
+            "순환논법 금지 표현 문자열 검사",
+            "why_correct 가 지목한 표지를 지문에서 눈으로 찾을 수 있는지",
+            "solve_procedure 와 새 서술이 어긋나지 않는지"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2606#39",
@@ -1095,7 +1131,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "④ 뒤 Once the idea is released가 그 자체로 새 화제처럼 읽혀, 앞에 무엇이 빠졌는지 눈치채기 어렵다."
+          "why_correct": "앞쪽 대응 — 주어진 문장의 정관사구 'the secretive inventor' 는 ① 뒤 'many innovators prefer to protect their innovation through secrecy' 로 등장해 'They may believe' · 'They might also believe' 로 이어진 신념 열거의 주체를 받는다. also 가 붙은 마지막 항이 ④ 앞 문장이므로 열거는 거기서 닫히고, 주어진 문장의 however 가 뒤집을 대상(비밀이 낫다는 믿음)이 그때 갖춰진다. 뒤쪽 대응 — ④ 뒤 'Once the idea is released, it will be “free as the air”' 의 released 는 이미 일어난 유출을 전제하는데, 그 유출을 대는 표현은 주어진 문장의 'an employee or contractor will disclose the proprietary information' 밖에 없다. 이어 마지막 문장 'Such a predicament' 가 가리킬 곤경도 주어진 문장의 risks 진술에서만 나온다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5,
+              6
+            ],
+            "note": "④ 뒤 Once the idea is released 가 그 자체로 새 화제처럼 읽혀, 학습자는 앞에 무엇이 빠졌는지 눈치채지 못한 채 지나간다."
+          }
         },
         {
           "n": 5,
@@ -1145,12 +1188,17 @@
           "verdict": "pass",
           "findings": [
             "quote가 지문 원문과 곡선 따옴표까지 같다",
-            "정답 근거를 유출 사건의 부재라는 이 지문 고유의 공백으로 적었다"
+            "정답 근거를 유출 사건의 부재라는 이 지문 고유의 공백으로 적었다",
+            "다시 쓴 why_correct 가 앞뒤 두 이음매를 모두 대는지 확인했다 — 받는 표지와 받히는 낱말의 짝을 양쪽에서 지목한다",
+            "인용한 영어 표현을 corpus.json 지문과 문자열 대조했다"
           ],
           "checked": [
             "quote를 지문에서 문자열 대조",
             "정답 ④와 평가원 정답표 대조",
-            "④ 앞 구간에 disclose·release 계열 표현이 없는지 낱말 검색"
+            "④ 앞 구간에 disclose·release 계열 표현이 없는지 낱말 검색",
+            "why_correct 안의 영어 인용을 corpus.json 지문에서 문자열 대조",
+            "answer_locus.quote 문자열 대조",
+            "정답 번호를 평가원 정답표와 대조"
           ]
         },
         {
@@ -1158,27 +1206,37 @@
           "verdict": "pass",
           "findings": [
             "⑤가 Such a predicament 때문에 그럴듯해지는 유인임을 지목했다",
-            "오답 4개 라벨이 서로 다르다"
+            "오답 4개 라벨이 서로 다르다",
+            "소거법(\"나머지가 어색하므로\")에 기대지 않고 인접 두 자리가 왜 안 되는지를 표지 단위로 댄다",
+            "옛 서술의 학습자 심리 관찰은 버리지 않고 confirmed_at.note 로 옮겼다"
           ],
           "checked": [
             "trap 라벨 중복 여부",
             "why_tempting이 인접 문장의 실제 표현에 근거하는지",
-            "how_to_reject의 위치 명시 여부"
+            "how_to_reject의 위치 명시 여부",
+            "why_correct 가 인접 위치(±1)를 실제로 배제하는지",
+            "오답 4개 trap 라벨 중복 여부",
+            "심리 서술이 why_correct 에 남아 있지 않은지 낱말 검사"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계에서 '앞 사건을 전제하는 표현'을 찾게 한 것이 이 문항에서 바로 정답 후보를 남긴다"
+            "2단계에서 '앞 사건을 전제하는 표현'을 찾게 한 것이 이 문항에서 바로 정답 후보를 남긴다",
+            "학습자가 지문에서 짚을 자리가 앞 문장·뒤 문장 두 곳으로 특정된다"
           ],
           "checked": [
             "금지 표현 문자열 검사",
             "지문 미독 상태 실행 가능성",
-            "required_vocab 4개가 정답 판단에 쓰이는지"
+            "required_vocab 4개가 정답 판단에 쓰이는지",
+            "순환논법 금지 표현 문자열 검사",
+            "why_correct 가 지목한 표지를 지문에서 눈으로 찾을 수 있는지",
+            "solve_procedure 와 새 서술이 어긋나지 않는지"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2025#39",
@@ -1217,7 +1275,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "④ 앞 Krebs와 Weber 문장이 길고 추상적이라 그 뒤에 무엇이 빠졌는지 알아채기 어렵다."
+          "why_correct": "④ 앞 문장은 Krebs 와 Weber 가 통념적 lifecycle 이해를 'provides an incomplete definition' 이라고 비판할 뿐 사물의 실제 행로를 하나도 들지 않는다. 주어진 문장의 'In reality' 가 그 비판을 이어받아 'they undergo breakdowns, await repairs, are stored away, or find themselves relegated to the basement, only to be rediscovered and repurposed later' 라는 첫 목록을 놓는다(앞쪽 대응). 그 목록이 있어야 ④ 뒤 문장 'Additionally, objects may enter recycling or second-hand cycles, leading to a dynamic afterlife marked by diverse applications.' 의 Additionally 가 더할 같은 층위의 항목을 갖는다(뒤쪽 대응). 마지막 문장의 'far more complicated and adaptive path than a simplistic linear progression' 도 주어진 문장의 linear lifecycle model 을 되받아 글을 닫는다.",
+          "confirmed_at": {
+            "note": "④ 앞 Krebs·Weber 문장이 길고 추상적이라 그 뒤에 무엇이 빠져 있는지 눈에 잡히지 않는다.",
+            "sentence_index": [
+              5,
+              6
+            ]
+          }
         },
         {
           "n": 5,
@@ -1266,12 +1331,14 @@
           "verdict": "pass",
           "findings": [
             "초안에서는 answer_locus.quote로 주어진 문장 자체(In reality, objects do not conform …)를 인용해 근거가 스스로를 가리키고 있었다 — 지문 쪽 문장인 Additionally … 로 바꿔 삽입 자리를 요구하는 쪽을 인용하게 고쳤다",
-            "고친 quote가 지문 원문과 일치한다"
+            "고친 quote가 지문 원문과 일치한다",
+            "3차 재검수: why_correct 가 한쪽(앞 문맥 또는 학습자 심리)만 말해 revise → 주어진 문장의 표지가 앞 문장의 어느 낱말을 받는지, 그 자리에 넣어야 뒤 문장이 왜 성립하는지 양쪽을 다 씀. pass."
           ],
           "checked": [
             "quote가 주어진 문장이 아니라 지문 본문 문장인지 확인",
             "quote를 지문에서 문자열 대조",
-            "정답 ④와 평가원 정답표 대조"
+            "정답 ④와 평가원 정답표 대조",
+            "why_correct ↔ 슬롯 뒤 문장(선지 텍스트) 문자열 대조"
           ]
         },
         {
@@ -1279,24 +1346,28 @@
           "verdict": "pass",
           "findings": [
             "③이 통념 바로 뒤라는 위치 때문에 가장 강한 유인임을 지목했다",
-            "오답 4개 라벨이 서로 다르다"
+            "오답 4개 라벨이 서로 다르다",
+            "3차 재검수: 새 why_correct 가 이웃 위치(앞뒤 한 칸)를 실제로 배제하는지 확인. 오답 4개 서술은 손대지 않았다. pass."
           ],
           "checked": [
             "trap 라벨 중복 여부",
             "why_tempting이 인접 문장의 실제 표현에 근거하는지",
-            "how_to_reject의 위치 명시 여부"
+            "how_to_reject의 위치 명시 여부",
+            "이웃 슬롯 배제 근거가 서술 안에 있는지 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계가 뒤 문장 첫 낱말만 보게 해 긴 지문에서도 115초 안에 든다"
+            "2단계가 뒤 문장 첫 낱말만 보게 해 긴 지문에서도 115초 안에 든다",
+            "3차 재검수: 학습자가 슬롯 앞 문장과 뒤 문장만 읽어 판정할 수 있는 형태인지 확인. pass."
           ],
           "checked": [
             "금지 표현 문자열 검사",
             "지문 미독 상태 실행 가능성",
-            "required_vocab 4개가 지문에 실제로 있는지"
+            "required_vocab 4개가 지문에 실제로 있는지",
+            "앞쪽 대응·뒤쪽 대응이 각각 명시되었는지 확인"
           ]
         }
       ],

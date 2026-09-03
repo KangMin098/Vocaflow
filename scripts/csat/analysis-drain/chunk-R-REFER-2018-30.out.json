@@ -197,7 +197,14 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "바로 앞 7문장이 온통 어머니 이야기(she said it to her own children)라 8문장 she 도 어머니로 이어 읽는다."
+          "why_correct": "⑤ 가 든 문장은 조건절이 주어를 대명사가 아니라 이름으로 다시 댄다 — 'If Louise had not learned the effective parenting skills taught in the seminars, ⑤ she would probably be using similarly ineffective threatening techniques with her own children today!' 이므로 주절의 she 는 그 조건절 주어 Louise 를 승계한다. 2문장의 'Louise, a mother who attended my seminars' 가 세미나에 나온 사람을 Louise 로 못박아 두었으니 'the effective parenting skills taught in the seminars' 를 배울 수 있었던 사람도 Louise 뿐이다. 나머지 넷은 모두 Louise 의 어머니다 — ① 은 명사구 'her mother dealt with sibling fighting' 의 her mother, ② 는 “her mother’s infamous threat was always” 가 도입하는 인용 안의 I, ③ 은 'how their mother would actually accomplish such a task' 를 받는 which ... ③ she never attempted 의 she, ④ 는 'Louise’s mother had learned this threatening tactic from ④ her own mother' 에서 소유격 her 의 임자인 그 절의 주어 Louise's mother 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              8
+            ],
+            "note": "학습자가 미끄러지는 자리 — 바로 앞 7문장이 온통 어머니 이야기(she said it to her own children)라 8문장의 she 도 어머니로 이어 읽는다. 8문장은 조건절이 이름을 다시 대므로, 사슬을 끊고 그 이름만 확인하면 된다."
+          }
         }
       ],
       "solve_procedure": [
@@ -245,12 +252,14 @@
           "findings": [
             "초안은 ④를 외할머니로 판정했다 — 그러면 ④와 ⑤ 둘이 '나머지와 다른' 것이 되어 정답이 하나로 정해지지 않는다. 밑줄 범위를 소유격 her 로 바로잡고 그 근거를 how_to_reject 에 적었다",
             "quote 가 코퍼스 선지 5 텍스트에 문자 그대로 있다",
-            "평가원 정답표 ⑤ 와 분석 correct 가 일치한다"
+            "평가원 정답표 ⑤ 와 분석 correct 가 일치한다",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json M1809#30 choices 와 문자열 대조",
             "밑줄 다섯을 각각 확정해 4:1 로 갈리는지 검산(①②③④=Louise 의 어머니, ⑤=Louise)",
-            "④를 외할머니로 잡았을 때 정답이 둘이 되는지 반증"
+            "④를 외할머니로 잡았을 때 정답이 둘이 되는지 반증",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -259,12 +268,14 @@
           "findings": [
             "오답 넷의 라벨이 명사구 밑줄 지시 오인 · 인용문 인칭 미전환 · 직전 주어 승계 착각 · 소유격→피소유자 오인 으로 서로 다르다",
             "③의 배제 근거에 단수·복수 일치라는 검증 가능한 축을 하나 더 붙였다",
-            "①과 ④가 둘 다 her 이지만 함정이 서로 반대 방향(범위를 좁게 / 넓게 읽는다)임을 확인했다"
+            "①과 ④가 둘 다 her 이지만 함정이 서로 반대 방향(범위를 좁게 / 넓게 읽는다)임을 확인했다",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 4종 중복 여부 대조",
             "why_tempting 이 선지 텍스트의 실제 표현(her own mother · you kids · Louise and her siblings)에 근거하는지 확인",
-            "how_to_reject 넷 모두에 문장 번호가 있는지 확인"
+            "how_to_reject 넷 모두에 문장 번호가 있는지 확인",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -273,12 +284,14 @@
           "findings": [
             "절차 1단계를 '밑줄 범위 확인'으로 앞당긴 것이 이 문항에서 결정적이다 — 범위를 안 보면 ④에서 반드시 틀린다",
             "85초는 세대 표 그리기(약 15초)를 포함한 값이다",
-            "required_vocab 넷이 모두 판정에 쓰인다(threat/tactic 은 ②③의 지시 대상, ineffective 는 ⑤의 대조)"
+            "required_vocab 넷이 모두 판정에 쓰인다(threat/tactic 은 ②③의 지시 대상, ineffective 는 ⑤의 대조)",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "solve_procedure 금지 표현 대조",
             "지문을 안 본 학생이 1~3단계를 실행할 수 있는지 확인",
-            "required_vocab 네 낱말의 지문 내 존재를 문자열 대조"
+            "required_vocab 네 낱말의 지문 내 존재를 문자열 대조",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]
@@ -320,7 +333,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "10문장 앞부분이 When Paul raised his doubt 라 Paul 이라는 이름이 먼저 눈에 들어오고, 흥정 당사자만 좇던 사슬 때문에 his 도 Paul 로 이어 읽는다."
+          "why_correct": "밑줄 ④ his interpretation 의 임자는 Bob 이다. 그 절이 ‘Bob instantly recognized the error and corrected ④ his interpretation’ 으로, corrected 는 recognized 와 and 로 묶인 등위 동사여서 주어가 Bob 이고 소유격은 자기 절의 주어를 가리킨다. 앞 문장 ‘Paul sensed something wrong in Bob’s interpretation’ 이 그 interpretation 의 임자를 Bob 으로 이미 못박아 두었다 — 고친 것은 Bob 자신의 통역이다. 반면 ①(a carving that he liked) ②(his opponent proposed 450) ③(stepping up his price slightly) ⑤(he was delighted to purchase the carving)는 모두 흥정하는 손님 Paul 을 가리키므로 ④ 만 다른 사람이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              8,
+              10
+            ],
+            "note": "「학습자가 미끄러지는 자리」 10문장 앞부분이 When Paul raised his doubt 라 Paul 이라는 이름이 먼저 눈에 들어오고, 흥정 당사자만 좇던 사슬 때문에 ④ 의 his 도 Paul 로 이어 읽게 된다."
+          }
         },
         {
           "n": 5,
@@ -375,12 +395,14 @@
           "findings": [
             "quote 가 코퍼스 선지 3·4 를 잇는 원문 문장과 문자 그대로 일치한다(파서가 밑줄 기호 자리에서 선지를 자른 형태)",
             "평가원 정답표 ④ 와 분석 correct 가 일치한다",
-            "발문이 he[his] 로 밑줄 품사를 미리 알려 주는 두 문항 중 하나다(다른 하나는 2016#30)"
+            "발문이 he[his] 로 밑줄 품사를 미리 알려 주는 두 문항 중 하나다(다른 하나는 2016#30)",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「10문장 앞부분이 When Paul raised his doubt 라 Paul 이라는 이름이 먼저 눈에 들어」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2017#30 passage+choices 결합 문자열과 대조",
             "밑줄 다섯의 지시 대상을 절 주어로 재확정(①②③⑤=Paul, ④=Bob)",
-            "셋째 인물(판매자)이 밑줄 대상이 되는 자리가 없는지 확인"
+            "셋째 인물(판매자)이 밑줄 대상이 되는 자리가 없는지 확인",
+            "등위 동사 and 로 묶인 주어와 Bob’s interpretation 을 지문 문자열로 대조"
           ]
         },
         {
@@ -388,12 +410,14 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 직전 주어 승계 착각 · 소유격→피소유자 오인 · 역할 뒤바꿈 · 타동사 목적어 분리 로 서로 다르다",
-            "②와 ③이 둘 다 판매자로 오답이 몰리지만 유인 경로가 다르다 — ②는 문법(소유격 범위), ③은 상식(값을 올리는 쪽)이다"
+            "②와 ③이 둘 다 판매자로 오답이 몰리지만 유인 경로가 다르다 — ②는 문법(소유격 범위), ③은 상식(값을 올리는 쪽)이다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「10문장 앞부분이 When Paul raised his doubt 라 Paul 이라는 이름이 먼저 눈에 들어」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "trap 4종 중복 여부 대조",
             "why_tempting 이 선지 텍스트의 실제 표현(his opponent proposed 450 · stepping up · thanked Bob)에 근거하는지 확인",
-            "how_to_reject 넷 모두 문장 번호를 다는지 확인"
+            "how_to_reject 넷 모두 문장 번호를 다는지 확인",
+            "나머지 넷이 모두 Paul 로 모이는지 밑줄마다 확인"
           ]
         },
         {
@@ -402,15 +426,18 @@
           "findings": [
             "2단계의 '뒤 명사를 괄호로 묶어 지운다'가 이 문항에서 ②를 그냥 걸러 준다 — 학생이 손으로 할 수 있는 동작이다",
             "85초는 인물 셋의 역할 표기(약 15초)를 포함한다",
-            "required_vocab 넷은 지시 대상 확정에 직접 쓰인다 — opponent 는 ②, interpreter/interpretation 은 ④의 근거다"
+            "required_vocab 넷은 지시 대상 확정에 직접 쓰인다 — opponent 는 ②, interpreter/interpretation 은 ④의 근거다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「10문장 앞부분이 When Paul raised his doubt 라 Paul 이라는 이름이 먼저 눈에 들어」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "solve_procedure 금지 표현 대조",
             "각 단계가 지문을 안 본 상태에서 실행 가능한지 확인",
-            "required_vocab 네 낱말의 지문 내 존재를 문자열 대조"
+            "required_vocab 네 낱말의 지문 내 존재를 문자열 대조",
+            "학생이 밑줄이 든 절의 주어를 먼저 적는 절차를 밟을 수 있는지 점검"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2016#30",
@@ -601,7 +628,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "①②③이 모두 엄마라 네 번째 she 도 같은 사슬로 이어 읽게 되고, In passing 이라는 부사구가 주어를 가려 said 의 주어를 따로 확인하지 않게 된다."
+          "why_correct": "밑줄 ④ 의 ‘she said, “Mom, thanks for saying the positive thing about me yesterday’ 에서 she 는 딸이다. 인용 안 첫 낱말이 호칭 Mom 이므로 말하는 사람은 엄마를 부르는 쪽이고, 인용을 이끄는 said 의 주어가 곧 그 화자다. 바로 앞 문장 ‘The next day, to Nancy’s surprise, the teen girl seemed somewhat cheerful.’ 이 딸을 주어 자리에 올려 둔 것도 같은 결론을 준다. 반면 ①(her teen daughter — Nancy 의 딸) ②(she went into her daughter’s room) ③(I know that must have been a big effort for you — 엄마의 말 속 화자) ⑤(you said that positive thing — 딸이 부르는 상대)는 모두 엄마 Nancy 를 가리키므로 ④ 만 다른 사람이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4,
+              5
+            ],
+            "note": "「학습자가 미끄러지는 자리」 ①②③ 가 모두 엄마를 가리켜 네 번째도 같은 사슬로 이어 읽게 되고, In passing 이라는 부사구가 주어 앞을 채워 said 의 주어를 따로 확인하지 않게 된다."
+          }
         },
         {
           "n": 5,
@@ -652,12 +686,14 @@
           "findings": [
             "초안은 ①의 밑줄을 명사구 her teen daughter 로 잡았는데, 그러면 ①과 ④가 같은 딸이 되어 '나머지 넷과 다른' 것이 둘이 된다 — 밑줄을 소유격 her 로 바로잡고 그 근거(주절 주어 Nancy)를 how_to_reject 에 넣었다",
             "quote 가 코퍼스 지문에 문자 그대로 있다(곡선 따옴표 포함)",
-            "평가원 정답표 ④ 와 분석 correct 가 일치한다"
+            "평가원 정답표 ④ 와 분석 correct 가 일치한다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「①②③이 모두 엄마라 네 번째 she 도 같은 사슬로 이어 읽게 되고, In passing 이라는 부사구가 」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2015#29 passage 와 문자열 대조",
             "밑줄 다섯을 재확정해 4:1 로 갈리는지 검산(①②③⑤=Nancy, ④=딸)",
-            "①을 명사구로 읽었을 때 정답이 둘이 되는지 반증"
+            "①을 명사구로 읽었을 때 정답이 둘이 되는지 반증",
+            "호칭 Mom 과 said 의 주어 관계를 지문 문자열로 대조"
           ]
         },
         {
@@ -665,12 +701,14 @@
           "verdict": "pass",
           "findings": [
             "③과 ⑤가 둘 다 인용 안이지만 함정이 갈린다 — ③은 1인칭을 청자 쪽으로, ⑤는 2인칭을 화자 쪽으로 붙이는 반대 방향이다. 라벨을 1인칭·2인칭으로 나눠 달았다",
-            "오답 넷의 라벨이 소유격→피소유자 오인 · 직전 주어 승계 착각 · 인용문 1인칭 미전환 · 인용문 2인칭 청자 오인 으로 서로 다르다"
+            "오답 넷의 라벨이 소유격→피소유자 오인 · 직전 주어 승계 착각 · 인용문 1인칭 미전환 · 인용문 2인칭 청자 오인 으로 서로 다르다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「①②③이 모두 엄마라 네 번째 she 도 같은 사슬로 이어 읽게 되고, In passing 이라는 부사구가 」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "trap 4종 중복 여부 대조",
             "why_tempting 이 선지 텍스트의 실제 표현(her teen daughter · In her desire to parent intentionally · I was feeling so down)에 근거하는지 확인",
-            "how_to_reject 넷 모두 문장 번호나 인용 구간을 지목하는지 확인"
+            "how_to_reject 넷 모두 문장 번호나 인용 구간을 지목하는지 확인",
+            "나머지 넷이 모두 Nancy 로 모이는지 밑줄마다 확인"
           ]
         },
         {
@@ -679,12 +717,14 @@
           "findings": [
             "1단계('따옴표부터 괄호 치기')는 지문을 읽기 전에 눈으로만 해도 되는 동작이라 실행 가능하다",
             "80초는 인용 두 구간 표시(약 10초)를 포함한 값이다",
-            "required_vocab 의 in passing 은 ④ 문장의 부사구라 주어를 놓치게 만드는 자리 — 실제로 필요하다"
+            "required_vocab 의 in passing 은 ④ 문장의 부사구라 주어를 놓치게 만드는 자리 — 실제로 필요하다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「①②③이 모두 엄마라 네 번째 she 도 같은 사슬로 이어 읽게 되고, In passing 이라는 부사구가 」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "solve_procedure 금지 표현 대조",
             "지문을 안 본 학생이 1~3단계를 실행할 수 있는지 확인",
-            "required_vocab 네 항목의 지문 내 존재를 문자열 대조"
+            "required_vocab 네 항목의 지문 내 존재를 문자열 대조",
+            "학생이 인용문 첫 낱말이 호칭인지 보는 절차를 밟을 수 있는지 점검"
           ]
         }
       ]
@@ -727,7 +767,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "밑줄 바로 앞에 the woman could use 가 있어 가장 가까운 명사를 소유자로 삼게 되고, 같은 문장 뒤의 her daughter 가 분명히 그 여자의 딸이라 앞의 her 도 같은 사람으로 보인다."
+          "why_correct": "④ 가 든 절은 밑줄의 임자가 아닌 사람을 같은 절 안에서 따로 부른다 — 'She walked over to the ticket agent and offered to take a later flight, if it meant the woman could use ④ her ticket to travel to New York with her daughter.' 에서 use 의 주어는 the woman 으로 이미 지명되어 있고, 문장 주어 She 는 앞 문장의 My friend 를 받는다. 그 여자 자신의 표라면 새로 얻을 것이 없어 offered to take a later flight 이라는 대가가 성립하지 않고, 4문장의 'there are no more seats available' 이 그 여자에게 쓸 표가 없음을 이미 못박았다 — 곧 그 여자가 쓸 수 있게 되는 her ticket 은 자리를 내놓은 내 친구의 것이다. 나머지 넷은 모두 그 여자를 가리킨다 — ① 은 부정관사로 처음 등장하는 'an angry lady hotly told the clerk', ② 는 'she cried' 가 화자로 표시하는 인용 안의 I, ③ 은 'the woman’s woeful story' 를 되받는 'compassion for ③ the distressed mother', ⑤ 는 'issued a revalidated ticket to ⑤ the woman, and then arranged for another flight for my friend' 로 my friend 와 나란히 갈라 적힌 the woman 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4,
+              8
+            ],
+            "note": "학습자가 미끄러지는 자리 — 밑줄 바로 앞에 the woman could use 가 있어 가장 가까운 명사를 소유자로 삼게 되고, 같은 문장 뒤의 her daughter 가 분명히 그 여자의 딸이라 앞의 her 도 같은 사람으로 보인다. 한 절 안에서 두 her 의 임자가 다를 수 있다는 것이 이 문항의 설계다."
+          }
         },
         {
           "n": 5,
@@ -782,12 +829,14 @@
           "findings": [
             "quote 가 코퍼스 선지 3·4 를 잇는 원문 문장과 문자 그대로 일치한다",
             "평가원 정답표 ④ 와 분석 correct 가 일치한다",
-            "이름이 하나도 없는 유일한 문항이라 인물 표기를 역할(친구 · 여자 · 직원)로 해야 한다는 점을 절차에 반영했다"
+            "이름이 하나도 없는 유일한 문항이라 인물 표기를 역할(친구 · 여자 · 직원)로 해야 한다는 점을 절차에 반영했다",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2014B#26 passage+choices 결합 문자열과 대조",
             "밑줄 다섯을 재확정해 4:1 로 갈리는지 검산(①②③⑤=화난 여자, ④=내 친구)",
-            "지문 끝 '8 3' 이 배점·페이지 잔여 OCR 인지 확인"
+            "지문 끝 '8 3' 이 배점·페이지 잔여 OCR 인지 확인",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -795,12 +844,14 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 명사구 밑줄 지시 오인 · 인용문 인칭 미전환 · 동격 명사구 확인 누락 · 수혜자 뒤바꿈 으로 서로 다르다",
-            "①과 ⑤가 둘 다 명사구지만 ①은 첫 등장(부정관사), ⑤는 되받기(정관사)라 배제 근거가 다르다"
+            "①과 ⑤가 둘 다 명사구지만 ①은 첫 등장(부정관사), ⑤는 되받기(정관사)라 배제 근거가 다르다",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 4종 중복 여부 대조",
             "why_tempting 이 선지 텍스트의 실제 표현(an angry lady · my eight-year-old daughter · her heart was touched · revalidated ticket)에 근거하는지 확인",
-            "how_to_reject 넷 모두 문장 번호를 다는지 확인"
+            "how_to_reject 넷 모두 문장 번호를 다는지 확인",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -809,12 +860,14 @@
           "findings": [
             "초안 절차의 마지막이 '문맥상 어색한 것을 고른다'로 끝나 실행 불가였다 — 소유격 소유자를 주절 주어로 잡는 단계와 좌석 사실로 검산하는 단계로 바꿨다",
             "4단계(사실 검산)가 이 문항에서 마지막 확신을 준다 — ④를 여자로 읽으면 표가 두 장이 되어 지문과 어긋난다",
-            "85초는 인물 넷을 역할로 표기하는 시간(약 15초)을 포함한다"
+            "85초는 인물 넷을 역할로 표기하는 시간(약 15초)을 포함한다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "solve_procedure 금지 표현 대조 후 마지막 단계 교체",
             "각 단계가 지문을 안 본 상태에서 실행 가능한지 확인",
-            "required_vocab 네 낱말의 지문 내 존재를 문자열 대조"
+            "required_vocab 네 낱말의 지문 내 존재를 문자열 대조",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]

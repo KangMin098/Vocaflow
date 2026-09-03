@@ -155,7 +155,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "(B)가 예측을 야생 관측(대구·서대 수치)으로 확인하고, (A)가 'Surely these adaptations are good news? Not exactly' 로 반문하며 두 가지 악재를 대고, (C)가 Together this means 로 그 둘을 합쳐 알·유생 감소라는 귀결을 낸다."
+          "why_correct": "이음매 ①: (B) 첫 문장 This is exactly what we now see in the wild 의 This 가 주어진 글 둘째 문장의 예측(evolution favors those that grow slowly, mature younger and smaller)을 받고, 곧바로 Cod ... begin to reproduce at around four today 라는 관측이 그 예측을 확인한다. 이음매 ②: (A) 첫머리 Surely these adaptations are good news ...? Not exactly 의 these adaptations 는 (B)에서 관측된 조기·소형 성숙을 받으며, 그 뒤에 Young fish produce many fewer eggs 와 few animals survive more than a couple of years 두 사실을 댄다. 이음매 ③: (C) 첫 문장 Together this means there are fewer eggs and larvae 의 Together 가 (A)가 댄 그 두 사실을 합산하므로 (C)가 끝이다."
         },
         {
           "n": 3,
@@ -223,12 +223,17 @@
           "verdict": "pass",
           "findings": [
             "quote 'This is exactly what we now see in the wild.' 가 코퍼스 지문에 문자 그대로 있다",
-            "이 회차 순서 두 문항 중 이 문항만 3점인 것이 design_intent(세 덩어리 전부에 back-reference)와 맞물린다"
+            "이 회차 순서 두 문항 중 이 문항만 3점인 것이 design_intent(세 덩어리 전부에 back-reference)와 맞물린다",
+            "3차 판정 — 이전 why_correct 는 세 덩어리의 내용을 이어 말했을 뿐 This 와 these adaptations 가 각각 무엇을 받는지가 없었다 — 이음매 셋을 지시어-선행사 짝으로 다시 썼다",
+            "3차 판정 — quote 는 손대지 않았고 (B) 첫 문장과 문자 그대로 같다"
           ],
           "checked": [
             "quote 를 corpus.json 2017#37 passage 와 문자열 대조",
             "정답 ② = (B)-(A)-(C) 가 평가원 정답표(answer=2)와 일치",
-            "points=3 을 코퍼스에서 확인하고 같은 회차 3점 문항 목록(28·31·32·33·34·37)과 대조"
+            "points=3 을 코퍼스에서 확인하고 같은 회차 3점 문항 목록(28·31·32·33·34·37)과 대조",
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "This 의 선행 내용이 주어진 글 둘째 문장뿐인지 확인",
+            "these adaptations 가 (B)의 관측 결과를 받는지, (A)보다 앞에 그 선행사가 있는지 확인"
           ]
         },
         {
@@ -236,12 +241,17 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 라벨 4종 — 어휘 반복 유인 · 지시어 선행사 절단 · 마무리 문장 위치 오판 · 시간·인과 순서 역전",
-            "③의 배제 근거를 '알 개수 언급이 (A) 셋째 문장에서 처음 나온다' 는 위치로 못 박아, 인상 서술이 아니게 했다"
+            "③의 배제 근거를 '알 개수 언급이 (A) 셋째 문장에서 처음 나온다' 는 위치로 못 박아, 인상 서술이 아니게 했다",
+            "3차 판정 — 이음매마다 근거를 대므로 남은 순열을 「나머지가 이상하니까」로 지우지 않는다",
+            "3차 판정 — 선지가 (A)(B)(C) 순열 기호뿐이라 인용할 선지 표현이 없다 — 게이트의 「선지 인용」 경고는 이 유형에서 판정 불능이다"
           ],
           "checked": [
             "trap 라벨 중복 여부 대조",
             "why_tempting 이 각 순열의 실제 배치에서 나오는 오독인지 확인",
-            "how_to_reject 마다 지문 위치 표기 확인"
+            "how_to_reject 마다 지문 위치 표기 확인",
+            "correct 판정 2 를 평가원 정답표(2)와 대조",
+            "why_correct 의 소거법 여부 확인",
+            "코퍼스 choices 가 순열 기호((B) － (A) － (C))뿐임을 확인"
           ]
         },
         {
@@ -249,12 +259,15 @@
           "verdict": "pass",
           "findings": [
             "초안 time_budget_sec 을 120으로 잡았다가, 배점 실측(이 자리만 3점)과 지시어 세 개를 각각 되짚는 2·4단계 부담을 반영해 145로 올렸다 (revised)",
-            "2단계 '지시어가 무엇을 대신하는지 한 낱말로 적는다' 는 손으로 쓰는 동작이라 학생이 실행 여부를 스스로 확인할 수 있다"
+            "2단계 '지시어가 무엇을 대신하는지 한 낱말로 적는다' 는 손으로 쓰는 동작이라 학생이 실행 여부를 스스로 확인할 수 있다",
+            "3차 판정 — 학생이 볼 자리가 각 덩어리의 첫 문장 세 곳으로 특정된다"
           ],
           "checked": [
             "solve_procedure 5단계를 145초에 배분해 초과 여부 점검(선지 훑기 10초 + 덩어리 첫 문장 3개 45초 + 지시어 대조 50초 + 배열·검산 40초)",
             "금지 표현 문자열 확인",
-            "required_vocab 4개가 지문에 실제로 있는지 문자열 대조"
+            "required_vocab 4개가 지문에 실제로 있는지 문자열 대조",
+            "첫 문장만 읽고 순서를 정하는 절차와 서술이 어긋나지 않는지 확인",
+            "solve_procedure 미변경 확인"
           ]
         }
       ]
@@ -422,7 +435,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "(C)가 주어진 문장의 현상에 avoidance training 이라는 이름을 붙이고 일상 사례를 든 뒤, (A)의 however 가 그 유익한 그림을 뒤집어 수학 사례를 도입하고, (B)가 그 아이의 악순환으로 잇는다."
+          "why_correct": "이음매 ①: (C) 첫 문장 Psychologists call this avoidance training 의 this 가 주어진 문장의 '위협만으로 원하는 행동이 유도된다'는 현상을 받아 이름을 처음 붙인다. 이음매 ②: (A) 첫 문장 Avoidance training, however, doesn't always work in our favor 는 그 이름을 이미 아는 말로 쓰면서 (C)의 유익한 사례를 뒤집는다. 이음매 ③: (B) 첫머리 because of this avoidance, the child fails to develop his math skills 의 the child 와 this avoidance 가 (A)에서 부정관사로 처음 등장한 a child 와 그 아이의 dodge difficult math problems 를 받으므로 (B)는 (A) 바로 뒤다."
         },
         {
           "n": 5,
@@ -472,12 +485,17 @@
           "verdict": "pass",
           "findings": [
             "quote 가 (C) 첫 문장 전체이며 코퍼스 지문과 문자 그대로 일치한다",
-            "도입부 1문장 문항은 이 청크에서 이 문항 하나뿐이라, design_intent 에 '후보를 하나로 줄인 대신 용어 공유로 난도를 만든다' 를 명시했다"
+            "도입부 1문장 문항은 이 청크에서 이 문항 하나뿐이라, design_intent 에 '후보를 하나로 줄인 대신 용어 공유로 난도를 만든다' 를 명시했다",
+            "3차 판정 — 이전 why_correct 는 (A)→(B) 이음매를 「그 아이의 악순환으로 잇는다」로만 적어 a child → the child 의 첫 등장 관계가 없었다 — 이음매 셋을 지시 표현과 선행사로 다시 썼다",
+            "3차 판정 — quote 는 손대지 않았고 (C) 첫 문장과 문자 그대로 같다"
           ],
           "checked": [
             "quote 를 corpus.json 2016#36 passage 와 문자열 대조",
             "정답 ④ = (C)-(A)-(B) 가 평가원 정답표(answer=4)와 일치",
-            "도입부 문장 수(1문장)를 원문에서 직접 세어 difficulty.drivers 와 대조"
+            "도입부 문장 수(1문장)를 원문에서 직접 세어 difficulty.drivers 와 대조",
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "avoidance training 이라는 용어의 첫 등장이 (C)인지 확인",
+            "a child(부정관사) 와 the child(정관사) 의 등장 순서 확인"
           ]
         },
         {
@@ -485,12 +503,17 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ②·③·⑤에 모두 '첫 등장 위반' 을 달아 라벨이 3중 중복이었다. ②는 this avoidance 의 선행사가 없는 것이라 '지시어 선행사 절단', ③은 한 사례를 둘로 자르는 것이라 '열거·병렬 절단' 으로 갈랐고 ⑤만 '첫 등장 위반' 으로 남겼다 (revised)",
-            "최종 라벨 4종 — 어휘 반복 유인 · 지시어 선행사 절단 · 열거·병렬 절단 · 첫 등장 위반"
+            "최종 라벨 4종 — 어휘 반복 유인 · 지시어 선행사 절단 · 열거·병렬 절단 · 첫 등장 위반",
+            "3차 판정 — 이음매마다 근거를 대므로 소거법이 아니다",
+            "3차 판정 — 선지가 순열 기호뿐이라 인용할 선지 표현이 없다 — 게이트 경고는 판정 불능이다"
           ],
           "checked": [
             "trap 라벨 중복 대조(초안 3중 중복 발견 → 수정 후 재대조)",
             "why_tempting 이 각 순열의 실제 배치에서 나오는 오독인지 확인",
-            "how_to_reject 마다 지문 위치((A) 둘째 문장 · (C) 첫 문장 등)가 있는지 확인"
+            "how_to_reject 마다 지문 위치((A) 둘째 문장 · (C) 첫 문장 등)가 있는지 확인",
+            "correct 판정 4 를 평가원 정답표(4)와 대조",
+            "why_correct 의 소거법 여부 확인",
+            "코퍼스 choices 가 순열 기호뿐임을 확인"
           ]
         },
         {
@@ -498,12 +521,15 @@
           "verdict": "pass",
           "findings": [
             "3단계 관사 대조는 낱말 하나만 보는 동작이라 학생이 실패 여부를 즉시 안다",
-            "105초는 도입부 1문장 + 덩어리 첫 문장 3개 + 관사 대조로 충분하다"
+            "105초는 도입부 1문장 + 덩어리 첫 문장 3개 + 관사 대조로 충분하다",
+            "3차 판정 — 학생이 볼 자리가 각 덩어리 첫 문장이고, 용어·관사가 표지로 지정됐다"
           ],
           "checked": [
             "solve_procedure 를 지문 미독 상태에서 실행 모의",
             "금지 표현 문자열 확인",
-            "required_vocab 4개가 지문에 실제로 있는지 문자열 대조(vicious cycle 은 (B) 마지막 문장)"
+            "required_vocab 4개가 지문에 실제로 있는지 문자열 대조(vicious cycle 은 (B) 마지막 문장)",
+            "용어 첫 등장과 관사 확인이 절차 안에서 실행되는지 확인",
+            "solve_procedure 미변경 확인"
           ]
         }
       ]
@@ -547,7 +573,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "(C)가 온도를 그대로 두고 벽만 따뜻한 산호색으로 바꿔 불평이 사라졌다는 공장 실험의 결말을 대고, (A)가 노트르담 미식축구팀이라는 새 사례를 열며, (B)가 그 팀의 두 라커룸을 세부로 나눈다."
+          "why_correct": "이음매 ①: (C) 첫 문장 The temperature was maintained at the same level 의 the same level 은 도입부의 the temperature was maintained at 72℉ 가 앞에 있어야 뜻이 서고, 이어지는 The employees stopped complaining 이 도입부 마지막 문장 The employees complained of the cold 와 짝이 되어 공장 실험을 닫는다. 이음매 ②: (A) 첫 문장 The psychological effects of warm and cool hues 는 그 실험 결과를 일반화해 the Notre Dame football team 이라는 새 사례를 연다. 이음매 ③: (A) 끝의 The locker rooms used for half-time breaks 를 (B) 첫 두 문장이 The home-team room 과 The visiting-team room 으로 쪼개므로 (B)가 마지막이다."
         },
         {
           "n": 5,
@@ -600,12 +626,17 @@
           "verdict": "pass",
           "findings": [
             "quote 가 (C) 첫 문장 전체로 코퍼스 지문과 일치하며, the same level 이 도입부 72℉ 를 전제한다는 점이 근거의 핵심이다",
-            "도입부 3문장 문항 두 건(2017#36 · 2015#36) 모두에서 '총론과 겹치는 덩어리' 가 미끼로 배치된 것을 확인했다"
+            "도입부 3문장 문항 두 건(2017#36 · 2015#36) 모두에서 '총론과 겹치는 덩어리' 가 미끼로 배치된 것을 확인했다",
+            "3차 판정 — 이전 why_correct 는 세 덩어리의 내용을 요약했을 뿐 the same level 이 72℉ 를 받는다는 이음매가 없었다 — 이음매 셋을 받는 표현과 받히는 낱말로 다시 썼다",
+            "3차 판정 — quote 는 손대지 않았고 (C) 첫 문장과 문자 그대로 같다"
           ],
           "checked": [
             "quote 를 corpus.json 2015#36 passage 와 문자열 대조",
             "정답 ④ = (C)-(A)-(B) 가 평가원 정답표(answer=4)와 일치",
-            "도입부 문장 수(3문장)를 원문에서 직접 셈"
+            "도입부 문장 수(3문장)를 원문에서 직접 셈",
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "the same level 이 가리킬 온도값이 도입부에만 있는지 확인",
+            "The locker rooms → home-team/visiting-team 의 총론-각론 방향 확인"
           ]
         },
         {
@@ -613,12 +644,17 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 라벨 4종 — 어휘 반복 유인 · 첫 등장 위반 · 지시어 선행사 절단 · 총론-각론 역전",
-            "②와 ⑤가 모두 (B) 관련이지만 배제 근거가 다르다(② 정관사 The home-team room 의 첫 등장, ⑤ 사례 도입-세부 순서) — 서술이 서로 겹치지 않는지 문장 단위로 대조했다"
+            "②와 ⑤가 모두 (B) 관련이지만 배제 근거가 다르다(② 정관사 The home-team room 의 첫 등장, ⑤ 사례 도입-세부 순서) — 서술이 서로 겹치지 않는지 문장 단위로 대조했다",
+            "3차 판정 — 이음매마다 근거를 대므로 남은 순열을 소거로 지우지 않는다",
+            "3차 판정 — 선지가 순열 기호뿐이라 인용할 선지 표현이 없다 — 게이트의 「선지 인용」 경고는 판정 불능이다"
           ],
           "checked": [
             "trap 라벨 중복 대조",
             "②·⑤ 배제 근거가 서로 다른 문장에 걸려 있는지 확인",
-            "how_to_reject 마다 지문 위치가 있는지 확인"
+            "how_to_reject 마다 지문 위치가 있는지 확인",
+            "correct 판정 4 를 평가원 정답표(4)와 대조",
+            "why_correct 의 소거법 여부 확인",
+            "코퍼스 choices 가 순열 기호뿐임을 확인"
           ]
         },
         {
@@ -626,15 +662,19 @@
           "verdict": "pass",
           "findings": [
             "3단계(총론 겹침 덩어리 제외)에 on_fail 을 붙여, 겹침만 보고 무조건 빼다가 후보가 사라지는 사고를 막았다",
-            "110초 안에 도입부 3문장 + 덩어리 첫 문장 3개 + 관사 대조가 들어간다"
+            "110초 안에 도입부 3문장 + 덩어리 첫 문장 3개 + 관사 대조가 들어간다",
+            "3차 판정 — 학생이 볼 자리가 (C) 첫 문장·(A) 첫 문장·(A) 끝 문장 세 곳으로 특정된다"
           ],
           "checked": [
             "지문 미독 상태에서 1~5단계 실행 모의",
             "금지 표현 문자열 확인",
-            "required_vocab 4개가 지문에 실제로 있는지 문자열 대조"
+            "required_vocab 4개가 지문에 실제로 있는지 문자열 대조",
+            "세 곳만 읽는 절차가 시간 예산 안에 드는지 확인",
+            "solve_procedure 미변경 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2015#37",

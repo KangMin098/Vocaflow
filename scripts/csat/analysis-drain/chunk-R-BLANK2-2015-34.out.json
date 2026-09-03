@@ -19,7 +19,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "(A)는 정의를 개별 매체에 대입한 사례, (B)는 앞 문장의 interactive television 에 이어 telephony 라는 또 다른 새 매체를 더하는 자리로 두 칸이 모두 맞는 유일한 선지다."
+          "why_correct": "(A)에는 For example 이 들어간다 — 앞 문장 ‘By using this definition, it is easy to identify media as old or new.’ 는 media 전체에 대한 일반 주장인데, 빈칸 문장은 traditional television 이라는 개별 매체에 정의의 세 항목(integrated · interactive · digital code)을 하나씩 대입해 판정만 한다. (B)에는 Additionally 가 들어간다 — 앞 문장 ‘In contrast, the new medium of interactive television adds interactivity and digital code.’ 와 빈칸 문장의 주어(the new generations of mobile or fixed telephony)가 서로 다른 매체이고, 빈칸 문장이 앞에 없던 항목(text, pictures or video · connected to the Internet)을 더한다. 두 칸을 각각 재면 (A)가 For example 인 선지는 둘인데 다른 하나의 (B) In other words 는 앞 문장을 바꿔 말할 때만 쓰여 새 매체를 더하는 이 자리에 못 오므로, For example 과 Additionally 를 함께 갖춘 선지만 두 칸을 다 만족한다."
         },
         {
           "n": 2,
@@ -92,12 +92,14 @@
           "findings": [
             "quote 가 corpus.json 지문에 문자 그대로 있다",
             "회차 원문 2015.txt 688행·700행에서 (A)·(B) 두 빈칸이 모두 살아 있음을 확인했다 — 파서가 (A)만 ______ 로 표시하고 (B)는 표시를 빠뜨렸으나 공백 폭 자체는 원문에 있어 빈칸 수는 2개로 맞다",
-            "유형 정의(연결어 2칸)와 어긋난 서술 없음"
+            "유형 정의(연결어 2칸)와 어긋난 서술 없음",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(A)는 정의를 개별 매체에 대입한 사례, (B)는 앞 문장의 interactive television 에 」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2015#34 passage 와 문자열 대조",
             "columns2/2015.txt 676~716행에서 빈칸 개수와 선지 5개 대조",
-            "design_intent 가 유형 일반론이 아니라 이 문항의 (B) 주어 차이를 지목하는지 확인"
+            "design_intent 가 유형 일반론이 아니라 이 문항의 (B) 주어 차이를 지목하는지 확인",
+            "(A)(B) 두 칸의 앞뒤 문장을 각각 지문 문자열로 대조"
           ]
         },
         {
@@ -106,12 +108,14 @@
           "findings": [
             "오답 4개의 함정 라벨이 반대 진술·인과 역전·부분 사실·무관 넷으로 서로 다르다",
             "③과 ④가 정답과 한 칸씩 겹치는 것을 선지 문자열로 확인했다(③=Additionally, ④=For example)",
-            "how_to_reject 4개 모두 문장 번호 또는 지문 표현을 지목한다"
+            "how_to_reject 4개 모두 문장 번호 또는 지문 표현을 지목한다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(A)는 정의를 개별 매체에 대입한 사례, (B)는 앞 문장의 interactive television 에 」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "선지 5개 문자열을 corpus.json 과 대조",
             "정답 번호 1 이 평가원 정답표(corpus answer=1)와 일치하는지 확인",
-            "trap 라벨 중복 여부 집계"
+            "trap 라벨 중복 여부 집계",
+            "한 칸을 정답과 공유하는 선지를 나머지 한 칸으로 갈랐는지 확인"
           ]
         },
         {
@@ -120,12 +124,14 @@
           "findings": [
             "초안 2단계가 '연결어의 뜻을 정확히 해석한다' 였다 — 학습자가 무엇을 볼지 알 수 없고 순환논법이라 '앞 문장 주어와 빈칸 문장 주어를 나란히 적는다' 로 바꿨다(revised)",
             "4단계 전부 지문을 아직 안 본 상태에서 순서대로 실행 가능하다",
-            "90초 안에 4단계가 끝난다 — 1단계 10초, 2·3단계 각 25초, 4단계 20초"
+            "90초 안에 4단계가 끝난다 — 1단계 10초, 2·3단계 각 25초, 4단계 20초",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(A)는 정의를 개별 매체에 대입한 사례, (B)는 앞 문장의 interactive television 에 」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "solve_procedure 를 금지 표현 8종과 대조",
             "각 단계가 지문 없이도 착수 가능한지(선지부터 보는지) 확인",
-            "required_vocab 5개가 정답 판정에 실제로 쓰이는지 확인 — hypertext 는 정답과 무관해 뺐다"
+            "required_vocab 5개가 정답 판정에 실제로 쓰이는지 확인 — hypertext 는 정답과 무관해 뺐다",
+            "학생이 빈칸마다 앞 문장 주어와 새 정보 유무를 따로 표시할 수 있는지 점검"
           ]
         }
       ]
@@ -154,7 +160,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "(A)는 뒤쪽에 인쇄된 같은 틀의 문장이 표지를 확인해 주고, (B)는 high → low 로 집단이 뒤집히는 경계라 두 칸이 모두 맞는다."
+          "why_correct": "(A)에는 For example 이 들어간다 — 앞 문장 ‘They adjust themselves to any social signal that indicates appropriate or inappropriate behavior.’ 라는 일반 진술 뒤에 빈칸 문장이 ‘if they are in a meeting and see others making suggestions, they will try to make suggestions as well’ 로 한 장면을 든다. 같은 글 뒤쪽에 이 틀이 표지까지 붙은 채 한 번 더 인쇄돼 있다 — ‘For example, if they are in a meeting with the president of an organization, they may act bored.’ 로, low self-monitoring 쪽 일반 진술 뒤 같은 자리다. (B)에는 In contrast 가 들어간다 — 빈칸 앞 주어는 high self-monitoring 쪽(They)인데 빈칸 뒤 주어가 ‘those who have low self-monitoring’ 으로 반대 집단이 되기 때문이다. 두 칸을 각각 재면 (A)를 For example 로 공유하는 다른 선지의 (B) As a result 는 주어가 유지될 때 쓰는 표지라 집단이 뒤집히는 이 자리에 못 오므로, For example 과 In contrast 를 함께 갖춘 선지만 두 칸을 다 만족한다."
         },
         {
           "n": 3,
@@ -221,12 +227,14 @@
           "findings": [
             "quote 가 corpus.json 지문에 문자 그대로 있다",
             "columns2/2014A.txt 664행·667행에서 (A)·(B) 두 빈칸을 모두 확인 — 빈칸 수 2개 맞다",
-            "'지문이 스스로 답을 인쇄해 둔 문항' 이라는 설계 서술이 이 문항 고유의 것이다"
+            "'지문이 스스로 답을 인쇄해 둔 문항' 이라는 설계 서술이 이 문항 고유의 것이다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(A)는 뒤쪽에 인쇄된 같은 틀의 문장이 표지를 확인해 주고, (B)는 high → low 로 집단이 뒤집히」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2014A#36 passage 와 문자열 대조",
             "columns2/2014A.txt 660~686행에서 빈칸 위치와 선지 대조",
-            "두 빈칸이 같은 문장인지 다른 문장인지 확인 — 3번·6번 문장으로 서로 다르다"
+            "두 빈칸이 같은 문장인지 다른 문장인지 확인 — 3번·6번 문장으로 서로 다르다",
+            "뒤쪽에 인쇄된 같은 틀의 For example 문장을 지문 문자열로 대조"
           ]
         },
         {
@@ -235,12 +243,14 @@
           "findings": [
             "함정 라벨 4종(부분 사실·어휘 함정·무관·반대 진술)이 서로 다르다",
             "정답과 한 칸이 겹치는 선지는 ①(For example)·④(In contrast) 둘로 선지 문자열에서 확인",
-            "③·⑤의 why_tempting 이 선지 낱말(Otherwise, Nevertheless)의 오역에 근거한다"
+            "③·⑤의 why_tempting 이 선지 낱말(Otherwise, Nevertheless)의 오역에 근거한다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(A)는 뒤쪽에 인쇄된 같은 틀의 문장이 표지를 확인해 주고, (B)는 high → low 로 집단이 뒤집히」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "선지 5개 문자열을 corpus.json 과 대조",
             "correct 번호 2 가 평가원 정답표(answer=2)와 일치",
-            "how_to_reject 마다 지문 위치(문장 번호·인용 표현)가 있는지 확인"
+            "how_to_reject 마다 지문 위치(문장 번호·인용 표현)가 있는지 확인",
+            "(B) 칸을 주어 교체 여부로 갈라 한 칸 공유 선지를 배제했는지 확인"
           ]
         },
         {
@@ -249,12 +259,14 @@
           "findings": [
             "초안 time_budget_sec 이 70이었다 — 2단계에서 같은 틀의 문장을 글 뒤쪽에서 찾는 데만 20초 이상 걸려 4단계 검산이 잘린다. 85로 올렸다(revised)",
             "2단계가 '첫 여섯 낱말을 그대로 찾는다' 라 지문을 안 본 학습자도 착수할 수 있다",
-            "금지 표현 없음"
+            "금지 표현 없음",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(A)는 뒤쪽에 인쇄된 같은 틀의 문장이 표지를 확인해 주고, (B)는 high → low 로 집단이 뒤집히」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "solve_procedure 를 금지 표현 8종과 대조",
             "단계별 소요 시간을 더해 time_budget_sec 과 비교",
-            "required_vocab 6개가 선지 판정에 실제로 쓰이는지 확인"
+            "required_vocab 6개가 선지 판정에 실제로 쓰이는지 확인",
+            "학생이 두 빈칸의 앞뒤 주어를 각각 적어 비교할 수 있는지 점검"
           ]
         }
       ]
@@ -283,7 +295,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "(A)는 Fitzgerald 의 이상과 확증 편향 정의가 정반대이고, (B)는 확증 편향의 'disregarding evidence that refutes it' 을 Crow 사례에 대입한 자리라 두 칸이 모두 맞는다."
+          "why_correct": "(A)에는 opposite 이 들어간다 — 1문장이 일류 지성의 조건을 ‘the ability to hold two opposed ideas in mind at the same time and still function’ 으로 놓는데, 바로 뒤 문장은 ‘Confirmation bias is a term for the way the mind systematically avoids confronting contradiction.’ 으로 뇌가 모순 대면을 피한다고 말한다. 두 진술의 동사가 정반대이므로 The eons shaped our brains 의 방향은 Fitzgerald 의 이상과 반대다. (B)에는 rejected 가 들어간다 — 확증 편향의 정의가 ‘undervaluing or simply disregarding evidence that refutes it’ 이고, 빈칸 문장의 목적어가 evidence of the continued existence of normal, everyday life 이며, Crow 부족 증언이 ‘After this nothing happened’ 로 그 일상의 증거가 실제로 물리쳐졌음을 보인다. 두 칸을 각각 재면 (A)를 opposite 으로 공유하는 다른 선지의 (B) retained 는 증거를 붙들었다는 뜻이라 disregarding 과 어긋나므로, opposite 과 rejected 를 함께 갖춘 선지만 두 칸을 다 만족한다."
         },
         {
           "n": 3,
@@ -353,12 +365,14 @@
           "findings": [
             "초안이 (B) 근거로 'that might have eased it' 을 들면서 corpus.json 지문을 인용했다 — 그 지문은 'that might have' 에서 잘려 있고 동사 eased it 이 없다. columns2/2014B.txt 739~741행에서 원문이 '...that might have / eased it. [3점]' 임을 확인해 복원하고(body_recovered), quote 는 코퍼스 지문에 온전히 남아 있는 확증 편향 정의문으로 바꿨다(revised)",
             "복원 후에도 (B) 판정 근거가 유지된다 — 잘린 부분은 reasoning·how_to_reject 안에서 복원 문장으로 인용한다",
-            "columns2/2014B.txt 713행·737행에서 (A)·(B) 두 빈칸을 모두 확인 — 빈칸 수 2개 맞다"
+            "columns2/2014B.txt 713행·737행에서 (A)·(B) 두 빈칸을 모두 확인 — 빈칸 수 2개 맞다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(A)는 Fitzgerald 의 이상과 확증 편향 정의가 정반대이고, (B)는 확증 편향의 'disregar」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2014B#36 passage 와 문자열 대조",
             "columns2/2014B.txt 707~749행 원문과 코퍼스 지문을 끝부분까지 대조해 결손 확인",
-            "지문 말미 [3점] 표기가 본문에 섞였는지 확인"
+            "지문 말미 [3점] 표기가 본문에 섞였는지 확인",
+            "1문장과 확증 편향 정의의 동사 대립, disregarding 과 (B) 후보의 뜻을 지문 문자열로 대조"
           ]
         },
         {
@@ -367,12 +381,14 @@
           "findings": [
             "함정 라벨 4종(부분 사실·어휘 함정·반대 진술·범위 과소)이 서로 다르다",
             "정답과 낱말이 그대로 겹치는 오답은 ①(opposite) 하나뿐이지만, ⑤는 (B)가 근접 동의어라 실질적으로 같은 장치다 — 이 문항의 최대 오답 흡인원으로 표시했다",
-            "④의 falsified 를 '검증' 이 아니라 '거짓으로 만듦' 으로 갈라 준 서술이 선지 텍스트에 근거한다"
+            "④의 falsified 를 '검증' 이 아니라 '거짓으로 만듦' 으로 갈라 준 서술이 선지 텍스트에 근거한다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(A)는 Fitzgerald 의 이상과 확증 편향 정의가 정반대이고, (B)는 확증 편향의 'disregar」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "선지 5개 문자열을 corpus.json 과 대조",
             "correct 번호 2 가 평가원 정답표(answer=2)와 일치",
-            "오답 4개의 배제 근거가 각각 다른 문장을 지목하는지 확인(1·3·4번 문장과 마지막 문장)"
+            "오답 4개의 배제 근거가 각각 다른 문장을 지목하는지 확인(1·3·4번 문장과 마지막 문장)",
+            "(A) 를 공유하는 선지를 (B) 한 칸으로 갈랐는지 확인"
           ]
         },
         {
@@ -381,12 +397,14 @@
           "findings": [
             "3단계의 '관계절 끝까지 읽는다' 가 이 문항의 실제 분기점이라 실행 가치가 있다",
             "130초 배분: 선지 훑기 15초, (A) 40초, (B) 50초, 검산 25초",
-            "금지 표현 없음. required_vocab 7개 모두 정답 판정에 쓰인다(retained·overlooked 는 오답 배제에 직접 쓰인다)"
+            "금지 표현 없음. required_vocab 7개 모두 정답 판정에 쓰인다(retained·overlooked 는 오답 배제에 직접 쓰인다)",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(A)는 Fitzgerald 의 이상과 확증 편향 정의가 정반대이고, (B)는 확증 편향의 'disregar」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "solve_procedure 를 금지 표현 8종과 대조",
             "단계별 소요 시간 합산",
-            "required_vocab 낱말이 지문 또는 선지에 실제로 있는지 문자열 확인"
+            "required_vocab 낱말이 지문 또는 선지에 실제로 있는지 문자열 확인",
+            "학생이 두 칸을 따로 채운 뒤 합치는 순서를 밟을 수 있는지 점검"
           ]
         }
       ]
@@ -415,7 +433,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "(A)는 '영향 없음 → 영향 있음' 의 방향 전환, (B)는 일반 진술 뒤의 지역 사례라 두 칸이 모두 맞는다."
+          "why_correct": "(A)에는 On the other hand 가 들어간다 — 1문장이 ‘Oil and gas resources are not likely to be impacted by climate change’ 로 영향 없음을 말하는데 빈칸 문장은 기후변화가 산지의 폐쇄를 강제하고 ‘increase the possibility of exploration in areas of the Arctic through the reduction in ice cover’ 로 영향을 말하며, 뒤 문장이 ‘while climate change may not impact these resources, oil and gas reserves and known or potential resources could be affected by new climate conditions’ 로 그 둘을 while 로 맞세워 요약한다. (B)에는 for instance 가 들어간다 — 앞이 ‘climate change may affect access to these resources’ 라는 일반 진술이고 빈칸이 든 문장은 In Siberia 라는 한 지역의 1월 기온 수치로 그 접근 문제를 보인다. 두 칸을 각각 재면 (B) for instance 를 공유하는 다른 선지의 (A) As a result 는 1문장을 뒤집지 못하고, (A) On the other hand 를 공유하는 선지의 (B) however 는 지역 사례를 앞 진술과 맞세우게 되므로, On the other hand 와 for instance 를 함께 갖춘 선지만 두 칸을 다 만족한다."
         },
         {
           "n": 3,
@@ -487,12 +505,14 @@
           "findings": [
             "코퍼스 지문에 여백의 '3점]' 표기가 문장 한가운데로 들어오고 그 자리에 빈칸 표시(______)가 하나 더 찍혀 있다. columns2/2014B.txt 771~775행에서 원문이 '...new climate conditions, since climate change may affect access to these resources.' 임을 확인했다 — 실제 빈칸은 (A)·(B) 둘뿐이며 세 번째 빈칸은 파서 산물이다(body_recovered)",
             "'oiland gas-producing' 도 원문의 'oil- and gas-producing' 이 줄바꿈에서 붙은 것이다",
-            "quote 는 코퍼스 지문에서 3점] 앞까지만 잘라 문자 그대로 대조된다"
+            "quote 는 코퍼스 지문에서 3점] 앞까지만 잘라 문자 그대로 대조된다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(A)는 '영향 없음 → 영향 있음' 의 방향 전환, (B)는 일반 진술 뒤의 지역 사례라 두 칸이 모두 맞」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2014B#37 passage 와 문자열 대조",
             "columns2/2014B.txt 755~795행 원문에서 빈칸 개수 확인 — (A) 759행 · (B) 775행 둘",
-            "코퍼스의 여분 ______ 가 원문에 없음을 확인"
+            "코퍼스의 여분 ______ 가 원문에 없음을 확인",
+            "1문장·빈칸 문장·요약 문장의 방향과 In Siberia 사례를 지문 문자열로 대조"
           ]
         },
         {
@@ -501,12 +521,14 @@
           "findings": [
             "초안이 ①과 ③에 모두 '부분 사실' 을 달았다 — 두 선지의 오독 경로가 다른데 라벨이 같아 정보가 사라진다. ③은 첫 문장의 because 절에서 옮겨 붙은 인과 오독이므로 '인과 역전' 으로 고쳤다(revised). 결과적으로 라벨 4종이 서로 다르다",
             "정답과 한 칸이 그대로 겹치는 오답은 ①(On the other hand)·③(for instance) 둘 — 선지 문자열로 확인",
-            "④의 배제 근거를 ①·③에 위임한 서술이 순환이 되지 않도록 Thus 문장 위치를 함께 지목하게 했다"
+            "④의 배제 근거를 ①·③에 위임한 서술이 순환이 되지 않도록 Thus 문장 위치를 함께 지목하게 했다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(A)는 '영향 없음 → 영향 있음' 의 방향 전환, (B)는 일반 진술 뒤의 지역 사례라 두 칸이 모두 맞」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "선지 5개 문자열을 corpus.json 과 대조",
             "correct 번호 2 가 평가원 정답표(answer=2)와 일치",
-            "trap 라벨 중복 여부 집계 후 재배정"
+            "trap 라벨 중복 여부 집계 후 재배정",
+            "한 칸씩 공유하는 선지 둘을 각각 다른 칸으로 배제했는지 확인"
           ]
         },
         {
@@ -515,15 +537,18 @@
           "findings": [
             "3단계의 '문장이 지명·수치로 시작하는가' 는 지문을 안 본 학습자도 눈으로 바로 실행한다",
             "110초 배분: 선지 훑기 10초, (A) 30초, (B) 25초, Thus 검산 25초, 한 칸 일치 확인 20초",
-            "지문에 -20℃~-35℃ 수치가 있어 계산으로 오해할 여지가 있으나 절차 3단계가 '수치가 있는지 센다' 로만 쓰게 해 시간을 막았다"
+            "지문에 -20℃~-35℃ 수치가 있어 계산으로 오해할 여지가 있으나 절차 3단계가 '수치가 있는지 센다' 로만 쓰게 해 시간을 막았다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(A)는 '영향 없음 → 영향 있음' 의 방향 전환, (B)는 일반 진술 뒤의 지역 사례라 두 칸이 모두 맞」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "solve_procedure 를 금지 표현 8종과 대조",
             "단계별 소요 시간 합산 후 time_budget_sec 과 비교",
-            "required_vocab 6개가 정답 판정과 오답 배제에 실제로 쓰이는지 확인"
+            "required_vocab 6개가 정답 판정과 오답 배제에 실제로 쓰이는지 확인",
+            "학생이 (A)는 방향 전환, (B)는 일반→사례로 나눠 표시할 수 있는지 점검"
           ]
         }
-      ]
+      ],
+      "revised": true
     }
   ],
   "type_report": {

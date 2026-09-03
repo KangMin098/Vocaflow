@@ -614,7 +614,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "11문장의 what our brains recognize that distance to be 를 한 낱말로 줄인 것이고, 7문장 how achievable you think the goal is 와 8·9문장의 두 if you think 가 같은 항을 되풀이한다. 빈칸에 넣으면 야구 사례의 think 축이 일반론으로 그대로 옮겨진다."
+          "why_correct": "빈칸 문장은 'In business and life, just as in baseball, our' ___ 'can affect whether we swing for the fences or not' 로, 스윙 여부를 좌우하는 항이 무엇인지를 묻는다. 바로 뒤 11문장이 not A but B 구문으로 그 항을 직접 지정한다 — 'what matters is not the actual distance to the fence but what our brains recognize that distance to be' 에서 A(실제 거리)가 아니라 B(뇌가 그 거리를 무엇으로 인식하는가)가 그 항이라고 못 박는다. 그 B를 한 낱말로 줄인 것이 선지 ② 'perceptions' 다. 같은 항을 7문장 'The answer lies in how achievable you think the goal is' 와 8·9문장의 두 if you think 가 미리 세 번 되풀이하므로, 빈칸에 들어갈 것은 실제 조건(구장 크기·바람)이 아니라 그것에 대한 인식이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              11
+            ],
+            "note": "확정은 빈칸 뒤 11문장의 not A but B 한 구문에서 난다. 7·8·9문장의 think 는 방향을 미리 알려 주지만 낱말을 고정하지는 않는다."
+          }
         },
         {
           "n": 3,
@@ -683,12 +689,17 @@
           "findings": [
             "코퍼스 지문이 our can affect 로 빈칸 표시를 잃었다. raw_block 에서 줄바꿈 자리를 확인하고 body_recovered 를 붙였다.",
             "이 문항은 41번 제목이 42번 답을 비유로 이미 말해 버리는 드문 경우다 — set_cross_use 에 예로 기록했다.",
-            "빈칸 다음 문장의 not A but B 가 근거이므로 근거 거리는 +1 이다."
+            "빈칸 다음 문장의 not A but B 가 근거이므로 근거 거리는 +1 이다.",
+            "3차 판정에서 setter 가 revise 를 냈다 — 「한 낱말로 줄인 것」이라고만 적고 그 낱말을 대지 않아 정답 선지와의 대응이 서술에 없었다. 선지 ② perceptions 를 지목하고 not A but B 의 B 와 맞물림을 적었다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "quote 를 corpus.json 의 2014A#42 passage 에서 문자열 대조",
             "빈칸 위치를 raw_block 과 대조",
-            "정답표(answer=2)와 판정 대조"
+            "정답표(answer=2)와 판정 대조",
+            "why_correct 안의 지문 인용을 corpus.json 지문에 문자열 대조",
+            "정답 선지 텍스트와 서술의 대응을 낱말 단위로 확인",
+            "정답 번호를 평가원 정답표와 재대조"
           ]
         },
         {
@@ -697,12 +708,17 @@
           "findings": [
             "초안에서 ④ sacrifices 를 어휘 함정으로, ⑤ appearances 를 무관으로 달았다 — 둘 다 근거가 뒤바뀌어 있었다. sacrifice 는 지문에 없고 통념에서 오며, appearances 는 지문의 seem 두 번에서 온다. 지문 밖 상식과 어휘 함정으로 맞바꿔 고쳤다.",
             "네 오답이 반대 진술 · 무관 · 지문 밖 상식 · 어휘 함정으로 갈린다.",
-            "①의 배제 근거로 11문장뿐 아니라 4·5문장(같은 선수·구장만 변경)을 함께 지목했다."
+            "①의 배제 근거로 11문장뿐 아니라 4·5문장(같은 선수·구장만 변경)을 함께 지목했다.",
+            "3차 판정에서 analyst 가 revise 를 냈다 — 근거 문장 인용은 있었으나 선지 텍스트가 한 번도 나오지 않아 대응 확인이 불가능했고, 마지막 줄이 「빈칸에 넣으면 옮겨진다」는 적합성 진술이었다. not A but B 라는 강제 구문으로 근거를 바꿔 세웠다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "선지 5개 낱말이 지문에 실재하는지 문자열 대조(seem 만 근접 근거로 실재)",
             "trap 라벨 중복 여부",
-            "how_to_reject 넷에 문장 번호가 있는지"
+            "how_to_reject 넷에 문장 번호가 있는지",
+            "why_correct 가 근거 서술인지 학습자 심리 서술인지 판정",
+            "소거법에 기대지 않는지 확인",
+            "오답 넷의 trap·why_tempting·how_to_reject 는 손대지 않았음을 확인"
           ],
           "revised": true
         },
@@ -712,12 +728,17 @@
           "findings": [
             "초안 절차는 4단계에서 끝났는데, 그러면 ⑤ appearances 가 살아남은 채로 끝난다 — 학생이 실제로 마지막까지 붙드는 선지다. 13·14문장의 seem 을 확인하는 5단계를 추가했다.",
             "80초 안에 끝난다: 빈칸 문장 10초 · not A but B 20초 · 1:1 대조 25초 · ⑤ 확인 25초.",
-            "required_vocab 다섯 중 recognize · achievable 은 근거 문장 독해에, 나머지 셋은 선지 소거에 쓰인다."
+            "required_vocab 다섯 중 recognize · achievable 은 근거 문장 독해에, 나머지 셋은 선지 소거에 쓰인다.",
+            "3차 판정에서 tutor 가 revise 를 냈다 — 학생이 볼 자리를 「빈칸 뒤 한 문장의 not A but B」로 못 박고, not A 쪽으로 밀려나는 항(실제 거리)까지 적어 눈으로 맞춰 볼 수 있게 했다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "각 단계를 지문 미독 상태에서 실행 가능한지",
             "순환논법 표현 문자열 점검",
-            "마지막까지 남는 선지가 절차 안에서 실제로 지워지는지 시연"
+            "마지막까지 남는 선지가 절차 안에서 실제로 지워지는지 시연",
+            "학생이 서술에 적힌 위치를 지문에서 실제로 짚을 수 있는지 확인",
+            "solve_procedure 와 서술이 어긋나지 않는지 대조",
+            "time_budget_sec 안에서 확인 가능한 분량인지"
           ],
           "revised": true
         }
@@ -768,7 +789,15 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "8문장의 human voice, 10문장의 language and flesh, 11문장의 a person who knows firsthand 를 한 어구로 묶은 것이고, 빈칸 앞 문장의 stillness and solitude 와 같은 편에 선다. infrequent but meaningful 이라는 수식도 늘 연결돼 있는 약한 유대와 대비된다."
+          "why_correct": "빈칸 문장은 'we may want to live less' thickly 'and wait for more infrequent but meaningful' ___ 로, 앞 문장 'We may want some stillness and solitude.' 와 같은 편, 곧 '정말로 원하는 것' 쪽에 선다. 그 편의 내용을 뒤 세 문장이 채운다 — 8문장 'we may discover that we miss the human voice', 10문장 'to understand desire, one needs language and flesh', 11문장 'we must have a person who knows, firsthand, what it means to be born'. 목소리·몸·직접 겪은 사람이라는 셋의 공통항이 선지 ③ 'face-to-face encounters' 와 그대로 맞물린다. 수식어 infrequent 도 3문장 'always in touch' · 4문장 'plenty of weak ties' 와 대비되어, 늘 연결된 약한 유대가 아니라 드문 대면 만남임을 고정한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              8,
+              10,
+              11
+            ],
+            "note": "확정은 빈칸 뒤 세 문장의 공통항에서 난다. 빈칸 앞 6문장(stillness and solitude)은 편만 정해 줄 뿐이어서, 그것만 보면 고독 쪽 선지와 구분되지 않는다."
+          }
         },
         {
           "n": 4,
@@ -826,12 +855,17 @@
           "findings": [
             "코퍼스 지문에 As an American writer once put 조사 it 처럼 옆 단 조각(조사)이 끼어 있다. 인용은 그 자리를 피해 10문장에서 뽑았고 body_recovered 를 붙였다.",
             "선지 ⑤가 코퍼스에 supernatural interventions 8 로 쪽번호 8 이 붙어 있다 — 원문은 supernatural interventions 다. 판정에는 영향이 없다.",
-            "이 청크에서 선지가 어구인 유일한 문항이라, 낱말 슬롯 문항들과 함정 층이 다른지 type_report 에서 비교했다."
+            "이 청크에서 선지가 어구인 유일한 문항이라, 낱말 슬롯 문항들과 함정 층이 다른지 type_report 에서 비교했다.",
+            "3차 판정에서 setter 가 revise 를 냈다 — 「한 어구로 묶은 것」이라고만 적고 그 어구를 대지 않아 정답 선지와의 대응이 서술에 없었다. 선지 ③ face-to-face encounters 를 지목하고 세 문장의 공통항(목소리·몸·직접 겪은 사람)과 맞물림을 적었다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "quote 를 corpus.json 의 2014B#42 passage 에서 문자열 대조",
             "선지 5개를 raw_block 원문과 대조(⑤의 쪽번호 잔여 확인)",
-            "정답표(answer=3)와 판정 대조"
+            "정답표(answer=3)와 판정 대조",
+            "why_correct 안의 지문 인용을 corpus.json 지문에 문자열 대조",
+            "정답 선지 텍스트와 서술의 대응을 낱말 단위로 확인",
+            "정답 번호를 평가원 정답표와 재대조"
           ]
         },
         {
@@ -840,12 +874,17 @@
           "findings": [
             "초안에서 ①과 ⑤를 둘 다 무관으로 달았다. ⑤는 11문장의 태어남·죽음 어휘가 부르는 담론이 실제 유인이므로 지문 밖 상식으로 고쳤고, ①만 무관으로 남겼다.",
             "네 오답이 무관 · 어휘 함정 · 반대 진술 · 지문 밖 상식으로 갈린다.",
-            "선지 낱말 수를 셌다 — 2·2·2·4·2 로 최장 선지(④ 4낱말)가 오답이다. 길이 어림짐작이 이 문항에서는 반대로 작동한다."
+            "선지 낱말 수를 셌다 — 2·2·2·4·2 로 최장 선지(④ 4낱말)가 오답이다. 길이 어림짐작이 이 문항에서는 반대로 작동한다.",
+            "3차 판정에서 analyst 가 revise 를 냈다 — 수식어 infrequent 의 근거를 3·4문장의 always in touch · plenty of weak ties 대비로 명시해, 공통항만으로 고르는 것보다 한 겹 더 확정되게 했다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "선지 5개 텍스트와 지문 낱말 대조(Technology · robot · conversation 실재)",
             "trap 라벨 중복 여부",
-            "선지별 낱말 수 계수"
+            "선지별 낱말 수 계수",
+            "why_correct 가 근거 서술인지 학습자 심리 서술인지 판정",
+            "소거법에 기대지 않는지 확인",
+            "오답 넷의 trap·why_tempting·how_to_reject 는 손대지 않았음을 확인"
           ],
           "revised": true
         },
@@ -855,12 +894,17 @@
           "findings": [
             "3단계의 편 가르기가 이 문항의 전부다 — 편만 갈리면 ②④가 한 번에 지워지고 ①⑤는 4단계의 공통항 대조에서 지워진다.",
             "80초 안에 끝난다: 빈칸 문장 15초 · 편 가르기 25초 · 뒤 세 문장 회수 25초 · 대조 15초.",
-            "required_vocab 다섯 중 flesh · firsthand · solitude 는 근거 문장 독해에, encounters · outbursts 는 선지 판별에 쓰인다."
+            "required_vocab 다섯 중 flesh · firsthand · solitude 는 근거 문장 독해에, encounters · outbursts 는 선지 판별에 쓰인다.",
+            "3차 판정에서 tutor 가 revise 를 냈다 — 학생이 확인할 자리를 빈칸 뒤 세 문장으로 번호와 함께 적고, 빈칸 앞 문장은 편만 정한다는 점을 confirmed_at 으로 갈랐다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "각 단계를 지문 미독 상태에서 실행 가능한지",
             "순환논법 표현 문자열 점검",
-            "80초를 단계별로 분해"
+            "80초를 단계별로 분해",
+            "학생이 서술에 적힌 위치를 지문에서 실제로 짚을 수 있는지 확인",
+            "solve_procedure 와 서술이 어긋나지 않는지 대조",
+            "time_budget_sec 안에서 확인 가능한 분량인지"
           ]
         }
       ],

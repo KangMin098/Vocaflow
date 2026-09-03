@@ -25,7 +25,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "마지막 문장의 should 가 걸린 요구(Being assertive … should fit nicely in the counselor 의 repertoire)를 그대로 옮긴 선지다. 「~할 줄도」의 「도」는 셋째 문장 Being assertive does not have to mean being disagreeable 이 남긴 단서 — 동조를 버리라는 것이 아니라 자기 생각을 드러내는 쪽도 갖추라는 것 — 와 맞는다."
+          "why_correct": "마지막 문장의 should 가 걸린 요구(Being assertive ... it should fit nicely in the counselor's repertoire of techniques)를 그대로 옮긴 선지다. 당위의 주어도 맞물린다 — 요구가 놓이는 자리가 the counselor's repertoire 이므로 갖춰야 하는 쪽이 선지 주어 '상담사는' 과 같다(농담을 삼갈 쪽이 아니라 그 농담에 대응할 쪽이다). '자기 생각을 분명하게 드러낼 줄도' 의 '도' 는 셋째 문장 Being assertive does not have to mean being disagreeable 이 남긴 단서 — 동조를 버리라는 것이 아니라 드러내는 쪽도 갖추라는 것 — 와 맞는다."
         },
         {
           "n": 3,
@@ -100,13 +100,15 @@
           "findings": [
             "초안은 answer_locus 를 다섯째 문장(An assertive counselor would find a way …)으로 잡았다. 그 문장은 필자의 요구가 아니라 assertive counselor 가 어떻게 행동할지를 보인 사례(would)이고 요구 표지가 없어 반려했다. 마지막 문장(should fit nicely … repertoire of techniques)으로 옮겨 재검수했다.",
             "넷째 문장에도 should 가 있으나 does not mean that 안에 있어 요구가 아니다. 이 유형 25문항에서 처음 관측된 형태이므로 reasoning 과 절차 2단계에 명시하게 했다.",
-            "발문이 「필자가 주장하는 바」이고 정답 선지가 처방형이라 유형 정의와 어긋나지 않는다."
+            "발문이 「필자가 주장하는 바」이고 정답 선지가 처방형이라 유형 정의와 어긋나지 않는다.",
+            "3차 재검 — 당위 문장의 주어가 선지 주어와 같은지를 명시했다(the counselor's repertoire → '상담사는')"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2016#20 passage 에서 문자열 대조 — 마지막 문장 전체와 일치",
             "지문 여섯 문장에서 요구 표지(should·must·have to·need to·명령형) 전수 확인 — 두 건, 그중 하나는 부정절 안",
             "stem 과 R-CLAIM 유형 정의 대조",
-            "초안 인용(다섯째 문장)이 요구를 담는지 재검토한 뒤 교체"
+            "초안 인용(다섯째 문장)이 요구를 담는지 재검토한 뒤 교체",
+            "마지막 문장의 should 주체와 선지 2 의 주어를 대조 · '자기 생각을 분명하게 드러낼 줄도' 를 선지 문자열에서 확인"
           ]
         },
         {
@@ -115,14 +117,16 @@
           "findings": [
             "초안에서 ①을 「부분 사실」로 달았으나 지문에 상담사가 농담을 한다는 진술 자체가 없어 「부분」이 성립하지 않는다. 행위는 지문과 같고 하는 사람만 바뀐 형태이므로 「주체 역전」으로 고쳤다. 결과적으로 오답 넷의 라벨이 주체 역전 · 반대 진술 · 어휘 함정 · 무관 넷으로 모두 갈린다.",
             "how_to_reject 넷이 각각 지문 위치(다섯째 문장 · 둘째 문장 주절 · 마지막 문장 술어 · 여섯 문장 술어 목록)를 대고 있음을 확인했다.",
-            "④의 why_tempting 이 실제 선지 문자열(상담 기술 교육)과 지문 낱말(skill · techniques)의 겹침에 근거하는지 대조했다."
+            "④의 why_tempting 이 실제 선지 문자열(상담 기술 교육)과 지문 낱말(skill · techniques)의 겹침에 근거하는지 대조했다.",
+            "①(농담을 하지 말아야 한다)과 갈리는 지점이 주체 방향임을 보강문이 직접 말한다 — 이 유형 최대 함정인 주체 역전과 맞닿은 자리다"
           ],
           "checked": [
             "오답 4개 trap 라벨 중복 여부 확인 — 4종 전부 다름",
             "why_tempting 을 선지 한국어 문자열과 하나씩 대조",
             "how_to_reject 마다 지문 위치가 적혀 있는지 확인",
             "평가원 정답표(answer=2)와 correct 선지 번호 일치 확인",
-            "①의 라벨을 부분 사실에서 주체 역전으로 교체"
+            "①의 라벨을 부분 사실에서 주체 역전으로 교체",
+            "보강문이 소거법이 아니라 당위 문장 한 곳에서 서는지 확인"
           ]
         },
         {
@@ -131,13 +135,15 @@
           "findings": [
             "초안 2단계가 「should 가 든 문장에 전부 표시한다」로 끝나 있어 이 지문에서는 후보가 둘 남고, 부정절 안의 should(you should simply be silent)를 요구로 읽으면 ③ 쪽으로 끌려간다. 부정어 안에 갇힌 표지를 지우는 규칙을 2단계에 넣어 반려를 해소했다.",
             "절차 1단계가 지문을 보기 전에 선지만으로 실행되는지 확인했다. 3·4단계는 요구 문장 한 개에만 적용되므로 70초 안에 끝난다.",
-            "required_vocab 다섯 낱말이 모두 지문에 실제로 있고, repertoire 를 모르면 마지막 문장의 요구를 못 읽으므로 나열이 아니다."
+            "required_vocab 다섯 낱말이 모두 지문에 실제로 있고, repertoire 를 모르면 마지막 문장의 요구를 못 읽으므로 나열이 아니다.",
+            "should 가 부정어 밖에 있는 문장을 찾고 그 주어를 선지 주어와 맞춰 보라는 두 동작으로 정리된다"
           ],
           "checked": [
             "solve_procedure 6단계를 지문을 안 본 상태에서 순서대로 실행해 ② 하나만 남는지 재현",
             "금지 표현(흐름을 파악하면 등) 문자열 검사",
             "required_vocab 5개를 지문 문자열에서 대조",
-            "2단계에 부정절 배제 규칙을 추가한 뒤 재실행"
+            "2단계에 부정절 배제 규칙을 추가한 뒤 재실행",
+            "보강문이 지시하는 두 동작이 절차 단계와 이어지는지 확인"
           ]
         }
       ]

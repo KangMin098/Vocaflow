@@ -33,7 +33,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "지문은 1948을 집필 연도로, 1957을 출판 연도로 나눠 적었다. 선지는 1948에 '출판했다'를 붙였으므로 어긋난다."
+          "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 His article “Meaning” was written in 1948, but he did not have it published until 1957 에서 1948 에 붙은 동사는 was written 이고 published 에 붙은 해는 until 뒤의 1957 이다. 선지 ③ 은 1948 이라는 해를 그대로 둔 채 '논문을 출판했다' 로 적어, 두 동사에 붙은 연도를 맞바꾼 자리(written ↔ published) 한 곳에서 어긋난다."
         },
         {
           "n": 4,
@@ -97,12 +97,17 @@
           "verdict": "pass",
           "findings": [
             "처음 answer_locus 를 여섯째 문장 One of his greatest contributions was to the study of language and communication. 으로 잡았다 — 지문에 있는 문장이지만 출판 연도를 말하지 않아 정답을 확정하지 못한다. 일곱째 문장으로 교체했다.",
-            "선지 ①~⑤가 지문 문장 2·5·7·9·10 을 순서대로 대응한다 — 되돌아 훑을 필요가 없는 설계가 맞다."
+            "선지 ①~⑤가 지문 문장 2·5·7·9·10 을 순서대로 대응한다 — 되돌아 훑을 필요가 없는 설계가 맞다.",
+            "3차 판정 — 지문 문장의 영문 인용이 없어 대응이 낱말 단위로 확인되지 않던 것을 was written / did not have it published until 을 넣어 보강하고, 선지 ③의 술어도 그대로 인용했다",
+            "3차 판정 — quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
           ],
           "checked": [
             "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
             "선지 다섯의 근거 문장 번호가 증가하는지 확인",
-            "정답 3이 written/published 대비 없이는 확정되지 않는지 확인"
+            "정답 3이 written/published 대비 없이는 확정되지 않는지 확인",
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "1948·1957 각각에 붙은 동사를 문장 성분으로 확인",
+            "선지 ③의 '1948년' 과 '논문을 출판했다' 를 근거 문장의 두 동사와 대조"
           ]
         },
         {
@@ -110,12 +115,17 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 함정이 부분 사실·지문 밖 상식·주체 역전·어휘 함정으로 서로 다르다.",
-            "④의 why_tempting 이 there 라는 실제 지문 낱말을 지목해 선지 텍스트와 연결된다 — how_to_reject 에 아홉째 문장 위치를 넣어 확인."
+            "④의 why_tempting 이 there 라는 실제 지문 낱말을 지목해 선지 텍스트와 연결된다 — how_to_reject 에 아홉째 문장 위치를 넣어 확인.",
+            "3차 판정 — 갈아 끼운 성분(동사)을 직접 지목해 소거법에 기대지 않는다",
+            "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부",
             "how_to_reject 마다 지문 문장 위치가 적혔는지",
-            "why_tempting 이 선지 한국어 문구와 실제로 대응하는지"
+            "why_tempting 이 선지 한국어 문구와 실제로 대응하는지",
+            "correct 판정 3 을 평가원 정답표(3)와 대조",
+            "why_correct 의 소거법 여부 확인",
+            "선지 ③ 문자열 인용 여부 대조"
           ]
         },
         {
@@ -123,12 +133,15 @@
           "verdict": "pass",
           "findings": [
             "4단계(연도에 붙은 동사에 화살표)가 이 유형의 실제 손동작이라 지문을 안 본 상태에서도 실행 가능하다.",
-            "처음 time_budget_sec 을 90으로 잡았다가 60으로 줄였다 — 선지가 순서 대응이라 한 번 내려가면 끝나고, 독해 70분에서 26번에 90초를 쓰면 뒤가 밀린다."
+            "처음 time_budget_sec 을 90으로 잡았다가 60으로 줄였다 — 선지가 순서 대응이라 한 번 내려가면 끝나고, 독해 70분에서 26번에 90초를 쓰면 뒤가 밀린다.",
+            "3차 판정 — 학생이 볼 자리가 한 문장 안의 두 연도이고, 무엇을 맞댈지(연도-동사 짝)가 지정됐다"
           ],
           "checked": [
             "절차 6단계가 지문 사전 지식 없이 실행 가능한지",
             "금지 표현 8종 포함 여부를 문자열로 확인",
-            "required_vocab 4개가 정답 판정에 실제로 쓰이는지"
+            "required_vocab 4개가 정답 판정에 실제로 쓰이는지",
+            "연도-동사 짝짓기가 60초 예산 안에 드는지 확인",
+            "solve_procedure 미변경 확인"
           ]
         }
       ]
@@ -307,7 +320,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "지문은 1958년을 정교수 취임 시점으로 적고 그 뒤 20년 이상 강의를 이어갔다고 했다. 선지는 같은 두 숫자를 쓰면서 1958을 퇴임 시점으로 바꿔 놓았다."
+          "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 In 1958, he became a full professor at MIT and continued to teach there for more than 20 years 에서 1958 에 붙은 것은 became a full professor(재직의 시작)이고 more than 20 years 는 그 뒤로 이어진 기간이다. 선지 ⑤ 는 같은 두 숫자를 쓰면서 '20년 이상 교수로 재직 후 1958년에 퇴임했다' 로 적어, 1958 을 시작이 아닌 끝으로 옮긴 한 자리에서 어긋난다."
         }
       ],
       "solve_procedure": [
@@ -357,12 +370,17 @@
           "verdict": "pass",
           "findings": [
             "선지 ①~⑤가 지문 문장 2·3·5·6·8 을 순서대로 대응한다.",
-            "정답이 '숫자는 맞고 동사가 틀린' 형태라 이 유형 설계의 전형이다 — measured_ability 를 숫자 대조가 아니라 동사 방향으로 적었다."
+            "정답이 '숫자는 맞고 동사가 틀린' 형태라 이 유형 설계의 전형이다 — measured_ability 를 숫자 대조가 아니라 동사 방향으로 적었다.",
+            "3차 판정 — 지문 문장의 영문 인용이 없어 대응이 낱말 단위로 확인되지 않던 것을 became a full professor / continued to teach for more than 20 years 로 보강했다",
+            "3차 판정 — quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
           ],
           "checked": [
             "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
             "선지 근거 문장 번호의 단조 증가 확인",
-            "정답 5가 became/continued 없이는 확정되지 않는지 확인"
+            "정답 5가 became/continued 없이는 확정되지 않는지 확인",
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "1958 과 20 years 의 선후 관계를 문장 성분으로 확인",
+            "선지 ⑤ 문면을 근거 문장과 시간 순서 단위로 대조"
           ]
         },
         {
@@ -370,12 +388,17 @@
           "verdict": "pass",
           "findings": [
             "처음 ③과 ④에 모두 '주체 역전'을 달았다 — ③은 주체가 아니라 배경지식이 근거를 밀어내는 경우이므로 '지문 밖 상식'으로 고쳤다.",
-            "고친 뒤 오답 넷이 부분 사실·어휘 함정·지문 밖 상식·주체 역전으로 갈린다."
+            "고친 뒤 오답 넷이 부분 사실·어휘 함정·지문 밖 상식·주체 역전으로 갈린다.",
+            "3차 판정 — 뒤바뀐 성분(시작 ↔ 끝)을 직접 지목해 소거법에 기대지 않는다",
+            "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부 재확인",
             "why_tempting 이 선지 문구에 실제로 붙는지 대조",
-            "how_to_reject 에 문장 위치가 있는지"
+            "how_to_reject 에 문장 위치가 있는지",
+            "correct 판정 5 를 평가원 정답표(5)와 대조",
+            "why_correct 의 소거법 여부 확인",
+            "선지 ⑤ 문자열 인용 여부 대조"
           ]
         },
         {
@@ -383,12 +406,15 @@
           "verdict": "pass",
           "findings": [
             "2단계에서 선지의 '서술어'에 밑줄을 긋게 한 것이 이 문항의 실제 승부처와 맞는다.",
-            "60초 안에 끝난다 — 선지 다섯 중 넷이 한 문장에서 바로 확인된다."
+            "60초 안에 끝난다 — 선지 다섯 중 넷이 한 문장에서 바로 확인된다.",
+            "3차 판정 — 학생이 볼 자리가 한 문장이고, 숫자 두 개의 선후만 보면 된다"
           ],
           "checked": [
             "절차가 지문을 안 본 상태에서 실행 가능한지",
             "금지 표현 포함 여부 문자열 확인",
-            "required_vocab 4개가 지문에 실재하는지"
+            "required_vocab 4개가 지문에 실재하는지",
+            "시간 순서 대조가 예산 안에 드는지 확인",
+            "solve_procedure 미변경 확인"
           ]
         }
       ]
@@ -561,7 +587,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "지문은 마지막 생방송(2016) 이듬해에 사망했다고 적었다. 간격은 1년이므로 '3년 뒤'는 어긋난다."
+          "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 He made his last live broadcast in 2016 and died the following year at the age of 82 에서 the following year 는 바로 앞의 2016 을 기준으로 한 해 뒤를 뜻하므로 두 사건의 간격은 1년이다. 선지 ④ '마지막 생방송 후 3년 뒤에 사망하였다' 는 last live broadcast ↔ 마지막 생방송, died ↔ 사망 을 그대로 두고 간격만 3년으로 바꾼 것이라 the following year 한 표현에서 어긋난다."
         },
         {
           "n": 5,
@@ -618,12 +644,17 @@
           "verdict": "pass",
           "findings": [
             "청크에서 body_ok 가 false 였으나 raw_block 의 문항 블록과 회차 원문 창이 같은 본문을 담고 있고, 코퍼스 passage 도 단 섞임 없이 온전하다 — 선지 다섯도 raw_block 에서 그대로 확인된다. body_recovered 로 표시했다.",
-            "선지 ①~⑤가 지문 문장 2·3·5·8·10 을 순서대로 대응한다."
+            "선지 ①~⑤가 지문 문장 2·3·5·8·10 을 순서대로 대응한다.",
+            "3차 판정 — 지문 문장의 영문 인용이 없던 것을 the following year 를 포함해 보강하고, 선지 ④ 문면을 그대로 인용했다",
+            "3차 판정 — quote 는 손대지 않았고 손상 표시가 붙은 지문에서도 이 문장은 온전하다"
           ],
           "checked": [
             "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
             "raw_block 의 선지 다섯과 코퍼스 choices 대조",
-            "정답 4가 the following year 없이는 확정되지 않는지 확인"
+            "정답 4가 the following year 없이는 확정되지 않는지 확인",
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "the following year 의 기준 연도가 앞의 2016 임을 확인",
+            "선지 ④의 세 성분(사건·사건·간격) 중 갈린 것이 간격뿐임을 확인"
           ]
         },
         {
@@ -631,12 +662,17 @@
           "verdict": "pass",
           "findings": [
             "처음 ②의 trap 을 '부분 사실'로 달았다가 ①과 겹쳐 반려했다 — ②는 served as·assistant professor 의 뜻을 뒤집는 것이므로 '어휘 함정'으로 고쳤다.",
-            "고친 뒤 오답 넷이 부분 사실·어휘 함정·범위 과대·무관으로 갈린다."
+            "고친 뒤 오답 넷이 부분 사실·어휘 함정·범위 과대·무관으로 갈린다.",
+            "3차 판정 — 갈아 끼운 성분(간격)을 직접 지목해 소거법에 기대지 않는다",
+            "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
           ],
           "checked": [
             "오답 4개의 trap 중복 여부 재확인",
             "why_tempting 이 선지 문구에서 나오는지 대조",
-            "how_to_reject 에 문장 위치가 있는지"
+            "how_to_reject 에 문장 위치가 있는지",
+            "correct 판정 4 를 평가원 정답표(4)와 대조",
+            "why_correct 의 소거법 여부 확인",
+            "선지 ④ 문자열 인용 여부 대조"
           ]
         },
         {
@@ -644,12 +680,15 @@
           "verdict": "pass",
           "findings": [
             "2단계에서 '간격을 말하는 선지에 별표'를 먼저 치게 한 것이, 지문을 보기 전에 정답 후보를 좁히는 실제 손동작이 된다.",
-            "60초 안에 끝난다."
+            "60초 안에 끝난다.",
+            "3차 판정 — 상대 표현(the following year)을 숫자로 바꿔 세는 절차가 학생에게 그대로 보인다"
           ],
           "checked": [
             "절차가 지문을 안 본 상태에서 실행 가능한지",
             "금지 표현 포함 여부 문자열 확인",
-            "required_vocab 4개가 지문에 실재하는지"
+            "required_vocab 4개가 지문에 실재하는지",
+            "상대 연도 계산이 예산 안에 드는지 확인",
+            "solve_procedure 미변경 확인"
           ]
         }
       ]
@@ -677,7 +716,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "1937은 미국으로 건너간 해이고, MIT 강의 시작은 about a decade later 다. 선지는 앞 사건의 연도를 뒤 사건에 붙였다."
+          "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 He went to the United States in 1937, and about a decade later, he started teaching visual design at the Massachusetts Institute of Technology 에서 1937 에 붙은 사건은 went to the United States 이고, started teaching visual design 앞에는 about a decade later 가 붙어 있다. 선지 ② 는 'MIT에서 시각 디자인을 가르치기 시작했다' 는 뒤 사건에 앞 사건의 해 1937 을 붙여, 두 사건 사이의 십 년만큼 어긋난다."
         },
         {
           "n": 3,
@@ -748,12 +787,17 @@
           "verdict": "pass",
           "findings": [
             "선지 ①~⑤가 지문 문장 2·4·6·8·9 를 순서대로 대응한다.",
-            "정답이 '연도는 지문에 있고 붙는 사건만 옮긴' 형태라 2026#26·2025#26 과 같은 설계 계열이다."
+            "정답이 '연도는 지문에 있고 붙는 사건만 옮긴' 형태라 2026#26·2025#26 과 같은 설계 계열이다.",
+            "3차 판정 — 서술에 선지 문면 인용이 없던 것을 보강했다 — about a decade later 가 어느 사건 앞에 붙는지와 선지 ②가 그 사건에 무슨 해를 붙였는지를 함께 적었다",
+            "3차 판정 — quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
           ],
           "checked": [
             "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
             "선지 근거 문장 번호의 단조 증가 확인",
-            "정답 2가 about a decade later 없이는 확정되지 않는지 확인"
+            "정답 2가 about a decade later 없이는 확정되지 않는지 확인",
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "1937 이 붙은 사건과 about a decade later 가 붙은 사건을 각각 확인",
+            "선지 ② 문면을 근거 문장의 두 사건과 대조"
           ]
         },
         {
@@ -762,12 +806,17 @@
           "findings": [
             "처음 ④와 ⑤에 모두 '어휘 함정'을 달았다 — ⑤는 낱말을 몰라서가 아니라 판정과 다른 문장을 근거로 삼는 것이므로 '무관'으로 고쳤다.",
             "고친 뒤 오답 넷이 부분 사실·인과 역전·어휘 함정·무관으로 갈린다.",
-            "③의 '인과 역전'은 이 청크에서 처음 쓴 라벨이고, become the basis of 의 방향 뒤집기가 그 정의에 맞는다."
+            "③의 '인과 역전'은 이 청크에서 처음 쓴 라벨이고, become the basis of 의 방향 뒤집기가 그 정의에 맞는다.",
+            "3차 판정 — 연도가 잘못 붙은 자리를 직접 지목해 소거법에 기대지 않는다",
+            "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
           ],
           "checked": [
             "오답 4개의 trap 중복 여부 재확인",
             "why_tempting 이 선지 문구에서 나오는지 대조",
-            "how_to_reject 에 문장 위치가 있는지"
+            "how_to_reject 에 문장 위치가 있는지",
+            "correct 판정 2 를 평가원 정답표(2)와 대조",
+            "why_correct 의 소거법 여부 확인",
+            "선지 ② 문자열 인용 여부 대조"
           ]
         },
         {
@@ -775,12 +824,15 @@
           "verdict": "pass",
           "findings": [
             "2단계에서 '연도가 든 선지에 별표'를 치게 한 것이 지문을 보기 전 후보 좁히기로 작동한다.",
-            "4단계(연도와 사건 사이에 끼어든 사건 확인)가 이 문항의 승부처와 정확히 겹친다."
+            "4단계(연도와 사건 사이에 끼어든 사건 확인)가 이 문항의 승부처와 정확히 겹친다.",
+            "3차 판정 — 학생이 볼 자리가 한 문장 안의 두 절이고, 연결어(about a decade later)가 표시됐다"
           ],
           "checked": [
             "절차가 지문을 안 본 상태에서 실행 가능한지",
             "금지 표현 포함 여부 문자열 확인",
-            "required_vocab 4개가 지문에 실재하고 판정에 쓰이는지"
+            "required_vocab 4개가 지문에 실재하고 판정에 쓰이는지",
+            "상대 시간 표현 처리 절차가 예산 안에 드는지 확인",
+            "solve_procedure 미변경 확인"
           ]
         }
       ]
@@ -1278,7 +1330,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "지문은 그의 책이 번역하기 어렵다고 알려져 있다고 적었다. 선지는 같은 자리의 형용사를 '쉽다'로 바꿨으므로 어긋난다."
+          "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 Although his books are known to be difficult to translate 의 known to be difficult to translate 가 선지 ⑤ '그의 책은 번역하기가 쉽다고 알려져 있다' 의 '쉽다' 와 정면으로 맞선다. 주어(his books ↔ 그의 책)와 술어 틀(are known to be ↔ 알려져 있다)이 같아 갈리는 성분은 difficult ↔ 쉽다 하나이고, 뒤 절의 they have in fact been widely translated 는 번역량에 관한 다른 사실이라 이 평판을 뒤집지 않는다."
         }
       ],
       "solve_procedure": [
@@ -1329,12 +1381,17 @@
           "findings": [
             "선지 ①~⑤가 지문 문장 3·4·5·7·9 를 순서대로 대응한다.",
             "코퍼스 지문의 until 194 는 인쇄 잘림이고 마지막 문장의 translate 뒤 콤마도 빠져 있다 — quote 는 코퍼스 현재 문자열 그대로 뽑았다.",
-            "이 문항의 정답 축은 낱말 시점 표현이 아니라 형용사 반전이다 — 이 청크에서 유일한 형태라 type_report 에 남겼다."
+            "이 문항의 정답 축은 낱말 시점 표현이 아니라 형용사 반전이다 — 이 청크에서 유일한 형태라 type_report 에 남겼다.",
+            "3차 판정 — 지문 문장의 영문 인용이 없던 것을 known to be difficult to translate 와 widely translated 로 보강하고 선지 ⑤ 문면을 그대로 인용했다",
+            "3차 판정 — quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
           ],
           "checked": [
             "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
             "선지 근거 문장 번호의 단조 증가 확인",
-            "정답 5가 Although 절 없이는 확정되지 않는지 확인"
+            "정답 5가 Although 절 없이는 확정되지 않는지 확인",
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "주어·술어 틀이 같고 형용사만 갈린 것인지 성분별로 확인",
+            "뒤 절의 widely translated 가 난이도 평판을 뒤집는지 검토"
           ]
         },
         {
@@ -1342,12 +1399,17 @@
           "verdict": "pass",
           "findings": [
             "오답 넷이 부분 사실·어휘 함정·주체 역전·범위 과대로 갈린다.",
-            "⑤의 why_tempting 을 처음 '지문에 반대말이 있어서'로 뭉뚱그렸다가 반려했다 — 실제 유인은 같은 문장 뒤 절의 widely translated 를 근거로 삼는 것이므로 그 자리를 지목해 다시 적었다."
+            "⑤의 why_tempting 을 처음 '지문에 반대말이 있어서'로 뭉뚱그렸다가 반려했다 — 실제 유인은 같은 문장 뒤 절의 widely translated 를 근거로 삼는 것이므로 그 자리를 지목해 다시 적었다.",
+            "3차 판정 — 갈아 끼운 성분(형용사)을 직접 지목해 소거법에 기대지 않는다",
+            "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
           ],
           "checked": [
             "오답 4개의 trap 중복 여부",
             "why_tempting 이 선지 문구와 지문 조각 어디에 붙는지 대조",
-            "how_to_reject 에 문장 위치가 있는지"
+            "how_to_reject 에 문장 위치가 있는지",
+            "correct 판정 5 를 평가원 정답표(5)와 대조",
+            "why_correct 의 소거법 여부 확인",
+            "선지 ⑤ 문자열 인용 여부 대조"
           ]
         },
         {
@@ -1355,12 +1417,15 @@
           "verdict": "pass",
           "findings": [
             "2단계에서 '형용사에 밑줄'을 먼저 긋게 한 것이 이 문항의 승부처와 겹친다.",
-            "①에서 잘린 연도 탓에 멈칫하는 시간을 감안해 time_budget_sec 을 65로 잡았다."
+            "①에서 잘린 연도 탓에 멈칫하는 시간을 감안해 time_budget_sec 을 65로 잡았다.",
+            "3차 판정 — 양보절(Although)과 주절을 갈라 읽어야 한다는 것이 서술에 드러난다"
           ],
           "checked": [
             "절차가 지문을 안 본 상태에서 실행 가능한지",
             "금지 표현 포함 여부 문자열 확인",
-            "required_vocab 4개가 지문에 실재하고 판정에 쓰이는지"
+            "required_vocab 4개가 지문에 실재하고 판정에 쓰이는지",
+            "양보절 처리로 시간이 늘지 않는지 확인",
+            "solve_procedure 미변경 확인"
           ]
         }
       ]

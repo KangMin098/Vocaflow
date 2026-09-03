@@ -181,7 +181,15 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "contextual 이 지문에 한 번도 안 나오는 낱말이라, 지문 낱말을 찾아 맞추는 습관으로 풀면 끝까지 안 뽑힌다."
+          "why_correct": "두 칸을 각각 짚는다. (A)=contextual 은 둘째 문장 'There can be broad, influential factors, sometimes of an economic nature, that hold down the performance of everyone being judged' 가 정한다 — 개인에게 딸린 것이 아니라 everyone being judged 에게 함께 걸리는 경제 상황이므로, 요약문의 'factors affecting the individual’s performance' 를 꾸미는 말은 상황에 딸린(contextual) 쪽이다. controllable 은 첫 문장이 'rather than those influences on performance that are beyond their control' 로 이미 갈라 놓은 반대쪽 낱말이라 (A) 자리에 들어가면 요약문이 지문과 뒤집힌다. (B)=rely on 은 마지막 문장 'Thus, “good” performance in this situation is a smaller loss compared to some average or norm group' 이 정한다 — 3% 하락이라는 수치를 －15% 평균과 견주어야 좋은 실적이 되므로 수치를 버리는(put aside) 것이 아니라 수치에만 기대지 않는 것이고, 요약문의 'rather than (B) figures only' 에서 only 가 (B) 를 rely on 으로 못 박는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              1,
+              2,
+              7
+            ],
+            "note": "contextual 이 지문에 한 번도 안 나오는 낱말이라, 지문 낱말을 찾아 맞추는 습관으로 풀면 끝까지 안 뽑힌다. (A) 한 칸만 정하면 ①(contextual …… put aside)이 함께 살아남는다."
+          }
         },
         {
           "n": 3,
@@ -252,12 +260,15 @@
           "findings": [
             "quote 가 둘째 문장과 문자 그대로 일치한다(끝 마침표만 뺐다)",
             "처음에 마지막 문장('Thus, “good” performance ...')을 quote 로 잡았다가, 그 문장은 (B)만 정하고 (A)는 못 정해 반려했다 — (A)의 근거인 둘째 문장으로 바꾸고 (B) 근거는 reasoning 안에 인용으로 남겼다(revised)",
-            "요약문 완성 유형의 핵심 설계인 '지문 낱말을 안 쓰는 정답 + 지문 낱말을 그대로 쓰는 오답' 을 짚었다"
+            "요약문 완성 유형의 핵심 설계인 '지문 낱말을 안 쓰는 정답 + 지문 낱말을 그대로 쓰는 오답' 을 짚었다",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 '지문 낱말 찾기로 풀면 안 뽑힌다' 는 심리 서술뿐이어서 3차 판정에서 반려했다. 두 칸을 각각 근거 문장과 맞물려 다시 쓰고, 심리는 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 2016#40 passage 와 문자열 대조",
             "정답 낱말 contextual 이 지문에 실제로 없는지 문자열 검색으로 확인",
-            "첫 문장의 under the control 어구가 ③의 미끼로 쓰였는지 확인"
+            "첫 문장의 under the control 어구가 ③의 미끼로 쓰였는지 확인",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
           ]
         },
         {
@@ -267,13 +278,16 @@
             "오답 4개 라벨이 반대 진술·어휘 함정·무관·부분 사실로 서로 다르다",
             "③을 처음 '반대 진술' 로 달았는데 ①과 겹쳐 반려했다 — ③의 미끼는 진술 방향이 아니라 첫 문장 낱말의 표면 반복이므로 '어휘 함정' 으로 고쳤다(revised)",
             "①과 ③이 (B) put aside 를, ②와 ⑤가 (B) rely on 을 공유하는 조합 구조를 how_to_reject 가 활용한다",
-            "correct 2 가 코퍼스 정답 2 와 일치"
+            "correct 2 가 코퍼스 정답 2 와 일치",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 4종 중복 여부",
             "선지 영문(contextual/controllable/positive · put aside/rely on/ignore)과 서술 대조",
             "how_to_reject 넷에 문장 위치가 있는지 확인",
-            "정답 번호를 코퍼스 answer 와 대조"
+            "정답 번호를 코퍼스 answer 와 대조",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
           ]
         },
         {
@@ -283,12 +297,14 @@
             "3단계(숫자에 밑줄 긋고 비교 관계를 한 줄로 적기)가 이 문항에서 가장 값싼 단계다 — 지문 문장 넷을 붙들지 않고도 결론이 잡힌다",
             "105초 배분: 요약문+선지 20초 · 숫자 문장 밑줄 25초 · (B) 확정 25초 · (A) 확정 25초 · 검산 10초",
             "required_vocab 6개가 모두 판정에 쓰인다 — contextual/rely on 은 정답, put aside 는 ①·③ 배제, downturn/hold down 은 (A) 근거, norm 은 (B) 근거",
-            "'첫 문장 낱말을 그대로 옮긴 선지는 일단 제쳐 둔다' 는 5단계 지침이 이 유형의 최대 오답 습관을 바로 겨냥한다"
+            "'첫 문장 낱말을 그대로 옮긴 선지는 일단 제쳐 둔다' 는 5단계 지침이 이 유형의 최대 오답 습관을 바로 겨냥한다",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
           ],
           "checked": [
             "solve_procedure 5단계 금지 표현 확인",
             "각 단계를 지문 없이 순서대로 시연",
-            "required_vocab 이 지문·선지에 실제로 있는지 확인(contextual·rely on·put aside 는 선지, downturn·norm·hold down 은 지문)"
+            "required_vocab 이 지문·선지에 실제로 있는지 확인(contextual·rely on·put aside 는 선지, downturn·norm·hold down 은 지문)",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
           ]
         }
       ],
@@ -311,7 +327,14 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "unavoidable 이 지문에 그 낱말로 나오지 않고 'we can no more escape than we could escape an infectious disease' 라는 비유로만 있어, 낱말 찾기로 풀면 안 잡힌다."
+          "why_correct": "두 칸을 각각 짚는다. (A)=unavoidable 은 셋째 문장 'we can no more escape than we could escape an infectious disease' 가 정한다 — 전염병처럼 피할 수 없다는 비유가 곧 피할 수 없는 영향이고, 요약문의 'Plato and Tolstoy claim that works of art have a(n) (A) impact' 는 그 두 사람이 하는 주장을 옮긴 자리이므로 Plato 쪽의 'the only way to prevent this effect is to suppress such representations' 와도 방향이 같다. (B)=differ 는 다섯째 문장 'People vary a great deal both in the intensity of their response to art and in the form which that response takes' 가 정한다 — 요약문 뒤 절의 주어 'the degrees and forms of people’s actual responses' 가 이 문장의 the intensity 와 the form 을 degrees·forms 로 바꿔 적은 것이므로 술어도 이 문장의 vary a great deal 을 받아야 하고, 그것이 differ greatly 다. converge 는 이어지는 세 문장이 반응을 셋으로 갈라 놓는 것과 반대 방향이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3,
+              5
+            ],
+            "note": "unavoidable 이 지문에 그 낱말로 나오지 않고 'we can no more escape than we could escape an infectious disease' 라는 비유로만 있어, 지문 낱말 찾기로 풀면 안 잡힌다. (B) 한 칸만 정하면 ⑤(favorable …… differ)가 함께 살아남는다."
+          }
         },
         {
           "n": 2,
@@ -389,12 +412,15 @@
           "findings": [
             "quote 가 다섯째 문장과 문자 그대로 일치한다",
             "청크의 body_ok=false 는 선지 줄에 각주(: 애벌레 · sap: 수액)와 쪽번호가 섞여 들어온 탓이고 지문 자체는 온전하다 — raw_block 의 문항 블록에서 선지 다섯 쌍을 다시 갈라 읽었다(body_recovered)",
-            "요약문 완성 유형에서 Although 두 절이 각각 다른 근거 문장을 갖게 만드는 표준 설계와 일치한다"
+            "요약문 완성 유형에서 Although 두 절이 각각 다른 근거 문장을 갖게 만드는 표준 설계와 일치한다",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 '낱말 찾기로 풀면 안 잡힌다' 는 심리 서술뿐이어서 3차 판정에서 반려했다. (A)·(B) 두 칸을 각각 근거 문장과 맞물려 다시 쓰고, 심리는 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 2015#40 passage 와 문자열 대조",
             "raw_block 의 선지 5쌍(unavoidable/differ · direct/converge · temporary/fluctuate · unexpected/converge · favorable/differ)을 코퍼스 choices 와 대조해 OCR 잔여(sap:) 제거",
-            "요약문 두 절의 임자(두 사람의 주장 / 실제 반응)가 지문의 역접 앞뒤와 대응하는지 확인"
+            "요약문 두 절의 임자(두 사람의 주장 / 실제 반응)가 지문의 역접 앞뒤와 대응하는지 확인",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
           ]
         },
         {
@@ -404,13 +430,16 @@
             "오답 4개 라벨이 반대 진술·어휘 함정·주체 역전·지문 밖 상식으로 서로 다르다",
             "④를 처음 '무관' 으로 달았다가 반려했다 — unexpected 는 지문에 근거가 없는 말이 아니라 필자 쪽 진술(neither so certain)을 주장 쪽 자리로 옮긴 것이므로 '주체 역전' 이 더 정확하다(revised)",
             "②와 ④가 converge 를, ①과 ⑤가 differ 를 공유하는 배치를 how_to_reject 가 이용한다",
-            "correct 1 이 코퍼스 정답 1 과 일치"
+            "correct 1 이 코퍼스 정답 1 과 일치",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 4종 중복 여부",
             "선지 영문 낱말과 서술 대조",
             "how_to_reject 넷에 문장 위치가 있는지 확인",
-            "정답 번호를 코퍼스 answer 와 대조"
+            "정답 번호를 코퍼스 answer 와 대조",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
           ]
         },
         {
@@ -419,12 +448,14 @@
           "findings": [
             "4단계의 '주어로 변이 축을 가른다' 가 fluctuate/differ 를 구별하는 실제 손잡이다 — 뜻풀이만으로는 학생이 못 가른다",
             "95초 배분: 요약문+선지 20초 · (B) 근거 문장 찾기 25초 · (B) 확정 20초 · (A) 확정 25초 · 검산 5초",
-            "required_vocab 6개가 모두 판정에 쓰인다 — suppress 는 ⑤ 배제(플라톤이 막으려는 나쁜 효과)에, intensity 는 (B) 근거 문장 찾기에 쓰인다"
+            "required_vocab 6개가 모두 판정에 쓰인다 — suppress 는 ⑤ 배제(플라톤이 막으려는 나쁜 효과)에, intensity 는 (B) 근거 문장 찾기에 쓰인다",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
           ],
           "checked": [
             "solve_procedure 5단계 금지 표현 확인",
             "각 단계를 지문 없이 순서대로 시연",
-            "required_vocab 이 지문·선지에 실제로 있는지 확인(suppress·intensity 는 지문, 나머지는 선지)"
+            "required_vocab 이 지문·선지에 실제로 있는지 확인(suppress·intensity 는 지문, 나머지는 선지)",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
           ]
         }
       ],
@@ -454,7 +485,14 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "save face 를 관용구로 모르면 face 가 뜬금없어 보여 마지막까지 안 뽑힌다."
+          "why_correct": "두 칸을 각각 짚는다. (A)=justify 는 여섯째 문장 'that behavior might be used by the consumer to infer his sincere interest in the product' 와 일곱째 문장 'This inferred sincere interest in the product may enable him to endure the increased cost' 가 준다 — 처음 동의한 자기 행동에서 진심을 추론해 인상된 비용을 견디는 것은 구매 결정을 사후에 정당화하는 것이고, cherish(아끼다)나 modify(바꾸다)로는 '견딘다'가 설명되지 않는다. (B)=face 는 마지막 문장 'he might foster the rather undesirable impression of being an irresponsible consumer' 가 준다 — 발을 뺄 때 남는 것이 시간·수고가 아니라 '무책임한 소비자'라는 인상이므로 지키려는 것은 체면이다. 곧 두 칸이 'justify …… face' 로 함께 정해진다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6,
+              8
+            ],
+            "note": "요약문 틀의 'tries to save (B)' 에 face 를 넣어야 관용구가 되는데, 그 관용구를 모르면 face 가 뜬금없어 보여 마지막까지 안 뽑히고 남은 후보 time·trouble 쪽으로 끌린다."
+          }
         },
         {
           "n": 3,
@@ -525,12 +563,15 @@
           "findings": [
             "quote 가 마지막 문장 안에 문자 그대로 있다",
             "처음에는 'This inferred sincere interest in the product may enable him to endure the increased cost' 를 quote 로 잡았다가 반려했다 — 그 문장은 (A)만 정하는데 이 문항에서 학습자가 실제로 미끄러지는 자리는 (B)다. (B)를 정하는 마지막 문장으로 바꾸고 (A) 근거는 reasoning 에 인용으로 남겼다(revised)",
-            "청크의 body_ok=false 는 선지 두 단 배치와 쪽번호(7)가 섞여 들어온 탓이고 지문은 온전하다 — raw_block 에서 선지 5쌍을 다시 갈라 읽었다(body_recovered)"
+            "청크의 body_ok=false 는 선지 두 단 배치와 쪽번호(7)가 섞여 들어온 탓이고 지문은 온전하다 — raw_block 에서 선지 5쌍을 다시 갈라 읽었다(body_recovered)",
+            "3차 검수에서 revise: why_correct 가 정답 근거가 아니라 「왜 놓치기 쉬운가」(학습자 심리 서술)였다. 지문 줄과 정답 선지 성분의 대응으로 다시 쓰고, 옛 심리 서술은 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 2014B#40 passage 와 문자열 대조",
             "raw_block 선지 5쌍(justify/time · justify/face · cherish/time · modify/face · modify/trouble)을 코퍼스 choices 와 대조해 잔여 숫자 7 제거",
-            "요약문의 or 두 자리가 지문의 두 이론과 1:1로 대응하는지 확인"
+            "요약문의 or 두 자리가 지문의 두 이론과 1:1로 대응하는지 확인",
+            "다시 쓴 why_correct 안의 영어 인용을 corpus.json 지문과 substring 대조",
+            "why_correct 가 정답 선지 문면을 그대로 인용하는지 확인"
           ]
         },
         {
@@ -540,13 +581,17 @@
             "오답 4개 라벨이 지문 밖 상식·어휘 함정·반대 진술·무관으로 서로 다르다",
             "①과 ⑤가 둘 다 '지문에 없는 이득' 을 파는 선지라 라벨이 겹칠 뻔했다 — ①은 통념(시간 절약)이 근거처럼 작동하고 ⑤는 지문의 비용 증가와 방향까지 반대라, ①은 지문 밖 상식 · ⑤는 무관으로 갈랐다",
             "why_tempting 넷이 모두 선지 영문 낱말(time·cherish·modify·trouble)에 직접 걸린다",
-            "correct 2 가 코퍼스 정답 2 와 일치"
+            "correct 2 가 코퍼스 정답 2 와 일치",
+            "3차 재검수: 다시 쓴 why_correct 가 소거법(「나머지가 틀리므로」)에 기대지 않고 정답 선지 자체의 근거로 서는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 4종 중복 여부",
             "선지 영문과 서술 대조",
             "how_to_reject 넷에 문장 위치가 있는지 확인",
-            "정답 번호를 코퍼스 answer 와 대조"
+            "정답 번호를 코퍼스 answer 와 대조",
+            "why_correct 에 소거법 서술이 없는지",
+            "오답 선지 필드 불변 확인",
+            "정답표 answer 와 correct 선지 번호 재대조"
           ]
         },
         {
@@ -556,12 +601,15 @@
             "2단계(One explanation / An alternative explanation 에 동그라미)가 이 지문에서 가장 값싼 단계다 — 문장 두 개만 보고 (A)·(B)의 담당 구역이 갈린다",
             "100초 배분: 요약문+선지 20초 · 갈래 표지 찾기 15초 · (B) 확정 25초 · (A) 확정 30초 · 검산 10초",
             "required_vocab 6개가 모두 판정에 쓰인다 — save face 는 선지 쪽 관용구라 지문 대조 대상이 아니고, 나머지 다섯은 지문 낱말이다",
-            "3단계 on_fail 의 '지문에 뿌리가 없는 낱말은 지운다' 가 time·trouble 두 오답을 한 번에 처리한다"
+            "3단계 on_fail 의 '지문에 뿌리가 없는 낱말은 지운다' 가 time·trouble 두 오답을 한 번에 처리한다",
+            "3차 재검수: 다시 쓴 서술로 학습자가 지문의 그 줄과 선지의 그 성분을 눈으로 맞출 수 있는지 확인했다. solve_procedure·time_budget_sec·required_vocab 는 그대로다."
           ],
           "checked": [
             "solve_procedure 5단계 금지 표현 확인",
             "각 단계를 지문 없이 순서대로 시연",
-            "required_vocab 낱말의 지문 존재 여부 확인(withdraw·sincere·endure·irresponsible 은 지문, save face 는 선지 유래임을 명시)"
+            "required_vocab 낱말의 지문 존재 여부 확인(withdraw·sincere·endure·irresponsible 은 지문, save face 는 선지 유래임을 명시)",
+            "why_correct 로 지문의 해당 자리를 직접 짚을 수 있는지",
+            "solve_procedure 불변 확인"
           ]
         }
       ],

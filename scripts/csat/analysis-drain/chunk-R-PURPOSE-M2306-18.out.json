@@ -119,7 +119,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "요청 문장의 화행(ask)과 목적어(a special lecture)와 자리(at the workshop)가 그대로 대응한다"
+          "why_correct": "화행 대응: 근거 문장의 I would like to ask you to 가 선지의 '부탁하려고' 와 같은 요청 화행이다. 목적어 대응: deliver a special lecture at the workshop scheduled for next month 가 선지의 '워크숍의 특강을' 과 낱말끼리 맞물린다(lecture=특강, workshop=워크숍). 특강을 할 주체는 요청을 받는 you(Ms. Green)여서 선지의 부탁 대상과도 같다."
         },
         {
           "n": 4,
@@ -180,12 +180,14 @@
           "findings": [
             "quote 가 지문에 문자 그대로 있다",
             "정답 3 이 평가원 정답표와 일치한다",
-            "지문 중간의 파싱 잔여 구간(science ids. ______ teachers)은 근거 문장과 무관한 자리다"
+            "지문 중간의 파싱 잔여 구간(science ids. ______ teachers)은 근거 문장과 무관한 자리다",
+            "3차 재검 — why_correct 를 화행(ask)과 목적어(a special lecture at the workshop) 둘로 쪼개고 선지 표현 '워크숍의 특강을' 을 인용해 대응을 낱말 단위로 확인 가능하게 보강했다"
           ],
           "checked": [
             "quote 를 코퍼스 지문에서 문자열 대조",
             "choices[].verdict correct 가 정답표 3 과 일치하는지 확인",
-            "R-PURPOSE 유형 정의 대조"
+            "R-PURPOSE 유형 정의 대조",
+            "quote 의 ask you to deliver a special lecture 와 선지 3 의 '워크숍의 특강을 부탁하려고' 를 낱말별로 대조"
           ]
         },
         {
@@ -193,12 +195,14 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 무관·범위 과대·어휘 함정·부분 사실로 모두 다르다",
-            "why_tempting 넷이 각 선지의 실제 한국어 서술어에 근거한다"
+            "why_tempting 넷이 각 선지의 실제 한국어 서술어에 근거한다",
+            "보강한 서술이 다른 선지를 지우는 방식이 아니라 요청 문장 한 곳의 두 성분만으로 서 있다"
           ],
           "checked": [
             "trap 라벨 중복 검사",
             "how_to_reject 마다 지문 위치(요청 문장·두 번째 문장·Since 절)가 적혔는지 확인",
-            "선지 텍스트와 서술 대응 확인"
+            "선지 텍스트와 서술 대응 확인",
+            "why_correct 에 다른 선지 언급·소거 서술이 없는지 확인"
           ]
         },
         {
@@ -206,15 +210,18 @@
           "verdict": "pass",
           "findings": [
             "4단계에서 선지의 끝 서술어만 먼저 보게 한 것이 시간을 줄인다",
-            "required_vocab 넷이 모두 요청 문장 해독에 쓰인다"
+            "required_vocab 넷이 모두 요청 문장 해독에 쓰인다",
+            "학습자가 대조할 자리가 요청 문장 하나로 지목되어 55초 배분을 넘기지 않는다"
           ],
           "checked": [
             "금지 표현 문자열 대조",
             "지문 미독 상태에서 1~3단계 실행 가능성 확인",
-            "55초 안에 5단계가 끝나는지 단계별 예상 시간 합산"
+            "55초 안에 5단계가 끝나는지 단계별 예상 시간 합산",
+            "보강문이 지시하는 대조 작업이 solve_procedure 4단계와 어긋나지 않는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2209#18",
@@ -415,7 +422,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "예고문 This is how you participate 와 뒤따르는 장소·시간·품목 문장이 참여 절차로 그대로 대응한다"
+          "why_correct": "화행 대응: 예고문 This is how you participate 가 선지의 '참여하는 방법을' 과 맞물린다(how=방법, participate=참여). 목적어 대응: 뒤따르는 bring your items for donation to our booths(장소)·drop off the items there ... from December 4 to 23(시간)·non-perishable like canned meats(품목)가 the campus food drive, 곧 선지의 '음식 기부' 절차 항목이다. 참여하는 쪽은 you, 알려 주는 쪽은 Campus Food Bank 로 선지의 안내 방향과 같다."
         },
         {
           "n": 4,
@@ -478,12 +485,14 @@
           "findings": [
             "초안 인용이 The donated food should be . non-perishable 구간을 포함해 파서 잔여 마침표가 끼어 있었다 — 손상 없는 앞 구간(This is how you participate. You can bring your items for donation to our booths.)으로 교체했다",
             "교체한 인용은 코퍼스 지문과 raw_block 양쪽에 문자 그대로 있다",
-            "정답 3 이 정답표와 일치한다"
+            "정답 3 이 정답표와 일치한다",
+            "3차 재검 — 예고문만 말하던 서술에 선지 표현 '참여하는 방법을' 인용과 절차 항목 세 개(장소·시간·품목)의 지문 표현을 넣어 보강했다"
           ],
           "checked": [
             "quote 를 코퍼스 지문에서 문자열 대조",
             "raw_block 원문 창에서 동일 문장 재확인",
-            "correct 선지 번호와 정답표 3 대조"
+            "correct 선지 번호와 정답표 3 대조",
+            "This is how you participate 와 선지 3 의 '참여하는 방법을 안내하려고' 대조 · 절차 세 항목이 지문에 실제로 있는지 문자열 확인"
           ]
         },
         {
@@ -491,12 +500,14 @@
           "verdict": "pass",
           "findings": [
             "오답 넷의 라벨이 무관·어휘 함정·부분 사실·주체 역전으로 모두 다르다",
-            "④의 배제 근거를 '감사 표현이 있다'가 아니라 distribute 의 주어가 we 라는 위치로 바꿔 검증 가능하게 했다"
+            "④의 배제 근거를 '감사 표현이 있다'가 아니라 distribute 의 주어가 we 라는 위치로 바꿔 검증 가능하게 했다",
+            "보강문이 ②(도서관 이용 시간)와 겹치는 library hours 를 절차 항목의 시간으로 명시해, 같은 표현이 두 선지에 걸리는 자리를 드러낸다"
           ],
           "checked": [
             "trap 라벨 중복 검사",
             "how_to_reject 마다 인용 가능한 지문 위치가 있는지 확인",
-            "선지 한국어 텍스트와 why_tempting 대응 확인"
+            "선지 한국어 텍스트와 why_tempting 대응 확인",
+            "why_correct 가 선지 텍스트에 근거하는지 · 소거 서술이 섞이지 않았는지 확인"
           ]
         },
         {
@@ -504,12 +515,14 @@
           "verdict": "pass",
           "findings": [
             "2단계 '명령문에 표시'는 영어 문장을 다 해석하지 않고도 눈으로 실행된다",
-            "required_vocab 의 drop off·non-perishable 는 절차 무리를 알아보는 데 실제로 쓰인다"
+            "required_vocab 의 drop off·non-perishable 는 절차 무리를 알아보는 데 실제로 쓰인다",
+            "명령문 무리를 절차로 묶어 보라는 지시가 서술 안에서도 같은 모양이라 2단계와 이어진다"
           ],
           "checked": [
             "금지 표현 문자열 대조",
             "1~2단계를 지문 미독 상태에서 실행 가능한지 확인",
-            "55초 안 완주 여부 검토"
+            "55초 안 완주 여부 검토",
+            "보강문의 대조 대상이 학습자가 눈으로 찾을 수 있는 문장인지 확인"
           ]
         }
       ]
@@ -615,7 +628,7 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "요구 문장의 동사(asking)와 목적어(an additional course)가 그대로 대응한다"
+          "why_correct": "화행 대응: I'm kindly asking you to 가 선지의 '요청하려고' 와 같은 요구 화행이다. 목적어 대응: open an additional course 가 선지의 '추가 개설을 요청하려고' 중 '추가 개설' 과 맞물린다(additional=추가, open a course=과정을 연다). 과정을 여는 주체는 수신자(수영장 측)이고 요구하는 쪽이 발신자라 선지가 가리키는 방향과 같다."
         },
         {
           "n": 2,
@@ -688,12 +701,14 @@
           "verdict": "pass",
           "findings": [
             "quote 가 지문에 문자 그대로 있다(굽은 어포스트로피 포함)",
-            "correct 1 이 정답표와 일치한다"
+            "correct 1 이 정답표와 일치한다",
+            "3차 재검 — 동사(asking)와 목적어(an additional course) 대응에 선지 표현 '추가 개설을 요청하려고' 인용과 행위 주체 확인을 더했다"
           ],
           "checked": [
             "quote 를 코퍼스 지문에서 문자열 대조",
             "정답표 1 과 correct 선지 대조",
-            "요구 문장 위치(맺음 인사 앞)를 지문에서 확인"
+            "요구 문장 위치(맺음 인사 앞)를 지문에서 확인",
+            "quote 의 asking you to open an additional course 와 선지 1 을 낱말별로 대조 · 여는 주체가 you 임을 문장에서 확인"
           ]
         },
         {
@@ -701,27 +716,32 @@
           "verdict": "pass",
           "findings": [
             "오답 넷 라벨이 주체 역전·반대 진술·부분 사실·어휘 함정으로 모두 다르다",
-            "③의 배제 근거로 this summer 라는 지문 표현을 위치와 함께 적었다"
+            "③의 배제 근거로 this summer 라는 지문 표현을 위치와 함께 적었다",
+            "보강문이 ⑤(등록 방법 안내)와 갈리는 지점을 '요구하는 쪽=발신자' 로 명시해 주체 방향으로 구분한다"
           ],
           "checked": [
             "trap 라벨 중복 검사",
             "각 how_to_reject 의 지문 위치 유무 확인",
-            "선지 텍스트와 why_tempting 대응 확인"
+            "선지 텍스트와 why_tempting 대응 확인",
+            "선지 텍스트 근거 여부 · 소거법 의존 여부 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "4단계의 '발신자가 할 수 없는 일을 지운다'가 두 선지를 한 번에 걷어낸다"
+            "4단계의 '발신자가 할 수 없는 일을 지운다'가 두 선지를 한 번에 걷어낸다",
+            "발신자가 할 수 있는 일과 수신자가 할 일을 나누라는 4단계와 서술이 같은 자를 쓴다"
           ],
           "checked": [
             "금지 표현 문자열 대조",
             "지문 미독 상태 실행 가능성 확인",
-            "55초 배분 검토"
+            "55초 배분 검토",
+            "보강문이 지문 미독 상태의 절차와 모순되지 않는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2020#18",
@@ -752,7 +772,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "요구 문장의 동사(ask you to take measures)와 목적어(prevent the noise at night)가 그대로 대응한다"
+          "why_correct": "화행 대응: I want immediate action 과 I ask you to take measures 가 선지의 '대책을 촉구하려고' 와 맞물린다(measures=대책, want immediate action=촉구). 목적어 대응: to prevent the noise at night 가 선지의 '야간 소음 방지' 와 낱말끼리 맞물린다(at night=야간, noise=소음, prevent=방지). 조치를 취할 주체는 the manager of Vuenna Dog Park 인 수신자여서 선지의 촉구 대상과 같다."
         },
         {
           "n": 4,
@@ -813,12 +833,14 @@
           "findings": [
             "quote 가 지문에 문자 그대로 있다",
             "correct 3 이 정답표와 일치한다",
-            "항의·촉구 화행이 유형 정의 안에 든다"
+            "항의·촉구 화행이 유형 정의 안에 든다",
+            "3차 재검 — 요구 문장의 동사·목적어 대응에 선지 표현 '대책을 촉구하려고' 인용과 조치 주체(the manager)를 더해 보강했다"
           ],
           "checked": [
             "quote 문자열 대조",
             "정답표 3 대조",
-            "However 위치를 지문에서 확인"
+            "However 위치를 지문에서 확인",
+            "quote 의 ask you to take measures to prevent the noise at night 와 선지 3 을 낱말별로 대조 · Since you are the manager 로 주체 확인"
           ]
         },
         {
@@ -826,27 +848,32 @@
           "verdict": "pass",
           "findings": [
             "오답 라벨이 무관·어휘 함정·부분 사실·주체 역전으로 모두 다르다",
-            "②의 배제 근거를 at night 이 놓인 문법 자리로 특정했다"
+            "②의 배제 근거를 at night 이 놓인 문법 자리로 특정했다",
+            "보강문이 ②(야간 이용 시간 문의)와 같은 at night 를 공유하는 자리를 소음 방지라는 목적어로 갈라 놓는다"
           ],
           "checked": [
             "trap 라벨 중복 검사",
             "how_to_reject 의 지문 위치 유무 확인",
-            "at night 출현 횟수를 지문에서 실제로 셈"
+            "at night 출현 횟수를 지문에서 실제로 셈",
+            "선지 텍스트 근거 여부 · 배제 서술 혼입 여부 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계 역접 표지 찾기는 해석 없이 눈으로 되고, 읽을 분량을 절반으로 줄인다"
+            "2단계 역접 표지 찾기는 해석 없이 눈으로 되고, 읽을 분량을 절반으로 줄인다",
+            "요구 문장 한 곳만 보면 되므로 50초 배분 안에 끝난다"
           ],
           "checked": [
             "금지 표현 문자열 대조",
             "단계별 실행 가능성 확인",
-            "55초 배분 검토"
+            "55초 배분 검토",
+            "보강문이 요구하는 대조가 절차 단계로 실행 가능한지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2006#18",
@@ -870,7 +897,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "첫 문장의 announce 와 will offer 가 개최 통보에 그대로 대응하고, 이후 문장이 모두 그 캠프의 세부다"
+          "why_correct": "화행 대응: 첫 문장의 We are very excited to announce 가 선지의 '안내하려고' 와 같은 통보 화행이다. 목적어 대응: we will offer the Summer Aviation Flight Camp 가 선지의 '캠프 개최에 대해 안내하려고' 중 '캠프 개최' 와 맞물린다(Flight Camp=비행 캠프, will offer=개최한다). 뒤의 날짜(from July 20 to August 3, 2019)·프로그램·연령 제한·등록 서류가 모두 이 한 캠프의 세부라 안내 대상이 캠프 개최로 좁혀진다."
         },
         {
           "n": 3,
@@ -939,12 +966,14 @@
           "findings": [
             "quote 가 지문 첫 문장과 문자 그대로 일치한다",
             "correct 2 가 정답표와 일치한다",
-            "통보형이라 근거가 첫 문장에 있는 배치를 절차가 겨냥한다"
+            "통보형이라 근거가 첫 문장에 있는 배치를 절차가 겨냥한다",
+            "3차 재검 — '이후 문장이 모두 세부' 라는 뭉뚱그린 서술을 announce/will offer 두 낱말과 선지 표현 '캠프 개최에 대해 안내하려고' 의 대응으로 바꿔 적었다"
           ],
           "checked": [
             "quote 문자열 대조",
             "정답표 2 대조",
-            "요구 동사 부재를 지문에서 확인"
+            "요구 동사 부재를 지문에서 확인",
+            "첫 문장 인용과 선지 2 를 낱말별로 대조 · 날짜·연령 제한 표현이 지문에 있는지 문자열 확인"
           ]
         },
         {
@@ -952,24 +981,28 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ③과 ④에 모두 '어휘 함정'을 달아 라벨이 겹쳤다 — ④는 절차 설명이 지문에 아예 없다는 점을 근거로 '무관'으로 고쳤다",
-            "선지 다섯의 서술어가 모두 통보류라는 사실을 절차 4단계에 반영하게 했다"
+            "선지 다섯의 서술어가 모두 통보류라는 사실을 절차 4단계에 반영하게 했다",
+            "통보형이라 근거가 첫 문장에 있고, 보강문이 ①(변경 사항)·⑤(선정 결과)와 갈리는 지점을 announce 의 목적절 하나로 잡는다"
           ],
           "checked": [
             "trap 라벨 중복 검사(수정 후 재검: 부분 사실·어휘 함정·무관·범위 과소)",
             "how_to_reject 의 지문 위치 유무 확인",
-            "선지 한국어 서술어를 다섯 개 모두 분류"
+            "선지 한국어 서술어를 다섯 개 모두 분류",
+            "why_correct 가 다른 선지를 지우는 방식에 기대지 않는지 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "4단계가 '서술어로 안 갈리면 곧장 목적어로 간다'는 분기를 명시해 학생이 멈추지 않는다"
+            "4단계가 '서술어로 안 갈리면 곧장 목적어로 간다'는 분기를 명시해 학생이 멈추지 않는다",
+            "첫 문장부터 보라는 절차와 서술의 근거 자리가 일치한다"
           ],
           "checked": [
             "금지 표현 문자열 대조",
             "단계별 실행 가능성 확인",
-            "55초 배분 검토"
+            "55초 배분 검토",
+            "보강문의 대조 자리가 1단계에서 바로 닿는 곳인지 확인"
           ]
         }
       ]
@@ -1127,7 +1160,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "물음표 문장의 화행(let me know if it is possible)과 목적어(a group reservation)가 그대로 대응한다"
+          "why_correct": "화행 대응: Would you please let me know if it is possible 이 선지의 '가능한지를 문의하려고' 와 맞물린다(if it is possible=가능한지, let me know=문의). 목적어 대응: to make a group reservation for the program 이 선지의 '프로그램 단체 예약이' 와 낱말끼리 맞물린다(group reservation=단체 예약, program=프로그램). 예약을 해 줄 쪽은 수신자인 박물관이고 묻는 쪽이 발신 교사라 선지의 방향과 같다."
         },
         {
           "n": 4,
@@ -1188,12 +1221,14 @@
           "verdict": "pass",
           "findings": [
             "quote 가 물음표까지 포함해 지문에 문자 그대로 있다",
-            "correct 3 이 정답표와 일치한다"
+            "correct 3 이 정답표와 일치한다",
+            "3차 재검 — 물음표 문장의 화행·목적어 대응에 선지 표현 '가능한지를 문의하려고' 인용을 더해 낱말 단위 대조가 가능하게 했다"
           ],
           "checked": [
             "quote 문자열 대조",
             "정답표 3 대조",
-            "지문에서 물음표 개수 확인(1개)"
+            "지문에서 물음표 개수 확인(1개)",
+            "quote 와 선지 3 을 낱말별로 대조 · 물음표 문장이 편지에 하나뿐인지 확인"
           ]
         },
         {
@@ -1201,12 +1236,14 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ④와 ⑤에 모두 '부분 사실'을 달아 라벨이 겹쳤다 — ⑤는 숫자와 reservation 이라는 낱말 겹침이 유인이므로 '어휘 함정'으로 갈랐다",
-            "①과 ④를 주체 역전과 부분 사실로 나눈 근거를 각각 발신자 지위와 인용절 위치로 적었다"
+            "①과 ④를 주체 역전과 부분 사실로 나눈 근거를 각각 발신자 지위와 인용절 위치로 적었다",
+            "보강문이 ⑤(인원수 변경 요청)와 공유하는 50 students 를 근거로 쓰지 않고 문의 화행만으로 선다"
           ],
           "checked": [
             "trap 라벨 중복 검사(수정 후 재검: 주체 역전·무관·부분 사실·어휘 함정)",
             "how_to_reject 의 지문 위치 유무 확인",
-            "선지 텍스트와 why_tempting 대응 확인"
+            "선지 텍스트와 why_tempting 대응 확인",
+            "선지 텍스트 근거 여부 · 소거법 의존 여부 확인"
           ]
         },
         {
@@ -1214,12 +1251,14 @@
           "verdict": "pass",
           "findings": [
             "2단계 '물음표 찾기'는 지문을 읽기 전에 실행되고, 이 유형에서 가장 값싼 표적 탐색이다",
-            "5단계의 시점 비교가 인원 변경 오답을 정면으로 막는다"
+            "5단계의 시점 비교가 인원 변경 오답을 정면으로 막는다",
+            "물음표를 찾으라는 절차 단계와 서술의 근거 자리가 같다"
           ],
           "checked": [
             "금지 표현 문자열 대조",
             "지문 미독 상태에서 1~2단계 실행 가능성 확인",
-            "55초 배분 검토"
+            "55초 배분 검토",
+            "보강문이 지시하는 대조가 55초 안에 끝나는지 확인"
           ]
         }
       ]
@@ -1246,7 +1285,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "첫 문장의 introduce 와 수신 대상 for teachers, 끝의 웹사이트 유도가 상품 권유로 그대로 대응한다"
+          "why_correct": "화행 대응: 첫 문장의 We are pleased to introduce our company's recently launched emergency training program 과 끝 문장의 To learn more about our CPR course offerings, please visit our website 가 선지의 '홍보하려고' 와 맞물린다(파는 쪽이 our company 인 발신자다). 목적어 대응: Our CPR class 와 수신 대상 for teachers 가 선지의 '심폐 소생술 강좌를 교사에게' 와 낱말끼리 맞물린다(CPR=심폐 소생술, class=강좌, teachers=교사)."
         },
         {
           "n": 3,
@@ -1314,12 +1353,14 @@
           "findings": [
             "quote 가 지문 첫 문장과 문자 그대로 일치한다(굽은 어포스트로피 포함)",
             "correct 2 가 정답표와 일치한다",
-            "서명이 없는 광고성 편지지만 화행 판별 축은 다른 문항과 같다"
+            "서명이 없는 광고성 편지지만 화행 판별 축은 다른 문항과 같다",
+            "3차 재검 — introduce 와 웹사이트 유도만 말하던 서술에 선지 표현 '심폐 소생술 강좌를 교사에게' 인용과 상품(Our CPR class)·대상(for teachers) 대응을 넣었다"
           ],
           "checked": [
             "quote 문자열 대조",
             "정답표 2 대조",
-            "지문에 서명 부재를 확인"
+            "지문에 서명 부재를 확인",
+            "첫 문장과 끝 문장 인용을 지문에서 문자열 대조 · 선지 2 와 낱말별 대조"
           ]
         },
         {
@@ -1327,12 +1368,14 @@
           "verdict": "pass",
           "findings": [
             "오답 라벨이 부분 사실·어휘 함정·주체 역전·무관으로 모두 다르다",
-            "①의 배제 근거를 With the proper training 이라는 조건절 위치로 특정했다"
+            "①의 배제 근거를 With the proper training 이라는 조건절 위치로 특정했다",
+            "보강문이 ①(구조 요령 설명)과 겹치는 life-saving expertise 를 근거로 삼지 않고 상품 권유 쪽만 짚는다"
           ],
           "checked": [
             "trap 라벨 중복 검사",
             "how_to_reject 의 지문 위치 유무 확인",
-            "지문에 날짜·설문 낱말이 없음을 문자열로 확인"
+            "지문에 날짜·설문 낱말이 없음을 문자열로 확인",
+            "선지 텍스트 근거 여부 · 배제 서술 혼입 여부 확인"
           ]
         },
         {
@@ -1340,12 +1383,14 @@
           "verdict": "pass",
           "findings": [
             "required_vocab 이 초안에서 8개(emergency·expertise·sufferer 등 포함)로 지문 어휘 나열에 가까워 반려했다 — 화행 판별에 실제로 쓰이는 introduce·launched·offerings 셋만 남겼다",
-            "3단계가 '파는 글인지'를 가르는 신호를 세 개로 못박아 실행 가능하다"
+            "3단계가 '파는 글인지'를 가르는 신호를 세 개로 못박아 실행 가능하다",
+            "첫 문장과 끝 문장 두 곳만 보면 되어 절차의 앞뒤 훑기와 맞는다"
           ],
           "checked": [
             "required_vocab 이 정답 판별에 쓰이는지 하나씩 검토",
             "금지 표현 문자열 대조",
-            "55초 배분 검토"
+            "55초 배분 검토",
+            "보강문의 두 대조 자리가 학습자가 바로 찾을 수 있는 위치인지 확인"
           ]
         }
       ]

@@ -409,7 +409,14 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "마지막 문장의 stop worrying endlessly about events you may not experience 가 선지와 대상·행위 모두 일치한다."
+          "why_correct": "마지막 문장 'It is worth making a conscious effort, then, to stop worrying endlessly about events you may not experience' 에서 대상 events you may not experience 가 선지의 '일어날 것 같지 않은 일' 과, stop worrying 이 '걱정하지 말아야 한다' 와 대응한다. '지나치게' 는 5번 문장 When our worries exceed our control, however, they cause us unnecessary suffering 의 exceed our control 이 받는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3,
+              8
+            ],
+            "note": "3차 보강 전 서술: 마지막 문장의 stop worrying endlessly about events you may not experience 가 선지와 대상·행위 모두 일치한다."
+          }
         },
         {
           "n": 3,
@@ -473,12 +480,15 @@
           "verdict": "pass",
           "findings": [
             "quote 가 코퍼스 지문에 문자 그대로 있음(끝의 페이지 번호 '8'은 인용에 넣지 않았다)",
-            "It is worth ~ing 를 당위 표현으로 셌다 — should/must 가 없는 대신 이 자리가 처방 문장이다"
+            "It is worth ~ing 를 당위 표현으로 셌다 — should/must 가 없는 대신 이 자리가 처방 문장이다",
+            "3차 재검수 — why_correct 에 대응은 있으나 한쪽(선지 또는 이음매의 받는 낱말)이 우리말 풀이로만 있어 revise 로 반려했다. 양쪽 표현을 그대로 넣어 보강한 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 문자열 대조",
             "당위 표현 유무 확인",
-            "정답표(answer=2) 대조"
+            "정답표(answer=2) 대조",
+            "새 why_correct 의 영어 인용을 corpus.json 의 해당 지문에서 문자열 대조",
+            "정답 선지 문자열과의 대응이 낱말 단위로 성립하는지 확인"
           ]
         },
         {
@@ -486,12 +496,15 @@
           "verdict": "pass",
           "findings": [
             "오답 4종이 서로 다름: 무관·어휘 함정·범위 과대·반대 진술",
-            "이 문항은 오답 넷 중 ③④가 '걱정'이라는 지문 소재어를 담지 않는다 — 소재 대조가 전혀 안 통한다는 요지 유형 실측의 반례로 기록"
+            "이 문항은 오답 넷 중 ③④가 '걱정'이라는 지문 소재어를 담지 않는다 — 소재 대조가 전혀 안 통한다는 요지 유형 실측의 반례로 기록",
+            "3차 재검수 — 보강한 서술이 정답 선지의 실제 문자열에 근거하는지, 소거법으로 미끄러지지 않았는지 확인했다. 오답 4개 서술은 3차에서 손대지 않았다."
           ],
           "checked": [
             "trap 중복 여부",
             "오답 선지의 지문 소재어 포함 여부 계수",
-            "how_to_reject 문장 번호"
+            "how_to_reject 문장 번호",
+            "why_correct 에 소거법·되풀이 서술이 남았는지 확인",
+            "오답 4개의 trap/why_tempting/how_to_reject 가 3차에서 바뀌지 않았음을 확인"
           ]
         },
         {
@@ -499,15 +512,18 @@
           "verdict": "pass",
           "findings": [
             "1단계(금지형/권고형 가르기)가 이 문항에서 선지를 절반으로 줄여 실효가 크다",
-            "75초로 충분"
+            "75초로 충분",
+            "3차 재검수 — 보강 후 학생이 지문에서 찾아갈 자리가 낱말 단위로 지목됐는지 봤다. 다른 필드는 3차에서 바뀌지 않았다."
           ],
           "checked": [
             "절차 실행 가능성",
             "금지 표현 대조",
-            "required_vocab 필요성"
+            "required_vocab 필요성",
+            "why_correct 가 지목한 지문 자리를 학생이 번호·표지로 찾아갈 수 있는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2025#20",

@@ -34,7 +34,13 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "앞 절의 40%는 교사 원에서 조각 하나만 보면 확인되므로 거기서 O 를 주고 뒤 절로 넘어가지 않는다. 뒤 절은 값이 아니라 \"more than 30 percent\" 라는 임계 표현이라, 조각 라벨 숫자와 30을 견주는 한 번의 비교가 더 필요한데 그 한 번이 빠진다."
+          "why_correct": "선지 ③은 두 원 그래프에 걸친 연언이다. 앞 절 '40 percent of AP & NWP teachers say that “Some” of the information is accurate or trustworthy' 는 교사 원의 'Some' 조각 라벨 하나를 읽으면 끝나지만, 뒤 절 'more than 30 percent of U.S. adult search users respond the same' 은 성인 원의 'Some' 조각을 30 이라는 임계와 견주는 두 번째 연산이고 성인 쪽 'Some' 을 말하는 선지는 ③ 말고 없다 — ①은 성인의 'All / Almost all' 이 28 percent, ④는 'Very little / None' 이 less than five percent, ⑤는 'Don't know' 가 only one percent, ②는 'Most' 가 최대라는 것뿐이다. 다만 그 셋이 성인 원의 남는 몫을 66~71 로 묶고 ②가 'Most' 를 'Some' 위에 두므로(반올림 오차를 빼면) 성인의 'Some' 은 35.5 를 넘을 수 없다 — 뒤 절이 참이려면 30 과 35.5 사이라는 좁은 띠에 들어야 한다. 곧 ③이 도표와 일치하지 않는 자리는 두 절 중 하나이고, 앞 절은 조각 라벨 한 번, 뒤 절은 임계와의 비교 한 번을 그림에서 더 해야 갈린다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "학습자가 미끄러지는 자리 — 앞 절의 40 percent 는 교사 원에서 조각 하나만 보면 확인되므로 거기서 O 를 주고 뒤 절로 넘어가지 않는다. 뒤 절은 값이 아니라 'more than 30 percent' 라는 임계 표현이라 비교가 한 번 더 필요한데, 그 한 번이 빠진다."
+          }
         },
         {
           "n": 4,
@@ -96,13 +102,15 @@
           "findings": [
             "초판 answer_locus.reasoning 이 '어긋난 절은 성인 쪽 Some 이며 실제 값은 30% 미만' 이라고 단정했다. 원그래프 수치가 코퍼스에도 회차 원문 창에도 없으므로 근거 없는 단정이다 → 정답표에서 도출 가능한 범위(두 절 중 하나가 어긋나며, 성인 Some 은 30~35.5의 좁은 창에서만 참일 수 있다)까지로 낮추고 수치 미확인을 명시했다(revise 후 반영)",
             "이 서술이 다른 도표 문항에도 그대로 통하는 일반론이 아닌지 재봤다 — '성인 원의 다섯 조각 중 넷을 선지들이 나눠 준다' 는 이 문항 고유의 배치이고 다른 회차에 옮겨지지 않는다",
-            "도표 유형 정의(진술-도표 대조)를 벗어난 서술 없음"
+            "도표 유형 정의(진술-도표 대조)를 벗어난 서술 없음",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2017#24 passage 와 문자열 대조 — ③ 문장 전체가 그대로 있다",
             "columns2/2017.txt 339행 앞뒤 창에 원그래프 조각 수치가 한 개도 없음을 확인",
             "선지 다섯의 연산 종류(값 대조 2 · 순위 1 · 임계 2)가 겹치지 않는지 확인",
-            "분석 정답 3 과 평가원 정답표 3 대조"
+            "분석 정답 3 과 평가원 정답표 3 대조",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -111,12 +119,14 @@
           "findings": [
             "오답 4개의 trap 이 계열 짝 바꾸기 · 최빈 조각 순위 오판 · 임계값 경계 · 미세 조각 판독 포기로 모두 다르다",
             "④의 why_tempting 이 ①에도 five percent 가 있다는 선지 텍스트의 실제 겹침에 근거한다 — 지어낸 유인이 아니다",
-            "'미세 조각 판독 포기' 는 (A)(B) 라벨표에 없는 새 라벨이라 open_questions 에 등재를 제안했다"
+            "'미세 조각 판독 포기' 는 (A)(B) 라벨표에 없는 새 라벨이라 open_questions 에 등재를 제안했다",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부",
             "why_tempting 이 각 선지 문장의 실제 표현(while · both · more than 30 percent · less than five percent · only one percent)에 근거하는지",
-            "how_to_reject 마다 볼 원과 조각이 지정되었는지"
+            "how_to_reject 마다 볼 원과 조각이 지정되었는지",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -125,12 +135,14 @@
           "findings": [
             "4단계의 100−뺄셈은 선지가 준 숫자만 쓰므로 그림을 못 읽는 상태에서도 실행된다",
             "절차 5단계가 90초 안에 끝난다 — 조각 읽기 5회 + 뺄셈 1회 + 비교 1회",
-            "required_vocab 넷이 모두 정답 판정에 실제로 쓰인다(account for 를 '차지하다' 로 못 읽으면 ④를 판정 못 한다)"
+            "required_vocab 넷이 모두 정답 판정에 실제로 쓰인다(account for 를 '차지하다' 로 못 읽으면 ④를 판정 못 한다)",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "절차 각 단계를 지문·그림을 아직 안 본 상태에서 실행 가능한지 순서대로 짚어 봄",
             "required_vocab 네 낱말이 passage 에 문자열로 있는지 대조",
-            "순환논법 표현 목록과 step 문장 대조"
+            "순환논법 표현 목록과 step 문장 대조",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]
@@ -166,7 +178,14 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "attending classes or events for children 은 부모 쪽이 압도적일 것이라는 상식이 강해 최대 쪽 주장을 검증 없이 참으로 넘기고, 그 순간 문장 전체를 O 로 처리한다. 최소 쪽은 여섯 차이를 다 만들어야 판정되므로 시간이 없으면 자동으로 생략된다."
+          "why_correct": "선지 ③은 최대와 최소를 한 문장에 묶은 연언이다 — 'largest in the activity of attending classes or events for children' 과 'is smallest in the activity of using computers or the Internet' 이 둘 다 참이어야 하고 한쪽만 어긋나도 선지 전체가 도표와 일치하지 않는다. 두 절 모두 여섯 활동의 격차를 만들어 견주는 연산이지만, 뒤 절만은 본문이 경쟁자를 하나 쥐여 준다 — ⑤의 'the percentage of parents who borrowed e-books is less than 10% but is higher than that of other adults who did the same activity' 는 e-books 에서 부모 쪽이 10% 미만이고 다른 성인은 그보다 더 낮다고 하므로, 그 활동의 격차는 10 퍼센트포인트를 넘을 수 없다. 곧 뒤 절이 참이려면 using computers or the Internet 의 격차가 그 10 미만짜리 격차보다도 작아야 한다. ①의 'the percentage of parents is higher than that of other adults in all activity types' 이 여섯 격차가 모두 양수임을 보증해 부호는 따질 필요가 없으므로, 남는 일은 두 활동에서 부모 막대와 다른 성인 막대의 간격을 그림에서 견주는 것이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5,
+              7
+            ],
+            "note": "학습자가 미끄러지는 자리 — attending classes or events for children 은 부모 쪽이 압도적일 것이라는 상식이 강해 앞 절을 검증 없이 참으로 넘기고, 그 순간 문장 전체를 O 로 처리한다. 뒤 절은 여섯 격차를 다 만들어야 판정되므로 시간이 없으면 자동으로 생략된다."
+          }
         },
         {
           "n": 4,
@@ -233,13 +252,15 @@
           "findings": [
             "초판이 '어긋난 절은 smallest 쪽' 이라고 단정했다. 막대 값이 없는 상태에서 최대 쪽이 참임을 확인할 방법이 없으므로 근거 없는 단정이다 → '두 절 중 하나가 어긋난다' 로 낮추고, ⑤가 주는 10%p 상한만 확인 가능한 재료로 남겼다(revise 후 반영)",
             "design_intent 가 '비싼 선지에 불일치를 심는다' 는 이 문항의 선지 배치(막대 2개짜리 넷 + 12개짜리 하나)에 근거한다 — 유형 일반론이 아니다",
-            "①이 ⑤의 뒤 절을 논리적으로 덮는다는 서술을 선지 문장으로 검산했다 — all activity types 에 e-books 가 포함되므로 성립한다"
+            "①이 ⑤의 뒤 절을 논리적으로 덮는다는 서술을 선지 문장으로 검산했다 — all activity types 에 e-books 가 포함되므로 성립한다",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2016#24 passage 와 문자열 대조 — ③ 문장 전체가 그대로 있다",
             "columns2/2016.txt 337행 앞뒤 창에 막대 값·축 눈금이 없음을 확인",
             "①→⑤ 피복 관계를 선지 텍스트로 검산",
-            "분석 정답 3 과 평가원 정답표 3 대조"
+            "분석 정답 3 과 평가원 정답표 3 대조",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -248,12 +269,14 @@
           "findings": [
             "오답 4개의 trap 이 전칭 검증 부담 · 동일값 단정 · 배수 과장 · 복합 절 후반 누락으로 모두 다르다",
             "②와 ④가 같은 browsed shelves 항목을 계열만 바꿔 묻는다는 점을 두 선지의 why_tempting 에서 서로 다른 방향으로 썼다(②는 계열 고정 실패, ④는 ② 확인 후의 계열 밀림) — 중복 서술이 아니다",
-            "'동일값 단정' 은 앞 청크의 '무변화 단정'(시간 축 무변화)과 다른 층이라 별도 라벨로 두고 open_questions 에 올렸다"
+            "'동일값 단정' 은 앞 청크의 '무변화 단정'(시간 축 무변화)과 다른 층이라 별도 라벨로 두고 open_questions 에 올렸다",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부",
             "why_tempting 이 선지 문장의 실제 표현(Most notably · is the same as · twice as high · less than 10%)에 근거하는지",
-            "how_to_reject 마다 볼 계열과 항목이 지정되었는지"
+            "how_to_reject 마다 볼 계열과 항목이 지정되었는지",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -262,12 +285,14 @@
           "findings": [
             "5단계에서 ①의 훑기를 ③의 재료로 재사용하게 만든 것이 이 문항의 시간을 100초 안에 넣는 핵심이다 — 훑기를 두 번 하면 130초를 넘긴다",
             "6단계 on_fail 이 '비슷하면 e-book 항목과만 견준다' 로 비교 대상을 하나로 좁혀 준다",
-            "required_vocab 다섯 중 hereafter 는 계열 이름(parents)이 무엇의 줄임인지 정하는 데 필요하므로 나열이 아니다"
+            "required_vocab 다섯 중 hereafter 는 계열 이름(parents)이 무엇의 줄임인지 정하는 데 필요하므로 나열이 아니다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "절차 6단계의 실행 시간을 단계별로 어림해 합산(막대 훑기 40초 + 계산 30초 + 대조 20초)",
             "required_vocab 다섯 낱말이 passage 에 문자열로 있는지 대조",
-            "순환논법 표현 목록과 step 문장 대조"
+            "순환논법 표현 목록과 step 문장 대조",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]
@@ -310,7 +335,13 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "①이 모든 항목의 증가를 보증한 뒤라 '많이 늘었다' 는 인상이 이미 서 있고, 간격이 넓어 보이면 three times 를 눈대중으로 통과시킨다. 곱셈을 적지 않으면 두 배 남짓과 세 배가 구분되지 않는다."
+          "why_correct": "선지 ④가 새로 주장하는 것은 배수 하나다. ①의 'The year 2012 saw an overall percentage increase in each category of posted personal information' 이 email addresses 를 포함한 모든 범주에서 2012 > 2006 을 이미 보증하므로, 'the percentage of 2012 was three times higher than that of 2006' 에서 검증이 남는 부분은 증가 여부가 아니라 'three times' 라는 비율이다. 이 배수는 두 막대의 값을 읽어 곱셈을 한 번 해야 나오고, ⑤의 'an eighteen percent increase' 처럼 뺄셈으로 끝나는 진술과 연산이 다르다. 곧 ④가 도표와 일치하지 않는다는 것은 email addresses 의 2012 값이 2006 값의 세 배에 이르지 못한다는 뜻이며, 그 두 값은 그림에서 읽는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5
+            ],
+            "note": "학습자가 미끄러지는 자리 — ①이 모든 범주의 증가를 보증한 뒤라 '많이 늘었다'는 인상이 이미 서 있고, 간격이 넓어 보이면 three times 를 눈대중으로 통과시킨다. 곱셈을 적지 않으면 두 배 남짓과 세 배가 구분되지 않는다."
+          }
         },
         {
           "n": 5,
@@ -369,12 +400,14 @@
           "findings": [
             "answer_locus.reasoning 이 배수 값을 특정하지 않고 '정답표가 확정한다 + 곱셈을 요구하는 유일한 선지다' 까지만 말한다 — 수치 미추출 상태에서 옳은 서술 수위다",
             "①이 ④의 증가 여부를 덮어 ④에 남는 확인이 '배수' 하나뿐이라는 관계를 선지 텍스트로 검산했다",
-            "도표 유형 정의를 벗어난 서술 없음"
+            "도표 유형 정의를 벗어난 서술 없음",
+            "[3차 재검수] 초판 why_correct 가 '왜 놓치는가' 만 말하는 심리 서술이어서 revise 를 냈다 — 정답 근거와 정답 선지의 대응이 한 낱말도 없었다. 어긋나는 절을 선지 영문 그대로 인용해 지목하고 그 절이 요구하는 연산을 적는 서술로 다시 썼으며, 심리 관찰은 confirmed_at.note 로 옮겨 보존했다. 그림에만 있는 수치는 지어내지 않았다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2015#25 passage 와 문자열 대조 — ④ 문장 전체가 그대로 있다",
             "columns2/2015.txt 365행 앞뒤 창에 막대 값·축 눈금이 없음을 확인",
-            "분석 정답 4 와 평가원 정답표 4 대조"
+            "분석 정답 4 와 평가원 정답표 4 대조",
+            "why_correct 재작성분 재검수 — 인용한 선지 표현이 corpus.json 선지 문자열과 일치하는지, 대응이 낱말 단위로 성립하는지"
           ]
         },
         {
@@ -383,12 +416,14 @@
           "findings": [
             "초판에서 ①과 ②의 trap 이 둘 다 '전칭 검증 부담' 이었다 — each category 와 in both years 는 걸리는 층이 달라(항목 전부 대 두 해의 순위) 라벨이 정보를 잃는다 → ②를 '최상급·순위 바꿔치기' 로 갈랐다(revise 후 반영)",
             "고친 뒤 오답 4종이 전칭 검증 부담 · 최상급·순위 바꿔치기 · 항목 짝 바꾸기 · 단위 혼동으로 모두 다르다",
-            "⑤의 why_tempting 이 'eighteen percent increase' 라는 선지의 실제 표현에 근거한다"
+            "⑤의 why_tempting 이 'eighteen percent increase' 라는 선지의 실제 표현에 근거한다",
+            "[3차 재검수] 재작성한 why_correct 가 '나머지가 틀렸으므로' 라는 소거법에 기대지 않는지 확인했다 — 다른 선지를 부르는 대목은 배제 근거가 아니라 정답 선지의 검증 범위를 좁히는 제약으로만 쓰였고, 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부 — 초판 중복 1건 적발",
             "why_tempting 이 각 선지 문장의 실제 표현에 근거하는지",
-            "how_to_reject 마다 볼 계열(연도)과 항목이 지정되었는지"
+            "how_to_reject 마다 볼 계열(연도)과 항목이 지정되었는지",
+            "why_correct 가 소거법에 기대는지 재검 · 정답 판정이 corpus.json answer 와 일치하는지 재확인"
           ]
         },
         {
@@ -397,12 +432,14 @@
           "findings": [
             "3단계에서 선지 옆에 ×와 − 기호를 직접 적게 한 것이 단위 혼동을 막는 실행 가능한 조치다",
             "값 없이 처리되는 셋을 먼저 소거하므로 눈금 읽기가 두 번(④·⑤)으로 줄어 95초 안에 끝난다",
-            "required_vocab 넷이 모두 판정에 쓰인다 — Regarding 을 '~에 관해서는' 으로 못 잡으면 ④의 대상 항목을 놓친다"
+            "required_vocab 넷이 모두 판정에 쓰인다 — Regarding 을 '~에 관해서는' 으로 못 잡으면 ④의 대상 항목을 놓친다",
+            "[3차 재검수] 재작성분이 학생이 실행할 동작(어느 자리를 몇 번 견주는가)으로 끝나는지 확인했다. 금지 표현이 새로 들어가지 않았고 solve_procedure 와 어긋나지 않는다."
           ],
           "checked": [
             "절차를 그림을 아직 안 본 상태에서 단계별로 실행 가능한지 확인",
             "required_vocab 네 낱말이 passage 에 문자열로 있는지 대조",
-            "순환논법 표현 목록과 step 문장 대조"
+            "순환논법 표현 목록과 step 문장 대조",
+            "why_correct 재작성분의 실행 가능성 · 금지 표현 대조"
           ]
         }
       ]

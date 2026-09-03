@@ -158,7 +158,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "I'd like to check to see if he could switch to the third week program 과 Please let us know if that's possible 이 '가능한지 문의'와 그대로 맞물린다."
+          "why_correct": "동사 대응 — I'd like to check to see if he could ... 와 바로 뒤 Please let us know if that's possible 가 선지 ②의 '있는지 문의하려고' 와 맞물린다(수신자에게 바라는 것은 답을 달라는 것뿐이다). 목적어 대응 — switch to the third week program 이 선지의 '캠프 참가 시기를 변경' 과 맞물린다: 바뀌는 것은 둘째 주 프로그램에서 셋째 주 프로그램으로 옮기는 참가 주차다."
         },
         {
           "n": 3,
@@ -224,12 +224,17 @@
           "findings": [
             "초안 quote 가 But today I remembered that our family is going to get back from a trip on July 13 이었다 — 지문에는 있으나 그것은 요청의 사유이지 목적을 확정하는 자리가 아니어서 revise. 5번째 문장(Rather than make him skip the day, I'd like to check to see if he could switch to the third week program.)으로 교체했다.",
             "교체한 quote 가 corpus 지문에 문자 단위로 있다(직선 아포스트로피는 게이트 정규화 대상).",
-            "body_ok:false 문항이라 raw_block 의 회차 원문 창과도 대조했다 — t ______ 잔여는 1~2번째 문장 사이에만 있고 근거 문장은 온전하다. body_recovered:true 를 넣었다."
+            "body_ok:false 문항이라 raw_block 의 회차 원문 창과도 대조했다 — t ______ 잔여는 1~2번째 문장 사이에만 있고 근거 문장은 온전하다. body_recovered:true 를 넣었다.",
+            "3차 판정 — why_correct 를 화행 동사(check to see if / let us know)와 목적어(switch to the third week program) 둘로 쪼개 다시 썼다 — 이전 서술은 선지를 '가능한지 문의'로 뭉뚱그려 목적어 대응이 빠져 있었다",
+            "3차 판정 — answer_locus.quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2016#18 passage 및 raw_block 양쪽에 문자열 대조",
             "OCR 잔여(t ______)의 위치가 근거 문장을 침범하는지 확인",
-            "design_intent 가 이 문항 고유의 설계(사유/요청 분리)를 말하는지 확인"
+            "design_intent 가 이 문항 고유의 설계(사유/요청 분리)를 말하는지 확인",
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "why_correct 의 두 대응이 선지 ② '캠프 참가 시기를 변경할 수 있는지 문의하려고' 의 성분과 낱말 단위로 맞는지 확인",
+            "편지 본문에서 수신자에게 향하는 문장이 이 둘뿐인지 확인"
           ]
         },
         {
@@ -238,13 +243,18 @@
           "findings": [
             "오답 4개 라벨이 반대 진술·어휘 함정·무관·주체 역전으로 서로 다르다.",
             "선지 ④의 배제를 정서가 아니라 from July 13 to 17 이라는 명시 일정으로 잡은 것이 검증 가능하다.",
-            "선지 ⑤와 ②의 차이를 '변경을 제안하는 주체'로 가른 것이 선지 텍스트('변경된 내용을 확인')와 정확히 맞는다."
+            "선지 ⑤와 ②의 차이를 '변경을 제안하는 주체'로 가른 것이 선지 텍스트('변경된 내용을 확인')와 정확히 맞는다.",
+            "3차 판정 — 다시 쓴 why_correct 가 다른 선지의 오류를 근거로 삼지 않는다 — 지문 표현과 선지 ② 문면만으로 성립한다",
+            "3차 판정 — 오답 4개의 why_tempting·how_to_reject·trap 은 손대지 않았다"
           ],
           "checked": [
             "correct=2 를 평가원 정답표(answer=2)와 대조",
             "trap 라벨 4종 중복 검사",
             "how_to_reject 4건에 문장 번호 또는 원문 어구가 있는지 확인",
-            "why_tempting 이 선지 한국어 텍스트의 어느 낱말에서 출발하는지 역추적"
+            "why_tempting 이 선지 한국어 텍스트의 어느 낱말에서 출발하는지 역추적",
+            "why_correct 에 소거법 서술이 남았는지 확인",
+            "correct 판정 2 를 평가원 정답표(2)와 대조",
+            "선지 ② 문자열이 서술 안에 그대로 인용됐는지 대조"
           ]
         },
         {
@@ -253,13 +263,16 @@
           "findings": [
             "4단계 절차가 지문을 안 본 상태에서 시작 가능하다 — 1단계가 첫 글자(Dear) 확인이다.",
             "3단계의 화행 번역표(check to see if=문의, ask for=요구, complain=항의, suggest=건의)가 이 유형 전체에 재사용된다.",
-            "60초는 역접 표지 탐색 15초 + 요청 문장 판독 20초 + 선지 대조 25초로 맞는다."
+            "60초는 역접 표지 탐색 15초 + 요청 문장 판독 20초 + 선지 대조 25초로 맞는다.",
+            "3차 판정 — 학생이 짚을 자리가 '문의' 한 낱말이 아니라 편지 끝의 요청 문장 두 개로 특정된다"
           ],
           "checked": [
             "금지 표현 8종 문자열 대조",
             "각 단계의 on_fail 이 실제 대안 행동을 지시하는지 확인",
             "required_vocab 5개가 corpus 지문에 실재하는지 확인(switch, non-refundable, deposit, hesitate, skip)",
-            "time_budget_sec 단계별 배분 합산"
+            "time_budget_sec 단계별 배분 합산",
+            "why_correct 가 가리키는 두 문장을 학생이 지문에서 바로 찾을 수 있는지 확인",
+            "solve_procedure·time_budget_sec 는 변경하지 않아 시간 배분에 영향이 없음을 확인"
           ]
         }
       ],

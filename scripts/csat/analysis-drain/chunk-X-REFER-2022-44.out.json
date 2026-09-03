@@ -34,7 +34,14 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "밑줄 앞뒤로 Anna 라는 이름이 연달아 나와 관성으로 Anna 를 적어 넣기 쉬운 자리다."
+          "why_correct": "밑줄 문장 ‘Anna really liked (c) her’ 는 주어가 Anna 이고 밑줄이 그 목적어인데 재귀형 herself 가 아니므로 주어와 같은 사람일 수 없다. 바로 앞 문장 ‘Cora was a new member, whom Anna had personally invited to join the club’ 이 목적어 자리에 들어올 사람을 Cora 로 세우고, 이어지는 ‘Anna bought Cora a taekwondo uniform’ 이 한 문장 안에 두 이름을 따로 적어 구분을 확인해 준다. 나머지 넷 Jane came over to (a) her · (b) she responded with a friendly pat on Jane’s shoulder · I can’t believe (d) you don’t feel disappointed or angry · Jane was about to respond to (e) her 는 모두 Anna 를 가리킨다.",
+          "confirmed_at": {
+            "sentence_index": [
+              18,
+              19
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — 밑줄 앞뒤로 Anna 라는 이름이 연달아 나와 관성으로 Anna 를 적어 넣는다."
+          }
         },
         {
           "n": 4,
@@ -93,9 +100,11 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
+            "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
             "코퍼스 지문에 wondered t what 이라는 OCR 잔여가 있으나 밑줄 다섯 자리는 온전해 지칭 판정에 영향이 없다"
           ],
           "checked": [
+            "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
             "answer_locus.quote 를 corpus.json 지문에서 문자열 대조(indexOf 일치)",
             "X-REFER 유형 정의(밑줄 다섯 중 가리키는 대상이 다른 하나)와 서술 대조",
             "밑줄 다섯의 지시 대상을 각각 Anna/Anna/Cora/Anna/Anna 로 재계산"
@@ -105,9 +114,11 @@
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
+            "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
             "오답 4개 함정이 최근접 명사 이끌림 · 주어 교대 이끌림 · 직접화법 인칭 전환 · 단락 순서 오판 4종으로 갈린다"
           ],
           "checked": [
+            "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
             "trap 라벨 중복 검사",
             "why_tempting 이 각 선지의 실제 밑줄 문장에 근거하는지 대조",
             "how_to_reject 마다 지문 위치 인용이 있는지 확인",
@@ -118,15 +129,18 @@
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
+            "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
             "5단계 절차가 지문을 안 본 상태에서 실행 가능하다 — 1단계가 이름 수집이라 시작점이 명확하다"
           ],
           "checked": [
+            "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
             "절차 각 단계에 금지 표현이 없는지 검사",
             "75초 안에 5자리 이름 적기가 가능한지 실측 추정(자리당 12초)",
             "required_vocab 4개가 정답 판단에 실제로 쓰이는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2209#44",

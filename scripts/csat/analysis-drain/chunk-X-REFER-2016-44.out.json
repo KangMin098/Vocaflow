@@ -28,7 +28,13 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "(b) 앞뒤가 모두 Hannah 이야기이고 밑줄 형태도 다른 넷과 똑같은 She 라, 대사 단락 안에서 주어가 어머니로 넘어간 지점에 표시가 없다. 관성으로 읽으면 그대로 Hannah가 된다."
+          "why_correct": "밑줄 문장 ‘(b) She hurried out her cell phone, zoomed in on her daughter, and realized suddenly that she was looking at a young lady’ 는 주어의 목적어를 her daughter 로 적는다. 렌즈로 딸을 당겨 찍는 사람은 그 딸일 수 없으므로 주어는 어머니다. 밑줄 앞 대사를 여는 ‘her mother said’ 가 그 화자를 어머니로 밝히고, 그 대사가 ‘stand over there . . . and smile, Hannah’ 라 사진에 찍히는 쪽을 Hannah 로 따로 세우며, 이어지는 ‘“You’re all grown-up,” she whispered’ 도 같은 화자를 잇는다. 나머지 넷 part of (a) her life for the last few years · How could (c) she ever forget her second year · gave (d) her a bundle of lilies and roses · introduced himself as (e) her homeroom teacher 는 모두 Hannah 를 가리킨다.",
+          "confirmed_at": {
+            "sentence_index": [
+              19
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — (b) 앞뒤가 모두 Hannah 이야기이고 밑줄 형태도 다른 넷과 똑같은 She 라, 대사 단락 안에서 주어가 어머니로 넘어간 지점에 표시가 없다."
+          }
         },
         {
           "n": 3,
@@ -95,11 +101,13 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
+            "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
             "청크에 body_ok:false 로 표시되어 raw_block 과 코퍼스 지문을 문장 단위로 대조했다. (A)~(D) 네 단락이 모두 살아 있고 밑줄 (a)~(e) 다섯 개가 전부 제자리에 있어 복원 가능한 상태다 — body_recovered:true 로 표시했다.",
             "raw_block 안에 43번 선지((B)-(D)-(C) 등)와 45번 선지가 섞여 들어와 있으나 44번 지문 자체에는 침범하지 않았다.",
             "인용을 코퍼스 현재 지문에서 그대로 복사했고, 작은따옴표는 게이트의 정규화 대상이라 ASCII로 적었다."
           ],
           "checked": [
+            "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
             "answer_locus.quote 를 corpus.json 의 2016#44 passage 와 문자열 대조",
             "chunk 의 raw_block 과 corpus passage 를 문장 38개 단위로 대조해 결손 확인",
             "유형 정의(밑줄 (a)~(e) 중 지시 대상이 다른 하나) 대조 — 어법·어휘 판정이 섞이지 않았는지 확인"
@@ -109,11 +117,13 @@
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
+            "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
             "1차 작성에서 (a)와 (c)의 trap 을 둘 다 '근접 명사 오결속' 으로 달아 라벨이 중복이었다. 두 자리가 걸리는 층이 다르므로 (a)는 '후행 문장 인물 끌림'(다음 문장의 her mother 가 앞의 her 를 끌어당긴다), (c)는 '감탄·의문 어순 주어 이탈'(How could she ~! 에서 주어가 조동사 뒤로 밀린다)로 갈랐다 — revised:true.",
             "오답 4개의 trap 이 후행 문장 인물 끌림 · 감탄 어순 주어 이탈 · 수여동사 논항 역전 · 시간 역순 단락 별인물 오인 4종으로 서로 다르다.",
             "how_to_reject 4개 모두 문장 번호(4·6 / 24·27 / 29·31 / 33·35·37)를 지목한다."
           ],
           "checked": [
+            "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
             "오답 4개의 trap 라벨 중복 검사",
             "why_tempting 이 실제 선지가 가리키는 지문 표현을 인용하는지 대조",
             "how_to_reject 에 지문 위치(문장 번호)가 들어 있는지 4건 전수 확인"
@@ -123,11 +133,13 @@
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
+            "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
             "1단계가 '지문을 읽기 전에 밑줄 형태만 훑는다' 로 시작해 지문을 안 본 학생도 실행할 수 있다.",
             "4단계의 대입 검사는 문장 다섯 개만 읽으면 되므로 70초 안에 끝난다 — 장문 세트 43·44·45 를 합쳐 4분 안팎으로 잡을 때의 몫이다.",
             "required_vocab 4개가 전부 정답 판정에 직접 쓰인다(daughter=결정 근거 · zoom in on=주어 행위 · bundle+homeroom teacher=오답 배제)."
           ],
           "checked": [
+            "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
             "solve_procedure 5단계를 지문 없이 실행 가능한지 단계별 시연",
             "금지 표현 8종(흐름을 파악하면 등) 문자열 검색",
             "required_vocab 낱말이 지문에 실제로 있는지 대조 및 정답 기여 여부 확인"
@@ -173,7 +185,13 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "같은 절 안에 him(=Jeremy)이 먼저 나오고 his 가 바로 뒤따라, 소유격을 가장 가까운 대명사에 묶으면 (d)도 Jeremy가 된다. 게다가 다음 문장 18 'He took charge of about a dozen failing \"special ed\" kids' 가 결국 그 수업을 Jeremy가 맡은 결과를 말해, 결과를 근거로 삼으면 더 그럴듯해진다."
+          "why_correct": "밑줄이 든 문장 ‘his assistant principal took note of Jeremy’s high expectations and asked him to take over (d) his math class’ 는 주어가 his assistant principal 이고, 부탁을 받는 쪽을 Jeremy’s · him 으로 이미 따로 적어 두었다. take over 는 남의 것을 넘겨받는다는 뜻이므로 넘겨줄 수업의 임자는 부탁한 쪽인 교감이다. 나머지 넷 (a) he is one of my former students · when (b) he distributed a math test · (c) He was assigned to a small school · (e) He then thought back to my class 는 모두 Jeremy 를 가리킨다.",
+          "confirmed_at": {
+            "sentence_index": [
+              17
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — 같은 절 안에 him(=Jeremy)이 먼저 나오고 his 가 바로 뒤따라, 소유격을 가장 가까운 대명사에 묶으면 (d)도 Jeremy 가 된다. 다음 문장 ‘He took charge of about a dozen failing “special ed” kids’ 가 결국 그 수업을 Jeremy 가 맡은 결과를 말해 그 오독을 거든다."
+          }
         },
         {
           "n": 5,
@@ -227,11 +245,13 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
+            "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
             "quote 를 코퍼스 문장 17에서 그대로 뽑았다. 코퍼스의 곱슬 아포스트로피(Jeremy’s)는 게이트 정규화 대상이라 ASCII 로 적었다.",
             "밑줄 다섯 중 넷이 주어, 하나가 소유격이라는 설계가 답 자리와 일치한다 — 유형 정의(지시 대상 판별)에서 벗어난 어법 판정 서술은 넣지 않았다.",
             "지문 파싱에서 'Dr. Brown' 이 문장 3~4로 잘렸으나 44번 판정에 쓰이는 구간이 아니다."
           ],
           "checked": [
+            "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
             "answer_locus.quote 를 corpus.json 2015#44 passage 와 문자열 대조",
             "밑줄 다섯 자리의 문법 형태를 지문에서 하나씩 확인(He/he/He/his/He)",
             "평가원 정답표(answer=4)와 correct 선지 번호 대조"
@@ -241,11 +261,13 @@
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
+            "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
             "오답 4개의 trap 이 동일 인물 이명 혼동 · 후행 복수명사 끌림 · 직전 명사구 오결속 · 서술자-등장인물 혼동 4종으로 서로 다르다.",
             "(c)의 배제 근거로 '수 불일치(단수 He vs 복수 future leaders)' 라는 기계적으로 확인 가능한 자를 넣었다 — 인상 판단이 아니다.",
             "(d)의 why_tempting 이 '결국 Jeremy가 그 수업을 맡는다' 는 지문 사실(문장 18)에 근거하므로, 왜 정답이면서도 헷갈리는지가 선지 텍스트로 설명된다."
           ],
           "checked": [
+            "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
             "오답 4개의 trap 라벨 중복 검사",
             "how_to_reject 4건에 문장 번호가 있는지 전수 확인(7·8 / 9·10·14 / 15·17 / 21·8)",
             "why_tempting 이 지문에 실제로 있는 표현(future leaders · Many students · my class)을 인용하는지 대조"
@@ -255,11 +277,13 @@
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
+            "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
             "1차 절차의 2단계가 '소유격의 임자는 주어에 대입한다' 라고만 적혀 있어 왜 그런지 모르는 학생은 실행하지 못했다. on_fail 에 '사람·물건이 옮겨 가는 동사(take over·give·teach·distribute)면 주는 쪽과 받는 쪽이 달라야 한다' 는 판별 기준을 넣어 두 갈래를 스스로 가를 수 있게 고쳤다 — revised:true.",
             "밑줄 문장 다섯 개와 각 단락 첫 문장 넷, 모두 아홉 문장만 보면 되므로 75초 안에 끝난다.",
             "required_vocab 5개 중 take over 가 정답을 좌우하고 나머지 넷은 오답 배제에 쓰인다 — 지문 어휘 나열이 아니다."
           ],
           "checked": [
+            "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
             "solve_procedure 5단계를 지문을 안 본 상태에서 실행 가능한지 시연",
             "금지 표현 8종 문자열 검색",
             "required_vocab 5개가 지문에 실제로 있는지 대조(take over/assistant principal/distributed/assigned/former)"
@@ -298,7 +322,13 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "단락 (B) 전체가 할머니 이야기이고 밑줄 형태도 (b)와 똑같은 she 라, 한 문장 사이에 인물이 바뀐 지점에 아무 표시가 없다. 관성으로 읽으면 (c)도 할머니가 된다."
+          "why_correct": "밑줄이 든 문장은 ‘I talked to my mom about it, and (c) she was delighted with my plan’ 처럼 and 로 이어진 등위절이고, 앞 절이 이야기를 들은 사람을 my mom 으로 새로 들여온다. 기뻐한 대상이 my plan 이라 계획을 세운 화자(I)도 아니므로 (c) she 는 어머니다. 나머지 넷 the harsh immigrant life pushed (a) her to support her family · (b) she had difficulty in reading an English sign · (d) she had written these words all by herself · The morals of (e) her stories 는 모두 할머니를 가리킨다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — 단락 (B) 전체가 할머니 이야기이고 밑줄 형태도 (b)와 똑같은 she 라, 한 문장 사이에 인물이 바뀐 지점에 아무 표시가 없다."
+          }
         },
         {
           "n": 4,
@@ -359,11 +389,13 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
+            "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
             "1차 작성에서 quote 를 '(c) she was delighted with my plan.' 만으로 잡았다. 20자는 넘지만 앞 절의 my mom 이 빠져 있어 인용만으로는 정답 근거가 서지 않았다. 'I talked to my mom about it, and' 를 포함해 다시 뽑았다 — revised:true.",
             "지문 (D) 첫 문장에 OCR 잔여('at 타, 단타 ______ night')가 남아 있다. 밑줄 (e)는 그 세 문장 뒤(문장 19)에 있고 배제 근거도 문장 15의 앞부분이라 판정에 지장이 없다. 다만 손상 구간이 정답 근거에 걸리는 다른 문항에서는 조심해야 한다.",
             "인용을 코퍼스 문장 6에서 그대로 복사했다."
           ],
           "checked": [
+            "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
             "answer_locus.quote 를 corpus.json 2014A#44 passage 와 문자열 대조",
             "지문 OCR 손상 구간의 위치와 정답 근거의 거리 확인",
             "평가원 정답표(answer=3)와 correct 선지 번호 대조"
@@ -373,11 +405,13 @@
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
+            "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
             "오답 4개의 trap 이 첫 문장 발화자 끌림 · 동일 단락 동형 대명사 일괄 처리 · 행위자-수혜자 역전 · 선행사 원거리 이탈 4종으로 서로 다르다.",
             "(b)의 why_tempting 이 '앞의 것을 찍는다' 는 실제 선택 행동을 짚어, 왜 (b)가 (c) 대신 골라지는지를 설명한다.",
             "how_to_reject 4건이 각각 문장 2·3 / 4·3 / 9·10 / 15·19 를 지목한다."
           ],
           "checked": [
+            "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
             "오답 4개의 trap 라벨 중복 검사",
             "how_to_reject 4건에 문장 번호가 있는지 전수 확인",
             "why_tempting 이 지문 표현(Mom once said · HAPPY BIRTHDAY BETTY · the gods)을 실제로 인용하는지 대조"
@@ -387,11 +421,13 @@
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
+            "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
             "2단계('한 단락에 밑줄이 둘이면 따로 판정')가 이 문항의 급소를 학생 손에 쥐어 준다 — 밑줄 위치만 보면 되므로 지문을 읽기 전에도 실행된다.",
             "밑줄 문장 다섯과 각 단락 첫 문장 넷만 보면 되어 65초 안에 끝난다.",
             "required_vocab 5개가 모두 판정에 쓰인다 — by chance(우연히 마주친 상황) · in return for(가르치려는 동기) · delighted(반응의 주체) · basics(가르친 범위 대비) · moral(이야기의 임자)."
           ],
           "checked": [
+            "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
             "solve_procedure 5단계를 지문 없이 실행 가능한지 시연",
             "금지 표현 8종 문자열 검색",
             "required_vocab 낱말이 지문에 실제로 있는지 대조(by chance/in return for/delighted/basics/morals)"
@@ -445,7 +481,14 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "앞의 네 자리가 모두 grandpa 여서 다섯째도 관성으로 grandpa 로 읽힌다. (D) 뒤쪽 문장 25 'my dad and grandpa noticed dramatic changes' 에서 둘이 나란히 나오는 것도 구분을 흐린다."
+          "why_correct": "밑줄 바로 앞 문장 ‘Dad didn’t mind living in an unfinished house’ 가 (D) 단락의 주어를 Dad 로 세우고, 그 앞 문장도 ‘My dad recalled looking up at the stars in the roofless house as a twelve-year-old kid’ 로 같은 사람을 잇는다. 밑줄 문장은 그 회상을 인용으로 이어 ‘(e) He described Pleasant Hill as “open and private”’ 라 하므로 묘사한 사람은 Dad 다. 나머지 넷 (a) He didn’t want to find himself working longer and longer hours · I learned from (b) him that simplicity isn’t about austerity · (c) He put … on a small plot of land in Pleasant Hill · In essence, (d) he was recycling before it became ‘cool’ 은 모두 grandpa 를 가리킨다.",
+          "confirmed_at": {
+            "sentence_index": [
+              22,
+              23
+            ],
+            "note": "학습자가 실제로 미끄러지는 자리 — 앞의 네 자리가 모두 grandpa 여서 다섯째도 관성으로 grandpa 로 읽는다. (D) 뒤쪽의 ‘my dad and grandpa noticed dramatic changes’ 에서 둘이 나란히 나오는 것도 구분을 흐린다."
+          }
         }
       ],
       "solve_procedure": [
@@ -492,11 +535,13 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
+            "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
             "quote 를 코퍼스 문장 22~23에서 그대로 뽑았다. 곱슬 아포스트로피와 여는 큰따옴표는 게이트 정규화 대상이라 ASCII 로 적었다.",
             "코퍼스 문장 16에 OCR 붙음('twenty-bythirty-foot')이 있다. (c) 판정에는 쓰이지 않는 수식어라 배제 근거를 문장 15의 주절 주어로 잡아 우회했다 — 선지 서술에서는 이 낱말을 인용하지 않았다.",
             "밑줄 다섯 자리를 지문에서 확인했다(He/him/He/he/He) — 넷이 주어, (b) 하나가 전치사 목적어이고 답은 형태가 아니라 인물 전환에 있다."
           ],
           "checked": [
+            "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
             "answer_locus.quote 를 corpus.json 2014B#44 passage 와 문자열 대조",
             "밑줄 다섯 자리의 문법 형태와 인용 부호 안팎 여부를 지문에서 확인",
             "평가원 정답표(answer=5)와 correct 선지 번호 대조"
@@ -506,11 +551,13 @@
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
+            "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
             "1차 작성에서 (b)와 (d)의 trap 을 둘 다 인용 관련으로 달아 층이 겹쳤다. 둘은 밑줄의 위치가 다르므로 (b)는 '인용 화자 끌림'(밑줄은 인용 밖이고, 같은 단락의 다른 인용이 남긴 인상이 끌어당긴다), (d)는 '직접인용 내부 화자 오결속'(밑줄이 인용 안에 있어 발화자와 지시 대상을 섞는다)으로 정의를 갈라 각 why_tempting 에 그 차이를 명시했다 — revised:true.",
             "오답 4개의 trap 이 일반론 주어 끌림 · 인용 화자 끌림 · 한 문장 두 인물 근접 오결속 · 직접인용 내부 화자 오결속 4종으로 서로 다르다.",
             "(c)의 배제 근거로 '1950년대에 어린아이였던 사람이 집을 지을 수 없다' 는 지문 내 시간 정보를 썼다 — 인상이 아니라 문장 15의 when 절이 근거다."
           ],
           "checked": [
+            "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
             "오답 4개의 trap 라벨 중복 검사와 정의 분리",
             "how_to_reject 4건에 문장 번호가 있는지 전수 확인(3·5 / 10·12 / 15·16 / 17·19)",
             "why_tempting 이 지문에 실제로 있는 표현(American story · As my dad said · Dad remarked)을 인용하는지 대조"
@@ -520,11 +567,13 @@
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
+            "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
             "1단계(따옴표 안팎 표시)와 2단계(세대 목록)는 지문을 읽기 전 눈으로 훑어 실행되고, 이 문항의 최대 미끼인 (d)를 초반에 무력화한다.",
             "밑줄 문장 다섯과 각 밑줄 바로 앞 문장 다섯, 열 문장만 보면 되므로 75초 안에 끝난다. 장문 세트 세 문항 합계는 4분대에 들어온다.",
             "required_vocab 5개가 모두 (D) 단락과 인용 판정에 직접 쓰인다 — recall/unfinished/roofless 는 정답 근거 문장 셋의 핵심어이고, describe/remark 는 인용을 여는 동사다."
           ],
           "checked": [
+            "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
             "solve_procedure 5단계를 지문 없이 실행 가능한지 시연",
             "금지 표현 8종 문자열 검색",
             "required_vocab 낱말이 지문에 실제로 있는지 대조(recalled/unfinished/roofless/described/remarked)"

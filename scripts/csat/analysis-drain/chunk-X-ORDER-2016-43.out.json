@@ -48,7 +48,7 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "(A) 회상 선언 → (D) 그날(첫날) → (C) 학창 시절 전체와 어머니 도착 → (B) 어머니와의 대화·사진·마무리로 시간축과 화자 등장이 모두 어긋나지 않는다."
+          "why_correct": "이음매마다 표지가 잠근다. (A)→(D): (A)의 She recalled the first day of school 이 회상을 열고 (D)의 첫 문장 That day was unusually foggy 의 That day 가 그 하루를 받는다 — (A)의 현재는 The midday sun was glorious 라 같은 날일 수 없다. (D)→(C): (D) 끝의 High school life soon proved as challenging as the principal had predicted 를 (C)의 첫 문장 Hannah struggled with the many class hours 가 이어받는다. (C)→(B): (C) 끝에서 Her mother hurried over, and gave (d) her a bundle of lilies and roses 로 어머니가 도착하고, (B)는 그 어머니의 대사 Hannah, you look so serious 로 시작하므로 도착이 발화보다 앞선다."
         }
       ],
       "solve_procedure": [
@@ -95,12 +95,14 @@
           "verdict": "pass",
           "findings": [
             "chunk 의 body_ok:false 는 43~45 세트가 단이 안 갈린 페이지에서 뽑힌 탓이고, raw_block 의 (A)~(D) 본문과 코퍼스 지문이 낱말 단위로 일치함을 확인했다 — body_recovered 로 표시",
-            "이 유형의 설계(주어진 글 (A) 고정 + (B)(C)(D) 순열 5개)와 서술이 어긋나지 않는다"
+            "이 유형의 설계(주어진 글 (A) 고정 + (B)(C)(D) 순열 5개)와 서술이 어긋나지 않는다",
+            "3차 재검 — 시간축 요약이던 서술을 이음매 세 개의 표지 대응(That day / challenging→struggled / 도착→발화)으로 다시 적었다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2016#43 지문에서 문자열 대조 (6번 문장 부분열)",
             "chunk raw_block 과 코퍼스 지문 대조 — (D) 단락 전문 일치",
-            "X-ORDER 유형 정의(장문 43번, 배점 2점, 선지 (B)(C)(D) 순열) 대조"
+            "X-ORDER 유형 정의(장문 43번, 배점 2점, 선지 (B)(C)(D) 순열) 대조",
+            "That day 가 가리킬 하루가 (A) 6번 문장뿐인지 확인 · (C) 끝과 (B) 첫 대사의 화자가 같은 어머니인지 확인"
           ]
         },
         {
@@ -108,12 +110,14 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ①과 ④에 똑같이 '시간·인과 순서 역전'을 달았다 — 두 선지의 실제 실패 지점이 다르므로(①은 도착 전 발화, ④는 28→15번 예고-실현 절단) ④를 '조건-귀결 절단'으로 고쳤다",
-            "오답 4개 라벨 4종으로 갈렸고 각 how_to_reject 에 문장 번호가 들어 있다"
+            "오답 4개 라벨 4종으로 갈렸고 각 how_to_reject 에 문장 번호가 들어 있다",
+            "선지가 기호뿐이라 인용할 선지 표현이 없다 — 대응은 (D)(C)(B) 블록 표지로 적었다"
           ],
           "checked": [
             "선지 5개 순열을 코퍼스 choices 배열과 대조 (정답 ⑤ = (D)－(C)－(B))",
             "오답 4개의 trap 라벨 중복 여부",
-            "why_tempting 이 실제 지문 표현(Soon her mother would be joining them · cheerful photographers)에 근거하는지 확인"
+            "why_tempting 이 실제 지문 표현(Soon her mother would be joining them · cheerful photographers)에 근거하는지 확인",
+            "why_correct 가 선지 배열을 지우는 방식이 아니라 이음매 근거로 서 있는지 확인"
           ]
         },
         {
@@ -121,12 +125,14 @@
           "verdict": "pass",
           "findings": [
             "절차 2단계가 '첫 문장만'으로 읽을 양을 제한해 90초 안에 끝난다 — 세 단락 첫 문장 3개 + 끝 문장 2개 = 5문장 읽기",
-            "required_vocab 4개 중 recalled·hurried 는 순서 판정에 직접 쓰인다"
+            "required_vocab 4개 중 recalled·hurried 는 순서 판정에 직접 쓰인다",
+            "학습자가 볼 표지가 That day·struggled·어머니 등장 세 곳으로 지목된다"
           ],
           "checked": [
             "solve_procedure 각 단계를 지문 미독 상태에서 실행 가능한지 모의",
             "금지 표현(흐름을 파악하면 등) 문자열 대조",
-            "required_vocab 4낱말이 지문에 실제로 있는지 대조"
+            "required_vocab 4낱말이 지문에 실제로 있는지 대조",
+            "세 이음매 확인이 시간 배분 안에 드는지 확인"
           ]
         }
       ]
@@ -154,7 +160,7 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "대학(A) → 졸업 후 부임과 이상주의(C) → 현실의 실패(B) → 전환과 성공(D)으로 시간·인과가 모두 한 방향이고, 마지막 24번 문장의 성공이 (A)의 감사 편지와 맞물린다."
+          "why_correct": "이음매마다 표지가 잠근다. (A)→(C): (A)가 he took my positive psychology class in college 로 대학 시절에 세워 둔 Jeremy 를 (C)의 첫 문장 After graduation, Jeremy joined an organization 이 졸업 시점으로 이어받는다. (C)→(B): (C) 끝의 His idealism ran high, and he thought he would be able to magically fix all of their problems 를 (B)의 첫 문장 Before long, the reality hit Jeremy hard 의 the reality 가 깨뜨린다. (B)→(D): (B)가 서술한 실패(it became clear that his methods were not working)가 있어야 (D)의 첫 문장 Jeremy knew something had to change 의 something 이 가리킬 것이 생긴다."
         },
         {
           "n": 3,
@@ -223,12 +229,14 @@
           "verdict": "pass",
           "findings": [
             "인용이 (C) 첫 문장 전체와 일치하고, 둘째 자리를 정하는 자리로서 유형 설계와 맞는다",
-            "design_intent 가 '순서 유형 일반론'이 아니라 이 문항의 표지 대비(After graduation vs Before long)를 지목한다"
+            "design_intent 가 '순서 유형 일반론'이 아니라 이 문항의 표지 대비(After graduation vs Before long)를 지목한다",
+            "3차 재검 — 시간·인과 요약이던 서술을 After graduation / the reality / something had to change 세 표지의 대응으로 다시 적었다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2015#43 지문에서 문자열 대조",
             "정답 ②가 코퍼스 answer 값과 일치하는지 확인",
-            "선지 5개 순열이 표준 5순열(BDC/CBD/CDB/DBC/DCB)인지 확인"
+            "선지 5개 순열이 표준 5순열(BDC/CBD/CDB/DBC/DCB)인지 확인",
+            "각 블록 첫 문장을 지문에서 문자열 확인 · (B)의 실패 서술이 (D)의 전제인지 확인"
           ]
         },
         {
@@ -236,12 +244,14 @@
           "verdict": "pass",
           "findings": [
             "①(첫 등장 위반)·③(시간·인과 역전)·④(어휘 반복 유인)·⑤(마무리 위치 오판) 4종으로 갈렸다",
-            "④와 ⑤가 둘 다 (D)로 시작하지만 배제 근거가 각각 20번 문장과 24번 문장으로 달라 중복이 아니다"
+            "④와 ⑤가 둘 다 (D)로 시작하지만 배제 근거가 각각 20번 문장과 24번 문장으로 달라 중복이 아니다",
+            "선지가 기호뿐이라 인용할 선지 표현이 없다 — 대응은 (C)(B)(D) 블록 표지로 적었다"
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부",
             "why_tempting 의 인용 표현(Before long · my positive psychology class)이 지문에 있는지 대조",
-            "how_to_reject 4개 모두에 문장 번호가 있는지 확인"
+            "how_to_reject 4개 모두에 문장 번호가 있는지 확인",
+            "why_correct 가 소거법이 아니라 이음매 근거로 서 있는지 확인"
           ]
         },
         {
@@ -249,12 +259,14 @@
           "verdict": "pass",
           "findings": [
             "초안 1단계가 '이야기의 시간 순서를 재구성한다'였다 — 지문을 안 본 학생이 실행할 수 없어 '(A) 마지막 문장에서 시점 낱말 하나 적기'로 바꿨다",
-            "시간 예산 90초 안에 읽는 문장이 (A) 1문장 + 각 단락 첫 문장 3 + 끝 문장 2 = 6문장이라 여유가 있다"
+            "시간 예산 90초 안에 읽는 문장이 (A) 1문장 + 각 단락 첫 문장 3 + 끝 문장 2 = 6문장이라 여유가 있다",
+            "졸업·현실·변화라는 세 표지가 학습자가 찾을 낱말로 지목된다"
           ],
           "checked": [
             "solve_procedure 5단계를 지문 미독 상태에서 순서대로 모의 실행",
             "금지 표현 문자열 대조",
-            "required_vocab 5낱말의 지문 존재 확인 (recruits·assigned·distributed·idealism·dreaded)"
+            "required_vocab 5낱말의 지문 존재 확인 (recruits·assigned·distributed·idealism·dreaded)",
+            "세 이음매 확인이 절차 단계와 맞는지 확인"
           ]
         }
       ]
@@ -296,7 +308,7 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "(A) 이야기를 알고 있었다 → (D) 밤마다 그 이야기를 들려주고 교훈을 남겼다 → (B) 그 보답으로 글을 가르치기로 했다 → (C) 한 달 뒤 케이크 위의 글자로 보상받았다로, 지시어와 시간 계산이 모두 맞는다."
+          "why_correct": "이음매마다 표지가 잠근다. (A)→(D): (A)의 she knew many traditional stories from her home country 를 (D)의 첫 문장 My grandmother liked to tell me these interesting stories 의 these 가 되받는다. (D)→(B): (B)의 in return for all she had taught me 는 가르침이 이미 서술되어 있어야 성립하는데, 그 서술은 (D) 끝의 The morals of (e) her stories taught me how I should live my life 뿐이다. (B)→(C): (C)의 첫 문장 My efforts were rewarded only a month later 의 efforts 는 (B) 끝의 my grandmother and I worked hard together using books for beginners 를 가리킨다."
         },
         {
           "n": 5,
@@ -350,12 +362,14 @@
           "verdict": "pass",
           "findings": [
             "이 회차만 선지 구성이 다르다 — 표준 5순열에서 (C)－(D)－(B)가 빠지고 (B)－(C)－(D)가 들어 있다. 코퍼스 전수 27건 중 유일하며 절차 5단계에 주의로 반영했다",
-            "(D) 단락 첫 문장에 OCR 잔여가 남아 있어 인용을 (B) 5번 문장에서 뽑았다 — 손상 구간을 피하면서 둘째 자리를 정하는 근거가 된다"
+            "(D) 단락 첫 문장에 OCR 잔여가 남아 있어 인용을 (B) 5번 문장에서 뽑았다 — 손상 구간을 피하면서 둘째 자리를 정하는 근거가 된다",
+            "3차 재검 — '지시어와 시간 계산이 맞는다' 던 서술을 these stories / in return for all she had taught me / My efforts 세 표지의 대응으로 다시 적었다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2014A#43 지문에서 문자열 대조",
             "코퍼스 choices 배열이 다른 회차와 다른지 전수 대조 (27건 중 이 1건만 상이)",
-            "정답 ④가 코퍼스 answer 값과 일치하는지 확인"
+            "정답 ④가 코퍼스 answer 값과 일치하는지 확인",
+            "these interesting stories 의 선행사가 (A) 3번 문장인지 확인 · efforts 가 가리킬 노력이 (B) 끝에만 있는지 확인"
           ]
         },
         {
@@ -363,12 +377,14 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ③과 ⑤에 같은 진단('(C)가 (B)보다 앞')을 적어 라벨이 겹쳤다 — ③은 (A) 직후라 My efforts 의 선행사가 아예 없는 경우(지시어 선행사 절단), ⑤는 (D) 뒤라 원인·결과가 뒤집힌 경우(시간·인과 순서 역전)로 갈라 다시 썼다",
-            "네 오답의 배제 근거가 각각 17·7·8·9번 문장으로 흩어져 있어 한 자리를 반복해 짚지 않는다"
+            "네 오답의 배제 근거가 각각 17·7·8·9번 문장으로 흩어져 있어 한 자리를 반복해 짚지 않는다",
+            "선지가 기호뿐이라 인용할 선지 표현이 없다 — 대응은 (D)(B)(C) 블록 표지로 적었다"
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부와 배제 근거 문장 번호 중복 여부",
             "why_tempting 의 인용 표현(One day, when I saw my grandmother on the street by chance)이 지문에 있는지 대조",
-            "정답 선지 텍스트 (D)－(B)－(C)와 분석 배열의 일치 확인"
+            "정답 선지 텍스트 (D)－(B)－(C)와 분석 배열의 일치 확인",
+            "why_correct 가 배열 소거가 아니라 이음매 근거로 서 있는지 확인"
           ]
         },
         {
@@ -376,12 +392,14 @@
           "verdict": "pass",
           "findings": [
             "5단계에 '이 회차는 선지 구성이 다르다'는 실행 지시를 넣어, 배열을 맞히고도 선지를 잘못 고르는 사고를 막는다",
-            "required_vocab 의 return 은 in return for 구를 겨냥한 것으로 정답 판정에 직접 쓰인다"
+            "required_vocab 의 return 은 in return for 구를 겨냥한 것으로 정답 판정에 직접 쓰인다",
+            "these·in return for·efforts 세 낱말이 학습자가 볼 자리로 지목된다"
           ],
           "checked": [
             "solve_procedure 를 지문 미독 상태에서 실행 가능한지 모의 (1단계 명사구 표시 → 2단계 되받기 탐색)",
             "금지 표현 문자열 대조",
-            "required_vocab 4낱말이 지문에 실제로 있는지 대조"
+            "required_vocab 4낱말이 지문에 실제로 있는지 대조",
+            "세 이음매 확인이 시간 배분 안에 드는지 확인"
           ]
         }
       ]
@@ -416,7 +434,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "(A) 검소한 삶이라는 신조 → (C) 오두막을 지음 → (D) 무지붕 집에서의 생활과 커지는 이웃 집들 → (B) 그럼에도 만족했다는 교훈으로, 정관사 지칭과 역접 방향이 모두 맞는다."
+          "why_correct": "이음매마다 표지가 잠근다. (A)→(C): (A)의 My grandpa Otto chose a different path 를 (C)의 첫 문장 In the 1950s, when my dad was a little boy, my grandpa built a 600-square-foot cottage 가 그 다른 길의 실물로 받는다. (C)→(D): (D)의 첫 문장 My dad recalled looking up at the stars in the roofless house 는 the roofless house 를 정관사로 부르는데, 지붕이 없다는 사실은 (C) 끝의 when they moved in, the roof wasn't even on 에서 처음 나온다. (D)→(B): (B)의 첫 문장 Yet my grandpa loved his little home and was content with what he had 의 Yet 은 (D) 끝의 surrounded by a sea of homes four times the size of his dwelling 과 맞서는 역접이다."
         },
         {
           "n": 4,
@@ -479,12 +497,14 @@
           "verdict": "pass",
           "findings": [
             "초안은 인용을 (B) 첫 문장 Yet my grandpa loved his little home 으로 잡았다 — 그 자리는 마지막 두 선지만 가르고 둘째 자리를 못 정한다. 선지 셋을 한 번에 지우는 (D) 첫 문장으로 교체했다",
-            "네 문항 중 유일하게 회고적 수필형이라 design_intent 에 '결말이 일반화'라는 이 문항 고유의 설계를 적었다"
+            "네 문항 중 유일하게 회고적 수필형이라 design_intent 에 '결말이 일반화'라는 이 문항 고유의 설계를 적었다",
+            "3차 재검 — '정관사 지칭과 역접 방향이 맞는다' 던 서술을 cottage / the roofless house / Yet 세 표지의 대응으로 다시 적었다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 2014B#43 지문에서 문자열 대조 (19번 문장 전문)",
             "정답 ③이 코퍼스 answer 값과 일치하는지 확인",
-            "the roof wasn't even on 이 (C) 마지막 문장인지 지문에서 위치 확인"
+            "the roof wasn't even on 이 (C) 마지막 문장인지 지문에서 위치 확인",
+            "the roofless house 의 근거가 (C) 끝 문장인지 문자열 확인 · Yet 이 맞서는 앞 진술이 (D) 끝인지 확인"
           ]
         },
         {
@@ -492,12 +512,14 @@
           "verdict": "pass",
           "findings": [
             "①(첫 등장 위반)·②(총론-각론 역전)·④(마무리 위치 오판)·⑤(시간·인과 역전) 4종으로 갈렸다",
-            "④와 ⑤가 모두 (D)로 시작하지만 배제 근거가 각각 14번(가장 이른 시점)과 18번(정관사 근거)으로 달라 중복이 아니다"
+            "④와 ⑤가 모두 (D)로 시작하지만 배제 근거가 각각 14번(가장 이른 시점)과 18번(정관사 근거)으로 달라 중복이 아니다",
+            "선지가 기호뿐이라 인용할 선지 표현이 없다 — 대응은 (C)(D)(B) 블록 표지로 적었다"
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부",
             "why_tempting 의 인용 표현(bigger is better · It took four years to build the small cottage)이 지문에 있는지 대조",
-            "how_to_reject 4개에 문장 번호가 있는지 확인"
+            "how_to_reject 4개에 문장 번호가 있는지 확인",
+            "why_correct 가 소거법이 아니라 이음매 근거로 서 있는지 확인"
           ]
         },
         {
@@ -505,12 +527,14 @@
           "verdict": "pass",
           "findings": [
             "다른 세 문항보다 어려워 100초로 늘렸다 — 읽는 문장은 첫 문장 3 + 끝 문장 3 + (A) 첫 문장 1 = 7문장이라 100초에 들어간다",
-            "required_vocab 의 austerity·self-deprivation 중 austerity 만 남겼다 — 결말 단락을 일반화로 식별하는 데 필요한 낱말이고, 나머지는 순서 판정에 쓰이지 않는다"
+            "required_vocab 의 austerity·self-deprivation 중 austerity 만 남겼다 — 결말 단락을 일반화로 식별하는 데 필요한 낱말이고, 나머지는 순서 판정에 쓰이지 않는다",
+            "정관사 the roofless house 와 역접 Yet 이 학습자가 짚을 자리로 지목된다"
           ],
           "checked": [
             "solve_procedure 5단계를 지문 미독 상태에서 모의 실행 (정관사 표시 → 첫 등장 문장 탐색)",
             "금지 표현 문자열 대조",
-            "required_vocab 5낱말이 지문에 실제로 있는지 대조 (roofless·cramped·dwelling 포함)"
+            "required_vocab 5낱말이 지문에 실제로 있는지 대조 (roofless·cramped·dwelling 포함)",
+            "세 이음매 확인이 절차 단계와 맞는지 확인"
           ]
         }
       ]

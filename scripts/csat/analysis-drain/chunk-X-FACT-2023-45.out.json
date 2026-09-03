@@ -351,7 +351,14 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "(B)에서 Cora 가 들어온 직후 Anna 가 'No problem! We're thrilled to have you back!' 하고 반긴다. 반가움이 강해서 그 앞의 놀람 서술을 덮어 버리고, 오래 기다린 사람이 왔으니 놀랄 일이 아니라는 상식이 겹친다."
+          "why_correct": "선지 ② 에서 어긋나는 성분은 「놀라지 않았다」이다. (B) 둘째 문장 ‘Surprised, Anna and Jane simply looked at her with their eyes wide open.’ 이 Cora 가 들어온 순간의 두 사람 반응을 Surprised 라는 분사와 with their eyes wide open 이라는 묘사로 두 번 겹쳐 적는다. 주체(Anna and Jane)와 장면(Cora 가 들어옴)이 선지와 같고 반응만 부정으로 뒤집혔으므로 이 한 문장으로 ② 이 불일치임이 확정된다.",
+          "confirmed_at": {
+            "sentence_index": [
+              10,
+              11
+            ],
+            "note": "「학습자가 미끄러지는 자리」 (B)에서 Cora 가 들어온 직후 Anna 가 ‘No problem! We’re thrilled to have you back!’ 하고 반기는데, 그 반가움이 앞의 놀람 서술을 덮어 버리고 「오래 기다린 사람이 왔으니 놀랄 일이 아니다」라는 상식이 겹쳐 ② 을 참으로 읽게 만든다."
+          }
         },
         {
           "n": 3,
@@ -420,12 +427,14 @@
           "findings": [
             "quote 가 (B) 원문과 문자열 단위로 일치한다",
             "정답 ②가 평가원 정답표와 일치한다",
-            "설계 서술이 '반가운 반응이 놀람을 덮는다' 는 이 문항 고유 장치를 가리킨다"
+            "설계 서술이 '반가운 반응이 놀람을 덮는다' 는 이 문항 고유 장치를 가리킨다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(B)에서 Cora 가 들어온 직후 Anna 가 'No problem! We're thrilled to ha」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 raw_block 과 문자열 대조",
             "정답표(answer=2)와 correct 선지 번호 대조",
-            "X-FACT 유형 정의 대조"
+            "X-FACT 유형 정의 대조",
+            "Surprised 와 eyes wide open 이 같은 장면·같은 주체를 가리키는지 지문 문자열로 대조"
           ]
         },
         {
@@ -433,12 +442,14 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 라벨이 주체 역전·어휘 함정·부분 사실·단락 순서 교란 4종으로 갈린다",
-            "③의 why_tempting 이 원문 양보절 Although her budget was tight 에 직접 근거한다"
+            "③의 why_tempting 이 원문 양보절 Although her budget was tight 에 직접 근거한다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(B)에서 Cora 가 들어온 직후 Anna 가 'No problem! We're thrilled to ha」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "trap 라벨 중복 확인",
             "why_tempting 을 선지 한국어 문면과 대조",
-            "how_to_reject 마다 단락 기호 명시 확인"
+            "how_to_reject 마다 단락 기호 명시 확인",
+            "어긋난 성분이 「반응」 하나로 특정되었는지, 소거법이 아닌지 확인"
           ]
         },
         {
@@ -446,15 +457,18 @@
           "verdict": "pass",
           "findings": [
             "1단계의 '부정형 선지에 별표' 는 지문을 안 본 상태에서 바로 실행된다",
-            "required_vocab 의 budget·commitment 는 ③·⑤ 판정선에 직접 걸린다"
+            "required_vocab 의 budget·commitment 는 ③·⑤ 판정선에 직접 걸린다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(B)에서 Cora 가 들어온 직후 Anna 가 'No problem! We're thrilled to ha」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "절차의 지문 미독 실행 가능성 확인",
             "금지 표현 포함 여부 확인",
-            "105초 배분 확인"
+            "105초 배분 확인",
+            "학생이 선지의 주체·장면·서술을 셋으로 쪼개 대조할 수 있는지 점검"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2209#45",
@@ -889,7 +903,14 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "(C)에서 Steven 이 밤새 괴로워하고 아침에 miserable 한 상태로 나오므로, 학교에 다녀오는 하루 전체가 무거운 하루로 기억된다. 편지와 상품을 돌려준 뒤의 감정 전환을 놓치면 그대로 참으로 통과시킨다."
+          "why_correct": "선지 ② '방과 후에 집으로 돌아오는 Steven의 발걸음은 무거웠다' 에서 어긋나는 성분은 서술어 '무거웠다' 하나다. (B) 후반 'On the way home after school, his steps were light and full of joy.' 은 시점(On the way home after school=방과 후 집으로 돌아오는 길)도 주어(his steps=Steven의 발걸음)도 선지와 글자 그대로 같고 보어만 light 로 적는다. light 가 '무거웠다' 와 정반대이며, and 로 이어 붙은 full of joy 가 그 방향을 한 번 더 굳힌다.",
+          "confirmed_at": {
+            "sentence_index": [
+              12,
+              13
+            ],
+            "note": "(C)에서 Steven 이 밤새 괴로워하고 아침에 miserable 한 상태로 나오므로 학교에 다녀오는 하루 전체가 무거운 하루로 기억된다. 편지와 상품을 Stephanie 에게 돌려준 뒤의 감정 전환을 놓치면 그대로 참으로 통과시킨다."
+          }
         },
         {
           "n": 3,
@@ -958,12 +979,16 @@
           "findings": [
             "quote 가 (B) 원문과 문자열 단위로 일치한다",
             "정답 ②가 평가원 정답표와 일치한다",
-            "설계 서술이 '감정 곡선을 단락 재배열로 흩었다' 는 이 문항 고유 장치를 가리킨다"
+            "설계 서술이 '감정 곡선을 단락 재배열로 흩었다' 는 이 문항 고유 장치를 가리킨다",
+            "1차 판정 revise — why_correct 가 지문↔선지 대응이 아니라 학습자가 왜 놓치는가(심리)를 적고 있었다. 근거 문장의 낱말과 선지가 갈아 끼운 성분을 지목하는 서술로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 passage 와 문자열 대조",
             "정답표(answer=2)와 correct 선지 번호 대조",
-            "X-FACT 유형 정의 대조"
+            "X-FACT 유형 정의 대조",
+            "why_correct 의 인용을 코퍼스 지문에서 문자열 대조",
+            "why_correct 가 선지 문구를 인용하는지 확인",
+            "갈아 끼운 성분이 하나로 지목되는지 확인"
           ]
         },
         {
@@ -971,12 +996,16 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 라벨이 어휘 함정·단락 순서 교란·주체 역전·부분 사실 4종으로 갈린다",
-            "④의 why_tempting 이 지문 첫 낱말 Congratulations 라는 구체 지점에 근거한다"
+            "④의 why_tempting 이 지문 첫 낱말 Congratulations 라는 구체 지점에 근거한다",
+            "다시 쓴 why_correct 가 소거법(\"나머지가 맞으므로\")에 기대지 않고 정답 선지 한 개의 성분 대응만으로 확정하는지 확인했다. 오답 넷의 서술은 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 확인",
             "why_tempting 을 선지 한국어 문면과 대조",
-            "how_to_reject 마다 단락 기호 명시 확인"
+            "how_to_reject 마다 단락 기호 명시 확인",
+            "소거법 서술 유무 검사",
+            "정답 선지에 why_tempting/how_to_reject 가 섞이지 않았는지 확인",
+            "confirmed_at.note 로 옮긴 심리 서술이 근거 자리를 흐리지 않는지 확인"
           ]
         },
         {
@@ -984,15 +1013,20 @@
           "verdict": "pass",
           "findings": [
             "3단계(선지의 시점 표현과 같은 표현을 원문에서 찾기)가 이 문항의 최단 경로다",
-            "required_vocab 의 thoroughly·bragged 가 ①·⑤ 판정선에 걸린다"
+            "required_vocab 의 thoroughly·bragged 가 ①·⑤ 판정선에 걸린다",
+            "학생이 근거 자리를 짚을 수 있도록 단락 표시와 문장 위치를 서술에 남겼는지 확인했다. 기존 심리 서술은 버리지 않고 confirmed_at.note 로 옮겨 실제 미끄러지는 자리를 보존했다."
           ],
           "checked": [
             "지문 미독 실행 가능성 확인",
             "금지 표현 포함 여부 확인",
-            "105초 배분 확인"
+            "105초 배분 확인",
+            "금지 표현 목록 대조",
+            "근거 위치(단락·문장) 표기 유무 확인",
+            "solve_procedure 와 새 서술이 어긋나지 않는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2020#45",
@@ -1177,7 +1211,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "(C)에 이름이 명시된 밴드 구성원은 Brian 과 Nick 둘뿐이다. 이름을 세면 정확히 둘이 나오므로 선지가 참처럼 보이고, Joe 자신이 그 밴드의 일원이라는 사실은 이름 목록에 안 들어온다."
+          "why_correct": "선지 ④ 에서 어긋나는 성분은 「두 명의 연주자로 구성」이다. (C)의 ‘The trio swung into their routine, as easily as only a group that had practiced long and hard together could.’ 에서 trio 는 3인조를 뜻하고, 같은 단락에서 Brian 이 keyboard 에 손을 얹은 뒤 ‘Beside him, Nick was tuning his guitar.’ 가 이어지며 Joe 가 그 연습실에 들어와 함께 연주하므로 연주자는 셋이다. 인원수만 셋에서 둘로 갈아 끼운 선지이므로 ④ 이 불일치다.",
+          "confirmed_at": {
+            "sentence_index": [
+              22,
+              23
+            ],
+            "note": "「학습자가 미끄러지는 자리」 (C)에 이름이 명시된 밴드 구성원은 Brian 과 Nick 둘뿐이라 이름을 세면 정확히 둘이 나오고, Joe 자신이 그 밴드의 일원이라는 사실은 이름 목록에 안 들어온다."
+          }
         },
         {
           "n": 5,
@@ -1232,12 +1273,14 @@
           "findings": [
             "quote 가 (C) 원문과 문자열 단위로 일치한다",
             "정답 ④가 평가원 정답표와 일치한다",
-            "설계 서술이 '이름 세기 vs trio 낱말 찾기' 라는 이 문항 고유 가름을 가리킨다"
+            "설계 서술이 '이름 세기 vs trio 낱말 찾기' 라는 이 문항 고유 가름을 가리킨다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)에 이름이 명시된 밴드 구성원은 Brian 과 Nick 둘뿐이다. 이름을 세면 정확히 둘이 나오므로 선」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 passage 및 raw_block 과 문자열 대조",
             "정답표(answer=4)와 correct 선지 번호 대조",
-            "X-FACT 유형 정의 대조"
+            "X-FACT 유형 정의 대조",
+            "trio 와 등장 인물 이름을 지문 문자열로 대조해 인원수를 확인"
           ]
         },
         {
@@ -1245,13 +1288,15 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 라벨이 어휘 함정·단락 순서 교란·반대 진술·시점 혼동 4종으로 갈린다",
-            "⑤에 쓴 '시점 혼동' 은 §1-b (A) 표에 없는 라벨이라 open_questions 에 등재를 제안했다"
+            "⑤에 쓴 '시점 혼동' 은 §1-b (A) 표에 없는 라벨이라 open_questions 에 등재를 제안했다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)에 이름이 명시된 밴드 구성원은 Brian 과 Nick 둘뿐이다. 이름을 세면 정확히 둘이 나오므로 선」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "trap 라벨 중복 확인",
             "why_tempting 을 선지 한국어 문면과 대조",
             "how_to_reject 마다 단락 기호 명시 확인",
-            "표에 없는 라벨 사용 시 등재 제안 여부 확인"
+            "표에 없는 라벨 사용 시 등재 제안 여부 확인",
+            "어긋난 성분이 「인원수」 하나로 특정되었는지 확인"
           ]
         },
         {
@@ -1259,15 +1304,18 @@
           "verdict": "pass",
           "findings": [
             "3단계('수량 낱말 하나로 판정, 이름 세기 금지')가 이 문항의 최단 경로이자 실패를 막는 지점이다",
-            "required_vocab 의 trio 가 정답 판정선에 직접 걸린다"
+            "required_vocab 의 trio 가 정답 판정선에 직접 걸린다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 결론 되풀이 또는 오답 심리 서술이었다(이전 본문: 「(C)에 이름이 명시된 밴드 구성원은 Brian 과 Nick 둘뿐이다. 이름을 세면 정확히 둘이 나오므로 선」). 지문 표현과 선지의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass."
           ],
           "checked": [
             "지문 미독 실행 가능성 확인",
             "금지 표현 포함 여부 확인",
-            "115초 배분 확인"
+            "115초 배분 확인",
+            "학생이 숫자를 나타내는 낱말(trio)을 먼저 찾는 절차를 밟을 수 있는지 점검"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2019#45",
@@ -1293,7 +1341,14 @@
         {
           "n": 2,
           "verdict": "correct",
-          "why_correct": "(C)에 'She thought they could not possibly pick all of the caterpillars off.' 와 despair 가 있고, (D)에서는 할머니가 나비를 두둔한다. 앞뒤 인상만 남으면 '결국 잡지 않았다' 가 자연스럽게 들린다 — could not possibly pick all 의 초점은 all 이지 잡았느냐가 아니다."
+          "why_correct": "선지 ② 'Olivia와 Ellie는 양배추밭에 있는 애벌레를 잡지 않았다' 에서 어긋나는 성분은 부정 술어 '잡지 않았다' 다. (B)의 'She kept filling her bucket with the caterpillars until the bottom disappeared.' 은 대상(the caterpillars=애벌레)을 선지와 같게 두고 동사를 kept filling 이라는 지속 긍정으로 적으며, until the bottom disappeared 가 양동이 바닥이 안 보일 만큼 담았다고 양까지 못박는다. 선지 주어가 두 사람인 것은 마지막 문장 'Olivia and Ellie looked at their full buckets and smiled.' 의 their full buckets 가 받아 주므로, 두 사람 모두에 대해 긍정이 확인된다.",
+          "confirmed_at": {
+            "sentence_index": [
+              14,
+              15
+            ],
+            "note": "(C)의 'She thought they could not possibly pick all of the caterpillars off.' 와 despair, (D)에서 할머니가 나비를 두둔하는 대목만 인상에 남으면 '결국 잡지 않았다' 가 자연스럽게 들린다 — could not possibly pick all 의 초점은 all 이지 잡았느냐가 아니다."
+          }
         },
         {
           "n": 3,
@@ -1361,12 +1416,16 @@
           "verdict": "pass",
           "findings": [
             "초안 quote 에 지문의 밑줄 표시 '(c) ' 가 앞에 붙어 있었다 → 표시를 뺀 원문 문장만 남겨 문자열 대조가 되게 고쳤다 (revised)",
-            "정답 ②가 평가원 정답표와 일치한다"
+            "정답 ②가 평가원 정답표와 일치한다",
+            "1차 판정 revise — why_correct 가 지문↔선지 대응이 아니라 학습자가 왜 놓치는가(심리)를 적고 있었다. 근거 문장의 낱말과 선지가 갈아 끼운 성분을 지목하는 서술로 다시 쓴 뒤 pass."
           ],
           "checked": [
             "answer_locus.quote 를 passage 와 문자열 대조(수정 후 재대조)",
             "정답표(answer=2)와 correct 선지 번호 대조",
-            "X-FACT 유형 정의 대조"
+            "X-FACT 유형 정의 대조",
+            "why_correct 의 인용을 코퍼스 지문에서 문자열 대조",
+            "why_correct 가 선지 문구를 인용하는지 확인",
+            "갈아 끼운 성분이 하나로 지목되는지 확인"
           ]
         },
         {
@@ -1374,12 +1433,16 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 라벨이 어휘 함정·주체 역전·단락 순서 교란·범위 과대 4종으로 갈린다",
-            "⑤의 why_tempting 이 '선지 표현이 원문보다 큰 말' 이라는 범위 축을 짚어 다른 셋과 층이 다르다"
+            "⑤의 why_tempting 이 '선지 표현이 원문보다 큰 말' 이라는 범위 축을 짚어 다른 셋과 층이 다르다",
+            "다시 쓴 why_correct 가 소거법(\"나머지가 맞으므로\")에 기대지 않고 정답 선지 한 개의 성분 대응만으로 확정하는지 확인했다. 오답 넷의 서술은 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 확인",
             "why_tempting 을 선지 한국어 문면과 대조",
-            "how_to_reject 마다 단락 기호 명시 확인"
+            "how_to_reject 마다 단락 기호 명시 확인",
+            "소거법 서술 유무 검사",
+            "정답 선지에 why_tempting/how_to_reject 가 섞이지 않았는지 확인",
+            "confirmed_at.note 로 옮긴 심리 서술이 근거 자리를 흐리지 않는지 확인"
           ]
         },
         {
@@ -1387,12 +1450,16 @@
           "verdict": "pass",
           "findings": [
             "3단계(행동 동사가 든 문장을 모아 부정어 표시)가 부정형 선지 처리의 일반 절차로도 쓸 만하다",
-            "required_vocab 다섯 개가 모두 판정선 또는 오독 지점에 걸린다"
+            "required_vocab 다섯 개가 모두 판정선 또는 오독 지점에 걸린다",
+            "학생이 근거 자리를 짚을 수 있도록 단락 표시와 문장 위치를 서술에 남겼는지 확인했다. 기존 심리 서술은 버리지 않고 confirmed_at.note 로 옮겨 실제 미끄러지는 자리를 보존했다."
           ],
           "checked": [
             "지문 미독 실행 가능성 확인",
             "금지 표현 포함 여부 확인",
-            "105초 배분 확인"
+            "105초 배분 확인",
+            "금지 표현 목록 대조",
+            "근거 위치(단락·문장) 표기 유무 확인",
+            "solve_procedure 와 새 서술이 어긋나지 않는지 확인"
           ]
         }
       ]

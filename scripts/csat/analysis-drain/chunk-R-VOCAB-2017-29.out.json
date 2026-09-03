@@ -182,7 +182,18 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "(A)에서 소재 연상(accommodation)을 끊어야 도달하므로 첫 칸에서 갈린다."
+          "why_correct": "세 네모가 각각 인접 한 문장으로 확정되고 그 값이 선지 ③ 'destruction' … 'lacked' … 'competing' 이다. (A)의 This ___ 가 받는 것은 앞 문장 'the local human population was cutting down the reed beds at a furious rate' 이고, 갈대밭을 베어 내는 일은 수용이 아니라 파괴이므로 destruction 이다. (B)는 같은 문장의 콜론 앞이 'there was a major problem with this idea' 라 콜론 뒤가 그 문제를 적어야 하고, 다음 문장 'To compensate for this rather obvious defect' 가 그 상태를 defect 로 되받으므로 lacked 다 — supported 면 보충할 결함 자체가 없어 다음 문장이 성립하지 않는다. (C)는 앞 절 'turned their attentions to the crabs and small fish that lived in the lake' 와 뒤의 'with the few remaining grebes for food' 가 같은 먹이를 가리키므로 competing 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3,
+              4,
+              6,
+              7,
+              8,
+              9
+            ],
+            "note": "(A)는 앞 문장, (B)는 같은 문장의 콜론 앞과 다음 문장, (C)는 같은 문장의 앞 절에서 각각 확정된다. mat-making industry(돗자리 산업)라는 소재가 (A)에서 accommodation 쪽 연상을 부르지만, This 가 받는 것은 산업이 아니라 앞 문장의 벌목 행위다."
+          }
         },
         {
           "n": 4,
@@ -240,12 +251,17 @@
           "findings": [
             "quote 가 코퍼스 지문 여덟째 문장과 문자 그대로 일치한다",
             "세 칸이 각각 다른 연결 장치(This · 콜론 · thus)에 걸려 있다는 서술이 지문 배치와 맞는다",
-            "정답 근거를 네모 문장 안이 아니라 다음 문장에 둔 것이 이 유형의 실제 설계와 일치한다"
+            "정답 근거를 네모 문장 안이 아니라 다음 문장에 둔 것이 이 유형의 실제 설계와 일치한다",
+            "3차 판정에서 setter 가 revise 를 냈다 — 기존 서술은 「(A)에서 소재 연상을 끊어야 도달한다」로 학습자 행동만 적어, 세 네모 중 어느 것도 근거로 확정하지 않았다. 세 칸을 각각 인접 문장으로 확정하고 선지 ③의 세 낱말을 인용했다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 2016#29 passage 에서 문자열 대조",
             "정답 ③의 세 낱말(destruction/lacked/competing)이 (A)(B)(C) 판정과 일치하는지 대조",
-            "문장 번호를 세어 quote 가 8번째 문장임을 확인"
+            "문장 번호를 세어 quote 가 8번째 문장임을 확인",
+            "why_correct 안의 지문 인용을 corpus.json 지문에 문자열 대조",
+            "정답 선지 텍스트와 서술의 대응을 낱말 단위로 확인",
+            "정답 번호를 평가원 정답표와 재대조"
           ]
         },
         {
@@ -254,12 +270,17 @@
           "findings": [
             "오답 4개의 라벨이 지시어 지시대상 오인 · 극성 반전 · 담화표지 방향 무시 · 연어 오인으로 서로 다르다",
             "①③⑤가 각각 정답과 한 칸씩만 다르고 ②는 세 칸이 다르다 — 라벨을 '한 칸 오답'과 '전면 반전'으로 갈라 붙인 것이 선지 구조와 맞는다",
-            "⑤의 how_to_reject 가 'for food'라는 선지 밖 지문 어구를 위치로 제시해 검증 가능하다"
+            "⑤의 how_to_reject 가 'for food'라는 선지 밖 지문 어구를 위치로 제시해 검증 가능하다",
+            "3차 판정에서 analyst 가 revise 를 냈다 — 소재 연상 관찰을 confirmed_at.note 로 옮겼다. (B)는 supported 를 넣으면 다음 문장이 성립하지 않는다는 반사실 검사로, (C)는 for food 라는 같은 문장 안의 부사구로 근거를 세워 소거법을 피했다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "trap 라벨 4종 중복 여부",
             "각 선지의 세 낱말을 정답 조합과 칸별로 대조해 why_tempting 이 실제로 갈리는 칸을 말하는지 확인",
-            "how_to_reject 넷 모두에 지문 위치(문장 순서 또는 인용 어구)가 있는지 확인"
+            "how_to_reject 넷 모두에 지문 위치(문장 순서 또는 인용 어구)가 있는지 확인",
+            "why_correct 가 근거 서술인지 학습자 심리 서술인지 판정",
+            "소거법에 기대지 않는지 확인",
+            "오답 넷의 trap·why_tempting·how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -268,15 +289,21 @@
           "findings": [
             "1~3단계가 각각 눈에 보이는 표지(This · 콜론 · thus)에서 시작하므로 지문을 아직 안 본 학생도 첫 동작이 정해진다",
             "고유명사(Atitlán Giant Grebe, Large-mouthed Bass)를 몰라도 절차가 돌아간다 — 새와 물고기라는 것만 알면 (C)가 풀린다",
-            "75초 배분: 칸당 20초 + 조합 15초로 맞는다"
+            "75초 배분: 칸당 20초 + 조합 15초로 맞는다",
+            "3차 판정에서 tutor 가 revise 를 냈다 — 학생이 세 칸을 각각 어디서 확인하는지 몰랐다. 칸마다 볼 문장을 하나씩 지정했다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "금지 표현 문자열 대조",
             "required_vocab 5개가 칸 판정에 실제로 쓰이는지 확인(accommodation/destruction 은 A, compensate/defect 는 B, compete 는 C)",
-            "각 on_fail 이 실패했을 때 다음에 볼 자리를 구체적으로 주는지 확인"
+            "각 on_fail 이 실패했을 때 다음에 볼 자리를 구체적으로 주는지 확인",
+            "학생이 서술에 적힌 위치를 지문에서 실제로 짚을 수 있는지 확인",
+            "solve_procedure 와 서술이 어긋나지 않는지 대조",
+            "time_budget_sec 안에서 확인 가능한 분량인지"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2015#30",
@@ -323,7 +350,17 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "(A)에서 replace-with 연어를 끊어야 도달하고, 인쇄 잔여 숫자('underlies 5')가 붙어 있어 선지 대조 때 눈이 걸린다."
+          "why_correct": "(A)는 같은 문장의 틀이 정한다 — 'the ear is the only sense that (A) fuses / replaces an ability to measure with an ability to judge' 에서 다음 문장 'we can give a precise number to different sounds' 가 재는 능력이 귀에 남아 있음을 못 박으므로, 재는 능력을 없애는 replaces 가 아니라 두 능력을 하나로 묶는 fuses 다. (B)는 바로 앞 문장의 대조가 정한다 — 'We can discern different colors, but we can give a precise number to different sounds' 에서 눈에게 있는 것이 different colors 쪽이고 없는 것이 precise 쪽이므로 'Our eyes do not let us perceive with this kind of' 뒤에는 precision 이 온다. (C)는 앞 문장이 낱말째로 준다 — 'the invisible, underlying order of things' 의 underlying 을 관계절이 그대로 받으므로 underlies 다. 세 값이 fuses …… precision …… underlies 로 묶인 선지가 ⑤ 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              3,
+              4,
+              10,
+              11
+            ],
+            "note": "「학습자가 미끄러지는 자리」 (A)에서 replace A with B 라는 연어가 눈에 먼저 들어와 replaces 를 고르게 되고, 선지 ⑤ 에는 인쇄 잔여 숫자('underlies 5')가 붙어 있어 대조할 때 눈이 걸린다."
+          }
         }
       ],
       "solve_procedure": [
@@ -369,12 +406,15 @@
           "findings": [
             "quote 가 코퍼스 지문 셋째 문장과 문자 그대로 일치한다",
             "body_ok:false 문항이라 raw_block 의 회차 원문 창과 대조했다 — 지문 본문은 원문과 같고, 손상은 선지 ⑤ 끝의 인쇄 잔여 숫자('underlies 5')와 각주 조각('* acoustica')뿐이다. 세 칸 판정에는 영향이 없어 body_recovered 로 표시했다",
-            "(A)를 연어로 못 풀게 만든 것이 이 문항 고유 설계라는 서술이 지문 배치와 맞는다"
+            "(A)를 연어로 못 풀게 만든 것이 이 문항 고유 설계라는 서술이 지문 배치와 맞는다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 2015#30 passage 에서 문자열 대조",
             "raw_block 의 선지 ①~⑤와 코퍼스 choices 를 낱말 단위로 대조(⑤에 '5' 잔여 확인)",
-            "정답 ⑤의 세 낱말(fuses/precision/underlies)이 (A)(B)(C) 판정과 일치하는지 대조"
+            "정답 ⑤의 세 낱말(fuses/precision/underlies)이 (A)(B)(C) 판정과 일치하는지 대조",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
           ]
         },
         {
@@ -384,12 +424,16 @@
           "findings": [
             "반려 후 수정: ②는 (A)(B) 두 칸이 틀리고 그중 결정적 미끼는 앞뒤 문장의 different 반복이므로 '국소 어울림'으로, ④는 (A) 한 칸만 틀린 근접 오답이므로 'replace A with B' 연어에 걸리는 '연어 오인'으로 갈랐다",
             "①과 ③이 둘 다 undermines 를 포함해 라벨이 겹칠 뻔했으나, ①은 (C) 한 칸만 다른 형태 유사어 함정, ③은 (B)(C)가 대조축에서 함께 뒤집힌 것으로 갈랐다",
-            "how_to_reject 넷이 각각 다른 문장(둘째·셋째·넷째·'The ears do not lie')을 위치로 든다"
+            "how_to_reject 넷이 각각 다른 문장(둘째·셋째·넷째·'The ears do not lie')을 위치로 든다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
           ],
           "checked": [
             "trap 라벨 4종 중복 여부",
             "각 선지의 세 낱말을 정답 조합과 칸별로 대조해 몇 칸이 다른지 계수(①1칸 ②2칸 ③2칸 ④1칸)",
-            "why_tempting 이 지문의 실제 표현(different colors/different sounds, with, underlying order)에 걸리는지 대조"
+            "why_tempting 이 지문의 실제 표현(different colors/different sounds, with, underlying order)에 걸리는지 대조",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -398,12 +442,15 @@
           "findings": [
             "(B)(C)를 먼저 풀게 순서를 뒤집은 것이 실전에 맞는다 — 이 두 칸은 앞 문장의 어근만 찾으면 되므로 (A)에서 시간을 태우기 전에 후보를 둘로 줄인다",
             "4단계에 인쇄 잔여 숫자 경고를 넣어, 선지 대조에서 눈이 걸리는 실제 사고를 막는다",
-            "105초 배분: (B)(C) 각 20초 + (A) 40초 + 조합 25초. 3점 문항의 상한 안이다"
+            "105초 배분: (B)(C) 각 20초 + (A) 40초 + 조합 25초. 3점 문항의 상한 안이다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
           ],
           "checked": [
             "금지 표현 문자열 대조",
             "지문 미독 상태에서 1단계('네모 낱말의 어근을 앞 문장에서 찾는다')가 실행 가능한지 시늉",
-            "required_vocab 6개가 칸 판정에 직접 쓰이는지 확인(fuse·discern=A, precision·diversity=B, underlie·undermine=C)"
+            "required_vocab 6개가 칸 판정에 직접 쓰이는지 확인(fuse·discern=A, precision·diversity=B, underlie·undermine=C)",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
           ]
         }
       ],
@@ -439,7 +486,15 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "attractions/distractions 형태 유사쌍만 넘기면 세 칸이 모두 앞뒤 문장에서 곧바로 확인된다."
+          "why_correct": "(A)는 바로 다음 문장이 정한다 — 'Office workers are regularly interrupted by ringing phones, impromptu meetings, and chattering coworkers' 가 업무 시간이 방해로 채워져 있다고 하므로 조용한 시간은 rarely 다. (B)는 these 가 받는 대상이 정한다 — 'free you from these' 의 these 는 앞 문장에 열거된 그 방해들이므로 distractions 이고, 같은 문장 뒤 'giving you long blocks of time to focus on your work' 가 방해에서 풀려난 결과를 적어 방향까지 맞춘다. (C)는 그 결과가 이어져 'Your productivity will certainly' 뒤에 increase 를 넣게 하고, 뒤 절 'as will the quality of your work product' 도 같은 부호다. 세 값이 rarely …… distractions …… increase 로 묶인 선지가 ③ 이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3,
+              5,
+              7
+            ],
+            "note": "「학습자가 미끄러지는 자리」 attractions 와 distractions 가 형태 유사쌍이라 (B)에서 눈이 미끄러지지만, 세 칸 모두 바로 앞뒤 문장에서 곧바로 확인된다."
+          }
         },
         {
           "n": 4,
@@ -497,12 +552,15 @@
           "findings": [
             "quote 가 코퍼스 지문 셋째 문장과 문자 그대로 일치한다",
             "한 인용이 (A)와 (B) 두 칸을 동시에 확정한다는 서술이 지문 배치와 맞는다 — these 의 선행 항목이 같은 문장 안에 있다",
-            "3점 문항인데 예상 정답률을 0.8로 높게 잡았다. 배점이 아니라 장치 수로 잡은 값임을 drivers 에 적어 두었다"
+            "3점 문항인데 예상 정답률을 0.8로 높게 잡았다. 배점이 아니라 장치 수로 잡은 값임을 drivers 에 적어 두었다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 2014A#28 passage 에서 문자열 대조",
             "정답 ③의 세 낱말(rarely/distractions/increase)이 (A)(B)(C) 판정과 일치하는지 대조",
-            "문장 번호를 세어 quote 가 3번째 문장임을 확인"
+            "문장 번호를 세어 quote 가 3번째 문장임을 확인",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
           ]
         },
         {
@@ -511,12 +569,16 @@
           "findings": [
             "오답 4개의 라벨이 국소 어울림 · 극성 반전 · 형태 유사어 혼동 · 담화표지 방향 무시로 서로 다르다",
             "①⑤가 각각 한 칸, ④가 두 칸, ②가 세 칸 다르다 — 라벨이 갈리는 칸과 대응한다",
-            "④의 why_tempting 이 어간 tract 공유라는 선지 문자열 자체의 성질에 근거한다"
+            "④의 why_tempting 이 어간 tract 공유라는 선지 문자열 자체의 성질에 근거한다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
           ],
           "checked": [
             "trap 라벨 4종 중복 여부",
             "각 선지의 세 낱말을 정답 조합과 칸별로 대조",
-            "how_to_reject 넷 모두에 지문 위치(첫 문장·셋째 문장·양보절·마지막 문장)가 있는지 확인"
+            "how_to_reject 넷 모두에 지문 위치(첫 문장·셋째 문장·양보절·마지막 문장)가 있는지 확인",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -525,15 +587,19 @@
           "findings": [
             "3단계의 '양보절을 통째로 지우고 읽는다'가 이 유형에서 되풀이 쓰이는 동작이라 다른 문항에도 옮겨진다",
             "2단계의 화살표 긋기가 손으로 하는 동작이라 학생이 실행 여부를 스스로 확인할 수 있다",
-            "70초 배분: 칸당 15초 + 조합 25초"
+            "70초 배분: 칸당 15초 + 조합 25초",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
           ],
           "checked": [
             "금지 표현 문자열 대조",
             "지문 미독 상태에서 1단계가 실행 가능한지 시늉",
-            "required_vocab 5개 중 impromptu·nonproductive 가 칸 판정에 필요한지 재확인 — impromptu 는 these 가 받는 열거를 '방해'로 묶는 데, nonproductive 는 (C) 상승 판정의 대조항으로 쓰인다"
+            "required_vocab 5개 중 impromptu·nonproductive 가 칸 판정에 필요한지 재확인 — impromptu 는 these 가 받는 열거를 '방해'로 묶는 데, nonproductive 는 (C) 상승 판정의 대조항으로 쓰인다",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2014B#28",
@@ -572,7 +638,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "evade 의 뜻을 알아도 문장이 '농부는 습기와 포식자로부터 씨앗을 보관할 책임을 ~한다'로 매끄럽게 읽혀, 절 사이 인과를 안 따지면 그냥 지나간다."
+          "why_correct": "밑줄 ④가 든 절은 접속사 as 로 앞 절 'under human management thick seed coats are unnecessary' 의 이유를 대야 한다. 두꺼운 껍질이 하던 일은 앞 문장이 정의해 두었다 — 'Thick seed coats are often ③ essential for seeds to survive in a natural environment'. 곧 껍질이 맡던 보호를 사람이 대신 떠맡아야 껍질이 불필요해지는데, evade 는 그 책임을 회피한다는 뜻이라 이유가 거꾸로 선다 — 농부가 회피하면 두꺼운 껍질은 오히려 필요해진다. assume(떠맡다) 쪽으로 바꿔야 as 절이 앞 절의 이유가 되므로 문맥상 낱말이 틀린 자리는 ④ 다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6,
+              7
+            ],
+            "note": "「학습자가 미끄러지는 자리」 evade 의 뜻을 알아도 문장이 '농부는 습기와 포식자로부터 씨앗을 보관할 책임을 ~한다' 로 매끄럽게 읽혀, 절 사이 인과를 안 따지면 그냥 지나간다."
+          }
         },
         {
           "n": 5,
@@ -629,12 +702,15 @@
           "findings": [
             "반려 후 수정: 파서가 뜬 choices 는 각 밑줄 표시 뒤의 본문 토막(①은 'pressure that these food plants experienced...' 이하 전체)이므로, 각 why_tempting 첫머리에 '밑줄 낱말은 pressure/thinner/essential/preferred 다'를 명시해 어느 낱말을 판정한 것인지 못 박았다",
             "quote 가 코퍼스 지문 여섯째 문장과 문자 그대로 일치한다(밑줄 기호 ④ 포함)",
-            "이 문항만 밑줄형이고 나머지 넷은 네모형이다 — 재는 능력이 달라 type_report 에 갈라 적었다"
+            "이 문항만 밑줄형이고 나머지 넷은 네모형이다 — 재는 능력이 달라 type_report 에 갈라 적었다",
+            "3차 검수(2026-09-03)에서 revise 판정 — why_correct 가 정답 근거가 아니라 학습자 심리 서술이었다. 그 자리를 지배하는 항목과 지문 표현의 대응을 낱말 단위로 지목하도록 다시 쓴 뒤 pass. 옛 서술은 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus.json 의 2014B#28 passage 에서 문자열 대조",
             "코퍼스 choices 5개가 낱말이 아니라 본문 토막임을 확인하고 각 토막의 첫 낱말이 밑줄 낱말임을 대조",
-            "정답 ④(evade)가 평가원 정답표와 일치하는지 대조"
+            "정답 ④(evade)가 평가원 정답표와 일치하는지 대조",
+            "다시 쓴 why_correct 의 인용을 corpus.json 해당 지문과 문자열 대조",
+            "밑줄 자리를 지배하는 항목이 실제로 그 항목인지 절 분해로 확인"
           ]
         },
         {
@@ -643,12 +719,16 @@
           "findings": [
             "밑줄형 오답은 '틀린 낱말'이 아니라 '맞는 낱말을 틀렸다고 의심하게 만드는 배치'다 — 라벨 넷(지시어 지시대상 오인 · 국소 어울림 · 한정어 탈락 · 담화표지 방향 무시)이 그 의심 경로별로 갈린다",
             "③ 한정어 탈락이 가장 강한 미끼다 — essential 과 unnecessary 가 이웃 문장에 나란히 있어 조건 한정을 안 보면 반드시 걸린다",
-            "how_to_reject 넷 모두 밑줄 문장 바깥의 위치(다음 문장·마지막 문장·because 절·이유절)를 지목한다"
+            "how_to_reject 넷 모두 밑줄 문장 바깥의 위치(다음 문장·마지막 문장·because 절·이유절)를 지목한다",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 소거법('나머지가 옳으므로')에 기대지 않고 그 밑줄 자체의 결함을 지목하는지 확인했다."
           ],
           "checked": [
             "trap 라벨 4종 중복 여부",
             "각 why_tempting 이 해당 밑줄 낱말과 그 이웃 문장에 실제로 걸리는지 대조",
-            "정답 ④의 reasoning 이 '반대말을 넣으면 이어진다'는 검증 가능한 조작을 제시하는지 확인"
+            "정답 ④의 reasoning 이 '반대말을 넣으면 이어진다'는 검증 가능한 조작을 제시하는지 확인",
+            "정답 번호를 평가원 정답표와 재대조",
+            "why_correct 에 소거법·심리 서술이 남지 않았는지 문장 단위로 확인",
+            "오답 4개의 trap 라벨과 how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -657,12 +737,15 @@
           "findings": [
             "1~2단계(대립축 두 칸 그리기 → 밑줄 배치)가 밑줄형 전체에 옮겨지는 동작이다",
             "4단계가 '한정어를 빠뜨렸는지 되돌아본다'로 오탐 회수 경로를 준다 — 이 유형에서 학생이 맞는 낱말을 답으로 찍는 사고를 직접 막는다",
-            "100초 배분: 대립축 15초 + 밑줄 5개 각 12초 + 반대말 대입 25초"
+            "100초 배분: 대립축 15초 + 밑줄 5개 각 12초 + 반대말 대입 25초",
+            "3차 검수(2026-09-03) — 다시 쓴 why_correct 가 학생이 눈으로 맞춰 볼 수 있는 지문 표현을 그대로 담고 있는지 확인했다."
           ],
           "checked": [
             "금지 표현 문자열 대조",
             "지문 미독 상태에서 1단계가 실행 가능한지 시늉",
-            "required_vocab 5개가 지문에 실제로 있는지 문자열 대조(evade · dormant · seed coat · predators · essential)"
+            "required_vocab 5개가 지문에 실제로 있는지 문자열 대조(evade · dormant · seed coat · predators · essential)",
+            "why_correct 의 인용이 학생이 지문에서 찾을 수 있는 연속 문자열인지 확인",
+            "solve_procedure 와 다시 쓴 근거가 같은 자리를 가리키는지 대조"
           ]
         }
       ],

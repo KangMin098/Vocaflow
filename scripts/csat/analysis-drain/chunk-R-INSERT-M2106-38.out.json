@@ -1362,7 +1362,7 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "정답. 양보(Yes) 바로 뒤이며, in this manner 가 검색 행위를 받고, 뒤 문장이 반박의 이유가 된다."
+          "why_correct": "주어진 문장의 information obtained in this manner 가 ③ 앞 문장 typing a few words into a search engine will virtually instantaneously produce links related to the topic at hand 를 받는다 — 그 앞(①·②)에는 '이런 방식'이 가리킬 행위가 아직 서술되지 않았다. 그리고 ③ 뒤 문장 What one often gets is no more than abstract summaries of lengthy articles 가 주어진 문장의 the examination of the accuracy ... is not a simple matter 를 뒷받침하는 첫 이유가 된다. 곧 ③의 앞은 방법, 뒤는 그 방법으로 얻은 정보의 부정확성이다."
         },
         {
           "n": 4,
@@ -1420,12 +1420,17 @@
           "verdict": "pass",
           "findings": [
             "quote 를 corpus passage 에 문자열 대조했다",
-            "정답 근거를 in this manner 의 선행사와 Yes-But 짝으로 이중 확인했다"
+            "정답 근거를 in this manner 의 선행사와 Yes-But 짝으로 이중 확인했다",
+            "3차 판정 — 이전 why_correct 는 「정답. 양보(Yes) 바로 뒤이며 …」로 자리만 말하고 ③ 뒤 문장의 어느 표현이 주어진 문장을 받는지가 없었다 — 앞·뒤 두 이음매를 낱말 단위로 다시 썼다",
+            "3차 판정 — answer_locus.quote 는 그대로이고 지문의 ③ 앞뒤 문장과 문자 그대로 같다"
           ],
           "checked": [
             "answer_locus.quote 문자열 대조",
             "정답 ③과 corpus.answer=3 대조",
-            "①~⑤ 앞 문장의 극성과 표지(But, Yes, As a consequence) 확인"
+            "①~⑤ 앞 문장의 극성과 표지(But, Yes, As a consequence) 확인",
+            "answer_locus.quote 를 passage 에서 문자열 대조",
+            "in this manner 가 받을 선행 행위가 ③ 앞 문장에서 처음 나오는지 ①·②까지 거슬러 확인",
+            "③ 뒤 문장이 주어진 문장의 accuracy 주장과 이유 관계인지 확인"
           ]
         },
         {
@@ -1433,27 +1438,34 @@
           "verdict": "pass",
           "findings": [
             "trap 4종이 선행사 부재 · 양보-반박 짝 절단 · 순서 역전 · 극성 불일치로 갈린다",
-            "①과 ⑤가 모두 역접 관련이지만 근거가 다르다(선행사 부재 대 뒤집을 긍정 부재)"
+            "①과 ⑤가 모두 역접 관련이지만 근거가 다르다(선행사 부재 대 뒤집을 긍정 부재)",
+            "3차 판정 — 배제 근거를 「나머지가 틀리므로」가 아니라 in this manner 의 선행사 위치로 잡았다",
+            "3차 판정 — 오답 4개의 서술과 라벨은 손대지 않았다"
           ],
           "checked": [
             "trap 중복 여부",
             "①과 ⑤의 배제 근거가 실제로 다른지 대조",
-            "why_tempting 이 각 자리 실제 문구에 근거하는지"
+            "why_tempting 이 각 자리 실제 문구에 근거하는지",
+            "why_correct 에 소거법 서술이 있는지 확인",
+            "correct 판정 3 을 평가원 정답표(3)와 대조",
+            "③ 뒤 문장 원문을 passage 와 문자열 대조"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
-          "revised_from": "revise",
           "findings": [
             "⑤의 how_to_reject 초안이 결론 앞이라 어색하다는 인상 서술이었다 — 학생이 확인할 수 없어 반려했고, ⑤ 앞 문장이 이미 부정 진술이라 But 이 뒤집을 긍정이 없다는 확인 가능한 근거로 고쳤다",
             "3단계가 양보 표지 확인이라 학생이 바로 실행할 수 있다",
-            "required_vocab 6개가 정답 판단에 쓰인다"
+            "required_vocab 6개가 정답 판단에 쓰인다",
+            "3차 판정 — 학생이 ③ 앞뒤 두 문장만 읽고도 판단할 수 있게 자리가 특정됐다"
           ],
           "checked": [
             "순환논법 표현 대조",
             "네 오답의 배제 근거가 학생이 지문에서 확인 가능한 것인지 하나씩 점검",
-            "required_vocab 가 지문에 실제로 있는지"
+            "required_vocab 가 지문에 실제로 있는지",
+            "why_correct 가 요구하는 읽기 범위가 ③ 인접 두 문장인지 확인",
+            "solve_procedure 는 변경하지 않았음을 확인"
           ]
         }
       ]

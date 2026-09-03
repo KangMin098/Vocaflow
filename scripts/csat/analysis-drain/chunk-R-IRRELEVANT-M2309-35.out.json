@@ -213,7 +213,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "정답. major companies · business models · units 로 소재 낱말은 가장 많이 갖췄지만, 앞을 받는 표현이 하나도 없고 동사(cutting off)가 글의 협력·통합 방향과 반대다."
+          "why_correct": "④는 'Many major companies are fundamentally changing their business models by focusing on profitable units ... and cutting off less profitable ones.' 로 한 기업이 자기 안의 수익성 낮은 부문을 잘라 내는 이야기다 — ①②③이 쌓아 온 방향은 반대쪽 통합이다('an integration of value chains across multiple units' → 'typically also include multiple units from different firms' → 'take into account the entire ecosystem of units surrounding them'). ④를 빼면 앞뒤가 곧바로 이어진다 — ⑤의 'In order to allow these different units to cooperate successfully' 에서 these different units 는 '서로 다른' 복수 주체를 앞에서 받아야 하고 그것을 내놓는 것은 ③의 'the entire ecosystem of units surrounding them' 이다. ④의 units 는 한 기업 안의 내부 부문이라 different 를 채우지 못하고, ⑤가 요구하는 동사가 cooperate 인데 ④의 동사는 cutting off 로 방향이 반대다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4,
+              6
+            ],
+            "note": "major companies · business models · units 로 소재 낱말은 이 지문에서 가장 많이 갖춘 문장이라, 겹침만 세면 후보에서 먼저 빠진다."
+          }
         },
         {
           "n": 5,
@@ -269,12 +276,15 @@
           "findings": [
             "인용이 지문과 선지 양쪽에 문자 그대로 있다",
             "원문에 파싱 잔여물(profitable units s ______ and cutting off)이 있어 raw_block 의 회차 원문 창에서 좌우를 갈라 읽었고, 실제 문장은 focusing on profitable units and cutting off less profitable ones 다 — body_recovered 로 표시했다",
-            "design_intent 가 이 문항 고유 장치(같은 낱말의 지시 대상 바꿔치기)를 말한다"
+            "design_intent 가 이 문항 고유 장치(같은 낱말의 지시 대상 바꿔치기)를 말한다",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 '소재 낱말은 갖췄지만' 이라는 관찰로 시작해 반쪽이었다. ⑤의 these different units 가 받을 선행 항이 ③이라는 ② 짝을 명시해 다시 쓰고, 겹침 관찰은 confirmed_at.note 로 옮겼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus 2022#35 passage 와 문자열 대조 — 존재",
             "raw_block 의 두 판(홀수형·짝수형)에서 같은 문장인지 대조",
-            "평가원 정답표(answer=4)와 correct 선지 번호 일치 확인"
+            "평가원 정답표(answer=4)와 correct 선지 번호 일치 확인",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
           ]
         },
         {
@@ -282,12 +292,15 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ①과 ②에 같은 라벨(어휘 반복 유인)을 달았다 — ①은 낱말이 겹쳐서가 아니라 This 의 선행사를 못 잡아 끌리는 경우이므로 지시어 선행사 절단으로 바꿨다. 결과 오답 4개 라벨이 4종으로 갈렸다",
-            "how_to_reject 넷이 모두 지문의 특정 표현을 위치로 지목한다"
+            "how_to_reject 넷이 모두 지문의 특정 표현을 위치로 지목한다",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "오답 4개의 trap 라벨 중복 여부 확인 — 수정 후 4종",
             "why_tempting 이 각 선지 문장의 실제 낱말에 근거하는지 선지 텍스트와 대조",
-            "how_to_reject 에 지문 위치(앞머리 표현·인접 문장)가 들어 있는지 확인"
+            "how_to_reject 에 지문 위치(앞머리 표현·인접 문장)가 들어 있는지 확인",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
           ]
         },
         {
@@ -295,12 +308,14 @@
           "verdict": "pass",
           "findings": [
             "2단계(공통 낱말에 동그라미 치고 지시 대상 적기)가 이 문항의 핵심을 학생 손으로 재현한다 — 정답을 몰라도 실행된다",
-            "다섯 문장을 다 해석하지 않고 앞머리와 동사만 보게 해서 90초를 지켰다"
+            "다섯 문장을 다 해석하지 않고 앞머리와 동사만 보게 해서 90초를 지켰다",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
           ],
           "checked": [
             "각 단계를 지문 미독 상태에서 모의 실행",
             "순환논법 금지어 8종 문자열 대조 — 0건",
-            "required_vocab 5개가 정답 판단에 실제로 쓰이는지 확인 (cut off 는 방향 판정에, ecosystem 은 지시 대상 판정에 쓰인다)"
+            "required_vocab 5개가 정답 판단에 실제로 쓰이는지 확인 (cut off 는 방향 판정에, ecosystem 은 지시 대상 판정에 쓰인다)",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
           ]
         }
       ]
@@ -507,7 +522,14 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "정답. humor · humorous 를 두 번이나 담아 축 낱말은 가장 많지만, 유머가 작동하는 주체가 조직 구성원이 아니라 광고 시청자이고 앞을 받는 표현이 없다."
+          "why_correct": "③은 'Since humor can easily capture people’s attention, commercials tend to contain humorous elements, such as funny faces and gestures.' 로 유머가 작동하는 자리가 광고이고 대상이 불특정 시청자다 — 도입이 'Workers are united by laughing at shared events' 와 'reinforces unity based on key organizational values' 로 주체를 조직 구성원으로 못 박았고, ①②④⑤가 모두 그 주체를 지킨다('multiple parties in the workplace' · 'a sense of belonging since “you had to be there”' · 'bonds among organization members' · 'an informal badge of membership in the organization'). ③을 빼면 앞뒤가 곧바로 이어진다 — ②의 '함께 겪은 사건의 웃음이 소속을 가리킨다' 를 ④가 'Instances of humor serve to enact bonds among organization members.' 로 한 줄로 접고, ⑤의 'Understanding the humor may even be required as an informal badge of membership' 이 even ... required 로 그 결속을 자격 요건까지 밀어 올린다. ③이 사이에 끼면 그 사슬의 주체가 광고 시청자로 한 번 갈린다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5,
+              7
+            ],
+            "note": "humor · humorous 를 두 번이나 담아 축 낱말은 지문에서 가장 많지만, 겹치는 낱말이 걸리는 주체가 다르다."
+          }
         },
         {
           "n": 4,
@@ -569,12 +591,15 @@
           "findings": [
             "인용이 선지 텍스트에 문자 그대로 있다",
             "design_intent 가 '유머의 수혜 주체를 하나만 바꿔치기'라는 이 문항 고유 장치를 말한다",
-            "이 문항은 지문 파싱이 도입부 세 문장만 담고 번호 문장들은 choices 에 들어 있다 — 인용을 선지에서 뽑아 대조가 성립한다"
+            "이 문항은 지문 파싱이 도입부 세 문장만 담고 번호 문장들은 choices 에 들어 있다 — 인용을 선지에서 뽑아 대조가 성립한다",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 '축 낱말은 가장 많지만' 이라는 관찰로 시작해 반쪽이었다. ②-④-⑤가 주체를 유지하며 이어진다는 ② 짝을 넣어 다시 썼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus 2021#35 choices 와 문자열 대조 — 존재",
             "평가원 정답표(answer=3)와 correct 선지 번호 일치 확인",
-            "R-IRRELEVANT 유형 정의와 서술 대조"
+            "R-IRRELEVANT 유형 정의와 서술 대조",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
           ]
         },
         {
@@ -582,12 +607,15 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 라벨이 4종으로 갈렸다 (총론-각론 역전 · 지시어 선행사 절단 · 마무리 문장 위치 오판 · 연결사 방향 충돌)",
-            "②의 why_tempting 이 실제 생략 표현을 인용하고 있어 선지 텍스트에 근거한다"
+            "②의 why_tempting 이 실제 생략 표현을 인용하고 있어 선지 텍스트에 근거한다",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 여부 확인 — 중복 없음",
             "why_tempting 4개를 각 선지 문장과 대조",
-            "how_to_reject 4개에 지문·선지 위치가 들어 있는지 확인"
+            "how_to_reject 4개에 지문·선지 위치가 들어 있는지 확인",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
           ]
         },
         {
@@ -595,15 +623,18 @@
           "verdict": "pass",
           "findings": [
             "2단계(사람 명사만 뽑기)가 이 문항을 30초 안에 끝내는 지름길이고, 해석 없이도 실행된다",
-            "5단계 경고가 이 문항에서 실제로 작동한다 — 이물 문장에 humor 계열 낱말이 둘 있다"
+            "5단계 경고가 이 문항에서 실제로 작동한다 — 이물 문장에 humor 계열 낱말이 둘 있다",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
           ],
           "checked": [
             "각 단계를 지문 미독 상태에서 모의 실행",
             "순환논법 금지어 8종 문자열 대조 — 0건",
-            "required_vocab 5개가 지문·선지 문자열에 있는지 대조 (recount 는 recounting, commercial 은 commercials)"
+            "required_vocab 5개가 지문·선지 문자열에 있는지 대조 (recount 는 recounting, commercial 은 commercials)",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "M2109#33",
@@ -816,7 +847,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "정답. city dwellers · urban · countryside 로 소재 낱말은 다 갖췄고 This illustrates 라는 되받는 표현까지 붙어 형식은 이어진 척하지만, 앞 문장은 귀촌 경향을 예시하지 않고 결론의 방향과도 반대다."
+          "why_correct": "④는 'This illustrates the tendency that most city dwellers get tired of urban lives and decide to settle in the countryside.' 로 사람들이 도시를 떠난다는 경향을 내놓는다 — 도입이 'living “close to nature” out in the country or in a leafy suburb is the best “green” lifestyle' 를 mistaken myth 로 못 박았으므로, ①②③이 세는 시골·교외의 환경 비용은 전부 그 반대쪽 근거인데 ④만 부정된 쪽을 결론처럼 되살린다. ④를 빼면 앞뒤가 곧바로 이어진다 — ⑤의 'It’s clear that the future of the Earth depends on more people gathering together in compact communities.' 가 세 근거의 귀결이고, gathering together in compact communities 는 ②의 'the option of walking or taking transit' 과 ③의 'The larger yards and houses found outside cities also create an environmental cost' 가 곧장 받쳐 준다. ④의 This illustrates 가 받아야 할 ③은 교외 주택의 환경 비용이라 귀촌 경향을 예시하지 않는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6,
+              8
+            ],
+            "note": "city dwellers · urban · countryside 로 소재 낱말을 다 갖췄고 This illustrates 라는 되받는 표현까지 붙어 형식만은 이어진 척한다."
+          }
         },
         {
           "n": 5,
@@ -868,12 +906,15 @@
           "findings": [
             "인용이 지문과 선지에 문자 그대로 있다 (It’s 의 굽은 아포스트로피 포함)",
             "design_intent 가 '지시어를 갖춘 이물'이라는 이 문항의 함정 설계를 지목한다",
-            "평가원 정답표와 correct 번호가 맞는다"
+            "평가원 정답표와 correct 번호가 맞는다",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 '소재 낱말은 다 갖췄고' 라는 관찰로 시작해 반쪽이었다. ①②③이 ⑤의 결론으로 곧바로 이어진다는 ② 짝을 명시해 다시 썼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus M2106#35 passage 와 문자열 대조 — 존재",
             "평가원 정답표(answer=4)와 correct 선지 번호 일치 확인",
-            "도입부 세 문장이 통념-비난-반박 순인지 확인"
+            "도입부 세 문장이 통념-비난-반박 순인지 확인",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
           ]
         },
         {
@@ -881,12 +922,15 @@
           "verdict": "pass",
           "findings": [
             "초안에서 ③과 ⑤에 같은 라벨(마무리 문장 위치 오판)을 달았다 — ③은 마무리가 아니라 열거 항목이 늘어난 자리이므로 열거·병렬 절단으로 바꿨다. 결과 라벨이 4종으로 갈렸다",
-            "how_to_reject 넷이 모두 지문의 특정 표현을 지목한다 (on the other hand · also create · nothing could be farther from the truth)"
+            "how_to_reject 넷이 모두 지문의 특정 표현을 지목한다 (on the other hand · also create · nothing could be farther from the truth)",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 여부 확인 — 수정 후 4종",
             "why_tempting 을 각 선지 문장과 대조",
-            "how_to_reject 에 지문 위치가 들어 있는지 확인"
+            "how_to_reject 에 지문 위치가 들어 있는지 확인",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
           ]
         },
         {
@@ -894,12 +938,14 @@
           "verdict": "pass",
           "findings": [
             "2단계의 +/- 부호 매기기가 이 문항에서는 30초 안에 끝난다",
-            "3단계가 '지시어가 있으니 이어진 것'이라는 오판을 막는 유일한 단계라 반드시 남겨야 한다"
+            "3단계가 '지시어가 있으니 이어진 것'이라는 오판을 막는 유일한 단계라 반드시 남겨야 한다",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
           ],
           "checked": [
             "각 단계를 지문 미독 상태에서 모의 실행",
             "순환논법 금지어 8종 문자열 대조 — 0건",
-            "required_vocab 5개를 지문 문자열과 대조 (dweller 는 dwellers, suburb 는 suburbs)"
+            "required_vocab 5개를 지문 문자열과 대조 (dweller 는 dwellers, suburb 는 suburbs)",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
           ]
         }
       ]
@@ -934,7 +980,14 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "정답. That is why 라는 인과 표지와 aphorisms 라는 축 명사를 갖춰 형식은 이어진 척하지만, 앞 문장이 내린 결론은 '통찰을 거의 못 준다'이므로 '그래서 크게 의존한다'는 귀결이 나올 수 없다."
+          "why_correct": "③은 'That is why we heavily depend on aphorisms whenever we face difficulties and challenges in the long journey of our lives.' 로 격언에 크게 의존한다는 귀결을 낸다 — 그런데 That is why 가 근거로 삼아야 할 바로 앞 ②의 결론은 'aphorisms provide little insight into relations among people' 이라, 통찰을 거의 주지 못한다에서 그래서 크게 의존한다가 나오지 않는다. ③을 빼면 앞뒤가 곧바로 이어진다 — ④의 'They provide even less guidance in situations where we must make decisions.' 에서 even less 는 '이미 적게 준다' 는 진술이 바로 앞에 있어야 성립하는 비교급 강조이고 그 진술이 ②의 provide little insight 다. They 의 선행사도 ②의 aphorisms 다. ③이 끼면 They 가 '의존하는 우리' 를 받고 even less 가 이어받을 앞 항이 뒤집힌다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4,
+              6
+            ],
+            "note": "That is why 라는 인과 표지와 aphorisms 라는 축 명사를 갖춰 형식은 이어진 척한다 — 표지가 붙어 있다는 이유로 후보에서 빼기 쉽다."
+          }
         },
         {
           "n": 4,
@@ -993,12 +1046,15 @@
           "findings": [
             "인용이 지문과 선지에 문자 그대로 있다",
             "design_intent 가 '등급 배열 + 표지를 갖춘 이물'이라는 이 문항 고유 설계를 지목한다",
-            "평가원 정답표와 correct 번호가 맞는다"
+            "평가원 정답표와 correct 번호가 맞는다",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 '형식은 이어진 척하지만' 이라는 관찰 중심이어서 반쪽으로 보았다. ②-④가 little → even less 등급쌍으로 곧바로 이어진다는 ② 짝을 명시해 다시 썼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus 2020#35 passage 와 문자열 대조 — 존재",
             "평가원 정답표(answer=3)와 correct 선지 번호 일치 확인",
-            "little insight → even less 의 비교급 연쇄가 실제 문장에 있는지 확인"
+            "little insight → even less 의 비교급 연쇄가 실제 문장에 있는지 확인",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
           ]
         },
         {
@@ -1006,12 +1062,15 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 라벨이 4종으로 갈렸다",
-            "④의 why_tempting 이 실제 오답 선택 경로(짧은 문장 + 대명사 주어)를 짚는다 — 이 문항에서 두 번째로 많이 선택될 자리다"
+            "④의 why_tempting 이 실제 오답 선택 경로(짧은 문장 + 대명사 주어)를 짚는다 — 이 문항에서 두 번째로 많이 선택될 자리다",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 여부 확인 — 중복 없음",
             "why_tempting 을 각 선지 문장과 대조",
-            "how_to_reject 넷 모두에 지문 위치(these · but 주절 · even less · For example)가 있는지 확인"
+            "how_to_reject 넷 모두에 지문 위치(these · but 주절 · even less · For example)가 있는지 확인",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
           ]
         },
         {
@@ -1019,12 +1078,14 @@
           "verdict": "pass",
           "findings": [
             "초안 절차가 6단계였고 5단계에서 속담 다섯 개의 뜻을 모두 옮기게 해 90초를 넘겼다 — 속담 해석을 빼고 정도 표현 동그라미와 표지 확인 두 축으로 줄여 4단계로 만들었다",
-            "2단계(정도 표현 동그라미)가 이 문항의 핵심을 학생 손으로 재현한다"
+            "2단계(정도 표현 동그라미)가 이 문항의 핵심을 학생 손으로 재현한다",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
           ],
           "checked": [
             "각 단계를 지문 미독 상태에서 모의 실행",
             "순환논법 금지어 8종 문자열 대조 — 0건",
-            "단계별 소요 추정 합(15+25+30+20 = 90)이 time_budget_sec 이내인지"
+            "단계별 소요 추정 합(15+25+30+20 = 90)이 time_budget_sec 이내인지",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
           ]
         }
       ]
@@ -1219,7 +1280,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "정답. Therefore 라는 결론 표지와 painters · century 라는 축 낱말을 다 갖췄지만, 진술 방향이 as they were in reality 로 앞 문장이 정한 방향과 정반대다."
+          "why_correct": "④는 'Therefore, the painters of that century put more focus on expressing nature, people, and cities as they were in reality.' 로 화가들이 현실 그대로의 재현으로 더 갔다고 말한다 — 이 글이 정한 방향은 정반대다. ③이 'moving away from direct representation and reproduction to the abstract painting of the twentieth century' 로 재현에서 멀어지는 쪽을 못 박고, ⑤가 'painters were freed to look inward and represent things as they were in their imagination' 으로 같은 방향을 되풀이한다. ④의 'as they were in reality' 는 ⑤의 'as they were in their imagination' 과 같은 틀에 반대말을 넣은 것이다. ④를 빼면 앞뒤가 곧바로 이어진다 — ③의 'the photograph was a challenge to painting' 을 ⑤가 'Since photographs did such a good job of representing things as they existed in the world' 로 다시 원인으로 세워 그 귀결을 넓힌다. ④의 Therefore 는 ③에서 그런 결론을 끌어낼 수 없다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5,
+              7
+            ],
+            "note": "Therefore 라는 결론 표지와 painters · century 라는 축 낱말을 다 갖춰, 표지가 붙어 있다는 이유로 후보에서 빠지기 쉽다."
+          }
         },
         {
           "n": 5,
@@ -1270,12 +1338,15 @@
           "findings": [
             "인용이 마지막 선지 문장 안에 문자 그대로 있다",
             "이 문항도 파싱이 도입부 두 문장만 지문에 담고 번호 문장들은 choices 에 두었다 — 인용을 선지에서 뽑아 대조가 성립한다",
-            "design_intent 가 '결론 표지를 갖춘 이물'이라는 이 문항 고유 함정을 지목한다"
+            "design_intent 가 '결론 표지를 갖춘 이물'이라는 이 문항 고유 함정을 지목한다",
+            "3차(근거/심리 판별) 재검수 — why_correct 가 '축 낱말을 다 갖췄지만' 이라는 관찰로 시작해 반쪽이었다. ③-⑤가 Since photographs ... 로 곧바로 이어진다는 ② 짝과, as they were in reality ↔ in their imagination 의 틀 대조를 넣어 다시 썼다."
           ],
           "checked": [
             "answer_locus.quote 를 corpus 2019#35 choices 와 문자열 대조 — 존재",
             "평가원 정답표(answer=4)와 correct 선지 번호 일치 확인",
-            "R-IRRELEVANT 유형 정의와 서술 대조"
+            "R-IRRELEVANT 유형 정의와 서술 대조",
+            "why_correct 의 인용을 corpus.json 현재 지문과 문자열 대조",
+            "why_correct 의 대응이 정답 선지 문면과 낱말 단위로 맞물리는지 재확인"
           ]
         },
         {
@@ -1283,12 +1354,15 @@
           "verdict": "pass",
           "findings": [
             "오답 4개 라벨이 4종으로 갈렸다",
-            "⑤의 how_to_reject 가 '겹치는 낱말의 기능이 다르다'는 이 유형군의 핵심 판정을 실제 문장으로 보여 준다"
+            "⑤의 how_to_reject 가 '겹치는 낱말의 기능이 다르다'는 이 유형군의 핵심 판정을 실제 문장으로 보여 준다",
+            "3차 재검수 — 다시 쓴 why_correct 가 소거법(\"나머지가 다 틀렸으므로\")에 기대지 않고 정답 선지 자체의 근거를 대는지 확인했다. 오답 4개의 trap·why_tempting·how_to_reject 는 손대지 않았다."
           ],
           "checked": [
             "trap 라벨 중복 여부 확인 — 중복 없음",
             "why_tempting 을 각 선지 문장과 대조",
-            "how_to_reject 넷 모두에 지문 위치가 있는지 확인"
+            "how_to_reject 넷 모두에 지문 위치가 있는지 확인",
+            "why_correct 에 소거법 서술이 없는지 검사",
+            "오답 선지 서술이 그대로인지 대조"
           ]
         },
         {
@@ -1296,15 +1370,18 @@
           "verdict": "pass",
           "findings": [
             "2단계의 화살표 그리기가 이 문항을 40초 안에 끝낸다",
-            "3단계가 Therefore 를 믿고 넘어가는 실점 경로를 막는다"
+            "3단계가 Therefore 를 믿고 넘어가는 실점 경로를 막는다",
+            "3차 재검수 — 다시 쓴 why_correct 가 학습자가 눈으로 맞춰 볼 수 있는 두 자리(지문의 표현 ↔ 선지의 표현)를 지목하는지 확인했다. solve_procedure 는 손대지 않았다."
           ],
           "checked": [
             "각 단계를 지문 미독 상태에서 모의 실행",
             "순환논법 금지어 8종 문자열 대조 — 0건",
-            "required_vocab 5개를 지문·선지 문자열과 대조 — representation · reproduction · abstract · imitating · by and large 모두 존재"
+            "required_vocab 5개를 지문·선지 문자열과 대조 — representation · reproduction · abstract · imitating · by and large 모두 존재",
+            "학습자가 짚을 자리가 문장 단위로 지정되었는지 확인"
           ]
         }
-      ]
+      ],
+      "revised": true
     }
   ],
   "type_report": {

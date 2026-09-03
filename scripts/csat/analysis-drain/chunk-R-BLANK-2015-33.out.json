@@ -415,7 +415,14 @@
         {
           "n": 3,
           "verdict": "correct",
-          "why_correct": "2문장의 entitled to look wherever they want 와 7문장의 is free to look at anyone he wants 를 한 낱말로 줄인 값이다."
+          "why_correct": "빈칸 문장의 주어 those who are dominant 를 바로 뒤 문장이 these individuals 로 받아 'are entitled to look wherever they want' 로 풀어 쓴다 — 원하는 곳 어디든 볼 자격이 있다는 것은 시선에 제약이 없다는 뜻이므로, 빈칸이 요구하는 값은 선지 ③ 'freedom' 이다. 마지막 문장 'The king is free to look at anyone he wants' 가 같은 값을 형용사형 free 로 한 번 더 적고, 3문장 'subordinates are more restricted in where they can look' 이 반대 집단에 restricted 를 붙여 dominant 쪽 값이 그 반대항인 freedom 임을 대조로 고정한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              2,
+              7
+            ],
+            "note": "2문장(In essence 동격)이 확정 문장이고 7문장(The king …)은 그 값을 예시로 되풀이하는 확인용이다. 시선 행동이라는 소재가 부르는 통념(불안·갈등·책임)은 지문에 대응 문장이 없다."
+          }
         },
         {
           "n": 4,
@@ -474,24 +481,34 @@
           "verdict": "pass",
           "findings": [
             "초안의 quote 는 마지막 문장(The king is free to look at anyone he wants)이었다. free 라는 낱말이 눈에 띄어 골랐으나 그것은 예시이고, 설계상의 근거는 빈칸 주어를 대명사로 받아 곧바로 풀어 쓴 2문장이다. quote 를 2문장으로 바꾸고 마지막 문장은 reasoning 의 확인 근거로 내렸다",
-            "바꾼 quote 도 코퍼스 지문과 문자열 대조했다"
+            "바꾼 quote 도 코퍼스 지문과 문자열 대조했다",
+            "3차 판정에서 setter 가 revise 를 냈다 — 「한 낱말로 줄인 값이다」로만 적혀 정답 선지의 어느 낱말과 맞물리는지 서술에 없었다. freedom 을 지목하고 entitled to look wherever they want / is free to look at anyone he wants 두 표현과의 대응을 낱말 단위로 적었다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "answer_locus.quote 문자열 대조(교체 전후 두 번)",
             "빈칸이 문단 첫 문장인지 문장 세기",
-            "동격 표지 In essence 의 지시 대상 확인"
+            "동격 표지 In essence 의 지시 대상 확인",
+            "why_correct 안의 지문 인용을 corpus.json 지문에 문자열 대조",
+            "정답 선지 텍스트와 서술의 대응을 낱말 단위로 확인",
+            "정답 번호를 평가원 정답표와 재대조"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "한 낱말 선지 문항이라 오답 기제가 뜻 층위에서만 갈린다 — ①②는 지문에 없는 감정 · 충돌, ④는 주어에 안 맞는 태도, ⑤만 지문에 실제로 있는 의무를 반대 집단에서 끌어온다. ⑤가 가장 강한 함정이라 how_to_reject 에 같은 문장 안의 대조(can be indifferent)를 넣었다"
+            "한 낱말 선지 문항이라 오답 기제가 뜻 층위에서만 갈린다 — ①②는 지문에 없는 감정 · 충돌, ④는 주어에 안 맞는 태도, ⑤만 지문에 실제로 있는 의무를 반대 집단에서 끌어온다. ⑤가 가장 강한 함정이라 how_to_reject 에 같은 문장 안의 대조(can be indifferent)를 넣었다",
+            "3차 판정에서 analyst 가 revise 를 냈다 — 두 인용은 있었으나 선지 쪽 항이 비어 대응이 반쪽이었다. 3문장의 restricted 대조를 더해 dominant 쪽 값이 반대항으로 고정됨을 근거로 넣었다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "trap 라벨 중복 검사",
             "선지 낱말이 지문에 있는지 문자열 검색(anxiety · conflict · reluctance · responsibility 넷 다 없음, required 만 있음)",
-            "정답 ③이 코퍼스 정답 3과 일치하는지"
+            "정답 ③이 코퍼스 정답 3과 일치하는지",
+            "why_correct 가 근거 서술인지 학습자 심리 서술인지 판정",
+            "소거법에 기대지 않는지 확인",
+            "오답 넷의 trap·why_tempting·how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -499,12 +516,17 @@
           "verdict": "pass",
           "findings": [
             "절차 1단계의 on_fail 이 이 문항에서 실제로 필요하다 — passage 에 빈칸 마커가 없어 have more in using it 로 붙어 있다",
-            "85초 배분: 문장 세기 5초 + 주어 표시 15초 + 재진술 문장 25초 + 선지 대조 40초"
+            "85초 배분: 문장 세기 5초 + 주어 표시 15초 + 재진술 문장 25초 + 선지 대조 40초",
+            "3차 판정에서 tutor 가 revise 를 냈다 — 학생이 「한 낱말」이 무엇인지 스스로 만들어야 했다. 이제 2문장·7문장·3문장 세 자리와 freedom 이 함께 적혀 눈으로 맞춰 볼 수 있다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "절차를 지문 없이 실행",
             "금지 표현 검색",
-            "required_vocab 5개가 선지 판정에 쓰이는지"
+            "required_vocab 5개가 선지 판정에 쓰이는지",
+            "학생이 서술에 적힌 위치를 지문에서 실제로 짚을 수 있는지 확인",
+            "solve_procedure 와 서술이 어긋나지 않는지 대조",
+            "time_budget_sec 안에서 확인 가능한 분량인지"
           ]
         }
       ]
@@ -548,7 +570,14 @@
         {
           "n": 4,
           "verdict": "correct",
-          "why_correct": "3문장이 illusion 이라 부른 것(불평등에서 벗어남)의 실제 값이자 빈칸 직전 문장(공익에 반하는 이해에 복무)의 연장이다."
+          "why_correct": "빈칸 문장은 They ___ . 뿐이고 They 는 앞 문장 주어 Scientifically designed policies 를 받는다. 그 앞 문장이 이미 'can serve interests that run counter to the public interest' 라고 적었으므로 빈칸은 조동사 can 을 이어받아 같은 방향의 결과를 한 걸음 더 얹는 자리이고, 선지 ④ 'can reinforce unequal and unjust relationships' 의 can reinforce 가 그 자리를 받는다. 무엇이 강화되는지는 3문장이 지정한다 — 과학적 정책설계가 넘어섰다고 표방하는 것이 'the pitfalls and inequalities commonly associated with policymaking' 인데 같은 문장이 그것을 'an illusion of neutrality' 라 부르고, 5문장 'does not necessarily escape the pitfalls of degenerative politics' 가 한 번 더 못 박는다. 곧 inequalities 는 그대로 남아 있고, 남는 값은 그 불평등과 부당함을 오히려 강화한다는 진술이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              8,
+              9
+            ],
+            "note": "확정은 8문장(직전 문장)과 9문장(빈칸 문장의 They)에서 난다. 3·5문장은 방향(불평등이 남아 있음)을 대는 보조 근거다."
+          }
         },
         {
           "n": 5,
@@ -604,12 +633,17 @@
           "verdict": "pass",
           "findings": [
             "quote 가 코퍼스 지문 8문장에 그대로 있다",
-            "이 청크에서 유일하게 body_ok 가 true 인 문항이라 빈칸 마커(______)가 살아 있다 — 절차 1단계가 그대로 작동한다"
+            "이 청크에서 유일하게 body_ok 가 true 인 문항이라 빈칸 마커(______)가 살아 있다 — 절차 1단계가 그대로 작동한다",
+            "3차 판정에서 setter 가 revise 를 냈다 — 서술이 「3문장이 illusion 이라 부른 것의 실제 값」에 머물러 정답 선지의 동사 reinforce 와 맞물리는 자리가 없었다. 직전 문장의 can serve interests that run counter to the public interest 와 선지의 can reinforce 를 조동사까지 맞춰 적었다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "answer_locus.quote 문자열 대조",
             "빈칸이 문단 마지막 문장인지 문장 세기",
-            "꺾임 문장(5문장)이 전반 · 후반을 가르는지 확인"
+            "꺾임 문장(5문장)이 전반 · 후반을 가르는지 확인",
+            "why_correct 안의 지문 인용을 corpus.json 지문에 문자열 대조",
+            "정답 선지 텍스트와 서술의 대응을 낱말 단위로 확인",
+            "정답 번호를 평가원 정답표와 재대조"
           ]
         },
         {
@@ -617,12 +651,17 @@
           "verdict": "pass",
           "findings": [
             "초안은 ③과 ⑤에 모두 '부분 사실'을 달았다. ③은 3문장의 illusion of 라는 한정어를 떼어 낸 것이고 ⑤는 supposedly 절 안에서만 참인 진술을 실제 성질로 옮긴 것이라 기제가 다르다 — 범위 과대 / 부분 사실로 갈라 다시 달았다",
-            "오답 넷의 출처 문장이 전부 다르다(4문장 · 7문장 · 3문장 · 2문장). 절차 4단계가 '꺾임 앞에서 떠 온 것을 지운다'로 넷을 한꺼번에 처리하는 근거가 여기 있다"
+            "오답 넷의 출처 문장이 전부 다르다(4문장 · 7문장 · 3문장 · 2문장). 절차 4단계가 '꺾임 앞에서 떠 온 것을 지운다'로 넷을 한꺼번에 처리하는 근거가 여기 있다",
+            "3차 판정에서 analyst 가 revise 를 냈다 — 「불평등에서 벗어남의 반대」라는 서술만으로는 ③(may be free from the inequalities)의 부정에 그쳐 소거법과 구분되지 않았다. 강화(reinforce)까지 미는 근거로 직전 문장의 방향(공익에 반하는 이해에 복무)을 명시했다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "trap 라벨 중복 검사",
             "각 선지 어구의 지문 출처 문장 번호 확인",
-            "정답 ④가 코퍼스 정답 4와 일치하는지"
+            "정답 ④가 코퍼스 정답 4와 일치하는지",
+            "why_correct 가 근거 서술인지 학습자 심리 서술인지 판정",
+            "소거법에 기대지 않는지 확인",
+            "오답 넷의 trap·why_tempting·how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -630,12 +669,17 @@
           "verdict": "pass",
           "findings": [
             "절차 3단계가 이 문항의 유일한 관문이다 — 꺾임을 못 세우면 남은 단계가 전부 헛돈다는 점을 on_fail 에 대체 표지 두 종으로 받쳤다",
-            "130초 배분: 대명사 확인 10초 + 앞 문장 부호 20초 + 꺾임 탐색 40초 + 선지 소거 60초"
+            "130초 배분: 대명사 확인 10초 + 앞 문장 부호 20초 + 꺾임 탐색 40초 + 선지 소거 60초",
+            "3차 판정에서 tutor 가 revise 를 냈다 — 학생이 볼 자리가 3문장 하나뿐이었다. 8문장 → 빈칸 → 3·5문장 순으로 확인 순서를 서술에 넣었다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "절차를 지문 없이 실행",
             "금지 표현 검색",
-            "required_vocab 5개가 판정에 쓰이는지 — transcendence 와 degenerative 는 각각 ③과 정답 판정에 직접 쓰인다"
+            "required_vocab 5개가 판정에 쓰이는지 — transcendence 와 degenerative 는 각각 ③과 정답 판정에 직접 쓰인다",
+            "학생이 서술에 적힌 위치를 지문에서 실제로 짚을 수 있는지 확인",
+            "solve_procedure 와 서술이 어긋나지 않는지 대조",
+            "time_budget_sec 안에서 확인 가능한 분량인지"
           ]
         }
       ]
@@ -657,7 +701,13 @@
         {
           "n": 1,
           "verdict": "correct",
-          "why_correct": "빈칸 뒤 문장의 the possibility of enjoyment 와 앞 문장의 as far as life is concerned 를 한 명사구로 합친 값이다."
+          "why_correct": "빈칸 문장은 'a filter that reduces the' ___ 로 무엇이 줄어드는지를 묻고, 바로 뒤 문장 'When you turn down the feelings, you also turn down the possibility of enjoyment.' 가 그 답을 적는다 — 감정을 낮추면 즐거움의 가능성이 함께 낮아진다. 줄어드는 것은 사실성이 아니라 감정이 삶에 얹어 주는 몫이고, 그 몫을 명사구로 옮긴 것이 선지 ① 'richness of life' 다. 같은 문장의 'as far as life is concerned' 가 화제를 life 로 못 박아 선지의 of life 와 맞물리고, 비유 'turning the color off on your TV so that you see everything in black and white' 에서 빠지는 것이 색, 곧 풍부함이라는 점이 richness 와 맞물린다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6
+            ],
+            "note": "확정 문장은 빈칸 뒤 6문장 하나다. 4문장의 TV 비유는 값을 정하는 근거가 아니라 그 값을 그림으로 보여 주는 도구여서, 비유 소재를 그대로 담은 선지는 이 문장으로 갈린다."
+          }
         },
         {
           "n": 2,
@@ -728,24 +778,34 @@
           "verdict": "pass",
           "findings": [
             "quote 가 코퍼스 지문 마지막 문장에 그대로 있다",
-            "이 청크에서 근거가 빈칸 뒤에 있는 두 문항 중 하나다(다른 하나는 2014A#33). 나머지 일곱은 근거가 앞에 있어 type_report 에 기록했다"
+            "이 청크에서 근거가 빈칸 뒤에 있는 두 문항 중 하나다(다른 하나는 2014A#33). 나머지 일곱은 근거가 앞에 있어 type_report 에 기록했다",
+            "3차 판정에서 setter 가 revise 를 냈다 — 「한 명사구로 합친 값이다」로 끝나 선지 ①의 어느 부분과 맞물리는지 없었다. richness 는 색 비유와, of life 는 as far as life is concerned 와 각각 맞물림을 나눠 적었다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "answer_locus.quote 문자열 대조",
             "빈칸이 끝에서 둘째 문장인지 문장 세기",
-            "비유 문장(4문장)이 근거가 아니라 도구인지 확인"
+            "비유 문장(4문장)이 근거가 아니라 도구인지 확인",
+            "why_correct 안의 지문 인용을 corpus.json 지문에 문자열 대조",
+            "정답 선지 텍스트와 서술의 대응을 낱말 단위로 확인",
+            "정답 번호를 평가원 정답표와 재대조"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "오답 넷의 기제가 갈린다 — ②⑤는 지문에 없는 화제, ③은 비유 소재의 문자화, ④는 빈칸 문장 자체가 부정한 것. ④의 배제 근거가 빈칸 문장 안에 있다는 점이 이 문항에서 가장 값싼 검사다"
+            "오답 넷의 기제가 갈린다 — ②⑤는 지문에 없는 화제, ③은 비유 소재의 문자화, ④는 빈칸 문장 자체가 부정한 것. ④의 배제 근거가 빈칸 문장 안에 있다는 점이 이 문항에서 가장 값싼 검사다",
+            "3차 판정에서 analyst 가 revise 를 냈다 — 근거 인용 두 개는 있었으나 정답 선지 텍스트가 서술에 한 번도 나오지 않아 대응 확인이 불가능했다. 선지 어구를 인용해 붙였다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "trap 라벨 중복 검사",
             "선지 낱말의 지문 등장 여부 문자열 검색(brutality · theory · criticism 없음, TV 있음)",
-            "정답 ①이 코퍼스 정답 1과 일치하는지"
+            "정답 ①이 코퍼스 정답 1과 일치하는지",
+            "why_correct 가 근거 서술인지 학습자 심리 서술인지 판정",
+            "소거법에 기대지 않는지 확인",
+            "오답 넷의 trap·why_tempting·how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -753,15 +813,21 @@
           "verdict": "pass",
           "findings": [
             "90초면 충분하다 — 이 청크에서 가장 짧게 잡은 3점 문항이고 근거가 인접 한 문장이라 탐색이 없다",
-            "절차 4단계(비유 낱말 지우기)는 다른 문항에도 그대로 쓰인다 — 2014B#32 ②가 같은 검사로 걸린다"
+            "절차 4단계(비유 낱말 지우기)는 다른 문항에도 그대로 쓰인다 — 2014B#32 ②가 같은 검사로 걸린다",
+            "3차 판정에서 tutor 가 revise 를 냈다 — 학생이 확인할 자리를 「빈칸 뒤 한 문장」으로 좁히고, 비유 문장은 확정력이 없다는 점을 confirmed_at 으로 갈랐다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "절차를 지문 없이 실행",
             "금지 표현 검색",
-            "required_vocab 4개가 판정에 쓰이는지"
+            "required_vocab 4개가 판정에 쓰이는지",
+            "학생이 서술에 적힌 위치를 지문에서 실제로 짚을 수 있는지 확인",
+            "solve_procedure 와 서술이 어긋나지 않는지 대조",
+            "time_budget_sec 안에서 확인 가능한 분량인지"
           ]
         }
-      ]
+      ],
+      "revised": true
     },
     {
       "item_id": "2014B#34",
@@ -1066,7 +1132,14 @@
         {
           "n": 5,
           "verdict": "correct",
-          "why_correct": "6문장의 등식(남에게 말하면 더 이상 과학이 아니다)과 5문장의 규범(과학자끼리는 모든 개념을 수학화한다)을 이으면 나오는 결과다."
+          "why_correct": "빈칸 문장은 'the scientist reverses his drive toward mathematical exactness in favor of rhetorical vagueness and metaphor, thus' ___ 로, thus 앞 행위(수학적 정확성을 뒤집어 수사적 모호함과 은유를 택하는 것)의 결과를 묻는다. 그 행위가 무엇을 어기는지는 5문장이 미리 규정한다 — 'ideally, all scientific concepts are mathematized when scientists communicate with one another' 는 과학자를 과학자이게 하는 규범을 수학화로 못 박고, 6문장 'When science speaks to others, it is no longer science' 는 그 규범을 벗어나면 그것이 더 이상 과학이 아니라고 적는다. 선지 ⑤의 'the code of intellectual conduct that defines him as a scientist' 가 5문장의 그 규범이고, 'violating' 이 6문장의 dilutes the exactness of mathematics 와 빈칸 문장의 reverses his drive toward mathematical exactness 에 맞물린다.",
+          "confirmed_at": {
+            "sentence_index": [
+              5,
+              6
+            ],
+            "note": "정답 어구(code of intellectual conduct)는 지문에 없는 낱말이라, 확정은 5문장의 규범 규정과 6문장의 등식 둘을 이어야 난다. 빈칸 문장 자체는 행위만 적고 그 행위에 대한 평가를 적지 않는다."
+          }
         }
       ],
       "solve_procedure": [
@@ -1117,12 +1190,17 @@
           "findings": [
             "quote 를 코퍼스 지문 6문장과 문자열로 대조했다",
             "passage 끝이 and metaphor, thus . [ 로 잘려 빈칸 마커가 없다. raw_block 에서도 빈 줄로만 남아 있어 절차 1단계가 표지(thus)로 위치를 잡게 했다",
-            "정답이 지문에 없는 표현을 요구하는 문항이라 '지문에 없는 낱말이 정답'이라는 역휴리스틱을 부르기 쉽다. 2014A#33(정답 freedom ← is free to)이 반례이므로 type_report 에 함께 적었다"
+            "정답이 지문에 없는 표현을 요구하는 문항이라 '지문에 없는 낱말이 정답'이라는 역휴리스틱을 부르기 쉽다. 2014A#33(정답 freedom ← is free to)이 반례이므로 type_report 에 함께 적었다",
+            "3차 판정에서 setter 가 revise 를 냈다 — 서술에 영어 인용이 한 자도 없어 「등식과 규범을 이으면 나오는 결과」라는 요약뿐이었다. 5·6문장과 빈칸 문장의 원문을 인용하고 선지 ⑤의 code of intellectual conduct·violating 각각과 맞물리는 자리를 적었다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "answer_locus.quote 문자열 대조",
             "raw_block 으로 빈칸 위치 확인",
-            "정답 ⑤가 앞 두 문장에서 도출 가능한지 단계별 확인"
+            "정답 ⑤가 앞 두 문장에서 도출 가능한지 단계별 확인",
+            "why_correct 안의 지문 인용을 corpus.json 지문에 문자열 대조",
+            "정답 선지 텍스트와 서술의 대응을 낱말 단위로 확인",
+            "정답 번호를 평가원 정답표와 재대조"
           ]
         },
         {
@@ -1130,12 +1208,17 @@
           "verdict": "pass",
           "findings": [
             "오답 넷이 전부 지문 낱말을 담고 있어 라벨을 낱말이 아니라 기제로 갈랐다 — ①은 지문이 부정한 결합을 전제, ②는 1문장의 직접 부정, ③은 없는 인과와 강도 추가, ④는 지문에 없는 의무 전제",
-            "③과 ④가 가장 헷갈렸다. ③은 지문 문장(resistance to science)을 늘린 것이고 ④는 지문에 근거 문장이 아예 없는 것이라 범위 과대 / 지문 밖 상식으로 갈랐다"
+            "③과 ④가 가장 헷갈렸다. ③은 지문 문장(resistance to science)을 늘린 것이고 ④는 지문에 근거 문장이 아예 없는 것이라 범위 과대 / 지문 밖 상식으로 갈랐다",
+            "3차 판정에서 analyst 가 revise 를 냈다 — 정답 어구가 지문에 없는 문항이라 근거 없이 요약만 남으면 소거법과 구분되지 않는다. 규범(5문장)과 위반(6문장·빈칸 문장) 두 항으로 갈라 근거를 세웠다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "trap 라벨 중복 검사",
             "선지 어구를 지문에서 문자열 검색(salesmanship · mathematics · resistance 있음, duty · hostile 없음)",
-            "정답 ⑤가 코퍼스 정답 5와 일치하는지"
+            "정답 ⑤가 코퍼스 정답 5와 일치하는지",
+            "why_correct 가 근거 서술인지 학습자 심리 서술인지 판정",
+            "소거법에 기대지 않는지 확인",
+            "오답 넷의 trap·why_tempting·how_to_reject 는 손대지 않았음을 확인"
           ]
         },
         {
@@ -1143,12 +1226,17 @@
           "verdict": "pass",
           "findings": [
             "초안의 required_vocab 은 universal · frictionless · publicist · metaphor 를 포함해 8개였다. 지문 어휘 나열에 가까워 정답 판정에 실제로 쓰이는 5개(ambivalent · dilute · exactness · salesmanship · vagueness)로 줄였다 — publicist 는 문맥으로 넘겨도 판정이 갈리지 않는다",
-            "140초는 이 청크에서 가장 길게 잡았다: 표지 확인 10초 + 앞 절 요약 25초 + 정의 문장 35초 + 두 무리 나누기 30초 + 대입 40초. 3점 문항 셋을 이 예산으로 쓰면 나머지 유형에 쓸 시간이 줄어드므로, 이 문항은 마지막에 푸는 순서를 권한다"
+            "140초는 이 청크에서 가장 길게 잡았다: 표지 확인 10초 + 앞 절 요약 25초 + 정의 문장 35초 + 두 무리 나누기 30초 + 대입 40초. 3점 문항 셋을 이 예산으로 쓰면 나머지 유형에 쓸 시간이 줄어드므로, 이 문항은 마지막에 푸는 순서를 권한다",
+            "3차 판정에서 tutor 가 revise 를 냈다 — 학생이 「규범」이 지문 어디에 적혀 있는지 찾을 수 없었다. 이제 5문장을 직접 짚게 했다",
+            "고쳐 쓴 뒤 세 자로 다시 재어 pass 로 바꿨다"
           ],
           "checked": [
             "절차를 지문 없이 초 단위로 실행",
             "금지 표현 검색",
-            "required_vocab 축소 전후로 각 선지 판정이 가능한지 재확인"
+            "required_vocab 축소 전후로 각 선지 판정이 가능한지 재확인",
+            "학생이 서술에 적힌 위치를 지문에서 실제로 짚을 수 있는지 확인",
+            "solve_procedure 와 서술이 어긋나지 않는지 대조",
+            "time_budget_sec 안에서 확인 가능한 분량인지"
           ]
         }
       ]
