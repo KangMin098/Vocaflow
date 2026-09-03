@@ -10,6 +10,39 @@
 
 ## Unreleased (v06.34 → next)
 
+### 미로그인으로 DB 에 쓸 수 있었다 — 무가드 DEFINER 27종에서 PUBLIC 을 걷어냈다 (2026-09-03)
+
+보안 advisor 569건을 훑다가 실제 구멍을 찾았다. public 스키마 `SECURITY DEFINER` **147종 중
+anon 이 119, authenticated 가 137** 을 실행할 수 있었고, 그중 **쓰기를 하면서 권한 가드가
+없고 anon 에 열린 것이 27종**이었다.
+
+- `purge_ghost_vocab(uuid)` — 가드 없이 DELETE. anon 키로 호출하니 **200 을 돌려주며 실행됐다**
+- `update_user_v_level(p_user_id, …)` · `auto_promote_track_level_for_user(p_user_id, …)` —
+  미로그인자가 **임의 사용자**의 레벨을 바꿀 수 있었다
+- `refresh_textbook_shelf_stats()` — **같은 날 인스턴스를 굶겨 죽인 14초 풀스캔**을
+  누구나 인증 없이 무제한 트리거할 수 있었다. 보안이자 가용성 문제다
+- 마이그레이션 `20260903121759` — 27종에서 `REVOKE EXECUTE … FROM PUBLIC`.
+  **anon 119 → 92 · authenticated 137 유지 · 무가드 anon 쓰기 27 → 0**
+
+**첫 시도(`20260903121358`)는 조용히 실패했다** — `REVOKE … FROM anon` 은 마이그레이션이
+성공해도 아무 일도 안 한다. 권한은 anon 직접 부여가 아니라 ACL 의 `=X/postgres`,
+즉 **PUBLIC** 에서 온다. 적용 후에도 119 → 116(3종)에 그쳤고 `purge_ghost_vocab` 은 여전히
+실행됐다. ⚠️ **이 함정은 `DB_SCHEMA.md` v06.164 항목에 이미 적혀 있었는데 읽지 않고
+반복했다.** 권한 변경은 마이그레이션 성공이 아니라 `has_function_privilege()` 재측정과
+실제 anon 키 호출로 검증할 것.
+
+일부러 남긴 것 — **`admin_*` 18종**은 anon 에 열려 있으나 본문 가드가 실제로 막는다
+(anon 호출이 `Forbidden: admin or curator only` 를 받는 것 확인). **`csat_items_public`** 은
+advisor 의 유일한 ERROR 지만 **오탐**이다: SECURITY DEFINER 인 것이 의도된 저작권 경계이고,
+기반표 `csat_dcp_items` 는 RLS 로 비관리자에게 0행이라 INVOKER 로 바꾸면 학습자 화면이 죽는다.
+
+회귀 36 tests 통과(RLS 표면 14 · 저작권 경계 8 · 권한상승 8 · RPC 호출부 6) ·
+공개 표면(`csat_items_public` · `textbook_shelf_inventory` · `list_pd_comic_shelf`) 전부 200 유지.
+남은 차수: authenticated 137종 · pg_graphql 노출 240 · `function_search_path_mutable` 57 ·
+RLS 무정책 8 · 확장 5 · 유출 비번 보호.
+
+
+
 ### DB 가 7시간 20분 멎어 있었다 — 5분마다 865 MB 를 풀스캔하고 있었다 (2026-09-03)
 
 2026-09-03 03:52:43 UTC 부터 11:13 재시작까지 인스턴스가 통째로 무응답이었다.
