@@ -10,15 +10,24 @@
 // 있어도 DB 에서 지우지 않는다. 지우면 그 문항에 달린 분석이 CASCADE 로 함께 사라진다.
 // 사라진 문항은 화면에 보고만 하고, 지우는 것은 사람이 결정한다.
 //
+// 딱 하나 예외가 `--prune-listening` 이다 — **듣기 행을 지운다.** 사용자가 「듣기는 전체에서
+// 제외」를 지시했고(2026-09-03), 듣기에는 분석이 한 건도 없어 CASCADE 로 잃을 것이 없다.
+// 그래도 **지우기 전에 다시 센다**: 듣기 문항에 분석이 하나라도 붙어 있거나, 듣기가 아닌 문항이
+// 듣기 유형을 물고 있으면 **아무것도 지우지 않고 멈춘다.** 지시가 옳아도 전제가 바뀌었을 수 있고,
+// 그때 지우면 되돌릴 수 없다. 플래그를 따로 둔 이유도 같다 — 평상시 동기화에 삭제가 묻어가면 안 된다.
+// (원장 `corpus.json` 에는 듣기 문항이 그대로 남는다. 되살리려면 여기서 다시 올리면 된다.)
+//
 // 실행:
 //   node scripts/csat/corpus-sync.mjs            (미리보기 — 쓰지 않는다)
 //   node scripts/csat/corpus-sync.mjs --commit
+//   node scripts/csat/corpus-sync.mjs --commit --prune-listening
 
 import fs from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 
 const COMMIT = process.argv.includes('--commit')
+const PRUNE_LISTENING = process.argv.includes('--prune-listening')
 const DIR = path.resolve('scripts/csat/data')
 
 function env(name) {
@@ -149,6 +158,67 @@ if (listening.length) {
   console.log(`  · DB 에 남은 듣기 문항 ${listening.length}개 — 이제 올리지 않는다. 지우려면 사용자 확인 뒤 삭제할 것`)
 }
 if (gone.length) {
-  console.log(`  ⚠ 코퍼스에 없는 DB 문항 ${gone.length}개 — 지우지 않았다(분석이 CASCADE 로 사라진다): ${gone.slice(0, 5).map((r) => r.id).join(' ')}`)
+  // **분석이 붙었는지 실제로 세어 말한다.** "분석이 CASCADE 로 사라진다" 를 무조건 적어 두면
+  // 그 경고가 참인지 거짓인지 아무도 모르게 되고, 정말 위험한 날에도 똑같이 읽힌다.
+  const ids = gone.map((r) => r.id)
+  let withAnalyses = 0
+  for (let i = 0; i < ids.length; i += 200) {
+    const { count, error: aErr } = await db
+      .from('csat_item_analyses')
+      .select('*', { count: 'exact', head: true })
+      .in('item_id', ids.slice(i, i + 200))
+    if (aErr) throw new Error(aErr.message)
+    withAnalyses += count ?? 0
+  }
+  const risk = withAnalyses > 0 ? `분석 ${withAnalyses}건이 딸려 있다 — 지우면 CASCADE 로 사라진다` : '딸린 분석 0건 — 지워도 잃을 것이 없다'
+  console.log(`  ⚠ 코퍼스에 없는 DB 문항 ${gone.length}개 (${risk}): ${gone.slice(0, 5).map((r) => r.id).join(' ')}`)
 }
+// ── 듣기 행 삭제 (--prune-listening) ─────────────────────────────────
+if (PRUNE_LISTENING) {
+  // 전제를 **지금 다시 잰다.** 예전에 0이었다는 것은 근거가 아니다.
+  const countOf = async (table, build) => {
+    const { count, error } = await build(db.from(table).select('*', { count: 'exact', head: true }))
+    if (error) throw new Error(`${table}: ${error.message}`)
+    return count ?? 0
+  }
+  const listeningItems = await countOf('csat_items', (q) => q.eq('section', '듣기'))
+  const listeningTypes = await countOf('csat_types', (q) => q.eq('section', '듣기'))
+  const stuckInScope = await countOf('csat_items', (q) => q.eq('section', '듣기').eq('in_scope', true))
+
+  // 듣기 문항에 붙은 분석 — 하나라도 있으면 멈춘다(CASCADE 로 사라진다)
+  const { data: lIds, error: lErr } = await db.from('csat_items').select('id').eq('section', '듣기')
+  if (lErr) throw new Error(lErr.message)
+  let attached = 0
+  for (let i = 0; i < (lIds ?? []).length; i += 200) {
+    attached += await countOf('csat_item_analyses', (q) =>
+      q.in('item_id', lIds.slice(i, i + 200).map((r) => r.id)),
+    )
+  }
+  // 듣기가 아닌 문항이 듣기 유형을 물고 있으면 유형 삭제가 FK 로 막힌다(NO ACTION)
+  const { data: lTypeIds, error: tErr } = await db.from('csat_types').select('id').eq('section', '듣기')
+  if (tErr) throw new Error(tErr.message)
+  const orphanRisk = (lTypeIds ?? []).length
+    ? await countOf('csat_items', (q) => q.in('type_id', lTypeIds.map((r) => r.id)).neq('section', '듣기'))
+    : 0
+
+  console.log(`
+  듣기 삭제 예정 — 문항 ${listeningItems} · 유형 ${listeningTypes}`)
+  const blockers = []
+  if (attached > 0) blockers.push(`듣기 문항에 분석 ${attached}건이 붙어 있다 (CASCADE 로 사라진다)`)
+  if (stuckInScope > 0) blockers.push(`듣기인데 in_scope=true 인 문항 ${stuckInScope}개 — 경계가 어긋나 있다`)
+  if (orphanRisk > 0) blockers.push(`듣기 유형을 문 비듣기 문항 ${orphanRisk}개 — 유형 삭제가 막힌다`)
+  if (blockers.length) {
+    console.log('  ✗ 아무것도 지우지 않았다:')
+    for (const b of blockers) console.log(`      · ${b}`)
+    process.exit(1)
+  }
+
+  // 문항 → 유형 순서. 반대로 하면 `csat_items.type_id` FK(NO ACTION)에 막힌다.
+  const di = await db.from('csat_items').delete().eq('section', '듣기').select('id')
+  if (di.error) throw new Error(`문항 삭제: ${di.error.message}`)
+  const dt = await db.from('csat_types').delete().eq('section', '듣기').select('id')
+  if (dt.error) throw new Error(`유형 삭제: ${dt.error.message}`)
+  console.log(`  · 삭제 완료 — 문항 ${di.data?.length ?? 0} · 유형 ${dt.data?.length ?? 0}`)
+}
+
 console.log('→ csat_types · csat_exams · csat_items 적재 완료')
