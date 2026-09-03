@@ -1,0 +1,486 @@
+{
+ "measuredAt": "2026-09-03T04:05:21.414Z",
+ "pagesPerBook": 14,
+ "report": [
+  {
+   "slug": "introduction-philosophy",
+   "label": "Introduction to Philosophy",
+   "want": "철학·윤리",
+   "totalPages": 135,
+   "sampled": 14,
+   "failed": 0,
+   "shapeOnly": 6,
+   "fit": 5,
+   "est": 48,
+   "estWant": 39,
+   "topics": {
+    "철학·윤리": 5,
+    "교육·언어": 1,
+    "예술·문화": 8
+   },
+   "samples": [
+    {
+     "slug": "1-1-what-is-philosophy",
+     "words": 3814,
+     "shape": 16,
+     "pass": 13,
+     "topic": "철학·윤리",
+     "margin": 22
+    },
+    {
+     "slug": "2-introduction",
+     "words": 306,
+     "shape": 1,
+     "pass": 1,
+     "topic": "교육·언어",
+     "margin": 4
+    },
+    {
+     "slug": "2-references",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "3-key-terms",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "4-summary",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "5-3-arguments",
+     "words": 1090,
+     "shape": 7,
+     "pass": 3,
+     "topic": "철학·윤리",
+     "margin": 38
+    },
+    {
+     "slug": "6-introduction",
+     "words": 399,
+     "shape": 1,
+     "pass": 0,
+     "topic": "철학·윤리",
+     "margin": 2
+    },
+    {
+     "slug": "6-further-reading",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "7-key-terms",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "8-4-well-being",
+     "words": 3124,
+     "shape": 16,
+     "pass": 14,
+     "topic": "철학·윤리",
+     "margin": 13
+    },
+    {
+     "slug": "9-1-requirements-of-a-normative-moral-theory",
+     "words": 634,
+     "shape": 1,
+     "pass": 1,
+     "topic": "철학·윤리",
+     "margin": 55
+    },
+    {
+     "slug": "9-review-questions",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "10-references",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "11-summary",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    }
+   ]
+  },
+  {
+   "slug": "world-history-volume-1",
+   "label": "World History, Volume 1: to 1500",
+   "want": "역사·인류",
+   "totalPages": 207,
+   "sampled": 10,
+   "failed": 4,
+   "shapeOnly": 5,
+   "fit": 5,
+   "est": 104,
+   "estWant": 41,
+   "topics": {
+    "역사·인류": 2,
+    "예술·문화": 6,
+    "과학·자연": 1,
+    "사회·경제": 1
+   },
+   "samples": [
+    {
+     "slug": "1-1-developing-a-global-perspective",
+     "words": 2197,
+     "shape": 13,
+     "pass": 6,
+     "topic": "역사·인류",
+     "margin": 8
+    },
+    {
+     "slug": "2-key-terms",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "3-review-questions",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "4-application-and-reflection-questions",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "8-introduction",
+     "words": 272,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 0
+    },
+    {
+     "slug": "9-3-the-kingdom-of-kush",
+     "words": 3932,
+     "shape": 19,
+     "pass": 10,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "10-4-the-margins-of-empire",
+     "words": 2796,
+     "shape": 14,
+     "pass": 11,
+     "topic": "역사·인류",
+     "margin": 8
+    },
+    {
+     "slug": "11-review-questions",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "15-1-culture-and-society-in-medieval-africa",
+     "words": 5589,
+     "shape": 31,
+     "pass": 18,
+     "topic": "과학·자연",
+     "margin": 1
+    },
+    {
+     "slug": "16-4-the-long-term-effects-of-global-transformation",
+     "words": 2227,
+     "shape": 5,
+     "pass": 3,
+     "topic": "사회·경제",
+     "margin": 25
+    }
+   ]
+  },
+  {
+   "slug": "introduction-anthropology",
+   "label": "Introduction to Anthropology",
+   "want": "역사·인류",
+   "totalPages": 219,
+   "sampled": 14,
+   "failed": 0,
+   "shapeOnly": 8,
+   "fit": 7,
+   "est": 110,
+   "estWant": 16,
+   "topics": {
+    "역사·인류": 2,
+    "예술·문화": 9,
+    "교육·언어": 1,
+    "과학·자연": 1,
+    "사회·경제": 1
+   },
+   "samples": [
+    {
+     "slug": "1-1-the-study-of-humanity-or-anthropology-is-vast",
+     "words": 2927,
+     "shape": 11,
+     "pass": 6,
+     "topic": "역사·인류",
+     "margin": 16
+    },
+    {
+     "slug": "2-3-ethnography-and-ethnology",
+     "words": 1238,
+     "shape": 3,
+     "pass": 0,
+     "topic": "역사·인류",
+     "margin": 23
+    },
+    {
+     "slug": "3-6-the-paradoxes-of-culture",
+     "words": 3925,
+     "shape": 21,
+     "pass": 16,
+     "topic": "예술·문화",
+     "margin": 22
+    },
+    {
+     "slug": "4-summary",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "6-1-the-emergence-and-development-of-language",
+     "words": 3233,
+     "shape": 21,
+     "pass": 9,
+     "topic": "교육·언어",
+     "margin": 22
+    },
+    {
+     "slug": "7-5-plant-cultivation-horticulture-and-agriculture",
+     "words": 4548,
+     "shape": 22,
+     "pass": 12,
+     "topic": "과학·자연",
+     "margin": 25
+    },
+    {
+     "slug": "8-summary",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "10-2-early-global-movements-and-cultural-hybridity",
+     "words": 4161,
+     "shape": 4,
+     "pass": 3,
+     "topic": "사회·경제",
+     "margin": 17
+    },
+    {
+     "slug": "11-critical-thinking-questions",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "13-2-symbolic-and-sacred-space",
+     "words": 1141,
+     "shape": 7,
+     "pass": 4,
+     "topic": "예술·문화",
+     "margin": 2
+    },
+    {
+     "slug": "14-summary",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "15-critical-thinking-questions",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "17-2-ethnomedicine",
+     "words": 1473,
+     "shape": 2,
+     "pass": 2,
+     "topic": "예술·문화",
+     "margin": 18
+    },
+    {
+     "slug": "18-summary",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    }
+   ]
+  },
+  {
+   "slug": "business-ethics",
+   "label": "Business Ethics",
+   "want": "철학·윤리",
+   "totalPages": 122,
+   "sampled": 12,
+   "failed": 2,
+   "shapeOnly": 8,
+   "fit": 8,
+   "est": 81,
+   "estWant": 31,
+   "topics": {
+    "철학·윤리": 3,
+    "예술·문화": 5,
+    "사회·경제": 3,
+    "과학·자연": 1
+   },
+   "samples": [
+    {
+     "slug": "1-1-being-a-professional-of-integrity",
+     "words": 2157,
+     "shape": 12,
+     "pass": 10,
+     "topic": "철학·윤리",
+     "margin": 10
+    },
+    {
+     "slug": "2-introduction",
+     "words": 302,
+     "shape": 1,
+     "pass": 1,
+     "topic": "철학·윤리",
+     "margin": 3
+    },
+    {
+     "slug": "2-summary",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "3-4-corporate-social-responsibility-csr",
+     "words": 2055,
+     "shape": 5,
+     "pass": 2,
+     "topic": "사회·경제",
+     "margin": 26
+    },
+    {
+     "slug": "4-2-sustainability-business-and-the-environment",
+     "words": 6160,
+     "shape": 25,
+     "pass": 14,
+     "topic": "과학·자연",
+     "margin": 3
+    },
+    {
+     "slug": "5-1-the-relationship-between-business-ethics-and-culture",
+     "words": 3185,
+     "shape": 17,
+     "pass": 11,
+     "topic": "예술·문화",
+     "margin": 9
+    },
+    {
+     "slug": "6-assessment-questions",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "7-5-criticism-of-the-company-and-whistleblowing",
+     "words": 3921,
+     "shape": 21,
+     "pass": 13,
+     "topic": "사회·경제",
+     "margin": 12
+    },
+    {
+     "slug": "8-2-accommodating-different-abilities-and-faiths",
+     "words": 1641,
+     "shape": 6,
+     "pass": 5,
+     "topic": "사회·경제",
+     "margin": 11
+    },
+    {
+     "slug": "9-assessment-questions",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "10-key-terms",
+     "words": 102,
+     "shape": 0,
+     "pass": 0,
+     "topic": "예술·문화",
+     "margin": 1
+    },
+    {
+     "slug": "11-3-becoming-an-ethical-professional",
+     "words": 1942,
+     "shape": 8,
+     "pass": 5,
+     "topic": "철학·윤리",
+     "margin": 13
+    }
+   ]
+  }
+ ]
+}

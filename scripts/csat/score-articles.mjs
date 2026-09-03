@@ -33,34 +33,21 @@
 //
 // 재실행 안전: 이미 같은 판·같은 대역으로 채점된 원문은 건너뛴다. `--force` 로만 다시 한다.
 
-import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { allRows, itemBlocks, passageOf } from './lib-passage.mjs'
-import { cleanPassage, looksInterleaved } from './clean-passage.mjs'
-import { looksLikeProse } from './prose-gate.mjs'
+// ⚠️ 채점기는 **여기 두지 않는다** — 새 소스를 붙일지 재는 탐색기와 적재 시점 게이트도
+//   같은 자를 써야 한다. 복사본이 생기면 "이 소스는 70% 통과" 라 재 놓고 적재한 뒤
+//   채점하면 다른 값이 나온다. 자는 `lib-fit.mjs` 하나뿐이다.
+import { BANDS_HASH, FLOOR, SCORER_VERSION, TYPE, scoreArticle } from './lib-fit.mjs'
 
-// ⚠️ **이 채점기가 재지 않는 축: 소재.**
+// ⚠️ **이 채점기가 재지 않는 축: 소재.** 근거와 두 번의 실패한 시도는 `lib-fit.mjs` 머리말에
+//   적어 뒀다(뉴스 분류기 2026-08-30 · 소재 분류기 확신도 게이트 2026-09-03).
 //
-// 실측 2026-08-30 — 이 자로 재면 `wikipedia` 가 **적합률 94.6% 로 전 소스 1위**가 된다.
-// FA/GA 문서는 길고 잘 짜인 설명문이라 모양·담화 대역을 잘 통과하기 때문이다. 그런데
-// 그 제목은 *Judge (sumo)* · *True Blue (album)* · *Siege of Rome* 이다 — 수능 소재가 아니다.
-//
-// 저장소의 `classifyTopic` 을 게이트로 붙여 봤지만 **이 축에는 맞지 않는다**:
-//   위키백과의 모양·담화 적합 87편 중 `unfit` 은 **1편**뿐이고,
-//   *Judge (sumo)*·*True Blue (album)* 은 `neutral`, *Changeling (film)* 은 오히려 `fit` 이다.
-//   그건 뉴스 연성/경성 분류기이지 수능 소재 판정기가 아니다.
-//
-// 대신 실측이 알려 준 것: **소재는 소스가 이미 결정한다.** 같은 `neutral` 이라도
-//   PLOS·futurity → 태양지구공학 · 기술혁신과 문화변동 · 세포생물학 · 도시 주거비 · 전기차 배출
-//   wikipedia     → 스모 심판 · 앨범 · 공성전
-// 학술·기관 소스는 본질적으로 수능 소재이고, 전 분야를 다루는 위키백과만 예외다.
-//
-// → 그래서 소재 축은 **소스 정책**으로 통제하고(위키백과 대량 확보 보류), 이 자는
-//   모양·담화만 잰다. 자가 못 재는 것을 재는 척하지 않는 것이 이 파일의 계약이다.
-const SCORER_VERSION = 1
-const TYPE = 'R-BLANK' // 수능 최다 출제 · 기출 표본 n=55 로 가장 두껍다
+// → 그래서 `pass > 0` 편수는 **「적합」의 절반**이다. 나머지 절반(소재 배합)은
+//   `topic-gap.mjs` 가 재고, 목표(1만/3만/5만)와 견줄 값은 그쪽의 **균형 사정권**이다.
+//   실측 2026-09-03: 적합 14,252편 → 균형 사정권 **4,161편**.
+//   상세 `docs/reports/csat-source-fit-20260903.md`.
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -73,87 +60,6 @@ const LIMIT = arg('limit') ? Number(arg('limit')) : Infinity
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
-}
-
-const bandsFile = JSON.parse(
-  fs.readFileSync(path.resolve('scripts/csat/data/type-bands-all.json'), 'utf8'),
-)
-const SHAPE = bandsFile.bands[TYPE]
-/**
- * ⚠️ bandsFile.builtAt 은 시각이 아니라 **생성 스크립트 이름**('build-bands-all.mjs')이다.
- *   그걸 판별자로 쓰면 대역을 다시 만들어 값이 바뀌어도 같은 문자열이라 **재채점 대상을
- *   못 가린다.** 그래서 대역 값 자체를 해시한다 — 값이 바뀌면 해시가 바뀐다.
- */
-const BANDS_HASH = crypto.createHash('sha256').update(JSON.stringify(SHAPE)).digest('hex').slice(0, 12)
-
-const W = (s) => s.match(/[A-Za-z][A-Za-z'-]*/g) ?? []
-const splitSentences = (s) =>
-  s.replace(/\s+/g, ' ').split(/(?<=[.!?])\s+/).map((x) => x.trim()).filter((x) => x.length > 3)
-
-const CONNECTIVE =
-  /\b(however|therefore|thus|hence|moreover|furthermore|nevertheless|nonetheless|consequently|accordingly|meanwhile|instead|rather|although|though|whereas|while|because|since|so that|as a result|for example|for instance|in contrast|on the other hand|in other words|that is|in fact|indeed|by contrast|similarly|likewise|in addition|on the contrary|in short|in sum)\b/gi
-const ANAPHORA = /\b(this|these|those|such|its|their|his|her|they|them|it)\b/gi
-
-/** 기출에서 담화 하한을 뽑는다 — `discourse-band.mjs` 와 같은 방법·같은 표본. */
-function discourseFloor() {
-  const rows = []
-  for (const r of allRows()) {
-    if (r.type !== TYPE) continue
-    const b = itemBlocks(r.exam, r.no)[0]
-    if (!b) continue
-    const p = cleanPassage(passageOf(b))
-    if (!p || p.length < 150 || looksInterleaved(p)) continue
-    const w = W(p)
-    rows.push({
-      conn: (100 * (p.match(CONNECTIVE) ?? []).length) / Math.max(1, w.length),
-      ana: (100 * (p.match(ANAPHORA) ?? []).length) / Math.max(1, w.length),
-    })
-  }
-  const q = (a, x) => { const s = [...a].sort((m, n) => m - n); return s[Math.floor(x * (s.length - 1))] }
-  return {
-    n: rows.length,
-    conn: q(rows.map((r) => r.conn), 0.1),
-    ana: q(rows.map((r) => r.ana), 0.1),
-  }
-}
-const FLOOR = discourseFloor()
-
-function scoreArticle(text) {
-  const sents = splitSentences(text)
-  const wp = sents.map(W)
-  let shape = 0
-  let pass = 0
-  let i = 0
-  while (i < sents.length) {
-    let acc = []
-    let j = i
-    let hit = -1
-    while (j < sents.length) {
-      acc = acc.concat(wp[j])
-      j++
-      if (acc.length > SHAPE.words.hi) break
-      if (acc.length < SHAPE.words.lo) continue
-      const sentLen = acc.length / (j - i)
-      const wordLen = acc.reduce((s, x) => s + x.length, 0) / acc.length
-      if (
-        sentLen < SHAPE.sentLen.lo || sentLen > SHAPE.sentLen.hi ||
-        wordLen < SHAPE.wordLen.lo || wordLen > SHAPE.wordLen.hi
-      ) continue
-      if (!looksLikeProse(sents.slice(i, j).join(' '), acc)) continue
-      hit = j
-      break
-    }
-    if (hit < 0) { i++; continue }
-    shape++
-    const text2 = sents.slice(i, hit).join(' ')
-    const w = W(text2)
-    const conn = (100 * (text2.match(CONNECTIVE) ?? []).length) / Math.max(1, w.length)
-    const ana = (100 * (text2.match(ANAPHORA) ?? []).length) / Math.max(1, w.length)
-    const hasBoth = (text2.match(CONNECTIVE) ?? []).length > 0 && (text2.match(ANAPHORA) ?? []).length > 0
-    if (conn >= FLOOR.conn && ana >= FLOOR.ana && hasBoth) pass++
-    i = hit
-  }
-  return { shape, pass }
 }
 
 const { createClient } = await import('@supabase/supabase-js')
