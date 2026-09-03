@@ -132,6 +132,17 @@ export {
   SPACE_PLACE_FEEDS,
 } from './ingest-article/space-place'
 export type { SpacePlaceListItem } from './ingest-article/space-place'
+// NOAA Ocean Facts — PD. 실측 213~753어 · FK 중앙 11.4 로 **중3 이상**이다(표본 8).
+export {
+  ingestOceanFactsArticle,
+  listOceanFactsFeed,
+  oceanFactsUrl,
+  oceanFactsSlugsIn,
+  oceanFactsParagraphs,
+  oceanFactsTitle,
+  OCEAN_FACTS_FEEDS,
+} from './ingest-article/ocean-facts'
+export type { OceanFactsListItem } from './ingest-article/ocean-facts'
 export type { NoaaListItem } from './ingest-article/noaa'
 // CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
 export { generateDcpItems, explainDcpEligibility } from './dcp/generate-items'

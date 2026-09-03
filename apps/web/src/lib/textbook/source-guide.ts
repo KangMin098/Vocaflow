@@ -89,6 +89,10 @@ export const SOURCE_GUIDE: Record<SourceKey, SourceGuide> & Record<string, Sourc
     label: '기후·해양',
     says: 'NOAA 공개 자료. 자료와 추세를 다루는 글입니다.',
   },
+  ocean_facts: {
+    label: '바다',
+    says: 'NOAA 가 바다·날씨에 대한 물음 하나에 한 편씩 답한 글입니다.',
+  },
   space_place: {
     label: '우주',
     says: 'NASA 가 어린이·청소년을 위해 쓴 우주 설명글입니다.',

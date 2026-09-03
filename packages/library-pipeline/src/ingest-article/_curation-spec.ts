@@ -37,6 +37,7 @@ export type SourceKey =
   //   초·중 창에 드는 글 154편의 register 를 세니 **narrative 0** 이었다 —
   //   재고 부족이 아니라 종류 부재라 편수를 늘려도 해결되지 않는다.
   // NASA Space Place — 두 관문(robots · 저작권 고지)을 다 통과한 유일한 후보. 2026-09-03 추가.
+  | 'ocean_facts'
   | 'space_place'
   | 'storyweaver'
   // ACP §20 — 사실 재저작. 외부 본문을 가져오지 않으므로 수집 대상이 아니지만,
@@ -346,6 +347,18 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 240,
     noiseKeywords: ['listen:', 'watch:', 'podcast'], // 오디오/영상 포스트는 본문이 짧다
     maxItems: 20,
+  },
+  ocean_facts: {
+    // 쪽에 발행일이 없다 — recency 를 켜 두면 전량이 0점이 되어 한 편도 안 들어온다.
+    recencyDays: null,
+    minDescriptionLen: 0, // 분류 쪽에서 링크만 긁는다 — 설명이 없다
+    minTitleLen: 3,
+    sourceWeight: 0.88,
+    levelBonus: 0.03,
+    idealDescLen: 120,
+    // `oceanfacts-*` 는 분류 쪽이라 지문이 아니다.
+    noiseKeywords: ['oceanfacts-', 'glossary'],
+    maxItems: 24,
   },
   space_place: {
     // 우주 설명글은 시의성이 약하고 **발행일 자체가 쪽에 없다.**
@@ -789,6 +802,22 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
     styleGuide: '대학 공보의 연구 소개 기사 (B1-B2) · 학술 소재를 일반 독자용으로 재서술',
     preferredFeedMix: [{ feedId: 'all', weight: 1.00 }],
   },
+  // NOAA Ocean Facts: 한 물음에 한 편. **실측 213~753어 · FK 중앙 11.4 로 중3 이상**이다.
+  ocean_facts: {
+    // ⚠️ 처음엔 A2-B1·beginner 로 적었다 — tsunami 한 쪽(112어)만 보고 정한 값이었다.
+    //   8쪽을 재 보니 213~753어 · FK 9.5~13.9(중앙 11.4) · 교육과정 밖 32~54% 로
+    //   **중3 이상**이었다. 표본 하나로 소스를 판정하면 이렇게 틀린다.
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 24,
+    minScore: 0.3,
+    bulkPriority: 2,
+    license: 'PD-Government',
+    attributionRequired: true,
+    topicDomain: ['ocean', 'weather', 'earth', 'science'],
+    styleGuide: '한 물음에 한 편인 바다·날씨 설명글 (B1-B2 · 실측 FK 중앙 11.4)',
+    preferredFeedMix: [{ feedId: 'all', weight: 1.0 }],
+  },
   // NASA Space Place: 난이도가 초·중 한가운데인 PD 설명글. 길이만 발췌하면 된다.
   space_place: {
     targetLevels: ['beginner', 'intermediate'],
@@ -919,7 +948,7 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
   beginner:     ['storyweaver', 'space_place', 'voa', 'simple_wikipedia', 'wikivoyage', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
-  intermediate: ['voa', 'simple_wikipedia', 'futurity', 'wikivoyage', 'factbook', 'nasa', 'usgs', 'noaa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
+  intermediate: ['ocean_facts', 'voa', 'simple_wikipedia', 'futurity', 'wikivoyage', 'factbook', 'nasa', 'usgs', 'noaa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
   advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'futurity', 'nih', 'nasa', 'usgs', 'noaa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
 
@@ -983,6 +1012,7 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   usgs: 'expository', // 지구과학·자연재해 과학 저널리즘 (설명문)
   noaa: 'expository', // 기후과학 explainer (설명문)
   futurity: 'expository', // 대학 연구 소개 — 주장이 아니라 설명이다
+  ocean_facts: 'expository', // 바다·날씨 현상 설명글
   space_place: 'expository', // 우주 현상 설명글
   storyweaver: 'narrative', // 그림책 이야기 — 이 자리가 비어 있었다
   // ACP §20 — 재저작 기본은 시사. 발주가 다른 register 를 지정하면 dev-process 가 아니라
@@ -1214,6 +1244,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   // ⚠️ 여기 적힌 `CC-BY-4.0` 은 **다수값**이지 그 책의 값이 아니다. StoryWeaver 는
   //   책마다 라이선스가 다르고 정본은 **책 뒷장의 표시**다 — 어댑터가 거기서 읽고,
   //   못 읽으면 `restricted` 로 떨어뜨린다. 이 표는 화면에 보여 줄 기본값일 뿐이다.
+  ocean_facts: getSourcePolicy('ocean_facts'),
   space_place: getSourcePolicy('space_place'),
   storyweaver: getSourcePolicy('storyweaver'),
   original: getSourcePolicy('original'),

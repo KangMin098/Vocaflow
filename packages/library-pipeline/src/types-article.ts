@@ -21,6 +21,7 @@ export type ArticleSource =
   | 'noaa' // ACP §18 — B2-C1 기후과학 explainer (PD US Gov → 발행 허용, climate 신규 도메인·CSAT 최빈출)
   | 'futurity' // ACP — B1~B2 대학 연구 기사 (CC-BY 4.0 → 발행·변형 허용). 학술 소재 × 접근형 문체, PLOS(C1-C2)와 VOA(A2-B1) 사이를 메운다
   | 'openstax' // ACP §19 (설계) — C1 학술 교재 모듈 (CNXML · 현행 CC-BY-NC-SA → 게이트 차단, 라이선스 결정 선행)
+  | 'ocean_facts' // NOAA Ocean Service Ocean Facts — 한 물음에 한 편인 PD 설명글. 실측 FK 중앙 11.4 로 중3 이상
   | 'space_place' // NASA Space Place — 어린이·청소년 우주 설명글(PD · 교재 이용 명시 허용). FK 중앙 6.63 로 초·중 한가운데
   | 'storyweaver' // 초·중 이야기 지문 (Pratham Books · 책마다 CC — 책 안에서 읽는다). narrative 재고가 0 이라 넣는다
   | 'original' // ACP §20 — 사실 재저작 (CC0 자체 저작 · 외부 본문 미사용 · compose 게이트 통과 필수)
