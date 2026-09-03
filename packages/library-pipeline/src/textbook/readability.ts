@@ -87,12 +87,48 @@ export interface ReadingLevelBand {
   /** FK 창. 시중 학년대 실측을 이웃까지 걸쳐 넓힌 값이다. */
   fkMin: number
   fkMax: number
-  /** 지문 어수 창(`market-spec.json` p10~p90). */
+  /** 지문 어수 창 — **모든 칸이 같다**(`PASSAGE_WORDS` 참조). */
   wordsMin: number
   wordsMax: number
   /** 시중 실측 FK 중앙 — 창을 왜 그렇게 잡았는지의 근거. */
   marketFk: number
 }
+
+/**
+ * 지문 어수 창 — **학년마다 다르게 두지 않는다.**
+ *
+ * ── 근거: 교재가 스스로 인쇄한 어수 (실측 2026-09-03 · n=59 · 6시리즈) ──────
+ * 시중 초·중 독해 교재 131쪽에 `129 words` 처럼 그 지문의 어수가 박혀 있다.
+ * 추정이 아니라 출판사가 밝힌 값이고, 모아 보면:
+ *
+ *     최소 97 · p10 107 · p25 118 · 중앙 132 · p75 150 · p90 177 · 최대 198
+ *
+ * **97어 미만이 한 건도 없다.** 초등 계열도 초6 118어 · 초6~중1 117어다.
+ *
+ * ── 그런데 더 중요한 것 — **어수는 학년을 가르지 못한다** ──────────────
+ * 학년대별로 갈라 보면 `중1~중3` 한 밴드(n=46)가 **97~198어**로 전체 범위와 같다.
+ * 즉 같은 학년 교재 안에서 지문 길이가 두 배로 흔들린다.
+ *
+ *     중1~중3  n=46  97~198   ← 전체 범위와 동일
+ *     초6~중3  n= 4  132~155
+ *     초6      n= 1  118
+ *
+ * 그러니 학년마다 다른 길이 창을 두는 것은 **없는 신호를 있다고 하는 것**이다.
+ * 길이는 하나로 두고 **학년은 난이도(FK)가 가른다.**
+ *
+ * ⚠️ `market-spec.json` 은 학년마다 다른 창을 갖고 있고(초6 44~121 · 중1 46~154)
+ *   하한이 40어대다. 그쪽은 **쪽에서 영문 덩어리를 찾아내는 검출기** 추정이라
+ *   직독직해·구문분석 조각이 섞였다(실측: 40~96어 블록의 36~91%가 조각 꼴).
+ *   그 파일은 **건드리지 않았다** — 다른 곳에서도 쓰는 규격이고, 고치는 것은
+ *   측정과 별개의 결정이다. 자세한 근거는 `docs/reports/passage-length-recheck-20260903.md`.
+ *
+ * ⚠️ 초등 표본이 n=1 이다. 이 창이 초등에도 맞는지는 **아직 모른다** —
+ *   초등 교재에 표식이 더 있는 자료를 넣고 `passage-ruler.mjs` 를 다시 돌려야 한다.
+ */
+export const PASSAGE_WORDS = { min: 100, max: 200 } as const
+
+/** 칸마다 퍼지는 값 — 다섯 칸이 **같은 창**을 쓴다는 것을 한 군데서 보이게 둔다. */
+const SPREAD = { wordsMin: PASSAGE_WORDS.min, wordsMax: PASSAGE_WORDS.max }
 
 /**
  * 학년 칸 — **시중 79종 실측에서 나온 값**이지 정한 값이 아니다.
@@ -106,11 +142,11 @@ export interface ReadingLevelBand {
  *   **순서는 믿을 만하고 절대값은 아직 얇다** — 출판사를 넓히면 값이 움직인다.
  */
 export const READING_LEVEL_BANDS: readonly ReadingLevelBand[] = [
-  { id: '초3~4', fkMin: 1.5, fkMax: 4.0, wordsMin: 44, wordsMax: 121, marketFk: 3.33 },
-  { id: '초5~6', fkMin: 3.5, fkMax: 5.5, wordsMin: 44, wordsMax: 121, marketFk: 4.42 },
-  { id: '초6~중1', fkMin: 4.5, fkMax: 7.0, wordsMin: 42, wordsMax: 173, marketFk: 5.34 },
-  { id: '중1~2', fkMin: 6.5, fkMax: 9.0, wordsMin: 42, wordsMax: 173, marketFk: 7.6 },
-  { id: '중3', fkMin: 8.5, fkMax: 12.0, wordsMin: 42, wordsMax: 173, marketFk: 10.67 },
+  { id: '초3~4', fkMin: 1.5, fkMax: 4.0, ...SPREAD, marketFk: 3.33 },
+  { id: '초5~6', fkMin: 3.5, fkMax: 5.5, ...SPREAD, marketFk: 4.42 },
+  { id: '초6~중1', fkMin: 4.5, fkMax: 7.0, ...SPREAD, marketFk: 5.34 },
+  { id: '중1~2', fkMin: 6.5, fkMax: 9.0, ...SPREAD, marketFk: 7.6 },
+  { id: '중3', fkMin: 8.5, fkMax: 12.0, ...SPREAD, marketFk: 10.67 },
 ] as const
 
 export const gradeBand = (id: string): ReadingLevelBand | undefined =>

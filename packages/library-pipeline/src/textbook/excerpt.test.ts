@@ -10,8 +10,11 @@ import { excerptForBand, fitExcerptToAnyBand } from './excerpt'
 import { bandOf, gradeBand, readability, syllables, READING_LEVEL_BANDS } from './readability'
 
 /**
- * **초5~6 칸 픽스처(실측 FK 4.7~5.0 · 문장 9.6어).**
- * 이 칸이 바로 재고가 9편뿐이던 구멍이다 — 시중 초5~6 교재가 FK 4.42 · 문장 9.3어다.
+ * **초5~6 칸 픽스처** — 시중 초5~6 교재가 FK 4.42 · 문장 9.3어다.
+ *
+ * 짧게 쓰고 싶었지만 **늘려야 했다** — 지문 어수창이 100~200으로 바뀌었기 때문이다
+ * (교재가 스스로 인쇄한 어수 n=59 의 최소가 97어였다). 8문단이면 77어라 창 밖이고,
+ * 11문단에서 **104어 · FK 5.23** 으로 둘 다 맞는다 — 짐작이 아니라 재면서 맞춘 값이다.
  */
 const mid = [
   'Mina lives beside a river in a quiet village.',
@@ -22,6 +25,14 @@ const mid = [
   'Her mother smiles and tells her to return it later.',
   'Mina walks back and places the turtle in the river.',
   'The turtle swims away quickly and disappears under a rock.',
+  'Mina watches the water until the ripples finally settle.',
+  'She wonders where the little turtle sleeps at night.',
+  'Her brother says turtles rest beneath the muddy bank.',
+  'Mina decides to visit the river again tomorrow morning.',
+  'She wants to bring her brother and show him the spot.',
+  'The village children often play along the shallow edge.',
+  'They collect smooth stones and count them in the sunlight.',
+  'Mina keeps one stone inside her pocket for good luck.',
 ]
 
 /**
