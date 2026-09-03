@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-09-02T09:44:59.542Z",
+  "measuredAt": "2026-09-03T23:41:37.424Z",
   "window": {
     "min": 42,
     "max": 173
@@ -154,19 +154,19 @@
     },
     {
       "band": "초3~4",
-      "n": 67
+      "n": 71
     },
     {
       "band": "초5~6",
-      "n": 58
+      "n": 79
     },
     {
       "band": "초6~중1",
-      "n": 33
+      "n": 47
     },
     {
       "band": "중1~2",
-      "n": 26
+      "n": 30
     },
     {
       "band": "중3",
@@ -285,6 +285,20 @@
       "cefr": {
         "B2": 1,
         "C1": 1
+      }
+    },
+    {
+      "source": "space_place",
+      "n": 43,
+      "fkMedian": 5.48,
+      "sentMedian": 12.3,
+      "curriculumElemPct": 46,
+      "curriculumElemMidPct": 63.8,
+      "band": "초5~6",
+      "cefr": {
+        "B1": 24,
+        "B2": 11,
+        "A2": 8
       }
     }
   ],
@@ -3366,6 +3380,393 @@
       "words": 87,
       "cefr": "B1",
       "band": "초3~4"
+    },
+    {
+      "source": "space_place",
+      "title": "Earth's Atmosphere",
+      "fk": 5.31,
+      "sent": 10.5,
+      "words": 116,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "All About Mars (앞부분 발췌)",
+      "fk": 5.18,
+      "sent": 9.1,
+      "words": 100,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "All About the Sun (3문단부터 발췌)",
+      "fk": 4.98,
+      "sent": 11.3,
+      "words": 124,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "What Is a Black Hole? (앞부분 발췌)",
+      "fk": 6.03,
+      "sent": 11.3,
+      "words": 124,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "Why Is the Sky Blue? (앞부분 발췌)",
+      "fk": 4.54,
+      "sent": 10.9,
+      "words": 142,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "Lunar Eclipses and Solar Eclipses (앞부분 발췌)",
+      "fk": 5.54,
+      "sent": 12,
+      "words": 132,
+      "cefr": "B2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "Make a Comet on a Stick! (5문단부터 발췌)",
+      "fk": 4.57,
+      "sent": 11.6,
+      "words": 104,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "What Causes the Seasons? (앞부분 발췌)",
+      "fk": 6.72,
+      "sent": 13.9,
+      "words": 111,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "How Many Moons Does Each Planet Have? (앞부분 발췌)",
+      "fk": 4.83,
+      "sent": 10,
+      "words": 130,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "How Far Away Is the Moon? (앞부분 발췌)",
+      "fk": 4.85,
+      "sent": 9.2,
+      "words": 147,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "What Are the Moon’s Phases? (앞부분 발췌)",
+      "fk": 5.29,
+      "sent": 13.4,
+      "words": 107,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "What Is a Planet? (앞부분 발췌)",
+      "fk": 5.55,
+      "sent": 10.2,
+      "words": 112,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "What Is Space Weather? (4문단부터 발췌)",
+      "fk": 6.99,
+      "sent": 13.5,
+      "words": 175,
+      "cefr": "B2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "Make Sun Paper",
+      "fk": 3.1,
+      "sent": 9.6,
+      "words": 173,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "space_place",
+      "title": "What Is Gravity? (앞부분 발췌)",
+      "fk": 5.48,
+      "sent": 13,
+      "words": 104,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "What's It Like Inside Jupiter? (5문단부터 발췌)",
+      "fk": 5.46,
+      "sent": 12.6,
+      "words": 101,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "Why does Saturn have rings? (5문단부터 발췌)",
+      "fk": 5.38,
+      "sent": 11.1,
+      "words": 100,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "How Far Away Is the Moon? (5문단부터 발췌)",
+      "fk": 7.68,
+      "sent": 19.7,
+      "words": 118,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "space_place",
+      "title": "What Is a Galaxy? (3문단부터 발췌)",
+      "fk": 6.87,
+      "sent": 14.9,
+      "words": 119,
+      "cefr": "B2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "Make a Stained Glass Earth! (앞부분 발췌)",
+      "fk": 7.01,
+      "sent": 15.1,
+      "words": 106,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "space_place",
+      "title": "What Is a Planet? (4문단부터 발췌)",
+      "fk": 5.48,
+      "sent": 12.3,
+      "words": 148,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "All About the Planets",
+      "fk": 5.9,
+      "sent": 10.7,
+      "words": 139,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "All About the Moon (5문단부터 발췌)",
+      "fk": 6.64,
+      "sent": 16.9,
+      "words": 135,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "All About the Sun (앞부분 발췌)",
+      "fk": 4.3,
+      "sent": 9.1,
+      "words": 127,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "All About the Sun (2문단부터 발췌)",
+      "fk": 3.97,
+      "sent": 9.1,
+      "words": 109,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "space_place",
+      "title": "All About the Sun (9문단부터 발췌)",
+      "fk": 6.74,
+      "sent": 16.6,
+      "words": 116,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "Art Challenge (10문단부터 발췌)",
+      "fk": 4.46,
+      "sent": 10.2,
+      "words": 133,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "What Is a Black Hole? (4문단부터 발췌)",
+      "fk": 7.36,
+      "sent": 17.4,
+      "words": 122,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "space_place",
+      "title": "What Is Gravity? (7문단부터 발췌)",
+      "fk": 6.73,
+      "sent": 14.2,
+      "words": 128,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "What Is the Big Bang? (5문단부터 발췌)",
+      "fk": 5.34,
+      "sent": 10.3,
+      "words": 155,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "Why Is the Sky Blue? (5문단부터 발췌)",
+      "fk": 7.05,
+      "sent": 17.3,
+      "words": 121,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "space_place",
+      "title": "Make a Comet on a Stick! (앞부분 발췌)",
+      "fk": 3.98,
+      "sent": 11.5,
+      "words": 115,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "space_place",
+      "title": "What Is a Comet? (3문단부터 발췌)",
+      "fk": 5.41,
+      "sent": 13.5,
+      "words": 108,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "Make a Pinwheel Galaxy Pinwheel (3문단부터 발췌)",
+      "fk": 5.22,
+      "sent": 13.8,
+      "words": 165,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "What Is a Solar Eclipse? (앞부분 발췌)",
+      "fk": 4.24,
+      "sent": 10.5,
+      "words": 105,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "What Is a Solar Eclipse? (12문단부터 발췌)",
+      "fk": 6.57,
+      "sent": 14.3,
+      "words": 143,
+      "cefr": "B2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "Lunar Eclipses and Solar Eclipses (2문단부터 발췌)",
+      "fk": 5.5,
+      "sent": 12.7,
+      "words": 114,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "Supermoon, Blood Moon, Blue Moon and Harvest Moon (6문단부터 발췌)",
+      "fk": 6.51,
+      "sent": 15.4,
+      "words": 154,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "Make a Pastel Aurora!",
+      "fk": 5.87,
+      "sent": 10.9,
+      "words": 164,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "What Causes the Seasons? (6문단부터 발췌)",
+      "fk": 5.44,
+      "sent": 14.3,
+      "words": 100,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "How Do We Launch Things Into Space? (6문단부터 발췌)",
+      "fk": 5.49,
+      "sent": 13.9,
+      "words": 181,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "space_place",
+      "title": "How Far Away Is the Moon? (앞부분 발췌)",
+      "fk": 3.64,
+      "sent": 7.5,
+      "words": 113,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "space_place",
+      "title": "What Are the Moon’s Phases? (5문단부터 발췌)",
+      "fk": 6.68,
+      "sent": 18.8,
+      "words": 169,
+      "cefr": "A2",
+      "band": "초6~중1"
     }
   ]
 }
