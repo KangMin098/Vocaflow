@@ -218,6 +218,17 @@ const rows = [
  * 유일한 히트일 때만 붙인다 — 둘 이상이면 그것은 짐작이지 배정이 아니다.
  */
 const TYPE_RES = read('classified.json').types.map((t) => ({ id: t.id, re: new RegExp(t.match.replace(/^\/|\/$/g, '')) }))
+
+/**
+ * 손으로 받아 적은 유형 배정(`types-manual.json`). 파일이 없어도 돌아야 한다 —
+ * 새 체크아웃에서 이 스크립트가 죽으면 코퍼스 재생성이 통째로 막힌다.
+ * 손으로 적은 것은 **보완**이지 전제가 아니다.
+ */
+const manualType = new Map(
+  (fs.existsSync(path.join(DIR, 'types-manual.json')) ? (read('types-manual.json').entries ?? []) : []).map(
+    (e) => [`${e.exam}#${e.no}`, e],
+  ),
+)
 function rescueType(stem) {
   const norm = String(stem ?? '').replace(/\s+/g, '')
   if (!norm) return null
@@ -228,8 +239,15 @@ function rescueType(stem) {
 for (const q of rows) {
   const meta = examMeta(q.exam)
   if (!q.type) {
+    // ① 발문에서 기계가 되찾아 본다
     const r = rescueType(q.stem)
     if (r) { q.type = r; q.type_rescued = true }
+    // ② 그래도 없으면 손으로 받아 적은 것을 쓴다 — **자동 배정을 덮지 않는다**
+    //    (덮게 두면 손으로 적은 것이 파서 개선을 가린다. `bodies-manual` 과 같은 규칙이다)
+    else {
+      const man = manualType.get(`${q.exam}#${q.no}`)
+      if (man) { q.type = man.type; q.type_manual = true }
+    }
   }
   // 발문을 못 떠 세트 머리글만 붙은 장문 문항은 번호로 유형을 되찾는다(위 LONG_SET_TYPE 참조)
   if (q.no >= 41 && meta.year >= 2019 && GENERIC_SET_STEM.test((q.stem ?? '').trim()) && LONG_SET_TYPE[q.no]) {

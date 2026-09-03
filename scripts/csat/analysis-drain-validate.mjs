@@ -142,10 +142,18 @@ function shingleHit(nq, hay, suspect = false) {
  * 오탐이 있으므로 **막지 않고 표시한다** — 선지가 기호뿐인 유형(순서·지칭)이나 선지를
  * 우리말로 풀어 쓴 경우가 정당하게 걸린다.
  */
+/**
+ * **순서 배열 선지** — `(B) － (A) － (C)`. 글자가 아니라 순열 기호라 인용할 것이 없다.
+ * 이걸 안 걸러 두면 경고 56건 중 **47건이 순서·장문순서**가 되어(실측 2026-09-03)
+ * 남은 9건의 진짜 용의자가 그 속에 묻힌다 — **늘 뜨는 경고는 곧 무시당한다.**
+ */
+const ARRANGEMENT_ONLY = /^[()A-D\s\-‐-―－·,]+$/
+
 function quotesChoice(why, it) {
   const ch = (it.choices ?? [])[(it.answer ?? 0) - 1] ?? ''
   const c = norm(ch)
   if (c.length < 6) return null // 선지를 못 떴으면 판정하지 않는다
+  if (ARRANGEMENT_ONLY.test(String(ch))) return null // 인용할 글자가 애초에 없다
   const n = norm(why)
   for (let L = Math.min(24, c.length); L >= 6; L -= 1) {
     for (let i = 0; i + L <= c.length; i += 1) if (n.includes(c.slice(i, i + L))) return true
