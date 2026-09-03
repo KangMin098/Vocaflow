@@ -35,6 +35,8 @@ import {
   READING_LEVEL_BANDS,
   readability,
 } from '../../packages/library-pipeline/src/textbook/readability.ts'
+// **FK 만으로는 19세기 영어를 못 거른다** — 교육과정 별표로 어휘를 함께 본다.
+import { curriculumCoverage } from '../../packages/library-pipeline/src/textbook/curriculum.ts'
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -119,7 +121,10 @@ const report = {
   measuredAt: new Date().toISOString(),
   source: 'project_gutenberg',
   books: [],
+  /** FK 창에만 든 조각 수. */
   bandTotals: {},
+  /** 그중 **어휘 가드까지 통과한** 조각 수 — 실제로 쓸 수 있는 것은 이쪽이다. */
+  bandKept: {},
 }
 
 const list = await get(`https://gutendex.com/books/?topic=children&languages=en`)
@@ -134,7 +139,7 @@ console.log(
 
 const pad = (s, w) => String(s).padEnd(w)
 const lp = (s, w) => String(s).padStart(w)
-console.log(pad('책', 40) + lp('본문어수', 9) + lp('문단', 6) + '  칸별 조각')
+console.log(pad('책', 40) + lp('본문어수', 9) + lp('문단', 6) + '  칸별 FK적중→어휘가드 통과')
 console.log('─'.repeat(78))
 
 for (const b of json.results.slice(0, SAMPLE)) {
@@ -179,6 +184,7 @@ for (const b of json.results.slice(0, SAMPLE)) {
   const STEP = 5
   const MAX_WINDOWS = 400 // 한 책을 끝까지 보지 않는다 — 수율은 앞쪽만으로도 보인다
   const found = {}
+  const found2 = {}
   const rate = {}
   let windows = 0
   const bandOfWindow = []
@@ -192,12 +198,18 @@ for (const b of json.results.slice(0, SAMPLE)) {
       if (w < 100) continue
       if (w > 200) break
       const m = readability(acc)
-      if (m) bandOfWindow.push(m.fk)
+      // **FK 와 어휘를 함께 재다.** FK 만 보면 19세기 영어가 초6~쥅1 로 통과한다.
+      if (m) bandOfWindow.push({ fk: m.fk, outside: curriculumCoverage(acc)?.outsidePct ?? 100 })
       break
     }
   }
   for (const band of READING_LEVEL_BANDS) {
-    const hits = bandOfWindow.filter((fk) => fk >= band.fkMin && fk <= band.fkMax).length
+    const inBand = bandOfWindow.filter((x) => x.fk >= band.fkMin && x.fk <= band.fkMax)
+    const hits = inBand.length
+    // 어휘 가드까지 통과하는 조각 — **이쪽이 실제로 쓸 수 있는 수다.**
+    const kept = inBand.filter((x) => x.outside <= 40).length
+    found2[band.id] = kept
+    report.bandKept[band.id] = (report.bandKept[band.id] ?? 0) + kept
     if (hits) found[band.id] = hits
     rate[band.id] = windows ? +((hits / windows) * 100).toFixed(0) : 0
     report.bandTotals[band.id] = (report.bandTotals[band.id] ?? 0) + hits
@@ -211,6 +223,7 @@ for (const b of json.results.slice(0, SAMPLE)) {
     paragraphs: paras.length,
     windows,
     bandHits: found,
+    bandKeptAfterVocabGate: found2,
     bandHitRatePct: rate,
   })
   console.log(
@@ -219,7 +232,7 @@ for (const b of json.results.slice(0, SAMPLE)) {
       lp(paras.length, 6) +
       '  ' +
       (Object.entries(found)
-        .map(([k, v]) => `${k} ${v}(${rate[k]}%)`)
+        .map(([k, v]) => `${k} ${v}→${found2[k] ?? 0}`)
         .join(' · ') || '(없음)')
   )
 }
@@ -228,8 +241,12 @@ console.log('─'.repeat(78))
 console.log('\n칸별 조각 합계 (표본 ' + report.books.length + '권):')
 for (const band of READING_LEVEL_BANDS) {
   const n = report.bandTotals[band.id] ?? 0
-  const per = report.books.length ? (n / report.books.length).toFixed(1) : '0'
-  console.log(`  ${pad(band.id, 10)} ${lp(n, 5)} 조각 · 책당 ${per}`)
+  const k = report.bandKept[band.id] ?? 0
+  const per = report.books.length ? (k / report.books.length).toFixed(1) : '0'
+  const drop = n ? (((n - k) / n) * 100).toFixed(0) : '0'
+  console.log(
+    `  ${pad(band.id, 10)} FK적중 ${lp(n, 5)} → 어휘가드 통과 ${lp(k, 5)} (${drop}% 탈락) · 책당 ${per}`
+  )
 }
 console.log(
   `\n전체 ${json.count.toLocaleString()}권 기준 추정 — 책당 조각 수 × 7,634. ` +
