@@ -93,6 +93,17 @@ const SUBJECT_QUERY = {
   '기술·매체': ['Engineering and technology', 'Computer and information sciences'],
 }
 
+/**
+ * `--slot all` — 칸별로 따로 훑지 않고 **한 번에 훑어 몫이 남은 칸에 나눠 담는다.**
+ *
+ * ⚠️ 왜 (실측 2026-09-03, 1구간 로그): 칸마다 따로 돌렸더니 **심리·인지가 11쪽 연속
+ *   「받음 0」** 이었다. 바로 앞서 돈 과학·자연이 **같은 날짜창**을 훑으면서, Psychology·
+ *   Neuroscience 질의에도 걸리는 글을 이미 넣어 버렸기 때문이다(PLOS 논문은 주제를 여럿 단다).
+ *   중복 판정은 제대로 걸렸지만 **550편을 받아 왔다가 전부 되돌린** 셈이라 그만큼 헛돈다.
+ *   질의를 합치면 같은 글을 두 번 받지 않는다.
+ */
+const ALL_SUBJECTS = [...new Set(Object.values(SUBJECT_QUERY).flat())]
+
 const SOLR = 'https://api.plos.org/search'
 const UA = 'Vocaflow/1.0 (+https://vocaflow.app; CSAT source harvest)'
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
@@ -178,12 +189,18 @@ if (PLAN_ONLY || !SLOT) {
   process.exit(0)
 }
 
-if (!SUBJECT_QUERY[SLOT]) {
-  console.error(`"${SLOT}" 은 PLOS 로 못 채운다. 가능한 칸: ${Object.keys(SUBJECT_QUERY).join(' · ')}`)
+const ALL = SLOT === 'all'
+const SUBJECTS = ALL ? ALL_SUBJECTS : SUBJECT_QUERY[SLOT]
+if (!SUBJECTS) {
+  console.error(`"${SLOT}" 은 PLOS 로 못 채운다. 가능한 칸: ${Object.keys(SUBJECT_QUERY).join(' · ')} · all`)
   process.exit(1)
 }
-if (quota[SLOT] <= 0) {
+if (!ALL && quota[SLOT] <= 0) {
   console.log(`  ${SLOT} 은 이미 ${STAGE}단계 몫을 채웠다 — 더 담으면 배합이 깨진다. 중단.`)
+  process.exit(0)
+}
+if (ALL && plosCovered <= 0) {
+  console.log(`  PLOS 로 채울 칸이 전부 찼다 — 중단.`)
   process.exit(0)
 }
 
@@ -213,12 +230,12 @@ const EXCLUDE_TYPES = [
   'Expression of Concern', 'Lab Protocol', 'Software', 'Symposium',
 ]
 const fq =
-  `doc_type:full AND subject_facet:(${SUBJECT_QUERY[SLOT].map((s) => `"${s}"`).join(' OR ')})` +
+  `doc_type:full AND subject_facet:(${SUBJECTS.map((s) => `"${s}"`).join(' OR ')})` +
   EXCLUDE_TYPES.map((t) => ` AND !article_type:"${t}"`).join('') +
   (UNTIL ? ` AND publication_date:[* TO ${UNTIL}T00:00:00Z]` : '')
 
 console.log(`  ${SLOT} 수확 — ${PAGES}쪽 × ${ROWS}편${COMMIT ? ' · **적재한다**' : ' (읽기 전용)'}`)
-console.log(`  주제: ${SUBJECT_QUERY[SLOT].join(' OR ')}\n`)
+console.log(`  주제: ${SUBJECTS.join(' OR ')}\n`)
 
 // ⚠️ 커서 키에 날짜창을 넣는다 — 창이 다르면 결과 집합이 달라서, 같은 키를 쓰면
 //   다른 창의 커서를 물려받아 **엉뚱한 자리부터 훑는다**(오류가 안 나서 안 보인다).
