@@ -257,7 +257,8 @@ for (let c = 0; c < CHUNKS; c++) {
         // 지침을 청크 안에 넣는다 — 채우는 쪽이 파일 하나만 열면 되게.
         instructions: [
           '각 항목의 title 과 content 를 채운다. content 는 영어 설명문 산문이다.',
-          `길이는 ${Math.round(SHAPE.words.lo * 2)}~${Math.round(SHAPE.words.hi * 2.5)}어 — 창(${SHAPE.words.lo}~${SHAPE.words.hi}어)이 두세 개 잡히도록.`,
+          `길이는 **300~340어** — 실측: 붙은 글은 280~310어였고, 떨어진 글은 231~242어였다. 짧으면 창(${SHAPE.words.lo}~${SHAPE.words.hi}어)이 한 개 반밖에 안 나와 한 번 실패하면 그대로 끝난다.`,
+          `문장 길이를 **고르게** — 실측: 떨어진 글의 문장이 8·36·49어로 튀었다. 18~25어로 유지하면 창 평균이 대역 안에 머문다.`,
           `문장 평균 ${SHAPE.sentLen.lo.toFixed(0)}~${SHAPE.sentLen.hi.toFixed(0)}어 · 낱말 평균 ${SHAPE.wordLen.lo.toFixed(2)}~${SHAPE.wordLen.hi.toFixed(2)}자 (중앙 ${SHAPE.wordLen.mid.toFixed(2)} 겨냥).`,
           '연결사(however·therefore·although·because…)와 지시어(this·these·its·their…)를 반드시 섞는다.',
           '숫자·인용·URL·고유명 약어를 피한다 — 산문 게이트가 서지 블록으로 보고 버린다.',
