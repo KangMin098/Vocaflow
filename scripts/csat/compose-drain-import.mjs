@@ -39,6 +39,37 @@ const CONNECTIVE =
   /\b(however|therefore|thus|hence|moreover|furthermore|nevertheless|nonetheless|consequently|accordingly|meanwhile|instead|rather|although|though|whereas|while|because|since|so that|as a result|for example|for instance|in contrast|on the other hand|in other words|that is|in fact|indeed|by contrast|similarly|likewise|in addition|on the contrary|in short|in sum)\b/gi
 const ANAPHORA = /\b(this|these|those|such|its|their|his|her|they|them|it)\b/gi
 
+/**
+ * **가장 아깝게 빗나간 창**을 찾아 그 창의 실제 수치를 낸다.
+ *
+ * ⚠️ 왜 필요한가: 글 전체 평균이 대역 안인데도 창이 하나도 안 잡히는 일이 잦다
+ *   (채점은 **창 단위**이므로 평균이 맞아도 모든 창이 벗어날 수 있다). 전체 평균만 보고
+ *   "대역은 맞는데 창이 안 잡힌다" 고만 말하면 고칠 방향을 모른 채 다시 쓰게 되고,
+ *   실제로 그 추측 수정에 매번 한 바퀴씩 썼다. 창을 직접 열어 보면 어느 축이 얼마나
+ *   벗어났는지 나온다.
+ */
+function nearestWindow(text) {
+  const sents = splitSentences(text)
+  const wp = sents.map(W)
+  let best = null
+  for (let i = 0; i < sents.length; i++) {
+    let acc = []
+    for (let j = i; j < sents.length; j++) {
+      acc = acc.concat(wp[j])
+      if (acc.length > SHAPE.words.hi) break
+      if (acc.length < SHAPE.words.lo) continue
+      const sentLen = acc.length / (j - i + 1)
+      const wordLen = acc.reduce((s, x) => s + x.length, 0) / acc.length
+      // 대역 밖으로 벗어난 정도를 상대값으로 합산 — 가장 작은 것이 「가장 아까운 창」이다.
+      const off =
+        Math.max(0, SHAPE.sentLen.lo - sentLen, sentLen - SHAPE.sentLen.hi) / SHAPE.sentLen.hi +
+        Math.max(0, SHAPE.wordLen.lo - wordLen, wordLen - SHAPE.wordLen.hi) / SHAPE.wordLen.hi
+      if (!best || off < best.off) best = { off, sentLen, wordLen, words: acc.length, from: i, to: j }
+    }
+  }
+  return best
+}
+
 /** 왜 떨어졌는지 — 다음 판을 어느 쪽으로 고칠지가 여기서 나온다. */
 function why(text) {
   const words = W(text)
@@ -54,7 +85,28 @@ function why(text) {
   if (wordLen > SHAPE.wordLen.hi) out.push(`낱말이 길다 (${wordLen.toFixed(2)} > ${SHAPE.wordLen.hi.toFixed(2)} — 쉬운 말로 절반쯤 바꾼다)`)
   if ((text.match(CONNECTIVE) ?? []).length === 0) out.push('연결사가 없다')
   if (ana < FLOOR.ana) out.push(`지시어 부족 (${ana.toFixed(2)} < ${FLOOR.ana.toFixed(2)})`)
-  if (!out.length) out.push('대역은 맞는데 창이 안 잡힌다 — 문단 안에서 문장 길이 편차를 줄여 본다')
+  if (!out.length) {
+    // 전체 평균은 대역 안이다 — 그러면 **창**을 열어 봐야 한다.
+    const w = nearestWindow(text)
+    if (!w) {
+      out.push(`어수 대역(${SHAPE.words.lo}~${SHAPE.words.hi})에 드는 창이 하나도 없다 — 문장을 더 고르게`)
+    } else if (w.off === 0) {
+      out.push(
+        `모양은 통과했는데 담화에서 떨어졌다 — 그 창(문장 ${w.from + 1}~${w.to + 1})에 ` +
+          `연결사와 지시어를 둘 다 넣는다 (지시어 ${FLOOR.ana.toFixed(2)}/100어 이상)`,
+      )
+    } else {
+      const bits = []
+      if (w.sentLen < SHAPE.sentLen.lo) bits.push(`문장 ${w.sentLen.toFixed(1)} < ${SHAPE.sentLen.lo.toFixed(1)}`)
+      if (w.sentLen > SHAPE.sentLen.hi) bits.push(`문장 ${w.sentLen.toFixed(1)} > ${SHAPE.sentLen.hi.toFixed(1)}`)
+      if (w.wordLen < SHAPE.wordLen.lo) bits.push(`낱말 ${w.wordLen.toFixed(2)} < ${SHAPE.wordLen.lo.toFixed(2)}`)
+      if (w.wordLen > SHAPE.wordLen.hi) bits.push(`낱말 ${w.wordLen.toFixed(2)} > ${SHAPE.wordLen.hi.toFixed(2)}`)
+      out.push(
+        `전체 평균은 대역 안인데 **창 단위로는 벗어난다** — 가장 아까운 창(문장 ${w.from + 1}~${w.to + 1}, ` +
+          `${w.words}어): ${bits.join(' · ')}`,
+      )
+    }
+  }
   return out
 }
 

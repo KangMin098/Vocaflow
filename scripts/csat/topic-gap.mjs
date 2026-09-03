@@ -141,6 +141,28 @@ console.log('  ② 균형 사정권 — 기출 배합을 지키며 쓸 수 있�
 console.log('  ' + '-'.repeat(74))
 console.log(`    적합 원문 ${fitTotal.toLocaleString()}편 중 **${balanced.toLocaleString()}편**`)
 console.log(`    병목 소재: ${bottleneck.topic} (재고 ${bottleneck.estStock.toLocaleString()} · 목표비율 ${(100 * target[bottleneck.topic]).toFixed(1)}%)`)
+
+/**
+ * ⚠️ **이 수치는 병목 칸의 표본 수가 정한다 — 그리고 그 수가 작다.**
+ *
+ * 균형 사정권은 `min_t (재고_t / 목표비율_t)` 이므로 **병목 칸 하나**의 추정치가 전부를
+ * 결정한다. 그런데 병목은 정의상 가장 희소한 칸이라, 표본 3,000편에서 **수십 편**밖에
+ * 안 잡힌다. 그 수가 27편이면 푸아송 오차만 ±5편(≈19%)이고, 그것이 **사정권 ±1,000편**
+ * 으로 증폭된다.
+ *
+ * 실제로 2026-09-03 에 작문 48편(그중 병목 칸 13편)을 넣고 다시 재니 사정권이 4,189 →
+ * 5,101 로 **+912** 나왔다. 13편이 912편을 만들 수는 없다 — 대부분이 추정 잡음이다.
+ * 그래서 구간을 같이 찍는다. **구간이 겹치면 「늘었다」고 말하지 않는다.**
+ */
+const bottleneckSampled = stock[bottleneck.topic]
+const se = Math.sqrt(Math.max(1, bottleneckSampled)) * scale // 푸아송 표준오차를 전량으로 환산
+const lo = Math.floor((bottleneck.estStock - 1.96 * se) / target[bottleneck.topic])
+const hi = Math.floor((bottleneck.estStock + 1.96 * se) / target[bottleneck.topic])
+console.log(
+  `    ⚠️ 95% 구간 **${Math.max(0, lo).toLocaleString()} ~ ${hi.toLocaleString()}편** ` +
+    `— 병목 칸이 표본에서 ${bottleneckSampled}편뿐이라 오차가 크다.`,
+)
+console.log(`       구간이 지난번과 겹치면 「늘었다」고 말하지 않는다. 확실히 재려면 --all.`)
 console.log()
 for (const [label, goal] of [['1단계', 10000], ['2단계', 30000], ['3단계', 50000]]) {
   const pct = (100 * balanced) / goal
