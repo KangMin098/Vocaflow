@@ -8,7 +8,7 @@
 //
 // ⚠️ `shared_dictionary.domain_levels` 는 **쓸 수 없다** — 그건 토픽 태그가 아니라
 //    도메인별 난이도라서 거의 모든 낱말이 8개 값을 다 갖는다(34~37k/38k).
-//    그래서 **투명한 키워드 분류기**를 여기 직접 적고, 손판독으로 정확도를 잰다.
+//    그래서 **투명한 키워드 분류기**를 쓰고(표는 `lib-topic.mjs`), 손판독으로 정확도를 잰다.
 //
 // ⚠️ 분류기가 약해도 검정은 성립한다 — 오류가 **회차에 따라 달라지지 않기 때문**이다.
 //    "회차 간 구성이 다른가" 는 분류 오류가 상수면 그대로 잡힌다.
@@ -18,37 +18,12 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, passageOf, allRows } from './lib-passage.mjs'
+// ⚠️ 분류표는 **여기 두지 않는다** — 같은 표를 재고 쪽(`topic-gap.mjs`)도 쓰기 때문이다.
+//   복사본이 생기면 한쪽만 고쳐졌을 때 두 분포의 **격차가 아니라 분류표 차이**를 재게 된다.
+import { TOPICS, classify } from './lib-topic.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
 
-// ── 소재 분류표 — 여기 다 적는다(숨은 규칙 없음) ──────────────────────
-const TOPICS = {
-  '과학·자연': ['species', 'evolution', 'organism', 'cell', 'gene', 'biology', 'ecosystem', 'climate', 'physic', 'chemical', 'atom', 'energy', 'planet', 'universe', 'star', 'ocean', 'forest', 'animal', 'plant', 'bird', 'insect', 'brain', 'neuron', 'molecul', 'particle', 'quantum', 'earth', 'water', 'carbon', 'temperature', 'natural selection', 'predator', 'habitat'],
-  '심리·인지': ['cognitive', 'psycholog', 'memory', 'perception', 'emotion', 'behavior', 'behaviour', 'motivation', 'attention', 'bias', 'belief', 'consciousness', 'attitude', 'mental', 'mind', 'learning', 'reasoning', 'decision', 'judgment', 'intuition', 'stress', 'happiness', 'personality'],
-  '사회·경제': ['economic', 'market', 'consumer', 'trade', 'price', 'labor', 'labour', 'wealth', 'poverty', 'inequality', '政', '政策', 'policy', 'government', 'society', 'social', 'community', 'institution', 'democracy', 'law', 'political', 'capital', 'industry', 'firm', 'profit', 'employment', 'population', 'urban'],
-  '기술·매체': ['technolog', 'computer', 'digital', 'internet', 'algorithm', 'data', 'software', 'machine', 'robot', 'artificial intelligence', 'network', 'media', 'smartphone', 'online', 'platform', 'engineer', 'invention', 'device', 'automation'],
-  '예술·문화': ['art', 'artist', 'music', 'painting', 'literature', 'novel', 'poem', 'film', 'theater', 'theatre', 'aesthetic', 'culture', 'cultural', 'tradition', 'ritual', 'dance', 'sculpture', 'architect', 'design', 'style', 'creative', 'beauty'],
-  '역사·인류': ['history', 'historical', 'ancient', 'century', 'civilization', 'archaeolog', 'anthropolog', 'medieval', 'empire', 'era', 'prehistoric', 'ancestor', 'human evolution', 'hunter', 'agricultur', 'origin'],
-  '교육·언어': ['education', 'school', 'student', 'teacher', 'teaching', 'curriculum', 'language', 'linguistic', 'word', 'grammar', 'reading', 'writing', 'literacy', 'translat', 'communication', 'speech'],
-  '철학·윤리': ['philosoph', 'ethic', 'moral', 'truth', 'knowledge', 'epistem', 'metaphys', 'virtue', 'justice', 'freedom', 'right', 'value', 'meaning of', 'existence', 'argument'],
-}
-
-const norm = (s) => s.toLowerCase()
-function classify(text) {
-  const t = norm(text)
-  const score = {}
-  for (const [k, kws] of Object.entries(TOPICS)) {
-    let n = 0
-    for (const kw of kws) {
-      const re = new RegExp(`\\b${kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'g')
-      n += (t.match(re) ?? []).length
-    }
-    score[k] = n
-  }
-  const best = Object.entries(score).sort((a, b) => b[1] - a[1])
-  if (!best[0][1]) return { topic: '분류불가', score, margin: 0 }
-  return { topic: best[0][0], score, margin: best[0][1] - (best[1]?.[1] ?? 0) }
-}
 
 // ── 지문 모으기 ───────────────────────────────────────────────────────
 const READ = ['R-PURPOSE', 'R-MOOD', 'R-CLAIM', 'R-GIST', 'R-TOPIC', 'R-TITLE', 'R-IMPLY',

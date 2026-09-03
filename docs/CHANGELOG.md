@@ -10,6 +10,32 @@
 
 ## Unreleased (v06.34 → next)
 
+### 「적합 원문 5만」의 자를 바꿨다 — 14,252편이 4,161편이 됐다 (2026-09-03)
+
+`score-articles.mjs` 는 **모양(어수·문장길이·낱말길이)과 담화(연결사·지시어)** 만 잰다 —
+그 파일이 스스로 밝혀 둔 계약이다. **소재는 안 잰다.** 그래서 `csat_fit.pass > 0` 을
+「적합」이라 부르고 목표(1만/3만/5만)와 견주던 것은 절반만 세고 있었다.
+
+기출 302지문의 소재 배합은 **고정**이고(`measure-topic.mjs` 회차×소재 독립 · 순열검정 p=0.26),
+그 배합을 지키며 쓸 수 있는 편수 — **균형 사정권 `min_t (재고_t / 목표비율_t)`** — 를 재면
+14,252 → **4,161편**(1단계 41.6% · 3단계 8.3%)이다. 병목은 **철학·윤리 219편**(배율 0.29).
+
+- 소재별 배율: 기술·매체 **3.18 과잉** ↔ 철학·윤리 0.29 · 역사·인류 0.30 · 예술·문화 0.42 부족
+- **배선된 소스 중 인문 소재를 내는 곳이 없다** — plos 철학 2% · futurity 1% · usgs 0% · elife 0%.
+  PLOS 를 더 긁어도 병목은 안 줄고 균형 사정권도 안 는다
+- **위키백과 소재 게이트는 실패했다** — 확신도(1위-2위 격차)로 조일수록 오히려 앨범·곡 문서가
+  올라온다(*True Blue (album)* margin 17 = 예술·문화 1위). margin≥20 으로 87→7편이 돼도 남는다.
+  → `score-articles.mjs` 의 기존 보류 판단이 옳다. **되돌리지 말 것**
+- 병목을 메울 곳: **OpenStax CC BY 4.0** 129권 — Introduction to Philosophy · Business Ethics ·
+  World History Vol 1·2 · U.S. History · Introduction to Anthropology · Sociology · Psychology.
+  **예술·문화는 아직 답이 없다**(Smarthistory 는 CC BY-NC-SA 라 제외)
+- 부수 실측: PLOS Solr 는 `fl=body` 로 **본문 전문을 목록 응답에 준다**(1건 30,429자 ·
+  `numFound` 399,344) — 글마다 HTML 을 다시 GET 할 필요가 없다. 공급·속도는 병목이 아니다
+
+신설 `scripts/csat/lib-topic.mjs`(분류표를 `measure-topic.mjs` 에서 꺼냄 — 기출과 재고에 같은
+자를 대야 격차가 격차로 읽힌다. 동치 검증 **기출 302지문 불일치 0**) ·
+`scripts/csat/topic-gap.mjs`(읽기 전용). 리포트 [csat-source-fit-20260903.md](./reports/csat-source-fit-20260903.md).
+
 ### 듣기 전면 제외 + 「99점」 표현 정정 (2026-09-03)
 
 사용자 지시 「듣기는 전체에서 제외」. 분석 사정권에서는 이미 빠져 있었으나 **세는 자리와

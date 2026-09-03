@@ -1,14 +1,14 @@
 {
- "n": 300,
+ "n": 302,
  "total": {
   "분류불가": 17,
-  "교육·언어": 19,
-  "예술·문화": 38,
-  "과학·자연": 89,
-  "기술·매체": 22,
+  "교육·언어": 20,
+  "예술·문화": 40,
+  "과학·자연": 90,
+  "기술·매체": 21,
   "사회·경제": 44,
   "심리·인지": 45,
-  "철학·윤리": 16,
+  "철학·윤리": 15,
   "역사·인류": 10
  },
  "table": {
@@ -90,11 +90,11 @@
    "분류불가": 0
   },
   "2022": {
-   "과학·자연": 5,
+   "과학·자연": 6,
    "심리·인지": 2,
-   "사회·경제": 3,
-   "기술·매체": 3,
-   "예술·문화": 2,
+   "사회·경제": 4,
+   "기술·매체": 2,
+   "예술·문화": 3,
    "역사·인류": 0,
    "교육·언어": 0,
    "철학·윤리": 1,
@@ -136,12 +136,12 @@
   "2026": {
    "과학·자연": 4,
    "심리·인지": 3,
-   "사회·경제": 4,
+   "사회·경제": 3,
    "기술·매체": 1,
-   "예술·문화": 2,
+   "예술·문화": 3,
    "역사·인류": 0,
    "교육·언어": 2,
-   "철학·윤리": 2,
+   "철학·윤리": 1,
    "분류불가": 1
   },
   "2014A": {
@@ -184,7 +184,7 @@
    "기술·매체": 2,
    "예술·문화": 3,
    "역사·인류": 2,
-   "교육·언어": 1,
+   "교육·언어": 2,
    "철학·윤리": 0,
    "분류불가": 1
   },
@@ -200,9 +200,9 @@
    "분류불가": 0
   }
  },
- "chi2": 138.50851410391334,
+ "chi2": 137.52424841880767,
  "df": 128,
- "pPerm": 0.2544372781360932,
+ "pPerm": 0.2617869106544673,
  "rows": [
   {
    "exam": "2014B",
@@ -234,7 +234,7 @@
    "type": "R-GRAMMAR",
    "topic": "과학·자연",
    "margin": 5,
-   "chars": 1016
+   "chars": 964
   },
   {
    "exam": "2014B",
@@ -242,7 +242,7 @@
    "type": "R-VOCAB",
    "topic": "과학·자연",
    "margin": 6,
-   "chars": 984
+   "chars": 968
   },
   {
    "exam": "2014B",
@@ -250,7 +250,7 @@
    "type": "R-BLANK",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 872
+   "chars": 915
   },
   {
    "exam": "2014B",
@@ -258,23 +258,23 @@
    "type": "R-BLANK",
    "topic": "기술·매체",
    "margin": 2,
-   "chars": 915
+   "chars": 956
   },
   {
    "exam": "2014B",
    "no": 33,
    "type": "R-BLANK",
    "topic": "사회·경제",
-   "margin": 5,
-   "chars": 1200
+   "margin": 6,
+   "chars": 1237
   },
   {
    "exam": "2014B",
    "no": 34,
    "type": "R-BLANK",
    "topic": "과학·자연",
-   "margin": 1,
-   "chars": 930
+   "margin": 0,
+   "chars": 965
   },
   {
    "exam": "2014B",
@@ -282,7 +282,7 @@
    "type": "R-BLANK",
    "topic": "교육·언어",
    "margin": 2,
-   "chars": 912
+   "chars": 974
   },
   {
    "exam": "2014B",
@@ -290,7 +290,7 @@
    "type": "R-ORDER",
    "topic": "분류불가",
    "margin": 0,
-   "chars": 911
+   "chars": 873
   },
   {
    "exam": "2014B",
@@ -298,7 +298,7 @@
    "type": "R-INSERT",
    "topic": "기술·매체",
    "margin": 3,
-   "chars": 1017
+   "chars": 997
   },
   {
    "exam": "2014B",
@@ -306,7 +306,7 @@
    "type": "R-SUMMARY",
    "topic": "사회·경제",
    "margin": 4,
-   "chars": 1238
+   "chars": 1222
   },
   {
    "exam": "2014A",
@@ -354,7 +354,7 @@
    "type": "R-VOCAB",
    "topic": "분류불가",
    "margin": 0,
-   "chars": 856
+   "chars": 830
   },
   {
    "exam": "2014A",
@@ -362,7 +362,7 @@
    "type": "R-BLANK",
    "topic": "과학·자연",
    "margin": 0,
-   "chars": 710
+   "chars": 736
   },
   {
    "exam": "2014A",
@@ -370,7 +370,7 @@
    "type": "R-BLANK",
    "topic": "철학·윤리",
    "margin": 1,
-   "chars": 634
+   "chars": 691
   },
   {
    "exam": "2014A",
@@ -378,7 +378,7 @@
    "type": "R-BLANK",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 879
+   "chars": 917
   },
   {
    "exam": "2014A",
@@ -402,7 +402,7 @@
    "type": "R-INSERT",
    "topic": "분류불가",
    "margin": 0,
-   "chars": 846
+   "chars": 815
   },
   {
    "exam": "2014A",
@@ -434,7 +434,7 @@
    "type": "R-TOPIC",
    "topic": "심리·인지",
    "margin": 1,
-   "chars": 658
+   "chars": 715
   },
   {
    "exam": "2015",
@@ -442,7 +442,7 @@
    "type": "R-TOPIC",
    "topic": "역사·인류",
    "margin": 1,
-   "chars": 672
+   "chars": 724
   },
   {
    "exam": "2015",
@@ -450,7 +450,7 @@
    "type": "R-TITLE",
    "topic": "철학·윤리",
    "margin": 2,
-   "chars": 833
+   "chars": 894
   },
   {
    "exam": "2015",
@@ -458,7 +458,7 @@
    "type": "R-TITLE",
    "topic": "분류불가",
    "margin": 0,
-   "chars": 721
+   "chars": 745
   },
   {
    "exam": "2015",
@@ -466,7 +466,7 @@
    "type": "R-GRAMMAR",
    "topic": "사회·경제",
    "margin": 2,
-   "chars": 1025
+   "chars": 1028
   },
   {
    "exam": "2015",
@@ -474,7 +474,7 @@
    "type": "R-VOCAB",
    "topic": "예술·문화",
    "margin": 1,
-   "chars": 1088
+   "chars": 1063
   },
   {
    "exam": "2015",
@@ -482,7 +482,7 @@
    "type": "R-BLANK",
    "topic": "기술·매체",
    "margin": 3,
-   "chars": 979
+   "chars": 1039
   },
   {
    "exam": "2015",
@@ -490,7 +490,7 @@
    "type": "R-BLANK",
    "topic": "철학·윤리",
    "margin": 3,
-   "chars": 851
+   "chars": 920
   },
   {
    "exam": "2015",
@@ -498,7 +498,7 @@
    "type": "R-BLANK",
    "topic": "역사·인류",
    "margin": 1,
-   "chars": 991
+   "chars": 1021
   },
   {
    "exam": "2015",
@@ -506,7 +506,7 @@
    "type": "R-IRRELEVANT",
    "topic": "기술·매체",
    "margin": 4,
-   "chars": 943
+   "chars": 950
   },
   {
    "exam": "2015",
@@ -514,7 +514,7 @@
    "type": "R-ORDER",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 957
+   "chars": 943
   },
   {
    "exam": "2015",
@@ -530,7 +530,7 @@
    "type": "R-INSERT",
    "topic": "과학·자연",
    "margin": 3,
-   "chars": 993
+   "chars": 985
   },
   {
    "exam": "2015",
@@ -538,7 +538,7 @@
    "type": "R-INSERT",
    "topic": "교육·언어",
    "margin": 2,
-   "chars": 994
+   "chars": 989
   },
   {
    "exam": "2015",
@@ -546,7 +546,7 @@
    "type": "R-SUMMARY",
    "topic": "예술·문화",
    "margin": 5,
-   "chars": 1220
+   "chars": 1210
   },
   {
    "exam": "2016",
@@ -554,7 +554,7 @@
    "type": "R-PURPOSE",
    "topic": "분류불가",
    "margin": 0,
-   "chars": 656
+   "chars": 663
   },
   {
    "exam": "2016",
@@ -578,7 +578,7 @@
    "type": "R-GIST",
    "topic": "심리·인지",
    "margin": 2,
-   "chars": 979
+   "chars": 968
   },
   {
    "exam": "2016",
@@ -602,7 +602,7 @@
    "type": "R-GRAMMAR",
    "topic": "과학·자연",
    "margin": 0,
-   "chars": 966
+   "chars": 926
   },
   {
    "exam": "2016",
@@ -610,15 +610,15 @@
    "type": "R-VOCAB",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 1128
+   "chars": 1086
   },
   {
    "exam": "2016",
    "no": 31,
    "type": "R-BLANK",
    "topic": "예술·문화",
-   "margin": 6,
-   "chars": 978
+   "margin": 7,
+   "chars": 1036
   },
   {
    "exam": "2016",
@@ -626,7 +626,7 @@
    "type": "R-BLANK",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 885
+   "chars": 946
   },
   {
    "exam": "2016",
@@ -634,7 +634,7 @@
    "type": "R-BLANK",
    "topic": "사회·경제",
    "margin": 2,
-   "chars": 858
+   "chars": 906
   },
   {
    "exam": "2016",
@@ -642,7 +642,7 @@
    "type": "R-BLANK",
    "topic": "예술·문화",
    "margin": 1,
-   "chars": 973
+   "chars": 1021
   },
   {
    "exam": "2016",
@@ -650,7 +650,7 @@
    "type": "R-ORDER",
    "topic": "심리·인지",
    "margin": 0,
-   "chars": 891
+   "chars": 898
   },
   {
    "exam": "2016",
@@ -674,7 +674,7 @@
    "type": "R-INSERT",
    "topic": "사회·경제",
    "margin": 3,
-   "chars": 969
+   "chars": 954
   },
   {
    "exam": "2016",
@@ -690,7 +690,7 @@
    "type": "R-SUMMARY",
    "topic": "과학·자연",
    "margin": 0,
-   "chars": 973
+   "chars": 944
   },
   {
    "exam": "2017",
@@ -722,7 +722,7 @@
    "type": "R-TOPIC",
    "topic": "사회·경제",
    "margin": 1,
-   "chars": 1078
+   "chars": 1033
   },
   {
    "exam": "2017",
@@ -730,15 +730,15 @@
    "type": "R-TITLE",
    "topic": "교육·언어",
    "margin": 7,
-   "chars": 1027
+   "chars": 1068
   },
   {
    "exam": "2017",
    "no": 23,
    "type": "R-TITLE",
    "topic": "예술·문화",
-   "margin": 2,
-   "chars": 832
+   "margin": 4,
+   "chars": 892
   },
   {
    "exam": "2017",
@@ -746,7 +746,7 @@
    "type": "R-GRAMMAR",
    "topic": "과학·자연",
    "margin": 0,
-   "chars": 1021
+   "chars": 1017
   },
   {
    "exam": "2017",
@@ -754,7 +754,7 @@
    "type": "R-VOCAB",
    "topic": "교육·언어",
    "margin": 3,
-   "chars": 962
+   "chars": 954
   },
   {
    "exam": "2017",
@@ -762,7 +762,7 @@
    "type": "R-BLANK",
    "topic": "심리·인지",
    "margin": 2,
-   "chars": 919
+   "chars": 964
   },
   {
    "exam": "2017",
@@ -770,7 +770,7 @@
    "type": "R-BLANK",
    "topic": "사회·경제",
    "margin": 1,
-   "chars": 849
+   "chars": 857
   },
   {
    "exam": "2017",
@@ -778,15 +778,15 @@
    "type": "R-BLANK",
    "topic": "심리·인지",
    "margin": 2,
-   "chars": 885
+   "chars": 891
   },
   {
    "exam": "2017",
    "no": 34,
    "type": "R-BLANK",
    "topic": "예술·문화",
-   "margin": 3,
-   "chars": 1026
+   "margin": 2,
+   "chars": 1061
   },
   {
    "exam": "2017",
@@ -810,7 +810,7 @@
    "type": "R-ORDER",
    "topic": "과학·자연",
    "margin": 8,
-   "chars": 1094
+   "chars": 1089
   },
   {
    "exam": "2017",
@@ -818,7 +818,7 @@
    "type": "R-INSERT",
    "topic": "과학·자연",
    "margin": 0,
-   "chars": 1033
+   "chars": 1013
   },
   {
    "exam": "2017",
@@ -834,7 +834,7 @@
    "type": "R-SUMMARY",
    "topic": "사회·경제",
    "margin": 1,
-   "chars": 1394
+   "chars": 1335
   },
   {
    "exam": "2018",
@@ -850,7 +850,7 @@
    "type": "R-MOOD",
    "topic": "과학·자연",
    "margin": 3,
-   "chars": 789
+   "chars": 765
   },
   {
    "exam": "2018",
@@ -858,7 +858,7 @@
    "type": "R-CLAIM",
    "topic": "철학·윤리",
    "margin": 1,
-   "chars": 858
+   "chars": 837
   },
   {
    "exam": "2018",
@@ -866,7 +866,7 @@
    "type": "R-GIST",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 939
+   "chars": 929
   },
   {
    "exam": "2018",
@@ -874,7 +874,7 @@
    "type": "R-TOPIC",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 1020
+   "chars": 965
   },
   {
    "exam": "2018",
@@ -882,7 +882,7 @@
    "type": "R-TITLE",
    "topic": "철학·윤리",
    "margin": 1,
-   "chars": 1199
+   "chars": 1169
   },
   {
    "exam": "2018",
@@ -890,7 +890,7 @@
    "type": "R-GRAMMAR",
    "topic": "심리·인지",
    "margin": 3,
-   "chars": 882
+   "chars": 878
   },
   {
    "exam": "2018",
@@ -898,15 +898,15 @@
    "type": "R-VOCAB",
    "topic": "역사·인류",
    "margin": 5,
-   "chars": 405
+   "chars": 398
   },
   {
    "exam": "2018",
    "no": 31,
    "type": "R-BLANK",
    "topic": "예술·문화",
-   "margin": 2,
-   "chars": 911
+   "margin": 3,
+   "chars": 941
   },
   {
    "exam": "2018",
@@ -914,7 +914,7 @@
    "type": "R-BLANK",
    "topic": "심리·인지",
    "margin": 3,
-   "chars": 834
+   "chars": 885
   },
   {
    "exam": "2018",
@@ -922,7 +922,7 @@
    "type": "R-BLANK",
    "topic": "역사·인류",
    "margin": 1,
-   "chars": 901
+   "chars": 896
   },
   {
    "exam": "2018",
@@ -930,7 +930,7 @@
    "type": "R-BLANK",
    "topic": "예술·문화",
    "margin": 1,
-   "chars": 944
+   "chars": 985
   },
   {
    "exam": "2018",
@@ -938,7 +938,7 @@
    "type": "R-IRRELEVANT",
    "topic": "철학·윤리",
    "margin": 5,
-   "chars": 1039
+   "chars": 1046
   },
   {
    "exam": "2018",
@@ -946,7 +946,7 @@
    "type": "R-ORDER",
    "topic": "사회·경제",
    "margin": 6,
-   "chars": 1091
+   "chars": 1085
   },
   {
    "exam": "2018",
@@ -954,7 +954,7 @@
    "type": "R-ORDER",
    "topic": "사회·경제",
    "margin": 1,
-   "chars": 986
+   "chars": 971
   },
   {
    "exam": "2018",
@@ -962,7 +962,7 @@
    "type": "R-INSERT",
    "topic": "과학·자연",
    "margin": 3,
-   "chars": 993
+   "chars": 956
   },
   {
    "exam": "2018",
@@ -970,7 +970,7 @@
    "type": "R-INSERT",
    "topic": "과학·자연",
    "margin": 2,
-   "chars": 1118
+   "chars": 1078
   },
   {
    "exam": "2018",
@@ -978,7 +978,7 @@
    "type": "R-SUMMARY",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 1457
+   "chars": 1395
   },
   {
    "exam": "2019",
@@ -1002,7 +1002,7 @@
    "type": "R-CLAIM",
    "topic": "심리·인지",
    "margin": 0,
-   "chars": 839
+   "chars": 819
   },
   {
    "exam": "2019",
@@ -1010,7 +1010,7 @@
    "type": "R-IMPLY",
    "topic": "과학·자연",
    "margin": 0,
-   "chars": 1108
+   "chars": 1091
   },
   {
    "exam": "2019",
@@ -1018,7 +1018,7 @@
    "type": "R-GIST",
    "topic": "사회·경제",
    "margin": 6,
-   "chars": 978
+   "chars": 971
   },
   {
    "exam": "2019",
@@ -1026,7 +1026,7 @@
    "type": "R-TOPIC",
    "topic": "과학·자연",
    "margin": 4,
-   "chars": 1247
+   "chars": 1196
   },
   {
    "exam": "2019",
@@ -1034,7 +1034,7 @@
    "type": "R-TITLE",
    "topic": "심리·인지",
    "margin": 2,
-   "chars": 974
+   "chars": 981
   },
   {
    "exam": "2019",
@@ -1042,7 +1042,7 @@
    "type": "R-GRAMMAR",
    "topic": "예술·문화",
    "margin": 2,
-   "chars": 998
+   "chars": 962
   },
   {
    "exam": "2019",
@@ -1050,15 +1050,15 @@
    "type": "R-VOCAB",
    "topic": "과학·자연",
    "margin": 2,
-   "chars": 867
+   "chars": 829
   },
   {
    "exam": "2019",
    "no": 31,
    "type": "R-BLANK",
    "topic": "심리·인지",
-   "margin": 0,
-   "chars": 866
+   "margin": 1,
+   "chars": 902
   },
   {
    "exam": "2019",
@@ -1066,7 +1066,7 @@
    "type": "R-BLANK",
    "topic": "사회·경제",
    "margin": 5,
-   "chars": 1044
+   "chars": 1082
   },
   {
    "exam": "2019",
@@ -1074,7 +1074,7 @@
    "type": "R-BLANK",
    "topic": "예술·문화",
    "margin": 4,
-   "chars": 863
+   "chars": 925
   },
   {
    "exam": "2019",
@@ -1082,7 +1082,7 @@
    "type": "R-BLANK",
    "topic": "예술·문화",
    "margin": 1,
-   "chars": 1009
+   "chars": 1015
   },
   {
    "exam": "2019",
@@ -1090,7 +1090,7 @@
    "type": "R-ORDER",
    "topic": "심리·인지",
    "margin": 2,
-   "chars": 1102
+   "chars": 1075
   },
   {
    "exam": "2019",
@@ -1098,7 +1098,7 @@
    "type": "R-ORDER",
    "topic": "철학·윤리",
    "margin": 2,
-   "chars": 1070
+   "chars": 1065
   },
   {
    "exam": "2019",
@@ -1106,7 +1106,7 @@
    "type": "R-INSERT",
    "topic": "교육·언어",
    "margin": 2,
-   "chars": 1042
+   "chars": 1008
   },
   {
    "exam": "2019",
@@ -1114,7 +1114,7 @@
    "type": "R-INSERT",
    "topic": "분류불가",
    "margin": 0,
-   "chars": 1068
+   "chars": 1000
   },
   {
    "exam": "2019",
@@ -1122,7 +1122,7 @@
    "type": "R-SUMMARY",
    "topic": "과학·자연",
    "margin": 5,
-   "chars": 1287
+   "chars": 1246
   },
   {
    "exam": "2020",
@@ -1146,7 +1146,7 @@
    "type": "R-CLAIM",
    "topic": "철학·윤리",
    "margin": 1,
-   "chars": 919
+   "chars": 879
   },
   {
    "exam": "2020",
@@ -1154,7 +1154,7 @@
    "type": "R-IMPLY",
    "topic": "기술·매체",
    "margin": 1,
-   "chars": 1034
+   "chars": 986
   },
   {
    "exam": "2020",
@@ -1162,7 +1162,7 @@
    "type": "R-GIST",
    "topic": "교육·언어",
    "margin": 1,
-   "chars": 951
+   "chars": 920
   },
   {
    "exam": "2020",
@@ -1170,7 +1170,7 @@
    "type": "R-TOPIC",
    "topic": "과학·자연",
    "margin": 3,
-   "chars": 1145
+   "chars": 1116
   },
   {
    "exam": "2020",
@@ -1178,7 +1178,7 @@
    "type": "R-TITLE",
    "topic": "과학·자연",
    "margin": 4,
-   "chars": 1177
+   "chars": 1142
   },
   {
    "exam": "2020",
@@ -1186,7 +1186,7 @@
    "type": "R-GRAMMAR",
    "topic": "과학·자연",
    "margin": 2,
-   "chars": 1148
+   "chars": 1094
   },
   {
    "exam": "2020",
@@ -1194,15 +1194,15 @@
    "type": "R-BLANK",
    "topic": "철학·윤리",
    "margin": 2,
-   "chars": 796
+   "chars": 816
   },
   {
    "exam": "2020",
    "no": 32,
    "type": "R-BLANK",
    "topic": "과학·자연",
-   "margin": 2,
-   "chars": 751
+   "margin": 1,
+   "chars": 796
   },
   {
    "exam": "2020",
@@ -1210,15 +1210,15 @@
    "type": "R-BLANK",
    "topic": "기술·매체",
    "margin": 1,
-   "chars": 958
+   "chars": 1010
   },
   {
    "exam": "2020",
    "no": 34,
    "type": "R-BLANK",
    "topic": "예술·문화",
-   "margin": 8,
-   "chars": 897
+   "margin": 9,
+   "chars": 949
   },
   {
    "exam": "2020",
@@ -1226,7 +1226,7 @@
    "type": "R-IRRELEVANT",
    "topic": "과학·자연",
    "margin": 0,
-   "chars": 1129
+   "chars": 1087
   },
   {
    "exam": "2020",
@@ -1234,7 +1234,7 @@
    "type": "R-ORDER",
    "topic": "예술·문화",
    "margin": 3,
-   "chars": 1060
+   "chars": 1030
   },
   {
    "exam": "2020",
@@ -1242,7 +1242,7 @@
    "type": "R-ORDER",
    "topic": "예술·문화",
    "margin": 1,
-   "chars": 1283
+   "chars": 1278
   },
   {
    "exam": "2020",
@@ -1250,7 +1250,7 @@
    "type": "R-INSERT",
    "topic": "과학·자연",
    "margin": 10,
-   "chars": 1263
+   "chars": 1230
   },
   {
    "exam": "2020",
@@ -1258,7 +1258,7 @@
    "type": "R-INSERT",
    "topic": "사회·경제",
    "margin": 2,
-   "chars": 1207
+   "chars": 1154
   },
   {
    "exam": "2020",
@@ -1266,7 +1266,7 @@
    "type": "R-SUMMARY",
    "topic": "사회·경제",
    "margin": 1,
-   "chars": 1277
+   "chars": 1218
   },
   {
    "exam": "2021",
@@ -1298,7 +1298,7 @@
    "type": "R-IMPLY",
    "topic": "사회·경제",
    "margin": 0,
-   "chars": 985
+   "chars": 968
   },
   {
    "exam": "2021",
@@ -1306,7 +1306,7 @@
    "type": "R-GIST",
    "topic": "예술·문화",
    "margin": 4,
-   "chars": 1059
+   "chars": 1044
   },
   {
    "exam": "2021",
@@ -1322,7 +1322,7 @@
    "type": "R-TITLE",
    "topic": "심리·인지",
    "margin": 0,
-   "chars": 1000
+   "chars": 944
   },
   {
    "exam": "2021",
@@ -1330,7 +1330,7 @@
    "type": "R-GRAMMAR",
    "topic": "철학·윤리",
    "margin": 1,
-   "chars": 1177
+   "chars": 1118
   },
   {
    "exam": "2021",
@@ -1338,15 +1338,15 @@
    "type": "R-VOCAB",
    "topic": "심리·인지",
    "margin": 0,
-   "chars": 1053
+   "chars": 1020
   },
   {
    "exam": "2021",
    "no": 31,
    "type": "R-BLANK",
    "topic": "교육·언어",
-   "margin": 1,
-   "chars": 904
+   "margin": 2,
+   "chars": 891
   },
   {
    "exam": "2021",
@@ -1354,23 +1354,23 @@
    "type": "R-BLANK",
    "topic": "과학·자연",
    "margin": 2,
-   "chars": 793
+   "chars": 850
   },
   {
    "exam": "2021",
    "no": 33,
    "type": "R-BLANK",
    "topic": "과학·자연",
-   "margin": 3,
-   "chars": 1017
+   "margin": 2,
+   "chars": 1034
   },
   {
    "exam": "2021",
    "no": 34,
    "type": "R-BLANK",
    "topic": "기술·매체",
-   "margin": 5,
-   "chars": 957
+   "margin": 6,
+   "chars": 983
   },
   {
    "exam": "2021",
@@ -1386,7 +1386,7 @@
    "type": "R-ORDER",
    "topic": "사회·경제",
    "margin": 4,
-   "chars": 1121
+   "chars": 1131
   },
   {
    "exam": "2021",
@@ -1394,7 +1394,7 @@
    "type": "R-ORDER",
    "topic": "과학·자연",
    "margin": 2,
-   "chars": 1126
+   "chars": 1080
   },
   {
    "exam": "2021",
@@ -1402,7 +1402,7 @@
    "type": "R-INSERT",
    "topic": "교육·언어",
    "margin": 1,
-   "chars": 1172
+   "chars": 1160
   },
   {
    "exam": "2021",
@@ -1410,7 +1410,7 @@
    "type": "R-INSERT",
    "topic": "예술·문화",
    "margin": 3,
-   "chars": 1079
+   "chars": 1038
   },
   {
    "exam": "2021",
@@ -1418,7 +1418,7 @@
    "type": "R-SUMMARY",
    "topic": "사회·경제",
    "margin": 5,
-   "chars": 1363
+   "chars": 1311
   },
   {
    "exam": "2022",
@@ -1426,7 +1426,7 @@
    "type": "R-PURPOSE",
    "topic": "기술·매체",
    "margin": 0,
-   "chars": 642
+   "chars": 649
   },
   {
    "exam": "2022",
@@ -1450,7 +1450,7 @@
    "type": "R-IMPLY",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 1110
+   "chars": 1021
   },
   {
    "exam": "2022",
@@ -1458,7 +1458,7 @@
    "type": "R-GIST",
    "topic": "과학·자연",
    "margin": 4,
-   "chars": 1043
+   "chars": 1002
   },
   {
    "exam": "2022",
@@ -1482,7 +1482,7 @@
    "type": "R-GRAMMAR",
    "topic": "과학·자연",
    "margin": 17,
-   "chars": 1076
+   "chars": 1038
   },
   {
    "exam": "2022",
@@ -1490,7 +1490,7 @@
    "type": "R-VOCAB",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 1166
+   "chars": 1098
   },
   {
    "exam": "2022",
@@ -1498,7 +1498,7 @@
    "type": "R-BLANK",
    "topic": "심리·인지",
    "margin": 2,
-   "chars": 852
+   "chars": 926
   },
   {
    "exam": "2022",
@@ -1506,7 +1506,7 @@
    "type": "R-BLANK",
    "topic": "예술·문화",
    "margin": 1,
-   "chars": 981
+   "chars": 1040
   },
   {
    "exam": "2022",
@@ -1514,7 +1514,7 @@
    "type": "R-BLANK",
    "topic": "사회·경제",
    "margin": 1,
-   "chars": 949
+   "chars": 983
   },
   {
    "exam": "2022",
@@ -1522,7 +1522,15 @@
    "type": "R-BLANK",
    "topic": "철학·윤리",
    "margin": 1,
-   "chars": 1080
+   "chars": 1120
+  },
+  {
+   "exam": "2022",
+   "no": 35,
+   "type": "R-IRRELEVANT",
+   "topic": "사회·경제",
+   "margin": 4,
+   "chars": 893
   },
   {
    "exam": "2022",
@@ -1538,15 +1546,23 @@
    "type": "R-ORDER",
    "topic": "예술·문화",
    "margin": 9,
-   "chars": 2257
+   "chars": 2306
   },
   {
    "exam": "2022",
    "no": 38,
    "type": "R-INSERT",
-   "topic": "기술·매체",
-   "margin": 1,
-   "chars": 1861
+   "topic": "과학·자연",
+   "margin": 0,
+   "chars": 2041
+  },
+  {
+   "exam": "2022",
+   "no": 39,
+   "type": "R-INSERT",
+   "topic": "예술·문화",
+   "margin": 9,
+   "chars": 2306
   },
   {
    "exam": "2023",
@@ -1554,7 +1570,7 @@
    "type": "R-PURPOSE",
    "topic": "과학·자연",
    "margin": 3,
-   "chars": 624
+   "chars": 631
   },
   {
    "exam": "2023",
@@ -1570,7 +1586,7 @@
    "type": "R-CLAIM",
    "topic": "심리·인지",
    "margin": 2,
-   "chars": 830
+   "chars": 795
   },
   {
    "exam": "2023",
@@ -1578,7 +1594,7 @@
    "type": "R-IMPLY",
    "topic": "기술·매체",
    "margin": 0,
-   "chars": 1072
+   "chars": 1017
   },
   {
    "exam": "2023",
@@ -1594,7 +1610,7 @@
    "type": "R-TOPIC",
    "topic": "사회·경제",
    "margin": 3,
-   "chars": 1057
+   "chars": 1008
   },
   {
    "exam": "2023",
@@ -1610,7 +1626,7 @@
    "type": "R-GRAMMAR",
    "topic": "사회·경제",
    "margin": 1,
-   "chars": 1082
+   "chars": 1075
   },
   {
    "exam": "2023",
@@ -1618,7 +1634,7 @@
    "type": "R-VOCAB",
    "topic": "기술·매체",
    "margin": 4,
-   "chars": 1262
+   "chars": 1221
   },
   {
    "exam": "2023",
@@ -1626,7 +1642,7 @@
    "type": "R-BLANK",
    "topic": "기술·매체",
    "margin": 1,
-   "chars": 1169
+   "chars": 1236
   },
   {
    "exam": "2023",
@@ -1634,7 +1650,7 @@
    "type": "R-BLANK",
    "topic": "예술·문화",
    "margin": 1,
-   "chars": 851
+   "chars": 881
   },
   {
    "exam": "2023",
@@ -1642,15 +1658,15 @@
    "type": "R-BLANK",
    "topic": "과학·자연",
    "margin": 5,
-   "chars": 1031
+   "chars": 1053
   },
   {
    "exam": "2023",
    "no": 34,
    "type": "R-BLANK",
    "topic": "과학·자연",
-   "margin": 1,
-   "chars": 1018
+   "margin": 0,
+   "chars": 1007
   },
   {
    "exam": "2023",
@@ -1658,7 +1674,7 @@
    "type": "R-IRRELEVANT",
    "topic": "교육·언어",
    "margin": 6,
-   "chars": 990
+   "chars": 997
   },
   {
    "exam": "2023",
@@ -1666,7 +1682,7 @@
    "type": "R-ORDER",
    "topic": "과학·자연",
    "margin": 18,
-   "chars": 1085
+   "chars": 1092
   },
   {
    "exam": "2023",
@@ -1674,15 +1690,15 @@
    "type": "R-ORDER",
    "topic": "사회·경제",
    "margin": 5,
-   "chars": 1041
+   "chars": 1022
   },
   {
    "exam": "2023",
    "no": 38,
    "type": "R-INSERT",
    "topic": "예술·문화",
-   "margin": 5,
-   "chars": 1264
+   "margin": 4,
+   "chars": 1220
   },
   {
    "exam": "2023",
@@ -1690,7 +1706,7 @@
    "type": "R-INSERT",
    "topic": "분류불가",
    "margin": 0,
-   "chars": 1047
+   "chars": 1005
   },
   {
    "exam": "2023",
@@ -1698,7 +1714,7 @@
    "type": "R-SUMMARY",
    "topic": "사회·경제",
    "margin": 2,
-   "chars": 1245
+   "chars": 1226
   },
   {
    "exam": "2024",
@@ -1730,7 +1746,7 @@
    "type": "R-IMPLY",
    "topic": "심리·인지",
    "margin": 11,
-   "chars": 955
+   "chars": 922
   },
   {
    "exam": "2024",
@@ -1738,7 +1754,7 @@
    "type": "R-GIST",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 1080
+   "chars": 1064
   },
   {
    "exam": "2024",
@@ -1746,7 +1762,7 @@
    "type": "R-TOPIC",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 1020
+   "chars": 987
   },
   {
    "exam": "2024",
@@ -1754,7 +1770,7 @@
    "type": "R-TITLE",
    "topic": "사회·경제",
    "margin": 1,
-   "chars": 1131
+   "chars": 1108
   },
   {
    "exam": "2024",
@@ -1762,7 +1778,7 @@
    "type": "R-GRAMMAR",
    "topic": "사회·경제",
    "margin": 0,
-   "chars": 1058
+   "chars": 995
   },
   {
    "exam": "2024",
@@ -1770,7 +1786,7 @@
    "type": "R-VOCAB",
    "topic": "사회·경제",
    "margin": 3,
-   "chars": 1010
+   "chars": 964
   },
   {
    "exam": "2024",
@@ -1778,23 +1794,23 @@
    "type": "R-BLANK",
    "topic": "교육·언어",
    "margin": 3,
-   "chars": 1010
+   "chars": 1088
   },
   {
    "exam": "2024",
    "no": 32,
    "type": "R-BLANK",
    "topic": "예술·문화",
-   "margin": 5,
-   "chars": 881
+   "margin": 7,
+   "chars": 914
   },
   {
    "exam": "2024",
    "no": 33,
    "type": "R-BLANK",
    "topic": "심리·인지",
-   "margin": 2,
-   "chars": 925
+   "margin": 3,
+   "chars": 927
   },
   {
    "exam": "2024",
@@ -1802,7 +1818,7 @@
    "type": "R-BLANK",
    "topic": "심리·인지",
    "margin": 1,
-   "chars": 1081
+   "chars": 1078
   },
   {
    "exam": "2024",
@@ -1818,7 +1834,7 @@
    "type": "R-ORDER",
    "topic": "심리·인지",
    "margin": 1,
-   "chars": 1131
+   "chars": 1069
   },
   {
    "exam": "2024",
@@ -1826,7 +1842,7 @@
    "type": "R-ORDER",
    "topic": "심리·인지",
    "margin": 4,
-   "chars": 1102
+   "chars": 1104
   },
   {
    "exam": "2024",
@@ -1834,7 +1850,7 @@
    "type": "R-INSERT",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 1035
+   "chars": 1000
   },
   {
    "exam": "2024",
@@ -1842,7 +1858,7 @@
    "type": "R-INSERT",
    "topic": "과학·자연",
    "margin": 3,
-   "chars": 1025
+   "chars": 988
   },
   {
    "exam": "2024",
@@ -1850,7 +1866,7 @@
    "type": "R-SUMMARY",
    "topic": "심리·인지",
    "margin": 3,
-   "chars": 1220
+   "chars": 1177
   },
   {
    "exam": "2025",
@@ -1882,7 +1898,7 @@
    "type": "R-IMPLY",
    "topic": "예술·문화",
    "margin": 6,
-   "chars": 1013
+   "chars": 989
   },
   {
    "exam": "2025",
@@ -1898,7 +1914,7 @@
    "type": "R-TOPIC",
    "topic": "사회·경제",
    "margin": 1,
-   "chars": 927
+   "chars": 914
   },
   {
    "exam": "2025",
@@ -1906,7 +1922,7 @@
    "type": "R-TITLE",
    "topic": "역사·인류",
    "margin": 2,
-   "chars": 851
+   "chars": 815
   },
   {
    "exam": "2025",
@@ -1922,23 +1938,23 @@
    "type": "R-VOCAB",
    "topic": "심리·인지",
    "margin": 8,
-   "chars": 1344
+   "chars": 1300
   },
   {
    "exam": "2025",
    "no": 31,
    "type": "R-BLANK",
    "topic": "교육·언어",
-   "margin": 2,
-   "chars": 1045
+   "margin": 1,
+   "chars": 994
   },
   {
    "exam": "2025",
    "no": 32,
    "type": "R-BLANK",
    "topic": "심리·인지",
-   "margin": 2,
-   "chars": 929
+   "margin": 3,
+   "chars": 961
   },
   {
    "exam": "2025",
@@ -1946,7 +1962,7 @@
    "type": "R-BLANK",
    "topic": "기술·매체",
    "margin": 1,
-   "chars": 815
+   "chars": 877
   },
   {
    "exam": "2025",
@@ -1954,7 +1970,7 @@
    "type": "R-BLANK",
    "topic": "심리·인지",
    "margin": 1,
-   "chars": 994
+   "chars": 1010
   },
   {
    "exam": "2025",
@@ -1970,7 +1986,7 @@
    "type": "R-ORDER",
    "topic": "심리·인지",
    "margin": 0,
-   "chars": 1121
+   "chars": 1124
   },
   {
    "exam": "2025",
@@ -1978,7 +1994,7 @@
    "type": "R-ORDER",
    "topic": "과학·자연",
    "margin": 5,
-   "chars": 1035
+   "chars": 999
   },
   {
    "exam": "2025",
@@ -1986,7 +2002,7 @@
    "type": "R-INSERT",
    "topic": "사회·경제",
    "margin": 4,
-   "chars": 1138
+   "chars": 1108
   },
   {
    "exam": "2025",
@@ -1994,7 +2010,7 @@
    "type": "R-INSERT",
    "topic": "기술·매체",
    "margin": 1,
-   "chars": 1257
+   "chars": 1213
   },
   {
    "exam": "2025",
@@ -2002,7 +2018,7 @@
    "type": "R-SUMMARY",
    "topic": "과학·자연",
    "margin": 0,
-   "chars": 1245
+   "chars": 1204
   },
   {
    "exam": "2026",
@@ -2026,7 +2042,7 @@
    "type": "R-CLAIM",
    "topic": "예술·문화",
    "margin": 1,
-   "chars": 929
+   "chars": 936
   },
   {
    "exam": "2026",
@@ -2034,7 +2050,7 @@
    "type": "R-IMPLY",
    "topic": "기술·매체",
    "margin": 3,
-   "chars": 1079
+   "chars": 1019
   },
   {
    "exam": "2026",
@@ -2042,7 +2058,7 @@
    "type": "R-GIST",
    "topic": "과학·자연",
    "margin": 0,
-   "chars": 1140
+   "chars": 1102
   },
   {
    "exam": "2026",
@@ -2050,7 +2066,7 @@
    "type": "R-TOPIC",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 899
+   "chars": 885
   },
   {
    "exam": "2026",
@@ -2058,7 +2074,7 @@
    "type": "R-TITLE",
    "topic": "사회·경제",
    "margin": 4,
-   "chars": 1147
+   "chars": 1091
   },
   {
    "exam": "2026",
@@ -2066,47 +2082,39 @@
    "type": "R-GRAMMAR",
    "topic": "심리·인지",
    "margin": 0,
-   "chars": 918
-  },
-  {
-   "exam": "2026",
-   "no": 30,
-   "type": "R-VOCAB",
-   "topic": "철학·윤리",
-   "margin": 3,
-   "chars": 205
+   "chars": 902
   },
   {
    "exam": "2026",
    "no": 31,
    "type": "R-BLANK",
    "topic": "사회·경제",
-   "margin": 8,
-   "chars": 1029
+   "margin": 10,
+   "chars": 1070
   },
   {
    "exam": "2026",
    "no": 32,
    "type": "R-BLANK",
    "topic": "교육·언어",
-   "margin": 2,
-   "chars": 938
+   "margin": 1,
+   "chars": 998
   },
   {
    "exam": "2026",
    "no": 33,
    "type": "R-BLANK",
-   "topic": "사회·경제",
-   "margin": 0,
-   "chars": 1039
+   "topic": "예술·문화",
+   "margin": 1,
+   "chars": 1109
   },
   {
    "exam": "2026",
    "no": 34,
    "type": "R-BLANK",
    "topic": "사회·경제",
-   "margin": 2,
-   "chars": 1003
+   "margin": 3,
+   "chars": 1039
   },
   {
    "exam": "2026",
@@ -2122,7 +2130,7 @@
    "type": "R-ORDER",
    "topic": "과학·자연",
    "margin": 5,
-   "chars": 1128
+   "chars": 1099
   },
   {
    "exam": "2026",
@@ -2130,7 +2138,7 @@
    "type": "R-ORDER",
    "topic": "철학·윤리",
    "margin": 7,
-   "chars": 1173
+   "chars": 1151
   },
   {
    "exam": "2026",
@@ -2138,7 +2146,7 @@
    "type": "R-INSERT",
    "topic": "심리·인지",
    "margin": 2,
-   "chars": 1160
+   "chars": 1127
   },
   {
    "exam": "2026",
@@ -2146,15 +2154,15 @@
    "type": "R-INSERT",
    "topic": "심리·인지",
    "margin": 2,
-   "chars": 1021
+   "chars": 998
   },
   {
    "exam": "2026",
    "no": 40,
    "type": "R-SUMMARY",
    "topic": "예술·문화",
-   "margin": 5,
-   "chars": 1328
+   "margin": 4,
+   "chars": 1293
   },
   {
    "exam": "M2606",
@@ -2178,7 +2186,7 @@
    "type": "R-CLAIM",
    "topic": "기술·매체",
    "margin": 1,
-   "chars": 1090
+   "chars": 875
   },
   {
    "exam": "M2606",
@@ -2186,7 +2194,7 @@
    "type": "R-IMPLY",
    "topic": "분류불가",
    "margin": 0,
-   "chars": 1038
+   "chars": 972
   },
   {
    "exam": "M2606",
@@ -2194,7 +2202,7 @@
    "type": "R-GIST",
    "topic": "기술·매체",
    "margin": 1,
-   "chars": 931
+   "chars": 915
   },
   {
    "exam": "M2606",
@@ -2202,7 +2210,7 @@
    "type": "R-TOPIC",
    "topic": "교육·언어",
    "margin": 3,
-   "chars": 1111
+   "chars": 1096
   },
   {
    "exam": "M2606",
@@ -2210,7 +2218,7 @@
    "type": "R-TITLE",
    "topic": "사회·경제",
    "margin": 1,
-   "chars": 1116
+   "chars": 1091
   },
   {
    "exam": "M2606",
@@ -2226,15 +2234,15 @@
    "type": "R-VOCAB",
    "topic": "예술·문화",
    "margin": 0,
-   "chars": 1203
+   "chars": 1153
   },
   {
    "exam": "M2606",
    "no": 31,
    "type": "R-BLANK",
    "topic": "과학·자연",
-   "margin": 4,
-   "chars": 1052
+   "margin": 3,
+   "chars": 1117
   },
   {
    "exam": "M2606",
@@ -2242,7 +2250,7 @@
    "type": "R-BLANK",
    "topic": "예술·문화",
    "margin": 1,
-   "chars": 902
+   "chars": 891
   },
   {
    "exam": "M2606",
@@ -2250,7 +2258,7 @@
    "type": "R-BLANK",
    "topic": "과학·자연",
    "margin": 0,
-   "chars": 775
+   "chars": 825
   },
   {
    "exam": "M2606",
@@ -2258,7 +2266,7 @@
    "type": "R-BLANK",
    "topic": "사회·경제",
    "margin": 1,
-   "chars": 1137
+   "chars": 1160
   },
   {
    "exam": "M2606",
@@ -2266,7 +2274,7 @@
    "type": "R-IRRELEVANT",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 1105
+   "chars": 1090
   },
   {
    "exam": "M2606",
@@ -2274,7 +2282,7 @@
    "type": "R-ORDER",
    "topic": "과학·자연",
    "margin": 4,
-   "chars": 1108
+   "chars": 1083
   },
   {
    "exam": "M2606",
@@ -2282,7 +2290,7 @@
    "type": "R-ORDER",
    "topic": "과학·자연",
    "margin": 2,
-   "chars": 1156
+   "chars": 1100
   },
   {
    "exam": "M2606",
@@ -2290,7 +2298,7 @@
    "type": "R-INSERT",
    "topic": "예술·문화",
    "margin": 2,
-   "chars": 940
+   "chars": 905
   },
   {
    "exam": "M2606",
@@ -2298,7 +2306,7 @@
    "type": "R-INSERT",
    "topic": "과학·자연",
    "margin": 3,
-   "chars": 1041
+   "chars": 1019
   },
   {
    "exam": "M2606",
@@ -2306,7 +2314,7 @@
    "type": "R-SUMMARY",
    "topic": "사회·경제",
    "margin": 4,
-   "chars": 1259
+   "chars": 1224
   },
   {
    "exam": "M2609",
@@ -2338,7 +2346,7 @@
    "type": "R-IMPLY",
    "topic": "예술·문화",
    "margin": 7,
-   "chars": 1115
+   "chars": 1099
   },
   {
    "exam": "M2609",
@@ -2346,7 +2354,7 @@
    "type": "R-GIST",
    "topic": "사회·경제",
    "margin": 6,
-   "chars": 892
+   "chars": 885
   },
   {
    "exam": "M2609",
@@ -2354,7 +2362,7 @@
    "type": "R-TOPIC",
    "topic": "역사·인류",
    "margin": 1,
-   "chars": 1106
+   "chars": 1055
   },
   {
    "exam": "M2609",
@@ -2362,7 +2370,7 @@
    "type": "R-TITLE",
    "topic": "사회·경제",
    "margin": 4,
-   "chars": 1105
+   "chars": 1066
   },
   {
    "exam": "M2609",
@@ -2370,7 +2378,7 @@
    "type": "R-GRAMMAR",
    "topic": "사회·경제",
    "margin": 2,
-   "chars": 1024
+   "chars": 988
   },
   {
    "exam": "M2609",
@@ -2378,15 +2386,15 @@
    "type": "R-VOCAB",
    "topic": "기술·매체",
    "margin": 5,
-   "chars": 1154
+   "chars": 1111
   },
   {
    "exam": "M2609",
    "no": 31,
    "type": "R-BLANK",
    "topic": "과학·자연",
-   "margin": 2,
-   "chars": 964
+   "margin": 3,
+   "chars": 1037
   },
   {
    "exam": "M2609",
@@ -2394,15 +2402,15 @@
    "type": "R-BLANK",
    "topic": "심리·인지",
    "margin": 1,
-   "chars": 1447
+   "chars": 1437
   },
   {
    "exam": "M2609",
    "no": 33,
    "type": "R-BLANK",
    "topic": "과학·자연",
-   "margin": 9,
-   "chars": 1024
+   "margin": 11,
+   "chars": 1039
   },
   {
    "exam": "M2609",
@@ -2410,7 +2418,7 @@
    "type": "R-BLANK",
    "topic": "사회·경제",
    "margin": 4,
-   "chars": 1039
+   "chars": 1081
   },
   {
    "exam": "M2609",
@@ -2418,7 +2426,15 @@
    "type": "R-IRRELEVANT",
    "topic": "기술·매체",
    "margin": 2,
-   "chars": 1044
+   "chars": 1028
+  },
+  {
+   "exam": "M2609",
+   "no": 36,
+   "type": "R-ORDER",
+   "topic": "교육·언어",
+   "margin": 21,
+   "chars": 1072
   },
   {
    "exam": "M2609",
@@ -2426,7 +2442,7 @@
    "type": "R-ORDER",
    "topic": "교육·언어",
    "margin": 4,
-   "chars": 1024
+   "chars": 981
   },
   {
    "exam": "M2609",
@@ -2434,7 +2450,7 @@
    "type": "R-INSERT",
    "topic": "과학·자연",
    "margin": 3,
-   "chars": 989
+   "chars": 978
   },
   {
    "exam": "M2609",
@@ -2442,7 +2458,7 @@
    "type": "R-INSERT",
    "topic": "예술·문화",
    "margin": 0,
-   "chars": 1231
+   "chars": 1226
   },
   {
    "exam": "M2609",
@@ -2450,7 +2466,7 @@
    "type": "R-SUMMARY",
    "topic": "분류불가",
    "margin": 0,
-   "chars": 1296
+   "chars": 1280
   },
   {
    "exam": "M2706",
@@ -2474,7 +2490,7 @@
    "type": "R-CLAIM",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 1172
+   "chars": 942
   },
   {
    "exam": "M2706",
@@ -2482,7 +2498,7 @@
    "type": "R-IMPLY",
    "topic": "과학·자연",
    "margin": 0,
-   "chars": 1077
+   "chars": 1051
   },
   {
    "exam": "M2706",
@@ -2490,7 +2506,7 @@
    "type": "R-GIST",
    "topic": "예술·문화",
    "margin": 3,
-   "chars": 1159
+   "chars": 1121
   },
   {
    "exam": "M2706",
@@ -2498,7 +2514,7 @@
    "type": "R-TOPIC",
    "topic": "심리·인지",
    "margin": 3,
-   "chars": 1248
+   "chars": 1184
   },
   {
    "exam": "M2706",
@@ -2506,7 +2522,7 @@
    "type": "R-TITLE",
    "topic": "사회·경제",
    "margin": 2,
-   "chars": 1141
+   "chars": 1119
   },
   {
    "exam": "M2706",
@@ -2522,7 +2538,7 @@
    "type": "R-VOCAB",
    "topic": "예술·문화",
    "margin": 7,
-   "chars": 1168
+   "chars": 1138
   },
   {
    "exam": "M2706",
@@ -2530,7 +2546,7 @@
    "type": "R-BLANK",
    "topic": "예술·문화",
    "margin": 0,
-   "chars": 1125
+   "chars": 1138
   },
   {
    "exam": "M2706",
@@ -2538,15 +2554,15 @@
    "type": "R-BLANK",
    "topic": "심리·인지",
    "margin": 1,
-   "chars": 994
+   "chars": 1009
   },
   {
    "exam": "M2706",
    "no": 33,
    "type": "R-BLANK",
    "topic": "심리·인지",
-   "margin": 6,
-   "chars": 769
+   "margin": 7,
+   "chars": 810
   },
   {
    "exam": "M2706",
@@ -2554,7 +2570,7 @@
    "type": "R-BLANK",
    "topic": "예술·문화",
    "margin": 5,
-   "chars": 951
+   "chars": 980
   },
   {
    "exam": "M2706",
@@ -2562,15 +2578,15 @@
    "type": "R-IRRELEVANT",
    "topic": "과학·자연",
    "margin": 1,
-   "chars": 1135
+   "chars": 1109
   },
   {
    "exam": "M2706",
    "no": 36,
    "type": "R-ORDER",
    "topic": "과학·자연",
-   "margin": 23,
-   "chars": 1245
+   "margin": 22,
+   "chars": 1163
   },
   {
    "exam": "M2706",
@@ -2578,7 +2594,7 @@
    "type": "R-ORDER",
    "topic": "예술·문화",
    "margin": 3,
-   "chars": 1286
+   "chars": 1288
   },
   {
    "exam": "M2706",
@@ -2586,7 +2602,7 @@
    "type": "R-INSERT",
    "topic": "과학·자연",
    "margin": 0,
-   "chars": 1247
+   "chars": 1205
   },
   {
    "exam": "M2706",
@@ -2594,7 +2610,7 @@
    "type": "R-INSERT",
    "topic": "교육·언어",
    "margin": 3,
-   "chars": 1234
+   "chars": 1172
   },
   {
    "exam": "M2706",
@@ -2602,7 +2618,7 @@
    "type": "R-SUMMARY",
    "topic": "사회·경제",
    "margin": 3,
-   "chars": 1404
+   "chars": 1351
   }
  ]
 }
