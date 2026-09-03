@@ -1,0 +1,145 @@
+{
+  "measuredAt": "2026-09-03T05:08:45.420Z",
+  "source": "project_gutenberg",
+  "books": [
+    {
+      "id": 11,
+      "title": "Alice's Adventures in Wonderland",
+      "words": 27281,
+      "fkWhole": 10.31,
+      "paragraphs": 709,
+      "windows": 142,
+      "bandHits": {
+        "초3~4": 1,
+        "초5~6": 3,
+        "초6~중1": 18,
+        "중1~2": 37,
+        "중3": 47
+      },
+      "bandHitRatePct": {
+        "초3~4": 1,
+        "초5~6": 2,
+        "초6~중1": 13,
+        "중1~2": 26,
+        "중3": 33
+      }
+    },
+    {
+      "id": 37106,
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy",
+      "words": 192477,
+      "fkWhole": 7.68,
+      "paragraphs": 3778,
+      "windows": 400,
+      "bandHits": {
+        "초3~4": 41,
+        "초5~6": 83,
+        "초6~중1": 123,
+        "중1~2": 107,
+        "중3": 86
+      },
+      "bandHitRatePct": {
+        "초3~4": 10,
+        "초5~6": 21,
+        "초6~중1": 31,
+        "중1~2": 27,
+        "중3": 22
+      }
+    },
+    {
+      "id": 22163,
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall",
+      "words": 48956,
+      "fkWhole": 4.03,
+      "paragraphs": 1774,
+      "windows": 355,
+      "bandHits": {
+        "초3~4": 177,
+        "초5~6": 144,
+        "초6~중1": 119,
+        "중1~2": 31,
+        "중3": 9
+      },
+      "bandHitRatePct": {
+        "초3~4": 50,
+        "초5~6": 41,
+        "초6~중1": 34,
+        "중1~2": 9,
+        "중3": 3
+      }
+    },
+    {
+      "id": 209,
+      "title": "The Turn of the Screw",
+      "words": 43419,
+      "fkWhole": 9.31,
+      "paragraphs": 611,
+      "windows": 123,
+      "bandHits": {
+        "초3~4": 11,
+        "초5~6": 20,
+        "초6~중1": 24,
+        "중1~2": 28,
+        "중3": 18
+      },
+      "bandHitRatePct": {
+        "초3~4": 9,
+        "초5~6": 16,
+        "초6~중1": 20,
+        "중1~2": 23,
+        "중3": 15
+      }
+    },
+    {
+      "id": 38983,
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House",
+      "words": 53185,
+      "fkWhole": 6.19,
+      "paragraphs": 1222,
+      "windows": 245,
+      "bandHits": {
+        "초3~4": 30,
+        "초5~6": 71,
+        "초6~중1": 96,
+        "중1~2": 70,
+        "중3": 27
+      },
+      "bandHitRatePct": {
+        "초3~4": 12,
+        "초5~6": 29,
+        "초6~중1": 39,
+        "중1~2": 29,
+        "중3": 11
+      }
+    },
+    {
+      "id": 2620,
+      "title": "The Home Book of Verse — Volume 2",
+      "words": 177409,
+      "fkWhole": 7.47,
+      "paragraphs": 4126,
+      "windows": 400,
+      "bandHits": {
+        "초3~4": 37,
+        "초5~6": 72,
+        "초6~중1": 117,
+        "중1~2": 105,
+        "중3": 108
+      },
+      "bandHitRatePct": {
+        "초3~4": 9,
+        "초5~6": 18,
+        "초6~중1": 29,
+        "중1~2": 26,
+        "중3": 27
+      }
+    }
+  ],
+  "bandTotals": {
+    "초3~4": 297,
+    "초5~6": 393,
+    "초6~중1": 497,
+    "중1~2": 378,
+    "중3": 295
+  }
+}
