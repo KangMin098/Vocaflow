@@ -38,6 +38,28 @@ for (const a of suneungKeys.answers) keyOf.set(`${a.exam}#${a.no}`, a)
 for (const a of mockKeys.answers) keyOf.set(`${a.exam}#${a.no}`, a)
 
 /**
+ * **평가원 공개 정답표에서 받아 온 모의평가 정답**(`mock-answers-kice.json`).
+ *
+ * 사용자 폴더의 `_정답표.pdf` 7개가 실제로는 듣기 대본이었다 — 평가원 게시판의 파일명이
+ * 회차마다 달라(`정답표`·`정답지`·`3교시_영어_정답표`) 이름 규칙으로 받으면 대본이 딸려 온다.
+ * 그 7회차 196문항이 `answer_unknown` 으로 막혀 있었다.
+ *
+ * **이미 있는 것을 덮지 않는다.** 주 파이프라인(`ingest-mock`)이 뽑은 정답이 정본이고,
+ * 이것은 그 구멍만 메운다 — 덮게 두면 손으로 들여온 것이 파이프라인의 퇴행을 가린다.
+ * 검산은 `ingest-kice-keys.mjs` 가 한다(45문항 · 배점 합 100 · 문제지 [3점] 대조).
+ */
+const kicePath = path.join(DIR, 'mock-answers-kice.json')
+let kiceFilled = 0
+if (fs.existsSync(kicePath)) {
+  for (const a of read('mock-answers-kice.json').answers ?? []) {
+    const k = `${a.exam}#${a.no}`
+    if (keyOf.has(k)) continue
+    keyOf.set(k, a)
+    kiceFilled += 1
+  }
+}
+
+/**
  * **듣기 마지막 번호.** 2015학년도부터 17번이지만 **2014학년도는 22번까지가 듣기다**
  * (A/B 수준별 시행 회차). 이걸 17로 고정하면 2014 두 회차의 18~22번 듣기 10문항이
  * '독해' 로 들어와 분석 사정권을 오염시킨다 — 실측으로 걸렸다(지문 길이 5~24자).
@@ -405,7 +427,7 @@ fs.writeFileSync(path.join(DIR, 'corpus-report.json'), JSON.stringify(report, nu
 
 const pct = (a, b) => (b ? ((a / b) * 100).toFixed(1) : '0.0')
 const s = report.in_scope
-console.log(`  회차 ${report.exams}`)
+console.log(`  회차 ${report.exams}${kiceFilled ? ` · 평가원 공개 정답표로 메운 문항 ${kiceFilled}` : ''}`)
 console.log(`  ── 사정권: ${report.scope} ──`)
 console.log(`  문항       ${s.items} (기대 ${s.expected}, ${pct(s.items, s.expected)}%)`)
 console.log(`  유형 배정  ${s.typed} (${pct(s.typed, s.items)}%)`)

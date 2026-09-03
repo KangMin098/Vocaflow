@@ -6,7 +6,7 @@
   "items": 1302,
   "expected": 1305,
   "typed": 1277,
-  "keyed": 990,
+  "keyed": 1302,
   "passaged": 961,
   "choiced": 1164,
   "listening_items": 500
@@ -15,11 +15,11 @@
   "items": 802,
   "expected": 802,
   "typed": 802,
-  "keyed": 606,
+  "keyed": 802,
   "passaged": 798,
   "choiced": 781,
   "body_suspect": 228,
-  "exams_fully_keyed": 22,
+  "exams_fully_keyed": 29,
   "points_by_exam": {
    "2015": 63,
    "2016": 63,
@@ -38,6 +38,13 @@
    "M1809": 63,
    "M2006": 63,
    "M2106": 63,
+   "M2109": 63,
+   "M2206": 63,
+   "M2209": 63,
+   "M2306": 63,
+   "M2309": 63,
+   "M2406": 63,
+   "M2409": 63,
    "M2506": 63,
    "M2509": 63,
    "M2606": 63,
@@ -240,10 +247,10 @@
     "kind": "mock",
     "n": 28,
     "typed": 28,
-    "keyed": 0,
+    "keyed": 28,
     "passaged": 28,
     "choiced": 24,
-    "points": 0
+    "points": 63
    },
    {
     "exam": "M2206",
@@ -251,10 +258,10 @@
     "kind": "mock",
     "n": 28,
     "typed": 28,
-    "keyed": 0,
+    "keyed": 28,
     "passaged": 28,
     "choiced": 28,
-    "points": 0
+    "points": 63
    },
    {
     "exam": "M2209",
@@ -262,10 +269,10 @@
     "kind": "mock",
     "n": 28,
     "typed": 28,
-    "keyed": 0,
+    "keyed": 28,
     "passaged": 28,
     "choiced": 27,
-    "points": 0
+    "points": 63
    },
    {
     "exam": "M2306",
@@ -273,10 +280,10 @@
     "kind": "mock",
     "n": 28,
     "typed": 28,
-    "keyed": 0,
+    "keyed": 28,
     "passaged": 27,
     "choiced": 28,
-    "points": 0
+    "points": 63
    },
    {
     "exam": "M2309",
@@ -284,10 +291,10 @@
     "kind": "mock",
     "n": 28,
     "typed": 28,
-    "keyed": 0,
+    "keyed": 28,
     "passaged": 28,
     "choiced": 28,
-    "points": 0
+    "points": 63
    },
    {
     "exam": "M2406",
@@ -295,10 +302,10 @@
     "kind": "mock",
     "n": 28,
     "typed": 28,
-    "keyed": 0,
+    "keyed": 28,
     "passaged": 27,
     "choiced": 26,
-    "points": 0
+    "points": 63
    },
    {
     "exam": "M2409",
@@ -306,10 +313,10 @@
     "kind": "mock",
     "n": 28,
     "typed": 28,
-    "keyed": 0,
+    "keyed": 28,
     "passaged": 28,
     "choiced": 28,
-    "points": 0
+    "points": 63
    },
    {
     "exam": "M2506",
@@ -562,10 +569,10 @@
    "kind": "mock",
    "n": 45,
    "typed": 43,
-   "keyed": 0,
+   "keyed": 45,
    "passaged": 40,
    "choiced": 33,
-   "points": 0
+   "points": 100
   },
   {
    "exam": "M2206",
@@ -573,10 +580,10 @@
    "kind": "mock",
    "n": 45,
    "typed": 45,
-   "keyed": 0,
+   "keyed": 45,
    "passaged": 32,
    "choiced": 44,
-   "points": 0
+   "points": 100
   },
   {
    "exam": "M2209",
@@ -584,10 +591,10 @@
    "kind": "mock",
    "n": 44,
    "typed": 42,
-   "keyed": 0,
+   "keyed": 44,
    "passaged": 35,
    "choiced": 35,
-   "points": 0
+   "points": 98
   },
   {
    "exam": "M2306",
@@ -595,10 +602,10 @@
    "kind": "mock",
    "n": 44,
    "typed": 41,
-   "keyed": 0,
+   "keyed": 44,
    "passaged": 33,
    "choiced": 37,
-   "points": 0
+   "points": 98
   },
   {
    "exam": "M2309",
@@ -606,10 +613,10 @@
    "kind": "mock",
    "n": 44,
    "typed": 41,
-   "keyed": 0,
+   "keyed": 44,
    "passaged": 34,
    "choiced": 37,
-   "points": 0
+   "points": 98
   },
   {
    "exam": "M2406",
@@ -617,10 +624,10 @@
    "kind": "mock",
    "n": 45,
    "typed": 43,
-   "keyed": 0,
+   "keyed": 45,
    "passaged": 34,
    "choiced": 37,
-   "points": 0
+   "points": 100
   },
   {
    "exam": "M2409",
@@ -628,10 +635,10 @@
    "kind": "mock",
    "n": 45,
    "typed": 44,
-   "keyed": 0,
+   "keyed": 45,
    "passaged": 33,
    "choiced": 39,
-   "points": 0
+   "points": 100
   },
   {
    "exam": "M2506",
