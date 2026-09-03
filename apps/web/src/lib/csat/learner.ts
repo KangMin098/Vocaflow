@@ -352,6 +352,7 @@ export interface CsatItemExplain {
 
 type AnalysisRow = {
   item_id: string
+  version: number
   answer_unknown: boolean
   answer_locus: { quote?: string; reasoning?: string } | null
   choice_analysis: {
@@ -373,7 +374,9 @@ export async function loadCsatTypeItems(typeId: string): Promise<CsatItemBrief[]
   const [itemsRes, examsRes, aRes] = await Promise.all([
     db.from('csat_items_public').select('id, exam_id, no, points, answer').eq('type_id', typeId).eq('in_scope', true),
     db.from('csat_exams').select('id, label, year, month'),
-    db.from('csat_item_analyses').select('item_id, choice_analysis').eq('status', 'published'),
+    // 같은 이유로 여기도 버전이 여럿이다. 「해설 있음」은 **최신 버전**으로 판정한다 —
+    // 옛 버전에만 근거가 있고 최신에는 없는 경우를 「있음」으로 세면 빈 해설로 학습자를 보낸다.
+    db.from('csat_item_analyses').select('item_id, choice_analysis, version').eq('status', 'published'),
   ])
   if (itemsRes.error || examsRes.error) return []
 
@@ -382,10 +385,15 @@ export async function loadCsatTypeItems(typeId: string): Promise<CsatItemBrief[]
   )
   // 「설명이 있다」의 기준은 **정답 선지에 why_correct 가 있는가** 하나다.
   // 분석 행이 있다는 것만으로 있다고 말하면, 비어 있는 해설로 학습자를 보내게 된다.
+  const latest = new Map<string, { version: number; choice_analysis: AnalysisRow['choice_analysis'] }>()
+  for (const r of (aRes.data ?? []) as { item_id: string; version: number; choice_analysis: AnalysisRow['choice_analysis'] }[]) {
+    const cur = latest.get(r.item_id)
+    if (!cur || r.version > cur.version) latest.set(r.item_id, r)
+  }
   const explained = new Set(
-    ((aRes.data ?? []) as { item_id: string; choice_analysis: AnalysisRow['choice_analysis'] }[])
-      .filter((r) => (r.choice_analysis ?? []).some((c) => c.verdict === 'correct' && (c.why_correct ?? '').length >= 40))
-      .map((r) => r.item_id),
+    [...latest.entries()]
+      .filter(([, r]) => (r.choice_analysis ?? []).some((c) => c.verdict === 'correct' && (c.why_correct ?? '').length >= 40))
+      .map(([id]) => id),
   )
 
   return ((itemsRes.data ?? []) as { id: string; exam_id: string; no: number; points: number | null; answer: number | null }[])
@@ -412,12 +420,19 @@ export async function loadCsatItemExplain(
   const db = await csatDb()
   const [itemRes, aRes] = await Promise.all([
     db.from('csat_items_public').select('id, exam_id, no, points, answer, type_id').eq('id', id).maybeSingle(),
+    // ⚠️ **한 문항에 published 가 여러 행 있다.** 드레인이 분석을 고칠 때 덮어쓰지 않고
+    //    **버전을 올려 새 행**을 넣기 때문이다(옛 분석을 지우지 않는 것이 그 설계의 요점이다).
+    //    그래서 `maybeSingle()` 은 여러 행을 만나 **빈손으로 돌아온다** — 화면은 멀쩡히 뜨고
+    //    「아직 쓰는 중이에요」만 뜬다. DB 에는 근거가 다 들어 있는데도.
+    //    실측 2026-09-03: 606건을 보강 적재한 직후 이 화면이 전부 그렇게 보였고, e2e 가 잡았다.
+    //    **언제나 최신 버전 하나**를 집는다.
     db
       .from('csat_item_analyses')
-      .select('item_id, answer_unknown, answer_locus, choice_analysis, solve_procedure, required_vocab, time_budget_sec')
+      .select('item_id, answer_unknown, answer_locus, choice_analysis, solve_procedure, required_vocab, time_budget_sec, version')
       .eq('item_id', id)
       .eq('status', 'published')
-      .maybeSingle(),
+      .order('version', { ascending: false })
+      .limit(1),
   ])
   if (itemRes.error) return { item: null, error: itemRes.error.message }
   if (!itemRes.data) return { item: null, error: null }
@@ -428,7 +443,7 @@ export async function loadCsatItemExplain(
     it.type_id ? db.from('csat_types').select('name').eq('id', it.type_id).maybeSingle() : Promise.resolve({ data: null }),
   ])
 
-  const a = (aRes.data ?? null) as AnalysisRow | null
+  const a = ((aRes.data ?? [])[0] ?? null) as AnalysisRow | null
   const chs = a?.choice_analysis ?? []
   const correct = chs.find((c) => c.verdict === 'correct') ?? null
 

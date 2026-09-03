@@ -130,7 +130,47 @@ test.describe('기출 유형 분석 — 학습자 표면', () => {
       const nums = nos.map((t) => Number(t.replace('번', '')));
       expect(nums, '번호가 시험 순서대로가 아니다').toEqual([...nums].sort((a, b) => a - b));
 
-      // ── ④ 콘솔 에러 0 ────────────────────────────────────────────
+      // ── ④ 문항 해설 — **이 파이프라인의 본체다** ──────────────────
+      //
+      // 유형 절차는 "이 유형은 이렇게 푼다" 를 말한다. 그런데 학습자가 채점 뒤 알고 싶은 것은
+      // 눈앞의 한 문항이고 질문은 하나다 — **그래서 왜 ③인가.**
+      // 그 답이 화면에 없으면 나머지는 전부 딸림이므로, 여기서 비어 있으면 실패로 본다.
+      await page.goto('/csat', { waitUntil: 'domcontentloaded', timeout: 30_000 });
+      await page.locator('ul.grid > li a').filter({ hasText: '권장 풀이 시간' }).first().click();
+      await page.waitForURL(/\/csat\/[A-Z0-9-]+$/, { timeout: 30_000 });
+
+      // 유형 화면이 그 유형의 기출 목록을 준다 — 「해설 N / M」으로 준비된 수를 함께 말한다
+      const itemsHeading = page.getByRole('heading', { name: /이 유형의 기출/ });
+      await expect(itemsHeading).toBeVisible();
+      await expect(itemsHeading).toContainText(/해설 \d+ \/ \d+/);
+
+      const explained = page.locator('ul.grid > li a[href^="/csat/item/"]').filter({ hasNotText: '준비 중' });
+      expect(await explained.count(), '해설이 준비된 문항이 없다').toBeGreaterThan(0);
+      await explained.first().click();
+      await page.waitForURL(/\/csat\/item\//, { timeout: 30_000 });
+
+      await expect(page.getByText('지금은 해설을 불러오지 못했어요.')).toHaveCount(0);
+      await expect(page.getByText('이 문항은 정답 근거 서술을 아직 쓰는 중이에요.')).toHaveCount(0);
+
+      // ① 답이 왜 이것인가 — 정답 번호와 근거가 함께 있어야 한다
+      const why = page.getByRole('heading', { name: '답이 왜 이것인가' });
+      await expect(why).toBeVisible();
+      const whyBody = page.locator('section').filter({ has: why }).first();
+      await expect(whyBody.getByText(/[①②③④⑤]/).first()).toBeVisible();
+      // 되풀이가 아니라 **대응**을 말해야 한다 — 짧은 한 줄은 근거가 아니다
+      expect(((await whyBody.textContent()) ?? '').trim().length).toBeGreaterThan(80);
+
+      // ② 나머지가 왜 아닌가 — 오답 넷이 번호로 가리켜진다
+      await expect(page.getByRole('heading', { name: '나머지가 왜 아닌가' })).toBeVisible();
+      await expect(page.getByText('지우는 근거 —').first()).toBeVisible();
+
+      // ③ 다시 풀 때의 순서
+      await expect(page.getByRole('heading', { name: '다시 풀 때의 순서' })).toBeVisible();
+
+      // 저작권 경계 — 원문을 싣지 않는다는 고지가 이 화면에도 있어야 한다
+      await expect(page.getByText(/한국교육과정평가원/)).toBeVisible();
+
+      // ── ⑤ 콘솔 에러 0 ────────────────────────────────────────────
       // dev 서버가 이 스펙을 도는 중에 다시 컴파일하면(파일을 고치던 중이었다면) fast refresh 가
       // 콘솔 에러를 뱉는다 — 화면의 결함이 아니라 개발 환경의 소음이다. 걸러 내지 않으면
       // 이 단언은 "언젠가 실패하는" 검사가 되고, 그런 검사는 곧 무시당한다.
