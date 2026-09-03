@@ -121,6 +121,17 @@ export {
   STORYWEAVER_FEEDS,
 } from './ingest-article/storyweaver'
 export type { StoryweaverListItem } from './ingest-article/storyweaver'
+// NASA Space Place — 비PD 후보까지 12곳을 훑어 **두 관문을 다 통과한 유일한 곳**이다.
+export {
+  ingestSpacePlaceArticle,
+  listSpacePlaceFeed,
+  spacePlaceUrl,
+  spacePlaceSlugsIn,
+  spacePlaceParagraphs,
+  spacePlaceTitle,
+  SPACE_PLACE_FEEDS,
+} from './ingest-article/space-place'
+export type { SpacePlaceListItem } from './ingest-article/space-place'
 export type { NoaaListItem } from './ingest-article/noaa'
 // CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
 export { generateDcpItems, explainDcpEligibility } from './dcp/generate-items'

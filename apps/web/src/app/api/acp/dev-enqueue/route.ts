@@ -17,6 +17,7 @@ import {
   ingestElifeArticle,
   ingestFactbookArticle,
   ingestNasaArticle,
+  ingestSpacePlaceArticle,
   ingestStoryweaverArticle,
   ingestNihArticle,
   ingestNoaaArticle,
@@ -40,7 +41,7 @@ export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
 type ArticleSource =
-  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa' | 'storyweaver'
+  | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa' | 'storyweaver' | 'space_place'
 
 interface DevEnqueueBody {
   item_url?: string
@@ -67,6 +68,7 @@ const HOST_TO_SOURCE: Array<{ pattern: RegExp; source: ArticleSource }> = [
   { pattern: /^https?:\/\/(?:www\.)?usgs\.gov\/news\//, source: 'usgs' },
   { pattern: /^https?:\/\/(?:www\.)?climate\.gov\/news-features\//, source: 'noaa' },
   { pattern: /^https?:\/\/storyweaver\.org\.in\/stories\//, source: 'storyweaver' },
+  { pattern: /^https?:\/\/spaceplace\.nasa\.gov\/[a-z0-9-]+\//, source: 'space_place' },
 ]
 
 function detectSource(url: string | undefined, explicit?: ArticleSource): ArticleSource | null {
@@ -159,6 +161,9 @@ export async function POST(request: Request): Promise<NextResponse> {
         break
       case 'storyweaver':
         article = await ingestStoryweaverArticle(body.item_url)
+        break
+      case 'space_place':
+        article = await ingestSpacePlaceArticle(body.item_url)
         break
     }
 

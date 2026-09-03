@@ -46,6 +46,7 @@ export const SOURCE_REGISTERS: Record<SourceKey, ReadonlyArray<string>> = {
   wikinews: ['news'],
   // 그림책 서사 — 초·중 창에 narrative 가 **0편**이라 넣은 소스다. 다른 register 는 없다.
   storyweaver: ['narrative'],
+  space_place: ['expository'],
   the_conversation: ['argumentative'],
   simple_wikipedia: ['expository', 'reference'],
   owid: ['argumentative'], // T-2 — 데이터 논증문 (CC-BY → 발행 가능 argumentative 보강)

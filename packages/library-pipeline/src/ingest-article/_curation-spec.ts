@@ -36,6 +36,8 @@ export type SourceKey =
   // 초·중 **이야기** 지문 (Pratham Books StoryWeaver). 2026-09-02 추가.
   //   초·중 창에 드는 글 154편의 register 를 세니 **narrative 0** 이었다 —
   //   재고 부족이 아니라 종류 부재라 편수를 늘려도 해결되지 않는다.
+  // NASA Space Place — 두 관문(robots · 저작권 고지)을 다 통과한 유일한 후보. 2026-09-03 추가.
+  | 'space_place'
   | 'storyweaver'
   // ACP §20 — 사실 재저작. 외부 본문을 가져오지 않으므로 수집 대상이 아니지만,
   // 발행 후에는 다른 소스와 같은 자리(정책·트랙·표시)에 서야 하므로 SourceKey 를 갖는다.
@@ -344,6 +346,19 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 240,
     noiseKeywords: ['listen:', 'watch:', 'podcast'], // 오디오/영상 포스트는 본문이 짧다
     maxItems: 20,
+  },
+  space_place: {
+    // 우주 설명글은 시의성이 약하고 **발행일 자체가 쪽에 없다.**
+    //   recency 를 켜 두면 전량이 0점이 되어 소스를 넣고도 한 편도 안 들어온다.
+    recencyDays: null,
+    minDescriptionLen: 0, // 주제 메뉴에서 링크만 긁는다 — 설명이 없다
+    minTitleLen: 3,
+    sourceWeight: 0.9, // 두 관문(robots·저작권 고지)을 다 통과한 드문 소스다
+    levelBonus: 0.05, // FK 중앙 6.63 — 초·중 한가운데
+    idealDescLen: 120,
+    // 놀이·활동 쪽은 지문이 아니다.
+    noiseKeywords: ['glossary', 'activity', 'game'],
+    maxItems: 24,
   },
   storyweaver: {
     // 그림책은 시의성이 없다 — 1990년대 이야기도 오늘 읽힌다. 따라서 recency 를 끄다.
@@ -774,6 +789,19 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
     styleGuide: '대학 공보의 연구 소개 기사 (B1-B2) · 학술 소재를 일반 독자용으로 재서술',
     preferredFeedMix: [{ feedId: 'all', weight: 1.00 }],
   },
+  // NASA Space Place: 난이도가 초·중 한가운데인 PD 설명글. 길이만 발췌하면 된다.
+  space_place: {
+    targetLevels: ['beginner', 'intermediate'],
+    targetCefr: { min: 'A2', max: 'B1' },
+    maxItemsPerBatch: 24,
+    minScore: 0.3,
+    bulkPriority: 2,
+    license: 'PD-Government',
+    attributionRequired: true, // PD 라 의무는 아니지만 출처를 밝힌다(원문 축 B1)
+    topicDomain: ['space', 'earth', 'science', 'astronomy'],
+    styleGuide: '어린이·청소년용 우주 설명글 (A2-B1) · 문장 13어로 시중 쥅1 교재와 같다',
+    preferredFeedMix: [{ feedId: 'all', weight: 1.0 }],
+  },
   // StoryWeaver: 초·중 이야기. **register 구멍을 메우려고 넣는다.**
   storyweaver: {
     targetLevels: ['beginner'],
@@ -890,7 +918,7 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  * BulkArticlesTab 에서 학습자 수준 선택 시 이 순서로 소스 자동 재정렬.
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
-  beginner:     ['storyweaver', 'voa', 'simple_wikipedia', 'wikivoyage', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
+  beginner:     ['storyweaver', 'space_place', 'voa', 'simple_wikipedia', 'wikivoyage', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
   intermediate: ['voa', 'simple_wikipedia', 'futurity', 'wikivoyage', 'factbook', 'nasa', 'usgs', 'noaa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
   advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'futurity', 'nih', 'nasa', 'usgs', 'noaa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
@@ -955,6 +983,7 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   usgs: 'expository', // 지구과학·자연재해 과학 저널리즘 (설명문)
   noaa: 'expository', // 기후과학 explainer (설명문)
   futurity: 'expository', // 대학 연구 소개 — 주장이 아니라 설명이다
+  space_place: 'expository', // 우주 현상 설명글
   storyweaver: 'narrative', // 그림책 이야기 — 이 자리가 비어 있었다
   // ACP §20 — 재저작 기본은 시사. 발주가 다른 register 를 지정하면 dev-process 가 아니라
   //   composed_spec 이 권위이므로, 이 값은 발주 없이 들어온 경우의 안전 기본값이다.
@@ -1185,6 +1214,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   // ⚠️ 여기 적힌 `CC-BY-4.0` 은 **다수값**이지 그 책의 값이 아니다. StoryWeaver 는
   //   책마다 라이선스가 다르고 정본은 **책 뒷장의 표시**다 — 어댑터가 거기서 읽고,
   //   못 읽으면 `restricted` 로 떨어뜨린다. 이 표는 화면에 보여 줄 기본값일 뿐이다.
+  space_place: getSourcePolicy('space_place'),
   storyweaver: getSourcePolicy('storyweaver'),
   original: getSourcePolicy('original'),
 }

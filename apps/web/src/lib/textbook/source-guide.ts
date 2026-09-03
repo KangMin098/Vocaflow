@@ -89,6 +89,10 @@ export const SOURCE_GUIDE: Record<SourceKey, SourceGuide> & Record<string, Sourc
     label: '기후·해양',
     says: 'NOAA 공개 자료. 자료와 추세를 다루는 글입니다.',
   },
+  space_place: {
+    label: '우주',
+    says: 'NASA 가 어린이·청소년을 위해 쓴 우주 설명글입니다.',
+  },
   storyweaver: {
     label: '이야기',
     says: '전 세계 아이들을 위해 쓰인 그림책 이야기입니다. 짧고, 사람이 나오고, 끝이 있습니다.',
