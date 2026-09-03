@@ -708,6 +708,7 @@ export {
   bandOf,
   gradeBand,
   READING_LEVEL_BANDS,
+  PASSAGE_WORDS,
   type ReadingLevelBand,
   type Readability,
 } from './textbook/readability'
