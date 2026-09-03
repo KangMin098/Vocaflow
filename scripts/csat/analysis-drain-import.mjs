@@ -105,12 +105,17 @@ for (const a of analyses) {
   // 같은 문항의 최신 버전을 보고, 내용이 같으면 건너뛴다(재실행 안전).
   const { data: prev } = await db
     .from('csat_item_analyses')
-    .select('id, version, measured_ability, design_intent, status')
+    .select('id, version, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, status')
     .eq('item_id', a.item_id)
     .order('version', { ascending: false })
     .limit(1)
   const last = prev?.[0]
-  const same = last && last.measured_ability === a.measured_ability && last.design_intent === a.design_intent
+  // ⚠️ **바뀐 것을 두 필드로만 재면 안 된다.** 예전에는 `measured_ability`·`design_intent` 만 비교했는데,
+  //    보강 드레인은 그 둘을 **그대로 두고** `choice_analysis` 에 「왜 이것이 정답인가」를 더한다.
+  //    두 필드만 보면 "같다" 로 판정해 새 버전을 안 만들고, **더한 서술이 통째로 버려진다.**
+  //    학습자에게 가는 것이 이 필드이므로 조용히 사라지면 알 길이 없다.
+  const shape = (x) => JSON.stringify([x.measured_ability, x.design_intent, x.answer_locus, x.choice_analysis, x.solve_procedure])
+  const same = last && shape(last) === shape(a)
   let aid = last?.id
 
   if (!same) {

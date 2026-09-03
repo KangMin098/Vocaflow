@@ -217,11 +217,38 @@ for (const f of files) {
       else if (it.answer != null && correct[0].n !== it.answer) {
         bad(id, `정답 불일치 — 분석 ${correct[0].n} vs 평가원 정답표 ${it.answer}`)
       }
+      // **V3a 정답 선지 — 「왜 이것이 정답인가」.**
+      //
+      // 이 검사가 없던 동안 정답 선지는 `verdict: "correct"` 만 찍히고 서술이 비었다
+      // (실측 146/606, `why_correct` 를 가진 것은 43/606 = 7%). 정답 근거 인용은 606/606 있었는데도
+      // **그 인용이 정답 선지와 어떻게 맞물리는지**가 없어서, 학습자에게 "그래서 왜 ③인가" 가
+      // 끝내 닿지 않았다. 이 파이프라인의 본체가 비어 있던 셈이다.
+      //
+      // 정답을 모르는 문항(`answer_unknown`)은 애초에 여기 오지 않는다 — 위에서 걸러진다.
+      for (const c of correct) {
+        const w = c.why_correct ?? ''
+        if (w.length < 40) {
+          bad(id, `정답 선지 ${c.n} 의 why_correct 가 ${w.length ? `${w.length}자` : '없다'} — 40자 이상으로 근거와의 대응을 적어야 한다`)
+        } else if (!/[a-zA-Z]/.test(w)) {
+          // 대응을 **낱말 단위로** 지목하려면 지문의 영어 표현이 서술 안에 들어온다.
+          // 한국어만으로 쓰면 "주제를 잘 나타내므로" 류의 되풀이가 된다.
+          warn(id, `정답 선지 ${c.n} 의 why_correct 에 지문 표현 인용이 없다 — 대응이 낱말 단위로 확인되지 않는다`)
+        }
+        if (c.why_tempting || c.how_to_reject) {
+          warn(id, `정답 선지 ${c.n} 에 오답용 필드(why_tempting/how_to_reject)가 붙어 있다 — why_correct 로 옮길 것`)
+        }
+      }
+
       // 오답 넷은 함정 서술을 갖춰야 한다
       for (const c of ch.filter((c) => c.verdict === 'distractor')) {
         if (!c.trap) bad(id, `선지 ${c.n} 에 trap 라벨이 없다`)
         if (!c.why_tempting || c.why_tempting.length < 10) bad(id, `선지 ${c.n} 의 why_tempting 이 부실하다`)
         if (!c.how_to_reject || c.how_to_reject.length < 10) bad(id, `선지 ${c.n} 의 how_to_reject 가 부실하다`)
+        // **배제 근거에 위치가 있어야 한다.** "지문과 다르다" 는 검증도 재현도 안 된다 —
+        // 학습자가 그 자리를 직접 짚어 확인할 수 있어야 길 안내가 된다(실측 473/606 만 갖췄다).
+        else if (!/문장|줄|번째|앞|뒤|단락|첫|끝|마지막|[a-zA-Z]{4}/.test(c.how_to_reject)) {
+          warn(id, `선지 ${c.n} 의 how_to_reject 에 위치·인용이 없다 — "${c.how_to_reject.slice(0, 40)}…"`)
+        }
       }
       // V3b 함정이 전부 같으면 "오답 4개가 서로 다른 함정" 이 아니다
       const traps = new Set(ch.filter((c) => c.verdict === 'distractor').map((c) => c.trap))
