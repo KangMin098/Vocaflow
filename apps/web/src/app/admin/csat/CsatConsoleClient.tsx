@@ -2,9 +2,16 @@
 //
 // 기출 분석 콘솔.
 //
-// 이 화면이 답해야 하는 질문은 하나다 — **"이 회차를 지금 풀면 99점이 나오나?"**
-// 수능 영어 총점 100 = 듣기 37 + 독해 63이고 배점 단위가 2·3점이므로 **99점 = 독해 실점 0** 이다.
-// 그래서 진행률을 문항 수 백분율로 보여 주지 않는다 — 96% 는 99점이 아니다.
+// 이 화면이 답해야 하는 질문은 하나다 — **"이 회차를 지금 풀면 독해에서 실점이 나오나?"**
+//
+// ⚠️ **「99점」이라고 쓰지 않는다. 두 번 틀린 말이었다.**
+//   ① 배점 단위가 2·3점이라 **99점이라는 점수 자체가 안 나온다** — 100 다음은 98이다.
+//      곧 「99점 이상」은 실질적으로 **100점**이다.
+//   ② 100점은 듣기까지 만점이어야 한다. 독해를 다 맞혀도 총점은 100 − 듣기 실점이다.
+//   듣기는 이 파이프라인이 다루지 않으므로(사용자 지시 2026-09-03), 이 화면은
+//   **우리가 책임지는 것만** 말한다 — 독해 사정권 배점(2015~ 63점 · 2014학년도 53점)에서 실점 0.
+//
+// 그래서 진행률을 문항 수 백분율로 보여 주지 않는다 — 96% 는 실점 0이 아니다.
 // 회차마다 **덮은 배점 / 사정권 배점**을 그대로 적고, 같을 때만 초록이다.
 //
 // 조작 버튼을 두지 않았다. 드레인은 Claude Code 배치가 터미널에서 돌리고, 이 화면은
@@ -88,7 +95,7 @@ function CoverageTable({ rows }: { rows: CsatCoverageRow[] }) {
               <th className="py-2 pr-3 font-medium">분석</th>
               <th className="py-2 pr-3 font-medium">검수 통과</th>
               <th className="py-2 pr-3 font-medium">덮은 배점</th>
-              <th className="py-2 font-medium">99점</th>
+              <th className="py-2 font-medium">독해 실점 0</th>
             </tr>
           </thead>
           <tbody>
@@ -195,9 +202,9 @@ export function CsatConsoleClient({ coverage, types, totals, loadError }: CsatOv
 
       <div className="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat
-          label="99점 가능 회차"
+          label="독해 실점 0 회차"
           value={`${totals.exams99} / ${totals.exams}`}
-          hint="사정권 배점을 전부 덮은 회차"
+          hint="사정권 배점을 전부 덮은 회차 (듣기는 다루지 않는다)"
         />
         <Stat
           label="검수 통과 문항"
@@ -234,7 +241,7 @@ export function CsatConsoleClient({ coverage, types, totals, loadError }: CsatOv
         <div className="mb-3 flex items-center gap-2 text-xs text-[var(--tx-3)]">
           <BookOpenCheck className="h-4 w-4" aria-hidden />
           {tab === '회차 커버리지'
-            ? '99점 = 독해 실점 0. 덮은 배점이 사정권 배점과 같아야 「가능」이다'
+            ? '덮은 배점이 사정권 배점과 같아야 「가능」이다 — 듣기는 세지 않는다'
             : '남은 몫이 많은 유형이 위에 온다 — 다음에 돌릴 드레인을 여기서 고른다'}
         </div>
         {tab === '회차 커버리지' ? <CoverageTable rows={coverage} /> : <TypeTable rows={types} />}

@@ -53,7 +53,7 @@ export interface CsatOverview {
     inScopeItems: number
     analyzed: number
     published: number
-    /** 회차마다 사정권 배점을 전부 덮은 회차 수 — 이것이 99점의 정의다 */
+    /** 사정권(독해) 배점을 전부 덮은 회차 수 — 우리가 책임지는 「실점 0」의 정의다. 듣기는 세지 않는다 */
     exams99: number
     /** 정답표가 없어 정답 근거를 쓸 수 없는 문항 */
     answerUnknown: number

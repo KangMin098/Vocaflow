@@ -4,7 +4,11 @@
 //
 // 유형별 분석을 낱개로 읽는 것과, 그것을 시험 순서로 늘어놓는 것은 다른 물건이다.
 // 시험장에서 만나는 것은 유형 목록이 아니라 18번부터 45번까지의 줄이고, 그 줄을 시간 안에
-// 통과할 수 있는지가 99점의 실제 조건이다.
+// 통과할 수 있는지가 **독해 실점 0** 의 실제 조건이다.
+//
+// ⚠️ **여기서 「99점」이라고 쓰지 않는다.** 배점 단위가 2·3점이라 99점이라는 점수 자체가
+//    나오지 않고(100 다음이 98이다), 독해를 다 맞혀도 총점은 100 − 듣기 실점이다.
+//    듣기는 이 파이프라인이 다루지 않으므로(사용자 지시), 화면은 **우리가 책임지는 것**만 말한다.
 //
 // 그래서 이 화면은 **시간 예산 합계를 시험 시간과 나란히 적는다.** 합이 넘으면 절차가
 // 아무리 옳아도 쓸 수 없다 — 그건 분석의 결함이지 학습자의 결함이다는 뜻이 아니다.
@@ -63,7 +67,9 @@ export default async function CsatPlanPage() {
               <div className="mt-1 font-display text-xl font-bold tabular-nums text-[var(--t1)]">
                 {plan.scope_points}점
               </div>
-              <div className="mt-1 text-xs text-[var(--t3)]">{plan.rows.length}문항 · 실점 0이 99점</div>
+              <div className="mt-1 text-xs text-[var(--t3)]">
+                {plan.rows.length}문항 · 여기서 실점 0이 목표 (듣기는 다루지 않아요)
+              </div>
             </div>
             <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] p-4">
               <div className="text-xs text-[var(--t3)]">절차 시간 합</div>

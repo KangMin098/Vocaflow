@@ -1,8 +1,8 @@
 // apps/web/src/app/admin/csat/__tests__/console-render.test.tsx
 //
-// 기출 분석 콘솔 렌더 스모크 + **99점 판정이 화면에서 뒤집히지 않는지** 본다.
+// 기출 분석 콘솔 렌더 스모크 + **「독해 실점 0」 판정이 화면에서 뒤집히지 않는지** 본다.
 //
-// 이 화면의 유일한 주장은 "이 회차를 지금 풀면 99점이 나오나" 하나다. 그 판정이 백분율
+// 이 화면의 유일한 주장은 "이 회차를 지금 풀면 독해에서 실점이 나오나" 하나다. 그 판정이 백분율
 // 반올림으로 흐려지면(96%를 「가능」으로 그리면) 관리자가 덜 된 회차를 끝난 것으로 본다.
 // 그래서 빈 상태·부분 상태·완료 상태를 다 그려 보고, 「가능」이 언제 켜지는지 고정한다.
 
@@ -58,7 +58,7 @@ const type: CsatTypeRow = {
 // (`63<!-- -->/<!-- -->63<!-- -->점`). 화면에 보이는 글자로 검사하려면 그것부터 걷어내야 한다.
 const text = (html: string) => html.replace(/<!--[\s\S]*?-->/g, '')
 
-/** 표 본문(`<tbody>`)만 — 상단 통계 라벨("99점 가능 회차")에 '가능' 이 들어 있어 오탐이 난다 */
+/** 표 본문(`<tbody>`)만 — 상단 통계 라벨에 '가능' 이 들어 있어 오탐이 난다 */
 const tbody = (html: string) => text(html).split('<tbody>')[1]?.split('</tbody>')[0] ?? ''
 
 describe('CsatConsoleClient', () => {
@@ -108,5 +108,17 @@ describe('CsatConsoleClient', () => {
     )
     expect(html).toContain('196')
     expect(html).toContain('정답 미상')
+  })
+
+  // **화면이 「99점」이라고 말하면 안 된다.** 두 번 틀린 말이라 되돌아오면 곤란하다:
+  //   ① 배점 단위가 2·3점이라 99점이라는 점수 자체가 안 나온다 — 100 다음은 98이다
+  //   ② 100점은 듣기까지 만점이어야 한다. 이 파이프라인은 듣기를 다루지 않는다
+  // 문자열 하나짜리 검사지만, 이 화면의 유일한 주장이 그 라벨에 걸려 있다.
+  it('「99점」이라고 말하지 않는다 — 듣기를 뺀 우리 몫만 말한다', () => {
+    const html = text(
+      renderToString(<CsatConsoleClient {...EMPTY} coverage={[partial, complete]} totals={{ ...EMPTY.totals, exams: 2 }} />),
+    )
+    expect(html, '화면에 「99점」이 되돌아왔다').not.toContain('99점')
+    expect(html).toContain('독해 실점 0')
   })
 })

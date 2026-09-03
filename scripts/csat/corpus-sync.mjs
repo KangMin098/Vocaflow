@@ -42,9 +42,15 @@ const typeTable = JSON.parse(fs.readFileSync(path.join(DIR, 'classified.json'), 
 // ── 유형 ──────────────────────────────────────────────────────────────
 // 사정권(in_scope)은 **듣기가 아닌 것**이다. 유형표의 sec 로 정한다 — 번호가 아니라 유형이
 // 판정 근거여야 2014 회차(듣기 22번까지)에서도 어긋나지 않는다.
-const usedTypes = new Set(corpus.items.map((i) => i.type_id).filter(Boolean))
-const recentTypes = new Set(corpus.items.filter((i) => i.year >= 2023 && i.type_id).map((i) => i.type_id))
+// ⚠️ **듣기는 DB 로 올리지 않는다** (사용자 지시 2026-09-03 「듣기는 전체에서 제외」).
+//    올려 두면 `csat_items` 를 세는 모든 화면·질의가 우리가 손대지도 않는 520문항을 함께 세고,
+//    유형 목록에는 학습자가 영원히 못 볼 듣기 유형 18개가 남는다.
+//    원장(corpus.json)에는 남겨 둔다 — 거기서는 "45문항 중 28을 떴다" 를 확인하는 자리 표시다.
+const scopeItems = corpus.items.filter((i) => i.in_scope)
+const usedTypes = new Set(scopeItems.map((i) => i.type_id).filter(Boolean))
+const recentTypes = new Set(scopeItems.filter((i) => i.year >= 2023 && i.type_id).map((i) => i.type_id))
 const types = typeTable
+  .filter((t) => t.sec !== '듣기')
   .filter((t) => usedTypes.has(t.id))
   .map((t) => ({
     id: t.id,
@@ -81,7 +87,7 @@ for (const e of examMap.values()) {
 const exams = [...examMap.values()]
 
 // ── 문항 ──────────────────────────────────────────────────────────────
-const items = corpus.items.map((it) => ({
+const items = scopeItems.map((it) => ({
   id: it.id,
   exam_id: it.exam,
   no: it.no,
@@ -99,8 +105,8 @@ const items = corpus.items.map((it) => ({
   raw_block: null,
 }))
 
-console.log(`  유형 ${types.length} · 회차 ${exams.length} · 문항 ${items.length}`)
-console.log(`  사정권 문항 ${items.filter((i) => i.in_scope).length} · 정답 보유 ${items.filter((i) => i.answer != null).length}`)
+console.log(`  유형 ${types.length} · 회차 ${exams.length} · 사정권 문항 ${items.length} (듣기 ${corpus.items.length - items.length}문항 제외)`)
+console.log(`  정답 보유 ${items.filter((i) => i.answer != null).length}`)
 console.log(`  현행 유형 ${types.filter((t) => t.status === 'active').length} · 폐지 ${types.filter((t) => t.status === 'retired').length}`)
 
 if (!COMMIT) {
@@ -121,12 +127,28 @@ await upsert('csat_types', types)
 await upsert('csat_exams', exams)
 await upsert('csat_items', items)
 
-// 코퍼스에 없는데 DB 에 남아 있는 문항 — **지우지 않고 보고만 한다**
-const { data: dbIds, error } = await db.from('csat_items').select('id')
-if (error) throw new Error(error.message)
+// 이번에 안 올린 DB 문항 — **지우지 않고 보고만 한다.** 갈래가 둘이고 뜻이 다르다:
+//   · 듣기(`section='듣기'`) — 이제 안 올린다. 분석이 0건이라 지워도 잃을 것이 없지만,
+//     **삭제는 사용자 확인이 필요한 동작**이라 여기서 하지 않는다.
+//   · 그 밖 — 코퍼스에서 빠진 문항이다. 지우면 딸린 분석이 CASCADE 로 함께 사라진다.
+// ⚠️ **페이지를 넘겨 가며 읽는다.** PostgREST 는 한 번에 1,000행까지만 준다 —
+//    그냥 `select` 하면 1,350행 중 1,000행만 와서 "남은 문항 406개" 같은 **틀린 수**를 보고한다
+//    (실측 2026-09-03. 잘린 줄 모르고 그 수를 믿을 뻔했다).
+const dbIds = []
+for (let from = 0; ; from += 1000) {
+  const { data, error } = await db.from('csat_items').select('id, section').range(from, from + 999)
+  if (error) throw new Error(error.message)
+  dbIds.push(...(data ?? []))
+  if ((data ?? []).length < 1000) break
+}
 const have = new Set(items.map((i) => i.id))
-const orphan = (dbIds ?? []).map((r) => r.id).filter((id) => !have.has(id))
-if (orphan.length) {
-  console.log(`  ⚠ 코퍼스에 없는 DB 문항 ${orphan.length}개 — 지우지 않았다(분석이 CASCADE 로 사라진다): ${orphan.slice(0, 5).join(' ')}`)
+const stale = (dbIds ?? []).filter((r) => !have.has(r.id))
+const listening = stale.filter((r) => r.section === '듣기')
+const gone = stale.filter((r) => r.section !== '듣기')
+if (listening.length) {
+  console.log(`  · DB 에 남은 듣기 문항 ${listening.length}개 — 이제 올리지 않는다. 지우려면 사용자 확인 뒤 삭제할 것`)
+}
+if (gone.length) {
+  console.log(`  ⚠ 코퍼스에 없는 DB 문항 ${gone.length}개 — 지우지 않았다(분석이 CASCADE 로 사라진다): ${gone.slice(0, 5).map((r) => r.id).join(' ')}`)
 }
 console.log('→ csat_types · csat_exams · csat_items 적재 완료')

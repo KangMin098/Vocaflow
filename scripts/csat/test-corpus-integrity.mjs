@@ -23,13 +23,23 @@ const warns = []
 const ok = (name, cond, detail) => (cond ? true : (fails.push(`${name} — ${detail}`), false))
 const soft = (name, cond, detail) => (cond ? true : (warns.push(`${name} — ${detail}`), false))
 
-// T1 회차마다 45문항. 45를 넘으면 홀/짝이 겹쳐 들어온 것이고, 모자라면 추출이 샌 것이다.
+// **듣기는 이 검사에서 전부 빠진다** (사용자 지시 2026-09-03 「듣기는 전체에서 제외」).
+// 비율을 내는 검사는 예외 없이 **사정권(독해·장문)** 을 분모로 쓴다 — 듣기를 섞으면
+// 우리가 손대지도 않는 520문항이 달성률을 조용히 희석한다.
+//
+// 딱 하나 예외가 T3* 다: **경계 자체를 확인하는 검사**라 듣기 행을 봐야 성립한다.
+// 그것은 듣기를 다루는 것이 아니라 **듣기 자리가 비었는지** 보는 것이다.
+const inScope = items.filter((it) => it.in_scope)
+
+// T1 회차마다 독해 문항 수. 2014학년도는 듣기가 22번까지라 23문항, 나머지는 28문항이다.
+// 넘으면 홀/짝이 겹쳐 들어온 것이고, 모자라면 추출이 샌 것이다.
+const wantScope = (exam) => (exam.startsWith('2014') ? 23 : 28)
 const byExam = new Map()
-for (const it of items) byExam.set(it.exam, (byExam.get(it.exam) ?? 0) + 1)
-const over = [...byExam].filter(([, n]) => n > 45)
-const under = [...byExam].filter(([, n]) => n < 45)
-ok('T1a 회차당 45문항 초과 없음', over.length === 0, over.map(([e, n]) => `${e}=${n}`).join(' '))
-soft('T1b 회차당 45문항 미달 없음', under.length === 0, under.map(([e, n]) => `${e}=${n}`).join(' '))
+for (const it of inScope) byExam.set(it.exam, (byExam.get(it.exam) ?? 0) + 1)
+const over = [...byExam].filter(([e, n]) => n > wantScope(e))
+const under = [...byExam].filter(([e, n]) => n < wantScope(e))
+ok('T1a 회차당 사정권 문항 초과 없음', over.length === 0, over.map(([e, n]) => `${e}=${n}/${wantScope(e)}`).join(' '))
+soft('T1b 회차당 사정권 문항 미달 없음', under.length === 0, under.map(([e, n]) => `${e}=${n}/${wantScope(e)}`).join(' '))
 
 // T2 문항 id 유일
 const ids = new Set()
@@ -59,9 +69,9 @@ ok('T4a 정답 1~5', badAns.length === 0, badAns.slice(0, 5).map((it) => it.id).
 const badPt = items.filter((it) => it.points != null && it.points !== 2 && it.points !== 3)
 ok('T4b 배점 2 또는 3', badPt.length === 0, badPt.slice(0, 5).map((it) => it.id).join(' '))
 
-// T5 정답표가 있는 회차는 45문항 전부 정답이 있어야 한다 — 일부만 있으면 파싱이 샌 것이다
+// T5 정답표가 있는 회차는 사정권 문항 전부에 정답이 있어야 한다 — 일부만 있으면 파싱이 샌 것이다
 const keyed = new Map()
-for (const it of items) {
+for (const it of inScope) {
   const e = keyed.get(it.exam) ?? { n: 0, k: 0 }
   e.n += 1
   if (it.answer != null) e.k += 1
@@ -70,18 +80,24 @@ for (const it of items) {
 const partial = [...keyed].filter(([, v]) => v.k > 0 && v.k < v.n)
 ok('T5 정답표는 전부 또는 전무', partial.length === 0, partial.map(([e, v]) => `${e}=${v.k}/${v.n}`).join(' '))
 
-// T6 회차 배점 합 — 평가원 영어는 100점 만점이다. 정답표가 있는 회차는 정확히 100 이어야 한다.
+// T6 **우리가 책임지는 배점의 합.**
+//
+// 예전에는 「회차 배점 합 100」을 봤다. 그것은 듣기를 더해야 성립하는 수다. 듣기를 전면
+// 제외한 지금은 **독해 배점 합**을 본다 — 2015학년도 이후 63점, 2014학년도 A/B형은
+// 듣기가 22번까지라 **53점**이다. 이 값이 곧 "실점 0" 의 분모이고, 회차마다 다르다는 사실
+// 자체가 학습자에게 중요하다(2014 기출로 「63점 만점」을 연습하면 분모가 틀린다).
+const wantPoints = (exam) => (exam.startsWith('2014') ? 53 : 63)
 const badSum = []
 for (const [exam, v] of keyed) {
   if (v.k !== v.n) continue
-  const s = items.filter((it) => it.exam === exam).reduce((a, it) => a + (it.points ?? 0), 0)
-  if (s !== 100) badSum.push(`${exam}=${s}`)
+  const s = inScope.filter((it) => it.exam === exam).reduce((a, it) => a + (it.points ?? 0), 0)
+  if (s !== wantPoints(exam)) badSum.push(`${exam}=${s}/${wantPoints(exam)}`)
 }
-ok('T6 회차 배점 합 100', badSum.length === 0, badSum.join(' '))
+ok('T6 회차 독해 배점 합', badSum.length === 0, badSum.join(' '))
 
 // T7 유형 배정률 — 분석 파이프라인의 입력이므로 여기가 새면 유형별 통계가 통째로 틀어진다
-const typed = items.filter((it) => it.type_id).length
-soft('T7 유형 배정 99% 이상', typed / items.length >= 0.99, `${typed}/${items.length}`)
+const typed = inScope.filter((it) => it.type_id).length
+soft('T7 유형 배정 99% 이상', typed / inScope.length >= 0.99, `${typed}/${inScope.length}`)
 
 // T8 독해·장문은 지문이 있어야 한다 (듣기는 문제지에 지문이 없다 — 대본은 별도 파일)
 const readItems = items.filter((it) => it.in_scope)
@@ -198,9 +214,16 @@ soft('T12 사정권 문항에 본문이 있다', noBody.length === 0, `둘 다 �
   )
 }
 
-// T10 report 의 수치가 items 와 일치 — 리포트만 고쳐 놓고 원장은 그대로인 사고를 막는다
-ok('T10 report.items == items.length', report.items === items.length, `${report.items} vs ${items.length}`)
-ok('T10b report.typed 일치', report.typed === typed, `${report.typed} vs ${typed}`)
+// T10 report 의 수치가 items 와 일치 — 리포트만 고쳐 놓고 원장은 그대로인 사고를 막는다.
+// **최상위 수치는 사정권이다**(듣기 전면 제외). 듣기를 섞은 수는 `report.paper` 안에만 있고,
+// 그것은 파서 점검 전용이라 여기서도 화면에서도 보고하지 않는다.
+ok('T10 report.in_scope.items 일치', report.in_scope.items === inScope.length, `${report.in_scope.items} vs ${inScope.length}`)
+ok('T10b report.in_scope.typed 일치', report.in_scope.typed === typed, `${report.in_scope.typed} vs ${typed}`)
+ok(
+  'T10c 최상위에 듣기 섞인 수치 없음',
+  report.items === undefined && report.typed === undefined,
+  '`report.items`/`report.typed` 는 듣기를 포함한다 — 최상위에 두면 반드시 보고된다',
+)
 
 console.log('── 기출 원장 무결성 ──')
 for (const w of warns) console.log(`  ⚠ ${w}`)

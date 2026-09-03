@@ -9,7 +9,7 @@
 //
 // ⚠️ **여기서 "전체" 라는 말을 쓰려면 분모를 적어야 한다.** 이 스크립트는 빠진 것을 채우지 않고
 //    빠진 자리를 세어 `corpus-report.json` 에 남긴다 — 문제지가 없는 회차, 정답표가 없는 회차,
-//    지문·선지를 못 뜬 문항. 채운 척하면 뒤의 "99점 커버" 주장이 통째로 거짓이 된다.
+//    지문·선지를 못 뜬 문항. 채운 척하면 뒤의 "독해 실점 0 커버" 주장이 통째로 거짓이 된다.
 //
 // 실행: node scripts/csat/build-corpus.mjs
 // 산출: data/corpus.json · data/corpus-report.json
@@ -314,10 +314,13 @@ for (const it of items) {
 const exams = [...byExam.values()].sort((a, b) => (a.exam < b.exam ? -1 : 1))
 const sum = (f) => items.reduce((a, it) => a + (f(it) ? 1 : 0), 0)
 
-// ── 사정권(듣기 제외) 회차별 집계 ─────────────────────────────────────
-// 총점 100 = 듣기 37 + 독해·장문 63(2015학년도 이후 고정, 2014 는 64~65).
-// 배점 단위가 2·3점이므로 **99점 이상 = 실점 0** 이다. 곧 이 파이프라인의 커버 목표는
-// "독해 28문항 중 몇 %" 가 아니라 **회차마다 28/28** 이다. 반올림이 숨을 자리가 없다.
+// ── 사정권(듣기 전면 제외) 회차별 집계 ───────────────────────────────
+// **우리가 책임지는 것은 독해·장문 배점에서 실점 0** 이다 — 2015학년도 이후 **63점**,
+// 2014학년도 A/B형은 듣기가 22번까지라 **53점**(실측. 예전 주석의 "64~65" 는 근거 없는 수였다).
+// 곧 커버 목표는 "독해 28문항 중 몇 %" 가 아니라 **회차마다 28/28** 이다 — 반올림이 숨을 자리가 없다.
+//
+// ⚠️ 「99점」이라 적지 않는다. 배점 단위가 2·3점이라 99점이라는 점수 자체가 안 나오고
+//    (100 다음이 98이다), 100점은 듣기까지 만점이어야 한다. 듣기는 여기서 다루지 않는다.
 const scopeByExam = new Map()
 for (const it of items) {
   if (!it.in_scope) continue
@@ -331,16 +334,30 @@ for (const it of items) {
 }
 const scopeExams = [...scopeByExam.values()].sort((a, b) => (a.exam < b.exam ? -1 : 1))
 
+/**
+ * **듣기는 이 원장이 보고하는 수에서 전부 빠진다** (사용자 지시 2026-09-03 「듣기는 전체에서 제외」).
+ *
+ * 최상위 수치는 **사정권(독해·장문)** 이다. 듣기를 섞은 수는 `paper` 안에만 두고,
+ * 거기 있는 값은 **파서가 샜는지 보는 용도로만** 쓴다 — 화면·문서·달성률 어디에도 올리지 않는다.
+ *
+ * 왜 행 자체를 안 지우나: 듣기 문항 520행은 문제지 파싱의 **자리 표시**다. 지우면
+ * "45문항 중 28문항을 떴다" 를 확인할 길이 없어져 추출이 새도 조용해진다.
+ * 즉 남겨 두되 **세지 않는다.** (행까지 지우는 것은 데이터 삭제라 사용자 확인이 필요하다.)
+ */
 const report = {
   built_at: new Date().toISOString().slice(0, 10),
-  scope: '독해·장문 — 듣기 제외 (듣기 마지막 번호: 2014학년도 22 · 그 외 17)',
+  scope: '독해·장문 — 듣기 전면 제외 (듣기 마지막 번호: 2014학년도 22 · 그 외 17)',
   exams: exams.length,
-  items: items.length,
-  expected: exams.length * 45,
-  typed: sum((it) => it.type_id),
-  keyed: sum((it) => it.answer),
-  passaged: sum((it) => it.passage),
-  choiced: sum((it) => it.choices),
+  // 파서 점검 전용 — 듣기를 포함한 문제지 전체. **보고하지 않는다.**
+  paper: {
+    items: items.length,
+    expected: exams.length * 45,
+    typed: sum((it) => it.type_id),
+    keyed: sum((it) => it.answer),
+    passaged: sum((it) => it.passage),
+    choiced: sum((it) => it.choices),
+    listening_items: sum((it) => !it.in_scope),
+  },
   in_scope: {
     items: sum((it) => it.in_scope),
     // 회차마다 독해 문항 수가 다르다 — 2014학년도는 듣기가 22번까지라 독해가 23문항이다.
@@ -353,6 +370,9 @@ const report = {
     body_suspect: sum((it) => it.in_scope && it.body_suspect),
     // 정답표가 온전한 회차만 배점 합이 의미 있다
     exams_fully_keyed: scopeExams.filter((e) => e.keyed === e.n).length,
+    // **우리가 책임지는 배점.** 회차마다 다르다 — 2014학년도는 듣기가 22번까지라 독해가 53점이다.
+    // 이 값이 곧 "실점 0" 의 분모다. 100 에서 듣기를 뺀 나머지이지, 총점이 아니다.
+    points_by_exam: Object.fromEntries(scopeExams.filter((e) => e.keyed === e.n).map((e) => [e.exam, e.points])),
     // 유형 정규식은 듣기 유형에 `L-` 을 붙인다. 사정권 안에 `L-` 이 남아 있으면
     // 듣기 경계를 잘못 그은 것이다 — 번호 규칙과 유형표가 서로를 감시한다.
     listening_type_in_scope: items.filter((it) => it.in_scope && it.type_id?.startsWith('L-')).map((it) => it.id),
@@ -367,7 +387,7 @@ fs.writeFileSync(path.join(DIR, 'corpus-report.json'), JSON.stringify(report, nu
 
 const pct = (a, b) => (b ? ((a / b) * 100).toFixed(1) : '0.0')
 const s = report.in_scope
-console.log(`  회차 ${report.exams} · 전체 문항 ${report.items} (기대 ${report.expected})`)
+console.log(`  회차 ${report.exams}`)
 console.log(`  ── 사정권: ${report.scope} ──`)
 console.log(`  문항       ${s.items} (기대 ${s.expected}, ${pct(s.items, s.expected)}%)`)
 console.log(`  유형 배정  ${s.typed} (${pct(s.typed, s.items)}%)`)
