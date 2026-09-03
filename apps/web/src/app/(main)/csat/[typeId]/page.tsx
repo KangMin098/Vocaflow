@@ -11,7 +11,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { loadCsatTypeDetail } from '@/lib/csat/learner'
+import { loadCsatTypeDetail, loadCsatTypeItems } from '@/lib/csat/learner'
 
 export const dynamic = 'force-dynamic'
 
@@ -29,7 +29,7 @@ export async function generateMetadata({
 
 export default async function CsatTypePage({ params }: { params: Promise<{ typeId: string }> }) {
   const { typeId } = await params
-  const { detail, error } = await loadCsatTypeDetail(typeId)
+  const [{ detail, error }, items] = await Promise.all([loadCsatTypeDetail(typeId), loadCsatTypeItems(typeId)])
 
   if (!error && !detail) notFound()
 
@@ -150,6 +150,38 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
               ) : null}
             </div>
           )}
+
+          {items.length ? (
+            <section className="mt-6">
+              {/* **유형 절차만으로는 부족하다.** 학습자가 실제로 막히는 자리는 눈앞의 한 문항이고,
+                  거기서 알고 싶은 것은 "그래서 왜 ③인가" 다. 그 답으로 가는 문을 여기 둔다.
+                  최신 회차가 위에 온다 — 현행 설계부터 보는 것이 시험에 가깝다. */}
+              <h2 className="font-display text-sm font-bold text-[var(--t1)]">
+                이 유형의 기출
+                <span className="ml-2 font-sans text-xs font-normal text-[var(--t3)]">
+                  해설 {items.filter((i) => i.explained).length} / {items.length}
+                </span>
+              </h2>
+              <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+                {items.map((it) => (
+                  <li key={it.id}>
+                    <Link
+                      href={`/csat/item/${it.slug}`}
+                      className="flex min-h-[44px] items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--sf)] px-4 py-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
+                    >
+                      <span className="text-sm text-[var(--t1)]">
+                        {it.exam_label} <span className="tabular-nums">{it.no}번</span>
+                      </span>
+                      <span className="shrink-0 text-xs tabular-nums text-[var(--t3)]">
+                        {it.points ? `${it.points}점` : ''}
+                        {it.explained ? '' : ' · 준비 중'}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
 
           <p className="mt-8 text-xs leading-relaxed text-[var(--t3)]">
             문항 원문은 싣지 않습니다. 지문·선지의 저작권은 한국교육과정평가원에 있고, 여기 있는 것은

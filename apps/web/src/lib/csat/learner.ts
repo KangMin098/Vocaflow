@@ -300,3 +300,164 @@ export async function loadCsatPlan(): Promise<CsatPlan> {
     error: null,
   }
 }
+
+// ─────────────────────────────────────────────────────────────────────
+// 문항 단위 — **「이 문제의 답이 왜 이것인가」**
+//
+// 유형 리포트는 "이 유형은 이렇게 푼다" 를 말한다. 그런데 학습자가 실제로 막히는 자리는
+// **눈앞의 한 문항**이고, 알고 싶은 것은 "그래서 왜 ③인가" 하나다. 그 답이 화면에 없으면
+// 유형 절차는 외울 것이 하나 더 늘어난 것에 지나지 않는다.
+//
+// ⚠️ **원문은 여기서도 안 나간다.** 지문·선지는 평가원 저작물이라 `csat_items_public` 뷰에
+//    컬럼 자체가 없다. 이 화면이 내보내는 것은 **우리가 쓴 설명**과 그 안의 짧은 인용까지이고,
+//    학습자는 문항 원문을 평가원 공개자료에서 함께 본다. 곧 이 화면은 **해설**이다.
+// ─────────────────────────────────────────────────────────────────────
+
+/** URL 에 쓰는 문항 id — 원장의 `2026#31` 은 `#` 때문에 주소가 안 된다 */
+export const toItemSlug = (id: string) => id.replace('#', '-')
+export const fromItemSlug = (slug: string) => slug.replace('-', '#')
+
+export interface CsatItemBrief {
+  id: string
+  slug: string
+  exam_label: string
+  no: number
+  points: number | null
+  answer: number | null
+  /** 정답 확정 근거가 실제로 적혀 있나 — 없으면 목록에서 「준비 중」으로 말한다 */
+  explained: boolean
+}
+
+export interface CsatItemExplain {
+  id: string
+  exam_label: string
+  no: number
+  points: number | null
+  answer: number | null
+  type_id: string | null
+  type_name: string | null
+  /** 답을 모르는 회차 — 정답표가 없으면 「왜 정답인가」를 쓸 수 없다 */
+  answer_unknown: boolean
+  /** ① 답이 왜 이것인가 */
+  why_correct: string | null
+  evidence_quote: string | null
+  evidence_reasoning: string | null
+  /** ② 나머지가 왜 아닌가 */
+  distractors: { n: number; trap: string | null; why_tempting: string | null; how_to_reject: string | null }[]
+  /** ③ 다시 풀 때의 순서 */
+  procedure: { step: string; on_fail?: string }[]
+  required_vocab: string[]
+  time_budget_sec: number | null
+}
+
+type AnalysisRow = {
+  item_id: string
+  answer_unknown: boolean
+  answer_locus: { quote?: string; reasoning?: string } | null
+  choice_analysis: {
+    n: number
+    verdict?: string
+    trap?: string | null
+    why_correct?: string | null
+    why_tempting?: string | null
+    how_to_reject?: string | null
+  }[] | null
+  solve_procedure: { step: string; on_fail?: string }[] | null
+  required_vocab: string[] | null
+  time_budget_sec: number | null
+}
+
+/** 한 유형에 딸린 기출 문항 목록 — 최신 회차 먼저 */
+export async function loadCsatTypeItems(typeId: string): Promise<CsatItemBrief[]> {
+  const db = await csatDb()
+  const [itemsRes, examsRes, aRes] = await Promise.all([
+    db.from('csat_items_public').select('id, exam_id, no, points, answer').eq('type_id', typeId).eq('in_scope', true),
+    db.from('csat_exams').select('id, label, year, month'),
+    db.from('csat_item_analyses').select('item_id, choice_analysis').eq('status', 'published'),
+  ])
+  if (itemsRes.error || examsRes.error) return []
+
+  const exam = new Map(
+    ((examsRes.data ?? []) as { id: string; label: string; year: number; month: number }[]).map((e) => [e.id, e]),
+  )
+  // 「설명이 있다」의 기준은 **정답 선지에 why_correct 가 있는가** 하나다.
+  // 분석 행이 있다는 것만으로 있다고 말하면, 비어 있는 해설로 학습자를 보내게 된다.
+  const explained = new Set(
+    ((aRes.data ?? []) as { item_id: string; choice_analysis: AnalysisRow['choice_analysis'] }[])
+      .filter((r) => (r.choice_analysis ?? []).some((c) => c.verdict === 'correct' && (c.why_correct ?? '').length >= 40))
+      .map((r) => r.item_id),
+  )
+
+  return ((itemsRes.data ?? []) as { id: string; exam_id: string; no: number; points: number | null; answer: number | null }[])
+    .map((it) => ({
+      id: it.id,
+      slug: toItemSlug(it.id),
+      exam_label: exam.get(it.exam_id)?.label ?? it.exam_id,
+      no: it.no,
+      points: it.points,
+      answer: it.answer,
+      explained: explained.has(it.id),
+    }))
+    .sort((a, b) => {
+      const ea = exam.get(a.id.split('#')[0])
+      const eb = exam.get(b.id.split('#')[0])
+      return (eb?.year ?? 0) - (ea?.year ?? 0) || (eb?.month ?? 0) - (ea?.month ?? 0) || a.no - b.no
+    })
+}
+
+/** 문항 하나의 해설 */
+export async function loadCsatItemExplain(
+  id: string,
+): Promise<{ item: CsatItemExplain | null; error: string | null }> {
+  const db = await csatDb()
+  const [itemRes, aRes] = await Promise.all([
+    db.from('csat_items_public').select('id, exam_id, no, points, answer, type_id').eq('id', id).maybeSingle(),
+    db
+      .from('csat_item_analyses')
+      .select('item_id, answer_unknown, answer_locus, choice_analysis, solve_procedure, required_vocab, time_budget_sec')
+      .eq('item_id', id)
+      .eq('status', 'published')
+      .maybeSingle(),
+  ])
+  if (itemRes.error) return { item: null, error: itemRes.error.message }
+  if (!itemRes.data) return { item: null, error: null }
+
+  const it = itemRes.data as { id: string; exam_id: string; no: number; points: number | null; answer: number | null; type_id: string | null }
+  const [examRes, typeRes] = await Promise.all([
+    db.from('csat_exams').select('label').eq('id', it.exam_id).maybeSingle(),
+    it.type_id ? db.from('csat_types').select('name').eq('id', it.type_id).maybeSingle() : Promise.resolve({ data: null }),
+  ])
+
+  const a = (aRes.data ?? null) as AnalysisRow | null
+  const chs = a?.choice_analysis ?? []
+  const correct = chs.find((c) => c.verdict === 'correct') ?? null
+
+  return {
+    item: {
+      id: it.id,
+      exam_label: (examRes.data as { label?: string } | null)?.label ?? it.exam_id,
+      no: it.no,
+      points: it.points,
+      answer: it.answer,
+      type_id: it.type_id,
+      type_name: (typeRes.data as { name?: string } | null)?.name ?? null,
+      answer_unknown: a?.answer_unknown === true,
+      why_correct: correct?.why_correct ?? null,
+      evidence_quote: a?.answer_locus?.quote ?? null,
+      evidence_reasoning: a?.answer_locus?.reasoning ?? null,
+      distractors: chs
+        .filter((c) => c.verdict === 'distractor')
+        .map((c) => ({
+          n: c.n,
+          trap: c.trap ?? null,
+          why_tempting: c.why_tempting ?? null,
+          how_to_reject: c.how_to_reject ?? null,
+        }))
+        .sort((x, y) => x.n - y.n),
+      procedure: a?.solve_procedure ?? [],
+      required_vocab: a?.required_vocab ?? [],
+      time_budget_sec: a?.time_budget_sec ?? null,
+    },
+    error: null,
+  }
+}
