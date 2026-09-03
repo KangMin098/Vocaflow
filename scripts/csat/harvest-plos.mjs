@@ -56,6 +56,25 @@ const PAGES = Number(arg('pages') ?? 2)
 const ROWS = Math.min(50, Number(arg('rows') ?? 50))
 const STAGE = Number(arg('stage') ?? 3)
 const STAGE_GOAL = { 1: 10000, 2: 30000, 3: 50000 }[STAGE] ?? 50000
+/**
+ * `--max` — 이번 실행에서 적재할 상한.
+ *
+ * ⚠️ 몫(quota)은 수천 편이라, 상한이 없으면 한 번 돌릴 때 그만큼 들어간다. 원문 1편의
+ *   실제 저장 비용은 **본문 26.2 KB**(파일럿 56편 실측) **+ 파생 어휘 92.3 KB**
+ *   (`library_article_vocabularies` 11,015,221행 ÷ 19,516편 = 편당 564행) 다.
+ *   즉 2만 편이면 본문만 594 MB, 어휘까지 **약 2.6 GB** 다 — 조용히 늘릴 양이 아니다.
+ *   (어휘는 `process-queue.mjs --fit-only` 를 돌릴 때 생긴다. 보관과 분석은 분리된 결정이다.)
+ */
+const MAX = Number(arg('max') ?? Infinity)
+/**
+ * `--until YYYY-MM-DD` — 이 날짜 **이전**만 훑는다.
+ *
+ * ⚠️ 왜 필요한가 (실측 2026-09-03): 아무 제한 없이 발행일 내림차순으로 600편을 훑었더니
+ *   **326편(54%)이 이미 있는 글**이었다. 기존 PLOS 재고 19,332편 중 **18,082편이 2025년 이후**라
+ *   최근 창이 이미 촘촘히 덮여 있기 때문이다. 상류 399,344편의 대부분은 그 **앞쪽**에 있다.
+ *   최근부터 훑으면 이미 가진 것을 다시 받아 오느라 대역폭과 시간을 태운다.
+ */
+const UNTIL = arg('until')
 
 const DATA = path.resolve('scripts/csat/data')
 const CURSOR_FILE = path.join(DATA, 'plos-harvest-cursor.json')
@@ -195,12 +214,16 @@ const EXCLUDE_TYPES = [
 ]
 const fq =
   `doc_type:full AND subject_facet:(${SUBJECT_QUERY[SLOT].map((s) => `"${s}"`).join(' OR ')})` +
-  EXCLUDE_TYPES.map((t) => ` AND !article_type:"${t}"`).join('')
+  EXCLUDE_TYPES.map((t) => ` AND !article_type:"${t}"`).join('') +
+  (UNTIL ? ` AND publication_date:[* TO ${UNTIL}T00:00:00Z]` : '')
 
 console.log(`  ${SLOT} 수확 — ${PAGES}쪽 × ${ROWS}편${COMMIT ? ' · **적재한다**' : ' (읽기 전용)'}`)
 console.log(`  주제: ${SUBJECT_QUERY[SLOT].join(' OR ')}\n`)
 
-let cursor = cursors[SLOT] ?? '*'
+// ⚠️ 커서 키에 날짜창을 넣는다 — 창이 다르면 결과 집합이 달라서, 같은 키를 쓰면
+//   다른 창의 커서를 물려받아 **엉뚱한 자리부터 훑는다**(오류가 안 나서 안 보인다).
+const CURSOR_KEY = UNTIL ? `${SLOT}|until:${UNTIL}` : SLOT
+let cursor = cursors[CURSOR_KEY] ?? '*'
 let seen = 0
 let fitOk = 0
 let slotOk = 0
@@ -251,6 +274,8 @@ for (let p = 0; p < PAGES; p++) {
     //   로 떨어진다. **자기 칸에 몫이 남아 있으면 담는다** — 배합은 그래도 안 깨진다.
     if (tp.topic === SLOT) slotOk++
     else spill[tp.topic] = (spill[tp.topic] ?? 0) + 1
+    const took = Object.values(accepted).reduce((a, b) => a + b, 0)
+    if (took >= MAX) continue
     const room = (quota[tp.topic] ?? 0) - (accepted[tp.topic] ?? 0)
     if (room <= 0) {
       full[tp.topic] = (full[tp.topic] ?? 0) + 1
@@ -310,6 +335,12 @@ for (let p = 0; p < PAGES; p++) {
     }
   }
 
+  const tookNow = Object.values(accepted).reduce((a, b) => a + b, 0)
+  if (tookNow >= MAX) {
+    console.log(`  이번 실행 상한 ${MAX.toLocaleString()}편을 채웠다 — 중단.`)
+    cursor = next
+    break
+  }
   const room = Object.keys(quota).reduce((s, k) => s + Math.max(0, quota[k] - (accepted[k] ?? 0)), 0)
   if (room <= 0) {
     console.log(`  모든 칸의 몫을 채웠다 — 중단.`)
@@ -317,7 +348,7 @@ for (let p = 0; p < PAGES; p++) {
     break
   }
   cursor = next
-  if (!next || next === cursors[SLOT]) break
+  if (!next || next === cursors[CURSOR_KEY]) break
   const took = Object.values(accepted).reduce((a, b) => a + b, 0)
   process.stderr.write(`\r  ${p + 1}/${PAGES}쪽 · 훑음 ${seen} · 적합 ${fitOk} · 받음 ${took}${COMMIT ? ` · 적재 ${inserted}` : ''}   `)
   await sleep(600)
@@ -325,7 +356,7 @@ for (let p = 0; p < PAGES; p++) {
 process.stderr.write('\r' + ' '.repeat(76) + '\r')
 
 if (COMMIT) {
-  cursors[SLOT] = cursor
+  cursors[CURSOR_KEY] = cursor
   fs.writeFileSync(CURSOR_FILE, JSON.stringify(cursors, null, 1))
 }
 
