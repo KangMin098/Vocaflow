@@ -69,6 +69,8 @@ const {
   stripPageNumbers,
   excerptForBand,
   gradeBand,
+  curriculumFit,
+  standaloneFit,
 } = await import('../../packages/library-pipeline/src/index.ts')
 
 const targetBand = BAND ? gradeBand(BAND) : null
@@ -123,6 +125,10 @@ let failed = 0
 let alsoBook = 0
 /** 발췌해도 그 칸에 못 든 책. **세서 말한다** — 조용히 건너뛰면 수율을 모른다. */
 let outOfBand = 0
+/** 어휘가 그 학년 밖. */
+let vocabBlocked = 0
+/** 대화 조각이거나 앞을 가리키며 시작한다 — 그 한 편만으로는 못 읽는다. */
+let notStandalone = 0
 
 for (const item of list) {
   const { data: dup } = await db
@@ -197,6 +203,30 @@ for (const item of list) {
     }
   }
 
+  /**
+   * **어휘·자립성 게이트** — 이 스크립트에는 둘 다 없었다(FK·어수만 봤다).
+   *
+   * PD 발췌에서 배운 것을 여기에도 댄다: 세 축을 통과하고도 지문이 아닌 글이 **69%** 였다.
+   * StoryWeaver 는 그림책이라 대화가 많고, 발췌면 앞을 가리키며 시작하기 쉽다 —
+   * **같은 자를 대지 않으면 같은 구멍이 생긴다.**
+   *
+   * 학교급은 목표 칸이 정한다. 칸을 안 주고 부르면(통짜 적재) 초등 자를 댄다 —
+   * StoryWeaver Level 1~4 는 전부 초등 대역이다.
+   */
+  const school = targetBand && !targetBand.id.startsWith('초') ? 'middle' : 'elementary'
+  const vf = curriculumFit(row.content, school)
+  if (!vf.pass) {
+    vocabBlocked++
+    console.log(`  ⊘ ${vf.reason} — ${row.title.slice(0, 42)}`)
+    continue
+  }
+  const sf = standaloneFit(row.content)
+  if (!sf.pass) {
+    notStandalone++
+    console.log(`  ⊘ ${sf.reason} — ${row.title.slice(0, 42)}`)
+    continue
+  }
+
   const words = row.content.split(/\s+/).filter(Boolean).length
   if (COMMIT) {
     const { error } = await db.from('library_articles').insert({
@@ -225,7 +255,8 @@ for (const item of list) {
 }
 
 console.log(
-  `\n추가 ${added} · 이미 있음 ${existed} · 라이선스 미확인 건너뜀 ${noLicense} · 실패 ${failed}`
+  `\n추가 ${added} · 이미 있음 ${existed} · 라이선스 미확인 ${noLicense} · ` +
+    `어휘 밖 ${vocabBlocked} · 자립성 미달 ${notStandalone} · 칸 밖 ${outOfBand} · 실패 ${failed}`
 )
 if (alsoBook)
   console.log(
