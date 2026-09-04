@@ -55,6 +55,44 @@
   (치환 스크립트로 낱말을 만지지 않는다는 규칙 유지)
 - 리포트 §49: [csat-source-fit-20260903.md](./reports/csat-source-fit-20260903.md)
 
+### 「anon 에 권한이 없다」가 아니라 「RLS 에 막혀 0행」이었다 — 공개 진단이 사전을 쓴다 (2026-09-05)
+
+마이그레이션 **`20260905084613`** — `textfit_resolve_levels_public`(SECURITY DEFINER).
+
+`/fit` 이 콜드 88초를 쓰고도 잘린 맵으로 답하던 것을 끝냈다. 원인 진단을 **한 번 틀렸다**:
+"anon 에 `textfit_resolve_levels` EXECUTE 가 없다" 고 보고 `GRANT ... TO anon` 을 제안했는데,
+확인해 보니 `anon=X/postgres` 도 PUBLIC `=X/postgres` 도 이미 있었다 — **Postgres 는 함수
+EXECUTE 를 기본으로 PUBLIC 에 준다.** 실제 장벽은 **RLS** 였다:
+`shared_dictionary` 정책이 `authenticated read dictionary` 뿐이라 anon 은 48,969행 중 **0행**을
+보고, `SECURITY INVOKER` 함수는 그 권한 그대로 돌아 **오류 없이 빈 결과**를 냈다
+(실측: 10낱말 요청 → 0행 103ms).
+
+- **`textfit_resolve_levels_public`** — 기존 함수를 건드리지 않고 DEFINER 쌍둥이를 만들었다.
+  반환 3열(surface·headword·v_level)뿐이라 뜻·예문은 나가지 않는다 · `search_path=public` 고정 ·
+  입력 4,000 상한 · `statement_timeout 15s` · PUBLIC REVOKE 후 anon·authenticated 에만 EXECUTE.
+  ⚠️ 수용한 위험: 4,000개씩 ~13회 부르면 사전 48,657 낱말의 V-Level 열거 가능. 지금도 `/fit` 에
+  지문을 붙여넣으면 같은 값이 나오므로 새로 열리는 정보는 아니고, 통제는 `/api/fit` 레이트리밋이다.
+- **전량 적재 코드 삭제** — `level-map.ts` 454 → 303줄. `getLevelMap`·`levelMapStats`·`resetLevelMap`
+  과 `CachedMap`·TTL·`MAX_ROWS` 가 함께 사라졌다. `loadLevelsFor` 는 **RPC 실패 시 폴백**으로만 남는다.
+- **`analyzeCounts` 가 해석 경로를 밝힌다** — `mode: 'dictionary_rpc' | 'shared_words_fallback'`.
+  폴백은 굴절형을 놓쳐 과소평가하므로 어느 쪽이 답했는지를 삼키지 않는다.
+
+실측 대조:
+
+| | 전량 적재 (이전) | 사전 RPC (현재) |
+|---|---|---|
+| 소스 | `shared_words` **681,021행** (distinct 표제어 29,308) | `shared_dictionary` 48,969행 (낱말당 1행) |
+| 지문 한 편 (표면형 112) | 콜드 **88초** + `MAX_ROWS` 에서 잘림 | **294ms** · 분석 전체 1.97초 |
+| 해석률 | 0.916 | **0.991** |
+| 로그인 경로와 해석기 | 다름 | **같음**(`queries.ts` 와 동일) |
+
+**숫자가 움직였고, 방향이 예측과 맞았다.** 히어로 데모 기준 레벨 미상 6 → **0**,
+고1 커버리지 89% → **93%**, 적정 레벨 9 → **7**. 잘린 맵이 커버리지를 낮게 답하고 있었다는
+진단이 실측으로 확인된 셈이다.
+
+대안도 재고 버렸다 — `.in()` 표적 조회는 50 표제어에 7,617행 9.5초 · 600 표제어에 84,466행 41초,
+service_role 로 사전을 전량 적재해도 PostgREST 페이지 상한(1,000행) 탓에 ~49 왕복이다.
+
 ### 랜딩이 주장만 하고 증명하지 않았다 — 히어로에 작동하는 커버리지를 놓았다 (2026-09-04)
 
 랜딩(`app/page.tsx`)은 "글의 난이도가 아니라 **내가 아는 비율**" 이라고 말한다. 그런데 그 주장은

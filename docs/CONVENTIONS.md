@@ -781,21 +781,25 @@ YYYYMMDDHHMMSS_descriptive_name_in_snake_case.sql
   (`loadLevelsFor()` — 히어로 데모 기준 88초 → 3.7초).
 - **주석의 수치는 근거가 아니다.** 크기를 전제하는 캐시는 그 크기를 **코드가** 재야 한다.
 
-**승인 대기 — 근본 해결 (적용하지 않음)**
+**해결 (2026-09-05 · 마이그레이션 `20260905084613`)**
 
-```sql
--- shared_words 656,257행 전량 적재를 버리고, 이미 있는 해석기를 공개 경로에도 쓴다.
-GRANT EXECUTE ON FUNCTION public.textfit_resolve_levels(text[]) TO anon;
-```
+원인 진단이 한 번 틀렸다 — "anon 에 EXECUTE 가 없다" 고 봤는데 **이미 있었다**(Postgres 는 함수
+EXECUTE 를 기본으로 PUBLIC 에 준다). 실제 장벽은 **RLS** 였다: `shared_dictionary` 정책이
+`authenticated read dictionary` 뿐이라 anon 은 48,969행 중 **0행**을 보고, `SECURITY INVOKER`
+함수는 그 권한 그대로 돌아 **오류 없이 빈 결과**를 냈다.
 
-`textfit_resolve_levels` 는 `20260826102758` 로 이미 적용돼 있고 `shared_dictionary`(48,969행)를
-`resolve_dict_headword` 로 해석한다. 읽기 전용 STABLE · SECURITY INVOKER · 입력 상한 4,000 ·
-`statement_timeout 15s`. 현재 `authenticated` 에만 EXECUTE 가 있어 **공개 `/fit` 이 못 쓴다** —
-그래서 전량 적재라는 우회로가 생겼다. anon 에 추가로 노출되는 것은 `shared_dictionary` 의
-V-Level 뿐이고 그 값은 이미 `/fit` 결과로 나간다.
+→ `textfit_resolve_levels_public`(SECURITY DEFINER · 3열만 반환 · PUBLIC REVOKE 후 anon/authenticated
+에만 EXECUTE)를 만들고 공개 경로를 그쪽으로 옮겼다. 전량 적재 코드는 **삭제**했다(454 → 303줄).
 
-⚠️ **마이그레이션 자동 적용 금지 규약**(CLAUDE.md)에 따라 대기 중. 적용 전까지 `/fit` 본경로는
-잘린 맵으로 답한다 — 방향은 **과소평가**라 "없는 실력을 있다고 하지 않는" 쪽이다.
+| | 전량 적재 | 사전 RPC |
+|---|---|---|
+| 소스 | `shared_words` 681,021행 (distinct 29,308) | `shared_dictionary` 48,969행 (낱말당 1행) |
+| 지문 한 편(표면형 112) | 콜드 88초 · 잘림 | **294ms** (분석 전체 1.97초) |
+| 해석률 | 0.916 | **0.991** |
+| 로그인 경로와 해석기 | 다름 | **같음** (`queries.ts` 와 동일) |
+
+**교훈 — 권한 문제로 보이는 것이 RLS 문제일 수 있다.** `proacl` 만 보고 판단하지 말고
+**실제 역할 키로 호출해 본다.** INVOKER 함수는 권한이 있어도 RLS 에 막히면 0행을 조용히 돌려준다.
 
 ---
 

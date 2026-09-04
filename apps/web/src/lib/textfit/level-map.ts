@@ -1,24 +1,34 @@
 // apps/web/src/lib/textfit/level-map.ts
 //
-// 학습 어휘 레벨 맵 — **전체를 한 번 올려두고 메모리에서 답한다.**
+// 공개(미로그인) 지문 진단의 **어휘 레벨 해석** — 사전 RPC 한 번으로 답한다.
 //
-// 왜 이렇게 하나 (2026-08-17 실측):
-//   `/fit` 은 원래 브라우저가 Supabase 를 직접 쳤다. 지문 하나를 분석할 때마다
-//   후보 수천 개를 300개씩 쪼개 **왕복 30회 이상**이 나갔고, 그 경로에 우리 서버가 없어서
-//   레이트리밋을 붙일 자리조차 없었다.
-//   그런데 맵 전체가 **18,271 표제어 · 200 KB 남짓**이다. 담아 둘 수 있는 크기다.
-//   → 프로세스당 한 번 적재하고, 그 뒤로는 지문 분석에 **DB 왕복 0회**(실측: 콜드 2.7s → 웜 41ms).
-//     비용을 줄인 게 아니라 경로에서 뺐다.
+// ── 왜 전량 적재를 버렸나 (2026-09-05 실측) ─────────────────────────
+//   이 파일은 원래 anon 이 읽을 수 있는 `shared_words` 를 통째로 프로세스에 올렸다.
+//   2026-08-17 당시엔 18,271 표제어 · 200 KB · 콜드 2.7초라 말이 되는 설계였다.
+//   그런데 그 표가 자라 **681,021행이 됐고, distinct 표제어는 29,308개뿐이다** — 23배 중복이다.
+//   PostgREST 페이지가 1,000행 고정이라 왕복 200회 · **콜드 88초**가 걸렸고, 로더 상한
+//   `MAX_ROWS` 200,000 에서 **조용히 멈췄다.** 잘린 맵은 오류를 내지 않는다 —
+//   빠진 낱말이 '미지어' 로 세어져 **커버리지가 실제보다 낮게** 나왔다.
+//   (그 함정의 일반형은 `docs/CONVENTIONS.md` §전량 적재 캐시에 적어 뒀다.)
 //
-// RLS 를 우회하지 않는다 — service_role 이 아니라 **anon 키**로 읽는다.
+//   대안도 재 봤다. `.in()` 표적 조회는 50 표제어에 7,617행 9.5초 · 600 표제어에 84,466행 41초 —
+//   `shared_words` 는 표제어당 행이 많아 지문 규모에 못 쓴다. service_role 로 사전을 전량
+//   적재해도 페이지 상한 탓에 ~49 왕복이다.
+//
+// ── 지금 구조 ───────────────────────────────────────────────────────
+//   `resolveLevelsPublic()` 이 `textfit_resolve_levels_public` RPC 를 부른다. DB 가
+//   `resolve_dict_headword` 로 굴절형을 풀고 `shared_dictionary`(48,969행 · 낱말당 한 행)에서
+//   V-Level 을 붙인다. 실측: 표면형 112개 지문 한 편에 **294ms**(분석 전체 1.97초),
+//   해석률 0.916 → **0.991**.
+//   **로그인 경로(`queries.ts`)와 같은 해석기**라 두 화면의 숫자가 갈라지지 않는다.
+//
+//   anon 이 사전을 못 읽는 것(RLS `authenticated read dictionary`)이 진짜 장벽이었지
+//   권한이 아니었다 — anon 은 INVOKER 함수에 EXECUTE 를 이미 갖고 있었고, 그래서 호출은
+//   **오류 없이 0행**을 돌려주고 있었다. 마이그레이션 `20260905084613` 이
+//   SECURITY DEFINER 쌍둥이를 만들어 그 벽을 넘되 **surface·headword·v_level 3열만** 준다.
+//
+// 권한: service_role 을 쓰지 않는다. anon 키로 공개 테이블과 공개 RPC 만 읽는다.
 //   (`lib/supabase/admin.ts` 는 "requireAdmin 뒤에서만" 이 규약이라 여기 후보가 아니다.)
-//
-// ⚠️ **이 맵은 "전체 어휘" 가 아니라 "공개적으로 읽을 수 있는 어휘" 다.**
-//   `shared_words` 정책 `read words of published` 는 발행된 세트만, 그중 도서·아티클 파생은
-//   **원본이 발행됐고 `copyright_safe_in_kr` 인 것만** 노출한다.
-//   그래서 관리자 시점 81,409행 / 21,503 표제어 중 anon 에게는 **59,203행 / 18,271 표제어**만 보인다
-//   (2026-08-17 정책 전문 재현으로 대조 — 로더가 읽은 수와 정확히 일치).
-//   차이는 결함이 아니라 저작권 게이트다. 공개 화면이 그 이상을 알면 안 된다.
 
 import 'server-only'
 
@@ -27,40 +37,6 @@ import { chunkedRpc, pagedSelectIn } from '@/lib/supabase/paged-select'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
 import type { CurriculumMark } from './curriculum'
-
-/** 맵 유효 기간 — 어휘 세트 발행은 드물다. 만료되면 다음 요청이 다시 적재한다. */
-const TTL_MS = 30 * 60_000
-
-/**
- * 한 번에 요청할 행 수.
- *
- * 서버가 이보다 적게 돌려줄 수 있다(PostgREST `max-rows` 설정). 그래서 **요청한 크기가 아니라
- * 실제로 받은 개수만큼** 커서를 옮기고, 0건이 올 때 멈춘다.
- * (요청 크기를 기준으로 `rows.length < PAGE` 로 종료 판정하면, 서버가 1000으로 깎는 순간
- *  첫 페이지에서 끝났다고 판단해 **맵이 조용히 잘린다** — 잘린 맵은 오류 없이 틀린 답을 준다.)
- */
-const PAGE = 5_000
-
-/** 안전 상한 — 데이터가 예상보다 크게 늘어도 메모리를 무한정 먹지 않는다. */
-const MAX_ROWS = 200_000
-
-interface CachedMap {
-  /** lemma(소문자) → 최소 v_level */
-  levels: Map<string, number>
-  loadedAt: number
-  /** 적재에 걸린 ms — 진단용 */
-  loadMs: number
-  /** 왕복 횟수 — 서버가 페이지를 깎으면 늘어난다(진단용) */
-  pages: number
-  /** 실제로 읽은 행 수 — 기대치와 다르면 조기 종료를 의심한다 */
-  rowsRead: number
-  /**  상한에서 끝났는가 — true 면 맵이 잘려 있고 커버리지가 낮게 나온다 */
-  truncated: boolean
-}
-
-let cache: CachedMap | null = null
-/** 동시 요청이 각자 적재를 시작하지 않도록 진행 중인 약속을 공유한다. */
-let inflight: Promise<CachedMap> | null = null
 
 function anonClient(): SupabaseClient {
   const url = process.env['NEXT_PUBLIC_SUPABASE_URL']
@@ -72,146 +48,82 @@ function anonClient(): SupabaseClient {
   return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } })
 }
 
-async function load(): Promise<CachedMap> {
-  const started = Date.now()
-  const supabase = anonClient()
-  const levels = new Map<string, number>()
+/** 공개 해석기가 돌려주는 한 행. */
+interface PublicResolvedRow {
+  surface: string
+  headword: string
+  v_level: number | null
+}
 
-  // 키셋 페이지네이션 — `OFFSET` 을 쓰지 않는다.
-  //   OFFSET 방식으로 재 봤더니 81,409행 중 **59,203행만 읽고 조용히 멈췄다**(2026-08-17 실측).
-  //   깊은 OFFSET 은 페이지마다 앞부분을 다시 훑어야 해서 느리고, 경계에서 이렇게 어긋난다.
-  //   `id > 마지막id` 로 커서를 옮기면 매 페이지가 인덱스 탐색 한 번이라 빠르고, 무엇보다
-  //   **빠뜨리거나 겹치지 않는다.**
-  let cursor = ''
-  let rowsRead = 0
-  let pages = 0
-
-  while (rowsRead < MAX_ROWS) {
-    let query = supabase
-      .from('shared_words')
-      .select('id, word, lemma, v_level')
-      .not('v_level', 'is', null)
-      // `id` 로 정렬한다 — `lemma` 는 20% 가 NULL 이라 정렬 위치가 불안정하다.
-      .order('id', { ascending: true })
-      .limit(PAGE)
-
-    if (cursor) query = query.gt('id', cursor)
-
-    const { data, error } = await query
-    if (error) throw new Error(`레벨 맵 적재 실패: ${error.message}`)
-
-    const rows = (data ?? []) as {
-      id: string
-      word: string | null
-      lemma: string | null
-      v_level: number | null
-    }[]
-    for (const row of rows) {
-      if (row.v_level === null) continue
-      // `lemma` 는 **20%가 NULL** 이다(81,409행 중 16,563 · 2026-08-17 실측).
-      // 이전 구현은 `.in('lemma', …)` 로 조회해 그 20%를 조용히 버렸다 — `word` 로 폴백한다.
-      const key = (row.lemma ?? row.word ?? '').trim().toLowerCase()
-      if (key.length === 0) continue
-      // 같은 표제어가 여러 세트에 있으면 **가장 낮은 레벨**을 남긴다 —
-      // 한 세트에서 고급으로 분류됐다고 그 단어가 초급 학습자에게 처음인 것은 아니다.
-      const prev = levels.get(key)
-      if (prev === undefined || row.v_level < prev) levels.set(key, row.v_level)
-    }
-
-    if (rows.length === 0) break
-    // 커서는 **실제로 받은 마지막 행**에서 온다 — 서버가 페이지를 깎아도 이어서 읽는다.
-    cursor = rows[rows.length - 1]!.id
-    rowsRead += rows.length
-    pages += 1
-  }
-
-  // ⚠️ **상한에 걸려 끝난 경우 맵은 잘려 있다.** 잘린 맵은 오류 없이 틀린 답을 준다 —
-  //    빠진 낱말이 '미지어' 로 세어져 `/fit` 의 커버리지가 실제보다 낮게 나온다.
-  //    2026-09-04 실측: anon 가시 `shared_words` **656,257행** · PostgREST 페이지 1,000행 고정
-  //    → 왕복 200회 · **콜드 88초** 만에 MAX_ROWS(200,000)에서 멈춘다. 즉 이 경로는 **상시 잘린다.**
-  //    (파일 상단의 "18,271 표제어 · 200 KB · 콜드 2.7s" 는 2026-08-17 값이고 낡았다.)
-  //    던지지는 않는다 — 던지면 `/fit` 이 통째로 죽는다. 대신 반드시 남긴다.
-  if (rowsRead >= MAX_ROWS) {
-    console.error(
-      `[textfit] ⚠️ 레벨 맵이 상한에서 잘렸다 — MAX_ROWS ${MAX_ROWS} 도달(표제어 ${levels.size}). ` +
-        `빠진 낱말이 미지어로 세어져 커버리지가 실제보다 낮게 나온다.`,
-    )
-  }
-
-  return {
-    levels,
-    loadedAt: Date.now(),
-    loadMs: Date.now() - started,
-    pages,
-    rowsRead,
-    truncated: rowsRead >= MAX_ROWS,
-  }
+/** 표면형 하나의 해석 결과. */
+export interface ResolvedSurface {
+  /** 사전 표제어 */
+  headword: string
+  /** V-Level. `null` 은 사전에 있으나 레벨이 아직 없는 낱말(48,969 중 312) */
+  vLevel: number | null
 }
 
 /**
- * 레벨 맵을 얻는다. 첫 호출만 DB 를 치고, 이후 TTL 안에서는 메모리에서 즉시 돌려준다.
+ * **표면형을 사전 표제어·V-Level 로 해석한다 — 공개 경로의 정본.**
  *
- * 동시 요청이 몰려도 적재는 **한 번만** 일어난다(inflight 공유).
- * 적재가 실패하면 다음 요청이 다시 시도한다 — 실패를 캐시하지 않는다.
+ * 왜 이것이 전량 적재를 대체하나 (2026-09-05 실측):
+ *   `getLevelMap()` 은 anon 이 읽을 수 있는 `shared_words` 를 통째로 올린다. 그 표는
+ *   **681,021행인데 distinct 표제어는 29,308개** — 23배 중복이다. PostgREST 페이지가
+ *   1,000행 고정이라 왕복 200회 · **콜드 88초**가 걸리고, `MAX_ROWS` 에서 조용히 잘린다.
+ *   반면 사전(`shared_dictionary`)은 낱말당 한 행이고, 해석은 DB 가 한다 —
+ *   **10낱말 165ms**, 지문 하나에 왕복 8회 이하(500개씩 청크).
+ *
+ *   anon 이 사전을 못 읽는 것(RLS)이 진짜 장벽이었지 권한이 아니었다 →
+ *   `textfit_resolve_levels_public`(마이그레이션 `20260905084613`)이 SECURITY DEFINER 로 그 벽을
+ *   넘되 **surface·headword·v_level 3열만** 돌려준다(뜻·예문은 나가지 않는다).
+ *
+ * ⚠️ **500개씩 쪼갠다.** PostgREST 는 RPC 결과에도 `db-max-rows`(1,000)를 적용한다 —
+ *    한 번에 다 보내면 오류 없이 잘리고, 빠진 낱말은 미지어로 세어져 커버리지가 낮아진다.
+ *    (`chunkedRpc` 가 그 이유를 안고 있다.)
+ *
+ * 조각 하나라도 실패하면 **전체를 실패로 돌린다** — 반쯤 해석된 결과를 정상이라 부르면 더 나쁘다.
  */
-export async function getLevelMap(now: number = Date.now()): Promise<Map<string, number>> {
-  if (cache && now - cache.loadedAt < TTL_MS) return cache.levels
-  if (inflight) return (await inflight).levels
+export async function resolveLevelsPublic(
+  surfaces: readonly string[],
+): Promise<Map<string, ResolvedSurface>> {
+  const out = new Map<string, ResolvedSurface>()
+  if (surfaces.length === 0) return out
 
-  inflight = load()
-  try {
-    cache = await inflight
-    // 적재는 프로세스당 한 번뿐이라 로그가 시끄럽지 않고, 대신 **왜 첫 요청이 느린지**를
-    // 나중에 설명할 수 있게 해 준다(왕복 수가 예상보다 많으면 서버가 페이지를 깎은 것이다).
-    console.info(
-      `[textfit] 레벨 맵 적재 완료 — 표제어 ${cache.levels.size} · ${cache.loadMs}ms · 왕복 ${cache.pages}회 · 행 ${cache.rowsRead}`,
-    )
-    return cache.levels
-  } finally {
-    inflight = null
+  const supabase = anonClient()
+  const rows = await chunkedRpc<PublicResolvedRow>(
+    surfaces,
+    (chunk) => supabase.rpc('textfit_resolve_levels_public', { p_words: chunk }),
+    'textfit_resolve_levels_public',
+  )
+
+  for (const row of rows) {
+    if (!row.headword) continue
+    const key = row.surface.trim().toLowerCase()
+    if (!key) continue
+    const vLevel = typeof row.v_level === 'number' ? row.v_level : null
+    const prev = out.get(key)
+    // 같은 표면형이 두 번 오면 **낮은 레벨**을 남긴다 — 전량 적재 경로와 같은 기준.
+    if (prev === undefined || (vLevel !== null && (prev.vLevel === null || vLevel < prev.vLevel))) {
+      out.set(key, { headword: row.headword, vLevel })
+    }
   }
-}
 
-/** 적재 상태 — 진단·테스트용. 적재를 유발하지 않는다. */
-export function levelMapStats(): {
-  loaded: boolean
-  size: number
-  ageMs: number
-  loadMs: number
-  pages: number
-  /** 실제로 읽은 행 수 — 기대치와 다르면 조기 종료를 의심한다 */
-  rowsRead: number
-} {
-  if (!cache) return { loaded: false, size: 0, ageMs: 0, loadMs: 0, pages: 0, rowsRead: 0 }
-  return {
-    loaded: true,
-    size: cache.levels.size,
-    ageMs: Date.now() - cache.loadedAt,
-    loadMs: cache.loadMs,
-    pages: cache.pages,
-    rowsRead: cache.rowsRead,
-  }
-}
-
-/** 캐시를 비운다 — 테스트 전용. */
-export function resetLevelMap(): void {
-  cache = null
-  inflight = null
+  return out
 }
 
 /**
- * **표적 조회** — 후보 몇십 개의 레벨만 가져온다. 전체 맵을 올리지 않는다.
+ * **표적 조회 — `shared_words` 폴백.** 사전 RPC 가 실패했을 때만 쓴다.
  *
- * 왜 따로 필요한가 (2026-09-04 실측):
- *   `getLevelMap()` 은 anon 가시 `shared_words` **656,257행**을 전부 훑는다. PostgREST 가
- *   페이지를 1,000행으로 깎으므로 왕복 200회 · **콜드 88초**가 걸리고, 그나마 `MAX_ROWS`
- *   200,000 에서 멈춘다(파일 상단 주석의 "18,271 표제어 · 200 KB · 콜드 2.7s" 는 낡았다).
- *   지문 하나를 임의로 받는 `/fit` 은 그 설계가 여전히 말이 되지만, **낱말이 정해져 있는
- *   호출자**(랜딩 히어로 데모)가 그 비용을 물면 첫 화면이 88초 동안 비어 있게 된다.
- *   → 후보가 수십 개로 정해진 경우에는 그 낱말만 묻는다. 왕복 1~2회.
+ * 왜 남겨 두나: `resolveLevelsPublic()` 이 정본이지만, RPC 가 죽으면 화면이 "분석 불가" 로
+ * 멈추는 것보다 **덜 정확한 숫자라도 내는 편**이 낫다. 폴백은 굴절형을 `collectCandidates` 가
+ * 만든 후보로 풀기 때문에 해석력이 떨어지고, 방향은 **과소평가**다 — 있는 실력을 없다고
+ * 할지언정 없는 실력을 있다고 하지 않는다. 어느 쪽이 답했는지는 `AnalyzeResult.mode` 가 말한다.
  *
- * `lemma` 가 20% NULL 이라 `word` 로도 한 번 더 묻는다 — `getLevelMap()` 의 폴백과 같은 규칙.
- * 같은 표제어가 여러 세트에 있으면 **가장 낮은 레벨**을 남긴다(전체 맵과 같은 기준).
+ * ⚠️ 정상 경로로 쓰면 안 된다. `shared_words` 는 표제어당 행이 많아 **50 표제어에 7,617행
+ *    9.5초 · 600 표제어에 84,466행 41초**가 나온다(2026-09-05 실측).
+ *
+ * `lemma` 가 20% NULL 이라 `word` 로도 한 번 더 묻는다.
+ * 같은 표제어가 여러 세트에 있으면 **가장 낮은 레벨**을 남긴다 — 사전 경로와 같은 기준.
  */
 export async function loadLevelsFor(candidates: readonly string[]): Promise<Map<string, number>> {
   const levels = new Map<string, number>()

@@ -77,8 +77,6 @@ export async function buildHeroDemo(): Promise<HeroDemo | null> {
     const { profile, words, lemmaBySurface } = await analyzeCounts(
       tokenization.counts,
       tokenization.totalWords,
-      // 지문이 상수이므로 전체 레벨 맵(콜드 88초)을 올리지 않는다 — 이 낱말들만 묻는다.
-      { targetedLevels: true },
     )
     if (profile.readings.length === 0) return null
 

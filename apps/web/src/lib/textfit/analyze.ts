@@ -19,25 +19,14 @@ import { summarizeCurriculum } from './curriculum'
 import { collectCandidates } from './inflect'
 import {
   checkRealWords,
-  getLevelMap,
   loadCurriculumMarks,
   loadLevelsFor,
   loadMeanings,
+  resolveLevelsPublic,
 } from './level-map'
+import type { ResolvedSurface } from './level-map'
 import { buildLevelProfile } from './profile'
 import type { LevelProfile, PublicWord } from './profile'
-
-export interface AnalyzeOptions {
-  /**
-   * 후보 낱말만 표적 조회할 것인가 — **낱말이 정해진 호출자용.**
-   *
-   * `false`(기본)는 프로세스 캐시된 전체 레벨 맵을 쓴다. 임의 지문을 받는 `/fit` 은 그쪽이 맞다
-   * (지문마다 표적 조회하면 왕복이 지문 길이에 비례한다).
-   * `true` 는 랜딩 히어로처럼 **지문이 상수**인 곳에서 쓴다 — 전체 맵 콜드 적재가 88초라
-   * 첫 화면이 그동안 비어 있게 된다(`level-map.ts` 의 2026-09-04 실측 주석 참조).
-   */
-  targetedLevels?: boolean
-}
 
 export interface AnalyzeResult {
   profile: LevelProfile
@@ -50,10 +39,27 @@ export interface AnalyzeResult {
   words: PublicWord[]
   /** 표면형 → 표제어. 원문 순서대로 다시 칠할 때 쓴다. */
   lemmaBySurface: Map<string, string>
+  /**
+   * 어느 해석기가 답했는가 — **숫자의 뜻이 달라지므로 삼키지 않는다.**
+   * 폴백은 굴절형을 놓쳐 커버리지를 과소평가한다.
+   */
+  mode?: 'dictionary_rpc' | 'shared_words_fallback'
 }
 
 /**
  * 표면형 빈도표 하나를 레벨 프로파일로 만든다.
+ *
+ * ── 해석 경로 (2026-09-05 재설계) ──────────────────────────────────
+ * 1순위 **`textfit_resolve_levels_public` RPC** — DB 가 `resolve_dict_headword` 로 굴절형까지
+ *   풀고 사전(`shared_dictionary`)에서 V-Level 을 붙여 준다. 지문당 왕복 8회 이하.
+ *   로그인 경로(`queries.ts`)와 **같은 해석기**라 두 화면의 숫자가 갈라지지 않는다.
+ * 폴백 **`shared_words` 표적 조회** — RPC 가 실패했을 때만. 굴절형은 `collectCandidates` 로 만든
+ *   후보를 쓰므로 해석력이 조금 떨어지고, 방향은 **과소평가**다(있는 실력을 없다고 할지언정
+ *   없는 실력을 있다고 하지 않는다).
+ *
+ * ⚠️ 전량 적재(`getLevelMap`)는 이 경로에서 **은퇴했다.** `shared_words` 681,021행 중 distinct
+ *    표제어가 29,308개뿐인데 통째로 끌어와 콜드 88초가 걸렸고, `MAX_ROWS` 에서 조용히 잘려
+ *    커버리지를 낮게 답하고 있었다.
  *
  * @param counts 표면형(소문자) → 등장 횟수
  * @param totalTokens 러닝 워드 수 — 커버리지 분모(기능어 포함, Hu & Nation 정의)
@@ -61,33 +67,59 @@ export interface AnalyzeResult {
 export async function analyzeCounts(
   counts: Record<string, number>,
   totalTokens: number,
-  options: AnalyzeOptions = {},
 ): Promise<AnalyzeResult> {
   const surfaces = Object.keys(counts)
   if (surfaces.length === 0) {
     return { profile: buildLevelProfile([], totalTokens), words: [], lemmaBySurface: new Map() }
   }
 
-  const { all, bySurface } = collectCandidates(surfaces)
+  // ── 1순위: 사전 해석기 ──
+  let resolved: Map<string, ResolvedSurface>
+  let mode: AnalyzeResult['mode'] = 'dictionary_rpc'
+  try {
+    resolved = await resolveLevelsPublic(surfaces)
+  } catch (err) {
+    // 폴백을 조용히 삼키지 않는다 — 어느 해석기가 답했는지가 숫자의 뜻을 바꾼다.
+    console.error('[textfit] 사전 해석기 실패 — shared_words 폴백으로 내려간다:', err)
+    resolved = new Map()
+    mode = 'shared_words_fallback'
+  }
 
-  // 굴절 후보까지 포함해 물어야 한다 — "allocated" 는 "allocate" 로 접힌 뒤에야 레벨이 붙는다.
-  const levels = options.targetedLevels ? await loadLevelsFor(all) : await getLevelMap()
+  // ── 폴백에 넘길 나머지 ──
+  //   RPC 가 통째로 실패했으면 전부, 성공했으면 사전에 없던 것만.
+  const unresolvedSurfaces = surfaces.filter((s) => !resolved.has(s))
+  const { all, bySurface } = collectCandidates(unresolvedSurfaces)
 
-  // 레벨 맵에 없는 후보만 실재어 확인 대상 — 지문당 수십 개 수준이다.
-  const unleveled = all.filter((c) => !levels.has(c))
-  const realWords = await checkRealWords(unleveled)
+  const fallbackLevels =
+    mode === 'shared_words_fallback' && all.length > 0
+      ? await loadLevelsFor(all)
+      : new Map<string, number>()
+
+  // 사전에도 없고 레벨도 못 붙인 것 — 실재하는 낱말인지만 확인한다(고유명사·오탈자 구분).
+  const stillUnknown = all.filter((c) => !fallbackLevels.has(c))
+  const realWords = await checkRealWords(stillUnknown)
 
   // 표면형 → 표제어로 접으면서 빈도를 합산한다("allocate" 2 + "allocated" 3 = 5).
   const merged = new Map<string, PublicWord>()
   const lemmaBySurface = new Map<string, string>()
   for (const [surface, count] of Object.entries(counts)) {
-    const cands = bySurface.get(surface) ?? [surface]
-    const lemma = cands.find((c) => levels.has(c)) ?? cands.find((c) => realWords.has(c)) ?? surface
+    const hit = resolved.get(surface)
+
+    let lemma: string
+    let vLevel: number | null
+    if (hit) {
+      lemma = hit.headword
+      vLevel = hit.vLevel
+    } else {
+      const cands = bySurface.get(surface) ?? [surface]
+      lemma =
+        cands.find((c) => fallbackLevels.has(c)) ?? cands.find((c) => realWords.has(c)) ?? surface
+      vLevel = fallbackLevels.get(lemma) ?? null
+    }
     lemmaBySurface.set(surface, lemma)
 
-    const vLevel = levels.get(lemma) ?? null
     const status: PublicWord['status'] =
-      vLevel !== null ? 'leveled' : realWords.has(lemma) ? 'unleveled' : 'unresolved'
+      vLevel !== null ? 'leveled' : hit || realWords.has(lemma) ? 'unleveled' : 'unresolved'
 
     const prev = merged.get(lemma)
     if (prev) prev.count += count
@@ -114,5 +146,5 @@ export async function analyzeCounts(
     for (const w of profile.hardestWords) w.curriculumBand = marks.get(w.lemma)?.band ?? null
   }
 
-  return { profile, words, lemmaBySurface }
+  return { profile, words, lemmaBySurface, mode }
 }

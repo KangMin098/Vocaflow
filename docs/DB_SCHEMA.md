@@ -610,6 +610,7 @@ cast-2000 audit chain — 4 테이블 cascade:
 | `resolve_dict_headword(p_surface text)` | RETURNS text | 표면형 → 사전 표제어 **5계층** |
 | `unresolved_dict_words(p_words text[])` | RETURNS text[] | 해석 실패분만 반환 (pending_words 기록용) |
 | `textfit_resolve_levels(p_words text[])` | RETURNS TABLE(surface·headword·v_level) | TextFit 커버리지 — **필터 없음**(아는 단어도 세야 분자가 나온다). STABLE · SECURITY INVOKER · 입력 상한 4000. [20260826102758](../supabase/migrations/20260826102758_textfit_resolve_levels.sql) |
+| `textfit_resolve_levels_public(p_words text[])` | RETURNS TABLE(surface·headword·v_level) | **공개(미로그인) TextFit 정본.** 위 함수의 SECURITY **DEFINER** 쌍둥이 — anon 은 `shared_dictionary` 를 못 읽어(RLS `authenticated read dictionary`) INVOKER 판이 **오류 없이 0행**을 준다. 반환 3열뿐(뜻·예문 미포함) · `search_path=public` 고정 · 입력 상한 4000 · `statement_timeout 15s` · EXECUTE 는 anon·authenticated 에만(PUBLIC REVOKE). 실측 112 표면형 **294ms**. [20260905084613](../supabase/migrations/20260905084613_textfit_resolve_levels_public.sql) |
 
 **5계층**: ① 정확 일치 → ② 사전 등재 굴절형(`inflected_forms`) → ③ 규칙 굴절 역생성(`en_inflection_bases`)
 → ④ 의미 보존 파생 접미사 → ⑤ **영/미 철자 변이**.
