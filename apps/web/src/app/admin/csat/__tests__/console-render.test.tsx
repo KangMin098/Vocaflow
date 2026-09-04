@@ -121,4 +121,12 @@ describe('CsatConsoleClient', () => {
     expect(html, '화면에 「99점」이 되돌아왔다').not.toContain('99점')
     expect(html).toContain('독해 실점 0')
   })
+
+  // 이 콘솔의 마지막 자리는 「가이드 원천」이다 — 분석이 끝난 뒤 **무엇이 나왔는지**를 꺼내는 곳.
+  // 탭이 사라지면 파이프라인은 여전히 돌지만 산출물을 꺼낼 길이 없어져, 화면이 다시
+  // "진행률만 세는 판" 으로 되돌아간다.
+  it('「가이드 원천」 탭이 있다 — 산출물을 꺼내는 유일한 자리다', () => {
+    const html = text(renderToString(<CsatConsoleClient {...EMPTY} />))
+    expect(html).toContain('가이드 원천')
+  })
 })

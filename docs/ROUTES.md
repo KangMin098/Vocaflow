@@ -160,7 +160,7 @@
 | `/admin/analytics` | stub | 플랫폼 분석 |
 | `/admin/topic-corpus` | `admin/topic-corpus/page.tsx` + `TopicCorpusClient.tsx` | TCP — 주제 코퍼스 적재·드레인·승격 (원문 미저장, 어휘 통계만) |
 | `/admin/textbook` | `admin/textbook/page.tsx` + `TextbookConsoleClient.tsx` | TBP — 교재. 학령 사다리·문항 건강·시중 대비 평가 우위 (조작 없음 · 생성은 Claude Code 드레인) |
-| `/admin/csat` | `admin/csat/page.tsx` + `CsatConsoleClient.tsx` | CSAT — 평가원 기출 분석. 회차별 99점 커버리지(덮은 배점/사정권 배점) · 유형별 진행 (조작 없음 · 분석은 Claude Code 드레인) |
+| `/admin/csat` | `admin/csat/page.tsx` + `CsatConsoleClient.tsx` | CSAT — 평가원 기출 분석. 탭 3: 회차 커버리지(덮은 배점/사정권 배점) · 유형별 진행 · **가이드 원천**(분석 802문항 → 교재·학습 가이드 한 벌 · Markdown/JSON 내려받기). 분석 자체는 Claude Code 드레인 |
 | `/admin/quality` | `admin/quality/page.tsx` | 품질 지표 대시보드 (quality_metrics nightly, read-only) |
 | `/admin/quality/gates` | `admin/quality/gates/page.tsx` + `GateCheckClient.tsx` | 콘텐츠 품질 게이트 — 파이프라인 정확성 결정론 불변식 red/green (`run_content_quality_gates`) + 콘텐츠별 게시전 체크 |
 | `/admin/quality/judge` | `admin/quality/judge/page.tsx` + `JudgeClient.tsx` | 추출 품질 blind 판정 하네스 (Q3/Q5 골든 라벨 — `get_judgment_sample`/`save_extraction_judgment`) |
@@ -213,7 +213,7 @@
 
 ---
 
-## API Routes (24)
+## API Routes (25)
 
 ### `/api/auth/*` (1)
 
@@ -281,6 +281,12 @@
 | `POST /api/admin/library/convert-to-se` | Standard Ebooks 변환 |
 | `POST /api/admin/library/delete-seed-catalog` | seed catalog 정리 |
 | `POST /api/admin/library/backfill-covers` | cover_image_url backfill |
+
+### `/api/admin/csat/*` (1)
+
+| 경로 | 비고 |
+|---|---|
+| `GET /api/admin/csat/guide` | 기출 분석 → **학습 가이드 원천 자료**. `?format=json`(기본, 콘솔 탭이 읽는다) · `?format=md`(교재 집필용) · `&download=1`(파일로). 화면과 파일이 **같은 조회**에서 나온다. 평가원 지문 원문은 조회 컬럼에서 이미 빠져 있다 |
 
 ### `/api/admin/articles/*` (21)
 

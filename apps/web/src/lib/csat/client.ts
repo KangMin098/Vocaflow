@@ -20,6 +20,37 @@ export function createCsatClient(): SupabaseClient {
   return createAdminClient() as unknown as SupabaseClient
 }
 
+/**
+ * PostgREST 는 응답을 **1000행에서 자르고, 자르면서 오류를 내지 않는다.**
+ *
+ * 그래서 한 번에 읽는 코드는 조용히 틀린 수를 보여 준다. 실측 2026-09-05: 이 파일의
+ * `loadCsatOverview` 가 `csat_item_analyses` 2,234행 중 1,000행만 받아 「검수 통과 문항」을
+ * **802 인데 734** 로 적고 있었다. 진행률이 낮게 보이는 것으로 끝나지 않는다 — 이미 끝난
+ * 유형이 「남은 몫」 상단에 올라와 관리자가 **다 된 유형에 드레인을 다시 돌게** 만든다.
+ *
+ * 1000행을 넘을 수 있는 조회는 전부 이 함수를 지나간다. `count: 'exact', head: true` 는
+ * 서버가 세므로 영향이 없다(그래서 검수 기록 6,702 는 맞게 나오고 있었다).
+ */
+const PAGE = 1000
+
+type PageResult = { data: unknown[] | null; error: { message: string } | null }
+
+export async function selectAllPages<T>(
+  build: (from: number, to: number) => PromiseLike<PageResult>,
+): Promise<{ rows: T[]; error: string | null }> {
+  const out: T[] = []
+  for (let from = 0; ; from += PAGE) {
+    const res = await build(from, from + PAGE - 1)
+    if (res.error) return { rows: out, error: res.error.message }
+    const batch = (res.data ?? []) as T[]
+    out.push(...batch)
+    if (batch.length < PAGE) break
+    // 안전판 — 조회가 잘못 걸려 표 전체를 끌어오는 사고를 여기서 멈춘다
+    if (out.length >= 200_000) break
+  }
+  return { rows: out, error: null }
+}
+
 /** 회차별 커버리지 — `csat_coverage()` RPC 한 행 */
 export interface CsatCoverageRow {
   exam_id: string
@@ -82,30 +113,37 @@ export async function loadCsatOverview(): Promise<CsatOverview> {
   if (cov.error) return { ...empty, loadError: `csat_coverage: ${cov.error.message}` }
   const coverage = (cov.data ?? []) as CsatCoverageRow[]
 
-  const [typesRes, itemsRes, analysesRes, reportsRes, reviewsRes] = await Promise.all([
+  // 문항 830 · 분석 2,234 는 둘 다 1000행 벽을 넘는다 — `selectAllPages` 를 지나가야 한다.
+  const [typesRes, itemsPaged, analysesPaged, reportsRes, reviewsRes] = await Promise.all([
     db.from('csat_types').select('id, name, section, status, in_scope').eq('in_scope', true),
-    db.from('csat_items').select('id, type_id, answer').eq('in_scope', true),
-    db.from('csat_item_analyses').select('item_id, status'),
+    selectAllPages<{ id: string; type_id: string | null; answer: number | null }>((from, to) =>
+      db.from('csat_items').select('id, type_id, answer').eq('in_scope', true).range(from, to),
+    ),
+    selectAllPages<{ item_id: string; status: string }>((from, to) =>
+      db.from('csat_item_analyses').select('item_id, status').range(from, to),
+    ),
     db.from('csat_type_reports').select('type_id, n_analyzed, status'),
     db.from('csat_analysis_reviews').select('id', { count: 'exact', head: true }),
   ])
 
-  const firstError = [typesRes, itemsRes, analysesRes, reportsRes, reviewsRes].find((r) => r.error)
-  if (firstError?.error) return { ...empty, coverage, loadError: firstError.error.message }
+  const firstError =
+    typesRes.error?.message ??
+    itemsPaged.error ??
+    analysesPaged.error ??
+    reportsRes.error?.message ??
+    reviewsRes.error?.message ??
+    null
+  if (firstError) return { ...empty, coverage, loadError: firstError }
 
   // 문항 → 유형, 그리고 published 분석을 가진 문항
   const publishedItems = new Set(
-    ((analysesRes.data ?? []) as { item_id: string; status: string }[])
-      .filter((a) => a.status === 'published')
-      .map((a) => a.item_id),
+    analysesPaged.rows.filter((a) => a.status === 'published').map((a) => a.item_id),
   )
-  const analyzedItems = new Set(
-    ((analysesRes.data ?? []) as { item_id: string }[]).map((a) => a.item_id),
-  )
+  const analyzedItems = new Set(analysesPaged.rows.map((a) => a.item_id))
 
   const byType = new Map<string, { items: number; published: number }>()
   let answerUnknown = 0
-  for (const it of (itemsRes.data ?? []) as { id: string; type_id: string | null; answer: number | null }[]) {
+  for (const it of itemsPaged.rows) {
     if (it.answer == null) answerUnknown += 1
     if (!it.type_id) continue
     const e = byType.get(it.type_id) ?? { items: 0, published: 0 }
@@ -141,7 +179,7 @@ export async function loadCsatOverview(): Promise<CsatOverview> {
     types,
     totals: {
       exams: coverage.length,
-      inScopeItems: (itemsRes.data ?? []).length,
+      inScopeItems: itemsPaged.rows.length,
       analyzed: analyzedItems.size,
       published: publishedItems.size,
       exams99: coverage.filter((c) => c.covers_99).length,

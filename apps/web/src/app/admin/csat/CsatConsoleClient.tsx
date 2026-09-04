@@ -14,18 +14,29 @@
 // 그래서 진행률을 문항 수 백분율로 보여 주지 않는다 — 96% 는 실점 0이 아니다.
 // 회차마다 **덮은 배점 / 사정권 배점**을 그대로 적고, 같을 때만 초록이다.
 //
-// 조작 버튼을 두지 않았다. 드레인은 Claude Code 배치가 터미널에서 돌리고, 이 화면은
-// **어디까지 됐는지와 다음에 무엇을 돌릴지**를 말한다. 절차는 화면도움말에 있다.
+// 드레인 자체는 Claude Code 배치가 터미널에서 돌린다(청크를 채우는 것은 LLM 이지 버튼이 아니다).
+// 그래서 이 화면에 「분석 시작」 버튼은 없다. 대신 **분석이 끝난 뒤 나오는 것**은 여기서 꺼낸다 —
+// 「가이드 원천」 탭이 802문항 분석을 교재·학습 가이드가 바로 쓸 수 있는 한 벌로 접어 내려 준다.
+// 절차는 화면도움말에 있다.
 
 'use client'
 
-import { BookOpenCheck, CircleCheck, CircleDashed, ShieldCheck, TriangleAlert } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import {
+  BookOpenCheck,
+  CircleCheck,
+  CircleDashed,
+  Download,
+  Layers,
+  ShieldCheck,
+  TriangleAlert,
+} from 'lucide-react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { CsatCoverageRow, CsatOverview, CsatTypeRow } from '@/lib/csat/client'
+import type { CsatGuideSource } from '@/lib/csat/guide-fold'
 
-const TABS = ['회차 커버리지', '유형별 진행'] as const
+const TABS = ['회차 커버리지', '유형별 진행', '가이드 원천'] as const
 type Tab = (typeof TABS)[number]
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
@@ -180,6 +191,172 @@ function TypeTable({ rows }: { rows: CsatTypeRow[] }) {
   )
 }
 
+const DL_BUTTON =
+  'inline-flex min-h-[44px] items-center gap-1.5 rounded-md border border-[var(--bd)] px-3 text-sm text-[var(--tx-2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] active:bg-[var(--bd)]'
+
+/**
+ * 「가이드 원천」 — 이 파이프라인이 **무엇을 내놓았는지**를 보여 주는 유일한 자리.
+ *
+ * 첫 화면에 얹지 않고 탭을 열 때 받아 온다. 사전 대조가 낱말 3천 개를 15번에 나눠 묻기 때문에,
+ * 콘솔을 열 때마다 치르면 회차 커버리지를 보러 온 사람이 그 값을 대신 낸다.
+ */
+function GuideTab() {
+  const [src, setSrc] = useState<CsatGuideSource | null>(null)
+  const [state, setState] = useState<'idle' | 'loading' | 'error'>('idle')
+  const [err, setErr] = useState<string | null>(null)
+  const [openType, setOpenType] = useState<string | null>(null)
+
+  const load = useCallback(async () => {
+    setState('loading')
+    setErr(null)
+    try {
+      const res = await fetch('/api/admin/csat/guide', { cache: 'no-store' })
+      const json = (await res.json()) as { ok?: boolean; source?: CsatGuideSource; error?: string }
+      if (!res.ok || !json.ok || !json.source) throw new Error(json.error ?? `HTTP ${res.status}`)
+      setSrc(json.source)
+      setState('idle')
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e))
+      setState('error')
+    }
+  }, [])
+
+  useEffect(() => {
+    void load()
+  }, [load])
+
+  if (state === 'loading' && !src) {
+    return <p className="py-6 text-center text-sm text-[var(--tx-3)]">분석 802문항을 접는 중…</p>
+  }
+
+  if (state === 'error') {
+    return (
+      <div className="flex flex-col items-start gap-3 py-4">
+        <p className="text-sm text-[var(--tx-2)]">가이드 원천을 만들지 못했다 — {err}</p>
+        <button type="button" onClick={() => void load()} className={DL_BUTTON}>
+          다시 시도
+        </button>
+      </div>
+    )
+  }
+
+  if (!src) return null
+
+  const t = src.totals
+  const gap = src.vocab.filter((v) => !v.in_dictionary)
+
+  return (
+    <>
+      <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <Stat
+          label="함정 라벨 → 계열"
+          value={`${t.trapLabels} → ${t.trapFamilies}`}
+          hint="같은 함정이 다른 이름으로 쌓인 것을 접은 수 — 교재 꼭지 수의 상한이다"
+        />
+        <Stat
+          label="필수 어휘"
+          value={String(t.vocabLemmas)}
+          hint={`사전 등재 ${t.vocabInDictionary} · 미등재 ${t.vocabLemmas - t.vocabInDictionary}`}
+        />
+        <Stat
+          label="사정권 권장 시간"
+          value={`${Math.round(t.timeBudgetSec / 60)}분`}
+          hint={`${t.items}문항 합 — 회차별 분배의 근거`}
+        />
+        <Stat label="접은 유형" value={`${t.types}`} hint={`분석 ${t.analyzed}문항에서`} />
+      </div>
+
+      <div className="mb-4 flex flex-wrap gap-2">
+        <a href="/api/admin/csat/guide?format=md" className={DL_BUTTON} download>
+          <Download className="h-4 w-4" aria-hidden />
+          교재용 Markdown
+        </a>
+        <a href="/api/admin/csat/guide?format=json&download=1" className={DL_BUTTON} download>
+          <Download className="h-4 w-4" aria-hidden />
+          JSON (기계 판독)
+        </a>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[760px] text-sm">
+          <thead>
+            <tr className="border-b border-[var(--bd)] text-left text-xs text-[var(--tx-3)]">
+              <th className="py-2 pr-3 font-medium">유형</th>
+              <th className="py-2 pr-3 font-medium">최근 4개년</th>
+              <th className="py-2 pr-3 font-medium">절차</th>
+              <th className="py-2 pr-3 font-medium">함정 라벨 → 계열</th>
+              <th className="py-2 pr-3 font-medium">미끄러지는 자리</th>
+              <th className="py-2 font-medium">요구 어휘</th>
+            </tr>
+          </thead>
+          <tbody>
+            {src.types.map((ty) => {
+              const open = openType === ty.type_id
+              return (
+                <tr key={ty.type_id} className="border-b border-[var(--bd)] align-top last:border-0">
+                  <td className="py-2 pr-3">
+                    <button
+                      type="button"
+                      onClick={() => setOpenType(open ? null : ty.type_id)}
+                      aria-expanded={open}
+                      className="min-h-[44px] text-left text-[var(--tx)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+                    >
+                      {ty.name}
+                      <code className="ml-2 text-xs text-[var(--tx-3)]">{ty.type_id}</code>
+                    </button>
+                    {open ? (
+                      <ul className="mb-2 mt-1 space-y-2">
+                        {ty.trap_families.map((f) => (
+                          <li key={f.key} className="text-xs text-[var(--tx-2)]">
+                            <span className="font-medium text-[var(--tx)]">{f.key}</span>
+                            <span className="ml-1 tabular-nums text-[var(--tx-3)]">{f.count}회</span>
+                            {f.labels.length > 1 ? (
+                              <span className="ml-1 text-[var(--tx-3)]">
+                                (병합 라벨 {f.labels.length}: {f.labels.join(' · ')})
+                              </span>
+                            ) : null}
+                          </li>
+                        ))}
+                        {!ty.trap_families.length ? (
+                          <li className="text-xs text-[var(--tx-3)]">유형 리포트가 아직 없다</li>
+                        ) : null}
+                      </ul>
+                    ) : null}
+                  </td>
+                  <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{ty.recent}</td>
+                  <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{ty.procedure.length}단계</td>
+                  <td className="py-2 pr-3">
+                    <span className="inline-flex items-center gap-1 tabular-nums text-[var(--tx-2)]">
+                      <Layers className="h-3.5 w-3.5 text-[var(--tx-3)]" aria-hidden />
+                      {ty.traps_raw} → {ty.trap_families.length}
+                    </span>
+                  </td>
+                  <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{ty.failure_modes.length}</td>
+                  <td className="py-2 tabular-nums text-[var(--tx-2)]">{ty.vocab.length}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="mt-5 border-t border-[var(--bd)] pt-4">
+        <h3 className="text-sm font-medium text-[var(--tx)]">
+          사전에 없는 기출 필수 어휘 {gap.length}낱말
+        </h3>
+        <p className="mt-1 text-xs text-[var(--tx-3)]">
+          분석이 「이 문항을 풀려면 알아야 한다」고 지목했는데 `shared_dictionary` 에 뜻이 없다 — 교재에 실을
+          뜻을 아직 못 만든 낱말이다. 요구 문항 수가 많은 순.
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-[var(--tx-2)]">
+          {gap.slice(0, 60).map((v) => `${v.lemma}(${v.items})`).join(' · ')}
+          {gap.length > 60 ? ` … 외 ${gap.length - 60}` : ''}
+        </p>
+      </div>
+    </>
+  )
+}
+
 export function CsatConsoleClient({ coverage, types, totals, loadError }: CsatOverview) {
   const [tab, setTab] = useState<Tab>(TABS[0])
 
@@ -242,9 +419,17 @@ export function CsatConsoleClient({ coverage, types, totals, loadError }: CsatOv
           <BookOpenCheck className="h-4 w-4" aria-hidden />
           {tab === '회차 커버리지'
             ? '덮은 배점이 사정권 배점과 같아야 「가능」이다 — 듣기는 세지 않는다'
-            : '남은 몫이 많은 유형이 위에 온다 — 다음에 돌릴 드레인을 여기서 고른다'}
+            : tab === '유형별 진행'
+              ? '남은 몫이 많은 유형이 위에 온다 — 다음에 돌릴 드레인을 여기서 고른다'
+              : '분석이 교재·학습 가이드로 나가는 모양 — 유형을 눌러 함정 계열을 편다'}
         </div>
-        {tab === '회차 커버리지' ? <CoverageTable rows={coverage} /> : <TypeTable rows={types} />}
+        {tab === '회차 커버리지' ? (
+          <CoverageTable rows={coverage} />
+        ) : tab === '유형별 진행' ? (
+          <TypeTable rows={types} />
+        ) : (
+          <GuideTab />
+        )}
       </section>
     </div>
   )
