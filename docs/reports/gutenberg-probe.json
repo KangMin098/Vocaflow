@@ -1,0 +1,212 @@
+{
+  "at": "2026-09-04T08:49:07.889Z",
+  "totalChunks": 5393,
+  "totalFit": 484,
+  "byTopic": {
+    "심리·인지": 39,
+    "과학·자연": 111,
+    "교육·언어": 90,
+    "기술·매체": 7,
+    "분류불가": 9,
+    "사회·경제": 59,
+    "예술·문화": 76,
+    "역사·인류": 44,
+    "철학·윤리": 49
+  },
+  "human": 259,
+  "netHuman": 4.802521787502318,
+  "rows": [
+    {
+      "slot": "예술·문화",
+      "loc": "art history",
+      "id": "75883",
+      "title": "#75883",
+      "chunks": 925,
+      "fit": 19
+    },
+    {
+      "slot": "예술·문화",
+      "loc": "art history",
+      "id": "674",
+      "title": "#674",
+      "chunks": 404,
+      "fit": 7
+    },
+    {
+      "slot": "예술·문화",
+      "loc": "art history",
+      "id": "25326",
+      "title": "#25326",
+      "chunks": 59,
+      "fit": 2
+    },
+    {
+      "slot": "예술·문화",
+      "loc": "music history",
+      "id": "51356",
+      "title": "#51356",
+      "chunks": 30,
+      "fit": 8
+    },
+    {
+      "slot": "예술·문화",
+      "loc": "music history",
+      "id": "16351",
+      "title": "#16351",
+      "chunks": 139,
+      "fit": 45
+    },
+    {
+      "slot": "예술·문화",
+      "loc": "music history",
+      "id": "540",
+      "title": "#540",
+      "chunks": 293,
+      "fit": 1
+    },
+    {
+      "slot": "역사·인류",
+      "loc": "ancient history",
+      "id": "46976",
+      "title": "#46976",
+      "chunks": 99,
+      "fit": 9
+    },
+    {
+      "slot": "역사·인류",
+      "loc": "ancient history",
+      "id": "6400",
+      "title": "#6400",
+      "chunks": 284,
+      "fit": 54
+    },
+    {
+      "slot": "역사·인류",
+      "loc": "ancient history",
+      "id": "7524",
+      "title": "#7524",
+      "chunks": 73,
+      "fit": 39
+    },
+    {
+      "slot": "역사·인류",
+      "loc": "anthropology",
+      "id": "41775",
+      "title": "#41775",
+      "chunks": 438,
+      "fit": 73
+    },
+    {
+      "slot": "역사·인류",
+      "loc": "anthropology",
+      "id": "49501",
+      "title": "#49501",
+      "chunks": 223,
+      "fit": 0
+    },
+    {
+      "slot": "역사·인류",
+      "loc": "anthropology",
+      "id": "45634",
+      "title": "#45634",
+      "chunks": 456,
+      "fit": 61
+    },
+    {
+      "slot": "철학·윤리",
+      "loc": "philosophy",
+      "id": "1695",
+      "title": "#1695",
+      "chunks": 132,
+      "fit": 10
+    },
+    {
+      "slot": "철학·윤리",
+      "loc": "philosophy",
+      "id": "2680",
+      "title": "#2680",
+      "chunks": 94,
+      "fit": 10
+    },
+    {
+      "slot": "철학·윤리",
+      "loc": "philosophy",
+      "id": "3296",
+      "title": "#3296",
+      "chunks": 79,
+      "fit": 0
+    },
+    {
+      "slot": "철학·윤리",
+      "loc": "ethics",
+      "id": "57342",
+      "title": "#57342",
+      "chunks": 317,
+      "fit": 29
+    },
+    {
+      "slot": "철학·윤리",
+      "loc": "ethics",
+      "id": "27827",
+      "title": "#27827",
+      "chunks": 125,
+      "fit": 6
+    },
+    {
+      "slot": "철학·윤리",
+      "loc": "ethics",
+      "id": "44833",
+      "title": "#44833",
+      "chunks": 407,
+      "fit": 19
+    },
+    {
+      "slot": "교육·언어",
+      "loc": "language essays",
+      "id": "16119",
+      "title": "#16119",
+      "chunks": 49,
+      "fit": 10
+    },
+    {
+      "slot": "교육·언어",
+      "loc": "language essays",
+      "id": "67363",
+      "title": "#67363",
+      "chunks": 95,
+      "fit": 29
+    },
+    {
+      "slot": "교육·언어",
+      "loc": "language essays",
+      "id": "3188",
+      "title": "#3188",
+      "chunks": 186,
+      "fit": 9
+    },
+    {
+      "slot": "교육·언어",
+      "loc": "education",
+      "id": "22163",
+      "title": "#22163",
+      "chunks": 125,
+      "fit": 1
+    },
+    {
+      "slot": "교육·언어",
+      "loc": "education",
+      "id": "2376",
+      "title": "#2376",
+      "chunks": 133,
+      "fit": 14
+    },
+    {
+      "slot": "교육·언어",
+      "loc": "education",
+      "id": "2397",
+      "title": "#2397",
+      "chunks": 228,
+      "fit": 29
+    }
+  ]
+}
