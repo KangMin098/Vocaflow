@@ -32,11 +32,12 @@ import path from 'node:path'
 
 import { excerptForBand } from '../../packages/library-pipeline/src/textbook/excerpt.ts'
 import {
+  PASSAGE_WORDS,
   READING_LEVEL_BANDS,
   readability,
 } from '../../packages/library-pipeline/src/textbook/readability.ts'
 // **FK 만으로는 19세기 영어를 못 거른다** — 교육과정 별표로 어휘를 함께 본다.
-import { curriculumCoverage } from '../../packages/library-pipeline/src/textbook/curriculum.ts'
+import { curriculumFit } from '../../packages/library-pipeline/src/textbook/curriculum.ts'
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -125,6 +126,8 @@ const report = {
   bandTotals: {},
   /** 그중 **어휘 가드까지 통과한** 조각 수 — 실제로 쓸 수 있는 것은 이쪽이다. */
   bandKept: {},
+  /** 통과한 조각이 시중 분포의 어디에 놓이는가. 통과율만으로는 부합을 말할 수 없다. */
+  pctiles: [],
 }
 
 const list = await get(`https://gutendex.com/books/?topic=children&languages=en`)
@@ -181,38 +184,65 @@ for (const b of json.results.slice(0, SAMPLE)) {
   // ⚠️ 그렇다고 `excerptForBand` 를 모든 시작점마다 부르면 **O(문단²)** 이다 —
   //   그 함수가 이미 모든 시작점을 훑기 때문이고, 4,126문단짜리 책에서 10분을 넘겨 죽었다.
   //   그래서 여기서는 **시작점마다 한 번만 앞으로 불려** 직접 센다(선형).
-  const STEP = 5
   const MAX_WINDOWS = 400 // 한 책을 끝까지 보지 않는다 — 수율은 앞쪽만으로도 보인다
+
+  // ⚠️ **2026-09-04: 겹치는 창을 세고 있었다.**
+  //   예전엔 문단을 5칸씩 옮기며 창을 만들었는데, 창 하나가 3~8문단이라 이웃 창끼리
+  //   문단을 나눠 갖는다. 그렇게 센 수는 **수율이 아니라 표본 수**다 — 실제로 적재하려면
+  //   조각끼리 겹치면 안 되기 때문이다(같은 문단이 두 지문에 실린다).
+  //   그래서 **창을 만들면 그 끝 다음으로 건너뛴다.** 비중복 조각만 센다.
+  // ⚠️ 어휘 가드도 `outside <= 40` 을 박아 두고 있었다 — 그 40 은 짐작값이었고
+  //   2026-09-04 실측으로 학교급별(초등 43.3 · 중등 44.0)로 바뀌었다. 정본을 부른다.
   const found = {}
   const found2 = {}
   const rate = {}
   let windows = 0
   const bandOfWindow = []
-  for (let i = 0; i < paras.length && windows < MAX_WINDOWS; i += STEP) {
-    windows++
+  for (let i = 0; i < paras.length && windows < MAX_WINDOWS; ) {
     let acc = ''
     let w = 0
+    let end = -1
     for (let j = i; j < paras.length; j++) {
       acc = acc ? `${acc} ${paras[j]}` : paras[j]
       w = (acc.match(/[A-Za-z][A-Za-z'-]*/g) || []).length
-      if (w < 100) continue
-      if (w > 200) break
-      const m = readability(acc)
-      // **FK 와 어휘를 함께 재다.** FK 만 보면 19세기 영어가 초6~쥅1 로 통과한다.
-      if (m) bandOfWindow.push({ fk: m.fk, outside: curriculumCoverage(acc)?.outsidePct ?? 100 })
+      if (w < PASSAGE_WORDS.min) continue
+      if (w > PASSAGE_WORDS.max) break
+      end = j
       break
     }
+    if (end < 0) {
+      // 이 시작점에서는 창이 안 나온다(문단 하나가 상한을 넘거나 책이 끝났다).
+      i++
+      continue
+    }
+    windows++
+    const m = readability(acc)
+    if (m) {
+      const band = READING_LEVEL_BANDS.find((b) => m.fk >= b.fkMin && m.fk <= b.fkMax)
+      // **FK 와 어휘를 함께 잰다.** FK 만 보면 19세기 영어가 초6~중1 로 통과한다.
+      const school = band?.id.startsWith('초') ? 'elementary' : 'middle'
+      const f = curriculumFit(acc, school)
+      bandOfWindow.push({
+        fk: m.fk,
+        bandId: band?.id ?? null,
+        pass: f.pass,
+        pctile: f.marketPercentile,
+      })
+    }
+    i = end + 1 // **비중복** — 쓴 문단은 다시 쓰지 않는다
   }
   for (const band of READING_LEVEL_BANDS) {
-    const inBand = bandOfWindow.filter((x) => x.fk >= band.fkMin && x.fk <= band.fkMax)
+    const inBand = bandOfWindow.filter((x) => x.bandId === band.id)
     const hits = inBand.length
     // 어휘 가드까지 통과하는 조각 — **이쪽이 실제로 쓸 수 있는 수다.**
-    const kept = inBand.filter((x) => x.outside <= 40).length
+    const kept = inBand.filter((x) => x.pass).length
     found2[band.id] = kept
     report.bandKept[band.id] = (report.bandKept[band.id] ?? 0) + kept
     if (hits) found[band.id] = hits
     rate[band.id] = windows ? +((hits / windows) * 100).toFixed(0) : 0
     report.bandTotals[band.id] = (report.bandTotals[band.id] ?? 0) + hits
+    // 시중 분포에서의 자리 — 통과율만으로는 부합을 말할 수 없다.
+    for (const x of inBand) if (x.pass && x.pctile != null) report.pctiles.push(x.pctile)
   }
 
   report.books.push({

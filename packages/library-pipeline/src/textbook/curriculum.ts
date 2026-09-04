@@ -241,6 +241,74 @@ export function curriculumFit(text: string, school: SchoolLevel = 'middle'): Cur
   return { pass: true, coverage: c, marketPercentile: p, reason: null }
 }
 
+/**
+ * **우리가 쓰는 글(재저작·각색)의 어휘 대역** — 수확한 글에는 걸지 않는다.
+ *
+ * ── 왜 하한이 필요한가 (실측 2026-09-04) ─────────────────────────────
+ * 3축 게이트를 통과한 초·중 재고 470편 중 **367편(78%)이 우리가 쓴 글**이었고,
+ * 그 글들의 시중 자리 중앙이 **16.9** 였다(시중 중앙 50). 게이트는 상한만 보므로
+ * 전부 통과한다 — 그런데 분포가 시중과 겹치지 않는다.
+ *
+ * 이유는 두 가지고 **둘 다 문제다**:
+ *   · 부합 — "시중 교재 같은 글" 이 목표인데 시중에 없는 쉬운 결이다
+ *   · **학습 가치** — 밖 낱말이 15% 인 글은 30% 인 글보다 새 낱말을 그만큼 덜 가르친다.
+ *     쉽게 쓰는 것은 배려가 아니라 **가르칠 것을 뺀 것**이다
+ *
+ * 수확한 글에는 안 건다 — 있는 글을 고르는 일과 쓰는 일은 다르다. 쓸 때는 어휘를
+ * 우리가 고르므로 시중 대역을 겨냥하지 않을 이유가 없다.
+ *
+ * 대역은 시중 분포의 **p25~p90** 이다. 상한은 게이트와 같고(그 위는 그 학년이 못 읽는다),
+ * 하한 p25 는 "시중 지문 4편 중 3편보다 쉽게 쓰지 않는다" 는 뜻이다.
+ */
+export const AUTHORED_VOCAB_BAND = {
+  elementary: {
+    minOutsidePct: CURRICULUM_SPEC.outside.elementary.p25,
+    maxOutsidePct: CURRICULUM_SPEC.outside.elementary.p90,
+  },
+  middle: {
+    minOutsidePct: CURRICULUM_SPEC.outside.middle.p25,
+    maxOutsidePct: CURRICULUM_SPEC.outside.middle.p90,
+  },
+} as const
+
+/**
+ * 우리가 쓴 글이 그 학교급의 어휘 대역 안인가.
+ *
+ * **이유를 숫자로 돌려준다** — "어렵다/쉽다" 로는 다시 쓸 수 없다. 수능 작문 드레인에서
+ * 배운 것과 같다(낱말 길이 대역을 숫자로 주자 한 바퀴에 붙었다).
+ */
+export function authoredVocabFit(
+  text: string,
+  school: SchoolLevel
+): { pass: boolean; coverage: CurriculumCoverage | null; marketPercentile: number | null; reason: string | null } {
+  const c = curriculumCoverage(text)
+  if (!c) return { pass: false, coverage: null, marketPercentile: null, reason: '내용어가 없어 잴 수 없다' }
+  const p = marketPercentile(c.outsidePct, school)
+  const band = AUTHORED_VOCAB_BAND[school]
+  const label = school === 'elementary' ? '초등' : '중등'
+  if (c.outsidePct < band.minOutsidePct) {
+    return {
+      pass: false,
+      coverage: c,
+      marketPercentile: p,
+      reason:
+        `교육과정 밖 낱말이 ${c.outsidePct}% 로 시중 ${label} 지문보다 쉽다` +
+        `(대역 ${band.minOutsidePct}~${band.maxOutsidePct}% · 시중 자리 ${p}). 새 낱말을 더 넣어 다시 쓴다`,
+    }
+  }
+  if (c.outsidePct > band.maxOutsidePct) {
+    return {
+      pass: false,
+      coverage: c,
+      marketPercentile: p,
+      reason:
+        `교육과정 밖 낱말이 ${c.outsidePct}% 로 그 학년이 못 읽는다` +
+        `(대역 ${band.minOutsidePct}~${band.maxOutsidePct}%). 어려운 낱말을 별표 안 낱말로 바꾼다`,
+    }
+  }
+  return { pass: true, coverage: c, marketPercentile: p, reason: null }
+}
+
 /** 예전 이름 — 부르는 쪽(`space-place-ingest.mjs`)을 깨지 않는다. */
 export function passesCurriculumGate(
   text: string,

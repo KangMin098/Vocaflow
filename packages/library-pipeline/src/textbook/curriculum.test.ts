@@ -12,6 +12,8 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  AUTHORED_VOCAB_BAND,
+  authoredVocabFit,
   CURRICULUM_GATE,
   CURRICULUM_SPEC,
   curriculumCoverage,
@@ -149,5 +151,49 @@ describe('시중 분포에서의 자리 — 통과만으로는 부합이 아니�
 
   it('못 재면 자리도 null 이다 — 0 을 돌려주지 않는다', () => {
     expect(curriculumFit('').marketPercentile).toBeNull()
+  })
+})
+
+describe('쓰는 글의 어휘 대역 — 쉽게 쓰는 것은 가르칠 것을 뺀 것이다', () => {
+  it('대역은 시중 p25~p90 이다', () => {
+    expect(AUTHORED_VOCAB_BAND.elementary.minOutsidePct).toBe(CURRICULUM_SPEC.outside.elementary.p25)
+    expect(AUTHORED_VOCAB_BAND.elementary.maxOutsidePct).toBe(CURRICULUM_SPEC.outside.elementary.p90)
+    expect(AUTHORED_VOCAB_BAND.middle.minOutsidePct).toBe(CURRICULUM_SPEC.outside.middle.p25)
+  })
+
+  it('상한은 수확 게이트와 같다 — 자를 두 벌 두지 않는다', () => {
+    expect(AUTHORED_VOCAB_BAND.elementary.maxOutsidePct).toBe(CURRICULUM_GATE.elementary.maxOutsidePct)
+    expect(AUTHORED_VOCAB_BAND.middle.maxOutsidePct).toBe(CURRICULUM_GATE.middle.maxOutsidePct)
+  })
+
+  it('시중보다 쉬우면 막고 **무엇을 하라고** 말한다', () => {
+    // `easy` 는 초등 별표만으로 쓴 글이라 밖 % 가 대역 하한(24.1) 아래다.
+    const r = authoredVocabFit(easy, 'elementary')
+    expect(r.pass).toBe(false)
+    expect(r.reason).toMatch(/새 낱말/)
+    expect(r.reason).toMatch(/%/)
+    expect(r.marketPercentile).not.toBeNull()
+  })
+
+  it('그 학년이 못 읽으면 막고 반대 처방을 말한다', () => {
+    const r = authoredVocabFit(technical, 'middle')
+    expect(r.pass).toBe(false)
+    expect(r.reason).toMatch(/별표 안 낱말로 바꾼다/)
+  })
+
+  it('대역 안이면 통과한다', () => {
+    // 시중 중앙(초등 30.3%)에 해당하는 글을 지어 확인한다.
+    const mid =
+      'The young scientist studied the ancient pottery in the museum. ' +
+      'She measured each fragment and recorded the pattern on the surface. ' +
+      'Her research showed that early farmers traded goods across the valley. ' +
+      'The discovery changed how historians describe the settlement.'
+    const r = authoredVocabFit(mid, 'elementary')
+    expect(r.coverage!.outsidePct).toBeGreaterThanOrEqual(AUTHORED_VOCAB_BAND.elementary.minOutsidePct)
+    expect(r.pass).toBe(true)
+  })
+
+  it('못 재면 통과시키지 않는다', () => {
+    expect(authoredVocabFit('', 'middle').pass).toBe(false)
   })
 })
