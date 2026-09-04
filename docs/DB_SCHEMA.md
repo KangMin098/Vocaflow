@@ -389,6 +389,19 @@ P0 심층 평가(`docs/AI_CONTEXT/diagnostics/ext_quality_p0_20260718.md`)로 �
 ⚠️ **`csat_items_public` 은 advisor 의 유일한 ERROR(`security_definer_view`) 지만 오탐이다** — SECURITY DEFINER 인 것이 **의도된 저작권 경계**다. 기반표 `csat_dcp_items` 는 RLS(`dcp_admin`)로 비관리자에게 0행이고 학습자는 이 뷰로만 안전 컬럼을 읽는다. `security_invoker` 로 바꾸면 학습자 화면이 죽는다. **고치지 말 것.**
 
 
+**v06.34 잔여 advisor 마무리** (`20260904084631`): `admin_*` **18종**에서 `anon` + `PUBLIC` EXECUTE 회수(이 18종은 앞 27종과 달리 `anon=X` **명시 부여와 PUBLIC 이 둘 다** 있어 양쪽을 걷어야 했다) · `mv_lemma_dominant_pos` 에서 anon SELECT 회수(**MV 는 RLS 를 걸 수 없다** — 11,085행이 통째로 읽혔다. `authenticated` 는 남긴다: `select_book_chapter_vocab` 이 SECURITY **INVOKER** 라 호출자 권한으로 이 MV 를 읽는다). **결과: anon 실행 가능 DEFINER 92 → 74 · anon 실행 가능 `admin_*` 18 → 0 · anon 노출 MV 1 → 0 · authenticated 137 유지.** 회귀 224 tests 통과.
+
+**나머지 advisor 는 고칠 것이 아니었다 — 2026-09-04 실측:**
+
+| advisor | 실측 | 판정 |
+|---|---|---|
+| `pg_graphql_*_table_exposed` 240 | anon SELECT 가능 객체 120개 중 **RLS 없는 테이블 0개**. 105 정책 통제 · 4 잠김 · 뷰 11 중 9 INVOKER · DEFINER 뷰 1(`csat_items_public`) · MV 1(위에서 처리) | 데이터 유출이 아니라 **스키마 발견 가능성** |
+| `function_search_path_mutable` 57 | **SECURITY DEFINER 147/147 이 이미 search_path 고정 — 가변 0.** 가변 195개는 전부 SECURITY INVOKER | 권한 상승 경로가 없다. 195개를 건드릴 값어치가 없다 |
+| `rls_enabled_no_policy` 8 | RLS on + 정책 0 = fail-closed. anon 조회가 실제로 `[]` 반환 확인 | **의도된 락** (위 §도메인 분류표와 동일 판단) |
+| `extension_in_public` 5 | `pg_trgm`·`btree_gin` 에 GIN/trigram 인덱스와 함수가 의존 | 옮기면 인덱스가 깨진다 — **이득 없이 위험만** |
+| `security_definer_view` (유일한 ERROR) | `csat_items_public` | **오탐 — 고치지 말 것** (위 v06.34 항목 참조) |
+| `auth_leaked_password_protection` | HaveIBeenPwned 대조 | **대시보드 토글** (Authentication → Providers → Password). SQL 로 못 켠다 — 미조치 |
+
 ## 도메인별 테이블 분류
 
 각 테이블의 row count + size 는 검증 시점(2026-06-08) 기준 — 운영 중 변동.

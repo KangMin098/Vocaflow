@@ -10,6 +10,38 @@
 
 ## Unreleased (v06.34 → next)
 
+### 보안 advisor 569건을 끝냈다 — 고칠 것은 46건, 나머지는 이미 안전했다 (2026-09-04)
+
+`20260903121759`(무가드 쓰기 27종) 에 이어 잔여분을 마무리했다. 마이그레이션
+`20260904084631` — **anon 실행 가능 SECURITY DEFINER 92 → 74 · anon 노출 MV 1 → 0.**
+
+- **`admin_*` 18종** — 미로그인자가 `/rest/v1/rpc/admin_delete_book` 을 부를 수 있었다.
+  본문 가드가 실제로 막는 것은 확인했지만(`Forbidden: admin or curator only`),
+  **방어선이 함수 본문 하나뿐이었다.** 가드를 빠뜨린 함수가 하나만 새로 들어와도 뚫린다.
+  ⚠️ 이 18종은 앞의 27종과 권한 구조가 달라 `anon=X` **명시 부여와 PUBLIC 이 둘 다** 있었다
+  → `FROM anon, PUBLIC` 으로 양쪽을 걷어야 했다
+- **`mv_lemma_dominant_pos`** — anon SELECT 가능 객체 120개 중 **유일한 실질 노출**.
+  머티리얼라이즈드 뷰는 RLS 를 걸 수 없어 11,085행이 통째로 읽혔다. `authenticated` 는
+  일부러 남겼다 — `select_book_chapter_vocab` 이 SECURITY **INVOKER** 라 이 MV 를 호출자
+  권한으로 읽는다(둘 다 걷으면 깨진다)
+
+**나머지 523건은 고칠 게 아니었다 — 실측으로 확인했다:**
+
+| advisor | 실측 | 판정 |
+|---|---|---|
+| `pg_graphql_*_table_exposed` 240 | anon SELECT 가능 테이블 중 **RLS 없는 것 0개**. 105개 정책 통제 · 4개 잠김 · 뷰 11개 중 9개 INVOKER | 데이터 유출이 아니라 **스키마 발견 가능성** |
+| `authenticated_security_definer_*` 137 | 브라우저 호출자가 전부 보호 라우트 뒤 | 미로그인 노출과 성격이 다름 — 별도 판단 |
+| `function_search_path_mutable` 57 | **DEFINER 147/147 이 이미 search_path 고정(가변 0)**. 가변 195개는 전부 INVOKER | 권한 상승 경로 없음 |
+| `rls_enabled_no_policy` 8 | RLS on + 정책 0 = fail-closed. anon 조회가 실제로 `[]` 반환 | **의도된 락** |
+| `extension_in_public` 5 | `pg_trgm`·`btree_gin` 에 GIN/trigram 인덱스가 의존 | 옮기면 인덱스가 깨진다 — 이득 없이 위험만 |
+| `security_definer_view` **(유일한 ERROR)** | `csat_items_public` = 의도된 저작권 경계. 기반표는 RLS 로 비관리자에게 0행 | **오탐. 고치면 학습자 화면이 죽는다** |
+| `auth_leaked_password_protection` | HaveIBeenPwned 대조 | 대시보드 토글 — SQL 로 못 켠다 (미조치) |
+
+회귀 **224 tests 통과**(11 파일 — RLS 표면 · 저작권 경계 · 권한상승 · RPC 호출부 ·
+추출 RPC · 비속어 미발행). 공개 표면(`csat_items_public` · `textbook_shelf_inventory` ·
+`list_pd_comic_shelf`) 200 유지.
+
+
 ### 미로그인으로 DB 에 쓸 수 있었다 — 무가드 DEFINER 27종에서 PUBLIC 을 걷어냈다 (2026-09-03)
 
 보안 advisor 569건을 훑다가 실제 구멍을 찾았다. public 스키마 `SECURITY DEFINER` **147종 중
