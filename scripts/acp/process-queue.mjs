@@ -96,12 +96,23 @@ const onlySources = (arg('source') ?? '').split(',').map((s) => s.trim()).filter
  */
 const fitOnly = process.argv.includes('--fit-only')
 
+/**
+ * `--feed` — **피드까지 좁힌다.** `--source` 만으로는 못 가르는 경우가 생겼다.
+ *
+ * 실측 2026-09-04: `source='gutenberg'` 큐에 두 갈래가 섞여 있다 —
+ * 수능 수확분 8,141편(`feed_id='harvest'`)과 초·중 교재 발췌분(`feed_id='kid-excerpt'`).
+ * 둘은 쓰임도 다음 단계도 다른데 `--source gutenberg` 로는 함께 집힌다.
+ * **무엇을 먼저 처리할지가 곧 무엇에 돈을 쓸지**라는 `--source` 의 이유가 여기에도 그대로 든다.
+ */
+const onlyFeeds = (arg('feed') ?? '').split(',').map((s) => s.trim()).filter(Boolean)
+
 let q = db
   .from('library_articles')
   .select('id, source, source_id, source_url, title, author, language, license, content, published_at, feed_id')
   .eq('status', 'queued')
   .is('compose_batch_id', null)
 if (onlySources.length) q = q.in('source', onlySources)
+if (onlyFeeds.length) q = q.in('feed_id', onlyFeeds)
 if (fitOnly) q = q.gt('csat_fit->>pass', '0')
 const { data: queued, error } = await q.order('created_at', { ascending: true })
 if (error) throw new Error('큐 조회 실패: ' + error.message)
