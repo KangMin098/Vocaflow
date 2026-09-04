@@ -172,7 +172,8 @@ for (const f of outs) {
       continue
     }
     passed++
-    const topic = classify(text.slice(0, 6000)).topic
+    const tp = classify(text.slice(0, 6000))
+    const topic = tp.topic
     byTopic[topic] = (byTopic[topic] ?? 0) + 1
     rows.push({
       source: 'original',
@@ -188,7 +189,8 @@ for (const f of outs) {
       status: 'queued',
       feed_id: 'compose-drain',
       feed_label: `작문 드레인 · ${topic}`,
-      csat_fit: fitRecord(text),
+      // 소재를 적재 시점에 함께 적는다 — 그래야 전수 집계에서 안 빠진다.
+      csat_fit: { ...fitRecord(text), topic, topicMargin: tp.margin, topicV: 1 },
       _topic: topic,
       _intended: it.topic ?? null,
       _subject: it.subject ?? null,

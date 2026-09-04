@@ -80,11 +80,47 @@ console.log(
     `  기출 ${examTotal}지문 (분류된 ${examClassified}) · 적합 원문 ${fitTotal.toLocaleString()}편\n`,
 )
 
+/**
+ * **전수 경로 — 표본을 쓰지 않는다.**
+ *
+ * `backfill-topic.mjs` 가 `csat_fit.topic` 을 적어 둔 뒤로는 소재별 편수를 **SQL 로 정확히**
+ * 셀 수 있다. 표본 3,000편 경로는 병목 칸이 26편밖에 안 잡혀 사정권 추정이 ±2,000편이었고,
+ * 그 잡음 때문에 작문 48편의 효과를 분해하지 못했다(리포트 §22).
+ *
+ * 아직 안 적힌 행이 있으면 전수라고 말하지 않는다 — 그 경우 표본 경로로 물러선다.
+ */
+async function exactCounts() {
+  const out = {}
+  let covered = 0
+  for (const k of TOPIC_KEYS) {
+    const { count, error } = await db
+      .from('library_articles')
+      .select('id', { count: 'exact', head: true })
+      .gt('csat_fit->>pass', '0')
+      .eq('csat_fit->>topic', k)
+    if (error) return null
+    out[k] = count ?? 0
+    covered += out[k]
+  }
+  // 적합 원문 수와 합계가 다르면 아직 안 적힌 행이 있다.
+  return covered === fitTotal ? out : { ...out, __missing: fitTotal - covered }
+}
+
+const exact = await exactCounts()
+if (exact && !exact.__missing) {
+  console.log(`  ✅ 전수 집계 (csat_fit.topic · 표본 아님)\n`)
+} else if (exact) {
+  console.log(`  ⚠️ 소재가 안 적힌 행 ${exact.__missing.toLocaleString()}편 — 표본으로 물러선다.`)
+  console.log(`     전수로 세려면 먼저: node scripts/csat/backfill-topic.mjs --commit\n`)
+}
+const USE_EXACT = Boolean(exact && !exact.__missing)
+
 const stock = Object.fromEntries(TOPIC_KEYS.map((k) => [k, 0]))
 const bySource = new Map()
 let seen = 0
 const PAGE = 200
-for (let from = 0; seen < SAMPLE; from += PAGE) {
+// 전수 값이 있으면 본문을 다시 읽지 않는다 — 편당 수 KB 를 2만 번 받을 이유가 없다.
+for (let from = 0; !USE_EXACT && seen < SAMPLE; from += PAGE) {
   const { data, error } = await db
     .from('library_articles')
     .select('source, content')
@@ -109,8 +145,13 @@ for (let from = 0; seen < SAMPLE; from += PAGE) {
 }
 process.stderr.write('\r' + ' '.repeat(30) + '\r')
 
+if (USE_EXACT) {
+  for (const k of TOPIC_KEYS) stock[k] = exact[k]
+  seen = fitTotal
+}
 const stockClassified = TARGET_KEYS.reduce((s, k) => s + stock[k], 0)
-const scale = fitTotal / Math.max(1, seen) // 표본 → 전량 환산
+// 전수면 환산이 없다(1배). 표본일 때만 전량으로 늘린다.
+const scale = USE_EXACT ? 1 : fitTotal / Math.max(1, seen)
 
 // ── ① 분포 대조 ──────────────────────────────────────────────────────
 console.log(`  ① 소재 분포 — 기출 vs 재고 (재고 표본 ${seen.toLocaleString()}편)`)
@@ -155,6 +196,9 @@ console.log(`    병목 소재: ${bottleneck.topic} (재고 ${bottleneck.estStoc
  * 그래서 구간을 같이 찍는다. **구간이 겹치면 「늘었다」고 말하지 않는다.**
  */
 const bottleneckSampled = stock[bottleneck.topic]
+if (USE_EXACT) {
+  console.log(`    ✅ 전수 집계라 표본 오차가 없다 — 이 수치는 그대로 비교해도 된다.`)
+} else {
 const se = Math.sqrt(Math.max(1, bottleneckSampled)) * scale // 푸아송 표준오차를 전량으로 환산
 const lo = Math.floor((bottleneck.estStock - 1.96 * se) / target[bottleneck.topic])
 const hi = Math.floor((bottleneck.estStock + 1.96 * se) / target[bottleneck.topic])
@@ -162,7 +206,8 @@ console.log(
   `    ⚠️ 95% 구간 **${Math.max(0, lo).toLocaleString()} ~ ${hi.toLocaleString()}편** ` +
     `— 병목 칸이 표본에서 ${bottleneckSampled}편뿐이라 오차가 크다.`,
 )
-console.log(`       구간이 지난번과 겹치면 「늘었다」고 말하지 않는다. 확실히 재려면 --all.`)
+console.log(`       구간이 지난번과 겹치면 「늘었다」고 말하지 않는다. 전수로 재려면 backfill-topic.mjs --commit.`)
+}
 console.log()
 for (const [label, goal] of [['1단계', 10000], ['2단계', 30000], ['3단계', 50000]]) {
   const pct = (100 * balanced) / goal
@@ -179,6 +224,7 @@ for (const [label, goal] of [['1단계', 10000], ['2단계', 30000], ['3단계',
 console.log()
 
 // ── ③ 소재를 실제로 정하는 것은 소스다 ────────────────────────────────
+if (bySource.size) {
 console.log('  ③ 소스별 소재 구성 — 어디서 가져오면 어떤 소재가 오는가 (표본 기준)')
 console.log('  ' + '-'.repeat(74))
 console.log('    ' + '소스'.padEnd(18) + '편수'.padStart(7) + TARGET_KEYS.map((k) => k.slice(0, 2).padStart(6)).join(''))
@@ -197,7 +243,10 @@ for (const [src, t] of [...bySource].sort((a, b) => {
 }
 console.log()
 console.log('  ⚠️ 표본은 `id` 오름차순 앞쪽이라 소스 구성이 전량과 다를 수 있다 — 소스별 비율은')
-console.log('     그 소스 안에서만 읽고, 소스 간 편수 비교에는 쓰지 말 것. 전량은 `--all`.')
+console.log('     그 소스 안에서만 읽고, 소스 간 편수 비교에는 쓰지 말 것.')
+} else {
+  console.log('  ③ 소스별 구성은 전수 경로에서 안 낸다 — 본문을 안 읽기 때문이다. 필요하면 --sample 로.')
+}
 
 if (OUT) {
   fs.writeFileSync(

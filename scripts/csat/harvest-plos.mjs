@@ -313,7 +313,9 @@ for (let p = 0; p < PAGES; p++) {
       status: 'queued',
       feed_id: 'harvest',
       feed_label: `겨냥 수확 · ${tp.topic}`,
-      csat_fit: fitRecord(text),
+      // ⚠️ 소재를 **적재 시점에 함께 적는다.** 안 적으면 `backfill-topic.mjs` 가 나중에
+      //   다시 읽어야 하고(편당 본문 전체), 그 사이 이 행들은 전수 집계에서 빠진다.
+      csat_fit: { ...fitRecord(text), topic: tp.topic, topicMargin: tp.margin, topicV: 1 },
       // 적재 직전에 떼어 낸다 — 컬럼이 아니다. 중복으로 안 들어간 글의 몫을 돌려주는 데 쓴다.
       _topic: tp.topic,
     })

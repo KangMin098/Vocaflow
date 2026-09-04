@@ -54,15 +54,21 @@ console.log(`소재 백필 — 표본 대신 SQL 로 세기 위해\n${'='.repeat
 
 // ⚠️ 적합 원문만 분류한다. 부적합 원문은 균형 사정권 계산에 안 들어가므로,
 //   전량을 훑으면 시간과 대역폭을 1.5배 쓰고 쓰이지 않을 값을 만든다.
+/**
+ * ⚠️ **아직 안 적힌 행만 읽는다.** 처음에는 적합 원문 전량을 읽었는데, 재고가 2만을 넘자
+ *   두 번째 실행이 `canceling statement due to statement timeout` 으로 죽었다 — 이미
+ *   다 적어 둔 2만 편을 본문째 다시 받으려 했기 때문이다. 남은 11편만 받으면 즉시 끝난다.
+ *   (`--force` 는 의도적으로 전량을 다시 받으므로 그때만 느리다.)
+ */
 const rows = []
 for (let from = 0; ; from += 500) {
-  const { data, error } = await db
+  let q = db
     .from('library_articles')
     .select('id, content, csat_fit')
     .gt('csat_fit->>pass', '0')
     .not('content', 'is', null)
-    .order('id')
-    .range(from, from + 499)
+  if (!FORCE) q = q.is('csat_fit->>topicV', null)
+  const { data, error } = await q.order('id').range(from, from + 499)
   if (error) throw new Error(`조회 실패: ${error.message}`)
   if (!data?.length) break
   rows.push(...data)
