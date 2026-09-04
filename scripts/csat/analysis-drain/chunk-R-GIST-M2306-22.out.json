@@ -5,7 +5,6 @@
   "analyses": [
     {
       "item_id": "M2306#22",
-      "answer_unknown": true,
       "measured_ability": "대조 표지(Without a better understanding ~ / Armed with tools ~)가 만드는 조건–결과 쌍에서 필자가 어느 쪽 상태를 바람직한 것으로 두는지 잡고, 큰따옴표 안 소비자 발화를 주장이 아니라 예시로 위계 짓는 능력",
       "design_intent": "첫 문장에서 '간과되지만 중요한 이해관계자'로 소비자를 재배치하고 마지막 문장에서 같은 소비자의 상태 변화(수동적 방관자 → 능동적 참여자)로 닫는 수미 구조를 만든 뒤, 그 사이에 데이터 공유·앱 사용·기업 서비스라는 소재를 깔았다. 소재 단위로 고르면 가운데 문장들에서 멈추고, 상태 변화의 조건(무엇을 이해했을 때 바뀌는가)까지 읽어야 마지막 문장에 닿도록 설계했다.",
       "solve_procedure": [
@@ -32,10 +31,10 @@
       ],
       "time_budget_sec": 80,
       "difficulty": {
-        "predicted": 0.62,
+        "predicted": 0.7,
         "drivers": [
           "추상 명사(stakeholder · privacy paradox · engagement)가 첫 문장에 몰려 있어 도입에서 속도가 떨어진다",
-          "주장에 해당하는 진술이 인용문 뒤 한 문장에만 있고 나머지는 배경·예시다",
+          "확정 근거가 4번과 6번 두 문장에 갈라져 있고 그 사이를 인용 예시가 끊는다",
           "선지 다섯 중 셋이 '소비자'로 시작해 주어만으로는 갈리지 않고 술어를 봐야 갈린다",
           "restaurant-f 처럼 OCR 잔여가 섞인 자리가 있어 읽기 부담이 조금 는다"
         ]
@@ -53,42 +52,91 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
-            "평가원 정답표가 없는 회차이므로 answer_locus 와 선지 판정을 넣지 않은 것이 맞다",
-            "design_intent 가 '요지는 주제문을 찾는 유형' 같은 일반론이 아니라 이 지문의 수미 구조(overlooked stakeholder → active participant)를 지목한다",
-            "선지 ⑤ 끝의 ' 38' 은 쪽번호 OCR 잔여다 — 분석에는 영향이 없으나 코퍼스 정리 대상"
+            "인용 'Armed with tools ... active participant' 가 코퍼스 지문에 문자 그대로 있다",
+            "why_correct 가 조건항(4번)과 결과항(6번)을 선지의 두 절에 하나씩 붙여 낱말 단위로 대응한다",
+            "R-GIST 는 근거가 한 문장으로 안 끝나는 것이 보통이라는 관찰과 일치해 confirmed_at 에 4번 문장을 따로 뒀다"
           ],
           "checked": [
-            "코퍼스 answer 필드가 null 인지 확인",
-            "출력에 answer_locus 키가 아예 없는지 확인",
-            "R-GIST 유형 정의(필자 주장 한 문장)와 measured_ability 대조"
+            "answer_locus.quote 를 corpus.json 지문에 문자열 대조",
+            "코퍼스 answer=1 과 correct 선지 번호 대조",
+            "why_correct 안의 지문 인용 두 곳이 실제 문장인지 확인"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "처음 쓴 difficulty.drivers 에 '마지막 문장이 정답 근거라 놓치기 쉽다' 는 서술이 있어 정답을 안다는 전제가 산문으로 새어 나왔다 — '주장에 해당하는 진술이 인용문 뒤 한 문장에만 있다' 로 고쳤다",
-            "measured_ability 가 특정 선지를 배제하는 말을 쓰지 않는다",
-            "required_vocab 다섯 낱말이 모두 지문에 문자로 있다(stakeholder / Consumer engagement / vulnerable / conflicted / bystander)"
+            "처음 쓴 ④의 trap 을 부분 사실로 달아 ②와 겹쳤다 — ④는 방향이 맞고 결론 항이 빠진 형태이므로 범위 과소로 고쳤다",
+            "오답 넷의 함정이 부분 사실·주체 역전·범위 과소·지문 밖 상식 4종으로 갈린다",
+            "how_to_reject 넷 모두 문장 번호와 영어 어구를 함께 담는다"
           ],
           "checked": [
-            "choices 배열과 answer_locus 가 비었는지 확인",
-            "difficulty.predicted 의 근거가 정답이 아니라 지문·선지 표면 특징인지 확인",
-            "required_vocab 5개를 지문에 문자열 대조"
+            "trap 라벨 4개의 중복 여부",
+            "why_tempting 이 각 선지 텍스트의 실제 낱말에 근거하는지",
+            "how_to_reject 에 지문 위치가 있는지"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "1·2단계가 지문을 읽기 전에 실행 가능하다(선지 먼저, 첫·마지막 문장 먼저)",
-            "5단계 절차가 80초 안에 끝난다 — 선지 5개 훑기 20초 + 첫·마지막 문장 15초 + 본문 대조 45초"
+            "5단계 절차가 정답이 확정된 뒤에도 그대로 실행 가능하다 — 절차 5단계의 주어와 술어가 둘 다 맞는 선지 조건이 실제로 ① 하나만 남긴다",
+            "required_vocab 다섯 낱말이 모두 지문에 있고 bystander·participant 는 결론 문장 판정에 직접 쓰인다"
           ],
           "checked": [
-            "각 단계가 지문 미독 상태에서 실행 가능한지 하나씩 점검",
-            "금지 표현(흐름을 파악하면 등) 문자열 대조",
-            "required_vocab 이 요지 판별에 실제로 쓰이는 낱말인지(bystander·participant 대비) 확인"
+            "절차 각 단계를 지문 미독 상태에서 실행 가능한지 점검",
+            "금지 표현 문자열 대조",
+            "80초 배분(선지 20 + 첫·끝 문장 15 + 대조 45) 재확인"
           ]
+        }
+      ],
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          6
+        ],
+        "quote": "Armed with tools that can provide them options, the consumer moves from passive bystander to active participant",
+        "reasoning": "4번 문장과 6번 문장이 같은 주어(the consumer)에 조건-결과 쌍을 하나씩 붙인다. 조건항은 둘 다 데이터 수집·사용의 what, when, why 를 아는가이고, 결과항만 vulnerable and conflicted ↔ passive bystander to active participant 로 갈린다. 이 글이 확정하는 명제는 데이터 제공의 속성을 알 때 소비자가 능동적 주체가 된다이며, 6번 문장이 그 명제의 긍정 쪽 항을 문장으로 적어 놓은 자리다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "correct",
+          "why_correct": "근거 문장의 'the consumer moves from passive bystander to active participant' 가 선지 ①의 '주체적 소비자가 된다' 와 대응하고, 그 조건은 4번 문장의 'a better understanding of the what, when, and why of data collection and use' 가 '개인정보 제공의 속성을 심층적으로 이해하면' 과 맞물려 채운다. 선지의 조건절과 결과절이 각각 지문의 서로 다른 문장 하나씩에 붙는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              4
+            ],
+            "note": "6번 문장의 Armed with tools 만으로는 무엇을 갖춘 것인지 비어 있고, 4번 문장의 Without a better understanding 이 그 조건항을 이해로 지정한다"
+          }
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "5번 문장의 인용 'I love this restaurant-finder app on my phone' 이 앱 사용을 긍정하는 말로 읽히고, 지문 전체가 디지털 서비스 소재라 앱 활용 권고가 자연스럽게 붙는다.",
+          "how_to_reject": "5번 문장은 큰따옴표 안 소비자 발화이고 'what happens to my data if I press ok' 라는 불안으로 끝난다. 지문이 소비자에게 주는 것은 앱 사용 권고가 아니라 6번 문장의 tools that can provide them options 다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "consumer 와 data 라는 두 낱말이 지문에 그대로 있어 소재가 완전히 일치한다.",
+          "how_to_reject": "3번 문장에서 데이터를 활용해 경험을 만드는 쪽은 'their personal data helps to drive the rich experiences that these companies provide' 로 기업이다. 소비자는 데이터를 제공하는 쪽이므로 활용 주체가 뒤바뀌었다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "범위 과소",
+          "why_tempting": "3번 문장의 'sharing this data is the price you pay for these experiences' 를 거의 그대로 옮긴 말이라 지문과 충돌하지 않는다.",
+          "how_to_reject": "그 문장은 'There is an awareness among consumers' 로 시작해 소비자가 이미 아는 배경으로 제시된다. 4·6번 문장은 그 위에 무엇을 더 알아야 상태가 바뀌는지를 얹으므로, 대가의 존재만 말하면 결론인 상태 변화가 빠진다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "개인정보라는 소재에 따라붙는 통념(유출 위험)이고, sharing 이라는 낱말이 3번 문장에 실제로 있다.",
+          "how_to_reject": "3번 문장의 sharing 은 소비자가 기업에 데이터를 넘기고 경험을 받는 거래이지 타인과의 공유가 아니다. 유출에 해당하는 표현은 지문 여덟 문장 어디에도 없다."
         }
       ]
     },
@@ -239,7 +287,6 @@
     },
     {
       "item_id": "M2209#22",
-      "answer_unknown": true,
       "measured_ability": "'A는 B를 전제로 한다(is premised on)' 구문과 마지막 문장의 이중 부정(never a one-way street, never granted absolutely)을 붙여, 두 대립항(자율성 ↔ 책무성) 중 어느 쪽이 조건이고 어느 쪽이 대가인지 세우는 능력",
       "design_intent": "협상·긴장·전제·인용이라는 추상 장치를 겹쳐 놓고, 중간에 '전문가의 권한이 자기 이익에 쓰일 수 있다' 는 부정적 서술을 길게 넣었다. 그 부분만 읽으면 글이 전문직 비판문으로 보이지만, 첫 문장의 '관계 조건을 정하는 협상' 과 마지막 문장의 '자율성은 일방통행이 아니다' 가 같은 축을 두 번 말하도록 짜여 있다.",
       "solve_procedure": [
@@ -266,11 +313,11 @@
       ],
       "time_budget_sec": 90,
       "difficulty": {
-        "predicted": 0.55,
+        "predicted": 0.62,
         "drivers": [
           "추상 명사구가 문장마다 두세 개씩 있고 소유격 중첩(the professions' pursuit of autonomy)이 잦다",
           "18세기 인용문이 통째로 한 문장을 차지해 실질 정보 문장이 줄어든다",
-          "마지막 문장이 이중 부정이라 긍정 명제로 뒤집는 과정이 한 단계 더 필요하다",
+          "확정 문장이 이중 부정이라 긍정 명제로 뒤집는 과정이 한 단계 더 필요하다",
           "선지 다섯 개가 모두 '전문직' 으로 시작해 주어로 갈리지 않는다"
         ]
       },
@@ -286,49 +333,97 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
-            "정답표 없는 회차라 answer_locus·choices 를 넣지 않았다",
-            "design_intent 가 이 지문의 구체 장치(인용문 배치, 부정적 중간 서술)를 지목하고 유형 일반론에 머물지 않는다",
-            "선지 ⑤ 끝 ' 38' 은 쪽번호 OCR 잔여"
+            "인용이 코퍼스 지문 마지막 문장과 문자 그대로 일치한다",
+            "why_correct 가 6번 문장(대가의 존재)과 3번 문장(대가의 내용)을 나눠 짚어 요지형 근거가 두 문장 이상이라는 관찰과 맞는다",
+            "measured_ability 에 적힌 is premised on 과 이중 부정 두 장치가 실제 근거 문장의 장치와 같다"
           ],
           "checked": [
-            "코퍼스 answer 가 null 인지 확인",
-            "출력에 answer_locus 키 부재 확인",
-            "measured_ability 가 요지 유형(필자 주장)의 정의와 맞는지 대조"
+            "answer_locus.quote 문자열 대조",
+            "코퍼스 answer=1 대조",
+            "measured_ability 가 서술한 구문이 지문에 실재하는지 확인"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "measured_ability·design_intent·drivers 어디에도 선지 번호나 정답 지목이 없다",
-            "difficulty.predicted 0.55 의 근거가 정답 정보가 아니라 소유격 중첩·인용문 비중·이중 부정이라는 표면 특징이다",
-            "required_vocab 5개 모두 지문에 문자로 있다(autonomy / accountability / power and privilege / is premised on / expertise)"
+            "처음에는 ⑤의 trap 을 부분 사실로 달았다 — ⑤는 지문의 두 항을 그대로 쓰되 전제와 결과를 맞바꾼 형태이므로 인과 역전으로 고쳤고, 그래야 ②와 갈린다",
+            "오답 넷이 부분 사실·무관·어휘 함정·인과 역전 4종으로 갈린다",
+            "④의 근거가 선지 텍스트가 아니라 인용문의 qualified 라는 낱말에 걸려 있음을 확인했다"
           ],
           "checked": [
-            "choices·answer_locus 공백 확인",
-            "difficulty 근거의 성격 확인",
-            "required_vocab 문자열 대조",
-            "measured_ability 에 선지 배제 서술이 있는지 확인"
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지·지문 텍스트의 실제 낱말에 근거하는지",
+            "how_to_reject 네 건의 위치 표기 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계 'tension between A and B 찾기' 는 지문 미독 상태에서 형태로 찾을 수 있다",
-            "인용문을 빼라는 4단계가 이 지문에서 실제로 한 문장을 줄여 90초 안에 든다"
+            "절차 3단계(조동사·귀결 표지·정의 표지 찾기)가 이 지문에서는 is premised on 과 never ... never 로 실제 작동한다",
+            "required_vocab 의 premised 와 accountability 가 정답 판정에 직접 쓰인다"
           ],
           "checked": [
-            "단계별 실행 가능성 점검",
+            "절차 단계별 실행 가능성 점검",
             "금지 표현 문자열 대조",
-            "time_budget 90초를 문장 수(7문장·추상도)로 역산"
+            "90초 안에 인용문 한 문장을 건너뛰고도 끝나는지 확인"
           ]
         }
-      ]
+      ],
+      "answer_locus": {
+        "sentence_index": [
+          3,
+          6
+        ],
+        "quote": "Autonomy has never been a one-way street and is never granted absolutely and irreversibly",
+        "reasoning": "3번 문장이 자율성 부여의 전제를 is premised on 으로 못 박아 사회 기여 의지와 능력에 걸고, 6번 문장이 그 전제를 이중 부정(never a one-way street / never granted absolutely)으로 되받는다. 2번 문장이 세운 두 항(pursuit of autonomy ↔ demand for accountability)이 이 두 문장에서 조건과 대가로 확정된다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "correct",
+          "why_correct": "6번 문장의 'Autonomy has never been a one-way street' 가 선지 ①의 '자율성은 그에 상응하는 사회적 책임을 수반한다' 와 대응하고, 그 대가가 무엇인지는 3번 문장의 'is premised on their willingness and ability to contribute to social well-being' 이 지정한다. 2번 문장의 두 항 pursuit of autonomy 와 demand for accountability 가 그대로 선지의 자율성과 사회적 책임이다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3
+            ],
+            "note": "6번 문장은 자율성이 무조건적이지 않다고만 말하고 무엇이 조건인지 비워 둔다 — 3번 문장의 premised on 절이 그 자리를 채운다"
+          }
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "4번 문장의 'could readily be used to advance their own interests at the expense of those they serve' 를 거의 그대로 옮겨 지문 문장 하나와 겹친다.",
+          "how_to_reject": "4번 문장의 조동사는 could 이고 앞에 It has long been recognized that 이 붙어 있다 — 그렇게 될 수 있다는 위험 인식이지 그래 왔다는 사실 진술이 아니다. 선지는 could 를 완료 사실로 바꿨다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "accountability 라는 낱말이 2번 문장에 있어 책무성이라는 같은 축을 말하는 것으로 보인다.",
+          "how_to_reject": "지문이 제시하는 조정 장치는 1번 문장의 negotiating process 와 5번 인용의 moral chains upon their own appetites 다. 제도·법령 정비에 해당하는 표현은 일곱 문장 어디에도 없다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "5번 인용문의 'Men are qualified for civil liberty' 에서 qualified 를 자격 요건으로 읽으면 전문직 진입 조건을 말하는 문장처럼 보인다.",
+          "how_to_reject": "그 인용에서 qualified for 의 대상은 civil liberty 이고 척도는 in exact proportion to their disposition 이다. 전문직이 되기 위한 요건이나 그 변천을 말한 문장이 지문에 없다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "3번 문장에 power and privilege 와 social well-being 이 한 문장 안에 있어 특권이 성과를 낳는다는 화살표로 읽힌다.",
+          "how_to_reject": "3번 문장의 화살표는 반대다 — Society's granting of power and privilege ... is premised on their willingness and ability to contribute 로, 사회 기여가 전제이고 특권 부여가 그 결과다. 선지는 전제와 결과를 맞바꿨다."
+        }
+      ],
+      "revised": true
     },
     {
       "item_id": "M2206#22",
-      "answer_unknown": true,
       "measured_ability": "양보 구문(A does not guarantee ~. It does, however, greatly improve ~)에서 필자가 무엇을 부정하고 무엇을 남겼는지 갈라, 마지막 두 문장의 '보장은 아니지만 확률은 높인다' 를 한 명제로 접는 능력",
       "design_intent": "계획 수립의 이점을 여섯 문장 내리 나열한 뒤 마지막에 '잘 만든 계획도 성공을 보장하지 않는다' 는 양보를 넣고, 곧바로 however 로 되받는다. 마지막 두 문장만 보면 계획의 한계를 말하는 글로도, 계획의 효용을 말하는 글로도 읽히게 해 두었다 — however 뒤 문장을 끝까지 읽었는지가 갈림길이다.",
       "solve_procedure": [
@@ -375,41 +470,91 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
-            "정답표 없는 회차 — answer_locus·choices 미기재 확인",
-            "design_intent 가 '마지막 양보-되받기' 라는 이 지문 고유 장치를 지목한다"
+            "인용이 코퍼스 지문에 문자 그대로 있다",
+            "why_correct 가 선지 ④의 두 절을 지문의 서로 다른 두 문장에 하나씩 붙였다 — 요지형 근거가 한 문장으로 안 끝난다는 관찰과 맞는다",
+            "design_intent 가 서술한 마지막 두 문장의 양보-되받기가 실제 근거 구조와 일치한다"
           ],
           "checked": [
-            "코퍼스 answer null 확인",
-            "출력에 answer_locus 부재 확인",
-            "요지 유형 정의와 measured_ability 대조"
+            "answer_locus.quote 문자열 대조",
+            "코퍼스 answer=4 대조",
+            "confirmed_at 의 10번 문장이 실제 마지막 문장인지 확인"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "산문 어디에도 선지 번호·정답 지목이 없다",
-            "difficulty 0.8 의 근거가 문장 길이·구체 명사 비율·도치 위치라는 표면 특징이다",
-            "required_vocab 5개 모두 지문에 문자로 있다(Contractors / methodologies / restrictions / workable / guarantee)"
+            "오답 넷의 함정이 반대 진술·부분 사실·무관·범위 과대 4종으로 갈린다",
+            "②의 배제 근거가 예산이 없다가 아니라 given 이라는 수식이 붙어 제약으로 쓰인다로 위치와 함께 적혀 있다",
+            "difficulty.predicted 0.8 이 문장 길이와 구체 명사 비율이라는 표면 특징에 근거한다"
           ],
           "checked": [
-            "choices·answer_locus 공백 확인",
-            "difficulty 근거 성격 확인",
-            "required_vocab 문자열 대조"
+            "trap 라벨 중복 여부",
+            "why_tempting 이 선지 텍스트에 근거하는지",
+            "how_to_reject 네 건의 위치 표기 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "처음 쓴 2단계가 '본문을 읽은 뒤 결론을 정리한다' 로 되어 있어 지문 미독 학생이 실행할 수 없었다 — '마지막 두 문장을 먼저 읽고 not/however 에 표시한다' 로 고쳐 순서를 명시했다",
-            "고친 뒤 다섯 단계가 모두 지문을 안 본 상태에서 시작할 수 있고 75초에 든다"
+            "절차 2단계(첫·마지막 문장 먼저)가 이 문항에서 곧바로 마지막 두 문장의 양보 구조에 닿는다",
+            "75초 안에 열 문장을 읽고 대조하는 것이 가능하다 — 문장이 짧고 구체 명사 위주다"
           ],
           "checked": [
-            "단계별 실행 가능성 재점검(수정 후)",
+            "절차 실행 가능성 점검",
             "금지 표현 문자열 대조",
-            "time_budget 을 문장 수 10 · 어휘 난도로 역산"
+            "required_vocab 다섯 낱말이 지문에 있는지 대조"
           ]
+        }
+      ],
+      "answer_locus": {
+        "sentence_index": [
+          8,
+          10
+        ],
+        "quote": "The goal of the planning process for the contractor is to produce a workable scheme that uses the resources efficiently",
+        "reasoning": "8번 문장이 계획의 목표를 자원의 효율적 사용으로 못 박고, 9번 문장의 양보(A well-developed plan does not guarantee)를 10번 문장이 however 로 되받아 확률 상승으로 닫는다. 효율과 성공 확률이라는 두 항이 서로 다른 문장에서 하나씩 확정되므로 한 문장만 보면 명제가 반쪽이 된다."
+      },
+      "choices": [
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "8번 문장의 'uses the resources efficiently within the allowable time and given budget' 가 선지 ④의 '일의 효율성을 증대시키고' 와, 마지막 문장의 'It does, however, greatly improve its chances' 가 '성공 가능성을 높인다' 와 각각 대응한다. 9번 문장이 부정하는 것은 guarantee 이지 chances 가 아니므로 두 항이 모두 남는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              10
+            ],
+            "note": "9번 문장에서 읽기를 멈추면 계획의 한계로 닫힌다 — 10번 문장의 does, however 가 명제의 방향을 되돌린다"
+          }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "계획을 다룬 글이므로 계획에 관한 처방이면 방향과 무관하게 맞아 보이고, efficiently 를 속도로 옮기면 간소화가 그 수단처럼 읽힌다.",
+          "how_to_reject": "2번 문장이 Proper planning forces detailed thinking about the project 라고 해서 오히려 상세함을 요구한다. 절차를 줄이라는 표현이 지문에 없고, detailed thinking 은 간소화의 반대편이다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "8번 문장에 within the allowable time and given budget 이 있어 예산이 실제로 지문에 등장한다.",
+          "how_to_reject": "그 자리에서 budget 은 given 이라는 수식을 달고 계획이 지켜야 할 제약으로 쓰인다. 예산을 확보한다는 술어가 지문 열 문장 어디에도 없다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "planning 과 risks 가 함께 나오므로 상황 변화에 따른 계획 수정이라는 통상적 결론이 붙는다.",
+          "how_to_reject": "5·6번 문장은 restrictions or risks 를 실행 단계가 아니라 계획 단계에서 발견하는 편이 낫다고만 말한다. 계획을 변경·수정하는 절차를 말한 문장이 없다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "detailed thinking 의 세부라는 말이 겹치고 project 를 대규모 사업으로 키워 읽으면 문장이 성립한다.",
+          "how_to_reject": "1번 문장의 주어는 Contractors that will construct a project 로 규모 조건이 없다. 8번 문장이 밝힌 목표도 within the allowable time and given budget 이지 지속적 성장이 아니다."
         }
       ]
     },
@@ -555,7 +700,6 @@
     },
     {
       "item_id": "M2109#22",
-      "answer_unknown": true,
       "measured_ability": "여러 문장에 흩어진 목적어(language, customs, values / cultural knowledge and sensitivity / self and others)를 하나의 상위 범주로 묶고, 마지막 문장의 목적 표현(the well-balanced development ~ into the responsible citizens)이 그 묶음의 귀착점인지 판별하는 능력",
       "design_intent": "음악의 사회·문화적 기능을 여섯 문장 내리 열거하다가 마지막 한 문장에서 수혜자(어린이)와 최종 상태(책임 있는 시민으로의 균형 잡힌 성장)를 한꺼번에 밝힌다. 열거된 항목 하나(문화 지식, 예술적 감각, 편견)를 붙잡으면 각론 선지로 빠지도록 각 항목마다 대응 선지를 심어 두었다.",
       "solve_procedure": [
@@ -601,45 +745,94 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
-            "정답표 없는 회차 — answer_locus·choices 미기재 확인",
-            "design_intent 가 '각 열거 항목마다 대응 선지를 심었다' 는 이 문항 고유의 배치를 지목한다",
-            "선지 ⑤ 끝 ' 38' 은 쪽번호 OCR 잔여"
+            "인용이 코퍼스 지문 마지막 문장 안에 문자 그대로 있다",
+            "why_correct 가 선지의 균형 잡힌 시민과 사회･문화적으로를 각각 다른 문장에 붙였다",
+            "measured_ability 에 적힌 여러 문장에 흩어진 목적어를 상위 범주로 묶는다가 실제 근거 구조와 맞는다"
           ],
           "checked": [
-            "코퍼스 answer null 확인",
-            "answer_locus 키 부재 확인",
-            "요지 유형 정의 대조"
+            "answer_locus.quote 문자열 대조",
+            "코퍼스 answer=5 대조",
+            "confirmed_at 의 7번 문장이 실제 마지막 문장인지 확인"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "measured_ability 가 특정 선지를 배제하는 서술을 쓰지 않고 '판별하는 능력' 까지만 말한다",
-            "difficulty 0.6 의 근거가 열거 항목 수·마지막 문장 길이·선지 분산이라는 셀 수 있는 특징이다",
-            "required_vocab 5개 모두 지문에 문자로 있다(multifaceted / cultural nuances / transmitting / social biases / prejudices)"
+            "오답 넷이 범위 과대·부분 사실·어휘 함정·주체 역전 4종으로 갈린다",
+            "①은 결론 문장과 낱말이 가장 많이 겹치는 선지다 — R-GIST 에서 낱말 겹침이 정답 근거가 아니라는 표의 관찰이 이 문항에서 다시 확인된다",
+            "how_to_reject 넷 모두 문장 번호와 영어 어구를 함께 담는다"
           ],
           "checked": [
-            "choices·answer_locus 공백 확인",
-            "difficulty 근거 성격 확인",
-            "required_vocab 문자열 대조",
-            "산문의 선지 지목 표현 검색"
+            "trap 라벨 중복 여부",
+            "①과 정답 ⑤의 겹치는 낱말 대조",
+            "how_to_reject 위치 표기 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계 '마지막 문장에서 into ~ 구 먼저 잡기' 가 이 지문의 45낱말 문장을 다루는 구체적 처방이다",
-            "지문이 길어 90초로 잡았고, 열거 문장을 안 읽는 절차라 시간 안에 든다"
+            "절차 4단계(사례·열거 괄호 치기)가 이 지문에서 3번 문장의 일곱 항목 열거를 통째로 걷어 낸다",
+            "마지막 문장이 45낱말이 넘지만 Prior to ~ 부사구를 먼저 잘라 내면 90초 안에 처리된다"
           ],
           "checked": [
-            "단계별 실행 가능성 점검",
+            "절차 실행 가능성 점검",
             "금지 표현 문자열 대조",
-            "time_budget 을 지문 길이(약 170낱말)로 역산"
+            "required_vocab 다섯 낱말의 지문 존재 확인"
           ]
         }
-      ]
+      ],
+      "answer_locus": {
+        "sentence_index": [
+          4,
+          7
+        ],
+        "quote": "the well-balanced development of young children into the responsible citizens they will one day become",
+        "reasoning": "7번 문장이 노래·춤·악기 연주로 사람을 알게 되는 기회를 어린이를 장차 책임 있는 시민으로 균형 있게 키우려는 이들에게 주어진 선물이라고 규정해, 앞서 열거된 개별 효용(언어·관습·가치·문화 지식)을 하나의 귀착점으로 모은다. 4번 문장의 cultural knowledge and sensitivity 가 그 귀착점의 사회·문화 성분을 지정한다."
+      },
+      "choices": [
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "7번 문장의 'the well-balanced development of young children into the responsible citizens' 가 선지 ⑤의 '균형 잡힌 시민으로 성장하게 해 준다' 와 낱말 단위로 대응하고, 그 성장을 일으키는 수단은 같은 문장의 'through song, dance, and instrument play' 곧 음악이다. 선지의 사회･문화적으로는 4번 문장의 cultural knowledge and sensitivity 가 채운다.",
+          "confirmed_at": {
+            "sentence_index": [
+              7
+            ],
+            "note": "3·4·6번 문장은 효용을 하나씩 나열할 뿐이고, 그것들을 한 귀착점으로 묶는 문장은 7번뿐이다"
+          }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "7번 문장의 well-balanced development 를 그대로 담고 있어 결론 문장과 절반이 겹친다.",
+          "how_to_reject": "같은 7번 문장에서 그 성장을 일으키는 것은 song, dance, and instrument play 하나로 한정된다. 다양한 경험이라는 말은 음악을 여러 수단 중 하나로 낮춰 지문의 한정을 지운다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "7번 문장 첫머리에 social biases and cultural preferences 가 나란히 나와 두 낱말이 그대로 겹친다.",
+          "how_to_reject": "그 둘은 'Prior to the development of social biases and cultural preferences' 라는 시점 부사구 안에 있어 편견이 생기기 전이라는 시기만 지정한다. 둘 사이의 관계를 말한 술어가 없다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "6번 문장에 Exposing young children to the world's musical cultures 와 artistically 가 함께 있어 노출과 예술이 한 문장에 모인다.",
+          "how_to_reject": "6번 문장에서 artistically meaningful 은 배움의 방식을 꾸미는 부사구이고 배움의 대상은 self and others 다. 예술적 감각이 향상된다는 술어에 대응하는 표현이 지문에 없다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "주체 역전",
+          "why_tempting": "5번 문장이 음악과 문화를 직접 이어 두 낱말이 모두 지문에 있다.",
+          "how_to_reject": "5번 문장의 동사는 shaping and transmitting 으로 음악이 문화를 형성하고 전달하는 쪽이다. 선지는 문화가 음악에 반영된다는 반대 방향의 화살표를 쓴다."
+        }
+      ],
+      "revised": true
     },
     {
       "item_id": "M2106#22",
@@ -1514,47 +1707,52 @@
     "recurring_traps": [
       {
         "trap": "부분 사실",
-        "count": 7,
-        "signature": "지문에 실제로 있는 예증·열거 항목 하나를 필자의 명제로 승격시킨다. 정답표가 있는 8문항 32개 오답 중 7개가 여기 해당하고, 그중 5개는 세미콜론 열거·괄호 예시·관계절 안에서 뽑혀 나왔다(2019 ④·M2006 ①·2022 ⑤·2020 ①·2021 ②)."
+        "count": 11,
+        "signature": "지문에 실제로 있는 예증·열거 항목 하나를 필자의 명제로 승격시킨다. 12문항 48개 오답 중 최다이고, 새로 판정한 4문항에서도 문항마다 한 개씩 나왔다(M2306 ② 인용 발화 · M2209 ② could 절 · M2206 ② given budget · M2109 ② 시점 부사구)."
       },
       {
         "trap": "지문 밖 상식",
-        "count": 7,
-        "signature": "해당 화제에 붙는 관용 결론(환경→보상, 정보사회→개인정보 보호, 팀워크→소통 문화, 스포츠→대인 관계)을 가져온다. 지문에 대응 낱말이 하나도 없다는 점이 공통이라, '이 선지의 핵심 명사가 지문에 있는가' 한 번만 물어도 전부 걸러진다."
+        "count": 8,
+        "signature": "해당 화제에 붙는 관용 결론(환경→보상, 개인정보→유출, 팀워크→소통 문화, 스포츠→대인 관계)을 가져온다. 지문에 대응 낱말이 하나도 없다는 점이 공통이라, 이 선지의 핵심 명사가 지문에 있는가 한 번만 물어도 전부 걸러진다."
       },
       {
         "trap": "어휘 함정",
-        "count": 6,
-        "signature": "명사는 지문에 있고 술어는 없다. 선지가 한국어라 문자열이 겹칠 수 없으므로, 겹침이 **번역된 개념어**로 일어난다 — pleasure→즐김, decision making→의사 결정, retreat/놀이→여가 활동, morally egregious→도덕적 비난, competitive advantage→수익성, victory celebrations→축하. 6건 전부에서 그 개념어에 붙은 술어(기량 향상·단순화·효율 증가·조치 요구·가치 결정·필요가 있다)는 지문에 대응 표현이 없었다."
+        "count": 8,
+        "signature": "명사는 지문에 있고 술어는 없다. 선지가 한국어라 겹침이 번역된 개념어로 일어난다 — pleasure→즐김, decision making→의사 결정, qualified→자격 요건, artistically→예술적 감각. 그 개념어에 붙은 술어는 8건 전부 지문에 대응 표현이 없었다."
       },
       {
         "trap": "반대 진술",
-        "count": 5,
-        "signature": "글이 교정 대상으로 제시한 통념·편향을 결론으로 되돌린다(2018 ④의 수신 편향, M2006 ④의 데이터 확보, M1809 ①의 객관적 평가). 앞부분만 읽고 뒤집기 문장을 놓쳤을 때 정확히 여기로 간다."
+        "count": 6,
+        "signature": "글이 교정 대상으로 제시한 통념·편향을 결론으로 되돌리거나(2018 ④ · M2006 ④ · M1809 ①), 필자가 요구한 것의 반대 처방을 놓는다(M2206 ① 간소화 ↔ detailed thinking)."
       },
       {
         "trap": "무관",
-        "count": 3,
-        "signature": "지문의 낱말은 쓰되 그 낱말이 지문에서 부정된 방향으로 쓰인 경우(2019 ①의 medium)나 축 자체가 없는 경우(2022 ④의 예방/사후)."
+        "count": 5,
+        "signature": "지문 낱말을 쓰되 그 낱말이 부정된 방향으로 쓰였거나(2019 ① medium), 축 자체가 지문에 없다(2022 ④ 예방/사후 · M2209 ③ 제도 정비 · M2206 ③ 계획 변경)."
       },
       {
         "trap": "인과 역전",
-        "count": 2,
-        "signature": "지문의 화살표를 뒤집는다 — 정의→참여를 참여→정의로(M2106 ③), 상업 기록→문화 이해를 문학→경제 이해로(2020 ④)."
+        "count": 3,
+        "signature": "지문의 화살표를 뒤집는다 — 정의→참여를 참여→정의로(M2106 ③), 상업 기록→문화 이해를 문학→경제 이해로(2020 ④), 기여→특권 부여를 특권→성과로(M2209 ⑤)."
       },
       {
         "trap": "범위 과대",
-        "count": 1,
-        "signature": "지문이 말한 '동반한다·덕분에 안다' 를 '결정한다' 는 등급 명제로 키운다(2020 ③)."
+        "count": 3,
+        "signature": "지문이 건 한정을 지운다 — 동반한다를 결정한다로 키우거나(2020 ③), 수단 하나(음악)를 다양한 경험으로 넓히거나(M2109 ①), 조건 없는 주어를 대규모 사업으로 좁혀 붙인다(M2206 ⑤)."
       },
       {
         "trap": "주체 역전",
+        "count": 3,
+        "signature": "행위 순서는 지문과 같은데 하는 쪽이 바뀐다 — 비평문↔음악(2021 ④), 기업↔소비자의 데이터 활용(M2306 ③), 음악↔문화의 형성 방향(M2109 ④)."
+      },
+      {
+        "trap": "범위 과소",
         "count": 1,
-        "signature": "행위 순서는 지문과 같은데 그 행위를 하는 것·되는 것이 바뀐다 — 대중 의견 확인 뒤에 나오는 것은 비평문이지 음악이 아니다(2021 ④)."
+        "signature": "방향은 맞는데 결론 항이 빠진다 — 대가의 존재만 말하고 상태 변화를 뺀다(M2306 ④)."
       }
     ],
     "lexical_trap_note": "요지는 선지가 한국어인 명제형이라 제목·주제(영어 선지) 유형과 어휘 함정의 작동층이 다르다. 실제로 세어 보면 32개 오답 중 어휘 함정 6건(19%)인데, 6건 모두 지문 낱말의 **한국어 대응 개념어**만 옮겨 오고 술어는 지문에 없는 것으로 갈아 끼웠다. 즉 이 유형에서 어휘 함정은 '같은 낱말이 보인다' 로는 절대 탐지되지 않고, **명사 일치 + 술어 불일치**로만 탐지된다. 반대로 영어 선지 유형에서 최대 함정인 '지문 표현 그대로 재사용' 은 여기서 0건이었다 — 번역을 거치며 표면 일치가 사라지기 때문이다. 처방도 그래서 달라진다: 선지에서 명사가 아니라 **서술어에 밑줄을 긋고 그 서술어의 영어 대응 표현이 지문에 있는지**를 묻는다. 32개 오답 중 이 한 가지 점검만으로 걸러지는 것이 어휘 함정 6 + 지문 밖 상식 7 = 13개(41%)다.",
-    "answer_locus_pattern": "정답표가 있는 8문항 기준으로 근거 위치는 두 자리에 몰린다. (1) 마지막 문장 또는 마지막 두 문장 — 2021·M2106·M2006·2018 4개, 표지는 Thus / It does, however / 콜론 뒤 how to ~ / You have to be ~. (2) 역접·전환 직후의 일반 명제 — 2022(3번째 문장의 may require), 2020(But 뒤), 2019(첫 문장 + 마지막 문장 수미상관), M1809(이론 이름 문장 뒤 정의). 12문항 모두에서 사례·인용·열거는 근거가 아니었고, 근거 문장에는 예외 없이 조동사(may, will, have to)·귀결 표지(Thus, The result was)·동격 정의(whereby, :) 중 하나가 붙어 있었다.",
+    "answer_locus_pattern": "12문항 전부에 정답표가 생겼고, 근거 위치는 두 자리에 몰린다. (1) 마지막 문장 또는 마지막 두 문장 — 2021·M2106·M2006·2018·M2209·M2109·M2206 7개, 표지는 Thus / It does, however / never ... never / 콜론 뒤 how to ~ 다. (2) 역접·전환 직후의 일반 명제 — 2022·2020·2019·M1809·M2306 5개. 12문항 모두에서 사례·인용·열거는 근거가 아니었고, 근거 문장에는 예외 없이 조동사(may, will, have to)·귀결 표지(Thus, The result was, It does however)·동격 정의(whereby, :)·이중 부정 중 하나가 붙어 있었다. 그리고 **12문항 중 11문항이 근거를 한 문장으로 못 끝내** confirmed_at 에 두 번째 자리를 따로 적어야 했다.",
     "procedure": [
       {
         "step": "지문보다 선지 다섯 개를 먼저 읽고 각 선지의 서술어에 밑줄을 긋는다 — 명사가 아니라 서술어가 갈림길이다",
@@ -1579,18 +1777,18 @@
     ],
     "failure_modes": [
       "앞부분만 읽고 결론을 정한다 — M2006·2018·M2206 은 글 후반의 뒤집기(The problem however / If you're less concerned / It does, however) 앞뒤로 태도가 정반대라, 절반만 읽으면 반대 진술 선지로 정확히 간다",
-      "선지의 명사만 대조한다 — 한국어 선지에서 명사 일치는 정보가 거의 없다. 어휘 함정 6건 전부가 명사는 맞고 술어가 없는 형태였다",
-      "가장 길게 서술된 부분을 요지로 삼는다 — 2022 의 도덕적 분노 두 문장, 2019 의 세미콜론 열거, 2018 의 공놀이 사례는 모두 분량이 가장 크지만 근거가 아니다",
-      "화살표 방향을 확인하지 않는다 — M2106 ③·2020 ④·2021 ④처럼 지문의 두 항을 그대로 쓰고 방향이나 주체만 바꾼 선지는 낱말 대조로는 걸러지지 않는다",
-      "정답표 없는 회차에서 '그럴듯한 하나' 를 정답으로 굳혀 버린다 — 이 청크 12개 중 4개(M2306·M2209·M2206·M2109)는 평가원 정답표가 없어 선지 판정을 남기지 않았다"
+      "선지의 명사만 대조한다 — 한국어 선지에서 명사 일치는 정보가 거의 없다. 어휘 함정 8건 전부가 명사는 맞고 술어가 없는 형태였다",
+      "가장 길게 서술된 부분을 요지로 삼는다 — 2022 의 도덕적 분노 두 문장, 2019 의 세미콜론 열거, 2018 의 공놀이 사례, M2109 의 일곱 항목 열거는 모두 분량이 가장 크지만 근거가 아니다",
+      "화살표 방향을 확인하지 않는다 — M2106 ③·2020 ④·2021 ④·M2306 ③·M2209 ⑤·M2109 ④처럼 지문의 두 항을 그대로 쓰고 방향이나 주체만 바꾼 선지는 낱말 대조로는 걸러지지 않는다",
+      "결론 문장과 낱말이 가장 많이 겹치는 선지를 고른다 — M2109 ①이 정확히 그 자리에 놓였다(well-balanced development 를 그대로 담은 오답). 겹침은 근거가 아니라 미끼이고, 갈림은 겹치는 낱말 옆의 한정어에서 난다"
     ],
     "time_budget_sec": 82,
     "open_questions": [
-      "정답표가 있는 문항이 8개뿐이라 함정 분포(32개 오답)의 통계적 안정성이 낮다. 특히 주체 역전 1건·범위 과대 1건은 표본이 하나뿐이라 다음 R-GIST 청크(chunk-R-GIST-M2706-22)에서 다시 세어야 한다",
-      "어휘 함정 6건이 전부 '명사 일치 + 술어 불일치' 였다는 관찰이 요지 유형 고유의 것인지, 아니면 한국어 선지를 쓰는 유형군(요지·주제 한국어형·목적) 전반의 성질인지는 이 청크만으로 못 가른다. R-TOPIC 청크의 한국어 선지 문항과 대조해야 한다",
-      "정답표 없는 4문항에서 answer_locus 를 못 쓰므로 answer_locus_pattern 이 8개 표본으로만 나왔다. 근거 위치가 '마지막 문장'에 4/8 로 몰린 것이 회차 편중인지 유형 성질인지는 다음 청크와 합쳐야 판단된다",
-      "코퍼스 오염 두 건을 보고한다 — (1) 여러 문항의 선지 ⑤ 끝에 쪽번호 ' 38' 이 붙어 있다(M2306·2022·M2209·2021·M2109·M2106), (2) 2022#22 선지 ②의 띄어쓰기가 통째로 뭉개져 있다. 판정에는 영향이 없었으나 학습자에게 그대로 노출되면 안 된다",
-      "반려는 5건 나왔다(M2306 analyst · M2206 tutor · M2106 setter · 2019 analyst · M1809 analyst) — 세 자가 서로 다른 것을 재고 있음이 확인된다. setter 는 인용이 정답을 확정하는지, analyst 는 라벨 중복과 정답 누설, tutor 는 절차의 실행 시점을 각각 잡았다"
+      "앞서 정답표가 없던 4문항(M2306·M2209·M2206·M2109)에 평가원 정답표가 붙어 12/12 판정이 완료됐다. 함정 분포의 분모가 32개 오답에서 48개로 늘었고, 주체 역전이 1→3, 범위 과대가 1→3 으로 올라 표본 하나뿐이던 라벨이 셋으로 안정됐다. 다만 범위 과소는 아직 1건뿐이라 다음 R-GIST 청크에서 다시 세어야 한다",
+      "어휘 함정 8건이 전부 명사 일치 + 술어 불일치였다는 관찰이 요지 유형 고유의 것인지, 한국어 선지를 쓰는 유형군 전반의 성질인지는 이 청크만으로 못 가른다. R-TOPIC 청크의 한국어 선지 문항과 대조해야 한다",
+      "근거가 한 문장으로 안 끝난 것이 12중 11이다. _PROMPT §1-c 표의 대의파악 7/7 관찰과 같은 방향이지만, 이 청크는 confirmed_at 을 필수로 쓴 첫 표본이므로 '두 번째 자리를 안 적으면 2지선다가 남는가'를 다음 청크에서 실측으로 확인해야 한다",
+      "코퍼스 오염 두 건을 계속 보고한다 — 여러 문항의 선지 ⑤ 끝에 쪽번호 ' 38' 이 붙어 있고(M2306·2022·M2209·2021·M2109·M2106), 2022#22 선지 ②의 띄어쓰기가 뭉개져 있다. 판정에는 영향이 없었으나 학습자 노출 전에 제거해야 한다",
+      "이번 재검수에서 반려는 2건 나왔다(M2306 analyst 의 trap 중복 · M2209 analyst 의 trap 중복) — 둘 다 analyst 가 잡았고 setter·tutor 는 통과시켰다. 세 자가 서로 다른 것을 재고 있음이 확인되지만, 반려가 한 페르소나에 몰린 것은 다음 청크에서 setter 의 자(대응이 낱말 단위로 성립하는가)를 더 세게 걸어야 한다는 신호다"
     ]
   }
 }

@@ -1105,7 +1105,6 @@
     },
     {
       "item_id": "M2409#21",
-      "answer_unknown": true,
       "measured_ability": "인용된 속담의 두 항(the best · the good)이 지문의 어느 행위와 어느 결과에 각각 대응하는지 짝짓고, 속담이 그 대응 위에서 어느 쪽을 경계하는지 읽어 내는 능력",
       "design_intent": "gold plating 이라는 낯선 용어를 첫 문장이 정의로 붙잡아 두고, 마지막에 익숙한 속담을 인용으로 붙인다. 정의문(needlessly enhancing · not required · low added value)과 속담의 두 항을 대응시키는 작업이 이 문항의 부담이고, 중간에 깔린 specialists · skill sets · autonomy 같은 인물 소재가 그 대응을 흐린다.",
       "solve_procedure": [
@@ -1132,11 +1131,12 @@
       ],
       "time_budget_sec": 110,
       "difficulty": {
-        "predicted": 0.72,
+        "predicted": 0.68,
         "drivers": [
-          "첫 문장이 용어를 직접 정의해 주어 근거가 지문 표면에 노출됨",
-          "속담이 널리 알려진 것이라 방향(과잉의 해로움)을 잡기 쉬움",
-          "다만 namely · in other words 가 네 번 반복되며 문장이 길어져 정의구를 잘라 내는 데 시간이 든다"
+          "첫 문장이 용어를 직접 정의해 주어 근거가 지문 표면에 노출된다",
+          "속담이 널리 알려진 것이라 방향(과잉의 해로움)을 잡기는 쉽다",
+          "namely · in other words 가 네 번 반복되며 문장이 길어져 정의구를 잘라 내는 데 시간이 든다",
+          "선지 다섯이 모두 완결 문장이라 주어 대조가 한 단계 더 든다"
         ]
       },
       "required_vocab": [
@@ -1151,46 +1151,97 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
-            "answer_locus 를 넣지 않았다 — 평가원 정답표가 없는 회차다",
-            "design_intent 가 이 지문 고유의 배치(정의문 + 인용 속담)를 지목하며 유형 일반론에 머물지 않는다"
+            "인용이 코퍼스 지문 4번 문장 안에 문자 그대로 있다",
+            "why_correct 가 선지 ②의 세 성분(Raising work quality · only to prove oneself · is not desirable)에 각각 지문 표현을 붙였다",
+            "속담의 두 항(the best / the good)이 지문의 어느 어구에 대응하는지가 answer_locus.reasoning 에 명시돼 있다"
           ],
           "checked": [
-            "코퍼스의 answer 가 null 인지 확인",
-            "산출물에 answer_locus 키가 없음을 확인",
-            "밑줄 표현이 인용 속담 갈래인지 지문 표지(As the saying goes)로 확인"
+            "answer_locus.quote 문자열 대조",
+            "코퍼스 answer=2 대조",
+            "1번 문장의 to demonstrate one's own talent 실재 확인"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "choices 와 answer_locus 가 모두 비어 있고 추정 정답이 스며든 곳이 없다",
-            "difficulty.predicted 0.72 의 근거가 정답이 아니라 구조 특징(정의문 노출 · 속담 인지도 · 문장 길이)으로만 적혀 있다",
-            "required_vocab 5개가 모두 지문에 문자로 있다"
+            "처음 ③을 부분 사실로 달아 ⑤와 겹쳤다 — ③은 조건을 원인으로 되돌린 형태이므로 인과 역전으로 고쳤다",
+            "오답 넷이 지문 밖 상식·인과 역전·반대 진술·부분 사실 4종으로 갈린다",
+            "선지가 모두 완결 문장이라 이 문항에서는 주어 대조(Pursuing perfection / Inviting specialists / Responding / Acquiring)가 가장 값싼 첫 동작이다"
           ],
           "checked": [
-            "choices 배열이 없음을 확인",
-            "measured_ability · design_intent · solve_procedure 에 선지 번호나 정답 지목 표현이 있는지 문자열 검색",
-            "required_vocab 5개를 corpus 지문에서 문자열 검색"
+            "trap 라벨 중복 여부",
+            "각 선지 주어가 지문 행위 주체와 맞는지 대조",
+            "how_to_reject 네 건의 문장 번호 표기 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "5단계 모두 지문 표면의 표지(따옴표 · namely · but · 부정어)를 찾는 동작이라 정답을 모르는 상태에서도 실행된다"
+            "유형 절차 1단계의 (가) 갈래(As the saying goes 로 인용된 속담)에 이 문항이 정확히 들어간다",
+            "110초 안에 다섯 문장을 읽되 namely 뒤 동격구를 괄호 치면 실질 문장이 셋으로 줄어든다"
           ],
           "checked": [
-            "금지 표현 8종 문자열 대조",
-            "110초 배분 적정성",
-            "각 단계가 정답을 전제하지 않는지 하나씩 점검"
+            "절차 단계별 실행 가능성 점검",
+            "금지 표현 문자열 대조",
+            "required_vocab 다섯 낱말의 지문 존재 확인"
           ]
         }
-      ]
+      ],
+      "answer_locus": {
+        "sentence_index": [
+          1,
+          4
+        ],
+        "quote": "to achieve more or higher-quality work that gratifies the professional but does not add value to the client’s requests",
+        "reasoning": "속담이 붙은 5번 문장 바로 앞 4번 문장이 the best 와 the good 의 자리를 각각 채운다 — the best 는 more or higher-quality work 이고, 그것이 적으로 삼는 the good 은 같은 문장 but 뒤의 does not add value to the client's requests 와 removes valuable resources from the project 다. 1번 문장이 그 행위의 유일한 동기를 to demonstrate one's own talent 로 못 박아 the best 가 누구를 위한 것인지 지정한다."
+      },
+      "choices": [
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "4번 문장의 'to achieve more or higher-quality work' 가 선지 ②의 'Raising work quality' 와, 1번 문장의 'with no real justification other than to demonstrate one’s own talent' 가 'only to prove oneself' 와 대응한다. 같은 4번 문장의 but does not add value to the client’s requests, and at the same time removes valuable resources 가 'is not desirable' 을 확정한다.",
+          "confirmed_at": {
+            "sentence_index": [
+              1
+            ],
+            "note": "4번 문장만 보면 품질을 올린 사실만 남는다 — 1번 문장의 no real justification other than to demonstrate one's own talent 가 선지의 only to prove oneself 를 확정한다"
+          }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "지문 밖 상식",
+          "why_tempting": "완벽 추구가 팀 안의 갈등을 부른다는 통념이 강하고, project team members 가 2번 문장에 그대로 있다.",
+          "how_to_reject": "4번 문장이 gold plating 의 대가로 드는 것은 고객 요청에 값이 안 붙는 것과 valuable resources 소진 둘이다. 구성원 사이의 갈등을 말한 문장이 다섯 문장 어디에도 없다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "인과 역전",
+          "why_tempting": "2·3번 문장이 specialists with proven experience and extensive professional autonomy 를 gold plating 이 잦은 환경으로 지목해, 전문가를 부른 것이 원인처럼 읽힌다.",
+          "how_to_reject": "그 두 문장은 조건을 서술할 뿐이고 4번 문장이 지목하는 원인은 a strong temptation ... to engage in gold plating 이라는 행위다. 선지는 행위의 문제를 사람 선발의 결과로 되돌린다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "client’s requests 가 4번 문장에 그대로 있어 고객이라는 낱말이 겹친다.",
+          "how_to_reject": "4번 문장에서 문제로 지목된 것은 does not add value to the client’s requests 다. 고객 요청을 값의 기준으로 삼으라는 뜻이므로 그것이 불필요하다는 선지는 방향이 정반대다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "3번 문장의 an opportunity to test and enrich their skill sets 를 그대로 옮겼다.",
+          "how_to_reject": "3번 문장은 전문가가 프로젝트를 어떻게 보는지에 대한 서술이고, 속담이 걸린 4번 문장이 다루는 것은 기량 습득이 아니라 결과물을 필요 이상으로 높이는 행위다. 속담의 두 항에 skill 이 들어갈 자리가 없다."
+        }
+      ],
+      "revised": true
     },
     {
       "item_id": "M2406#21",
-      "answer_unknown": true,
       "measured_ability": "지문이 첫 문장에서 스스로 선언한 비유(ownership = a bundle of sticks)의 요소 하나(a stick)가 원관념의 어느 단위에 대응하는지, 뒤따르는 열거에서 1:1로 짚어 내는 능력",
       "design_intent": "비유를 지문이 직접 도입하고 그 요소를 두 번 열거해 준다 — 한 번은 권리 이름으로(sell stick · rent stick · mortgage · license), 한 번은 권리자 이름으로(landowner · bank · tenant · plumber · oil company). 앞의 열거는 권리를 가리키고 뒤의 열거는 사람을 가리켜, 밑줄의 stick 을 사람 쪽으로 읽는지 권리 쪽으로 읽는지가 갈림목이다.",
       "solve_procedure": [
@@ -1219,9 +1270,10 @@
       "difficulty": {
         "predicted": 0.66,
         "drivers": [
-          "지문이 비유를 첫 문장에서 스스로 선언하고 원관념을 두 번 열거해 대응표가 노출됨",
-          "밑줄이 마지막 문장이고 그 앞 문장이 곧 열거라 근거가 인접",
-          "다만 권리 이름 열거와 권리자 이름 열거가 나란히 있어 대응 칸을 잘못 고를 여지가 있음"
+          "지문이 비유를 첫 문장에서 스스로 선언하고 원관념을 두 번 열거해 대응표가 노출된다",
+          "밑줄이 마지막 문장이고 그 앞 문장이 곧 열거라 근거가 인접해 있다",
+          "권리 이름 열거(4번)와 권리자 이름 열거(5번)가 나란히 있어 대응 칸을 잘못 고를 여지가 있다",
+          "mortgage · lease · mineral rights 같은 법률·부동산 용어가 열거 안에 몰려 있다"
         ]
       },
       "required_vocab": [
@@ -1237,40 +1289,91 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
-            "처음 design_intent 가 '비유의 원관념을 찾게 하는 문항' 이라는 유형 일반론이었다 — 이 지문 고유의 장치(권리 이름 열거와 권리자 이름 열거가 나란히 놓인 것)를 지목하도록 고쳤다",
-            "answer_locus 를 넣지 않았다"
+            "인용이 코퍼스 지문 5번 문장 안에 문자 그대로 있다",
+            "why_correct 가 선지 ③의 세 성분(a right · to use one aspect · of the property)을 5번 열거와 3번 정의문에 나눠 붙였다",
+            "design_intent 가 서술한 '사람 쪽으로 읽는지 권리 쪽으로 읽는지' 가 오답 ④의 설계와 정확히 이어진다"
           ],
           "checked": [
-            "코퍼스의 answer 가 null 인지 확인",
-            "산출물에 answer_locus 키가 없음을 확인",
-            "design_intent 가 이 지문에서만 성립하는 서술인지 재독"
+            "answer_locus.quote 문자열 대조",
+            "코퍼스 answer=3 대조",
+            "3번 문장의 interpersonal rights 실재 확인"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "choices 와 answer_locus 가 비어 있다",
-            "difficulty.predicted 0.66 의 근거가 구조 특징(선언된 비유 · 인접 열거 · 두 열거의 혼동 여지)으로만 적혀 있고 선지 판단이 섞이지 않았다",
-            "required_vocab 5개가 모두 지문에 문자로 있다"
+            "오답 넷이 반대 진술·범위 과대·어휘 함정·무관 4종으로 갈린다",
+            "④와 ⑤가 각각 5번 문장에서 낱말을 그대로 떼어 온 선지다 — 밑줄 인접 문장과 겹침이 가장 큰 두 선지가 모두 정답이 아니다",
+            "how_to_reject 넷 모두 문장 번호와 영어 어구를 함께 담는다"
           ],
           "checked": [
-            "choices 배열이 없음을 확인",
-            "산문 전체에 선지 번호나 정답 지목 표현이 있는지 문자열 검색",
-            "required_vocab 5개를 corpus 지문에서 문자열 검색 — bundle · metaphor · mortgage · lease · mineral rights 모두 확인"
+            "trap 라벨 중복 여부",
+            "④·⑤가 5번 문장과 문자로 겹치는 정도 대조",
+            "how_to_reject 위치 표기 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "4단계의 '권리 / 사람 / 물건 세 칸' 이 선지를 정답 모르는 상태에서 기계적으로 가른다"
+            "유형 절차 5단계((나) 갈래에서 비유어가 등치된 명사를 괄호 안에서 찾기)가 이 문항에서 그대로 작동한다 — stick 이 등치된 명사 rights 가 3번 문장에 문자로 있다",
+            "110초 안에 여섯 문장을 읽고 마지막 두 문장으로 판정하는 것이 가능하다"
           ],
           "checked": [
-            "금지 표현 8종 문자열 대조",
-            "110초 배분 적정성",
-            "각 단계가 지문을 안 읽은 학습자에게 지시하는 동작인지 점검"
+            "절차 단계별 실행 가능성 점검",
+            "금지 표현 문자열 대조",
+            "required_vocab 다섯 낱말의 지문 존재 확인"
           ]
+        }
+      ],
+      "answer_locus": {
+        "sentence_index": [
+          3,
+          5
+        ],
+        "quote": "a plumber with a license to enter the land, an oil company with mineral rights",
+        "reasoning": "밑줄 바로 앞 5번 문장이 한 필지에 걸린 당사자마다 그가 가진 권리를 하나씩 짝지어 열거한다 — 저당권·임차권·출입 허가·광업권. 밑줄 문장의 Each of these parties owns a stick 은 그 열거의 한 항을 받으므로, a stick 은 사람이 아니라 그 사람이 가진 권리 한 갈래다. 3번 문장이 그 묶음을 a grouping of interpersonal rights that can be separated 로 미리 정의해 갈래의 성질을 권리로 못 박는다."
+      },
+      "choices": [
+        {
+          "n": 3,
+          "verdict": "correct",
+          "why_correct": "5번 문장의 열거가 당사자마다 권리를 하나씩 붙여(a bank with a mortgage · a tenant with a lease · a plumber with a license to enter the land) 각자가 가진 것이 소유물 전체가 아니라 그중 한 갈래임을 보인다. 이것이 선지 ③의 'a right to use one aspect of the property' 와 대응하고, 3번 문장의 'a grouping of interpersonal rights that can be separated and put back together' 가 그 갈래가 right 임을 낱말째로 대준다.",
+          "confirmed_at": {
+            "sentence_index": [
+              3
+            ],
+            "note": "5번 문장만 보면 stick 이 사람인지 권리인지 갈리지 않는다 — 3번 문장의 interpersonal rights 정의가 그것을 권리로 확정한다"
+          }
+        },
+        {
+          "n": 1,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "4번 문장에 a resource 가 그대로 있고 법률 소재라 legal obligation 이라는 말이 어울려 보인다.",
+          "how_to_reject": "3번 문장이 stick 을 rights 로 정의하고 4번 문장의 열거도 sell · rent · mortgage · license · give away · destroy 로 전부 권리다. 의무는 권리의 반대편이고 obligation·duty 가 여섯 문장에 없다."
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "범위 과대",
+          "why_tempting": "5번 문장이 a piece of land 를 예로 들고 landowner · mortgage · lease 가 부동산 어휘라 소재가 그대로 겹친다.",
+          "how_to_reject": "5번 문장의 다섯 당사자는 우선순위로 줄 서 있지 않고 서로 다른 권리를 나눠 가진 관계다. priority 나 순위를 말한 표현이 없고, stick 하나는 전체를 주장할 자격이 아니라 한 갈래다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "5번 문장의 a tenant with a lease 에서 tenant 를 그대로 가져와 밑줄 인접 문장과 낱말이 겹친다.",
+          "how_to_reject": "그 자리에서 tenant 는 다섯 당사자 중 하나이고 그가 가진 것은 a lease 라는 권리 하나다. equally shared 라는 균등 분배는 5번 문장의 서로 다른 권리 배분과 다르고, building 도 지문에 없다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "5번 문장에 a piece of land 가 문자 그대로 있어 지문에서 본 말처럼 보인다.",
+          "how_to_reject": "5번 문장은 그 땅에 권리자가 다섯이나 붙어 있음을 보이는 문장이고, 4번 문장은 It's mine 이라는 소유 주장으로 시작한다. 아무도 주장할 수 없다는 서술이 여섯 문장에 없다."
         }
       ]
     },
@@ -1412,7 +1515,6 @@
     },
     {
       "item_id": "M2309#21",
-      "answer_unknown": true,
       "measured_ability": "필자가 처음 품었던 걱정과 실제 결과가 But 으로 갈라진 글에서, 밑줄이 어느 쪽에 놓였는지 확인하고 그 쪽의 진술로 밑줄을 바꿔 쓰는 능력",
       "design_intent": "알고리즘이 취향을 한곳으로 모을까 하는 걱정(convergence)을 두 문장에 걸쳐 세워 놓고 But 으로 뒤집은 뒤 밑줄을 붙인다. 밑줄 안의 divergence 와 different 가 걱정 쪽 낱말 convergence 와 한 글자 차이라, 걱정의 내용을 밑줄 의미로 옮겨 적는지 뒤집힌 결과를 옮기는지가 갈림목이다.",
       "solve_procedure": [
@@ -1441,9 +1543,10 @@
       "difficulty": {
         "predicted": 0.63,
         "drivers": [
-          "But 이 밑줄 앞 두 문장 안에 있어 방향 표지가 노출됨",
-          "밑줄 문장 자신이 divergence 라는 방향 낱말을 품고 있음",
-          "다만 앞에 세워 둔 걱정(convergence)이 두 문장을 차지해 낱말 겹침이 그쪽으로 쏠림"
+          "But 이 밑줄 앞 한 문장 안에 있어 방향 표지가 노출된다",
+          "밑줄 문장 자신이 divergence 라는 방향 낱말을 품고 있다",
+          "앞에 세워 둔 걱정(convergence)이 두 문장을 차지해 낱말 겹침이 그쪽으로 쏠린다",
+          "화자가 1인칭이라 my likes 와 everyone 사이를 옮겨 다니며 주어가 바뀐다"
         ]
       },
       "required_vocab": [
@@ -1459,39 +1562,91 @@
           "persona": "setter",
           "verdict": "pass",
           "findings": [
-            "answer_locus 를 넣지 않았다 — 평가원 정답표가 없는 회차다",
-            "design_intent 가 이 지문 고유의 장치(convergence 와 divergence 가 한 글자 차이로 앞뒤에 놓인 것)를 지목한다"
+            "인용이 코퍼스 지문 9번 문장과 문자 그대로 일치한다",
+            "why_correct 가 선지 ①의 두 성분(music selected to suit · our respective tastes)을 6번 문장과 밑줄 문장에 각각 붙였다",
+            "measured_ability 가 서술한 'But 으로 갈린 두 쪽 중 밑줄이 어느 쪽인가' 가 실제 확정 절차와 같다"
           ],
           "checked": [
-            "코퍼스의 answer 가 null 인지 확인",
-            "산출물에 answer_locus 키가 없음을 확인",
-            "밑줄 표현이 비유 갈래인지 판정(music library 는 실물, far corners 는 비유)"
+            "answer_locus.quote 문자열 대조",
+            "코퍼스 answer=1 대조",
+            "6번 문장의 gems that I'll like 실재 확인"
           ]
         },
         {
           "persona": "analyst",
           "verdict": "pass",
           "findings": [
-            "처음 difficulty.drivers 에 '선지 하나가 취향 수렴을 그대로 옮겨 놓아 유인이 크다' 고 적어 특정 선지를 평가했다 — 정답표가 없는 문항에서 선지를 저울에 올린 것이므로 구조 서술(걱정 진술이 두 문장을 차지해 낱말 겹침이 쏠림)로 바꿨다",
-            "choices 와 answer_locus 가 비어 있다"
+            "처음 ⑤를 무관으로 달아 ③과 겹쳤다 — ⑤는 취향을 기준으로 삼는 지문 방향을 정면으로 뒤집은 형태이므로 반대 진술로 고쳤다",
+            "오답 넷이 어휘 함정·무관·부분 사실·반대 진술 4종으로 갈린다",
+            "②가 밑줄 앞 세 문장(7·8·9)과 낱말이 가장 많이 겹치는 선지다 — 겹침이 역신호라는 이 유형의 관찰이 다시 확인된다"
           ],
           "checked": [
-            "choices 배열이 없음을 확인",
-            "산문 전체에 선지 번호나 정답 지목 표현이 있는지 문자열 검색",
-            "required_vocab 5개를 corpus 지문에서 문자열 검색 — divergence · convergence · rut · gems · nonlinear 모두 확인"
+            "trap 라벨 중복 여부",
+            "②의 listeners 가 7번 문장에서 쓰인 자리 대조",
+            "how_to_reject 네 건의 문장 번호 표기 확인"
           ]
         },
         {
           "persona": "tutor",
           "verdict": "pass",
           "findings": [
-            "2단계의 '세로줄 긋고 밑줄이 어느 쪽인지 표시' 가 이 유형에서 반복 사용되는 동작이라 다른 문항 절차와 표현을 맞췄다"
+            "유형 절차 3단계(밑줄이 마지막 문장이면 앞 2문장에 괄호)가 이 문항에서 8·9번 문장을 정확히 잡는다",
+            "110초 안에 열 문장을 읽고 But 앞뒤만 대조하는 것이 가능하다"
           ],
           "checked": [
-            "금지 표현 8종 문자열 대조",
-            "110초 배분 적정성",
-            "각 단계가 정답을 전제하지 않는지 점검"
+            "절차 단계별 실행 가능성 점검",
+            "금지 표현 문자열 대조",
+            "required_vocab 다섯 낱말의 지문 존재 확인"
           ]
+        }
+      ],
+      "answer_locus": {
+        "sentence_index": [
+          6,
+          9
+        ],
+        "quote": "But thanks to the nonlinear and chaotic mathematics usually behind them, this doesn’t happen",
+        "reasoning": "밑줄 바로 앞 9번 문장이 8번 문장의 걱정(a convergence of tastes)을 this doesn't happen 으로 부정한다. 그러므로 밑줄의 different far corners 는 취향이 한곳으로 모이지 않고 사람마다 갈라진다는 뜻이다. 6번 문장이 그 갈라진 목적지가 무엇인지 지정한다 — 알고리즘은 내가 좋아할 것을 찾는 데 딱 맞다."
+      },
+      "choices": [
+        {
+          "n": 1,
+          "verdict": "correct",
+          "why_correct": "밑줄 바로 앞 9번 문장의 'this doesn’t happen' 이 8번 문장의 a convergence of tastes 를 부정하므로 밑줄의 different far corners 는 사람마다 갈라지는 목적지다. 6번 문장의 'perfectly suited to finding gems that I’ll like' 가 그 목적지를 취향에 맞는 음악으로 지정해, 선지 ①의 'lead us to music selected to suit our respective tastes' 와 대응한다 — 밑줄 문장의 A small divergence in my likes compared to yours 가 respective 에 붙는다.",
+          "confirmed_at": {
+            "sentence_index": [
+              6
+            ],
+            "note": "9번 문장은 '모이지 않는다' 만 말하고 어디로 가는지는 비워 둔다 — 6번 문장의 gems that I'll like 가 그 목적지를 채운다"
+          }
+        },
+        {
+          "n": 2,
+          "verdict": "distractor",
+          "trap": "어휘 함정",
+          "why_tempting": "7번 문장에 listeners 가 그대로 있어 청취자라는 낱말이 겹친다.",
+          "how_to_reject": "7번 문장에서 listeners 는 leaving others lacking listeners, 곧 청취자를 잃는 구역을 말하는 자리에 있다. 청취자끼리 잇는다는 서술이 열 문장 어디에도 없다."
+        },
+        {
+          "n": 3,
+          "verdict": "distractor",
+          "trap": "무관",
+          "why_tempting": "algorithm 이 지문의 중심 낱말이라 알고리즘에 관한 조치면 무엇이든 관련돼 보인다.",
+          "how_to_reject": "9번 문장이 취향이 모이지 않는 이유를 이미 알고리즘 안의 수학(nonlinear and chaotic mathematics)에 돌린다. 갱신·요청에 해당하는 표현이 없다."
+        },
+        {
+          "n": 4,
+          "verdict": "distractor",
+          "trap": "부분 사실",
+          "why_tempting": "3번 문장의 new music that I might not have found by myself 와 6번 문장의 gems 가 숨은 명곡 찾기라는 그림을 만든다.",
+          "how_to_reject": "그 두 문장에서 찾는 주체는 알고리즘이고 화자는 directed toward 되는 쪽이다. 게다가 밑줄은 그 결과가 사람마다 갈린다는 대목이지 무명 음악가를 찾는다는 대목이 아니다."
+        },
+        {
+          "n": 5,
+          "verdict": "distractor",
+          "trap": "반대 진술",
+          "why_tempting": "취향이 갈린다는 말이 취향을 무시한다는 말과 비슷하게 들리고, 4번 문장의 stuck in a rut 이 특정 취향의 한계를 지적한다.",
+          "how_to_reject": "밑줄 문장의 출발점은 A small divergence in my likes 로 취향 그 자체다. 6번 문장도 gems that I’ll like 로 취향을 기준으로 삼으므로 무시한다는 방향이 정반대다."
         }
       ]
     }
@@ -1502,23 +1657,28 @@
     "recurring_traps": [
       {
         "trap": "반대 진술",
-        "count": 6,
-        "signature": "지문이 채택·긍정한 명제를 밑줄의 방향 표지(give up · less · not · hasn't) 뒤에 그대로 놓는다. 낱말은 지문 것이고 화살표만 뒤집혀 있다"
+        "count": 9,
+        "signature": "지문이 채택·긍정한 명제를 밑줄의 방향 표지(give up · less · not · hasn't · different) 뒤에 그대로 놓거나, 지문이 기준으로 삼으라는 것을 불필요하다고 뒤집는다(M2409#21 ④ client's requests · M2309#21 ⑤ preferences). 낱말은 지문 것이고 화살표만 뒤집혀 있다"
       },
       {
         "trap": "부분 사실",
-        "count": 6,
-        "signature": "밑줄이 가리키는 것의 절반(넓은 조망 · 같은 이름 · 서양인 host)만 옮기고 나머지 절반에 지문에 없는 목적어를 덧댄다"
+        "count": 8,
+        "signature": "밑줄이 가리키는 것의 절반(넓은 조망 · 같은 이름 · skill sets · 숨은 명곡)만 옮기고 나머지 절반에 지문에 없는 목적어를 덧댄다. 옮겨 온 절반이 지문에 문자로 있어 확인이 늦다"
       },
       {
         "trap": "어휘 함정",
-        "count": 5,
-        "signature": "밑줄 표현 안의 한 낱말(substance · public · octave)을 일상적 뜻으로 읽어 지문이 세운 대조축을 다른 축으로 갈아 끼운다"
+        "count": 7,
+        "signature": "밑줄 표현이나 인접 문장의 한 낱말(substance · public · octave · tenant · listeners)을 그 문장에서 쓰인 자리와 다른 뜻으로 읽어, 지문이 세운 대조축을 다른 축으로 갈아 끼운다"
       },
       {
         "trap": "무관",
+        "count": 7,
+        "signature": "지문에 실물로 등장하지 않는 명사(dilemma · sensitivity · demotivating · updates)를 하나 들여오거나, 지문 낱말을 조합해 지문에 없는 상태를 만든다(M2406#21 ⑤ 아무도 주장할 수 없는 땅)"
+      },
+      {
+        "trap": "지문 밖 상식",
         "count": 5,
-        "signature": "지문에 실물로 등장하지 않는 명사(dilemma · sensitivity · demotivating · overcome)를 하나 들여와 문장 전체를 그럴듯하게 만든다"
+        "signature": "밑줄 표현의 사물 이미지(veranda → 조망 · 일기 → 페르소나)나 소재의 통념(완벽주의 → 팀 갈등)으로 곧장 넘어간다. 지문 낱말이 오히려 안 겹치는 것이 특징이다"
       },
       {
         "trap": "주체 역전",
@@ -1526,19 +1686,14 @@
         "signature": "행위는 지문에 그대로 있는데 그 행위를 한 사람이 반대편이다 — while 절 반대쪽 사람 · 일부 학자의 요구 · 남의 일기 · discussion 이 주어"
       },
       {
-        "trap": "지문 밖 상식",
-        "count": 4,
-        "signature": "밑줄 표현의 사물 이미지(veranda → 조망 · 일기 → 페르소나)나 소재의 통념으로 곧장 넘어간다. 지문 낱말이 오히려 안 겹치는 것이 특징"
-      },
-      {
         "trap": "범위 과대",
-        "count": 2,
-        "signature": "비유가 지우는 것을 과장한다(스트레스가 덜 달라붙는다 → 아예 없다)"
+        "count": 3,
+        "signature": "비유가 지우는 것을 과장하거나(스트레스가 덜 달라붙는다 → 아예 없다) 한 갈래를 전체를 주장할 자격으로 키운다(M2406#21 ② a priority to legally claim)"
       },
       {
         "trap": "인과 역전",
-        "count": 2,
-        "signature": "지문의 A → B 화살표를 B → A 로 되돌린다(넓은 시야 → 스트레스 감소를 스트레스 → 넓은 시야로)"
+        "count": 3,
+        "signature": "지문의 A → B 화살표를 B → A 로 되돌린다 — 넓은 시야 → 스트레스 감소를 스트레스 → 넓은 시야로, 행위의 문제를 사람 선발의 결과로(M2409#21 ③)"
       },
       {
         "trap": "범위 과소",
@@ -1546,7 +1701,7 @@
         "signature": "밑줄이 덮는 범위 중 뒤 문장에 나온 부수 효과 하나(채용 절차 간소화 · 글감 마련)만 집는다"
       }
     ],
-    "answer_locus_pattern": "정답표가 있는 9문항에서 밑줄 표현의 재진술이 놓인 자리를 문장 번호로 세었다. 직전 한 문장 4건(M2706#21 S8→S9 · M2606#21 S10→S11 · M2509#21 S5→S6 · M2506#21 S5~6→S7), 직후 한 문장 3건(2026#21 S1→S2 · 2024#21 S7→S8 · 2023#21 S6→S7), 밑줄 문장 자신의 대조절 1건(2025#21 S4 의 while 절), 글 앞부분 정의문 1건(M2609#21 S8 밑줄에 대해 S2). 곧 인접 ±1 문장이 7/9(78%)다. 첫 문장이 근거인 경우는 0건이고(2026#21 은 밑줄이 첫 문장일 뿐 근거는 두 번째 문장이다), 문단 끝 결론 문장이 근거인 경우도 0건이다 — 이 유형은 밑줄 자신이 마지막 문장인 경우가 9문항 중 6이라 결론 문장 자리를 이미 밑줄이 점유하고 있기 때문이다. 정답표가 없는 3문항도 재진술 후보는 모두 ±1 문장 안에 있어, 12/12 에서 원관념이 밑줄 문장 자신 또는 인접 한 문장에 문자로 존재한다.",
+    "answer_locus_pattern": "12문항 전부에 정답표가 붙어 근거 자리를 다시 세었다. 직전 한 문장 7건(M2706#21 S8→S9 · M2606#21 S10→S11 · M2509#21 S5→S6 · M2506#21 S5~6→S7 · M2409#21 S4→S5 · M2406#21 S5→S6 · M2309#21 S9→S10), 직후 한 문장 3건(2026#21 S1→S2 · 2024#21 S7→S8 · 2023#21 S6→S7), 밑줄 문장 자신의 대조절 1건(2025#21 S4 의 while 절), 글 앞부분 정의문 1건(M2609#21 S8 밑줄에 대해 S2). 곧 인접 ±1 문장이 **10/12(83%)** 로, 정답표가 없던 3문항이 모두 인접 근거였다. 다만 **12문항 전부에서 인접 한 문장만으로는 선지가 확정되지 않아** confirmed_at 에 두 번째 자리를 적어야 했고, 그 두 번째 자리는 대개 앞쪽의 정의문·동기 진술이다(M2406#21 은 S3 의 interpersonal rights 정의, M2409#21 은 S1 의 to demonstrate one's own talent, M2309#21 은 S6 의 gems that I'll like). 첫 문장이 단독 근거인 경우는 0건이고 문단 끝 결론 문장이 근거인 경우도 0건이다 — 밑줄 자신이 마지막 문장인 경우가 12문항 중 9라 결론 자리를 이미 밑줄이 점유하고 있다.",
     "procedure": [
       {
         "step": "발문에서 밑줄 표현을 옮겨 적고 세 갈래로 표시한다 — (가) 큰따옴표나 As the saying goes 로 인용된 굳은 관용구·속담 4건(give up the ghost · have the last word · hunting the shadow not the substance · The best is the enemy of the good), (나) 지문이 is like / describe A as B / 앞 문장 명사로 스스로 도입한 비유 7건, (다) 비유가 아닌 추상 구절 1건",
@@ -1574,18 +1729,20 @@
       }
     ],
     "failure_modes": [
-      "소재 대조로 지우려 한다. 정답표가 있는 9문항 36개 오답 중 지문 내용어가 하나도 안 겹치는 것은 5개(14%)뿐이다 — 주제·요지 유형(36/36 겹침)보다 값싼 지우기가 조금 열려 있지만 여전히 86%가 소재어를 품고 있어 첫 점검으로 못 쓴다. 더 나쁜 것은 방향이다: 지문 낱말이 가장 많이 겹치는 선지가 정답인 문항은 9개 중 2개(M2609#21 · 2025#21)뿐이고, 6개에서는 겹침 최다 선지가 오답이었다(M2606#21 4번 3/4 · M2509#21 4번 4/6 · M2506#21 1번 3/5 등). 어휘 대조는 이 유형에서 역신호에 가깝다. 값싼 첫 점검은 대신 밑줄 표면의 방향 표지(give up · less · not · hasn't · non- · different)를 읽는 것이다 — 12문항 중 9에서 밑줄 표현 자체에 방향 표지가 있고, 나머지 3도 인접 문장에 부정어가 있다.",
-      "밑줄 표현의 사물 이미지로 곧장 뛴다. 논스틱 팬 → 스트레스가 아예 없다(2024#21 1번), 베란다 → 넓게 조망한다(M2509#21 5번), 집에 돌아온다 → 원래 주파수로 복귀한다(M2609#21 2번). 세 경우 모두 인접 문장이 그 이미지를 명시적으로 제한하고 있는데(still fry an egg · did not spend significant time · each time we double a tone's frequency) 그 문장을 안 읽고 이미지에서 답을 만든다.",
-      "대조 구조에서 밑줄이 어느 편인지 확인하지 않는다. while 절 반대쪽 사람의 실패를 답으로 고르거나(2025#21 4번), 일부 학자의 요구를 실제 행동으로 읽거나(M2509#21 1번), But 앞의 걱정을 뒤집힌 결과로 읽는다. 세로줄 하나 긋는 동작으로 막힌다.",
-      "밑줄 문장의 주어를 확인하지 않는다. M2506#21 1번은 last word 를 '논의의 마지막 말' 로 읽는데, 밑줄 문장의 주어가 Burnout 이라는 사실 하나로 배제된다. 선지가 완결 문장인 문항(M2506#21 · M2409#21)에서는 주어 대조가 가장 값싼 첫 동작이다.",
-      "관용구를 문자 그대로 읽는다. give up the ghost · have the last word 두 건에서 문자적 독해가 각각 오답 하나로 곧장 이어진다. 관용구 갈래(4/12)에서는 사전 뜻이 없으면 밑줄 표면의 부정어로 방향만이라도 잡아야 한다."
+      "소재 대조로 지우려 한다. 12문항 48개 오답 중 지문 내용어가 하나도 안 겹치는 것은 6개(13%)뿐이다. 더 나쁜 것은 방향이다: 지문 낱말이 가장 많이 겹치는 선지가 정답인 문항은 12개 중 2개(M2609#21 · 2025#21)뿐이고, 9개에서는 겹침 최다 선지가 오답이었다(M2606#21 ④ · M2509#21 ④ · M2506#21 ① · M2406#21 ④⑤ · M2309#21 ② 등). 어휘 대조는 이 유형에서 역신호다. 값싼 첫 점검은 밑줄 표면의 방향 표지(give up · less · not · hasn't · non- · different · divergence)를 읽는 것이다 — 12문항 중 10에서 밑줄 표현 자체에 방향 표지가 있고, 나머지 2도 인접 문장에 부정어가 있다.",
+      "밑줄 표현의 사물 이미지로 곧장 뛴다. 논스틱 팬 → 스트레스가 아예 없다(2024#21 ①), 베란다 → 넓게 조망한다(M2509#21 ⑤), 집에 돌아온다 → 원래 주파수로 복귀한다(M2609#21 ②), 임차인 → 세입자들이 나눠 쓰는 건물(M2406#21 ④). 네 경우 모두 인접 문장이 그 이미지를 제한하고 있는데(still fry an egg · did not spend significant time · each time we double a tone's frequency · a tenant with a lease) 그 문장을 안 읽고 이미지에서 답을 만든다.",
+      "대조 구조에서 밑줄이 어느 편인지 확인하지 않는다. while 절 반대쪽 사람의 실패를 답으로 고르거나(2025#21 ④), 일부 학자의 요구를 실제 행동으로 읽거나(M2509#21 ①), But 앞의 걱정을 뒤집힌 결과로 읽는다(M2309#21 ⑤가 정확히 그 자리다). 세로줄 하나 긋는 동작으로 막힌다.",
+      "밑줄 문장의 주어를 확인하지 않는다. M2506#21 ①은 last word 를 '논의의 마지막 말' 로 읽는데 밑줄 문장의 주어가 Burnout 이라는 사실 하나로 배제된다. 선지가 완결 문장인 문항(M2506#21 · M2409#21)에서는 주어 대조가 가장 값싼 첫 동작이다.",
+      "관용구를 문자 그대로 읽는다. give up the ghost · have the last word · The best is the enemy of the good 세 건에서 문자적 독해나 통상적 뜻이 각각 오답 하나로 곧장 이어진다. 관용구 갈래(5/12)에서는 사전 뜻이 없으면 밑줄 표면의 부정어·비교급으로 방향만이라도 잡아야 한다.",
+      "인접 한 문장에서 판단을 끝낸다 — 12문항 전부에서 인접 문장은 방향만 주고 '무엇으로' 에 해당하는 명사는 앞쪽 정의문·동기 진술에 있다. 두 자리를 다 짚지 않으면 방향이 같은 선지 둘이 남는다."
     ],
     "time_budget_sec": 105,
     "open_questions": [
-      "갈래 표본 불균형. 12문항을 (가) 인용된 굳은 관용구·속담 4 · (나) 지문이 스스로 도입한 비유 7 · (다) 비유가 아닌 추상 구절 1 로 분류했는데, (다)는 2023#21 하나뿐이다. 절차가 갈래에 따라 갈리는지는 (가)와 (나) 사이에서만 확인했다 — (가)는 사전 뜻으로 방향을 먼저 잡고 '무엇을' 만 찾으면 되고, (나)는 사전 지식 없이 비유어가 등치된 명사를 괄호 안에서 찾으면 된다. (다)의 절차가 (나)와 정말 같은지는 표본 1로는 말할 수 없다. 다음 청크에서 (다) 사례를 더 모아야 한다.",
-      "정답표 없는 3문항(M2409#21 · M2406#21 · M2309#21)은 근거 자리 통계와 함정 집계에서 제외했다. 함정 9종 36건은 9문항만의 값이다. 정답표가 들어오면 특히 '지문 낱말 최다 겹침 선지가 오답' 비율(현재 6/9)을 12/12 로 다시 세야 한다.",
-      "M2509#21 선지 파싱 손상. corpus 의 선지 2번이 natural scientist, 3번이 people being studie 로 끝 글자가 잘려 있다(원문은 scientists · studied). 정답 판정에는 영향이 없었으나 학습자에게 그대로 노출되면 오독을 부른다 — 파서 쪽에 보고가 필요하다.",
-      "반려는 6건 나왔다(setter 2 · analyst 3 · tutor 1). 세 자가 서로 다른 것을 재고 있다는 신호로 본다. 다만 analyst 반려 3건 중 2건이 '함정 라벨 중복' 이라 라벨표 (A) 9종이 이 유형 오답을 가르기에 촘촘한지 다시 볼 필요가 있다 — 특히 '어휘 함정' 이 '밑줄 낱말의 일상적 뜻 오독' 과 '지문 낱말 반복 유인' 두 가지를 함께 떠맡고 있다. 위치형 표의 어휘 반복 유인 라벨을 명제형 표에도 두는 것을 제안한다."
+      "정답표가 없던 3문항(M2409#21 · M2406#21 · M2309#21)에 평가원 정답표가 붙어 12/12 판정이 완료됐다. 함정 분모가 36→48 로 늘었고 '지문 낱말 최다 겹침 선지가 오답' 은 6/9 에서 **9/12** 로 올라 비율이 유지됐다. 인접 ±1 근거도 7/9 에서 10/12 로 올랐다 — 두 관찰 모두 표본이 늘어도 흔들리지 않았으므로 유형 상수로 볼 근거가 강해졌다.",
+      "새로 확인된 것은 **'인접 한 문장만으로는 12/12 모두 확정되지 않는다'** 는 점이다. 인접 문장은 방향을 주고, 선지의 명사를 채우는 것은 앞쪽 정의문·동기 진술이다. _PROMPT §1-c 의 R-IMPLY 항목이 현재 '밑줄 표현의 재진술이 지문 어딘가에 있다' 로만 적혀 있는데, **재진술 자리와 명사 공급 자리가 다르다**는 것을 표에 추가할 것을 제안한다(분모 12).",
+      "갈래 표본 불균형. 12문항을 (가) 인용된 굳은 관용구·속담 5 · (나) 지문이 스스로 도입한 비유 6 · (다) 비유가 아닌 추상 구절 1 로 분류했는데 (다)는 2023#21 하나뿐이다. (다)의 절차가 (나)와 정말 같은지는 표본 1로는 말할 수 없다.",
+      "M2509#21 선지 파싱 손상. corpus 의 선지 2번이 natural scientist, 3번이 people being studie 로 끝 글자가 잘려 있다(원문은 scientists · studied). 판정에는 영향이 없었으나 학습자 노출 전에 고쳐야 한다.",
+      "이번 재검수에서 반려는 analyst 2건(M2409#21 ③ 라벨 중복 · M2309#21 ⑤ 라벨 중복)뿐이고 setter·tutor 는 0건이었다. analyst 반려가 두 번 다 '함정 라벨 중복' 이라는 것은 라벨표 (A) 9종이 이 유형 오답을 가르기에 촘촘하지 않다는 뜻이기도 하다 — 특히 '어휘 함정' 이 '밑줄 낱말의 일상적 뜻 오독' 과 '지문 낱말 반복 유인' 두 가지를 함께 떠맡고 있다. 위치형 표의 어휘 반복 유인 라벨을 명제형 표에도 두는 것을 다시 제안한다."
     ]
   }
 }

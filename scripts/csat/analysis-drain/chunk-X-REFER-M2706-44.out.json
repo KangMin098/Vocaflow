@@ -1,1588 +1,1748 @@
 {
-  "chunk": 4,
-  "type_id": "X-REFER",
-  "type_name": "장문 지칭",
-  "analyses": [
+ "chunk": 4,
+ "type_id": "X-REFER",
+ "type_name": "장문 지칭",
+ "analyses": [
+  {
+   "item_id": "M2706#44",
+   "measured_ability": "여성 인물이 둘뿐이라 she/her 형태로는 갈리지 않는 서사에서, 전달동사(said/asked)의 주어와 직접인용 안 I/you를 각각 사람에 붙여 밑줄 다섯의 지시 대상을 확정하는 능력",
+   "design_intent": "밑줄 넷이 노파, 하나가 주인공 Sally다 — 학습자가 흔히 쓰는 '주인공이 다수 지시체' 어림짐작을 정면으로 뒤집었다. 정답 (e)는 43번 순서상 두 번째 장면인 (D)에 있어, 인쇄순으로 읽으면 (C) 끝의 노파 발화를 그대로 이어받게 된다.",
+   "answer_locus": {
+    "sentence_index": [
+     29,
+     30
+    ],
+    "quote": "(e) She turned to continue walking home, but decided to stop for a bit and listen.",
+    "reasoning": "(D)에서 말을 건 쪽은 the old woman이고 대답한 쪽은 Sally다(Sally laughed and replied). 이어지는 She는 '집에 가던 길을 계속 가려다 멈춰 듣기로 한' 사람이므로, 벤치에 앉아 연주 중인 노파일 수 없다. (A)의 walked home through the park 와 같은 행위 주체다."
+   },
+   "choices": [
     {
-      "item_id": "M2706#44",
-      "measured_ability": "여성 인물이 둘뿐이라 she/her 형태로는 갈리지 않는 서사에서, 전달동사(said/asked)의 주어와 직접인용 안 I/you를 각각 사람에 붙여 밑줄 다섯의 지시 대상을 확정하는 능력",
-      "design_intent": "밑줄 넷이 노파, 하나가 주인공 Sally다 — 학습자가 흔히 쓰는 '주인공이 다수 지시체' 어림짐작을 정면으로 뒤집었다. 정답 (e)는 43번 순서상 두 번째 장면인 (D)에 있어, 인쇄순으로 읽으면 (C) 끝의 노파 발화를 그대로 이어받게 된다.",
-      "answer_locus": {
-        "sentence_index": [
-          29,
-          30
-        ],
-        "quote": "(e) She turned to continue walking home, but decided to stop for a bit and listen.",
-        "reasoning": "(D)에서 말을 건 쪽은 the old woman이고 대답한 쪽은 Sally다(Sally laughed and replied). 이어지는 She는 '집에 가던 길을 계속 가려다 멈춰 듣기로 한' 사람이므로, 벤치에 앉아 연주 중인 노파일 수 없다. (A)의 walked home through the park 와 같은 행위 주체다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "최근접 명사 오인",
-          "why_tempting": "밑줄이 (a) her music 이고, 앞 문장까지 주어가 계속 She(=Sally)여서 소유격 her도 Sally로 이어 읽는다.",
-          "how_to_reject": "(A) 바로 앞 문장 She saw a kind-looking old woman sitting on a small bench and playing the violin — 연주하는 사람은 노파다. 밑줄 뒤 So, Sally walked closer. 에서 이름을 다시 불러 her와 Sally를 갈라 놓는다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "동일인 다른 호칭 미연결",
-          "why_tempting": "밑줄 문장이 (b) She showed the young woman how to place her fingers on the strings 인데, the young woman을 제3의 인물로 보면 She 자리에 Sally를 넣게 된다.",
-          "how_to_reject": "(B) 앞 문장 Today is your first full lesson, she said as she handed the violin to Sally — 바이올린을 건네고 수업을 여는 쪽이 노파다. 뒤 문장 After an hour, she had learned some basics 가 배우는 쪽(=the young woman=Sally)을 따로 확인해 준다."
-        },
-        {
-          "n": 3,
-          "verdict": "distractor",
-          "trap": "주어=목적어 착시",
-          "why_tempting": "밑줄이 told (c) her 의 목적어이고, 직전에 언니 Beatrice라는 또 다른 여성이 나와서 her를 Beatrice로 잡기 쉽다.",
-          "how_to_reject": "(C) 같은 문장 앞부분 Sally looked back to the old woman sadly and told (c) her the story — 이야기를 듣는 상대가 문장 안에 명시돼 있다. Beatrice는 회상 속 인물이라 그 장면에 없다."
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "직접인용 화자 오인",
-          "why_tempting": "밑줄이 인용부호 안의 (d) I 이고, 그 문단의 초점 인물이 Sally여서 I를 Sally로 읽는다.",
-          "how_to_reject": "(C) 인용을 여는 전달동사 But the old woman just smiled and said 가 화자를 못박는다. 같은 인용의 see you again tomorrow 의 you가 Sally이므로 I는 Sally일 수 없다."
-        },
-        {
-          "n": 5,
-          "verdict": "correct",
-          "why_correct": "밑줄 바로 앞 문장 ‘Sally laughed and replied, “Oh sorry, I was just passing by.”’ 가 주어를 Sally 로 두고, 밑줄 문장이 그 대답에 이어 ‘turned to continue walking home’ 이라며 집으로 가던 걸음을 되받는다. 걸어서 집에 가던 사람은 (A)의 ‘Sally walked home through the park’ 로 이미 Sally 이고, 같은 장면의 ‘the old woman looked up and asked’ 가 벤치에 앉아 연주하던 쪽을 따로 세운다. 나머지 넷 (a) her music wasn’t perfect · (b) She showed the young woman how to place her fingers on the strings · told (c) her the story · (d) I hope to see you again tomorrow 는 모두 노파를 가리킨다.",
-          "confirmed_at": {
-            "sentence_index": [
-              29,
-              30
-            ],
-            "note": "학습자가 실제로 미끄러지는 자리 — (D)가 인쇄순으로 맨 뒤에 있어 앞 문단 (C)에서 말하던 노파를 그대로 이어받으면 (e) She 도 노파로 읽힌다."
-          }
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "지문을 읽기 전에 (a)~(e) 밑줄에 표시하고, 각 밑줄이 he/she/him/her 인지, I/you 인지, 아니면 명사구(her sister 등)인지 형태만 옆에 적는다",
-          "on_fail": "형태가 명사구면 소유격이 아니라 명사구 전체가 가리키는 사람을 묻는 것이므로 별표를 쳐 둔다"
-        },
-        {
-          "step": "(A) 문단에서 이름과 성별을 뽑아 두 칸 표로 적는다. 이름 없는 인물(노파·점원·판매원)이 있으면 그 호칭도 한 칸으로 넣는다",
-          "on_fail": "이름이 하나뿐이면 뒤 문단에 무명 인물이 더 나온다고 보고 빈칸을 남긴다"
-        },
-        {
-          "step": "인용부호 안 밑줄은 그 인용을 여는(또는 인용 뒤에 붙는) 전달동사의 주어를 찾아 화자를 적고, I는 화자, you는 듣는 사람으로 바꿔 적는다",
-          "on_fail": "전달동사가 인용 뒤에 오면(', (b) he said') 인용이 끝난 자리까지 읽어 주어를 잡는다"
-        },
-        {
-          "step": "인용 밖 밑줄은 같은 문장 안에서 그 밑줄이 하는 일(주는 쪽/받는 쪽, 가르치는 쪽/배우는 쪽)을 동사로 확인해 사람을 적는다",
-          "on_fail": "한 문장으로 안 갈리면 바로 앞 문장에서 그 동작을 하던 사람을 후보로 올린다"
-        },
-        {
-          "step": "다섯 칸에 적은 이름을 세어 넷 대 하나로 갈리는 하나를 고른다",
-          "on_fail": "셋 대 둘이면 인용부호 안 밑줄부터 화자·청자를 다시 붙인다"
-        }
-      ],
-      "time_budget_sec": 70,
-      "difficulty": {
-        "predicted": 0.72,
-        "drivers": [
-          "여성 인물 둘이 모두 she/her로 받힌다",
-          "다수 지시체가 주인공이 아니라 노파다",
-          "정답 문단 (D)가 인쇄순 마지막인데 시간순으로는 두 번째"
-        ]
-      },
-      "required_vocab": [
-        "unpolished",
-        "strings",
-        "instrument",
-        "passing by"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
-            "인용은 (D) 문단에 문자 그대로 있다",
-            "지칭 유형 정의(가리키는 대상이 다른 하나)에 맞는 서술이다"
-          ],
-          "checked": [
-            "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
-            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
-            "밑줄 다섯의 지시체를 각각 전달동사 주어로 재확인(a·b·c·d=노파, e=Sally)",
-            "평가원 정답표 5와 correct 선지 번호 대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
-            "오답 넷의 라벨이 최근접 명사 오인·동일인 다른 호칭 미연결·주어=목적어 착시·직접인용 화자 오인으로 서로 다르다"
-          ],
-          "checked": [
-            "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
-            "오답 4개 trap 라벨 중복 여부",
-            "why_tempting 이 실제 밑줄 표현(her music·the young woman·told her·I)을 인용하는지",
-            "how_to_reject 마다 문단 기호와 문장이 적혔는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
-            "4단계 절차가 밑줄 다섯 개에 각 10초 남짓으로 70초 안에 끝난다"
-          ],
-          "checked": [
-            "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
-            "1단계를 지문을 안 본 상태에서 실행할 수 있는지",
-            "금지 표현(흐름을 파악하면 등) 포함 여부",
-            "required_vocab 4낱말이 모두 지문에 있고 지시체 판정에 실제로 쓰이는지"
-          ]
-        }
-      ],
-      "revised": true
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "최근접 명사 오인",
+     "why_tempting": "밑줄이 (a) her music 이고, 앞 문장까지 주어가 계속 She(=Sally)여서 소유격 her도 Sally로 이어 읽는다.",
+     "how_to_reject": "(A) 바로 앞 문장 She saw a kind-looking old woman sitting on a small bench and playing the violin — 연주하는 사람은 노파다. 밑줄 뒤 So, Sally walked closer. 에서 이름을 다시 불러 her와 Sally를 갈라 놓는다."
     },
     {
-      "item_id": "2026#44",
-      "measured_ability": "이름이 주어진 가족 셋 사이에 이름 없는 인물이 하나 섞인 서사에서, 대명사를 '이름 목록'이 아니라 같은 문장의 주어·목적어 관계로 배분하는 능력",
-      "design_intent": "가족 삼인(Julia·Sam·Mia) 사이에 무명 여성 a librarian 을 하나 심었다. (C) 문단에는 밑줄 없는 her(=Mia, handed her a book)와 밑줄 (c) her(=librarian)가 한 문장 안에 잇달아 나와, 같은 형태의 대명사가 다른 사람을 가리키는 자리를 만든다.",
-      "answer_locus": {
-        "sentence_index": [
-          28,
-          29
-        ],
-        "quote": "The librarian handed her a book titled Café Paris and said with a smile, \"You'll love this one.\" Mia thanked (c) her and checked it out.",
-        "reasoning": "책을 건네고 말한 쪽이 The librarian, 건네받은 쪽이 Mia다. 다음 문장의 주어가 Mia이므로 목적어 (c) her 는 Mia일 수 없고, 그 장면에 남은 여성은 사서뿐이다. 나머지 넷은 전부 Mia를 가리킨다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "최근접 주어 승계",
-          "why_tempting": "밑줄 (a) she 앞 문장들의 주어가 She(=Julia)로 이어져 왔고, Julia가 남편에게 말을 거는 장면이라 she를 Julia로 읽는다.",
-          "how_to_reject": "(A)에서 (a)가 든 말은 Sam nodded, \"I know. I feel like (a) she is growing distant from us.\" 로 Sam의 발화다. 화자 Sam이 아내 Julia에게 하는 말이므로 she는 대화 밖 인물, 즉 앞에서 스마트폰에 빠져 있던 Mia다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "동일인 다른 호칭 미연결",
-          "why_tempting": "밑줄이 (b) his daughter 라는 명사구여서, 소유격 his(=Sam)를 지시 대상으로 잡거나 앞 문장에서 말한 Julia를 넣는다.",
-          "how_to_reject": "(B) 앞 문장 Mia responded, her eyes sparkling, \"Mom, I understand him.\" 에서 방금 말한 사람이 Mia이고, Sam supported (b) his daughter 는 그 발언을 편드는 문장이다. Sam의 딸은 지문 첫머리 She checked her daughter's room 이 확인해 주듯 Mia 하나뿐이다."
-        },
-        {
-          "n": 3,
-          "verdict": "correct",
-          "why_correct": "밑줄 문장 ‘Mia thanked (c) her and checked it out’ 은 주어가 Mia 이고 밑줄이 그 목적어인데 herself 가 아니므로 주어와 같은 사람일 수 없다. 바로 앞 문장 ‘The librarian handed her a book titled Café Paris and said with a smile, “You’ll love this one.”’ 가 책을 건네고 말을 건 사람을 The librarian 으로 세우므로 인사를 받는 쪽은 사서다. 나머지 넷 (a) she is growing distant from us · Sam supported (b) his daughter · how busy (d) I am with exams · (e) she knew she was spending too much time on her phone 은 모두 Mia 를 가리킨다.",
-          "confirmed_at": {
-            "sentence_index": [
-              28,
-              29
-            ],
-            "note": "학습자가 실제로 미끄러지는 자리 — (C) 문단이 Mia 시점으로만 서술돼 대명사를 전부 Mia 로 채우면 (c) her 도 Mia 가 된다."
-          }
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "직접인용 화자 오인",
-          "why_tempting": "밑줄이 인용 안의 (d) I 이고, 문단 (D)의 첫 문장 주어가 Sam(When Sam suggested)이어서 I를 Sam으로 읽는다.",
-          "how_to_reject": "(D) 전달동사 Mia immediately shook her head and said 가 화자를 Mia로 못박는다. 같은 인용의 No, Dad. 라는 호격도 화자가 Sam이 아님을 보여 준다."
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "화자 교대 놓침",
-          "why_tempting": "밑줄 (e) she 앞에 He didn't give up 이후로 Sam의 설득 발화가 길게 이어져, 문단의 주어가 계속 Sam인 것처럼 읽힌다.",
-          "how_to_reject": "(D) 바로 앞 문장 After some persuasion, Mia reluctantly agreed. 에서 주어가 Mia로 넘어왔고, 뒤 문장 So she asked, \"Dad, can I choose the first book?\" 의 화자도 Mia다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "밑줄 (a)~(e)에 표시하고 각각이 인용부호 안인지 밖인지 먼저 갈라 적는다",
-          "on_fail": "인용부호가 지문에 여러 겹이면 여는 따옴표와 닫는 따옴표를 짝지어 선으로 이어 둔다"
-        },
-        {
-          "step": "이름이 나오는 순서대로 인물표를 만들되, 이름 없이 나오는 인물(a librarian, the clerk, an old woman)도 반드시 한 칸을 준다",
-          "on_fail": "무명 인물을 빠뜨렸다 싶으면 관사 a/the 가 붙은 사람 명사를 지문에서 훑어 추가한다"
-        },
-        {
-          "step": "인용 안 밑줄은 전달동사 주어를 찾아 I=화자, you=듣는 사람, 3인칭=대화 밖 인물로 적는다",
-          "on_fail": "화자가 안 잡히면 인용 안의 호격(Mom, Dad, 이름)을 보고 듣는 사람부터 정한다"
-        },
-        {
-          "step": "인용 밖 밑줄은 같은 문장의 주어를 적고, 밑줄이 목적어·소유격이면 주어와 다른 사람인지 확인한다",
-          "on_fail": "주어와 밑줄이 같은 사람일 수밖에 없는 문장이면 앞 문장의 동작 주체를 후보로 올린다"
-        },
-        {
-          "step": "다섯 칸을 세어 하나만 다른 것을 고르고, 그 하나가 무명 인물이면 관사 표현으로 한 번 더 확인한다",
-          "on_fail": "넷 대 하나로 안 갈리면 목적어·소유격 밑줄부터 다시 본다"
-        }
-      ],
-      "time_budget_sec": 70,
-      "difficulty": {
-        "predicted": 0.85,
-        "drivers": [
-          "여성 인물 셋(Julia·Mia·librarian)",
-          "정답 밑줄이 주어-목적어 관계 하나로 갈린다"
-        ]
-      },
-      "required_vocab": [
-        "librarian",
-        "genre",
-        "reluctantly",
-        "persuasion"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
-            "인용에 é와 따옴표가 있어 문자열 대조를 두 번 돌렸고 그대로 일치했다"
-          ],
-          "checked": [
-            "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
-            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
-            "다섯 밑줄의 지시체 재확인(a·b·d·e=Mia, c=librarian)",
-            "평가원 정답표 3과 correct 선지 번호 대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
-            "오답 넷의 라벨이 4종으로 갈린다",
-            "선지 ②의 밑줄은 명사구(his daughter)라 소유격 함정과 겹칠 뻔했으나 '동일인 다른 호칭 미연결'로 구별된다"
-          ],
-          "checked": [
-            "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
-            "trap 라벨 중복 여부",
-            "why_tempting 이 밑줄 표현 자체를 인용하는지",
-            "how_to_reject 에 문단 기호가 있는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
-            "2단계(무명 인물에 칸 주기)가 이 문항의 승부처이며 지문을 안 본 상태에서도 실행 가능하다"
-          ],
-          "checked": [
-            "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
-            "절차 5단계의 실행 가능성",
-            "금지 표현 포함 여부",
-            "required_vocab 낱말의 지문 존재 여부"
-          ]
-        }
-      ],
-      "revised": true
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "동일인 다른 호칭 미연결",
+     "why_tempting": "밑줄 문장이 (b) She showed the young woman how to place her fingers on the strings 인데, the young woman을 제3의 인물로 보면 She 자리에 Sally를 넣게 된다.",
+     "how_to_reject": "(B) 앞 문장 Today is your first full lesson, she said as she handed the violin to Sally — 바이올린을 건네고 수업을 여는 쪽이 노파다. 뒤 문장 After an hour, she had learned some basics 가 배우는 쪽(=the young woman=Sally)을 따로 확인해 준다."
     },
     {
-      "item_id": "M2609#44",
-      "measured_ability": "남성 인물 셋(Mike·아빠·선수 Chavez)이 he/his로만 받히는 서사에서, 동사가 요구하는 행위 주체와 대상을 갈라 대명사를 배분하는 능력",
-      "design_intent": "밑줄 (c)와 (d)를 한 문장 간격으로 붙여 놓아, 같은 대화 안에서 지시 대상이 Mike에서 Chavez로 넘어가는 지점을 짚게 한다. (d)는 '관심을 끌려는 쪽'과 '관심의 주인'이 다르다는 것을 알아야 갈린다.",
-      "answer_locus": {
-        "sentence_index": [
-          18,
-          19
-        ],
-        "quote": "Mike saw him warming up on the field and waved hoping to get (d) his attention.",
-        "reasoning": "앞 문장에서 아빠가 3루로 뛰어나가는 선수를 Chavez라고 지목했고, 이 문장의 him이 그 선수다. 손을 흔든 주체가 Mike이므로 그가 끌려는 attention은 상대의 것이다. his=Mike로 읽으면 자기 관심을 끌려고 손을 흔든다는 뜻이 되어 문장이 성립하지 않는다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "직접인용 청자 오인",
-          "why_tempting": "밑줄이 인용 안 (a) you 인데, 표를 구한 사람이 아빠라 you를 말하는 사람 쪽으로 되돌려 읽기 쉽다.",
-          "how_to_reject": "(A)의 전달동사 \"Hey, Mike,\" he said 가 화자를 아빠로 못박는다. 호격 Mike 가 듣는 사람을 직접 부르므로 you=Mike다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "복수 대명사 뒤 단수 지시 오인",
-          "why_tempting": "밑줄 (b) He 앞 문장이 When they got home 으로 시작해 주어가 복수라, 뒤이은 He를 아빠로 채워 넣을 수 있다.",
-          "how_to_reject": "(B) 바로 앞 문장 Mike told his mom all about his favorite plays and showed her the ball he caught 의 주어가 Mike이고, 뒤 문장 spending time with his dad 가 He와 dad를 나란히 놓아 둘이 다름을 보여 준다."
-        },
-        {
-          "n": 3,
-          "verdict": "distractor",
-          "trap": "동격 어구 오인",
-          "why_tempting": "밑줄이 (c) your favorite player 로 고유명사 Chavez 바로 뒤에 붙어 있어, your가 Chavez와 한 덩어리처럼 보인다.",
-          "how_to_reject": "(C)의 전달동사 His dad pointed at the player ... saying 이 화자를 아빠로 정한다. 화자가 아빠이므로 your는 듣는 사람 Mike이고, Chavez는 your favorite player 의 내용일 뿐이다."
-        },
-        {
-          "n": 4,
-          "verdict": "correct",
-          "why_correct": "밑줄 문장 ‘Mike saw him warming up on the field and waved hoping to get (d) his attention’ 은 주어가 Mike 이고, 주의를 끌려는 상대는 그 앞 목적어 him 이다. 그 him 은 바로 앞 문장 ‘Look, it’s Chavez, (c) your favorite player!’ 가 지목한 Chavez 이므로 (d) his 도 Chavez 다 — 손을 흔든 사람이 자기 주의를 끌 수는 없다. 나머지 넷 Do (a) you want to go? · (b) He knew this was a day he would never forget · (c) your favorite player · (e) He tightly held the ball 은 모두 Mike 를 가리킨다.",
-          "confirmed_at": {
-            "sentence_index": [
-              18,
-              19
-            ],
-            "note": "학습자가 실제로 미끄러지는 자리 — (C) 문단 문장 대부분의 주어가 Mike 라, 관성으로 (d) his 도 Mike 로 채운다."
-          }
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "최근접 주어 승계",
-          "why_tempting": "밑줄 (e) He 앞 두 문장의 주어가 He hit a high fly ball(=Chavez)과 Everyone 이라, He를 Chavez로 이어 읽는다.",
-          "how_to_reject": "(D) 바로 앞 문장 but Mike reached up with his glove and grabbed the ball 과 Everyone clapped and smiled at Mike 가 공을 잡아 쥔 사람을 Mike로 확정한다. (e) He tightly held the ball 은 그 공을 쥔 사람이다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "밑줄 (a)~(e) 옆에 대명사 형태(you/he/his)를 적고, 인용부호 안인지 밖인지 갈라 표시한다",
-          "on_fail": "인용 안팎이 헷갈리면 여는 따옴표부터 닫는 따옴표까지 괄호로 묶는다"
-        },
-        {
-          "step": "인용 안 밑줄은 전달동사 주어와 인용 안 호격(이름 부름)을 함께 보고 화자·청자를 정한다",
-          "on_fail": "호격이 없으면 인용을 여는 문장의 주어만으로 화자를 잡고 you는 그 상대로 적는다"
-        },
-        {
-          "step": "인용 밖 밑줄은 그 문장의 동사가 요구하는 두 자리(하는 사람/당하는 사람)를 나눠 적고 밑줄이 어느 자리인지 표시한다",
-          "on_fail": "한 문장에 사람 후보가 하나뿐이면 바로 앞 문장에서 그 동작을 한 사람을 후보로 올린다"
-        },
-        {
-          "step": "같은 문장 안의 주어와 밑줄이 같은 사람이면 뜻이 어색해지는지 소리 내어 바꿔 읽어 본다",
-          "on_fail": "어색함이 안 느껴지면 그 문장을 '누가 누구에게'로 한국어 한 줄로 옮겨 적는다"
-        },
-        {
-          "step": "다섯 칸의 이름을 세어 넷 대 하나로 갈리는 것을 고른다",
-          "on_fail": "안 갈리면 이름이 두 번밖에 안 나온 인물(선수·점원)이 밑줄 자리에 들어가는지 다시 본다"
-        }
-      ],
-      "time_budget_sec": 70,
-      "difficulty": {
-        "predicted": 0.78,
-        "drivers": [
-          "남성 인물 셋이 모두 he/his로 받힌다",
-          "정답 밑줄이 바로 앞 밑줄과 한 문장 차이로 붙어 있다",
-          "정답 인물 Chavez는 지문에서 이름이 두 번만 나온다"
-        ]
-      },
-      "required_vocab": [
-        "in person",
-        "fly ball",
-        "warming up",
-        "attention"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
-            "초안 절차 3단계가 '인용 밖 밑줄은 앞 문장 주어를 쓴다'였는데 이 문항의 (d)가 그 규칙의 반례라, 동사의 두 자리를 나누는 문구로 고쳤다"
-          ],
-          "checked": [
-            "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
-            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
-            "다섯 밑줄의 지시체 재확인(a·b·c·e=Mike, d=Chavez)",
-            "평가원 정답표 4와 correct 선지 번호 대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
-            "오답 넷 라벨이 4종으로 갈린다",
-            "선지 ⑤의 유인이 앞 문장 주어가 Chavez라는 실제 텍스트에 근거한다"
-          ],
-          "checked": [
-            "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
-            "trap 라벨 중복 여부",
-            "why_tempting 의 인용 표현이 지문에 있는지",
-            "how_to_reject 마다 문단 기호가 있는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
-            "반려 후 재검수: 3단계 문구가 (d)에서도 통하는지 직접 대입해 확인했다",
-            "5단계가 70초 안에 끝난다"
-          ],
-          "checked": [
-            "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
-            "절차 3단계를 (d)에 실제로 적용해 결과가 나오는지",
-            "금지 표현 포함 여부",
-            "required_vocab 낱말의 지문 존재 여부"
-          ]
-        }
-      ],
-      "revised": true
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "주어=목적어 착시",
+     "why_tempting": "밑줄이 told (c) her 의 목적어이고, 직전에 언니 Beatrice라는 또 다른 여성이 나와서 her를 Beatrice로 잡기 쉽다.",
+     "how_to_reject": "(C) 같은 문장 앞부분 Sally looked back to the old woman sadly and told (c) her the story — 이야기를 듣는 상대가 문장 안에 명시돼 있다. Beatrice는 회상 속 인물이라 그 장면에 없다."
     },
     {
-      "item_id": "M2606#44",
-      "measured_ability": "여성 인물 둘과 무명 판매자가 번갈아 말하는 대화에서, 인용 안 I와 you를 화자·청자에 각각 붙여 지시 대상을 가르는 능력",
-      "design_intent": "밑줄 다섯 중 셋이 인용부호 안에 있고(b·c·e), 그중 (c)와 (e)의 you는 화자가 서로 다르다. 같은 you라도 누가 말하느냐에 따라 지시체가 뒤집힌다는 것을 두 번 묻는 설계다.",
-      "answer_locus": {
-        "sentence_index": [
-          24,
-          26
-        ],
-        "quote": "Curious to explore more, Cathy said, \"While (c) you're buying jam, I'll look around the market and get some peaches.\"",
-        "reasoning": "잼을 사러 간 사람은 Laura다(Meanwhile, Laura found some strawberry jam for sale. She walked over to buy some.). 이 문장의 화자는 Cathy이므로 인용 안 you는 청자 Laura이고, 같은 인용의 I'll look around 가 Cathy와 짝을 이뤄 you≠Cathy를 확정한다. 나머지 넷은 모두 Cathy를 가리킨다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "최근접 명사 오인",
-          "why_tempting": "밑줄 (a) her 바로 앞에 소유격 Laura's town 이 있어 her를 Laura로 잇는다.",
-          "how_to_reject": "(A) 같은 문장 앞부분 Cathy had recently moved into Laura's town 과 다음 문장 Cathy had never had a chance to buy freshly-picked fruits or vegetables 가, 농산물 직거래 장터가 처음인 쪽을 Cathy로 못박는다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "직접인용 화자 오인",
-          "why_tempting": "밑줄이 인용 안 (b) I 이고 (B) 문단에서 말을 많이 한 쪽이 Laura(팬케이크 제안)라, I를 Laura로 읽는다.",
-          "how_to_reject": "(B)의 전달동사 Cathy thanked her friend for the special experience, saying 이 화자를 Cathy로 정한다. 이어지는 Thank you for the wonderful day 도 고마워하는 쪽의 말이다."
-        },
-        {
-          "n": 3,
-          "verdict": "correct",
-          "why_correct": "인용을 여는 Cathy said 가 화자를 Cathy 로 주므로 같은 인용의 I’ll look around the market 에서 I 가 Cathy 이고 (c) you 는 청자 Laura 다. 바로 앞 Meanwhile, Laura found some strawberry jam for sale 이 잼을 사러 간 사람을 Laura 로 확정해 you’re buying jam 과 맞물린다. 나머지 넷 (a) her first experience at a real farmer’s market · (b) I really love this place! · she picked out some beautiful, ripe peaches · you’ll have to wait another year 는 모두 Cathy 다.",
-          "confirmed_at": {
-            "sentence_index": [
-              24,
-              26
-            ],
-            "note": "학습자가 실제로 미끄러지는 자리 — (C) 문단이 Cathy 중심으로 서술되고 인용 안에 I 도 함께 있어 you 까지 Cathy 로 채운다."
-          }
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "분사구문 주어 오인",
-          "why_tempting": "밑줄 (d) she 가 든 문단의 첫 문장이 Wandering away from Laura 로 시작해 Laura가 먼저 눈에 들어온다.",
-          "how_to_reject": "(D) 첫 문장 Wandering away from Laura, Cathy began to search for peaches 에서 분사구문의 주어는 Cathy이고, 밑줄 문장 From a fruit stand, (d) she picked out some beautiful, ripe peaches 는 그 복숭아 찾기의 결과다."
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "직접인용 청자 오인",
-          "why_tempting": "밑줄이 인용 안 (e) you 인데, 말하는 사람이 무명(the fruit seller)이라 화자를 건너뛰고 you를 판매자나 Laura로 채운다.",
-          "how_to_reject": "(D)의 전달동사 The fruit seller told her 가 화자를 판매자, 청자를 her(=복숭아를 고른 Cathy)로 정한다. 뒤 문장 Hearing that, Cathy said 가 들은 사람을 다시 확인해 준다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "밑줄 (a)~(e)를 인용부호 안/밖으로 두 무리로 나눠 적는다",
-          "on_fail": "따옴표가 겹쳐 헷갈리면 각 인용을 여는 문장의 동사(said/asked/replied/told)에 동그라미를 친다"
-        },
-        {
-          "step": "인용 안 밑줄마다 전달동사의 주어를 찾아 '화자=누구'를 적고, I는 화자, you는 그 상대로 바꿔 쓴다",
-          "on_fail": "전달동사가 인용 뒤에 붙어 있으면 인용을 건너뛰고 뒤쪽 주어를 찾는다"
-        },
-        {
-          "step": "인용 밖 밑줄은 그 문장의 주어와 분사구문의 주어를 함께 확인해 사람을 적는다",
-          "on_fail": "분사구문 주어가 안 보이면 주절 주어와 같다고 보고 그 이름을 넣는다"
-        },
-        {
-          "step": "장면 전환 표지(Meanwhile, As they walked out)를 표시해 그 자리에서 누가 무엇을 하고 있었는지 한 줄로 적는다",
-          "on_fail": "표지가 없으면 각 문단 첫 문장의 주어를 문단 대표 인물로 적어 둔다"
-        },
-        {
-          "step": "다섯 칸을 세어 하나만 다른 것을 고른다",
-          "on_fail": "안 갈리면 you가 든 밑줄부터 화자를 다시 확인한다"
-        }
-      ],
-      "time_budget_sec": 70,
-      "difficulty": {
-        "predicted": 0.83,
-        "drivers": [
-          "여성 인물 둘이 모두 she/her로 받힌다",
-          "인용 안 밑줄 셋",
-          "정답 you의 근거가 같은 문장의 I와 대비된다"
-        ]
-      },
-      "required_vocab": [
-        "freshly-picked",
-        "crowded",
-        "ripe",
-        "meanwhile"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "Meanwhile 이 장면 전환 표지로 정답 근거를 여는 자리라 절차 4단계에 반영했다",
-            "why_correct 를 「왜 놓치기 어려운가」가 아니라 「이 밑줄이 무엇을 가리키는가」로 다시 썼다 — 지시 대상을 확정하는 문법 근거(등위절 주어 승계 · 소유격 임자 · 인용 화자와 호격 · 재귀형이 아닌 목적어)를 지문 표현으로 지목하고, 나머지 넷이 한 사람으로 모인다는 것을 한 줄로 붙였다"
-          ],
-          "checked": [
-            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
-            "다섯 밑줄의 지시체 재확인(a·b·d·e=Cathy, c=Laura)",
-            "평가원 정답표 3과 correct 선지 번호 대조",
-            "새 why_correct 안의 영어 어구를 corpus.json 지문에서 문자열 대조(전 어구 통과)",
-            "why_correct 가 정답 밑줄의 지시 대상과 나머지 넷의 공통 대상 두 짝을 다 대는지 확인",
-            "평가원 정답표 번호와 correct 번호 재대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "선지 ②와 ⑤가 둘 다 인용 안 함정이라 라벨이 겹칠 뻔했다 — 화자 오인(②)과 청자 오인(⑤)으로 갈라 두 기제를 구별했다",
-            "새 why_correct 가 소거법(「나머지가 다 X 이므로」)이 아니라 정답 밑줄 자체의 문법 근거로 서 있는지 확인했다",
-            "앞서 why_correct 에 있던 심리 관찰은 지우지 않고 confirmed_at.note 로 자리를 옮겨 보존했다 — distractor 서술은 손대지 않았다"
-          ],
-          "checked": [
-            "trap 라벨 중복 여부",
-            "why_tempting 이 밑줄 표현을 실제로 인용하는지",
-            "how_to_reject 에 문단 기호가 있는지",
-            "why_correct 에 「왜 놓치기 어려운가」 계열 어휘가 남았는지 정규식 검사",
-            "distractor 4개의 trap·why_tempting·how_to_reject 무변경 확인",
-            "confirmed_at.sentence_index 가 answer_locus 와 같은 자리를 가리키는지 확인"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "3단계에서 분사구문 주어 규칙을 명시해 (d) 오답을 학생이 스스로 걸러낼 수 있다",
-            "지문을 아직 안 읽은 학생이 why_correct 의 영어 어구를 지문에서 찾아 그 자리를 직접 짚을 수 있도록 근거를 어구 단위로 적었다"
-          ],
-          "checked": [
-            "절차 각 단계의 실행 가능성",
-            "금지 표현 포함 여부",
-            "required_vocab 낱말이 지문에 있는지",
-            "why_correct 의 영어 어구가 지문에서 그대로 검색되는 연속 문자열인지 확인",
-            "정답 밑줄 기호((b)·④ 등)가 서술 안에 함께 적혀 자리 찾기가 되는지 확인"
-          ]
-        }
-      ],
-      "revised": true
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "직접인용 화자 오인",
+     "why_tempting": "밑줄이 인용부호 안의 (d) I 이고, 그 문단의 초점 인물이 Sally여서 I를 Sally로 읽는다.",
+     "how_to_reject": "(C) 인용을 여는 전달동사 But the old woman just smiled and said 가 화자를 못박는다. 같은 인용의 see you again tomorrow 의 you가 Sally이므로 I는 Sally일 수 없다."
     },
     {
-      "item_id": "2025#44",
-      "measured_ability": "남성 인물 셋(아버지 Ethan·아들 Sean·세탁소 점원)이 he/him으로만 받히는 서사에서, 제안하는 쪽과 승낙하는 쪽처럼 역할이 갈리는 동사를 근거로 대명사를 배분하는 능력",
-      "design_intent": "밑줄 (a)는 his son 이라는 명사구여서 소유격의 지시체(Ethan)와 명사구가 가리키는 사람(Sean)이 갈리고, (b)와 (c)는 같은 문단 안에서 지시 대상이 아버지에서 아들로 넘어간다. 지시 대상이 바뀌는 자리를 문단 안쪽에 숨겼다.",
-      "answer_locus": {
-        "sentence_index": [
-          15,
-          18
-        ],
-        "quote": "Grace stepped in, \"You know, the weather this weekend will be the best of the year. Why not enjoy it?\" After a moment's hesitation, (c) he agreed.",
-        "reasoning": "하이킹을 제안한 쪽은 Ethan이고, 도서관에 가야 한다며 미룬 쪽은 Sean이다. Grace의 말은 그 미룬 쪽을 설득하는 말이므로, 망설이다 승낙한 (c) he는 설득당한 Sean이다. (D)에서 실제로 Ethan and Sean set off hiking 으로 승낙이 이행된다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "소유격 vs 명사구 혼동",
-          "why_tempting": "밑줄이 (a) his son 이라 밑줄에 붙은 명사 son(=Sean)을 그대로 지시 대상으로 잡는다.",
-          "how_to_reject": "(A)의 밑줄 문장 Ethan then shared how things had changed since (a) his son started middle school 에서 이야기를 꺼낸 사람은 Ethan이고, 아들을 가진 사람도 Ethan이다. 밑줄이 소유격이면 묻는 것은 '누구의'다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "주어=목적어 착시",
-          "why_tempting": "밑줄 (b) him 이 든 문장의 주어가 Sean이라, 같은 문장 안의 him까지 Sean으로 채운다.",
-          "how_to_reject": "(B) 바로 앞 문장 Ethan softly said, \"Sean, let's go hiking this Saturday\" 가 제안한 사람을 Ethan으로 정한다. Though Sean thanked (b) him for the suggestion 은 그 제안에 고마워하는 문장이므로 him은 제안자다."
-        },
-        {
-          "n": 3,
-          "verdict": "correct",
-          "why_correct": "밑줄 앞 두 문장이 하이킹 제안을 거절한 사람을 Sean 으로 세운다 — ‘Though Sean thanked (b) him for the suggestion, he said he had to go to the library’. 이어 Grace 가 ‘Why not enjoy it?’ 하고 설득하고 그 뒤에 ‘After a moment’s hesitation, (c) he agreed’ 이 오므로, 망설이다 동의한 사람은 거절했던 Sean 이다. 제안을 꺼낸 Ethan 은 (A)에서 이미 ‘He agreed’ 로 하이킹에 동의해 다시 설득될 자리가 없다. 나머지 넷 since (a) his son started middle school · Sean thanked (b) him for the suggestion · Grace quickly reminded (d) him · afraid of disappointing (e) you 는 모두 Ethan 을 가리킨다.",
-          "confirmed_at": {
-            "sentence_index": [
-              15,
-              18
-            ],
-            "note": "학습자가 실제로 미끄러지는 자리 — (b)와 (c)가 같은 문단에 있어 앞 밑줄에서 정한 Ethan 을 그대로 이어 붙이면 (c)도 Ethan 이 된다."
-          }
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "동성 인물 혼선",
-          "why_tempting": "밑줄 (d) him 이 있는 (C) 장면에 남성이 Ethan과 the clerk 둘이라, 방금 말한 점원을 him으로 잡는다.",
-          "how_to_reject": "(C)에서 Grace가 한 말이 Honey, we actually left them here a month ago 이고, 두 주 전이라고 답한 사람은 \"Maybe two weeks ago,\" Ethan replied 다. 아내가 Honey라고 부르며 정정하는 상대는 남편 Ethan이다."
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "직접인용 청자 오인",
-          "why_tempting": "밑줄이 인용 안 (e) you 이고 그 문단 서술의 주체가 Ethan이라, you를 아들 쪽으로 되돌려 읽는다.",
-          "how_to_reject": "(D)의 전달동사 Suddenly, Sean said, \"Dad, I'm sorry.\" 가 화자를 Sean, 호격 Dad가 청자를 Ethan으로 정한다. 뒤 문장 But you are still the best dad 도 you가 아버지임을 확인해 준다."
-        }
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "밑줄 바로 앞 문장 ‘Sally laughed and replied, “Oh sorry, I was just passing by.”’ 가 주어를 Sally 로 두고, 밑줄 문장이 그 대답에 이어 ‘turned to continue walking home’ 이라며 집으로 가던 걸음을 되받는다. 걸어서 집에 가던 사람은 (A)의 ‘Sally walked home through the park’ 로 이미 Sally 이고, 같은 장면의 ‘the old woman looked up and asked’ 가 벤치에 앉아 연주하던 쪽을 따로 세운다. 나머지 넷 (a) her music wasn’t perfect · (b) She showed the young woman how to place her fingers on the strings · told (c) her the story · (d) I hope to see you again tomorrow 는 모두 노파를 가리킨다.",
+     "confirmed_at": {
+      "sentence_index": [
+       29,
+       30
       ],
-      "solve_procedure": [
-        {
-          "step": "밑줄 다섯을 적고, 명사구 밑줄(his son 같은 것)에는 별표를 쳐 '누구의'를 묻는 자리로 표시한다",
-          "on_fail": "명사구인지 대명사인지 애매하면 밑줄 범위가 명사까지 이어지는지 눈으로 확인한다"
-        },
-        {
-          "step": "등장인물을 이름·관계(아버지/아들/아내/점원)로 적고 성별을 표시한다",
-          "on_fail": "관계가 안 잡히면 호격(Dad, Honey, Sean)이 나오는 문장을 먼저 찾아 관계를 채운다"
-        },
-        {
-          "step": "인용 안 밑줄은 전달동사 주어와 호격으로 화자·청자를 정한다",
-          "on_fail": "호격이 없으면 인용 내용이 누구를 향한 부탁·사과인지로 청자를 정한다"
-        },
-        {
-          "step": "인용 밖 밑줄은 문장의 동사가 두 역할(제안하다/고마워하다, 상기시키다/듣다)로 갈리는지 보고 밑줄이 어느 역할인지 적는다",
-          "on_fail": "역할이 한 개뿐인 동사면 앞 문장에서 그 행동을 한 사람을 후보로 올린다"
-        },
-        {
-          "step": "다섯 칸을 세어 하나만 다른 것을 고른다",
-          "on_fail": "안 갈리면 문단 안에서 지시 대상이 바뀌는 자리(제안 다음의 승낙)를 다시 짚는다"
-        }
-      ],
-      "time_budget_sec": 75,
-      "difficulty": {
-        "predicted": 0.75,
-        "drivers": [
-          "남성 인물 셋이 he/him으로만 받힌다",
-          "정답 밑줄이 같은 문단의 다른 밑줄과 지시 대상이 다르다",
-          "정답 문단 (B)가 인쇄순 두 번째인데 시간순으로는 세 번째"
-        ]
-      },
-      "required_vocab": [
-        "hesitation",
-        "suggestion",
-        "laundry",
-        "embarrassed"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
-            "이 문항은 body_suspect 표시가 있으나 (B) 문단은 손상 없이 남아 있어 인용이 그대로 일치한다"
-          ],
-          "checked": [
-            "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
-            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
-            "raw_block 원문과 (B) 문단 대조",
-            "평가원 정답표 3과 correct 선지 번호 대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
-            "오답 넷 라벨이 4종",
-            "선지 ④의 유인이 그 장면에 남성 둘이 있다는 실제 구성에 근거한다"
-          ],
-          "checked": [
-            "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
-            "trap 라벨 중복 여부",
-            "why_tempting 이 밑줄 표현을 인용하는지",
-            "how_to_reject 마다 문단 기호가 있는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
-            "인물이 넷이라 2단계에 관계 표기를 추가했고, 그만큼 75초를 배정했다"
-          ],
-          "checked": [
-            "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
-            "절차 각 단계의 실행 가능성",
-            "금지 표현 포함 여부",
-            "time_budget_sec 이 다섯 밑줄 처리에 충분한지"
-          ]
-        }
-      ],
-      "revised": true
-    },
-    {
-      "item_id": "M2509#44",
-      "measured_ability": "여성 인물 셋(구매자 Helen·판매자 Anna·동거인 Julia)이 모두 she/her로 받히고 게시글·메시지·대면 대화가 섞인 글에서, 각 발화의 작성자와 수신자를 정해 지시 대상을 가르는 능력",
-      "design_intent": "발화 매체를 셋으로 나눴다 — 판매 게시글(a), 대면 대화(b·c), 메시지(d·e). 매체마다 '말하는 사람'을 다시 정해야 하므로, 인물 이름만 좇으면 (b)에서 반드시 어긋난다.",
-      "answer_locus": {
-        "sentence_index": [
-          9,
-          10
-        ],
-        "quote": "(b) She said, \"You must be Julia!\" Laughing, the woman said, \"Yes! Please take good care of this plant.",
-        "reasoning": "\"당신이 Julia군요\"라고 확인하는 사람은 Julia일 수 없고, 바로 뒤 the woman said, \"Yes!\" 로 상대가 Julia임이 확정된다. 따라서 (b) She는 건물 앞에 도착해 상대를 알아본 Helen이다. (C)의 my housemate, Julia, can meet you in front of the building 이 만나는 두 사람을 Helen과 Julia로 못박는다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "게시글 화자 오인",
-          "why_tempting": "밑줄이 인용 안 (a) I 인데 그 인용이 사람의 대사가 아니라 판매 게시글이라, 문단의 주인공 Helen을 화자로 넣는다.",
-          "how_to_reject": "(A)의 The posting read 가 인용의 출처를 게시글로 정하고, 앞 문장 Anna, though, had put one up for sale 이 그 게시글을 올린 사람을 Anna로 정한다."
-        },
-        {
-          "n": 2,
-          "verdict": "correct",
-          "why_correct": "밑줄 문장 ‘(b) She said, “You must be Julia!”’ 는 상대를 Julia 라고 이름으로 불러 세우므로 화자는 Julia 가 아니고, 바로 뒤 ‘Laughing, the woman said, “Yes!…”’ 가 그 상대를 따로 응답자로 세운다. 밑줄 앞 문장 ‘Arriving at the building, Helen could identify Julia by the’ 가 도착해 상대를 알아본 사람을 Helen 으로 주므로 (b) She 는 Helen 이다. 나머지 넷 (a) I’m selling my favorite plant · (c) My housemate said you could take it too · purchasing (d) your plant · Why don’t you message (e) her 는 모두 판매자 Anna 를 가리킨다.",
-          "confirmed_at": {
-            "sentence_index": [
-              7,
-              9
-            ],
-            "note": "학습자가 실제로 미끄러지는 자리 — 인쇄순으로 (B)가 (A) 바로 뒤라, (a)에서 정한 Anna 를 그대로 이어받아 (b) She 도 Anna 로 읽는다."
-          }
-        },
-        {
-          "n": 3,
-          "verdict": "distractor",
-          "trap": "소유격 vs 명사구 혼동",
-          "why_tempting": "밑줄이 (c) My housemate 라는 명사구여서 소유격 My(=말하는 Julia)를 지시 대상으로 잡는다.",
-          "how_to_reject": "(B)에서 말하고 있는 사람은 Julia이므로 그가 말하는 housemate는 Julia 자신이 아니다. (C)의 my housemate, Julia 라는 Anna의 말이 두 사람이 서로의 housemate임을 보여 주고, 식물의 주인은 Anna다."
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "직접인용 청자 오인",
-          "why_tempting": "밑줄 (d) your plant 가 메시지 안에 있고, 인쇄순으로 이미 Julia가 큰 가방을 들고 등장한 뒤라 your를 Julia로 읽는다.",
-          "how_to_reject": "(C) 첫 문장 Helen immediately messaged the seller 가 수신자를 판매자로 정하고, 바로 뒤 Anna replied 가 그 판매자를 Anna로 확인한다."
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "화자 자기지시 오인",
-          "why_tempting": "밑줄 (e) her 를 말하는 사람이 Julia라, 조언을 해 줄 사람도 말하는 자신이라고 읽는다.",
-          "how_to_reject": "(D)의 같은 문장 앞부분 I'm not a plant expert, but I know that Anna kept them away from windows 에서 화자는 자신을 전문가가 아니라고 밝히고 Anna를 근거로 든다. Why don't you message (e) her? 의 her는 그 Anna다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "밑줄 다섯 옆에 그 말이 실린 매체를 적는다 — 게시글인지, 메시지인지, 마주 보고 하는 말인지",
-          "on_fail": "매체가 안 보이면 인용을 여는 동사(read, messaged, replied, said)를 찾아 적는다"
-        },
-        {
-          "step": "인물표를 만들되 이름 옆에 역할(파는 사람·사는 사람·동거인)을 함께 적는다",
-          "on_fail": "역할이 안 잡히면 seller, buyer, housemate 같은 역할 명사가 나오는 문장을 먼저 찾는다"
-        },
-        {
-          "step": "매체별로 '쓴 사람'과 '읽는 사람'을 정하고, I는 쓴 사람, you/your는 읽는 사람으로 바꿔 적는다",
-          "on_fail": "쓴 사람이 안 잡히면 그 인용 바로 다음에 응답하는 사람을 찾아 상대편을 역산한다"
-        },
-        {
-          "step": "인용 밖 밑줄은 같은 문장에서 그 사람이 하는 행동이 상대를 알아보는 쪽인지 알아보이는 쪽인지 갈라 적는다",
-          "on_fail": "행동으로 안 갈리면 바로 다음 문장의 응답자를 보고 반대편을 넣는다"
-        },
-        {
-          "step": "다섯 칸의 이름을 세어 하나만 다른 것을 고른다",
-          "on_fail": "안 갈리면 명사구 밑줄(My housemate)의 지시체를 소유격이 아니라 명사구 전체로 다시 잡는다"
-        }
-      ],
-      "time_budget_sec": 75,
-      "difficulty": {
-        "predicted": 0.7,
-        "drivers": [
-          "여성 인물 셋이 모두 she/her로 받힌다",
-          "발화 매체가 셋(게시글·메시지·대면)",
-          "다수 지시체가 주인공 Helen이 아니라 Anna다",
-          "정답 문단 (B)가 인쇄순 두 번째인데 시간순으로는 세 번째"
-        ]
-      },
-      "required_vocab": [
-        "second-hand",
-        "posting",
-        "housemate",
-        "seller"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
-            "body_suspect 문항이지만 (B) 문단의 인용 부분은 손상이 없어 문자열 대조가 통과했다"
-          ],
-          "checked": [
-            "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
-            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
-            "raw_block 원문과 (B)(C) 문단 대조",
-            "평가원 정답표 2와 correct 선지 번호 대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
-            "초안에서 선지 ④와 ⑤에 모두 '직접인용 청자 오인'을 달았다 — ⑤는 청자가 아니라 화자가 자신을 가리킨다고 오독하는 기제라 '화자 자기지시 오인'으로 고쳤다",
-            "고친 뒤 오답 넷 라벨이 4종으로 갈린다"
-          ],
-          "checked": [
-            "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
-            "trap 라벨 중복 여부(재검수)",
-            "why_tempting 이 밑줄 표현을 인용하는지",
-            "how_to_reject 마다 문단 기호가 있는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
-            "매체를 먼저 적게 한 1단계가 이 문항 특유의 장치를 바로 겨눈다"
-          ],
-          "checked": [
-            "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
-            "절차 1단계를 지문을 안 본 상태에서 실행할 수 있는지",
-            "금지 표현 포함 여부",
-            "required_vocab 낱말이 지문에 있는지"
-          ]
-        }
-      ],
-      "revised": true
-    },
-    {
-      "item_id": "M2506#44",
-      "measured_ability": "남성 인물 셋(Garcia·형제 Jeff·밴드 동료 Tom)이 he로 받히는 서사에서, 인용 뒤에 붙은 전달동사의 주어를 찾아 화자를 확정하는 능력",
-      "design_intent": "정답 밑줄 (b)를 인용 뒤에 붙은 전달동사 자리(', (b) he said')에 두었다. 화자 표시가 인용 앞이 아니라 뒤에 있어, 인용을 읽는 동안에는 화자가 비어 있는 상태로 지나간다.",
-      "answer_locus": {
-        "sentence_index": [
-          18,
-          20
-        ],
-        "quote": "After the show, Jeff approached Garcia. \"It was fantastic. I think that was the best performance I've ever seen,\" (b) he said.",
-        "reasoning": "공연이 끝난 뒤 다가간 사람이 Jeff이고, 바로 뒤 문장 Garcia beamed with joy at his brother's praise 가 칭찬을 받은 쪽을 Garcia, 칭찬한 쪽을 형제 Jeff로 확정한다. 따라서 (b) he는 Jeff이고 나머지 넷은 모두 Garcia를 가리킨다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "최근접 명사 오인",
-          "why_tempting": "밑줄 (a) he 앞에 waiting for his brother, Jeff 가 있어 가장 가까운 사람 이름 Jeff를 넣는다.",
-          "how_to_reject": "(A) 밑줄 문장 That was why (a) he had asked Jeff to help him pick out new clothes 안에 Jeff가 목적어로 따로 나온다. 부탁한 쪽은 옷을 고르려던 Garcia다."
-        },
-        {
-          "n": 2,
-          "verdict": "correct",
-          "why_correct": "인용 앞 문장 After the show, Jeff approached Garcia 가 말을 건 사람을 Jeff 로 주고, 인용 뒤 문장 Garcia beamed with joy at his brother’s praise 가 칭찬을 받은 쪽을 Garcia 로 못 박으므로 (b) he said 의 화자는 형제 Jeff 다. 나머지 넷 (a) he had asked Jeff to help him pick out new clothes · (c) he struggled with the rhythm · I’ll be right behind (d) you · (e) my brother 는 모두 Garcia 를 가리킨다.",
-          "confirmed_at": {
-            "sentence_index": [
-              18,
-              20
-            ],
-            "note": "학습자가 실제로 미끄러지는 자리 — 인용이 공연 칭찬이라 무대에 섰던 Garcia 의 소감으로 읽히고, 화자 표시가 인용 뒤에 붙어 있어 확인을 건너뛴다."
-          }
-        },
-        {
-          "n": 3,
-          "verdict": "distractor",
-          "trap": "문단 경계 화자 승계",
-          "why_tempting": "밑줄 (c) he 는 (B)에서 Jeff가 말한 직후 문단이라, 앞 문단에서 정한 사람을 그대로 끌고 온다.",
-          "how_to_reject": "(C) 첫 문장 Garcia felt good as he arrived at the concert hall for the rehearsal 이 문단의 주체를 Garcia로 세우고, 밑줄 문장 As the rehearsal began, (c) he struggled with the rhythm 은 그 리허설에서 연주하는 사람의 이야기다."
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "직접인용 청자 오인",
-          "why_tempting": "밑줄이 인용 안 (d) you 이고 화자가 새 인물 Tom이라, you를 Tom이나 형제 Jeff로 채운다.",
-          "how_to_reject": "(C)의 전달동사 Tom, Garcia's band mate, came over and put a hand on Garcia's back, saying 이 화자를 Tom, 말을 듣는 상대를 등에 손이 얹힌 Garcia로 정한다."
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "소유격 vs 명사구 혼동",
-          "why_tempting": "밑줄이 (e) my brother 라는 명사구여서 소유격 my(=말하는 Jeff)를 지시 대상으로 잡는다.",
-          "how_to_reject": "(D)에서 점원에게 묻는 사람은 Jeff다(He asked the store clerk). 그의 형제는 옷을 사려던 Garcia이고, 뒤 문장 Garcia bought the recommended clothes 가 그 옷을 입을 사람을 확인해 준다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "밑줄 다섯을 인용 안/밖으로 나누고, 인용 안인 것은 화자 표시가 인용 앞인지 뒤인지도 적는다",
-          "on_fail": "화자 표시가 안 보이면 인용이 끝나는 따옴표 다음 낱말들을 먼저 읽는다"
-        },
-        {
-          "step": "인물표에 이름과 관계(형제·밴드 동료·점원)를 적는다",
-          "on_fail": "관계가 안 나오면 brother, band mate, clerk 같은 관계 명사가 든 문장을 찾아 채운다"
-        },
-        {
-          "step": "인용 안 밑줄은 전달동사 주어로 화자를 정하고 I=화자, you=상대로 바꿔 적는다",
-          "on_fail": "주어가 he뿐이면 그 인용 앞뒤 문장에서 다가가거나 손을 얹는 등 행동한 사람을 찾아 넣는다"
-        },
-        {
-          "step": "명사구 밑줄(my brother)은 소유격이 누구인지 적은 다음, 그 사람의 형제·딸이 누구인지 인물표에서 찾아 최종 답으로 적는다",
-          "on_fail": "관계 명사의 상대를 못 찾으면 그 명사가 처음 나온 문장으로 되돌아간다"
-        },
-        {
-          "step": "다섯 칸을 세어 하나만 다른 것을 고른다",
-          "on_fail": "안 갈리면 화자 표시가 인용 뒤에 붙은 밑줄부터 다시 본다"
-        }
-      ],
-      "time_budget_sec": 70,
-      "difficulty": {
-        "predicted": 0.8,
-        "drivers": [
-          "남성 인물 셋이 he로 받힌다",
-          "정답 밑줄의 화자 표시가 인용 뒤에 있다",
-          "정답 문단 (B)가 인쇄순 두 번째인데 시간순으로는 마지막"
-        ]
-      },
-      "required_vocab": [
-        "flawless",
-        "rehearsal",
-        "praise",
-        "objected"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "body_suspect 문항이나 (B) 문단은 손상 없이 남아 인용이 그대로 일치한다",
-            "why_correct 를 「왜 놓치기 어려운가」가 아니라 「이 밑줄이 무엇을 가리키는가」로 다시 썼다 — 지시 대상을 확정하는 문법 근거(등위절 주어 승계 · 소유격 임자 · 인용 화자와 호격 · 재귀형이 아닌 목적어)를 지문 표현으로 지목하고, 나머지 넷이 한 사람으로 모인다는 것을 한 줄로 붙였다"
-          ],
-          "checked": [
-            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
-            "raw_block 원문과 (B) 문단 대조",
-            "평가원 정답표 2와 correct 선지 번호 대조",
-            "새 why_correct 안의 영어 어구를 corpus.json 지문에서 문자열 대조(전 어구 통과)",
-            "why_correct 가 정답 밑줄의 지시 대상과 나머지 넷의 공통 대상 두 짝을 다 대는지 확인",
-            "평가원 정답표 번호와 correct 번호 재대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "오답 넷 라벨이 4종",
-            "선지 ①의 유인이 실제 어순(brother, Jeff 가 밑줄 바로 앞)에 근거한다",
-            "새 why_correct 가 소거법(「나머지가 다 X 이므로」)이 아니라 정답 밑줄 자체의 문법 근거로 서 있는지 확인했다",
-            "앞서 why_correct 에 있던 심리 관찰은 지우지 않고 confirmed_at.note 로 자리를 옮겨 보존했다 — distractor 서술은 손대지 않았다"
-          ],
-          "checked": [
-            "trap 라벨 중복 여부",
-            "why_tempting 이 밑줄 표현을 인용하는지",
-            "how_to_reject 마다 문단 기호가 있는지",
-            "why_correct 에 「왜 놓치기 어려운가」 계열 어휘가 남았는지 정규식 검사",
-            "distractor 4개의 trap·why_tempting·how_to_reject 무변경 확인",
-            "confirmed_at.sentence_index 가 answer_locus 와 같은 자리를 가리키는지 확인"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "1단계에 '화자 표시가 인용 앞인지 뒤인지'를 넣어 이 문항의 함정을 절차로 흡수했다",
-            "지문을 아직 안 읽은 학생이 why_correct 의 영어 어구를 지문에서 찾아 그 자리를 직접 짚을 수 있도록 근거를 어구 단위로 적었다"
-          ],
-          "checked": [
-            "절차 각 단계의 실행 가능성",
-            "금지 표현 포함 여부",
-            "required_vocab 낱말이 지문에 있는지",
-            "why_correct 의 영어 어구가 지문에서 그대로 검색되는 연속 문자열인지 확인",
-            "정답 밑줄 기호((b)·④ 등)가 서술 안에 함께 적혀 자리 찾기가 되는지 확인"
-          ]
-        }
-      ],
-      "revised": true
-    },
-    {
-      "item_id": "2024#44",
-      "measured_ability": "여성 인물 둘이 번갈아 말하는 대화에서, 인용 안 you의 지시 대상을 화자와 반대편으로 뒤집어 잡고 서술문의 주어·목적어 대명사를 구별하는 능력",
-      "design_intent": "밑줄 (a)(b)(c)를 대화 세 마디에 연달아 두고, 앞 둘은 화자(Clara), 마지막 하나만 청자(Emma)를 가리키게 했다. 같은 대화 안에서 인칭이 뒤집히는 한 지점만 짚어 내는지를 묻는다.",
-      "answer_locus": {
-        "sentence_index": [
-          14,
-          15
-        ],
-        "quote": "Emma nodded in agreement and suggested, \"Your first beach bike ride was a great success. How about coming back next summer?\" Clara replied with delight, \"With (c) you, absolutely!\"",
-        "reasoning": "다음 여름에 다시 오자고 제안한 쪽이 Emma이고, 대답한 쪽이 Clara다. 인용을 여는 전달동사 Clara replied 가 화자를 정하므로 인용 안 you는 청자, 곧 제안한 Emma다. 나머지 넷은 모두 Clara를 가리킨다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "직접인용 화자 오인",
-          "why_tempting": "밑줄이 인용 안 (a) I 이고 앞 문장에서 질문을 던진 사람이 Emma라, 대답의 I까지 Emma로 읽는다.",
-          "how_to_reject": "(A) 앞 문장 Emma turned to Clara with a question 과 Clara's face lit up with a bright smile as she nodded 가, 묻는 쪽과 대답하는 쪽을 갈라 놓는다. 밑줄 인용은 그 대답이다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "연속 대화 화자 교대 놓침",
-          "why_tempting": "밑줄 (b) me 가 든 문장이 She added 로 시작해 주어가 대명사뿐이고, 문단 첫머리에서 말을 건 사람이 Emma라 She를 Emma로 읽는다.",
-          "how_to_reject": "(B) 바로 앞 문장 Clara answered with a smile, \"Quite similar, actually.\" 가 직전 화자를 Clara로 정하고, She added 는 같은 사람이 말을 잇는 표현이다."
-        },
-        {
-          "n": 3,
-          "verdict": "correct",
-          "why_correct": "밑줄이 든 인용을 여는 ‘Clara replied with delight’ 가 화자를 Clara 로 못 박으므로, 인용 안의 2인칭 ‘With (c) you, absolutely!’ 는 말을 건넨 상대다. 그 상대는 바로 앞 인용을 낸 ‘Emma nodded in agreement and suggested, “Your first beach bike ride was a great success. How about coming back next summer?”’ 의 Emma 이고, Emma 가 Clara 를 Your 로 부른 것과 인칭이 맞물린다. 나머지 넷 (a) I can’t wait to ride while watching those beautiful waves · It shows (b) me what it means to live · made (d) her stronger in the end · which (e) she now seemed to have overcome 은 모두 Clara 를 가리킨다.",
-          "confirmed_at": {
-            "sentence_index": [
-              15
-            ],
-            "note": "학습자가 실제로 미끄러지는 자리 — 앞 밑줄 둘이 모두 Clara 를 가리켜, 같은 대화의 세 번째 밑줄도 Clara 로 이어 붙인다."
-          }
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "주어=목적어 착시",
-          "why_tempting": "밑줄 (d) her 가 든 문장의 주어가 Emma라 목적어 her까지 Emma로 채운다.",
-          "how_to_reject": "(C) 같은 문장 앞부분 Emma saw how the painful past made her maturer 에서 아픈 과거를 가진 사람은 문단 첫 문장의 Clara used to be a talented swimmer, but she had to give up her dream 이 가리키는 Clara다."
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "종속절 주어 오인",
-          "why_tempting": "밑줄 (e) she 가 관계절 안에 있고 주절 주어가 Emma라, 관계절 주어까지 Emma로 잡는다.",
-          "how_to_reject": "(D) 같은 문장 Emma thought about Clara's past tragedy, which (e) she now seemed to have overcome 에서 극복의 대상인 과거는 Clara의 것이므로 극복한 사람도 Clara다. 앞 문장 Watching Clara riding beside her 가 두 사람을 이미 갈라 놓았다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "밑줄 다섯을 인용 안/밖으로 나눠 적는다",
-          "on_fail": "따옴표가 안 보이면 said/asked/replied/added 가 든 문장부터 표시한다"
-        },
-        {
-          "step": "대화가 이어지는 구간에서는 말차례를 A-B-A-B로 번호 매겨, 각 인용을 누가 말하는지 순서로 적는다",
-          "on_fail": "전달동사가 대명사 주어뿐이면(She added) 바로 앞 인용의 화자와 같은 사람으로 잇는다"
-        },
-        {
-          "step": "인용 안 밑줄은 I=그 말차례의 화자, you=상대편으로 바꿔 적는다",
-          "on_fail": "말차례가 꼬이면 인용 안 내용이 질문인지 대답인지로 화자를 되짚는다"
-        },
-        {
-          "step": "인용 밖 밑줄은 문장의 주어를 적고, 밑줄이 목적어나 종속절 주어면 주어와 다른 사람일 가능성을 먼저 검사한다",
-          "on_fail": "같은 사람으로도 뜻이 통하면 그 문장의 소유격(Clara's past tragedy)이 누구 것인지 본다"
-        },
-        {
-          "step": "다섯 칸을 세어 하나만 다른 것을 고른다",
-          "on_fail": "안 갈리면 you가 든 밑줄을 화자의 반대편으로 다시 적는다"
-        }
-      ],
-      "time_budget_sec": 65,
-      "difficulty": {
-        "predicted": 0.82,
-        "drivers": [
-          "여성 인물 둘이 모두 she/her로 받힌다",
-          "정답이 대화 세 마디 중 마지막 하나"
-        ]
-      },
-      "required_vocab": [
-        "boundless",
-        "constructive",
-        "overcome"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
-            "인용이 (B) 문단에 문자 그대로 있다"
-          ],
-          "checked": [
-            "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
-            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
-            "다섯 밑줄의 지시체 재확인(a·b·d·e=Clara, c=Emma)",
-            "평가원 정답표 3과 correct 선지 번호 대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
-            "초안에서 선지 ④와 ⑤에 똑같이 '주어=목적어 착시'를 달았다 — ⑤는 목적어가 아니라 관계절 주어 자리라 '종속절 주어 오인'으로 갈랐다",
-            "고친 뒤 오답 넷 라벨이 4종이다"
-          ],
-          "checked": [
-            "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
-            "trap 라벨 중복 여부(재검수)",
-            "why_tempting 이 밑줄 표현을 인용하는지",
-            "how_to_reject 마다 문단 기호가 있는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
-            "말차례 번호 매기기(2단계)가 이 지문의 연속 대화에 바로 들어맞아 65초로 충분하다"
-          ],
-          "checked": [
-            "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
-            "절차 각 단계의 실행 가능성",
-            "금지 표현 포함 여부",
-            "required_vocab 낱말이 지문에 있는지"
-          ]
-        }
-      ],
-      "revised": true
-    },
-    {
-      "item_id": "2023#44",
-      "measured_ability": "자매 둘과 아버지가 나오는 대화에서, 밑줄이 명사구(her sister)일 때 소유격이 가리키는 사람과 명사구 전체가 가리키는 사람을 구별하고, 인용 안 you를 화자의 반대편으로 잡는 능력",
-      "design_intent": "밑줄 (c)를 소유격이 든 명사구 her sister 로 두어, 소유격 her(=Camila)와 명사구 전체(=Hailey)가 서로 다른 사람을 가리키게 만들었다. 그 한 자리에서 지시체를 뒤집어 잡으면 정답 자리 (e)까지 밀린다.",
-      "answer_locus": {
-        "sentence_index": [
-          32,
-          35
-        ],
-        "quote": "In reply, Hailey answered, \"No. I bought something much more personal. By the way, there's something (e) you should know about Dad",
-        "reasoning": "(D)에서 지갑이나 시계를 샀을 거라고 넘겨짚은 쪽은 Camila이고, In reply, Hailey answered 로 화자가 Hailey로 넘어간다. 그 발화 안의 you는 청자 Camila다. 아버지의 색맹을 아직 모르는 쪽이 Camila임은 (C)의 \"Hailey, Dad doesn't have eyesight problems,\" Camila said, puzzled 가 확인해 준다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "직접인용 청자 오인",
-          "why_tempting": "밑줄이 인용 안 (a) you 인데, 질문을 던지는 사람이 Camila여서 you까지 Camila로 되돌려 읽는다.",
-          "how_to_reject": "(A)의 전달동사 Camila asked out of interest 가 화자를 Camila로 정하고, 바로 뒤 Hailey answered with a wink 이 대답한 사람을 Hailey로 정한다. 선물을 산 쪽은 대답한 Hailey다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "주어 소유격 승계 오인",
-          "why_tempting": "밑줄 (b) her 가 든 문장의 주어가 Camila nodded 라, 소유격 her도 Camila로 이어 적는다.",
-          "how_to_reject": "(B) 문단에서 안경을 건네고 설명한 사람은 said Hailey 와 Hailey told him in tears 다. Camila nodded, seeing how happy (b) her gift ... had made their dad 는 그 선물을 지켜보는 사람의 문장이므로 선물의 주인은 Hailey다."
-        },
-        {
-          "n": 3,
-          "verdict": "distractor",
-          "trap": "소유격 vs 명사구 혼동",
-          "why_tempting": "밑줄이 (c) her sister 라 소유격 her(=Camila)를 그대로 답으로 잡는다.",
-          "how_to_reject": "(C) 문장 Camila said before (c) her sister handed him a small parcel 에서 말한 사람은 Camila, 꾸러미를 건넨 사람은 그 자매다. 뒤이어 안경을 준비한 사람이 Hailey로 밝혀지므로 명사구 전체는 Hailey를 가리킨다."
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "문단 도치 화자 오인",
-          "why_tempting": "(D)가 인쇄순으로 마지막이라 (B)(C)에서 말하던 Hailey를 화자로 이어받아 (d) you를 Camila로 읽는다.",
-          "how_to_reject": "(D) 밑줄 문장의 전달동사 \"I bet (d) you bought a wallet or a watch for him,\" Camila said 가 화자를 Camila로 못박는다. 선물을 산 사람은 (A)에서 이미 Hailey로 정해져 있다."
-        },
-        {
-          "n": 5,
-          "verdict": "correct",
-          "why_correct": "밑줄 (e)가 든 인용을 여는 ‘In reply, Hailey answered’ 가 화자를 Hailey 로 바꾸므로, 그 인용 안의 ‘there’s something (e) you should know about Dad’ 의 2인칭은 듣는 쪽 Camila 다. 바로 앞 인용은 ‘“I bet (d) you bought a wallet or a watch for him,” Camila said’ 라 화자가 Camila 였고 그때의 you 는 Hailey 였다 — 두 인용 사이에서 화자가 바뀌면 you 의 임자도 바뀐다. 나머지 넷 What gift did (a) you buy for his birthday · (b) her gift of the glasses · (c) her sister handed him a small parcel · I bet (d) you bought a wallet or a watch 는 모두 Hailey 를 가리킨다.",
-          "confirmed_at": {
-            "sentence_index": [
-              33,
-              35
-            ],
-            "note": "학습자가 실제로 미끄러지는 자리 — 같은 문단 안에서 (d)와 (e)가 모두 you 라, 화자가 바뀐 것을 놓치면 둘을 같은 사람으로 적는다."
-          }
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "밑줄 다섯 중 명사구인 것(her sister 같은 것)을 먼저 골라내 '소유격이 아니라 명사구 전체'라고 적어 둔다",
-          "on_fail": "밑줄 범위가 애매하면 소유격과 명사 둘 다에 답을 적어 두고 뒤에서 인물표로 가른다"
-        },
-        {
-          "step": "인물표에 이름과 관계(자매·아버지)를 적고, 누가 무엇을 준비했는지 한 칸을 더 만든다",
-          "on_fail": "관계가 안 잡히면 sister, dad, daughters 같은 관계 명사가 나오는 문장을 먼저 찾는다"
-        },
-        {
-          "step": "한 문단 안에서도 인용마다 전달동사 주어를 다시 확인해 화자가 바뀌는 자리에 세로줄을 긋는다",
-          "on_fail": "전달동사가 없으면 In reply, answered 같은 응답 표시를 화자 교대 신호로 삼는다"
-        },
-        {
-          "step": "인용 안 밑줄은 화자의 반대편(you)인지 화자 자신(I)인지 적고, 인용 밖 밑줄은 문장 주어와 같은 사람인지 검사한다",
-          "on_fail": "판단이 안 서면 그 말의 내용이 '이미 아는 사람'과 '모르는 사람' 중 누구에게 하는 말인지 본다"
-        },
-        {
-          "step": "다섯 칸을 세어 하나만 다른 것을 고른다",
-          "on_fail": "안 갈리면 명사구 밑줄과 화자 교대 자리 두 곳을 다시 본다"
-        }
-      ],
-      "time_budget_sec": 75,
-      "difficulty": {
-        "predicted": 0.72,
-        "drivers": [
-          "여성 인물 둘이 모두 she/her로 받힌다",
-          "밑줄 하나가 소유격이 든 명사구",
-          "같은 문단 안에서 화자가 바뀌며 you의 지시체가 뒤집힌다"
-        ]
-      },
-      "required_vocab": [
-        "parcel",
-        "color blindness",
-        "puzzled",
-        "in reply"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
-            "초안에서 (c)의 지시 대상을 Camila로 적었다 — 밑줄이 소유격 her 가 아니라 명사구 her sister 이므로 지시체는 Hailey다. 평가원 정답 ⑤와 맞추려면 (c)가 Hailey여야 한다는 점에서 초안이 자기모순이었고, 선지 ③ 서술과 design_intent를 함께 고쳤다",
-            "고친 뒤 다섯 밑줄이 a·b·c·d=Hailey, e=Camila 로 정확히 넷 대 하나가 된다"
-          ],
-          "checked": [
-            "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
-            "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
-            "다섯 밑줄의 지시체 재확인(재검수)",
-            "평가원 정답표 5와 correct 선지 번호 대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
-            "오답 넷 라벨이 4종",
-            "선지 ④의 유인이 43번 문단 도치(인쇄순 (D)가 시간순 두 번째)라는 실제 구성에 근거한다"
-          ],
-          "checked": [
-            "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
-            "trap 라벨 중복 여부",
-            "why_tempting 이 밑줄 표현을 인용하는지",
-            "how_to_reject 마다 문단 기호가 있는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
-            "1단계에서 명사구 밑줄을 먼저 골라내게 한 것이 setter가 잡은 오독을 학생 쪽에서도 막아 준다"
-          ],
-          "checked": [
-            "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
-            "절차 1단계가 지문을 안 본 상태에서 실행 가능한지",
-            "금지 표현 포함 여부",
-            "required_vocab 낱말이 지문에 있는지"
-          ]
-        }
-      ],
-      "revised": true
-    },
-    {
-      "item_id": "M2409#44",
-      "answer_unknown": true,
-      "measured_ability": "남성 인물 둘(Sean과 친구이자 의사인 Alex)과 수컷 개 Toby가 모두 he/him으로 받히는 서사에서, 전화 통화와 산행 장면을 나눠 각 인용의 화자·청자를 정하고 대명사의 지시 대상을 적어 내는 능력",
-      "design_intent": "발화 장면을 전화 통화(A·D)와 산속 혼잣말(B·C)로 갈라 놓고, 그 사이에 he로 받히는 개 Toby를 끼워 넣었다. 대명사 형태만으로는 사람·동물조차 갈리지 않으므로, 전달동사 주어와 호격(Boy, my friend)을 근거로 삼게 만든 구성이다.",
-      "solve_procedure": [
-        {
-          "step": "밑줄 다섯 옆에 형태(you/he/I)와 인용 안/밖을 적고, 인용이 전화 통화인지 눈앞의 말인지도 표시한다",
-          "on_fail": "장면이 안 잡히면 over the phone, whispered to himself 같은 발화 상황 표현을 찾아 적는다"
-        },
-        {
-          "step": "인물표를 만들되 사람 이름과 함께 동물 이름도 한 칸을 준다 — 수컷 동물은 he/him으로 받힐 수 있다",
-          "on_fail": "동물이 있는지 모르겠으면 dog, companion 같은 명사가 나오는 문장을 찾아 이름을 적는다"
-        },
-        {
-          "step": "인용 안 밑줄은 전달동사 주어로 화자를 정하고 I=화자, you=상대로 바꿔 적는다. 상대가 사람이 아닐 수 있으므로 호격(Boy)을 함께 본다",
-          "on_fail": "전달동사가 he said 뿐이면 그 인용 앞 문장에서 걱정하거나 경고하는 등 행동한 사람을 찾아 넣는다"
-        },
-        {
-          "step": "인용 밖 밑줄은 문장의 동사가 요구하는 행위 주체를 적고, 그 자리에 사람이 아닌 후보(개)가 들어갈 수 있는지도 검사한다",
-          "on_fail": "사람·동물 어느 쪽도 어색하지 않으면 앞뒤 문장에서 그 행동을 한 주체를 찾는다"
-        },
-        {
-          "step": "다섯 칸에 적은 이름을 세어 넷 대 하나로 갈리는지 확인한다",
-          "on_fail": "안 갈리면 통화 장면과 산행 장면을 따로 떼어 화자·청자를 다시 붙인다"
-        }
-      ],
-      "time_budget_sec": 70,
-      "difficulty": {
-        "predicted": 0.78,
-        "drivers": [
-          "근거: 이 유형 표본에서 인물이 전부 동성인 회차의 예상 정답률대와 맞췄다",
-          "남성 인물 둘에 수컷 개 하나가 더해져 he/him으로 받히는 후보가 셋",
-          "밑줄 다섯 중 셋이 직접인용 안(I/you)에 있다",
-          "발화 장면이 전화와 대면으로 갈린다"
-        ]
-      },
-      "required_vocab": [
-        "companion",
-        "fiercely",
-        "protective gear",
-        "renewed"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "평가원 정답표가 없는 회차라 answer_locus 와 choices 를 넣지 않았다",
-            "design_intent 가 특정 밑줄을 정답으로 지목하지 않고 구성만 기술하는지 다시 읽었다"
-          ],
-          "checked": [
-            "answer_unknown 표기와 코퍼스 answer=null 대조",
-            "서술에 정답 지목 표현이 없는지 문장 단위로 확인",
-            "지칭 유형 정의와 measured_ability 대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "초안 difficulty.drivers 에 '밑줄 하나가 개를 가리켜 갈린다'는 문장이 있었다 — 정답을 아는 척하는 서술이라 지우고, 후보가 셋이라는 구성 사실로 바꿨다",
-            "answer_locus 와 choices 가 비어 있음을 다시 확인했다"
-          ],
-          "checked": [
-            "answer_locus·choices 가 정말로 비었는지",
-            "difficulty.predicted 의 근거가 drivers 에 적혔는지",
-            "required_vocab 4낱말을 지문에서 문자열로 대조(companion·fiercely·protective gear·renewed 모두 있음)",
-            "measured_ability 가 선지를 전제하지 않는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "2단계(동물에게도 칸 주기)는 정답을 몰라도 실행 가능하고, 이 지문에서 실제로 필요하다"
-          ],
-          "checked": [
-            "절차 각 단계의 실행 가능성",
-            "금지 표현 포함 여부",
-            "time_budget_sec 이 다섯 밑줄 처리에 충분한지"
-          ]
-        }
-      ],
-      "revised": true
-    },
-    {
-      "item_id": "M2309#44",
-      "answer_unknown": true,
-      "body_recovered": false,
-      "measured_ability": "여행 동행자 둘(Emilia와 Layla)이 모두 she/her로 받히는 서사에서, 전달동사 주어로 화자를 정하고 인용 안 your를 청자 쪽으로 뒤집어 지시 대상을 정하는 능력",
-      "design_intent": "회수된 (A) 문단에서 이미 첫 밑줄이 인용 안의 your 로 나온다 — 화자는 Layla, 듣는 사람은 소원을 이룬 Emilia다. 첫 문단부터 인칭 전환을 요구하는 배치라는 점까지만 확인되고, 나머지 문단은 파싱에서 회수되지 않았다.",
-      "solve_procedure": [
-        {
-          "step": "밑줄 다섯 옆에 형태(I/you/your/she/her)와 인용 안/밖을 적는다",
-          "on_fail": "따옴표가 잘려 보이면 said/replied/responded/shouted 가 든 문장을 먼저 표시한다"
-        },
-        {
-          "step": "인물표를 만들고 두 사람의 성별을 적는다 — 둘 다 여성이면 she/her 형태로는 갈리지 않는다고 표시해 둔다",
-          "on_fail": "이름이 하나만 보이면 companion, friend 같은 동행 명사를 찾아 두 번째 칸을 채운다"
-        },
-        {
-          "step": "인용 안 밑줄은 전달동사 주어로 화자를 정하고, I/my는 화자, you/your는 상대로 바꿔 적는다",
-          "on_fail": "전달동사 주어가 대명사뿐이면 바로 앞 인용의 화자와 반대편으로 잡는다"
-        },
-        {
-          "step": "인용 밖 밑줄은 문장의 주어와 목적어를 갈라 적고, 밑줄이 목적어·소유격이면 주어와 다른 사람인지 먼저 검사한다",
-          "on_fail": "한 문장으로 안 갈리면 앞 문장에서 그 행동을 한 사람을 후보로 올린다"
-        },
-        {
-          "step": "다섯 칸을 세어 넷 대 하나로 갈리는지 확인한다",
-          "on_fail": "안 갈리면 your/you가 든 밑줄부터 화자를 다시 확인한다"
-        }
-      ],
-      "time_budget_sec": 70,
-      "difficulty": {
-        "predicted": 0.8,
-        "drivers": [
-          "근거: 지문이 (A) 한 문단만 회수돼 문항 고유 난도를 잴 수 없어, 인물 둘이 동성인 이 유형 표본의 예상 정답률대를 그대로 썼다",
-          "두 동행자가 모두 여성이라 she/her로는 갈리지 않는다",
-          "첫 밑줄부터 인용 안 소유격(your)이다"
-        ]
-      },
-      "required_vocab": [
-        "companion",
-        "pounding",
-        "excitement",
-        "responded"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "코퍼스 지문과 raw_block 모두 (A) 문단만 담고 있고 45번 선지·안내문이 섞여 들어와 있다 — (b)~(e)의 문장이 어디에도 없어 복원 불가로 판정하고 body_recovered 를 false 로 두었다",
-            "평가원 정답표가 없는 회차라 answer_locus 와 choices 를 넣지 않았다"
-          ],
-          "checked": [
-            "raw_block 에서 (b)~(e) 밑줄 문장 검색(없음)",
-            "answer_unknown 표기와 코퍼스 answer=null 대조",
-            "지칭 유형 정의와 measured_ability 대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "answer_locus·choices 가 비어 있고 서술에 정답을 지목하는 표현이 없다",
-            "difficulty.predicted 는 문항 고유 근거가 없어 유형 표본을 근거로 삼았음을 drivers 첫 줄에 명시하게 했다"
-          ],
-          "checked": [
-            "answer_locus·choices 가 정말로 비었는지",
-            "difficulty.predicted 근거가 drivers 에 적혔는지",
-            "required_vocab 4낱말을 회수된 지문에서 문자열 대조(companion·pounding·excitement·responded 모두 있음)",
-            "measured_ability 가 선지를 전제하지 않는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "지문이 잘려 있어도 절차 자체는 온전한 지문에 그대로 적용된다 — 학습자에게 줄 때는 지문 복원본이 필요하다는 단서를 붙여야 한다"
-          ],
-          "checked": [
-            "절차 각 단계의 실행 가능성",
-            "금지 표현 포함 여부",
-            "time_budget_sec 이 다섯 밑줄 처리에 충분한지"
-          ]
-        }
-      ]
-    },
-    {
-      "item_id": "M2306#44",
-      "answer_unknown": true,
-      "measured_ability": "룸메이트 두 남학생(Noah와 Steve)이 he/him으로만 받히는 서사에서, 제안하는 쪽과 응답하는 쪽을 동사로 갈라 각 밑줄의 지시 대상을 정하는 능력",
-      "design_intent": "두 인물이 방을 함께 꾸미는 이야기라 our/their 같은 공동 소유 표현이 계속 나오고, 밑줄 다섯 중 둘은 직접인용 안의 I다. 제안(suggested/asked)과 동의(agreed/replied)가 번갈아 나오는 자리마다 화자가 바뀌도록 짜여 있다.",
-      "solve_procedure": [
-        {
-          "step": "밑줄 다섯 옆에 형태(he/him/his/I)와 인용 안/밖을 적는다",
-          "on_fail": "인용 안팎이 헷갈리면 said/asked/suggested/replied 가 든 문장부터 표시한다"
-        },
-        {
-          "step": "인물표를 두 칸으로 만들고, 방·탁자처럼 두 사람이 함께 가진 것을 가리키는 our/their 는 지시 대상 후보에서 빼 둔다",
-          "on_fail": "공동 소유인지 애매하면 그 명사가 처음 나온 문장에서 누구의 것인지 확인한다"
-        },
-        {
-          "step": "인용 안 밑줄은 전달동사 주어로 화자를 정하고 I=화자로 바꿔 적는다",
-          "on_fail": "전달동사가 인용 뒤나 앞 어디에도 안 보이면 그 인용에 응답하는 다음 문장의 주어를 보고 반대편을 넣는다"
-        },
-        {
-          "step": "인용 밖 밑줄은 그 문장의 동사가 제안하는 쪽인지 응답하는 쪽인지 갈라 적고, 밑줄이 목적어면 주어와 다른 사람인지 검사한다",
-          "on_fail": "역할이 안 갈리면 바로 앞 문장에서 누가 무엇을 원했는지 한국어 한 줄로 옮겨 적는다"
-        },
-        {
-          "step": "다섯 칸에 적은 이름을 세어 넷 대 하나로 갈리는지 확인한다",
-          "on_fail": "안 갈리면 인용 안 I가 든 밑줄부터 화자를 다시 확인한다"
-        }
-      ],
-      "time_budget_sec": 70,
-      "difficulty": {
-        "predicted": 0.82,
-        "drivers": [
-          "근거: 인물이 둘뿐이고 이름이 문단마다 반복돼, 동성 인물 셋인 회차보다 후보가 적다는 구성 사실에서 잡았다",
-          "남성 인물 둘이 he/him으로만 받힌다",
-          "공동 소유 표현(our room, their space)이 잦아 소유격 밑줄과 헷갈릴 수 있다"
-        ]
-      },
-      "required_vocab": [
-        "personalizing",
-        "rearrange",
-        "refreshment",
-        "dorm"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "평가원 정답표가 없는 회차라 answer_locus 와 choices 를 넣지 않았다",
-            "지문에 파싱 잔여물('y ______', '담 ______')이 있으나 밑줄 다섯 문장은 모두 온전해 유형 서술에는 지장이 없다"
-          ],
-          "checked": [
-            "answer_unknown 표기와 코퍼스 answer=null 대조",
-            "raw_block 에서 밑줄 다섯 문장 확인",
-            "서술에 정답 지목 표현이 없는지 확인"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "answer_locus·choices 가 비었고, difficulty 근거가 구성 사실로 적혀 있다"
-          ],
-          "checked": [
-            "answer_locus·choices 가 정말로 비었는지",
-            "difficulty.predicted 근거가 drivers 에 적혔는지",
-            "required_vocab 4낱말을 지문에서 문자열 대조(personalizing·rearrange·refreshment·dorm 모두 있음)",
-            "measured_ability 가 선지를 전제하지 않는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "2단계(공동 소유 표현 제외)는 이 지문에서 our room, their space 가 반복돼 실제로 필요하다"
-          ],
-          "checked": [
-            "절차 각 단계의 실행 가능성",
-            "금지 표현 포함 여부",
-            "time_budget_sec 이 다섯 밑줄 처리에 충분한지"
-          ]
-        }
-      ]
+      "note": "학습자가 실제로 미끄러지는 자리 — (D)가 인쇄순으로 맨 뒤에 있어 앞 문단 (C)에서 말하던 노파를 그대로 이어받으면 (e) She 도 노파로 읽힌다."
+     }
     }
-  ],
-  "type_report": {
-    "type_id": "X-REFER",
-    "n_analyzed": 12,
-    "recurring_traps": [
-      {
-        "trap": "직접인용 화자·청자 오인",
-        "count": 11,
-        "signature": "밑줄이 인용부호 안의 I/you 인데, 그 인용을 여는(또는 뒤에 붙는) 전달동사의 주어를 안 찾고 문단의 초점 인물로 채운다. 정답표가 있는 9문항의 오답 36개 중 11개가 이 기제였고, 정답 밑줄 자체가 인용 안이었던 경우도 3회(M2606·2024·2023)다"
-      },
-      {
-        "trap": "최근접 명사·주어 승계",
-        "count": 5,
-        "signature": "밑줄 바로 앞에 나온 사람 이름이나 앞 문장 주어를 그대로 대명사에 넣는다. 출제자가 정답이 아닌 밑줄 앞에 다른 인물 이름을 일부러 놓는다(M2506 (a) 앞의 'his brother, Jeff')"
-      },
-      {
-        "trap": "소유격 vs 명사구 혼동",
-        "count": 4,
-        "signature": "밑줄이 his son · My housemate · my brother · her sister 처럼 소유격이 든 명사구다. 소유격이 가리키는 사람과 명사구 전체가 가리키는 사람이 다르고, 학습자는 소유격 쪽을 답으로 적는다"
-      },
-      {
-        "trap": "주어=목적어 착시",
-        "count": 4,
-        "signature": "한 문장 안의 주어와 밑줄(목적어·소유격·종속절 주어)을 같은 사람으로 본다. 'Mia thanked (c) her' 처럼 주어가 이미 있으면 목적어 대명사는 다른 사람이라는 점이 그대로 정답 근거가 된다"
-      },
-      {
-        "trap": "문단 경계 화자 승계",
-        "count": 4,
-        "signature": "43번 때문에 문단이 시간순과 다르게 인쇄돼 있는데, 인쇄순으로 읽으며 앞 문단의 지시 대상을 다음 문단 첫 밑줄에 그대로 잇는다"
-      }
-    ],
-    "answer_locus_pattern": "정답표가 있는 9문항 전부에서 근거는 **밑줄이 든 문장 자체가 아니라 그 문장을 여닫는 전달동사 문장 또는 바로 앞뒤 한 문장**에 있다. 위치 분포: 정답 밑줄이 (A) 문단에 온 적은 0회 · (B) 4회 · (C) 3회 · (D) 2회 — (A)는 다수 지시체를 세우는 기준 문단이라 정답이 놓이지 않는다. 그리고 9개 중 8개에서 **정답 문단의 인쇄 순서와 시간 순서가 다르다**(유일한 예외 2026#44는 (C)가 둘 다 세 번째). 정답 밑줄이 (B)에 온 4문항(2025·M2509·M2506·2024)은 모두 (B)가 시간순 3번째 이하인데 인쇄로는 (A) 바로 뒤라, 43번의 순서 뒤섞기가 44번 정답 자리를 그대로 함정으로 쓴다.",
-    "procedure": [
-      {
-        "step": "지문을 읽기 전에 밑줄 (a)~(e)에 표시하고, 각각이 ① 인용부호 안인지 밖인지 ② 대명사인지 소유격이 든 명사구인지 두 가지만 옆에 적는다",
-        "on_fail": "밑줄 범위가 애매하면 소유격과 명사 양쪽에 답을 적어 두고 뒤에서 인물표로 가른다"
-      },
-      {
-        "step": "(A) 문단에서 인물표를 만든다 — 이름·성별·관계를 적고, 이름 없이 나오는 인물(an old woman, a librarian, the clerk, the fruit seller)과 수컷 동물에게도 반드시 한 칸을 준다",
-        "on_fail": "이름이 하나뿐이면 뒤 문단에 무명 인물이 더 나온다고 보고 빈칸을 남긴다"
-      },
-      {
-        "step": "인용 안 밑줄부터 처리한다 — 그 인용을 여는(또는 인용 뒤에 붙는) 전달동사의 주어를 찾아 화자를 적고, I/my는 화자, you/your는 듣는 사람으로 바꿔 쓴다. 인용 안 호격(Dad, Mike, Boy)이 있으면 듣는 사람을 그것으로 확정한다",
-        "on_fail": "전달동사가 대명사 주어뿐이면(She added) 바로 앞 인용의 화자와 같은 사람으로 잇고, 응답 표시(In reply, replied, answered)가 있으면 반대편으로 넘긴다"
-      },
-      {
-        "step": "인용 밖 밑줄은 그 문장의 동사가 갈라 놓는 두 역할(주는 쪽/받는 쪽, 제안하는 쪽/승낙하는 쪽, 관심을 끄는 쪽/관심의 주인)을 적고 밑줄이 어느 자리인지 표시한다. 밑줄이 목적어·소유격·종속절 주어면 같은 문장 주어와 다른 사람인지 먼저 검사한다",
-        "on_fail": "역할이 하나뿐인 동사면 바로 앞 문장에서 그 동작을 한 사람을 후보로 올린다"
-      },
-      {
-        "step": "소유격이 든 명사구 밑줄은 두 단계로 답한다 — 먼저 소유격이 누구인지 적고, 그 사람의 son·brother·sister·housemate가 인물표에서 누구인지 찾아 그것을 최종 답으로 적는다",
-        "on_fail": "관계의 상대를 못 찾으면 그 관계 명사가 처음 나온 문장으로 되돌아간다"
-      },
-      {
-        "step": "다섯 칸에 적힌 이름을 세어 넷 대 하나로 갈리는 것을 고른다. 셋 대 둘로 갈리면 인용 안 밑줄과 명사구 밑줄 두 자리만 다시 본다",
-        "on_fail": "그래도 안 갈리면 (A) 문단 밑줄은 기준으로 확정하고 나머지 넷만 비교한다"
-      }
-    ],
-    "failure_modes": [
-      "**주인공이 다수 지시체라고 미리 가정한다.** 9문항 중 7문항은 그 가정이 맞지만 M2706과 M2509는 정반대다 — 주인공(Sally·Helen)이 정답이고 상대(노파·Anna)가 넷이다. 이름 세는 어림짐작으로 풀면 이 두 문항에서 실점한다",
-      "**등장 빈도로 정답을 고른다.** 정답 지시체가 지문에서 이름으로 불린 횟수를 세어 보면 librarian 2 · Chavez 2 · Helen 6 · Jeff 7 · Laura 8 · Camila 9 · Emma 11 · Sally 13 · Sean 13 으로 2에서 13까지 흩어진다. '적게 나오는 인물이 정답'은 9문항 중 2문항에서만 맞는다",
-      "인용부호 안 I/you를 서술자 시점의 3인칭으로 옮기지 않고 그대로 읽는다 — 이 유형 오답 유인의 3분의 1이 여기서 나온다",
-      "소유격이 든 명사구 밑줄에서 소유격을 답으로 적는다(her sister → Camila). 2023#44는 이 오독 하나로 (c)가 답처럼 보이게 설계됐다",
-      "인쇄된 문단 순서대로 장면을 이어 붙인다. 43번이 순서를 흩어 놓았으므로, 인쇄상 (A) 바로 뒤인 (B)가 시간상으로는 마지막인 경우가 잦다",
-      "같은 성별 인물이 셋 이상인 회차(2025·M2509)에서 대명사 형태만으로 후보를 좁히려 한다 — 형태로는 갈리지 않고 역할·호격으로만 갈린다"
-    ],
-    "time_budget_sec": 70,
-    "open_questions": [
-      "**함정 라벨 등재 제안(§1-b (C) 밑줄형).** 명제형 9종·위치형 10종 어느 것도 지칭 오답에 맞지 않아 새로 썼다. 이 청크에서 실제로 쓴 것은 9종이다 — `직접인용 화자 오인` · `직접인용 청자 오인` · `게시글 화자 오인` · `화자 자기지시 오인` · `최근접 명사 오인`(= 최근접 주어 승계) · `문단 경계 화자 승계`(= 화자 교대 놓침 · 문단 도치 화자 오인) · `주어=목적어 착시`(= 종속절 주어 오인 · 주어 소유격 승계 오인) · `소유격 vs 명사구 혼동` · `동일인 다른 호칭 미연결`. 여기에 회차 특수 사정으로 쓴 `동성 인물 혼선` · `동격 어구 오인` · `복수 대명사 뒤 단수 지시 오인` · `분사구문 주어 오인` 넷을 더하면 13종인데, 뒤 넷은 표본 1건씩이라 다음 청크에서 재출현하는지 보고 등재 여부를 정하는 게 맞다",
-      "**인접 발견 확인 — '짝 문항의 함정이 이 문항 근거 언저리에 심긴다'는 이 유형에서 성립한다.** 정답표가 있는 9문항 중 8문항에서 정답 밑줄이 든 문단의 인쇄 순서와 시간 순서가 어긋난다(43번이 만든 뒤섞기). 특히 (B)에 정답이 온 4문항은 모두 (B)가 시간순 3~4번째다. 반대로 45번(내용 일치)과의 상호작용은 이 표본에서 확인되지 않았다 — 45번 선지가 44번 정답 문장을 건드린 사례가 없다(2025#44의 45번 ④는 (C) 문단, 44번 정답은 (B) 문단)",
-      "**인접 발견 부분 반증 — '정답 인물은 등장이 드물다'는 성립하지 않는다.** 정답 지시체의 이름 등장 횟수가 2~13으로 흩어져, 빈도는 판별에 못 쓴다. 다만 '무명 인물(a librarian, Chavez 같은 조연)이 밑줄에 걸리면 그것이 정답'은 2건(2026·M2609)에서 모두 맞았다 — 표본이 작아 다음 청크에서 확인이 필요하다",
-      "정답표가 없는 3문항(M2409·M2309·M2306)은 선지 판정을 비웠으므로 위 함정 통계의 분모는 9문항·오답 36개다. 이 유형은 매 회차 1문항씩만 나오므로 표본이 늘려면 2022학년도 이전 회차가 필요하다",
-      "M2309#44는 지문이 (A) 한 문단만 회수됐다(45번 선지와 안내문이 지문 자리에 섞여 들어옴). 파서 쪽 문제이지 분석 쪽 문제가 아니므로, 코퍼스 재파싱 뒤 이 문항만 다시 뽑는 것이 낫다",
-      "반려는 5건 나왔다 — setter 2건(M2609 절차 반례 · 2023 (c) 지시체 오독), analyst 3건(M2509·2024 함정 라벨 중복 · M2409 정답을 아는 척한 difficulty.drivers). 다섯 건 모두 고쳐 재검수했고 해당 문항에 revised 를 남겼다. 다만 tutor 가 반려한 사례는 0건이다 — tutor 의 자(실행 가능성·시간)가 이 유형에서는 문항마다 절차가 거의 같아 변별이 안 된 것으로 보인다. 다음 청크에서는 tutor 에게 이 절차를 같은 유형 다른 회차 지문에 그대로 적용했을 때 깨지는가를 재게 하는 편이 낫다"
+   ],
+   "solve_procedure": [
+    {
+     "step": "지문을 읽기 전에 (a)~(e) 밑줄에 표시하고, 각 밑줄이 he/she/him/her 인지, I/you 인지, 아니면 명사구(her sister 등)인지 형태만 옆에 적는다",
+     "on_fail": "형태가 명사구면 소유격이 아니라 명사구 전체가 가리키는 사람을 묻는 것이므로 별표를 쳐 둔다"
+    },
+    {
+     "step": "(A) 문단에서 이름과 성별을 뽑아 두 칸 표로 적는다. 이름 없는 인물(노파·점원·판매원)이 있으면 그 호칭도 한 칸으로 넣는다",
+     "on_fail": "이름이 하나뿐이면 뒤 문단에 무명 인물이 더 나온다고 보고 빈칸을 남긴다"
+    },
+    {
+     "step": "인용부호 안 밑줄은 그 인용을 여는(또는 인용 뒤에 붙는) 전달동사의 주어를 찾아 화자를 적고, I는 화자, you는 듣는 사람으로 바꿔 적는다",
+     "on_fail": "전달동사가 인용 뒤에 오면(', (b) he said') 인용이 끝난 자리까지 읽어 주어를 잡는다"
+    },
+    {
+     "step": "인용 밖 밑줄은 같은 문장 안에서 그 밑줄이 하는 일(주는 쪽/받는 쪽, 가르치는 쪽/배우는 쪽)을 동사로 확인해 사람을 적는다",
+     "on_fail": "한 문장으로 안 갈리면 바로 앞 문장에서 그 동작을 하던 사람을 후보로 올린다"
+    },
+    {
+     "step": "다섯 칸에 적은 이름을 세어 넷 대 하나로 갈리는 하나를 고른다",
+     "on_fail": "셋 대 둘이면 인용부호 안 밑줄부터 화자·청자를 다시 붙인다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.72,
+    "drivers": [
+     "여성 인물 둘이 모두 she/her로 받힌다",
+     "다수 지시체가 주인공이 아니라 노파다",
+     "정답 문단 (D)가 인쇄순 마지막인데 시간순으로는 두 번째"
     ]
+   },
+   "required_vocab": [
+    "unpolished",
+    "strings",
+    "instrument",
+    "passing by"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
+      "인용은 (D) 문단에 문자 그대로 있다",
+      "지칭 유형 정의(가리키는 대상이 다른 하나)에 맞는 서술이다"
+     ],
+     "checked": [
+      "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "밑줄 다섯의 지시체를 각각 전달동사 주어로 재확인(a·b·c·d=노파, e=Sally)",
+      "평가원 정답표 5와 correct 선지 번호 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
+      "오답 넷의 라벨이 최근접 명사 오인·동일인 다른 호칭 미연결·주어=목적어 착시·직접인용 화자 오인으로 서로 다르다"
+     ],
+     "checked": [
+      "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
+      "오답 4개 trap 라벨 중복 여부",
+      "why_tempting 이 실제 밑줄 표현(her music·the young woman·told her·I)을 인용하는지",
+      "how_to_reject 마다 문단 기호와 문장이 적혔는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
+      "4단계 절차가 밑줄 다섯 개에 각 10초 남짓으로 70초 안에 끝난다"
+     ],
+     "checked": [
+      "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
+      "1단계를 지문을 안 본 상태에서 실행할 수 있는지",
+      "금지 표현(흐름을 파악하면 등) 포함 여부",
+      "required_vocab 4낱말이 모두 지문에 있고 지시체 판정에 실제로 쓰이는지"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2026#44",
+   "measured_ability": "이름이 주어진 가족 셋 사이에 이름 없는 인물이 하나 섞인 서사에서, 대명사를 '이름 목록'이 아니라 같은 문장의 주어·목적어 관계로 배분하는 능력",
+   "design_intent": "가족 삼인(Julia·Sam·Mia) 사이에 무명 여성 a librarian 을 하나 심었다. (C) 문단에는 밑줄 없는 her(=Mia, handed her a book)와 밑줄 (c) her(=librarian)가 한 문장 안에 잇달아 나와, 같은 형태의 대명사가 다른 사람을 가리키는 자리를 만든다.",
+   "answer_locus": {
+    "sentence_index": [
+     28,
+     29
+    ],
+    "quote": "The librarian handed her a book titled Café Paris and said with a smile, \"You'll love this one.\" Mia thanked (c) her and checked it out.",
+    "reasoning": "책을 건네고 말한 쪽이 The librarian, 건네받은 쪽이 Mia다. 다음 문장의 주어가 Mia이므로 목적어 (c) her 는 Mia일 수 없고, 그 장면에 남은 여성은 사서뿐이다. 나머지 넷은 전부 Mia를 가리킨다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "최근접 주어 승계",
+     "why_tempting": "밑줄 (a) she 앞 문장들의 주어가 She(=Julia)로 이어져 왔고, Julia가 남편에게 말을 거는 장면이라 she를 Julia로 읽는다.",
+     "how_to_reject": "(A)에서 (a)가 든 말은 Sam nodded, \"I know. I feel like (a) she is growing distant from us.\" 로 Sam의 발화다. 화자 Sam이 아내 Julia에게 하는 말이므로 she는 대화 밖 인물, 즉 앞에서 스마트폰에 빠져 있던 Mia다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "동일인 다른 호칭 미연결",
+     "why_tempting": "밑줄이 (b) his daughter 라는 명사구여서, 소유격 his(=Sam)를 지시 대상으로 잡거나 앞 문장에서 말한 Julia를 넣는다.",
+     "how_to_reject": "(B) 앞 문장 Mia responded, her eyes sparkling, \"Mom, I understand him.\" 에서 방금 말한 사람이 Mia이고, Sam supported (b) his daughter 는 그 발언을 편드는 문장이다. Sam의 딸은 지문 첫머리 She checked her daughter's room 이 확인해 주듯 Mia 하나뿐이다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "밑줄 문장 ‘Mia thanked (c) her and checked it out’ 은 주어가 Mia 이고 밑줄이 그 목적어인데 herself 가 아니므로 주어와 같은 사람일 수 없다. 바로 앞 문장 ‘The librarian handed her a book titled Café Paris and said with a smile, “You’ll love this one.”’ 가 책을 건네고 말을 건 사람을 The librarian 으로 세우므로 인사를 받는 쪽은 사서다. 나머지 넷 (a) she is growing distant from us · Sam supported (b) his daughter · how busy (d) I am with exams · (e) she knew she was spending too much time on her phone 은 모두 Mia 를 가리킨다.",
+     "confirmed_at": {
+      "sentence_index": [
+       28,
+       29
+      ],
+      "note": "학습자가 실제로 미끄러지는 자리 — (C) 문단이 Mia 시점으로만 서술돼 대명사를 전부 Mia 로 채우면 (c) her 도 Mia 가 된다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "직접인용 화자 오인",
+     "why_tempting": "밑줄이 인용 안의 (d) I 이고, 문단 (D)의 첫 문장 주어가 Sam(When Sam suggested)이어서 I를 Sam으로 읽는다.",
+     "how_to_reject": "(D) 전달동사 Mia immediately shook her head and said 가 화자를 Mia로 못박는다. 같은 인용의 No, Dad. 라는 호격도 화자가 Sam이 아님을 보여 준다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "화자 교대 놓침",
+     "why_tempting": "밑줄 (e) she 앞에 He didn't give up 이후로 Sam의 설득 발화가 길게 이어져, 문단의 주어가 계속 Sam인 것처럼 읽힌다.",
+     "how_to_reject": "(D) 바로 앞 문장 After some persuasion, Mia reluctantly agreed. 에서 주어가 Mia로 넘어왔고, 뒤 문장 So she asked, \"Dad, can I choose the first book?\" 의 화자도 Mia다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "밑줄 (a)~(e)에 표시하고 각각이 인용부호 안인지 밖인지 먼저 갈라 적는다",
+     "on_fail": "인용부호가 지문에 여러 겹이면 여는 따옴표와 닫는 따옴표를 짝지어 선으로 이어 둔다"
+    },
+    {
+     "step": "이름이 나오는 순서대로 인물표를 만들되, 이름 없이 나오는 인물(a librarian, the clerk, an old woman)도 반드시 한 칸을 준다",
+     "on_fail": "무명 인물을 빠뜨렸다 싶으면 관사 a/the 가 붙은 사람 명사를 지문에서 훑어 추가한다"
+    },
+    {
+     "step": "인용 안 밑줄은 전달동사 주어를 찾아 I=화자, you=듣는 사람, 3인칭=대화 밖 인물로 적는다",
+     "on_fail": "화자가 안 잡히면 인용 안의 호격(Mom, Dad, 이름)을 보고 듣는 사람부터 정한다"
+    },
+    {
+     "step": "인용 밖 밑줄은 같은 문장의 주어를 적고, 밑줄이 목적어·소유격이면 주어와 다른 사람인지 확인한다",
+     "on_fail": "주어와 밑줄이 같은 사람일 수밖에 없는 문장이면 앞 문장의 동작 주체를 후보로 올린다"
+    },
+    {
+     "step": "다섯 칸을 세어 하나만 다른 것을 고르고, 그 하나가 무명 인물이면 관사 표현으로 한 번 더 확인한다",
+     "on_fail": "넷 대 하나로 안 갈리면 목적어·소유격 밑줄부터 다시 본다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "여성 인물 셋(Julia·Mia·librarian)",
+     "정답 밑줄이 주어-목적어 관계 하나로 갈린다"
+    ]
+   },
+   "required_vocab": [
+    "librarian",
+    "genre",
+    "reluctantly",
+    "persuasion"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
+      "인용에 é와 따옴표가 있어 문자열 대조를 두 번 돌렸고 그대로 일치했다"
+     ],
+     "checked": [
+      "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "다섯 밑줄의 지시체 재확인(a·b·d·e=Mia, c=librarian)",
+      "평가원 정답표 3과 correct 선지 번호 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
+      "오답 넷의 라벨이 4종으로 갈린다",
+      "선지 ②의 밑줄은 명사구(his daughter)라 소유격 함정과 겹칠 뻔했으나 '동일인 다른 호칭 미연결'로 구별된다"
+     ],
+     "checked": [
+      "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
+      "trap 라벨 중복 여부",
+      "why_tempting 이 밑줄 표현 자체를 인용하는지",
+      "how_to_reject 에 문단 기호가 있는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
+      "2단계(무명 인물에 칸 주기)가 이 문항의 승부처이며 지문을 안 본 상태에서도 실행 가능하다"
+     ],
+     "checked": [
+      "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
+      "절차 5단계의 실행 가능성",
+      "금지 표현 포함 여부",
+      "required_vocab 낱말의 지문 존재 여부"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2609#44",
+   "measured_ability": "남성 인물 셋(Mike·아빠·선수 Chavez)이 he/his로만 받히는 서사에서, 동사가 요구하는 행위 주체와 대상을 갈라 대명사를 배분하는 능력",
+   "design_intent": "밑줄 (c)와 (d)를 한 문장 간격으로 붙여 놓아, 같은 대화 안에서 지시 대상이 Mike에서 Chavez로 넘어가는 지점을 짚게 한다. (d)는 '관심을 끌려는 쪽'과 '관심의 주인'이 다르다는 것을 알아야 갈린다.",
+   "answer_locus": {
+    "sentence_index": [
+     18,
+     19
+    ],
+    "quote": "Mike saw him warming up on the field and waved hoping to get (d) his attention.",
+    "reasoning": "앞 문장에서 아빠가 3루로 뛰어나가는 선수를 Chavez라고 지목했고, 이 문장의 him이 그 선수다. 손을 흔든 주체가 Mike이므로 그가 끌려는 attention은 상대의 것이다. his=Mike로 읽으면 자기 관심을 끌려고 손을 흔든다는 뜻이 되어 문장이 성립하지 않는다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "직접인용 청자 오인",
+     "why_tempting": "밑줄이 인용 안 (a) you 인데, 표를 구한 사람이 아빠라 you를 말하는 사람 쪽으로 되돌려 읽기 쉽다.",
+     "how_to_reject": "(A)의 전달동사 \"Hey, Mike,\" he said 가 화자를 아빠로 못박는다. 호격 Mike 가 듣는 사람을 직접 부르므로 you=Mike다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "복수 대명사 뒤 단수 지시 오인",
+     "why_tempting": "밑줄 (b) He 앞 문장이 When they got home 으로 시작해 주어가 복수라, 뒤이은 He를 아빠로 채워 넣을 수 있다.",
+     "how_to_reject": "(B) 바로 앞 문장 Mike told his mom all about his favorite plays and showed her the ball he caught 의 주어가 Mike이고, 뒤 문장 spending time with his dad 가 He와 dad를 나란히 놓아 둘이 다름을 보여 준다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "동격 어구 오인",
+     "why_tempting": "밑줄이 (c) your favorite player 로 고유명사 Chavez 바로 뒤에 붙어 있어, your가 Chavez와 한 덩어리처럼 보인다.",
+     "how_to_reject": "(C)의 전달동사 His dad pointed at the player ... saying 이 화자를 아빠로 정한다. 화자가 아빠이므로 your는 듣는 사람 Mike이고, Chavez는 your favorite player 의 내용일 뿐이다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "밑줄 문장 ‘Mike saw him warming up on the field and waved hoping to get (d) his attention’ 은 주어가 Mike 이고, 주의를 끌려는 상대는 그 앞 목적어 him 이다. 그 him 은 바로 앞 문장 ‘Look, it’s Chavez, (c) your favorite player!’ 가 지목한 Chavez 이므로 (d) his 도 Chavez 다 — 손을 흔든 사람이 자기 주의를 끌 수는 없다. 나머지 넷 Do (a) you want to go? · (b) He knew this was a day he would never forget · (c) your favorite player · (e) He tightly held the ball 은 모두 Mike 를 가리킨다.",
+     "confirmed_at": {
+      "sentence_index": [
+       18,
+       19
+      ],
+      "note": "학습자가 실제로 미끄러지는 자리 — (C) 문단 문장 대부분의 주어가 Mike 라, 관성으로 (d) his 도 Mike 로 채운다."
+     }
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "최근접 주어 승계",
+     "why_tempting": "밑줄 (e) He 앞 두 문장의 주어가 He hit a high fly ball(=Chavez)과 Everyone 이라, He를 Chavez로 이어 읽는다.",
+     "how_to_reject": "(D) 바로 앞 문장 but Mike reached up with his glove and grabbed the ball 과 Everyone clapped and smiled at Mike 가 공을 잡아 쥔 사람을 Mike로 확정한다. (e) He tightly held the ball 은 그 공을 쥔 사람이다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "밑줄 (a)~(e) 옆에 대명사 형태(you/he/his)를 적고, 인용부호 안인지 밖인지 갈라 표시한다",
+     "on_fail": "인용 안팎이 헷갈리면 여는 따옴표부터 닫는 따옴표까지 괄호로 묶는다"
+    },
+    {
+     "step": "인용 안 밑줄은 전달동사 주어와 인용 안 호격(이름 부름)을 함께 보고 화자·청자를 정한다",
+     "on_fail": "호격이 없으면 인용을 여는 문장의 주어만으로 화자를 잡고 you는 그 상대로 적는다"
+    },
+    {
+     "step": "인용 밖 밑줄은 그 문장의 동사가 요구하는 두 자리(하는 사람/당하는 사람)를 나눠 적고 밑줄이 어느 자리인지 표시한다",
+     "on_fail": "한 문장에 사람 후보가 하나뿐이면 바로 앞 문장에서 그 동작을 한 사람을 후보로 올린다"
+    },
+    {
+     "step": "같은 문장 안의 주어와 밑줄이 같은 사람이면 뜻이 어색해지는지 소리 내어 바꿔 읽어 본다",
+     "on_fail": "어색함이 안 느껴지면 그 문장을 '누가 누구에게'로 한국어 한 줄로 옮겨 적는다"
+    },
+    {
+     "step": "다섯 칸의 이름을 세어 넷 대 하나로 갈리는 것을 고른다",
+     "on_fail": "안 갈리면 이름이 두 번밖에 안 나온 인물(선수·점원)이 밑줄 자리에 들어가는지 다시 본다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.78,
+    "drivers": [
+     "남성 인물 셋이 모두 he/his로 받힌다",
+     "정답 밑줄이 바로 앞 밑줄과 한 문장 차이로 붙어 있다",
+     "정답 인물 Chavez는 지문에서 이름이 두 번만 나온다"
+    ]
+   },
+   "required_vocab": [
+    "in person",
+    "fly ball",
+    "warming up",
+    "attention"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
+      "초안 절차 3단계가 '인용 밖 밑줄은 앞 문장 주어를 쓴다'였는데 이 문항의 (d)가 그 규칙의 반례라, 동사의 두 자리를 나누는 문구로 고쳤다"
+     ],
+     "checked": [
+      "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "다섯 밑줄의 지시체 재확인(a·b·c·e=Mike, d=Chavez)",
+      "평가원 정답표 4와 correct 선지 번호 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
+      "오답 넷 라벨이 4종으로 갈린다",
+      "선지 ⑤의 유인이 앞 문장 주어가 Chavez라는 실제 텍스트에 근거한다"
+     ],
+     "checked": [
+      "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
+      "trap 라벨 중복 여부",
+      "why_tempting 의 인용 표현이 지문에 있는지",
+      "how_to_reject 마다 문단 기호가 있는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
+      "반려 후 재검수: 3단계 문구가 (d)에서도 통하는지 직접 대입해 확인했다",
+      "5단계가 70초 안에 끝난다"
+     ],
+     "checked": [
+      "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
+      "절차 3단계를 (d)에 실제로 적용해 결과가 나오는지",
+      "금지 표현 포함 여부",
+      "required_vocab 낱말의 지문 존재 여부"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2606#44",
+   "measured_ability": "여성 인물 둘과 무명 판매자가 번갈아 말하는 대화에서, 인용 안 I와 you를 화자·청자에 각각 붙여 지시 대상을 가르는 능력",
+   "design_intent": "밑줄 다섯 중 셋이 인용부호 안에 있고(b·c·e), 그중 (c)와 (e)의 you는 화자가 서로 다르다. 같은 you라도 누가 말하느냐에 따라 지시체가 뒤집힌다는 것을 두 번 묻는 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     24,
+     26
+    ],
+    "quote": "Curious to explore more, Cathy said, \"While (c) you're buying jam, I'll look around the market and get some peaches.\"",
+    "reasoning": "잼을 사러 간 사람은 Laura다(Meanwhile, Laura found some strawberry jam for sale. She walked over to buy some.). 이 문장의 화자는 Cathy이므로 인용 안 you는 청자 Laura이고, 같은 인용의 I'll look around 가 Cathy와 짝을 이뤄 you≠Cathy를 확정한다. 나머지 넷은 모두 Cathy를 가리킨다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "최근접 명사 오인",
+     "why_tempting": "밑줄 (a) her 바로 앞에 소유격 Laura's town 이 있어 her를 Laura로 잇는다.",
+     "how_to_reject": "(A) 같은 문장 앞부분 Cathy had recently moved into Laura's town 과 다음 문장 Cathy had never had a chance to buy freshly-picked fruits or vegetables 가, 농산물 직거래 장터가 처음인 쪽을 Cathy로 못박는다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "직접인용 화자 오인",
+     "why_tempting": "밑줄이 인용 안 (b) I 이고 (B) 문단에서 말을 많이 한 쪽이 Laura(팬케이크 제안)라, I를 Laura로 읽는다.",
+     "how_to_reject": "(B)의 전달동사 Cathy thanked her friend for the special experience, saying 이 화자를 Cathy로 정한다. 이어지는 Thank you for the wonderful day 도 고마워하는 쪽의 말이다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "인용을 여는 Cathy said 가 화자를 Cathy 로 주므로 같은 인용의 I’ll look around the market 에서 I 가 Cathy 이고 (c) you 는 청자 Laura 다. 바로 앞 Meanwhile, Laura found some strawberry jam for sale 이 잼을 사러 간 사람을 Laura 로 확정해 you’re buying jam 과 맞물린다. 나머지 넷 (a) her first experience at a real farmer’s market · (b) I really love this place! · she picked out some beautiful, ripe peaches · you’ll have to wait another year 는 모두 Cathy 다.",
+     "confirmed_at": {
+      "sentence_index": [
+       24,
+       26
+      ],
+      "note": "학습자가 실제로 미끄러지는 자리 — (C) 문단이 Cathy 중심으로 서술되고 인용 안에 I 도 함께 있어 you 까지 Cathy 로 채운다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "분사구문 주어 오인",
+     "why_tempting": "밑줄 (d) she 가 든 문단의 첫 문장이 Wandering away from Laura 로 시작해 Laura가 먼저 눈에 들어온다.",
+     "how_to_reject": "(D) 첫 문장 Wandering away from Laura, Cathy began to search for peaches 에서 분사구문의 주어는 Cathy이고, 밑줄 문장 From a fruit stand, (d) she picked out some beautiful, ripe peaches 는 그 복숭아 찾기의 결과다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "직접인용 청자 오인",
+     "why_tempting": "밑줄이 인용 안 (e) you 인데, 말하는 사람이 무명(the fruit seller)이라 화자를 건너뛰고 you를 판매자나 Laura로 채운다.",
+     "how_to_reject": "(D)의 전달동사 The fruit seller told her 가 화자를 판매자, 청자를 her(=복숭아를 고른 Cathy)로 정한다. 뒤 문장 Hearing that, Cathy said 가 들은 사람을 다시 확인해 준다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "밑줄 (a)~(e)를 인용부호 안/밖으로 두 무리로 나눠 적는다",
+     "on_fail": "따옴표가 겹쳐 헷갈리면 각 인용을 여는 문장의 동사(said/asked/replied/told)에 동그라미를 친다"
+    },
+    {
+     "step": "인용 안 밑줄마다 전달동사의 주어를 찾아 '화자=누구'를 적고, I는 화자, you는 그 상대로 바꿔 쓴다",
+     "on_fail": "전달동사가 인용 뒤에 붙어 있으면 인용을 건너뛰고 뒤쪽 주어를 찾는다"
+    },
+    {
+     "step": "인용 밖 밑줄은 그 문장의 주어와 분사구문의 주어를 함께 확인해 사람을 적는다",
+     "on_fail": "분사구문 주어가 안 보이면 주절 주어와 같다고 보고 그 이름을 넣는다"
+    },
+    {
+     "step": "장면 전환 표지(Meanwhile, As they walked out)를 표시해 그 자리에서 누가 무엇을 하고 있었는지 한 줄로 적는다",
+     "on_fail": "표지가 없으면 각 문단 첫 문장의 주어를 문단 대표 인물로 적어 둔다"
+    },
+    {
+     "step": "다섯 칸을 세어 하나만 다른 것을 고른다",
+     "on_fail": "안 갈리면 you가 든 밑줄부터 화자를 다시 확인한다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.83,
+    "drivers": [
+     "여성 인물 둘이 모두 she/her로 받힌다",
+     "인용 안 밑줄 셋",
+     "정답 you의 근거가 같은 문장의 I와 대비된다"
+    ]
+   },
+   "required_vocab": [
+    "freshly-picked",
+    "crowded",
+    "ripe",
+    "meanwhile"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "Meanwhile 이 장면 전환 표지로 정답 근거를 여는 자리라 절차 4단계에 반영했다",
+      "why_correct 를 「왜 놓치기 어려운가」가 아니라 「이 밑줄이 무엇을 가리키는가」로 다시 썼다 — 지시 대상을 확정하는 문법 근거(등위절 주어 승계 · 소유격 임자 · 인용 화자와 호격 · 재귀형이 아닌 목적어)를 지문 표현으로 지목하고, 나머지 넷이 한 사람으로 모인다는 것을 한 줄로 붙였다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "다섯 밑줄의 지시체 재확인(a·b·d·e=Cathy, c=Laura)",
+      "평가원 정답표 3과 correct 선지 번호 대조",
+      "새 why_correct 안의 영어 어구를 corpus.json 지문에서 문자열 대조(전 어구 통과)",
+      "why_correct 가 정답 밑줄의 지시 대상과 나머지 넷의 공통 대상 두 짝을 다 대는지 확인",
+      "평가원 정답표 번호와 correct 번호 재대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "선지 ②와 ⑤가 둘 다 인용 안 함정이라 라벨이 겹칠 뻔했다 — 화자 오인(②)과 청자 오인(⑤)으로 갈라 두 기제를 구별했다",
+      "새 why_correct 가 소거법(「나머지가 다 X 이므로」)이 아니라 정답 밑줄 자체의 문법 근거로 서 있는지 확인했다",
+      "앞서 why_correct 에 있던 심리 관찰은 지우지 않고 confirmed_at.note 로 자리를 옮겨 보존했다 — distractor 서술은 손대지 않았다"
+     ],
+     "checked": [
+      "trap 라벨 중복 여부",
+      "why_tempting 이 밑줄 표현을 실제로 인용하는지",
+      "how_to_reject 에 문단 기호가 있는지",
+      "why_correct 에 「왜 놓치기 어려운가」 계열 어휘가 남았는지 정규식 검사",
+      "distractor 4개의 trap·why_tempting·how_to_reject 무변경 확인",
+      "confirmed_at.sentence_index 가 answer_locus 와 같은 자리를 가리키는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계에서 분사구문 주어 규칙을 명시해 (d) 오답을 학생이 스스로 걸러낼 수 있다",
+      "지문을 아직 안 읽은 학생이 why_correct 의 영어 어구를 지문에서 찾아 그 자리를 직접 짚을 수 있도록 근거를 어구 단위로 적었다"
+     ],
+     "checked": [
+      "절차 각 단계의 실행 가능성",
+      "금지 표현 포함 여부",
+      "required_vocab 낱말이 지문에 있는지",
+      "why_correct 의 영어 어구가 지문에서 그대로 검색되는 연속 문자열인지 확인",
+      "정답 밑줄 기호((b)·④ 등)가 서술 안에 함께 적혀 자리 찾기가 되는지 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2025#44",
+   "measured_ability": "남성 인물 셋(아버지 Ethan·아들 Sean·세탁소 점원)이 he/him으로만 받히는 서사에서, 제안하는 쪽과 승낙하는 쪽처럼 역할이 갈리는 동사를 근거로 대명사를 배분하는 능력",
+   "design_intent": "밑줄 (a)는 his son 이라는 명사구여서 소유격의 지시체(Ethan)와 명사구가 가리키는 사람(Sean)이 갈리고, (b)와 (c)는 같은 문단 안에서 지시 대상이 아버지에서 아들로 넘어간다. 지시 대상이 바뀌는 자리를 문단 안쪽에 숨겼다.",
+   "answer_locus": {
+    "sentence_index": [
+     15,
+     18
+    ],
+    "quote": "Grace stepped in, \"You know, the weather this weekend will be the best of the year. Why not enjoy it?\" After a moment's hesitation, (c) he agreed.",
+    "reasoning": "하이킹을 제안한 쪽은 Ethan이고, 도서관에 가야 한다며 미룬 쪽은 Sean이다. Grace의 말은 그 미룬 쪽을 설득하는 말이므로, 망설이다 승낙한 (c) he는 설득당한 Sean이다. (D)에서 실제로 Ethan and Sean set off hiking 으로 승낙이 이행된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "소유격 vs 명사구 혼동",
+     "why_tempting": "밑줄이 (a) his son 이라 밑줄에 붙은 명사 son(=Sean)을 그대로 지시 대상으로 잡는다.",
+     "how_to_reject": "(A)의 밑줄 문장 Ethan then shared how things had changed since (a) his son started middle school 에서 이야기를 꺼낸 사람은 Ethan이고, 아들을 가진 사람도 Ethan이다. 밑줄이 소유격이면 묻는 것은 '누구의'다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "주어=목적어 착시",
+     "why_tempting": "밑줄 (b) him 이 든 문장의 주어가 Sean이라, 같은 문장 안의 him까지 Sean으로 채운다.",
+     "how_to_reject": "(B) 바로 앞 문장 Ethan softly said, \"Sean, let's go hiking this Saturday\" 가 제안한 사람을 Ethan으로 정한다. Though Sean thanked (b) him for the suggestion 은 그 제안에 고마워하는 문장이므로 him은 제안자다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "밑줄 앞 두 문장이 하이킹 제안을 거절한 사람을 Sean 으로 세운다 — ‘Though Sean thanked (b) him for the suggestion, he said he had to go to the library’. 이어 Grace 가 ‘Why not enjoy it?’ 하고 설득하고 그 뒤에 ‘After a moment’s hesitation, (c) he agreed’ 이 오므로, 망설이다 동의한 사람은 거절했던 Sean 이다. 제안을 꺼낸 Ethan 은 (A)에서 이미 ‘He agreed’ 로 하이킹에 동의해 다시 설득될 자리가 없다. 나머지 넷 since (a) his son started middle school · Sean thanked (b) him for the suggestion · Grace quickly reminded (d) him · afraid of disappointing (e) you 는 모두 Ethan 을 가리킨다.",
+     "confirmed_at": {
+      "sentence_index": [
+       15,
+       18
+      ],
+      "note": "학습자가 실제로 미끄러지는 자리 — (b)와 (c)가 같은 문단에 있어 앞 밑줄에서 정한 Ethan 을 그대로 이어 붙이면 (c)도 Ethan 이 된다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "동성 인물 혼선",
+     "why_tempting": "밑줄 (d) him 이 있는 (C) 장면에 남성이 Ethan과 the clerk 둘이라, 방금 말한 점원을 him으로 잡는다.",
+     "how_to_reject": "(C)에서 Grace가 한 말이 Honey, we actually left them here a month ago 이고, 두 주 전이라고 답한 사람은 \"Maybe two weeks ago,\" Ethan replied 다. 아내가 Honey라고 부르며 정정하는 상대는 남편 Ethan이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "직접인용 청자 오인",
+     "why_tempting": "밑줄이 인용 안 (e) you 이고 그 문단 서술의 주체가 Ethan이라, you를 아들 쪽으로 되돌려 읽는다.",
+     "how_to_reject": "(D)의 전달동사 Suddenly, Sean said, \"Dad, I'm sorry.\" 가 화자를 Sean, 호격 Dad가 청자를 Ethan으로 정한다. 뒤 문장 But you are still the best dad 도 you가 아버지임을 확인해 준다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "밑줄 다섯을 적고, 명사구 밑줄(his son 같은 것)에는 별표를 쳐 '누구의'를 묻는 자리로 표시한다",
+     "on_fail": "명사구인지 대명사인지 애매하면 밑줄 범위가 명사까지 이어지는지 눈으로 확인한다"
+    },
+    {
+     "step": "등장인물을 이름·관계(아버지/아들/아내/점원)로 적고 성별을 표시한다",
+     "on_fail": "관계가 안 잡히면 호격(Dad, Honey, Sean)이 나오는 문장을 먼저 찾아 관계를 채운다"
+    },
+    {
+     "step": "인용 안 밑줄은 전달동사 주어와 호격으로 화자·청자를 정한다",
+     "on_fail": "호격이 없으면 인용 내용이 누구를 향한 부탁·사과인지로 청자를 정한다"
+    },
+    {
+     "step": "인용 밖 밑줄은 문장의 동사가 두 역할(제안하다/고마워하다, 상기시키다/듣다)로 갈리는지 보고 밑줄이 어느 역할인지 적는다",
+     "on_fail": "역할이 한 개뿐인 동사면 앞 문장에서 그 행동을 한 사람을 후보로 올린다"
+    },
+    {
+     "step": "다섯 칸을 세어 하나만 다른 것을 고른다",
+     "on_fail": "안 갈리면 문단 안에서 지시 대상이 바뀌는 자리(제안 다음의 승낙)를 다시 짚는다"
+    }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": {
+    "predicted": 0.75,
+    "drivers": [
+     "남성 인물 셋이 he/him으로만 받힌다",
+     "정답 밑줄이 같은 문단의 다른 밑줄과 지시 대상이 다르다",
+     "정답 문단 (B)가 인쇄순 두 번째인데 시간순으로는 세 번째"
+    ]
+   },
+   "required_vocab": [
+    "hesitation",
+    "suggestion",
+    "laundry",
+    "embarrassed"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
+      "이 문항은 body_suspect 표시가 있으나 (B) 문단은 손상 없이 남아 있어 인용이 그대로 일치한다"
+     ],
+     "checked": [
+      "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "raw_block 원문과 (B) 문단 대조",
+      "평가원 정답표 3과 correct 선지 번호 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
+      "오답 넷 라벨이 4종",
+      "선지 ④의 유인이 그 장면에 남성 둘이 있다는 실제 구성에 근거한다"
+     ],
+     "checked": [
+      "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
+      "trap 라벨 중복 여부",
+      "why_tempting 이 밑줄 표현을 인용하는지",
+      "how_to_reject 마다 문단 기호가 있는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
+      "인물이 넷이라 2단계에 관계 표기를 추가했고, 그만큼 75초를 배정했다"
+     ],
+     "checked": [
+      "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
+      "절차 각 단계의 실행 가능성",
+      "금지 표현 포함 여부",
+      "time_budget_sec 이 다섯 밑줄 처리에 충분한지"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2509#44",
+   "measured_ability": "여성 인물 셋(구매자 Helen·판매자 Anna·동거인 Julia)이 모두 she/her로 받히고 게시글·메시지·대면 대화가 섞인 글에서, 각 발화의 작성자와 수신자를 정해 지시 대상을 가르는 능력",
+   "design_intent": "발화 매체를 셋으로 나눴다 — 판매 게시글(a), 대면 대화(b·c), 메시지(d·e). 매체마다 '말하는 사람'을 다시 정해야 하므로, 인물 이름만 좇으면 (b)에서 반드시 어긋난다.",
+   "answer_locus": {
+    "sentence_index": [
+     9,
+     10
+    ],
+    "quote": "(b) She said, \"You must be Julia!\" Laughing, the woman said, \"Yes! Please take good care of this plant.",
+    "reasoning": "\"당신이 Julia군요\"라고 확인하는 사람은 Julia일 수 없고, 바로 뒤 the woman said, \"Yes!\" 로 상대가 Julia임이 확정된다. 따라서 (b) She는 건물 앞에 도착해 상대를 알아본 Helen이다. (C)의 my housemate, Julia, can meet you in front of the building 이 만나는 두 사람을 Helen과 Julia로 못박는다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "게시글 화자 오인",
+     "why_tempting": "밑줄이 인용 안 (a) I 인데 그 인용이 사람의 대사가 아니라 판매 게시글이라, 문단의 주인공 Helen을 화자로 넣는다.",
+     "how_to_reject": "(A)의 The posting read 가 인용의 출처를 게시글로 정하고, 앞 문장 Anna, though, had put one up for sale 이 그 게시글을 올린 사람을 Anna로 정한다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "밑줄 문장 ‘(b) She said, “You must be Julia!”’ 는 상대를 Julia 라고 이름으로 불러 세우므로 화자는 Julia 가 아니고, 바로 뒤 ‘Laughing, the woman said, “Yes!…”’ 가 그 상대를 따로 응답자로 세운다. 밑줄 앞 문장 ‘Arriving at the building, Helen could identify Julia by the’ 가 도착해 상대를 알아본 사람을 Helen 으로 주므로 (b) She 는 Helen 이다. 나머지 넷 (a) I’m selling my favorite plant · (c) My housemate said you could take it too · purchasing (d) your plant · Why don’t you message (e) her 는 모두 판매자 Anna 를 가리킨다.",
+     "confirmed_at": {
+      "sentence_index": [
+       7,
+       9
+      ],
+      "note": "학습자가 실제로 미끄러지는 자리 — 인쇄순으로 (B)가 (A) 바로 뒤라, (a)에서 정한 Anna 를 그대로 이어받아 (b) She 도 Anna 로 읽는다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "소유격 vs 명사구 혼동",
+     "why_tempting": "밑줄이 (c) My housemate 라는 명사구여서 소유격 My(=말하는 Julia)를 지시 대상으로 잡는다.",
+     "how_to_reject": "(B)에서 말하고 있는 사람은 Julia이므로 그가 말하는 housemate는 Julia 자신이 아니다. (C)의 my housemate, Julia 라는 Anna의 말이 두 사람이 서로의 housemate임을 보여 주고, 식물의 주인은 Anna다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "직접인용 청자 오인",
+     "why_tempting": "밑줄 (d) your plant 가 메시지 안에 있고, 인쇄순으로 이미 Julia가 큰 가방을 들고 등장한 뒤라 your를 Julia로 읽는다.",
+     "how_to_reject": "(C) 첫 문장 Helen immediately messaged the seller 가 수신자를 판매자로 정하고, 바로 뒤 Anna replied 가 그 판매자를 Anna로 확인한다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "화자 자기지시 오인",
+     "why_tempting": "밑줄 (e) her 를 말하는 사람이 Julia라, 조언을 해 줄 사람도 말하는 자신이라고 읽는다.",
+     "how_to_reject": "(D)의 같은 문장 앞부분 I'm not a plant expert, but I know that Anna kept them away from windows 에서 화자는 자신을 전문가가 아니라고 밝히고 Anna를 근거로 든다. Why don't you message (e) her? 의 her는 그 Anna다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "밑줄 다섯 옆에 그 말이 실린 매체를 적는다 — 게시글인지, 메시지인지, 마주 보고 하는 말인지",
+     "on_fail": "매체가 안 보이면 인용을 여는 동사(read, messaged, replied, said)를 찾아 적는다"
+    },
+    {
+     "step": "인물표를 만들되 이름 옆에 역할(파는 사람·사는 사람·동거인)을 함께 적는다",
+     "on_fail": "역할이 안 잡히면 seller, buyer, housemate 같은 역할 명사가 나오는 문장을 먼저 찾는다"
+    },
+    {
+     "step": "매체별로 '쓴 사람'과 '읽는 사람'을 정하고, I는 쓴 사람, you/your는 읽는 사람으로 바꿔 적는다",
+     "on_fail": "쓴 사람이 안 잡히면 그 인용 바로 다음에 응답하는 사람을 찾아 상대편을 역산한다"
+    },
+    {
+     "step": "인용 밖 밑줄은 같은 문장에서 그 사람이 하는 행동이 상대를 알아보는 쪽인지 알아보이는 쪽인지 갈라 적는다",
+     "on_fail": "행동으로 안 갈리면 바로 다음 문장의 응답자를 보고 반대편을 넣는다"
+    },
+    {
+     "step": "다섯 칸의 이름을 세어 하나만 다른 것을 고른다",
+     "on_fail": "안 갈리면 명사구 밑줄(My housemate)의 지시체를 소유격이 아니라 명사구 전체로 다시 잡는다"
+    }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": {
+    "predicted": 0.7,
+    "drivers": [
+     "여성 인물 셋이 모두 she/her로 받힌다",
+     "발화 매체가 셋(게시글·메시지·대면)",
+     "다수 지시체가 주인공 Helen이 아니라 Anna다",
+     "정답 문단 (B)가 인쇄순 두 번째인데 시간순으로는 세 번째"
+    ]
+   },
+   "required_vocab": [
+    "second-hand",
+    "posting",
+    "housemate",
+    "seller"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
+      "body_suspect 문항이지만 (B) 문단의 인용 부분은 손상이 없어 문자열 대조가 통과했다"
+     ],
+     "checked": [
+      "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "raw_block 원문과 (B)(C) 문단 대조",
+      "평가원 정답표 2와 correct 선지 번호 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
+      "초안에서 선지 ④와 ⑤에 모두 '직접인용 청자 오인'을 달았다 — ⑤는 청자가 아니라 화자가 자신을 가리킨다고 오독하는 기제라 '화자 자기지시 오인'으로 고쳤다",
+      "고친 뒤 오답 넷 라벨이 4종으로 갈린다"
+     ],
+     "checked": [
+      "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
+      "trap 라벨 중복 여부(재검수)",
+      "why_tempting 이 밑줄 표현을 인용하는지",
+      "how_to_reject 마다 문단 기호가 있는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
+      "매체를 먼저 적게 한 1단계가 이 문항 특유의 장치를 바로 겨눈다"
+     ],
+     "checked": [
+      "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
+      "절차 1단계를 지문을 안 본 상태에서 실행할 수 있는지",
+      "금지 표현 포함 여부",
+      "required_vocab 낱말이 지문에 있는지"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2506#44",
+   "measured_ability": "남성 인물 셋(Garcia·형제 Jeff·밴드 동료 Tom)이 he로 받히는 서사에서, 인용 뒤에 붙은 전달동사의 주어를 찾아 화자를 확정하는 능력",
+   "design_intent": "정답 밑줄 (b)를 인용 뒤에 붙은 전달동사 자리(', (b) he said')에 두었다. 화자 표시가 인용 앞이 아니라 뒤에 있어, 인용을 읽는 동안에는 화자가 비어 있는 상태로 지나간다.",
+   "answer_locus": {
+    "sentence_index": [
+     18,
+     20
+    ],
+    "quote": "After the show, Jeff approached Garcia. \"It was fantastic. I think that was the best performance I've ever seen,\" (b) he said.",
+    "reasoning": "공연이 끝난 뒤 다가간 사람이 Jeff이고, 바로 뒤 문장 Garcia beamed with joy at his brother's praise 가 칭찬을 받은 쪽을 Garcia, 칭찬한 쪽을 형제 Jeff로 확정한다. 따라서 (b) he는 Jeff이고 나머지 넷은 모두 Garcia를 가리킨다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "최근접 명사 오인",
+     "why_tempting": "밑줄 (a) he 앞에 waiting for his brother, Jeff 가 있어 가장 가까운 사람 이름 Jeff를 넣는다.",
+     "how_to_reject": "(A) 밑줄 문장 That was why (a) he had asked Jeff to help him pick out new clothes 안에 Jeff가 목적어로 따로 나온다. 부탁한 쪽은 옷을 고르려던 Garcia다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "인용 앞 문장 After the show, Jeff approached Garcia 가 말을 건 사람을 Jeff 로 주고, 인용 뒤 문장 Garcia beamed with joy at his brother’s praise 가 칭찬을 받은 쪽을 Garcia 로 못 박으므로 (b) he said 의 화자는 형제 Jeff 다. 나머지 넷 (a) he had asked Jeff to help him pick out new clothes · (c) he struggled with the rhythm · I’ll be right behind (d) you · (e) my brother 는 모두 Garcia 를 가리킨다.",
+     "confirmed_at": {
+      "sentence_index": [
+       18,
+       20
+      ],
+      "note": "학습자가 실제로 미끄러지는 자리 — 인용이 공연 칭찬이라 무대에 섰던 Garcia 의 소감으로 읽히고, 화자 표시가 인용 뒤에 붙어 있어 확인을 건너뛴다."
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "문단 경계 화자 승계",
+     "why_tempting": "밑줄 (c) he 는 (B)에서 Jeff가 말한 직후 문단이라, 앞 문단에서 정한 사람을 그대로 끌고 온다.",
+     "how_to_reject": "(C) 첫 문장 Garcia felt good as he arrived at the concert hall for the rehearsal 이 문단의 주체를 Garcia로 세우고, 밑줄 문장 As the rehearsal began, (c) he struggled with the rhythm 은 그 리허설에서 연주하는 사람의 이야기다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "직접인용 청자 오인",
+     "why_tempting": "밑줄이 인용 안 (d) you 이고 화자가 새 인물 Tom이라, you를 Tom이나 형제 Jeff로 채운다.",
+     "how_to_reject": "(C)의 전달동사 Tom, Garcia's band mate, came over and put a hand on Garcia's back, saying 이 화자를 Tom, 말을 듣는 상대를 등에 손이 얹힌 Garcia로 정한다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "소유격 vs 명사구 혼동",
+     "why_tempting": "밑줄이 (e) my brother 라는 명사구여서 소유격 my(=말하는 Jeff)를 지시 대상으로 잡는다.",
+     "how_to_reject": "(D)에서 점원에게 묻는 사람은 Jeff다(He asked the store clerk). 그의 형제는 옷을 사려던 Garcia이고, 뒤 문장 Garcia bought the recommended clothes 가 그 옷을 입을 사람을 확인해 준다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "밑줄 다섯을 인용 안/밖으로 나누고, 인용 안인 것은 화자 표시가 인용 앞인지 뒤인지도 적는다",
+     "on_fail": "화자 표시가 안 보이면 인용이 끝나는 따옴표 다음 낱말들을 먼저 읽는다"
+    },
+    {
+     "step": "인물표에 이름과 관계(형제·밴드 동료·점원)를 적는다",
+     "on_fail": "관계가 안 나오면 brother, band mate, clerk 같은 관계 명사가 든 문장을 찾아 채운다"
+    },
+    {
+     "step": "인용 안 밑줄은 전달동사 주어로 화자를 정하고 I=화자, you=상대로 바꿔 적는다",
+     "on_fail": "주어가 he뿐이면 그 인용 앞뒤 문장에서 다가가거나 손을 얹는 등 행동한 사람을 찾아 넣는다"
+    },
+    {
+     "step": "명사구 밑줄(my brother)은 소유격이 누구인지 적은 다음, 그 사람의 형제·딸이 누구인지 인물표에서 찾아 최종 답으로 적는다",
+     "on_fail": "관계 명사의 상대를 못 찾으면 그 명사가 처음 나온 문장으로 되돌아간다"
+    },
+    {
+     "step": "다섯 칸을 세어 하나만 다른 것을 고른다",
+     "on_fail": "안 갈리면 화자 표시가 인용 뒤에 붙은 밑줄부터 다시 본다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.8,
+    "drivers": [
+     "남성 인물 셋이 he로 받힌다",
+     "정답 밑줄의 화자 표시가 인용 뒤에 있다",
+     "정답 문단 (B)가 인쇄순 두 번째인데 시간순으로는 마지막"
+    ]
+   },
+   "required_vocab": [
+    "flawless",
+    "rehearsal",
+    "praise",
+    "objected"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "body_suspect 문항이나 (B) 문단은 손상 없이 남아 인용이 그대로 일치한다",
+      "why_correct 를 「왜 놓치기 어려운가」가 아니라 「이 밑줄이 무엇을 가리키는가」로 다시 썼다 — 지시 대상을 확정하는 문법 근거(등위절 주어 승계 · 소유격 임자 · 인용 화자와 호격 · 재귀형이 아닌 목적어)를 지문 표현으로 지목하고, 나머지 넷이 한 사람으로 모인다는 것을 한 줄로 붙였다"
+     ],
+     "checked": [
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "raw_block 원문과 (B) 문단 대조",
+      "평가원 정답표 2와 correct 선지 번호 대조",
+      "새 why_correct 안의 영어 어구를 corpus.json 지문에서 문자열 대조(전 어구 통과)",
+      "why_correct 가 정답 밑줄의 지시 대상과 나머지 넷의 공통 대상 두 짝을 다 대는지 확인",
+      "평가원 정답표 번호와 correct 번호 재대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷 라벨이 4종",
+      "선지 ①의 유인이 실제 어순(brother, Jeff 가 밑줄 바로 앞)에 근거한다",
+      "새 why_correct 가 소거법(「나머지가 다 X 이므로」)이 아니라 정답 밑줄 자체의 문법 근거로 서 있는지 확인했다",
+      "앞서 why_correct 에 있던 심리 관찰은 지우지 않고 confirmed_at.note 로 자리를 옮겨 보존했다 — distractor 서술은 손대지 않았다"
+     ],
+     "checked": [
+      "trap 라벨 중복 여부",
+      "why_tempting 이 밑줄 표현을 인용하는지",
+      "how_to_reject 마다 문단 기호가 있는지",
+      "why_correct 에 「왜 놓치기 어려운가」 계열 어휘가 남았는지 정규식 검사",
+      "distractor 4개의 trap·why_tempting·how_to_reject 무변경 확인",
+      "confirmed_at.sentence_index 가 answer_locus 와 같은 자리를 가리키는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "1단계에 '화자 표시가 인용 앞인지 뒤인지'를 넣어 이 문항의 함정을 절차로 흡수했다",
+      "지문을 아직 안 읽은 학생이 why_correct 의 영어 어구를 지문에서 찾아 그 자리를 직접 짚을 수 있도록 근거를 어구 단위로 적었다"
+     ],
+     "checked": [
+      "절차 각 단계의 실행 가능성",
+      "금지 표현 포함 여부",
+      "required_vocab 낱말이 지문에 있는지",
+      "why_correct 의 영어 어구가 지문에서 그대로 검색되는 연속 문자열인지 확인",
+      "정답 밑줄 기호((b)·④ 등)가 서술 안에 함께 적혀 자리 찾기가 되는지 확인"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2024#44",
+   "measured_ability": "여성 인물 둘이 번갈아 말하는 대화에서, 인용 안 you의 지시 대상을 화자와 반대편으로 뒤집어 잡고 서술문의 주어·목적어 대명사를 구별하는 능력",
+   "design_intent": "밑줄 (a)(b)(c)를 대화 세 마디에 연달아 두고, 앞 둘은 화자(Clara), 마지막 하나만 청자(Emma)를 가리키게 했다. 같은 대화 안에서 인칭이 뒤집히는 한 지점만 짚어 내는지를 묻는다.",
+   "answer_locus": {
+    "sentence_index": [
+     14,
+     15
+    ],
+    "quote": "Emma nodded in agreement and suggested, \"Your first beach bike ride was a great success. How about coming back next summer?\" Clara replied with delight, \"With (c) you, absolutely!\"",
+    "reasoning": "다음 여름에 다시 오자고 제안한 쪽이 Emma이고, 대답한 쪽이 Clara다. 인용을 여는 전달동사 Clara replied 가 화자를 정하므로 인용 안 you는 청자, 곧 제안한 Emma다. 나머지 넷은 모두 Clara를 가리킨다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "직접인용 화자 오인",
+     "why_tempting": "밑줄이 인용 안 (a) I 이고 앞 문장에서 질문을 던진 사람이 Emma라, 대답의 I까지 Emma로 읽는다.",
+     "how_to_reject": "(A) 앞 문장 Emma turned to Clara with a question 과 Clara's face lit up with a bright smile as she nodded 가, 묻는 쪽과 대답하는 쪽을 갈라 놓는다. 밑줄 인용은 그 대답이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "연속 대화 화자 교대 놓침",
+     "why_tempting": "밑줄 (b) me 가 든 문장이 She added 로 시작해 주어가 대명사뿐이고, 문단 첫머리에서 말을 건 사람이 Emma라 She를 Emma로 읽는다.",
+     "how_to_reject": "(B) 바로 앞 문장 Clara answered with a smile, \"Quite similar, actually.\" 가 직전 화자를 Clara로 정하고, She added 는 같은 사람이 말을 잇는 표현이다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "밑줄이 든 인용을 여는 ‘Clara replied with delight’ 가 화자를 Clara 로 못 박으므로, 인용 안의 2인칭 ‘With (c) you, absolutely!’ 는 말을 건넨 상대다. 그 상대는 바로 앞 인용을 낸 ‘Emma nodded in agreement and suggested, “Your first beach bike ride was a great success. How about coming back next summer?”’ 의 Emma 이고, Emma 가 Clara 를 Your 로 부른 것과 인칭이 맞물린다. 나머지 넷 (a) I can’t wait to ride while watching those beautiful waves · It shows (b) me what it means to live · made (d) her stronger in the end · which (e) she now seemed to have overcome 은 모두 Clara 를 가리킨다.",
+     "confirmed_at": {
+      "sentence_index": [
+       15
+      ],
+      "note": "학습자가 실제로 미끄러지는 자리 — 앞 밑줄 둘이 모두 Clara 를 가리켜, 같은 대화의 세 번째 밑줄도 Clara 로 이어 붙인다."
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "주어=목적어 착시",
+     "why_tempting": "밑줄 (d) her 가 든 문장의 주어가 Emma라 목적어 her까지 Emma로 채운다.",
+     "how_to_reject": "(C) 같은 문장 앞부분 Emma saw how the painful past made her maturer 에서 아픈 과거를 가진 사람은 문단 첫 문장의 Clara used to be a talented swimmer, but she had to give up her dream 이 가리키는 Clara다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "종속절 주어 오인",
+     "why_tempting": "밑줄 (e) she 가 관계절 안에 있고 주절 주어가 Emma라, 관계절 주어까지 Emma로 잡는다.",
+     "how_to_reject": "(D) 같은 문장 Emma thought about Clara's past tragedy, which (e) she now seemed to have overcome 에서 극복의 대상인 과거는 Clara의 것이므로 극복한 사람도 Clara다. 앞 문장 Watching Clara riding beside her 가 두 사람을 이미 갈라 놓았다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "밑줄 다섯을 인용 안/밖으로 나눠 적는다",
+     "on_fail": "따옴표가 안 보이면 said/asked/replied/added 가 든 문장부터 표시한다"
+    },
+    {
+     "step": "대화가 이어지는 구간에서는 말차례를 A-B-A-B로 번호 매겨, 각 인용을 누가 말하는지 순서로 적는다",
+     "on_fail": "전달동사가 대명사 주어뿐이면(She added) 바로 앞 인용의 화자와 같은 사람으로 잇는다"
+    },
+    {
+     "step": "인용 안 밑줄은 I=그 말차례의 화자, you=상대편으로 바꿔 적는다",
+     "on_fail": "말차례가 꼬이면 인용 안 내용이 질문인지 대답인지로 화자를 되짚는다"
+    },
+    {
+     "step": "인용 밖 밑줄은 문장의 주어를 적고, 밑줄이 목적어나 종속절 주어면 주어와 다른 사람일 가능성을 먼저 검사한다",
+     "on_fail": "같은 사람으로도 뜻이 통하면 그 문장의 소유격(Clara's past tragedy)이 누구 것인지 본다"
+    },
+    {
+     "step": "다섯 칸을 세어 하나만 다른 것을 고른다",
+     "on_fail": "안 갈리면 you가 든 밑줄을 화자의 반대편으로 다시 적는다"
+    }
+   ],
+   "time_budget_sec": 65,
+   "difficulty": {
+    "predicted": 0.82,
+    "drivers": [
+     "여성 인물 둘이 모두 she/her로 받힌다",
+     "정답이 대화 세 마디 중 마지막 하나"
+    ]
+   },
+   "required_vocab": [
+    "boundless",
+    "constructive",
+    "overcome"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
+      "인용이 (B) 문단에 문자 그대로 있다"
+     ],
+     "checked": [
+      "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "다섯 밑줄의 지시체 재확인(a·b·d·e=Clara, c=Emma)",
+      "평가원 정답표 3과 correct 선지 번호 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
+      "초안에서 선지 ④와 ⑤에 똑같이 '주어=목적어 착시'를 달았다 — ⑤는 목적어가 아니라 관계절 주어 자리라 '종속절 주어 오인'으로 갈랐다",
+      "고친 뒤 오답 넷 라벨이 4종이다"
+     ],
+     "checked": [
+      "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
+      "trap 라벨 중복 여부(재검수)",
+      "why_tempting 이 밑줄 표현을 인용하는지",
+      "how_to_reject 마다 문단 기호가 있는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
+      "말차례 번호 매기기(2단계)가 이 지문의 연속 대화에 바로 들어맞아 65초로 충분하다"
+     ],
+     "checked": [
+      "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
+      "절차 각 단계의 실행 가능성",
+      "금지 표현 포함 여부",
+      "required_vocab 낱말이 지문에 있는지"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "2023#44",
+   "measured_ability": "자매 둘과 아버지가 나오는 대화에서, 밑줄이 명사구(her sister)일 때 소유격이 가리키는 사람과 명사구 전체가 가리키는 사람을 구별하고, 인용 안 you를 화자의 반대편으로 잡는 능력",
+   "design_intent": "밑줄 (c)를 소유격이 든 명사구 her sister 로 두어, 소유격 her(=Camila)와 명사구 전체(=Hailey)가 서로 다른 사람을 가리키게 만들었다. 그 한 자리에서 지시체를 뒤집어 잡으면 정답 자리 (e)까지 밀린다.",
+   "answer_locus": {
+    "sentence_index": [
+     32,
+     35
+    ],
+    "quote": "In reply, Hailey answered, \"No. I bought something much more personal. By the way, there's something (e) you should know about Dad",
+    "reasoning": "(D)에서 지갑이나 시계를 샀을 거라고 넘겨짚은 쪽은 Camila이고, In reply, Hailey answered 로 화자가 Hailey로 넘어간다. 그 발화 안의 you는 청자 Camila다. 아버지의 색맹을 아직 모르는 쪽이 Camila임은 (C)의 \"Hailey, Dad doesn't have eyesight problems,\" Camila said, puzzled 가 확인해 준다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "직접인용 청자 오인",
+     "why_tempting": "밑줄이 인용 안 (a) you 인데, 질문을 던지는 사람이 Camila여서 you까지 Camila로 되돌려 읽는다.",
+     "how_to_reject": "(A)의 전달동사 Camila asked out of interest 가 화자를 Camila로 정하고, 바로 뒤 Hailey answered with a wink 이 대답한 사람을 Hailey로 정한다. 선물을 산 쪽은 대답한 Hailey다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "주어 소유격 승계 오인",
+     "why_tempting": "밑줄 (b) her 가 든 문장의 주어가 Camila nodded 라, 소유격 her도 Camila로 이어 적는다.",
+     "how_to_reject": "(B) 문단에서 안경을 건네고 설명한 사람은 said Hailey 와 Hailey told him in tears 다. Camila nodded, seeing how happy (b) her gift ... had made their dad 는 그 선물을 지켜보는 사람의 문장이므로 선물의 주인은 Hailey다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "소유격 vs 명사구 혼동",
+     "why_tempting": "밑줄이 (c) her sister 라 소유격 her(=Camila)를 그대로 답으로 잡는다.",
+     "how_to_reject": "(C) 문장 Camila said before (c) her sister handed him a small parcel 에서 말한 사람은 Camila, 꾸러미를 건넨 사람은 그 자매다. 뒤이어 안경을 준비한 사람이 Hailey로 밝혀지므로 명사구 전체는 Hailey를 가리킨다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "문단 도치 화자 오인",
+     "why_tempting": "(D)가 인쇄순으로 마지막이라 (B)(C)에서 말하던 Hailey를 화자로 이어받아 (d) you를 Camila로 읽는다.",
+     "how_to_reject": "(D) 밑줄 문장의 전달동사 \"I bet (d) you bought a wallet or a watch for him,\" Camila said 가 화자를 Camila로 못박는다. 선물을 산 사람은 (A)에서 이미 Hailey로 정해져 있다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "밑줄 (e)가 든 인용을 여는 ‘In reply, Hailey answered’ 가 화자를 Hailey 로 바꾸므로, 그 인용 안의 ‘there’s something (e) you should know about Dad’ 의 2인칭은 듣는 쪽 Camila 다. 바로 앞 인용은 ‘“I bet (d) you bought a wallet or a watch for him,” Camila said’ 라 화자가 Camila 였고 그때의 you 는 Hailey 였다 — 두 인용 사이에서 화자가 바뀌면 you 의 임자도 바뀐다. 나머지 넷 What gift did (a) you buy for his birthday · (b) her gift of the glasses · (c) her sister handed him a small parcel · I bet (d) you bought a wallet or a watch 는 모두 Hailey 를 가리킨다.",
+     "confirmed_at": {
+      "sentence_index": [
+       33,
+       35
+      ],
+      "note": "학습자가 실제로 미끄러지는 자리 — 같은 문단 안에서 (d)와 (e)가 모두 you 라, 화자가 바뀐 것을 놓치면 둘을 같은 사람으로 적는다."
+     }
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "밑줄 다섯 중 명사구인 것(her sister 같은 것)을 먼저 골라내 '소유격이 아니라 명사구 전체'라고 적어 둔다",
+     "on_fail": "밑줄 범위가 애매하면 소유격과 명사 둘 다에 답을 적어 두고 뒤에서 인물표로 가른다"
+    },
+    {
+     "step": "인물표에 이름과 관계(자매·아버지)를 적고, 누가 무엇을 준비했는지 한 칸을 더 만든다",
+     "on_fail": "관계가 안 잡히면 sister, dad, daughters 같은 관계 명사가 나오는 문장을 먼저 찾는다"
+    },
+    {
+     "step": "한 문단 안에서도 인용마다 전달동사 주어를 다시 확인해 화자가 바뀌는 자리에 세로줄을 긋는다",
+     "on_fail": "전달동사가 없으면 In reply, answered 같은 응답 표시를 화자 교대 신호로 삼는다"
+    },
+    {
+     "step": "인용 안 밑줄은 화자의 반대편(you)인지 화자 자신(I)인지 적고, 인용 밖 밑줄은 문장 주어와 같은 사람인지 검사한다",
+     "on_fail": "판단이 안 서면 그 말의 내용이 '이미 아는 사람'과 '모르는 사람' 중 누구에게 하는 말인지 본다"
+    },
+    {
+     "step": "다섯 칸을 세어 하나만 다른 것을 고른다",
+     "on_fail": "안 갈리면 명사구 밑줄과 화자 교대 자리 두 곳을 다시 본다"
+    }
+   ],
+   "time_budget_sec": 75,
+   "difficulty": {
+    "predicted": 0.72,
+    "drivers": [
+     "여성 인물 둘이 모두 she/her로 받힌다",
+     "밑줄 하나가 소유격이 든 명사구",
+     "같은 문단 안에서 화자가 바뀌며 you의 지시체가 뒤집힌다"
+    ]
+   },
+   "required_vocab": [
+    "parcel",
+    "color blindness",
+    "puzzled",
+    "in reply"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "3차 판정(why_correct 가 근거인가 심리인가) — 기존 서술이 「왜 놓치는가」를 말하는 학습자 심리 서술이라 정답 근거가 아니었다. 밑줄이 든 문장 안의 종속 구조와 인접 문장의 논리 표지로 대응을 다시 썼고, 인용한 영어 구는 모두 corpus.json 의 현재 지문에서 그대로 복사했다. 옛 심리 서술은 버리지 않고 confirmed_at.note 로 옮겼다.",
+      "초안에서 (c)의 지시 대상을 Camila로 적었다 — 밑줄이 소유격 her 가 아니라 명사구 her sister 이므로 지시체는 Hailey다. 평가원 정답 ⑤와 맞추려면 (c)가 Hailey여야 한다는 점에서 초안이 자기모순이었고, 선지 ③ 서술과 design_intent를 함께 고쳤다",
+      "고친 뒤 다섯 밑줄이 a·b·c·d=Hailey, e=Camila 로 정확히 넷 대 하나가 된다"
+     ],
+     "checked": [
+      "why_correct 안의 영어 인용 구를 corpus.json 지문과 문자열 대조(정규화 후 부분문자열 검사)",
+      "answer_locus.quote 를 코퍼스 지문과 문자열 대조",
+      "다섯 밑줄의 지시체 재확인(재검수)",
+      "평가원 정답표 5와 correct 선지 번호 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "재작성한 why_correct 가 소거법에 기대지 않는지 확인했다 — 정답 근거를 밑줄 문장 자체의 구조(비교·조건·콜론·대시·직유·인용 화자·재귀형 아님)에서 대고, 나머지 넷은 확정 뒤의 확인용으로만 나열했다. 오답 4개의 trap 라벨과 how_to_reject 는 이번 판정에서 건드리지 않았다.",
+      "오답 넷 라벨이 4종",
+      "선지 ④의 유인이 43번 문단 도치(인쇄순 (D)가 시간순 두 번째)라는 실제 구성에 근거한다"
+     ],
+     "checked": [
+      "why_correct 에 「나머지가 다 틀렸으므로」류 소거 논거가 유일 근거로 쓰이지 않았는지 문장 단위 확인",
+      "trap 라벨 중복 여부",
+      "why_tempting 이 밑줄 표현을 인용하는지",
+      "how_to_reject 마다 문단 기호가 있는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "학생이 그 자리를 직접 짚을 수 있는지 확인했다 — 인용한 영어 구가 지문에서 눈으로 찾을 수 있는 연속 문자열이고, 근거가 밑줄 문장 또는 바로 앞뒤 한 문장 안에 있어 time_budget_sec 안에 확인이 끝난다. solve_procedure 는 이번 판정에서 건드리지 않았다.",
+      "1단계에서 명사구 밑줄을 먼저 골라내게 한 것이 setter가 잡은 오독을 학생 쪽에서도 막아 준다"
+     ],
+     "checked": [
+      "why_correct 인용구의 지문 내 위치를 문장 번호로 확인해 confirmed_at.sentence_index 에 기록",
+      "절차 1단계가 지문을 안 본 상태에서 실행 가능한지",
+      "금지 표현 포함 여부",
+      "required_vocab 낱말이 지문에 있는지"
+     ]
+    }
+   ],
+   "revised": true
+  },
+  {
+   "item_id": "M2409#44",
+   "measured_ability": "남성 인물 둘(Sean과 친구이자 의사인 Alex)과 수컷 개 Toby가 모두 he/him으로 받히는 서사에서, 전화 통화와 산행 장면을 나눠 각 인용의 화자·청자를 정하고 대명사의 지시 대상을 적어 내는 능력",
+   "design_intent": "발화 장면을 전화 통화(A·D)와 산속 혼잣말(B·C)로 갈라 놓고, 그 사이에 he로 받히는 개 Toby를 끼워 넣었다. 대명사 형태만으로는 사람·동물조차 갈리지 않으므로, 전달동사 주어와 호격(Boy, my friend)을 근거로 삼게 만든 구성이다.",
+   "solve_procedure": [
+    {
+     "step": "밑줄 다섯 옆에 형태(you/he/I)와 인용 안/밖을 적고, 인용이 전화 통화인지 눈앞의 말인지도 표시한다",
+     "on_fail": "장면이 안 잡히면 over the phone, whispered to himself 같은 발화 상황 표현을 찾아 적는다"
+    },
+    {
+     "step": "인물표를 만들되 사람 이름과 함께 동물 이름도 한 칸을 준다 — 수컷 동물은 he/him으로 받힐 수 있다",
+     "on_fail": "동물이 있는지 모르겠으면 dog, companion 같은 명사가 나오는 문장을 찾아 이름을 적는다"
+    },
+    {
+     "step": "인용 안 밑줄은 전달동사 주어로 화자를 정하고 I=화자, you=상대로 바꿔 적는다. 상대가 사람이 아닐 수 있으므로 호격(Boy)을 함께 본다",
+     "on_fail": "전달동사가 he said 뿐이면 그 인용 앞 문장에서 걱정하거나 경고하는 등 행동한 사람을 찾아 넣는다"
+    },
+    {
+     "step": "인용 밖 밑줄은 문장의 동사가 요구하는 행위 주체를 적고, 그 자리에 사람이 아닌 후보(개)가 들어갈 수 있는지도 검사한다",
+     "on_fail": "사람·동물 어느 쪽도 어색하지 않으면 앞뒤 문장에서 그 행동을 한 주체를 찾는다"
+    },
+    {
+     "step": "다섯 칸에 적은 이름을 세어 넷 대 하나로 갈리는지 확인한다",
+     "on_fail": "안 갈리면 통화 장면과 산행 장면을 따로 떼어 화자·청자를 다시 붙인다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.78,
+    "drivers": [
+     "근거: 이 유형 표본에서 인물이 전부 동성인 회차의 예상 정답률대와 맞췄다",
+     "남성 인물 둘에 수컷 개 하나가 더해져 he/him으로 받히는 후보가 셋",
+     "밑줄 다섯 중 셋이 직접인용 안(I/you)에 있다",
+     "발화 장면이 전화와 대면으로 갈린다"
+    ]
+   },
+   "required_vocab": [
+    "companion",
+    "fiercely",
+    "protective gear",
+    "renewed"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답표 3 과 correct 선지가 일치한다",
+      "quote 가 코퍼스 지문에 문자 그대로 있다",
+      "이 문항은 지칭 유형에서 드문 배치다 — 나머지 넷이 모이는 대상이 사람(Sean)이고 정답 밑줄만 동물(Toby)을 가리킨다. 대명사 형태(you/he/I)만으로는 사람과 동물이 갈리지 않게 만든 설계다"
+     ],
+     "checked": [
+      "quote 를 corpus.json 의 M2409#44 passage 에서 문자열 대조",
+      "correct=3 을 평가원 정답표와 대조",
+      "다섯 밑줄 각각의 전달동사 주어와 인칭을 문장 단위로 대조",
+      "나머지 넷이 Sean 하나로 모이는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "라벨 넷이 직접인용 화자·청자 오인 · 주어=목적어 착시 · 문단 경계 화자 승계 · 최근접 명사·주어 승계로 모두 다르다",
+      "1차 검수에서 (b)와 (e)에 모두 '최근접 명사·주어 승계'를 달았다가 반려했다 — (b)는 같은 문장 안 주어·목적어 자리 문제라 주어=목적어 착시로 고쳤다"
+     ],
+     "checked": [
+      "trap 중복 검사(1차에서 중복 적발)",
+      "how_to_reject 넷에 문단 표시·영어 어구가 있는지 확인",
+      "why_tempting 이 각 밑줄의 실제 문장 형태에 근거하는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 2단계(동물 이름에도 인물표 한 칸을 준다)가 이 문항에서 정확히 값을 한다 — 그 칸이 없으면 (c)의 You 가 갈 곳이 없다",
+      "70초 안에 밑줄 다섯을 표로 정리하고 넷 대 하나를 세는 것이 가능하다"
+     ],
+     "checked": [
+      "금지 표현 문자열 대조",
+      "절차 각 단계의 실행 가능성",
+      "required_vocab(companion·fiercely·protective gear·renewed)을 지문에서 문자열 대조"
+     ]
+    }
+   ],
+   "revised": true,
+   "answer_locus": {
+    "sentence_index": [
+     16
+    ],
+    "quote": "Finding Toby energetically running next to the campsite, Sean said, “(c) You must be as excited as I am",
+    "reasoning": "이 문장 하나에 화자와 청자가 둘 다 이름으로 들어 있다 — 분사구문 Finding Toby ~ 가 눈앞에 있는 상대를 Toby 로 세우고, 전달동사 주어가 Sean 이다. 직접인용 안의 2인칭 You 는 청자를 가리키고 같은 인용의 I 가 화자(Sean)를 따로 가리키므로, (c)는 Sean 일 수 없고 개 Toby 다. 이 유형의 단일 점검(밑줄이 든 문장이 다른 대상을 이름으로 따로 부르면 밑줄은 그 대상이 아니다)이 뒤집혀 적용되는 자리 — 여기서는 이름으로 불린 쪽이 청자이고 밑줄이 2인칭이라, 밑줄이 곧 그 이름이 된다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "직접인용 화자·청자 오인",
+     "why_tempting": "(A)에서 밑줄이 인용 안의 (a) You 이고 그 문단의 초점 인물이 Sean 이라, You 를 화자 쪽(Sean)이 아니라 상대인 Alex 로 뒤집어 잡기 쉽다",
+     "how_to_reject": "인용을 여는 문장이 Concerned about Sean, he said 다 — Sean 을 걱정하는 쪽이 화자이므로 he=Alex 이고, 같은 인용의 Come see me for medical treatment 의 me 가 다시 Alex 를 가리킨다. 따라서 You 는 Sean 이다"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "주어=목적어 착시",
+     "why_tempting": "밑줄 문장이 (b) he called to his companion, “Come here, Boy!” 인데, 호격 Boy! 가 개를 부르는 말이라 밑줄 he 를 그 개로 잡기 쉽다. (B) 문단은 Toby 로 시작하기도 한다",
+     "how_to_reject": "같은 문장에서 he 는 called 의 주어이고 개는 to his companion 이라는 전치사구 목적어 자리에 있다. 바로 뒤 문장 He held the dog close in an effort to ignore the fear rushing in 이 안는 쪽과 안기는 쪽(the dog)을 다시 갈라 준다"
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "밑줄 문장 Finding Toby energetically running next to the campsite, Sean said, “(c) You must be as excited as I am after surviving a night like that!” 에서 전달동사 주어가 Sean 이고 분사구문이 청자를 Toby 로 세운다. 인용 안의 2인칭 You 는 청자이므로 (c)=Toby(개)이고, 같은 인용의 I 가 Sean 을 따로 가리켜 (c)가 Sean 이 아님이 한 문장 안에서 닫힌다. 나머지 넷은 모두 Sean 이다 — (a) You 는 Alex 가 Sean 을 향해 한 말이고, (b) he 는 개를 부른 쪽이며, (d) I 는 Sean replied 로 열린 인용의 화자, (e) he 는 다음 문장 Sean put on his hiking clothes 가 이어받는 주어다.",
+     "confirmed_at": {
+      "sentence_index": [
+       7,
+       13
+      ],
+      "note": "(B)의 As Toby started to bark, Sean turned around and found him running toward a large pond 와 He held the dog close 가 Toby 를 사람 아닌 동행으로 못 박아 둔다. 이 두 문장을 안 보면 him·he 가 사람으로만 읽힌다"
+     }
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "문단 경계 화자 승계",
+     "why_tempting": "(D)는 인쇄 순서로 맨 뒤에 있는데 시간 순서로는 (A) 바로 다음이다. 앞에 놓인 (C)의 흐름을 그대로 이어받으면 Upon hearing this offer 의 offer 가 누구 것인지 흐려져, (d) I 를 제안한 쪽(Alex)으로 잡게 된다",
+     "how_to_reject": "같은 문장이 Sean replied, “Thanks, but (d) I know just the treatment I need.” 로 화자를 이름으로 못 박는다. this offer 는 (A) 마지막의 Come see me for medical treatment 즉 Alex 의 제안이고, 그것에 답하는 쪽이 Sean 이다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "최근접 명사·주어 승계",
+     "why_tempting": "밑줄 바로 앞이 Following his friend's words 여서, 가장 가까운 사람 명사인 his friend(=Alex)를 밑줄 he 의 지시 대상으로 잡기 쉽다",
+     "how_to_reject": "그 구절은 '친구의 말을 따라'라는 부사구라 친구는 행위자가 아니다. 바로 뒤 문장 Sean put on his hiking clothes and tied up his boots 가 장비를 챙기는 주체를 Sean 으로 이어받고, 마지막 문장의 his dog, Toby 도 같은 주어에 붙는다"
+    }
+   ]
+  },
+  {
+   "item_id": "M2309#44",
+   "body_recovered": true,
+   "measured_ability": "여행 동행자 둘(Emilia와 Layla)이 모두 she/her로 받히는 서사에서, 전달동사 주어로 화자를 정하고 직접인용 안의 2인칭(you/your)을 청자 쪽으로 뒤집어 지시 대상을 정하는 능력. 같은 인용에 호격이 있으면 그것이 청자의 이름이라는 점까지 써야 한다",
+   "design_intent": "인물 둘이 모두 여성이라 대명사 형태로는 한 번도 갈리지 않게 해 두고, 밑줄 다섯 중 넷을 직접인용 안팎의 인칭(your·you·I·She)에 배치했다. 그중 하나만 청자를 이름으로 따로 부르는 호격(Layla!)을 달아 두어, 호격 하나로 대상이 뒤집히도록 짠 구성이다.",
+   "solve_procedure": [
+    {
+     "step": "밑줄 다섯 옆에 형태(I/you/your/she/her)와 인용 안/밖을 적는다",
+     "on_fail": "따옴표가 잘려 보이면 said/replied/responded/shouted 가 든 문장을 먼저 표시한다"
+    },
+    {
+     "step": "인물표를 만들고 두 사람의 성별을 적는다 — 둘 다 여성이면 she/her 형태로는 갈리지 않는다고 표시해 둔다",
+     "on_fail": "이름이 하나만 보이면 companion, friend 같은 동행 명사를 찾아 두 번째 칸을 채운다"
+    },
+    {
+     "step": "인용 안 밑줄은 전달동사 주어로 화자를 정하고, I/my는 화자, you/your는 상대로 바꿔 적는다",
+     "on_fail": "전달동사 주어가 대명사뿐이면 바로 앞 인용의 화자와 반대편으로 잡는다"
+    },
+    {
+     "step": "인용 밖 밑줄은 문장의 주어와 목적어를 갈라 적고, 밑줄이 목적어·소유격이면 주어와 다른 사람인지 먼저 검사한다",
+     "on_fail": "한 문장으로 안 갈리면 앞 문장에서 그 행동을 한 사람을 후보로 올린다"
+    },
+    {
+     "step": "다섯 칸을 세어 넷 대 하나로 갈리는지 확인한다",
+     "on_fail": "안 갈리면 your/you가 든 밑줄부터 화자를 다시 확인한다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.8,
+    "drivers": [
+     "근거: 인물 둘이 동성인 이 유형 표본의 예상 정답률대에 맞췄고, 정답을 확정하는 호격이 밑줄과 같은 문장 안에 있어 대 안에서 낮은 쪽으로 두지 않았다",
+     "두 동행자가 모두 여성이라 she/her 형태로는 한 번도 갈리지 않는다",
+     "밑줄 다섯 중 넷이 직접인용 안(your·you·I)이라 인칭 뒤집기를 네 번 해야 한다",
+     "지문 문단이 (A)(B)(C)(D) 인쇄 순서와 시간 순서가 달라((A)-(D)-(C)-(B)) 화자 교대를 이어 읽기 어렵다"
+    ]
+   },
+   "required_vocab": [
+    "companion",
+    "pounding",
+    "excitement",
+    "responded"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답표 2 와 correct 선지가 일치한다",
+      "코퍼스의 M2309#44 지문에는 (A) 문단만 들어 있었다. (B)(C)(D)는 같은 회차 원문(scripts/csat/data/columns2/M2309.txt 984~1005줄, 41~42번 세트와 단이 섞인 자리)에서 회수해 body_recovered 를 세웠다",
+      "quote 는 회수한 원문 문장이라 현재 파서 산출물과는 통째로 일치하지 않는다 — 게이트가 '조각으로만 확인된다(지문 손상)' 경고를 내는 것이 정상 동작이다",
+      "회수한 순서 (A)-(D)-(C)-(B)가 같은 세트 43번의 정답표(⑤ (D)-(C)-(B))와 일치해, 회수가 맞았음을 교차 확인했다"
+     ],
+     "checked": [
+      "correct=2 를 평가원 정답표와 대조",
+      "회수한 (B)(C)(D)를 columns2/M2309.txt 의 오른쪽 단에서 줄 단위로 대조",
+      "43번 정답표(순서 배열)와 회수한 문단 순서를 교차 확인",
+      "다섯 밑줄의 전달동사 주어와 인칭을 문장 단위로 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "1차 검수에서 (B)(C)(D) 없이 (a) 하나만으로 분석을 세우려 한 초안을 반려했다 — 나머지 넷이 한 사람으로 모인다는 것을 못 대면 이 유형의 근거가 반쪽이다. 원문에서 회수한 뒤 다시 썼다",
+      "라벨 넷이 직접인용 화자·청자 오인 · 최근접 명사·주어 승계 · 문단 경계 화자 승계 · 주어=목적어 착시로 모두 다르다",
+      "difficulty.drivers 에서 '(A) 한 문단만 회수돼 문항 고유 난도를 잴 수 없다'는 문장을 지웠다 — 이제 전문이 있다"
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "how_to_reject 넷에 문단·문장 위치가 있는지 확인",
+      "required_vocab(companion·pounding·excitement·responded)을 회수한 지문에서 문자열 대조",
+      "answer_locus 가 회수한 원문 문장인지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 3단계(인용 안 밑줄은 전달동사 주어로 화자를 정하고 I=화자, you=상대로 바꿔 적기)가 이 문항의 밑줄 넷을 한 번에 처리한다",
+      "호격(Layla!)을 함께 보라는 지시가 이 문항에서 결정적이다 — 그것이 없으면 (b)와 (c)가 같은 모양으로 보인다"
+     ],
+     "checked": [
+      "금지 표현 문자열 대조",
+      "단계 실행 가능성 확인",
+      "70초 안에 밑줄 다섯 처리 가능한지 단계 시간 합산"
+     ]
+    }
+   ],
+   "revised": true,
+   "answer_locus": {
+    "sentence_index": [
+     10
+    ],
+    "quote": "Emilia, now relieved, responded, “Yeah, but (b) you always wanted to see Rembrandt’s paintings. Let’s do that first, Layla!",
+    "reasoning": "전달동사 주어가 Emilia 이므로 화자가 Emilia 이고, 인용 안의 2인칭 you 는 청자다. 그리고 같은 인용이 Let's do that first, Layla! 로 청자를 이름으로 따로 부르므로 청자가 Layla 로 확정된다. 따라서 (b) you = Layla 이고, 나머지 넷이 모이는 Emilia 와 다르다. 밑줄이 든 문장 안에서 화자 이름과 청자 이름이 둘 다 나오므로 이 한 문장으로 닫힌다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "직접인용 화자·청자 오인",
+     "why_tempting": "밑줄이 인용 안의 소유격 (a) Your 이고, 인용을 여는 문장의 주어가 Layla(Layla laughed and responded)여서 그 주어를 소유격 임자로 그대로 잡기 쉽다",
+     "how_to_reject": "(A)에서 소원을 말한 쪽은 앞 문장의 Emilia 다 — Suddenly, Emilia shouted, “Look! There it is! We're finally at the National Gallery!” 에 이어 Layla 가 응답한다. 인용 안 2인칭은 언제나 청자를 가리키므로 Your 는 Emilia 의 것이다"
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "밑줄 문장 Emilia, now relieved, responded, “Yeah, but (b) you always wanted to see Rembrandt's paintings. Let's do that first, Layla!” 에서 전달동사 주어가 Emilia 이므로 화자는 Emilia 이고, 인용 안의 2인칭 you 는 청자다. 같은 인용의 호격 Layla! 가 그 청자를 이름으로 확정하므로 (b)=Layla 다. 나머지 넷은 모두 Emilia 다 — (a) Your 는 Layla 가 Emilia 에게 한 말의 2인칭, (c) you 는 Layla 가 Emilia 에게 한 말의 2인칭, (d) I 는 Emilia checked it quickly 뒤 she sighed 로 열린 인용의 화자, (e) She 는 Layla's hand 를 잡은 쪽이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       9
+      ],
+      "note": "바로 앞 문장 After a quick search on her phone, Layla stated, “No! It's only two hours to Liverpool by train.” 이 직전 화자를 Layla 로 세워 두어, 다음 문장의 responded 가 Emilia 의 응답임을 굳힌다. 인용 안 you 의 대상이 화자와 반대편이라는 것이 이 교대에서 확인된다"
+     }
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "최근접 명사·주어 승계",
+     "why_tempting": "밑줄 문장이 Emilia looked upset, but Layla kept calm and said, “Maybe (c) you've missed a notice about it.” 이라, 가장 가까운 주어인 Layla 를 you 의 대상으로 잡기 쉽다",
+     "how_to_reject": "말하는 쪽이 Layla 이므로 인용 안 2인칭 you 는 그 반대편이다. 바로 뒤 문장 Emilia checked it quickly 가 앱을 확인하라는 지시를 받은 쪽을 이름으로 확인해 준다"
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "문단 경계 화자 승계",
+     "why_tempting": "(C)에서 직전 인용의 화자가 Layla 였기 때문에, 바로 이어지는 인용의 (d) I 도 같은 화자로 이어 읽기 쉽다",
+     "how_to_reject": "인용을 여는 문장이 Emilia checked it quickly. Then, she sighed 로 화자를 바꿔 놓았다. 그리고 인용 내용 I can't believe I didn't check! 가 앱을 확인한 사람의 후회라, 앞 문장에서 확인한 Emilia 와 이어진다"
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "주어=목적어 착시",
+     "why_tempting": "밑줄 문장이 (e) She grabbed Layla's hand and dragged her hurriedly 로 Layla 가 같은 문장 안에 있어, 주어 She 를 Layla 로 잡게 된다",
+     "how_to_reject": "Layla 는 grabbed 의 목적어(Layla's hand)이자 dragged 의 목적어(her)로만 나온다. 앞 문장 Upon entering the National Gallery, Emilia knew exactly where to go first 가 앞장서는 쪽을 이름으로 밝히고, 뒤 문장 It was Emilia's favorite painting 이 그 목적지를 Emilia 의 것으로 잇는다"
+    }
+   ]
+  },
+  {
+   "item_id": "M2306#44",
+   "measured_ability": "룸메이트 두 남학생(Noah와 Steve)이 he/him으로만 받히는 서사에서, 제안하는 쪽과 응답하는 쪽을 동사로 갈라 각 밑줄의 지시 대상을 정하는 능력",
+   "design_intent": "두 인물이 방을 함께 꾸미는 이야기라 our/their 같은 공동 소유 표현이 계속 나오고, 밑줄 다섯 중 둘은 직접인용 안의 I다. 제안(suggested/asked)과 동의(agreed/replied)가 번갈아 나오는 자리마다 화자가 바뀌도록 짜여 있다.",
+   "solve_procedure": [
+    {
+     "step": "밑줄 다섯 옆에 형태(he/him/his/I)와 인용 안/밖을 적는다",
+     "on_fail": "인용 안팎이 헷갈리면 said/asked/suggested/replied 가 든 문장부터 표시한다"
+    },
+    {
+     "step": "인물표를 두 칸으로 만들고, 방·탁자처럼 두 사람이 함께 가진 것을 가리키는 our/their 는 지시 대상 후보에서 빼 둔다",
+     "on_fail": "공동 소유인지 애매하면 그 명사가 처음 나온 문장에서 누구의 것인지 확인한다"
+    },
+    {
+     "step": "인용 안 밑줄은 전달동사 주어로 화자를 정하고 I=화자로 바꿔 적는다",
+     "on_fail": "전달동사가 인용 뒤나 앞 어디에도 안 보이면 그 인용에 응답하는 다음 문장의 주어를 보고 반대편을 넣는다"
+    },
+    {
+     "step": "인용 밖 밑줄은 그 문장의 동사가 제안하는 쪽인지 응답하는 쪽인지 갈라 적고, 밑줄이 목적어면 주어와 다른 사람인지 검사한다",
+     "on_fail": "역할이 안 갈리면 바로 앞 문장에서 누가 무엇을 원했는지 한국어 한 줄로 옮겨 적는다"
+    },
+    {
+     "step": "다섯 칸에 적은 이름을 세어 넷 대 하나로 갈리는지 확인한다",
+     "on_fail": "안 갈리면 인용 안 I가 든 밑줄부터 화자를 다시 확인한다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.82,
+    "drivers": [
+     "근거: 인물이 둘뿐이고 이름이 문단마다 반복돼, 동성 인물 셋인 회차보다 후보가 적다는 구성 사실에서 잡았다",
+     "남성 인물 둘이 he/him으로만 받힌다",
+     "공동 소유 표현(our room, their space)이 잦아 소유격 밑줄과 헷갈릴 수 있다"
+    ]
+   },
+   "required_vocab": [
+    "personalizing",
+    "rearrange",
+    "refreshment",
+    "dorm"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "정답표 5 와 correct 선지가 일치한다",
+      "quote 가 지문에 문자 그대로 있다 — 코퍼스의 OCR 잔여(putting a 담 ______ table)는 인용 구간 바로 뒤라 인용에 들어가지 않는다",
+      "이 유형의 단일 점검(밑줄이 든 문장이 다른 사람을 이름으로 따로 부르면 밑줄은 그 사람이 아니다)이 replied to Noah 하나로 성립하는 표준 사례다"
+     ],
+     "checked": [
+      "quote 문자열 대조",
+      "correct=5 를 정답표와 대조",
+      "다섯 밑줄의 전달동사 주어·소유격 임자를 문장 단위로 대조",
+      "나머지 넷이 Noah 하나로 모이는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "라벨 넷이 최근접 명사·주어 승계 · 주어=목적어 착시 · 직접인용 화자 오인 · 소유격 vs 명사구 혼동으로 모두 다르다",
+      "(b)와 (d)가 둘 다 Steve 를 오답 후보로 끌어들이지만, 하나는 목적어 자리 문제이고 다른 하나는 소유격 임자 문제라 경로가 갈린다"
+     ],
+     "checked": [
+      "trap 중복 검사",
+      "how_to_reject 넷에 문장 위치·영어 어구가 있는지 확인",
+      "why_tempting 이 각 밑줄의 실제 문장 형태에 근거하는지 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "인물이 둘뿐이라 절차가 '전달동사 주어 → I/you 치환' 한 축으로 끝난다. 70초 배분이 넉넉하다"
+     ],
+     "checked": [
+      "금지 표현 문자열 대조",
+      "단계 실행 가능성 확인",
+      "required_vocab(personalizing·rearrange·refreshment·dorm)을 지문에서 문자열 대조"
+     ]
+    }
+   ],
+   "revised": true,
+   "answer_locus": {
+    "sentence_index": [
+     21,
+     22
+    ],
+    "quote": "Steve and Noah both really enjoyed playing board games. So, Steve replied to Noah, “(e) I think putting a",
+    "reasoning": "밑줄이 든 인용을 여는 전달동사가 Steve replied to Noah 라, 화자가 Steve 이고 청자가 Noah 로 한 문장 안에 이름으로 갈려 있다. 직접인용 안의 (e) I 는 화자를 가리키므로 Steve 다. 앞 문장 Steve and Noah both really enjoyed playing board games 가 두 사람을 나란히 세워 둔 다음 replied to Noah 로 한쪽만 청자로 떼어 놓기 때문에, 이 밑줄이 Noah 일 수 없다는 것이 여기서 닫힌다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "최근접 명사·주어 승계",
+     "why_tempting": "밑줄 앞 문장들에 His roommate Steve noticed it and asked what was wrong 이 있어 Steve 가 최근에 등장한 인물로 남아, (a) He 를 Steve 로 잡기 쉽다",
+     "how_to_reject": "밑줄 바로 앞 문장이 Noah answered quietly that he thought their room was totally boring 으로 주어가 Noah 다. 그리고 밑줄 뒤 문장 Steve agreed and suggested 가 Steve 를 다시 이름으로 불러, 동의하는 쪽과 바라던 쪽을 갈라 놓는다"
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "주어=목적어 착시",
+     "why_tempting": "밑줄이 Steve asked (b) him 의 목적어 자리인데, 같은 문장 앞부분에 Since he knew that yellow was Noah's favorite color 가 있어 he·him·Noah 가 붙어 나온다",
+     "how_to_reject": "같은 문장에서 묻는 쪽 주어가 Steve 이므로 목적어 him 은 Steve 일 수 없다. 뒤 문장 Noah was happy about the yellow table 이 그 질문을 받은 쪽을 이름으로 확인해 준다"
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "직접인용 화자 오인",
+     "why_tempting": "밑줄이 인용 안의 (c) I 이고, 그 문단에서 노란 탁자를 찾아낸 쪽이 Steve 여서 화자를 Steve 로 잡기 쉽다",
+     "how_to_reject": "인용을 여는 문장이 Delighted, Noah added 다 — 앞 문장 Noah was happy about the yellow table and said 에서 이어지는 같은 화자의 발화다. 따라서 (c) I 는 Noah 다"
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "소유격 vs 명사구 혼동",
+     "why_tempting": "밑줄이 In response to (d) his idea 의 소유격이고 바로 뒤에 Steve suggested 가 이어져, 소유격 임자를 바로 뒤 주어(Steve)로 잡기 쉽다",
+     "how_to_reject": "in response to 는 '앞선 누군가의 말에 응답하여'를 뜻하므로 소유격 임자는 응답을 받는 쪽이다. 앞 문장이 Noah mentioned to Steve that most of their visitors usually just sat and watched TV 로, 아이디어를 낸 쪽이 Noah 임을 이름으로 밝힌다"
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "밑줄이 든 인용을 여는 전달동사가 Steve replied to Noah 이므로 화자는 Steve, 청자는 Noah 다. 직접인용 안의 (e) I 는 화자를 가리키니 (e)=Steve 이고, 같은 문장이 Noah 를 to Noah 로 따로 부르고 있어 (e)가 Noah 가 아님이 문장 하나로 닫힌다. 나머지 넷은 모두 Noah 다 — (a) He 는 Noah answered ~ 를 이어받는 주어, (b) him 은 Steve asked 의 목적어, (c) I 는 Delighted, Noah added 로 열린 인용의 화자, (d) his 는 Noah mentioned to Steve 를 받는 소유격이다.",
+     "confirmed_at": {
+      "sentence_index": [
+       20
+      ],
+      "note": "바로 앞 문장 Then, Noah remembered that his brother Sammy had a big table ~ and told Steve about it 이 이번에는 Noah 가 말한 쪽임을 밝혀, 다음 문장의 replied 가 Steve 의 응답임을 굳힌다"
+     }
+    }
+   ]
   }
+ ],
+ "type_report": {
+  "type_id": "X-REFER",
+  "n_analyzed": 12,
+  "recurring_traps": [
+   {
+    "trap": "직접인용 화자·청자 오인",
+    "count": 17,
+    "signature": "밑줄이 따옴표 안의 I·you·your 에 있고, 전달동사 주어가 아니라 그 문단의 초점 인물을 화자로 잡으면 인칭이 통째로 뒤집힌다. 인용을 여는 문장(he said · Layla laughed and responded · Steve replied to Noah)만 보면 한 번에 정해진다. 문항별 세부 라벨 직접인용 화자 오인·직접인용 청자 오인·화자 교대 놓침·연속 대화 화자 교대 놓침·게시글 화자 오인·화자 자기지시 오인을 여기로 묶었다"
+   },
+   {
+    "trap": "최근접 명사·주어 승계",
+    "count": 11,
+    "signature": "밑줄 바로 앞에 놓인 사람 명사나 절의 주어를 그대로 이어받는다. 실제 지시 대상은 한두 절 너머의 주어이거나, 인용 안이면 화자의 반대편이다. 세부 라벨 최근접 명사 오인·최근접 주어 승계·종속절 주어 오인·분사구문 주어 오인·주어 소유격 승계 오인을 묶었다"
+   },
+   {
+    "trap": "주어=목적어 착시",
+    "count": 6,
+    "signature": "같은 문장 안에 두 인물이 주어와 목적어로 함께 있을 때 자리를 바꿔 읽는다(Steve asked him · She grabbed Layla-s hand · he called to his companion). 동사가 요구하는 행위자가 어느 쪽인지만 보면 갈린다"
+   },
+   {
+    "trap": "소유격 vs 명사구 혼동",
+    "count": 6,
+    "signature": "소유격 밑줄(his idea · her music)의 임자를 바로 뒤 주어로 잡는다. in response to 같은 표현에서 소유의 대상이 앞 문장에서 누구의 것이었는지 확인하면 지워진다. 세부 라벨 동격 어구 오인을 묶었다"
+   },
+   {
+    "trap": "문단 경계 화자 승계",
+    "count": 4,
+    "signature": "인쇄 순서와 시간 순서가 다른 장문 세트에서, 앞에 인쇄된 문단의 화자를 다음 인용에 그대로 이어붙인다. 밑줄이 든 인용을 여는 전달동사가 화자를 바꿔 놓았는지 매번 다시 본다. 세부 라벨 문단 도치 화자 오인을 묶었다"
+   },
+   {
+    "trap": "동일인 다른 호칭 미연결",
+    "count": 4,
+    "signature": "같은 사람이 이름·관계어·복수 대명사로 번갈아 불릴 때 다른 사람으로 센다(the young woman = Sally). 인물표에 별명·관계어를 같은 칸에 적어 두면 막힌다. 세부 라벨 동성 인물 혼선·복수 대명사 뒤 단수 지시 오인을 묶었다"
+   }
+  ],
+  "answer_locus_pattern": "12문항 전부에서 근거는 밑줄이 든 문장 자체가 아니라 그 문장을 여닫는 전달동사 문장 또는 바로 앞뒤 한 문장에 있다. 새로 채운 셋 중 둘(M2306#44 Steve replied to Noah · M2309#44 responded ~ Layla!)은 전달동사와 청자 이름이 밑줄과 같은 문장 안에 있어 한 문장으로 닫혔고, M2409#44 는 분사구문(Finding Toby ~)이 청자를 세우는 드문 형태였다. 위치 분포: 정답 밑줄이 (A) 문단에 온 적은 12문항에서 0회이고, (B) 5회 · (C) 3회 · (D) 4회다 — (A)는 다수 지시체를 세우는 기준 문단이라 정답이 놓이지 않는다.",
+  "procedure": [
+   {
+    "step": "지문을 읽기 전에 밑줄 (a)~(e)에 표시하고, 각각이 ① 인용부호 안인지 밖인지 ② 대명사인지 소유격이 든 명사구인지 두 가지만 옆에 적는다",
+    "on_fail": "밑줄 범위가 애매하면 소유격과 명사 양쪽에 답을 적어 두고 뒤에서 인물표로 가른다"
+   },
+   {
+    "step": "(A) 문단에서 인물표를 만든다 — 이름·성별·관계를 적고, 이름 없이 나오는 인물(an old woman, a librarian, the clerk, the fruit seller)과 수컷 동물에게도 반드시 한 칸을 준다",
+    "on_fail": "이름이 하나뿐이면 뒤 문단에 무명 인물이 더 나온다고 보고 빈칸을 남긴다"
+   },
+   {
+    "step": "인용 안 밑줄부터 처리한다 — 그 인용을 여는(또는 인용 뒤에 붙는) 전달동사의 주어를 찾아 화자를 적고, I/my는 화자, you/your는 듣는 사람으로 바꿔 쓴다. 인용 안 호격(Dad, Mike, Boy)이 있으면 듣는 사람을 그것으로 확정한다",
+    "on_fail": "전달동사가 대명사 주어뿐이면(She added) 바로 앞 인용의 화자와 같은 사람으로 잇고, 응답 표시(In reply, replied, answered)가 있으면 반대편으로 넘긴다"
+   },
+   {
+    "step": "인용 밖 밑줄은 그 문장의 동사가 갈라 놓는 두 역할(주는 쪽/받는 쪽, 제안하는 쪽/승낙하는 쪽, 관심을 끄는 쪽/관심의 주인)을 적고 밑줄이 어느 자리인지 표시한다. 밑줄이 목적어·소유격·종속절 주어면 같은 문장 주어와 다른 사람인지 먼저 검사한다",
+    "on_fail": "역할이 하나뿐인 동사면 바로 앞 문장에서 그 동작을 한 사람을 후보로 올린다"
+   },
+   {
+    "step": "소유격이 든 명사구 밑줄은 두 단계로 답한다 — 먼저 소유격이 누구인지 적고, 그 사람의 son·brother·sister·housemate가 인물표에서 누구인지 찾아 그것을 최종 답으로 적는다",
+    "on_fail": "관계의 상대를 못 찾으면 그 관계 명사가 처음 나온 문장으로 되돌아간다"
+   },
+   {
+    "step": "다섯 칸에 적힌 이름을 세어 넷 대 하나로 갈리는 것을 고른다. 셋 대 둘로 갈리면 인용 안 밑줄과 명사구 밑줄 두 자리만 다시 본다",
+    "on_fail": "그래도 안 갈리면 (A) 문단 밑줄은 기준으로 확정하고 나머지 넷만 비교한다"
+   }
+  ],
+  "failure_modes": [
+   "**주인공이 다수 지시체라고 미리 가정한다.** 9문항 중 7문항은 그 가정이 맞지만 M2706과 M2509는 정반대다 — 주인공(Sally·Helen)이 정답이고 상대(노파·Anna)가 넷이다. 이름 세는 어림짐작으로 풀면 이 두 문항에서 실점한다",
+   "**등장 빈도로 정답을 고른다.** 정답 지시체가 지문에서 이름으로 불린 횟수를 세어 보면 librarian 2 · Chavez 2 · Helen 6 · Jeff 7 · Laura 8 · Camila 9 · Emma 11 · Sally 13 · Sean 13 으로 2에서 13까지 흩어진다. '적게 나오는 인물이 정답'은 9문항 중 2문항에서만 맞는다",
+   "인용부호 안 I/you를 서술자 시점의 3인칭으로 옮기지 않고 그대로 읽는다 — 이 유형 오답 유인의 3분의 1이 여기서 나온다",
+   "소유격이 든 명사구 밑줄에서 소유격을 답으로 적는다(her sister → Camila). 2023#44는 이 오독 하나로 (c)가 답처럼 보이게 설계됐다",
+   "인쇄된 문단 순서대로 장면을 이어 붙인다. 43번이 순서를 흩어 놓았으므로, 인쇄상 (A) 바로 뒤인 (B)가 시간상으로는 마지막인 경우가 잦다",
+   "같은 성별 인물이 셋 이상인 회차(2025·M2509)에서 대명사 형태만으로 후보를 좁히려 한다 — 형태로는 갈리지 않고 역할·호격으로만 갈린다"
+  ],
+  "time_budget_sec": 70,
+  "open_questions": [
+   "정답표를 받아 셋(M2409#44 · M2306#44 · M2309#44)을 채웠다. 이 유형의 단일 점검(밑줄이 든 문장이 다른 대상을 이름·관계어·호격으로 따로 부르면 밑줄은 그 대상이 아니다)이 12/12 에서 성립했다. 다만 M2409#44 는 그 점검이 뒤집혀 적용된다 — 이름으로 불린 쪽이 청자이고 밑줄이 2인칭이라 밑줄이 곧 그 이름이 된다. 2인칭 밑줄에서는 점검의 방향을 바꿔야 한다는 것을 12문항 중 2건(M2409#44 · M2309#44)에서 확인했다",
+   "정답 밑줄이 사람이 아닌 대상(개 Toby)을 가리킨 경우가 12문항 중 1건 나왔다(M2409#44). 인물표에 동물 칸을 두라는 절차가 그 1건 때문에 필요한데, 표본 1이라 이 유형의 상시 절차로 올릴지는 다른 청크를 봐야 한다",
+   "M2309#44 는 코퍼스에 (A) 문단만 들어 있어 회차 원문에서 (B)(C)(D)를 회수했다(columns2/M2309.txt 984~1005줄). 같은 세트의 43번 정답표와 순서가 맞아 회수를 교차 확인했다. 게이트는 이 인용에 '조각으로만 확인된다(지문 손상)' 경고를 내는데, 파서가 41~45 세트의 단 나누기를 고치기 전까지는 이 경고가 정상이다",
+   "이번 보강에서 반려가 2건 나왔다(M2409#44 analyst — (b)와 (e)에 같은 라벨 중복, M2309#44 analyst — 회수 전 (a) 하나만으로 분석을 세우려던 초안 반려). 두 건 다 analyst 자에서 나왔고, setter 는 이번에 반려를 내지 않았다 — 이 유형에서 setter 가 잴 인용 후보가 '전달동사 문장' 하나로 사실상 정해져 있기 때문으로 보인다",
+   "함정 라벨은 문항당 오답 넷을 한 번씩만 세었다 — 12문항 × 4 = 48 이고 위 recurring_traps 의 count 합도 48 이다. 다만 이 유형은 문항별로 세부 라벨을 따로 썼기 때문에(21종), 리포트에서는 여섯 계열로 묶고 각 signature 에 묶은 세부 라벨을 밝혔다",
+   "장문 세트에서 43번(순서)과 44번(지칭)이 서로의 검산이 된다는 것을 M2309 에서 실제로 썼다 — 회수한 문단 순서가 43번 정답과 일치했다. 이 교차 검산을 학습자 절차로 올릴 수 있는지는 다른 회차에서 더 확인해야 한다"
+  ]
+ }
 }

@@ -1,1623 +1,1760 @@
 {
-  "chunk": 7,
+ "chunk": 7,
+ "type_id": "R-FACT",
+ "type_name": "내용 일치(글)",
+ "analyses": [
+  {
+   "item_id": "M2706#26",
+   "revised": true,
+   "measured_ability": "한 문장 안에서 같은 대상에 붙은 서로 다른 동사(written / published)와 그 각각에 붙은 연도를 갈라 읽는 능력",
+   "design_intent": "선지 다섯이 지문 문장 순서를 그대로 따라 내려가게 두어 검색은 쉽게 하고, 참·거짓은 한 문장 안의 대조 접속사 but 뒤에 숨겼다. 1948이라는 숫자가 지문에 실제로 있으므로 숫자만 찾아 대조하는 학생은 그대로 통과시키고, 그 숫자에 붙은 동사가 '썼다'인지 '출판했다'인지까지 보는 학생만 가른다.",
+   "answer_locus": {
+    "sentence_index": [
+     7
+    ],
+    "quote": "His article “Meaning” was written in 1948, but he did not have it published until 1957.",
+    "reasoning": "1948에 붙은 동사는 was written 이고, published 에 붙은 연도는 until 뒤의 1957이다. 곧 지문은 출판 연도를 1957로 못박고 1948은 집필 연도로만 준다. '1948년에 출판했다'는 진술은 두 동사에 붙은 연도를 맞바꾼 것이므로 지문과 충돌한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "선지가 '사업가이자 음악가'라는 두 직업을 한 사람에게 붙였는데, 지문의 a businessman and musician 을 아버지와 별개의 두 인물로 읽으면 아들 관계가 어긋나 보인다.",
+     "how_to_reject": "둘째 문장 he was the son of Herbert Grice, a businessman and musician 에서 콤마 뒤가 Herbert Grice 의 동격이다. 콤마 하나만 확인하면 두 직업이 아버지 한 사람의 것임이 정해진다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "제2차 세계 대전이 6년간 이어졌다는 배경지식을 끌어오면 '약 5년 복무'가 전쟁 기간과 안 맞는 것처럼 보여 이 선지를 불일치로 고른다.",
+     "how_to_reject": "다섯째 문장 he served in the British military for about five years 가 복무 기간을 직접 준다. 전쟁 기간이 아니라 복무 기간을 적은 줄이므로 전쟁 총 기간과 대조할 필요가 없다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 His article “Meaning” was written in 1948, but he did not have it published until 1957 에서 1948 에 붙은 동사는 was written 이고 published 에 붙은 해는 until 뒤의 1957 이다. 선지 ③ 은 1948 이라는 해를 그대로 둔 채 '논문을 출판했다' 로 적어, 두 동사에 붙은 연도를 맞바꾼 자리(written ↔ published) 한 곳에서 어긋난다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "같은 문장에 Oxford 와 UC Berkeley 두 기관이 들어 있어 retired from there 의 there 를 Oxford 로 잡으면 UC Berkeley 퇴직이 거짓이 된다.",
+     "how_to_reject": "아홉째 문장 he left Oxford to take a job at UC Berkeley and retired from there in 1979 에서 left 의 목적어가 Oxford 이므로 그 뒤에 남은 근무지는 UC Berkeley 하나다. there 가 가리킬 수 있는 곳은 방금 취직한 곳뿐이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "cricket 을 곤충으로 알거나 excellent at 을 '좋아했다' 정도로 읽으면 '뛰어난 능력'이라는 선지가 지문보다 세다고 판단해 불일치로 고른다.",
+     "how_to_reject": "마지막 문장 he was excellent at cricket and chess 에서 chess 와 and 로 묶여 있으므로 cricket 은 경기 이름이고, excellent at 은 능력 평가다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
+     "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+    },
+    {
+     "step": "지문보다 선지 다섯을 먼저 읽고, 각 선지에서 대조할 축(사람 관계·기간·연도+행위·기관+연도·능력)을 한 낱말로 옆에 적는다",
+     "on_fail": "축이 안 잡히면 선지 안의 숫자와 고유명사에만 밑줄을 긋는다"
+    },
+    {
+     "step": "지문 첫 문장부터 아래로 한 번만 내려가며 선지 ①의 밑줄 낱말이 나오는 문장에서 멈춰 대조하고, 확인되면 그 문장 옆에 ①을 적고 ②로 넘어간다",
+     "on_fail": "짝이 안 맞는 선지가 나오면 건너뛰고 다음 선지 자리부터 찾은 뒤, 남은 구간에서만 되돌아 찾는다"
+    },
+    {
+     "step": "연도가 든 선지는 그 숫자를 지문에서 찾은 뒤 숫자 바로 뒤·앞의 동사에 동그라미를 친다 — 한 문장에 동사가 둘이면 어느 동사에 그 연도가 붙었는지 화살표로 잇는다",
+     "on_fail": "동사가 안 잡히면 그 문장의 접속사(but·and·until)를 기준으로 문장을 둘로 잘라 각 조각의 연도를 따로 센다"
+    },
+    {
+     "step": "until · not ... until · about 처럼 숫자가 아니라 낱말로 적힌 시점·한정에 표시하고, 선지가 그 낱말을 반영했는지 본다",
+     "on_fail": "그런 낱말이 안 보이면 선지의 서술어(썼다/출판했다/복무했다/퇴직했다)를 지문 동사와 하나씩 맞대어 본다"
+    },
+    {
+     "step": "답을 적기 전에 남은 선지가 지문의 어느 낱말과 충돌하는지 한 낱말로 말해 본다",
+     "on_fail": "충돌 낱말을 못 대면 이미 지운 선지 넷의 근거 문장을 되짚어 잘못 지운 것이 있는지 본다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.88,
+    "drivers": [
+     "정답 근거가 한 문장 안 두 동사의 연도 배분",
+     "선지가 지문 서술 순서를 단조 대응해 검색 부담이 없다",
+     "오답 넷이 모두 한 문장 안에서 직접 확인된다"
+    ]
+   },
+   "required_vocab": [
+    "published",
+    "until",
+    "military",
+    "cricket"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "처음 answer_locus 를 여섯째 문장 One of his greatest contributions was to the study of language and communication. 으로 잡았다 — 지문에 있는 문장이지만 출판 연도를 말하지 않아 정답을 확정하지 못한다. 일곱째 문장으로 교체했다.",
+      "선지 ①~⑤가 지문 문장 2·5·7·9·10 을 순서대로 대응한다 — 되돌아 훑을 필요가 없는 설계가 맞다.",
+      "3차 판정 — 지문 문장의 영문 인용이 없어 대응이 낱말 단위로 확인되지 않던 것을 was written / did not have it published until 을 넣어 보강하고, 선지 ③의 술어도 그대로 인용했다",
+      "3차 판정 — quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
+     ],
+     "checked": [
+      "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
+      "선지 다섯의 근거 문장 번호가 증가하는지 확인",
+      "정답 3이 written/published 대비 없이는 확정되지 않는지 확인",
+      "answer_locus.quote 를 passage 에서 문자열 대조",
+      "1948·1957 각각에 붙은 동사를 문장 성분으로 확인",
+      "선지 ③의 '1948년' 과 '논문을 출판했다' 를 근거 문장의 두 동사와 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷의 함정이 부분 사실·지문 밖 상식·주체 역전·어휘 함정으로 서로 다르다.",
+      "④의 why_tempting 이 there 라는 실제 지문 낱말을 지목해 선지 텍스트와 연결된다 — how_to_reject 에 아홉째 문장 위치를 넣어 확인.",
+      "3차 판정 — 갈아 끼운 성분(동사)을 직접 지목해 소거법에 기대지 않는다",
+      "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
+     ],
+     "checked": [
+      "오답 4개의 trap 라벨 중복 여부",
+      "how_to_reject 마다 지문 문장 위치가 적혔는지",
+      "why_tempting 이 선지 한국어 문구와 실제로 대응하는지",
+      "correct 판정 3 을 평가원 정답표(3)와 대조",
+      "why_correct 의 소거법 여부 확인",
+      "선지 ③ 문자열 인용 여부 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "4단계(연도에 붙은 동사에 화살표)가 이 유형의 실제 손동작이라 지문을 안 본 상태에서도 실행 가능하다.",
+      "처음 time_budget_sec 을 90으로 잡았다가 60으로 줄였다 — 선지가 순서 대응이라 한 번 내려가면 끝나고, 독해 70분에서 26번에 90초를 쓰면 뒤가 밀린다.",
+      "3차 판정 — 학생이 볼 자리가 한 문장 안의 두 연도이고, 무엇을 맞댈지(연도-동사 짝)가 지정됐다"
+     ],
+     "checked": [
+      "절차 6단계가 지문 사전 지식 없이 실행 가능한지",
+      "금지 표현 8종 포함 여부를 문자열로 확인",
+      "required_vocab 4개가 정답 판정에 실제로 쓰이는지",
+      "연도-동사 짝짓기가 60초 예산 안에 드는지 확인",
+      "solve_procedure 미변경 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2026#26",
+   "revised": true,
+   "measured_ability": "한 문장 안에 나열된 두 수상 사건 가운데 뒤엣것의 시점이 숫자가 아니라 a year later 로 적혀 있음을 알아채고 연도를 계산하는 능력",
+   "design_intent": "수상 두 건을 and 로 이어 붙이고 앞엣것에만 연도를 적었다. 1952라는 숫자와 두 상 이름이 모두 한 문장 안에 있으므로, 낱말을 짝짓기만 하는 학생에게는 완전히 일치해 보인다. 시점을 낱말로 적은 자리(a year later)를 읽어 두 상을 다른 해로 갈라 놓는 학생만 가려낸다.",
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "In 1952, Kleiber received the distinguished Borden Award from the American Institute of Nutrition and, a year later, the Morrison Award from the American Society for Animal Production.",
+    "reasoning": "In 1952 가 걸리는 것은 Borden Award 수상까지다. Morrison Award 앞에는 a year later 가 따로 붙어 있으므로 수상 연도가 1953이다. 두 상을 같은 해로 묶은 진술은 이 삽입구와 충돌한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "UC Davis·American Institute of Nutrition 같은 미국 기관이 지문 대부분을 채워 이 인물을 미국 태생으로 넘겨짚으면 '스위스 출생'이 어긋나 보인다.",
+     "how_to_reject": "둘째 문장 He was born in Zurich, Switzerland in 1893 이 출생지를 국가까지 적어 준다. 활동지는 넷째 문장부터 나오는 별개의 정보다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "셋째 문장에 1920과 1924가 함께 있어 앞 연도를 박사 학위에 붙이면 '1924년 박사'가 틀린 것처럼 보인다.",
+     "how_to_reject": "셋째 문장을 and 로 자르면 graduated ... in 1920 과 earned his doctoral degree in 1924 로 갈린다. doctoral degree 에 직접 붙은 연도는 1924다."
+    },
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "지문은 Borden Award 를 1952년, Morrison Award 를 a year later(=1953)로 갈라 적었다. 두 상을 모두 1952년 수상으로 묶은 선지는 어긋난다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "subsequently 를 모르면 published in 1961 다음의 translated 가 언제·실제로 이뤄졌는지 불확실해 보여 '여러 언어로 번역되었다'를 근거 없는 진술로 판단한다.",
+     "how_to_reject": "여섯째 문장 subsequently translated into German, Polish, Spanish, and Japanese 가 번역된 언어를 넷이나 열거한다. 언어 이름 개수만 세도 '여러 언어'가 확인된다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "undergraduates 와 graduate students 를 같은 말로 뭉뚱그리면 '대학생과 대학원생' 두 집단 가운데 한쪽만 지문에 있다고 보아 선지가 넓다고 판단한다.",
+     "how_to_reject": "일곱째 문장 popular with undergraduates and graduate students alike 가 두 집단을 and 로 나란히 적고 alike 로 둘 다임을 못박는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
+     "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+    },
+    {
+     "step": "선지 다섯을 먼저 읽고 각 선지의 검색 열쇠(지명·연도·상 이름·책 제목·사람 집단)를 하나씩 동그라미 친다",
+     "on_fail": "열쇠가 여러 개면 지문에서 눈에 띄기 쉬운 것(대문자 고유명사·숫자)을 고른다"
+    },
+    {
+     "step": "지문을 위에서 아래로 한 번만 내려가며 열쇠가 나오는 문장에 선지 번호를 적어 둔다 — 선지 순서가 지문 순서와 같으므로 되돌아가지 않는다",
+     "on_fail": "열쇠가 안 나오는 선지는 표시만 하고 넘어간 뒤 마지막에 남은 문장들에서 찾는다"
+    },
+    {
+     "step": "한 문장에 숫자가 둘 이상이거나 항목이 둘 이상 나열되면 접속사 and·콤마에서 문장을 잘라, 잘린 조각마다 어느 숫자가 붙었는지 표시한다",
+     "on_fail": "자르기가 어려우면 각 항목 이름(상 이름·학위 이름) 바로 앞뒤 다섯 낱말만 읽는다"
+    },
+    {
+     "step": "a year later · subsequently · alike 처럼 숫자·항목 관계를 낱말로 적은 자리를 찾아 표시하고, 선지가 그 낱말을 반영했는지 확인한다",
+     "on_fail": "그런 낱말이 없으면 선지의 숫자를 지문 숫자와 자릿수까지 맞대어 본다"
+    },
+    {
+     "step": "지운 선지 넷의 근거 문장 번호를 손가락으로 되짚은 뒤 남은 하나를 답으로 적는다",
+     "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘만 다시 대조한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.86,
+    "drivers": [
+     "정답 근거가 콤마 안에 끼워 넣은 세 낱말(a year later)",
+     "선지에 든 낱말 셋이 모두 정답 근거 문장 안에 있어 낱말 대조로는 안 걸린다",
+     "나머지 넷은 한 문장에서 직접 확인된다"
+    ]
+   },
+   "required_vocab": [
+    "distinguished",
+    "subsequently",
+    "undergraduates",
+    "alike"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "선지 ①~⑤가 지문 문장 2·3·5·6·7 을 순서대로 대응한다.",
+      "정답 근거가 문장 전체가 아니라 삽입구 하나이므로 quote 를 문장 통째로 잡아 삽입구가 문장 어디에 놓였는지 보이게 했다."
+     ],
+     "checked": [
+      "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
+      "정답 3이 a year later 없이는 확정되지 않는지 확인",
+      "선지 근거 문장 번호의 단조 증가 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "처음 ①의 trap 을 '부분 사실'로 달았다가 ②와 겹쳐 반려했고, ①은 지문에 없는 미국 태생 통념을 끌어오는 것이므로 '지문 밖 상식'으로 고쳤다.",
+      "고친 뒤 오답 넷이 지문 밖 상식·부분 사실·어휘 함정·범위 과소로 갈린다."
+     ],
+     "checked": [
+      "오답 4개의 trap 라벨 중복 여부 재확인",
+      "why_tempting 이 선지 한국어 문구의 어느 부분에서 나오는지 대조",
+      "how_to_reject 마다 문장 번호가 적혔는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "4단계(한 문장에 숫자가 둘이면 접속사에서 자른다)가 이 문항과 ②·③ 모두에 실제로 쓰인다.",
+      "60초 안에 여섯 단계가 끝난다 — 선지 순서 대응 덕에 지문 통독이 한 번이다."
+     ],
+     "checked": [
+      "절차 단계가 지문 사전 지식 없이 실행 가능한지",
+      "금지 표현 포함 여부 문자열 확인",
+      "required_vocab 4개가 모두 지문에 실재하고 판정에 쓰이는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2609#26",
+   "revised": true,
+   "measured_ability": "연도에 붙은 동사가 경력의 시작을 말하는지 끝을 말하는지 가려 읽는 능력",
+   "design_intent": "마지막에서 두 번째 문장에 연도와 근속 기간을 함께 넣되, 연도에는 became(시작)을, 기간에는 continued(지속)를 붙였다. 선지는 같은 숫자 둘을 그대로 쓰면서 동사만 '퇴임'으로 바꾼다. 곧 숫자 일치만 확인하는 학생은 못 걸러지고, 숫자에 붙은 동사가 사건의 어느 끝을 가리키는지 보는 학생만 가려진다.",
+   "answer_locus": {
+    "sentence_index": [
+     8
+    ],
+    "quote": "In 1958, he became a full professor at MIT and continued to teach there for more than 20 years.",
+    "reasoning": "1958에 붙은 동사는 became a full professor 로 재직의 시작점이고, 20년 이상은 그 뒤로 이어진 기간이다. 곧 지문의 시간 순서는 1958 → 그 뒤 20년이다. '20년 이상 재직 후 1958년 퇴임'은 순서를 거꾸로 세운 것이므로 충돌한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "둘째 문장의 As a child 와 셋째 문장의 At age 21 이 잇달아 나와, 관심을 가진 시점을 21세 쪽으로 옮겨 읽으면 '어렸을 때'가 어긋나 보인다.",
+     "how_to_reject": "둘째 문장 As a child, he was interested in electrical devices 가 시점과 관심 대상을 한 문장에 담고 있다. At age 21 은 그 다음 문장의 다른 사건이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "At age 21 의 21을 나이가 아니라 연도(1921)나 학년으로 읽으면 '스물한 살'이 근거 없는 숫자로 보인다.",
+     "how_to_reject": "셋째 문장 At age 21, he started his master's program in electrical engineering 에서 age 가 앞에 붙어 있어 21은 나이다. 지문의 다른 연도들은 모두 네 자리(1950·1958)로 적혀 있다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "이 인물의 전시 업적을 암호 해독으로 알고 있으면 '로켓 파괴 기계'가 지문 밖 진술처럼 보여 불일치로 고른다.",
+     "how_to_reject": "다섯째 문장 by inventing a machine that helped destroy German rockets 가 전시 업적을 직접 적는다. 배경지식이 아니라 이 문장이 판정 기준이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "with the help of his wife 를 '아내가 만들었다'로 읽으면 기계를 만든 사람이 바뀌어 선지가 어긋나 보인다.",
+     "how_to_reject": "여섯째 문장의 주어는 he 이고 built 의 주체도 he 다. with the help of 는 도움을 받은 쪽이 주어임을 뜻한다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 In 1958, he became a full professor at MIT and continued to teach there for more than 20 years 에서 1958 에 붙은 것은 became a full professor(재직의 시작)이고 more than 20 years 는 그 뒤로 이어진 기간이다. 선지 ⑤ 는 같은 두 숫자를 쓰면서 '20년 이상 교수로 재직 후 1958년에 퇴임했다' 로 적어, 1958 을 시작이 아닌 끝으로 옮긴 한 자리에서 어긋난다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
+     "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+    },
+    {
+     "step": "선지 다섯을 먼저 읽고, 선지의 서술어(관심이 있었다·시작했다·발명했다·만들었다·퇴임했다)에 밑줄을 긋는다 — 이 유형은 서술어가 판정 축이다",
+     "on_fail": "서술어가 여럿이면 문장 맨 끝 동사 하나만 고른다"
+    },
+    {
+     "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 숫자·고유명사가 나오는 문장에 선지 번호를 적는다",
+     "on_fail": "짝이 안 맞으면 그 선지는 건너뛰고 다음 선지 자리부터 찾은 뒤 남은 구간만 되돌아본다"
+    },
+    {
+     "step": "숫자가 든 문장에서는 그 숫자에 붙은 동사가 시작(became·started·built)인지 끝(retired·died·left)인지 표시한다",
+     "on_fail": "동사를 못 가르면 문장에 시간을 앞으로 미는 말(continued·for more than·later)이 있는지만 찾는다"
+    },
+    {
+     "step": "선지의 서술어와 지문 동사가 같은 방향인지 맞대어 본다 — 시작을 끝으로, 받았다를 주었다로 바꾼 선지가 이 유형의 정답이다",
+     "on_fail": "방향이 같으면 그 선지는 지우고 다음 선지로 간다"
+    },
+    {
+     "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 남은 하나를 답으로 적는다",
+     "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘의 숫자만 다시 대조한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "정답 선지의 숫자 둘이 모두 지문에 있어 숫자 대조로는 안 걸린다",
+     "판정이 동사 방향(취임/퇴임) 하나에 걸린다",
+     "정답 근거가 지문 뒤쪽이라 선지 순서 대응으로 바로 닿는다"
+    ]
+   },
+   "required_vocab": [
+    "full professor",
+    "continued",
+    "telegraph",
+    "capable"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "선지 ①~⑤가 지문 문장 2·3·5·6·8 을 순서대로 대응한다.",
+      "정답이 '숫자는 맞고 동사가 틀린' 형태라 이 유형 설계의 전형이다 — measured_ability 를 숫자 대조가 아니라 동사 방향으로 적었다.",
+      "3차 판정 — 지문 문장의 영문 인용이 없어 대응이 낱말 단위로 확인되지 않던 것을 became a full professor / continued to teach for more than 20 years 로 보강했다",
+      "3차 판정 — quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
+     ],
+     "checked": [
+      "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
+      "선지 근거 문장 번호의 단조 증가 확인",
+      "정답 5가 became/continued 없이는 확정되지 않는지 확인",
+      "answer_locus.quote 를 passage 에서 문자열 대조",
+      "1958 과 20 years 의 선후 관계를 문장 성분으로 확인",
+      "선지 ⑤ 문면을 근거 문장과 시간 순서 단위로 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "처음 ③과 ④에 모두 '주체 역전'을 달았다 — ③은 주체가 아니라 배경지식이 근거를 밀어내는 경우이므로 '지문 밖 상식'으로 고쳤다.",
+      "고친 뒤 오답 넷이 부분 사실·어휘 함정·지문 밖 상식·주체 역전으로 갈린다.",
+      "3차 판정 — 뒤바뀐 성분(시작 ↔ 끝)을 직접 지목해 소거법에 기대지 않는다",
+      "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
+     ],
+     "checked": [
+      "오답 4개의 trap 라벨 중복 여부 재확인",
+      "why_tempting 이 선지 문구에 실제로 붙는지 대조",
+      "how_to_reject 에 문장 위치가 있는지",
+      "correct 판정 5 를 평가원 정답표(5)와 대조",
+      "why_correct 의 소거법 여부 확인",
+      "선지 ⑤ 문자열 인용 여부 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계에서 선지의 '서술어'에 밑줄을 긋게 한 것이 이 문항의 실제 승부처와 맞는다.",
+      "60초 안에 끝난다 — 선지 다섯 중 넷이 한 문장에서 바로 확인된다.",
+      "3차 판정 — 학생이 볼 자리가 한 문장이고, 숫자 두 개의 선후만 보면 된다"
+     ],
+     "checked": [
+      "절차가 지문을 안 본 상태에서 실행 가능한지",
+      "금지 표현 포함 여부 문자열 확인",
+      "required_vocab 4개가 지문에 실재하는지",
+      "시간 순서 대조가 예산 안에 드는지 확인",
+      "solve_procedure 미변경 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2606#26",
+   "revised": true,
+   "measured_ability": "연도는 맞는데 그 연도에 붙은 학위 분야가 다른 문장에서 옮겨 왔음을 알아채고, 값이 아니라 값에 붙은 항목명을 대조하는 능력",
+   "design_intent": "석사(1954·zoology)와 박사(1964·science education)를 잇달아 배치해 연도 둘과 분야 둘을 각각 흩어 놓았다. 선지는 박사의 연도와 석사의 분야를 붙여 놓으므로, 둘 다 지문에 실재하는 값이다. 값의 존재만 확인하는 학생과 값에 붙은 항목까지 확인하는 학생을 가르는 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     4
+    ],
+    "quote": "Then she earned her doctorate degree in science education from Stanford University in 1964.",
+    "reasoning": "1964에 붙은 학위는 doctorate degree in science education 이다. zoology 는 앞 문장에서 1954년 석사 학위에 붙은 분야다. 곧 '1964년 동물학 박사'는 두 문장의 값을 맞바꾼 조합이어서 지문에는 없다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "middle school student 를 고등학생이나 대학생으로 옮겨 읽으면 만난 시점이 어긋나 보인다.",
+     "how_to_reject": "둘째 문장 When she was a middle school student, she met Albert Einstein 이 만난 시점을 종속절로 못박는다. middle school 은 중학교다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "1964년에 받은 학위의 분야는 science education 이고, zoology 는 1954년 석사의 분야다. 선지는 연도와 분야를 다른 문장에서 하나씩 가져와 붙였다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "directed 를 '지도를 받았다'로 읽으면 프로그램을 이끈 쪽과 이끌린 쪽이 뒤바뀌어 '감독했다'가 어긋나 보인다.",
+     "how_to_reject": "여섯째 문장 she directed a science education program in Harlem 의 주어가 she 이고 directed 가 능동태다. 수동이면 was directed 가 된다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "지문에 1954·1964·1990·1996 네 연도가 흩어져 있어 책 출판 연도에 다른 연도를 붙이면 어긋나 보인다.",
+     "how_to_reject": "여덟째 문장 In 1990, she published her book, The Process of Knowing 이 연도와 책 제목을 한 문장에 붙여 준다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "지문의 one of the leading figures 에서 one of 를 빼면 선지가 '유일한 선도자'처럼 넓게 읽혀 지문보다 세다고 판단한다.",
+     "how_to_reject": "마지막 문장 she was remembered as one of the leading figures in the field of science education 이 근거다. 선지도 '선도적인 인물'이라 유일성을 주장하지 않는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
+     "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+    },
+    {
+     "step": "선지를 먼저 읽고, 값(연도·이름·장소)과 그 값에 붙은 항목(학위·책·프로그램)을 각각 따로 표시한다 — 값에 동그라미, 항목에 네모",
+     "on_fail": "값과 항목이 안 갈리면 선지에서 조사 '으로/에서/에' 앞뒤를 잘라 앞을 값, 뒤를 항목으로 본다"
+    },
+    {
+     "step": "지문을 위에서 아래로 한 번만 내려가며 값(숫자·고유명사)이 나오는 문장에 선지 번호를 적는다",
+     "on_fail": "값이 여러 문장에 나오면 그 문장을 모두 표시해 두고 다음 단계에서 항목으로 가른다"
+    },
+    {
+     "step": "값을 찾았으면 그 값과 같은 문장 안에 있는 항목명을 읽어 선지의 네모와 맞대어 본다 — 값이 맞아도 항목이 다르면 그 선지가 답 후보다",
+     "on_fail": "같은 문장에 항목이 없으면 앞뒤 한 문장까지만 넓혀 보고, 그래도 없으면 그 선지를 보류한다"
+    },
+    {
+     "step": "같은 항목(학위·상·직책)이 지문에 둘 이상 나오면 그 문장들을 나란히 놓고 항목마다 붙은 값을 세로로 비교한다",
+     "on_fail": "둘 이상이 안 보이면 지문에서 degree·award·book 처럼 항목을 나타내는 낱말만 훑어 개수를 센다"
+    },
+    {
+     "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 남은 하나를 답으로 적는다",
+     "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘의 항목명만 다시 대조한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.82,
+    "drivers": [
+     "정답 선지의 연도와 분야가 둘 다 지문에 실재한다",
+     "판정하려면 인접한 두 문장을 나란히 놓아야 한다",
+     "선지는 지문 순서를 단조 대응해 검색은 쉽다"
+    ]
+   },
+   "required_vocab": [
+    "zoology",
+    "doctorate",
+    "master's degree",
+    "directed"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "선지 ①~⑤가 지문 문장 2·4·6·8·10 을 순서대로 대응한다.",
+      "정답이 '값 교차'형이라 quote 하나로는 반쪽만 보인다 — reasoning 에 앞 문장의 zoology 를 함께 적어 두 문장 대조임을 드러냈다."
+     ],
+     "checked": [
+      "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
+      "정답 2가 두 문장 대조 없이는 확정되지 않는지 확인",
+      "선지 근거 문장 번호의 단조 증가 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "처음 ③의 trap 을 '어휘 함정'으로 달았다가 ①과 겹쳐 반려했다 — ③은 directed 의 태를 뒤집는 것이므로 '주체 역전'으로 고쳤다.",
+      "고친 뒤 오답 넷이 어휘 함정·주체 역전·부분 사실·범위 과대로 갈린다."
+     ],
+     "checked": [
+      "오답 4개의 trap 중복 여부 재확인",
+      "why_tempting 이 선지 문구에서 나오는지 대조",
+      "how_to_reject 에 문장 위치가 있는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계의 '값에 동그라미, 항목에 네모'가 손으로 할 수 있는 동작이고 4단계와 이어진다.",
+      "5단계(같은 항목이 둘 이상이면 세로 비교)가 이 문항의 실제 승부처다."
+     ],
+     "checked": [
+      "절차가 지문을 안 본 상태에서 실행 가능한지",
+      "금지 표현 포함 여부 문자열 확인",
+      "required_vocab 4개가 정답 판정에 쓰이는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2025#26",
+   "revised": true,
+   "body_recovered": true,
+   "measured_ability": "숫자가 아니라 낱말로 적힌 시점(the following year)을 연수로 바꿔 선지의 숫자와 맞추는 능력",
+   "design_intent": "사망 시점을 연도로 적지 않고 앞 사건(2016년 마지막 생방송) 기준의 상대 표현으로만 적었다. 선지는 같은 사건을 기준으로 삼되 간격만 늘린다. 곧 지문에서 연도 두 개를 찾아 빼는 습관으로는 풀리지 않고, 상대 시점 표현을 연수로 환산하는 학생만 가려낸다.",
+   "answer_locus": {
+    "sentence_index": [
+     8
+    ],
+    "quote": "He made his last live broadcast in 2016 and died the following year at the age of 82.",
+    "reasoning": "the following year 는 바로 앞에 적힌 2016 을 기준으로 한 해 뒤를 뜻한다. 곧 마지막 생방송과 사망 사이는 1년이다. '3년 뒤'는 이 상대 표현을 다른 간격으로 바꾼 것이어서 지문과 충돌한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "San Fernando Valley·Los Angeles·China 등 지명이 지문 뒤쪽에 많아 출생지를 그중 하나로 옮겨 잡으면 Michigan 이 어긋나 보인다.",
+     "how_to_reject": "둘째 문장 He was born in Michigan in 1935 가 출생지와 출생 연도를 함께 준다. 뒤에 나오는 지명들은 모두 근무지다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "served as a coach 를 '코치의 지도를 받았다'로 읽거나 assistant professor 를 조교로 읽으면 대학에서의 직위 관계가 흐려져 선지가 어긋나 보인다.",
+     "how_to_reject": "셋째 문장 where he also served as a coach of its baseball team 에서 its 가 앞의 대학을 받고 served as 는 '~로 일했다'다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "the first U.S. sportscaster ever to visit China 에서 U.S. sportscaster 라는 한정을 떨어뜨리고 '중국을 처음 방문한 미국인'으로 넓히면 상식과 충돌해 불일치로 고른다.",
+     "how_to_reject": "다섯째 문장의 first 는 U.S. sportscaster 라는 범주 안에서의 최초다. 선지도 '미국인 스포츠 캐스터' 로 같은 한정을 유지한다."
+    },
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 He made his last live broadcast in 2016 and died the following year at the age of 82 에서 the following year 는 바로 앞의 2016 을 기준으로 한 해 뒤를 뜻하므로 두 사건의 간격은 1년이다. 선지 ④ '마지막 생방송 후 3년 뒤에 사망하였다' 는 last live broadcast ↔ 마지막 생방송, died ↔ 사망 을 그대로 두고 간격만 3년으로 바꾼 것이라 the following year 한 표현에서 어긋난다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "마지막 문장이 best-selling writer 로 시작해 작가 이력 문장으로 읽히면, 방송 부문 수상 근거가 지문에 없다고 판단한다.",
+     "how_to_reject": "마지막 문장 뒷부분 won Emmy Awards as a sportscaster, a writer, and a producer 가 수상 사실과 세 부문을 함께 적는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
+     "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+    },
+    {
+     "step": "선지를 먼저 읽고, 두 사건 사이의 간격을 말하는 선지(‘~한 뒤 몇 년’·‘~ 전에’)에 별표를 친다 — 이 선지는 지문에 연도가 하나만 적혀 있을 확률이 높다",
+     "on_fail": "간격을 말하는 선지가 없으면 선지의 숫자에만 밑줄을 긋는다"
+    },
+    {
+     "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사·숫자가 나오는 문장에 선지 번호를 적는다",
+     "on_fail": "짝이 안 맞는 선지는 건너뛰고 남은 구간에서만 되돌아 찾는다"
+    },
+    {
+     "step": "별표 친 선지의 자리에서 the following year · a year later · about a decade later · the next year 처럼 시점을 낱말로 적은 표현을 찾아 옆에 연수를 숫자로 적는다",
+     "on_fail": "그런 표현이 없으면 그 문장 앞뒤 두 문장에서 연도 두 개를 찾아 뺀다"
+    },
+    {
+     "step": "적어 둔 연수를 선지의 숫자와 맞대어 본다 — 다르면 그 선지가 답이다",
+     "on_fail": "같으면 그 선지를 지우고 남은 선지의 서술어를 지문 동사와 하나씩 대조한다"
+    },
+    {
+     "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 답을 적는다",
+     "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘만 다시 대조한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.9,
+    "drivers": [
+     "정답 근거가 연도가 아니라 상대 시점 표현 the following year",
+     "선지가 지문 서술 순서를 단조 대응한다",
+     "오답 넷이 각각 한 문장에서 직접 확인된다"
+    ]
+   },
+   "required_vocab": [
+    "following",
+    "broadcast",
+    "beloved",
+    "decade"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "청크에서 body_ok 가 false 였으나 raw_block 의 문항 블록과 회차 원문 창이 같은 본문을 담고 있고, 코퍼스 passage 도 단 섞임 없이 온전하다 — 선지 다섯도 raw_block 에서 그대로 확인된다. body_recovered 로 표시했다.",
+      "선지 ①~⑤가 지문 문장 2·3·5·8·10 을 순서대로 대응한다.",
+      "3차 판정 — 지문 문장의 영문 인용이 없던 것을 the following year 를 포함해 보강하고, 선지 ④ 문면을 그대로 인용했다",
+      "3차 판정 — quote 는 손대지 않았고 손상 표시가 붙은 지문에서도 이 문장은 온전하다"
+     ],
+     "checked": [
+      "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
+      "raw_block 의 선지 다섯과 코퍼스 choices 대조",
+      "정답 4가 the following year 없이는 확정되지 않는지 확인",
+      "answer_locus.quote 를 passage 에서 문자열 대조",
+      "the following year 의 기준 연도가 앞의 2016 임을 확인",
+      "선지 ④의 세 성분(사건·사건·간격) 중 갈린 것이 간격뿐임을 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "처음 ②의 trap 을 '부분 사실'로 달았다가 ①과 겹쳐 반려했다 — ②는 served as·assistant professor 의 뜻을 뒤집는 것이므로 '어휘 함정'으로 고쳤다.",
+      "고친 뒤 오답 넷이 부분 사실·어휘 함정·범위 과대·무관으로 갈린다.",
+      "3차 판정 — 갈아 끼운 성분(간격)을 직접 지목해 소거법에 기대지 않는다",
+      "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
+     ],
+     "checked": [
+      "오답 4개의 trap 중복 여부 재확인",
+      "why_tempting 이 선지 문구에서 나오는지 대조",
+      "how_to_reject 에 문장 위치가 있는지",
+      "correct 판정 4 를 평가원 정답표(4)와 대조",
+      "why_correct 의 소거법 여부 확인",
+      "선지 ④ 문자열 인용 여부 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계에서 '간격을 말하는 선지에 별표'를 먼저 치게 한 것이, 지문을 보기 전에 정답 후보를 좁히는 실제 손동작이 된다.",
+      "60초 안에 끝난다.",
+      "3차 판정 — 상대 표현(the following year)을 숫자로 바꿔 세는 절차가 학생에게 그대로 보인다"
+     ],
+     "checked": [
+      "절차가 지문을 안 본 상태에서 실행 가능한지",
+      "금지 표현 포함 여부 문자열 확인",
+      "required_vocab 4개가 지문에 실재하는지",
+      "상대 연도 계산이 예산 안에 드는지 확인",
+      "solve_procedure 미변경 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2509#26",
+   "revised": true,
+   "measured_ability": "한 문장 안에서 연도가 붙은 사건과 그 뒤 상대 표현(about a decade later)이 붙은 사건을 갈라, 연도를 뒤 사건에 옮겨 붙이지 않는 능력",
+   "design_intent": "도미(1937)와 MIT 강의 시작을 한 문장에 and 로 이어 붙이고, 뒤 사건의 시점은 about a decade later 로만 적었다. 선지는 앞 사건의 연도를 뒤 사건에 붙인다. 곧 연도 하나와 기관 이름 하나가 같은 문장에 있다는 사실만 확인하는 학생을 걸러 낸다.",
+   "answer_locus": {
+    "sentence_index": [
+     4
+    ],
+    "quote": "He went to the United States in 1937, and about a decade later, he started teaching visual design at the Massachusetts Institute of Technology (MIT).",
+    "reasoning": "1937에 붙은 사건은 went to the United States 이고, MIT 강의 시작에는 about a decade later 가 붙어 있다. 곧 강의 시작은 1937년이 아니라 그로부터 십 년쯤 뒤다. 두 사건을 같은 해로 묶은 진술은 이 상대 표현과 충돌한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "바로 다음 문장에 Berlin, Germany 에서 design and film 을 공부했다는 내용이 이어져, 공부한 나라를 독일로 옮겨 읽으면 '헝가리에서 그림'이 어긋나 보인다.",
+     "how_to_reject": "둘째 문장 He studied painting at the Royal Academy of Fine Arts in Budapest, Hungary 가 그림 공부의 장소를 국가까지 적는다. 셋째 문장은 다른 분야·다른 나라다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 He went to the United States in 1937, and about a decade later, he started teaching visual design at the Massachusetts Institute of Technology 에서 1937 에 붙은 사건은 went to the United States 이고, started teaching visual design 앞에는 about a decade later 가 붙어 있다. 선지 ② 는 'MIT에서 시각 디자인을 가르치기 시작했다' 는 뒤 사건에 앞 사건의 해 1937 을 붙여, 두 사건 사이의 십 년만큼 어긋난다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "exhibition became the basis of his book 에서 basis 의 방향을 뒤집어 '책이 전시의 바탕'이라고 읽으면 선지가 거꾸로 보인다.",
+     "how_to_reject": "여섯째 문장 His exhibition in 1951 titled The New Landscape became the basis of his book 에서 주어가 exhibition 이고 became the basis of 뒤가 book 이다. 바탕이 된 쪽이 주어다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "house 를 명사 '집'으로만 알면 a museum to house his works 의 목적이 안 읽혀 '작품 소장'이라는 선지가 근거 없이 보인다.",
+     "how_to_reject": "여덟째 문장 In 1995, a museum to house his works was established 에서 house 는 to 뒤의 동사이고 목적어가 his works 다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "무관",
+     "why_tempting": "다섯째 문장의 a community composed of artists and scientists 를 근거로 삼으면 지문은 '예술과 과학'을 말했으므로 '예술과 기술'이 어긋난다고 판단한다.",
+     "how_to_reject": "판정 근거는 그 문장이 아니라 마지막 문장 He was a great pioneer in connecting art and technology 다. 여기에 technology 가 그대로 적혀 있다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
+     "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+    },
+    {
+     "step": "선지를 먼저 읽고 연도가 든 선지에 별표를 친다 — 이 유형에서 연도가 든 선지는 다섯 중 한둘뿐이고 정답이 그중에 있는 일이 잦다",
+     "on_fail": "연도가 든 선지가 없으면 선지의 서술어에 밑줄을 긋는다"
+    },
+    {
+     "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사가 나오는 문장에 선지 번호를 적는다",
+     "on_fail": "고유명사가 없는 선지는 표시만 하고 마지막에 남은 문장에서 찾는다"
+    },
+    {
+     "step": "별표 친 선지의 연도를 지문에서 찾은 뒤, 그 연도와 선지의 사건 사이에 콤마·and 로 끼어든 다른 사건이 있는지 본다",
+     "on_fail": "끼어든 사건이 안 보이면 그 문장을 접속사에서 잘라 조각마다 동사 하나씩만 남긴다"
+    },
+    {
+     "step": "about a decade later · several years later · subsequently 처럼 시점을 낱말로 적은 자리를 찾아 옆에 대략의 연수를 숫자로 적고, 선지의 연도와 맞대어 본다",
+     "on_fail": "그런 표현이 없으면 그 선지는 지우고 남은 선지의 서술어를 지문 동사와 대조한다"
+    },
+    {
+     "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 답을 적는다",
+     "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘의 고유명사만 다시 찾는다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.84,
+    "drivers": [
+     "정답 근거가 콤마 안의 상대 시점 표현 about a decade later",
+     "정답 선지의 연도와 기관이 같은 문장 안에 있어 낱말 대조로는 안 걸린다",
+     "헝가리 인명·지명이 많아 고유명사 검색이 다소 느리다"
+    ]
+   },
+   "required_vocab": [
+    "decade",
+    "basis",
+    "house",
+    "exhibition"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "선지 ①~⑤가 지문 문장 2·4·6·8·9 를 순서대로 대응한다.",
+      "정답이 '연도는 지문에 있고 붙는 사건만 옮긴' 형태라 2026#26·2025#26 과 같은 설계 계열이다.",
+      "3차 판정 — 서술에 선지 문면 인용이 없던 것을 보강했다 — about a decade later 가 어느 사건 앞에 붙는지와 선지 ②가 그 사건에 무슨 해를 붙였는지를 함께 적었다",
+      "3차 판정 — quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
+     ],
+     "checked": [
+      "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
+      "선지 근거 문장 번호의 단조 증가 확인",
+      "정답 2가 about a decade later 없이는 확정되지 않는지 확인",
+      "answer_locus.quote 를 passage 에서 문자열 대조",
+      "1937 이 붙은 사건과 about a decade later 가 붙은 사건을 각각 확인",
+      "선지 ② 문면을 근거 문장의 두 사건과 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "처음 ④와 ⑤에 모두 '어휘 함정'을 달았다 — ⑤는 낱말을 몰라서가 아니라 판정과 다른 문장을 근거로 삼는 것이므로 '무관'으로 고쳤다.",
+      "고친 뒤 오답 넷이 부분 사실·인과 역전·어휘 함정·무관으로 갈린다.",
+      "③의 '인과 역전'은 이 청크에서 처음 쓴 라벨이고, become the basis of 의 방향 뒤집기가 그 정의에 맞는다.",
+      "3차 판정 — 연도가 잘못 붙은 자리를 직접 지목해 소거법에 기대지 않는다",
+      "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
+     ],
+     "checked": [
+      "오답 4개의 trap 중복 여부 재확인",
+      "why_tempting 이 선지 문구에서 나오는지 대조",
+      "how_to_reject 에 문장 위치가 있는지",
+      "correct 판정 2 를 평가원 정답표(2)와 대조",
+      "why_correct 의 소거법 여부 확인",
+      "선지 ② 문자열 인용 여부 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계에서 '연도가 든 선지에 별표'를 치게 한 것이 지문을 보기 전 후보 좁히기로 작동한다.",
+      "4단계(연도와 사건 사이에 끼어든 사건 확인)가 이 문항의 승부처와 정확히 겹친다.",
+      "3차 판정 — 학생이 볼 자리가 한 문장 안의 두 절이고, 연결어(about a decade later)가 표시됐다"
+     ],
+     "checked": [
+      "절차가 지문을 안 본 상태에서 실행 가능한지",
+      "금지 표현 포함 여부 문자열 확인",
+      "required_vocab 4개가 지문에 실재하고 판정에 쓰이는지",
+      "상대 시간 표현 처리 절차가 예산 안에 드는지 확인",
+      "solve_procedure 미변경 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2506#26",
+   "revised": true,
+   "body_recovered": true,
+   "measured_ability": "사건의 시점을 인물의 생존 여부로 가르는 표현(after his death)을 읽어, 선지의 '생전에'와 맞대어 보는 능력",
+   "design_intent": "동상 설치라는 사실 자체는 참으로 두고, 그 시점만 after his death 라는 세 낱말에 걸었다. 앞 문장에서 이미 사망(died ... in 1935)을 말해 두었으므로 시간 순서를 따라간 학생에게는 걸리고, 동상·U.S. Capitol 같은 고유명사만 짝짓는 학생에게는 안 걸린다.",
+   "answer_locus": {
+    "sentence_index": [
+     9
+    ],
+    "quote": "was so popular that after his death his statue was installed in the U.S. Capitol.",
+    "reasoning": "동상 설치에 붙은 시점 표현이 after his death 다. 곧 설치는 사망 이후 사건이므로, 설치가 생전에 이뤄졌다는 진술은 이 전치사구와 정면으로 충돌한다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "eighth 를 서수로 못 읽거나 바로 뒤 문장의 the 10th grade 와 섞으면 '여덟 번째 아이'라는 숫자가 어긋나 보인다.",
+     "how_to_reject": "둘째 문장 He was born as the eighth child 가 출생 순서를 직접 적는다. 10th grade 는 학년이라 child 가 아니라 grade 에 붙어 있다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "뒤에 worked as a cowboy and roping artist 가 나와 카우보이가 관심사가 아니라 직업이었다고 보면, '관심이 있었다'는 선지가 지문보다 약하다고 판단한다.",
+     "how_to_reject": "넷째 문장 He was very interested in cowboys and horses 가 관심 사실을 그대로 적는다. 직업이 되었다는 뒤 문장은 이 진술을 지우지 않는다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "앞 문장의 He left the U.S. in 1902 와 순서를 뒤집어 영화 출연을 출국 뒤로 놓으면 '미국에 돌아온 후'가 어긋나 보인다.",
+     "how_to_reject": "여섯째 문장이 After returning to the U.S. 로 시작하고 그 뒤에 appeared in more than 50 movies 가 온다. 종속절이 시점을 앞세워 순서를 못박는다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "칼럼 수 4,000이라는 숫자에 눈이 가서 그 숫자만 대조하면, 숫자를 말하지 않는 선지가 근거 없이 보인다.",
+     "how_to_reject": "일곱째 문장 He was also an outstanding newspaper columnist 가 평가를 직접 적는다. 4,000은 뒤에 붙은 부가 정보다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "지문은 동상 설치를 after his death 로 적었다. 설치가 생전에 이뤄졌다는 선지는 이와 어긋난다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
+     "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+    },
+    {
+     "step": "선지를 먼저 읽고 '생전에·사후에·~한 뒤에·~하기 전에'처럼 시점 관계를 말하는 선지에 별표를 친다",
+     "on_fail": "그런 선지가 없으면 선지의 숫자와 고유명사에 밑줄을 긋는다"
+    },
+    {
+     "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 낱말이 나오는 문장에 선지 번호를 적는다",
+     "on_fail": "옆 단 글자가 문장 가운데 섞여 보이면 그 줄은 건너뛰고 문장이 이어지는 다음 줄부터 읽는다"
+    },
+    {
+     "step": "별표 친 선지의 자리에서 before · after · during · Afterwards 같은 시점 전치사·부사를 찾아 동그라미를 치고, 그 앞뒤 어느 사건에 걸리는지 화살표로 잇는다",
+     "on_fail": "전치사가 안 보이면 그 문장 앞 두 문장에서 사망·귀국 같은 기준 사건을 찾는다"
+    },
+    {
+     "step": "선지가 말하는 순서와 지문의 순서를 나란히 적어 비교한다 — 앞뒤가 바뀐 선지가 답이다",
+     "on_fail": "순서가 같으면 그 선지를 지우고 남은 선지의 숫자를 대조한다"
+    },
+    {
+     "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 답을 적는다",
+     "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘만 다시 대조한다"
+    }
+   ],
+   "time_budget_sec": 70,
+   "difficulty": {
+    "predicted": 0.86,
+    "drivers": [
+     "정답 근거가 문장 가운데 끼어든 세 낱말 after his death",
+     "선지 ③과 ⑤가 모두 시점 순서를 다뤄 한 번 더 대조해야 한다",
+     "인쇄면에서 옆 단 글자가 섞여 들어와 읽는 속도가 떨어진다"
+    ]
+   },
+   "required_vocab": [
+    "eighth",
+    "columnist",
+    "statue",
+    "installed"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "청크와 코퍼스 모두 body_ok 가 false 이고 choices 가 null 이다 — raw_block 의 문항 블록에서 선지 다섯(여덟 번째 아이 / 카우보이와 말 / 50편 넘는 영화 / 신문 칼럼니스트 / 생전 동상 설치)을 복원했고 body_recovered 로 표시했다.",
+      "처음 quote 를 raw_block 의 줄바꿈된 형태 그대로 잡아 문자열 대조가 어긋났다 — 코퍼스 passage 에 이어진 형태로 다시 뽑아 교체했다.",
+      "지문에 옆 단 조각(field trip on J · Participants: F 등)이 섞여 있으나 근거 문장 자체는 온전하다."
+     ],
+     "checked": [
+      "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
+      "raw_block 문항 블록에서 선지 5개 복원 여부 확인",
+      "정답 5가 after his death 없이는 확정되지 않는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷이 어휘 함정·범위 과소·인과 역전·부분 사실로 갈린다.",
+      "③의 라벨은 인과가 아니라 선후 순서 뒤집기다 — A표에 '시간 순서 역전' 라벨이 없어 '인과 역전'으로 대신 달았고 open_questions 에 등재 제안을 남겼다."
+     ],
+     "checked": [
+      "오답 4개의 trap 중복 여부",
+      "why_tempting 이 복원한 선지 문구와 대응하는지",
+      "how_to_reject 에 문장 위치가 있는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "3단계 on_fail 에 '옆 단 글자가 섞이면 그 줄을 건너뛴다'를 넣었다 — 실제 시험지에서는 안 겪는 문제지만 이 자료로 연습하는 학생에게는 필요하다.",
+      "지문 손상 탓에 읽기가 느려지므로 time_budget_sec 을 60에서 70으로 늘렸다."
+     ],
+     "checked": [
+      "절차가 지문을 안 본 상태에서 실행 가능한지",
+      "금지 표현 포함 여부 문자열 확인",
+      "required_vocab 4개가 복원 지문에 실재하는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "2024#26",
+   "revised": true,
+   "measured_ability": "한 문장 안의 and then 이 두 사건의 선후를 정한다는 것을 읽어, 선지의 '~하기 전에'와 맞대어 보는 능력",
+   "design_intent": "박사 학위 취득과 취직을 and then 하나로 이어 붙였다. 선지는 두 사건을 그대로 쓰면서 순서만 뒤집는다. 곧 지문에 두 사건이 다 있다는 사실만 확인하는 학생은 통과시키고, 둘을 잇는 접속 표현의 방향까지 읽는 학생만 가려낸다.",
+   "answer_locus": {
+    "sentence_index": [
+     3
+    ],
+    "quote": "He earned his doctoral degree from the California Institute of Technology in 1939, and then he took a job at Bell Labs in New York City.",
+    "reasoning": "and then 은 앞 절의 사건이 먼저이고 뒤 절이 나중임을 정한다. 곧 박사 학위(1939)가 먼저이고 Bell Labs 취직이 나중이다. '박사 학위를 받기 전에 Bell Labs에서 일했다'는 이 순서를 거꾸로 세운 것이다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "grew up on a farm 뒤에 studying the stars in the sky 가 붙어 있어 분사구 쪽을 주된 서술로 읽으면 '농장에서 성장'이 부수적으로 보여 근거가 약하다고 판단한다.",
+     "how_to_reject": "둘째 문장 In his childhood, he grew up on a farm 이 주절이고 studying 이하가 분사구다. 성장 장소를 말하는 것은 주절이다."
+    },
+    {
+     "n": 2,
+     "verdict": "correct",
+     "why_correct": "지문은 박사 학위(1939) 다음에 and then 으로 Bell Labs 취직을 이었다. 선지는 취직을 학위 이전으로 옮겼으므로 어긋난다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "Townes and his co-researcher 라는 복수 주어를 보고 제안한 사람이 그가 아니라 공동 연구자라고 읽으면 선지가 어긋나 보인다.",
+     "how_to_reject": "다섯째 문장 In 1958, Townes and his co-researcher proposed the concept of the laser 에서 Townes 가 주어의 앞자리에 있다. and 로 묶인 주어는 둘 다 행위자다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "1939·1958·1964 세 연도가 가까이 흩어져 있어 노벨상 연도에 다른 연도를 붙이면 어긋나 보인다.",
+     "how_to_reject": "일곱째 문장 He received the Nobel Prize in Physics in 1964 가 상 이름과 연도를 한 문장에 붙여 준다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "지문 밖 상식",
+     "why_tempting": "물리학자·레이저라는 배경으로 달 착륙 계획과는 무관하리라 넘겨짚으면 '관여하였다'가 지문 밖 진술로 보인다.",
+     "how_to_reject": "여덟째 문장 He was also involved in Project Apollo, the moon landing project 가 참여 사실과 그 계획의 정체를 동격으로 적는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
+     "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+    },
+    {
+     "step": "선지를 먼저 읽고 '~하기 전에·~한 후에'처럼 두 사건의 순서를 주장하는 선지에 별표를 친다",
+     "on_fail": "그런 선지가 없으면 선지의 연도와 고유명사에 밑줄을 긋는다"
+    },
+    {
+     "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사·연도가 나오는 문장에 선지 번호를 적는다",
+     "on_fail": "짝이 안 맞는 선지는 건너뛰고 남은 구간에서만 되돌아 찾는다"
+    },
+    {
+     "step": "별표 친 선지의 두 사건이 같은 문장에 있으면 그 둘을 잇는 말(and then · after · before · Afterwards · Later)에 동그라미를 치고 화살표로 앞뒤를 표시한다",
+     "on_fail": "잇는 말이 없으면 두 사건이 나온 문장 번호를 적어 문장 순서로 선후를 정한다"
+    },
+    {
+     "step": "표시한 화살표 방향과 선지의 주장을 맞대어 본다 — 방향이 반대면 그 선지가 답이다",
+     "on_fail": "방향이 같으면 그 선지를 지우고 남은 선지의 주어(누가 했는가)를 지문 주어와 대조한다"
+    },
+    {
+     "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 답을 적는다",
+     "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘만 다시 대조한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.87,
+    "drivers": [
+     "정답 근거가 접속 표현 and then 두 낱말",
+     "정답 선지의 두 사건이 모두 지문에 실재해 존재 대조로는 안 걸린다",
+     "지문이 짧고 선지가 지문 순서를 단조 대응한다"
+    ]
+   },
+   "required_vocab": [
+    "doctoral degree",
+    "co-researcher",
+    "involved",
+    "associate professor"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "선지 ①~⑤가 지문 문장 2·3·5·7·8 을 순서대로 대응한다.",
+      "정답이 '두 사건의 순서 뒤집기'라 M2506#26 ③ 오답과 같은 축이다 — 이 축이 산문 유형에서 오답과 정답 양쪽에 쓰인다는 점을 type_report 에 넘겼다."
+     ],
+     "checked": [
+      "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
+      "선지 근거 문장 번호의 단조 증가 확인",
+      "정답 2가 and then 없이는 확정되지 않는지 확인"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "처음 ⑤의 trap 을 '범위 과대'로 달았으나 선지는 지문의 involved 를 넓히지 않는다 — 배경지식이 근거를 밀어내는 경우이므로 '지문 밖 상식'으로 고쳤다.",
+      "고친 뒤 오답 넷이 어휘 함정·주체 역전·부분 사실·지문 밖 상식으로 갈린다."
+     ],
+     "checked": [
+      "오답 4개의 trap 중복 여부 재확인",
+      "why_tempting 이 선지 문구에서 나오는지 대조",
+      "how_to_reject 에 문장 위치가 있는지"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "4단계에서 '잇는 말에 동그라미, 화살표로 앞뒤 표시'가 손동작으로 정의되어 실행 가능하다.",
+      "60초 안에 끝난다 — 지문이 이 청크에서 가장 짧다."
+     ],
+     "checked": [
+      "절차가 지문을 안 본 상태에서 실행 가능한지",
+      "금지 표현 포함 여부 문자열 확인",
+      "required_vocab 4개가 지문에 실재하는지"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2409#26",
+   "revised": true,
+   "measured_ability": "한 문장 안에 활동 둘(집필과 연주)이 대비로 놓였을 때, 어느 쪽이 중단되고 어느 쪽이 이어졌는지를 동사와 기간 표현으로 가려 읽는 능력",
+   "design_intent": "생애를 시간 순으로 늘어놓되 판정이 걸릴 자리를 세 군데 심었다 — 학위와 데뷔가 겹친 해를 관계절로 묶은 자리(the year he earned his doctoral degree ... Rosen made both his New York piano debut and his first recordings), 수상 시점을 숫자가 아니라 the next year 로 적은 자리, 그리고 마지막 문장에서 두 활동을 While 로 대비시킨 자리다. 각 자리는 낱말 두세 개가 사실 관계를 정하므로, 고유명사와 연도만 짝짓는 읽기로는 판정이 서지 않는다.",
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
+     "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+    },
+    {
+     "step": "선지를 먼저 읽고 각 선지의 서술어(재능을 보였다·학위를 받았다·요청받았다·상을 받았다·중단했다)에 밑줄을 긋는다",
+     "on_fail": "서술어가 여럿이면 문장 맨 끝 동사 하나만 고른다"
+    },
+    {
+     "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사·책 제목·연도가 나오는 문장에 선지 번호를 적는다",
+     "on_fail": "짝이 안 맞는 선지는 건너뛰고 남은 구간에서만 되돌아 찾는다"
+    },
+    {
+     "step": "연도가 든 선지는 the next year · in the year · later 처럼 시점을 낱말로 적은 자리를 찾아 옆에 연수를 숫자로 적는다",
+     "on_fail": "그런 표현이 없으면 그 문장 앞뒤 두 문장에서 연도 두 개를 찾아 뺀다"
+    },
+    {
+     "step": "'중단했다·그만두었다·전념했다'처럼 활동의 끝을 주장하는 선지는 지문에서 continued · for the rest of his life · until 같은 지속 표현이 붙어 있는지 확인한다",
+     "on_fail": "지속 표현이 안 보이면 그 활동을 말한 문장의 동사가 과거 완료인지 현재 진행 성격인지만 표시하고 보류한다"
+    },
+    {
+     "step": "누가 누구에게 한 행위인지 묻는 선지는 지문 문장의 주어와 목적어를 각각 동그라미 쳐서 방향을 확인한다",
+     "on_fail": "주어가 관계절 뒤에 숨어 있으면 who·which 앞의 명사를 주어로 삼는다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.83,
+    "drivers": [
+     "판정 자리가 관계절·삽입절 안에 들어 있어 문장 구조를 갈라 읽어야 한다",
+     "수상 시점이 숫자가 아니라 the next year 로 적혀 있다",
+     "지문이 이 청크 평균보다 길고 연도가 다섯 개(1927·1951·1971·1997·2012) 나온다",
+     "갈아 끼운 자리가 마지막 문장의 While 대비절 하나뿐이라, 앞에서 네 선지의 근거를 다 찾은 학습자도 마지막 문장을 흘려 읽으면 그대로 실점한다"
+    ]
+   },
+   "required_vocab": [
+    "virtuoso",
+    "recitals",
+    "expanded",
+    "extensively",
+    "landmark"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 지문에 문자 그대로 있고 correct ⑤가 정답표(answer=5)와 일치한다.",
+      "갈린 자리가 마지막 문장 주절의 술어 하나이며 While writing extensively 라는 조각은 참으로 남아 미끼가 된다."
+     ],
+     "checked": [
+      "answer_locus.quote 문자열 대조",
+      "정답표 대조",
+      "정답 선지와 지문 문장의 성분 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "difficulty.drivers 의 마지막 줄이 정답을 모르던 시점의 서술(추정 근거 명시)이라 이제는 거짓이 된다 — 반려했다. 갈아 끼운 자리가 마지막 문장 하나라는 관찰로 교체했다.",
+      "오답 넷의 trap 이 어휘 함정·부분 사실·주체 역전·인과 역전으로 모두 다르다."
+     ],
+     "checked": [
+      "difficulty.drivers 의 정답 미지 전제 잔존 검사",
+      "trap 라벨 중복 검사",
+      "how_to_reject 의 문장 번호 표기 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 5단계(지속 표현 확인)가 정답 판정 자리와 그대로 겹친다 — for the rest of his life 를 찾는 동작이다.",
+      "60초 유지."
+     ],
+     "checked": [
+      "절차 재시뮬레이션",
+      "금지 표현 검사",
+      "시간 배분 재검산"
+     ]
+    }
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     9
+    ],
+    "quote": "While writing extensively, Rosen continued to perform as a pianist for the rest of his life until he died in 2012.",
+    "reasoning": "마지막 문장이 두 활동을 While 로 대비시키되 주절 동사는 continued to perform 이다. 선지는 글쓰기 쪽 서술을 그대로 옮겨 두고 주절 술어 하나만 중단으로 갈아 끼우므로, 판정은 이 문장의 주절 동사와 for the rest of his life 라는 기간 표현에서 난다."
+   },
+   "choices": [
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "지문의 주절은 Rosen continued to perform as a pianist for the rest of his life 인데, 선지는 그 한 자리만 갈아 피아니스트 활동을 중단하고 글쓰기에 매진하였다 로 놓았다. 글쓰기에 매진했다는 부분은 While writing extensively 로 그대로 참이라 미끼로 남는다.",
+     "confirmed_at": {
+      "sentence_index": [
+       9
+      ],
+      "note": "for the rest of his life until he died in 2012 가 지속의 끝을 사망 시점으로 못 박아, 중단 시점을 끼워 넣을 자리가 없다"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "remarkable talent 를 성취로 읽으면 재능을 보였다는 선지가 약하게 느껴져 어긋난 듯 보인다.",
+     "how_to_reject": "2번 문장 Rosen displayed a remarkable talent for the piano from his early childhood 가 시기(어려서부터)와 대상(피아노)을 그대로 담는다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "같은 문장에 데뷔와 첫 녹음이 겹쳐 있어 학위 사실만 떼어 내기 어렵다.",
+     "how_to_reject": "3번 문장의 삽입절 the year he earned his doctoral degree in French literature at Princeton University 가 학위와 분야를 담는다. 데뷔는 주절 쪽 사건이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "관계절이 길어 초대한 쪽과 초대받은 쪽을 뒤집어 읽기 쉽다.",
+     "how_to_reject": "5번 문장 impressed some of the 20th century’s most well-known composers, who invited him to play their music 에서 who 의 선행사는 composers, 목적어 him 이 Rosen 이다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "인과 역전",
+     "why_tempting": "수상 시점이 숫자가 아니라 the next year 로 적혀 있어 출판보다 앞으로 당겨 읽기 쉽다.",
+     "how_to_reject": "7번 문장 first published in 1971 and won the U.S. National Book Award the next year 에서 the next year 의 기준은 바로 앞의 1971 이다."
+    }
+   ]
+  },
+  {
+   "item_id": "M2406#26",
+   "revised": true,
+   "measured_ability": "전쟁·이주처럼 기간을 갖는 사건에서 '언제부터 어디에 있었는가'를 종속절과 시점 표현으로 가려 읽는 능력",
+   "design_intent": "두 차례의 전쟁을 각각 다른 방식으로 적었다 — 제1차는 At the outbreak of 라는 시점 표현으로 복무 상태를 못박고, 제2차는 when the Nazis invaded France in 1940 이라는 종속절 뒤에 이동(went to Hollywood)과 지속(continued his career there)을 붙였다. 곧 전쟁 이름만 짝짓는 읽기로는 체류 국가가 정해지지 않고, 종속절 뒤의 동사까지 읽어야 위치가 정해진다.",
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
+     "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+    },
+    {
+     "step": "선지를 먼저 읽고 각 선지에서 대조할 축(관계·복무 시점·제작 연도·체류 장소·수상)을 한 낱말로 옆에 적는다",
+     "on_fail": "축이 안 잡히면 선지의 고유명사와 숫자에만 밑줄을 긋는다"
+    },
+    {
+     "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사(사람 이름·작품 제목·상 이름)가 나오는 문장에 선지 번호를 적는다",
+     "on_fail": "고유명사가 없는 선지는 표시만 하고 마지막에 남은 문장에서 찾는다"
+    },
+    {
+     "step": "'~ 동안·~ 내내'처럼 기간을 주장하는 선지는 그 기간을 말하는 문장에서 이동을 나타내는 동사(went·left·returned·moved)를 찾아 동그라미 친다",
+     "on_fail": "이동 동사가 안 보이면 그 문장의 장소 이름을 모두 적어 두고 몇 곳이 나오는지 센다"
+    },
+    {
+     "step": "동그라미 친 이동 동사의 도착지와 선지가 주장하는 장소를 맞대어 본다",
+     "on_fail": "도착지가 여러 곳이면 시간 표현(in 1940·throughout)에 걸린 것만 남긴다"
+    },
+    {
+     "step": "다섯 선지 각각에 근거 문장 번호를 적었는지 확인하고, 번호를 못 적은 선지가 하나뿐인지 센다",
+     "on_fail": "번호를 못 적은 선지가 둘 이상이면 그 둘의 고유명사만 지문에서 다시 찾는다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.85,
+    "drivers": [
+     "체류 장소가 종속절 뒤 동사에 걸려 있다",
+     "제1차·제2차 두 전쟁이 다른 문장에 나와 선지와 짝짓기 전에 갈라야 한다",
+     "지문에 OCR 로 문장 부호가 빠진 자리(show in Germany During World War II)가 있어 문장 경계가 흐리다",
+     "갈아 끼운 자리가 장소 하나뿐이고 전쟁 이름·시점은 글자 그대로 같아, 낱말 겹침만 세면 일치로 보인다"
+    ]
+   },
+   "required_vocab": [
+    "outbreak",
+    "wounded",
+    "invaded",
+    "Honorary",
+    "endures"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 지문에 문자 그대로 있고 correct ④가 정답표(answer=4)와 일치한다.",
+      "갈린 자리가 장소 하나이며 전쟁 이름과 1940 이라는 시점은 종속절에 그대로 남아 미끼가 된다."
+     ],
+     "checked": [
+      "answer_locus.quote 문자열 대조",
+      "정답표 대조",
+      "정답 선지와 지문 문장의 성분 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "difficulty.drivers 의 마지막 줄이 정답 미지 시점의 추정 근거 서술이었다 — 반려하고 갈아 끼운 자리에 관한 관찰로 교체했다.",
+      "오답 넷의 trap 이 주체 역전·부분 사실·어휘 함정·범위 과소로 모두 다르다."
+     ],
+     "checked": [
+      "difficulty.drivers 의 정답 미지 전제 잔존 검사",
+      "trap 라벨 중복 검사",
+      "how_to_reject 의 문장 번호 표기 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 4~5단계(기간 주장 선지에서 이동 동사와 도착지를 대조)가 정답 판정 자리와 그대로 겹친다.",
+      "60초 유지."
+     ],
+     "checked": [
+      "절차 재시뮬레이션",
+      "금지 표현 검사",
+      "시간 배분 재검산"
+     ]
+    }
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     7
+    ],
+    "quote": "when the Nazis invaded France in 1940, he went to Hollywood in the United States and continued his career there",
+    "reasoning": "제2차 세계대전 구간에서 그가 있던 곳을 정하는 것은 종속절이 아니라 그 뒤의 주절 동사 went to Hollywood 와 continued his career there 다. 선지는 전쟁 이름과 기간 표현을 그대로 옮기고 장소 하나만 갈아 끼우므로, 판정은 이 이동 동사의 도착지에서 난다."
+   },
+   "choices": [
+    {
+     "n": 4,
+     "verdict": "correct",
+     "why_correct": "지문은 he went to Hollywood in the United States and continued his career there 로 2차 대전 중 체류지를 미국으로 못 박는데, 선지는 그 성분 하나만 갈아 제2차 세계대전 내내 프랑스에 머물렀다 로 놓았다. 전쟁 이름과 시점(1940)은 종속절에 글자 그대로 남아 있어 미끼가 된다.",
+     "confirmed_at": {
+      "sentence_index": [
+       7
+      ],
+      "note": "continued his career there 의 there 가 the United States 를 받아, 잠깐 다녀왔다는 해석도 막힌다"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "두 Renoir 가 한 문장에 있어 화가가 아버지인지 아들인지 뒤바꿔 읽기 쉽다.",
+     "how_to_reject": "2번 문장 He was the son of the famous painter Pierre-Auguste Renoir 에서 화가는 아버지, 주어 He 가 Jean 이다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "같은 문장 뒤에 but was wounded in the leg 가 붙어 있어 복무 중이 아니었던 듯 읽힌다.",
+     "how_to_reject": "4번 문장 At the outbreak of World War I, Jean Renoir was serving in the French army 가 시점과 소속을 그대로 담는다. 부상은 뒤 절의 별개 사건이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "바로 뒤에 독일 상영 금지 서술이 붙어 있어 제작 연도까지 의심하게 된다.",
+     "how_to_reject": "5번 문장 In 1937, he made La Grande Illusion 이 연도와 작품을 그대로 담는다. 상영 금지는 6번 문장의 다른 사건이다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "범위 과소",
+     "why_tempting": "지문은 numerous honors and awards 라 했는데 선지는 상 하나만 옮겨, 일부만 옮긴 진술로 보인다.",
+     "how_to_reject": "8번 문장 including the Academy Honorary Award in 1975 에서 including 이 그 상을 목록의 한 항목으로 명시한다."
+    }
+   ]
+  },
+  {
+   "item_id": "2023#26",
+   "revised": true,
+   "measured_ability": "양보절 Although 가 이끄는 앞 절의 평판과 뒤 절의 사실을 갈라, 어느 쪽이 지문의 주장인지 가려 읽는 능력",
+   "design_intent": "번역 가능성에 대해 서로 반대되는 두 진술을 한 문장에 담되, 앞 절에는 are known to be difficult 라는 평판을, 뒤 절에는 have in fact been widely translated 라는 사실을 두었다. 선지는 앞 절의 형용사만 뒤집어 놓으므로, 문장에서 어느 조각을 근거로 삼아야 하는지 가르는 설계다.",
+   "answer_locus": {
+    "sentence_index": [
+     9
+    ],
+    "quote": "Although his books are known to be difficult to translate they have in fact been widely translated into other languages.",
+    "reasoning": "앞 절이 그의 책이 '번역하기 어렵다고 알려져 있다'고 적는다. 선지는 같은 자리의 형용사를 '쉽다'로 바꿔 놓았으므로 앞 절과 정면으로 충돌한다. 뒤 절의 widely translated 는 실제로 번역이 많이 됐다는 다른 사실이지 난이도 평판을 뒤집는 진술이 아니다."
+   },
+   "choices": [
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "이 문장의 종료 연도가 인쇄에서 194 로 잘려 있어, 확인할 수 없는 정보라고 보고 선지를 근거 없는 진술로 판단한다.",
+     "how_to_reject": "셋째 문장 After World War II, he studied law at the University of Freiburg 가 시점과 전공을 함께 준다. 잘린 것은 종료 연도뿐이고 선지는 연도를 말하지 않는다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "in charge of 를 '지시를 받다·소속되다'로 읽으면 교육 개혁을 맡은 주체가 흐려져 '담당했다'가 어긋나 보인다.",
+     "how_to_reject": "넷째 문장 he worked for the State of Lower Saxony, where he was in charge of educational reform 에서 in charge of 는 '~을 맡고 있는'이다."
+    },
+    {
+     "n": 3,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "바로 뒤에 Luhmann developed his own social system theory 가 이어져 영향의 방향을 뒤집어 그가 Parsons 에게 영향을 주었다고 읽으면 선지가 거꾸로 보인다.",
+     "how_to_reject": "다섯째 문장 where he was influenced by Talcott Parsons 가 수동태이고 by 뒤가 영향을 준 쪽이다. 영향을 받은 쪽은 he 다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "including 뒤에 mass media 와 law 둘만 적혀 있어 '다양한 주제'가 지문보다 넓다고 판단한다.",
+     "how_to_reject": "일곱째 문장 He researched a variety of subjects, including mass media and law 에서 a variety of 가 이미 '다양한'이고 including 은 그중 일부를 든 것이다."
+    },
+    {
+     "n": 5,
+     "verdict": "correct",
+     "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 Although his books are known to be difficult to translate 의 known to be difficult to translate 가 선지 ⑤ '그의 책은 번역하기가 쉽다고 알려져 있다' 의 '쉽다' 와 정면으로 맞선다. 주어(his books ↔ 그의 책)와 술어 틀(are known to be ↔ 알려져 있다)이 같아 갈리는 성분은 difficult ↔ 쉽다 하나이고, 뒤 절의 they have in fact been widely translated 는 번역량에 관한 다른 사실이라 이 평판을 뒤집지 않는다."
+    }
+   ],
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
+     "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+    },
+    {
+     "step": "선지를 먼저 읽고 성질·평가를 말하는 형용사(쉽다·어렵다·다양하다·유명하다)에 밑줄을 긋는다 — 이 유형에서 형용사 하나가 뒤집히면 정답이 된다",
+     "on_fail": "형용사가 없으면 선지의 서술어에 밑줄을 긋는다"
+    },
+    {
+     "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사가 나오는 문장에 선지 번호를 적는다",
+     "on_fail": "고유명사가 없는 선지는 표시만 하고 마지막에 남은 문장에서 찾는다"
+    },
+    {
+     "step": "Although · but · in fact 가 든 문장은 접속사에서 잘라 앞 조각과 뒤 조각을 따로 적고, 선지의 밑줄 형용사가 어느 조각에 대응하는지 화살표로 잇는다",
+     "on_fail": "조각 나누기가 어려우면 접속사 앞뒤에서 같은 어근이 반복되는 낱말(translate/translated)을 찾아 그 낱말이 든 조각을 고른다"
+    },
+    {
+     "step": "대응한 조각의 형용사와 선지의 형용사를 맞대어 본다 — 반대말이면 그 선지가 답이다",
+     "on_fail": "반대말이 아니면 그 선지를 지우고 남은 선지의 주어·수동태 방향을 대조한다"
+    },
+    {
+     "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 답을 적는다",
+     "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘만 다시 대조한다"
+    }
+   ],
+   "time_budget_sec": 65,
+   "difficulty": {
+    "predicted": 0.92,
+    "drivers": [
+     "정답이 형용사 하나의 반대말 치환이라 눈에 띈다",
+     "정답 근거가 마지막 문장이고 선지도 마지막이라 순서 대응이 그대로 통한다",
+     "지문 셋째 문장의 연도가 194 로 잘려 있어 ①에서 잠시 멈칫하게 된다"
+    ]
+   },
+   "required_vocab": [
+    "renowned",
+    "in charge of",
+    "a variety of",
+    "widely"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "선지 ①~⑤가 지문 문장 3·4·5·7·9 를 순서대로 대응한다.",
+      "코퍼스 지문의 until 194 는 인쇄 잘림이고 마지막 문장의 translate 뒤 콤마도 빠져 있다 — quote 는 코퍼스 현재 문자열 그대로 뽑았다.",
+      "이 문항의 정답 축은 낱말 시점 표현이 아니라 형용사 반전이다 — 이 청크에서 유일한 형태라 type_report 에 남겼다.",
+      "3차 판정 — 지문 문장의 영문 인용이 없던 것을 known to be difficult to translate 와 widely translated 로 보강하고 선지 ⑤ 문면을 그대로 인용했다",
+      "3차 판정 — quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
+     ],
+     "checked": [
+      "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
+      "선지 근거 문장 번호의 단조 증가 확인",
+      "정답 5가 Although 절 없이는 확정되지 않는지 확인",
+      "answer_locus.quote 를 passage 에서 문자열 대조",
+      "주어·술어 틀이 같고 형용사만 갈린 것인지 성분별로 확인",
+      "뒤 절의 widely translated 가 난이도 평판을 뒤집는지 검토"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "findings": [
+      "오답 넷이 부분 사실·어휘 함정·주체 역전·범위 과대로 갈린다.",
+      "⑤의 why_tempting 을 처음 '지문에 반대말이 있어서'로 뭉뚱그렸다가 반려했다 — 실제 유인은 같은 문장 뒤 절의 widely translated 를 근거로 삼는 것이므로 그 자리를 지목해 다시 적었다.",
+      "3차 판정 — 갈아 끼운 성분(형용사)을 직접 지목해 소거법에 기대지 않는다",
+      "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
+     ],
+     "checked": [
+      "오답 4개의 trap 중복 여부",
+      "why_tempting 이 선지 문구와 지문 조각 어디에 붙는지 대조",
+      "how_to_reject 에 문장 위치가 있는지",
+      "correct 판정 5 를 평가원 정답표(5)와 대조",
+      "why_correct 의 소거법 여부 확인",
+      "선지 ⑤ 문자열 인용 여부 대조"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "2단계에서 '형용사에 밑줄'을 먼저 긋게 한 것이 이 문항의 승부처와 겹친다.",
+      "①에서 잘린 연도 탓에 멈칫하는 시간을 감안해 time_budget_sec 을 65로 잡았다.",
+      "3차 판정 — 양보절(Although)과 주절을 갈라 읽어야 한다는 것이 서술에 드러난다"
+     ],
+     "checked": [
+      "절차가 지문을 안 본 상태에서 실행 가능한지",
+      "금지 표현 포함 여부 문자열 확인",
+      "required_vocab 4개가 지문에 실재하고 판정에 쓰이는지",
+      "양보절 처리로 시간이 늘지 않는지 확인",
+      "solve_procedure 미변경 확인"
+     ]
+    }
+   ]
+  },
+  {
+   "item_id": "M2309#26",
+   "revised": true,
+   "measured_ability": "이동·지속·전환을 나타내는 동사(moved · continued · turned)가 각각 어느 활동에 걸리는지 관계절 안까지 따라가 읽는 능력",
+   "design_intent": "생애를 시간 순으로 늘어놓되 방향을 가진 동사에 판정을 걸었다 — 영향의 방향을 정하는 수동태(was influenced by Kurt Lewin), 이동 뒤의 지속을 관계절에 넣은 자리(He later moved to Stanford University, where he continued his work in social psychology), 관심 분야의 전환을 적은 자리(turned his interest to the field of history)다. 기관 이름과 연도만 짝짓는 읽기로는 이 세 자리의 방향이 정해지지 않는다.",
+   "solve_procedure": [
+    {
+     "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
+     "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+    },
+    {
+     "step": "선지를 먼저 읽고 각 선지의 서술어(태어났다·영향을 받았다·중단했다·참여했다·돌렸다)에 밑줄을 긋는다 — 방향을 가진 동사가 이 유형의 판정 축이다",
+     "on_fail": "서술어가 여럿이면 문장 맨 끝 동사 하나만 고른다"
+    },
+    {
+     "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사·연도가 나오는 문장에 선지 번호를 적는다",
+     "on_fail": "짝이 안 맞는 선지는 건너뛰고 남은 구간에서만 되돌아 찾는다"
+    },
+    {
+     "step": "'영향을 주었다/받았다'처럼 방향이 있는 선지는 지문 문장이 능동인지 수동인지 표시하고 by 뒤의 명사를 확인한다",
+     "on_fail": "태를 못 가르면 동사 앞의 be 동사와 과거분사 형태가 붙어 있는지만 본다"
+    },
+    {
+     "step": "'중단했다·그만두었다'처럼 활동의 끝을 주장하는 선지는 같은 문장의 관계절(where·which) 안에 continued · kept 같은 지속 동사가 있는지 확인한다",
+     "on_fail": "관계절이 없으면 그 활동을 말한 문장 뒤 두 문장에 같은 활동이 다시 나오는지 본다"
+    },
+    {
+     "step": "다섯 선지 각각에 근거 문장 번호를 적었는지 확인하고, 번호를 못 적은 선지가 하나뿐인지 센다",
+     "on_fail": "번호를 못 적은 선지가 둘 이상이면 그 둘의 서술어만 지문 동사와 다시 대조한다"
+    }
+   ],
+   "time_budget_sec": 60,
+   "difficulty": {
+    "predicted": 0.88,
+    "drivers": [
+     "지문이 짧고 문장마다 사건이 하나씩이라 검색이 빠르다",
+     "판정 자리 하나가 관계절 안의 동사(continued)에 들어 있다",
+     "연도가 셋(1919·1945·1970년대 후반)뿐이라 숫자 혼동 여지가 적다",
+     "갈린 자리가 술어의 극성 하나뿐이고 장소·분야는 그대로라, 기관 이름만 짝지으면 일치로 읽힌다"
+    ]
+   },
+   "required_vocab": [
+    "immigrant",
+    "influenced",
+    "continued",
+    "reputation",
+    "cited"
+   ],
+   "reviews": [
+    {
+     "persona": "setter",
+     "verdict": "pass",
+     "findings": [
+      "quote 가 지문에 문자 그대로 있고 correct ③이 정답표(answer=3)와 일치한다.",
+      "갈린 자리가 관계절 안 동사의 극성 하나이며 장소와 분야는 글자 그대로다."
+     ],
+     "checked": [
+      "answer_locus.quote 문자열 대조",
+      "정답표 대조",
+      "정답 선지와 지문 문장의 성분 대조"
+     ]
+    },
+    {
+     "persona": "analyst",
+     "verdict": "pass",
+     "revised": true,
+     "findings": [
+      "difficulty.drivers 의 마지막 줄이 정답 미지 시점의 추정 근거 서술이었다 — 반려하고 갈린 자리 관찰로 교체했다.",
+      "오답 넷의 trap 이 어휘 함정·주체 역전·범위 과대·부분 사실로 모두 다르다."
+     ],
+     "checked": [
+      "difficulty.drivers 의 정답 미지 전제 잔존 검사",
+      "trap 라벨 중복 검사",
+      "how_to_reject 의 문장 번호 표기 확인"
+     ]
+    },
+    {
+     "persona": "tutor",
+     "verdict": "pass",
+     "findings": [
+      "절차 5단계(관계절 안 지속 동사 확인)가 정답 판정 자리와 그대로 겹친다.",
+      "60초 유지."
+     ],
+     "checked": [
+      "절차 재시뮬레이션",
+      "금지 표현 검사",
+      "시간 배분 재검산"
+     ]
+    }
+   ],
+   "answer_locus": {
+    "sentence_index": [
+     5
+    ],
+    "quote": "He later moved to Stanford University, where he continued his work in social psychology.",
+    "reasoning": "관계절 where he continued his work in social psychology 가 스탠퍼드에서의 연구를 지속으로 못 박는다. 선지는 장소와 분야를 글자 그대로 옮기고 관계절의 동사 하나만 중단으로 갈아 끼우므로, 판정은 이 관계절 안에서 끝난다."
+   },
+   "choices": [
+    {
+     "n": 3,
+     "verdict": "correct",
+     "why_correct": "지문의 관계절 where he continued his work in social psychology 는 연구를 이어 갔다는 뜻인데, 선지는 그 한 자리만 갈아 Stanford University에서 사회 심리학 연구를 중단했다 로 놓았다. 장소(Stanford University)와 분야(social psychology)는 글자 그대로 같아 미끼로 남는다.",
+     "confirmed_at": {
+      "sentence_index": [
+       5,
+       6
+      ],
+      "note": "6번 문장 His theory of social comparison earned him a good reputation 이 같은 분야의 성과를 이어 붙여 중단 해석을 한 번 더 막는다"
+     }
+    },
+    {
+     "n": 1,
+     "verdict": "distractor",
+     "trap": "어휘 함정",
+     "why_tempting": "같은 문장에 New York City 가 있어 출생지와 가정의 출신을 뒤섞어 읽기 쉽다.",
+     "how_to_reject": "2번 문장 He was born in New York City in 1919 to a Russian immigrant family 에서 to 이하가 가정을 가리킨다. 선지는 가정 쪽만 말한다."
+    },
+    {
+     "n": 2,
+     "verdict": "distractor",
+     "trap": "주체 역전",
+     "why_tempting": "Kurt Lewin 이 leading social psychologist 로 소개돼 영향의 방향을 뒤집어 읽기 쉽다.",
+     "how_to_reject": "3번 문장 Festinger was influenced by Kurt Lewin 은 수동태다. by 뒤가 영향을 준 쪽이므로 선지의 받았다와 방향이 같다."
+    },
+    {
+     "n": 4,
+     "verdict": "distractor",
+     "trap": "범위 과대",
+     "why_tempting": "actively 를 주도했다로 읽으면 지문보다 큰 진술로 보인다.",
+     "how_to_reject": "7번 문장 Festinger actively participated in international scholarly cooperation 의 동사는 participated 다. 선지도 참여했다로 적었다."
+    },
+    {
+     "n": 5,
+     "verdict": "distractor",
+     "trap": "부분 사실",
+     "why_tempting": "심리학자의 이력에서 역사로의 전환이 뜬금없어 보여 다른 사람 이야기로 읽기 쉽다.",
+     "how_to_reject": "8번 문장 In the late 1970s, he turned his interest to the field of history 가 시기와 대상 분야를 그대로 담고 주어는 he(Festinger)다."
+    }
+   ]
+  }
+ ],
+ "type_report": {
   "type_id": "R-FACT",
   "type_name": "내용 일치(글)",
-  "analyses": [
-    {
-      "item_id": "M2706#26",
-      "revised": true,
-      "measured_ability": "한 문장 안에서 같은 대상에 붙은 서로 다른 동사(written / published)와 그 각각에 붙은 연도를 갈라 읽는 능력",
-      "design_intent": "선지 다섯이 지문 문장 순서를 그대로 따라 내려가게 두어 검색은 쉽게 하고, 참·거짓은 한 문장 안의 대조 접속사 but 뒤에 숨겼다. 1948이라는 숫자가 지문에 실제로 있으므로 숫자만 찾아 대조하는 학생은 그대로 통과시키고, 그 숫자에 붙은 동사가 '썼다'인지 '출판했다'인지까지 보는 학생만 가른다.",
-      "answer_locus": {
-        "sentence_index": [
-          7
-        ],
-        "quote": "His article “Meaning” was written in 1948, but he did not have it published until 1957.",
-        "reasoning": "1948에 붙은 동사는 was written 이고, published 에 붙은 연도는 until 뒤의 1957이다. 곧 지문은 출판 연도를 1957로 못박고 1948은 집필 연도로만 준다. '1948년에 출판했다'는 진술은 두 동사에 붙은 연도를 맞바꾼 것이므로 지문과 충돌한다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "부분 사실",
-          "why_tempting": "선지가 '사업가이자 음악가'라는 두 직업을 한 사람에게 붙였는데, 지문의 a businessman and musician 을 아버지와 별개의 두 인물로 읽으면 아들 관계가 어긋나 보인다.",
-          "how_to_reject": "둘째 문장 he was the son of Herbert Grice, a businessman and musician 에서 콤마 뒤가 Herbert Grice 의 동격이다. 콤마 하나만 확인하면 두 직업이 아버지 한 사람의 것임이 정해진다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "지문 밖 상식",
-          "why_tempting": "제2차 세계 대전이 6년간 이어졌다는 배경지식을 끌어오면 '약 5년 복무'가 전쟁 기간과 안 맞는 것처럼 보여 이 선지를 불일치로 고른다.",
-          "how_to_reject": "다섯째 문장 he served in the British military for about five years 가 복무 기간을 직접 준다. 전쟁 기간이 아니라 복무 기간을 적은 줄이므로 전쟁 총 기간과 대조할 필요가 없다."
-        },
-        {
-          "n": 3,
-          "verdict": "correct",
-          "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 His article “Meaning” was written in 1948, but he did not have it published until 1957 에서 1948 에 붙은 동사는 was written 이고 published 에 붙은 해는 until 뒤의 1957 이다. 선지 ③ 은 1948 이라는 해를 그대로 둔 채 '논문을 출판했다' 로 적어, 두 동사에 붙은 연도를 맞바꾼 자리(written ↔ published) 한 곳에서 어긋난다."
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "주체 역전",
-          "why_tempting": "같은 문장에 Oxford 와 UC Berkeley 두 기관이 들어 있어 retired from there 의 there 를 Oxford 로 잡으면 UC Berkeley 퇴직이 거짓이 된다.",
-          "how_to_reject": "아홉째 문장 he left Oxford to take a job at UC Berkeley and retired from there in 1979 에서 left 의 목적어가 Oxford 이므로 그 뒤에 남은 근무지는 UC Berkeley 하나다. there 가 가리킬 수 있는 곳은 방금 취직한 곳뿐이다."
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "어휘 함정",
-          "why_tempting": "cricket 을 곤충으로 알거나 excellent at 을 '좋아했다' 정도로 읽으면 '뛰어난 능력'이라는 선지가 지문보다 세다고 판단해 불일치로 고른다.",
-          "how_to_reject": "마지막 문장 he was excellent at cricket and chess 에서 chess 와 and 로 묶여 있으므로 cricket 은 경기 이름이고, excellent at 은 능력 평가다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
-          "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-        },
-        {
-          "step": "지문보다 선지 다섯을 먼저 읽고, 각 선지에서 대조할 축(사람 관계·기간·연도+행위·기관+연도·능력)을 한 낱말로 옆에 적는다",
-          "on_fail": "축이 안 잡히면 선지 안의 숫자와 고유명사에만 밑줄을 긋는다"
-        },
-        {
-          "step": "지문 첫 문장부터 아래로 한 번만 내려가며 선지 ①의 밑줄 낱말이 나오는 문장에서 멈춰 대조하고, 확인되면 그 문장 옆에 ①을 적고 ②로 넘어간다",
-          "on_fail": "짝이 안 맞는 선지가 나오면 건너뛰고 다음 선지 자리부터 찾은 뒤, 남은 구간에서만 되돌아 찾는다"
-        },
-        {
-          "step": "연도가 든 선지는 그 숫자를 지문에서 찾은 뒤 숫자 바로 뒤·앞의 동사에 동그라미를 친다 — 한 문장에 동사가 둘이면 어느 동사에 그 연도가 붙었는지 화살표로 잇는다",
-          "on_fail": "동사가 안 잡히면 그 문장의 접속사(but·and·until)를 기준으로 문장을 둘로 잘라 각 조각의 연도를 따로 센다"
-        },
-        {
-          "step": "until · not ... until · about 처럼 숫자가 아니라 낱말로 적힌 시점·한정에 표시하고, 선지가 그 낱말을 반영했는지 본다",
-          "on_fail": "그런 낱말이 안 보이면 선지의 서술어(썼다/출판했다/복무했다/퇴직했다)를 지문 동사와 하나씩 맞대어 본다"
-        },
-        {
-          "step": "답을 적기 전에 남은 선지가 지문의 어느 낱말과 충돌하는지 한 낱말로 말해 본다",
-          "on_fail": "충돌 낱말을 못 대면 이미 지운 선지 넷의 근거 문장을 되짚어 잘못 지운 것이 있는지 본다"
-        }
-      ],
-      "time_budget_sec": 60,
-      "difficulty": {
-        "predicted": 0.88,
-        "drivers": [
-          "정답 근거가 한 문장 안 두 동사의 연도 배분",
-          "선지가 지문 서술 순서를 단조 대응해 검색 부담이 없다",
-          "오답 넷이 모두 한 문장 안에서 직접 확인된다"
-        ]
-      },
-      "required_vocab": [
-        "published",
-        "until",
-        "military",
-        "cricket"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "처음 answer_locus 를 여섯째 문장 One of his greatest contributions was to the study of language and communication. 으로 잡았다 — 지문에 있는 문장이지만 출판 연도를 말하지 않아 정답을 확정하지 못한다. 일곱째 문장으로 교체했다.",
-            "선지 ①~⑤가 지문 문장 2·5·7·9·10 을 순서대로 대응한다 — 되돌아 훑을 필요가 없는 설계가 맞다.",
-            "3차 판정 — 지문 문장의 영문 인용이 없어 대응이 낱말 단위로 확인되지 않던 것을 was written / did not have it published until 을 넣어 보강하고, 선지 ③의 술어도 그대로 인용했다",
-            "3차 판정 — quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
-          ],
-          "checked": [
-            "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
-            "선지 다섯의 근거 문장 번호가 증가하는지 확인",
-            "정답 3이 written/published 대비 없이는 확정되지 않는지 확인",
-            "answer_locus.quote 를 passage 에서 문자열 대조",
-            "1948·1957 각각에 붙은 동사를 문장 성분으로 확인",
-            "선지 ③의 '1948년' 과 '논문을 출판했다' 를 근거 문장의 두 동사와 대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "오답 넷의 함정이 부분 사실·지문 밖 상식·주체 역전·어휘 함정으로 서로 다르다.",
-            "④의 why_tempting 이 there 라는 실제 지문 낱말을 지목해 선지 텍스트와 연결된다 — how_to_reject 에 아홉째 문장 위치를 넣어 확인.",
-            "3차 판정 — 갈아 끼운 성분(동사)을 직접 지목해 소거법에 기대지 않는다",
-            "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
-          ],
-          "checked": [
-            "오답 4개의 trap 라벨 중복 여부",
-            "how_to_reject 마다 지문 문장 위치가 적혔는지",
-            "why_tempting 이 선지 한국어 문구와 실제로 대응하는지",
-            "correct 판정 3 을 평가원 정답표(3)와 대조",
-            "why_correct 의 소거법 여부 확인",
-            "선지 ③ 문자열 인용 여부 대조"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "4단계(연도에 붙은 동사에 화살표)가 이 유형의 실제 손동작이라 지문을 안 본 상태에서도 실행 가능하다.",
-            "처음 time_budget_sec 을 90으로 잡았다가 60으로 줄였다 — 선지가 순서 대응이라 한 번 내려가면 끝나고, 독해 70분에서 26번에 90초를 쓰면 뒤가 밀린다.",
-            "3차 판정 — 학생이 볼 자리가 한 문장 안의 두 연도이고, 무엇을 맞댈지(연도-동사 짝)가 지정됐다"
-          ],
-          "checked": [
-            "절차 6단계가 지문 사전 지식 없이 실행 가능한지",
-            "금지 표현 8종 포함 여부를 문자열로 확인",
-            "required_vocab 4개가 정답 판정에 실제로 쓰이는지",
-            "연도-동사 짝짓기가 60초 예산 안에 드는지 확인",
-            "solve_procedure 미변경 확인"
-          ]
-        }
-      ]
-    },
-    {
-      "item_id": "2026#26",
-      "revised": true,
-      "measured_ability": "한 문장 안에 나열된 두 수상 사건 가운데 뒤엣것의 시점이 숫자가 아니라 a year later 로 적혀 있음을 알아채고 연도를 계산하는 능력",
-      "design_intent": "수상 두 건을 and 로 이어 붙이고 앞엣것에만 연도를 적었다. 1952라는 숫자와 두 상 이름이 모두 한 문장 안에 있으므로, 낱말을 짝짓기만 하는 학생에게는 완전히 일치해 보인다. 시점을 낱말로 적은 자리(a year later)를 읽어 두 상을 다른 해로 갈라 놓는 학생만 가려낸다.",
-      "answer_locus": {
-        "sentence_index": [
-          5
-        ],
-        "quote": "In 1952, Kleiber received the distinguished Borden Award from the American Institute of Nutrition and, a year later, the Morrison Award from the American Society for Animal Production.",
-        "reasoning": "In 1952 가 걸리는 것은 Borden Award 수상까지다. Morrison Award 앞에는 a year later 가 따로 붙어 있으므로 수상 연도가 1953이다. 두 상을 같은 해로 묶은 진술은 이 삽입구와 충돌한다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "지문 밖 상식",
-          "why_tempting": "UC Davis·American Institute of Nutrition 같은 미국 기관이 지문 대부분을 채워 이 인물을 미국 태생으로 넘겨짚으면 '스위스 출생'이 어긋나 보인다.",
-          "how_to_reject": "둘째 문장 He was born in Zurich, Switzerland in 1893 이 출생지를 국가까지 적어 준다. 활동지는 넷째 문장부터 나오는 별개의 정보다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "부분 사실",
-          "why_tempting": "셋째 문장에 1920과 1924가 함께 있어 앞 연도를 박사 학위에 붙이면 '1924년 박사'가 틀린 것처럼 보인다.",
-          "how_to_reject": "셋째 문장을 and 로 자르면 graduated ... in 1920 과 earned his doctoral degree in 1924 로 갈린다. doctoral degree 에 직접 붙은 연도는 1924다."
-        },
-        {
-          "n": 3,
-          "verdict": "correct",
-          "why_correct": "지문은 Borden Award 를 1952년, Morrison Award 를 a year later(=1953)로 갈라 적었다. 두 상을 모두 1952년 수상으로 묶은 선지는 어긋난다."
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "어휘 함정",
-          "why_tempting": "subsequently 를 모르면 published in 1961 다음의 translated 가 언제·실제로 이뤄졌는지 불확실해 보여 '여러 언어로 번역되었다'를 근거 없는 진술로 판단한다.",
-          "how_to_reject": "여섯째 문장 subsequently translated into German, Polish, Spanish, and Japanese 가 번역된 언어를 넷이나 열거한다. 언어 이름 개수만 세도 '여러 언어'가 확인된다."
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "범위 과소",
-          "why_tempting": "undergraduates 와 graduate students 를 같은 말로 뭉뚱그리면 '대학생과 대학원생' 두 집단 가운데 한쪽만 지문에 있다고 보아 선지가 넓다고 판단한다.",
-          "how_to_reject": "일곱째 문장 popular with undergraduates and graduate students alike 가 두 집단을 and 로 나란히 적고 alike 로 둘 다임을 못박는다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
-          "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-        },
-        {
-          "step": "선지 다섯을 먼저 읽고 각 선지의 검색 열쇠(지명·연도·상 이름·책 제목·사람 집단)를 하나씩 동그라미 친다",
-          "on_fail": "열쇠가 여러 개면 지문에서 눈에 띄기 쉬운 것(대문자 고유명사·숫자)을 고른다"
-        },
-        {
-          "step": "지문을 위에서 아래로 한 번만 내려가며 열쇠가 나오는 문장에 선지 번호를 적어 둔다 — 선지 순서가 지문 순서와 같으므로 되돌아가지 않는다",
-          "on_fail": "열쇠가 안 나오는 선지는 표시만 하고 넘어간 뒤 마지막에 남은 문장들에서 찾는다"
-        },
-        {
-          "step": "한 문장에 숫자가 둘 이상이거나 항목이 둘 이상 나열되면 접속사 and·콤마에서 문장을 잘라, 잘린 조각마다 어느 숫자가 붙었는지 표시한다",
-          "on_fail": "자르기가 어려우면 각 항목 이름(상 이름·학위 이름) 바로 앞뒤 다섯 낱말만 읽는다"
-        },
-        {
-          "step": "a year later · subsequently · alike 처럼 숫자·항목 관계를 낱말로 적은 자리를 찾아 표시하고, 선지가 그 낱말을 반영했는지 확인한다",
-          "on_fail": "그런 낱말이 없으면 선지의 숫자를 지문 숫자와 자릿수까지 맞대어 본다"
-        },
-        {
-          "step": "지운 선지 넷의 근거 문장 번호를 손가락으로 되짚은 뒤 남은 하나를 답으로 적는다",
-          "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘만 다시 대조한다"
-        }
-      ],
-      "time_budget_sec": 60,
-      "difficulty": {
-        "predicted": 0.86,
-        "drivers": [
-          "정답 근거가 콤마 안에 끼워 넣은 세 낱말(a year later)",
-          "선지에 든 낱말 셋이 모두 정답 근거 문장 안에 있어 낱말 대조로는 안 걸린다",
-          "나머지 넷은 한 문장에서 직접 확인된다"
-        ]
-      },
-      "required_vocab": [
-        "distinguished",
-        "subsequently",
-        "undergraduates",
-        "alike"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "선지 ①~⑤가 지문 문장 2·3·5·6·7 을 순서대로 대응한다.",
-            "정답 근거가 문장 전체가 아니라 삽입구 하나이므로 quote 를 문장 통째로 잡아 삽입구가 문장 어디에 놓였는지 보이게 했다."
-          ],
-          "checked": [
-            "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
-            "정답 3이 a year later 없이는 확정되지 않는지 확인",
-            "선지 근거 문장 번호의 단조 증가 확인"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "처음 ①의 trap 을 '부분 사실'로 달았다가 ②와 겹쳐 반려했고, ①은 지문에 없는 미국 태생 통념을 끌어오는 것이므로 '지문 밖 상식'으로 고쳤다.",
-            "고친 뒤 오답 넷이 지문 밖 상식·부분 사실·어휘 함정·범위 과소로 갈린다."
-          ],
-          "checked": [
-            "오답 4개의 trap 라벨 중복 여부 재확인",
-            "why_tempting 이 선지 한국어 문구의 어느 부분에서 나오는지 대조",
-            "how_to_reject 마다 문장 번호가 적혔는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "4단계(한 문장에 숫자가 둘이면 접속사에서 자른다)가 이 문항과 ②·③ 모두에 실제로 쓰인다.",
-            "60초 안에 여섯 단계가 끝난다 — 선지 순서 대응 덕에 지문 통독이 한 번이다."
-          ],
-          "checked": [
-            "절차 단계가 지문 사전 지식 없이 실행 가능한지",
-            "금지 표현 포함 여부 문자열 확인",
-            "required_vocab 4개가 모두 지문에 실재하고 판정에 쓰이는지"
-          ]
-        }
-      ]
-    },
-    {
-      "item_id": "M2609#26",
-      "revised": true,
-      "measured_ability": "연도에 붙은 동사가 경력의 시작을 말하는지 끝을 말하는지 가려 읽는 능력",
-      "design_intent": "마지막에서 두 번째 문장에 연도와 근속 기간을 함께 넣되, 연도에는 became(시작)을, 기간에는 continued(지속)를 붙였다. 선지는 같은 숫자 둘을 그대로 쓰면서 동사만 '퇴임'으로 바꾼다. 곧 숫자 일치만 확인하는 학생은 못 걸러지고, 숫자에 붙은 동사가 사건의 어느 끝을 가리키는지 보는 학생만 가려진다.",
-      "answer_locus": {
-        "sentence_index": [
-          8
-        ],
-        "quote": "In 1958, he became a full professor at MIT and continued to teach there for more than 20 years.",
-        "reasoning": "1958에 붙은 동사는 became a full professor 로 재직의 시작점이고, 20년 이상은 그 뒤로 이어진 기간이다. 곧 지문의 시간 순서는 1958 → 그 뒤 20년이다. '20년 이상 재직 후 1958년 퇴임'은 순서를 거꾸로 세운 것이므로 충돌한다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "부분 사실",
-          "why_tempting": "둘째 문장의 As a child 와 셋째 문장의 At age 21 이 잇달아 나와, 관심을 가진 시점을 21세 쪽으로 옮겨 읽으면 '어렸을 때'가 어긋나 보인다.",
-          "how_to_reject": "둘째 문장 As a child, he was interested in electrical devices 가 시점과 관심 대상을 한 문장에 담고 있다. At age 21 은 그 다음 문장의 다른 사건이다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "어휘 함정",
-          "why_tempting": "At age 21 의 21을 나이가 아니라 연도(1921)나 학년으로 읽으면 '스물한 살'이 근거 없는 숫자로 보인다.",
-          "how_to_reject": "셋째 문장 At age 21, he started his master's program in electrical engineering 에서 age 가 앞에 붙어 있어 21은 나이다. 지문의 다른 연도들은 모두 네 자리(1950·1958)로 적혀 있다."
-        },
-        {
-          "n": 3,
-          "verdict": "distractor",
-          "trap": "지문 밖 상식",
-          "why_tempting": "이 인물의 전시 업적을 암호 해독으로 알고 있으면 '로켓 파괴 기계'가 지문 밖 진술처럼 보여 불일치로 고른다.",
-          "how_to_reject": "다섯째 문장 by inventing a machine that helped destroy German rockets 가 전시 업적을 직접 적는다. 배경지식이 아니라 이 문장이 판정 기준이다."
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "주체 역전",
-          "why_tempting": "with the help of his wife 를 '아내가 만들었다'로 읽으면 기계를 만든 사람이 바뀌어 선지가 어긋나 보인다.",
-          "how_to_reject": "여섯째 문장의 주어는 he 이고 built 의 주체도 he 다. with the help of 는 도움을 받은 쪽이 주어임을 뜻한다."
-        },
-        {
-          "n": 5,
-          "verdict": "correct",
-          "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 In 1958, he became a full professor at MIT and continued to teach there for more than 20 years 에서 1958 에 붙은 것은 became a full professor(재직의 시작)이고 more than 20 years 는 그 뒤로 이어진 기간이다. 선지 ⑤ 는 같은 두 숫자를 쓰면서 '20년 이상 교수로 재직 후 1958년에 퇴임했다' 로 적어, 1958 을 시작이 아닌 끝으로 옮긴 한 자리에서 어긋난다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
-          "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-        },
-        {
-          "step": "선지 다섯을 먼저 읽고, 선지의 서술어(관심이 있었다·시작했다·발명했다·만들었다·퇴임했다)에 밑줄을 긋는다 — 이 유형은 서술어가 판정 축이다",
-          "on_fail": "서술어가 여럿이면 문장 맨 끝 동사 하나만 고른다"
-        },
-        {
-          "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 숫자·고유명사가 나오는 문장에 선지 번호를 적는다",
-          "on_fail": "짝이 안 맞으면 그 선지는 건너뛰고 다음 선지 자리부터 찾은 뒤 남은 구간만 되돌아본다"
-        },
-        {
-          "step": "숫자가 든 문장에서는 그 숫자에 붙은 동사가 시작(became·started·built)인지 끝(retired·died·left)인지 표시한다",
-          "on_fail": "동사를 못 가르면 문장에 시간을 앞으로 미는 말(continued·for more than·later)이 있는지만 찾는다"
-        },
-        {
-          "step": "선지의 서술어와 지문 동사가 같은 방향인지 맞대어 본다 — 시작을 끝으로, 받았다를 주었다로 바꾼 선지가 이 유형의 정답이다",
-          "on_fail": "방향이 같으면 그 선지는 지우고 다음 선지로 간다"
-        },
-        {
-          "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 남은 하나를 답으로 적는다",
-          "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘의 숫자만 다시 대조한다"
-        }
-      ],
-      "time_budget_sec": 60,
-      "difficulty": {
-        "predicted": 0.9,
-        "drivers": [
-          "정답 선지의 숫자 둘이 모두 지문에 있어 숫자 대조로는 안 걸린다",
-          "판정이 동사 방향(취임/퇴임) 하나에 걸린다",
-          "정답 근거가 지문 뒤쪽이라 선지 순서 대응으로 바로 닿는다"
-        ]
-      },
-      "required_vocab": [
-        "full professor",
-        "continued",
-        "telegraph",
-        "capable"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "선지 ①~⑤가 지문 문장 2·3·5·6·8 을 순서대로 대응한다.",
-            "정답이 '숫자는 맞고 동사가 틀린' 형태라 이 유형 설계의 전형이다 — measured_ability 를 숫자 대조가 아니라 동사 방향으로 적었다.",
-            "3차 판정 — 지문 문장의 영문 인용이 없어 대응이 낱말 단위로 확인되지 않던 것을 became a full professor / continued to teach for more than 20 years 로 보강했다",
-            "3차 판정 — quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
-          ],
-          "checked": [
-            "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
-            "선지 근거 문장 번호의 단조 증가 확인",
-            "정답 5가 became/continued 없이는 확정되지 않는지 확인",
-            "answer_locus.quote 를 passage 에서 문자열 대조",
-            "1958 과 20 years 의 선후 관계를 문장 성분으로 확인",
-            "선지 ⑤ 문면을 근거 문장과 시간 순서 단위로 대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "처음 ③과 ④에 모두 '주체 역전'을 달았다 — ③은 주체가 아니라 배경지식이 근거를 밀어내는 경우이므로 '지문 밖 상식'으로 고쳤다.",
-            "고친 뒤 오답 넷이 부분 사실·어휘 함정·지문 밖 상식·주체 역전으로 갈린다.",
-            "3차 판정 — 뒤바뀐 성분(시작 ↔ 끝)을 직접 지목해 소거법에 기대지 않는다",
-            "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
-          ],
-          "checked": [
-            "오답 4개의 trap 라벨 중복 여부 재확인",
-            "why_tempting 이 선지 문구에 실제로 붙는지 대조",
-            "how_to_reject 에 문장 위치가 있는지",
-            "correct 판정 5 를 평가원 정답표(5)와 대조",
-            "why_correct 의 소거법 여부 확인",
-            "선지 ⑤ 문자열 인용 여부 대조"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "2단계에서 선지의 '서술어'에 밑줄을 긋게 한 것이 이 문항의 실제 승부처와 맞는다.",
-            "60초 안에 끝난다 — 선지 다섯 중 넷이 한 문장에서 바로 확인된다.",
-            "3차 판정 — 학생이 볼 자리가 한 문장이고, 숫자 두 개의 선후만 보면 된다"
-          ],
-          "checked": [
-            "절차가 지문을 안 본 상태에서 실행 가능한지",
-            "금지 표현 포함 여부 문자열 확인",
-            "required_vocab 4개가 지문에 실재하는지",
-            "시간 순서 대조가 예산 안에 드는지 확인",
-            "solve_procedure 미변경 확인"
-          ]
-        }
-      ]
-    },
-    {
-      "item_id": "M2606#26",
-      "revised": true,
-      "measured_ability": "연도는 맞는데 그 연도에 붙은 학위 분야가 다른 문장에서 옮겨 왔음을 알아채고, 값이 아니라 값에 붙은 항목명을 대조하는 능력",
-      "design_intent": "석사(1954·zoology)와 박사(1964·science education)를 잇달아 배치해 연도 둘과 분야 둘을 각각 흩어 놓았다. 선지는 박사의 연도와 석사의 분야를 붙여 놓으므로, 둘 다 지문에 실재하는 값이다. 값의 존재만 확인하는 학생과 값에 붙은 항목까지 확인하는 학생을 가르는 설계다.",
-      "answer_locus": {
-        "sentence_index": [
-          4
-        ],
-        "quote": "Then she earned her doctorate degree in science education from Stanford University in 1964.",
-        "reasoning": "1964에 붙은 학위는 doctorate degree in science education 이다. zoology 는 앞 문장에서 1954년 석사 학위에 붙은 분야다. 곧 '1964년 동물학 박사'는 두 문장의 값을 맞바꾼 조합이어서 지문에는 없다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "어휘 함정",
-          "why_tempting": "middle school student 를 고등학생이나 대학생으로 옮겨 읽으면 만난 시점이 어긋나 보인다.",
-          "how_to_reject": "둘째 문장 When she was a middle school student, she met Albert Einstein 이 만난 시점을 종속절로 못박는다. middle school 은 중학교다."
-        },
-        {
-          "n": 2,
-          "verdict": "correct",
-          "why_correct": "1964년에 받은 학위의 분야는 science education 이고, zoology 는 1954년 석사의 분야다. 선지는 연도와 분야를 다른 문장에서 하나씩 가져와 붙였다."
-        },
-        {
-          "n": 3,
-          "verdict": "distractor",
-          "trap": "주체 역전",
-          "why_tempting": "directed 를 '지도를 받았다'로 읽으면 프로그램을 이끈 쪽과 이끌린 쪽이 뒤바뀌어 '감독했다'가 어긋나 보인다.",
-          "how_to_reject": "여섯째 문장 she directed a science education program in Harlem 의 주어가 she 이고 directed 가 능동태다. 수동이면 was directed 가 된다."
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "부분 사실",
-          "why_tempting": "지문에 1954·1964·1990·1996 네 연도가 흩어져 있어 책 출판 연도에 다른 연도를 붙이면 어긋나 보인다.",
-          "how_to_reject": "여덟째 문장 In 1990, she published her book, The Process of Knowing 이 연도와 책 제목을 한 문장에 붙여 준다."
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "범위 과대",
-          "why_tempting": "지문의 one of the leading figures 에서 one of 를 빼면 선지가 '유일한 선도자'처럼 넓게 읽혀 지문보다 세다고 판단한다.",
-          "how_to_reject": "마지막 문장 she was remembered as one of the leading figures in the field of science education 이 근거다. 선지도 '선도적인 인물'이라 유일성을 주장하지 않는다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
-          "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-        },
-        {
-          "step": "선지를 먼저 읽고, 값(연도·이름·장소)과 그 값에 붙은 항목(학위·책·프로그램)을 각각 따로 표시한다 — 값에 동그라미, 항목에 네모",
-          "on_fail": "값과 항목이 안 갈리면 선지에서 조사 '으로/에서/에' 앞뒤를 잘라 앞을 값, 뒤를 항목으로 본다"
-        },
-        {
-          "step": "지문을 위에서 아래로 한 번만 내려가며 값(숫자·고유명사)이 나오는 문장에 선지 번호를 적는다",
-          "on_fail": "값이 여러 문장에 나오면 그 문장을 모두 표시해 두고 다음 단계에서 항목으로 가른다"
-        },
-        {
-          "step": "값을 찾았으면 그 값과 같은 문장 안에 있는 항목명을 읽어 선지의 네모와 맞대어 본다 — 값이 맞아도 항목이 다르면 그 선지가 답 후보다",
-          "on_fail": "같은 문장에 항목이 없으면 앞뒤 한 문장까지만 넓혀 보고, 그래도 없으면 그 선지를 보류한다"
-        },
-        {
-          "step": "같은 항목(학위·상·직책)이 지문에 둘 이상 나오면 그 문장들을 나란히 놓고 항목마다 붙은 값을 세로로 비교한다",
-          "on_fail": "둘 이상이 안 보이면 지문에서 degree·award·book 처럼 항목을 나타내는 낱말만 훑어 개수를 센다"
-        },
-        {
-          "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 남은 하나를 답으로 적는다",
-          "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘의 항목명만 다시 대조한다"
-        }
-      ],
-      "time_budget_sec": 60,
-      "difficulty": {
-        "predicted": 0.82,
-        "drivers": [
-          "정답 선지의 연도와 분야가 둘 다 지문에 실재한다",
-          "판정하려면 인접한 두 문장을 나란히 놓아야 한다",
-          "선지는 지문 순서를 단조 대응해 검색은 쉽다"
-        ]
-      },
-      "required_vocab": [
-        "zoology",
-        "doctorate",
-        "master's degree",
-        "directed"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "선지 ①~⑤가 지문 문장 2·4·6·8·10 을 순서대로 대응한다.",
-            "정답이 '값 교차'형이라 quote 하나로는 반쪽만 보인다 — reasoning 에 앞 문장의 zoology 를 함께 적어 두 문장 대조임을 드러냈다."
-          ],
-          "checked": [
-            "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
-            "정답 2가 두 문장 대조 없이는 확정되지 않는지 확인",
-            "선지 근거 문장 번호의 단조 증가 확인"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "처음 ③의 trap 을 '어휘 함정'으로 달았다가 ①과 겹쳐 반려했다 — ③은 directed 의 태를 뒤집는 것이므로 '주체 역전'으로 고쳤다.",
-            "고친 뒤 오답 넷이 어휘 함정·주체 역전·부분 사실·범위 과대로 갈린다."
-          ],
-          "checked": [
-            "오답 4개의 trap 중복 여부 재확인",
-            "why_tempting 이 선지 문구에서 나오는지 대조",
-            "how_to_reject 에 문장 위치가 있는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "2단계의 '값에 동그라미, 항목에 네모'가 손으로 할 수 있는 동작이고 4단계와 이어진다.",
-            "5단계(같은 항목이 둘 이상이면 세로 비교)가 이 문항의 실제 승부처다."
-          ],
-          "checked": [
-            "절차가 지문을 안 본 상태에서 실행 가능한지",
-            "금지 표현 포함 여부 문자열 확인",
-            "required_vocab 4개가 정답 판정에 쓰이는지"
-          ]
-        }
-      ]
-    },
-    {
-      "item_id": "2025#26",
-      "revised": true,
-      "body_recovered": true,
-      "measured_ability": "숫자가 아니라 낱말로 적힌 시점(the following year)을 연수로 바꿔 선지의 숫자와 맞추는 능력",
-      "design_intent": "사망 시점을 연도로 적지 않고 앞 사건(2016년 마지막 생방송) 기준의 상대 표현으로만 적었다. 선지는 같은 사건을 기준으로 삼되 간격만 늘린다. 곧 지문에서 연도 두 개를 찾아 빼는 습관으로는 풀리지 않고, 상대 시점 표현을 연수로 환산하는 학생만 가려낸다.",
-      "answer_locus": {
-        "sentence_index": [
-          8
-        ],
-        "quote": "He made his last live broadcast in 2016 and died the following year at the age of 82.",
-        "reasoning": "the following year 는 바로 앞에 적힌 2016 을 기준으로 한 해 뒤를 뜻한다. 곧 마지막 생방송과 사망 사이는 1년이다. '3년 뒤'는 이 상대 표현을 다른 간격으로 바꾼 것이어서 지문과 충돌한다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "부분 사실",
-          "why_tempting": "San Fernando Valley·Los Angeles·China 등 지명이 지문 뒤쪽에 많아 출생지를 그중 하나로 옮겨 잡으면 Michigan 이 어긋나 보인다.",
-          "how_to_reject": "둘째 문장 He was born in Michigan in 1935 가 출생지와 출생 연도를 함께 준다. 뒤에 나오는 지명들은 모두 근무지다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "어휘 함정",
-          "why_tempting": "served as a coach 를 '코치의 지도를 받았다'로 읽거나 assistant professor 를 조교로 읽으면 대학에서의 직위 관계가 흐려져 선지가 어긋나 보인다.",
-          "how_to_reject": "셋째 문장 where he also served as a coach of its baseball team 에서 its 가 앞의 대학을 받고 served as 는 '~로 일했다'다."
-        },
-        {
-          "n": 3,
-          "verdict": "distractor",
-          "trap": "범위 과대",
-          "why_tempting": "the first U.S. sportscaster ever to visit China 에서 U.S. sportscaster 라는 한정을 떨어뜨리고 '중국을 처음 방문한 미국인'으로 넓히면 상식과 충돌해 불일치로 고른다.",
-          "how_to_reject": "다섯째 문장의 first 는 U.S. sportscaster 라는 범주 안에서의 최초다. 선지도 '미국인 스포츠 캐스터' 로 같은 한정을 유지한다."
-        },
-        {
-          "n": 4,
-          "verdict": "correct",
-          "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 He made his last live broadcast in 2016 and died the following year at the age of 82 에서 the following year 는 바로 앞의 2016 을 기준으로 한 해 뒤를 뜻하므로 두 사건의 간격은 1년이다. 선지 ④ '마지막 생방송 후 3년 뒤에 사망하였다' 는 last live broadcast ↔ 마지막 생방송, died ↔ 사망 을 그대로 두고 간격만 3년으로 바꾼 것이라 the following year 한 표현에서 어긋난다."
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "무관",
-          "why_tempting": "마지막 문장이 best-selling writer 로 시작해 작가 이력 문장으로 읽히면, 방송 부문 수상 근거가 지문에 없다고 판단한다.",
-          "how_to_reject": "마지막 문장 뒷부분 won Emmy Awards as a sportscaster, a writer, and a producer 가 수상 사실과 세 부문을 함께 적는다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
-          "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-        },
-        {
-          "step": "선지를 먼저 읽고, 두 사건 사이의 간격을 말하는 선지(‘~한 뒤 몇 년’·‘~ 전에’)에 별표를 친다 — 이 선지는 지문에 연도가 하나만 적혀 있을 확률이 높다",
-          "on_fail": "간격을 말하는 선지가 없으면 선지의 숫자에만 밑줄을 긋는다"
-        },
-        {
-          "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사·숫자가 나오는 문장에 선지 번호를 적는다",
-          "on_fail": "짝이 안 맞는 선지는 건너뛰고 남은 구간에서만 되돌아 찾는다"
-        },
-        {
-          "step": "별표 친 선지의 자리에서 the following year · a year later · about a decade later · the next year 처럼 시점을 낱말로 적은 표현을 찾아 옆에 연수를 숫자로 적는다",
-          "on_fail": "그런 표현이 없으면 그 문장 앞뒤 두 문장에서 연도 두 개를 찾아 뺀다"
-        },
-        {
-          "step": "적어 둔 연수를 선지의 숫자와 맞대어 본다 — 다르면 그 선지가 답이다",
-          "on_fail": "같으면 그 선지를 지우고 남은 선지의 서술어를 지문 동사와 하나씩 대조한다"
-        },
-        {
-          "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 답을 적는다",
-          "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘만 다시 대조한다"
-        }
-      ],
-      "time_budget_sec": 60,
-      "difficulty": {
-        "predicted": 0.9,
-        "drivers": [
-          "정답 근거가 연도가 아니라 상대 시점 표현 the following year",
-          "선지가 지문 서술 순서를 단조 대응한다",
-          "오답 넷이 각각 한 문장에서 직접 확인된다"
-        ]
-      },
-      "required_vocab": [
-        "following",
-        "broadcast",
-        "beloved",
-        "decade"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "청크에서 body_ok 가 false 였으나 raw_block 의 문항 블록과 회차 원문 창이 같은 본문을 담고 있고, 코퍼스 passage 도 단 섞임 없이 온전하다 — 선지 다섯도 raw_block 에서 그대로 확인된다. body_recovered 로 표시했다.",
-            "선지 ①~⑤가 지문 문장 2·3·5·8·10 을 순서대로 대응한다.",
-            "3차 판정 — 지문 문장의 영문 인용이 없던 것을 the following year 를 포함해 보강하고, 선지 ④ 문면을 그대로 인용했다",
-            "3차 판정 — quote 는 손대지 않았고 손상 표시가 붙은 지문에서도 이 문장은 온전하다"
-          ],
-          "checked": [
-            "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
-            "raw_block 의 선지 다섯과 코퍼스 choices 대조",
-            "정답 4가 the following year 없이는 확정되지 않는지 확인",
-            "answer_locus.quote 를 passage 에서 문자열 대조",
-            "the following year 의 기준 연도가 앞의 2016 임을 확인",
-            "선지 ④의 세 성분(사건·사건·간격) 중 갈린 것이 간격뿐임을 확인"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "처음 ②의 trap 을 '부분 사실'로 달았다가 ①과 겹쳐 반려했다 — ②는 served as·assistant professor 의 뜻을 뒤집는 것이므로 '어휘 함정'으로 고쳤다.",
-            "고친 뒤 오답 넷이 부분 사실·어휘 함정·범위 과대·무관으로 갈린다.",
-            "3차 판정 — 갈아 끼운 성분(간격)을 직접 지목해 소거법에 기대지 않는다",
-            "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
-          ],
-          "checked": [
-            "오답 4개의 trap 중복 여부 재확인",
-            "why_tempting 이 선지 문구에서 나오는지 대조",
-            "how_to_reject 에 문장 위치가 있는지",
-            "correct 판정 4 를 평가원 정답표(4)와 대조",
-            "why_correct 의 소거법 여부 확인",
-            "선지 ④ 문자열 인용 여부 대조"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "2단계에서 '간격을 말하는 선지에 별표'를 먼저 치게 한 것이, 지문을 보기 전에 정답 후보를 좁히는 실제 손동작이 된다.",
-            "60초 안에 끝난다.",
-            "3차 판정 — 상대 표현(the following year)을 숫자로 바꿔 세는 절차가 학생에게 그대로 보인다"
-          ],
-          "checked": [
-            "절차가 지문을 안 본 상태에서 실행 가능한지",
-            "금지 표현 포함 여부 문자열 확인",
-            "required_vocab 4개가 지문에 실재하는지",
-            "상대 연도 계산이 예산 안에 드는지 확인",
-            "solve_procedure 미변경 확인"
-          ]
-        }
-      ]
-    },
-    {
-      "item_id": "M2509#26",
-      "revised": true,
-      "measured_ability": "한 문장 안에서 연도가 붙은 사건과 그 뒤 상대 표현(about a decade later)이 붙은 사건을 갈라, 연도를 뒤 사건에 옮겨 붙이지 않는 능력",
-      "design_intent": "도미(1937)와 MIT 강의 시작을 한 문장에 and 로 이어 붙이고, 뒤 사건의 시점은 about a decade later 로만 적었다. 선지는 앞 사건의 연도를 뒤 사건에 붙인다. 곧 연도 하나와 기관 이름 하나가 같은 문장에 있다는 사실만 확인하는 학생을 걸러 낸다.",
-      "answer_locus": {
-        "sentence_index": [
-          4
-        ],
-        "quote": "He went to the United States in 1937, and about a decade later, he started teaching visual design at the Massachusetts Institute of Technology (MIT).",
-        "reasoning": "1937에 붙은 사건은 went to the United States 이고, MIT 강의 시작에는 about a decade later 가 붙어 있다. 곧 강의 시작은 1937년이 아니라 그로부터 십 년쯤 뒤다. 두 사건을 같은 해로 묶은 진술은 이 상대 표현과 충돌한다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "부분 사실",
-          "why_tempting": "바로 다음 문장에 Berlin, Germany 에서 design and film 을 공부했다는 내용이 이어져, 공부한 나라를 독일로 옮겨 읽으면 '헝가리에서 그림'이 어긋나 보인다.",
-          "how_to_reject": "둘째 문장 He studied painting at the Royal Academy of Fine Arts in Budapest, Hungary 가 그림 공부의 장소를 국가까지 적는다. 셋째 문장은 다른 분야·다른 나라다."
-        },
-        {
-          "n": 2,
-          "verdict": "correct",
-          "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 He went to the United States in 1937, and about a decade later, he started teaching visual design at the Massachusetts Institute of Technology 에서 1937 에 붙은 사건은 went to the United States 이고, started teaching visual design 앞에는 about a decade later 가 붙어 있다. 선지 ② 는 'MIT에서 시각 디자인을 가르치기 시작했다' 는 뒤 사건에 앞 사건의 해 1937 을 붙여, 두 사건 사이의 십 년만큼 어긋난다."
-        },
-        {
-          "n": 3,
-          "verdict": "distractor",
-          "trap": "인과 역전",
-          "why_tempting": "exhibition became the basis of his book 에서 basis 의 방향을 뒤집어 '책이 전시의 바탕'이라고 읽으면 선지가 거꾸로 보인다.",
-          "how_to_reject": "여섯째 문장 His exhibition in 1951 titled The New Landscape became the basis of his book 에서 주어가 exhibition 이고 became the basis of 뒤가 book 이다. 바탕이 된 쪽이 주어다."
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "어휘 함정",
-          "why_tempting": "house 를 명사 '집'으로만 알면 a museum to house his works 의 목적이 안 읽혀 '작품 소장'이라는 선지가 근거 없이 보인다.",
-          "how_to_reject": "여덟째 문장 In 1995, a museum to house his works was established 에서 house 는 to 뒤의 동사이고 목적어가 his works 다."
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "무관",
-          "why_tempting": "다섯째 문장의 a community composed of artists and scientists 를 근거로 삼으면 지문은 '예술과 과학'을 말했으므로 '예술과 기술'이 어긋난다고 판단한다.",
-          "how_to_reject": "판정 근거는 그 문장이 아니라 마지막 문장 He was a great pioneer in connecting art and technology 다. 여기에 technology 가 그대로 적혀 있다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
-          "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-        },
-        {
-          "step": "선지를 먼저 읽고 연도가 든 선지에 별표를 친다 — 이 유형에서 연도가 든 선지는 다섯 중 한둘뿐이고 정답이 그중에 있는 일이 잦다",
-          "on_fail": "연도가 든 선지가 없으면 선지의 서술어에 밑줄을 긋는다"
-        },
-        {
-          "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사가 나오는 문장에 선지 번호를 적는다",
-          "on_fail": "고유명사가 없는 선지는 표시만 하고 마지막에 남은 문장에서 찾는다"
-        },
-        {
-          "step": "별표 친 선지의 연도를 지문에서 찾은 뒤, 그 연도와 선지의 사건 사이에 콤마·and 로 끼어든 다른 사건이 있는지 본다",
-          "on_fail": "끼어든 사건이 안 보이면 그 문장을 접속사에서 잘라 조각마다 동사 하나씩만 남긴다"
-        },
-        {
-          "step": "about a decade later · several years later · subsequently 처럼 시점을 낱말로 적은 자리를 찾아 옆에 대략의 연수를 숫자로 적고, 선지의 연도와 맞대어 본다",
-          "on_fail": "그런 표현이 없으면 그 선지는 지우고 남은 선지의 서술어를 지문 동사와 대조한다"
-        },
-        {
-          "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 답을 적는다",
-          "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘의 고유명사만 다시 찾는다"
-        }
-      ],
-      "time_budget_sec": 60,
-      "difficulty": {
-        "predicted": 0.84,
-        "drivers": [
-          "정답 근거가 콤마 안의 상대 시점 표현 about a decade later",
-          "정답 선지의 연도와 기관이 같은 문장 안에 있어 낱말 대조로는 안 걸린다",
-          "헝가리 인명·지명이 많아 고유명사 검색이 다소 느리다"
-        ]
-      },
-      "required_vocab": [
-        "decade",
-        "basis",
-        "house",
-        "exhibition"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "선지 ①~⑤가 지문 문장 2·4·6·8·9 를 순서대로 대응한다.",
-            "정답이 '연도는 지문에 있고 붙는 사건만 옮긴' 형태라 2026#26·2025#26 과 같은 설계 계열이다.",
-            "3차 판정 — 서술에 선지 문면 인용이 없던 것을 보강했다 — about a decade later 가 어느 사건 앞에 붙는지와 선지 ②가 그 사건에 무슨 해를 붙였는지를 함께 적었다",
-            "3차 판정 — quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
-          ],
-          "checked": [
-            "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
-            "선지 근거 문장 번호의 단조 증가 확인",
-            "정답 2가 about a decade later 없이는 확정되지 않는지 확인",
-            "answer_locus.quote 를 passage 에서 문자열 대조",
-            "1937 이 붙은 사건과 about a decade later 가 붙은 사건을 각각 확인",
-            "선지 ② 문면을 근거 문장의 두 사건과 대조"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "처음 ④와 ⑤에 모두 '어휘 함정'을 달았다 — ⑤는 낱말을 몰라서가 아니라 판정과 다른 문장을 근거로 삼는 것이므로 '무관'으로 고쳤다.",
-            "고친 뒤 오답 넷이 부분 사실·인과 역전·어휘 함정·무관으로 갈린다.",
-            "③의 '인과 역전'은 이 청크에서 처음 쓴 라벨이고, become the basis of 의 방향 뒤집기가 그 정의에 맞는다.",
-            "3차 판정 — 연도가 잘못 붙은 자리를 직접 지목해 소거법에 기대지 않는다",
-            "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
-          ],
-          "checked": [
-            "오답 4개의 trap 중복 여부 재확인",
-            "why_tempting 이 선지 문구에서 나오는지 대조",
-            "how_to_reject 에 문장 위치가 있는지",
-            "correct 판정 2 를 평가원 정답표(2)와 대조",
-            "why_correct 의 소거법 여부 확인",
-            "선지 ② 문자열 인용 여부 대조"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "2단계에서 '연도가 든 선지에 별표'를 치게 한 것이 지문을 보기 전 후보 좁히기로 작동한다.",
-            "4단계(연도와 사건 사이에 끼어든 사건 확인)가 이 문항의 승부처와 정확히 겹친다.",
-            "3차 판정 — 학생이 볼 자리가 한 문장 안의 두 절이고, 연결어(about a decade later)가 표시됐다"
-          ],
-          "checked": [
-            "절차가 지문을 안 본 상태에서 실행 가능한지",
-            "금지 표현 포함 여부 문자열 확인",
-            "required_vocab 4개가 지문에 실재하고 판정에 쓰이는지",
-            "상대 시간 표현 처리 절차가 예산 안에 드는지 확인",
-            "solve_procedure 미변경 확인"
-          ]
-        }
-      ]
-    },
-    {
-      "item_id": "M2506#26",
-      "revised": true,
-      "body_recovered": true,
-      "measured_ability": "사건의 시점을 인물의 생존 여부로 가르는 표현(after his death)을 읽어, 선지의 '생전에'와 맞대어 보는 능력",
-      "design_intent": "동상 설치라는 사실 자체는 참으로 두고, 그 시점만 after his death 라는 세 낱말에 걸었다. 앞 문장에서 이미 사망(died ... in 1935)을 말해 두었으므로 시간 순서를 따라간 학생에게는 걸리고, 동상·U.S. Capitol 같은 고유명사만 짝짓는 학생에게는 안 걸린다.",
-      "answer_locus": {
-        "sentence_index": [
-          9
-        ],
-        "quote": "was so popular that after his death his statue was installed in the U.S. Capitol.",
-        "reasoning": "동상 설치에 붙은 시점 표현이 after his death 다. 곧 설치는 사망 이후 사건이므로, 설치가 생전에 이뤄졌다는 진술은 이 전치사구와 정면으로 충돌한다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "어휘 함정",
-          "why_tempting": "eighth 를 서수로 못 읽거나 바로 뒤 문장의 the 10th grade 와 섞으면 '여덟 번째 아이'라는 숫자가 어긋나 보인다.",
-          "how_to_reject": "둘째 문장 He was born as the eighth child 가 출생 순서를 직접 적는다. 10th grade 는 학년이라 child 가 아니라 grade 에 붙어 있다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "범위 과소",
-          "why_tempting": "뒤에 worked as a cowboy and roping artist 가 나와 카우보이가 관심사가 아니라 직업이었다고 보면, '관심이 있었다'는 선지가 지문보다 약하다고 판단한다.",
-          "how_to_reject": "넷째 문장 He was very interested in cowboys and horses 가 관심 사실을 그대로 적는다. 직업이 되었다는 뒤 문장은 이 진술을 지우지 않는다."
-        },
-        {
-          "n": 3,
-          "verdict": "distractor",
-          "trap": "인과 역전",
-          "why_tempting": "앞 문장의 He left the U.S. in 1902 와 순서를 뒤집어 영화 출연을 출국 뒤로 놓으면 '미국에 돌아온 후'가 어긋나 보인다.",
-          "how_to_reject": "여섯째 문장이 After returning to the U.S. 로 시작하고 그 뒤에 appeared in more than 50 movies 가 온다. 종속절이 시점을 앞세워 순서를 못박는다."
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "부분 사실",
-          "why_tempting": "칼럼 수 4,000이라는 숫자에 눈이 가서 그 숫자만 대조하면, 숫자를 말하지 않는 선지가 근거 없이 보인다.",
-          "how_to_reject": "일곱째 문장 He was also an outstanding newspaper columnist 가 평가를 직접 적는다. 4,000은 뒤에 붙은 부가 정보다."
-        },
-        {
-          "n": 5,
-          "verdict": "correct",
-          "why_correct": "지문은 동상 설치를 after his death 로 적었다. 설치가 생전에 이뤄졌다는 선지는 이와 어긋난다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
-          "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-        },
-        {
-          "step": "선지를 먼저 읽고 '생전에·사후에·~한 뒤에·~하기 전에'처럼 시점 관계를 말하는 선지에 별표를 친다",
-          "on_fail": "그런 선지가 없으면 선지의 숫자와 고유명사에 밑줄을 긋는다"
-        },
-        {
-          "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 낱말이 나오는 문장에 선지 번호를 적는다",
-          "on_fail": "옆 단 글자가 문장 가운데 섞여 보이면 그 줄은 건너뛰고 문장이 이어지는 다음 줄부터 읽는다"
-        },
-        {
-          "step": "별표 친 선지의 자리에서 before · after · during · Afterwards 같은 시점 전치사·부사를 찾아 동그라미를 치고, 그 앞뒤 어느 사건에 걸리는지 화살표로 잇는다",
-          "on_fail": "전치사가 안 보이면 그 문장 앞 두 문장에서 사망·귀국 같은 기준 사건을 찾는다"
-        },
-        {
-          "step": "선지가 말하는 순서와 지문의 순서를 나란히 적어 비교한다 — 앞뒤가 바뀐 선지가 답이다",
-          "on_fail": "순서가 같으면 그 선지를 지우고 남은 선지의 숫자를 대조한다"
-        },
-        {
-          "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 답을 적는다",
-          "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘만 다시 대조한다"
-        }
-      ],
-      "time_budget_sec": 70,
-      "difficulty": {
-        "predicted": 0.86,
-        "drivers": [
-          "정답 근거가 문장 가운데 끼어든 세 낱말 after his death",
-          "선지 ③과 ⑤가 모두 시점 순서를 다뤄 한 번 더 대조해야 한다",
-          "인쇄면에서 옆 단 글자가 섞여 들어와 읽는 속도가 떨어진다"
-        ]
-      },
-      "required_vocab": [
-        "eighth",
-        "columnist",
-        "statue",
-        "installed"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "청크와 코퍼스 모두 body_ok 가 false 이고 choices 가 null 이다 — raw_block 의 문항 블록에서 선지 다섯(여덟 번째 아이 / 카우보이와 말 / 50편 넘는 영화 / 신문 칼럼니스트 / 생전 동상 설치)을 복원했고 body_recovered 로 표시했다.",
-            "처음 quote 를 raw_block 의 줄바꿈된 형태 그대로 잡아 문자열 대조가 어긋났다 — 코퍼스 passage 에 이어진 형태로 다시 뽑아 교체했다.",
-            "지문에 옆 단 조각(field trip on J · Participants: F 등)이 섞여 있으나 근거 문장 자체는 온전하다."
-          ],
-          "checked": [
-            "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
-            "raw_block 문항 블록에서 선지 5개 복원 여부 확인",
-            "정답 5가 after his death 없이는 확정되지 않는지 확인"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "오답 넷이 어휘 함정·범위 과소·인과 역전·부분 사실로 갈린다.",
-            "③의 라벨은 인과가 아니라 선후 순서 뒤집기다 — A표에 '시간 순서 역전' 라벨이 없어 '인과 역전'으로 대신 달았고 open_questions 에 등재 제안을 남겼다."
-          ],
-          "checked": [
-            "오답 4개의 trap 중복 여부",
-            "why_tempting 이 복원한 선지 문구와 대응하는지",
-            "how_to_reject 에 문장 위치가 있는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "3단계 on_fail 에 '옆 단 글자가 섞이면 그 줄을 건너뛴다'를 넣었다 — 실제 시험지에서는 안 겪는 문제지만 이 자료로 연습하는 학생에게는 필요하다.",
-            "지문 손상 탓에 읽기가 느려지므로 time_budget_sec 을 60에서 70으로 늘렸다."
-          ],
-          "checked": [
-            "절차가 지문을 안 본 상태에서 실행 가능한지",
-            "금지 표현 포함 여부 문자열 확인",
-            "required_vocab 4개가 복원 지문에 실재하는지"
-          ]
-        }
-      ]
-    },
-    {
-      "item_id": "2024#26",
-      "revised": true,
-      "measured_ability": "한 문장 안의 and then 이 두 사건의 선후를 정한다는 것을 읽어, 선지의 '~하기 전에'와 맞대어 보는 능력",
-      "design_intent": "박사 학위 취득과 취직을 and then 하나로 이어 붙였다. 선지는 두 사건을 그대로 쓰면서 순서만 뒤집는다. 곧 지문에 두 사건이 다 있다는 사실만 확인하는 학생은 통과시키고, 둘을 잇는 접속 표현의 방향까지 읽는 학생만 가려낸다.",
-      "answer_locus": {
-        "sentence_index": [
-          3
-        ],
-        "quote": "He earned his doctoral degree from the California Institute of Technology in 1939, and then he took a job at Bell Labs in New York City.",
-        "reasoning": "and then 은 앞 절의 사건이 먼저이고 뒤 절이 나중임을 정한다. 곧 박사 학위(1939)가 먼저이고 Bell Labs 취직이 나중이다. '박사 학위를 받기 전에 Bell Labs에서 일했다'는 이 순서를 거꾸로 세운 것이다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "어휘 함정",
-          "why_tempting": "grew up on a farm 뒤에 studying the stars in the sky 가 붙어 있어 분사구 쪽을 주된 서술로 읽으면 '농장에서 성장'이 부수적으로 보여 근거가 약하다고 판단한다.",
-          "how_to_reject": "둘째 문장 In his childhood, he grew up on a farm 이 주절이고 studying 이하가 분사구다. 성장 장소를 말하는 것은 주절이다."
-        },
-        {
-          "n": 2,
-          "verdict": "correct",
-          "why_correct": "지문은 박사 학위(1939) 다음에 and then 으로 Bell Labs 취직을 이었다. 선지는 취직을 학위 이전으로 옮겼으므로 어긋난다."
-        },
-        {
-          "n": 3,
-          "verdict": "distractor",
-          "trap": "주체 역전",
-          "why_tempting": "Townes and his co-researcher 라는 복수 주어를 보고 제안한 사람이 그가 아니라 공동 연구자라고 읽으면 선지가 어긋나 보인다.",
-          "how_to_reject": "다섯째 문장 In 1958, Townes and his co-researcher proposed the concept of the laser 에서 Townes 가 주어의 앞자리에 있다. and 로 묶인 주어는 둘 다 행위자다."
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "부분 사실",
-          "why_tempting": "1939·1958·1964 세 연도가 가까이 흩어져 있어 노벨상 연도에 다른 연도를 붙이면 어긋나 보인다.",
-          "how_to_reject": "일곱째 문장 He received the Nobel Prize in Physics in 1964 가 상 이름과 연도를 한 문장에 붙여 준다."
-        },
-        {
-          "n": 5,
-          "verdict": "distractor",
-          "trap": "지문 밖 상식",
-          "why_tempting": "물리학자·레이저라는 배경으로 달 착륙 계획과는 무관하리라 넘겨짚으면 '관여하였다'가 지문 밖 진술로 보인다.",
-          "how_to_reject": "여덟째 문장 He was also involved in Project Apollo, the moon landing project 가 참여 사실과 그 계획의 정체를 동격으로 적는다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
-          "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-        },
-        {
-          "step": "선지를 먼저 읽고 '~하기 전에·~한 후에'처럼 두 사건의 순서를 주장하는 선지에 별표를 친다",
-          "on_fail": "그런 선지가 없으면 선지의 연도와 고유명사에 밑줄을 긋는다"
-        },
-        {
-          "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사·연도가 나오는 문장에 선지 번호를 적는다",
-          "on_fail": "짝이 안 맞는 선지는 건너뛰고 남은 구간에서만 되돌아 찾는다"
-        },
-        {
-          "step": "별표 친 선지의 두 사건이 같은 문장에 있으면 그 둘을 잇는 말(and then · after · before · Afterwards · Later)에 동그라미를 치고 화살표로 앞뒤를 표시한다",
-          "on_fail": "잇는 말이 없으면 두 사건이 나온 문장 번호를 적어 문장 순서로 선후를 정한다"
-        },
-        {
-          "step": "표시한 화살표 방향과 선지의 주장을 맞대어 본다 — 방향이 반대면 그 선지가 답이다",
-          "on_fail": "방향이 같으면 그 선지를 지우고 남은 선지의 주어(누가 했는가)를 지문 주어와 대조한다"
-        },
-        {
-          "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 답을 적는다",
-          "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘만 다시 대조한다"
-        }
-      ],
-      "time_budget_sec": 60,
-      "difficulty": {
-        "predicted": 0.87,
-        "drivers": [
-          "정답 근거가 접속 표현 and then 두 낱말",
-          "정답 선지의 두 사건이 모두 지문에 실재해 존재 대조로는 안 걸린다",
-          "지문이 짧고 선지가 지문 순서를 단조 대응한다"
-        ]
-      },
-      "required_vocab": [
-        "doctoral degree",
-        "co-researcher",
-        "involved",
-        "associate professor"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "선지 ①~⑤가 지문 문장 2·3·5·7·8 을 순서대로 대응한다.",
-            "정답이 '두 사건의 순서 뒤집기'라 M2506#26 ③ 오답과 같은 축이다 — 이 축이 산문 유형에서 오답과 정답 양쪽에 쓰인다는 점을 type_report 에 넘겼다."
-          ],
-          "checked": [
-            "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
-            "선지 근거 문장 번호의 단조 증가 확인",
-            "정답 2가 and then 없이는 확정되지 않는지 확인"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "처음 ⑤의 trap 을 '범위 과대'로 달았으나 선지는 지문의 involved 를 넓히지 않는다 — 배경지식이 근거를 밀어내는 경우이므로 '지문 밖 상식'으로 고쳤다.",
-            "고친 뒤 오답 넷이 어휘 함정·주체 역전·부분 사실·지문 밖 상식으로 갈린다."
-          ],
-          "checked": [
-            "오답 4개의 trap 중복 여부 재확인",
-            "why_tempting 이 선지 문구에서 나오는지 대조",
-            "how_to_reject 에 문장 위치가 있는지"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "4단계에서 '잇는 말에 동그라미, 화살표로 앞뒤 표시'가 손동작으로 정의되어 실행 가능하다.",
-            "60초 안에 끝난다 — 지문이 이 청크에서 가장 짧다."
-          ],
-          "checked": [
-            "절차가 지문을 안 본 상태에서 실행 가능한지",
-            "금지 표현 포함 여부 문자열 확인",
-            "required_vocab 4개가 지문에 실재하는지"
-          ]
-        }
-      ]
-    },
-    {
-      "item_id": "M2409#26",
-      "answer_unknown": true,
-      "revised": true,
-      "measured_ability": "한 문장 안에 활동 둘(집필과 연주)이 대비로 놓였을 때, 어느 쪽이 중단되고 어느 쪽이 이어졌는지를 동사와 기간 표현으로 가려 읽는 능력",
-      "design_intent": "생애를 시간 순으로 늘어놓되 판정이 걸릴 자리를 세 군데 심었다 — 학위와 데뷔가 겹친 해를 관계절로 묶은 자리(the year he earned his doctoral degree ... Rosen made both his New York piano debut and his first recordings), 수상 시점을 숫자가 아니라 the next year 로 적은 자리, 그리고 마지막 문장에서 두 활동을 While 로 대비시킨 자리다. 각 자리는 낱말 두세 개가 사실 관계를 정하므로, 고유명사와 연도만 짝짓는 읽기로는 판정이 서지 않는다.",
-      "solve_procedure": [
-        {
-          "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
-          "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-        },
-        {
-          "step": "선지를 먼저 읽고 각 선지의 서술어(재능을 보였다·학위를 받았다·요청받았다·상을 받았다·중단했다)에 밑줄을 긋는다",
-          "on_fail": "서술어가 여럿이면 문장 맨 끝 동사 하나만 고른다"
-        },
-        {
-          "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사·책 제목·연도가 나오는 문장에 선지 번호를 적는다",
-          "on_fail": "짝이 안 맞는 선지는 건너뛰고 남은 구간에서만 되돌아 찾는다"
-        },
-        {
-          "step": "연도가 든 선지는 the next year · in the year · later 처럼 시점을 낱말로 적은 자리를 찾아 옆에 연수를 숫자로 적는다",
-          "on_fail": "그런 표현이 없으면 그 문장 앞뒤 두 문장에서 연도 두 개를 찾아 뺀다"
-        },
-        {
-          "step": "'중단했다·그만두었다·전념했다'처럼 활동의 끝을 주장하는 선지는 지문에서 continued · for the rest of his life · until 같은 지속 표현이 붙어 있는지 확인한다",
-          "on_fail": "지속 표현이 안 보이면 그 활동을 말한 문장의 동사가 과거 완료인지 현재 진행 성격인지만 표시하고 보류한다"
-        },
-        {
-          "step": "누가 누구에게 한 행위인지 묻는 선지는 지문 문장의 주어와 목적어를 각각 동그라미 쳐서 방향을 확인한다",
-          "on_fail": "주어가 관계절 뒤에 숨어 있으면 who·which 앞의 명사를 주어로 삼는다"
-        }
-      ],
-      "time_budget_sec": 60,
-      "difficulty": {
-        "predicted": 0.83,
-        "drivers": [
-          "판정 자리가 관계절·삽입절 안에 들어 있어 문장 구조를 갈라 읽어야 한다",
-          "수상 시점이 숫자가 아니라 the next year 로 적혀 있다",
-          "지문이 이 청크 평균보다 길고 연도가 다섯 개(1927·1951·1971·1997·2012) 나온다",
-          "이 추정치는 정답을 모른 채, 이 청크에서 정답표가 있는 아홉 문항의 근거 유형별 난도(낱말 시점 표현형 0.84~0.90)와 지문 길이·구조 복잡도만으로 잡은 값이다"
-        ]
-      },
-      "required_vocab": [
-        "virtuoso",
-        "recitals",
-        "expanded",
-        "extensively",
-        "landmark"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "정답표가 없는 회차이므로 answer_locus 와 choices 를 넣지 않았다.",
-            "design_intent 를 '판정이 걸릴 수 있는 자리'로만 적고 어느 선지가 그것에 걸리는지는 쓰지 않았다 — 처음 초안에서 마지막 문장을 '정답 근거'라고 적었던 것을 지웠다."
-          ],
-          "checked": [
-            "answer_locus·choices 가 실제로 비어 있는지",
-            "산문에 선지 번호나 정답 지목 표현이 남아 있는지 문자열 확인",
-            "코퍼스 answer 가 null 인지 확인"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "answer_locus 없음·choices 비어 있음을 확인했다.",
-            "difficulty.predicted 0.83 의 근거가 drivers 마지막 항목에 적혀 있다 — 정답을 모르는 상태의 추정임이 드러난다.",
-            "required_vocab 다섯 낱말(virtuoso·recitals·expanded·extensively·landmark)이 지문에 문자 그대로 있음을 대조했다.",
-            "measured_ability 에 선지를 전제하는 서술이 없다."
-          ],
-          "checked": [
-            "answer_locus·choices 공란 확인",
-            "difficulty.predicted 의 근거 유무 확인",
-            "required_vocab 5개를 지문과 문자열 대조",
-            "measured_ability 의 선지 전제 여부 확인"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "처음 절차 5단계를 '활동을 중단했다는 선지는 지문과 반대다'로 적었다 — 정답을 안다는 전제이므로 '지속 표현이 붙어 있는지 확인한다'는 관찰 절차로 고쳤다.",
-            "6단계가 60초 안에 끝난다 — 각 단계가 지문 한 번 통독 안에 겹쳐 실행된다."
-          ],
-          "checked": [
-            "절차가 정답을 모르는 상태에서 실행 가능한지",
-            "금지 표현 포함 여부 문자열 확인",
-            "각 단계에 on_fail 이 있는지"
-          ]
-        }
-      ]
-    },
-    {
-      "item_id": "M2406#26",
-      "answer_unknown": true,
-      "revised": true,
-      "measured_ability": "전쟁·이주처럼 기간을 갖는 사건에서 '언제부터 어디에 있었는가'를 종속절과 시점 표현으로 가려 읽는 능력",
-      "design_intent": "두 차례의 전쟁을 각각 다른 방식으로 적었다 — 제1차는 At the outbreak of 라는 시점 표현으로 복무 상태를 못박고, 제2차는 when the Nazis invaded France in 1940 이라는 종속절 뒤에 이동(went to Hollywood)과 지속(continued his career there)을 붙였다. 곧 전쟁 이름만 짝짓는 읽기로는 체류 국가가 정해지지 않고, 종속절 뒤의 동사까지 읽어야 위치가 정해진다.",
-      "solve_procedure": [
-        {
-          "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
-          "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-        },
-        {
-          "step": "선지를 먼저 읽고 각 선지에서 대조할 축(관계·복무 시점·제작 연도·체류 장소·수상)을 한 낱말로 옆에 적는다",
-          "on_fail": "축이 안 잡히면 선지의 고유명사와 숫자에만 밑줄을 긋는다"
-        },
-        {
-          "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사(사람 이름·작품 제목·상 이름)가 나오는 문장에 선지 번호를 적는다",
-          "on_fail": "고유명사가 없는 선지는 표시만 하고 마지막에 남은 문장에서 찾는다"
-        },
-        {
-          "step": "'~ 동안·~ 내내'처럼 기간을 주장하는 선지는 그 기간을 말하는 문장에서 이동을 나타내는 동사(went·left·returned·moved)를 찾아 동그라미 친다",
-          "on_fail": "이동 동사가 안 보이면 그 문장의 장소 이름을 모두 적어 두고 몇 곳이 나오는지 센다"
-        },
-        {
-          "step": "동그라미 친 이동 동사의 도착지와 선지가 주장하는 장소를 맞대어 본다",
-          "on_fail": "도착지가 여러 곳이면 시간 표현(in 1940·throughout)에 걸린 것만 남긴다"
-        },
-        {
-          "step": "다섯 선지 각각에 근거 문장 번호를 적었는지 확인하고, 번호를 못 적은 선지가 하나뿐인지 센다",
-          "on_fail": "번호를 못 적은 선지가 둘 이상이면 그 둘의 고유명사만 지문에서 다시 찾는다"
-        }
-      ],
-      "time_budget_sec": 60,
-      "difficulty": {
-        "predicted": 0.85,
-        "drivers": [
-          "체류 장소가 종속절 뒤 동사에 걸려 있다",
-          "제1차·제2차 두 전쟁이 다른 문장에 나와 선지와 짝짓기 전에 갈라야 한다",
-          "지문에 OCR 로 문장 부호가 빠진 자리(show in Germany During World War II)가 있어 문장 경계가 흐리다",
-          "이 추정치는 정답을 모른 채, 지문 길이·고유명사 밀도와 이 청크에서 정답표가 있는 아홉 문항의 난도 분포만으로 잡은 값이다"
-        ]
-      },
-      "required_vocab": [
-        "outbreak",
-        "wounded",
-        "invaded",
-        "Honorary",
-        "endures"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "정답표가 없는 회차이므로 answer_locus 와 choices 를 넣지 않았다.",
-            "코퍼스 지문에서 It was enormously successful but was not allowed to show in Germany 와 During World War II 사이의 문장 부호가 빠져 있다 — 판정 자리 자체는 남아 있으나 문장 경계가 흐리다는 점을 difficulty.drivers 에 적었다."
-          ],
-          "checked": [
-            "answer_locus·choices 가 실제로 비어 있는지",
-            "산문에 정답 지목 표현이 있는지 문자열 확인",
-            "코퍼스 answer 가 null 인지 확인"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "처음 design_intent 에 '체류 국가를 묻는 선지가 지문과 어긋난다'고 적었던 것을 반려했다 — 정답을 모르는 문항에서 특정 진술을 거짓으로 단정한 서술이므로 설계 서술로만 바꿨다.",
-            "required_vocab 다섯 낱말이 지문에 문자 그대로 있음을 대조했다(outbreak·wounded·invaded·Honorary·endures).",
-            "difficulty.predicted 의 근거가 drivers 에 적혀 있다."
-          ],
-          "checked": [
-            "answer_locus·choices 공란 확인",
-            "required_vocab 5개를 지문과 문자열 대조",
-            "difficulty.predicted 의 근거 유무 확인",
-            "measured_ability·design_intent 의 선지 전제 여부 확인"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "4~5단계가 '기간을 주장하는 선지'라는 형태만 보고 시작하므로 정답을 몰라도 실행 가능하다.",
-            "6단계를 '근거 문장 번호를 못 적은 선지가 하나뿐인지 센다'로 두어, 정답을 모르는 상태에서도 자기 점검이 된다."
-          ],
-          "checked": [
-            "절차가 정답을 모르는 상태에서 실행 가능한지",
-            "금지 표현 포함 여부 문자열 확인",
-            "각 단계에 on_fail 이 있는지"
-          ]
-        }
-      ]
-    },
-    {
-      "item_id": "2023#26",
-      "revised": true,
-      "measured_ability": "양보절 Although 가 이끄는 앞 절의 평판과 뒤 절의 사실을 갈라, 어느 쪽이 지문의 주장인지 가려 읽는 능력",
-      "design_intent": "번역 가능성에 대해 서로 반대되는 두 진술을 한 문장에 담되, 앞 절에는 are known to be difficult 라는 평판을, 뒤 절에는 have in fact been widely translated 라는 사실을 두었다. 선지는 앞 절의 형용사만 뒤집어 놓으므로, 문장에서 어느 조각을 근거로 삼아야 하는지 가르는 설계다.",
-      "answer_locus": {
-        "sentence_index": [
-          9
-        ],
-        "quote": "Although his books are known to be difficult to translate they have in fact been widely translated into other languages.",
-        "reasoning": "앞 절이 그의 책이 '번역하기 어렵다고 알려져 있다'고 적는다. 선지는 같은 자리의 형용사를 '쉽다'로 바꿔 놓았으므로 앞 절과 정면으로 충돌한다. 뒤 절의 widely translated 는 실제로 번역이 많이 됐다는 다른 사실이지 난이도 평판을 뒤집는 진술이 아니다."
-      },
-      "choices": [
-        {
-          "n": 1,
-          "verdict": "distractor",
-          "trap": "부분 사실",
-          "why_tempting": "이 문장의 종료 연도가 인쇄에서 194 로 잘려 있어, 확인할 수 없는 정보라고 보고 선지를 근거 없는 진술로 판단한다.",
-          "how_to_reject": "셋째 문장 After World War II, he studied law at the University of Freiburg 가 시점과 전공을 함께 준다. 잘린 것은 종료 연도뿐이고 선지는 연도를 말하지 않는다."
-        },
-        {
-          "n": 2,
-          "verdict": "distractor",
-          "trap": "어휘 함정",
-          "why_tempting": "in charge of 를 '지시를 받다·소속되다'로 읽으면 교육 개혁을 맡은 주체가 흐려져 '담당했다'가 어긋나 보인다.",
-          "how_to_reject": "넷째 문장 he worked for the State of Lower Saxony, where he was in charge of educational reform 에서 in charge of 는 '~을 맡고 있는'이다."
-        },
-        {
-          "n": 3,
-          "verdict": "distractor",
-          "trap": "주체 역전",
-          "why_tempting": "바로 뒤에 Luhmann developed his own social system theory 가 이어져 영향의 방향을 뒤집어 그가 Parsons 에게 영향을 주었다고 읽으면 선지가 거꾸로 보인다.",
-          "how_to_reject": "다섯째 문장 where he was influenced by Talcott Parsons 가 수동태이고 by 뒤가 영향을 준 쪽이다. 영향을 받은 쪽은 he 다."
-        },
-        {
-          "n": 4,
-          "verdict": "distractor",
-          "trap": "범위 과대",
-          "why_tempting": "including 뒤에 mass media 와 law 둘만 적혀 있어 '다양한 주제'가 지문보다 넓다고 판단한다.",
-          "how_to_reject": "일곱째 문장 He researched a variety of subjects, including mass media and law 에서 a variety of 가 이미 '다양한'이고 including 은 그중 일부를 든 것이다."
-        },
-        {
-          "n": 5,
-          "verdict": "correct",
-          "why_correct": "발문이 '일치하지 않는 것'이고, 근거 문장 Although his books are known to be difficult to translate 의 known to be difficult to translate 가 선지 ⑤ '그의 책은 번역하기가 쉽다고 알려져 있다' 의 '쉽다' 와 정면으로 맞선다. 주어(his books ↔ 그의 책)와 술어 틀(are known to be ↔ 알려져 있다)이 같아 갈리는 성분은 difficult ↔ 쉽다 하나이고, 뒤 절의 they have in fact been widely translated 는 번역량에 관한 다른 사실이라 이 평판을 뒤집지 않는다."
-        }
-      ],
-      "solve_procedure": [
-        {
-          "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
-          "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-        },
-        {
-          "step": "선지를 먼저 읽고 성질·평가를 말하는 형용사(쉽다·어렵다·다양하다·유명하다)에 밑줄을 긋는다 — 이 유형에서 형용사 하나가 뒤집히면 정답이 된다",
-          "on_fail": "형용사가 없으면 선지의 서술어에 밑줄을 긋는다"
-        },
-        {
-          "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사가 나오는 문장에 선지 번호를 적는다",
-          "on_fail": "고유명사가 없는 선지는 표시만 하고 마지막에 남은 문장에서 찾는다"
-        },
-        {
-          "step": "Although · but · in fact 가 든 문장은 접속사에서 잘라 앞 조각과 뒤 조각을 따로 적고, 선지의 밑줄 형용사가 어느 조각에 대응하는지 화살표로 잇는다",
-          "on_fail": "조각 나누기가 어려우면 접속사 앞뒤에서 같은 어근이 반복되는 낱말(translate/translated)을 찾아 그 낱말이 든 조각을 고른다"
-        },
-        {
-          "step": "대응한 조각의 형용사와 선지의 형용사를 맞대어 본다 — 반대말이면 그 선지가 답이다",
-          "on_fail": "반대말이 아니면 그 선지를 지우고 남은 선지의 주어·수동태 방향을 대조한다"
-        },
-        {
-          "step": "지운 선지 넷의 근거 문장을 되짚은 뒤 답을 적는다",
-          "on_fail": "근거를 못 대는 선지가 둘 이상이면 그 둘만 다시 대조한다"
-        }
-      ],
-      "time_budget_sec": 65,
-      "difficulty": {
-        "predicted": 0.92,
-        "drivers": [
-          "정답이 형용사 하나의 반대말 치환이라 눈에 띈다",
-          "정답 근거가 마지막 문장이고 선지도 마지막이라 순서 대응이 그대로 통한다",
-          "지문 셋째 문장의 연도가 194 로 잘려 있어 ①에서 잠시 멈칫하게 된다"
-        ]
-      },
-      "required_vocab": [
-        "renowned",
-        "in charge of",
-        "a variety of",
-        "widely"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "선지 ①~⑤가 지문 문장 3·4·5·7·9 를 순서대로 대응한다.",
-            "코퍼스 지문의 until 194 는 인쇄 잘림이고 마지막 문장의 translate 뒤 콤마도 빠져 있다 — quote 는 코퍼스 현재 문자열 그대로 뽑았다.",
-            "이 문항의 정답 축은 낱말 시점 표현이 아니라 형용사 반전이다 — 이 청크에서 유일한 형태라 type_report 에 남겼다.",
-            "3차 판정 — 지문 문장의 영문 인용이 없던 것을 known to be difficult to translate 와 widely translated 로 보강하고 선지 ⑤ 문면을 그대로 인용했다",
-            "3차 판정 — quote 는 손대지 않았고 지문 문장과 문자 그대로 같다"
-          ],
-          "checked": [
-            "quote 를 corpus.json 의 현재 passage 와 문자열 대조",
-            "선지 근거 문장 번호의 단조 증가 확인",
-            "정답 5가 Although 절 없이는 확정되지 않는지 확인",
-            "answer_locus.quote 를 passage 에서 문자열 대조",
-            "주어·술어 틀이 같고 형용사만 갈린 것인지 성분별로 확인",
-            "뒤 절의 widely translated 가 난이도 평판을 뒤집는지 검토"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "오답 넷이 부분 사실·어휘 함정·주체 역전·범위 과대로 갈린다.",
-            "⑤의 why_tempting 을 처음 '지문에 반대말이 있어서'로 뭉뚱그렸다가 반려했다 — 실제 유인은 같은 문장 뒤 절의 widely translated 를 근거로 삼는 것이므로 그 자리를 지목해 다시 적었다.",
-            "3차 판정 — 갈아 끼운 성분(형용사)을 직접 지목해 소거법에 기대지 않는다",
-            "3차 판정 — 오답 4개 서술과 라벨은 손대지 않았다"
-          ],
-          "checked": [
-            "오답 4개의 trap 중복 여부",
-            "why_tempting 이 선지 문구와 지문 조각 어디에 붙는지 대조",
-            "how_to_reject 에 문장 위치가 있는지",
-            "correct 판정 5 를 평가원 정답표(5)와 대조",
-            "why_correct 의 소거법 여부 확인",
-            "선지 ⑤ 문자열 인용 여부 대조"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "2단계에서 '형용사에 밑줄'을 먼저 긋게 한 것이 이 문항의 승부처와 겹친다.",
-            "①에서 잘린 연도 탓에 멈칫하는 시간을 감안해 time_budget_sec 을 65로 잡았다.",
-            "3차 판정 — 양보절(Although)과 주절을 갈라 읽어야 한다는 것이 서술에 드러난다"
-          ],
-          "checked": [
-            "절차가 지문을 안 본 상태에서 실행 가능한지",
-            "금지 표현 포함 여부 문자열 확인",
-            "required_vocab 4개가 지문에 실재하고 판정에 쓰이는지",
-            "양보절 처리로 시간이 늘지 않는지 확인",
-            "solve_procedure 미변경 확인"
-          ]
-        }
-      ]
-    },
-    {
-      "item_id": "M2309#26",
-      "answer_unknown": true,
-      "revised": true,
-      "measured_ability": "이동·지속·전환을 나타내는 동사(moved · continued · turned)가 각각 어느 활동에 걸리는지 관계절 안까지 따라가 읽는 능력",
-      "design_intent": "생애를 시간 순으로 늘어놓되 방향을 가진 동사에 판정을 걸었다 — 영향의 방향을 정하는 수동태(was influenced by Kurt Lewin), 이동 뒤의 지속을 관계절에 넣은 자리(He later moved to Stanford University, where he continued his work in social psychology), 관심 분야의 전환을 적은 자리(turned his interest to the field of history)다. 기관 이름과 연도만 짝짓는 읽기로는 이 세 자리의 방향이 정해지지 않는다.",
-      "solve_procedure": [
-        {
-          "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다",
-          "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-        },
-        {
-          "step": "선지를 먼저 읽고 각 선지의 서술어(태어났다·영향을 받았다·중단했다·참여했다·돌렸다)에 밑줄을 긋는다 — 방향을 가진 동사가 이 유형의 판정 축이다",
-          "on_fail": "서술어가 여럿이면 문장 맨 끝 동사 하나만 고른다"
-        },
-        {
-          "step": "지문을 위에서 아래로 한 번만 내려가며 선지의 고유명사·연도가 나오는 문장에 선지 번호를 적는다",
-          "on_fail": "짝이 안 맞는 선지는 건너뛰고 남은 구간에서만 되돌아 찾는다"
-        },
-        {
-          "step": "'영향을 주었다/받았다'처럼 방향이 있는 선지는 지문 문장이 능동인지 수동인지 표시하고 by 뒤의 명사를 확인한다",
-          "on_fail": "태를 못 가르면 동사 앞의 be 동사와 과거분사 형태가 붙어 있는지만 본다"
-        },
-        {
-          "step": "'중단했다·그만두었다'처럼 활동의 끝을 주장하는 선지는 같은 문장의 관계절(where·which) 안에 continued · kept 같은 지속 동사가 있는지 확인한다",
-          "on_fail": "관계절이 없으면 그 활동을 말한 문장 뒤 두 문장에 같은 활동이 다시 나오는지 본다"
-        },
-        {
-          "step": "다섯 선지 각각에 근거 문장 번호를 적었는지 확인하고, 번호를 못 적은 선지가 하나뿐인지 센다",
-          "on_fail": "번호를 못 적은 선지가 둘 이상이면 그 둘의 서술어만 지문 동사와 다시 대조한다"
-        }
-      ],
-      "time_budget_sec": 60,
-      "difficulty": {
-        "predicted": 0.88,
-        "drivers": [
-          "지문이 짧고 문장마다 사건이 하나씩이라 검색이 빠르다",
-          "판정 자리 하나가 관계절 안의 동사에 들어 있다",
-          "연도가 셋(1919·1945·1970년대 후반)뿐이라 숫자 혼동 여지가 적다",
-          "이 추정치는 정답을 모른 채, 지문 길이·문장당 사건 수와 이 청크에서 정답표가 있는 아홉 문항의 난도 분포만으로 잡은 값이다"
-        ]
-      },
-      "required_vocab": [
-        "immigrant",
-        "influenced",
-        "continued",
-        "reputation",
-        "cited"
-      ],
-      "reviews": [
-        {
-          "persona": "setter",
-          "verdict": "pass",
-          "findings": [
-            "정답표가 없는 회차이므로 answer_locus 와 choices 를 넣지 않았다.",
-            "design_intent 를 '방향을 가진 동사 세 자리'로만 적고 어느 선지가 그 자리에 걸리는지는 쓰지 않았다."
-          ],
-          "checked": [
-            "answer_locus·choices 가 실제로 비어 있는지",
-            "산문에 선지 번호·정답 지목 표현이 있는지 문자열 확인",
-            "코퍼스 answer 가 null 인지 확인"
-          ]
-        },
-        {
-          "persona": "analyst",
-          "verdict": "pass",
-          "findings": [
-            "answer_locus 없음·choices 비어 있음을 확인했다.",
-            "required_vocab 다섯 낱말(immigrant·influenced·continued·reputation·cited)이 지문에 문자 그대로 있음을 대조했다.",
-            "difficulty.predicted 0.88 의 근거가 drivers 마지막 항목에 적혀 있다.",
-            "measured_ability 가 선지를 전제하지 않는다."
-          ],
-          "checked": [
-            "answer_locus·choices 공란 확인",
-            "required_vocab 5개를 지문과 문자열 대조",
-            "difficulty.predicted 의 근거 유무 확인",
-            "measured_ability 의 선지 전제 여부 확인"
-          ]
-        },
-        {
-          "persona": "tutor",
-          "verdict": "pass",
-          "findings": [
-            "처음 5단계를 '연구를 중단했다는 선지는 관계절과 어긋난다'로 적었다 — 결론을 미리 주는 서술이므로 '지속 동사가 있는지 확인한다'는 관찰 절차로 고쳤다.",
-            "6단계가 정답을 모르는 상태에서도 자기 점검이 되도록 '근거를 못 댄 선지가 하나뿐인지 센다'로 되어 있다."
-          ],
-          "checked": [
-            "절차가 정답을 모르는 상태에서 실행 가능한지",
-            "금지 표현 포함 여부 문자열 확인",
-            "각 단계에 on_fail 이 있는지"
-          ]
-        }
-      ]
-    }
+  "n_analyzed": 12,
+  "recurring_traps": [
+   {
+    "trap": "부분 사실",
+    "count": 12,
+    "signature": "같은 문장·이웃 문장에 있는 다른 값(다른 연도·다른 지명·다른 학위)을 선지의 항목에 끌어와 붙인다"
+   },
+   {
+    "trap": "어휘 함정",
+    "count": 12,
+    "signature": "낱말 하나(house·in charge of·cricket·served as·subsequently·eighth)를 못 읽으면 참인 선지가 근거 없어 보인다"
+   },
+   {
+    "trap": "주체 역전",
+    "count": 8,
+    "signature": "수동태 by 뒤와 앞을 맞바꾸거나(was influenced by), with the help of·and 로 묶인 공동 주어에서 행위자를 다른 쪽으로 옮긴다"
+   },
+   {
+    "trap": "지문 밖 상식",
+    "count": 4,
+    "signature": "인물의 대표 업적·국적·전쟁 기간에 대한 배경지식이 지문의 문장을 밀어낸다"
+   },
+   {
+    "trap": "범위 과대",
+    "count": 4,
+    "signature": "one of · U.S. sportscaster · a variety of 같은 한정어를 떨어뜨려 선지를 지문보다 넓게 읽는다"
+   },
+   {
+    "trap": "범위 과소",
+    "count": 3,
+    "signature": "undergraduates and graduate students alike 처럼 둘을 묶은 자리를 한쪽으로 좁힌다"
+   },
+   {
+    "trap": "인과 역전",
+    "count": 3,
+    "signature": "become the basis of 의 방향을 뒤집거나 After returning 의 선후를 거꾸로 세운다"
+   },
+   {
+    "trap": "무관",
+    "count": 2,
+    "signature": "판정 근거가 아닌 다른 문장(작가 이력·artists and scientists)을 근거로 삼아 참인 선지를 거짓으로 본다"
+   }
   ],
-  "type_report": {
-    "type_id": "R-FACT",
-    "type_name": "내용 일치(글)",
-    "n_analyzed": 12,
-    "recurring_traps": [
-      {
-        "trap": "부분 사실",
-        "count": 9,
-        "signature": "같은 문장·이웃 문장에 있는 다른 값(다른 연도·다른 지명·다른 학위)을 선지의 항목에 끌어와 붙인다"
-      },
-      {
-        "trap": "어휘 함정",
-        "count": 9,
-        "signature": "낱말 하나(house·in charge of·cricket·served as·subsequently·eighth)를 못 읽으면 참인 선지가 근거 없어 보인다"
-      },
-      {
-        "trap": "주체 역전",
-        "count": 5,
-        "signature": "수동태 by 뒤와 앞을 맞바꾸거나(was influenced by), with the help of·and 로 묶인 공동 주어에서 행위자를 다른 쪽으로 옮긴다"
-      },
-      {
-        "trap": "지문 밖 상식",
-        "count": 4,
-        "signature": "인물의 대표 업적·국적·전쟁 기간에 대한 배경지식이 지문의 문장을 밀어낸다"
-      },
-      {
-        "trap": "범위 과대",
-        "count": 3,
-        "signature": "one of · U.S. sportscaster · a variety of 같은 한정어를 떨어뜨려 선지를 지문보다 넓게 읽는다"
-      },
-      {
-        "trap": "무관",
-        "count": 2,
-        "signature": "판정 근거가 아닌 다른 문장(작가 이력·artists and scientists)을 근거로 삼아 참인 선지를 거짓으로 본다"
-      },
-      {
-        "trap": "인과 역전",
-        "count": 2,
-        "signature": "become the basis of 의 방향을 뒤집거나 After returning 의 선후를 거꾸로 세운다"
-      },
-      {
-        "trap": "범위 과소",
-        "count": 2,
-        "signature": "undergraduates and graduate students alike 처럼 둘을 묶은 자리를 한쪽으로 좁힌다"
-      }
-    ],
-    "answer_locus_pattern": "**선지 ①~⑤가 지문 문장 순서를 단조 대응한다 — 12/12 이다.** 자매 유형 R-NOTICE(12/12 · 9/9)의 실측이 산문에서도 그대로 성립한다. 근거 문장 번호는 M2706#26 이 2·5·7·9·10, 2026#26 이 2·3·5·6·7, M2609#26 이 2·3·5·6·8, M2606#26 이 2·4·6·8·10, 2025#26 이 2·3·5·8·10, M2509#26 이 2·4·6·8·9, M2506#26 이 2·4·6·7·9, 2024#26 이 2·3·5·7·8, 2023#26 이 3·4·5·7·9, 정답표가 없는 셋(M2409#26 2·3·5·7·9 · M2406#26 2·4·5·6·7 · M2309#26 2·3·5·7·8)도 같다. 곧 지문을 한 번만 내려가면 되고 되돌아 훑을 필요가 없다. 정답 근거의 **자리**는 첫 문장(도입 소개문)과 마지막 문장을 뺀 본문 중간이 8/9 이고 마지막 문장이 1/9(2023#26)이다 — 도입 소개문에서 정답이 나온 사례는 9개 중 0이다.",
-    "procedure": [
-      {
-        "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다 — 이 표시를 빠뜨리면 넷을 옳게 판정하고도 답을 뒤집는다",
-        "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
-      },
-      {
-        "step": "지문보다 선지 다섯을 먼저 읽고, 각 선지에서 ⓐ값(연도·수량·이름) ⓑ항목(학위·상·책·직위) ⓒ서술어(시작했다·퇴임했다·받았다·중단했다) 셋을 따로 표시한다",
-        "on_fail": "셋이 안 갈리면 선지의 숫자와 대문자 고유명사에만 밑줄을 긋고 시작한다"
-      },
-      {
-        "step": "지문 첫 문장부터 아래로 **한 번만** 내려가며 선지 ①의 값이 나오는 문장에서 멈춰 대조하고, 확인되면 그 문장 옆에 ①을 적고 다음 선지로 넘어간다 — 선지 순서가 지문 순서와 같으므로 되돌아가지 않는다",
-        "on_fail": "짝이 안 맞는 선지가 나오면 건너뛰고 다음 선지 자리부터 찾은 뒤, 남은 구간에서만 되돌아 찾는다"
-      },
-      {
-        "step": "값을 찾았으면 그 값에 붙은 **항목명**과 **동사**를 각각 확인한다 — 값이 맞아도 항목이 다르거나(1964년 박사인데 분야가 다르다) 동사 방향이 다르면(1958년에 became 인데 선지는 퇴임) 그 선지가 답 후보다",
-        "on_fail": "한 문장에 값·항목이 둘 이상이면 접속사 and·but·콤마에서 문장을 잘라 조각마다 값 하나·동사 하나만 남긴다"
-      },
-      {
-        "step": "숫자가 아니라 낱말로 적힌 시점·수량·순서에 동그라미를 치고 옆에 숫자로 환산해 적는다 — a year later · the following year · about a decade later · the next year · and then · until · after his death · several years later",
-        "on_fail": "그런 표현이 없으면 그 문장 앞뒤 두 문장에서 연도 두 개를 찾아 빼고, 그래도 없으면 그 선지는 보류한다"
-      },
-      {
-        "step": "성질을 말하는 형용사(쉽다/어렵다)와 방향이 있는 동사(영향을 주었다/받았다)가 든 선지는 지문의 수동태·양보절(Although·but·in fact) 조각과 짝지어 반대말인지 본다",
-        "on_fail": "조각 나누기가 어려우면 접속사 앞뒤에서 같은 어근이 반복되는 낱말을 찾아 그 낱말이 든 조각을 근거로 삼는다"
-      },
-      {
-        "step": "답을 적기 전에 지운 선지 넷의 근거 문장 번호를 하나씩 되짚고, 남은 선지가 지문의 어느 낱말과 충돌하는지 한 낱말로 말해 본다",
-        "on_fail": "충돌 낱말을 못 대면 근거를 못 댄 선지 둘만 다시 대조한다"
-      }
-    ],
-    "failure_modes": [
-      "발문의 일치/불일치를 반대로 잡아 네 선지를 옳게 판정하고도 답을 뒤집는다 — 이 유형 실점 중 가장 아까운 형태다",
-      "**낱말로 적힌 시점을 건너뛴다.** 정답표가 있는 9문항 중 6문항의 정답이 여기 걸렸다 — a year later(2026#26) · the following year(2025#26) · about a decade later(M2509#26) · and then(2024#26) · after his death(M2506#26) · not ... until(M2706#26). 연도 두 개를 찾아 빼는 습관으로는 안 걸린다. 지문에 연도가 **하나만** 적힌 사건이 그 자리다",
-      "**값은 대조하고 값에 붙은 항목을 대조하지 않는다.** M2606#26 은 1964(연도)도 zoology(분야)도 지문에 실재하는데 둘이 서로 다른 문장에 붙어 있다. 선지의 값을 찾았으면 같은 문장 안 항목명까지 읽어야 한다",
-      "**동사의 방향을 무시한다.** written↔published(M2706#26) · became a full professor↔퇴임(M2609#26) · was influenced by↔영향을 주었다(2023#26 ③) · became the basis of 의 방향(M2509#26 ③). 숫자와 고유명사는 다 맞는데 동사 하나가 반대인 형태가 이 유형의 주력이다",
-      "참인 선지를 낱말 하나 때문에 거짓으로 본다 — house(소장하다) · in charge of(담당하다) · served as(~로 일했다) · subsequently · eighth · cricket. 오답 36개 중 9개가 이 형태다",
-      "한 문장 안에 연도가 둘일 때 앞 연도를 뒤 사건에 붙인다(2026#26 ② 1920/1924 · M2509#26 ② 1937/십 년 뒤 · 2024#26 ② 1939/그 뒤)"
-    ],
-    "time_budget_sec": 60,
-    "open_questions": [
-      "**자매 유형 실측 확인 결과 세 가지.** ⑴ 선지-지문 순서 단조 대응은 12/12 로 성립한다(R-NOTICE 12/12 · 9/9 과 같다). ⑵ '판정 근거가 숫자가 아닌 낱말로 적힌 수량·한정에 있다'도 9문항 중 6문항에서 성립한다 — 안내문의 two weeks·limited to eight 자리를 산문에서는 a year later·the following year·about a decade later·and then·after his death 가 맡는다. ⑶ '값은 지문에 있고 항목만 옮긴다'도 성립하나 산문에서는 1/9(M2606#26)로 안내문보다 드물다 — 안내문은 항목 라벨이 왼쪽에 줄지어 있어 옮겨 붙이기 쉽지만 산문에는 라벨 열이 없기 때문으로 보인다. 12개로는 이 해석을 단정할 수 없다",
-      "**산문 고유 축을 하나 찾았다 — 동사 방향 역전.** 안내문에는 없던 형태로, 정답 9개 중 3개(M2706#26 written/published · M2609#26 취임/퇴임 · 2024#26 and then 의 선후)가 여기 걸리고 오답 쪽에서도 5회(주체 역전) + 2회(인과 역전) 나온다. 안내문의 판정 축이 '값과 항목'이라면 산문의 판정 축은 '값과 동사'다. 다만 A표에는 '시간 순서 역전' 라벨이 없어 M2506#26 ③·2024#26 을 '인과 역전'으로 대신 달았다 — B표의 `시간·인과 순서 역전` 을 A표에도 두거나 A표에 '순서 역전'을 신설할지 검토가 필요하다",
-      "**검색 열쇠의 성질이 다르다.** 안내문은 왼쪽 항목 라벨이 검색 열쇠지만 산문에는 라벨이 없고 연도·대문자 고유명사가 그 역할을 한다. 12문항 60선지 가운데 연도나 고유명사가 든 선지는 41개(68%)이고, 나머지 19개는 성질·평가를 말하는 선지라 지문 끝 문장 언저리에 몰린다. 이 19개가 선지 ⑤에 몰리는 경향(12문항 중 8문항에서 ⑤가 평가·기억·유산 문장)이 설계 규칙인지 다음 청크에서 확인해야 한다",
-      "정답 번호가 3·3·5·2·4·2·5·2·5 로 ②~⑤에만 나오고 ①이 0/9 이다. R-NOTICE 청크에서도 ①이 0/12 였다 — 두 유형 합쳐 21문항 연속이므로 우연으로 보기 어렵다. 선지 ①이 대개 도입부(출생·유년) 문장과 짝지어져 확인이 쉬운 참 진술이 되는 구조 때문으로 보이나, 그렇다고 ①을 안 읽는 전략을 권할 수는 없다 — 다음 청크에서 ① 정답 사례를 찾는다",
-      "이번 청크의 반려는 9건이다(setter 2 · analyst 5 · tutor 2). setter 는 인용 자리(M2706#26 근거 문장 교체 · M2506#26 줄바꿈 인용 교체), analyst 는 함정 라벨 중복(2026#26 ①· M2609#26 ③· M2606#26 ③· 2025#26 ②· 2024#26 ⑤)과 정답 전제 서술(M2406#26 design_intent · 2023#26 ⑤ why_tempting), tutor 는 정답을 아는 것을 전제한 절차 서술(M2409#26 5단계 · M2309#26 5단계)과 시간 배분을 각각 잡았다 — 세 자가 서로 다른 것을 재고 있어 자를 고칠 필요는 없었다",
-      "정답표가 없는 세 문항(M2409#26 · M2406#26 · M2309#26)에서 difficulty.predicted 를 정답 유형별 난도가 아니라 지문 길이·구조 복잡도만으로 잡았다. 이 방식의 오차는 정답표가 확보되기 전에는 검증할 수 없다"
-    ]
-  }
+  "answer_locus_pattern": "**선지 ①~⑤가 지문 문장 순서를 단조 대응한다 — 12/12 이다.** 자매 유형 R-NOTICE(12/12 · 9/9)의 실측이 산문에서도 그대로 성립한다. 근거 문장 번호는 M2706#26 이 2·5·7·9·10, 2026#26 이 2·3·5·6·7, M2609#26 이 2·3·5·6·8, M2606#26 이 2·4·6·8·10, 2025#26 이 2·3·5·8·10, M2509#26 이 2·4·6·8·9, M2506#26 이 2·4·6·7·9, 2024#26 이 2·3·5·7·8, 2023#26 이 3·4·5·7·9, 정답표가 없는 셋(M2409#26 2·3·5·7·9 · M2406#26 2·4·5·6·7 · M2309#26 2·3·5·7·8)도 같다. 곧 지문을 한 번만 내려가면 되고 되돌아 훑을 필요가 없다. 정답 근거의 **자리**는 첫 문장(도입 소개문)과 마지막 문장을 뺀 본문 중간이 8/9 이고 마지막 문장이 1/9(2023#26)이다 — 도입 소개문에서 정답이 나온 사례는 9개 중 0이다. ── 2026-09-04 갱신: 나머지 3문항(M2409#26 · M2406#26 · M2309#26)의 정답표가 확보됐다. 셋 모두 근거가 한 문장 안에서 닫혔고(9번 · 7번 · 5번 문장), 갈린 자리가 셋 다 종속 구조 뒤에 오는 주절 또는 관계절의 동사 하나였다 — While writing extensively 뒤의 continued to perform, when the Nazis invaded France in 1940 뒤의 went to Hollywood, moved to Stanford University 뒤 관계절의 continued his work. 곧 이 세 문항의 판정 자리는 문장 앞부분이 아니라 종속절 뒤였고, 앞부분만 대조하면 셋 다 일치로 읽힌다.",
+  "procedure": [
+   {
+    "step": "발문이 '일치하지 않는 것'인지 확인하고 문제 번호 옆에 ≠ 를 적는다 — 이 표시를 빠뜨리면 넷을 옳게 판정하고도 답을 뒤집는다",
+    "on_fail": "표시를 잊었으면 답을 고른 직후 발문으로 되돌아가 한 번 더 읽는다"
+   },
+   {
+    "step": "지문보다 선지 다섯을 먼저 읽고, 각 선지에서 ⓐ값(연도·수량·이름) ⓑ항목(학위·상·책·직위) ⓒ서술어(시작했다·퇴임했다·받았다·중단했다) 셋을 따로 표시한다",
+    "on_fail": "셋이 안 갈리면 선지의 숫자와 대문자 고유명사에만 밑줄을 긋고 시작한다"
+   },
+   {
+    "step": "지문 첫 문장부터 아래로 **한 번만** 내려가며 선지 ①의 값이 나오는 문장에서 멈춰 대조하고, 확인되면 그 문장 옆에 ①을 적고 다음 선지로 넘어간다 — 선지 순서가 지문 순서와 같으므로 되돌아가지 않는다",
+    "on_fail": "짝이 안 맞는 선지가 나오면 건너뛰고 다음 선지 자리부터 찾은 뒤, 남은 구간에서만 되돌아 찾는다"
+   },
+   {
+    "step": "값을 찾았으면 그 값에 붙은 **항목명**과 **동사**를 각각 확인한다 — 값이 맞아도 항목이 다르거나(1964년 박사인데 분야가 다르다) 동사 방향이 다르면(1958년에 became 인데 선지는 퇴임) 그 선지가 답 후보다",
+    "on_fail": "한 문장에 값·항목이 둘 이상이면 접속사 and·but·콤마에서 문장을 잘라 조각마다 값 하나·동사 하나만 남긴다"
+   },
+   {
+    "step": "숫자가 아니라 낱말로 적힌 시점·수량·순서에 동그라미를 치고 옆에 숫자로 환산해 적는다 — a year later · the following year · about a decade later · the next year · and then · until · after his death · several years later",
+    "on_fail": "그런 표현이 없으면 그 문장 앞뒤 두 문장에서 연도 두 개를 찾아 빼고, 그래도 없으면 그 선지는 보류한다"
+   },
+   {
+    "step": "성질을 말하는 형용사(쉽다/어렵다)와 방향이 있는 동사(영향을 주었다/받았다)가 든 선지는 지문의 수동태·양보절(Although·but·in fact) 조각과 짝지어 반대말인지 본다",
+    "on_fail": "조각 나누기가 어려우면 접속사 앞뒤에서 같은 어근이 반복되는 낱말을 찾아 그 낱말이 든 조각을 근거로 삼는다"
+   },
+   {
+    "step": "답을 적기 전에 지운 선지 넷의 근거 문장 번호를 하나씩 되짚고, 남은 선지가 지문의 어느 낱말과 충돌하는지 한 낱말로 말해 본다",
+    "on_fail": "충돌 낱말을 못 대면 근거를 못 댄 선지 둘만 다시 대조한다"
+   }
+  ],
+  "failure_modes": [
+   "발문의 일치/불일치를 반대로 잡아 네 선지를 옳게 판정하고도 답을 뒤집는다 — 이 유형 실점 중 가장 아까운 형태다",
+   "**낱말로 적힌 시점을 건너뛴다.** 정답표가 있는 9문항 중 6문항의 정답이 여기 걸렸다 — a year later(2026#26) · the following year(2025#26) · about a decade later(M2509#26) · and then(2024#26) · after his death(M2506#26) · not ... until(M2706#26). 연도 두 개를 찾아 빼는 습관으로는 안 걸린다. 지문에 연도가 **하나만** 적힌 사건이 그 자리다",
+   "**값은 대조하고 값에 붙은 항목을 대조하지 않는다.** M2606#26 은 1964(연도)도 zoology(분야)도 지문에 실재하는데 둘이 서로 다른 문장에 붙어 있다. 선지의 값을 찾았으면 같은 문장 안 항목명까지 읽어야 한다",
+   "**동사의 방향을 무시한다.** written↔published(M2706#26) · became a full professor↔퇴임(M2609#26) · was influenced by↔영향을 주었다(2023#26 ③) · became the basis of 의 방향(M2509#26 ③). 숫자와 고유명사는 다 맞는데 동사 하나가 반대인 형태가 이 유형의 주력이다",
+   "참인 선지를 낱말 하나 때문에 거짓으로 본다 — house(소장하다) · in charge of(담당하다) · served as(~로 일했다) · subsequently · eighth · cricket. 오답 36개 중 9개가 이 형태다",
+   "한 문장 안에 연도가 둘일 때 앞 연도를 뒤 사건에 붙인다(2026#26 ② 1920/1924 · M2509#26 ② 1937/십 년 뒤 · 2024#26 ② 1939/그 뒤)"
+  ],
+  "time_budget_sec": 60,
+  "open_questions": [
+   "**자매 유형 실측 확인 결과 세 가지.** ⑴ 선지-지문 순서 단조 대응은 12/12 로 성립한다(R-NOTICE 12/12 · 9/9 과 같다). ⑵ '판정 근거가 숫자가 아닌 낱말로 적힌 수량·한정에 있다'도 9문항 중 6문항에서 성립한다 — 안내문의 two weeks·limited to eight 자리를 산문에서는 a year later·the following year·about a decade later·and then·after his death 가 맡는다. ⑶ '값은 지문에 있고 항목만 옮긴다'도 성립하나 산문에서는 1/9(M2606#26)로 안내문보다 드물다 — 안내문은 항목 라벨이 왼쪽에 줄지어 있어 옮겨 붙이기 쉽지만 산문에는 라벨 열이 없기 때문으로 보인다. 12개로는 이 해석을 단정할 수 없다",
+   "**산문 고유 축을 하나 찾았다 — 동사 방향 역전.** 안내문에는 없던 형태로, 정답 9개 중 3개(M2706#26 written/published · M2609#26 취임/퇴임 · 2024#26 and then 의 선후)가 여기 걸리고 오답 쪽에서도 5회(주체 역전) + 2회(인과 역전) 나온다. 안내문의 판정 축이 '값과 항목'이라면 산문의 판정 축은 '값과 동사'다. 다만 A표에는 '시간 순서 역전' 라벨이 없어 M2506#26 ③·2024#26 을 '인과 역전'으로 대신 달았다 — B표의 `시간·인과 순서 역전` 을 A표에도 두거나 A표에 '순서 역전'을 신설할지 검토가 필요하다",
+   "**검색 열쇠의 성질이 다르다.** 안내문은 왼쪽 항목 라벨이 검색 열쇠지만 산문에는 라벨이 없고 연도·대문자 고유명사가 그 역할을 한다. 12문항 60선지 가운데 연도나 고유명사가 든 선지는 41개(68%)이고, 나머지 19개는 성질·평가를 말하는 선지라 지문 끝 문장 언저리에 몰린다. 이 19개가 선지 ⑤에 몰리는 경향(12문항 중 8문항에서 ⑤가 평가·기억·유산 문장)이 설계 규칙인지 다음 청크에서 확인해야 한다",
+   "12문항 전수의 정답 번호는 3·3·5·2·4·2·5·2·5 + 5·4·3 으로 ①이 0/12 다. 자매 유형(R-NOTICE)의 0/12 와 합치면 24문항 연속이라 우연으로 보기 어렵다. 다만 같은 배치의 R-BLANK 청크에서는 ①이 두 번 정답이었으므로 이 경향은 불일치 찾기 계열에 한정된다",
+   "이번 청크의 반려는 9건이다(setter 2 · analyst 5 · tutor 2). setter 는 인용 자리(M2706#26 근거 문장 교체 · M2506#26 줄바꿈 인용 교체), analyst 는 함정 라벨 중복(2026#26 ①· M2609#26 ③· M2606#26 ③· 2025#26 ②· 2024#26 ⑤)과 정답 전제 서술(M2406#26 design_intent · 2023#26 ⑤ why_tempting), tutor 는 정답을 아는 것을 전제한 절차 서술(M2409#26 5단계 · M2309#26 5단계)과 시간 배분을 각각 잡았다 — 세 자가 서로 다른 것을 재고 있어 자를 고칠 필요는 없었다",
+   "정답표가 모두 확보되어(2026-09-04 배치) 세 문항의 difficulty.predicted 근거에서 「정답을 모른 채 추정」 단서를 걷고 갈아 끼운 자리에 대한 관찰로 바꿨다. 예측값 자체는 그대로 두었으므로, 실제 정답률과의 오차 검증은 여전히 미해결이다"
+  ]
+ }
 }
