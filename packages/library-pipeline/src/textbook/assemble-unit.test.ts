@@ -121,9 +121,12 @@ describe('assembleReadingUnit', () => {
   })
 
   it('소요 시간은 읽기 + 문항 + 어휘를 합친다', () => {
-    const u = assembleReadingUnit(passage({ word_count: 240 }), items(5, 4), vocab(40))
+    // ⚠️ 어수는 창(100~200) 안이어야 한다. 예전 픽스처는 240어였고, 그때 창이
+    //   120~250 이라 통과했다 — 창을 시중 선언 어수(최대 198)로 좁히자 막혔다.
+    //   시간 계산을 재는 테스트가 창 때문에 깨진 것이므로 픽스처만 창 안으로 옮긴다.
+    const u = assembleReadingUnit(passage({ word_count: 180 }), items(5, 4), vocab(40))
     if (isBlocked(u)) throw new Error('막히면 안 된다')
-    // 240/120=2분 + 5문항×2 + 20어휘×0.25=5분
+    // 180/120=1.5→올림 2분 + 5문항×2 + 20어휘×0.25=5분
     expect(u.estimated_minutes).toBe(2 + 10 + 5)
     expect(UNIT_READ_WPM).toBe(120)
   })

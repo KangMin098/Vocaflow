@@ -1,8 +1,8 @@
 {
-  "measuredAt": "2026-09-04T12:13:39.442Z",
+  "measuredAt": "2026-09-04T12:19:33.366Z",
   "window": {
-    "min": 42,
-    "max": 173
+    "min": 100,
+    "max": 200
   },
   "formula": "Flesch-Kincaid — textbook-corpus/analyze.mjs 와 동일 (0.39·문장길이 + 11.8·음절/낱말 − 15.59)",
   "caveat": "FK 는 어휘 친숙도를 모른다. NASA 사진설명은 FK 가 낮아도 CEFR C1 이다 — 반드시 CEFR·V-Level 과 함께 본다.",
@@ -150,189 +150,131 @@
   "ourByBand": [
     {
       "band": "초3 미만",
-      "n": 36,
+      "n": 24,
       "inWordWindow": null,
       "fits": null,
       "marketPercentileMedian": null,
-      "wordWindow": null,
-      "borrowedWindow": null
+      "wordWindow": null
     },
     {
       "band": "초3~4",
-      "n": 71,
-      "inWordWindow": 62,
-      "fits": 50,
-      "marketPercentileMedian": 40.3,
+      "n": 48,
+      "inWordWindow": 48,
+      "fits": 43,
+      "marketPercentileMedian": 35.1,
       "wordWindow": {
-        "n": 96,
-        "min": 40,
-        "p10": 44,
-        "p25": 52,
-        "median": 62,
-        "p75": 81,
-        "p90": 121,
-        "max": 194,
-        "mean": 72
-      },
-      "borrowedWindow": true
+        "min": 100,
+        "max": 200
+      }
     },
     {
       "band": "초5~6",
-      "n": 79,
-      "inWordWindow": 62,
-      "fits": 47,
-      "marketPercentileMedian": 60.9,
+      "n": 100,
+      "inWordWindow": 100,
+      "fits": 98,
+      "marketPercentileMedian": 26.6,
       "wordWindow": {
-        "n": 96,
-        "min": 40,
-        "p10": 44,
-        "p25": 52,
-        "median": 62,
-        "p75": 81,
-        "p90": 121,
-        "max": 194,
-        "mean": 72
-      },
-      "borrowedWindow": true
+        "min": 100,
+        "max": 200
+      }
     },
     {
       "band": "초6~중1",
-      "n": 47,
-      "inWordWindow": 6,
-      "fits": 4,
-      "marketPercentileMedian": 66.3,
+      "n": 188,
+      "inWordWindow": 188,
+      "fits": 187,
+      "marketPercentileMedian": 18.8,
       "wordWindow": {
-        "n": 96,
-        "min": 40,
-        "p10": 44,
-        "p25": 52,
-        "median": 62,
-        "p75": 81,
-        "p90": 121,
-        "max": 194,
-        "mean": 72
-      },
-      "borrowedWindow": true
+        "min": 100,
+        "max": 200
+      }
     },
     {
       "band": "중1~2",
-      "n": 30,
-      "inWordWindow": 6,
-      "fits": 4,
-      "marketPercentileMedian": 43,
+      "n": 131,
+      "inWordWindow": 130,
+      "fits": 130,
+      "marketPercentileMedian": 14.9,
       "wordWindow": {
-        "n": 67,
-        "min": 40,
-        "p10": 46,
-        "p25": 57,
-        "median": 84,
-        "p75": 124,
-        "p90": 154,
-        "max": 197,
-        "mean": 93.7
-      },
-      "borrowedWindow": false
+        "min": 100,
+        "max": 200
+      }
     },
     {
       "band": "중3",
-      "n": 24,
-      "inWordWindow": 17,
-      "fits": 3,
+      "n": 22,
+      "inWordWindow": 22,
+      "fits": 12,
       "marketPercentileMedian": 66.4,
       "wordWindow": {
-        "n": 28,
-        "min": 41,
-        "p10": 42,
-        "p25": 45,
-        "median": 81,
-        "p75": 122,
-        "p90": 153,
-        "max": 165,
-        "mean": 84.5
-      },
-      "borrowedWindow": false
+        "min": 100,
+        "max": 200
+      }
     },
     {
       "band": "중3 초과",
-      "n": 98,
+      "n": 50,
       "inWordWindow": null,
       "fits": null,
       "marketPercentileMedian": null,
-      "wordWindow": null,
-      "borrowedWindow": null
+      "wordWindow": null
     }
   ],
-  "fitTotal": 108,
+  "fitTotal": 470,
   "ourBySource": [
     {
       "source": "original",
-      "n": 62,
-      "fkMedian": 6.76,
-      "sentMedian": 17.2,
-      "curriculumElemPct": 53.9,
-      "curriculumElemMidPct": 76.7,
+      "n": 368,
+      "fkMedian": 6.53,
+      "sentMedian": 16.9,
+      "curriculumElemPct": 50.9,
+      "curriculumElemMidPct": 75,
       "band": "초6~중1",
       "cefr": {
-        "A2": 17,
-        "B1": 42,
-        "B2": 3
+        "A2": 75,
+        "B1": 276,
+        "B2": 17
       }
     },
     {
       "source": "nasa",
-      "n": 121,
-      "fkMedian": 15.37,
-      "sentMedian": 26.3,
-      "curriculumElemPct": 33.3,
-      "curriculumElemMidPct": 45.5,
+      "n": 54,
+      "fkMedian": 12.99,
+      "sentMedian": 21.4,
+      "curriculumElemPct": 52.2,
+      "curriculumElemMidPct": 69.6,
       "band": "중3 초과",
       "cefr": {
-        "C1": 65,
-        "C2": 8,
-        "B2": 33,
-        "-": 12,
+        "C1": 26,
+        "B2": 15,
+        "-": 10,
         "B1": 2,
         "A2": 1
       }
     },
     {
-      "source": "storyweaver",
-      "n": 115,
-      "fkMedian": 3.89,
-      "sentMedian": 8.4,
-      "curriculumElemPct": 47.1,
-      "curriculumElemMidPct": 60,
-      "band": "초3~4",
-      "cefr": {
-        "B1": 39,
-        "A2": 45,
-        "A1": 19,
-        "B2": 12
-      }
-    },
-    {
       "source": "voa",
-      "n": 16,
+      "n": 14,
       "fkMedian": 1.49,
       "sentMedian": 7,
-      "curriculumElemPct": 65.6,
+      "curriculumElemPct": 72.1,
       "curriculumElemMidPct": 78.7,
       "band": "초3 미만",
       "cefr": {
-        "-": 16
+        "-": 14
       }
     },
     {
       "source": "futurity",
-      "n": 17,
-      "fkMedian": 12.55,
-      "sentMedian": 22.1,
-      "curriculumElemPct": 35.8,
-      "curriculumElemMidPct": 55.3,
+      "n": 23,
+      "fkMedian": 12.52,
+      "sentMedian": 22.9,
+      "curriculumElemPct": 34.5,
+      "curriculumElemMidPct": 54.6,
       "band": "중3 초과",
       "cefr": {
-        "C1": 7,
-        "B2": 9,
+        "B2": 14,
+        "C1": 8,
         "-": 1
       }
     },
@@ -350,14 +292,28 @@
     },
     {
       "source": "usgs",
-      "n": 8,
-      "fkMedian": 2.28,
-      "sentMedian": 7,
-      "curriculumElemPct": 61.3,
-      "curriculumElemMidPct": 71,
+      "n": 6,
+      "fkMedian": 3.07,
+      "sentMedian": 7.5,
+      "curriculumElemPct": 73.4,
+      "curriculumElemMidPct": 81.8,
       "band": "초3~4",
       "cefr": {
-        "-": 8
+        "-": 4,
+        "C1": 1,
+        "B2": 1
+      }
+    },
+    {
+      "source": "owid",
+      "n": 1,
+      "fkMedian": 14.62,
+      "sentMedian": 27.1,
+      "curriculumElemPct": null,
+      "curriculumElemMidPct": null,
+      "band": "중3 초과",
+      "cefr": {
+        "C1": 1
       }
     },
     {
@@ -374,17 +330,32 @@
       }
     },
     {
-      "source": "space_place",
+      "source": "storyweaver",
       "n": 43,
-      "fkMedian": 5.48,
-      "sentMedian": 12.3,
-      "curriculumElemPct": 45.7,
-      "curriculumElemMidPct": 63.5,
-      "band": "초5~6",
+      "fkMedian": 2.41,
+      "sentMedian": 8.1,
+      "curriculumElemPct": 49.1,
+      "curriculumElemMidPct": 60.2,
+      "band": "초3~4",
       "cefr": {
-        "B1": 24,
-        "B2": 11,
-        "A2": 8
+        "A2": 17,
+        "B1": 12,
+        "B2": 5,
+        "A1": 9
+      }
+    },
+    {
+      "source": "space_place",
+      "n": 51,
+      "fkMedian": 5.51,
+      "sentMedian": 12.6,
+      "curriculumElemPct": 45.3,
+      "curriculumElemMidPct": 62.9,
+      "band": "초6~중1",
+      "cefr": {
+        "B2": 15,
+        "B1": 26,
+        "A2": 10
       }
     }
   ],
@@ -399,22 +370,13 @@
       "band": "초6~중1"
     },
     {
-      "source": "nasa",
-      "title": "Psyche Spacecraft Completes Mars Flyby - NASA",
-      "fk": 21.64,
-      "sent": 41.5,
-      "words": 83,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Train Ride to NASA Kennedy for Artemis III Booster Segments - NASA",
-      "fk": 39.22,
-      "sent": 84,
-      "words": 84,
-      "cefr": "C1",
-      "band": "중3 초과"
+      "source": "original",
+      "title": "Stones That Kept Count",
+      "fk": 5.68,
+      "sent": 16.7,
+      "words": 184,
+      "cefr": "A2",
+      "band": "초6~중1"
     },
     {
       "source": "original",
@@ -426,13 +388,193 @@
       "band": "초6~중1"
     },
     {
-      "source": "nasa",
-      "title": "Roman Space Telescope Plaque Install - NASA",
-      "fk": 35.6,
-      "sent": 69,
-      "words": 69,
-      "cefr": "C2",
-      "band": "중3 초과"
+      "source": "original",
+      "title": "The Route You Cannot Draw",
+      "fk": 5.95,
+      "sent": 17.1,
+      "words": 188,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Room Dug Into the Hill",
+      "fk": 5.01,
+      "sent": 16.2,
+      "words": 194,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Bag on the Empty Seat",
+      "fk": 4.87,
+      "sent": 16.1,
+      "words": 193,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "How Land Stopped Being Measured in Days",
+      "fk": 6.8,
+      "sent": 19.9,
+      "words": 179,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Filmed Out of Order",
+      "fk": 7.45,
+      "sent": 18.9,
+      "words": 189,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Quiet Work of a Pause",
+      "fk": 6.47,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Ears That Carry Heat Away",
+      "fk": 5.28,
+      "sent": 16.9,
+      "words": 186,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Where the Eyes Learn to Wait",
+      "fk": 7.65,
+      "sent": 21,
+      "words": 189,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "What a Tree Does Before Winter",
+      "fk": 5.26,
+      "sent": 17.5,
+      "words": 175,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Stones Left in the Wrong Field",
+      "fk": 5.41,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Rules That Watch the Clock",
+      "fk": 6.6,
+      "sent": 16.3,
+      "words": 195,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "What the Bin Cannot Fix",
+      "fk": 7.95,
+      "sent": 19.7,
+      "words": 177,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Wheel That Hangs From Above",
+      "fk": 4.9,
+      "sent": 16.9,
+      "words": 186,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Why Songs Come Back to the Same Line",
+      "fk": 6.72,
+      "sent": 16.8,
+      "words": 185,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Cheapest Piece Should Go First",
+      "fk": 5.74,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Why a Soft Room Does Not Stay Quiet",
+      "fk": 6.69,
+      "sent": 19.4,
+      "words": 175,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Sharing What Nobody Owns",
+      "fk": 8.16,
+      "sent": 16.4,
+      "words": 180,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Street That Grew Busier",
+      "fk": 8.53,
+      "sent": 18.5,
+      "words": 185,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Path Under the Street",
+      "fk": 6.84,
+      "sent": 16.7,
+      "words": 184,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "What Forgetting Is For",
+      "fk": 7.65,
+      "sent": 15.5,
+      "words": 186,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Ache That Arrives Late",
+      "fk": 7.84,
+      "sent": 15.7,
+      "words": 188,
+      "cefr": "B1",
+      "band": "중1~2"
     },
     {
       "source": "original",
@@ -440,6 +582,33 @@
       "fk": 8.5,
       "sent": 18.9,
       "words": 170,
+      "cefr": "B2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Shadow That Proved a Liquid",
+      "fk": 7.66,
+      "sent": 17.2,
+      "words": 189,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Where the Weight Ends Up",
+      "fk": 6.48,
+      "sent": 16.3,
+      "words": 195,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "A Tree That Pays for Guards",
+      "fk": 8.01,
+      "sent": 19.7,
+      "words": 177,
       "cefr": "B2",
       "band": "중1~2"
     },
@@ -463,10 +632,64 @@
     },
     {
       "source": "original",
+      "title": "The Joint That Never Met",
+      "fk": 4.57,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Face That Borrows Its Meaning",
+      "fk": 6.71,
+      "sent": 21,
+      "words": 189,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Notes That Are Too Complete",
+      "fk": 6.52,
+      "sent": 20.8,
+      "words": 187,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Island That Crept Ashore",
+      "fk": 8.54,
+      "sent": 21.1,
+      "words": 190,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "What Grows First, and What Grows Last",
+      "fk": 4.95,
+      "sent": 17.1,
+      "words": 188,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
       "title": "The Frog That Freezes and Wakes",
       "fk": 5.41,
       "sent": 15.4,
       "words": 169,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Cost of a Second Tail",
+      "fk": 5.4,
+      "sent": 15.3,
+      "words": 184,
       "cefr": "B1",
       "band": "초5~6"
     },
@@ -481,6 +704,132 @@
     },
     {
       "source": "original",
+      "title": "Why the Sea Is Not a Mirror",
+      "fk": 6.22,
+      "sent": 17.9,
+      "words": 179,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Stones That Counted the Way",
+      "fk": 5.79,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Fence That Would Not Hold",
+      "fk": 5.11,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "When Sweat Has Nowhere to Go",
+      "fk": 7.97,
+      "sent": 18.6,
+      "words": 186,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Eleven Evenings of Paper",
+      "fk": 4.93,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Short Lives That Were Not So Short",
+      "fk": 7.75,
+      "sent": 16.9,
+      "words": 186,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Coldest Desert of All",
+      "fk": 7.43,
+      "sent": 18.8,
+      "words": 188,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "A Shoe for Either Foot",
+      "fk": 5.87,
+      "sent": 17,
+      "words": 187,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Cool End of a Hot Pan",
+      "fk": 7.28,
+      "sent": 18.3,
+      "words": 183,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Two Tides, Not One",
+      "fk": 6.09,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Evening That Was Never Long Enough",
+      "fk": 6.47,
+      "sent": 17.2,
+      "words": 189,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Short Life of a Nest",
+      "fk": 6.53,
+      "sent": 18.1,
+      "words": 181,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Water Rule That Changed Twice",
+      "fk": 7.51,
+      "sent": 18.5,
+      "words": 185,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Rule That Keeps Books Moving",
+      "fk": 7.67,
+      "sent": 20.6,
+      "words": 185,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
       "title": "After the Tall Tree Falls",
       "fk": 6.17,
       "sent": 17,
@@ -490,12 +839,363 @@
     },
     {
       "source": "original",
+      "title": "The Page That Never Stays",
+      "fk": 6.17,
+      "sent": 14.4,
+      "words": 187,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "A Green Sky Over the Harbor",
+      "fk": 5.07,
+      "sent": 16.2,
+      "words": 194,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Hunting What You Cannot See",
+      "fk": 7.68,
+      "sent": 18.8,
+      "words": 188,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Where the Beach Goes in Winter",
+      "fk": 5.7,
+      "sent": 17.1,
+      "words": 188,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Hidden Until It Matters",
+      "fk": 6.24,
+      "sent": 15.8,
+      "words": 190,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "A Slow World, Not a Small One",
+      "fk": 6.7,
+      "sent": 18,
+      "words": 180,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Trading Daylight for Room",
+      "fk": 7.83,
+      "sent": 21,
+      "words": 189,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "One Line or Many",
+      "fk": 8.04,
+      "sent": 17.3,
+      "words": 190,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Hours That Had to Be Shouted",
+      "fk": 6.18,
+      "sent": 17,
+      "words": 187,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Two Leaves From One Tree",
+      "fk": 4.78,
+      "sent": 17.2,
+      "words": 189,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
       "title": "Opening a Machine on a Calm Morning",
       "fk": 6.76,
       "sent": 17.8,
       "words": 160,
       "cefr": "A2",
       "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Comfort of Reading It Again",
+      "fk": 6.2,
+      "sent": 16.7,
+      "words": 184,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Week the Rest Went Missing",
+      "fk": 6.36,
+      "sent": 16.9,
+      "words": 186,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Pond That Came Back",
+      "fk": 6.29,
+      "sent": 19.4,
+      "words": 175,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Gap in the Rail",
+      "fk": 8.26,
+      "sent": 22.8,
+      "words": 182,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Two Sides of One Ridge",
+      "fk": 6.47,
+      "sent": 18.7,
+      "words": 187,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Room Behind the Cup",
+      "fk": 7.75,
+      "sent": 18.8,
+      "words": 188,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Under the Market Roof",
+      "fk": 4.89,
+      "sent": 16.7,
+      "words": 200,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Length a Machine Chose",
+      "fk": 7.68,
+      "sent": 18.8,
+      "words": 188,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Wider Road That Filled Itself",
+      "fk": 7.08,
+      "sent": 17.1,
+      "words": 188,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Breath That Will Not Slow",
+      "fk": 7.96,
+      "sent": 21,
+      "words": 189,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Curve the Ground Adds",
+      "fk": 7.33,
+      "sent": 18.9,
+      "words": 189,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Errand Down the Lower Lane",
+      "fk": 5.21,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Seed That Cannot Walk",
+      "fk": 6.47,
+      "sent": 18.7,
+      "words": 187,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Painting Against the Drying Wall",
+      "fk": 5.79,
+      "sent": 16.9,
+      "words": 186,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Built So a Whisper Could Travel",
+      "fk": 8.26,
+      "sent": 22.5,
+      "words": 180,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Where a List Loses Its Middle",
+      "fk": 6.87,
+      "sent": 18.8,
+      "words": 188,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "What a Tail Is Really For",
+      "fk": 6.72,
+      "sent": 20.3,
+      "words": 183,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "A Ladder That Had to Be Two Lengths",
+      "fk": 6.85,
+      "sent": 20.3,
+      "words": 183,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Free Space Nobody Could Find",
+      "fk": 8.02,
+      "sent": 21,
+      "words": 189,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "What the Frame Is Doing",
+      "fk": 7.78,
+      "sent": 20.8,
+      "words": 187,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Silence Inside the Music",
+      "fk": 8.39,
+      "sent": 22.5,
+      "words": 180,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Tail That Does Three Jobs",
+      "fk": 6.4,
+      "sent": 18.4,
+      "words": 184,
+      "cefr": "B2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Dull Edge Cuts Deeper",
+      "fk": 6.77,
+      "sent": 19.2,
+      "words": 192,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Empty Bus at Midnight",
+      "fk": 8,
+      "sent": 19.2,
+      "words": 192,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Hands That Stopped Asking",
+      "fk": 8.4,
+      "sent": 19.4,
+      "words": 194,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Stretch That Comes Too Early",
+      "fk": 7.35,
+      "sent": 19.6,
+      "words": 196,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Space Between Two Pictures",
+      "fk": 6.34,
+      "sent": 19.2,
+      "words": 192,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Strong in One Direction",
+      "fk": 6.95,
+      "sent": 18.9,
+      "words": 189,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Armor That Was Not a Prison",
+      "fk": 8.23,
+      "sent": 23.6,
+      "words": 189,
+      "cefr": "B1",
+      "band": "중1~2"
     },
     {
       "source": "original",
@@ -526,6 +1226,24 @@
     },
     {
       "source": "original",
+      "title": "The Name on the Grey Coat",
+      "fk": 6.27,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Handle That Would Not Stay On",
+      "fk": 7.46,
+      "sent": 21,
+      "words": 189,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
       "title": "What a Name Does to a Picture",
       "fk": 6.63,
       "sent": 18.2,
@@ -539,6 +1257,69 @@
       "fk": 7.19,
       "sent": 18.9,
       "words": 170,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Hands at the Repair Bench",
+      "fk": 6.61,
+      "sent": 16.3,
+      "words": 196,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Summer the Well Ran Warm",
+      "fk": 5.39,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Reading the Sea by the Sky",
+      "fk": 8.07,
+      "sent": 22.5,
+      "words": 180,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Two Words at the Door",
+      "fk": 4.89,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Why a Border Repeats the Same Shape",
+      "fk": 7.13,
+      "sent": 17,
+      "words": 187,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Sound That Has No Address",
+      "fk": 9.07,
+      "sent": 20.1,
+      "words": 181,
+      "cefr": "B1",
+      "band": "중3"
+    },
+    {
+      "source": "original",
+      "title": "The Count at the Field Gate",
+      "fk": 8.15,
+      "sent": 21,
+      "words": 189,
       "cefr": "A2",
       "band": "중1~2"
     },
@@ -571,6 +1352,15 @@
     },
     {
       "source": "original",
+      "title": "The Delay That Was Not Laziness",
+      "fk": 6.31,
+      "sent": 17.7,
+      "words": 177,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
       "title": "Measuring What No One Can Reach",
       "fk": 6.38,
       "sent": 19,
@@ -589,12 +1379,39 @@
     },
     {
       "source": "original",
+      "title": "Seats That Circle the Stage",
+      "fk": 6.79,
+      "sent": 16.4,
+      "words": 180,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "What the Neck Carries",
+      "fk": 6.46,
+      "sent": 19.3,
+      "words": 174,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
       "title": "Hot Water Without a Volcano",
       "fk": 8.54,
       "sent": 21,
       "words": 168,
       "cefr": "B1",
       "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Tank on the Roof",
+      "fk": 6.06,
+      "sent": 18.3,
+      "words": 183,
+      "cefr": "B1",
+      "band": "초6~중1"
     },
     {
       "source": "original",
@@ -607,10 +1424,154 @@
     },
     {
       "source": "original",
+      "title": "The Crowd as a Shortcut",
+      "fk": 9.11,
+      "sent": 19.9,
+      "words": 179,
+      "cefr": "B1",
+      "band": "중3"
+    },
+    {
+      "source": "original",
+      "title": "Romania turns off its only nuclear plant",
+      "fk": 5.06,
+      "sent": 9.1,
+      "words": 192,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Name Just Under the Tongue",
+      "fk": 5.03,
+      "sent": 16,
+      "words": 192,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "When Every Town Kept Its Own Clock",
+      "fk": 6.47,
+      "sent": 18.7,
+      "words": 187,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Signal Coaches Once Ignored",
+      "fk": 5.45,
+      "sent": 16.5,
+      "words": 182,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Fog That Sits on Cold Water",
+      "fk": 7.5,
+      "sent": 17.6,
+      "words": 176,
+      "cefr": "B2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Where a Reminder Should Live",
+      "fk": 8.18,
+      "sent": 17.7,
+      "words": 177,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Two Towns at the Same Height",
+      "fk": 7.44,
+      "sent": 20.7,
+      "words": 186,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Where the Ground Gives Water Back",
+      "fk": 6.42,
+      "sent": 19.4,
+      "words": 175,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Marks That Outlasted Memory",
+      "fk": 6.25,
+      "sent": 18,
+      "words": 180,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
       "title": "Two High Waters a Day",
       "fk": 5.86,
       "sent": 19.1,
       "words": 172,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Ceiling That Does the Listening",
+      "fk": 7.98,
+      "sent": 18.2,
+      "words": 182,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "When Thirst Is a Poor Guide",
+      "fk": 6.72,
+      "sent": 18.4,
+      "words": 184,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Gap That Keeps the Bridge Whole",
+      "fk": 7.28,
+      "sent": 19,
+      "words": 190,
+      "cefr": "B2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "When Easy Is the Wrong Signal",
+      "fk": 8.7,
+      "sent": 18.9,
+      "words": 189,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Green Umbrella on the Steps",
+      "fk": 5.33,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Chair Was Not the Problem",
+      "fk": 6.4,
+      "sent": 17.8,
+      "words": 178,
       "cefr": "B1",
       "band": "초6~중1"
     },
@@ -625,10 +1586,28 @@
     },
     {
       "source": "original",
+      "title": "Seeds That Keep Their Own Clock",
+      "fk": 5.51,
+      "sent": 17.4,
+      "words": 174,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
       "title": "The Season Behind the Festival",
       "fk": 6.2,
       "sent": 16.8,
       "words": 168,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "How to Watch a Glacier Move",
+      "fk": 6.78,
+      "sent": 17.7,
+      "words": 177,
       "cefr": "A2",
       "band": "초6~중1"
     },
@@ -643,12 +1622,363 @@
     },
     {
       "source": "original",
+      "title": "The Note You Leave Yourself",
+      "fk": 6.7,
+      "sent": 16.1,
+      "words": 193,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Why a Tube Beats a Rod",
+      "fk": 5.95,
+      "sent": 16.3,
+      "words": 196,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "When Mixing Takes the Light Away",
+      "fk": 6.31,
+      "sent": 16.3,
+      "words": 196,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Counting in Bundles",
+      "fk": 6.99,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Card Taped to the Glass",
+      "fk": 5.64,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Where Help Turns Into Harm",
+      "fk": 5.76,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "What the Burned Forest Keeps",
+      "fk": 5.39,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
       "title": "Not Every Seed Is in a Hurry",
       "fk": 5.62,
       "sent": 15.7,
       "words": 173,
       "cefr": "B1",
       "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "A Gap the Width of a Coin",
+      "fk": 4.87,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Why a Flock Turns as One",
+      "fk": 5.76,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Stiffness Is Mostly a Habit",
+      "fk": 5.77,
+      "sent": 16.3,
+      "words": 196,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Islands That Were Never There",
+      "fk": 6,
+      "sent": 16.3,
+      "words": 195,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Search Rules in a Meadow",
+      "fk": 7.01,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Riding Out Past the Last Hill",
+      "fk": 5.17,
+      "sent": 16.3,
+      "words": 196,
+      "cefr": "B2",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Line He Would Not Explain",
+      "fk": 4.83,
+      "sent": 16.7,
+      "words": 200,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Day the Gate Opens on the High Meadow",
+      "fk": 6.19,
+      "sent": 16.7,
+      "words": 200,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Dust on the Kitchen Window",
+      "fk": 5.33,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "A Held Breath on the Stage",
+      "fk": 6.33,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Take Out the Water, Not the Heat",
+      "fk": 6.34,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Radios He Switched Off",
+      "fk": 4.45,
+      "sent": 16.3,
+      "words": 196,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Hour That Would Not Move",
+      "fk": 4.97,
+      "sent": 16,
+      "words": 192,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Bench Under the Station Clock",
+      "fk": 5.73,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Finding the Thread Again",
+      "fk": 6.59,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Boy at the Corner",
+      "fk": 4.41,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Last Hour of the Market",
+      "fk": 6.48,
+      "sent": 15.8,
+      "words": 190,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Noise That Had to Be Put Back",
+      "fk": 6.54,
+      "sent": 16.3,
+      "words": 195,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "No River Under the Hill",
+      "fk": 6.09,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Before the First Bus",
+      "fk": 4.79,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "A Warm-Up Should Look Like the Game",
+      "fk": 6.65,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "How a Market Learned to Share the Square",
+      "fk": 8.32,
+      "sent": 17.6,
+      "words": 194,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Snow on the Errand Road",
+      "fk": 6.04,
+      "sent": 16.2,
+      "words": 194,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Model on the Kitchen Table",
+      "fk": 5.37,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Old Yard Before the Bell",
+      "fk": 5.03,
+      "sent": 16,
+      "words": 192,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "From Pairs to a Winter Flock",
+      "fk": 5.47,
+      "sent": 16.3,
+      "words": 196,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Errand Before Noon",
+      "fk": 6.15,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "What the Teller Repeats",
+      "fk": 6.16,
+      "sent": 16.2,
+      "words": 194,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Half the Fence Was White",
+      "fk": 4.79,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Still Warm After the Finish",
+      "fk": 6.78,
+      "sent": 15.7,
+      "words": 188,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "A Visit to the Street She Left",
+      "fk": 4.49,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Room for One More",
+      "fk": 4.99,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초5~6"
     },
     {
       "source": "nasa",
@@ -660,13 +1990,22 @@
       "band": "중3 초과"
     },
     {
-      "source": "storyweaver",
-      "title": "A Whistling Good Idea (3쪽부터 발췌)",
-      "fk": 3.82,
-      "sent": 9.4,
-      "words": 66,
-      "cefr": "B1",
-      "band": "초3~4"
+      "source": "nasa",
+      "title": "NASA Awards Facilities Support Services Contract for Ames Research Center  - NASA",
+      "fk": 17.38,
+      "sent": 23.4,
+      "words": 187,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "NASA TechLeap Prize: Orbital Clarity Challenge - NASA",
+      "fk": 15.57,
+      "sent": 26.4,
+      "words": 185,
+      "cefr": "B2",
+      "band": "중3 초과"
     },
     {
       "source": "nasa",
@@ -705,48 +2044,21 @@
       "band": "중3 초과"
     },
     {
-      "source": "nasa",
-      "title": "NASA Astronaut Chris Williams Returns to Earth - NASA",
-      "fk": 14.43,
-      "sent": 24.3,
-      "words": 97,
-      "cefr": "B2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Stages of Star Formation - NASA",
-      "fk": 9.75,
-      "sent": 9.4,
-      "words": 85,
-      "cefr": "C1",
-      "band": "중3"
-    },
-    {
-      "source": "nasa",
-      "title": "Journey to the Center of the Virgo Cluster - NASA",
-      "fk": 12.91,
-      "sent": 19.3,
-      "words": 58,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Hanging in the Balance - NASA",
-      "fk": 26.28,
-      "sent": 51,
-      "words": 51,
-      "cefr": "C1",
-      "band": "중3 초과"
+      "source": "original",
+      "title": "Before the Fork",
+      "fk": 7.57,
+      "sent": 16.4,
+      "words": 180,
+      "cefr": "B1",
+      "band": "중1~2"
     },
     {
       "source": "futurity",
-      "title": "What 'Abbott Elementary' gets right about teaching and learning",
-      "fk": 23.72,
-      "sent": 45,
-      "words": 90,
-      "cefr": "C1",
+      "title": "Is the torpedo bat here to stay in baseball?",
+      "fk": 14.65,
+      "sent": 30.7,
+      "words": 184,
+      "cefr": "B2",
       "band": "중3 초과"
     },
     {
@@ -756,6 +2068,15 @@
       "sent": 24.1,
       "words": 169,
       "cefr": "B2",
+      "band": "중3 초과"
+    },
+    {
+      "source": "nasa",
+      "title": "Photonic Submillimeter Space Interferometer",
+      "fk": 21.17,
+      "sent": 30,
+      "words": 210,
+      "cefr": "C1",
       "band": "중3 초과"
     },
     {
@@ -775,15 +2096,6 @@
       "words": 112,
       "cefr": null,
       "band": "초3 미만"
-    },
-    {
-      "source": "futurity",
-      "title": "Why a physicist hates this 1 Star Trek scene",
-      "fk": 20.84,
-      "sent": 51,
-      "words": 102,
-      "cefr": "C1",
-      "band": "중3 초과"
     },
     {
       "source": "voa",
@@ -811,15 +2123,6 @@
       "words": 108,
       "cefr": "B2",
       "band": "중3"
-    },
-    {
-      "source": "voa",
-      "title": "Like Watching Grass Grow",
-      "fk": 1.47,
-      "sent": 5.8,
-      "words": 98,
-      "cefr": null,
-      "band": "초3 미만"
     },
     {
       "source": "voa",
@@ -939,6 +2242,15 @@
       "band": "초3 미만"
     },
     {
+      "source": "futurity",
+      "title": "Can big data and chaos theory predict the unpredictable?",
+      "fk": 12.52,
+      "sent": 21.6,
+      "words": 194,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
       "source": "voa",
       "title": "A Bird Eye View",
       "fk": 1.6,
@@ -946,6 +2258,33 @@
       "words": 103,
       "cefr": null,
       "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "LINK Spacecraft Set for Mission to Boost NASA’s Swift Observatory - NASA",
+      "fk": 13.24,
+      "sent": 26.1,
+      "words": 183,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "original",
+      "title": "First, Last, and the Middle",
+      "fk": 5.77,
+      "sent": 15.8,
+      "words": 174,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "futurity",
+      "title": "Is the definition of Alzheimer's disease wrong?",
+      "fk": 11.78,
+      "sent": 23.5,
+      "words": 188,
+      "cefr": "C1",
+      "band": "중3"
     },
     {
       "source": "voa",
@@ -966,13 +2305,13 @@
       "band": "초3 미만"
     },
     {
-      "source": "nasa",
-      "title": "First Steps: America’s Grueling Second Spacewalk - NASA",
-      "fk": 21.6,
-      "sent": 36.5,
-      "words": 73,
-      "cefr": "C1",
-      "band": "중3 초과"
+      "source": "original",
+      "title": "The Word You Suddenly Hear Everywhere",
+      "fk": 9.47,
+      "sent": 19.6,
+      "words": 176,
+      "cefr": "B1",
+      "band": "중3"
     },
     {
       "source": "futurity",
@@ -984,20 +2323,20 @@
       "band": "초3~4"
     },
     {
-      "source": "nasa",
-      "title": "Colorful, Chaotic Jupiter - NASA",
-      "fk": 34.22,
-      "sent": 73,
-      "words": 73,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
       "source": "original",
       "title": "Who Really Sets the Price",
       "fk": 5.83,
       "sent": 15.5,
       "words": 155,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Reading the Bottom of the Sea",
+      "fk": 5.76,
+      "sent": 17.6,
+      "words": 176,
       "cefr": "B1",
       "band": "초6~중1"
     },
@@ -1021,15 +2360,6 @@
     },
     {
       "source": "nasa",
-      "title": "Hubble Sights Galaxy in Transition - NASA",
-      "fk": 14.06,
-      "sent": 15.5,
-      "words": 93,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
       "title": "Students Build Moon Robots for NASA’s 2026 Lunabotics Challenge - NASA",
       "fk": 23.87,
       "sent": 42.3,
@@ -1038,22 +2368,31 @@
       "band": "중3 초과"
     },
     {
-      "source": "nasa",
-      "title": "Soccer Meets Space Science - NASA",
-      "fk": 27.16,
-      "sent": 52,
-      "words": 52,
-      "cefr": "C1",
-      "band": "중3 초과"
+      "source": "original",
+      "title": "Two Ways to Mix a Colour",
+      "fk": 5.82,
+      "sent": 16.1,
+      "words": 177,
+      "cefr": "A2",
+      "band": "초6~중1"
     },
     {
-      "source": "nasa",
-      "title": "Going Low and Slow in Testing - NASA",
-      "fk": 23.9,
-      "sent": 48,
-      "words": 96,
-      "cefr": "C1",
-      "band": "중3 초과"
+      "source": "original",
+      "title": "The Eye That Stays Open",
+      "fk": 5.6,
+      "sent": 17.2,
+      "words": 189,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "When a river runs low, a reactor goes quiet",
+      "fk": 8.19,
+      "sent": 14,
+      "words": 210,
+      "cefr": "B2",
+      "band": "중1~2"
     },
     {
       "source": "nasa",
@@ -1075,12 +2414,66 @@
     },
     {
       "source": "original",
+      "title": "The Bag That Felt Lighter",
+      "fk": 8.23,
+      "sent": 23.4,
+      "words": 187,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
       "title": "When a river fails, the grid answers",
       "fk": 11.07,
       "sent": 19,
       "words": 171,
       "cefr": "B2",
       "band": "중3"
+    },
+    {
+      "source": "owid",
+      "title": "We have a new Urbanization topic page",
+      "fk": 14.62,
+      "sent": 27.1,
+      "words": 190,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "original",
+      "title": "The Height That Keeps Changing",
+      "fk": 6.64,
+      "sent": 18.9,
+      "words": 189,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Two Black Stones on a Tray",
+      "fk": 5.27,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Mira Walks the Last Stretch",
+      "fk": 5.05,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Side We Never See",
+      "fk": 5.8,
+      "sent": 18.3,
+      "words": 183,
+      "cefr": "A2",
+      "band": "초6~중1"
     },
     {
       "source": "nasa",
@@ -1111,12 +2504,75 @@
     },
     {
       "source": "original",
+      "title": "The Roof Made of Straw",
+      "fk": 7.35,
+      "sent": 20.6,
+      "words": 185,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Queue That Came Back",
+      "fk": 7.11,
+      "sent": 15.9,
+      "words": 191,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Gate Was Open on Saturday",
+      "fk": 4.55,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Listening to a Machine Before It Stops",
+      "fk": 5.47,
+      "sent": 16.3,
+      "words": 196,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
       "title": "What the Spice Was Really For",
       "fk": 8.46,
       "sent": 21.6,
       "words": 173,
       "cefr": "B1",
       "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Bodies Do Not Start at Full Speed",
+      "fk": 6.91,
+      "sent": 16.3,
+      "words": 179,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Two Fixes for a Late Bus",
+      "fk": 4.62,
+      "sent": 15.8,
+      "words": 174,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "How a Bare Slope Becomes a Wood",
+      "fk": 5.55,
+      "sent": 16.1,
+      "words": 177,
+      "cefr": "B1",
+      "band": "초6~중1"
     },
     {
       "source": "factbook",
@@ -1129,6 +2585,15 @@
     },
     {
       "source": "original",
+      "title": "The Name on the Counter",
+      "fk": 4.81,
+      "sent": 16.3,
+      "words": 196,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
       "title": "The Body Keeps What It Uses",
       "fk": 5.08,
       "sent": 16.2,
@@ -1137,13 +2602,31 @@
       "band": "초5~6"
     },
     {
-      "source": "nasa",
-      "title": "Artemis III Crew Announced - NASA",
-      "fk": 27.2,
-      "sent": 49.5,
-      "words": 99,
-      "cefr": "C1",
-      "band": "중3 초과"
+      "source": "original",
+      "title": "The Long Way Alone",
+      "fk": 5.19,
+      "sent": 16.7,
+      "words": 200,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Wave Inside the Box",
+      "fk": 6.01,
+      "sent": 20.6,
+      "words": 185,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Cooling Starts Before the Heat",
+      "fk": 6.4,
+      "sent": 16.1,
+      "words": 193,
+      "cefr": "B1",
+      "band": "초6~중1"
     },
     {
       "source": "original",
@@ -1156,10 +2639,37 @@
     },
     {
       "source": "original",
+      "title": "The Part That Is Meant to Fail",
+      "fk": 8.91,
+      "sent": 20,
+      "words": 200,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
       "title": "What Makes a Desert a Desert",
       "fk": 8.31,
       "sent": 19,
       "words": 171,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Moon's Other Half",
+      "fk": 6.03,
+      "sent": 18.2,
+      "words": 182,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Lake That Would Not Clear",
+      "fk": 7.72,
+      "sent": 17.2,
+      "words": 189,
       "cefr": "B1",
       "band": "중1~2"
     },
@@ -1171,6 +2681,195 @@
       "words": 167,
       "cefr": "B1",
       "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Bargain Inside Every Tool",
+      "fk": 6.77,
+      "sent": 14.9,
+      "words": 179,
+      "cefr": "B2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Hour After Lunch",
+      "fk": 8.57,
+      "sent": 19.3,
+      "words": 193,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Pits That Kept Winter",
+      "fk": 7.8,
+      "sent": 20.6,
+      "words": 185,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Loud Work of Empty Space",
+      "fk": 8.73,
+      "sent": 20,
+      "words": 180,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "What a Nest Is Not",
+      "fk": 7.27,
+      "sent": 16.5,
+      "words": 182,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Coin Inside the Cup",
+      "fk": 5.35,
+      "sent": 15.8,
+      "words": 189,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Door That Is Never Open",
+      "fk": 8.23,
+      "sent": 20.8,
+      "words": 187,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Two Ways to Slow the Water",
+      "fk": 5.17,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Water Always Finds the Join",
+      "fk": 5.55,
+      "sent": 15.8,
+      "words": 190,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Middle of the List",
+      "fk": 6.81,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Only Shape That Cannot Fall In",
+      "fk": 5.81,
+      "sent": 17,
+      "words": 187,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Cost of Every Small Switch",
+      "fk": 7.96,
+      "sent": 15.4,
+      "words": 185,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Why the Ache Comes Late",
+      "fk": 6.53,
+      "sent": 16.2,
+      "words": 194,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Rows That Had to Climb",
+      "fk": 5.52,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "When Practice Stops Feeling Like Practice",
+      "fk": 8.65,
+      "sent": 19.9,
+      "words": 179,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Wind That Turns Around at Night",
+      "fk": 7.32,
+      "sent": 20.7,
+      "words": 186,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Month That Never Comes",
+      "fk": 6.66,
+      "sent": 15.9,
+      "words": 175,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Memory That Rewrites Itself",
+      "fk": 6.32,
+      "sent": 16,
+      "words": 192,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Front That Cuts the Water",
+      "fk": 5.28,
+      "sent": 15.4,
+      "words": 185,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Ducks That Stopped Leaving",
+      "fk": 7.07,
+      "sent": 17,
+      "words": 187,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Parts That Fit Machines They Never Met",
+      "fk": 7.45,
+      "sent": 18.9,
+      "words": 189,
+      "cefr": "A2",
+      "band": "중1~2"
     },
     {
       "source": "original",
@@ -1189,6 +2888,42 @@
       "words": 157,
       "cefr": "B1",
       "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "When Every Town Kept Its Own Noon",
+      "fk": 8.25,
+      "sent": 20.9,
+      "words": 188,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Ladder of Distances",
+      "fk": 5.46,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The River Inside the Cold Sea",
+      "fk": 6.63,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Bird That Hammers All Day",
+      "fk": 6.72,
+      "sent": 18.7,
+      "words": 187,
+      "cefr": "B1",
+      "band": "초6~중1"
     },
     {
       "source": "original",
@@ -1228,10 +2963,64 @@
     },
     {
       "source": "original",
+      "title": "Before the Mouth Asks",
+      "fk": 6.09,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
       "title": "The Bare Hill and the Fallen Wood",
       "fk": 6.53,
       "sent": 18.1,
       "words": 163,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Pond That Went Quiet",
+      "fk": 5.61,
+      "sent": 15.8,
+      "words": 190,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Hour the Whole Valley Heard",
+      "fk": 6.4,
+      "sent": 18.1,
+      "words": 181,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "What the Pools Say About the Mountain",
+      "fk": 5.94,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Choosing Where It Gives Way",
+      "fk": 6.01,
+      "sent": 18.1,
+      "words": 181,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "When Ships Stopped Waiting for Wind",
+      "fk": 6.62,
+      "sent": 17.9,
+      "words": 179,
       "cefr": "B1",
       "band": "초6~중1"
     },
@@ -1255,10 +3044,145 @@
     },
     {
       "source": "original",
+      "title": "Familiar Is Not the Same as Known",
+      "fk": 7.27,
+      "sent": 17.1,
+      "words": 188,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Day Off That Earned Its Place",
+      "fk": 7.31,
+      "sent": 18.8,
+      "words": 188,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Charge That Beat the Rule",
+      "fk": 4.57,
+      "sent": 15.1,
+      "words": 181,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Fire That Was Never Let Out",
+      "fk": 8.86,
+      "sent": 23.6,
+      "words": 189,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Sea That Was Shut In",
+      "fk": 6.66,
+      "sent": 19,
+      "words": 190,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Counted In Nights, Not Minutes",
+      "fk": 8.51,
+      "sent": 19.4,
+      "words": 175,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Wet Grass Without Rain",
+      "fk": 6.54,
+      "sent": 19,
+      "words": 190,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Before Houses Had Numbers",
+      "fk": 7.33,
+      "sent": 18.9,
+      "words": 189,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
       "title": "Why the Arches Keep Coming",
       "fk": 8.23,
       "sent": 16.7,
       "words": 167,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Where the Day Is Divided",
+      "fk": 6.63,
+      "sent": 16,
+      "words": 192,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Reading an Ache Instead of Silencing It",
+      "fk": 6.25,
+      "sent": 16.3,
+      "words": 196,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Day Off That Does the Work",
+      "fk": 7.13,
+      "sent": 17.8,
+      "words": 178,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Ticket That Kept Your Place",
+      "fk": 6.89,
+      "sent": 18.3,
+      "words": 183,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "A Measure Anyone Could Check",
+      "fk": 6.83,
+      "sent": 17.6,
+      "words": 176,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Still Body, Busy Eyes",
+      "fk": 7.21,
+      "sent": 19.3,
+      "words": 174,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Thought That Stayed in the Other Room",
+      "fk": 8.39,
+      "sent": 23.3,
+      "words": 186,
       "cefr": "B1",
       "band": "중1~2"
     },
@@ -1273,11 +3197,47 @@
     },
     {
       "source": "original",
+      "title": "The Day Before the Letter",
+      "fk": 4.89,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Where the Seats Face",
+      "fk": 6.99,
+      "sent": 18.1,
+      "words": 181,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
       "title": "The Song That Stopped Changing",
       "fk": 6.42,
       "sent": 17.2,
       "words": 172,
       "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "How a Second Word Became a Family Name",
+      "fk": 7.14,
+      "sent": 18.9,
+      "words": 189,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Pin That Gives Way First",
+      "fk": 7,
+      "sent": 18.2,
+      "words": 182,
+      "cefr": "B2",
       "band": "초6~중1"
     },
     {
@@ -1318,10 +3278,73 @@
     },
     {
       "source": "original",
+      "title": "Lists Before Stories",
+      "fk": 8.14,
+      "sent": 20,
+      "words": 180,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "When Two Hoses Would Not Meet",
+      "fk": 8.67,
+      "sent": 20.4,
+      "words": 184,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Photograph in the Last Box",
+      "fk": 5.29,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Who Pays for the Letter",
+      "fk": 6.89,
+      "sent": 18.9,
+      "words": 189,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Heat Below the Village",
+      "fk": 5.76,
+      "sent": 17.9,
+      "words": 179,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Wall Beside the Road",
+      "fk": 6.29,
+      "sent": 16.5,
+      "words": 182,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
       "title": "Rules That Hold a Crowd Together",
       "fk": 6.9,
       "sent": 16.2,
       "words": 162,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "A Fold Is Stronger Than a Sheet",
+      "fk": 6.36,
+      "sent": 17.6,
+      "words": 176,
       "cefr": "B1",
       "band": "초6~중1"
     },
@@ -1363,10 +3386,226 @@
     },
     {
       "source": "original",
+      "title": "Reading the Land for Water",
+      "fk": 5.92,
+      "sent": 16.2,
+      "words": 194,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "A Seed Learns to Travel",
+      "fk": 5.64,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Finding Food by Remembering It",
+      "fk": 6.22,
+      "sent": 15.8,
+      "words": 189,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Why a Cold Makes Food Flat",
+      "fk": 4,
+      "sent": 14.5,
+      "words": 189,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "original",
+      "title": "The Wing That Hides and Warns",
+      "fk": 6.73,
+      "sent": 17.4,
+      "words": 174,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Loaf I Left Too Long",
+      "fk": 5.01,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Long Cold Night of a Small Bird",
+      "fk": 5.99,
+      "sent": 18.3,
+      "words": 183,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Tree That Keeps a Guard",
+      "fk": 8.17,
+      "sent": 18.7,
+      "words": 187,
+      "cefr": "B2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Who Goes First on a Narrow Street",
+      "fk": 6.16,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Standing Where the Painter Stood",
+      "fk": 5.91,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Why Ice Can Be a Desert",
+      "fk": 7.33,
+      "sent": 18.6,
+      "words": 186,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Before a Painting Had a Name",
+      "fk": 6.87,
+      "sent": 18.2,
+      "words": 182,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Two Halves of One Stick",
+      "fk": 5.25,
+      "sent": 16.7,
+      "words": 200,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Shutter at Five",
+      "fk": 5.23,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "When Every Buyer Paid the Same",
+      "fk": 6.29,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Bin Is the Last Step",
+      "fk": 6.82,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Where a Crack Is Told to Stop",
+      "fk": 5.75,
+      "sent": 16.3,
+      "words": 195,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Pale Square on the Wall",
+      "fk": 5.39,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "When a Pound Was Not a Pound",
+      "fk": 6.33,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
       "title": "Where the Metal Is Thick",
       "fk": 6.81,
       "sent": 17.1,
       "words": 171,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Why the Fingers Go First",
+      "fk": 5.72,
+      "sent": 16.7,
+      "words": 200,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "A Task Without a First Move",
+      "fk": 5.29,
+      "sent": 15.8,
+      "words": 189,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Day Before the Notice",
+      "fk": 4.73,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Bus That Did Not Come",
+      "fk": 4.43,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Route a Passenger Could Not Draw",
+      "fk": 6.09,
+      "sent": 16.4,
+      "words": 197,
       "cefr": "B1",
       "band": "초6~중1"
     },
@@ -1380,13 +3619,40 @@
       "band": "초6~중1"
     },
     {
-      "source": "nasa",
-      "title": "Chennai City Lights - NASA",
-      "fk": 19.96,
-      "sent": 37.5,
-      "words": 75,
-      "cefr": "B2",
-      "band": "중3 초과"
+      "source": "original",
+      "title": "The Rule Nobody Wrote Down",
+      "fk": 7.06,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Seat by the Back Wall",
+      "fk": 4.47,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Copying, Then One Deliberate Change",
+      "fk": 5.61,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Green Door on the Corner",
+      "fk": 4.55,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초5~6"
     },
     {
       "source": "original",
@@ -1398,40 +3664,58 @@
       "band": "초6~중1"
     },
     {
-      "source": "nasa",
-      "title": "Total Solar Eclipse in Sunflower Field - NASA",
-      "fk": 11.55,
-      "sent": 20.8,
-      "words": 83,
-      "cefr": "C1",
-      "band": "중3"
+      "source": "original",
+      "title": "A Wall That Keeps the Fire Until Morning",
+      "fk": 5.23,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "B1",
+      "band": "초5~6"
     },
     {
-      "source": "nasa",
-      "title": "Astronauts Anil Menon and Sophie Adenot on Spacewalk - NASA",
-      "fk": 37.44,
-      "sent": 80,
-      "words": 80,
+      "source": "original",
+      "title": "The Key Under the Gate",
+      "fk": 4.77,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "Half an Umbrella",
+      "fk": 5.98,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "How a Nickname Became a Family Name",
+      "fk": 6.52,
+      "sent": 16.5,
+      "words": 198,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "usgs",
+      "title": "Announcing the Appalachian Geoscience GeoCamp at West Virginia University",
+      "fk": 16.67,
+      "sent": 24.4,
+      "words": 195,
       "cefr": "C1",
       "band": "중3 초과"
     },
     {
-      "source": "nasa",
-      "title": "NASA Astronaut Chris Williams Returns to Earth - NASA",
-      "fk": 24.89,
-      "sent": 48,
-      "words": 96,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Understanding How Martian Auroras Are Made - NASA",
-      "fk": 30.48,
-      "sent": 62,
-      "words": 62,
-      "cefr": "C1",
-      "band": "중3 초과"
+      "source": "original",
+      "title": "Rules Made Against Disease",
+      "fk": 8.2,
+      "sent": 16.7,
+      "words": 200,
+      "cefr": "B1",
+      "band": "중1~2"
     },
     {
       "source": "nasa",
@@ -1439,51 +3723,6 @@
       "fk": 19.99,
       "sent": 39,
       "words": 117,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "NASA Takes Flight For America's 250th - NASA",
-      "fk": 34.14,
-      "sent": 67,
-      "words": 67,
-      "cefr": "C2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Roman Space Telescope Travels to SpaceX Hangar - NASA",
-      "fk": 18.79,
-      "sent": 35,
-      "words": 70,
-      "cefr": "C2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Millions of Stars in Cigar Galaxy - NASA",
-      "fk": 40.95,
-      "sent": 83,
-      "words": 83,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "2026 Total Solar Eclipse in Spain - NASA",
-      "fk": 16.33,
-      "sent": 26,
-      "words": 52,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Ancient Milky Way Merger - NASA",
-      "fk": 15.74,
-      "sent": 30.7,
-      "words": 92,
       "cefr": "C1",
       "band": "중3 초과"
     },
@@ -1498,15 +3737,6 @@
     },
     {
       "source": "nasa",
-      "title": "Artemis III Orion Crew and Service Modules Joined - NASA",
-      "fk": 20.48,
-      "sent": 35,
-      "words": 70,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
       "title": "Hubble Sees Crimson Cloud and Stars - NASA",
       "fk": 13.58,
       "sent": 17.3,
@@ -1515,20 +3745,20 @@
       "band": "중3 초과"
     },
     {
-      "source": "nasa",
-      "title": "Crews Move Artemis IV Liquid Hydrogen Tank - NASA",
-      "fk": 37.89,
-      "sent": 77,
-      "words": 77,
-      "cefr": "C1",
+      "source": "futurity",
+      "title": "Why spring is good for your brain health",
+      "fk": 15.71,
+      "sent": 22.9,
+      "words": 183,
+      "cefr": "B2",
       "band": "중3 초과"
     },
     {
-      "source": "nasa",
-      "title": "New Crew Members Welcomed to International Space Station - NASA",
-      "fk": 35.28,
-      "sent": 74,
-      "words": 74,
+      "source": "futurity",
+      "title": "Scientists say we need a 'Category 6' for hurricanes",
+      "fk": 13.32,
+      "sent": 26.7,
+      "words": 187,
       "cefr": "B2",
       "band": "중3 초과"
     },
@@ -1560,13 +3790,22 @@
       "band": "초3 미만"
     },
     {
-      "source": "storyweaver",
-      "title": "Book of Bhoots (8쪽부터 발췌)",
-      "fk": 3.56,
-      "sent": 7.7,
-      "words": 46,
-      "cefr": "A2",
-      "band": "초3~4"
+      "source": "futurity",
+      "title": "Is free will just a myth?",
+      "fk": 11.4,
+      "sent": 23,
+      "words": 184,
+      "cefr": "C1",
+      "band": "중3"
+    },
+    {
+      "source": "futurity",
+      "title": "Expert: We've been thinking about gun violence in the wrong ways",
+      "fk": 13.94,
+      "sent": 26,
+      "words": 182,
+      "cefr": "B2",
+      "band": "중3 초과"
     },
     {
       "source": "futurity",
@@ -1576,24 +3815,6 @@
       "words": 175,
       "cefr": "C1",
       "band": "중3"
-    },
-    {
-      "source": "usgs",
-      "title": "Watching a Forest Change",
-      "fk": 3.03,
-      "sent": 7,
-      "words": 98,
-      "cefr": null,
-      "band": "초3~4"
-    },
-    {
-      "source": "usgs",
-      "title": "A Map of Every Farm",
-      "fk": 1.2,
-      "sent": 8.2,
-      "words": 98,
-      "cefr": null,
-      "band": "초3 미만"
     },
     {
       "source": "futurity",
@@ -1623,13 +3844,22 @@
       "band": "초3~4"
     },
     {
-      "source": "storyweaver",
-      "title": "The Will (2쪽부터 발췌)",
-      "fk": 5.32,
-      "sent": 12,
-      "words": 48,
+      "source": "original",
+      "title": "White Around the Words",
+      "fk": 5.74,
+      "sent": 15.8,
+      "words": 190,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Going Back Over a Mistake",
+      "fk": 8.48,
+      "sent": 15.2,
+      "words": 182,
+      "cefr": "B2",
+      "band": "중1~2"
     },
     {
       "source": "original",
@@ -1637,6 +3867,42 @@
       "fk": 8.11,
       "sent": 19,
       "words": 171,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Line That Read Too Deep",
+      "fk": 5.81,
+      "sent": 17,
+      "words": 187,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Line Across the Back",
+      "fk": 6.16,
+      "sent": 16.2,
+      "words": 194,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Which Way at the Fork",
+      "fk": 5.56,
+      "sent": 16.2,
+      "words": 194,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Why the Cut Goes Unseen",
+      "fk": 8.27,
+      "sent": 20,
+      "words": 180,
       "cefr": "B1",
       "band": "중1~2"
     },
@@ -1650,22 +3916,103 @@
       "band": "중1~2"
     },
     {
-      "source": "usgs",
-      "title": "The Leaning Trees",
-      "fk": 2.28,
-      "sent": 6.3,
-      "words": 95,
-      "cefr": null,
-      "band": "초3~4"
+      "source": "original",
+      "title": "The Guest That Pays Rent",
+      "fk": 6.18,
+      "sent": 19.6,
+      "words": 176,
+      "cefr": "B1",
+      "band": "초6~중1"
     },
     {
-      "source": "usgs",
-      "title": "The Rock Left Behind",
-      "fk": 1.71,
-      "sent": 7,
-      "words": 98,
-      "cefr": null,
-      "band": "초3~4"
+      "source": "original",
+      "title": "Letting In Light, Keeping Out Heat",
+      "fk": 7.38,
+      "sent": 16.4,
+      "words": 180,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Bridge That Was Allowed to Shake",
+      "fk": 7.63,
+      "sent": 16.9,
+      "words": 186,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Body Keeps Its Own Balance",
+      "fk": 7.11,
+      "sent": 19.8,
+      "words": 178,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "What the Rain Took From the Field",
+      "fk": 5.09,
+      "sent": 16.1,
+      "words": 177,
+      "cefr": "A2",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Part of the Ice That Shows",
+      "fk": 7.99,
+      "sent": 20.6,
+      "words": 185,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Answer That Was There All Along",
+      "fk": 5.77,
+      "sent": 15.7,
+      "words": 188,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "The Part That Is Meant to Break",
+      "fk": 7.72,
+      "sent": 19,
+      "words": 190,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Edge That Tells You to Look",
+      "fk": 7.31,
+      "sent": 18.8,
+      "words": 188,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Queue at the Eight O'Clock Stop",
+      "fk": 8,
+      "sent": 20.9,
+      "words": 188,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Beetle That Drinks the Fog",
+      "fk": 7.71,
+      "sent": 18.6,
+      "words": 186,
+      "cefr": "B1",
+      "band": "중1~2"
     },
     {
       "source": "usgs",
@@ -1686,13 +4033,31 @@
       "band": "초3~4"
     },
     {
-      "source": "voa",
-      "title": "The Advertisement with No Computer",
-      "fk": 4.56,
-      "sent": 7.8,
-      "words": 93,
-      "cefr": null,
+      "source": "original",
+      "title": "How a Sunlit Stage Made Night",
+      "fk": 5.42,
+      "sent": 16.1,
+      "words": 177,
+      "cefr": "A2",
       "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "The Stair I Had Missed",
+      "fk": 4.59,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
+      "title": "How Far Away The Picture Stands",
+      "fk": 6.7,
+      "sent": 16.2,
+      "words": 178,
+      "cefr": "A2",
+      "band": "초6~중1"
     },
     {
       "source": "original",
@@ -1705,6 +4070,51 @@
     },
     {
       "source": "original",
+      "title": "How Far Is a Star?",
+      "fk": 7.68,
+      "sent": 20.9,
+      "words": 188,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "When Bottles Came Back",
+      "fk": 7,
+      "sent": 17.8,
+      "words": 178,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "original",
+      "title": "Pale Cloth as a Claim",
+      "fk": 7.57,
+      "sent": 19.8,
+      "words": 178,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Flat Roof Above the Weather",
+      "fk": 7.17,
+      "sent": 19.8,
+      "words": 178,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Woman Who Never Wrote It Down",
+      "fk": 5.07,
+      "sent": 16.7,
+      "words": 200,
+      "cefr": "B1",
+      "band": "초5~6"
+    },
+    {
+      "source": "original",
       "title": "From Theft to Partnership",
       "fk": 7.63,
       "sent": 17.7,
@@ -1713,13 +4123,31 @@
       "band": "중1~2"
     },
     {
-      "source": "nasa",
-      "title": "Landing on the Red Planet",
-      "fk": 2.54,
-      "sent": 7.3,
-      "words": 95,
-      "cefr": null,
-      "band": "초3~4"
+      "source": "futurity",
+      "title": "New tools help artists protect original work from AI",
+      "fk": 11.53,
+      "sent": 21.2,
+      "words": 191,
+      "cefr": "B2",
+      "band": "중3"
+    },
+    {
+      "source": "original",
+      "title": "When Paint Left the Studio",
+      "fk": 7.69,
+      "sent": 16.9,
+      "words": 186,
+      "cefr": "B2",
+      "band": "중1~2"
+    },
+    {
+      "source": "usgs",
+      "title": "Magnitude 6.4 Earthquake in Croatia",
+      "fk": 11.48,
+      "sent": 16,
+      "words": 192,
+      "cefr": "B2",
+      "band": "중3"
     },
     {
       "source": "nasa",
@@ -1732,33 +4160,6 @@
     },
     {
       "source": "storyweaver",
-      "title": "Lazy Mama (앞부분 발췌)",
-      "fk": 4.59,
-      "sent": 7.7,
-      "words": 46,
-      "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Magic Powder - A Folktale from Myanmar (7쪽부터 발췌)",
-      "fk": 5.17,
-      "sent": 10.5,
-      "words": 63,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Kite",
-      "fk": -0.54,
-      "sent": 3.4,
-      "words": 92,
-      "cefr": "A2",
-      "band": "초3 미만"
-    },
-    {
-      "source": "storyweaver",
       "title": "Who is it?",
       "fk": 0.28,
       "sent": 5.1,
@@ -1768,30 +4169,84 @@
     },
     {
       "source": "nasa",
-      "title": "Understanding How Martian Auroras Are Made - NASA",
-      "fk": 15.14,
-      "sent": 26.3,
-      "words": 79,
+      "title": "NASA’s Roman Telescope to Carry 1.35 Million Names to Deep Space",
+      "fk": 12.58,
+      "sent": 21,
+      "words": 189,
       "cefr": "B2",
       "band": "중3 초과"
     },
     {
-      "source": "storyweaver",
-      "title": "Fat King Thin Dog",
-      "fk": -0.86,
-      "sent": 6.2,
-      "words": 68,
-      "cefr": "A1",
-      "band": "초3 미만"
+      "source": "original",
+      "title": "The Thread That Had to Match",
+      "fk": 8.49,
+      "sent": 18.7,
+      "words": 187,
+      "cefr": "B2",
+      "band": "중1~2"
     },
     {
-      "source": "storyweaver",
-      "title": "Jadav and the Tree-Place (앞부분 발췌)",
-      "fk": 4.66,
-      "sent": 9.7,
-      "words": 58,
+      "source": "original",
+      "title": "Looking Through the Ice",
+      "fk": 8.6,
+      "sent": 20,
+      "words": 180,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Making a Scale Easy to Read",
+      "fk": 8.17,
+      "sent": 16,
+      "words": 192,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "What Advertising Borrows",
+      "fk": 8.42,
+      "sent": 16.3,
+      "words": 196,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "When the Body Learns First",
+      "fk": 7.48,
+      "sent": 15.8,
+      "words": 190,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Materials That Hold Still Air",
+      "fk": 7.01,
+      "sent": 16.6,
+      "words": 199,
+      "cefr": "A2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Lowering the Step at the Door",
+      "fk": 8.3,
+      "sent": 16.3,
+      "words": 195,
+      "cefr": "B1",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "Machines That Report Their Own Faults",
+      "fk": 8.3,
+      "sent": 16.3,
+      "words": 195,
+      "cefr": "B1",
+      "band": "중1~2"
     },
     {
       "source": "nasa",
@@ -1800,33 +4255,6 @@
       "sent": 25.4,
       "words": 127,
       "cefr": "B2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "NASA's IXPE Studies Magnetar - NASA",
-      "fk": 20.61,
-      "sent": 34.5,
-      "words": 69,
-      "cefr": "C2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Webb Opens Treasure Chest - NASA",
-      "fk": 7.21,
-      "sent": 12,
-      "words": 84,
-      "cefr": "B2",
-      "band": "중1~2"
-    },
-    {
-      "source": "nasa",
-      "title": "Crews Move Artemis IV Liquid Hydrogen Tank - NASA",
-      "fk": 21.44,
-      "sent": 47,
-      "words": 94,
-      "cefr": "C1",
       "band": "중3 초과"
     },
     {
@@ -1840,11 +4268,11 @@
     },
     {
       "source": "nasa",
-      "title": "Young Galaxy Cluster - NASA",
-      "fk": 10.7,
-      "sent": 18.6,
-      "words": 93,
-      "cefr": "B2",
+      "title": "NASA's Chandra and IXPE Study Pulsar in Lighthouse Nebula - NASA",
+      "fk": 11.69,
+      "sent": 20.4,
+      "words": 184,
+      "cefr": "C1",
       "band": "중3"
     },
     {
@@ -1903,46 +4331,10 @@
     },
     {
       "source": "nasa",
-      "title": "Anil Menon Launches to Space Station - NASA",
-      "fk": 38.69,
-      "sent": 82,
-      "words": 82,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Hubble Captures Star-Studded Cluster - NASA",
-      "fk": 12.95,
-      "sent": 20.6,
-      "words": 103,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Starry Chandelier Cluster - NASA",
-      "fk": 11.7,
-      "sent": 12.4,
-      "words": 62,
-      "cefr": "C2",
-      "band": "중3"
-    },
-    {
-      "source": "nasa",
       "title": "NASA's Artemis II Crew Receives Congressional Space Medal of Honor - NASA",
       "fk": 15.95,
       "sent": 27.6,
       "words": 138,
-      "cefr": "B2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "NASA Astronaut Reid Wiseman at Freedom 250 Grand Prix - NASA",
-      "fk": 14.86,
-      "sent": 31.5,
-      "words": 63,
       "cefr": "B2",
       "band": "중3 초과"
     },
@@ -1957,15 +4349,6 @@
     },
     {
       "source": "nasa",
-      "title": "Astronauts Anil Menon and Sophie Adenot on Spacewalk - NASA",
-      "fk": 11.3,
-      "sent": 16,
-      "words": 80,
-      "cefr": "C1",
-      "band": "중3"
-    },
-    {
-      "source": "nasa",
       "title": "NASA's IXPE Studies Magnetar - NASA",
       "fk": 13.98,
       "sent": 26.3,
@@ -1975,64 +4358,10 @@
     },
     {
       "source": "nasa",
-      "title": "Artemis Mission Patches - NASA",
-      "fk": 16.77,
-      "sent": 29.3,
-      "words": 88,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Lion Nebula Roars in Webb's Sights - NASA",
-      "fk": 9.69,
-      "sent": 19.3,
-      "words": 77,
-      "cefr": "C1",
-      "band": "중3"
-    },
-    {
-      "source": "nasa",
-      "title": "Taking Flight to Prepare for Space - NASA",
-      "fk": 17.82,
-      "sent": 37,
-      "words": 74,
-      "cefr": "B2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Taking Flight to Prepare for Space - NASA",
-      "fk": 27.1,
-      "sent": 55,
-      "words": 55,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "San Francisco's Patchwork Streets - NASA",
-      "fk": 21.18,
-      "sent": 40.5,
-      "words": 81,
-      "cefr": "B2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
       "title": "Starburst Galaxy Centaurus A - NASA",
       "fk": 16.91,
       "sent": 27.5,
       "words": 110,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "NASA Astronaut Anil Menon - NASA",
-      "fk": 30.42,
-      "sent": 59,
-      "words": 59,
       "cefr": "C1",
       "band": "중3 초과"
     },
@@ -2047,100 +4376,10 @@
     },
     {
       "source": "nasa",
-      "title": "Our First View of the Surface of Mars - NASA",
-      "fk": 34.35,
-      "sent": 78,
-      "words": 78,
-      "cefr": "B2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Roman Telescope Comes to Kennedy - NASA",
-      "fk": 32.35,
-      "sent": 69,
-      "words": 69,
-      "cefr": "C2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Curiosity Sees Martian Sulfur Up Close - NASA",
-      "fk": 34.3,
-      "sent": 70,
-      "words": 70,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Starburst Galaxy Centaurus A - NASA",
-      "fk": 46.4,
-      "sent": 102,
-      "words": 102,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
       "title": "NASA's Chandra Finds Possible Supernova Remnant - NASA",
       "fk": 11.3,
       "sent": 16.7,
       "words": 117,
-      "cefr": "C1",
-      "band": "중3"
-    },
-    {
-      "source": "nasa",
-      "title": "Perseids Meteor Shower - NASA",
-      "fk": 16.8,
-      "sent": 25.5,
-      "words": 51,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Waxing Gibbous Moon - NASA",
-      "fk": 28.17,
-      "sent": 57,
-      "words": 57,
-      "cefr": "B2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Good Morning, Earth! - NASA",
-      "fk": 18.2,
-      "sent": 31,
-      "words": 62,
-      "cefr": "C2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Hubble Captures Star-Studded Cluster - NASA",
-      "fk": 21.53,
-      "sent": 30.3,
-      "words": 91,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "LINK Spacecraft Set for Mission to Boost NASA's Swift Observatory - NASA",
-      "fk": 36.47,
-      "sent": 75,
-      "words": 75,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Psyche Approaches Mars - NASA",
-      "fk": 11.02,
-      "sent": 22.5,
-      "words": 90,
       "cefr": "C1",
       "band": "중3"
     },
@@ -2173,24 +4412,6 @@
     },
     {
       "source": "nasa",
-      "title": "NASA's B777 Gets New Coat of Paint - NASA",
-      "fk": 25.81,
-      "sent": 55,
-      "words": 55,
-      "cefr": "B2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Total Solar Eclipse in Sunflower Field - NASA",
-      "fk": 18.12,
-      "sent": 29.5,
-      "words": 59,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
       "title": "Euclid Sees Heart of Milky Way - NASA (초등 쉬운 판)",
       "fk": 5.36,
       "sent": 10.1,
@@ -2206,60 +4427,6 @@
       "words": 150,
       "cefr": "A2",
       "band": "초3~4"
-    },
-    {
-      "source": "nasa",
-      "title": "Lion Nebula Roars in Webb's Sights - NASA",
-      "fk": 45.39,
-      "sent": 104,
-      "words": 104,
-      "cefr": "C2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Good Morning, Earth! - NASA",
-      "fk": 8.9,
-      "sent": 13.5,
-      "words": 54,
-      "cefr": "B2",
-      "band": "중1~2"
-    },
-    {
-      "source": "nasa",
-      "title": "Psyche Approaches Mars - NASA",
-      "fk": 21.69,
-      "sent": 48,
-      "words": 96,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Artemis II Crew and Apollo 14 Moon Tree - NASA",
-      "fk": 19.49,
-      "sent": 37.5,
-      "words": 75,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Civil Servants Sworn in at NASA Ames - NASA",
-      "fk": 11.91,
-      "sent": 22.3,
-      "words": 89,
-      "cefr": "B2",
-      "band": "중3"
-    },
-    {
-      "source": "nasa",
-      "title": "NASA's Newest Wind Tunnel Opens at NASA Langley - NASA",
-      "fk": 42.33,
-      "sent": 88,
-      "words": 88,
-      "cefr": "B2",
-      "band": "중3 초과"
     },
     {
       "source": "nasa",
@@ -2281,64 +4448,10 @@
     },
     {
       "source": "nasa",
-      "title": "Perseids Meteor Shower - NASA",
-      "fk": 6,
-      "sent": 11,
-      "words": 88,
-      "cefr": "B2",
-      "band": "초6~중1"
-    },
-    {
-      "source": "nasa",
-      "title": "2026 Total Solar Eclipse in Spain - NASA",
-      "fk": 10.37,
-      "sent": 19.8,
-      "words": 99,
-      "cefr": "B2",
-      "band": "중3"
-    },
-    {
-      "source": "nasa",
-      "title": "NASA Astronaut Reid Wiseman at Freedom 250 Grand Prix - NASA",
-      "fk": 21.04,
-      "sent": 43.5,
-      "words": 87,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
       "title": "Colorful Collage of Tarantula Nebula - NASA",
       "fk": 12.99,
       "sent": 22.1,
       "words": 155,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Guinea-Bissau Tidal Waters - NASA",
-      "fk": 25.62,
-      "sent": 41.5,
-      "words": 83,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Hubble Sees Swarm of Galaxies - NASA",
-      "fk": 13.64,
-      "sent": 14,
-      "words": 70,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Young Galaxy Cluster - NASA",
-      "fk": 12.26,
-      "sent": 20.8,
-      "words": 83,
       "cefr": "C1",
       "band": "중3 초과"
     },
@@ -2380,15 +4493,6 @@
     },
     {
       "source": "nasa",
-      "title": "NASA's Artemis II Crew Receives Congressional Space Medal of Honor - NASA",
-      "fk": 16.81,
-      "sent": 27.7,
-      "words": 83,
-      "cefr": "B2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
       "title": "The Lopsided Galaxy",
       "fk": 2.41,
       "sent": 7.3,
@@ -2404,33 +4508,6 @@
       "words": 123,
       "cefr": "B2",
       "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Aurora Australis - NASA",
-      "fk": 20.85,
-      "sent": 37,
-      "words": 74,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "Civil Servants Sworn in at NASA Ames - NASA",
-      "fk": 32.82,
-      "sent": 65,
-      "words": 65,
-      "cefr": "B2",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
-      "title": "A New Look – and Sound – for Messier 94 - NASA",
-      "fk": 10.57,
-      "sent": 18.6,
-      "words": 93,
-      "cefr": "B2",
-      "band": "중3"
     },
     {
       "source": "nasa",
@@ -2470,93 +4547,12 @@
     },
     {
       "source": "nasa",
-      "title": "NASA Astronaut Jessica Meir Uses VR Goggles - NASA",
-      "fk": 38.29,
-      "sent": 81,
-      "words": 81,
-      "cefr": "C1",
-      "band": "중3 초과"
-    },
-    {
-      "source": "nasa",
       "title": "The Galaxy with Shells",
       "fk": 2.54,
       "sent": 7.1,
       "words": 100,
       "cefr": null,
       "band": "초3~4"
-    },
-    {
-      "source": "nasa",
-      "title": "Two Kinds of Coast",
-      "fk": 1.53,
-      "sent": 6.5,
-      "words": 98,
-      "cefr": null,
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Can and Can't",
-      "fk": -1.12,
-      "sent": 5.8,
-      "words": 58,
-      "cefr": "A2",
-      "band": "초3 미만"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Piggy Wants to Fly",
-      "fk": 0.24,
-      "sent": 5.8,
-      "words": 87,
-      "cefr": "A2",
-      "band": "초3 미만"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Weather Report",
-      "fk": 2.76,
-      "sent": 4,
-      "words": 52,
-      "cefr": "A2",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Bee and the Elephant",
-      "fk": 0.37,
-      "sent": 4.2,
-      "words": 79,
-      "cefr": "A2",
-      "band": "초3 미만"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Who Is Our Friend?",
-      "fk": 0.21,
-      "sent": 6.3,
-      "words": 107,
-      "cefr": "A1",
-      "band": "초3 미만"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Anand",
-      "fk": 2.08,
-      "sent": 5.5,
-      "words": 82,
-      "cefr": "A2",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Race",
-      "fk": 1.18,
-      "sent": 4.9,
-      "words": 54,
-      "cefr": "A2",
-      "band": "초3 미만"
     },
     {
       "source": "storyweaver",
@@ -2578,12 +4574,12 @@
     },
     {
       "source": "storyweaver",
-      "title": "The Little Leaf",
-      "fk": 5.18,
-      "sent": 18.4,
-      "words": 92,
-      "cefr": "A2",
-      "band": "초5~6"
+      "title": "Rani's First Day at School",
+      "fk": 0.57,
+      "sent": 5.3,
+      "words": 181,
+      "cefr": "A1",
+      "band": "초3 미만"
     },
     {
       "source": "storyweaver",
@@ -2596,39 +4592,12 @@
     },
     {
       "source": "storyweaver",
-      "title": "The Mango Tree",
-      "fk": 0.54,
-      "sent": 6.3,
-      "words": 75,
-      "cefr": "A2",
-      "band": "초3 미만"
-    },
-    {
-      "source": "storyweaver",
-      "title": "My Sister and Me",
-      "fk": 0.71,
-      "sent": 6.4,
-      "words": 70,
-      "cefr": "A1",
-      "band": "초3 미만"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Bed-Time Stories",
-      "fk": 3.34,
-      "sent": 7.8,
-      "words": 78,
+      "title": "Busy Ants",
+      "fk": 2.54,
+      "sent": 9.6,
+      "words": 192,
       "cefr": "A2",
       "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "My Brother and Me",
-      "fk": -0.19,
-      "sent": 3.4,
-      "words": 99,
-      "cefr": "A1",
-      "band": "초3 미만"
     },
     {
       "source": "storyweaver",
@@ -2650,15 +4619,6 @@
     },
     {
       "source": "storyweaver",
-      "title": "Ting Tong",
-      "fk": 2.17,
-      "sent": 8.8,
-      "words": 79,
-      "cefr": "B1",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
       "title": "Watch Out! The Tiger is Here!",
       "fk": 2.25,
       "sent": 3.8,
@@ -2668,12 +4628,12 @@
     },
     {
       "source": "storyweaver",
-      "title": "More or Less? Need to Guess! (앞부분 발췌)",
-      "fk": 4.13,
-      "sent": 7.8,
-      "words": 70,
-      "cefr": "A2",
-      "band": "초5~6"
+      "title": "Too Big! Too Small!",
+      "fk": 2.49,
+      "sent": 10.5,
+      "words": 199,
+      "cefr": "A1",
+      "band": "초3~4"
     },
     {
       "source": "storyweaver",
@@ -2713,6 +4673,15 @@
     },
     {
       "source": "storyweaver",
+      "title": "Little Painters",
+      "fk": 1.04,
+      "sent": 7.3,
+      "words": 198,
+      "cefr": "A2",
+      "band": "초3 미만"
+    },
+    {
+      "source": "storyweaver",
       "title": "The Moon and The Cap",
       "fk": 0.98,
       "sent": 7.2,
@@ -2722,12 +4691,12 @@
     },
     {
       "source": "storyweaver",
-      "title": "Food Monster",
-      "fk": 3.41,
-      "sent": 6.9,
-      "words": 97,
-      "cefr": "B1",
-      "band": "초3~4"
+      "title": "Scratch! Scratch! Scratch!",
+      "fk": 1.2,
+      "sent": 3,
+      "words": 185,
+      "cefr": "B2",
+      "band": "초3 미만"
     },
     {
       "source": "storyweaver",
@@ -2767,38 +4736,11 @@
     },
     {
       "source": "storyweaver",
-      "title": "Gul in Space (9쪽부터 발췌)",
-      "fk": 3.89,
-      "sent": 16.7,
-      "words": 50,
-      "cefr": "A2",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "When I Grow Up (3쪽부터 발췌)",
-      "fk": 3.86,
-      "sent": 10.5,
-      "words": 63,
-      "cefr": "B1",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
       "title": "How Many?",
       "fk": 1.6,
       "sent": 8,
       "words": 104,
       "cefr": "B1",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "How Do Aeroplanes Fly? (앞부분 발췌)",
-      "fk": 3.77,
-      "sent": 12.4,
-      "words": 87,
-      "cefr": "A1",
       "band": "초3~4"
     },
     {
@@ -2821,15 +4763,6 @@
     },
     {
       "source": "storyweaver",
-      "title": "My Friends",
-      "fk": -1.25,
-      "sent": 4.3,
-      "words": 69,
-      "cefr": "A1",
-      "band": "초3 미만"
-    },
-    {
-      "source": "storyweaver",
       "title": "The Boy and the Drum (2쪽부터 발췌)",
       "fk": 5.18,
       "sent": 14.9,
@@ -2839,10 +4772,28 @@
     },
     {
       "source": "storyweaver",
+      "title": "The Lion's Howdah",
+      "fk": 3.13,
+      "sent": 9.1,
+      "words": 181,
+      "cefr": "B1",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
       "title": "Gappu Can't Dance",
       "fk": 2.11,
       "sent": 5.2,
       "words": 155,
+      "cefr": "A2",
+      "band": "초3~4"
+    },
+    {
+      "source": "storyweaver",
+      "title": "My fish! No, my fish!",
+      "fk": 1.9,
+      "sent": 7.5,
+      "words": 187,
       "cefr": "A2",
       "band": "초3~4"
     },
@@ -2857,11 +4808,11 @@
     },
     {
       "source": "storyweaver",
-      "title": "What happened to the shawl? (앞부분 발췌)",
-      "fk": 3.7,
-      "sent": 10.8,
-      "words": 54,
-      "cefr": "B1",
+      "title": "The Picnic",
+      "fk": 2.41,
+      "sent": 9,
+      "words": 180,
+      "cefr": "A2",
       "band": "초3~4"
     },
     {
@@ -2884,92 +4835,11 @@
     },
     {
       "source": "storyweaver",
-      "title": "The Tiffin Gang (2쪽부터 발췌)",
-      "fk": 3.7,
-      "sent": 6.9,
-      "words": 103,
-      "cefr": "B2",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
       "title": "Puchku Seeks a Song (2쪽부터 발췌)",
       "fk": 4.34,
       "sent": 11.4,
       "words": 103,
       "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "I Can Make Things!",
-      "fk": -0.26,
-      "sent": 6.1,
-      "words": 91,
-      "cefr": "A1",
-      "band": "초3 미만"
-    },
-    {
-      "source": "storyweaver",
-      "title": "I Can Climb!",
-      "fk": 0.38,
-      "sent": 5.9,
-      "words": 89,
-      "cefr": "A1",
-      "band": "초3 미만"
-    },
-    {
-      "source": "storyweaver",
-      "title": "One by Two (앞부분 발췌)",
-      "fk": 4.31,
-      "sent": 4.7,
-      "words": 66,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "I Love Me (앞부분 발췌)",
-      "fk": 4.13,
-      "sent": 14.3,
-      "words": 86,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Same-same or Different? (13쪽부터 발췌)",
-      "fk": 3.58,
-      "sent": 7,
-      "words": 84,
-      "cefr": "B1",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Elephant Bird (2쪽부터 발췌)",
-      "fk": 4.46,
-      "sent": 13,
-      "words": 78,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "the novel coronavirus we can stay safe (9쪽부터 발췌)",
-      "fk": 4.5,
-      "sent": 13.8,
-      "words": 69,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Annual Haircut Day - ONCE AGAIN! (앞부분 발췌)",
-      "fk": 4.83,
-      "sent": 12.2,
-      "words": 73,
-      "cefr": "A2",
       "band": "초5~6"
     },
     {
@@ -2992,51 +4862,6 @@
     },
     {
       "source": "storyweaver",
-      "title": "Anna's Extraordinary Experiments with Weather (앞부분 발췌)",
-      "fk": 3.65,
-      "sent": 6.5,
-      "words": 84,
-      "cefr": "A2",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Welcome to the Forest (앞부분 발췌)",
-      "fk": 4.81,
-      "sent": 10.3,
-      "words": 72,
-      "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Time-Travelling River (앞부분 발췌)",
-      "fk": 4.8,
-      "sent": 10.4,
-      "words": 73,
-      "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Many Mangoes to Share (앞부분 발췌)",
-      "fk": 4.25,
-      "sent": 10.8,
-      "words": 65,
-      "cefr": "B2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Grand Patch-up (앞부분 발췌)",
-      "fk": 4.32,
-      "sent": 8.3,
-      "words": 58,
-      "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
       "title": "The Birthday Menu (3쪽부터 발췌)",
       "fk": 5.43,
       "sent": 11.1,
@@ -3055,200 +4880,11 @@
     },
     {
       "source": "storyweaver",
-      "title": "The Bone Puzzle (앞부분 발췌)",
-      "fk": 4.1,
-      "sent": 8.4,
-      "words": 59,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Password, please? (앞부분 발췌)",
-      "fk": 5.17,
-      "sent": 12.3,
-      "words": 74,
-      "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Wailers Three - A Folktale From China (앞부분 발췌)",
-      "fk": 4.11,
-      "sent": 12.9,
-      "words": 90,
-      "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Laddoo Code (앞부분 발췌)",
-      "fk": 3.56,
-      "sent": 5.8,
-      "words": 58,
-      "cefr": "A2",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Best House of All (앞부분 발췌)",
-      "fk": 5.01,
-      "sent": 11,
-      "words": 55,
-      "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Unni's Wish (앞부분 발췌)",
-      "fk": 4.17,
-      "sent": 10.3,
-      "words": 93,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Power of One (앞부분 발췌)",
-      "fk": 4.62,
-      "sent": 8.3,
-      "words": 91,
-      "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Right Way School (앞부분 발췌)",
-      "fk": 4.16,
-      "sent": 14.8,
-      "words": 59,
-      "cefr": "A1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Goplu's Train Ride (앞부분 발췌)",
-      "fk": 4.6,
-      "sent": 8,
-      "words": 56,
-      "cefr": "A1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Whoop, Goes the Pufferfish (앞부분 발췌)",
-      "fk": 3.51,
-      "sent": 7.3,
-      "words": 58,
-      "cefr": "B1",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
       "title": "Kottavi Raja and his Sleepy Kingdom (앞부분 발췌)",
       "fk": 4.6,
       "sent": 8.2,
       "words": 107,
       "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Hakeem's Hiccups (앞부분 발췌)",
-      "fk": 5.23,
-      "sent": 12.4,
-      "words": 62,
-      "cefr": "B2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Little Bird in the Big Mountains (앞부분 발췌)",
-      "fk": 4.63,
-      "sent": 12,
-      "words": 60,
-      "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Night the Moon Went Missing (8쪽부터 발췌)",
-      "fk": 3.64,
-      "sent": 14,
-      "words": 84,
-      "cefr": "A1",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Animals Meeting (5쪽부터 발췌)",
-      "fk": 5.03,
-      "sent": 10.4,
-      "words": 52,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "A Book for Puchku (17쪽부터 발췌)",
-      "fk": 4.31,
-      "sent": 15.8,
-      "words": 79,
-      "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Beauty Is Missing (4쪽부터 발췌)",
-      "fk": 4.97,
-      "sent": 6.6,
-      "words": 59,
-      "cefr": "B2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Fire! Fire! (2쪽부터 발췌)",
-      "fk": 5.4,
-      "sent": 10.8,
-      "words": 97,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Magic Mirror (3쪽부터 발췌)",
-      "fk": 4.43,
-      "sent": 18.3,
-      "words": 55,
-      "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Sweet Sunday (2쪽부터 발췌)",
-      "fk": 3.91,
-      "sent": 9.9,
-      "words": 89,
-      "cefr": "B2",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Teaching Pa (앞부분 발췌)",
-      "fk": 4.09,
-      "sent": 7.8,
-      "words": 78,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Magical Glasses (2쪽부터 발췌)",
-      "fk": 4.51,
-      "sent": 12.2,
-      "words": 73,
-      "cefr": "A2",
       "band": "초5~6"
     },
     {
@@ -3262,92 +4898,11 @@
     },
     {
       "source": "storyweaver",
-      "title": "Whale in the Sky (앞부분 발췌)",
-      "fk": 3.9,
-      "sent": 10.4,
-      "words": 52,
-      "cefr": "B1",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Let's Go Seed Collecting! (5쪽부터 발췌)",
-      "fk": 5.01,
-      "sent": 15,
-      "words": 60,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Have You Ever Climbed a Tree? (5쪽부터 발췌)",
-      "fk": 3.97,
-      "sent": 12.8,
-      "words": 64,
-      "cefr": "B1",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Shoecat Thoocat (5쪽부터 발췌)",
-      "fk": 3.99,
-      "sent": 7.5,
-      "words": 83,
-      "cefr": "B2",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Shiro's Friends Save the Day (앞부분 발췌)",
-      "fk": 5.17,
-      "sent": 9.4,
-      "words": 85,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "City of Stories (앞부분 발췌)",
-      "fk": 3.89,
-      "sent": 10.2,
-      "words": 51,
-      "cefr": "A1",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
       "title": "Sailing Ships and Sinking Spoons (앞부분 발췌)",
       "fk": 4.39,
       "sent": 10.5,
       "words": 115,
       "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Auto That Flew (앞부분 발췌)",
-      "fk": 5.49,
-      "sent": 9,
-      "words": 45,
-      "cefr": "B2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Sunshower Song (앞부분 발췌)",
-      "fk": 4.05,
-      "sent": 11.3,
-      "words": 79,
-      "cefr": "A2",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "DIVE! (5쪽부터 발췌)",
-      "fk": 5.15,
-      "sent": 16,
-      "words": 48,
-      "cefr": "B1",
       "band": "초5~6"
     },
     {
@@ -3358,60 +4913,6 @@
       "words": 112,
       "cefr": "A2",
       "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Stage Fright (3쪽부터 발췌)",
-      "fk": 3.55,
-      "sent": 8.3,
-      "words": 75,
-      "cefr": "A2",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Seed Savers (8쪽부터 발췌)",
-      "fk": 3.74,
-      "sent": 11.2,
-      "words": 67,
-      "cefr": "A2",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "How Far is Far? (2쪽부터 발췌)",
-      "fk": 5.45,
-      "sent": 16.3,
-      "words": 65,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Weightlifting Princess (앞부분 발췌)",
-      "fk": 4.73,
-      "sent": 8.7,
-      "words": 78,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "storyweaver",
-      "title": "Savio Finds the Right Angle (3쪽부터 발췌)",
-      "fk": 3.59,
-      "sent": 8.3,
-      "words": 91,
-      "cefr": "B1",
-      "band": "초3~4"
-    },
-    {
-      "source": "storyweaver",
-      "title": "The Girl Who Could Not Stop Laughing (앞부분 발췌)",
-      "fk": 4.72,
-      "sent": 7,
-      "words": 49,
-      "cefr": "B1",
-      "band": "초5~6"
     },
     {
       "source": "storyweaver",
@@ -3432,22 +4933,22 @@
       "band": "초5~6"
     },
     {
-      "source": "storyweaver",
-      "title": "Ammachi's Incredible Investigation (앞부분 발췌)",
-      "fk": 4.49,
-      "sent": 8,
-      "words": 48,
+      "source": "space_place",
+      "title": "How Do We Launch Things Into Space? (앞부분 발췌)",
+      "fk": 6.99,
+      "sent": 14,
+      "words": 182,
       "cefr": "B2",
-      "band": "초5~6"
+      "band": "초6~중1"
     },
     {
-      "source": "storyweaver",
-      "title": "Making Friends with Snakes (But from a Distance) (9쪽부터 발췌)",
-      "fk": 3.78,
-      "sent": 7.3,
-      "words": 87,
+      "source": "space_place",
+      "title": "All About Earth (앞부분 발췌)",
+      "fk": 6.55,
+      "sent": 11.4,
+      "words": 182,
       "cefr": "B1",
-      "band": "초3~4"
+      "band": "초6~중1"
     },
     {
       "source": "space_place",
@@ -3455,15 +4956,6 @@
       "fk": 5.31,
       "sent": 10.5,
       "words": 116,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "space_place",
-      "title": "All About Mars (앞부분 발췌)",
-      "fk": 5.18,
-      "sent": 9.1,
-      "words": 100,
       "cefr": "B1",
       "band": "초5~6"
     },
@@ -3532,6 +5024,15 @@
     },
     {
       "source": "space_place",
+      "title": "What's It Like Inside Jupiter? (앞부분 발췌)",
+      "fk": 6.21,
+      "sent": 12.6,
+      "words": 176,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
       "title": "How Far Away Is the Moon? (앞부분 발췌)",
       "fk": 4.85,
       "sent": 9.2,
@@ -3595,15 +5096,6 @@
     },
     {
       "source": "space_place",
-      "title": "Why does Saturn have rings? (5문단부터 발췌)",
-      "fk": 5.38,
-      "sent": 11.1,
-      "words": 100,
-      "cefr": "B1",
-      "band": "초5~6"
-    },
-    {
-      "source": "space_place",
       "title": "How Far Away Is the Moon? (5문단부터 발췌)",
       "fk": 7.68,
       "sent": 19.7,
@@ -3628,6 +5120,15 @@
       "words": 106,
       "cefr": "A2",
       "band": "중1~2"
+    },
+    {
+      "source": "space_place",
+      "title": "How Much Water Is on Earth? (앞부분 발췌)",
+      "fk": 3.97,
+      "sent": 10.3,
+      "words": 196,
+      "cefr": "B1",
+      "band": "초3~4"
     },
     {
       "source": "space_place",
@@ -3676,6 +5177,15 @@
     },
     {
       "source": "space_place",
+      "title": "Where Does the Sun's Energy Come From? (4문단부터 발췌)",
+      "fk": 6.67,
+      "sent": 14.2,
+      "words": 184,
+      "cefr": "B2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
       "title": "All About the Sun (9문단부터 발췌)",
       "fk": 6.74,
       "sent": 16.6,
@@ -3700,6 +5210,15 @@
       "words": 122,
       "cefr": "B1",
       "band": "중1~2"
+    },
+    {
+      "source": "space_place",
+      "title": "All About Venus (4문단부터 발췌)",
+      "fk": 3.99,
+      "sent": 11.6,
+      "words": 174,
+      "cefr": "A2",
+      "band": "초3~4"
     },
     {
       "source": "space_place",
@@ -3757,6 +5276,15 @@
     },
     {
       "source": "space_place",
+      "title": "Lunar Eclipses and Solar Eclipses (2문단부터 발췌)",
+      "fk": 6.57,
+      "sent": 12.4,
+      "words": 186,
+      "cefr": "B2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
       "title": "What Is a Solar Eclipse? (앞부분 발췌)",
       "fk": 4.24,
       "sent": 10.5,
@@ -3793,6 +5321,15 @@
     },
     {
       "source": "space_place",
+      "title": "Get your Gummy Greenhouse Gases! (앞부분 발췌)",
+      "fk": 6.56,
+      "sent": 12.6,
+      "words": 189,
+      "cefr": "B1",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
       "title": "Make a Pastel Aurora!",
       "fk": 5.87,
       "sent": 10.9,
@@ -3820,6 +5357,15 @@
     },
     {
       "source": "space_place",
+      "title": "Write your own zany adventure story!",
+      "fk": 5.51,
+      "sent": 13.9,
+      "words": 194,
+      "cefr": "A2",
+      "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
       "title": "How Far Away Is the Moon? (앞부분 발췌)",
       "fk": 3.64,
       "sent": 7.5,
@@ -3835,6 +5381,24 @@
       "words": 169,
       "cefr": "A2",
       "band": "초6~중1"
+    },
+    {
+      "source": "space_place",
+      "title": "How Many Solar Systems Are in Our Galaxy? (4문단부터 발췌)",
+      "fk": 8.17,
+      "sent": 17.4,
+      "words": 191,
+      "cefr": "B2",
+      "band": "중1~2"
+    },
+    {
+      "source": "original",
+      "title": "The Form the Material Chose",
+      "fk": 7.7,
+      "sent": 16.3,
+      "words": 196,
+      "cefr": "B1",
+      "band": "중1~2"
     },
     {
       "source": "futurity",
@@ -3853,6 +5417,15 @@
       "words": 164,
       "cefr": "C1",
       "band": "중3"
+    },
+    {
+      "source": "original",
+      "title": "The Small Shelf We Carry",
+      "fk": 7.89,
+      "sent": 17.5,
+      "words": 175,
+      "cefr": "B1",
+      "band": "중1~2"
     }
   ]
 }

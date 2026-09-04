@@ -109,13 +109,17 @@ const db = createClient(
   { auth: { persistSession: false } }
 )
 
-const market = JSON.parse(
-  fs.readFileSync(path.resolve('packages/library-pipeline/src/textbook/market-spec.json'), 'utf8')
-).passageWords
-const WIN = {
-  min: Math.min(...['초6', '중1', '중2', '중3'].map((k) => market[k].words.p10)),
-  max: Math.max(...['초6', '중1', '중2', '중3'].map((k) => market[k].words.p90)),
-}
+/**
+ * ⚠️ `market-spec.json` 의 학년별 창은 **여기서 쓰지 않는다.**
+ *
+ * 예전엔 그 창(초6 44~121 · 중1 46~154)의 합집합 42~173어로 조회했다. 그런데 그 값은
+ * 쪽에서 영문 덩어리를 찾아내는 검출기 산출이라 직독직해 조각이 섞여 하한이 40어대다 —
+ * **출판사가 인쇄한 어수는 최소 97어이고 한 건도 그 밑이 없다**
+ * (`docs/reports/passage-length-recheck-20260903.md`).
+ *
+ * 그 창으로 조회하면 두 방향으로 틀린다: 시중에 없는 짧은 글(62어)이 들어오고,
+ * 시중 규격의 긴 지문(174~198어)은 **조회에서부터 빠진다.**
+ */
 
 /**
  * **2022 개정 교육과정 기본어휘 별표 — 자는 패키지가 소유한다.**
@@ -132,17 +136,30 @@ const { curriculumFit, CURRICULUM_SPEC } = await import(
 )
 
 /**
- * FK 밴드 → 시중 어수창(`market-spec.json`) 버킷 · 학교급.
+ * **지문 어수 창의 정본** — 출판사가 인쇄한 어수 실측(n=59 · 최소 97 · 중앙 132 · 최대 198).
  *
- * 초등 버킷은 코퍼스에 `초6` 하나뿐이라 초등 세 밴드가 그것을 함께 쓴다 —
- * **빌려 온 것이므로 빌렸다고 적는다**(`level-chart.ts` 의 `BORROWED` 와 같은 원칙).
+ * ⚠️ `market-spec.json` 의 학년별 창(초6 44~121 · 중1 46~154)을 쓰면 안 된다.
+ *   그쪽은 쪽에서 영문 덩어리를 찾아내는 검출기 산출이라 직독직해 조각이 섞여
+ *   **하한이 40어대**다 — 시중이 97어 밑을 한 건도 선언하지 않는데도 그렇다.
+ *   그 창으로 재면 시중 규격 지문(132어)이 떨어지고 시중에 없는 짧은 글이 통과한다.
+ */
+const { PASSAGE_WORDS } = await import(
+  '../../packages/library-pipeline/src/textbook/readability.ts'
+)
+/** 조회 창 = 지문 어수 창. 둘을 다르게 두면 재는 모집단과 판정 기준이 어긋난다. */
+const WIN = PASSAGE_WORDS
+
+/**
+ * FK 밴드 → 학교급. 어휘 문턱이 학교급마다 다르므로(초등 43.3% · 중등 44.0%) 어느 자를
+ * 댈지 여기서 정한다. **어수창은 밴드로 갈리지 않는다** — 시중 선언 어수를 학년대로 갈라
+ * 보면 중1~중3 한 밴드가 97~198어로 전체 범위와 같다(`readability.PASSAGE_WORDS` 머리말).
  */
 const BAND_SPEC = {
-  '초3~4': { bucket: '초6', school: 'elementary', borrowed: true },
-  '초5~6': { bucket: '초6', school: 'elementary', borrowed: true },
-  '초6~중1': { bucket: '초6', school: 'elementary', borrowed: true },
-  '중1~2': { bucket: '중1', school: 'middle', borrowed: false },
-  중3: { bucket: '중3', school: 'middle', borrowed: false },
+  '초3~4': { school: 'elementary' },
+  '초5~6': { school: 'elementary' },
+  '초6~중1': { school: 'elementary' },
+  '중1~2': { school: 'middle' },
+  중3: { school: 'middle' },
 }
 
 const { data: rows, error } = await db
@@ -170,12 +187,12 @@ for (const r of rows) {
   if (!m) continue
   const band = bandOf(m.fk)
   const spec = BAND_SPEC[band] ?? null
-  const win = spec ? market[spec.bucket].words : null
+  const win = spec ? PASSAGE_WORDS : null
   const fit = spec ? curriculumFit(r.content ?? '', spec.school) : null
 
   const failed = []
   if (!spec) failed.push('밴드밖')
-  if (win && (m.words < win.p10 || m.words > win.p90)) failed.push('어수창')
+  if (win && (m.words < win.min || m.words > win.max)) failed.push('어수창')
   if (fit && !fit.pass) failed.push('어휘')
   if (spec && !fit) failed.push('어휘못잼')
 
@@ -263,7 +280,7 @@ for (const id of ORDER) {
   const b = BANDS.find((x) => x.id === id)
   const list = scored.filter((s) => s.band === id)
   const spec = BAND_SPEC[id] ?? null
-  const win = spec ? market[spec.bucket].words : null
+  const win = spec ? PASSAGE_WORDS : null
   const inWin = list.filter((s) => !s.failed.includes('어수창'))
   const fit = list.filter((s) => s.fits)
   fitTotal += fit.length
@@ -271,7 +288,7 @@ for (const id of ORDER) {
   console.log(
     pad(id, 12) +
       lp(b ? `${b.min}~${b.max}` : '—', 11) +
-      lp(win ? `${win.p10}~${win.p90}` : '—', 11) +
+      lp(win ? `${win.min}~${win.max}` : '—', 11) +
       lp(list.length, 8) +
       lp(spec ? inWin.length : '—', 7) +
       lp(spec ? fit.length : '—', 11) +
@@ -321,8 +338,7 @@ const report = {
       marketPercentileMedian: spec
         ? med(list.filter((s) => s.fits).map((s) => s.pctile).filter((x) => x != null))
         : null,
-      wordWindow: spec ? market[spec.bucket].words : null,
-      borrowedWindow: spec?.borrowed ?? null,
+      wordWindow: spec ? PASSAGE_WORDS : null,
     }
   }),
   fitTotal,
