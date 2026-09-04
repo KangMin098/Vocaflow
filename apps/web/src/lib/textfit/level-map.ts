@@ -22,7 +22,7 @@
 
 import 'server-only'
 
-import { chunkedRpc } from '@/lib/supabase/paged-select'
+import { chunkedRpc, pagedSelectIn } from '@/lib/supabase/paged-select'
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
@@ -54,6 +54,8 @@ interface CachedMap {
   pages: number
   /** 실제로 읽은 행 수 — 기대치와 다르면 조기 종료를 의심한다 */
   rowsRead: number
+  /**  상한에서 끝났는가 — true 면 맵이 잘려 있고 커버리지가 낮게 나온다 */
+  truncated: boolean
 }
 
 let cache: CachedMap | null = null
@@ -123,7 +125,27 @@ async function load(): Promise<CachedMap> {
     pages += 1
   }
 
-  return { levels, loadedAt: Date.now(), loadMs: Date.now() - started, pages, rowsRead }
+  // ⚠️ **상한에 걸려 끝난 경우 맵은 잘려 있다.** 잘린 맵은 오류 없이 틀린 답을 준다 —
+  //    빠진 낱말이 '미지어' 로 세어져 `/fit` 의 커버리지가 실제보다 낮게 나온다.
+  //    2026-09-04 실측: anon 가시 `shared_words` **656,257행** · PostgREST 페이지 1,000행 고정
+  //    → 왕복 200회 · **콜드 88초** 만에 MAX_ROWS(200,000)에서 멈춘다. 즉 이 경로는 **상시 잘린다.**
+  //    (파일 상단의 "18,271 표제어 · 200 KB · 콜드 2.7s" 는 2026-08-17 값이고 낡았다.)
+  //    던지지는 않는다 — 던지면 `/fit` 이 통째로 죽는다. 대신 반드시 남긴다.
+  if (rowsRead >= MAX_ROWS) {
+    console.error(
+      `[textfit] ⚠️ 레벨 맵이 상한에서 잘렸다 — MAX_ROWS ${MAX_ROWS} 도달(표제어 ${levels.size}). ` +
+        `빠진 낱말이 미지어로 세어져 커버리지가 실제보다 낮게 나온다.`,
+    )
+  }
+
+  return {
+    levels,
+    loadedAt: Date.now(),
+    loadMs: Date.now() - started,
+    pages,
+    rowsRead,
+    truncated: rowsRead >= MAX_ROWS,
+  }
 }
 
 /**
@@ -175,6 +197,54 @@ export function levelMapStats(): {
 export function resetLevelMap(): void {
   cache = null
   inflight = null
+}
+
+/**
+ * **표적 조회** — 후보 몇십 개의 레벨만 가져온다. 전체 맵을 올리지 않는다.
+ *
+ * 왜 따로 필요한가 (2026-09-04 실측):
+ *   `getLevelMap()` 은 anon 가시 `shared_words` **656,257행**을 전부 훑는다. PostgREST 가
+ *   페이지를 1,000행으로 깎으므로 왕복 200회 · **콜드 88초**가 걸리고, 그나마 `MAX_ROWS`
+ *   200,000 에서 멈춘다(파일 상단 주석의 "18,271 표제어 · 200 KB · 콜드 2.7s" 는 낡았다).
+ *   지문 하나를 임의로 받는 `/fit` 은 그 설계가 여전히 말이 되지만, **낱말이 정해져 있는
+ *   호출자**(랜딩 히어로 데모)가 그 비용을 물면 첫 화면이 88초 동안 비어 있게 된다.
+ *   → 후보가 수십 개로 정해진 경우에는 그 낱말만 묻는다. 왕복 1~2회.
+ *
+ * `lemma` 가 20% NULL 이라 `word` 로도 한 번 더 묻는다 — `getLevelMap()` 의 폴백과 같은 규칙.
+ * 같은 표제어가 여러 세트에 있으면 **가장 낮은 레벨**을 남긴다(전체 맵과 같은 기준).
+ */
+export async function loadLevelsFor(candidates: readonly string[]): Promise<Map<string, number>> {
+  const levels = new Map<string, number>()
+  if (candidates.length === 0) return levels
+
+  const supabase = anonClient()
+  const keys = [...new Set(candidates.map((c) => c.trim().toLowerCase()).filter(Boolean))]
+
+  const put = (key: string | null, vLevel: number | null) => {
+    const k = (key ?? '').trim().toLowerCase()
+    if (!k || vLevel === null) return
+    const prev = levels.get(k)
+    if (prev === undefined || vLevel < prev) levels.set(k, vLevel)
+  }
+
+  type Row = { word: string | null; lemma: string | null; v_level: number | null }
+
+  for (const column of ['lemma', 'word'] as const) {
+    const rows = await pagedSelectIn<Row>(
+      keys,
+      (chunk, from, to) =>
+        supabase
+          .from('shared_words')
+          .select('word, lemma, v_level')
+          .not('v_level', 'is', null)
+          .in(column, chunk)
+          .range(from, to),
+      `shared_words.${column} 레벨 표적 조회`,
+    )
+    for (const row of rows) put(column === 'lemma' ? row.lemma : row.word, row.v_level)
+  }
+
+  return levels
 }
 
 /**

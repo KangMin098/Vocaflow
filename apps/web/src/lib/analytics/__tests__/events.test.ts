@@ -102,6 +102,10 @@ describe('허용 이벤트 목록', () => {
     'landing_cta_clicked',
     'catalog_viewed',
     'volume_previewed',
+    // 2026-09-04 — 랜딩 **내부** 관측 2종. 그전까지 랜딩은 들어옴/나감 두 끝점만 셌고,
+    // 그 사이 이탈은 셀 수 없었다. 둘 다 속성이 숫자·닫힌 열거형이라 지문이 샐 자리가 없다.
+    'landing_demo_moved',
+    'landing_section_reached',
   ]
 
   it('정의된 이벤트가 모두 허용 목록에 있다 — 빠지면 조용히 버려진다', () => {

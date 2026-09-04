@@ -86,6 +86,24 @@ export type PublicEvent =
    * 지금은 그 질문에 아무도 답할 수 없다.
    */
   | { name: 'volume_previewed'; props: { step: number | null; hasCover: boolean } }
+  /**
+   * 히어로 데모의 레벨 슬라이더를 움직였다 — **랜딩 안에서 처음으로 셀 수 있는 행동.**
+   *
+   * 지금까지 랜딩은 `landing_viewed`(들어옴)와 `landing_cta_clicked`(나감) 두 끝점만 셌다.
+   * 그 사이가 비어 있으면 이탈이 **어디서** 나는지 영원히 모른다 — "왔다 갔다" 만 안다.
+   * 이 이벤트가 있으면 세 부류가 갈린다: 만져 보지도 않고 나간 사람 / 만져 보고 나간 사람 /
+   * 만져 보고 다음으로 간 사람. 증명(§🎯 I3)이 실제로 작동하는지의 유일한 관측이다.
+   *
+   * ⚠️ 드래그마다 보내지 않는다 — 화면이 600ms 디바운스한다.
+   */
+  | { name: 'landing_demo_moved'; props: { level: LevelValue } }
+  /**
+   * 랜딩의 한 구획까지 스크롤이 닿았다 — **이탈 깊이**.
+   *
+   * 구획 이름은 닫힌 열거형이다(자유 문자열 금지 — 이 파일의 계약). 구획을 늘리거나
+   * 이름을 바꾸면 여기도 같은 커밋에서 바꾼다. 안 그러면 `track()` 이 조용히 버린다.
+   */
+  | { name: 'landing_section_reached'; props: { section: 'demo' | 'differentiators' | 'doors' } }
 
 export type PublicEventName = PublicEvent['name']
 
@@ -114,6 +132,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   landing_cta_clicked: true,
   catalog_viewed: true,
   volume_previewed: true,
+  landing_demo_moved: true,
+  landing_section_reached: true,
 }
 
 export const ALLOWED_EVENTS: readonly PublicEventName[] = Object.keys(

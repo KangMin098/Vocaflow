@@ -15,16 +15,8 @@
 
 import { NextResponse } from 'next/server'
 
-import {
-  getLevelMap,
-  checkRealWords,
-  loadCurriculumMarks,
-  loadMeanings,
-} from '@/lib/textfit/level-map'
-import { summarizeCurriculum } from '@/lib/textfit/curriculum'
-import { collectCandidates } from '@/lib/textfit/inflect'
+import { analyzeCounts } from '@/lib/textfit/analyze'
 import { buildLevelProfile } from '@/lib/textfit/profile'
-import type { PublicWord } from '@/lib/textfit/profile'
 import {
   FIT_RATE_LIMIT,
   TokenBucketLimiter,
@@ -87,62 +79,14 @@ export async function POST(request: Request): Promise<NextResponse> {
       ? Math.min(Math.max(0, Math.floor(body.totalTokens)), MAX_TOTAL_TOKENS)
       : 0
 
-  const surfaces = Object.keys(counts)
-  if (surfaces.length === 0) {
+  if (Object.keys(counts).length === 0) {
     return NextResponse.json(buildLevelProfile([], totalTokens))
   }
 
   try {
-    const levels = await getLevelMap()
-    const { all, bySurface } = collectCandidates(surfaces)
-
-    // 레벨 맵에 없는 후보만 실재어 확인 대상 — 지문당 수십 개 수준이다.
-    const unleveled = all.filter((c) => !levels.has(c))
-    const realWords = await checkRealWords(unleveled)
-
-    // 표면형 → 표제어로 접으면서 빈도를 합산한다("allocate" 2 + "allocated" 3 = 5).
-    const merged = new Map<string, PublicWord>()
-    for (const [surface, count] of Object.entries(counts)) {
-      const cands = bySurface.get(surface) ?? [surface]
-      const lemma =
-        cands.find((c) => levels.has(c)) ?? cands.find((c) => realWords.has(c)) ?? surface
-      const vLevel = levels.get(lemma) ?? null
-      const status: PublicWord['status'] =
-        vLevel !== null ? 'leveled' : realWords.has(lemma) ? 'unleveled' : 'unresolved'
-
-      const prev = merged.get(lemma)
-      if (prev) prev.count += count
-      else merged.set(lemma, { surface, lemma, count, status, vLevel })
-    }
-
-    const profile = buildLevelProfile([...merged.values()], totalTokens)
-
-    // 가장 어려운 단어에만 뜻을 붙인다 — 교사가 결과를 그대로 가져가 쓸 수 있게.
-    // (전체에 붙이면 응답이 몇 배가 되는데 화면은 상위 24 개만 보여준다.)
-    const meanings = await loadMeanings(profile.hardestWords.map((w) => w.lemma))
-    for (const w of profile.hardestWords) w.meaningKo = meanings.get(w.lemma) ?? null
-
-    // ── 교육과정 기본 어휘 ──
-    //
-    // 교사가 행동하는 숫자는 "고1 92%" 가 아니라 **"교육과정 밖 낱말 12개"** 다.
-    // 그 목록은 교육부 고시로 공개돼 있고 교과서 검정이 그것으로 이뤄진다 —
-    // 설명이 필요 없는 유일한 축이다.
-    //
-    // `unresolved`(사전 어디에도 없는 토큰)는 세지 않는다. 고유명사·오탈자가 대부분이라
-    // 넣으면 `Prague` 같은 것이 "교육과정 밖 어휘" 로 잡혀 숫자가 부풀고,
-    // 그 사실은 이미 `breakdown.unresolved` 가 따로 말한다.
-    const contentLemmas = [...merged.values()]
-      .filter((w) => w.status !== 'unresolved')
-      .map((w) => w.lemma)
-    const marks = await loadCurriculumMarks(contentLemmas)
-
-    // `null` = 조회 실패. 이때는 **칸을 아예 만들지 않는다** — 빈 값을 넣으면
-    // 모든 낱말이 "밖" 으로 세어져 멀쩡한 지문에 거짓 경보가 나간다.
-    if (marks) {
-      profile.curriculum = summarizeCurriculum(contentLemmas, marks)
-      // 가장 어려운 낱말에는 밴드를 직접 붙인다 — 교사가 손댈 목록이 그것이다.
-      for (const w of profile.hardestWords) w.curriculumBand = marks.get(w.lemma)?.band ?? null
-    }
+    // 분석 코어는 랜딩 히어로와 공유한다(`lib/textfit/analyze.ts`).
+    // 여기 남는 것은 **외부 입력의 책임**뿐이다 — 한도·검증·응답 형태.
+    const { profile } = await analyzeCounts(counts, totalTokens)
 
     return NextResponse.json(profile, {
       headers: {

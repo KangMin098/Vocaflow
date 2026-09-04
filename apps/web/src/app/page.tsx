@@ -25,8 +25,11 @@ import { ArrowRight, BookOpen, GraduationCap, Sparkles } from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
+import { CoverageHero } from '@/components/marketing/CoverageHero'
 import { LandingCta } from '@/components/marketing/LandingCta'
+import { SectionBeacon } from '@/components/marketing/SectionBeacon'
 import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
+import { buildHeroDemo } from '@/lib/marketing/hero-demo'
 import { fetchTrustSignals } from '@/lib/marketing/trust-signals'
 
 export const metadata: Metadata = {
@@ -43,7 +46,7 @@ export const metadata: Metadata = {
 export const revalidate = 86400
 
 export default async function LandingPage() {
-  const signals = await fetchTrustSignals()
+  const [signals, demo] = await Promise.all([fetchTrustSignals(), buildHeroDemo()])
 
   return (
     <div className="flex min-h-screen flex-col bg-[var(--bg)] text-[var(--t1)]">
@@ -79,11 +82,15 @@ export default async function LandingPage() {
             계산해 드려요.
           </p>
 
+          {demo && <CoverageHero demo={demo} />}
+          {demo && <SectionBeacon section="demo" />}
+
           <LandingCta />
         </section>
 
         {/* ── 다른 점 — 후기가 아니라 검증 가능한 동작 ── */}
         <section aria-label="다른 점" className="border-y border-[var(--bd)] bg-[var(--bg2)]">
+          <SectionBeacon section="differentiators" />
           <div className="mx-auto grid max-w-5xl gap-5 px-6 py-12 md:grid-cols-3 md:py-16">
             {DIFFERENTIATORS.map((d) => (
               <article key={d.title} className="flex flex-col">
@@ -122,6 +129,7 @@ export default async function LandingPage() {
 
         {/* ── 두 갈래 문 — 읽을 것 / 가르칠 것 ── */}
         <section className="mx-auto max-w-5xl px-6 py-14 md:py-20">
+          <SectionBeacon section="doors" />
           <div className="grid gap-5 md:grid-cols-2">
             <DoorCard
               href="/library/books"
