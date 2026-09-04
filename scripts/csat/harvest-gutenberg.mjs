@@ -46,7 +46,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
 /** 인문 칸을 노린 검색 질의. 한 칸에 여러 질의를 두어 한쪽으로 쏠리지 않게 한다. */
 const QUERIES = {
-  '예술·문화': ['art history', 'music history', 'architecture essays', 'folklore customs', 'theatre history'],
+  // ⚠️ 질의 하나가 한 회에 25권만 준다(검색 한 쪽). 병목 칸은 질의 수가 곧 회당 수확량이다.
+  '예술·문화': ['art history', 'music history', 'architecture essays', 'folklore customs', 'theatre history', 'painting', 'sculpture', 'opera', 'musical instruments', 'ornament design', 'pottery ceramics', 'costume dress history', 'festivals ceremonies', 'engraving prints', 'cathedral art'],
   '역사·인류': ['ancient history', 'anthropology', 'medieval history', 'archaeology', 'travel exploration'],
   '철학·윤리': ['philosophy', 'ethics', 'logic essays', 'political philosophy', 'aesthetics'],
   '교육·언어': ['education', 'language essays', 'rhetoric', 'literary criticism', 'grammar history'],
