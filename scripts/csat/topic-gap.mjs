@@ -224,11 +224,13 @@ for (const [label, goal] of [['1단계', 10000], ['2단계', 30000], ['3단계',
 console.log()
 
 // ── ③ 소재를 실제로 정하는 것은 소스다 ────────────────────────────────
+// ⚠️ 블록 밖에서 리포트에 쓰이므로 여기서 선언한다 — 안에서 선언하면 `--out` 쓰기가
+//   `sourceRows is not defined` 로 죽고, 그러면 **파일이 조용히 안 갱신된다**(실측).
+const sourceRows = []
 if (bySource.size) {
 console.log('  ③ 소스별 소재 구성 — 어디서 가져오면 어떤 소재가 오는가 (표본 기준)')
 console.log('  ' + '-'.repeat(74))
 console.log('    ' + '소스'.padEnd(18) + '편수'.padStart(7) + TARGET_KEYS.map((k) => k.slice(0, 2).padStart(6)).join(''))
-const sourceRows = []
 for (const [src, t] of [...bySource].sort((a, b) => {
   const sa = TOPIC_KEYS.reduce((s, k) => s + a[1][k], 0)
   const sb = TOPIC_KEYS.reduce((s, k) => s + b[1][k], 0)

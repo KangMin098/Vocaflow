@@ -187,9 +187,18 @@ const done = fs.readdirSync(DIR).filter((f) => /^chunk-\d+\.out\.json$/.test(f))
 const doneNums = new Set(done.map((f) => f.match(/chunk-(\d+)/)[1]))
 const pending = existing.filter((f) => !doneNums.has(f.match(/chunk-(\d+)/)[1]))
 
-// 이미 채운 청크가 각 칸에 몇 편을 기여했는지 — 몫에서 뺀다.
+/**
+ * 채웠지만 **아직 적재 안 된** 청크가 각 칸에 기여할 몫 — 그만큼 미리 뺀다.
+ *
+ * ⚠️ **적재된 청크는 여기서 세면 안 된다.** `stock`(= `topic-gap.json`)이 이미 DB 를
+ *   세고 있으므로 두 번 세게 되고, 그러면 그 칸이 실제보다 찬 것으로 보여 **병목 순서가
+ *   어긋난다.** 실측 2026-09-03: 역사·인류가 195(실제)인데 195+22=217 로 세어져,
+ *   진짜 병목인 철학·윤리를 제치고 역사가 먼저 배분됐다.
+ *   import 가 적재 후 `chunk-NN.imported` 를 남기므로 그 표식으로 가른다.
+ */
 const filled = {}
 for (const f of done) {
+  if (fs.existsSync(path.join(DIR, f.replace('.out.json', '.imported')))) continue
   try {
     for (const it of JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))) {
       if ((it.content ?? '').trim().length > 400) filled[it.topic] = (filled[it.topic] ?? 0) + 1

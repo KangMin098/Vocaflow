@@ -242,7 +242,13 @@ for (const f of outs) {
   }))
   const { error } = await db.from('library_articles').insert(toWrite)
   if (error) failures.push(`${f}: 적재 실패 — ${error.message}`)
-  else inserted += toWrite.length
+  else {
+    inserted += toWrite.length
+    // ⚠️ **적재 표식을 남긴다.** export 가 「채웠지만 아직 안 들어간」 청크만 몫에서 빼야
+    //   하는데, 표식이 없으면 적재된 것까지 세어 그 칸이 실제보다 차 보이고 병목 순서가
+    //   어긋난다(실측 2026-09-03: 역사·인류 195 를 217 로 세어 철학·윤리를 제쳤다).
+    fs.writeFileSync(path.join(DIR, f.replace('.out.json', '.imported')), new Date().toISOString())
+  }
 }
 
 const pct = (a, b) => (b ? ((100 * a) / b).toFixed(0) : '0')
