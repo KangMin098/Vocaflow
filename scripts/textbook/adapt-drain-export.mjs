@@ -54,7 +54,11 @@ const DIR = path.resolve(
 )
 
 const { createClient } = await import('@supabase/supabase-js')
-const { GRADE_BANDS } = await import('@vocaflow/library-pipeline')
+const { AUTHORED_VOCAB_BAND, GRADE_BANDS } = await import('@vocaflow/library-pipeline')
+
+/** 각색문의 어휘 대역 — import 가 이 자로 채점하므로 export 도 같은 값을 실어야 한다. */
+const SCHOOL = BAND === 'elementary' ? 'elementary' : 'middle'
+const VOCAB_BAND = AUTHORED_VOCAB_BAND[SCHOOL]
 
 const spec = GRADE_BANDS[BAND]
 if (!spec) {
@@ -162,9 +166,20 @@ const already = new Set(
 )
 
 const excludeRegisters = REGISTER_EXCLUDE[BAND] ?? []
+/**
+ * ⚠️ **본문(`content`)을 여기서 끌어오지 않는다.**
+ *
+ * 예전엔 이 스캔이 각색 가능한 글 전부의 본문을 통째로 가져왔다. 그때는 재고가 6,600편이라
+ * 견뎠는데, 2026-09-04 에 PD 8,141편이 들어오면서 **statement timeout 으로 죽었다**
+ * (실측: `canceling statement due to statement timeout`). 재고가 늘수록 확실히 더 죽는다.
+ *
+ * 본문이 필요한 것은 **뽑힌 몇 편뿐**이다(청크의 `source_text`). 그래서 스캔은 메타만 읽고
+ * 본문은 뽑은 뒤에 그 id 로만 가져온다. 길이 조건은 `word_count` 로 거른다 —
+ * 같은 것을 본문 없이 물을 수 있다.
+ */
 const sources = await fetchAll(
   'library_articles',
-  'id, title, content, source, feed_label, license, license_class, article_v_level, word_count, source_url, register',
+  'id, title, source, feed_label, license, license_class, article_v_level, word_count, source_url, register',
   (q) => {
     let x = q
       .in('license_class', ADAPTABLE)
@@ -177,9 +192,10 @@ const sources = await fetchAll(
   },
 )
 
-const usable = sources.filter(
-  (r) => !already.has(r.id) && typeof r.content === 'string' && r.content.trim().split(/\s+/).length >= 120,
-)
+// 길이는 `word_count` 로 본다 — **본문을 안 읽고 같은 것을 묻는다.**
+// `word_count` 가 비어 있으면 거르지 않는다: 안 잰 것과 짧은 것은 다르다.
+//   (본문을 가져온 뒤 실제 길이로 한 번 더 거른다 — §아래)
+const usable = sources.filter((r) => !already.has(r.id) && (r.word_count == null || r.word_count >= 120))
 
 // 한 피드에 쏠리면 서가가 한 색이 된다 — 피드를 돌아가며 뽑는다.
 const byFeed = new Map()
@@ -213,9 +229,31 @@ for (let i = OFFSET; picked.length < LIMIT; i++) {
   if (!tookAny) break
 }
 
+// ── 본문은 **뽑힌 것만** 가져온다 ────────────────────────────────────
+// 스캔에서 본문을 빼 둔 대가를 여기서 치른다 — 대신 몇 편뿐이다.
+const bodyById = new Map()
+for (let i = 0; i < picked.length; i += 100) {
+  const ids = picked.slice(i, i + 100).map((r) => r.id)
+  const { data, error } = await db.from('library_articles').select('id, content').in('id', ids)
+  if (error) throw new Error('본문 조회 실패: ' + error.message)
+  for (const d of data) bodyById.set(d.id, d.content ?? '')
+}
+
+// 실제 길이로 한 번 더 거른다 — `word_count` 가 없거나 낡았을 수 있다.
+// **여기서 빠진 만큼 청크가 작아진다**(조용히 채워 넣지 않는다 — 그러면 몫이 어긋난다).
+const dropped = []
+const withBody = picked.filter((r) => {
+  const c = bodyById.get(r.id) ?? ''
+  const w = (c.match(/[A-Za-z][A-Za-z'-]*/g) || []).length
+  if (w < 120) { dropped.push({ id: r.id, words: w }); return false }
+  r.content = c
+  return true
+})
+if (dropped.length) console.log(`  · 본문이 120어 미만이라 뺀 원본 ${dropped.length}편`)
+
 fs.mkdirSync(DIR, { recursive: true })
 const chunks = []
-for (let i = 0; i < picked.length; i += SIZE) chunks.push(picked.slice(i, i + SIZE))
+for (let i = 0; i < withBody.length; i += SIZE) chunks.push(withBody.slice(i, i + SIZE))
 
 for (const [n, chunk] of chunks.entries()) {
   const rows = chunk.map((r) => ({
@@ -228,6 +266,15 @@ for (const [n, chunk] of chunks.entries()) {
     avg_sentence_words: spec.avgSentenceWords,
     directives: spec.directives,
     note: spec.note,
+    // **어휘 대역** — 이 청크를 채우는 사람이 숫자를 봐야 한 바퀴에 붙는다.
+    //   대역을 안 주고 "쉽게" 라고만 하면 시중보다 훨씬 쉬운 글이 나온다(실측: 시중 자리 16.9).
+    vocabulary_band: {
+      outside_pct_min: VOCAB_BAND.minOutsidePct,
+      outside_pct_max: VOCAB_BAND.maxOutsidePct,
+      how: '내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율',
+      why: '시중 ' + (SCHOOL === 'elementary' ? '초등' : '중등') + ' 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다',
+      note: 'import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다',
+    },
     source_title: r.title,
     // ⚠️ 각색본은 원본의 `source` 를 **그대로 이어받는다.** `library_articles_source_check` 가
     //    실제 피드만 허용하기도 하고, 각색해도 저작권 귀속은 원 발행처이기 때문이다.

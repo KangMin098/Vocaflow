@@ -41,9 +41,23 @@ const DIR = path.resolve(
 )
 
 const { createClient } = await import('@supabase/supabase-js')
-const { GRADE_BANDS, buildFingerprint, isAdaptationPublishable, runAdaptationGates } = await import(
-  '@vocaflow/library-pipeline'
-)
+const {
+  AUTHORED_VOCAB_BAND,
+  GRADE_BANDS,
+  authoredVocabFit,
+  buildFingerprint,
+  isAdaptationPublishable,
+  runAdaptationGates,
+} = await import('@vocaflow/library-pipeline')
+
+/**
+ * **어휘 대역** — 각색은 "쉽게 쓰기" 가 아니다.
+ *
+ * 실측(2026-09-04): 3축 적합 470편 중 367편이 우리가 쓴 글이었고 시중 자리 중앙이 16.9 였다
+ * (시중 중앙 50). 상한만 있는 게이트는 그걸 못 잡는다 — 쉬운 쪽은 안 보기 때문이다.
+ * 밖 낱말이 15%인 글은 30%인 글보다 **새 낱말을 그만큼 덜 가르친다.**
+ */
+const SCHOOL = BAND === 'elementary' ? 'elementary' : 'middle'
 
 const spec = GRADE_BANDS[BAND]
 if (!spec) {
@@ -132,6 +146,10 @@ for (const r of rows) {
   const avg = ss.length ? w / ss.length : 0
   // 평균 문장 길이는 학령의 뼈대다. 1.5배를 넘으면 그 학년 글이 아니다.
   if (avg > spec.avgSentenceWords * 1.5) { skip(`문장이 길다 (평균 ${avg.toFixed(1)}어 · 목표 ${spec.avgSentenceWords})`); continue }
+
+  // **어휘 대역** — 어수·문장 길이 다음, 게이트 앞에 둔다. 앞의 둘은 뼈대이고 이건 살이다.
+  const vf = authoredVocabFit(text, SCHOOL)
+  if (!vf.pass) { skip(vf.reason); continue }
 
   const results = runAdaptationGates({
     text,
