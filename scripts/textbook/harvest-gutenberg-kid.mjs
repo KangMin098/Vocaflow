@@ -8,7 +8,7 @@
 // 재고를 늘리는 것은 이 스크립트다.
 //
 // ── 자를 새로 만들지 않는다 ──────────────────────────────────────────
-// 판정은 세 축을 **동시에** 통과해야 하고, 셋 다 이미 정본이 있다:
+// 판정은 네 축을 **동시에** 통과해야 하고, 넷 다 이미 정본이 있다:
 //
 //   ① 어수창   `readability.PASSAGE_WORDS`     100~200어 (출판사 선언 어수 실측 n=59)
 //   ② FK 밴드  `READING_LEVEL_BANDS`           초3~4 1.5~4.0 … 중3 8.5~12.0 (시중 79종)
@@ -48,6 +48,9 @@ import {
   readability,
 } from '../../packages/library-pipeline/src/textbook/readability.ts'
 import { curriculumFit } from '../../packages/library-pipeline/src/textbook/curriculum.ts'
+// **네 번째 축** — 세 축을 통과하고도 지문이 아닌 글이 있다. 실측 2026-09-04: 이 자를
+//   붙이기 전에 적재한 906편 중 **69%(629편)** 가 소설 대화 장면이거나 앞을 가리키며 시작했다.
+import { standaloneFit } from '../../packages/library-pipeline/src/textbook/standalone.ts'
 
 const run = promisify(execFile)
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
@@ -98,6 +101,8 @@ const gate = (text) => {
   const school = band.id.startsWith('초') ? 'elementary' : 'middle'
   const f = curriculumFit(text, school)
   if (!f.pass) return null
+  const sa = standaloneFit(text)
+  if (!sa.pass) return null
   return { band: band.id, school, fk: m.fk, words: m.words, pctile: f.marketPercentile }
 }
 

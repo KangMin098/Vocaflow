@@ -739,6 +739,15 @@ export {
   type CurriculumFit,
   type SchoolLevel,
 } from './textbook/curriculum'
+// 자립성 자 — 세 축을 통과하고도 지문이 아닌 글이 있다(실측: PD 발췌의 69%).
+export {
+  standaloneFit,
+  standaloneSignals,
+  STANDALONE_GATE,
+  STANDALONE_SPEC,
+  type StandaloneFit,
+  type StandaloneSignals,
+} from './textbook/standalone'
 export {
   excerptForBand,
   fitExcerptToAnyBand,

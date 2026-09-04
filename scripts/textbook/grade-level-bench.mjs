@@ -134,6 +134,10 @@ const db = createClient(
 const { curriculumFit, CURRICULUM_SPEC } = await import(
   '../../packages/library-pipeline/src/textbook/curriculum.ts'
 )
+/** 네 번째 축 — 그 한 편만 읽고 이해되는가. 실측 2026-09-04: PD 발췌의 69%가 여기서 떨어진다. */
+const { standaloneFit } = await import(
+  '../../packages/library-pipeline/src/textbook/standalone.ts'
+)
 
 /**
  * **지문 어수 창의 정본** — 출판사가 인쇄한 어수 실측(n=59 · 최소 97 · 중앙 132 · 최대 198).
@@ -172,13 +176,15 @@ const { data: rows, error } = await db
 if (error) throw new Error('지문 조회 실패: ' + error.message)
 
 /**
- * **적합 판정은 세 축을 동시에 통과해야 한다.**
+ * **적합 판정은 네 축을 동시에 통과해야 한다.**
  *
  * 하나만 보면 반드시 틀린다 — 실측으로 두 번 겪었다:
  *   · 어수만 → FK 15.37 짜리 NASA 사진설명이 초6 자리를 통과했다(45% 오분류)
  *   · FK 만  → Little Women(1868)·Tom Sawyer(1876)가 초6~중1 로 나왔다(19세기 어휘)
  *
- * 그래서 ① 어수창(시중) ② FK 밴드(시중) ③ 교육과정 어휘(시중 p90) 셋을 함께 건다.
+ *   · 셋만  → 세 축을 다 통과한 PD 발췌 906편 중 **69%가 소설 대화 장면**이었다(2026-09-04)
+ *
+ * 그래서 ① 어수창 ② FK 밴드 ③ 교육과정 어휘 ④ 자립성 넷을 함께 건다.
  * **떨어진 축을 기록한다** — "몇 편이 적합인가" 보다 "어디서 떨어지는가" 가 다음 작업을 정한다.
  */
 const scored = []
@@ -189,11 +195,13 @@ for (const r of rows) {
   const spec = BAND_SPEC[band] ?? null
   const win = spec ? PASSAGE_WORDS : null
   const fit = spec ? curriculumFit(r.content ?? '', spec.school) : null
+  const sa = spec ? standaloneFit(r.content ?? '') : null
 
   const failed = []
   if (!spec) failed.push('밴드밖')
   if (win && (m.words < win.min || m.words > win.max)) failed.push('어수창')
   if (fit && !fit.pass) failed.push('어휘')
+  if (sa && !sa.pass) failed.push('자립성')
   if (spec && !fit) failed.push('어휘못잼')
 
   scored.push({
@@ -268,13 +276,14 @@ for (const [k, v] of [...bySource.entries()].sort((a, b) => b[1].n - a[1].n)) {
   )
 }
 
-console.log(`\n■ 학년 밴드별 우리 재고 — 3축 동시 판정\n`)
+console.log(`\n■ 학년 밴드별 우리 재고 — 4축 동시 판정\n`)
 const ORDER = ['초3 미만', ...BANDS.map((b) => b.id), '중3 초과']
 console.log(
   pad('밴드', 12) + lp('FK창', 11) + lp('어수창', 11) + lp('FK통과', 8) +
-    lp('+어수', 7) + lp('+어휘=적합', 11) + lp('시중자리', 9)
+    lp('+어수', 7) + lp('+어휘', 7) +
+    lp('+자립=적합', 11) + lp('시중자리', 9)
 )
-console.log('─'.repeat(70))
+console.log('─'.repeat(77))
 let fitTotal = 0
 for (const id of ORDER) {
   const b = BANDS.find((x) => x.id === id)
@@ -282,6 +291,7 @@ for (const id of ORDER) {
   const spec = BAND_SPEC[id] ?? null
   const win = spec ? PASSAGE_WORDS : null
   const inWin = list.filter((s) => !s.failed.includes('어수창'))
+  const inVocab = inWin.filter((s) => !s.failed.includes('어휘'))
   const fit = list.filter((s) => s.fits)
   fitTotal += fit.length
   const pcts = fit.map((s) => s.pctile).filter((x) => x != null)
@@ -291,14 +301,14 @@ for (const id of ORDER) {
       lp(win ? `${win.min}~${win.max}` : '—', 11) +
       lp(list.length, 8) +
       lp(spec ? inWin.length : '—', 7) +
+      lp(spec ? inVocab.length : '—', 7) +
       lp(spec ? fit.length : '—', 11) +
       lp(pcts.length ? med(pcts) : '—', 9) +
-      (spec && fit.length === 0 ? '  ← 빈칸' : '') +
-      (spec?.borrowed ? '  (어수창 빌림)' : '')
+      (spec && fit.length === 0 ? '  ← 빈칸' : '')
   )
 }
 console.log('─'.repeat(70))
-console.log(pad('3축 통과 합계', 12) + lp(fitTotal, 47))
+console.log(pad('4축 통과 합계', 12) + lp(fitTotal, 54))
 
 // § 어디서 떨어지는가 — 다음 작업을 정하는 것은 이 표다
 console.log(`\n■ 탈락 사유 (중복 계수 · 밴드 안에 든 ${scored.filter((s) => BAND_SPEC[s.band]).length}편 기준)\n`)

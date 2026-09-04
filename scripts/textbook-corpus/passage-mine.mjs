@@ -92,6 +92,47 @@ function isChrome(line) {
   return false
 }
 
+/**
+ * **자립성 신호** — 그 한 편만 읽고 이해되는 글인가.
+ *
+ * ── 왜 재는가 (실측 2026-09-04) ──────────────────────────────────────
+ * PD 발췌 906편을 적재하고 표본 6편을 열어 보니 **6편 전부가 소설 대화 장면**이었다:
+ *   "Mrs. Grose tried to keep up with me. …" · "So she disturbed you, and …"
+ * 어수·FK·어휘 세 축을 다 통과했는데 **지문이 아니다** — 앞 상황을 모르면 못 읽는다.
+ * 시중 교재 지문은 자립적이다. 그러니 자를 하나 더 대야 하는데, 문턱을 짐작으로 정하면
+ * 멀쩡한 이야기 지문까지 막는다(시중 초·중 교재에도 이야기와 대화가 있다).
+ *
+ * 그래서 **시중 지문으로 먼저 잰다.** 어휘 자를 만들 때와 같은 순서다.
+ *
+ * ⚠️ 이 값들은 쪽 단위 추출에서 나온다 — 대화 비중은 낱말을 세므로 덩어리 경계에
+ *   영향받지 않지만, **문두 신호는 받는다**(쪽의 첫 덩어리가 지문의 첫 문장이 아닐 수 있다).
+ *   그래서 문두 신호는 이 도구에서 **참고용**이고, 판정에 쓰려면 조각 단위에서 다시 재야 한다.
+ */
+function standaloneSignals(t) {
+  const text = String(t ?? '')
+  const words = (text.match(/[A-Za-z][A-Za-z'-]*/g) || []).length
+  if (!words) return null
+
+  // ① 대화 비중 — 인용부호 안에 든 낱말의 비율. 곧은 따옴표와 굽은 따옴표를 함께 본다.
+  let quoted = 0
+  for (const m of text.matchAll(/["“][^"”]{2,400}["”]/g)) {
+    quoted += (m[0].match(/[A-Za-z][A-Za-z'-]*/g) || []).length
+  }
+
+  // ② 문두가 앞을 가리키는가 — 대명사·접속부사로 시작하면 선행 맥락을 요구한다.
+  const first = (text.match(/^[^.!?]{10,400}[.!?]/) ?? [text.slice(0, 200)])[0]
+  const opensAnaphoric =
+    /^["“]/.test(text.trim()) ||
+    /^(he|she|it|they|him|her|them|his|their|this|that|these|those|but|so|then|however|yet|therefore|thus|meanwhile|besides)\b/i.test(
+      first.trim()
+    )
+
+  return {
+    quotedPct: +((quoted / words) * 100).toFixed(1),
+    opensAnaphoric,
+  }
+}
+
 function readability(t) {
   const sentences = (t.match(/[.!?]["')\]]*(\s|$)/g) || []).length
   const words = t.match(/[A-Za-z][A-Za-z'-]*/g) || []
@@ -192,6 +233,7 @@ for (const r of rows) {
   // 쪽 단위로 합친다 — 덩어리 경계가 원문과 다르므로 나눠 세는 것이 오히려 오차를 키운다.
   const pageText = blocks.map((b) => b.text).join(' ')
   const cov = curriculumCoverage(pageText)
+  const st = standaloneSignals(pageText)
   const words = (pageText.match(/[A-Za-z][A-Za-z'-]*/g) || []).length
   mined.push({
     docId: r.id,
@@ -206,6 +248,8 @@ for (const r of rows) {
     outsidePct: cov?.outsidePct ?? null,
     star1Pct: cov?.star1Pct ?? null,
     throughStar2Pct: cov?.throughStar2Pct ?? null,
+    quotedPct: st?.quotedPct ?? null,
+    opensAnaphoric: st?.opensAnaphoric ?? null,
     head: pageText.slice(0, 80),
   })
 

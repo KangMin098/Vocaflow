@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-09-04T12:21:23.378Z",
+  "measuredAt": "2026-09-04T12:56:32.933Z",
   "window": {
     "min": 100,
     "max": 200
@@ -158,10 +158,10 @@
     },
     {
       "band": "초3~4",
-      "n": 48,
-      "inWordWindow": 48,
-      "fits": 43,
-      "marketPercentileMedian": 35.1,
+      "n": 86,
+      "inWordWindow": 86,
+      "fits": 41,
+      "marketPercentileMedian": 26.2,
       "wordWindow": {
         "min": 100,
         "max": 200
@@ -169,9 +169,9 @@
     },
     {
       "band": "초5~6",
-      "n": 100,
-      "inWordWindow": 100,
-      "fits": 98,
+      "n": 143,
+      "inWordWindow": 143,
+      "fits": 92,
       "marketPercentileMedian": 26.6,
       "wordWindow": {
         "min": 100,
@@ -180,10 +180,10 @@
     },
     {
       "band": "초6~중1",
-      "n": 188,
-      "inWordWindow": 188,
-      "fits": 187,
-      "marketPercentileMedian": 18.8,
+      "n": 240,
+      "inWordWindow": 240,
+      "fits": 191,
+      "marketPercentileMedian": 19.7,
       "wordWindow": {
         "min": 100,
         "max": 200
@@ -191,10 +191,10 @@
     },
     {
       "band": "중1~2",
-      "n": 131,
-      "inWordWindow": 130,
-      "fits": 130,
-      "marketPercentileMedian": 14.9,
+      "n": 218,
+      "inWordWindow": 217,
+      "fits": 163,
+      "marketPercentileMedian": 17,
       "wordWindow": {
         "min": 100,
         "max": 200
@@ -202,10 +202,10 @@
     },
     {
       "band": "중3",
-      "n": 22,
-      "inWordWindow": 22,
-      "fits": 12,
-      "marketPercentileMedian": 66.4,
+      "n": 135,
+      "inWordWindow": 135,
+      "fits": 55,
+      "marketPercentileMedian": 55.7,
       "wordWindow": {
         "min": 100,
         "max": 200
@@ -220,7 +220,7 @@
       "wordWindow": null
     }
   ],
-  "fitTotal": 470,
+  "fitTotal": 542,
   "ourBySource": [
     {
       "source": "original",
@@ -356,6 +356,22 @@
         "B2": 15,
         "B1": 26,
         "A2": 10
+      }
+    },
+    {
+      "source": "gutenberg",
+      "n": 333,
+      "fkMedian": 7.75,
+      "sentMedian": 21,
+      "curriculumElemPct": 43.9,
+      "curriculumElemMidPct": 61.2,
+      "band": "중1~2",
+      "cefr": {
+        "A1": 3,
+        "B2": 70,
+        "B1": 176,
+        "A2": 79,
+        "C1": 5
       }
     }
   ],
@@ -1183,8 +1199,10 @@
       "cefr": "B1",
       "band": "초6~중1",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 23.1,
       "marketPercentile": 23.2
     },
@@ -1785,8 +1803,10 @@
       "cefr": "B1",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 26.6,
       "marketPercentile": 35.1
     },
@@ -1939,8 +1959,10 @@
       "cefr": "B1",
       "band": "초6~중1",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 24.2,
       "marketPercentile": 25.4
     },
@@ -2023,8 +2045,10 @@
       "cefr": "B1",
       "band": "중3",
       "school": "middle",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 28.9,
       "marketPercentile": 23.4
     },
@@ -2233,8 +2257,10 @@
       "cefr": "B1",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 21.3,
       "marketPercentile": 19.9
     },
@@ -2429,8 +2455,10 @@
       "cefr": "B1",
       "band": "초6~중1",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 12.8,
       "marketPercentile": 4.8
     },
@@ -2611,8 +2639,10 @@
       "cefr": "B1",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 21.7,
       "marketPercentile": 20.6
     },
@@ -2709,8 +2739,10 @@
       "cefr": "B1",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 18.6,
       "marketPercentile": 14.9
     },
@@ -3471,8 +3503,10 @@
       "cefr": "B1",
       "band": "초6~중1",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 23.3,
       "marketPercentile": 23.5
     },
@@ -3821,8 +3855,10 @@
       "cefr": "B1",
       "band": "중1~2",
       "school": "middle",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 28.4,
       "marketPercentile": 22.3
     },
@@ -4959,8 +4995,10 @@
       "cefr": "B1",
       "band": "중1~2",
       "school": "middle",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 22.2,
       "marketPercentile": 9.5
     },
@@ -5113,8 +5151,10 @@
       "cefr": "B1",
       "band": "초6~중1",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 11.6,
       "marketPercentile": 4.4
     },
@@ -5323,8 +5363,10 @@
       "cefr": "B1",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 25.7,
       "marketPercentile": 31.5
     },
@@ -7115,8 +7157,10 @@
       "cefr": "B1",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 41.9,
       "marketPercentile": 86.6
     },
@@ -7145,8 +7189,10 @@
       "cefr": "B1",
       "band": "초3~4",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 42.5,
       "marketPercentile": 88
     },
@@ -7159,8 +7205,10 @@
       "cefr": "A1",
       "band": "초3~4",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 22.7,
       "marketPercentile": 22.4
     },
@@ -7173,8 +7221,10 @@
       "cefr": "A2",
       "band": "초3~4",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 36.1,
       "marketPercentile": 71
     },
@@ -7187,8 +7237,10 @@
       "cefr": "B2",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 41.2,
       "marketPercentile": 84.8
     },
@@ -7283,7 +7335,8 @@
       "school": "elementary",
       "fits": false,
       "failed": [
-        "어휘"
+        "어휘",
+        "자립성"
       ],
       "outsidePct": 49.2,
       "marketPercentile": 95
@@ -7359,8 +7412,10 @@
       "cefr": "A1",
       "band": "초3~4",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 27.9,
       "marketPercentile": 40.3
     },
@@ -7373,8 +7428,10 @@
       "cefr": "A1",
       "band": "초3~4",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 10.2,
       "marketPercentile": 3.9
     },
@@ -7403,7 +7460,8 @@
       "school": "elementary",
       "fits": false,
       "failed": [
-        "어휘"
+        "어휘",
+        "자립성"
       ],
       "outsidePct": 43.5,
       "marketPercentile": 90.2
@@ -7419,7 +7477,8 @@
       "school": "elementary",
       "fits": false,
       "failed": [
-        "어휘"
+        "어휘",
+        "자립성"
       ],
       "outsidePct": 49,
       "marketPercentile": 94.8
@@ -7433,8 +7492,10 @@
       "cefr": "A2",
       "band": "초3~4",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 40.5,
       "marketPercentile": 83.1
     },
@@ -7463,8 +7524,10 @@
       "cefr": "A2",
       "band": "초3~4",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 36.1,
       "marketPercentile": 71
     },
@@ -7507,8 +7570,10 @@
       "cefr": "B1",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 40.4,
       "marketPercentile": 82.9
     },
@@ -7535,8 +7600,10 @@
       "cefr": "A2",
       "band": "초3~4",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 30.9,
       "marketPercentile": 52.2
     },
@@ -7551,7 +7618,8 @@
       "school": "elementary",
       "fits": false,
       "failed": [
-        "어휘"
+        "어휘",
+        "자립성"
       ],
       "outsidePct": 52.9,
       "marketPercentile": 96.2
@@ -7565,8 +7633,10 @@
       "cefr": "A2",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 35.1,
       "marketPercentile": 67.4
     },
@@ -7579,8 +7649,10 @@
       "cefr": "B1",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 41,
       "marketPercentile": 84.3
     },
@@ -7621,8 +7693,10 @@
       "cefr": "A2",
       "band": "초3~4",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 39.4,
       "marketPercentile": 80.4
     },
@@ -7651,8 +7725,10 @@
       "cefr": "B1",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 29,
       "marketPercentile": 44.8
     },
@@ -7903,8 +7979,10 @@
       "cefr": "B2",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 32.7,
       "marketPercentile": 58.7
     },
@@ -8057,8 +8135,10 @@
       "cefr": "B1",
       "band": "초6~중1",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 20,
       "marketPercentile": 17.5
     },
@@ -8127,8 +8207,10 @@
       "cefr": "B1",
       "band": "초5~6",
       "school": "elementary",
-      "fits": true,
-      "failed": [],
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
       "outsidePct": 30.5,
       "marketPercentile": 50.7
     },
@@ -8427,6 +8509,5128 @@
       "failed": [],
       "outsidePct": 29.1,
       "marketPercentile": 23.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 5.07,
+      "sent": 15.8,
+      "words": 126,
+      "cefr": "A1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42.9,
+      "marketPercentile": 89
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 8.47,
+      "sent": 26,
+      "words": 156,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 30.1,
+      "marketPercentile": 27
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 9.4,
+      "sent": 27.5,
+      "words": 110,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 30.4,
+      "marketPercentile": 28.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 11.75,
+      "sent": 32.6,
+      "words": 163,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32.1,
+      "marketPercentile": 37
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 9.63,
+      "sent": 27.7,
+      "words": 166,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.2,
+      "marketPercentile": 58.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 10.61,
+      "sent": 28,
+      "words": 112,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.7,
+      "marketPercentile": 60.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 9.27,
+      "sent": 25.3,
+      "words": 177,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 43.4,
+      "marketPercentile": 86.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 9.71,
+      "sent": 29.5,
+      "words": 118,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32.8,
+      "marketPercentile": 40.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 4.01,
+      "sent": 13.6,
+      "words": 122,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.4,
+      "marketPercentile": 80.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 9.87,
+      "sent": 25.6,
+      "words": 179,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 29.8,
+      "marketPercentile": 25.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 8.3,
+      "sent": 23.2,
+      "words": 139,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42.5,
+      "marketPercentile": 80.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 7.09,
+      "sent": 21.8,
+      "words": 109,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42.6,
+      "marketPercentile": 80.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 7.76,
+      "sent": 15,
+      "words": 120,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42.4,
+      "marketPercentile": 79.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 4.58,
+      "sent": 11,
+      "words": 110,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.5,
+      "marketPercentile": 72.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 4.65,
+      "sent": 13.7,
+      "words": 137,
+      "cefr": "A2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.8,
+      "marketPercentile": 76.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 7.56,
+      "sent": 23.3,
+      "words": 186,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 24.2,
+      "marketPercentile": 13.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 6.18,
+      "sent": 19.7,
+      "words": 118,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40,
+      "marketPercentile": 81.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 11.47,
+      "sent": 28.5,
+      "words": 114,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.1,
+      "marketPercentile": 62.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 5.51,
+      "sent": 16.5,
+      "words": 132,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.3,
+      "marketPercentile": 64.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 7.1,
+      "sent": 21,
+      "words": 105,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.8,
+      "marketPercentile": 57.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 9.58,
+      "sent": 20.2,
+      "words": 101,
+      "cefr": "C1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 35.8,
+      "marketPercentile": 53.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 4.2,
+      "sent": 9.5,
+      "words": 105,
+      "cefr": "B2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.1,
+      "marketPercentile": 77.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 3,
+      "sent": 10.5,
+      "words": 105,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42.1,
+      "marketPercentile": 87
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 5.96,
+      "sent": 14.7,
+      "words": 103,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.2,
+      "marketPercentile": 77.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 2.62,
+      "sent": 9.5,
+      "words": 104,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.7,
+      "marketPercentile": 73.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 3.66,
+      "sent": 12.8,
+      "words": 115,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 35,
+      "marketPercentile": 67
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 2.86,
+      "sent": 7.8,
+      "words": 101,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.1,
+      "marketPercentile": 79.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 4.81,
+      "sent": 13.1,
+      "words": 105,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.4,
+      "marketPercentile": 72.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 4.36,
+      "sent": 13.5,
+      "words": 135,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 29.4,
+      "marketPercentile": 46.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 6.27,
+      "sent": 16.1,
+      "words": 113,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 30.9,
+      "marketPercentile": 52.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 4.8,
+      "sent": 13.5,
+      "words": 135,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32,
+      "marketPercentile": 56.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 4.05,
+      "sent": 12.7,
+      "words": 114,
+      "cefr": "B2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.5,
+      "marketPercentile": 65.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 7.68,
+      "sent": 18.5,
+      "words": 111,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 31.6,
+      "marketPercentile": 34.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 4.44,
+      "sent": 12.9,
+      "words": 103,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 31.3,
+      "marketPercentile": 53.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 9.07,
+      "sent": 23.4,
+      "words": 117,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.1,
+      "marketPercentile": 72.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 10.11,
+      "sent": 23.9,
+      "words": 167,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.8,
+      "marketPercentile": 61.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 6.84,
+      "sent": 19.5,
+      "words": 117,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42.4,
+      "marketPercentile": 87.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 6.11,
+      "sent": 17.7,
+      "words": 106,
+      "cefr": "B2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.7,
+      "marketPercentile": 86.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 9.98,
+      "sent": 27.4,
+      "words": 192,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 29.6,
+      "marketPercentile": 24.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 6.51,
+      "sent": 14.9,
+      "words": 179,
+      "cefr": "B2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.9,
+      "marketPercentile": 79.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 5.67,
+      "sent": 18.7,
+      "words": 131,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.2,
+      "marketPercentile": 71.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 7.31,
+      "sent": 20.9,
+      "words": 188,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32.5,
+      "marketPercentile": 39
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 5.56,
+      "sent": 15.7,
+      "words": 110,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 31.1,
+      "marketPercentile": 52.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 1.95,
+      "sent": 7.1,
+      "words": 100,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 31.7,
+      "marketPercentile": 55.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 8.41,
+      "sent": 19.2,
+      "words": 115,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 35.3,
+      "marketPercentile": 52.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 5.15,
+      "sent": 11.1,
+      "words": 100,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40.7,
+      "marketPercentile": 83.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 7.86,
+      "sent": 18.3,
+      "words": 128,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.9,
+      "marketPercentile": 57.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 6.02,
+      "sent": 15.2,
+      "words": 137,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42.5,
+      "marketPercentile": 88
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 5.36,
+      "sent": 11.5,
+      "words": 127,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40.8,
+      "marketPercentile": 83.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 7.21,
+      "sent": 20,
+      "words": 140,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.8,
+      "marketPercentile": 40.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 6.48,
+      "sent": 11.8,
+      "words": 106,
+      "cefr": "B2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 35.7,
+      "marketPercentile": 69.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 9.74,
+      "sent": 22.7,
+      "words": 159,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36,
+      "marketPercentile": 54.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 9.06,
+      "sent": 13.3,
+      "words": 106,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.7,
+      "marketPercentile": 60.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 11.12,
+      "sent": 28.8,
+      "words": 115,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 41,
+      "marketPercentile": 72.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 10.36,
+      "sent": 31.8,
+      "words": 127,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.4,
+      "marketPercentile": 20.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 7.89,
+      "sent": 25.5,
+      "words": 102,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.3,
+      "marketPercentile": 38
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 7.85,
+      "sent": 25.6,
+      "words": 128,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 30.8,
+      "marketPercentile": 30.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 3.56,
+      "sent": 13.8,
+      "words": 138,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.4,
+      "marketPercentile": 26.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 5.61,
+      "sent": 16.1,
+      "words": 129,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.2,
+      "marketPercentile": 41.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 7.79,
+      "sent": 22.8,
+      "words": 114,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 43.1,
+      "marketPercentile": 84.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 6.51,
+      "sent": 20.8,
+      "words": 125,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 35.5,
+      "marketPercentile": 68.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 9.81,
+      "sent": 31.5,
+      "words": 126,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 20.6,
+      "marketPercentile": 6.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 10.43,
+      "sent": 30.5,
+      "words": 122,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29,
+      "marketPercentile": 23.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 3.61,
+      "sent": 15.2,
+      "words": 137,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.7,
+      "marketPercentile": 81.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 3.64,
+      "sent": 9.8,
+      "words": 108,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.9,
+      "marketPercentile": 86.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 8.33,
+      "sent": 26.5,
+      "words": 106,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 38.3,
+      "marketPercentile": 62.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 7.29,
+      "sent": 20.2,
+      "words": 121,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25,
+      "marketPercentile": 15.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 7.31,
+      "sent": 21.4,
+      "words": 107,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 25.9,
+      "marketPercentile": 17.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 10.79,
+      "sent": 30.8,
+      "words": 123,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.7,
+      "marketPercentile": 10.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 6.51,
+      "sent": 20.5,
+      "words": 123,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.8,
+      "marketPercentile": 59.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 9.33,
+      "sent": 25.3,
+      "words": 101,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38,
+      "marketPercentile": 61.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.1,
+      "sent": 30.5,
+      "words": 122,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.6,
+      "marketPercentile": 4.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.48,
+      "sent": 35.2,
+      "words": 176,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.7,
+      "marketPercentile": 22.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 9.69,
+      "sent": 24.8,
+      "words": 124,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.6,
+      "marketPercentile": 67.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 7.13,
+      "sent": 21.9,
+      "words": 153,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 41.2,
+      "marketPercentile": 73.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 8.57,
+      "sent": 25.2,
+      "words": 126,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 24.2,
+      "marketPercentile": 13.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.14,
+      "sent": 33,
+      "words": 132,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 34.3,
+      "marketPercentile": 48
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 7.83,
+      "sent": 24.4,
+      "words": 195,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.3,
+      "marketPercentile": 22.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.23,
+      "sent": 30.3,
+      "words": 121,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.3,
+      "marketPercentile": 43
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 10.87,
+      "sent": 31,
+      "words": 124,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.2,
+      "marketPercentile": 7.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 5.75,
+      "sent": 18.8,
+      "words": 113,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.8,
+      "marketPercentile": 73.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 6.22,
+      "sent": 20.2,
+      "words": 121,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 33.9,
+      "marketPercentile": 63
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 10.02,
+      "sent": 27,
+      "words": 108,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41,
+      "marketPercentile": 72.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 7.81,
+      "sent": 18.4,
+      "words": 166,
+      "cefr": "C1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.8,
+      "marketPercentile": 68.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 8.47,
+      "sent": 27.2,
+      "words": 136,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32.7,
+      "marketPercentile": 40
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 8.25,
+      "sent": 17.1,
+      "words": 154,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.3,
+      "marketPercentile": 55.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 7.31,
+      "sent": 23.6,
+      "words": 118,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.5,
+      "marketPercentile": 74.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 2.71,
+      "sent": 7.8,
+      "words": 164,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.9,
+      "marketPercentile": 73.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 6.58,
+      "sent": 17.8,
+      "words": 107,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.3,
+      "marketPercentile": 75.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 11.18,
+      "sent": 29.8,
+      "words": 119,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.5,
+      "marketPercentile": 56.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 8.65,
+      "sent": 25.8,
+      "words": 129,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 30.2,
+      "marketPercentile": 27.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 10.92,
+      "sent": 29.5,
+      "words": 118,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.7,
+      "marketPercentile": 60.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 6.13,
+      "sent": 19.8,
+      "words": 119,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.2,
+      "marketPercentile": 56.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 6.6,
+      "sent": 18.9,
+      "words": 132,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 33.3,
+      "marketPercentile": 60.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 5.25,
+      "sent": 16.4,
+      "words": 197,
+      "cefr": "A2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.4,
+      "marketPercentile": 64.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 10.03,
+      "sent": 28.4,
+      "words": 142,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.1,
+      "marketPercentile": 58.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 10.39,
+      "sent": 25.4,
+      "words": 127,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.6,
+      "marketPercentile": 63.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 10.1,
+      "sent": 28.3,
+      "words": 198,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.4,
+      "marketPercentile": 59.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 9.14,
+      "sent": 25.6,
+      "words": 128,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 40,
+      "marketPercentile": 68.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 6.97,
+      "sent": 22.1,
+      "words": 199,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.3,
+      "marketPercentile": 80.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 9.9,
+      "sent": 27.8,
+      "words": 111,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.3,
+      "marketPercentile": 59.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 11.45,
+      "sent": 32.8,
+      "words": 164,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36,
+      "marketPercentile": 54.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 7.1,
+      "sent": 19.9,
+      "words": 139,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.7,
+      "marketPercentile": 67.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 9.63,
+      "sent": 26.7,
+      "words": 160,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.5,
+      "marketPercentile": 60
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 9.01,
+      "sent": 24.3,
+      "words": 146,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.5,
+      "marketPercentile": 56.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 6.97,
+      "sent": 22.1,
+      "words": 177,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.2,
+      "marketPercentile": 84.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 10.89,
+      "sent": 29.2,
+      "words": 175,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 31.3,
+      "marketPercentile": 33
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 4,
+      "sent": 10.8,
+      "words": 119,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.7,
+      "marketPercentile": 81.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 7.86,
+      "sent": 21.4,
+      "words": 107,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.5,
+      "marketPercentile": 74.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 5.18,
+      "sent": 16.3,
+      "words": 130,
+      "cefr": "A2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.5,
+      "marketPercentile": 65.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 11.35,
+      "sent": 32,
+      "words": 160,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 33.3,
+      "marketPercentile": 43
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 9.84,
+      "sent": 28.3,
+      "words": 113,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40.7,
+      "marketPercentile": 71.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 11.21,
+      "sent": 29.8,
+      "words": 179,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 29.7,
+      "marketPercentile": 25
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 7.26,
+      "sent": 21.2,
+      "words": 106,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.5,
+      "marketPercentile": 63.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 4.02,
+      "sent": 10.7,
+      "words": 107,
+      "cefr": "B2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.5,
+      "marketPercentile": 72.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 11.09,
+      "sent": 28.3,
+      "words": 113,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 43.5,
+      "marketPercentile": 86.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 8.58,
+      "sent": 23.3,
+      "words": 186,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 33.3,
+      "marketPercentile": 43
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 8.65,
+      "sent": 22.8,
+      "words": 137,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.9,
+      "marketPercentile": 50.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 7.37,
+      "sent": 21.2,
+      "words": 106,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.3,
+      "marketPercentile": 66.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 11.92,
+      "sent": 31,
+      "words": 124,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.7,
+      "marketPercentile": 67.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 10.5,
+      "sent": 30.8,
+      "words": 123,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.7,
+      "marketPercentile": 67.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 5.65,
+      "sent": 17.1,
+      "words": 120,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.5,
+      "marketPercentile": 75.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 4.95,
+      "sent": 17.5,
+      "words": 105,
+      "cefr": "A2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.7,
+      "marketPercentile": 76.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 5.13,
+      "sent": 12.2,
+      "words": 122,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.3,
+      "marketPercentile": 64.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 9.02,
+      "sent": 25.8,
+      "words": 129,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.5,
+      "marketPercentile": 56.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 5.83,
+      "sent": 13.3,
+      "words": 146,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40.4,
+      "marketPercentile": 82.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 5.92,
+      "sent": 17,
+      "words": 153,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 28.2,
+      "marketPercentile": 41.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Alice's Adventures in Wonderland (발췌)",
+      "fk": 10.96,
+      "sent": 30,
+      "words": 120,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 24.6,
+      "marketPercentile": 14.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 2.41,
+      "sent": 8.5,
+      "words": 110,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34,
+      "marketPercentile": 63.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 9.19,
+      "sent": 24.4,
+      "words": 171,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.1,
+      "marketPercentile": 47
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 9.1,
+      "sent": 22.6,
+      "words": 113,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.4,
+      "marketPercentile": 56.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 6.05,
+      "sent": 17,
+      "words": 136,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.7,
+      "marketPercentile": 86.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 3.59,
+      "sent": 10.8,
+      "words": 108,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32.7,
+      "marketPercentile": 58.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 8.62,
+      "sent": 20.5,
+      "words": 123,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 43.2,
+      "marketPercentile": 84.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 10.22,
+      "sent": 24.6,
+      "words": 123,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32.8,
+      "marketPercentile": 40.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 10.91,
+      "sent": 28.5,
+      "words": 171,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.3,
+      "marketPercentile": 62.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 6.54,
+      "sent": 17,
+      "words": 102,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 25,
+      "marketPercentile": 28.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 4.06,
+      "sent": 14.2,
+      "words": 128,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34,
+      "marketPercentile": 63.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 8.53,
+      "sent": 17.2,
+      "words": 189,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 43.9,
+      "marketPercentile": 89.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 3.85,
+      "sent": 11.6,
+      "words": 174,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.3,
+      "marketPercentile": 80.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 6.36,
+      "sent": 16.7,
+      "words": 117,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.7,
+      "marketPercentile": 86.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 8.87,
+      "sent": 21.2,
+      "words": 191,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32.2,
+      "marketPercentile": 37.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 7.31,
+      "sent": 20,
+      "words": 100,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 25.5,
+      "marketPercentile": 16.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 3.66,
+      "sent": 13.5,
+      "words": 108,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 40.7,
+      "marketPercentile": 83.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 8.19,
+      "sent": 26.8,
+      "words": 107,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 41,
+      "marketPercentile": 72.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 10.3,
+      "sent": 31,
+      "words": 124,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 18.9,
+      "marketPercentile": 4.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 7.87,
+      "sent": 24.5,
+      "words": 196,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 28.6,
+      "marketPercentile": 22.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 3.12,
+      "sent": 12.6,
+      "words": 101,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 25,
+      "marketPercentile": 28.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 3.92,
+      "sent": 12.5,
+      "words": 100,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.4,
+      "marketPercentile": 72.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 6.51,
+      "sent": 18.5,
+      "words": 111,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 35.2,
+      "marketPercentile": 67.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 8.65,
+      "sent": 24.2,
+      "words": 145,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40.6,
+      "marketPercentile": 71.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 10.17,
+      "sent": 30,
+      "words": 120,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32.7,
+      "marketPercentile": 40
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 7.88,
+      "sent": 19.2,
+      "words": 192,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.7,
+      "marketPercentile": 60.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 9.06,
+      "sent": 22.3,
+      "words": 178,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 29,
+      "marketPercentile": 23.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 4.99,
+      "sent": 12.6,
+      "words": 101,
+      "cefr": "A2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.9,
+      "marketPercentile": 79.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 8.96,
+      "sent": 24.2,
+      "words": 121,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 43.4,
+      "marketPercentile": 86.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 8.53,
+      "sent": 22.4,
+      "words": 112,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 35.7,
+      "marketPercentile": 53.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 7.38,
+      "sent": 17.6,
+      "words": 123,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 30.3,
+      "marketPercentile": 28
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 4.23,
+      "sent": 13,
+      "words": 104,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 26,
+      "marketPercentile": 32.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 2.52,
+      "sent": 11.4,
+      "words": 114,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.5,
+      "marketPercentile": 75.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Little Women; Or, Meg, Jo, Beth, and Amy (발췌)",
+      "fk": 9.74,
+      "sent": 25,
+      "words": 100,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 42.1,
+      "marketPercentile": 77.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 4.63,
+      "sent": 16.8,
+      "words": 151,
+      "cefr": "A2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 31.3,
+      "marketPercentile": 53.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 9.14,
+      "sent": 22.8,
+      "words": 114,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.5,
+      "marketPercentile": 34
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 3.49,
+      "sent": 13.3,
+      "words": 106,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 42.6,
+      "marketPercentile": 88.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 7.2,
+      "sent": 20.2,
+      "words": 121,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 33.3,
+      "marketPercentile": 43
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 8.63,
+      "sent": 18.8,
+      "words": 169,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.5,
+      "marketPercentile": 63.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 3.47,
+      "sent": 12.6,
+      "words": 101,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42.3,
+      "marketPercentile": 87.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 4.35,
+      "sent": 10.6,
+      "words": 106,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.2,
+      "marketPercentile": 79.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 5.1,
+      "sent": 14.4,
+      "words": 115,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.5,
+      "marketPercentile": 78.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 7.02,
+      "sent": 19.8,
+      "words": 119,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.5,
+      "marketPercentile": 49
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 2.42,
+      "sent": 9.7,
+      "words": 116,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.1,
+      "marketPercentile": 84.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 2.28,
+      "sent": 9.5,
+      "words": 104,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.8,
+      "marketPercentile": 66.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 8.1,
+      "sent": 20.8,
+      "words": 187,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.3,
+      "marketPercentile": 59.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 2.93,
+      "sent": 9.8,
+      "words": 166,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40.2,
+      "marketPercentile": 82.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 2.56,
+      "sent": 9.9,
+      "words": 119,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.7,
+      "marketPercentile": 81.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 4.41,
+      "sent": 14.6,
+      "words": 131,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.3,
+      "marketPercentile": 75.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 8.31,
+      "sent": 22.8,
+      "words": 114,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.9,
+      "marketPercentile": 65
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 5.14,
+      "sent": 14.6,
+      "words": 117,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39,
+      "marketPercentile": 79.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 6.61,
+      "sent": 17.6,
+      "words": 123,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.7,
+      "marketPercentile": 86.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 5.81,
+      "sent": 15.1,
+      "words": 121,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.1,
+      "marketPercentile": 79.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 6.41,
+      "sent": 18,
+      "words": 126,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.4,
+      "marketPercentile": 80.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 7.1,
+      "sent": 16.1,
+      "words": 113,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.6,
+      "marketPercentile": 63.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 7.44,
+      "sent": 16.1,
+      "words": 129,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.2,
+      "marketPercentile": 73.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 5.85,
+      "sent": 18.8,
+      "words": 113,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 29.4,
+      "marketPercentile": 46.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 4.19,
+      "sent": 12.2,
+      "words": 110,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42.1,
+      "marketPercentile": 87
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 9.42,
+      "sent": 24.7,
+      "words": 148,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.7,
+      "marketPercentile": 50
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 9.69,
+      "sent": 27,
+      "words": 108,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.5,
+      "marketPercentile": 63.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 5.28,
+      "sent": 15.9,
+      "words": 127,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 28.6,
+      "marketPercentile": 43.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 8.86,
+      "sent": 18.1,
+      "words": 127,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32.4,
+      "marketPercentile": 38.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 4.35,
+      "sent": 10.7,
+      "words": 107,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.5,
+      "marketPercentile": 65.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 7.31,
+      "sent": 20.1,
+      "words": 181,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 22.2,
+      "marketPercentile": 9.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 3.85,
+      "sent": 13,
+      "words": 156,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.2,
+      "marketPercentile": 79.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 5.88,
+      "sent": 15.7,
+      "words": 110,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40.7,
+      "marketPercentile": 83.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 7.75,
+      "sent": 20.5,
+      "words": 123,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40.4,
+      "marketPercentile": 70.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 5.04,
+      "sent": 15.6,
+      "words": 125,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39,
+      "marketPercentile": 79.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 3.86,
+      "sent": 12.1,
+      "words": 109,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 23.2,
+      "marketPercentile": 23.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 5.46,
+      "sent": 13.6,
+      "words": 122,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.9,
+      "marketPercentile": 63
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Rover Boys on the Farm; or, Last Days at Putnam Hall (발췌)",
+      "fk": 3.97,
+      "sent": 11.2,
+      "words": 101,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 33.3,
+      "marketPercentile": 60.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 9.57,
+      "sent": 23.2,
+      "words": 139,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.2,
+      "marketPercentile": 66.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 9.18,
+      "sent": 21.7,
+      "words": 152,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 38.5,
+      "marketPercentile": 63.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 11.43,
+      "sent": 29.2,
+      "words": 175,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 25,
+      "marketPercentile": 15.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 7.15,
+      "sent": 21.6,
+      "words": 108,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.1,
+      "marketPercentile": 47
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 8.22,
+      "sent": 23.5,
+      "words": 141,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.1,
+      "marketPercentile": 58.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 7.61,
+      "sent": 21,
+      "words": 147,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.4,
+      "marketPercentile": 22.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 10.85,
+      "sent": 25.8,
+      "words": 155,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 35.7,
+      "marketPercentile": 53.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 5.76,
+      "sent": 14.1,
+      "words": 183,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 25.3,
+      "marketPercentile": 29.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 6.93,
+      "sent": 18.9,
+      "words": 151,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 27,
+      "marketPercentile": 36.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 11.84,
+      "sent": 31.8,
+      "words": 191,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 33.3,
+      "marketPercentile": 43
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 3.82,
+      "sent": 9.4,
+      "words": 131,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.5,
+      "marketPercentile": 75.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 6.05,
+      "sent": 15.4,
+      "words": 108,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.6,
+      "marketPercentile": 80.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 6.27,
+      "sent": 20,
+      "words": 120,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.7,
+      "marketPercentile": 65.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 6.01,
+      "sent": 15.1,
+      "words": 121,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42.3,
+      "marketPercentile": 87.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 8.22,
+      "sent": 22.5,
+      "words": 135,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.5,
+      "marketPercentile": 29
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 10.44,
+      "sent": 29.3,
+      "words": 117,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 20.4,
+      "marketPercentile": 5.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 4.6,
+      "sent": 15.4,
+      "words": 123,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 30.8,
+      "marketPercentile": 51.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 10.26,
+      "sent": 22.7,
+      "words": 136,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.9,
+      "marketPercentile": 76.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 10.14,
+      "sent": 27.2,
+      "words": 163,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38,
+      "marketPercentile": 61.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 3.41,
+      "sent": 9.5,
+      "words": 104,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.3,
+      "marketPercentile": 60.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Turn of the Screw (발췌)",
+      "fk": 9.42,
+      "sent": 26.6,
+      "words": 133,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 27.1,
+      "marketPercentile": 19.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 6.41,
+      "sent": 16,
+      "words": 128,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.9,
+      "marketPercentile": 86.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 3.64,
+      "sent": 9.4,
+      "words": 103,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42.9,
+      "marketPercentile": 89
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 5.06,
+      "sent": 10.5,
+      "words": 137,
+      "cefr": "B2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.4,
+      "marketPercentile": 85.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 5.7,
+      "sent": 11.9,
+      "words": 107,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 33.9,
+      "marketPercentile": 63
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 6.5,
+      "sent": 15.1,
+      "words": 121,
+      "cefr": "B2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40.8,
+      "marketPercentile": 83.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 7.78,
+      "sent": 20.2,
+      "words": 121,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.3,
+      "marketPercentile": 48
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 10.3,
+      "sent": 21,
+      "words": 126,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.3,
+      "marketPercentile": 59.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 5.65,
+      "sent": 17.2,
+      "words": 103,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.8,
+      "marketPercentile": 35.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 7.22,
+      "sent": 14.4,
+      "words": 173,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.1,
+      "marketPercentile": 62.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 5.9,
+      "sent": 12.3,
+      "words": 123,
+      "cefr": "B2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.5,
+      "marketPercentile": 85.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 11.69,
+      "sent": 26.4,
+      "words": 132,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 34.7,
+      "marketPercentile": 50
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 4.26,
+      "sent": 12.9,
+      "words": 129,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.5,
+      "marketPercentile": 75.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 3.38,
+      "sent": 8.4,
+      "words": 109,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.4,
+      "marketPercentile": 64.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 8.48,
+      "sent": 22.9,
+      "words": 183,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.5,
+      "marketPercentile": 67.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 11.76,
+      "sent": 33,
+      "words": 198,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.4,
+      "marketPercentile": 33.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 8.2,
+      "sent": 21.4,
+      "words": 107,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 42.3,
+      "marketPercentile": 78.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 3.91,
+      "sent": 10.6,
+      "words": 106,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42.1,
+      "marketPercentile": 87
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 8.91,
+      "sent": 25,
+      "words": 100,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.7,
+      "marketPercentile": 40
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 8.43,
+      "sent": 24.4,
+      "words": 122,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.7,
+      "marketPercentile": 67.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 10.72,
+      "sent": 32,
+      "words": 128,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 38.6,
+      "marketPercentile": 63.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 8.51,
+      "sent": 21.5,
+      "words": 172,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.4,
+      "marketPercentile": 48.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 9.19,
+      "sent": 28.5,
+      "words": 114,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.7,
+      "marketPercentile": 67.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 6.2,
+      "sent": 21,
+      "words": 105,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28,
+      "marketPercentile": 40.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 6.98,
+      "sent": 16.1,
+      "words": 129,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.4,
+      "marketPercentile": 80.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 7.04,
+      "sent": 19.5,
+      "words": 117,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 35,
+      "marketPercentile": 51.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 10.89,
+      "sent": 26,
+      "words": 104,
+      "cefr": "C1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 42.4,
+      "marketPercentile": 79.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 3.15,
+      "sent": 9.9,
+      "words": 119,
+      "cefr": "B1",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40,
+      "marketPercentile": 81.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 8.35,
+      "sent": 26,
+      "words": 130,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.8,
+      "marketPercentile": 45.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 4.24,
+      "sent": 11.5,
+      "words": 127,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 34.9,
+      "marketPercentile": 66.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 6.35,
+      "sent": 16.3,
+      "words": 147,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.7,
+      "marketPercentile": 81.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 3.99,
+      "sent": 10.1,
+      "words": 142,
+      "cefr": "B2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40.8,
+      "marketPercentile": 83.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 6.22,
+      "sent": 16.1,
+      "words": 177,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 39.8,
+      "marketPercentile": 81.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Camp Fire Girls Solve a Mystery; Or, The Christmas Adventure at Carver House (발췌)",
+      "fk": 4.21,
+      "sent": 9.8,
+      "words": 147,
+      "cefr": "B2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.4,
+      "marketPercentile": 72.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 5.28,
+      "sent": 18,
+      "words": 144,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29.1,
+      "marketPercentile": 45.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 3.69,
+      "sent": 14.3,
+      "words": 186,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.6,
+      "marketPercentile": 13.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 2.37,
+      "sent": 13,
+      "words": 130,
+      "cefr": "B2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32.9,
+      "marketPercentile": 59.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 4.98,
+      "sent": 16.9,
+      "words": 135,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.7,
+      "marketPercentile": 51.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 5.13,
+      "sent": 18,
+      "words": 180,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 40,
+      "marketPercentile": 81.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 5.68,
+      "sent": 20,
+      "words": 120,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.4,
+      "marketPercentile": 64.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.34,
+      "sent": 32.5,
+      "words": 130,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.8,
+      "marketPercentile": 35.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 9.81,
+      "sent": 26.5,
+      "words": 159,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.1,
+      "marketPercentile": 37
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 9.69,
+      "sent": 25.2,
+      "words": 126,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.8,
+      "marketPercentile": 57.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 5.29,
+      "sent": 17.3,
+      "words": 121,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.6,
+      "marketPercentile": 35.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 7.53,
+      "sent": 21.8,
+      "words": 109,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40,
+      "marketPercentile": 68.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 2.92,
+      "sent": 13.1,
+      "words": 118,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.1,
+      "marketPercentile": 21.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 7.81,
+      "sent": 23.6,
+      "words": 118,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 34.8,
+      "marketPercentile": 50.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 7.08,
+      "sent": 15.1,
+      "words": 121,
+      "cefr": "C1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 43.1,
+      "marketPercentile": 84.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 8.61,
+      "sent": 24.6,
+      "words": 172,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.4,
+      "marketPercentile": 28.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Home Book of Verse — Volume 2 (발췌)",
+      "fk": 7.74,
+      "sent": 22.2,
+      "words": 111,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 33.9,
+      "marketPercentile": 46
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 3.42,
+      "sent": 13.4,
+      "words": 161,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.1,
+      "marketPercentile": 25
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 6.05,
+      "sent": 19.6,
+      "words": 176,
+      "cefr": "B2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 40.2,
+      "marketPercentile": 82.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 11.27,
+      "sent": 31,
+      "words": 155,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.3,
+      "marketPercentile": 59.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 7.48,
+      "sent": 22.7,
+      "words": 136,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.5,
+      "marketPercentile": 8.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.3,
+      "sent": 33.5,
+      "words": 134,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.5,
+      "marketPercentile": 60
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 7.72,
+      "sent": 21.4,
+      "words": 171,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.9,
+      "marketPercentile": 57.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 9.28,
+      "sent": 25.5,
+      "words": 102,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.7,
+      "marketPercentile": 40
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.54,
+      "sent": 32.7,
+      "words": 196,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.3,
+      "marketPercentile": 33
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 8.79,
+      "sent": 25,
+      "words": 150,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37,
+      "marketPercentile": 58.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.79,
+      "sent": 33.2,
+      "words": 166,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.3,
+      "marketPercentile": 28
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 10.42,
+      "sent": 27.7,
+      "words": 194,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.7,
+      "marketPercentile": 45
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.06,
+      "sent": 32.7,
+      "words": 196,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.8,
+      "marketPercentile": 57.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 8.23,
+      "sent": 19.3,
+      "words": 116,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.6,
+      "marketPercentile": 34.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.76,
+      "sent": 33,
+      "words": 198,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32,
+      "marketPercentile": 36.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 7.22,
+      "sent": 20.7,
+      "words": 145,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.8,
+      "marketPercentile": 45.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 7.7,
+      "sent": 25.4,
+      "words": 127,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.9,
+      "marketPercentile": 31
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 10.03,
+      "sent": 26.4,
+      "words": 185,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33,
+      "marketPercentile": 41.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.79,
+      "sent": 33.7,
+      "words": 101,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.5,
+      "marketPercentile": 12.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 10.42,
+      "sent": 31.2,
+      "words": 156,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40,
+      "marketPercentile": 68.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.98,
+      "sent": 31.7,
+      "words": 190,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.3,
+      "marketPercentile": 55.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 11.93,
+      "sent": 33.3,
+      "words": 133,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 38.3,
+      "marketPercentile": 62.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 7.43,
+      "sent": 22.2,
+      "words": 133,
+      "cefr": "A1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.3,
+      "marketPercentile": 5.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 9.92,
+      "sent": 29.4,
+      "words": 147,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 28.8,
+      "marketPercentile": 23.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 9.08,
+      "sent": 23.7,
+      "words": 166,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 43.8,
+      "marketPercentile": 88.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 9.84,
+      "sent": 29.3,
+      "words": 117,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 42.6,
+      "marketPercentile": 80.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 8.88,
+      "sent": 26.5,
+      "words": 106,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.2,
+      "marketPercentile": 4.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 11.92,
+      "sent": 28.7,
+      "words": 172,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 42,
+      "marketPercentile": 77
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 11.12,
+      "sent": 31.5,
+      "words": 189,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 31.5,
+      "marketPercentile": 34
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 7.42,
+      "sent": 23.6,
+      "words": 189,
+      "cefr": "A2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 41.2,
+      "marketPercentile": 73.2
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 9.21,
+      "sent": 19,
+      "words": 114,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 43.5,
+      "marketPercentile": 86.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 9.5,
+      "sent": 24,
+      "words": 120,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 35.4,
+      "marketPercentile": 52.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 11.28,
+      "sent": 29,
+      "words": 116,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 28.8,
+      "marketPercentile": 23.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 8.05,
+      "sent": 19.1,
+      "words": 172,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 40.5,
+      "marketPercentile": 70.7
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 3.08,
+      "sent": 10.6,
+      "words": 117,
+      "cefr": "A2",
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 31.7,
+      "marketPercentile": 55.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "Grimms' Fairy Tales (발췌)",
+      "fk": 8.14,
+      "sent": 24.7,
+      "words": 148,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 41.1,
+      "marketPercentile": 72.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 5.66,
+      "sent": 18,
+      "words": 126,
+      "cefr": "A1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 41.4,
+      "marketPercentile": 85.3
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 10.12,
+      "sent": 24.3,
+      "words": 170,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 38.8,
+      "marketPercentile": 64.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 9.22,
+      "sent": 28.2,
+      "words": 141,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32.4,
+      "marketPercentile": 38.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 6.72,
+      "sent": 18.7,
+      "words": 168,
+      "cefr": "B1",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.7,
+      "marketPercentile": 81.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 5.08,
+      "sent": 11.5,
+      "words": 126,
+      "cefr": "B2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 41.5,
+      "marketPercentile": 85.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 11.4,
+      "sent": 30.4,
+      "words": 152,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 38.5,
+      "marketPercentile": 63.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 11.25,
+      "sent": 27.6,
+      "words": 138,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 34.5,
+      "marketPercentile": 49
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 9.54,
+      "sent": 24.2,
+      "words": 145,
+      "cefr": "C1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.5,
+      "marketPercentile": 60
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 8.68,
+      "sent": 22.9,
+      "words": 183,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.6,
+      "marketPercentile": 67.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 9.04,
+      "sent": 26.8,
+      "words": 134,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 31.3,
+      "marketPercentile": 33
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 11.84,
+      "sent": 26.6,
+      "words": 186,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39,
+      "marketPercentile": 65.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 9.62,
+      "sent": 27.5,
+      "words": 110,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 28.3,
+      "marketPercentile": 22.1
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 9.36,
+      "sent": 25.9,
+      "words": 181,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.5,
+      "marketPercentile": 60
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 11.25,
+      "sent": 27.6,
+      "words": 138,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 34.2,
+      "marketPercentile": 47.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 4.02,
+      "sent": 14.6,
+      "words": 190,
+      "cefr": "A2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.6,
+      "marketPercentile": 72.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 8.21,
+      "sent": 18.5,
+      "words": 148,
+      "cefr": "B2",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 40.8,
+      "marketPercentile": 71.8
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 10.89,
+      "sent": 27,
+      "words": 162,
+      "cefr": "B2",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 41.7,
+      "marketPercentile": 75
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Adventures of Tom Sawyer, Complete (발췌)",
+      "fk": 5.33,
+      "sent": 19.5,
+      "words": 117,
+      "cefr": "A2",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 32.1,
+      "marketPercentile": 56.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 10.2,
+      "sent": 27.7,
+      "words": 166,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.9,
+      "marketPercentile": 36
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 9.05,
+      "sent": 25.6,
+      "words": 128,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 36.2,
+      "marketPercentile": 55.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 8.82,
+      "sent": 24,
+      "words": 120,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.9,
+      "marketPercentile": 46
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 9.01,
+      "sent": 23.7,
+      "words": 142,
+      "cefr": "A2",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 33.8,
+      "marketPercentile": 45.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 11.8,
+      "sent": 36.7,
+      "words": 110,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.1,
+      "marketPercentile": 13.5
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 9,
+      "sent": 27.3,
+      "words": 109,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.8,
+      "marketPercentile": 19
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 4.53,
+      "sent": 13.8,
+      "words": 124,
+      "cefr": "B1",
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 27.8,
+      "marketPercentile": 39.9
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 5.54,
+      "sent": 17.8,
+      "words": 178,
+      "cefr": "A2",
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 25,
+      "marketPercentile": 28.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 10.49,
+      "sent": 29.4,
+      "words": 147,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 37.1,
+      "marketPercentile": 58.6
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 7.98,
+      "sent": 23.8,
+      "words": 143,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 31.3,
+      "marketPercentile": 33
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 7.84,
+      "sent": 21.6,
+      "words": 194,
+      "cefr": "B1",
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 28.9,
+      "marketPercentile": 23.4
+    },
+    {
+      "source": "gutenberg",
+      "title": "The Wonderful Wizard of Oz (발췌)",
+      "fk": 9.03,
+      "sent": 26.3,
+      "words": 184,
+      "cefr": "B1",
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "자립성"
+      ],
+      "outsidePct": 31,
+      "marketPercentile": 31.5
     }
   ]
 }
