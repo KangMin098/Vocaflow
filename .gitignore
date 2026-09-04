@@ -164,3 +164,4 @@ scripts/csat/data/corpus.json
 scripts/csat/analysis-drain/chunk-*.json
 !scripts/csat/analysis-drain/*.out.json
 scripts/csat/analysis-drain/_MANIFEST.json
+scripts/csat/compose-drain/*.imported
