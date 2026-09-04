@@ -352,6 +352,7 @@ const report = {
     band: bandOf(med(v.fk)),
     cefr: Object.fromEntries(v.cefr),
   })),
+  // 판정 결과를 함께 싣는다 — 없으면 이 파일로는 "몇 편이 적합인가" 를 다시 못 센다.
   items: scored.map((s) => ({
     source: s.source,
     title: s.title,
@@ -360,6 +361,11 @@ const report = {
     words: s.words,
     cefr: s.cefr,
     band: s.band,
+    school: s.school,
+    fits: s.fits,
+    failed: s.failed,
+    outsidePct: s.cov?.outsidePct ?? null,
+    marketPercentile: s.pctile,
   })),
 }
 fs.writeFileSync(path.resolve(outPath), JSON.stringify(report, null, 2))

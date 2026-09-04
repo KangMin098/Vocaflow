@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-09-04T12:19:33.366Z",
+  "measuredAt": "2026-09-04T12:21:23.378Z",
   "window": {
     "min": 100,
     "max": 200
@@ -367,7 +367,12 @@
       "sent": 15.4,
       "words": 169,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23,
+      "marketPercentile": 23
     },
     {
       "source": "original",
@@ -376,7 +381,12 @@
       "sent": 16.7,
       "words": 184,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.4,
+      "marketPercentile": 12.7
     },
     {
       "source": "original",
@@ -385,7 +395,12 @@
       "sent": 16.9,
       "words": 169,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.1,
+      "marketPercentile": 21.3
     },
     {
       "source": "original",
@@ -394,7 +409,12 @@
       "sent": 17.1,
       "words": 188,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17,
+      "marketPercentile": 12
     },
     {
       "source": "original",
@@ -403,7 +423,12 @@
       "sent": 16.2,
       "words": 194,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.9,
+      "marketPercentile": 11.8
     },
     {
       "source": "original",
@@ -412,7 +437,12 @@
       "sent": 16.1,
       "words": 193,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.4,
+      "marketPercentile": 10.9
     },
     {
       "source": "original",
@@ -421,7 +451,12 @@
       "sent": 19.9,
       "words": 179,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.6,
+      "marketPercentile": 22.2
     },
     {
       "source": "original",
@@ -430,7 +465,12 @@
       "sent": 18.9,
       "words": 189,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.3,
+      "marketPercentile": 11.8
     },
     {
       "source": "original",
@@ -439,7 +479,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.8,
+      "marketPercentile": 15.3
     },
     {
       "source": "original",
@@ -448,7 +493,12 @@
       "sent": 16.9,
       "words": 186,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 12.5,
+      "marketPercentile": 4.7
     },
     {
       "source": "original",
@@ -457,7 +507,12 @@
       "sent": 21,
       "words": 189,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.2,
+      "marketPercentile": 11.6
     },
     {
       "source": "original",
@@ -466,7 +521,12 @@
       "sent": 17.5,
       "words": 175,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.2,
+      "marketPercentile": 16
     },
     {
       "source": "original",
@@ -475,7 +535,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.6,
+      "marketPercentile": 13.1
     },
     {
       "source": "original",
@@ -484,7 +549,12 @@
       "sent": 16.3,
       "words": 195,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 14.5,
+      "marketPercentile": 7.4
     },
     {
       "source": "original",
@@ -493,7 +563,12 @@
       "sent": 19.7,
       "words": 177,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.9,
+      "marketPercentile": 21.3
     },
     {
       "source": "original",
@@ -502,7 +577,12 @@
       "sent": 16.9,
       "words": 186,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.2,
+      "marketPercentile": 19.7
     },
     {
       "source": "original",
@@ -511,7 +591,12 @@
       "sent": 16.8,
       "words": 185,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.4,
+      "marketPercentile": 18.2
     },
     {
       "source": "original",
@@ -520,7 +605,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.1,
+      "marketPercentile": 33.1
     },
     {
       "source": "original",
@@ -529,7 +619,12 @@
       "sent": 19.4,
       "words": 175,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 12.7,
+      "marketPercentile": 4.8
     },
     {
       "source": "original",
@@ -538,7 +633,12 @@
       "sent": 16.4,
       "words": 180,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.1,
+      "marketPercentile": 9.3
     },
     {
       "source": "original",
@@ -547,7 +647,12 @@
       "sent": 18.5,
       "words": 185,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.8,
+      "marketPercentile": 14.9
     },
     {
       "source": "original",
@@ -556,7 +661,12 @@
       "sent": 16.7,
       "words": 184,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.1,
+      "marketPercentile": 49.2
     },
     {
       "source": "original",
@@ -565,7 +675,12 @@
       "sent": 15.5,
       "words": 186,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.6,
+      "marketPercentile": 10.4
     },
     {
       "source": "original",
@@ -574,7 +689,12 @@
       "sent": 15.7,
       "words": 188,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.7,
+      "marketPercentile": 16.8
     },
     {
       "source": "original",
@@ -583,7 +703,12 @@
       "sent": 18.9,
       "words": 170,
       "cefr": "B2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23,
+      "marketPercentile": 11.2
     },
     {
       "source": "original",
@@ -592,7 +717,12 @@
       "sent": 17.2,
       "words": 189,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.2,
+      "marketPercentile": 37.5
     },
     {
       "source": "original",
@@ -601,7 +731,12 @@
       "sent": 16.3,
       "words": 195,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.1,
+      "marketPercentile": 21.3
     },
     {
       "source": "original",
@@ -610,7 +745,12 @@
       "sent": 19.7,
       "words": 177,
       "cefr": "B2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.3,
+      "marketPercentile": 13.9
     },
     {
       "source": "nasa",
@@ -619,7 +759,14 @@
       "sent": 14.6,
       "words": 131,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "original",
@@ -628,7 +775,12 @@
       "sent": 20.9,
       "words": 167,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.7,
+      "marketPercentile": 3.9
     },
     {
       "source": "original",
@@ -637,7 +789,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.2,
+      "marketPercentile": 16
     },
     {
       "source": "original",
@@ -646,7 +803,12 @@
       "sent": 21,
       "words": 189,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.3,
+      "marketPercentile": 14.4
     },
     {
       "source": "original",
@@ -655,7 +817,12 @@
       "sent": 20.8,
       "words": 187,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18,
+      "marketPercentile": 13.8
     },
     {
       "source": "original",
@@ -664,7 +831,12 @@
       "sent": 21.1,
       "words": 190,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.4,
+      "marketPercentile": 28.5
     },
     {
       "source": "original",
@@ -673,7 +845,12 @@
       "sent": 17.1,
       "words": 188,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 10.1,
+      "marketPercentile": 3.8
     },
     {
       "source": "original",
@@ -682,7 +859,12 @@
       "sent": 15.4,
       "words": 169,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.2,
+      "marketPercentile": 8.7
     },
     {
       "source": "original",
@@ -691,7 +873,12 @@
       "sent": 15.3,
       "words": 184,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.5,
+      "marketPercentile": 38.7
     },
     {
       "source": "original",
@@ -700,7 +887,12 @@
       "sent": 19,
       "words": 171,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.7,
+      "marketPercentile": 20.9
     },
     {
       "source": "original",
@@ -709,7 +901,12 @@
       "sent": 17.9,
       "words": 179,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 11.9,
+      "marketPercentile": 4.5
     },
     {
       "source": "original",
@@ -718,7 +915,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.8,
+      "marketPercentile": 27.8
     },
     {
       "source": "original",
@@ -727,7 +929,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24,
+      "marketPercentile": 24.8
     },
     {
       "source": "original",
@@ -736,7 +943,12 @@
       "sent": 18.6,
       "words": 186,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17,
+      "marketPercentile": 4.3
     },
     {
       "source": "original",
@@ -745,7 +957,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.4,
+      "marketPercentile": 38.3
     },
     {
       "source": "original",
@@ -754,7 +971,12 @@
       "sent": 16.9,
       "words": 186,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.6,
+      "marketPercentile": 16.5
     },
     {
       "source": "original",
@@ -763,7 +985,12 @@
       "sent": 18.8,
       "words": 188,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.6,
+      "marketPercentile": 12.4
     },
     {
       "source": "original",
@@ -772,7 +999,12 @@
       "sent": 17,
       "words": 187,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.6,
+      "marketPercentile": 51.1
     },
     {
       "source": "original",
@@ -781,7 +1013,12 @@
       "sent": 18.3,
       "words": 183,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.2,
+      "marketPercentile": 4.5
     },
     {
       "source": "original",
@@ -790,7 +1027,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.5,
+      "marketPercentile": 11.1
     },
     {
       "source": "original",
@@ -799,7 +1041,12 @@
       "sent": 17.2,
       "words": 189,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20,
+      "marketPercentile": 17.5
     },
     {
       "source": "original",
@@ -808,7 +1055,12 @@
       "sent": 18.1,
       "words": 181,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.2,
+      "marketPercentile": 16
     },
     {
       "source": "original",
@@ -817,7 +1069,12 @@
       "sent": 18.5,
       "words": 185,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.2,
+      "marketPercentile": 17.8
     },
     {
       "source": "original",
@@ -826,7 +1083,12 @@
       "sent": 20.6,
       "words": 185,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.1,
+      "marketPercentile": 7.3
     },
     {
       "source": "original",
@@ -835,7 +1097,12 @@
       "sent": 17,
       "words": 170,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.2,
+      "marketPercentile": 19.7
     },
     {
       "source": "original",
@@ -844,7 +1111,12 @@
       "sent": 14.4,
       "words": 187,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.9,
+      "marketPercentile": 36.3
     },
     {
       "source": "original",
@@ -853,7 +1125,12 @@
       "sent": 16.2,
       "words": 194,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.4,
+      "marketPercentile": 23.7
     },
     {
       "source": "original",
@@ -862,7 +1139,12 @@
       "sent": 18.8,
       "words": 188,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.2,
+      "marketPercentile": 5.4
     },
     {
       "source": "original",
@@ -871,7 +1153,12 @@
       "sent": 17.1,
       "words": 188,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.2,
+      "marketPercentile": 17.8
     },
     {
       "source": "original",
@@ -880,7 +1167,12 @@
       "sent": 15.8,
       "words": 190,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 11.9,
+      "marketPercentile": 4.5
     },
     {
       "source": "original",
@@ -889,7 +1181,12 @@
       "sent": 18,
       "words": 180,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.1,
+      "marketPercentile": 23.2
     },
     {
       "source": "original",
@@ -898,7 +1195,12 @@
       "sent": 21,
       "words": 189,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 13.9,
+      "marketPercentile": 3.5
     },
     {
       "source": "original",
@@ -907,7 +1209,12 @@
       "sent": 17.3,
       "words": 190,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.1,
+      "marketPercentile": 21.7
     },
     {
       "source": "original",
@@ -916,7 +1223,12 @@
       "sent": 17,
       "words": 187,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.2,
+      "marketPercentile": 33.5
     },
     {
       "source": "original",
@@ -925,7 +1237,12 @@
       "sent": 17.2,
       "words": 189,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.2,
+      "marketPercentile": 17.8
     },
     {
       "source": "original",
@@ -934,7 +1251,12 @@
       "sent": 17.8,
       "words": 160,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29.3,
+      "marketPercentile": 46
     },
     {
       "source": "original",
@@ -943,7 +1265,12 @@
       "sent": 16.7,
       "words": 184,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.3,
+      "marketPercentile": 60.9
     },
     {
       "source": "original",
@@ -952,7 +1279,12 @@
       "sent": 16.9,
       "words": 186,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.7,
+      "marketPercentile": 35.5
     },
     {
       "source": "original",
@@ -961,7 +1293,12 @@
       "sent": 19.4,
       "words": 175,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23,
+      "marketPercentile": 23
     },
     {
       "source": "original",
@@ -970,7 +1307,12 @@
       "sent": 22.8,
       "words": 182,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.5,
+      "marketPercentile": 18.4
     },
     {
       "source": "original",
@@ -979,7 +1321,12 @@
       "sent": 18.7,
       "words": 187,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.4,
+      "marketPercentile": 10.9
     },
     {
       "source": "original",
@@ -988,7 +1335,12 @@
       "sent": 18.8,
       "words": 188,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.3,
+      "marketPercentile": 18
     },
     {
       "source": "original",
@@ -997,7 +1349,12 @@
       "sent": 16.7,
       "words": 200,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.8,
+      "marketPercentile": 27.8
     },
     {
       "source": "original",
@@ -1006,7 +1363,12 @@
       "sent": 18.8,
       "words": 188,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29.6,
+      "marketPercentile": 24.8
     },
     {
       "source": "original",
@@ -1015,7 +1377,12 @@
       "sent": 17.1,
       "words": 188,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.6,
+      "marketPercentile": 14.5
     },
     {
       "source": "original",
@@ -1024,7 +1391,12 @@
       "sent": 21,
       "words": 189,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24,
+      "marketPercentile": 13.2
     },
     {
       "source": "original",
@@ -1033,7 +1405,12 @@
       "sent": 18.9,
       "words": 189,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.4,
+      "marketPercentile": 22.3
     },
     {
       "source": "original",
@@ -1042,7 +1419,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.1,
+      "marketPercentile": 12.2
     },
     {
       "source": "original",
@@ -1051,7 +1433,12 @@
       "sent": 18.7,
       "words": 187,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.8,
+      "marketPercentile": 11.6
     },
     {
       "source": "original",
@@ -1060,7 +1447,12 @@
       "sent": 16.9,
       "words": 186,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.5,
+      "marketPercentile": 38.7
     },
     {
       "source": "original",
@@ -1069,7 +1461,12 @@
       "sent": 22.5,
       "words": 180,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.4,
+      "marketPercentile": 12
     },
     {
       "source": "original",
@@ -1078,7 +1475,12 @@
       "sent": 18.8,
       "words": 188,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.4,
+      "marketPercentile": 10.9
     },
     {
       "source": "original",
@@ -1087,7 +1489,12 @@
       "sent": 20.3,
       "words": 183,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 5.8,
+      "marketPercentile": 2.2
     },
     {
       "source": "original",
@@ -1096,7 +1503,12 @@
       "sent": 20.3,
       "words": 183,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19,
+      "marketPercentile": 15.6
     },
     {
       "source": "original",
@@ -1105,7 +1517,12 @@
       "sent": 21,
       "words": 189,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.8,
+      "marketPercentile": 14.9
     },
     {
       "source": "original",
@@ -1114,7 +1531,12 @@
       "sent": 20.8,
       "words": 187,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.9,
+      "marketPercentile": 4.5
     },
     {
       "source": "original",
@@ -1123,7 +1545,12 @@
       "sent": 22.5,
       "words": 180,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27,
+      "marketPercentile": 19.4
     },
     {
       "source": "original",
@@ -1132,7 +1559,12 @@
       "sent": 18.4,
       "words": 184,
       "cefr": "B2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.5,
+      "marketPercentile": 11.1
     },
     {
       "source": "original",
@@ -1141,7 +1573,12 @@
       "sent": 19.2,
       "words": 192,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.1,
+      "marketPercentile": 23.2
     },
     {
       "source": "original",
@@ -1150,7 +1587,12 @@
       "sent": 19.2,
       "words": 192,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.9,
+      "marketPercentile": 19.2
     },
     {
       "source": "original",
@@ -1159,7 +1601,12 @@
       "sent": 19.4,
       "words": 194,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.3,
+      "marketPercentile": 18
     },
     {
       "source": "original",
@@ -1168,7 +1615,12 @@
       "sent": 19.6,
       "words": 196,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.4,
+      "marketPercentile": 16.1
     },
     {
       "source": "original",
@@ -1177,7 +1629,12 @@
       "sent": 19.2,
       "words": 192,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.3,
+      "marketPercentile": 23.5
     },
     {
       "source": "original",
@@ -1186,7 +1643,12 @@
       "sent": 18.9,
       "words": 189,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.5,
+      "marketPercentile": 34.7
     },
     {
       "source": "original",
@@ -1195,7 +1657,12 @@
       "sent": 23.6,
       "words": 189,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.8,
+      "marketPercentile": 14.9
     },
     {
       "source": "original",
@@ -1204,7 +1671,12 @@
       "sent": 17.1,
       "words": 171,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.2,
+      "marketPercentile": 16
     },
     {
       "source": "original",
@@ -1213,7 +1685,12 @@
       "sent": 16.5,
       "words": 165,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 13,
+      "marketPercentile": 4.9
     },
     {
       "source": "original",
@@ -1222,7 +1699,12 @@
       "sent": 17.8,
       "words": 160,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 14.3,
+      "marketPercentile": 7
     },
     {
       "source": "original",
@@ -1231,7 +1713,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.4,
+      "marketPercentile": 75.5
     },
     {
       "source": "original",
@@ -1240,7 +1727,12 @@
       "sent": 21,
       "words": 189,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 14.6,
+      "marketPercentile": 3.6
     },
     {
       "source": "original",
@@ -1249,7 +1741,12 @@
       "sent": 18.2,
       "words": 164,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.2,
+      "marketPercentile": 17.8
     },
     {
       "source": "original",
@@ -1258,7 +1755,12 @@
       "sent": 18.9,
       "words": 170,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.3,
+      "marketPercentile": 3.8
     },
     {
       "source": "original",
@@ -1267,7 +1769,12 @@
       "sent": 16.3,
       "words": 196,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.3,
+      "marketPercentile": 60.9
     },
     {
       "source": "original",
@@ -1276,7 +1783,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.6,
+      "marketPercentile": 35.1
     },
     {
       "source": "original",
@@ -1285,7 +1797,12 @@
       "sent": 22.5,
       "words": 180,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.1,
+      "marketPercentile": 11.4
     },
     {
       "source": "original",
@@ -1294,7 +1811,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29.4,
+      "marketPercentile": 46.4
     },
     {
       "source": "original",
@@ -1303,7 +1825,12 @@
       "sent": 17,
       "words": 187,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.8,
+      "marketPercentile": 14.9
     },
     {
       "source": "original",
@@ -1312,7 +1839,12 @@
       "sent": 20.1,
       "words": 181,
       "cefr": "B1",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.5,
+      "marketPercentile": 4.6
     },
     {
       "source": "original",
@@ -1321,7 +1853,12 @@
       "sent": 21,
       "words": 189,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 13.3,
+      "marketPercentile": 3.3
     },
     {
       "source": "original",
@@ -1330,7 +1867,12 @@
       "sent": 18.3,
       "words": 165,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16,
+      "marketPercentile": 10.1
     },
     {
       "source": "original",
@@ -1339,7 +1881,12 @@
       "sent": 16.7,
       "words": 167,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.8,
+      "marketPercentile": 24.4
     },
     {
       "source": "original",
@@ -1348,7 +1895,12 @@
       "sent": 20.1,
       "words": 161,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.9,
+      "marketPercentile": 4.7
     },
     {
       "source": "original",
@@ -1357,7 +1909,12 @@
       "sent": 17.7,
       "words": 177,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.2,
+      "marketPercentile": 33.5
     },
     {
       "source": "original",
@@ -1366,7 +1923,12 @@
       "sent": 19,
       "words": 171,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.8,
+      "marketPercentile": 15.3
     },
     {
       "source": "original",
@@ -1375,7 +1937,12 @@
       "sent": 17.2,
       "words": 155,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.2,
+      "marketPercentile": 25.4
     },
     {
       "source": "original",
@@ -1384,7 +1951,12 @@
       "sent": 16.4,
       "words": 180,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.6,
+      "marketPercentile": 24.1
     },
     {
       "source": "original",
@@ -1393,7 +1965,12 @@
       "sent": 19.3,
       "words": 174,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.4,
+      "marketPercentile": 16.4
     },
     {
       "source": "original",
@@ -1402,7 +1979,12 @@
       "sent": 21,
       "words": 168,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18,
+      "marketPercentile": 4.5
     },
     {
       "source": "original",
@@ -1411,7 +1993,12 @@
       "sent": 18.3,
       "words": 183,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.5,
+      "marketPercentile": 12.9
     },
     {
       "source": "original",
@@ -1420,7 +2007,12 @@
       "sent": 21.3,
       "words": 170,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.2,
+      "marketPercentile": 5.4
     },
     {
       "source": "original",
@@ -1429,7 +2021,12 @@
       "sent": 19.9,
       "words": 179,
       "cefr": "B1",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.9,
+      "marketPercentile": 23.4
     },
     {
       "source": "original",
@@ -1438,7 +2035,12 @@
       "sent": 9.1,
       "words": 192,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.4,
+      "marketPercentile": 75.5
     },
     {
       "source": "original",
@@ -1447,7 +2049,12 @@
       "sent": 16,
       "words": 192,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.8,
+      "marketPercentile": 35.9
     },
     {
       "source": "original",
@@ -1456,7 +2063,12 @@
       "sent": 18.7,
       "words": 187,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.9,
+      "marketPercentile": 15.5
     },
     {
       "source": "original",
@@ -1465,7 +2077,12 @@
       "sent": 16.5,
       "words": 182,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.9,
+      "marketPercentile": 13.6
     },
     {
       "source": "original",
@@ -1474,7 +2091,12 @@
       "sent": 17.6,
       "words": 176,
       "cefr": "B2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25,
+      "marketPercentile": 15.3
     },
     {
       "source": "original",
@@ -1483,7 +2105,12 @@
       "sent": 17.7,
       "words": 177,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.8,
+      "marketPercentile": 17
     },
     {
       "source": "original",
@@ -1492,7 +2119,12 @@
       "sent": 20.7,
       "words": 186,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.3,
+      "marketPercentile": 3.8
     },
     {
       "source": "original",
@@ -1501,7 +2133,12 @@
       "sent": 19.4,
       "words": 175,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.2,
+      "marketPercentile": 10.5
     },
     {
       "source": "original",
@@ -1510,7 +2147,12 @@
       "sent": 18,
       "words": 180,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.1,
+      "marketPercentile": 23.2
     },
     {
       "source": "original",
@@ -1519,7 +2161,12 @@
       "sent": 19.1,
       "words": 172,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 7.4,
+      "marketPercentile": 2.8
     },
     {
       "source": "original",
@@ -1528,7 +2175,12 @@
       "sent": 18.2,
       "words": 182,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.9,
+      "marketPercentile": 13
     },
     {
       "source": "original",
@@ -1537,7 +2189,12 @@
       "sent": 18.4,
       "words": 184,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.9,
+      "marketPercentile": 10
     },
     {
       "source": "original",
@@ -1546,7 +2203,12 @@
       "sent": 19,
       "words": 190,
       "cefr": "B2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.6,
+      "marketPercentile": 22.7
     },
     {
       "source": "original",
@@ -1555,7 +2217,12 @@
       "sent": 18.9,
       "words": 189,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28,
+      "marketPercentile": 21.5
     },
     {
       "source": "original",
@@ -1564,7 +2231,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.3,
+      "marketPercentile": 19.9
     },
     {
       "source": "original",
@@ -1573,7 +2245,12 @@
       "sent": 17.8,
       "words": 178,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21,
+      "marketPercentile": 19.3
     },
     {
       "source": "original",
@@ -1582,7 +2259,12 @@
       "sent": 17.1,
       "words": 171,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29.5,
+      "marketPercentile": 24.6
     },
     {
       "source": "original",
@@ -1591,7 +2273,12 @@
       "sent": 17.4,
       "words": 174,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 10.7,
+      "marketPercentile": 4.1
     },
     {
       "source": "original",
@@ -1600,7 +2287,12 @@
       "sent": 16.8,
       "words": 168,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.8,
+      "marketPercentile": 17.1
     },
     {
       "source": "original",
@@ -1609,7 +2301,12 @@
       "sent": 17.7,
       "words": 177,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22,
+      "marketPercentile": 21.1
     },
     {
       "source": "original",
@@ -1618,7 +2315,12 @@
       "sent": 17.2,
       "words": 172,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.4,
+      "marketPercentile": 16.4
     },
     {
       "source": "original",
@@ -1627,7 +2329,12 @@
       "sent": 16.1,
       "words": 193,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.3,
+      "marketPercentile": 14.4
     },
     {
       "source": "original",
@@ -1636,7 +2343,12 @@
       "sent": 16.3,
       "words": 196,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18,
+      "marketPercentile": 13.8
     },
     {
       "source": "original",
@@ -1645,7 +2357,12 @@
       "sent": 16.3,
       "words": 196,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.7,
+      "marketPercentile": 16.9
     },
     {
       "source": "original",
@@ -1654,7 +2371,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.2,
+      "marketPercentile": 14.2
     },
     {
       "source": "original",
@@ -1663,7 +2385,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.7,
+      "marketPercentile": 39.5
     },
     {
       "source": "original",
@@ -1672,7 +2399,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.8,
+      "marketPercentile": 11.6
     },
     {
       "source": "original",
@@ -1681,7 +2413,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 12.4,
+      "marketPercentile": 4.7
     },
     {
       "source": "original",
@@ -1690,7 +2427,12 @@
       "sent": 15.7,
       "words": 173,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 12.8,
+      "marketPercentile": 4.8
     },
     {
       "source": "original",
@@ -1699,7 +2441,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.9,
+      "marketPercentile": 22.8
     },
     {
       "source": "original",
@@ -1708,7 +2455,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.1,
+      "marketPercentile": 14
     },
     {
       "source": "original",
@@ -1717,7 +2469,12 @@
       "sent": 16.3,
       "words": 196,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.1,
+      "marketPercentile": 10.3
     },
     {
       "source": "original",
@@ -1726,7 +2483,12 @@
       "sent": 16.3,
       "words": 195,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.1,
+      "marketPercentile": 33.1
     },
     {
       "source": "original",
@@ -1735,7 +2497,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22,
+      "marketPercentile": 9.1
     },
     {
       "source": "original",
@@ -1744,7 +2511,12 @@
       "sent": 16.3,
       "words": 196,
       "cefr": "B2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.9,
+      "marketPercentile": 24.6
     },
     {
       "source": "original",
@@ -1753,7 +2525,12 @@
       "sent": 16.7,
       "words": 200,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.8,
+      "marketPercentile": 59.1
     },
     {
       "source": "original",
@@ -1762,7 +2539,12 @@
       "sent": 16.7,
       "words": 200,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.3,
+      "marketPercentile": 33.9
     },
     {
       "source": "original",
@@ -1771,7 +2553,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.1,
+      "marketPercentile": 25
     },
     {
       "source": "original",
@@ -1780,7 +2567,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.2,
+      "marketPercentile": 21.5
     },
     {
       "source": "original",
@@ -1789,7 +2581,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.4,
+      "marketPercentile": 23.7
     },
     {
       "source": "original",
@@ -1798,7 +2595,12 @@
       "sent": 16.3,
       "words": 196,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.5,
+      "marketPercentile": 26.6
     },
     {
       "source": "original",
@@ -1807,7 +2609,12 @@
       "sent": 16,
       "words": 192,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.7,
+      "marketPercentile": 20.6
     },
     {
       "source": "original",
@@ -1816,7 +2623,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.3,
+      "marketPercentile": 25.8
     },
     {
       "source": "original",
@@ -1825,7 +2637,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.6,
+      "marketPercentile": 51.1
     },
     {
       "source": "original",
@@ -1834,7 +2651,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.7,
+      "marketPercentile": 13.3
     },
     {
       "source": "original",
@@ -1843,7 +2665,12 @@
       "sent": 15.8,
       "words": 190,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.1,
+      "marketPercentile": 74.6
     },
     {
       "source": "original",
@@ -1852,7 +2679,12 @@
       "sent": 16.3,
       "words": 195,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.6,
+      "marketPercentile": 39.1
     },
     {
       "source": "original",
@@ -1861,7 +2693,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.3,
+      "marketPercentile": 14.4
     },
     {
       "source": "original",
@@ -1870,7 +2707,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.6,
+      "marketPercentile": 14.9
     },
     {
       "source": "original",
@@ -1879,7 +2721,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.6,
+      "marketPercentile": 43.1
     },
     {
       "source": "original",
@@ -1888,7 +2735,12 @@
       "sent": 17.6,
       "words": 194,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.2,
+      "marketPercentile": 32.5
     },
     {
       "source": "original",
@@ -1897,7 +2749,12 @@
       "sent": 16.2,
       "words": 194,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.9,
+      "marketPercentile": 63
     },
     {
       "source": "original",
@@ -1906,7 +2763,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.9,
+      "marketPercentile": 19.1
     },
     {
       "source": "original",
@@ -1915,7 +2777,12 @@
       "sent": 16,
       "words": 192,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.4,
+      "marketPercentile": 20
     },
     {
       "source": "original",
@@ -1924,7 +2791,12 @@
       "sent": 16.3,
       "words": 196,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 12,
+      "marketPercentile": 4.5
     },
     {
       "source": "original",
@@ -1933,7 +2805,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.3,
+      "marketPercentile": 41.9
     },
     {
       "source": "original",
@@ -1942,7 +2819,12 @@
       "sent": 16.2,
       "words": 194,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.2,
+      "marketPercentile": 29.4
     },
     {
       "source": "original",
@@ -1951,7 +2833,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24,
+      "marketPercentile": 24.8
     },
     {
       "source": "original",
@@ -1960,7 +2847,12 @@
       "sent": 15.7,
       "words": 188,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.9,
+      "marketPercentile": 13.6
     },
     {
       "source": "original",
@@ -1969,7 +2861,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29,
+      "marketPercentile": 44.8
     },
     {
       "source": "original",
@@ -1978,7 +2875,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.6,
+      "marketPercentile": 51.1
     },
     {
       "source": "nasa",
@@ -1987,7 +2889,14 @@
       "sent": 52,
       "words": 156,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -1996,7 +2905,14 @@
       "sent": 23.4,
       "words": 187,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -2005,7 +2921,14 @@
       "sent": 26.4,
       "words": 185,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -2014,7 +2937,14 @@
       "sent": 26.3,
       "words": 158,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "voa",
@@ -2023,7 +2953,14 @@
       "sent": 6,
       "words": 127,
       "cefr": null,
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -2032,7 +2969,14 @@
       "sent": 26.8,
       "words": 107,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -2041,7 +2985,14 @@
       "sent": 35.2,
       "words": 176,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "original",
@@ -2050,7 +3001,12 @@
       "sent": 16.4,
       "words": 180,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 40.2,
+      "marketPercentile": 69.6
     },
     {
       "source": "futurity",
@@ -2059,7 +3015,14 @@
       "sent": 30.7,
       "words": 184,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -2068,7 +3031,14 @@
       "sent": 24.1,
       "words": 169,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -2077,7 +3047,14 @@
       "sent": 30,
       "words": 210,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -2086,7 +3063,14 @@
       "sent": 39,
       "words": 117,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "voa",
@@ -2095,7 +3079,14 @@
       "sent": 6.6,
       "words": 112,
       "cefr": null,
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "voa",
@@ -2104,7 +3095,14 @@
       "sent": 7.6,
       "words": 106,
       "cefr": null,
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -2113,7 +3111,14 @@
       "sent": 22.1,
       "words": 177,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -2122,7 +3127,12 @@
       "sent": 21.6,
       "words": 108,
       "cefr": "B2",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.8,
+      "marketPercentile": 57.5
     },
     {
       "source": "voa",
@@ -2131,7 +3141,14 @@
       "sent": 6.3,
       "words": 100,
       "cefr": null,
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -2140,7 +3157,14 @@
       "sent": 20.8,
       "words": 125,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "voa",
@@ -2149,7 +3173,12 @@
       "sent": 7,
       "words": 105,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.3,
+      "marketPercentile": 19.9
     },
     {
       "source": "futurity",
@@ -2158,7 +3187,14 @@
       "sent": 25.3,
       "words": 177,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "noaa",
@@ -2167,7 +3203,12 @@
       "sent": 7.6,
       "words": 106,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 11.3,
+      "marketPercentile": 4.3
     },
     {
       "source": "usgs",
@@ -2176,7 +3217,12 @@
       "sent": 7.5,
       "words": 113,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.2,
+      "marketPercentile": 12.3
     },
     {
       "source": "voa",
@@ -2185,7 +3231,12 @@
       "sent": 7.5,
       "words": 105,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.3,
+      "marketPercentile": 19.9
     },
     {
       "source": "voa",
@@ -2194,7 +3245,12 @@
       "sent": 7.1,
       "words": 113,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.1,
+      "marketPercentile": 12.2
     },
     {
       "source": "nasa",
@@ -2203,7 +3259,12 @@
       "sent": 7.2,
       "words": 108,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.4,
+      "marketPercentile": 9
     },
     {
       "source": "futurity",
@@ -2212,7 +3273,14 @@
       "sent": 24.7,
       "words": 173,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -2221,7 +3289,14 @@
       "sent": 21,
       "words": 168,
       "cefr": "B2",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 47.4,
+      "marketPercentile": 94.1
     },
     {
       "source": "usgs",
@@ -2230,7 +3305,14 @@
       "sent": 6.9,
       "words": 111,
       "cefr": null,
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "voa",
@@ -2239,7 +3321,14 @@
       "sent": 6.4,
       "words": 103,
       "cefr": null,
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -2248,7 +3337,14 @@
       "sent": 21.6,
       "words": 194,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "voa",
@@ -2257,7 +3353,12 @@
       "sent": 7.4,
       "words": 103,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 8.3,
+      "marketPercentile": 3.1
     },
     {
       "source": "nasa",
@@ -2266,7 +3367,14 @@
       "sent": 26.1,
       "words": 183,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "original",
@@ -2275,7 +3383,12 @@
       "sent": 15.8,
       "words": 174,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.8,
+      "marketPercentile": 15.3
     },
     {
       "source": "futurity",
@@ -2284,7 +3397,12 @@
       "sent": 23.5,
       "words": 188,
       "cefr": "C1",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.2,
+      "marketPercentile": 66.1
     },
     {
       "source": "voa",
@@ -2293,7 +3411,12 @@
       "sent": 6.3,
       "words": 113,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.8,
+      "marketPercentile": 44
     },
     {
       "source": "voa",
@@ -2302,7 +3425,14 @@
       "sent": 6.9,
       "words": 117,
       "cefr": null,
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "original",
@@ -2311,7 +3441,12 @@
       "sent": 19.6,
       "words": 176,
       "cefr": "B1",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.1,
+      "marketPercentile": 32
     },
     {
       "source": "futurity",
@@ -2320,7 +3455,12 @@
       "sent": 6.9,
       "words": 103,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19,
+      "marketPercentile": 15.6
     },
     {
       "source": "original",
@@ -2329,7 +3469,12 @@
       "sent": 15.5,
       "words": 155,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.3,
+      "marketPercentile": 23.5
     },
     {
       "source": "original",
@@ -2338,7 +3483,12 @@
       "sent": 17.6,
       "words": 176,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.6,
+      "marketPercentile": 16.7
     },
     {
       "source": "original",
@@ -2347,7 +3497,12 @@
       "sent": 8.7,
       "words": 130,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 34.7,
+      "marketPercentile": 65.9
     },
     {
       "source": "nasa",
@@ -2356,7 +3511,14 @@
       "sent": 9.1,
       "words": 118,
       "cefr": "C1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 77.2,
+      "marketPercentile": 100
     },
     {
       "source": "nasa",
@@ -2365,7 +3527,14 @@
       "sent": 42.3,
       "words": 127,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "original",
@@ -2374,7 +3543,12 @@
       "sent": 16.1,
       "words": 177,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.8,
+      "marketPercentile": 17.1
     },
     {
       "source": "original",
@@ -2383,7 +3557,12 @@
       "sent": 17.2,
       "words": 189,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.8,
+      "marketPercentile": 11.6
     },
     {
       "source": "original",
@@ -2392,7 +3571,14 @@
       "sent": 14,
       "words": 210,
       "cefr": "B2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "어수창"
+      ],
+      "outsidePct": 34.6,
+      "marketPercentile": 49.5
     },
     {
       "source": "nasa",
@@ -2401,7 +3587,14 @@
       "sent": 19.2,
       "words": 173,
       "cefr": "C1",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 57.5,
+      "marketPercentile": 98.1
     },
     {
       "source": "nasa",
@@ -2410,7 +3603,14 @@
       "sent": 26,
       "words": 104,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "original",
@@ -2419,7 +3619,12 @@
       "sent": 23.4,
       "words": 187,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20,
+      "marketPercentile": 5
     },
     {
       "source": "original",
@@ -2428,7 +3633,12 @@
       "sent": 19,
       "words": 171,
       "cefr": "B2",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 42.9,
+      "marketPercentile": 82.8
     },
     {
       "source": "owid",
@@ -2437,7 +3647,14 @@
       "sent": 27.1,
       "words": 190,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "original",
@@ -2446,7 +3663,12 @@
       "sent": 18.9,
       "words": 189,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.3,
+      "marketPercentile": 10.7
     },
     {
       "source": "original",
@@ -2455,7 +3677,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.8,
+      "marketPercentile": 24.4
     },
     {
       "source": "original",
@@ -2464,7 +3691,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.6,
+      "marketPercentile": 20.4
     },
     {
       "source": "original",
@@ -2473,7 +3705,12 @@
       "sent": 18.3,
       "words": 183,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.6,
+      "marketPercentile": 18.6
     },
     {
       "source": "nasa",
@@ -2482,7 +3719,14 @@
       "sent": 21,
       "words": 126,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "original",
@@ -2491,7 +3735,12 @@
       "sent": 17.1,
       "words": 171,
       "cefr": "B2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.8,
+      "marketPercentile": 14.9
     },
     {
       "source": "original",
@@ -2500,7 +3749,12 @@
       "sent": 19,
       "words": 171,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.6,
+      "marketPercentile": 8.3
     },
     {
       "source": "original",
@@ -2509,7 +3763,12 @@
       "sent": 20.6,
       "words": 185,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.6,
+      "marketPercentile": 34.5
     },
     {
       "source": "original",
@@ -2518,7 +3777,12 @@
       "sent": 15.9,
       "words": 191,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.2,
+      "marketPercentile": 32.5
     },
     {
       "source": "original",
@@ -2527,7 +3791,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.4,
+      "marketPercentile": 21.9
     },
     {
       "source": "original",
@@ -2536,7 +3805,12 @@
       "sent": 16.3,
       "words": 196,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.6,
+      "marketPercentile": 13.1
     },
     {
       "source": "original",
@@ -2545,7 +3819,12 @@
       "sent": 21.6,
       "words": 173,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.4,
+      "marketPercentile": 22.3
     },
     {
       "source": "original",
@@ -2554,7 +3833,12 @@
       "sent": 16.3,
       "words": 179,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.7,
+      "marketPercentile": 15.1
     },
     {
       "source": "original",
@@ -2563,7 +3847,12 @@
       "sent": 15.8,
       "words": 174,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.1,
+      "marketPercentile": 21.3
     },
     {
       "source": "original",
@@ -2572,7 +3861,12 @@
       "sent": 16.1,
       "words": 177,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.9,
+      "marketPercentile": 32.3
     },
     {
       "source": "factbook",
@@ -2581,7 +3875,14 @@
       "sent": 30.8,
       "words": 154,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "original",
@@ -2590,7 +3891,12 @@
       "sent": 16.3,
       "words": 196,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.5,
+      "marketPercentile": 72.5
     },
     {
       "source": "original",
@@ -2599,7 +3905,12 @@
       "sent": 16.2,
       "words": 162,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.8,
+      "marketPercentile": 15.3
     },
     {
       "source": "original",
@@ -2608,7 +3919,12 @@
       "sent": 16.7,
       "words": 200,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.9,
+      "marketPercentile": 22.8
     },
     {
       "source": "original",
@@ -2617,7 +3933,12 @@
       "sent": 20.6,
       "words": 185,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 14.3,
+      "marketPercentile": 7
     },
     {
       "source": "original",
@@ -2626,7 +3947,12 @@
       "sent": 16.1,
       "words": 193,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.4,
+      "marketPercentile": 9
     },
     {
       "source": "original",
@@ -2635,7 +3961,12 @@
       "sent": 14.3,
       "words": 172,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19,
+      "marketPercentile": 15.6
     },
     {
       "source": "original",
@@ -2644,7 +3975,12 @@
       "sent": 20,
       "words": 200,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.8,
+      "marketPercentile": 30.5
     },
     {
       "source": "original",
@@ -2653,7 +3989,12 @@
       "sent": 19,
       "words": 171,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.7,
+      "marketPercentile": 14.7
     },
     {
       "source": "original",
@@ -2662,7 +4003,12 @@
       "sent": 18.2,
       "words": 182,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.1,
+      "marketPercentile": 8.5
     },
     {
       "source": "original",
@@ -2671,7 +4017,12 @@
       "sent": 17.2,
       "words": 189,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.3,
+      "marketPercentile": 4.8
     },
     {
       "source": "original",
@@ -2680,7 +4031,12 @@
       "sent": 18.6,
       "words": 167,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.8,
+      "marketPercentile": 18.9
     },
     {
       "source": "original",
@@ -2689,7 +4045,12 @@
       "sent": 14.9,
       "words": 179,
       "cefr": "B2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.3,
+      "marketPercentile": 25.8
     },
     {
       "source": "original",
@@ -2698,7 +4059,12 @@
       "sent": 19.3,
       "words": 193,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.6,
+      "marketPercentile": 8.3
     },
     {
       "source": "original",
@@ -2707,7 +4073,12 @@
       "sent": 20.6,
       "words": 185,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.7,
+      "marketPercentile": 18.8
     },
     {
       "source": "original",
@@ -2716,7 +4087,12 @@
       "sent": 20,
       "words": 180,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.9,
+      "marketPercentile": 11
     },
     {
       "source": "original",
@@ -2725,7 +4101,12 @@
       "sent": 16.5,
       "words": 182,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.7,
+      "marketPercentile": 4.4
     },
     {
       "source": "original",
@@ -2734,7 +4115,12 @@
       "sent": 15.8,
       "words": 189,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.9,
+      "marketPercentile": 24.6
     },
     {
       "source": "original",
@@ -2743,7 +4129,12 @@
       "sent": 20.8,
       "words": 187,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.4,
+      "marketPercentile": 3.9
     },
     {
       "source": "original",
@@ -2752,7 +4143,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.9,
+      "marketPercentile": 19.1
     },
     {
       "source": "original",
@@ -2761,7 +4157,12 @@
       "sent": 15.8,
       "words": 190,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 12.3,
+      "marketPercentile": 4.7
     },
     {
       "source": "original",
@@ -2770,7 +4171,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.8,
+      "marketPercentile": 9.8
     },
     {
       "source": "original",
@@ -2779,7 +4185,12 @@
       "sent": 17,
       "words": 187,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 14.3,
+      "marketPercentile": 7
     },
     {
       "source": "original",
@@ -2788,7 +4199,12 @@
       "sent": 15.4,
       "words": 185,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.2,
+      "marketPercentile": 11.6
     },
     {
       "source": "original",
@@ -2797,7 +4213,12 @@
       "sent": 16.2,
       "words": 194,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 13.9,
+      "marketPercentile": 6.3
     },
     {
       "source": "original",
@@ -2806,7 +4227,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.8,
+      "marketPercentile": 11.6
     },
     {
       "source": "original",
@@ -2815,7 +4241,12 @@
       "sent": 19.9,
       "words": 179,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21,
+      "marketPercentile": 7.1
     },
     {
       "source": "original",
@@ -2824,7 +4255,12 @@
       "sent": 20.7,
       "words": 186,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.4,
+      "marketPercentile": 12
     },
     {
       "source": "original",
@@ -2833,7 +4269,12 @@
       "sent": 15.9,
       "words": 175,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.6,
+      "marketPercentile": 9.4
     },
     {
       "source": "original",
@@ -2842,7 +4283,12 @@
       "sent": 16,
       "words": 192,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.3,
+      "marketPercentile": 37.9
     },
     {
       "source": "original",
@@ -2851,7 +4297,12 @@
       "sent": 15.4,
       "words": 185,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.7,
+      "marketPercentile": 22.4
     },
     {
       "source": "original",
@@ -2860,7 +4311,12 @@
       "sent": 17,
       "words": 187,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.1,
+      "marketPercentile": 11.4
     },
     {
       "source": "original",
@@ -2869,7 +4325,12 @@
       "sent": 18.9,
       "words": 189,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29,
+      "marketPercentile": 23.6
     },
     {
       "source": "original",
@@ -2878,7 +4339,12 @@
       "sent": 18.2,
       "words": 164,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.8,
+      "marketPercentile": 10.8
     },
     {
       "source": "original",
@@ -2887,7 +4353,12 @@
       "sent": 17.4,
       "words": 157,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22,
+      "marketPercentile": 9.1
     },
     {
       "source": "original",
@@ -2896,7 +4367,12 @@
       "sent": 20.9,
       "words": 188,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.4,
+      "marketPercentile": 20.3
     },
     {
       "source": "original",
@@ -2905,7 +4381,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.9,
+      "marketPercentile": 13.6
     },
     {
       "source": "original",
@@ -2914,7 +4395,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22,
+      "marketPercentile": 21.1
     },
     {
       "source": "original",
@@ -2923,7 +4409,12 @@
       "sent": 18.7,
       "words": 187,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 13.5,
+      "marketPercentile": 5.6
     },
     {
       "source": "original",
@@ -2932,7 +4423,12 @@
       "sent": 16.5,
       "words": 165,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.6,
+      "marketPercentile": 8.3
     },
     {
       "source": "factbook",
@@ -2941,7 +4437,14 @@
       "sent": 23.7,
       "words": 142,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "original",
@@ -2950,7 +4453,12 @@
       "sent": 17.2,
       "words": 172,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28,
+      "marketPercentile": 21.5
     },
     {
       "source": "original",
@@ -2959,7 +4467,12 @@
       "sent": 15.2,
       "words": 167,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.3,
+      "marketPercentile": 29.8
     },
     {
       "source": "original",
@@ -2968,7 +4481,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 11.6,
+      "marketPercentile": 4.4
     },
     {
       "source": "original",
@@ -2977,7 +4495,12 @@
       "sent": 18.1,
       "words": 163,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.8,
+      "marketPercentile": 9.8
     },
     {
       "source": "original",
@@ -2986,7 +4509,12 @@
       "sent": 15.8,
       "words": 190,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.3,
+      "marketPercentile": 18
     },
     {
       "source": "original",
@@ -2995,7 +4523,12 @@
       "sent": 18.1,
       "words": 181,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19,
+      "marketPercentile": 15.6
     },
     {
       "source": "original",
@@ -3004,7 +4537,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.6,
+      "marketPercentile": 9.4
     },
     {
       "source": "original",
@@ -3013,7 +4551,12 @@
       "sent": 18.1,
       "words": 181,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19,
+      "marketPercentile": 15.6
     },
     {
       "source": "original",
@@ -3022,7 +4565,12 @@
       "sent": 17.9,
       "words": 179,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.6,
+      "marketPercentile": 16.7
     },
     {
       "source": "original",
@@ -3031,7 +4579,12 @@
       "sent": 14.5,
       "words": 159,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 12.4,
+      "marketPercentile": 4.7
     },
     {
       "source": "original",
@@ -3040,7 +4593,12 @@
       "sent": 19,
       "words": 171,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.5,
+      "marketPercentile": 34.7
     },
     {
       "source": "original",
@@ -3049,7 +4607,12 @@
       "sent": 17.1,
       "words": 188,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25,
+      "marketPercentile": 15.3
     },
     {
       "source": "original",
@@ -3058,7 +4621,12 @@
       "sent": 18.8,
       "words": 188,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.2,
+      "marketPercentile": 5.4
     },
     {
       "source": "original",
@@ -3067,7 +4635,12 @@
       "sent": 15.1,
       "words": 181,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.2,
+      "marketPercentile": 14.2
     },
     {
       "source": "original",
@@ -3076,7 +4649,12 @@
       "sent": 23.6,
       "words": 189,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.7,
+      "marketPercentile": 22.9
     },
     {
       "source": "original",
@@ -3085,7 +4663,12 @@
       "sent": 19,
       "words": 190,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.8,
+      "marketPercentile": 20.8
     },
     {
       "source": "original",
@@ -3094,7 +4677,12 @@
       "sent": 19.4,
       "words": 175,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.1,
+      "marketPercentile": 11.4
     },
     {
       "source": "original",
@@ -3103,7 +4691,12 @@
       "sent": 19,
       "words": 190,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.3,
+      "marketPercentile": 14.4
     },
     {
       "source": "original",
@@ -3112,7 +4705,12 @@
       "sent": 18.9,
       "words": 189,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.4,
+      "marketPercentile": 7.9
     },
     {
       "source": "original",
@@ -3121,7 +4719,12 @@
       "sent": 16.7,
       "words": 167,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.3,
+      "marketPercentile": 22.1
     },
     {
       "source": "original",
@@ -3130,7 +4733,12 @@
       "sent": 16,
       "words": 192,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.5,
+      "marketPercentile": 18.4
     },
     {
       "source": "original",
@@ -3139,7 +4747,12 @@
       "sent": 16.3,
       "words": 196,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22,
+      "marketPercentile": 21.1
     },
     {
       "source": "original",
@@ -3148,7 +4761,12 @@
       "sent": 17.8,
       "words": 178,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.2,
+      "marketPercentile": 5.4
     },
     {
       "source": "original",
@@ -3157,7 +4775,12 @@
       "sent": 18.3,
       "words": 183,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.1,
+      "marketPercentile": 49.2
     },
     {
       "source": "original",
@@ -3166,7 +4789,12 @@
       "sent": 17.6,
       "words": 176,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.4,
+      "marketPercentile": 50.4
     },
     {
       "source": "original",
@@ -3175,7 +4803,12 @@
       "sent": 19.3,
       "words": 174,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 12.8,
+      "marketPercentile": 3.2
     },
     {
       "source": "original",
@@ -3184,7 +4817,12 @@
       "sent": 23.3,
       "words": 186,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21,
+      "marketPercentile": 7.1
     },
     {
       "source": "original",
@@ -3193,7 +4831,12 @@
       "sent": 17,
       "words": 170,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.4,
+      "marketPercentile": 33.5
     },
     {
       "source": "original",
@@ -3202,7 +4845,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.2,
+      "marketPercentile": 8.7
     },
     {
       "source": "original",
@@ -3211,7 +4859,12 @@
       "sent": 18.1,
       "words": 181,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.7,
+      "marketPercentile": 18.8
     },
     {
       "source": "original",
@@ -3220,7 +4873,12 @@
       "sent": 17.2,
       "words": 172,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.5,
+      "marketPercentile": 38.7
     },
     {
       "source": "original",
@@ -3229,7 +4887,12 @@
       "sent": 18.9,
       "words": 189,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.2,
+      "marketPercentile": 27.5
     },
     {
       "source": "original",
@@ -3238,7 +4901,12 @@
       "sent": 18.2,
       "words": 182,
       "cefr": "B2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.3,
+      "marketPercentile": 37.9
     },
     {
       "source": "original",
@@ -3247,7 +4915,12 @@
       "sent": 17.4,
       "words": 157,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.4,
+      "marketPercentile": 26.2
     },
     {
       "source": "original",
@@ -3256,7 +4929,12 @@
       "sent": 15.6,
       "words": 172,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26,
+      "marketPercentile": 17.4
     },
     {
       "source": "original",
@@ -3265,7 +4943,12 @@
       "sent": 16.9,
       "words": 152,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.6,
+      "marketPercentile": 14.9
     },
     {
       "source": "original",
@@ -3274,7 +4957,12 @@
       "sent": 18.7,
       "words": 168,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.2,
+      "marketPercentile": 9.5
     },
     {
       "source": "original",
@@ -3283,7 +4971,12 @@
       "sent": 20,
       "words": 180,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.7,
+      "marketPercentile": 22.9
     },
     {
       "source": "original",
@@ -3292,7 +4985,12 @@
       "sent": 20.4,
       "words": 184,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.5,
+      "marketPercentile": 16.3
     },
     {
       "source": "original",
@@ -3301,7 +4999,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25,
+      "marketPercentile": 28.6
     },
     {
       "source": "original",
@@ -3310,7 +5013,12 @@
       "sent": 18.9,
       "words": 189,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.1,
+      "marketPercentile": 33.1
     },
     {
       "source": "original",
@@ -3319,7 +5027,12 @@
       "sent": 17.9,
       "words": 179,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.2,
+      "marketPercentile": 16
     },
     {
       "source": "original",
@@ -3328,7 +5041,12 @@
       "sent": 16.5,
       "words": 182,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.8,
+      "marketPercentile": 20.8
     },
     {
       "source": "original",
@@ -3337,7 +5055,12 @@
       "sent": 16.2,
       "words": 162,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 12.4,
+      "marketPercentile": 4.7
     },
     {
       "source": "original",
@@ -3346,7 +5069,12 @@
       "sent": 17.6,
       "words": 176,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.8,
+      "marketPercentile": 13.4
     },
     {
       "source": "original",
@@ -3355,7 +5083,12 @@
       "sent": 17.3,
       "words": 173,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.4,
+      "marketPercentile": 7.9
     },
     {
       "source": "original",
@@ -3364,7 +5097,12 @@
       "sent": 16.9,
       "words": 169,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.8,
+      "marketPercentile": 11.6
     },
     {
       "source": "original",
@@ -3373,7 +5111,12 @@
       "sent": 17.1,
       "words": 171,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 11.6,
+      "marketPercentile": 4.4
     },
     {
       "source": "original",
@@ -3382,7 +5125,12 @@
       "sent": 16,
       "words": 160,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 12.6,
+      "marketPercentile": 4.8
     },
     {
       "source": "original",
@@ -3391,7 +5139,12 @@
       "sent": 16.2,
       "words": 194,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.9,
+      "marketPercentile": 11.8
     },
     {
       "source": "original",
@@ -3400,7 +5153,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.9,
+      "marketPercentile": 13.6
     },
     {
       "source": "original",
@@ -3409,7 +5167,12 @@
       "sent": 15.8,
       "words": 189,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.3,
+      "marketPercentile": 14.4
     },
     {
       "source": "original",
@@ -3418,7 +5181,12 @@
       "sent": 14.5,
       "words": 189,
       "cefr": "B1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 13.2,
+      "marketPercentile": 5
     },
     {
       "source": "original",
@@ -3427,7 +5195,12 @@
       "sent": 17.4,
       "words": 174,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.3,
+      "marketPercentile": 10.7
     },
     {
       "source": "original",
@@ -3436,7 +5209,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.9,
+      "marketPercentile": 40.3
     },
     {
       "source": "original",
@@ -3445,7 +5223,12 @@
       "sent": 18.3,
       "words": 183,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 13.6,
+      "marketPercentile": 5.7
     },
     {
       "source": "original",
@@ -3454,7 +5237,12 @@
       "sent": 18.7,
       "words": 187,
       "cefr": "B2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.8,
+      "marketPercentile": 19
     },
     {
       "source": "original",
@@ -3463,7 +5251,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.5,
+      "marketPercentile": 12.9
     },
     {
       "source": "original",
@@ -3472,7 +5265,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.6,
+      "marketPercentile": 24.1
     },
     {
       "source": "original",
@@ -3481,7 +5279,12 @@
       "sent": 18.6,
       "words": 186,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.7,
+      "marketPercentile": 20.9
     },
     {
       "source": "original",
@@ -3490,7 +5293,12 @@
       "sent": 18.2,
       "words": 182,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.8,
+      "marketPercentile": 20.8
     },
     {
       "source": "original",
@@ -3499,7 +5307,12 @@
       "sent": 16.7,
       "words": 200,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.6,
+      "marketPercentile": 24.1
     },
     {
       "source": "original",
@@ -3508,7 +5321,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.7,
+      "marketPercentile": 31.5
     },
     {
       "source": "original",
@@ -3517,7 +5335,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29.2,
+      "marketPercentile": 45.6
     },
     {
       "source": "original",
@@ -3526,7 +5349,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.2,
+      "marketPercentile": 16
     },
     {
       "source": "original",
@@ -3535,7 +5363,12 @@
       "sent": 16.3,
       "words": 195,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.7,
+      "marketPercentile": 20.6
     },
     {
       "source": "original",
@@ -3544,7 +5377,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.6,
+      "marketPercentile": 16.7
     },
     {
       "source": "original",
@@ -3553,7 +5391,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.4,
+      "marketPercentile": 34.3
     },
     {
       "source": "original",
@@ -3562,7 +5405,12 @@
       "sent": 17.1,
       "words": 171,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.1,
+      "marketPercentile": 25
     },
     {
       "source": "original",
@@ -3571,7 +5419,12 @@
       "sent": 16.7,
       "words": 200,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 15.2,
+      "marketPercentile": 8.7
     },
     {
       "source": "original",
@@ -3580,7 +5433,12 @@
       "sent": 15.8,
       "words": 189,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.5,
+      "marketPercentile": 14.7
     },
     {
       "source": "original",
@@ -3589,7 +5447,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24,
+      "marketPercentile": 24.8
     },
     {
       "source": "original",
@@ -3598,7 +5461,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.8,
+      "marketPercentile": 24.4
     },
     {
       "source": "original",
@@ -3607,7 +5475,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.5,
+      "marketPercentile": 34.7
     },
     {
       "source": "original",
@@ -3616,7 +5489,12 @@
       "sent": 15.7,
       "words": 173,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24,
+      "marketPercentile": 24.8
     },
     {
       "source": "original",
@@ -3625,7 +5503,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.8,
+      "marketPercentile": 17
     },
     {
       "source": "original",
@@ -3634,7 +5517,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28,
+      "marketPercentile": 40.7
     },
     {
       "source": "original",
@@ -3643,7 +5531,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.6,
+      "marketPercentile": 22.2
     },
     {
       "source": "original",
@@ -3652,7 +5545,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.6,
+      "marketPercentile": 20.4
     },
     {
       "source": "original",
@@ -3661,7 +5559,12 @@
       "sent": 15.5,
       "words": 171,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 8.8,
+      "marketPercentile": 3.3
     },
     {
       "source": "original",
@@ -3670,7 +5573,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 14.2,
+      "marketPercentile": 6.8
     },
     {
       "source": "original",
@@ -3679,7 +5587,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24,
+      "marketPercentile": 24.8
     },
     {
       "source": "original",
@@ -3688,7 +5601,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.5,
+      "marketPercentile": 11.1
     },
     {
       "source": "original",
@@ -3697,7 +5615,12 @@
       "sent": 16.5,
       "words": 198,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28,
+      "marketPercentile": 40.7
     },
     {
       "source": "usgs",
@@ -3706,7 +5629,14 @@
       "sent": 24.4,
       "words": 195,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "original",
@@ -3715,7 +5645,12 @@
       "sent": 16.7,
       "words": 200,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29.4,
+      "marketPercentile": 24.4
     },
     {
       "source": "nasa",
@@ -3724,7 +5659,14 @@
       "sent": 39,
       "words": 117,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -3733,7 +5675,14 @@
       "sent": 13.1,
       "words": 105,
       "cefr": "C1",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 63.7,
+      "marketPercentile": 100
     },
     {
       "source": "nasa",
@@ -3742,7 +5691,14 @@
       "sent": 17.3,
       "words": 121,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -3751,7 +5707,14 @@
       "sent": 22.9,
       "words": 183,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -3760,7 +5723,14 @@
       "sent": 26.7,
       "words": 187,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -3769,7 +5739,12 @@
       "sent": 18.5,
       "words": 148,
       "cefr": "B2",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.3,
+      "marketPercentile": 66.4
     },
     {
       "source": "voa",
@@ -3778,7 +5753,14 @@
       "sent": 6.8,
       "words": 116,
       "cefr": null,
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "voa",
@@ -3787,7 +5769,14 @@
       "sent": 7.4,
       "words": 118,
       "cefr": null,
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -3796,7 +5785,12 @@
       "sent": 23,
       "words": 184,
       "cefr": "C1",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 43.2,
+      "marketPercentile": 84.8
     },
     {
       "source": "futurity",
@@ -3805,7 +5799,14 @@
       "sent": 26,
       "words": 182,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -3814,7 +5815,14 @@
       "sent": 25,
       "words": 175,
       "cefr": "C1",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 45.4,
+      "marketPercentile": 91.7
     },
     {
       "source": "futurity",
@@ -3823,7 +5831,12 @@
       "sent": 21.9,
       "words": 153,
       "cefr": "B2",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 40,
+      "marketPercentile": 68.9
     },
     {
       "source": "futurity",
@@ -3832,7 +5845,12 @@
       "sent": 16.6,
       "words": 166,
       "cefr": "B2",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 41.7,
+      "marketPercentile": 75
     },
     {
       "source": "usgs",
@@ -3841,7 +5859,12 @@
       "sent": 6.6,
       "words": 112,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.2,
+      "marketPercentile": 14.2
     },
     {
       "source": "original",
@@ -3850,7 +5873,12 @@
       "sent": 15.8,
       "words": 190,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.4,
+      "marketPercentile": 20
     },
     {
       "source": "original",
@@ -3859,7 +5887,12 @@
       "sent": 15.2,
       "words": 182,
       "cefr": "B2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.3,
+      "marketPercentile": 20.1
     },
     {
       "source": "original",
@@ -3868,7 +5901,12 @@
       "sent": 19,
       "words": 171,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30,
+      "marketPercentile": 26.5
     },
     {
       "source": "original",
@@ -3877,7 +5915,12 @@
       "sent": 17,
       "words": 187,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.9,
+      "marketPercentile": 19.1
     },
     {
       "source": "original",
@@ -3886,7 +5929,12 @@
       "sent": 16.2,
       "words": 194,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.7,
+      "marketPercentile": 16.9
     },
     {
       "source": "original",
@@ -3895,7 +5943,12 @@
       "sent": 16.2,
       "words": 194,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.6,
+      "marketPercentile": 14.9
     },
     {
       "source": "original",
@@ -3904,7 +5957,12 @@
       "sent": 20,
       "words": 180,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.7,
+      "marketPercentile": 4.7
     },
     {
       "source": "original",
@@ -3913,7 +5971,12 @@
       "sent": 19,
       "words": 171,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.7,
+      "marketPercentile": 22.9
     },
     {
       "source": "original",
@@ -3922,7 +5985,12 @@
       "sent": 19.6,
       "words": 176,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.7,
+      "marketPercentile": 11.4
     },
     {
       "source": "original",
@@ -3931,7 +5999,12 @@
       "sent": 16.4,
       "words": 180,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.5,
+      "marketPercentile": 12.2
     },
     {
       "source": "original",
@@ -3940,7 +6013,12 @@
       "sent": 16.9,
       "words": 186,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.6,
+      "marketPercentile": 22.7
     },
     {
       "source": "original",
@@ -3949,7 +6027,12 @@
       "sent": 19.8,
       "words": 178,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 13.6,
+      "marketPercentile": 3.4
     },
     {
       "source": "original",
@@ -3958,7 +6041,12 @@
       "sent": 16.1,
       "words": 177,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 16.7,
+      "marketPercentile": 11.4
     },
     {
       "source": "original",
@@ -3967,7 +6055,12 @@
       "sent": 20.6,
       "words": 185,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.1,
+      "marketPercentile": 4.5
     },
     {
       "source": "original",
@@ -3976,7 +6069,12 @@
       "sent": 15.7,
       "words": 188,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.7,
+      "marketPercentile": 15.1
     },
     {
       "source": "original",
@@ -3985,7 +6083,12 @@
       "sent": 19,
       "words": 190,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33,
+      "marketPercentile": 41.5
     },
     {
       "source": "original",
@@ -3994,7 +6097,12 @@
       "sent": 18.8,
       "words": 188,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.8,
+      "marketPercentile": 4.5
     },
     {
       "source": "original",
@@ -4003,7 +6111,12 @@
       "sent": 20.9,
       "words": 188,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.8,
+      "marketPercentile": 19
     },
     {
       "source": "original",
@@ -4012,7 +6125,12 @@
       "sent": 18.6,
       "words": 186,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 19.5,
+      "marketPercentile": 4.9
     },
     {
       "source": "usgs",
@@ -4021,7 +6139,12 @@
       "sent": 7.5,
       "words": 105,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.3,
+      "marketPercentile": 53.6
     },
     {
       "source": "voa",
@@ -4030,7 +6153,12 @@
       "sent": 7.9,
       "words": 111,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.4,
+      "marketPercentile": 30.2
     },
     {
       "source": "original",
@@ -4039,7 +6167,12 @@
       "sent": 16.1,
       "words": 177,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.1,
+      "marketPercentile": 56.5
     },
     {
       "source": "original",
@@ -4048,7 +6181,12 @@
       "sent": 16.4,
       "words": 197,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.9,
+      "marketPercentile": 36.3
     },
     {
       "source": "original",
@@ -4057,7 +6195,12 @@
       "sent": 16.2,
       "words": 178,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.8,
+      "marketPercentile": 27.8
     },
     {
       "source": "original",
@@ -4066,7 +6209,12 @@
       "sent": 17,
       "words": 170,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.6,
+      "marketPercentile": 24.1
     },
     {
       "source": "original",
@@ -4075,7 +6223,12 @@
       "sent": 20.9,
       "words": 188,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.8,
+      "marketPercentile": 4.7
     },
     {
       "source": "original",
@@ -4084,7 +6237,12 @@
       "sent": 17.8,
       "words": 178,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.1,
+      "marketPercentile": 25
     },
     {
       "source": "original",
@@ -4093,7 +6251,12 @@
       "sent": 19.8,
       "words": 178,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.7,
+      "marketPercentile": 16.8
     },
     {
       "source": "original",
@@ -4102,7 +6265,12 @@
       "sent": 19.8,
       "words": 178,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.5,
+      "marketPercentile": 4.4
     },
     {
       "source": "original",
@@ -4111,7 +6279,12 @@
       "sent": 16.7,
       "words": 200,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.4,
+      "marketPercentile": 57.6
     },
     {
       "source": "original",
@@ -4120,7 +6293,12 @@
       "sent": 17.7,
       "words": 159,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.9,
+      "marketPercentile": 19.2
     },
     {
       "source": "futurity",
@@ -4129,7 +6307,12 @@
       "sent": 21.2,
       "words": 191,
       "cefr": "B2",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 38.7,
+      "marketPercentile": 64.3
     },
     {
       "source": "original",
@@ -4138,7 +6321,12 @@
       "sent": 16.9,
       "words": 186,
       "cefr": "B2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.5,
+      "marketPercentile": 39
     },
     {
       "source": "usgs",
@@ -4147,7 +6335,14 @@
       "sent": 16,
       "words": 192,
       "cefr": "B2",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 61.1,
+      "marketPercentile": 99.3
     },
     {
       "source": "nasa",
@@ -4156,7 +6351,14 @@
       "sent": 19.9,
       "words": 159,
       "cefr": "B2",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 55.2,
+      "marketPercentile": 97.4
     },
     {
       "source": "storyweaver",
@@ -4165,7 +6367,14 @@
       "sent": 5.1,
       "words": 102,
       "cefr": "A2",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4174,7 +6383,14 @@
       "sent": 21,
       "words": 189,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "original",
@@ -4183,7 +6399,12 @@
       "sent": 18.7,
       "words": 187,
       "cefr": "B2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29.8,
+      "marketPercentile": 25.5
     },
     {
       "source": "original",
@@ -4192,7 +6413,12 @@
       "sent": 20,
       "words": 180,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.6,
+      "marketPercentile": 8.3
     },
     {
       "source": "original",
@@ -4201,7 +6427,12 @@
       "sent": 16,
       "words": 192,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.7,
+      "marketPercentile": 16.8
     },
     {
       "source": "original",
@@ -4210,7 +6441,12 @@
       "sent": 16.3,
       "words": 196,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.3,
+      "marketPercentile": 11.8
     },
     {
       "source": "original",
@@ -4219,7 +6455,12 @@
       "sent": 15.8,
       "words": 190,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.5,
+      "marketPercentile": 56.4
     },
     {
       "source": "original",
@@ -4228,7 +6469,12 @@
       "sent": 16.6,
       "words": 199,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.4,
+      "marketPercentile": 14.1
     },
     {
       "source": "original",
@@ -4237,7 +6483,12 @@
       "sent": 16.3,
       "words": 195,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 38.7,
+      "marketPercentile": 64.3
     },
     {
       "source": "original",
@@ -4246,7 +6497,12 @@
       "sent": 16.3,
       "words": 195,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.1,
+      "marketPercentile": 13.5
     },
     {
       "source": "nasa",
@@ -4255,7 +6511,14 @@
       "sent": 25.4,
       "words": 127,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4264,7 +6527,14 @@
       "sent": 21,
       "words": 126,
       "cefr": "B2",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 51.1,
+      "marketPercentile": 96
     },
     {
       "source": "nasa",
@@ -4273,7 +6543,14 @@
       "sent": 20.4,
       "words": 184,
       "cefr": "C1",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 59.5,
+      "marketPercentile": 98.8
     },
     {
       "source": "nasa",
@@ -4282,7 +6559,14 @@
       "sent": 26.8,
       "words": 107,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4291,7 +6575,14 @@
       "sent": 17,
       "words": 119,
       "cefr": "B2",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 50.6,
+      "marketPercentile": 95.8
     },
     {
       "source": "nasa",
@@ -4300,7 +6591,14 @@
       "sent": 22,
       "words": 110,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4309,7 +6607,14 @@
       "sent": 29,
       "words": 116,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4318,7 +6623,14 @@
       "sent": 22.6,
       "words": 113,
       "cefr": "B1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4327,7 +6639,12 @@
       "sent": 8.3,
       "words": 124,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.5,
+      "marketPercentile": 18.4
     },
     {
       "source": "nasa",
@@ -4336,7 +6653,14 @@
       "sent": 27.6,
       "words": 138,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4345,7 +6669,14 @@
       "sent": 21.4,
       "words": 107,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4354,7 +6685,14 @@
       "sent": 26.3,
       "words": 105,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4363,7 +6701,14 @@
       "sent": 27.5,
       "words": 110,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4372,7 +6717,14 @@
       "sent": 35,
       "words": 105,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4381,7 +6733,14 @@
       "sent": 16.7,
       "words": 117,
       "cefr": "C1",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 82.8,
+      "marketPercentile": 100
     },
     {
       "source": "nasa",
@@ -4390,7 +6749,12 @@
       "sent": 6,
       "words": 114,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 14.3,
+      "marketPercentile": 7
     },
     {
       "source": "nasa",
@@ -4399,7 +6763,14 @@
       "sent": 7.5,
       "words": 112,
       "cefr": null,
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4408,7 +6779,12 @@
       "sent": 7.1,
       "words": 107,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.5,
+      "marketPercentile": 23.9
     },
     {
       "source": "nasa",
@@ -4417,7 +6793,12 @@
       "sent": 10.1,
       "words": 131,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.2,
+      "marketPercentile": 75
     },
     {
       "source": "nasa",
@@ -4426,7 +6807,12 @@
       "sent": 8.8,
       "words": 150,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.3,
+      "marketPercentile": 50
     },
     {
       "source": "nasa",
@@ -4435,7 +6821,14 @@
       "sent": 19.2,
       "words": 115,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4444,7 +6837,14 @@
       "sent": 22.2,
       "words": 133,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4453,7 +6853,14 @@
       "sent": 22.1,
       "words": 155,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4462,7 +6869,12 @@
       "sent": 7.9,
       "words": 111,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.9,
+      "marketPercentile": 40.3
     },
     {
       "source": "nasa",
@@ -4471,7 +6883,14 @@
       "sent": 36.3,
       "words": 109,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4480,7 +6899,14 @@
       "sent": 22.5,
       "words": 135,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4489,7 +6915,14 @@
       "sent": 25.8,
       "words": 103,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4498,7 +6931,12 @@
       "sent": 7.3,
       "words": 102,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.6,
+      "marketPercentile": 43.1
     },
     {
       "source": "nasa",
@@ -4507,7 +6945,14 @@
       "sent": 24.6,
       "words": 123,
       "cefr": "B2",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4516,7 +6961,14 @@
       "sent": 19.6,
       "words": 137,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4525,7 +6977,14 @@
       "sent": 21,
       "words": 105,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4534,7 +6993,12 @@
       "sent": 7.9,
       "words": 103,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.6,
+      "marketPercentile": 35.1
     },
     {
       "source": "nasa",
@@ -4543,7 +7007,14 @@
       "sent": 6.3,
       "words": 120,
       "cefr": null,
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "nasa",
@@ -4552,7 +7023,12 @@
       "sent": 7.1,
       "words": 100,
       "cefr": null,
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23.9,
+      "marketPercentile": 24.6
     },
     {
       "source": "storyweaver",
@@ -4561,7 +7037,12 @@
       "sent": 8.2,
       "words": 172,
       "cefr": "B1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.9,
+      "marketPercentile": 73.9
     },
     {
       "source": "storyweaver",
@@ -4570,7 +7051,14 @@
       "sent": 6.9,
       "words": 104,
       "cefr": "B2",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "storyweaver",
@@ -4579,7 +7067,14 @@
       "sent": 5.3,
       "words": 181,
       "cefr": "A1",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "storyweaver",
@@ -4588,7 +7083,14 @@
       "sent": 6.9,
       "words": 111,
       "cefr": "A1",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "storyweaver",
@@ -4597,7 +7099,12 @@
       "sent": 9.6,
       "words": 192,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 18.3,
+      "marketPercentile": 14.4
     },
     {
       "source": "storyweaver",
@@ -4606,7 +7113,12 @@
       "sent": 8.4,
       "words": 143,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 41.9,
+      "marketPercentile": 86.6
     },
     {
       "source": "storyweaver",
@@ -4615,7 +7127,14 @@
       "sent": 6.5,
       "words": 110,
       "cefr": "A1",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "storyweaver",
@@ -4624,7 +7143,12 @@
       "sent": 3.8,
       "words": 106,
       "cefr": "B1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 42.5,
+      "marketPercentile": 88
     },
     {
       "source": "storyweaver",
@@ -4633,7 +7157,12 @@
       "sent": 10.5,
       "words": 199,
       "cefr": "A1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.7,
+      "marketPercentile": 22.4
     },
     {
       "source": "storyweaver",
@@ -4642,7 +7171,12 @@
       "sent": 7.6,
       "words": 121,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.1,
+      "marketPercentile": 71
     },
     {
       "source": "storyweaver",
@@ -4651,7 +7185,12 @@
       "sent": 8.1,
       "words": 161,
       "cefr": "B2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 41.2,
+      "marketPercentile": 84.8
     },
     {
       "source": "storyweaver",
@@ -4660,7 +7199,14 @@
       "sent": 4.6,
       "words": 133,
       "cefr": "B2",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "storyweaver",
@@ -4669,7 +7215,14 @@
       "sent": 6.1,
       "words": 129,
       "cefr": "A2",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "storyweaver",
@@ -4678,7 +7231,14 @@
       "sent": 7.3,
       "words": 198,
       "cefr": "A2",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "storyweaver",
@@ -4687,7 +7247,14 @@
       "sent": 7.2,
       "words": 143,
       "cefr": "A1",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "storyweaver",
@@ -4696,7 +7263,14 @@
       "sent": 3,
       "words": 185,
       "cefr": "B2",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "storyweaver",
@@ -4705,7 +7279,14 @@
       "sent": 6.8,
       "words": 102,
       "cefr": "B1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 49.2,
+      "marketPercentile": 95
     },
     {
       "source": "storyweaver",
@@ -4714,7 +7295,14 @@
       "sent": 7.1,
       "words": 114,
       "cefr": "A1",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "storyweaver",
@@ -4723,7 +7311,14 @@
       "sent": 5.7,
       "words": 149,
       "cefr": "A2",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "storyweaver",
@@ -4732,7 +7327,14 @@
       "sent": 10.4,
       "words": 135,
       "cefr": "B1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 47.8,
+      "marketPercentile": 93.8
     },
     {
       "source": "storyweaver",
@@ -4741,7 +7343,12 @@
       "sent": 8,
       "words": 104,
       "cefr": "B1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 26.4,
+      "marketPercentile": 34.3
     },
     {
       "source": "storyweaver",
@@ -4750,7 +7357,12 @@
       "sent": 6.4,
       "words": 109,
       "cefr": "A1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.9,
+      "marketPercentile": 40.3
     },
     {
       "source": "storyweaver",
@@ -4759,7 +7371,12 @@
       "sent": 8.6,
       "words": 120,
       "cefr": "A1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 10.2,
+      "marketPercentile": 3.9
     },
     {
       "source": "storyweaver",
@@ -4768,7 +7385,12 @@
       "sent": 14.9,
       "words": 119,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.8,
+      "marketPercentile": 44
     },
     {
       "source": "storyweaver",
@@ -4777,7 +7399,14 @@
       "sent": 9.1,
       "words": 181,
       "cefr": "B1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 43.5,
+      "marketPercentile": 90.2
     },
     {
       "source": "storyweaver",
@@ -4786,7 +7415,14 @@
       "sent": 5.2,
       "words": 155,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 49,
+      "marketPercentile": 94.8
     },
     {
       "source": "storyweaver",
@@ -4795,7 +7431,12 @@
       "sent": 7.5,
       "words": 187,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 40.5,
+      "marketPercentile": 83.1
     },
     {
       "source": "storyweaver",
@@ -4804,7 +7445,14 @@
       "sent": 7.1,
       "words": 121,
       "cefr": "A1",
-      "band": "초3 미만"
+      "band": "초3 미만",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "storyweaver",
@@ -4813,7 +7461,12 @@
       "sent": 9,
       "words": 180,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.1,
+      "marketPercentile": 71
     },
     {
       "source": "storyweaver",
@@ -4822,7 +7475,14 @@
       "sent": 8.8,
       "words": 140,
       "cefr": "B2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 63,
+      "marketPercentile": 99.6
     },
     {
       "source": "storyweaver",
@@ -4831,7 +7491,12 @@
       "sent": 6.7,
       "words": 107,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 42.9,
+      "marketPercentile": 89
     },
     {
       "source": "storyweaver",
@@ -4840,7 +7505,12 @@
       "sent": 11.4,
       "words": 103,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 40.4,
+      "marketPercentile": 82.9
     },
     {
       "source": "storyweaver",
@@ -4849,7 +7519,12 @@
       "sent": 12.1,
       "words": 121,
       "cefr": "B1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 22.8,
+      "marketPercentile": 22.6
     },
     {
       "source": "storyweaver",
@@ -4858,7 +7533,12 @@
       "sent": 8.5,
       "words": 111,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.9,
+      "marketPercentile": 52.2
     },
     {
       "source": "storyweaver",
@@ -4867,7 +7547,14 @@
       "sent": 11.1,
       "words": 111,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 52.9,
+      "marketPercentile": 96.2
     },
     {
       "source": "storyweaver",
@@ -4876,7 +7563,12 @@
       "sent": 11.4,
       "words": 103,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 35.1,
+      "marketPercentile": 67.4
     },
     {
       "source": "storyweaver",
@@ -4885,7 +7577,12 @@
       "sent": 8.2,
       "words": 107,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 41,
+      "marketPercentile": 84.3
     },
     {
       "source": "storyweaver",
@@ -4894,7 +7591,12 @@
       "sent": 11.9,
       "words": 107,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.9,
+      "marketPercentile": 52.2
     },
     {
       "source": "storyweaver",
@@ -4903,7 +7605,12 @@
       "sent": 10.5,
       "words": 115,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 34.7,
+      "marketPercentile": 65.9
     },
     {
       "source": "storyweaver",
@@ -4912,7 +7619,12 @@
       "sent": 11.2,
       "words": 112,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.4,
+      "marketPercentile": 80.4
     },
     {
       "source": "storyweaver",
@@ -4921,7 +7633,14 @@
       "sent": 9,
       "words": 108,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": false,
+      "failed": [
+        "어휘"
+      ],
+      "outsidePct": 50.7,
+      "marketPercentile": 95.5
     },
     {
       "source": "storyweaver",
@@ -4930,7 +7649,12 @@
       "sent": 11.6,
       "words": 104,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29,
+      "marketPercentile": 44.8
     },
     {
       "source": "space_place",
@@ -4939,7 +7663,12 @@
       "sent": 14,
       "words": 182,
       "cefr": "B2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.9,
+      "marketPercentile": 73.9
     },
     {
       "source": "space_place",
@@ -4948,7 +7677,12 @@
       "sent": 11.4,
       "words": 182,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 34.3,
+      "marketPercentile": 64.5
     },
     {
       "source": "space_place",
@@ -4957,7 +7691,12 @@
       "sent": 10.5,
       "words": 116,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.9,
+      "marketPercentile": 63
     },
     {
       "source": "space_place",
@@ -4966,7 +7705,12 @@
       "sent": 11.3,
       "words": 124,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.8,
+      "marketPercentile": 44
     },
     {
       "source": "space_place",
@@ -4975,7 +7719,12 @@
       "sent": 11.3,
       "words": 124,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.1,
+      "marketPercentile": 79.7
     },
     {
       "source": "space_place",
@@ -4984,7 +7733,12 @@
       "sent": 10.9,
       "words": 142,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 35.4,
+      "marketPercentile": 68.5
     },
     {
       "source": "space_place",
@@ -4993,7 +7747,12 @@
       "sent": 12,
       "words": 132,
       "cefr": "B2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36,
+      "marketPercentile": 70.7
     },
     {
       "source": "space_place",
@@ -5002,7 +7761,12 @@
       "sent": 11.6,
       "words": 104,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.3,
+      "marketPercentile": 60.9
     },
     {
       "source": "space_place",
@@ -5011,7 +7775,12 @@
       "sent": 13.9,
       "words": 111,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.3,
+      "marketPercentile": 80.2
     },
     {
       "source": "space_place",
@@ -5020,7 +7789,12 @@
       "sent": 10,
       "words": 130,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.7,
+      "marketPercentile": 81.1
     },
     {
       "source": "space_place",
@@ -5029,7 +7803,12 @@
       "sent": 12.6,
       "words": 176,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 38.8,
+      "marketPercentile": 78.9
     },
     {
       "source": "space_place",
@@ -5038,7 +7817,12 @@
       "sent": 9.2,
       "words": 147,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31,
+      "marketPercentile": 52.5
     },
     {
       "source": "space_place",
@@ -5047,7 +7831,12 @@
       "sent": 13.4,
       "words": 107,
       "cefr": "A2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 35.6,
+      "marketPercentile": 69.2
     },
     {
       "source": "space_place",
@@ -5056,7 +7845,12 @@
       "sent": 10.2,
       "words": 112,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 34.3,
+      "marketPercentile": 64.5
     },
     {
       "source": "space_place",
@@ -5065,7 +7859,12 @@
       "sent": 13.5,
       "words": 175,
       "cefr": "B2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.6,
+      "marketPercentile": 80.9
     },
     {
       "source": "space_place",
@@ -5074,7 +7873,12 @@
       "sent": 9.6,
       "words": 173,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 28.6,
+      "marketPercentile": 43.1
     },
     {
       "source": "space_place",
@@ -5083,7 +7887,12 @@
       "sent": 13,
       "words": 104,
       "cefr": "B2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25,
+      "marketPercentile": 28.6
     },
     {
       "source": "space_place",
@@ -5092,7 +7901,12 @@
       "sent": 12.6,
       "words": 101,
       "cefr": "B2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.7,
+      "marketPercentile": 58.7
     },
     {
       "source": "space_place",
@@ -5101,7 +7915,12 @@
       "sent": 19.7,
       "words": 118,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 17.2,
+      "marketPercentile": 4.3
     },
     {
       "source": "space_place",
@@ -5110,7 +7929,12 @@
       "sent": 14.9,
       "words": 119,
       "cefr": "B2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 34.8,
+      "marketPercentile": 66.3
     },
     {
       "source": "space_place",
@@ -5119,7 +7943,12 @@
       "sent": 15.1,
       "words": 106,
       "cefr": "A2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.1,
+      "marketPercentile": 58.6
     },
     {
       "source": "space_place",
@@ -5128,7 +7957,12 @@
       "sent": 10.3,
       "words": 196,
       "cefr": "B1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 34.6,
+      "marketPercentile": 65.6
     },
     {
       "source": "space_place",
@@ -5137,7 +7971,12 @@
       "sent": 12.3,
       "words": 148,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.7,
+      "marketPercentile": 27.4
     },
     {
       "source": "space_place",
@@ -5146,7 +7985,12 @@
       "sent": 10.7,
       "words": 139,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.3,
+      "marketPercentile": 71.7
     },
     {
       "source": "space_place",
@@ -5155,7 +7999,12 @@
       "sent": 16.9,
       "words": 135,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.8,
+      "marketPercentile": 62.7
     },
     {
       "source": "space_place",
@@ -5164,7 +8013,12 @@
       "sent": 9.1,
       "words": 127,
       "cefr": "B2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36,
+      "marketPercentile": 70.7
     },
     {
       "source": "space_place",
@@ -5173,7 +8027,12 @@
       "sent": 9.1,
       "words": 109,
       "cefr": "B1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29.2,
+      "marketPercentile": 45.6
     },
     {
       "source": "space_place",
@@ -5182,7 +8041,12 @@
       "sent": 14.2,
       "words": 184,
       "cefr": "B2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 34.4,
+      "marketPercentile": 64.9
     },
     {
       "source": "space_place",
@@ -5191,7 +8055,12 @@
       "sent": 16.6,
       "words": 116,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20,
+      "marketPercentile": 17.5
     },
     {
       "source": "space_place",
@@ -5200,7 +8069,12 @@
       "sent": 10.2,
       "words": 133,
       "cefr": "B2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.5,
+      "marketPercentile": 80.7
     },
     {
       "source": "space_place",
@@ -5209,7 +8083,12 @@
       "sent": 17.4,
       "words": 122,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.3,
+      "marketPercentile": 43
     },
     {
       "source": "space_place",
@@ -5218,7 +8097,12 @@
       "sent": 11.6,
       "words": 174,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29.8,
+      "marketPercentile": 48
     },
     {
       "source": "space_place",
@@ -5227,7 +8111,12 @@
       "sent": 14.2,
       "words": 128,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 32.9,
+      "marketPercentile": 59.4
     },
     {
       "source": "space_place",
@@ -5236,7 +8125,12 @@
       "sent": 10.3,
       "words": 155,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.5,
+      "marketPercentile": 50.7
     },
     {
       "source": "space_place",
@@ -5245,7 +8139,12 @@
       "sent": 17.3,
       "words": 121,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 21.6,
+      "marketPercentile": 8.3
     },
     {
       "source": "space_place",
@@ -5254,7 +8153,12 @@
       "sent": 11.5,
       "words": 115,
       "cefr": "B1",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 33.3,
+      "marketPercentile": 60.9
     },
     {
       "source": "space_place",
@@ -5263,7 +8167,12 @@
       "sent": 13.5,
       "words": 108,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.9,
+      "marketPercentile": 76.7
     },
     {
       "source": "space_place",
@@ -5272,7 +8181,12 @@
       "sent": 13.8,
       "words": 165,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 39.6,
+      "marketPercentile": 80.9
     },
     {
       "source": "space_place",
@@ -5281,7 +8195,12 @@
       "sent": 12.4,
       "words": 186,
       "cefr": "B2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 38.1,
+      "marketPercentile": 77.2
     },
     {
       "source": "space_place",
@@ -5290,7 +8209,12 @@
       "sent": 10.5,
       "words": 105,
       "cefr": "B2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 36.5,
+      "marketPercentile": 72.5
     },
     {
       "source": "space_place",
@@ -5299,7 +8223,12 @@
       "sent": 14.3,
       "words": 143,
       "cefr": "B2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.5,
+      "marketPercentile": 75.7
     },
     {
       "source": "space_place",
@@ -5308,7 +8237,12 @@
       "sent": 12.7,
       "words": 114,
       "cefr": "B2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29.2,
+      "marketPercentile": 45.6
     },
     {
       "source": "space_place",
@@ -5317,7 +8251,12 @@
       "sent": 15.4,
       "words": 154,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 30.9,
+      "marketPercentile": 52.2
     },
     {
       "source": "space_place",
@@ -5326,7 +8265,12 @@
       "sent": 12.6,
       "words": 189,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 35.4,
+      "marketPercentile": 68.5
     },
     {
       "source": "space_place",
@@ -5335,7 +8279,12 @@
       "sent": 10.9,
       "words": 164,
       "cefr": "B1",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 37.5,
+      "marketPercentile": 75.7
     },
     {
       "source": "space_place",
@@ -5344,7 +8293,12 @@
       "sent": 14.3,
       "words": 100,
       "cefr": "B1",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 24.6,
+      "marketPercentile": 27
     },
     {
       "source": "space_place",
@@ -5353,7 +8307,12 @@
       "sent": 13.9,
       "words": 181,
       "cefr": "B2",
-      "band": "초5~6"
+      "band": "초5~6",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 25.5,
+      "marketPercentile": 30.6
     },
     {
       "source": "space_place",
@@ -5362,7 +8321,12 @@
       "sent": 13.9,
       "words": 194,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 20.8,
+      "marketPercentile": 18.9
     },
     {
       "source": "space_place",
@@ -5371,7 +8335,12 @@
       "sent": 7.5,
       "words": 113,
       "cefr": "A2",
-      "band": "초3~4"
+      "band": "초3~4",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 31.8,
+      "marketPercentile": 55.4
     },
     {
       "source": "space_place",
@@ -5380,7 +8349,12 @@
       "sent": 18.8,
       "words": 169,
       "cefr": "A2",
-      "band": "초6~중1"
+      "band": "초6~중1",
+      "school": "elementary",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 23,
+      "marketPercentile": 23
     },
     {
       "source": "space_place",
@@ -5389,7 +8363,12 @@
       "sent": 17.4,
       "words": 191,
       "cefr": "B2",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 38.7,
+      "marketPercentile": 64.3
     },
     {
       "source": "original",
@@ -5398,7 +8377,12 @@
       "sent": 16.3,
       "words": 196,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 27.6,
+      "marketPercentile": 20.7
     },
     {
       "source": "futurity",
@@ -5407,7 +8391,14 @@
       "sent": 24.6,
       "words": 172,
       "cefr": "C1",
-      "band": "중3 초과"
+      "band": "중3 초과",
+      "school": null,
+      "fits": false,
+      "failed": [
+        "밴드밖"
+      ],
+      "outsidePct": null,
+      "marketPercentile": null
     },
     {
       "source": "futurity",
@@ -5416,7 +8407,12 @@
       "sent": 18.2,
       "words": 164,
       "cefr": "C1",
-      "band": "중3"
+      "band": "중3",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 40.4,
+      "marketPercentile": 70.4
     },
     {
       "source": "original",
@@ -5425,7 +8421,12 @@
       "sent": 17.5,
       "words": 175,
       "cefr": "B1",
-      "band": "중1~2"
+      "band": "중1~2",
+      "school": "middle",
+      "fits": true,
+      "failed": [],
+      "outsidePct": 29.1,
+      "marketPercentile": 23.8
     }
   ]
 }
