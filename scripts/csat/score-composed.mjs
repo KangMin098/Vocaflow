@@ -58,6 +58,7 @@ console.log('  ' + '-'.repeat(76))
 let fit = 0
 const topics = {}
 const diag = { wordsLo: 0, wordsHi: 0, sentLo: 0, sentHi: 0, wordLo: 0, wordHi: 0, noConn: 0, lowAna: 0 }
+const shortRows = []
 for (const [i, it] of items.entries()) {
   const text = String(it.content ?? '')
   const sents = splitSentences(text)
@@ -66,6 +67,7 @@ for (const [i, it] of items.entries()) {
   const wordLen = words.reduce((s, x) => s + x.length, 0) / Math.max(1, words.length)
   const conn = (100 * (text.match(CONNECTIVE) ?? []).length) / Math.max(1, words.length)
   const ana = (100 * (text.match(ANAPHORA) ?? []).length) / Math.max(1, words.length)
+  if (words.length < 280) shortRows.push({ i: i + 1, words: words.length })
   const sc = scoreArticle(text)
   const tp = classify(text.slice(0, 6000))
   topics[tp.topic] = (topics[tp.topic] ?? 0) + 1
@@ -100,4 +102,22 @@ if (fails.length) {
   const label = { wordsLo: '글이 짧다', wordsHi: '글이 길다', sentLo: '문장이 짧다', sentHi: '문장이 길다', wordLo: '낱말이 짧다', wordHi: '낱말이 길다', noConn: '연결사 없음', lowAna: '지시어 부족' }
   console.log(`  떨어진 이유: ${fails.map(([k, v]) => `${label[k] ?? k} ${v}`).join(' · ')}`)
 }
+/**
+ * ⚠️ **어수가 짧으면 채점 결과보다 먼저 이것을 본다.**
+ *
+ *   대역 창은 124~163어다. 250어짜리 글에는 창이 한 개 반밖에 안 들어가므로 그 하나가
+ *   어긋나면 편 전체가 떨어지고, 320어짜리 글에는 두 개 반이 들어가 한 번 실패해도
+ *   다른 창이 받아 준다. 지침의 "300~340어" 는 여유가 아니라 **필요조건**이다.
+ *
+ *   실측 2026-09-04: chunk-040 과 chunk-041 이 연달아 1차 적합률 67% 였고, 둘 다 원인이
+ *   지표가 아니라 어수(241~263)였다. 두 번 같은 자리에서 잃었으므로 여기서 말하게 한다.
+ */
+if (shortRows.length) {
+  console.log(
+    `\n  ⚠️ **어수 280 미만 ${shortRows.length}편** — 창이 한 개 반밖에 안 들어가 실패 확률이 크게 오른다.` +
+      `\n     지표를 만지기 전에 문장을 덧붙여 300어대로 올릴 것.` +
+      `\n     ${shortRows.slice(0, 8).map((r) => `#${r.i} ${r.words}어`).join(' · ')}`,
+  )
+}
+
 console.log(`\n  ⚠️ 표본 ${n}편이다. "된다/안 된다" 를 가르는 데는 쓰되, 적합률 수치로 인용하지 말 것.`)
