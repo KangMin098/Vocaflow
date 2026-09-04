@@ -51,7 +51,22 @@ const DATA = path.resolve('scripts/csat/data')
  * ⚠️ 과학·자연·심리·사회·기술은 여기 넣지 않는다. 그 칸들은 수확으로 채워지고 있고,
  *   지어서 채우면 **더 싼 경로를 놔두고 비싼 경로를 쓰는 것**이다.
  */
-const COMPOSE_SLOTS = ['예술·문화', '역사·인류', '철학·윤리', '교육·언어']
+const ALL_COMPOSE_SLOTS = ['예술·문화', '역사·인류', '철학·윤리', '교육·언어']
+
+/**
+ * `--only <칸>` — 그 칸만 뽑는다.
+ *
+ * ⚠️ 기본 배분은 **병목 우선**이라, 아직 안 열어 본 칸은 병목이 될 때까지 한 편도 안 나온다.
+ *   그런데 칸마다 **조준이 맞는지 첫 청크로 확인해야** 한다(§19·§20 — 역사에서 1/12,
+ *   철학에서 1/4 로 빗나갔고 둘 다 소재·어휘를 바꿔서야 맞았다). 병목이 된 뒤에야
+ *   그 사실을 알면 그때 12편을 버리게 되므로, **미리 한 청크만 열어 보는 길**을 둔다.
+ */
+const ONLY = arg('only')
+const COMPOSE_SLOTS = ONLY ? ALL_COMPOSE_SLOTS.filter((k) => k === ONLY) : ALL_COMPOSE_SLOTS
+if (ONLY && !COMPOSE_SLOTS.length) {
+  console.error(`"${ONLY}" 은 작문 칸이 아니다. 가능한 칸: ${ALL_COMPOSE_SLOTS.join(' · ')}`)
+  process.exit(1)
+}
 const SUBJECTS = {
   /**
    * ⚠️ **그 칸의 「내용」을 쓰게 해야 한다 — 그 분야의 「방법론」이 아니라.**
