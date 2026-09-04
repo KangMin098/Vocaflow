@@ -13,8 +13,11 @@ import { describe, expect, it } from 'vitest'
 
 import {
   CURRICULUM_GATE,
+  CURRICULUM_SPEC,
   curriculumCoverage,
+  curriculumFit,
   curriculumLists,
+  marketPercentile,
   passesCurriculumGate,
   stemLoose,
 } from './curriculum'
@@ -100,8 +103,51 @@ describe('어휘 가드', () => {
     expect(passesCurriculumGate('').pass).toBe(false)
   })
 
-  it('문턱이 40% 다 — 아직 실측값이 아니라 정한 값이라는 것을 잊지 않게', () => {
-    // 시중 교재 지문으로 같은 값을 재면 이 수를 실측으로 바꿔야 한다.
-    expect(CURRICULUM_GATE.maxOutsidePct).toBe(40)
+  it('문턱이 시중 실측 p90 이다 — 짐작값 40 을 대체했다', () => {
+    // 2026-09-04 실측: 시중 초·중 지문 196쪽. 문턱 40 은 그 분포의 p75 였다.
+    expect(CURRICULUM_GATE.elementary.maxOutsidePct).toBe(CURRICULUM_SPEC.outside.elementary.p90)
+    expect(CURRICULUM_GATE.middle.maxOutsidePct).toBe(CURRICULUM_SPEC.outside.middle.p90)
+    // 옛 문턱보다 넓어야 한다 — 좁으면 시중 지문을 우리가 떨어뜨린다는 뜻이다.
+    expect(CURRICULUM_GATE.elementary.maxOutsidePct).toBeGreaterThan(40)
+    expect(CURRICULUM_GATE.middle.maxOutsidePct).toBeGreaterThan(40)
+  })
+
+  it('표본 수를 함께 들고 다닌다 — 얇은 표본을 두꺼운 척하지 않게', () => {
+    expect(CURRICULUM_SPEC.outside.elementary.sample).toBeGreaterThan(100)
+    expect(CURRICULUM_SPEC.outside.middle.sample).toBeGreaterThan(50)
+    expect(CURRICULUM_SPEC.measuredAt).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+  })
+
+  it('학교급마다 다른 자를 댄다', () => {
+    // 중등 지문은 초등 자로 재면 더 자주 떨어진다 — 두 자가 실제로 다르다.
+    expect(CURRICULUM_GATE.elementary.maxOutsidePct).not.toBe(CURRICULUM_GATE.middle.maxOutsidePct)
+  })
+})
+
+describe('시중 분포에서의 자리 — 통과만으로는 부합이 아니다', () => {
+  it('백분위가 단조 증가한다', () => {
+    const p = [10, 20, 30, 40, 50, 60].map((x) => marketPercentile(x, 'middle'))
+    for (let i = 1; i < p.length; i++) expect(p[i]!).toBeGreaterThan(p[i - 1]!)
+  })
+
+  it('시중 중앙값을 넣으면 50 이 나온다 — 자가 자기 눈금과 맞다', () => {
+    expect(marketPercentile(CURRICULUM_SPEC.outside.middle.p50, 'middle')).toBeCloseTo(50, 0)
+    expect(marketPercentile(CURRICULUM_SPEC.outside.elementary.p50, 'elementary')).toBeCloseTo(50, 0)
+  })
+
+  it('너무 쉬운 글은 낮은 백분위로 드러난다 — 막지는 않는다', () => {
+    // StoryWeaver L1 이 이 꼴이었다(FK 1.42 · 초4 교재 1.81 보다도 아래).
+    // 막으면 낮은 칸에 쓸 글까지 잃는다 — 그래서 게이트가 아니라 **자리**로 알린다.
+    const f = curriculumFit(easy, 'elementary')
+    expect(f.pass).toBe(true)
+    expect(f.marketPercentile!).toBeLessThan(50)
+  })
+
+  it('시중 상한 밖은 95 를 넘는다', () => {
+    expect(marketPercentile(60, 'middle')).toBeGreaterThan(95)
+  })
+
+  it('못 재면 자리도 null 이다 — 0 을 돌려주지 않는다', () => {
+    expect(curriculumFit('').marketPercentile).toBeNull()
   })
 })

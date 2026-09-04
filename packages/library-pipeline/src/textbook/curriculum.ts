@@ -139,31 +139,113 @@ export function curriculumCoverage(text: string): CurriculumCoverage | null {
 }
 
 /**
- * 초·중 지문으로 쓸 만한 어휘인가.
+ * **시중 교재 지문의 어휘 분포 — 실측(2026-09-04).**
  *
- * 기준을 **하나의 문턱**으로 두지 않고 두 값을 함께 본다:
- *   · `throughStar2Pct` — 중학까지의 낱말로 얼마나 덮이는가
- *   · `outsidePct`      — 교육과정 3,000 밖이 얼마나 되는가
+ * 이전 판은 문턱이 `maxOutsidePct: 40` 하나였고, 그 값은 **재서 정한 것이 아니라
+ * 정한 것**이었다(이 파일이 스스로 그렇게 적어 두었다). 이제 쟀다:
  *
- * ⚠️ 문턱은 **실측에서 나온 값이 아니라 아직 정한 값이다.** 우리 지문 실측에서
- *   NASA(별표 밖 64%)와 재저작문(별표 밖 21%)이 크게 갈렸고 그 사이 어딘가라는 것만 안다.
- *   시중 교재 지문으로 같은 값을 재면 그때 이 수를 실측으로 바꿔야 한다.
+ *   도구  `scripts/textbook-corpus/passage-mine.mjs`
+ *   표본  시중 초·중 독해 교재(NE능률 8시리즈) 지문 실린 쪽 **196**
+ *   검증  같은 쪽을 표식 기반 정확 추출과 맞대어 **차이 중앙 1.2%p · ±7%p 안 90%**
+ *
+ * 그리고 **문턱 40 은 시중 분포의 정확히 p75 였다** — 실제 시중 지문의 4편 중 1편을
+ * 우리 게이트가 떨어뜨리고 있었다는 뜻이다. "시중 교재에 부합" 이 목표인데
+ * 시중보다 좁은 자를 대고 있었다.
+ *
+ * ⚠️ 순수 초등 밴드(초3~초6)만 세면 **14쪽**뿐이다. 그래서 초등 자는 걸침 밴드
+ *   (초6~중1 · 초6~중3, 리딩튜터 주니어)를 포함한 129쪽으로 만들었다. 출판사를 넓히면
+ *   이 값은 움직인다 — `passage-mine.mjs` 를 다시 돌리면 그대로 다시 잰다.
+ * ⚠️ 이 분포는 **어휘 축만** 이다. 어수·FK 는 `market-spec.json` 과 `readability.ts` 소관이다.
  */
-export const CURRICULUM_GATE = { maxOutsidePct: 40 } as const
+export const CURRICULUM_SPEC = {
+  measuredAt: '2026-09-04',
+  tool: 'scripts/textbook-corpus/passage-mine.mjs',
+  /** 교육과정 3,000 **밖** 비율의 시중 분포. 백분위 → % 값. */
+  outside: {
+    elementary: { sample: 129, p05: 13.2, p25: 24.1, p50: 30.3, p75: 37.2, p90: 43.3, p95: 49.2 },
+    middle: { sample: 67, p05: 20.0, p25: 29.7, p50: 34.7, p75: 41.7, p90: 44.0, p95: 48.1 },
+  },
+} as const
 
-export function passesCurriculumGate(text: string): {
+export type SchoolLevel = 'elementary' | 'middle'
+
+/**
+ * 어휘 가드의 문턱 = **시중 분포의 p90**.
+ *
+ * p95 로 두면 시중 지문 95%가 통과하지만, 우리 재고가 분포의 오른쪽 끝(가장 어려운 쪽)에
+ * 몰려도 전부 통과한다 — 통과율이 같아도 **분포가 다르면 부합이 아니다.** 그래서 문턱은
+ * p90 으로 두고, 분포가 겹치는지는 `marketPercentile` 로 따로 본다(§`curriculumFit`).
+ */
+export const CURRICULUM_GATE = {
+  elementary: { maxOutsidePct: CURRICULUM_SPEC.outside.elementary.p90 },
+  middle: { maxOutsidePct: CURRICULUM_SPEC.outside.middle.p90 },
+} as const
+
+const PCTS = [5, 25, 50, 75, 90, 95] as const
+
+/**
+ * 이 지문의 어휘가 시중 분포의 어디쯤인가 — 0(가장 쉬움) ~ 100(가장 어려움).
+ *
+ * **통과/탈락보다 이 값이 중요하다.** 소스 하나의 백분위 중앙이 50 근처면 그 소스는
+ * 시중 지문과 같은 결이고, 20 이면 시중보다 쉬운 글만 모은 것이다(StoryWeaver L1 이
+ * 실제로 그랬다 — FK 1.42 로 초4 교재 1.81 보다도 아래였다).
+ */
+export function marketPercentile(outsidePct: number, school: SchoolLevel): number {
+  const d = CURRICULUM_SPEC.outside[school]
+  const xs: number[] = PCTS.map((p) => d[`p${String(p).padStart(2, '0')}` as keyof typeof d] as number)
+  const first = xs[0] ?? 0
+  const last = xs[xs.length - 1] ?? 100
+  if (outsidePct <= first) return +((outsidePct / first) * PCTS[0]).toFixed(1)
+  for (let i = 1; i < xs.length; i++) {
+    const hi = xs[i] ?? last
+    const lo = xs[i - 1] ?? first
+    if (outsidePct <= hi) {
+      const span = hi - lo
+      const t = span === 0 ? 0 : (outsidePct - lo) / span
+      const pLo = PCTS[i - 1] ?? 0
+      const pHi = PCTS[i] ?? 100
+      return +(pLo + t * (pHi - pLo)).toFixed(1)
+    }
+  }
+  // p95 밖 — 시중 최대(초등 62.9 · 중등 63.5)까지를 95~100 으로 편다.
+  const tail = Math.min(1, (outsidePct - last) / 15)
+  return +(95 + tail * 5).toFixed(1)
+}
+
+export interface CurriculumFit {
   pass: boolean
   coverage: CurriculumCoverage | null
+  /** 시중 분포에서의 자리(0~100). 50 이 시중 중앙. 못 재면 null. */
+  marketPercentile: number | null
   reason: string | null
-} {
+}
+
+/**
+ * 그 학교급 지문으로 쓸 만한 어휘인가 + 시중 분포의 어디인가.
+ *
+ * 못 재면 **통과시키지 않는다** — 모름을 허용으로 바꾸면 잴 수 없는 글이 그대로 실린다.
+ */
+export function curriculumFit(text: string, school: SchoolLevel = 'middle'): CurriculumFit {
   const c = curriculumCoverage(text)
-  if (!c) return { pass: false, coverage: null, reason: '내용어가 없어 잴 수 없다' }
-  if (c.outsidePct > CURRICULUM_GATE.maxOutsidePct) {
+  if (!c) return { pass: false, coverage: null, marketPercentile: null, reason: '내용어가 없어 잴 수 없다' }
+  const p = marketPercentile(c.outsidePct, school)
+  const max = CURRICULUM_GATE[school].maxOutsidePct
+  if (c.outsidePct > max) {
     return {
       pass: false,
       coverage: c,
-      reason: `내용어의 ${c.outsidePct}% 가 교육과정 3,000 밖이다(상한 ${CURRICULUM_GATE.maxOutsidePct}%)`,
+      marketPercentile: p,
+      reason: `내용어의 ${c.outsidePct}% 가 교육과정 3,000 밖이다(시중 ${school === 'elementary' ? '초등' : '중등'} p90 = ${max}%)`,
     }
   }
-  return { pass: true, coverage: c, reason: null }
+  return { pass: true, coverage: c, marketPercentile: p, reason: null }
+}
+
+/** 예전 이름 — 부르는 쪽(`space-place-ingest.mjs`)을 깨지 않는다. */
+export function passesCurriculumGate(
+  text: string,
+  school: SchoolLevel = 'middle'
+): { pass: boolean; coverage: CurriculumCoverage | null; reason: string | null } {
+  const f = curriculumFit(text, school)
+  return { pass: f.pass, coverage: f.coverage, reason: f.reason }
 }

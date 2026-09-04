@@ -726,11 +726,16 @@ export {
 // 교육과정 어휘 자 — **FK 가 못 보는 것을 본다.** 어휘 가드가 PG 조각의 54~61%를 걸렀다.
 export {
   curriculumCoverage,
+  curriculumFit,
   curriculumLists,
+  marketPercentile,
   passesCurriculumGate,
   stemLoose,
   CURRICULUM_GATE,
+  CURRICULUM_SPEC,
   type CurriculumCoverage,
+  type CurriculumFit,
+  type SchoolLevel,
 } from './textbook/curriculum'
 export {
   excerptForBand,

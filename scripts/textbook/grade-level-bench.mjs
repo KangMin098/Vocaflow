@@ -118,88 +118,31 @@ const WIN = {
 }
 
 /**
- * **2022 개정 교육과정 기본어휘 별표** — 이 조사의 두 번째 자, 그리고 더 정본에 가까운 쪽.
+ * **2022 개정 교육과정 기본어휘 별표 — 자는 패키지가 소유한다.**
  *
- * FK 는 미국 문헌 공식이고 **어휘 친숙도를 모른다.** 한국 초·중 학습자에게 "그 학년 수준" 은
- * 문장 길이가 아니라 **교육과정이 그 학년에 배우라고 정한 낱말 안에 있는가**로 정해진다.
- * 그 목록이 이미 `shared_dictionary.list_tags` 에 들어 있다:
+ * 예전엔 이 파일이 `shared_dictionary.list_tags` 를 직접 읽어 **자기 사본**을 만들었다.
+ * 그러면 같은 공식이 두 벌이 되고, 한쪽만 고쳐졌을 때 두 값이 조용히 갈린다 —
+ * FK 에서 이미 배운 실수다(`readability.ts` 머리말).
  *
- *     kcurr2022_1 초등 808 · kcurr2022_2 중등 1,211 · kcurr2022_0 고등 1,006
- *
- * 그래서 지문마다 **내용어가 별표 안에 몇 % 드는지**를 잰다. 초등 별표 적중이 높으면
- * 초등 지문이고, 고등 별표까지 가야 채워지면 그 학년 지문이 아니다.
- *
- * ⚠️ 굴절형을 정확히 되돌리지 않는다(`-s`·`-ed`·`-ing` 만 벗긴다). 그래서 이 값은
- *   **하한**이다 — 실제 적중은 이보다 높다. 소스끼리 견주는 데는 같은 잣대라 문제없지만,
- *   "적중 62%" 를 절대값으로 인용하면 과소평가한다.
+ * 정본은 `packages/library-pipeline/src/textbook/curriculum.ts` 이고, 그 문턱은
+ * **시중 지문 196쪽 실측**(2026-09-04 · `passage-mine.mjs`)에서 나왔다.
  */
-const dictRows = []
-for (let from = 0; ; from += 1000) {
-  const { data, error: e } = await db
-    .from('shared_dictionary')
-    .select('word, list_tags')
-    .overlaps('list_tags', ['kcurr2022_1', 'kcurr2022_2', 'kcurr2022_0'])
-    .range(from, from + 999)
-  if (e) throw new Error('별표 조회 실패: ' + e.message)
-  if (!data?.length) break
-  dictRows.push(...data)
-  if (data.length < 1000) break
-}
-const ELEM_SET = new Set()
-const MID_SET = new Set()
-const HIGH_SET = new Set()
-for (const r of dictRows) {
-  const w = String(r.word).toLowerCase()
-  const t = r.list_tags ?? []
-  if (t.includes('kcurr2022_1')) ELEM_SET.add(w)
-  if (t.includes('kcurr2022_2')) MID_SET.add(w)
-  if (t.includes('kcurr2022_0')) HIGH_SET.add(w)
-}
-
-/** 기능어는 어느 학년에나 있다 — 적중률을 재는 분모에서 뺀다. 안 빼면 전부 90%대가 된다. */
-const FUNC = new Set(
-  (
-    'a an the and or but if of to in on at by for with from as is are was were be been being am do does did have has had ' +
-    'i you he she it we they me him her us them my your his its our their this that these those there here not no yes ' +
-    'so then than too very can could will would shall should may might must up down out off over under again more most'
-  ).split(' ')
+const { curriculumFit, CURRICULUM_SPEC } = await import(
+  '../../packages/library-pipeline/src/textbook/curriculum.ts'
 )
-/** 굴절 되돌리기 — 완전하지 않다. 그래서 적중률은 하한이다. */
-const stem = (w) =>
-  w.endsWith('ies') && w.length > 4
-    ? w.slice(0, -3) + 'y'
-    : w.endsWith('es') && w.length > 4
-      ? w.slice(0, -2)
-      : w.endsWith('s') && !w.endsWith('ss') && w.length > 3
-        ? w.slice(0, -1)
-        : w.endsWith('ing') && w.length > 5
-          ? w.slice(0, -3)
-          : w.endsWith('ed') && w.length > 4
-            ? w.slice(0, -2)
-            : w
 
-function curriculumCoverage(text) {
-  const ws = (text.match(/[A-Za-z][A-Za-z'-]*/g) || []).map((w) => w.toLowerCase())
-  const content = ws.filter((w) => !FUNC.has(w) && w.length > 1)
-  if (!content.length) return null
-  let elem = 0
-  let mid = 0
-  let high = 0
-  for (const w of content) {
-    const s = stem(w)
-    const inElem = ELEM_SET.has(w) || ELEM_SET.has(s)
-    const inMid = MID_SET.has(w) || MID_SET.has(s)
-    const inHigh = HIGH_SET.has(w) || HIGH_SET.has(s)
-    if (inElem) elem++
-    if (inElem || inMid) mid++
-    if (inElem || inMid || inHigh) high++
-  }
-  return {
-    n: content.length,
-    elemPct: +((elem / content.length) * 100).toFixed(1),
-    midPct: +((mid / content.length) * 100).toFixed(1),
-    highPct: +((high / content.length) * 100).toFixed(1),
-  }
+/**
+ * FK 밴드 → 시중 어수창(`market-spec.json`) 버킷 · 학교급.
+ *
+ * 초등 버킷은 코퍼스에 `초6` 하나뿐이라 초등 세 밴드가 그것을 함께 쓴다 —
+ * **빌려 온 것이므로 빌렸다고 적는다**(`level-chart.ts` 의 `BORROWED` 와 같은 원칙).
+ */
+const BAND_SPEC = {
+  '초3~4': { bucket: '초6', school: 'elementary', borrowed: true },
+  '초5~6': { bucket: '초6', school: 'elementary', borrowed: true },
+  '초6~중1': { bucket: '초6', school: 'elementary', borrowed: true },
+  '중1~2': { bucket: '중1', school: 'middle', borrowed: false },
+  중3: { bucket: '중3', school: 'middle', borrowed: false },
 }
 
 const { data: rows, error } = await db
@@ -211,20 +154,44 @@ const { data: rows, error } = await db
   .lte('word_count', WIN.max)
 if (error) throw new Error('지문 조회 실패: ' + error.message)
 
+/**
+ * **적합 판정은 세 축을 동시에 통과해야 한다.**
+ *
+ * 하나만 보면 반드시 틀린다 — 실측으로 두 번 겪었다:
+ *   · 어수만 → FK 15.37 짜리 NASA 사진설명이 초6 자리를 통과했다(45% 오분류)
+ *   · FK 만  → Little Women(1868)·Tom Sawyer(1876)가 초6~중1 로 나왔다(19세기 어휘)
+ *
+ * 그래서 ① 어수창(시중) ② FK 밴드(시중) ③ 교육과정 어휘(시중 p90) 셋을 함께 건다.
+ * **떨어진 축을 기록한다** — "몇 편이 적합인가" 보다 "어디서 떨어지는가" 가 다음 작업을 정한다.
+ */
 const scored = []
 for (const r of rows) {
   const m = readability(r.content ?? '')
   if (!m) continue
-  const cov = curriculumCoverage(r.content ?? '')
+  const band = bandOf(m.fk)
+  const spec = BAND_SPEC[band] ?? null
+  const win = spec ? market[spec.bucket].words : null
+  const fit = spec ? curriculumFit(r.content ?? '', spec.school) : null
+
+  const failed = []
+  if (!spec) failed.push('밴드밖')
+  if (win && (m.words < win.p10 || m.words > win.p90)) failed.push('어수창')
+  if (fit && !fit.pass) failed.push('어휘')
+  if (spec && !fit) failed.push('어휘못잼')
+
   scored.push({
     ...m,
-    cov,
+    cov: fit?.coverage ?? null,
+    pctile: fit?.marketPercentile ?? null,
     source: r.source,
     title: r.title,
     cefr: r.cefr_level,
     register: r.register,
     v: r.article_v_level,
-    band: bandOf(m.fk),
+    band,
+    school: spec?.school ?? null,
+    fits: failed.length === 0,
+    failed,
   })
 }
 
@@ -247,8 +214,8 @@ for (const s of scored) {
   v.fk.push(s.fk)
   v.sent.push(s.sent)
   if (s.cov) {
-    v.elem.push(s.cov.elemPct)
-    v.mid.push(s.cov.midPct)
+    v.elem.push(s.cov.star1Pct)
+    v.mid.push(s.cov.throughStar2Pct)
   }
   v.cefr.set(s.cefr ?? '-', (v.cefr.get(s.cefr ?? '-') ?? 0) + 1)
   bySource.set(k, v)
@@ -284,19 +251,54 @@ for (const [k, v] of [...bySource.entries()].sort((a, b) => b[1].n - a[1].n)) {
   )
 }
 
-console.log(`\n■ 학년 밴드별 우리 재고 — **여기가 이 조사의 답이다**\n`)
-const byBand = new Map()
-for (const s of scored) byBand.set(s.band, (byBand.get(s.band) ?? 0) + 1)
+console.log(`\n■ 학년 밴드별 우리 재고 — 3축 동시 판정\n`)
 const ORDER = ['초3 미만', ...BANDS.map((b) => b.id), '중3 초과']
-console.log(pad('밴드', 12) + lp('FK창', 12) + lp('우리 편수', 10))
-console.log('─'.repeat(34))
+console.log(
+  pad('밴드', 12) + lp('FK창', 11) + lp('어수창', 11) + lp('FK통과', 8) +
+    lp('+어수', 7) + lp('+어휘=적합', 11) + lp('시중자리', 9)
+)
+console.log('─'.repeat(70))
+let fitTotal = 0
 for (const id of ORDER) {
   const b = BANDS.find((x) => x.id === id)
-  const n = byBand.get(id) ?? 0
+  const list = scored.filter((s) => s.band === id)
+  const spec = BAND_SPEC[id] ?? null
+  const win = spec ? market[spec.bucket].words : null
+  const inWin = list.filter((s) => !s.failed.includes('어수창'))
+  const fit = list.filter((s) => s.fits)
+  fitTotal += fit.length
+  const pcts = fit.map((s) => s.pctile).filter((x) => x != null)
   console.log(
-    pad(id, 12) + lp(b ? `${b.min}~${b.max}` : '—', 12) + lp(n, 10) + (n === 0 ? '  ← 빈칸' : '')
+    pad(id, 12) +
+      lp(b ? `${b.min}~${b.max}` : '—', 11) +
+      lp(win ? `${win.p10}~${win.p90}` : '—', 11) +
+      lp(list.length, 8) +
+      lp(spec ? inWin.length : '—', 7) +
+      lp(spec ? fit.length : '—', 11) +
+      lp(pcts.length ? med(pcts) : '—', 9) +
+      (spec && fit.length === 0 ? '  ← 빈칸' : '') +
+      (spec?.borrowed ? '  (어수창 빌림)' : '')
   )
 }
+console.log('─'.repeat(70))
+console.log(pad('3축 통과 합계', 12) + lp(fitTotal, 47))
+
+// § 어디서 떨어지는가 — 다음 작업을 정하는 것은 이 표다
+console.log(`\n■ 탈락 사유 (중복 계수 · 밴드 안에 든 ${scored.filter((s) => BAND_SPEC[s.band]).length}편 기준)\n`)
+const why = new Map()
+for (const s of scored) {
+  if (!BAND_SPEC[s.band]) continue
+  for (const f of s.failed) why.set(f, (why.get(f) ?? 0) + 1)
+}
+for (const [k, n] of [...why.entries()].sort((a, b) => b[1] - a[1]))
+  console.log('  ' + pad(k, 10) + lp(n, 6))
+if (!why.size) console.log('  (없음)')
+
+console.log(
+  `\n어휘 문턱: 초등 ${CURRICULUM_SPEC.outside.elementary.p90}% · 중등 ${CURRICULUM_SPEC.outside.middle.p90}%` +
+    ` — 시중 지문 ${CURRICULUM_SPEC.outside.elementary.sample + CURRICULUM_SPEC.outside.middle.sample}쪽 실측 p90 (${CURRICULUM_SPEC.measuredAt})`
+)
+console.log('시중 자리 50 = 시중 중앙과 같은 결. 20 이면 시중보다 쉬운 글만 모은 것이다.')
 
 const report = {
   measuredAt: new Date().toISOString(),
@@ -307,7 +309,23 @@ const report = {
     'FK 는 어휘 친숙도를 모른다. NASA 사진설명은 FK 가 낮아도 CEFR C1 이다 — 반드시 CEFR·V-Level 과 함께 본다.',
   marketBands: marketRows,
   bands: BANDS,
-  ourByBand: ORDER.map((id) => ({ band: id, n: byBand.get(id) ?? 0 })),
+  // 밴드마다 세 축을 따로 적는다 — 합계만 적으면 어디를 고쳐야 하는지 알 수 없다.
+  ourByBand: ORDER.map((id) => {
+    const list = scored.filter((s) => s.band === id)
+    const spec = BAND_SPEC[id] ?? null
+    return {
+      band: id,
+      n: list.length,
+      inWordWindow: spec ? list.filter((s) => !s.failed.includes('어수창')).length : null,
+      fits: spec ? list.filter((s) => s.fits).length : null,
+      marketPercentileMedian: spec
+        ? med(list.filter((s) => s.fits).map((s) => s.pctile).filter((x) => x != null))
+        : null,
+      wordWindow: spec ? market[spec.bucket].words : null,
+      borrowedWindow: spec?.borrowed ?? null,
+    }
+  }),
+  fitTotal,
   ourBySource: [...bySource.entries()].map(([k, v]) => ({
     source: k,
     n: v.n,

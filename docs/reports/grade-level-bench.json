@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-09-03T23:41:37.424Z",
+  "measuredAt": "2026-09-04T12:13:39.442Z",
   "window": {
     "min": 42,
     "max": 173
@@ -150,33 +150,119 @@
   "ourByBand": [
     {
       "band": "초3 미만",
-      "n": 36
+      "n": 36,
+      "inWordWindow": null,
+      "fits": null,
+      "marketPercentileMedian": null,
+      "wordWindow": null,
+      "borrowedWindow": null
     },
     {
       "band": "초3~4",
-      "n": 71
+      "n": 71,
+      "inWordWindow": 62,
+      "fits": 50,
+      "marketPercentileMedian": 40.3,
+      "wordWindow": {
+        "n": 96,
+        "min": 40,
+        "p10": 44,
+        "p25": 52,
+        "median": 62,
+        "p75": 81,
+        "p90": 121,
+        "max": 194,
+        "mean": 72
+      },
+      "borrowedWindow": true
     },
     {
       "band": "초5~6",
-      "n": 79
+      "n": 79,
+      "inWordWindow": 62,
+      "fits": 47,
+      "marketPercentileMedian": 60.9,
+      "wordWindow": {
+        "n": 96,
+        "min": 40,
+        "p10": 44,
+        "p25": 52,
+        "median": 62,
+        "p75": 81,
+        "p90": 121,
+        "max": 194,
+        "mean": 72
+      },
+      "borrowedWindow": true
     },
     {
       "band": "초6~중1",
-      "n": 47
+      "n": 47,
+      "inWordWindow": 6,
+      "fits": 4,
+      "marketPercentileMedian": 66.3,
+      "wordWindow": {
+        "n": 96,
+        "min": 40,
+        "p10": 44,
+        "p25": 52,
+        "median": 62,
+        "p75": 81,
+        "p90": 121,
+        "max": 194,
+        "mean": 72
+      },
+      "borrowedWindow": true
     },
     {
       "band": "중1~2",
-      "n": 30
+      "n": 30,
+      "inWordWindow": 6,
+      "fits": 4,
+      "marketPercentileMedian": 43,
+      "wordWindow": {
+        "n": 67,
+        "min": 40,
+        "p10": 46,
+        "p25": 57,
+        "median": 84,
+        "p75": 124,
+        "p90": 154,
+        "max": 197,
+        "mean": 93.7
+      },
+      "borrowedWindow": false
     },
     {
       "band": "중3",
-      "n": 24
+      "n": 24,
+      "inWordWindow": 17,
+      "fits": 3,
+      "marketPercentileMedian": 66.4,
+      "wordWindow": {
+        "n": 28,
+        "min": 41,
+        "p10": 42,
+        "p25": 45,
+        "median": 81,
+        "p75": 122,
+        "p90": 153,
+        "max": 165,
+        "mean": 84.5
+      },
+      "borrowedWindow": false
     },
     {
       "band": "중3 초과",
-      "n": 98
+      "n": 98,
+      "inWordWindow": null,
+      "fits": null,
+      "marketPercentileMedian": null,
+      "wordWindow": null,
+      "borrowedWindow": null
     }
   ],
+  "fitTotal": 108,
   "ourBySource": [
     {
       "source": "original",
@@ -184,7 +270,7 @@
       "fkMedian": 6.76,
       "sentMedian": 17.2,
       "curriculumElemPct": 53.9,
-      "curriculumElemMidPct": 76.9,
+      "curriculumElemMidPct": 76.7,
       "band": "초6~중1",
       "cefr": {
         "A2": 17,
@@ -197,8 +283,8 @@
       "n": 121,
       "fkMedian": 15.37,
       "sentMedian": 26.3,
-      "curriculumElemPct": 22.4,
-      "curriculumElemMidPct": 35.7,
+      "curriculumElemPct": 33.3,
+      "curriculumElemMidPct": 45.5,
       "band": "중3 초과",
       "cefr": {
         "C1": 65,
@@ -214,8 +300,8 @@
       "n": 115,
       "fkMedian": 3.89,
       "sentMedian": 8.4,
-      "curriculumElemPct": 49.1,
-      "curriculumElemMidPct": 62.5,
+      "curriculumElemPct": 47.1,
+      "curriculumElemMidPct": 60,
       "band": "초3~4",
       "cefr": {
         "B1": 39,
@@ -241,8 +327,8 @@
       "n": 17,
       "fkMedian": 12.55,
       "sentMedian": 22.1,
-      "curriculumElemPct": 36.4,
-      "curriculumElemMidPct": 53.9,
+      "curriculumElemPct": 35.8,
+      "curriculumElemMidPct": 55.3,
       "band": "중3 초과",
       "cefr": {
         "C1": 7,
@@ -255,8 +341,8 @@
       "n": 1,
       "fkMedian": 1.95,
       "sentMedian": 7.6,
-      "curriculumElemPct": 73.6,
-      "curriculumElemMidPct": 88.9,
+      "curriculumElemPct": 73.2,
+      "curriculumElemMidPct": 88.7,
       "band": "초3~4",
       "cefr": {
         "-": 1
@@ -268,7 +354,7 @@
       "fkMedian": 2.28,
       "sentMedian": 7,
       "curriculumElemPct": 61.3,
-      "curriculumElemMidPct": 76.1,
+      "curriculumElemMidPct": 71,
       "band": "초3~4",
       "cefr": {
         "-": 8
@@ -279,8 +365,8 @@
       "n": 2,
       "fkMedian": 16.33,
       "sentMedian": 30.8,
-      "curriculumElemPct": 32.2,
-      "curriculumElemMidPct": 52.2,
+      "curriculumElemPct": null,
+      "curriculumElemMidPct": null,
       "band": "중3 초과",
       "cefr": {
         "B2": 1,
@@ -292,8 +378,8 @@
       "n": 43,
       "fkMedian": 5.48,
       "sentMedian": 12.3,
-      "curriculumElemPct": 46,
-      "curriculumElemMidPct": 63.8,
+      "curriculumElemPct": 45.7,
+      "curriculumElemMidPct": 63.5,
       "band": "초5~6",
       "cefr": {
         "B1": 24,
@@ -761,15 +847,6 @@
       "words": 105,
       "cefr": null,
       "band": "초3~4"
-    },
-    {
-      "source": "futurity",
-      "title": "Artificial intelligence decodes whale 'alphabet'",
-      "fk": 12.65,
-      "sent": 24.6,
-      "words": 172,
-      "cefr": "C1",
-      "band": "중3 초과"
     },
     {
       "source": "futurity",
@@ -1421,15 +1498,6 @@
     },
     {
       "source": "nasa",
-      "title": "APOD: 2026 August 27 - Colorful Aurora over Icenlandic Waterfall",
-      "fk": 11.09,
-      "sent": 19.9,
-      "words": 159,
-      "cefr": "B2",
-      "band": "중3"
-    },
-    {
-      "source": "nasa",
       "title": "Artemis III Orion Crew and Service Modules Joined - NASA",
       "fk": 20.48,
       "sent": 35,
@@ -1506,15 +1574,6 @@
       "fk": 11.56,
       "sent": 25,
       "words": 175,
-      "cefr": "C1",
-      "band": "중3"
-    },
-    {
-      "source": "futurity",
-      "title": "Why do we die? Do we have to?",
-      "fk": 9.86,
-      "sent": 18.2,
-      "words": 164,
       "cefr": "C1",
       "band": "중3"
     },
@@ -1661,6 +1720,15 @@
       "words": 95,
       "cefr": null,
       "band": "초3~4"
+    },
+    {
+      "source": "nasa",
+      "title": "APOD: 2026 August 27 - Colorful Aurora over Icenlandic Waterfall",
+      "fk": 11.09,
+      "sent": 19.9,
+      "words": 159,
+      "cefr": "B2",
+      "band": "중3"
     },
     {
       "source": "storyweaver",
@@ -3767,6 +3835,24 @@
       "words": 169,
       "cefr": "A2",
       "band": "초6~중1"
+    },
+    {
+      "source": "futurity",
+      "title": "Artificial intelligence decodes whale 'alphabet'",
+      "fk": 12.65,
+      "sent": 24.6,
+      "words": 172,
+      "cefr": "C1",
+      "band": "중3 초과"
+    },
+    {
+      "source": "futurity",
+      "title": "Why do we die? Do we have to?",
+      "fk": 9.86,
+      "sent": 18.2,
+      "words": 164,
+      "cefr": "C1",
+      "band": "중3"
     }
   ]
 }

@@ -126,7 +126,12 @@ for (const item of list) {
   }
 
   // **어휘 가드** — FK 가 통과시켜도 교육과정 밖이 많으면 그 학년 지문이 아니다.
-  const gate = passesCurriculumGate(row.content)
+  // 문턱은 학교급마다 다르다(시중 실측 p90: 초등 43.3% · 중등 44.0%) — 목표 칸이
+  // 초등이면 초등 자를 댄다. 칸을 안 정하고 부르면 중등 자가 기본이다.
+  const gate = passesCurriculumGate(
+    row.content,
+    targetBand?.id?.startsWith('초') ? 'elementary' : 'middle'
+  )
   if (!gate.pass) {
     vocabBlocked++
     console.log(`  ⊘ ${gate.reason} — ${row.title.slice(0, 42)}`)
