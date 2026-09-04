@@ -108,7 +108,18 @@ const SOLR = 'https://api.plos.org/search'
 const UA = 'Vocaflow/1.0 (+https://vocaflow.app; CSAT source harvest)'
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
-async function solr(params) {
+/**
+ * ⚠️ **재시도 없이 60쪽을 훑을 수 없다.**
+ *
+ *   2026-09-04 실측: `--pages 60` 을 걸었더니 2쪽에서 `UND_ERR_CONNECT_TIMEOUT` 으로
+ *   프로세스가 죽었다. 36편만 적재된 채 나머지 58쪽이 통째로 날아갔고, 배경 실행이라
+ *   exit 0 으로 보고돼 **성공한 줄 알았다.**
+ *
+ *   상류는 남의 서버다. 한 번 끊기는 것은 정상이고, 그때 전체를 잃는 쪽이 결함이다.
+ *   지수 백오프로 4번 다시 걸고, 그래도 안 되면 그때 던진다 —
+ *   호출부가 cursorMark 를 들고 있으므로 재시도는 같은 쪽을 다시 받아 온다(안전).
+ */
+async function solr(params, attempt = 0) {
   const u = new URL(SOLR)
   for (const [k, v] of Object.entries(params)) u.searchParams.set(k, v)
   const c = new AbortController()
@@ -117,6 +128,13 @@ async function solr(params) {
     const r = await fetch(u, { headers: { 'User-Agent': UA }, signal: c.signal })
     if (!r.ok) throw new Error(`solr ${r.status}`)
     return JSON.parse(await r.text())
+  } catch (e) {
+    if (attempt >= 4) throw e
+    const wait = 2000 * 2 ** attempt
+    console.log(`     ↻ 상류 실패(${e?.cause?.code ?? e.message}) — ${wait / 1000}초 뒤 재시도 ${attempt + 1}/4`)
+    clearTimeout(t)
+    await sleep(wait)
+    return solr(params, attempt + 1)
   } finally {
     clearTimeout(t)
   }
