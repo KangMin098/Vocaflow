@@ -74,8 +74,12 @@ describe('히어로 증명 — I1·I2·I6 (서버 렌더에 결과가 남는다)
     expect(html).toMatch(/decoration-wavy/)
   })
 
-  it('레벨 미상은 미지어와 다른 표시를 쓴다 — 모른다고 단정하지 않는다', () => {
-    expect(html).toMatch(/decoration-dotted/)
+  it('레벨 미상을 감추지 않는다 — 표식 대신 범례가 셈을 밝힌다', () => {
+    // 흔한 낱말에 점선을 흩뿌리면 "every 도 모르나" 로 읽힌다(2026-09-04 실화면 검토).
+    // 표식은 걷고 문장으로 말한다 — 정직성은 유지되고 시각 노이즈는 사라진다.
+    expect(html).not.toMatch(/decoration-dotted/)
+    expect(html).toContain('레벨 미상')
+    expect(html).toContain('절반만 안다고 셈')
   })
 })
 

@@ -71,15 +71,14 @@ export default async function LandingPage() {
 
       <main className="flex-1">
         {/* ── Hero — 1차 CTA 는 가입이 아니라 "먼저 재 보기" ── */}
-        <section className="mx-auto max-w-3xl px-6 py-16 text-center md:py-24">
-          <h1 className="font-display text-[30px] font-[800] leading-[1.25] tracking-tight text-[var(--t1)] md:text-[42px]">
+        <section className="mx-auto max-w-3xl px-6 py-8 text-center md:py-16">
+          <h1 className="break-keep font-display text-[28px] font-[800] leading-[1.25] tracking-tight text-[var(--t1)] md:text-[42px]">
             글이 어려운 게 아니라
             <br />
             <span className="text-[var(--p)]">내가 아는 비율</span>이 다른 겁니다
           </h1>
-          <p className="mx-auto mt-5 max-w-[46ch] font-body text-[15px] leading-relaxed text-[var(--t2)] md:text-[16px]">
-            같은 글도 사람마다 다른 숫자가 나옵니다. 이 글이 편하게 읽히기까지 몇 단어가 남았는지
-            계산해 드려요.
+          <p className="mx-auto mt-4 max-w-[46ch] break-keep font-body text-[14.5px] leading-relaxed text-[var(--t2)] md:text-[16px]">
+            이 글이 편하게 읽히기까지 몇 단어가 남았는지 계산해 드려요.
           </p>
 
           {demo && <CoverageHero demo={demo} />}
