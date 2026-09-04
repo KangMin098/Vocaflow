@@ -280,9 +280,52 @@ for (const b of picked) {
     const g = gate(text)
     if (g) passing.push({ text, g })
   }
-  const stride = Math.max(1, Math.floor(passing.length / PER_BOOK))
+  /**
+   * **몫이 적게 찬 칸부터 담는다** — 책 순서대로 담으면 상위 칸이 독식한다.
+   *
+   * ── 왜 (실측 2026-09-04·05) ────────────────────────────────────────
+   * 4축 게이트를 붙이고 25권을 돌린 결과가 **중3 226 · 중1~2 147 · 초3~4 17** 이었다.
+   * 상위 두 칸이 73%다. 19세기 아동물이라도 문장이 길어 FK 가 위로 쏠리기 때문이고,
+   * 책을 훑는 순서대로 담으면 그 쏠림이 그대로 재고가 된다.
+   *
+   * 그러면 상위 칸은 몫을 채우고 **초등 칸은 영영 안 찬다.** 수능 쪽에서 같은 함정을
+   * 이미 겪었다 — 적합 원문을 3,370편 늘렸는데 균형 사정권은 28편 올랐다.
+   * **병목 칸을 안 건드리면 수치가 안 움직인다**(`csat-source-fit-20260903.md` §16).
+   *
+   * 그래서 칸별로 나눈 뒤 **남은 몫이 큰 칸부터 라운드로빈**으로 집는다. 한 책에서
+   * 상위 칸이 30편 나와도 초등 칸 3편이 먼저 들어간다.
+   *
+   * ⚠️ 이것으로 초등 칸이 **채워지지는 않는다** — 공급 자체가 적기 때문이다.
+   *   막는 것은 상위 칸의 독식이고, 초등 칸은 각색 드레인이 함께 채워야 한다.
+   */
+  const byBandPass = new Map()
+  for (const p of passing) {
+    if (!byBandPass.has(p.g.band)) byBandPass.set(p.g.band, [])
+    byBandPass.get(p.g.band).push(p)
+  }
+  // 각 칸 안에서는 책 전체에 고르게 — 앞에서부터 자르면 첫 챕터만 담긴다.
+  for (const [, list] of byBandPass) {
+    const stride = Math.max(1, Math.floor(list.length / PER_BOOK))
+    const thin = []
+    for (let i = 0; i < list.length; i += stride) thin.push(list[i])
+    byBandPass.set(list[0].g.band, thin)
+  }
   const spread = []
-  for (let i = 0; i < passing.length && spread.length < PER_BOOK; i += stride) spread.push(passing[i])
+  for (let round = 0; spread.length < PER_BOOK; round++) {
+    // 매 바퀴 남은 몫을 다시 본다 — 이 책에서 담은 것이 몫을 줄이기 때문이다.
+    const order = [...byBandPass.keys()].sort(
+      (a, b) => QUOTA_PER_BAND - have[b] - (QUOTA_PER_BAND - have[a])
+    )
+    let took = false
+    for (const band of order) {
+      const list = byBandPass.get(band)
+      if (!list || round >= list.length) continue
+      spread.push(list[round])
+      took = true
+      if (spread.length >= PER_BOOK) break
+    }
+    if (!took) break
+  }
   const capped = passing.length - spread.length
 
   const rows = []
