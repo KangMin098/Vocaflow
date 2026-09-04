@@ -293,7 +293,11 @@ for (let c = 0; c < CHUNKS; c++) {
      *   역사·인류가 그대로이기 때문이다. 앞서 수확 3,370편이 사정권을 28편밖에 못 올린 것과
      *   같은 함정이고, 여기서 다시 밟으면 12,681편을 짓고도 수치가 제자리다.
      */
-    const slot = COMPOSE_SLOTS.filter((k) => need[k] > 0).sort(
+    // ⚠️ **소재를 다 쓴 칸은 후보에서 뺀다.** 안 빼면 선택기가 그 칸을 계속 다시 골라
+    //   `i -= 1; continue` 와 함께 **무한 루프**가 된다(실측 2026-09-03: export 가 180초를
+    //   넘겨 죽지 않고 돌았다). 종료 조건만으로는 못 막는다 — 다른 칸에 몫이 남아 있으면
+    //   그 조건이 안 걸리는데, 선택기는 여전히 소진된 칸을 고르기 때문이다.
+    const slot = COMPOSE_SLOTS.filter((k) => need[k] > 0 && !exhausted.has(k)).sort(
       (a, b) => (holding[a] ?? 0) / share[a] - (holding[b] ?? 0) / share[b],
     )[0]
     if (!slot) break
@@ -339,6 +343,7 @@ for (let c = 0; c < CHUNKS; c++) {
           `문장 길이를 **고르게** — 실측: 떨어진 글의 문장이 8·36·49어로 튀었다. 18~25어로 유지하면 창 평균이 대역 안에 머문다.`,
           `문장 평균 ${SHAPE.sentLen.lo.toFixed(0)}~${SHAPE.sentLen.hi.toFixed(0)}어 · 낱말 평균 ${SHAPE.wordLen.lo.toFixed(2)}~${SHAPE.wordLen.hi.toFixed(2)}자 (중앙 ${SHAPE.wordLen.mid.toFixed(2)} 겨냥).`,
           '연결사(however·therefore·although·because…)와 지시어(this·these·its·their…)를 반드시 섞는다.',
+          '⚠️ **첫 문단부터 섞는다.** 실측: 떨어진 글의 대부분이 「문장 1~6 창에 연결사·지시어가 없다」였다. 서두를 설명만으로 시작하면 첫 창이 담화 하한에 걸려, 뒤가 아무리 좋아도 그 창은 못 쓴다.',
           '숫자·인용·URL·고유명 약어를 피한다 — 산문 게이트가 서지 블록으로 보고 버린다.',
           'subject 는 무엇을 쓸지에 대한 지시다. 그대로 번역하지 말고 그 주제의 영어 설명문을 쓴다.',
           '⚠️ 낱말 길이가 가장 자주 어긋난다 — 학술어를 몰아 쓰면 상한을 넘고, 쉬운 말만 쓰면 하한에 못 미친다.',
