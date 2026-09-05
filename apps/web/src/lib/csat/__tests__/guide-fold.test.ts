@@ -8,6 +8,10 @@
 
 import { describe, expect, it } from 'vitest'
 
+// 드레인 스크립트의 표지 목록 — 앱 사본과 어긋나면 아래 정합 검사가 깨진다.
+// 워크스페이스 밖 파일이라 앱 번들에는 안 들어간다(테스트에서만 읽는다).
+import { detectAnalystMeta as mjsDetect } from '../../../../../../scripts/csat/lib-analyst-markers.mjs'
+
 import {
   detectAnalystMeta,
   foldTrapFamilies,
@@ -147,6 +151,23 @@ describe('detectAnalystMeta', () => {
     expect(detectAnalystMeta('빈칸 앞 한 문장에 근거가 붙어 있는 경우가 다수다')).toEqual([])
     expect(detectAnalystMeta('이 규칙은 옛 회차에서는 성립하지 않는다')).toEqual([])
     expect(detectAnalystMeta(null)).toEqual([])
+  })
+
+  // 표지 목록이 두 벌 있다 — 여기(앱: 세어서 보여 준다)와 `scripts/csat/lib-analyst-markers.mjs`
+  // (드레인: 뽑을 몫을 고르고 게이트로 막는다). 갈리면 콘솔이 「13유형」이라 말하는데 드레인은
+  // 다른 수를 뽑거나, 뽑아 놓고 못 올리게 된다. 한쪽만 고치는 일이 없도록 여기서 묶어 둔다.
+  it('드레인 스크립트의 표지 목록과 어긋나지 않는다', () => {
+    const samples = [
+      '앞선 청크의 관찰 ①은 이 청크에서는 성립하지 않는다',
+      '── 2026-09-04 갱신: 정답표가 확보돼',
+      'confirmed_at 에 두 번째 자리를 적어야 했다',
+      '이번 회차분에서는 세 건 있었다',
+      'answer_locus.quote 가 지문에 있는지 본다',
+      '빈칸 앞 한 문장에 근거가 붙어 있는 경우가 다수다',
+      '이 규칙은 옛 회차에서는 성립하지 않는다',
+      '',
+    ]
+    for (const s of samples) expect(detectAnalystMeta(s), s).toEqual(mjsDetect(s))
   })
 })
 
