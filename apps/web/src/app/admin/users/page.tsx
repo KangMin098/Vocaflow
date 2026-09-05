@@ -1,342 +1,126 @@
 // apps/web/src/app/admin/users/page.tsx
-// 사용자 관리 — 목록 + KPI + 검색/필터 + 상태 액션
-// 인지 부하: 6열 한정, 핵심 지표만 KPI 4개
+// 사용자 관리 — 가입자 실측 KPI + 미구현 영역 고지
+//
+// v06.35 이전 이 화면은 DB 를 한 번도 읽지 않고 "총 사용자 1,247" 을 그렸다.
+// 실제 user_profiles 는 3 행이다(2026-09-05 실측) — 415 배. 운영 화면 첫 장의 숫자는
+// 그대로 판단 근거가 되므로, 이 화면은 이제 상수를 두지 않는다:
+//   · 셀 수 있는 것(가입자 · 오늘 활성)은 lib/admin/dashboard-stats.ts 가 센 값만 쓴다.
+//   · 셀 곳이 없는 것(구독 · 제재)은 0 이 아니라 — 로 두고 "집계할 곳이 없음" 을 적는다.
+//     0 으로 뭉개면 "제재 0건" 이라는 거짓 안심이 남는다.
+// 목록(7명)·검색·필터·초대·⋯ 는 전부 가짜 행 위에서만 동작하던 장치라 함께 걷어냈다.
 
-'use client'
-
-import {
-  Activity,
-  Crown,
-  Flame,
-  MoreHorizontal,
-  Plus,
-  TrendingUp,
-  UserCheck,
-  Users,
-  UserX,
-} from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { Crown, TrendingUp, UserX, Users } from 'lucide-react'
+import Link from 'next/link'
 
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
-import { AdminToolbar } from '@/components/admin/AdminToolbar'
+import { MockDataBanner } from '@/components/admin/MockDataBanner'
+import { fmt, getAdminDashboardStats } from '@/lib/admin/dashboard-stats'
+import { requireAdmin } from '@/lib/auth/require-admin'
+import { createAdminClient } from '@/lib/supabase/admin'
 
-interface AdminUser {
-  id: string
-  name: string
-  email: string
-  plan: 'free' | 'pro' | 'team'
-  status: 'active' | 'suspended' | 'inactive'
-  streak: number
-  joinedAt: string
-  lastActive: string
+export const metadata = {
+  title: '사용자 관리 — Vocaflow Admin',
+  description: '가입자 실측 · 미구현 영역 고지',
 }
 
-const KPIS: AdminKpi[] = [
-  {
-    label: '총 사용자',
-    value: '1,247',
-    delta: { value: 12, positive: true },
-    icon: Users,
-    accent: '#8B5CF6',
-    bg: '#F5F3FF',
-  },
-  {
-    label: '오늘 활성',
-    value: '348',
-    delta: { value: 8, positive: true },
-    icon: TrendingUp,
-    accent: 'var(--info)',
-    bg: 'var(--info-light)',
-    hint: 'DAU · 28% engagement',
-  },
-  {
-    label: 'Pro 구독',
-    value: '184',
-    delta: { value: 3, positive: true },
-    icon: Crown,
-    accent: 'var(--p)',
-    bg: 'var(--p-light)',
-    hint: '14.7% 전환율',
-  },
-  {
-    label: '제재 계정',
-    value: '3',
-    delta: { value: 1, positive: false },
-    icon: UserX,
-    accent: 'var(--error)',
-    bg: 'var(--error-light)',
-    hint: '미처리 1건',
-  },
-]
+export const dynamic = 'force-dynamic'
 
-const USERS: AdminUser[] = [
-  {
-    id: 'u-001',
-    name: '김학생',
-    email: 'student.k@example.com',
-    plan: 'pro',
-    status: 'active',
-    streak: 23,
-    joinedAt: '2025-08-12',
-    lastActive: '5분 전',
-  },
-  {
-    id: 'u-002',
-    name: 'Alex Chen',
-    email: 'alex.chen@example.com',
-    plan: 'free',
-    status: 'active',
-    streak: 7,
-    joinedAt: '2025-09-04',
-    lastActive: '1시간 전',
-  },
-  {
-    id: 'u-003',
-    name: '박서연',
-    email: 'seoyun@example.com',
-    plan: 'team',
-    status: 'active',
-    streak: 41,
-    joinedAt: '2025-04-22',
-    lastActive: '방금',
-  },
-  {
-    id: 'u-004',
-    name: 'Maria Lopez',
-    email: 'maria@example.com',
-    plan: 'pro',
-    status: 'inactive',
-    streak: 0,
-    joinedAt: '2025-11-10',
-    lastActive: '14일 전',
-  },
-  {
-    id: 'u-005',
-    name: '이도윤',
-    email: 'doyoon.lee@example.com',
-    plan: 'free',
-    status: 'suspended',
-    streak: 0,
-    joinedAt: '2025-10-30',
-    lastActive: '7일 전',
-  },
-  {
-    id: 'u-006',
-    name: 'Yui Tanaka',
-    email: 'yui.t@example.com',
-    plan: 'free',
-    status: 'active',
-    streak: 12,
-    joinedAt: '2025-12-15',
-    lastActive: '30분 전',
-  },
-  {
-    id: 'u-007',
-    name: '정민호',
-    email: 'minho.j@example.com',
-    plan: 'pro',
-    status: 'active',
-    streak: 89,
-    joinedAt: '2025-02-01',
-    lastActive: '2시간 전',
-  },
-]
+export default async function AdminUsersPage() {
+  await requireAdmin('/admin/users')
+  const stats = await getAdminDashboardStats(createAdminClient())
 
-const PLAN_META: Record<AdminUser['plan'], { label: string; color: string; bg: string }> = {
-  free: { label: 'Free', color: 'var(--t2)', bg: 'var(--bg3)' },
-  pro: { label: 'Pro', color: 'var(--p)', bg: 'var(--p-light)' },
-  team: { label: 'Team', color: '#8B5CF6', bg: '#F5F3FF' },
-}
-
-const STATUS_META: Record<
-  AdminUser['status'],
-  { label: string; color: string; bg: string }
-> = {
-  active: { label: '활성', color: 'var(--success)', bg: 'var(--success-light)' },
-  inactive: { label: '비활성', color: 'var(--t3)', bg: 'var(--bg3)' },
-  suspended: { label: '제재', color: 'var(--error)', bg: 'var(--error-light)' },
-}
-
-export default function AdminUsersPage() {
-  const [query, setQuery] = useState('')
-  const [activeChip, setActiveChip] = useState<'all' | 'pro' | 'team' | 'suspended'>('all')
-
-  const filtered = useMemo(() => {
-    return USERS.filter((u) => {
-      if (query) {
-        const q = query.toLowerCase()
-        if (
-          !u.name.toLowerCase().includes(q) &&
-          !u.email.toLowerCase().includes(q) &&
-          !u.id.toLowerCase().includes(q)
-        )
-          return false
-      }
-      if (activeChip === 'pro' && u.plan !== 'pro') return false
-      if (activeChip === 'team' && u.plan !== 'team') return false
-      if (activeChip === 'suspended' && u.status !== 'suspended') return false
-      return true
-    })
-  }, [query, activeChip])
+  const kpis: AdminKpi[] = [
+    {
+      label: '총 사용자',
+      value: fmt(stats.learners.total),
+      icon: Users,
+      accent: 'var(--p)',
+      bg: 'var(--p-light)',
+      hint: 'user_profiles 행 수 · 요청 시점 실측',
+    },
+    {
+      label: '오늘 활성',
+      value: fmt(stats.learners.activeToday),
+      icon: TrendingUp,
+      accent: 'var(--info)',
+      bg: 'var(--info-light)',
+      hint: 'daily_activity 의 KST 오늘 행 수',
+    },
+    {
+      label: 'Pro 구독',
+      value: '—',
+      icon: Crown,
+      accent: 'var(--t2)',
+      bg: 'var(--bg3)',
+      hint: '집계할 곳이 없습니다 — 구독 테이블 미구현',
+    },
+    {
+      label: '제재 계정',
+      value: '—',
+      icon: UserX,
+      accent: 'var(--t2)',
+      bg: 'var(--bg3)',
+      hint: '집계할 곳이 없습니다 — 제재 처리 미구현',
+    },
+  ]
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-10 md:px-8">
       <AdminPageHeader
         icon={Users}
         title="사용자 관리"
-        description="가입 · 제재 · 구독 상태 · 학습 통계"
-        actions={
-          <button className="inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-3 py-2 font-display text-[12px] font-[600] text-white shadow-[var(--sh-sm)] hover:bg-[#7C3AED]">
-            <Plus size={14} aria-hidden />
-            초대
-          </button>
-        }
+        description="가입자 실측 · 계정별 조치는 아직 없음"
+      />
+
+      <MockDataBanner
+        className="mb-6"
+        what="가입자·오늘 활성 두 칸만 DB 실측이고, 구독·제재는 값이 아니라 — 입니다."
+        why="구독(subscriptions)·결제·제재 이력 테이블이 존재하지 않아 셀 대상이 없습니다. 계정별 조치(제재·플랜 변경·초대)도 아직 구현돼 있지 않습니다."
+        instead={[
+          { label: '파이프라인 실측 대시보드', href: '/admin' },
+          { label: '품질 지표', href: '/admin/quality' },
+        ]}
+        plan="연동 일정 미정 — 결제 PG 연동이 선행 조건입니다."
       />
 
       <AdminScreenHelp screen="users" className="-mt-3 mb-6" />
 
-      <AdminKpiGrid kpis={KPIS} />
+      <AdminKpiGrid kpis={kpis} />
 
-      <AdminToolbar
-        searchPlaceholder="이름·이메일·ID 검색"
-        searchValue={query}
-        onSearchChange={setQuery}
-        chips={[
-          {
-            label: '전체',
-            active: activeChip === 'all',
-            count: USERS.length,
-            onClick: () => setActiveChip('all'),
-          },
-          {
-            label: 'Pro',
-            active: activeChip === 'pro',
-            count: USERS.filter((u) => u.plan === 'pro').length,
-            onClick: () => setActiveChip('pro'),
-          },
-          {
-            label: 'Team',
-            active: activeChip === 'team',
-            count: USERS.filter((u) => u.plan === 'team').length,
-            onClick: () => setActiveChip('team'),
-          },
-          {
-            label: '제재',
-            active: activeChip === 'suspended',
-            count: USERS.filter((u) => u.status === 'suspended').length,
-            onClick: () => setActiveChip('suspended'),
-          },
-        ]}
-      />
-
-      {/* ── Users table ── */}
-      <div className="overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
-        <table className="w-full">
-          <thead className="bg-[var(--bg2)]">
-            <tr>
-              {['사용자', '플랜', '상태', '연속', '가입일', '마지막 활동', ''].map((h, i) => (
-                <th
-                  key={i}
-                  className="px-4 py-3 text-left font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"
-                >
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-[var(--bd)]">
-            {filtered.map((u) => {
-              const plan = PLAN_META[u.plan]
-              const status = STATUS_META[u.status]
-              return (
-                <tr key={u.id} className="transition-colors hover:bg-[var(--bg2)]/50">
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-3">
-                      <span
-                        className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#8B5CF6]/20 to-[#6D28D9]/20 font-display text-[12px] font-[700] text-[#6D28D9]"
-                        aria-hidden
-                      >
-                        {u.name[0]}
-                      </span>
-                      <div className="min-w-0">
-                        <p className="truncate font-display text-[13px] font-[600] text-[var(--t1)]">
-                          {u.name}
-                        </p>
-                        <p className="truncate font-mono text-[11px] text-[var(--t2)]">
-                          {u.email}
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span
-                      className="inline-flex rounded-full px-2 py-1 font-display text-[11px] font-[700]"
-                      style={{ backgroundColor: plan.bg, color: plan.color }}
-                    >
-                      {plan.label}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span
-                      className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-display text-[11px] font-[700]"
-                      style={{ backgroundColor: status.bg, color: status.color }}
-                    >
-                      <span
-                        className="h-1.5 w-1.5 rounded-full"
-                        style={{ backgroundColor: status.color }}
-                        aria-hidden
-                      />
-                      {status.label}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 font-mono text-[12px] tabular-nums text-[var(--t1)]">
-                    {u.streak > 0 ? (
-                      <span className="inline-flex items-center gap-1 text-[#EC4899]">
-                        <Flame size={11} aria-hidden />
-                        {u.streak}일
-                      </span>
-                    ) : (
-                      <span className="text-[var(--t2)]">—</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 font-mono text-[11px] tabular-nums text-[var(--t2)]">
-                    {u.joinedAt}
-                  </td>
-                  <td className="px-4 py-3 font-mono text-[11px] text-[var(--t2)]">
-                    <span className="inline-flex items-center gap-1">
-                      <Activity size={10} aria-hidden />
-                      {u.lastActive}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <button
-                      className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
-                      aria-label="더보기"
-                    >
-                      <MoreHorizontal size={14} />
-                    </button>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
-
-        {filtered.length === 0 && (
-          <div className="flex flex-col items-center gap-2 py-12 text-center">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg3)] text-[var(--t2)]">
-              <UserCheck size={18} aria-hidden />
-            </span>
-            <p className="font-body text-[13px] text-[var(--t2)]">조건에 맞는 사용자가 없어요.</p>
-          </div>
-        )}
-      </div>
-
-      <p className="mt-4 text-right font-mono text-[11px] text-[var(--t2)]">
-        {filtered.length}명 표시 · 전체 {USERS.length}명
-      </p>
+      <section
+        aria-label="계정별 관리"
+        className="rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] px-6 py-10 text-center"
+      >
+        <span
+          className="mx-auto inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--bg3)] text-[var(--t2)]"
+          aria-hidden
+        >
+          <Users size={18} />
+        </span>
+        <h2 className="mt-3 font-display text-[14px] font-[700] text-[var(--t1)]">
+          계정별 목록·조치는 아직 없습니다
+        </h2>
+        <p className="mx-auto mt-1 max-w-[52ch] break-keep font-body text-[13px] leading-[1.7] text-[var(--t2)]">
+          이 자리에 있던 7명은 코드에 박힌 예시였습니다. 실제 가입자는 위 KPI 의 수가 전부이고,
+          계정을 열어 보거나 제재하는 경로는 만들지 않았습니다.
+        </p>
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+          <Link
+            href="/admin"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          >
+            대시보드에서 실측 보기
+          </Link>
+          <Link
+            href="/admin/quality"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          >
+            품질 지표
+          </Link>
+        </div>
+      </section>
     </div>
   )
 }

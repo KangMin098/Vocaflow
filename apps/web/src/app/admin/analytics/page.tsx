@@ -1,326 +1,164 @@
 // apps/web/src/app/admin/analytics/page.tsx
-// 플랫폼 분석 — DAU/MAU · 코호트 · 학습 효과 · funnel
+// 플랫폼 분석 — 실측 가능한 두 칸 + 나머지는 "집계 경로 없음"
+//
+// v06.35 이전 이 화면은 DAU 348 · MAU 1,124 · 코호트 리텐션 · 모듈 사용량 · 가입 퍼널을
+// 전부 코드 상수로 그렸다. 실제 가입자는 3명이다. 분석 화면의 숫자는 정의상 "판단 근거" 라서,
+// 상수가 남아 있으면 이 화면을 여는 것만으로 잘못된 결론이 나온다.
+//
+// 남긴 것: daily_activity·user_profiles 로 셀 수 있는 오늘 활성 · 누적 가입자.
+// 지운 것: WAU/MAU/mastery(집계 경로 없음) · 7일 DAU 상수 시계열 · 코호트 4행(연도 없는
+//          11/24~12/21 라벨) · 모듈 사용량 5행 · 퍼널 5단.
+// 리텐션과 교사 퍼널은 이미 /admin 대시보드에 실측 패널(RetentionPanel · TeacherFunnelPanel)이
+// 있으므로, 여기서 가짜로 다시 그리지 않고 그쪽으로 보낸다.
+//
+// 'use client' 였지만 훅도 핸들러도 0개였다 — 서버 컴포넌트로 되돌리면서 requireAdmin 게이트를
+// 붙였다(클라이언트 컴포넌트에서는 부를 수 없어 이 화면만 가드가 비어 있었다).
 
-'use client'
-
-import {
-  Activity,
-  BarChart3,
-  Brain,
-  Filter,
-  Repeat2,
-  Target,
-  TrendingUp,
-  Users,
-} from 'lucide-react'
+import { Activity, BarChart3, Repeat2, Target, TrendingUp, Users } from 'lucide-react'
+import Link from 'next/link'
 
 import { AdminKpiGrid, type AdminKpi } from '@/components/admin/AdminKpiGrid'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { MockDataBanner } from '@/components/admin/MockDataBanner'
+import { fmt, getAdminDashboardStats } from '@/lib/admin/dashboard-stats'
+import { requireAdmin } from '@/lib/auth/require-admin'
+import { createAdminClient } from '@/lib/supabase/admin'
 
-const KPIS: AdminKpi[] = [
-  {
-    label: 'DAU',
-    value: '348',
-    delta: { value: 8, positive: true },
-    icon: Activity,
-    accent: 'var(--info)',
-    bg: 'var(--info-light)',
-    hint: '오늘 활성',
-  },
-  {
-    label: 'WAU',
-    value: '892',
-    delta: { value: 4, positive: true },
-    icon: Users,
-    accent: 'var(--p)',
-    bg: 'var(--p-light)',
-  },
-  {
-    label: 'MAU',
-    value: '1,124',
-    delta: { value: 12, positive: true },
-    icon: TrendingUp,
-    accent: '#8B5CF6',
-    bg: '#F5F3FF',
-  },
-  {
-    label: '평균 mastery',
-    value: '64%',
-    delta: { value: 3, positive: true },
-    icon: Target,
-    accent: 'var(--success)',
-    bg: 'var(--success-light)',
-    hint: '단어별 정답률 가중',
-  },
-]
+export const metadata = {
+  title: '플랫폼 분석 — Vocaflow Admin',
+  description: '오늘 활성 · 누적 가입자 실측 · 미구현 지표 고지',
+}
 
-// ── 7일 DAU 라인 데이터 (mock) ──
-const DAU_DATA = [
-  { day: '월', value: 312 },
-  { day: '화', value: 348 },
-  { day: '수', value: 372 },
-  { day: '목', value: 410 },
-  { day: '금', value: 384 },
-  { day: '토', value: 280 },
-  { day: '일', value: 298 },
-]
+export const dynamic = 'force-dynamic'
 
-// ── Retention 코호트 ──
-const COHORTS = [
-  { label: '11/24~11/30', size: 84, d1: 76, d7: 52, d30: 31 },
-  { label: '12/01~12/07', size: 102, d1: 81, d7: 58, d30: 35 },
-  { label: '12/08~12/14', size: 91, d1: 79, d7: 54, d30: 33 },
-  { label: '12/15~12/21', size: 110, d1: 84, d7: 60, d30: null },
-]
+interface MissingPanelProps {
+  title: string
+  reason: string
+  href: string
+  hrefLabel: string
+  span2?: boolean
+}
 
-// ── 모듈 사용 빈도 ──
-const MODULE_USAGE = [
-  { name: 'Flashcard', sessions: 1240, color: '#EC4899' },
-  { name: 'WordVault', sessions: 980, color: '#8B5CF6' },
-  { name: 'SpellForge', sessions: 712, color: '#F97316' },
-  { name: 'ScriptQuiz', sessions: 540, color: '#EAB308' },
-  { name: 'WordBlitz', sessions: 488, color: '#10B981' },
-]
+/** 지표가 없다는 사실을 그리는 자리. 막다른 화면이 되지 않도록 항상 다음 한 걸음을 준다. */
+function MissingPanel({ title, reason, href, hrefLabel, span2 }: MissingPanelProps) {
+  return (
+    <section
+      aria-label={title}
+      className={`rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] p-5 ${
+        span2 ? 'lg:col-span-2' : ''
+      }`}
+    >
+      <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">{title}</h2>
+      <p className="mt-1 break-keep font-body text-[12px] leading-[1.7] text-[var(--t2)]">
+        {reason}
+      </p>
+      <Link
+        href={href}
+        className="mt-3 inline-flex min-h-[44px] items-center font-display text-[12px] font-[700] text-[var(--p)] underline decoration-[var(--p)]/40 underline-offset-2 transition-colors duration-[var(--dur-normal)] hover:decoration-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      >
+        {hrefLabel}
+      </Link>
+    </section>
+  )
+}
 
-// ── Funnel ──
-const FUNNEL = [
-  { label: '가입', value: 100, count: 487 },
-  { label: '첫 스크립트 입력', value: 64, count: 312 },
-  { label: '첫 학습 시작', value: 51, count: 248 },
-  { label: '7일 활성', value: 28, count: 136 },
-  { label: '30일 활성', value: 17, count: 83 },
-]
+export default async function AdminAnalyticsPage() {
+  await requireAdmin('/admin/analytics')
+  const stats = await getAdminDashboardStats(createAdminClient())
 
-const maxDau = Math.max(...DAU_DATA.map((d) => d.value))
-const maxModule = Math.max(...MODULE_USAGE.map((m) => m.sessions))
+  const kpis: AdminKpi[] = [
+    {
+      label: '오늘 활성 (DAU)',
+      value: fmt(stats.learners.activeToday),
+      icon: Activity,
+      accent: 'var(--info)',
+      bg: 'var(--info-light)',
+      hint: 'daily_activity 의 KST 오늘 행 수',
+    },
+    {
+      label: '누적 가입자',
+      value: fmt(stats.learners.total),
+      icon: Users,
+      accent: 'var(--p)',
+      bg: 'var(--p-light)',
+      hint: 'user_profiles 행 수 · 요청 시점 실측',
+    },
+    {
+      label: 'WAU',
+      value: '—',
+      icon: TrendingUp,
+      accent: 'var(--t2)',
+      bg: 'var(--bg3)',
+      hint: '집계할 곳이 없습니다 — 주간 활성 집계 미구현',
+    },
+    {
+      label: '평균 mastery',
+      value: '—',
+      icon: Target,
+      accent: 'var(--t2)',
+      bg: 'var(--bg3)',
+      hint: '집계할 곳이 없습니다 — 단어별 정답률 집계 미구현',
+    },
+  ]
 
-export default function AdminAnalyticsPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-10 md:px-8">
       <AdminPageHeader
         icon={BarChart3}
         title="플랫폼 분석"
-        description="DAU/MAU · retention · 학습 효과 · funnel"
-        actions={
-          <button className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)]">
-            <Filter size={14} aria-hidden />
-            기간 · 7일
-          </button>
-        }
+        description="오늘 활성 · 누적 가입자 실측 · 나머지 지표는 미구현"
+      />
+
+      <MockDataBanner
+        className="mb-6"
+        what="오늘 활성·누적 가입자 두 칸만 DB 실측입니다. WAU·평균 mastery·코호트 리텐션·모듈 사용량·가입 퍼널은 값이 아니라 — 입니다."
+        why="이 화면에 있던 DAU 시계열·코호트·퍼널 숫자는 모두 코드 상수였고, 집계 쿼리도 저장 테이블도 없습니다. 리텐션과 교사 퍼널만 대시보드에 실측 패널이 있습니다."
+        instead={[
+          { label: '리텐션 · 교사 퍼널 (대시보드)', href: '/admin' },
+          { label: '품질 지표', href: '/admin/quality' },
+        ]}
+        plan="계측 이벤트(lib/analytics/events.ts) 적재량이 쌓인 뒤 집계를 붙입니다 — 일정 미정."
       />
 
       <AdminScreenHelp screen="analytics" className="-mt-3 mb-6" />
 
-      <AdminKpiGrid kpis={KPIS} />
+      <AdminKpiGrid kpis={kpis} />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* DAU 라인 (2 cols) */}
-        <section
-          aria-label="DAU 추이"
-          className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)] lg:col-span-2"
-        >
-          <header className="mb-4 flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--info-light)] text-[var(--info)]">
-              <Activity size={13} strokeWidth={2} aria-hidden />
-            </span>
-            <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">최근 7일 DAU</h2>
-            <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">
-              avg {Math.round(DAU_DATA.reduce((s, d) => s + d.value, 0) / DAU_DATA.length)}
-            </span>
-          </header>
-
-          {/* SVG 라인 차트 */}
-          <svg viewBox="0 0 700 200" className="h-[180px] w-full" preserveAspectRatio="none">
-            {/* grid */}
-            {[0, 1, 2, 3].map((i) => (
-              <line
-                key={i}
-                x1="0"
-                x2="700"
-                y1={(i * 200) / 3}
-                y2={(i * 200) / 3}
-                stroke="var(--bg3)"
-                strokeDasharray="4 4"
-              />
-            ))}
-            {/* area */}
-            <path
-              d={`M 0,${200 - (DAU_DATA[0].value / maxDau) * 180} ${DAU_DATA.map(
-                (d, i) =>
-                  `L ${(i * 700) / (DAU_DATA.length - 1)},${
-                    200 - (d.value / maxDau) * 180
-                  }`
-              ).join(' ')} L 700,200 L 0,200 Z`}
-              fill="var(--info)"
-              opacity="0.10"
-            />
-            {/* line */}
-            <polyline
-              points={DAU_DATA.map(
-                (d, i) =>
-                  `${(i * 700) / (DAU_DATA.length - 1)},${200 - (d.value / maxDau) * 180}`
-              ).join(' ')}
-              fill="none"
-              stroke="var(--info)"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            {/* dots */}
-            {DAU_DATA.map((d, i) => (
-              <circle
-                key={i}
-                cx={(i * 700) / (DAU_DATA.length - 1)}
-                cy={200 - (d.value / maxDau) * 180}
-                r="4"
-                fill="var(--info)"
-              />
-            ))}
-          </svg>
-
-          <div className="mt-2 flex justify-between font-mono text-[10px] text-[var(--t2)]">
-            {DAU_DATA.map((d, i) => (
-              <span key={i}>{d.day}</span>
-            ))}
-          </div>
-        </section>
-
-        {/* 모듈 사용 빈도 */}
-        <section
-          aria-label="모듈 사용 빈도"
-          className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
-        >
-          <header className="mb-4 flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]">
-              <Brain size={13} strokeWidth={2} aria-hidden />
-            </span>
-            <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
-              모듈 사용 빈도
-            </h2>
-          </header>
-          <ul className="space-y-3">
-            {MODULE_USAGE.map((m) => (
-              <li key={m.name}>
-                <div className="flex items-baseline justify-between">
-                  <span className="font-display text-[12px] font-[600] text-[var(--t1)]">
-                    {m.name}
-                  </span>
-                  <span className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
-                    {m.sessions.toLocaleString()}
-                  </span>
-                </div>
-                <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-[var(--bg3)]">
-                  <div
-                    className="h-full rounded-full transition-[width] duration-[var(--dur-slow)]"
-                    style={{
-                      width: `${(m.sessions / maxModule) * 100}%`,
-                      backgroundColor: m.color,
-                    }}
-                  />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* Retention cohort */}
-        <section
-          aria-label="Retention 코호트"
-          className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)] lg:col-span-2"
-        >
-          <header className="mb-4 flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[#F5F3FF] text-[#8B5CF6]">
-              <Repeat2 size={13} strokeWidth={2} aria-hidden />
-            </span>
-            <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
-              Retention 코호트
-            </h2>
-            <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">D1 · D7 · D30</span>
-          </header>
-          <table className="w-full text-left">
-            <thead>
-              <tr>
-                {['주차', '신규', 'D1', 'D7', 'D30'].map((h) => (
-                  <th
-                    key={h}
-                    className="pb-2 font-mono text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"
-                  >
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[var(--bd)]">
-              {COHORTS.map((c) => (
-                <tr key={c.label}>
-                  <td className="py-3 font-mono text-[11px] text-[var(--t2)]">{c.label}</td>
-                  <td className="py-3 font-display text-[13px] font-[700] tabular-nums text-[var(--t1)]">
-                    {c.size}
-                  </td>
-                  {[c.d1, c.d7, c.d30].map((v, i) => (
-                    <td key={i} className="py-3">
-                      {v === null ? (
-                        <span className="font-mono text-[10px] text-[var(--t2)]">—</span>
-                      ) : (
-                        <RetentionCell value={v} />
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-
-        {/* Funnel */}
-        <section
-          aria-label="가입 funnel"
-          className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]"
-        >
-          <header className="mb-4 flex items-center gap-2">
-            <span className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] bg-[var(--success-light)] text-[var(--success)]">
-              <Target size={13} strokeWidth={2} aria-hidden />
-            </span>
-            <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">가입 funnel</h2>
-          </header>
-          <ul className="space-y-2">
-            {FUNNEL.map((f, i) => (
-              <li key={i}>
-                <div className="flex items-baseline justify-between">
-                  <span className="font-display text-[11px] font-[600] text-[var(--t2)]">
-                    {f.label}
-                  </span>
-                  <span className="font-mono text-[11px] font-[700] tabular-nums text-[var(--t1)]">
-                    {f.count}{' '}
-                    <span className="font-[400] text-[var(--t2)]">({f.value}%)</span>
-                  </span>
-                </div>
-                <div
-                  className="mt-1 h-3 rounded-[var(--r-sm)] bg-gradient-to-r from-[var(--p)] to-[#8B5CF6] transition-[width] duration-[var(--dur-slow)]"
-                  style={{ width: `${f.value}%` }}
-                />
-              </li>
-            ))}
-          </ul>
-        </section>
+        <MissingPanel
+          span2
+          title="DAU 추이"
+          reason="요일별 시계열을 집계하는 경로가 없습니다. 이 자리에 있던 7일 곡선은 코드 상수였습니다. 오늘 하루 값은 위 KPI 에 실측으로 있습니다."
+          href="/admin"
+          hrefLabel="대시보드에서 오늘 학습자 보기"
+        />
+        <MissingPanel
+          title="모듈 사용 빈도"
+          reason="모듈별 세션 집계가 없습니다. 이 자리에 있던 5개 막대는 코드 상수였고 9모듈 중 4개는 애초에 빠져 있었습니다."
+          href="/admin/quality"
+          hrefLabel="품질 지표 보기"
+        />
+        <MissingPanel
+          span2
+          title="Retention 코호트"
+          reason="여기 있던 4개 코호트(연도 없는 11/24~12/21 라벨)는 코드 상수였습니다. 실측 리텐션은 대시보드의 리텐션 패널이 daily_activity 에서 파생합니다."
+          href="/admin"
+          hrefLabel="실측 리텐션 패널 열기"
+        />
+        <MissingPanel
+          title="가입 funnel"
+          reason="여기 있던 5단(가입 487 → 30일 활성 83)은 코드 상수였습니다. 실제로 기록되는 퍼널은 교사 채널(funnel_events) 뿐입니다."
+          href="/admin"
+          hrefLabel="교사 퍼널 격차 보기"
+        />
       </div>
-    </div>
-  )
-}
 
-function RetentionCell({ value }: { value: number }) {
-  // 회복력 따라 색상 강도 (0~100% mapping)
-  const intensity = Math.min(value / 80, 1)
-  return (
-    <span
-      className="inline-flex min-w-[44px] justify-center rounded-[var(--r-sm)] px-2 py-1 font-mono text-[11px] font-[700] tabular-nums"
-      style={{
-        backgroundColor: `rgba(139, 92, 246, ${0.08 + intensity * 0.18})`,
-        color: '#6D28D9',
-      }}
-    >
-      {value}%
-    </span>
+      <p className="mt-4 flex items-center gap-2 font-body text-[12px] text-[var(--t2)]">
+        <Repeat2 size={13} aria-hidden />
+        지표를 다시 붙일 때는 이 화면이 아니라 집계 함수부터 만듭니다 — 상수를 되돌리면 같은 사고가
+        반복됩니다.
+      </p>
+    </div>
   )
 }
