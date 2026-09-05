@@ -125,6 +125,28 @@ export type PublicEvent =
       name: 'wayfinder_cta_clicked'
       props: { phase: 'undiagnosed' | 'ready' | 'moving' | 'complete'; done: number }
     }
+  /**
+   * 학습자 화면 진입 — **모든 로그인 화면의 분모** (CLAUDE.md D2).
+   *
+   * 2026-09-05 실측: 학습자 화면 77개 중 진입 이벤트를 가진 화면이 **0개**였다. 위 14개는
+   * 전부 공개 퍼널·셸 패널의 것이라, 로그인한 학습자가 어느 화면에서 머물고 어디서 새는지를
+   * 아무 표도 말해 주지 않았다. 화면마다 손으로 심으면 반드시 빠지므로(지금까지 그랬다)
+   * **셸 한 곳**(`components/layout/ScreenViewTracker.tsx`)이 경로 변경을 듣고 한 번 보낸다.
+   *
+   * `screen` 은 자유 문자열이 아니다 — `lib/framework/learner-routes.ts` 의 `SCREEN_IDS`
+   * (닫힌 목록 · 동적 세그먼트는 `text-workspace` 처럼 접힌 이름)이고, 목록 밖이면 `'other'`.
+   * 경로 원문·id·쿼리는 실리지 않는다. 회귀가 모든 id 가 `isSafeProps` 를 넘는지 검사한다.
+   */
+  | {
+      name: 'screen_viewed'
+      props: {
+        /** `SCREEN_IDS` 의 값 또는 `'other'` */
+        screen: string
+        group: 'main' | 'app'
+        /** 목록에 있는 화면인가 — `'other'` 비율이 오르면 레지스트리가 낡은 것이다 */
+        known: boolean
+      }
+    }
 
 export type PublicEventName = PublicEvent['name']
 
@@ -157,6 +179,7 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   landing_section_reached: true,
   wayfinder_opened: true,
   wayfinder_cta_clicked: true,
+  screen_viewed: true,
 }
 
 export const ALLOWED_EVENTS: readonly PublicEventName[] = Object.keys(

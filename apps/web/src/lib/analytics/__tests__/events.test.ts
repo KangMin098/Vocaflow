@@ -9,6 +9,7 @@
 // 마지막 방어선이다 — 그게 실제로 지문을 막는지 여기서 확인한다.
 
 import { describe, expect, it } from 'vitest'
+import { SCREEN_IDS, UNKNOWN_SCREEN } from '@/lib/framework/learner-routes'
 
 import {
   ALLOWED_EVENTS,
@@ -111,6 +112,7 @@ describe('허용 이벤트 목록', () => {
     // 행동으로 이어지는지 재는 유일한 관측이다 — 이전 띠에는 이 관측이 아예 없었다.
     'wayfinder_opened',
     'wayfinder_cta_clicked',
+    'screen_viewed',
   ]
 
   it('정의된 이벤트가 모두 허용 목록에 있다 — 빠지면 조용히 버려진다', () => {
@@ -136,6 +138,19 @@ describe('허용 이벤트 목록', () => {
     // 인쇄는 브라우저에서 끝나 어떤 표에도 행이 남지 않는다.
     // 빠지면 "교사가 실제로 수업에 썼는가" 를 영영 알 수 없다(10만 산술이 걸린 CAC 0 채널).
     expect(ALLOWED_EVENTS).toContain('fit_worksheet_printed')
+  })
+
+  it('학습자 화면 id 전부가 속성 규칙을 넘는다 — 화면이 늘어도 screen_viewed 가 조용히 버려지지 않는다', () => {
+    // `screen_viewed.screen` 은 `SCREEN_IDS` 값이다. id 가 24자를 넘거나 공백을 품는 순간
+    // `isSafeProps` 가 막고 track() 은 **조용히** 반환한다 — 그 화면만 분모에서 사라진다.
+    // 화면을 더할 때 여기서 잡히게 한다(레지스트리는 손으로 자란다).
+    const bad = [...SCREEN_IDS, UNKNOWN_SCREEN].filter(
+      (id) => !isSafeProps({ screen: id, group: 'main', known: true }),
+    )
+    expect(bad, `24자 초과·공백 포함 화면 id: ${bad.join(', ')}`).toEqual([])
+    expect(new Set(SCREEN_IDS).size, '화면 id 가 겹치면 두 화면이 한 칸으로 세어진다').toBe(
+      SCREEN_IDS.length,
+    )
   })
 
   it('이름이 중복되지 않는다', () => {

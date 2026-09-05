@@ -10,6 +10,7 @@
 //   가치·동기·성장은 「나의 자리」를 펴면 나온다(`wayfinder.ts` 머리 주석).
 
 import { GlobalBodyReset } from '@/components/layout/GlobalBodyReset'
+import { ScreenViewTracker } from '@/components/layout/ScreenViewTracker'
 import { MobileTabBar } from '@/components/layout/MobileTabBar'
 import { MobileUtilityBar } from '@/components/layout/MobileUtilityBar'
 import { SessionFrame } from '@/components/layout/SessionFrame'
@@ -46,6 +47,8 @@ export default async function MainLayout({ children }: { children: React.ReactNo
       </a>
       {/* 라우트 변경 시 body.style.overflow / focus-mode 강제 reset (sidebar 클릭 결함 차단) */}
       <GlobalBodyReset />
+      {/* 화면 진입 계측(D2) — 화면마다 심지 않고 셸 한 곳에서 경로 변경을 듣는다. */}
+      <ScreenViewTracker group="main" />
       <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         {/* 레일 밖 유틸리티(Class·Settings)의 모바일 유일 통로 — 사이드바는 `hidden md:flex` 라
