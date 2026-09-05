@@ -21,6 +21,7 @@
 // 실행:
 //   pnpm dlx tsx scripts/textbook/item-drain-export.mjs --type topic --band 3 --size 8
 //   pnpm dlx tsx scripts/textbook/item-drain-export.mjs --type blank --band 5 --need 40
+//   ... --type topic --band 3 --avoid title   # title 이 이미 있는 글은 빼고 뽑는다(겸용 글 방지)
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -433,8 +434,23 @@ for (const r of itemRows) {
   if (!typeCount.has(r.ref_id)) typeCount.set(r.ref_id, new Set())
   typeCount.get(r.ref_id).add(r.type)
 }
+/**
+ * `--avoid title,topic` — **그 유형을 이미 가진 글은 뽑지 않는다.**
+ *
+ * ── 왜 "가진 유형 수" 만으로는 부족한가 (실측 2026-09-05 V3) ──────────
+ * 정렬은 유형을 **적게** 가진 글을 앞세우지만 **어떤** 유형인지는 안 본다. 그래서
+ * `title` 만 가진 글(흔한 유형은 거의 없다)이 여전히 맨 앞에 오고, 거기에 `topic` 을
+ * 채우면 **겸용 글**이 된다. 조합기는 겸용 글을 한 유형에 쓰면 다른 유형에서 같은 글을
+ * 다시 부를 수밖에 없다 — V3 의 남은 겹침 9편이 전부 `title+topic` 이었다.
+ *
+ * 겹침을 줄이려면 두 유형 중 **하나도 없는 글**에 채워야 한다. 그것을 이름으로 지정한다.
+ */
+const avoidTypes = (arg('avoid') ?? '').split(',').map((s) => s.trim()).filter(Boolean)
+const avoided = new Set(
+  avoidTypes.length ? itemRows.filter((r) => avoidTypes.includes(r.type)).map((r) => r.ref_id) : [],
+)
 const todo = usable
-  .filter((a) => !existing.has(a.id))
+  .filter((a) => !existing.has(a.id) && !avoided.has(a.id))
   // 같은 수면 id 순 — 몇 번 돌려도 같은 몫이 나와야 재실행 안전이 성립한다.
   .sort(
     (a, b) =>
