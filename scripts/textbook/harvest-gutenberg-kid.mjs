@@ -183,11 +183,28 @@ function looksLikeHeading(p) {
   return false
 }
 
-function disjointChunks(body) {
-  const raw = body
-    .split(/\n\s*\n/)
-    .map((x) => x.replace(/\s+/g, ' ').trim())
-    .filter(Boolean)
+/**
+ * ⚠️ **정제를 먼저 하면 장 경계가 사라진다 — 순서가 중요하다.**
+ *
+ * 실측 2026-09-05: `cleanBookText` 를 책 전체에 먼저 걸었더니 `CHAPTER` 로 시작하는
+ * 문단이 **13개 → 0개**(Alice) · **70개 → 0개**(Tom Sawyer)가 됐다. 정제기가 장 머리를
+ * 지우는 것이 그 자체로는 옳다(지문에 표제가 섞이면 안 된다). 그런데 **지우기 전에
+ * 그 자리를 기억해 두지 않으면** 장이 어디서 시작하는지 영영 모른다.
+ *
+ * 그래서 **문단으로 먼저 나누고 문단마다 정제한다.** 정제 후 빈 문단이 곧 장 경계다 —
+ * 버리는 것에서 신호를 얻는다.
+ */
+function cleanByParagraph(body) {
+  const out = []
+  for (const p of body.split(/\n\s*\n/)) {
+    const cleaned = cleanBookText(p).replace(/\s+/g, ' ').trim()
+    // 원문에는 있었는데 정제가 통째로 지운 문단 = 표제·판권·장 머리.
+    out.push({ text: cleaned, wasDropped: !cleaned && Boolean(p.trim()) })
+  }
+  return out
+}
+
+function disjointChunks(units) {
 
   // **장 경계를 기억한 채로** 본문 문단만 남긴다.
   //
@@ -202,12 +219,15 @@ function disjointChunks(body) {
   const paras = []
   const opensChapter = []
   let afterHeading = false
-  for (const p of raw) {
-    if (looksLikeHeading(p)) {
+  for (const u of units) {
+    // **정제가 지운 문단**(장 머리·표제·판권)이 경계다 — §`cleanByParagraph`.
+    //   정제가 남긴 표제(`I. THE RIVER BANK`)도 함께 본다.
+    if (u.wasDropped || (u.text && looksLikeHeading(u.text))) {
       afterHeading = true
       continue
     }
-    if (p.length > 80 && /[.!?]/.test(p)) {
+    const p = u.text
+    if (p && p.length > 80 && /[.!?]/.test(p)) {
       paras.push(p)
       opensChapter.push(afterHeading)
       afterHeading = false
@@ -357,7 +377,7 @@ for (const b of picked) {
   const title = ((raw.match(/^Title:\s*(.+)$/m) ?? [])[1] ?? `#${b.id}`).trim()
   const author = ((raw.match(/^Author:\s*(.+)$/m) ?? [])[1] ?? '').trim() || null
 
-  const all = disjointChunks(cleanBookText(stripBoilerplate(raw)))
+  const all = disjointChunks(cleanByParagraph(stripBoilerplate(raw)))
   const kept = all.filter((c) => !looksLikeBookMatter(c.text))
 
   // 먼저 **전부** 판정한다. 그 다음 책 전체에서 고르게 뽑는다 —
