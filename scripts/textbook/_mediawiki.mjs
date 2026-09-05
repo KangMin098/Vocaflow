@@ -82,6 +82,46 @@ export async function mediawikiRandom(api, n, opts = {}) {
 }
 
 /**
+ * 제목 순 표집 — **`apminsize` 로 토막글을 표집 단계에서 잘라낸다.**
+ *
+ * `list=random` 은 토막글을 그대로 준다: 2026-09-05 실측에서 무작위 150건 중 **81건이
+ * 전체 100어 미만**이었다. 받아 놓고 버리면 왕복만 낭비다. `list=allpages` 는
+ * 바이트 하한을 서버 쪽에서 걸 수 있어 **못 쓸 것을 애초에 안 받는다.**
+ *
+ * 다만 제목 순이라 그대로 쓰면 늘 'A…' 만 온다. 그래서 시작 글자를 무작위로 고른다 —
+ * 완전한 균등 표집은 아니지만(제목 분포가 균등하지 않다) 같은 것만 반복해 받지는 않는다.
+ *
+ * @param minSize 바이트 하한. 2,000B ≈ 300어 언저리다(평문 기준, 마크업 포함이라 넉넉히 잡는다).
+ */
+export async function mediawikiAllpages(api, n, { minSize = 2000, from = null, ...opts } = {}) {
+  const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+  const seen = new Set()
+  const items = []
+  let total = null
+  for (let round = 0; items.length < n && round < 12; round++) {
+    const start = from ?? ALPHABET[Math.floor(Math.random() * ALPHABET.length)].toUpperCase()
+    const r = await mediawikiGet(
+      `${api}?action=query&list=allpages&apnamespace=0&apfilterredir=nonredirects` +
+        `&apminsize=${minSize}&aplimit=${Math.min(n, 50)}&apfrom=${encodeURIComponent(start)}` +
+        `&meta=siteinfo&siprop=statistics&format=json`,
+      { json: true, ...opts },
+    )
+    if (!r.ok) {
+      if (items.length) break
+      return { error: r.error ? `연결 실패 — ${r.error}` : `HTTP ${r.status}`, items: [] }
+    }
+    total ??= r.data?.query?.statistics?.articles ?? null
+    for (const p of r.data?.query?.allpages ?? []) {
+      if (seen.has(p.title)) continue
+      seen.add(p.title)
+      items.push({ id: p.title, title: p.title })
+    }
+    await new Promise((z) => setTimeout(z, 400))
+  }
+  return { total, items: items.slice(0, n) }
+}
+
+/**
  * MediaWiki 평문 추출.
  *
  * `intro: true`(기본)면 도입부(`exintro`)만, `false` 면 본문 전체를 준다.

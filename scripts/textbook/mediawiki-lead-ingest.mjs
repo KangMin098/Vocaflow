@@ -38,7 +38,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { mediawikiRandom, mediawikiLead } from './_mediawiki.mjs'
+import { mediawikiRandom, mediawikiAllpages, mediawikiLead } from './_mediawiki.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -62,6 +62,13 @@ const TRIM = !process.argv.includes('--no-trim')
  * 올리기 전에 재라. 막히면 수율이 아니라 실패 수가 는다.
  */
 const CONCURRENCY = Number(arg('concurrency') ?? 4)
+/**
+ * 표집 방법. `allpages`(기본)는 **바이트 하한을 서버에 걸어** 토막글을 안 받는다.
+ * `random` 은 대조용으로 남긴다 — 걸러서 좋아진 것인지 우연인지 대 봐야 하기 때문이다.
+ */
+const PICK = arg('pick') ?? 'allpages'
+/** 바이트 하한. 올리면 짧음이 줄고 어휘 밖이 는다(긴 글일수록 전문어가 많다) — 재서 정한다. */
+const MIN_SIZE = Number(arg('minsize') ?? 2000)
 
 /**
  * 두 위키. 라이선스 문자열은 **DB 에 이미 있는 값과 같은 표기**를 쓴다 —
@@ -128,13 +135,17 @@ function trimToWindow(text, min, max) {
   return null
 }
 
-const sample = await mediawikiRandom(wiki.api, LIMIT)
+const sample =
+  PICK === 'random'
+    ? await mediawikiRandom(wiki.api, LIMIT)
+    : await mediawikiAllpages(wiki.api, LIMIT, { minSize: MIN_SIZE })
 if (sample.error) {
   console.error(`표집 실패 — ${sample.error}`)
   process.exit(1)
 }
 console.log(
   `${wiki.label} — 표집 ${sample.items.length}건 / 전체 ${sample.total?.toLocaleString() ?? '?'}` +
+    ` · ${PICK}${PICK === 'allpages' ? `(≥${MIN_SIZE}B)` : ''} · 동시 ${CONCURRENCY}` +
     `${targetBand ? ` · 목표 칸 ${targetBand.id}` : ''}${COMMIT ? '' : ' — dry-run (쓰지 않는다)'}\n`,
 )
 
