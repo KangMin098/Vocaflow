@@ -24,7 +24,7 @@
 //   pnpm dlx tsx scripts/textbook/orphan-items-probe.mjs
 //   pnpm dlx tsx scripts/textbook/orphan-items-probe.mjs --band 7
 
-import { loadEnv, fetchAllIn, fetchAllKeyset } from './volume-pool.mjs'
+import { loadEnv, fetchAllIn, fetchAllKeyset, SCARCE_TYPES } from './volume-pool.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -36,12 +36,11 @@ const BAND = arg('band') ? Number(arg('band')) : null
 /**
  * 사람이 쓴 유형 — 드레인으로만 만들어진다. 결정론 유형(순서·삽입·흐름무관·어휘·어법)은
  * 다시 돌리면 되살아나므로 여기서 세지 않는다. **되돌릴 수 없는 노동만 센다.**
+ *
+ * 목록은 `volume-pool.mjs` 가 정본이다 — 조합 풀도 같은 목록으로 "희소 유형" 을 정하므로
+ * 사본을 두면 두 자리에서 뜻이 갈린다.
  */
-const HANDWRITTEN = new Set([
-  'purpose', 'mood', 'claim', 'implication', 'main_point', 'topic', 'title',
-  'blank', 'summary', 'content_match',
-  'long_order', 'long_reference', 'long_title', 'long_vocab', 'long_match',
-])
+const HANDWRITTEN = SCARCE_TYPES
 
 const { createClient } = await import('@supabase/supabase-js')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {

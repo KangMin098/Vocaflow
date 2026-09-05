@@ -385,12 +385,15 @@ async function loadElementaryPool(db, band) {
   if (!tag) return { items: [], meanings: new Map() }
   const { buildRhyme, buildSpellBlank, buildWordMeaning, explainElementary } = await import('@vocaflow/library-pipeline')
 
-  const rows = await fetchAllPaged(db, (q) =>
-    q
-      .from('shared_dictionary')
-      .select('word, meaning_ko, rhyme_key, synonyms')
-      .contains('list_tags', [tag])
-      .order('word'))
+  // `word` 는 고유하다 — 커서로 넘겨야 사전이 커져도 깊이 비용이 안 든다(OFFSET 은 든다).
+  const rows = await fetchAllKeyset(
+    db,
+    'shared_dictionary',
+    'word, meaning_ko, rhyme_key, synonyms',
+    'word',
+    1000,
+    (q) => q.contains('list_tags', [tag]),
+  )
 
   const pool = rows
     .map((r) => ({
@@ -513,7 +516,102 @@ function makeTimer() {
   }
 }
 
-export async function loadVolume(db, { band, unitCount, marketMix = true }) {
+/**
+ * 재고에서 **고르게 흩어진 N편**을 결정론으로 고른다.
+ *
+ * ── 왜 필요한가 (실측 2026-09-06) ───────────────────────────────────
+ * 한 권은 서로 다른 글 120편이면 된다. 그런데 `loadVolume` 은 그 밴드의 재고를 통째로
+ * 받는다 — V6 은 원글 **11,831편 · 문항 228,832건**이고 문항마다 지문이 붙어 있어
+ * 인덱스를 타도 statement timeout 이 난다(페이지를 62까지 줄여도 안 됐다).
+ * **V6 권은 만들 수 없는 상태였다.**
+ *
+ * 앞에서 N편을 자르면 뒤쪽 재고가 영영 안 쓰인다. 그래서 정렬된 재고에서 **균등 간격**으로
+ * 고른다 — 결정론이라 몇 번 돌려도 같은 책이 나오고, 재고 전체에 고루 걸린다.
+ *
+ * ⚠️ 기본은 **무제한**이다. 자를지 말지는 부르는 쪽이 정한다 — 잘 돌던 밴드의 산출물을
+ *   조용히 바꾸지 않기 위해서다.
+ */
+export function sampleEvenly(items, n) {
+  if (!n || !Number.isFinite(n) || items.length <= n) return items
+  const step = items.length / n
+  const out = []
+  for (let i = 0; i < n; i += 1) out.push(items[Math.floor(i * step)])
+  return out
+}
+
+/**
+ * **사람이 써야만 생기는 유형** — 재고가 얇고, 표본이 통째로 버리기 쉽다.
+ *
+ * 결정론 유형(순서·삽입·흐름무관·어휘·어법·영작)은 `store-new-types.mjs` 를 다시 돌리면
+ * 되살아나므로 여기 없다. `orphan-items-probe.mjs` 의 `HANDWRITTEN` 과 같은 목록이어야
+ * 한다 — 한쪽만 고치면 "희소" 의 뜻이 두 자리에서 갈린다.
+ */
+export const SCARCE_TYPES = new Set([
+  'purpose', 'mood', 'claim', 'implication', 'main_point', 'topic', 'title',
+  'blank', 'summary', 'content_match',
+  'long_order', 'long_reference', 'long_title', 'long_vocab', 'long_match',
+])
+
+/**
+ * **희소 유형을 가진 글부터** 담고, 남는 자리를 고르게 채운다.
+ *
+ * ── 왜 균등 표본만으로는 안 되나 (실측 2026-09-06) ──────────────────
+ * V6 재고를 1,200편으로 고르게 잘랐더니 권은 만들어졌지만 적합도가 **63.5% → 49.8%** 로
+ * 떨어졌다. 유형 구성이 `order 33 · insert 28 … blank 1 · title 1 · topic 1` 이었다 —
+ * 흔한 유형은 어디서 잘라도 남지만 **희소 유형은 표본이 통째로 버린다.**
+ *
+ * 그래서 자르기 전에 **가벼운 지도**(`ref_id, type` 만, 지문 없이)를 먼저 읽는다.
+ * 유형별로 글이 적은 것부터 그 글들을 먼저 담고, 남는 자리를 균등 표본으로 채운다.
+ * 지도 조회는 지문이 없어 같은 조각이 1,327ms → **157ms** 다(실측).
+ *
+ * @param cap 상한. `null` 이면 자르지 않는다(기본) — 잘 돌던 밴드의 산출물을 조용히
+ *   바꾸지 않기 위해서다.
+ */
+export async function pickArticles(db, all, cap) {
+  if (!cap || all.length <= cap) return all
+  // ⚠️ **지도도 전부 읽으면 안 된다.** V6 재고는 22만 행이라 지문을 빼도 440페이지이고,
+  //   그 사이 어느 한 페이지가 statement timeout 을 맞는다(실측 2026-09-06).
+  //   흔한 유형은 어디서 잘라도 남으므로 읽을 필요가 없다 — **희소할 수 있는 유형만** 묻는다.
+  //   V6 에서 그 유형들의 문항은 수백 건이라 조회가 가볍다.
+  const map = await fetchAllIn(
+    db,
+    'csat_dcp_items',
+    'id, ref_id, type',
+    'ref_id',
+    all.map((a) => a.id),
+    ['ref_id', 'id'],
+    (q) => q.eq('kind', 'article').in('type', [...SCARCE_TYPES]),
+  )
+  const refsOf = new Map()
+  for (const r of map) {
+    if (!refsOf.has(r.type)) refsOf.set(r.type, new Set())
+    refsOf.get(r.type).add(r.ref_id)
+  }
+  // 글이 적은 유형부터 — 흔한 유형은 어차피 남는다.
+  const types = [...refsOf.entries()].sort((a, b) => a[1].size - b[1].size)
+  const keep = new Set()
+  for (const [, refs] of types) {
+    for (const ref of refs) {
+      if (keep.size >= cap) break
+      keep.add(ref)
+    }
+    if (keep.size >= cap) break
+  }
+  const chosen = all.filter((a) => keep.has(a.id))
+  // 남는 자리는 나머지에서 고르게 — 흔한 유형의 다양성도 지킨다.
+  const rest = all.filter((a) => !keep.has(a.id))
+  const out = [...chosen, ...sampleEvenly(rest, cap - chosen.length)]
+  // 원래 순서(id)를 지킨다 — 조합기가 배열 순서로 고르므로 재현성이 여기 걸린다.
+  const order = new Map(all.map((a, i) => [a.id, i]))
+  out.sort((x, y) => order.get(x.id) - order.get(y.id))
+  console.log(
+    `  원글 ${all.length.toLocaleString()}편 중 **${out.length.toLocaleString()}편**만 본다` +
+      ` (희소 유형 보유 ${chosen.length.toLocaleString()} + 고른 표본 ${(out.length - chosen.length).toLocaleString()})`,
+  )
+  return out
+}
+
+export async function loadVolume(db, { band, unitCount, marketMix = true, maxArticles = null }) {
   const timer = makeTimer()
   const {
     composeUnits,
@@ -535,13 +633,19 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   //   실측 2026-08-30: V5 **3,055편** · V6 **2,339편**. 페이징이 없던 동안
   //   이 두 밴드의 권과 해설 드레인이 **앞 1,000편만 보고** 만들어지고 있었다.
   //   (같은 함정에 이 저장소가 다섯 번째다. 그래서 `scan-unpaged-queries.mjs` 를 만들었다.)
-  const arts = await fetchAllPaged(db, (q) =>
-    q
-      .from('library_articles')
-      .select('id, title, source, article_v_level, display_only')
-      .in('status', ['ready', 'published'])
-      .eq('article_v_level', band)
-      .order('id'))
+  // ⚠️ **OFFSET 으로 넘기면 재고가 클수록 자가 먼저 부러진다.** 실측 2026-09-06:
+  //   V6(원글 11,831편)에서 이 조회가 페이지 500 으로도 statement timeout 이 났다 —
+  //   문항을 받기도 전에 죽어서 **V6 권은 만들 수 없는 상태였다.** 커서는 인덱스를
+  //   그대로 타므로 깊이와 무관하다(같은 교훈을 `fetchAllIn` 이 먼저 배웠다).
+  //   전체를 id 순으로 받는 것은 그대로라 산출물은 바뀌지 않는다.
+  const arts = await fetchAllKeyset(
+    db,
+    'library_articles',
+    'id, title, source, article_v_level, display_only',
+    'id',
+    1000,
+    (q) => q.in('status', ['ready', 'published']).eq('article_v_level', band),
+  )
   // `display_only` 는 표시만 허용된 원글이다 — 문항으로 실을 수 없다.
   //
   // ⚠️ **철회된 논문도 뺀다.** 재고에 `RETRACTED:` 로 시작하는 원글이 16편 있고
@@ -554,9 +658,11 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   //   가는 길이다. 제목만으로 잡히는 것은 1,042편 중 77편(7%)뿐이라 이것만으로는 부족하고,
   //   본문 몫은 `compose-unit` 의 `hasSensitiveTopic` 게이트가 맡는다. 두 자리가 함께 필요하다.
   //   (원글 본문을 여기서 다 받아 오면 V6 12,170편을 매 조판마다 읽는다 — 그 값은 안 치른다.)
-  const usable = (arts ?? []).filter(
+  const all = (arts ?? []).filter(
     (a) => !a.display_only && !isRetractedTitle(a.title) && !hasSensitiveTopic(a.title),
   )
+  // 재고가 너무 크면 N편만 본다 — 부르는 쪽이 정한다(아래 `pickArticles` 참조).
+  const usable = await pickArticles(db, all, maxArticles)
   timer.mark('원글 조회 (library_articles)')
   const byId = new Map(usable.map((a) => [a.id, a]))
   const ids = [...byId.keys()]
@@ -785,7 +891,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   const DICT_ROWS = 48_969
   const dictRows =
     words.length * 10 > DICT_ROWS
-      ? await fetchAllPaged(db, (q) => q.from('shared_dictionary').select('word, meaning_ko, v_level').order('word'))
+      ? await fetchAllKeyset(db, 'shared_dictionary', 'word, meaning_ko, v_level', 'word', 1000)
       : await fetchAllIn(db, 'shared_dictionary', 'word, meaning_ko, v_level', 'word', words, ['word'])
   timer.mark('사전 조회 (shared_dictionary)')
   const dict = new Map()
