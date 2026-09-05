@@ -69,6 +69,33 @@ export const STANDALONE_GATE = { maxQuotedPct: 9 } as const
 const ANAPHORIC_OPENERS =
   /^(he|she|it|they|him|her|them|his|their|this|that|these|those|but|so|then|however|yet|therefore|thus|meanwhile|besides|still|neither|nor|another|again|instead|afterward|afterwards|nevertheless|moreover)\b/i
 
+/**
+ * **⚠️ 시도했고 물러섰다 — 첫 문장 안의 되짚기 표지 (2026-09-05)**
+ *
+ * 문두 첫 낱말만 보는 규칙의 한계가 분명했다. 표본 12편을 다시 읽으니 쓸 만한 것이
+ * 2편이었고, 실패한 열 편의 되짚기가 전부 **문두가 아닌 자리**에 있었다:
+ *
+ *   `Glen knew that.` · `…past them shot a huge black mass` ·
+ *   `…excited by this account` · `The following day while…` ·
+ *   `As the reader already knows my position…`
+ *
+ * 그래서 첫 문장 **전체**에서 되짚기 표지를 찾는 규칙을 넣어 봤다:
+ *   `(this|that|these|those) + 명사` · `the (following|next|same|other)` ·
+ *   `for the (second|third) time` · `as the reader` · `already (knows|said)`
+ *
+ * **시중 지문으로 재니 오탐이 3% → 초등 13% · 중등 19% 로 뛰었다.** 시중 초·중 교재
+ * 지문도 `this account` · `the following day` 를 정상적으로 쓴다 — 지문 안에서 앞
+ * **문장**을 되짚는 것과 앞 **문단**을 요구하는 것은 다른 일인데, 표면형이 같다.
+ * 그 둘을 가르는 방법을 못 찾았다.
+ *
+ * 그래서 **넣지 않는다.** 멀쩡한 시중형 지문 13~19% 를 버리는 대가로 얻는 정확도가 아니다.
+ * `lib-clean.mjs` 가 편집자 주석에서 네 번 실패한 것과 같은 종류이고, 여기 적어 두는
+ * 이유도 같다 — **다음 사람이 같은 규칙을 다시 짜지 않게.**
+ *
+ * 남는 결론: 이 자를 통과해도 **손으로 읽으면 더 걸러진다**(표본 12편 중 2~3편).
+ * 그 비율은 규칙으로 못 올리므로 **재고 수치와 함께 밝힌다.**
+ */
+
 export interface StandaloneSignals {
   /** 인용부호 안에 든 낱말의 비율 %. */
   quotedPct: number
