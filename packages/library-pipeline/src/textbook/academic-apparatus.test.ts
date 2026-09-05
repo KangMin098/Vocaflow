@@ -101,3 +101,24 @@ describe('붙어 있는 표제어', () => {
     expect(hasAcademicApparatus('Our aims were modest, and the methods were simple ones.')).toBe(false)
   })
 })
+
+// 문장 끝과 콜론도 나중에 찾았다 — 둘 다 드레인 몫에서 실물로 만났다.
+describe('표제어의 다른 꼴', () => {
+  it('물음표 뒤의 표제어를 잡는다', () => {
+    expect(
+      hasAcademicApparatus(
+        'And how is the function maintained without the algal nucleus? Abstract Kleptoplasty is common in protists.',
+      ),
+    ).toBe(true)
+  })
+
+  it('콜론이 붙은 표제어를 잡는다', () => {
+    expect(hasAcademicApparatus('Objective: In this study, we analyzed the impact of exposure.')).toBe(true)
+    expect(hasAcademicApparatus('Methods: A total of 349 women were included in the study.')).toBe(true)
+  })
+
+  it('넓혀도 산문은 그대로 통과한다', () => {
+    expect(hasAcademicApparatus('Was it worth it? He never answered that question aloud.')).toBe(false)
+    expect(hasAcademicApparatus('The results were clear: the older walls rested on sand.')).toBe(false)
+  })
+})

@@ -129,7 +129,10 @@ const ACADEMIC_APPARATUS = [
   // 구조 초록 표제어가 문장 자리에 그대로 남은 것 — `Objective To evaluate …`
   // ⚠️ 표제어는 **둘이 붙어** 오기도 한다: `Background and objectives Severe community-acquired
   //   pneumonia …`. 앞 낱말만 보면 뒤가 소문자라 걸리지 않는다(실측 2026-09-06, 드레인 몫에서).
-  /(?:^|\.\s)(?:Abstract|Objectives?|Methods?|Results?|Conclusions?|Backgrounds?|Findings?|Aims?)(?:\s+and\s+(?:objectives?|methods?|results?|conclusions?|aims?|findings?))?\s+[A-Z]/,
+  // ⚠️ 문장 끝은 마침표만이 아니다. `… without the algal nucleus? Abstract Kleptoplasty …`
+  //   그리고 표제어에 **콜론**이 붙기도 한다: `Objective: In this study, we analyzed …`
+  //   둘 다 드레인 몫에서 실물로 만났다(2026-09-06). 넓힌 뒤 오탐을 다시 쟀다 — V2~V4 0건.
+  /(?:^|[.!?]\s)(?:Abstract|Objectives?|Methods?|Results?|Conclusions?|Backgrounds?|Findings?|Aims?)(?:\s+and\s+(?:objectives?|methods?|results?|conclusions?|aims?|findings?))?\s*:?\s+[A-Z]/,
   // 통계 서식 — 신뢰구간·유의확률·회귀식·로그 단위
   /95\s*%\s*CI|\bP\s*[<=>]\s*0\.|\bp\s*[<=>]\s*0\.0|\by\s*=\s*\d*\.?\d+\s*x\b|\blg\s+IU\/mL/,
 ] as const

@@ -450,11 +450,44 @@ const avoidTypes = (arg('avoid') ?? '').split(',').map((s) => s.trim()).filter(B
 const avoided = new Set(
   avoidTypes.length ? itemRows.filter((r) => avoidTypes.includes(r.type)).map((r) => r.ref_id) : [],
 )
+/**
+ * 약어스러운 토큰의 비율 — `--plain-first` 가 쓰는 정렬 열쇠.
+ *
+ * ── 왜 버리는 잣대가 아니라 순서인가 (실측 2026-09-06) ───────────────
+ * V7 몫을 손으로 채우다 **뽑은 것의 절반을 버렸다.** `blaNDM-1` · `MALDI-TOF-MS` ·
+ * `XDR-Ab` 같은 약어가 빽빽해 교재로 읽히지 않아서다. 그래서 밀도를 인쇄 게이트에
+ * 넣으려다 **실측으로 기각했다** — 어느 문턱에서도 오탐이 0 이 아니었고 걸린 것이
+ * 전부 멀쩡한 글이었다(`R160`·`NBC`·`HBO`. `csat-format.ts` §기각한 지표).
+ *
+ * ⚠️ 그런데 **버리는 것과 나중으로 미루는 것은 대가가 다르다.** 게이트에서 틀리면
+ *   멀쩡한 글이 영영 사라지지만, 정렬에서 틀리면 그 글은 뒤 차례로 갈 뿐이다.
+ *   그래서 같은 값을 순서로만 쓴다.
+ *
+ * 근거: V7 원글 2,531편 중 비율 0.02 미만 **490편** · 0.04 미만 832 · 0.06 미만 1,269.
+ * 쓸 글은 충분한데 뽑는 차례가 그것을 앞세우지 않아 매번 어려운 것부터 나왔다.
+ */
+function abbrRatio(text) {
+  const toks = String(text ?? '').split(/\s+/).filter(Boolean)
+  if (!toks.length) return 0
+  let n = 0
+  for (const raw of toks) {
+    const t = raw.replace(/^[(“"']+|[)”"',.;:]+$/g, '')
+    if (t.length < 2) continue
+    if (/[A-Z]{2,}/.test(t) || /[A-Za-z][0-9]|[0-9][A-Za-z]/.test(t) || /[a-z][A-Z]/.test(t)) n++
+  }
+  return n / toks.length
+}
+
+const plainFirst = process.argv.includes('--plain-first')
+// 소수점 둘째 자리로 뭉뚱그린다 — 미세한 차이로 순서가 흔들리면 재실행 안전이 깨진다.
+const plainKey = (a) => (plainFirst ? Math.round(abbrRatio(passages.get(a.id) ?? '') * 100) : 0)
+
 const todo = usable
   .filter((a) => !existing.has(a.id) && !avoided.has(a.id))
   // 같은 수면 id 순 — 몇 번 돌려도 같은 몫이 나와야 재실행 안전이 성립한다.
   .sort(
     (a, b) =>
+      plainKey(a) - plainKey(b) ||
       (typeCount.get(a.id)?.size ?? 0) - (typeCount.get(b.id)?.size ?? 0) ||
       String(a.id).localeCompare(String(b.id)),
   )
