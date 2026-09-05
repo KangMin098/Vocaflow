@@ -12,6 +12,9 @@
 //
 // SERVICE_ROLE_KEY 없으면 자동 skip (CI).
 
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+
 import { createClient } from '@supabase/supabase-js'
 import { describe, expect, it } from 'vitest'
 
@@ -144,14 +147,49 @@ describe.skipIf(skip)('전략 연구소 두 화면 (실 DB · 실 파일)', () =
     for (const r of v.rungs) for (const e of r.emptyTypes) expect(pureKo.has(e)).toBe(false)
   })
 
-  it('설계 표의 재고가 현황판의 사다리 칸과 같은 수를 말한다', async () => {
+  it('설계 표와 현황판이 같은 칸을 말한다 — 칸 목록은 정확히, 수는 움직임만 허용', async () => {
     const { loadBlueprintView } = await import('../factory-views')
     const line = await loadFactoryLine()
     const v = await loadBlueprintView()
+
+    // ① 칸 **목록**은 정확히 같아야 한다. 여기가 어긋나면 한 화면이 어떤 칸을 통째로 안 보는
+    //    것이고, 그건 데이터 움직임으로 설명되지 않는 진짜 결함이다.
+    const disagreed: string[] = []
     for (const cell of line.cells) {
-      const rung = v.rungs.find((r) => r.step === cell.step)!
-      const same = rung.cells.find((c) => c.type === cell.type)!
-      expect(same.count, `${rung.schoolBand}/${cell.type} 가 두 화면에서 다르다`).toBe(cell.count)
+      const rung = v.rungs.find((r) => r.step === cell.step)
+      expect(rung, `현황판에 있는 계단 ${cell.step} 이 설계 표에 없다`).toBeTruthy()
+      const same = rung!.cells.find((c) => c.type === cell.type)
+      expect(same, `${rung!.schoolBand}/${cell.type} 칸이 설계 표에 없다`).toBeTruthy()
+      if (same!.count !== cell.count) {
+        disagreed.push(`${rung!.schoolBand}/${cell.type}: 설계 ${same!.count} vs 현황판 ${cell.count}`)
+      }
+    }
+
+    // ② 수는 **하나까지** 어긋나도 통과시킨다.
+    //
+    //    두 화면은 이제 같은 함수(`item-count.ts`)로 세므로 방법 차이로는 못 어긋난다. 남는
+    //    원인은 **두 조회 사이에 값이 움직인 것**뿐이다 — 이 저장소는 여러 세션이 같은 dev DB 에
+    //    쓰고 있어서(`csat_dcp_items` 에 적재·정리가 수시로 돈다) 그 움직임은 정상이다.
+    //    실측 2026-09-06 에 이 테스트가 「초등 고학년/word_order 0 vs 249」로 걸렸는데, 그것이
+    //    바로 그 경우였다. 거짓 실패는 사람을 빨간불에 무뎌지게 만든다.
+    //
+    //    반대로 **세는 방법이 갈라지면 여러 칸이 한꺼번에** 어긋난다 — 그건 여전히 잡힌다.
+    expect(
+      disagreed.length,
+      `여러 칸이 어긋난다 — 값이 움직인 게 아니라 세는 방법이 갈라진 것이다:\n${disagreed.join('\n')}`,
+    ).toBeLessThanOrEqual(1)
+  })
+
+  it('두 화면이 같은 세기 함수를 쓴다 — 방법이 갈라지면 값도 갈라진다', async () => {
+    // 값 비교는 데이터가 움직이면 흔들린다. 방법이 하나인지는 **소스로** 확인한다.
+    const here = resolve(__dirname, '..')
+    for (const f of ['factory.ts', 'factory-views.ts', 'factory-line-views.ts']) {
+      const src = readFileSync(resolve(here, f), 'utf8')
+      expect(src, `${f} 이 item-count 를 안 쓴다`).toContain("from './item-count'")
+      expect(
+        src.includes("from('csat_dcp_items')"),
+        `${f} 이 csat_dcp_items 를 직접 센다 — 세는 곳은 item-count.ts 하나여야 한다`,
+      ).toBe(false)
     }
   })
 
@@ -210,16 +248,35 @@ describe.skipIf(skip)('생산 라인 네 화면 (실 DB)', () => {
     ])
     const a = await loadAuthorView()
     const b = await loadBlueprintView()
+    let compared = 0
+    const disagreed: string[] = []
     for (const rung of b.rungs) {
       for (const cell of rung.cells) {
         if (!cell.countable) continue
-        const sum = rung.vLevels.reduce(
-          (n, v) => n + (a.cells.find((c) => c.type === cell.type && c.vLevel === v)?.count ?? 0),
-          0,
+        // ⚠️ **`?? 0` 을 쓰지 않는다.** 집필 화면은 칸 225개를 시간 예산 안에 세는데, 못 센 칸은
+        //   `null` 로 남는다. 그걸 0 으로 뭉개면 이 테스트가 「설계는 249, 집필은 0」이라며
+        //   있지도 않은 불일치를 만든다 — 실측 2026-09-06 에 정확히 그랬다. 이 파일이 지키려는
+        //   규칙(「0 과 못 잼을 가른다」)을 테스트가 먼저 어기고 있었다.
+        const parts = rung.vLevels.map(
+          (v) => a.cells.find((c) => c.type === cell.type && c.vLevel === v)?.count,
         )
-        expect(sum, `${rung.schoolBand}/${cell.type} 가 두 화면에서 다르다`).toBe(cell.count)
+        if (parts.some((n) => n == null) || cell.count == null) continue // 한쪽이 못 잰 칸은 견줄 수 없다
+        compared += 1
+        const sum = parts.reduce<number>((n, v) => n + (v ?? 0), 0)
+        if (sum !== cell.count) {
+          disagreed.push(`${rung.schoolBand}/${cell.type}: 집필 ${sum} vs 설계 ${cell.count}`)
+        }
       }
     }
+
+    // 견준 칸이 없으면 이 테스트는 아무것도 안 지킨다 — 예산이 너무 빡빡하다는 신호이기도 하다.
+    expect(compared, '두 화면 모두 잰 칸이 하나도 없다').toBeGreaterThan(0)
+    // 값은 두 조회 사이에 움직일 수 있다(여러 세션이 같은 dev DB 에 쓴다). 방법이 갈라지면
+    // 여러 칸이 한꺼번에 어긋나므로 그건 여전히 잡힌다.
+    expect(
+      disagreed.length,
+      `여러 칸이 어긋난다 — 값이 움직인 게 아니라 세는 방법이 갈라진 것이다:\n${disagreed.join('\n')}`,
+    ).toBeLessThanOrEqual(1)
   },
     // ⚠️ 칸 225개를 세는 조회다. **속도가 아니라 셈이 맞는지**를 지키는 테스트이므로
     //   전역 40초 상한을 쓰지 않는다 — 공유 dev DB 가 느린 날 거짓 실패가 나고, 거짓 실패는

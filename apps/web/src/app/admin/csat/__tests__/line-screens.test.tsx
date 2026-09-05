@@ -26,6 +26,7 @@ import {
 import { AuthorClient } from '../authoring/AuthorClient'
 import { PressClient } from '../press/PressClient'
 import { ReviewClient } from '../review/ReviewClient'
+import { foldBands } from '../sourcing/BandStrip'
 import { SourceClient } from '../sourcing/SourceClient'
 
 const text = (html: string) => html.replace(/<!--[\s\S]*?-->/g, '')
@@ -74,9 +75,10 @@ const source: SourceView = {
 describe('SourceClient', () => {
   it('게이트는 있는데 지문이 0편인 밴드를 지목한다', () => {
     const html = text(renderToString(<SourceClient {...source} />))
-    expect(html).toContain('S2 자동화 다독')
-    expect(html).toContain('S5 병행 듣기')
-    expect(html).toContain('재료가 없는 단계')
+    // 예전에는 빈 밴드 이름을 글로 열거했는데, 띠가 같은 것을 보여 주므로 지웠다(중복).
+    // 지금은 「몇 단계가 막혔는가」 + 띠의 「게이트 있는데 0편」 칸이 그 말을 한다.
+    expect(html).toContain('3단계는 지금 책을 못 만든다')
+    expect(html).toContain('게이트 있는데 0편')
   })
 
   it('화면 전용 지문을 재고에서 빼고 센다 — 넣으면 있지도 않은 여유를 믿게 된다', () => {
@@ -441,5 +443,39 @@ describe('LadderFill — 「N / 7」을 계단으로', () => {
   it('조판된 권이 없어도 7칸을 다 그린다 — 빈 사다리가 곧 할 일 목록이다', () => {
     const html = text(renderToString(<PressClient {...press} volumes={[]} />))
     expect((html.match(/비어 있음/g) ?? []).length).toBeGreaterThanOrEqual(7)
+  })
+})
+
+/* ── ④ 소재 — 밴드 띠 ── */
+
+describe('BandStrip', () => {
+  it('밴드별로 접는다 — 표는 (밴드 × 수준) 이라 한 밴드가 여러 줄에 흩어져 있다', () => {
+    const folded = foldBands(source.rows, source.gateBands)
+    expect(folded.map((b) => b.band)).toEqual(['S1', 'S2', 'S3', 'S4', 'S5'])
+    // S3 는 205편 중 화면 전용 15 → 쓸 수 있는 것 190
+    expect(folded.find((b) => b.band === 'S3')!.usable).toBe(190)
+  })
+
+  it('게이트가 있는데 0편인 밴드를 지목한다 — 그 단계 책은 지금 못 만든다', () => {
+    const html = text(renderToString(<SourceClient {...source} />))
+    expect(html).toContain('게이트 있는데 0편')
+  })
+
+  it('화면 전용 지문을 막대에서 뺀다 — 넣으면 있지도 않은 여유를 믿게 된다', () => {
+    const folded = foldBands(
+      [{ band: 'S3', vLevel: 5, count: 100, displayOnly: 40, licenseClasses: [], cefrLevels: [] }],
+      ['S3'],
+    )
+    expect(folded[0]!.usable).toBe(60)
+    expect(folded[0]!.displayOnly).toBe(40)
+  })
+
+  it('게이트가 없는 밴드도 재고가 있으면 보여 준다 — 다만 흐리게', () => {
+    const folded = foldBands(
+      [{ band: 'S9', vLevel: 1, count: 5, displayOnly: 0, licenseClasses: [], cefrLevels: [] }],
+      ['S1'],
+    )
+    expect(folded.find((b) => b.band === 'S9')!.gated).toBe(false)
+    expect(folded.find((b) => b.band === 'S1')!.gated).toBe(true)
   })
 })

@@ -13,6 +13,8 @@
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { emptyGateBands, type SourceView } from '@/lib/csat/factory-line-model'
 
+import { BandStrip } from './BandStrip'
+
 const BAND_KO: Record<string, string> = {
   S1: 'S1 입문 다독',
   S2: 'S2 자동화 다독',
@@ -46,28 +48,21 @@ export function SourceClient({ rows, gateBands, loadError }: SourceView) {
         </p>
       ) : null}
 
-      <section className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
-        {empty.length ? (
-          <>
-            <p className="font-body text-[12px] text-[var(--t3)]">재료가 없는 단계</p>
-            <p className="mt-1 break-keep font-display text-[16px] font-[800] text-[#9C3A30]">
-              {empty.map((b) => BAND_KO[b] ?? b).join(' · ')}
-            </p>
-            <p className="mt-1.5 break-keep font-body text-[12px] text-[var(--t3)]">
-              합격선(게이트)은 정해 놓고 지문이 0편이다. 그 단계 책은 지금 못 만든다 — 문항을 더 만드는
-              것으로는 해결되지 않는다.
-            </p>
-          </>
-        ) : (
-          <p className="font-display text-[15px] font-[700] text-[#2E7D5A]">
-            게이트가 있는 {gateBands.length}단계에 모두 지문이 있다
-          </p>
-        )}
-        <p className="mt-2 font-body text-[12px] text-[var(--t3)]">
-          지문 {total.toLocaleString()}편 · 그중 화면 전용{' '}
-          <span className="font-mono">{displayOnly.toLocaleString()}</span>편은 문항으로 못 쓴다
-          (재고에서 빼고 세야 한다)
+      {/*
+        판정 한 줄 + 띠. 예전에는 여기서 빈 밴드 이름을 **글로 열거**하고 아래에 띠를 또 그렸는데,
+        같은 것을 두 번 말하는 것이라 밀집도 예산이 잡았다(덩어리 62 → 101). 띠가 「0편」과
+        「얇다」를 둘 다 보이므로 열거는 지웠다 — 띠가 못 하는 말(그래서 뭘 해야 하나)만 남긴다.
+      */}
+      <section className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
+        <p className="break-keep font-display text-[15px] font-[700]" style={{ color: empty.length ? '#9C3A30' : '#2E7D5A' }}>
+          {empty.length
+            ? `${empty.length}단계는 지금 책을 못 만든다 — 문항을 더 만들어도 안 된다`
+            : `게이트가 있는 ${gateBands.length}단계에 모두 지문이 있다`}
+          <span className="ml-2 font-body text-[12px] font-[400] text-[var(--t3)]">
+            지문 {total.toLocaleString()}편 · 화면 전용 {displayOnly.toLocaleString()}편은 문항으로 못 쓴다
+          </span>
         </p>
+        <BandStrip rows={rows} gateBands={gateBands} />
       </section>
 
       <section className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">

@@ -23,12 +23,12 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
+import { countItemCells, plannedItemTotal } from './item-count'
+
 import {
   BENCH_FILES,
   MARKET_TARGET_INDEX,
-  QUERY_TIMEOUT_MS,
   readBench,
-  withDeadline,
   withTimeout,
   type BenchFile,
 } from './factory-bench'
@@ -71,48 +71,6 @@ interface Cell {
   count: number | null
 }
 
-/**
- * 서버 count 한 번 — **null 이면 한 번 더 물어본다.**
- *
- * 실측 2026-09-05: `csat_dcp_items` 65만 행 전수 count 의 **첫 호출이 8.5초 만에
- * `count=null` + 빈 오류 메시지**로 돌아왔다(2·3회차는 1.0초·0.5초). 차가운 첫 호출이
- * 게이트웨이 쪽에서 잘린 것이다. 재시도를 안 하면 그 순간 화면이 「해설 못 잼」이라고 적고,
- * 관리자는 있지도 않은 결함을 보게 된다 — 그런데 새로고침하면 멀쩡히 나오므로
- * **재현이 안 되는 유령 결함**이 된다. 그래서 여기서 한 번 삼킨다.
- *
- * 두 번째도 null 이면 그때는 진짜 못 잰 것이다. 오류 메시지를 그대로 올려 화면이 이유를 적는다.
- */
-const TIMED_OUT = { count: null, error: { message: `${QUERY_TIMEOUT_MS / 1000}초 안에 안 돌아왔다` } }
-
-async function headCount(
-  run: (signal: AbortSignal) => PromiseLike<{
-    count: number | null
-    error: { message: string } | null
-  }>,
-  timeoutMs = QUERY_TIMEOUT_MS,
-): Promise<{ count: number | null; message: string | null }> {
-  for (let attempt = 0; attempt < 2; attempt += 1) {
-    const { count, error } = await withDeadline(run, timeoutMs, TIMED_OUT)
-    if (count != null) return { count, message: null }
-    // 상한에 걸린 것은 **다시 물어도 같다** — 재시도는 대기 시간만 두 배로 만든다.
-    if (error?.message === TIMED_OUT.error.message) return { count: null, message: error.message }
-    if (attempt === 1) return { count: null, message: error?.message || '서버가 수를 돌려주지 않았다' }
-  }
-  return { count: null, message: '서버가 수를 돌려주지 않았다' }
-}
-
-async function countCell(db: SupabaseClient, type: string, vLevel: number): Promise<number | null> {
-  const { count } = await headCount((signal) =>
-    db
-      .from('csat_dcp_items')
-      .select('id', { count: 'exact', head: true })
-      .eq('type', type)
-      .eq('v_level', vLevel)
-      .abortSignal(signal),
-  )
-  return count
-}
-
 /** 사다리 칸 전부를 **병렬로** 센다. 순차로 던지면 30칸이 30번의 왕복이 된다. */
 async function loadLadderCells(db: SupabaseClient): Promise<Cell[]> {
   const specs: Omit<Cell, 'count'>[] = []
@@ -125,21 +83,8 @@ async function loadLadderCells(db: SupabaseClient): Promise<Cell[]> {
       }
     }
   }
-  // ⚠️ **한꺼번에 다 던지지 않는다.** PostgREST 커넥션 풀이 포화되면 전부 줄을 서서
-  //   오히려 느려진다(실측 2026-09-05: idle 백엔드로 가득 찬 채 페이지가 39초). 그리고
-  //   예산을 넘기면 남은 칸을 포기한다 — 현황판이 몇 분 멈추느니 「?」 몇 칸이 낫다.
-  const WAVE = 6
-  const deadline = Date.now() + 10_000
-  const counts: (number | null)[] = []
-  for (let i = 0; i < specs.length; i += WAVE) {
-    if (Date.now() > deadline) {
-      counts.push(...new Array<null>(specs.length - counts.length).fill(null))
-      break
-    }
-    counts.push(
-      ...(await Promise.all(specs.slice(i, i + WAVE).map((s) => countCell(db, s.type, s.vLevel)))),
-    )
-  }
+  // 세는 방법은 `item-count.ts` 하나뿐이다 — 화면마다 따로 세면 같은 칸을 다른 수로 말한다.
+  const counts = await countItemCells(db, specs)
   return specs.map((s, i) => ({ ...s, count: counts[i] ?? null }))
 }
 
@@ -237,11 +182,7 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
   //     · 해설 보유 → **못 잰다.** 유형·수준으로 쪼개면 셀마다는 되지만(4.1초) 재고가 있는
   //       칸이 132개라 다 돌면 몇 분이다. 집계 RPC 가 있어야 한다(승인 대기).
   //   0 으로 뭉개지 않고 「못 잼」 + 이유로 남긴다.
-  const itemsTotal = await headCount(
-    (signal) =>
-      db.from('csat_dcp_items').select('id', { count: 'planned', head: true }).abortSignal(signal),
-    6_000,
-  )
+  const itemsTotal = await plannedItemTotal(db)
 
   const stages: StageState[] = []
 

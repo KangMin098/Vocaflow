@@ -19,7 +19,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { QUERY_TIMEOUT_MS, withDeadline } from './factory-bench'
+import { SWEEP_BUDGET_MS, countItemCells, plannedItemTotal } from './item-count'
 
 import {
   GENERATED_TYPES,
@@ -36,55 +36,6 @@ import {
 } from './factory-line-model'
 
 export * from './factory-line-model'
-
-/**
- * 한 물결에 던지는 조회 수.
- *
- * ⚠️ **크게 잡으면 오히려 느려진다.** PostgREST 는 커넥션 풀이 있고, 한꺼번에 수십 개를 던지면
- * 풀이 포화돼 전부 줄을 선다 — 실측 2026-09-05 에 `pg_stat_activity` 가 idle 백엔드로 가득 찬
- * 채 페이지가 39초 걸렸다. 느린 것은 DB 가 아니다(같은 셈을 직접 SQL 로는 즉시 낸다).
- * 그래서 풀이 감당할 만큼만 던진다.
- */
-const WAVE = 6
-
-/**
- * **시간 예산** — 이 시간을 넘기면 남은 칸을 포기하고 여태 잰 것만 돌려준다.
- *
- * 예산이 없으면 화면이 몇 분씩 멈춘다. 관리자는 그때 새로고침을 누르고, 그 요청이 풀을 더
- * 조여 다음 요청이 더 느려진다. **부분값 + 「다 못 셌다」가 무한 대기보다 낫다** — 못 센 칸은
- * 화면에서 「?」로 남고 총계는 내지 않는다(모자란 수를 정확한 총계로 내밀지 않는다).
- */
-const SWEEP_BUDGET_MS = 15_000
-
-/** 물결로 나눠 보내되 **예산을 넘기면 멈춘다.** 못 센 칸은 `null` 로 남는다. */
-async function inWaves<T, R>(
-  items: T[],
-  run: (t: T) => Promise<R>,
-  size = WAVE,
-  budgetMs = SWEEP_BUDGET_MS,
-): Promise<(R | null)[]> {
-  const out: (R | null)[] = []
-  const deadline = Date.now() + budgetMs
-  for (let i = 0; i < items.length; i += size) {
-    if (Date.now() > deadline) {
-      // 남은 칸은 「안 쟀다」로 남긴다 — 0 으로 채우면 없는 구멍을 만든다.
-      out.push(...new Array<null>(items.length - out.length).fill(null))
-      break
-    }
-    out.push(...(await Promise.all(items.slice(i, i + size).map(run))))
-  }
-  return out
-}
-
-/** count 한 번 — null 이면 한 번 더. 차가운 첫 호출이 빈손으로 오는 일이 있다. */
-/** 상한 안에 안 오면 「못 잼」. 재시도하지 않는다 — 느린 조회는 다시 물어도 느리다. */
-async function headCount(
-  run: (signal: AbortSignal) => PromiseLike<{ count: number | null }>,
-  timeoutMs = QUERY_TIMEOUT_MS,
-): Promise<number | null> {
-  const { count } = await withDeadline(run, timeoutMs, { count: null } as { count: number | null })
-  return count
-}
 
 /* ───────────────────────── ④ 소재 ───────────────────────── */
 
@@ -164,19 +115,8 @@ export async function loadAuthorView(): Promise<AuthorView> {
   //   아무것도 못 잡는다. 그래서 독립된 제3의 수로 `count: 'planned'`(플래너 통계 · 2.4초)를
   //   쓴다. 통계값이라 오차가 있으므로 **허용 오차를 넘을 때만** 경고한다.
   const [counts, planned] = await Promise.all([
-    inWaves(specs, (s) =>
-      headCount((signal) =>
-        db
-          .from('csat_dcp_items')
-          .select('id', { count: 'exact', head: true })
-          .eq('type', s.type)
-          .eq('v_level', s.vLevel)
-          .abortSignal(signal),
-      ),
-    ),
-    headCount((signal) =>
-      db.from('csat_dcp_items').select('id', { count: 'planned', head: true }).abortSignal(signal),
-    ),
+    countItemCells(db, specs),
+    plannedItemTotal(db).then((r) => r.count),
   ])
 
   const cells: AuthorCell[] = specs.map((s, i) => ({ ...s, count: counts[i] ?? null }))

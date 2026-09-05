@@ -16,12 +16,12 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
+import { countItemCells } from './item-count'
+
 import {
   BENCH_FILES,
   MARKET_TARGET_INDEX,
-  QUERY_TIMEOUT_MS,
   readBench,
-  withDeadline,
 } from './factory-bench'
 import {
   PURE_FUNCTION_TYPES,
@@ -64,22 +64,6 @@ export async function loadMarketView(): Promise<MarketView> {
 
 /* ───────────────────────── 설계 ───────────────────────── */
 
-async function countCell(db: SupabaseClient, type: string, vLevel: number): Promise<number | null> {
-  // 상한 안에 안 오면 「못 잼」이다. 재시도하지 않는다 — 느린 조회는 다시 물어도 느리고,
-  // 기다리는 동안 커넥션 풀을 더 조인다.
-  const { count } = await withDeadline(
-    (signal) =>
-      db
-        .from('csat_dcp_items')
-        .select('id', { count: 'exact', head: true })
-        .eq('type', type)
-        .eq('v_level', vLevel)
-        .abortSignal(signal),
-    QUERY_TIMEOUT_MS,
-    { count: null } as { count: number | null },
-  )
-  return count
-}
 
 export async function loadBlueprintView(): Promise<BlueprintView> {
   const db = createAdminClient() as unknown as SupabaseClient
@@ -94,19 +78,8 @@ export async function loadBlueprintView(): Promise<BlueprintView> {
   }
 
   const [counts, gatesRes] = await Promise.all([
-    // 한꺼번에 다 던지면 커넥션 풀이 포화돼 오히려 느려진다 — 6개씩 나눠 보낸다.
-    (async () => {
-      const out: (number | null)[] = []
-      const deadline = Date.now() + 12_000
-      for (let i = 0; i < specs.length; i += 6) {
-        if (Date.now() > deadline) {
-          out.push(...new Array<null>(specs.length - out.length).fill(null))
-          break
-        }
-        out.push(...(await Promise.all(specs.slice(i, i + 6).map((s) => countCell(db, s.type, s.vLevel)))))
-      }
-      return out
-    })(),
+    // 세는 방법은 `item-count.ts` 하나뿐이다 — 여기서 따로 세면 현황판과 어긋난다.
+    countItemCells(db, specs),
     db.from('csat_stage_gates').select('stage, metric, threshold, is_locked, note').order('stage'),
   ])
 
