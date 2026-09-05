@@ -33,6 +33,21 @@ const BAND = arg('band') != null ? Number(arg('band')) : null
 /** 겨냥하는 시중 자리. 목표 "시중 대비 120%" = 50 × 1.2 = **60**. */
 const AIM = Number(arg('aim') ?? 60)
 const MIN_MARKET = Number(arg('min-market') ?? 25)
+/**
+ * `--annotate` — **본문을 등급 표시와 함께 찍는다.**
+ *
+ * ── 왜 (2026-09-06) ──────────────────────────────────────────────────
+ * 세 사이클을 고쳐 쓰고도 겨냥(60)에 못 닿았다. 매번 같은 자리에서 막혔다 —
+ * 밖% 를 올리려고 낱말을 바꾸면 V-Level 이나 FK 가 튀고, 되돌리면 밖% 가 내려간다.
+ * 진짜 병목은 **쓰는 동안 어느 낱말이 교육과정 안인지 밖인지 안 보인다**는 것이었다.
+ * 목록만 봐서는 "이 문장의 이 낱말" 을 못 고른다.
+ *
+ * 그래서 본문 위에 직접 표시한다:
+ *   [낱말]  = 교육과정 **밖** (이미 값에 기여하는 것 — 건드리지 말 것)
+ *   ·낱말·  = 교육과정 **안**이면서 내용어 (**바꿀 후보**)
+ *   나머지  = 기능어(분모에서 빠진다) — 바꿔도 값이 안 움직인다
+ */
+const ANNOTATE = process.argv.includes('--annotate')
 
 const dir = path.resolve(arg('dir') ?? '.')
 const files = arg('file')
@@ -114,6 +129,18 @@ for (const { r, lemmas } of per) {
   const outside = words.filter((w) => w.tier === 'outside').length
   const outsidePct = n ? +((outside / n) * 100).toFixed(1) : null
   const pos = band && outsidePct != null ? marketPercentile(outsidePct, band.school) : null
+  // 고유명사를 뺀 값 — **이름이 만든 자리인지 가른다.**
+  // 실측(2026-09-06): simple_wikipedia 79.5 → 52.0(-27.5)로 시중 중앙이었다("HBO"·"B'z"
+  // 같은 백과 도입부). space_place 는 67.5 → 63.5 로 남는다. 두 값을 함께 봐야
+  // "어려운 낱말" 과 "이름 덩어리" 를 가를 수 있다.
+  const wordsNP = classifyCurriculumWords(c, { excludeProperNouns: true })
+  const posNP =
+    band && wordsNP.length
+      ? marketPercentile(
+          +((wordsNP.filter((w) => w.tier === 'outside').length / wordsNP.length) * 100).toFixed(1),
+          band.school
+        )
+      : null
 
   console.log(`━━ 슬롯 ${r.slot ?? '?'} — ${String(r.title ?? '').slice(0, 60)}`)
   console.log(
@@ -134,7 +161,8 @@ for (const { r, lemmas } of per) {
     if (pos >= AIM) aimHit++
     if (pos < MIN_MARKET) floorFail++
     console.log(
-      `   어휘: 내용어 ${n} · 밖 ${outside} (${outsidePct}%) → 시중 자리 **${pos}**   ${verdict}` +
+      `   어휘: 내용어 ${n} · 밖 ${outside} (${outsidePct}%) → 시중 자리 **${pos}**` +
+        ` (이름 제외 ${posNP ?? '—'})   ${verdict}` +
         (pos < AIM
           ? `\n         겨냥 ${AIM} 에 닿으려면 밖% ${need} 필요 → 안 낱말 **약 ${Math.max(0, dWords)}개를 밖 낱말로** 바꾼다`
           : '')
@@ -144,6 +172,32 @@ for (const { r, lemmas } of per) {
       `   밖 낱말(${out.length}종): ${out.map((x) => (x.n > 1 ? `${x.word}×${x.n}` : x.word)).join(' · ')}`
     )
   }
+  if (ANNOTATE) {
+    // 같은 토큰화를 쓴다 — 표시와 판정이 갈리면 표시를 믿을 수 없다.
+    const tier = new Map()
+    for (const x of words) if (!tier.has(x.word)) tier.set(x.word, x.tier)
+    const marked = c.replace(/[A-Za-z][A-Za-z'-]*/g, (w) => {
+      const t = tier.get(w.toLowerCase())
+      if (t == null) return w // 기능어 — 분모 밖이다
+      return t === 'outside' ? `[${w}]` : `·${w}·`
+    })
+    console.log('   ── 본문 ([밖] · ·안·(바꿀 후보) · 나머지는 기능어) ──')
+    console.log(
+      marked
+        .split('\n')
+        .map((l) => '   ' + l)
+        .join('\n')
+    )
+    const inside = new Map()
+    for (const x of words)
+      if (x.tier !== 'outside') inside.set(x.word, (inside.get(x.word) ?? 0) + 1)
+    const cand = [...inside.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    console.log(
+      `   바꿀 후보(안 내용어 ${cand.length}종): ` +
+        cand.map(([w, k]) => (k > 1 ? `${w}×${k}` : w)).join(' · ')
+    )
+  }
+
   // 밴드 축
   const levels = lemmas.map((w) => [w, lv.get(w)]).filter(([, v]) => Number.isFinite(v))
   const p75 = pct(
