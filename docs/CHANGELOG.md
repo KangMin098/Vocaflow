@@ -89,6 +89,26 @@ DB `funnel_events_event_check`. 앞의 둘은 회귀가 맞물리게 지키는�
 발견 경로: 낭비 축이 "데이터 요청 0건" 을 계속 답하기에 원인을 좁히다 DB 를 물었더니
 `funnel_events` 가 90분간 0행이었다.
 
+### `/dictate` 허브가 브라우저에서 15건을 왕복하고 있었다 — 서버 한 벌로 (2026-09-06)
+
+낭비 축 실측에서 학습자 화면 중 데이터 요청이 가장 많은 화면이었다. 페이지 전체가
+`'use client'` 라 **서버가 그리는 것이 하나도 없었고**, 하이드레이션 뒤에 페처 5종이
+브라우저에서 돌았다. `/wordvault` 에 이미 적용한 구조를 그대로 따랐다.
+
+- `lib/dictation/hub-query.ts` — 서버 한 벌 → props 하나.
+- `localStorage` 이어하기는 클라이언트에 남기고(서버 DB 값은 폴백), 갱신은 `router.refresh()`.
+- 실패를 빈 상태로 내리지 않는다 — `failed` 를 넘겨 「못 불러왔어요 + 다시 시도」를 말하고
+  히어로 수치는 0 이 아니라 `—`.
+
+**측정: 24건 → 0건**(dev · 같은 조건 2회 방문. dev 는 StrictMode 로 고유 12종이 두 번 돈다).
+회귀 `24-dictate-sweep` 9/9 · 단위 48 · tsc 0 · lint 0.
+
+⚠️ 지나며 함정 하나를 잡았다 — `persist.ts` 는 `recordGameScore`(`'use client'`) 때문에 파일
+전체가 클라이언트라, 서버가 꺼낸 `fetchDictationOverview` 가 **함수가 아니라 클라이언트 참조**
+였고 첫 렌더가 죽었다. 읽기 4종을 `reads.ts` 로 **이동**(복제 아님)하고 `persist` 는 재export.
+오늘 아침의 배럴→`child_process` 와 같은 계열이다: **파일 경계가 곧 실행 경계다**
+(`CONVENTIONS.md` 에 두 사례를 표로 남겼다).
+
 ### 낭비 축의 「중복 3건」은 계측기의 오탐이었다 — 데이터 중복은 0 (2026-09-06)
 
 `/arcade` · `/library/vocab` · `/pairflip/play` 가 같은 요청을 두 번 보내는 것으로 찍혔는데,

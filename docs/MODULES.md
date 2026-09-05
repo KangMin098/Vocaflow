@@ -485,7 +485,13 @@ const QUIZ_GENERATION_PROMPT = `
 **v07 부터 문장 안의 "내 단어"(타깃)를 인출 대상으로 삼아 받아쓰기가 곧 그 단어의 복습이 된다.**
 
 ### 라우트
-- `/dictate` — Hub (오늘의 받아쓰기 CTA · 자료 3탭 · 약점 · 최근)
+- `/dictate` — Hub (오늘의 받아쓰기 CTA · 자료 3탭 · 약점 · 최근). **서버 컴포넌트** —
+  조회는 `lib/dictation/hub-query.ts` 가 서버에서 한 벌로 하고 화면은 props 만 받는다.
+  2026-09-06 전까지 페이지 전체가 `'use client'` 라 브라우저 데이터 요청이 **15건**이었다
+  (학습자 화면 중 최다) → **0건**. 이어하기의 `localStorage` 확인만 클라이언트에 남고,
+  갱신은 `router.refresh()`. 조회 실패는 `failed` 로 내려 「못 불러왔어요 + 다시 시도」를 그린다.
+  ⚠️ 읽기 4종은 `lib/dictation/reads.ts` 에 있다 — `persist.ts` 는 쓰기 경로 때문에 파일 전체가
+  `'use client'` 라 서버에서 꺼내면 함수가 아니라 클라이언트 참조가 온다.
 - `/dictate/setup?text=|set=|custom=1` — Setup (미리보기 3지표 + 분량/문항수/순서/채점/듣기)
 - `/dictate/session?sessionId=` — 세션 (TTS · 단어별 채점 · 4단계 힌트 · Focus Mode)
 - `/dictate/results?sessionId=` — 결과 (**DB 조회** · 복습 반영 단어 · 청취 폭 · 반복된 태그)
