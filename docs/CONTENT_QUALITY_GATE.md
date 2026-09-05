@@ -67,7 +67,8 @@ pnpm dlx tsx scripts/lcp/reprocess-book.mjs <book_id> --commit
 > queued(소스 GET) 도서를 위 흐름으로 curation → ready → 게이트 → 게시.
 
 ### ACP (아티클)
-- `/api/acp/dev-enqueue`(소스 GET) → `/api/acp/dev-process`(ingest→추출→ready) → `/api/acp/dev-publish`.
+- `/api/acp/dev-enqueue`(소스 GET) → `/api/acp/dev-process`(ingest→추출→ready) → `/api/admin/articles/force-publish`(발행).
+  (구 `/api/acp/dev-publish` 는 force-publish 와 같은 requireAdminApi + service_role 로직인데 dev 전용이라 2026-09-06 삭제.)
 - ingesters: `packages/library-pipeline/src/ingest-article/*`(nasa/voa/wikipedia/the-conversation…) + `analyzeArticle`.
 
 ### VCB (단어장)

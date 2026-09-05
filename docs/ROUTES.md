@@ -246,7 +246,6 @@
 |---|---|
 | `POST /api/lcp/process` | pg_cron worker target — X-LCP-Token + msg_id |
 | `POST /api/lcp/dev-process` | dev 환경 admin 트리거 — book_id 단권 |
-| `POST /api/lcp/dev-drain-queue` | v06.34 — status='queued' N권 → dev-process 순차 호출 |
 
 ### `/api/pdcp/*` (10) — 퍼블릭도메인 만화 파이프라인 (전부 admin 게이트)
 
@@ -288,9 +287,7 @@
 | `POST /api/admin/library/preview-wikisource` | Wikisource 사전 검사 |
 | `POST /api/admin/library/preview-wikibooks` | Wikibooks 사전 검사 |
 | `POST /api/admin/library/preview-librivox` | LibriVox 사전 검사 |
-| `POST /api/admin/library/resolve-librivox-audio` | LibriVox 책 → audio 해결 |
 | `POST /api/admin/library/save-librivox-audio` | LibriVox 보이스 매핑 저장 (chapter_parts / flat / 자동 폴백) |
-| `POST /api/admin/library/enrich-seed` | seed 메타 enrichment |
 | `POST /api/admin/library/convert-to-se` | Standard Ebooks 변환 |
 | `POST /api/admin/library/delete-seed-catalog` | seed catalog 정리 |
 | `POST /api/admin/library/backfill-covers` | cover_image_url backfill |

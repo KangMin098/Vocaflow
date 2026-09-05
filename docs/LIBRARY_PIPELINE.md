@@ -159,7 +159,7 @@ ELSE status = 'failed' + status_message
 | 환경 | 메커니즘 |
 |---|---|
 | **Production** | `process_library_pipeline_batch(5)` pg_cron 매 30초 → POST `/api/lcp/process` (X-LCP-Token + msg_id) |
-| **Dev** | `get_lcp_config()` NULL → cron early return 0 → Admin "Curated Books" 가 `/api/lcp/dev-process` 를 도서별 순차 호출(단일 엔진 `runProcess`). (구 `dev-drain-queue` 5권/라운드 루프는 라우트만 잔존·UI 미사용) |
+| **Dev** | `get_lcp_config()` NULL → cron early return 0 → Admin "Curated Books" 가 `/api/lcp/dev-process` 를 도서별 순차 호출(단일 엔진 `runProcess`). (구 `dev-drain-queue` 5권/라운드 루프 라우트는 2026-09-06 삭제 — 호출부 0) |
 
 ### LCP v06.34 — 소스 GET 복귀 (DELETE 시맨틱)
 
