@@ -6,12 +6,15 @@
 //    새 행으로 넣을 자리가 없다. 그래서 쓰기 직전에 원본을 `backup-<TYPE>-<시각>.txt` 로
 //    남긴다 — 되돌릴 수 있어야 승인할 수 있는 종류의 변경이다.
 //
-// 게이트는 이 파일 안에 있다(별도 validate 스크립트를 두지 않았다 — 검사가 넷뿐이고,
+// 게이트는 이 파일 안에 있다(별도 validate 스크립트를 두지 않았다 — 검사가 다섯뿐이고,
 // 나누면 "게이트를 안 돌린 채 올리는" 경로가 생긴다):
 //   ① 작업 표지가 남아 있으면 막는다 — 재작성의 목적 자체다
 //   ② 200자 미만이면 막는다 — 요약으로 뭉갠 것
 //   ③ 원본에 없는 문항 id 가 새로 나오면 막는다 — 근거를 지어낸 것
 //   ④ 원본과 글자가 똑같으면 막는다 — 안 고친 것
+//   ⑤ 원본에 없는 **영어 토막**이 나오면 막는다 — 표지어를 지어낸 것.
+//      ③이 못 보는 자리다(실측 2026-09-05: 문항 id 는 전부 맞는데 「too close」·「For example」·
+//      「commonly believed」가 새로 생겼다). 학습자는 이 목록을 시험장에서 그대로 찾는다.
 //
 // 빈 값·짧은 값은 넣지 않는다. 건너뛴 수를 반드시 출력한다(CLAUDE.md §🤖).
 //
@@ -23,7 +26,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 
-import { citedItemIds, detectAnalystMeta } from './lib-analyst-markers.mjs'
+import { citedItemIds, detectAnalystMeta, inventedFragments } from './lib-analyst-markers.mjs'
 
 const COMMIT = process.argv.includes('--commit')
 const WORK = path.resolve('scripts/csat/locus-refold')
@@ -82,6 +85,9 @@ for (const f of files) {
   const had = citedItemIds(before)
   const invented = [...citedItemIds(text)].filter((id) => !had.has(id))
   if (invented.length) { skipped.push([f, `원본에 없는 문항 id: ${invented.join(' · ')}`]); continue }
+  // ⑤ 없던 표지어를 만들었다
+  const madeUp = inventedFragments(before, text)
+  if (madeUp.length) { skipped.push([f, `원본에 없는 영어 표현: ${madeUp.map((m) => JSON.stringify(m)).join(' · ')}`]); continue }
 
   ready.push({ file: f, type_id: tid, text, before, note: j.note ?? null })
 }

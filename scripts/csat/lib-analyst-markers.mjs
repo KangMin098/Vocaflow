@@ -35,3 +35,34 @@ export function citedItemIds(text) {
   if (!text) return new Set()
   return new Set((text.match(/M?\d{4}[AB]?#\d+/g) ?? []))
 }
+
+/** 따옴표·공백 표기 차이를 지운다 — 곡선 따옴표 하나 때문에 「지어냈다」로 몰리면 안 된다 */
+const normalize = (s) =>
+  (s ?? '')
+    .replace(/[‘’]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/\s+/g, ' ')
+    .toLowerCase()
+
+/**
+ * 한국어 서술 안에 박힌 **영어 토막**(두 낱말 이상 연속).
+ *
+ * 이 유형 서술의 알맹이는 표지어다 — `Thus` · `in other words` · `not A but B`. 그런데
+ * 재작성이 원본에 없던 표지어를 **그럴듯해서** 보태는 일이 실제로 있었다(실측 2026-09-05:
+ * 13유형 중 3건 — 「이유절 — too close 처럼」 · 「For example 로 열린 문장」 ·
+ * 「error · assumption · myth · commonly believed」). 문항 id 대조로는 안 걸린다.
+ *
+ * 학습자는 이 목록을 시험장에서 그대로 찾는다. 기출에 없던 표지를 찾게 만들면 시간을 잃는다.
+ * 그래서 **원본에 없는 영어 토막은 게이트가 막는다** — 원본에 있는 꼴 그대로 쓰면 통과한다
+ * (「It is critical/crucial that」을 둘로 쪼개지 말고 원본대로 두면 된다).
+ */
+export function foreignFragments(text) {
+  const found = text?.match(/[A-Za-z][A-Za-z'’-]*(?:\s+[A-Za-z][A-Za-z'’-]*)+/g) ?? []
+  return [...new Set(found.map((s) => s.trim()).filter((s) => s.length > 4))]
+}
+
+/** 재작성이 새로 만들어 낸 영어 토막 (없으면 빈 배열) */
+export function inventedFragments(before, after) {
+  const src = normalize(before)
+  return foreignFragments(after).filter((f) => !src.includes(normalize(f)))
+}
