@@ -22,6 +22,7 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { pagedSelect } from '@/lib/supabase/paged-select'
 import { createClient } from '@/lib/supabase/server'
 
 import { V_LEVEL_MAX, computeReach, type LevelReach } from './reach-math'
@@ -45,24 +46,27 @@ async function loadDistribution(): Promise<Distribution> {
   const client = await createClient()
   const lc = client as unknown as SupabaseClient
 
-  // 컬럼 하나 · 발행본만 — 312행 × smallint. 그룹 집계는 PostgREST 로 못 하므로
-  // 가장 작은 페이로드를 받아 여기서 센다. 이 결과는 TTL 동안 재사용된다.
-  const { data, error } = await lc
-    .from('library_books')
-    .select('book_v_level')
-    .eq('status', 'published')
-    .limit(2000)
+  // 컬럼 하나 · 발행본만 — smallint 한 칸이라 페이로드가 작다. 그룹 집계는 PostgREST 로
+  // 못 하므로 가장 작은 형태로 받아 여기서 센다. 결과는 TTL 동안 재사용된다.
+  //
+  // ⚠️ `.limit(N)` 을 쓰지 않는다 — PostgREST 는 **1,000행에서 조용히 끊는다**(요청한 만큼
+  //    오지 않는다). 발행 도서가 지금은 312권이라 `.limit(2000)` 도 "돌아가는" 것처럼
+  //    보였지만, 1,000권을 넘는 순간 사정권이 말없이 과소 집계된다 —
+  //    학습자에게는 "열린 책이 줄어든" 것으로 보인다. `row-cap-lies` 회귀가 잡았다.
+  const rows = await pagedSelect<{ book_v_level: number | null }>(
+    (from, to) =>
+      lc.from('library_books').select('book_v_level').eq('status', 'published').range(from, to),
+    'library-reach published books',
+  )
 
   const byLevel = new Array<number>(V_LEVEL_MAX + 1).fill(0)
   let total = 0
-  if (!error) {
-    for (const row of (data ?? []) as Array<{ book_v_level: number | null }>) {
-      total += 1
-      const lv = row.book_v_level
-      // 레벨이 없는 책은 총계에는 들어가되 사정권에는 못 넣는다 — 어느 계단에
-      // 놓아야 할지 모르는 책을 "열렸다" 고 세면 그 수가 거짓이 된다.
-      if (typeof lv === 'number' && lv >= 0 && lv <= V_LEVEL_MAX) byLevel[lv] += 1
-    }
+  for (const row of rows) {
+    total += 1
+    const lv = row.book_v_level
+    // 레벨이 없는 책은 총계에는 들어가되 사정권에는 못 넣는다 — 어느 계단에
+    // 놓아야 할지 모르는 책을 "열렸다" 고 세면 그 수가 거짓이 된다.
+    if (typeof lv === 'number' && lv >= 0 && lv <= V_LEVEL_MAX) byLevel[lv] += 1
   }
   return { byLevel, total, fetchedAt: Date.now() }
 }

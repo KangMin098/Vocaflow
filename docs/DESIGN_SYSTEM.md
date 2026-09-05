@@ -81,6 +81,27 @@ AIDA(Attention→Interest→Desire→Action)를 쓰지 않는다 — 교사·학
 전부 `0.01ms` 로 죽이는 흔한 처방은 **무엇이 바뀌었는지 알 수 없게 만들어** 오히려 접근성을 깎는다.
 **페이드는 남긴다.**
 
+##### 전역 구현 (v06.34 — 그 전까지는 문서만 이렇게 적혀 있고 코드는 반대였다)
+
+`globals.css` 의 전역 블록이 셋을 나눠 처리한다. 회귀:
+[`lib/a11y/__tests__/reduced-motion.test.ts`](../apps/web/src/lib/a11y/__tests__/reduced-motion.test.ts)
+
+| 대상 | 처리 | 왜 |
+|---|---|---|
+| 키프레임 애니메이션 | `0.01ms` + `iteration-count: 1` — 사실상 끈다 | 시간을 늘리면 `breathing`(4s) 같은 앰비언트가 **빠른 팝**이 되어 더 나쁘다 |
+| 전환 시간 | `--dur-fast`(100ms) — 죽이지 않고 **낮춘다** | 상태가 바뀌었다는 사실은 남아야 한다 |
+| 전환 대상 | `opacity·color·background-color·border-color·outline-color·box-shadow·fill·stroke` 만 | 이동·회전·스케일은 중간 프레임 없이 즉시 최종값으로 |
+
+⚠️ `transform: none` 으로 지우지 않는다 — `-translate-x-1/2` 로 중앙 정렬하는 요소가 많아
+레이아웃이 무너진다. 값은 두고 **전환 대상에서만** 뺀다.
+
+⚠️ 전환 대상 제한은 시간 완화와 **한 쌍**이다. 제한하지 않으면 100ms 전환이 `all` 에 걸려
+모든 요소의 모든 속성(`width`·`height` 포함)이 애니메이트된다.
+
+진입 연출이 꼭 필요한 표면은 전역이 끈 키프레임을 **자기 규칙으로 페이드만** 되살린다
+(`.wayfinder-reveal` → `wayfinder-fade`). 실측(2026-09-05, `reducedMotion: 'reduce'`):
+패널 `animation-name` 이 `wayfinder-fade`/100ms 로 바뀌고, 중앙 정렬 `matrix(1,0,0,1,-224,0)` 유지.
+
 #### 3.2 학습 화면 모션 화이트리스트 (7종 외 금지)
 
 카드 뒤집기 · 정답 `scale(1.05)→1` · 오답 shake 3회 · 진행률 바 · 점수 카운트업 ·
@@ -749,7 +770,7 @@ gray    = bg3 + t2         — secondary 정보
 
 | 패턴 | 1차 (전역) | 2차 (JS 분기) |
 |---|---|---|
-| **Reduce Motion** | `globals.css` `@media (prefers-reduced-motion: reduce)` — `animation-duration:.01ms!important` 등 글로벌 가드 | `useReduceMotion()` ([useReduceMotion.ts](../apps/web/src/hooks/useReduceMotion.ts)) — `transition: 'none'` 등 inline style 분기. ActivityRing/SheetContainer 등 JS-driven 애니메이션은 inline style 우선순위가 CSS guard 보다 높아 명시 분기 필수. |
+| **Reduce Motion** | `globals.css` `@media (prefers-reduced-motion: reduce)` — 키프레임은 끄고, **전환은 `--dur-fast` 로 낮추며 대상을 비-모션 속성으로 제한**하는 글로벌 가드 (§3.1) | `useReduceMotion()` ([useReduceMotion.ts](../apps/web/src/hooks/useReduceMotion.ts)) — `transition: 'none'` 등 inline style 분기. ActivityRing/SheetContainer 등 JS-driven 애니메이션은 inline style 우선순위가 CSS guard 보다 높아 명시 분기 필수. |
 | **Focus visible** | `:focus-visible { outline: 2px solid var(--bdf) }` 글로벌 | — |
 | **Safe area** | Screen/Sheet 가 `env(safe-area-inset-{top,bottom,left,right})` 자동 처리 | — |
 | **ESC 닫힘 + body scroll lock** | SheetContainer 내 `useEffect` 가 키 핸들러 + `document.body.style.overflow = 'hidden'` | — |

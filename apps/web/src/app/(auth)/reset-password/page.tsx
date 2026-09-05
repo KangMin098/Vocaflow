@@ -213,7 +213,7 @@ function ResetPasswordInner() {
           <button
             type="submit"
             disabled={loading}
-            className="group relative flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-ti shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+            className="group relative flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-[var(--on-p)] shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? (
               <>
@@ -301,7 +301,7 @@ function ResetPasswordInner() {
 
           <Link
             href="/login"
-            className="group flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-ti shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99]"
+            className="group flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-[var(--on-p)] shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99]"
           >
             <span>로그인 화면으로</span>
             <ArrowRight
@@ -369,7 +369,7 @@ function ResetPasswordInner() {
         <button
           type="submit"
           disabled={loading}
-          className={`group relative flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-ti shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60`}
+          className={`group relative flex h-12 w-full items-center justify-center gap-s-2 rounded-md bg-p font-display text-sm font-semibold tracking-[-0.005em] text-[var(--on-p)] shadow-sm transition-all duration-normal hover:bg-p-hover hover:shadow-md active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60`}
         >
           {loading ? (
             <>

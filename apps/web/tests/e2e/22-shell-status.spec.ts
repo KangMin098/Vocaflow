@@ -189,6 +189,71 @@ test.describe('셸 상태 표면 (ADR 0006 D2)', () => {
     await expect(page.locator('[aria-label="오늘 상태"]')).toHaveCount(0);
   });
 
+  /*
+   * ── I~K: 나침반 띠 (v06.34) ────────────────────────────────────────────────
+   *
+   * A~H 는 "상태 표면이 하나인가" 를 지킨다. 아래 셋은 **그 하나가 실제로 말을 하는가** 를
+   * 지킨다 — 재설계 직전 실측에서 이 띠는 학습자 라우트 9곳에서 텍스트가 100% 동일했고
+   * (칩 하나 `새 단어 8`), 정적 검사로는 그것이 결함으로 보이지 않았다.
+   *
+   * ⚠️ 국면 4종 중 `complete`(오늘 5블록을 다 마친 날)는 여기서 재지 않는다.
+   *    그 상태를 만들려면 이 계정의 학습 기록을 써야 하는데, 같은 계정을 20개 넘는 스펙이
+   *    공유하므로 **다른 스펙의 전제를 조용히 바꾼다.** 그 국면은 순수 모델·렌더 회귀가
+   *    맡는다(`lib/learner/__tests__/wayfinder.test.ts` · `compass-ribbon.test.tsx`).
+   */
+
+  test('I. 띠는 화면마다 다른 위치를 말한다 (9곳에서 같은 문자열이던 결함)', async ({ page }) => {
+    const seen = new Set<string>();
+    for (const path of ['/library/books', '/wordvault', '/dashboard']) {
+      await gotoStable(page, path);
+      const text = (await page.locator('[aria-label="오늘 상태"]').innerText()) ?? '';
+      // 표면 이름은 `SURFACES[].name` 이 정본이라 영문 한 단어다.
+      const label = text.split(/\s+/).find((w) => /^[A-Z]{4,}$/.test(w));
+      expect(label, `${path} 에 위치 표기가 없다: "${text.slice(0, 60)}"`).toBeTruthy();
+      seen.add(label!);
+    }
+    expect(seen.size, `세 화면이 같은 위치를 말한다: ${[...seen].join(' | ')}`).toBe(3);
+  });
+
+  test('J. 「나의 자리」는 접혀 있고, 펴면 나머지 세 질문이 나온다', async ({ page }) => {
+    await gotoStable(page, '/hub');
+    const toggle = page.getByRole('button', { name: /나의 자리/ });
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    // 철학 ② Progressive Disclosure — 접힌 상태에서는 내용이 DOM 에 없다.
+    await expect(page.getByText('사정권', { exact: true })).toHaveCount(0);
+
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    const panel = page.locator('.wayfinder-reveal');
+    await expect(panel).toHaveCount(1);
+    const text = (await panel.innerText()) ?? '';
+    for (const cell of ['여정', '사정권', '지난 7일']) {
+      expect(text, `펼친 층에 「${cell}」 이 없다`).toContain(cell);
+    }
+    // 사정권은 상수가 아니라 카탈로그 실측이어야 한다 — 숫자가 붙어 있어야 한다.
+    expect(text).toMatch(/\d[\d,]*권/);
+
+    // 같은 버튼으로 닫힌다 (모달이 아니므로 Esc 가 없어도 막히지 않는다).
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(page.locator('.wayfinder-reveal')).toHaveCount(0);
+  });
+
+  test('K. 셸의 CTA 는 하나이고, 누르면 실제로 그 화면으로 간다', async ({ page }) => {
+    await gotoStable(page, '/hub');
+    const ribbon = page.locator('[aria-label="오늘 상태"]');
+    // 계단 점(→ /hub)과 CTA 둘뿐이다. 셸에서 고르게 하지 않는다.
+    const links = ribbon.locator('a');
+    expect(await links.count(), '띠의 링크가 늘었다 — 셸에서 CTA 는 하나다').toBeLessThanOrEqual(2);
+
+    const cta = links.last();
+    const href = await cta.getAttribute('href');
+    expect(href, 'CTA 에 목적지가 없다').toBeTruthy();
+    await cta.click();
+    await page.waitForURL((u) => u.pathname !== '/hub', { timeout: 30_000 });
+    expect(page.url()).toContain(href!.split('?')[0]);
+  });
+
   test('G. 띠의 상호작용 요소는 44px 이상이다', async ({ page }) => {
     await gotoStable(page, '/hub');
     const links = page.locator('[aria-label="오늘 상태"] a');

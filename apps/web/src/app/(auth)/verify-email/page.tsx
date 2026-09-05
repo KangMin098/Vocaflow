@@ -106,7 +106,7 @@ function VerifyEmailInner() {
 
         <ol className="space-y-s-3">
           <li className="flex items-start gap-s-3">
-            <div className="mt-[1px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-p font-mono text-[10px] font-bold text-ti">
+            <div className="mt-[1px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-p font-mono text-[10px] font-bold text-[var(--on-p)]">
               1
             </div>
             <div className="flex-1">
@@ -118,7 +118,7 @@ function VerifyEmailInner() {
           </li>
 
           <li className="flex items-start gap-s-3">
-            <div className="mt-[1px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-p font-mono text-[10px] font-bold text-ti">
+            <div className="mt-[1px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-p font-mono text-[10px] font-bold text-[var(--on-p)]">
               2
             </div>
             <div className="flex-1">

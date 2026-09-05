@@ -285,14 +285,40 @@ code, pre, kbd, samp {
   outline-offset: 2px;
 }
 
-/* 모션 감소 선호 사용자 — RN useReduceMotion 과 동일 정책 */
+/* ── 모션 감소 선호 — **끄기가 아니라 낮추기** (v06.34 · vocaflow-design §5.1) ──────
+   이전에는 애니메이션·전환을 전부 `0.01ms` 로 죽였다. 널리 쓰이는 스니펫이지만
+   이 저장소의 디자인 정본과 정면으로 어긋난다:
+
+     "전부 0.01ms 로 죽이면 **무엇이 바뀌었는지 알 수 없게 되어** 오히려 접근성이
+      나빠진다. 이동·회전·스케일은 제거하되 **페이드는 남긴다.**"
+
+   학습 제품에서 이건 사소하지 않다 — 정답/오답 피드백·카드 뒤집기·패널 펼침이
+   전부 "순간이동" 이 되면, 모션에 민감한 학습자만 **상태 변화를 못 보고 지나친다.**
+
+   그래서 셋을 나눈다:
+     ① 키프레임 애니메이션(루프·앰비언트·연출) → 사실상 끈다.
+        여기서 시간을 늘리면 `breathing`(4s) 같은 것이 **빠른 팝**이 되어 더 나쁘다.
+        진입 연출이 꼭 필요한 표면은 개별적으로 페이드만 남긴다(`.wayfinder-reveal`).
+     ② 상태 전환 시간 → 죽이지 않고 `--dur-fast`(100ms)로 **낮춘다.**
+     ③ 전환 대상 → **움직이지 않는 속성만.** transform·이동·크기 변화는 즉시 최종값으로 간다.
+
+   ⚠️ `transform: none` 으로 지우지 않는다 — 이 저장소는 `-translate-x-1/2` 로 중앙
+      정렬하는 요소가 많아 그렇게 하면 레이아웃이 무너진다. 값은 그대로 두고
+      **중간 프레임만** 없앤다(전환 대상에서 뺀다).
+
+   ⚠️ ③ 이 ② 와 한 쌍이다. 대상을 제한하지 않으면 100ms 전환이 `all` 에 걸려
+      **모든 요소의 모든 속성**(width·height 포함)이 애니메이트된다. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: var(--dur-fast) !important;
+    transition-delay: 0ms !important;
+    transition-property:
+      opacity, color, background-color, border-color, outline-color, box-shadow, fill,
+      stroke !important;
     scroll-behavior: auto !important;
   }
 }
@@ -1005,7 +1031,9 @@ body.studying .sidebar:hover { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* 이동·스케일은 걷어내되 **상태가 바뀌었다는 사실은 남긴다**. */
+  /* 이동은 걷어내되 **상태가 바뀌었다는 사실은 남긴다**.
+     전역 규칙 ①이 키프레임을 0.01ms 로 끄므로, 페이드가 필요한 이 표면만 되살린다.
+     (전역을 통째로 늘리면 앰비언트 루프가 팝이 된다 — 위 §4 주석 참조.) */
   .wayfinder-reveal {
     animation-name: wayfinder-fade !important;
     animation-duration: var(--dur-fast) !important;
