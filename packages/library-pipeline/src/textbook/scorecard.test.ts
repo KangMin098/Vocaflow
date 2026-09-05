@@ -43,7 +43,11 @@ const words = (prefix: string, n: number): string[] =>
 describe('scoreVolume', () => {
   it('정상 권은 자동 항목을 모두 통과한다', () => {
     const units = Array.from({ length: 20 }, (_, i) =>
-      unit(i + 1, ['a', 'b', 'c', 'd'], words(`u${i}w`, 20)),
+      // **단원마다 다른 글**을 쓴다. 예전 픽스처는 20단원이 같은 글 4편을 돌려 썼는데,
+      //   그것을 보는 검사가 없어서 "정상 권" 으로 통했다 — 실제 재고에서도 같은 일이
+      //   있었다(V2 는 120자리를 76편으로 채우고 9/9 통과). 검사가 생겼으니 픽스처도
+      //   실제 정상 권의 모양이어야 한다.
+      unit(i + 1, [`a${i}`, `b${i}`, `c${i}`, `d${i}`], words(`u${i}w`, 20)),
     )
     const s = scoreVolume(units)
     expect(s.auto.every((c) => c.pass), s.auto.filter((c) => !c.pass).map((c) => c.label).join(', ')).toBe(true)
@@ -132,7 +136,11 @@ describe('scoreVolume', () => {
 
   it('**못 재는 것에는 점수를 붙이지 않는다** — human 은 통과율 분모 밖', () => {
     const units = Array.from({ length: 20 }, (_, i) =>
-      unit(i + 1, ['a', 'b', 'c', 'd'], words(`u${i}w`, 20)),
+      // **단원마다 다른 글**을 쓴다. 예전 픽스처는 20단원이 같은 글 4편을 돌려 썼는데,
+      //   그것을 보는 검사가 없어서 "정상 권" 으로 통했다 — 실제 재고에서도 같은 일이
+      //   있었다(V2 는 120자리를 76편으로 채우고 9/9 통과). 검사가 생겼으니 픽스처도
+      //   실제 정상 권의 모양이어야 한다.
+      unit(i + 1, [`a${i}`, `b${i}`, `c${i}`, `d${i}`], words(`u${i}w`, 20)),
     )
     const s = scoreVolume(units)
     expect(s.human.length).toBeGreaterThan(0)
@@ -149,5 +157,27 @@ describe('scoreVolume', () => {
     for (const a of ['learner', 'teacher', 'parent'] as const) {
       expect([...s.auto, ...s.human].some((c) => c.audience === a), a).toBe(true)
     }
+  })
+})
+
+describe('한 권에서 같은 글 되풀이', () => {
+  it('두 단원까지는 통과한다 — 같은 글을 다른 각도로 묻는 것은 설계다', () => {
+    const units = Array.from({ length: 20 }, (_, i) =>
+      // 앞 두 단원만 같은 글을 나눠 쓴다.
+      unit(i + 1, i < 2 ? ['x', `p${i}`, `q${i}`, `r${i}`] : [`a${i}`, `b${i}`, `c${i}`, `d${i}`],
+        words(`u${i}w`, 20)),
+    )
+    const c = scoreVolume(units).auto.find((x) => x.label === '한 권에서 같은 글을 되풀이 읽히지 않는다')
+    expect(c!.pass).toBe(true)
+  })
+
+  it('세 단원에 걸치면 잡는다 — 학습자는 같은 지문을 세 번 읽는다', () => {
+    const units = Array.from({ length: 20 }, (_, i) =>
+      unit(i + 1, i < 3 ? ['x', `p${i}`, `q${i}`, `r${i}`] : [`a${i}`, `b${i}`, `c${i}`, `d${i}`],
+        words(`u${i}w`, 20)),
+    )
+    const c = scoreVolume(units).auto.find((x) => x.label === '한 권에서 같은 글을 되풀이 읽히지 않는다')
+    expect(c!.pass).toBe(false)
+    expect(c!.detail).toMatch(/2단원 초과 1/)
   })
 })

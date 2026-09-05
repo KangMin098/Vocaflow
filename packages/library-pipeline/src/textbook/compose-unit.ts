@@ -490,6 +490,36 @@ export function composeUnits(
   const usedElementaryRefs = new Set<string>()
   // 권 전체에서 낱말이 몇 번 실렸는지. **금지가 아니라 상한**이다 — 아래 주석 참조.
   const wordCount = new Map<string, number>()
+  /**
+   * 권 전체에서 **원글**이 몇 단원에 실렸는지. `refsInUnit` 은 단원 안만 막으므로
+   * 권 전체로는 같은 글이 여러 단원에 다시 나온다 — 그리고 **그것을 보는 검수 항목이 없어
+   * 조용히 통과했다.** 실측 2026-09-05 (20단원 · 120자리):
+   *
+   *     V2  서로 다른 글 **76편** · 28편이 2단원 이상 · **최다 4단원**
+   *     V3  서로 다른 글 **88편** · 20편이 2단원 이상 · **최다 4단원**
+   *
+   * 재고가 모자라서가 아니었다 — V2 는 문항 붙은 글이 **202편**인데 76편만 쓰였다.
+   * 원인은 고르는 방식이었다: 아래 `takeOne` 이 `list.find()` 로 **배열 첫 항목**을
+   * 집어서, 앞쪽 글이 단원마다 다시 뽑혔다.
+   *
+   * 그래서 **덜 쓰인 글을 먼저 고른다. 금지가 아니라 선호다** — 재고가 얇은 밴드에서
+   * 금지로 걸면 단원이 안 채워져 권이 통째로 줄어든다(이 파일이 이미 겪은 실패다).
+   */
+  const refUseCount = new Map<string, number>()
+  /** 후보 중 **권에서 가장 덜 쓰인 글**의 것을 고른다. 같으면 원래 순서를 지킨다. */
+  const leastUsed = (cands: PoolItem[]): PoolItem | undefined => {
+    let best: PoolItem | undefined
+    let bestN = Infinity
+    for (const it of cands) {
+      const n = refUseCount.get(it.ref_id) ?? 0
+      if (n < bestN) {
+        best = it
+        bestN = n
+        if (n === 0) break // 안 쓴 글보다 나은 것은 없다 — 더 볼 필요가 없다
+      }
+    }
+    return best
+  }
   const units: Unit[] = []
   let stoppedBecause: string | null = null
 
@@ -512,11 +542,14 @@ export function composeUnits(
           .sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0]))
         for (const [t] of cands) {
           const list = byShare.pools.get(t) ?? []
-          const hit = list.find(
-            (it) =>
-              !used.has(it.id) &&
-              !refsInUnit.has(it.ref_id) &&
-              !(ELEMENTARY_ITEM_TYPES.has(it.type) && usedElementaryRefs.has(it.ref_id)),
+          // 첫 항목이 아니라 **권에서 덜 쓰인 글**의 것을 고른다(위 `refUseCount` 참조).
+          const hit = leastUsed(
+            list.filter(
+              (it) =>
+                !used.has(it.id) &&
+                !refsInUnit.has(it.ref_id) &&
+                !(ELEMENTARY_ITEM_TYPES.has(it.type) && usedElementaryRefs.has(it.ref_id)),
+            ),
           )
           if (!hit) continue
           picked.push(hit)
@@ -588,6 +621,9 @@ export function composeUnits(
     }   // ← 비중 배분을 안 쓸 때의 예전 경로 끝
 
     for (const it of picked) used.add(it.id)
+    // 이 단원이 쓴 글을 권 집계에 더한다. `refsInUnit` 이 단원 안 중복을 이미 막으므로
+    //   단원 단위로 한 번씩만 오른다 — 다음 단원은 이 값을 보고 덜 쓰인 글을 먼저 고른다.
+    for (const ref of refsInUnit) refUseCount.set(ref, (refUseCount.get(ref) ?? 0) + 1)
 
     // ③ 이 단원이 쓴 글들의 어휘만 모은다 — 안 읽은 글의 낱말을 외우게 하지 않는다.
     //

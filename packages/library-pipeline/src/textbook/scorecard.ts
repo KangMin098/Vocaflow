@@ -146,6 +146,39 @@ export function scoreVolume(units: ReadonlyArray<Unit>): Scorecard {
     detail: `${units.length}단원 중 반복 ${dupInUnit.length}`,
   })
 
+  /**
+   * **한 권 안에서 같은 글을 세 단원 넘게 읽히지 않는다.**
+   *
+   * 바로 위 항목은 **단원 안**만 본다. 조합기의 중복 금지(`refsInUnit`)도 마찬가지라,
+   * 권 전체로는 같은 글이 여러 단원에 다시 나오는데 **그것을 보는 항목이 없어 9/9 로
+   * 통과했다.** 실측 2026-09-05 (20단원 · 120자리): V2 는 서로 다른 글이 **76편**뿐이고
+   * 세 편은 **네 단원**에 실렸다. 학습자에게는 같은 지문을 네 번 읽는 권이다.
+   *
+   * **없는 검사 항목은 통과로 보인다** — 이 저장소가 `volume-drift.test.ts` 의
+   * 감시 목록 누락에서 이미 겪은 실패와 같은 모양이다.
+   *
+   * 상한을 2로 둔다(3단원 이상이면 실패). 0 재사용을 요구하면 재고가 얇은 밴드가
+   * 통째로 실패하는데, 그건 조합기가 아니라 **재고의 문제**라 여기서 잡을 것이 아니다.
+   * 재사용 편수 자체는 `detail` 에 남겨 재고가 늘면 줄어드는 것이 보이게 한다.
+   */
+  const MAX_UNITS_PER_REF = 2
+  const unitsPerRef = new Map<string, number>()
+  for (const u of units) {
+    for (const ref of new Set(u.items.map((i) => i.ref_id))) {
+      unitsPerRef.set(ref, (unitsPerRef.get(ref) ?? 0) + 1)
+    }
+  }
+  const overused = [...unitsPerRef.values()].filter((n) => n > MAX_UNITS_PER_REF)
+  const reused = [...unitsPerRef.values()].filter((n) => n > 1)
+  auto.push({
+    audience: 'learner',
+    label: '한 권에서 같은 글을 되풀이 읽히지 않는다',
+    pass: overused.length === 0,
+    detail:
+      `서로 다른 글 ${unitsPerRef.size}편 · 2단원 이상 ${reused.length}편 · ` +
+      `${MAX_UNITS_PER_REF}단원 초과 ${overused.length}`,
+  })
+
   human.push({
     audience: 'learner',
     label: '오답이 매력적인가',
