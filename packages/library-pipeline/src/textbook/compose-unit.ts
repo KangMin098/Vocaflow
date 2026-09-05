@@ -535,11 +535,32 @@ export function composeUnits(
       //   20단원짜리가 12단원에서 멈췄다 — 단원 후반에 "몫이 남았고 아직 안 쓴 유형" 이
       //   말라서다. 시중 교재도 한 단원에 같은 유형을 두 번 낸다. 재고가 허용하는
       //   만큼만 양보하되 **양보한 사실은 세어서 남긴다**(mixRelaxed).
+      /**
+       * 이 유형의 풀에서 **권에서 아직 한 번도 안 쓴 글**이 몇 편인가.
+       *
+       * ── 왜 "남은 몫이 큰 유형부터" 만으로는 안 되나 (실측 2026-09-05 V3) ──
+       * 유형표는 전부 여유가 있었다(topic 27편·title 38편 … grammar_fix 235편). 그런데도
+       * 120자리에 서로 다른 글이 108편뿐이었고, 문항을 넣을수록 **더 나빠졌다**(110→109→108).
+       * 몫이 큰 `word_order`(26)·`unit_vocab`(27)이 단원마다 먼저 고르니, 풀이 작은 `topic`
+       * 차례가 올 때쯤 그 27편은 이미 다른 유형이 써 버린 뒤였다 — 겹침이 **강제**된다.
+       * 재고가 아니라 **채우는 순서**가 원인이다.
+       */
+      const freeRefsIn = (t: string): number => {
+        const seen = new Set<string>()
+        for (const it of byShare.pools.get(t) ?? []) {
+          if ((refUseCount.get(it.ref_id) ?? 0) === 0) seen.add(it.ref_id)
+        }
+        return seen.size
+      }
       const takeOne = (allowRepeatType: boolean, ignoreQuota: boolean): boolean => {
+        // **가장 제약된 유형부터** — 남은 몫 ÷ 아직 안 쓴 글. 작은 풀이 자기 글을 먼저
+        // 확보하게 한다. 몫 크기는 동점 처리로 남겨 "뒤 단원에 한 유형이 몰리지 않는다"
+        // 는 원래 의도도 지킨다.
         const cands = Object.entries(byShare.quota)
           .filter(([t, left]) => (ignoreQuota || left > 0)
             && (allowRepeatType || !picked.some((x) => x.type === t)))
-          .sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0]))
+          .map(([t, left]) => [t, left, left / Math.max(1, freeRefsIn(t))] as const)
+          .sort((x, y) => y[2] - x[2] || y[1] - x[1] || x[0].localeCompare(y[0]))
         for (const [t] of cands) {
           const list = byShare.pools.get(t) ?? []
           // 첫 항목이 아니라 **권에서 덜 쓰인 글**의 것을 고른다(위 `refUseCount` 참조).
