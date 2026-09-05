@@ -85,6 +85,33 @@ test.describe('받아쓰기 전 화면 순회', () => {
     await assertTouchTargets(page, '/dictate');
   });
 
+  /**
+   * A2. **허브는 브라우저에서 데이터를 가져오지 않는다.**
+   *
+   * 2026-09-06 실측(프로덕션 빌드): `/dictate` 는 브라우저 데이터 요청 **15건**으로
+   * 학습자 화면 중 가장 많았다. 라우트 파일부터 `'use client'` 라 서버가 그리는 것이
+   * 하나도 없었고, 하이드레이션 뒤 페처 5종이 각자 Supabase 를 쳤기 때문이다.
+   * 조회를 `lib/dictation/hub-query.ts` 한 벌로 서버에 내린 뒤 **0건**이 됐다.
+   *
+   * 이 단언이 없으면 되돌아가는 것을 아무도 못 본다 — 화면은 똑같이 보이고
+   * 느려지기만 한다. 클라이언트에 남아도 되는 것은 `localStorage`(이어하기)와
+   * 세션 시작뿐이고, 그 둘은 Supabase REST 를 치지 않는다.
+   */
+  test('A2. 허브 — 하이드레이션 뒤 Supabase 를 직접 치지 않는다', async ({ page }) => {
+    const calls: string[] = [];
+    page.on('request', (r) => {
+      const url = r.url();
+      if (!/supabase\.(co|in)\//.test(url)) return;
+      if (/\/auth\/v1\//.test(url)) return; // 세션 갱신은 화면의 조회가 아니다
+      if (/\/rest\/v1\/|\/rpc\/|\/functions\/v1\//.test(url)) {
+        calls.push(url.replace(/^https?:\/\/[^/]+/, '').slice(0, 120));
+      }
+    });
+    await page.goto('/dictate', { waitUntil: 'networkidle' });
+    await page.waitForTimeout(3_000);
+    expect(calls, `허브가 브라우저에서 다시 조회한다 — ${calls.join(' · ')}`).toEqual([]);
+  });
+
   test('B. 자료 고르기 — 4탭 모두 전환되고 각 탭이 상태를 말한다', async ({ page }) => {
     await page.goto('/dictate/setup');
     await assertSettled(page, '/dictate/setup');
