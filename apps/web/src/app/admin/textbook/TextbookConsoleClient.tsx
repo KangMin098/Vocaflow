@@ -69,11 +69,23 @@ export function TextbookConsoleClient({
 
       {/* ── 요약 ─────────────────────────────────────────────── */}
       <section aria-label="요약" className="grid grid-cols-2 gap-3 md:grid-cols-6">
-        <Stat label="저장 문항" value={stats.totalItems.toLocaleString()} />
-        <Stat label="사다리 계단" value={`${series.rungs.length - series.brokenSteps.length}/${series.rungs.length}`} />
+        <Stat
+          label="저장 문항"
+          value={stats.totalItems == null ? '못 잼' : stats.totalItems.toLocaleString()}
+          sub={stats.totalItems == null ? '조회가 실패했다 — 0 이 아니다' : undefined}
+          warn={stats.totalItems == null}
+        />
+        <Stat
+          label="사다리 계단"
+          value={
+            series ? `${series.rungs.length - series.brokenSteps.length}/${series.rungs.length}` : '못 잼'
+          }
+          sub={series ? undefined : '문항을 못 세서 사다리를 못 그린다'}
+          warn={!series}
+        />
         <Stat
           label="조판된 권"
-          value={brand.renderError ? '—' : `${brand.renders.length}/${series.rungs.length}`}
+          value={brand.renderError || !series ? '—' : `${brand.renders.length}/${series.rungs.length}`}
           sub={
             brand.renderError
               ? '기록 못 읽음'
@@ -98,9 +110,15 @@ export function TextbookConsoleClient({
         <Stat label="평가 우위" value={`${superiorPct}%`} sub={`${ev.byStanding.superior}/${ev.total}`} />
         <Stat
           label="학습자 관측"
-          value={stats.observations.toLocaleString()}
-          sub={stats.observations === 0 ? '난이도·변별도 못 냄' : undefined}
-          warn={stats.observations === 0}
+          value={stats.observations == null ? '못 잼' : stats.observations.toLocaleString()}
+          sub={
+            stats.observations == null
+              ? '조회가 실패했다'
+              : stats.observations === 0
+                ? '난이도·변별도 못 냄'
+                : undefined
+          }
+          warn={stats.observations == null || stats.observations === 0}
         />
       </section>
 
@@ -400,6 +418,20 @@ export function TextbookConsoleClient({
       {/* ── 초·중 원문 재고 ───────────────────────────────────── */}
       <KidSourceSection panel={kidSource} />
 
+      {/*
+        문항을 못 세면 사다리를 **안 그린다.** 예전에는 빈 사다리(0/7)를 그려서, 조회가 실패한
+        것인지 재고가 정말 없는 것인지 구분할 수 없었다 — 화면 위쪽의 「문항 조회 실패」를
+        놓친 사람에게는 "계단이 전부 비었다" 로 읽혔다.
+      */}
+      {series == null ? (
+        <section
+          aria-label="학령 사다리"
+          className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] p-4 font-body text-[13px] text-[var(--t3)]"
+        >
+          학령 사다리를 못 그린다 — 문항을 세지 못했다. 빈 사다리를 그리면 「재고가 없다」로
+          읽히므로 아무것도 그리지 않는다.
+        </section>
+      ) : (
       <section aria-label="학령 사다리" className="flex flex-col gap-2">
         <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">
           학령 사다리 — {series.brand}
@@ -423,6 +455,7 @@ export function TextbookConsoleClient({
           ))}
         </ul>
       </section>
+      )}
 
       {/* ── 평가 우위 ─────────────────────────────────────────── */}
       <section aria-label="평가 요소" className="flex flex-col gap-2">

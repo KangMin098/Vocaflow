@@ -128,12 +128,22 @@ export interface BrandPanel {
 
 export interface TextbookConsoleStats {
   /** 저장 문항 총수. */
-  totalItems: number
+  /**
+   * 저장 문항 수. **못 셌으면 `null`** — 0 이 아니다.
+   *
+   * ⚠️ 실측 2026-09-06: 이 표(65만 행)를 1,000행씩 끌어오다 `statement timeout` 이 나면
+   *   예전에는 `totalItems: 0` 을 돌려줬다. 화면 위쪽에 「문항 조회 실패」라고 적으면서도
+   *   아래에서 **저장 문항 0 · 사다리 계단 0/7** 을 그려, 읽는 사람에게는 "재고가 없다" 로
+   *   보였다. 0(사실)과 못 잼(모름)은 할 일이 정반대다.
+   */
+  totalItems: number | null
   byType: TypeRow[]
-  series: SeriesFill
+  /** 학령 사다리 채움. 문항을 못 셌으면 `null` — 빈 사다리(0/7)로 그리면 거짓이다. */
+  series: SeriesFill | null
   evaluation: EvalReport
   /** 학습자 관측 수 — 0 이면 난이도·변별도를 못 낸다. */
-  observations: number
+  /** 학습자 관측 수. 못 셌으면 `null` — 0(아무도 안 풀었다)과 다르다. */
+  observations: number | null
   /** 브랜딩 규격 + 조판 기록. */
   brand: BrandPanel
   /** 조회가 깨졌을 때 그 이유. 화면이 빈 표 대신 이것을 말한다. */
@@ -248,11 +258,11 @@ async function getBrandPanel(
 
 export async function getTextbookConsoleStats(): Promise<TextbookConsoleStats> {
   const empty: TextbookConsoleStats = {
-    totalItems: 0,
+    totalItems: null,
     byType: [],
-    series: measureSeriesFill([]),
+    series: null,
     evaluation: measureEvaluation(EVAL_DIMENSIONS),
-    observations: 0,
+    observations: null,
     brand: {
       brand: SERIES_BRAND,
       fingerprint: brandFingerprint(),

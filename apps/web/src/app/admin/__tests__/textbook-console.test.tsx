@@ -390,3 +390,40 @@ describe('초·중 원문 재고 패널', () => {
     expect(html).toContain('격리가 확정된 것만')
   })
 })
+
+describe('조회가 실패하면 0 이 아니라 「못 잼」이다', () => {
+  // ⚠️ 실측 2026-09-06: 문항 조회가 `statement timeout` 으로 죽으면 이 화면은
+  //   「저장 문항 0 · 사다리 계단 0/7」을 그렸다. 위쪽에 「문항 조회 실패」라고 적으면서도
+  //   아래 숫자는 0 이라, 그 줄을 놓친 사람에게는 **재고가 없다**로 읽혔다.
+  //   0(아무것도 없다 · 사실)과 못 잼(모른다)은 할 일이 정반대다.
+  const broken = {
+    ...base,
+    totalItems: null,
+    byType: [],
+    series: null,
+    observations: null,
+    loadError: '문항 조회 실패: canceling statement due to statement timeout',
+  }
+
+  it('저장 문항을 0 으로 적지 않는다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={broken} kidSource={kidSource} />).replace(/<!--[sS]*?-->/g, '')
+    expect(html).toContain('못 잼')
+    expect(html).toContain('0 이 아니다')
+  })
+
+  it('사다리를 0/7 로 그리지 않는다 — 아예 안 그린다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={broken} kidSource={kidSource} />).replace(/<!--[sS]*?-->/g, '')
+    expect(html).not.toContain('0/7')
+    expect(html).toContain('학령 사다리를 못 그린다')
+  })
+
+  it('실패 이유는 그대로 남는다 — 숨기고 「못 잼」만 적으면 원인을 못 찾는다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={broken} kidSource={kidSource} />).replace(/<!--[sS]*?-->/g, '')
+    expect(html).toContain('statement timeout')
+  })
+
+  it('정상일 때는 예전처럼 수를 그대로 적는다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />).replace(/<!--[sS]*?-->/g, '')
+    expect(html).not.toContain('조회가 실패했다')
+  })
+})
