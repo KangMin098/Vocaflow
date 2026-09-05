@@ -53,9 +53,10 @@
 
 `admin/layout.tsx` Server fetch `reports.status='open'` COUNT → AdminSidebar `reportsBadge` prop.
 - 0건 자동 숨김
-- ⚠️ **`reports` 테이블이 DB 에 없다** (2026-08-12 실측 — `PGRST205`). `fetchPendingReportsCount`
-  의 `try/catch` 가 이를 삼키고 0 을 반환해 배지는 영구히 숨겨진다. 배지 부재 = "신고 0건" 이
-  아니라 "집계할 테이블 없음".
+- ⚠️ **`reports` 테이블이 DB 에 없다** (2026-08-12 실측 — `PGRST205`, 2026-09-05 재확인 —
+  `to_regclass` NULL). 배지 부재 = "신고 0건" 이 아니라 **"집계할 테이블 없음"**.
+- 2026-09-05: `fetchPendingReportsCount` 가 `count ?? 0` 으로 뭉개던 것을 `number | null` 로
+  바꿨다. 둘의 차이가 코드에 남아 있어야 나중에 테이블이 생겼을 때 배지가 되살아난다.
 
 ---
 
@@ -74,11 +75,63 @@
 **`count ?? 0` 금지** — `head: true` 요청은 없는 테이블에도 `204 / error=null / count=null` 을
 돌려준다 (404 는 non-head 에서만). 0 으로 채우면 미구현 화면이 "0건" 으로 보인다. `null` 은 화면에 `—`.
 
-**목업 태그가 붙는 화면** (DB 를 전혀 읽지 않고 코드 상수를 렌더 — 2026-08-12 grep 실측):
+**목업 화면** (DB 를 전혀 읽지 않고 코드 상수를 렌더):
 `/admin/users` · `/admin/library` · `/admin/analytics` · `/admin/reports` · `/admin/billing` · `/admin/settings`
 
+2026-09-05 — 대시보드 링크에 붙던 `목업` 태그는 **그 화면을 거쳐 온 사람만** 봤다. 사이드바로
+직행하면 한 번도 안 보였고, 그 사이 `/admin/users` 는 "총 사용자 **1,247**"(실제 3, 415배)을,
+`/admin/settings` 는 "활성화 후 즉시 적용됩니다"(저장 경로 없음)를 단언했다. 조치:
+
+- `components/admin/MockDataBanner.tsx` — 화면 상단 **상시 고지**(접히지 않음, `role="status"`).
+  유일한 고지가 기본 접힘인 도움말 안이면 없는 것과 같다
+- 가짜 목록·수치 제거. 실측 가능한 축(`user_profiles`·`daily_activity`)은 `getAdminDashboardStats()`
+  재사용, 테이블이 없는 축(구독·결제·신고·플래그)은 수치를 지우고 "집계할 곳이 없다"
+- 아무것도 저장하지 않는 토글·버튼 11개를 `disabled` + 사유 표시
+
 회귀: `src/app/admin/__tests__/page.test.tsx` (renderToString · 5) +
-`src/lib/admin/__tests__/dashboard-stats.integration.test.ts` (실 DB · 6).
+`src/lib/admin/__tests__/dashboard-stats.integration.test.ts` (실 DB · 6) +
+`src/app/admin/__tests__/mock-data-banner.test.tsx` — 목업 화면 목록을 선언하고 전부 배너를
+렌더하는지, 그리고 **지운 상수 문자열이 설명문으로 되살아나지 않는지** 고정(실제로 두 번 잡혔다).
+
+---
+
+## 콘솔 공통 뼈대 (2026-09-05)
+
+| 파일 | 없을 때 무슨 일이 났나 |
+|---|---|
+| `app/admin/error.tsx` | admin 어디서 throw 해도 루트 `error.tsx` 가 잡아 **사이드바까지 사라졌다** — 한 칸 실패가 콘솔 정지 |
+| `app/admin/loading.tsx` | `force-dynamic` 화면이 대부분이라 집계가 끝날 때까지 **직전 화면이 얼어** 있었고, 관리자가 다시 눌러 집계가 두 번 돌았다 |
+| `app/admin/not-found.tsx` | 한 글자 틀린 주소가 루트 404 로 떨어져 콘솔 밖으로 튕겼다 |
+| `app/admin/layout.tsx` 의 `requireAdmin()` | `'use client'` 라 가드를 못 부르는 화면 8개의 유일한 방어가 미들웨어 한 겹이었다 |
+| `lib/auth/require-admin.ts` 의 `cache()` | 화면 한 장에 `getUser()` + `user_profiles` 왕복이 **8~10회** (layout + 데이터 로더 5곳) |
+
+`apps/web/middleware.ts` **삭제** — Next 14 는 `src/middleware.ts` 만 실행한다
+(`.next/server/middleware-manifest.json` 의 `name="src/middleware"` 로 확정). 4개월 방치된
+루트 사본은 curator 차단 · `?returnTo=` · 상태 게이트 부재라는 **이미 고친 버그 3종의 스냅샷**이라,
+읽는 사람을 현행 정책으로 오도했다.
+
+### 화면도움말 — 화면 단위 항목이 통째로 사문화돼 있었다
+
+`AdminScreenHelp` 가 `const body = (tab && tabs[tab]) || screen` 으로 **둘 중 하나만** 골랐는데,
+탭을 넘기는 화면은 활성 탭 라벨이 항상 정의돼 있어 `screen` 가지에 **한 번도 닿지 않았다**.
+거기 든 "채움률을 품질로 읽지 마라" 같은 오조작 방지 경고가 한 번도 안 보였다.
+지금은 탭 본문 아래에 화면 전체 경고를 **항상** 덧붙인다.
+
+회귀 `src/lib/admin/__tests__/help-registry.test.ts` — 양방향 잠금:
+① 정의됐으나 아무 화면도 안 부르는 고아 키 ② 화면이 부르는데 없는 키 ③ 탭 라벨 불일치.
+③ 이 가장 위험하다 — 라벨만 바꾸면 그 탭 도움말이 **오류 없이 조용히** 사라진다.
+
+### 감사 자 — `pnpm admin:audit`
+
+`scripts/audit/admin-console.mjs`. 화면 50 × 축 8(header · help · back · nav · loading · error ·
+guard · nomock) + 죽은 `/admin` 링크 · 도움말 키 계약 · 정의되지 않은 CSS 변수 · 실패를 0 으로
+뭉개는 자리 · API 가드 종류. `--fail-under=<점수>` 로 게이트(`pnpm admin:audit:gate`).
+
+⚠️ **자를 다섯 번 고쳤다** — 자가 틀리면 감사 전체가 틀린다. 동적 세그먼트를 문자열 비교해
+정상 링크를 죽은 링크로 봤고, 레이아웃을 빼고 봐서 2차 내비를 놓쳐 "나갈 길이 없다" 는 오답을
+냈고(→ back 은 부모 링크가 아니라 **탈출 경로**를 잰다), 도움말 키를 첫 하나만 보고 별칭
+형태를 놓쳤고, `redirect()` 한 줄뿐인 화면에 제목을 요구했고, 목업 탐지가 **0** 을 잡아
+빈 상태 초기화를 가짜 수치로 찍었다.
 
 ---
 
