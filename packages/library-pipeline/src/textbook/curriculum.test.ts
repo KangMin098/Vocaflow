@@ -22,6 +22,7 @@ import {
   marketPercentile,
   passesCurriculumGate,
   stemLoose,
+  stripProperNouns,
 } from './curriculum'
 
 /** 초등 별표(`*`) 낱말로만 쓴 글. */
@@ -195,5 +196,49 @@ describe('쓰는 글의 어휘 대역 — 쉽게 쓰는 것은 가르칠 것을 
 
   it('못 재면 통과시키지 않는다', () => {
     expect(authoredVocabFit('', 'middle').pass).toBe(false)
+  })
+})
+
+describe('고유명사 제외 옵션 (excludeProperNouns)', () => {
+  // 이름이 빽빽한 백과 도입부 꼴. 실제 Simple Wikipedia 항목들의 결을 본떴다.
+  const encyclopedic =
+    'Maple Meadows station is a station in Maple Ridge, British Columbia. ' +
+    'It is part of the West Coast Express line operated by TransLink. ' +
+    'The station opened in November and serves riders who travel to Vancouver each morning. ' +
+    'Nearby are Golden Ears Provincial Park and the Alouette River.'
+
+  it('기본값은 지금까지의 동작을 그대로 둔다 — 옵션 없이 부른 것과 false 가 같다', () => {
+    // **이 테스트가 이 옵션의 안전장치다.** 기본이 바뀌면 시중 분포(CURRICULUM_SPEC)로
+    // 잰 모든 수치가 소급해 뜻이 달라진다.
+    const bare = curriculumCoverage(encyclopedic)
+    const explicit = curriculumCoverage(encyclopedic, { excludeProperNouns: false })
+    expect(explicit).toEqual(bare)
+    expect(curriculumFit(encyclopedic, 'elementary').pass).toBe(
+      curriculumFit(encyclopedic, 'elementary', { excludeProperNouns: false }).pass,
+    )
+  })
+
+  it('켜면 이름이 분모에서 빠져 교육과정 밖 비율이 내려간다', () => {
+    const before = curriculumCoverage(encyclopedic)!
+    const after = curriculumCoverage(encyclopedic, { excludeProperNouns: true })!
+    expect(after.contentWords).toBeLessThan(before.contentWords)
+    expect(after.outsidePct).toBeLessThan(before.outsidePct)
+  })
+
+  it('문장 첫 낱말은 지우지 않는다 — 그 자리 대문자는 고유명사인지 알 수 없다', () => {
+    // 문장 첫 자리에서는 `The` 든 `Anna` 든 대문자가 당연하므로 구별이 안 된다.
+    // **덜 잡는 쪽으로 틀린다** — 그래서 `Anna` 는 남는다(문서에 적힌 한계 그대로).
+    expect(stripProperNouns('The dog ran. Anna smiled.')).toBe('The dog ran. Anna smiled.')
+  })
+
+  it('문장 가운데 이름은 지운다', () => {
+    expect(stripProperNouns('The dog met Anna today.')).toBe('The dog met today.')
+  })
+
+  it('일반 문장은 거의 그대로 둔다 — 이름이 없으면 효과도 없어야 한다', () => {
+    const plain = 'The young scientist studied the ancient pottery. She measured each fragment.'
+    const before = curriculumCoverage(plain)!
+    const after = curriculumCoverage(plain, { excludeProperNouns: true })!
+    expect(after.outsidePct).toBe(before.outsidePct)
   })
 })

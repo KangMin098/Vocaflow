@@ -104,15 +104,59 @@ export interface CurriculumCoverage {
   outsidePct: number
 }
 
+export interface CurriculumOptions {
+  /**
+   * 고유명사를 분모·분자에서 뺀다. **기본값 `false`** — 켜면 값이 달라지므로
+   * 지금까지 잰 수치(시중 분포 `CURRICULUM_SPEC` 포함)와 섞이면 안 된다.
+   *
+   * ── 왜 필요한가 (실측 2026-09-05) ──────────────────────────────────
+   * 이 파일 머리말이 이미 경고해 뒀다: **"원문 목록에 고유명사·숫자·파생형이 없다."**
+   * 그래서 이름은 무조건 "교육과정 밖" 으로 센다. 이야기·설명문에는 이름이 드물어
+   * 문제가 안 됐는데, **백과 도입부는 이름 덩어리**라 사정이 다르다:
+   *
+   *   Simple Wikipedia 도입부 n=54 · 초등 자
+   *   고유명사 제거 전 통과 **2** → 제거 후 통과 **20** (33.3% 뒤집힘)
+   *   교육과정 밖 비율 평균 낙폭 **10.3%p**
+   *
+   * `M*A*S*H` 나 `Maple Meadows` 를 몰라도 그 문장은 읽힌다. 이름을 어려운 낱말로
+   * 세면 **소스의 성질을 난이도로 오인**하게 된다.
+   *
+   * ⚠️ 시중 분포(`CURRICULUM_SPEC`)는 이 옵션 **없이** 쟀다. 켠 값을 그 분포와
+   *   견주면 우리 쪽만 유리해진다 — 견주려면 분포도 같은 옵션으로 다시 재야 한다.
+   */
+  excludeProperNouns?: boolean
+}
+
+/**
+ * 문장 첫 자리가 **아닌데** 대문자로 시작하는 토큰을 지운다 — 고유명사 대용.
+ *
+ * 품사 분석기가 없으므로 근사다. 문장 첫 고유명사는 못 잡고(그 자리는 대문자가
+ * 당연하므로 구별이 안 된다), 강조 대문자는 잘못 잡는다. **덜 잡는 쪽으로 틀린다** —
+ * 그래서 이 옵션을 켜도 `outsidePct` 는 여전히 상한이다.
+ */
+export function stripProperNouns(text: string): string {
+  return String(text ?? '')
+    .split(/(?<=[.!?])\s+/)
+    .map((sentence) => {
+      const toks = sentence.split(/\s+/)
+      return toks.filter((t, i) => i === 0 || !/^[A-Z][A-Za-z'-]*[.,;:)"']?$/.test(t)).join(' ')
+    })
+    .join(' ')
+}
+
 /**
  * 지문의 내용어가 교육과정 별표 안에 얼마나 드는가.
  *
  * 판정에 쓰는 것은 대개 `outsidePct` 다 — "몇 %가 그 학년이 안 배운 낱말인가".
  * NASA 사진 설명글은 이 값이 **64%** 였다.
  */
-export function curriculumCoverage(text: string): CurriculumCoverage | null {
+export function curriculumCoverage(
+  text: string,
+  { excludeProperNouns = false }: CurriculumOptions = {},
+): CurriculumCoverage | null {
   const { star1, star2, plain } = curriculumLists()
-  const all = (String(text ?? '').match(/[A-Za-z][A-Za-z'-]*/g) ?? []).map((w) => w.toLowerCase())
+  const src = excludeProperNouns ? stripProperNouns(String(text ?? '')) : String(text ?? '')
+  const all = (src.match(/[A-Za-z][A-Za-z'-]*/g) ?? []).map((w) => w.toLowerCase())
   const content = all.filter((w) => !FUNCTION_WORDS.has(w) && w.length > 1)
   if (!content.length) return null
 
@@ -225,8 +269,12 @@ export interface CurriculumFit {
  *
  * 못 재면 **통과시키지 않는다** — 모름을 허용으로 바꾸면 잴 수 없는 글이 그대로 실린다.
  */
-export function curriculumFit(text: string, school: SchoolLevel = 'middle'): CurriculumFit {
-  const c = curriculumCoverage(text)
+export function curriculumFit(
+  text: string,
+  school: SchoolLevel = 'middle',
+  opts: CurriculumOptions = {},
+): CurriculumFit {
+  const c = curriculumCoverage(text, opts)
   if (!c) return { pass: false, coverage: null, marketPercentile: null, reason: '내용어가 없어 잴 수 없다' }
   const p = marketPercentile(c.outsidePct, school)
   const max = CURRICULUM_GATE[school].maxOutsidePct

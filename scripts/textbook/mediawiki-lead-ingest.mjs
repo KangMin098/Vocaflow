@@ -75,6 +75,11 @@ const GAP_MS = Number(arg('gap') ?? 120)
  */
 const CURRICULUM = !process.argv.includes('--no-curriculum')
 /**
+ * `--keep-proper-nouns` — 고유명사를 난이도로 세던 예전 동작으로 되돌린다(대조용).
+ * 기본은 빼는 쪽이다: 이 소스에서는 그것이 옳다는 것을 쟀다.
+ */
+const PROPER_NOUNS_OUT = !process.argv.includes('--keep-proper-nouns')
+/**
  * 표집 방법. `allpages`(기본)는 **바이트 하한을 서버에 걸어** 토막글을 안 받는다.
  * `random` 은 대조용으로 남긴다 — 걸러서 좋아진 것인지 우연인지 대 봐야 하기 때문이다.
  */
@@ -300,7 +305,9 @@ for (let i = 0; i < sample.items.length; i++) {
   // 세 축(FK·어수·칸)을 통과하고도 지문이 아닌 글이 PD 발췌 실측에서 69% 였다.
   // **같은 자를 대지 않으면 같은 구멍이 생긴다.**
   const school = (targetBand?.id ?? bandId).startsWith('초') ? 'elementary' : 'middle'
-  const vf = curriculumFit(content, school)
+  // 고유명사를 뺀다 — **백과 도입부는 이름 덩어리**라 안 빼면 이름이 난이도로 셈해진다.
+  //   실측(n=54): 통과 2 → 20 · 교육과정 밖 평균 10.3%p 하락.
+  const vf = curriculumFit(content, school, { excludeProperNouns: PROPER_NOUNS_OUT })
   if (!vf.pass) {
     vocabBlocked++
     // `--no-curriculum` — **끄지 않고 세기만 한다.** V-Level 게이트와 역할이 겹치는지
