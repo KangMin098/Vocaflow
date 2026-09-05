@@ -16,6 +16,8 @@
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { PressView } from '@/lib/csat/factory-line-model'
 
+import { LadderFill } from './LadderFill'
+
 export function PressClient({ volumes, rungs, brandFingerprint, loadError }: PressView) {
   const stale = volumes.filter((v) => !v.brandCurrent)
   const missingExpl = volumes.reduce((n, v) => n + Math.max(0, v.missingExplanations), 0)
@@ -75,6 +77,12 @@ export function PressClient({ volumes, rungs, brandFingerprint, loadError }: Pre
             0 이 아니면 해설 빠진 책이 나간다
           </p>
         </div>
+      </section>
+
+      {/* 사다리 — 어느 학령이 비었는지 숫자 대신 계단으로. 브랜드는 채울 수 있는 계단이다. */}
+      <section className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
+        <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--t1)]">학령 사다리</h3>
+        <LadderFill volumes={volumes} rungs={rungs} />
       </section>
 
       <section className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">

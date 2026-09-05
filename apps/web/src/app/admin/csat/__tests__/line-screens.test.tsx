@@ -408,3 +408,38 @@ describe('ReviewStack — 카드 넷이 아니라 위에서 아래로 쌓인 체
     expect(html).not.toContain('(0%)')
   })
 })
+
+/* ── ⑧ 조판 — 사다리 채움 띠 ── */
+
+describe('LadderFill — 「N / 7」을 계단으로', () => {
+  it('계단 수만큼 칸을 그리고, 빈 계단을 「비어 있음」이라고 적는다', () => {
+    const html = text(renderToString(<PressClient {...press} />))
+    // press 표본은 7단 중 6단·1단만 조판됐다 → 나머지 5칸이 비어 있음
+    expect((html.match(/비어 있음/g) ?? []).length).toBeGreaterThanOrEqual(5)
+    expect(html).toContain('고2')
+    expect(html).toContain('초등 저학년')
+  })
+
+  it('옛 규격으로 찍힌 계단을 글자로도 가른다 — 색만 다르면 색약에서 같아 보인다', () => {
+    const html = text(renderToString(<PressClient {...press} />))
+    expect(html).toContain('옛 규격')
+    expect(html).toContain('조판됨')
+  })
+
+  it('해설 안 붙은 권에 표시를 얹는다 — 그대로 나가면 해설 빠진 책이다', () => {
+    const html = renderToString(<PressClient {...press} />)
+    // 1단(Starter)에 해설 없음 4 → 빨간 점 하나
+    expect(html).toContain('해설 없음 4')
+    expect(html).toContain('bg-[#9C3A30]')
+  })
+
+  it('접근성 이름에 채움 비율을 적는다', () => {
+    const html = renderToString(<PressClient {...press} />)
+    expect(html).toContain('aria-label="학령 사다리 7단 중 2단 조판됨"')
+  })
+
+  it('조판된 권이 없어도 7칸을 다 그린다 — 빈 사다리가 곧 할 일 목록이다', () => {
+    const html = text(renderToString(<PressClient {...press} volumes={[]} />))
+    expect((html.match(/비어 있음/g) ?? []).length).toBeGreaterThanOrEqual(7)
+  })
+})
