@@ -28,6 +28,7 @@ import { promisify } from 'node:util'
 import { fitRecord } from './lib-fit.mjs'
 import { classify, TOPIC_KEYS } from './lib-topic.mjs'
 import { cleanBookText, looksLikeBookMatter } from './lib-clean.mjs'
+import { looksNarrative, peopleRatio, NARRATIVE_FLOOR } from './lib-narrative.mjs'
 
 const run = promisify(execFile)
 const arg = (k, d) => {
@@ -52,6 +53,21 @@ const QUERIES = {
   '철학·윤리': ['philosophy', 'ethics', 'logic essays', 'political philosophy', 'aesthetics'],
   '교육·언어': ['education', 'language essays', 'rhetoric', 'literary criticism', 'grammar history'],
 }
+
+/**
+ * **서사 겨냥 질의** — `--narrative` 를 줄 때 쓴다.
+ *
+ * 위 `QUERIES` 는 소재 칸(예술·역사·철학·교육)의 **부족분**을 메우려고 만든 것이라,
+ * 그 칸이 다 차면 아무것도 안 뽑는다(실측 2026-09-06: "노리는 몫 0편"). 그런데 비어 있던
+ * 것은 소재가 아니라 **인물이 나오는 글**이었다(`lib-narrative.mjs` 머리말).
+ * 그래서 소재 몫과 무관한 길을 따로 낸다.
+ */
+const NARRATIVE_QUERIES = [
+  'short stories', 'folk tales', 'fairy tales', 'fables',
+  'adventure stories', 'sketches', 'memoirs', 'letters',
+  'biography', 'childrens stories',
+]
+const NARRATIVE = process.argv.includes('--narrative')
 
 async function get(u, attempt = 0) {
   try {
@@ -149,12 +165,20 @@ const cursors = fs.existsSync(CURSOR_FILE) ? JSON.parse(fs.readFileSync(CURSOR_F
 const done = new Set(cursors.done ?? [])
 
 const flatQ = []
-for (const [slot, qs] of Object.entries(QUERIES)) {
-  if (!quota[slot]) continue
-  for (const q of qs) flatQ.push({ slot, q })
+if (NARRATIVE) {
+  // 소재 몫을 보지 않는다 — 겨냥하는 것이 소재가 아니라 글의 결이다.
+  for (const q of NARRATIVE_QUERIES) flatQ.push({ slot: '서사', q })
+  console.log(`  --narrative — 인물이 나오는 글만 남긴다(인물 대명사 비율 ≥ ${NARRATIVE_FLOOR}).`)
+  console.log(`     그 문턱은 이미 만든 장문 지칭 39편의 실측 최솟값(0.0382)에서 왔다.
+`)
+} else {
+  for (const [slot, qs] of Object.entries(QUERIES)) {
+    if (!quota[slot]) continue
+    for (const q of qs) flatQ.push({ slot, q })
+  }
 }
 if (!flatQ.length) {
-  console.log('  노릴 칸이 없다 — 모든 인문 칸의 몫이 찼다.')
+  console.log('  노릴 칸이 없다 — 모든 인문 칸의 몫이 찼다. 서사가 필요하면 --narrative.')
   process.exit(0)
 }
 
@@ -204,6 +228,7 @@ if (COMMIT) {
 // ── 수확 ─────────────────────────────────────────────────────────────
 let chunksAll = 0
 let droppedAll = 0
+let narrativeDropped = 0
 let fitAll = 0
 let inserted = 0
 let dup = 0
@@ -231,9 +256,16 @@ for (const b of picked) {
   const kept = all.filter((c) => !looksLikeBookMatter(c))
   const rows = []
   const mine = {}
+  let notNarrative = 0
   for (const text of kept) {
     const f = fitRecord(text)
     if (f.pass <= 0) continue
+    // ⚠️ 서사를 겨냥해 책을 골라도 **조각은 대부분 설명문이다** — 서문·해설·목차 뒤에
+    //   이야기가 온다. 여기서 거르지 않으면 겨냥한 뜻이 사라진다.
+    if (NARRATIVE && !looksNarrative(text)) {
+      notNarrative += 1
+      continue
+    }
     const tp = classify(text)
     // ⚠️ 몫이 없는 칸도 **버리지 않는다** — 3단계 보관에는 쓰인다. 다만 세어만 둔다.
     mine[tp.topic] = (mine[tp.topic] ?? 0) + 1
@@ -255,6 +287,7 @@ for (const b of picked) {
   chunksAll += all.length
   droppedAll += all.length - kept.length
   fitAll += rows.length
+  narrativeDropped += notNarrative
   for (const [k, v] of Object.entries(mine)) byTopic[k] = (byTopic[k] ?? 0) + v
 
   let wrote = 0
@@ -303,6 +336,9 @@ for (const b of picked) {
 
 console.log('  ' + '-'.repeat(74))
 console.log(`  조각 ${chunksAll.toLocaleString()} · 배제 ${droppedAll.toLocaleString()} · 적합 ${fitAll.toLocaleString()} (${chunksAll ? ((fitAll / chunksAll) * 100).toFixed(1) : 0}%)`)
+if (NARRATIVE) {
+  console.log(`  서사가 아니어서 버린 조각 ${narrativeDropped.toLocaleString()} — 인물 대명사 비율 < ${NARRATIVE_FLOOR}`)
+}
 if (COMMIT) console.log(`  중복 ${dup.toLocaleString()} · **적재 ${inserted.toLocaleString()}편**`)
 console.log(`  소재: ${Object.entries(byTopic).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k} ${v}`).join(' · ') || '없음'}`)
 const bottleneck = ['예술·문화', '역사·인류', '철학·윤리'].reduce((s, k) => s + (byTopic[k] ?? 0), 0)
