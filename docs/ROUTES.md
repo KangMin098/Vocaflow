@@ -228,6 +228,12 @@
 |---|---|
 | `POST /api/auth/callback` | `api/auth/callback/route.ts` (Supabase OAuth) |
 
+### `/api/srs/*` (1)
+
+| 라우트 | 설명 |
+|---|---|
+| `POST /api/srs/flush` | 세션을 **떠나는 순간**의 SRS 평가 전송 창구 — `navigator.sendBeacon` / `fetch(keepalive)` 가 server action 을 못 쓰므로 같은 로직(`lib/srs/flush-actions.ts`)에 낸 문. 응답을 아무도 보지 않으므로 이중 적용은 서버의 `(vocabulary_id, attempted_at)` 멱등 가드가 막는다. 인증은 쿠키(server action 본체가 확인). 본문 `{ items: FlushItem[] }` · 상한 500 · 세션 클라이언트(RLS). 호출처는 `hooks/useSrsFlushOnLeave.ts` 하나 |
+
 ### `/api/wordvault/*` (1)
 
 | 경로 | 비고 |

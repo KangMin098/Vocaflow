@@ -299,6 +299,23 @@ R < 0.70              → risk     #EF4444 (빨강)
 - `/flashcard` — Hub (Continue · Queue · 정확도 · 시작 설정)
 - `/flashcard/play` — 세션 (SM-2 SRS · 4단계 평가: Again/Hard/Good/Easy)
 
+### 이탈 저장 — 완주하지 않아도 평가는 남는다 (2026-09-05)
+
+flush 는 원래 `isComplete` 에만 걸려 있었다. ✕ · Esc · 뒤로가기 · 사이드바 · 탭 닫기로 나가면
+그때까지의 평가가 `sessionStorage` 에 갇혀 있다가 탭이 닫히면 사라졌다. 지금은:
+
+| 층 | 파일 | 하는 일 |
+|---|---|---|
+| 큐 | `lib/srs/session-storage.ts` | `localStorage`(탭 수명보다 오래) · 옛 `sessionStorage` 큐 1회 이관 |
+| 서버 | `lib/srs/flush-actions.ts` | `(vocabulary_id, attempted_at)` **멱등** — 재전송해도 D/S 이중 누적 없음 |
+| 문 | `app/api/srs/flush/route.ts` | `sendBeacon` / `fetch(keepalive)` 가 들어오는 HTTP 창구(로직은 server action 재사용) |
+| 훅 | `hooks/useSrsFlushOnLeave.ts` | 진입(지난 큐 정리) · 숨김(`visibilitychange`) · 언마운트/`pagehide` |
+
+배선된 세션 4곳: `FlashcardSession` · `wordvault/StudyMode`(study·review) · `SpellForge` ·
+`PairFlipGameScreen`. 새 세션 모듈은 이 훅 한 줄을 부르면 된다 — 저장을 "나가는 길" 마다
+붙이지 말 것(길은 다섯 갈래고 언제든 늘어난다).
+회귀: `lib/srs/__tests__/flush-durability.test.ts`(6).
+
 ### FSRS 한국 학습자 파라미터
 | | FSRS 표준 | Vocaflow 초기값 | 근거 |
 |---|---|---|---|

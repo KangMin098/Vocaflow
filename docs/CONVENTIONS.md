@@ -367,6 +367,43 @@ dev 서버는 **앱 전체가 500** 이 된다 — 고친 화면뿐 아니라 `/
 **CSS**(`flex items-end` 가 열을 콘텐츠 높이로 줄여 막대 `h-full` 이 0 붕괴). 데이터·조회·렌더 셋을
 모두 의심할 것.
 
+### 「저장됨」은 저장 결과를 실은 뒤에만 띄운다 (v06.34 — `/settings` 11개 실측 2026-09-05)
+
+`/settings` 의 컨트롤 11개가 전부 `useState` 였고 무엇을 눌러도 「저장됨」이 떴다. 새로고침하면
+전부 원래대로였다. 학습자는 자기가 잘못 눌렀다고 생각한다 — **고장보다 나쁘다.**
+
+- 저장 함수는 **boolean 을 돌려준다**(`lib/settings/device-prefs.ts` 의 `applyThemePreference` ·
+  `writePref`). 배지는 그 값을 싣는다. 사생활 보호 모드처럼 저장이 막힌 브라우저에서는
+  「이 브라우저에는 저장할 수 없어요」라고 말한다.
+- **보낼 길이 없는 것은 저장도 하지 않는다.** 알림 3종은 web-push·서비스워커·메일 발송 코드가
+  0건이다. 켜 둔 사람은 오지 않는 알림을 기다리게 된다 → 토글이 아니라 「준비 중」배지.
+- 고를 수 없는 것을 고르게 두지 않는다. 「OpenAI TTS-1 보이스 3종」은 발음이 브라우저
+  `speechSynthesis` 인 이상 거짓이었다.
+
+### 정답표는 브라우저에 미리 가지 않는다 (v06.34 — ScriptQuiz RSC 페이로드 실측 2026-09-05)
+
+`select_book_chapter_quiz` 가 `correct_index` 를 돌려주고 서버 페이지가 그대로 `'use client'`
+컴포넌트 prop 으로 넘겨 **RSC 페이로드에 정답표가 실렸다.** 채점도 브라우저가 했다. Ctrl+U 한 번에
+문항 재고 전체가 무효가 되는 구조다.
+
+- 화면용 타입에서 정답 계열 필드를 **타입 수준에서 제거**한다(`components/game/scriptquiz/types.ts`).
+  주석으로 "쓰지 마라" 가 아니라 컴파일러가 막게.
+- 답을 받은 뒤 **그 문항 하나만** 서버가 다시 읽어 판정한다(`lib/scriptquiz/grade-actions.ts`).
+  DCP 가 먼저 그렇게 하고 있었다(`lib/learner/dcp-actions.ts` — "문항 테이블은 열어서도 안 된다").
+- 채점 실패를 「오답」으로 번역하지 않는다. `{ ok: true; correct } | { ok: false; error }` 로 가른다.
+  맞힌 학습자에게 틀렸다고 말하는 것이 조용한 오류보다 나쁘다.
+
+### 세션 저장은 "완주" 가 아니라 **화면의 수명**에 건다 (v06.34 — SRS 유실 실측 2026-09-05)
+
+flush 가 완주 이벤트 하나에만 걸려 있었다. 나가는 길은 다섯 갈래(✕ · Esc · 뒤로가기 · 사이드바 ·
+탭 닫기)인데 저장은 한 갈래였다. 30장 중 12장을 평가하고 나가면 12장이 사라졌다.
+
+- `hooks/useSrsFlushOnLeave.ts` — 진입(이전 큐 정리) · 숨김(`visibilitychange`) · 언마운트/`pagehide`.
+  `beforeunload` 는 모바일 Safari 에서 안 뜬다.
+- 떠나는 순간의 전송은 응답을 못 받으므로 "성공 후 비우기" 가 불가능하다 → **서버가 멱등**해야
+  한다(`(vocabulary_id, attempted_at)`). 유실보다 중복이 낫다 — 중복은 고칠 수 있고 유실은 못 고친다.
+- 큐는 `sessionStorage` 가 아니라 `localStorage` — 탭 수명보다 오래 살아야 다음 방문이 이어 올린다.
+
 ### Typography
 - `Inter` · `Roboto` · `Arial` 사용
 - 한글 텍스트에 영어 폰트 (Lora) 사용

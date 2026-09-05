@@ -10,6 +10,46 @@
 
 ## Unreleased (v06.34 → next)
 
+### 학습자 표면 전수 감사 — 91화면 · 결함 159 · blocker 19 → 17 해소 (2026-09-05)
+
+학습자 정적 라우트 91개를 7개 슬라이스로 나눠 8축(상태 3종 · 뒤로가기 · 앞길 · 이동 정합 ·
+낭비 · 단계 최적합 · 접근성 · 계측)으로 감사했다. 결과 blocker 19 · major 75 · minor 65.
+**측정 → 기록 → 수정** 순서를 지켰다(같은 턴에 고치면 측정이 오염된다).
+
+고친 blocker(커밋 11건):
+- **SRS 평가 유실** — flush 가 "완주" 에만 걸려 있어 ✕·Esc·뒤로가기·탭 닫기로 나가면
+  평가가 사라졌다. 서버를 `(vocabulary_id, attempted_at)` 로 멱등화하고 큐를 localStorage 로
+  옮기고 `sendBeacon` 경로(`/api/srs/flush`)와 `useSrsFlushOnLeave` 훅(진입·숨김·언마운트)을
+  플래시카드·단어장 학습·SpellForge·PairFlip 4곳에 배선. 회귀 6건.
+- **ScriptQuiz 정답표가 RSC 페이로드로 나갔다** — 화면용 타입에서 정답을 제거하고 서버 채점
+  (`lib/scriptquiz/grade-actions.ts`). 마이그레이션·RPC 변경 없음.
+- **DCP 채점 실패가 「오답」으로 번역**되고 phase 가 grading 에 영구 고착 → 오류/오답을 타입으로 가름.
+- **`/pricing` 이 존재하지 않는 유료 플랜·14일 무료 체험·환불 정책을 판매** — 결제 라우트 0개.
+  CLAUDE.md §4 "발견 즉시 제거". 가입 폼의 같은 카피 포함.
+- **`/settings` 11개 컨트롤이 저장 안 되는데 「저장됨」** — `lib/settings/device-prefs.ts` 단일
+  출처, 저장 결과 boolean 을 배지에 싣는다. 알림 3종은 발송 코드 0건이라 「준비 중」으로.
+  「OpenAI TTS-1 보이스」선택도 거짓(브라우저 speechSynthesis)이라 걷어냈다.
+- **없는 지문 id 가 가짜 「위대한 개츠비」를 연다** → `notFound()`. `/text/new` 초안 보존.
+  `/dictate` 영구 스피너 → 오류+재시도. EchoMatch 마이크 해제·원인별 안내.
+- **빈 서가 4곳이 막다른 화면** → `ShelfEmptyState`. 390px 리더 본문 폭 무너짐. 필터 상태 URL 반영.
+  조회 실패와 "아직 없음" 을 갈라 말한다.
+- **`/wordvault` 허브가 `auth.getUser()` 8회·단어 전량 2회** → 서버 한 벌(`hub-query.ts`) + props.
+- **셸 Esc 와 게임 Esc 동시 발화**(6종이 게임 밖으로 튕김) → `session-escape.ts` 소유권 한 곳.
+  표시 점수 ≠ 저장 점수(18/19) → 결과 화면 점수가 저장된다.
+- **진단 40문항이 오클릭 한 번에 소실** → 문항 단위 보존. 404/error 출구가 보호 라우트 → 공개 라우트.
+  인증 4화면이 다크를 라이트로 강제 → OS 선호 반영.
+- **`/arcade` 공개인데 카드 19장 전부 로그인 벽** → 로그아웃이면 CTA 가 `/login?next=/arcade`.
+- Admin 화면도움말의 `/docs/*.md` 링크 7건 404 → `HelpRef` 타입을 `href | doc` 으로 갈라
+  같은 실수가 컴파일에서 막힌다.
+
+남은 blocker 2건(미해소 · 기록): 새로고침 시 플래시카드가 1번 카드로 되돌아감(이중 적재는
+멱등 가드로 막았으나 재개 커서는 없음) · PairFlip 중도 이탈 시 `scores` 유실(FSRS 쪽만 해소).
+
+계측기 2종 신설: `scripts/audit/learner-linkgraph.mjs`(정적 링크 그래프 — 앱 전체 죽은 링크 0 실측),
+`tests/e2e/29-learner-waste.spec.ts`(한 화면 중복 데이터 요청 — dev StrictMode 와 구별).
+`26-learner-sweep` 은 `LEARNER_SWEEP=1` 없이는 조용히 skip 되고, dev 서버에서는 컴파일 때문에
+15분 타임아웃한다 — 격리 dev 서버(3100)로 재측정 중.
+
 ### 교재 공장 화면 단순화 — 카드 8장 → 라인 도식 (2026-09-05)
 
 - **「복잡하다」를 숫자로 고정했다** — 화면마다 같은 표본으로 덩어리·글자·조작을 세는 회귀

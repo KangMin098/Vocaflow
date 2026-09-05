@@ -770,7 +770,7 @@ gray    = bg3 + t2         — secondary 정보
 
 | 패턴 | 1차 (전역) | 2차 (JS 분기) |
 |---|---|---|
-| **Reduce Motion** | `globals.css` `@media (prefers-reduced-motion: reduce)` — 키프레임은 끄고, **전환은 `--dur-fast` 로 낮추며 대상을 비-모션 속성으로 제한**하는 글로벌 가드 (§3.1) | `useReduceMotion()` ([useReduceMotion.ts](../apps/web/src/hooks/useReduceMotion.ts)) — `transition: 'none'` 등 inline style 분기. ActivityRing/SheetContainer 등 JS-driven 애니메이션은 inline style 우선순위가 CSS guard 보다 높아 명시 분기 필수. |
+| **Reduce Motion** | `globals.css` `@media (prefers-reduced-motion: reduce)` — 키프레임은 끄고, **전환은 `--dur-fast` 로 낮추며 대상을 비-모션 속성으로 제한**하는 글로벌 가드 (§3.1). **앱 안의 토글**은 OS 미디어쿼리를 바꿀 수 없으므로 별도 후크 `html[data-reduced-motion='on']` 을 쓴다 — `components/layout/DevicePreferences.tsx`(루트 레이아웃에 1회 마운트) 가 `localStorage` 의 취향을 읽어 칠하고 같은 낮추기 규칙을 싣는다(키프레임은 남긴다 — 스켈레톤·스피너는 상태 표시다). 설정 화면은 `useMotionPreference()` 로 저장 결과(boolean)를 받아 「저장됨」을 띄운다 | `useReduceMotion()` ([useReduceMotion.ts](../apps/web/src/hooks/useReduceMotion.ts)) — `transition: 'none'` 등 inline style 분기. ActivityRing/SheetContainer 등 JS-driven 애니메이션은 inline style 우선순위가 CSS guard 보다 높아 명시 분기 필수. |
 | **Focus visible** | `:focus-visible { outline: 2px solid var(--bdf) }` 글로벌 | — |
 | **Safe area** | Screen/Sheet 가 `env(safe-area-inset-{top,bottom,left,right})` 자동 처리 | — |
 | **ESC 닫힘 + body scroll lock** | SheetContainer 내 `useEffect` 가 키 핸들러 + `document.body.style.overflow = 'hidden'` | — |
