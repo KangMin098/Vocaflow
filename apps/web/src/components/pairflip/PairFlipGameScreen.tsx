@@ -48,7 +48,11 @@ export function PairFlipGameScreen({ config, pairs, content }: GameScreenProps) 
   // 판을 다 못 맞추고 떠나도 그때까지 맞춘 짝의 평가는 남는다 — 서버가 멱등하다.
   useSrsFlushOnLeave()
 
+  /** 완주로 점수를 남겼는가 — 아래 언마운트 기록이 같은 판을 두 번 적지 않게 한다. */
+  const completedRef = useRef(false)
+
   const onComplete = useRef((result: PairFlipResultData) => {
+    completedRef.current = true
     // 실 페어(레벨 pairCount 이상) 사용 시에만 매칭 결과를 FSRS 큐에 적재 → flush(서버 권위 재계산).
     // mock 폴백이면 word lookup 이 사용자 vocab 과 매칭되지 않아 skip 되므로 push 자체를 생략.
     const levelPairCount = PAIRFLIP_LEVELS.find((l) => l.id === config.level)?.pairCount ?? 0
@@ -118,6 +122,44 @@ export function PairFlipGameScreen({ config, pairs, content }: GameScreenProps) 
 
   // ── 리소스 컨텍스트 + 진행도를 SessionFrame 셸에 주입 ─────────
   // Phase 2: WordVault 컬렉션 연동 시 resource label/position 동적 반영
+  // ── 중도 이탈 점수 (2026-09-05) ────────────────────────────────────
+  // `onComplete` 는 **판을 다 맞췄을 때만** 불린다. 8쌍 중 5쌍을 맞추고 ✕·Esc·뒤로가기로
+  // 나가면 그 판의 `scores` 행이 남지 않았다(FSRS 평가는 `useSrsFlushOnLeave` 가 이미 챙긴다).
+  // 아케이드 19종은 `useGameSessionRecorder` 가 언마운트에서 flush 하는데, PairFlip 만 셸 밖
+  // 형제라 그 훅을 안 거친다 — 같은 규칙을 여기서 지킨다: 화면이 사라지면 그때까지를 남긴다.
+  // 완주한 판은 `onComplete` 가 이미 남겼으므로 두 번 적지 않는다.
+  const sessionRef = useRef(session)
+  sessionRef.current = session
+  useEffect(
+    () => () => {
+      const s = sessionRef.current
+      if (completedRef.current || s.matchedPairs === 0) return
+      const levelPairCount = PAIRFLIP_LEVELS.find((l) => l.id === config.level)?.pairCount ?? 0
+      const usingReal = !!pairs && pairs.length >= levelPairCount
+      void recordGameScore({
+        module: 'pairflip',
+        score: s.score,
+        totalQuestions: levelPairCount,
+        correctCount: s.matchedPairs,
+        accuracy: levelPairCount > 0 ? Math.round((s.matchedPairs / levelPairCount) * 100) : 0,
+        durationSeconds: Math.round((Date.now() - s.startedAt) / 1000),
+        ...(usingReal && content ? { content } : {}),
+        metadata: {
+          maxCombo: s.maxCombo,
+          hintsUsed: s.hintsUsed,
+          totalAttempts: s.totalAttempts,
+          level: config.level,
+          mode: config.mode,
+          partial: true,
+          mockFallback: !usingReal,
+        },
+      })
+    },
+    // 언마운트 한 번만 — 값은 ref 로 읽는다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  )
+
   const { setProgress } = useSessionProgress()
   useEffect(() => {
     const lvl = PAIRFLIP_LEVELS.find((l) => l.id === config.level)

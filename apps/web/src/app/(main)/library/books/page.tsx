@@ -10,6 +10,7 @@ import { Capsule, Screen } from '@/components/ui/ios';
 import { createClient } from '@/lib/supabase/server';
 import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select';
 import { BooksExplorer } from '@/components/library/browse/BooksExplorer';
+import { ShelfEmptyState } from '@/components/library/shared/ShelfEmptyState';
 import { ComicHeroCard, type ComicHeroItem } from '@/components/comic/ComicHeroCard';
 import { comicBookIdsOf, fetchComicCatalog } from '@/lib/comic/catalog';
 import { applyBookCatalogGate } from '@/lib/library/publish-gate';
@@ -412,7 +413,24 @@ export default async function LibraryBooksPage({
 
         {comicHeroes.length > 0 && <ComicHeroCard items={comicHeroes} />}
 
-        <BooksExplorer books={books} userVLevel={userVLevel} userMastery={userMastery} showAll={showAll} />
+        {/* 「아직 없다」와 「못 읽었다」를 가른다 — 조회가 실패했을 때 빈 서가를 보여 주면
+            학습자는 재고가 없다고 읽고 돌아오지 않는다(`ComicsBrowser` 와 같은 규칙). */}
+        {catalogFailed ? (
+          <ShelfEmptyState
+            tone="error"
+            title="지금 도서 목록을 불러오지 못했어요"
+            body="서가가 빈 게 아니라 목록을 읽는 데 실패했어요. 새로고침하면 대개 돌아오고, 그동안 짧은 글로 읽는 길은 열려 있어요."
+            ctaHref="/library/scripts"
+            ctaLabel="짧은 글 보러 가기"
+          />
+        ) : (
+          <BooksExplorer
+            books={books}
+            userVLevel={userVLevel}
+            userMastery={userMastery}
+            showAll={showAll}
+          />
+        )}
       </div>
     </Screen>
   );

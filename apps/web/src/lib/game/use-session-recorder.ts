@@ -61,9 +61,16 @@ export function useGameSessionRecorder({
     if (scoredRef.current || captured === 0) return
     scoredRef.current = true
     const accuracy = Math.round((correct / captured) * 100)
+    // **학습자가 결과 화면에서 본 그 수**를 저장한다.
+    //
+    // 우선순위: 결과 화면이 보고한 점수 → 호출부가 준 산식 → 정답×100.
+    // 마지막 값이 기본이던 동안 18/19 게임이 화면과 다른 수로 적재됐고,
+    // `/arcade/ranking` 은 학습자가 본 적 없는 숫자로 줄을 세웠다
+    // (근거와 설계 이유: `lib/game/session-score.ts` 머리 주석).
+    const reported = readSessionScore()
     void recordGameScore({
       module,
-      score: computeScore ? computeScore(correct, wrong) : correct * 100,
+      score: reported ?? (computeScore ? computeScore(correct, wrong) : correct * 100),
       totalQuestions: captured,
       correctCount: correct,
       accuracy,
