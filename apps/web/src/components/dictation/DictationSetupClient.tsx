@@ -22,6 +22,7 @@ import {
   ChevronDown,
   ChevronUp,
   Loader2,
+  RotateCcw,
   Sparkles,
 } from 'lucide-react'
 
@@ -73,7 +74,13 @@ export function DictationSetupClient() {
   // 그 상태에 "자료를 불러오는 중" 을 띄우면 화면이 거짓말을 하고, 전환이 느린 순간에는
   // 학습자가 멈춘 화면을 본다(회귀가 이걸 "로딩이 최종 상태" 로 잡았다).
   const hasSourceParam = !!textId || !!setId || custom
-  const [loadState, setLoadState] = useState<'loading' | 'ready' | 'missing'>('loading')
+  // 'failed' = 조회가 던졌다. 'missing' 과 다르다 — 자료가 없는 것이 아니라 **못 물어본** 것이고,
+  //   그래서 답도 다르다(다른 자료 고르기 vs 다시 시도).
+  const [loadState, setLoadState] = useState<'loading' | 'ready' | 'missing' | 'failed'>(
+    'loading',
+  )
+  /** [다시 시도] 세대 번호 */
+  const [reloadKey, setReloadKey] = useState(0)
   const [starting, setStarting] = useState(false)
   const [startError, setStartError] = useState<string | null>(null)
   /** 청취 폭 — 문항을 고를 길이대의 기준 (null = 아직 기록 없음) */
@@ -95,43 +102,51 @@ export function DictationSetupClient() {
       return
     }
     let mounted = true
+    setLoadState('loading')
     void (async () => {
-      const client = createClient()
-      const {
-        data: { user },
-      } = await client.auth.getUser()
-      const [resolved, overview] = await Promise.all([
-        resolveDictationSource(client, {
-          text: textId || undefined,
-          set: setId || undefined,
-          custom,
-          chapter,
-          userId: user?.id ?? null,
-        }),
-        fetchDictationOverview(client),
-      ])
-      if (!mounted) return
-      setSpan(overview.span > 0 ? overview.span : null)
-      if (!resolved) {
-        setLoadState('missing')
-        return
-      }
-      setSource(resolved)
-      setLoadState('ready')
+      // 네트워크가 한 번 튀면 이 IIFE 가 던지고 loadState 가 'loading' 에 갇혔다 —
+      // "자료를 불러오는 중" 이 최종 화면이 됐다(B4). 실패를 실패라고 말한다.
+      try {
+        const client = createClient()
+        const {
+          data: { user },
+        } = await client.auth.getUser()
+        const [resolved, overview] = await Promise.all([
+          resolveDictationSource(client, {
+            text: textId || undefined,
+            set: setId || undefined,
+            custom,
+            chapter,
+            userId: user?.id ?? null,
+          }),
+          fetchDictationOverview(client),
+        ])
+        if (!mounted) return
+        setSpan(overview.span > 0 ? overview.span : null)
+        if (!resolved) {
+          setLoadState('missing')
+          return
+        }
+        setSource(resolved)
+        setLoadState('ready')
 
-      // 자료 레벨 → 추천값 자동 적용
-      const level = getLevelByCode(resolved.cefr ?? 'B1')
-      setCefr(resolved.cefr ?? 'B1')
-      setSpeed(level.recommended.speed)
-      setAutoRepeat(level.recommended.autoRepeat)
-      setHintsAllowed(level.recommended.hintsAllowed)
-      setCount(Math.min(level.recommended.sessionCount, resolved.sentences.length))
-      setChunkSize(allowsChunking(resolved.kind) ? level.recommended.chunkSize : 1)
+        // 자료 레벨 → 추천값 자동 적용
+        const level = getLevelByCode(resolved.cefr ?? 'B1')
+        setCefr(resolved.cefr ?? 'B1')
+        setSpeed(level.recommended.speed)
+        setAutoRepeat(level.recommended.autoRepeat)
+        setHintsAllowed(level.recommended.hintsAllowed)
+        setCount(Math.min(level.recommended.sessionCount, resolved.sentences.length))
+        setChunkSize(allowsChunking(resolved.kind) ? level.recommended.chunkSize : 1)
+      } catch (e) {
+        console.error('[Dictation] 설정 로드 실패:', e)
+        if (mounted) setLoadState('failed')
+      }
     })()
     return () => {
       mounted = false
     }
-  }, [textId, setId, custom, chapter, router])
+  }, [textId, setId, custom, chapter, router, reloadKey])
 
   // 미리보기는 **실제로 시작될 문항**을 그대로 계산한다 —
   // 예상치와 실제가 다르면 그 순간 화면이 거짓말이 된다(앞에서 N개 자르던 시절의 함정).
@@ -227,6 +242,37 @@ export function DictationSetupClient() {
       >
         <Loader2 size={20} className="animate-spin text-[var(--t3)]" aria-hidden="true" />
         <span className="font-body text-[13px] text-[var(--t2)]">자료를 불러오는 중</span>
+      </div>
+    )
+  }
+
+  // 못 물어본 경우 — 자료 탓이 아니다. 같은 좌표로 한 번 더 물어보게 한다.
+  if (loadState === 'failed') {
+    return (
+      <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-16 text-center">
+        <p
+          role="alert"
+          className="break-keep font-body text-[13px] leading-relaxed text-[var(--t1)]"
+        >
+          지금은 이 자료를 불러오지 못했어요. 연결이 끊겼거나 잠시 응답이 없었어요.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          <button
+            type="button"
+            onClick={() => setReloadKey((k) => k + 1)}
+            className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] active:scale-[0.99] ${FOCUS_RING}`}
+          >
+            <RotateCcw size={14} aria-hidden />
+            다시 시도
+          </button>
+          <Link
+            href="/dictate"
+            className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
+          >
+            다른 자료 고르기
+            <ArrowRight size={14} aria-hidden />
+          </Link>
+        </div>
       </div>
     )
   }

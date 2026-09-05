@@ -5,6 +5,7 @@
 
 'use client'
 
+import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   ChevronLeft,
@@ -21,8 +22,17 @@ import { extractPitchContour, type PitchContour } from '@/lib/echo/pitch-extract
 import {
   playAudioBuffer,
   recordUntilStop,
+  releaseMic,
   requestMicAccess,
 } from '@/lib/echo/audio-recorder'
+import {
+  compareError,
+  micError,
+  modelError,
+  playbackError,
+  unsupportedError,
+  type EchoError,
+} from '@/lib/echo/echo-error'
 import { saveEchoAttempt, finalizeEchoSession } from '@/lib/echo/save-attempt'
 import {
   ensurePiperSession,
@@ -77,7 +87,9 @@ export function EchoMatchPlayer({
   const [score, setScore] = useState<ComparisonScore | null>(null)
   const [refContour, setRefContour] = useState<PitchContour | null>(null)
   const [userContour, setUserContour] = useState<PitchContour | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  // 사유마다 제목·설명·복구 동작이 다르다 — 문자열 하나를 넷이 공유하던 시절엔
+  // 재생 실패도 비교 실패도 「음성 모델 로드 실패」로 뭉개졌다(M7).
+  const [error, setError] = useState<EchoError | null>(null)
   // #2 — 이번 발화의 단어 정확도(0..1). null = 미측정(미지원/인식 실패/무음) → 게이트 안 함.
   const [wordRatio, setWordRatio] = useState<number | null>(null)
   const recognizerRef = useRef<Recognizer | null>(null)
@@ -110,13 +122,16 @@ export function EchoMatchPlayer({
       ? { label: '단어가 잘 안 들렸어요 — 문장을 보며 또박또박 다시 읽어볼까요?', tone: 'try' as const }
       : scoreFeedback(score.overall)
 
-  // 마이크 권한
+  // 마이크 권한 — 실패는 사유별 한국어 안내로 바꾼다(M6).
+  //   브라우저 원문(`Permission denied`)을 그대로 띄우면 학습자는 되돌리는 법을 알 수 없고,
+  //   차단 뒤에는 프롬프트가 다시 뜨지 않아 같은 영어만 반복됐다.
   async function handleGrantMic() {
+    setError(null)
     try {
       await requestMicAccess()
       setMicGranted(true)
     } catch (e) {
-      setError(e instanceof Error ? e.message : '마이크 접근 실패')
+      setError(micError(e))
     }
   }
 
@@ -140,7 +155,7 @@ export function EchoMatchPlayer({
   useEffect(() => {
     if (!micGranted || piperReady) return
     if (!isPiperSupported()) {
-      setError('이 브라우저는 WASM 음성 합성을 지원하지 않아요')
+      setError(unsupportedError)
       return
     }
     let cancelled = false
@@ -160,10 +175,9 @@ export function EchoMatchPlayer({
         }
       })
       .catch((e) => {
-        const msg = e instanceof Error ? e.message : 'Piper 로드 실패'
-        console.error('[EchoMatch] Piper init failed:', e)
+        const mapped = modelError(e)
         if (!cancelled) {
-          setError(`음성 모델 로드 실패 — ${msg}. 페이지 새로고침 또는 네트워크 확인 후 다시 시도해주세요.`)
+          setError(mapped)
           setPiperLoading(false)
           setModelProgress(null)
         }
@@ -213,7 +227,7 @@ export function EchoMatchPlayer({
         /* 인식 시작 실패 — 프로소디만 채점 */
       }
     } catch (e) {
-      setError(e instanceof Error ? e.message : '재생 오류')
+      setError(playbackError(e))
       setPhase('idle')
     }
   }, [current])
@@ -281,7 +295,7 @@ export function EchoMatchPlayer({
       })
       void recordEchoSound(soundRecs, { sentenceId, overall: result.overall })
     } catch (e) {
-      setError(e instanceof Error ? e.message : '비교 오류')
+      setError(compareError(e))
       setPhase('idle')
     }
   }
@@ -292,6 +306,7 @@ export function EchoMatchPlayer({
     } catch {
       /* noop */
     }
+    setError(null)
     setPhase('idle')
     setScore(null)
     setWordRatio(null)
@@ -313,7 +328,11 @@ export function EchoMatchPlayer({
     }
   }
 
-  // unmount 시 stop + 세션 finalize
+  // unmount 시 stop + 마이크 해제 + 세션 finalize
+  //   M8 — releaseMic() 은 만들어져 있었지만 저장소 어디에서도 불리지 않았다. 그래서 화면을
+  //   떠나도 탭의 녹음 표시등과 기기 마이크 LED 가 켜진 채 남았고, 이 화면이 학습자에게 한
+  //   약속("녹음해 분석한 뒤 즉시 삭제돼요")과 정면으로 어긋났다. 다음 진입은
+  //   requestMicAccess 가 스트림을 새로 만들므로 지장이 없다(audio-recorder.ts:26 active 검사).
   useEffect(() => {
     return () => {
       if (stopRecRef.current) {
@@ -324,12 +343,18 @@ export function EchoMatchPlayer({
       } catch {
         /* noop */
       }
+      releaseMic()
       void finalizeEchoSession(textId)
     }
   }, [textId])
 
   if (!micGranted) {
-    return <MicPermissionGate onGrant={handleGrantMic} error={error} />
+    return (
+      <MicPermissionGate
+        onGrant={handleGrantMic}
+        error={error && error.kind === 'mic' ? error : null}
+      />
+    )
   }
 
   if (sentences.length === 0) {
@@ -363,22 +388,46 @@ export function EchoMatchPlayer({
           }`}
         >
           {error ? (
-            <>
+            <div role="alert">
               <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--error-ink)]">
-                음성 모델 로드 실패
+                {error.title}
               </p>
-              <p className="mt-1 font-body text-[12px] text-[var(--error-ink)]">{error}</p>
-              <button
-                type="button"
-                onClick={() => {
-                  setError(null)
-                  setPiperReady(false)
-                }}
-                className="mt-2 inline-flex items-center rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-3 py-1 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)]"
-              >
-                다시 시도
-              </button>
-            </>
+              <p className="mt-1 break-keep font-body text-[12px] leading-relaxed text-[var(--error-ink)]">
+                {error.message}
+              </p>
+              {/* 복구는 **고장 난 것**을 되돌려야 한다 —
+                  모델 실패만 모델 재적재고, 재생·비교 실패는 이 문장을 다시 하는 것이며,
+                  미지원 브라우저는 다시 시도해도 같은 결과라 버튼을 두지 않는다. */}
+              {error.kind === 'model' && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setError(null)
+                    setPiperReady(false)
+                  }}
+                  className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
+                >
+                  음성 모델 다시 받기
+                </button>
+              )}
+              {(error.kind === 'playback' || error.kind === 'compare') && (
+                <button
+                  type="button"
+                  onClick={handleRetry}
+                  className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
+                >
+                  이 문장 다시 하기
+                </button>
+              )}
+              {error.kind === 'unsupported' && (
+                <Link
+                  href="/dictate"
+                  className="mt-2 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+                >
+                  받아쓰기로 연습하기
+                </Link>
+              )}
+            </div>
           ) : (
             <>
               <div className="mb-1.5 flex items-baseline justify-between">

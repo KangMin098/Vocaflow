@@ -17,7 +17,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, Headphones, Loader2, Play, Sparkles } from 'lucide-react'
+import { ArrowRight, Headphones, Loader2, Play, RotateCcw, Sparkles } from 'lucide-react'
 
 import { ModuleHero } from '@/components/hub/ModuleHero'
 import { createClient } from '@/lib/supabase/client'
@@ -76,40 +76,56 @@ export function DictationHubClient() {
   const [starting, setStarting] = useState(false)
   const [resumeId, setResumeId] = useState<string | null>(null)
   const [startError, setStartError] = useState<string | null>(null)
+  /** 자료를 못 불러온 이유 — 이게 없으면 지하철에서 스피너가 최종 상태가 된다 */
+  const [loadError, setLoadError] = useState(false)
+  /** [다시 시도] 가 올리는 세대 번호 — 값이 바뀌면 아래 effect 가 다시 돈다 */
+  const [reloadKey, setReloadKey] = useState(0)
 
   useEffect(() => {
     let mounted = true
+    setLoading(true)
+    setLoadError(false)
     void (async () => {
-      const client = createClient()
-      const {
-        data: { user },
-      } = await client.auth.getUser()
-      const uid = user?.id ?? null
-      if (mounted) setSignedIn(!!uid)
+      // try/catch/finally 가 없던 시절: getUser() 나 buildDailyDictation 하나만 던져도
+      // setLoading(false) 에 도달하지 못해 회전 아이콘이 **영원히** 남았다. 새로고침 말고는
+      // 길이 없는데 화면은 그 사실을 말하지 않았다(B4).
+      try {
+        const client = createClient()
+        const {
+          data: { user },
+        } = await client.auth.getUser()
+        const uid = user?.id ?? null
+        if (mounted) setSignedIn(!!uid)
 
-      const [ov, cat, wk, rc, dl] = await Promise.all([
-        fetchDictationOverview(client),
-        fetchDictationCatalog(client, uid),
-        fetchDictationWeakness(client, 14),
-        uid ? fetchRecentDictationSessions(client, 5) : Promise.resolve([]),
-        buildDailyDictation(client, uid),
-      ])
-      if (!mounted) return
-      setOverview(ov)
-      setCatalog(cat)
-      setWeakness(wk)
-      setRecent(rc)
-      setDaily(dl)
-      // 이 기기 캐시 우선(즉시), 없으면 DB — 폰에서 시작하고 PC 에서 허브를 열어도
-      // 이어하기가 떠야 한다(세션 URL 복원과 같은 이유).
-      const local = getResumableSession()?.id ?? null
-      setResumeId(local ?? (await fetchResumableSessionId(client)))
-      setLoading(false)
+        const [ov, cat, wk, rc, dl] = await Promise.all([
+          fetchDictationOverview(client),
+          fetchDictationCatalog(client, uid),
+          fetchDictationWeakness(client, 14),
+          uid ? fetchRecentDictationSessions(client, 5) : Promise.resolve([]),
+          buildDailyDictation(client, uid),
+        ])
+        // 이 기기 캐시 우선(즉시), 없으면 DB — 폰에서 시작하고 PC 에서 허브를 열어도
+        // 이어하기가 떠야 한다(세션 URL 복원과 같은 이유).
+        const local = getResumableSession()?.id ?? null
+        const resume = local ?? (await fetchResumableSessionId(client))
+        if (!mounted) return
+        setOverview(ov)
+        setCatalog(cat)
+        setWeakness(wk)
+        setRecent(rc)
+        setDaily(dl)
+        setResumeId(resume)
+      } catch (e) {
+        console.error('[Dictation] 허브 로드 실패:', e)
+        if (mounted) setLoadError(true)
+      } finally {
+        if (mounted) setLoading(false)
+      }
     })()
     return () => {
       mounted = false
     }
-  }, [])
+  }, [reloadKey])
 
   const startDaily = useCallback(async () => {
     if (!daily || starting) return
@@ -178,6 +194,26 @@ export function DictationHubClient() {
         </Link>
       )}
 
+      {/* 로딩 실패 — 빈 화면도, 영원한 스피너도 아닌 "왜 + 다음 한 걸음" */}
+      {loadError && (
+        <div
+          role="alert"
+          className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] px-4 py-3 sm:flex-row sm:items-center"
+        >
+          <p className="flex-1 break-keep font-body text-[13px] leading-relaxed text-[var(--error-ink)]">
+            지금은 받아쓰기 자료를 불러오지 못했어요. 연결이 끊겼거나 잠시 응답이 없었어요.
+          </p>
+          <button
+            type="button"
+            onClick={() => setReloadKey((k) => k + 1)}
+            className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[12px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
+          >
+            <RotateCcw size={13} aria-hidden />
+            다시 시도
+          </button>
+        </div>
+      )}
+
       {/* 시작 실패 사유 — 버튼만 되돌아오는 화면은 "아무 일도 안 일어났다" 로 읽힌다 */}
       {startError && (
         <p
@@ -191,6 +227,7 @@ export function DictationHubClient() {
       {/* ─── 오늘의 받아쓰기 ─── */}
       <DailyCard
         loading={loading}
+        loadFailed={loadError}
         daily={daily}
         starting={starting}
         signedIn={signedIn}
@@ -270,6 +307,7 @@ export function DictationHubClient() {
 
 function DailyCard({
   loading,
+  loadFailed,
   daily,
   starting,
   signedIn,
@@ -277,12 +315,16 @@ function DailyCard({
   onStart,
 }: {
   loading: boolean
+  loadFailed: boolean
   daily: DailyDictation | null
   starting: boolean
   signedIn: boolean
   hasAnything: boolean
   onStart: () => void
 }) {
+  // 로드 실패는 위 alert 가 이유와 [다시 시도] 를 말한다 — 여기에 "자료 없음" 을
+  // 겹쳐 그리면 실패를 빈 상태로 오해하게 만든다.
+  if (loadFailed) return null
   if (loading) {
     return (
       <div className="flex h-[132px] items-center justify-center rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)]">

@@ -5,6 +5,7 @@
 // layout.tsx가 RSC로 실 데이터 fetch + status 자동 변경 + BookContext 띠 주입
 // + TextContentProvider로 본문 데이터 client에 전달 (Phase 11.6).
 
+import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/server';
@@ -95,10 +96,15 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
 
   const text = textData as TextContentRow | null;
 
+  // 1-B. 없는 id · 삭제된 챕터 · 남의 텍스트 → 404.
+  //   예전에는 여기서 provider 없이 children 만 내보냈고, page.tsx 가 그 빈자리를
+  //   「위대한 개츠비」 목업으로 메웠다 — 학습자는 남의 본문을 자기 챕터로 읽었고,
+  //   그 화면의 모든 링크가 존재하지 않는 id 로 이어졌다.
+  //   형제 라우트 echo·comic 은 처음부터 notFound() 였다. 답을 하나로 맞춘다.
+  if (!text) notFound();
+
   // 2. G2 — status 자동 변경 (멱등)
-  if (text) {
-    await markChapterStarted(text.id);
-  }
+  await markChapterStarted(text.id);
 
   // 2-B. Phase 2A — library chapter 진입 시 학습 활성화 (멱등)
   //      personalizeChapter (reading_sessions) + adaptiveExtractWords (vocabularies)
@@ -387,9 +393,8 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
   }
 
   // 5. Phase 11.6 + 11.7 — TextContentProvider 데이터 정합
-  let textContentValue: TextContentData | null = null;
-
-  if (text) {
+  //   text 는 위에서 notFound() 로 걸러졌으므로 항상 존재한다 — 목업 폴백이 없다.
+  const textContentValue: TextContentData = (() => {
     const content = text.content ?? '';
     const paragraphOffsets = text.paragraph_offsets ?? [];
 
@@ -404,7 +409,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       totalPages: 1,
     };
 
-    textContentValue = {
+    return {
       textId: text.id,
       libraryBookId: text.library_book_id,
       chapterIdx: text.chapter_idx,
@@ -431,15 +436,11 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       text: partial,
       paragraphs: buildParagraphsFromContent(content, paragraphOffsets, chapterWords),
     };
-  }
+  })();
 
   // Phase 11.16 — WorkspaceBookContext 호출 제거. UnifiedHeader가 page.tsx에서
   // TextContentProvider 데이터 + 페이지 인터랙티브 state를 합쳐 단일 sticky header로 렌더.
-  const body = <>{children}</>;
-
-  return textContentValue ? (
-    <TextContentProvider value={textContentValue}>{body}</TextContentProvider>
-  ) : (
-    body
+  return (
+    <TextContentProvider value={textContentValue}>{children}</TextContentProvider>
   );
 }

@@ -36,191 +36,12 @@ import type { SpellForgeWord } from '@/types/spellforge'
 import type { SupportToken } from '@/lib/workspace/support'
 
 import {
-  useTextContentSafe,
+  useTextContent,
   type TextParagraph,
 } from './text-content-context'
+import { fetchBookmarked, setBookmarked } from '@/lib/text-viewer/bookmark'
+import { useToast } from '@/components/ui/Toast'
 import { annotateSupport } from './text-content-helpers'
-
-// Mock fallback — layout.tsx 가 textId 를 DB 에서 못 찾았을 때만 사용.
-// 실제 라이브러리 책/사용자 텍스트는 layout 의 TextContentProvider 가 전달.
-const MOCK_TEXT: LibraryText = {
-  id: '1',
-  title: 'The Great Gatsby',
-  author: 'F. Scott Fitzgerald',
-  cefrLevel: 'B2',
-  category: '클래식',
-  preview: '',
-  wordCount: 156,
-  progressPercent: 78,
-  totalPages: 12,
-  currentPage: 3,
-  // Reading Room 정합 — navy ink → deep ink (잉크 두 단계)
-  coverGradient: { from: 'var(--p)', to: 'var(--p-dark)' },
-  addedAt: new Date(),
-  lastStudiedAt: new Date(),
-  isBookmarked: true,
-  bookId: null,
-}
-
-const MOCK_PARAGRAPHS = [
-  {
-    id: 0,
-    sentences: [
-      {
-        id: 0,
-        parts: [
-          { text: 'In my younger and more ' },
-          {
-            text: 'vulnerable',
-            word: {
-              id: 'w1',
-              text: 'vulnerable',
-              meaning: '취약한, 상처받기 쉬운',
-              pronunciation: '/ˈvʌlnərəbl/',
-              pos: 'adj',
-              status: 'stable' as const,
-              exampleSentence: '',
-            } as Word,
-          },
-          {
-            text: " years my father gave me some advice that I've been turning over in my mind ever since.",
-          },
-        ],
-      },
-      {
-        id: 1,
-        parts: [
-          { text: '"Whenever you feel like ' },
-          {
-            text: 'criticizing',
-            word: {
-              id: 'w2',
-              text: 'criticizing',
-              meaning: '비판하는',
-              pronunciation: '/ˈkrɪtɪˌsaɪzɪŋ/',
-              pos: 'verb',
-              status: 'shaky' as const,
-              exampleSentence: '',
-            } as Word,
-          },
-          {
-            text: ' any one," he told me, "just remember that all the people in this world haven\'t had the ',
-          },
-          {
-            text: 'advantages',
-            word: {
-              id: 'w3',
-              text: 'advantages',
-              meaning: '유리한 점, 이점',
-              pronunciation: '/ədˈvæntɪdʒɪz/',
-              pos: 'noun',
-              status: 'shaky' as const,
-              exampleSentence: '',
-            } as Word,
-          },
-          { text: ' that you\'ve had."' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 1,
-    sentences: [
-      {
-        id: 2,
-        parts: [
-          { text: "He didn't say any more, but we've always been unusually " },
-          {
-            text: 'communicative',
-            word: {
-              id: 'w4',
-              text: 'communicative',
-              meaning: '의사 소통의',
-              pronunciation: '/kəˈmjuːnɪkətɪv/',
-              pos: 'adj',
-              status: 'risk' as const,
-              exampleSentence: '',
-            } as Word,
-          },
-          { text: ' in a ' },
-          {
-            text: 'reserved',
-            word: {
-              id: 'w5',
-              text: 'reserved',
-              meaning: '내성적인, 신중한',
-              pronunciation: '/rɪˈzɜːrvd/',
-              pos: 'adj',
-              status: 'stable' as const,
-              exampleSentence: '',
-            } as Word,
-          },
-          { text: ' way, and I understood that he meant a great deal more than that.' },
-        ],
-      },
-      {
-        id: 3,
-        parts: [
-          { text: 'In ' },
-          {
-            text: 'consequence',
-            word: {
-              id: 'w6',
-              text: 'consequence',
-              meaning: '결과, 영향',
-              pronunciation: '/ˈkɒnsɪkwəns/',
-              pos: 'noun',
-              status: 'shaky' as const,
-              exampleSentence: '',
-            } as Word,
-          },
-          { text: ", I'm " },
-          {
-            text: 'inclined',
-            word: {
-              id: 'w7',
-              text: 'inclined',
-              meaning: '~하는 경향이 있는',
-              pronunciation: '/ɪnˈklaɪnd/',
-              pos: 'adj',
-              status: 'stable' as const,
-              exampleSentence: '',
-            } as Word,
-          },
-          { text: ' to reserve all ' },
-          {
-            text: 'judgments',
-            word: {
-              id: 'w8',
-              text: 'judgments',
-              meaning: '판단, 평가',
-              pronunciation: '/ˈdʒʌdʒmənts/',
-              pos: 'noun',
-              status: 'shaky' as const,
-              exampleSentence: '',
-            } as Word,
-          },
-          {
-            text: ', a habit that has opened up many curious natures to me and also made me the victim of not a few veteran ',
-          },
-          {
-            text: 'bores',
-            word: {
-              id: 'w9',
-              text: 'bores',
-              meaning: '지루한 사람들',
-              pronunciation: '/bɔːrz/',
-              pos: 'noun',
-              status: 'new' as const,
-              exampleSentence: '',
-            } as Word,
-          },
-          { text: '.' },
-        ],
-      },
-    ],
-  },
-]
 
 const MODE_STATUS: Record<ModeKey, ModeStatus> = {
   listen: 'done',
@@ -247,15 +68,15 @@ export default function WorkspacePage({ params }: PageProps) {
   const currentMode = (searchParams.get('mode') ?? 'read') as ModeKey
   const currentPage = parseInt(searchParams.get('page') ?? '1', 10)
 
-  // layout.tsx 가 v_text_content 에서 실 데이터 주입. 없으면 mock fallback.
-  const ctx = useTextContentSafe()
+  // layout.tsx 가 v_text_content 에서 실 데이터를 주입한다.
+  //   못 찾으면 layout 이 notFound() 로 끝내므로 여기 도달하면 컨텍스트는 반드시 있다.
+  //   (예전엔 여기서 「위대한 개츠비」 목업으로 메웠다 — B1)
+  const ctx = useTextContent()
 
   const text: LibraryText = useMemo(() => {
-    const base: LibraryText = { ...MOCK_TEXT, id: params.id, currentPage }
-    if (!ctx) return base
     const t = ctx.text
     // 실 데이터 기반 진척률: chapter list 에서 completed 비율
-    let progressPercent = base.progressPercent
+    let progressPercent = 0
     if (ctx.chapters.length > 0) {
       const completed = ctx.chapters.filter((c) => c.status === 'completed').length
       const current = ctx.chapters.findIndex((c) => c.textId === ctx.textId)
@@ -265,21 +86,28 @@ export default function WorkspacePage({ params }: PageProps) {
       progressPercent = Math.round(((completed + inProgressBoost) / ctx.chapters.length) * 100)
     }
     return {
-      ...base,
-      ...(t.title ? { title: t.title } : {}),
-      ...(t.author ? { author: t.author } : {}),
-      ...(t.cefrLevel ? { cefrLevel: t.cefrLevel } : {}),
-      ...(typeof t.wordCount === 'number' ? { wordCount: t.wordCount } : {}),
-      bookId: ctx.libraryBookId,
+      id: params.id,
+      title: t.title ?? '',
+      author: t.author ?? '',
+      cefrLevel: t.cefrLevel ?? 'B1',
+      category: ctx.libraryBookId ? '라이브러리' : '직접 입력',
+      preview: '',
+      wordCount: typeof t.wordCount === 'number' ? t.wordCount : 0,
       progressPercent,
       totalPages: t.totalPages ?? 1,
       currentPage,
+      // Reading Room 정합 — navy ink → deep ink (잉크 두 단계)
+      coverGradient: { from: 'var(--p)', to: 'var(--p-dark)' },
+      addedAt: new Date(),
+      lastStudiedAt: null,
+      // 실제 값은 아래 useEffect 가 texts.is_bookmarked 에서 읽어 온다.
+      isBookmarked: false,
+      bookId: ctx.libraryBookId,
     }
   }, [ctx, params.id, currentPage])
 
   // Chapter 메타 — ReadingUniverse 상단 kicker + 하단 풋터 공용
   const chapterMeta = useMemo(() => {
-    if (!ctx) return undefined
     // 라이브러리 도서이면 "Chapter N", 사용자 텍스트면 텍스트 title 그대로
     const label =
       ctx.libraryBookId && ctx.chapterIdx != null
@@ -293,7 +121,7 @@ export default function WorkspacePage({ params }: PageProps) {
   }, [ctx])
 
   const paragraphs: TextParagraph[] = useMemo(
-    () => annotateSupport(ctx && ctx.paragraphs.length > 0 ? ctx.paragraphs : MOCK_PARAGRAPHS),
+    () => annotateSupport(ctx.paragraphs),
     [ctx],
   )
 
@@ -362,8 +190,12 @@ export default function WorkspacePage({ params }: PageProps) {
   // Hooks
   const { isFocusMode, toggle: toggleFocus } = useFocusMode()
 
+  const toast = useToast()
+
   // State
   const [isBookmarked, setIsBookmarked] = useState(text.isBookmarked)
+  /** 북마크 저장 왕복 중 — 연타로 값이 엇갈리는 것을 막는다 */
+  const [bookmarkSaving, setBookmarkSaving] = useState(false)
   const [isInsightOpen, setIsInsightOpen] = useState(false)
   const [recallWord, setRecallWord] = useState<Word | null>(null)
   const [recallAnchor, setRecallAnchor] = useState<DOMRect | null>(null)
@@ -376,6 +208,17 @@ export default function WorkspacePage({ params }: PageProps) {
   const tts = useTTS()
   // v06.32 — 듣기 player 항상 가시화 (사용자 명시 요청)
   const [audioVisible, setAudioVisible] = useState(true)
+
+  // 저장된 북마크를 읽어 별을 맞춘다 — 이 값이 없으면 새로고침마다 별이 꺼진 채 시작한다.
+  useEffect(() => {
+    let cancelled = false
+    void fetchBookmarked(text.id).then((b) => {
+      if (!cancelled) setIsBookmarked(b)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [text.id])
 
   // v06.x — 듣기 소스: 브라우저 TTS(문장/단락) vs LibriVox 원어민 보이스(챕터 전체)
   // 현재 챕터에 연결된 보이스가 있을 때만 LibriVox 선택 가능.
@@ -566,10 +409,25 @@ export default function WorkspacePage({ params }: PageProps) {
     tts.stop()
   }
 
-  // Bookmark handler
+  // Bookmark — texts.is_bookmarked 에 저장한다.
+  //   로컬 state 만 뒤집던 시절엔 새로고침 한 번에 사라졌는데, 인사이트 패널은
+  //   "B 키로 추가할 수 있어요" 라고 가르치고 있었다(B2). 허브(useTexts)는 이미
+  //   같은 컬럼을 읽어 카드에 별을 그린다 — 읽는 쪽만 있고 쓰는 쪽이 없었다.
   const handleBookmarkToggle = useCallback(() => {
-    setIsBookmarked((b) => !b)
-  }, [])
+    if (bookmarkSaving) return
+    const next = !isBookmarked
+    setIsBookmarked(next)
+    setBookmarkSaving(true)
+    void setBookmarked(text.id, next)
+      .then((res) => {
+        if (!res.ok) {
+          // 낙관적 표시를 되돌린다 — 저장 안 된 별을 저장된 것처럼 두지 않는다.
+          setIsBookmarked(!next)
+          toast.error(res.error, { title: '북마크를 저장하지 못했어요' })
+        }
+      })
+      .finally(() => setBookmarkSaving(false))
+  }, [bookmarkSaving, isBookmarked, text.id, toast])
 
   // Pagination via keyboard
   const goToPage = useCallback(
@@ -608,12 +466,26 @@ export default function WorkspacePage({ params }: PageProps) {
     },
   })
 
-  // Mock memory stats
+  // M11(기억 상태 목업)은 이 작업 범위 밖이라 그대로 둔다 — 실데이터 경로가 아직 없다.
   const memoryStats = { stable: 97, shaky: 28, risk: 14, newWords: 17 }
-  const bookmarks = [
-    { id: 'b1', text: 'In my younger and more vulnerable years...', page: 3, addedAt: '방금' },
-    { id: 'b2', text: "He didn't say any more, but we've always...", page: 1, addedAt: '어제' },
-  ]
+
+  // 인사이트 패널의 북마크 목록 — 저장된 값에서 만든다(목업 인용문 2개를 지웠다).
+  //   북마크 단위는 "이 글/챕터" 다(texts.is_bookmarked). 문장 단위 북마크를 담을 곳이
+  //   아직 없으므로 없는 것을 있는 것처럼 그리지 않는다.
+  const bookmarks = useMemo(
+    () =>
+      isBookmarked
+        ? [
+            {
+              id: text.id,
+              text: chapterMeta?.label ?? text.title,
+              page: currentPage,
+              addedAt: '이 글',
+            },
+          ]
+        : [],
+    [isBookmarked, text.id, text.title, chapterMeta, currentPage],
+  )
 
   // SpellForge 모드 — 워크스페이스 레이아웃 우회, 전용 화면 단독 렌더
   if (currentMode === 'spellforge') {
