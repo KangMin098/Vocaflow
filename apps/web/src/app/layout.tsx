@@ -11,6 +11,7 @@ import {
   JetBrains_Mono,
 } from "next/font/google";
 import { ToastProvider } from "@/components/ui/Toast";
+import { DevicePreferences } from "@/components/layout/DevicePreferences";
 import { SITE_URL } from "@/lib/seo/site";
 import "./globals.css";
 
@@ -113,6 +114,10 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
+        {/* 기기 취향(모션 감소)을 **모든 화면에서** 실제로 적용한다 —
+            저장은 설정 화면이 하지만 적용은 여기 한 곳이다. 테마는 위 선행 스크립트가
+            첫 페인트 전에 칠하므로 여기서 다시 만지지 않는다(두 곳이 칠하면 깜빡인다). */}
+        <DevicePreferences />
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>

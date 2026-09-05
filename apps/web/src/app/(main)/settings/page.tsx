@@ -29,56 +29,59 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // ──────────────────────────────────────────────
-// useStateWithSave — 변경 시 전역 'settings:saved' 이벤트 발화
-// (실제 백엔드 저장은 Phase 2 — 현재는 시각 피드백만 제공)
+// 저장 알림
+//
+// ⚠️ **저장되지 않았는데 「저장됨」을 띄우지 않는다** (실측 2026-09-05).
+//    예전에는 컨트롤 11개가 전부 `useState` 였고, 무엇을 눌러도 이 배지가 떴다.
+//    새로고침하면 모두 원래대로였고 학습자는 자기가 잘못 눌렀다고 생각한다.
+//    지금은 실제 저장 결과(`lib/settings/device-prefs.ts` 가 돌려주는 boolean)를 싣는다 —
+//    사생활 보호 모드처럼 저장이 막힌 브라우저에서는 **막혔다고 말한다.**
 // ──────────────────────────────────────────────
-function useStateWithSave<T>(initial: T): [T, (v: T) => void] {
-  const [value, setValue] = useState<T>(initial)
-  const isFirst = useRef(true)
-  const wrapped = (v: T) => {
-    setValue(v)
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('settings:saved'))
-    }
-  }
-  useEffect(() => {
-    isFirst.current = false
-  }, [])
-  return [value, wrapped]
+const SAVE_EVENT = 'settings:saved'
+
+function notifySaved(saved: boolean) {
+  if (typeof window === 'undefined') return
+  window.dispatchEvent(new CustomEvent(SAVE_EVENT, { detail: { saved } }))
 }
 
-// ──────────────────────────────────────────────
-// SaveIndicator — 우측 상단 sticky 배지
-// ──────────────────────────────────────────────
 function SaveIndicator() {
-  const [saving, setSaving] = useState<'idle' | 'saved'>('idle')
+  const [state, setState] = useState<'idle' | 'saved' | 'failed'>('idle')
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>
-    const handler = () => {
-      setSaving('saved')
+    const handler = (e: Event) => {
+      const ok = (e as CustomEvent<{ saved: boolean }>).detail?.saved !== false
+      setState(ok ? 'saved' : 'failed')
       clearTimeout(timeout)
-      timeout = setTimeout(() => setSaving('idle'), 1600)
+      // 실패는 더 오래 남긴다 — 1.6초면 못 읽는다.
+      timeout = setTimeout(() => setState('idle'), ok ? 1600 : 5000)
     }
-    window.addEventListener('settings:saved', handler)
+    window.addEventListener(SAVE_EVENT, handler)
     return () => {
-      window.removeEventListener('settings:saved', handler)
+      window.removeEventListener(SAVE_EVENT, handler)
       clearTimeout(timeout)
     }
   }, [])
 
+  const failed = state === 'failed'
   return (
     <div
       role="status"
       aria-live="polite"
-      className={`pointer-events-none fixed right-6 top-6 z-30 inline-flex items-center gap-2 rounded-full bg-[var(--success-light)] px-3 py-2 font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--success)] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] ${
-        saving === 'saved' ? 'opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'
-      }`}
+      className={`pointer-events-none fixed right-6 top-6 z-30 inline-flex items-center gap-2 rounded-full px-3 py-2 font-display text-[11px] font-[700] uppercase tracking-[0.06em] shadow-[var(--sh-md)] transition-all duration-[var(--dur-normal)] ${
+        failed
+          ? 'bg-[var(--danger-light)] text-[var(--danger)]'
+          : 'bg-[var(--success-light)] text-[var(--success)]'
+      } ${state === 'idle' ? 'pointer-events-none -translate-y-2 opacity-0' : 'opacity-100'}`}
     >
-      <Check size={11} strokeWidth={3} aria-hidden />
-      저장됨
+      {failed ? (
+        <AlertTriangle size={11} strokeWidth={3} aria-hidden />
+      ) : (
+        <Check size={11} strokeWidth={3} aria-hidden />
+      )}
+      {failed ? '이 브라우저에는 저장할 수 없어요' : '저장됨'}
     </div>
   )
 }
@@ -86,6 +89,17 @@ function SaveIndicator() {
 import { Screen } from '@/components/ui/ios'
 import { Toggle } from '@/components/ui/Toggle'
 import { signOut } from '@/hooks/useAuth'
+import { useMotionPreference } from '@/components/layout/DevicePreferences'
+import { useDevicePrefs, useThemePreference } from '@/lib/settings/device-prefs'
+
+/** 아직 못 하는 것을 못 한다고 말하는 자리. 토글처럼 보이면 안 된다. */
+function PendingBadge() {
+  return (
+    <span className="inline-flex items-center rounded-[var(--r-full)] bg-[var(--bg3)] px-3 py-1 font-display text-[11px] font-[700] text-[var(--t3)]">
+      준비 중
+    </span>
+  )
+}
 
 // ══════════════════════════════════════════════════════════════
 // Section · SettingRow 보조
@@ -194,26 +208,24 @@ function Segment<T extends string>({ value, options, onChange, ariaLabel }: Segm
 // Page
 // ══════════════════════════════════════════════════════════════
 export default function SettingsPage() {
-  // 학습 흐름
-  const [focusMode, setFocusMode] = useStateWithSave(true)
-  const [memoryDecay, setMemoryDecay] = useStateWithSave(true)
-  const [activeRecallDelay, setActiveRecallDelay] = useStateWithSave<'short' | 'normal' | 'long'>(
-    'normal'
-  )
+  // 기기에 실제로 남는 취향 — 저장 결과를 그대로 배지에 싣는다.
+  const { prefs, set: setPref } = useDevicePrefs()
+  const { preference: theme, setPreference: setThemePref } = useThemePreference()
+  const { preference: motionPref, setPreference: setMotionPref } = useMotionPreference()
 
-  // 외형
-  const [theme, setTheme] = useStateWithSave<'light' | 'dark' | 'system'>('system')
-  const [reducedMotion, setReducedMotion] = useStateWithSave(false)
+  const focusMode = prefs.focusMode
+  const memoryDecay = prefs.memoryDecayColors
+  const activeRecallDelay = prefs.recallDelay
+  const ttsEnabled = prefs.ttsEnabled
+  const ttsSpeed = prefs.ttsSpeed
 
-  // 음성
-  const [ttsEnabled, setTtsEnabled] = useStateWithSave(true)
-  const [ttsVoice, setTtsVoice] = useStateWithSave<'natural' | 'fast' | 'lang-female'>('natural')
-  const [ttsSpeed, setTtsSpeed] = useStateWithSave(1.0)
-
-  // 알림
-  const [notifyDaily, setNotifyDaily] = useStateWithSave(false)
-  const [notifyStreak, setNotifyStreak] = useStateWithSave(false)
-  const [notifyEmail, setNotifyEmail] = useStateWithSave(true)
+  const savePref = <K extends keyof typeof prefs>(key: K, value: (typeof prefs)[K]) =>
+    notifySaved(setPref(key, value))
+  const setTheme = (v: 'light' | 'dark' | 'system') => notifySaved(setThemePref(v))
+  // 모션은 3상태(system/on/off)로 저장하지만 화면은 토글 하나다 — 학습자가 만진 순간
+  // 'system' 은 의미를 잃으므로 on/off 로 확정한다.
+  const reducedMotion = motionPref === 'on'
+  const setReducedMotion = (on: boolean) => notifySaved(setMotionPref(on ? 'on' : 'off'))
 
   // 로그아웃 — signOut() 이 세션 종료 후 '/login' 으로 hard reload 한다.
   // 실패해도 버튼이 영구히 잠기지 않도록 finally 에서 되돌린다.
@@ -280,7 +292,7 @@ export default function SettingsPage() {
             control={
               <Toggle
                 checked={focusMode}
-                onChange={(e) => setFocusMode(e.target.checked)}
+                onChange={(e) => savePref('focusMode', e.target.checked)}
                 aria-label="집중 모드"
               />
             }
@@ -291,7 +303,7 @@ export default function SettingsPage() {
             control={
               <Toggle
                 checked={memoryDecay}
-                onChange={(e) => setMemoryDecay(e.target.checked)}
+                onChange={(e) => savePref('memoryDecayColors', e.target.checked)}
                 aria-label="Memory Decay 색 추적"
               />
             }
@@ -307,7 +319,7 @@ export default function SettingsPage() {
                   { value: 'normal', label: 'Normal (3s)' },
                   { value: 'long', label: 'Long (5s)' },
                 ]}
-                onChange={setActiveRecallDelay}
+                onChange={(v) => savePref('recallDelay', v)}
                 ariaLabel="능동적 회상 대기 시간"
               />
             }
@@ -365,25 +377,20 @@ export default function SettingsPage() {
             control={
               <Toggle
                 checked={ttsEnabled}
-                onChange={(e) => setTtsEnabled(e.target.checked)}
+                onChange={(e) => savePref('ttsEnabled', e.target.checked)}
                 aria-label="TTS 활성화"
               />
             }
           />
+          {/* ⚠️ 예전에는 "OpenAI TTS-1 보이스 종류를 선택합니다" 라며 세 가지를 팔았다.
+              이 앱의 발음은 **브라우저 음성 합성**(`hooks/useSpeechSynthesis.ts` 의
+              `window.speechSynthesis`)이고, 저장소에 OpenAI 음성 합성 호출은 0건이다.
+              고를 수 없는 것을 고르게 두면 학습자는 바꿨다고 믿고 같은 소리를 듣는다. */}
           <Row
-            label="발음 보이스"
-            description="OpenAI TTS-1 보이스 종류를 선택합니다."
+            label="발음 목소리"
+            description="이 기기의 브라우저 음성을 씁니다 — 목소리는 운영체제 설정에서 바뀝니다."
             control={
-              <Segment
-                value={ttsVoice}
-                options={[
-                  { value: 'natural', label: 'Natural (남성)' },
-                  { value: 'fast', label: 'Fast (중성)' },
-                  { value: 'lang-female', label: 'Lang (여성)' },
-                ]}
-                onChange={setTtsVoice}
-                ariaLabel="발음 보이스"
-              />
+              <span className="font-mono text-[11px] text-[var(--t2)]">시스템 음성</span>
             }
           />
           <Row
@@ -397,7 +404,7 @@ export default function SettingsPage() {
                   max={1.5}
                   step={0.05}
                   value={ttsSpeed}
-                  onChange={(e) => setTtsSpeed(parseFloat(e.target.value))}
+                  onChange={(e) => savePref('ttsSpeed', parseFloat(e.target.value))}
                   // 실측 2026-08-25: 128×6 이었다. 슬라이더는 **막대가 아니라 손잡이를 잡는다** —
                   // 막대(6px)는 그대로 보이게 두고, 위아래 투명 여백으로 잡는 영역만 44px 로 넓힌다
                   // (background-clip: content-box 로 막대 색이 여백까지 번지지 않게).
@@ -418,41 +425,27 @@ export default function SettingsPage() {
           id="notifications"
           icon={BellOff}
           title="알림"
-          description="Calm UI 원칙 — 알림은 기본 OFF. 정말 도움이 될 때만 켜세요."
+          description="아직 보낼 길이 없어요. 준비되면 여기서 켤 수 있게 하겠습니다."
           accent="var(--active)"
         >
+          {/* ⚠️ 세 토글이 켜지고 「저장됨」까지 떴지만, 이 저장소에는 알림을 보내는 코드가
+              **하나도 없다** — web-push · 서비스워커 · 메일 발송 어느 것도 없다(실측 2026-09-05).
+              켜 둔 사람은 오지 않는 알림을 기다리게 된다. 켤 수 있는 것처럼 두지 않는다.
+              값을 저장해 두지도 않는다 — 발송이 붙는 날의 기본값을 지금 미리 정할 이유가 없다. */}
           <Row
             label="매일 학습 리마인더"
-            description="설정한 시간(기본 21:00)에 부드럽게 푸시 알림을 보냅니다."
-            control={
-              <Toggle
-                checked={notifyDaily}
-                onChange={(e) => setNotifyDaily(e.target.checked)}
-                aria-label="매일 학습 리마인더"
-              />
-            }
+            description="학습이 끊길 즈음 한 번만 알리려고 합니다."
+            control={<PendingBadge />}
           />
           <Row
-            label="Streak 위험 알림"
-            description="연속 학습이 끊기기 4시간 전에만 1회 알림 (압박 없이 부드럽게)."
-            control={
-              <Toggle
-                checked={notifyStreak}
-                onChange={(e) => setNotifyStreak(e.target.checked)}
-                aria-label="Streak 위험 알림"
-              />
-            }
+            label="연속 학습이 끊기기 전"
+            description="압박이 아니라 알림 한 번으로 — 방식이 정해지면 켤 수 있게 합니다."
+            control={<PendingBadge />}
           />
           <Row
             label="이메일 — 주간 요약"
-            description="매주 일요일 저녁, 한 주의 학습을 차분히 돌아보는 메일."
-            control={
-              <Toggle
-                checked={notifyEmail}
-                onChange={(e) => setNotifyEmail(e.target.checked)}
-                aria-label="이메일 주간 요약"
-              />
-            }
+            description="한 주를 차분히 돌아보는 메일. 발송 경로가 준비되면 열립니다."
+            control={<PendingBadge />}
           />
         </Section>
 

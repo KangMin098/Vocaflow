@@ -5,11 +5,28 @@
 import { usePathname } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 
+import { PREFS_CHANGE_EVENT, readPrefs } from '@/lib/settings/device-prefs'
+
 const IDLE_TIMEOUT_MS = 30_000 // 30초 무활동 → 자동 진입
 
 export function useFocusMode() {
   const pathname = usePathname()
   const [isFocusMode, setIsFocusMode] = useState(false)
+
+  // 설정의 「집중 모드」 토글이 실제로 여기를 움직인다 (2026-09-05 전까지는 토글이
+  // 어디에도 닿지 않았다). 끄면 **자동 진입만** 멈춘다 — 손으로 켜는 것은 그대로다.
+  // 첫 렌더는 서버와 같은 값(true)이어야 하므로 마운트 뒤에 저장값으로 맞춘다.
+  const [autoEnter, setAutoEnter] = useState(true)
+  useEffect(() => {
+    const sync = () => setAutoEnter(readPrefs().focusMode)
+    sync()
+    window.addEventListener(PREFS_CHANGE_EVENT, sync)
+    window.addEventListener('storage', sync)
+    return () => {
+      window.removeEventListener(PREFS_CHANGE_EVENT, sync)
+      window.removeEventListener('storage', sync)
+    }
+  }, [])
 
   const enable = useCallback(() => setIsFocusMode(true), [])
   const disable = useCallback(() => setIsFocusMode(false), [])
@@ -31,8 +48,9 @@ export function useFocusMode() {
     return () => document.body.classList.remove('focus-mode')
   }, [isFocusMode])
 
-  // 30초 무활동 → 자동 진입
+  // 30초 무활동 → 자동 진입 (설정에서 껐으면 타이머를 걸지 않는다)
   useEffect(() => {
+    if (!autoEnter) return
     let idleTimer: NodeJS.Timeout | null = null
 
     const resetTimer = () => {
@@ -56,7 +74,7 @@ export function useFocusMode() {
       document.removeEventListener('keydown', handleActivity)
       document.removeEventListener('scroll', handleActivity)
     }
-  }, [isFocusMode, enable])
+  }, [isFocusMode, enable, autoEnter])
 
   // 마우스 상단 이동 시 자동 해제
   useEffect(() => {
