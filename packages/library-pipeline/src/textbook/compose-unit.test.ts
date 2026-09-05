@@ -204,3 +204,86 @@ describe('roundRobinByRef', () => {
     expect(roundRobinByRef(items)).toHaveLength(items.length)
   })
 })
+
+describe('비중 배분 — 겸용 글을 아껴 쓴다', () => {
+  /** 유형을 지정해 문항 하나를 만든다(위 `item` 은 order/insert 전용이다). */
+  const typed = (type: string, ref: string): PoolItem => ({
+    id: `x${seq++}`,
+    type: type as PoolItem['type'],
+    ref_id: ref,
+    ref_title: `글 ${ref}`,
+    v_level: 5,
+    passage_text: 'Clean prose sentence.',
+    passage_words: 114,
+    body_sentences: 5,
+    payload: {},
+    answer_key: {},
+  })
+
+  /**
+   * V3 에서 실제로 겹침을 만든 배치를 축소해 재현한다(실측 2026-09-05).
+   *
+   * 4단원 × (title 1 + topic 1) = 여덟 자리, 재료도 여덟 편이라 딱 맞아야 한다:
+   *   title 전용 t1~t4 · topic 전용 p1·p2 · **둘 다 가진 겸용 b1·b2**
+   *
+   * ⚠️ **겸용을 풀 앞에 둔다** — 이게 이 픽스처의 전부다. 앞에 두지 않으면 "덜 쓰인 글
+   *   먼저" 만으로도 우연히 갈려 **고치기 전 코드도 통과한다**(실제로 한 번 그렇게 썼다가
+   *   가드가 아무것도 못 지키는 것을 확인했다).
+   *
+   * 겸용을 먼저 쓰면 title 이 b1·b2 를 가져가고, topic 은 전용 p1·p2 뒤에 쓸 글이 없어
+   * 같은 글을 다시 부른다. 한 유형만 가진 글을 먼저 쓰면 여덟 편이 정확히 나뉜다.
+   */
+  const mixedPool = (): PoolItem[] => {
+    seq = 0
+    const out: PoolItem[] = []
+    // 겸용이 맨 앞 — 순서만 보고 고르면 여기서 걸린다.
+    for (const r of ['b1', 'b2']) {
+      out.push(typed('title', r))
+      out.push(typed('topic', r))
+    }
+    for (const r of ['t1', 't2', 't3', 't4']) out.push(typed('title', r))
+    for (const r of ['p1', 'p2']) out.push(typed('topic', r))
+    return out
+  }
+  const vocabAll = (): Map<string, UnitVocab[]> => {
+    const m = new Map<string, UnitVocab[]>()
+    for (const r of ['t1', 't2', 't3', 't4', 'p1', 'p2', 'b1', 'b2'])
+      m.set(
+        r,
+        Array.from({ length: 30 }, (_, i) => ({
+          word: `${r}w${i}`,
+          meaning_ko: '뜻',
+          v_level: 5,
+          first_sentence: null,
+          frequency_in_article: 30 - i,
+        })),
+      )
+    return m
+  }
+
+  it('겸용 글을 먼저 쓰지 않아 여덟 자리가 여덟 편으로 채워진다', () => {
+    const { units } = composeUnits(mixedPool(), vocabAll(), {
+      band: 5,
+      unitCount: 4,
+      itemsPerUnit: 2,
+      targetShare: { title: 0.5, topic: 0.5 },
+    })
+    expect(units).toHaveLength(4)
+    const refs = units.flatMap((u) => u.items.map((i) => i.ref_id))
+    expect(refs).toHaveLength(8)
+    // **핵심 계약** — 권 전체에서 같은 글이 두 번 불리지 않는다.
+    expect(new Set(refs).size).toBe(8)
+  })
+
+  it('한 유형만 가진 글이 먼저 쓰인다 — 겸용은 남겨 둔다', () => {
+    const { units } = composeUnits(mixedPool(), vocabAll(), {
+      band: 5,
+      unitCount: 2,
+      itemsPerUnit: 2,
+      targetShare: { title: 0.5, topic: 0.5 },
+    })
+    const refs = new Set(units.flatMap((u) => u.items.map((i) => i.ref_id)))
+    // 두 단원(title 2 · topic 2)이면 전용 글만으로 채워진다 — 겸용은 뒤로 남는다.
+    expect(refs.has('b1') || refs.has('b2'), '겸용 글이 먼저 쓰였다').toBe(false)
+  })
+})
