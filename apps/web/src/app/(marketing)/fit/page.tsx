@@ -16,6 +16,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 import { PublicFitClient } from '@/components/textfit/PublicFitClient'
+import { getSampleProfile } from '@/lib/textfit/sample-profile'
 import { absoluteUrl } from '@/lib/seo/site'
 
 import { SHARE_PARAM, SHARE_PATH, decodeProfile } from '@/lib/textfit/share'
@@ -119,7 +120,8 @@ function structuredData(): string {
  *    `components/marketing/__tests__/no-hardcoded-stats.test.ts` 가 재발을 막는다.
  */
 export default async function FitPage({ searchParams }: { searchParams?: SearchParams }) {
-  const facts = await fetchPlatformFacts()
+  // 신뢰 수치와 예시 분석은 서로 독립이라 나란히 기다린다. 예시 분석은 하루 캐시라 보통 즉시 온다.
+  const [facts, sample] = await Promise.all([fetchPlatformFacts(), getSampleProfile()])
   // 구버전 공유 링크(`/fit?r=`) 호환 — 이미 복사돼 돌아다니는 주소를 죽이지 않는다.
   // 새 링크는 `/fit/s/<payload>` 이고, 그쪽에만 미리보기 이미지가 붙는다.
   const legacyShared = decodeProfile(readShareParam(searchParams))
@@ -141,11 +143,12 @@ export default async function FitPage({ searchParams }: { searchParams?: SearchP
         </h1>
         <p className="m-0 max-w-[52ch] font-body text-[15px] leading-[1.75] text-[var(--t2)] md:text-[16px]">
           영어 지문을 붙여넣으면 <b>중1부터 학술 원서까지 학년별로 몇 %가 읽히는지</b> 바로
-          나옵니다. 가입도, 설치도 필요 없습니다. 붙여넣은 지문은 저장하지 않습니다.
+          나옵니다. 가입 없이, 저장하지 않고.
         </p>
       </header>
 
-      <PublicFitClient />
+      {/* 도착 즉시 작동하는 결과 — 빈 입력칸으로 시작하지 않는다(§🎯 I1·I2) */}
+      <PublicFitClient initialSample={sample} />
 
       {/* ── 이 화면이 답하는 것 ── */}
       <section aria-label="자주 쓰는 방법" className="mt-14 flex flex-col gap-4">

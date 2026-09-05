@@ -7,6 +7,11 @@
 //   교사는 가입 전에 가치를 볼 수 없고, 그 관문에서 채널이 끊긴다.
 //   → 가장 강한 기능을 관문 **앞**에 둔다.
 //
+// 도착 화면 (2026-09-05): 빈 입력칸으로 시작하지 않는다. 서버가 예시 지문을 미리 분석해 넘기면
+//   입력칸에 그 문장이 채워진 채 결과까지 떠 있다 — 클릭 0 으로 도구 전체가 작동하는 상태를 본다
+//   (DESIGN_SYSTEM §🎯 I1·I2 · vocaflow-design §C-4 「빈 상태가 최고의 전시장」). 방문자가 입력칸을
+//   건드리는 순간 예시는 사라지고 자기 지문으로 다시 계산된다.
+//
 // 개인정보: 입력 지문을 저장하지 않는다. 조회는 공개 어휘 테이블(shared_words·lexicon_clean)뿐이고
 //   쓰기 경로가 없다. 그래서 로그인·동의 없이 열어도 남는 것이 없다.
 
@@ -29,17 +34,12 @@ import { buildShareUrl, isShareable } from '@/lib/textfit/share'
 import { track } from '@/lib/analytics/client'
 import { resolvedDecile, sizeBucket } from '@/lib/analytics/events'
 import type { LevelProfile } from '@/lib/textfit/profile'
+import { FIT_SAMPLE } from '@/lib/textfit/sample'
 
 /** 분석을 시작하는 최소 길이 — 한두 문장으로는 커버리지가 통계적 의미를 갖지 못한다. */
 const MIN_CHARS = 120
 
-const SAMPLE = `Scientists have long assumed that memory decays at a predictable rate, but recent evidence
-suggests the process is far more contingent than that. When learners encounter a word repeatedly in
-meaningful contexts, the retrieval pathway is reinforced disproportionately compared with isolated
-rehearsal. This has substantial implications for classroom instruction: allocating scarce time to
-massed drilling may be considerably less efficient than distributing the same effort across weeks.
-Nevertheless, the prevailing curriculum still favours concentrated review, largely because it is
-easier to administer and to measure.`
+// 예시 지문은 `lib/textfit/sample.ts` 가 정본이다 — 서버가 미리 분석한 문장과 같아야 한다.
 
 interface Props {
   /**
@@ -48,11 +48,21 @@ interface Props {
    * 링크 미리보기와 실제 화면이 갈라지지 않는다.
    */
   initialShared?: LevelProfile | null
+  /**
+   * 서버가 도착 전에 분석해 둔 **예시 지문의 결과**(`lib/textfit/sample-profile.ts`).
+   *
+   * 있으면 입력칸에 예시 지문이 미리 채워지고 그 결과가 함께 뜬다 — 빈 폼이 아니라 **작동하는
+   * 도구**로 시작한다(§🎯 I1·I2). 공유 링크로 들어온 경우(`initialShared`)가 우선한다 —
+   * 그 사람은 받은 결과를 보러 왔다.
+   */
+  initialSample?: LevelProfile | null
 }
 
-export function PublicFitClient({ initialShared = null }: Props) {
-  const [text, setText] = useState('')
-  const [profile, setProfile] = useState<LevelProfile | null>(initialShared)
+export function PublicFitClient({ initialShared = null, initialSample = null }: Props) {
+  // 공유 결과가 없고 예시 결과가 있으면 예시로 시작한다 — 입력칸과 결과가 **같은 문장**을 가리켜야 한다.
+  const startsWithSample = initialShared === null && initialSample !== null
+  const [text, setText] = useState(startsWithSample ? FIT_SAMPLE : '')
+  const [profile, setProfile] = useState<LevelProfile | null>(initialShared ?? initialSample)
   /**
    * 인쇄할 학습지 종류. 기본은 `both` — 교사는 대개 나눠 줄 것과 걷을 것을 함께 만든다.
    */
@@ -63,6 +73,8 @@ export function PublicFitClient({ initialShared = null }: Props) {
   const [wordsCopied, setWordsCopied] = useState(false)
   // 공유받은 결과를 보고 있는가 — 본인이 지문을 넣는 순간 해제된다.
   const [viewingShared, setViewingShared] = useState(initialShared !== null)
+  // 예시 결과를 보고 있는가 — 입력칸을 건드리는 순간 해제된다(그때부터는 내 지문이다).
+  const [viewingSample, setViewingSample] = useState(startsWithSample)
 
   // 퍼널 분모 — 이 화면에 몇 명이 왔는가. 공유 링크로 온 진입은 확산 계수의 분자다.
   useEffect(() => {
@@ -85,12 +97,16 @@ export function PublicFitClient({ initialShared = null }: Props) {
     if (analysed.trim().length < MIN_CHARS || tokenization.uniqueFinal === 0) {
       // 공유받은 결과를 보고 있는 중이면 지우지 않는다 — 링크로 들어온 사람의 화면이
       // 입력을 시작하기도 전에 비어 버린다.
-      if (!viewingShared) {
+      if (!viewingShared && !viewingSample) {
         setProfile(null)
         setError(null)
       }
       return
     }
+
+    // 예시 지문 그대로면 서버가 내려준 결과가 이미 그 문장의 결과다 — 다시 묻지 않는다.
+    // (`fit_analyzed` 도 보내지 않는다. 그 이벤트는 "실제로 써 봤다" 는 뜻이고, 예시는 그게 아니다.)
+    if (viewingSample) return
 
     let alive = true
     // 입력이 바뀌면 이전 요청을 취소한다 — 늦게 온 옛 응답이 새 결과를 덮지 않게.
@@ -106,6 +122,7 @@ export function PublicFitClient({ initialShared = null }: Props) {
           setError(null)
           // 내 지문으로 다시 계산됐으므로 더 이상 남의 결과가 아니다.
           setViewingShared(false)
+          setViewingSample(false)
           setCopied(false)
 
           // "실제로 써 봤다" — 지문은 보내지 않는다(버킷·레벨만).
@@ -137,7 +154,13 @@ export function PublicFitClient({ initialShared = null }: Props) {
       controller.abort()
       clearTimeout(timer)
     }
-  }, [tokenization, analysed, viewingShared])
+  }, [tokenization, analysed, viewingShared, viewingSample])
+
+  /** 입력칸을 바꾸는 모든 경로 — 예시 결과에서 벗어난다(빈 문자열이면 결과도 비워진다). */
+  function replaceText(next: string) {
+    setText(next)
+    setViewingSample(false)
+  }
 
   /**
    * 어려운 단어를 **단어⇥뜻** 형식으로 클립보드에 담는다.
@@ -204,7 +227,7 @@ export function PublicFitClient({ initialShared = null }: Props) {
         <textarea
           id="fit-input"
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => replaceText(e.target.value)}
           rows={9}
           spellCheck={false}
           placeholder="교과서 본문, 모의고사 지문, 수업 프린트 — 무엇이든 괜찮아요. 저장하지 않습니다."
@@ -220,7 +243,7 @@ export function PublicFitClient({ initialShared = null }: Props) {
           <div className="flex gap-2">
             <button
               type="button"
-              onClick={() => setText(SAMPLE)}
+              onClick={() => replaceText(FIT_SAMPLE)}
               className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
             >
               <FileText size={14} aria-hidden />
@@ -228,7 +251,7 @@ export function PublicFitClient({ initialShared = null }: Props) {
             </button>
             <button
               type="button"
-              onClick={() => setText('')}
+              onClick={() => replaceText('')}
               disabled={text.length === 0}
               className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] active:bg-[var(--bg-strong)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-40 motion-reduce:transition-none"
             >
@@ -253,6 +276,7 @@ export function PublicFitClient({ initialShared = null }: Props) {
         loading={loading}
         truncated={truncated}
         shared={viewingShared}
+        sample={viewingSample}
         onShare={isShareable(profile) ? handleShare : undefined}
         shareCopied={copied}
         onCopyWords={profile && profile.hardestWords.length > 0 ? handleCopyWords : undefined}

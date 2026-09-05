@@ -15,7 +15,7 @@
 
 'use client'
 
-import { ArrowRight, Check, ClipboardList, Link2, Loader2, Sparkles } from 'lucide-react'
+import { ArrowRight, Check, ClipboardList, FileText, Link2, Loader2, Sparkles } from 'lucide-react'
 import Link from 'next/link'
 
 import { track } from '@/lib/analytics/client'
@@ -61,6 +61,13 @@ interface Props {
    * 출처를 명시한 뒤, 받은 사람이 자기 지문으로 다시 돌릴 수 있게 한다.
    */
   shared?: boolean
+  /**
+   * 서버가 미리 분석한 **예시 지문**의 결과인가.
+   *
+   * `shared` 와 같은 이유로 출처를 밝힌다 — 방문자가 아직 아무것도 넣지 않았는데 결과가 떠 있으면
+   * "내 지문 결과" 로 오해할 수 있다. 예시라고 말하고, 자기 지문을 넣으면 바뀐다고 말한다.
+   */
+  sample?: boolean
   /** 공유 버튼 — 없으면 버튼을 그리지 않는다(죽은 버튼 금지). */
   onShare?: () => void
   /** 방금 복사했는가 — 버튼 라벨을 잠깐 바꾼다. */
@@ -76,6 +83,7 @@ export function LevelProfilePanel({
   loading,
   truncated = false,
   shared = false,
+  sample = false,
   onShare,
   shareCopied = false,
   onCopyWords,
@@ -111,6 +119,19 @@ export function LevelProfilePanel({
           <span>
             <b>공유받은 결과</b>예요 — 다른 사람이 분석한 지문입니다. 아래에 직접 지문을 넣으면 내
             기준으로 다시 계산돼요.
+          </span>
+        </p>
+      )}
+
+      {/* ── 예시 결과 출처 명시 ──
+          빈 입력칸 대신 작동하는 결과로 시작한다(§🎯 I1·I2). 다만 그것이 예시라는 사실은 감추지 않는다 —
+          공유 결과와 동시에 참일 수 없으므로 shared 가 우선한다. */}
+      {!shared && sample && (
+        <p className="m-0 flex items-start gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg3)] px-4 py-3 font-body text-[12.5px] leading-[1.6] text-[var(--t2)]">
+          <FileText size={14} aria-hidden className="mt-0.5 shrink-0 text-[var(--t3)]" />
+          <span>
+            <b>예시 지문의 결과</b>예요 — 도구가 어떻게 답하는지 먼저 보여드립니다. 위 입력칸에 지문을
+            붙여넣으면 그 지문으로 다시 계산돼요.
           </span>
         </p>
       )}
