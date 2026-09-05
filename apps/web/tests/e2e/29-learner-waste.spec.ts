@@ -120,10 +120,25 @@ test.describe('학습자 표면 — 낭비(중복 요청)', () => {
     const routes = learnerRoutes().filter((r) => !redirectOnly.has(r) && !PARAM_ROUTES.has(r))
 
     // 요청 수집기. 화면마다 비운다.
+    //
+    // ⚠️ **왜 부류별로 세는가** (2026-09-06): 데이터 요청이 전 화면에서 0건으로 나오는
+    //    일이 있었다. 그때 "중복 없음 100%" 는 아무 뜻이 없는데, 로그만으로는
+    //    *왜* 0건인지 알 수 없었다 — 로그인이 풀린 건지, 토큰이 낡아 REST 가 아예 안
+    //    나간 건지, 화면이 서버에서만 조회하는 건지. 짐작으로 좁히지 말고 세어서 말한다.
+    const seen = { data: 0, supabaseAuth: 0, supabaseOther: 0, sameOriginApi: 0, total: 0 }
     let bag: string[] = []
     page.on('request', (req) => {
       const url = req.url()
+      seen.total += 1
+      if (/supabase\.(co|in)\//.test(url)) {
+        if (/\/auth\/v1\//.test(url)) seen.supabaseAuth += 1
+        else seen.supabaseOther += 1
+      }
+      if (url.startsWith(origin) && url.slice(origin.length).startsWith('/api/')) {
+        seen.sameOriginApi += 1
+      }
       if (!isData(url, origin)) return
+      seen.data += 1
       let body = ''
       try {
         body = req.postData() || ''
@@ -220,7 +235,17 @@ test.describe('학습자 표면 — 낭비(중복 요청)', () => {
     ).toEqual([])
     expect(
       totalRequests,
-      '데이터 요청이 한 건도 안 잡혔다 — 이 앱의 학습자 화면은 그럴 수 없다. 로그인·감시 범위를 확인할 것',
+      [
+        '데이터 요청이 한 건도 안 잡혔다 — 이 앱의 학습자 화면은 그럴 수 없다.',
+        `관측된 요청 부류: 전체 ${seen.total} · Supabase 인증 ${seen.supabaseAuth} ·`,
+        `Supabase 그 외 ${seen.supabaseOther} · 같은 출처 /api/* ${seen.sameOriginApi}`,
+        '',
+        '읽는 법:',
+        '  · 전체 0        → 감시가 안 붙었다(스펙 버그).',
+        '  · 인증만 있음   → 토큰이 낡아 갱신만 돌고 REST 가 안 나간다. 저장된 인증 상태를 버리고 다시.',
+        '  · 그 외도 있는데 data 0 → isData() 의 판정이 좁다(호스트·경로 규칙을 볼 것).',
+        '  · 전부 0 인데 화면은 열림 → 이 화면들이 서버에서만 조회한다는 뜻이다.',
+      ].join(String.fromCharCode(10)),
     ).toBeGreaterThan(0)
 
     expect(offenders.map((o) => `${o.route} ← ${o.hard[0].count}회 ${o.hard[0].key}`)).toEqual([])
