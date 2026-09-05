@@ -90,6 +90,8 @@ interface Dup {
 interface RouteWaste {
   route: string
   measured: boolean
+  /** 로그인 화면으로 튕겼는가 — **측정 실패**지 "중복 없음" 이 아니다(아래 주석). */
+  bouncedToLogin: boolean
   total: number
   dups: Dup[]
   hard: Dup[]
@@ -147,7 +149,15 @@ test.describe('학습자 표면 — 낭비(중복 요청)', () => {
       await page.waitForTimeout(600)
 
       const body = ((await page.locator('body').innerText().catch(() => '')) || '').trim()
-      const measured = opened && body.length > 0
+      // ⚠️ **본문이 있다고 잰 것이 아니다** (실측 2026-09-06 — 이 스펙이 스스로 걸린 함정).
+      //    로그인이 풀린 채로 돌리면 보호 라우트가 전부 `/login` 으로 튕기는데, 로그인 화면에도
+      //    본문은 있다. 그때 데이터 요청은 0건이고, 0건은 중복이 없으므로 이 스펙은
+      //    **57화면 전부 통과 · 100%** 를 인쇄했다. 같은 빌드·같은 서버의 직전 실행이
+      //    `/dictate` 15건 · `/dashboard` 11건이었는데도.
+      //    못 잰 것을 통과로 세면 그 초록은 위험하다 — 실패보다 나쁘다.
+      const landed = new URL(page.url()).pathname
+      const bouncedToLogin = landed.startsWith('/login')
+      const measured = opened && body.length > 0 && !bouncedToLogin
 
       const counts = new Map<string, number>()
       for (const k of bag) counts.set(k, (counts.get(k) || 0) + 1)
@@ -159,6 +169,7 @@ test.describe('학습자 표면 — 낭비(중복 요청)', () => {
       results.push({
         route,
         measured,
+        bouncedToLogin,
         total: bag.length,
         dups,
         hard: dups.filter((d) => d.count >= DUP_LIMIT),
@@ -195,7 +206,21 @@ test.describe('학습자 표면 — 낭비(중복 요청)', () => {
     lines.push(`\n  데이터 요청이 많은 화면: ${heavy.map((h) => `${h.route}(${h.total})`).join(' · ')}`)
     console.log(lines.join('\n'))
 
+    // ── 잰 것이 맞는지 먼저 따진다 ────────────────────────────────────
+    // 아래 세 검사가 없으면 이 스펙은 **로그아웃 상태에서 100% 를 인쇄한다**(실측 2026-09-06).
+    const bounced = results.filter((r) => r.bouncedToLogin).map((r) => r.route)
+    const totalRequests = measured.reduce((n, r) => n + r.total, 0)
+
     expect(measured.length, '한 화면도 못 열었다 — 서버나 로그인을 확인할 것').toBeGreaterThan(0)
+    expect(
+      bounced,
+      `로그인으로 튕긴 화면이 있다 — 세션이 풀린 채로 잰 것이다(측정 실패):\n${bounced.join(', ')}`,
+    ).toEqual([])
+    expect(
+      totalRequests,
+      '데이터 요청이 한 건도 안 잡혔다 — 이 앱의 학습자 화면은 그럴 수 없다. 로그인·감시 범위를 확인할 것',
+    ).toBeGreaterThan(0)
+
     expect(offenders.map((o) => `${o.route} ← ${o.hard[0].count}회 ${o.hard[0].key}`)).toEqual([])
   })
 })
