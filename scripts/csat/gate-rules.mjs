@@ -142,7 +142,28 @@ export const UNFIT = new Set(['reference', 'fragmentary', 'mixed'])
 
 export const PURPOSE_RULE = {
   csat: {
-    verdicts: new Set(['use']), // 서사는 추론 유형에 못 쓴다
+    /**
+     * ⚠️ **서사도 받는다 — 여기 오래 `use` 하나만 있었다.**
+     *
+     * 주석에는 "서사는 추론 유형에 못 쓴다" 고 적혀 있었고, 그 말은 **절반만 맞다.**
+     * 빈칸·요지·주제에 이야기를 대면 논지가 안 서는 것은 맞지만, 수능에는 **서사여야만
+     * 서는 유형**이 따로 있다 — 19번 심경과 43~45번 장문이다.
+     *
+     * 시장 실측이 그것을 요구한다(`market-spec.json` 고등 쪽당 등장률):
+     *
+     *   mood            0.0113
+     *   long_reference  0.0073
+     *
+     * 그런데 이 한 줄이 서사를 통째로 막아, 그 두 유형의 지문이 재고에서 사라졌다.
+     * 실측 2026-09-06 — Gutenberg 36,480편 중 조합 풀에 드는 것이 **19편**이었고,
+     * `narrative/biography` **1,134편** · `narrative/history` **909편**이 이 게이트에
+     * `archived` 로 내려가 있었다. 그래서 V7 권의 `mood`·`long_reference` 가 **늘 0** 이었다.
+     *
+     * 서사가 추론 유형에 섞이는 것은 **고르는 쪽**이 막는다 — 드레인은 유형을 지정해
+     * 뽑고(`item-drain-export --type`), 조합기는 유형별 풀에서 고른다. 실을 수 있는 글을
+     * 게이트에서 통째로 버리는 것과, 유형마다 알맞은 글을 고르는 것은 다른 일이다.
+     */
+    verdicts: new Set(['use', 'narrative']),
     allowPoetry: false,
     requireCleanCodes: true, // 문서 잔재가 하나라도 있으면 자족성이 깨진다
     label: '수능 지문',
