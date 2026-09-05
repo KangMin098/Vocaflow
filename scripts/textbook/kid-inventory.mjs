@@ -29,10 +29,15 @@
 //   node scripts/textbook/kid-inventory.mjs --json   # 기계가 읽을 형태
 
 import { client, dbRetry } from './lib/db.mjs'
+// **목표·몫·세는 법은 패키지가 갖는다** — Admin 화면(`lib/textbook/kid-source-stats.ts`)도
+//   같은 함수를 쓴다. 여기서 다시 정하면 화면과 CLI 가 다른 답을 하는 날이 온다.
+const { KID_BANDS, KID_SOURCE_TARGET, buildKidInventory, kidFeedLabel } = await import(
+  '../../packages/library-pipeline/src/textbook/kid-source.ts'
+)
 
-const TARGET = 9160
-const BANDS = ['초3~4', '초5~6', '초6~중1', '중1~2', '중3']
-const QUOTA_PER_BAND = 1832
+const TARGET = KID_SOURCE_TARGET.total
+const BANDS = KID_BANDS
+const QUOTA_PER_BAND = KID_SOURCE_TARGET.quotaPerBand
 
 const JSON_OUT = process.argv.includes('--json')
 const db = await client()
@@ -42,25 +47,30 @@ const countOf = (build) =>
 
 const quarantined = (q) => q.eq('csat_fit->gate->>publishable', 'false')
 
-const rows = await Promise.all(
+// 세는 것은 여기서 하고, **무엇을 게시 가능이라 부르는지는 패키지가 정한다.**
+const counted = await Promise.all(
   BANDS.map(async (b) => {
-    const label = `PD 발췌 · ${b}`
+    const label = kidFeedLabel(b)
     const [{ count: held }, { count: bad }] = await Promise.all([
       countOf((q) => q.eq('feed_label', label)),
       countOf((q) => quarantined(q.eq('feed_label', label))),
     ])
-    const ok = held - bad
-    return { band: b, held, quarantined: bad, publishable: ok, quotaLeft: Math.max(0, QUOTA_PER_BAND - ok) }
+    return [b, { held, quarantined: bad }]
   })
 )
 const [{ count: adaptedHeld }, { count: adaptedBad }] = await Promise.all([
   countOf((q) => q.eq('feed_id', 'adapted')),
   countOf((q) => quarantined(q.eq('feed_id', 'adapted'))),
 ])
-const adaptedOk = adaptedHeld - adaptedBad
 
-const total = rows.reduce((n, r) => n + r.publishable, 0) + adaptedOk
-const pct = +((total / TARGET) * 100).toFixed(1)
+const inv = buildKidInventory(Object.fromEntries(counted), {
+  held: adaptedHeld,
+  quarantined: adaptedBad,
+})
+const rows = inv.bands
+const adaptedOk = inv.adapted.publishable
+const total = inv.total
+const pct = inv.pct
 
 if (JSON_OUT) {
   console.log(JSON.stringify({ measuredAt: new Date().toISOString(), target: TARGET, total, pct, rows, adapted: { held: adaptedHeld, publishable: adaptedOk } }, null, 2))

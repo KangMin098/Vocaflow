@@ -11,6 +11,7 @@ import { describe, expect, it } from 'vitest'
 
 import { HELP_REGISTRY } from '@/lib/admin/help'
 import type { TextbookConsoleStats } from '@/lib/textbook/console-stats'
+import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
 
 import { TextbookConsoleClient } from '../textbook/TextbookConsoleClient'
 
@@ -137,20 +138,40 @@ const base: TextbookConsoleStats = {
   loadError: null,
 }
 
+/**
+ * 초·중 원문 재고 픽스처 — **한 칸은 차고 한 칸은 비었다.**
+ * 둘 다 있어야 화면이 "몫 참" 과 "남은 몫" 을 구별하는지 볼 수 있다.
+ */
+const kidSource: KidSourcePanel = {
+  inventory: {
+    bands: [
+      { band: '초3~4', held: 1803, quarantined: 195, publishable: 1608, quarantinedPct: 10.8, quotaLeft: 224 },
+      { band: '초5~6', held: 2007, quarantined: 196, publishable: 1811, quarantinedPct: 9.8, quotaLeft: 21 },
+      { band: '초6~중1', held: 2312, quarantined: 247, publishable: 2065, quarantinedPct: 10.7, quotaLeft: 0 },
+      { band: '중1~2', held: 2341, quarantined: 264, publishable: 2077, quarantinedPct: 11.3, quotaLeft: 0 },
+      { band: '중3', held: 2178, quarantined: 229, publishable: 1949, quarantinedPct: 10.5, quotaLeft: 0 },
+    ],
+    adapted: { held: 82, quarantined: 0, publishable: 82 },
+    total: 9592,
+    pct: 104.7,
+  },
+  error: null,
+}
+
 describe('TBP 콘솔 렌더', () => {
   it('요약 수치가 화면에 나온다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('4,509')
     expect(html).toContain('33%') // 평가 우위 5/15
   })
 
   it('**끊긴 계단을 계단 수에 세지 않는다** — 사다리가 이어졌다고 착각하면 안 된다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('1/2') // 2단 중 1단만 살아 있다
   })
 
   it('정답 번호 쏠림을 유형별로 표시한다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('52.7')
     expect(html).toContain('쏠림')
     expect(html).toContain('고름')
@@ -159,19 +180,19 @@ describe('TBP 콘솔 렌더', () => {
   })
 
   it('**관측 0 을 경고로 말한다** — 없는 것을 없다고', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('난이도·변별도 못 냄')
   })
 
   it('지고 있는 요소를 숨기지 않는다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('해설')
     expect(html).toContain('6.9%')
   })
 
   it('조회가 깨지면 빈 표 대신 이유를 말한다', () => {
     const html = renderToString(
-      <TextbookConsoleClient stats={{ ...base, loadError: '문항 조회 실패: boom' }} />,
+      <TextbookConsoleClient stats={{ ...base, loadError: '문항 조회 실패: boom' }} kidSource={kidSource} />,
     )
     expect(html).toContain('문항 조회 실패: boom')
   })
@@ -179,7 +200,7 @@ describe('TBP 콘솔 렌더', () => {
 
 describe('브랜드 규격 · 조판 기록', () => {
   it('규격을 화면에서 읽을 수 있다 — 코드에만 있으면 아무도 안 본다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('브랜드 규격')
     expect(html).toContain('Vocaflow Reading')
     expect(html).toContain('#1A1714')
@@ -187,20 +208,20 @@ describe('브랜드 규격 · 조판 기록', () => {
   })
 
   it('**색만으로 말하지 않는다** — 색 칸 옆에 값이 글자로 있다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     // 스와치는 aria-hidden 이고, 읽을 수 있는 것은 hex 문자열 쪽이다.
     expect(html).toContain('aria-hidden')
     expect(html).toContain('#8A5A20')
   })
 
   it('옛 규격으로 찍힌 권을 재조판 대상으로 표시한다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('옛 규격')
     expect(html).toContain('옛 규격 1권')
   })
 
   it('조판 기록의 수치를 다시 계산하지 않고 그대로 보인다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('Vocaflow Reading 4')
     expect(html).toContain('8/9')
     expect(html).toContain('오답 매력도')
@@ -214,6 +235,7 @@ describe('브랜드 규격 · 조판 기록', () => {
     const broken = renderToString(
       <TextbookConsoleClient
         stats={{ ...base, brand: { ...base.brand, renders: [], staleBands: [], renderError: '조판 기록 조회 실패: boom' } }}
+        kidSource={kidSource}
       />,
     )
     expect(broken).toContain('조판 기록 조회 실패: boom')
@@ -222,6 +244,7 @@ describe('브랜드 규격 · 조판 기록', () => {
     const none = renderToString(
       <TextbookConsoleClient
         stats={{ ...base, brand: { ...base.brand, renders: [], staleBands: [] } }}
+        kidSource={kidSource}
       />,
     )
     expect(none).toContain('아직 조판된 권이 없다')
@@ -261,13 +284,13 @@ describe('TBP 도움말 계약', () => {
 
 describe('사다리 병목 — 최솟값을 이름으로 짚는다', () => {
   it('적합도를 표에 낸다 — 기록해 놓고 안 보여주면 없는 것과 같다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('유형-학년 적합도')
     expect(html).toContain('91.2%')
   })
 
   it('**못 잰 것을 0 으로 치지 않는다** — 0 이면 그것이 항상 최소가 되어 병목을 가린다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('못 잼')
     // 병목은 적합도를 잰 권(V5 91.2%) 이지, 못 잰 권(V6)이 아니다.
     expect(html).toContain('사다리 병목')
@@ -275,7 +298,7 @@ describe('사다리 병목 — 최솟값을 이름으로 짚는다', () => {
   })
 
   it('임계값으로 판정하지 않는다 — 몇 %가 합격이라는 근거가 없다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('임계값을 두지 않는다')
     expect(html).not.toContain('적합도 미달')
   })
@@ -284,6 +307,7 @@ describe('사다리 병목 — 최솟값을 이름으로 짚는다', () => {
     const html = renderToString(
       <TextbookConsoleClient
         stats={{ ...base, brand: { ...base.brand, renders: [], staleBands: [] } }}
+        kidSource={kidSource}
       />,
     )
     expect(html).not.toContain('사다리 병목')
@@ -292,36 +316,77 @@ describe('사다리 병목 — 최솟값을 이름으로 짚는다', () => {
 
 describe('문항이 안 붙은 원글 — 집필보다 먼저 할 일', () => {
   it('합계를 요약 카드로 낸다 — 이 수가 안 보이면 아무도 안 돌린다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('문항 없는 원글')
     expect(html).toContain('1,779')
     expect(html).toContain('집필보다 이게 먼저다')
   })
 
   it('**분자를 함께 보여야 권수가 읽힌다** — 쓸 수 있는 원글 열', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('쓸 수 있는 원글')
     expect(html).toContain('540')
     expect(html).toContain('문항 없음')
   })
 
   it('무엇을 돌려야 하는지 명령을 적는다', () => {
-    const html = renderToString(<TextbookConsoleClient stats={base} />)
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
     expect(html).toContain('먼저 할 일')
     expect(html).toContain('store-new-types.mjs --band N --commit')
   })
 
   it('**못 잰 것과 0 을 구별한다** — null 이면 대시, 0 이면 남은 몫 없음', () => {
     const unmeasured = renderToString(
-      <TextbookConsoleClient stats={{ ...base, brand: { ...base.brand, idleArticles: null } }} />,
+      <TextbookConsoleClient stats={{ ...base, brand: { ...base.brand, idleArticles: null } }} kidSource={kidSource} />,
     )
     expect(unmeasured).toContain('아직 안 쟀다')
     expect(unmeasured).not.toContain('먼저 할 일')
 
     const done = renderToString(
-      <TextbookConsoleClient stats={{ ...base, brand: { ...base.brand, idleArticles: 0 } }} />,
+      <TextbookConsoleClient stats={{ ...base, brand: { ...base.brand, idleArticles: 0 } }} kidSource={kidSource} />,
     )
     expect(done).toContain('남은 몫 없음')
     expect(done).not.toContain('먼저 할 일')
+  })
+})
+
+describe('초·중 원문 재고 패널', () => {
+  it('칸별 게시 가능·적재·격리율과 합계를 낸다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
+    expect(html).toContain('초·중 원문 재고')
+    expect(html).toContain('9,592')
+    expect(html).toContain('104.7')
+    expect(html).toContain('1,608') // 초3~4 게시 가능
+    expect(html).toContain('1,803') // 초3~4 적재 — 둘을 같이 보여야 격리가 몇인지 안다
+  })
+
+  it('**찬 칸과 안 찬 칸을 말로 구별한다** — 막대 색만으로 말하지 않는다(색맹 대응)', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
+    expect(html).toContain('남은 몫 224')
+    expect(html).toContain('몫 참')
+  })
+
+  it('각색분을 칸과 섞지 않는다 — 다른 경로다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
+    expect(html).toContain('각색')
+    expect(html).toContain('별도 경로')
+  })
+
+  it('조회가 깨지면 **빈 표 대신 이유를 말한다**', () => {
+    const html = renderToString(
+      <TextbookConsoleClient
+        stats={base}
+        kidSource={{ inventory: null, error: '초·중 원문 재고를 못 읽었다: boom' }}
+      />,
+    )
+    expect(html).toContain('못 읽었다: boom')
+    // 재고가 없다고 화면 전체가 죽으면 안 된다 — 다른 표는 살아 있어야 한다.
+    expect(html).toContain('4,509')
+  })
+
+  it('세는 법을 화면이 말한다 — 이 규칙을 세 번 틀렸다', () => {
+    const html = renderToString(<TextbookConsoleClient stats={base} kidSource={kidSource} />)
+    // "미판정은 격리가 아니다" 를 화면이 직접 말해야, 다음 사람이 publishable=true 로 세지 않는다.
+    expect(html).toContain('격리가 확정된 것만')
   })
 })

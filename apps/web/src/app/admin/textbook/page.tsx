@@ -7,6 +7,7 @@
 
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { getTextbookConsoleStats } from '@/lib/textbook/console-stats'
+import { getKidSourcePanel } from '@/lib/textbook/kid-source-stats'
 
 import { TextbookConsoleClient } from './TextbookConsoleClient'
 
@@ -15,7 +16,8 @@ export const dynamic = 'force-dynamic'
 export default async function AdminTextbookPage() {
   await requireAdmin('/admin/textbook')
 
-  const stats = await getTextbookConsoleStats()
+  // 둘은 서로 다른 표를 읽는다 — 한쪽이 늦다고 다른 쪽을 기다릴 이유가 없다.
+  const [stats, kidSource] = await Promise.all([getTextbookConsoleStats(), getKidSourcePanel()])
 
-  return <TextbookConsoleClient stats={stats} />
+  return <TextbookConsoleClient stats={stats} kidSource={kidSource} />
 }

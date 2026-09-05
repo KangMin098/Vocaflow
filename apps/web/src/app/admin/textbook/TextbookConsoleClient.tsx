@@ -3,8 +3,11 @@
 
 'use client'
 
+import { KID_SOURCE_TARGET } from '@vocaflow/library-pipeline'
+
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { TextbookConsoleStats, VolumeRender } from '@/lib/textbook/console-stats'
+import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
 
 const TYPE_KO: Record<string, string> = {
   order: '순서',
@@ -26,7 +29,13 @@ const STANDING_KO: Record<string, { mark: string; label: string; color: string }
 /** 카이제곱 임계 — 자유도 4, 유의수준 0.05. 통계표 값이지 우리가 고른 숫자가 아니다. */
 const CHI2_CRITICAL = 9.488
 
-export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }) {
+export function TextbookConsoleClient({
+  stats,
+  kidSource,
+}: {
+  stats: TextbookConsoleStats
+  kidSource: KidSourcePanel
+}) {
   const { evaluation: ev, series, brand } = stats
   const bottleneck = findBottleneck(brand.renders)
   const superiorPct = ev.total ? Math.round((100 * ev.byStanding.superior) / ev.total) : 0
@@ -382,6 +391,9 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
       </section>
 
       {/* ── 사다리 ────────────────────────────────────────────── */}
+      {/* ── 초·중 원문 재고 ───────────────────────────────────── */}
+      <KidSourceSection panel={kidSource} />
+
       <section aria-label="학령 사다리" className="flex flex-col gap-2">
         <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">
           학령 사다리 — {series.brand}
@@ -480,6 +492,87 @@ function Swatch({ value }: { value: string }) {
       />
       <span className="font-mono text-[12px] uppercase text-[var(--t1)]">{value}</span>
     </span>
+  )
+}
+
+/**
+ * **초·중 원문 재고 — 칸별로 얼마나 찼고 어디가 막혔나.**
+ *
+ * 지금까지 이 수치는 `scripts/textbook/kid-inventory.mjs` 를 돌려야만 보였다.
+ * 조작 버튼은 두지 않는다 — 수확은 책을 수십 권 내려받는 일이라 웹 요청 시간 안에
+ * 안 끝난다. 절차는 화면 도움말에 있다.
+ *
+ * 채움 막대는 게이지가 아니라 **어느 칸이 비었는지 한눈에 보이게** 하는 장치다.
+ * 색만으로 말하지 않는다 — 수치를 옆에 함께 적는다(색맹 대응).
+ */
+function KidSourceSection({ panel }: { panel: KidSourcePanel }) {
+  const inv = panel.inventory
+  return (
+    <section aria-label="초·중 원문 재고" className="flex flex-col gap-2">
+      <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">
+        초·중 원문 재고
+        {inv ? (
+          <span className="ml-2 font-body text-[13px] font-[500] tabular-nums text-[var(--t2)]">
+            {inv.total.toLocaleString()} / {KID_SOURCE_TARGET.total.toLocaleString()} ({inv.pct}%)
+          </span>
+        ) : null}
+      </h2>
+      <p className="font-body text-[12px] text-[var(--t3)]">
+        목표는 고등 재고 {KID_SOURCE_TARGET.highSchoolStock.toLocaleString()}편의 절반이다. “게시 가능” 은
+        적재분에서 <b>격리가 확정된 것만</b> 뺀 수 — 아직 판정 안 받은 행은 격리가 아니다.
+      </p>
+
+      {panel.error ? (
+        <p
+          role="alert"
+          className="rounded-[var(--r-md)] border border-[var(--error)] bg-[var(--bg)] p-4 font-body text-[13px] text-[var(--error-ink)]"
+        >
+          {panel.error}
+        </p>
+      ) : null}
+
+      {inv ? (
+        <ul className="flex flex-col gap-1">
+          {inv.bands.map((r) => {
+            const fill = Math.min(100, Math.round((100 * r.publishable) / KID_SOURCE_TARGET.quotaPerBand))
+            return (
+              <li
+                key={r.band}
+                className="flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-[var(--r-sm)] border border-[var(--bd)] px-3 py-2 font-body text-[13px]"
+              >
+                <span className="w-[68px] font-[700] text-[var(--t1)]">{r.band}</span>
+                <span
+                  aria-hidden
+                  className="h-[6px] w-[120px] overflow-hidden rounded-[var(--r-sm)] bg-[var(--bd)]"
+                >
+                  <span
+                    className="block h-full rounded-[var(--r-sm)]"
+                    style={{
+                      width: `${fill}%`,
+                      background: r.quotaLeft ? 'var(--warning-ink)' : 'var(--success-ink)',
+                    }}
+                  />
+                </span>
+                <span className="tabular-nums text-[var(--t1)]">
+                  {r.publishable.toLocaleString()}
+                  <span className="text-[var(--t3)]"> / {KID_SOURCE_TARGET.quotaPerBand.toLocaleString()}</span>
+                </span>
+                <span className="tabular-nums text-[var(--t3)]">적재 {r.held.toLocaleString()}</span>
+                <span className="tabular-nums text-[var(--t3)]">격리 {r.quarantinedPct}%</span>
+                <span className="ml-auto tabular-nums text-[var(--t2)]">
+                  {r.quotaLeft ? `남은 몫 ${r.quotaLeft.toLocaleString()}` : '몫 참'}
+                </span>
+              </li>
+            )
+          })}
+          <li className="flex flex-wrap items-baseline gap-x-3 rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] px-3 py-2 font-body text-[13px]">
+            <span className="w-[68px] font-[700] text-[var(--t1)]">각색</span>
+            <span className="tabular-nums text-[var(--t1)]">{inv.adapted.publishable.toLocaleString()}</span>
+            <span className="text-[var(--t3)]">칸이 아니라 별도 경로다 — 우리가 다시 쓴 글</span>
+          </li>
+        </ul>
+      ) : null}
+    </section>
   )
 }
 

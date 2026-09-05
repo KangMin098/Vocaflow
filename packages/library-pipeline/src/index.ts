@@ -798,6 +798,16 @@ export {
   type StandaloneFit,
   type StandaloneSignals,
 } from './textbook/standalone'
+// 초·중 원문 재고의 목표와 세는 법 — 스크립트와 Admin 화면이 같은 답을 하게 한다.
+export {
+  KID_BANDS,
+  KID_SOURCE_TARGET,
+  buildKidInventory,
+  kidFeedLabel,
+  type KidBand,
+  type KidBandRow,
+  type KidSourceInventory,
+} from './textbook/kid-source'
 export {
   excerptForBand,
   fitExcerptToAnyBand,
