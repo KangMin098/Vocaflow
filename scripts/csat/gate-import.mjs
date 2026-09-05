@@ -54,24 +54,72 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
   auth: { persistSession: false },
 })
 
-const tally = { total: 0, judged: 0, unjudged: 0, pub: 0, quarantine: 0, skipped: 0, wrote: 0 }
+// ⚠️ 첫 실행이 12,300편에서 **오류 한 줄 없이** 죽었다(2026-09-05). 같은 일이 이 저장소의
+//   PLOS 수확에서도 있었다. 원인을 못 잡은 채 긴 루프를 다시 돌리면 또 같은 자리에서 잃는다.
+//   재실행 안전은 이미 있으니, 여기서는 일시적 실패를 삼켜 루프가 끊기지 않게만 한다.
+// 두 번째 실행도 18,000편에서 말없이 끝났다. 재시도로 안 잡혔으니 던져진 오류가 아니다.
+// 무엇이 끝냈는지 로그에 남긴다 — 안 남기면 세 번째도 같은 자리에서 잃는다.
+for (const sig of ['SIGTERM', 'SIGINT', 'SIGHUP']) {
+  process.on(sig, () => {
+    console.error(`\n  ⛔ ${sig} 로 종료됨 — 재실행하면 이어서 간다`)
+    process.exit(1)
+  })
+}
+process.on('unhandledRejection', (e) => {
+  console.error(`\n  ⛔ 처리 안 된 거부: ${String(e?.message ?? e).slice(0, 120)}`)
+  process.exit(1)
+})
+process.on('exit', (code) => console.error(`\n  [종료 코드 ${code}]`))
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+async function retry(fn, what, attempt = 0) {
+  try {
+    const r = await fn()
+    if (r?.error) throw new Error(r.error.message)
+    return r
+  } catch (e) {
+    if (attempt >= 4) throw new Error(`${what} — ${String(e.message).slice(0, 80)}`)
+    await sleep(1500 * 2 ** attempt)
+    return retry(fn, what, attempt + 1)
+  }
+}
+
+/**
+ * **서사를 게시 불가로 두는 것은 수능 쪽 사정이다 — 교재 쪽은 반대다.**
+ *
+ * 이 파일은 `publishable = verdict === 'use'` 로 판정해 왔다. 그런데 설계 문서
+ * (`docs/CSAT_SOURCE_GATE.md`)는 `narrative` 를 두고 **"버리지 않는다 — 심경·분위기
+ * (R-MOOD)와 내용일치(R-FACT)가 요구하는 것이 정확히 이것이다"** 라고 적는다.
+ * 문서와 코드가 어긋나 있었고 코드 쪽이 이겼다(실측 2026-09-05: narrative 3,698편 전부 archived).
+ *
+ * 그중 **1,241편이 초·중 교재용 발췌**(`feed_id='kid-excerpt'`)다. 초·중 독해 교재는
+ * 이야기 지문을 싣는다 — 이 저장소가 "초·중 창의 narrative 재고가 **0편**" 이라
+ * StoryWeaver 를 새로 배선한 것이 그 기록이다. 수능 지문이 설명·논증문이라 서사를 빼는 것과,
+ * 교재가 이야기를 필요로 하는 것은 **다른 용도의 다른 판단**이다.
+ * 한 자로 두 용도를 재면 한쪽이 반드시 틀린다.
+ *
+ * `reject` 는 어느 쪽에서도 게시 불가다(교리·차별·폐기된 사실) — 그건 용도와 무관하다.
+ */
+const NARRATIVE_OK_FEEDS = new Set(['kid-excerpt'])
+
+const tally = { total: 0, judged: 0, unjudged: 0, pub: 0, quarantine: 0, skipped: 0, wrote: 0, restored: 0 }
 const byVerdict = {}
 const byCode = {}
 const NOW = new Date().toISOString()
 
 let cursor = '00000000-0000-0000-0000-000000000000'
 for (;;) {
-  const { data, error } = await db
-    .from('library_articles')
-    .select('id,title,content,status,csat_fit')
-    .eq('source', 'gutenberg')
-    .gt('id', cursor)
-    .order('id')
-    .limit(300)
-  if (error) {
-    console.error('\n  ❌ 조회 실패:', error.message)
-    process.exit(1)
-  }
+  const { data } = await retry(
+    () =>
+      db
+        .from('library_articles')
+        .select('id,title,content,status,status_message,feed_id,csat_fit')
+        .eq('source', 'gutenberg')
+        .gt('id', cursor)
+        .order('id')
+        .limit(300),
+    '조회',
+  )
   if (!data?.length) break
   cursor = data[data.length - 1].id
 
@@ -88,7 +136,15 @@ for (;;) {
 
     const codes = hardReject(row.content)
     for (const c of codes) byCode[c] = (byCode[c] ?? 0) + 1
-    const publishable = v.verdict === 'use' && codes.length === 0
+    const narrativeOk = v.verdict === 'narrative' && NARRATIVE_OK_FEEDS.has(row.feed_id)
+    const publishable = (v.verdict === 'use' || narrativeOk) && codes.length === 0
+    // ⚠️ **예행에서도 센다.** `if (!COMMIT) continue` 뒤에서 세면 예행이 0 을 보고하고,
+    //   그러면 "무엇이 바뀌는지" 를 모른 채 --commit 을 누르게 된다.
+    const willRestore =
+      publishable &&
+      row.status === 'archived' &&
+      String(row.status_message ?? '').startsWith('게시 게이트:')
+    if (willRestore) tally.restored += 1
     if (publishable) tally.pub += 1
     else tally.quarantine += 1
 
@@ -124,17 +180,23 @@ for (;;) {
         codes.length ? ' · ' + codes.join(',') : ''
       }`
     }
-    const { error: uErr } = await db.from('library_articles').update(patch).eq('id', row.id)
-    if (uErr) {
-      console.error(`\n  ❌ 쓰기 실패 ${row.id}: ${uErr.message}`)
-      process.exit(1)
+    // **되돌릴 수 있어야 재실행 안전이다.** 판정이 바뀌어 게시 가능해졌는데 그대로
+    //   archived 로 두면 이 스크립트는 한 방향으로만 움직이는 자가 된다.
+    //   ⚠️ **이 게이트가 내린 것만** 되돌린다 — 다른 이유로 archived 된 글은 건드리지 않는다.
+    if (willRestore) {
+      patch.status = 'queued'
+      patch.status_message = null
     }
+    await retry(() => db.from('library_articles').update(patch).eq('id', row.id), `쓰기 ${row.id}`)
     tally.wrote += 1
   }
   process.stdout.write(`\r  훑음 ${tally.total.toLocaleString()}편 · 쓴 것 ${tally.wrote.toLocaleString()}`)
   if (data.length < 300) break
 }
 
+if (tally.restored) {
+  console.log(`\n  되돌림 ${tally.restored.toLocaleString()}편 — 판정이 바뀌어 게시 가능해진 것`)
+}
 console.log(`\n\n  ${'판정'.padEnd(12)}${'조각'.padStart(9)}`)
 console.log('  ' + '-'.repeat(40))
 for (const [k, n] of Object.entries(byVerdict).sort((a, b) => b[1] - a[1])) {
