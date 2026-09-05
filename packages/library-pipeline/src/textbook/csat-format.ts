@@ -86,6 +86,42 @@ export function hasCitationResidue(text: string): boolean {
 const NON_PROSE = /_{4,}|[–—-]\s*(?:v|n|adj|adv|prep|conj|pron)\.\s/i
 
 /**
+ * **논문의 뼈대** — 산문이 아니라 학술지의 서식이 그대로 남은 것.
+ *
+ * ── 실측 2026-09-06 ─────────────────────────────────────────────────
+ * V7 드레인 몫을 손으로 채우다 **뽑은 것의 절반을 버렸다.** 눈으로 거르고 있었다는 뜻이다.
+ * 재고를 세어 보니 상위 밴드는 대부분이 논문 초록이었다 — `Citation: ` 줄을 가진 원글이
+ * **V6 11,831편 중 10,577(89%) · V7 2,531편 중 2,474(98%)**.
+ *
+ * 창 자르기가 대개 그 줄을 피하지만 늘 그렇지는 않다. 이미 만들어진 문항 중에도
+ * 이런 것이 남아 있었다(지문을 가진 문항 기준):
+ *
+ *   구조 초록 표제어   V7 13/94 (13.8%) · V6 9/137 · V5 2/201
+ *   통계 잔해          V7 13/94 (13.8%) · V6 5/137
+ *
+ * 실물: `Objective This study aimed to comprehensively analyze differentially expressed
+ * genes (DEGs) …` · `Aims We aimed to assess a) whether using the digital intervention …`
+ *
+ * ⚠️ **오탐을 먼저 쟀다.** 학술 소스가 없는 V2~V4 지문 653개에 이 규칙을 걸어 **0건**이
+ *   걸렸다. 표제어는 문장이 시작하는 자리에서만 보고(문장 안의 "the results showed" 는
+ *   걸리지 않는다), 통계는 학술 서식에만 쓰이는 꼴만 본다.
+ */
+const ACADEMIC_APPARATUS = [
+  // 논문 서지 — `Citation: Ma Z, Wu P, … PLoS One 21(3): e0340496.`
+  /\bCitation:\s/,
+  // 구조 초록 표제어가 문장 자리에 그대로 남은 것 — `Objective To evaluate …`
+  /(?:^|\.\s)(?:Objectives?|Methods?|Results?|Conclusions?|Backgrounds?|Findings?|Aims?)\s+[A-Z]/,
+  // 통계 서식 — 신뢰구간·유의확률·회귀식·로그 단위
+  /95\s*%\s*CI|\bP\s*[<=>]\s*0\.|\bp\s*[<=>]\s*0\.0|\by\s*=\s*\d*\.?\d+\s*x\b|\blg\s+IU\/mL/,
+] as const
+
+/** 논문 서식이 남아 있는가 — 남아 있으면 교재 지문으로 인쇄할 수 없다. */
+export function hasAcademicApparatus(text: string): boolean {
+  const s = String(text ?? '')
+  return ACADEMIC_APPARATUS.some((re) => re.test(s))
+}
+
+/**
  * **기사 껍데기** — 본문이 아니라 웹 기사에 붙어 오는 것.
  *
  * ── 실측 2026-08-30 ─────────────────────────────────────────────────
@@ -359,7 +395,12 @@ export function isPrintablePassage(text: string): boolean {
   //   글이 있다(`hasSensitiveTopic`). 여기에 넣는 이유는 이 함수를 생성기 8곳과
   //   드레인 뽑기가 이미 공유하기 때문이다 — 한 자리에 두면 다음에 만드는 사람이
   //   빠뜨릴 수 없다. 게이트를 각자 들게 두면 반드시 한 곳이 빠진다(이 파일에 세 번 기록됨).
-  return !hasCitationResidue(text) && !hasNonProse(text) && !hasSensitiveTopic(text)
+  return (
+    !hasCitationResidue(text) &&
+    !hasNonProse(text) &&
+    !hasAcademicApparatus(text) &&
+    !hasSensitiveTopic(text)
+  )
 }
 
 /**
