@@ -18,7 +18,7 @@
 
 import 'server-only'
 
-import { SERIES_SPINE, type SeriesItemType } from '@vocaflow/library-pipeline'
+import { SERIES_SPINE, brandFingerprint, type SeriesItemType } from '@vocaflow/library-pipeline'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -192,7 +192,7 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
       loadLadderCells(db),
       // 검수 기록은 별도 컬럼이 아니라 `colophon.review` 안에 있다 — 조판기가 찍은 그 값이어야
       // 화면과 손에 쥔 책이 같은 것을 말한다(`lib/textbook/console-stats.ts` 와 같은 규약).
-      db.from('textbook_volume_renders').select('band, colophon'),
+      db.from('textbook_volume_renders').select('band, colophon, brand_fingerprint'),
       readBench(BENCH_FILES.warehouse),
       readBench(BENCH_FILES.volume),
     ])
@@ -523,6 +523,7 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
   const renderRows = (renders.data ?? []) as {
     band: number
     colophon: { review?: { answerBias?: unknown; proofread?: unknown } } | null
+    brand_fingerprint: string | null
   }[]
   {
     // ⚠️ **행이 아니라 문항을 센다.** 처음에는 `csat_item_analyses` 의 published 행 수를 썼는데
@@ -601,6 +602,15 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
   /* ⑧ 조판 — 사다리 계단마다 최신 규격의 권이 있는가. */
   {
     const bands = new Set(renderRows.map((r) => r.band))
+    // ⚠️ **게이트가 「최신 규격」을 말하는데 눈금이 규격을 안 보고 있었다.** 실측 2026-09-05:
+    //   계단 7단이 전부 조판돼 「7/7 통과」로 떴는데, 그중 **6단이 옛 규격**이었다(조판 화면의
+    //   사다리 띠가 그걸 드러냈다). 옛 규격으로 찍힌 책은 지금 규격의 책이 아니므로, 그 초록은
+    //   "조판 끝났다" 는 거짓 안심이었다. 두 눈금을 나란히 두어 **찍혔는가**와
+    //   **지금 규격인가**를 가른다 — 둘은 할 일이 다르다(전자는 조판, 후자는 재조판).
+    const current = brandFingerprint()
+    const currentBands = new Set(
+      renderRows.filter((r) => r.brand_fingerprint === current).map((r) => r.band),
+    )
     const rungs = SERIES_SPINE.length
     stages.push(
       state(
@@ -614,8 +624,18 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
             target: 1,
             unmeasuredReason: renders.error ? `조판 기록 조회 실패: ${renders.error.message}` : undefined,
           },
+          {
+            label: '최신 규격으로 찍힌 계단',
+            num: renders.error ? null : currentBands.size,
+            den: renders.error ? null : rungs,
+            unit: 'ratio',
+            target: 1,
+            unmeasuredReason: renders.error ? '조판 기록 없음' : undefined,
+          },
         ],
-        `계단 ${rungs}단 중 ${bands.size}단만 조판됐다 — 빈 계단에서 학습자는 다른 출판사로 간다`,
+        bands.size < rungs
+          ? `계단 ${rungs}단 중 ${bands.size}단만 조판됐다 — 빈 계단에서 학습자는 다른 출판사로 간다`
+          : `${rungs}단이 다 찍혔지만 ${rungs - currentBands.size}단이 옛 규격이다 — 그대로 내면 지금 규격의 책이 아니다`,
         [
           {
             cmd: 'pnpm dlx tsx scripts/textbook/build-volume.mjs --band 6 --units 20',

@@ -120,7 +120,7 @@
 - 병목 칸(초3~4, FK 1.5~4.0)은 소재가 답이었다 — `Children's Instructional Books` 서가가 권당 3.8편(기존 주제 0.7). 초3~4 는 1,127 / 1,832 로 아직 다른 칸의 60% — 같은 스크립트를 더 돌리면 찬다(풀 1,300권)
 - 곁가지: `process.cwd()` 기준 경로로 뿌리 실행에서 늘 죽던 패키지 테스트 4파일 수정(624 → 661 통과)
 
-### 학습자 표면 전수 감사 — 91화면 · 결함 159 · blocker 19 → 17 해소 (2026-09-05)
+### 학습자 표면 전수 감사 — 91화면 · 결함 159 · blocker 19 전부 해소 (2026-09-05)
 
 학습자 정적 라우트 91개를 7개 슬라이스로 나눠 8축(상태 3종 · 뒤로가기 · 앞길 · 이동 정합 ·
 낭비 · 단계 최적합 · 접근성 · 계측)으로 감사했다. 결과 blocker 19 · major 75 · minor 65.
@@ -156,6 +156,8 @@ blocker 19건 전부 해소. 마지막 둘은 나중 커밋에서 닫혔다 — 
 멱등 가드가 먼저 막았고 `lib/flashcard/session-cursor.ts` 가 하던 자리를 잇는다) · PairFlip 중도 이탈 점수(언마운트 기록, 완주 판과 중복 없음).
 
 계측 D2: `screen_viewed`(셸 한 곳 `ScreenViewTracker` · 닫힌 `SCREEN_IDS`) — 학습자 화면 진입 0개 → 전부.
+**프로덕션 검증 빌드가 반쪽짜리 수정 3건을 잡았다** — `readSessionScore` 를 import 만 하고 안 쓴 것(표시=저장 점수 통로를 만들고 소비를 안 붙임) · `catalogFailed` 를 세우고 안 읽은 것(조회 실패가 빈 서가로 보임) · PairFlip 중도 이탈 점수. 셋 다 타입체크는 통과하고 lint 의 "쓰이지 않는 변수" 로만 드러났다. `tsc` 만으로는 못 잡는다.
+
 계측기 2종 신설: `scripts/audit/learner-linkgraph.mjs`(정적 링크 그래프 — 앱 전체 죽은 링크 0 실측),
 `tests/e2e/29-learner-waste.spec.ts`(한 화면 중복 데이터 요청 — dev StrictMode 와 구별).
 `26-learner-sweep` 은 `LEARNER_SWEEP=1` 없이는 조용히 skip 되고, dev 서버에서는 컴파일 때문에

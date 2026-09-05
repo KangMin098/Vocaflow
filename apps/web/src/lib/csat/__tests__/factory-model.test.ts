@@ -172,3 +172,33 @@ describe('화면이 내미는 명령이 저장소에 실제로 있는가', () =>
     expect(existsSync(resolve(REPO_ROOT, p))).toBe(true)
   })
 })
+
+describe('눈금이 게이트가 말한 것을 본다', () => {
+  // ⚠️ 실측 2026-09-05: ⑧ 조판의 게이트는 「**최신 규격으로** 조판된 권이 있는가」인데
+  //   눈금은 규격을 안 보고 계단 수만 셌다. 7단이 전부 찍혀 「7/7 통과」로 떴지만 그중
+  //   **6단이 옛 규격**이었다 — "조판 끝났다" 는 거짓 초록이었다.
+  //   게이트 문구에 있는 낱말이 눈금 라벨 어디에도 없으면 그 공정은 자기 약속을 안 재고 있다.
+  const factorySrc = readFileSync(resolve(__dirname, '../factory.ts'), 'utf8')
+
+  /** 눈금 라벨은 `label: '…'` 로만 쓴다 — 실측 코드에서 전부 긁는다. */
+  const gaugeLabels = [...factorySrc.matchAll(/label:\s*'([^']+)'/g)].map((m) => m[1]!)
+
+  const MUST_MEASURE: { id: string; word: string }[] = [
+    // 게이트가 「최신 규격으로 조판된 권」이라고 말하므로, 눈금도 규격을 봐야 한다.
+    { id: 'press', word: '최신 규격' },
+    { id: 'review', word: 'L4' },
+  ]
+
+  it('눈금 라벨을 실제로 긁었다 — 정규식이 헛돌면 이 검사는 아무것도 안 지킨다', () => {
+    expect(gaugeLabels.length).toBeGreaterThanOrEqual(10)
+  })
+
+  it.each(MUST_MEASURE)('$id 의 눈금 중에 「$word」를 재는 것이 있다', ({ id, word }) => {
+    const def = FACTORY_STAGES.find((s) => s.id === id)!
+    expect(def, `${id} 공정이 없다`).toBeTruthy()
+    expect(
+      gaugeLabels.some((l) => l.includes(word)),
+      `${id} 게이트는 「${def.gate}」인데 「${word}」를 재는 눈금이 없다 — 약속한 것을 안 재고 있다`,
+    ).toBe(true)
+  })
+})
