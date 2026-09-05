@@ -21,10 +21,13 @@
 // 실행:
 //   pnpm dlx tsx scripts/acp/process-queue.mjs            # 큐 상태만 본다
 //   pnpm dlx tsx scripts/acp/process-queue.mjs --commit [--limit 10]
+//   pnpm dlx tsx scripts/acp/process-queue.mjs --source gutenberg --narrative --commit --limit 200
 
 import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
+import { fetchAllPaged } from '../textbook/volume-pool.mjs'
+import { looksNarrative } from '../csat/lib-narrative.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -106,16 +109,33 @@ const fitOnly = process.argv.includes('--fit-only')
  */
 const onlyFeeds = (arg('feed') ?? '').split(',').map((s) => s.trim()).filter(Boolean)
 
-let q = db
-  .from('library_articles')
-  .select('id, source, source_id, source_url, title, author, language, license, content, published_at, feed_id')
-  .eq('status', 'queued')
-  .is('compose_batch_id', null)
-if (onlySources.length) q = q.in('source', onlySources)
-if (onlyFeeds.length) q = q.in('feed_id', onlyFeeds)
-if (fitOnly) q = q.gt('csat_fit->>pass', '0')
-const { data: queued, error } = await q.order('created_at', { ascending: true })
-if (error) throw new Error('큐 조회 실패: ' + error.message)
+/**
+ * `--narrative` — **사람이 나오고 말을 하는 글만 처리한다.**
+ *
+ * 실측 2026-09-06: Gutenberg 수확 36,635편 중 **33,052편이 `article_v_level` 없이**
+ * 큐에 남아 있었다. V7 심경(mood) 재고가 1편인 이유가 "이야기는 어휘가 평이해 낮은
+ * 밴드로 간다" 가 아니라 **아직 처리되지 않았다** 였다 — 짐작으로 수확 질의를 고쳤다면
+ * 엉뚱한 곳을 팠다.
+ *
+ * 큐가 1만 편이 넘으므로 무엇을 **먼저** 처리하느냐가 곧 어느 유형의 재고가 서느냐다.
+ * 판정 잣대는 `scripts/csat/lib-narrative.mjs` 정본을 그대로 쓴다.
+ */
+const narrativeOnly = process.argv.includes('--narrative')
+
+// ⚠️ 페이징 없이 읽으면 **1,000행에서 잘린다.** 그대로 "큐 N편" 으로 찍혀 근거로 쓰이고,
+//   `--narrative` 처럼 뒤에서 거르는 옵션은 나머지 큐를 아예 못 본다(실측: gutenberg
+//   queued 13,604편 중 1,000편만 보였다).
+const queued = await fetchAllPaged(db, (q0) => {
+  let q = q0
+    .from('library_articles')
+    .select('id, source, source_id, source_url, title, author, language, license, content, published_at, feed_id, created_at')
+    .eq('status', 'queued')
+    .is('compose_batch_id', null)
+  if (onlySources.length) q = q.in('source', onlySources)
+  if (onlyFeeds.length) q = q.in('feed_id', onlyFeeds)
+  if (fitOnly) q = q.gt('csat_fit->>pass', '0')
+  return q.order('created_at', { ascending: true }).order('id', { ascending: true })
+})
 
 /**
  * 즉시 process.exit() 하지 않는다.
@@ -130,7 +150,12 @@ async function finish(code = 0) {
   await new Promise((r) => setTimeout(r, 100))
   process.exit(code)
 }
-const list = queued ?? []
+let list = queued ?? []
+if (narrativeOnly) {
+  const before = list.length
+  list = list.filter((a) => looksNarrative(String(a.content ?? '')))
+  console.log(`--narrative — 서사만 남긴다: ${before.toLocaleString()} → ${list.length.toLocaleString()}편`)
+}
 console.log(`큐 ${list.length}편 ${commit ? `· 이번에 ${Math.min(LIMIT, list.length)}편 처리` : '(읽기 전용)'}\n`)
 if (!list.length) {
   console.log('처리할 것이 없다.')
