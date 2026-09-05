@@ -196,10 +196,13 @@ const helpFiles = existsSync(helpDir)
 // 키는 화면이 `<AdminScreenHelp screen="키" />` 로 조회하는 문자열이고,
 // 탭 키는 **화면에 보이는 라벨 그대로**다 — 라벨을 바꾸면 도움말이 조용히 사라진다.
 const helpEntries = new Map()
+/** 레지스트리 키가 아니라 엔트리 **안쪽 속성** 이름 — 2칸 들여쓰기로 잡히면 오탐이 된다. */
+const HELP_RESERVED = new Set(['screen', 'tabs', 'title'])
 for (const hf of helpFiles) {
   const src = read(join(helpDir, hf))
   const tops = [...src.matchAll(/^ {2}'?([A-Za-z0-9\-_\/]+)'?:\s*\{/gm)]
   tops.forEach((m, idx) => {
+    if (HELP_RESERVED.has(m[1])) return
     const start = m.index
     const end = idx + 1 < tops.length ? tops[idx + 1].index : src.length
     const block = src.slice(start, end)
@@ -210,6 +213,13 @@ for (const hf of helpFiles) {
     }
     helpEntries.set(m[1], { file: `apps/web/src/lib/admin/help/${hf}`, tabs })
   })
+  // 별칭 형태 — `'vocab-runs': RUNS_ENTRY,` 처럼 **다른 엔트리를 가리키는** 키.
+  // 인라인 객체만 보면 이런 키가 통째로 안 보여서, 멀쩡한 화면이 "도움말 없음" 으로 찍혔다.
+  for (const m of src.matchAll(/^ {2}'?([A-Za-z0-9\-_\/]+)'?:\s*([A-Za-z_$][\w$]*)\s*,/gm)) {
+    if (HELP_RESERVED.has(m[1]) || helpEntries.has(m[1])) continue
+    // 별칭이 가리키는 상수의 탭 목록은 알 수 없다 — 탭 검사는 원본 키에서 이미 한다.
+    helpEntries.set(m[1], { file: `apps/web/src/lib/admin/help/${hf}`, tabs: [], alias: m[2] })
+  }
 }
 const helpScreens = new Set(helpEntries.keys())
 
@@ -250,9 +260,43 @@ function parentRoute(route) {
   return route === '/admin' ? null : '/admin'
 }
 
+/** 이 화면 위에 실제로 얹히는 layout.tsx 들 — 사용자가 보는 화면의 일부다. */
+function ancestorLayouts(startDir) {
+  const out = []
+  let d = startDir
+  while (d.startsWith(ADMIN_APP)) {
+    const lay = join(d, 'layout.tsx')
+    if (existsSync(lay)) out.push(lay)
+    if (d === ADMIN_APP) break
+    d = dirname(d)
+  }
+  return out
+}
+
+/**
+ * **오직 다른 곳으로 보내기만 하는 화면** — `redirect()` 한 줄이 전부다.
+ *
+ * 그리는 것이 없으니 제목도 도움말도 있을 수 없다. 그런데도 축을 물으면 X 가 붙고,
+ * 그 X 를 없애려고 **없는 화면에 도움말을 다는** 잘못된 수리를 하게 된다(실제로
+ * `help/vocab.ts` 에 아무도 안 부르는 별칭이 그렇게 남아 있었다).
+ * 런타임이 아니라 소스로 판별한다 — 이 저장소는 리다이렉트 껍데기에 반환형 `never` 를 쓴다
+ * (e2e 의 `adminRedirectOnlyRoutes()` 가 같은 근거를 쓴다).
+ */
+function isRedirectOnly(pageFile) {
+  const src = read(pageFile)
+  return src.includes('redirect(') && src.includes('): never')
+}
+
 const rows = []
 for (const p of adminPages) {
-  const files = surfaceFiles(p.file)
+  // 레이아웃을 빼면 2차 내비(VcbSectionNav · FactoryRail)가 안 보여서
+  // 「나갈 길이 없다」 는 오답이 나온다. 화면은 page + 그 위에 얹힌 layout 전부다.
+  const files = [
+    ...new Set([
+      ...surfaceFiles(p.file),
+      ...ancestorLayouts(p.dir).flatMap((l) => surfaceFiles(l)),
+    ]),
+  ]
   const blob = files.map((f) => read(f)).join('\n')
   const pageSrc = read(p.file)
 
@@ -260,19 +304,34 @@ for (const p of adminPages) {
   const parent = parentRoute(p.route)
   const parentPat = parent ? routePattern(parent) : null
 
-  // back: 화면 표면 어딘가에 부모 라우트로 가는 링크가 있는가
-  const backLink =
-    depth <= 2
-      ? true // 1차 화면은 사이드바가 늘 보이므로 별도 back 불필요
-      : files.some((f) => {
-          if (!f.startsWith(ADMIN_APP) && !f.includes(`${sep}components${sep}admin${sep}`))
-            return false
-          const src = read(f)
-          for (const m of src.matchAll(HREF_RE)) {
-            if (parent && linkMatchesRoute(normalizeHref(m[1]), parent)) return true
-          }
-          return false
-        })
+  // back — 재는 것은 "부모 링크" 가 아니라 **탈출 경로가 있는가** 다.
+  //   부모 링크만 세면 탭 내비로 형제 화면을 오가는 구간(VCB 처럼 섹션 루트가 redirect 인 곳)이
+  //   억울하게 X 가 되고, 반대로 부모 링크 하나만 있고 갈 곳이 없는 화면이 O 가 된다.
+  // 통과 조건: ① 1차 화면(사이드바가 늘 보인다) ② 조상 라우트로 가는 링크가 있다
+  //           ③ 같은 부모 아래 형제 2개 이상으로 가는 섹션 내비가 있다
+  const ancestors = []
+  {
+    const parts = p.route.split('/').filter(Boolean)
+    for (let i = parts.length - 1; i >= 1; i--) {
+      const cand = '/' + parts.slice(0, i).join('/')
+      if (ROUTE_SET.has(cand)) ancestors.push(cand)
+    }
+  }
+  const surfaceHrefs = new Set()
+  for (const f of files) {
+    if (!f.startsWith(ADMIN_APP) && !f.includes(`${sep}components${sep}admin${sep}`)) continue
+    for (const m of read(f).matchAll(HREF_RE)) surfaceHrefs.add(normalizeHref(m[1]))
+  }
+  const linksToAncestor = ancestors.some((a) =>
+    [...surfaceHrefs].some((h) => linkMatchesRoute(h, a)),
+  )
+  const siblings = [...ROUTE_SET].filter(
+    (r) => r !== p.route && parent && parentRoute(r) === parent,
+  )
+  const siblingLinks = siblings.filter((s) =>
+    [...surfaceHrefs].some((h) => linkMatchesRoute(h, s)),
+  ).length
+  const backLink = depth <= 2 || linksToAncestor || siblingLinks >= 2
 
   const isDynamic = p.route.includes('[')
   const inbound = inboundLinks(p.route)
@@ -280,22 +339,46 @@ for (const p of adminPages) {
   const mock = looksMock(files)
 
   // 이 화면이 조회하는 도움말 키 — 계약은 문자열이다.
-  const screenKeys = [...blob.matchAll(/screen=["']([A-Za-z0-9\-_\/]+)["']/g)].map((m) => m[1])
-  const helpKey = screenKeys[0] ?? null
-  const helpEntry = helpKey ? helpEntries.get(helpKey) : null
+  //
+  // ⚠️ 예전에는 `screenKeys[0]` **하나만** 봤다. 그런데 blob 은 page + 임포트 + 레이아웃을
+  //    이어 붙인 것이라, 첫 번째로 걸리는 `screen="..."` 이 **다른 파일의 것**일 수 있다.
+  //    그래서 도움말이 멀쩡한 화면이 X 로 찍혔다. 화면이 부르는 키는 **전부** 검사한다.
+  const screenKeys = [
+    ...new Set([...blob.matchAll(/screen=["']([A-Za-z0-9\-_\/]+)["']/g)].map((m) => m[1])),
+  ]
+  // 대표 키는 page 파일 자신의 것을 우선한다(리포트 가독성용).
+  const ownKeys = [...pageSrc.matchAll(/screen=["']([A-Za-z0-9\-_\/]+)["']/g)].map((m) => m[1])
+  const helpKey = ownKeys[0] ?? screenKeys[0] ?? null
+  const missingKeys = screenKeys.filter((k) => !helpEntries.has(k))
   // 탭 도움말 정합 — 레지스트리의 탭 라벨이 화면 소스에 실제 문자열로 존재하는가.
-  const tabMisses = helpEntry
-    ? helpEntry.tabs.filter((label) => !blob.includes(`'${label}'`) && !blob.includes(`"${label}"`) && !blob.includes(`>${label}<`))
-    : []
+  const tabMisses = screenKeys.flatMap((k) => {
+    const e = helpEntries.get(k)
+    if (!e) return []
+    return e.tabs
+      .filter(
+        (label) =>
+          !blob.includes(`'${label}'`) &&
+          !blob.includes(`"${label}"`) &&
+          !blob.includes(`>${label}<`),
+      )
+      .map((label) => `${k}:${label}`)
+  })
+
+  const redirectOnly = isRedirectOnly(p.file)
 
   rows.push({
     route: p.route,
     file: rel(p.file),
     depth,
-    header: /AdminPageHeader|<h1[ >]/.test(blob),
-    help: !!helpKey && !!helpEntry && tabMisses.length === 0,
+    redirectOnly,
+    header: redirectOnly || /AdminPageHeader|<h1[ >]/.test(blob),
+    help:
+      redirectOnly ||
+      (screenKeys.length > 0 && missingKeys.length === 0 && tabMisses.length === 0),
     helpKey,
-    helpKeyMissing: !!helpKey && !helpEntry,
+    screenKeys,
+    helpKeyMissing: missingKeys.length > 0,
+    missingKeys,
     tabMisses,
     back: backLink,
     nav: p.route === '/admin' ? true : inbound.length > 0,
@@ -341,13 +424,89 @@ for (const f of allSrc) {
 
 // ── 전역: 도움말 키 계약 ─────────────────────────────────────────────────────
 // 계약은 "라우트 슬러그" 가 아니라 화면이 실제로 넘기는 `screen="..."` 문자열이다.
-const usedHelpKeys = new Set(rows.map((r) => r.helpKey).filter(Boolean))
+const usedHelpKeys = new Set(rows.flatMap((r) => r.screenKeys ?? []))
 const helpOrphans = [...helpScreens].filter((k) => !usedHelpKeys.has(k)) // 정의됐으나 아무 화면도 안 씀
-const screensWithoutHelp = rows.filter((r) => !r.helpKey).map((r) => r.route)
-const helpKeyMissing = rows.filter((r) => r.helpKeyMissing).map((r) => `${r.route} → ${r.helpKey}`)
+const screensWithoutHelp = rows
+  .filter((r) => !r.helpKey && !r.redirectOnly)
+  .map((r) => r.route)
+const helpKeyMissing = rows.filter((r) => r.helpKeyMissing).map((r) => `${r.route} → ${r.missingKeys.join(", ")}`)
 const tabMismatches = rows
   .filter((r) => r.tabMisses.length)
   .map((r) => `${r.route} [${r.helpKey}] → ${r.tabMisses.join(' / ')}`)
+
+// ── 전역: 정의되지 않은 CSS 변수 ────────────────────────────────────────────
+//
+// 왜 이걸 재는가: `var(--ok)` 처럼 없는 토큰을 쓰면 **오류가 나지 않는다.** 그 선언만
+// 조용히 무시돼 색이 부모에서 상속되고, 그 화면만 다크 테마에 대응하지 못한다.
+// 즉 눈으로 보지 않으면 영원히 안 잡히는 결함이라 자가 대신 잡아야 한다.
+const TOKEN_SOURCES = [
+  join(WEB_SRC, 'app', 'globals.css'),
+  join(ROOT, 'packages', 'design-tokens', 'src', 'tokens.css'),
+]
+const definedTokens = new Set()
+for (const f of TOKEN_SOURCES) {
+  if (!existsSync(f)) continue
+  for (const m of read(f).matchAll(/(--[A-Za-z0-9-]+)\s*:/g)) definedTokens.add(m[1])
+}
+// Tailwind 설정에서 선언한 것도 정의로 친다
+const twCfg = ['tailwind.config.ts', 'tailwind.config.js'].map((n) =>
+  join(ROOT, 'apps', 'web', n),
+)
+for (const f of twCfg) {
+  if (!existsSync(f)) continue
+  for (const m of read(f).matchAll(/(--[A-Za-z0-9-]+)/g)) definedTokens.add(m[1])
+}
+
+const undefinedTokens = []
+if (definedTokens.size > 0) {
+  const scanned = [
+    ...walk(ADMIN_APP),
+    ...walk(join(WEB_SRC, 'components', 'admin')),
+  ].filter((p) => p.endsWith('.tsx') || p.endsWith('.ts'))
+  for (const f of scanned) {
+    const lines = read(f).split('\n')
+    lines.forEach((line, i) => {
+      for (const m of line.matchAll(/var\((--[A-Za-z0-9-]+)(\s*,)?/g)) {
+        // `var(--cefr-${level}-bg)` 처럼 템플릿 리터럴로 조립되는 토큰은 접두만 잡힌다 —
+        // 실제 이름은 런타임에 완성되므로 여기서는 판정할 수 없다. 오탐을 내느니 건너뛴다.
+        if (m[1].endsWith('-')) continue
+        // `var(--x, fallback)` 은 없어도 fallback 이 그려진다 — 렌더 결함이 아니라 관례 문제라
+        // 이 축(“색이 아예 안 나온다”)에서는 세지 않는다.
+        if (m[2]) continue
+        if (!definedTokens.has(m[1])) {
+          undefinedTokens.push({ token: m[1], at: `${rel(f)}:${i + 1}` })
+        }
+      }
+    })
+  }
+}
+
+// ── 전역: 조회 실패를 0/빈값으로 뭉개는 자리 ────────────────────────────────
+// `count ?? 0` 은 이 저장소가 실측으로 금지한 안티패턴이다 — head 요청은 **없는 테이블에도**
+// count=null 을 준다. `if (err) return []` 도 같은 부류로, 장애를 "데이터 없음" 으로 바꾼다.
+const swallowHits = []
+{
+  const scanned = [
+    ...walk(ADMIN_APP),
+    ...walk(join(WEB_SRC, 'components', 'admin')),
+    ...walk(join(WEB_SRC, 'lib', 'admin')),
+  ].filter((p) => p.endsWith('.tsx') || p.endsWith('.ts'))
+  for (const f of scanned) {
+    if (f.includes('__tests__')) continue
+    const lines = read(f).split('\n')
+    lines.forEach((line, i) => {
+      // 주석 줄은 세지 않는다 — 이 안티패턴을 **금지한다고 적은 주석**이 위반으로 잡혔다.
+      const t = line.trim()
+      if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*')) return
+      if (/\bcount\s*\?\?\s*0/.test(line)) {
+        swallowHits.push({ kind: 'count??0', at: `${rel(f)}:${i + 1}` })
+      }
+      if (/if\s*\(\s*\w*[eE]rr\w*\s*(\|\||\)\s*)/.test(line) && /return\s*\[\]/.test(line)) {
+        swallowHits.push({ kind: 'err→[]', at: `${rel(f)}:${i + 1}` })
+      }
+    })
+  }
+}
 
 // ── 전역: API 가드 ───────────────────────────────────────────────────────────
 const apiRoutes = walk(API_APP).filter((p) => p.endsWith(`${sep}route.ts`))
@@ -382,6 +541,8 @@ const report = {
   score: Number(score.toFixed(1)),
   passed,
   cells,
+  undefinedTokens,
+  swallowHits,
   deadLinks,
   helpOrphans,
   screensWithoutHelp,
@@ -426,6 +587,15 @@ if (AS_JSON) {
   const mocky = rows.filter((r) => !r.nomock)
   console.log(`\n목업 의심 화면: ${mocky.length}`)
   for (const r of mocky) console.log(`  ${r.route}  ← ${r.mockHits.join(', ')}`)
+
+  console.log(`\n정의되지 않은 CSS 변수: ${undefinedTokens.length}`)
+  const byToken = {}
+  for (const u of undefinedTokens) (byToken[u.token] ??= []).push(u.at)
+  for (const [t, at] of Object.entries(byToken))
+    console.log(`  ${t}  ${at.length}곳  (예: ${at[0]})`)
+
+  console.log(`\n조회 실패를 0/빈값으로 뭉개는 자리: ${swallowHits.length}`)
+  for (const s of swallowHits.slice(0, 15)) console.log(`  [${s.kind}] ${s.at}`)
   console.log(
     `\nAPI 가드 — 총 ${apiRoutes.length} · JSON 401 ${apiGuard.json.length} · RSC redirect ${apiGuard.rscRedirect.length} · 토큰 ${apiGuard.token.length} · 없음 ${apiGuard.none.length}`,
   )

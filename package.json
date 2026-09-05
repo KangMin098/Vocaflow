@@ -49,7 +49,9 @@
     "tbp:health": "tsx --tsconfig apps/web/tsconfig.json scripts/textbook/health-bundle.mts",
     "tbp:bench-report": "node scripts/textbook/gen-benchmark-report.mjs",
     "tbp:bench-report:check": "node scripts/textbook/gen-benchmark-report.mjs --check",
-    "analytics:check": "node scripts/analytics/check-instrumentation.mjs"
+    "analytics:check": "node scripts/analytics/check-instrumentation.mjs",
+    "admin:audit": "node scripts/audit/admin-console.mjs",
+    "admin:audit:gate": "node scripts/audit/admin-console.mjs --fail-under=96"
   },
   "repository": {
     "type": "git",

@@ -112,6 +112,15 @@ export async function adminReachable(page: import('@playwright/test').Page): Pro
 }
 
 export function adminBypassEnabled(): boolean {
+  // ⚠️ 2026-09-05 — **파일만 보던 것이 CI 에서 스윕을 영원히 재웠다.**
+  //   CI 러너에는 `.env.local` 이 없다(시크릿을 env 로 주입한다). 그래서 이 함수가 늘 false 를
+  //   돌려주고 `30-admin-sweep` 은 **한 번도 돌지 않은 채** 초록으로 넘어갔다 — 관리자 화면
+  //   41개를 여는 유일한 스펙이 그것이다. 파일 존재는 "우회가 켜졌나" 의 근거 중 하나일 뿐이고,
+  //   실제 게이트는 프로세스가 보는 값이다. 그래서 env 를 **먼저** 보고, 없을 때만 파일을 읽는다.
+  //   (거짓 초록은 여기서 막지 않는다 — `adminReachable()` 이 서버에 직접 물어본다.)
+  const fromEnv = process.env['DEV_ADMIN_BYPASS']
+  if (fromEnv !== undefined) return fromEnv.trim() === '1'
+
   // utils → e2e → tests → apps/web. 위로 셋이다 — 둘이면 `apps/web/tests/.env.local` 을
   // 찾게 되고, 파일이 없으니 훑기가 **조용히 건너뛰어진다**(실측으로 한 번 겪었다).
   const envPath = path.resolve(__dirname, '../../../.env.local')
