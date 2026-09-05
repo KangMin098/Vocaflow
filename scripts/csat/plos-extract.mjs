@@ -44,6 +44,11 @@ const arg = (k, d) => {
 const COMMIT = process.argv.includes('--commit')
 const LIMIT = Number(arg('limit', 200))
 const SHOW = Number(arg('show', 0))
+// ⚠️ **구간을 나눠 여러 프로세스가 동시에 돌 수 있게 한다.** 커서 하나로는 논문 36,340편을
+//   순차로만 훑어 몇 시간이 걸린다. `--from`/`--to` 로 UUID 구간을 자르면 서로 겹치지 않고,
+//   커서 파일도 구간마다 따로 둔다(같은 파일을 쓰면 마지막에 끝난 쪽이 남의 진척을 덮는다).
+const FROM = arg('from', '')
+const TO = arg('to', '')
 const TARGET_WORDS = 310 // Gutenberg 조각과 같은 크기로 맞춘다(창이 두 개 들어간다)
 
 // ── 절 나누기 ───────────────────────────────────────────────────────
@@ -116,7 +121,9 @@ async function retry(fn, what, attempt = 0) {
   }
 }
 
-const CURSOR_FILE = path.resolve('scripts/csat/data/plos-extract-cursor.json')
+const CURSOR_FILE = path.resolve(
+  FROM ? `scripts/csat/data/plos-extract-cursor-${FROM.slice(0, 2)}.json` : 'scripts/csat/data/plos-extract-cursor.json',
+)
 const cur = fs.existsSync(CURSOR_FILE) ? JSON.parse(fs.readFileSync(CURSOR_FILE, 'utf8')) : { id: '' }
 
 console.log('PLOS 지문 추출' + (COMMIT ? ' — **적재한다**' : ' — 예행'))
@@ -127,7 +134,8 @@ const drop = { noSection: 0, sentDrop: {}, structCite: 0, tooShort: 0, gate: 0, 
 let papers = 0
 let made = 0
 let inserted = 0
-let cursor = cur.id || '00000000-0000-0000-0000-000000000000'
+let firstInsertErr = null
+let cursor = cur.id || FROM || '00000000-0000-0000-0000-000000000000'
 
 while (papers < LIMIT) {
   const { data } = await retry(
@@ -136,10 +144,18 @@ while (papers < LIMIT) {
         .from('library_articles')
         .select('id,title,source_url,author,license,content')
         .eq('source', 'plos')
-        .eq('csat_fit->gate->>purpose', 'raw')
+        // ⚠️ 전에는 `csat_fit->gate->>purpose = 'raw'` 로 걸렀다. 인덱스가 없어서 매 요청마다
+        //   75,000행의 jsonb 를 파싱했고, 커서가 뒤로 갈수록 첫 응답이 안 왔다(회차를 여러 번 잃음).
+        //   미절단 원본은 `feed_id` 로도 정확히 갈린다 — 추출 산출물만 'plos-extract' 다.
+        .neq('feed_id', 'plos-extract')
         .gt('id', cursor)
+        // 구간 끝을 주면 그 앞까지만 — 병렬 작업자끼리 겹치지 않게 한다.
+        .lt('id', TO || 'ffffffff-ffff-ffff-ffff-ffffffffffff')
         .order('id')
-        .limit(20),
+        // ⚠️ 한 편이 최대 **231,904자**다. 20편이면 한 요청에 4 MB 가 넘어 어떤 구간에서는
+        //   요청이 통째로 죽고, 재시도도 같은 20편을 다시 받아 같은 자리에서 멈춘다.
+        //   실측 2026-09-05: 커서가 한 자리에 붙어 여러 회차를 잃었다.
+        .limit(5),
     '조회',
   )
   if (!data?.length) break
@@ -238,10 +254,28 @@ while (papers < LIMIT) {
             },
           }),
         '적재',
+      // ⚠️ 전에는 오류를 통째로 삼켰다 — `적재 0` 이 계속 찍히는데 이유가 안 보였다.
+      //   삼킬 거면 **적어도 첫 건은 보여야** 무엇이 막는지 안다.
       ).catch((e) => ({ error: e }))
-      if (!error) inserted += 1
+      const dup = error && /duplicate key/i.test(String(error.message ?? error))
+      if (dup) drop.dup = (drop.dup ?? 0) + 1
+      else if (error) {
+        if (!firstInsertErr) {
+          firstInsertErr = String(error.message ?? error).slice(0, 200)
+          console.error(`\n  ❌ 적재 실패(첫 건): ${firstInsertErr}`)
+        }
+        drop.insert = (drop.insert ?? 0) + 1
+      } else inserted += 1
     }
     if (papers >= LIMIT) break
+  }
+  // ⚠️ **커서를 묶음마다 남긴다.** 전에는 루프가 끝난 뒤에만 저장했다. 그래서 타임아웃으로
+  //   죽은 회차는 진척이 통째로 사라졌고, 다음 회차가 **같은 논문을 다시 넣어** 중복 키로
+  //   실패했다 — 겉으로는 "커서가 안 움직인다" 로만 보였다.
+  //   재실행 안전은 "다시 돌리면 이어서 간다" 는 뜻이고, 그러려면 진척이 그때그때 남아야 한다.
+  if (COMMIT) {
+    fs.mkdirSync(path.dirname(CURSOR_FILE), { recursive: true })
+    fs.writeFileSync(CURSOR_FILE, JSON.stringify({ id: cursor }, null, 2))
   }
   process.stdout.write(`\r  논문 ${papers} · 지문 ${made} · 적재 ${inserted}`)
 }
