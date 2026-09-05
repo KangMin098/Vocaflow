@@ -115,7 +115,7 @@ R(t) = `exp(ln(0.9) × t / S)` 동적 계산. **`memory_state` 컬럼 DB 저장 
 | D2 | 새 공개 화면은 **진입 + 내부 상호작용** 이벤트를 같은 커밋에 | `lib/analytics/events.ts` |
 | D3 | 이벤트 속성은 숫자·불리언·닫힌 열거형만 (자유 문자열 금지) | 타입이 강제 |
 | D4 | 빈 상태에 **다음 한 걸음**이 반드시 있다 | 막다른 화면 = 이탈 |
-| D5 | 가입 후 첫 학습 1회 완료까지 화면 전환 ≤ **3** | 경로 계수 |
+| D5 | 가입 후 첫 학습 1회 완료까지 화면 전환 ≤ **3** | 실측 3 — 회귀 `app/__tests__/activation-path.test.ts` 가 잠근다 |
 
 ### 모션 예산 (숫자 고정)
 
@@ -293,6 +293,7 @@ UI 작업 전 그 스킬을 먼저 읽는다. **Part 1(§A–§F)이 목표이�
 ## 📝 최근 변경 (v06.34 진행)
 
 ### 이번 세션 (Unreleased)
+- D5(가입 후 첫 학습까지 ≤3전환)를 **회귀로 잠갔다** — 규칙이 지침에만 있고 코드에 닿지 않았다. 실측 **3전환**(①가입→`/hub` ②미진단→`/diagnostic` ③진단완료→`/flashcard/play` 직행). 경로가 세 파일에 나뉘어 한 곳만 바뀌어도 4전환이 되는데 화면은 멀쩡히 뜬다 — `app/__tests__/activation-path.test.ts` 5종이 세 걸음을 잠그고, 변이 검사로 「/hub 경유」·「준비면 경유」 둘 다 잡히는 것을 확인했다
 - `/fit` 이 빈 폼이 아니라 **작동하는 결과**로 시작한다 — 서버가 예시 지문을 미리 분석해(`lib/textfit/sample-profile.ts`, `unstable_cache` 하루) 입력칸에 채운 채 결과까지 내려준다. 도착 후 `/api/fit` 호출 **0** · 예시 상태는 `fit_analyzed` 를 보내지 않음 · 자기 지문을 넣는 순간 예시 해제 · 공유 결과 우선 · 부제 95자 → 66자(I4) · 회귀 10 · axe 위반 0. 랜딩 1차 CTA 가 데려가는 유일한 화면인데 I1–I8 을 적용하지 않은 곳이었다
 - 랜딩 히어로 「작동하는 증명」 — 서버가 실제 분석한 지문이 첫 화면에 칠해져 있고 레벨 슬라이더가 네트워크 없이 반응(49ms). 커버리지 곡선 초등 65% → 고1 89% → 학술 96%. `CoverageHero` · `lib/marketing/hero-demo.ts` · `lib/textfit/analyze.ts`(분석 코어 분리, `/api/fit` 159→81줄) · 계측 2종(`landing_demo_moved` · `landing_section_reached`) · 회귀 18 · axe WCAG2 A/AA 위반 0 · 외부 디자인 스킬 13개 평가(통째 설치 전량 반려, 판정표만 채택 — [design-skill-audit-2026-09-04.md](./docs/reports/design-skill-audit-2026-09-04.md))
 - 공개 진단이 사전 해석기를 쓴다 (마이그레이션 `20260905084613` — `textfit_resolve_levels_public`, SECURITY DEFINER 3열 반환) — `/fit` 이 `shared_words` **681,021행**(distinct 표제어 29,308)을 전량 적재하느라 **콜드 88초**를 쓰고 `MAX_ROWS` 에서 잘려 커버리지를 낮게 답하던 것을 끝냈다. 원인은 권한이 아니라 **RLS** 였다(anon 은 `shared_dictionary` 0행 · INVOKER 함수가 오류 없이 빈 결과). 지문 한 편(표면형 112) **294ms** · 해석률 0.916 → **0.991** · 전량 적재 코드 삭제(`level-map.ts` 454 → 303줄) · 해석 경로를 `AnalyzeResult.mode` 로 노출
