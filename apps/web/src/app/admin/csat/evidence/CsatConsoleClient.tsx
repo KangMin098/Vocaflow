@@ -243,8 +243,9 @@ function GuideTab() {
   if (!src) return null
 
   const t = src.totals
-  // **굴절형은 빈칸이 아니다.** 표제어 대조만 하면 allowed · entries · submissions 가 전부
-  // 「없음」으로 나와 뜻이 이미 있는 낱말을 다시 만들라고 시킨다(실측 907 중 433).
+  // **해소기가 푸는 낱말은 빈칸이 아니다.** 표제어 대조만 하면 allowed · entries · submissions 가
+  // 전부 「없음」으로 나와 뜻이 이미 있는 낱말을 다시 만들라고 시킨다.
+  // 잣대를 세 번 고쳤다 — 표제어만 907 → inflected_forms 474 → 정본 해소기 286.
   const gap = src.vocab.filter((v) => v.match === 'none')
   const gapWords = gap.filter((v) => !v.is_phrase)
   const gapPhrases = gap.filter((v) => v.is_phrase)
@@ -260,7 +261,7 @@ function GuideTab() {
         <Stat
           label="필수 어휘 — 뜻 없는 빈칸"
           value={`${t.vocabGap} / ${t.vocabLemmas}`}
-          hint={`직접 ${t.vocabDirect} · 굴절형 ${t.vocabInflected}(표제어는 있다) · 빈칸 중 구 ${t.vocabGapPhrase}`}
+          hint={`직접 ${t.vocabDirect} · 해소 ${t.vocabResolved}(표제어는 있다) · 빈칸 중 구 ${t.vocabGapPhrase}${t.vocabResolver === 'fallback' ? ' · ⚠ 해소기 불통 — 빈칸이 실제보다 많다' : ''}`}
         />
         <Stat
           label="사정권 권장 시간"
@@ -363,9 +364,9 @@ function GuideTab() {
           뜻이 없는 기출 필수 어휘 {gap.length} — 어휘 드레인의 다음 몫
         </h3>
         <p className="mt-1 text-xs text-[var(--tx-3)]">
-          분석이 「이 문항을 풀려면 알아야 한다」고 지목했는데 사전에 뜻이 없다. <strong>굴절형
-          {t.vocabInflected}개는 뺐다</strong> — 분석은 지문에 나온 꼴(allowed · entries)을 적으므로 표제어로만
-          대조하면 이미 있는 낱말을 다시 만들게 된다. 요구 문항 수가 많은 순.
+          분석이 「이 문항을 풀려면 알아야 한다」고 지목했는데 사전에 뜻이 없다. <strong>해소기가 푼
+          {t.vocabResolved}개는 뺐다</strong> — 분석은 지문에 나온 꼴(allowed · entries)을 적으므로 표제어로만
+          대조하면 이미 있는 낱말을 다시 만들게 된다. 판정은 학습자 경로와 같은 잣대다. 요구 문항 수가 많은 순.
         </p>
         <p className="mt-2 text-sm leading-relaxed text-[var(--tx-2)]">
           <span className="text-[var(--tx-3)]">낱말 {gapWords.length} · </span>

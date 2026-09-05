@@ -71,26 +71,37 @@ const DICT_CHUNK = 200
 
 /** 낱말 하나가 사전에서 어떻게 찾혔나 */
 interface DictHit {
-  match: 'direct' | 'inflected'
-  /** 굴절형이면 표제어, 직접이면 자기 자신 */
-  headword: string
+  match: 'direct' | 'resolved'
+  /** 표제어를 알 수 있으면 그것, 해소기만 통과했으면 null */
+  headword: string | null
   cefr_level: string | null
   v_level: number | null
 }
 
 /**
- * 분석이 적는 낱말은 **지문에 나온 그 꼴**이다(allowed · entries · submissions · diminishing).
- * 그래서 표제어(`word`)로만 대조하면 굴절형이 전부 「사전에 없음」이 되고, 그 목록이
- * 그대로 어휘 드레인의 몫이 되어 **뜻이 이미 있는 낱말을 다시 만들게** 된다.
- * 실측 2026-09-05: 표제어 대조만으로는 미등재 907이었는데, `inflected_forms` 까지 보면
- * **433이 이미 있는 낱말**이고 진짜 빈칸은 474(낱말 278 · 구 196)였다.
+ * 낱말이 사전에 있나 — **학습자 경로와 같은 잣대로** 판정한다.
+ *
+ * 분석이 적는 낱말은 지문에 나온 **그 꼴**이다(allowed · entries · submissions · diminishing).
+ * 표제어(`word`)로만 대조하면 그것들이 전부 「사전에 없음」이 되고, 그 목록이 그대로 어휘
+ * 드레인의 몫이 되어 **뜻이 이미 있는 낱말을 다시 만들게** 된다. 이 저장소는 같은 실수를
+ * 세 번 했다 — 실측 2026-09-05:
+ *
+ *   · 표제어만 대조 → 미등재 **907**
+ *   · `inflected_forms` 까지 → **474**
+ *   · **`unresolved_dict_words` RPC(정본)** → **286** (구·숙어 194 · 낱말 92)
+ *
+ * 그 RPC 가 `resolve_dict_headword` 로 굴절·파생·철자 변이를 푸는 **학습자 경로의 잣대**다.
+ * 여기서 잣대를 따로 만들면 콘솔이 말하는 빈칸과 학습자가 실제로 못 찾는 낱말이 갈린다.
  *
  * 다어절(구·숙어)은 대상 밖이 아니다 — 사전에 다어절 표제어가 5,547개 있다. 빈칸으로 센다.
  */
-async function lookupDictionary(db: SupabaseClient, lemmas: string[]): Promise<Map<string, DictHit>> {
+async function lookupDictionary(
+  db: SupabaseClient,
+  lemmas: string[],
+): Promise<{ hits: Map<string, DictHit>; resolver: 'rpc' | 'fallback' }> {
   const found = new Map<string, DictHit>()
 
-  // ① 표제어 직접 대조
+  // ① 표제어 직접 대조 — 여기서만 CEFR·V-Level 을 같이 얻는다(교재 어휘 상자가 쓴다)
   for (let i = 0; i < lemmas.length; i += DICT_CHUNK) {
     const chunk = lemmas.slice(i, i + DICT_CHUNK)
     const res = await db
@@ -98,15 +109,30 @@ async function lookupDictionary(db: SupabaseClient, lemmas: string[]): Promise<M
       .select('word, cefr_level, v_level')
       .in('word', chunk)
       .neq('archived', true)
-    if (res.error) continue // 사전은 부가 정보다 — 없으면 「미등재」로 보이지, 자료 전체가 멈추지 않는다
+    if (res.error) continue // 사전 메타는 부가 정보다 — 없으면 표시가 비지, 자료 전체가 멈추지 않는다
     for (const r of (res.data ?? []) as DictRow[]) {
       found.set(r.word, { match: 'direct', headword: r.word, cefr_level: r.cefr_level, v_level: r.v_level })
     }
   }
 
-  // ② 남은 것만 굴절형 대조. `overlaps` 는 "이 중 하나라도 든 행" 을 주므로,
-  //    어느 낱말이 맞았는지는 돌아온 배열과 다시 교차해서 알아낸다.
   const rest = lemmas.filter((l) => !found.has(l))
+  if (!rest.length) return { hits: found, resolver: 'rpc' }
+
+  // ② 남은 것은 **정본 해소기**에 묻는다. 한 번의 호출로 끝나므로 왕복도 줄어든다.
+  const rpc = await db.rpc('unresolved_dict_words', { p_words: rest })
+  if (!rpc.error) {
+    // 이 RPC 는 못 푼 낱말들을 **한 행에 배열로** 돌려준다(행 수를 세면 언제나 1이다 — 실측으로 데었다)
+    const raw = rpc.data as unknown
+    const gap = new Set(
+      (Array.isArray(raw) ? (raw.flat() as unknown[]) : []).map((x) => String(x).trim().toLowerCase()),
+    )
+    for (const l of rest) if (!gap.has(l)) found.set(l, { match: 'resolved', headword: null, cefr_level: null, v_level: null })
+    return { hits: found, resolver: 'rpc' }
+  }
+
+  // ③ 해소기를 못 부르면 `inflected_forms` 로 물러선다 — **다만 조용히 물러서지 않는다.**
+  //    이 경로는 빈칸을 실제보다 많게 센다(474 대 286). 화면이 그 사실을 말해야 관리자가
+  //    부풀려진 목록을 드레인 몫으로 착각하지 않는다.
   for (let i = 0; i < rest.length; i += DICT_CHUNK) {
     const chunk = rest.slice(i, i + DICT_CHUNK)
     const want = new Set(chunk)
@@ -117,15 +143,14 @@ async function lookupDictionary(db: SupabaseClient, lemmas: string[]): Promise<M
       .neq('archived', true)
     if (res.error) continue
     for (const r of (res.data ?? []) as DictFormRow[]) {
-      for (const raw of r.inflected_forms ?? []) {
-        const f = String(raw).trim().toLowerCase()
+      for (const rawForm of r.inflected_forms ?? []) {
+        const f = String(rawForm).trim().toLowerCase()
         if (!want.has(f) || found.has(f)) continue
-        found.set(f, { match: 'inflected', headword: r.word, cefr_level: r.cefr_level, v_level: r.v_level })
+        found.set(f, { match: 'resolved', headword: r.word, cefr_level: r.cefr_level, v_level: r.v_level })
       }
     }
   }
-
-  return found
+  return { hits: found, resolver: 'fallback' }
 }
 
 /**
@@ -214,7 +239,7 @@ export async function loadCsatGuideSource(): Promise<{ source: CsatGuideSource |
   }
 
   const lemmas = [...vocabAcc.keys()].sort()
-  const dict = await lookupDictionary(db, lemmas)
+  const { hits: dict, resolver } = await lookupDictionary(db, lemmas)
 
   const vocab: CsatGuideVocab[] = lemmas
     .map((lemma) => {
@@ -330,7 +355,8 @@ export async function loadCsatGuideSource(): Promise<{ source: CsatGuideSource |
         typesLearnerReady: guideTypes.filter((t) => !t.analyst_meta.length).length,
         vocabLemmas: vocab.length,
         vocabDirect: vocab.filter((v) => v.match === 'direct').length,
-        vocabInflected: vocab.filter((v) => v.match === 'inflected').length,
+        vocabResolved: vocab.filter((v) => v.match === 'resolved').length,
+        vocabResolver: resolver,
         vocabGap: vocab.filter((v) => v.match === 'none').length,
         vocabGapPhrase: vocab.filter((v) => v.match === 'none' && v.is_phrase).length,
         vocabInDictionary: vocab.filter((v) => v.in_dictionary).length,

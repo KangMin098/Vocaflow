@@ -207,14 +207,14 @@ describe('renderGuideMarkdown', () => {
         cefr_level: null,
         v_level: null,
       },
-      // 굴절형은 「없음」이 아니다 — 표제어를 적어 줘야 교재에 무엇을 실을지 안다
+      // 해소기가 푼 낱말은 「없음」이 아니다 — 표제어를 적어 줘야 교재에 무엇을 실을지 안다
       {
         lemma: 'entries',
         items: 2,
         types: ['글의 순서'],
         latest_year: 2025,
         in_dictionary: true,
-        match: 'inflected',
+        match: 'resolved',
         headword: 'entry',
         is_phrase: false,
         cefr_level: 'B1',
@@ -242,7 +242,8 @@ describe('renderGuideMarkdown', () => {
       typesLearnerReady: 1,
       vocabLemmas: 2,
       vocabDirect: 0,
-      vocabInflected: 1,
+      vocabResolved: 1,
+      vocabResolver: 'rpc' as const,
       vocabGap: 1,
       vocabGapPhrase: 0,
       vocabInDictionary: 1,
@@ -271,9 +272,9 @@ describe('renderGuideMarkdown', () => {
 
   // 이 구분이 없으면 굴절형이 전부 「없음」이 되어 **뜻이 이미 있는 낱말을 다시 만들라고** 시킨다.
   // 실측 2026-09-05: 표제어 대조만으로 미등재 907이었는데 그중 433이 굴절형이었다.
-  it('굴절형을 「없음」으로 세지 않고 표제어를 적는다', () => {
-    expect(md).toContain('| entries | 2 | 글의 순서 | 2025 | 굴절형(entry) | B1 | 4 |')
-    expect(md).toContain('| — 굴절형으로 (표제어는 있다) | 1 |')
+  it('해소된 낱말을 「없음」으로 세지 않고 표제어를 적는다', () => {
+    expect(md).toContain('| entries | 2 | 글의 순서 | 2025 | 해소(entry) | B1 | 4 |')
+    expect(md).toContain('| — 해소기가 표제어로 풀었다 | 1 |')
     expect(md).toContain('| **뜻이 없는 빈칸** | 1 (낱말 1 · 구 0) |')
   })
 

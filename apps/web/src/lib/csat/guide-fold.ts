@@ -195,12 +195,15 @@ export interface CsatGuideType {
 /**
  * 사전에서 어떻게 찾았나.
  *
- * `direct` 와 `inflected` 를 가르는 이유: 분석이 적는 낱말은 지문에 나온 **그 꼴** 그대로다
- * (allowed · entries · submissions · diminishing). 표제어로만 대조하면 이 굴절형들이 전부
- * 「사전에 없음」이 되어 **뜻이 이미 있는 낱말을 다시 만들라고** 시킨다 — 실측 2026-09-05:
- * 「미등재 907」 중 **433 이 굴절형**이었고 실제 빈칸은 474 였다.
+ * `direct` 와 `resolved` 를 가르는 이유: 분석이 적는 낱말은 지문에 나온 **그 꼴** 그대로다
+ * (allowed · entries · submissions · diminishing). 표제어로만 대조하면 그것들이 전부
+ * 「사전에 없음」이 되어 **뜻이 이미 있는 낱말을 다시 만들라고** 시킨다.
+ *
+ * 잣대를 세 번 고쳤고 그때마다 수가 줄었다(실측 2026-09-05) — 표제어만 **907** →
+ * `inflected_forms` 까지 **474** → 학습자 경로의 정본 해소기(`unresolved_dict_words`)로
+ * **286**. `resolved` 는 그 해소기가 표제어로 풀어 준 것이고, **드레인 대상이 아니다.**
  */
-export type VocabMatch = 'direct' | 'inflected' | 'none'
+export type VocabMatch = 'direct' | 'resolved' | 'none'
 
 export interface CsatGuideVocab {
   lemma: string
@@ -214,7 +217,7 @@ export interface CsatGuideVocab {
   in_dictionary: boolean
   /** 어떤 경로로 찾았나 */
   match: VocabMatch
-  /** 굴절형으로 찾았을 때의 표제어 — 교재에 실을 것은 이쪽이다 */
+  /** 표제어를 알 수 있으면 그것(교재에 실을 것은 이쪽이다). 해소기만 통과했으면 null */
   headword: string | null
   /** 다어절(구·숙어)인가 — 사전에 5,547개 있으므로 대상 밖이 아니라 **빈칸**이다 */
   is_phrase: boolean
@@ -252,8 +255,10 @@ export interface CsatGuideSource {
     vocabLemmas: number
     /** 표제어로 바로 찾힌 것 */
     vocabDirect: number
-    /** 굴절형으로 찾힌 것 — 교재에는 표제어를 싣는다. **드레인 대상이 아니다** */
-    vocabInflected: number
+    /** 해소기가 표제어로 풀어 준 것 — 교재에는 표제어를 싣는다. **드레인 대상이 아니다** */
+    vocabResolved: number
+    /** 어느 잣대로 쟀나. 'fallback' 이면 정본 해소기를 못 불러 빈칸이 실제보다 많다 */
+    vocabResolver: 'rpc' | 'fallback'
     /** 뜻이 실제로 없는 것 = 어휘 드레인의 다음 몫 */
     vocabGap: number
     /** 그중 다어절(구·숙어) */
@@ -309,8 +314,14 @@ export function renderGuideMarkdown(src: CsatGuideSource): string {
   L.push(`| 필수 어휘 (낱말) | ${t.vocabLemmas} |`)
   L.push(`| 그중 사전 등재 | ${t.vocabInDictionary} (${pct(t.vocabInDictionary, t.vocabLemmas)}) |`)
   L.push(`| — 표제어로 직접 | ${t.vocabDirect} |`)
-  L.push(`| — 굴절형으로 (표제어는 있다) | ${t.vocabInflected} |`)
+  L.push(`| — 해소기가 표제어로 풀었다 | ${t.vocabResolved} |`)
   L.push(`| **뜻이 없는 빈칸** | ${t.vocabGap} (낱말 ${t.vocabGap - t.vocabGapPhrase} · 구 ${t.vocabGapPhrase}) |`)
+  if (t.vocabResolver === 'fallback') {
+    L.push('')
+    L.push(
+      '> ⚠️ 정본 해소기(`unresolved_dict_words`)를 못 불러 `inflected_forms` 로 물러섰다 — **빈칸이 실제보다 많게 세어진다**(실측 474 대 286). 이 표를 드레인 몫으로 쓰기 전에 해소기가 되살아났는지 확인할 것.',
+    )
+  }
   L.push(`| 사정권 권장 시간 합 | ${mmss(t.timeBudgetSec)} |`)
   L.push('')
 
@@ -384,7 +395,7 @@ export function renderGuideMarkdown(src: CsatGuideSource): string {
   L.push('| --- | ---: | --- | ---: | :---: | --- | ---: |')
   for (const v of src.vocab) {
     const dict =
-      v.match === 'direct' ? '있음' : v.match === 'inflected' ? `굴절형(${v.headword ?? '?'})` : '**없음**'
+      v.match === 'direct' ? '있음' : v.match === 'resolved' ? (v.headword ? `해소(${v.headword})` : '해소됨') : '**없음**'
     L.push(
       `| ${v.lemma} | ${v.items} | ${v.types.slice(0, 3).join(', ')} | ${v.latest_year ?? '—'} | ${dict} | ${
         v.cefr_level ?? '—'

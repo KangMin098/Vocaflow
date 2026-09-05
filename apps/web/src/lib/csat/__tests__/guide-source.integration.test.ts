@@ -95,26 +95,47 @@ describe.skipIf(skip)('기출 가이드 원천 자료 (실 DB)', () => {
     expect(source!.vocab[0]!.items).toBeGreaterThanOrEqual(source!.vocab[source!.vocab.length - 1]!.items)
   })
 
-  // **굴절형을 빈칸으로 세면 헛드레인이 나간다.** 분석은 지문에 나온 꼴(allowed · entries ·
-  // submissions)을 적는데, 표제어로만 대조하면 그것들이 전부 「사전에 없음」이 되어
-  // 뜻이 이미 있는 낱말을 다시 만들라고 시킨다. 실측 2026-09-05: 표제어 대조만으로 907,
-  // 굴절형까지 보면 433이 이미 있는 낱말이었고 진짜 빈칸은 474 였다.
-  it('굴절형을 사전 빈칸으로 세지 않는다', async () => {
+  // **해소되는 낱말을 빈칸으로 세면 헛드레인이 나간다.** 분석은 지문에 나온 꼴(allowed ·
+  // entries · submissions)을 적는데, 표제어로만 대조하면 그것들이 전부 「사전에 없음」이 되어
+  // 뜻이 이미 있는 낱말을 다시 만들라고 시킨다. 잣대를 세 번 고쳤다(실측 2026-09-05):
+  // 표제어만 907 → inflected_forms 474 → **학습자 경로의 정본 해소기 286**.
+  it('해소되는 낱말을 사전 빈칸으로 세지 않는다', async () => {
     const { source } = await loadCsatGuideSource()
     const t = source!.totals
-    expect(t.vocabDirect + t.vocabInflected + t.vocabGap).toBe(t.vocabLemmas)
-    expect(t.vocabDirect + t.vocabInflected).toBe(t.vocabInDictionary)
-    // 굴절형 해소가 실제로 일하고 있어야 한다 — 0 이면 조회가 조용히 실패한 것이다
-    expect(t.vocabInflected).toBeGreaterThan(100)
+    expect(t.vocabDirect + t.vocabResolved + t.vocabGap).toBe(t.vocabLemmas)
+    expect(t.vocabDirect + t.vocabResolved).toBe(t.vocabInDictionary)
+    // 해소가 실제로 일하고 있어야 한다 — 0 이면 조회가 조용히 실패한 것이다
+    expect(t.vocabResolved).toBeGreaterThan(100)
     expect(t.vocabGap).toBeLessThan(t.vocabLemmas - t.vocabDirect)
 
     for (const v of source!.vocab) {
-      if (v.match === 'inflected') expect(v.headword).toBeTruthy()
       if (v.match === 'none') expect(v.in_dictionary).toBe(false)
       expect(v.is_phrase).toBe(v.lemma.includes(' '))
     }
     // 구·숙어는 대상 밖이 아니다 — 사전에 다어절 표제어가 5,000개 넘게 있다
     expect(t.vocabGapPhrase).toBeLessThanOrEqual(t.vocabGap)
+  })
+
+  // **잣대가 학습자 경로와 같아야 한다.** 여기서 따로 세면 콘솔이 말하는 빈칸과 학습자가
+  // 실제로 못 찾는 낱말이 갈리고, 그 차이가 그대로 헛드레인이 된다.
+  it('빈칸 판정이 정본 해소기와 같다', async () => {
+    const svc = createClient(SUPABASE_URL!, SERVICE_KEY!, { auth: { persistSession: false } })
+    const { source } = await loadCsatGuideSource()
+    const t = source!.totals
+    if (t.vocabResolver !== 'rpc') {
+      // 해소기를 못 불렀으면 대조할 수 없다 — 다만 **화면이 그 사실을 말하는지**는 확인한다
+      expect(renderGuideMarkdown(source!)).toContain('정본 해소기')
+      return
+    }
+    const lemmas = source!.vocab.map((v) => v.lemma)
+    const rpc = await svc.rpc('unresolved_dict_words', { p_words: lemmas })
+    expect(rpc.error).toBeNull()
+    const truth = new Set(
+      (Array.isArray(rpc.data) ? (rpc.data.flat() as unknown[]) : []).map((x) => String(x).trim().toLowerCase()),
+    )
+    const mine = new Set(source!.vocab.filter((v) => v.match === 'none').map((v) => v.lemma))
+    expect(mine.size).toBe(truth.size)
+    for (const w of truth) expect(mine.has(w), w).toBe(true)
   })
 
   // 고칠 수 있을 때까지 **보이게** 해 둔다. 유형 리포트의 근거 서술은 드레인 청크마다 덧붙어
