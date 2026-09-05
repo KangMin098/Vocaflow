@@ -47,9 +47,27 @@ export const STANDALONE_SPEC = {
  */
 export const STANDALONE_GATE = { maxQuotedPct: 9 } as const
 
-/** 앞 맥락을 요구하는 문두. 대명사·지시어·접속부사, 그리고 따옴표로 시작하는 글. */
+/**
+ * 앞 맥락을 요구하는 문두. 대명사·지시어·접속부사, 그리고 따옴표로 시작하는 글.
+ *
+ * ── 2026-09-05: 표본 12편을 손으로 읽고 두 구멍을 찾았다 ─────────────
+ * 게이트를 통과한 발췌 12편 중 **교재 지문으로 쓸 만한 것은 3편**이었다. 나머지 9편이
+ * 새어 나온 이유가 둘로 갈렸다:
+ *
+ *   · `Still, it was not easy to believe.` — `still` 이 목록에 없었다
+ *   · `Neither the wind nor his young wife had thought…` — `neither` 도 없었다
+ *   · `In the school-house yard another group of boys…` — `another` 도 없었다
+ *
+ * ⚠️ **`for` 와 `even` 은 일부러 넣지 않는다.** `For many years people have…` ·
+ *   `Even the smallest bird can…` 은 자립적인 문장이다. 앞을 가리키는 쓰임과 그렇지 않은
+ *   쓰임이 같은 낱말에 섞여 있어, 넣으면 멀쩡한 지문을 막는다.
+ * ⚠️ **정관사 미소개 명사(`The servant saluted…`)는 규칙으로 안 갈린다.** `The sun is…`
+ *   과 구별할 방법을 못 찾았다 — `lib-clean.mjs` 가 편집자 주석에서 네 번 실패한 것과
+ *   같은 종류다. 여기서 잡는 척하지 않는다. 그래서 이 자를 통과해도 **손으로 읽으면
+ *   더 걸러진다**(§`docs/reports/kid-source-plan-20260904.md`).
+ */
 const ANAPHORIC_OPENERS =
-  /^(he|she|it|they|him|her|them|his|their|this|that|these|those|but|so|then|however|yet|therefore|thus|meanwhile|besides)\b/i
+  /^(he|she|it|they|him|her|them|his|their|this|that|these|those|but|so|then|however|yet|therefore|thus|meanwhile|besides|still|neither|nor|another|again|instead|afterward|afterwards|nevertheless|moreover)\b/i
 
 export interface StandaloneSignals {
   /** 인용부호 안에 든 낱말의 비율 %. */
@@ -63,14 +81,23 @@ export function standaloneSignals(text: string): StandaloneSignals | null {
   const words = (t.match(/[A-Za-z][A-Za-z'-]*/g) ?? []).length
   if (!words) return null
 
-  // 곧은 따옴표와 굽은 따옴표를 함께 본다 — 구텐베르크 평문은 둘이 섞여 있다.
+  // 곧은·굽은 **큰따옴표와 작은따옴표를 함께** 본다.
+  // ⚠️ 처음엔 큰따옴표만 셌다. 그런데 구텐베르크의 영국 판본은 대화를 `'…'` 로 적는다 —
+  //   실측 2026-09-05: `'God bless you, O king!' said the young man` 같은 대화 장면이
+  //   **대화 비중 0%** 로 세어져 그대로 통과했다.
+  // ⚠️ 작은따옴표는 아포스트로피(`don't`)와 같은 글자라, 여는 쪽이 **낱말 앞**에 있고
+  //   닫는 쪽이 **낱말 뒤**에 있을 때만 대화로 센다. 안 그러면 `it's … don't` 사이가
+  //   통째로 대화로 세어진다.
   let quoted = 0
   for (const m of t.matchAll(/["“][^"”]{2,400}["”]/g)) {
     quoted += (m[0].match(/[A-Za-z][A-Za-z'-]*/g) ?? []).length
   }
+  for (const m of t.matchAll(/(?:^|[\s(])['‘]([^'’]{2,400})['’](?=[\s,.!?;:)]|$)/g)) {
+    quoted += ((m[1] ?? '').match(/[A-Za-z][A-Za-z'-]*/g) ?? []).length
+  }
 
   const first = (t.match(/^[^.!?]{10,400}[.!?]/) ?? [t.slice(0, 200)])[0] ?? ''
-  const opensAnaphoric = /^["“]/.test(t.trim()) || ANAPHORIC_OPENERS.test(first.trim())
+  const opensAnaphoric = /^["“'‘]/.test(t.trim()) || ANAPHORIC_OPENERS.test(first.trim())
 
   return { quotedPct: +((quoted / words) * 100).toFixed(1), opensAnaphoric }
 }
