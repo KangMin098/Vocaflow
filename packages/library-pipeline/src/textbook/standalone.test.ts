@@ -114,6 +114,32 @@ describe('자립성 게이트', () => {
     expect(standaloneFit(story).pass).toBe(true)
   })
 
+  it('없는 그림을 가리키는 조각을 막는다', () => {
+    // 실측 2026-09-05: 초3~4 표본 12편 중 하나가 [Illustration: …] 캡션으로 시작해
+    // 네 축을 모두 통과했다. 그림이 있어야만 읽히는 글은 지문이 될 수 없다.
+    const withFigure =
+      '[Illustration: A. Outer wing of locust. B. Inner wing of locust.] ' +
+      'Every minute the air was growing cooler. The children could smell the pine woods. ' +
+      'Once in a while the train flashed by a great big sawmill. ' +
+      'The hills were rolling nearer and nearer in great shadows.'
+    expect(standaloneFit(withFigure).pass).toBe(false)
+    // 시중 지문 오탐 0/207 — 표식이 없으면 그대로 통과한다.
+    expect(standaloneFit(withFigure.replace(/^\[[^\]]*\]\s*/, '')).pass).toBe(true)
+  })
+
+  it('숫자가 많다고 막지는 않는다 — 재고 물러선 규칙', () => {
+    // 조리법 재료란 13.8% vs 시중 지문 최대 13.5%. 문턱을 어디 두어도 하나는 틀린다.
+    // 신호는 내되 게이트로 쓰지 않는다는 사실을 값으로 고정한다.
+    const numericProse =
+      'The Moon travels around the Earth once every 27 days. ' +
+      'It is about 384,400 kilometres away from us. ' +
+      'Astronauts landed there in 1969 and brought back rock. ' +
+      'Scientists still study those rocks today.'
+    const f = standaloneFit(numericProse)
+    expect(f.pass).toBe(true)
+    expect(f.signals?.numericPct).toBeGreaterThan(5)
+  })
+
   it('못 재면 통과시키지 않는다', () => {
     expect(standaloneFit('').pass).toBe(false)
   })

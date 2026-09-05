@@ -222,6 +222,8 @@ for (const r of rows) {
     quotedPct: st?.quotedPct ?? null,
     opensAnaphoric: st?.opensAnaphoric ?? null,
     opensAsRecord: st?.opensAsRecord ?? null,
+    hasFigureMark: st?.hasFigureMark ?? null,
+    numericPct: st?.numericPct ?? null,
     head: pageText.slice(0, 80),
   })
 

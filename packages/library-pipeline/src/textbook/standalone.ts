@@ -138,6 +138,35 @@ function opensAsRecord(text: string): boolean {
   return false
 }
 
+/**
+ * **없는 그림·표를 가리키는 표식.**
+ *
+ * 실측 2026-09-05: 초3~4 표본 12편 중 하나가 이렇게 시작했다 —
+ * `[Illustration: A. Outer wing of locust. B. Inner wing …]` 그러고는 기차 여행 장면.
+ * 그림 설명은 **그림이 있어야만 읽히는 글**이라 지문이 될 수 없는데, 문장으로 되어 있어
+ * 어수·FK·어휘·대화 어느 축에도 안 걸렸다.
+ *
+ * 정제기(`cleanBookText`)가 지우는 것이 옳지만, 지우고 남은 것이 지문이 되는 것도 옳지 않다 —
+ * 그 자리에 원래 그림이 있었다는 뜻이기 때문이다. 그래서 **조각째 버린다.**
+ */
+const FIGURE_MARK = /\[\s*(?:illustration|figure|fig\.|plate|music|transcriber|image)\b/i
+
+/**
+ * **재료·수치 목록.**
+ *
+ * 실측 2026-09-05: `1/4 cup butter 3/4 cup sugar 2 eggs 1/2 cup milk …` 가 통과했다.
+ * 조리법 재료란인데 마침표가 드물어 한 문장으로 세어지고, 낱말은 전부 쉬운 낱말이다.
+ *
+ * 잡는 축은 **숫자 토큰의 비율**이다 — 산문에는 숫자가 거의 없다(시중 지문 실측 중앙 0%).
+ * 문턱은 시중 분포에서 정한다(§`STANDALONE_SPEC.market.*.numericP95`).
+ */
+function numericRatio(t: string): number {
+  const words = (t.match(/[A-Za-z][A-Za-z'-]*/g) ?? []).length
+  if (!words) return 0
+  const nums = (t.match(/\d+(?:[./]\d+)?/g) ?? []).length
+  return +((nums / (words + nums)) * 100).toFixed(1)
+}
+
 export interface StandaloneSignals {
   /** 인용부호 안에 든 낱말의 비율 %. */
   quotedPct: number
@@ -145,6 +174,10 @@ export interface StandaloneSignals {
   opensAnaphoric: boolean
   /** 일지·항목 표제로 시작하는가 — 글이 아니라 기록이다. */
   opensAsRecord: boolean
+  /** 없는 그림·표를 가리키는 표식이 있는가. */
+  hasFigureMark: boolean
+  /** 숫자 토큰 비율 % — 재료·수치 목록을 잡는다. */
+  numericPct: number
 }
 
 export function standaloneSignals(text: string): StandaloneSignals | null {
@@ -174,6 +207,8 @@ export function standaloneSignals(text: string): StandaloneSignals | null {
     quotedPct: +((quoted / words) * 100).toFixed(1),
     opensAnaphoric,
     opensAsRecord: opensAsRecord(t),
+    hasFigureMark: FIGURE_MARK.test(t),
+    numericPct: numericRatio(t),
   }
 }
 
@@ -212,5 +247,24 @@ export function standaloneFit(text: string): StandaloneFit {
       reason: '일지·항목 표제로 시작한다 — 글이 아니라 표·항목 체계의 한 칸이다',
     }
   }
+  if (s.hasFigureMark) {
+    return {
+      pass: false,
+      signals: s,
+      reason: '없는 그림·표를 가리킨다 — 그림이 있어야만 읽히는 글이다',
+    }
+  }
+  // ⚠️ **`numericPct` 로는 막지 않는다 — 재고 물러섰다(2026-09-05).**
+  //   조리법 재료란(`1/4 cup butter 3/4 cup sugar …`)이 통과한 것을 보고 숫자 비율로
+  //   잡으려 했다. 그런데 재 보니 갈리지 않는다:
+  //
+  //     조리법 재료란                    13.8%
+  //     날짜·거리가 든 정상 산문          11.8%
+  //     시중 지문 최대(초등 12.7 · 중등)  13.5%
+  //
+  //   **시중 지문이 조리법보다 숫자가 많은 쪽에 있다.** 문턱을 어디에 두어도 둘 중 하나를
+  //   잘못 판정한다. 신호는 계속 내되(감시용) 게이트로는 쓰지 않는다.
+  //   `단위 낱말(cup·tsp) 밀도` 같은 좁은 규칙도 생각했으나 관측 사례가 하나뿐이라
+  //   과적합이다 — 그 한 편은 손 판정이 걸러 낸다.
   return { pass: true, signals: s, reason: null }
 }
