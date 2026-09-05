@@ -34,8 +34,33 @@ import {
   pushPendingResult,
 } from '@/lib/srs/session-storage'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
+import { blankSurface } from '@/lib/text/surface-match'
 import type { ContentRef } from '@/lib/content/content-ref'
 import type { Phase, SpellForgeWord } from '@/types/spellforge'
+
+/**
+ * **예문에서 정답 철자를 가린다.**
+ *
+ * SpellForge 는 뜻만 보고 철자를 쓰는 L4b(시각생성) 모듈인데, 입력칸 바로 아래에
+ * 그 낱말이 든 원문 문장을 통째로 인쇄하고 있었다. 실측 2026-09-05 — 발행 세트
+ * `shared_words` **619,958 / 656,031 = 94.5%**, hub 진입 `vocabularies`
+ * **1,585 / 1,622 = 97.7%** 가 예문에 정답 철자를 그대로 담고 있다.
+ * 저장·렌더·채점이 다 성공하므로 조용하다. 모듈이 사실상 **베껴쓰기**가 된다.
+ *
+ * ⚠️ `blankSurface` 하나로는 부족하다 — 표면형을 못 찾으면 **문장을 그대로 돌려준다**
+ *    (그 폴백이 바로 이 결함이 조용했던 이유다). 그래서 결과를 다시 확인하고, 남아 있으면
+ *    글자 그대로 지운다. 가리기는 실패해도 조용하면 안 되는 쪽이다.
+ */
+export function maskSpelling(sentence: string, word: string): string {
+  const w = String(word ?? '').trim()
+  if (!sentence || w.length < 2) return sentence
+  let out = blankSurface(sentence, w)
+  if (!out.toLowerCase().includes(w.toLowerCase())) return out
+  // 규칙이 놓친 자리 — 대소문자 무시 전역 치환으로 확실히 지운다
+  const esc = w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  out = out.replace(new RegExp(esc, 'gi'), '___')
+  return out
+}
 
 interface SpellForgeProps {
   textId: string
@@ -478,10 +503,12 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
             message={reflectionMsg}
           />
 
-          {/* Example */}
+          {/* Example — 타이핑 중에는 정답 철자를 가린다 (maskSpelling 주석 참조) */}
           {currentWord.exampleSentence && (
             <div className="relative mt-6 w-full rounded-r-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] px-5 py-4 font-english text-[15px] italic leading-relaxed text-[var(--t1)]">
-              {currentWord.exampleSentence}
+              {phase === 'success'
+                ? currentWord.exampleSentence
+                : maskSpelling(currentWord.exampleSentence, currentWord.text)}
               <span className="mt-2 block font-body text-[11px] not-italic text-[var(--t2)]">
                 — {textTitle}
               </span>

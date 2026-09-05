@@ -25,6 +25,22 @@ import { pushPendingTextResult } from '@/lib/srs/session-storage'
 // ══════════════════════════════════════════════════════════════
 // Constants
 // ══════════════════════════════════════════════════════════════
+/**
+ * OX 선지가 「참」쪽인가 — **자리가 아니라 글자로 판정한다.**
+ *
+ * DB 의 options 순서가 회차마다 다르다(실측 2026-09-05: `["False","True"]` 인 행이 4/47).
+ * 자리로 기호를 정하면 참이라고 판단해 큰 O 를 누른 학습자가 오답 처리된다 — 정답이
+ * X 버튼에 앉아 있기 때문이다. 정답을 알아도 틀리는 유일한 유형이었다.
+ *
+ * 판정은 **머리글자**로 한다. 선지가 `False — he asks so that he himself will not rust.`
+ * 처럼 뒤에 설명을 달고 오므로 전체 일치로는 못 잡는다. 못 알아보면 `false` 를 돌려
+ * 두 번째 자리(관례상 X)로 두되, 두 선지가 같은 답이 되지는 않게 호출부가 보정한다.
+ */
+export function isTrueOption(text: string): boolean {
+  const t = String(text ?? '').trim().toLowerCase()
+  return /^(true|참|o\b|yes)/.test(t)
+}
+
 const FEEDBACK_DURATION = 800 // ms — O/X 오버레이 표시 시간
 const QUESTION_TIME_LIMIT = 30 // sec — 한 문제당 권장 시간
 
@@ -85,12 +101,17 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
       }
       if (currentQ.type === 'truefalse') {
         const k = e.key.toLowerCase()
+        // 화면의 기호와 같은 규칙으로 고른다 — 자리가 아니라 뜻. 둘이 어긋나면
+        // 키보드로 O 를 눌렀는데 화면의 X 가 눌리는 일이 생긴다.
+        const oIdx = currentQ.options.findIndex((o) => isTrueOption(o.text))
+        const yes = oIdx >= 0 ? oIdx : 0
+        const no = yes === 0 ? 1 : 0
         if (k === 'o' || e.key === 'ArrowLeft') {
           e.preventDefault()
-          handleAnswer(0)
+          handleAnswer(yes)
         } else if (k === 'x' || e.key === 'ArrowRight') {
           e.preventDefault()
-          handleAnswer(1)
+          handleAnswer(no)
         }
       }
     }
@@ -429,8 +450,14 @@ function QuestionScreen({
               const showCorrect = answerState === 'answered' && isCorrect
               const showWrong = answerState === 'answered' && isSelected && !isCorrect
               const isOther = answerState === 'answered' && !isSelected && !isCorrect
-              const symbol = i === 0 ? 'O' : 'X'
-              const symbolColor = i === 0 ? 'var(--p)' : 'var(--error)'
+              // ⚠️ **기호는 자리가 아니라 선지의 뜻에서 온다.**
+              //    예전에는 `i === 0 ? 'O' : 'X'` 였다. 그런데 DB 에는 options 가
+              //    `["False","True"]` 순서인 행이 있어(실측 2026-09-05 · 4/47건),
+              //    참이라고 판단해 큰 O 를 누르면 **오답 처리**됐다 — 정답 "True" 가
+              //    X 버튼에 앉아 있었기 때문이다. 버튼 아래 12px 글씨가 `False · O` 라고
+              //    적어 두긴 했지만 72px 기호가 그것을 압도한다.
+              const symbol = isTrueOption(opt.text) ? 'O' : 'X'
+              const symbolColor = symbol === 'O' ? 'var(--p)' : 'var(--error)'
 
               return (
                 <li key={i}>
