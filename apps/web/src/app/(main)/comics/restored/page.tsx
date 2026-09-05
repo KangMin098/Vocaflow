@@ -60,7 +60,7 @@ export default async function PdComicsPage({
           {/* 화면 문구는 **실제로 배달되는 것**을 말해야 한다. 지금 발행되는 것은 복원된 원본
               페이지다(컷 분할본이 아니라). 예전 문구는 "컷 단위로 나눠 폰에서도 읽힌다"고
               약속했는데, 전면 페이지를 그대로 보내면서 그 말을 두면 지키지 못할 약속이 된다. */}
-          <p className="mt-2 max-w-[60ch] font-body text-[14px] leading-relaxed text-[var(--t2)]">
+          <p className="mt-2 max-w-[60ch] break-keep font-body text-[14px] leading-relaxed text-[var(--t2)]">
             저작권이 만료된 1940~50년대 만화를 디지털 복원했습니다. 종이 변색과 인쇄 망점을 걷어내고
             해상도를 두 배로 올려, 원본 지면 그대로 읽습니다.
           </p>
@@ -215,9 +215,10 @@ function SeriesView({
   return (
     <section>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        {/* 이 화면에서 돌아나가는 유일한 수단이라 히트영역만 44px 로 키운다(시각 크기는 그대로). */}
         <Link
           href="/comics/restored"
-          className="font-body text-[12.5px] text-[var(--t2)] underline underline-offset-2 hover:text-[var(--t1)]"
+          className="inline-flex min-h-11 items-center font-body text-[12.5px] text-[var(--t2)] underline underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           ← 전체 서가
         </Link>
@@ -306,11 +307,36 @@ function NotReady() {
   )
 }
 
+/**
+ * 서가는 열렸는데 발행된 호가 0 인 상태.
+ *
+ * ⚠️ 바로 위 `NotReady()` 는 `/library/books` 링크를 가졌는데 여기만 빠져 있었다 —
+ *    나란히 있는 두 빈 상태 중 하나만 막다른 길이었다는 뜻이다(2026-09-05 감사 · CLAUDE.md D4).
+ */
 function Empty() {
   return (
     <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-5 py-8 text-center">
-      <p className="font-display text-[15px] font-[700] text-[var(--t1)]">아직 발행된 만화가 없어요</p>
-      <p className="mt-1.5 font-body text-[13px] text-[var(--t2)]">첫 복원본을 준비하고 있습니다.</p>
+      <p className="break-keep font-display text-[15px] font-[700] text-[var(--t1)]">
+        아직 발행된 만화가 없어요
+      </p>
+      <p className="mx-auto mt-1.5 max-w-[46ch] break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+        첫 복원본을 준비하고 있습니다. 1940년대 영어는 지금 쓰는 말과 결이 달라서, 그동안 원서
+        쪽에서 읽어 두면 만화가 올라왔을 때 훨씬 편하게 넘어갈 수 있어요.
+      </p>
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+        <Link
+          href="/library/books"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-full)] bg-[var(--p)] px-5 font-display text-[13px] font-[700] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        >
+          도서 라이브러리로
+        </Link>
+        <Link
+          href="/comics/adapted"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-full)] border border-[var(--bd)] px-5 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          책 만화 보러 가기
+        </Link>
+      </div>
     </section>
   )
 }

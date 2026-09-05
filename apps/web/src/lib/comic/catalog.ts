@@ -106,15 +106,27 @@ function fromLegacy(r: LegacyRow): ComicCatalogItem {
   }
 }
 
+export interface ComicCatalogResult {
+  items: ComicCatalogItem[]
+  /**
+   * 두 경로가 **모두 실패**했는가.
+   *
+   * ⚠️ 빈 배열에는 원인이 둘 있다 — "아직 만화가 없다" 와 "목록을 못 읽었다"(RLS 변경·
+   *    타임아웃·RPC 미적용). 예전에는 둘 다 `[]` 로 뭉개서, 호출 화면이 「아직 준비된
+   *    만화가 없어요」를 띄웠다. 재고가 그대로인데 화면이 0을 말하면 그건 거짓말이고,
+   *    오류 로그도 화면 신호도 없어 아무도 못 잡는다(2026-09-05 감사).
+   */
+  failed: boolean
+}
+
 /**
- * 발행된 만화 카탈로그. 두 RPC 모두 comic_books.status='published'
+ * 발행된 만화 카탈로그 + **실패 여부**. 두 RPC 모두 comic_books.status='published'
  * AND library_books.status='published' 이중 게이트라 미발행 유출 없음.
- * 전부 실패하면 빈 배열(호출부는 섹션 자체를 생략 — graceful degrade).
  */
-export async function fetchComicCatalog(
+export async function fetchComicCatalogResult(
   client: SupabaseClient,
   options: ComicCatalogOptions = {},
-): Promise<ComicCatalogItem[]> {
+): Promise<ComicCatalogResult> {
   const { limit, coverLimit = DEFAULT_COVER_LIMIT } = options
 
   // ① P1 경로
@@ -122,7 +134,7 @@ export async function fetchComicCatalog(
     const { data, error } = await client.rpc('list_comic_catalog')
     if (!error && Array.isArray(data)) {
       const items = (data as RichRow[]).map(fromRich)
-      return typeof limit === 'number' ? items.slice(0, limit) : items
+      return { items: typeof limit === 'number' ? items.slice(0, limit) : items, failed: false }
     }
   } catch {
     // 미적용(PGRST202) 등 — 폴백으로
@@ -132,22 +144,36 @@ export async function fetchComicCatalog(
   let rows: LegacyRow[] = []
   try {
     const { data, error } = await client.rpc('list_book_comic_catalog')
-    if (error || !Array.isArray(data)) return []
+    if (error || !Array.isArray(data)) return { items: [], failed: true }
     rows = data as LegacyRow[]
   } catch {
-    return []
+    return { items: [], failed: true }
   }
 
   const sliced = typeof limit === 'number' ? rows.slice(0, limit) : rows
   const items = sliced.map(fromLegacy)
-  if (coverLimit <= 0 || items.length === 0) return items
+  if (coverLimit <= 0 || items.length === 0) return { items, failed: false }
 
   const covers = await fetchComicCovers(
     client,
     items.slice(0, coverLimit).map((i) => i.bookId),
   )
-  if (covers.size === 0) return items
-  return items.map((i) => ({ ...i, coverArt: covers.get(i.bookId) ?? null }))
+  if (covers.size === 0) return { items, failed: false }
+  return {
+    items: items.map((i) => ({ ...i, coverArt: covers.get(i.bookId) ?? null })),
+    failed: false,
+  }
+}
+
+/**
+ * 항목만 필요한 호출부용 얇은 껍데기 (도서 화면의 만화 히어로 등 — 그쪽은 실패하면
+ * 섹션 자체를 생략하는 graceful degrade 라 실패 여부를 구분할 필요가 없다).
+ */
+export async function fetchComicCatalog(
+  client: SupabaseClient,
+  options: ComicCatalogOptions = {},
+): Promise<ComicCatalogItem[]> {
+  return (await fetchComicCatalogResult(client, options)).items
 }
 
 /** 폴백 전용 — 도서별 첫 컷 URL. 실패한 책은 map 에서 빠짐(호출부가 null 폴백). */

@@ -34,7 +34,8 @@ export function ChapterContentView({
 
   return (
     <article
-      className="mx-auto max-w-2xl px-8 py-10"
+      // 390px 에서 `px-8`(64px)은 본문 열의 16%다 — 좁을 때는 여백보다 글줄이 먼저다.
+      className="mx-auto max-w-2xl px-4 py-6 sm:px-8 sm:py-10"
       role="article"
       aria-label={content.chapter_title ?? `Chapter ${content.chapter_idx}`}
     >

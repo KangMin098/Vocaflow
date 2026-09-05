@@ -19,6 +19,15 @@ interface ChapterSidebarProps {
   /** v06.34 — admin-review 모드에서 챕터 옆에 원본 소스 외부링크 표시 */
   source?: string | null
   sourceId?: string | null
+  /**
+   * 목차 `<nav>` 의 레이아웃 클래스 (기본 = 데스크톱 200px 레일).
+   *
+   * ⚠️ **인스턴스는 하나만 둔다.** 데스크톱 레일과 모바일 시트를 따로 렌더하면 목차가
+   *    두 벌이 되는데, 여기는 장이 528개인 책을 그리는 자리다(위 FLAT_BUCKET_MIN 주석의
+   *    실측 — 이 `<nav>` 하나가 문서 1.18MB 의 54%였다). 두 벌은 그 비용을 그대로 두 배로
+   *    만든다. 그래서 **같은 노드**를 브레이크포인트로 레일 ↔ 펼침 패널로 바꾼다.
+   */
+  className?: string
 }
 
 interface Segment {
@@ -86,6 +95,7 @@ export function ChapterSidebar({
   onSelect,
   source,
   sourceId,
+  className,
 }: ChapterSidebarProps) {
   const showSourceLink = mode === 'admin-review' && !!source && !!sourceId
   const segments = useMemo(() => buildSegments(chapters), [chapters])
@@ -156,7 +166,10 @@ export function ChapterSidebar({
 
   return (
     <nav
-      className="flex w-[200px] shrink-0 flex-col overflow-y-auto border-r border-[var(--bd)] bg-[var(--bg2)]"
+      className={
+        className ??
+        'flex w-[200px] shrink-0 flex-col overflow-y-auto border-r border-[var(--bd)] bg-[var(--bg2)]'
+      }
       aria-label="장 목록"
     >
       <div className="border-b border-[var(--bd)] px-3 py-2">

@@ -8,6 +8,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 
 import { Capsule, Screen } from '@/components/ui/ios';
 import { createClient } from '@/lib/supabase/server';
+import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select';
 import { BooksExplorer } from '@/components/library/browse/BooksExplorer';
 import { ComicHeroCard, type ComicHeroItem } from '@/components/comic/ComicHeroCard';
 import { comicBookIdsOf, fetchComicCatalog } from '@/lib/comic/catalog';
@@ -24,7 +25,11 @@ export const metadata = {
   description: '큐레이션된 영어 학습 자료',
 };
 
-export const revalidate = 60;
+// ⚠️ `revalidate = 60` 이었다. 동작에는 영향이 없었지만(`createClient()` → `cookies()` 가
+//    동적 렌더를 강제한다) **캐시되는 것처럼 읽히는 죽은 설정**이라, 나중에 사용자별 조회를
+//    빼는 리팩터에서 남의 진도가 캐시될 여지를 남겼다. 이웃 화면들은 이미 의도를 적어 뒀다
+//    (`library/scripts` · `library/vocab` · `comics/adapted` 전부 force-dynamic).
+export const dynamic = 'force-dynamic';
 
 export default async function LibraryBooksPage({
   searchParams,
@@ -76,23 +81,38 @@ export default async function LibraryBooksPage({
   // status='published' 단독은 부족 — 그 값은 챕터 단어장 발행 트리거를 쏘는
   // 메커니즘으로도 쓰여(ready→published) published_at 없이 올라간 도서가 섞임.
   // 조건 자체는 lib/library/publish-gate.ts 가 단일 출처(스크립트/만화와 함께 관리).
-  const { data, error } = await applyBookCatalogGate(
-    client
-      .from('library_books')
-      .select(
-        // ⚠️ librivox_audio 는 **일부러 빼 놨다.** 이 화면이 그 jsonb 로 하는 일은
-        //   has_audio 불리언 하나를 만드는 것뿐인데, 2026-08-30 실측에서 그 열 하나가
-        //   조회 payload 408KB 중 178KB(44%)를 차지했다 — 오디오를 가진 5권이
-        //   권당 수십 KB짜리 챕터 매핑을 싣고 오기 때문이다. 아래에서 id 만 따로 받는다.
-        'id, title, author, cefr_level, cefr_band, book_v_level, ' +
-          'word_count, chapter_count, reading_minutes, cover_from, cover_to, cover_image_url, lexical_coverage, ' +
-          'is_picture_book, published_at, curation_metadata',
-      ),
-  ).order('published_at', { ascending: false });
-
-  let books: PublishedBook[] = error
-    ? []
-    : ((data ?? []) as unknown as PublishedBook[]);
+  // ⚠️ **`.range()` 로 끝까지 받는다.** 예전에는 상한 없이 한 번만 select 했다 —
+  //    PostgREST 는 한 응답에 1,000행까지만 주고 **오류 없이** 자른다(`lib/supabase/paged-select.ts`).
+  //    지금 카탈로그는 312권이라 아직 안 걸리지만, `library_articles` 만 해도 ready 18,819 ·
+  //    queued 35,545 가 대기 중이고 도서 발행 대기도 남아 있다. 넘기는 순간 학습자는
+  //    "없다" 로 읽고, 오류가 아니라서 아무도 못 잡는다 — 이 저장소가 이미 세 번 치른 값이다.
+  let catalogFailed = false;
+  let books: PublishedBook[] = [];
+  try {
+    books = await pagedSelect<PublishedBook>(
+      (from, to) =>
+        applyBookCatalogGate(
+          client
+            .from('library_books')
+            .select(
+              // ⚠️ librivox_audio 는 **일부러 빼 놨다.** 이 화면이 그 jsonb 로 하는 일은
+              //   has_audio 불리언 하나를 만드는 것뿐인데, 2026-08-30 실측에서 그 열 하나가
+              //   조회 payload 408KB 중 178KB(44%)를 차지했다 — 오디오를 가진 5권이
+              //   권당 수십 KB짜리 챕터 매핑을 싣고 오기 때문이다. 아래에서 id 만 따로 받는다.
+              'id, title, author, cefr_level, cefr_band, book_v_level, ' +
+                'word_count, chapter_count, reading_minutes, cover_from, cover_to, cover_image_url, lexical_coverage, ' +
+                'is_picture_book, published_at, curation_metadata',
+            ),
+        )
+          .order('published_at', { ascending: false })
+          .range(from, to),
+      '도서 카탈로그',
+    );
+  } catch {
+    // 실패를 빈 목록으로 뭉개지 않는다 — 화면이 「아직 없어요」 대신 「못 불러왔어요」를 말한다.
+    catalogFailed = true;
+    books = [];
+  }
 
   if (books.length > 0) {
     const ids = books.map((b) => b.id);
@@ -122,10 +142,33 @@ export default async function LibraryBooksPage({
     }
 
     // v06.34 — library_seed_catalog 에서 curation_meta 가져와 도서별 매핑 (선택 모달용)
-    const { data: seeds } = await client
-      .from('library_seed_catalog')
-      .select('imported_book_id, est_v_level, curation_meta, description, popularity_rank')
-      .in('imported_book_id', ids);
+    //
+    // ⚠️ `.in()` 을 **한 번에** 보내고 있었다. `.in()` 은 GET 쿼리스트링이라 id 수만큼 URL 이
+    //    길어지는데, UUID 312개면 약 11,500자다 — 실측 성공 구간(~11,100자)을 이미 넘었고
+    //    첫 실패 모드가 **7.5초 뒤의 `fetch failed`** 라 화면에서는 "느리다" 로만 보인다
+    //    (`lib/supabase/paged-select.ts` 의 IN_VALUE_MAX_CHARS 표). 길이로 쪼개고 각 조각을
+    //    `.range()` 로 끝까지 받는다. 실패해도 카탈로그 자체는 떠야 하므로 삼키되 비운다.
+    let seeds: Array<{
+      imported_book_id: string | null;
+      est_v_level: number | null;
+      curation_meta: Record<string, unknown> | null;
+      description: string | null;
+      popularity_rank: number | null;
+    }> = [];
+    try {
+      seeds = await pagedSelectIn<(typeof seeds)[number]>(
+        ids,
+        (chunk, from, to) =>
+          client
+            .from('library_seed_catalog')
+            .select('imported_book_id, est_v_level, curation_meta, description, popularity_rank')
+            .in('imported_book_id', chunk)
+            .range(from, to),
+        '도서 큐레이션 메타',
+      );
+    } catch {
+      seeds = [];
+    }
 
     const curationByBook = new Map<
       string,

@@ -9,16 +9,18 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useEffect, useMemo, useState, useTransition } from 'react'
+import { useCallback, useEffect, useMemo, useState, useTransition } from 'react'
 import { Search, Sparkles } from 'lucide-react'
 
 import { subscribeSet, unsubscribeSet } from '@/app/(main)/library/vocab/actions'
 import type { PublishedVocabSet, RecommendedSet } from '@/lib/library/vocab/queries'
 import { rungForSet } from '@/lib/library/vocab/rung'
+import { readEnumParam, useShelfUrlState } from '@/lib/library/shelf-url-state'
+import { ShelfEmptyState } from '@/components/library/shared/ShelfEmptyState'
 import { track } from '@/lib/analytics/client'
 
 import { CategoryMatrix } from './CategoryMatrix'
-import { categoryImportance, type VocabCategoryId } from './categories'
+import { VOCAB_CATEGORIES, categoryImportance, type VocabCategoryId } from './categories'
 import { SubscribeSuccessToast, type SubscribeToastData } from './SubscribeSuccessToast'
 import { VocabSetCard } from './VocabSetCard'
 import { VocabSetCarousel } from './VocabSetCarousel'
@@ -36,7 +38,9 @@ const TIER_BADGE: Record<string, { label: string; bg: string; text: string }> = 
   fallback: { label: '추천', bg: 'var(--bg3)', text: 'var(--t2)' },
 }
 
-type SortKey = 'recommended' | 'most_words' | 'fewest_words' | 'newest'
+/** 정렬 키 — 닫힌 열거형. 주소에서 읽은 값을 이 목록으로 검증한다(손으로 고친 `?sort=` 방어). */
+const SORT_KEYS = ['recommended', 'most_words', 'fewest_words', 'newest'] as const
+type SortKey = (typeof SORT_KEYS)[number]
 
 interface Props {
   sets: PublishedVocabSet[]
@@ -54,10 +58,62 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
   // Optimistic subscribed set — 서버 액션 성공 시 즉시 반영
   const [subscribed, setSubscribed] = useState<Set<string>>(() => new Set(subscribedIds))
 
-  const [category, setCategory] = useState<VocabCategoryId>('all')
-  const [query, setQuery] = useState('')
-  const [sort, setSort] = useState<SortKey>('recommended')
-  const [mineOnly, setMineOnly] = useState(false)
+  /**
+   * 고르던 자리(카테고리·검색어·정렬·내 것만)는 **주소가 기억한다.**
+   * 왜 로컬 상태와 주소를 함께 쓰는지는 `lib/library/shelf-url-state.ts` 머리 주석.
+   */
+  const { searchParams, setParams } = useShelfUrlState()
+  const [category, setCategoryState] = useState<VocabCategoryId>(
+    () =>
+      readEnumParam<VocabCategoryId>(
+        searchParams,
+        'cat',
+        VOCAB_CATEGORIES.map((c) => c.id),
+      ) ?? 'all',
+  )
+  const [query, setQueryState] = useState(() => searchParams?.get('q') ?? '')
+  const [sort, setSortState] = useState<SortKey>(
+    () => readEnumParam<SortKey>(searchParams, 'sort', SORT_KEYS) ?? 'recommended',
+  )
+  const [mineOnly, setMineOnlyState] = useState(() => searchParams?.get('mine') === '1')
+
+  // 상태를 바꾸는 곳마다 주소를 함께 쓴다 — 세터를 감싸 두면 빠뜨릴 자리가 없다.
+  const setCategory = useCallback(
+    (v: VocabCategoryId) => {
+      setCategoryState(v)
+      setParams({ cat: v === 'all' ? null : v })
+    },
+    [setParams],
+  )
+  const setQuery = useCallback(
+    (v: string) => {
+      setQueryState(v)
+      setParams({ q: v.trim() || null })
+    },
+    [setParams],
+  )
+  const setSort = useCallback(
+    (v: SortKey) => {
+      setSortState(v)
+      setParams({ sort: v === 'recommended' ? null : v })
+    },
+    [setParams],
+  )
+  const setMineOnly = useCallback(
+    (v: boolean) => {
+      setMineOnlyState(v)
+      setParams({ mine: v ? '1' : null })
+    },
+    [setParams],
+  )
+  /** 0건을 만든 조건을 한 번에 되돌린다 — 빈 상태의 「필터 초기화」. */
+  const resetFilters = useCallback(() => {
+    setCategoryState('all')
+    setQueryState('')
+    setSortState('recommended')
+    setMineOnlyState(false)
+    setParams({ cat: null, q: null, sort: null, mine: null })
+  }, [setParams])
   const [previewing, setPreviewingState] = useState<PublishedVocabSet | null>(null)
   const [pendingId, setPendingId] = useState<string | null>(null)
   const [errors, setErrors] = useState<Record<string, string | null>>({})
@@ -262,7 +318,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
           {isLoggedIn && (
             <button
               type="button"
-              onClick={() => setMineOnly((v) => !v)}
+              onClick={() => setMineOnly(!mineOnly)}
               aria-pressed={mineOnly}
               className={`focus-visible:ring-[var(--t1)]/20 inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] border px-3 font-display text-[13px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
                 mineOnly
@@ -294,18 +350,28 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
       )}
 
       {isEmptyAll ? (
-        <EmptyState
+        <ShelfEmptyState
           title="아직 공개된 단어장이 없어요"
-          body="새 컬렉션이 곧 추가될 예정이에요. 그동안 내 스크립트에서 단어를 직접 추출해 보세요."
+          body="큐레이션된 컬렉션이 준비되는 대로 여기에 올라와요. 그동안 원서 한 권을 담으면 챕터별 단어장이 함께 생기니, 거기서부터 시작해도 좋아요."
+          ctaHref="/library/books"
+          ctaLabel="도서 보러 가기"
         />
       ) : isEmptyFiltered ? (
-        <EmptyState
+        // ⚠️ 필터가 0건을 만든 경우다. 여기에 되돌릴 버튼이 없으면 카테고리 칩을 잘못 누른
+        //    사람이 빠져나오지 못한다 — 이웃 화면(BooksExplorer·ComicsBrowser)은 이미
+        //    「필터 초기화」를 주는데 여기만 없었다(2026-09-05).
+        <ShelfEmptyState
+          tone="filtered"
           title="조건에 맞는 단어장이 없어요"
           body={
             mineOnly
-              ? '아직 구독한 단어장이 없어요. 마음에 드는 세트를 추가해 보세요.'
-              : '검색어나 카테고리를 바꿔보세요.'
+              ? '「내 단어장만」이 켜져 있어요. 아직 담은 세트가 없다면 조건을 풀고 전체에서 골라 보세요.'
+              : '검색어나 카테고리가 서로를 좁히고 있어요. 조건을 되돌리면 전체 목록이 다시 보여요.'
           }
+          onAction={resetFilters}
+          actionLabel="필터 초기화"
+          ctaHref="/library/books"
+          ctaLabel="도서 보러 가기"
         />
       ) : isGrouped ? (
         <div className="flex flex-col gap-6">
@@ -476,11 +542,3 @@ function FeaturedRow({
   )
 }
 
-function EmptyState({ title, body }: { title: string; body: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center">
-      <p className="font-display text-[14px] font-[600] text-[var(--t2)]">{title}</p>
-      <p className="max-w-[360px] font-body text-[12px] text-[var(--t2)]">{body}</p>
-    </div>
-  )
-}

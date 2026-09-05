@@ -22,6 +22,7 @@ import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import { unenrollBook } from '@/lib/library/enroll'
 import { createClient } from '@/lib/supabase/client'
 import { NetflixDetailSheet, type DetailVariant } from '@/components/library/shared/NetflixDetailSheet'
+import { ShelfEmptyState } from '@/components/library/shared/ShelfEmptyState'
 import { toBookDetailVariant } from '@/lib/library/book-detail-variant'
 import type { EnrollmentState, PublishedBook } from '@/lib/library/published-book'
 
@@ -32,6 +33,12 @@ interface LibraryGridProps {
   books: PublishedBook[]
   /** 학습자 현재 V레벨 — i+1 적합도 배지 판정 (0 = 미진단 → 배지 미표시) */
   userVLevel?: number
+  /**
+   * 카탈로그 **조회 자체가 실패**했는가 — 빈 목록의 두 원인을 가른다.
+   * 실패를 "아직 없어요" 로 적으면 재고 312권이 그대로인데 화면이 0을 말하고,
+   * 오류 로그도 화면 신호도 없어 아무도 못 잡는다.
+   */
+  loadError?: boolean
 }
 
 // iOS native easing — Apple HIG interactive curves.
@@ -69,7 +76,7 @@ function cardTransform(offset: number) {
   }
 }
 
-export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
+export function LibraryGrid({ books, userVLevel = 0, loadError = false }: LibraryGridProps) {
   const router = useRouter()
   const [active, setActive] = useState(0)
   const [detail, setDetail] = useState<DetailVariant | null>(null)
@@ -126,8 +133,21 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
     [last],
   )
 
-  // 키보드 네비
+  /**
+   * 키보드 네비 — **무대에 포커스가 있을 때만.**
+   *
+   * ⚠️ 예전에는 `window` 에 걸고 대상을 보지 않은 채 `preventDefault()` 했다. 그래서
+   *    같은 화면의 「제목·저자 검색」에 오타를 내고 ← 로 캐럿을 옮기려 하면 캐럿은
+   *    그대로이고 **추천 캐러셀이 옆으로 넘어갔다**(실측 2026-09-05). 이 화면은 캐러셀이
+   *    항상 떠 있어 검색·필터를 쓰는 내내 재현됐다.
+   *
+   *    리스너를 무대에 붙이면 "누구의 화살표인가" 가 DOM 으로 정해진다 — 입력창 목록을
+   *    손으로 예외 처리할 필요가 없다(그 목록은 컨트롤이 늘 때마다 낡는다).
+   *    같은 저장소의 리더는 예외 목록 방식이고, 그쪽은 화면에 입력이 없어 성립한다.
+   */
   useEffect(() => {
+    const stage = stageRef.current
+    if (!stage) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowLeft') {
         e.preventDefault()
@@ -137,8 +157,8 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
         next()
       }
     }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    stage.addEventListener('keydown', onKey)
+    return () => stage.removeEventListener('keydown', onKey)
   }, [prev, next])
 
   // 터치 swipe (50px 임계값)
@@ -157,18 +177,26 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
   }
 
   if (books.length === 0) {
-    return (
-      <div
-        role="status"
-        className="flex flex-col items-center justify-center gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-20 text-center"
-      >
-        <div className="select-none text-4xl" aria-hidden>
-          📚
-        </div>
-        <h3 className="font-display text-[15px] font-[700] text-[var(--t1)]">
-          아직 게시된 도서가 없어요
-        </h3>
-      </div>
+    // 「없다」와 「못 읽었다」를 가른다 — 재고가 그대로인데 0을 말하면 거짓말이다.
+    //   다음 걸음은 `/library/scripts` 로 보낸다. 도서 서가가 비었다면 그 축이 비었다는
+    //   뜻이고, 짧은 글은 별도 파이프라인(ACP)이라 재고가 남아 있을 가능성이 높다.
+    return loadError ? (
+      <ShelfEmptyState
+        tone="error"
+        title="지금 도서 목록을 불러오지 못했어요"
+        body="서가가 빈 게 아니라 목록을 읽는 데 실패했어요. 잠시 뒤 다시 시도하거나, 그동안 짧은 글로 읽어 보세요."
+        onAction={() => router.refresh()}
+        actionLabel="다시 시도"
+        ctaHref="/library/scripts"
+        ctaLabel="짧은 글 보러 가기"
+      />
+    ) : (
+      <ShelfEmptyState
+        title="아직 게시된 도서가 없어요"
+        body="큐레이션이 끝난 원서부터 차례로 올라와요. 그동안 짧은 영어 글로 읽는 감을 유지하거나, 3분 진단으로 내 수준을 먼저 정해 둘 수 있어요."
+        ctaHref="/library/scripts"
+        ctaLabel="짧은 글 보러 가기"
+      />
     )
   }
 
@@ -191,6 +219,10 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
           // role="list" 는 listitem 의 **직접 부모**여야 한다. 예전엔 바깥 래퍼에 붙어 있어
           // 사이에 무대·탭리스트가 끼면서 aria-required-children/parent 가 동시에 깨졌다(2026-08-09 axe).
           role="list"
+          // 무대 자체가 포커스를 받는다 — 화살표 리스너가 여기 붙어 있으므로(위 useEffect),
+          // 이것이 없으면 카드 안으로 Tab 해 들어가기 전에는 ←/→ 가 아예 안 먹는다.
+          tabIndex={0}
+          aria-label={`추천 도서 ${books.length}권 — 좌우 화살표 키로 넘겨요`}
           // overflow-clip: 3D 무대의 옆 카드들은 absolute + transform 이라 컨테이너를
           //   벗어난다. 클립이 없으면 **문서가 통째로 옆으로 밀린다** — 390px 모바일에서
           //   scrollWidth 773px(넘침 383px) 실측(2026-08-13 a11y 스윕).
@@ -200,7 +232,7 @@ export function LibraryGrid({ books, userVLevel = 0 }: LibraryGridProps) {
           //   서가가 어수선해 보이던 주범이다. 두 축 모두 클립하되, 세로 그림자가 잘리지
           //   않도록 `overflow-clip-margin` 으로 여유를 준다 — 스크롤 컨테이너는 만들지 않는다.
           //   (clip-margin 은 주지 않는다 — 24px 를 줬더니 모바일에서 가로 넘침 8px 이 다시 생겼다.)
-          className="relative mx-auto flex h-[460px] w-full max-w-[1280px] items-center justify-center overflow-clip"
+          className="relative mx-auto flex h-[460px] w-full max-w-[1280px] items-center justify-center overflow-clip rounded-[var(--r-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           style={{ perspective: '1800px', perspectiveOrigin: '50% 55%' }}
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}

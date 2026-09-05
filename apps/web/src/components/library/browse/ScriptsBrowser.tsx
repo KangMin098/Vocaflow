@@ -35,6 +35,8 @@ import {
 } from '@/lib/articles/source-map'
 import type { PublishedArticle } from '@/lib/articles/types'
 
+import { ShelfEmptyState } from '@/components/library/shared/ShelfEmptyState'
+
 import { SeriesDetail } from './SeriesDetail'
 import { SeriesInfoModal } from './SeriesInfoModal'
 
@@ -55,10 +57,13 @@ export const SCRIPTS_INDEX_HREF = '/library/scripts'
 export function ScriptsBrowser({
   articles,
   series,
+  loadError = false,
 }: {
   articles: PublishedArticle[]
   /** `?series=` — 서버가 읽어 넘긴다. 상태가 아니라 주소가 이 화면의 단일 출처다. */
   series: string | null
+  /** 카탈로그 **조회 자체가 실패**했는가 — 빈 목록의 두 원인을 가른다. */
+  loadError?: boolean
 }) {
   const userV = useUserVLevel()
   const router = useRouter()
@@ -69,21 +74,24 @@ export function ScriptsBrowser({
   const map = useMemo(() => buildScriptsMap(articles, userV), [articles, userV])
 
   if (articles.length === 0) {
-    return (
-      <div
-        role="status"
-        className="flex flex-col items-center justify-center gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-16 text-center"
-      >
-        <span className="select-none text-3xl" aria-hidden>
-          📰
-        </span>
-        <p className="font-display text-[14px] font-[700] text-[var(--t1)]">
-          아직 게시된 스크립트가 없어요
-        </p>
-        <p className="max-w-[360px] font-body text-[12px] text-[var(--t2)]">
-          짧은 영어 글이 큐레이션되면 여기에 표시돼요. 곧 추가될 예정이에요.
-        </p>
-      </div>
+    // 「없다」와 「못 읽었다」를 가른다 — 발행 293편이 그대로인데 0을 말하면 거짓말이다.
+    return loadError ? (
+      <ShelfEmptyState
+        tone="error"
+        title="지금 글 목록을 불러오지 못했어요"
+        body="서가가 빈 게 아니라 목록을 읽는 데 실패했어요. 잠시 뒤 다시 시도하거나, 그동안 원서 쪽을 둘러보셔도 좋아요."
+        onAction={() => router.refresh()}
+        actionLabel="다시 시도"
+        ctaHref="/library/books"
+        ctaLabel="도서 보러 가기"
+      />
+    ) : (
+      <ShelfEmptyState
+        title="아직 게시된 글이 없어요"
+        body="짧은 영어 글은 매일 들어오는 외부 피드에서 골라 올라와요. 그동안 원서 한 권을 골라 두거나, 3분 진단으로 내 수준을 정해 두면 다음에 딱 맞는 글부터 보여드릴게요."
+        ctaHref="/library/books"
+        ctaLabel="도서 보러 가기"
+      />
     )
   }
 
@@ -95,7 +103,11 @@ export function ScriptsBrowser({
       <SeriesDetail
         stat={selectedStat}
         userV={userV}
-        onBack={() => router.push(SCRIPTS_INDEX_HREF)}
+        // ⚠️ `push` 였다. 그러면 히스토리가 index → series → index 로 **쌓여서**,
+        //    그다음 브라우저 뒤로가기가 방금 나온 시리즈로 되돌아간다(2026-09-05).
+        //    시리즈 목록으로 나가는 것은 앞으로 가는 이동이 아니라 되돌아가는 것이므로
+        //    주소를 대체한다 — 뒤로가기는 서가 밖(들어온 곳)으로 나간다.
+        onBack={() => router.replace(SCRIPTS_INDEX_HREF, { scroll: false })}
       />
     )
   }
@@ -115,7 +127,8 @@ export function ScriptsBrowser({
         <span className="inline-flex w-fit items-center gap-2 font-display text-[11px] font-[800] uppercase tracking-[0.09em] text-[var(--p)]">
           <Sparkles size={12} aria-hidden /> {g.eyebrow}
         </span>
-        <p className="font-body text-[15px] leading-[1.45] text-[var(--t1)]">{g.title}</p>
+        {/* 한글 문단에 break-keep — 없으면 390px 에서 낱말이 음절로 쪼개진다(CLAUDE.md I7). */}
+        <p className="break-keep font-body text-[15px] leading-[1.45] text-[var(--t1)]">{g.title}</p>
         {g.cta.kind === 'diagnostic' && (
           <Link
             href="/diagnostic"

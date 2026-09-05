@@ -1,4 +1,4 @@
-// apps/web/src/app/(main)/comics/page.tsx
+// apps/web/src/app/(main)/comics/adapted/page.tsx
 //
 // /comics — 만화 (사이드바 Scripts 그룹의 최상위 메뉴).
 // 설계: docs/CCP_LIBRARY_INTEGRATION.md — 만화는 새 장르가 아니라 "같은 책의 다른 표현형(Expression)"이라
@@ -14,7 +14,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { Capsule, Screen } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/server'
-import { fetchComicCatalog } from '@/lib/comic/catalog'
+import { fetchComicCatalogResult } from '@/lib/comic/catalog'
 import {
   ComicsBrowser,
   type ComicBrowseItem,
@@ -31,7 +31,8 @@ export const dynamic = 'force-dynamic'
 export default async function LibraryComicsPage() {
   const client = (await createClient()) as unknown as SupabaseClient
 
-  const catalog = await fetchComicCatalog(client)
+  // 빈 목록의 두 원인(아직 없다 / 못 읽었다)을 갈라 화면에 전한다.
+  const { items: catalog, failed: catalogFailed } = await fetchComicCatalogResult(client)
 
   const {
     data: { user },
@@ -145,7 +146,7 @@ export default async function LibraryComicsPage() {
               책 만화
             </h1>
           </div>
-          <p className="font-body text-[15px] text-[var(--t2)]">
+          <p className="break-keep font-body text-[15px] text-[var(--t2)]">
             같은 책, 그림으로 먼저 만나는 입구 — 줄거리를 잡고 나면 본문이 한결 수월해져요.
           </p>
           {items.length > 0 && (
@@ -159,7 +160,7 @@ export default async function LibraryComicsPage() {
           )}
         </header>
 
-        <ComicsBrowser items={items} />
+        <ComicsBrowser items={items} loadError={catalogFailed} />
       </div>
     </Screen>
   )

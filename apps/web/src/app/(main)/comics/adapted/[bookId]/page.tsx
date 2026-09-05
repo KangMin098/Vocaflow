@@ -1,4 +1,4 @@
-// apps/web/src/app/(main)/comics/[bookId]/page.tsx
+// apps/web/src/app/(main)/comics/adapted/[bookId]/page.tsx
 //
 // 만화 상세 — 미등록·비로그인도 볼 수 있는 프리뷰 + 포맷 선택 (설계서 D4·D5).
 // 왜 필요한가: 리더 라우트(/text/[id]/comic)는 texts.id 를 요구해 등록 전에는 만화를 아예 볼 수 없었다(G3).

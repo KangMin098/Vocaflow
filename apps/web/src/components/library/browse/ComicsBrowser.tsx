@@ -8,11 +8,13 @@
 
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { ArrowRight, BookImage, PlayCircle } from 'lucide-react'
 
 import { V_BANDS, vBandOf, type VBand } from '@/lib/library/genres'
+import { readEnumParam, useShelfUrlState } from '@/lib/library/shelf-url-state'
+import { ShelfEmptyState } from '@/components/library/shared/ShelfEmptyState'
 
 export interface ComicBrowseItem {
   bookId: string
@@ -31,8 +33,31 @@ export interface ComicBrowseItem {
 
 const ON_GOLD = '#231a09' // gold(--active) 위 고대비 텍스트 (양 테마 AA)
 
-export function ComicsBrowser({ items }: { items: ComicBrowseItem[] }) {
-  const [band, setBand] = useState<VBand | null>(null)
+export function ComicsBrowser({
+  items,
+  loadError = false,
+}: {
+  items: ComicBrowseItem[]
+  /** 카탈로그 **조회 자체가 실패**했는가 — 빈 목록의 두 원인을 가른다(lib/comic/catalog.ts). */
+  loadError?: boolean
+}) {
+  // 고른 레벨 밴드는 주소가 기억한다 — 만화 하나를 열었다 뒤로 와도 조건이 남는다.
+  //   왜 `router.replace` 가 아닌지는 `lib/library/shelf-url-state.ts` 머리 주석.
+  const { searchParams, setParams } = useShelfUrlState()
+  const [band, setBandState] = useState<VBand | null>(() =>
+    readEnumParam<VBand>(
+      searchParams,
+      'band',
+      V_BANDS.map((b) => b.key),
+    ),
+  )
+  const setBand = useCallback(
+    (v: VBand | null) => {
+      setBandState(v)
+      setParams({ band: v })
+    },
+    [setParams],
+  )
 
   const continuing = useMemo(
     () => items.filter((i) => i.progressPct > 0 && !i.completed),
@@ -54,27 +79,22 @@ export function ComicsBrowser({ items }: { items: ComicBrowseItem[] }) {
   )
 
   if (items.length === 0) {
-    return (
-      <div
-        role="status"
-        className="flex flex-col items-center gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-6 py-16 text-center"
-      >
-        <BookImage size={26} className="text-[var(--t2)]" aria-hidden />
-        <div>
-          <p className="font-display text-[16px] font-[800] text-[var(--t1)]">
-            아직 준비된 만화가 없어요
-          </p>
-          <p className="mt-1 font-body text-[13px] text-[var(--t2)]">
-            도서를 만화로 옮기는 작업이 진행 중이에요. 그동안 원문으로 읽어보실래요?
-          </p>
-        </div>
-        <Link
-          href="/library/books"
-          className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-full)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-colors hover:bg-[var(--p-dark)]"
-        >
-          도서 보러 가기
-        </Link>
-      </div>
+    // 「아직 없다」와 「못 읽었다」를 가른다 — 뒤쪽은 재고가 그대로일 수 있다.
+    return loadError ? (
+      <ShelfEmptyState
+        tone="error"
+        title="지금 만화 목록을 불러오지 못했어요"
+        body="서가가 빈 게 아니라 목록을 읽는 데 실패했어요. 새로고침하면 대개 돌아오고, 그동안 원문으로 읽는 길은 열려 있어요."
+        ctaHref="/library/books"
+        ctaLabel="도서 보러 가기"
+      />
+    ) : (
+      <ShelfEmptyState
+        title="아직 준비된 만화가 없어요"
+        body="도서를 만화로 옮기는 작업이 진행 중이에요. 그동안 원문으로 읽어 두면, 나중에 같은 책의 만화가 나왔을 때 그림이 줄거리를 다시 잡아 줘요."
+        ctaHref="/library/books"
+        ctaLabel="도서 보러 가기"
+      />
     )
   }
 
@@ -130,21 +150,13 @@ export function ComicsBrowser({ items }: { items: ComicBrowseItem[] }) {
         )}
 
         {visible.length === 0 ? (
-          <div
-            role="status"
-            className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-12 text-center"
-          >
-            <p className="font-display text-[14px] font-[700] text-[var(--t1)]">
-              이 레벨의 만화가 아직 없어요
-            </p>
-            <button
-              type="button"
-              onClick={() => setBand(null)}
-              className="mt-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
-            >
-              필터 초기화
-            </button>
-          </div>
+          <ShelfEmptyState
+            tone="filtered"
+            title="이 레벨의 만화가 아직 없어요"
+            body="고른 레벨에 맞는 편이 아직 없어요. 레벨을 풀면 전체가 다시 보이고, 조금 쉬운 편부터 그림으로 읽어도 좋아요."
+            onAction={() => setBand(null)}
+            actionLabel="필터 초기화"
+          />
         ) : (
           <div
             role="list"
