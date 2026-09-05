@@ -49,7 +49,50 @@ export function peopleRatio(text) {
  */
 export const NARRATIVE_FLOOR = 0.03
 
-/** 서사로 볼 만한가. */
+/**
+ * **발화 동사** — 이야기인지 가르는 두 번째 표지.
+ *
+ * ── 왜 인물만으로는 부족한가 (실측 2026-09-06) ──────────────────────
+ * 인물 밀도로만 뽑았더니 심경 몫 다섯 편 중 **한 편만** 문항이 됐다. 나머지는 사람이
+ * 나오되 **평론과 전기**였다 — 미술사·자유론·가톨릭 비평. 사람이 나오는 것과 이야기인
+ * 것은 다르다. 밀도는 그 둘을 못 가른다(약어 밀도가 `NBC` 와 `blaNDM-1` 을 못 가른
+ * 것과 같은 종류의 한계다).
+ *
+ * 기존 문항의 지문을 다시 재 보니 표지가 하나 더 있었다:
+ *
+ *   long_reference 39편 — **38편(97%)** 에 발화 동사 · 평균 2.9회
+ *   mood           46편 — 34편(74%) 에 발화 동사 · 평균 1.3회
+ *   인용부호        둘 다 **0** — 지문 정제에서 사라져 지표로 못 쓴다
+ *
+ * 두 조건을 함께 걸면 논문이 0 이 된다 — V7 plos 2,474편 중 인물 문턱을 넘는 것이
+ * 2편이고 그중 발화가 둘 이상인 것은 **0편**이다.
+ */
+const SPEECH = new Set([
+  'said', 'asked', 'replied', 'cried', 'answered',
+  'whispered', 'shouted', 'muttered', 'exclaimed',
+])
+
+/** 발화 동사가 몇 번 나오는가. */
+export function speechCount(text) {
+  let n = 0
+  for (const w of String(text ?? '').toLowerCase().split(/[^a-z]+/)) {
+    if (SPEECH.has(w)) n++
+  }
+  return n
+}
+
+/**
+ * 발화 동사 하한. `mood` 46편 중 34편(74%)이 하나 이상을 가진다 — 둘로 올리면
+ * long_reference(97%)는 살지만 심경 지문의 절반이 날아간다. **살릴 수 있는 쪽에 맞춘다.**
+ */
+export const SPEECH_FLOOR = 1
+
+/**
+ * 서사로 볼 만한가 — **사람이 나오고, 말을 한다.**
+ *
+ * ⚠️ 이것은 **수확 문턱**이지 인쇄 게이트가 아니다. 여기서 안 담아도 원본은 그대로
+ *   남아 있어 언제든 다시 담을 수 있다 — 게이트에서 버리는 것과 대가가 다르다.
+ */
 export function looksNarrative(text) {
-  return peopleRatio(text) >= NARRATIVE_FLOOR
+  return peopleRatio(text) >= NARRATIVE_FLOOR && speechCount(text) >= SPEECH_FLOOR
 }

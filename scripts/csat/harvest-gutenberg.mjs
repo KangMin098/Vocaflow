@@ -62,10 +62,15 @@ const QUERIES = {
  * 것은 소재가 아니라 **인물이 나오는 글**이었다(`lib-narrative.mjs` 머리말).
  * 그래서 소재 몫과 무관한 길을 따로 낸다.
  */
+/**
+ * ⚠️ **전기·서한·회고는 뺐다** (2026-09-06). 인물은 나오지만 **이야기가 아니라 평론**인
+ *   조각이 대부분이었다 — 그 질의로 받은 책에서 뽑힌 심경 몫 다섯 편 중 넷이 미술사·
+ *   자유론·가톨릭 비평이었다. 사람이 나오는 것과 사건이 벌어지는 것은 다르다.
+ */
 const NARRATIVE_QUERIES = [
   'short stories', 'folk tales', 'fairy tales', 'fables',
-  'adventure stories', 'sketches', 'memoirs', 'letters',
-  'biography', 'childrens stories',
+  'adventure stories', 'childrens stories', 'ghost stories',
+  'detective stories', 'sea stories', 'humorous stories',
 ]
 const NARRATIVE = process.argv.includes('--narrative')
 

@@ -28,7 +28,7 @@ import path from 'node:path'
 
 import { loadEnv, fetchAllIn, fetchAllPaged, isRetractedTitle } from './volume-pool.mjs'
 import { pickFreeSlots } from './chunk-slots.mjs'
-import { peopleRatio } from '../csat/lib-narrative.mjs'
+import { peopleRatio, speechCount, SPEECH_FLOOR } from '../csat/lib-narrative.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -493,10 +493,21 @@ const plainFirst = process.argv.includes('--plain-first')
  * (같은 이유로 `--plain-first` 도 정렬로만 쓴다).
  */
 const narrativeFirst = process.argv.includes('--narrative-first')
-// 소수점 둘째 자리로 뭉뚱그린다 — 미세한 차이로 순서가 흔들리면 재실행 안전이 깨진다.
-// 많을수록 앞이므로 부호를 뒤집는다.
-const narrativeKey = (a) =>
-  narrativeFirst ? -Math.round(peopleRatio(passages.get(a.id) ?? '') * 100) : 0
+/**
+ * ⚠️ **발화 동사가 먼저다.** 인물 밀도만으로 정렬했더니 다섯 편이 전부 평론이었다 —
+ *   미술사·자유론·가톨릭 비평, 발화 동사 **전부 0**. 사람 이야기를 **하는** 글과 사람이
+ *   **말하는** 글은 다르고, 심경은 뒤쪽에서만 선다.
+ *
+ * 그래서 발화 유무를 첫 열쇠로, 인물 밀도를 둘째 열쇠로 둔다. 소수점 둘째 자리로
+ * 뭉뚱그리는 것은 미세한 차이로 순서가 흔들리면 재실행 안전이 깨지기 때문이다.
+ */
+const narrativeKey = (a) => {
+  if (!narrativeFirst) return 0
+  const t = passages.get(a.id) ?? ''
+  const speaks = speechCount(t) >= SPEECH_FLOOR ? 1 : 0
+  // 많을수록 앞이므로 부호를 뒤집는다.
+  return -(speaks * 1000 + Math.round(peopleRatio(t) * 100))
+}
 // 소수점 둘째 자리로 뭉뚱그린다 — 미세한 차이로 순서가 흔들리면 재실행 안전이 깨진다.
 const plainKey = (a) => (plainFirst ? Math.round(abbrRatio(passages.get(a.id) ?? '') * 100) : 0)
 
