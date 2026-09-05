@@ -489,7 +489,7 @@ export function BulkFetchTab() {
             )}
             {lastResult.next_offset != null && (
               <button type="button" onClick={() => handleFetch(true)} disabled={fetching}
-                className="ml-auto inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--on-p-tint)] hover:bg-[var(--p)] hover:text-[var(--on-p)]">
+                className="min-h-[44px] ml-auto inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 py-1 font-display text-[11px] font-[600] text-[var(--on-p-tint)] hover:bg-[var(--p)] hover:text-[var(--on-p)]">
                 <Plus size={11} /> 더 가져오기 ({batchSize}권)
               </button>
             )}
@@ -512,14 +512,14 @@ export function BulkFetchTab() {
           ))}
           {stats.shadowed > 0 && (
             <label
-              className="inline-flex cursor-pointer items-center gap-2 rounded-[var(--r-full)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] px-2 py-1 font-mono text-[10px] text-[var(--learn-review)]"
+              className="inline-flex min-h-[44px] cursor-pointer items-center gap-2 rounded-[var(--r-full)] border border-[var(--learn-review)] bg-[var(--learn-review-light)] px-2 py-1 font-mono text-[10px] text-[var(--learn-review)]"
               title="Standard Ebooks 가 같은 책을 가진 Gutenberg 행 — 기본 숨김"
             >
               <input
                 type="checkbox"
                 checked={showShadowed}
                 onChange={(e) => { setShowShadowed(e.target.checked); setListOffset(0) }}
-                className="h-3 w-3"
+                className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 못 넓힌다 — 탭 영역은 감싼 <label> 44px */ 'h-3 w-3'}
               />
               Std Ebooks 가 대체한 Gutenberg <strong className="font-display tabular-nums">{stats.shadowed}</strong>건 표시
             </label>
@@ -530,7 +530,7 @@ export function BulkFetchTab() {
               onClick={handleDeleteAllShadowed}
               disabled={bulkDeleting}
               title="SE 가 대체한 Gutenberg 중복 행 전체 삭제 (큐 추가된 행은 보호)"
-              className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--learn-error)] hover:opacity-90 disabled:opacity-50"
+              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--learn-error)] bg-[var(--learn-error-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--learn-error)] hover:opacity-90 disabled:opacity-50"
             >
               {bulkDeleting ? <Loader2 size={11} className="animate-spin" /> : <Trash2 size={11} />}
               삭제 대상 {stats.shadowed}건 모두 삭제
@@ -583,7 +583,7 @@ export function BulkFetchTab() {
         <button
           type="button"
           onClick={handleEnrichMeta}
-          className="ml-auto inline-flex h-8 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11px] font-[600] text-[var(--t1)] transition-[background-color,border-color,opacity] duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] hover:bg-[var(--bg2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:opacity-50"
+          className="ml-auto inline-flex h-11 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11px] font-[600] text-[var(--t1)] transition-[background-color,border-color,opacity] duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] hover:bg-[var(--bg2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:opacity-50"
         >
           {enriching ? <Loader2 size={11} className="animate-spin" /> : <Info size={11} />}
           {enriching ? '멈추기' : '메타 없는 후보 보강'}
@@ -612,7 +612,7 @@ export function BulkFetchTab() {
           type="button"
           onClick={handleQueueCuration}
           disabled={queuingCuration}
-          className="ml-auto inline-flex h-8 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
+          className="ml-auto inline-flex h-11 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
         >
           {queuingCuration ? <Loader2 size={11} className="animate-spin" /> : <Plus size={11} />}
           정보 없는 도서 큐에 추가 (인기순 top 100)
@@ -759,7 +759,7 @@ export function BulkFetchTab() {
                         target="_blank"
                         rel="noopener noreferrer"
                         title="원문 보기"
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+                        className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"}
                       >
                         <ExternalLink size={12} />
                       </a>
@@ -771,7 +771,7 @@ export function BulkFetchTab() {
                         onClick={() => handleConvertToSe(r)}
                         disabled={rowActionId === r.id}
                         title="Standard Ebooks 에서 같은 도서를 찾아 카탈로그에 추가 (있으면 이 Gutenberg 는 삭제 대상으로 전환)"
-                        className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2 font-display text-[10px] font-[600] text-[var(--learn-known)] hover:opacity-90 disabled:opacity-50"
+                        className="inline-flex h-11 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--learn-known)] bg-[var(--learn-known-light)] px-2 font-display text-[10px] font-[600] text-[var(--learn-known)] hover:opacity-90 disabled:opacity-50"
                       >
                         {rowActionId === r.id ? (
                           <Loader2 size={11} className="animate-spin" />
@@ -789,7 +789,7 @@ export function BulkFetchTab() {
                         disabled={rowActionId === r.id}
                         title="SE 가 대체한 Gutenberg 중복 행 삭제"
                         aria-label={`${r.title} Gutenberg 중복 삭제`}
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)] disabled:opacity-50"
+                        className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--learn-error)] hover:bg-[var(--learn-error-light)] disabled:opacity-50"}
                       >
                         {rowActionId === r.id ? (
                           <Loader2 size={11} className="animate-spin" />
@@ -807,7 +807,7 @@ export function BulkFetchTab() {
                         type="button"
                         onClick={() => handleEnqueue(r)}
                         disabled={enqueuingId === r.id}
-                        className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
+                        className="inline-flex h-11 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
                       >
                         {enqueuingId === r.id ? <Loader2 size={11} className="animate-spin" /> : <Plus size={11} />}
                         enqueue
@@ -826,10 +826,10 @@ export function BulkFetchTab() {
             <div className="flex gap-1">
               <button type="button" disabled={listOffset === 0}
                 onClick={() => setListOffset(Math.max(0, listOffset - PAGE))}
-                className="rounded border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 hover:bg-[var(--bg2)] disabled:opacity-50">이전</button>
+                className="min-h-[44px] rounded border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 hover:bg-[var(--bg2)] disabled:opacity-50">이전</button>
               <button type="button" disabled={listOffset + PAGE >= total}
                 onClick={() => setListOffset(listOffset + PAGE)}
-                className="rounded border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 hover:bg-[var(--bg2)] disabled:opacity-50">다음</button>
+                className="min-h-[44px] rounded border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 hover:bg-[var(--bg2)] disabled:opacity-50">다음</button>
             </div>
           </div>
         )}
@@ -883,8 +883,8 @@ function PickerField({ label, children }: { label: string; children: React.React
 }
 
 const selectCls =
-  'h-9 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'
+  'h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'
 const filterCls =
-  'h-8 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)]'
+  'h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)]'
 const primaryBtn =
-  'inline-flex h-9 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50'
+  'inline-flex h-11 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50'

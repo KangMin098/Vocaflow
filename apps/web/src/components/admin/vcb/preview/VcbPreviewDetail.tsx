@@ -231,7 +231,7 @@ export function VcbPreviewDetail({ selected, spec, isRejected, onToggleReject }:
         <button
           type="button"
           onClick={onToggleReject}
-          className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-sm font-display font-semibold border"
+          className="min-h-[44px] flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-sm font-display font-semibold border"
           style={{
             background: isRejected ? 'var(--success-light)' : 'var(--error-light)',
             color: isRejected ? 'var(--success)' : 'var(--error)',

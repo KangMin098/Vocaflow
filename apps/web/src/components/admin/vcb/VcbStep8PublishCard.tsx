@@ -153,13 +153,13 @@ export function VcbStep8PublishCard({ runId, runStatus, precheck }: Props) {
       {/* Confirmation gate + Publish button */}
       {!alreadyPublished && precheck.ok && (
         <>
-          <label className="flex items-start gap-2 cursor-pointer p-2">
+          <label className="flex min-h-[44px] items-start gap-2 cursor-pointer p-2">
             <input
               type="checkbox"
               checked={confirmed}
               onChange={(e) => setConfirmed(e.target.checked)}
               disabled={isPending}
-              className="mt-0.5 w-4 h-4 accent-[var(--p)]"
+              className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 못 넓힌다 — 탭 영역은 감싼 <label> 44px */ 'mt-0.5 w-4 h-4 accent-[var(--p)]'}
             />
             <span className="text-xs" style={{ color: 'var(--t2)' }}>
               발행분은 <strong>수정할 수 없어요</strong>. 새 버전 발행으로만 갱신됩니다. 확인했습니다.

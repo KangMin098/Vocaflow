@@ -290,7 +290,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             type="button"
             onClick={handleApprove}
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
             style={{
               background: 'var(--success)',
               opacity: isPending ? 0.6 : 1,
@@ -303,7 +303,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             type="button"
             onClick={handleReject}
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
             style={{
               background: 'var(--error)',
               opacity: isPending ? 0.6 : 1,
@@ -316,7 +316,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             type="button"
             onClick={handleReenrich}
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium border"
             style={{
               color: 'var(--t1)',
               borderColor: 'var(--bd)',
@@ -331,7 +331,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             type="button"
             onClick={() => setEditMode(true)}
             disabled={isPending}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium border"
             style={{
               color: 'var(--t1)',
               borderColor: 'var(--bd)',
@@ -361,7 +361,7 @@ export function VcbCurationDetailPanel({ detail, onDecision }: Props) {
             <button
               type="button"
               onClick={copyReenrichCommand}
-              className="inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-sm)] text-xs font-display border"
+              className="min-h-[44px] inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-sm)] text-xs font-display border"
               style={{
                 color: 'var(--t2)',
                 borderColor: 'var(--bd)',

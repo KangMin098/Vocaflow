@@ -163,7 +163,7 @@ export function VcbSourceCreateForm() {
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
               placeholder="ngsl-1.2"
-              className="px-3 py-2 rounded-[var(--r-md)] border font-mono text-sm"
+              className="min-h-[44px] px-3 py-2 rounded-[var(--r-md)] border font-mono text-sm"
               style={{
                 background: 'var(--bg)',
                 borderColor:
@@ -191,7 +191,7 @@ export function VcbSourceCreateForm() {
               onChange={(e) => setTitle(e.target.value)}
               placeholder="New General Service List 1.2"
               maxLength={200}
-              className="px-3 py-2 rounded-[var(--r-md)] border font-display text-sm"
+              className="min-h-[44px] px-3 py-2 rounded-[var(--r-md)] border font-display text-sm"
               style={{
                 background: 'var(--bg)',
                 borderColor: 'var(--bd)',
@@ -358,7 +358,7 @@ export function VcbSourceCreateForm() {
               onChange={(e) => setUrl(e.target.value)}
               placeholder="https://www.newgeneralservicelist.com"
               maxLength={500}
-              className="px-3 py-2 rounded-[var(--r-md)] border font-mono text-sm"
+              className="min-h-[44px] px-3 py-2 rounded-[var(--r-md)] border font-mono text-sm"
               style={{
                 background: 'var(--bg)',
                 borderColor: 'var(--bd)',
@@ -377,7 +377,7 @@ export function VcbSourceCreateForm() {
               onChange={(e) => setLanguage(e.target.value.toLowerCase())}
               placeholder="en"
               maxLength={10}
-              className="px-3 py-2 rounded-[var(--r-md)] border font-mono text-sm w-24"
+              className="min-h-[44px] px-3 py-2 rounded-[var(--r-md)] border font-mono text-sm w-24"
               style={{
                 background: 'var(--bg)',
                 borderColor: 'var(--bd)',
@@ -458,7 +458,7 @@ export function VcbSourceCreateForm() {
               <button
                 type="button"
                 onClick={clearFile}
-                className="w-8 h-8 rounded-[var(--r-md)] flex items-center justify-center"
+                className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 w-8 h-8 rounded-[var(--r-md)] flex items-center justify-center"}
                 style={{ color: 'var(--t3)' }}
                 title="파일 제거"
               >

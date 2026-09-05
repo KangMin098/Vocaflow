@@ -260,7 +260,7 @@ function SeedRow({
           <button
             type="button"
             onClick={onSelect}
-            className="inline-flex h-8 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="inline-flex h-11 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <Plus size={11} /> 선택
           </button>
@@ -322,7 +322,7 @@ function FilterSelect({ label, value, onChange, options }: FilterSelectProps) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={[
-          'rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)]',
+          'min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)]',
           'px-2 py-1 pr-7',
           'font-display text-[11px] font-[600] text-[var(--t1)]',
           'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
@@ -361,7 +361,7 @@ function FilteredEmptyState({ onReset }: { onReset: () => void }) {
         type="button"
         onClick={onReset}
         className={[
-          'mt-1 rounded-[var(--r-sm)] px-3 py-2',
+          'min-h-[44px] mt-1 rounded-[var(--r-sm)] px-3 py-2',
           'bg-[var(--p)] hover:bg-[var(--p-hover)]',
           'font-display text-[11px] font-[600] text-[var(--ti)]',
           'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',

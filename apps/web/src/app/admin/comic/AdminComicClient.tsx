@@ -169,7 +169,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
             role="tab"
             aria-selected={tab === k}
             onClick={() => setTab(k)}
-            className={`-mb-px border-b-2 px-4 py-2 font-display text-[13px] font-[700] transition-colors ${
+            className={`min-h-[44px] -mb-px border-b-2 px-4 py-2 font-display text-[13px] font-[700] transition-colors ${
               tab === k ? 'text-[var(--t1)]' : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]'
             }`}
             style={tab === k ? { borderColor: ACCENT } : undefined}
@@ -193,14 +193,14 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
               <div className="flex gap-2">
                 <button
                   onClick={() => setSelected(new Set())}
-                  className="rounded-[var(--r-full)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] hover:text-[var(--t1)]"
+                  className="min-h-[44px] rounded-[var(--r-full)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] hover:text-[var(--t1)]"
                 >
                   해제
                 </button>
                 <button
                   onClick={runEnqueue}
                   disabled={pending}
-                  className="inline-flex items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[12px] font-[700] text-white disabled:opacity-50"
+                  className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[12px] font-[700] text-white disabled:opacity-50"
                   style={{ backgroundColor: ACCENT }}
                 >
                   {pending ? <Loader2 size={13} className="animate-spin" /> : <BookImage size={13} />}
@@ -266,7 +266,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
                       <button
                         onClick={() => runPublish(r, false)}
                         disabled={pending}
-                        className="rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--t2)] hover:border-[var(--memory-risk)] hover:text-[var(--memory-risk)] disabled:opacity-50"
+                        className="min-h-[44px] rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--t2)] hover:border-[var(--memory-risk)] hover:text-[var(--memory-risk)] disabled:opacity-50"
                       >
                         회수
                       </button>
@@ -275,7 +275,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
                         onClick={() => runUnarchive(r)}
                         disabled={pending}
                         title="보관 해제 후 검수 상태(초안)로 돌아갑니다. 발행은 그다음입니다."
-                        className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--info)] hover:border-[var(--info)] disabled:opacity-50"
+                        className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--info)] hover:border-[var(--info)] disabled:opacity-50"
                       >
                         <ArchiveRestore size={12} /> 복원(검수)
                       </button>
@@ -284,7 +284,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
                         onClick={() => runPublish(r, true)}
                         disabled={pending || !r.panelsPass}
                         title={!r.panelsPass ? 'QC 미통과 — 발행 불가' : undefined}
-                        className="rounded-[var(--r-full)] px-3 py-1 font-display text-[12px] font-[700] text-white disabled:opacity-40"
+                        className="min-h-[44px] rounded-[var(--r-full)] px-3 py-1 font-display text-[12px] font-[700] text-white disabled:opacity-40"
                         style={{ backgroundColor: ACCENT }}
                       >
                         발행
@@ -334,7 +334,7 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
         <FilterSel label="연령" value={age} onChange={setAge} opts={uniq('age_band')} />
         <FilterSel label="장르" value={genre} onChange={setGenre} opts={uniq('genre')} />
         <FilterSel label="팔레트" value={pal} onChange={setPal} opts={uniq('palette')} />
-        {anyFilter && <button onClick={clearAll} className="min-h-9 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:text-[var(--t1)]">초기화</button>}
+        {anyFilter && <button onClick={clearAll} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:text-[var(--t1)]">초기화</button>}
         <span className="self-center font-body text-[12px] text-[var(--t2)]">{filtered.length}/{styles.length}</span>
       </div>
 
@@ -409,7 +409,7 @@ function FilterSel({ label, value, onChange, opts }: { label: string; value: str
   return (
     <label className="inline-flex items-center gap-2">
       <span className="font-display text-[11px] font-[700] text-[var(--t2)]">{label}</span>
-      <select aria-label={label} value={value} onChange={(e) => onChange(e.target.value)} className="min-h-9 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-body text-[12px] text-[var(--t1)]">
+      <select aria-label={label} value={value} onChange={(e) => onChange(e.target.value)} className="min-h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-1 font-body text-[12px] text-[var(--t1)]">
         <option value="">전체</option>
         {opts.map((o) => <option key={o} value={o}>{o}</option>)}
       </select>
@@ -567,7 +567,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-[180px_1fr]">
             <label className="flex flex-col gap-1">
               <span className="font-display text-[11px] font-[700] text-[var(--t2)]">실행 환경 (자가호스트 우선)</span>
-              <select value={env} onChange={(e) => { setEnv(e.target.value); setForm((f) => ({ ...f, backend: '', model: '', site: '' })) }} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
+              <select value={env} onChange={(e) => { setEnv(e.target.value); setForm((f) => ({ ...f, backend: '', model: '', site: '' })) }} className="min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[13px] text-[var(--t1)] outline-none focus:border-[var(--active)]">
                 <option value="runpod-4090">RunPod 4090 (24GB)</option>
                 <option value="api">API (폐쇄 모델)</option>
               </select>
@@ -600,7 +600,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
         )}
         <Field label="메모" value={form.note} onChange={set('note')} placeholder="가설·파라미터·기대 결과" />
         <div className="flex items-center gap-3">
-          <button onClick={submit} disabled={pending} className="inline-flex items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[12px] font-[700] text-white disabled:opacity-50" style={{ backgroundColor: ACCENT }}>
+          <button onClick={submit} disabled={pending} className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-full)] px-4 py-2 font-display text-[12px] font-[700] text-white disabled:opacity-50" style={{ backgroundColor: ACCENT }}>
             {pending ? <Loader2 size={13} className="animate-spin" /> : <Plus size={13} />} 계획 추가
           </button>
           {msg && <span className="font-body text-[12px] text-[var(--memory-risk)]">{msg}</span>}
@@ -623,7 +623,7 @@ function TestsTab({ tests, models, styles }: { tests: ComicTest[]; models: Comic
                 {(() => {
                   const url = (t.params as { kernel_url?: string } | null)?.kernel_url
                   return typeof url === 'string' ? (
-                    <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-display text-[11px] font-[700] transition-colors hover:bg-[var(--bg2)]" style={{ borderColor: `${ACCENT}40`, color: ACCENT }}>
+                    <a href={url} target="_blank" rel="noopener noreferrer" className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-display text-[11px] font-[700] transition-colors hover:bg-[var(--bg2)]" style={{ borderColor: `${ACCENT}40`, color: ACCENT }}>
                       <ExternalLink size={11} />모니터링
                     </a>
                   ) : null
@@ -692,7 +692,7 @@ function CatalogTable({
                   checked={selected.has(r.bookId)}
                   onChange={() => onToggle(r.bookId)}
                   aria-label={`${r.title} 선택`}
-                  className="h-4 w-4 accent-[#8B5CF6]"
+                  className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 넓힐 수 없다 — 이 자리엔 <label> 이 없어 회귀 허용목록에 남는다 */ 'h-4 w-4 accent-[#8B5CF6]'}
                 />
               </Td>
               <Td>

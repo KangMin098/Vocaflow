@@ -130,7 +130,7 @@ export function VocabularyBrowserClient({
           <button
             type="button"
             onClick={onClear}
-            className="inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg3)]"
+            className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg3)]"
           >
             <X size={11} aria-hidden /> Reset filters
           </button>
@@ -151,7 +151,7 @@ export function VocabularyBrowserClient({
             value={qLocal}
             onChange={(e) => setQLocal(e.target.value)}
             placeholder="word · meaning_ko · lemma_band 검색 (2자 이상)"
-            className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[#8B5CF6] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/30"
+            className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[#8B5CF6] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/30"
           />
         </div>
 
@@ -236,7 +236,7 @@ function FilterSelect({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-2 font-mono text-[11px] text-[var(--t1)] focus:border-[#8B5CF6] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/30"
+      className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-2 font-mono text-[11px] text-[var(--t1)] focus:border-[#8B5CF6] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/30"
     >
       {options.map((o) => (
         <option key={o.value} value={o.value}>

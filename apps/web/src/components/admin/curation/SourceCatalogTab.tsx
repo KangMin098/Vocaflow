@@ -187,7 +187,7 @@ function SegmentedControl<T extends string>({
             aria-checked={active}
             onClick={() => onChange(opt.value)}
             className={[
-              'rounded-[var(--r-sm)] px-3 py-1',
+              'min-h-[44px] rounded-[var(--r-sm)] px-3 py-1',
               'font-display text-[12px] font-[600]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
@@ -226,7 +226,7 @@ function SortSelect<T extends string>({
         value={value}
         onChange={(e) => onChange(e.target.value as T)}
         className={[
-          'rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)]',
+          'min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)]',
           'px-3 py-1 pr-7',
           'font-display text-[12px] font-[600] text-[var(--t1)]',
           'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
@@ -284,7 +284,7 @@ function FilteredEmptyState({ onReset }: { onReset: () => void }) {
         type="button"
         onClick={onReset}
         className={[
-          'mt-1 rounded-[var(--r-sm)] px-3 py-2',
+          'min-h-[44px] mt-1 rounded-[var(--r-sm)] px-3 py-2',
           'bg-[var(--p)] hover:bg-[var(--p-hover)]',
           'font-display text-[11px] font-[600] text-[var(--ti)]',
           'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',

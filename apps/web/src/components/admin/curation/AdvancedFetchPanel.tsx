@@ -78,7 +78,7 @@ export function AdvancedFetchPanel({
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-2 px-3 py-2 font-display text-[12px] font-[600] text-[var(--t1)] hover:bg-[var(--bg2)]"
+        className="min-h-[44px] flex w-full items-center justify-between gap-2 px-3 py-2 font-display text-[12px] font-[600] text-[var(--t1)] hover:bg-[var(--bg2)]"
         aria-expanded={open}
       >
         <span className="inline-flex items-center gap-2">
@@ -279,12 +279,12 @@ export function AdvancedFetchPanel({
 
             {enabled.includes('lit2goAudioOnly') && (
               <Field label="Lit2Go 오디오 보유 만" hint="USF audiobooks 만">
-                <label className="inline-flex items-center gap-2 text-[var(--t2)]">
+                <label className="inline-flex min-h-[44px] items-center gap-2 text-[var(--t2)]">
                   <input
                     type="checkbox"
                     checked={state.lit2goAudioOnly}
                     onChange={(e) => set('lit2goAudioOnly', e.target.checked)}
-                    className="h-3 w-3"
+                    className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 못 넓힌다 — 탭 영역은 감싼 <label> 44px */ 'h-3 w-3'}
                     disabled={disabled}
                   />
                   <span className="font-mono text-[11px]">오디오 있음만</span>
@@ -412,7 +412,7 @@ function MultiLangSelect({
             type="button"
             onClick={() => toggle(o.value)}
             disabled={disabled}
-            className="inline-flex items-center rounded-[var(--r-full)] border px-2 py-1 font-mono text-[10px] transition-colors"
+            className="min-h-[44px] inline-flex items-center rounded-[var(--r-full)] border px-2 py-1 font-mono text-[10px] transition-colors"
             style={{
               background: on ? 'var(--p-light)' : 'var(--bg)',
               borderColor: on ? 'var(--p)' : 'var(--bd)',
@@ -428,4 +428,4 @@ function MultiLangSelect({
 }
 
 const inputCls =
-  'h-8 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)]'
+  'h-11 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)]'

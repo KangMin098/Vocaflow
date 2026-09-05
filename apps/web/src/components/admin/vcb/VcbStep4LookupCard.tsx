@@ -83,7 +83,7 @@ export function VcbStep4LookupCard({ runId, runStatus, seedCount }: Props) {
           type="button"
           onClick={handleRun}
           disabled={!canRun}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
+          className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
           style={{ background: 'var(--p)', color: 'var(--ti)' }}
         >
           {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}

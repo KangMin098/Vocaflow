@@ -330,7 +330,7 @@ export function CuratedArticlesTab({
               type="button"
               onClick={runDrain}
               disabled={drain?.running}
-              className="inline-flex min-h-[32px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {drain?.running ? <Loader2 size={12} className="animate-spin" aria-hidden /> : <Play size={12} aria-hidden />}
               큐 처리 (dev · {queuedCount})
@@ -477,7 +477,7 @@ export function CuratedArticlesTab({
                       <div className="flex items-center justify-end gap-1">
                         <Link
                           href={`/admin/articles/preview/${a.id}${previewSuffix}`}
-                          className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] px-2 font-display text-[10px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                          className="inline-flex h-11 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--p)] px-2 font-display text-[10px] font-[600] text-[var(--p)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                           aria-label="글 검수 페이지 열기"
                         >
                           <SearchCheck size={11} aria-hidden />
@@ -488,7 +488,7 @@ export function CuratedArticlesTab({
                             href={a.source_url}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] px-2 font-mono text-[10px] text-[var(--t2)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                            className="inline-flex h-11 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] px-2 font-mono text-[10px] text-[var(--t2)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                             aria-label="원본 새 탭에서 열기"
                           >
                             <ExternalLink size={10} aria-hidden />
@@ -646,7 +646,7 @@ function PagerBtn({
       onClick={onClick}
       disabled={disabled}
       className={[
-        'inline-flex min-h-[32px] items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3',
+        'inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3',
         'font-display text-[11px] font-[600] text-[var(--t2)]',
         'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
         'hover:bg-[var(--bg2)] hover:text-[var(--t1)] active:bg-[var(--bg2)]',
@@ -680,7 +680,7 @@ function SourceFilter({
         disabled={disabled}
         onChange={(e) => onChange(e.target.value ? e.target.value : null)}
         className={[
-          'min-h-[32px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2',
+          'min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2',
           'font-display text-[11px] font-[600] text-[var(--t2)]',
           'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
           'hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
@@ -753,7 +753,7 @@ function BulkToolbar({
           type="button"
           onClick={onDev}
           disabled={bulk != null}
-          className="inline-flex min-h-[32px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {bulk === 'dev' ? <Loader2 size={12} className="animate-spin" aria-hidden /> : <Play size={12} aria-hidden />}
           Dev 일괄 처리
@@ -762,7 +762,7 @@ function BulkToolbar({
           type="button"
           onClick={onRequeue}
           disabled={bulk != null}
-          className="inline-flex min-h-[32px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--bg)] px-3 font-display text-[11px] font-[600] text-[var(--learn-error)] transition-colors hover:bg-[var(--learn-error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--bg)] px-3 font-display text-[11px] font-[600] text-[var(--learn-error)] transition-colors hover:bg-[var(--learn-error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
         >
           {bulk === 'requeue' ? <Loader2 size={12} className="animate-spin" aria-hidden /> : <Download size={12} aria-hidden />}
           → 소스 GET
@@ -770,7 +770,7 @@ function BulkToolbar({
         <button
           type="button"
           onClick={onClear}
-          className="inline-flex min-h-[32px] items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <X size={12} aria-hidden />
           해제
@@ -807,7 +807,7 @@ function DrainBanner({ drain, onStop, onDismiss }: { drain: DrainState; onStop: 
           <button
             type="button"
             onClick={onStop}
-            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="inline-flex h-11 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <X size={11} aria-hidden /> 중지
           </button>
@@ -815,7 +815,7 @@ function DrainBanner({ drain, onStop, onDismiss }: { drain: DrainState; onStop: 
           <button
             type="button"
             onClick={onDismiss}
-            className="inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="inline-flex h-11 items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[10px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             닫기
           </button>
@@ -858,7 +858,7 @@ function FilterChips({
             disabled={disabled}
             onClick={() => setFilter(value)}
             className={[
-              'rounded-[var(--r-sm)] px-3 py-1 font-display text-[11px] font-[600] transition-colors duration-[var(--dur-normal)]',
+              'min-h-[44px] rounded-[var(--r-sm)] px-3 py-1 font-display text-[11px] font-[600] transition-colors duration-[var(--dur-normal)]',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
               'disabled:cursor-not-allowed disabled:opacity-50',
               active ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-xs)]' : 'text-[var(--t2)] hover:text-[var(--t2)]',
@@ -911,7 +911,7 @@ function ActionBtn({
       onClick={() => void onClick()}
       disabled={pending}
       title={title}
-      className={`inline-flex h-7 items-center gap-1 rounded-[var(--r-sm)] px-2 font-display text-[10px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
+      className={`inline-flex h-11 items-center gap-1 rounded-[var(--r-sm)] px-2 font-display text-[10px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
     >
       {pending ? <Loader2 size={11} className="animate-spin" aria-hidden /> : icon}
       {label}
@@ -994,7 +994,7 @@ function EmptyBox({
         <button
           type="button"
           onClick={onFirstPage}
-          className="min-h-[36px] rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          className="min-h-[44px] rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           첫 쪽으로
         </button>
@@ -1002,7 +1002,7 @@ function EmptyBox({
         <button
           type="button"
           onClick={onReset}
-          className="min-h-[36px] rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          className="min-h-[44px] rounded-[var(--r-sm)] bg-[var(--p)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           필터 초기화
         </button>

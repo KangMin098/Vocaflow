@@ -68,7 +68,7 @@ export function DrainConsole({ subject, runs, events }: { subject: ComicDrainSub
         <h1 className="inline-flex items-center gap-2 font-display text-[18px] font-[800] text-[var(--t1)]"><Cpu size={17} style={{ color: ACCENT }} /> 드레인 관측</h1>
         <span className="font-body text-[13px] text-[var(--t2)]">{subject.title}</span>
         <div className="flex-1" />
-        <button onClick={() => router.refresh()} className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--t2)] hover:border-[var(--active)]"><RefreshCw size={13} /> 새로고침</button>
+        <button onClick={() => router.refresh()} className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--t2)] hover:border-[var(--active)]"><RefreshCw size={13} /> 새로고침</button>
       </div>
 
       {/* 화면 도움말 — 드레인 절차 포함 */}

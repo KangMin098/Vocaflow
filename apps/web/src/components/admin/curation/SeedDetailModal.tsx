@@ -104,7 +104,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
           type="button"
           onClick={onClose}
           aria-label="닫기"
-          className="absolute right-3 top-3 z-[2] flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition-all hover:scale-110 hover:bg-black/70"
+          className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ "after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 absolute right-3 top-3 z-[2] flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-md transition-all hover:scale-110 hover:bg-black/70"}
         >
           <X size={16} />
         </button>
@@ -292,7 +292,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
               href={row.source_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
             >
               <ExternalLink size={12} /> 원문 페이지
             </a>
@@ -309,7 +309,7 @@ export function SeedDetailModal({ row, onClose, onEnqueue, enqueuing }: Props) {
               type="button"
               onClick={() => onEnqueue(row)}
               disabled={enqueuing}
-              className="inline-flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
+              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 py-2 font-display text-[12px] font-[700] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
             >
               {enqueuing ? (
                 <Loader2 size={12} className="animate-spin" />

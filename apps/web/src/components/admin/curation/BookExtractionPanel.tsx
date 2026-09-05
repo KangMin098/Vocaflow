@@ -157,7 +157,7 @@ export function BookExtractionPanel({
           type="button"
           onClick={handleRun}
           disabled={loading}
-          className="inline-flex min-h-[36px] shrink-0 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
+          className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] hover:opacity-90 disabled:opacity-50"
         >
           {loading ? (
             <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -329,7 +329,7 @@ export function BookExtractionPanel({
               type="button"
               onClick={handleStage}
               disabled={staging}
-              className="inline-flex min-h-[32px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {staging ? (
                 <Loader2 size={13} className="animate-spin" aria-hidden />

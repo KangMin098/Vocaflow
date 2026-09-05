@@ -321,7 +321,7 @@ export function StudioClient({ catalog, options }: Props) {
                   type="checkbox"
                   checked={force}
                   onChange={(e) => setForce(e.target.checked)}
-                  className="h-4 w-4"
+                  className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 못 넓힌다 — 탭 영역은 감싼 <label> 44px */ 'h-4 w-4'}
                 />
                 통과선 미달을 알고도 발행 (되돌리려면 같은 슬러그로 다시 발행)
               </label>

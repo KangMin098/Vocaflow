@@ -79,7 +79,7 @@ export function MetaStep({ meta, onMetaChange }: Props) {
             value={meta.collection_slug}
             onChange={(e) => setM('collection_slug', e.target.value)}
             placeholder="csat-core-essential-2k"
-            className="px-3 py-2 rounded-[var(--r-md)] border font-mono text-sm"
+            className="min-h-[44px] px-3 py-2 rounded-[var(--r-md)] border font-mono text-sm"
             style={{
               background: 'var(--bg)',
               borderColor:
@@ -101,7 +101,7 @@ export function MetaStep({ meta, onMetaChange }: Props) {
             value={meta.collection_title}
             onChange={(e) => setM('collection_title', e.target.value)}
             placeholder="수능 필수 2,000"
-            className="px-3 py-2 rounded-[var(--r-md)] border text-sm font-body"
+            className="min-h-[44px] px-3 py-2 rounded-[var(--r-md)] border text-sm font-body"
             style={{
               background: 'var(--bg)',
               borderColor:
@@ -135,7 +135,7 @@ export function MetaStep({ meta, onMetaChange }: Props) {
             onChange={(e) => setM('cover_emoji', e.target.value)}
             placeholder="🎯"
             maxLength={8}
-            className="px-3 py-2 rounded-[var(--r-md)] border text-sm font-body w-24"
+            className="min-h-[44px] px-3 py-2 rounded-[var(--r-md)] border text-sm font-body w-24"
             style={{ background: 'var(--bg)', borderColor: 'var(--bd)', color: 'var(--t1)' }}
           />
         </label>
@@ -152,7 +152,7 @@ export function MetaStep({ meta, onMetaChange }: Props) {
                   key={s.value}
                   type="button"
                   onClick={() => setM('target_segment', s.value)}
-                  className="px-3 py-2 rounded-[var(--r-md)] text-sm font-display transition-all"
+                  className="min-h-[44px] px-3 py-2 rounded-[var(--r-md)] text-sm font-display transition-all"
                   style={{
                     background: active ? 'var(--p-light)' : 'var(--bg)',
                     color: active ? 'var(--p-dark)' : 'var(--t1)',
@@ -178,7 +178,7 @@ export function MetaStep({ meta, onMetaChange }: Props) {
                   key={c}
                   type="button"
                   onClick={() => toggleCefr(c)}
-                  className="px-3 py-2 rounded-[var(--r-md)] text-sm font-display transition-all"
+                  className="min-h-[44px] px-3 py-2 rounded-[var(--r-md)] text-sm font-display transition-all"
                   style={{
                     background: active ? 'var(--p-light)' : 'var(--bg)',
                     color: active ? 'var(--p-dark)' : 'var(--t1)',

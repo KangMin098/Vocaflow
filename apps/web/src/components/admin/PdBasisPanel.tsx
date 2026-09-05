@@ -233,7 +233,7 @@ function SeriesCard({
                     href={l.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[36px] items-center gap-2 font-body text-[12.5px] text-[var(--t1)] underline underline-offset-2 hover:text-[var(--active-ink)]"
+                    className="inline-flex min-h-[44px] items-center gap-2 font-body text-[12.5px] text-[var(--t1)] underline underline-offset-2 hover:text-[var(--active-ink)]"
                   >
                     {l.label}
                   </a>
@@ -250,7 +250,7 @@ function SeriesCard({
               <select
                 value={basis}
                 onChange={(e) => setBasis(e.target.value)}
-                className="min-h-[38px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12.5px]"
+                className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12.5px]"
               >
                 {/* 레거시 토큰 제외는 정본(PD_BASIS_CHOICES)이 이미 했다 — 여기서 또 거르지 않는다 */}
                 {bases.map((b) => (
@@ -274,7 +274,7 @@ function SeriesCard({
               onClick={() => void confirm()}
               disabled={saving || hasRenewed || (spec?.needsEvidence && !evidence)}
               title={hasRenewed ? '갱신된 호가 섞여 있어 일괄 확정을 막았습니다' : undefined}
-              className="min-h-[38px] rounded-[var(--r-md)] px-4 font-display text-[12.5px] font-[800] text-white disabled:opacity-50"
+              className="min-h-[44px] rounded-[var(--r-md)] px-4 font-display text-[12.5px] font-[800] text-white disabled:opacity-50"
               style={{ background: ACCENT }}
             >
               {saving ? '기록 중…' : hasRenewed ? '일괄 확정 불가 (갱신된 호 포함)' : `이 시리즈 ${s.total}호에 기록`}

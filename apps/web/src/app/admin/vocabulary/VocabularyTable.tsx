@@ -235,7 +235,7 @@ export function VocabularyTable({
             type="button"
             onClick={() => onPageChange(Math.max(1, currentPage - 1))}
             disabled={currentPage <= 1}
-            className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
+            className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
           >
             <ChevronLeft size={12} aria-hidden /> prev
           </button>
@@ -243,7 +243,7 @@ export function VocabularyTable({
             type="button"
             onClick={() => onPageChange(currentPage + 1)}
             disabled={!hasNext}
-            className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
+            className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[11px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
           >
             next <ChevronRight size={12} aria-hidden />
           </button>

@@ -18,7 +18,7 @@ export default async function VcbCollectionsPage() {
         actions={
           <Link
             href="/admin/vocab/runs"
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
             style={{ color: 'var(--t2)', borderColor: 'var(--bd)', background: 'var(--bg)' }}
           >
             <ArrowLeft className="w-4 h-4" />
@@ -125,7 +125,7 @@ export default async function VcbCollectionsPage() {
                 <Link
                   href={`/library/vocab#set-${c.set_id}`}
                   target="_blank"
-                  className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border font-display text-sm shrink-0"
+                  className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border font-display text-sm shrink-0"
                   style={{ borderColor: 'var(--bd)', color: 'var(--p)', background: 'var(--bg)' }}
                 >
                   라이브러리에서 보기

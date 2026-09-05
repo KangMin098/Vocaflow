@@ -132,7 +132,7 @@ function PresetCard({
               key={variant.id}
               type="button"
               onClick={() => onVariantSelect(variant)}
-              className="group flex items-center justify-between gap-2 px-3 py-2 rounded-[var(--r-md)] text-left transition-all"
+              className="min-h-[44px] group flex items-center justify-between gap-2 px-3 py-2 rounded-[var(--r-md)] text-left transition-all"
               style={{
                 // Calm UI — solid accent 대신 12% tint + left accent bar (Material 3 토널)
                 background: isVariantSelected ? `${preset.accent}14` : 'var(--bg2)',

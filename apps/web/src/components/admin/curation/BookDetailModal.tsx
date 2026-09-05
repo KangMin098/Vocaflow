@@ -352,7 +352,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
         {(book.status === 'published' || book.status === 'ready') && (
           <Link
             href={`/admin/curation/preview/${book.id}`}
-            className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           >
             <BookOpen size={12} aria-hidden />
             📖 본문 검수
@@ -434,7 +434,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
           type="button"
           onClick={onClose}
           disabled={!!actionPending}
-          className="inline-flex min-h-[36px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
         >
           닫기
         </button>
@@ -523,7 +523,7 @@ function DeleteConfirmDialog({
             onChange={(e) => setTyped(e.target.value)}
             disabled={pending}
             autoFocus
-            className="mt-1 h-9 w-full rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[13px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--learn-error)]"
+            className="mt-1 h-11 w-full rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[13px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--learn-error)]"
             placeholder={required}
           />
         </label>
@@ -532,7 +532,7 @@ function DeleteConfirmDialog({
             type="button"
             onClick={onCancel}
             disabled={pending}
-            className="inline-flex min-h-[36px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:opacity-50"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:opacity-50"
           >
             취소
           </button>
@@ -540,7 +540,7 @@ function DeleteConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={pending || !canDelete}
-            className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-40"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-40"
           >
             {pending && <Loader2 size={12} className="animate-spin" aria-hidden />}
             영구 삭제
@@ -590,7 +590,7 @@ function RevertConfirmDialog({
             type="button"
             onClick={onCancel}
             disabled={pending}
-            className="inline-flex min-h-[36px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:opacity-50"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] hover:bg-[var(--bg2)] disabled:opacity-50"
           >
             취소
           </button>
@@ -598,7 +598,7 @@ function RevertConfirmDialog({
             type="button"
             onClick={onConfirm}
             disabled={pending}
-            className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)] bg-[var(--learn-error)] px-4 font-display text-[12px] font-[600] text-[var(--ti)] hover:opacity-90 disabled:opacity-50"
           >
             {pending && <Loader2 size={12} className="animate-spin" aria-hidden />}
             되돌리고 단어장 삭제
@@ -847,7 +847,7 @@ function ActionButton({
       type="button"
       onClick={onClick}
       disabled={pending}
-      className={`inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
+      className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
     >
       {pending ? <Loader2 size={12} className="animate-spin" aria-hidden /> : icon}
       {label}

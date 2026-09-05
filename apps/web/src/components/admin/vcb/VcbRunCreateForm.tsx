@@ -151,7 +151,7 @@ export function VcbRunCreateForm() {
             setStep((step - 1) as Step)
           }}
           disabled={step === 1 || isPending}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] border font-display text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+          className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] border font-display text-sm transition-all disabled:opacity-40 disabled:cursor-not-allowed"
           style={{ borderColor: 'var(--bd)', color: 'var(--t2)', background: 'var(--bg)' }}
         >
           <ArrowLeft className="w-4 h-4" />
@@ -167,7 +167,7 @@ export function VcbRunCreateForm() {
             type="button"
             onClick={() => setStep((step + 1) as Step)}
             disabled={!canAdvance}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-[var(--r-md)] font-display text-sm font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90"
+            className="min-h-[44px] inline-flex items-center gap-2 px-5 py-2 rounded-[var(--r-md)] font-display text-sm font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90"
             style={{ background: 'var(--p)', color: '#FFFFFF', boxShadow: 'var(--sh-xs)' }}
           >
             다음
@@ -178,7 +178,7 @@ export function VcbRunCreateForm() {
             type="button"
             onClick={handleSubmit}
             disabled={isPending || !metaValid}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-[var(--r-md)] font-display text-sm font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90"
+            className="min-h-[44px] inline-flex items-center gap-2 px-5 py-2 rounded-[var(--r-md)] font-display text-sm font-medium transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90"
             style={{ background: 'var(--success)', color: '#FFFFFF', boxShadow: 'var(--sh-xs)' }}
           >
             {isPending ? (

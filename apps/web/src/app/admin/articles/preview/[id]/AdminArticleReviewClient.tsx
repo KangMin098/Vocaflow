@@ -181,7 +181,7 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
           href={listHref}
-          className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden />
           글 목록으로
@@ -491,7 +491,7 @@ function ActionButton({
       onClick={onClick}
       disabled={pending}
       title={title}
-      className={`inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
+      className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
     >
       {pending ? <Loader2 size={12} className="animate-spin" aria-hidden /> : icon}
       {label}
@@ -553,7 +553,7 @@ function PublishControl({
         onClick={onPublish}
         disabled={pending}
         title="copyright_safe 확인 후 즉시 게시 (admin_force_publish_article). 게시하면 학습자 스크립트 탭에 노출됩니다."
-        className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[700] text-[var(--on-p)] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+        className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[700] text-[var(--on-p)] transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {pending ? (
           <Loader2 size={13} className="animate-spin" aria-hidden />

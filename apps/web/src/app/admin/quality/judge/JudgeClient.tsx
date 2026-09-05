@@ -190,7 +190,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                 key={k}
                 type="button"
                 onClick={() => setKind(k)}
-                className={`rounded-[var(--r-md)] border px-4 py-2 font-display text-[13px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
+                className={`min-h-[44px] rounded-[var(--r-md)] border px-4 py-2 font-display text-[13px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
                   kind === k
                     ? 'border-[#8B5CF6] bg-[#8B5CF6]/10 text-[#8B5CF6]'
                     : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:text-[var(--t1)]'
@@ -208,7 +208,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                 <select
                   value={bookId}
                   onChange={(e) => setBookId(e.target.value)}
-                  className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                  className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
                 >
                   {books.map((b) => (
                     <option key={b.id} value={b.id}>
@@ -225,7 +225,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                   max={selectedBook?.chapter_count ?? 999}
                   value={chapter}
                   onChange={(e) => setChapter(Math.max(1, Number(e.target.value) || 1))}
-                  className="w-24 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                  className="min-h-[44px] w-24 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
                 />
               </label>
             </div>
@@ -235,7 +235,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
               <select
                 value={articleId}
                 onChange={(e) => setArticleId(e.target.value)}
-                className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+                className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
               >
                 {articles.map((a) => (
                   <option key={a.id} value={a.id}>
@@ -254,7 +254,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                   key={m}
                   type="button"
                   onClick={() => setMode(m)}
-                  className={`rounded-[var(--r-full)] border px-3 py-1 font-body text-[12px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] ${
+                  className={`min-h-[44px] rounded-[var(--r-full)] border px-3 py-1 font-body text-[12px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] ${
                     mode === m
                       ? 'border-[#8B5CF6]/50 bg-[#8B5CF6]/10 text-[#8B5CF6]'
                       : 'border-[var(--bd)] text-[var(--t2)] hover:text-[var(--t2)]'
@@ -268,7 +268,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
               type="button"
               onClick={loadSample}
               disabled={loading || (kind === 'book' ? !bookId : !articleId)}
-              className="inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
               표본 불러오기
@@ -325,7 +325,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                           aria-pressed={v === 'valuable'}
                           onClick={() => setVerdict(w.word, 'valuable')}
                           title="가치 있음"
-                          className={`grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2E7D5A] ${
+                          className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ `relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2E7D5A] ${
                             v === 'valuable'
                               ? 'border-[#2E7D5A] bg-[#2E7D5A] text-white'
                               : 'border-[var(--bd)] text-[var(--t2)] hover:border-[#2E7D5A]/50 hover:text-[#2E7D5A]'
@@ -338,7 +338,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                           aria-pressed={v === 'uncertain'}
                           onClick={() => setVerdict(w.word, 'uncertain')}
                           title="애매함"
-                          className={`grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B5803A] ${
+                          className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ `relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B5803A] ${
                             v === 'uncertain'
                               ? 'border-[#B5803A] bg-[#B5803A] text-white'
                               : 'border-[var(--bd)] text-[var(--t2)] hover:border-[#B5803A]/50 hover:text-[#B5803A]'
@@ -402,7 +402,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
               type="button"
               onClick={submit}
               disabled={saving || (mode === 'pairwise' && pairwiseAnswered === 0)}
-              className="inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-5 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-5 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {saving ? <Loader2 size={14} className="animate-spin" /> : <Scale size={14} />}
               판정 제출
@@ -492,7 +492,7 @@ function RevealPanel({
         <button
           type="button"
           onClick={onReset}
-          className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[#8B5CF6]/40 bg-[#8B5CF6]/8 px-4 py-2 font-display text-[13px] font-[600] text-[#8B5CF6] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#8B5CF6]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+          className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[#8B5CF6]/40 bg-[#8B5CF6]/8 px-4 py-2 font-display text-[13px] font-[600] text-[#8B5CF6] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#8B5CF6]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
         >
           <Sparkles size={14} /> 다음 표본 판정
         </button>

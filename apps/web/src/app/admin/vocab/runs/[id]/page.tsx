@@ -73,7 +73,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
         actions={
           <Link
             href="/admin/vocab/runs"
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
             style={{
               color: 'var(--t2)',
               borderColor: 'var(--bd)',
@@ -376,7 +376,7 @@ export default async function VcbRunDetailPage({ params }: PageProps) {
                   <Link
                     href={`/library/vocab#set-${set.set_id}`}
                     target="_blank"
-                    className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border font-display text-sm shrink-0 transition-colors"
+                    className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] border font-display text-sm shrink-0 transition-colors"
                     style={{
                       borderColor: 'var(--bd)',
                       color: 'var(--p)',

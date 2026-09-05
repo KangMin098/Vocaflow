@@ -82,7 +82,7 @@ export function VcbPreviewFilters({ filters, onChange, visibleCount, totalCount,
             value={filters.search}
             onChange={(e) => onChange({ ...filters, search: e.target.value })}
             placeholder="lemma 검색…"
-            className="w-full pl-9 pr-3 py-2 rounded-[var(--r-md)] border text-sm"
+            className="min-h-[44px] w-full pl-9 pr-3 py-2 rounded-[var(--r-md)] border text-sm"
             style={{
               background: 'var(--bg2)',
               borderColor: 'var(--bd)',
@@ -104,7 +104,7 @@ export function VcbPreviewFilters({ filters, onChange, visibleCount, totalCount,
                   key={level}
                   type="button"
                   onClick={() => toggleCefr(level)}
-                  className="px-3 py-2 rounded-[var(--r-md)] text-xs font-mono font-semibold flex items-center gap-1 border transition-colors"
+                  className="min-h-[44px] px-3 py-2 rounded-[var(--r-md)] text-xs font-mono font-semibold flex items-center gap-1 border transition-colors"
                   style={{
                     background: active ? CEFR_DOT_COLOR[level] : 'var(--bg2)',
                     color: active ? 'var(--ti)' : 'var(--t2)',
@@ -119,12 +119,12 @@ export function VcbPreviewFilters({ filters, onChange, visibleCount, totalCount,
           </div>
         </div>
 
-        <label className="flex items-center gap-2 cursor-pointer">
+        <label className="flex min-h-[44px] items-center gap-2 cursor-pointer">
           <input
             type="checkbox"
             checked={filters.attentionOnly}
             onChange={(e) => onChange({ ...filters, attentionOnly: e.target.checked })}
-            className="w-4 h-4 accent-[var(--warning)]"
+            className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 못 넓힌다 — 탭 영역은 감싼 <label> 44px */ 'w-4 h-4 accent-[var(--warning)]'}
           />
           <span className="text-xs font-display" style={{ color: 'var(--t2)' }}>
             ⚠ 주의만 (낮은 신뢰도 + spec 외)
@@ -134,7 +134,7 @@ export function VcbPreviewFilters({ filters, onChange, visibleCount, totalCount,
         <button
           type="button"
           onClick={() => setAdvancedOpen((o) => !o)}
-          className="inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
+          className="min-h-[44px] inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
           style={{
             background: advancedOpen ? 'var(--p-light)' : 'var(--bg2)',
             color: advancedOpen ? 'var(--p)' : 'var(--t2)',
@@ -168,7 +168,7 @@ export function VcbPreviewFilters({ filters, onChange, visibleCount, totalCount,
                       key={pos}
                       type="button"
                       onClick={() => togglePos(pos)}
-                      className="px-2 py-1 rounded-[var(--r-sm)] text-[11px] font-mono border"
+                      className="min-h-[44px] px-2 py-1 rounded-[var(--r-sm)] text-[11px] font-mono border"
                       style={{
                         background: active ? 'var(--p-light)' : 'var(--bg2)',
                         color: active ? 'var(--p)' : 'var(--t2)',
@@ -196,7 +196,7 @@ export function VcbPreviewFilters({ filters, onChange, visibleCount, totalCount,
                     key={tier}
                     type="button"
                     onClick={() => toggleTier(tier)}
-                    className="px-2 py-1 rounded-[var(--r-sm)] text-[11px] font-mono border"
+                    className="min-h-[44px] px-2 py-1 rounded-[var(--r-sm)] text-[11px] font-mono border"
                     style={{
                       background: active ? 'var(--p-light)' : 'var(--bg2)',
                       color: active ? 'var(--p)' : 'var(--t2)',

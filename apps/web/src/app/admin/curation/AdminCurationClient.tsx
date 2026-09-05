@@ -242,7 +242,7 @@ function TabList({ tab, onChange, stats }: TabListProps) {
             type="button"
             onClick={() => onChange(key)}
             className={[
-              'inline-flex min-h-[40px] items-center gap-2',
+              'inline-flex min-h-[44px] items-center gap-2',
               'border-b-2 px-3 -mb-px',
               'font-display text-[13px] font-[600]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',

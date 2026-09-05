@@ -179,7 +179,7 @@ export function VcbPreviewList({
                       e.stopPropagation()
                       onToggleReject(key, item)
                     }}
-                    className="opacity-0 group-hover:opacity-100 text-[10px] font-display px-2 py-1 rounded-[var(--r-sm)] transition-opacity"
+                    className="min-h-[44px] opacity-0 group-hover:opacity-100 text-[10px] font-display px-2 py-1 rounded-[var(--r-sm)] transition-opacity"
                     style={{
                       background: isRejected ? 'var(--success-light)' : 'var(--error-light)',
                       color: isRejected ? 'var(--success)' : 'var(--error)',

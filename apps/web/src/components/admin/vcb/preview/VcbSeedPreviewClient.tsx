@@ -296,7 +296,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
               type="button"
               onClick={handleRegenerate}
               disabled={isPending}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border disabled:opacity-50"
+              className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border disabled:opacity-50"
               style={{
                 color: 'var(--warning)',
                 borderColor: 'var(--warning)',
@@ -309,7 +309,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
             </button>
             <Link
               href={`/admin/vocab/runs/${runId}/seed`}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+              className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
               style={{
                 color: 'var(--t2)',
                 borderColor: 'var(--bd)',
@@ -364,7 +364,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
           <button
             type="button"
             onClick={rejectFiltered}
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
             style={{
               background: 'var(--error-light)',
               color: 'var(--error)',
@@ -379,7 +379,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
           <button
             type="button"
             onClick={rejectSpecOutsiders}
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
             style={{
               background: 'var(--warning-light)',
               color: 'var(--warning)',
@@ -394,7 +394,7 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
           <button
             type="button"
             onClick={clearRejections}
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border ml-auto"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border ml-auto"
             style={{
               background: 'var(--bg)',
               color: 'var(--t2)',

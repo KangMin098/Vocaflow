@@ -234,7 +234,7 @@ export function VcbSeedFlow({
               onChange={(e) => setTargetCount(parseInt(e.target.value, 10) || 0)}
               min={50}
               max={10000}
-              className="w-full px-3 py-2 rounded-[var(--r-md)] border font-mono text-sm"
+              className="min-h-[44px] w-full px-3 py-2 rounded-[var(--r-md)] border font-mono text-sm"
               style={{
                 background: 'var(--bg)',
                 borderColor: 'var(--bd)',
@@ -285,7 +285,7 @@ export function VcbSeedFlow({
               value={mustInclude}
               onChange={(e) => setMustInclude(e.target.value)}
               placeholder="academic, formal"
-              className="w-full px-3 py-2 rounded-[var(--r-md)] border text-sm"
+              className="min-h-[44px] w-full px-3 py-2 rounded-[var(--r-md)] border text-sm"
               style={{
                 background: 'var(--bg)',
                 borderColor: 'var(--bd)',
@@ -301,7 +301,7 @@ export function VcbSeedFlow({
               value={mustExclude}
               onChange={(e) => setMustExclude(e.target.value)}
               placeholder="slang, vulgar"
-              className="w-full px-3 py-2 rounded-[var(--r-md)] border text-sm"
+              className="min-h-[44px] w-full px-3 py-2 rounded-[var(--r-md)] border text-sm"
               style={{
                 background: 'var(--bg)',
                 borderColor: 'var(--bd)',
@@ -332,7 +332,7 @@ export function VcbSeedFlow({
             type="button"
             onClick={handleGenerate}
             disabled={!canGenerate}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
             style={{
               background: 'var(--p)',
               color: 'var(--ti)',
@@ -382,7 +382,7 @@ export function VcbSeedFlow({
                   type="button"
                   onClick={() => setRunModel(m)}
                   disabled={status.running || isPending}
-                  className="px-3 py-2 text-xs font-mono disabled:opacity-50"
+                  className="min-h-[44px] px-3 py-2 text-xs font-mono disabled:opacity-50"
                   style={{
                     background: runModel === m ? 'var(--p)' : 'var(--bg)',
                     color: runModel === m ? 'var(--ti)' : 'var(--t2)',
@@ -398,7 +398,7 @@ export function VcbSeedFlow({
             type="button"
             onClick={handleRun}
             disabled={!canRun}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
             style={{ background: 'var(--p)', color: 'var(--ti)' }}
           >
             {isPending ? (
@@ -413,7 +413,7 @@ export function VcbSeedFlow({
             type="button"
             onClick={handleRefresh}
             disabled={!canRefresh}
-            className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-sm border disabled:opacity-50"
+            className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-sm border disabled:opacity-50"
             style={{
               background: 'var(--bg)',
               borderColor: 'var(--bd)',
@@ -563,7 +563,7 @@ export function VcbSeedFlow({
               <button
                 type="button"
                 onClick={() => copyToClipboard(slashCommand)}
-                className="inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-md)] text-xs border"
+                className="min-h-[44px] inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-md)] text-xs border"
                 style={{
                   background: 'var(--bg)',
                   borderColor: 'var(--bd)',
@@ -622,7 +622,7 @@ export function VcbSeedFlow({
             type="button"
             onClick={handleImport}
             disabled={!canImport}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
+            className="min-h-[44px] inline-flex items-center gap-2 px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-semibold disabled:opacity-50"
             style={{ background: 'var(--p)', color: 'var(--ti)' }}
           >
             {isPending ? (

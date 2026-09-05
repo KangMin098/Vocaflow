@@ -115,7 +115,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
                 setKind(k)
                 setRows(null)
               }}
-              className={`rounded-[var(--r-md)] border px-3 py-2 font-display text-[13px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
+              className={`min-h-[44px] rounded-[var(--r-md)] border px-3 py-2 font-display text-[13px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] ${
                 kind === k
                   ? 'border-[#8B5CF6] bg-[#8B5CF6]/10 text-[#8B5CF6]'
                   : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:text-[var(--t1)]'
@@ -132,7 +132,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
               setBookId(e.target.value)
               setRows(null)
             }}
-            className="min-w-[240px] flex-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+            className="min-h-[44px] min-w-[240px] flex-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
           >
             {books.map((b) => (
               <option key={b.id} value={b.id}>
@@ -148,7 +148,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
               setArticleId(e.target.value)
               setRows(null)
             }}
-            className="min-w-[240px] flex-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
+            className="min-h-[44px] min-w-[240px] flex-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[14px] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]"
           >
             {articles.map((a) => (
               <option key={a.id} value={a.id}>
@@ -162,7 +162,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
           type="button"
           onClick={run}
           disabled={loading || (kind === 'book' ? !bookId : !articleId)}
-          className="inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+          className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[#8B5CF6] px-4 py-2 font-display text-[13px] font-[600] text-white transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <ShieldCheck size={14} />}
           게이트 실행
@@ -216,7 +216,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
                   type="button"
                   onClick={loadDetails}
                   disabled={detailsLoading}
-                  className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[#9C3A30]/40 bg-[#9C3A30]/8 px-3 py-2 font-display text-[12px] font-[600] text-[#9C3A30] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#9C3A30]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9C3A30] disabled:opacity-50"
+                  className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[#9C3A30]/40 bg-[#9C3A30]/8 px-3 py-2 font-display text-[12px] font-[600] text-[#9C3A30] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#9C3A30]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9C3A30] disabled:opacity-50"
                 >
                   {detailsLoading ? <Loader2 size={13} className="animate-spin" /> : null}
                   상세 원인 보기 (문제 단어)

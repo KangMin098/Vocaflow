@@ -111,7 +111,7 @@ export function VcbMethodACard({ runId, runStatus }: Props) {
           type="button"
           onClick={() => { void refresh() }}
           disabled={isPending}
-          className="inline-flex items-center gap-1 px-2 py-1 rounded-[var(--r-md)] text-xs border"
+          className="min-h-[44px] inline-flex items-center gap-1 px-2 py-1 rounded-[var(--r-md)] text-xs border"
           style={{
             background: 'var(--bg)',
             borderColor: 'var(--bd)',
@@ -196,7 +196,7 @@ export function VcbMethodACard({ runId, runStatus }: Props) {
                     type="button"
                     onClick={() => handleRun(src.source_id)}
                     disabled={!canRun || isPending || isThisRunning || (src.already_ingested && !result)}
-                    className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display font-semibold disabled:opacity-50"
+                    className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] text-xs font-display font-semibold disabled:opacity-50"
                     style={{ background: 'var(--p)', color: 'var(--ti)' }}
                   >
                     {isThisRunning ? (

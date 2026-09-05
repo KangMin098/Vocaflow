@@ -63,7 +63,7 @@ export function VocabularyDetailPanel({ detail, onClose }: VocabularyDetailPanel
           type="button"
           onClick={onClose}
           aria-label="Close detail panel (Esc)"
-          className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+          className={/* 탭 영역 44px — 시각 크기(h-7, 28px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]"}
         >
           <X size={14} aria-hidden />
         </button>

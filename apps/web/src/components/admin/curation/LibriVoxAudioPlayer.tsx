@@ -79,7 +79,7 @@ export function LibriVoxAudioPlayer({ audio }: { audio: LibriVoxAudio }) {
           onClick={() => setIdx((i) => Math.max(0, i - 1))}
           disabled={idx === 0}
           aria-label="이전 챕터"
-          className="inline-flex min-h-[36px] w-9 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] font-mono text-[13px] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex min-h-[44px] w-9 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] font-mono text-[13px] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
         >
           ‹
         </button>
@@ -90,7 +90,7 @@ export function LibriVoxAudioPlayer({ audio }: { audio: LibriVoxAudio }) {
           id="librivox-chapter-select"
           value={idx}
           onChange={(e) => setIdx(Number(e.target.value))}
-          className="min-h-[36px] flex-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)] focus-visible:border-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="min-h-[44px] flex-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px] text-[var(--t1)] focus-visible:border-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {audio.sections.map((s, i) => (
             <option key={i} value={i}>
@@ -104,7 +104,7 @@ export function LibriVoxAudioPlayer({ audio }: { audio: LibriVoxAudio }) {
           onClick={() => setIdx((i) => Math.min(audio.sections.length - 1, i + 1))}
           disabled={idx >= audio.sections.length - 1}
           aria-label="다음 챕터"
-          className="inline-flex min-h-[36px] w-9 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] font-mono text-[13px] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex min-h-[44px] w-9 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] font-mono text-[13px] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] disabled:cursor-not-allowed disabled:opacity-40"
         >
           ›
         </button>

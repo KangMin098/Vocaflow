@@ -59,7 +59,7 @@ export function VrlTaxonomyClient({ data }: Props) {
               role="tab"
               aria-selected={active}
               onClick={() => setTab(t.id)}
-              className={`rounded-[var(--r-sm)] px-3 py-2 font-display text-[13px] font-[600] transition-all duration-[var(--dur-fast)] ${
+              className={`min-h-[44px] rounded-[var(--r-sm)] px-3 py-2 font-display text-[13px] font-[600] transition-all duration-[var(--dur-fast)] ${
                 active
                   ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-sm)] ring-1 ring-[#8B5CF6]/30'
                   : 'text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--t2)]'

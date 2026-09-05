@@ -65,7 +65,7 @@ export function ArticleExtractionPanel({
           <button
             type="button"
             onClick={() => setModalOpen(true)}
-            className="inline-flex min-h-[36px] shrink-0 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-4 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-4 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <SearchCheck size={13} aria-hidden />
             단어장 검수 팝업

@@ -149,7 +149,7 @@ export function CandidateTable({ source, onImported }: Props) {
                     type="button"
                     onClick={() => toggle(it.source_id)}
                     aria-pressed={isSel}
-                    className={`${GRID} w-full border-t border-[var(--bd)] px-3 py-2 text-left transition-colors first:border-t-0 hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)]`}
+                    className={`min-h-[44px] ${GRID} w-full border-t border-[var(--bd)] px-3 py-2 text-left transition-colors first:border-t-0 hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)]`}
                     style={isSel ? { backgroundColor: 'var(--learn-known-light)' } : undefined}
                   >
                     {/* 체크박스 */}
@@ -200,7 +200,7 @@ export function CandidateTable({ source, onImported }: Props) {
           type="button"
           onClick={importSelected}
           disabled={selectedCount === 0 || importing}
-          className="inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {importing ? <Loader2 size={13} className="animate-spin" aria-hidden /> : <Plus size={13} aria-hidden />}
           큐에 추가 ({selectedCount})

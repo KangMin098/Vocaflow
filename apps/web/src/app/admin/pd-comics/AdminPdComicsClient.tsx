@@ -294,7 +294,7 @@ function BulkIngestPanel({
           <select
             value={collection}
             onChange={(e) => setCollection(e.target.value)}
-            className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12.5px]"
+            className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12.5px]"
           >
             <option value="">전체 (Fawcett + Ace)</option>
             <option value="fawcett-comics">Fawcett Comics 만</option>
@@ -305,7 +305,7 @@ function BulkIngestPanel({
           type="button"
           onClick={() => void call('plan')}
           disabled={busy != null}
-          className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[12.5px] font-[700] text-[var(--t2)] disabled:opacity-50"
+          className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[12.5px] font-[700] text-[var(--t2)] disabled:opacity-50"
         >
           {busy === 'plan' ? '확인 중…' : '계획 보기 (DB 변경 없음)'}
         </button>
@@ -313,7 +313,7 @@ function BulkIngestPanel({
           type="button"
           onClick={() => void call('run')}
           disabled={busy != null || !schemaReady}
-          className="min-h-[36px] rounded-[var(--r-md)] px-4 font-display text-[12.5px] font-[800] text-white disabled:opacity-50"
+          className="min-h-[44px] rounded-[var(--r-md)] px-4 font-display text-[12.5px] font-[800] text-white disabled:opacity-50"
           style={{ background: ACCENT }}
         >
           {busy === 'run' ? '적재 중…' : '전량 적재 실행'}
@@ -391,11 +391,11 @@ function RecommendPanel({ source, onMsg, onEnqueued, schemaReady }: { source: st
       {/* 트랙 + 명작 칩 */}
       <div className="mt-3 flex flex-wrap items-center gap-2">
         {tracks.map((t) => (
-          <button key={t.key} type="button" title={t.note} disabled={busy} onClick={() => void run(t.query)} className="min-h-[34px] rounded-[var(--r-full)] px-3 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>{t.label}</button>
+          <button key={t.key} type="button" title={t.note} disabled={busy} onClick={() => void run(t.query)} className="min-h-[44px] rounded-[var(--r-full)] px-3 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>{t.label}</button>
         ))}
         <span className="mx-1 font-mono text-[10px] text-[var(--t2)]">또는 명작:</span>
         {canon.slice(0, 14).map((c) => (
-          <button key={c} type="button" disabled={busy} onClick={() => void run(c)} className="min-h-[32px] rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11.5px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t3)] disabled:opacity-50">{c}</button>
+          <button key={c} type="button" disabled={busy} onClick={() => void run(c)} className="min-h-[44px] rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11.5px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t3)] disabled:opacity-50">{c}</button>
         ))}
       </div>
 
@@ -407,8 +407,8 @@ function RecommendPanel({ source, onMsg, onEnqueued, schemaReady }: { source: st
             <span className="font-display text-[12px] font-[700] text-[var(--t1)]">&ldquo;{activeQuery}&rdquo; 추천 {cands.length}건</span>
             <span className="font-mono text-[11px] text-[var(--t2)]">신규 {newCount}</span>
             <label className="ml-auto flex items-center gap-1 font-body text-[11.5px] text-[var(--t2)]">앞
-              <input type="number" min={1} max={60} value={pages} onChange={(e) => setPages(Number(e.target.value))} className="w-14 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 text-right tabular-nums" />장</label>
-            <button type="button" disabled={busy || !schemaReady || newCount === 0} onClick={() => void enqueueTop(6)} className="min-h-[34px] rounded-[var(--r-md)] px-3 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>추천 상위 {Math.min(6, newCount)} 큐 적재 (앞 {pages}장)</button>
+              <input type="number" min={1} max={60} value={pages} onChange={(e) => setPages(Number(e.target.value))} className="min-h-[44px] w-14 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 text-right tabular-nums" />장</label>
+            <button type="button" disabled={busy || !schemaReady || newCount === 0} onClick={() => void enqueueTop(6)} className="min-h-[44px] rounded-[var(--r-md)] px-3 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>추천 상위 {Math.min(6, newCount)} 큐 적재 (앞 {pages}장)</button>
           </div>
           <ul className="divide-y divide-[var(--bd)]">
             {cands.map((c) => (
@@ -585,7 +585,7 @@ function SourceTab({
             <select
               value={source}
               onChange={(e) => setSource(e.target.value)}
-              className="min-h-[40px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[13px]"
+              className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[13px]"
             >
               {adapters.map((a) => (
                 <option key={a.id} value={a.id}>{a.label}</option>
@@ -606,7 +606,7 @@ function SourceTab({
             type="button"
             onClick={() => void search()}
             disabled={busy || !bulkOk}
-            className="min-h-[40px] rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-white disabled:opacity-50"
+            className="min-h-[44px] rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-white disabled:opacity-50"
             style={{ background: ACCENT }}
           >
             {busy ? '…' : '검색'}
@@ -626,7 +626,7 @@ function SourceTab({
                 title={pr.note}
                 onClick={() => void search({ preset: pr })}
                 disabled={busy}
-                className="min-h-[32px] rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t3)] disabled:opacity-50"
+                className="min-h-[44px] rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t3)] disabled:opacity-50"
               >
                 {pr.label}
                 {pr.count != null && (
@@ -657,7 +657,7 @@ function SourceTab({
               value={yearTo}
               onChange={(e) => setYearTo(e.target.value === '' ? '' : Number(e.target.value))}
               placeholder="1963"
-              className="min-h-[36px] w-[100px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 text-right font-mono text-[12px] tabular-nums"
+              className="min-h-[44px] w-[100px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 text-right font-mono text-[12px] tabular-nums"
             />
           </label>
           <label className="flex flex-col gap-1">
@@ -665,7 +665,7 @@ function SourceTab({
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12.5px]"
+              className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12.5px]"
             >
               <option value="relevance">관련도</option>
               <option value="downloads">인기</option>
@@ -692,7 +692,7 @@ function SourceTab({
                 max={60}
                 value={pages}
                 onChange={(e) => setPages(Number(e.target.value))}
-                className="w-16 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 text-right tabular-nums"
+                className="min-h-[44px] w-16 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 py-1 text-right tabular-nums"
               />
               장만 취득
             </label>
@@ -719,14 +719,14 @@ function SourceTab({
               onClick={() =>
                 setSel(new Set(items.filter((i) => !i.existingStatus).map((i) => i.identifier)))
               }
-              className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)]"
+              className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)]"
             >
               신규 전체 선택
             </button>
             <button
               type="button"
               onClick={() => setSel(new Set())}
-              className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)]"
+              className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)]"
             >
               해제
             </button>
@@ -735,7 +735,7 @@ function SourceTab({
               type="button"
               onClick={() => void enqueue()}
               disabled={busy || sel.size === 0 || !schemaReady}
-              className="ml-auto min-h-[36px] rounded-[var(--r-md)] px-4 font-display text-[12px] font-[800] text-white disabled:opacity-50"
+              className="ml-auto min-h-[44px] rounded-[var(--r-md)] px-4 font-display text-[12px] font-[800] text-white disabled:opacity-50"
               style={{ background: ACCENT }}
             >
               큐에 적재{testMode ? ` (앞 ${pages}장)` : ' (전권)'}
@@ -795,7 +795,7 @@ function SourceTab({
                 type="button"
                 disabled={busy || page <= 1}
                 onClick={() => void search({ page: page - 1 })}
-                className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] disabled:opacity-40"
+                className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] disabled:opacity-40"
               >
                 이전
               </button>
@@ -806,7 +806,7 @@ function SourceTab({
                 type="button"
                 disabled={busy || page * 20 >= totalFound}
                 onClick={() => void search({ page: page + 1 })}
-                className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] disabled:opacity-40"
+                className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] disabled:opacity-40"
               >
                 다음
               </button>
@@ -883,7 +883,7 @@ function AssistPanel({ onMsg }: { onMsg: (s: string) => void }) {
           <select
             value={site}
             onChange={(e) => setSite(e.target.value)}
-            className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12.5px]"
+            className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12.5px]"
           >
             {sites.map((s) => (
               <option key={s.key} value={s.key}>{s.label}</option>
@@ -903,7 +903,7 @@ function AssistPanel({ onMsg }: { onMsg: (s: string) => void }) {
           type="button"
           onClick={() => void start()}
           disabled={busy || !available || !slug}
-          className="min-h-[36px] rounded-[var(--r-md)] px-4 font-display text-[12.5px] font-[800] text-white disabled:opacity-50"
+          className="min-h-[44px] rounded-[var(--r-md)] px-4 font-display text-[12.5px] font-[800] text-white disabled:opacity-50"
           style={{ background: ACCENT }}
         >
           {busy ? '여는 중…' : '브라우저 열기'}
@@ -1043,7 +1043,7 @@ function RowViewControls({
         value={view.q}
         onChange={(e) => view.setQ(e.target.value)}
         placeholder="제목 · 식별자 · 시리즈"
-        className="min-h-9 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-body text-[12px] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] placeholder:text-[var(--t2)] hover:border-[var(--t2)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20 sm:w-64"
+        className="min-h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-body text-[12px] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] placeholder:text-[var(--t2)] hover:border-[var(--t2)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20 sm:w-64"
       />
       {chips.map((c) => {
         const on = view.statusFilter === c.key
@@ -1053,7 +1053,7 @@ function RowViewControls({
             type="button"
             onClick={() => view.setStatusFilter(c.key)}
             aria-pressed={on}
-            className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+            className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
             style={{ borderColor: on ? ACCENT : 'var(--bd)', color: on ? ACCENT : 'var(--t2)', background: on ? `${ACCENT}1a` : 'transparent' }}
           >
             {c.label} <span className="font-mono tabular-nums">{c.n}</span>
@@ -1084,7 +1084,7 @@ function RowViewFooter({ view }: { view: ReturnType<typeof useRowView> }) {
         <button
           type="button"
           onClick={view.showMore}
-          className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+          className="min-h-11 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
         >
           {Math.min(ROW_PAGE, total - shown)}건 더 보기
         </button>
@@ -1179,7 +1179,7 @@ function QueueTab({
           type="button"
           onClick={() => void drainLoop()}
           disabled={running || pendingTotal === 0}
-          className="min-h-[40px] rounded-[var(--r-md)] px-4 font-display text-[13px] font-[800] text-white disabled:opacity-50"
+          className="min-h-[44px] rounded-[var(--r-md)] px-4 font-display text-[13px] font-[800] text-white disabled:opacity-50"
           style={{ background: ACCENT }}
         >
           {running ? '드레인 중…' : `드레인 실행 (${pendingTotal}건 대기)`}
@@ -1188,7 +1188,7 @@ function QueueTab({
           <button
             type="button"
             onClick={() => { stopRef.current = true }}
-            className="min-h-[40px] rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-[var(--t2)]"
+            className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-[var(--t2)]"
           >
             중지
           </button>
@@ -1200,11 +1200,11 @@ function QueueTab({
             onMsg(j.command ? `계획: ${j.command}` : (j.message ?? '대상 없음'))
           }}
           disabled={running}
-          className="min-h-[40px] rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-[var(--t2)]"
+          className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-[var(--t2)]"
         >
           다음 단계 미리보기 (dry-run)
         </button>
-        <button type="button" onClick={onRefresh} className="min-h-[40px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[13px] font-[700] text-[var(--t2)]">
+        <button type="button" onClick={onRefresh} className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[13px] font-[700] text-[var(--t2)]">
           새로고침
         </button>
         <span className="font-body text-[11.5px] text-[var(--t2)]">
@@ -1233,7 +1233,7 @@ function QueueTab({
                   <button
                     type="button"
                     onClick={() => void retry(r.id)}
-                    className="min-h-[32px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11.5px] font-[700] text-[var(--t2)]"
+                    className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[11.5px] font-[700] text-[var(--t2)]"
                   >
                     이 호 재시도
                   </button>
@@ -1248,7 +1248,7 @@ function QueueTab({
             <button
               type="button"
               onClick={() => void retry()}
-              className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)]"
+              className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)]"
             >
               전체 재시도
             </button>
@@ -1379,10 +1379,10 @@ function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
         <span className="font-body text-[11.5px] text-[var(--t2)]">파이프라인이 지금 무엇을 · 어떤 상태로 · 어떻게 처리 중인지 실시간 관측</span>
         <div className="ml-auto flex items-center gap-2">
           <span className="font-mono text-[11px] text-[var(--t2)]">{live ? `자동 새로고침 · ${relTime(new Date(lastPoll).toISOString())}` : '수동'}</span>
-          <button type="button" onClick={() => setLive((v) => !v)} className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: live ? ACCENT : 'var(--bd)', color: live ? ACCENT : 'var(--t2)' }} aria-pressed={live}>
+          <button type="button" onClick={() => setLive((v) => !v)} className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: live ? ACCENT : 'var(--bd)', color: live ? ACCENT : 'var(--t2)' }} aria-pressed={live}>
             {live ? '● LIVE' : '○ 정지'}
           </button>
-          <button type="button" onClick={() => { void onRefresh().then(() => setLastPoll(Date.now())) }} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)]">새로고침</button>
+          <button type="button" onClick={() => { void onRefresh().then(() => setLastPoll(Date.now())) }} className="min-h-11 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)]">새로고침</button>
         </div>
       </div>
 
@@ -1448,29 +1448,29 @@ function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
                 )}
                 {r.lastError && <p className="mt-1.5 rounded-[var(--r-sm)] bg-[var(--error-light)] px-3 py-2 font-mono text-[11px] text-[var(--error)]">멈춤: {r.lastError.slice(0, 220)}</p>}
                 <div className="mt-2 flex flex-wrap items-center gap-2">
-                  <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, true)} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] disabled:opacity-50">다음 단계 미리보기</button>
-                  {DRAINABLE.has(r.status) && <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, false)} className="min-h-9 rounded-[var(--r-full)] px-3 font-display text-[11px] font-[700] text-white disabled:opacity-50" style={{ background: ACCENT }}>이 이슈 한 단계 진행</button>}
-                  <button type="button" onClick={() => setOpenLive((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openLive === r.id ? ACCENT : 'var(--bd)', color: openLive === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openLive === r.id}>{openLive === r.id ? '진행 닫기' : '라이브 진행'}</button>
-                  <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '컷 대사'}</button>
+                  <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, true)} className="min-h-11 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] disabled:opacity-50">다음 단계 미리보기</button>
+                  {DRAINABLE.has(r.status) && <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, false)} className="min-h-11 rounded-[var(--r-full)] px-3 font-display text-[11px] font-[700] text-white disabled:opacity-50" style={{ background: ACCENT }}>이 이슈 한 단계 진행</button>}
+                  <button type="button" onClick={() => setOpenLive((o) => (o === r.id ? null : r.id))} className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openLive === r.id ? ACCENT : 'var(--bd)', color: openLive === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openLive === r.id}>{openLive === r.id ? '진행 닫기' : '라이브 진행'}</button>
+                  <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-11 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '컷 대사'}</button>
                   {/* 현대화 3종은 **그 액션이 유효한 상태에서만** 뜬다 — 정본(model.ts)이 정한다.
                       예전엔 상태와 무관하게 항상 떠서, 취득 직후 눌린 호가 산출물 없이
                       'modernized' 가 되고 큐에서 빠졌다. */}
                   {pdActionAllowed('modernize', r.status) && (
                     <>
-                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: '#2E7D5A', color: '#2E7D5A' }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
-                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'erase-preview')} title="GPU 없이 말풍선 지우기만 실행 — 남은 글자를 모델이 가짜 글자로 재현하므로 태우기 전에 확인한다" className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: 'var(--t3)', color: 'var(--t2)' }}>지우기 확인</button>
-                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요 · 되돌릴 수 없음). 먼저 '지우기 확인'으로 글자가 다 지워졌는지 보세요" className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: ACCENT }}>AI 리스타일</button>
+                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: '#2E7D5A', color: '#2E7D5A' }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
+                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'erase-preview')} title="GPU 없이 말풍선 지우기만 실행 — 남은 글자를 모델이 가짜 글자로 재현하므로 태우기 전에 확인한다" className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: 'var(--t3)', color: 'var(--t2)' }}>지우기 확인</button>
+                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요 · 되돌릴 수 없음). 먼저 '지우기 확인'으로 글자가 다 지워졌는지 보세요" className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: ACCENT }}>AI 리스타일</button>
                     </>
                   )}
-                  <a href={`/admin/pd-comics/reader/${r.id}`} className="min-h-9 inline-flex items-center rounded-[var(--r-full)] px-3 font-display text-[11px] font-[700] text-white transition-opacity hover:opacity-90" style={{ background: ACCENT }}>모던 리더 ↗</a>
+                  <a href={`/admin/pd-comics/reader/${r.id}`} className="min-h-11 inline-flex items-center rounded-[var(--r-full)] px-3 font-display text-[11px] font-[700] text-white transition-opacity hover:opacity-90" style={{ background: ACCENT }}>모던 리더 ↗</a>
                   {r.sourceUrl && (
-                    <a href={r.sourceUrl} target="_blank" rel="noopener noreferrer" title="소스 사이트에서 원본 스캔 열기" className="min-h-9 inline-flex items-center rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t3)]">원본 ↗</a>
+                    <a href={r.sourceUrl} target="_blank" rel="noopener noreferrer" title="소스 사이트에서 원본 스캔 열기" className="min-h-11 inline-flex items-center rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t3)]">원본 ↗</a>
                   )}
                   {/* 발행·회수·복원은 한 패널에서 — 발행만 열어 두면 되돌릴 길이 없다 */}
                   {(pdActionAllowed('publish', r.status) ||
                     pdActionAllowed('archive', r.status) ||
                     pdActionAllowed('restore', r.status)) && (
-                    <button type="button" onClick={() => setOpenPublish((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openPublish === r.id ? ACCENT : 'var(--bd)', color: openPublish === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openPublish === r.id}>
+                    <button type="button" onClick={() => setOpenPublish((o) => (o === r.id ? null : r.id))} className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openPublish === r.id ? ACCENT : 'var(--bd)', color: openPublish === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openPublish === r.id}>
                       {openPublish === r.id
                         ? '발행 닫기'
                         : r.status === 'published'
@@ -1515,7 +1515,7 @@ function Lightbox({ issueId, rels, index, onIndex, onClose }: { issueId: string;
       className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-3 p-6" style={{ background: 'rgba(0,0,0,0.82)' }}>
       <div className="flex w-full max-w-[1100px] items-center justify-between font-mono text-[12px] text-white/80" onClick={(e) => e.stopPropagation()}>
         <span>{rel} · {index + 1}/{rels.length}</span>
-        <button type="button" onClick={onClose} className="rounded-[var(--r-full)] border border-white/30 px-3 py-1 font-display text-[12px] font-[700] text-white hover:bg-white/10">닫기 ✕</button>
+        <button type="button" onClick={onClose} className="min-h-[44px] rounded-[var(--r-full)] border border-white/30 px-3 py-1 font-display text-[12px] font-[700] text-white hover:bg-white/10">닫기 ✕</button>
       </div>
       <div className="flex max-h-[78vh] w-full max-w-[1100px] items-center justify-center gap-3" onClick={(e) => e.stopPropagation()}>
         <button type="button" onClick={() => onIndex(clamp(index - 1))} disabled={index <= 0} className="min-h-11 min-w-11 rounded-[var(--r-full)] border border-white/30 text-[18px] text-white disabled:opacity-30 hover:bg-white/10" aria-label="이전">‹</button>
@@ -1611,7 +1611,7 @@ function SelfDevTimeline({ active }: { active: boolean }) {
           const lm = OP_META[(c.lastAction as OpStep['action']) in OP_META ? (c.lastAction as OpStep['action']) : 'note']
           return (
             <li key={c.slug} className="rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)]">
-              <button type="button" onClick={() => setOpen(isOpen ? null : c.slug)} className="flex w-full items-center gap-2 px-3 py-2 text-left">
+              <button type="button" onClick={() => setOpen(isOpen ? null : c.slug)} className="min-h-[44px] flex w-full items-center gap-2 px-3 py-2 text-left">
                 <span className="min-w-0 flex-1 truncate font-body text-[12.5px] font-[600] text-[var(--t1)]">{c.content}</span>
                 {/* 단계 흐름 미니맵(한눈) — 각 스텝을 액션색 점으로 */}
                 <span className="hidden items-center gap-1 sm:flex">
@@ -1924,9 +1924,9 @@ function PublishPanel({ issueId, publishedYear, onMsg, onRefresh }: { issueId: s
 
       <div className="mt-2.5 flex flex-wrap items-center gap-2">
         {!check?.contentServable && (
-          <button type="button" disabled={busy || !check?.modernized} onClick={() => void upload()} title={check?.modernized ? '' : '먼저 현대화(작화보존)를 실행하세요'} className="min-h-[36px] rounded-[var(--r-md)] px-4 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>콘텐츠 업로드 (공개 버킷)</button>
+          <button type="button" disabled={busy || !check?.modernized} onClick={() => void upload()} title={check?.modernized ? '' : '먼저 현대화(작화보존)를 실행하세요'} className="min-h-[44px] rounded-[var(--r-md)] px-4 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: ACCENT }}>콘텐츠 업로드 (공개 버킷)</button>
         )}
-        <button type="button" disabled={busy || !canPublish} onClick={() => void publish()} className="min-h-[36px] rounded-[var(--r-md)] px-4 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: 'var(--success)' }}>발행</button>
+        <button type="button" disabled={busy || !canPublish} onClick={() => void publish()} className="min-h-[44px] rounded-[var(--r-md)] px-4 font-display text-[12px] font-[800] text-white disabled:opacity-50" style={{ background: 'var(--success)' }}>발행</button>
         {!canPublish && (
           <span className="font-body text-[11px] text-[var(--t2)]">
             {!gateOk ? 'PD 근거를 먼저 확정하세요.' : !check?.contentServable ? '현대화 페이지를 공개 버킷에 업로드하면 발행이 열립니다.' : ''}
@@ -2022,7 +2022,7 @@ function ToolsTab() {
           type="button"
           onClick={() => void check()}
           disabled={busy}
-          className="mt-3 min-h-[40px] rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-white disabled:opacity-50"
+          className="mt-3 min-h-[44px] rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-white disabled:opacity-50"
           style={{ background: ACCENT }}
         >
           {busy ? '점검 중…' : '환경 점검 실행'}
@@ -2039,7 +2039,7 @@ function ToolsTab() {
           type="button"
           onClick={() => void connectCheck()}
           disabled={connBusy}
-          className="mt-3 min-h-[40px] rounded-[var(--r-md)] border px-4 font-display text-[13px] font-[700] disabled:opacity-50"
+          className="mt-3 min-h-[44px] rounded-[var(--r-md)] border px-4 font-display text-[13px] font-[700] disabled:opacity-50"
           style={{ borderColor: ACCENT, color: ACCENT }}
         >
           {connBusy ? '점검 중…' : 'GPU 연결 점검 (connect-check)'}

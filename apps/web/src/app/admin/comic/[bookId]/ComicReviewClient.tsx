@@ -162,7 +162,7 @@ export function ComicReviewClient({
           {vLevel != null && (
             <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[11px] text-[var(--t2)]">V{vLevel}</span>
           )}
-          <Link href={`/admin/comic/${bookId}/drain`} className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-[700]" style={{ borderColor: `${ACCENT}55`, color: ACCENT }}>
+          <Link href={`/admin/comic/${bookId}/drain`} className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-[700]" style={{ borderColor: `${ACCENT}55`, color: ACCENT }}>
             <Cpu size={12} /> 드레인 관측 →
           </Link>
         </div>
@@ -491,7 +491,7 @@ function Btn({
       onClick={onClick}
       disabled={disabled}
       title={title}
-      className="inline-flex items-center gap-2 rounded-[var(--r-full)] border px-4 py-2 font-display text-[12px] font-[700] transition-all disabled:opacity-40"
+      className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-full)] border px-4 py-2 font-display text-[12px] font-[700] transition-all disabled:opacity-40"
       style={
         primary
           ? { backgroundColor: ACCENT, color: '#fff', borderColor: ACCENT }

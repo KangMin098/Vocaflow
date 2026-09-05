@@ -176,7 +176,7 @@ function CardFooter({
           onClick={onActivate}
           disabled={!onActivate}
           className={[
-            'flex-1 min-h-[36px] rounded-[var(--r-sm)]',
+            'flex-1 min-h-[44px] rounded-[var(--r-sm)]',
             'bg-[var(--p)] hover:bg-[var(--p-hover)]',
             'px-3 font-display text-[12px] font-[600] text-[var(--ti)]',
             'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
@@ -205,8 +205,8 @@ function CardFooter({
           href={catalog.catalog_url}
           target="_blank"
           rel="noreferrer"
-          className={[
-            'inline-flex h-9 w-9 items-center justify-center',
+          className={/* 탭 영역 44px — 시각 크기(h-9, 36px)와 다르다 */ [
+            'relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-9 w-9 items-center justify-center',
             'rounded-[var(--r-sm)] text-[var(--t2)]',
             'hover:bg-[var(--bg2)] hover:text-[var(--t1)]',
             'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',

@@ -90,7 +90,7 @@ export function StickyNav() {
                     if (el)
                       el.scrollIntoView({ behavior: 'smooth', block: 'start' })
                   }}
-                  className={`group inline-flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2 font-display text-[11px] font-[600] transition-all duration-[var(--dur-normal)] ${
+                  className={`min-h-[44px] group inline-flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2 font-display text-[11px] font-[600] transition-all duration-[var(--dur-normal)] ${
                     active
                       ? 'bg-[#8B5CF61A] text-[#8B5CF6] shadow-[var(--sh-sm)]'
                       : 'text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t2)]'

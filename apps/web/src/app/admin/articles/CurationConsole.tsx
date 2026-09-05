@@ -367,7 +367,7 @@ function ModeButton({
       aria-selected={active}
       onClick={onClick}
       className={[
-        'inline-flex min-h-[40px] items-center gap-2 rounded-[var(--r-sm)] px-3',
+        'inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-3',
         'font-display text-[12px] font-[600]',
         'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
@@ -409,7 +409,7 @@ function SourceTabs({
             aria-selected={active}
             onClick={() => onChange(key)}
             className={[
-              'inline-flex min-h-[40px] items-center gap-2 -mb-px border-b-2 px-3',
+              'inline-flex min-h-[44px] items-center gap-2 -mb-px border-b-2 px-3',
               'font-display text-[12px] font-[600]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',

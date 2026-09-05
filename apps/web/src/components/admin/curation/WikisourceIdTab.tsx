@@ -103,7 +103,7 @@ export function WikisourceIdTab({ onPickPreview }: WikisourceIdTabProps) {
             onKeyDown={handleKeyDown}
             placeholder="예: Pride_and_Prejudice 또는 The_Adventures_of_Sherlock_Holmes"
             className={[
-              'min-h-[40px] flex-1 min-w-[240px] rounded-[var(--r-sm)]',
+              'min-h-[44px] flex-1 min-w-[240px] rounded-[var(--r-sm)]',
               'border border-[var(--bd)] bg-[var(--bg)]',
               'px-3 font-mono text-[13px] text-[var(--t1)]',
               'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
@@ -120,7 +120,7 @@ export function WikisourceIdTab({ onPickPreview }: WikisourceIdTabProps) {
             onClick={handleFetch}
             disabled={isLoading || !titleInput.trim()}
             className={[
-              'min-h-[40px] inline-flex items-center justify-center gap-2',
+              'min-h-[44px] inline-flex items-center justify-center gap-2',
               'rounded-[var(--r-sm)] px-4',
               'bg-[var(--p)] hover:bg-[var(--p-hover)]',
               'font-display text-[12px] font-[600] text-[var(--ti)]',
@@ -197,7 +197,7 @@ function PreviewCard({
             href={preview.source_url}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="min-h-[44px] inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
             aria-label="Wikisource 페이지 새 탭에서 열기"
           >
             {preview.source_id}
@@ -229,7 +229,7 @@ function PreviewCard({
           type="button"
           onClick={onPick}
           disabled={isPickPending}
-          className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           ➕ 큐에 추가
         </button>

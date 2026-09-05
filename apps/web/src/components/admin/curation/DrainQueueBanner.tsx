@@ -154,7 +154,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
             disabled={loading}
             title="새로고침"
             aria-label="드레인 큐 새로고침"
-            className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+            className={/* 탭 영역 44px — 시각 크기(h-7, 28px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"}
           >
             {loading ? (
               <Loader2 size={13} className="animate-spin" aria-hidden />
@@ -167,7 +167,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
               type="button"
               onClick={() => setDismissed(true)}
               aria-label="닫기"
-              className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              className={/* 탭 영역 44px — 시각 크기(h-7, 28px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"}
             >
               <X size={13} aria-hidden />
             </button>

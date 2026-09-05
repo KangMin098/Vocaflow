@@ -147,7 +147,7 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
             id="voa-feed-select"
             value={feedId}
             onChange={(e) => setFeedId(e.target.value)}
-            className="min-h-[36px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 pr-7 font-display text-[12px] font-[600] text-[var(--t1)] hover:border-[var(--t3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="min-h-[44px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 pr-7 font-display text-[12px] font-[600] text-[var(--t1)] hover:border-[var(--t3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             {FEEDS.map((f) => (
               <option key={f.id} value={f.id}>
@@ -180,13 +180,13 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
               }
             }}
             placeholder="https://learningenglish.voanews.com/a/.../<id>.html"
-            className="min-h-[36px] flex-1 min-w-[260px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-mono text-[12px] text-[var(--t1)] placeholder:text-[var(--t5)] hover:border-[var(--t3)] focus-visible:border-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="min-h-[44px] flex-1 min-w-[260px] rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-mono text-[12px] text-[var(--t1)] placeholder:text-[var(--t5)] hover:border-[var(--t3)] focus-visible:border-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           />
           <button
             type="button"
             onClick={handleUrlEnqueue}
             disabled={urlEnqueuing || !urlInput.trim()}
-            className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {urlEnqueuing ? (
               <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -249,7 +249,7 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
                       href={item.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex min-h-[32px] items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[10px] text-[var(--t2)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                      className="inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[10px] text-[var(--t2)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                       aria-label="원본 새 탭에서 열기"
                     >
                       원본
@@ -264,7 +264,7 @@ export function VoaFeedTab({ onEnqueued }: VoaFeedTabProps) {
                         type="button"
                         onClick={() => handleEnqueue(item)}
                         disabled={isEnqueuing}
-                        className="inline-flex min-h-[32px] items-center gap-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         {isEnqueuing ? (
                           <Loader2 size={12} className="animate-spin" aria-hidden />

@@ -118,7 +118,7 @@ export function VcbStepTriggerCard({
         {isHref ? (
           <Link
             href={primaryAction.href}
-            className="inline-flex items-center px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
+            className="min-h-[44px] inline-flex items-center px-4 py-2 rounded-[var(--r-md)] font-display text-sm font-medium text-white"
             style={{ background: 'var(--admin-strong)' }}
           >
             {primaryAction.label}
@@ -138,7 +138,7 @@ export function VcbStepTriggerCard({
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
+              className="min-h-[44px] inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-md)] text-xs font-display border"
               style={{
                 color: 'var(--t2)',
                 borderColor: 'var(--bd)',

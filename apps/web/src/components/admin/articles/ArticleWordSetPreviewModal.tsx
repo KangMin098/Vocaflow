@@ -91,7 +91,7 @@ export function ArticleWordSetPreviewModal({ open, onClose, title, cefrLevel, wo
             type="button"
             onClick={onClose}
             aria-label="닫기"
-            className="shrink-0 rounded-[var(--r-sm)] p-1 text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
+            className="min-h-[44px] shrink-0 rounded-[var(--r-sm)] p-1 text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
           >
             <X size={18} aria-hidden />
           </button>
@@ -142,7 +142,7 @@ export function ArticleWordSetPreviewModal({ open, onClose, title, cefrLevel, wo
                     type="button"
                     onClick={() => speak(w.word)}
                     aria-label={`${w.word} 발음 듣기`}
-                    className="mt-0.5 shrink-0 rounded-full p-2 text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)]"
+                    className="min-h-[44px] mt-0.5 shrink-0 rounded-full p-2 text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)]"
                   >
                     <Volume2 size={14} aria-hidden />
                   </button>

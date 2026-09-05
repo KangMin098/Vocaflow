@@ -48,7 +48,7 @@ export default async function VcbCuratePage({ params }: PageProps) {
       <header className="flex items-center gap-4 mb-6">
         <Link
           href={`/admin/vocab/runs/${runId}`}
-          className="inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
+          className="min-h-[44px] inline-flex items-center gap-2 px-3 py-2 rounded-[var(--r-md)] font-display text-sm border"
           style={{
             color: 'var(--t2)',
             borderColor: 'var(--bd)',

@@ -156,7 +156,7 @@ export function LibriVoxAudioPanel({
                 type="button"
                 onClick={disconnect}
                 disabled={busy != null}
-                className="inline-flex shrink-0 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--learn-error)] disabled:opacity-50"
+                className="min-h-[44px] inline-flex shrink-0 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--learn-error)] disabled:opacity-50"
               >
                 {busy === 'clear' ? (
                   <Loader2 size={12} className="animate-spin" aria-hidden />
@@ -173,7 +173,7 @@ export function LibriVoxAudioPanel({
                   type="button"
                   onClick={() => setShowList((v) => !v)}
                   aria-expanded={showList}
-                  className="flex w-full items-center gap-2 px-3 py-2 text-left font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:text-[var(--t1)]"
+                  className="min-h-[44px] flex w-full items-center gap-2 px-3 py-2 text-left font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:text-[var(--t1)]"
                 >
                   {showList ? <ChevronDown size={13} aria-hidden /> : <ChevronRight size={13} aria-hidden />}
                   도서 챕터 ↔ 보이스 챕터 매핑 보기 ({chapters.length})
@@ -187,7 +187,7 @@ export function LibriVoxAudioPanel({
                           onClick={() => togglePlay(ch)}
                           disabled={!ch.url}
                           aria-label={`${ch.idx}장 미리듣기`}
-                          className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--learn-review-light)] text-[var(--learn-review)] transition-colors hover:bg-[var(--learn-review)] hover:text-white disabled:opacity-40"
+                          className={/* 탭 영역 44px — 시각 크기(h-6, 24px)와 다르다 */ "relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--learn-review-light)] text-[var(--learn-review)] transition-colors hover:bg-[var(--learn-review)] hover:text-white disabled:opacity-40"}
                         >
                           {playingIdx === ch.idx ? <Pause size={11} aria-hidden /> : <Play size={11} className="ml-0.5" aria-hidden />}
                         </button>
@@ -217,7 +217,7 @@ export function LibriVoxAudioPanel({
               type="button"
               onClick={connect}
               disabled={busy != null}
-              className="inline-flex shrink-0 items-center gap-2 rounded-[var(--r-md)] px-4 py-2 font-display text-[12px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.02] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
+              className="min-h-[44px] inline-flex shrink-0 items-center gap-2 rounded-[var(--r-md)] px-4 py-2 font-display text-[12px] font-[700] text-white shadow-[var(--sh-sm)] transition-all hover:scale-[1.02] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50"
               style={{ background: 'var(--learn-review)' }}
             >
               {busy === 'build' ? (

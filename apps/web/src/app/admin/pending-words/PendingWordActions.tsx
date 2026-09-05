@@ -103,7 +103,7 @@ export function PendingWordActions({ id, currentStatus }: PendingWordActionsProp
             disabled={pending || isCurrent}
             title={a.title}
             aria-label={a.title}
-            className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700] transition-all duration-[var(--dur-fast)] hover:scale-105 disabled:cursor-not-allowed disabled:opacity-30"
+            className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700] transition-all duration-[var(--dur-fast)] hover:scale-105 disabled:cursor-not-allowed disabled:opacity-30"
             style={{ backgroundColor: a.bg, color: a.color }}
           >
             <a.Icon size={9} aria-hidden />

@@ -62,7 +62,7 @@ export function VcbCurationFilterBar({
               key={opt.value}
               type="button"
               onClick={() => onFilterChange(opt.value)}
-              className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-semibold transition-colors"
+              className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-semibold transition-colors"
               style={{
                 borderColor: active ? 'var(--admin-strong)' : 'var(--bd)',
                 background: active ? 'rgba(139, 92, 246, 0.10)' : 'var(--bg)',
@@ -96,7 +96,7 @@ export function VcbCurationFilterBar({
           id="vcb-curation-sort"
           value={sort}
           onChange={(e) => onSortChange(e.target.value as CurationSort)}
-          className="flex-1 px-2 py-1 rounded-[var(--r-sm)] border font-display text-xs"
+          className="min-h-[44px] flex-1 px-2 py-1 rounded-[var(--r-sm)] border font-display text-xs"
           style={{
             background: 'var(--bg)',
             borderColor: 'var(--bd)',

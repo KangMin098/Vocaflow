@@ -86,7 +86,7 @@ export function GetGuidePanel({ coverage, feedHealth, level, onLevel, onPickSour
                   aria-checked={active}
                   onClick={() => onLevel(lv.key)}
                   className={[
-                    'inline-flex min-h-[36px] items-center rounded-[var(--r-full)] px-3 font-display text-[11px] font-[600]',
+                    'inline-flex min-h-[44px] items-center rounded-[var(--r-full)] px-3 font-display text-[11px] font-[600]',
                     'transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
                     active
                       ? 'bg-[var(--p)] text-[var(--ti)]'
@@ -164,7 +164,7 @@ function RecCard({
       <button
         type="button"
         onClick={() => onPick(rec.source)}
-        className="ml-auto inline-flex min-h-[36px] items-center gap-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        className="ml-auto inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-sm)] bg-[var(--p)] px-3 font-display text-[11px] font-[600] text-[var(--on-p)] transition-colors hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
       >
         이 소스 GET
         <ArrowRight size={12} aria-hidden />
