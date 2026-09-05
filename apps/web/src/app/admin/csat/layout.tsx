@@ -19,12 +19,17 @@ import Link from 'next/link'
 export default function AdminCsatLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-4 p-4 sm:p-6">
-      <Link
-        href="/admin/csat"
-        className="w-fit font-display text-[22px] font-[800] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
-      >
-        교재 공장
-      </Link>
+      {/* `<h1>` 로 감싼다 — 이 자리가 `<Link>` 뿐이라 공정 화면 7개는 **h1 이 아예 없었고**
+          첫 제목이 h2 였다. 스크린리더로 들어오면 "이 페이지가 무엇인지" 를 말하는 줄이
+          하나도 없이 본문 소제목부터 읽힌다. 각 공정 화면의 제목은 h2 로 그대로 둔다. */}
+      <h1 className="w-fit">
+        <Link
+          href="/admin/csat"
+          className="font-display text-[22px] font-[800] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+        >
+          교재 공장
+        </Link>
+      </h1>
       {children}
     </div>
   )

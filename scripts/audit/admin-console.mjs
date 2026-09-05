@@ -225,7 +225,12 @@ const helpScreens = new Set(helpEntries.keys())
 
 // ── 목업 탐지 ────────────────────────────────────────────────────────────────
 // "숫자 리터럴이 UI 로 흘러가는가" 를 본다. 상수 배열에 value/count/label 이 함께 있으면 후보.
-const MOCK_HINT = /(?:value|count|total|delta|dau|mau|revenue)\s*:\s*['"]?[0-9][0-9,.%]*['"]?/i
+// ⚠️ 처음엔 `[0-9]` 로 시작하는 값을 전부 잡았는데, 그러면 **0 이 걸린다** — 빈 상태
+//    초기화(`updatedCount: 0`)와 누산기 시드(`total: 0, published: 0`)와 null 기본값이
+//    전부 "가짜 수치" 로 찍혔다(실측: 오탐 4건 / 진짜 0건). 하드코딩된 0 은 거짓말이 아니다.
+//    거짓말은 `value: '348'` 처럼 **재지 않고 적은 0 아닌 수**다. 그래서 1~9 로 시작하는
+//    값만 본다. 목업 화면들의 수치(348 · 1,247 · ₩1.84M · 64%)는 전부 여기 걸린다.
+const MOCK_HINT = /(?:value|count|total|delta|dau|mau|revenue)\s*:\s*['"]?[1-9][0-9,.%]*['"]?/i
 function looksMock(files) {
   const hits = []
   for (const f of files) {
@@ -371,7 +376,9 @@ for (const p of adminPages) {
     file: rel(p.file),
     depth,
     redirectOnly,
-    header: redirectOnly || /AdminPageHeader|<h1[ >]/.test(blob),
+    // `<h1` 뒤에는 공백·줄바꿈·`>` 가 온다. `[ >]` 로만 보다가 줄바꿈이 따라오는 멀쩡한
+    // `<h1\n  className=...>` 를 "제목 없음" 으로 찍었다 — 자가 틀린 세 번째 자리다.
+    header: redirectOnly || /AdminPageHeader|<h1[\s>]/.test(blob),
     help:
       redirectOnly ||
       (screenKeys.length > 0 && missingKeys.length === 0 && tabMisses.length === 0),
