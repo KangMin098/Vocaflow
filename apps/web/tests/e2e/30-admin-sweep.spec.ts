@@ -104,8 +104,23 @@ test.describe('관리자 전수 훑기', () => {
     //    렌더하느라 **26분이 걸려 테스트가 타임아웃**했다(1,302초 초과).
     //    컴파일을 유발하는 것은 서버 요청이지 클라이언트 렌더가 아니므로,
     //    요청만 보내면 목적(컴파일 선행)은 같고 비용은 훨씬 싸다.
+    // ⚠️ 예열은 **확인해야 예열이다** (2026-09-05).
+    //    예전에는 `.catch(() => {})` 로 결과를 통째로 버려서, 예열 요청 자체가 404 로
+    //    떨어져도(= 아직 컴파일 안 됨) 그대로 본 측정으로 넘어갔다. 그래서 스윕이
+    //    돌 때마다 **다른 3~5개 화면**이 `404 GET <자기 자신>` 과
+    //    `Failed to fetch RSC payload …` 로 찍혔다 — 실패 집합이 매번 바뀌는 것이
+    //    이것이 화면 결함이 아니라 컴파일 타이밍이라는 증거다.
+    //
+    //    지금은 200 이 아닌 라우트만 모아 한 번 더 두드린다. 그래도 200 이 아니면
+    //    **가리지 않는다** — 본 측정이 그 화면을 정상적으로 재고, 진짜 404 는 잡힌다.
+    const notWarm: string[] = [];
     for (const route of ROUTES) {
-      await page.request.get(route, { timeout: 60_000 }).catch(() => {});
+      const r = await page.request.get(route, { timeout: 60_000 }).catch(() => null);
+      if (!r || !r.ok()) notWarm.push(route);
+    }
+    for (const route of notWarm) {
+      await page.waitForTimeout(300);
+      await page.request.get(route, { timeout: 60_000 }).catch(() => null);
     }
 
     // ── ⑤ 요청 ─────────────────────────────────────────────────────────

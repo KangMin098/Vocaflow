@@ -349,9 +349,19 @@ export function ComposeConsoleClient({
   )
 }
 
-/** 액션 실행 + 결과 메시지 — 조용히 실패하지 않게 한 곳에서 처리한다. */
+/**
+ * 액션 실행 + 결과 메시지 — 조용히 실패하지 않게 한 곳에서 처리한다.
+ *
+ * 두 번째 인자로 확인 문구를 주면 **묻고 나서** 실행한다. 이 화면에는 되돌릴 수 없는 동작이
+ * 넷 있는데(취재원 삭제 · 발주 삭제 · 사실카드 삭제 · **발행**) 확인 절차가 하나도 없었다.
+ * 특히 발행은 도움말이 "되돌릴 수 없다" 고 명시해 둔 동작인데 `title` 툴팁뿐이었다 —
+ * 툴팁은 마우스를 올린 사람만 보고, 키보드·터치로 누르는 사람은 아예 못 본다.
+ *
+ * 문구는 **무엇이 바뀌고 되돌릴 수 있는지**를 적는다. "정말입니까?" 는 아무것도 말하지
+ * 않아서 사람이 읽지 않고 누르게 만든다.
+ */
 function useAction(): {
-  run: (fn: () => Promise<ActionResult>) => void
+  run: (fn: () => Promise<ActionResult>, confirmText?: string) => void
   pending: boolean
   error: string | null
   clear: () => void
@@ -362,7 +372,8 @@ function useAction(): {
     pending,
     error,
     clear: () => setError(null),
-    run: (fn) =>
+    run: (fn, confirmText) => {
+      if (confirmText && typeof window !== 'undefined' && !window.confirm(confirmText)) return
       start(async () => {
         setError(null)
         try {
@@ -376,7 +387,8 @@ function useAction(): {
             `요청이 실패했습니다 — ${e instanceof Error ? e.message : String(e)}. 잠시 뒤 다시 시도하고, 반복되면 서버 로그를 확인하세요.`,
           )
         }
-      }),
+      })
+    },
   }
 }
 
@@ -648,7 +660,12 @@ function FeedPanel({ feeds, options }: { feeds: FeedRow[]; options: FeedSourceOp
                       type="button"
                       className={BTN_GHOST}
                       disabled={act.pending}
-                      onClick={() => act.run(() => deleteFeed(f.id))}
+                      onClick={() =>
+                        act.run(
+                          () => deleteFeed(f.id),
+                          `취재원을 등록 목록에서 지웁니다.\n\n${f.url}\n\n이미 받아 둔 사실카드와 발주는 남습니다. 같은 주소를 다시 등록하면 복구됩니다.`,
+                        )
+                      }
                     >
                       삭제
                     </button>
@@ -847,7 +864,12 @@ function JobPanel({
                         type="button"
                         className={BTN_GHOST}
                         disabled={act.pending}
-                        onClick={() => act.run(() => deleteComposeJob(j.id))}
+                        onClick={() =>
+                          act.run(
+                            () => deleteComposeJob(j.id),
+                            '대기 중인 발주를 지웁니다.\n\n아직 아무도 집어가지 않은 발주만 지워집니다. 되돌리려면 같은 조건으로 다시 발주해야 합니다.',
+                          )
+                        }
                       >
                         취소
                       </button>
@@ -1399,7 +1421,12 @@ function LedgerPanel({
                     type="button"
                     className={BTN_GHOST}
                     disabled={act.pending}
-                    onClick={() => act.run(() => deleteFactCard(f.id))}
+                    onClick={() =>
+                      act.run(
+                        () => deleteFactCard(f.id),
+                        '사실카드를 지웁니다.\n\n이 카드를 근거로 쓰던 글이 있으면 그 근거가 사라집니다. 원문에서 다시 뽑으려면 취재를 새로 돌려야 합니다.',
+                      )
+                    }
                   >
                     삭제
                   </button>
@@ -1680,7 +1707,12 @@ function PublishPanel({
                     type="button"
                     className={BTN}
                     disabled={act.pending || blocked}
-                    onClick={() => act.run(() => publishComposedArticle(a.id))}
+                    onClick={() =>
+                      act.run(
+                        () => publishComposedArticle(a.id),
+                        `학습자에게 공개합니다 — 되돌릴 수 없습니다.\n\n${a.title}\n\n공개 뒤에는 이 화면에서 내릴 수 없고 카탈로그에 바로 보입니다. 본문과 게이트를 확인했나요?`,
+                      )
+                    }
                     title={blocked ? '게이트를 통과해야 발행할 수 있습니다' : '되돌릴 수 없습니다'}
                   >
                     발행
