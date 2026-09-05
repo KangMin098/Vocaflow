@@ -21,6 +21,7 @@
 // - 매 요청 user.id/email 을 서버 콘솔에 찍던 로그 제거 (PII 유출 + 로그 노이즈).
 
 import { redirect } from 'next/navigation'
+import { cache } from 'react'
 
 import { canAccessAdminConsole, isUsableAccount } from '@/lib/auth/account'
 import { devAdminBypass } from '@/lib/auth/dev-bypass'
@@ -44,46 +45,61 @@ export type { AdminRole, AdminUser }
  * @throws redirect() 호출 시 Next.js가 NEXT_REDIRECT 에러를 throw — 정상 동작.
  *         try/catch로 잡지 말 것.
  */
+/**
+ * 요청 1회당 한 번만 도는 신원 조회.
+ *
+ * **왜 `cache()` 인가**: admin 화면 한 장은 layout·page·데이터 로더가 각각 가드를 부른다.
+ * 예를 들어 `/admin/vocab/curate/[run_id]` 는 layout + beginCuration + fetchRunDetail +
+ * fetchQueueItems + fetchQueueDetail 로 **5번** 부르고, 매번 `auth.getUser()`(Auth 서버 왕복)
+ * 와 `user_profiles` SELECT 가 따라붙어 **왕복 10회**가 됐다. 가드를 줄이면 방어가 얇아지므로
+ * 호출을 줄이는 대신 **결과를 요청 단위로 재사용**한다. React `cache()` 는 요청마다 비므로
+ * 사용자 간 신원이 섞이지 않는다.
+ */
+const loadIdentity = cache(
+  async (): Promise<
+    | { ok: true; user: AdminUser }
+    | { ok: false; reason: 'anonymous' | 'no-profile' | 'blocked' | 'role' }
+  > => {
+    const client = await createClient()
+
+    const {
+      data: { user },
+      error: userError,
+    } = await client.auth.getUser()
+
+    if (userError || !user) return { ok: false, reason: 'anonymous' }
+
+    const { data: profile, error: profileError } = await client
+      .from('user_profiles')
+      .select('role, status')
+      .eq('user_id', user.id)
+      .maybeSingle()
+
+    if (profileError || !profile) return { ok: false, reason: 'no-profile' }
+
+    const { role, status } = profile as { role: string | null; status: string | null }
+
+    if (!isUsableAccount(status)) return { ok: false, reason: 'blocked' }
+    if (!canAccessAdminConsole(role)) return { ok: false, reason: 'role' }
+
+    return {
+      ok: true,
+      user: { id: user.id, email: user.email ?? null, role: role as AdminRole },
+    }
+  },
+)
+
 export async function requireAdmin(redirectTo: string = '/admin'): Promise<AdminUser> {
   // 개발 전용 우회 (DEV_ADMIN_BYPASS=1, 프로덕션 무효)
   const bypass = devAdminBypass()
   if (bypass) return bypass
 
-  const client = await createClient()
+  const result = await loadIdentity()
+  if (result.ok) return result.user
 
-  const {
-    data: { user },
-    error: userError,
-  } = await client.auth.getUser()
-
-  if (userError || !user) {
-    redirect(loginUrlWithReturn(redirectTo))
-  }
-
-  const { data: profile, error: profileError } = await client
-    .from('user_profiles')
-    .select('role, status')
-    .eq('user_id', user.id)
-    .maybeSingle()
-
-  if (profileError || !profile) {
-    redirect('/')
-  }
-
-  const { role, status } = profile as { role: string | null; status: string | null }
-
-  if (!isUsableAccount(status)) {
-    redirect('/login?error=suspended')
-  }
-  if (!canAccessAdminConsole(role)) {
-    redirect('/')
-  }
-
-  return {
-    id: user.id,
-    email: user.email ?? null,
-    role: role as AdminRole,
-  }
+  if (result.reason === 'anonymous') redirect(loginUrlWithReturn(redirectTo))
+  if (result.reason === 'blocked') redirect('/login?error=suspended')
+  redirect('/')
 }
 
 /**
@@ -99,30 +115,6 @@ export async function getAdminUser(): Promise<AdminUser | null> {
   const bypass = devAdminBypass()
   if (bypass) return bypass
 
-  const client = await createClient()
-
-  const {
-    data: { user },
-    error: userError,
-  } = await client.auth.getUser()
-
-  if (userError || !user) return null
-
-  const { data: profile, error: profileError } = await client
-    .from('user_profiles')
-    .select('role, status')
-    .eq('user_id', user.id)
-    .maybeSingle()
-
-  if (profileError || !profile) return null
-
-  const { role, status } = profile as { role: string | null; status: string | null }
-  if (!isUsableAccount(status)) return null
-  if (!canAccessAdminConsole(role)) return null
-
-  return {
-    id: user.id,
-    email: user.email ?? null,
-    role: role as AdminRole,
-  }
+  const result = await loadIdentity()
+  return result.ok ? result.user : null
 }
