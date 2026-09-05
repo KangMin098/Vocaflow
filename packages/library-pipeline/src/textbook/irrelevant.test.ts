@@ -127,6 +127,35 @@ describe('흐름 무관 문항', () => {
     expect(buildIrrelevant(weak, candidates, 'self')).toBeNull()
   })
 
+  // ── 창을 옮긴다 (실측 2026-09-06) ─────────────────────────────────
+  // V2 재고가 문단 693개에 문항 4개였다. 탈락의 73%가 "본문 결속 약함" 한 자리였고,
+  // 앞 다섯 문장만 보던 것이 원인이었다. 창을 옮기니 4 → 17 문단이 됐다.
+  describe('문단 안에서 창을 옮긴다', () => {
+    // 맨 앞에 아무것도 안 받는 문장이 하나 붙어 있다. 앞 다섯 문장으로는 문항이 서지 않고,
+    // 한 칸 민 창(문장 1~5 = 결속이 뚜렷한 문단 그대로)에서는 선다.
+    const late = [...long(['Kettles whistled somewhere inside an empty kitchen.']), ...paragraph]
+
+    it('앞 다섯 문장이 안 되면 뒤 창으로 만든다', () => {
+      // 앞 창만으로는 결속이 모자란다는 것을 먼저 확인한다 — 창이 없으면 null 이어야 한다.
+      const head = late.slice(0, IRRELEVANT_SLOTS)
+      expect(buildIrrelevant(head, candidates, 'self')).toBeNull()
+
+      const item = buildIrrelevant(late, candidates, 'self')
+      expect(item).not.toBeNull()
+      expect(item!.sentences).toHaveLength(IRRELEVANT_SLOTS)
+      expect(item!.sentences[item!.answer - 1]).toBe(item!.foreign.text)
+      // 쓰인 창은 뒤쪽이다 — 도입문이 문단 첫 문장이 아니다.
+      expect(item!.intro).toBe(late[1])
+    })
+
+    it('앞 다섯 문장으로 되면 그것을 쓴다 — 이미 만든 문항이 바뀌지 않는다', () => {
+      const withTail = [...paragraph, ...late.slice(0, 2)]
+      expect(buildIrrelevant(withTail, candidates, 'self')).toEqual(
+        buildIrrelevant(paragraph, candidates, 'self'),
+      )
+    })
+  })
+
   it('결속도는 내용어 공유 개수다', () => {
     expect(cohesionWith('The harbour walls fell.', 'They rebuilt the harbour walls.')).toBeGreaterThan(0)
     expect(cohesionWith('Kettles whistled.', 'They rebuilt the harbour walls.')).toBe(0)

@@ -120,7 +120,19 @@ function words(s: string): number {
 /**
  * 흐름 무관 문항을 만든다. 조건을 못 맞추면 **null** — 억지로 만들지 않는다.
  *
- * @param paragraph 원문 문단의 문장들. 앞에서 다섯 개만 쓴다.
+ * **문단 안에서 연속 다섯 문장 창을 앞에서부터 옮겨 가며 시도한다.**
+ * 앞 다섯 문장으로 되면 그것을 쓰므로 이미 만들어 둔 문항은 바뀌지 않는다.
+ *
+ * ── 왜 창을 옮기는가 (실측 2026-09-06 · V2) ─────────────────────────
+ * 앞 다섯 문장만 보던 때 V2 재고가 **문단 693개에 문항 4개**였다. 게이트별로 세 보니
+ * 탈락의 73%(508문단)가 한 자리였다 — **본문 결속 약함**(`minNative < 2`). 후보가
+ * 없어서가 아니었다("맞는 후보 없음" 0). 초등 밴드의 글은 짧고 낱말이 흔해서
+ * 앞 다섯 문장이 주제어를 공유하지 못하는 일이 잦은데, **같은 문단 뒤쪽 다섯 문장은
+ * 공유하는 경우가 있다.** 창을 옮기니 만들 수 있는 문단이 4 → **17** 이 됐다.
+ *
+ * 게이트를 낮춰서 늘린 것이 아니다 — 게이트는 그대로 두고 **보는 자리를 넓혔다.**
+ *
+ * @param paragraph 원문 문단의 문장들. 그 안의 연속 다섯 문장을 쓴다.
  * @param candidates 다른 글의 문장 후보. `ref` 가 같은 글이면 자동으로 걸러진다.
  * @param selfRef 이 문단이 속한 글 — 후보에서 자기 글을 빼기 위해 받는다.
  */
@@ -131,7 +143,25 @@ export function buildIrrelevant(
   rarity: Rarity = FLAT_RARITY,
 ): IrrelevantItem | null {
   if (paragraph.length < IRRELEVANT_SOURCE_SENTENCES) return null
-  const used = paragraph.slice(0, IRRELEVANT_SOURCE_SENTENCES)
+  for (let start = 0; start + IRRELEVANT_SOURCE_SENTENCES <= paragraph.length; start++) {
+    const item = buildFromWindow(
+      paragraph.slice(start, start + IRRELEVANT_SOURCE_SENTENCES),
+      candidates,
+      selfRef,
+      rarity,
+    )
+    if (item) return item
+  }
+  return null
+}
+
+/** 정확히 다섯 문장으로 한 문항을 만든다. `buildIrrelevant` 가 창마다 부른다. */
+function buildFromWindow(
+  used: ReadonlyArray<string>,
+  candidates: ReadonlyArray<ForeignSentence>,
+  selfRef: string,
+  rarity: Rarity,
+): IrrelevantItem | null {
   if (!isPrintablePassage(used.join(' '))) return null
 
   const intro = used[0]!
