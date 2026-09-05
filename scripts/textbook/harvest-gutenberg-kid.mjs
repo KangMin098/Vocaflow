@@ -166,11 +166,54 @@ function stripBoilerplate(t) {
  *   3~8문단이라 이웃 창이 문단을 나눠 가졌다. 그렇게 세면 수율이 부풀고, 그대로 적재하면
  *   **같은 문단이 두 지문에 실린다.** 그래서 조각을 만들면 그 끝 다음에서 다시 시작한다.
  */
+/**
+ * 장 머리(`CHAPTER I` · `IV.` · `THE LOST KEY`)인가.
+ *
+ * 짧고, 문장 부호로 끝나지 않으며, 대문자·로마숫자가 두드러진다. 본문 문단은 이 셋을
+ * 동시에 만족하지 않는다.
+ */
+function looksLikeHeading(p) {
+  const t = p.trim()
+  if (!t || t.length > 70) return false
+  if (/[.!?][")\]]?$/.test(t) && !/^(?:CHAPTER|BOOK|PART|SECTION)\b/i.test(t)) return false
+  if (/^(?:CHAPTER|BOOK|PART|SECTION)\b/i.test(t)) return true
+  if (/^[IVXLC]+\.?$/.test(t)) return true
+  const letters = t.replace(/[^A-Za-z]/g, '')
+  if (letters.length >= 3 && letters === letters.toUpperCase()) return true
+  return false
+}
+
 function disjointChunks(body) {
-  const paras = body
+  const raw = body
     .split(/\n\s*\n/)
     .map((x) => x.replace(/\s+/g, ' ').trim())
-    .filter((x) => x.length > 80 && /[.!?]/.test(x))
+    .filter(Boolean)
+
+  // **장 경계를 기억한 채로** 본문 문단만 남긴다.
+  //
+  // ── 왜 (실측 2026-09-05) ──────────────────────────────────────────
+  // 네 축을 통과한 발췌를 손으로 읽으면 **12편 중 2~3편**만 쓸 만하다. 나머지는 장면
+  // 한가운데서 시작한다 — `Glen knew that.` · `…past them shot a huge black mass`.
+  // 그것을 **사후에 규칙으로 잡으려다 실패했다**(시중 오탐이 3%→13/19%로 뛰었다).
+  //
+  // 그러면 뽑는 자리를 바꾸는 수밖에 없다. **장이 시작하는 자리의 글은 스스로 선다** —
+  // 작가가 거기서 상황을 새로 세우기 때문이다. 그래서 장 머리 바로 뒤 문단을 표시해
+  // 두고, 조각을 고를 때 그 자리를 **먼저** 쓴다.
+  const paras = []
+  const opensChapter = []
+  let afterHeading = false
+  for (const p of raw) {
+    if (looksLikeHeading(p)) {
+      afterHeading = true
+      continue
+    }
+    if (p.length > 80 && /[.!?]/.test(p)) {
+      paras.push(p)
+      opensChapter.push(afterHeading)
+      afterHeading = false
+    }
+  }
+
   const out = []
   let i = 0
   while (i < paras.length) {
@@ -188,7 +231,7 @@ function disjointChunks(body) {
       i++
       continue
     }
-    out.push(acc)
+    out.push({ text: acc, opensChapter: opensChapter[i] === true })
     i = end + 1
   }
   return out
@@ -315,15 +358,15 @@ for (const b of picked) {
   const author = ((raw.match(/^Author:\s*(.+)$/m) ?? [])[1] ?? '').trim() || null
 
   const all = disjointChunks(cleanBookText(stripBoilerplate(raw)))
-  const kept = all.filter((c) => !looksLikeBookMatter(c))
+  const kept = all.filter((c) => !looksLikeBookMatter(c.text))
 
   // 먼저 **전부** 판정한다. 그 다음 책 전체에서 고르게 뽑는다 —
   // 앞에서부터 40편을 자르면 한 책의 **첫 챕터만** 담기고, 뒤로 갈수록 문장이 길어지는
   // 책의 성격상 칸도 한쪽으로 쏠린다(실측: `The Rover Boys` 는 앞이 초3~4, 뒤가 중3).
   const passing = []
-  for (const text of kept) {
-    const g = gate(text)
-    if (g) passing.push({ text, g })
+  for (const c of kept) {
+    const g = gate(c.text)
+    if (g) passing.push({ text: c.text, opensChapter: c.opensChapter, g })
   }
   /**
    * **몫이 적게 찬 칸부터 담는다** — 책 순서대로 담으면 상위 칸이 독식한다.
@@ -348,12 +391,16 @@ for (const b of picked) {
     if (!byBandPass.has(p.g.band)) byBandPass.set(p.g.band, [])
     byBandPass.get(p.g.band).push(p)
   }
-  // 각 칸 안에서는 책 전체에 고르게 — 앞에서부터 자르면 첫 챕터만 담긴다.
-  for (const [, list] of byBandPass) {
-    const stride = Math.max(1, Math.floor(list.length / PER_BOOK))
-    const thin = []
-    for (let i = 0; i < list.length; i += stride) thin.push(list[i])
-    byBandPass.set(list[0].g.band, thin)
+  // 각 칸 안에서 **장 머리로 시작하는 조각을 먼저** 쓴다 — 그 자리의 글은 스스로 선다.
+  //   장 머리 조각이 모자라면 나머지로 채우되, 책 전체에 고르게 훑는다
+  //   (앞에서부터 자르면 첫 챕터만 담긴다).
+  for (const [band, list] of byBandPass) {
+    const heads = list.filter((x) => x.opensChapter)
+    const rest = list.filter((x) => !x.opensChapter)
+    const stride = Math.max(1, Math.floor(rest.length / Math.max(1, PER_BOOK - heads.length)))
+    const thin = [...heads]
+    for (let i = 0; i < rest.length && thin.length < PER_BOOK * 2; i += stride) thin.push(rest[i])
+    byBandPass.set(band, thin)
   }
   const spread = []
   for (let round = 0; spread.length < PER_BOOK; round++) {
