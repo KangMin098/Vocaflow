@@ -217,13 +217,29 @@ export function boundaryLeak(rows, col) {
   return n > 1 ? n : 0
 }
 
+/**
+ * 두 열짜리 복합 커서의 PostgREST 조건 — `a > A OR (a = A AND b > B)`.
+ *
+ * ⚠️ **왜 한 열로는 안 되는가 (실측 2026-09-06, 두 번 데였다).**
+ *   · `ref_id` 하나로 넘기면 고유하지 않아 페이지 경계에서 행이 샌다(11,559 중 117행).
+ *   · 그래서 `id`(pk) 하나로 바꿨더니 **인덱스를 못 탄다** — `ref_id IN (…)` 으로 뽑은
+ *     행을 pk 순으로 다시 정렬해야 해서, 같은 조각이 1,327ms → **statement timeout** 이
+ *     됐다(V6 권이 통째로 안 만들어졌다).
+ *   · `(ref_id, id)` 로 정렬하면 인덱스를 그대로 타면서(1,281ms) 마지막 열이 고유해
+ *     경계 손실도 없다. **빠른 쪽과 안 새는 쪽을 함께 가지려면 두 열이 필요하다.**
+ */
+export function keysetOr([colA, colB], [valA, valB]) {
+  return `${colA}.gt.${valA},and(${colA}.eq.${valA},${colB}.gt.${valB})`
+}
+
 export async function fetchAllIn(db, table, columns, column, values, orderBy, apply) {
   const out = []
   // 한 번 줄인 페이지는 이 호출 내내 유지한다 — 다시 키우면 같은 자리에서 또 걸린다.
   let size = 1000
-  // 정렬 열이 하나일 때만 커서로 넘긴다. 그 열의 값이 겹치면 페이지 경계에서 행이 샐 수
-  // 있는데, 두 호출부 모두 고유하다(`csat_dcp_items.id` = pk · `shared_dictionary.word`).
+  // 커서로 넘길 수 있는가. 한 열이면 그 열이 고유해야 하고(아래 `boundaryLeak` 가 지킨다),
+  // 두 열이면 **마지막 열이 고유**해야 한다 — `id` 로 끝나면 그렇다고 본다.
   const keysetCol = orderBy.length === 1 ? orderBy[0] : null
+  const keysetPair = orderBy.length === 2 && orderBy[1] === 'id' ? orderBy : null
   for (let i = 0; i < values.length; i += IN_CHUNK) {
     const slice = values.slice(i, i + IN_CHUNK)
     let from = 0
@@ -240,6 +256,10 @@ export async function fetchAllIn(db, table, columns, column, values, orderBy, ap
         for (const col of orderBy) q = q.order(col)
         if (keysetCol) {
           if (cursor != null) q = q.gt(keysetCol, cursor)
+          return q.limit(n)
+        }
+        if (keysetPair) {
+          if (cursor != null) q = q.or(keysetOr(keysetPair, cursor))
           return q.limit(n)
         }
         return q.range(from, from + n - 1)
@@ -264,6 +284,15 @@ export async function fetchAllIn(db, table, columns, column, values, orderBy, ap
           )
         }
         cursor = data[data.length - 1][keysetCol]
+      } else if (keysetPair) {
+        // 마지막 열이 고유하므로 경계 검사가 필요 없다 — 같은 첫 열 안에서 pk 로 이어 받는다.
+        const last = data[data.length - 1]
+        for (const c of keysetPair) {
+          if (last[c] === undefined) {
+            throw new Error(`커서 열 '${c}' 이 결과에 없다 — select 에 넣어야 커서를 쓸 수 있다.`)
+          }
+        }
+        cursor = keysetPair.map((c) => last[c])
       } else from += size
     }
   }
@@ -533,6 +562,13 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
   const ids = [...byId.keys()]
 
   // ── 문항 ──────────────────────────────────────────────────────────
+  // ⚠️ **조회 정렬과 배열 순서는 다른 문제다.**
+  //   조회는 `(ref_id, id)` 로 넘겨야 인덱스를 탄다 — `id` 하나로 넘기면 `ref_id IN (…)`
+  //   으로 뽑은 행을 pk 순으로 다시 정렬해야 해서 **V6(원글 11,831편)이 statement timeout
+  //   으로 통째로 안 만들어졌다**(실측 2026-09-06: 같은 조각 1,281ms vs 타임아웃).
+  //   그런데 `fetchAllIn` 은 마지막에 `orderBy` 순으로 전역 정렬하고, **조합기가 그 배열
+  //   순서로 문항을 고른다** — 순서가 바뀌면 같은 재고에서 다른 책이 나온다.
+  //   그래서 **빠른 정렬로 받고 순서는 pk 로 되돌린다.** 산출물은 그대로다.
   const itemRows = (
     await fetchAllIn(
       db,
@@ -540,9 +576,11 @@ export async function loadVolume(db, { band, unitCount, marketMix = true }) {
       'id, type, ref_id, payload, answer_key, v_level, kind',
       'ref_id',
       ids,
-      ['id'],
+      ['ref_id', 'id'],
     )
-  ).filter(
+  )
+    .sort((a, b) => (a.id === b.id ? 0 : a.id < b.id ? -1 : 1))
+    .filter(
     (r) => r.kind === 'article'
       && (CORE_TYPES.has(r.type) || EXTRA_TYPES.has(r.type) || SCHOOL_TYPES.has(r.type)),
   )

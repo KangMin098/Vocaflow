@@ -15,7 +15,7 @@
 
 import { describe, expect, it } from 'vitest'
 // 정본은 스크립트 쪽에 있다 — 사본을 두면 둘이 갈린다.
-import { boundaryLeak } from '../../../../scripts/textbook/volume-pool.mjs'
+import { boundaryLeak, keysetOr } from '../../../../scripts/textbook/volume-pool.mjs'
 
 const rows = (...vals: string[]) => vals.map((v, i) => ({ id: `i${i}`, ref_id: v }))
 
@@ -44,5 +44,24 @@ describe('커서 열이 고유한가', () => {
   it('커서 열이 결과에 없으면 조용히 넘어가지 않는다', () => {
     // select 에 안 넣고 order 만 걸면 값이 undefined 가 되어 커서가 멈추거나 헛돈다.
     expect(() => boundaryLeak(rows('a'), 'missing_col')).toThrow(/커서 열/)
+  })
+})
+
+// ── 두 열 커서 (실측 2026-09-06, 같은 자리에서 두 번 데였다) ──────────
+// 한 열로는 둘 다 가질 수 없었다:
+//   · `ref_id` 하나 → 고유하지 않아 행이 샌다(11,559 중 117).
+//   · `id`(pk) 하나 → 인덱스를 못 탄다. `ref_id IN (…)` 을 pk 순으로 다시 정렬해야 해서
+//     같은 조각이 1,281ms → **statement timeout**. V6 권이 통째로 안 만들어졌다.
+// `(ref_id, id)` 는 인덱스를 그대로 타면서 마지막 열이 고유하다.
+describe('두 열 커서', () => {
+  it('같은 첫 열 안에서 이어 받는 조건을 만든다', () => {
+    expect(keysetOr(['ref_id', 'id'], ['A', 'B'])).toBe('ref_id.gt.A,and(ref_id.eq.A,id.gt.B)')
+  })
+
+  it('첫 열이 같은 행을 건너뛰지 않는다 — 한 열 커서가 잃던 바로 그 행들이다', () => {
+    // `ref_id.gt.A` 만 있으면 ref_id = A 인 나머지가 사라진다. 뒤쪽 절이 그것을 받는다.
+    const cond = keysetOr(['ref_id', 'id'], ['A', 'B'])
+    expect(cond).toContain('ref_id.eq.A')
+    expect(cond).toContain('id.gt.B')
   })
 })
