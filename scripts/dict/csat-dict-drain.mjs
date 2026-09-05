@@ -27,6 +27,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { IRREGULAR } from './_irregular.mjs'
+
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
@@ -253,6 +255,100 @@ const PROMPT = [
   '',
 ].join('\n')
 
+/**
+ * 연결이 끊겨도 드레인이 죽지 않게 한다.
+ *
+ * 이 저장소의 Supabase 연결은 간헐적으로 `fetch failed`(UND_ERR_CONNECT_TIMEOUT)를 낸다 —
+ * 실측 2026-09-05: 같은 조회가 한 번은 49초 만에 실패하고 다음 시도에 41초 만에 성공했다.
+ * 재시도가 없으면 **283낱말을 다 채워 놓고 한 번의 깜빡임에 처음부터** 다시 해야 한다.
+ *
+ * 쓰기까지 재시도해도 안전한 이유는 적재를 `upsert(onConflict: word)` 로 바꿨기 때문이다 —
+ * 절반 들어간 배치를 다시 던져도 같은 표제어가 두 번 생기지 않는다(`word` 가 PK다).
+ */
+async function withRetry(label, fn, tries = 4) {
+  let last
+  for (let i = 1; i <= tries; i++) {
+    try {
+      const res = await fn()
+      if (!res?.error) return res
+      last = res.error
+    } catch (e) {
+      last = e
+    }
+    if (i < tries) console.log(`  ↻ ${label} 재시도 ${i}/${tries - 1} — ${last?.message ?? last}`)
+  }
+  throw new Error(`${label} 실패: ${last?.message ?? last}`)
+}
+
+/** 불규칙 굴절 역인덱스 — `came → come`. 표가 없으면 조용히 놓친다(`_irregular.mjs` 주석 참조). */
+const IRREGULAR_BACK = new Map()
+for (const [base, forms] of Object.entries(IRREGULAR)) for (const f of forms) IRREGULAR_BACK.set(f, base)
+
+/** 한 토큰의 있음직한 기본형들 (자기 자신은 뺀다) */
+function baseForms(tok) {
+  const out = new Set()
+  const add = (s) => { if (s.length >= 2 && s !== tok) out.add(s) }
+  if (IRREGULAR_BACK.has(tok)) add(IRREGULAR_BACK.get(tok))
+  if (tok.endsWith('ing')) {
+    const st = tok.slice(0, -3)
+    add(st); add(st + 'e')
+    if (st.length > 2 && st.at(-1) === st.at(-2)) add(st.slice(0, -1))
+  }
+  if (tok.endsWith('ed')) {
+    const st = tok.slice(0, -2)
+    add(st); add(st + 'e')
+    if (st.length > 2 && st.at(-1) === st.at(-2)) add(st.slice(0, -1))
+  }
+  if (tok.endsWith('ies')) add(tok.slice(0, -3) + 'y')
+  else if (tok.endsWith('es')) { add(tok.slice(0, -2)); add(tok.slice(0, -1)) }
+  else if (tok.endsWith('s') && !tok.endsWith('ss')) add(tok.slice(0, -1))
+  return [...out]
+}
+
+/** 그 표면형의 기본형 후보 구 — 첫 토큰과 마지막 토큰을 각각 되돌려 본다 */
+function phraseBaseCandidates(word) {
+  const toks = word.split(' ')
+  const out = new Set()
+  for (const b of baseForms(toks[0])) out.add([b, ...toks.slice(1)].join(' '))
+  if (toks.length > 1) for (const b of baseForms(toks.at(-1))) out.add([...toks.slice(0, -1), b].join(' '))
+  return [...out]
+}
+
+/**
+ * **굴절형을 새 표제어로 넣지 않는다.**
+ *
+ * `unresolved_dict_words` 는 낱말 하나의 굴절은 풀지만 **여러 낱말로 된 구의 굴절은 못 푼다.**
+ * 그래서 `warm up` 이 사전에 있는데도 `warming up` 이 「빠진 낱말」로 나온다. 그대로 넣으면
+ * 같은 뜻이 표제어 두 벌이 되고, 다음에 누가 세면 또 어긋난다(실측 2026-09-05: 286 중 **8건** —
+ * pulled over · warming up · bouncing back · going for · laid off · sold out · spoke out · warmed up).
+ *
+ * 옳은 처리는 새 표제어가 아니라 **기본형 표제어의 `inflected_forms` 에 그 표면형을 더하는 것**이다.
+ * 그래야 학습자가 `warming up` 을 찾아도 `warm up` 으로 풀린다. 여기서는 그 둘을 갈라 돌려준다.
+ */
+async function splitInflected(rows) {
+  const cand = new Map()
+  for (const r of rows) {
+    const alts = phraseBaseCandidates(r.word)
+    if (alts.length) cand.set(r.word, alts)
+  }
+  const all = [...new Set([...cand.values()].flat())]
+  const have = new Set()
+  for (let i = 0; i < all.length; i += 300) {
+    const { data } = await withRetry('기본형 확인', () =>
+      db.from('shared_dictionary').select('word').in('word', all.slice(i, i + 300)).neq('archived', true),
+    )
+    for (const r of data ?? []) have.add(r.word)
+  }
+  const fresh = []
+  const inflected = []
+  for (const r of rows) {
+    const base = (cand.get(r.word) ?? []).find((a) => have.has(a))
+    if (base) inflected.push({ surface: r.word, base })
+    else fresh.push(r)
+  }
+  return { fresh, inflected }
+}
+
 async function doImport() {
   const chunks = fs.readdirSync(OUT_DIR).filter((f) => /^chunk-\d+\.json$/.test(f)).sort()
   if (!chunks.length) { console.error('청크가 없다. 먼저 --export.'); process.exit(2) }
@@ -318,18 +414,41 @@ async function doImport() {
   const words = rows.map((r) => r.word)
   const have = new Set()
   for (let i = 0; i < words.length; i += 400) {
-    const { data, error } = await db.from('shared_dictionary').select('word').in('word', words.slice(i, i + 400))
-    if (error) throw new Error('중복 확인 실패: ' + error.message)
+    const { data } = await withRetry('중복 확인', () =>
+      db.from('shared_dictionary').select('word').in('word', words.slice(i, i + 400)),
+    )
     for (const r of data ?? []) have.add(r.word)
   }
-  const fresh = rows.filter((r) => !have.has(r.word))
-  console.log(`이미 있음 ${rows.length - fresh.length} · 새로 넣을 것 ${fresh.length}`)
+  const notYet = rows.filter((r) => !have.has(r.word))
+
+  // 굴절형은 새 표제어로 넣지 않고 기본형의 inflected_forms 로 보낸다 (splitInflected 주석 참조)
+  const { fresh, inflected } = await splitInflected(notYet)
+  console.log(`이미 있음 ${rows.length - notYet.length} · 굴절형(기본형에 합침) ${inflected.length} · 새로 넣을 것 ${fresh.length}`)
+  for (const x of inflected) console.log(`    ~ ${x.surface} → ${x.base}`)
+
+  for (const x of inflected) {
+    let data
+    try {
+      ;({ data } = await withRetry(`${x.base} 조회`, () =>
+        db.from('shared_dictionary').select('inflected_forms').eq('word', x.base).maybeSingle(),
+      ))
+    } catch (e) { console.log(`    ✗ ${e.message}`); continue }
+    const cur = data?.inflected_forms ?? []
+    if (cur.includes(x.surface)) continue
+    try {
+      await withRetry(`${x.base} 갱신`, () =>
+        db.from('shared_dictionary').update({ inflected_forms: [...cur, x.surface] }).eq('word', x.base),
+      )
+    } catch (e) { console.log(`    ✗ ${e.message}`) }
+  }
 
   let done = 0
   for (let i = 0; i < fresh.length; i += 100) {
     const chunk = fresh.slice(i, i + 100)
-    const { error } = await db.from('shared_dictionary').insert(chunk)
-    if (error) throw new Error(`적재 실패(${i}): ${error.message}`)
+    // upsert + ignoreDuplicates — 절반 들어간 배치를 재시도해도 표제어가 두 번 생기지 않는다
+    await withRetry(`적재(${i})`, () =>
+      db.from('shared_dictionary').upsert(chunk, { onConflict: 'word', ignoreDuplicates: true }),
+    )
     done += chunk.length
     process.stdout.write(`\r적재 ${done}/${fresh.length}`)
   }
