@@ -166,14 +166,85 @@ const BAND_SPEC = {
   중3: { school: 'middle' },
 }
 
-const { data: rows, error } = await db
-  .from('library_articles')
-  .select('source, title, content, word_count, cefr_level, register, article_v_level')
-  .in('status', ['ready', 'published'])
-  .eq('display_only', false)
-  .gte('word_count', WIN.min)
-  .lte('word_count', WIN.max)
-if (error) throw new Error('지문 조회 실패: ' + error.message)
+/**
+ * `--include-queued` — **보유와 분석 완료를 나눠 센다.**
+ *
+ * ── 왜 (실측 2026-09-05) ─────────────────────────────────────────────
+ * 수확이 처리보다 3.5배 빠르다(수확 600편/배치 · 처리 170편/배치). 그래서 보유 2,666편 중
+ * `ready` 는 937편이고 나머지는 `queued` 로 쌓여 있다. 그런데 **4축 판정은 본문만으로 한다** —
+ * 어수·FK·어휘·자립성 어느 것도 분석 결과를 쓰지 않는다.
+ *
+ * 즉 `ready` 만 세면 **이미 손에 있는 원문을 없다고 세는 것**이다. 목표가 "원문 보유" 이므로
+ * 두 수를 나란히 낸다:
+ *
+ *   보유       4축을 통과한 원문을 실제로 갖고 있는 편수 (queued 포함)
+ *   분석 완료   그중 어휘 색인까지 만들어져 교재 조립에 바로 쓸 수 있는 편수
+ *
+ * ⚠️ 둘을 하나로 합쳐 말하지 않는다 — 조립기는 어휘 색인을 필요로 하므로
+ *   "보유" 가 곧 "쓸 수 있다" 는 아니다.
+ * ⚠️ `queued` 는 `word_count` 가 비어 있다(분석이 채운다). 그래서 어수 조회 조건을
+ *   걸 수 없고 **본문에서 직접 잰다** — 어차피 판정은 본문으로 한다.
+ */
+const INCLUDE_QUEUED = process.argv.includes('--include-queued')
+
+/**
+ * ⚠️ **`queued` 를 전부 세지 않는다 — 초·중을 겨냥해 담은 것만 센다.**
+ *
+ * 처음엔 `status IN (ready, published, queued)` 로 통째로 쟀더니 4축 통과가 3,131편
+ * 나왔다. 그런데 그 안에는 **수능용 수확분**(`feed_id='harvest'` · 8,141편)과 PLOS 가
+ * 섞여 있었다. 그것들도 우연히 초·중 규격을 만족할 수 있지만, "초·중 원문을 확보했다"
+ * 고 세면 **하지 않은 일을 한 것으로 세는 것**이다.
+ *
+ * 그리고 실용적인 이유도 같은 방향이다 — 4만 행을 본문째 끌어오면
+ * `canceling statement due to statement timeout` 이다.
+ */
+const QUEUED_FEEDS = ['kid-excerpt']
+
+/**
+ * **오프셋 페이징 + id 중복 제거.** 셋을 시도해 하나만 살아남았다(실측 2026-09-05):
+ *
+ *   · `order(created_at).order(id)` + range  → **timeout** (복합 정렬에 쓸 인덱스가 없다)
+ *   · `order(id)` + keyset                    → **timeout** (uuid 정렬에 쓸 인덱스가 없다)
+ *   · `order(created_at)` + keyset(gte)       → 같은 시각이 수두룩해 **1/6 만 읽고 끝났다**
+ *   · `order(created_at)` + range + **id 중복 제거** → 통과 ✅
+ *
+ * `created_at` 만으로 정렬하면 배치 insert 의 같은 시각에서 페이지 경계의 행 순서가
+ * 흔들려 **행이 새거나 겹친다**(2026-09-05 prune 에서 실제로 15편이 새어 나갔다).
+ * 그래서 **겹쳐 읽고 본 id 로 거른다** — 중복은 싸고 누락은 비싸다.
+ */
+const rows = []
+const seen = new Set()
+
+/** 한 갈래를 통째로 읽는다. 겹쳐 읽고 **본 id 로 거른다** — 중복은 싸고 누락은 비싸다. */
+async function fetchAll(build) {
+  for (let offset = 0; ; offset += 400) {
+    const { data, error } = await build(
+      db
+        .from('library_articles')
+        .select(
+          'id, source, feed_id, title, content, word_count, cefr_level, register, article_v_level, status'
+        )
+        .eq('display_only', false)
+    )
+      .order('created_at')
+      .range(offset, offset + 399)
+    if (error) throw new Error('지문 조회 실패: ' + error.message)
+    if (!data.length) return
+    for (const r of data) {
+      if (seen.has(r.id)) continue
+      seen.add(r.id)
+      rows.push(r)
+    }
+    if (data.length < 400) return
+  }
+}
+
+// ① 분석 완료분 — 어수는 서버에서 거른다(값이 있다).
+await fetchAll((q) =>
+  q.in('status', ['ready', 'published']).gte('word_count', WIN.min).lte('word_count', WIN.max)
+)
+// ② 초·중을 겨냥해 담았지만 아직 분석 전인 것. 어수는 본문에서 잰다(값이 없다).
+if (INCLUDE_QUEUED) await fetchAll((q) => q.eq('status', 'queued').in('feed_id', QUEUED_FEEDS))
 
 /**
  * **적합 판정은 네 축을 동시에 통과해야 한다.**
@@ -215,6 +286,8 @@ for (const r of rows) {
     v: r.article_v_level,
     band,
     school: spec?.school ?? null,
+    status: r.status,
+    feed: r.feed_id,
     fits: failed.length === 0,
     failed,
   })
@@ -310,6 +383,16 @@ for (const id of ORDER) {
 console.log('─'.repeat(70))
 console.log(pad('4축 통과 합계', 12) + lp(fitTotal, 54))
 
+// **보유와 분석 완료를 나눠 말한다** — 하나로 합치면 "가진 것" 과 "쓸 수 있는 것" 이 섞인다.
+if (INCLUDE_QUEUED) {
+  const analyzed = scored.filter((s) => s.fits && s.status !== 'queued').length
+  console.log(
+    `\n  보유 ${fitTotal}편 (4축 통과) · 그중 **분석 완료 ${analyzed}편** — ` +
+      `나머지 ${fitTotal - analyzed}편은 본문은 있고 어휘 색인이 아직 없다.`
+  )
+  console.log('  조립기는 어휘 색인을 필요로 하므로 "보유" 가 곧 "쓸 수 있다" 는 아니다.')
+}
+
 // § 어디서 떨어지는가 — 다음 작업을 정하는 것은 이 표다
 console.log(`\n■ 탈락 사유 (중복 계수 · 밴드 안에 든 ${scored.filter((s) => BAND_SPEC[s.band]).length}편 기준)\n`)
 const why = new Map()
@@ -372,6 +455,11 @@ const report = {
     cefr: s.cefr,
     band: s.band,
     school: s.school,
+    // ⚠️ `status` 와 `feed` 를 빠뜨렸더니 리포트 JSON 으로 낸 출처별 집계가
+    //   **전부 "분석 완료"** 로 나왔다(`undefined !== 'queued'` 가 참이다).
+    //   콘솔 값(1,548)과 JSON 값(3,131)이 갈렸는데 오류는 안 났다 — 실어야 한다.
+    status: s.status,
+    feed: s.feed,
     fits: s.fits,
     failed: s.failed,
     outsidePct: s.cov?.outsidePct ?? null,
