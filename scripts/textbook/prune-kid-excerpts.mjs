@@ -1,6 +1,6 @@
 // scripts/textbook/prune-kid-excerpts.mjs
 //
-// **자립성 게이트 미달 PD 발췌를 걷어낸다.**
+// **현재 규격에 미달인 PD 발췌를 걷어낸다 — 자립성 + 어휘 두 축.**
 //
 // ── 왜 필요한가 (실측 2026-09-04) ────────────────────────────────────
 // 자립성 자(`standalone.ts`)가 생기기 전에 적재한 발췌 906편 중 **629편(69%)이
@@ -30,7 +30,28 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { curriculumFit } from '../../packages/library-pipeline/src/textbook/curriculum.ts'
 import { standaloneFit } from '../../packages/library-pipeline/src/textbook/standalone.ts'
+
+/**
+ * **어휘 축도 함께 본다** — 자가 바뀌면 옛 자로 들어온 것이 규격에 안 맞게 된다.
+ *
+ * 2026-09-05 에 `stemCandidates` 로 굴절형을 되돌리게 하면서 시중 p90 을 다시 쟀고
+ * (초등 43.3 → 38.6 · 중등 44.0 → 41.6), 그 문턱으로 기존 재고를 다시 재니
+ * **0.5~1.8%** 가 미달이었다. 수가 작은 것은 자와 문턱이 함께 내려가 거의 상쇄됐기
+ * 때문이지, 안 봐도 된다는 뜻이 아니다 — 규격에 안 맞는 것이 달성률에 세어지면
+ * "적합도" 라는 말이 헐거워진다.
+ *
+ * 자립성만 보던 때에는 이 파일이 한 축만 수렴시켰다. 이제 **두 축 모두** 수렴한다:
+ * 자를 다시 고치는 날에도 이 스크립트 한 번이면 재고가 새 규격으로 맞춰진다.
+ */
+const SCHOOL_OF = {
+  '초3~4': 'elementary',
+  '초5~6': 'elementary',
+  '초6~중1': 'elementary',
+  '중1~2': 'middle',
+  '중3': 'middle',
+}
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -94,16 +115,22 @@ for (let from = 0; ; from += PAGE) {
 const bad = []
 const byBand = {}
 const byStatus = {}
+const byAxis = { 자립성: 0, 어휘: 0, 둘다: 0 }
 for (const r of rows) {
-  const f = standaloneFit(r.content ?? '')
-  if (f.pass) continue
-  bad.push(r.id)
   const band = (r.feed_label ?? '').replace('PD 발췌 · ', '')
+  const school = SCHOOL_OF[band]
+  const standOk = standaloneFit(r.content ?? '').pass
+  // 칸을 못 읽으면 어휘는 판정하지 않는다 — **모름을 탈락으로 바꾸지 않는다.**
+  const vocabOk = school ? curriculumFit(r.content ?? '', school).pass : true
+  if (standOk && vocabOk) continue
+  bad.push(r.id)
+  byAxis[!standOk && !vocabOk ? '둘다' : !standOk ? '자립성' : '어휘'] += 1
   byBand[band] = (byBand[band] ?? 0) + 1
   byStatus[r.status] = (byStatus[r.status] ?? 0) + 1
 }
 
-console.log(`\n적재분 ${rows.length}편 · 자립성 미달 **${bad.length}편** (${((bad.length / rows.length) * 100).toFixed(0)}%)\n`)
+console.log(`\n적재분 ${rows.length}편 · 규격 미달 **${bad.length}편** (${((bad.length / rows.length) * 100).toFixed(1)}%)\n`)
+console.log('  축별  ' + Object.entries(byAxis).map(([k, v]) => `${k} ${v}`).join(' · '))
 console.log('  칸별  ' + Object.entries(byBand).map(([k, v]) => `${k} ${v}`).join(' · '))
 console.log('  상태  ' + Object.entries(byStatus).map(([k, v]) => `${k} ${v}`).join(' · '))
 console.log(`  남는 것 **${rows.length - bad.length}편**\n`)
@@ -128,4 +155,4 @@ const { count: left } = await db
   .from('library_articles')
   .select('id', { count: 'exact', head: true })
   .eq('feed_id', 'kid-excerpt')
-console.log(`\n  남은 발췌 ${left}편 — 전부 자립성 게이트를 통과한 것이다.`)
+console.log(`\n  남은 발췌 ${left}편 — 자립성·어휘 두 축을 모두 통과한 것이다.`)
