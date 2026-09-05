@@ -19,7 +19,9 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import {
   BENCH_FILES,
   MARKET_TARGET_INDEX,
+  QUERY_TIMEOUT_MS,
   readBench,
+  withTimeout,
 } from './factory-bench'
 import {
   PURE_FUNCTION_TYPES,
@@ -63,15 +65,18 @@ export async function loadMarketView(): Promise<MarketView> {
 /* ───────────────────────── 설계 ───────────────────────── */
 
 async function countCell(db: SupabaseClient, type: string, vLevel: number): Promise<number | null> {
-  for (let attempt = 0; attempt < 2; attempt += 1) {
-    const { count } = await db
+  // 상한 안에 안 오면 「못 잼」이다. 재시도하지 않는다 — 느린 조회는 다시 물어도 느리고,
+  // 기다리는 동안 커넥션 풀을 더 조인다.
+  const { count } = await withTimeout(
+    db
       .from('csat_dcp_items')
       .select('id', { count: 'exact', head: true })
       .eq('type', type)
-      .eq('v_level', vLevel)
-    if (count != null) return count
-  }
-  return null
+      .eq('v_level', vLevel),
+    QUERY_TIMEOUT_MS,
+    { count: null } as { count: number | null },
+  )
+  return count
 }
 
 export async function loadBlueprintView(): Promise<BlueprintView> {
@@ -87,7 +92,19 @@ export async function loadBlueprintView(): Promise<BlueprintView> {
   }
 
   const [counts, gatesRes] = await Promise.all([
-    Promise.all(specs.map((s) => countCell(db, s.type, s.vLevel))),
+    // 한꺼번에 다 던지면 커넥션 풀이 포화돼 오히려 느려진다 — 6개씩 나눠 보낸다.
+    (async () => {
+      const out: (number | null)[] = []
+      const deadline = Date.now() + 12_000
+      for (let i = 0; i < specs.length; i += 6) {
+        if (Date.now() > deadline) {
+          out.push(...new Array<null>(specs.length - out.length).fill(null))
+          break
+        }
+        out.push(...(await Promise.all(specs.slice(i, i + 6).map((s) => countCell(db, s.type, s.vLevel)))))
+      }
+      return out
+    })(),
     db.from('csat_stage_gates').select('stage, metric, threshold, is_locked, note').order('stage'),
   ])
 

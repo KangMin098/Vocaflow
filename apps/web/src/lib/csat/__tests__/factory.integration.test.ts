@@ -38,33 +38,38 @@ describe.skipIf(skip)('교재 공장 공정 현황판 (실 DB)', () => {
 
     // 현황판은 사람이 기다릴 수 있는 시간 안에 서야 한다. 칸 count 를 병렬로 던지는 설계가
     // 무너져 순차가 되면 여기서 먼저 걸린다.
-    expect(elapsed, `현황판 조회가 ${elapsed}ms 걸렸다`).toBeLessThan(30_000)
+    // 전수 count 를 걷어낸 뒤의 상한. 이 값을 넘으면 어딘가 다시 전수로 세고 있다는 뜻이다
+    // — 그 조회는 50초 뒤 빈손으로 오므로 화면이 통째로 멈춘다.
+    expect(elapsed, `현황판 조회가 ${elapsed}ms 걸렸다`).toBeLessThan(20_000)
   })
 
-  it('해설 보유 눈금이 DB 직접 셈과 같다', async () => {
-    const svc = createClient(SUPABASE_URL!, SERVICE_KEY!, { auth: { persistSession: false } })
-    // ⚠️ **순차로 센다.** 65만 행 전수 count 둘을 병렬로 던지면 하나가 `count=null` 로 돌아온다
-    //   (실측 2026-09-05 — 차가운 첫 호출 8.5초 뒤 빈 오류). 대조군이 그러면 테스트가 본체를
-    //   검증하는 게 아니라 같은 결함을 두 번 밟는 것이다. 본체는 재시도(`headCount`)로 막는다.
-    const { count: total } = await svc
-      .from('csat_dcp_items')
-      .select('id', { count: 'exact', head: true })
-    const { count: done } = await svc
-      .from('csat_dcp_items')
-      .select('id', { count: 'exact', head: true })
-      .not('answer_key->>explanation_ko', 'is', null)
-
-    // ⚠️ 먼저 **직접 센 값이 실제로 있는지** 확인한다. 이걸 빼면 두 쪽이 다 null 일 때
-    //   `toBe` 가 통과해 「셈이 맞다」고 초록이 뜬다 — 실제로 2026-09-05 에 그 거짓 초록이
-    //   났다(한 물결에 다 던져 전수 count 가 경합으로 null 이었다).
-    expect(total, '직접 센 총 문항이 null 이다 — 이 테스트가 아무것도 안 지킨다').toBeGreaterThan(0)
-    expect(done, '직접 센 해설 보유가 null 이다').toBeGreaterThan(0)
-
+  it('해설 보유는 지금 못 잰다 — 0 이 아니라 「못 잼」과 이유가 나와야 한다', async () => {
+    // ⚠️ 이 테스트는 **못 재는 상태를 고정한다.** 실측 2026-09-05: PostgREST 로
+    //   `csat_dcp_items` 를 필터 없이 전수 세면 50초 뒤 `count=null` 로 온다(세 번 연속).
+    //   같은 count 를 직접 SQL 로는 즉시 낸다 — DB 가 아니라 PostgREST 쪽 한계다.
+    //   집계 RPC(`_pending_csat_dcp_inventory.sql`)가 붙으면 이 테스트를 뒤집는다.
     const line = await loadFactoryLine()
     const explain = line.stages.find((s) => s.def.id === 'explain')!
     const gauge = explain.gauges.find((g) => g.label === '해설 보유')!
-    expect(gauge.den).toBe(total)
-    expect(gauge.num).toBe(done)
+    expect(gauge.num).toBeNull()
+    expect(gauge.den).toBeNull()
+    expect(gauge.unmeasuredReason, '왜 못 재는지가 화면에 없다').toMatch(/PostgREST|RPC/)
+    expect(explain.status).toBe('unmeasured')
+  })
+
+  it('전수 count 는 죽어 있고 셀 count 는 살아 있다 — 이 구분이 설계의 전제다', async () => {
+    const svc = createClient(SUPABASE_URL!, SERVICE_KEY!, { auth: { persistSession: false } })
+    // 셀(인덱스를 타는 조회)은 반드시 살아 있어야 한다. 이게 죽으면 표 전체가 못 선다.
+    const cell = await svc
+      .from('csat_dcp_items')
+      .select('id', { count: 'exact', head: true })
+      .eq('type', 'order')
+      .eq('v_level', 6)
+    expect(cell.count, '셀 count 마저 죽었다 — 공장 화면 전체가 못 선다').toBeGreaterThan(0)
+
+    // 플래너 통계는 낡음 감시의 제3의 수다. 이것도 없으면 감시가 사라진다.
+    const planned = await svc.from('csat_dcp_items').select('id', { count: 'planned', head: true })
+    expect(planned.count, '플래너 통계도 못 읽는다').toBeGreaterThan(0)
   })
 
   it('검수 L2 는 분석 **행**이 아니라 **문항**을 센다 — 통과율이 100%를 넘을 수 없다', async () => {
@@ -170,17 +175,33 @@ describe.skipIf(skip)('전략 연구소 두 화면 (실 DB · 실 파일)', () =
 })
 
 describe.skipIf(skip)('생산 라인 네 화면 (실 DB)', () => {
-  it('집필 표가 표 전체를 덮는다 — 유형별 합 == 총 문항', async () => {
+  it('집필 표의 총계는 칸을 더한 값이고, 플래너 통계와 허용 오차 안에 있다', async () => {
     const { loadAuthorView } = await import('../factory-line-views')
     const v = await loadAuthorView()
-    expect(v.total, '총 문항을 못 셌다').not.toBeNull()
     const unmeasured = v.cells.filter((c) => c.count == null)
     expect(unmeasured, `못 센 칸 ${unmeasured.length}개`).toHaveLength(0)
+
+    // 총계는 칸의 합이다 — 전수 count 는 이 표에서 못 쓴다(50초 뒤 빈손).
     const summed = v.cells.reduce((n, c) => n + (c.count ?? 0), 0)
-    // 합이 모자라면 GENERATED_TYPES 에 없는 유형이 DB 에 있다는 뜻이다.
-    expect(summed, 'GENERATED_TYPES 가 낡았다 — 표 밖 재고가 있다').toBe(v.total)
-    expect(v.loadError).toBeNull()
-  })
+    expect(v.total).toBe(summed)
+
+    // 낡음 감시가 실제로 켜져 있는지 본다. 플래너 통계와 1% 넘게 벌어지면 경고가 떠야 한다.
+    const svc = createClient(SUPABASE_URL!, SERVICE_KEY!, { auth: { persistSession: false } })
+    const { count: planned } = await svc
+      .from('csat_dcp_items')
+      .select('id', { count: 'planned', head: true })
+    expect(planned).not.toBeNull()
+    const gap = planned! - summed
+    if (gap > planned! * 0.01) {
+      expect(v.loadError, '벌어졌는데 경고가 없다 — 목록이 낡아도 아무도 모른다').toBeTruthy()
+    } else {
+      expect(v.loadError).toBeNull()
+    }
+  },
+    // ⚠️ 칸 225개를 세는 조회다. **속도가 아니라 셈이 맞는지**를 지키는 테스트이므로
+    //   전역 40초 상한을 쓰지 않는다 — 공유 dev DB 가 느린 날 거짓 실패가 나고, 거짓 실패는
+    //   사람을 빨간불에 무뎌지게 만든다. 속도는 현황판 테스트가 따로 지킨다.
+    180_000)
 
   it('집필 표의 사다리 칸이 설계 화면과 같은 수를 말한다', async () => {
     const [{ loadAuthorView }, { loadBlueprintView }] = await Promise.all([
@@ -199,7 +220,11 @@ describe.skipIf(skip)('생산 라인 네 화면 (실 DB)', () => {
         expect(sum, `${rung.schoolBand}/${cell.type} 가 두 화면에서 다르다`).toBe(cell.count)
       }
     }
-  })
+  },
+    // ⚠️ 칸 225개를 세는 조회다. **속도가 아니라 셈이 맞는지**를 지키는 테스트이므로
+    //   전역 40초 상한을 쓰지 않는다 — 공유 dev DB 가 느린 날 거짓 실패가 나고, 거짓 실패는
+    //   사람을 빨간불에 무뎌지게 만든다. 속도는 현황판 테스트가 따로 지킨다.
+    180_000)
 
   it('소재 화면의 게이트 밴드는 실제 게이트 정의에서 온다', async () => {
     const { loadSourceView, emptyGateBands } = await import('../factory-line-views')

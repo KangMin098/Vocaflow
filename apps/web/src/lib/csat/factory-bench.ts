@@ -15,6 +15,35 @@ import 'server-only'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 
+/**
+ * 조회 하나에 **상한을 건다.** 넘기면 그 값은 「못 잼」이다.
+ *
+ * ⚠️ 예산을 물결 **사이**에서만 검사하면 소용이 없다 — 실측 2026-09-05 에 요청 하나가
+ * 57초를 잡아먹어서, 첫 물결만으로 예산을 다 쓰고도 페이지가 57초(현황판은 두 번 걸려 114초)
+ * 멈췄다. 느린 의존이 화면을 붙잡으면 관리자는 새로고침을 누르고, 그 요청이 풀을 더 조여
+ * 다음 요청을 더 느리게 만든다. 그래서 **요청마다** 끊는다.
+ *
+ * 끊긴 조회는 서버에서 계속 돌 수 있다(취소 신호를 안 보낸다) — 그래도 화면은 안 기다린다.
+ */
+export function withTimeout<T>(p: PromiseLike<T>, ms: number, onTimeout: T): Promise<T> {
+  return new Promise<T>((resolve) => {
+    const timer = setTimeout(() => resolve(onTimeout), ms)
+    void Promise.resolve(p).then(
+      (v) => {
+        clearTimeout(timer)
+        resolve(v)
+      },
+      () => {
+        clearTimeout(timer)
+        resolve(onTimeout)
+      },
+    )
+  })
+}
+
+/** 조회 하나에 허용하는 시간. 이보다 오래 걸리는 칸은 「?」로 남는다. */
+export const QUERY_TIMEOUT_MS = 4_000
+
 /** 저장소 뿌리 — `apps/web` 에서 두 칸 위. `lib/pd-comic/pipeline-bridge.ts` 와 같은 규약. */
 export const REPO_ROOT = path.resolve(process.cwd(), '..', '..')
 

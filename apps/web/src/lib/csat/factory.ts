@@ -23,7 +23,14 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { BENCH_FILES, MARKET_TARGET_INDEX, readBench, type BenchFile } from './factory-bench'
+import {
+  BENCH_FILES,
+  MARKET_TARGET_INDEX,
+  QUERY_TIMEOUT_MS,
+  readBench,
+  withTimeout,
+  type BenchFile,
+} from './factory-bench'
 
 // 화면·테스트가 목표 지수를 이 파일에서 함께 읽어 온다 — 정본은 `factory-bench.ts` 다.
 export { MARKET_TARGET_INDEX } from './factory-bench'
@@ -74,12 +81,17 @@ interface Cell {
  *
  * 두 번째도 null 이면 그때는 진짜 못 잰 것이다. 오류 메시지를 그대로 올려 화면이 이유를 적는다.
  */
+const TIMED_OUT = { count: null, error: { message: `${QUERY_TIMEOUT_MS / 1000}초 안에 안 돌아왔다` } }
+
 async function headCount(
   run: () => PromiseLike<{ count: number | null; error: { message: string } | null }>,
+  timeoutMs = QUERY_TIMEOUT_MS,
 ): Promise<{ count: number | null; message: string | null }> {
   for (let attempt = 0; attempt < 2; attempt += 1) {
-    const { count, error } = await run()
+    const { count, error } = await withTimeout(run(), timeoutMs, TIMED_OUT)
     if (count != null) return { count, message: null }
+    // 상한에 걸린 것은 **다시 물어도 같다** — 재시도는 대기 시간만 두 배로 만든다.
+    if (error?.message === TIMED_OUT.error.message) return { count: null, message: error.message }
     if (attempt === 1) return { count: null, message: error?.message || '서버가 수를 돌려주지 않았다' }
   }
   return { count: null, message: '서버가 수를 돌려주지 않았다' }
@@ -108,7 +120,21 @@ async function loadLadderCells(db: SupabaseClient): Promise<Cell[]> {
       }
     }
   }
-  const counts = await Promise.all(specs.map((s) => countCell(db, s.type, s.vLevel)))
+  // ⚠️ **한꺼번에 다 던지지 않는다.** PostgREST 커넥션 풀이 포화되면 전부 줄을 서서
+  //   오히려 느려진다(실측 2026-09-05: idle 백엔드로 가득 찬 채 페이지가 39초). 그리고
+  //   예산을 넘기면 남은 칸을 포기한다 — 현황판이 몇 분 멈추느니 「?」 몇 칸이 낫다.
+  const WAVE = 6
+  const deadline = Date.now() + 10_000
+  const counts: (number | null)[] = []
+  for (let i = 0; i < specs.length; i += WAVE) {
+    if (Date.now() > deadline) {
+      counts.push(...new Array<null>(specs.length - counts.length).fill(null))
+      break
+    }
+    counts.push(
+      ...(await Promise.all(specs.slice(i, i + WAVE).map((s) => countCell(db, s.type, s.vLevel)))),
+    )
+  }
   return specs.map((s, i) => ({ ...s, count: counts[i] ?? null }))
 }
 
@@ -152,7 +178,10 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
   // 가벼운 조회 + 사다리 칸(26개)이 1물결, 무거운 전수 count 둘이 2물결이다.
   const [coverage, gates, passages, cells, renders, warehouse, volume] =
     await Promise.all([
-      db.rpc('csat_coverage'),
+      withTimeout(db.rpc('csat_coverage'), 8_000, {
+        data: null,
+        error: { message: '8초 안에 안 돌아왔다' },
+      } as Awaited<ReturnType<typeof db.rpc>>),
       db.from('csat_stage_gates').select('stage, metric, threshold, is_locked'),
       db.from('csat_stage_catalog').select('stage_band, v_level, display_only'),
       loadLadderCells(db),
@@ -163,15 +192,21 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
       readBench(BENCH_FILES.volume),
     ])
 
-  const [itemsTotal, itemsExplained] = await Promise.all([
-    headCount(() => db.from('csat_dcp_items').select('id', { count: 'exact', head: true })),
-    headCount(() =>
-      db
-        .from('csat_dcp_items')
-        .select('id', { count: 'exact', head: true })
-        .not('answer_key->>explanation_ko', 'is', null),
-    ),
-  ])
+  // ⚠️ **필터 없는 전수 count 는 이 표에서 더는 안 된다.**
+  //   실측 2026-09-05: `csat_dcp_items`(65만 행)를 PostgREST 로 전수 세면 **50초 뒤
+  //   `count=null`** 로 돌아온다(세 번 연속). 같은 count 를 직접 SQL 로는 즉시 낸다 —
+  //   DB 가 아니라 PostgREST 쪽 한계다. 예전엔 8.5초에 되던 것이라 재시도로 삼키고 있었는데,
+  //   이제는 재시도가 **50초를 100초로 만들 뿐**이다. 그 상태로 두면 현황판이 3분씩 멈춘다.
+  //
+  //   그래서 둘을 이렇게 가른다:
+  //     · 저장 문항 → `count: 'planned'`(2.4초). **추정이므로 화면이 ≈ 를 붙인다.**
+  //     · 해설 보유 → **못 잰다.** 유형·수준으로 쪼개면 셀마다는 되지만(4.1초) 재고가 있는
+  //       칸이 132개라 다 돌면 몇 분이다. 집계 RPC 가 있어야 한다(승인 대기).
+  //   0 으로 뭉개지 않고 「못 잼」 + 이유로 남긴다.
+  const itemsTotal = await headCount(
+    () => db.from('csat_dcp_items').select('id', { count: 'planned', head: true }),
+    6_000,
+  )
 
   const stages: StageState[] = []
 
@@ -386,12 +421,15 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
             unmeasuredReason: measurable.length ? undefined : '칸 조회가 전부 실패했다',
           },
           {
-            label: '저장 문항',
+            label: '저장 문항 (추정)',
             num: itemsTotal.count,
             den: null,
             unit: 'count',
+            approx: true,
             unmeasuredReason:
-              itemsTotal.count == null ? `문항 수를 못 셌다: ${itemsTotal.message}` : undefined,
+              itemsTotal.count == null
+                ? `문항 수를 못 셌다: ${itemsTotal.message}`
+                : '플래너 통계값이다 — 정확한 수는 집필 화면이 칸을 더해서 낸다',
           },
         ],
         emptyCells.length
@@ -424,8 +462,11 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
 
   /* ⑥ 해설 — 문항마다 해설이 붙었는가. */
   {
-    const total = itemsTotal.count
-    const done = itemsExplained.count
+    // 지금은 잴 수 없다. 마지막으로 잰 값(2026-09-05 · 426,696 / 655,092)은 마이그레이션
+    // 제안서에 적어 두었다 — **코드에 상수로 박지 않는다.** 박으면 화면이 낡은 수를
+    // 현재 사실처럼 말하게 된다.
+    const total: number | null = null
+    const done: number | null = null
     stages.push(
       state(
         'explain',
@@ -438,13 +479,15 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
             target: 1,
             unmeasuredReason:
               done == null || total == null
-                ? `해설 보유 수를 못 셌다: ${itemsExplained.message ?? itemsTotal.message}`
+                ? 'PostgREST 가 이 표를 전수로 못 센다 — 필터 없는 count 가 50초 뒤 빈손으로 온다(실측 2026-09-05). ' +
+                  '유형·수준으로 쪼개면 셀마다는 되지만 132칸이라 몇 분이 걸린다. ' +
+                  '집계 RPC 승인 후에 잰다 — supabase/migrations/_pending_csat_dcp_inventory.sql'
                 : undefined,
           },
         ],
         total != null && done != null
           ? `해설 없는 문항 ${(total - done).toLocaleString()}개 — 이 상태로 조판하면 해설 빠진 책이 나온다`
-          : '해설 보유율을 못 쟀다',
+          : '해설 보유율을 못 잰다 — 집계 RPC 가 붙기 전까지는 이 칸이 통과인지 아닌지 알 수 없다',
         [
           {
             cmd: 'pnpm dlx tsx scripts/textbook/explain-fill.mjs --commit',

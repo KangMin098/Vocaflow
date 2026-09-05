@@ -26,9 +26,11 @@ import {
 
 function fmtGauge(g: StageGauge): string {
   if (g.num == null) return '못 잼'
-  if (g.unit === 'index') return g.num.toFixed(3)
-  if (g.unit === 'count' || g.den == null) return g.num.toLocaleString()
-  return `${g.num.toLocaleString()} / ${g.den.toLocaleString()}`
+  // 추정값에는 `≈` 를 붙인다 — 정확한 값처럼 적으면 그 수로 계산한 비율이 조용히 틀린다.
+  const approx = g.approx ? '≈' : ''
+  if (g.unit === 'index') return approx + g.num.toFixed(3)
+  if (g.unit === 'count' || g.den == null) return approx + g.num.toLocaleString()
+  return `${approx}${g.num.toLocaleString()} / ${g.den.toLocaleString()}`
 }
 
 /** 눈금 하나. **분자/분모를 그대로 적는다** — 백분율만 적으면 반올림이 미달을 숨긴다. */
@@ -48,6 +50,8 @@ function Gauge({ g }: { g: StageGauge }) {
       </div>
       {g.num == null ? (
         <p className="font-body text-[11px] text-[#8A8278]">{g.unmeasuredReason ?? '아직 안 쟀다'}</p>
+      ) : g.approx && g.unmeasuredReason ? (
+        <p className="break-keep font-body text-[11px] text-[#B5803A]">{g.unmeasuredReason}</p>
       ) : g.den ? (
         <div className="h-1.5 overflow-hidden rounded-full bg-[var(--bd)]">
           <div

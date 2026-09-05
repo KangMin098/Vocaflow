@@ -19,6 +19,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
+import { QUERY_TIMEOUT_MS, withTimeout } from './factory-bench'
+
 import {
   GENERATED_TYPES,
   INVENTORY_LEVELS,
@@ -35,27 +37,53 @@ import {
 
 export * from './factory-line-model'
 
-/** 한 물결에 던지는 조회 수. 인덱스가 받는 (유형, 수준) count 는 24개까지 안전했다(실측 225칸 24물결 13.4초 → 10물결 6.5초). jsonb 를 훑는 조회는 8개만 던져도 절반이 null 이 되므로 여기서 쓰지 않는다. */
-const WAVE = 24
+/**
+ * 한 물결에 던지는 조회 수.
+ *
+ * ⚠️ **크게 잡으면 오히려 느려진다.** PostgREST 는 커넥션 풀이 있고, 한꺼번에 수십 개를 던지면
+ * 풀이 포화돼 전부 줄을 선다 — 실측 2026-09-05 에 `pg_stat_activity` 가 idle 백엔드로 가득 찬
+ * 채 페이지가 39초 걸렸다. 느린 것은 DB 가 아니다(같은 셈을 직접 SQL 로는 즉시 낸다).
+ * 그래서 풀이 감당할 만큼만 던진다.
+ */
+const WAVE = 6
 
-/** 조회를 물결로 나눠 보낸다 — 전부 한꺼번에 던지면 서버가 조용히 null 을 돌려준다. */
-async function inWaves<T, R>(items: T[], run: (t: T) => Promise<R>, size = WAVE): Promise<R[]> {
-  const out: R[] = []
+/**
+ * **시간 예산** — 이 시간을 넘기면 남은 칸을 포기하고 여태 잰 것만 돌려준다.
+ *
+ * 예산이 없으면 화면이 몇 분씩 멈춘다. 관리자는 그때 새로고침을 누르고, 그 요청이 풀을 더
+ * 조여 다음 요청이 더 느려진다. **부분값 + 「다 못 셌다」가 무한 대기보다 낫다** — 못 센 칸은
+ * 화면에서 「?」로 남고 총계는 내지 않는다(모자란 수를 정확한 총계로 내밀지 않는다).
+ */
+const SWEEP_BUDGET_MS = 15_000
+
+/** 물결로 나눠 보내되 **예산을 넘기면 멈춘다.** 못 센 칸은 `null` 로 남는다. */
+async function inWaves<T, R>(
+  items: T[],
+  run: (t: T) => Promise<R>,
+  size = WAVE,
+  budgetMs = SWEEP_BUDGET_MS,
+): Promise<(R | null)[]> {
+  const out: (R | null)[] = []
+  const deadline = Date.now() + budgetMs
   for (let i = 0; i < items.length; i += size) {
+    if (Date.now() > deadline) {
+      // 남은 칸은 「안 쟀다」로 남긴다 — 0 으로 채우면 없는 구멍을 만든다.
+      out.push(...new Array<null>(items.length - out.length).fill(null))
+      break
+    }
     out.push(...(await Promise.all(items.slice(i, i + size).map(run))))
   }
   return out
 }
 
 /** count 한 번 — null 이면 한 번 더. 차가운 첫 호출이 빈손으로 오는 일이 있다. */
+/** 상한 안에 안 오면 「못 잼」. 재시도하지 않는다 — 느린 조회는 다시 물어도 느리다. */
 async function headCount(
   run: () => PromiseLike<{ count: number | null }>,
+  timeoutMs = QUERY_TIMEOUT_MS,
 ): Promise<number | null> {
-  for (let attempt = 0; attempt < 2; attempt += 1) {
-    const { count } = await run()
-    if (count != null) return count
-  }
-  return null
+  const { count } = await withTimeout(run(), timeoutMs, { count: null } as { count: number | null })
+  return count
 }
 
 /* ───────────────────────── ④ 소재 ───────────────────────── */
@@ -128,7 +156,14 @@ export async function loadAuthorView(): Promise<AuthorView> {
   const specs: { type: string; vLevel: number }[] = []
   for (const t of GENERATED_TYPES) for (const v of INVENTORY_LEVELS) specs.push({ type: t, vLevel: v })
 
-  const [counts, total] = await Promise.all([
+  // ⚠️ **전수 count 를 쓰지 않는다.** 필터 없는 count 는 이 표에서 50초 뒤 빈손으로 온다
+  //   (실측 2026-09-05 · 세 번 연속). 대신 **칸을 더해서** 총계를 낸다 — 어차피 칸마다 세고
+  //   있으므로 공짜이고, 무엇보다 **정확하다**.
+  //
+  //   그러면 「목록이 낡았는가」를 무엇으로 보나. 칸 합끼리 비교하면 자기 자신과 비교하는 것이라
+  //   아무것도 못 잡는다. 그래서 독립된 제3의 수로 `count: 'planned'`(플래너 통계 · 2.4초)를
+  //   쓴다. 통계값이라 오차가 있으므로 **허용 오차를 넘을 때만** 경고한다.
+  const [counts, planned] = await Promise.all([
     inWaves(specs, (s) =>
       headCount(() =>
         db
@@ -138,7 +173,7 @@ export async function loadAuthorView(): Promise<AuthorView> {
           .eq('v_level', s.vLevel),
       ),
     ),
-    headCount(() => db.from('csat_dcp_items').select('id', { count: 'exact', head: true })),
+    headCount(() => db.from('csat_dcp_items').select('id', { count: 'planned', head: true })),
   ])
 
   const cells: AuthorCell[] = specs.map((s, i) => ({ ...s, count: counts[i] ?? null }))
@@ -149,23 +184,33 @@ export async function loadAuthorView(): Promise<AuthorView> {
   }
 
   const summed = cells.reduce((n, c) => n + (c.count ?? 0), 0)
-  const missed = total != null && summed < total ? total - summed : 0
   const unmeasured = cells.filter((c) => c.count == null).length
+  // 플래너 통계의 오차 허용치. `reltuples` 는 ANALYZE 시점의 추정이라 정확하지 않다 —
+  // 실측 2026-09-05 에 654,390 vs 실제 655,092(0.11% 차)였다. 그 열 배를 허용치로 잡는다.
+  // ⚠️ **이 검사는 큰 누락만 잡는다.** 새 유형이 1% 미만이면 안 걸린다(그래서 통합 테스트가
+  //   유형 목록을 따로 본다). 허용치를 좁히면 통계 오차마다 거짓 경보가 뜬다.
+  const TOLERANCE = 0.01
+  const gap = planned != null ? planned - summed : 0
+  const stale = planned != null && gap > planned * TOLERANCE
 
-  // ⚠️ 합이 모자란 원인은 둘이고 **할 일이 정반대**다.
+  // ⚠️ 원인이 둘이고 **할 일이 정반대**다.
   //   · 못 센 칸이 있다 → 조회가 빈손으로 왔다. 새로고침하면 대개 맞는다.
   //   · 다 셌는데 모자란다 → **목록에 없는 유형이 있다.** 그 재고는 이 표에서 통째로 안 보이고,
   //     관리자는 있지도 않은 여유를 믿게 된다. 상수를 고쳐야 한다.
   //   한 문장으로 뭉치면 관리자가 새로고침만 하다가 낡은 목록을 못 본다.
   return {
     cells,
-    total,
+    // **칸을 더한 값이 총계다** — 전수 count 는 이 표에서 못 쓴다. 칸이 하나라도 빈손이면
+    // 그만큼 모자란 값이므로, 그때는 총계를 내지 않는다(모자란 수를 정확한 총계로 내밀면 안 된다).
+    total: unmeasured ? null : summed,
     ladderCells,
-    loadError: !missed
-      ? null
-      : unmeasured
-        ? `못 센 칸 ${unmeasured}개 — 표에 안 잡힌 문항 ${missed.toLocaleString()}개. 새로고침하면 대개 맞는다`
-        : `유형 목록이 낡았다 — 다 셌는데도 ${missed.toLocaleString()}개가 표 밖이다. GENERATED_TYPES 를 갱신한다`,
+    loadError: unmeasured
+      ? `못 센 칸 ${unmeasured}개 / ${cells.length} — 시간 예산(${SWEEP_BUDGET_MS / 1000}초) 안에 다 못 셌다. ` +
+        `칸마다 조회를 따로 던지는 방식의 한계이고, 집계 RPC 가 붙으면 한 번에 끝난다 ` +
+        `(supabase/migrations/_pending_csat_dcp_inventory.sql). 총계는 내지 않는다 — 모자란 수를 정확한 값처럼 내밀지 않기 위해서다`
+      : stale
+        ? `유형 목록이 낡았을 수 있다 — 다 셌는데 플래너 통계보다 ${gap.toLocaleString()}개 적다. GENERATED_TYPES 를 확인한다`
+        : null,
   }
 }
 

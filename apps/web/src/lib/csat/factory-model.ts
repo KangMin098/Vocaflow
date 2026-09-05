@@ -69,6 +69,18 @@ export interface StageGauge {
   target?: number
   /** 못 쟀으면 왜 못 쟀는지. 화면이 그 이유를 적는다. */
   unmeasuredReason?: string
+  /**
+   * 이 값이 **정확한 셈이 아니라 추정**인가.
+   *
+   * 실측 2026-09-05: PostgREST 로 `csat_dcp_items`(65만 행)를 **필터 없이** 전수 세면
+   * 50초 뒤 `count=null` 로 돌아온다 — 세 번 연속 그랬고, 같은 count 를 직접 SQL 로는
+   * 즉시 낸다. 즉 DB 가 아니라 PostgREST 쪽 한계다. 대신 `count: 'planned'`(플래너 통계)는
+   * 2.4초에 나오지만 **정확하지 않다**(654,390 vs 실제 655,092 · 0.1% 차).
+   *
+   * 그 차이를 화면이 숨기면 안 된다. 추정값을 정확한 값처럼 적으면 그 수로 계산한 비율이
+   * 조용히 틀리고, 아무도 그것을 의심하지 않는다. 그래서 화면은 `≈` 를 붙이고 근거를 적는다.
+   */
+  approx?: boolean
 }
 
 export interface StageDef {
