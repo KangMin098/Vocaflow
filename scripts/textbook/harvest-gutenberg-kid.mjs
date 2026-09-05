@@ -330,18 +330,44 @@ const cursor = fs.existsSync(CURSOR_FILE)
   : { done: [], page: 1 }
 const done = new Set(cursor.done ?? [])
 
+/**
+ * **주제를 소설에서 설명문 쪽으로 옮긴다.**
+ *
+ * ── 왜 (실측 2026-09-05, 표본 세 벌) ────────────────────────────────
+ * 네 축을 통과한 발췌를 세 번 손으로 읽었고 쓸 만한 것이 **3/12 · 2/12 · 1/12** 였다.
+ * 자립성을 사후 규칙으로 잡으려다 실패했고(시중 오탐 3%→13/19%), 장 머리 우선으로
+ * 뽑는 자리를 바꿔도 나아지지 않았다.
+ *
+ * 그런데 **통과한 것들의 성격이 한결같다** — 파리 관찰 · 곤충 설명 · 비버 이야기 ·
+ * 흰 쥐. 전부 **설명문이거나 동물 이야기**다. 떨어지는 것은 전부 **소설 장면**이다.
+ *
+ * 원인은 규칙이 아니라 소스였다. 19세기 아동 **소설** 중간을 잘라 자립적 지문을 얻으려는
+ * 것 자체가 어긋나 있다 — 소설은 앞을 받아 쓰는 글이고, 시중 초·중 교재 지문은
+ * 그 한 편이 스스로 서는 설명문·짧은 이야기다.
+ *
+ * 그래서 훑는 주제를 바꾼다. `children` 만 보던 것을 자연·과학·동물·기행으로 넓힌다.
+ * ⚠️ `children` 을 빼지는 않는다 — 초3~4 칸의 쉬운 글은 거기서 나온다.
+ */
+const TOPICS = (arg('topics', 'nature,science,animals,travel,children') ?? '').split(',').map((t) => t.trim()).filter(Boolean)
+
 const picked = []
 let page = cursor.page ?? 1
+let topicIdx = cursor.topicIdx ?? 0
 while (picked.length < BOOKS && page <= 200) {
-  const listRaw = await get(`https://gutendex.com/books/?topic=children&languages=en&page=${page}`)
+  const topic = TOPICS[topicIdx % TOPICS.length]
+  const listRaw = await get(
+    `https://gutendex.com/books/?topic=${encodeURIComponent(topic)}&languages=en&page=${page}`
+  )
   const list = JSON.parse(listRaw)
   for (const b of list.results ?? []) {
     if (done.has(b.id)) continue
-    picked.push({ id: b.id, title: b.title })
+    picked.push({ id: b.id, title: b.title, topic })
     if (picked.length >= BOOKS) break
   }
-  if (!list.next) break
-  page++
+  // **주제를 돌아가며 훑는다** — 한 주제를 끝까지 파면 서가가 한 색이 된다.
+  topicIdx++
+  if (topicIdx % TOPICS.length === 0) page++
+  if (!list.next && topicIdx % TOPICS.length === 0) break
 }
 if (!picked.length) {
   console.log('새로 볼 책이 없다 — 커서를 지우거나 목록을 넓힌다.')
@@ -555,6 +581,11 @@ if (failures.length) {
 // 커서는 **실제로 처리한 책만** 적는다.
 if (COMMIT) {
   fs.mkdirSync(path.dirname(CURSOR_FILE), { recursive: true })
-  fs.writeFileSync(CURSOR_FILE, `${JSON.stringify({ done: [...done], page }, null, 2)}\n`)
+  // ⚠️ `topicIdx` 도 적는다 — 안 적으면 다음 실행이 늘 첫 주제부터 다시 훑어
+  //   `nature` 앞머리만 되풀이하고 나머지 주제는 영영 안 본다.
+  fs.writeFileSync(
+    CURSOR_FILE,
+    `${JSON.stringify({ done: [...done], page, topicIdx }, null, 2)}\n`
+  )
   console.log(`\n  커서 → ${path.relative(process.cwd(), CURSOR_FILE)} (${done.size}권 처리됨)`)
 }
