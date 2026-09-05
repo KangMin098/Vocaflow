@@ -159,6 +159,13 @@ async function DashboardContent() {
       <footer className="border-t border-[var(--bd)] pt-4 text-center font-mono text-[10px] text-[var(--t2)]">
         Dictionary DB Health v3 · 8 sections · Overall {snapshot.overallScore} /
         100 · revalidate 60s
+        <br />
+        {/* 숫자의 성격을 화면이 스스로 말한다 — 추정치를 실측처럼 읽으면 0.5% 차이를
+            "줄었다/늘었다" 로 오독한다. */}
+        <span className="text-[var(--t3)]">
+          큰 표(2만 행 이상)의 건수는 플래너 추정치입니다(오차 &lt;1%). 정확 카운트는 이
+          크기에서 시간초과로 실패합니다 — 실측 근거는 `lib/admin/dashboard-stats.ts` 주석.
+        </span>
       </footer>
     </div>
   )

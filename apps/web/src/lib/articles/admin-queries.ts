@@ -10,7 +10,7 @@
 //   통째로 사라지고, 커버리지 30칸이 전부 GAP 으로 칠해지고, 그 거짓 GAP 을 근거로
 //   소스 추천까지 나갔다(2026-09-05 실측).
 //
-//   그래서 집계는 `count: 'exact', head: true`(행을 안 받는 서버 카운트)로,
+//   그래서 집계는 `count: 'estimated', head: true`(행을 안 받는 서버 카운트)로,
 //   목록은 상태·소스 필터 + `.range()` 로만 읽는다.
 
 import 'server-only'
@@ -70,7 +70,7 @@ interface Builder extends PromiseLike<QueryResult> {
 
 interface LooseDb {
   from(table: string): {
-    select(columns: string, opts?: { count?: 'exact'; head?: boolean }): Builder
+    select(columns: string, opts?: { count?: 'exact' | 'planned' | 'estimated'; head?: boolean }): Builder
   }
 }
 
@@ -101,7 +101,15 @@ async function countRows(
   for (let attempt = 0; attempt < backoffs.length; attempt += 1) {
     const wait = backoffs[attempt] ?? 0
     if (wait > 0) await new Promise((r) => setTimeout(r, wait))
-    const { count, error } = await build(sb.from(TABLE).select('*', { count: 'exact', head: true }))
+    // ⚠️ `exact` 가 아니라 `estimated` — 재시도만으로는 못 고쳤다(실측 2026-09-06).
+    //    `library_articles` 는 8.9만 행이고 `status='queued'` 만 5.2만이라, `exact` 는
+    //    2만 행쯤부터 **아무 말 없이 시간초과**한다(오류 message 가 빈 문자열).
+    //    세 번 다시 물어도 같다 — 느린 게 아니라 이 크기에서는 되지 않는다.
+    //    `estimated` 는 작은 표엔 정확값을, 큰 표엔 플래너 추정치(오차 <1%)를 준다.
+    //    `lib/admin/dashboard-stats.ts` 의 `head()` 주석에 세 모드 실측표가 있다.
+    const { count, error } = await build(
+      sb.from(TABLE).select('*', { count: 'estimated', head: true }),
+    )
     if (!error && count != null) return count
     last = error?.message || '(오류 메시지 없음 — 동시 요청 과부하일 때 이렇게 온다)'
   }

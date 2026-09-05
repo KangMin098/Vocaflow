@@ -28,7 +28,7 @@ import type {
 } from './types'
 
 // ─────────────────────────────────────────────────────────────
-// 헬퍼 — count: 'exact', head: true 패턴
+// 헬퍼 — count: 'estimated', head: true 패턴
 // ─────────────────────────────────────────────────────────────
 
 /**
@@ -52,7 +52,13 @@ async function fetchCategoricalDistributions(
 type PgQuery = any
 
 /**
- * `count: 'exact', head: true` 카운트 + 재시도.
+ * `count: 'estimated', head: true` 카운트 + 재시도.
+ *
+ * ⚠️ 예전엔 `exact` 였다. `shared_dictionary` 는 4.9만 행이고, 거기서 `exact` 는
+ *    **8.1초 뒤 null 을 오류 message 없이** 돌려준다(실측 2026-09-06 · 세 모드 비교표는
+ *    `lib/admin/dashboard-stats.ts` 의 `head()` 주석). 그래서 VRL 화면 5개가 훑기에서
+ *    한꺼번에 「네비게이션 실패(타임아웃)」로 잡혔다. 재시도로는 못 고친다 — 느린 게
+ *    아니라 이 크기에서는 되지 않는다.
  *
  * - 250 / 500 / 1000 ms exponential backoff (총 3회 시도)
  * - 모든 시도 실패 시 throw — silent 0 반환 폐지 (직전 버그 원인)
@@ -69,7 +75,7 @@ async function countRows(
     if (backoffs[attempt] && backoffs[attempt]! > 0) {
       await new Promise((r) => setTimeout(r, backoffs[attempt]))
     }
-    let q: PgQuery = client.from(table).select('*', { count: 'exact', head: true })
+    let q: PgQuery = client.from(table).select('*', { count: 'estimated', head: true })
     if (filter) q = filter(q)
     const { count, error } = await q
     if (!error) {
@@ -375,7 +381,7 @@ async function fetchVrlClassificationStats(
     categorical !== undefined ? Promise.resolve(categorical) : fetchCategoricalDistributions(client),
     client
       .from('shared_dictionary')
-      .select('*', { count: 'exact', head: true })
+      .select('*', { count: 'estimated', head: true })
       .not('v_level', 'is', null)
       .not('v_level_rule_v1', 'is', null)
       .filter('v_level', 'neq', 'v_level_rule_v1' as unknown as number),
@@ -421,7 +427,7 @@ async function fetchIntegrityDefects(
   //    (실측 2026-08-30). 받은 행을 세어 화면의 결함 개수로 쓰고 있었으므로, 1,000을
   //    넘는 순간 **적게 세어진 수가 조용히** 떴다.
   //    유형별 분해는 전량이 필요하니 끝까지 받고, 총계·미해결은 이 파일이 이미 가진
-  //    정확 카운트(`countRows` — `count: 'exact', head: true`)로 따로 확인한다.
+  //    정확 카운트(`countRows` — `count: 'estimated', head: true`)로 따로 확인한다.
   //    둘이 어긋나면 페이지네이션이 깨진 것이라 그 사실을 로그로 남긴다.
   type Row = { concern_type: string; resolved: boolean }
   let rows: Row[] = []
