@@ -21,6 +21,7 @@
 //   node scripts/csat/corpus-sync.mjs            (미리보기 — 쓰지 않는다)
 //   node scripts/csat/corpus-sync.mjs --commit
 //   node scripts/csat/corpus-sync.mjs --commit --prune-listening
+//   node scripts/csat/corpus-sync.mjs --commit --prune-stale        (코퍼스에서 빠진 문항 · 분석 0건일 때만)
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -28,6 +29,7 @@ import { createClient } from '@supabase/supabase-js'
 
 const COMMIT = process.argv.includes('--commit')
 const PRUNE_LISTENING = process.argv.includes('--prune-listening')
+const PRUNE_STALE = process.argv.includes('--prune-stale')
 const DIR = path.resolve('scripts/csat/data')
 
 function env(name) {
@@ -157,6 +159,36 @@ const gone = stale.filter((r) => r.section !== '듣기')
 if (listening.length) {
   console.log(`  · DB 에 남은 듣기 문항 ${listening.length}개 — 이제 올리지 않는다. 지우려면 사용자 확인 뒤 삭제할 것`)
 }
+// ── 코퍼스에서 빠진 문항 삭제 (--prune-stale) ────────────────────────
+//
+// 무효화된 회차의 잔여 행이다. 실측: `M2009` 는 문제지 PDF 가 `M2106` 것과 md5 동일이라
+// 회차를 통째로 뺐는데 DB 행 28개가 남았다. **남겨 두면 DB 에 「틀린 본문」이 남는다** —
+// 그 행들의 지문은 실제로 M2106 의 것이다. 무효화했다는 사실 자체는 CHANGELOG 와
+// 코드 주석에 남아 있으므로, 잘못된 본문까지 보관할 이유가 없다.
+//
+// ⚠️ **분석이 하나라도 딸려 있으면 지우지 않는다** — CASCADE 로 함께 사라진다.
+//    지시가 옳아도 전제가 바뀌었을 수 있고, 그때 지우면 되돌릴 수 없다.
+if (PRUNE_STALE && gone.length) {
+  const ids = gone.map((r) => r.id)
+  let attached = 0
+  for (let i = 0; i < ids.length; i += 200) {
+    const { count, error: aErr } = await db
+      .from('csat_item_analyses')
+      .select('*', { count: 'exact', head: true })
+      .in('item_id', ids.slice(i, i + 200))
+    if (aErr) throw new Error(aErr.message)
+    attached += count ?? 0
+  }
+  if (attached > 0) {
+    console.log(`  ✗ 코퍼스에 없는 문항 ${gone.length}개에 분석 ${attached}건이 딸려 있다 — 아무것도 지우지 않았다`)
+  } else {
+    const d = await db.from('csat_items').delete().in('id', ids).select('id')
+    if (d.error) throw new Error(`잔여 문항 삭제: ${d.error.message}`)
+    console.log(`  · 코퍼스에 없는 문항 ${d.data?.length ?? 0}개 삭제 (딸린 분석 0건)`)
+    gone.length = 0
+  }
+}
+
 if (gone.length) {
   // **분석이 붙었는지 실제로 세어 말한다.** "분석이 CASCADE 로 사라진다" 를 무조건 적어 두면
   // 그 경고가 참인지 거짓인지 아무도 모르게 되고, 정말 위험한 날에도 똑같이 읽힌다.
