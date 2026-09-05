@@ -2343,4 +2343,4 @@
 
 ---
 
-*생성 2026-09-04 — `node scripts/csat/render-type-analysis.mjs`*
+*생성 2026-09-05 — `node scripts/csat/render-type-analysis.mjs`*

@@ -23,7 +23,16 @@ import path from 'node:path'
 import os from 'node:os'
 import { execFileSync } from 'node:child_process'
 
-const SRC = 'C:/Users/Administrator/Document' + 's/수능영어기출/최종'
+// 원본 위치는 옮겨진 적이 있다 — 한 자리에 못 박으면 폴더가 움직인 날 스크립트가 조용히 죽는다
+// (실측 2026-09-05: `수능영어기출/최종` 이 비어 있어 이 스크립트를 못 돌렸다).
+// `ingest-mock.mjs` 와 같은 방식으로 후보를 훑는다.
+const SRC_CANDIDATES = [
+  'C:/Users/Administrator/Documents/영어/수능영어기출/수능기출',
+  'C:/Users/Administrator/Documents/수능영어기출/최종',
+  'C:/Users/Administrator/Documents/영어/수능영어기출/최종',
+]
+const SRC = SRC_CANDIDATES.find((d) => fs.existsSync(d) && fs.readdirSync(d).some((f) => f.toLowerCase().endsWith('.pdf')))
+if (!SRC) throw new Error(`수능 원본 폴더를 못 찾았다: ${SRC_CANDIDATES.join(' · ')}`)
 const PDFTOTEXT = 'C:/Program Files/Git/mingw64/bin/pdftotext.exe'
 const OUT_DIR = process.argv[2] ?? path.resolve('scripts/csat/data/columns2')
 

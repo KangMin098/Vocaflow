@@ -141,9 +141,9 @@
    "file": "202506_영어영역_문제지.pdf",
    "space": "wide",
    "stems": 45,
-   "assigned": 38,
+   "assigned": 39,
    "multi": 0,
-   "none": 7,
+   "none": 6,
    "keys": 45
   },
   {
@@ -1461,7 +1461,7 @@
   {
    "exam": "M2106",
    "no": 38,
-   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장                                    assume that more fossil evidence from a particular period or 적절한 곳을 고르시오.                                                          place means that more individuals were present at that time,",
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
    "high_score": false,
    "rescued": false,
    "section": "독해",
@@ -1471,7 +1471,7 @@
   {
    "exam": "M2106",
    "no": 39,
-   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장                                    assume that more fossil evidence from a particular period or 적절한 곳을 고르시오.                                                          place means that more individuals were present at that time,",
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
    "high_score": false,
    "rescued": false,
    "section": "독해",
@@ -1483,7 +1483,7 @@
    "no": 40,
    "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "독해",
    "type": "R-SUMMARY",
    "hit_count": 1
@@ -1883,7 +1883,7 @@
    "no": 35,
    "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "독해",
    "type": "R-IRRELEVANT",
    "hit_count": 1
@@ -2801,7 +2801,7 @@
   {
    "exam": "M2209",
    "no": 38,
-   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장                                   data unattainable in the age of books. It packages it",
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
    "high_score": false,
    "rescued": false,
    "section": "독해",
@@ -2811,7 +2811,7 @@
   {
    "exam": "M2209",
    "no": 39,
-   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장                                   data unattainable in the age of books. It packages it",
+   "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
    "high_score": false,
    "rescued": false,
    "section": "독해",
@@ -2823,7 +2823,7 @@
    "no": 40,
    "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
    "high_score": false,
-   "rescued": true,
+   "rescued": false,
    "section": "독해",
    "type": "R-SUMMARY",
    "hit_count": 1
@@ -3711,7 +3711,7 @@
   {
    "exam": "M2309",
    "no": 41,
-   "stem": "윗글의 제목으로 가장 적절한 것은?                                               how he communicated the feelings of isolation and loneliness in",
+   "stem": "윗글의 제목으로 가장 적절한 것은?",
    "high_score": false,
    "rescued": false,
    "section": "장문",
@@ -3721,8 +3721,8 @@
   {
    "exam": "M2309",
    "no": 42,
-   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은",
-   "high_score": false,
+   "stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은? [3점]",
+   "high_score": true,
    "rescued": false,
    "section": "장문",
    "type": "X-VOCAB",
@@ -3731,27 +3731,27 @@
   {
    "exam": "M2309",
    "no": 43,
-   "stem": "다음 글을 읽고, 물음에 답하시오.                                           45. 윗글에 관한 내용으로 적절하지 않은 것은? (A)                              ① Emilia와 Layla는 유럽 여행 중이었다.",
+   "stem": "주어진 글 (A)에 이어질 내용을 순서에 맞게 배열한 것으로 가장 적절한 것은?",
    "high_score": false,
    "rescued": false,
    "section": "장문",
-   "type": "X-FACT",
+   "type": "X-ORDER",
    "hit_count": 1
   },
   {
    "exam": "M2309",
    "no": 44,
-   "stem": "다음 글을 읽고, 물음에 답하시오.                                           45. 윗글에 관한 내용으로 적절하지 않은 것은? (A)                              ① Emilia와 Layla는 유럽 여행 중이었다.",
+   "stem": "밑줄 친 (a)～(e) 중에서 가리키는 대상이 나머지 넷과 다른 것은?",
    "high_score": false,
    "rescued": false,
    "section": "장문",
-   "type": "X-FACT",
+   "type": "X-REFER",
    "hit_count": 1
   },
   {
    "exam": "M2309",
    "no": 45,
-   "stem": "다음 글을 읽고, 물음에 답하시오.                                           45. 윗글에 관한 내용으로 적절하지 않은 것은? (A)                              ① Emilia와 Layla는 유럽 여행 중이었다.",
+   "stem": "윗글에 관한 내용으로 적절하지 않은 것은?",
    "high_score": false,
    "rescued": false,
    "section": "장문",
@@ -4925,8 +4925,8 @@
    "high_score": false,
    "rescued": false,
    "section": "독해",
-   "type": null,
-   "hit_count": 0
+   "type": "R-NOTICE",
+   "hit_count": 1
   },
   {
    "exam": "M2506",

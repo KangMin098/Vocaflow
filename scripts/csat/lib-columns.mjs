@@ -146,12 +146,12 @@ function cutPage(ls, cut, wide = true) {
 }
 
 /** 페이지마다 단을 갈라 위→아래로 이어 붙인 텍스트 */
-export function restoreColumns(raw, wide = true) {
+export function restoreColumns(raw, wide = true, minRun = 4) {
   const pages = raw
     .split('\f')
     .map((p) => p.split('\n'))
     .filter((ls) => ls.some((l) => l.trim()))
-  const found = pages.map((ls) => findGutter(ls, 4, wide)).filter((c) => c != null)
+  const found = pages.map((ls) => findGutter(ls, minRun, wide)).filter((c) => c != null)
   const tally = new Map()
   for (const c of found) tally.set(c, (tally.get(c) ?? 0) + 1)
   let grid = null
@@ -162,7 +162,7 @@ export function restoreColumns(raw, wide = true) {
     const p = occupancy(ls, wide)
     let cut = null
     if (grid != null && p && isGutterAt(ls, grid, 2, wide)) { if (grid < p.width) cut = grid }
-    else cut = findGutter(ls, 4, wide)
+    else cut = findGutter(ls, minRun, wide)
     if (cut == null) cut = rescueCut(ls, wide)
     if (cut == null) { out.push(...ls, ''); continue }
     out.push(...cutPage(ls, cut, wide), '')
@@ -181,12 +181,43 @@ export function restoreColumns(raw, wide = true) {
  * @param {string} raw pdftotext -layout 원문
  * @param {(text: string) => number} score 클수록 좋은 점수
  */
-export function restoreColumnsBest(raw, score) {
-  const cands = [
-    { wide: true, text: restoreColumns(raw, true) },
-    { wide: false, text: restoreColumns(raw, false) },
-  ]
-  for (const c of cands) c.score = score(c.text)
-  cands.sort((a, b) => b.score - a.score)
-  return cands[0]
+export function restoreColumnsBest(raw, score, minRun = 4) {
+  const pick = (mr) => {
+    const cands = [
+      { wide: true, minRun: mr, text: restoreColumns(raw, true, mr) },
+      { wide: false, minRun: mr, text: restoreColumns(raw, false, mr) },
+    ]
+    for (const c of cands) c.score = score(c.text)
+    cands.sort((a, b) => b.score - a.score)
+    return cands[0]
+  }
+
+  const base = pick(minRun)
+  // **`minRun` 도 회차마다 고른다.** 좌표계와 같은 이유다 — 어느 한쪽을 고르면 절반이 깨진다.
+  //
+  // 실측 2026-09-05(32회차 전수): `minRun` 을 3으로 내리면 15회차가 나아지지만
+  // **2014학년도 A형은 417→388 로 퇴행**한다. 그래서 전역으로는 못 바꾼다.
+  //
+  // 그리고 **점수만 보면 안 된다.** 2022학년도 수능은 점수가 308→321 로 올랐는데
+  // 붙은 줄이 **0→31** 로 늘었다 — 우리가 고치려는 바로 그 결함이다.
+  // 그래서 판정에 둘을 다 건다: **점수가 오르고 그리고 붙은 줄이 늘지 않을 때만** 바꾼다.
+  //
+  // 이 규칙으로 14회차가 3을 쓰고 18회차가 4를 유지하며, **구성상 퇴행이 0**이다.
+  if (minRun > 3) {
+    const alt = pick(3)
+    if (alt.score > base.score && gluedLines(alt.text) <= gluedLines(base.text)) return alt
+  }
+  return base
+}
+
+/**
+ * **두 단이 한 줄에 남아 있는 줄 수.** 적을수록 잘 갈린 것이다.
+ *
+ * 점수(발문 배정 + 분리 품질)만으로는 이 결함이 안 잡힌다 — 문항 머리는 제대로 서면서
+ * 본문 줄만 붙어 있는 회차가 있기 때문이다(2022학년도 수능이 그랬다).
+ */
+export function gluedLines(text) {
+  return text
+    .split('\n')
+    .filter((l) => /\S {6,}\S/.test(l) && l.length > 75 && /\S/.test(l.slice(72))).length
 }
