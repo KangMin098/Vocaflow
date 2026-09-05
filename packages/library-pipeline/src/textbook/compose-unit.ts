@@ -506,19 +506,48 @@ export function composeUnits(
    * 금지로 걸면 단원이 안 채워져 권이 통째로 줄어든다(이 파일이 이미 겪은 실패다).
    */
   const refUseCount = new Map<string, number>()
-  /** 후보 중 **권에서 가장 덜 쓰인 글**의 것을 고른다. 같으면 원래 순서를 지킨다. */
+  /**
+   * 글마다 **몇 가지 유형의 문항을 갖고 있는가** — 비중 배분 풀이 만들어진 뒤 채운다.
+   *
+   * ── 왜 필요한가 (실측 2026-09-05 V3) ────────────────────────────────
+   * 덜 쓰인 글부터 골라도 겹침이 남았고, 그 겹침은 전부 `title+topic` 이었다.
+   * SQL 로 세어 보니 title 보유 38편 중 **26편이 topic 도 갖고 있었다**(다른 세션이
+   * 두 드레인을 같은 지문에 채운 결과). 조합기가 title 자리에 그 겸용 글을 먼저 써 버리면
+   * topic 차례엔 같은 글을 다시 부를 수밖에 없다.
+   *
+   * 산술: title-only 12 · topic-only 9 · 겸용 26. title 21자리를 title-only 12 + 겸용 9 로,
+   * topic 19자리를 topic-only 9 + 남은 겸용 10 으로 채우면 **겹침 0** 이 가능하다.
+   * 그러려면 **한 유형만 가진 글을 먼저 쓰고 겸용 글은 아껴 둬야** 한다.
+   */
+  const versatility = new Map<string, number>()
+  /**
+   * 후보 중 **권에서 가장 덜 쓰인 글**의 것을 고른다. 덜 쓰인 정도가 같으면
+   * **유형을 적게 가진 글**(다른 데서 덜 필요한 글)을 먼저 쓴다. 그것도 같으면 원래 순서.
+   */
   const leastUsed = (cands: PoolItem[]): PoolItem | undefined => {
     let best: PoolItem | undefined
-    let bestN = Infinity
+    let bestKey = Infinity
     for (const it of cands) {
       const n = refUseCount.get(it.ref_id) ?? 0
-      if (n < bestN) {
+      // 쓰인 횟수가 우선, 그 안에서 유형 수. 1000 은 유형 수가 절대 넘지 못하는 자릿수다.
+      const key = n * 1000 + (versatility.get(it.ref_id) ?? 0)
+      if (key < bestKey) {
         best = it
-        bestN = n
-        if (n === 0) break // 안 쓴 글보다 나은 것은 없다 — 더 볼 필요가 없다
+        bestKey = key
       }
     }
     return best
+  }
+  // 글마다 몇 유형의 풀에 들어 있는가 — 선언 **뒤**에서 채운다(앞에서 채우면 TDZ).
+  if (byShare) {
+    const types = new Map<string, Set<string>>()
+    for (const [t, list] of byShare.pools) {
+      for (const it of list) {
+        if (!types.has(it.ref_id)) types.set(it.ref_id, new Set())
+        types.get(it.ref_id)!.add(t)
+      }
+    }
+    for (const [ref, s] of types) versatility.set(ref, s.size)
   }
   const units: Unit[] = []
   let stoppedBecause: string | null = null
