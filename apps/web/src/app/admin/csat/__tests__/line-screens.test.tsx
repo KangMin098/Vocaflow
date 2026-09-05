@@ -368,3 +368,43 @@ describe('공정별 드레인 절차가 있어야 할 곳에만 있다', () => {
     }
   })
 })
+
+/* ── ⑦ 검수 — 층 도식 ── */
+
+describe('ReviewStack — 카드 넷이 아니라 위에서 아래로 쌓인 체', () => {
+  it('층마다 모양(svg)이 붙는다 — 색약에서 초록↔주황이 겹치므로 색만으로 말하지 않는다', () => {
+    const html = renderToString(<ReviewClient {...review} />)
+    // 층 4개 = 모양 4개 이상 (도움말 아이콘 등이 더 있을 수 있다)
+    expect((html.match(/<svg/g) ?? []).length).toBeGreaterThanOrEqual(review.layers.length)
+  })
+
+  it('처음 걸리는 층 아래는 흐리게 그리고 그 뜻을 적는다 — 아래 층 수치는 통과율이 아니다', () => {
+    const html = renderToString(<ReviewClient {...review} />)
+    // L3 이 3/7 로 처음 걸리므로 L4 는 「아래」다.
+    expect(html).toContain('opacity-55')
+    expect(text(html)).toContain('여기까지 오지 않는다')
+  })
+
+  it('전 층 통과면 흐린 층이 없다', () => {
+    const allPass = {
+      ...review,
+      layers: review.layers.map((l) => ({ ...l, passed: 5, total: 5, unmeasuredReason: null })),
+    }
+    const html = renderToString(<ReviewClient {...allPass} />)
+    expect(html).not.toContain('opacity-55')
+    expect(text(html)).not.toContain('여기까지 오지 않는다')
+  })
+
+  it('명령은 접혀 있다 — 층이 무엇을 보는지가 먼저, 어떻게 돌리는지는 깊이다', () => {
+    const html = renderToString(<ReviewClient {...review} />)
+    expect((html.match(/<details/g) ?? []).length).toBeGreaterThanOrEqual(review.layers.length)
+    for (const l of review.layers) expect(text(html)).toContain(l.looksAt)
+  })
+
+  it('못 잰 층은 0% 가 아니라 「못 잼」과 이유다', () => {
+    const html = text(renderToString(<ReviewClient {...review} />))
+    expect(html).toContain('못 잼')
+    expect(html).toContain('기획 화면이 잰다')
+    expect(html).not.toContain('(0%)')
+  })
+})

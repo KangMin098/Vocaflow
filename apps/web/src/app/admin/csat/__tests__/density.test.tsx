@@ -98,7 +98,10 @@ const BUDGET: Record<string, { chunks: number; chars: number }> = {
   설계: { chunks: 110, chars: 660 },
   소재: { chunks: 72, chars: 780 },
   집필: { chunks: 175, chars: 1035 },
-  검수: { chunks: 87, chars: 1045 },
+  // 검수: 카드 4장(75 덩어리 · 907 글자)을 층 도식으로 바꾸며 89 · 784 가 됐다. 덩어리가 +14 인
+  // 이유는 층마다 통과 막대 1 + 명령 접힘 손잡이 1 + 모양 1 이 붙어서다 — 글자 −14% · 그림 2 → 6 과
+  // 맞바꾼 구조다. 예산은 새 실측 89 + 15%.
+  검수: { chunks: 102, chars: 900 },
   조판: { chunks: 80, chars: 785 },
 }
 

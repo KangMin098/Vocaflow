@@ -15,38 +15,10 @@
 'use client'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
-import type { ReviewLayer, ReviewView } from '@/lib/csat/factory-line-model'
+import type { ReviewView } from '@/lib/csat/factory-line-model'
 
-function LayerCard({ l }: { l: ReviewLayer }) {
-  const done = l.passed != null && l.total != null && l.total > 0 && l.passed >= l.total
-  const color = l.passed == null ? '#8A8278' : done ? '#2E7D5A' : '#B5803A'
-  return (
-    <article className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
-      <header className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">
-          <span className="font-mono text-[11px] text-[#8B5CF6]">{l.id}</span> {l.name}
-        </h3>
-        <span className="font-mono text-[14px] tabular-nums" style={{ color }}>
-          {l.passed == null || l.total == null
-            ? '못 잼'
-            : `${l.passed.toLocaleString()} / ${l.total.toLocaleString()}`}
-        </span>
-      </header>
-      <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t2)]">
-        <span className="text-[var(--t3)]">보는 것 · </span>
-        {l.looksAt}
-      </p>
-      {l.unmeasuredReason ? (
-        <p className="break-keep font-body text-[11px] leading-snug text-[#8A8278]">
-          {l.unmeasuredReason}
-        </p>
-      ) : null}
-      <code className="break-all rounded-[var(--r-sm)] bg-[var(--bg2)] p-1.5 font-mono text-[11px] text-[var(--t1)]">
-        {l.cmd}
-      </code>
-    </article>
-  )
-}
+import { ReviewStack } from './ReviewStack'
+
 
 export function ReviewClient({ layers, volumes, loadError }: ReviewView) {
   const measured = layers.filter((l) => l.passed != null && l.total != null)
@@ -87,11 +59,7 @@ export function ReviewClient({ layers, volumes, loadError }: ReviewView) {
         </p>
       </section>
 
-      <div className="grid gap-3 lg:grid-cols-2">
-        {layers.map((l) => (
-          <LayerCard key={l.id} l={l} />
-        ))}
-      </div>
+      <ReviewStack layers={layers} />
 
       <section className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
         <h3 className="mb-1 font-display text-[13px] font-[700] text-[var(--t1)]">
