@@ -95,7 +95,7 @@ async function repairUnit(
   if (!COMMIT || !updates.length) return
   // PostgREST 는 행마다 값이 다른 일괄 UPDATE 를 못 한다(upsert 로 흉내 내면 안 넘긴 컬럼이
   // 기본값으로 덮여 다른 자산이 날아간다). 그래서 행 단위로 보내되 **동시성으로만** 줄인다.
-  const CONC = 4
+  const CONC = 3
   for (let i = 0; i < updates.length; i += CONC) {
     await Promise.all(updates.slice(i, i + CONC).map(async (u) => {
       const q = db.from(table).update({ first_sentence: u.next })
@@ -140,35 +140,61 @@ async function books() {
   }
 }
 
+/**
+ * **불량이 있는 글만 고른다.**
+ *
+ * 전수 방식은 26,065편을 한 편씩 열어 본문을 받고 형태소를 돌린다 — 실측 시간당 382건,
+ * 즉 **80시간**이다. 그런데 실제로 고칠 것이 있는 글은 **10,256편**뿐이고 나머지 15,809편은
+ * 열어 볼 이유가 없다.
+ *
+ * 그래서 먼저 `first_sentence` 가 있는 행만 훑어 「그 낱말이 없는 행」을 모은다.
+ * 행은 많지만(약 180만) 한 번에 1,000행씩 받으므로 본문을 여는 것보다 훨씬 싸다.
+ */
+async function badRowsByArticle() {
+  const map = new Map<string, Array<{ library_article_id: string; word: string; first_sentence: string | null }>>()
+  let seen = 0
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await retry(() => db
+      .from('library_article_vocabularies')
+      .select('library_article_id, word, first_sentence')
+      .not('first_sentence', 'is', null)
+      .order('library_article_id').order('word')
+      .range(from, from + 999))
+    if (error) throw new Error(String((error as { message?: string }).message ?? error))
+    const rows = (data ?? []) as Array<{ library_article_id: string; word: string; first_sentence: string | null }>
+    if (!rows.length) break
+    seen += rows.length
+    for (const r of rows) {
+      if (holds(String(r.word).toLowerCase(), r.first_sentence)) continue
+      const l = map.get(r.library_article_id) ?? []
+      l.push(r)
+      map.set(r.library_article_id, l)
+    }
+    process.stdout.write(`\r  불량 찾는 중 ${seen} 훑음 · 글 ${map.size}편`)
+  }
+  console.log('')
+  return map
+}
+
 async function articles() {
   // ⚠️ **글은 26,065편이라 한 번에 못 받는다.** PostgREST 는 한 응답에 1,000행까지만 주고
   //    넘친 쪽은 오류를 내지 않는다 — 그냥 1,000편만 고치고 "끝났다" 고 보고하게 된다.
   //    (도서는 401권이라 안 걸리지만, 여기서 안 걸린다고 저기서도 안 걸리는 게 아니다.)
-  const all: Array<{ id: string }> = []
-  for (let from = 0; ; from += 1000) {
-    const { data, error } = await retry(() => db.from('library_articles').select('id').order('id').range(from, from + 999))
-    if (error) throw new Error(String((error as { message?: string }).message))
-    all.push(...((data ?? []) as Array<{ id: string }>))
-    if ((data ?? []).length < 1000) break
-  }
-  const list = LIMIT ? all.slice(0, LIMIT) : all
-  for (const a of list as Array<{ id: string }>) {
-    const { data: art } = await retry(() => db.from('library_articles').select('content').eq('id', a.id).limit(1))
+  const bad = await badRowsByArticle()
+  const ids = [...bad.keys()]
+  const list = LIMIT ? ids.slice(0, LIMIT) : ids
+  console.log(`  고칠 글 ${list.length}편 · 불량 행 ${[...bad.values()].reduce((s, v) => s + v.length, 0)}`)
+  for (const id of list) {
+    const { data: art } = await retry(() => db.from('library_articles').select('content').eq('id', id).limit(1))
     const raw = (art ?? [])[0]?.content as string | undefined
     if (!raw) continue
     // analyze-article 과 같은 전처리 — 다르면 문장 경계가 어긋나 재계산이 무의미해진다
     const body = reflowSoftHyphens(normalizePunctuation(raw))
     const chapters = [{ chapter_idx: 1, content: body, word_count: body.split(/\s+/).length, paragraph_offsets: [0], sentence_offsets: [0] }]
-    const rows: Array<{ library_article_id: string; word: string; first_sentence: string | null }> = []
-    for (let from = 0; ; from += 1000) {
-      const { data } = await retry(() => db.from('library_article_vocabularies')
-        .select('library_article_id, word, first_sentence').eq('library_article_id', a.id).order('word').range(from, from + 999))
-      rows.push(...((data ?? []) as never))
-      if ((data ?? []).length < 1000) break
-    }
-    await repairUnit(chapters, rows.map((r) => ({ ...r, chapter_idx: 1 })), 'library_article_vocabularies')
+    // **그 글의 불량 행만 넘긴다** — 멀쩡한 행은 어차피 `repairUnit` 이 건너뛴다
+    await repairUnit(chapters, bad.get(id)!.map((r) => ({ ...r, chapter_idx: 1 })), 'library_article_vocabularies')
     stat.units += 1
-    if (stat.units % 25 === 0) process.stdout.write(`\r  글 ${stat.units}/${list.length} · 행 ${stat.rows} · 불량 ${stat.bad} · 고침 ${stat.fixed}   `)
+    if (stat.units % 25 === 0) process.stdout.write(`\r  글 ${stat.units}/${list.length} · 불량 ${stat.bad} · 고침 ${stat.fixed}   `)
   }
 }
 
