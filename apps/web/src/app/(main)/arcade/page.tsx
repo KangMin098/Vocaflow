@@ -64,6 +64,15 @@ const MINE_READY_THRESHOLD = 6;
 interface VocabStats {
   total: number;
   dueNow: number;
+  /**
+   * 로그인하지 않은 방문자인가.
+   *
+   * ⚠️ `total === 0` 과 구별해야 한다(실측 2026-09-05). 둘 다 "맛보기" 로 보이지만
+   *    다음 한 걸음이 다르다 — 단어가 0인 학습자는 `/wordvault` 로 가면 되고, 로그인하지
+   *    않은 방문자는 `/wordvault` 도 `/play/*` 도 보호 라우트라 **어디를 눌러도 로그인 벽**이다.
+   *    그 벽을 카드 19장 뒤에 숨기지 않고 한 곳에서 미리 말한다.
+   */
+  anonymous: boolean;
 }
 
 /** 내 단어 보유량 + 지금 복습 임박 수 — 추천 분기와 섹션 문구의 근거. */
@@ -73,7 +82,7 @@ async function fetchVocabStats(): Promise<VocabStats> {
     const {
       data: { user },
     } = await client.auth.getUser();
-    if (!user) return { total: 0, dueNow: 0 };
+    if (!user) return { total: 0, dueNow: 0, anonymous: true };
 
     const nowIso = new Date().toISOString();
     const [totalRes, dueRes] = await Promise.all([
@@ -91,9 +100,10 @@ async function fetchVocabStats(): Promise<VocabStats> {
         .neq('meaning', '')
         .or(`next_review_at.is.null,next_review_at.lte.${nowIso}`),
     ]);
-    return { total: totalRes.count ?? 0, dueNow: dueRes.count ?? 0 };
+    return { total: totalRes.count ?? 0, dueNow: dueRes.count ?? 0, anonymous: false };
   } catch {
-    return { total: 0, dueNow: 0 };
+    // 조회 실패는 "로그인 안 함" 이 아니다 — 벽을 세우지 말고 단어 0 으로만 취급한다.
+    return { total: 0, dueNow: 0, anonymous: false };
   }
 }
 
@@ -324,7 +334,13 @@ export default async function ArcadePage({
             badgeTone={scope.active || mineReady ? 'live' : 'muted'}
             action={
               i === 0 && !scope.active && !mineReady
-                ? { href: '/wordvault', label: '단어 모으러 가기' }
+                ? // 로그인하지 않았으면 `/wordvault` 도 보호 라우트다 — 거기로 보내면 이름은
+                  // "단어 모으러 가기" 인데 도착지는 로그인 폼이라 두 번 속는다.
+                  // 로그인으로 바로 보내되 돌아올 곳(`next`)을 이 화면으로 둔다.
+                  {
+                    href: stats.anonymous ? '/login?next=%2Farcade' : '/wordvault',
+                    label: stats.anonymous ? '로그인하고 단어 모으러 가기' : '단어 모으러 가기',
+                  }
                 : undefined
             }
             scope={scope}

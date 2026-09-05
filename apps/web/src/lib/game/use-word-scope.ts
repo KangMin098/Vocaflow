@@ -110,7 +110,14 @@ export function useGameWordScope({
         return
       }
 
-      // mine — 비로그인이면 즉시 맛보기로 degrade(로그인 벽으로 놀이를 막지 않는다)
+      // mine — 로그인이 없으면 빈 맛보기로 degrade 한다.
+      //
+      // ⚠️ 이 분기는 **평소에는 닿지 않는다** (실측 2026-09-05). `/play/*` 는 보호 라우트라
+      //    미들웨어가 로그인 폼으로 먼저 보낸다(`lib/auth/protected-routes.ts` — 게임은
+      //    FSRS·scores 를 쓰므로 일부러 보호한다). 예전 주석은 "로그인 벽으로 놀이를 막지
+      //    않는다" 고 적었지만 그건 이 코드가 지킬 수 없는 약속이었다. 남겨 두는 이유는
+      //    세션이 게임 도중 만료되는 경우 하나뿐이다 — 그때 빈 화면 대신 맛보기가 뜬다.
+      //    비로그인 방문자에게 하는 안내는 `/arcade` 카탈로그가 한 곳에서 한다.
       if (!user) {
         if (mounted) setLoaded({ kind: 'mine', words: [], title: label, subtitle: '' })
         return
