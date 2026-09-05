@@ -48,6 +48,7 @@ const {
   buildFingerprint,
   isAdaptationPublishable,
   runAdaptationGates,
+  standaloneFit,
 } = await import('@vocaflow/library-pipeline')
 
 /**
@@ -150,6 +151,13 @@ for (const r of rows) {
   // **어휘 대역** — 어수·문장 길이 다음, 게이트 앞에 둔다. 앞의 둘은 뼈대이고 이건 살이다.
   const vf = authoredVocabFit(text, SCHOOL)
   if (!vf.pass) { skip(vf.reason); continue }
+
+  // **자립성** — 수확기는 네 축을 다 거치는데 여기는 어휘 하나만 보고 있었다(실측 2026-09-05).
+  //   적재된 각색 82편을 새 자로 다시 재니 한 편이 `This man was a soldier first.` 로
+  //   시작했다 — 가리킬 대상 없이 `This` 로 여는 글이다. 우리가 쓴 글이라고 자를 면제할
+  //   이유가 없다. 오히려 **우리 글이야말로 고쳐 쓸 수 있으니** 막는 값이 싸다.
+  const sf = standaloneFit(text)
+  if (!sf.pass) { skip(`자립성 — ${sf.reason}`); continue }
 
   const results = runAdaptationGates({
     text,
