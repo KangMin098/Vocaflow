@@ -6,14 +6,11 @@
 import { revalidatePath } from 'next/cache'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+// 상태 5값의 정본은 queue.ts 다 (DB CHECK 제약과 같은 목록). 여기서 다시 적으면 갈라진다.
+import type { PendingWordStatus } from '@/lib/admin/pending-words/queue'
 import { createClient } from '@/lib/supabase/server'
 
-export type PendingWordStatus =
-  | 'pending'
-  | 'reviewing'
-  | 'auto-classify'
-  | 'rejected'
-  | 'added'
+export type { PendingWordStatus }
 
 interface ActionResult {
   ok: boolean

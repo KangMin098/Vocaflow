@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, CircleCheck, CircleSlash, Clock, Cpu, Loader2, RefreshCw, Wrench } from 'lucide-react'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
-import type { ComicDetail, DrainRun, PanelEvent } from '@/lib/comic/admin-queries'
+import type { ComicDrainSubject, DrainRun, PanelEvent } from '@/lib/comic/admin-queries'
 
 const ACCENT = '#8B5CF6'
 const STATUS_TONE: Record<string, string> = {
@@ -17,7 +17,7 @@ const STATUS_TONE: Record<string, string> = {
 }
 const STATUS_GLYPH: Record<string, string> = { pass: '✓', fail: '✗', repairing: '↻', pending: '·', skipped: '–' }
 
-export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; runs: DrainRun[]; events: PanelEvent[] }) {
+export function DrainConsole({ subject, runs, events }: { subject: ComicDrainSubject; runs: DrainRun[]; events: PanelEvent[] }) {
   const router = useRouter()
   const run = runs[0] ?? null
 
@@ -53,20 +53,20 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
     if (run.verbatim_mismatch > 0) blockers.push(`정본 불일치 ${run.verbatim_mismatch}건`)
     if (run.rule_violations > 0) blockers.push(`규칙 위반 ${run.rule_violations}건`)
     // 발행 게이트는 comic_books.panels_pass 가 권위(검수/발행 콘솔과 단일 소스)
-    if (run.status === 'done' && detail.header && detail.header.panels_pass !== true) blockers.push('QC 게이트 미통과(panels_pass=false) — 발행 차단')
+    if (run.status === 'done' && subject.panelsPass !== true) blockers.push('QC 게이트 미통과(panels_pass=false) — 발행 차단')
   }
   // 발행 가능 = 헤더 권위 게이트(검수/Published 와 동일 소스) + 최신 실행 완료
-  const publishable = detail.header?.panels_pass === true && (!run || run.status === 'done')
+  const publishable = subject.panelsPass === true && (!run || run.status === 'done')
   const dur = run?.finished_at && run.started_at ? Math.round((+new Date(run.finished_at) - +new Date(run.started_at)) / 1000) : null
 
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* 헤더 */}
       <div className="flex flex-wrap items-center gap-3">
-        <Link href={`/admin/comic/${detail.bookId}`} className="inline-flex items-center gap-2 font-body text-[12px] font-[500] text-[var(--t2)] hover:text-[var(--t1)]"><ArrowLeft size={14} /> 검수</Link>
+        <Link href={`/admin/comic/${subject.bookId}`} className="inline-flex items-center gap-2 font-body text-[12px] font-[500] text-[var(--t2)] hover:text-[var(--t1)]"><ArrowLeft size={14} /> 검수</Link>
         <span className="text-[var(--t2)]">/</span>
         <h1 className="inline-flex items-center gap-2 font-display text-[18px] font-[800] text-[var(--t1)]"><Cpu size={17} style={{ color: ACCENT }} /> 드레인 관측</h1>
-        <span className="font-body text-[13px] text-[var(--t2)]">{detail.title}</span>
+        <span className="font-body text-[13px] text-[var(--t2)]">{subject.title}</span>
         <div className="flex-1" />
         <button onClick={() => router.refresh()} className="inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--t2)] hover:border-[var(--active)]"><RefreshCw size={13} /> 새로고침</button>
       </div>
@@ -117,7 +117,18 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
               <Kpi label="자기발전 반복" value={run.iterations} Icon={Wrench} />
               <Kpi label="정본 불일치" value={run.verbatim_mismatch} tone={run.verbatim_mismatch ? 'var(--memory-risk)' : 'var(--t2)'} />
               <Kpi label="규칙 위반" value={run.rule_violations} tone={run.rule_violations ? 'var(--memory-shaky)' : 'var(--t2)'} />
-              <Kpi label="비용(USD)" value={run.cost_usd ?? 0} />
+              {/* null(모름) 과 0(무료) 은 다른 사실이다 — `?? 0` 으로 접으면 자가호스트
+                  실행이 "0달러로 확인됨" 처럼 보이고, GPU 대여비가 회계에서 사라진다. */}
+              <Kpi
+                label="비용(USD)"
+                value={run.cost_usd == null ? '미기록' : run.cost_usd}
+                tone={run.cost_usd == null ? 'var(--t3)' : 'var(--t1)'}
+                title={
+                  run.cost_usd == null
+                    ? '스크립트가 비용을 넘기지 않았다 — 0원이라는 뜻이 아니다(자가호스트 GPU 대여 시간은 여기 안 잡힌다).'
+                    : undefined
+                }
+              />
               <Kpi label="컷 pass율" value={run.panels_total ? Math.round((run.panels_pass / run.panels_total) * 100) : 0} suffix="%" />
             </div>
             {run.note && <p className="font-body text-[12px] italic text-[var(--t2)]">{run.note}</p>}
@@ -130,7 +141,7 @@ export function DrainConsole({ detail, runs, events }: { detail: ComicDetail; ru
               {publishable ? '발행 가능 — QC 게이트 통과' : '발행 차단 / 대기'}
             </p>
             {publishable ? (
-              <p className="font-body text-[12px] text-[var(--t2)]">{detail.stage === 'published' ? '이미 학습자에게 발행되어 있습니다.' : '검수 화면에서 [게시 →] 하면 학습자에게 노출됩니다.'}</p>
+              <p className="font-body text-[12px] text-[var(--t2)]">{subject.stage === 'published' ? '이미 학습자에게 발행되어 있습니다.' : '검수 화면에서 [게시 →] 하면 학습자에게 노출됩니다.'}</p>
             ) : (
               <ul className="flex flex-col gap-1 font-body text-[12px] text-[var(--t2)]">{blockers.map((b, k) => <li key={k}>• {b}</li>)}</ul>
             )}
@@ -228,10 +239,10 @@ function RunStatus({ status, small }: { status: string; small?: boolean }) {
 function Badge({ children, tone = 'var(--t2)' }: { children: ReactNode; tone?: string }) {
   return <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[12px] font-[700]" style={{ color: tone, background: 'var(--bg2)' }}>{children}</span>
 }
-function Kpi({ label, value, tone = 'var(--t1)', Icon, suffix }: { label: string; value: number; tone?: string; Icon?: typeof Wrench; suffix?: string }) {
+function Kpi({ label, value, tone = 'var(--t1)', Icon, suffix, title }: { label: string; value: number | string; tone?: string; Icon?: typeof Wrench; suffix?: string; title?: string }) {
   return (
-    <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2">
-      <div className="inline-flex items-center gap-1">{Icon && <Icon size={13} style={{ color: tone }} />}<p className="font-display text-[17px] font-[800] tabular-nums" style={{ color: tone }}>{value}{suffix}</p></div>
+    <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2" title={title}>
+      <div className="inline-flex items-center gap-1">{Icon && <Icon size={13} style={{ color: tone }} />}<p className="font-display text-[17px] font-[800] tabular-nums" style={{ color: tone }}>{value}{typeof value === 'number' ? suffix : ''}</p></div>
       <p className="font-body text-[10px] text-[var(--t2)]">{label}</p>
     </div>
   )

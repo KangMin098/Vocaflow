@@ -10,7 +10,7 @@
 import { useMemo } from 'react'
 import { ArrowRight, Compass } from 'lucide-react'
 
-import type { ArticleAdminRow, SourceFeedHealth } from '@/lib/articles/types'
+import type { CoverageCounts, SourceFeedHealth } from '@/lib/articles/types'
 import type { LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
 import {
   computeCoverageGaps,
@@ -36,7 +36,12 @@ const FIT_TONE: Record<LevelFit, { bg: string; fg: string }> = {
 }
 
 interface Props {
-  articles: ArticleAdminRow[]
+  /**
+   * 발행 커버리지 **서버 카운트**. 예전엔 글 목록(`articles`)을 받아 여기서 발행분을 셌는데,
+   * 그 목록이 1,000행에서 잘려 발행 293건이 전부 빠졌다 → 30칸 모두 빈칸 →
+   * "전 영역이 비었다" 는 추천이 나갔다. 빈칸 판정의 근거는 카운트뿐이다.
+   */
+  coverage: CoverageCounts
   feedHealth: SourceFeedHealth[]
   level: LearnerLevel
   onLevel: (l: LearnerLevel) => void
@@ -44,8 +49,8 @@ interface Props {
   onPickSource: (source: string) => void
 }
 
-export function GetGuidePanel({ articles, feedHealth, level, onLevel, onPickSource }: Props) {
-  const gaps = useMemo(() => computeCoverageGaps(articles), [articles])
+export function GetGuidePanel({ coverage, feedHealth, level, onLevel, onPickSource }: Props) {
+  const gaps = useMemo(() => computeCoverageGaps(coverage), [coverage])
   const recs = useMemo(() => recommendSources(gaps, level, feedHealth), [gaps, level, feedHealth])
   const gapByReg = useMemo(() => {
     const m = new Map<string, number>()

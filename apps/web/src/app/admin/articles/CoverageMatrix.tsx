@@ -2,21 +2,18 @@
 // ACP §18 P1 — register × CEFR 커버리지 매트릭스 (① 뷰).
 //
 // 큐레이션을 "소스 더 넣기"가 아니라 "빈 칸 채우기"로 — register × CEFR 균형 관리.
-// 빈 칸(gap) = 큐레이션 우선 채움. 셀 클릭 → 소스GET stage 로 register·CEFR 프리필.
+// 빈 칸(gap) = 큐레이션 우선 채움. 셀 클릭 → 소스GET stage 로 이동.
 //
-// P2 에서 고도화 예정: gap 빗금 + GAP 라벨, filled 셀 좌측 stable 바, 우측 SourceFeedList.
-// 현재(P1)는 기존 register×CEFR 매트릭스를 독립 컴포넌트로 추출 + 셀 클릭(→소스GET) 추가.
+// ⚠️ 이 표는 **글 목록을 세지 않는다**. 2026-09-05 이전에는 상위 컴포넌트가 넘긴
+//    `articles` 를 훑어 발행분을 셌는데, 그 배열은 PostgREST 1,000행 절단에 걸려
+//    발행 293건이 한 건도 안 들어 있었다 → 30칸 전부 GAP → 그 GAP 이 소스 추천의
+//    근거로 흘러갔다. 이제 칸마다 서버 카운트(admin-queries.getPublishedCoverage)를 받는다.
+//
+// 축(register 5 · CEFR 6)은 source-guide 의 정본을 그대로 쓴다 — 여기서 다시 정의하면
+// 카운트를 만든 쪽과 그리는 쪽의 칸이 어긋나 조용히 0 이 뜬다.
 
-import type { ArticleAdminRow } from '@/lib/articles/types'
-
-const MATRIX_REGISTERS: Array<{ key: string; label: string }> = [
-  { key: 'expository', label: '설명' },
-  { key: 'argumentative', label: '논증' },
-  { key: 'news', label: '시사' },
-  { key: 'narrative', label: '내러티브' },
-  { key: 'reference', label: '참고' },
-]
-const MATRIX_CEFRS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
+import type { CoverageCounts } from '@/lib/articles/types'
+import { CEFR_ORDER, REGISTERS, coverageKey } from '@/lib/articles/source-guide'
 
 export interface CoverageCell {
   register: string
@@ -24,25 +21,13 @@ export interface CoverageCell {
 }
 
 interface Props {
-  articles: ArticleAdminRow[]
+  coverage: CoverageCounts
   /** 셀 클릭 → 소스GET 프리필 (P3 연동). register·CEFR 전달. */
   onCellClick?: (cell: CoverageCell) => void
 }
 
-export function CoverageMatrix({ articles, onCellClick }: Props) {
-  // 발행건수 기준 — "어떤 register × CEFR 에 발행 콘텐츠가 있나" (gap = 발행 0 → 우선 채움).
-  const published = new Map<string, number>()
-  let unclassified = 0
-  for (const a of articles) {
-    if (!a.register || !a.cefr_level) {
-      unclassified++
-      continue
-    }
-    if (a.status === 'published') {
-      const key = `${a.register}|${a.cefr_level}`
-      published.set(key, (published.get(key) ?? 0) + 1)
-    }
-  }
+export function CoverageMatrix({ coverage, onCellClick }: Props) {
+  const unclassified = coverage.unclassified
 
   return (
     <section
@@ -54,8 +39,8 @@ export function CoverageMatrix({ articles, onCellClick }: Props) {
           레지스터 × CEFR 발행 커버리지
         </h2>
         <span className="font-mono text-[10px] text-[var(--t2)]">
-          GAP(빗금) = 발행 0 · 셀 클릭 → 소스 GET
-          {unclassified > 0 ? ` · 미분류 ${unclassified}` : ''}
+          발행 {coverage.publishedTotal.toLocaleString()} · GAP(빗금) = 발행 0 · 셀 클릭 → 소스 GET
+          {unclassified > 0 ? ` · 미분류 ${unclassified.toLocaleString()}` : ''}
         </span>
       </header>
       <div className="overflow-x-auto">
@@ -63,7 +48,7 @@ export function CoverageMatrix({ articles, onCellClick }: Props) {
           <thead>
             <tr className="text-[10px] uppercase tracking-wider text-[var(--t2)]">
               <th className="px-2 py-1 text-left font-[600]">register \ CEFR</th>
-              {MATRIX_CEFRS.map((c) => (
+              {CEFR_ORDER.map((c) => (
                 <th key={c} className="px-2 py-1 font-mono font-[700]">
                   {c}
                 </th>
@@ -71,13 +56,13 @@ export function CoverageMatrix({ articles, onCellClick }: Props) {
             </tr>
           </thead>
           <tbody>
-            {MATRIX_REGISTERS.map((r) => (
+            {REGISTERS.map((r) => (
               <tr key={r.key} className="border-t border-[var(--bd)]">
                 <td className="px-2 py-1 text-left font-display text-[12px] font-[600] text-[var(--t2)]">
                   {r.label}
                 </td>
-                {MATRIX_CEFRS.map((c) => {
-                  const n = published.get(`${r.key}|${c}`) ?? 0
+                {CEFR_ORDER.map((c) => {
+                  const n = coverage.cells[coverageKey(r.key, c)] ?? 0
                   const isGap = n === 0
                   // gap = 발행 0 (빗금 + GAP, risk색) / filled = 좌측 stable 바 + 발행건수.
                   const cellStyle = isGap

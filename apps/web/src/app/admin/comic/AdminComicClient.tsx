@@ -7,9 +7,9 @@
 import { useEffect, useMemo, useState, useTransition, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { BookImage, CheckCircle2, CircleSlash, Clock, Cpu, ExternalLink, FlaskConical, Loader2, Palette, Plus, ShieldCheck } from 'lucide-react'
+import { ArchiveRestore, BookImage, CheckCircle2, CircleSlash, Clock, Cpu, ExternalLink, FlaskConical, Loader2, Palette, Plus, RotateCcw, ShieldCheck, XCircle } from 'lucide-react'
 import type { ComicCatalogRow, ComicModel, ComicStats, ComicStyle, ComicTest } from '@/lib/comic/admin-queries'
-import { createComicTestAction, enqueueComicJobsAction, setComicModelStatusAction, setComicStyleStatusAction, setComicPublishedAction } from './actions'
+import { archiveComicAction, createComicTestAction, enqueueComicJobsAction, setComicModelStatusAction, setComicStyleStatusAction, setComicPublishedAction } from './actions'
 import { StyleSwatch, genreHue } from '@/components/comic/StyleSwatch'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { FORMAT_ORDER, formatMeta } from '@/lib/comic/format'
@@ -79,6 +79,26 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
     })
   }
 
+  const runUnarchive = (row: ComicCatalogRow) => {
+    if (!window.confirm(`"${row.title}" 만화의 보관을 해제해 검수 상태로 되돌릴까요?`)) return
+    start(async () => {
+      const res = await archiveComicAction(row.bookId, false)
+      if (res.ok) router.refresh()
+      else window.alert(`실패: ${res.error}`)
+    })
+  }
+
+  /** 실패 잡 재시도 — enqueue 는 (book_id, task_type) upsert 라 status·error 를 초기화한다. */
+  const runRetry = (row: ComicCatalogRow) => {
+    if (!window.confirm(`"${row.title}" 의 실패한 생성 잡을 큐에 다시 올릴까요?`)) return
+    start(async () => {
+      const res = await enqueueComicJobsAction([row.bookId])
+      if (res.ok && (res.data?.queued ?? 0) === 0) window.alert('큐 적재 대상이 아닙니다 (도서 상태 확인).')
+      else if (res.ok) router.refresh()
+      else window.alert(`실패: ${res.error}`)
+    })
+  }
+
   return (
     <div className="flex flex-col gap-6 p-6">
       {/* 헤더 */}
@@ -102,11 +122,13 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
       <AdminScreenHelp screen="comic" tab={TAB_LABEL[tab]} className="-mt-2" />
 
       {/* KPI */}
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
         <StatTile label="대상 도서" value={stats.eligible} Icon={BookImage} />
         <StatTile label="초안" value={stats.drafts} Icon={Clock} tone="var(--info)" />
         <StatTile label="발행됨" value={stats.published} Icon={CheckCircle2} tone="var(--memory-stable)" />
         <StatTile label="큐 대기" value={stats.queued} Icon={Loader2} tone={ACCENT} />
+        {/* 실패를 따로 센다 — 큐 대기에 섞여 있으면 "언젠가 끝나겠지" 로 읽혀 영영 안 본다. */}
+        <StatTile label="생성 실패" value={stats.failed} Icon={XCircle} tone="var(--memory-risk)" />
       </div>
 
       {/* 순차 작업 가이드 */}
@@ -123,10 +145,19 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
         </ol>
       </div>
 
+      {/* 빈 목록은 "마이그레이션 미적용" 이 아니다 — 예전 문구는 DB 오류·RLS 거부까지
+          전부 빈 배열이 되던 시절의 오진이었다. 지금 오류는 조회에서 throw 되어
+          오류 화면으로 가고, 여기 남는 빈 목록은 **정말로 대상 도서가 없는 경우**뿐이다. */}
       {rows.length === 0 && (
-        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">
-          표시할 도서가 없습니다. 마이그레이션(<code className="font-mono text-[12px]">20260808120000_comic_pipeline.sql</code>) 적용 후
-          ready/published 도서가 나타납니다.
+        <div className="flex flex-col items-center gap-2 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">
+          <p>만화화 대상 도서가 없습니다 — 이 목록은 도서 상태가 <b>ready</b> 또는 <b>published</b> 인 것만 담습니다.</p>
+          <Link
+            href="/admin/library"
+            className="inline-flex items-center gap-1 font-display text-[12px] font-[700] underline underline-offset-2"
+            style={{ color: ACCENT }}
+          >
+            라이브러리에서 도서 큐레이션하기 <ExternalLink size={12} />
+          </Link>
         </div>
       )}
 
@@ -178,7 +209,7 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
               </div>
             </div>
           )}
-          <CatalogTable rows={rows} selected={selected} onToggle={toggle} />
+          <CatalogTable rows={rows} selected={selected} onToggle={toggle} onRetry={runRetry} busy={pending} />
         </div>
       )}
 
@@ -193,7 +224,16 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
             </thead>
             <tbody>
               {publishedRows.length === 0 && (
-                <tr><td colSpan={5} className="px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">아직 생성된 만화가 없습니다.</td></tr>
+                <tr>
+                  <td colSpan={5} className="px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">
+                    아직 생성된 만화가 없습니다 — 이 표는 <b>컷이 적재된</b> 도서만 담습니다.
+                    <span className="mt-1 block">
+                      <b className="text-[var(--t1)]">Catalog</b> 탭에서 도서를 골라 [만화 생성 큐] 에 올린 뒤,
+                      Claude Code 로 <code className="font-mono text-[12px]">node scripts/lcp/generate-comic.mjs</code>{' '}
+                      드레인을 돌리면 여기에 나타납니다.
+                    </span>
+                  </td>
+                </tr>
               )}
               {publishedRows.map((r) => (
                 <tr key={r.bookId} className="border-b border-[var(--bd)]/60 last:border-0">
@@ -219,6 +259,9 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
                     )}
                   </Td>
                   <Td>
+                    {/* 세 갈래다 — 예전에는 published 가 아니면 무조건 [발행] 이라
+                        보관본이 복원을 건너뛰고 바로 발행되었다. 보관은 관리자가
+                        "지금은 내보내지 않는다" 고 내린 결정이므로 먼저 되돌려야 한다. */}
                     {r.comicStatus === 'published' ? (
                       <button
                         onClick={() => runPublish(r, false)}
@@ -226,6 +269,15 @@ export function AdminComicClient({ rows, stats, tests, models, styles }: { rows:
                         className="rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--t2)] hover:border-[var(--memory-risk)] hover:text-[var(--memory-risk)] disabled:opacity-50"
                       >
                         회수
+                      </button>
+                    ) : r.comicStatus === 'archived' ? (
+                      <button
+                        onClick={() => runUnarchive(r)}
+                        disabled={pending}
+                        title="보관 해제 후 검수 상태(초안)로 돌아갑니다. 발행은 그다음입니다."
+                        className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-1 font-display text-[12px] font-[700] text-[var(--info)] hover:border-[var(--info)] disabled:opacity-50"
+                      >
+                        <ArchiveRestore size={12} /> 복원(검수)
                       </button>
                     ) : (
                       <button
@@ -287,7 +339,14 @@ function StylesTab({ styles }: { styles: ComicStyle[] }) {
       </div>
 
       {styles.length === 0 ? (
-        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">스타일 카탈로그가 비어 있습니다. (국내외 딥서치 시드 대기)</p>
+        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">
+          <p>스타일 카탈로그가 비어 있습니다 — <code className="font-mono text-[12px]">comic_styles</code> 에 행이 없습니다.</p>
+          <p className="mt-1">
+            시드는 화면이 아니라 마이그레이션이 넣습니다:{' '}
+            <code className="font-mono text-[12px]">supabase/migrations/20260808240000_comic_styles.sql</code>{' '}
+            적용 여부를 확인하세요. 화풍을 더 넣으려면 같은 표에 행을 추가하는 마이그레이션이 필요합니다.
+          </p>
+        </div>
       ) : (
         <div className="flex flex-col gap-7">
           {FORMAT_ORDER.filter((f) => filtered.some((s) => s.format === f)).map((f) => {
@@ -382,7 +441,14 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
         {err && <p className="mt-2 font-body text-[12px] text-[var(--memory-risk)]">상태 변경 실패 — {err}</p>}
       </div>
       {models.length === 0 ? (
-        <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">모델 카탈로그가 비어 있습니다. (시장 조사 시드 대기)</p>
+        <div className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">
+          <p>모델 카탈로그가 비어 있습니다 — <code className="font-mono text-[12px]">comic_gen_models</code> 에 행이 없습니다.</p>
+          <p className="mt-1">
+            시드 마이그레이션{' '}
+            <code className="font-mono text-[12px]">supabase/migrations/20260808200000_comic_gen_models.sql</code>{' '}
+            적용 여부를 확인하세요. 모델이 없으면 <b>테스트</b> 탭에서 실험을 계획할 수 없습니다(모델 선택이 비어 있게 됩니다).
+          </p>
+        </div>
       ) : (
         <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
           <table className="w-full min-w-[900px] text-left">
@@ -427,6 +493,13 @@ function ModelsTab({ models }: { models: ComicModel[] }) {
             </tbody>
           </table>
         </div>
+      )}
+      {/* 각주가 화면에 없으면 별표는 그냥 오타로 보인다 — 도움말에만 있던 것을 표 밑으로 내린다. */}
+      {models.length > 0 && (
+        <p className="font-body text-[11px] text-[var(--t2)]">
+          <b className="text-[var(--t1)]">무료*</b> — 모델 가중치 사용료가 없다는 뜻이고, <b>GPU 대여 비용은 빠져
+          있습니다</b>(RunPod 4090 시간당 요금은 여기서 세지 않습니다). 값이 적힌 행은 API 호출 기준 장당 단가입니다.
+        </p>
       )}
     </div>
   )
@@ -593,10 +666,14 @@ function CatalogTable({
   rows,
   selected,
   onToggle,
+  onRetry,
+  busy,
 }: {
   rows: ComicCatalogRow[]
   selected: Set<string>
   onToggle: (id: string) => void
+  onRetry: (row: ComicCatalogRow) => void
+  busy: boolean
 }) {
   return (
     <div className="overflow-x-auto rounded-[var(--r-md)] border border-[var(--bd)]">
@@ -637,13 +714,35 @@ function CatalogTable({
               </Td>
               <Td>
                 {r.jobStatus ? (
-                  <span
-                    className="inline-flex items-center gap-1 font-display text-[11px] font-[700]"
-                    style={{ color: r.jobStatus === 'failed' ? 'var(--memory-risk)' : ACCENT }}
-                  >
-                    {r.jobStatus === 'running' && <Loader2 size={11} className="animate-spin" />}
-                    {r.jobStatus}
-                  </span>
+                  <div className="flex flex-col items-start gap-1">
+                    <span
+                      className="inline-flex items-center gap-1 font-display text-[11px] font-[700]"
+                      style={{ color: r.jobStatus === 'failed' ? 'var(--memory-risk)' : ACCENT }}
+                    >
+                      {r.jobStatus === 'running' && <Loader2 size={11} className="animate-spin" />}
+                      {/* 색만으로 실패를 알리지 않는다 — 아이콘을 함께 붙인다. */}
+                      {r.jobStatus === 'failed' && <XCircle size={11} />}
+                      {r.jobStatus}
+                    </span>
+                    {/* 실패는 스스로 풀리지 않는다 — 사유와 재시도를 같은 자리에 둔다. */}
+                    {r.jobStatus === 'failed' && (
+                      <>
+                        <span
+                          className="max-w-[280px] font-mono text-[10px] leading-snug text-[var(--t2)]"
+                          title={r.jobError ?? undefined}
+                        >
+                          {r.jobError ? truncate(r.jobError, 120) : '사유 기록 없음'}
+                        </span>
+                        <button
+                          onClick={() => onRetry(r)}
+                          disabled={busy}
+                          className="inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--memory-risk)] hover:text-[var(--memory-risk)] disabled:opacity-50"
+                        >
+                          <RotateCcw size={11} /> 재시도
+                        </button>
+                      </>
+                    )}
+                  </div>
                 ) : (
                   <span className="text-[var(--t2)]">—</span>
                 )}
@@ -712,6 +811,11 @@ function Step({ n, children }: { n: number; children: ReactNode }) {
 }
 function Arrow() {
   return <span aria-hidden className="text-[var(--t2)]">→</span>
+}
+
+/** 긴 오류 문자열이 표 폭을 밀어내지 않게 자른다 — 전문은 title 속성에 남는다. */
+function truncate(s: string, max: number): string {
+  return s.length <= max ? s : `${s.slice(0, max - 1)}…`
 }
 
 function Th({ children }: { children?: ReactNode }) {

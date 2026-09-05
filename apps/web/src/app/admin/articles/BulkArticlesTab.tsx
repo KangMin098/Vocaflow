@@ -304,7 +304,7 @@ const STATUS_BADGE: Record<
   normalizing: { label: '정규화', bg: 'var(--learn-fresh-light)', fg: 'var(--learn-fresh)' },
   analyzing: { label: '분석중', bg: 'var(--learn-review-light)', fg: 'var(--learn-review)' },
   curating: { label: '큐레이션', bg: 'var(--learn-review-light)', fg: 'var(--learn-review)' },
-  ready: { label: '검토대기', bg: 'var(--memory-stable-light)', fg: 'var(--memory-stable)' },
+  ready: { label: '검토대기', bg: 'var(--success-light)', fg: 'var(--memory-stable-ink)' },
   published: { label: '발행됨', bg: 'var(--learn-known-light)', fg: 'var(--learn-known)' },
   failed: { label: '실패', bg: 'var(--learn-error-light)', fg: 'var(--learn-error)' },
   archived: { label: '보관', bg: 'var(--bg2)', fg: 'var(--t3)' },

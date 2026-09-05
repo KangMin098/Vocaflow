@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import {
   AlertTriangle, ArrowLeft, Archive, ArchiveRestore, CheckCircle2, ChevronLeft,
-  ChevronRight, Cpu, Loader2, Palette, RefreshCw, ShieldCheck, Trash2, Undo2, Upload,
+  ChevronRight, Cpu, Loader2, Palette, RefreshCw, RotateCcw, ShieldCheck, Trash2, Undo2, Upload, XCircle,
 } from 'lucide-react'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { ComicDetail, ComicStage, ComicStyle } from '@/lib/comic/admin-queries'
@@ -27,6 +27,8 @@ const STAGE_HINT: Record<ComicStage, string> = {
   review: '컷과 QC(정본 불일치·규칙 위반)를 확인하세요. 이상 없으면 [게시 →], 문제가 있으면 [보완]으로 재생성 큐에 되돌립니다.',
   published: '학습자에게 노출 중입니다. 내용을 고치려면 [회수(검수로)] 후 [보완], 잠시 숨기려면 [보관]하세요.',
   archived: '보관된 만화입니다. [복원(검수)]으로 검수 상태로 되돌린 뒤 다시 발행할 수 있습니다.',
+  failed:
+    '생성 잡이 실패로 끝났고 적재된 컷이 없습니다. 스스로 풀리지 않으므로 자동 갱신도 멈춥니다 — 아래 실패 사유를 보고 원인을 고친 뒤 [재시도(큐 재적재)] 하세요.',
 }
 const STAGE_META: Record<ComicStage, { label: string; tone: string }> = {
   none: { label: '없음', tone: 'var(--t3)' },
@@ -35,6 +37,7 @@ const STAGE_META: Record<ComicStage, { label: string; tone: string }> = {
   review: { label: '검수', tone: 'var(--info)' },
   published: { label: '게시됨', tone: 'var(--memory-stable)' },
   archived: { label: '보관', tone: 'var(--t3)' },
+  failed: { label: '생성 실패', tone: 'var(--memory-risk)' },
 }
 
 // 검수 그리드 썸네일 — Supabase 이미지 변환(90 full-res 로드 회피). 변환 미지원 시 원본 폴백(onError).
@@ -68,7 +71,10 @@ export function ComicReviewClient({
   }
   const curStyle = styles.find((s) => s.key === detail.header?.style_key)
 
-  // 생성 중 실시간 진행 — 5s마다 서버 데이터 갱신(패널 수/단계)
+  // 생성 중 실시간 진행 — 5s마다 서버 데이터 갱신(패널 수/단계).
+  // **진행 중인 단계에서만 돈다.** 실패(failed)는 스스로 진행하지 않으므로 폴링해도
+  // 영원히 같은 값을 다시 받을 뿐이다 — 예전에는 failed 가 queued 로 접혀 있어서
+  // 이 타이머가 탭을 닫을 때까지 5초마다 서버를 때렸다.
   useEffect(() => {
     if (detail.stage !== 'generating' && detail.stage !== 'queued') return
     const id = setInterval(() => router.refresh(), 5000)
@@ -118,16 +124,18 @@ export function ComicReviewClient({
       stage === 'published' ? '발행 중인 만화를 보관(노출 즉시 중단)할까요?' : '이 만화를 보관할까요?',
     )
   const unarchive = () => run(() => archiveComicAction(bookId, false), '보관을 해제해 검수 상태로 되돌릴까요?')
-  const rework = () =>
-    run(
-      async () => {
-        const res = await enqueueComicJobsAction([bookId])
-        if (res.ok && (res.data?.queued ?? 0) === 0)
-          return { ok: false, error: '큐 적재 대상이 아닙니다 (도서 상태 확인).' }
-        return res
-      },
-      '이 도서를 재생성 큐로 되돌릴까요? (발행 중이면 자동으로 미발행됩니다)',
-    )
+  // 큐 재적재 = 보완(review/published) 과 재시도(failed) 의 같은 동작.
+  // enqueue_comic_jobs 는 (book_id, task_type) upsert 라 실패 잡의 status·error 를
+  // pending·NULL 로 되돌린다 — 잡을 지우고 새로 만들 필요가 없다.
+  const requeue = (confirmText: string) =>
+    run(async () => {
+      const res = await enqueueComicJobsAction([bookId])
+      if (res.ok && (res.data?.queued ?? 0) === 0)
+        return { ok: false, error: '큐 적재 대상이 아닙니다 (도서 상태 확인).' }
+      return res
+    }, confirmText)
+  const rework = () => requeue('이 도서를 재생성 큐로 되돌릴까요? (발행 중이면 자동으로 미발행됩니다)')
+  const retry = () => requeue('실패한 생성 잡을 큐에 다시 올릴까요? (잡 상태·오류가 초기화됩니다)')
   const del = () =>
     run(
       () => deleteComicAction(bookId),
@@ -227,6 +235,19 @@ export function ComicReviewClient({
               </span>
             </>
           )}
+          {/* 실패는 흐름 밖에서 멈춘 상태다 — 진행 배지(스피너)로 위장하지 않는다.
+              색 외에 아이콘·글자로도 구분한다(색맹 대응). */}
+          {stage === 'failed' && (
+            <>
+              <ChevronRight size={14} className="shrink-0 text-[var(--t2)]" />
+              <span
+                className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3 py-1 font-display text-[12px] font-[700]"
+                style={{ backgroundColor: STAGE_META.failed.tone, color: '#fff' }}
+              >
+                <XCircle size={12} /> {STAGE_META.failed.label}
+              </span>
+            </>
+          )}
         </div>
 
         {/* 단계 제어 (앞/뒤 + 보완/삭제) */}
@@ -240,6 +261,11 @@ export function ComicReviewClient({
           )}
           {stage === 'archived' && (
             <Btn onClick={unarchive} disabled={pending} icon={ArchiveRestore} tone="var(--info)">복원(검수)</Btn>
+          )}
+          {/* 실패한 도서에는 화면상 재시도 수단이 아예 없었다 — 관리자가 할 수 있는 일이
+              "다시 큐에 올리기" 뿐인데도 버튼이 review/published 에만 있었다. */}
+          {stage === 'failed' && (
+            <Btn onClick={retry} disabled={pending} icon={RotateCcw} primary>재시도(큐 재적재)</Btn>
           )}
 
           {/* 앞으로 */}
@@ -257,8 +283,8 @@ export function ComicReviewClient({
 
           <div className="flex-1" />
 
-          {/* 보관/삭제 */}
-          {stage !== 'archived' && stage !== 'none' && (
+          {/* 보관/삭제 — 실패(컷 0)에는 보관할 결과물이 없다. */}
+          {stage !== 'archived' && stage !== 'none' && stage !== 'failed' && (
             <Btn onClick={archive} disabled={pending} icon={Archive}>보관</Btn>
           )}
           <Btn onClick={del} disabled={pending} icon={Trash2} tone="var(--memory-risk)">삭제</Btn>
@@ -271,6 +297,34 @@ export function ComicReviewClient({
           {STAGE_HINT[stage]}
         </p>
       </div>
+
+      {/* 실패 사유 — 컷이 0인 실패는 QC 카드가 전부 0/미통과로 보여 원인을 못 말한다.
+          잡이 남긴 error 를 여기서 그대로 펼친다(없으면 "사유 없음"도 사실이다). */}
+      {stage === 'failed' && (
+        <div
+          role="alert"
+          className="flex flex-col gap-2 rounded-[var(--r-md)] border p-4"
+          style={{
+            borderColor: 'color-mix(in srgb, var(--memory-risk) 40%, transparent)',
+            background: 'color-mix(in srgb, var(--memory-risk) 7%, transparent)',
+          }}
+        >
+          <p className="inline-flex items-center gap-2 font-display text-[13px] font-[800] text-[var(--memory-risk)]">
+            <XCircle size={15} /> 생성 실패 — 적재된 컷 0
+          </p>
+          <p className="font-mono text-[12px] leading-relaxed text-[var(--t2)]">
+            {job?.error ?? '잡이 사유를 남기지 않았습니다. 드레인 관측에서 실행 기록을 확인하세요.'}
+          </p>
+          <p className="font-body text-[12px] text-[var(--t2)]">
+            원인을 고친 뒤 [재시도(큐 재적재)] — 잡 상태와 오류가 초기화되고 pending 으로 돌아갑니다. 같은
+            입력으로 다시 돌리면 대개 같은 자리에서 또 막히므로, 먼저{' '}
+            <Link href={`/admin/comic/${bookId}/drain`} className="underline underline-offset-2 hover:text-[var(--t1)]">
+              드레인 관측
+            </Link>
+            에서 어느 컷·어느 단계에서 멈췄는지 봅니다.
+          </p>
+        </div>
+      )}
 
       {/* QC 카드 */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-5">

@@ -9,8 +9,8 @@
 
 'use client'
 
-import { useState } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useState, useTransition } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import {
   BarChart3,
   BookOpen,
@@ -33,7 +33,21 @@ import {
   Send,
 } from 'lucide-react'
 
-import type { ArticleAdminRow, ArticleStats, SourceFeedHealth } from '@/lib/articles/types'
+import type {
+  ArticleAdminRow,
+  ArticleStats,
+  ArticleStatusCounts,
+  CoverageCounts,
+  SourceFeedHealth,
+} from '@/lib/articles/types'
+import {
+  ARTICLE_LIST_PAGE_SIZE,
+  articleConsoleQuery,
+  defaultStatusFilter,
+  type ArticleConsoleView,
+  type ArticleStage,
+  type ArticleStatusFilter,
+} from '@/lib/articles/console-view'
 import type { LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { SOURCE_LABEL } from '@/lib/articles/source-guide'
@@ -44,14 +58,23 @@ import { SourceGetView } from './SourceGetView'
 import { CuratedArticlesTab } from './CuratedArticlesTab'
 import { BulkArticlesTab } from './BulkArticlesTab'
 
-type Stage = 'coverage' | 'get' | 'review' | 'publish'
+type Stage = ArticleStage
 type SourceKey =
   | 'voa' | 'nasa' | 'nih' | 'simple_wikipedia' | 'the_conversation' | 'wikinews' | 'owid' | 'factbook' | 'elife' | 'wikipedia' | 'plos' | 'wikivoyage' | 'usgs' | 'noaa'
 type StatTone = 'neutral' | 'success' | 'warning' | 'info' | 'danger'
 
 interface Props {
+  /** URL 이 정의한 현재 화면 (단계 · 상태 필터 · 소스 · 페이지). */
+  view: ArticleConsoleView
+  /** 목록 **한 페이지** — 커버리지·소스 GET 단계에서는 빈 배열이다(행을 안 읽는다). */
   articles: ArticleAdminRow[]
+  /** 지금 목록 조건(상태 + 소스)의 서버 카운트 — 페이지네이션 분모. */
+  listTotal: number
+  /** 상태별 서버 카운트 — 타일 · 상태 칩 · 페이지 분모의 유일한 출처. */
+  counts: ArticleStatusCounts
   stats: ArticleStats
+  /** 발행 커버리지 30칸 서버 카운트. */
+  coverage: CoverageCounts
   feedHealth: SourceFeedHealth[]
 }
 
@@ -61,7 +84,6 @@ const STAGES: Array<{ key: Stage; label: string; Icon: typeof LayoutGrid }> = [
   { key: 'review', label: '검수', Icon: SearchCheck },
   { key: 'publish', label: '발행', Icon: Send },
 ]
-const STAGE_KEYS: Stage[] = STAGES.map((s) => s.key)
 
 // 화면도움말 탭 키 — 탭 버튼이 단계 번호 배지를 품고 있어 화면에 보이는 문자열은 '1커버리지' 형태다.
 //   lib/admin/help/articles.ts 의 tabs 키와 문자열이 정확히 같아야 조회된다.
@@ -92,20 +114,37 @@ const SOURCE_OPTIONS: Array<{ key: SourceKey; Icon: typeof Radio }> = [
 ]
 const SOURCE_KEYS: SourceKey[] = SOURCE_OPTIONS.map((s) => s.key)
 
-export function CurationConsole({ articles, stats, feedHealth }: Props) {
+export function CurationConsole({
+  view,
+  articles,
+  listTotal,
+  counts,
+  stats,
+  coverage,
+  feedHealth,
+}: Props) {
   const router = useRouter()
   const pathname = usePathname()
-  const searchParams = useSearchParams()
-  // stage 를 URL(?stage=)로 동기화 — 프리뷰 검수 후 복귀 시 stage 유지(제자리 복귀).
-  const stageParam = searchParams.get('stage') as Stage | null
-  const stage: Stage = stageParam && STAGE_KEYS.includes(stageParam) ? stageParam : 'coverage'
-  const setStage = (s: Stage): void => {
-    const params = new URLSearchParams(searchParams.toString())
-    if (s === 'coverage') params.delete('stage')
-    else params.set('stage', s)
-    const qs = params.toString()
-    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+  // 단계·필터·페이지가 전부 URL(?stage=&status=&src=&page=)에 있다 — 서버가 그 조건으로
+  //   목록을 잘라 오기 때문이다. 프리뷰 검수 후 복귀 시 보던 자리가 그대로 열린다.
+  const stage: Stage = view.stage
+  const [navPending, startNav] = useTransition()
+
+  const go = (next: ArticleConsoleView): void => {
+    const qs = articleConsoleQuery(next)
+    startNav(() => {
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+    })
   }
+  // 단계를 바꾸면 상태 칩과 페이지는 그 단계의 기본값으로 되돌린다 —
+  //   검수(ready)에서 발행 탭으로 넘어갔는데 ready 필터가 따라오면 빈 표만 보인다.
+  const setStage = (s: Stage): void =>
+    go({ stage: s, status: defaultStatusFilter(s), source: view.source, page: 0 })
+  const setStatusFilter = (f: ArticleStatusFilter): void =>
+    go({ ...view, status: f, page: 0 })
+  const setSource = (src: string | null): void => go({ ...view, source: src, page: 0 })
+  const setPage = (p: number): void => go({ ...view, page: Math.max(0, p) })
+
   const [getSource, setGetSource] = useState<SourceKey>('voa')
 
   const refetchAll = (): void => {
@@ -131,7 +170,7 @@ export function CurationConsole({ articles, stats, feedHealth }: Props) {
         {stage === 'coverage' && (
           <div className="flex flex-col gap-6">
             <StatsBar stats={stats} />
-            <CoverageMatrix articles={articles} onCellClick={() => setStage('get')} />
+            <CoverageMatrix coverage={coverage} onCellClick={() => setStage('get')} />
             <SourceFeedList feedHealth={feedHealth} onPickSource={jumpToGet} />
           </div>
         )}
@@ -140,26 +179,27 @@ export function CurationConsole({ articles, stats, feedHealth }: Props) {
             source={getSource}
             onSource={setGetSource}
             onEnqueued={goReview}
-            articles={articles}
+            coverage={coverage}
             feedHealth={feedHealth}
           />
         )}
-        {stage === 'review' && (
+        {(stage === 'review' || stage === 'publish') && (
           <CuratedArticlesTab
             articles={articles}
+            counts={counts}
+            filter={view.status}
+            onFilter={setStatusFilter}
+            source={view.source}
+            onSource={setSource}
+            page={view.page}
+            pageSize={ARTICLE_LIST_PAGE_SIZE}
+            totalForFilter={listTotal}
+            onPage={setPage}
+            navPending={navPending}
             onChanged={refetchAll}
-            initialFilter="ready"
-            showGate
-            heading="🔍 검수 큐"
-            backStage="review"
-          />
-        )}
-        {stage === 'publish' && (
-          <CuratedArticlesTab
-            articles={articles}
-            onChanged={refetchAll}
-            initialFilter="published"
-            backStage="publish"
+            showGate={stage === 'review'}
+            heading={stage === 'review' ? '🔍 검수 큐' : '📂 Curated Articles'}
+            backStage={stage}
           />
         )}
       </div>
@@ -258,13 +298,13 @@ function SourceGetStage({
   source,
   onSource,
   onEnqueued,
-  articles,
+  coverage,
   feedHealth,
 }: {
   source: SourceKey
   onSource: (s: SourceKey) => void
   onEnqueued: () => void
-  articles: ArticleAdminRow[]
+  coverage: CoverageCounts
   feedHealth: SourceFeedHealth[]
 }) {
   const [mode, setMode] = useState<'source' | 'bulk'>('source')
@@ -279,7 +319,7 @@ function SourceGetStage({
   return (
     <div className="flex flex-col gap-4">
       <GetGuidePanel
-        articles={articles}
+        coverage={coverage}
         feedHealth={feedHealth}
         level={level}
         onLevel={setLevel}

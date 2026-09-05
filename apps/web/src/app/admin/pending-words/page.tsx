@@ -5,24 +5,34 @@
 //   1. ExtractionPanel 추출 시 `unresolved_dict_words` 로 **해석 실패분만** 골라
 //      record_pending_words(lemmas). 예전엔 "추출 결과에 없는 단어" 를 전부 보내
 //      92.5% 가 오탐이었다(실측 2026-08-13).
-//   2. 본 페이지: encounter_count DESC 노출 + **조치별 분류**(lib/admin/pending-words/triage)
-//   3. admin 액션: reviewing/auto-classify/rejected/added 상태 전환
+//   2. 본 페이지: 상태 필터 + 페이지네이션으로 큐를 훑고, **조치별 분류**
+//      (lib/admin/pending-words/triage)로 무엇을 해야 하는지 가른다.
+//   3. admin 액션: pending/reviewing/auto-classify/rejected/added 상태 전환 (되돌리기 포함)
 //
 // 분류가 필요한 이유: 신호는 깨끗해졌지만 성격이 다른 항목이 섞여 있다.
 // 진성 갭은 등재하면 되지만, 철자 변이는 **해석기 버그 신호**라 사전에 넣으면 안 된다.
+//
+// ⚠️ 이 화면은 **질의 실패를 0 으로 그리지 않는다.** 수치와 목록은 전부
+//   lib/admin/pending-words/queue.ts 에서 오고, 거기서 실패는 null(모름)로 온다.
+//   예전엔 세 질의의 error 를 버려 DB 장애가 "큐가 비어있습니다." 로 보였다.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { Database as DatabaseIcon, Hash, Clock3 } from 'lucide-react'
+import Link from 'next/link'
+import { AlertTriangle, Database as DatabaseIcon, Hash, Clock3 } from 'lucide-react'
 
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { requireAdmin } from '@/lib/auth/require-admin'
+import { BUCKET_META, type PendingBucket } from '@/lib/admin/pending-words/triage'
 import {
-  BUCKET_META,
-  classifyPending,
-  triageCandidates,
-  type PendingBucket,
-} from '@/lib/admin/pending-words/triage'
+  STATUS_FILTERS,
+  loadPendingQueue,
+  parsePendingQueueQuery,
+  pendingQueueHref,
+  type Measured,
+  type PendingWordStatus,
+  type StatusFilter,
+} from '@/lib/admin/pending-words/queue'
 import { createClient } from '@/lib/supabase/server'
 import { PendingWordActions } from './PendingWordActions'
 
@@ -31,24 +41,10 @@ export const metadata = {
   description: '미매칭 lemma 큐 — 추출 시 shared_dictionary 부재 lemma 누적',
 }
 
-export const revalidate = 30 // 30초마다 fresh (운영 큐)
+// 상태 필터·페이지가 URL 로 오므로 정적 캐시를 쓰지 않는다.
+export const dynamic = 'force-dynamic'
 
-interface PendingWordRow {
-  id: string
-  lemma: string
-  surface: string | null
-  encounter_count: number
-  doc_freq: number
-  status: 'pending' | 'reviewing' | 'auto-classify' | 'rejected' | 'added'
-  admin_note: string | null
-  created_at: string
-  updated_at: string
-}
-
-const STATUS_META: Record<
-  PendingWordRow['status'],
-  { label: string; color: string; bg: string }
-> = {
+const STATUS_META: Record<PendingWordStatus, { label: string; color: string; bg: string }> = {
   pending: { label: '대기', color: 'var(--error)', bg: 'var(--error-light)' },
   reviewing: { label: '검토중', color: 'var(--active)', bg: 'var(--warning-light)' },
   'auto-classify': { label: 'AI 분류 예약', color: 'var(--info)', bg: 'var(--info-light)' },
@@ -56,62 +52,30 @@ const STATUS_META: Record<
   added: { label: '추가됨', color: 'var(--success)', bg: 'var(--success-light)' },
 }
 
-export default async function AdminPendingWordsPage() {
+const FILTER_LABEL: Record<StatusFilter, string> = {
+  pending: '대기',
+  reviewing: '검토중',
+  'auto-classify': 'AI 분류 예약',
+  added: '추가됨',
+  rejected: '거절',
+  all: '전체',
+}
+
+export default async function AdminPendingWordsPage({
+  searchParams,
+}: {
+  searchParams?: Record<string, string | string[] | undefined>
+}) {
   await requireAdmin('/admin/pending-words')
   const client = (await createClient()) as unknown as SupabaseClient
 
-  const [{ data: rows }, { count: pendingCount }, { count: addedCount }] = await Promise.all([
-    client
-      .from('pending_words')
-      .select(
-        'id, lemma, surface, encounter_count, doc_freq, status, admin_note, created_at, updated_at',
-      )
-      // 넓이(몇 편에 나왔나) 먼저, 총량은 그다음 — 한 문서에서 반복된 토큰이 총량만으로 위에
-      // 오는 것을 막는다(2026-08-25: 한 편에서 107번 나온 비영어 토큰이 12편에 걸친 실단어보다
-      // 위에 있었다). doc_freq 0 = 미집계라 기존 행끼리는 종전과 같은 순서로 남는다.
-      .order('doc_freq', { ascending: false })
-      .order('encounter_count', { ascending: false })
-      .order('created_at', { ascending: false })
-      .limit(200),
-    client
-      .from('pending_words')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'pending'),
-    client
-      .from('pending_words')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'added'),
-  ])
+  const query = parsePendingQueueQuery(searchParams)
+  const view = await loadPendingQueue(client, query)
 
-  const rawList = ((rows ?? []) as unknown) as PendingWordRow[]
-
-  // ── 조치별 분류 ──
-  //   각 lemma 의 판정에 필요한 사전 조회를 **한 번의 배치 질의**로 끝낸다 (N+1 회피).
-  //   후보는 **해석 가능성**으로 물어야 한다 (표제어 직접 존재가 아니라).
-  //   표제어 존재로 검사하면 굴절형이 전부 미스난다 — "kilowatt-hours" 의 hours,
-  //   "mislabeled" 의 labeled 가 표제어가 아니라 오분류됐다(실측).
-  const candidates = [...new Set(rawList.flatMap((r) => triageCandidates(r.lemma)))]
-  const resolvable = new Set<string>(candidates)
-  if (candidates.length > 0) {
-    const { data: unresolved } = await client.rpc('unresolved_dict_words' as never, {
-      p_words: candidates,
-    } as never)
-    for (const w of (unresolved ?? []) as unknown as string[]) resolvable.delete(w)
-  }
-
-  const list = rawList
-    .map((r) => ({ ...r, bucket: classifyPending(r.lemma, resolvable) }))
-    // 등재 1순위(진성 갭)를 위로. 같은 버킷 안에서는 기존 정렬(encounter DESC) 유지.
-    .sort((a, b) => BUCKET_META[a.bucket].priority - BUCKET_META[b.bucket].priority)
-
-  const total = list.length
-  const bucketCounts = list.reduce<Record<PendingBucket, number>>(
-    (acc, r) => {
-      acc[r.bucket] += 1
-      return acc
-    },
-    { genuine_gap: 0, derived_form: 0, spelling_variant: 0, hyphen_compound: 0 },
-  )
+  const rows = view.rows.value
+  const { bucketCounts } = view
+  const firstIndex = (query.page - 1) * query.pageSize + 1
+  const lastIndex = firstIndex + (rows?.length ?? 0) - 1
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-10 md:px-8">
@@ -123,38 +87,104 @@ export default async function AdminPendingWordsPage() {
 
       <AdminScreenHelp screen="pending-words" className="-mt-3 mb-6" />
 
-      {/* KPI strip */}
+      {/* KPI strip — null 은 0 이 아니라 "못 쟀음" 으로 그린다 */}
       <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-4">
         <KpiCard
           label="대기 중"
-          value={(pendingCount ?? 0).toLocaleString()}
+          measured={view.pendingCount}
           accent="var(--error)"
           bg="var(--error-light)"
+          hint="status=pending 전체"
         />
         <KpiCard
           label="진성 갭 — 등재 1순위"
-          value={bucketCounts.genuine_gap.toLocaleString()}
+          measured={{
+            value: bucketCounts ? bucketCounts.genuine_gap : null,
+            error: view.triageError ?? view.rows.error,
+          }}
           accent="var(--p)"
           bg="var(--p-light)"
-          hint="사전에 정말로 없는 단어"
+          hint="이 페이지 안에서 — 사전에 정말로 없는 단어"
         />
         <KpiCard
           label="철자 변이 — 해석기 버그"
-          value={bucketCounts.spelling_variant.toLocaleString()}
+          measured={{
+            value: bucketCounts ? bucketCounts.spelling_variant : null,
+            error: view.triageError ?? view.rows.error,
+          }}
           accent="var(--warning)"
           bg="var(--warning-light)"
-          hint="0 이 아니면 resolve_dict_headword 를 고칠 것"
+          hint="이 페이지 안에서 — 0 이 아니면 resolve_dict_headword 를 고칠 것"
         />
         <KpiCard
           label="추가됨 (누적)"
-          value={(addedCount ?? 0).toLocaleString()}
+          measured={view.addedCount}
           accent="var(--success)"
           bg="var(--success-light)"
+          hint="status=added 전체"
         />
       </div>
 
+      {/* 상태 필터 — 처리한 행이 목록을 잠식하지 않도록 기본은 '대기' */}
+      <nav aria-label="상태 필터" className="mb-4 flex flex-wrap gap-2">
+        {STATUS_FILTERS.map((s) => {
+          const active = s === query.status
+          return (
+            <Link
+              key={s}
+              href={pendingQueueHref({ ...query, status: s, page: 1 })}
+              aria-current={active ? 'page' : undefined}
+              className={`inline-flex h-11 items-center rounded-[var(--r-full)] border px-4 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] ${
+                active
+                  ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]'
+                  : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:border-[var(--p)] hover:text-[var(--p)] active:scale-[0.98]'
+              }`}
+            >
+              {FILTER_LABEL[s]}
+            </Link>
+          )
+        })}
+      </nav>
+
+      {/* 목록 자체를 못 읽은 경우 — "0건" 과 절대 섞지 않는다 */}
+      {view.rows.error && (
+        <div
+          role="alert"
+          className="mb-6 flex items-start gap-2 rounded-[var(--r-lg)] border border-[var(--error)] bg-[var(--error-light)] p-4"
+        >
+          <AlertTriangle size={16} aria-hidden className="mt-0.5 shrink-0 text-[var(--error)]" />
+          <p className="font-body text-[13px] text-[var(--error)]">
+            큐를 읽지 못했습니다 — {view.rows.error}
+            <br />
+            <span className="text-[var(--t2)]">
+              큐가 빈 것이 아니라 <strong>못 읽은 것</strong>입니다. 처리할 항목이 없다고 판단하지
+              마세요.
+            </span>
+          </p>
+        </div>
+      )}
+
+      {/* 분류 판정 불가 — 사전 조회가 실패하면 결론이 통째로 뒤집힌다 */}
+      {view.triageError && (
+        <div
+          role="alert"
+          className="mb-6 flex items-start gap-2 rounded-[var(--r-lg)] border border-[var(--warning)] bg-[var(--warning-light)] p-4"
+        >
+          <AlertTriangle size={16} aria-hidden className="mt-0.5 shrink-0 text-[var(--warning-ink)]" />
+          <p className="font-body text-[13px] text-[var(--warning-ink)]">
+            분류 판정 불가 — 사전 조회(<code className="font-mono">unresolved_dict_words</code>)가
+            실패했습니다: {view.triageError}
+            <br />
+            <span className="text-[var(--t2)]">
+              이 상태에서는 <strong>진성 갭 · 철자 변이 수치를 믿으면 안 됩니다</strong>. 조회가
+              실패하면 모든 후보가 &quot;사전에 있음&quot; 으로 뒤집혀 없는 버그를 쫓게 됩니다.
+            </span>
+          </p>
+        </div>
+      )}
+
       {/* 분류 요약 — 버킷마다 조치가 다르다 */}
-      {total > 0 && (
+      {bucketCounts && rows && rows.length > 0 && (
         <ul className="mb-6 grid gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 md:grid-cols-2">
           {(Object.keys(BUCKET_META) as PendingBucket[])
             .sort((a, b) => BUCKET_META[a].priority - BUCKET_META[b].priority)
@@ -172,17 +202,31 @@ export default async function AdminPendingWordsPage() {
         </ul>
       )}
 
-      {total === 0 ? (
+      {rows && rows.length === 0 ? (
         <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] py-12 text-center">
           <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--success-light)] text-[var(--success)]">
             <DatabaseIcon size={18} aria-hidden />
           </span>
-          <p className="font-body text-[13px] text-[var(--t2)]">큐가 비어있습니다.</p>
-          <p className="font-body text-[11px] text-[var(--t2)]">
-            사용자가 추출 시 미매칭 lemma 누적 시 자동으로 여기에 표시됩니다.
+          <p className="font-body text-[13px] text-[var(--t2)]">
+            {query.status === 'all'
+              ? '큐가 비어있습니다.'
+              : `'${FILTER_LABEL[query.status]}' 상태인 항목이 없습니다.`}
           </p>
+          <p className="font-body text-[11px] text-[var(--t2)]">
+            {query.status === 'all'
+              ? '사용자가 추출 시 미매칭 lemma 누적 시 자동으로 여기에 표시됩니다.'
+              : '다른 상태에는 남아 있을 수 있습니다 — 위 필터에서 전체를 보세요.'}
+          </p>
+          {query.page > 1 && (
+            <Link
+              href={pendingQueueHref({ ...query, page: 1 })}
+              className="inline-flex h-11 items-center rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[12px] font-[700] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)] active:scale-[0.98]"
+            >
+              첫 페이지로
+            </Link>
+          )}
         </div>
-      ) : (
+      ) : rows && rows.length > 0 ? (
         <div className="overflow-x-auto rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)]">
           <table className="w-full min-w-[700px] border-collapse">
             <thead>
@@ -198,7 +242,7 @@ export default async function AdminPendingWordsPage() {
               </tr>
             </thead>
             <tbody>
-              {list.map((row) => {
+              {rows.map((row) => {
                 const status = STATUS_META[row.status]
                 return (
                   <tr
@@ -216,18 +260,28 @@ export default async function AdminPendingWordsPage() {
                       )}
                     </td>
                     <td className="px-3 py-2 text-center">
-                      <span
-                        title={BUCKET_META[row.bucket].action}
-                        className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] ${
-                          row.bucket === 'genuine_gap'
-                            ? 'bg-[var(--p-light)] text-[var(--on-p-tint)]'
-                            : row.bucket === 'spelling_variant'
-                              ? 'bg-[var(--warning-light)] text-[var(--warning-ink)]'
-                              : 'bg-[var(--bg3)] text-[var(--t2)]'
-                        }`}
-                      >
-                        {BUCKET_META[row.bucket].label}
-                      </span>
+                      {row.bucket ? (
+                        <span
+                          title={BUCKET_META[row.bucket].action}
+                          className={`inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700] ${
+                            row.bucket === 'genuine_gap'
+                              ? 'bg-[var(--p-light)] text-[var(--on-p-tint)]'
+                              : row.bucket === 'spelling_variant'
+                                ? 'bg-[var(--warning-light)] text-[var(--warning-ink)]'
+                                : 'bg-[var(--bg3)] text-[var(--t2)]'
+                          }`}
+                        >
+                          {BUCKET_META[row.bucket].label}
+                        </span>
+                      ) : (
+                        <span
+                          title="사전 조회가 실패해 이 lemma 의 조치를 판정하지 못했다"
+                          className="inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--bg3)] px-2 py-1 font-display text-[10px] font-[700] text-[var(--t2)]"
+                        >
+                          <AlertTriangle size={9} aria-hidden />
+                          판정 불가
+                        </span>
+                      )}
                     </td>
                     <td className="px-3 py-2 text-right">
                       {/* 0 은 "문서 0편" 이 아니라 미집계다 — 2026-08-25 이전 적재분·학습자 추출분 */}
@@ -286,45 +340,131 @@ export default async function AdminPendingWordsPage() {
             </tbody>
           </table>
         </div>
+      ) : null}
+
+      {/* 페이지네이션 — 200행 상한 시절엔 큐의 꼬리가 화면에 도달하지 못했다 */}
+      {rows && rows.length > 0 && (
+        <nav
+          aria-label="페이지 이동"
+          className="mt-4 flex flex-wrap items-center justify-between gap-3"
+        >
+          <p className="font-mono text-[11px] tabular-nums text-[var(--t2)]">
+            {firstIndex.toLocaleString()}–{lastIndex.toLocaleString()}
+            {view.matched.value === null
+              ? ' / 전체 수 모름'
+              : ` / ${view.matched.value.toLocaleString()}`}
+            {view.totalPages !== null && ` · ${query.page} / ${view.totalPages} 쪽`}
+          </p>
+          <div className="flex gap-2">
+            <PageLink
+              href={pendingQueueHref({ ...query, page: query.page - 1 })}
+              disabled={query.page <= 1}
+              label="이전"
+            />
+            <PageLink
+              href={pendingQueueHref({ ...query, page: query.page + 1 })}
+              disabled={
+                view.totalPages !== null
+                  ? query.page >= view.totalPages
+                  : rows.length < query.pageSize
+              }
+              label="다음"
+            />
+          </div>
+        </nav>
       )}
 
       <p className="mt-4 font-mono text-[10px] text-[var(--t2)]">
-        ※ admin 액션 — 각 row 우측에서 상태 전환 (검토 · AI 분류 · 추가 · 거절). RPC `update_pending_word_status` 가 user_profiles.role=&apos;admin&apos; 검증 수행.
+        ※ admin 액션 — 각 row 우측에서 상태 전환 (되돌리기 · 검토 · AI 분류 · 추가 · 거절). RPC
+        `update_pending_word_status` 가 user_profiles.role=&apos;admin&apos; 검증 수행.
       </p>
     </div>
   )
 }
 
+function PageLink({
+  href,
+  disabled,
+  label,
+}: {
+  href: string
+  disabled: boolean
+  label: string
+}) {
+  if (disabled) {
+    return (
+      <span
+        aria-disabled="true"
+        className="inline-flex h-11 cursor-not-allowed items-center rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[12px] font-[700] text-[var(--t3)] opacity-40"
+      >
+        {label}
+      </span>
+    )
+  }
+  return (
+    <Link
+      href={href}
+      className="inline-flex h-11 items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[700] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.98]"
+    >
+      {label}
+    </Link>
+  )
+}
+
+/**
+ * 수치 카드. `measured.value === null` 이면 0 이 아니라 **못 쟀음**을 그린다 —
+ * 여기서 0 을 그리면 "할 일이 없다" 는 거짓 안심이 화면에 박힌다.
+ */
 function KpiCard({
   label,
-  value,
+  measured,
   accent,
   bg,
   hint,
 }: {
   label: string
-  value: string | number
+  measured: Measured<number>
   accent: string
   bg: string
   hint?: string
 }) {
+  const unknown = measured.value === null
   return (
     <div
       className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3 shadow-[var(--sh-sm)]"
-      style={{ borderLeft: `3px solid ${accent}`, background: `linear-gradient(180deg, ${bg} 0%, var(--bg) 100%)` }}
+      style={{
+        borderLeft: `3px solid ${unknown ? 'var(--t3)' : accent}`,
+        background: `linear-gradient(180deg, ${unknown ? 'var(--bg2)' : bg} 0%, var(--bg) 100%)`,
+      }}
     >
       <p className="font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
         {label}
       </p>
-      <p className="mt-0.5 font-display text-[20px] font-[800] tabular-nums text-[var(--t1)]">
-        {value}
+      <p
+        className="mt-0.5 font-display text-[20px] font-[800] tabular-nums"
+        style={{ color: unknown ? 'var(--t3)' : 'var(--t1)' }}
+      >
+        {unknown ? '—' : measured.value!.toLocaleString()}
       </p>
-      {hint && <p className="mt-0.5 font-body text-[10px] text-[var(--t2)]">{hint}</p>}
+      {unknown ? (
+        <p className="mt-0.5 flex items-start gap-1 font-body text-[10px] text-[var(--t2)]">
+          <AlertTriangle size={9} aria-hidden className="mt-0.5 shrink-0" />
+          <span>못 쟀음{measured.error ? ` — ${measured.error}` : ''} (0 이 아닙니다)</span>
+        </p>
+      ) : (
+        hint && <p className="mt-0.5 font-body text-[10px] text-[var(--t2)]">{hint}</p>
+      )}
     </div>
   )
 }
 
-function Th({ children, align = 'left' }: { children: React.ReactNode; align?: 'left' | 'right' | 'center' }) {
+function Th({
+  children,
+  align = 'left',
+}: {
+  children: React.ReactNode
+  align?: 'left' | 'right' | 'center'
+}) {
   return (
     <th
       className="px-3 py-2 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"

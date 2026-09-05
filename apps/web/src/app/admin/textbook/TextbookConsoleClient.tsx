@@ -16,10 +16,10 @@ const TYPE_KO: Record<string, string> = {
 }
 
 const STANDING_KO: Record<string, { mark: string; label: string; color: string }> = {
-  superior: { mark: '🟢', label: '우위', color: 'var(--ok)' },
+  superior: { mark: '🟢', label: '우위', color: 'var(--success-ink)' },
   parity: { mark: '⚪', label: '대등', color: 'var(--t2)' },
-  inferior: { mark: '🔴', label: '열위', color: 'var(--danger)' },
-  absent: { mark: '⛔', label: '없음', color: 'var(--danger)' },
+  inferior: { mark: '🔴', label: '열위', color: 'var(--error-ink)' },
+  absent: { mark: '⛔', label: '없음', color: 'var(--error-ink)' },
   unmeasured: { mark: '❔', label: '못 잼', color: 'var(--t3)' },
 }
 
@@ -46,7 +46,7 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
       {stats.loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[var(--danger)] bg-[var(--bg)] p-4 font-body text-[13px] text-[var(--danger)]"
+          className="rounded-[var(--r-md)] border border-[var(--error)] bg-[var(--bg)] p-4 font-body text-[13px] text-[var(--error-ink)]"
         >
           {stats.loadError}
         </p>
@@ -112,7 +112,7 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                     {t.chi2 == null ? (
                       <span className="text-[var(--t3)]">저장 형식에 번호 없음</span>
                     ) : (
-                      <span style={{ color: t.answerBiased ? 'var(--danger)' : 'var(--ok)' }}>
+                      <span style={{ color: t.answerBiased ? 'var(--error-ink)' : 'var(--success-ink)' }}>
                         {t.answerBiased ? '⚠️ 쏠림' : '✅ 고름'} · χ²={t.chi2.toFixed(1)} (임계 {CHI2_CRITICAL})
                       </span>
                     )}
@@ -136,7 +136,7 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
           값은 <code className="font-mono">@vocaflow/design-tokens</code> 에서 읽는다 — 조판기가 색을 따로
           갖고 있으면 손에 쥔 책이 화면과 달라진다. 규격 지문{' '}
           <span className="font-mono text-[var(--t2)]">{brand.fingerprint}</span> 이 바뀌면 그 전에 찍은
-          권은 아래에서 <span style={{ color: 'var(--warn)' }}>옛 규격</span> 으로 뜬다.
+          권은 아래에서 <span style={{ color: 'var(--warning-ink)' }}>옛 규격</span> 으로 뜬다.
         </p>
 
         <div className="overflow-x-auto">
@@ -180,7 +180,7 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
         {brand.renderError ? (
           <p
             role="alert"
-            className="rounded-[var(--r-md)] border border-[var(--danger)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--danger)]"
+            className="rounded-[var(--r-md)] border border-[var(--error)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--error-ink)]"
           >
             {brand.renderError} — 조판이 0권인 것이 아니라 기록을 못 읽은 것이다.
           </p>
@@ -228,20 +228,20 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                     <td className="py-2 pr-3">
                       <span
                         className="tabular-nums"
-                        style={{ color: r.autoPassed === r.autoTotal ? 'var(--ok)' : 'var(--warn)' }}
+                        style={{ color: r.autoPassed === r.autoTotal ? 'var(--success-ink)' : 'var(--warning-ink)' }}
                       >
                         {/* 한 문자열로 낸다 — 조각내면 "8/9" 가 마크업 사이에 끊겨 복사도 검색도 안 된다. */}
                         {`${r.autoPassed === r.autoTotal ? '✅' : '⚠️'} ${r.autoPassed}/${r.autoTotal}`}
                       </span>
                       {r.failedChecks.length ? (
-                        <span className="block text-[12px] text-[var(--warn)]">
+                        <span className="block text-[12px] text-[var(--warning-ink)]">
                           {r.failedChecks.join(' · ')}
                         </span>
                       ) : null}
                     </td>
                     <td className="py-2 pr-3 tabular-nums">
                       <span
-                        style={{ color: r.missingExplanations === 0 ? 'var(--ok)' : 'var(--warn)' }}
+                        style={{ color: r.missingExplanations === 0 ? 'var(--success-ink)' : 'var(--warning-ink)' }}
                       >
                         {r.missingExplanations === 0 ? '✅ 0' : `⚠️ ${r.missingExplanations}`}
                       </span>
@@ -263,7 +263,7 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                         <>
                           {r.articlesWithItems.toLocaleString()}
                           {r.articlesIdle ? (
-                            <span className="block text-[12px]" style={{ color: 'var(--warn)' }}>
+                            <span className="block text-[12px]" style={{ color: 'var(--warning-ink)' }}>
                               +{r.articlesIdle.toLocaleString()} 문항 없음
                             </span>
                           ) : null}
@@ -295,7 +295,7 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                           {r.review.answerBias ? (
                             <span
                               className="block"
-                              style={{ color: r.review.answerBias.biased ? 'var(--warn)' : 'var(--ok)' }}
+                              style={{ color: r.review.answerBias.biased ? 'var(--warning-ink)' : 'var(--success-ink)' }}
                               title={`χ²=${r.review.answerBias.chi2} · Cramér's V=${r.review.answerBias.cramersV} (둘 다 넘어야 쏠림)`}
                             >
                               {r.review.answerBias.biased ? '⚠️ 정답 쏠림' : '✅ 정답 균등'}
@@ -304,7 +304,7 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                           {r.review.proofread ? (
                             <span
                               className="block"
-                              style={{ color: r.review.proofread.defective ? 'var(--warn)' : 'var(--ok)' }}
+                              style={{ color: r.review.proofread.defective ? 'var(--warning-ink)' : 'var(--success-ink)' }}
                               title={
                                 Object.entries(r.review.proofread.byRule)
                                   .map(([rule, n]) => `${rule} ${n}`)
@@ -319,9 +319,9 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
                     </td>
                     <td className="py-2 pr-3">
                       {r.brandCurrent ? (
-                        <span style={{ color: 'var(--ok)' }}>✅ 최신</span>
+                        <span style={{ color: 'var(--success-ink)' }}>✅ 최신</span>
                       ) : (
-                        <span style={{ color: 'var(--warn)' }} title={r.brandFingerprint}>
+                        <span style={{ color: 'var(--warning-ink)' }} title={r.brandFingerprint}>
                           ⚠️ 옛 규격 — 재조판
                         </span>
                       )}
@@ -364,7 +364,7 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
           </p>
         ) : null}
         {brand.idleArticles ? (
-          <p className="font-body text-[13px]" style={{ color: 'var(--warn)' }}>
+          <p className="font-body text-[13px]" style={{ color: 'var(--warning-ink)' }}>
             <span className="font-[700]">먼저 할 일</span> — 쓰여 있는데 문항이 안 붙은 원글이{' '}
             <span className="tabular-nums">{brand.idleArticles.toLocaleString()}편</span> 있다. 조판은 이
             글들을 재고로 세지 않으므로, <strong>이 상태에서는 글을 더 써도 사다리가 안 늘어난다</strong> —{' '}
@@ -397,7 +397,7 @@ export function TextbookConsoleClient({ stats }: { stats: TextbookConsoleStats }
               <span className="text-[var(--t1)]">{r.rung.schoolBand}</span>
               <span className="ml-auto tabular-nums text-[var(--t1)]">{r.total.toLocaleString()}</span>
               {r.emptyTypes.length ? (
-                <span className="basis-full text-[12px] text-[var(--warn)]">
+                <span className="basis-full text-[12px] text-[var(--warning-ink)]">
                   재고 0: {r.emptyTypes.map((t) => TYPE_KO[t] ?? t).join(' · ')}
                 </span>
               ) : null}
@@ -501,7 +501,7 @@ function Stat({
       {sub ? (
         <span
           className="font-body text-[11px]"
-          style={{ color: warn ? 'var(--warn)' : 'var(--t3)' }}
+          style={{ color: warn ? 'var(--warning-ink)' : 'var(--t3)' }}
         >
           {sub}
         </span>

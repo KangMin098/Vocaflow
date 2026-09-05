@@ -4,7 +4,7 @@
 'use client'
 
 import { useTransition } from 'react'
-import { Check, Loader2, RefreshCw, X, Zap } from 'lucide-react'
+import { Check, Loader2, RefreshCw, RotateCcw, X, Zap } from 'lucide-react'
 
 import { transitionPendingWord, type PendingWordStatus } from './actions'
 import { useToast } from '@/components/ui/Toast'
@@ -25,6 +25,18 @@ interface ActionDef {
 }
 
 const ACTIONS: ActionDef[] = [
+  {
+    // 되돌리기 — 잘못 누른 판정을 UI 로 복구하는 유일한 경로.
+    // 이게 없던 동안 관리자는 한 번 누른 상태를 화면에서 되돌릴 수 없었다
+    // (RPC 는 처음부터 'pending' 을 받았다 — 버튼만 없었다).
+    to: 'pending',
+    label: '되돌리기',
+    Icon: RotateCcw,
+    color: 'var(--error)',
+    bg: 'var(--error-light)',
+    hoverBg: 'var(--error)',
+    title: '대기 상태로 되돌리기 — 판정 취소',
+  },
   {
     to: 'reviewing',
     label: '검토',

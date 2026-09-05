@@ -22,12 +22,14 @@ import {
   Loader2,
   Play,
   RefreshCw,
+  RotateCcw,
   Trash2,
   Undo2,
   XCircle,
 } from 'lucide-react'
 
 import { createClient } from '@/lib/supabase/client'
+import { ARTICLE_DIRECT_RPC_NAMES, ARTICLE_RPC_ROUTE } from '@/lib/articles/admin-actions'
 import { resolveSourcePolicy } from '@vocaflow/library-pipeline/curation-spec'
 import { classifyArticleStatus } from '@/lib/articles/types'
 import { computeGateItems, gatePasses, type GateItem } from '@/lib/articles/publish-gate'
@@ -116,14 +118,18 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
   // v06.56 — admin_force_publish_article 등 SECURITY DEFINER RPC 는 DEV_ADMIN_BYPASS=1
   //   환경에서 auth.uid()=NULL → is_admin_or_curator()=false → "Forbidden". 서버 API
   //   route 경유로 전환 (requireAdmin + service_role 패턴).
-  const RPC_ROUTE: Record<string, string> = {
-    admin_force_publish_article: '/api/admin/articles/force-publish',
-  }
+  //
+  // 2026-09-05 — 이 자리에 **화면 전용 매핑표**가 있었고 거기엔 force-publish 하나뿐이었다.
+  //   그런데 아래 버튼 두 개는 `admin_revert_published_article`(검토대기로 되돌리기) ·
+  //   `admin_delete_article`(영구 삭제) 를 넘긴다. 라우트는 이미 있었는데 표에만 없어서,
+  //   확인창을 통과한 뒤 **항상 "알 수 없는 액션"** 예외로 끝났다 — 되돌리기도 삭제도
+  //   한 번도 성공한 적이 없다. 표를 목록 화면과 공유해 같은 드리프트를 막는다.
+  //   회귀 락: lib/articles/__tests__/admin-actions.test.ts
   function rpcAction(name: string, key: string, after: 'refresh' | 'back') {
     void runAction(
       key,
       async () => {
-        const route = RPC_ROUTE[name]
+        const route = ARTICLE_RPC_ROUTE[name]
         if (route) {
           const res = await fetch(route, {
             method: 'POST',
@@ -149,19 +155,19 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
         const client = createClient() as unknown as LooseRpcClient
         const p = { p_article_id: article.id }
 
+        // 모르는 액션을 조용히 성공 처리하면 "눌렀는데 아무 일도 없음" 이 된다
+        if (!ARTICLE_DIRECT_RPC_NAMES.includes(name)) {
+          throw new Error(`알 수 없는 액션: ${name}`)
+        }
+
         // ⚠️ rpc() 이름은 리터럴로 — 변수로 넘기면 RPC 권한 감사의 정적 수집에서 빠진다
         //    (그 결과 "아무도 안 부르는 함수" 로 오분류돼 EXECUTE 회수 대상이 된다).
         //    회귀 락: src/lib/auth/__tests__/rpc-call-sites.test.ts
-        const rpcErr =
-          name === 'admin_requeue_article'
-            ? (await client.rpc('admin_requeue_article', p)).error
-            : name === 'admin_archive_article'
-              ? (await client.rpc('admin_archive_article', p)).error
-              : null
-
-        // 모르는 액션을 조용히 성공 처리하면 "눌렀는데 아무 일도 없음" 이 된다
-        if (!['admin_requeue_article', 'admin_archive_article'].includes(name)) {
-          throw new Error(`알 수 없는 액션: ${name}`)
+        let rpcErr: { message: string } | null = null
+        if (name === 'admin_requeue_article') {
+          rpcErr = (await client.rpc('admin_requeue_article', p)).error
+        } else if (name === 'admin_archive_article') {
+          rpcErr = (await client.rpc('admin_archive_article', p)).error
         }
         if (rpcErr) throw new Error(rpcErr.message)
       },
@@ -309,6 +315,20 @@ export function AdminArticleReviewClient({ article, vocab }: Props) {
                 tone="neutral"
               />
             )}
+            {article.status === 'archived' && (
+              // 보관된 글에 삭제 말고 나갈 길을 준다. admin_requeue_article 은 상태 가드가
+              //   없어 archived 에서도 돌지만, 도착지는 ready 가 아니라 **queued** 다
+              //   (status_message 도 지워진다). 그래서 "검토대기" 라고 쓰지 않는다 —
+              //   복원 뒤 "지금 처리" 로 재분석해야 검수 가능하고 LLM 비용이 다시 붙는다.
+              <ActionButton
+                icon={<RotateCcw size={12} />}
+                label="큐로 복원"
+                title="보관 해제 → 대기(queued). 검수하려면 '지금 처리'로 재분석해야 하고 LLM 비용이 다시 발생합니다."
+                pending={pending === 'restore'}
+                onClick={() => rpcAction('admin_requeue_article', 'restore', 'refresh')}
+                tone="primary"
+              />
+            )}
             {article.status !== 'archived' && article.status !== 'published' && (
               <ActionButton
                 icon={<Archive size={12} />}
@@ -449,12 +469,15 @@ function ActionButton({
   pending,
   onClick,
   tone,
+  title,
 }: {
   icon: React.ReactNode
   label: string
   pending: boolean
   onClick: () => void
   tone: 'primary' | 'neutral' | 'danger'
+  /** 라벨이 말하지 않는 결과 — 도착 상태 · 되돌리기 가능 여부 · 비용. */
+  title?: string
 }) {
   const cls =
     tone === 'primary'
@@ -467,6 +490,7 @@ function ActionButton({
       type="button"
       onClick={onClick}
       disabled={pending}
+      title={title}
       className={`inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${cls}`}
     >
       {pending ? <Loader2 size={12} className="animate-spin" aria-hidden /> : icon}
