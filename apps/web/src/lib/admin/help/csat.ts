@@ -509,6 +509,8 @@ export const CSAT_HELP: HelpRegistry = {
           '**계열 병합은 라벨 문자열 휴리스틱이지 의미 판정이 아니다.** 겹치는 낱말이 둘 이상이면 같은 계열로 본다. 그래서 합성 라벨(「A / B / C」)이 남의 계열을 끌어오는 과잉 병합이 원리적으로 남는다 — 화면과 파일 모두 원 라벨을 함께 싣는 이유다. 확정 분류는 사람이 한다.',
           '내려받은 자료에 **평가원 지문 원문은 없다** — 조회 컬럼에서 이미 뺐고 통합 테스트가 실제 지문 창 40자로 대조한다. 그래도 교재에 옮길 때 인용을 덧붙이면 그 순간 경계가 무너진다.',
           '이 탭은 캐시하지 않는다. 드레인을 돌린 직후 새로고침하면 바로 반영된다.',
+          '「학습자 배포 가능」을 올리는 드레인은 `locus-refold` 다 — ① `node scripts/csat/locus-refold-export.mjs`(표지 있는 유형만 뽑는다 · **재실행 안전**) → ② Claude Code 가 `chunk-<TYPE>.out.json` 을 채운다(명세는 `scripts/csat/locus-refold/_PROMPT.md`) → ③ `node scripts/csat/locus-refold-import.mjs`(미리보기 · **읽기만 한다**) → `--commit`. ③의 게이트는 다섯이다: 표지 잔존 · 200자 미만 · 원본에 없는 문항 id · 원본과 동일 · **원본에 없는 영어 토막**. 마지막 것은 문항 id 대조가 못 보는 자리다(실측 2026-09-05: id 는 전부 맞는데 「too close」·「For example」·「commonly believed」가 새로 생겼다 — 학습자는 그 표지어를 시험장에서 그대로 찾으므로 없는 것을 찾게 만들면 시간을 잃는다).',
+          '⚠️ **`--commit` 은 `answer_locus_pattern` 을 덮어쓴다.** 이 컬럼에는 버전이 없어 새 행으로 넣을 자리가 없다. 그래서 쓰기 직전 원본을 `scripts/csat/locus-refold/backup-<TYPE>-<시각>.txt` 로 남긴다 — 되돌리려면 그 파일을 그대로 다시 넣는다. **재실행 안전하지 않다**(같은 청크를 두 번 올리면 두 번째 backup 이 이미 재작성된 글을 담는다).',
         ],
       },
     },
