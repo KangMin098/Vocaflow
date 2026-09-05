@@ -3,7 +3,13 @@
 
 'use client'
 
-import { KID_SOURCE_TARGET } from '@vocaflow/library-pipeline'
+// ⚠️ 배럴(`@vocaflow/library-pipeline`)에서 가져오면 안 된다 — 그 index 는 ingest 모듈 전부를
+//    다시 내보내고, 그중 `ingest/storyweaver.ts` 가 `child_process` 를 쓴다. 클라이언트
+//    컴포넌트가 배럴을 건드리는 순간 webpack 이 그 사슬을 따라가
+//    `Module not found: Can't resolve 'child_process'` 로 **프로덕션 빌드 전체가 멈춘다**
+//    (dev 는 통과하므로 늦게 발견된다 · 실측 2026-09-06).
+//    상수 하나는 그 상수가 사는 모듈에서 직접 가져온다(`textbook-cover` 가 이미 그 선례다).
+import { KID_SOURCE_TARGET } from '@vocaflow/library-pipeline/textbook-kid-source'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { TextbookConsoleStats, VolumeRender } from '@/lib/textbook/console-stats'
