@@ -159,6 +159,14 @@ for (;;) {
 
   for (const row of data) {
     tally.total += 1
+    // ⚠️ **L3(조각 단위) 판정이 있는 행은 건드리지 않는다.** 그 행들은 책 판정이 `mixed`
+    //   (= 책 단위로는 못 가른다) 라서 조각을 하나씩 본 것이다. 여기서 책 판정으로 다시 쓰면
+    //   더 정확한 판정을 덜 정확한 판정으로 덮는다 — 두 층이 같은 칸을 쓰면 마지막에
+    //   돈 쪽이 이기고, 그게 하필 이 스크립트다(더 자주 돈다).
+    if (row.csat_fit?.gate?.by === 'chunk-llm') {
+      tally.skipped += 1
+      continue
+    }
     // 본문을 안 받은 행은 이미 수렴한 행이다 — 규칙을 다시 돌릴 근거가 없다.
     if (purposeOf(row) !== 'raw' && !body.has(row.id) && settled(row)) {
       tally.skipped += 1
