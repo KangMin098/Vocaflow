@@ -27,6 +27,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { loadEnv, fetchAllIn, fetchAllPaged, isRetractedTitle } from './volume-pool.mjs'
+import { pickFreeSlots } from './chunk-slots.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -526,13 +527,15 @@ if (kept) {
 const chunks = []
 // 남긴 청크를 덮지 않도록 **빈 번호를 찾아** 쓴다. 0부터 그냥 쓰면 위에서 살려 둔
 //   미완성 청크를 그대로 뭉갠다 — 지우지 않기로 해 놓고 덮으면 같은 일이다.
-let slot = 0
+//
+// ⚠️ **`.out.json` 이 남은 번호도 남의 자리다.** `chunk-NN.json` 만 보고 고르면 방금 지운
+//   번호가 비어 보이고, 그 자리에 새 몫을 써서 `.out.json` 과 짝이 어긋난다
+//   (실측 2026-09-06 `blank-v4/chunk-00`). 고르는 규칙은 `chunk-slots.mjs` 가 정본이다.
+const slotNames = pickFreeSlots(fs.readdirSync(DIR), Math.ceil(tasks.length / SIZE))
 for (let i = 0; i < tasks.length; i += SIZE) {
-  while (fs.existsSync(path.join(DIR, `chunk-${String(slot).padStart(2, '0')}.json`))) slot++
-  const n = String(slot).padStart(2, '0')
+  const n = slotNames[i / SIZE]
   fs.writeFileSync(path.join(DIR, `chunk-${n}.json`), JSON.stringify(tasks.slice(i, i + SIZE), null, 1), 'utf8')
   chunks.push(n)
-  slot++
 }
 
 console.log(`${spec.label}(${spec.number}번) · V${BAND}`)
