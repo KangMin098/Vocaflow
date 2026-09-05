@@ -368,6 +368,54 @@ const CARD_BANNED = [
  * 학습자에게 보이는 **모든 문자열**을 훑는다 — 질문·한국어 질문·보기·근거 문장.
  * 넣기 전에 배치 전량을 본다(부분 삽입 방지).
  */
+/**
+ * 정답 **길이** 쏠림 검사 — 위치 쏠림보다 크게 새고 있었다.
+ *
+ * `checkAnswerSpread` 는 정답이 어느 자리에 있는지만 본다. 그런데 실측 2026-09-05,
+ * 위치 분포는 621/601/604/580 으로 **완벽하게 고른데** 「가장 긴 선지를 누른다」 전략의
+ * 정답률이 **95.1%(2,288/2,406)** 였다. 우연이면 25% 다. 정답 평균 89.8자 vs 오답 35.8자.
+ * 챕터 342개 중 246개(71.9%)는 그 전략만으로 전문항 정답이고, 문항 10개 이상인 57권이
+ * 전부 50%를 넘었다. **지문을 한 줄도 안 읽고 95점이 나온다.**
+ *
+ * 규약은 이미 이것을 정해 두고 있었다(CONVENTIONS 「선택지를 만들면 길이 편향을 반드시
+ * 잰다」 — 문항 1.25배 / 배치 40%). 이 적재기만 안 따르고 있었다.
+ *
+ * 정답을 줄여서 맞추지 말 것 — 답이 흐려진다. **오답을 정답만큼 구체적으로 쓰되
+ * 내용이 틀리게** 만드는 것이다.
+ */
+function checkAnswerLength(questions, label) {
+  const multi = questions.filter((q) => q.type !== 'truefalse' && q.options.length >= 3)
+  if (multi.length === 0) return
+  const lenOf = (o) => String(o?.text ?? '').trim().length
+
+  // ① 문항 단위 — 정답이 오답 평균의 1.25배를 넘으면 그 문항을 거부한다
+  const overs = []
+  let longest = 0
+  for (const q of multi) {
+    const lens = q.options.map(lenOf)
+    const correct = lens[q.correct_index] ?? 0
+    const others = lens.filter((_, i) => i !== q.correct_index)
+    const avg = others.reduce((s, x) => s + x, 0) / Math.max(1, others.length)
+    if (correct === Math.max(...lens)) longest += 1
+    if (avg > 0 && correct > avg * 1.25) overs.push(`"${q.question.slice(0, 40)}…" 정답 ${correct}자 / 오답 평균 ${Math.round(avg)}자`)
+  }
+
+  // ② 배치 단위 — 정답이 최장인 비율이 40% 를 넘으면 적재 자체를 거부한다
+  const share = longest / multi.length
+  if (share > 0.4) {
+    throw new Error(
+      `${label}: 정답이 가장 긴 선지인 비율 ${Math.round(share * 100)}% (${longest}/${multi.length}) — 상한 40%. ` +
+        '지문을 안 읽고 제일 긴 것을 고르면 맞는 문항집이다. ' +
+        '정답을 줄이지 말고 **오답을 정답만큼 구체적으로(내용은 틀리게)** 채울 것.',
+    )
+  }
+  if (overs.length) {
+    throw new Error(
+      `${label}: 정답이 오답 평균의 1.25배를 넘는 문항 ${overs.length}건 — ${overs.slice(0, 3).join(' · ')}`,
+    )
+  }
+}
+
 function checkCardSafety(questions, label) {
   const hits = []
   questions.forEach((q, i) => {
@@ -410,6 +458,7 @@ async function cmdInsertBatch(filePath, commit) {
     allQuestions.push(...validateQuestions(ch.questions))
   }
   checkAnswerSpread(allQuestions, `${book.title} 배치`)
+  checkAnswerLength(allQuestions, `${book.title} 배치`)
   checkCardSafety(allQuestions, `${book.title} 배치`)
 
   let okCh = 0
