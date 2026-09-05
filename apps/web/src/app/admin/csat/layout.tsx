@@ -1,41 +1,30 @@
 // apps/web/src/app/admin/csat/layout.tsx
 //
-// **교재 공장 레일** — `/admin/csat/*` 전체가 공유하는 2차 메뉴.
+// **교재 공장 껍데기** — 제목 한 줄뿐이다.
 //
-// 왼쪽 사이드바에 공정 8칸을 다 세우면 다른 파이프라인 12개가 밀려난다. 그래서 공장 안에서만
-// 보이는 레일을 여기 둔다 — 관리자는 어느 화면에 있든 **공정 순서와 자기 위치**를 본다.
+// ── 왜 레일을 걷어냈나 (2026-09-05) ──────────────────────────────────
+// 여기에는 공정 8칸을 가로로 편 「레일」이 있었다. 그런데 같은 8칸이 **세 군데**에 그려지고 있었다 —
+// 좌측 사이드바 하위 메뉴(레인별로 묶임) · 이 레일 · 현황판의 라인 도식. 셋 다 같은 곳으로 가는
+// 같은 링크라, 화면을 열면 눈이 같은 목록을 세 번 훑는다. 그게 「복잡하다」의 큰 몫이었다.
 //
-// 레인을 둘로 가르는 이유: 연구소는 **무엇을 만들지 정하고**, 라인은 **정한 대로 찍는다.**
-// 한 줄에 섞으면 "재고가 많다" 가 "잘 만들고 있다" 처럼 읽히는데, 규격이 낡으면 재고 전체가
-// 낡은 것이라 정반대다.
+// 남긴 것은 하나씩이다:
+//   · **어디로 갈까** → 좌측 사이드바(들어오면 ①~⑧ 이 레인별로 펼쳐진다)
+//   · **지금 어떤가** → 현황판의 라인 도식(상태·병목이 색+모양으로 붙는다)
+//
+// 제목도 줄였다. 예전에는 "기획 → 설계 → 소재 → …" 공정 순서를 여기에 글로 적었는데,
+// 그 순서는 이제 사이드바와 도식이 **보여 준다**. 같은 말을 글로 또 적을 이유가 없다.
 
 import Link from 'next/link'
 
-import { FACTORY_STAGES } from '@/lib/csat/factory-model'
-
-import { FactoryRail } from './FactoryRail'
-
 export default function AdminCsatLayout({ children }: { children: React.ReactNode }) {
-  const lab = FACTORY_STAGES.filter((s) => s.lane === 'lab')
-  const line = FACTORY_STAGES.filter((s) => s.lane === 'line')
-
   return (
     <div className="flex flex-col gap-4 p-4 sm:p-6">
-      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <Link
-          href="/admin/csat"
-          className="font-display text-[22px] font-[800] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
-        >
-          교재 공장
-        </Link>
-        <p className="font-body text-[13px] text-[var(--t2)]">
-          기획 → 설계 → 소재 → 집필 → 해설 → 검수 → 조판. 시중 공정을 그대로 밟되, 각 칸을 채우는
-          것은 Claude Code 배치다.
-        </p>
-      </header>
-
-      <FactoryRail lab={[...lab]} line={[...line]} />
-
+      <Link
+        href="/admin/csat"
+        className="w-fit font-display text-[22px] font-[800] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+      >
+        교재 공장
+      </Link>
       {children}
     </div>
   )

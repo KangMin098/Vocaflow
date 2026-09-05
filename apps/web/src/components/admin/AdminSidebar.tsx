@@ -3,6 +3,7 @@
 'use client'
 
 import {
+  AlertTriangle,
   ArrowLeft,
   BarChart3,
   BookImage,
@@ -15,9 +16,13 @@ import {
   FileText,
   Flag,
   Gauge,
+  GraduationCap,
   Grid3x3,
+  History,
   LayoutDashboard,
+  MessageSquareText,
   Library,
+  Network,
   Newspaper,
   PenLine,
   Scale,
@@ -47,6 +52,21 @@ interface NavItem {
    * 그래서 **들어갔을 때만** 보이게 한다.
    */
   children?: NavItem[]
+  /**
+   * 하위 항목을 다시 묶는 머리글 — 값이 바뀌는 지점에 작은 구분선이 들어간다.
+   *
+   * 공정이 여덟이면 하위를 한 줄로 늘어놓아도 **어디서 성격이 바뀌는지** 안 보인다.
+   * 교재 공장은 「무엇을 만들지 정하는 구간」과 「정한 대로 찍는 구간」이 나뉘고,
+   * 그 경계를 모르면 관리자가 규격을 고쳐야 할 때 재고 화면을 뒤진다.
+   */
+  group?: string
+  /**
+   * 아직 화면이 없는 칸 — **링크가 아니라 글자**로 둔다.
+   *
+   * 빼면 그 공정이 없는 것처럼 보이고(현황판 도식에는 있으므로 메뉴와 어긋난다), 링크로 걸면
+   * 눌러 보고 "고장" 이라고 판단한다. 왜 없는지를 title 로 말한다.
+   */
+  pendingNote?: string
 }
 
 interface NavGroup {
@@ -56,11 +76,14 @@ interface NavGroup {
 }
 
 interface AdminSidebarProps {
-  /** 미처리 신고 건수 — 0 또는 미지정 시 뱃지 숨김. layout.tsx에서 reports COUNT 주입. */
-  reportsBadge?: number
+  /**
+   * 미처리 신고 건수. `null` = 셀 곳이 없음(reports 테이블 미구현) — 0 과 다르다.
+   * 0 이나 null 이면 뱃지를 숨긴다. layout.tsx 가 주입.
+   */
+  reportsBadge?: number | null
 }
 
-function buildNavGroups(reportsBadge: number): NavGroup[] {
+function buildNavGroups(reportsBadge: number | null): NavGroup[] {
   return [
   {
     label: null,
@@ -80,8 +103,23 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
       { href: '/admin/compose', label: 'Compose Pipeline', Icon: PenLine },
       { href: '/admin/vocabulary', label: '단어장 마스터', Icon: BookMarked },
       { href: '/admin/vocab', label: 'VCB Pipeline', Icon: Sparkles },
-      { href: '/admin/vrl', label: 'VRL Pipeline', Icon: Brain },
-      { href: '/admin/vrl/automation', label: 'VRL Automation', Icon: Workflow },
+      // VRL 은 화면이 7개인데 오래도록 이 둘만 메뉴에 있었다. 나머지 5개(분류 기준표·진단·
+      // 사용자 레벨·변경 이력·의심 단어)로 가는 상시 링크는 **한 개도 없었고**, 유일한 통로가
+      // 접힌 「화면 도움말」 패널 안의 각주라 3단을 펼쳐야 닿았다. 교재 공장이 쓰는 children
+      // 패턴을 그대로 적용한다 — 밖에서는 한 줄, 안에 들어오면 공정 전체가 보인다.
+      {
+        href: '/admin/vrl',
+        label: 'VRL Pipeline',
+        Icon: Brain,
+        children: [
+          { href: '/admin/vrl/taxonomy', label: '분류 기준표', Icon: Network },
+          { href: '/admin/vrl/diagnostic', label: '진단', Icon: GraduationCap },
+          { href: '/admin/vrl/users', label: '사용자 레벨', Icon: Users },
+          { href: '/admin/vrl/concerns', label: '의심 단어', Icon: AlertTriangle },
+          { href: '/admin/vrl/snapshots', label: '변경 이력', Icon: History },
+          { href: '/admin/vrl/automation', label: '자동화', Icon: Workflow },
+        ],
+      },
       { href: '/admin/comic', label: 'Comic Pipeline', Icon: BookImage },
       // PDCP — 퍼블릭도메인 스캔 만화. CCP(위)와 단계·QC·법적 게이트가 전부 달라 별도 메뉴.
       { href: '/admin/pd-comics', label: 'PD Comic Pipeline', Icon: ScanLine },
@@ -95,11 +133,20 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
         label: '교재 공장',
         Icon: Factory,
         children: [
-          { href: '/admin/csat/evidence', label: '① 기출 원천', Icon: Scale },
+          // 레인 둘 — 규격을 정하는 구간과 정한 대로 찍는 구간. 경계를 안 보이게 두면
+          // 관리자가 규격을 고쳐야 할 때 재고 화면을 뒤진다.
+          { href: '/admin/csat/evidence', label: '① 기출 원천', Icon: Scale, group: '전략 연구소' },
           { href: '/admin/csat/strategy', label: '② 기획', Icon: Target },
           { href: '/admin/csat/blueprint', label: '③ 설계', Icon: Grid3x3 },
-          { href: '/admin/csat/sourcing', label: '④ 소재', Icon: FileText },
+          { href: '/admin/csat/sourcing', label: '④ 소재', Icon: FileText, group: '생산 라인' },
           { href: '/admin/csat/authoring', label: '⑤ 집필', Icon: PenLine },
+          {
+            href: '/admin/csat',
+            label: '⑥ 해설',
+            Icon: MessageSquareText,
+            pendingNote:
+              '전용 화면은 집계 RPC 승인 후에 생긴다 — supabase/migrations/_pending_csat_dcp_inventory.sql. 지금은 현황판 눈금으로만 본다',
+          },
           { href: '/admin/csat/review', label: '⑦ 검수', Icon: ClipboardCheck },
           { href: '/admin/csat/press', label: '⑧ 조판·발행', Icon: Printer },
         ],
@@ -115,7 +162,7 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
       { href: '/admin/quality', label: '품질 지표', Icon: Gauge },
       { href: '/admin/quality/gates', label: '품질 게이트', Icon: ShieldCheck },
       { href: '/admin/quality/judge', label: '추출 판정', Icon: Scale },
-      { href: '/admin/reports', label: '신고/문의', Icon: Flag, badge: reportsBadge },
+      { href: '/admin/reports', label: '신고/문의', Icon: Flag, badge: reportsBadge ?? undefined },
       { href: '/admin/billing', label: '결제/구독', Icon: CreditCard },
     ],
   },
@@ -127,7 +174,7 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
   ]
 }
 
-export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
+export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
   const pathname = usePathname() ?? ''
   const NAV_GROUPS = buildNavGroups(reportsBadge)
 
@@ -262,24 +309,49 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
                         {item.children.map((child) => {
                           const childActive = child.href === activeHref
                           return (
-                            <li key={child.href}>
-                              <Link
-                                href={child.href}
-                                aria-current={childActive ? 'page' : undefined}
-                                className={`flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-2 font-display text-[13px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
-                                  childActive
-                                    ? 'bg-[var(--bg)] font-[600] text-[var(--t1)] ring-1 ring-[var(--bd)]'
-                                    : 'font-[500] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] active:bg-[var(--bd)]'
-                                }`}
-                              >
-                                <child.Icon
-                                  size={13}
-                                  strokeWidth={1.75}
-                                  aria-hidden="true"
-                                  className={childActive ? 'text-[#8B5CF6]' : 'text-[var(--t3)]'}
-                                />
-                                <span className="flex-1 truncate">{child.label}</span>
-                              </Link>
+                            <li key={child.label}>
+                              {child.group ? (
+                                <p className="mb-1 mt-2 px-2 font-display text-[9.5px] font-[700] uppercase tracking-[0.10em] text-[var(--t3)] first:mt-0">
+                                  {child.group}
+                                </p>
+                              ) : null}
+                              {child.pendingNote ? (
+                                // 아직 화면이 없는 칸 — 링크가 아니라 글자. 눌러 보고 "고장" 이라고
+                                // 판단하는 것보다 없다고 보이는 편이 낫다.
+                                <span
+                                  title={child.pendingNote}
+                                  className="flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-2 font-display text-[13px] font-[500] text-[var(--t3)] opacity-60"
+                                >
+                                  <child.Icon
+                                    size={13}
+                                    strokeWidth={1.75}
+                                    aria-hidden="true"
+                                    className="text-[var(--t3)]"
+                                  />
+                                  <span className="flex-1 truncate">{child.label}</span>
+                                  <span className="shrink-0 rounded bg-[var(--bg2)] px-1 py-0.5 font-body text-[9.5px]">
+                                    준비 중
+                                  </span>
+                                </span>
+                              ) : (
+                                <Link
+                                  href={child.href}
+                                  aria-current={childActive ? 'page' : undefined}
+                                  className={`flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-2 font-display text-[13px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
+                                    childActive
+                                      ? 'bg-[var(--bg)] font-[600] text-[var(--t1)] ring-1 ring-[var(--bd)]'
+                                      : 'font-[500] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] active:bg-[var(--bd)]'
+                                  }`}
+                                >
+                                  <child.Icon
+                                    size={13}
+                                    strokeWidth={1.75}
+                                    aria-hidden="true"
+                                    className={childActive ? 'text-[#8B5CF6]' : 'text-[var(--t3)]'}
+                                  />
+                                  <span className="flex-1 truncate">{child.label}</span>
+                                </Link>
+                              )}
                             </li>
                           )
                         })}

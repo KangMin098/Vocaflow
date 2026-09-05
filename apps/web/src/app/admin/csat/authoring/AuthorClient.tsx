@@ -19,8 +19,24 @@ import {
   type AuthorView,
 } from '@/lib/csat/factory-line-model'
 
+/**
+ * 재고를 **농도**로 바꾼다 — 숫자를 읽기 전에 어디가 두껍고 어디가 얇은지 보이게.
+ *
+ * 로그를 쓰는 이유: 이 표의 재고는 3 부터 91,474 까지 **네 자릿수 차이**가 난다. 선형으로
+ * 칠하면 큰 칸 몇 개만 진하고 나머지는 전부 흰색이 되어 아무 패턴도 안 보인다.
+ *
+ * ⚠️ 농도는 **거들 뿐**이다. 칸마다 수를 그대로 적고(색약·흑백 인쇄·스크린리더 대비),
+ *   재고 0 과 「못 잼」은 색이 아니라 글자로 가른다 — 둘은 할 일이 정반대다.
+ */
+function heat(n: number | null | undefined, max: number): number {
+  if (n == null || n <= 0 || max <= 0) return 0
+  return Math.log10(n + 1) / Math.log10(max + 1)
+}
+
 export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorView) {
   const [onlyLadder, setOnlyLadder] = useState(false)
+  /** 농도의 분모. 못 센 칸은 빼고 실제로 있는 최대 재고를 쓴다. */
+  const maxCell = cells.reduce((m, c) => Math.max(m, c.count ?? 0), 0)
   const inLadder = new Set(ladderCells.map((c) => `${c.type}|${c.vLevel}`))
   const offLadder = offLadderCount({ cells, ladderCells })
 
@@ -91,10 +107,30 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
       </div>
 
       <section className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
-        <p className="mb-3 break-keep font-body text-[11.5px] text-[var(--t3)]">
-          보라 테두리는 <strong>사다리가 실제로 쓰는 칸</strong>이다. 테두리 없는 칸의 재고는 지금
-          어느 권에도 안 실린다. 「—」은 재고 0, 「?」는 못 센 것이다.
-        </p>
+        <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-body text-[11px] text-[var(--t3)]">
+          <span className="inline-flex items-center gap-1.5">
+            <span
+              className="inline-block h-3 w-4 rounded-[var(--r-sm)] border border-[#8B5CF6]/50"
+              aria-hidden
+            />
+            사다리가 쓰는 칸
+          </span>
+          <span className="inline-flex items-center gap-1">
+            재고
+            {[0.06, 0.2, 0.36, 0.56].map((a) => (
+              <span
+                key={a}
+                className="inline-block h-3 w-4"
+                style={{ background: `rgba(139, 92, 246, ${a})` }}
+                aria-hidden
+              />
+            ))}
+            <span className="ml-0.5">적음 → 많음 (로그)</span>
+          </span>
+          <span>
+            <strong className="text-[#9C3A30]">—</strong> 재고 0 · <strong>?</strong> 못 셈
+          </span>
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] border-collapse text-[12px]">
             <thead>
@@ -139,6 +175,10 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
                               ladder ? 'border border-[#8B5CF6]/50' : ''
                             }`}
                             style={{
+                              // 한 가지 색의 농도만 쓴다(발산·무지개 금지). 진할수록 재고가 많다.
+                              background: n
+                                ? `rgba(139, 92, 246, ${(0.06 + 0.5 * heat(n, maxCell)).toFixed(3)})`
+                                : undefined,
                               color:
                                 n == null
                                   ? '#8A8278'

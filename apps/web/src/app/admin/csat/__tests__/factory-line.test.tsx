@@ -132,17 +132,64 @@ describe('FactoryLineClient', () => {
     expect(html).toContain('Claude Code')
   })
 
-  it('전부 통과하면 병목 자리에 초과 개선을 말한다', () => {
+  it('전부 통과하면 막힌 곳이 없다고 말한다 — 빈 자리로 두지 않는다', () => {
     const html = text(
       renderToString(
         <FactoryLineClient stages={[mk('evidence', 'pass'), mk('market', 'pass')]} loadError={null} />,
       ),
     )
-    expect(html).toContain('초과 개선')
+    expect(html).toContain('모두 게이트를 넘었다')
+    expect(html).not.toContain('막힌 곳')
   })
 
   it('공정마다 시중 공정 이름을 나란히 적는다 — "이게 그 공정" 임이 보여야 한다', () => {
     const html = text(renderToString(<FactoryLineClient stages={[mk('explain', 'short')]} loadError={null} />))
     expect(html).toContain('시중: 정답해설 집필')
+  })
+})
+
+/* ── 도식 — 색만으로 말하지 않는다 ── */
+
+describe('FactoryLineDiagram', () => {
+  const three = [mk('evidence', 'pass'), mk('market', 'short'), mk('blueprint', 'blocked')]
+
+  it('여덟 칸 대신 한 그림 — 칸마다 모양(svg)이 붙는다', () => {
+    const html = renderToString(<FactoryLineClient stages={three} loadError={null} />)
+    // 칸마다 상태 모양 하나 + 복사 아이콘들. 모양이 없으면 색만 남는다.
+    expect((html.match(/<svg/g) ?? []).length).toBeGreaterThanOrEqual(three.length)
+  })
+
+  it('상태를 **글자로도** 적는다 — 색약에서 amber↔green 이 ΔE 7.8 로 겹친다', () => {
+    const html = text(renderToString(<FactoryLineClient stages={three} loadError={null} />))
+    expect(html).toContain('통과')
+    expect(html).toContain('몫 남음')
+    expect(html).toContain('막힘')
+  })
+
+  it('칸마다 스크린리더용 이름에 상태가 들어간다', () => {
+    const html = renderToString(<FactoryLineClient stages={three} loadError={null} />)
+    expect(html).toContain('aria-label="2. 기획 — 몫 남음')
+    expect(html).toContain('지금 라인을 막고 있다')
+  })
+
+  it('기본으로 펼치는 칸은 병목이다 — 열자마자 고칠 것이 보인다', () => {
+    const html = text(renderToString(<FactoryLineClient stages={three} loadError={null} />))
+    expect(html).toContain('기획 상세'.replace(' 상세', '')) // 병목(②)의 이름
+    // 병목이 아닌 ③ 설계의 명령은 접혀 있어야 한다(한 칸만 편다)
+    expect(html).not.toContain('node scripts/csat/blueprint.mjs')
+  })
+
+  it('한 번에 한 칸만 편다 — 나머지 일곱 칸의 명령이 화면에 없다', () => {
+    const html = text(renderToString(<FactoryLineClient stages={three} loadError={null} />))
+    // 병목(② 기획)의 명령만 나오고, 나머지 두 칸의 명령은 접혀 있어야 한다.
+    // (명령 문자열은 `<code>` 와 복사 버튼의 접근성 이름에 각각 한 번씩 나온다 — 둘 다 같은 칸이다.)
+    expect(html).toContain('node scripts/market.mjs')
+    expect(html).not.toContain('node scripts/evidence.mjs')
+    expect(html).not.toContain('node scripts/blueprint.mjs')
+  })
+
+  it('칸 버튼이 44px 터치 타겟을 지킨다', () => {
+    const html = renderToString(<FactoryLineClient stages={three} loadError={null} />)
+    expect((html.match(/min-h-\[44px\]/g) ?? []).length).toBeGreaterThanOrEqual(three.length)
   })
 })

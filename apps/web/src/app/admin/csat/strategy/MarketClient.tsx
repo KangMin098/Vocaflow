@@ -25,16 +25,13 @@ import {
   type MarketView,
 } from '@/lib/csat/factory-lab-model'
 
+import { AxisBullet, AxisBulletLegend } from './AxisBullet'
+
 const MODE_KO = {
   volume: { label: '권 (출간물)', hint: '실제로 인쇄되는 것 — 학습자가 만나는 품질' },
   warehouse: { label: '창고 (재고)', hint: '만들어 둔 것 전부 — 고를 수 있는 폭' },
 } as const
 
-function pct(v: number | null, unit: string): string {
-  if (v == null) return '—'
-  if (unit === '%') return `${(v * 100).toFixed(1)}%`
-  return `${v.toLocaleString()}${unit}`
-}
 
 function PublisherCard({ p, target }: { p: BenchPublisher; target: number }) {
   const v = verdictOf(p, target)
@@ -72,48 +69,12 @@ function PublisherCard({ p, target }: { p: BenchPublisher; target: number }) {
         </p>
       ) : null}
 
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[520px] text-left text-[12px]">
-          <thead>
-            <tr className="border-b border-[var(--bd)] text-[11px] text-[var(--t3)]">
-              <th className="py-1.5 pr-2 font-[500]">축</th>
-              <th className="py-1.5 pr-2 font-[500]">우리</th>
-              <th className="py-1.5 pr-2 font-[500]">시장</th>
-              <th className="py-1.5 font-[500]">지수</th>
-            </tr>
-          </thead>
-          <tbody>
-            {p.axes.map((a) => (
-              <tr key={a.id} className="border-b border-[var(--bd)] align-top last:border-0">
-                <td className="py-1.5 pr-2 text-[var(--t2)]">
-                  <span className="font-mono text-[10px] text-[var(--t3)]">{a.id}</span>{' '}
-                  <span className="break-keep">{a.name}</span>
-                  {a.insufficient ? (
-                    <p className="mt-0.5 break-keep font-body text-[10.5px] leading-snug text-[#8A8278]">
-                      {a.insufficient}
-                    </p>
-                  ) : null}
-                </td>
-                <td className="py-1.5 pr-2 font-mono tabular-nums text-[var(--t1)]">
-                  {pct(a.ours, a.unit)}
-                </td>
-                <td className="py-1.5 pr-2 font-mono tabular-nums text-[var(--t2)]">
-                  {pct(a.market, a.unit)}
-                </td>
-                <td className="py-1.5 font-mono tabular-nums">
-                  {a.index == null ? (
-                    <span className="text-[#8A8278]">못 잼</span>
-                  ) : (
-                    <span style={{ color: a.index >= 1.2 ? '#2E7D5A' : a.index >= 1 ? '#B5803A' : '#9C3A30' }}>
-                      {a.index.toFixed(3)}
-                    </span>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <AxisBulletLegend target={target} />
+      <ul>
+        {p.axes.map((a) => (
+          <AxisBullet key={a.id} axis={a} target={target} />
+        ))}
+      </ul>
     </article>
   )
 }
@@ -169,14 +130,9 @@ function PlatformGapPanel({ platform }: { platform: MarketView['platform'] }) {
     <section className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
       <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">7축이 재지 않는 것</h3>
       <p className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]">
-        일곱 축은 <strong>전부 종이에서도 잴 수 있는 것</strong>이다 — 해설 보유·길이, 오답 배제,
-        원문 인용, 유형 수, 지문 어수, 선택지 수. 그래서 목표 1.200 을 넘겨도 그 말의 뜻은{' '}
-        <strong>「더 나은 종이책」</strong>이지 「종이가 못 하는 것을 한다」가 아니다.
-      </p>
-      <p className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]">
-        종이가 원리적으로 못 하는 자리는 넷이다 — <strong>개인별 복습 일정</strong>(FSRS),{' '}
-        <strong>오답 재출제</strong>, <strong>수준 맞춤 배본</strong>, <strong>즉시 채점</strong>. 넷 다
-        학습자가 실제로 푼 기록이 있어야 잴 수 있다.
+        일곱 축은 <strong>전부 종이에서도 잴 수 있는 것</strong>이다. 그래서 목표를 넘겨도 뜻은{' '}
+        <strong>「더 나은 종이책」</strong>이다. 종이가 못 하는 넷(개인별 복습 일정 · 오답 재출제 ·
+        수준 맞춤 배본 · 즉시 채점)은 <strong>학습자가 푼 기록 위에서만</strong> 잴 수 있다.
       </p>
       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 rounded-[var(--r-sm)] bg-[var(--bg2)] p-3">
         <span className="font-body text-[11px] text-[var(--t3)]">기출 문항 시도</span>
@@ -190,25 +146,37 @@ function PlatformGapPanel({ platform }: { platform: MarketView['platform'] }) {
           조판된 권 {platform.renderedVolumes ?? '못 잼'}
         </span>
       </div>
+      {/*
+        판정은 한 줄로 보이고, **왜 그 숫자인지**는 접어 둔다(철학 2 Progressive Disclosure).
+        근거를 지우면 임계값이 짐작처럼 보이고, 늘 펼쳐 두면 화면이 산문으로 덮인다.
+      */}
       <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t3)]">
-        {platform.itemAttemptsError ? (
-          platform.itemAttemptsError
-        ) : usable ? (
-          <>
-            시도가 필요 표본({MIN_ATTEMPTS_FOR_ACCURACY})을 넘었다 — <strong>필요조건은 채웠다.</strong>{' '}
-            다만 그 시도가 <strong>한 문항에 모여야</strong> 그 문항을 잴 수 있다. 흩어져 있으면 여전히
-            아무것도 못 잰다. 문항별 분포를 확인한 뒤 축을 정의해 벤치마크에 A8~ 로 더한다.
-          </>
-        ) : (
-          <>
-            문항 하나의 정답률을 게이트(0.65~0.70) 대비 ±0.10 으로 잡으려면 시도가{' '}
-            <strong>{MIN_ATTEMPTS_FOR_ACCURACY}회</strong> 필요하다. 지금은 그 근처도 아니므로 네 축 중
-            어느 것도 잴 수 없다. 그러니까 지금 「종이보다 낫다」고 말할 수 있는 근거는 7축뿐이고,{' '}
-            <strong>그 7축은 종이의 경기장이다.</strong> 이 수가 오르기 전까지 플랫폼 우위는 설계도이지
-            사실이 아니다.
-          </>
-        )}
+        {platform.itemAttemptsError ??
+          (usable
+            ? `필요 표본 ${MIN_ATTEMPTS_FOR_ACCURACY}회를 넘겼다 — 필요조건은 채웠다.`
+            : `필요 표본 ${MIN_ATTEMPTS_FOR_ACCURACY}회에 못 미친다 — 네 축 중 어느 것도 못 잰다.`)}
       </p>
+
+      <details className="group">
+        <summary className="flex min-h-[44px] cursor-pointer list-none items-center font-display text-[11.5px] font-[600] text-[#8B5CF6] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#A78BFA] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]">
+          {MIN_ATTEMPTS_FOR_ACCURACY}회는 어디서 나온 수인가
+        </summary>
+        <p className="mt-1 break-keep font-body text-[11.5px] leading-relaxed text-[var(--t3)]">
+          {usable ? (
+            <>
+              시도가 <strong>한 문항에 모여야</strong> 그 문항을 잴 수 있다 — 흩어지면 여전히 못 잰다.
+              문항별 분포를 확인한 뒤 축을 정의해 벤치마크에 A8~ 로 더한다.
+            </>
+          ) : (
+            <>
+              문항 하나의 정답률을 게이트(0.65~0.70) 대비 ±0.10 으로 잡으려면{' '}
+              <code className="font-mono">0.7×0.3×(1.96/0.10)² ≈ {MIN_ATTEMPTS_FOR_ACCURACY}</code> 회가
+              필요하다. <strong>필요조건이지 충분조건이 아니다</strong> — 그 수가 한 문항에 모여야 한다.
+              이 수가 오르기 전까지 플랫폼 우위는 설계도이지 사실이 아니다.
+            </>
+          )}
+        </p>
+      </details>
     </section>
   )
 }
