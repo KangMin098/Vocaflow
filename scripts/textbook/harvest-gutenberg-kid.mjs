@@ -12,7 +12,7 @@
 //
 //   ① 어수창   `readability.PASSAGE_WORDS`     100~200어 (출판사 선언 어수 실측 n=59)
 //   ② FK 밴드  `READING_LEVEL_BANDS`           초3~4 1.5~4.0 … 중3 8.5~12.0 (시중 79종)
-//   ③ 어휘     `curriculumFit`                 시중 p90 (초등 43.3% · 중등 44.0%, 196쪽)
+//   ③ 어휘     `curriculumFit`                 시중 p90 (초등 38.6% · 중등 41.6%, 207쪽 · 2026-09-05)
 //
 // 여기서 다시 구현하면 **probe 가 잰 수와 적재된 수가 조용히 갈린다.**
 //
@@ -465,8 +465,25 @@ for (const b of picked) {
     for (let i = 0; i < rest.length && thin.length < PER_BOOK * 2; i += stride) thin.push(rest[i])
     byBandPass.set(band, thin)
   }
+  // ⚠️ **몫이 찬 칸은 여기서 뺀다.** 안 빼면 라운드로빈이 그 칸에도 자리를 나눠 주고,
+  //   그렇게 뽑은 것을 적재 직전에 버린다 — 책당 예산(PER_BOOK)의 대부분이 **버릴 것에
+  //   쓰인다.** 실측 2026-09-05: 30권에서 적합 1,958조각 중 130편만 적재됐고,
+  //   그중 **776조각이 "몫이 찬 칸이라" 버려졌다**(뽑은 뒤에 버린 것이다).
+  //   빼고 나면 40칸이 전부 모자란 칸으로 간다.
+  for (const band of [...byBandPass.keys()]) {
+    if (QUOTA_PER_BAND - (have[band] ?? 0) <= 0) byBandPass.delete(band)
+  }
+  // **상한은 칸별로 센다.** 예전에는 책 하나가 모든 칸을 통틀어 PER_BOOK 만큼만 낼 수
+  //   있었다. 그런데 상한의 취지는 **한 칸의 서가가 한 책으로 물드는 것**을 막는 데 있고,
+  //   칸은 서로 다른 코퍼스다. 칸끼리 나눠 쓰게 두면 모자란 칸이 남의 몫에 밀린다.
+  //
+  //   실측 2026-09-05로 안전을 확인했다 — 지금 실제 편중은 상한 근처에도 안 간다:
+  //     초3~4  687편 / 220권 · 권당 평균 3.1 · 최다 한 권 25편
+  //     초5~6 1,673편 / 394권 · 권당 평균 4.2 · 최다 한 권 15편
+  //   칸별 40 이면 한 책이 그 칸 목표(1,832)의 **2.2%** 를 넘지 못한다.
   const spread = []
-  for (let round = 0; spread.length < PER_BOOK; round++) {
+  const perBand = {}
+  for (let round = 0; byBandPass.size; round++) {
     // 매 바퀴 남은 몫을 다시 본다 — 이 책에서 담은 것이 몫을 줄이기 때문이다.
     const order = [...byBandPass.keys()].sort(
       (a, b) => QUOTA_PER_BAND - have[b] - (QUOTA_PER_BAND - have[a])
@@ -475,9 +492,10 @@ for (const b of picked) {
     for (const band of order) {
       const list = byBandPass.get(band)
       if (!list || round >= list.length) continue
+      if ((perBand[band] ?? 0) >= PER_BOOK) continue
       spread.push(list[round])
+      perBand[band] = (perBand[band] ?? 0) + 1
       took = true
-      if (spread.length >= PER_BOOK) break
     }
     if (!took) break
   }
@@ -587,7 +605,7 @@ for (const b of picked) {
 
 // ── 요약 ─────────────────────────────────────────────────────────────
 console.log('\n  조각 ' + chunksAll + ' · 앞뒤 잡물 배제 ' + droppedAll + ' · 3축 적합 ' + fitAll)
-if (cappedAll) console.log(`  책당 상한(${PER_BOOK})을 넘어 안 담은 적합 조각 ${cappedAll} — 다른 책에서 채운다`)
+if (cappedAll) console.log(`  책당·칸당 상한(${PER_BOOK})을 넘어 안 담은 적합 조각 ${cappedAll} — 다른 책에서 채운다`)
 if (overQuota) console.log(`  몫이 찬 칸이라 버린 조각 ${overQuota}`)
 if (COMMIT) console.log(`  중복 ${dup} · **적재 ${inserted}편**`)
 else console.log('  dry-run 이었다. 실제로 쓰려면 --commit.')
