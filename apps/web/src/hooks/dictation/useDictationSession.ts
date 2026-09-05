@@ -260,7 +260,8 @@ export function useDictationSession(sessionId: string | null) {
         skipped: false,
       })
       const targetHits = outcomes.filter((o) => o.hit).map((o) => o.word)
-      const targetMisses = outcomes.filter((o) => !o.hit).map((o) => o.word)
+      // 채점이 성립하지 않은 타깃(문장에 그 낱말이 없음)은 놓친 것이 아니다 — 칩에도 안 올린다
+      const targetMisses = outcomes.filter((o) => !o.hit && o.graded).map((o) => o.word)
 
       const errorTags = deriveErrorTags({
         wordResults: result.wordResults,
