@@ -10,6 +10,28 @@
 
 ## Unreleased (v06.34 → next)
 
+### 기출 필수 어휘 275낱말 적재 — 사전 연결률 90.4% → 99.9% (2026-09-05)
+
+분석이 「이 문항을 풀려면 알아야 한다」고 지목한 2,968낱말 중 뜻이 없던 **286**을 채웠다.
+남은 3은 어휘 단위가 아닌 문장 파편이다(`take (n.)` · `the only year` · `which was also true for`).
+
+- **새 드레인을 만들지 않았다** — 이미 있던 `csat-dict-drain.mjs` 에 `--source analyses` 만
+  더했다. 기존 `corpus` 소스는 「원문에 나왔다」이고 이쪽은 「알아야 푼다」라, 교재 어휘 상자에
+  실을 것은 이쪽이다. 해소기 게이트·검증·적재는 두 소스가 그대로 공유한다
+- 275 신규 표제어 · **굴절형 8은 기본형의 `inflected_forms` 로 합쳤다**
+- ⚠️ **게이트 추가 — 구의 굴절형을 새 표제어로 넣지 않는다.** `unresolved_dict_words` 는
+  낱말 하나의 굴절은 풀지만 **여러 낱말로 된 구는 못 푼다**. 그래서 `warm up` 이 사전에 있는데도
+  `warming up` 이 「빠진 낱말」로 나왔다(286 중 8건 — pulled over · warming up · bouncing back ·
+  going for · laid off · sold out · spoke out · warmed up). 그대로 넣었으면 같은 뜻이
+  표제어 두 벌이 되고, 다음에 누가 세면 또 어긋난다
+- ⚠️ **재시도 추가.** 이 연결은 간헐적으로 `fetch failed`(UND_ERR_CONNECT_TIMEOUT)를 낸다 —
+  실측: 같은 조회가 49초 만에 실패하고 다음 시도에 41초 만에 성공했다. 재시도가 없어
+  283낱말을 다 채워 놓고 **한 번의 깜빡임에 처음부터** 돌아갔다. 적재를
+  `upsert(onConflict: word)` 로 바꿔 재시도해도 표제어가 두 번 생기지 않는다
+- 되돌리기: `delete from shared_dictionary where classified_by='claude_code_opus_5'
+  and list_tags @> array['kice-csat-required'] and created_at > '2026-09-05T02:26:56Z'`
+
+
 ### 어휘 빈칸을 세 번째로 다시 셌다 — 907 → 474 → **286** (2026-09-05)
 
 빈칸 474를 드레인 몫으로 넘기려다 **이 저장소에 이미 정본 해소기가 있다는 것**을 알았다.
