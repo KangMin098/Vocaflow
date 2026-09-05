@@ -98,6 +98,18 @@ export interface StageDef {
   output: string
   /** 게이트 — 이걸 넘어야 다음 공정으로 원고가 넘어간다. */
   gate: string
+  /**
+   * **그 게이트를 실제로 재는 눈금의 라벨.**
+   *
+   * ⚠️ 이 칸이 없던 동안 ⑧ 조판이 거짓 초록을 냈다 — 게이트는 「**최신 규격으로** 조판된 권이
+   * 있는가」라고 약속해 놓고, 눈금은 규격을 안 보고 계단 수만 셌다. 7단이 전부 찍혀 「7/7 통과」로
+   * 떴지만 그중 **6단이 옛 규격**이었다(실측 2026-09-05).
+   *
+   * 게이트는 문장이라 무엇이든 약속할 수 있고, 눈금은 코드라 따로 논다. 그 둘을 **이름으로 묶어**
+   * 두면 어긋남이 조용히 지나가지 못한다 — 여기 적힌 라벨의 눈금이 없으면 `state()` 가 그 자리에
+   * 「못 잼」 눈금을 대신 꽂아 공정을 통과시키지 않는다. 회귀도 같은 목록을 본다.
+   */
+  gateGauges: readonly string[]
   /** 하위 화면이 있으면 그 경로. 없으면 null(현황판 카드로만 산다). */
   href: string | null
 }
@@ -118,6 +130,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '우리가 겨냥한 시험을 실제로 아는가',
     output: '회차·유형별 기출 분석과 유형 리포트',
     gate: '사정권 배점을 덮은 회차가 늘고 있는가',
+    gateGauges: ['독해 실점 0 회차'],
     href: '/admin/csat/evidence',
   },
   {
@@ -129,6 +142,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '시중 교재를 이기는가, 어디서 지는가',
     output: '출판사별 우위 지수와 구속점',
     gate: '구속 출판사 지수 ≥ 1.200',
+    gateGauges: ['구속 출판사 지수'],
     href: '/admin/csat/strategy',
   },
   {
@@ -140,6 +154,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '연령 × 수준 × 유형 칸이 규격대로 정의됐는가',
     output: '학령 사다리 7단과 단별 허용 유형',
     gate: '사다리에 끊긴 계단이 없는가',
+    gateGauges: ['사다리가 선언한 유형 중 생산 가능', '단계 게이트 임계 정의 (S1~S5)'],
     href: '/admin/csat/blueprint',
   },
   {
@@ -151,6 +166,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '각 칸에 쓸 지문이 있는가',
     output: '단계 밴드별 지문 재고',
     gate: '게이트가 정의된 밴드에 지문이 하나라도 있는가',
+    gateGauges: ['게이트가 있는 밴드 중 지문 보유'],
     href: '/admin/csat/sourcing',
   },
   {
@@ -162,6 +178,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '각 칸에 문항이 있는가',
     output: '유형 × 수준 문항 재고',
     gate: '사다리 각 단이 쓰는 유형 중 재고 0인 칸이 없는가',
+    gateGauges: ['사다리 칸 중 재고 있음'],
     href: '/admin/csat/authoring',
   },
   {
@@ -173,6 +190,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '문항마다 해설이 붙었는가',
     output: '문항별 한국어 해설',
     gate: '해설 보유율 100%',
+    gateGauges: ['해설 보유'],
     href: null,
   },
   {
@@ -184,6 +202,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '다층 검수를 통과했는가',
     output: '층별 통과 기록',
     gate: '층마다 통과율 100%',
+    gateGauges: ['L1', 'L2', 'L3', 'L4'],
     href: '/admin/csat/review',
   },
   {
@@ -195,6 +214,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '권으로 나왔는가',
     output: '조판된 권과 그 검수 기록',
     gate: '사다리 계단마다 최신 규격으로 조판된 권이 있는가',
+    gateGauges: ['조판된 계단', '최신 규격으로 찍힌 계단'],
     href: '/admin/csat/press',
   },
 ] as const

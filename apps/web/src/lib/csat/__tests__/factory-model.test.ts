@@ -173,32 +173,44 @@ describe('화면이 내미는 명령이 저장소에 실제로 있는가', () =>
   })
 })
 
-describe('눈금이 게이트가 말한 것을 본다', () => {
+describe('게이트가 요구한 눈금이 실제로 있는가', () => {
   // ⚠️ 실측 2026-09-05: ⑧ 조판의 게이트는 「**최신 규격으로** 조판된 권이 있는가」인데
-  //   눈금은 규격을 안 보고 계단 수만 셌다. 7단이 전부 찍혀 「7/7 통과」로 떴지만 그중
-  //   **6단이 옛 규격**이었다 — "조판 끝났다" 는 거짓 초록이었다.
-  //   게이트 문구에 있는 낱말이 눈금 라벨 어디에도 없으면 그 공정은 자기 약속을 안 재고 있다.
+  //   눈금은 규격을 안 보고 계단 수만 셌다. 7단이 전부 찍혀 「7/7 통과」 초록이 떴지만 그중
+  //   **6단이 옛 규격**이었다 — 게이트는 문장이라 무엇이든 약속하고, 눈금은 코드라 따로 논다.
+  //   그 어긋남이 **초록**으로 나오는 것이 최악이라, 이제 모델이 둘을 이름으로 묶는다.
   const factorySrc = readFileSync(resolve(__dirname, '../factory.ts'), 'utf8')
-
-  /** 눈금 라벨은 `label: '…'` 로만 쓴다 — 실측 코드에서 전부 긁는다. */
-  const gaugeLabels = [...factorySrc.matchAll(/label:\s*'([^']+)'/g)].map((m) => m[1]!)
-
-  const MUST_MEASURE: { id: string; word: string }[] = [
-    // 게이트가 「최신 규격으로 조판된 권」이라고 말하므로, 눈금도 규격을 봐야 한다.
-    { id: 'press', word: '최신 규격' },
-    { id: 'review', word: 'L4' },
+  // 라벨은 두 모양으로 쓰인다 — 고정 문자열(`'…'`)과, 값을 끼워 넣는 템플릿(`` `구속 …${x}` ``).
+  // 템플릿은 **`${` 앞의 고정 부분**만 취한다. 그 앞부분이 곧 선언한 이름이기 때문이다.
+  const gaugeLabels = [
+    ...[...factorySrc.matchAll(/label:\s*'([^']+)'/g)].map((m) => m[1]!),
+    ...[...factorySrc.matchAll(/label:\s*`([^`]*)`/g)].map((m) => m[1]!.split('${')[0]!),
   ]
 
   it('눈금 라벨을 실제로 긁었다 — 정규식이 헛돌면 이 검사는 아무것도 안 지킨다', () => {
     expect(gaugeLabels.length).toBeGreaterThanOrEqual(10)
   })
 
-  it.each(MUST_MEASURE)('$id 의 눈금 중에 「$word」를 재는 것이 있다', ({ id, word }) => {
-    const def = FACTORY_STAGES.find((s) => s.id === id)!
-    expect(def, `${id} 공정이 없다`).toBeTruthy()
-    expect(
-      gaugeLabels.some((l) => l.includes(word)),
-      `${id} 게이트는 「${def.gate}」인데 「${word}」를 재는 눈금이 없다 — 약속한 것을 안 재고 있다`,
-    ).toBe(true)
+  it('모든 공정이 자기 게이트를 재는 눈금을 선언한다', () => {
+    for (const s of FACTORY_STAGES) {
+      expect(s.gateGauges.length, `${s.name} 이 gateGauges 를 안 적었다`).toBeGreaterThan(0)
+    }
+  })
+
+  it.each(FACTORY_STAGES.map((s) => [s.name, s.gateGauges] as const))(
+    '%s 이 선언한 눈금이 실측 코드에 있다',
+    (name, wanted) => {
+      for (const want of wanted) {
+        expect(
+          gaugeLabels.some((l) => l.includes(want)),
+          `${name} 은 「${want}」로 게이트를 잰다고 선언했는데 factory.ts 에 그 눈금이 없다`,
+        ).toBe(true)
+      }
+    },
+  )
+
+  it('선언한 눈금이 빠지면 통과가 아니라 못 잼이 된다 — 빠뜨림이 조용해지지 않는다', () => {
+    // `state()` 는 server-only 모듈 안이라 여기서 직접 못 부른다. 대신 그 규칙이 기대는
+    // `judgeStage` 의 성질을 고정한다: 못 잰 눈금이 하나라도 섞이면 공정은 통과가 아니다.
+    expect(judgeStage([g({}), g({ num: null })])).toBe('unmeasured')
   })
 })

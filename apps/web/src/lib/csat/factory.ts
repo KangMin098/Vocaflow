@@ -163,14 +163,43 @@ function defOf(id: StageId): StageDef {
   return d
 }
 
+/**
+ * 공정 하나를 세운다 — **게이트가 요구한 눈금이 빠져 있으면 통과시키지 않는다.**
+ *
+ * ⚠️ 실측 2026-09-05: ⑧ 조판의 게이트는 「최신 규격으로 조판된 권이 있는가」인데 눈금은 규격을
+ * 안 보고 계단 수만 세어, 7단이 전부 옛 규격이어도 「7/7 통과」 초록이 떴다. 게이트는 문장이라
+ * 무엇이든 약속할 수 있고 눈금은 코드라 따로 논다 — 그 어긋남이 **초록**으로 나오는 것이 최악이다.
+ *
+ * 그래서 `def.gateGauges` 에 적힌 라벨의 눈금이 없으면 여기서 **「못 잼」 눈금을 대신 꽂는다.**
+ * 빠뜨린 자리가 통과가 아니라 회색으로 보이고, 화면이 "무엇을 안 재고 있는지" 를 말한다.
+ * 지우는 것이 아니라 더하는 이유는, 눈금을 실수로 빼도 **조용해지지 않게** 하기 위해서다.
+ */
 function state(
   id: StageId,
   gauges: StageGauge[],
   blocker: string | null,
   nextCommands: StageCommand[],
 ): StageState {
-  const status = judgeStage(gauges)
-  return { def: defOf(id), status, gauges, blocker: status === 'pass' ? null : blocker, nextCommands }
+  const def = defOf(id)
+  const missing = def.gateGauges.filter((want) => !gauges.some((g) => g.label.includes(want)))
+  const withGate: StageGauge[] = [
+    ...gauges,
+    ...missing.map<StageGauge>((want) => ({
+      label: want,
+      num: null,
+      den: null,
+      unit: 'ratio',
+      unmeasuredReason: `게이트가 요구하는 눈금인데 실측이 없다 — 「${def.gate}」를 아무도 안 재고 있다`,
+    })),
+  ]
+  const status = judgeStage(withGate)
+  return {
+    def,
+    status,
+    gauges: withGate,
+    blocker: status === 'pass' ? null : blocker,
+    nextCommands,
+  }
 }
 
 export async function loadFactoryLine(): Promise<FactoryLine> {
