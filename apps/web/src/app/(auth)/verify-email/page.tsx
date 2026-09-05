@@ -22,6 +22,7 @@ import { Suspense, useEffect, useState } from 'react'
 import { Card } from '@/components/ui/Card'
 import { useToast } from '@/components/ui/Toast'
 import { mapResendError } from '@/lib/auth/errors'
+import { RETURN_PARAM, loginUrlWithReturn, resolveReturnTo } from '@/lib/auth/redirect'
 import { isValidEmail } from '@/lib/auth/validation'
 import { createClient } from '@/lib/supabase/client'
 
@@ -33,6 +34,17 @@ function VerifyEmailInner() {
 
   // 가입 시 사용한 이메일 — /signup 에서 ?email=... 로 전달
   const email = searchParams.get('email') ?? ''
+  /**
+   * 인증을 마친 뒤 갈 곳 — `/signup` 이 `?next=` 로 실어 보낸다.
+   *
+   * ⚠️ 이 값을 **읽지 않고 주소창에만 두고 있었다.** 그래서 첫 인증 메일은 복귀 경로를
+   *    싣는데(가입 화면이 `emailRedirectTo` 에 넣는다) **재발송 메일에는 없었다** —
+   *    메일이 안 와서 다시 보낸 학생은 인증을 마치고 `/hub` 로 떨어졌고,
+   *    `/join/<code>` 초대 링크가 사라져 학급에 들어가지 못했다.
+   *    초대받은 학생은 전원 신규 가입자라 이 경로가 정확히 그들의 경로다.
+   *    안전하지 않은 값이면 `resolveReturnTo` 가 `/hub` 로 떨어뜨린다(open redirect 차단).
+   */
+  const returnTo = resolveReturnTo(searchParams)
   /** 재발송을 시도할 수 있는 상태인가 — 주소가 없거나 형식이 깨졌으면 불가 */
   const canResend = isValidEmail(email)
 
@@ -56,7 +68,12 @@ function VerifyEmailInner() {
       const { error } = await supabase.auth.resend({
         type: 'signup',
         email,
-        options: { emailRedirectTo: `${origin}/api/auth/callback` },
+        options: {
+          // 재발송 메일도 복귀 경로를 실어야 한다 — 콜백(`/api/auth/callback`)이
+          // `safeInternalPath(next)` 를 type 별 기본값보다 우선한다.
+          emailRedirectTo:
+            `${origin}/api/auth/callback?${RETURN_PARAM}=${encodeURIComponent(returnTo)}`,
+        },
       })
 
       if (error) {
@@ -176,8 +193,8 @@ function VerifyEmailInner() {
         )}
 
         <Link
-          href="/signup"
-          className="flex h-11 w-full items-center justify-center rounded-md font-display text-sm font-medium text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1 active:scale-[0.99]"
+          href={`/signup?${RETURN_PARAM}=${encodeURIComponent(returnTo)}`}
+          className="flex h-11 w-full items-center justify-center rounded-md font-display text-sm font-medium text-t2 transition-colors duration-normal hover:bg-bg2 hover:text-t1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.99]"
         >
           다른 이메일로 다시 가입하기
         </Link>
@@ -186,9 +203,11 @@ function VerifyEmailInner() {
       {/* 하단 — 로그인 가능 안내 */}
       <div className="border-t border-bd pt-s-6 text-center">
         <p className="mb-s-3 font-body text-sm text-t2">이미 인증을 완료하셨나요?</p>
+        {/* 복귀 경로를 그대로 넘긴다 — 여기서 흘리면 인증을 마친 학생이 학급이 아니라 `/hub` 로 간다.
+            높이 44px: `text-sm` 무패딩이라 약 20px 였다(CLAUDE.md 절대 금지 · 실측 390px). */}
         <Link
-          href="/login"
-          className="group inline-flex items-center gap-s-2 font-display text-sm font-semibold text-p transition-colors duration-normal hover:text-p-hover"
+          href={loginUrlWithReturn(returnTo)}
+          className="group inline-flex min-h-[44px] items-center gap-s-2 font-display text-sm font-semibold text-p transition-colors duration-normal hover:text-p-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
         >
           <span>로그인 화면으로</span>
           <ArrowRight

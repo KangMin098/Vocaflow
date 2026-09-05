@@ -12,6 +12,8 @@
 
 import { Fragment, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { subscribeSet } from '@/app/(main)/library/vocab/actions'
+import { useToast } from '@/components/ui/Toast'
 import { createClient } from '@/lib/supabase/client'
 import {
   ArrowRight,
@@ -173,6 +175,81 @@ interface LevelDef {
   description_ko: string | null
 }
 
+// ══════════════════════════════════════════════════════════════
+// 진행 중 응답 보관 — 40문항이 오클릭 한 번에 사라지던 자리
+//
+// 진단은 최대 40문항인데 답은 React state 에만 쌓였고, `/diagnostic` 은 풀스크린 라우트가
+// 아니라 진단 중에도 사이드바·나침반 띠·하단 탭이 그대로 떠 있다. 30문항을 푼 상태에서
+// 셸 링크를 잘못 누르거나 새로고침하면 **30개가 전부 사라졌고 확인 대화도 없었다.**
+// 제출이 실패해도 재시도 경로가 없어 처음부터 다시 풀어야 했다.
+//
+// 저장이 되면 확인 대화(모달)는 필요 없다 — CLAUDE.md 는 모달로 학습을 끊는 것을 금지하고,
+// "나가도 잃지 않는다" 가 "나가지 마세요" 보다 낫다. 그래서 **막지 않고 보관한다.**
+// ══════════════════════════════════════════════════════════════
+
+/** 진행 중 응답 보관 키. 값은 아래 SavedProgress 한 형태만 들어간다. */
+const PROGRESS_KEY = 'vocaflow-diagnostic-progress'
+
+/**
+ * 보관 유효 시간 24시간.
+ * 그보다 오래된 진행을 "이어서 하기" 로 권하면 어제의 컨디션으로 잰 절반과 오늘의 절반이
+ * 한 결과로 섞인다 — 측정이 아니라 잡음이 된다.
+ */
+const PROGRESS_TTL_MS = 24 * 60 * 60 * 1000
+
+interface SavedProgress {
+  testId: string
+  responses: Response[]
+  savedAt: number
+}
+
+/** localStorage 는 사파리 프라이빗 모드 등에서 접근 자체가 던진다 — 실패해도 진단은 계속된다. */
+function readProgress(): SavedProgress | null {
+  if (typeof window === 'undefined') return null
+  try {
+    const raw = window.localStorage.getItem(PROGRESS_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as Partial<SavedProgress>
+    if (
+      typeof parsed?.testId !== 'string' ||
+      !Array.isArray(parsed.responses) ||
+      typeof parsed.savedAt !== 'number'
+    ) {
+      return null
+    }
+    const responses = parsed.responses.filter(
+      (r): r is Response =>
+        typeof (r as Response)?.question_id === 'string' && typeof (r as Response)?.knew === 'boolean',
+    )
+    if (responses.length === 0) return null
+    if (Date.now() - parsed.savedAt > PROGRESS_TTL_MS) return null
+    return { testId: parsed.testId, responses, savedAt: parsed.savedAt }
+  } catch {
+    return null
+  }
+}
+
+function writeProgress(testId: string, responses: Response[]): void {
+  if (typeof window === 'undefined') return
+  try {
+    window.localStorage.setItem(
+      PROGRESS_KEY,
+      JSON.stringify({ testId, responses, savedAt: Date.now() } satisfies SavedProgress),
+    )
+  } catch {
+    // 저장이 안 되면 예전과 같은 동작(메모리만) — 진단을 막지는 않는다
+  }
+}
+
+function clearProgress(): void {
+  if (typeof window === 'undefined') return
+  try {
+    window.localStorage.removeItem(PROGRESS_KEY)
+  } catch {
+    // 지우지 못해도 TTL 이 24시간 뒤 정리한다
+  }
+}
+
 function relativeTime(iso: string): string {
   const then = new Date(iso).getTime()
   const days = Math.floor((Date.now() - then) / 86_400_000)
@@ -186,8 +263,15 @@ function relativeTime(iso: string): string {
 export function DiagnosticClient() {
   const router = useRouter()
   const supabase = createClient()
+  const toast = useToast()
 
   const [phase, setPhase] = useState<Phase>('start')
+  /** 결과 화면의 1차 CTA(구독 + 학습 시작)가 진행 중인가 — 이중 제출 방지. */
+  const [starting, setStarting] = useState(false)
+  /** 보관된 진행 — 시작 화면에서 "이어서 하기" 로 제시한다. 없으면 null. */
+  const [saved, setSaved] = useState<SavedProgress | null>(null)
+  /** 이어서 하기로 문항을 다시 받는 중 — 버튼 이중 클릭 방지. */
+  const [resuming, setResuming] = useState(false)
   const [tests, setTests] = useState<TestInfo[]>([])
   const [loadingTests, setLoadingTests] = useState(true)
   const [selectedTest, setSelectedTest] = useState<TestInfo | null>(null)
@@ -250,6 +334,9 @@ export function DiagnosticClient() {
         return
       }
       setTests((testsData ?? []) as TestInfo[])
+      // 보관된 진행이 있으면 시작 화면에서 "이어서 하기" 로 제시한다(자동으로 끌어다
+      // 이어 붙이지 않는다 — 어제 하다 만 것을 오늘 말없이 계속하면 결과가 뒤섞인다).
+      setSaved(readProgress())
 
       if (userData.user?.id) {
         const { data: snap } = await supabase
@@ -264,22 +351,65 @@ export function DiagnosticClient() {
     })()
   }, [phase, supabase])
 
-  async function startTest(test: TestInfo) {
-    setError(null)
-    setSelectedTest(test)
+  /** 문항 목록 — 시작과 이어서 하기가 같은 쿼리를 쓴다(둘이 갈라지면 이어붙일 수 없다). */
+  async function fetchQuestions(testId: string): Promise<Question[] | null> {
     const { data, error: qErr } = await supabase
       .from('vrl_diagnostic_questions')
       .select('id, word, target_v_level, target_track_level, display_order')
-      .eq('test_id', test.id)
+      .eq('test_id', testId)
       .order('display_order', { ascending: true })
     if (qErr || !data) {
       setError(qErr?.message ?? '문항을 불러올 수 없어요')
-      return
+      return null
     }
-    setQuestions(data as Question[])
+    return data as Question[]
+  }
+
+  async function startTest(test: TestInfo) {
+    setError(null)
+    setSelectedTest(test)
+    const data = await fetchQuestions(test.id)
+    if (!data) return
+    // 새로 시작하면 보관된 진행은 버린다 — 두 진단의 답이 섞이면 안 된다.
+    clearProgress()
+    setSaved(null)
+    setQuestions(data)
     setCurrentIdx(0)
     setResponses([])
     setPhase('question')
+  }
+
+  /** 보관된 진행을 이어서 푼다 — 답한 수만큼 건너뛰고 그 다음 문항부터. */
+  async function resumeTest(progress: SavedProgress) {
+    if (resuming) return
+    setResuming(true)
+    try {
+      const test = tests.find((t) => t.id === progress.testId)
+      if (!test) {
+        // 진단 자체가 사라졌다(비공개 전환 등) — 보관분은 쓸 데가 없다.
+        clearProgress()
+        setSaved(null)
+        return
+      }
+      setError(null)
+      setSelectedTest(test)
+      const data = await fetchQuestions(test.id)
+      if (!data) return
+      // 문항이 바뀌었을 수 있다 — 지금 목록에 있는 답만 남긴다(없는 문항 id 를 제출하면 분석이 틀어진다).
+      const ids = new Set(data.map((q) => q.id))
+      const kept = progress.responses.filter((r) => ids.has(r.question_id))
+      setQuestions(data)
+      setResponses(kept)
+      if (kept.length >= data.length) {
+        setCurrentIdx(Math.max(0, data.length - 1))
+        void submit(kept)
+        return
+      }
+      setCurrentIdx(kept.length)
+      setPhase('question')
+    } finally {
+      setResuming(false)
+    }
   }
 
   function handleAnswer(knew: boolean) {
@@ -287,6 +417,8 @@ export function DiagnosticClient() {
     if (!q) return
     const next: Response[] = [...responses, { question_id: q.id, knew }]
     setResponses(next)
+    // ⚠️ **답할 때마다** 보관한다. 마지막에 한 번 저장하면 잃는 경우가 정확히 유실 사례다.
+    if (selectedTest) writeProgress(selectedTest.id, next)
     if (currentIdx + 1 >= questions.length) void submit(next)
     else setCurrentIdx(currentIdx + 1)
   }
@@ -345,6 +477,11 @@ export function DiagnosticClient() {
     setEstimatedLevel(lvl ?? null)
     setConfidence(r?.confidence ?? null)
 
+    // 결과가 DB 에 남았으므로 보관분은 역할이 끝났다 — 남겨 두면 다음 방문에
+    // 이미 끝낸 진단을 "이어서 하기" 로 권하게 된다.
+    clearProgress()
+    setSaved(null)
+
     if (selectedTest.test_type === 'base_v_level' || selectedTest.test_type === 'comprehensive') {
       await fetchRecommendations(userId, [])
     }
@@ -357,6 +494,46 @@ export function DiagnosticClient() {
       p_interests: selectedInterests.length > 0 ? selectedInterests : undefined,
     })
     setRecommendations((data ?? []) as Recommendation[])
+  }
+
+  /**
+   * 결과 화면의 1차 CTA — **진단이 끝난 자리에서 곧장 첫 학습으로 들어간다.**
+   *
+   * 왜 이렇게 바꿨나 (D5 · 가입 후 첫 학습까지 화면 전환 ≤3):
+   *   예전 목적지는 `/wordvault` 였는데 **방금 가입·진단한 사람의 단어장은 정의상 비어 있다** —
+   *   빈 상태 화면이 다시 `/library` 로 내보내는, 아무 결정도 받지 않는 중간 화면이었다.
+   *   여기서 추천 세트 하나를 구독하면 `subscribeSet` 이 첫 세션 분량(최대 40개, 도서 챕터
+   *   세트는 `commit_chapter_vocab` 이 정하는 8~30개)을 `vocabularies` 에 넣고,
+   *   `/flashcard/play` 는 스코프 없이 들어와도 그 단어를 앞에서부터 세션으로 연다
+   *   (`fetchStudyVocabularies` 는 due 로 거르지 않고 `next_review_at` nullsFirst 정렬이라
+   *    **막 담은 단어가 맨 앞에 온다** — 실측 근거).
+   *
+   * ⚠️ **자동 구독이 아니라 버튼이 하는 일이다.** 학습자 데이터에 쓰는 동작을 화면이 조용히
+   *    대신하지 않는다 — 라벨이 세트 이름을 말하고, 구독은 `/library/vocab` 에서 해지된다.
+   *
+   * 실패해도 막다른 화면을 만들지 않는다(D4) — 사유를 말하고 `/hub` 로 보낸다.
+   */
+  async function startWithRecommendation(rec: Recommendation) {
+    if (starting) return
+    setStarting(true)
+    try {
+      const res = await subscribeSet(rec.set_id)
+      if (!res.ok) {
+        toast.error(
+          res.reason === 'not_published'
+            ? '이 단어장은 지금 담을 수 없어요. 오늘 할 일에서 다른 걸 골라볼까요?'
+            : (res.message ?? '단어장을 담지 못했어요. 오늘 할 일에서 이어가 주세요.'),
+        )
+        router.push('/hub')
+        return
+      }
+      router.push('/flashcard/play')
+    } catch {
+      toast.error('단어장을 담지 못했어요. 오늘 할 일에서 이어가 주세요.')
+      router.push('/hub')
+    } finally {
+      setStarting(false)
+    }
   }
 
   function toggleInterest(key: string) {
@@ -375,16 +552,37 @@ export function DiagnosticClient() {
     return (
       <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
         <div className="rounded-[var(--r-lg)] border border-[var(--bde)] bg-[var(--error-light)] p-6">
-          <p className="font-body text-[var(--error-ink)]">{error}</p>
-          <button
-            onClick={() => {
-              setError(null)
-              setPhase('start')
-            }}
-            className="mt-3 font-display text-[12px] font-[600] text-[var(--p)] underline"
-          >
-            처음으로
-          </button>
+          <p className="break-keep font-body text-[var(--error-ink)]">{error}</p>
+          {/* ⚠️ 제출이 실패했을 때 유일한 버튼이 「처음으로」였다 — 40문항을 처음부터 다시 풀라는
+              말이다. 답은 아직 메모리에도 보관함에도 살아 있으므로 **같은 답으로 다시 제출**한다. */}
+          {selectedTest && responses.length > 0 && (
+            <>
+              <p className="mt-2 break-keep font-body text-[13px] text-[var(--t2)]">
+                답한 {responses.length}문항은 그대로 남아 있어요. 다시 보내볼까요?
+              </p>
+              <button
+                onClick={() => {
+                  setError(null)
+                  void submit(responses)
+                }}
+                className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
+              >
+                답한 그대로 다시 제출
+              </button>
+            </>
+          )}
+          <div className="mt-3">
+            <button
+              onClick={() => {
+                setError(null)
+                setSaved(readProgress())
+                setPhase('start')
+              }}
+              className="inline-flex min-h-[44px] items-center font-display text-[12px] font-[600] text-[var(--p)] underline transition-colors duration-[var(--dur-normal)] hover:text-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+            >
+              처음으로
+            </button>
+          </div>
         </div>
       </div>
     )
@@ -494,6 +692,43 @@ export function DiagnosticClient() {
           </p>
         </header>
 
+        {/* 하다 만 진단 — 보관된 답을 되돌려 준다. 자동으로 이어 붙이지 않고 고르게 한다. */}
+        {saved && tests.some((t) => t.id === saved.testId) && (
+          <div className="mb-6 rounded-[var(--r-lg)] border border-[var(--p)] bg-[var(--p-light)] p-4">
+            <p className="break-keep font-display text-[14px] font-[700] text-[var(--t1)]">
+              하다 만 진단이 있어요 — {saved.responses.length}문항까지 답했어요
+            </p>
+            <p className="mt-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+              이어서 하면 답한 문항은 건너뛰고 그다음부터 물어봐요.
+            </p>
+            <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+              <button
+                onClick={() => void resumeTest(saved)}
+                disabled={resuming}
+                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {resuming ? (
+                  <>
+                    <Loader2 size={14} className="mr-2 animate-spin" aria-hidden /> 불러오는 중…
+                  </>
+                ) : (
+                  '이어서 하기'
+                )}
+              </button>
+              <button
+                onClick={() => {
+                  clearProgress()
+                  setSaved(null)
+                }}
+                disabled={resuming}
+                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                지우고 처음부터
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* 지난 결과 — 컴팩트 요약 */}
         {lastLevel && (
           <div className="mb-6 flex items-center justify-between rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
@@ -578,15 +813,25 @@ export function DiagnosticClient() {
     return (
       <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
         <div className="mb-8">
-          <div className="mb-3 flex justify-start">
+          {/* 나가는 것을 막지 않는다(모달 금지) — 대신 답이 남는다는 사실을 라벨이 말한다.
+              답은 매 문항 localStorage 에 보관되고 시작 화면이 "이어서 하기" 로 되돌려 준다. */}
+          <div className="mb-3 flex items-center justify-between gap-2">
             <button
               type="button"
-              onClick={() => setPhase('start')}
-              aria-label="진단 그만두기 — 시작 화면으로"
-              className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+              onClick={() => {
+                setSaved(readProgress())
+                setPhase('start')
+              }}
+              aria-label="진단 멈추기 — 답한 문항은 보관되고 나중에 이어서 할 수 있어요"
+              className="inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-sm)] px-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
             >
-              ← 그만두기
+              ← 멈추기
             </button>
+            {responses.length > 0 && (
+              <span className="break-keep font-body text-[11px] text-[var(--t2)]">
+                여기까지 답한 {responses.length}문항은 저장돼요
+              </span>
+            )}
           </div>
           <div className="mb-2 flex items-center justify-between font-display text-[11px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
             <span>
@@ -823,12 +1068,67 @@ export function DiagnosticClient() {
         </section>
       )}
 
-      <button
-        onClick={() => router.push(isTrack ? '/diagnostic' : '/wordvault')}
-        className="w-full rounded-[var(--r-md)] bg-[var(--p)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:scale-[0.97]"
-      >
-        {isTrack ? '다른 진단 받기' : '내 단어장으로 가기'}
-      </button>
+      {/* ── 다음 한 걸음 ──
+          `/wordvault`(빈 화면)로 보내던 자리다. 진단 → 첫 학습 사이에 결정을 받지 않는
+          중간 화면을 두지 않는다: 추천이 있으면 그 세트로 바로 카드 세션, 없으면 오늘 할 일. */}
+      {(() => {
+        if (isTrack) {
+          return (
+            <button
+              onClick={() => router.push('/diagnostic')}
+              className="min-h-[44px] w-full rounded-[var(--r-md)] bg-[var(--p)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
+            >
+              다른 진단 받기
+            </button>
+          )
+        }
+
+        // 1순위 추천 — RPC 가 priority 순으로 준다. 'primary'(딱 맞아요)가 있으면 그것.
+        const first =
+          recommendations.find((r) => r.recommendation_type === 'primary') ?? recommendations[0]
+
+        if (!first) {
+          return (
+            <button
+              onClick={() => router.push('/hub')}
+              className="min-h-[44px] w-full rounded-[var(--r-md)] bg-[var(--p)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
+            >
+              오늘 할 일 보러 가기
+            </button>
+          )
+        }
+
+        return (
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => void startWithRecommendation(first)}
+              disabled={starting}
+              className="flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {starting ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" aria-hidden />
+                  <span>단어장을 담는 중…</span>
+                </>
+              ) : (
+                <span className="break-keep">
+                  「{first.title}」 담고 첫 카드 학습 시작
+                </span>
+              )}
+            </button>
+            <p className="break-keep text-center font-body text-[12px] text-[var(--t2)]">
+              담은 단어장은 내 단어장에서 언제든 뺄 수 있어요.
+            </p>
+            <button
+              onClick={() => router.push('/hub')}
+              disabled={starting}
+              className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-6 font-display text-[14px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              나중에 · 오늘 할 일 보기
+            </button>
+          </div>
+        )
+      })()}
 
       {/* 레벨 안내 팝업 */}
       {levelGuideOpen && (

@@ -93,7 +93,13 @@ function LoginForm() {
       }
 
       // 로그인 성공 → 복귀 경로 (next·returnTo·redirect 별칭 모두 수용, open redirect 차단)
-      router.push(resolveReturnTo(searchParams))
+      //
+      // ⚠️ `push` 가 아니라 `replace` 다 — 히스토리에서 로그인 화면을 지운다.
+      //    `push` 였을 때는 복귀 직후 **뒤로가기 한 번**이면 `/login?next=…` 가 다시 떴다:
+      //    이미 로그인한 사람에게 로그인 폼이 보이고(미들웨어는 인증 사용자를 인증 화면에서
+      //    내보내지 않는다), 거기서 다시 제출하면 무의미한 재인증이다.
+      //    같은 저장소의 `reset-password/page.tsx` 는 이 자리에서 이미 `replace` 를 쓴다.
+      router.replace(resolveReturnTo(searchParams))
       router.refresh() // Server Component 재실행 (인증 컨텍스트 갱신)
     } catch (err) {
       setAuthError(mapAuthError(err instanceof Error ? err.message : null))

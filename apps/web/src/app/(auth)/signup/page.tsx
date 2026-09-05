@@ -157,14 +157,18 @@ function SignupForm() {
       if (data.session) {
         // 자동 확인(mailer_autoconfirm) — 이미 로그인 상태다. 대기 화면은 거짓말이 된다.
         toast.success('가입이 완료되었어요. 바로 시작해볼까요?', { title: '환영합니다 🎉' })
-        router.push(returnTo)
+        // `replace` — 히스토리에서 가입 화면을 지운다. `push` 였을 때는 가입 직후
+        // 뒤로가기 한 번이면 방금 가입한 사람에게 가입 폼이 다시 떴다(그 폼을 다시 제출하면
+        // "이미 가입된 이메일입니다" 로 끝난다). 로그인 화면도 같은 이유로 `replace` 다.
+        router.replace(returnTo)
         router.refresh()
         return
       }
 
       // 메일 인증 대기 — /verify-email 에서 재발송 안내
+      // (여기도 `replace`: 인증 대기 화면에서 뒤로가면 가입 폼이 아니라 오기 전 화면이어야 한다)
       toast.success('가입 완료! 이메일을 확인해주세요.', { title: '환영합니다 🎉' })
-      router.push(
+      router.replace(
         `/verify-email?email=${encodeURIComponent(email.trim())}` +
           `&${RETURN_PARAM}=${encodeURIComponent(returnTo)}`,
       )
@@ -179,8 +183,12 @@ function SignupForm() {
     <Card variant="elevated" padding="lg" className="rounded-xl">
       {/* ── 헤더 영역 ── */}
       <div className="mb-s-8 text-center">
+        {/* ⚠️ "14일 무료 체험 · 결제 정보 불필요" 라고 적혀 있었다 — **체험을 시작할 곳도,
+            끝난 뒤 결제할 곳도 코드에 없다**(학습자 표면 결제 라우트 0개, 실측 2026-09-05).
+            받아 줄 곳 없는 약속은 공개 화면에서 즉시 내린다(CLAUDE.md §4️⃣ 표시광고법 예외).
+            요금제 화면과 같은 문장을 쓴다 — 두 화면이 다른 말을 하면 다시 갈라진다. */}
         <p className="mb-s-3 font-mono text-[10px] uppercase tracking-[0.15em] text-t3">
-          14일 무료 체험 · 결제 정보 불필요
+          지금은 모든 기능이 무료
         </p>
 
         <h1 className="mb-s-2 font-display text-2xl font-extrabold leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
@@ -372,8 +380,9 @@ function SignupForm() {
         </button>
 
         {/* 푸터 안내 */}
-        <p className="pt-s-2 text-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3">
-          14일 무료 · 언제든 해지 가능
+        {/* "14일 무료 · 언제든 해지 가능" 이었다 — 해지할 구독이 존재하지 않는다. */}
+        <p className="break-keep pt-s-2 text-center font-mono text-[10px] uppercase tracking-[0.1em] text-t3">
+          결제 수단을 받지 않습니다 · 유료 플랜은 준비 중
         </p>
       </form>
     </Card>

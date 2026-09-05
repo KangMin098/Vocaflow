@@ -13,10 +13,22 @@ import { useEffect, useState } from 'react'
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
 
+  // ⚠️ **저장값이 없을 때 `'light'` 로 접지 않는다.**
+  //    루트 레이아웃의 선행 스크립트는 `stored || (prefersDark ? 'dark' : 'light')` 로
+  //    OS 선호를 반영해 `data-theme` 을 미리 칠하는데, 여기가 하이드레이션 뒤에
+  //    `'light'` 로 덮어써서 **다크 사용자가 인증 4화면에서만 흰 화면으로 튕겼다**
+  //    (한 번도 테마를 고른 적 없는 사용자 — 저장값이 없는 상태가 정확히 그 경우다).
+  //    두 곳이 같은 규칙을 각자 적으면 다시 갈라지므로 문장까지 루트와 동일하게 맞춘다.
   useEffect(() => {
-    const stored = (localStorage.getItem('vocaflow-theme') as 'light' | 'dark') || 'light'
-    setTheme(stored)
-    document.documentElement.setAttribute('data-theme', stored)
+    const stored = localStorage.getItem('vocaflow-theme')
+    const resolved: 'light' | 'dark' =
+      stored === 'dark' || stored === 'light'
+        ? stored
+        : window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light'
+    setTheme(resolved)
+    document.documentElement.setAttribute('data-theme', resolved)
   }, [])
 
   const toggleTheme = () => {
