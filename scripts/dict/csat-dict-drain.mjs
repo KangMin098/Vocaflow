@@ -19,6 +19,7 @@
 //
 // 실행:
 //   pnpm dlx tsx scripts/dict/csat-dict-drain.mjs --export
+//   pnpm dlx tsx scripts/dict/csat-dict-drain.mjs --export --source analyses   # 분석이 지목한 필수 어휘
 //   … Claude Code 가 chunk-NN.json → chunk-NN.out.json …
 //   pnpm dlx tsx scripts/dict/csat-dict-drain.mjs --import            # 검증만
 //   pnpm dlx tsx scripts/dict/csat-dict-drain.mjs --import --commit   # 넣는다
@@ -34,7 +35,22 @@ const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
   return i >= 0 ? process.argv[i + 1] : null
 }
-const OUT_DIR = path.resolve(arg('dir') ?? 'scripts/dict/csat-dict-gap')
+/**
+ * 결손 목록을 어디서 가져오나.
+ *
+ *   `corpus`   — 기출 **원문 전체**에 나온 낱말 중 사전에 없는 것 (`csat-corpus-diff` 의 diff.json)
+ *   `analyses` — 문항 분석이 **「이 문항을 풀려면 이 낱말을 알아야 한다」고 지목한** 낱말
+ *                (`csat_item_analyses.required_vocab`) 중 사전에 없는 것
+ *
+ * 둘은 겹치지만 같지 않다. 원문 쪽은 「나왔다」이고 분석 쪽은 「알아야 푼다」라서, 교재의
+ * 어휘 상자에 실을 것은 분석 쪽이다. 해소기 게이트·검증·적재는 두 소스가 그대로 공유한다 —
+ * 사전에 넣는 규칙이 소스마다 갈리면 사전이 두 벌이 된다.
+ */
+const SOURCE = arg('source') ?? 'corpus'
+if (!['corpus', 'analyses'].includes(SOURCE)) throw new Error(`--source 는 corpus | analyses (받은 값: ${SOURCE})`)
+const OUT_DIR = path.resolve(
+  arg('dir') ?? (SOURCE === 'analyses' ? 'scripts/dict/csat-analysis-gap' : 'scripts/dict/csat-dict-gap'),
+)
 const SRC_DIR = arg('src') ?? 'C:/Users/Administrator/Documents/수능영어기출/최종'
 const CHUNK_SIZE = Number(arg('chunk') ?? 60)
 const commit = process.argv.includes('--commit')
@@ -51,13 +67,17 @@ const POS = [
   'prefix', 'auxiliary', 'number', 'other',
 ]
 
-/** 원문에서 그 낱말이 실제로 쓰인 문장 하나. 다의어의 어느 뜻인지는 문맥 없이 못 정한다. */
-function sampleSentences(words) {
+/**
+ * 원문에서 그 낱말이 실제로 쓰인 문장 하나. 다의어의 어느 뜻인지는 문맥 없이 못 정한다.
+ *
+ * ⚠️ 여기 담기는 문장은 평가원 원문의 **짧은 인용**이고, 청크 파일에만 남는다(작업용).
+ *    `shared_dictionary` 에는 들어가지 않는다 — 명세가 `example_en` 을 새로 쓰라고 못 박는 이유다.
+ */
+function sampleSentencesFrom(texts, words) {
   const wanted = new Set(words)
   const found = new Map()
-  const files = fs.readdirSync(SRC_DIR).filter((x) => /^\d{4}(_A)?\.txt$/.test(x)).sort()
-  for (const f of files) {
-    const text = fs.readFileSync(path.join(SRC_DIR, f), 'utf8').replace(/[\r\n]+/g, ' ')
+  for (const raw of texts) {
+    const text = String(raw ?? '').replace(/[\r\n]+/g, ' ')
     for (const sent of text.split(/(?<=[.!?])\s+/)) {
       const clean = sent.replace(/\s+/g, ' ').trim()
       if (clean.length < 20) continue
@@ -75,9 +95,89 @@ function sampleSentences(words) {
   return found
 }
 
+/** 파일 코퍼스에서 읽는 옛 경로 — 그 폴더가 있는 기계에서만 쓴다 */
+function sampleSentences(words) {
+  if (!fs.existsSync(SRC_DIR)) {
+    console.log(`  ⚠ 원문 폴더가 없다(${SRC_DIR}) — 문맥 문장 없이 진행한다`)
+    return new Map()
+  }
+  const files = fs.readdirSync(SRC_DIR).filter((x) => /^\d{4}(_A)?\.txt$/.test(x)).sort()
+  return sampleSentencesFrom(
+    files.map((f) => fs.readFileSync(path.join(SRC_DIR, f), 'utf8')),
+    words,
+  )
+}
+
+/** 1000행 벽 — PostgREST 는 자르면서 오류를 내지 않는다. 넘을 수 있는 조회는 나눠 읽는다. */
+async function allRows(build) {
+  const out = []
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await build(from, from + 999)
+    if (error) throw new Error(error.message)
+    const batch = data ?? []
+    out.push(...batch)
+    if (batch.length < 1000) break
+  }
+  return out
+}
+
+const yearOf = (examId) => (examId.startsWith('M') ? 2000 + Number(examId.slice(1, 3)) : Number(examId.slice(0, 4)))
+
+/**
+ * 문항 분석이 지목한 필수 어휘를 `diff.json` 과 같은 모양으로 모은다.
+ * 문항마다 **최신 버전만** 센다 — 분석은 버전을 올려 쌓이므로 그냥 세면 빈도가 부풀어 오른다.
+ */
+async function collectFromAnalyses() {
+  const [items, analyses] = await Promise.all([
+    allRows((f, t) => db.from('csat_items').select('id, exam_id, passage').eq('in_scope', true).range(f, t)),
+    allRows((f, t) =>
+      db.from('csat_item_analyses').select('item_id, version, required_vocab').eq('status', 'published').range(f, t),
+    ),
+  ])
+  const latest = new Map()
+  for (const a of analyses) {
+    const cur = latest.get(a.item_id)
+    if (!cur || a.version > cur.version) latest.set(a.item_id, a)
+  }
+  const itemById = new Map(items.map((i) => [i.id, i]))
+
+  const acc = new Map()
+  for (const [itemId, a] of latest) {
+    const item = itemById.get(itemId)
+    if (!item) continue
+    const year = yearOf(item.exam_id)
+    for (const raw of a.required_vocab ?? []) {
+      const lemma = String(raw).trim().toLowerCase()
+      if (!lemma) continue
+      const e = acc.get(lemma) ?? { lemma, years: new Set(), total: 0 }
+      e.years.add(year)
+      e.total += 1
+      acc.set(lemma, e)
+    }
+  }
+  console.log(`분석 ${latest.size}문항이 지목한 낱말 ${acc.size}`)
+  return {
+    gaps: [...acc.values()].map((e) => ({
+      lemma: e.lemma,
+      years_appeared: [...e.years].sort(),
+      years_n: e.years.size,
+      total: e.total,
+    })),
+    passages: items.map((i) => i.passage).filter(Boolean),
+  }
+}
+
 async function doExport() {
-  const diff = JSON.parse(fs.readFileSync('scripts/dict/csat-corpus/diff.json', 'utf8'))
-  const gaps = diff['사전_결손_목록']
+  let gaps
+  let passages = null
+  if (SOURCE === 'analyses') {
+    const collected = await collectFromAnalyses()
+    gaps = collected.gaps
+    passages = collected.passages
+  } else {
+    const diff = JSON.parse(fs.readFileSync('scripts/dict/csat-corpus/diff.json', 'utf8'))
+    gaps = diff['사전_결손_목록']
+  }
   console.log(`결손 후보 ${gaps.length}`)
 
   // 해소기 게이트 — 이미 풀리는 낱말은 넣지 않는다.
@@ -95,7 +195,9 @@ async function doExport() {
   console.log(`진짜 빠진 낱말 ${missing.length}`)
   if (!missing.length) return console.log('채울 것이 없다.')
 
-  const samples = sampleSentences(missing.map((m) => m.lemma))
+  const samples = passages
+    ? sampleSentencesFrom(passages, missing.map((m) => m.lemma))
+    : sampleSentences(missing.map((m) => m.lemma))
   console.log(`문맥 문장 확보 ${samples.size}/${missing.length}`)
 
   missing.sort((a, b) => b.years_n - a.years_n || b.total - a.total || a.lemma.localeCompare(b.lemma))
@@ -197,7 +299,7 @@ async function doImport() {
         source: 'ai-generated',
         classified_by: 'claude_code_opus_5',
         verified: false,
-        list_tags: ['kice-csat-13y'],
+        list_tags: [SOURCE === 'analyses' ? 'kice-csat-required' : 'kice-csat-13y'],
       })
     }
   }
