@@ -10,6 +10,51 @@
 
 ## Unreleased (v06.34 → next)
 
+### 조용히 새던 조회 둘 — V4 유형 적합도 76.6% → 98.6% (2026-09-06)
+
+V4 는 재고가 있는데도 조합기가 안 썼다(title 27편 보유 · 권에는 10편). 파 보니
+**topic-only 도 blank-only 도 0편**이었다 — 세 유형이 같은 35편에 몰려 있어
+한 단원에 그중 하나만 실린다. 겹치지 않는 글에 유형을 새로 붙이는 일을 하다가
+드레인 도구의 결함 **둘**을 찾았다.
+
+**① 끝낸 청크 번호를 다시 썼다.** export 는 끝낸 청크의 `.json` 만 지운 뒤 새 몫을
+쓸 때 `chunk-NN.json` 이 있는지만 보고 빈 번호를 찾았다. 방금 지운 번호가 "비었다"로
+보였고 그 자리에 새 몫을 썼다 — `blank-v4/chunk-00.json` 이 새 글 5편으로 덮이고
+`chunk-00.out.json` 에는 옛 글 8편이 남았다. 임포터는 `.out.json` 을 읽으므로 새로 쓴
+몫은 영영 안 채워지고, 사람이 새 `.json` 을 채워 저장하면 옛 것이 사라진다.
+고침은 지우는 쪽이 아니라 **고르는 쪽**이다(`chunk-slots.mjs` · 회귀 6종).
+
+**② 고유하지 않은 열로 커서를 넘겼다.** `fetchAllIn` 이 `csat_dcp_items` 를 `ref_id` 로
+넘기는데 한 글에 문항이 여럿이다. 페이지 끝 값이 X 면 다음 페이지를 `ref_id > X` 로
+받으므로 X 의 남은 문항이 사라진다 — **11,559행 중 117행**. 그 탓에 `--avoid title` 이
+title 을 가진 글을 못 걸렀고, "이미 이 유형이 붙은 글은 건너뛴다"는 재실행 안전도
+깨져 있었다. pk 커서로 바꾸고, 페이지 끝 값이 되풀이되면 **오류를 던지게** 했다
+(`boundaryLeak` · 회귀 6종). 조용히 새느니 시끄럽게 멈춘다.
+
+그 뒤 겹치지 않는 글에 topic 20 · title 10 · blank 5 · content_match 6 을 채웠다.
+
+| 유형 | 목표 | 전 | 후 |
+|---|---|---|---|
+| topic | 19.5 | 11 | 19 |
+| title | 19.5 | 10 | 20 |
+| blank | 11.5 | 7 | 12 |
+| content_match | 5.7 | 0 | 6 |
+
+V4 시장 유형 적합도(전체 기준) **76.6% → 98.6%** · 재고 0 유형 1종 → **0종** · 채점 10/10 유지
+
+### 아무도 부르지 않던 API 라우트 5개 삭제 + 호출부 스캐너 (2026-09-06)
+
+- API 라우트 80 → **75**. 후보 11개를 `apps/web/src` · `scripts/` · `supabase/` · `.github/` 전수 grep 으로 재판정해, **대체 경로가 이미 있는 중복 5개만** 지웠다:
+  - `lcp/dev-drain-queue` — MyLibraryTab 의 단일 엔진(`runProcess`)이 클라이언트에서 `/api/lcp/dev-process` 를 도서별로 도는 것과 같은 서버측 루프였다
+  - `ctp/dev-generate-items` — `scripts/compose/drain-activities.mjs` 가 대체(라우트는 프로덕션 403 + admin 쿠키 요구 + `status='published'` 게이트라 드레인이 부를 수 없었다)
+  - `acp/dev-publish` — `/api/admin/articles/force-publish` 가 같은 requireAdminApi + service_role 로직인데 dev 전용이 아니고 화면에도 배선돼 있다(`ARTICLE_RPC_ROUTE`)
+  - `admin/library/enrich-seed` — UI 가 쓰는 `enrich-seed-batch` 로 대체(이전 세션에 "남은 dead code" 로 이미 지목)
+  - `admin/library/resolve-librivox-audio` — 자동은 `lib/library/librivox-automap.ts`(dev-process 안), 수동은 `save-librivox-audio`(LibriVoxAudioPanel)
+- **함께 죽은 헬퍼 0개** — `generateDcpItems` · `resolveLibriVoxAudioForBook` · `gutenbergIdFromStandardEbooks` · `detail-fetchers` 는 전부 다른 소비자가 있다(각각 드레인 스크립트 · automap · scripts/lcp 4종 · enrich-seed-batch)
+- **6개는 보류** — `futurity-feed`(죽은 게 아니라 `SOURCES`·`RssFeedTab` 유니온에 `futurity` 만 빠진 **미배선**) · `acp/dev-enqueue`·`lcp/dev-enqueue-book`(DEV_ADMIN_BYPASS 에서 RPC 가 Forbidden 인 갭을 메우는 curl 도구 — 대체 없음) · `lcp/dev-ingest-preview`(write 0 검증 도구) · `admin/library/backfill-covers`(문서가 안내하는 일괄 백필) · `pdcp/issue`(화면에 버튼이 없다고 도움말이 명시한 운영 경로)
+- 회귀 `app/api/__tests__/route-callers.test.ts` — 라우트 전수를 `apps/web/src` + `scripts/` 에서 **주석 걷어낸 소스**로 찾고, 없으면 이유가 적힌 `EXTERNAL`(8개)에 있어야 통과. 템플릿 조립(`${source}-feed`)은 **변수 자리 값이 코드에 문자열로 존재할 때만** 참조로 인정한다 — 모양만 보면 `futurity-feed` 도 "호출됨" 이 되기 때문. 면제가 15% 를 넘으면 실패
+- 기존 `scripts/audit/learner-linkgraph.mjs` 는 `fetch('/api/…')` 리터럴만 봐서 `<img src={...}>` 와 템플릿 fetch 를 못 읽고 preview-* 6개·pdcp/artifact 를 고아로 오분류했다 — 새 스캐너는 둘 다 읽는다
+
 ### 초·중 원문 재고가 콘솔에 보인다 — CLI 로만 보이던 것 (2026-09-06)
 
 - `/admin/textbook` 에 「초·중 원문 재고」 섹션 — 칸별 적재·게시 가능·격리율·남은 몫과 목표 대비 %. 지금까지 이 수치는 `scripts/textbook/kid-inventory.mjs` 를 돌려야만 보였고 진행은 보고서 `.md` 에만 남았다
