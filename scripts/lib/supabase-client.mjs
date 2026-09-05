@@ -48,6 +48,23 @@ const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504, 520, 521, 522, 523, 5
 /** 다시 보내도 같은 뜻인 메서드. POST 가 없는 이유는 §멱등성. */
 const IDEMPOTENT = new Set(['GET', 'HEAD', 'PUT', 'PATCH', 'DELETE'])
 
+/**
+ * **statement timeout(57014) 은 물러서도 안 낫는다.**
+ *
+ * PostgREST 는 이걸 **HTTP 500** 으로 준다 — 위 표에 따르면 재시도 대상이다. 그런데 실측해 보니
+ * 대개 **결정적**이다(2026-09-05, `library_articles` 8,223행 통독):
+ *
+ *     limit 400 → HTTP 500 · 57014 · 8,731ms   ← 매번 같다
+ *     limit 200 → HTTP 200 ·          124ms
+ *     limit 100 → HTTP 200 ·           66ms
+ *
+ * 절벽이지 비탈이 아니다. 여기서 6번 재시도하면 **48초를 버리고도 실패**하고,
+ * 그 사이 DB 에 같은 무거운 질의를 여섯 번 더 얹는다 — 고치는 게 아니라 악화시킨다.
+ * 그래서 **재시도하지 않고 그대로 올려 보낸다.** 답은 백오프가 아니라 페이지를 줄이는 것이다.
+ */
+const STATEMENT_TIMEOUT = '57014'
+
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
 /**
@@ -67,6 +84,12 @@ export function retryingFetch({ retries = 5, baseMs = 1_000, onRetry } = {}) {
       try {
         res = await fetch(url, init)
         if (!RETRYABLE_STATUS.has(res.status)) return res
+        // 500 이라도 statement timeout 이면 물러서지 않는다 — 위 §STATEMENT_TIMEOUT.
+        // 본문은 clone 으로 엿본다. 원본을 소비하면 호출부가 오류 내용을 못 읽는다.
+        if (res.status === 500) {
+          const peek = await res.clone().text().catch(() => '')
+          if (peek.includes(STATEMENT_TIMEOUT)) return res
+        }
         lastWhy = `HTTP ${res.status}`
       } catch (e) {
         // 연결 자체가 안 된 것. 원인 사슬까지 담는다 — `fetch failed` 만으로는 아무것도 모른다.

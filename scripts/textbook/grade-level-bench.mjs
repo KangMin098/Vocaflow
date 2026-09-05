@@ -91,23 +91,19 @@ corpus.close()
  * 그래서 한 점이 아니라 **이웃 학년까지 걸친 창**으로 본다 — 점으로 판정하면
  * 멀쩡한 지문이 전부 부적합으로 나온다.
  */
-const BANDS = [
-  { id: '초3~4', min: 1.5, max: 4.0 },
-  { id: '초5~6', min: 3.5, max: 5.5 },
-  { id: '초6~중1', min: 4.5, max: 7.0 },
-  { id: '중1~2', min: 6.5, max: 9.0 },
-  { id: '중3', min: 8.5, max: 12.0 },
-]
-const bandOf = (fk) =>
-  BANDS.find((b) => fk >= b.min && fk <= b.max)?.id ?? (fk < 1.5 ? '초3 미만' : '중3 초과')
+/**
+ * ⚠️ **여기서 다시 적지 않는다.** 예전에는 이 파일이 창 다섯 줄을 직접 들고 있었다 —
+ *   값은 같았지만 **정본이 움직이면 조용히 갈린다.** 이 파일 스스로 그 실수를 적어 두었다
+ *   (아래 어휘 문턱 주석: "같은 공식이 두 벌이 되고, 한쪽만 고쳐졌을 때 두 값이 조용히 갈린다").
+ *   FK 창도 학교급도 정본은 `READING_LEVEL_BANDS` 하나다.
+ */
+const { READING_LEVEL_BANDS, bandOf } =
+  await import('../../packages/library-pipeline/src/textbook/readability.ts')
+const BANDS = READING_LEVEL_BANDS.map((x) => ({ id: x.id, min: x.fkMin, max: x.fkMax }))
 
 // ── 우리 지문 ────────────────────────────────────────────────────────
-const { createClient } = await import('@supabase/supabase-js')
-const db = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false } }
-)
+const { createScriptClient } = await import('../lib/supabase-client.mjs')
+const db = createScriptClient()
 
 /**
  * ⚠️ `market-spec.json` 의 학년별 창은 **여기서 쓰지 않는다.**
@@ -131,13 +127,10 @@ const db = createClient(
  * 정본은 `packages/library-pipeline/src/textbook/curriculum.ts` 이고, 그 문턱은
  * **시중 지문 196쪽 실측**(2026-09-04 · `passage-mine.mjs`)에서 나왔다.
  */
-const { curriculumFit, CURRICULUM_SPEC } = await import(
-  '../../packages/library-pipeline/src/textbook/curriculum.ts'
-)
+const { curriculumFit, CURRICULUM_SPEC } =
+  await import('../../packages/library-pipeline/src/textbook/curriculum.ts')
 /** 네 번째 축 — 그 한 편만 읽고 이해되는가. 실측 2026-09-04: PD 발췌의 69%가 여기서 떨어진다. */
-const { standaloneFit } = await import(
-  '../../packages/library-pipeline/src/textbook/standalone.ts'
-)
+const { standaloneFit } = await import('../../packages/library-pipeline/src/textbook/standalone.ts')
 
 /**
  * **지문 어수 창의 정본** — 출판사가 인쇄한 어수 실측(n=59 · 최소 97 · 중앙 132 · 최대 198).
@@ -147,24 +140,21 @@ const { standaloneFit } = await import(
  *   **하한이 40어대**다 — 시중이 97어 밑을 한 건도 선언하지 않는데도 그렇다.
  *   그 창으로 재면 시중 규격 지문(132어)이 떨어지고 시중에 없는 짧은 글이 통과한다.
  */
-const { PASSAGE_WORDS } = await import(
-  '../../packages/library-pipeline/src/textbook/readability.ts'
-)
+const { PASSAGE_WORDS } =
+  await import('../../packages/library-pipeline/src/textbook/readability.ts')
 /** 조회 창 = 지문 어수 창. 둘을 다르게 두면 재는 모집단과 판정 기준이 어긋난다. */
 const WIN = PASSAGE_WORDS
 
 /**
  * FK 밴드 → 학교급. 어휘 문턱이 학교급마다 다르므로(초등 43.3% · 중등 44.0%) 어느 자를
- * 댈지 여기서 정한다. **어수창은 밴드로 갈리지 않는다** — 시중 선언 어수를 학년대로 갈라
+ * 댈지 정해야 한다. **어수창은 밴드로 갈리지 않는다** — 시중 선언 어수를 학년대로 갈라
  * 보면 중1~중3 한 밴드가 97~198어로 전체 범위와 같다(`readability.PASSAGE_WORDS` 머리말).
+ *
+ * ⚠️ **여기서 다시 적지 않는다.** 예전에는 이 파일이 학교급 표를 따로 들고 있었는데,
+ *   같은 표가 두 곳에 있으면 **한쪽만 고쳐졌을 때 같은 지문의 판정이 갈린다.**
+ *   정본은 `READING_LEVEL_BANDS[].school` 이고 여기서는 읽기만 한다.
  */
-const BAND_SPEC = {
-  '초3~4': { school: 'elementary' },
-  '초5~6': { school: 'elementary' },
-  '초6~중1': { school: 'elementary' },
-  '중1~2': { school: 'middle' },
-  중3: { school: 'middle' },
-}
+const BAND_SPEC = Object.fromEntries(READING_LEVEL_BANDS.map((b) => [b.id, { school: b.school }]))
 
 /**
  * `--include-queued` — **보유와 분석 완료를 나눠 센다.**
@@ -188,6 +178,27 @@ const BAND_SPEC = {
 const INCLUDE_QUEUED = process.argv.includes('--include-queued')
 
 /**
+ * **`--exclude <소스[,소스]>` — "그 소스를 빼면 재고가 어떻게 보이는가".**
+ *
+ * 왜 필요했나: 소스별 시중 자리를 처음 재 보니 우리 재고의 절반이 한 곳에 몰려 있었다
+ * (실측 2026-09-05 · 786편 중 `original` **368편 = 47%**, 시중 자리 **14.7**).
+ * 나머지 외부 소스는 40~79 다. **밴드 평균이 낮은 것은 소스가 모자라서가 아니라
+ * 우리가 쓴 글이 시중보다 쉬워서였다** — 소스를 더 넣어도 안 고쳐진다.
+ *
+ * 그런 결론은 "빼고 재 본 값" 없이는 확정할 수 없다. 그래서 축으로 만든다.
+ *
+ *   pnpm dlx tsx scripts/textbook/grade-level-bench.mjs --exclude original
+ *
+ * ⚠️ 이건 **측정 도구**지 삭제 도구가 아니다 — DB 는 건드리지 않는다.
+ */
+const EXCLUDE = new Set(
+  (arg('exclude') ?? '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+)
+
+/**
  * ⚠️ **`queued` 를 전부 세지 않는다 — 초·중을 겨냥해 담은 것만 센다.**
  *
  * 처음엔 `status IN (ready, published, queued)` 로 통째로 쟀더니 4축 통과가 3,131편
@@ -201,23 +212,45 @@ const INCLUDE_QUEUED = process.argv.includes('--include-queued')
 const QUEUED_FEEDS = ['kid-excerpt']
 
 /**
- * **오프셋 페이징 + id 중복 제거.** 셋을 시도해 하나만 살아남았다(실측 2026-09-05):
+ * **id 키셋 페이징.** 넷을 실측해 이것만 남았다(2026-09-05 재측정):
  *
- *   · `order(created_at).order(id)` + range  → **timeout** (복합 정렬에 쓸 인덱스가 없다)
- *   · `order(id)` + keyset                    → **timeout** (uuid 정렬에 쓸 인덱스가 없다)
- *   · `order(created_at)` + keyset(gte)       → 같은 시각이 수두룩해 **1/6 만 읽고 끝났다**
- *   · `order(created_at)` + range + **id 중복 제거** → 통과 ✅
+ *     offset 0    · created_at 정렬   15,618ms / 400행   ← 콜드에서 statement timeout 을 넘긴다
+ *     offset 4000 · created_at 정렬      551ms / 400행
+ *     keyset 1페이지 · id 정렬            394ms / 400행
+ *     **keyset 전량 통독 · id 정렬      6,416ms / 8,223행 / 21페이지** ✅
  *
- * `created_at` 만으로 정렬하면 배치 insert 의 같은 시각에서 페이지 경계의 행 순서가
- * 흔들려 **행이 새거나 겹친다**(2026-09-05 prune 에서 실제로 15편이 새어 나갔다).
- * 그래서 **겹쳐 읽고 본 id 로 거른다** — 중복은 싸고 누락은 비싸다.
+ * ⚠️ 앞선 주석은 `order(id)` 키셋을 **"uuid 정렬에 쓸 인덱스가 없다"** 며 버렸는데
+ *   **틀렸다** — `library_articles_pkey` 가 곧 id 의 btree 다. 그때의 timeout 은
+ *   인덱스가 아니라 **그 시각 프로젝트가 포화 상태**였던 탓으로 보인다
+ *   (같은 7시간에 REST 요청 198,188건 · PostgREST 스레드 강제종료 · 끝내 522).
+ *   **부하 중에 잰 값을 구조 결론으로 굳히면 멀쩡한 길을 영영 닫는다.**
+ *
+ * OFFSET 은 페이지마다 8,223행을 다시 정렬하지만 키셋은 인덱스를 이어 읽는다.
+ * 그리고 id 는 **유일하고 전순서**라 created_at 처럼 같은 값이 몰리지 않는다 —
+ * 겹침도 누락도 구조적으로 없다(`seen` 은 두 갈래가 겹칠 때를 위한 값싼 보험으로 남긴다).
  */
 const rows = []
 const seen = new Set()
 
-/** 한 갈래를 통째로 읽는다. 겹쳐 읽고 **본 id 로 거른다** — 중복은 싸고 누락은 비싸다. */
+const ZERO_UUID = '00000000-0000-0000-0000-000000000000'
+
+/**
+ * **한 페이지 200행.** 400 은 statement timeout(8초) 너머다 — 비탈이 아니라 절벽이다
+ * (실측 2026-09-05, 같은 질의·같은 순간):
+ *
+ *     limit 400 → HTTP 500 · 57014 statement timeout · 8,731ms
+ *     limit 200 → HTTP 200 ·                             124ms
+ *     limit 100 → HTTP 200 ·                              66ms
+ *
+ * 400 에서 계획이 바뀌는 것으로 보인다. **여기서 재시도는 답이 아니다** —
+ * 매번 같은 무거운 질의를 다시 얹을 뿐이라 클라이언트도 57014 는 재시도하지 않는다.
+ */
+const PAGE = 200
+
+/** 한 갈래를 통째로 읽는다. id 키셋이라 페이지 경계에서 행이 새지 않는다. */
 async function fetchAll(build) {
-  for (let offset = 0; ; offset += 400) {
+  let last = ZERO_UUID
+  for (;;) {
     const { data, error } = await build(
       db
         .from('library_articles')
@@ -226,8 +259,9 @@ async function fetchAll(build) {
         )
         .eq('display_only', false)
     )
-      .order('created_at')
-      .range(offset, offset + 399)
+      .order('id')
+      .gt('id', last)
+      .limit(PAGE)
     if (error) throw new Error('지문 조회 실패: ' + error.message)
     if (!data.length) return
     for (const r of data) {
@@ -235,7 +269,8 @@ async function fetchAll(build) {
       seen.add(r.id)
       rows.push(r)
     }
-    if (data.length < 400) return
+    last = data[data.length - 1].id
+    if (data.length < PAGE) return
   }
 }
 
@@ -260,6 +295,7 @@ if (INCLUDE_QUEUED) await fetchAll((q) => q.eq('status', 'queued').in('feed_id',
  */
 const scored = []
 for (const r of rows) {
+  if (EXCLUDE.has(r.source)) continue
   const m = readability(r.content ?? '')
   if (!m) continue
   const band = bandOf(m.fk)
@@ -307,10 +343,19 @@ console.log(`\n■ 우리 지문 ${scored.length}편 (${WIN.min}~${WIN.max}어) 
 const bySource = new Map()
 for (const s of scored) {
   const k = s.source
-  const v = bySource.get(k) ?? { n: 0, fk: [], sent: [], elem: [], mid: [], cefr: new Map() }
+  const v = bySource.get(k) ?? {
+    n: 0,
+    fk: [],
+    sent: [],
+    elem: [],
+    mid: [],
+    pct: [],
+    cefr: new Map(),
+  }
   v.n++
   v.fk.push(s.fk)
   v.sent.push(s.sent)
+  if (s.pctile != null) v.pct.push(s.pctile)
   if (s.cov) {
     v.elem.push(s.cov.star1Pct)
     v.mid.push(s.cov.throughStar2Pct)
@@ -327,9 +372,10 @@ console.log(
     lp('밴드', 10) +
     lp('초등별표%', 10) +
     lp('+중등%', 9) +
+    lp('시중자리', 9) +
     '  CEFR'
 )
-console.log('─'.repeat(91))
+console.log('─'.repeat(100))
 for (const [k, v] of [...bySource.entries()].sort((a, b) => b[1].n - a[1].n)) {
   const fk = med(v.fk)
   const cefr = [...v.cefr.entries()]
@@ -344,6 +390,7 @@ for (const [k, v] of [...bySource.entries()].sort((a, b) => b[1].n - a[1].n)) {
       lp(bandOf(fk), 10) +
       lp(med(v.elem) ?? '—', 10) +
       lp(med(v.mid) ?? '—', 9) +
+      lp(med(v.pct) ?? '—', 9) +
       '  ' +
       cefr
   )
@@ -352,9 +399,14 @@ for (const [k, v] of [...bySource.entries()].sort((a, b) => b[1].n - a[1].n)) {
 console.log(`\n■ 학년 밴드별 우리 재고 — 4축 동시 판정\n`)
 const ORDER = ['초3 미만', ...BANDS.map((b) => b.id), '중3 초과']
 console.log(
-  pad('밴드', 12) + lp('FK창', 11) + lp('어수창', 11) + lp('FK통과', 8) +
-    lp('+어수', 7) + lp('+어휘', 7) +
-    lp('+자립=적합', 11) + lp('시중자리', 9)
+  pad('밴드', 12) +
+    lp('FK창', 11) +
+    lp('어수창', 11) +
+    lp('FK통과', 8) +
+    lp('+어수', 7) +
+    lp('+어휘', 7) +
+    lp('+자립=적합', 11) +
+    lp('시중자리', 9)
 )
 console.log('─'.repeat(77))
 let fitTotal = 0
@@ -394,7 +446,9 @@ if (INCLUDE_QUEUED) {
 }
 
 // § 어디서 떨어지는가 — 다음 작업을 정하는 것은 이 표다
-console.log(`\n■ 탈락 사유 (중복 계수 · 밴드 안에 든 ${scored.filter((s) => BAND_SPEC[s.band]).length}편 기준)\n`)
+console.log(
+  `\n■ 탈락 사유 (중복 계수 · 밴드 안에 든 ${scored.filter((s) => BAND_SPEC[s.band]).length}편 기준)\n`
+)
 const why = new Map()
 for (const s of scored) {
   if (!BAND_SPEC[s.band]) continue
@@ -429,7 +483,12 @@ const report = {
       inWordWindow: spec ? list.filter((s) => !s.failed.includes('어수창')).length : null,
       fits: spec ? list.filter((s) => s.fits).length : null,
       marketPercentileMedian: spec
-        ? med(list.filter((s) => s.fits).map((s) => s.pctile).filter((x) => x != null))
+        ? med(
+            list
+              .filter((s) => s.fits)
+              .map((s) => s.pctile)
+              .filter((x) => x != null)
+          )
         : null,
       wordWindow: spec ? PASSAGE_WORDS : null,
     }

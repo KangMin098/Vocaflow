@@ -95,6 +95,34 @@ const check = (name, cond) => {
   check('물러선 이유를 알려 준다 — 조용히 멈추면 "느리네" 로 읽힌다', seen[0] === 'HTTP 503')
 }
 
+// ── 6. statement timeout(57014) 은 물러서지 않는다 ─────────────────
+{
+  let calls = 0
+  const body = JSON.stringify({ code: '57014', message: 'canceling statement due to statement timeout' })
+  globalThis.fetch = async () => {
+    calls++
+    return { status: 500, ok: false, clone: () => ({ text: async () => body }) }
+  }
+  const f = retryingFetch({ retries: 5, baseMs: 1 })
+  const res = await f('https://x/rest/v1/t', { method: 'GET' })
+  check('57014 는 한 번만 보낸다 — 재시도해도 안 낫고 부하만 얹는다', calls === 1 && res.status === 500)
+}
+
+// ── 7. 같은 500 이라도 다른 오류는 물러선다 ────────────────────────
+{
+  let calls = 0
+  globalThis.fetch = async () => {
+    calls++
+    const body = JSON.stringify({ code: 'XX000', message: 'internal error' })
+    return calls < 3
+      ? { status: 500, ok: false, clone: () => ({ text: async () => body }) }
+      : { status: 200, ok: true }
+  }
+  const f = retryingFetch({ retries: 5, baseMs: 1 })
+  const res = await f('https://x/rest/v1/t', { method: 'GET' })
+  check('57014 가 아닌 500 은 물러섰다가 다시 온다', calls === 3 && res.status === 200)
+}
+
 globalThis.fetch = real
 console.log(`\n통과 ${pass} · 실패 ${fail}`)
 process.exit(fail ? 1 : 0)

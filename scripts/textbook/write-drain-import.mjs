@@ -45,10 +45,35 @@ const sha256 = (s) => crypto.createHash('sha256').update(s, 'utf8').digest('hex'
 /** 문장 세기 — 마침표·물음표·느낌표 뒤 공백. 약어(Dr. 등)를 완벽히 가르지는 않는다(하한 판정용). */
 const countSentences = (t) => t.split(/(?<=[.!?])\s+/).filter((s) => s.trim().length > 1).length
 
-const { createClient } = await import('@supabase/supabase-js')
-const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
-  auth: { persistSession: false },
-})
+const { createScriptClient } = await import('../lib/supabase-client.mjs')
+const db = createScriptClient()
+
+/**
+ * **"너무 쉬움" 도 실패다** — 여기서 재는 자.
+ *
+ * ── 왜 생겼나 (실측 2026-09-05) ──────────────────────────────────────
+ * 소스별로 시중 자리를 처음 재 보니 우리 재고 786편 중 **이 드레인이 쓴 368편(47%)** 이
+ * 시중 분포의 **14.7** 번째였다. 외부 소스는 대부분 40~79 다:
+ *
+ *     original 14.7 · frym 43.1 · storyweaver 53.6 · space_place 68.7 · simple_wikipedia 79.5
+ *
+ * 밴드를 통제해도 같다 — 초6~중1 칸이 우리 글을 빼면 **16.5 → 72.6** 으로 뛴다.
+ * 즉 **소스가 모자란 게 아니라 우리가 시중보다 쉽게 쓰고 있었다.**
+ *
+ * ⚠️ 원인은 자가 없어서가 아니라 **다른 자를 댔기 때문**이다. 이 드레인은 난이도를
+ *   `article_v_level`(우리 V-Level 사다리)로 조준하는데, 그건 **시중과 비교되는 축이 아니다.**
+ *   V-Level 목표를 정확히 맞히고도 시중 15번째에 떨어질 수 있고, 실제로 그랬다.
+ *
+ * 그래서 어휘 게이트에 **하한**을 더한다. 지금까지는 상한(`CURRICULUM_GATE` = 시중 p90)만
+ * 있었다 — "너무 어려움" 만 막고 "너무 쉬움" 은 통과시켰다.
+ *
+ * 기본 하한 **25**: 시중 분포의 아래 1/4 보다 쉬운 글은 지문으로 쓰지 않는다는 뜻이다.
+ * `--min-market 0` 으로 끌 수 있다(끄면 왜 껐는지 로그에 남는다).
+ */
+const { readability, bandOf, gradeBand } =
+  await import('../../packages/library-pipeline/src/textbook/readability.ts')
+const { curriculumFit } = await import('../../packages/library-pipeline/src/textbook/curriculum.ts')
+const MIN_MARKET = Number(arg('min-market') ?? 25)
 
 // ── 이미 넣은 글의 문단 고치기 ──────────────────────────────────────
 //
@@ -66,7 +91,8 @@ if (process.argv.includes('--repaginate')) {
       .select('id, title, content, source_id')
       .eq('source', 'original')
       .eq('composed_spec->>written_by', 'claude_code_drain')
-      .order('id'))
+      .order('id')
+  )
   const need = []
   for (const a of data ?? []) {
     const next = repaginate(String(a.content ?? ''))
@@ -74,7 +100,10 @@ if (process.argv.includes('--repaginate')) {
   }
   console.log(`드레인 집필분 ${data?.length ?? 0}편 · **문단을 고쳐야 할 것 ${need.length}편**`)
   const paras = (t) => t.split(/\n\s*\n+/).length
-  for (const a of need.slice(0, 5)) console.log(`  · ${paras(a.content)}문단 → ${paras(a.next)}문단  ${String(a.title).slice(0, 46)}`)
+  for (const a of need.slice(0, 5))
+    console.log(
+      `  · ${paras(a.content)}문단 → ${paras(a.next)}문단  ${String(a.title).slice(0, 46)}`
+    )
   if (need.length > 5) console.log(`  … 외 ${need.length - 5}편`)
   if (!commit) {
     console.log('\n--commit 을 붙이면 고친다. **문단 번호가 바뀌어 기존 문항이 낡는다.**')
@@ -92,7 +121,9 @@ if (process.argv.includes('--repaginate')) {
   console.log(`\n고친 글 ${fixed}편`)
   console.log('이어서 돌릴 것:')
   console.log('  1. pnpm dlx tsx scripts/textbook/store-new-types.mjs --prune   (낡은 문항 정리)')
-  console.log('  2. pnpm dlx tsx scripts/textbook/refresh-dcp-items.mjs --commit (순서·삽입 재생성)')
+  console.log(
+    '  2. pnpm dlx tsx scripts/textbook/refresh-dcp-items.mjs --commit (순서·삽입 재생성)'
+  )
   process.exit(0)
 }
 
@@ -114,6 +145,29 @@ for (const f of outFiles) rows.push(...JSON.parse(fs.readFileSync(path.join(DIR,
 console.log(`청크 ${outFiles.length}개 · 지문 ${rows.length}편`)
 
 // ── 거르기 ──────────────────────────────────────────────────────────
+
+/**
+ * 이 글이 시중 분포의 어디인가(0~100). 못 재면 null —
+ * **모름을 "쉬움" 으로도 "어려움" 으로도 바꾸지 않는다.**
+ */
+function marketPos(content) {
+  const m = readability(content)
+  if (!m) return null
+  const band = gradeBand(bandOf(m.fk))
+  if (!band) return null // FK 가 밴드 밖 — 그건 다른 축의 문제라 여기서 판정하지 않는다
+  return curriculumFit(content, band.school).marketPercentile
+}
+
+/** 하한 미달이면 이유 문자열, 아니면 빈 문자열(= 통과). */
+function tooEasy(content) {
+  if (MIN_MARKET <= 0) return ''
+  const pos = marketPos(content)
+  if (pos == null) return ''
+  return pos < MIN_MARKET
+    ? `시중 자리 ${pos} — 하한 ${MIN_MARKET} 미만이다(시중 지문보다 쉽다)`
+    : ''
+}
+
 const skipped = []
 const ok = []
 const seenTitle = new Set()
@@ -122,11 +176,15 @@ for (const r of rows) {
   const content = String(r.content ?? '').trim()
   const words = content.split(/\s+/).filter(Boolean).length
   const sentences = countSentences(content)
+  const easyWhy = tooEasy(content) // 한 번만 잰다 — 아래 사슬에서 두 번 부르면 두 번 계산한다
   if (!title) skipped.push([r.slot, '제목이 비었다'])
   else if (!content) skipped.push([r.slot, '본문이 비었다'])
   else if (words < MIN_WORDS) skipped.push([r.slot, `${words}어 — ${MIN_WORDS}어 미만`])
-  else if (sentences < MIN_SENTENCES) skipped.push([r.slot, `${sentences}문장 — ${MIN_SENTENCES}문장 미만이면 문항을 못 만든다`])
-  else if (seenTitle.has(title.toLowerCase())) skipped.push([r.slot, '같은 청크 안에 제목이 겹친다'])
+  else if (sentences < MIN_SENTENCES)
+    skipped.push([r.slot, `${sentences}문장 — ${MIN_SENTENCES}문장 미만이면 문항을 못 만든다`])
+  else if (seenTitle.has(title.toLowerCase()))
+    skipped.push([r.slot, '같은 청크 안에 제목이 겹친다'])
+  else if (easyWhy) skipped.push([r.slot, easyWhy])
   else {
     seenTitle.add(title.toLowerCase())
     // **문단을 여기서 나눈다** — 안 나누면 순서 문항이 0 이 된다(위 `repaginate` 주석 참조).
@@ -134,6 +192,22 @@ for (const r of rows) {
   }
 }
 console.log(`  넣을 수 있는 것 ${ok.length} · **건너뛴 것 ${skipped.length}**`)
+if (MIN_MARKET <= 0)
+  console.log('  ⚠️ 시중 하한을 껐다(--min-market 0) — 쉬운 글이 그대로 들어간다')
+{
+  // **막은 수만 찍지 않는다** — 통과한 것들이 어디 모여 있는지가 다음 지침을 정한다.
+  const ps = ok
+    .map((r) => marketPos(r.content))
+    .filter((x) => x != null)
+    .sort((a, b) => a - b)
+  if (ps.length) {
+    const q = (f) => ps[Math.min(ps.length - 1, Math.floor(ps.length * f))]
+    console.log(
+      `  통과분 시중 자리: 최소 ${ps[0]} · 중앙 ${q(0.5)} · 최대 ${ps[ps.length - 1]}` +
+        `  (50 = 시중 중앙 · 20 이면 시중보다 쉬운 글만 모은 것)`
+    )
+  }
+}
 for (const [slot, why] of skipped) console.log(`    · 슬롯 ${slot}: ${why}`)
 
 // ── 밴드를 여기서 다시 잰다 ─────────────────────────────────────────
@@ -151,28 +225,47 @@ const { fetchAllIn } = await import('./volume-pool.mjs')
   const per = ok.map((r) => {
     const c = String(r.content)
     const idx = extractBookLemmas([
-      { chapter_idx: 1, content: c, word_count: c.split(/\s+/).filter(Boolean).length, paragraph_offsets: [0], sentence_offsets: [0] },
+      {
+        chapter_idx: 1,
+        content: c,
+        word_count: c.split(/\s+/).filter(Boolean).length,
+        paragraph_offsets: [0],
+        sentence_offsets: [0],
+      },
     ])
     return { r, lemmas: [...idx.bookFrequency.keys()] }
   })
   const all = [...new Set(per.flatMap((d) => d.lemmas))]
   const lv = new Map()
-  for (const d of await fetchAllIn(db, 'shared_dictionary', 'word, v_level', 'word', all, ['word'])) {
+  for (const d of await fetchAllIn(db, 'shared_dictionary', 'word, v_level', 'word', all, [
+    'word',
+  ])) {
     // 채점기와 같이 v11 을 뺀다(`compute_article_vrl`).
     if (d.v_level != null && Number(d.v_level) !== 11) lv.set(d.word, Number(d.v_level))
   }
-  const pct = (s, q) => (s.length ? s[Math.max(0, Math.min(s.length - 1, Math.ceil(q * s.length) - 1))] : null)
+  const pct = (s, q) =>
+    s.length ? s[Math.max(0, Math.min(s.length - 1, Math.ceil(q * s.length) - 1))] : null
   let hit = 0
   const off = []
   for (const { r, lemmas } of per) {
-    const p75 = pct(lemmas.map((w) => lv.get(w)).filter(Number.isFinite).sort((a, b) => a - b), 0.75)
+    const p75 = pct(
+      lemmas
+        .map((w) => lv.get(w))
+        .filter(Number.isFinite)
+        .sort((a, b) => a - b),
+      0.75
+    )
     r.predicted_v_level = p75
     if (p75 === BAND) hit++
     else off.push([r.slot, p75])
   }
-  console.log(`  **목표 밴드 적중(적재 전 실측) ${hit}/${per.length}** = ${((100 * hit) / Math.max(1, per.length)).toFixed(1)}%`)
+  console.log(
+    `  **목표 밴드 적중(적재 전 실측) ${hit}/${per.length}** = ${((100 * hit) / Math.max(1, per.length)).toFixed(1)}%`
+  )
   if (off.length) {
-    console.log(`    빗나간 것 — 버리지 않는다(그 계단도 비어 있다). 슬롯: ${off.map(([s, p]) => `${s}→V${p}`).join(' · ')}`)
+    console.log(
+      `    빗나간 것 — 버리지 않는다(그 계단도 비어 있다). 슬롯: ${off.map(([s, p]) => `${s}→V${p}`).join(' · ')}`
+    )
   }
 }
 
@@ -188,17 +281,20 @@ const { fetchAllIn } = await import('./volume-pool.mjs')
 if (process.argv.includes('--update-existing')) {
   const ids = ok.map((r) => `original:v${BAND}-${r.slot}`)
   const cur = new Map(
-    (await fetchAllIn(db, 'library_articles', 'source_id, content', 'source_id', ids, ['source_id'])).map((d) => [
-      d.source_id,
-      d.content,
-    ]),
+    (
+      await fetchAllIn(db, 'library_articles', 'source_id, content', 'source_id', ids, [
+        'source_id',
+      ])
+    ).map((d) => [d.source_id, d.content])
   )
   const stale = ok.filter((r) => {
     const c = cur.get(`original:v${BAND}-${r.slot}`)
     if (c == null) return false
     return String(c).replace(/\s+/g, ' ').trim() !== String(r.content).replace(/\s+/g, ' ').trim()
   })
-  console.log(`\n이미 넣은 것 중 **파일이 더 새로운 것 ${stale.length}편** — 슬롯: ${stale.map((r) => r.slot).join(' · ') || '없음'}`)
+  console.log(
+    `\n이미 넣은 것 중 **파일이 더 새로운 것 ${stale.length}편** — 슬롯: ${stale.map((r) => r.slot).join(' · ') || '없음'}`
+  )
   if (!commit) {
     console.log('--commit 을 붙이면 본문을 갱신한다. **문단 번호가 바뀌어 기존 문항이 낡는다.**')
     process.exit(0)
@@ -214,7 +310,9 @@ if (process.argv.includes('--update-existing')) {
     else n++
   }
   console.log(`\n갱신 ${n}편. 이어서 돌릴 것:`)
-  console.log('  1. pnpm dlx tsx scripts/acp/reprocess.mjs --missing-vocab --commit  (어휘가 비었으면)')
+  console.log(
+    '  1. pnpm dlx tsx scripts/acp/reprocess.mjs --missing-vocab --commit  (어휘가 비었으면)'
+  )
   console.log('  2. pnpm dlx tsx scripts/textbook/refresh-dcp-items.mjs --commit     (문항 재생성)')
   process.exit(0)
 }
@@ -301,6 +399,8 @@ for (const r of fresh) {
 
 console.log(`\n적재 완료 ${inserted}편`)
 console.log('이어서 돌릴 것:')
-console.log('  1. pnpm dlx tsx scripts/acp/reprocess.mjs --missing-vocab --commit   (어휘·CEFR·밴드)')
+console.log(
+  '  1. pnpm dlx tsx scripts/acp/reprocess.mjs --missing-vocab --commit   (어휘·CEFR·밴드)'
+)
 console.log('  2. pnpm dlx tsx scripts/textbook/store-new-types.mjs --commit        (문항 생성)')
 console.log('그 다음 write-drain-export 를 다시 돌려 **의도한 밴드에 떨어졌는지** 확인한다.')

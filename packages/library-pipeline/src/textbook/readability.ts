@@ -92,6 +92,14 @@ export interface ReadingLevelBand {
   wordsMax: number
   /** 시중 실측 FK 중앙 — 창을 왜 그렇게 잡았는지의 근거. */
   marketFk: number
+  /**
+   * 어휘 자를 어느 쪽으로 대는가(`curriculumFit` · `marketPercentile` 의 인자).
+   *
+   * ⚠️ **여기 있는 이유**: 이 표를 쓰는 쪽이 학교급을 따로 적고 있었다
+   * (`grade-level-bench.mjs` 에 사본 하나). 두 곳이 갈리면 **같은 지문의 판정이 갈린다** —
+   * 초등 자와 중등 자는 문턱도 분포도 다르다. 그래서 밴드가 스스로 들고 있게 한다.
+   */
+  school: 'elementary' | 'middle'
 }
 
 /**
@@ -142,11 +150,11 @@ const SPREAD = { wordsMin: PASSAGE_WORDS.min, wordsMax: PASSAGE_WORDS.max }
  *   **순서는 믿을 만하고 절대값은 아직 얇다** — 출판사를 넓히면 값이 움직인다.
  */
 export const READING_LEVEL_BANDS: readonly ReadingLevelBand[] = [
-  { id: '초3~4', fkMin: 1.5, fkMax: 4.0, ...SPREAD, marketFk: 3.33 },
-  { id: '초5~6', fkMin: 3.5, fkMax: 5.5, ...SPREAD, marketFk: 4.42 },
-  { id: '초6~중1', fkMin: 4.5, fkMax: 7.0, ...SPREAD, marketFk: 5.34 },
-  { id: '중1~2', fkMin: 6.5, fkMax: 9.0, ...SPREAD, marketFk: 7.6 },
-  { id: '중3', fkMin: 8.5, fkMax: 12.0, ...SPREAD, marketFk: 10.67 },
+  { id: '초3~4', fkMin: 1.5, fkMax: 4.0, ...SPREAD, marketFk: 3.33, school: 'elementary' },
+  { id: '초5~6', fkMin: 3.5, fkMax: 5.5, ...SPREAD, marketFk: 4.42, school: 'elementary' },
+  { id: '초6~중1', fkMin: 4.5, fkMax: 7.0, ...SPREAD, marketFk: 5.34, school: 'elementary' },
+  { id: '중1~2', fkMin: 6.5, fkMax: 9.0, ...SPREAD, marketFk: 7.6, school: 'middle' },
+  { id: '중3', fkMin: 8.5, fkMax: 12.0, ...SPREAD, marketFk: 10.67, school: 'middle' },
 ] as const
 
 export const gradeBand = (id: string): ReadingLevelBand | undefined =>
