@@ -353,8 +353,28 @@ const done = new Set(cursor.done ?? [])
  *
  * 그래서 훑는 주제를 바꾼다. `children` 만 보던 것을 자연·과학·동물·기행으로 넓힌다.
  * ⚠️ `children` 을 빼지는 않는다 — 초3~4 칸의 쉬운 글은 거기서 나온다.
+ *
+ * ── 2차 (실측 2026-09-05 저녁, 카탈로그 서가 기준) ──────────────────
+ * 세 칸이 차고 초3~4(FK 1.5~4.0)만 남자 위 주제는 **0.7편/권**으로 떨어졌다 — 적합
+ * 조각의 91% 가 이미 찬 칸으로 갔다. 병목은 상한도 배분도 아니고 **아주 쉬운 글의 공급**.
+ * 그래서 Gutenberg 카탈로그의 `Bookshelves` 를 6권씩 dry-run 으로 견줬다(초3~4 편/권):
+ *
+ *   Children's Instructional Books   **3.8**   ← 실제 학년별 독본(Elson Readers 한 권 15편)
+ *   Children's Book Series            2.0
+ *   School Stories                    1.8
+ *   Children's Picture Books          1.7
+ *   readers,fables (주제 검색)         0.7~2.0
+ *
+ * 서가는 **부분 일치**라 `instructional` 하나로 그 서가를 잡는다. 풀은 작다(80 · 468 ·
+ * 54 · 140권) — 다 쓰면 다시 잰다. 기본값을 이 순서로 둔 것은 카탈로그 경로가
+ * 주제를 **순서대로** 소진하기 때문이다(gutendex 경로는 돌아가며 훑는다).
  */
-const TOPICS = (arg('topics', 'nature,science,animals,travel,children') ?? '').split(',').map((t) => t.trim()).filter(Boolean)
+const TOPICS = (
+  arg('topics', "children's instructional,children's book series,school stories,children's picture") ?? ''
+)
+  .split(',')
+  .map((t) => t.trim())
+  .filter(Boolean)
 
 const picked = []
 let page = cursor.page ?? 1
