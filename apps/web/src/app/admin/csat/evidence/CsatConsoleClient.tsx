@@ -638,7 +638,14 @@ export function CsatConsoleClient({ coverage, types, totals, loadError }: CsatOv
   const [tab, setTab] = useState<Tab>(TABS[0])
 
   return (
-    <div className="mx-auto max-w-6xl p-4 sm:p-6">
+    // ⚠️ 여기 `mx-auto max-w-6xl p-4 sm:p-6` 가 있었고, 390px 에서 이 화면만 **가로로
+    //    412px 밀렸다**(런타임 스윕 실측 2026-09-05 — 정적 검사로는 안 잡힌다).
+    //    원인은 표가 아니라 `mx-auto` 였다. 부모(csat/layout.tsx)가 `flex flex-col` 인데
+    //    flex 아이템에 가로 auto 마진이 붙으면 **stretch 가 무효가 되고 내용 크기로 줄어든다.**
+    //    그래서 안쪽 `min-w-[720px]` 표가 `overflow-x-auto` 안에 얌전히 있는데도 이 상자
+    //    자체가 800px 로 부풀어 페이지를 밀었다. 게다가 레이아웃이 이미 `p-4 sm:p-6` 라
+    //    패딩도 두 겹이었다. 형제 6개 화면과 같은 모양으로 맞춘다.
+    <div className="flex flex-col gap-4">
       <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <ShieldCheck className="h-5 w-5 text-[#8B5CF6]" aria-hidden />
