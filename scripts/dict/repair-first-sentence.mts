@@ -44,11 +44,20 @@ const t = fs.readFileSync('apps/web/.env.local', 'utf8')
 const g = (k: string) => (t.match(new RegExp(`^${k}\\s*=\\s*(.+)$`, 'm')) ?? [])[1]?.trim().replace(/^["']|["']$/g, '')
 const db = createClient(g('NEXT_PUBLIC_SUPABASE_URL')!, g('SUPABASE_SERVICE_ROLE_KEY')!, { auth: { persistSession: false } })
 
-async function retry<T extends { error: unknown }>(fn: () => PromiseLike<T>, tries = 5): Promise<T> {
+/**
+ * 물러섰다 다시 — 이 저장소에서 두 번 데인 자리다.
+ *   ① supabase-js 는 fetch 실패를 **던지지 않고 `{ error }` 로 돌려준다.** try/catch 만 두면
+ *      재시도가 한 번도 안 걸리고 그대로 죽는다.
+ *   ② 짧은 백오프로는 못 넘긴다. 워크스페이스를 여러 세션·에이전트가 공유해 같은 DB 를
+ *      동시에 두드리면 REST 가 몇 분씩 막힌다(실측 2026-09-05: MCP 경로는 살아 있는데
+ *      REST 만 `TypeError: fetch failed`). 5회 12초로는 부족해 복구가 통째로 죽었다.
+ * 그래서 **길게, 상한을 두고** 기다린다. 멱등이라 중간에 죽어도 다시 돌리면 이어진다.
+ */
+async function retry<T extends { error: unknown }>(fn: () => PromiseLike<T>, tries = 10): Promise<T> {
   let last: T | undefined
   for (let i = 0; i < tries; i += 1) {
     try { const r = await fn(); if (!r.error) return r; last = r } catch (e) { last = { error: e } as T }
-    await new Promise((r) => setTimeout(r, 800 * (i + 1)))
+    await new Promise((r) => setTimeout(r, Math.min(30_000, 1_000 * 2 ** i)))
   }
   return last as T
 }
@@ -86,7 +95,7 @@ async function repairUnit(
   if (!COMMIT || !updates.length) return
   // PostgREST 는 행마다 값이 다른 일괄 UPDATE 를 못 한다(upsert 로 흉내 내면 안 넘긴 컬럼이
   // 기본값으로 덮여 다른 자산이 날아간다). 그래서 행 단위로 보내되 **동시성으로만** 줄인다.
-  const CONC = 12
+  const CONC = 4
   for (let i = 0; i < updates.length; i += CONC) {
     await Promise.all(updates.slice(i, i + CONC).map(async (u) => {
       const q = db.from(table).update({ first_sentence: u.next })
@@ -132,9 +141,17 @@ async function books() {
 }
 
 async function articles() {
-  const { data: as_, error } = await retry(() => db.from('library_articles').select('id').order('id'))
-  if (error) throw new Error(String((error as { message?: string }).message))
-  const list = LIMIT ? (as_ ?? []).slice(0, LIMIT) : (as_ ?? [])
+  // ⚠️ **글은 26,065편이라 한 번에 못 받는다.** PostgREST 는 한 응답에 1,000행까지만 주고
+  //    넘친 쪽은 오류를 내지 않는다 — 그냥 1,000편만 고치고 "끝났다" 고 보고하게 된다.
+  //    (도서는 401권이라 안 걸리지만, 여기서 안 걸린다고 저기서도 안 걸리는 게 아니다.)
+  const all: Array<{ id: string }> = []
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await retry(() => db.from('library_articles').select('id').order('id').range(from, from + 999))
+    if (error) throw new Error(String((error as { message?: string }).message))
+    all.push(...((data ?? []) as Array<{ id: string }>))
+    if ((data ?? []).length < 1000) break
+  }
+  const list = LIMIT ? all.slice(0, LIMIT) : all
   for (const a of list as Array<{ id: string }>) {
     const { data: art } = await retry(() => db.from('library_articles').select('content').eq('id', a.id).limit(1))
     const raw = (art ?? [])[0]?.content as string | undefined
