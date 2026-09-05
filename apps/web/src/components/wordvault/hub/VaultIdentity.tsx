@@ -3,12 +3,7 @@
 // WordVault Section 1 (v06.36) — Activity Ring + 거대한 hero + 캡슐 메타.
 // iOS Foundation 프리미티브 사용 (Card / Capsule / ActivityRing / PrimaryButton / StatPill).
 
-'use client'
-
-import { useEffect, useState } from 'react'
-
 import { ActivityRing, Capsule, Card, PrimaryButton, StatPill } from '@/components/ui/ios'
-import { createClient } from '@/lib/supabase/client'
 import type { MemoryState } from '@/lib/srs'
 import { MEMORY_LABEL } from '@/lib/framework/memory-labels'
 
@@ -19,6 +14,8 @@ export interface VaultIdentityProps {
   accumulatedDays: number
   weeklyDone: number
   weeklyTarget: number
+  /** 진단으로 정해진 현재 V-Level. 없으면 캡슐을 내지 않는다(없는 것을 지어내지 않는다). */
+  vLevel: number | null
 }
 
 const NF = new Intl.NumberFormat('en-US')
@@ -42,30 +39,8 @@ export function VaultIdentity({
   accumulatedDays,
   weeklyDone,
   weeklyTarget,
+  vLevel,
 }: VaultIdentityProps) {
-  const [vLevel, setVLevel] = useState<number | null>(null)
-  useEffect(() => {
-    let cancelled = false
-    const supabase = createClient()
-    ;(async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (cancelled || !user) return
-      const { data } = await supabase
-        .from('user_profiles')
-        .select('current_v_level')
-        .eq('user_id', user.id)
-        .maybeSingle()
-      if (cancelled) return
-      const lv = (data as { current_v_level: number | null } | null)?.current_v_level
-      if (lv != null) setVLevel(lv)
-    })().catch(() => {})
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
   const goalPct = weeklyTarget > 0 ? Math.min(100, (weeklyDone / weeklyTarget) * 100) : 0
   const goalReached = weeklyTarget > 0 && weeklyDone >= weeklyTarget
 

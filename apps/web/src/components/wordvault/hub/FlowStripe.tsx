@@ -1,117 +1,30 @@
 // apps/web/src/components/wordvault/hub/FlowStripe.tsx
 //
-// WordVault Section 6 (v06.35 iOS) — 학습 흐름 28일.
+// WordVault Section 7 (v06.35 iOS) — 학습 흐름 28일.
 //
 // iOS Fitness / Stocks "흐름" 감성:
 //   · 두꺼운 캡슐 막대 (rounded-full), 그라디언트 색상
 //   · 활동일 = brand --p, 오늘 = solid, 비활동 = bg3
 //   · Stats 행 = 3개 통계 캡슐 (iOS Health Categories)
+//
+// 조회는 하지 않는다 — `daily_activity` 는 허브가 **한 번** 읽어 주간 목표와 이 줄을
+// 함께 접는다(`lib/wordvault/hub-query.ts`). 예전에는 같은 표를 이 섹션과 히어로가
+// 각자 쳐서 한 화면에 2회였다.
 
-'use client'
-
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { Frame, StatPill } from '@/components/ui/ios'
-import { createClient } from '@/lib/supabase/client'
-
-interface Day {
-  date: string
-  words: number
-  minutes: number
-}
-
-type State =
-  | { kind: 'loading' }
-  | { kind: 'unauth' }
-  | { kind: 'ready'; days: Day[]; lastActivity: { date: string; modules: string[] } | null }
-  | { kind: 'error'; message: string }
+import type { FlowDay } from '@/lib/wordvault/hub-query'
 
 const NF = new Intl.NumberFormat('en-US')
 
-export function FlowStripe() {
-  const [state, setState] = useState<State>({ kind: 'loading' })
+interface FlowStripeProps {
+  days: FlowDay[]
+  lastActivity: { date: string; modules: string[] } | null
+}
 
-  useEffect(() => {
-    let cancelled = false
-    const supabase = createClient()
-    ;(async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (cancelled) return
-      if (!user) {
-        setState({ kind: 'unauth' })
-        return
-      }
-
-      const today = new Date()
-      const cutoff = new Date(today)
-      cutoff.setDate(today.getDate() - 27)
-      const cutoffStr = cutoff.toISOString().slice(0, 10)
-
-      const { data, error } = await supabase
-        .from('daily_activity')
-        .select('date, total_words, total_minutes, by_module')
-        .eq('user_id', user.id)
-        .gte('date', cutoffStr)
-        .order('date', { ascending: true })
-
-      if (cancelled) return
-      if (error) {
-        setState({ kind: 'error', message: error.message })
-        return
-      }
-
-      const map = new Map<string, { words: number; minutes: number; byModule: Record<string, number> }>()
-      for (const r of (data ?? []) as Array<{
-        date: string
-        total_words: number | null
-        total_minutes: number | null
-        by_module: Record<string, number> | null
-      }>) {
-        map.set(r.date, {
-          words: r.total_words ?? 0,
-          minutes: r.total_minutes ?? 0,
-          byModule: r.by_module ?? {},
-        })
-      }
-
-      const days: Day[] = []
-      for (let i = 0; i < 28; i++) {
-        const d = new Date(cutoff)
-        d.setDate(cutoff.getDate() + i)
-        const key = d.toISOString().slice(0, 10)
-        const entry = map.get(key)
-        days.push({
-          date: key,
-          words: entry?.words ?? 0,
-          minutes: entry?.minutes ?? 0,
-        })
-      }
-
-      let lastActivity: { date: string; modules: string[] } | null = null
-      const lastWithActivity = [...(data ?? [])]
-        .filter(
-          (r): r is { date: string; total_words: number | null; total_minutes: number | null; by_module: Record<string, number> | null } =>
-            (r.total_words ?? 0) > 0 || (r.total_minutes ?? 0) > 0,
-        )
-        .pop()
-      if (lastWithActivity) {
-        const modules = Object.keys(lastWithActivity.by_module ?? {}).slice(0, 3)
-        lastActivity = { date: lastWithActivity.date, modules }
-      }
-
-      setState({ kind: 'ready', days, lastActivity })
-    })().catch((e: unknown) => {
-      if (cancelled) return
-      setState({ kind: 'error', message: e instanceof Error ? e.message : String(e) })
-    })
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
-  if (state.kind === 'loading' || state.kind === 'unauth' || state.kind === 'error') {
+export function FlowStripe({ days, lastActivity }: FlowStripeProps) {
+  if (days.length === 0) {
     return (
       <Frame title="지난 28일">
         <p className="font-body text-[13px] text-[var(--t2)]">
@@ -121,7 +34,6 @@ export function FlowStripe() {
     )
   }
 
-  const { days, lastActivity } = state
   const total = days.reduce((s, d) => s + d.words, 0)
   const activeDays = days.filter((d) => d.words > 0).length
   const avg = activeDays > 0 ? Math.round(total / activeDays) : 0
@@ -160,7 +72,7 @@ export function FlowStripe() {
   )
 }
 
-function Sparkline({ days }: { days: Day[] }) {
+function Sparkline({ days }: { days: FlowDay[] }) {
   const max = useMemo(() => Math.max(1, ...days.map((d) => d.words)), [days])
   return (
     <div

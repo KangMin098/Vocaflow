@@ -2,29 +2,15 @@
 //
 // WordVault Section 2 (v06.36) — 단어 수준 지도.
 // iOS 프리미티브 사용 (Frame / Capsule / InsetGroup / InsetRow).
-
-'use client'
-
-import { useEffect, useState } from 'react'
-
-import { pagedSelect } from '@/lib/supabase/paged-select'
+//
+// ── 2026-09-05 — 조회를 서버로 옮겼다 ─────────────────────────────────
+// 이 섹션은 `vocabularies` 를 **전량 한 번 더** 내려받고(허브가 이미 받은 것과 같은 표)
+// `shared_dictionary` 를 500개씩 **직렬 루프**로 쳤다. 1,945단어 계정에서 연속 왕복 4회다.
+// 지금은 `lib/wordvault/hub-query.ts` 가 허브가 이미 읽은 lemma 로 사전만 친다.
+// 남은 것은 그리기뿐이라 상태 분기도 세 갈래에서 두 갈래(못 셌다 / 분류된 게 없다)로 준다.
 
 import { Capsule, Frame, InsetGroup, InsetRow } from '@/components/ui/ios'
-import { createClient } from '@/lib/supabase/client'
-
-interface LevelData {
-  byLevel: number[]
-  currentVLevel: number | null
-  trackLevels: Record<string, number>
-  totalWithLevel: number
-}
-
-type State =
-  | { kind: 'loading' }
-  | { kind: 'unauth' }
-  | { kind: 'no-words' }
-  | { kind: 'ready'; data: LevelData }
-  | { kind: 'error'; message: string }
+import type { LevelMapData } from '@/lib/wordvault/hub-query'
 
 const TRACK_LABEL: Record<string, string> = {
   csat_korean: '수능',
@@ -34,148 +20,32 @@ const TRACK_LABEL: Record<string, string> = {
 
 const NF = new Intl.NumberFormat('en-US')
 
-export function VocabularyLevelMap() {
-  const [state, setState] = useState<State>({ kind: 'loading' })
+interface VocabularyLevelMapProps {
+  data: LevelMapData
+}
 
-  useEffect(() => {
-    let cancelled = false
-    const supabase = createClient()
-    ;(async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (cancelled) return
-      if (!user) {
-        setState({ kind: 'unauth' })
-        return
-      }
-
-      const { data: profile } = await supabase
-        .from('user_profiles')
-        .select('current_v_level, current_track_levels')
-        .eq('user_id', user.id)
-        .maybeSingle()
-      if (cancelled) return
-      const p = profile as
-        | {
-            current_v_level: number | null
-            current_track_levels: Record<string, number> | null
-          }
-        | null
-
-      // lemma 가 있으면 lemma, 없으면 표면형(word) 으로 사전을 찾는다.
-      //
-      // 왜: 이 화면은 `lemma` 만 보고 `.not('lemma','is',null)` 로 걸렀는데, 실측(2026-08-15)
-      // 결과 이 계정 252개 중 **lemma 가 채워진 것은 1개**였다(251개 null). 그래서 지도가
-      // 통째로 비어 "단어가 누적되면 보여요" 를 띄웠다 — 252개를 가진 학습자에게.
-      // 같은 데이터를 word 로 매칭하면 **242개**가 v_level 까지 붙는다.
-      //
-      // ⚠️ 근본 원인은 화면이 아니라 `vocabularies.lemma` 를 채우는 파이프라인이다.
-      //    여기 폴백은 그 결손을 **가리는 것이 아니라** 이미 있는 데이터를 제대로 읽는 것이다.
-      // ⚠️ 상한을 안 적었는데 **그게 곧 1,000행**이다 — PostgREST 가 거기서 끊는다
-      //    (실측 2026-08-30 · 오류가 아니다). 이미 1,945행인 계정이 있어, 레벨 분포가
-      //    절반만 세어진 채 "내 어휘 지도" 로 떴다.
-      //    ⚠️ 바로 아래 사전 조회는 이미 500개씩 쪼개고 있었다 — 쪼개야 한다는 걸 알면서
-      //       **기본 읽기만 안 쪼갠** 자리다. 이 저장소에서 세 번째로 같은 모양이다.
-      let vocabs: Array<{ lemma: string | null; word: string | null }> = []
-      try {
-        vocabs = await pagedSelect<{ lemma: string | null; word: string | null }>(
-          (lo, hi) =>
-            supabase.from('vocabularies').select('lemma, word').eq('user_id', user.id).range(lo, hi),
-          'level-map vocabularies',
-        )
-      } catch {
-        if (cancelled) return
-        setState({ kind: 'error', message: '어휘 지도를 불러오지 못했어요' })
-        return
-      }
-      if (cancelled) return
-
-      const lemmas = (vocabs as Array<{ lemma: string | null; word: string | null }>)
-        .map((v) => (v.lemma ?? v.word ?? '').trim().toLowerCase())
-        .filter((v) => v.length > 0)
-
-      const byLevel = new Array<number>(12).fill(0)
-      let totalWithLevel = 0
-      if (lemmas.length > 0) {
-        const CHUNK = 500
-        for (let i = 0; i < lemmas.length; i += CHUNK) {
-          const slice = lemmas.slice(i, i + CHUNK)
-          const { data: dict } = await supabase
-            .from('shared_dictionary')
-            .select('word, v_level')
-            .in('word', slice)
-          if (cancelled) return
-          for (const r of (dict ?? []) as Array<{ word: string; v_level: number | null }>) {
-            if (r.v_level != null && r.v_level >= 0 && r.v_level <= 11) {
-              byLevel[r.v_level] = (byLevel[r.v_level] ?? 0) + 1
-              totalWithLevel += 1
-            }
-          }
-        }
-      }
-
-      if (totalWithLevel === 0) {
-        setState({ kind: 'no-words' })
-        return
-      }
-
-      setState({
-        kind: 'ready',
-        data: {
-          byLevel,
-          currentVLevel: p?.current_v_level ?? null,
-          trackLevels: p?.current_track_levels ?? {},
-          totalWithLevel,
-        },
-      })
-    })().catch((e: unknown) => {
-      if (cancelled) return
-      setState({ kind: 'error', message: e instanceof Error ? e.message : String(e) })
-    })
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
-  // 세 상태를 한 문장으로 뭉개지 않는다.
-  //
-  // 예전에는 loading·unauth·error 가 모두 "단어가 누적되면 V-Level 분포가 보여요" 였다.
-  // 그래서 **조회가 실패해도 학습자는 "내 단어가 아직 부족한가 보다" 로 읽었다.**
-  // 이 프로젝트가 처방 `unavailable` 플래그로 이미 한 번 싸운 침묵과 같은 계열이다.
-  if (state.kind === 'loading') {
-    return (
-      <Frame title="단어 수준 지도">
-        <p aria-busy="true" className="font-body text-[13px] text-[var(--t2)]">
-          수준 분포를 세는 중…
-        </p>
-      </Frame>
-    )
-  }
-
-  if (state.kind === 'unauth' || state.kind === 'error') {
+export function VocabularyLevelMap({ data }: VocabularyLevelMapProps) {
+  // 실패를 "아직 단어가 부족한가 보다" 로 읽히게 두지 않는다 — 이 프로젝트가 처방
+  // `unavailable` 플래그로 이미 한 번 싸운 침묵과 같은 계열이다.
+  if (data.failed) {
     return (
       <Frame title="단어 수준 지도">
         <p role="status" className="font-body text-[13px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
-          {state.kind === 'unauth'
-            ? '로그인하면 내 수준 분포가 보여요.'
-            : '지금 수준 분포를 세지 못했어요. 단어가 사라진 건 아니에요 — 잠시 뒤 다시 열어 주세요.'}
+          지금 수준 분포를 세지 못했어요. 단어가 사라진 건 아니에요 — 잠시 뒤 다시 열어 주세요.
         </p>
       </Frame>
     )
   }
 
-  if (state.kind === 'no-words') {
+  if (data.totalWithLevel === 0) {
     return (
       <Frame title="단어 수준 지도">
-        <p className="font-body text-[13px] text-[var(--t2)]">
-          사전 매칭된 단어가 없어요.
-        </p>
+        <p className="font-body text-[13px] text-[var(--t2)]">사전 매칭된 단어가 없어요.</p>
       </Frame>
     )
   }
 
-  const { byLevel, currentVLevel, trackLevels, totalWithLevel } = state.data
+  const { byLevel, currentVLevel, trackLevels, totalWithLevel } = data
   const max = Math.max(1, ...byLevel)
   const iPlusOne = currentVLevel != null && currentVLevel < 11 ? currentVLevel + 1 : null
 

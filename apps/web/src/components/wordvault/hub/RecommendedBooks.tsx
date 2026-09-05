@@ -14,22 +14,13 @@
 import { Compass } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { Frame, PrimaryButton } from '@/components/ui/ios'
-import { createClient } from '@/lib/supabase/client'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import { scoreBook } from '@/lib/library/recommend-books'
 import type { PublishedBook } from '@/lib/library/published-book'
 import { bookCover } from '@/lib/library/book-cover'
-
-type State =
-  | { kind: 'loading' }
-  | { kind: 'unauth' }
-  | { kind: 'no-diagnostic' }
-  | { kind: 'empty' }
-  | { kind: 'ready'; vLevel: number; books: PublishedBook[] }
-  | { kind: 'error'; message: string }
 
 type FitTier = NonNullable<ReturnType<typeof judgeIPlusOne>>['tier']
 
@@ -40,93 +31,38 @@ const FIT_META: Record<FitTier, { label: string; bg: string; color: string }> = 
   hard: { label: '어려워요', bg: '#FFF1E5', color: '#9A3412' },
 }
 
-export function RecommendedBooks() {
-  const [state, setState] = useState<State>({ kind: 'loading' })
+interface RecommendedBooksProps {
+  /** 이미 등록한 도서를 뺀 발행 도서. 서버가 한 번에 읽어 넘긴다. */
+  books: PublishedBook[]
+  /** 진단 전이면 `null` — 그때는 추천이 아니라 진단으로 안내한다. */
+  vLevel: number | null
+}
 
-  useEffect(() => {
-    let cancelled = false
-    const supabase = createClient()
-    ;(async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (cancelled) return
-      if (!user) {
-        setState({ kind: 'unauth' })
-        return
-      }
-
-      const { data: profile } = await supabase
-        .from('user_profiles')
-        .select('current_v_level')
-        .eq('user_id', user.id)
-        .maybeSingle()
-      if (cancelled) return
-      const vLevel =
-        (profile as { current_v_level: number | null } | null)?.current_v_level ?? null
-      if (vLevel == null) {
-        setState({ kind: 'no-diagnostic' })
-        return
-      }
-
-      const { data: enrolled } = await supabase
-        .from('texts')
-        .select('library_book_id')
-        .eq('user_id', user.id)
-        .not('library_book_id', 'is', null)
-      const enrolledIds = new Set(
-        ((enrolled ?? []) as Array<{ library_book_id: string }>).map((e) => e.library_book_id),
-      )
-
-      const { data, error } = await supabase
-        .from('library_books')
-        .select(
-          // popularity_rank 는 library_seed_catalog 소유 — library_books 에 없어 select 시 400
-          // (인기 가중은 서버 병합 경로(/library/books)만 적용, 허브 추천은 나머지 신호로 스코어)
-          'id, title, author, cefr_level, cefr_band, book_v_level, word_count, chapter_count, reading_minutes, ' +
-            'cover_from, cover_to, cover_image_url, lexical_coverage, is_picture_book, published_at',
-        )
-        .eq('status', 'published')
-        .eq('copyright_safe_in_kr', true)
-        .not('published_at', 'is', null)
-        .limit(80)
-      if (cancelled) return
-      if (error) {
-        setState({ kind: 'error', message: error.message })
-        return
-      }
-
-      const all = ((data ?? []) as unknown as PublishedBook[]).filter(
-        (b) => !enrolledIds.has(b.id),
-      )
-      if (all.length === 0) {
-        setState({ kind: 'empty' })
-        return
-      }
-      setState({ kind: 'ready', vLevel, books: all })
-    })().catch((e: unknown) => {
-      if (cancelled) return
-      setState({ kind: 'error', message: e instanceof Error ? e.message : String(e) })
-    })
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
+/**
+ * ⚠️ **이 컴포넌트는 스스로 조회하지 않는다** (2026-09-05).
+ *
+ * 예전에는 마운트 후 `auth.getUser()` → `user_profiles` → `texts` → `library_books`
+ * 네 번을 스스로 왕복했다. 허브의 다른 섹션들도 저마다 같은 일을 해서, `/wordvault` 한
+ * 화면이 `auth.getUser()` 를 **8번** 부르고 단어 전량을 **두 번** 내려받았다.
+ *
+ * 지금은 `lib/wordvault/hub-query.ts` 가 서버에서 한 벌로 읽고 내려준다. 여기서 다시
+ * 조회를 붙이면 그 낭비가 되살아난다 — 필요한 데이터가 없으면 **props 를 늘려라.**
+ */
+export function RecommendedBooks({ books, vLevel }: RecommendedBooksProps) {
   const ranked = useMemo(() => {
-    if (state.kind !== 'ready') return []
-    return state.books
+    if (vLevel == null) return []
+    return books
       .map((b) => {
-        const s = scoreBook(b, { userVLevel: state.vLevel, userMastery: 'warm' })
-        const fit = judgeIPlusOne(b.lexical_coverage, state.vLevel, b.is_picture_book)
+        const s = scoreBook(b, { userVLevel: vLevel, userMastery: 'warm' })
+        const fit = judgeIPlusOne(b.lexical_coverage, vLevel, b.is_picture_book)
         return { book: b, score: s.score, reasons: s.reasons, fit }
       })
       .filter((r) => r.score > 0)
       .sort((a, b) => b.score - a.score)
       .slice(0, 6)
-  }, [state])
+  }, [books, vLevel])
 
-  if (state.kind === 'unauth' || state.kind === 'no-diagnostic') {
+  if (vLevel == null) {
     return (
       <Frame title="다음 권장 도서">
         <div className="flex items-center justify-between gap-4 rounded-ios-xl bg-[var(--bg2)] px-5 py-4">
@@ -150,23 +86,7 @@ export function RecommendedBooks() {
     )
   }
 
-  if (state.kind === 'loading') {
-    return (
-      <Frame title="다음 권장 도서">
-        <div className="flex gap-3 overflow-hidden">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div
-              key={i}
-              className="h-[228px] w-[156px] shrink-0 rounded-[16px] bg-[var(--bg2)]"
-              style={{ animation: `pulse 1.6s ease-in-out ${i * 100}ms infinite` }}
-            />
-          ))}
-        </div>
-      </Frame>
-    )
-  }
-
-  if (state.kind === 'empty' || state.kind === 'error' || ranked.length === 0) {
+  if (ranked.length === 0) {
     return (
       <Frame title="다음 권장 도서">
         <p className="font-body text-[13px] text-[var(--t2)]">
@@ -185,7 +105,7 @@ export function RecommendedBooks() {
   return (
     <Frame
       title="다음 권장 도서"
-      meta={state.kind === 'ready' ? `V${state.vLevel} 기준 · i+1` : undefined}
+      meta={`V${vLevel} 기준 · i+1`}
       moreHref="/library/books"
     >
       {/* iOS horizontal scroll snap */}

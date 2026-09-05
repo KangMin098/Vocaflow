@@ -15,8 +15,7 @@
 import { BookOpen, ChevronRight, FileText, Library } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { pagedSelectIn } from '@/lib/supabase/paged-select'
+import { useState } from 'react'
 
 import { unsubscribeSet } from '@/app/(main)/library/vocab/actions'
 import { VocabSetPreviewModal } from '@/components/library/vocab/VocabSetPreviewModal'
@@ -24,7 +23,6 @@ import { Frame, InsetGroup, InsetRow, SegmentControl } from '@/components/ui/ios
 import type { SegmentItem } from '@/components/ui/ios'
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 import type { PublishedVocabSet } from '@/lib/library/vocab/queries'
-import { createClient } from '@/lib/supabase/client'
 
 interface BookEntry {
   bookId: string
@@ -61,12 +59,6 @@ interface SetEntry {
   cefrLevel?: string | null
 }
 
-type State =
-  | { kind: 'loading' }
-  | { kind: 'unauth' }
-  | { kind: 'ready'; books: BookEntry[]; scripts: ScriptEntry[]; sets: SetEntry[] }
-  | { kind: 'error'; message: string }
-
 type Tab = 'books' | 'scripts' | 'sets'
 
 const NF = new Intl.NumberFormat('en-US')
@@ -79,8 +71,27 @@ const TAB_META: Record<Tab, { label: string; icon: LucideIcon; color: string }> 
   sets: { label: MATERIAL_LABEL.word_set, icon: Library, color: 'var(--ios-purple)' },
 }
 
-export function ResourcePortfolio() {
-  const [state, setState] = useState<State>({ kind: 'loading' })
+interface ResourcePortfolioProps {
+  books: BookEntry[]
+  scripts: ScriptEntry[]
+  sets: SetEntry[]
+}
+
+/**
+ * ⚠️ **스스로 조회하지 않는다** — `lib/wordvault/hub-query.ts` 가 서버에서 한 벌로 읽는다.
+ *
+ * 예전에는 이 컴포넌트 하나가 마운트 후 `auth.getUser()` → `texts` → 챕터 진행 →
+ * 구독 세트 → 세트 메타까지 스스로 왕복했다. 허브의 다른 섹션들도 저마다 같은 일을 해서
+ * `/wordvault` 한 화면이 `auth.getUser()` 를 **8번** 부르고 단어 전량을 **두 번** 내려받았다
+ * (실측 2026-09-05). 여기에 조회를 다시 붙이면 그 낭비가 되살아난다 — props 를 늘려라.
+ */
+export function ResourcePortfolio({
+  books,
+  scripts,
+  sets: allSets,
+}: ResourcePortfolioProps) {
+  /** 이번 화면에서 해지한 세트 id — 서버가 다시 읽어 올 때까지 화면에서만 뺀다. */
+  const [unsubscribed, setUnsubscribed] = useState<Set<string>>(() => new Set())
   const [tab, setTab] = useState<Tab>('books')
   // 학습자가 탭을 실제로 눌렀는가 — 누르기 전에는 화면이 가장 많이 가진 종류를 연다.
   const [touched, setTouched] = useState(false)
@@ -129,11 +140,7 @@ export function ResourcePortfolio() {
     try {
       const res = await unsubscribeSet(set.id)
       if (res.ok) {
-        setState((prev) =>
-          prev.kind === 'ready'
-            ? { ...prev, sets: prev.sets.filter((x) => x.setId !== set.id) }
-            : prev
-        )
+        setUnsubscribed((prev) => new Set(prev).add(set.id))
         setPreview(null)
       }
     } finally {
@@ -141,291 +148,9 @@ export function ResourcePortfolio() {
     }
   }
 
-  useEffect(() => {
-    let cancelled = false
-    const supabase = createClient()
-    ;(async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (cancelled) return
-      if (!user) {
-        setState({ kind: 'unauth' })
-        return
-      }
-
-      const { data: textsData } = await supabase
-        .from('texts')
-        .select(
-          'id, title, author, library_book_id, user_book_group_id, chapter_idx, status, progress_percent, last_opened'
-        )
-        .eq('user_id', user.id)
-        .order('last_opened', { ascending: false, nullsFirst: false })
-
-      if (cancelled) return
-      const texts = (textsData ?? []) as Array<{
-        id: string
-        title: string
-        author: string | null
-        library_book_id: string | null
-        user_book_group_id: string | null
-        chapter_idx: number | null
-        status: string | null
-        progress_percent: number | null
-        last_opened: string | null
-      }>
-
-      const bookGroups = new Map<string, typeof texts>()
-      const userBookGroups = new Map<string, typeof texts>()
-      const standalone: typeof texts = []
-      for (const r of texts) {
-        if (r.library_book_id) {
-          const arr = bookGroups.get(r.library_book_id) ?? []
-          arr.push(r)
-          bookGroups.set(r.library_book_id, arr)
-        } else if (r.user_book_group_id) {
-          const arr = userBookGroups.get(r.user_book_group_id) ?? []
-          arr.push(r)
-          userBookGroups.set(r.user_book_group_id, arr)
-        } else {
-          standalone.push(r)
-        }
-      }
-
-      const bookIds = Array.from(bookGroups.keys())
-      const bookMetaMap = new Map<string, { title: string; author: string | null }>()
-      if (bookIds.length > 0) {
-        const { data: bookMeta } = await supabase
-          .from('library_books')
-          .select('id, title, author')
-          .in('id', bookIds)
-        for (const b of (bookMeta ?? []) as Array<{
-          id: string
-          title: string
-          author: string | null
-        }>) {
-          bookMetaMap.set(b.id, { title: b.title, author: b.author })
-        }
-      }
-
-      const books: BookEntry[] = []
-      for (const [bid, rows] of bookGroups) {
-        const sorted = [...rows].sort((a, b) => (a.chapter_idx ?? 0) - (b.chapter_idx ?? 0))
-        const meta = bookMetaMap.get(bid)
-        const completed = sorted.filter((r) => Number(r.progress_percent ?? 0) >= 100).length
-        const inProgress = sorted.filter((r) => {
-          const p = Number(r.progress_percent ?? 0)
-          return p > 0 && p < 100
-        }).length
-        const resume =
-          sorted.find((r) => r.status === 'in_progress') ??
-          sorted.find((r) => !r.status || r.status === 'not_started') ??
-          sorted[0]
-        const last = sorted.reduce<number | null>((acc, r) => {
-          const t = r.last_opened ? new Date(r.last_opened).getTime() : null
-          return t == null ? acc : acc == null || t > acc ? t : acc
-        }, null)
-        books.push({
-          bookId: bid,
-          title: meta?.title ?? sorted[0]?.title ?? '제목 없음',
-          author: meta?.author ?? sorted[0]?.author ?? null,
-          totalChapters: sorted.length,
-          completedChapters: completed,
-          inProgressChapters: inProgress,
-          resumeTextId: resume?.id ?? null,
-          lastStudiedAt: last,
-        })
-      }
-      books.sort((a, b) => (b.lastStudiedAt ?? 0) - (a.lastStudiedAt ?? 0))
-
-      const scripts: ScriptEntry[] = []
-      for (const [gid, rows] of userBookGroups) {
-        const sorted = [...rows].sort((a, b) => (a.chapter_idx ?? 0) - (b.chapter_idx ?? 0))
-        const completed = sorted.filter((r) => Number(r.progress_percent ?? 0) >= 100).length
-        const resume = sorted.find((r) => r.status === 'in_progress') ?? sorted[0]
-        const last = sorted.reduce<number | null>((acc, r) => {
-          const t = r.last_opened ? new Date(r.last_opened).getTime() : null
-          return t == null ? acc : acc == null || t > acc ? t : acc
-        }, null)
-        scripts.push({
-          id: gid,
-          title: sorted[0]?.title ?? '내 책',
-          isUserBook: true,
-          chapterCount: sorted.length,
-          completedChapters: completed,
-          lastStudiedAt: last,
-          href: resume ? `/text/${resume.id}?mode=read` : '/text',
-        })
-      }
-      for (const r of standalone) {
-        scripts.push({
-          id: r.id,
-          title: r.title,
-          isUserBook: false,
-          chapterCount: 1,
-          completedChapters: Number(r.progress_percent ?? 0) >= 100 ? 1 : 0,
-          lastStudiedAt: r.last_opened ? new Date(r.last_opened).getTime() : null,
-          href: `/text/${r.id}?mode=read`,
-        })
-      }
-      scripts.sort((a, b) => (b.lastStudiedAt ?? 0) - (a.lastStudiedAt ?? 0))
-
-      const { data: subsData } = await supabase
-        .from('user_word_set_subscriptions')
-        .select('set_id')
-        .eq('user_id', user.id)
-      const setIds = ((subsData ?? []) as Array<{ set_id: string }>).map((s) => s.set_id)
-
-      let setsRows: Array<{
-        id: string
-        title: string
-        category: string | null
-        curation_query: Record<string, unknown> | null
-        cefr_level: string | null
-        cover_emoji: string | null
-      }> = []
-      if (setIds.length > 0) {
-        const { data } = await supabase
-          .from('shared_word_sets')
-          .select('id, title, category, curation_query, cefr_level, cover_emoji')
-          .in('id', setIds)
-        setsRows = (data ?? []) as typeof setsRows
-      }
-
-      const setBookGroups = new Map<string, typeof setsRows>()
-      const otherSets: typeof setsRows = []
-      for (const s of setsRows) {
-        const bookId =
-          s.category === 'library_book' && s.curation_query
-            ? ((s.curation_query['book_id'] as string | undefined) ?? null)
-            : null
-        if (bookId) {
-          const arr = setBookGroups.get(bookId) ?? []
-          arr.push(s)
-          setBookGroups.set(bookId, arr)
-        } else {
-          otherSets.push(s)
-        }
-      }
-
-      const setBookIds = Array.from(setBookGroups.keys()).filter((id) => !bookMetaMap.has(id))
-      if (setBookIds.length > 0) {
-        const { data: bookMeta } = await supabase
-          .from('library_books')
-          .select('id, title, author')
-          .in('id', setBookIds)
-        for (const b of (bookMeta ?? []) as Array<{
-          id: string
-          title: string
-          author: string | null
-        }>) {
-          bookMetaMap.set(b.id, { title: b.title, author: b.author })
-        }
-      }
-
-      const countsPerSet = new Map<string, number>()
-      if (setIds.length > 0) {
-        // ⚠️ 개수를 세려면 **전량**이 필요하다. 그냥 받으면 PostgREST 가 1,000행에서 끊는데
-        //   2026-08-30 실측으로 한 사용자의 vocabularies 가 이미 1,945행이었다 —
-        //   세트별 단어 수가 적게 세어지고, 아래에서 그 수로 정렬까지 하므로 순서도 틀어진다.
-        const vocabsBySet = await pagedSelectIn<{ shared_set_id: string }>(
-          setIds,
-          (chunk, from, to) =>
-            supabase
-              .from('vocabularies')
-              .select('shared_set_id')
-              .eq('user_id', user.id)
-              .in('shared_set_id', chunk)
-              .range(from, to),
-          '세트별 내 단어',
-        )
-        for (const v of vocabsBySet) {
-          countsPerSet.set(v.shared_set_id, (countsPerSet.get(v.shared_set_id) ?? 0) + 1)
-        }
-      }
-
-      const sets: SetEntry[] = []
-      for (const [bid, rows] of setBookGroups) {
-        const meta = bookMetaMap.get(bid)
-        const wc = rows.reduce((s, r) => s + (countsPerSet.get(r.id) ?? 0), 0)
-        const firstSet = [...rows].sort((a, b) => {
-          const ai = Number(a.curation_query?.['chapter_idx'] ?? 0)
-          const bi = Number(b.curation_query?.['chapter_idx'] ?? 0)
-          return ai - bi
-        })[0]
-        sets.push({
-          bookId: bid,
-          title: meta?.title ?? '도서 단어장',
-          author: meta?.author ?? null,
-          wordCount: wc,
-          chapters: rows.length,
-          href: firstSet
-            ? `/wordvault/browse?filter=set:${firstSet.id}&book=${bid}`
-            : '/wordvault/browse',
-        })
-      }
-      // 내부 챕터(shared_words.chapter) 보유 세트만 학습 모달(챕터 런처)로 라우팅 — 챕터 없는 세트는
-      //   모달이 10개 미리보기뿐이라 기존 '단어 브라우저' 링크가 더 유용.
-      // ⚠️ 여기 있던 `.limit(10000)` 은 효과가 없었다 — PostgREST 는 1,000행에서 끊는다.
-      //   "표준 subscribed 세트는 소수(≤1184단어)" 라는 전제도 이미 틀렸다: 2026-08-30 실측으로
-      //   챕터 보유 세트 하나가 최대 1,828행이고 큐레이션 전체로는 26,390행이다.
-      //   잘리면 챕터형 세트가 '챕터 없음' 으로 판정돼 챕터 런처 대신 단어 브라우저로 샌다.
-      const chapteredSetIds = new Set<string>()
-      const otherSetIds = otherSets.map((s) => s.id)
-      if (otherSetIds.length > 0) {
-        const chRows = await pagedSelectIn<{ set_id: string }>(
-          otherSetIds,
-          (chunk, from, to) =>
-            supabase
-              .from('shared_words')
-              .select('set_id')
-              .in('set_id', chunk)
-              .not('chapter', 'is', null)
-              .range(from, to),
-          '챕터 보유 세트',
-        )
-        for (const r of chRows) chapteredSetIds.add(r.set_id)
-      }
-
-      for (const s of otherSets) {
-        const wc = countsPerSet.get(s.id) ?? 0
-        const chaptered = chapteredSetIds.has(s.id)
-        sets.push({
-          title: s.title,
-          wordCount: wc,
-          href: `/wordvault/browse?filter=set:${s.id}`,
-          // 챕터형 세트만 setId 부여 → 행 탭 시 챕터 학습 모달. 그 외는 href(단어 브라우저) 유지.
-          ...(chaptered
-            ? {
-                setId: s.id,
-                coverEmoji: s.cover_emoji,
-                category: s.category,
-                cefrLevel: s.cefr_level,
-              }
-            : {}),
-        })
-      }
-      sets.sort((a, b) => b.wordCount - a.wordCount)
-
-      setState({ kind: 'ready', books, scripts, sets })
-    })().catch((e: unknown) => {
-      if (cancelled) return
-      setState({ kind: 'error', message: e instanceof Error ? e.message : String(e) })
-    })
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
-  if (state.kind !== 'ready') {
-    return (
-      <Frame title="학습 자산">
-        <EmptyState text={state.kind === 'loading' ? '불러오는 중…' : '학습 자산이 없어요.'} />
-      </Frame>
-    )
-  }
-
-  const { books, scripts, sets } = state
+  // 구독을 해지한 세트는 서버가 다음 렌더에서 빼 준다. 그전까지 화면에서만 미리 지운다 —
+  // 지우지 않으면 해지했는데 그대로 남아 "안 먹었다" 로 읽힌다.
+  const sets = allSets.filter((s) => !s.setId || !unsubscribed.has(s.setId))
   const counts = { books: books.length, scripts: scripts.length, sets: sets.length }
   const isEmpty = counts.books === 0 && counts.scripts === 0 && counts.sets === 0
 
