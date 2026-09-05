@@ -81,10 +81,20 @@ export async function mediawikiRandom(api, n, opts = {}) {
   return { total, items: items.slice(0, n) }
 }
 
-/** MediaWiki 도입부(`exintro`). 본문 전체가 아니라 **도입부가 곧 지문 단위**다. */
-export async function mediawikiLead(api, title, opts = {}) {
+/**
+ * MediaWiki 평문 추출.
+ *
+ * `intro: true`(기본)면 도입부(`exintro`)만, `false` 면 본문 전체를 준다.
+ *
+ * ⚠️ **도입부만으로는 교재 지문 창(100~200어)을 못 채운다.** 2026-09-05 실측 n=100:
+ * 도입부의 **65건이 100어 미만**이었다(길어서 걸린 것은 0건). 백과 도입부는 대개
+ * 한두 문장이다. 그래서 창을 채우려면 본문 앞부분까지 이어 받아야 한다 —
+ * 자르기로는 못 푼다. **없는 문장을 만들 수는 없다.**
+ */
+export async function mediawikiLead(api, title, { intro = true, ...opts } = {}) {
   const r = await mediawikiGet(
-    `${api}?action=query&prop=extracts&explaintext=1&exintro=1&titles=${encodeURIComponent(title)}&format=json`,
+    `${api}?action=query&prop=extracts&explaintext=1${intro ? '&exintro=1' : ''}` +
+      `&titles=${encodeURIComponent(title)}&format=json`,
     { json: true, ...opts },
   )
   if (!r.ok) return { error: r.error ? `연결 실패 — ${r.error}` : `HTTP ${r.status}` }

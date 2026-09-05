@@ -55,6 +55,13 @@ const LIMIT = Number(arg('limit') ?? 20)
 const BAND = arg('band')
 const WIKI = arg('wiki') ?? 'simple'
 const DEV_BASE = arg('base') ?? 'http://localhost:3000'
+/** `--no-trim` — 자르기를 끈다. **자르기가 수율에 얼마나 기여했는지 재려면** 이걸로 대조한다. */
+const TRIM = !process.argv.includes('--no-trim')
+/**
+ * 동시 요청 수. **429 는 250ms 간격 16연속에서 나왔다**(프로브 실측) — 4 는 그 아래다.
+ * 올리기 전에 재라. 막히면 수율이 아니라 실패 수가 는다.
+ */
+const CONCURRENCY = Number(arg('concurrency') ?? 4)
 
 /**
  * 두 위키. 라이선스 문자열은 **DB 에 이미 있는 값과 같은 표기**를 쓴다 —
@@ -85,9 +92,8 @@ if (!wiki) {
 }
 
 const { createClient } = await import('@supabase/supabase-js')
-const { gradeBand, bandOf, readability, curriculumFit, standaloneFit } = await import(
-  '../../packages/library-pipeline/src/index.ts'
-)
+const { gradeBand, bandOf, readability, curriculumFit, standaloneFit, PASSAGE_WORDS } =
+  await import('../../packages/library-pipeline/src/index.ts')
 
 const targetBand = BAND ? gradeBand(BAND) : null
 if (BAND && !targetBand) {
@@ -101,6 +107,27 @@ const db = createClient(
   { auth: { persistSession: false } },
 )
 
+const countWords = (s) => s.split(/\s+/).filter(Boolean).length
+
+/**
+ * 긴 도입부를 **앞에서 문장 단위로** 끊어 창에 넣는다.
+ *
+ * 백과 도입부는 첫 문장이 정의라 앞을 남기는 편이 자립적이다(`standaloneFit` 이 그것을 본다).
+ * 창에 못 들면 `null` — 억지로 넣지 않는다. 한 문장이 이미 창을 넘으면 그 글은 이 창의 글이 아니다.
+ */
+function trimToWindow(text, min, max) {
+  const sentences = text.split(/(?<=[.!?])\s+/).filter(Boolean)
+  let out = ''
+  for (const s of sentences) {
+    const next = out ? `${out} ${s}` : s
+    if (countWords(next) > max) break
+    out = next
+    // 최소치를 넘겼으면 거기서 멈춘다 — 길수록 좋은 것이 아니라 창 안이면 된다.
+    if (countWords(out) >= min) return out
+  }
+  return null
+}
+
 const sample = await mediawikiRandom(wiki.api, LIMIT)
 if (sample.error) {
   console.error(`표집 실패 — ${sample.error}`)
@@ -111,60 +138,97 @@ console.log(
     `${targetBand ? ` · 목표 칸 ${targetBand.id}` : ''}${COMMIT ? '' : ' — dry-run (쓰지 않는다)'}\n`,
 )
 
+// ── 1단계: 도입부를 동시에 받는다 ────────────────────────────────────
+// 순차로 받으면 100건에 3분이 걸렸다(2026-09-05 실측). 판정·적재는 순서대로 해야
+// 출력이 읽히므로 **받기만** 병렬로 한다.
+const t0 = Date.now()
+const leads = new Array(sample.items.length)
+let cursor = 0
+await Promise.all(
+  Array.from({ length: Math.min(CONCURRENCY, sample.items.length) }, async () => {
+    for (;;) {
+      const i = cursor++
+      if (i >= sample.items.length) return
+      // 본문 전체를 받는다 — **도입부만으로는 창을 못 채운다**(n=100 에서 65건이 100어 미만).
+      // 여기서 받은 글의 **앞에서부터** 창만큼 떼어 쓴다. 도입부는 그 앞부분이다.
+      leads[i] = await mediawikiLead(wiki.api, sample.items[i].id, { intro: false })
+    }
+  }),
+)
+const fetchMs = Date.now() - t0
+console.log(`도입부 ${leads.length}건 수신 ${(fetchMs / 1000).toFixed(1)}초\n`)
+
 let added = 0
 let existed = 0
-/** 도입부가 비었거나 너무 짧다 — 넘겨쓰기(redirect)·토막글이다. */
+/** 도입부가 비었거나 읽기 지표가 안 나온다 — 넘겨쓰기(redirect)·토막글이다. */
 let empty = 0
-/** 어수가 지문 창 밖. */
-let outOfWindow = 0
-/** FK 가 목표 칸 밖. */
+/** 창보다 짧다. **자를 수 없다** — 없는 문장을 만들 수는 없다. */
+let tooShort = 0
+/** 창보다 길다. `--no-trim` 일 때만 여기서 떨어진다. */
+let tooLong = 0
+/** 잘라도 창에 못 들었다 — 한 문장이 이미 창을 넘는다. */
+let trimFailed = 0
+/** FK 가 사다리 밖이거나 목표 칸 밖. */
 let outOfBand = 0
 /** 어휘가 그 학년 밖. */
 let vocabBlocked = 0
 /** 앞을 가리키며 시작하거나 그 한 편만으로는 못 읽는다. */
 let notStandalone = 0
 let failed = 0
+/** 자르기가 살려 낸 수 — 자르기의 기여분을 수치로 남긴다. */
+let trimmed = 0
 
-for (const item of sample.items) {
-  const lead = await mediawikiLead(wiki.api, item.id)
-  if (lead.error) {
+for (let i = 0; i < sample.items.length; i++) {
+  const item = sample.items[i]
+  const lead = leads[i]
+  if (!lead || lead.error) {
     failed++
-    console.log(`  ✗ ${String(lead.error).slice(0, 56)}`)
+    console.log(`  ✗ ${String(lead?.error ?? '응답 없음').slice(0, 56)}`)
     continue
   }
-  const content = (lead.body ?? '').trim()
-  if (!content || content.length < 40) {
+  const raw = (lead.body ?? '').trim()
+  if (!raw || raw.length < 40) {
     empty++
     continue
   }
 
-  const words = content.split(/\s+/).filter(Boolean).length
-  // `readability` 는 숫자가 아니라 {fk, sentenceLength, …} 를 준다.
-  //   객체를 그대로 `bandOf` 에 넘겼더니 30건 전부 "칸 밖" 으로 나왔다(수율 0%).
+  // ── 창 맞추기 ──────────────────────────────────────────────────────
+  // **어수 창은 다섯 칸이 모두 같다**(`PASSAGE_WORDS` 100~200) — 그래서 창을 고르는 데
+  // 난이도가 필요 없다. 예전엔 자르기 **전** 글의 FK 로 칸을 골라 창을 물었는데,
+  // 전체 글이 어려우면 앞부분이 쉬워도 사다리 밖으로 버려졌다. 칸은 **자른 뒤** 잰다.
+  const win = targetBand ?? { wordsMin: PASSAGE_WORDS.min, wordsMax: PASSAGE_WORDS.max }
+  const words0 = countWords(raw)
+  let content = raw
+  let wasTrimmed = false
+  if (words0 < win.wordsMin) {
+    tooShort++
+    continue
+  }
+  if (words0 > win.wordsMax) {
+    if (!TRIM) {
+      tooLong++
+      continue
+    }
+    const cut = trimToWindow(raw, win.wordsMin, win.wordsMax)
+    if (!cut) {
+      trimFailed++
+      continue
+    }
+    content = cut
+    wasTrimmed = true
+  }
+
+  // 자르면 난이도가 바뀐다 — **자른 뒤 다시 잰다.** 자르기 전 값으로 칸을 정하면
+  // 넣은 글과 적힌 칸이 어긋난다.
   const fk = readability(content)?.fk ?? null
-  if (fk == null) { empty++; continue }
-  // `bandOf` 는 칸 **이름**을 준다(사다리 밖이면 `초3 미만`·`중3 초과`).
-  // 창을 물으려면 이름으로 칸을 다시 찾아야 한다 — 사다리 밖이면 `undefined` 다.
   const bandId = bandOf(fk)
-  const band = gradeBand(bandId)
-
-  // ── 창 검사 ────────────────────────────────────────────────────────
-  // 어수 창은 모든 칸이 같다(`PASSAGE_WORDS`). 칸을 안 주면 사다리 전체 창으로 본다.
-  const win = targetBand ?? band
-  if (!win) {
+  if (targetBand ? bandId !== targetBand.id : !gradeBand(bandId)) {
     outOfBand++
     continue
   }
-  if (words < win.wordsMin || words > win.wordsMax) {
-    outOfWindow++
-    continue
-  }
-  if (targetBand && bandId !== targetBand.id) {
-    outOfBand++
-    continue
-  }
+  const words = countWords(content)
 
-  const source_id = `${item.id}#lead`
+  const source_id = wasTrimmed ? `${item.id}#lead-trim` : `${item.id}#lead`
   const { data: dup } = await db
     .from('library_articles')
     .select('id')
@@ -179,17 +243,15 @@ for (const item of sample.items) {
   // ── 어휘·자립성 게이트 ─────────────────────────────────────────────
   // 세 축(FK·어수·칸)을 통과하고도 지문이 아닌 글이 PD 발췌 실측에서 69% 였다.
   // **같은 자를 대지 않으면 같은 구멍이 생긴다.**
-  const school = win.id.startsWith('초') ? 'elementary' : 'middle'
+  const school = (targetBand?.id ?? bandId).startsWith('초') ? 'elementary' : 'middle'
   const vf = curriculumFit(content, school)
   if (!vf.pass) {
     vocabBlocked++
-    console.log(`  ⊘ ${vf.reason} — ${item.title.slice(0, 42)}`)
     continue
   }
   const sf = standaloneFit(content)
   if (!sf.pass) {
     notStandalone++
-    console.log(`  ⊘ ${sf.reason} — ${item.title.slice(0, 42)}`)
     continue
   }
 
@@ -197,8 +259,9 @@ for (const item of sample.items) {
     const { error } = await db.from('library_articles').insert({
       source: wiki.source,
       source_id,
-      // CC BY-SA 는 "indicate if changes were made" 를 요구한다. 도입부만 쓰는 것은 변경이다.
-      title: `${item.title} (도입부)`,
+      // CC BY-SA 는 "indicate if changes were made" 를 요구한다.
+      //   도입부만 쓰는 것도, 거기서 다시 자르는 것도 변경이다.
+      title: `${item.title} (도입부${wasTrimmed ? ' 발췌' : ''})`,
       author: null,
       source_url: `${wiki.site}${encodeURIComponent(item.id.replace(/ /g, '_'))}`,
       published_at: null,
@@ -213,18 +276,26 @@ for (const item of sample.items) {
     }
   }
   added++
+  if (wasTrimmed) trimmed++
   console.log(
     `  ${COMMIT ? '✓' : '·'} ${String(words).padStart(4)}어  FK ${String(fk).padStart(5)}  ` +
-      `${(bandId ?? '-').padEnd(7)} ${item.title.slice(0, 46)}`,
+      `${(bandId ?? '-').padEnd(7)} ${wasTrimmed ? '✂ ' : '  '}${item.title.slice(0, 44)}`,
   )
 }
 
 console.log(
-  `\n추가 ${added} · 이미 있음 ${existed} · 도입부 없음 ${empty} · 어수 밖 ${outOfWindow} · ` +
-    `칸 밖 ${outOfBand} · 어휘 밖 ${vocabBlocked} · 자립성 미달 ${notStandalone} · 실패 ${failed}`,
+  `\n추가 ${added}(자르기로 살린 것 ${trimmed}) · 이미 있음 ${existed} · 도입부 없음 ${empty} · ` +
+    `짧음 ${tooShort} · 김 ${tooLong} · 잘라도 안 됨 ${trimFailed} · 칸 밖 ${outOfBand} · ` +
+    `어휘 밖 ${vocabBlocked} · 자립성 미달 ${notStandalone} · 실패 ${failed}`,
 )
 const seen = sample.items.length
-if (seen) console.log(`수율 ${((added / seen) * 100).toFixed(1)}% (${added}/${seen})`)
+if (seen) {
+  const perHour = fetchMs > 0 ? Math.round(added / (fetchMs / 3_600_000)) : 0
+  console.log(
+    `수율 ${((added / seen) * 100).toFixed(1)}% (${added}/${seen}) · ` +
+      `수신 ${(fetchMs / 1000).toFixed(1)}초 · 시간당 적재 추정 ${perHour}편`,
+  )
+}
 if (!COMMIT) console.log('\ndry-run 이었다. 실제로 쓰려면 --commit.')
 
 if (PROCESS) {
