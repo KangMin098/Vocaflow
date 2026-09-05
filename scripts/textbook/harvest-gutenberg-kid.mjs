@@ -368,9 +368,23 @@ const done = new Set(cursor.done ?? [])
  * 서가는 **부분 일치**라 `instructional` 하나로 그 서가를 잡는다. 풀은 작다(80 · 468 ·
  * 54 · 140권) — 다 쓰면 다시 잰다. 기본값을 이 순서로 둔 것은 카탈로그 경로가
  * 주제를 **순서대로** 소진하기 때문이다(gutendex 경로는 돌아가며 훑는다).
+ *
+ * ── 3차 (2026-09-06) — 가장 좋은 서가가 소진됐다 ────────────────────
+ * `Children's Instructional Books` 80권을 다 썼다(남은 0). 예비 서가를 넣기 전에
+ * 같은 방식으로 6권씩 재서 골랐다(초3~4 편/권):
+ *
+ *   Children's Literature   **1.7**  (326권 남음)  ← 현 소재와 대등, 풀이 크다
+ *   Natural History           0.8    (382권)       ← 성인 박물학이라 밴드가 안 맞는다
+ *   Children's History        0.5    (106권)       ← 인명·연대가 많아 어휘에서 떨어진다
+ *
+ * 그래서 `children's literature` 만 더한다. **풀이 크다고 넣지 않는다** — `natural history`
+ * 가 382권으로 가장 큰데 수율은 절반이다. 권당 내려받기 값이 같으니 수율이 곧 비용이다.
  */
 const TOPICS = (
-  arg('topics', "children's instructional,children's book series,school stories,children's picture") ?? ''
+  arg(
+    'topics',
+    "children's instructional,children's book series,school stories,children's picture,children's literature"
+  ) ?? ''
 )
   .split(',')
   .map((t) => t.trim())
