@@ -37,7 +37,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { loadEnv } from './volume-pool.mjs'
+import { loadEnv, fetchAllIn } from './volume-pool.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -251,6 +251,74 @@ const withBody = picked.filter((r) => {
 })
 if (dropped.length) console.log(`  · 본문이 120어 미만이라 뺀 원본 ${dropped.length}편`)
 
+/**
+ * **각색해도 살아남을 새 낱말이 몇 개인가** — 소재 진단.
+ *
+ * ── 왜 (실측 2026-09-05) ────────────────────────────────────────────
+ * 첫 청크 6편 중 1편이 **두 번 고쳐도 대역에 못 들었다.** NASA 지원 프로그램 공고문이라
+ * 내용어가 `idea` · `study` · `team` · `step` 같은 흔한 추상어뿐이었다. 원문에 어려운 말
+ * (`aerospace` · `incremental` · `directorate`)이 없는 것이 아니라, **그것들이 초등에
+ * 남을 수 없어 버리고 나면 쉬운 말만 남는** 것이었다.
+ *
+ * 그래서 원문마다 이 수를 센다:
+ *
+ *   교육과정 별표 **밖**이면서 사전 V-레벨이 목표 밴드 안(≤ V{vRange.max})인 낱말
+ *   = "각색문에 그대로 실어 **가르칠 수 있는** 새 낱말"
+ *
+ * `raft` · `harness` · `mist` · `kidney` 가 그런 낱말이고, `incremental` 은 아니다.
+ *
+ * ⚠️ **절대 수로 세면 거꾸로 나온다 — 실측으로 확인했다.** 처음엔 개수를 셌는데
+ *   반려된 NASA 원문이 23개로 **가장 높았고** 통과한 것들이 9~12개였다. 원문 길이가
+ *   6,284자 대 690자라 긴 글일수록 낱말 종류가 많아서다. **길이로 정규화해야 한다.**
+ *
+ *   비율(별표 밖 낱말 중 목표 밴드 안인 비율)로 다시 보면 순서가 뒤집힌다:
+ *
+ *     Black Beauty 41% · Grant 37.5% · strange house 36% · p53 34%
+ *     · 항생제 미스트 18%(1차 반려) · **NASA 공고문 8.4%(끝내 반려)**
+ *
+ * ⚠️ **게이트가 아니다.** 표본 6편으로는 문턱을 정할 수 없고, 완전한 예측자도 아니다 —
+ *   Black Beauty 는 비율이 가장 높은데도 1차에서 반려됐다(고쳐서 붙었다).
+ *   근거 없는 임계값은 목표가 아니라 짐작이다(§goal). 지금은 **세어서 청크에 적기만 한다.**
+ *   채우는 쪽이 이 값이 낮은 원문을 건너뛸 수 있고, 사례가 쌓이면 그때 문턱을 만든다.
+ */
+const teachableByRow = new Map()
+{
+  const { curriculumLists, stemLoose } = await import('@vocaflow/library-pipeline')
+  const { star1, star2, plain } = curriculumLists()
+  const inCurriculum = (w) => {
+    const s = stemLoose(w)
+    return star1.has(w) || star1.has(s) || star2.has(w) || star2.has(s) || plain.has(w) || plain.has(s)
+  }
+  const words = [
+    ...new Set(
+      picked.flatMap((r) => ((r.content ?? '').toLowerCase().match(/[a-z][a-z'-]*/g) || []))
+    ),
+  ]
+  const vOf = new Map()
+  for (const d of await fetchAllIn(db, 'shared_dictionary', 'word, v_level', 'word', words, ['word'])) {
+    vOf.set(String(d.word).toLowerCase(), d.v_level ?? null)
+  }
+  for (const r of picked) {
+    const seenWord = new Set()
+    let teachable = 0
+    let outside = 0
+    for (const w of (r.content ?? '').toLowerCase().match(/[a-z][a-z'-]*/g) || []) {
+      if (w.length < 3 || seenWord.has(w)) continue
+      seenWord.add(w)
+      if (inCurriculum(w)) continue
+      outside++
+      const v = vOf.get(w)
+      if (v != null && v <= spec.vRange.max) teachable++
+    }
+    teachableByRow.set(r.id, {
+      teachable,
+      outside,
+      // **이 값이 신호다** — 개수가 아니라 밀도다(§위 실측).
+      pct: outside ? +((teachable / outside) * 100).toFixed(1) : null,
+    })
+  }
+}
+
 fs.mkdirSync(DIR, { recursive: true })
 const chunks = []
 for (let i = 0; i < withBody.length; i += SIZE) chunks.push(withBody.slice(i, i + SIZE))
@@ -284,6 +352,10 @@ for (const [n, chunk] of chunks.entries()) {
     source_v_level: r.article_v_level,
     source_url: r.source_url,
     source_text: r.content,
+    // **각색해도 살아남을 새 낱말의 밀도** — 낮으면 그 원문은 대역에 못 든다(§위).
+    //   게이트가 아니라 신호다. 낮으면 건너뛰고 다른 원문을 쓰는 편이 낫다.
+    //   실측 참고: 끝내 반려된 원문 8.4% · 붙은 원문 34~41%.
+    teachable_new_words: teachableByRow.get(r.id) ?? null,
     // ↓ Claude Code 가 채운다
     title: '',
     text: '',
