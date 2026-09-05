@@ -25,6 +25,7 @@ import type { TodayPrescription } from '../prescription-actions'
 function prescription(over: Partial<TodayPrescription> = {}): TodayPrescription {
   return {
     isDiagnosed: true,
+    vLevel: 7,
     stage: 'S3',
     stageNum: 3,
     totalMinutes: 75,

@@ -550,7 +550,7 @@ setup 미리보기는 **실제 조립과 같은 규칙**으로 계산한다(예�
 ### 목적 (v06.201 재정의)
 "내 기억은 **얼마나 오래 버티나**, 이번 주에 무엇을 **되찾았나**".
 개수(노력의 양)가 아니라 지속 시간(학습의 질)을 회고의 축으로 둔다.
-forward(오늘 할 일·조치)는 `/hub` 와 셸 상태 띠 소관 — 이 화면은 backward 만.
+forward(오늘 할 일·조치)는 `/hub` 와 셸 나침반 띠 소관 — 이 화면은 backward 만.
 
 ### 라우트
 - `/dashboard` — page.tsx (RSC) + layout.tsx
@@ -583,7 +583,49 @@ forward(오늘 할 일·조치)는 `/hub` 와 셸 상태 띠 소관 — 이 화�
 ### 제거된 것
 - `WeeklyHeatmap.tsx` — `total_minutes>0` 을 학습일로 판정해 8일 연속 학습을 "28일 중 1일"로
   그렸다. `ActivityTrace` 로 대체(파일은 남아 있으나 이 화면에서 미사용)
-- `MemoryStatus`(기억 4상태) — ADR 0006 D2 대로 셸 상태 띠가 소유. 조치 표면 이중화 해소
+- `MemoryStatus`(기억 4상태) — ADR 0006 D2 대로 셸 나침반 띠가 소유. 조치 표면 이중화 해소
+
+---
+
+## 전역 셸 — 나침반 띠 (v06.34)
+
+`(main)/layout.tsx` 최상단의 **유일한 상태 표면**. 학습 세션(풀스크린)에서는 통째로 사라진다.
+
+### 왜 다시 만들었나 (실측 2026-09-05 · dev 1280×900 · 계정 lexicon-test)
+
+이전 `StatusRibbon` 을 학습자 라우트 9곳에서 순회 계측한 결과:
+
+| | 이전 | 지금 |
+|---|---|---|
+| 띠 높이 | 69px (뷰포트 6.2%) | **60px** |
+| 담긴 항목 | 칩 1개 (`새 단어 8`) | 위치 · 계단 · 다음 걸음 문장 · CTA · 펼침 |
+| 라우트별 변화 | **9/9 텍스트 동일** | 표면마다 다름 (LIBRARY · VAULT · GROWTH · TODAY) |
+| 답하는 질문 | 0.5 / 6 | **6 / 6** |
+
+게다가 이전 띠의 "전부 0이면 격려 문장" 규칙이 `fresh=8` 때문에 켜지지 않아, 격려도 상태도
+아닌 **고아 숫자 하나**였다 — 가장 방향이 필요한 미진단 학습자에게 가장 적게 말하고 있었다.
+
+### 두 층
+
+| 층 | 무엇 | 파일 |
+|---|---|---|
+| 상시 (60px) | Q1 위치 · Q2 계단 점 · Q3 지금 한 걸음 + CTA 1개 + 연속일 | `components/layout/CompassRibbon.tsx` |
+| 펼침 | Q4 사정권 · Q5 7일 예보 · Q6 지난 7일 · 기억 칩 2종 | `components/layout/WayfinderPanel.tsx` · `MemorySparkline.tsx` |
+
+여섯을 한 줄에 다 그리지 않는 이유는 철학 ② Progressive Disclosure + 학습원칙 ⑥(작업기억 ~4항목).
+
+### 데이터 — 왕복 수는 이전과 같다
+
+| 값 | 출처 | 추가 쿼리 |
+|---|---|---|
+| 오늘 5블록 · V-Level | `fetchTodayPrescription` (`cache()`) — `current_v_level` 을 읽고도 버리던 것을 실어 보낸다 | 0 |
+| 기억 4상태 · 28일 · 연속일 · **7일 예보** | `fetchGrowthStats` (`cache()`) — 예보는 이미 읽던 `vocabularies` 행을 7번 더 접은 것 | 0 |
+| 사정권(발행 도서 레벨 분포) | `library-reach.ts` 프로세스 TTL 캐시 10분 (사용자 무관 전역값) | 대부분 0 |
+
+- 순수/조회 분리: `wayfinder.ts` ↔ `wayfinder-query.ts` · `reach-math.ts` ↔ `library-reach.ts`
+  (클라이언트가 `server-only` 모듈에서 값을 import 하면 앱 전체가 500 — CONVENTIONS 참조)
+- 계측 2종: `wayfinder_opened` · `wayfinder_cta_clicked` (속성은 국면 열거형 + 개수뿐)
+- 회귀 40 — `lib/learner/__tests__/wayfinder.test.ts` 24 · `components/layout/__tests__/compass-ribbon.test.tsx` 16
 
 ---
 

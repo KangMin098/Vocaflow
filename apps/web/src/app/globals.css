@@ -968,3 +968,46 @@ body.studying .sidebar:hover { opacity: 1; }
     page-break-before: always;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   나침반 띠 「나의 자리」 펼침 (v06.34)
+
+   왜 전역 CSS 인가: `prefers-reduced-motion` 전역 규칙(위 §4.4)이 모든 애니메이션을
+   0.01ms 로 죽인다. 인라인 style 로는 그 `!important` 를 이길 수 없고, 이길 수 있어도
+   컴포넌트마다 되살리는 코드가 흩어진다. 여기 한 곳에서 "낮추기"를 정의한다.
+
+   ⚠️ 위 전역 규칙 자체는 이 저장소의 디자인 정본(vocaflow-design §5.1)과 어긋난다 —
+      "끄기가 아니라 낮추기. 페이드는 남긴다". 전역을 고치면 앱 전체 모션이 바뀌므로
+      별도 판단이 필요하고, 여기서는 이 표면만 규정대로 되돌린다.
+   ══════════════════════════════════════════════════════════════ */
+@keyframes wayfinder-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes wayfinder-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.wayfinder-reveal {
+  animation: wayfinder-reveal var(--dur-slow) var(--ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* 이동·스케일은 걷어내되 **상태가 바뀌었다는 사실은 남긴다**. */
+  .wayfinder-reveal {
+    animation-name: wayfinder-fade !important;
+    animation-duration: var(--dur-fast) !important;
+  }
+}

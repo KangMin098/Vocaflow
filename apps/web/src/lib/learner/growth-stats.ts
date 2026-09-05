@@ -18,6 +18,8 @@ import { createClient } from '@/lib/supabase/server'
 
 // 연속일 규칙은 순수 모듈이 소유한다 — 클라이언트·테스트가 서버 코드를 끌어오지 않도록.
 import { computeStreak, type ActivityDayDto } from './growth-math'
+// 망각 예보 — **추가 쿼리 없이** 아래에서 이미 읽는 vocabularies 행을 한 번 더 접는다.
+import { forecastMemory, type MemoryForecast } from './memory-forecast'
 
 export { computeStreak, type ActivityDayDto } from './growth-math'
 
@@ -44,6 +46,14 @@ export interface GrowthStats {
   days28: ActivityDayDto[]
   /** 최근 7일 중 학습한 날 수 */
   weekDays: number
+  /**
+   * 앞으로 7일의 기억 예보 — R(t) 를 **시간축으로** 푼 결과.
+   *
+   * 같은 `vocabularies` 행에서 나온다(추가 쿼리 0). 4색 분포가 "지금 한 점" 이라면
+   * 이것은 그 점이 어디로 가는지다. 학습자가 "왜 내일이 아니라 오늘인가" 를 묻는
+   * 유일한 근거이므로 셸이 쓴다(`wayfinder.ts` Q5).
+   */
+  forecast: MemoryForecast
 }
 
 function kstDateIso(offsetDays = 0): string {
@@ -86,7 +96,8 @@ export const fetchGrowthStats = cache(async (): Promise<GrowthStats | null> => {
   // ── 기억 4상태 (R(t) 동적 계산 — SSoT) ──
   const memory: MemoryDistribution = { stable: 0, shaky: 0, risk: 0, fresh: 0 }
   const now = new Date()
-  for (const r of (vocabRows ?? []) as Array<{ stability: number | null; last_review_at: string | null }>) {
+  const cards = (vocabRows ?? []) as Array<{ stability: number | null; last_review_at: string | null }>
+  for (const r of cards) {
     const state = getMemoryState(
       {
         difficulty: 0,
@@ -122,6 +133,8 @@ export const fetchGrowthStats = cache(async (): Promise<GrowthStats | null> => {
     memory,
     days28,
     weekDays,
+    // 같은 `cards` 배열을 8번 더 접을 뿐 — 네트워크 왕복은 늘지 않는다.
+    forecast: forecastMemory(cards, now, 7),
   }
 })
 

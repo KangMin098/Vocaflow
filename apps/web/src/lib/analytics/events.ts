@@ -104,6 +104,27 @@ export type PublicEvent =
    * 이름을 바꾸면 여기도 같은 커밋에서 바꾼다. 안 그러면 `track()` 이 조용히 버린다.
    */
   | { name: 'landing_section_reached'; props: { section: 'demo' | 'differentiators' | 'doors' } }
+  /**
+   * 셸의 「나의 자리」 패널을 폈다 — **셸 두 번째 층이 실제로 쓰이는가.**
+   *
+   * 이 파일은 원래 공개 퍼널용이지만, 이 둘은 같은 계약(숫자·불리언·닫힌 열거형)을 지키고
+   * 같은 이유로 필요하다: **안 재면 새로 만든 층이 쓰이는지 영원히 모른다**(§E).
+   * 학습자 화면이라 지문이 섞일 여지가 없다 — 속성은 국면과 개수뿐이다.
+   */
+  | {
+      name: 'wayfinder_opened'
+      props: { phase: 'undiagnosed' | 'ready' | 'moving' | 'complete'; steps: number }
+    }
+  /**
+   * 셸의 단 하나뿐인 CTA 를 눌렀다 — 띠가 **행동으로 이어지는가**.
+   *
+   * 이전 띠에는 이 관측이 없었다. 그래서 "상단 6%가 무엇을 하고 있는가" 라는 질문에
+   * 아무도 답할 수 없었고, 실제로 아무것도 하고 있지 않았다(2026-09-05 실측).
+   */
+  | {
+      name: 'wayfinder_cta_clicked'
+      props: { phase: 'undiagnosed' | 'ready' | 'moving' | 'complete'; done: number }
+    }
 
 export type PublicEventName = PublicEvent['name']
 
@@ -134,6 +155,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   volume_previewed: true,
   landing_demo_moved: true,
   landing_section_reached: true,
+  wayfinder_opened: true,
+  wayfinder_cta_clicked: true,
 }
 
 export const ALLOWED_EVENTS: readonly PublicEventName[] = Object.keys(

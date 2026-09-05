@@ -45,12 +45,40 @@ async function gotoStable(page: Page, path: string) {
   for (let i = 1; i <= 2; i++) {
     try {
       await page.goto(path, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+      await ensureSignedIn(page, path);
       return;
     } catch (e) {
       if (i === 2) throw e;
       await page.waitForTimeout(800);
     }
   }
+}
+
+/**
+ * **저장된 로그인 상태가 죽었으면 다시 로그인한다.**
+ *
+ * ── 왜 (실측 2026-09-05) ──────────────────────────────────────────────
+ * 이 스펙은 `beforeAll` 에서 한 번 로그인해 `storageState` 로 굽고, 테스트마다 그 파일로
+ * 새 컨텍스트를 연다. 그런데 **앞 테스트의 페이지가 세션을 갱신하면 refresh token 이
+ * 회전**하고, 파일에 남은 옛 토큰은 유예 시간이 지나면 무효가 된다. 그 다음 테스트는
+ * 조용히 **비로그인 상태로** 화면을 열고, 셸 띠는 규정대로 사라진다(비로그인이면 안 그린다).
+ *
+ * 그래서 실패 메시지가 "상태 띠가 0개" 로 나온다 — 원인은 띠가 아니라 **인증**인데
+ * 화면 결함처럼 읽힌다. 실제로 그렇게 한 번 오진했다(A 는 통과, 바로 뒤 B 만 실패,
+ * 단독 실행하면 3/3 통과, 실패 스냅샷은 `/hub` 의 **비로그인 온보딩**이었다).
+ *
+ * 비로그인 판정 신호는 `/hub` 비로그인 화면에만 있는 CTA 다 — 띠의 유무로 판정하면
+ * 이 함수가 검사 대상을 검사 기준으로 쓰게 되어 결함을 영영 못 잡는다.
+ */
+async function ensureSignedIn(page: Page, path: string) {
+  const signedOut = await page
+    .getByRole('link', { name: '5분 시작하기' })
+    .isVisible()
+    .catch(() => false);
+  if (!signedOut) return;
+  await login(page);
+  await page.context().storageState({ path: STATE_PATH });
+  await page.goto(path, { waitUntil: 'domcontentloaded', timeout: 60_000 });
 }
 
 test.describe('셸 상태 표면 (ADR 0006 D2)', () => {
@@ -124,16 +152,21 @@ test.describe('셸 상태 표면 (ADR 0006 D2)', () => {
     await gotoStable(page, '/hub');
     await page.waitForTimeout(900);
 
-    const ribbon = page.locator('[aria-label="오늘 상태"]');
-    const ribbonText = (await ribbon.innerText()) ?? '';
-    const ribbonMatch = ribbonText.match(/(\d+)\s*\/\s*(\d+)/);
-
+    // v06.34 — 띠는 더 이상 `오늘 2/3` 이라는 **텍스트**를 그리지 않는다(철학 ④ 퍼센트·분수
+    // 금지 · 진행은 계단 점으로만). 그래서 정규식으로 읽던 자리를 `data-today-progress` 로
+    // 옮겼다. 텍스트 파싱을 그대로 뒀다면 이 판정은 `ribbonMatch === null` 로 **매번 skip** 이
+    // 되어, 두 표면이 어긋나도 아무도 모르는 상태로 돌아갔을 것이다(알리바이 회귀).
+    const progress = page.locator('[aria-label="오늘 상태"] [data-today-progress]');
     const flow = page.locator('[data-today-flow]');
-    if ((await flow.count()) === 0 || !ribbonMatch) {
-      // 처방이 없는 날(수동계획·미진단)에는 흐름 자체가 없다 — 비교할 것이 없으면 통과.
+    if ((await flow.count()) === 0 || (await progress.count()) === 0) {
+      // 처방이 없는 날(수동계획·미진단)에는 흐름도 계단도 없다 — 비교할 것이 없으면 통과.
       test.skip(true, '오늘 처방 흐름이 렌더되지 않는 상태');
       return;
     }
+    const ribbonProgress = (await progress.first().getAttribute('data-today-progress')) ?? '';
+    const ribbonMatch = ribbonProgress.match(/(\d+)\s*\/\s*(\d+)/);
+    expect(ribbonMatch, `띠 진행 표기를 읽지 못했다: "${ribbonProgress}"`).not.toBeNull();
+    if (!ribbonMatch) return;
 
     const flowText = (await flow.innerText()) ?? '';
     const flowMatch = flowText.match(/(\d+)\s*\/\s*(\d+)/);

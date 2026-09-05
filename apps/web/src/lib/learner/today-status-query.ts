@@ -3,6 +3,10 @@
 // 상태 띠(StatusRibbon)의 **서버 조회부** — ADR 0006 D2.
 // 순수 계산은 `today-status.ts` 에 있다. 두 파일을 나눈 이유는 그 파일 머리 주석 참조.
 //
+// ⚠️ v06.34 — `fetchTodayStatus` 는 **제거됐다.** 유일한 호출자였던 셸 레이아웃이
+//    `fetchWayfinder`(wayfinder-query.ts)로 옮겨갔다. 남은 둘(`fetchTouchedModulesToday` ·
+//    `fetchDcpDoneToday`)은 그 조회와 /hub 가 함께 쓰므로 여기 그대로 둔다.
+//
 // 조회는 셋을 합친다:
 //   ① 처방(prescribe_today)  → 오늘의 5블록이 무엇인가
 //   ② 성장 통계              → streak · 기억 분포(risk+shaky)
@@ -18,10 +22,6 @@ import { cache } from 'react'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { fetchGrowthStats } from '@/lib/learner/growth-stats'
-import { fetchTodayPrescription } from '@/lib/learner/prescription-actions'
-import { blockProgress, buildTodayBlocks } from '@/lib/learner/today-blocks'
-import { computeTodayStatus, type TodayStatus } from '@/lib/learner/today-status'
 import { createClient } from '@/lib/supabase/server'
 
 function kstDateIso(): string {
@@ -97,37 +97,4 @@ export const fetchDcpDoneToday = cache(async (): Promise<boolean> => {
     .limit(1)
 
   return (data?.length ?? 0) > 0
-})
-
-export const fetchTodayStatus = cache(async (): Promise<TodayStatus | null> => {
-  const client = await createClient()
-  const {
-    data: { user },
-  } = await client.auth.getUser()
-  if (!user) return null
-
-  const [prescription, growth, touched, dcpDone] = await Promise.all([
-    fetchTodayPrescription(),
-    fetchGrowthStats(),
-    fetchTouchedModulesToday(),
-    fetchDcpDoneToday(),
-  ])
-
-  // 처방 계산에 실패했으면(`unavailable`) 진행을 0/0 으로 둔다. 폴백값을 "오늘 할 일" 로
-  // 표기하면 실패가 정상처럼 보인다(prescription-actions 의 unavailable 주석 참조).
-  const progress =
-    prescription && prescription.isDiagnosed && !prescription.unavailable
-      ? blockProgress(buildTodayBlocks(prescription, touched, dcpDone))
-      : { done: 0, total: 0 }
-
-  return computeTodayStatus({
-    progress,
-    memory: {
-      risk: growth?.memory.risk ?? 0,
-      shaky: growth?.memory.shaky ?? 0,
-      // 아직 한 번도 만나지 않은 낱말 — 교사가 보낸 것이 여기로 들어온다.
-      fresh: growth?.memory.fresh ?? 0,
-    },
-    streak: growth?.streak ?? 0,
-  })
 })

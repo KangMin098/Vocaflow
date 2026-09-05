@@ -31,6 +31,7 @@ vi.mock('@/lib/articles/start-learning', () => ({
 
 const BASE: TodayPrescription = {
   isDiagnosed: true,
+  vLevel: 5,
   stage: 'S1',
   stageNum: 1,
   totalMinutes: 60,

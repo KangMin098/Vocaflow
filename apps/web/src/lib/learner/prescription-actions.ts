@@ -27,6 +27,14 @@ export interface PrescriptionCandidate {
 export interface TodayPrescription {
   /** V-Level 진단 완료 여부 (분기 게이트 — 미진단이면 hub 는 진단 유도). */
   isDiagnosed: boolean
+  /**
+   * 진단된 V-Level (0~11). 미진단이면 null.
+   *
+   * 이미 `user_profiles.current_v_level` 을 읽어 `isDiagnosed` 를 만들고 **값은 버리고
+   * 있었다.** 셸의 사정권("지금 열린 책 N권")이 이 값 없이는 계산되지 않는데, 같은 컬럼을
+   * 다시 읽으면 모든 라우트에 쿼리가 하나 더 붙는다. 버리지 않고 실어 보낸다 — 추가 쿼리 0.
+   */
+  vLevel: number | null
   /** 학습자 스테이지 'S1'~'Sn'. */
   stage: string
   stageNum: number
@@ -122,6 +130,7 @@ export async function fetchTodayPrescription(): Promise<TodayPrescription | null
     }
     return {
       isDiagnosed,
+      vLevel,
       stage: 'S1',
       stageNum: 1,
       totalMinutes: 0,
@@ -146,6 +155,7 @@ export async function fetchTodayPrescription(): Promise<TodayPrescription | null
 
   return {
     isDiagnosed,
+    vLevel,
     stage,
     stageNum,
     totalMinutes: typeof p.total_minutes === 'number' ? p.total_minutes : 0,
