@@ -41,18 +41,39 @@ console.log('='.repeat(78))
 const books = new Map()
 let cursor = '00000000-0000-0000-0000-000000000000'
 let seen = 0
-for (;;) {
+/**
+ * **한 번 흔들렸다고 처음부터 다시 하지 않는다.**
+ *
+ * 실측 2026-09-05: 이 스크립트가 `TypeError: fetch failed` 한 줄로 두 번 연속 죽었다.
+ * 상류가 끊긴 것도 우리가 틀린 것도 아니고, 3만 편을 훑는 동안 연결이 한 번 흔들린 것뿐이다.
+ * 그런데 그때마다 훑은 것이 통째로 날아간다.
+ *
+ * 같은 결함을 이 저장소가 **네 번째**로 보고 있다 — `gate-import.mjs` · `adapt-drain-import.mjs` ·
+ * `harvest-gutenberg-kid.mjs` 는 이미 각자 재시도를 갖고 있고, 여기만 없었다.
+ * 500편씩 줄여 가며 다시 묻는다(큰 쪽이 먼저 실패하므로 쪽 크기도 함께 줄인다).
+ */
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+async function fetchPage(from, attempt = 0) {
+  const size = attempt === 0 ? 500 : Math.max(100, Math.floor(500 / 2 ** attempt))
   const { data, error } = await db
     .from('library_articles')
     .select('id,title,source_url,content')
     .eq('source', 'gutenberg')
-    .gt('id', cursor)
+    .gt('id', from)
     .order('id')
-    .limit(500)
-  if (error) {
+    .limit(size)
+  if (!error) return data
+  if (attempt >= 3) {
     console.error('\n  ❌ 조회 실패:', error.message)
     process.exit(1)
   }
+  console.error(`\n  ↻ 재시도 ${attempt + 1}/3 (쪽 ${size} → ${Math.max(100, Math.floor(size / 2))}) — ${error.message}`)
+  await sleep(1500 * 2 ** attempt)
+  return fetchPage(from, attempt + 1)
+}
+
+for (;;) {
+  const data = await fetchPage(cursor)
   if (!data?.length) break
   for (const r of data) {
     const key = String(r.title ?? '').split(' — ')[0].trim() || '(무제)'
@@ -69,7 +90,9 @@ for (;;) {
   cursor = data[data.length - 1].id
   seen += data.length
   process.stdout.write(`\r  훑음 ${seen.toLocaleString()}편 · 책 ${books.size}권`)
-  if (data.length < 500) break
+  // ⚠️ **`data.length < 500` 으로 끝내면 안 된다.** 재시도가 쪽 크기를 250·125 로 줄이므로
+  //   흔들린 다음 쪽에서 곧바로 "끝" 으로 읽고 나머지를 통째로 빠뜨린다.
+  //   끝은 **빈 쪽**으로만 판단한다(위의 `!data?.length`).
 }
 console.log(`\n  책 **${books.size}권** · 조각 ${seen.toLocaleString()}편\n`)
 
