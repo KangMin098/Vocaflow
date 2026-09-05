@@ -96,11 +96,41 @@ const ANAPHORIC_OPENERS =
  * 그 비율은 규칙으로 못 올리므로 **재고 수치와 함께 밝힌다.**
  */
 
+/**
+ * **글이 아니라 기록·항목으로 시작하는가.**
+ *
+ * ── 실측 2026-09-05 (주제를 설명문으로 옮긴 뒤 표본 12편) ────────────
+ * 손 판정이 1/12 → **6/12** 로 올랐고, 남은 실패에 같은 꼴이 둘 있었다:
+ *
+ *   `November 10, 1851.—At 12.30 p. m., thermometer, 54°.`  ← 항해·기상 **일지**
+ *   `Treatment. The first consideration is rest, …`          ← 교본의 **항목 표제**
+ *
+ * 둘 다 문장으로 되어 있어 어수·FK·어휘·대화 어느 축에도 안 걸린다. 그런데 지문이 아니다 —
+ * 앞의 표·항목 체계를 알아야 읽힌다.
+ *
+ * ⚠️ 항목 표제는 `Mr.`·`Dr.`·`St.`·`No.` 같은 약어와 겹친다. 그래서 **약어를 먼저 뺀다.**
+ *   그러고도 오탐이 남을 수 있어 시중 지문으로 재고 넣었다(§`STANDALONE_SPEC`).
+ */
+const ABBREV = /^(?:mr|mrs|ms|dr|st|no|vol|fig|jr|sr|prof|rev|capt|gen|col|lt|sgt)$/i
+const LOGBOOK =
+  /^[A-Z][a-z]+\s+\d{1,2},\s*\d{4}\s*[.,—–-]|^\d{1,2}[/.]\d{1,2}[/.]\d{2,4}\b|\b\d{1,2}[.:]\d{2}\s*[ap]\.?\s*m\./i
+
+function opensAsRecord(text: string): boolean {
+  const t = text.trim()
+  if (LOGBOOK.test(t.slice(0, 60))) return true
+  // `Treatment. The first…` — 한 낱말 + 마침표 + 대문자. 약어는 뺀다.
+  const m = t.match(/^([A-Za-z]+)\.\s+[A-Z]/)
+  if (m && m[1] && !ABBREV.test(m[1]) && m[1].length >= 4) return true
+  return false
+}
+
 export interface StandaloneSignals {
   /** 인용부호 안에 든 낱말의 비율 %. */
   quotedPct: number
   /** 첫 문장이 앞을 가리키는가. */
   opensAnaphoric: boolean
+  /** 일지·항목 표제로 시작하는가 — 글이 아니라 기록이다. */
+  opensAsRecord: boolean
 }
 
 export function standaloneSignals(text: string): StandaloneSignals | null {
@@ -126,7 +156,11 @@ export function standaloneSignals(text: string): StandaloneSignals | null {
   const first = (t.match(/^[^.!?]{10,400}[.!?]/) ?? [t.slice(0, 200)])[0] ?? ''
   const opensAnaphoric = /^["“'‘]/.test(t.trim()) || ANAPHORIC_OPENERS.test(first.trim())
 
-  return { quotedPct: +((quoted / words) * 100).toFixed(1), opensAnaphoric }
+  return {
+    quotedPct: +((quoted / words) * 100).toFixed(1),
+    opensAnaphoric,
+    opensAsRecord: opensAsRecord(t),
+  }
 }
 
 export interface StandaloneFit {
@@ -155,6 +189,13 @@ export function standaloneFit(text: string): StandaloneFit {
       pass: false,
       signals: s,
       reason: '첫 문장이 앞을 가리킨다 — 그 한 편만 읽고는 무엇을 말하는지 알 수 없다',
+    }
+  }
+  if (s.opensAsRecord) {
+    return {
+      pass: false,
+      signals: s,
+      reason: '일지·항목 표제로 시작한다 — 글이 아니라 표·항목 체계의 한 칸이다',
     }
   }
   return { pass: true, signals: s, reason: null }

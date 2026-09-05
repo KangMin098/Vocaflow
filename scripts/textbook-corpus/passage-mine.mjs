@@ -221,6 +221,7 @@ for (const r of rows) {
     throughStar2Pct: cov?.throughStar2Pct ?? null,
     quotedPct: st?.quotedPct ?? null,
     opensAnaphoric: st?.opensAnaphoric ?? null,
+    opensAsRecord: st?.opensAsRecord ?? null,
     head: pageText.slice(0, 80),
   })
 
