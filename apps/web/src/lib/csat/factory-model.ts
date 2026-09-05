@@ -139,7 +139,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '각 칸에 쓸 지문이 있는가',
     output: '단계 밴드별 지문 재고',
     gate: '게이트가 정의된 밴드에 지문이 하나라도 있는가',
-    href: null,
+    href: '/admin/csat/sourcing',
   },
   {
     id: 'author',
@@ -150,7 +150,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '각 칸에 문항이 있는가',
     output: '유형 × 수준 문항 재고',
     gate: '사다리 각 단이 쓰는 유형 중 재고 0인 칸이 없는가',
-    href: null,
+    href: '/admin/csat/authoring',
   },
   {
     id: 'explain',
@@ -172,7 +172,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '다층 검수를 통과했는가',
     output: '층별 통과 기록',
     gate: '층마다 통과율 100%',
-    href: null,
+    href: '/admin/csat/review',
   },
   {
     id: 'press',
@@ -183,7 +183,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '권으로 나왔는가',
     output: '조판된 권과 그 검수 기록',
     gate: '사다리 계단마다 최신 규격으로 조판된 권이 있는가',
-    href: null,
+    href: '/admin/csat/press',
   },
 ] as const
 

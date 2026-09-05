@@ -164,6 +164,10 @@
 | `/admin/csat/evidence` | `admin/csat/evidence/page.tsx` + `CsatConsoleClient.tsx` | 공정 ① 기출 원천. 탭 3: 회차 커버리지(덮은 배점/사정권 배점) · 유형별 진행 · **가이드 원천**(분석 802문항 → 교재·학습 가이드 한 벌 · Markdown/JSON 내려받기) |
 | `/admin/csat/strategy` | `admin/csat/strategy/page.tsx` + `MarketClient.tsx` | 공정 ② 기획. 시중 7축 우위 지수를 **출판사별로** 낸다 — 판정은 합본 평균이 아니라 구속점. 「증거가 막는다/좁힐 수 있다」로 갈라 배치를 돌릴 곳인지 자료를 구할 곳인지 말한다. 창고/권 두 모드 |
 | `/admin/csat/blueprint` | `admin/csat/blueprint/page.tsx` + `BlueprintClient.tsx` | 공정 ③ 설계. **이원목적분류표** — 학령 7단 × 수준(V-Level) × 유형 재고 매트릭스 + 계단별 근거 + 단계 게이트 임계 9. 초등 3종은 「함수」로 표시(DB 에 없음 ≠ 재고 0) |
+| `/admin/csat/sourcing` | `admin/csat/sourcing/page.tsx` + `SourceClient.tsx` | 공정 ④ 소재. 단계 밴드(S1~S5) × 수준별 지문 재고 · 라이선스 등급 · **화면 전용 제외 실재고**. 게이트는 있는데 지문 0편인 밴드를 지목 |
+| `/admin/csat/authoring` | `admin/csat/authoring/page.tsx` + `AuthorClient.tsx` | 공정 ⑤ 집필. 유형 25 × 수준 9 재고 전량(225칸 · 24개씩 물결 조회 · 실측 7.2초). **사다리 밖 재고**(어느 권에도 안 실리는 문항) 지목 — 실측 392,566/655,092(60%) |
+| `/admin/csat/review` | `admin/csat/review/page.tsx` + `ReviewClient.tsx` | 공정 ⑦ 검수. 층 4개(L1 기계 게이트 · L2 3인 페르소나 · L3 교차 대조 χ² · L4 시중 대조)가 **각자 무엇을 보는지**와 함께. 권별 검수 기록에서 「기록 없음」과 「지적 0건」을 가른다 |
+| `/admin/csat/press` | `admin/csat/press/page.tsx` + `PressClient.tsx` | 공정 ⑧ 조판·발행. 조판된 계단 / 사다리 · 옛 규격 권 · 해설 안 붙은 문항 · 문항 없는 원글. 수치는 **조판기가 찍은 그 값**(다시 계산하지 않는다) |
 | `/admin/quality` | `admin/quality/page.tsx` | 품질 지표 대시보드 (quality_metrics nightly, read-only) |
 | `/admin/quality/gates` | `admin/quality/gates/page.tsx` + `GateCheckClient.tsx` | 콘텐츠 품질 게이트 — 파이프라인 정확성 결정론 불변식 red/green (`run_content_quality_gates`) + 콘텐츠별 게시전 체크 |
 | `/admin/quality/judge` | `admin/quality/judge/page.tsx` + `JudgeClient.tsx` | 추출 품질 blind 판정 하네스 (Q3/Q5 골든 라벨 — `get_judgment_sample`/`save_extraction_judgment`) |

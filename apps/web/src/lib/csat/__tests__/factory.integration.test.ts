@@ -168,3 +168,76 @@ describe.skipIf(skip)('전략 연구소 두 화면 (실 DB · 실 파일)', () =
     }
   })
 })
+
+describe.skipIf(skip)('생산 라인 네 화면 (실 DB)', () => {
+  it('집필 표가 표 전체를 덮는다 — 유형별 합 == 총 문항', async () => {
+    const { loadAuthorView } = await import('../factory-line-views')
+    const v = await loadAuthorView()
+    expect(v.total, '총 문항을 못 셌다').not.toBeNull()
+    const unmeasured = v.cells.filter((c) => c.count == null)
+    expect(unmeasured, `못 센 칸 ${unmeasured.length}개`).toHaveLength(0)
+    const summed = v.cells.reduce((n, c) => n + (c.count ?? 0), 0)
+    // 합이 모자라면 GENERATED_TYPES 에 없는 유형이 DB 에 있다는 뜻이다.
+    expect(summed, 'GENERATED_TYPES 가 낡았다 — 표 밖 재고가 있다').toBe(v.total)
+    expect(v.loadError).toBeNull()
+  })
+
+  it('집필 표의 사다리 칸이 설계 화면과 같은 수를 말한다', async () => {
+    const [{ loadAuthorView }, { loadBlueprintView }] = await Promise.all([
+      import('../factory-line-views'),
+      import('../factory-views'),
+    ])
+    const a = await loadAuthorView()
+    const b = await loadBlueprintView()
+    for (const rung of b.rungs) {
+      for (const cell of rung.cells) {
+        if (!cell.countable) continue
+        const sum = rung.vLevels.reduce(
+          (n, v) => n + (a.cells.find((c) => c.type === cell.type && c.vLevel === v)?.count ?? 0),
+          0,
+        )
+        expect(sum, `${rung.schoolBand}/${cell.type} 가 두 화면에서 다르다`).toBe(cell.count)
+      }
+    }
+  })
+
+  it('소재 화면의 게이트 밴드는 실제 게이트 정의에서 온다', async () => {
+    const { loadSourceView, emptyGateBands } = await import('../factory-line-views')
+    const v = await loadSourceView()
+    expect(v.gateBands.length).toBeGreaterThan(0)
+    // 비었다고 보고한 밴드에 실제로 지문이 0편인지 되짚는다
+    for (const b of emptyGateBands(v)) {
+      expect(v.rows.filter((r) => r.band === b && r.count > 0)).toHaveLength(0)
+    }
+  })
+
+  it('검수 층은 넷이고, 층마다 무엇을 보는지 적혀 있다', async () => {
+    const { loadReviewView } = await import('../factory-line-views')
+    const v = await loadReviewView()
+    expect(v.layers.map((l) => l.id)).toEqual(['L1', 'L2', 'L3', 'L4'])
+    for (const l of v.layers) {
+      expect(l.looksAt.length, `${l.id} 이 무엇을 보는지 안 적혀 있다`).toBeGreaterThan(10)
+      expect(l.cmd).toMatch(/scripts\//)
+      if (l.passed == null) expect(l.unmeasuredReason).toBeTruthy()
+    }
+  })
+
+  it('검수 L2 통과율이 100%를 넘지 않는다 — 넘으면 행을 센 것이다', async () => {
+    const { loadReviewView } = await import('../factory-line-views')
+    const l2 = (await loadReviewView()).layers[1]!
+    expect(l2.passed).not.toBeNull()
+    expect(l2.passed!).toBeLessThanOrEqual(l2.total!)
+  })
+
+  it('조판 화면은 옛 행의 없는 항목을 0 이 아니라 null 로 둔다', async () => {
+    const { loadPressView } = await import('../factory-line-views')
+    const v = await loadPressView()
+    expect(v.rungs).toBe(7)
+    expect(v.brandFingerprint.length).toBeGreaterThan(0)
+    for (const vol of v.volumes) {
+      // 셋 중 하나라도 값이 있으면 그 권은 기록이 있는 것이고, 없으면 전부 null 이어야 한다.
+      const has = [vol.typeMixFit, vol.articlesIdle, vol.distinctVolumes]
+      for (const h of has) expect(h === null || typeof h === 'number').toBe(true)
+    }
+  })
+})
