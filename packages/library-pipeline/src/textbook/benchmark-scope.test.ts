@@ -12,13 +12,24 @@
 //      실은 6권을 재고 있었다. 그 60문항이 들어오자 A3·A7 이 실제로 내려갔다.
 //
 // 자를 고쳐서 값이 내려가는 것은 나쁜 소식이 아니다. **내려간 값이 맞는 값이다.**
+import { fileURLToPath } from 'node:url'
 import fs from 'node:fs'
 import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
+/**
+ * 저장소 뿌리 — **이 파일 위치 기준**으로 잡는다.
+ *
+ * 전에는 `process.cwd()` 에서 '../..' 를 올라갔다. 그러면 패키지 디렉터리에서 돌릴 때만
+ * 맞고, vitest 를 저장소 뿌리에서 돌리면 저장소 밖을 읽으려다 ENOENT 로
+ * **네 파일이 통째로 실패**한다(실측 2026-09-05). 조용히 안 도는 테스트는 없는 테스트다.
+ */
+const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..')
+
+
 const src = fs.readFileSync(
-  path.resolve(process.cwd(), '../../scripts/textbook/market-benchmark.mjs'),
+  path.resolve(REPO_ROOT, 'scripts/textbook/market-benchmark.mjs'),
   'utf8',
 )
 

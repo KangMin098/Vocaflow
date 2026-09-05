@@ -6,13 +6,24 @@
 // 도입돼 중등이 90~152, 고2 가 90~188 이 된 뒤에도 **전 밴드가 90~200 을 인쇄**했다
 // (실측 2026-08-31: V3·V4·V6·V7 전부 오기). 조판물만 보는 사람에게 그 줄은 검수의
 // 근거로 읽히므로, 틀린 규격을 적는 것은 내용이 틀린 것과 같다.
+import { fileURLToPath } from 'node:url'
 import fs from 'node:fs'
 import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
+/**
+ * 저장소 뿌리 — **이 파일 위치 기준**으로 잡는다.
+ *
+ * 전에는 `process.cwd()` 에서 '../..' 를 올라갔다. 그러면 패키지 디렉터리에서 돌릴 때만
+ * 맞고, vitest 를 저장소 뿌리에서 돌리면 저장소 밖을 읽으려다 ENOENT 로
+ * **네 파일이 통째로 실패**한다(실측 2026-09-05). 조용히 안 도는 테스트는 없는 테스트다.
+ */
+const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..')
+
+
 const read = (f: string) =>
-  fs.readFileSync(path.resolve(process.cwd(), '../../scripts/textbook', f), 'utf8')
+  fs.readFileSync(path.resolve(REPO_ROOT, 'scripts/textbook', f), 'utf8')
 
 describe('판권장 규격 칩', () => {
   const src = read('render-volume.mjs')

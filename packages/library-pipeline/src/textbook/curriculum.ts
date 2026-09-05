@@ -91,6 +91,76 @@ export function stemLoose(w: string): string {
   return w
 }
 
+/**
+ * **가장 흔한 불규칙 과거·과거분사**만 되돌린다.
+ *
+ * 규칙으로는 손댈 수 없고, 이야기 지문에는 거의 모든 문장에 하나씩 있다.
+ * 목록을 길게 늘리지 않는다 — 여기 없는 것은 여전히 '밖' 으로 세어지고, 그것이
+ * "적중률은 하한" 이라는 이 파일의 약속이다.
+ */
+const IRREGULAR = new Map(
+  Object.entries({
+    took: 'take', taken: 'take', gave: 'give', given: 'give', went: 'go', gone: 'go',
+    saw: 'see', seen: 'see', made: 'make', came: 'come', ran: 'run', sat: 'sit',
+    stood: 'stand', fell: 'fall', fallen: 'fall', told: 'tell', heard: 'hear',
+    thought: 'think', caught: 'catch', brought: 'bring', held: 'hold', kept: 'keep',
+    left: 'leave', felt: 'feel', found: 'find', got: 'get', gotten: 'get', knew: 'know',
+    known: 'know', grew: 'grow', grown: 'grow', flew: 'fly', flown: 'fly', drew: 'draw',
+    threw: 'throw', wrote: 'write', written: 'write', spoke: 'speak', spoken: 'speak',
+    broke: 'break', broken: 'break', chose: 'choose', rose: 'rise', ate: 'eat',
+    eaten: 'eat', drank: 'drink', began: 'begin', begun: 'begin', won: 'win',
+    lost: 'lose', sent: 'send', built: 'build', bought: 'buy', taught: 'teach',
+    slept: 'sleep', met: 'meet', paid: 'pay', said: 'say', put: 'put', read: 'read',
+    lay: 'lie', laid: 'lay', led: 'lead', rode: 'ride', ridden: 'ride', swam: 'swim',
+    sang: 'sing', sung: 'sing', hung: 'hang', dug: 'dig', hid: 'hide', hidden: 'hide',
+    children: 'child', men: 'man', women: 'woman', feet: 'foot', teeth: 'tooth',
+    mice: 'mouse', geese: 'goose', leaves: 'leaf', lives: 'life', wolves: 'wolf',
+  })
+)
+
+/**
+ * **한 낱말의 어간 후보를 모두 낸다.**
+ *
+ * ── 왜 하나로는 안 되나 (실측 2026-09-05) ────────────────────────────
+ * `stemLoose` 는 규칙 하나로 어간 **하나**를 만든다. 그래서 이렇게 틀린다:
+ *
+ *   `carried` → `carri`  (→ `carry` 를 못 찾는다)
+ *   `tired`   → `tir`    (→ `tire` 를 못 찾는다)
+ *   `stopped` → `stopp`  (→ `stop` 을 못 찾는다)
+ *   `took`    → `took`   (불규칙은 규칙이 없다)
+ *
+ * 넷 다 교육과정 **안** 낱말인데 '밖' 으로 세어졌다. 그리고 이 편향은 **대칭이 아니다** —
+ * 과거시제 이야기 지문에만 몰린다. 시중 초등 교재의 절반이 이야기인데, 그 절반만
+ * 체계적으로 어렵게 측정된 셈이다(각색 실측: `The Roti and the Thieves` 51.9%.
+ * `carried`·`took`·`grabbed`·`tired` 가 전부 '밖' 이었다).
+ *
+ * 그래서 어간을 **하나로 정하지 않고 후보를 모두 내어** 하나라도 목록에 있으면 안으로 센다.
+ * 되돌리기가 과할 위험은 낮다 — 후보가 실제 표제어가 아니면 목록에 없어서 그냥 안 걸린다.
+ */
+export function stemCandidates(w: string): string[] {
+  const out = new Set<string>([w])
+  const irr = IRREGULAR.get(w)
+  if (irr) out.add(irr)
+  out.add(stemLoose(w))
+  if (w.endsWith('ied') && w.length > 4) out.add(`${w.slice(0, -3)}y`) // carried → carry
+  if (w.endsWith('ed') && w.length > 4) {
+    out.add(w.slice(0, -1)) // tired → tire
+    const base = w.slice(0, -2)
+    // stopped → stop : 같은 자음이 겹치면 하나를 지운다(`ss`·`ll`·`ff` 는 원래 겹치므로 뺀다)
+    if (base.length > 2 && base.at(-1) === base.at(-2) && !'slfz'.includes(base.at(-1) as string)) {
+      out.add(base.slice(0, -1))
+    }
+  }
+  if (w.endsWith('ing') && w.length > 5) {
+    const base = w.slice(0, -3)
+    out.add(`${base}e`) // making → make
+    if (base.length > 2 && base.at(-1) === base.at(-2) && !'slfz'.includes(base.at(-1) as string)) {
+      out.add(base.slice(0, -1)) // running → run
+    }
+  }
+  return [...out]
+}
+
 export interface CurriculumCoverage {
   /** 기능어를 뺀 내용어 수 — 적중률의 분모. */
   contentWords: number
@@ -164,10 +234,10 @@ export function curriculumCoverage(
   let s2 = 0
   let inAny = 0
   for (const w of content) {
-    const s = stemLoose(w)
-    const in1 = star1.has(w) || star1.has(s)
-    const in2 = in1 || star2.has(w) || star2.has(s)
-    const in0 = in2 || plain.has(w) || plain.has(s)
+    const cands = stemCandidates(w)
+    const in1 = cands.some((c) => star1.has(c))
+    const in2 = in1 || cands.some((c) => star2.has(c))
+    const in0 = in2 || cands.some((c) => plain.has(c))
     if (in1) s1++
     if (in2) s2++
     if (in0) inAny++
@@ -202,12 +272,17 @@ export function curriculumCoverage(
  * ⚠️ 이 분포는 **어휘 축만** 이다. 어수·FK 는 `market-spec.json` 과 `readability.ts` 소관이다.
  */
 export const CURRICULUM_SPEC = {
-  measuredAt: '2026-09-04',
+  // ⚠️ **2026-09-05 재측정** — 자가 바뀌면 분포도 다시 재야 한다.
+  //   `stemCandidates` 로 굴절형(`carried`·`took`·`stopped`·`tired`)을 되돌리게 하자
+  //   같은 시중 지문의 밖% 가 전반적으로 내려갔다(초등 중앙 30.3 → **27.0**).
+  //   자만 고치고 옛 문턱(43.3%)을 그대로 두면 **기준이 조용히 헐거워진다** —
+  //   그 값은 옛 자로 잰 p90 이지 새 자의 p90 이 아니다.
+  measuredAt: '2026-09-05',
   tool: 'scripts/textbook-corpus/passage-mine.mjs',
   /** 교육과정 3,000 **밖** 비율의 시중 분포. 백분위 → % 값. */
   outside: {
-    elementary: { sample: 129, p05: 13.2, p25: 24.1, p50: 30.3, p75: 37.2, p90: 43.3, p95: 49.2 },
-    middle: { sample: 67, p05: 20.0, p25: 29.7, p50: 34.7, p75: 41.7, p90: 44.0, p95: 48.1 },
+    elementary: { sample: 129, p05: 8.9, p25: 20.0, p50: 27.0, p75: 33.3, p90: 38.6, p95: 40.7 },
+    middle: { sample: 78, p05: 12.9, p25: 23.5, p50: 28.6, p75: 35.4, p90: 41.6, p95: 44.0 },
   },
 } as const
 

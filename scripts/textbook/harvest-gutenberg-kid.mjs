@@ -361,10 +361,21 @@ let page = cursor.page ?? 1
 let topicIdx = cursor.topicIdx ?? 0
 while (picked.length < BOOKS && page <= 200) {
   const topic = TOPICS[topicIdx % TOPICS.length]
-  const listRaw = await get(
-    `https://gutendex.com/books/?topic=${encodeURIComponent(topic)}&languages=en&page=${page}`
-  )
-  const list = JSON.parse(listRaw)
+  // ⚠️ **목록 조회 실패가 수확 전체를 죽이지 않게 한다.** `get` 은 재시도 셋을 다 쓰면
+  //   던지는데, 여기서 그대로 두면 주제 한 쪽이 안 열렸다는 이유로 **아직 한 권도 안 담은
+  //   채 프로세스가 끝난다**(실측 2026-09-05: `--topics readers,primers,fables` 첫 조회).
+  //   같은 결함을 오늘 중복 조회에서도 밟았다 — 실패하면 그 주제만 건너뛰고 계속한다.
+  let list = null
+  try {
+    list = JSON.parse(
+      await get(`https://gutendex.com/books/?topic=${encodeURIComponent(topic)}&languages=en&page=${page}`)
+    )
+  } catch (e) {
+    console.error(`  ⚠️ 목록 조회 실패 (${topic} p${page}) — 건너뛴다: ${String(e.message).slice(0, 50)}`)
+    topicIdx++
+    if (topicIdx % TOPICS.length === 0) page++
+    continue
+  }
   for (const b of list.results ?? []) {
     if (done.has(b.id)) continue
     picked.push({ id: b.id, title: b.title, topic })

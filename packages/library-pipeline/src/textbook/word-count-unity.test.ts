@@ -12,6 +12,7 @@
 // 그래서 조합기가 "188어라 창(90~188) 안" 으로 통과시킨 지문이 시장 자로는 194어였고,
 // A6 미달 6건이 전부 그렇게 1~6어씩 넘긴 것들이었다 —
 // 규격을 어긴 것이 아니라 **다른 자로 잰 것**이다.
+import { fileURLToPath } from 'node:url'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -19,7 +20,17 @@ import { describe, expect, it } from 'vitest'
 
 import { countPassageWords } from './csat-format'
 
-const read = (rel: string) => fs.readFileSync(path.resolve(process.cwd(), '../..', rel), 'utf8')
+/**
+ * 저장소 뿌리 — **이 파일 위치 기준**으로 잡는다.
+ *
+ * 전에는 `process.cwd()` 에서 '../..' 를 올라갔다. 그러면 패키지 디렉터리에서 돌릴 때만
+ * 맞고, vitest 를 저장소 뿌리에서 돌리면 저장소 밖을 읽으려다 ENOENT 로
+ * **네 파일이 통째로 실패**한다(실측 2026-09-05). 조용히 안 도는 테스트는 없는 테스트다.
+ */
+const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..')
+
+
+const read = (rel: string) => fs.readFileSync(path.resolve(REPO_ROOT, rel), 'utf8')
 
 describe('낱말 세는 자는 한 벌뿐이다', () => {
   it('코퍼스가 창을 그을 때 쓴 정의와 같다', () => {

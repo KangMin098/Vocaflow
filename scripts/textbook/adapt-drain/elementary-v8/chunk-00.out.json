@@ -1,0 +1,260 @@
+[
+  {
+    "adapted_from_id": "6e47c33c-c474-4aad-a592-9a6e0ecac97c",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Researchers: South Korea’s Birth Rate Increase Last Year Unclear",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/researchers-south-korea-s-birth-rate-increase-last-year-unclear-/7997203.html",
+    "source_text": "In 2024, the number of babies born in South Korea increased for the first time in nine years. The change is welcome news for a country that is dealing with serious population problems.\nSouth Korea’s statistics agency said recently that 238,300 babies were born last year, an increase of 8,300 from a year earlier.\nThe agency said the country’s fertility rate — the average number of babies born to each woman in her reproductive years — was 0.75 in 2024, up from 0.72 in 2023.\nThe data represents the first time that the yearly number of births has increased since 2015.\nChoi Yoon Kyung is an expert with the Korea Institute of Child Care and Education. Choi told the Associated Press that researchers must wait for more data over the next few years to see if increased births were driven by “structural changes.”\nPark Hyun Jung is with the government agency Statistics Korea. Park said the agency believes the rise is partly due to an increase in marriages following postponements of such plans during the COVID-19 pandemic.\nPark said another reason for the increase is that a growing number of people entered their early 30s. She also noted a government study that shows a small increase in the number of young people hoping to have children after marriage.\nOfficial data show South Korea’s fertility rate has been the lowest in the developed world in recent years. In 2022, South Korea was the only country with a fertility rate below one, among members of the Paris-based Organization for Economic Cooperation and Development.\nThe low fertility rate could threaten South Korea’s economic health. The country, Asia’s fourth largest economy, could face labor shortages and greater spending on public assistance programs. South Korea’s central and local governments have been increasingly offering several support programs to those who give birth to children.\nBut experts say that it will be difficult to solve the country’s population problems. Many young people say they do not want to have babies. Their reasons include costly housing, low levels of upward social movement, the high costs of raising and educating children, and a culture that requires women to do more of the childcare.\nPark said that the fertility rate will likely stay on an upward movement at least for another year. But observers say it remains to be seen whether the rate will go back down as post-pandemic marriages even out. The country’s population structure will also change, with a drop in the number of people in their early 30s.\nSome experts argue that the government should pay more attention to supporting young couples who want to have babies.\n“There are still people with solid wills to have a family and babies. When we help them realize their hopes, our fertility rate won’t suffer a steep, 45-degree drop,” Choi said.\nI’m John Russell.\nHyung-Jin Kim reported on this story for the Associated Press. John Russell adapted it for VOA Learning English.\n______________________________________________\nsteep – n. being or characterized by a very rapid increase or decline",
+    "teachable_new_words": {
+      "teachable": 31,
+      "outside": 86,
+      "pct": 36
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "b40db885-4b28-40aa-bcf0-6c97450cda3a",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Students Build Moon Robots for NASA’s 2026 Lunabotics Challenge - NASA",
+    "source_feed": "nasa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.nasa.gov/image-detail/afs-8-101-1273/",
+    "source_text": "Students Build Moon Robots for NASA’s 2026 Lunabotics Challenge\nKatherine Rauscher, of Michigan Technological University, prepares her team’s prototype lunar robot for its turn during the finals for NASA’s 2026 Lunabotics Challenge competition on Tuesday, May 19, 2026, inside the Astronauts Memorial Foundation’s Center for Space Education at the Kennedy Space Center Visitor Complex in Florida. Forty-seven teams from around the U.S. designed and built remote-controlled robots capable of traversing challenging lunar terrain while constructing regolith-based berm under conditions similar to those the agency will face as it returns to the lunar surface through Artemis.\nImage Credit: NASA/Ben Smegelsky\nRead More\n\n Facebook\n\n Pinterest\n\n X\n\n LinkedIn\n\n Email\n\n https://www.nasa.gov/image-detail/afs-8-101-1273/Copy URL to clipboard>\n\nDownloadShare\n\nTakenMay 19, 2026\nImage CreditNASA/Ben Smegelsky\nSize6720x4480px",
+    "teachable_new_words": {
+      "teachable": 9,
+      "outside": 48,
+      "pct": 18.8
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "1d167ecd-b87f-493e-bce3-1a18b0dd548d",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Images Can Help You Retain Vocabulary",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/images-can-help-you-retain-vocabulary/5651046.html",
+    "source_text": "Suppose you are listening to a program in English and hear the word “borrow.” You have heard this word many times but forget its meaning. So, you look up the equivalent word in your own language. Ahh, yes, now you remember! A few days later, you see the word again, but again cannot remember its meaning. Why?\nIt is easy to blame yourself or think, “I have a terrible memory!” But your memory is not the problem.\nThe problem is that translating a word to its equivalent word in your language is not an effective way to learn vocabulary. This is because it does not create strong connections in the brain, something critical for remembering information.\nTo really learn words, you have to bring attention to them and connect them with mental images or your existing knowledge. This helps your brain recall words quickly and easily when you need them. On today’s Education Tips, we will discuss three methods that use images to retain vocabulary.\n\n1-Use pictures\nFirst, let’s discuss the most straightforward method: Using pictures as visual aids.\nDanielle Zelin is an English teacher and teacher trainer. She has taught for nearly 25 years, including in South Africa, Latvia and Mauritius, her homeland.\nZelin says visual aids are important for language learners because humans think in images.\n“When we hear a sentence...[when] somebody is talking to us, we see the pictures. We don’t see the words. We don’t see the sentence in our brain. Like ‘Yesterday, I went to the beach.’ If I tell you that, you will see me on the beach. You will not see the sentence in written form.”\n\nShe uses pictures or images with her beginning students and some of her mid-level students.\nCristiane Galvão has used pictures to teach vocabulary to students of every level, from grade school to the university level.\nGalvão, who is based in California, has taught English for 20 years, including in the United States and Brazil.\nShe suggests learners make visual dictionaries with pictures from the internet, for example. This would involve writing an English word next to its image. Before you make the dictionary, think about your goals, she says. If the goal is to reinforce what you already learned about, put the words in alphabetical order. And organize them into related groups. But if the goal is to write a sentence using each new word, then you probably do not need to put the words into groups.\n\n2-Use mnemonics tools\nNext, let’s talk about mnemonics.\nThese are mental tools you can use to recall information better. Most mnemonics tools involve creating mental imagery to trigger your memory. Some of you have probably already done this without realizing there is a name for it.\nOne great mnemonics tool is keywords. This involves making a mental image that ties two similar-sounding words together.\nTake the word “bald” as an example. It means having little or no hair. The word “ball” sounds like “bald” and can help us remember the target word. In your mind, make a mental picture of a ball with a face on it. Then, picture it with no hair on top, maybe a little on the sides. Keep this image in your mind for maybe 15 seconds. The next time you try to recall “bald,” it will be easier because of the keyword and connected imagery.\nAlex Mullen is a biomedical engineer and one of the world’s top memory competitors. In 2016, he was the USA Memory Champion. Mullen calls the mnemonics keywords tool “the art of memory” because your mind makes a kind of picture stories.\nIn his video on mnemonics keywords, he talks about remembering the target word “corral” by joining its imagery with an image of a sea coral. He draws a group of stick figures trapped -- or corralled – in a coral. In real life, you would probably make a mental image rather than a drawing. But Mullen’s drawing demonstrates the idea of connecting a mental image of the target word with its keyword.\n\n3-Use word maps\nOne final method for today is word maps, also known as semantic maps or word webs.\nIn a word map, you write a central word or idea in the middle and connect it with lines to related words. This helps to build mental associations between related ideas.\nDanielle Zelin gives the example of the word “sharp.” If you center that word, you can connect it to words of things that are sharp, such as knife, paper and scissors.\nZelin says words are much easier to remember when they have meaning in your own life. For instance, one of her French students has an English-speaking dentist. So, she learned words that she needed for her recent dental visit.\nCristiane Galvão also says that context is important. She uses word maps in the classroom only after she has already discussed a subject and shown pictures. This makes the words meaningful before putting them into map form. Otherwise, she says, you are just reading and memorizing words, which is a bad idea.\n“Vocabulary is a big part of language learning. So, the more meaningful it is, the easier it is for the student to absorb.”\nGalvão says not every student will learn through a word map. But the maps can help you visualize and create a method that works for you.\nI’m Alice Bryant.\n\nAlice Bryant wrote this story for VOA Learning English. Susan Shand was the editor.\n______________________________________________________\ntranslate - n. to change words from one language into another language\nassociation - n. a feeling, memory, or thought that is connected to a person, place or thing\nvisual - adj. relating to seeing or to the eyes\nalphabetical - adj. arranged in the order of the letters of the alphabet\ntrigger - v. to cause something to start or happen\ncorral - v. to gather together and confine a group of people or things\ncoral - n. a hard material formed on the bottom of the sea by the skeletons of small creatures\nstick figure - n. a very simple drawing of a person or animal, composed of a few lines, curves and dots\ncontext - n. the situation in which something happens\nabsorb - v. to learn something",
+    "teachable_new_words": {
+      "teachable": 43,
+      "outside": 134,
+      "pct": 32.1
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "1a87a75f-84f0-4287-937a-6550caa20e1b",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "NASA’s Career Technical Education Day Highlights Technical Careers - NASA",
+    "source_feed": "nasa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.nasa.gov/centers-and-facilities/langley/nasas-career-technical-education-day-highlights-technical-careers/",
+    "source_text": "3 min read\n\nNASA’s Career Technical Education Day Highlights Technical Careers\n\nJoe Atkinson\nPublic Affairs Officer, NASA Langley Research Center\n\nJun 11, 2026\n Article\n\nStudents participate in a hands-on robotics demonstration during Career Technical Education Day at NASA’s Langley Research Center in Hampton, Virginia.\n\nNASA/Mark Knopp\n\nAt NASA, remaining a global leader in exploration and innovation includes having a skilled\nand dedicated workforce. Technicians play a critical role in advancing the agency’s\nresearch and missions, applying hands-on expertise across engineering, fabrication,\nelectronics, and countless other technical fields.\n\nTo help cultivate the next generation of technical talent, NASA’s Office of STEM Engagement\nhosted Career Technical Education Day recently at NASA’s Langley Research Center in\nHampton, Virginia. One hundred high school and community college students from Virginia\nand North Carolina attended, eager to explore the technical career paths that help drive\nNASA’s work.\n\n“Many students picture NASA as only astronauts or engineers and therefore never consider\na career at NASA to be within their reach,” said Bonnie Murray, lead for the Office of STEM\nEngagement at NASA Langley. “Bringing students from local career and technical\neducation programs to Langley allows them the opportunity to see technicians at work,\nhear the pathways those technicians followed, and understand how the skills they are\ndeveloping in their related classes have a place in the NASA workforce.”\n\nThe event opened with remarks from NASA Langley’s Steve Gayle, who traced his path from\nan engineering technician co-op in the center’s Fabrication Division and a graduate of\nLangley’s Engineering Technician Apprentice Program to his current role as acting\nassociate director. Gayle encouraged students to embrace challenges, think critically, stay\ncurious, and create their own opportunities as they pursue their career goals.\n\n“We need young, bright minds,” Gayle said. “At NASA, we rely on skilled hands-on\nprofessionals — technicians who operate our wind tunnels, apply their skills in our\nfabrication shops, and use their electronics knowledge to design, test, and build critical\nsystems.”\n\nStudents visit NASA Langley Research Center’s model shop during Career Technical Education Day to learn about the materials and techniques technicians use to build model aircraft and spacecraft.\n\nNASA/Ryan Hill\n\nThroughout the day, students toured several of Langley’s world-class facilities, including\nthe historic Landing and Impact Research Facility and one of the center’s wind tunnels. At\neach stop, they received a behind-the-scenes look at the spaces where NASA technicians\nbuild, test, and refine the tools and technologies that support the agency’s missions. The\ntechnicians spoke with students about their work, their career paths, and the skills needed\nto excel in technical roles.\n\nHands-on demonstrations and interactive activities lead by NASA technicians and\naerospace industry partners helped students connect their classroom experience with\nreal-world applications. Whether observing fabrication techniques, seeing instrumentation\nup close, or engaging with engineering demonstrations, participants experienced how\nSTEM and technical skills directly translate into meaningful careers.\n\n“Through events such as this, NASA seeks to prepare students for aerospace careers\nthrough experiences and investments that strengthen research capacity, build technical\nexpertise, and expand reach in alignment with agency missions and needs,” Murray said.\nThe event ended with a career panel moderated by NASA astronaut Joe Acaba, associate\ndirector of mission and strategy at NASA’s Johnson Space Center in Houston and former\nmath and science teacher. The panel featured four Langley technician apprentices who\nshared insights into their roles and the value of strong foundational skills in technical\nfields.\n\nWyatt Healy, mechanical engineering technician apprentice at NASA’s Langley Research Center, answers questions during a career panel featuring NASA Langley technician apprentices during Career Technical Education Day.\n\nNASA/Ryan Hill\n\n“A basic grasp of how software, systems, and even everyday items function goes a long way\nas you progress in your technician journey,” said Wyatt Healy, mechanical engineering\ntechnician apprentice at NASA Langley. “When you have those fundamentals down,\nlearning the more advanced concepts becomes much easier. It doesn’t happen overnight,\nbut with a strong foundation, the sky is the limit.”\n\nBy connecting students with NASA professionals, facilities, and hands-on experiences, the\nevent showcased a broad range of opportunities available in technical careers. It also\nunderscored NASA’s commitment to building a strong, skilled workforce equipped to\nsupport the agency’s mission and tackle the challenges of tomorrow.\n\nFor more information about opportunities to connect students with NASA’s mission, work, and people, visit:\n\nhttps://www.nasa.gov/learning-resources\n\nBrittny McGraw\nNASA Langley Research Center\n\nExplore More\n\n 9 min read\n\nNASA’s Artemis II Breaks Agency Streaming Record\n\n Article\n\n 3 days ago\n\n 2 min read\n\nNextSTEP-3 B: Moon Base Demonstrations\n\n Article\n\n 5 days ago\n\n 2 min read\n\nAmes Science Stars of the Month July 2026\n\n Article\n\n 5 days ago\n\n Keep Exploring\n\nDiscover Related Topics\n\n Missions\n\n Humans in Space\n\n Climate Change\n\n Solar System",
+    "teachable_new_words": {
+      "teachable": 24,
+      "outside": 134,
+      "pct": 17.9
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "010facde-c3f4-4eca-8c64-a05aa06185ed",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The Boy With the U. S. Fisheries (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 6,
+    "source_url": "https://www.gutenberg.org/ebooks/21008",
+    "source_text": "The boy had never had such crayons to work with and he was naturally a good colorist. He became so absorbed that he was quite unaware of the passage of time and it was with something of a surprise that he heard the announcement of lunch. This was due to Early Bird, who, seeing that it was after noon, had unpacked the hamper and set out a good meal. Both artists dined heartily and Early Bird was not forgotten when the artists returned to their drawings. But although Colin worked as hard as he could, it was four o'clock before he felt that he had finished. The museum expert was also still at work when the sun began to fail to give a sufficiently direct light to pierce the water. Colin was eager to see his companion's sketch, but this was denied him.",
+    "teachable_new_words": {
+      "teachable": 8,
+      "outside": 28,
+      "pct": 28.6
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "00d07053-aee3-4628-96f2-69750edd47e2",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Aesop's Fables; a new translation (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/11339",
+    "source_text": "A hungry Fox saw some fine bunches of Grapes hanging from a vine that was trained along a high trellis, and did his best to reach them by jumping as high as he could into the air. But it was all in vain, for they were just out of reach: so he gave up trying, and walked away with an air of dignity and unconcern, remarking, \"I thought those Grapes were ripe, but I see now they are quite sour.\" A Man and his Wife had the good fortune to possess a Goose which laid a Golden Egg every day. Lucky though they were, they soon began to think they were not getting rich fast enough, and, imagining the bird must be made of gold inside, they decided to kill it in order to secure the whole store of precious metal at once. But when they cut it open they found it was just like any other goose. Thus, they neither got rich all at once, as they had hoped, nor enjoyed any longer the daily addition to their wealth.",
+    "teachable_new_words": {
+      "teachable": 17,
+      "outside": 36,
+      "pct": 47.2
+    },
+    "title": "The Fox and the Grapes",
+    "text": "A hungry fox walked under a tall vine. Bunches of ripe grapes hung above his head. The fox jumped up at the grapes. He missed them. He jumped higher and missed again. The grapes hung just beyond his reach. The fox tried again and again. His legs grew tired and his jumps grew low. At last he stopped jumping. He walked away with his head held high. Those grapes are sour, he said. I did not want them at all. But the grapes were not sour. The hungry fox simply could not reach them."
+  }
+]

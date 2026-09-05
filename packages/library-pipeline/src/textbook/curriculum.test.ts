@@ -110,9 +110,20 @@ describe('어휘 가드', () => {
     // 2026-09-04 실측: 시중 초·중 지문 196쪽. 문턱 40 은 그 분포의 p75 였다.
     expect(CURRICULUM_GATE.elementary.maxOutsidePct).toBe(CURRICULUM_SPEC.outside.elementary.p90)
     expect(CURRICULUM_GATE.middle.maxOutsidePct).toBe(CURRICULUM_SPEC.outside.middle.p90)
-    // 옛 문턱보다 넓어야 한다 — 좁으면 시중 지문을 우리가 떨어뜨린다는 뜻이다.
-    expect(CURRICULUM_GATE.elementary.maxOutsidePct).toBeGreaterThan(40)
-    expect(CURRICULUM_GATE.middle.maxOutsidePct).toBeGreaterThan(40)
+  })
+
+  it('자를 고치면 문턱도 다시 잰다 — 2026-09-05 재측정', () => {
+    // `stemCandidates` 로 굴절형을 되돌리게 하자 같은 시중 지문의 밖% 가 내려갔다
+    // (초등 중앙 30.3 → 27.0). 자만 고치고 옛 문턱(43.3)을 두면 **기준이 조용히
+    // 헐거워진다** — 그 값은 옛 자로 잰 p90 이지 새 자의 p90 이 아니다.
+    expect(CURRICULUM_SPEC.measuredAt).toBe('2026-09-05')
+    expect(CURRICULUM_SPEC.outside.elementary.p50).toBeLessThan(30.3)
+    // 새 p90(38.6)이 옛 짐작값 40 근처로 내려왔다. 그래도 짐작값을 쓰지 않는다 —
+    // 값이 비슷한 것과 근거가 있는 것은 다르다.
+    expect(CURRICULUM_GATE.elementary.maxOutsidePct).not.toBe(40)
+    expect(CURRICULUM_GATE.middle.maxOutsidePct).toBeGreaterThan(
+      CURRICULUM_GATE.elementary.maxOutsidePct
+    )
   })
 
   it('표본 수를 함께 들고 다닌다 — 얇은 표본을 두꺼운 척하지 않게', () => {
