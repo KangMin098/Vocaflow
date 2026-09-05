@@ -131,7 +131,7 @@ if (!wiki) {
 const { createClient } = await import('@supabase/supabase-js')
 const { gradeBand, bandOf, readability, curriculumFit, standaloneFit, PASSAGE_WORDS } =
   await import('../../packages/library-pipeline/src/index.ts')
-const { estimateArticleVLevel, loadVLevelMap } = await import('./_vlevel.mjs')
+const { estimateArticleVLevel, loadVLevelMap, warmUpRest } = await import('./_vlevel.mjs')
 const { extractBookLemmas } = await import(
   '../../packages/library-pipeline/src/analyze/extract-lemmas.ts'
 )
@@ -149,6 +149,8 @@ const db = createClient(
 )
 
 // 사전은 **한 번만** 읽는다 — 글마다 물으면 fetch 가 터진다(2026-09-05 실측).
+const warm = V_RANGE ? await warmUpRest(db) : null
+if (warm) console.log(`REST 예열 ${warm.ok ? `${warm.ms}ms (${warm.attempts}회째)` : "실패 — 그래도 진행한다"}`)
 const vMap = V_RANGE ? await loadVLevelMap(db) : null
 if (vMap) console.log(`사전 ${vMap.size.toLocaleString()}낱말 적재`)
 

@@ -46,6 +46,33 @@ export function p75Disc(sortedAsc) {
  * 사전은 48,969행이고 필요한 것은 두 열뿐이라 한 번에 들고 있을 수 있다.
  * 그러면 글당 조회가 **0** 이 되고, 대조 실험도 마음대로 돌릴 수 있다.
  */
+/**
+ * **첫 REST 호출을 미리 때려 둔다.**
+ *
+ * 실측(2026-09-05, 같은 프로세스 안에서 연속 3회):
+ *
+ *   1회 **105,486ms** · 2회 1,327ms · 3회 **287ms**
+ *
+ * 프로세스마다 **첫 호출만** 이렇게 느리다(연결 수립 쪽 문제로 보인다). 그동안
+ * "사전 적재가 실패한다" 고 본 것들은 전부 **그 첫 호출이 타임아웃한 것**이었다 —
+ * 스로틀에 걸린 줄 알고 청크를 줄이고 재시도를 붙였지만 원인이 아니었다.
+ * 한 번만 성공시켜 두면 나머지는 빠르다.
+ *
+ * 실패해도 던지지 않는다. 예열은 편의이지 계약이 아니다 — 진짜 판정은 뒤 단계가 한다.
+ */
+export async function warmUpRest(db, { attempts = 4 } = {}) {
+  for (let i = 0; i < attempts; i++) {
+    const t = Date.now()
+    const r = await db
+      .from('shared_dictionary')
+      .select('word')
+      .limit(1)
+      .then((x) => x, (e) => ({ error: e }))
+    if (!r.error) return { ok: true, ms: Date.now() - t, attempts: i + 1 }
+  }
+  return { ok: false, ms: 0, attempts }
+}
+
 export async function loadVLevelMap(db, { pageSize = 1000 } = {}) {
   const map = new Map()
   for (let from = 0; ; from += pageSize) {

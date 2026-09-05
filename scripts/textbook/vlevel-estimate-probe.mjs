@@ -39,7 +39,7 @@ const SOURCE = arg('source') ?? 'simple_wikipedia'
 const LIMIT = Number(arg('limit') ?? 60)
 
 const { createClient } = await import('@supabase/supabase-js')
-const { estimateArticleVLevel, loadVLevelMap } = await import('./_vlevel.mjs')
+const { estimateArticleVLevel, loadVLevelMap, warmUpRest } = await import('./_vlevel.mjs')
 const { extractBookLemmas } = await import(
   '../../packages/library-pipeline/src/analyze/extract-lemmas.ts'
 )
@@ -51,6 +51,8 @@ const db = createClient(
 )
 
 
+const warm = await warmUpRest(db)
+console.log(`REST 예열 ${warm.ok ? `${warm.ms}ms (${warm.attempts}회째)` : "실패 — 그래도 진행한다"}`)
 const vMap = await loadVLevelMap(db)
 console.log(`사전 ${vMap.size.toLocaleString()}낱말 적재`)
 
