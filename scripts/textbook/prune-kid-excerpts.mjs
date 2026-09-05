@@ -43,25 +43,50 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
   auth: { persistSession: false },
 })
 
+/**
+ * **DB 호출은 재시도한다 — 이 저장소에서 다섯 번째로 같은 결함이다.**
+ *
+ * `gate-import` · `adapt-drain-import` · `harvest-gutenberg-kid` · `gate-book-export` 는
+ * 각자 재시도를 갖는데 여기만 없었다. 연결이 한 번 흔들리면 훑은 것이 통째로 날아간다.
+ * 판정은 본문에서 다시 하므로 재실행이 안전하지만, **다시 도는 비용이 공짜는 아니다.**
+ */
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+async function dbRetry(fn, what, attempt = 0) {
+  try {
+    const r = await fn()
+    if (r?.error) throw new Error(r.error.message)
+    return r
+  } catch (e) {
+    if (attempt >= 5) throw new Error(`${what} — ${String(e.message).slice(0, 80)}`)
+    const wait = Math.min(20_000, 1500 * 2 ** attempt)
+    console.error(`  ↻ ${what} 재시도 ${attempt + 1}/5 (${Math.round(wait / 1000)}s)`)
+    await sleep(wait)
+    return dbRetry(fn, what, attempt + 1)
+  }
+}
+
 const rows = []
 // ⚠️ 한 번에 500편씩 `order('id')` 로 훑었더니 **statement timeout** 이었다(실측).
 //   `feed_id` 만으로는 계획기가 인덱스를 못 쓴다 — `source` 를 함께 걸고 쪽을 작게 잡는다.
 //   같은 함정을 오늘 `adapt-drain-export` 에서도 밟았다(본문 전량 조회).
 const PAGE = 100
 for (let from = 0; ; from += PAGE) {
-  const { data, error } = await db
-    .from('library_articles')
-    .select('id, content, status, feed_label')
-    .eq('source', 'gutenberg')
-    .eq('feed_id', 'kid-excerpt')
+  const { data } = await dbRetry(
+    () =>
+      db
+        .from('library_articles')
+        .select('id, content, status, feed_label')
+        .eq('source', 'gutenberg')
+        .eq('feed_id', 'kid-excerpt')
     // ⚠️ **정렬 키가 유일해야 한다.** 처음엔 `created_at` 만으로 넘겼는데, 배치로 200편을
     //   한꺼번에 넣어 같은 타임스탬프가 수두룩하다 → 페이지 경계에서 행이 섞이고
     //   **15편이 조회를 통째로 빠져나갔다**(실측: 906편 중 891편만 판정됨).
     //   같은 버그를 이 저장소가 세 번째로 밟았다(IA 수집 · market-benchmark · 여기).
-    .order('created_at')
-    .order('id')
-    .range(from, from + PAGE - 1)
-  if (error) throw new Error('조회 실패: ' + error.message)
+        .order('created_at')
+        .order('id')
+        .range(from, from + PAGE - 1),
+    `조회 offset ${from}`,
+  )
   rows.push(...data)
   if (data.length < PAGE) break
 }
@@ -93,8 +118,7 @@ if (!COMMIT) {
 let removed = 0
 for (let i = 0; i < bad.length; i += 200) {
   const chunk = bad.slice(i, i + 200)
-  const { error } = await db.from('library_articles').delete().in('id', chunk)
-  if (error) throw new Error('삭제 실패: ' + error.message)
+  await dbRetry(() => db.from('library_articles').delete().in('id', chunk), `삭제 ${i}`)
   removed += chunk.length
   process.stdout.write(`\r  지움 ${removed}/${bad.length}`)
 }
