@@ -19,8 +19,14 @@ import type { StudyState, WordItem } from './types'
 export interface StudyModeProps {
   /** 학습할 단어 목록 */
   words: WordItem[]
-  /** 종료 콜백 */
-  onExit: () => void
+  /**
+   * 세션이 끝났다.
+   *
+   * `completed` = 마지막 단어까지 평가했다 · `aborted` = 중간에 나갔다.
+   * 둘을 가르지 않으면 **다 끝낸 사람도 곧바로 허브로 튕긴다** — 무엇을 했는지
+   * 확인할 자리도, 다음 한 걸음도 없이(실측 2026-09-05).
+   */
+  onExit: (reason: 'completed' | 'aborted') => void
 }
 
 interface RatingConfig {
@@ -57,13 +63,16 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
 
   // 세션 종료(또는 마지막 단어 완료) 시 SRS 큐 → DB flush (멱등 가드, 1회)
   const flushedRef = useRef(false)
-  const finish = useCallback(() => {
-    if (!flushedRef.current) {
-      flushedRef.current = true
-      void flushPendingSession()
-    }
-    onExit()
-  }, [onExit])
+  const finish = useCallback(
+    (reason: 'completed' | 'aborted') => {
+      if (!flushedRef.current) {
+        flushedRef.current = true
+        void flushPendingSession()
+      }
+      onExit(reason)
+    },
+    [onExit],
+  )
 
   const reset = useCallback(() => {
     setState('hidden')
@@ -111,7 +120,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
 
       const next = studyIndex + 1
       if (next >= words.length) {
-        finish() // 마지막 단어 평가 → 큐 flush + 종료
+        finish('completed') // 마지막 단어 평가 → 큐 flush + 완료 화면
         return
       }
       setStudyIndex(next)
@@ -159,7 +168,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
       } else if (['1', '2', '3', '4', '5'].includes(e.key) && state === 'example-shown') {
         rateWord(parseInt(e.key) as 1 | 2 | 3 | 4 | 5)
       } else if (e.key === 'Escape') {
-        finish()
+        finish('aborted')
       }
     }
     window.addEventListener('keydown', handler)
@@ -174,7 +183,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
       <div className="mb-s-6 flex items-center justify-between rounded-xl border border-bd bg-bg px-s-5 py-s-3">
         <button
           type="button"
-          onClick={finish}
+          onClick={() => finish('aborted')}
           /* 66×36 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 세로만 늘려 줄 배치는 그대로 둔다. */
           className="py-s-2 inline-flex min-h-[44px] items-center gap-s-2 rounded-md px-s-3 font-display text-[13px] font-semibold text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
         >
