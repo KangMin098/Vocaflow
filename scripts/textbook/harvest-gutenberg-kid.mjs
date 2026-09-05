@@ -106,6 +106,28 @@ const gate = (text) => {
   return { band: band.id, school, fk: m.fk, words: m.words, pctile: f.marketPercentile }
 }
 
+/**
+ * **DB 호출은 재시도한다.**
+ *
+ * 실측 2026-09-05: 수확 배치가 `TypeError: fetch failed` 한 줄로 죽었다. 상류가 끊긴 것도
+ * 아니고 우리가 틀린 것도 아니다 — 긴 루프를 도는 동안 한 번 흔들린 것뿐이다.
+ * 그 한 번에 22권치 작업이 통째로 날아간다.
+ *
+ * 같은 함정을 이 저장소가 여러 번 밟았고(`gate-import.mjs` 가 같은 이유로 `retry` 를 갖는다),
+ * PG 수신 쪽은 이미 재시도가 있는데 **DB 쪽만 없었다.**
+ */
+async function dbRetry(fn, what, attempt = 0) {
+  try {
+    const r = await fn()
+    if (r?.error) throw new Error(r.error.message)
+    return r
+  } catch (e) {
+    if (attempt >= 4) throw new Error(`${what} — ${String(e.message).slice(0, 80)}`)
+    await sleep(1500 * 2 ** attempt)
+    return dbRetry(fn, what, attempt + 1)
+  }
+}
+
 async function get(u, attempt = 0) {
   try {
     const { stdout } = await run(
@@ -182,13 +204,16 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 async function remainingQuota() {
   const have = {}
   for (const b of READING_LEVEL_BANDS) {
-    const { count, error } = await db
-      .from('library_articles')
-      .select('id', { count: 'exact', head: true })
-      .eq('source', 'gutenberg')
-      .eq('feed_id', 'kid-excerpt')
-      .eq('feed_label', `PD 발췌 · ${b.id}`)
-    if (error) throw new Error('몫 조회 실패: ' + error.message)
+    const { count } = await dbRetry(
+      () =>
+        db
+          .from('library_articles')
+          .select('id', { count: 'exact', head: true })
+          .eq('source', 'gutenberg')
+          .eq('feed_id', 'kid-excerpt')
+          .eq('feed_label', `PD 발췌 · ${b.id}`),
+      `몫 조회 ${b.id}`,
+    )
     have[b.id] = count ?? 0
   }
   return have
@@ -367,21 +392,29 @@ for (const b of picked) {
 
   let wrote = 0
   if (COMMIT && rows.length) {
-    const { data: exist } = await db
-      .from('library_articles')
-      .select('source_id')
-      .eq('source', 'gutenberg')
-      .in(
-        'source_id',
-        rows.map((r) => r.source_id)
-      )
+    const { data: exist } = await dbRetry(
+      () =>
+        db
+          .from('library_articles')
+          .select('source_id')
+          .eq('source', 'gutenberg')
+          .in(
+            'source_id',
+            rows.map((r) => r.source_id)
+          ),
+      '중복 조회',
+    )
     const has = new Set((exist ?? []).map((r) => r.source_id))
     const fresh = rows.filter((r) => !has.has(r.source_id))
     dup += rows.length - fresh.length
     for (let i = 0; i < fresh.length; i += 200) {
-      const { error } = await db.from('library_articles').insert(fresh.slice(i, i + 200))
-      if (error) {
-        failures.push(`#${b.id} INSERT — ${error.message.slice(0, 60)}`)
+      try {
+        await dbRetry(
+          () => db.from('library_articles').insert(fresh.slice(i, i + 200)),
+          `INSERT #${b.id}`,
+        )
+      } catch (e) {
+        failures.push(`#${b.id} INSERT — ${String(e.message).slice(0, 60)}`)
         break
       }
       wrote += fresh.slice(i, i + 200).length
