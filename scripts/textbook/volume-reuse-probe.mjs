@@ -69,5 +69,37 @@ for (const band of BANDS) {
       `  분포: ${[...hist.entries()].sort((a, b) => a[0] - b[0]).map(([k, v]) => `${k}단원:${v}편`).join(' · ')}`,
   )
   // 무중복으로 이 권을 만들려면 글이 몇 편 있어야 하는가 — 그것이 곧 "권수" 의 분모다.
-  console.log(`  무중복이려면 최소 ${totalSlots}편 필요 (지금 ${distinct}편으로 돌려 막는 중)\n`)
+  console.log(`  무중복이려면 최소 ${totalSlots}편 필요 (지금 ${distinct}편으로 돌려 막는 중)`)
+
+  /**
+   * **어느 유형이 재사용을 만드는가.**
+   *
+   * 조합기를 고쳐 "덜 쓰인 글 먼저" 로 바꾼 뒤에도 재사용이 남았다(V2 91/120).
+   * 남은 원인은 **유형별 풀 쏠림**이다 — 한 유형의 자리 수보다 그 유형 문항을 가진
+   * 글이 적으면 아무리 잘 골라도 겹칠 수밖에 없다. 그래서 유형마다
+   * **자리 수 vs 그 유형을 가진 글 수**를 나란히 놓는다. 모자란 유형이 곧 드레인 대상이다.
+   */
+  const slotsByType = new Map()
+  for (const u of units) {
+    for (const it of u.items ?? []) {
+      slotsByType.set(it.type, (slotsByType.get(it.type) ?? 0) + 1)
+    }
+  }
+  const poolRefsByType = new Map()
+  for (const it of vol.pool ?? []) {
+    if (!poolRefsByType.has(it.type)) poolRefsByType.set(it.type, new Set())
+    poolRefsByType.get(it.type).add(it.ref_id)
+  }
+  const rows = [...slotsByType.entries()]
+    .map(([type, slots]) => ({ type, slots, refs: poolRefsByType.get(type)?.size ?? 0 }))
+    .sort((a, b) => a.refs - a.slots - (b.refs - b.slots))
+  console.log('  유형별 — 자리 / 그 유형 문항을 가진 글 (모자란 순):')
+  for (const r of rows) {
+    const gap = r.refs - r.slots
+    console.log(
+      `    ${r.type.padEnd(12)} 자리 ${String(r.slots).padStart(3)} · 글 ${String(r.refs).padStart(4)}` +
+        `  ${gap < 0 ? `⚠ ${-gap}편 모자람 — 겹칠 수밖에 없다` : `여유 ${gap}`}`,
+    )
+  }
+  console.log()
 }
