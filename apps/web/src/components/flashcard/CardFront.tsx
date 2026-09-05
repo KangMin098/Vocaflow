@@ -11,6 +11,8 @@ interface CardFrontProps {
   showFlipHint: boolean
   isAudioPlaying: boolean
   onPlayAudio: () => void
+  /** 이 브라우저가 음성 합성을 지원하는가 — 아니면 버튼을 그리지 않는다. */
+  canPlayAudio: boolean
   isBookmarked: boolean
   onToggleBookmark: () => void
 }
@@ -21,6 +23,7 @@ export function CardFront({
   showFlipHint,
   isAudioPlaying,
   onPlayAudio,
+  canPlayAudio,
   isBookmarked,
   onToggleBookmark,
 }: CardFrontProps) {
@@ -73,8 +76,10 @@ export function CardFront({
           </span>
         </div>
 
-        {/* Audio Button */}
-        <button
+        {/* Audio Button — 지원하지 않는 브라우저에서는 아예 그리지 않는다.
+            눌러도 소리가 안 나면 학습자는 자기 기기를 의심한다. */}
+        {canPlayAudio && (
+          <button
           onClick={(e) => {
             e.stopPropagation()
             onPlayAudio()
@@ -88,8 +93,9 @@ export function CardFront({
             className={isAudioPlaying ? 'animate-[audio-pulse_0.8s_ease-in-out_infinite]' : ''}
             aria-hidden="true"
           />
-          <span>발음 듣기</span>
-        </button>
+            <span>발음 듣기</span>
+          </button>
+        )}
       </div>
 
       {/* Flip Hint */}

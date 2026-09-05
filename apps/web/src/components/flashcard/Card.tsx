@@ -12,6 +12,7 @@ interface CardProps {
   phase: FlashcardPhase
   hintVisible: boolean
   isAudioPlaying: boolean
+  canPlayAudio: boolean
   isExampleAudioPlaying: boolean
   onPlayAudio: () => void
   onClick: () => void
@@ -26,6 +27,7 @@ export function Card({
   isAudioPlaying,
   isExampleAudioPlaying,
   onPlayAudio,
+  canPlayAudio,
   onClick,
   swipeDirection,
   cardChangeKey,
@@ -75,6 +77,7 @@ export function Card({
           hintVisible={hintVisible}
           showFlipHint={phase === 'flippable'}
           isAudioPlaying={isAudioPlaying}
+          canPlayAudio={canPlayAudio}
           onPlayAudio={onPlayAudio}
           isBookmarked={isBookmarked}
           onToggleBookmark={() => setIsBookmarked((b) => !b)}
