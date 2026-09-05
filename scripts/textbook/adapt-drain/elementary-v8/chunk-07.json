@@ -1,0 +1,260 @@
+[
+  {
+    "adapted_from_id": "05f2bb4e-38d6-4a1f-9c9a-21816ed1dc1e",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The Legend of Sleepy Hollow (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 7,
+    "source_url": "https://www.gutenberg.org/ebooks/41",
+    "source_text": "About two hundred yards from the tree, a small brook crossed the road, and ran into a marshy and thickly-wooded glen, known by the name of Wiley’s Swamp. A few rough logs, laid side by side, served for a bridge over this stream. On that side of the road where the brook entered the wood, a group of oaks and chestnuts, matted thick with wild grape-vines, threw a cavernous gloom over it. To pass this bridge was the severest trial. It was at this identical spot that the unfortunate André was captured, and under the covert of those chestnuts and vines were the sturdy yeomen concealed who surprised him. This has ever since been considered a haunted stream, and fearful are the feelings of the schoolboy who has to pass it alone after dark.",
+    "teachable_new_words": {
+      "teachable": 9,
+      "outside": 37,
+      "pct": 24.3
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "01e16cd2-3308-438b-ac72-c23e14995a90",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The Coming Wave; Or, The Hidden Treasure of High Rock (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/23773",
+    "source_text": "The western extremity of the village extended nearly to the high cliffs on the sea-shore, and the situation was very romantic and picturesque. The fishing was the best in the bay, and the rocks were very attractive to people from the city. The harbor had deep water at any time of tide. For a summer residence, the only disadvantage was the want of suitable hotels or boarding-houses. Of the former there were two, of the most homely and primitive character, and not many of the inhabitants who had houses suitable for city people were willing to take boarders. John Carter pulled his passenger across the harbor, and walked with him to the Cliff House, near the headlong steeps which bounded the village on the west. He introduced him to Peter Bennington, the landlord, and told his story for him.",
+    "teachable_new_words": {
+      "teachable": 10,
+      "outside": 31,
+      "pct": 32.3
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "0b9ab76c-47b8-4e50-be1a-64bb348a0716",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Fifty-Two Stories For Girls (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://www.gutenberg.org/ebooks/25948",
+    "source_text": "A light! a number of lights. They're moving--moving up. They've reached the spot where we met the shepherd who told us of the two ways. A shout--a hail--loud and long continued, as though a lot of people are calling together. Hurrah! We're saved. The farmer has turned out a rescue party to find and save us. Hurrah! Gathering all my strength--all I have left--I answer the hail. Smith joins me as well as he can. Once, twice, thrice we shout. We catch the distant cry that tells us we have been heard. For a minute the lights are stationary. Then--their bearers sending up another great hail as though to tell us they know where we are and are coming--we see the lanterns flashing forward up the track which leads above our heads, and then round to the Eagles' Home. Mr. Griffiths, who knows the hills as well as he knows his own farm lands, has told them where we are from the direction of our frantic voices.",
+    "teachable_new_words": {
+      "teachable": 5,
+      "outside": 36,
+      "pct": 13.9
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "1deb79fb-2743-47a2-8c4b-07f7b295c102",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "A Little Princess (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/146",
+    "source_text": "The secretary was writing quickly on his tablet. He looked up from it as he tore off a leaf and slipped it into his breast pocket. \"It is true that the first thought was mine, Sahib,\" he said; \"though it was naught but a fancy. I am fond of this child; we are both lonely. It is her way to relate her visions to her secret friends. Being sad one night, I lay close to the open skylight and listened. The vision she related told what this miserable room might be if it had comforts in it. She seemed to see it as she talked, and she grew cheered and warmed as she spoke. Then she came to this fancy; and the next day, the Sahib being ill and wretched, I told him of the thing to amuse him. It seemed then but a dream, but it pleased the Sahib. To hear of the child's doings gave him entertainment. He became interested in her and asked questions. At last he began to please himself with the thought of making her visions real things.\"",
+    "teachable_new_words": {
+      "teachable": 16,
+      "outside": 34,
+      "pct": 47.1
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "02687697-0219-4c42-b8f6-346101957adc",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The Two Magics: The Turn of the Screw, Covering End (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/42486",
+    "source_text": "Unquestionably “The Bostonians” is not only the most brilliant and remarkable of Mr. James’s novels, but it is one of the most important of recent contributions to literature.--Boston Courier. His short stories, which are always bright and sparkling, are delightful.... Will bear reading again and again.--Mail and Express. The following changes have been made to the original text. The first line presents the text as printed in the original, the second the amended text. with regard to certain matters. the question of how long they with regard to certain matters, the question of how long they at random, to the noble spring of the roof. Just look at those at random, to the noble spring of the roof. “Just look at those",
+    "teachable_new_words": {
+      "teachable": 5,
+      "outside": 18,
+      "pct": 27.8
+    },
+    "title": "",
+    "text": ""
+  },
+  {
+    "adapted_from_id": "e60059be-157f-4c48-8a6d-b9c486350cdc",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "What Does It Take to Be a 'Power Couple'?",
+    "source_feed": "voa",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://learningenglish.voanews.com/a/what-does-it-take-to-be-a-power-couple-/7963076.html",
+    "source_text": "And now, Words and Their Stories, from VOA Learning English.\nIn American English, we use many expressions to describe when two people have a lot of similarities or are very close. Here are some examples.\nIf we say two people are joined at the hip, they are nearly always together. If we describe individuals as thick as thieves, it means they are very close. People considered two peas in a pod have many things in common. And we use the term kindred spirits to describe people who often share the same opinions and interests.\nThese expressions can represent people who grew closer for different reasons. Maybe they complemented each other well in certain ways. Or maybe their situations brought them together for the purpose of completing something important or meaningful.\nBut today we are going to discuss a very special kind of relationship – one that involves two people who are romantically involved and very successful.\nPeople in such relationships can be described as power couples.\nThere are many examples of famous power couples, including successful movie stars, musicians and others in the performing arts. But power couples can exist in many other industries and communities, as well. And, the two people do not have to work in the same industry.\nIf they do, however, that can make them even more powerful. For example, a well-known architect who builds homes could be partnered with a famous designer who decorates them. Or, one person in a power couple may be a music producer, while the other is a famous singer.\nEven though power couples involve highly successful people, one person could describe their partner as their better half. This is a way to compliment their “other half” in the relationship. For example, one might say during a meeting with a friend, “Hello! How are you? And more importantly, how is your better half?”\nNow, let’s hear two friends use some of these expressions.\nA: Hey, I’m not used to seeing you alone. Where’s your sidekick?\nB: Huh? Who are you talking about?\nA: Ben. You guys have been joined at the hip for weeks. Looks like you’re thick as thieves.\nB: Well, the project is pretty important for the company. So, we’re putting in a lot of hours.\nA: Are you becoming kindred spirits from working so much together?\nB: No. It’s just keeping us both very busy.\nA: Busy trying to become the new power couple in the office?\nB: What are you talking about?? We’re not thick as thieves or kindred spirits, and we’re definitely not a power couple. We are just working hard on the same project!\nAnd that’s all the time we have for this Words and Their Stories. Until next time, I’m Anna Matteo.\nAnna Matteo wrote this story for VOA Learning English.\n______________________________________________________\ncomplement -n. something that fills up, completes, or makes better or perfect : -v. to complete or enhance by providing something additional\nromantically -adv. done in a way that relates or is associated with love : romantic -adv. of, relating to, or associated with love\narchitect -n. a person who designs buildings and advises in their construction\ndecorate -v. to make more attractive by adding something that is beautiful or becoming\ncompliment -n. an expression of respect, affection, or admiration : -v. to make an expression of respect, affection, or admiration\nsidekick -n. a person closely associated with another as a subordinate or partner",
+    "teachable_new_words": {
+      "teachable": 26,
+      "outside": 82,
+      "pct": 31.7
+    },
+    "title": "",
+    "text": ""
+  }
+]

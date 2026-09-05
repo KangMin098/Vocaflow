@@ -505,18 +505,30 @@ for (const b of picked) {
 
   let wrote = 0
   if (COMMIT && rows.length) {
-    const { data: exist } = await dbRetry(
-      () =>
-        db
-          .from('library_articles')
-          .select('source_id')
-          .eq('source', 'gutenberg')
-          .in(
-            'source_id',
-            rows.map((r) => r.source_id)
-          ),
-      '중복 조회',
-    )
+    // ⚠️ **한 권이 실패해도 전체를 죽이지 않는다.** 재시도 다섯을 다 쓰고 `dbRetry` 가 던지면
+    //   프로세스가 끝나고 **그때까지 적재한 것 말고 진행 중이던 것은 통째로 버려진다**
+    //   (실측 2026-09-05: 24권 수확이 마지막 권의 중복 조회에서 죽어 0편으로 끝났다).
+    //   INSERT 는 이미 이렇게 감싸고 있었는데 중복 조회만 벗겨져 있었다.
+    //   중복 조회가 안 되면 **쓰지 않고 넘어간다** — 건너뛰면 다음 실행에서 같은 해시로
+    //   다시 뽑히므로 잃는 것이 없지만, 조회 없이 넣으면 같은 조각이 두 번 들어간다.
+    let exist = null
+    try {
+      ;({ data: exist } = await dbRetry(
+        () =>
+          db
+            .from('library_articles')
+            .select('source_id')
+            .eq('source', 'gutenberg')
+            .in(
+              'source_id',
+              rows.map((r) => r.source_id)
+            ),
+        '중복 조회',
+      ))
+    } catch (e) {
+      failures.push(`#${b.id} 중복 조회 — ${String(e.message).slice(0, 60)}`)
+      continue
+    }
     const has = new Set((exist ?? []).map((r) => r.source_id))
     const fresh = rows.filter((r) => !has.has(r.source_id))
     dup += rows.length - fresh.length
