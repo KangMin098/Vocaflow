@@ -36,6 +36,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { syllables } from '../textbook-corpus/analyze.mjs'
+import { mediawikiRandom, mediawikiLead } from './_mediawiki.mjs'
 
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -238,49 +239,8 @@ async function asbCatalog() {
   return asbCache
 }
 
-/**
- * MediaWiki 무작위 표집 — **`rnlimit` 상한(50)을 넘겨 모은다.**
- *
- * 한 번에 50 이 최대라 `--sample 100` 을 줘도 50건만 왔다. 표본 수가 요청보다 적으면
- * 같이 적은 오차 폭이 거짓이 되므로, 채울 때까지 여러 번 부른다.
- * 무작위라 같은 항목이 다시 올 수 있어 제목으로 걸러 낸다.
- */
-async function mediawikiRandom(api, n) {
-  const seen = new Set()
-  const items = []
-  let total = null
-  for (let round = 0; items.length < n && round < 12; round++) {
-    const r = await get(
-      `${api}?action=query&list=random&rnnamespace=0&rnlimit=${Math.min(n, 50)}` +
-        `&meta=siteinfo&siprop=statistics&format=json`,
-      { json: true }
-    )
-    if (!r.ok) {
-      if (items.length) break
-      return { error: r.error ? `연결 실패 — ${r.error}` : `HTTP ${r.status}`, items: [] }
-    }
-    // 전체 규모를 짐작하지 않는다 — siteinfo 가 스스로 말한다.
-    total ??= r.data?.query?.statistics?.articles ?? null
-    for (const p of r.data?.query?.random ?? []) {
-      if (seen.has(p.title)) continue
-      seen.add(p.title)
-      items.push({ id: p.title, title: p.title })
-    }
-    await new Promise((z) => setTimeout(z, 400))
-  }
-  return { total, items: items.slice(0, n) }
-}
-
-/** MediaWiki 도입부(`exintro`). 본문 전체가 아니라 **도입부가 곧 지문 단위**다. */
-async function mediawikiLead(api, title) {
-  const r = await get(
-    `${api}?action=query&prop=extracts&explaintext=1&exintro=1&titles=${encodeURIComponent(title)}&format=json`,
-    { json: true }
-  )
-  if (!r.ok) return { error: r.error ? `연결 실패 — ${r.error}` : `HTTP ${r.status}` }
-  const pages = r.data?.query?.pages ?? {}
-  return { body: (Object.values(pages)[0]?.extract ?? '').replace(/\s+/g, ' ').trim() }
-}
+// MediaWiki 표집·도입부 추출은 `_mediawiki.mjs` 한 벌이다 — 적재기가 같은 함수를 부른다.
+// 여기서 잰 수치와 적재기가 넣는 것이 갈리지 않게 하려는 것이다.
 
 const SOURCES = {
   // ── narrative — 이 조사의 목적 ────────────────────────────────────
