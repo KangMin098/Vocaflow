@@ -406,14 +406,41 @@ const outOfWindow = withBody.filter((a) => !passages.has(a.id))
 const usable = withBody.filter((a) => passages.has(a.id))
 
 // 이미 이 유형이 붙은 글은 건너뛴다 — 재실행 안전.
-const existing = new Set(
-  (
-    await fetchAllIn(db, 'csat_dcp_items', 'ref_id, type, kind', 'ref_id', usable.map((a) => a.id), ['ref_id'])
+const itemRows = (
+  await fetchAllIn(db, 'csat_dcp_items', 'ref_id, type, kind', 'ref_id', usable.map((a) => a.id), ['ref_id'])
+).filter((r) => r.kind === 'article')
+const existing = new Set(itemRows.filter((r) => r.type === TYPE).map((r) => r.ref_id))
+
+/**
+ * 글마다 이미 가진 **유형 수**. 뽑는 순서를 정하는 데 쓴다.
+ *
+ * ── 왜 순서가 중요한가 (실측 2026-09-05) ────────────────────────────
+ * `title` 문항 8건을 넣었더니 권의 서로 다른 글이 **91 → 89 편으로 오히려 줄었다.**
+ * 조합기의 시장 비중이 풀 크기를 따라가서, 문항을 넣은 만큼 **그 유형의 자리도 늘었기**
+ * 때문이다(자리 22 → 30 · 그 유형 보유 글 30 → 38). 자리와 글이 같이 늘면 제자리다.
+ *
+ *   희소 유형 자리 합 62 → 70 · 그 유형 보유 글 47 → 51 · 비율 1.32 → **1.37 (악화)**
+ *
+ * 넣은 8편 중 4편이 **이미 그 계열 유형을 갖고 있던 글**에 붙어 헛돌았다.
+ * 그래서 이 드레인은 **유형을 적게 가진 글부터** 뽑는다 — 같은 노력으로 서로 다른 글이
+ * 더 많이 늘고, 그것이 곧 권의 무중복이다.
+ *
+ * 특정 유형 목록을 박아 넣지 않는다. "희소" 는 밴드마다 다르고 시간이 지나면 바뀌는데,
+ * **유형을 적게 가진 글부터**는 어느 밴드에서나 같은 방향을 가리킨다.
+ */
+const typeCount = new Map()
+for (const r of itemRows) {
+  if (!typeCount.has(r.ref_id)) typeCount.set(r.ref_id, new Set())
+  typeCount.get(r.ref_id).add(r.type)
+}
+const todo = usable
+  .filter((a) => !existing.has(a.id))
+  // 같은 수면 id 순 — 몇 번 돌려도 같은 몫이 나와야 재실행 안전이 성립한다.
+  .sort(
+    (a, b) =>
+      (typeCount.get(a.id)?.size ?? 0) - (typeCount.get(b.id)?.size ?? 0) ||
+      String(a.id).localeCompare(String(b.id)),
   )
-    .filter((r) => r.kind === 'article' && r.type === TYPE)
-    .map((r) => r.ref_id),
-)
-const todo = usable.filter((a) => !existing.has(a.id))
 // ⚠️ **기본값이 "후보 전체" 였다.** `--need` 를 빼먹으면 남은 지문을 하나도 안 남기고
 //   청크로 쏟는다 — 실측 2026-08-31: `--type content_match --band 6` 한 번에
 //   **1,401개 파일**이 작업 트리에 떨어졌다. 드레인은 사람이 앉아서 채우는 일이라
@@ -455,13 +482,41 @@ const tasks = todo.slice(0, need).map((a) => ({
 }))
 
 fs.mkdirSync(DIR, { recursive: true })
-for (const f of fs.readdirSync(DIR)) if (/^chunk-\d+\.json$/.test(f)) fs.unlinkSync(path.join(DIR, f))
+/**
+ * 옛 청크를 지우고 새로 쓴다 — 다만 **아직 채우지 않은 청크는 남긴다.**
+ *
+ * ⚠️ 이 저장소는 여러 세션이 한 작업 폴더를 공유한다. 2026-09-05 실측: 다른 세션이
+ * `chunk-01~03` 을 채우는 중에 이 스크립트를 돌렸더니 **그쪽 원본 청크가 통째로 지워졌다.**
+ * `.out.json` 이 원본을 통째로 복사해 담는 구조라 데이터는 살아남았지만, 아직 손대지
+ * 않은 청크였다면 그 몫은 흔적 없이 사라진다.
+ *
+ * 그래서 `.out.json` 이 **이미 있는** 청크(= 누군가 끝낸 것)만 지운다. 남긴 것은 세어서
+ * 말한다 — 조용히 남기면 다음 사람이 왜 번호가 건너뛰는지 모른다.
+ */
+let kept = 0
+for (const f of fs.readdirSync(DIR)) {
+  if (!/^chunk-\d+\.json$/.test(f)) continue
+  const done = fs.existsSync(path.join(DIR, f.replace('.json', '.out.json')))
+  if (done) fs.unlinkSync(path.join(DIR, f))
+  else kept++
+}
+if (kept) {
+  console.log(
+    `※ 아직 안 채운 청크 ${kept}개는 지우지 않았다 — 다른 세션이 쓰고 있을 수 있다.\n` +
+      `   새 몫은 그 뒤 번호로 붙는다.`,
+  )
+}
 
 const chunks = []
+// 남긴 청크를 덮지 않도록 **빈 번호를 찾아** 쓴다. 0부터 그냥 쓰면 위에서 살려 둔
+//   미완성 청크를 그대로 뭉갠다 — 지우지 않기로 해 놓고 덮으면 같은 일이다.
+let slot = 0
 for (let i = 0; i < tasks.length; i += SIZE) {
-  const n = String(chunks.length).padStart(2, '0')
+  while (fs.existsSync(path.join(DIR, `chunk-${String(slot).padStart(2, '0')}.json`))) slot++
+  const n = String(slot).padStart(2, '0')
   fs.writeFileSync(path.join(DIR, `chunk-${n}.json`), JSON.stringify(tasks.slice(i, i + SIZE), null, 1), 'utf8')
   chunks.push(n)
+  slot++
 }
 
 console.log(`${spec.label}(${spec.number}번) · V${BAND}`)
