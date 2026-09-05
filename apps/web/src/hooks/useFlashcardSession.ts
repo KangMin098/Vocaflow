@@ -10,7 +10,9 @@ import type {
   SRSRating,
   SessionStats,
 } from '@/types/flashcard'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+
+import { clearCursor, resumeIndexFor, saveCursor } from '@/lib/flashcard/session-cursor'
 
 interface UseFlashcardSessionParams {
   initialWords: FlashcardWord[]
@@ -20,6 +22,20 @@ export function useFlashcardSession({ initialWords }: UseFlashcardSessionParams)
   // 초기 큐 정렬
   const [queue] = useState(() => sortByPriority(initialWords))
   const [currentIdx, setCurrentIdx] = useState(0)
+  const queueIds = useMemo(() => queue.map((w) => w.id), [queue])
+
+  // ── 이어보기 (2026-09-05) ──────────────────────────────────────────
+  // 새로고침·뒤로가기로 다시 들어오면 1번 카드부터였다. 저장된 커서가 **같은 큐**를
+  // 가리키면 그 자리에서 잇는다(`lib/flashcard/session-cursor.ts`). 첫 렌더는 서버와 같은
+  // 0 이어야 하므로(하이드레이션) 마운트 뒤에 옮긴다 — 한 프레임 뒤에 자리가 바뀌는 것이
+  // 서버·클라 불일치 경고보다 낫다.
+  useEffect(() => {
+    const at = resumeIndexFor(queueIds)
+    if (at > 0) {
+      setCurrentIdx(at)
+      setCardChangeKey((k) => k + 1)
+    }
+  }, [queueIds])
   const [phase, setPhase] = useState<FlashcardPhase>('recall')
   const [sessionStartTime] = useState(new Date())
 
@@ -42,6 +58,11 @@ export function useFlashcardSession({ initialWords }: UseFlashcardSessionParams)
 
   const currentWord = queue[currentIdx] ?? null
   const isComplete = currentIdx >= queue.length
+
+  // 다 했으면 커서를 지운다 — 남겨 두면 다음 세션이 "끝" 에서 열려 완료 화면만 보인다.
+  useEffect(() => {
+    if (isComplete) clearCursor()
+  }, [isComplete])
 
   // SRS 평가
   const submitRating = useCallback(
@@ -70,11 +91,16 @@ export function useFlashcardSession({ initialWords }: UseFlashcardSessionParams)
 
   // 다음 카드 진입
   const goToNextCard = useCallback(() => {
-    setCurrentIdx((prev) => prev + 1)
+    setCurrentIdx((prev) => {
+      // 다음 카드로 넘어가는 순간이 저장 시점이다 — 평가 직후가 아니라 "이 카드는 끝났다" 가
+      // 확정된 뒤여야 새로고침해도 같은 카드를 두 번 묻지 않는다.
+      saveCursor(queueIds, prev + 1)
+      return prev + 1
+    })
     setPhase('recall')
     setFirstJudge(null)
     setCardChangeKey((k) => k + 1)
-  }, [])
+  }, [queueIds])
 
   // 1차 평가
   const submitFirstJudge = useCallback((answer: 'yes' | 'no') => {
