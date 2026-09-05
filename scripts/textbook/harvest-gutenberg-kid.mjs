@@ -285,18 +285,24 @@ async function remainingQuota() {
     //   ⚠️ 그렇다고 `publishable=true` 만 세면 반대로 영영 안 찬다 — 방금 담은 것은
     //   아직 판정 전이라 0 으로 세어져 무한히 더 담게 된다.
     //   그래서 **격리가 확정된 것만** 뺀다: 미판정은 일단 찬 것으로 센다.
-    const { count } = await dbRetry(
-      () =>
-        db
-          .from('library_articles')
-          .select('id', { count: 'exact', head: true })
-          .eq('source', 'gutenberg')
-          .eq('feed_id', 'kid-excerpt')
-          .eq('feed_label', `PD 발췌 · ${b.id}`)
-          .not('csat_fit->gate->>publishable', 'eq', 'false'),
-      `몫 조회 ${b.id}`,
-      )
-      have[b.id] = count ?? 0
+    //
+    //   ⚠️⚠️ 그 뺄셈을 `.not(col,'eq','false')` 한 줄로 쓰면 **안 된다.** PostgREST 가
+    //   SQL `col <> 'false'` 로 번역하는데 `col` 이 NULL 이면 UNKNOWN 이라 **그 행이
+    //   조용히 빠진다** — 즉 미판정이 0 으로 세어져 위에 적은 의도와 정반대가 된다.
+    //   실측 2026-09-05: 초3~4 를 449 로 셌으나 실제는 652 − 격리 145 = **507**.
+    //   그래서 두 번 세서 뺀다. NULL 은 어느 쪽 조건에도 안 걸린다.
+    const base = () =>
+      db
+        .from('library_articles')
+        .select('id', { count: 'exact', head: true })
+        .eq('source', 'gutenberg')
+        .eq('feed_id', 'kid-excerpt')
+        .eq('feed_label', `PD 발췌 · ${b.id}`)
+    const [held, bad] = await Promise.all([
+      dbRetry(() => base(), `몫 조회 ${b.id}`),
+      dbRetry(() => base().eq('csat_fit->gate->>publishable', 'false'), `격리 조회 ${b.id}`),
+    ])
+      have[b.id] = (held.count ?? 0) - (bad.count ?? 0)
     }),
   )
   return have
