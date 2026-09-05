@@ -71,8 +71,12 @@ async function ensureCatalog() {
  * `topics` 는 `Subjects` + `Bookshelves` 문자열에 대한 **부분 일치**다(대소문자 무시).
  * 하나라도 맞으면 담는다. `skip` 에 든 번호는 건너뛴다(커서).
  *
- * ⚠️ 정렬은 **책 번호 오름차순**으로 고정한다. 목록이 실행마다 흔들리면 커서가 의미를
- *   잃고, 같은 책을 다시 받거나 통째로 건너뛴다.
+ * ⚠️ 정렬은 **주제 순서 → 책 번호 오름차순**으로 고정한다.
+ *   주제 순서가 곧 우선순위다 — 호출자가 수율 높은 서가를 앞에 둔다(실측 2026-09-05:
+ *   `Children's Instructional Books` 3.8편/권 vs 다른 서가 1.7~2.0). 처음엔 번호순만
+ *   썼는데, 그러면 네 서가가 뒤섞여 **가장 좋은 서가 80권 중 15권만 쓰고** 나머지
+ *   서가로 넘어갔다. 안에서는 번호순 — 목록이 실행마다 흔들리면 커서가 의미를 잃고,
+ *   같은 책을 다시 받거나 통째로 건너뛴다.
  */
 export async function catalogBooks({ topics, limit, skip = new Set() }) {
   const file = await ensureCatalog()
@@ -92,6 +96,7 @@ export async function catalogBooks({ topics, limit, skip = new Set() }) {
     if (!topic) continue
     hits.push({ id: n, title, topic })
   }
-  hits.sort((a, b) => a.id - b.id)
+  const rank = (h) => wanted.indexOf(h.topic)
+  hits.sort((a, b) => rank(a) - rank(b) || a.id - b.id)
   return limit ? hits.slice(0, limit) : hits
 }
