@@ -396,7 +396,9 @@ function checkAnswerLength(questions, label) {
     const correct = lens[q.correct_index] ?? 0
     const others = lens.filter((_, i) => i !== q.correct_index)
     const avg = others.reduce((s, x) => s + x, 0) / Math.max(1, others.length)
-    if (correct === Math.max(...lens)) longest += 1
+    // **동률은 단서가 아니다** — 같은 길이가 둘이면 「가장 긴 것」 전략의 성공률이 이미 반이다.
+    const mx = Math.max(...lens)
+    if (correct === mx && lens.filter((v) => v === mx).length === 1) longest += 1
     if (avg > 0 && correct > avg * 1.25) overs.push(`"${q.question.slice(0, 40)}…" 정답 ${correct}자 / 오답 평균 ${Math.round(avg)}자`)
   }
 

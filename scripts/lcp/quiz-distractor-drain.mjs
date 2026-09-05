@@ -57,7 +57,17 @@ async function retry(fn, tries = 8) {
 
 const len = (o) => String(o?.text ?? '').trim().length
 
-/** 이 문항이 길이로 풀리는가 — 정답이 최장이거나 오답 평균의 1.25배를 넘는다 */
+/**
+ * 이 문항이 길이로 풀리는가.
+ *
+ * 두 갈래를 본다 — 정답이 **단독** 최장이거나, 오답 평균의 1.25배를 넘거나.
+ *
+ * ⚠️ **동률은 단서가 아니다.** 처음에는 `c === Math.max(...)` 로만 봤는데, 그러면 오답
+ *    하나를 정답과 같은 길이로 맞춘 문항까지 「여전히 편향」으로 세어 다시 쓰게 만든다.
+ *    같은 길이가 둘이면 「가장 긴 것」을 고르는 전략의 성공률은 이미 50% 로 떨어진다.
+ *    (실측 2026-09-05: 첫 웨이브 150문항 중 이 오판정이 8건이었다. 나머지 79건은
+ *     실제로 정답이 단독 최장이라 게이트가 옳았다.)
+ */
 function isBiased(q) {
   const opts = q.options ?? []
   if (q.type === 'truefalse' || opts.length < 3) return false
@@ -65,7 +75,9 @@ function isBiased(q) {
   const c = lens[q.correct_index] ?? 0
   const others = lens.filter((_, i) => i !== q.correct_index)
   const avg = others.reduce((s, x) => s + x, 0) / Math.max(1, others.length)
-  return c === Math.max(...lens) || (avg > 0 && c > avg * 1.25)
+  const mx = Math.max(...lens)
+  const soleLongest = c === mx && lens.filter((v) => v === mx).length === 1
+  return soleLongest || (avg > 0 && c > avg * 1.25)
 }
 
 async function allRows() {
