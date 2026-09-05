@@ -117,7 +117,12 @@ export function purposeOf(row) {
   const source = String(row.source ?? '')
   // 'adapted' = 목표 학령으로 다시 쓴 각색문. 이야기가 나올 수밖에 없으므로 교재 쪽이다.
   if (feed === 'kid-excerpt' || feed === 'adapted') return 'kids'
-  // ⚠️ PLOS 는 평균 4만 자다 — 지문 크기(700~1,000자)가 아니라 논문 전문이다.
+  // ⚠️ **`plos-extract` 를 먼저 걸러야 한다.** 추출기가 논문에서 잘라 낸 지문은 300어대이고
+  //   `source` 는 여전히 'plos' 다. 순서를 바꾸면 잘라 낸 지문까지 "미절단 원본" 으로 되돌아간다.
+  //   실측 2026-09-06: 이 순서 때문에 `raw` 가 36,337 → 46,473 으로 늘고
+  //   `csat` 게시 가능이 17,518 → 9,170 으로 줄었다 — 추출 성과가 통째로 사라진 것이다.
+  if (feed === 'plos-extract') return 'csat'
+  // PLOS 원본은 평균 4만 자다 — 지문 크기(700~1,000자)가 아니라 논문 전문이다.
   //   자르기 전에는 어느 용도로도 게시할 수 없다.
   if (source === 'plos') return 'raw'
   if (feed === 'harvest' || feed === 'compose-drain') return 'csat'
