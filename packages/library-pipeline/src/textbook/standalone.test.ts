@@ -93,6 +93,27 @@ describe('자립성 게이트', () => {
     expect(STANDALONE_SPEC.market.elementary.sample).toBeGreaterThan(100)
   })
 
+  it('요일로 시작하는 일지를 막는다 — 연도가 없어도 일지다', () => {
+    // Audubon 항해일지 발췌가 그대로 통과했다(실측 2026-09-05). 달력 날짜 규칙은
+    // `November 10, 1851.` 만 잡는데, 일지는 해가 바뀌지 않는 한 연도를 적지 않는다.
+    const journal =
+      'Wednesday, 4th. Cloudy and coldish. Left early and could not find my pocket knife. ' +
+      'We were stopped by the wind at the bluffs, about twenty miles above the fort. ' +
+      'We all hunted, with only fair results. Saw some hazel bushes, and some black walnuts.'
+    expect(standaloneFit(journal).pass).toBe(false)
+    expect(standaloneFit(journal.replace('Wednesday, 4th.', 'Thursday, 5th—')).pass).toBe(false)
+  })
+
+  it('이야기 속 요일 문장은 치지 않는다 — 세 조건을 모두 요구하는 이유', () => {
+    // '요일 + 숫자 + 끝맺음' 중 하나라도 빠지면 일지가 아니다. 시중 지문 오탐 0.5%(1/207)이고
+    // 그 1건도 쪽 경계에서 잘린 조각이지 이 규칙이 친 것이 아니다.
+    const story =
+      'Wednesday was the day of the fair. The whole village walked to the field before sunrise. ' +
+      'Farmers brought their best animals and the children carried baskets of apples. ' +
+      'A judge gave a blue ribbon to the finest cow. Everyone stayed until the lamps were lit.'
+    expect(standaloneFit(story).pass).toBe(true)
+  })
+
   it('못 재면 통과시키지 않는다', () => {
     expect(standaloneFit('').pass).toBe(false)
   })

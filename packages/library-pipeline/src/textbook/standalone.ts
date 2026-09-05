@@ -115,9 +115,23 @@ const ABBREV = /^(?:mr|mrs|ms|dr|st|no|vol|fig|jr|sr|prof|rev|capt|gen|col|lt|sg
 const LOGBOOK =
   /^[A-Z][a-z]+\s+\d{1,2},\s*\d{4}\s*[.,—–-]|^\d{1,2}[/.]\d{1,2}[/.]\d{2,4}\b|\b\d{1,2}[.:]\d{2}\s*[ap]\.?\s*m\./i
 
+/**
+ * **요일로 시작하는 일지** — `Wednesday, 4th. Cloudy and coldish.`
+ *
+ * 위 `LOGBOOK` 은 달력 날짜(`November 10, 1851.`)만 잡는다. 그런데 항해일지는 해가 바뀌지
+ * 않는 한 연도를 적지 않는다 — `Wednesday, 4th.` 처럼 요일과 일자만 쓴다. Audubon 항해일지
+ * 발췌가 자립성 자를 그대로 통과했다(실측 2026-09-05, `mixed` 표본 12편 중 1편).
+ *
+ * ⚠️ 이야기 안의 평범한 문장(`Wednesday was the day of the fair.`)을 치지 않도록
+ *   '요일 + 숫자 + 끝맺음' 세 조건을 모두 요구한다. 시중 지문 오탐은 따로 재서 적었다.
+ */
+const WEEKDAY_ENTRY =
+  /^(?:Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day,?\s+\d{1,2}(?:st|nd|rd|th|d)?\s*[.,—–-]/i
+
 function opensAsRecord(text: string): boolean {
   const t = text.trim()
   if (LOGBOOK.test(t.slice(0, 60))) return true
+  if (WEEKDAY_ENTRY.test(t.slice(0, 40))) return true
   // `Treatment. The first…` — 한 낱말 + 마침표 + 대문자. 약어는 뺀다.
   const m = t.match(/^([A-Za-z]+)\.\s+[A-Z]/)
   if (m && m[1] && !ABBREV.test(m[1]) && m[1].length >= 4) return true
