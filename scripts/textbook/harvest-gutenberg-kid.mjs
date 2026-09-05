@@ -204,6 +204,14 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 async function remainingQuota() {
   const have = {}
   for (const b of READING_LEVEL_BANDS) {
+    // ⚠️ **격리된 것은 몫에서 뺀다.** 적재 수로 세면 그 칸이 영영 안 찬다 —
+    //   실측 2026-09-05: 중1~2 가 몫 1,832 를 채웠는데 게시 게이트를 통과한 것은
+    //   **1,588편**이었다(244편이 장르·잡물로 격리). 몫이 찼다고 그만 담으면
+    //   그 칸은 1,588 에서 멈춘 채 "다 찼다" 고 보고한다.
+    //
+    //   ⚠️ 그렇다고 `publishable=true` 만 세면 반대로 영영 안 찬다 — 방금 담은 것은
+    //   아직 판정 전이라 0 으로 세어져 무한히 더 담게 된다.
+    //   그래서 **격리가 확정된 것만** 뺀다: 미판정은 일단 찬 것으로 센다.
     const { count } = await dbRetry(
       () =>
         db
@@ -211,7 +219,8 @@ async function remainingQuota() {
           .select('id', { count: 'exact', head: true })
           .eq('source', 'gutenberg')
           .eq('feed_id', 'kid-excerpt')
-          .eq('feed_label', `PD 발췌 · ${b.id}`),
+          .eq('feed_label', `PD 발췌 · ${b.id}`)
+          .not('csat_fit->gate->>publishable', 'eq', 'false'),
       `몫 조회 ${b.id}`,
     )
     have[b.id] = count ?? 0
