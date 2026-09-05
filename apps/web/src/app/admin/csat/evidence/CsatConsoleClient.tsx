@@ -243,7 +243,11 @@ function GuideTab() {
   if (!src) return null
 
   const t = src.totals
-  const gap = src.vocab.filter((v) => !v.in_dictionary)
+  // **굴절형은 빈칸이 아니다.** 표제어 대조만 하면 allowed · entries · submissions 가 전부
+  // 「없음」으로 나와 뜻이 이미 있는 낱말을 다시 만들라고 시킨다(실측 907 중 433).
+  const gap = src.vocab.filter((v) => v.match === 'none')
+  const gapWords = gap.filter((v) => !v.is_phrase)
+  const gapPhrases = gap.filter((v) => v.is_phrase)
 
   return (
     <>
@@ -254,16 +258,20 @@ function GuideTab() {
           hint="같은 함정이 다른 이름으로 쌓인 것을 접은 수 — 교재 꼭지 수의 상한이다"
         />
         <Stat
-          label="필수 어휘"
-          value={String(t.vocabLemmas)}
-          hint={`사전 등재 ${t.vocabInDictionary} · 미등재 ${t.vocabLemmas - t.vocabInDictionary}`}
+          label="필수 어휘 — 뜻 없는 빈칸"
+          value={`${t.vocabGap} / ${t.vocabLemmas}`}
+          hint={`직접 ${t.vocabDirect} · 굴절형 ${t.vocabInflected}(표제어는 있다) · 빈칸 중 구 ${t.vocabGapPhrase}`}
         />
         <Stat
           label="사정권 권장 시간"
           value={`${Math.round(t.timeBudgetSec / 60)}분`}
           hint={`${t.items}문항 합 — 회차별 분배의 근거`}
         />
-        <Stat label="접은 유형" value={`${t.types}`} hint={`분석 ${t.analyzed}문항에서`} />
+        <Stat
+          label="학습자 배포 가능 근거 서술"
+          value={`${t.typesLearnerReady} / ${t.types}`}
+          hint="나머지는 「앞선 청크의 관찰 ①」 같은 분석자 작업 로그가 섞여 학습자 화면에 그대로 나간다"
+        />
       </div>
 
       <div className="mb-4 flex flex-wrap gap-2">
@@ -286,7 +294,8 @@ function GuideTab() {
               <th className="py-2 pr-3 font-medium">절차</th>
               <th className="py-2 pr-3 font-medium">함정 라벨 → 계열</th>
               <th className="py-2 pr-3 font-medium">미끄러지는 자리</th>
-              <th className="py-2 font-medium">요구 어휘</th>
+              <th className="py-2 pr-3 font-medium">요구 어휘</th>
+              <th className="py-2 font-medium">근거 서술</th>
             </tr>
           </thead>
           <tbody>
@@ -332,7 +341,16 @@ function GuideTab() {
                     </span>
                   </td>
                   <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{ty.failure_modes.length}</td>
-                  <td className="py-2 tabular-nums text-[var(--tx-2)]">{ty.vocab.length}</td>
+                  <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{ty.vocab.length}</td>
+                  <td className="py-2">
+                    {ty.analyst_meta.length ? (
+                      <span className="text-xs text-[#B5803A]" title={ty.analyst_meta.join(' · ')}>
+                        작업 로그 {ty.analyst_meta.length}
+                      </span>
+                    ) : (
+                      <span className="text-xs text-[#2E7D5A]">배포 가능</span>
+                    )}
+                  </td>
                 </tr>
               )
             })}
@@ -342,15 +360,22 @@ function GuideTab() {
 
       <div className="mt-5 border-t border-[var(--bd)] pt-4">
         <h3 className="text-sm font-medium text-[var(--tx)]">
-          사전에 없는 기출 필수 어휘 {gap.length}낱말
+          뜻이 없는 기출 필수 어휘 {gap.length} — 어휘 드레인의 다음 몫
         </h3>
         <p className="mt-1 text-xs text-[var(--tx-3)]">
-          분석이 「이 문항을 풀려면 알아야 한다」고 지목했는데 `shared_dictionary` 에 뜻이 없다 — 교재에 실을
-          뜻을 아직 못 만든 낱말이다. 요구 문항 수가 많은 순.
+          분석이 「이 문항을 풀려면 알아야 한다」고 지목했는데 사전에 뜻이 없다. <strong>굴절형
+          {t.vocabInflected}개는 뺐다</strong> — 분석은 지문에 나온 꼴(allowed · entries)을 적으므로 표제어로만
+          대조하면 이미 있는 낱말을 다시 만들게 된다. 요구 문항 수가 많은 순.
         </p>
         <p className="mt-2 text-sm leading-relaxed text-[var(--tx-2)]">
-          {gap.slice(0, 60).map((v) => `${v.lemma}(${v.items})`).join(' · ')}
-          {gap.length > 60 ? ` … 외 ${gap.length - 60}` : ''}
+          <span className="text-[var(--tx-3)]">낱말 {gapWords.length} · </span>
+          {gapWords.slice(0, 45).map((v) => `${v.lemma}(${v.items})`).join(' · ')}
+          {gapWords.length > 45 ? ` … 외 ${gapWords.length - 45}` : ''}
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-[var(--tx-2)]">
+          <span className="text-[var(--tx-3)]">구·숙어 {gapPhrases.length} · </span>
+          {gapPhrases.slice(0, 30).map((v) => `${v.lemma}(${v.items})`).join(' · ')}
+          {gapPhrases.length > 30 ? ` … 외 ${gapPhrases.length - 30}` : ''}
         </p>
       </div>
     </>

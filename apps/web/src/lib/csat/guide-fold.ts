@@ -129,6 +129,34 @@ export function foldTrapFamilies(traps: RawTrap[]): TrapFamily[] {
     .sort((a, b) => b.count - a.count || b.labels.length - a.labels.length)
 }
 
+// ── 분석자 작업 로그 탐지 ───────────────────────────────────────────────
+
+/**
+ * 유형 리포트의 `answer_locus_pattern` 은 드레인 청크마다 **덧붙여** 쌓인다. 그래서 그 안에
+ * 분석자끼리 하는 말이 그대로 남는다 — 「앞선 청크의 관찰 ①은 이 청크에서는 성립하지 않는다」
+ * 「── 2026-09-04 갱신」 「confirmed_at 에 두 번째 자리를 적어야 했다」.
+ *
+ * **그 글이 학습자 화면 `/csat/<유형>` 에 그대로 나간다.** 학습자에게 「청크」는 아무 뜻이 없고,
+ * 자기가 읽는 것이 완성된 설명인지 작업 메모인지 구별할 방법도 없다. 고치려면 사람(또는 드레인)이
+ * 다시 써야 하므로, 우선 **어느 유형이 그런지 눈에 보이게** 한다 — 안 보이면 고쳐지지 않는다.
+ *
+ * 표지는 애매하지 않은 것만 쓴다. 「재확인된다」·「성립하지 않는다」 같은 말은 학습자용 서술에도
+ * 정당하게 나오므로 세지 않는다.
+ */
+const ANALYST_MARKERS: readonly [string, RegExp][] = [
+  ['청크', /청크/],
+  ['관찰 번호', /관찰\s*[①②③④⑤]/],
+  ['날짜 갱신 표시', /\d{4}-\d{2}-\d{2}\s*갱신/],
+  ['내부 필드명', /confirmed_at|answer_locus\.|_PROMPT/],
+  ['배치 지시', /이번 회차분|다음 배치|앞선 배치/],
+]
+
+/** `answer_locus_pattern` 에서 발견된 작업 로그 표지 이름들 (없으면 빈 배열) */
+export function detectAnalystMeta(text: string | null): string[] {
+  if (!text) return []
+  return ANALYST_MARKERS.filter(([, re]) => re.test(text)).map(([name]) => name)
+}
+
 // ── 가이드 원천 자료의 모양 ─────────────────────────────────────────────
 
 export interface GuideProcedureStep {
@@ -148,6 +176,11 @@ export interface CsatGuideType {
   n_analyzed: number
   time_budget_sec: number | null
   answer_locus_pattern: string | null
+  /**
+   * 근거 서술에 분석자 작업 로그가 섞여 있나 — 비어 있어야 학습자 화면에 그대로 내보낼 수 있다.
+   * 이 화면·이 파일이 이것을 세는 이유는 [detectAnalystMeta] 주석에 있다.
+   */
+  analyst_meta: string[]
   procedure: GuideProcedureStep[]
   /** 접기 전 라벨 수 — 「30 → 8」이 보여야 접었다는 걸 안다 */
   traps_raw: number
@@ -159,6 +192,16 @@ export interface CsatGuideType {
   vocab: { lemma: string; items: number }[]
 }
 
+/**
+ * 사전에서 어떻게 찾았나.
+ *
+ * `direct` 와 `inflected` 를 가르는 이유: 분석이 적는 낱말은 지문에 나온 **그 꼴** 그대로다
+ * (allowed · entries · submissions · diminishing). 표제어로만 대조하면 이 굴절형들이 전부
+ * 「사전에 없음」이 되어 **뜻이 이미 있는 낱말을 다시 만들라고** 시킨다 — 실측 2026-09-05:
+ * 「미등재 907」 중 **433 이 굴절형**이었고 실제 빈칸은 474 였다.
+ */
+export type VocabMatch = 'direct' | 'inflected' | 'none'
+
 export interface CsatGuideVocab {
   lemma: string
   /** 이 낱말을 필수로 요구한 사정권 문항 수 */
@@ -167,8 +210,14 @@ export interface CsatGuideVocab {
   types: string[]
   /** 가장 최근 출제 연도 */
   latest_year: number | null
-  /** `shared_dictionary` 에 뜻이 있나 — 없으면 교재에 실을 뜻을 아직 못 만든 것이다 */
+  /** `shared_dictionary` 에 뜻이 있나 — `match !== 'none'` 과 같다 */
   in_dictionary: boolean
+  /** 어떤 경로로 찾았나 */
+  match: VocabMatch
+  /** 굴절형으로 찾았을 때의 표제어 — 교재에 실을 것은 이쪽이다 */
+  headword: string | null
+  /** 다어절(구·숙어)인가 — 사전에 5,547개 있으므로 대상 밖이 아니라 **빈칸**이다 */
+  is_phrase: boolean
   cefr_level: string | null
   v_level: number | null
 }
@@ -198,7 +247,17 @@ export interface CsatGuideSource {
     trapLabels: number
     /** 접은 뒤 계열 총수 — 교재 꼭지 수의 상한이다 */
     trapFamilies: number
+    /** 근거 서술을 학습자에게 그대로 내보낼 수 있는 유형 수 (작업 로그가 안 섞인 것) */
+    typesLearnerReady: number
     vocabLemmas: number
+    /** 표제어로 바로 찾힌 것 */
+    vocabDirect: number
+    /** 굴절형으로 찾힌 것 — 교재에는 표제어를 싣는다. **드레인 대상이 아니다** */
+    vocabInflected: number
+    /** 뜻이 실제로 없는 것 = 어휘 드레인의 다음 몫 */
+    vocabGap: number
+    /** 그중 다어절(구·숙어) */
+    vocabGapPhrase: number
     vocabInDictionary: number
     /** 사정권 전 문항 권장 시간 합(초) */
     timeBudgetSec: number
@@ -244,8 +303,14 @@ export function renderGuideMarkdown(src: CsatGuideSource): string {
   L.push(`| 사정권 문항 | ${t.items} |`)
   L.push(`| 분석 완료 문항 | ${t.analyzed} (${pct(t.analyzed, t.items)}) |`)
   L.push(`| 함정 라벨 → 계열 | ${t.trapLabels} → ${t.trapFamilies} |`)
+  L.push(
+    `| 근거 서술 학습자 배포 가능 | ${t.typesLearnerReady} / ${t.types} (나머지는 분석자 작업 로그가 섞여 있다) |`,
+  )
   L.push(`| 필수 어휘 (낱말) | ${t.vocabLemmas} |`)
   L.push(`| 그중 사전 등재 | ${t.vocabInDictionary} (${pct(t.vocabInDictionary, t.vocabLemmas)}) |`)
+  L.push(`| — 표제어로 직접 | ${t.vocabDirect} |`)
+  L.push(`| — 굴절형으로 (표제어는 있다) | ${t.vocabInflected} |`)
+  L.push(`| **뜻이 없는 빈칸** | ${t.vocabGap} (낱말 ${t.vocabGap - t.vocabGapPhrase} · 구 ${t.vocabGapPhrase}) |`)
   L.push(`| 사정권 권장 시간 합 | ${mmss(t.timeBudgetSec)} |`)
   L.push('')
 
@@ -263,6 +328,12 @@ export function renderGuideMarkdown(src: CsatGuideSource): string {
     if (ty.answer_locus_pattern) {
       L.push('**정답 근거가 어디 있나**')
       L.push('')
+      if (ty.analyst_meta.length) {
+        L.push(
+          `> ⚠️ 이 서술에는 분석자 작업 로그가 섞여 있다(${ty.analyst_meta.join(' · ')}). 학습자에게 그대로 내보내기 전에 다시 써야 한다.`,
+        )
+        L.push('')
+      }
       L.push(ty.answer_locus_pattern)
       L.push('')
     }
@@ -305,15 +376,19 @@ export function renderGuideMarkdown(src: CsatGuideSource): string {
 
   L.push('## 2. 기출 필수 어휘 원천')
   L.push('')
-  L.push('분석이 「이 문항을 풀려면 이 낱말을 알아야 한다」고 지목한 낱말. 사전 미등재는 교재에 실을 뜻이 아직 없다는 뜻이다.')
+  L.push('분석이 「이 문항을 풀려면 이 낱말을 알아야 한다」고 지목한 낱말. 분석은 **지문에 나온 그 꼴**을 적으므로,')
+  L.push('표제어로만 대조하면 굴절형이 전부 「없음」이 된다 — 그래서 「굴절형(표제어)」을 따로 적는다.')
+  L.push('**없음** 만이 교재에 실을 뜻이 아직 없는 낱말이다.')
   L.push('')
   L.push('| 낱말 | 문항 | 유형 | 최근 | 사전 | CEFR | V |')
   L.push('| --- | ---: | --- | ---: | :---: | --- | ---: |')
   for (const v of src.vocab) {
+    const dict =
+      v.match === 'direct' ? '있음' : v.match === 'inflected' ? `굴절형(${v.headword ?? '?'})` : '**없음**'
     L.push(
-      `| ${v.lemma} | ${v.items} | ${v.types.slice(0, 3).join(', ')} | ${v.latest_year ?? '—'} | ${
-        v.in_dictionary ? '있음' : '**없음**'
-      } | ${v.cefr_level ?? '—'} | ${v.v_level ?? '—'} |`,
+      `| ${v.lemma} | ${v.items} | ${v.types.slice(0, 3).join(', ')} | ${v.latest_year ?? '—'} | ${dict} | ${
+        v.cefr_level ?? '—'
+      } | ${v.v_level ?? '—'} |`,
     )
   }
   L.push('')

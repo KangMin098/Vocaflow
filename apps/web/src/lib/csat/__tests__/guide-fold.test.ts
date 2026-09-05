@@ -9,6 +9,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  detectAnalystMeta,
   foldTrapFamilies,
   renderGuideMarkdown,
   sameTrapFamily,
@@ -129,6 +130,26 @@ describe('foldTrapFamilies', () => {
   })
 })
 
+describe('detectAnalystMeta', () => {
+  // 실제 `csat_type_reports.answer_locus_pattern['R-BLANK']` 에서 가져온 문장들 (2026-09-05 실측).
+  // 이 글이 학습자 화면 `/csat/R-BLANK` 에 그대로 나가고 있다.
+  it('학습자에게 뜻이 없는 작업 표지를 집어낸다', () => {
+    expect(detectAnalystMeta('앞선 청크의 관찰 ①은 이 청크에서는 성립하지 않는다')).toEqual([
+      '청크',
+      '관찰 번호',
+    ])
+    expect(detectAnalystMeta('── 2026-09-04 갱신: 정답표가 확보돼')).toEqual(['날짜 갱신 표시'])
+    expect(detectAnalystMeta('confirmed_at 에 두 번째 자리를 적어야 했다')).toEqual(['내부 필드명'])
+    expect(detectAnalystMeta('이번 회차분에서는 세 건 있었다')).toEqual(['배치 지시'])
+  })
+
+  it('학습자용 서술을 오탐하지 않는다 — 「재확인」·「성립하지 않는다」는 정당한 말이다', () => {
+    expect(detectAnalystMeta('빈칸 앞 한 문장에 근거가 붙어 있는 경우가 다수다')).toEqual([])
+    expect(detectAnalystMeta('이 규칙은 옛 회차에서는 성립하지 않는다')).toEqual([])
+    expect(detectAnalystMeta(null)).toEqual([])
+  })
+})
+
 describe('renderGuideMarkdown', () => {
   const src: CsatGuideSource = {
     generated_at: '2026-09-05 00:00:00Z',
@@ -143,6 +164,7 @@ describe('renderGuideMarkdown', () => {
         n_analyzed: 56,
         time_budget_sec: 115,
         answer_locus_pattern: '이음매는 지시어와 연결사에 있다',
+        analyst_meta: [],
         procedure: [{ step: '주어진 글의 명사를 적는다', on_fail: '대명사를 먼저 적는다' }],
         traps_raw: R_ORDER.length,
         trap_families: foldTrapFamilies(R_ORDER),
@@ -158,8 +180,24 @@ describe('renderGuideMarkdown', () => {
         types: ['글의 순서'],
         latest_year: 2026,
         in_dictionary: false,
+        match: 'none',
+        headword: null,
+        is_phrase: false,
         cefr_level: null,
         v_level: null,
+      },
+      // 굴절형은 「없음」이 아니다 — 표제어를 적어 줘야 교재에 무엇을 실을지 안다
+      {
+        lemma: 'entries',
+        items: 2,
+        types: ['글의 순서'],
+        latest_year: 2025,
+        in_dictionary: true,
+        match: 'inflected',
+        headword: 'entry',
+        is_phrase: false,
+        cefr_level: 'B1',
+        v_level: 4,
       },
     ],
     exams: [
@@ -180,8 +218,13 @@ describe('renderGuideMarkdown', () => {
       analyzed: 28,
       trapLabels: R_ORDER.length,
       trapFamilies: foldTrapFamilies(R_ORDER).length,
-      vocabLemmas: 1,
-      vocabInDictionary: 0,
+      typesLearnerReady: 1,
+      vocabLemmas: 2,
+      vocabDirect: 0,
+      vocabInflected: 1,
+      vocabGap: 1,
+      vocabGapPhrase: 0,
+      vocabInDictionary: 1,
       timeBudgetSec: 2640,
     },
   }
@@ -203,6 +246,14 @@ describe('renderGuideMarkdown', () => {
 
   it('사전 미등재를 눈에 띄게 적는다 — 교재에 실을 뜻이 없는 낱말이다', () => {
     expect(md).toContain('| asymmetry | 3 | 글의 순서 | 2026 | **없음** | — | — |')
+  })
+
+  // 이 구분이 없으면 굴절형이 전부 「없음」이 되어 **뜻이 이미 있는 낱말을 다시 만들라고** 시킨다.
+  // 실측 2026-09-05: 표제어 대조만으로 미등재 907이었는데 그중 433이 굴절형이었다.
+  it('굴절형을 「없음」으로 세지 않고 표제어를 적는다', () => {
+    expect(md).toContain('| entries | 2 | 글의 순서 | 2025 | 굴절형(entry) | B1 | 4 |')
+    expect(md).toContain('| — 굴절형으로 (표제어는 있다) | 1 |')
+    expect(md).toContain('| **뜻이 없는 빈칸** | 1 (낱말 1 · 구 0) |')
   })
 
   it('시간은 분·초로 — 초만 적으면 회차 분배를 못 한다', () => {

@@ -95,6 +95,41 @@ describe.skipIf(skip)('기출 가이드 원천 자료 (실 DB)', () => {
     expect(source!.vocab[0]!.items).toBeGreaterThanOrEqual(source!.vocab[source!.vocab.length - 1]!.items)
   })
 
+  // **굴절형을 빈칸으로 세면 헛드레인이 나간다.** 분석은 지문에 나온 꼴(allowed · entries ·
+  // submissions)을 적는데, 표제어로만 대조하면 그것들이 전부 「사전에 없음」이 되어
+  // 뜻이 이미 있는 낱말을 다시 만들라고 시킨다. 실측 2026-09-05: 표제어 대조만으로 907,
+  // 굴절형까지 보면 433이 이미 있는 낱말이었고 진짜 빈칸은 474 였다.
+  it('굴절형을 사전 빈칸으로 세지 않는다', async () => {
+    const { source } = await loadCsatGuideSource()
+    const t = source!.totals
+    expect(t.vocabDirect + t.vocabInflected + t.vocabGap).toBe(t.vocabLemmas)
+    expect(t.vocabDirect + t.vocabInflected).toBe(t.vocabInDictionary)
+    // 굴절형 해소가 실제로 일하고 있어야 한다 — 0 이면 조회가 조용히 실패한 것이다
+    expect(t.vocabInflected).toBeGreaterThan(100)
+    expect(t.vocabGap).toBeLessThan(t.vocabLemmas - t.vocabDirect)
+
+    for (const v of source!.vocab) {
+      if (v.match === 'inflected') expect(v.headword).toBeTruthy()
+      if (v.match === 'none') expect(v.in_dictionary).toBe(false)
+      expect(v.is_phrase).toBe(v.lemma.includes(' '))
+    }
+    // 구·숙어는 대상 밖이 아니다 — 사전에 다어절 표제어가 5,000개 넘게 있다
+    expect(t.vocabGapPhrase).toBeLessThanOrEqual(t.vocabGap)
+  })
+
+  // 고칠 수 있을 때까지 **보이게** 해 둔다. 유형 리포트의 근거 서술은 드레인 청크마다 덧붙어
+  // 쌓여서 분석자끼리 하는 말(「앞선 청크의 관찰 ①」 · 「── 2026-09-04 갱신」)이 남고,
+  // 그 글이 학습자 화면 `/csat/<유형>` 에 그대로 나간다.
+  it('근거 서술에 섞인 분석자 작업 로그를 세어 내놓는다', async () => {
+    const { source } = await loadCsatGuideSource()
+    const t = source!.totals
+    expect(t.typesLearnerReady).toBeLessThanOrEqual(t.types)
+    // 표지가 있는 유형은 목록을 갖고, 없는 유형은 빈 배열이다 — 판정이 뒤집히지 않아야 한다
+    const flagged = source!.types.filter((ty) => ty.analyst_meta.length > 0)
+    expect(t.typesLearnerReady).toBe(t.types - flagged.length)
+    for (const ty of flagged) expect(ty.answer_locus_pattern).toBeTruthy()
+  })
+
   it('내보내는 Markdown 에 평가원 지문이 섞이지 않는다', async () => {
     const svc = createClient(SUPABASE_URL!, SERVICE_KEY!, { auth: { persistSession: false } })
     const { source } = await loadCsatGuideSource()
