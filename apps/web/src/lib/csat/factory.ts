@@ -10,7 +10,10 @@
 //
 // ⚠️ PostgREST 집계 함수는 이 프로젝트에서 **꺼져 있다**(`PGRST123: Use of aggregate functions is
 //   not allowed`). 그래서 `select=type,v_level,count()` 한 방으로는 못 접는다 — 실측으로 확인했다.
-//   칸 단위 count 를 병렬로 던지는 지금 방식이 마이그레이션 없이 쓸 수 있는 가장 싼 길이다.
+//   2026-09-06 부터 그 자리는 **집계 RPC**(`csat_dcp_inventory()`)가 대신한다: (유형 × 수준)
+//   132칸의 문항 수와 해설 보유 수를 한 번의 그룹 스캔으로 낸다. 그 전에는 저장 문항이
+//   `planned` 추정치였고 **해설 보유율은 아예 못 쟀다**(공정 ⑥ 에 눈금이 없던 이유).
+//   사다리 칸(26개)은 여전히 칸 단위 count 다 — 그쪽은 필터가 좁아 인덱스를 탄다.
 //
 // ⚠️ **없는 것과 0 을 가른다.** `head:true` 는 없는 테이블에도 204/count=null 을 돌려준다
 //   (이 저장소가 이미 당한 함정). 그래서 count 가 null 이면 눈금을 `num: null` 로 두고
@@ -23,7 +26,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { countItemCells, plannedItemTotal } from './item-count'
+import { countItemCells, loadDcpInventory } from './item-count'
 
 import {
   BENCH_FILES,
@@ -171,18 +174,16 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
       readBench(BENCH_FILES.volume),
     ])
 
-  // ⚠️ **필터 없는 전수 count 는 이 표에서 더는 안 된다.**
-  //   실측 2026-09-05: `csat_dcp_items`(65만 행)를 PostgREST 로 전수 세면 **50초 뒤
-  //   `count=null`** 로 돌아온다(세 번 연속). 같은 count 를 직접 SQL 로는 즉시 낸다 —
-  //   DB 가 아니라 PostgREST 쪽 한계다. 예전엔 8.5초에 되던 것이라 재시도로 삼키고 있었는데,
-  //   이제는 재시도가 **50초를 100초로 만들 뿐**이다. 그 상태로 두면 현황판이 3분씩 멈춘다.
+  // ⚠️ 여기 있던 것: 저장 문항은 `count: 'planned'` 추정치로, 해설 보유는 **「못 잼」**으로.
+  //   필터 없는 전수 count 가 65만 행에서 50초 뒤 `count=null` 로 돌아왔기 때문이다
+  //   (실측 2026-09-05, 세 번 연속). 유형·수준으로 쪼개면 셀마다는 되지만 재고가 있는 칸이
+  //   132개라 다 돌면 몇 분이었다. 그래서 공정 ⑥ 은 눈금 자체가 없었다.
   //
-  //   그래서 둘을 이렇게 가른다:
-  //     · 저장 문항 → `count: 'planned'`(2.4초). **추정이므로 화면이 ≈ 를 붙인다.**
-  //     · 해설 보유 → **못 잰다.** 유형·수준으로 쪼개면 셀마다는 되지만(4.1초) 재고가 있는
-  //       칸이 132개라 다 돌면 몇 분이다. 집계 RPC 가 있어야 한다(승인 대기).
-  //   0 으로 뭉개지 않고 「못 잼」 + 이유로 남긴다.
-  const itemsTotal = await plannedItemTotal(db)
+  //   2026-09-06 — `csat_dcp_inventory()` 를 적용하고 그 길을 걷어냈다. 한 번의 그룹 스캔이
+  //   (유형 × 수준) 132칸의 문항 수와 해설 보유 수를 **함께** 낸다(적용 후 실측: 136행 ·
+  //   문항 656,984 · 해설 426,696 · 키/값 셈 불일치 0). 추정치도 아니고, 쪼개 돌 필요도 없다.
+  const inventory = await loadDcpInventory(db)
+  const itemsTotal = inventory.ok ? inventory.items : null
 
   const stages: StageState[] = []
 
@@ -398,13 +399,13 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
           },
           {
             label: '저장 문항 (추정)',
-            num: itemsTotal.count,
+            num: itemsTotal,
             den: null,
             unit: 'count',
             approx: true,
             unmeasuredReason:
-              itemsTotal.count == null
-                ? `문항 수를 못 셌다: ${itemsTotal.message}`
+              itemsTotal == null
+                ? `문항 수를 못 셌다: ${inventory.ok ? '' : inventory.error}`
                 : '플래너 통계값이다 — 정확한 수는 집필 화면이 칸을 더해서 낸다',
           },
         ],
@@ -413,7 +414,7 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
               .slice(0, 4)
               .map((c) => `${c.schoolBand}/${c.type}`)
               .join(' · ')}${emptyCells.length > 4 ? ' 외' : ''}`
-          : itemsTotal.count == null
+          : itemsTotal == null
             ? '칸은 다 찼는데 총계를 못 셌다 — 재고가 있다는 근거가 반쪽이다'
             : '사다리 칸이 모두 찼다',
         [
@@ -438,11 +439,10 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
 
   /* ⑥ 해설 — 문항마다 해설이 붙었는가. */
   {
-    // 지금은 잴 수 없다. 마지막으로 잰 값(2026-09-05 · 426,696 / 655,092)은 마이그레이션
-    // 제안서에 적어 두었다 — **코드에 상수로 박지 않는다.** 박으면 화면이 낡은 수를
-    // 현재 사실처럼 말하게 된다.
-    const total: number | null = null
-    const done: number | null = null
+    // 2026-09-06 이전에는 여기가 `null` 로 못 박혀 있었다 — 잴 방법이 없었기 때문이다.
+    // 이제 집계 RPC 한 번이 문항 수와 해설 보유 수를 함께 준다.
+    const total: number | null = inventory.ok ? inventory.items : null
+    const done: number | null = inventory.ok ? inventory.explained : null
     stages.push(
       state(
         'explain',
@@ -455,9 +455,7 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
             target: 1,
             unmeasuredReason:
               done == null || total == null
-                ? 'PostgREST 가 이 표를 전수로 못 센다 — 필터 없는 count 가 50초 뒤 빈손으로 온다(실측 2026-09-05). ' +
-                  '유형·수준으로 쪼개면 셀마다는 되지만 132칸이라 몇 분이 걸린다. ' +
-                  '집계 RPC 승인 후에 잰다 — supabase/migrations/_pending_csat_dcp_inventory.sql'
+                ? `집계 RPC(csat_dcp_inventory) 가 답하지 않았다 — ${inventory.ok ? '' : inventory.error}`
                 : undefined,
           },
         ],

@@ -88,25 +88,70 @@ export async function countItemCells(
   return out
 }
 
+
 /**
- * 표 전체의 문항 수 — **추정이다.**
+ * (유형 × 수준) 재고 집계 — **한 번의 그룹 스캔**(`csat_dcp_inventory()`).
  *
- * 정확한 전수 count 는 이 표에서 안 된다(위 제약 참조). `count: 'planned'` 는 플래너 통계라
- * 2.4초에 나오지만 정확하지 않다(654,390 vs 실제 655,092 · 0.1% 차). 화면은 이 값에 `≈` 를
- * 붙이고 근거를 적어야 한다 — 추정을 정확한 값처럼 적으면 그 수로 계산한 비율이 조용히 틀린다.
+ * ── 왜 RPC 인가 (2026-09-05 실측 → 2026-09-06 적용) ─────────────────
+ * `csat_dcp_items` 는 65만 행이다. PostgREST 로 필터 없이 전수를 세면 **50초 뒤
+ * `count=null`** 이 온다(세 번 연속). 유형·수준으로 쪼개면 셀마다는 되지만 재고가 있는 칸이
+ * 132개라 다 돌면 몇 분이다. 그래서 저장 문항은 `planned` 추정치로 때웠고, **해설 보유율은
+ * 아예 못 쟀다** — 공정 ⑥ 이 눈금 없이 남은 이유가 이것이다.
+ *
+ * 집계 RPC 는 같은 것을 한 번의 순차 훑기로 낸다(EXPLAIN ANALYZE 5,715ms · 132행).
+ * 적용 후 실측: 136행 · 문항 656,984 · 해설 426,696 · 키/값 셈 불일치 **0**.
+ *
+ * `explained_key`(키가 있다)와 `explained_value`(값이 JSON null 이 아니다)를 **둘 다** 받는다.
+ * 지금은 같지만 갈리기 시작하면 그 자체가 적재 결함의 신호다 — 그때 알아채려고 따로 받는다.
  */
-export async function plannedItemTotal(
+export interface DcpInventoryCell {
+  type: string
+  vLevel: number
+  items: number
+  explained: number
+}
+
+export type DcpInventory =
+  | { ok: true; cells: DcpInventoryCell[]; items: number; explained: number; keyValueGap: number }
+  | { ok: false; error: string }
+
+export async function loadDcpInventory(
   db: SupabaseClient,
-  timeoutMs = 6_000,
-): Promise<{ count: number | null; message: string | null }> {
-  const { count, error } = await withDeadline(
-    (signal) =>
-      db.from('csat_dcp_items').select('id', { count: 'planned', head: true }).abortSignal(signal),
+  timeoutMs = 20_000,
+): Promise<DcpInventory> {
+  const { data, error } = await withDeadline(
+    (signal) => db.rpc('csat_dcp_inventory').abortSignal(signal),
     timeoutMs,
-    { count: null, error: { message: `${timeoutMs / 1000}초 안에 안 돌아왔다` } } as {
-      count: number | null
+    { data: null, error: { message: `${timeoutMs / 1000}초 안에 안 돌아왔다` } } as {
+      data: unknown
       error: { message: string } | null
     },
   )
-  return { count, message: count == null ? (error?.message ?? '서버가 수를 돌려주지 않았다') : null }
+  if (error || !Array.isArray(data)) {
+    return { ok: false, error: error?.message || '서버가 집계를 돌려주지 않았다' }
+  }
+
+  const rows = data as {
+    type: string
+    v_level: number
+    items: number | string
+    explained_key: number | string
+    explained_value: number | string
+  }[]
+
+  let items = 0
+  let explained = 0
+  let keyValueGap = 0
+  const cells: DcpInventoryCell[] = []
+  for (const r of rows) {
+    // count(*) 는 bigint 라 JSON 에서 문자열로 온다 — 숫자로 접어 두지 않으면 합계가 문자열이 된다.
+    const n = Number(r.items)
+    const k = Number(r.explained_key)
+    const v = Number(r.explained_value)
+    items += n
+    explained += k
+    keyValueGap += Math.abs(k - v)
+    cells.push({ type: r.type, vLevel: r.v_level, items: n, explained: k })
+  }
+  return { ok: true, cells, items, explained, keyValueGap }
 }

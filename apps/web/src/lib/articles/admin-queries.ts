@@ -10,12 +10,17 @@
 //   통째로 사라지고, 커버리지 30칸이 전부 GAP 으로 칠해지고, 그 거짓 GAP 을 근거로
 //   소스 추천까지 나갔다(2026-09-05 실측).
 //
-//   그래서 집계는 `count: 'estimated', head: true`(행을 안 받는 서버 카운트)로,
-//   목록은 상태·소스 필터 + `.range()` 로만 읽는다.
+//   그래서 재고 집계는 **RPC 한 번**(`acp_article_rollup()` — 그룹 스캔 1회, 정확값)으로,
+//   조건부 단건 카운트만 `count: 'estimated', head: true` 로, 목록은 상태·소스 필터 +
+//   `.range()` 로 읽는다. 카운트를 38개 동시에 던지던 시절에는 서버가 몇 개를 **본문 없는
+//   오류**로 돌려줘 화면이 콘솔에 오류를 14건 뱉었다(2026-09-06 런타임 훑기 실측).
 
 import 'server-only'
 
+import { cache } from 'react'
+
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { pagedSelect } from '@/lib/supabase/paged-select'
 
 import { CEFR_ORDER, REGISTERS, coverageKey } from './source-guide'
@@ -117,88 +122,90 @@ async function countRows(
   throw new Error(`ACP ${label} 카운트 실패(3회 시도): ${last}`)
 }
 
-/**
- * 동시 실행 수를 묶어 돌린다.
- *
- * `Promise.all` 로 31개를 한꺼번에 보내면 서버가 몇 개를 빈 오류로 돌려준다. 재시도만으로도
- * 대부분 넘어가지만, 애초에 몰아치지 않는 편이 재시도 횟수도 줄이고 전체 시간도 짧다
- * (실측: 한 건 ~1.5초라 6개씩 나누면 31개가 여섯 물결 ≈ 9초, 재시도 0회).
- */
-async function mapPooled<T, R>(
-  items: readonly T[],
-  limit: number,
-  fn: (item: T, index: number) => Promise<R>,
-): Promise<R[]> {
-  const out = new Array<R>(items.length)
-  let cursor = 0
-  const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
-    for (;;) {
-      const i = cursor
-      cursor += 1
-      if (i >= items.length) return
-      out[i] = await fn(items[i] as T, i)
-    }
-  })
-  await Promise.all(workers)
-  return out
+interface RollupRow {
+  status: string
+  register: string | null
+  cefr_level: string | null
+  items: number
 }
 
 /**
- * 상태별 서버 카운트 — 상단 타일 · 상태 칩 · 페이지네이션 분모의 **유일한** 출처.
+ * 재고 집계 — **한 번의 그룹 스캔**(`acp_article_rollup()`).
  *
- * 전체(total)를 상태 합으로 대신하지 않는다. 둘이 어긋나면 스키마에 우리가 모르는 상태가
- * 생겼다는 뜻이고, 그건 화면이 조용히 일부를 빠뜨리고 있다는 신호다.
+ * ── 왜 RPC 로 갔나 (2026-09-06) ──────────────────────────────────────
+ * 예전에는 상태 8개 + 커버리지 31칸 = **카운트 38개를 동시에** 던졌다. 그러면 서버가 몇 개를
+ * **본문 없는 오류**로 돌려주고, 화면은 콘솔에 오류를 14건 뱉었다(런타임 훑기 실측).
+ * 재시도·동시성 제한·`estimated` 모드를 차례로 넣었지만 증상이 줄되 **다른 화면으로 옮겨
+ * 갔을 뿐**이다 — 질의 수가 그대로였기 때문이다.
+ *
+ * 지금은 조회 1회다. 게다가 **정확값**이 돌아온다(합계 91,356 = 실제 91,356 · 반환 47행) —
+ * `estimated` 로 얻던 근사치보다도 낫다.
+ *
+ * `cache()` 로 감싼 이유: 한 화면이 상태 타일과 커버리지 매트릭스를 각각 부르므로,
+ * 감싸지 않으면 같은 요청에서 8.9초짜리 스캔이 **두 번** 돈다.
+ */
+const fetchRollup = cache(async (): Promise<RollupRow[]> => {
+  // service_role — RPC 가 security definer 라 admin 게이트 뒤에서만 부른다(호출부가 지킨다).
+  const sb = createAdminClient() as unknown as {
+    rpc: (fn: string) => PromiseLike<{ data: unknown; error: { message: string } | null }>
+  }
+  const { data, error } = await sb.rpc('acp_article_rollup')
+  if (error) {
+    // 실패를 빈 배열로 바꾸지 않는다 — "글이 없다" 와 "못 읽었다" 가 같은 화면이 되면 안 된다.
+    throw new Error(`ACP 재고 집계 실패: ${error.message || '(오류 메시지 없음)'}`)
+  }
+  return (data ?? []) as RollupRow[]
+})
+
+/**
+ * 상태별 건수 — 상단 타일 · 상태 칩 · 페이지네이션 분모의 **유일한** 출처.
+ *
+ * 전체(total)를 상태 합으로 대신하지 않는다… 였는데, 롤업은 같은 스캔에서 둘을 함께 내므로
+ * 이제 어긋날 수가 없다. 대신 **모르는 상태**가 오면 `total` 에만 세고 `byStatus` 에는 넣지
+ * 않는다 — 그 차이가 "스키마에 새 상태가 생겼다" 는 신호로 남는다.
  */
 export async function getArticleStatusCounts(): Promise<ArticleStatusCounts> {
-  const sb = await db()
-  const specs = ['전체' as const, ...ALL_ARTICLE_STATUSES]
-  const [total, ...perStatus] = await mapPooled(specs, 4, (s) =>
-    s === '전체'
-      ? countRows((b) => b, '전체', sb)
-      : countRows((b) => b.eq('status', s), s, sb),
-  )
-
+  const rollup = await fetchRollup()
   const out = emptyStatusCounts()
-  out.total = total
-  ALL_ARTICLE_STATUSES.forEach((s, i) => {
-    out.byStatus[s] = perStatus[i] ?? 0
-  })
+  for (const r of rollup) {
+    out.total += r.items
+    const st = r.status
+    if (isKnownStatus(st)) out.byStatus[st] += r.items
+  }
   return out
 }
 
+/** 스키마에 우리가 아는 상태인가 — 모르는 값이 오면 byStatus 에 넣지 않고 total 에만 센다. */
+function isKnownStatus(s: string): s is ArticleStatus {
+  return (ALL_ARTICLE_STATUSES as readonly string[]).includes(s)
+}
+
 /**
- * 커버리지 매트릭스 30칸의 발행 건수 — 칸마다 서버 카운트 한 번(30 + 1).
+ * 커버리지 매트릭스 30칸의 발행 건수 — **위 롤업 한 번**에서 갈라 낸다.
  *
- * 발행분만 훑어 세지 않는 이유: 발행이 293건인 지금은 그래도 맞지만, 늘어나는 순간
- * 같은 1,000행 절단을 다시 밟는다. 칸 수는 표 크기(5×6)로 고정이라 데이터가 아무리
- * 자라도 질의 수가 그대로다.
+ * 예전에는 칸마다 카운트를 던져 31개였다. 발행분을 목록으로 받아 세지 않는 이유는 그대로다:
+ * 발행이 293건인 지금은 맞지만 늘어나는 순간 1,000행 절단을 다시 밟는다.
  */
 export async function getPublishedCoverage(): Promise<CoverageCounts> {
-  const sb = await db()
-  const cellSpecs = REGISTERS.flatMap((r) => CEFR_ORDER.map((c) => ({ register: r.key, cefr: c })))
+  const rollup = await fetchRollup()
 
-  // 31개를 한꺼번에 보내면 서버가 몇 개를 **본문 없는 오류**로 돌려준다(실측). 6개씩 나눈다.
-  const all = await mapPooled(
-    [null, ...cellSpecs] as const,
-    6,
-    (s) =>
-      s === null
-        ? countRows((b) => b.eq('status', 'published'), '발행', sb)
-        : countRows(
-            (b) => b.eq('status', 'published').eq('register', s.register).eq('cefr_level', s.cefr),
-            `발행 ${s.register}×${s.cefr}`,
-            sb,
-          ),
-  )
-  const [publishedTotal, ...cellCounts] = all
-
+  // 0 인 칸도 키가 있어야 한다 — 없으면 매트릭스가 그 칸을 GAP 이 아니라 "없는 칸" 으로 그린다.
   const cells: Record<string, number> = {}
+  for (const r of REGISTERS) {
+    for (const c of CEFR_ORDER) cells[coverageKey(r.key, c)] = 0
+  }
+
+  let publishedTotal = 0
   let inMatrix = 0
-  cellSpecs.forEach((s, i) => {
-    const n = cellCounts[i] ?? 0
-    cells[coverageKey(s.register, s.cefr)] = n
-    inMatrix += n
-  })
+  for (const row of rollup) {
+    if (row.status !== 'published') continue
+    publishedTotal += row.items
+    if (row.register == null || row.cefr_level == null) continue
+    const key = coverageKey(row.register, row.cefr_level)
+    if (!(key in cells)) continue // 표 밖 값(모르는 register·CEFR) — unclassified 로 흘러간다
+    cells[key] = (cells[key] ?? 0) + row.items
+    inMatrix += row.items
+  }
 
   return {
     cells,

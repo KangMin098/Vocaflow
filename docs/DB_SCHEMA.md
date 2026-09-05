@@ -12,6 +12,33 @@
 - 주요 계열 — CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · 추출신뢰 `word_familiarity` · 어원 `word_roots`·`word_root_links` · 추출품질 `extraction_judgments`
 - 이전 기재(테이블 77 · view 7 · 함수 262 · migrations 72+)는 실측과 어긋나 있었다. **이 요약은 DB 쿼리로 재생성 가능한 값만 적는다.**
 
+### 🧮 집계 RPC 2종 — 관리자 화면의 COUNT 폭주를 접는다 (2026-09-06 신설)
+
+| 함수 | 무엇을 | 실측 | 대체한 것 |
+|---|---|---|---|
+| `acp_article_rollup()` | (상태 × register × CEFR) 건수 | 8,902ms · 47행 | ACP 콘솔의 카운트 **38개** |
+| `csat_dcp_inventory()` | (유형 × 수준) 문항 수 + 해설 보유 수 | 5,715ms · 136행 | 교재 공장의 조회 **225회** |
+
+둘 다 `security definer` · `service_role` 만 EXECUTE (`revoke all from public`).
+학습자 경로로 나가지 않는다 — admin 게이트 뒤에서만 부른다.
+
+**왜 필요했나.** PostgREST `count=exact` 는 이 프로젝트에서 **2만 행쯤부터 오류 메시지 없이
+`null`** 을 돌려준다(실측: `shared_dictionary` 4.9만 행 → null / 8,119ms · `library_articles`
+`status='ready'` 1.9만 행 → 19,063 / 3,944ms). 화면마다 수십 개를 동시에 던지면 큰 표부터
+조용히 빠지고, 대시보드에서는 **가장 큰 파이프라인 넷**이 「—」로 보였다.
+
+런타임 전수 훑기 4회에서 매번 **다른 화면**이 타임아웃으로 죽었고 고칠 때마다 부하가 옮겨
+갔다 — 화면별 버그가 아니라 질의 수 문제라는 증거다.
+
+⚠️ **`csat_dcp_inventory()` 가 없으면 공정 ⑥(해설)은 눈금 자체가 없다.** 유일한 관련 인덱스가
+`(v_level, type)` 이라 `type` 단독 필터는 선두 열이 없어 인덱스를 못 타고, 큰 유형은 20초
+벽에서 `count=null` 이 된다. 쪼개면 값은 나오지만 재고가 있는 칸이 132개라 90초가 넘는다.
+
+적용 직후 확인: ACP 합계 91,356 = `count(*)` 91,356 · CSAT 문항 656,984 · 해설 426,696 ·
+**키/값 셈 불일치 0**(`answer_key ? 'explanation_ko'` 와 `->> is not null` 이 일치 = 적재 결함 없음).
+
+되돌리기는 `drop function` 한 줄이고 데이터는 건드리지 않는다.
+
 ### 📏 `quality_drift_checks` — M7 회전 표본 상태 (2026-08-31 신설)
 
 [20260831130000](../supabase/migrations/20260831130000_quality_drift_rotating_sample.sql).
