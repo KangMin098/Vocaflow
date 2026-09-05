@@ -199,6 +199,22 @@ const EXCLUDE = new Set(
 )
 
 /**
+ * **`--only <소스[,소스]>` — 그 소스만 서버에서 걸러 읽는다.**
+ *
+ * 왜 (실측 2026-09-06): 개정 사이클마다 `original` 368편의 중앙을 다시 재는데,
+ * 여기서는 창(100~200어)에 드는 **전 소스 수천 편의 본문**을 다 끌어오고 나서
+ * 클라이언트에서 골라냈다. 사이클 24 에서 `canceling statement due to statement
+ * timeout` 이 났다 — 같은 무게를 다시 얹는 재시도로는 안 낫는다.
+ *
+ * `--exclude` 와 달리 이것은 **서버 쪽 `in(source, …)`** 이라 실제로 가볍다
+ * (`--exclude` 는 "빼면 어떻게 보이나" 이므로 나머지를 다 읽어야 해서 서버로 못 내린다).
+ */
+const ONLY = (arg('only') ?? '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean)
+
+/**
  * ⚠️ **`queued` 를 전부 세지 않는다 — 초·중을 겨냥해 담은 것만 센다.**
  *
  * 처음엔 `status IN (ready, published, queued)` 로 통째로 쟀더니 4축 통과가 3,131편
@@ -251,14 +267,14 @@ const PAGE = 200
 async function fetchAll(build) {
   let last = ZERO_UUID
   for (;;) {
-    const { data, error } = await build(
-      db
-        .from('library_articles')
-        .select(
-          'id, source, feed_id, title, content, word_count, cefr_level, register, article_v_level, status'
-        )
-        .eq('display_only', false)
-    )
+    let base = db
+      .from('library_articles')
+      .select(
+        'id, source, feed_id, title, content, word_count, cefr_level, register, article_v_level, status'
+      )
+      .eq('display_only', false)
+    if (ONLY.length) base = base.in('source', ONLY)
+    const { data, error } = await build(base)
       .order('id')
       .gt('id', last)
       .limit(PAGE)
