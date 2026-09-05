@@ -1229,7 +1229,7 @@ function QueueTab({
               <li key={r.id} className="font-body text-[12px] text-[var(--t2)]">
                 <div className="flex flex-wrap items-baseline gap-2">
                   <b className="text-[var(--t1)]">{r.title}</b>
-                  <span className="font-mono text-[11px] text-[var(--t2)]">{r.status} 단계에서 중단 · {r.attempts ?? 0}회 시도</span>
+                  <span className="font-mono text-[11px] text-[var(--t2)]">{pdStatusLabel(r.status)} 단계에서 중단 · {r.attempts ?? 0}회 시도</span>
                   <button
                     type="button"
                     onClick={() => void retry(r.id)}
