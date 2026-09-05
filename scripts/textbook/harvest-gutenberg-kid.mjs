@@ -359,7 +359,26 @@ const TOPICS = (arg('topics', 'nature,science,animals,travel,children') ?? '').s
 const picked = []
 let page = cursor.page ?? 1
 let topicIdx = cursor.topicIdx ?? 0
+/**
+ * **gutendex 가 죽으면 Gutenberg 자체 카탈로그로 돌아간다.**
+ *
+ * 실측 2026-09-05: `gutendex.com` 이 응답을 멈췄고(60초 · 0바이트) 수확이 통째로
+ * 멈춰 섰다. 그런데 `gutenberg.org` 본체는 200 을 돌려주고 있었다 — **받을 책이
+ * 있는데 목록을 못 얻어서 못 받았다.** 목록 한 곳에 수확 전체를 묶어 둘 이유가 없다.
+ *
+ * 실패를 몇 번 겪으면 카탈로그로 전환하고, 그 뒤로는 네트워크 없이 고른다.
+ */
+let listFailures = 0
 while (picked.length < BOOKS && page <= 200) {
+  if (listFailures >= TOPICS.length) {
+    console.error('  ↪ gutendex 가 응답하지 않는다 — Gutenberg 카탈로그로 고른다')
+    const { catalogBooks } = await import('./lib/pg-catalog.mjs')
+    for (const b of await catalogBooks({ topics: TOPICS, limit: BOOKS * 4, skip: done })) {
+      picked.push({ id: b.id, title: b.title, topic: b.topic })
+      if (picked.length >= BOOKS) break
+    }
+    break
+  }
   const topic = TOPICS[topicIdx % TOPICS.length]
   // ⚠️ **목록 조회 실패가 수확 전체를 죽이지 않게 한다.** `get` 은 재시도 셋을 다 쓰면
   //   던지는데, 여기서 그대로 두면 주제 한 쪽이 안 열렸다는 이유로 **아직 한 권도 안 담은
@@ -372,10 +391,12 @@ while (picked.length < BOOKS && page <= 200) {
     )
   } catch (e) {
     console.error(`  ⚠️ 목록 조회 실패 (${topic} p${page}) — 건너뛴다: ${String(e.message).slice(0, 50)}`)
+    listFailures++
     topicIdx++
     if (topicIdx % TOPICS.length === 0) page++
     continue
   }
+  listFailures = 0
   for (const b of list.results ?? []) {
     if (done.has(b.id)) continue
     picked.push({ id: b.id, title: b.title, topic })

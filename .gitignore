@@ -165,3 +165,6 @@ scripts/csat/analysis-drain/chunk-*.json
 !scripts/csat/analysis-drain/*.out.json
 scripts/csat/analysis-drain/_MANIFEST.json
 scripts/csat/compose-drain/*.imported
+
+# Gutenberg 카탈로그 캐시 (5.5MB · 7일마다 새로 받는다)
+scripts/textbook/data/.cache/
