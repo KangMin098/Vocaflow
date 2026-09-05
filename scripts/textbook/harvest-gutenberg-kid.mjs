@@ -425,6 +425,7 @@ let inserted = 0
 let dup = 0
 let overQuota = 0
 let cappedAll = 0
+let fullDropAll = 0
 const byBand = {}
 const pctiles = []
 const failures = []
@@ -520,7 +521,13 @@ for (const b of picked) {
     }
     if (!took) break
   }
-  const capped = passing.length - spread.length
+  // ⚠️ **두 가지를 갈라 센다.** 몫이 찬 칸을 라운드로빈에서 빼고 나서, 그 칸의 조각까지
+  //   `capped` 한 덩어리로 세면 로그가 "상한이 병목" 이라고 거짓말한다 —
+  //   실측 2026-09-05: 60권 배치가 "상한 초과 1,362" 라고 찍었는데, 상한(칸당 40)으로는
+  //   60권에서 4,800까지 담을 수 있으니 그 수가 상한 때문일 리가 없었다.
+  //   대부분은 **이미 찬 칸**의 조각이었다. 계수가 틀리면 다음 결정이 틀린다.
+  const fullBandDrop = passing.filter((p) => QUOTA_PER_BAND - (have[p.g.band] ?? 0) <= 0).length
+  const capped = passing.length - spread.length - fullBandDrop
 
   const rows = []
   const mine = {}
@@ -558,6 +565,7 @@ for (const b of picked) {
   droppedAll += all.length - kept.length
   fitAll += passing.length
   cappedAll += capped
+  fullDropAll += fullBandDrop
 
   let wrote = 0
   if (COMMIT && rows.length) {
@@ -627,6 +635,7 @@ for (const b of picked) {
 // ── 요약 ─────────────────────────────────────────────────────────────
 console.log('\n  조각 ' + chunksAll + ' · 앞뒤 잡물 배제 ' + droppedAll + ' · 3축 적합 ' + fitAll)
 if (cappedAll) console.log(`  책당·칸당 상한(${PER_BOOK})을 넘어 안 담은 적합 조각 ${cappedAll} — 다른 책에서 채운다`)
+if (fullDropAll) console.log(`  이미 몫이 찬 칸의 조각 ${fullDropAll} — 상한과 다른 이유다`)
 if (overQuota) console.log(`  몫이 찬 칸이라 버린 조각 ${overQuota}`)
 if (COMMIT) console.log(`  중복 ${dup} · **적재 ${inserted}편**`)
 else console.log('  dry-run 이었다. 실제로 쓰려면 --commit.')
