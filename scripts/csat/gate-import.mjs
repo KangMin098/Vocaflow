@@ -100,7 +100,10 @@ async function retry(fn, what, attempt = 0) {
  *
  * `reject` 는 어느 쪽에서도 게시 불가다(교리·차별·폐기된 사실) — 그건 용도와 무관하다.
  */
-const NARRATIVE_OK_FEEDS = new Set(['kid-excerpt'])
+const NARRATIVE_OK_FEEDS = new Set([
+  'kid-excerpt', // PD 장문에서 뗀 초·중 교재 지문
+  'adapted', // 우리가 목표 학령으로 다시 쓴 각색문 — 이야기가 나올 수밖에 없다
+])
 
 const tally = { total: 0, judged: 0, unjudged: 0, pub: 0, quarantine: 0, skipped: 0, wrote: 0, restored: 0 }
 const byVerdict = {}
@@ -166,7 +169,11 @@ for (;;) {
       prev.verdict === gate.verdict &&
       prev.genre === gate.genre &&
       JSON.stringify(prev.codes ?? []) === JSON.stringify(codes)
-    if (same) {
+    // ⚠️ **판정이 같아도 상태가 어긋나 있으면 건너뛰면 안 된다.**
+    //   실측 2026-09-05: `publishable=true` 인데 `archived` 로 남은 것이 **409편**이었다.
+    //   판정만 보고 skip 하니 상태 불일치가 영영 안 고쳐졌다 — 재실행 안전은
+    //   "같은 값을 다시 안 쓴다" 가 아니라 **"다시 돌리면 상태가 수렴한다"** 는 뜻이다.
+    if (same && !willRestore) {
       tally.skipped += 1
       continue
     }
