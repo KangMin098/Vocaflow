@@ -4,7 +4,8 @@
 'use client'
 
 import { cn } from '@/lib/utils/cn'
-import { Eye, FileText, Mic, Settings as SettingsIcon, Volume2 } from 'lucide-react'
+import Link from 'next/link'
+import { Eye, FileText, Settings as SettingsIcon, Volume2 } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { applyReview, createNewCard } from '@/lib/srs'
 import { studyRatingToFsrs } from '@/lib/srs/rating-mapper'
@@ -43,7 +44,6 @@ const RATINGS: RatingConfig[] = [
 export function StudyMode({ words, onExit }: StudyModeProps) {
   const [studyIndex, setStudyIndex] = useState(0)
   const [state, setState] = useState<StudyState>('hidden')
-  const [isMicRecording, setIsMicRecording] = useState(false)
   const [isPlayingMain, setIsPlayingMain] = useState(false)
 
   const { speak } = useSpeech()
@@ -134,14 +134,17 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
     speak(w.word, { rate: 0.6 })
   }, [w, speak])
 
-  const toggleMic = useCallback(() => {
-    setIsMicRecording((prev) => {
-      if (prev) return false
-      // 데모 — 2초 후 자동 종료
-      setTimeout(() => setIsMicRecording(false), 2000)
-      return true
-    })
-  }, [])
+  /*
+    ⚠️ 「따라말하기」 마이크 버튼이 여기 있었다 — **아무것도 녹음하지 않았다.**
+       누르면 2초 동안 빨갛게 깜빡이다 스스로 꺼지는 표시등이었고(`setTimeout` 데모),
+       'm' 키까지 배정돼 있었다. 학습자는 자기 발음이 기록·비교된다고 믿는다.
+
+       발음을 실제로 듣고 비교하는 모듈은 이미 따로 있다 — EchoMatch(`/text/[id]/echo`,
+       `pitchfinder` + DTW). 단어 단위 녹음 경로는 이 저장소에 없다.
+       그래서 흉내 내는 버튼을 없앤다. 없는 기능을 있는 것처럼 두는 쪽이 더 나쁘다.
+       (되살리려면 EchoMatch 의 마이크 권한·해제 경로를 그대로 써야 한다 —
+        `components/echo/MicPermissionGate.tsx`.)
+  */
 
   // 키보드 단축키
   useEffect(() => {
@@ -153,8 +156,6 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
         if (state === 'hidden') revealMeaning()
         else if (state === 'meaning-shown') revealExample()
         else playMain()
-      } else if (e.key === 'm' || e.key === 'M') {
-        toggleMic()
       } else if (['1', '2', '3', '4', '5'].includes(e.key) && state === 'example-shown') {
         rateWord(parseInt(e.key) as 1 | 2 | 3 | 4 | 5)
       } else if (e.key === 'Escape') {
@@ -163,7 +164,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [state, revealMeaning, revealExample, playMain, toggleMic, rateWord, finish])
+  }, [state, revealMeaning, revealExample, playMain, rateWord, finish])
 
   if (!w) return null
 
@@ -195,14 +196,16 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
           </span>
         </div>
 
-        <button
-          type="button"
-          /* 36×36 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). */
-          className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
-          aria-label="설정"
+        {/* 아무 동작도 없는 장식 버튼이었다 — 이제 실제 설정 화면으로 간다.
+            (음성·모션·학습 흐름이 그 화면에서 기기에 저장된다: lib/settings/device-prefs.ts)
+            36×36 이었던 탭 대상은 44px 로 이미 올려 뒀다(CLAUDE.md 절대 금지 · 실측 390px). */}
+        <Link
+          href="/settings#audio"
+          className="flex h-11 w-11 items-center justify-center rounded-md text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-bg2"
+          aria-label="학습 설정 열기"
         >
           <SettingsIcon size={14} />
-        </button>
+        </Link>
       </div>
 
       {/* 학습 카드 */}
@@ -261,21 +264,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
           >
             <Volume2 size={20} />
           </button>
-          <button
-            type="button"
-            onClick={toggleMic}
-            aria-label="따라말하기"
-            className={cn(
-              'h-[60px] w-[60px] rounded-xl border-[1.5px]',
-              'flex items-center justify-center',
-              'transition-all duration-fast',
-              isMicRecording
-                ? 'bg-learn-error border-learn-error animate-[mic-glow_1s_ease-in-out_infinite] text-white'
-                : 'border-bd bg-bg text-t2 hover:-translate-y-0.5 hover:bg-bg2 hover:text-t1 hover:shadow-md'
-            )}
-          >
-            <Mic size={20} />
-          </button>
+
         </div>
 
         {/* Reveal Area */}
