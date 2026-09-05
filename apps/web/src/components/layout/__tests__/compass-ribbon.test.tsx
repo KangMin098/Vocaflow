@@ -183,6 +183,20 @@ describe('「나의 자리」 — 펼친 층', () => {
     expect(failed).toContain('계산하지 못했어요')
   })
 
+  it('글자 색은 잉크 3단 안에서만 고른다 (임의 회색 금지)', () => {
+    // ⚠️ 한때 이 자리에 "`--t3` 를 쓰지 말 것 — `--bg2` 위에서 4.07:1" 이라고 적혀 있었다.
+    //    **틀린 근거였다.** 그 4.07 은 axe 가 패널의 300ms 진입 페이드 **도중에** 잰 값이고
+    //    (요소 opacity < 1 → 더 밝은 전경으로 합성됨), 정착 후 실측은 **4.77:1 로 AA 통과**다
+    //    (`--t3` on `--bg2`. 브라우저에서 토큰을 직접 합성해 계산). 토큰은 멀쩡하다.
+    //    10px 라벨에 `--t2` 를 쓰는 것은 **크기** 판단이지 대비 결함이 아니다.
+    //
+    // 실제로 막을 것은 하나다: **`--t4` 로 글자를 쓰지 않는다.** 그 토큰은 1.52:1 이고
+    // 토큰 파일이 "장식 전용 — 글자를 담지 않는다" 라고 못 박고 있다(여기서는 사다리 눈금).
+    const textInks = [...html.matchAll(/text-\[var\((--t\d)\)\]/g)].map((m) => m[1])
+    expect(textInks.length).toBeGreaterThan(0)
+    expect([...new Set(textInks)].sort()).not.toContain('--t4')
+  })
+
   it('하드코딩 색이 없다 — 전부 토큰이라 dark 테마가 따라온다', () => {
     expect(html).not.toMatch(/#[0-9a-fA-F]{6}/)
     expect(html).not.toMatch(/rgb\(/)

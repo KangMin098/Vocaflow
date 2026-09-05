@@ -17,7 +17,7 @@
 //   SVG 자체도 `role="img"` + 수치가 담긴 `aria-label` 을 갖는다.
 // 모션: 없다. 정지 그래픽이다(§5 학습 중 모션 화이트리스트에 그래프 애니메이션은 없다).
 
-import type { MemoryForecast } from '@/lib/learner/memory-forecast'
+import { hasForecastCurve, type MemoryForecast } from '@/lib/learner/memory-forecast'
 
 export interface MemorySparklineProps {
   forecast: MemoryForecast
@@ -33,7 +33,9 @@ function holding(day: { stable: number; shaky: number }): number {
 
 export function MemorySparkline({ forecast, width = 132, height = 40 }: MemorySparklineProps) {
   const days = forecast.days
-  if (days.length < 2 || forecast.tracked === 0) return null
+  // 움직이지 않는 곡선은 그리지 않는다 — 수평선은 고장난 그래프처럼 보이고
+  // 아무 말도 하지 않는다(hasForecastCurve 주석의 실측 참조).
+  if (!hasForecastCurve(forecast)) return null
 
   const values = days.map(holding)
   const max = Math.max(...values, 1)

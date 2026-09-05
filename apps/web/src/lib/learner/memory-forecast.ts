@@ -114,7 +114,20 @@ export function forecastMemory(
   return { days, fadingSoon, fadedNow, horizonDays: horizon, tracked }
 }
 
-/** 예보가 그릴 것이 있는가 — 아직 한 번도 복습하지 않은 학습자는 곡선이 평평하다. */
-export function hasForecast(f: MemoryForecast): boolean {
-  return f.tracked > 0
+/**
+ * **곡선을 그릴 것이 있는가.**
+ *
+ * ⚠️ `tracked > 0` 만으로 판정하면 안 된다 — 실측 2026-09-05(계정 runtime-test, 밀린 단어
+ * 252)에서 곡선이 **완전한 수평선**으로 그려졌다(`M3,37 L21,37 … L129,37`). 이미 흐려진
+ * 136개는 예보의 대상이 아니고, 남은 카드들은 안정도가 커서 7일 안에 아무 일도 일어나지
+ * 않았기 때문이다. 계산은 정확했지만 **그림은 아무 말도 하지 않았고**, 오히려 고장난
+ * 그래프처럼 보였다.
+ *
+ * 움직이지 않는 곡선은 그리지 않는다 — 그 상태에서 할 말은 곡선이 아니라 문장이 한다
+ * (`forecastSentence` 가 "지금 다시 만나면 N개가 제자리로 돌아와요" 를 낸다).
+ */
+export function hasForecastCurve(f: MemoryForecast): boolean {
+  if (f.tracked === 0 || f.days.length < 2) return false
+  const holding = f.days.map((d) => d.stable + d.shaky)
+  return Math.max(...holding) !== Math.min(...holding)
 }

@@ -17,7 +17,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { computeReach, cumulative } from '../reach-math'
-import { forecastMemory } from '../memory-forecast'
+import { forecastMemory, hasForecastCurve } from '../memory-forecast'
 import {
   buildWayfinder,
   forecastSentence,
@@ -232,5 +232,28 @@ describe('말투 — 평가하지 않는다 (철학 ③ Empathetic Feedback)', (
 
   it('아무 기록도 없으면 문장을 지어내지 않는다', () => {
     expect(pastSentence({ activeDays: 0, prevActiveDays: 0, streak: 0 })).toBeNull()
+  })
+})
+
+describe('곡선은 움직일 때만 그린다 (실측 2026-09-05 · 수평선 사고)', () => {
+  it('안정도가 커서 7일 안에 아무 일도 없으면 곡선을 그리지 않는다', () => {
+    // 밀린 단어 252개 계정에서 실제로 나온 모양: 이미 흐려진 것은 예보 대상이 아니고,
+    // 남은 카드는 S 가 커서 7일 안에 변화가 없다 → `M3,37 L21,37 … L129,37` 수평선.
+    const flat = forecastMemory(
+      [
+        ...reviewedCards(136, 1, 60), // 이미 risk — 예보 대상 아님
+        ...reviewedCards(20, 400, 1), // 7일로는 꿈쩍도 않는다
+      ],
+      NOW,
+      7,
+    )
+    expect(flat.tracked).toBeGreaterThan(0)
+    expect(hasForecastCurve(flat)).toBe(false)
+    // 그림이 없어도 **할 말은 있다** — 막다른 칸이 되지 않는다(D5).
+    expect(forecastSentence(flat)).toContain('제자리로 돌아와요')
+  })
+
+  it('실제로 내려가면 그린다', () => {
+    expect(hasForecastCurve(forecastMemory(reviewedCards(5, 2, 4), NOW, 7))).toBe(true)
   })
 })

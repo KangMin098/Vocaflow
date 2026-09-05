@@ -42,7 +42,11 @@ function Cell({
 }) {
   return (
     <section className="flex min-w-0 flex-col gap-2">
-      <h3 className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t3)]">
+      {/*
+        10px 라벨은 이 패널에서 가장 작은 글자라 3단 잉크 중 **2단(`--t2`)** 을 쓴다.
+        (`--t3` 도 AA 는 넘는다 — 실측 `--bg2` 위 4.77:1. 토큰 문제가 아니라 크기 문제다.)
+      */}
+      <h3 className="font-mono text-[10px] font-[700] uppercase tracking-[0.14em] text-[var(--t2)]">
         {title}
       </h3>
       {children}
@@ -126,7 +130,9 @@ export function WayfinderPanel({ model, unavailable, id }: WayfinderPanelProps) 
           <p className="font-display text-[13px] font-[600] text-[var(--t1)]">
             {model.reach.vLevel === null ? '아직 진단 전이에요' : `V-Level ${model.reach.vLevel}`}
             {model.surface && (
-              <span className="ml-2 font-[500] text-[var(--t3)]">지금 {model.surface.name}</span>
+              // 앞 글자와 사이에 공백을 둔다 — `ml-2` 는 눈에만 보이고 스크린리더는
+              // "V-Level 11지금 Today" 로 읽는다(실측).
+              <span className="ml-2 font-[500] text-[var(--t2)]"> 지금 {model.surface.name}</span>
             )}
           </p>
           {model.surface && <Says>{model.surface.says}</Says>}
@@ -153,6 +159,7 @@ export function WayfinderPanel({ model, unavailable, id }: WayfinderPanelProps) 
         <Cell title={`앞으로 ${model.forecast.horizonDays}일`}>
           {model.forecast.tracked > 0 ? (
             <>
+              {/* 곡선은 **움직일 때만** 나온다. 문장은 언제나 나온다 */}
               <MemorySparkline forecast={model.forecast} />
               {forecastLine && <Says>{forecastLine}</Says>}
             </>
