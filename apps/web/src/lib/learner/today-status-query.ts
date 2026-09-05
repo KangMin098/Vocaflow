@@ -98,3 +98,68 @@ export const fetchDcpDoneToday = cache(async (): Promise<boolean> => {
 
   return (data?.length ?? 0) > 0
 })
+
+/** KST 오늘 00:00 → UTC ISO — 위 두 조회가 공유한다. */
+function kstTodayStartUtcIso(): string {
+  return new Date(
+    Math.floor((Date.now() + 9 * 3_600_000) / 86_400_000) * 86_400_000 - 9 * 3_600_000,
+  ).toISOString()
+}
+
+/**
+ * 오늘 읽었는가 — **`daily_activity.by_module` 에 안 남는다.**
+ *
+ * `BLOCK_MODULES.read` 는 `['textviewer', 'workspace']` 인데, 저장소 어디에도 그 키로
+ * `learning_records` 에 쓰는 코드가 없다(읽기 표면은 학습 기록을 남기지 않는다).
+ * 실측 2026-09-05 — `by_module` 에 실제로 나타난 키 21종에 둘 다 없다:
+ *   dictation · ghost-race · cascade · wordblitz · echo · flashcard · word-economy …
+ *
+ * 그래서 읽기 블록은 **완료가 구조적으로 불가능**했고, `pickNow()` 의 순서가
+ * review→listen→**read**→syntax→check 라 복습·듣기를 끝내면 "지금 할 일" 이 **읽기에서
+ * 영구히 멈췄다.** 지문을 읽고 돌아와도 여전히 읽기였고, 구문·검증은 차례가 오지 않았다.
+ *
+ * 읽었다는 증거는 `reading_sessions` 에 있다(실측 256행). 거기서 읽는다.
+ */
+export const fetchReadDoneToday = cache(async (): Promise<boolean> => {
+  const client = await createClient()
+  const {
+    data: { user },
+  } = await client.auth.getUser()
+  if (!user) return false
+
+  const lc = client as unknown as SupabaseClient
+  const { data } = await lc
+    .from('reading_sessions')
+    .select('id')
+    .eq('user_id', user.id)
+    .gte('started_at', kstTodayStartUtcIso())
+    .limit(1)
+
+  return (data?.length ?? 0) > 0
+})
+
+/**
+ * 오늘 ScriptQuiz 를 풀었는가 — 같은 이유로 별도 조회다.
+ *
+ * `BLOCK_MODULES.check` 는 `['scriptquiz']` 인데 ScriptQuiz 는 완주 결과를
+ * `recordGameScore` 로 **`scores`** 에만 쓴다(`ScriptQuiz.tsx`). `learning_records` 를
+ * 안 쓰므로 `by_module` 에 'scriptquiz' 가 영영 안 생긴다 — 실측 `scores` 에는 23행 있다.
+ */
+export const fetchCheckDoneToday = cache(async (): Promise<boolean> => {
+  const client = await createClient()
+  const {
+    data: { user },
+  } = await client.auth.getUser()
+  if (!user) return false
+
+  const lc = client as unknown as SupabaseClient
+  const { data } = await lc
+    .from('scores')
+    .select('id')
+    .eq('user_id', user.id)
+    .eq('module', 'scriptquiz')
+    .gte('created_at', kstTodayStartUtcIso())
+    .limit(1)
+
+  return (data?.length ?? 0) > 0
+})

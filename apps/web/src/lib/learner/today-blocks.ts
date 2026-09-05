@@ -86,13 +86,22 @@ export function buildTodayBlocks(
   p: TodayPrescription,
   touchedToday: ReadonlySet<string>,
   /**
-   * 오늘 DCP(구문 연습) 문항을 푼 적이 있는가 — `csat_item_attempts` 에서 온다.
+   * `daily_activity.by_module` 에 안 남는 블록들의 완료 신호.
    *
-   * 별도 인자인 이유는 저장 위치가 다르기 때문이다(위 `BLOCK_MODULES.syntax` 주석).
-   * 기본값 false 는 "모름" 이 아니라 "안 했음" 이다 — 호출부가 안 넘기면 완료로 올리지 않는다.
+   * 저장 위치가 저마다 다르기 때문이다(위 `BLOCK_MODULES` 주석). 기본값 false 는
+   * "모름" 이 아니라 "안 했음" 이다 — 호출부가 안 넘기면 완료로 올리지 않는다.
+   *
+   * ⚠️ `read` · `check` 는 **완료가 구조적으로 불가능했다.** `BLOCK_MODULES` 가 가리키는
+   *    `textviewer`·`workspace`·`scriptquiz` 를 `learning_records` 에 쓰는 코드가 저장소에
+   *    없다(실측 2026-09-05: `by_module` 관측 키 21종에 셋 다 없음). 그래서 링 분모 5 중
+   *    도달 가능한 최대가 3이었고, 더 나쁘게는 `pickNow()` 가 **읽기에서 영구히 멈췄다** —
+   *    지문을 읽고 돌아와도 여전히 "읽기" 라 구문·검증은 차례가 오지 않았다.
+   *    증거는 다른 표에 있다: 읽기 `reading_sessions`(256행) · 검증 `scores`(23행).
    */
-  dcpDoneToday = false,
+  doneSignals: { dcp?: boolean; read?: boolean; check?: boolean } = {},
 ): TodayBlock[] {
+  const { dcp: dcpDoneToday = false, read: readDoneToday = false, check: checkDoneToday = false } =
+    doneSignals
   const touched = (key: TodayBlockKey) => BLOCK_MODULES[key].some((m) => touchedToday.has(m))
 
   return [
@@ -129,7 +138,8 @@ export function buildTodayBlocks(
       minutes: 30,
       href: readHref(p),
       articleId: readArticleId(p),
-      done: touched('read'),
+      // `touched('read')` 는 영영 참이 안 된다(위 doneSignals 주석) — 실제 증거를 함께 본다.
+      done: touched('read') || readDoneToday,
       locked: false,
     },
     {
@@ -149,7 +159,8 @@ export function buildTodayBlocks(
       headline: '오늘 읽은 것이 남았는지 확인해요',
       minutes: 10,
       href: '/scriptquiz',
-      done: touched('check'),
+      // 같은 이유 — ScriptQuiz 완주는 `scores` 에만 남는다
+      done: touched('check') || checkDoneToday,
       locked: false,
     },
   ]

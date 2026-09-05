@@ -36,7 +36,12 @@ import { fetchTodayPrescription } from '@/lib/learner/prescription-actions'
 import { fetchReadingRoom } from '@/lib/learner/reading-room-actions'
 import { fetchGatewayState } from '@/lib/learner/gateway'
 import { fetchTasteWord } from '@/lib/learner/taste-word'
-import { fetchDcpDoneToday, fetchTouchedModulesToday } from '@/lib/learner/today-status-query'
+import {
+  fetchCheckDoneToday,
+  fetchDcpDoneToday,
+  fetchReadDoneToday,
+  fetchTouchedModulesToday,
+} from '@/lib/learner/today-status-query'
 
 export const metadata = {
   title: 'Today',
@@ -50,13 +55,17 @@ function kstWeekday(): number {
 }
 
 export default async function HubPage() {
-  const [planItems, prescription, room, touchedToday, dcpDoneToday, gateway] = await Promise.all([
+  const [planItems, prescription, room, touchedToday, dcpDoneToday, readDoneToday, checkDoneToday, gateway] =
+    await Promise.all([
     fetchStudyPlanItems(),
     fetchTodayPrescription(),
     fetchReadingRoom(),
     // 셸 띠와 **같은 값**을 쓴다 — cache() 라 추가 쿼리는 돌지 않는다.
     fetchTouchedModulesToday(),
     fetchDcpDoneToday(),
+    // 읽기·검증은 `by_module` 에 안 남는다 — 안 넘기면 그 두 블록이 영원히 미완료다
+    fetchReadDoneToday(),
+    fetchCheckDoneToday(),
     fetchGatewayState(),
   ])
 
@@ -85,6 +94,8 @@ export default async function HubPage() {
           time={time}
           touchedToday={[...touchedToday]}
           dcpDoneToday={dcpDoneToday}
+          readDoneToday={readDoneToday}
+          checkDoneToday={checkDoneToday}
         />
 
         {/* 오늘 읽을 것 — 처방이 고른 실제 글을 제목으로 세운다.

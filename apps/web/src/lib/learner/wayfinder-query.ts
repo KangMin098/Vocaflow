@@ -27,7 +27,9 @@ import { forecastMemory, type MemoryForecast } from '@/lib/learner/memory-foreca
 import { fetchTodayPrescription } from '@/lib/learner/prescription-actions'
 import { buildTodayBlocks } from '@/lib/learner/today-blocks'
 import {
+  fetchCheckDoneToday,
   fetchDcpDoneToday,
+  fetchReadDoneToday,
   fetchTouchedModulesToday,
 } from '@/lib/learner/today-status-query'
 import type { WayfinderBlock, WayfinderPast } from '@/lib/learner/wayfinder'
@@ -53,11 +55,14 @@ export interface WayfinderData {
 const EMPTY_FORECAST: MemoryForecast = forecastMemory([], new Date(0), 7)
 
 export const fetchWayfinder = cache(async (): Promise<WayfinderData | null> => {
-  const [prescription, growth, touched, dcpDone] = await Promise.all([
+  const [prescription, growth, touched, dcpDone, readDone, checkDone] = await Promise.all([
     fetchTodayPrescription(),
     fetchGrowthStats(),
     fetchTouchedModulesToday(),
     fetchDcpDoneToday(),
+    // 읽기·검증은 `by_module` 에 안 남는다 — 안 넘기면 그 두 블록이 영원히 미완료다
+    fetchReadDoneToday(),
+    fetchCheckDoneToday(),
   ])
 
   // 비로그인 — 셸 띠를 그리지 않는다(기존 판정과 같다).
@@ -70,7 +75,7 @@ export const fetchWayfinder = cache(async (): Promise<WayfinderData | null> => {
   // 실패가 정상처럼 보인다(prescription-actions 의 unavailable 주석과 같은 판단).
   const blocks: WayfinderBlock[] =
     prescription && isDiagnosed && !unavailable
-      ? buildTodayBlocks(prescription, touched, dcpDone).map((b) => ({
+      ? buildTodayBlocks(prescription, touched, { dcp: dcpDone, read: readDone, check: checkDone }).map((b) => ({
           key: b.key,
           name: b.name,
           headline: b.headline,
@@ -84,7 +89,10 @@ export const fetchWayfinder = cache(async (): Promise<WayfinderData | null> => {
 
   // 최근 7일 / 그 앞 7일 — `days28` 은 이미 손에 있다(추가 쿼리 0).
   const days = growth?.days28 ?? []
-  const active = (slice: typeof days) => slice.filter((d) => d.minutes > 0 || d.words > 0).length
+  // `reviews` 를 빼면 학습한 날의 절반이 안 보인다 — `growth-math` 의 `ActivityDayDto` 주석 참조.
+  // (여기만 빠뜨리면 셸 띠의 "지난 7일" 과 연속 배지가 서로 다른 말을 한다.)
+  const active = (slice: typeof days) =>
+    slice.filter((d) => d.minutes > 0 || d.words > 0 || d.reviews > 0).length
 
   return {
     blocks,

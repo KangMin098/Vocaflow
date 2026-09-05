@@ -365,7 +365,15 @@ export function useDictationSession(sessionId: string | null) {
               skipped: !!it.skipped,
             })
           : it.skipped
-            ? it.targetWords.map((w) => ({ word: w, hit: false, partial: false, rating: 1 as const }))
+            // 건너뛴 문항은 **채점된 것이 맞다** — 학습자가 못 쓴 것이므로 Again 이 정당하다.
+            // (`graded: false` 는 "문장에 그 낱말이 없다" 는 데이터 불일치에만 쓴다.)
+            ? it.targetWords.map((w) => ({
+                word: w,
+                hit: false,
+                partial: false,
+                rating: 1 as const,
+                graded: true,
+              }))
             : [],
       )
 

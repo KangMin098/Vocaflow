@@ -103,6 +103,43 @@ describe('buildTodayBlocks', () => {
     expect(blocks.find((b) => b.key === 'check')!.done).toBe(false)
   })
 
+  it('읽기·검증은 by_module 에 안 남는다 — 별도 신호로도 완료가 된다', () => {
+    // ⚠️ 위 테스트가 `'textviewer'` 를 **손으로** 넣어 통과하고 있었다. 실제 DB 의
+    //    `daily_activity.by_module` 에 그 키는 **한 번도 나타난 적이 없다** —
+    //    실측 2026-09-05, 관측 키 21종(dictation · ghost-race · cascade · wordblitz · echo
+    //    · flashcard …)에 `textviewer`·`workspace`·`scriptquiz` 셋 다 없다.
+    //    저장소 어디에도 그 키로 `learning_records` 에 쓰는 코드가 없기 때문이다.
+    //
+    //    그래서 읽기·검증 블록은 **완료가 구조적으로 불가능**했고, `pickNow()` 순서가
+    //    review→listen→read→syntax→check 라 복습·듣기를 끝내면 "지금 할 일" 이
+    //    **읽기에서 영구히 멈췄다.** 증거는 다른 표에 있다 —
+    //    읽기 `reading_sessions`(실측 256행) · 검증 `scores`(실측 23행).
+    const b = (signals: { read?: boolean; check?: boolean }) =>
+      buildTodayBlocks(prescription(), NONE, signals)
+    expect(b({}).find((x) => x.key === 'read')!.done).toBe(false)
+    expect(b({ read: true }).find((x) => x.key === 'read')!.done).toBe(true)
+    expect(b({}).find((x) => x.key === 'check')!.done).toBe(false)
+    expect(b({ check: true }).find((x) => x.key === 'check')!.done).toBe(true)
+  })
+
+  it('by_module 만으로는 5블록이 다 차지 않는다 — 진행 링이 3/5 에서 멈춘다', () => {
+    // 실제로 관측되는 키만으로 채울 수 있는 최대치. `read`·`check` 신호가 없으면
+    // 학습자가 무엇을 해도 링이 완성되지 않는다.
+    const onlyObservable = new Set(['flashcard', 'echo'])
+    const blocks = buildTodayBlocks(prescription({ practiceActive: true }), onlyObservable, {
+      dcp: true,
+    })
+    expect(blockProgress(blocks)).toEqual({ done: 3, total: 5 })
+
+    // 신호를 넘기면 완성된다.
+    const withSignals = buildTodayBlocks(prescription({ practiceActive: true }), onlyObservable, {
+      dcp: true,
+      read: true,
+      check: true,
+    })
+    expect(blockProgress(withSignals)).toEqual({ done: 5, total: 5 })
+  })
+
   it('구문 연습은 스테이지가 열어 주기 전에는 잠긴다', () => {
     expect(
       buildTodayBlocks(prescription({ practiceActive: false }), NONE).find((b) => b.key === 'syntax')!
@@ -115,7 +152,7 @@ describe('buildTodayBlocks', () => {
     // "csat_item_attempts 미해결" 이었는데 그 표가 낡아 있었다 — 20260812113000 이
     // 이미 복원했다(실측: 테이블 존재 · grade_dcp_item 정상). 문서가 아니라 DB 가 근거다.
     const syn = (dcpDone: boolean) =>
-      buildTodayBlocks(prescription(), NONE, dcpDone).find((b) => b.key === 'syntax')!
+      buildTodayBlocks(prescription(), NONE, { dcp: dcpDone }).find((b) => b.key === 'syntax')!
     expect(syn(false).done).toBe(false)
     expect(syn(true).done).toBe(true)
   })
@@ -168,10 +205,15 @@ describe('blockProgress — 앱에 하나뿐인 진행 정의', () => {
   })
 
   it('5/5 에 실제로 닿을 수 있다 (도달 불가 목표를 만들지 않는다)', () => {
+    // ⚠️ 이 테스트가 오랫동안 **거짓을 증명**하고 있었다. `touchedToday` 에
+    //    `'textviewer'`·`'scriptquiz'` 를 손으로 넣어 5/5 를 만들었는데, 그 두 키는
+    //    실제 `daily_activity.by_module` 에 **한 번도 나타난 적이 없다**(실측 2026-09-05).
+    //    그래서 초록불이 나는 동안 학습자 화면의 링은 3/5 에서 멈춰 있었다.
+    //    이제 **실제로 존재하는 신호**로만 5/5 를 만든다.
     const blocks = buildTodayBlocks(
       prescription({ dueCount: 0 }),
-      new Set(['echo', 'textviewer', 'scriptquiz', 'flashcard']),
-      true,
+      new Set(['echo', 'flashcard']), // by_module 에 실제로 나타나는 키만
+      { dcp: true, read: true, check: true }, // 나머지는 저마다의 표에서 온다
     )
     const p = blockProgress(blocks)
     expect(p.done).toBeLessThanOrEqual(p.total)
@@ -192,7 +234,8 @@ describe('pickNow — 지금 할 하나', () => {
   it('잠긴 블록은 건너뛴다 (열리지 않은 것을 "지금" 이라 하지 않는다)', () => {
     const blocks = buildTodayBlocks(
       prescription({ dueCount: 0, practiceActive: false }),
-      new Set(['echo', 'textviewer']),
+      new Set(['echo']),
+      { read: true },
     )
     expect(pickNow(blocks)!.key).toBe('check')
   })
@@ -200,7 +243,8 @@ describe('pickNow — 지금 할 하나', () => {
   it('전부 끝나면 null — 화면은 그때 다른 말을 한다', () => {
     const blocks = buildTodayBlocks(
       prescription({ dueCount: 0, practiceActive: false }),
-      new Set(['echo', 'textviewer', 'scriptquiz']),
+      new Set(['echo']),
+      { read: true, check: true },
     )
     expect(pickNow(blocks)).toBeNull()
   })

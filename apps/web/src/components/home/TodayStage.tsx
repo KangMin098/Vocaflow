@@ -46,6 +46,8 @@ export function TodayStage({
   time,
   touchedToday,
   dcpDoneToday,
+  readDoneToday,
+  checkDoneToday,
 }: {
   room: ReadingRoom | null
   prescription: TodayPrescription | null
@@ -60,11 +62,19 @@ export function TodayStage({
   touchedToday: string[]
   /** 오늘 DCP 문항을 풀었는가 — `csat_item_attempts` 에만 남아 위 집합과 출처가 다르다. */
   dcpDoneToday: boolean
+  /** 오늘 읽었는가 — `reading_sessions`. 없으면 읽기 블록이 영원히 미완료다(today-blocks 주석). */
+  readDoneToday?: boolean
+  /** 오늘 ScriptQuiz 를 풀었는가 — `scores`. 같은 이유로 별도 신호다. */
+  checkDoneToday?: boolean
 }) {
   const tone = ROOM_TONE[time]
 
   const blocks = prescription?.isDiagnosed
-    ? buildTodayBlocks(prescription, new Set(touchedToday), dcpDoneToday)
+    ? buildTodayBlocks(prescription, new Set(touchedToday), {
+        dcp: dcpDoneToday,
+        read: readDoneToday,
+        check: checkDoneToday,
+      })
     : []
   const now = blocks.length > 0 ? pickNow(blocks) : null
   // 진행의 정의는 앱에 하나다 — 띠도 같은 함수를 쓴다(today-blocks.blockProgress 주석).
