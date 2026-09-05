@@ -87,7 +87,8 @@ export const fetchGrowthStats = cache(async (): Promise<GrowthStats | null> => {
     ),
     lc
       .from('daily_activity')
-      .select('date, total_minutes, total_words')
+      // `total_reviews` 를 빼면 학습한 날의 절반이 안 보인다 — `growth-math` 의 DTO 주석 참조
+      .select('date, total_minutes, total_words, total_reviews')
       .eq('user_id', user.id)
       .gte('date', since)
       .order('date', { ascending: true }),
@@ -111,22 +112,33 @@ export const fetchGrowthStats = cache(async (): Promise<GrowthStats | null> => {
   }
 
   // ── 28일 활동 (빈 날 0 채움) ──
-  const byDate = new Map<string, { minutes: number; words: number }>()
+  const byDate = new Map<string, { minutes: number; words: number; reviews: number }>()
   for (const r of (activityRows ?? []) as Array<{
     date: string
     total_minutes: number | null
     total_words: number | null
+    total_reviews: number | null
   }>) {
-    byDate.set(r.date, { minutes: r.total_minutes ?? 0, words: r.total_words ?? 0 })
+    byDate.set(r.date, {
+      minutes: r.total_minutes ?? 0,
+      words: r.total_words ?? 0,
+      reviews: r.total_reviews ?? 0,
+    })
   }
   const days28: ActivityDayDto[] = []
   for (let i = 27; i >= 0; i--) {
     const d = kstDateIso(-i)
     const row = byDate.get(d)
-    days28.push({ date: d, minutes: row?.minutes ?? 0, words: row?.words ?? 0 })
+    days28.push({
+      date: d,
+      minutes: row?.minutes ?? 0,
+      words: row?.words ?? 0,
+      reviews: row?.reviews ?? 0,
+    })
   }
 
-  const weekDays = days28.slice(-7).filter((d) => d.minutes > 0 || d.words > 0).length
+  // 이번 주 학습일도 같은 자로 센다 — 여기만 빠뜨리면 셸 띠와 연속 배지가 서로 다른 말을 한다
+  const weekDays = days28.slice(-7).filter((d) => d.minutes > 0 || d.words > 0 || d.reviews > 0).length
 
   return {
     streak: computeStreak(days28),

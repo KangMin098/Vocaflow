@@ -18,11 +18,12 @@ import {
   type ActivityDayDto,
 } from '../growth-math'
 
-function days(spec: Array<{ minutes?: number; words?: number }>): ActivityDayDto[] {
+function days(spec: Array<{ minutes?: number; words?: number; reviews?: number }>): ActivityDayDto[] {
   return spec.map((s, i) => ({
     date: `2026-08-${String(i + 1).padStart(2, '0')}`,
     minutes: s.minutes ?? 0,
     words: s.words ?? 0,
+    reviews: s.reviews ?? 0,
   }))
 }
 
@@ -35,6 +36,20 @@ describe('computeStreak — 연속일 정의는 앱에 하나뿐이다', () => {
     // 이 한 줄이 핵심 회귀다. `total_minutes` 는 60초 미만 세션을 0으로 반올림하므로
     // minutes 만 보면 리뷰 120건을 한 날이 "학습 안 함" 이 된다(실측: 28일 중 1일로 나왔다).
     expect(computeStreak(days([{ minutes: 0, words: 86 }, { minutes: 0, words: 82 }]))).toBe(2)
+  })
+
+  it('분도 단어도 0인데 복습이 있으면 학습한 날이다 — 절반이 여기서 사라졌다', () => {
+    // `minutes`·`words` 를 채우는 것은 `scores` 트리거뿐이고, 실제 복습을 세는 것은
+    // `learning_records` 가 채우는 `total_reviews` 다. `scores` 를 안 쓰는 모듈
+    // (EchoMatch·Dictation)로 공부한 날은 두 칸이 0 으로 남는다.
+    // 실측 2026-09-05: `daily_activity` 47일 중 **24일(51.1%)** 이 그 상태였고,
+    // 연속 배지는 `streak > 0` 게이트라 **아예 사라져** 있었다 — 같은 카드의 막대그래프는
+    // `learning_records` 로 그리므로 "오늘 막대는 섰는데 연속 배지는 없다" 가 됐다.
+    expect(computeStreak(days([{ reviews: 51 }, { reviews: 28 }, { reviews: 12 }]))).toBe(3)
+  })
+
+  it('셋 다 0인 날은 여전히 끊는다 — 관대해지는 것이 목적이 아니다', () => {
+    expect(computeStreak(days([{ reviews: 5 }, { minutes: 0, words: 0, reviews: 0 }, { reviews: 7 }]))).toBe(1)
   })
 
   it('오늘이 아직 비어 있어도 어제까지의 연속을 끊지 않는다', () => {

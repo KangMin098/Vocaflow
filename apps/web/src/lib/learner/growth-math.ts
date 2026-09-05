@@ -16,6 +16,19 @@ export interface ActivityDayDto {
   date: string
   minutes: number
   words: number
+  /**
+   * 그날의 복습 횟수 (`daily_activity.total_reviews`).
+   *
+   * ⚠️ **이 칸이 없으면 학습한 날의 절반이 안 보인다.** `minutes`·`words` 를 채우는 것은
+   *    `scores` 트리거뿐인데, 실제 복습을 세는 것은 `learning_records` 트리거가 채우는
+   *    `total_reviews` 다. `scores` 를 안 쓰는 모듈(EchoMatch·Dictation 등)로 공부하면
+   *    두 칸이 0 으로 남는다. 게다가 `total_words` 는 `scores.correct_count` 라
+   *    다 틀린 날은 0 이고, `total_minutes` 는 짧은 세션이 0 이다.
+   *
+   *    실측 2026-09-05: `daily_activity` 47일 중 **24일(51.1%)** 이 복습 기록이 있는데도
+   *    두 칸이 0 이라 연속일·이번주 학습일에서 통째로 빠졌다.
+   */
+  reviews: number
 }
 
 // ────────────────────────────────────────────────────────────
@@ -53,7 +66,12 @@ export function rungFor(stability: number): RungKey | null {
  * ⚠️ 판정을 `minutes > 0` 로 두지 않는다: `daily_activity.total_minutes` 는
  * `ROUND(duration_seconds/60.0)` 로 누적돼서 **60초 미만 세션이 0분으로 반올림**된다.
  * 그 기준으로는 리뷰 120건을 한 날도 "학습 안 함" 이 된다(실측 2026-08-15: 8일 연속
- * 활동 중인 계정이 "28일 중 1일" 로 표시됐다). `total_words` 를 함께 본다.
+ * 활동 중인 계정이 "28일 중 1일" 로 표시됐다).
+ *
+ * ⚠️ **`total_words` 를 더한 것으로는 부족했다** — 그 칸도 `scores` 트리거가 채우고
+ * (`correct_count` 라 다 틀린 날은 0), **실제 복습을 세는 `total_reviews` 는 아예 안 보고
+ * 있었다.** `scores` 를 안 쓰는 모듈(EchoMatch·Dictation)로 공부한 날이 통째로 빠진다.
+ * 실측 2026-09-05: 47일 중 **24일(51.1%)** 이 그 상태였다. 셋을 다 본다.
  *
  * ⚠️ `user_stats.current_streak` 도 쓰지 않는다. 갱신 경로가 불분명해 실제 활동과 어긋난다
  * (같은 계정에 **3** 이 들어 있었다). 한때 한 화면에 연속일이 세 종류로 떴다.
@@ -64,7 +82,8 @@ export function rungFor(stability: number): RungKey | null {
 export function computeStreak(days: readonly ActivityDayDto[]): number {
   let streak = 0
   for (let i = days.length - 1; i >= 0; i--) {
-    const active = days[i].minutes > 0 || days[i].words > 0
+    // 셋 중 하나라도 있으면 그날 공부한 것이다 — `reviews` 가 빠지면 절반이 사라진다(위 DTO 주석)
+    const active = days[i].minutes > 0 || days[i].words > 0 || days[i].reviews > 0
     if (active) streak += 1
     else if (i === days.length - 1) continue // 오늘은 아직 진행 중
     else break
