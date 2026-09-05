@@ -209,7 +209,11 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
  */
 async function remainingQuota() {
   const have = {}
-  for (const b of READING_LEVEL_BANDS) {
+  // **다섯 칸을 한꺼번에 묻는다.** 순차로 던지면 각 조회가 한 번씩 흔들릴 때마다
+  //   재시도 대기가 줄줄이 더해져 시작도 못 하고 끝난다(실측 2026-09-05: 2분 넘게 걸렸다).
+  //   병렬로 던지면 흔들려도 전체 시간이 가장 느린 하나에 묶인다.
+  await Promise.all(
+    READING_LEVEL_BANDS.map(async (b) => {
     // ⚠️ **격리된 것은 몫에서 뺀다.** 적재 수로 세면 그 칸이 영영 안 찬다 —
     //   실측 2026-09-05: 중1~2 가 몫 1,832 를 채웠는데 게시 게이트를 통과한 것은
     //   **1,588편**이었다(244편이 장르·잡물로 격리). 몫이 찼다고 그만 담으면
@@ -228,9 +232,10 @@ async function remainingQuota() {
           .eq('feed_label', `PD 발췌 · ${b.id}`)
           .not('csat_fit->gate->>publishable', 'eq', 'false'),
       `몫 조회 ${b.id}`,
-    )
-    have[b.id] = count ?? 0
-  }
+      )
+      have[b.id] = count ?? 0
+    }),
+  )
   return have
 }
 
