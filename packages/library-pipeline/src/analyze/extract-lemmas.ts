@@ -220,6 +220,52 @@ function chapterTokenSet(content: string): Set<string> {
   return new Set(content.toLowerCase().match(/[a-z][a-z'-]*/g) ?? [])
 }
 
+/** 저장하는 예문의 최대 길이. DB 용량 때문에 두는 상한이지 문장의 성질이 아니다. */
+export const SENTENCE_CAP = 300
+
+/**
+ * **긴 문장을 자를 때 낱말이 든 자리를 남긴다.**
+ *
+ * 왜 있나 — 예전에는 `sentence.slice(0, 300)` 이었다. 그런데 이 값은 학습자 화면으로
+ * 그대로 간다(`chapter-words-queries` → `exampleSentence` → 플래시카드 빈칸,
+ * 리더의 `ChapterContent` 는 직접 그린다). 낱말이 300자 뒤에 있으면 **그 낱말이 없는
+ * 예문**이 학습자에게 간다. 빈칸도 안 뚫리니 카드 앞면에 정답이 그대로 보인다.
+ *
+ * 실측 2026-09-05 — 원인이 이 한 줄임이 깨끗하게 갈렸다:
+ *   도서 `library_book_vocabularies` — 절단된 273,443행의 **27.6%(75,570)** 가 불량,
+ *                                     안 잘린 1,404,586행은 1.0%
+ *   글   `library_article_vocabularies` — 절단된 186,893행의 **16.3%(30,526)** 가 불량,
+ *                                     안 잘린 1,628,647행은 0.1%
+ *   → 합 **106,096행**. 프루스트·위스망스·『돈키호테』처럼 문장이 긴 책이 상위를 차지했다.
+ *
+ * 그래서 머리 300자가 아니라 **표면형을 가운데 두는 창**을 잘라 낸다. 낱말 경계에서
+ * 끊고, 잘린 쪽에 `…` 를 붙여 문장을 다 보여 준 척하지 않는다.
+ * 표면형을 못 찾으면(있을 수 없지만) 예전처럼 머리를 자른다 — 조용히 빈 값을 내지 않는다.
+ */
+export function clipAroundWord(sentence: string, surface: string, cap = SENTENCE_CAP): string {
+  const s = sentence.trim()
+  if (s.length <= cap) return s
+  const at = surface ? s.toLowerCase().indexOf(surface.toLowerCase()) : -1
+  if (at < 0) return s.slice(0, cap).trimEnd()
+
+  // 표면형을 가운데 두되, 문장 끝에 닿으면 그만큼 앞으로 당긴다
+  const half = Math.floor((cap - surface.length) / 2)
+  let start = Math.max(0, Math.min(at - half, s.length - cap))
+  let end = Math.min(s.length, start + cap)
+  // 낱말 한가운데서 끊지 않는다 — 앞은 다음 공백까지 밀고, 뒤는 이전 공백까지 당긴다
+  if (start > 0) {
+    const sp = s.indexOf(' ', start)
+    if (sp >= 0 && sp < at) start = sp + 1
+  }
+  if (end < s.length) {
+    const sp = s.lastIndexOf(' ', end)
+    if (sp > at + surface.length) end = sp
+  }
+  const head = start > 0 ? '…' : ''
+  const tail = end < s.length ? '…' : ''
+  return `${head}${s.slice(start, end).trim()}${tail}`
+}
+
 /**
  * 책 전체 chapter의 lemma 추출 + 통합.
  *
@@ -238,7 +284,9 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
     // chapter 내 lemma별 빈도 + 첫 등장 sentence index 집계
     const chapterCounts = new Map<
       string,
-      { count: number; firstSentenceIdx: number; posCounts: Map<string, number> }
+      // firstSurface — 그 문장 안에서 **실제로 쓰인 형태**. 표제어(lemma)로는 문장에서 못 찾는
+      // 경우가 흔해(ran/run · geese/goose · travellers/traveler) 창을 어디에 둘지 정할 수 없다.
+      { count: number; firstSentenceIdx: number; firstSurface: string; posCounts: Map<string, number> }
     >()
 
     for (const sentence of result.sentences) {
@@ -283,6 +331,7 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
           chapterCounts.set(lemma, {
             count: 1,
             firstSentenceIdx: token.sentenceIndex,
+            firstSurface: token.surface,
             posCounts,
           })
         }
@@ -294,9 +343,12 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
       // 책 전체 빈도 누적
       bookFrequency.set(lemma, (bookFrequency.get(lemma) ?? 0) + info.count)
 
-      // chapter별 등장 기록
-      const firstSentence =
-        result.sentences[info.firstSentenceIdx]?.text.trim().slice(0, 300) ?? ''
+      // chapter별 등장 기록 — **낱말이 든 자리**를 잘라 낸다 (아래 clipAroundWord 주석)
+      const firstSentence = clipAroundWord(
+        result.sentences[info.firstSentenceIdx]?.text.trim() ?? '',
+        info.firstSurface,
+        SENTENCE_CAP,
+      )
 
       // Phase 3 — chapter 지배 POS (최다 등장 POS)
       let context_pos: string | null = null
