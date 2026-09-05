@@ -45,6 +45,7 @@
 남은 blocker 2건(미해소 · 기록): 새로고침 시 플래시카드가 1번 카드로 되돌아감(이중 적재는
 멱등 가드로 막았으나 재개 커서는 없음) · PairFlip 중도 이탈 시 `scores` 유실(FSRS 쪽만 해소).
 
+계측 D2: `screen_viewed`(셸 한 곳 `ScreenViewTracker` · 닫힌 `SCREEN_IDS`) — 학습자 화면 진입 0개 → 전부.
 계측기 2종 신설: `scripts/audit/learner-linkgraph.mjs`(정적 링크 그래프 — 앱 전체 죽은 링크 0 실측),
 `tests/e2e/29-learner-waste.spec.ts`(한 화면 중복 데이터 요청 — dev StrictMode 와 구별).
 `26-learner-sweep` 은 `LEARNER_SWEEP=1` 없이는 조용히 skip 되고, dev 서버에서는 컴파일 때문에
