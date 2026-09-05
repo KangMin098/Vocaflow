@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, CheckCircle2, Eye, AlertTriangle, RefreshCcw, RefreshCw, XCircle } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import {
   importSeedList,
   deleteSeedListArtifacts,
@@ -321,6 +322,11 @@ export function VcbSeedPreviewClient({ runId, initial }: Props) {
           </div>
         }
       />
+
+      {/* 이 화면은 되돌릴 수 없는 동작 둘(재생성·적재)을 쥐고 있는데 VCB 11개 화면 중
+          유일하게 도움말이 없었다. 라벨이 말하지 않는 것 — 거부 표시가 탭 안에만 산다는
+          사실과 재생성이 복구 불가라는 사실 — 이 여기 있다. */}
+      <AdminScreenHelp screen="vocab-seed-preview" />
 
       {warning && (
         <div

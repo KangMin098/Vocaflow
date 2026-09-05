@@ -324,7 +324,7 @@ function SelectChip({ foil, ink, deep }: { foil: string; ink: string; deep: stri
   // hover 시 chip 가 살짝 부각되고 글자가 '선택' 으로 강조됨
   return (
     <span
-      className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[10px] font-[700] uppercase tracking-[0.10em] transition-colors duration-[var(--dur-normal)] group-hover:bg-[color:var(--chip-hover)]"
+      className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[10px] font-[700] uppercase tracking-[0.10em] transition-colors duration-[var(--dur-normal)] group-hover:bg-[var(--bg3)]"
       style={
         {
           color: ink,

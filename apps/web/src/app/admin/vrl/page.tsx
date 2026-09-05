@@ -146,7 +146,13 @@ async function DashboardContent() {
       {/* ── Section 8 — Backlog + Quick Actions ── */}
       <section id="s8-backlog" className="flex flex-col gap-8 scroll-mt-16">
         <BacklogSection />
-        <QuickActionsSection />
+        {/* 이 카드들의 부제는 예전에 `L4 1,030 row 잔여` 처럼 **상수**였다 — 스냅샷이 움직여도
+            글자는 안 움직여, 다 끝난 일을 아직 남은 것처럼 읽게 했다. 실측만 넘긴다. */}
+        <QuickActionsSection
+          openConcerns={snapshot.raw.integrity.open}
+          unclassified={snapshot.raw.vrlClassification.totalUnclassified}
+          r3Score={snapshot.responsibilities.find((r) => r.id === 'R3')?.score ?? null}
+        />
       </section>
 
       {/* footer — v3 진행 표시 */}

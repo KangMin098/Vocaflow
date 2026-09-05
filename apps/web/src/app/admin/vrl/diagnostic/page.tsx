@@ -221,11 +221,13 @@ function Stat({
 }: {
   icon: typeof FileText
   label: string
-  value: number | string
+  /** `null` = **못 쟀음**. 0(정말 없음)과 다르게 그린다 — 뭉개면 "없다" 는 거짓말이 된다. */
+  value: number | string | null
   sub: string
   accent: string
   bg: string
 }) {
+  const unknown = value === null
   return (
     <div className="flex flex-col gap-1 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
       <div className="flex items-center justify-between">
@@ -241,11 +243,11 @@ function Stat({
       </div>
       <p
         className="mt-1 font-display text-[24px] font-[800] leading-tight"
-        style={{ color: accent }}
+        style={{ color: unknown ? 'var(--t3)' : accent }}
       >
-        {value}
+        {unknown ? '—' : value}
       </p>
-      <p className="font-body text-[11px] text-[var(--t2)]">{sub}</p>
+      <p className="font-body text-[11px] text-[var(--t2)]">{unknown ? '못 쟀음 — 조회 실패' : sub}</p>
     </div>
   )
 }

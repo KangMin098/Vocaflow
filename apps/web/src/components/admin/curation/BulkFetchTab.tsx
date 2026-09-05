@@ -177,7 +177,12 @@ export function BulkFetchTab() {
         }),
       })
       const data = await res.json()
-      if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
+      if (!res.ok) {
+        // 가드는 401/403 을 { error: 'Unauthorized', message: '로그인이 필요합니다.' } 로 낸다 —
+        // 사람이 읽을 문장은 message 쪽이므로 그것을 먼저 본다.
+        const err = data as { message?: string; error?: string }
+        throw new Error(err.message ?? err.error ?? `HTTP ${res.status}`)
+      }
       setLastResult(data)
       setFetchOffset(data.next_offset ?? offset + batchSize)
       await loadList()
@@ -257,8 +262,9 @@ export function BulkFetchTab() {
           failed?: number
           remaining?: number
           error?: string
+          message?: string
         }
-        if (!res.ok) throw new Error(json.error ?? `보강 실패 (${res.status})`)
+        if (!res.ok) throw new Error(json.message ?? json.error ?? `보강 실패 (${res.status})`)
         if (json.done) {
           setEnrichProgress({ filled, empty, failed, remaining: 0, done: true })
           break

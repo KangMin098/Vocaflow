@@ -4,6 +4,12 @@
 // 콘솔에서 안전하게 통과시킨다. dev·admin.
 //   POST { issueId, action:'confirm-pd', pdBasis, pdEvidenceUrl? }  → PD 근거 확정(법적 게이트 메타)
 //   POST { issueId, action:'publish' }                              → published 전이(콘텐츠 서빙 준비 필요)
+//   POST { issueId, action:'archive' }                              → published → archived (발행 회수)
+//   POST { issueId, action:'restore' }                              → archived → review   (다시 검수로)
+//
+// 왜 회수 경로가 필요한가: 발행본은 DELETE 가 409 로 막히고 "먼저 보관 처리하세요" 라 안내하는데
+// **보관으로 내리는 길이 어디에도 없었다.** 한 번 발행하면 영구 고착이었다. `archived` 는 DB
+// CHECK(`pd_issues_status_chk`)가 이미 허용하는 값이라 마이그레이션 없이 열 수 있다(실측 19행 존재).
 //
 // ⚠️ 콘텐츠 서빙 미구현: 학습자 리더는 published 이미지를 공개 URL 로 받아야 하는데, 현재 컷 image_url 은
 //   work 상대경로(dev artifact 전용)다. 공개 스토리지 업로드 전에는 발행하면 학습자에게 깨진 이미지가
@@ -15,7 +21,12 @@ import path from 'node:path'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
-import { PD_BASES, pdBasisSpec } from '@/lib/pd-comic/model'
+import {
+  PD_ACTION_STATES,
+  PD_BASIS_CHOICES,
+  pdActionAllowed,
+  pdStatusLabel,
+} from '@/lib/pd-comic/model'
 import { runPipeline } from '@/lib/pd-comic/pipeline-bridge'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -49,13 +60,28 @@ export async function POST(request: Request): Promise<NextResponse> {
   if (!row) return NextResponse.json({ error: '해당 호가 없습니다' }, { status: 404 })
   const r = row as { id: string; slug: string; status: string; pd_basis: string | null; pd_checked_at: string | null; pd_checked_by: string | null; source_url: string | null; qc: { workDir?: string } | null }
 
-  // ── PD 근거 확정 (법적 게이트 메타) — 항상 안전 ──
+  // 상태 게이트는 정본(model.ts)이 정한다 — 화면 버튼 노출 조건과 같은 집합을 본다.
+  const gate = (action: 'confirm-pd' | 'upload' | 'publish' | 'archive' | 'restore') =>
+    pdActionAllowed(action, r.status)
+      ? null
+      : NextResponse.json(
+          {
+            error: `'${action}' 는 ${[...PD_ACTION_STATES[action]].map(pdStatusLabel).join(' · ')} 상태에서만 가능합니다 (현재 ${pdStatusLabel(r.status)})`,
+          },
+          { status: 409 },
+        )
+
+  // ── PD 근거 확정 (법적 게이트 메타) ──
   if (body.action === 'confirm-pd') {
+    const blocked = gate('confirm-pd')
+    if (blocked) return blocked
     const pdBasis = String(body.pdBasis || '')
-    const spec = pdBasisSpec(pdBasis)
+    // 신규 확정은 **선택지 정본**만 받는다 — 레거시 토큰(pre-1929)은 DB 에 남아 있는 옛 값이지
+    // 지금 골라도 되는 값이 아니다. 화면 select 도 같은 배열에서 나온다.
+    const spec = PD_BASIS_CHOICES.find((b) => b.key === pdBasis) ?? null
     if (!spec) {
       return NextResponse.json(
-        { error: `pdBasis 는 ${PD_BASES.map((b) => b.key).join('/')} 중 하나` },
+        { error: `pdBasis 는 ${PD_BASIS_CHOICES.map((b) => b.key).join('/')} 중 하나` },
         { status: 400 },
       )
     }
@@ -80,6 +106,8 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   // ── 콘텐츠 업로드 (현대화 산출물 → 공개 버킷 comic/pd/<slug>/ + pd_comic_panels 갱신) ──
   if (body.action === 'upload') {
+    const blocked = gate('upload')
+    if (blocked) return blocked
     const wd = typeof r.qc?.workDir === 'string' ? r.qc.workDir : null
     if (!wd) return NextResponse.json({ error: 'work 디렉터리가 없습니다' }, { status: 400 })
     const run = await runPipeline('publish-upload.mjs', ['--workdir', wd, '--slug', r.slug, '--issue-id', r.id], { timeoutMs: 300_000 })
@@ -87,8 +115,40 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ ok: true, action: 'upload', tail: (run.stdout || '').split('\n').filter(Boolean).slice(-3) })
   }
 
+  // ── 발행 회수 (published → archived) ──
+  //
+  // 삭제가 아니라 보관이다: 학습자 서가 RPC 는 published 만 내보내므로 보관 즉시 노출이 끊기고,
+  // 컷·PD 근거·출처는 그대로 남아 되돌릴 수 있다. `published_at` 은 지운다 — 남겨 두면
+  // "발행 중" 으로 읽히는 날짜가 보관된 호에 붙는다.
+  if (body.action === 'archive') {
+    const blocked = gate('archive')
+    if (blocked) return blocked
+    const { error } = await client
+      .from('pd_comic_issues')
+      .update({ status: 'archived', published_at: null })
+      .eq('id', issueId)
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ ok: true, action: 'archive', slug: r.slug, status: 'archived' })
+  }
+
+  // ── 보관 복원 (archived → review) ──
+  // 발행으로 바로 되돌리지 않는다 — 회수한 이유(깨진 이미지·근거 재확인)가 아직 살아 있을 수 있어
+  // 발행 게이트를 다시 통과시킨다.
+  if (body.action === 'restore') {
+    const blocked = gate('restore')
+    if (blocked) return blocked
+    const { error } = await client
+      .from('pd_comic_issues')
+      .update({ status: 'review', last_error: null })
+      .eq('id', issueId)
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ ok: true, action: 'restore', slug: r.slug, status: 'review' })
+  }
+
   // ── 발행 (published 전이) ──
   if (body.action === 'publish') {
+    const blocked = gate('publish')
+    if (blocked) return blocked
     // 게이트 요건 재확인 (DB 제약과 동일 — 사용자에게 무엇이 빠졌는지 알려줌)
     const missing: string[] = []
     if (!r.pd_basis) missing.push('PD 근거')
@@ -122,5 +182,12 @@ export async function POST(request: Request): Promise<NextResponse> {
       contentServable: await contentServable(client, issueId),
     },
     pdBasis: r.pd_basis,
+    // 화면이 어떤 버튼을 그릴지 **서버가 답한다** — 조건을 화면이 다시 적으면 갈린다.
+    actions: Object.fromEntries(
+      (Object.keys(PD_ACTION_STATES) as Array<keyof typeof PD_ACTION_STATES>).map((a) => [
+        a,
+        pdActionAllowed(a, r.status),
+      ]),
+    ),
   })
 }

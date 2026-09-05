@@ -60,8 +60,11 @@ export function ArticleAudioPanel({ articleId, audioUrl, source }: Props) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ article_id: articleId, audio_url: nextUrl }),
       })
-      const data = await res.json()
-      if (!res.ok || !data.ok) throw new Error(data.error ?? `HTTP ${res.status}`)
+      const data = (await res.json()) as { ok?: boolean; message?: string; error?: string }
+      // 가드(requireAdminApi)는 401/403 을 { error, message } JSON 으로 낸다 —
+      // 사람이 읽을 문장은 message 쪽이므로 그것을 먼저 본다.
+      if (!res.ok || !data.ok)
+        throw new Error(data.message ?? data.error ?? `HTTP ${res.status}`)
       setOkMsg(kind === 'clear' ? '보이스 연결을 해제했어요' : '보이스를 연결했어요')
       setInput('')
       router.refresh()

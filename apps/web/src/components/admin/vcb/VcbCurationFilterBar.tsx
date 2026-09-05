@@ -3,7 +3,7 @@
 // VcbCurationFilterBar.tsx
 // 자율 재구성: spec 미수신 (메시지 잘림). VcbCurationView 의 usage 시그니처
 // (filter / sort / counts: {all, flagged, unreviewed} / onFilterChange /
-// onSortChange) 기반 + AdminToolbar 의 chip 패턴 정합으로 구성.
+// onSortChange) 기반. (예전에 참조하던 AdminToolbar 는 사용처가 0이 되어 2026-09-05 삭제.)
 
 import { Filter } from 'lucide-react'
 import type { CurationFilter, CurationSort } from '@/lib/vcb/types'

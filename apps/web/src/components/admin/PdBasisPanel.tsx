@@ -16,7 +16,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 
-import type { PdBasisSpec } from '@/lib/pd-comic/model'
+import { PD_BASIS_CHOICES, defaultPdBasis, type PdBasisSpec } from '@/lib/pd-comic/model'
 
 const ACCENT = '#8B5CF6'
 
@@ -55,7 +55,8 @@ interface SeriesRow {
 
 export function PdBasisPanel({ onMsg }: { onMsg: (s: string) => void }) {
   const [series, setSeries] = useState<SeriesRow[]>([])
-  const [bases, setBases] = useState<PdBasisSpec[]>([])
+  // 선택지 정본은 model.ts — 서버 응답이 늦거나 비어도 select 가 빈 채로 뜨지 않는다.
+  const [bases, setBases] = useState<PdBasisSpec[]>(PD_BASIS_CHOICES)
   const [totals, setTotals] = useState<{ issues: number; confirmed: number; series: number } | null>(null)
   const [open, setOpen] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
@@ -67,7 +68,7 @@ export function PdBasisPanel({ onMsg }: { onMsg: (s: string) => void }) {
       const j = await r.json()
       if (!r.ok) throw new Error(j.error ?? '조회 실패')
       setSeries(j.series ?? [])
-      setBases(j.bases ?? [])
+      if (Array.isArray(j.bases) && j.bases.length) setBases(j.bases)
       setTotals(j.totals ?? null)
     } catch (e) {
       onMsg((e as Error).message)
@@ -137,8 +138,8 @@ function SeriesCard({
   onToggle: () => void
   onDone: (msg: string) => void
 }) {
-  // 기본 근거는 발행 연도가 정한다 — 1930년 이전이면 연도만으로 확정된다.
-  const defaultBasis = s.yearFrom && s.yearFrom <= 1929 ? 'term-expired' : 'no-renewal'
+  // 기본 근거는 발행 연도가 정한다(정본 규칙) — 발행 패널도 같은 함수를 쓴다.
+  const defaultBasis = defaultPdBasis(s.yearFrom)
   const [basis, setBasis] = useState(defaultBasis)
   const [evidence, setEvidence] = useState('')
   const [saving, setSaving] = useState(false)
@@ -251,7 +252,8 @@ function SeriesCard({
                 onChange={(e) => setBasis(e.target.value)}
                 className="min-h-[38px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12.5px]"
               >
-                {bases.filter((b) => !b.key.startsWith('pre-')).map((b) => (
+                {/* 레거시 토큰 제외는 정본(PD_BASIS_CHOICES)이 이미 했다 — 여기서 또 거르지 않는다 */}
+                {bases.map((b) => (
                   <option key={b.key} value={b.key}>{b.label}</option>
                 ))}
               </select>

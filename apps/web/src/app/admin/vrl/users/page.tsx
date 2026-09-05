@@ -10,6 +10,7 @@ import { requireAdmin } from '@/lib/auth/require-admin'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { fetchVrlUsers, type VrlUsersData } from '@/lib/admin/vrl/queries'
+import { VrlEmptyNotice, VrlUnreadableNotice } from '../_components/VrlStateNotice'
 
 export const metadata = {
   title: 'VRL Users — Vocaflow Admin',
@@ -53,6 +54,28 @@ function UsersView({ data }: { data: VrlUsersData }) {
   const diagPct = data.total > 0 ? Math.round((data.diagnosticDone / data.total) * 100) : 0
   const maxLevelCount = Math.max(1, ...data.byLevel)
 
+  // 조회 실패를 "사용자 0명 · 빈 막대 12칸" 으로 그리지 않는다 — 그 화면은 진단이 한 번도
+  // 안 돌았다는 뜻으로 읽히고, 관리자는 진단 시드부터 다시 뒤진다.
+  if (data.error) {
+    return (
+      <VrlUnreadableNotice
+        subject="사용자 V-Level"
+        detail={data.error}
+        hint="user_profiles / user_level_snapshots 조회 권한(RLS)을 먼저 본다."
+        nextStep={{ href: '/admin/vrl/diagnostic', label: '진단 화면으로' }}
+      />
+    )
+  }
+  if (data.total === 0) {
+    return (
+      <VrlEmptyNotice
+        icon={Users}
+        title="레벨이 매겨진 사용자가 없습니다"
+        body="진단을 마친 사용자부터 V-Level 이 생깁니다. 진단 테스트가 활성인지, 문항이 채워졌는지 먼저 봅니다."
+        nextStep={{ href: '/admin/vrl/diagnostic', label: '진단 테스트 확인' }}
+      />
+    )
+  }
   return (
     <div className="flex flex-col gap-4">
       {/* KPI */}

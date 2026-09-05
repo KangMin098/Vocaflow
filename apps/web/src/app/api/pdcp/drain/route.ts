@@ -13,6 +13,8 @@
 //   restored → segment.mjs → segmented
 //   segmented → ocr.mjs      → ocr   (소스 hOCR 이 있을 때만. 없으면 실행 없이 통과)
 //   ocr → (사람 검수) → review → published
+//   modernized → (스크립트 없음) → review   ← 현대화(선택 트랙)를 누른 호의 출구.
+//     이 줄이 없어서 현대화한 호가 전진도 후퇴도 못 하고 갇혀 있었다.
 //
 // dev 전용: 앱 프로세스가 ffmpeg 를 돌리는 건 로컬에서만 허용한다.
 
@@ -22,6 +24,7 @@ import path from 'node:path'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { PD_DRAIN_CHAIN } from '@/lib/pd-comic/model'
 import { getAdapter, runPipeline, workDir } from '@/lib/pd-comic/pipeline-bridge'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -29,13 +32,9 @@ export const runtime = 'nodejs'
 export const maxDuration = 300
 export const dynamic = 'force-dynamic'
 
-const NEXT_STATUS: Record<string, string> = {
-  queued: 'acquired',
-  acquired: 'restored',
-  restored: 'segmented',
-  segmented: 'ocr',
-  ocr: 'review',
-}
+// 전이표 정본은 model.ts — 여기에 사본을 두면 갈린다.
+// 실제로 갈려서, modernize 라우트가 만든 'modernized' 행을 이 표가 몰라 큐에서 영영 빠졌다.
+const NEXT_STATUS = PD_DRAIN_CHAIN
 
 function readJson(f: string): Record<string, unknown> | null {
   try {
@@ -152,7 +151,9 @@ export async function POST(request: Request): Promise<NextResponse> {
         ? p.ocrStrategy === 'own-ocr'
           ? 'own-ocr 어댑터 — 소스가 hOCR 을 주지 않아 대사 추출을 건너뜁니다(검수에서 수동 입력)'
           : `${p.ocrStrategy} 전략인데 ${hocrPath} 가 없습니다 — 대사 추출을 건너뜁니다`
-        : null
+        : row.status === 'modernized'
+          ? '현대화 산출물은 그대로 두고 사람 검수로 넘깁니다 — 실행되는 스크립트는 없습니다'
+          : null
     // ocr → review 는 실행할 스크립트가 없다(사람 검수 대기로 넘김).
     // **dryRun 은 여기서도 쓰지 않는다** — 스크립트가 없다고 상태만 슬쩍 전진시키면
     // "계획만 보려던" 호출이 큐를 실제로 움직인다(계획과 실행의 구분이 무너진다).

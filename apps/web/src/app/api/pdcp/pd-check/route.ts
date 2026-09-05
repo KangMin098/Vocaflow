@@ -20,7 +20,7 @@ import { NextResponse } from 'next/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
-import { PD_BASES, pdBasisSpec, renewalLookups, renewalWindow } from '@/lib/pd-comic/model'
+import { PD_BASIS_CHOICES, renewalLookups, renewalWindow } from '@/lib/pd-comic/model'
 import { assessRenewal } from '@/lib/pd-comic/renewal-bridge'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -128,7 +128,8 @@ export async function GET(request: Request): Promise<NextResponse> {
   }))
 
   return NextResponse.json({
-    bases: PD_BASES,
+    // 선택지 정본 — 화면 select 가 여기서만 나온다(레거시 토큰은 신규 확정 대상이 아니다).
+    bases: PD_BASIS_CHOICES,
     // 갱신 위험이 있는 시리즈를 위로 — 운영자가 먼저 봐야 할 것이다
     series: series.sort((a, b) => b.renewalBlocked - a.renewalBlocked || b.total - a.total),
     totals: {
@@ -159,10 +160,10 @@ export async function POST(request: Request): Promise<NextResponse> {
     note?: string
   }
 
-  const spec = pdBasisSpec(String(body.pdBasis ?? ''))
+  const spec = PD_BASIS_CHOICES.find((b) => b.key === String(body.pdBasis ?? '')) ?? null
   if (!spec) {
     return NextResponse.json(
-      { error: `pdBasis 는 ${PD_BASES.map((b) => b.key).join(' / ')} 중 하나여야 합니다` },
+      { error: `pdBasis 는 ${PD_BASIS_CHOICES.map((b) => b.key).join(' / ')} 중 하나여야 합니다` },
       { status: 400 },
     )
   }

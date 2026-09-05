@@ -8,15 +8,16 @@
 //   같은 호를 복원부터 다시 돌릴 때 쓴다(취득물은 그대로 재사용).
 //
 // 발행된 호는 삭제하지 않는다 — 학습자에게 노출 중인 콘텐츠가 조용히 사라지면 안 된다.
-// 먼저 보관(archived)으로 내린 뒤 삭제하도록 강제한다.
+// 먼저 보관(archived)으로 내린 뒤 삭제하도록 강제한다. 그 보관 경로는 발행 패널의
+// POST /api/pdcp/publish { action:'archive' } 다 — 예전엔 이 안내만 있고 **길이 없었다**.
 
 import { NextResponse } from 'next/server'
 import fs from 'node:fs'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { PD_STATUS_KEYS, pdActionAllowed } from '@/lib/pd-comic/model'
 import { workDir } from '@/lib/pd-comic/pipeline-bridge'
-import { PD_STAGES } from '@/lib/pd-comic/model'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const runtime = 'nodejs'
@@ -41,9 +42,12 @@ export async function DELETE(request: Request): Promise<NextResponse> {
   if (!row) return NextResponse.json({ error: '해당 호가 없습니다' }, { status: 404 })
 
   const r = row as { id: string; slug: string; status: string }
-  if (r.status === 'published') {
+  if (!pdActionAllowed('delete', r.status)) {
     return NextResponse.json(
-      { error: '발행된 호는 삭제할 수 없습니다 — 먼저 보관 처리하세요' },
+      {
+        error:
+          '발행된 호는 삭제할 수 없습니다 — 발행 패널의 "발행 회수(보관)" 로 먼저 내린 뒤 삭제하세요',
+      },
       { status: 409 },
     )
   }
@@ -78,12 +82,16 @@ export async function PATCH(request: Request): Promise<NextResponse> {
   if (!issueId || !status) {
     return NextResponse.json({ error: 'issueId 와 status 가 필요합니다' }, { status: 400 })
   }
-  if (!PD_STAGES.some((s) => s.key === status)) {
+  if (!PD_STATUS_KEYS.has(status)) {
     return NextResponse.json({ error: `알 수 없는 단계: ${status}` }, { status: 400 })
   }
-  // 발행은 이 경로로 하지 않는다 — PD 근거 게이트를 우회하게 되므로 검수 화면에서만.
-  if (status === 'published') {
-    return NextResponse.json({ error: '발행은 검수 화면에서만 가능합니다' }, { status: 400 })
+  // 발행·보관은 이 경로로 하지 않는다 — PD 근거 게이트와 회수 절차를 우회하게 되므로
+  // 발행 패널(POST /api/pdcp/publish)에서만. 여기는 **자동 단계 되돌리기 전용**이다.
+  if (status === 'published' || status === 'archived') {
+    return NextResponse.json(
+      { error: '발행·보관 전이는 발행 패널에서만 가능합니다 (POST /api/pdcp/publish)' },
+      { status: 400 },
+    )
   }
 
   const client = createAdminClient() as unknown as SupabaseClient

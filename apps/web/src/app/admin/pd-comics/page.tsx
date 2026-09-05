@@ -15,7 +15,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { requireAdmin } from '@/lib/auth/require-admin'
-import { listPdComicsAdmin } from '@/lib/pd-comic/queries'
+import { countPdComicsAdmin, listPdComicsAdmin } from '@/lib/pd-comic/queries'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { AdminPdComicsClient } from './AdminPdComicsClient'
 
@@ -25,7 +25,9 @@ export const metadata = { title: 'PD Comic Pipeline · Admin' }
 export default async function AdminPdComicsPage() {
   await requireAdmin('/admin/pd-comics')
   const client = createAdminClient() as unknown as SupabaseClient
-  const { ready, data: rows } = await listPdComicsAdmin(client)
+  // 집계는 서버 count, 목록은 range — 목록 길이로 세면 상한(1,000) 너머가 조용히 사라진다.
+  const [list, counts] = await Promise.all([listPdComicsAdmin(client), countPdComicsAdmin(client)])
+  const ready = list.ready && counts.ready
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-6 md:px-6">
@@ -35,7 +37,12 @@ export default async function AdminPdComicsPage() {
         description="퍼블릭도메인 스캔 만화 — 소스 대량 취득 · 복원 · 컷분할 · 대사추출 · 검수 · 발행 (AI 생성 만화와 별도)"
       />
       {!ready && <SchemaNotReady />}
-      <AdminPdComicsClient initialRows={rows} schemaReady={ready} />
+      <AdminPdComicsClient
+        initialRows={list.data.rows}
+        initialCounts={counts.data}
+        initialTruncated={list.data.truncated}
+        schemaReady={ready}
+      />
     </div>
   )
 }

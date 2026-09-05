@@ -10,6 +10,7 @@ import { requireAdmin } from '@/lib/auth/require-admin'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { fetchVrlSnapshots, type VrlSnapshotsData } from '@/lib/admin/vrl/queries'
+import { VrlEmptyNotice, VrlUnreadableNotice } from '../_components/VrlStateNotice'
 
 export const metadata = {
   title: 'VRL Snapshots — Vocaflow Admin',
@@ -58,6 +59,28 @@ const TRIGGER_BADGE: Record<string, string> = {
 }
 
 function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
+  // "없음" 과 "못 읽음" 은 다른 화면이다. 예전엔 둘 다 헤더만 남은 표였고, 관리자는
+  // RLS 거부를 "아직 변경 이력이 없다" 로 읽었다.
+  if (data.error) {
+    return (
+      <VrlUnreadableNotice
+        subject="V-Level 변경 이력"
+        detail={data.error}
+        hint="user_level_snapshots 조회 권한(RLS)과 테이블 존재 여부를 먼저 본다."
+        nextStep={{ href: '/admin/vrl/automation', label: '자동화 상태 보기' }}
+      />
+    )
+  }
+  if (data.rows.length === 0) {
+    return (
+      <VrlEmptyNotice
+        icon={History}
+        title="아직 기록된 레벨 변경이 없습니다"
+        body="진단이나 학습 데이터로 V-Level 이 바뀌면 여기에 한 줄씩 쌓입니다. 아직 아무 사용자도 레벨이 움직이지 않았습니다."
+        nextStep={{ href: '/admin/vrl/automation', label: '자동화(cron) 상태 확인' }}
+      />
+    )
+  }
   return (
     <div className="flex flex-col gap-4">
       {/* 요약 분포 */}

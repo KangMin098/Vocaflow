@@ -42,10 +42,10 @@ type Tab = (typeof TABS)[number]
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <div className="rounded-lg border border-[var(--bd)] bg-[var(--sf)] p-4">
-      <div className="text-xs text-[var(--tx-3)]">{label}</div>
-      <div className="mt-1 text-2xl font-semibold text-[var(--tx)]">{value}</div>
-      {hint ? <div className="mt-1 text-xs text-[var(--tx-3)]">{hint}</div> : null}
+    <div className="rounded-lg border border-[var(--bd)] bg-[var(--bg)] p-4">
+      <div className="text-xs text-[var(--t3)]">{label}</div>
+      <div className="mt-1 text-2xl font-semibold text-[var(--t1)]">{value}</div>
+      {hint ? <div className="mt-1 text-xs text-[var(--t3)]">{hint}</div> : null}
     </div>
   )
 }
@@ -62,7 +62,7 @@ function PointsBar({ covered, total }: { covered: number; total: number }) {
           style={{ width: `${pct}%`, background: full ? '#2E7D5A' : pct > 0 ? '#B5803A' : 'transparent' }}
         />
       </div>
-      <span className="tabular-nums text-xs text-[var(--tx-2)]">
+      <span className="tabular-nums text-xs text-[var(--t2)]">
         {covered}/{total}점
       </span>
     </div>
@@ -90,7 +90,7 @@ function CoverageTable({ rows }: { rows: CsatCoverageRow[] }) {
             className={`min-h-[44px] rounded-md px-3 text-sm transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] disabled:opacity-50 ${
               kind === k
                 ? 'bg-[#8B5CF6] text-white'
-                : 'border border-[var(--bd)] text-[var(--tx-2)] hover:bg-[var(--sf-2)] active:bg-[var(--bd)]'
+                : 'border border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)] active:bg-[var(--bd)]'
             }`}
           >
             {label}
@@ -101,7 +101,7 @@ function CoverageTable({ rows }: { rows: CsatCoverageRow[] }) {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[720px] text-sm">
           <thead>
-            <tr className="border-b border-[var(--bd)] text-left text-xs text-[var(--tx-3)]">
+            <tr className="border-b border-[var(--bd)] text-left text-xs text-[var(--t3)]">
               <th className="py-2 pr-3 font-medium">회차</th>
               <th className="py-2 pr-3 font-medium">사정권</th>
               <th className="py-2 pr-3 font-medium">분석</th>
@@ -113,10 +113,10 @@ function CoverageTable({ rows }: { rows: CsatCoverageRow[] }) {
           <tbody>
             {shown.map((r) => (
               <tr key={r.exam_id} className="border-b border-[var(--bd)] last:border-0">
-                <td className="py-2 pr-3 text-[var(--tx)]">{r.label}</td>
-                <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{r.in_scope_items}문항</td>
-                <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{r.analyzed}</td>
-                <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{r.published}</td>
+                <td className="py-2 pr-3 text-[var(--t1)]">{r.label}</td>
+                <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">{r.in_scope_items}문항</td>
+                <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">{r.analyzed}</td>
+                <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">{r.published}</td>
                 <td className="py-2 pr-3">
                   <PointsBar covered={r.covered_points} total={r.scope_points} />
                 </td>
@@ -127,7 +127,7 @@ function CoverageTable({ rows }: { rows: CsatCoverageRow[] }) {
                       <span className="text-xs">가능</span>
                     </span>
                   ) : (
-                    <span className="inline-flex items-center gap-1 text-[var(--tx-3)]">
+                    <span className="inline-flex items-center gap-1 text-[var(--t3)]">
                       <CircleDashed className="h-4 w-4" aria-hidden />
                       <span className="text-xs">미달</span>
                     </span>
@@ -137,7 +137,7 @@ function CoverageTable({ rows }: { rows: CsatCoverageRow[] }) {
             ))}
             {!shown.length ? (
               <tr>
-                <td colSpan={6} className="py-6 text-center text-sm text-[var(--tx-3)]">
+                <td colSpan={6} className="py-6 text-center text-sm text-[var(--t3)]">
                   회차가 없다 — `node scripts/csat/corpus-sync.mjs --commit` 을 먼저 돌린다
                 </td>
               </tr>
@@ -154,7 +154,7 @@ function TypeTable({ rows }: { rows: CsatTypeRow[] }) {
     <div className="overflow-x-auto">
       <table className="w-full min-w-[680px] text-sm">
         <thead>
-          <tr className="border-b border-[var(--bd)] text-left text-xs text-[var(--tx-3)]">
+          <tr className="border-b border-[var(--bd)] text-left text-xs text-[var(--t3)]">
             <th className="py-2 pr-3 font-medium">유형</th>
             <th className="py-2 pr-3 font-medium">문항</th>
             <th className="py-2 pr-3 font-medium">검수 통과</th>
@@ -166,22 +166,22 @@ function TypeTable({ rows }: { rows: CsatTypeRow[] }) {
           {rows.map((t) => (
             <tr key={t.type_id} className="border-b border-[var(--bd)] last:border-0">
               <td className="py-2 pr-3">
-                <span className="text-[var(--tx)]">{t.name}</span>
-                <code className="ml-2 text-xs text-[var(--tx-3)]">{t.type_id}</code>
+                <span className="text-[var(--t1)]">{t.name}</span>
+                <code className="ml-2 text-xs text-[var(--t3)]">{t.type_id}</code>
                 {t.status === 'retired' ? (
-                  <span className="ml-2 rounded bg-[var(--sf-2)] px-1.5 py-0.5 text-[10px] text-[var(--tx-3)]">
+                  <span className="ml-2 rounded bg-[var(--bg2)] px-1.5 py-0.5 text-[10px] text-[var(--t3)]">
                     폐지
                   </span>
                 ) : null}
               </td>
-              <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{t.items}</td>
-              <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{t.published}</td>
-              <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{t.items - t.published}</td>
+              <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">{t.items}</td>
+              <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">{t.published}</td>
+              <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">{t.items - t.published}</td>
               <td className="py-2">
                 {t.has_report ? (
                   <span className="text-xs text-[#2E7D5A]">있음 (n={t.report_n})</span>
                 ) : (
-                  <span className="text-xs text-[var(--tx-3)]">없음</span>
+                  <span className="text-xs text-[var(--t3)]">없음</span>
                 )}
               </td>
             </tr>
@@ -275,12 +275,12 @@ function ItemsTab() {
   )
 
   if (state === 'loading' && !rows) {
-    return <p className="py-6 text-center text-sm text-[var(--tx-3)]">문항 802개를 감사하는 중…</p>
+    return <p className="py-6 text-center text-sm text-[var(--t3)]">문항 802개를 감사하는 중…</p>
   }
   if (state === 'error') {
     return (
       <div className="flex flex-col items-start gap-3 py-4">
-        <p className="text-sm text-[var(--tx-2)]">문항 감사를 만들지 못했다 — {err}</p>
+        <p className="text-sm text-[var(--t2)]">문항 감사를 만들지 못했다 — {err}</p>
         <button type="button" onClick={() => void load()} className={DL_BUTTON}>
           다시 시도
         </button>
@@ -320,7 +320,7 @@ function ItemsTab() {
           className={`min-h-[44px] rounded-md px-3 text-sm transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] ${
             onlyGaps
               ? 'bg-[#8B5CF6] text-white'
-              : 'border border-[var(--bd)] text-[var(--tx-2)] hover:bg-[var(--sf-2)] active:bg-[var(--bd)]'
+              : 'border border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)] active:bg-[var(--bd)]'
           }`}
         >
           빈 항목이 있는 것만
@@ -330,7 +330,7 @@ function ItemsTab() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[760px] text-sm">
           <thead>
-            <tr className="border-b border-[var(--bd)] text-left text-xs text-[var(--tx-3)]">
+            <tr className="border-b border-[var(--bd)] text-left text-xs text-[var(--t3)]">
               <th className="py-2 pr-3 font-medium">문항</th>
               <th className="py-2 pr-3 font-medium">유형</th>
               <th className="py-2 pr-3 font-medium">정답 근거</th>
@@ -348,22 +348,22 @@ function ItemsTab() {
                     type="button"
                     onClick={() => void openItem(r.item_id)}
                     aria-expanded={open === r.item_id}
-                    className="min-h-[44px] text-left text-[var(--tx)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+                    className="min-h-[44px] text-left text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
                   >
                     {r.exam_label} <span className="tabular-nums">{r.no}번</span>
                   </button>
                   {open === r.item_id ? (
                     detail ? (
-                      <div className="mb-2 mt-1 space-y-2 text-xs text-[var(--tx-2)]">
+                      <div className="mb-2 mt-1 space-y-2 text-xs text-[var(--t2)]">
                         {detail.measured_ability ? (
                           <p>
-                            <span className="text-[var(--tx-3)]">재는 능력 · </span>
+                            <span className="text-[var(--t3)]">재는 능력 · </span>
                             {detail.measured_ability}
                           </p>
                         ) : null}
                         {detail.design_intent ? (
                           <p>
-                            <span className="text-[var(--tx-3)]">출제 의도 · </span>
+                            <span className="text-[var(--t3)]">출제 의도 · </span>
                             {detail.design_intent}
                           </p>
                         ) : null}
@@ -377,7 +377,7 @@ function ItemsTab() {
                               <li key={c.n}>
                                 <span
                                   className={
-                                    c.n === detail.answer ? 'font-medium text-[#2E7D5A]' : 'text-[var(--tx-3)]'
+                                    c.n === detail.answer ? 'font-medium text-[#2E7D5A]' : 'text-[var(--t3)]'
                                   }
                                 >
                                   {c.n}
@@ -397,23 +397,23 @@ function ItemsTab() {
                           </ol>
                         ) : null}
                         {detail.required_vocab.length ? (
-                          <p className="text-[var(--tx-3)]">어휘 · {detail.required_vocab.join(' · ')}</p>
+                          <p className="text-[var(--t3)]">어휘 · {detail.required_vocab.join(' · ')}</p>
                         ) : null}
                       </div>
                     ) : (
-                      <p className="mb-2 mt-1 text-xs text-[var(--tx-3)]">여는 중…</p>
+                      <p className="mb-2 mt-1 text-xs text-[var(--t3)]">여는 중…</p>
                     )
                   ) : null}
                 </td>
-                <td className="py-2 pr-3 text-[var(--tx-2)]">{r.type_name ?? '—'}</td>
-                <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">
-                  {r.answer_unknown ? <span className="text-[var(--tx-3)]">정답 미상</span> : `${r.why_correct_len}자`}
+                <td className="py-2 pr-3 text-[var(--t2)]">{r.type_name ?? '—'}</td>
+                <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">
+                  {r.answer_unknown ? <span className="text-[var(--t3)]">정답 미상</span> : `${r.why_correct_len}자`}
                 </td>
-                <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">
+                <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">
                   {r.distractors_explained}/{r.distractors_total}
                 </td>
-                <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{r.procedure_steps}</td>
-                <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{r.vocab}</td>
+                <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">{r.procedure_steps}</td>
+                <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">{r.vocab}</td>
                 <td className="py-2">
                   {r.gaps.length ? (
                     <span className="text-xs text-[#B5803A]">{r.gaps.join(' · ')}</span>
@@ -434,7 +434,7 @@ function ItemsTab() {
         </table>
       </div>
       {shown.length > 300 ? (
-        <p className="mt-2 text-xs text-[var(--tx-3)]">
+        <p className="mt-2 text-xs text-[var(--t3)]">
           위 300개만 그린다 (총 {shown.length}) — 빈 항목이 많은 것부터다
         </p>
       ) : null}
@@ -443,7 +443,7 @@ function ItemsTab() {
 }
 
 const DL_BUTTON =
-  'inline-flex min-h-[44px] items-center gap-1.5 rounded-md border border-[var(--bd)] px-3 text-sm text-[var(--tx-2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--sf-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] active:bg-[var(--bd)]'
+  'inline-flex min-h-[44px] items-center gap-1.5 rounded-md border border-[var(--bd)] px-3 text-sm text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] active:bg-[var(--bd)]'
 
 /**
  * 「가이드 원천」 — 이 파이프라인이 **무엇을 내놓았는지**를 보여 주는 유일한 자리.
@@ -477,13 +477,13 @@ function GuideTab() {
   }, [load])
 
   if (state === 'loading' && !src) {
-    return <p className="py-6 text-center text-sm text-[var(--tx-3)]">분석 802문항을 접는 중…</p>
+    return <p className="py-6 text-center text-sm text-[var(--t3)]">분석 802문항을 접는 중…</p>
   }
 
   if (state === 'error') {
     return (
       <div className="flex flex-col items-start gap-3 py-4">
-        <p className="text-sm text-[var(--tx-2)]">가이드 원천을 만들지 못했다 — {err}</p>
+        <p className="text-sm text-[var(--t2)]">가이드 원천을 만들지 못했다 — {err}</p>
         <button type="button" onClick={() => void load()} className={DL_BUTTON}>
           다시 시도
         </button>
@@ -540,7 +540,7 @@ function GuideTab() {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[760px] text-sm">
           <thead>
-            <tr className="border-b border-[var(--bd)] text-left text-xs text-[var(--tx-3)]">
+            <tr className="border-b border-[var(--bd)] text-left text-xs text-[var(--t3)]">
               <th className="py-2 pr-3 font-medium">유형</th>
               <th className="py-2 pr-3 font-medium">최근 4개년</th>
               <th className="py-2 pr-3 font-medium">절차</th>
@@ -560,40 +560,40 @@ function GuideTab() {
                       type="button"
                       onClick={() => setOpenType(open ? null : ty.type_id)}
                       aria-expanded={open}
-                      className="min-h-[44px] text-left text-[var(--tx)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+                      className="min-h-[44px] text-left text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
                     >
                       {ty.name}
-                      <code className="ml-2 text-xs text-[var(--tx-3)]">{ty.type_id}</code>
+                      <code className="ml-2 text-xs text-[var(--t3)]">{ty.type_id}</code>
                     </button>
                     {open ? (
                       <ul className="mb-2 mt-1 space-y-2">
                         {ty.trap_families.map((f) => (
-                          <li key={f.key} className="text-xs text-[var(--tx-2)]">
-                            <span className="font-medium text-[var(--tx)]">{f.key}</span>
-                            <span className="ml-1 tabular-nums text-[var(--tx-3)]">{f.count}회</span>
+                          <li key={f.key} className="text-xs text-[var(--t2)]">
+                            <span className="font-medium text-[var(--t1)]">{f.key}</span>
+                            <span className="ml-1 tabular-nums text-[var(--t3)]">{f.count}회</span>
                             {f.labels.length > 1 ? (
-                              <span className="ml-1 text-[var(--tx-3)]">
+                              <span className="ml-1 text-[var(--t3)]">
                                 (병합 라벨 {f.labels.length}: {f.labels.join(' · ')})
                               </span>
                             ) : null}
                           </li>
                         ))}
                         {!ty.trap_families.length ? (
-                          <li className="text-xs text-[var(--tx-3)]">유형 리포트가 아직 없다</li>
+                          <li className="text-xs text-[var(--t3)]">유형 리포트가 아직 없다</li>
                         ) : null}
                       </ul>
                     ) : null}
                   </td>
-                  <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{ty.recent}</td>
-                  <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{ty.procedure.length}단계</td>
+                  <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">{ty.recent}</td>
+                  <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">{ty.procedure.length}단계</td>
                   <td className="py-2 pr-3">
-                    <span className="inline-flex items-center gap-1 tabular-nums text-[var(--tx-2)]">
-                      <Layers className="h-3.5 w-3.5 text-[var(--tx-3)]" aria-hidden />
+                    <span className="inline-flex items-center gap-1 tabular-nums text-[var(--t2)]">
+                      <Layers className="h-3.5 w-3.5 text-[var(--t3)]" aria-hidden />
                       {ty.traps_raw} → {ty.trap_families.length}
                     </span>
                   </td>
-                  <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{ty.failure_modes.length}</td>
-                  <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{ty.vocab.length}</td>
+                  <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">{ty.failure_modes.length}</td>
+                  <td className="py-2 pr-3 tabular-nums text-[var(--t2)]">{ty.vocab.length}</td>
                   <td className="py-2">
                     {ty.analyst_meta.length ? (
                       <span className="text-xs text-[#B5803A]" title={ty.analyst_meta.join(' · ')}>
@@ -611,21 +611,21 @@ function GuideTab() {
       </div>
 
       <div className="mt-5 border-t border-[var(--bd)] pt-4">
-        <h3 className="text-sm font-medium text-[var(--tx)]">
+        <h3 className="text-sm font-medium text-[var(--t1)]">
           뜻이 없는 기출 필수 어휘 {gap.length} — 어휘 드레인의 다음 몫
         </h3>
-        <p className="mt-1 text-xs text-[var(--tx-3)]">
+        <p className="mt-1 text-xs text-[var(--t3)]">
           분석이 「이 문항을 풀려면 알아야 한다」고 지목했는데 사전에 뜻이 없다. <strong>해소기가 푼
           {t.vocabResolved}개는 뺐다</strong> — 분석은 지문에 나온 꼴(allowed · entries)을 적으므로 표제어로만
           대조하면 이미 있는 낱말을 다시 만들게 된다. 판정은 학습자 경로와 같은 잣대다. 요구 문항 수가 많은 순.
         </p>
-        <p className="mt-2 text-sm leading-relaxed text-[var(--tx-2)]">
-          <span className="text-[var(--tx-3)]">낱말 {gapWords.length} · </span>
+        <p className="mt-2 text-sm leading-relaxed text-[var(--t2)]">
+          <span className="text-[var(--t3)]">낱말 {gapWords.length} · </span>
           {gapWords.slice(0, 45).map((v) => `${v.lemma}(${v.items})`).join(' · ')}
           {gapWords.length > 45 ? ` … 외 ${gapWords.length - 45}` : ''}
         </p>
-        <p className="mt-2 text-sm leading-relaxed text-[var(--tx-2)]">
-          <span className="text-[var(--tx-3)]">구·숙어 {gapPhrases.length} · </span>
+        <p className="mt-2 text-sm leading-relaxed text-[var(--t2)]">
+          <span className="text-[var(--t3)]">구·숙어 {gapPhrases.length} · </span>
           {gapPhrases.slice(0, 30).map((v) => `${v.lemma}(${v.items})`).join(' · ')}
           {gapPhrases.length > 30 ? ` … 외 ${gapPhrases.length - 30}` : ''}
         </p>
@@ -642,13 +642,13 @@ export function CsatConsoleClient({ coverage, types, totals, loadError }: CsatOv
       <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <ShieldCheck className="h-5 w-5 text-[#8B5CF6]" aria-hidden />
-          <h1 className="text-lg font-semibold text-[var(--tx)]">기출 분석 (CSAT)</h1>
+          <h1 className="text-lg font-semibold text-[var(--t1)]">기출 분석 (CSAT)</h1>
         </div>
         <AdminScreenHelp screen="csat-evidence" tab={tab} />
       </header>
 
       {loadError ? (
-        <div className="mb-4 flex items-start gap-2 rounded-lg border border-[#9C3A30] bg-[var(--sf)] p-3 text-sm text-[var(--tx-2)]">
+        <div className="mb-4 flex items-start gap-2 rounded-lg border border-[#9C3A30] bg-[var(--bg)] p-3 text-sm text-[var(--t2)]">
           <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0 text-[#9C3A30]" aria-hidden />
           <span>불러오지 못했다 — {loadError}</span>
         </div>
@@ -681,8 +681,8 @@ export function CsatConsoleClient({ coverage, types, totals, loadError }: CsatOv
             onClick={() => setTab(t)}
             className={`min-h-[44px] px-3 text-sm transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] ${
               tab === t
-                ? 'border-b-2 border-[#8B5CF6] text-[var(--tx)]'
-                : 'text-[var(--tx-3)] hover:text-[var(--tx-2)]'
+                ? 'border-b-2 border-[#8B5CF6] text-[var(--t1)]'
+                : 'text-[var(--t3)] hover:text-[var(--t2)]'
             }`}
             aria-current={tab === t ? 'page' : undefined}
           >
@@ -691,8 +691,8 @@ export function CsatConsoleClient({ coverage, types, totals, loadError }: CsatOv
         ))}
       </div>
 
-      <section className="rounded-lg border border-[var(--bd)] bg-[var(--sf)] p-4">
-        <div className="mb-3 flex items-center gap-2 text-xs text-[var(--tx-3)]">
+      <section className="rounded-lg border border-[var(--bd)] bg-[var(--bg)] p-4">
+        <div className="mb-3 flex items-center gap-2 text-xs text-[var(--t3)]">
           <BookOpenCheck className="h-4 w-4" aria-hidden />
           {tab === '회차 커버리지'
             ? '덮은 배점이 사정권 배점과 같아야 「가능」이다 — 듣기는 세지 않는다'

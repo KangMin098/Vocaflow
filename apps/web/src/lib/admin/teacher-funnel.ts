@@ -17,7 +17,7 @@
 import 'server-only'
 
 
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 
 export interface TeacherFunnelGaps {
   /** 허브에 도달한 사람 수 (funnel_events.teacher_hub_view 주체) */
@@ -47,7 +47,21 @@ type Row = Record<string, unknown>
  *    (CONVENTIONS "vitest 를 깨뜨리는 것은 server-only 가 아니라 react.cache 다").
  */
 export async function fetchTeacherFunnelGaps(): Promise<TeacherFunnelGaps | null> {
-  const client = await createClient()
+  // ⚠️ 2026-09-05 — RLS 클라이언트로는 **분모만 전체, 분자는 내 것만** 세고 있었다.
+  //   `pg_policies` 실측: `funnel_events` 는 `is_admin_or_curator()` 를 허용하는데
+  //   `classes`·`class_members` 에는 admin 정책이 아예 없다(`teacher_id = auth.uid()` /
+  //   `user_id = auth.uid()` 뿐). 그래서 허브 방문자는 전원이 잡히고 학급 개설자는
+  //   **관리자 본인 것만** 잡혀, 교사가 생기는 순간 이 패널이 "교사는 오는데 학급을 안
+  //   만든다" 는 거짓 결론을 낸다. 지금 `classes` 가 0행이라 잠복해 있을 뿐이다.
+  //   같은 화면의 `RetentionPanel` 은 이미 service_role 을 쓴다 — 기준을 맞춘다.
+  //   (호출부는 `requireAdmin` 뒤이고, layout 가드까지 2층이다.)
+  let client
+  try {
+    client = createAdminClient()
+  } catch (e) {
+    console.error('[teacher-funnel] service_role 클라이언트 생성 실패', e)
+    return null
+  }
   const loose = client as unknown as {
     from: (t: string) => {
       select: (c: string) => Promise<{ data: unknown; error: unknown }>

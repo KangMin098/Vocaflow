@@ -4,6 +4,12 @@
 //
 // 6 Round 카드 (R1-R6) + 5 패턴 색상 매핑 + 잔여 Roadmap (R7-R10).
 //
+// ⚠️ 2026-09-05 — 이 섹션의 카드·로드맵은 **작업 기록(고정값)** 이다. DB 를 읽지 않는다.
+//   그런데 진행률 막대가 그 고정값들을 합산해 `10,830 / 38,626 (28.0%)` 라고 그리고 있었다.
+//   실측처럼 보이지만 재분류를 아무리 더 돌려도 이 막대는 영원히 28.0% 다.
+//   지금은 막대를 `snapshot.raw.vrlClassification`(v_level 실측)에서 계산하고,
+//   고정값 카드 그룹에는 **상시 보이는** 「기록(고정값)」 배지를 달아 둘을 갈라 놓는다.
+//   (배지를 hover·tooltip 로 숨기면 안 된다 — 오해하는 순간에 안 보이면 아무 소용이 없다.)
 // 패턴 색상:
 //   over-tagging        → amber (R1)
 //   noisy bidirectional → gray  (R2)
@@ -12,6 +18,7 @@
 //   strong under-leveling → purple up (R5)
 
 import {
+  Archive,
   ArrowDown,
   ArrowDownRight,
   ArrowUp,
@@ -20,6 +27,7 @@ import {
   Minus,
 } from 'lucide-react'
 import type { DictHealthSnapshot } from '@/lib/admin/dict/types'
+import { reclassificationProgress } from '@/lib/admin/vrl/derive'
 
 interface RoundHistorySectionProps {
   snapshot: DictHealthSnapshot
@@ -150,13 +158,25 @@ const ROADMAP: RoadmapEntry[] = [
   { id: 'R10', ruleLevel: 'L11', estimatedRows: 5363, status: 'pending' },
 ]
 
+/** 고정값 구역임을 늘 보이게 하는 배지 — 실측 막대와 한 화면에 섞여 있어서 필수다. */
+function RecordedBadge({ detail }: { detail: string }) {
+  return (
+    <span
+      className="inline-flex items-center gap-1 rounded-full border border-[var(--bd)] bg-[var(--bg3)] px-2 py-1 font-display text-[9px] font-[700] text-[var(--t2)]"
+      title={detail}
+    >
+      <Archive size={10} strokeWidth={2} aria-hidden />
+      기록(고정값)
+    </span>
+  )
+}
+
 export function RoundHistorySection({ snapshot }: RoundHistorySectionProps) {
   const v = snapshot.raw.vrlClassification
-  const completedRows = ROUNDS.reduce((s, r) => s + r.rows, 0)
-  const remainingRows = ROADMAP.reduce((s, r) => s + r.estimatedRows, 0)
-  const totalEstimated = completedRows + remainingRows
-  const progressPct = totalEstimated > 0 ? (completedRows / totalEstimated) * 100 : 0
+  // 진행률은 **DB 실측**에서만 나온다. 아래 ROUNDS/ROADMAP 합산은 근거가 아니다.
+  const progress = reclassificationProgress(v)
   const classifiedRatioPct = v.classifiedRatio * 100
+  const roadmapRows = ROADMAP.reduce((s, r) => s + r.estimatedRows, 0)
 
   return (
     <section aria-label="Round History (Day 3 reclassification)" className="flex flex-col gap-4">
@@ -192,48 +212,63 @@ export function RoundHistorySection({ snapshot }: RoundHistorySectionProps) {
         </div>
       </header>
 
-      {/* ── 진행도 bar ── */}
+      {/* ── 진행도 bar — v_level 실측 (라운드 상수 합산 아님) ── */}
       <div
         className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
         aria-label="overall reclassification progress"
       >
         <div className="mb-1.5 flex items-baseline justify-between gap-2">
           <p className="font-mono text-[9px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
-            Reclassification Progress
+            v_level 분류 진행 (실측)
           </p>
           <p className="font-mono text-[10px] text-[var(--t2)]">
-            {completedRows.toLocaleString()} / {totalEstimated.toLocaleString()} (
-            {progressPct.toFixed(1)}%)
+            {progress.classified.toLocaleString()} / {progress.total.toLocaleString()} (
+            {progress.pct.toFixed(1)}%)
           </p>
         </div>
         <div className="h-2 overflow-hidden rounded-full bg-[var(--bg3)]">
           <div
             className="h-full rounded-full"
             style={{
-              width: `${progressPct}%`,
+              width: `${Math.max(0, Math.min(100, progress.pct))}%`,
               background:
                 'linear-gradient(90deg, var(--success) 0%, var(--info) 50%, #8B5CF6 100%)',
             }}
             aria-hidden
           />
         </div>
+        <p className="mt-1.5 font-body text-[10px] text-[var(--t2)]">
+          shared_dictionary 의 v_level NOT NULL 비율이다 — 아래 라운드 카드의 rows 합계와는
+          다른 축이며, 미분류 {progress.unclassified.toLocaleString()}행이 남아 있다.
+        </p>
       </div>
 
-      {/* ── 6 Round 카드 (완료) ── */}
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
-        {ROUNDS.map((r) => (
-          <RoundCard key={r.id} round={r} />
-        ))}
+      {/* ── 6 Round 카드 (완료 · 작업 기록) ── */}
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <h3 className="font-display text-[12px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+            완료 라운드 R1-R6
+          </h3>
+          <RecordedBadge detail="Day 3 재분류 작업 당시 기록한 값 — DB 를 다시 읽지 않는다." />
+        </div>
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+          {ROUNDS.map((r) => (
+            <RoundCard key={r.id} round={r} />
+          ))}
+        </div>
       </div>
 
-      {/* ── 잔여 Roadmap ── */}
+      {/* ── 잔여 Roadmap (계획값) ── */}
       <section
         className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4"
         aria-label="remaining roadmap"
       >
-        <h3 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
-          Remaining Roadmap (R7-R10)
-        </h3>
+        <div className="mb-2 flex flex-wrap items-center gap-2">
+          <h3 className="font-display text-[12px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+            Remaining Roadmap (R7-R10)
+          </h3>
+          <RecordedBadge detail="착수 시 추정한 계획값 — 진행률 막대의 근거가 아니다." />
+        </div>
         <ul className="grid grid-cols-2 gap-2 md:grid-cols-4">
           {ROADMAP.map((r) => (
             <li
@@ -264,8 +299,8 @@ export function RoundHistorySection({ snapshot }: RoundHistorySectionProps) {
           ))}
         </ul>
         <p className="mt-2 font-body text-[10px] text-[var(--t2)]">
-          잔여 estimated: {remainingRows.toLocaleString()} rows (
-          {((remainingRows / totalEstimated) * 100).toFixed(1)}% of total)
+          계획 당시 추정 합계 {roadmapRows.toLocaleString()} rows — 착수 시점의 추정이라
+          현재 미분류 {progress.unclassified.toLocaleString()}행과 일치하지 않는다.
         </p>
       </section>
     </section>

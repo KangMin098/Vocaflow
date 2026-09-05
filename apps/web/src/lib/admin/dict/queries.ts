@@ -1,8 +1,15 @@
 // apps/web/src/lib/admin/dict/queries.ts
 // 사전DB 종합 모니터링 콘솔 v3 — 다차원 페치 함수 (Server-side only)
 //
-// 13 fetch + 1 통합 entry (fetchDictSnapshotRaw)
+// 10 fetch + 1 통합 entry (fetchDictSnapshotRaw)
 // 모든 함수 병렬 호출 가능 (Promise.all 조합)
+//
+// **공개 표면은 `fetchDictSnapshotRaw` 하나다.** 개별 fetch 는 이 파일 안에서만 쓰인다.
+// 예전에는 13개가 전부 export 였고 그중 3개(fetchSourceDistribution ·
+// fetchVerifiedAudit · fetchVcbVrlIntegration)는 **어디서도 호출되지 않은 채** 88줄을
+// 차지하고 있었다. export 는 "누군가 쓴다"는 신호라서, 아무도 안 쓰는 export 는
+// 다음 사람이 지우지 못하게 만든다 — 그래서 지웠고, 나머지는 비공개로 내렸다.
+// 새 소비자가 필요하면 그때 하나씩 다시 열되, 호출처와 함께 연다.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
@@ -30,7 +37,7 @@ import type {
 export type { DictCategoricalDistributions } from './types'
 import type { DictCategoricalDistributions } from './types'
 
-export async function fetchCategoricalDistributions(
+async function fetchCategoricalDistributions(
   client: SupabaseClient,
 ): Promise<DictCategoricalDistributions | null> {
   const { data, error } = await client.rpc('dict_categorical_distributions')
@@ -91,7 +98,7 @@ export const SEGMENT_TAGS_TARGET = 3000
 // 1. fetchDictVolume — total + by primary_pos + by source
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchDictVolume(
+async function fetchDictVolume(
   client: SupabaseClient,
   categorical?: DictCategoricalDistributions | null,
 ): Promise<DictVolumeData> {
@@ -117,7 +124,7 @@ export async function fetchDictVolume(
 // 2. fetchDictCoverage — 14 컬럼 채움률
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchDictCoverage(
+async function fetchDictCoverage(
   client: SupabaseClient,
 ): Promise<DictCoverageData> {
   const [
@@ -204,7 +211,7 @@ export async function fetchDictCoverage(
 // 3. fetchDictLinguistic — inflections by POS / polysemy / IPA UK·US
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchDictLinguistic(
+async function fetchDictLinguistic(
   client: SupabaseClient,
 ): Promise<DictLinguisticData> {
   // inflections by primary_pos — SECURITY DEFINER RPC dict_inflections_by_pos().
@@ -287,7 +294,7 @@ export async function fetchDictLinguistic(
 // 4. fetchDictLearning — 사용자 학습 자산 (audio_url 등 schema-aware)
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchDictLearning(
+async function fetchDictLearning(
   client: SupabaseClient,
   schema: SchemaPresenceData,
 ): Promise<DictLearningData> {
@@ -351,7 +358,7 @@ export async function fetchDictLearning(
 // 5. fetchVrlClassificationStats — v_level 분포 + rule_v1 차이
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchVrlClassificationStats(
+async function fetchVrlClassificationStats(
   client: SupabaseClient,
   categorical?: DictCategoricalDistributions | null,
 ): Promise<VrlClassificationStatsData> {
@@ -404,7 +411,7 @@ export async function fetchVrlClassificationStats(
 // 6. fetchIntegrityDefects — vrl_data_integrity_concerns
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchIntegrityDefects(
+async function fetchIntegrityDefects(
   client: SupabaseClient,
 ): Promise<IntegrityDefectsData> {
   // ⚠️ 여기 있던 `.limit(5000)` 은 **1,000행에서 잘렸다** — PostgREST 가 그 위를 안 준다
@@ -459,7 +466,7 @@ export async function fetchIntegrityDefects(
 // 7. fetchFreshness — claude_classified_at / updated_at 추세
 // ─────────────────────────────────────────────────────────────
 
-export async function fetchFreshness(client: SupabaseClient): Promise<FreshnessData> {
+async function fetchFreshness(client: SupabaseClient): Promise<FreshnessData> {
   const now = new Date()
   const days7 = new Date(now.getTime() - 7 * 86400_000).toISOString()
   const days30 = new Date(now.getTime() - 30 * 86400_000).toISOString()
@@ -520,7 +527,7 @@ import {
   isVcbVrlIntegrated,
 } from './schema-presence-static'
 
-export async function fetchSchemaPresence(
+async function fetchSchemaPresence(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _client: SupabaseClient,
 ): Promise<SchemaPresenceData> {
@@ -578,95 +585,7 @@ export async function fetchPolysemy(client: SupabaseClient): Promise<{
 }
 
 // ─────────────────────────────────────────────────────────────
-// 10. fetchSourceDistribution — source 컬럼 분포 (출처별)
-// ─────────────────────────────────────────────────────────────
-
-export async function fetchSourceDistribution(
-  client: SupabaseClient,
-  categorical?: DictCategoricalDistributions | null,
-): Promise<Array<{ source: string; count: number }>> {
-  const cat =
-    categorical !== undefined ? categorical : await fetchCategoricalDistributions(client)
-  return Object.entries(cat?.by_source ?? {})
-    .map(([source, count]) => ({ source, count }))
-    .sort((a, b) => b.count - a.count)
-}
-
-// ─────────────────────────────────────────────────────────────
-// 11. fetchVerifiedAudit — verified=true 비율 (전체 + by v_level)
-// ─────────────────────────────────────────────────────────────
-
-export async function fetchVerifiedAudit(
-  client: SupabaseClient,
-  categorical?: DictCategoricalDistributions | null,
-): Promise<{
-  total: number
-  verified: number
-  verifiedRatio: number
-  byLevel: Array<{ level: number; total: number; verified: number; ratio: number }>
-}> {
-  const [total, verifiedCount, cat] = await Promise.all([
-    countRows(client, 'shared_dictionary'),
-    countRows(client, 'shared_dictionary', (q) => q.eq('verified', true)),
-    categorical !== undefined ? Promise.resolve(categorical) : fetchCategoricalDistributions(client),
-  ])
-
-  // verified_by_v_level RPC 결과 활용 (서버 측 GROUP BY + FILTER 정확)
-  const byLevel = Object.entries(cat?.verified_by_v_level ?? {})
-    .map(([levelStr, v]) => ({
-      level: parseInt(levelStr, 10),
-      total: v.total,
-      verified: v.verified,
-      ratio: v.total > 0 ? v.verified / v.total : 0,
-    }))
-    .sort((a, b) => a.level - b.level)
-
-  return {
-    total,
-    verified: verifiedCount,
-    verifiedRatio: total > 0 ? verifiedCount / total : 0,
-    byLevel,
-  }
-}
-
-// ─────────────────────────────────────────────────────────────
-// 12. fetchVcbVrlIntegration — shared_word_sets schema 결합 정합
-// ─────────────────────────────────────────────────────────────
-
-export async function fetchVcbVrlIntegration(
-  client: SupabaseClient,
-  schema: SchemaPresenceData,
-): Promise<{
-  integrated: boolean
-  totalSets: number
-  /** v_level 정보 보유 set 수 (가능한 경우) */
-  setsWithVLevel: number | null
-}> {
-  const totalSets = await countRows(client, 'shared_word_sets')
-  if (!schema.vcbVrlIntegrated) {
-    return { integrated: false, totalSets, setsWithVLevel: null }
-  }
-  // 통합돼 있으면 — 첫번째 발견 컬럼으로 채움 비율 측정 (heuristic)
-  const VCB_VRL_CANDIDATES = [
-    'target_v_level_range',
-    'target_v_level',
-    'v_level',
-    'target_track_id',
-    'target_domain_id',
-  ] as const
-  const candidate = VCB_VRL_CANDIDATES.find((c: string) =>
-    schema.sharedWordSetsColumns.includes(c),
-  )
-  if (!candidate) return { integrated: true, totalSets, setsWithVLevel: null }
-
-  const setsWithVLevel = await countRows(client, 'shared_word_sets', (q) =>
-    q.not(candidate, 'is', null),
-  )
-  return { integrated: true, totalSets, setsWithVLevel }
-}
-
-// ─────────────────────────────────────────────────────────────
-// 13. fetchDictSnapshotRaw — page entry point 병렬 페치
+// 10. fetchDictSnapshotRaw — page entry point 병렬 페치
 // ─────────────────────────────────────────────────────────────
 
 export interface DictSnapshotRaw {

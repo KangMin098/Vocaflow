@@ -14,9 +14,62 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { PdBasisPanel } from '@/components/admin/PdBasisPanel'
 import { TaxonomyBrowser } from '@/components/admin/TaxonomyBrowser'
-import { PD_STAGES, stageIndex, type PdComicAdminRow, type PdPanelAdmin } from '@/lib/pd-comic/model'
+import {
+  PD_BASIS_CHOICES,
+  PD_DRAINABLE,
+  PD_STAGES,
+  PD_STATUSES,
+  defaultPdBasis,
+  pdActionAllowed,
+  pdStatusLabel,
+  stageIndex,
+  type PdAdminCounts,
+  type PdComicAdminRow,
+  type PdPanelAdmin,
+} from '@/lib/pd-comic/model'
 
 const ACCENT = '#8B5CF6'
+
+/**
+ * 되돌릴 수 없는 동작 앞에 세우는 확인 — **무엇이 왜 비가역인지 문구에 적는다.**
+ * "정말요?" 만 묻는 확인창은 아무도 읽지 않고, 읽어도 판단 재료가 없다.
+ */
+function confirmIrreversible(title: string, lines: string[]): boolean {
+  if (typeof window === 'undefined') return true
+  return window.confirm([title, '', ...lines].join('\n'))
+}
+
+/**
+ * 폴링 훅 — 겹쳐 도는 것을 막는다.
+ *   ① 앞선 요청이 아직 안 끝났으면 다음 tick 을 건너뛴다(4초 폴링이 6초 걸리면 밀려 쌓였다)
+ *   ② 탭이 백그라운드면 쉰다 — 안 보는 화면 때문에 서버·디스크를 긁을 이유가 없다
+ */
+function usePolling(fn: () => Promise<void> | void, ms: number, enabled: boolean) {
+  const ref = useRef(fn)
+  ref.current = fn
+  useEffect(() => {
+    if (!enabled) return
+    let busy = false
+    let alive = true
+    const tick = async () => {
+      if (busy || (typeof document !== 'undefined' && document.hidden)) return
+      busy = true
+      try {
+        await ref.current()
+      } finally {
+        busy = false
+      }
+    }
+    void tick()
+    const id = setInterval(() => {
+      if (alive) void tick()
+    }, ms)
+    return () => {
+      alive = false
+      clearInterval(id)
+    }
+  }, [ms, enabled])
+}
 
 interface Preset {
   key: string
@@ -84,18 +137,33 @@ const TABS: Array<[Tab, string]> = [
 
 export function AdminPdComicsClient({
   initialRows,
+  initialCounts,
+  initialTruncated,
   schemaReady,
 }: {
   initialRows: PdComicAdminRow[]
+  /** 서버 전량 집계 — 화면은 좁힌 목록으로 다시 세지 않는다 */
+  initialCounts: PdAdminCounts
+  initialTruncated: boolean
   schemaReady: boolean
 }) {
   const [tab, setTab] = useState<Tab>(initialRows.length ? 'queue' : 'source')
   const [rows, setRows] = useState(initialRows)
+  const [counts, setCounts] = useState<PdAdminCounts>(initialCounts)
+  const [truncated, setTruncated] = useState(initialTruncated)
   const [msg, setMsg] = useState<string | null>(null)
 
   const refresh = useCallback(async () => {
     const r = await fetch('/api/pdcp/queue', { cache: 'no-store' })
-    if (r.ok) setRows((await r.json()).rows ?? [])
+    if (!r.ok) return
+    const j = (await r.json()) as {
+      rows?: PdComicAdminRow[]
+      counts?: PdAdminCounts
+      truncated?: boolean
+    }
+    setRows(j.rows ?? [])
+    if (j.counts) setCounts(j.counts)
+    setTruncated(Boolean(j.truncated))
   }, [])
 
   return (
@@ -132,9 +200,20 @@ export function AdminPdComicsClient({
       )}
 
       {tab === 'source' && <SourceTab onMsg={setMsg} onEnqueued={refresh} schemaReady={schemaReady} />}
-      {tab === 'queue' && <QueueTab rows={rows} onMsg={setMsg} onRefresh={refresh} />}
+      {tab === 'queue' && (
+        <QueueTab rows={rows} counts={counts} truncated={truncated} onMsg={setMsg} onRefresh={refresh} />
+      )}
       {tab === 'pd' && <PdBasisPanel onMsg={setMsg} />}
-      {tab === 'monitor' && <MonitorTab rows={rows} onMsg={setMsg} onRefresh={refresh} active={tab === 'monitor'} />}
+      {tab === 'monitor' && (
+        <MonitorTab
+          rows={rows}
+          counts={counts}
+          truncated={truncated}
+          onMsg={setMsg}
+          onRefresh={refresh}
+          active={tab === 'monitor'}
+        />
+      )}
       {tab === 'tools' && <ToolsTab />}
     </>
   )
@@ -846,7 +925,58 @@ function AssistPanel({ onMsg }: { onMsg: (s: string) => void }) {
 }
 
 // ─── 큐 탭 — 드레인 + 라이브 모니터링 ───────────────────────────────
-const DRAINABLE = new Set(['queued', 'acquired', 'restored', 'segmented', 'ocr'])
+//
+// 드레인 대상 집합은 **정본(model.ts)에서 온다.** 여기에 사본을 두었던 것이 이번 사고의
+// 원인이었다 — modernize 라우트가 만든 'modernized' 를 이 집합도, 드레인 라우트의 전이표도,
+// 발행 조건도 몰라서 그 호는 전진도 후퇴도 못 했다.
+const DRAINABLE = PD_DRAINABLE
+
+/**
+ * 단계 카운터 — 큐 탭과 모니터 탭이 **같은 컴포넌트**를 쓴다(두 벌로 그리던 것을 합쳤다).
+ *
+ * 숫자는 전부 `counts.byStatus`(서버 전량)에서 나온다. 목록은 range 로 잘려 오므로
+ * 화면의 배열을 세면 969건이 4,000건 상한 너머에서 조용히 틀어진다.
+ * 칸 수는 PD_STAGES 길이를 따라간다 — 8단계인데 그리드가 7칸이라 마지막 칸이 접혀 있었다.
+ */
+function StageCounters({ counts }: { counts: PdAdminCounts }) {
+  // 단계 8칸은 항상 그리고, 종결 상태(보관·실패)는 실제로 있을 때만 붙인다.
+  const cells = [
+    ...PD_STAGES.map((s) => ({ key: s.key as string, label: s.label as string })),
+    ...PD_STATUSES.filter(
+      (s) => !PD_STAGES.some((p) => p.key === s.key) && (counts.byStatus[s.key] ?? 0) > 0,
+    ),
+  ]
+  return (
+    <section className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-8">
+      {cells.map((s) => (
+        <div key={s.key} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2">
+          <p className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">{s.key}</p>
+          <p className="mt-0.5 flex items-baseline gap-2">
+            <span className="font-display text-[19px] font-[800] tabular-nums text-[var(--t1)]">
+              {counts.byStatus[s.key] ?? 0}
+            </span>
+            <span className="font-body text-[11.5px] text-[var(--t2)]">{s.label}</span>
+          </p>
+        </div>
+      ))}
+    </section>
+  )
+}
+
+/** 목록이 상한에 걸렸을 때 — **자른 사실을 숨기지 않는다**(검색이 없는 것을 없다고 답한다). */
+function TruncationNote({ counts, shown, truncated }: { counts: PdAdminCounts; shown: number; truncated: boolean }) {
+  if (!truncated) return null
+  return (
+    <p
+      role="status"
+      className="rounded-[var(--r-md)] border border-[var(--warning)] bg-[var(--warning-light)] px-3 py-2 font-body text-[12px] text-[var(--t1)]"
+    >
+      전체 <b className="tabular-nums">{counts.total}</b>건 중 <b className="tabular-nums">{shown}</b>건만
+      내려받았습니다 — 아래 검색·필터는 내려받은 범위 안에서만 찾습니다. 단계 카운터와 드레인 대상
+      수는 서버 전량 기준이라 그대로 믿어도 됩니다.
+    </p>
+  )
+}
 
 // ── 목록 표시 좁히기 ──────────────────────────────────────────────
 //
@@ -886,19 +1016,23 @@ function useRowView(rows: PdComicAdminRow[]): {
   return { q, setQ, statusFilter, setStatusFilter, filtered, shown, showMore: () => setShown((n) => n + ROW_PAGE) }
 }
 
-/** 목록 위 필터 줄 — 상태 칩은 **전량 기준 건수**를 달고 나온다(좁힌 목록으로 세지 않는다). */
+/**
+ * 목록 위 필터 줄 — 상태 칩은 **서버 전량 건수**를 달고 나온다.
+ * 좁힌 목록으로 세면 필터를 걸 때마다 숫자가 같이 줄어 "큐가 비었다" 로 읽힌다.
+ */
 function RowViewControls({
-  rows,
+  counts,
   view,
 }: {
-  rows: PdComicAdminRow[]
+  counts: PdAdminCounts
   view: ReturnType<typeof useRowView>
 }) {
-  const stuckN = rows.filter((r) => r.lastError).length
   const chips: Array<{ key: string; label: string; n: number }> = [
-    { key: 'all', label: '전체', n: rows.length },
-    ...PD_STAGES.map((s) => ({ key: s.key as string, label: s.label, n: rows.filter((r) => r.status === s.key).length })).filter((c) => c.n > 0),
-    ...(stuckN > 0 ? [{ key: 'stuck', label: '멈춤', n: stuckN }] : []),
+    { key: 'all', label: '전체', n: counts.total },
+    ...PD_STATUSES.map((s) => ({ key: s.key, label: s.label, n: counts.byStatus[s.key] ?? 0 })).filter(
+      (c) => c.n > 0,
+    ),
+    ...(counts.stuck > 0 ? [{ key: 'stuck', label: '멈춤', n: counts.stuck }] : []),
   ]
   return (
     <div className="mb-2 flex flex-wrap items-center gap-2">
@@ -961,10 +1095,14 @@ function RowViewFooter({ view }: { view: ReturnType<typeof useRowView> }) {
 
 function QueueTab({
   rows,
+  counts,
+  truncated,
   onMsg,
   onRefresh,
 }: {
   rows: PdComicAdminRow[]
+  counts: PdAdminCounts
+  truncated: boolean
   onMsg: (s: string) => void
   onRefresh: () => void
 }) {
@@ -973,8 +1111,9 @@ function QueueTab({
   const stopRef = useRef(false)
 
   // 실패해도 status 는 멈춘 단계 그대로다 — 실패 여부는 last_error 로만 판단한다.
-  const pending = rows.filter((r) => DRAINABLE.has(r.status) && !r.lastError)
   const failed = rows.filter((r) => r.lastError)
+  // 드레인 버튼 숫자는 **서버가 센 값**이다 — 목록이 잘려도 대상 수는 줄지 않는다.
+  const pendingTotal = counts.drainablePending
 
   const drainOnce = async (issueId?: string, dryRun = false) => {
     const r = await fetch('/api/pdcp/drain', {
@@ -1028,21 +1167,10 @@ function QueueTab({
     onRefresh()
   }
 
-  const counts = PD_STAGES.map((s) => ({ ...s, n: rows.filter((r) => r.status === s.key).length }))
-
   return (
     <div className="flex flex-col gap-4">
-      <section className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
-        {counts.map((s) => (
-          <div key={s.key} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2">
-            <p className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">{s.key}</p>
-            <p className="mt-0.5 flex items-baseline gap-2">
-              <span className="font-display text-[19px] font-[800] tabular-nums text-[var(--t1)]">{s.n}</span>
-              <span className="font-body text-[11.5px] text-[var(--t2)]">{s.label}</span>
-            </p>
-          </div>
-        ))}
-      </section>
+      <StageCounters counts={counts} />
+      <TruncationNote counts={counts} shown={rows.length} truncated={truncated} />
 
       <TaxonomyBrowser rows={rows} />
 
@@ -1050,11 +1178,11 @@ function QueueTab({
         <button
           type="button"
           onClick={() => void drainLoop()}
-          disabled={running || pending.length === 0}
+          disabled={running || pendingTotal === 0}
           className="min-h-[40px] rounded-[var(--r-md)] px-4 font-display text-[13px] font-[800] text-white disabled:opacity-50"
           style={{ background: ACCENT }}
         >
-          {running ? '드레인 중…' : `드레인 실행 (${pending.length}건 대기)`}
+          {running ? '드레인 중…' : `드레인 실행 (${pendingTotal}건 대기)`}
         </button>
         {running && (
           <button
@@ -1095,7 +1223,7 @@ function QueueTab({
 
       {failed.length > 0 && (
         <section className="rounded-[var(--r-lg)] border border-[var(--error)] bg-[var(--error-light)] px-4 py-3">
-          <p className="font-display text-[13px] font-[800] text-[var(--t1)]">실패 {failed.length}건</p>
+          <p className="font-display text-[13px] font-[800] text-[var(--t1)]">멈춤 {counts.stuck}건 (아래 {failed.length}건 표시)</p>
           <ul className="mt-1.5 flex flex-col gap-2">
             {failed.map((r) => (
               <li key={r.id} className="font-body text-[12px] text-[var(--t2)]">
@@ -1132,7 +1260,7 @@ function QueueTab({
         </section>
       )}
 
-      <IssueList rows={rows} />
+      <IssueList rows={rows} counts={counts} />
     </div>
   )
 }
@@ -1154,8 +1282,27 @@ function relTime(iso: string | null): string {
 }
 const RECENT_MS = 30_000 // 최근 실행 = "방금 진행 중" 신호 (DRAINABLE 은 큐 탭 정의 재사용)
 
-function MonitorTab({ rows, onMsg, onRefresh, active }: {
-  rows: PdComicAdminRow[]; onMsg: (s: string) => void; onRefresh: () => Promise<void>; active: boolean
+// ── 폴링 주기 (한 곳에서만 정한다) ────────────────────────────────
+//
+// 세 폴러가 겹쳐 돌고 있었다: 큐 4초 + 라이브 진행 2.5초 + 자기발전 타임라인 5초.
+// 한 화면에서 초당 ~1회씩 서버를 치고, 큐 GET 은 행마다 디스크를 긁었다(969행 × 4회).
+// 지금은 ① 주기를 벌리고 ② usePolling 이 겹침·백그라운드 탭을 막고 ③ 큐 GET 이 캐시한다.
+const POLL_MS = {
+  /** 큐 전량 — 단계·멈춤 수 관찰용. 드레인 한 단계가 수십 초라 5초면 충분하다. */
+  queue: 5_000,
+  /** 한 호의 진행률·중간 이미지 — 보고 있는 그 호 하나뿐이라 촘촘해도 된다. */
+  progress: 3_000,
+  /** oplog 는 사람이 CLI 로 적을 때만 늘어난다 — 5초는 과했다. */
+  oplog: 20_000,
+} as const
+
+function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
+  rows: PdComicAdminRow[]
+  counts: PdAdminCounts
+  truncated: boolean
+  onMsg: (s: string) => void
+  onRefresh: () => Promise<void>
+  active: boolean
 }) {
   const [live, setLive] = useState(true)
   const [lastPoll, setLastPoll] = useState<number>(Date.now())
@@ -1165,22 +1312,24 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
   const [busy, setBusy] = useState<string | null>(null)
   const [zoom, setZoom] = useState<{ issueId: string; rels: string[]; index: number } | null>(null) // 라이트박스
 
-  // 라이브 자동 새로고침 (활성 탭 + LIVE 일 때만 — 드레인 없이도 상태가 갱신됨)
-  useEffect(() => {
-    if (!active || !live) return
-    const id = setInterval(() => { void onRefresh().then(() => setLastPoll(Date.now())) }, 4000)
-    return () => clearInterval(id)
-  }, [active, live, onRefresh])
+  // 라이브 자동 새로고침 (활성 탭 + LIVE 일 때만 — 드레인 없이도 상태가 갱신됨).
+  // usePolling 이 겹침(앞 요청 진행 중)과 백그라운드 탭을 막는다.
+  usePolling(
+    async () => {
+      await onRefresh()
+      setLastPoll(Date.now())
+    },
+    POLL_MS.queue,
+    active && live,
+  )
 
-  const dist = PD_STAGES.map((s) => ({ ...s, n: rows.filter((r) => r.status === s.key).length }))
-  const drainable = rows.filter((r) => DRAINABLE.has(r.status) && !r.lastError)
-  const stuck = rows.filter((r) => r.lastError)
+  // "방금 진행" 만 목록 기준이다 — 시각 비교가 필요해 서버 count 로는 못 센다.
   const runningNow = rows.filter((r) => r.lastRunAt && Date.now() - new Date(r.lastRunAt).getTime() < RECENT_MS && !r.lastError)
   // 관리자 주의 우선순위 정렬: 멈춤(수정 필요) → 방금 진행(관찰) → 진행 대상 → 완료
   const rank = (r: PdComicAdminRow) => r.lastError ? 0 : (r.lastRunAt && Date.now() - new Date(r.lastRunAt).getTime() < RECENT_MS ? 1 : (DRAINABLE.has(r.status) ? 2 : 3))
   const sortedRows = [...rows].sort((a, b) => rank(a) - rank(b))
   // 정렬이 이미 "멈춤 → 방금 진행 → 진행 대상 → 완료" 라 앞쪽 30건이 볼 값어치가 있는 것들이다.
-  // 위 dist·drainable·stuck·runningNow 는 **전량(rows)** 으로 계산돼 있으므로 여기서 좁혀도 숫자는 그대로다.
+  // 단계 분포·드레인 대상·멈춤 수는 **서버 count** 라 여기서 좁혀도 숫자는 그대로다.
   const monitorView = useRowView(sortedRows)
 
   const drainOne = async (issueId: string, dryRun: boolean) => {
@@ -1198,6 +1347,19 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
 
   // 현대화 콘솔 트리거 — CLI 를 spawn 하고 결과를 갤러리에 반영(드레인과 같은 구조).
   const modernize = async (issueId: string, track: 'preserve' | 'restyle' | 'erase-preview') => {
+    // AI 리스타일만 되돌릴 수 없다 — 외부 GPU(RunPod) 시간이 실제로 태워진다.
+    if (
+      track === 'restyle' &&
+      !confirmIrreversible('AI 리스타일을 실행합니다 — 되돌릴 수 없습니다.', [
+        '· 외부 GPU(RunPod 4090)에서 모델이 돌고 그 시간만큼 과금됩니다. 중단해도 환불되지 않습니다.',
+        '· 원작을 다시 그리므로 산출물이 마음에 들지 않아도 태운 비용은 남습니다.',
+        '· 먼저 "지우기 확인"(GPU 미사용)으로 말풍선 글자가 다 지워졌는지 보는 것이 정석입니다.',
+        '',
+        '실행할까요?',
+      ])
+    ) {
+      return
+    }
     setBusy(issueId)
     onMsg(track === 'restyle' ? 'AI 리스타일 실행 중… (GPU·COMFY_URL 필요, 수 분 소요)' : track === 'erase-preview' ? '말풍선 지우기 확인 중… (GPU 미사용)' : '작화보존 현대화 실행 중… (page-modern → page-html)')
     try {
@@ -1224,18 +1386,13 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-7">
-        {dist.map((s) => (
-          <div key={s.key} className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 text-center">
-            <div className="font-display text-[18px] font-[800] tabular-nums text-[var(--t1)]">{s.n}</div>
-            <div className="font-body text-[11px] text-[var(--t2)]">{s.label}</div>
-          </div>
-        ))}
-      </div>
+      {/* 큐 탭과 같은 컴포넌트 — 단계 카운터를 두 벌로 그리던 것을 합쳤다 */}
+      <StageCounters counts={counts} />
+      <TruncationNote counts={counts} shown={rows.length} truncated={truncated} />
       <div className="flex flex-wrap gap-2 font-body text-[11.5px]">
-        <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--success-light)', color: 'var(--success)' }}>드레인 대상 {drainable.length}</span>
+        <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--success-light)', color: 'var(--success)' }}>드레인 대상 {counts.drainablePending}</span>
         <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--p-light)', color: 'var(--p)' }}>방금 진행 {runningNow.length}</span>
-        {stuck.length > 0 && <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--error-light)', color: 'var(--error)' }}>멈춤 {stuck.length}</span>}
+        {counts.stuck > 0 && <span className="rounded-[var(--r-full)] px-2 py-1" style={{ background: 'var(--error-light)', color: 'var(--error)' }}>멈춤 {counts.stuck}</span>}
       </div>
 
       <SelfDevTimeline active={active} />
@@ -1246,7 +1403,7 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
         <p className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-8 text-center font-body text-[13px] text-[var(--t2)]">큐가 비어 있습니다 — 소스 탭에서 담고(테스트 모드=앞 N쪽), 여기서 진행을 지켜보세요.</p>
       ) : (
         <div>
-        <RowViewControls rows={rows} view={monitorView} />
+        <RowViewControls counts={counts} view={monitorView} />
         <ul className="flex flex-col gap-2">
           {monitorView.filtered.slice(0, monitorView.shown).map((r) => {
             const running = Boolean(r.lastRunAt && Date.now() - new Date(r.lastRunAt).getTime() < RECENT_MS && !r.lastError)
@@ -1295,15 +1452,38 @@ function MonitorTab({ rows, onMsg, onRefresh, active }: {
                   {DRAINABLE.has(r.status) && <button type="button" disabled={busy === r.id} onClick={() => void drainOne(r.id, false)} className="min-h-9 rounded-[var(--r-full)] px-3 font-display text-[11px] font-[700] text-white disabled:opacity-50" style={{ background: ACCENT }}>이 이슈 한 단계 진행</button>}
                   <button type="button" onClick={() => setOpenLive((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openLive === r.id ? ACCENT : 'var(--bd)', color: openLive === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openLive === r.id}>{openLive === r.id ? '진행 닫기' : '라이브 진행'}</button>
                   <button type="button" onClick={() => setOpen((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)]" aria-expanded={open === r.id}>{open === r.id ? '콘텐츠 닫기' : '컷 대사'}</button>
-                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: '#2E7D5A', color: '#2E7D5A' }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
-                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'erase-preview')} title="GPU 없이 말풍선 지우기만 실행 — 남은 글자를 모델이 가짜 글자로 재현하므로 태우기 전에 확인한다" className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: 'var(--t3)', color: 'var(--t2)' }}>지우기 확인</button>
-                  <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요). 먼저 '지우기 확인'으로 글자가 다 지워졌는지 보세요" className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: ACCENT }}>AI 리스타일</button>
+                  {/* 현대화 3종은 **그 액션이 유효한 상태에서만** 뜬다 — 정본(model.ts)이 정한다.
+                      예전엔 상태와 무관하게 항상 떠서, 취득 직후 눌린 호가 산출물 없이
+                      'modernized' 가 되고 큐에서 빠졌다. */}
+                  {pdActionAllowed('modernize', r.status) && (
+                    <>
+                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: '#2E7D5A', color: '#2E7D5A' }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
+                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'erase-preview')} title="GPU 없이 말풍선 지우기만 실행 — 남은 글자를 모델이 가짜 글자로 재현하므로 태우기 전에 확인한다" className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: 'var(--t3)', color: 'var(--t2)' }}>지우기 확인</button>
+                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요 · 되돌릴 수 없음). 먼저 '지우기 확인'으로 글자가 다 지워졌는지 보세요" className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: ACCENT }}>AI 리스타일</button>
+                    </>
+                  )}
                   <a href={`/admin/pd-comics/reader/${r.id}`} className="min-h-9 inline-flex items-center rounded-[var(--r-full)] px-3 font-display text-[11px] font-[700] text-white transition-opacity hover:opacity-90" style={{ background: ACCENT }}>모던 리더 ↗</a>
-                  {r.status === 'review' && <button type="button" onClick={() => setOpenPublish((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openPublish === r.id ? ACCENT : 'var(--bd)', color: openPublish === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openPublish === r.id}>{openPublish === r.id ? '발행 닫기' : '발행'}</button>}
+                  {r.sourceUrl && (
+                    <a href={r.sourceUrl} target="_blank" rel="noopener noreferrer" title="소스 사이트에서 원본 스캔 열기" className="min-h-9 inline-flex items-center rounded-[var(--r-full)] border border-[var(--bd)] px-3 font-display text-[11px] font-[700] text-[var(--t2)] transition-colors hover:border-[var(--t3)]">원본 ↗</a>
+                  )}
+                  {/* 발행·회수·복원은 한 패널에서 — 발행만 열어 두면 되돌릴 길이 없다 */}
+                  {(pdActionAllowed('publish', r.status) ||
+                    pdActionAllowed('archive', r.status) ||
+                    pdActionAllowed('restore', r.status)) && (
+                    <button type="button" onClick={() => setOpenPublish((o) => (o === r.id ? null : r.id))} className="min-h-9 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors" style={{ borderColor: openPublish === r.id ? ACCENT : 'var(--bd)', color: openPublish === r.id ? ACCENT : 'var(--t2)' }} aria-expanded={openPublish === r.id}>
+                      {openPublish === r.id
+                        ? '발행 닫기'
+                        : r.status === 'published'
+                          ? '발행 회수'
+                          : r.status === 'archived'
+                            ? '보관 복원'
+                            : '발행'}
+                    </button>
+                  )}
                 </div>
                 {openLive === r.id && <LiveProgress issueId={r.id} onZoom={(rels, index) => setZoom({ issueId: r.id, rels, index })} />}
                 {open === r.id && <PanelDrill issueId={r.id} />}
-                {openPublish === r.id && <PublishPanel issueId={r.id} onMsg={onMsg} onRefresh={onRefresh} />}
+                {openPublish === r.id && <PublishPanel issueId={r.id} publishedYear={r.publishedYear} onMsg={onMsg} onRefresh={onRefresh} />}
               </li>
             )
           })}
@@ -1613,7 +1793,7 @@ function PanelDrill({ issueId }: { issueId: string }) {
   )
 }
 
-function IssueList({ rows }: { rows: PdComicAdminRow[] }) {
+function IssueList({ rows, counts }: { rows: PdComicAdminRow[]; counts: PdAdminCounts }) {
   const view = useRowView(rows)
   if (rows.length === 0) {
     return (
@@ -1627,7 +1807,7 @@ function IssueList({ rows }: { rows: PdComicAdminRow[] }) {
   }
   return (
     <div>
-      <RowViewControls rows={rows} view={view} />
+      <RowViewControls counts={counts} view={view} />
       <ul className="flex flex-col gap-2">
       {view.filtered.slice(0, view.shown).map((r) => (
         <li key={r.id} className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
@@ -1652,15 +1832,16 @@ function IssueList({ rows }: { rows: PdComicAdminRow[] }) {
 
 // 발행 패널 — 검수(review)→발행. PD 근거 확정(법적 게이트) + 발행 조건 체크리스트.
 // 콘텐츠 서빙(스토리지 업로드) 미구현이면 발행 차단(학습자에게 깨진 이미지 방지).
-const PD_BASIS_OPTS: Array<{ key: string; label: string }> = [
-  { key: 'pre-1929', label: '1929년 이전 발행 — 저작권 만료' },
-  { key: 'no-renewal', label: '갱신 기록 없음 — 퍼블릭 도메인' },
-  { key: 'explicit-license', label: '아카이브 명시 퍼블릭 도메인' },
-]
+// ⚠️ 여기에 손으로 적은 `PD_BASIS_OPTS` 가 있었다. 정본(`PD_BASIS_CHOICES`)과 갈려서
+//    ① 정상 토큰 `term-expired` 가 빠지고 ② 레거시 `pre-1929` 가 첫 옵션이라 신규 확정이
+//    레거시 값으로 기록됐으며 ③ 기본값 `no-renewal` 은 증빙이 **필수**인데 라벨은 늘
+//    "(선택)" 이라 **기본 상태로 누르면 400** 이었다. 목록은 model.ts 한 곳에서만 온다.
 type PubChecklist = { pdBasis: boolean; pdChecked: boolean; sourceUrl: boolean; modernized: boolean; contentServable: boolean }
-function PublishPanel({ issueId, onMsg, onRefresh }: { issueId: string; onMsg: (s: string) => void; onRefresh: () => Promise<void> }) {
+function PublishPanel({ issueId, publishedYear, onMsg, onRefresh }: { issueId: string; publishedYear: number | null; onMsg: (s: string) => void; onRefresh: () => Promise<void> }) {
   const [check, setCheck] = useState<PubChecklist | null>(null)
-  const [basis, setBasis] = useState('no-renewal')
+  // 기본 근거는 **발행연도가 정한다** — 1930년 이전은 갱신 여부와 무관하게 연도만으로 확정된다.
+  // 두 화면(발행 패널 · PD 근거 확인)이 같은 함수를 써야 운영자가 화면마다 다른 기본값을 만나지 않는다.
+  const [basis, setBasis] = useState(() => defaultPdBasis(publishedYear))
   const [evidence, setEvidence] = useState('')
   const [busy, setBusy] = useState(false)
 
@@ -1706,6 +1887,8 @@ function PublishPanel({ issueId, onMsg, onRefresh }: { issueId: string; onMsg: (
   )
   const gateOk = check && check.pdBasis && check.pdChecked && check.sourceUrl
   const canPublish = gateOk && check?.contentServable
+  /** 이 근거가 증빙 URL 을 요구하는가 — 정본(model.ts)이 근거마다 정한다. */
+  const evidenceRequired = PD_BASIS_CHOICES.find((o) => o.key === basis)?.needsEvidence ?? false
 
   return (
     <div className="mt-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
@@ -1714,15 +1897,18 @@ function PublishPanel({ issueId, onMsg, onRefresh }: { issueId: string; onMsg: (
       <div className="mt-2 flex flex-wrap items-end gap-2">
         <label className="flex flex-col gap-1">
           <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">PD 근거</span>
-          <select value={basis} onChange={(e) => setBasis(e.target.value)} className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px]">
-            {PD_BASIS_OPTS.map((o) => <option key={o.key} value={o.key}>{o.label}</option>)}
+          <select value={basis} onChange={(e) => setBasis(e.target.value)} className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-body text-[12px]">
+            {PD_BASIS_CHOICES.map((o) => <option key={o.key} value={o.key}>{o.label}</option>)}
           </select>
         </label>
         <label className="flex min-w-[180px] flex-1 flex-col gap-1">
-          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">근거 URL (선택)</span>
-          <input value={evidence} onChange={(e) => setEvidence(e.target.value)} placeholder="갱신 기록 조회 링크 등" className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[11.5px]" />
+          {/* 라벨이 늘 "(선택)" 이라 필수인 근거를 비운 채 누르고 400 을 받았다. 근거마다 다르다. */}
+          <span className="font-mono text-[10px] uppercase tracking-[0.06em] text-[var(--t2)]">
+            근거 URL {evidenceRequired ? '(필수)' : '(선택)'}
+          </span>
+          <input value={evidence} onChange={(e) => setEvidence(e.target.value)} placeholder="갱신 기록 조회 링크 등" className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-mono text-[11.5px]" />
         </label>
-        <button type="button" disabled={busy} onClick={() => void confirmPd()} className="min-h-[36px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] disabled:opacity-50">PD 근거 확정</button>
+        <button type="button" disabled={busy || (evidenceRequired && evidence.trim() === '')} onClick={() => void confirmPd()} title={evidenceRequired && evidence.trim() === '' ? '이 근거는 증빙 URL 이 있어야 확정됩니다' : undefined} className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] disabled:opacity-50">PD 근거 확정</button>
       </div>
 
       {/* 발행 조건 체크리스트 */}

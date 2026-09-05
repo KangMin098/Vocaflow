@@ -6,11 +6,26 @@
 import { useState } from 'react'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { VrlTaxonomyData } from '@/lib/admin/vrl/queries'
+import { VrlEmptyNotice, VrlUnreadableNotice } from '../_components/VrlStateNotice'
 
 type Tab = 'levels' | 'tracks' | 'domains' | 'skills'
 
 interface Props {
   data: VrlTaxonomyData
+}
+
+/**
+ * 기준표는 마이그레이션으로만 채워진다 — 화면에서 만들 수 없다. 그래서 다음 걸음은
+ * 버튼이 아니라 "어디를 봐야 하는가" 다.
+ */
+function TaxonomyEmpty({ axis }: { axis: string }) {
+  return (
+    <VrlEmptyNotice
+      title={`${axis} 기준표가 비어 있습니다`}
+      body="이 축은 마이그레이션(supabase/migrations 의 vocaflow_* 시드)으로만 채워집니다. 원격에 그 마이그레이션이 적용됐는지 먼저 확인합니다."
+      nextStep={{ href: '/admin/vrl', label: '사전DB 종합 모니터링으로' }}
+    />
+  )
 }
 
 export function VrlTaxonomyClient({ data }: Props) {
@@ -63,15 +78,46 @@ export function VrlTaxonomyClient({ data }: Props) {
         })}
       </nav>
 
-      <section
-        role="tabpanel"
-        className="rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]"
-      >
-        {tab === 'levels' && <LevelsTable rows={data.levels} />}
-        {tab === 'tracks' && <TracksCardGrid rows={data.tracks} />}
-        {tab === 'domains' && <SimpleCardGrid rows={data.domains} />}
-        {tab === 'skills' && <SimpleCardGrid rows={data.skills} />}
-      </section>
+      {/* 배지가 0 인 이유가 "기준표가 비었다" 인지 "못 읽었다" 인지는 여기서만 가를 수 있다.
+          네 축 중 하나라도 막히면 기준표 전체를 못 믿는다 — 조회 층이 그렇게 합쳐 준다. */}
+      {data.error ? (
+        <VrlUnreadableNotice
+          subject="분류 기준표"
+          detail={data.error}
+          hint="vocaflow_levels · tracks · domains · skills 네 테이블의 RLS 와 존재 여부를 본다."
+          nextStep={{ href: '/admin/vrl', label: '사전DB 종합 모니터링으로' }}
+        />
+      ) : (
+        <section
+          role="tabpanel"
+          className="rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]"
+        >
+          {tab === 'levels' &&
+            (data.levels.length === 0 ? (
+              <TaxonomyEmpty axis="Levels" />
+            ) : (
+              <LevelsTable rows={data.levels} />
+            ))}
+          {tab === 'tracks' &&
+            (data.tracks.length === 0 ? (
+              <TaxonomyEmpty axis="Tracks" />
+            ) : (
+              <TracksCardGrid rows={data.tracks} />
+            ))}
+          {tab === 'domains' &&
+            (data.domains.length === 0 ? (
+              <TaxonomyEmpty axis="Domains" />
+            ) : (
+              <SimpleCardGrid rows={data.domains} />
+            ))}
+          {tab === 'skills' &&
+            (data.skills.length === 0 ? (
+              <TaxonomyEmpty axis="Skills" />
+            ) : (
+              <SimpleCardGrid rows={data.skills} />
+            ))}
+        </section>
+      )}
     </div>
   )
 }

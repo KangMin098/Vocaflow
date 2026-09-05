@@ -8,6 +8,11 @@
 //   QA3 📋 Tier 2 Migration SQL preview (collapsible)
 //   QA4 🚨 VCB-VRL navigate (→ /admin/vocab)
 //   QA5 🔄 새로고침 (router.refresh — client side)
+//
+// ⚠️ 2026-09-05 — QA1 은 `L4 1,030 row 잔여`, QA4 는 `R3 35→75+` 를 **상수로** 적고 있었다.
+//   같은 1,030 이 RoundHistorySection 의 ROADMAP 에도 복사돼 있어 한쪽만 고치면 두 화면이
+//   서로 다른 말을 한다. 지금은 둘 다 page.tsx 가 이미 들고 있는 snapshot 에서 파생된다 —
+//   근거 없는 수치는 아예 받지 않는다(prop 이 없으면 수치 없는 문구로 떨어진다).
 
 'use client'
 
@@ -82,7 +87,20 @@ BEGIN
   RAISE NOTICE 'Tier 2 schema evolution OK — 3 columns + 1 index';
 END $$;`
 
-export function QuickActionsSection() {
+export interface QuickActionsSectionProps {
+  /** vrl_data_integrity_concerns 미해결 수 (실측). */
+  openConcerns: number
+  /** shared_dictionary v_level NULL 행 수 (실측). */
+  unclassified: number
+  /** R3(공용 단어장 발행) 현재 점수 0~100. 스냅샷에 없으면 null → 수치 없이 그린다. */
+  r3Score: number | null
+}
+
+export function QuickActionsSection({
+  openConcerns,
+  unclassified,
+  r3Score,
+}: QuickActionsSectionProps) {
   const router = useRouter()
   const [showCefrSql, setShowCefrSql] = useState(false)
   const [showTier2Sql, setShowTier2Sql] = useState(false)
@@ -132,7 +150,8 @@ export function QuickActionsSection() {
               />
             </p>
             <p className="font-body text-[11px] leading-snug text-[var(--t2)]">
-              L4 1,030 row 잔여 — Concerns 페이지 navigate
+              미해결 의심 단어 {openConcerns.toLocaleString()}건 · v_level 미분류{' '}
+              {unclassified.toLocaleString()}행
             </p>
           </div>
         </Link>
@@ -159,7 +178,8 @@ export function QuickActionsSection() {
               />
             </p>
             <p className="font-body text-[11px] leading-snug text-[var(--t2)]">
-              VCB Pipeline → target_v_level_range 추가 (R3 35→75+)
+              VCB Pipeline → target_v_level_range 추가
+              {r3Score != null ? ` — R3 현재 ${r3Score}점` : ''}
             </p>
           </div>
         </Link>

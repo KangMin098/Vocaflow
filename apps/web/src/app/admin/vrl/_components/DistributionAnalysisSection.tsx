@@ -11,12 +11,19 @@
 //   6. Source
 //
 // 데이터: snapshot.raw.categorical (dict_categorical_distributions RPC)
+//
+// ⚠️ 2026-09-05 — 막대 **바로 위** 캡션이 `C2 56.2%` · `noun 66.1% dominant` · `NGSL 31K`
+//   로 고정돼 있었다. 막대는 DB 를 따라 움직이는데 캡션은 안 움직이니, 분포가 바뀐 뒤에도
+//   관리자는 옛 진단을 읽는다(그리고 그 옛 수치를 근거로 결함을 판단한다).
+//   지금 설정에는 **수치가 없다** — 성격 설명(note)만 두고, 최다값·비율·행수는
+//   `distributionCaption()` 이 그 자리의 실데이터에서 만든다.
 
 import { BarChart3 } from 'lucide-react'
 import type {
   DictCategoricalDistributions,
   DictHealthSnapshot,
 } from '@/lib/admin/dict/types'
+import { distributionCaption, distributionFacts } from '@/lib/admin/vrl/derive'
 
 interface DistributionAnalysisSectionProps {
   snapshot: DictHealthSnapshot
@@ -33,7 +40,11 @@ interface ChartConfig {
     | 'by_source'
   >
   label: string
-  description: string
+  /**
+   * 수치가 아닌 성격 설명만 적는다. **여기에 숫자를 쓰지 말 것** — 이 문자열은 DB 를
+   * 따라 움직이지 않는다. 수치는 distributionCaption() 이 실데이터에서 만든다.
+   */
+  note: string
   accent: string
   /** 표시할 최대 항목 수 (나머지는 합산하여 'others') */
   maxItems: number
@@ -48,7 +59,7 @@ const CHARTS: ChartConfig[] = [
   {
     key: 'by_cefr_level',
     label: 'CEFR Distribution',
-    description: '학습자 수준 — C2 56.2% (역피라미드, P2 결함)',
+    note: '상위 등급으로 쏠리면 역피라미드(P2 결함)',
     accent: 'var(--p)',
     maxItems: 6,
     keyOrder: (a, b) =>
@@ -58,7 +69,7 @@ const CHARTS: ChartConfig[] = [
   {
     key: 'by_v_level',
     label: 'VRL V-Level (current)',
-    description: '한국 학습자 12 단계 — V5-V7 peak',
+    note: '한국 학습자 12 단계 — 중간 밴드가 두꺼운 것이 정상',
     accent: '#8B5CF6',
     maxItems: 12,
     keyOrder: NUMERIC_KEY_ORDER,
@@ -66,7 +77,7 @@ const CHARTS: ChartConfig[] = [
   {
     key: 'by_v_level_rule_v1',
     label: 'rule_v1 (Day 3 baseline)',
-    description: 'Round 1-6 reclassification 비교 baseline',
+    note: 'Round 1-6 재분류 비교 baseline (현재 v_level 과 대조)',
     accent: 'var(--t3)',
     maxItems: 12,
     keyOrder: NUMERIC_KEY_ORDER,
@@ -74,21 +85,21 @@ const CHARTS: ChartConfig[] = [
   {
     key: 'by_primary_pos',
     label: 'Primary POS',
-    description: 'noun 66.1% dominant (P2 결함)',
+    note: '한 품사가 지나치게 지배하면 P2 결함',
     accent: 'var(--active)',
     maxItems: 7,
   },
   {
     key: 'by_frequency_band',
     label: 'Frequency Band',
-    description: 'NGSL 31K — phrase/compound 포함',
+    note: 'NGSL 밴드 — phrase/compound 포함',
     accent: 'var(--info)',
     maxItems: 8,
   },
   {
     key: 'by_source',
     label: 'Source',
-    description: 'imported / ai-generated / kice-orphan',
+    note: 'imported / ai-generated / kice-orphan 등 적재 경로',
     accent: 'var(--success)',
     maxItems: 5,
   },
@@ -200,6 +211,9 @@ function DistributionChart({
   const maxCount = display.reduce((m, [, n]) => Math.max(m, n), 0)
   const sumCount = display.reduce((s, [, n]) => s + n, 0)
 
+  // 캡션은 **이 자리의 실데이터**에서 만든다 — 'others' 로 접기 전 원본을 쓴다.
+  const caption = distributionCaption(distributionFacts(data), cfg.note)
+
   return (
     <article
       className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]"
@@ -209,7 +223,7 @@ function DistributionChart({
         <h3 className="font-display text-[12px] font-[700] text-[var(--t1)]">
           {cfg.label}
         </h3>
-        <p className="font-body text-[10px] text-[var(--t2)]">{cfg.description}</p>
+        <p className="font-body text-[10px] text-[var(--t2)]">{caption}</p>
       </header>
 
       {/*

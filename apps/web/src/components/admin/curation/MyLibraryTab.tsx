@@ -461,10 +461,15 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
             finish = 'error';
             break;
           }
-          const data = (await res.json()) as { error?: string; librivox?: string };
+          const data = (await res.json()) as {
+            error?: string;
+            message?: string;
+            librivox?: string;
+          };
           if (!res.ok || data.error) {
             failed += 1;
-            lastError = data.error ?? `HTTP ${res.status}`;
+            // 가드는 401/403 을 { error, message } 로 낸다 — 읽을 문장은 message 다.
+            lastError = data.message ?? data.error ?? `HTTP ${res.status}`;
             console.error(`[dev-process] ${bookId.slice(0, 8)} 실패: ${lastError}`);
           } else {
             succeeded += 1;

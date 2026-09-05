@@ -14,6 +14,7 @@ import { NextResponse } from 'next/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { PD_ACTION_STATES, pdActionAllowed, pdNextStatus, pdStatusLabel } from '@/lib/pd-comic/model'
 import { runPipeline } from '@/lib/pd-comic/pipeline-bridge'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -39,7 +40,21 @@ export async function POST(request: Request): Promise<NextResponse> {
   if (!issueId) return NextResponse.json({ error: 'issueId 가 필요합니다' }, { status: 400 })
 
   const client = createAdminClient() as unknown as SupabaseClient
-  const { data: row } = await client.from('pd_comic_issues').select('slug, qc').eq('id', issueId).maybeSingle()
+  const { data: row } = await client.from('pd_comic_issues').select('slug, status, qc').eq('id', issueId).maybeSingle()
+  if (!row) return NextResponse.json({ error: '해당 호가 없습니다' }, { status: 404 })
+  const status = String((row as { status?: string }).status ?? '')
+
+  // 상태 게이트 — 정본(model.ts)이 정한다. 이 게이트가 없어서 취득 직후(acquired) 눌러도
+  // 버튼이 돌았고, 그 호는 산출물 없이 'modernized' 가 돼 큐에서 빠졌다.
+  if (!pdActionAllowed('modernize', status)) {
+    return NextResponse.json(
+      {
+        error: `현대화는 ${[...PD_ACTION_STATES.modernize].join(' · ')} 상태에서만 실행할 수 있습니다 (현재 ${pdStatusLabel(status)})`,
+      },
+      { status: 409 },
+    )
+  }
+
   const qc = (row?.qc ?? null) as { workDir?: string } | null
   const wd = typeof qc?.workDir === 'string' ? qc.workDir : null
   if (!wd) return NextResponse.json({ error: 'work 디렉터리가 없습니다 — 먼저 드레인(취득~OCR)을 완료하세요' }, { status: 400 })
@@ -61,7 +76,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     results.push({ script: s.script, ok: r.ok, tail: tail(r.ok ? r.stdout : r.stderr || r.stdout) })
     if (!r.ok) {
       return NextResponse.json({
-        ok: false, track, slug: row?.slug ?? null,
+        ok: false, track, slug: (row as { slug?: string }).slug ?? null,
         error: `${s.script} 실패${r.timedOut ? ' (타임아웃)' : ''}`,
         steps: results,
       })
@@ -70,11 +85,15 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   // 어떤 트랙·모델로 만들었는지 남긴다 — 없으면 재현도 라이선스 감사도 불가능하다.
   // 지우기 확인은 산출물이 아니므로 기록하지 않는다(GPU 도 안 쓴다).
+  //
+  // status 는 **정본이 정한 만큼만** 옮긴다. 검수까지 올라간 호를 다시 현대화했다고
+  // 'modernized' 로 덮으면 그 호가 뒤로 끌려 내려간다(재실행은 흔한 일이다).
+  const nextStatus = pdNextStatus('modernize', status) ?? status
   if (track !== 'erase-preview') {
     await client
       .from('pd_comic_issues')
       .update({
-        status: 'modernized',
+        ...(nextStatus !== status ? { status: nextStatus } : {}),
         modernize_track: track,
         modernize_model: track === 'restyle' ? MODEL : null,
         modernize_env: track === 'restyle' ? ENV : null,
@@ -82,5 +101,12 @@ export async function POST(request: Request): Promise<NextResponse> {
       .eq('id', issueId)
   }
 
-  return NextResponse.json({ ok: true, track, slug: row?.slug ?? null, steps: results })
+  return NextResponse.json({
+    ok: true,
+    track,
+    slug: (row as { slug?: string }).slug ?? null,
+    from: status,
+    to: track === 'erase-preview' ? status : nextStatus,
+    steps: results,
+  })
 }

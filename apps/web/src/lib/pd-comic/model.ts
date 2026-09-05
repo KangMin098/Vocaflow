@@ -30,6 +30,121 @@ export function stageIndex(status: string): number {
   return PD_STAGES.findIndex((s) => s.key === status)
 }
 
+// ── 상태 정본 (SSoT) ────────────────────────────────────────────────
+//
+// 왜 여기에 모으나 — **실제로 갈려서 호가 갇혔다.**
+//   `/api/pdcp/modernize` 가 행을 `modernized` 로 옮겼는데, 콘솔의 드레인 대상 집합도
+//   드레인 라우트의 전이표도 발행 버튼 조건도 그 값을 몰랐다. 결과: 현대화를 누른 호는
+//   전진(드레인)도 후퇴(되돌리기)도 불가능했고, 탈출구는 UI 에 없는 PATCH 뿐이었다.
+//   그래서 **상태·전이·액션 가용 상태를 이 파일에서만 정의하고**, UI 조건 · 드레인 전이 ·
+//   발행 조건은 전부 여기서 파생시킨다. 한 곳을 고치면 세 곳이 같이 움직인다.
+
+/** 단계가 아닌 종결 상태 — stepper 칸을 차지하지 않지만 DB 에는 실재한다(실측 archived 19행). */
+export const PD_TERMINAL_STATES = [
+  { key: 'archived', label: '보관' },
+  // 앱은 이 값을 **쓰지 않는다**(드레인 실패는 status 를 보존하고 last_error 로만 표시).
+  // DB CHECK 에 남아 있는 과거 값이라 라벨만 준비해 둔다 — 화면에 뜨면 원인부터 찾을 것.
+  { key: 'failed', label: '실패' },
+] as const
+
+/** DB `pd_issues_status_chk` 와 **같은 집합**이어야 한다(2026-09-05 실측 대조). */
+export const PD_STATUSES: ReadonlyArray<{ key: string; label: string }> = [
+  ...PD_STAGES.map((s) => ({ key: s.key as string, label: s.label as string })),
+  ...PD_TERMINAL_STATES.map((s) => ({ key: s.key as string, label: s.label as string })),
+]
+
+export const PD_STATUS_KEYS: ReadonlySet<string> = new Set(PD_STATUSES.map((s) => s.key))
+
+/** 상태 라벨 — 모르는 값은 삼키지 않고 그대로 보여준다(조용히 사라지면 오판한다). */
+export function pdStatusLabel(status: string): string {
+  return PD_STATUSES.find((s) => s.key === status)?.label ?? status
+}
+
+/** 콘솔·API 가 제공하는 조작. 상태를 옮기는 것과 안 옮기는 것이 섞여 있다. */
+export type PdAction =
+  | 'drain'
+  | 'modernize'
+  | 'confirm-pd'
+  | 'upload'
+  | 'publish'
+  | 'archive'
+  | 'restore'
+  | 'delete'
+
+export interface PdTransition {
+  action: PdAction
+  from: string
+  /** 전이 후 상태. `from` 과 같으면 "실행은 되지만 단계를 옮기지 않는다". */
+  to: string
+}
+
+/**
+ * 상태를 옮기는 전이 정본.
+ *
+ * `modernize` 가 review·modernized 에서 제자리인 이유: 현대화는 여러 번 다시 돌린다.
+ * 그때마다 `modernized` 로 덮으면 검수까지 올라간 호가 **뒤로 끌려 내려간다**.
+ */
+export const PD_TRANSITIONS: readonly PdTransition[] = [
+  // 자동 단계 — 호출 1회 = 한 단계
+  { action: 'drain', from: 'queued', to: 'acquired' },
+  { action: 'drain', from: 'acquired', to: 'restored' },
+  { action: 'drain', from: 'restored', to: 'segmented' },
+  { action: 'drain', from: 'segmented', to: 'ocr' },
+  { action: 'drain', from: 'ocr', to: 'review' },
+  // 현대화한 호가 갇히지 않게 하는 출구 — 실행할 스크립트는 없고 사람 검수로 넘긴다.
+  { action: 'drain', from: 'modernized', to: 'review' },
+  // 현대화(선택 트랙) — ocr 에서 누르면 단계가 오르고, 그 뒤로는 제자리 재실행
+  { action: 'modernize', from: 'ocr', to: 'modernized' },
+  { action: 'modernize', from: 'modernized', to: 'modernized' },
+  { action: 'modernize', from: 'review', to: 'review' },
+  // 발행 · 회수 · 복원
+  { action: 'publish', from: 'review', to: 'published' },
+  { action: 'archive', from: 'published', to: 'archived' },
+  { action: 'restore', from: 'archived', to: 'review' },
+]
+
+/**
+ * 상태를 옮기지 않는 조작이 어디서 유효한가.
+ * `published` 를 뺀 이유: 발행본은 게이트를 이미 통과했고, 근거를 다시 쓰거나 지우면
+ * 노출 중인 콘텐츠의 법적 진술이 조용히 바뀐다(먼저 보관으로 내린 뒤 다룬다).
+ */
+const PD_STATIC_ACTION_STATES: Record<'confirm-pd' | 'upload' | 'delete', readonly string[]> = {
+  'confirm-pd': PD_STATUSES.map((s) => s.key).filter((k) => k !== 'published'),
+  upload: ['ocr', 'modernized', 'review'],
+  delete: PD_STATUSES.map((s) => s.key).filter((k) => k !== 'published'),
+}
+
+function buildActionStates(): Record<PdAction, ReadonlySet<string>> {
+  const out: Record<string, Set<string>> = {}
+  for (const t of PD_TRANSITIONS) (out[t.action] ??= new Set()).add(t.from)
+  for (const [a, states] of Object.entries(PD_STATIC_ACTION_STATES)) out[a] = new Set(states)
+  return out as Record<PdAction, ReadonlySet<string>>
+}
+
+/** 액션 → 그 액션이 유효한 상태들. **버튼 표시 조건은 전부 여기서 나온다.** */
+export const PD_ACTION_STATES: Readonly<Record<PdAction, ReadonlySet<string>>> = buildActionStates()
+
+/** 드레인 전이표 — 라우트가 이 객체를 그대로 쓴다(사본을 두면 또 갈린다). */
+export const PD_DRAIN_CHAIN: Readonly<Record<string, string>> = Object.fromEntries(
+  PD_TRANSITIONS.filter((t) => t.action === 'drain').map((t) => [t.from, t.to]),
+)
+
+/** 드레인 대상 상태 — 콘솔의 "대기 N건" 과 라우트의 자동 선택이 같은 집합을 본다. */
+export const PD_DRAINABLE: ReadonlySet<string> = new Set(Object.keys(PD_DRAIN_CHAIN))
+
+/** 이 상태에서 그 액션을 눌러도 되는가 (버튼 노출 조건 = API 게이트 조건). */
+export function pdActionAllowed(action: PdAction, status: string): boolean {
+  return PD_ACTION_STATES[action]?.has(status) ?? false
+}
+
+/**
+ * 액션 후 상태. 유효하지 않으면 `null`, 제자리 전이면 `status` 그대로.
+ * 호출부는 `next === status` 일 때 DB status 를 건드리지 않아도 된다.
+ */
+export function pdNextStatus(action: PdAction, status: string): string | null {
+  return PD_TRANSITIONS.find((t) => t.action === action && t.from === status)?.to ?? null
+}
+
 export interface PdComicIssue {
   id: string
   slug: string
@@ -163,6 +278,26 @@ export const PD_BASES: PdBasisSpec[] = [
 
 export const PD_BASIS_KEYS = new Set(PD_BASES.map((b) => b.key))
 
+/**
+ * **화면 선택지 정본** — 근거를 고르는 모든 select 는 이 배열만 쓴다.
+ *
+ * 왜 별도로 두나: `PD_BASES` 는 DB CHECK 와 같은 집합이라 레거시 토큰(`pre-1929`)까지
+ * 담는다. 그것을 그대로 select 에 뿌리면 신규 확정이 레거시 값으로 기록된다.
+ * 반대로 화면마다 손으로 목록을 적으면 갈린다 — 실제로 발행 패널에는 정상 토큰
+ * `term-expired` 가 빠지고 레거시가 첫 옵션이었고, 기본값 `no-renewal` 은 증빙 필수인데
+ * 라벨이 "(선택)" 이라 **기본 상태로 누르면 400** 이었다.
+ */
+export const PD_BASIS_CHOICES: PdBasisSpec[] = PD_BASES.filter((b) => !b.key.startsWith('pre-'))
+
+/**
+ * 발행연도가 정하는 기본 근거 — 1930년 이전은 갱신 여부와 무관하게 연도만으로 확정된다.
+ * 두 화면(발행 패널 · PD 근거 확인)이 같은 기본값을 써야 운영자가 화면마다 다른 값을
+ * 기본으로 만나지 않는다.
+ */
+export function defaultPdBasis(publishedYear: number | null): string {
+  return publishedYear != null && publishedYear <= 1929 ? 'term-expired' : 'no-renewal'
+}
+
 export function pdBasisSpec(basis: string | null): PdBasisSpec | null {
   return basis ? (PD_BASES.find((b) => b.key === basis) ?? null) : null
 }
@@ -215,6 +350,32 @@ export interface PdComicPanel {
   imageUrl: string
   bubbles: Array<{ text: string; box?: { x: number; y: number; w: number; h: number }; kind?: string }>
   targetVocab: string[]
+}
+
+/**
+ * Admin 큐 집계 — **서버 전량 기준**. 목록(range)과 분리해 돌려주는 이유는,
+ * 좁힌 목록으로 세면 상한(PostgREST 기본 1,000) 너머가 조용히 사라지기 때문이다.
+ * 여기(model.ts)에 두는 이유는 queries.ts 가 `server-only` 라 클라이언트가 못 읽어서다.
+ */
+export interface PdAdminCounts {
+  total: number
+  /** 상태별 건수 */
+  byStatus: Record<string, number>
+  /** `last_error` 가 있는 행 — 드레인 자동 대상에서 빠진 수 */
+  stuck: number
+  /**
+   * 드레인이 실제로 집어갈 수 있는 행 = 드레인 대상 상태 ∧ `last_error` 없음.
+   * 상태별 합계에서 `stuck` 을 빼면 안 된다 — 멈춘 행이 검수·발행에도 있어서 음수가 난다.
+   */
+  drainablePending: number
+}
+
+export interface PdAdminList {
+  rows: PdComicAdminRow[]
+  /** 서버 전량 건수(목록 길이가 아니다) */
+  total: number
+  /** 상한에 걸려 뒷부분을 못 실었는가 */
+  truncated: boolean
 }
 
 /** 스키마 미적용을 정상 상태로 구분하기 위한 래퍼. */
