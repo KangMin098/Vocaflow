@@ -37,6 +37,7 @@ export type SourceKey =
   //   초·중 창에 드는 글 154편의 register 를 세니 **narrative 0** 이었다 —
   //   재고 부족이 아니라 종류 부재라 편수를 늘려도 해결되지 않는다.
   // NASA Space Place — 두 관문(robots · 저작권 고지)을 다 통과한 유일한 후보. 2026-09-03 추가.
+  | 'frym'
   | 'ocean_facts'
   | 'space_place'
   | 'storyweaver'
@@ -347,6 +348,19 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     idealDescLen: 240,
     noiseKeywords: ['listen:', 'watch:', 'podcast'], // 오디오/영상 포스트는 본문이 짧다
     maxItems: 20,
+  },
+  frym: {
+    // 학술지라 시의성이 약하다 — 2019년 글도 오늘 읽힌다.
+    //   다만 Crossref 가 발행일을 주므로 recency 를 아주 길게 열어 둔다(끄지 않는다).
+    recencyDays: 3650,
+    minDescriptionLen: 100, // 초록이 곧 지문이라 짧으면 지문이 아니다
+    minTitleLen: 12,
+    sourceWeight: 0.9, // 중3 칸을 메우는 유일한 후보다
+    levelBonus: -0.05, // FK 중앙 10.55 — 초·중 안에서는 위쪽
+    idealDescLen: 300,
+    // 사설·정오표는 지문이 아니다.
+    noiseKeywords: ['editorial', 'correction', 'erratum', 'retraction'],
+    maxItems: 24,
   },
   ocean_facts: {
     // 쪽에 발행일이 없다 — recency 를 켜 두면 전량이 0점이 되어 한 편도 안 들어온다.
@@ -802,6 +816,25 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
     styleGuide: '대학 공보의 연구 소개 기사 (B1-B2) · 학술 소재를 일반 독자용으로 재서술',
     preferredFeedMix: [{ feedId: 'all', weight: 1.00 }],
   },
+  // Frontiers for Young Minds: 8~15세 심사 과학지. **중3 칸을 메우는 유일한 후보**다 —
+  //   실측 FK 중앙 10.55 · 초록 89~158어로 창 적중 100% · 초록이 곧 완결된 한 편이라 발췌가 없다.
+  frym: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 24,
+    minScore: 0.35,
+    bulkPriority: 2,
+    // ⚠️ 표기는 다수값이고 **정본은 글마다의 Crossref `license[].URL`** 이다.
+    //   어댑터가 글에서 못 읽으면 넣지 않는다 — 학술지 단위로 뭉뚱그리면 예외를 못 본다.
+    license: 'CC-BY-4.0',
+    attributionRequired: true,
+    topicDomain: ['science', 'biology', 'earth', 'astronomy', 'health', 'technology'],
+    styleGuide: '어린이 심사위원이 읽은 논문 요약 (B1-B2) · 물음으로 시작해 답으로 끝난다',
+    preferredFeedMix: [
+      { feedId: 'recent', weight: 0.6 },
+      { feedId: 'cited', weight: 0.4 },
+    ],
+  },
   // NOAA Ocean Facts: 한 물음에 한 편. **실측 213~753어 · FK 중앙 11.4 로 중3 이상**이다.
   ocean_facts: {
     // ⚠️ 처음엔 A2-B1·beginner 로 적었다 — tsunami 한 쪽(112어)만 보고 정한 값이었다.
@@ -948,7 +981,7 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
  */
 export const SOURCE_RANKINGS_BY_LEVEL: Record<LearnerLevel, ReadonlyArray<SourceKey>> = {
   beginner:     ['storyweaver', 'space_place', 'voa', 'simple_wikipedia', 'wikivoyage', 'nasa', 'wikinews', 'factbook', 'nih', 'the_conversation'],
-  intermediate: ['ocean_facts', 'voa', 'simple_wikipedia', 'futurity', 'wikivoyage', 'factbook', 'nasa', 'usgs', 'noaa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
+  intermediate: ['frym', 'ocean_facts', 'voa', 'simple_wikipedia', 'futurity', 'wikivoyage', 'factbook', 'nasa', 'usgs', 'noaa', 'wikinews', 'nih', 'elife', 'wikipedia', 'owid', 'the_conversation'],
   advanced:     ['the_conversation', 'owid', 'elife', 'plos', 'wikipedia', 'futurity', 'nih', 'nasa', 'usgs', 'noaa', 'wikinews', 'factbook', 'voa', 'simple_wikipedia'],
 }
 
@@ -1012,6 +1045,7 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   usgs: 'expository', // 지구과학·자연재해 과학 저널리즘 (설명문)
   noaa: 'expository', // 기후과학 explainer (설명문)
   futurity: 'expository', // 대학 연구 소개 — 주장이 아니라 설명이다
+  frym: 'expository', // 심사받은 과학 설명글
   ocean_facts: 'expository', // 바다·날씨 현상 설명글
   space_place: 'expository', // 우주 현상 설명글
   storyweaver: 'narrative', // 그림책 이야기 — 이 자리가 비어 있었다
@@ -1244,6 +1278,7 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   // ⚠️ 여기 적힌 `CC-BY-4.0` 은 **다수값**이지 그 책의 값이 아니다. StoryWeaver 는
   //   책마다 라이선스가 다르고 정본은 **책 뒷장의 표시**다 — 어댑터가 거기서 읽고,
   //   못 읽으면 `restricted` 로 떨어뜨린다. 이 표는 화면에 보여 줄 기본값일 뿐이다.
+  frym: getSourcePolicy('frym'),
   ocean_facts: getSourcePolicy('ocean_facts'),
   space_place: getSourcePolicy('space_place'),
   storyweaver: getSourcePolicy('storyweaver'),

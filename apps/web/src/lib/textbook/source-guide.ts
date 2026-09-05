@@ -89,6 +89,10 @@ export const SOURCE_GUIDE: Record<SourceKey, SourceGuide> & Record<string, Sourc
     label: '기후·해양',
     says: 'NOAA 공개 자료. 자료와 추세를 다루는 글입니다.',
   },
+  frym: {
+    label: '어린이 과학지',
+    says: '과학자가 쓰고 어린이·청소년 심사위원이 읽은 논문 요약입니다. 물음으로 시작해 답으로 끝납니다.',
+  },
   ocean_facts: {
     label: '바다',
     says: 'NOAA 가 바다·날씨에 대한 물음 하나에 한 편씩 답한 글입니다.',

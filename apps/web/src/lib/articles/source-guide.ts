@@ -48,6 +48,7 @@ export const SOURCE_REGISTERS: Record<SourceKey, ReadonlyArray<string>> = {
   storyweaver: ['narrative'],
   space_place: ['expository'],
   ocean_facts: ['expository'],
+  frym: ['expository'],
   the_conversation: ['argumentative'],
   simple_wikipedia: ['expository', 'reference'],
   owid: ['argumentative'], // T-2 — 데이터 논증문 (CC-BY → 발행 가능 argumentative 보강)

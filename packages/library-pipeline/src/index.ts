@@ -143,6 +143,17 @@ export {
   OCEAN_FACTS_FEEDS,
 } from './ingest-article/ocean-facts'
 export type { OceanFactsListItem } from './ingest-article/ocean-facts'
+// Frontiers for Young Minds — **중당쀰3 칸을 메우는 유일한 후보**(FK 중앙 10.55 · 적중 100%).
+export {
+  ingestFrymArticle,
+  listFrymFeed,
+  frymAbstractText,
+  frymLicenseUrl,
+  frymLicenseCode,
+  frymPublishedAt,
+  FRYM_FEEDS,
+} from './ingest-article/frontiers-young-minds'
+export type { FrymListItem } from './ingest-article/frontiers-young-minds'
 export type { NoaaListItem } from './ingest-article/noaa'
 // CTP DCP T2 — 결정론 order/insert 문항 생성 (LLM 0)
 export { generateDcpItems, explainDcpEligibility } from './dcp/generate-items'
