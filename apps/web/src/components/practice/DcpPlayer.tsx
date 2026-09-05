@@ -8,12 +8,12 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Check, Home, Sparkles, X } from 'lucide-react'
+import { AlertTriangle, ArrowRight, Check, Home, RefreshCw, Sparkles, X } from 'lucide-react'
 
 import {
   correctOrderFromKey,
   type DcpErrorCause,
-  type DcpGradeResult,
+  type DcpGradeOk,
   type DcpChoicePayload,
   type DcpInsertPayload,
   type DcpItem,
@@ -32,7 +32,12 @@ type Phase = 'answering' | 'grading' | 'graded' | 'done'
 export function DcpPlayer({ items }: { items: DcpItem[] }) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
-  const [result, setResult] = useState<DcpGradeResult | null>(null)
+  const [result, setResult] = useState<DcpGradeOk | null>(null)
+  /**
+   * 채점을 **못 한** 이유. 오답과 다른 상태다 — 예전에는 둘이 같은 값이라
+   * 세션이 「채점 중」에 잠기거나(예외) 맞힌 학습자에게 「아쉬워요」라고 말했다(RPC 오류).
+   */
+  const [gradeError, setGradeError] = useState<string | null>(null)
   const [cause, setCause] = useState<DcpErrorCause | null>(null)
   const [correctCount, setCorrectCount] = useState(0)
 
@@ -42,8 +47,26 @@ export function DcpPlayer({ items }: { items: DcpItem[] }) {
 
   async function handleSubmit(answer: Record<string, unknown>) {
     if (!item) return
+    setGradeError(null)
     setPhase('grading')
-    const res = await gradeDcpItem(item.id, answer)
+    // ⚠️ **reject 도 잡는다.** try/catch 가 없던 동안 세션 만료·네트워크 끊김이
+    //   `setPhase('graded')` 에 못 닿아 제출 버튼이 회색으로 잠긴 채 영영 멈췄다.
+    //   새로고침이 유일한 탈출이었고, 그러면 1번 문항부터 다시였다.
+    let res
+    try {
+      res = await gradeDcpItem(item.id, answer)
+    } catch (e) {
+      // 학습자가 고른 답은 그대로 둔다(입력 유실 금지) — 화면을 'answering' 으로 되돌리면
+      // 문항 컴포넌트가 언마운트되지 않으므로 배열·선택이 남는다.
+      setGradeError(e instanceof Error ? e.message : '연결이 끊겼어요.')
+      setPhase('answering')
+      return
+    }
+    if (!res.ok) {
+      setGradeError(res.error)
+      setPhase('answering')
+      return
+    }
     setResult(res)
     if (res.correct) setCorrectCount((c) => c + 1)
     setPhase('graded')
@@ -62,6 +85,7 @@ export function DcpPlayer({ items }: { items: DcpItem[] }) {
     setIdx((i) => i + 1)
     setResult(null)
     setCause(null)
+    setGradeError(null)
     setPhase('answering')
   }
 
@@ -112,6 +136,34 @@ export function DcpPlayer({ items }: { items: DcpItem[] }) {
         </div>
       </div>
 
+      {/* 채점 실패 — **오답이 아니라 「못 했다」**. 고른 답은 그대로 남아 있으므로
+          「제출」을 다시 누르면 된다(그 사실을 말해 주지 않으면 학습자는 새로고침한다). */}
+      {gradeError && phase !== 'graded' && (
+        <div
+          role="alert"
+          aria-live="assertive"
+          className="flex items-start gap-3 rounded-[var(--r-md)] border border-[var(--error)] bg-[var(--error-light)] p-3"
+        >
+          <span
+            className="mt-[1px] inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--bg)] text-[var(--error-ink)]"
+            aria-hidden
+          >
+            <AlertTriangle size={14} strokeWidth={2.5} />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="break-keep font-display text-[13px] font-[700] text-[var(--error-ink)]">
+              채점을 못 했어요 — 고른 답은 그대로 있어요.
+            </p>
+            <p className="mt-1 break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]">
+              아래 「제출」을 한 번 더 눌러 주세요. 계속 안 되면 로그인이 풀렸을 수 있어요.
+            </p>
+          </div>
+          <span className="inline-flex shrink-0 items-center gap-1 font-mono text-[11px] text-[var(--t3)]" aria-hidden>
+            <RefreshCw size={12} strokeWidth={2.25} />
+          </span>
+        </div>
+      )}
+
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
           <Feedback item={item} result={result} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} />
@@ -151,7 +203,7 @@ function Feedback({
   isLast,
 }: {
   item: DcpItem
-  result: DcpGradeResult
+  result: DcpGradeOk
   cause: DcpErrorCause | null
   onCause: (c: DcpErrorCause) => void
   onNext: () => void

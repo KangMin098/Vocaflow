@@ -7,19 +7,20 @@
 
 'use client'
 
-import { ArrowLeft, ArrowRight, BookOpen, Clock, Play, RefreshCw, Sparkles, X } from 'lucide-react'
+import { AlertTriangle, ArrowLeft, ArrowRight, BookOpen, Check, Clock, Play, RefreshCw, Sparkles, X } from 'lucide-react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
 import { MOCK_SESSION } from './mock-data'
-import type { AnswerState, QuizAnswer, QuizScreen, QuizSession } from './types'
+import type { AnswerState, QuizAnswer, QuizQuestion, QuizScreen, QuizSession } from './types'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
 import { sanitizeInternalPath } from '@/lib/layout/session-return'
 import type { RecommendedAction } from '@/lib/recommend/types'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import { recordGameScore } from '@/lib/scores/record-score'
+import { gradeScriptQuizAnswer, type ScriptQuizGrade } from '@/lib/scriptquiz/grade-actions'
 import { pushPendingTextResult } from '@/lib/srs/session-storage'
 
 // ══════════════════════════════════════════════════════════════
@@ -41,6 +42,15 @@ export function isTrueOption(text: string): boolean {
   return /^(true|참|o\b|yes)/.test(t)
 }
 
+/**
+ * O/X 오버레이가 떠 있는 시간.
+ *
+ * ⚠️ **이 값은 더 이상 "다음 문항까지의 시간" 이 아니다.** 예전에는 이 800ms 뒤 200ms 를
+ *   더해 **1,000ms 만에 화면이 다음 문항으로 갈아치워졌다.** 정답 선지와 「스크립트 근거」가
+ *   딱 그 1초만 존재했고, 390px 에서는 근거가 접힘선 아래라 스크롤할 새도 없었다.
+ *   되감기·이전 문항도 없어서 **틀린 문항의 정답을 알 길이 세션 전체에 없었다.**
+ *   지금은 학습자가 「다음」을 누른다(Calm UI — 재촉하지 않고, 모달로 끊지도 않는다).
+ */
 const FEEDBACK_DURATION = 800 // ms — O/X 오버레이 표시 시간
 const QUESTION_TIME_LIMIT = 30 // sec — 한 문제당 권장 시간
 
@@ -70,15 +80,21 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
   const [secondsLeft, setSecondsLeft] = useState(QUESTION_TIME_LIMIT)
   const [questionStartedAt, setQuestionStartedAt] = useState<number>(0)
   const [feedback, setFeedback] = useState<'O' | 'X' | null>(null)
+  /** 서버가 채점하며 돌려준 이 문항의 정답·근거. **답하기 전에는 null 이고 아무 데도 없다.** */
+  const [graded, setGraded] = useState<{ correctIndex: number; sourceSnippet: string } | null>(null)
+  /** 채점을 **못 한** 이유. 오답이 아니다 — 같은 값으로 뭉개면 맞힌 사람에게 틀렸다고 말한다. */
+  const [gradeError, setGradeError] = useState<string | null>(null)
 
   const currentQ = session.questions[currentIdx]
   const totalQ = session.questions.length
 
   // ── 타이머 ──
+  // 채점을 기다리는 동안(`grading`)과 채점 실패 뒤에는 멈춘다 — 안 그러면 네트워크가
+  // 죽은 동안 시간이 흘러 「시간 초과」가 다시 실패하는 고리가 된다.
   useEffect(() => {
-    if (screen !== 'question' || answerState === 'answered') return
+    if (screen !== 'question' || answerState !== 'idle' || gradeError) return
     if (secondsLeft <= 0) {
-      handleAnswer(-1) // 시간 초과
+      void handleAnswer(-1) // 시간 초과
       return
     }
     const t = setTimeout(() => setSecondsLeft((s) => s - 1), 1000)
@@ -86,7 +102,21 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
     // handleAnswer 는 currentIdx · currentQ 캡처 — 의도된 stale closure
     // (currentIdx 변경 시 secondsLeft가 리셋되어 useEffect 재실행)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [secondsLeft, screen, answerState])
+  }, [secondsLeft, screen, answerState, gradeError])
+
+  // ── 답한 뒤 Enter/Space 로 다음 ── (「다음」 버튼과 같은 동작 — 손을 안 옮겨도 되게)
+  useEffect(() => {
+    if (screen !== 'question' || answerState !== 'answered') return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        goNext()
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [screen, answerState, currentIdx, answers])
 
   // ── 키보드 단축키 (1~4 / O,X) ──
   useEffect(() => {
@@ -96,7 +126,7 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
       const num = parseInt(e.key, 10)
       if (!isNaN(num) && num >= 1 && num <= max) {
         e.preventDefault()
-        handleAnswer(num - 1)
+        void handleAnswer(num - 1)
         return
       }
       if (currentQ.type === 'truefalse') {
@@ -108,10 +138,10 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
         const no = yes === 0 ? 1 : 0
         if (k === 'o' || e.key === 'ArrowLeft') {
           e.preventDefault()
-          handleAnswer(yes)
+          void handleAnswer(yes)
         } else if (k === 'x' || e.key === 'ArrowRight') {
           e.preventDefault()
-          handleAnswer(no)
+          void handleAnswer(no)
         }
       }
     }
@@ -127,70 +157,109 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
     setSelectedIdx(null)
     setAnswerState('idle')
     setAnswers([])
+    setGraded(null)
+    setGradeError(null)
+    setFeedback(null)
     setSecondsLeft(QUESTION_TIME_LIMIT)
     setQuestionStartedAt(Date.now())
   }
 
-  // ── 답변 처리 ──
-  function handleAnswer(idx: number) {
+  // ── 답변 처리 — **채점은 서버가 한다** ──
+  //
+  // ⚠️ 예전에는 `idx === currentQ.correctIndex` 였다. 정답이 이미 브라우저에 있었기 때문인데,
+  //   그건 곧 **시작하기를 누르기 전에 페이지 소스에 정답표가 다 있었다**는 뜻이다.
+  //   지금은 답을 서버로 보내고 정답·근거를 **그때 하나만** 받는다(DCP 와 같은 모양).
+  async function handleAnswer(idx: number) {
     if (answerState !== 'idle') return
-    const isCorrect = idx === currentQ.correctIndex
     const timeMs = Date.now() - questionStartedAt
-    const newAnswer: QuizAnswer = {
-      questionId: currentQ.id,
-      selectedIndex: idx,
-      isCorrect,
-      timeMs,
-    }
-    const finalAnswers = [...answers, newAnswer]
+    const q = currentQ
 
     setSelectedIdx(idx)
-    setAnswerState('answered')
-    setFeedback(isCorrect ? 'O' : 'X')
-    setAnswers(finalAnswers)
+    setAnswerState('grading')
+    setGradeError(null)
 
-    // 피드백 오버레이 후 다음 문제로
-    setTimeout(() => {
-      setFeedback(null)
-      setTimeout(() => {
-        if (currentIdx + 1 >= totalQ) {
-          // §17 [4] L4d 통합 검증 — 텍스트 단위 결과 (Plan B)
-          // textId 미지정 시 session.textTitle 을 stable key 로 사용 (Phase 2: real textId 교체)
-          const correctCount = finalAnswers.filter((a) => a.isCorrect).length
-          const totalCount = finalAnswers.length
-          const accuracy = totalCount > 0 ? (correctCount / totalCount) * 100 : 0
-          pushPendingTextResult({
-            textId: textId ?? session.textTitle,
-            accuracy,
-            correctCount,
-            totalCount,
-            completedAt: new Date().toISOString(),
-            module: 'scriptquiz',
-          })
-          // scores 영속화 (fire-and-forget) — sessionStorage pending 은 소비자가 없어
-          // 여기서 직접 적재해야 daily_activity/최근활동/주간리포트에 반영된다.
-          void recordGameScore({
-            module: 'scriptquiz',
-            score: correctCount * 20,
-            totalQuestions: totalCount,
-            correctCount,
-            accuracy: Math.round(accuracy),
-            durationSeconds: Math.round(finalAnswers.reduce((s, a) => s + a.timeMs, 0) / 1000),
-            textId, // 큐레이션 챕터 경로는 undefined — texts FK 아닌 값은 넣지 않음
-            // 그 경로가 남길 자리가 없던 "어떤 도서였나" 를 content_ref 가 받는다.
-            content: session.content,
-            metadata: { textTitle: session.textTitle, textChapter: session.textChapter },
-          })
-          setScreen('result')
-        } else {
-          setCurrentIdx((i) => i + 1)
-          setSelectedIdx(null)
-          setAnswerState('idle')
-          setSecondsLeft(QUESTION_TIME_LIMIT)
-          setQuestionStartedAt(Date.now())
-        }
-      }, 200)
-    }, FEEDBACK_DURATION)
+    let res: ScriptQuizGrade
+    try {
+      res = await gradeScriptQuizAnswer(session.source, q.id, idx)
+    } catch (e) {
+      // 채점 실패를 오답으로 번역하지 않는다 — 다시 고를 수 있는 상태로 되돌린다.
+      setGradeError(e instanceof Error ? e.message : '연결이 끊겼어요.')
+      setSelectedIdx(null)
+      setAnswerState('idle')
+      return
+    }
+    if (!res.ok) {
+      setGradeError(res.error)
+      setSelectedIdx(null)
+      setAnswerState('idle')
+      return
+    }
+
+    const g = res
+    setGraded({ correctIndex: g.correctIndex, sourceSnippet: g.sourceSnippet })
+    setAnswerState('answered')
+    setFeedback(g.correct ? 'O' : 'X')
+    setAnswers((prev) => [
+      ...prev,
+      {
+        questionId: q.id,
+        selectedIndex: idx,
+        correctIndex: g.correctIndex,
+        isCorrect: g.correct,
+        sourceSnippet: g.sourceSnippet,
+        timeMs,
+      },
+    ])
+    // 오버레이만 800ms 뒤 사라진다. **화면은 그대로 남는다** — 넘기는 것은 학습자다.
+    window.setTimeout(() => setFeedback(null), FEEDBACK_DURATION)
+  }
+
+  // ── 다음 문항 / 마무리 — 학습자가 누른다 ──
+  function goNext() {
+    if (answerState !== 'answered') return
+    if (currentIdx + 1 >= totalQ) {
+      finishSession(answers)
+      setScreen('result')
+      return
+    }
+    setCurrentIdx((i) => i + 1)
+    setSelectedIdx(null)
+    setAnswerState('idle')
+    setGraded(null)
+    setGradeError(null)
+    setFeedback(null)
+    setSecondsLeft(QUESTION_TIME_LIMIT)
+    setQuestionStartedAt(Date.now())
+  }
+
+  function finishSession(finalAnswers: QuizAnswer[]) {
+    // §17 [4] L4d 통합 검증 — 텍스트 단위 결과 (Plan B)
+    // textId 미지정 시 session.textTitle 을 stable key 로 사용 (Phase 2: real textId 교체)
+    const correctCount = finalAnswers.filter((a) => a.isCorrect).length
+    const totalCount = finalAnswers.length
+    const accuracy = totalCount > 0 ? (correctCount / totalCount) * 100 : 0
+    pushPendingTextResult({
+      textId: textId ?? session.textTitle,
+      accuracy,
+      correctCount,
+      totalCount,
+      completedAt: new Date().toISOString(),
+      module: 'scriptquiz',
+    })
+    // scores 영속화 (fire-and-forget) — sessionStorage pending 은 소비자가 없어
+    // 여기서 직접 적재해야 daily_activity/최근활동/주간리포트에 반영된다.
+    void recordGameScore({
+      module: 'scriptquiz',
+      score: correctCount * 20,
+      totalQuestions: totalCount,
+      correctCount,
+      accuracy: Math.round(accuracy),
+      durationSeconds: Math.round(finalAnswers.reduce((s, a) => s + a.timeMs, 0) / 1000),
+      textId, // 큐레이션 챕터 경로는 undefined — texts FK 아닌 값은 넣지 않음
+      // 그 경로가 남길 자리가 없던 "어떤 도서였나" 를 content_ref 가 받는다.
+      content: session.content,
+      metadata: { textTitle: session.textTitle, textChapter: session.textChapter },
+    })
   }
 
   // ── Result 통계 ──
@@ -220,7 +289,11 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
           question={currentQ}
           selectedIdx={selectedIdx}
           answerState={answerState}
+          graded={graded}
+          gradeError={gradeError}
+          isLast={currentIdx + 1 >= totalQ}
           onSelect={handleAnswer}
+          onNext={goNext}
           showKorean={showKorean}
         />
       )}
@@ -380,22 +453,35 @@ function QuestionScreen({
   question,
   selectedIdx,
   answerState,
+  graded,
+  gradeError,
+  isLast,
   onSelect,
+  onNext,
   showKorean = false,
 }: {
   questionIdx: number
   totalQ: number
   score: number
   secondsLeft: number
-  question: typeof MOCK_SESSION.questions[number]
+  question: QuizQuestion
   selectedIdx: number | null
   answerState: AnswerState
+  /** 서버 채점 결과 — 답하기 전에는 null. 정답 인덱스가 화면에 들어오는 유일한 통로다. */
+  graded: { correctIndex: number; sourceSnippet: string } | null
+  gradeError: string | null
+  isLast: boolean
   onSelect: (idx: number) => void
+  onNext: () => void
   showKorean?: boolean
 }) {
   const progressPct = ((questionIdx + 1) / totalQ) * 100
   const timeColor =
     secondsLeft > 15 ? 'var(--success)' : secondsLeft > 7 ? 'var(--active)' : 'var(--error)'
+  const answered = answerState === 'answered' && graded !== null
+  const locked = answerState !== 'idle'
+  const correctIdx = graded?.correctIndex ?? -1
+  const isRight = answered && selectedIdx === correctIdx
 
   return (
     <>
@@ -441,15 +527,98 @@ function QuestionScreen({
           )}
         </div>
 
+        {/* ── 채점 실패 — **오답이 아니다.** 다시 고를 수 있는 상태로 되돌아와 있다. ── */}
+        {gradeError && !answered && (
+          <div
+            role="alert"
+            aria-live="assertive"
+            className="mt-5 flex items-start gap-3 rounded-[var(--r-lg)] border border-[var(--error)] bg-[var(--error-light)] p-4"
+          >
+            <span
+              className="mt-[1px] inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--bg)] text-[var(--error-ink)]"
+              aria-hidden
+            >
+              <AlertTriangle size={14} strokeWidth={2.5} />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="break-keep font-display text-[13px] font-[700] text-[var(--error-ink)]">
+                채점을 못 했어요 — 오답 처리하지 않았어요.
+              </p>
+              <p className="mt-1 break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]">
+                한 번 더 골라 주세요. 시간은 멈춰 뒀어요.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ── 판정 + 스크립트 근거 — **선택지 위**에 둔다 ──
+            390px 에서 선택지 아래는 접힘선 밑이라 아무도 못 읽었다. 게다가 예전에는
+            1,000ms 뒤 화면이 통째로 갈아치워져 스크롤할 새조차 없었다.
+            색(배경) + 아이콘 + 등장 애니메이션 3중 + `aria-live` — 색상 단독 금지. */}
+        {answered && (
+          <div
+            aria-live="polite"
+            className="mt-5 flex flex-col gap-3 rounded-[var(--r-lg)] border-l-4 p-4"
+            style={{
+              borderColor: isRight ? 'var(--success)' : 'var(--error)',
+              background: isRight ? 'var(--success-light)' : 'var(--error-light)',
+              animation: 'fadeInScale var(--dur-slow) var(--ease-out)',
+            }}
+          >
+            <p className="flex items-center gap-2 break-keep font-display text-[14px] font-[700]">
+              <span
+                className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--bg)]"
+                style={{ color: isRight ? 'var(--success)' : 'var(--error-ink)' }}
+                aria-hidden
+              >
+                {isRight ? <Check size={14} strokeWidth={3} /> : <X size={14} strokeWidth={3} />}
+              </span>
+              <span style={{ color: isRight ? 'var(--success)' : 'var(--error-ink)' }}>
+                {isRight ? '맞혔어요' : selectedIdx === -1 ? '시간이 지났어요' : '아쉬워요'}
+              </span>
+              {!isRight && (
+                <span className="font-mono text-[12px] font-[700] text-[var(--t2)]">
+                  정답 {correctIdx + 1}번
+                </span>
+              )}
+            </p>
+            {!isRight && (
+              <p className="break-keep font-body text-[12.5px] leading-relaxed text-[var(--t2)]">
+                내 답{' '}
+                <span className="font-english text-[13px] text-[var(--t1)]">
+                  {selectedIdx != null && selectedIdx >= 0
+                    ? question.options[selectedIdx]?.text ?? '—'
+                    : '고르지 못했어요'}
+                </span>
+                {' · '}정답{' '}
+                <span className="font-english text-[13px] font-[600] text-[var(--t1)]">
+                  {question.options[correctIdx]?.text ?? '—'}
+                </span>
+              </p>
+            )}
+            {graded?.sourceSnippet && (
+              <div>
+                <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--t2)]">
+                  스크립트 근거
+                </p>
+                <p className="mt-1.5 font-english text-[14px] italic leading-[1.7] text-[var(--t1)]">
+                  {graded.sourceSnippet}
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* 선택지 — OX 타입은 가로 2열 큰 버튼, multiple 은 세로 리스트 */}
         {question.type === 'truefalse' ? (
           <ul className="mt-5 grid grid-cols-2 gap-3" role="radiogroup" aria-label="OX 선택">
             {question.options.map((opt, i) => {
               const isSelected = selectedIdx === i
-              const isCorrect = i === question.correctIndex
-              const showCorrect = answerState === 'answered' && isCorrect
-              const showWrong = answerState === 'answered' && isSelected && !isCorrect
-              const isOther = answerState === 'answered' && !isSelected && !isCorrect
+              // 정답 표시는 **서버가 돌려준 correctIndex** 로만 한다 — 답하기 전에는 -1 이라 아무것도 안 켜진다.
+              const isCorrect = i === correctIdx
+              const showCorrect = answered && isCorrect
+              const showWrong = answered && isSelected && !isCorrect
+              const isOther = answered && !isSelected && !isCorrect
               // ⚠️ **기호는 자리가 아니라 선지의 뜻에서 온다.**
               //    예전에는 `i === 0 ? 'O' : 'X'` 였다. 그런데 DB 에는 options 가
               //    `["False","True"]` 순서인 행이 있어(실측 2026-09-05 · 4/47건),
@@ -465,7 +634,7 @@ function QuestionScreen({
                     type="button"
                     role="radio"
                     onClick={() => onSelect(i)}
-                    disabled={answerState === 'answered'}
+                    disabled={locked}
                     aria-checked={isSelected}
                     className={`flex h-32 w-full flex-col items-center justify-center gap-2 rounded-[var(--r-lg)] border-2 transition-all duration-[var(--dur-normal)] md:h-40 ${
                       showCorrect
@@ -506,17 +675,18 @@ function QuestionScreen({
           <ul className="mt-5 space-y-3">
             {question.options.map((opt, i) => {
               const isSelected = selectedIdx === i
-              const isCorrect = i === question.correctIndex
-              const showCorrect = answerState === 'answered' && isCorrect
-              const showWrong = answerState === 'answered' && isSelected && !isCorrect
-              const isOther = answerState === 'answered' && !isSelected && !isCorrect
+              // 정답 표시는 **서버가 돌려준 correctIndex** 로만 한다 — 답하기 전에는 -1 이라 아무것도 안 켜진다.
+              const isCorrect = i === correctIdx
+              const showCorrect = answered && isCorrect
+              const showWrong = answered && isSelected && !isCorrect
+              const isOther = answered && !isSelected && !isCorrect
 
               return (
                 <li key={i}>
                   <button
                     type="button"
                     onClick={() => onSelect(i)}
-                    disabled={answerState === 'answered'}
+                    disabled={locked}
                     className={`relative flex w-full items-center gap-4 rounded-[var(--r-lg)] border-2 p-4 text-left transition-all duration-[var(--dur-normal)] md:p-5 ${
                       showCorrect
                         ? 'border-[var(--success)] bg-[var(--success-light)]'
@@ -584,16 +754,29 @@ function QuestionScreen({
           </p>
         )}
 
-        {/* 답한 후 sourceSnippet 보여주기 */}
-        {answerState === 'answered' && question.sourceSnippet && (
-          <div className="mt-5 rounded-[var(--r-lg)] border-l-4 border-[var(--active)] bg-[var(--active-light)]/40 p-4">
-            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.10em] text-[var(--active)]">
-              스크립트 근거
-            </p>
-            <p className="mt-2 font-english text-[14px] italic leading-[1.7] text-[var(--t1)]">
-              {question.sourceSnippet}
-            </p>
-          </div>
+        {/* 채점 중 — 「아무 일도 안 일어난다」로 보이지 않게 말해 준다. */}
+        {answerState === 'grading' && (
+          <p className="mt-3 text-center font-mono text-[10px] text-[var(--t2)]" aria-live="polite">
+            채점하는 중…
+          </p>
+        )}
+
+        {/* ── 다음으로 — **넘기는 것은 학습자다.** 자동 전진(1,000ms)을 없앤 자리. ── */}
+        {answered && (
+          <button
+            type="button"
+            onClick={onNext}
+
+            className="mt-6 inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 py-3 font-display text-[15px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
+          >
+            {isLast ? '결과 보기' : '다음 문항'}
+            <ArrowRight size={15} strokeWidth={2.25} aria-hidden />
+          </button>
+        )}
+        {answered && (
+          <p className="mt-2 text-center font-mono text-[10px] text-[var(--t2)]">
+            Enter 로도 넘어가요. 근거를 다 읽고 눌러도 괜찮아요.
+          </p>
         )}
       </div>
     </>
@@ -613,14 +796,18 @@ function ResultScreen({
 }: {
   totalQ: number
   stats: { correct: number; wrong: number; accuracy: number; avgTimeSec: number }
-  questions: typeof MOCK_SESSION.questions
+  questions: QuizQuestion[]
   answers: QuizAnswer[]
   onRetry: () => void
   recommendation?: RecommendedAction
 }) {
-  const wrongQs = questions.filter((q) =>
-    answers.find((a) => a.questionId === q.id && !a.isCorrect)
-  )
+  // ⚠️ **문항이 아니라 답에서 만든다.** 예전에는 틀린 문항의 `question` 과 `sourceSnippet`
+  //   만 그리고 **정답도, 내가 고른 것도 안 보여 줬다** — 즉 틀린 문항의 정답을 알 경로가
+  //   세션 전체에 하나도 없었다. 채점 결과(`QuizAnswer`)에 둘 다 들어 있으므로 여기서 편다.
+  const wrongItems = answers
+    .filter((a) => !a.isCorrect)
+    .map((a) => ({ answer: a, question: questions.find((q) => q.id === a.questionId) }))
+    .filter((x): x is { answer: QuizAnswer; question: QuizQuestion } => x.question !== undefined)
 
   // 격려 메시지 — 공감 피드백
   const encouragement =
@@ -720,27 +907,55 @@ function ResultScreen({
         </div>
 
         {/* 오답 복습 */}
-        {wrongQs.length > 0 && (
+        {wrongItems.length > 0 && (
           <section className="mt-8" aria-label="오답 복습">
             <header className="mb-3 flex items-center gap-2">
               <RefreshCw size={14} className="text-[var(--active)]" aria-hidden />
               <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">
                 다시 만나봐요
               </h2>
-              <span className="font-mono text-[11px] text-[var(--t2)]">{wrongQs.length}문제</span>
+              <span className="font-mono text-[11px] text-[var(--t2)]">{wrongItems.length}문제</span>
             </header>
             <ul className="space-y-2">
-              {wrongQs.map((q) => (
+              {wrongItems.map(({ answer, question }) => (
                 <li
-                  key={q.id}
+                  key={question.id}
                   className="rounded-[var(--r-md)] border-l-4 border-[var(--active)] bg-[var(--active-light)]/40 p-3"
                 >
-                  <p className="font-display text-[13px] font-[600] text-[var(--t1)]">
-                    {q.question}
+                  {/* 영어 본문은 세션 내내 같은 서체(Lora)로 — 문제 화면과 갈리면 같은 문장이 두 얼굴이 된다. */}
+                  <p className="font-english text-[13px] font-[600] leading-[1.6] text-[var(--t1)]">
+                    {question.question}
                   </p>
-                  <p className="mt-1.5 font-english text-[12px] italic leading-relaxed text-[var(--t2)]">
-                    “{q.sourceSnippet}”
-                  </p>
+
+                  {/* 내 답 / 정답 — 색만으로 구분하지 않는다(아이콘 + 라벨 동반). */}
+                  <dl className="mt-2 flex flex-col gap-1.5">
+                    <div className="flex items-start gap-2">
+                      <dt className="inline-flex shrink-0 items-center gap-1 font-display text-[11px] font-[700] text-[var(--error-ink)]">
+                        <X size={12} strokeWidth={3} aria-hidden />
+                        <span className="break-keep">내 답</span>
+                      </dt>
+                      <dd className="min-w-0 flex-1 font-english text-[12.5px] leading-relaxed text-[var(--t2)]">
+                        {answer.selectedIndex >= 0
+                          ? question.options[answer.selectedIndex]?.text ?? '—'
+                          : '시간이 지나 못 골랐어요'}
+                      </dd>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <dt className="inline-flex shrink-0 items-center gap-1 font-display text-[11px] font-[700] text-[var(--success)]">
+                        <Check size={12} strokeWidth={3} aria-hidden />
+                        <span className="break-keep">정답</span>
+                      </dt>
+                      <dd className="min-w-0 flex-1 font-english text-[12.5px] font-[600] leading-relaxed text-[var(--t1)]">
+                        {question.options[answer.correctIndex]?.text ?? '—'}
+                      </dd>
+                    </div>
+                  </dl>
+
+                  {answer.sourceSnippet && (
+                    <p className="mt-2 font-english text-[12px] italic leading-relaxed text-[var(--t2)]">
+                      “{answer.sourceSnippet}”
+                    </p>
+                  )}
                 </li>
               ))}
             </ul>

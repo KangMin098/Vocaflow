@@ -25,17 +25,28 @@ export type {
   ChapterQuizCatalogChapter,
 } from '@/components/game/scriptquiz/types'
 
+/**
+ * 화면용으로 읽는 열만. **`correct_index`·`source_snippet` 은 일부러 없다** —
+ * RPC 는 그 열까지 돌려주지만(시그니처 고정) 여기서 받지 않으면 다음 사람이
+ * "있으니까 쓰자" 로 다시 실어 보내는 일이 안 생긴다.
+ */
 interface QuizQuestionRow {
   id: string
   type: string
   question: string
   question_ko: string | null
   options: QuizOption[] | null
-  correct_index: number
-  source_snippet: string | null
-  source_sentence_idx: number | null
 }
 
+/**
+ * DB 행 → 화면에 내려보낼 문항.
+ *
+ * ⚠️ **`correct_index` · `source_snippet` 을 여기서 버린다.** 이 값들이 살아 있던 동안
+ *   `ScriptQuiz`(`'use client'`)의 prop 으로 직렬화돼 **시작하기를 누르기 전에** 페이지
+ *   소스에 정답표가 다 보였다(`Ctrl+U` 로 재현). RPC 는 그대로 두고(마이그레이션 불필요)
+ *   **앱 계층에서 자른다** — 자르는 자리가 한 곳이어야 다시 새지 않는다.
+ *   답한 뒤의 정답·근거는 `gradeScriptQuizAnswer` 가 그 문항 하나만 돌려준다.
+ */
 function rowToQuestion(r: QuizQuestionRow): QuizQuestion {
   const type: QuizQuestion['type'] =
     r.type === 'truefalse' || r.type === 'blank' ? r.type : 'multiple'
@@ -45,9 +56,6 @@ function rowToQuestion(r: QuizQuestionRow): QuizQuestion {
     question: r.question,
     ...(r.question_ko ? { questionKo: r.question_ko } : {}),
     options: Array.isArray(r.options) ? r.options : [],
-    correctIndex: r.correct_index,
-    sourceSnippet: r.source_snippet ?? '',
-    ...(r.source_sentence_idx != null ? { sourceSentenceIdx: r.source_sentence_idx } : {}),
   }
 }
 
@@ -97,6 +105,8 @@ export async function fetchChapterQuizSession(
     textChapter: chapterLabel,
     // 큐레이션 챕터는 texts 행이 없다 — 도서 자체로 귀속시켜야 챕터를 가로질러 합쳐진다.
     content: contentRefFromBook(libraryBookId, chapterIdx),
+    // 정답표가 어디 있는지만 들려 보낸다 — 값이 아니라 **주소**다.
+    source: { kind: 'book', bookId: libraryBookId, chapterIdx },
     questions: rows.map(rowToQuestion),
   }
 }
@@ -169,7 +179,8 @@ export async function fetchQuizSession(
   const [{ data: qRows, error: qErr }, { data: textRow }] = await Promise.all([
     client
       .from('quiz_questions')
-      .select('id, type, question, question_ko, options, correct_index, source_snippet, source_sentence_idx')
+      // ⚠️ 정답·근거 열은 **받지도 않는다.** 받아 두면 다음 사람이 "있으니까" 실어 보낸다.
+      .select('id, type, question, question_ko, options')
       .eq('user_id', userId)
       .eq('text_id', textId)
       .order('created_at', { ascending: true }),
@@ -197,6 +208,7 @@ export async function fetchQuizSession(
   return {
     textTitle: text?.title ?? '스크립트',
     content: text ? contentRefFromText(text) : { type: 'text', id: textId },
+    source: { kind: 'text', textId },
     questions: rows.map(rowToQuestion),
   }
 }

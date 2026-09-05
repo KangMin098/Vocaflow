@@ -235,7 +235,13 @@ export async function fetchTextbookPracticeItems(
   return { items, unavailable: false, signedOut: false }
 }
 
-/** 서버 answer_key 로 채점(grade_dcp_item). attempt 를 기록하고 attempt_id 반환. */
+/**
+ * 서버 answer_key 로 채점(grade_dcp_item). attempt 를 기록하고 attempt_id 반환.
+ *
+ * ⚠️ **실패는 오답이 아니다.** 반환 타입이 두 갈래(`ok:true` / `ok:false`)인 이유가 그것이다 —
+ *   자세한 근거는 `dcp.ts` 의 `DcpGradeFailed` 주석. 여기서 던지지 않고 값으로 돌려주는 것은
+ *   server action 이 reject 하면 클라이언트가 받는 것이 "요청 실패" 한 줄뿐이기 때문이다.
+ */
 export async function gradeDcpItem(
   itemId: string,
   answer: Record<string, unknown>,
@@ -243,10 +249,14 @@ export async function gradeDcpItem(
   const client = await createClient()
   const loose = client as unknown as SupabaseClient
   const { data, error } = await loose.rpc('grade_dcp_item', { p_item_id: itemId, p_answer: answer })
-  if (error || !data) return { correct: false, attemptId: null, answerKey: null }
+  if (error) return { ok: false, error: error.message }
+  if (!data) return { ok: false, error: '채점 결과가 비어 있어요.' }
   const d = data as { correct?: boolean; attempt_id?: string; answer_key?: Record<string, unknown> | null }
+  // `correct` 자체가 없으면 채점이 안 된 것이다 — `false` 로 읽으면 또 오답 판정이 된다.
+  if (typeof d.correct !== 'boolean') return { ok: false, error: '채점 결과를 읽지 못했어요.' }
   return {
-    correct: d.correct === true,
+    ok: true,
+    correct: d.correct,
     attemptId: d.attempt_id ?? null,
     answerKey: d.answer_key ?? null,
   }

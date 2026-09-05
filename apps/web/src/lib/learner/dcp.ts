@@ -48,13 +48,32 @@ export interface DcpItem {
   payload: DcpOrderPayload | DcpInsertPayload | DcpChoicePayload
 }
 
-/** grade_dcp_item 반환. 오답이면 answerKey 동봉(정답 공개용). */
-export interface DcpGradeResult {
+/** 채점이 실제로 끝난 결과. 오답이면 answerKey 동봉(정답 공개용). */
+export interface DcpGradeOk {
+  ok: true
   correct: boolean
   attemptId: string | null
   /** order: {source_order} / insert: {position} / 선택지: {answer:1..5, rationale_ko} / 정답이면 null */
   answerKey: Record<string, unknown> | null
 }
+
+/**
+ * 채점을 **못 한** 상태. 오답이 아니다.
+ *
+ * ⚠️ 예전에는 `if (error || !data) return { correct: false, … }` 였다 — RPC 거부·타임아웃을
+ *   「틀렸다」로 번역한 것이다. 그러면 화면이 **맞힌 학습자에게 "아쉬워요" 라고 말하고**
+ *   정답 공개도 못 하니(answerKey 가 null) 왜 틀렸는지도 안 나온다. 게다가 attempt 행이
+ *   안 남아 그 오답 판정은 어디에도 근거가 없다.
+ *   같은 파일 `fetchTextbookPracticeItems` 는 정반대를 이미 적어 뒀다 —
+ *   "조회 실패를 빈 목록으로 뭉개지 않는다". 채점 경로만 그 규칙을 안 따르고 있었다.
+ *   **타입으로 갈라 둔다** — 뭉개려면 컴파일러를 지나야 한다.
+ */
+export interface DcpGradeFailed {
+  ok: false
+  error: string
+}
+
+export type DcpGradeResult = DcpGradeOk | DcpGradeFailed
 
 // ── error_cause 정적 5원인 (오답 자기보고 → 격려 tip + 존재 라우트만 링크) ──
 export type DcpErrorCause = 'vocab' | 'parsing' | 'structure' | 'inference' | 'timing'

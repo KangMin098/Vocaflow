@@ -12,6 +12,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createClient } from '@/lib/supabase/server'
+import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select'
 
 /**
  * RLS 를 그대로 따르는 학습자 클라이언트. `@vocaflow/types` 의 `Database` 는 스키마에서
@@ -82,17 +83,34 @@ function yearOf(examId: string): number {
 export async function loadCsatTypeCards(): Promise<{ cards: CsatTypeCard[]; error: string | null }> {
   const db = await csatDb()
 
-  const [types, items, reports] = await Promise.all([
-    db.from('csat_types').select('id, name, section, status').eq('in_scope', true),
-    db.from('csat_items_public').select('type_id, exam_id').eq('in_scope', true),
-    db.from('csat_type_reports').select('type_id, failure_modes, time_budget_sec').eq('status', 'published'),
-  ])
+  // ⚠️ 문항은 **세는 것**이라 상한에 걸리면 안 된다. 2026-09-05 실측 802행으로 아직
+  //    1,000 아래지만, 잘리는 날 오류 없이 「출제 비중」이 낮아진다(같은 결함이
+  //    `loadCsatTypeItems` 에서는 이미 터져 68%를 「준비 중」으로 적고 있었다).
+  type Res = { data: unknown; error: { message: string } | null }
+  let itemRows: ItemRow[]
+  let types: Res
+  let reports: Res
+  try {
+    const [t, rows, r] = await Promise.all([
+      db.from('csat_types').select('id, name, section, status').eq('in_scope', true),
+      pagedSelect<ItemRow>(
+        (from, to) => db.from('csat_items_public').select('type_id, exam_id').eq('in_scope', true).range(from, to),
+        'CSAT 유형 카드 문항',
+      ),
+      db.from('csat_type_reports').select('type_id, failure_modes, time_budget_sec').eq('status', 'published'),
+    ])
+    types = t
+    itemRows = rows
+    reports = r
+  } catch (e) {
+    return { cards: [], error: e instanceof Error ? e.message : String(e) }
+  }
 
-  const bad = [types, items, reports].find((r) => r.error)
+  const bad = [types, reports].find((r) => r.error)
   if (bad?.error) return { cards: [], error: bad.error.message }
 
   const count = new Map<string, { items: number; recent: number }>()
-  for (const it of (items.data ?? []) as ItemRow[]) {
+  for (const it of itemRows) {
     if (!it.type_id) continue
     const e = count.get(it.type_id) ?? { items: 0, recent: 0 }
     e.items += 1
@@ -133,18 +151,34 @@ export async function loadCsatTypeCards(): Promise<{ cards: CsatTypeCard[]; erro
 export async function loadCsatTypeDetail(typeId: string): Promise<{ detail: CsatTypeDetail | null; error: string | null }> {
   const db = await csatDb()
 
-  const [typeRes, itemsRes, repRes] = await Promise.all([
-    db.from('csat_types').select('id, name').eq('id', typeId).maybeSingle(),
-    db.from('csat_items_public').select('type_id').eq('in_scope', true).eq('type_id', typeId),
-    db
-      .from('csat_type_reports')
-      .select('type_id, n_analyzed, recurring_traps, answer_locus_pattern, procedure_steps, failure_modes, time_budget_sec')
-      .eq('type_id', typeId)
-      .eq('status', 'published')
-      .maybeSingle(),
-  ])
+  // 문항 수는 **세는 값**이므로 여기도 페이지네이션한다 — 한 유형 최대 115행(실측)이라
+  // 지금은 안 잘리지만, 세는 조회에 상한을 그대로 두면 언젠가 조용히 틀린다.
+  let typeRes: { data: unknown; error: { message: string } | null }
+  let itemCount: number
+  let repRes: { data: unknown; error: { message: string } | null }
+  try {
+    const [t, rows, r] = await Promise.all([
+      db.from('csat_types').select('id, name').eq('id', typeId).maybeSingle(),
+      pagedSelect<{ type_id: string | null }>(
+        (from, to) =>
+          db.from('csat_items_public').select('type_id').eq('in_scope', true).eq('type_id', typeId).range(from, to),
+        'CSAT 유형 상세 문항',
+      ),
+      db
+        .from('csat_type_reports')
+        .select('type_id, n_analyzed, recurring_traps, answer_locus_pattern, procedure_steps, failure_modes, time_budget_sec')
+        .eq('type_id', typeId)
+        .eq('status', 'published')
+        .maybeSingle(),
+    ])
+    typeRes = t
+    itemCount = rows.length
+    repRes = r
+  } catch (e) {
+    return { detail: null, error: e instanceof Error ? e.message : String(e) }
+  }
 
-  const bad = [typeRes, itemsRes, repRes].find((r) => r.error)
+  const bad = [typeRes, repRes].find((r) => r.error)
   if (bad?.error) return { detail: null, error: bad.error.message }
   const t = typeRes.data as { id: string; name: string } | null
   if (!t) return { detail: null, error: null }
@@ -155,7 +189,7 @@ export async function loadCsatTypeDetail(typeId: string): Promise<{ detail: Csat
       detail: {
         type_id: t.id,
         name: t.name,
-        items: (itemsRes.data ?? []).length,
+        items: itemCount,
         n_analyzed: 0,
         answer_locus_pattern: null,
         procedure: [],
@@ -173,7 +207,7 @@ export async function loadCsatTypeDetail(typeId: string): Promise<{ detail: Csat
     detail: {
       type_id: t.id,
       name: t.name,
-      items: (itemsRes.data ?? []).length,
+      items: itemCount,
       n_analyzed: rep.n_analyzed,
       answer_locus_pattern: rep.answer_locus_pattern,
       procedure: arr<{ step: string; on_fail?: string }>(rep.procedure_steps),
@@ -371,22 +405,59 @@ type AnalysisRow = {
 /** 한 유형에 딸린 기출 문항 목록 — 최신 회차 먼저 */
 export async function loadCsatTypeItems(typeId: string): Promise<CsatItemBrief[]> {
   const db = await csatDb()
-  const [itemsRes, examsRes, aRes] = await Promise.all([
+  const [itemsRes, examsRes] = await Promise.all([
     db.from('csat_items_public').select('id, exam_id, no, points, answer').eq('type_id', typeId).eq('in_scope', true),
     db.from('csat_exams').select('id, label, year, month'),
-    // 같은 이유로 여기도 버전이 여럿이다. 「해설 있음」은 **최신 버전**으로 판정한다 —
-    // 옛 버전에만 근거가 있고 최신에는 없는 경우를 「있음」으로 세면 빈 해설로 학습자를 보낸다.
-    db.from('csat_item_analyses').select('item_id, choice_analysis, version').eq('status', 'published'),
   ])
   if (itemsRes.error || examsRes.error) return []
 
   const exam = new Map(
     ((examsRes.data ?? []) as { id: string; label: string; year: number; month: number }[]).map((e) => [e.id, e]),
   )
+  const items = (itemsRes.data ?? []) as {
+    id: string
+    exam_id: string
+    no: number
+    points: number | null
+    answer: number | null
+  }[]
+
+  // ⚠️ **이 유형의 문항만 받는다.** 예전에는 `csat_item_analyses` 의 published 를 **전량**
+  //    받아 세었는데, 그 표는 한 문항에 버전마다 한 행이라 2026-09-05 실측 **2,234행**이었다.
+  //    PostgREST 는 오류 없이 1,000행에서 끊으므로 뒤쪽 문항의 분석이 통째로 사라졌고,
+  //    화면은 **802문항 중 544(68%)를 「준비 중」** 이라고 적었다 — 눌러 들어가면 해설이
+  //    멀쩡히 다 나오는데도. 학습자는 그 문항을 안 누른다(없다고 말했으니까).
+  //    한 유형은 최대 115문항(실측)이라 `.in()` 으로 좁히면 상한과 무관해지고,
+  //    버전이 더 쌓여도 `pagedSelectIn` 이 끝까지 받는다.
+  let aRows: { item_id: string; version: number; choice_analysis: AnalysisRow['choice_analysis'] }[] = []
+  try {
+    aRows = await pagedSelectIn<{
+      item_id: string
+      version: number
+      choice_analysis: AnalysisRow['choice_analysis']
+    }>(
+      items.map((i) => i.id),
+      (chunk, from, to) =>
+        db
+          .from('csat_item_analyses')
+          .select('item_id, choice_analysis, version')
+          .eq('status', 'published')
+          .in('item_id', chunk)
+          .range(from, to),
+      'CSAT 유형 문항 해설 판정',
+    )
+  } catch {
+    // 해설 유무를 못 읽은 것이지 문항이 없는 것은 아니다 — 목록은 그대로 내주고
+    // 「준비 중」 표시만 붙지 않는다(없는 것을 있다고 말하지 않는 쪽이 맞다).
+    aRows = []
+  }
+
+  // 같은 이유로 여기도 버전이 여럿이다. 「해설 있음」은 **최신 버전**으로 판정한다 —
+  // 옛 버전에만 근거가 있고 최신에는 없는 경우를 「있음」으로 세면 빈 해설로 학습자를 보낸다.
   // 「설명이 있다」의 기준은 **정답 선지에 why_correct 가 있는가** 하나다.
   // 분석 행이 있다는 것만으로 있다고 말하면, 비어 있는 해설로 학습자를 보내게 된다.
   const latest = new Map<string, { version: number; choice_analysis: AnalysisRow['choice_analysis'] }>()
-  for (const r of (aRes.data ?? []) as { item_id: string; version: number; choice_analysis: AnalysisRow['choice_analysis'] }[]) {
+  for (const r of aRows) {
     const cur = latest.get(r.item_id)
     if (!cur || r.version > cur.version) latest.set(r.item_id, r)
   }
@@ -396,7 +467,7 @@ export async function loadCsatTypeItems(typeId: string): Promise<CsatItemBrief[]
       .map(([id]) => id),
   )
 
-  return ((itemsRes.data ?? []) as { id: string; exam_id: string; no: number; points: number | null; answer: number | null }[])
+  return items
     .map((it) => ({
       id: it.id,
       slug: toItemSlug(it.id),
