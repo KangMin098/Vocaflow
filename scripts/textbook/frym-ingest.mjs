@@ -43,15 +43,13 @@ const LIMIT = Number(arg('limit') ?? 20)
 const FEED = arg('feed') ?? 'recent'
 const DEV_BASE = arg('base') ?? 'http://localhost:3000'
 
-const { createClient } = await import('@supabase/supabase-js')
+const { createScriptClient } = await import('../lib/supabase-client.mjs')
 const { listFrymFeed, ingestFrymArticle, curriculumFit, standaloneFit, PASSAGE_WORDS } =
   await import('../../packages/library-pipeline/src/index.ts')
 
-const db = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY,
-  { auth: { persistSession: false } }
-)
+// 5xx·연결 실패에 물러섰다가 다시 온다. 2026-09-05 에 프로젝트가 RESTARTING 이라
+// 152편이 적재만 되고 처리가 조용히 '0건' 으로 끝났다 — 그때 필요했던 것이 이것이다.
+const db = createScriptClient()
 
 const list = await listFrymFeed(FEED, LIMIT)
 console.log(`FrYM 목록 ${list.length}건 (${FEED})${COMMIT ? '' : ' — dry-run (쓰지 않는다)'}\n`)
