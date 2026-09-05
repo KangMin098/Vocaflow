@@ -35,14 +35,24 @@ export * from './factory-lab-model'
 /* ───────────────────────── 기획 ───────────────────────── */
 
 export async function loadMarketView(): Promise<MarketView> {
-  const [warehouse, volume] = await Promise.all([
+  const db = createAdminClient() as unknown as SupabaseClient
+  const [warehouse, volume, attempts, renders] = await Promise.all([
     readBench(BENCH_FILES.warehouse),
     readBench(BENCH_FILES.volume),
+    // 벤치마크 7축이 못 재는 자리의 유일한 근거. **0 과 「못 잼」을 가른다** —
+    // 0 은 "아무도 안 풀었다"(사실), null 은 "표를 못 읽었다"(모름)이고 할 일이 다르다.
+    db.from('csat_item_attempts').select('id', { count: 'exact', head: true }),
+    db.from('textbook_volume_renders').select('band', { count: 'exact', head: true }),
   ])
   return {
     warehouse,
     volume,
     target: MARKET_TARGET_INDEX,
+    platform: {
+      itemAttempts: attempts.error ? null : (attempts.count ?? 0),
+      renderedVolumes: renders.error ? null : (renders.count ?? 0),
+      itemAttemptsError: attempts.error ? `관측을 못 읽었다: ${attempts.error.message}` : null,
+    },
     loadError:
       warehouse == null && volume == null
         ? `벤치마크 리포트를 못 읽었다 — docs/reports/${BENCH_FILES.volume} 가 없거나 깨졌다. market-benchmark 를 먼저 돌린다`

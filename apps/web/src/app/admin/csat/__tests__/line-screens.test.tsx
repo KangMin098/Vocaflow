@@ -302,3 +302,69 @@ describe('PressClient', () => {
     expect(html).toContain('여기까지 와야 책이다')
   })
 })
+
+/* ── 드레인 지도: 어느 공정이 Claude Code 몫인가 ── */
+
+describe('공정별 드레인 절차가 있어야 할 곳에만 있다', () => {
+  // LLM 이 실제로 판단해야 하는 공정. 나머지 셋은 결정적이다:
+  //   ③ 설계 = 코드 상수(series.ts) · ④ 소재 = 수확·규격 프로브 · ⑧ 조판 = 조합·렌더
+  // 없어야 할 곳에 드레인을 적으면 "배치를 돌리면 된다" 는 오해를 만들고,
+  // 있어야 할 곳에 없으면 관리자가 터미널에서 막힌다.
+  const LLM_STAGES = ['csat', 'csat-strategy', 'csat-authoring', 'csat-review', 'csat-evidence']
+  const DETERMINISTIC = ['csat-blueprint', 'csat-sourcing', 'csat-press']
+
+  it.each(LLM_STAGES)('%s 에 드레인 절차가 있다', (key) => {
+    expect(HELP_REGISTRY[key]?.screen.drain, `${key} 에 drain 이 없다`).toBeTruthy()
+  })
+
+  it.each(DETERMINISTIC)('%s 에는 드레인 절차가 없다 — 결정적 공정이다', (key) => {
+    expect(HELP_REGISTRY[key]?.screen.drain, `${key} 는 LLM 몫이 아닌데 drain 이 붙었다`).toBeUndefined()
+  })
+
+  it('현황판의 드레인 지도가 공정 8칸을 모두 언급한다 — 빠지면 그 칸은 아무도 안 본다', () => {
+    const map = HELP_REGISTRY['csat']!.screen.drain!
+    expect(map.procedure).toHaveLength(FACTORY_STAGES.length)
+    for (const s of FACTORY_STAGES) {
+      const named = map.procedure.some((step) => step.title.includes(s.name))
+      expect(named, `드레인 지도에 「${s.name}」 칸이 없다`).toBe(true)
+    }
+  })
+
+  it('드레인 지도가 각 칸을 Claude Code 몫인지 아닌지로 가른다', () => {
+    const map = HELP_REGISTRY['csat']!.screen.drain!
+    const marked = map.procedure.filter((s) => /Claude Code 몫/.test(s.title))
+    // 8칸 전부가 "몫" 또는 "몫 아님" 으로 표시돼야 한다 — 애매하게 두면 오해가 생긴다
+    expect(marked).toHaveLength(FACTORY_STAGES.length)
+  })
+
+  it('모든 드레인 절차가 재실행 안전 여부나 되돌릴 수 없음을 말한다 (CLAUDE.md §3️⃣)', () => {
+    for (const key of LLM_STAGES) {
+      const d = HELP_REGISTRY[key]!.screen.drain!
+      const text = d.procedure.map((s) => s.detail).join(' ')
+      expect(
+        /재실행 안전|읽기만|덮어쓴다|덮지 않고|되돌릴 수 없/.test(text),
+        `${key} 드레인이 재실행 안전 여부를 말하지 않는다`,
+      ).toBe(true)
+    }
+  })
+
+  it('드레인이 내미는 scripts/ 경로가 저장소에 실제로 있다', () => {
+    const REPO_ROOT = resolve(__dirname, '../../../../../../..')
+    const seen = new Set<string>()
+    for (const key of LLM_STAGES) {
+      const d = HELP_REGISTRY[key]!.screen.drain!
+      const blob = [
+        d.what,
+        ...d.prerequisites,
+        ...d.procedure.flatMap((s) => [s.detail, s.done ?? '']),
+        ...d.verify,
+        ...(d.recovery ?? []),
+      ].join(' ')
+      for (const m of blob.matchAll(/(scripts\/[\w./-]+\.(?:mjs|mts|ts|js))/g)) seen.add(m[1]!)
+    }
+    expect(seen.size).toBeGreaterThanOrEqual(8)
+    for (const rel of seen) {
+      expect(existsSync(resolve(REPO_ROOT, rel)), `${rel} 가 없다`).toBe(true)
+    }
+  })
+})

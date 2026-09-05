@@ -10,7 +10,13 @@ import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
 import type { BenchPublisher } from '@/lib/csat/factory-bench'
-import { verdictOf, type BlueprintView, type MarketView } from '@/lib/csat/factory-lab-model'
+import {
+  MIN_ATTEMPTS_FOR_ACCURACY,
+  platformMeasurable,
+  verdictOf,
+  type BlueprintView,
+  type MarketView,
+} from '@/lib/csat/factory-lab-model'
 
 import { BlueprintClient } from '../blueprint/BlueprintClient'
 import { MarketClient } from '../strategy/MarketClient'
@@ -65,6 +71,7 @@ const market: MarketView = {
     publishers: [pub({}), pub({ publisher: 'NE능률', overallIndex: 1.343, reachableMax: 1.391, targetReachable: true, gaps: [] })],
   },
   target: 1.2,
+  platform: { itemAttempts: 1, renderedVolumes: 7, itemAttemptsError: null },
   loadError: null,
 }
 
@@ -115,7 +122,13 @@ describe('MarketClient', () => {
   it('리포트를 하나도 못 읽으면 0 이 아니라 「아직 안 쟀다」고 말한다', () => {
     const html = text(
       renderToString(
-        <MarketClient warehouse={null} volume={null} target={1.2} loadError="리포트 없음" />,
+        <MarketClient
+          warehouse={null}
+          volume={null}
+          target={1.2}
+          platform={{ itemAttempts: 0, renderedVolumes: 0, itemAttemptsError: null }}
+          loadError="리포트 없음"
+        />,
       ),
     )
     expect(html).toContain('role="alert"')
@@ -205,5 +218,96 @@ describe('BlueprintClient', () => {
   it('게이트가 하나도 없으면 그 사실을 말한다', () => {
     const html = text(renderToString(<BlueprintClient {...blueprint} gates={[]} />))
     expect(html).toContain('합격선 없이')
+  })
+})
+
+describe('7축이 재지 않는 것 — 플랫폼 우위를 주장하지 않는다', () => {
+  it('관측이 필요 표본에 못 미치면 「설계도이지 사실이 아니다」라고 말한다', () => {
+    const html = text(
+      renderToString(
+        <MarketClient
+          {...market}
+          platform={{ itemAttempts: 1, renderedVolumes: 7, itemAttemptsError: null }}
+        />,
+      ),
+    )
+    expect(html).toContain('7축이 재지 않는 것')
+    expect(html).toContain('더 나은 종이책')
+    expect(html).toContain('설계도이지 사실이 아니다')
+    // 임계는 짐작이 아니라 저장소의 정답률 게이트에서 유도한 값이다
+    expect(html).toContain(String(MIN_ATTEMPTS_FOR_ACCURACY))
+  })
+
+  it('필요 표본을 넘겨도 「충분조건은 아니다」를 함께 말한다', () => {
+    const html = text(
+      renderToString(
+        <MarketClient
+          {...market}
+          platform={{ itemAttempts: MIN_ATTEMPTS_FOR_ACCURACY, renderedVolumes: 7, itemAttemptsError: null }}
+        />,
+      ),
+    )
+    expect(html).toContain('필요조건은 채웠다')
+    expect(html).toContain('한 문항에 모여야')
+  })
+
+  it('관측이 0 이어도 「못 잼」이라고 하지 않는다 — 0 은 사실이다', () => {
+    const html = text(
+      renderToString(
+        <MarketClient
+          {...market}
+          platform={{ itemAttempts: 0, renderedVolumes: 7, itemAttemptsError: null }}
+        />,
+      ),
+    )
+    expect(html).toContain('기출 문항 시도')
+    // 0 은 "아무도 안 풀었다"(사실)이고 「못 잼」(모름)과 다르다
+    expect(html).toContain('>0<')
+  })
+
+  it('관측 표를 못 읽었으면 0 이 아니라 「못 잼」과 이유를 적는다', () => {
+    const html = text(
+      renderToString(
+        <MarketClient
+          {...market}
+          platform={{ itemAttempts: null, renderedVolumes: null, itemAttemptsError: '관측을 못 읽었다: 권한 없음' }}
+        />,
+      ),
+    )
+    expect(html).toContain('못 잼')
+    expect(html).toContain('관측을 못 읽었다: 권한 없음')
+  })
+
+  it('관측이 충분해도 「잰다」가 아니라 다음 할 일을 말한다 — 주장으로 넘어가지 않는다', () => {
+    const html = text(
+      renderToString(
+        <MarketClient
+          {...market}
+          platform={{ itemAttempts: 5000, renderedVolumes: 7, itemAttemptsError: null }}
+        />,
+      ),
+    )
+    expect(html).toContain('필요조건은 채웠다')
+    expect(html).toContain('A8')
+    // 관측이 많아도 「종이보다 낫다」로 건너뛰지 않는다 — 축을 정의하는 것이 먼저다
+    expect(html).toContain('축을 정의해')
+  })
+})
+
+describe('MIN_ATTEMPTS_FOR_ACCURACY — 짐작이 아니라 유도한 값', () => {
+  it('정답률 게이트(0.70) ±0.10 · 95% 에서 나온 81이다', () => {
+    // n = p(1−p)(z/e)²  =  0.7 × 0.3 × (1.96/0.10)²
+    const n = Math.ceil(0.7 * 0.3 * (1.96 / 0.1) ** 2)
+    expect(MIN_ATTEMPTS_FOR_ACCURACY).toBe(n)
+  })
+
+  it('그 밑이면 못 잰다고 판정한다', () => {
+    expect(platformMeasurable({ itemAttempts: MIN_ATTEMPTS_FOR_ACCURACY - 1, renderedVolumes: 7, itemAttemptsError: null })).toBe(false)
+    expect(platformMeasurable({ itemAttempts: MIN_ATTEMPTS_FOR_ACCURACY, renderedVolumes: 7, itemAttemptsError: null })).toBe(true)
+  })
+
+  it('못 읽은 것(null)은 0 과 다르게 다룬다 — 둘 다 「못 잰다」지만 이유가 다르다', () => {
+    expect(platformMeasurable({ itemAttempts: null, renderedVolumes: null, itemAttemptsError: 'x' })).toBe(false)
+    expect(platformMeasurable({ itemAttempts: 0, renderedVolumes: 0, itemAttemptsError: null })).toBe(false)
   })
 })

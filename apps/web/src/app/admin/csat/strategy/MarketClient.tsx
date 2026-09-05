@@ -17,7 +17,13 @@ import { useState } from 'react'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { BenchFile, BenchPublisher } from '@/lib/csat/factory-bench'
-import { VERDICT_KO, verdictOf, type MarketView } from '@/lib/csat/factory-lab-model'
+import {
+  MIN_ATTEMPTS_FOR_ACCURACY,
+  VERDICT_KO,
+  platformMeasurable,
+  verdictOf,
+  type MarketView,
+} from '@/lib/csat/factory-lab-model'
 
 const MODE_KO = {
   volume: { label: '권 (출간물)', hint: '실제로 인쇄되는 것 — 학습자가 만나는 품질' },
@@ -145,7 +151,69 @@ function ModePanel({ bench, target }: { bench: BenchFile; target: number }) {
   )
 }
 
-export function MarketClient({ warehouse, volume, target, loadError }: MarketView) {
+/**
+ * **7축이 재지 않는 것.**
+ *
+ * 일곱 축(해설 보유 · 해설 길이 · 오답 배제 · 원문 인용 · 유형 수 · 지문 어수 · 선택지 수)은
+ * 어느 것도 종이책이 못 하는 일이 아니다. 그래서 1.200 을 넘겨도 그 문장의 뜻은
+ * **「더 나은 종이책」** 이다.
+ *
+ * 종이가 원리적으로 못 하는 자리 — 개인별 복습 일정 · 오답 재출제 · 수준 맞춤 배본 · 즉시 채점 —
+ * 은 벤치마크 밖에 있고 **관측이 있어야 잴 수 있다.** 그래서 여기서 「우리는 그것을 한다」고
+ * 주장하지 않고 **관측 수를 그대로 적는다.** 관측이 없으면 그것은 설계도이지 사실이 아니다.
+ */
+function PlatformGapPanel({ platform }: { platform: MarketView['platform'] }) {
+  const usable = platformMeasurable(platform)
+  const n = platform.itemAttempts
+  return (
+    <section className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
+      <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">7축이 재지 않는 것</h3>
+      <p className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]">
+        일곱 축은 <strong>전부 종이에서도 잴 수 있는 것</strong>이다 — 해설 보유·길이, 오답 배제,
+        원문 인용, 유형 수, 지문 어수, 선택지 수. 그래서 목표 1.200 을 넘겨도 그 말의 뜻은{' '}
+        <strong>「더 나은 종이책」</strong>이지 「종이가 못 하는 것을 한다」가 아니다.
+      </p>
+      <p className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]">
+        종이가 원리적으로 못 하는 자리는 넷이다 — <strong>개인별 복습 일정</strong>(FSRS),{' '}
+        <strong>오답 재출제</strong>, <strong>수준 맞춤 배본</strong>, <strong>즉시 채점</strong>. 넷 다
+        학습자가 실제로 푼 기록이 있어야 잴 수 있다.
+      </p>
+      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 rounded-[var(--r-sm)] bg-[var(--bg2)] p-3">
+        <span className="font-body text-[11px] text-[var(--t3)]">기출 문항 시도</span>
+        <span
+          className="font-mono text-[20px] font-[700] tabular-nums"
+          style={{ color: usable ? '#2E7D5A' : '#9C3A30' }}
+        >
+          {n == null ? '못 잼' : n.toLocaleString()}
+        </span>
+        <span className="font-body text-[11px] text-[var(--t3)]">
+          조판된 권 {platform.renderedVolumes ?? '못 잼'}
+        </span>
+      </div>
+      <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t3)]">
+        {platform.itemAttemptsError ? (
+          platform.itemAttemptsError
+        ) : usable ? (
+          <>
+            시도가 필요 표본({MIN_ATTEMPTS_FOR_ACCURACY})을 넘었다 — <strong>필요조건은 채웠다.</strong>{' '}
+            다만 그 시도가 <strong>한 문항에 모여야</strong> 그 문항을 잴 수 있다. 흩어져 있으면 여전히
+            아무것도 못 잰다. 문항별 분포를 확인한 뒤 축을 정의해 벤치마크에 A8~ 로 더한다.
+          </>
+        ) : (
+          <>
+            문항 하나의 정답률을 게이트(0.65~0.70) 대비 ±0.10 으로 잡으려면 시도가{' '}
+            <strong>{MIN_ATTEMPTS_FOR_ACCURACY}회</strong> 필요하다. 지금은 그 근처도 아니므로 네 축 중
+            어느 것도 잴 수 없다. 그러니까 지금 「종이보다 낫다」고 말할 수 있는 근거는 7축뿐이고,{' '}
+            <strong>그 7축은 종이의 경기장이다.</strong> 이 수가 오르기 전까지 플랫폼 우위는 설계도이지
+            사실이 아니다.
+          </>
+        )}
+      </p>
+    </section>
+  )
+}
+
+export function MarketClient({ warehouse, volume, target, platform, loadError }: MarketView) {
   const [mode, setMode] = useState<'volume' | 'warehouse'>(volume ? 'volume' : 'warehouse')
   const bench = mode === 'volume' ? volume : warehouse
 
@@ -202,6 +270,8 @@ export function MarketClient({ warehouse, volume, target, loadError }: MarketVie
           쟀기</strong> 때문이다.
         </p>
       )}
+
+      <PlatformGapPanel platform={platform} />
 
       <section className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
         <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">다시 재는 법</h3>
