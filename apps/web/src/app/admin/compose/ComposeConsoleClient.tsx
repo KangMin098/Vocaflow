@@ -17,12 +17,12 @@ import {
   addFeed,
   createBatch,
   createComposeJob,
-  deleteComposeJob,
   deleteFactCard,
   deleteFeed,
   discoverFeedsForSource,
   publishComposedArticle,
-  releaseComposeJob,
+  runBatchAction,
+  runComposeJobAction,
   runDiscovery,
   setFeedEnabled,
   startCoverage,
@@ -32,6 +32,8 @@ import {
   type DiscoveryRunResult,
   type ScrapeResult,
 } from './actions'
+import { PUBLISH_BLOCK_LABEL, evaluatePublishGate } from './publish-gate'
+import { batchAcceptsJobs, batchActionsFor, jobActionsFor } from './transitions'
 
 /** discoverFeedsForSource 가 돌려주는 항목 (패키지 타입을 화면까지 끌고 오지 않는다). */
 interface DiscoveredFeedView {
@@ -236,6 +238,8 @@ export function ComposeConsoleClient({
   feedSourceOptions,
   acpOverlap,
   contentGates,
+  contentGateCheckedIds,
+  contentGateUncheckedCount,
   derived,
   envMissing,
   initialTab,
@@ -255,6 +259,13 @@ export function ComposeConsoleClient({
   acpOverlap: string[]
   /** 콘텐츠 품질 게이트 — 재저작 게이트와 **별개로** 발행을 막는다. */
   contentGates: ContentGateRow[]
+  /**
+   * 콘텐츠 게이트를 **실제로 조회한** 글 id. 여기 없는 글은 판정이 없는 것이 아니라
+   * **모르는** 것이라 발행을 막는다 — 예전에는 조회 상한(20건) 밖을 통과로 그렸다.
+   */
+  contentGateCheckedIds: string[]
+  /** 상한·오류로 확인하지 못한 글 수 — 0 이 아니면 화면 위에 그대로 알린다. */
+  contentGateUncheckedCount: number
   derived: Record<string, DerivedCounts>
   envMissing: boolean
   /** 렌더 스모크에서 각 면을 그려 보기 위한 진입 탭. 화면에서는 쓰지 않는다. */
@@ -316,7 +327,7 @@ export function ComposeConsoleClient({
             type="button"
             onClick={() => setTab(t)}
             aria-current={tab === t ? 'page' : undefined}
-            className={`-mb-px border-b-2 px-s-3 py-s-2 font-display text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p ${
+            className={`-mb-px inline-flex min-h-[44px] items-center border-b-2 px-s-3 py-s-2 font-display text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p ${
               tab === t
                 ? 'border-p text-t1'
                 : 'border-transparent text-t2 hover:text-t1'
@@ -343,7 +354,13 @@ export function ComposeConsoleClient({
         <ActivityPanel composed={composed} jobs={jobs} tracks={tracks} derived={derived} />
       )}
       {tab === '발행' && (
-        <PublishPanel composed={composed} gates={gates} contentGates={contentGates} />
+        <PublishPanel
+          composed={composed}
+          gates={gates}
+          contentGates={contentGates}
+          contentGateCheckedIds={contentGateCheckedIds}
+          contentGateUncheckedCount={contentGateUncheckedCount}
+        />
       )}
     </div>
   )
@@ -408,11 +425,12 @@ function ErrorNote({ error, onClose }: { error: string | null; onClose: () => vo
 }
 
 const INPUT =
-  'rounded-md border border-bd bg-bg px-s-3 py-s-2 font-body text-sm text-t1 transition-colors focus:border-p focus:outline-none focus-visible:ring-2 focus-visible:ring-p disabled:opacity-50'
+  'min-h-[44px] rounded-md border border-bd bg-bg px-s-3 py-s-2 font-body text-sm text-t1 transition-colors focus:border-p focus:outline-none focus-visible:ring-2 focus-visible:ring-p disabled:opacity-50'
 const BTN =
-  'rounded-md border border-p bg-p px-s-3 py-s-2 font-display text-sm font-bold text-white transition-colors hover:brightness-110 active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p disabled:opacity-50'
+  'min-h-[44px] rounded-md border border-p bg-p px-s-3 py-s-2 font-display text-sm font-bold text-white transition-colors hover:brightness-110 active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p disabled:opacity-50'
+// 보조 버튼도 44px 아래로 내려가지 않는다 — 표 안의 작은 글씨 버튼이라도 손가락으로 눌린다.
 const BTN_GHOST =
-  'rounded-md border border-bd bg-bg px-s-2 py-s-1 font-mono text-xs text-t2 transition-colors hover:text-t1 hover:border-t3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p disabled:opacity-50'
+  'inline-flex min-h-[44px] items-center rounded-md border border-bd bg-bg px-s-3 py-s-1 font-mono text-xs text-t2 transition-colors hover:text-t1 hover:border-t3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-p disabled:opacity-50'
 
 /**
  * ② 피드 — 발행사만 고르면 시스템이 찾아 준다.
@@ -692,9 +710,11 @@ function JobPanel({
 }) {
   const act = useAction()
   const composable = tracks.filter((t) => t.composable)
+  // 폐기된 묶음에는 새 발주를 받지 않는다 — 받아 봐야 아무도 쓰지 않는다.
+  const openBatches = batches.filter((b) => batchAcceptsJobs(b.status))
   const [topic, setTopic] = useState('')
   const [occurred, setOccurred] = useState('')
-  const [batchId, setBatchId] = useState(batches[0]?.id ?? '')
+  const [batchId, setBatchId] = useState(openBatches[0]?.id ?? '')
   const [track, setTrack] = useState(composable[0]?.track ?? '')
   const selected = composable.find((t) => t.track === track)
   const [level, setLevel] = useState<number>(selected?.vBand.min ?? 4)
@@ -745,7 +765,16 @@ function JobPanel({
         사건 시각을 비우면 발행 지연(48시간)을 검증할 수 없어 게이트에서 막힙니다.
       </p>
 
-      {batches.length > 0 && (
+      {batches.length > 0 && <BatchList batches={batches} jobs={jobs} act={act} />}
+
+      {batches.length > 0 && openBatches.length === 0 && (
+        <p className="font-body text-sm text-t2">
+          발주를 받을 수 있는 묶음이 없습니다 — 전부 폐기됐거나 마감됐습니다. 위 표에서
+          하나를 <b>복구</b>하거나 새 취재 묶음을 개설하세요.
+        </p>
+      )}
+
+      {openBatches.length > 0 && (
         <form
           className="flex flex-wrap items-end gap-s-3 rounded-lg border border-bd bg-bg2 p-s-4"
           onSubmit={(e) => {
@@ -767,7 +796,7 @@ function JobPanel({
               onChange={(e) => setBatchId(e.target.value)}
               disabled={act.pending}
             >
-              {batches.map((b) => (
+              {openBatches.map((b) => (
                 <option key={b.id} value={b.id}>
                   {b.topic}
                 </option>
@@ -847,6 +876,11 @@ function JobPanel({
                     </div>
                     {j.last_error && (
                       <div className="mt-s-1 max-w-[28rem] font-body text-xs text-error">
+                        {/* 실패 사유는 상태가 바뀌어도 지우지 않는다 — 재시도 뒤에도 무엇에
+                            막혔었는지를 알아야 같은 벽에 다시 부딪히지 않는다. */}
+                        <span className="font-mono font-bold">
+                          {j.status === 'failed' ? '실패 사유' : '지난 실패'}
+                        </span>{' '}
                         {j.last_error}
                       </div>
                     )}
@@ -857,33 +891,31 @@ function JobPanel({
                   </td>
                   <td className="px-s-3 py-s-2 font-mono text-xs tabular-nums text-t2">
                     {j.attempts}
+                    {j.attempts >= 3 && (
+                      <div className="font-body text-[11px] text-warning">
+                        3회 이상 — 원장을 고치지 않으면 또 막힙니다
+                      </div>
+                    )}
                   </td>
                   <td className="px-s-3 py-s-2 text-right">
-                    {j.status === 'pending' && (
-                      <button
-                        type="button"
-                        className={BTN_GHOST}
-                        disabled={act.pending}
-                        onClick={() =>
-                          act.run(
-                            () => deleteComposeJob(j.id),
-                            '대기 중인 발주를 지웁니다.\n\n아직 아무도 집어가지 않은 발주만 지워집니다. 되돌리려면 같은 조건으로 다시 발주해야 합니다.',
-                          )
-                        }
-                      >
-                        취소
-                      </button>
-                    )}
-                    {j.status === 'claimed' && (
-                      <button
-                        type="button"
-                        className={BTN_GHOST}
-                        disabled={act.pending}
-                        onClick={() => act.run(() => releaseComposeJob(j.id))}
-                      >
-                        회수
-                      </button>
-                    )}
+                    {/* 버튼 목록도 서버 허용 전이도 transitions.ts 한 표에서 나온다 —
+                        따로 적으면 "눌리는데 서버가 거부" 하는 버튼이 생긴다. */}
+                    <div className="flex flex-wrap justify-end gap-s-2">
+                      {jobActionsFor(j.status).map((a) => (
+                        <button
+                          key={a.key}
+                          type="button"
+                          className={BTN_GHOST}
+                          disabled={act.pending}
+                          onClick={() => act.run(() => runComposeJobAction(j.id, a.key), a.confirm)}
+                        >
+                          {a.label}
+                        </button>
+                      ))}
+                      {jobActionsFor(j.status).length === 0 && (
+                        <span className="font-mono text-[11px] text-t3">—</span>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -892,6 +924,77 @@ function JobPanel({
         </div>
       )}
     </section>
+  )
+}
+
+/**
+ * 취재 묶음 목록 — **치우는 길**.
+ *
+ * 묶음은 만들기만 하고 지우거나 접는 길이 없어 목록이 늘기만 했다(2026-09-06 발견).
+ * 스키마에는 `abandoned` 가 처음부터 있었는데 화면이 쓰지 않았다.
+ *   폐기 — 되돌릴 수 있다. 소스·사실은 남고 새 발주 선택지에서만 빠진다.
+ *   삭제 — 되돌릴 수 없다. 이 묶음에서 나온 지문이 있으면 서버가 거부한다.
+ */
+function BatchList({
+  batches,
+  jobs,
+  act,
+}: {
+  batches: BatchRow[]
+  jobs: JobRow[]
+  act: ReturnType<typeof useAction>
+}) {
+  return (
+    <div className="overflow-x-auto rounded-lg border border-bd bg-bg">
+      <table className="w-full border-collapse text-left">
+        <caption className="px-s-3 py-s-2 text-left font-body text-xs text-t2">
+          취재 묶음 {batches.length}건 — 폐기하면 새 발주 목록에서 빠지고, 삭제는 소스·사실
+          카드·발주까지 함께 지웁니다(지문이 나온 묶음은 지워지지 않습니다).
+        </caption>
+        <thead>
+          <tr className="bg-bg2 font-mono text-[11px] uppercase tracking-wider text-t2">
+            <th className="px-s-3 py-s-2 font-semibold">사건 / 주제</th>
+            <th className="px-s-3 py-s-2 font-semibold">상태</th>
+            <th className="px-s-3 py-s-2 font-semibold">발주</th>
+            <th className="px-s-3 py-s-2 font-semibold" />
+          </tr>
+        </thead>
+        <tbody>
+          {batches.map((b) => {
+            const mine = jobs.filter((j) => j.batch_id === b.id)
+            return (
+              <tr key={b.id} className="border-t border-bd align-top">
+                <td className="px-s-3 py-s-2">
+                  <div className="font-display text-sm font-bold text-t1">{b.topic}</div>
+                  <div className="font-mono text-[11px] text-t3">
+                    사건 시각 {b.event_occurred_at ? b.event_occurred_at.slice(0, 16) : '없음'}
+                  </div>
+                </td>
+                <td className="px-s-3 py-s-2 font-mono text-xs text-t2">{b.status}</td>
+                <td className="px-s-3 py-s-2 font-mono text-xs tabular-nums text-t2">
+                  {mine.length}
+                </td>
+                <td className="px-s-3 py-s-2 text-right">
+                  <div className="flex flex-wrap justify-end gap-s-2">
+                    {batchActionsFor(b.status).map((a) => (
+                      <button
+                        key={a.key}
+                        type="button"
+                        className={BTN_GHOST}
+                        disabled={act.pending}
+                        onClick={() => act.run(() => runBatchAction(b.id, a.key), a.confirm)}
+                      >
+                        {a.label}
+                      </button>
+                    ))}
+                  </div>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
   )
 }
 
@@ -1298,8 +1401,16 @@ function LedgerPanel({
               {s.wire && <span className="text-t3"> ({s.wire} 계통)</span>} · {s.access_basis}
             </li>
           ))}
-          {batchSources.length === 0 && <li className="text-t3">본문을 읽어 온 소스가 없습니다</li>}
         </ul>
+        {/* 막다른 빈 상태를 두지 않는다 — 소스가 0 이면 사실 카드를 만들어도 확인 표시를
+            달 수 없어 게이트에서 막힌다. 다음 한 걸음을 여기서 말한다. */}
+        {batchSources.length === 0 && (
+          <p className="mt-s-2 font-body text-xs text-t2">
+            본문을 읽어 온 소스가 없습니다. ③ 발견의 <b>기사 주소로 바로 취재 시작하기</b>에
+            서로 다른 발행사 기사 2개 이상을 넣어 이 묶음을 채우세요. 소스가 없으면 사실 카드에
+            확인 표시를 달 수 없고, 확인 표시가 없는 사실은 게이트에서 막힙니다.
+          </p>
+        )}
       </div>
 
       <form
@@ -1610,18 +1721,24 @@ function PublishPanel({
   composed,
   gates,
   contentGates,
+  contentGateCheckedIds,
+  contentGateUncheckedCount,
 }: {
   composed: ComposedRow[]
   gates: GateRow[]
   contentGates: ContentGateRow[]
+  contentGateCheckedIds: string[]
+  contentGateUncheckedCount: number
 }) {
   const act = useAction()
   const ready = composed.filter((a) => a.status !== 'published')
+  const checked = new Set(contentGateCheckedIds)
 
   if (composed.length === 0) {
     return (
       <p className="rounded-lg border border-dashed border-bd bg-bg2 p-s-5 font-body text-sm text-t2">
-        검수할 지문이 없습니다.
+        검수할 지문이 없습니다. ⑤ 작성에서 발주를 만들고 Claude Code 드레인을 돌리면 여기에
+        검수 대기(ready) 상태로 올라옵니다 — 절차는 화면 도움말의 작성 탭에 있습니다.
       </p>
     )
   }
@@ -1633,19 +1750,31 @@ function PublishPanel({
         게이트 통과는 발행 조건이지 발행 이유가 아닙니다. 목표 레벨에 맞는 문장인지, 학습자가
         읽어도 되는 사건인지는 여기서 사람이 봅니다.
       </p>
+      {contentGateUncheckedCount > 0 && (
+        <div
+          role="alert"
+          className="rounded-lg border border-warning bg-warning-light px-s-4 py-s-3 font-body text-sm text-warning"
+        >
+          검수 대기 {contentGateUncheckedCount}편의 콘텐츠 품질 게이트를 이번에 확인하지
+          못했습니다 (조회 상한 또는 조회 실패). 그 글들은 <b>게이트 미확인</b>으로 표시되고
+          발행이 막힙니다 — 통과했다는 뜻이 아니므로 통과로 그리지 않습니다.
+        </div>
+      )}
       <ul className="flex flex-col gap-s-3">
         {composed.map((a) => {
-          const mine = gates.filter((g) => g.article_id === a.id)
-          const stale = mine.filter((g) => g.content_hash !== a.content_hash)
-          const failed = mine.filter((g) => g.severity === 'critical' && g.verdict === 'FAIL')
-          // 발행을 막는 게이트는 두 계열이다. 재저작 게이트만 보여 주면 "전부 통과인데
-          // 발행이 안 된다" 가 된다 — 실제로 막는 건 콘텐츠 품질 게이트인 경우가 많다
-          // (2026-08-17 E2E 점검에서 재현: 어휘 추출 0 이면 트리거가 조용히 막는다).
-          const contentFailed = contentGates.filter(
-            (g) => g.article_id === a.id && g.severity === 'critical' && g.verdict === 'FAIL',
-          )
-          const blocked =
-            mine.length === 0 || stale.length > 0 || failed.length > 0 || contentFailed.length > 0
+          // 판정은 화면이 아니라 순수 함수가 한다(publish-gate.ts).
+          // 조회하지 못한 글을 통과로 세던 것이 "화면은 발행 가능, 서버는 거부" 의 원인이었다.
+          const verdict = evaluatePublishGate({
+            articleId: a.id,
+            contentHash: a.content_hash,
+            gates,
+            contentGates,
+            contentGateCheckedIds: checked,
+          })
+          const mine = verdict.gates
+          const stale = verdict.stale
+          const contentFailed = verdict.contentFailed
+          const blocked = verdict.blocked
           return (
             <li key={a.id} className="rounded-lg border border-bd bg-bg p-s-4">
               <div className="flex flex-wrap items-start gap-s-3">
@@ -1658,7 +1787,7 @@ function PublishPanel({
                   <ul className="mt-s-2 flex flex-col gap-s-1">
                     {mine.length === 0 && (
                       <li className="font-body text-xs text-error">
-                        게이트 판정이 없습니다 — 드레인에서 게이트를 실행해야 발행할 수 있습니다.
+                        {PUBLISH_BLOCK_LABEL.no_gates}
                       </li>
                     )}
                     {mine.map((g) => (
@@ -1680,7 +1809,13 @@ function PublishPanel({
                     ))}
                     {stale.length > 0 && (
                       <li className="font-body text-xs text-error">
-                        본문이 판정 이후에 바뀌었습니다 — 게이트를 다시 실행해야 합니다.
+                        {PUBLISH_BLOCK_LABEL.stale}
+                      </li>
+                    )}
+                    {a.status !== 'published' && !verdict.contentGateChecked && (
+                      <li className="font-body text-xs text-warning">
+                        <span className="font-mono font-bold">게이트 미확인</span>{' '}
+                        {PUBLISH_BLOCK_LABEL.content_gate_unchecked}
                       </li>
                     )}
                     {(a.article_v_level === null || a.cefr_level === null) && (

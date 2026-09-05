@@ -205,6 +205,23 @@ const JOBS: JobRow[] = [
     last_error: null,
     article_id: 'a2',
   },
+  // 실패한 발주 — 화면에서 아무것도 할 수 없어 큐에 영원히 남던 상태.
+  {
+    id: 'j3',
+    batch_id: 'b1',
+    track: 'academic_english',
+    register: 'expository',
+    target_v_level: 8,
+    skill_focus: 'collocation',
+    words_min: 250,
+    words_max: 450,
+    status: 'failed',
+    claimed_by: 'session-C',
+    claimed_at: '2026-08-16T02:00:00Z',
+    attempts: 3,
+    last_error: '사실 카드가 5개뿐이라 320어를 채울 수 없습니다',
+    article_id: null,
+  },
 ]
 
 const COMPOSED: ComposedRow[] = [
@@ -268,27 +285,32 @@ const CONTENT_GATES = [
   },
 ]
 
-function render(tab: string, filled: boolean): string {
-  return renderToString(
-    <ComposeConsoleClient
-      counts={filled ? { ...EMPTY_COUNTS, feedsEnabled: 1, feeds: 2 } : EMPTY_COUNTS}
-      tracks={TRACKS}
-      feeds={filled ? FEEDS : []}
-      batches={filled ? BATCHES : []}
-      jobs={filled ? JOBS : []}
-      sources={filled ? SOURCES : []}
-      facts={filled ? FACTS : []}
-      attestations={filled ? ATTESTATIONS : []}
-      composed={filled ? COMPOSED : []}
-      gates={filled ? GATES : []}
-      feedSourceOptions={[{ key: 'bbc', publisher: 'bbc.co.uk', tier: 'corroborating' }]}
-      acpOverlap={['noaa', 'voa']}
-      contentGates={filled ? CONTENT_GATES : []}
-      derived={filled ? DERIVED : {}}
-      envMissing={false}
-      initialTab={tab as never}
-    />,
-  )
+type Props = Parameters<typeof ComposeConsoleClient>[0]
+
+function render(tab: string, filled: boolean, overrides: Partial<Props> = {}): string {
+  const props: Props = {
+    counts: filled ? { ...EMPTY_COUNTS, feedsEnabled: 1, feeds: 2 } : EMPTY_COUNTS,
+    tracks: TRACKS,
+    feeds: filled ? FEEDS : [],
+    batches: filled ? BATCHES : [],
+    jobs: filled ? JOBS : [],
+    sources: filled ? SOURCES : [],
+    facts: filled ? FACTS : [],
+    attestations: filled ? ATTESTATIONS : [],
+    composed: filled ? COMPOSED : [],
+    gates: filled ? GATES : [],
+    feedSourceOptions: [{ key: 'bbc', publisher: 'bbc.co.uk', tier: 'corroborating' }],
+    acpOverlap: ['noaa', 'voa'],
+    contentGates: filled ? CONTENT_GATES : [],
+    // a1 은 이번 조회 범위 밖이었다 — 화면이 이것을 통과가 아니라 '미확인' 으로 그려야 한다.
+    contentGateCheckedIds: filled ? ['a2'] : [],
+    contentGateUncheckedCount: filled ? 1 : 0,
+    derived: filled ? DERIVED : {},
+    envMissing: false,
+    initialTab: tab as never,
+    ...overrides,
+  }
+  return renderToString(<ComposeConsoleClient {...props} />)
 }
 
 describe('Compose 콘솔 렌더', () => {
@@ -366,10 +388,55 @@ describe('Compose 콘솔 렌더', () => {
     expect(html).toContain('서로 다른 발행사 기사 2개 이상')
   })
 
+  it('게이트를 확인하지 못한 글은 통과가 아니라 "미확인" 으로 그려진다', () => {
+    // a1 은 조회 범위 밖이었다. FAIL 행이 없다는 이유로 발행 가능이 되면 서버가 거부한다.
+    const html = render('발행', true)
+    expect(html).toContain('게이트 미확인')
+    expect(html).toContain('콘텐츠 품질 게이트를 이번에 확인하지')
+  })
+
+  it('전부 확인했으면 미확인 경고를 띄우지 않는다', () => {
+    const html = render('발행', true, {
+      contentGateCheckedIds: ['a1', 'a2'],
+      contentGateUncheckedCount: 0,
+    })
+    expect(html).not.toContain('게이트 미확인')
+  })
+
+  it('작성 면은 실패한 발주에 사유·시도 횟수·되살릴 길을 함께 준다', () => {
+    // 실패 발주에 아무 액션도 없어 큐에 영영 남던 것이 이 화면의 결함이었다.
+    const html = render('작성', true)
+    expect(html).toContain('사실 카드가 5개뿐이라')
+    expect(html).toContain('재시도')
+    expect(html).toContain('3회 이상')
+  })
+
+  it('작성 면은 취재 묶음을 치울 수 있다 (누적만 되지 않는다)', () => {
+    const html = render('작성', true)
+    expect(html).toContain('폐기')
+    expect(html).toContain('건 — 폐기하면 새 발주 목록에서 빠지고')
+  })
+
+  it('폐기된 묶음은 새 발주 선택지에서 빠진다', () => {
+    const html = render('작성', true, {
+      batches: [{ ...BATCHES[0]!, status: 'abandoned' }],
+    })
+    expect(html).toContain('복구')
+    expect(html).not.toContain('발주 추가')
+  })
+
   it('데이터가 비어도 다음에 무엇을 하라고 말한다 (빈 화면 금지)', () => {
     expect(render('발견', false)).toContain('활성 피드')
     expect(render('원장', false)).toContain('③ 발견에서 사건을 골라')
     expect(render('작성', false)).toContain('취재 묶음을 만들고')
     expect(render('가공', false)).toContain('⑤ 작성에서 발주를 만들고')
+    expect(render('발행', false)).toContain('⑤ 작성에서 발주를 만들고')
+  })
+
+  it('소스를 하나도 못 읽은 묶음에도 다음 한 걸음이 있다', () => {
+    // 소스 0 이면 확인 표시를 달 수 없어 사실 카드를 아무리 써도 게이트에서 막힌다.
+    const html = render('원장', true, { sources: [], facts: [], attestations: [] })
+    expect(html).toContain('기사 주소로 바로 취재 시작하기')
+    expect(html).toContain('확인 표시가 없는 사실은 게이트에서 막힙니다')
   })
 })

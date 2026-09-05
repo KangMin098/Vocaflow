@@ -271,15 +271,21 @@ export default async function AdminComposePage() {
 
   // 발행을 막는 게이트는 재저작 게이트만이 아니다 — 콘텐츠 품질 게이트가 막는 경우가 많아
   // 화면에서 "전부 통과인데 발행이 안 된다" 가 된다. 검수 대기분만 조회한다(비용 절약).
+  //
+  // ⚠ 예전에는 여기서 `.slice(0, 20)` 으로 조용히 잘랐다. 21번째부터는 조회를 안 한 것이
+  //   "FAIL 이 없다" 로 세어져 화면은 발행 가능, 서버는 거부였다. 지금은 상한을 넘긴 것과
+  //   조회가 실패한 것을 **미확인**으로 넘기고, 미확인은 화면이 발행을 막는다.
   const pendingIds = composed
     .filter((a) => a.compose_batch_id !== null && a.status !== 'published')
     .map((a) => a.id)
-  const contentGates = await fetchContentGates(pendingIds.slice(0, 20))
+  const gateScan = await fetchContentGates(pendingIds)
 
   return (
     <ComposeConsoleClient
       counts={counts}
-      contentGates={contentGates}
+      contentGates={gateScan.rows}
+      contentGateCheckedIds={gateScan.checked}
+      contentGateUncheckedCount={gateScan.skipped.length + gateScan.failed.length}
       tracks={tracks}
       feeds={feeds}
       batches={batches}

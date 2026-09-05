@@ -37,6 +37,14 @@ import {
 
 import { createClient } from '@/lib/supabase/server'
 
+import { planContentGateScan } from './publish-gate'
+import {
+  BATCH_ACTIONS,
+  JOB_ACTIONS,
+  type BatchActionKey,
+  type JobActionKey,
+} from './transitions'
+
 export interface ActionResult {
   ok: boolean
   error?: string
@@ -567,17 +575,71 @@ export interface ContentGateRow {
   verdict: string
 }
 
-export async function fetchContentGates(articleIds: string[]): Promise<ContentGateRow[]> {
-  if (articleIds.length === 0) return []
+/**
+ * 조회 결과 — **무엇을 못 읽었는지까지** 돌려준다.
+ *
+ * 예전에는 판정 행만 돌려줬다. 그래서 조회하지 않은 글(상한 밖)과 조회가 실패한 글이
+ * "FAIL 행이 없는 글" 과 구별되지 않았고, 화면은 그것을 통과로 그렸다 — 그리고 발행을
+ * 누르면 서버가 거부했다(2026-09-06). 읽은 것과 못 읽은 것을 갈라 담는다.
+ */
+export interface ContentGateScan {
+  rows: ContentGateRow[]
+  /** RPC 가 실제로 판정을 돌려준 글 — 이 목록에 없으면 '미확인' 이다 */
+  checked: string[]
+  /** 상한을 넘겨 아예 조회하지 않은 글 */
+  skipped: string[]
+  /** RPC 가 오류를 낸 글 — 조회는 시도했으나 답을 못 받았다 */
+  failed: string[]
+}
+
+/**
+ * 판정 1건마다 RPC 1회다. 전량을 한 줄로 돌리면 화면이 열리지 않으므로 묶음 병렬로 돌리고,
+ * 상한을 넘긴 것은 **조용히 자르지 않고** skipped 로 말한다.
+ */
+export async function fetchContentGates(articleIds: string[]): Promise<ContentGateScan> {
+  const plan = planContentGateScan(articleIds)
+  if (plan.scanned.length === 0) {
+    return { rows: [], checked: [], skipped: plan.skipped, failed: [] }
+  }
+
   const client = await db()
-  const out: ContentGateRow[] = []
-  for (const id of articleIds) {
-    const { data } = await client.rpc('run_content_quality_gates', { p_scope: 'article', p_id: id })
-    for (const g of (data ?? []) as Array<{ invariant: string; severity: string; verdict: string }>) {
-      out.push({ article_id: id, invariant: g.invariant, severity: g.severity, verdict: g.verdict })
+  const rows: ContentGateRow[] = []
+  const checked: string[] = []
+  const failed: string[] = []
+
+  for (const group of plan.chunks) {
+    const results = await Promise.all(
+      group.map(async (id) => {
+        const { data, error } = await client.rpc('run_content_quality_gates', {
+          p_scope: 'article',
+          p_id: id,
+        })
+        return { id, data, error }
+      }),
+    )
+    for (const r of results) {
+      // 오류난 글을 checked 에 넣으면 "판정 0건 = 통과" 가 되어 처음 결함이 되돌아온다.
+      if (r.error) {
+        failed.push(r.id)
+        continue
+      }
+      checked.push(r.id)
+      for (const g of (r.data ?? []) as Array<{
+        invariant: string
+        severity: string
+        verdict: string
+      }>) {
+        rows.push({
+          article_id: r.id,
+          invariant: g.invariant,
+          severity: g.severity,
+          verdict: g.verdict,
+        })
+      }
     }
   }
-  return out
+
+  return { rows, checked, skipped: plan.skipped, failed }
 }
 
 // ── 취재 묶음 ────────────────────────────────────────────────────────
@@ -656,29 +718,101 @@ export async function createComposeJob(input: {
   return { ok: true }
 }
 
-/** 대기 중인 발주만 취소한다 — 진행 중이면 드레인 세션이 이미 비용을 쓰고 있다. */
-export async function deleteComposeJob(id: string): Promise<ActionResult> {
-  const { error } = await (await db())
-    .from('article_compose_jobs')
-    .delete()
-    .eq('id', id)
-    .eq('status', 'pending')
+/**
+ * 발주 상태를 바꾸거나 지운다 — 취소 · 회수 · 재시도 · 삭제.
+ *
+ * 허용 전이는 화면과 **같은 표**(transitions.ts)에서 읽는다. 예전에는 화면이 `pending`·
+ * `claimed` 만 그리고 서버가 `.eq('status','pending')` 을 따로 적고 있어서, 스키마가
+ * 허용하는 `failed`·`drafted` 발주는 사유만 보인 채 큐에 영원히 남았다(2026-09-06).
+ *
+ * 재실행 안전: 같은 동작을 두 번 눌러도 두 번째는 출발 상태가 아니라서 **0행**이 되고,
+ * 0행은 성공이 아니라 "그 사이에 바뀌었다" 로 알린다 — 조용한 무동작이 가장 나쁘다.
+ */
+export async function runComposeJobAction(
+  id: string,
+  action: JobActionKey,
+): Promise<ActionResult> {
+  const spec = JOB_ACTIONS[action]
+  if (!spec) return { ok: false, error: `알 수 없는 발주 동작: ${String(action)}` }
+
+  const table = (await db()).from('article_compose_jobs')
+  const { data, error } =
+    spec.to === null
+      ? await table.delete().eq('id', id).in('status', spec.from).select('id')
+      : await table
+          .update(
+            // 재시도·회수 모두 잡은 흔적을 지운다. **attempts 와 last_error 는 남긴다** —
+            // 몇 번 실패했고 무엇에 막혔는지를 지우면 언제 그만둘지 판단할 수 없다.
+            { status: spec.to, claimed_by: null, claimed_at: null },
+          )
+          .eq('id', id)
+          .in('status', spec.from)
+          .select('id')
+
   if (error) return { ok: false, error: error.message }
+  if ((data ?? []).length === 0) {
+    return {
+      ok: false,
+      error: `${spec.label} 할 수 없는 상태입니다 (${spec.from.join(' · ')} 일 때만 가능). 그 사이에 드레인이 상태를 바꿨을 수 있으니 화면을 새로 고쳐 확인하세요.`,
+    }
+  }
   revalidatePath(PATH)
   return { ok: true }
 }
 
+// ── 취재 묶음 정리 ───────────────────────────────────────────────────
+
 /**
- * 진행 중 발주를 대기로 되돌린다 — 드레인 세션이 죽어 30분을 기다리기 싫을 때.
- * 살아 있는 세션의 작업을 되돌리면 같은 발주를 둘이 쓰게 되므로 확인하고 쓴다.
+ * 취재 묶음 폐기 · 복구 · 삭제.
+ *
+ * 묶음은 만들기만 하고 치우는 길이 없어 목록이 늘기만 했다. 스키마에는 이미 `abandoned`
+ * 가 있었는데 화면이 쓰지 않았다.
+ *
+ * 삭제는 소스·사실·발주를 CASCADE 로 함께 지운다. 그래서 **이 묶음에서 나온 지문이
+ * 하나라도 있으면 먼저 막는다** — DB 제약(chk_original_needs_batch)이 어차피 거부하는데,
+ * 그때 나오는 것은 제약 이름뿐이라 무엇이 문제인지 알 수 없다.
  */
-export async function releaseComposeJob(id: string): Promise<ActionResult> {
-  const { error } = await (await db())
-    .from('article_compose_jobs')
-    .update({ status: 'pending', claimed_by: null, claimed_at: null })
-    .eq('id', id)
-    .eq('status', 'claimed')
+export async function runBatchAction(
+  id: string,
+  action: BatchActionKey,
+): Promise<ActionResult> {
+  const spec = BATCH_ACTIONS[action]
+  if (!spec) return { ok: false, error: `알 수 없는 묶음 동작: ${String(action)}` }
+  const client = await db()
+
+  if (spec.to === null) {
+    const { count, error: countError } = await client
+      .from('library_articles')
+      .select('id', { count: 'exact', head: true })
+      .eq('compose_batch_id', id)
+    // count 가 null 이면 "0건" 이 아니라 **모름** 이다. 모르는 채로 지우지 않는다.
+    if (countError || count === null) {
+      return {
+        ok: false,
+        error: '이 묶음에서 나온 지문이 있는지 확인하지 못했습니다. 확인 전에는 지우지 않습니다.',
+      }
+    }
+    if (count > 0) {
+      return {
+        ok: false,
+        error: `이 묶음에서 나온 지문이 ${count}편 있어 지울 수 없습니다. 목록에서만 치우려면 폐기를 쓰세요.`,
+      }
+    }
+  }
+
+  const table = client.from('article_compose_batches')
+  const { data, error } =
+    spec.to === null
+      ? await table.delete().eq('id', id).in('status', spec.from).select('id')
+      : await table.update({ status: spec.to }).eq('id', id).in('status', spec.from).select('id')
+
   if (error) return { ok: false, error: error.message }
+  if ((data ?? []).length === 0) {
+    return {
+      ok: false,
+      error: `${spec.label} 할 수 없는 상태입니다 (${spec.from.join(' · ')} 일 때만 가능). 화면을 새로 고쳐 확인하세요.`,
+    }
+  }
   revalidatePath(PATH)
   return { ok: true }
 }
