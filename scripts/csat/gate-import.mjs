@@ -21,7 +21,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { hardReject, purposeOf, decide, PURPOSE_RULE } from './gate-rules.mjs'
+import { hardReject, purposeOf, decide, PURPOSE_RULE, RULES_VERSION, CODES_VERSION } from './gate-rules.mjs'
 import { curlFetch } from './lib-curl-fetch.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
@@ -139,13 +139,20 @@ for (;;) {
   //   본문을 다시 받는 것은 순전한 낭비다. 상태가 어긋난 행은 아래 `settled` 가 걸러 낸다.
   const settled = (r) => {
     const g = r.csat_fit?.gate
-    if (!g || g.v !== 2 || g.purpose !== purposeOf(r)) return false
+    // ⚠️ 규칙 판이 바뀌었으면 저장된 판정을 믿으면 안 된다 — 그게 반영 누락의 원인이었다.
+    if (!g || g.v !== 2 || g.rv !== RULES_VERSION || g.purpose !== purposeOf(r)) return false
     const stuckArchived =
       g.publishable && r.status === 'archived' && String(r.status_message ?? '').startsWith('게시 게이트:')
     const stuckLive = !g.publishable && g.purpose !== 'raw' && r.status !== 'archived'
     return !stuckArchived && !stuckLive
   }
-  const needBody = data.filter((r) => purposeOf(r) !== 'raw' && !settled(r)).map((r) => r.id)
+  // 저장된 codes 가 지금 판이면 본문이 필요 없다 — 판정 논리만 바뀐 재판정이 그렇다.
+  // ⚠️ v2 기록에는  가 없다. 그 기록들은 지금의 HARD_RULES 로 쓰인 것이므로 판 1로 인정한다
+  //   — 안 그러면 첫 재판정에서 9만 편의 본문을 다시 받고, 이 최적화가 아무 일도 못 한다.
+  const codesVersionOf = (r) => r.csat_fit?.gate?.cv ?? (r.csat_fit?.gate?.v === 2 ? 1 : null)
+  const needBody = data
+    .filter((r) => purposeOf(r) !== 'raw' && !settled(r) && codesVersionOf(r) !== CODES_VERSION)
+    .map((r) => r.id)
   const body = new Map()
     // ⚠️ `.in()` 은 id 를 전부 URL 에 싣는다. 100개면 4,000자가 넘어 curl 이 요청을 못 낸다
   //   (상태 000). 40개로 줄이면 1,600자 안쪽이라 안전하다.
@@ -182,7 +189,12 @@ for (;;) {
     tally.byPurpose[purpose] = (tally.byPurpose[purpose] ?? 0) + 1
     // 미절단 원본은 본문을 규칙에 걸 필요가 없다 — 크기만으로 이미 게시 불가고,
     // 4만 자에 정규식 11개를 돌리는 것은 34,700행에서 그냥 낭비다.
-    const codes = purpose === 'raw' ? [] : hardReject(body.get(row.id) ?? '')
+    const codes =
+      purpose === 'raw'
+        ? []
+        : body.has(row.id)
+          ? hardReject(body.get(row.id))
+          : (row.csat_fit?.gate?.codes ?? [])
     for (const c of codes) byCode[c] = (byCode[c] ?? 0) + 1
     const { publishable, blockedBy } = decide({
       purpose,
@@ -203,6 +215,8 @@ for (;;) {
 
     const gate = {
       v: 2,
+      rv: RULES_VERSION,
+      cv: CODES_VERSION,
       publishable,
       purpose,
       blockedBy,
@@ -218,6 +232,7 @@ for (;;) {
     const same =
       prev &&
       prev.v === gate.v &&
+      prev.rv === gate.rv &&
       prev.publishable === gate.publishable &&
       prev.purpose === gate.purpose &&
       prev.blockedBy === gate.blockedBy &&

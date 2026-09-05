@@ -216,3 +216,33 @@ export function decide({ purpose, verdict, genre, codes }) {
   if (blocking.length) return { publishable: false, blockedBy: blocking[0] }
   return { publishable: true, blockedBy: null }
 }
+
+/**
+ * **규칙 판(版). 판정 결과를 바꾸는 수정을 하면 반드시 올린다.**
+ *
+ * ⚠️ 이게 없으면 **규칙을 고쳐도 데이터가 안 바뀐다.** 실제로 그랬다(2026-09-06):
+ *   `csat` 이 `narrative` 를 받도록 고쳤는데, `gate-import` 의 재실행 최적화(`settled()`)가
+ *   "저장된 판정과 지금 용도가 같으면 건너뛴다" 로 되어 있어 **4,401편이 격리에 그대로 남았다.**
+ *   실행은 성공하고 "이미 같음 90,327" 을 정상 보고했다 — 아무도 안 틀렸는데 반영이 안 됐다.
+ *
+ * 판을 올리면 저장된 `gate.rv` 와 어긋나므로 전량이 다시 판정된다.
+ *
+ * | 판 | 무엇이 바뀌었나 |
+ * |---|---|
+ * | 1 | 최초 (기계 규칙 11개 + 책 단위 판정) |
+ * | 2 | 용도 4종(csat·kids·library·raw)으로 기준 분리 |
+ * | 3 | `plos-extract` 를 `raw` 보다 먼저 판정 · `csat` 이 `narrative` 를 받는다 |
+ */
+export const RULES_VERSION = 3
+
+/**
+ * **기계 규칙(`HARD_RULES`)의 판.** `RULES_VERSION` 과 따로 둔다.
+ *
+ * ⚠️ 판이 하나면 **판정 논리만 바꿔도 본문 9만 편을 다시 받는다.** 실제로 그랬다 —
+ *   `RULES_VERSION` 3(용도 순서·서사 허용)은 `HARD_RULES` 를 건드리지 않았는데도
+ *   전량 재판정이 회차당 1,600편으로 기어갔다. 42회가 더 필요한 속도였다.
+ *
+ * 저장된 `gate.codes` 는 이 판이 그대로면 **여전히 유효하다.** 그래서 본문을 안 받고
+ * 그대로 쓴다. `HARD_RULES` 를 고칠 때만 이 판을 올린다 — 그때는 본문이 정말 필요하다.
+ */
+export const CODES_VERSION = 1
