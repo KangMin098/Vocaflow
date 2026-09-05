@@ -45,8 +45,47 @@ const RUNS_ENTRY: ScreenHelpEntry = {
 }
 
 export const VCB_HELP: HelpRegistry = {
-  vocab: RUNS_ENTRY,
+  // `vocab` 키는 두지 않는다 — `/admin/vocab` 은 `redirect('/admin/vocab/runs')` 한 줄이라
+  // 도움말 버튼을 그릴 화면 자체가 없다. 별칭으로 남겨 두면 "쓰이는 줄 알고 갱신되는 문서" 가
+  // 되고, 낡아도 아무도 모른다(레지스트리 고아 검사가 이걸 잡는다).
   'vocab-runs': RUNS_ENTRY,
+
+  // VCB 11개 화면 중 **유일하게** 도움말이 없던 곳인데, 하필 되돌릴 수 없는 동작 둘을 쥐고
+  // 있었다 — 재생성(파일 삭제 + 거부표시 초기화)과 수천 건 DB 적재.
+  'vocab-seed-preview': {
+    title: '시드 미리보기 — 적재 전 마지막 관문',
+    screen: {
+      summary:
+        'AI 가 만든 시드 낱말을 DB 에 넣기 전에 한 건씩 본다. 여기서 거부한 낱말은 적재에서 빠진다.',
+      when: '시드 생성이 끝난 뒤, 「DB 에 import」를 누르기 전에.',
+      steps: [
+        {
+          title: '필터로 의심스러운 것부터 본다',
+          detail:
+            '레벨·품사·출처로 좁혀 훑는다. 전부 볼 필요는 없다 — 목표에서 벗어난 낱말이 몰려 있는 구간만 보면 된다.',
+          done: '거부 표시 수가 늘고 남은 수가 목표에 가까워진다.',
+        },
+        {
+          title: '거부 표시',
+          detail:
+            '적재에서 뺄 낱말을 표시한다. **브라우저 탭 안에만(sessionStorage) 남는다** — 탭을 닫거나 다른 기기에서 열면 표시가 사라진다. 한 자리에서 끝내라.',
+          done: '헤더의 남은 수가 줄어든다.',
+        },
+        {
+          title: 'DB 에 import',
+          detail:
+            '거부하지 않은 낱말 전부를 이 run 의 큐로 넣는다. 수천 건이 한 번에 들어가고, 끝나면 시드 화면으로 돌아간다. 되돌리려면 run 자체를 새로 만들어야 한다.',
+          done: 'run 상태가 다음 단계로 넘어가고 Run 상세의 Step 4(사전 매칭)가 열린다.',
+        },
+      ],
+      cautions: [
+        '재생성은 **복구 불가** — seed-list 파일을 지우고 거부 표시까지 초기화한 뒤 생성 단계로 되돌린다. 지금 목록이 마음에 안 들 때만 누른다.',
+        '거부 표시는 sessionStorage 다 — **탭을 닫으면 사라진다.** 검토를 여러 번에 나눠 하려면 그때마다 처음부터 다시 봐야 한다.',
+        'import 는 되돌리는 버튼이 없다. 잘못 넣었으면 run 을 새로 만드는 것이 가장 빠르다.',
+      ],
+      seeAlso: [{ label: 'Run 상세로', href: '/admin/vocab/runs' }],
+    },
+  },
 
   'vocab-studio': {
     title: '단어장 Studio',
@@ -135,8 +174,8 @@ export const VCB_HELP: HelpRegistry = {
         '계단은 **청사진이 열리는 바닥**과 낱말 난이도 중 높은 쪽이다. 쉬운 낱말로 만든 유의어 세트라도 초등에 놓이지 않는다 — 묶는 원리가 그 나이의 과제가 아니기 때문이다. 낱말 중앙값이 V8 이상이면 계단을 **비운다**(학령 밖). 그때 판권면은 계단 대신 "대상 수준" 을 싣는다.',
       ],
       seeAlso: [
-        { label: '재설계 근거 · 26유형 분류 · 목표', href: '/docs/VCB_REDESIGN.md' },
-        { label: '평가 매트릭스 (러너가 갱신)', href: '/docs/reports/vcb-compose-eval.md' },
+        { label: '재설계 근거 · 26유형 분류 · 목표', doc: 'docs/VCB_REDESIGN.md' },
+        { label: '평가 매트릭스 (러너가 갱신)', doc: 'docs/reports/vcb-compose-eval.md' },
         { label: '발행 컬렉션', href: '/admin/vocab/collections' },
       ],
     },

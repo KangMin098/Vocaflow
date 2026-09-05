@@ -62,9 +62,22 @@ export interface ScreenHelp {
   cautions?: string[]
   /** Claude Code 드레인 절차(해당 화면만). */
   drain?: HelpDrain
-  /** 더 읽을 것 — docs 경로나 이어지는 화면. */
-  seeAlso?: { label: string; href: string }[]
+  /** 더 읽을 것 — 이어지는 화면이나 저장소 문서. */
+  seeAlso?: HelpRef[]
 }
+
+/**
+ * "더 읽을 것" 한 줄.
+ *
+ * ⚠️ **저장소 문서를 `href` 로 적지 마라.** `/docs/*.md` 는 `public/` 에 없어서 서버가 주지
+ *    않는다 — 링크로 그리면 누를 수 있어 보이고 누르면 404 다(실측 2026-09-05: 그렇게 적힌
+ *    항목이 7개 있었다). 타입을 갈라 두면 그 실수가 컴파일 단계에서 막힌다.
+ */
+export type HelpRef =
+  /** 앱 라우트(`/admin/...`) 또는 외부 URL — 실제로 누를 수 있는 것만. */
+  | { label: string; href: string; doc?: never }
+  /** 저장소 문서 경로(`docs/CSAT_TYPE_BLUEPRINTS.md`) — 경로만 보여 준다. */
+  | { label: string; doc: string; href?: never }
 
 /**
  * 화면 하나의 도움말. 탭이 있으면 탭별로 나눈다.

@@ -48,6 +48,28 @@ function writeOpen(screen: string, open: boolean) {
 }
 
 /** 앱 안 경로면 Link(전체 리로드 없음), 밖이면 a. 도움말이 화면 간 유일 통로인 곳이 있다. */
+/**
+ * **저장소 문서는 링크가 아니다.**
+ *
+ * `seeAlso` 에 `/docs/CSAT_TYPE_BLUEPRINTS.md` 같은 항목이 7개 있었고 전부 `<Link>` 로
+ * 그려져 **누르면 404** 였다(실측 2026-09-05 — 링크 그래프 감사). 파일은 저장소에 멀쩡히
+ * 있지만 `public/` 이 아니라 서버가 주지 않는다. 관리자는 눌러 보고 나서야 안다.
+ *
+ * 서빙 라우트를 새로 내는 것은 노출 면이 늘어나는 일이라, 여기서는 **정직하게** 누를 수 없는
+ * 경로 표기로 그린다. 같은 실수가 다시 나지 않도록 데이터 타입을 갈라 뒀다 —
+ * `HelpRef` 의 `doc` 가지(`lib/admin/help/types.ts`).
+ */
+function DocRef({ label, doc }: { label: string; doc: string }) {
+  return (
+    <span className="inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--t2)]">
+      {label}
+      <code className="rounded bg-[var(--bg3)] px-1 py-[1px] font-mono text-[11px] font-[500] text-[var(--t3)]">
+        {doc}
+      </code>
+    </span>
+  )
+}
+
 function HelpLink({ href, label }: { href: string; label: string }) {
   const cls =
     'inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[#6D28D9] underline decoration-[#8B5CF6]/40 underline-offset-2 hover:decoration-[#8B5CF6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6]'
@@ -69,9 +91,13 @@ function HelpLink({ href, label }: { href: string; label: string }) {
 function SeeAlso({ items }: { items: NonNullable<ScreenHelp['seeAlso']> }) {
   return (
     <p className="mt-3 flex flex-wrap gap-x-3 gap-y-1">
-      {items.map((s) => (
-        <HelpLink key={s.href} href={s.href} label={s.label} />
-      ))}
+      {items.map((s) =>
+        'doc' in s && s.doc ? (
+          <DocRef key={s.doc} label={s.label} doc={s.doc} />
+        ) : 'href' in s && s.href ? (
+          <HelpLink key={s.href} href={s.href} label={s.label} />
+        ) : null,
+      )}
     </p>
   )
 }

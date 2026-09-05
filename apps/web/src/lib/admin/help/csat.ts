@@ -116,8 +116,8 @@ export const CSAT_HELP: HelpRegistry = {
         ],
       },
       seeAlso: [
-        { label: '출판사별 우위 지수 리포트', href: '/docs/reports/textbook-publisher-benchmark.md' },
-        { label: '유형별 설계도 (37유형)', href: '/docs/CSAT_TYPE_BLUEPRINTS.md' },
+        { label: '출판사별 우위 지수 리포트', doc: 'docs/reports/textbook-publisher-benchmark.md' },
+        { label: '유형별 설계도 (37유형)', doc: 'docs/CSAT_TYPE_BLUEPRINTS.md' },
       ],
     },
   },
@@ -206,7 +206,7 @@ export const CSAT_HELP: HelpRegistry = {
         ],
       },
       seeAlso: [
-        { label: '출판사별 우위 지수 리포트', href: '/docs/reports/textbook-publisher-benchmark.md' },
+        { label: '출판사별 우위 지수 리포트', doc: 'docs/reports/textbook-publisher-benchmark.md' },
         { label: '공정 현황판', href: '/admin/csat' },
       ],
     },
@@ -593,8 +593,8 @@ export const CSAT_HELP: HelpRegistry = {
         ],
       },
       seeAlso: [
-        { label: '유형별 설계도 (37유형)', href: '/docs/CSAT_TYPE_BLUEPRINTS.md' },
-        { label: '유형별 풀이 절차', href: '/docs/CSAT_LEARNER_PROCEDURE.md' },
+        { label: '유형별 설계도 (37유형)', doc: 'docs/CSAT_TYPE_BLUEPRINTS.md' },
+        { label: '유형별 풀이 절차', doc: 'docs/CSAT_LEARNER_PROCEDURE.md' },
       ],
     },
     tabs: {
