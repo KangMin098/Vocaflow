@@ -36,29 +36,69 @@ export function p75Disc(sortedAsc) {
 }
 
 /**
- * 글 하나의 `article_v_level` 을 적재 전에 추정한다.
+ * 사전을 **한 번만** 통째로 읽어 `word → v_level` 표로 만든다.
  *
- * @param db        service-role Supabase 클라이언트
- * @param extract   `extractBookLemmas`
- * @param content   본문
+ * 처음에는 글마다 `.in('word', [...])` 로 물었다. 어휘 게이트를 켠 동안에는 그 게이트가
+ * 대부분을 앞에서 걸러 줘 호출이 적었는데, **게이트를 끄자 호출이 3배로 늘면서
+ * `fetch failed` 가 났다**(2026-09-05). 청크를 400→200 으로 줄이고 3회 재시도를 붙여도
+ * 마찬가지였다 — 일시적 장애가 아니라 **글마다 사전을 묻는 방식 자체가 틀렸다.**
+ *
+ * 사전은 48,969행이고 필요한 것은 두 열뿐이라 한 번에 들고 있을 수 있다.
+ * 그러면 글당 조회가 **0** 이 되고, 대조 실험도 마음대로 돌릴 수 있다.
+ */
+export async function loadVLevelMap(db, { pageSize = 1000 } = {}) {
+  const map = new Map()
+  for (let from = 0; ; from += pageSize) {
+    /**
+     * **재시도가 필요하다.** 49쪽을 잇달아 받으면 그중 몇 쪽이 `TypeError: fetch failed`
+     * 로 떨어진다(2026-09-05 실측). 주소 길이 문제가 아니라 간헐적 연결 실패다 —
+     * 처음엔 `.in()` 이 길어서인 줄 알고 청크를 줄였는데 통째 적재에서도 같은 것이 났다.
+     * 한 쪽이라도 조용히 빠지면 **사전에 없는 낱말이 되어 글이 실제보다 쉬워 보인다.**
+     */
+    let data = null
+    let lastErr = null
+    for (let attempt = 0; attempt < 4; attempt++) {
+      const r = await db
+        .from('shared_dictionary')
+        .select('word, v_level')
+        .not('v_level', 'is', null)
+        .neq('v_level', 11)
+        .order('word', { ascending: true })
+        .range(from, from + pageSize - 1)
+        .then((x) => x, (e) => ({ data: null, error: e }))
+      if (!r.error) {
+        data = r.data
+        break
+      }
+      lastErr = r.error
+      await new Promise((z) => setTimeout(z, 500 * (attempt + 1)))
+    }
+    if (data == null) throw new Error(`사전 적재 실패(${from}~): ${lastErr?.message ?? lastErr}`)
+    for (const r of data) map.set(r.word, r.v_level)
+    if (data.length < pageSize) break
+  }
+  return map
+}
+
+/**
+ * 글 하나의 `article_v_level` 을 적재 전에 추정한다. **DB 를 안 부른다.**
+ *
+ * @param map      `loadVLevelMap` 결과
+ * @param extract  `extractBookLemmas`
+ * @param content  본문
  * @returns `{ vLevel, matched, lemmas }` — `vLevel` 이 `null` 이면 사전에 걸린 낱말이 없다.
  */
-export async function estimateArticleVLevel(db, extract, content) {
+export function estimateArticleVLevel(map, extract, content) {
   const index = extract([{ title: '', content }])
   const lemmas = [...index.bookFrequency.keys()]
   if (!lemmas.length) return { vLevel: null, matched: 0, lemmas: 0 }
 
+  // 채점자는 `DISTINCT lav.word, sd.v_level` 을 센다 — lemma 는 이미 유일하므로
+  //   그대로 한 번씩만 담는다.
   const levels = []
-  const CHUNK = 400
-  for (let i = 0; i < lemmas.length; i += CHUNK) {
-    const { data, error } = await db
-      .from('shared_dictionary')
-      .select('word, v_level')
-      .in('word', lemmas.slice(i, i + CHUNK))
-      .not('v_level', 'is', null)
-      .neq('v_level', 11)
-    if (error) throw new Error(error.message)
-    for (const r of data ?? []) levels.push(r.v_level)
+  for (const w of lemmas) {
+    const v = map.get(w)
+    if (v != null) levels.push(v)
   }
   levels.sort((a, b) => a - b)
   return { vLevel: p75Disc(levels), matched: levels.length, lemmas: lemmas.length }

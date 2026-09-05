@@ -69,6 +69,12 @@ const CONCURRENCY = Number(arg('concurrency') ?? 3)
 /** 요청 간 간격(ms). 0 이면 쉬지 않는다. */
 const GAP_MS = Number(arg('gap') ?? 120)
 /**
+ * `--no-curriculum` — 어휘 게이트를 **판정에서만** 뺀다(세기는 계속한다).
+ * V-Level 게이트와 역할이 겹치는지 대조하려는 것이다: 둘 다 "이 학년이 읽을 수 있는가" 를
+ * 다른 방식으로 묻는다. 겹친다면 멀쩡한 글을 이중으로 버리고 있는 것이다.
+ */
+const CURRICULUM = !process.argv.includes('--no-curriculum')
+/**
  * 표집 방법. `allpages`(기본)는 **바이트 하한을 서버에 걸어** 토막글을 안 받는다.
  * `random` 은 대조용으로 남긴다 — 걸러서 좋아진 것인지 우연인지 대 봐야 하기 때문이다.
  */
@@ -125,7 +131,7 @@ if (!wiki) {
 const { createClient } = await import('@supabase/supabase-js')
 const { gradeBand, bandOf, readability, curriculumFit, standaloneFit, PASSAGE_WORDS } =
   await import('../../packages/library-pipeline/src/index.ts')
-const { estimateArticleVLevel } = await import('./_vlevel.mjs')
+const { estimateArticleVLevel, loadVLevelMap } = await import('./_vlevel.mjs')
 const { extractBookLemmas } = await import(
   '../../packages/library-pipeline/src/analyze/extract-lemmas.ts'
 )
@@ -141,6 +147,10 @@ const db = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY,
   { auth: { persistSession: false } },
 )
+
+// 사전은 **한 번만** 읽는다 — 글마다 물으면 fetch 가 터진다(2026-09-05 실측).
+const vMap = V_RANGE ? await loadVLevelMap(db) : null
+if (vMap) console.log(`사전 ${vMap.size.toLocaleString()}낱말 적재`)
 
 const countWords = (s) => s.split(/\s+/).filter(Boolean).length
 
@@ -218,6 +228,8 @@ let failed = 0
 /** 자르기가 살려 낸 수 — 자르기의 기여분을 수치로 남긴다. */
 /** 추정 V-Level 이 목표 범위 밖. **처리 전에** 버리므로 LLM 비용이 안 든다. */
 let vLevelMiss = 0
+/** 어휘 게이트가 막았지만 `--no-curriculum` 이라 통과시킨 수 — 겹침의 크기다. */
+let vocabBypassed = 0
 let trimmed = 0
 
 for (let i = 0; i < sample.items.length; i++) {
@@ -289,7 +301,11 @@ for (let i = 0; i < sample.items.length; i++) {
   const vf = curriculumFit(content, school)
   if (!vf.pass) {
     vocabBlocked++
-    continue
+    // `--no-curriculum` — **끄지 않고 세기만 한다.** V-Level 게이트와 역할이 겹치는지
+    //   재려면 "어휘 게이트가 막았지만 V 칸에는 드는 글" 이 몇이고 어떤 것인지 봐야 한다.
+    //   끄고 돌린 결과와 켜고 돌린 결과의 차이가 곧 그 게이트의 값이다.
+    if (CURRICULUM) continue
+    vocabBypassed++
   }
   const sf = standaloneFit(content)
   if (!sf.pass) {
@@ -302,7 +318,7 @@ for (let i = 0; i < sample.items.length; i++) {
   // 재는 것이 싸다. 처리(LLM) 뒤에 버리는 것보다 훨씬 싸기도 하다.
   let estV = null
   if (V_RANGE) {
-    const est = await estimateArticleVLevel(db, extractBookLemmas, content)
+    const est = estimateArticleVLevel(vMap, extractBookLemmas, content)
     estV = est.vLevel
     if (estV == null || estV < V_RANGE.min || estV > V_RANGE.max) {
       vLevelMiss++
@@ -341,7 +357,7 @@ for (let i = 0; i < sample.items.length; i++) {
 console.log(
   `\n추가 ${added}(자르기로 살린 것 ${trimmed}) · 이미 있음 ${existed} · 도입부 없음 ${empty} · ` +
     `짧음 ${tooShort} · 김 ${tooLong} · 잘라도 안 됨 ${trimFailed} · 칸 밖 ${outOfBand} · ` +
-    `어휘 밖 ${vocabBlocked} · 자립성 미달 ${notStandalone} · V칸 밖 ${vLevelMiss} · 실패 ${failed}`,
+    `어휘 밖 ${vocabBlocked}${CURRICULUM ? "" : `(그중 통과 ${vocabBypassed})`} · 자립성 미달 ${notStandalone} · V칸 밖 ${vLevelMiss} · 실패 ${failed}`,
 )
 const seen = sample.items.length
 if (seen) {
