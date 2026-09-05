@@ -55,6 +55,35 @@ for (const band of BANDS) {
     for (const r of refs) unitsPerRef.set(r, (unitsPerRef.get(r) ?? 0) + 1)
   }
 
+  /**
+   * **겹친 글이 어느 (단원·유형) 자리에 있는가.**
+   *
+   * 유형표에 여유가 다 있는데도 겹치면(2026-09-05 V3: 여유 16~229 인데 11편 겹침),
+   * 어느 유형 자리가 그 글을 두 번 부르는지 봐야 다음 손댈 곳이 나온다.
+   * 분포만 보면 "몇 편" 은 알아도 "왜" 는 모른다.
+   */
+  const slotsOfRef = new Map()
+  for (const u of units) {
+    for (const it of u.items ?? []) {
+      if (!it.ref_id) continue
+      if (!slotsOfRef.has(it.ref_id)) slotsOfRef.set(it.ref_id, [])
+      slotsOfRef.get(it.ref_id).push(`${u.no}:${it.type}`)
+    }
+  }
+  const reusedDetail = [...slotsOfRef.entries()]
+    .filter(([, s]) => new Set(s.map((x) => x.split(':')[0])).size > 1)
+    .map(([ref, s]) => {
+      const title = (vol.articles?.get?.(ref)?.title ?? vol.articles?.[ref]?.title ?? ref).toString()
+      return `    ${title.slice(0, 34).padEnd(34)} ${s.join(' · ')}`
+    })
+  const typePairs = new Map()
+  for (const [, s] of slotsOfRef) {
+    const units2 = new Set(s.map((x) => x.split(':')[0]))
+    if (units2.size < 2) continue
+    const types = s.map((x) => x.split(':')[1]).sort().join('+')
+    typePairs.set(types, (typePairs.get(types) ?? 0) + 1)
+  }
+
   const counts = [...unitsPerRef.values()].sort((a, b) => b - a)
   const distinct = counts.length
   const totalSlots = counts.reduce((a, b) => a + b, 0)
@@ -70,6 +99,14 @@ for (const band of BANDS) {
   )
   // 무중복으로 이 권을 만들려면 글이 몇 편 있어야 하는가 — 그것이 곧 "권수" 의 분모다.
   console.log(`  무중복이려면 최소 ${totalSlots}편 필요 (지금 ${distinct}편으로 돌려 막는 중)`)
+  if (reusedDetail.length) {
+    console.log('  겹친 글 — 단원:유형 자리:')
+    for (const line of reusedDetail) console.log(line)
+    console.log(
+      '  겹침 유형 조합: ' +
+        [...typePairs.entries()].sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k}×${v}`).join(' · '),
+    )
+  }
 
   /**
    * **어느 유형이 재사용을 만드는가.**
