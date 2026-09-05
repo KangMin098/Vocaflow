@@ -200,6 +200,23 @@ const IN_CHUNK = Number(process.env.VOCAFLOW_IN_CHUNK) || 100
  * (같은 교훈을 `market-benchmark.mjs` 의 `fetchAll` 이 이미 한 번 배웠다. 그때는
  *  이 함수까지 고치지 않아, 자의 한쪽만 튼튼해진 채로 남아 있었다.)
  */
+/**
+ * 이 페이지의 **마지막 커서 값이 몇 번 나오는가.** 둘 이상이면 다음 페이지를
+ * `> 그 값` 으로 받는 순간 나머지가 사라진다 — 즉 그 열은 커서로 쓸 수 없다.
+ *
+ * 한 번(정상)이면 0 을 돌려준다. 순수 함수라 회귀로 잠근다.
+ */
+export function boundaryLeak(rows, col) {
+  if (!rows?.length) return 0
+  const last = rows[rows.length - 1][col]
+  if (last === undefined) {
+    throw new Error(`커서 열 '${col}' 이 결과에 없다 — select 에 넣어야 커서를 쓸 수 있다.`)
+  }
+  let n = 0
+  for (const r of rows) if (r[col] === last) n++
+  return n > 1 ? n : 0
+}
+
 export async function fetchAllIn(db, table, columns, column, values, orderBy, apply) {
   const out = []
   // 한 번 줄인 페이지는 이 호출 내내 유지한다 — 다시 키우면 같은 자리에서 또 걸린다.
@@ -233,8 +250,21 @@ export async function fetchAllIn(db, table, columns, column, values, orderBy, ap
       if (!data?.length) break
       out.push(...data)
       if (data.length < size) break
-      if (keysetCol) cursor = data[data.length - 1][keysetCol]
-      else from += size
+      if (keysetCol) {
+        // ⚠️ **커서 열이 고유하지 않으면 이 경계에서 행이 조용히 샌다.** 다음 페이지를
+        //   `> 마지막 값` 으로 받으므로 그 값을 가진 남은 행들이 통째로 사라진다.
+        //   실측 2026-09-06: `csat_dcp_items` 를 `ref_id` 로 넘기다 **11,559행 중 117행**을
+        //   잃었고, 그 탓에 `--avoid title` 이 title 을 가진 글을 못 걸렀다.
+        //   조용히 새느니 시끄럽게 멈춘다 — 이 함수의 결과는 게이트의 근거가 된다.
+        const leak = boundaryLeak(data, keysetCol)
+        if (leak) {
+          throw new Error(
+            `${table}: 커서 열 '${keysetCol}' 이 고유하지 않다 — 페이지 끝에서 같은 값이 ${leak}개다.` +
+              ` 고유한 열(대개 pk)로 정렬해야 행이 새지 않는다.`,
+          )
+        }
+        cursor = data[data.length - 1][keysetCol]
+      } else from += size
     }
   }
   // ⚠️ **묶음 안에서만 정렬하면 배열 순서가 묶음 크기에 딸린다.**
