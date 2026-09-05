@@ -279,7 +279,22 @@ const { fetchAllIn } = await import('./volume-pool.mjs')
 // 본문이 바뀌면 문단 번호가 바뀌어 **이미 붙은 문항이 낡는다** — 그래서 되돌릴 수 없고,
 // `--commit` 없이는 미리보기만 한다. 뒤에 `refresh-dcp-items` 를 다시 돌려야 한다.
 if (process.argv.includes('--update-existing')) {
-  const ids = ok.map((r) => `original:v${BAND}-${r.slot}`)
+  /**
+   * ⚠️ **id 를 조립하지 않는다 — 청크가 실어 온 것을 쓴다.**
+   *
+   * 예전에는 `original:v${BAND}-${slot}` 로 만들었다. 그런데 `source_id` 의 밴드 번호는
+   * **그 글이 처음 쓰인 밴드**이고, `article_v_level` 은 **지금 실측된 밴드**라 서로 다를 수 있다.
+   * 개정 드레인(`market-revise-export.mjs`)은 `article_v_level` 로 고르므로
+   * `original:v2-32`(실측 V3)가 "슬롯 32" 로 나온다. 그걸 `original:v3-32` 에 쓰면
+   * **전혀 다른 글을 덮어쓴다.**
+   *
+   * 실제로 그렇게 3건을 덮어썼다(2026-09-06): v3-32(실측 V4) · v3-35(V4) · v3-57.
+   * 문항 payload 에 원문 문장이 남아 있어 되살렸지만, **되살릴 수 없었을 수도 있었다.**
+   *
+   * 그래서 청크에 `source_id` 가 있으면 그것을 쓰고, 없으면(집필 드레인) 예전처럼 만든다.
+   */
+  const idOf = (r) => r.source_id ?? `original:v${BAND}-${r.slot}`
+  const ids = ok.map(idOf)
   const cur = new Map(
     (
       await fetchAllIn(db, 'library_articles', 'source_id, content', 'source_id', ids, [
@@ -288,7 +303,7 @@ if (process.argv.includes('--update-existing')) {
     ).map((d) => [d.source_id, d.content])
   )
   const stale = ok.filter((r) => {
-    const c = cur.get(`original:v${BAND}-${r.slot}`)
+    const c = cur.get(idOf(r))
     if (c == null) return false
     return String(c).replace(/\s+/g, ' ').trim() !== String(r.content).replace(/\s+/g, ' ').trim()
   })
@@ -305,7 +320,7 @@ if (process.argv.includes('--update-existing')) {
       .from('library_articles')
       .update({ content: r.content, content_hash: sha256(r.content) })
       .eq('source', 'original')
-      .eq('source_id', `original:v${BAND}-${r.slot}`)
+      .eq('source_id', idOf(r))
     if (ue) console.log(`  ✗ 슬롯 ${r.slot}: ${ue.message}`)
     else n++
   }
