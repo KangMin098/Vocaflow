@@ -129,4 +129,11 @@ describe('CsatConsoleClient', () => {
     const html = text(renderToString(<CsatConsoleClient {...EMPTY} />))
     expect(html).toContain('가이드 원천')
   })
+
+  // 회차·유형 집계는 「802문항이 다 통과했다」까지만 말한다. 한 문항의 오답 배제가 둘만
+  // 적혀 있어도 그 회차의 「덮은 배점」은 가득 찬 것으로 나온다 — 그 자리를 보는 탭이다.
+  it('「문항 분석」 탭이 있다 — 통과했어도 비어 있는 서술을 보는 자리다', () => {
+    const html = text(renderToString(<CsatConsoleClient {...EMPTY} />))
+    expect(html).toContain('문항 분석')
+  })
 })

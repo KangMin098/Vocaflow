@@ -220,7 +220,7 @@
 
 ---
 
-## API Routes (25)
+## API Routes (26)
 
 ### `/api/auth/*` (1)
 
@@ -289,10 +289,11 @@
 | `POST /api/admin/library/delete-seed-catalog` | seed catalog 정리 |
 | `POST /api/admin/library/backfill-covers` | cover_image_url backfill |
 
-### `/api/admin/csat/*` (1)
+### `/api/admin/csat/*` (2)
 
 | 경로 | 비고 |
 |---|---|
+| `GET /api/admin/csat/items` | 문항 감사 802행 — 검수 통과와 별개로 여섯 칸(정답 근거·근거 인용·오답 배제·절차·어휘·시간)이 찼는지 판정한다. `?item=<id>` 는 그 문항의 분석 전문. 평가원 지문·선지 원문은 조회 컬럼에 없다 |
 | `GET /api/admin/csat/guide` | 기출 분석 → **학습 가이드 원천 자료**. `?format=json`(기본, 콘솔 탭이 읽는다) · `?format=md`(교재 집필용) · `&download=1`(파일로). 화면과 파일이 **같은 조회**에서 나온다. 평가원 지문 원문은 조회 컬럼에서 이미 빠져 있다 |
 
 ### `/api/admin/articles/*` (21)

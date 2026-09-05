@@ -35,8 +35,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { CsatCoverageRow, CsatOverview, CsatTypeRow } from '@/lib/csat/client'
 import type { CsatGuideSource } from '@/lib/csat/guide-fold'
+import type { CsatItemAudit } from '@/lib/csat/items-fold'
 
-const TABS = ['회차 커버리지', '유형별 진행', '가이드 원천'] as const
+const TABS = ['회차 커버리지', '유형별 진행', '문항 분석', '가이드 원천'] as const
 type Tab = (typeof TABS)[number]
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
@@ -188,6 +189,256 @@ function TypeTable({ rows }: { rows: CsatTypeRow[] }) {
         </tbody>
       </table>
     </div>
+  )
+}
+
+interface ItemFull {
+  item_id: string
+  exam_label: string
+  no: number
+  type_name: string | null
+  answer: number | null
+  answer_unknown: boolean
+  measured_ability: string | null
+  design_intent: string | null
+  quote: string | null
+  reasoning: string | null
+  choices: { n: number; verdict: string | null; trap: string | null; text: string | null }[]
+  procedure: { step: string; on_fail?: string }[]
+  required_vocab: string[]
+  time_budget_sec: number | null
+  predicted: number | null
+  drivers: string[]
+}
+
+interface AuditSummary {
+  items: number
+  complete: number
+  answerUnknown: number
+  gaps: { name: string; n: number }[]
+}
+
+/**
+ * 「문항 분석」 — 802문항이 **다 통과했다는데 어느 문항의 서술이 실제로 비어 있는지** 본다.
+ *
+ * 회차·유형 집계로는 안 보이는 자리다. 한 문항의 오답 배제가 둘만 적혀 있어도 그 회차의
+ * 「덮은 배점」은 가득 찬 것으로 나온다. 빈 항목이 많은 문항이 위에 온다 — 다음에 손볼 것을
+ * 여기서 고른다.
+ */
+function ItemsTab() {
+  const [rows, setRows] = useState<CsatItemAudit[] | null>(null)
+  const [summary, setSummary] = useState<AuditSummary | null>(null)
+  const [state, setState] = useState<'idle' | 'loading' | 'error'>('idle')
+  const [err, setErr] = useState<string | null>(null)
+  const [onlyGaps, setOnlyGaps] = useState(true)
+  const [open, setOpen] = useState<string | null>(null)
+  const [detail, setDetail] = useState<ItemFull | null>(null)
+
+  const load = useCallback(async () => {
+    setState('loading')
+    setErr(null)
+    try {
+      const res = await fetch('/api/admin/csat/items', { cache: 'no-store' })
+      const json = (await res.json()) as { ok?: boolean; rows?: CsatItemAudit[]; summary?: AuditSummary; error?: string }
+      if (!res.ok || !json.ok || !json.rows) throw new Error(json.error ?? `HTTP ${res.status}`)
+      setRows(json.rows)
+      setSummary(json.summary ?? null)
+      setState('idle')
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e))
+      setState('error')
+    }
+  }, [])
+
+  useEffect(() => {
+    void load()
+  }, [load])
+
+  const openItem = useCallback(
+    async (id: string) => {
+      if (open === id) {
+        setOpen(null)
+        setDetail(null)
+        return
+      }
+      setOpen(id)
+      setDetail(null)
+      try {
+        const res = await fetch(`/api/admin/csat/items?item=${encodeURIComponent(id)}`, { cache: 'no-store' })
+        const json = (await res.json()) as { ok?: boolean; item?: ItemFull }
+        if (json.ok && json.item) setDetail(json.item)
+      } catch {
+        // 한 줄이 안 열리는 것으로 표 전체를 무너뜨리지 않는다 — 다시 누르면 재시도한다
+      }
+    },
+    [open],
+  )
+
+  if (state === 'loading' && !rows) {
+    return <p className="py-6 text-center text-sm text-[var(--tx-3)]">문항 802개를 감사하는 중…</p>
+  }
+  if (state === 'error') {
+    return (
+      <div className="flex flex-col items-start gap-3 py-4">
+        <p className="text-sm text-[var(--tx-2)]">문항 감사를 만들지 못했다 — {err}</p>
+        <button type="button" onClick={() => void load()} className={DL_BUTTON}>
+          다시 시도
+        </button>
+      </div>
+    )
+  }
+  if (!rows || !summary) return null
+
+  const shown = onlyGaps ? rows.filter((r) => r.gaps.length > 0) : rows
+
+  return (
+    <>
+      <div className="mb-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <Stat
+          label="서술이 다 찬 문항"
+          value={`${summary.complete} / ${summary.items}`}
+          hint="검수 통과와 다른 눈금이다 — 통과했어도 오답 배제가 빠질 수 있다"
+        />
+        <Stat
+          label="정답 미상"
+          value={String(summary.answerUnknown)}
+          hint="평가원 정답표가 없다 — 정답 근거를 요구하지 않는다(부실이 아니다)"
+        />
+        <Stat
+          label="가장 잦은 빈 항목"
+          value={summary.gaps[0] ? `${summary.gaps[0].name} ${summary.gaps[0].n}` : '없음'}
+          hint={summary.gaps.slice(1, 4).map((g) => `${g.name} ${g.n}`).join(' · ') || '—'}
+        />
+        <Stat label="표시 중" value={String(shown.length)} hint={onlyGaps ? '빈 항목이 있는 문항만' : '전체'} />
+      </div>
+
+      <div className="mb-3">
+        <button
+          type="button"
+          onClick={() => setOnlyGaps((v) => !v)}
+          aria-pressed={onlyGaps}
+          className={`min-h-[44px] rounded-md px-3 text-sm transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6] ${
+            onlyGaps
+              ? 'bg-[#8B5CF6] text-white'
+              : 'border border-[var(--bd)] text-[var(--tx-2)] hover:bg-[var(--sf-2)] active:bg-[var(--bd)]'
+          }`}
+        >
+          빈 항목이 있는 것만
+        </button>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[760px] text-sm">
+          <thead>
+            <tr className="border-b border-[var(--bd)] text-left text-xs text-[var(--tx-3)]">
+              <th className="py-2 pr-3 font-medium">문항</th>
+              <th className="py-2 pr-3 font-medium">유형</th>
+              <th className="py-2 pr-3 font-medium">정답 근거</th>
+              <th className="py-2 pr-3 font-medium">오답 배제</th>
+              <th className="py-2 pr-3 font-medium">절차</th>
+              <th className="py-2 pr-3 font-medium">어휘</th>
+              <th className="py-2 font-medium">빈 항목</th>
+            </tr>
+          </thead>
+          <tbody>
+            {shown.slice(0, 300).map((r) => (
+              <tr key={r.item_id} className="border-b border-[var(--bd)] align-top last:border-0">
+                <td className="py-2 pr-3">
+                  <button
+                    type="button"
+                    onClick={() => void openItem(r.item_id)}
+                    aria-expanded={open === r.item_id}
+                    className="min-h-[44px] text-left text-[var(--tx)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[#8B5CF6] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8B5CF6]"
+                  >
+                    {r.exam_label} <span className="tabular-nums">{r.no}번</span>
+                  </button>
+                  {open === r.item_id ? (
+                    detail ? (
+                      <div className="mb-2 mt-1 space-y-2 text-xs text-[var(--tx-2)]">
+                        {detail.measured_ability ? (
+                          <p>
+                            <span className="text-[var(--tx-3)]">재는 능력 · </span>
+                            {detail.measured_ability}
+                          </p>
+                        ) : null}
+                        {detail.design_intent ? (
+                          <p>
+                            <span className="text-[var(--tx-3)]">출제 의도 · </span>
+                            {detail.design_intent}
+                          </p>
+                        ) : null}
+                        {detail.quote ? (
+                          <p className="border-l-2 border-[var(--bd)] pl-2 italic">“{detail.quote}”</p>
+                        ) : null}
+                        {detail.reasoning ? <p>{detail.reasoning}</p> : null}
+                        {detail.choices.length ? (
+                          <ul className="space-y-1">
+                            {detail.choices.map((c) => (
+                              <li key={c.n}>
+                                <span
+                                  className={
+                                    c.n === detail.answer ? 'font-medium text-[#2E7D5A]' : 'text-[var(--tx-3)]'
+                                  }
+                                >
+                                  {c.n}
+                                  {c.n === detail.answer ? ' (정답)' : ''}
+                                </span>
+                                {c.trap ? <span className="ml-1 text-[#B5803A]">[{c.trap}]</span> : null}
+                                {c.text ? <span className="ml-1">{c.text}</span> : null}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
+                        {detail.procedure.length ? (
+                          <ol className="list-decimal space-y-0.5 pl-4">
+                            {detail.procedure.map((s, i) => (
+                              <li key={i}>{s.step}</li>
+                            ))}
+                          </ol>
+                        ) : null}
+                        {detail.required_vocab.length ? (
+                          <p className="text-[var(--tx-3)]">어휘 · {detail.required_vocab.join(' · ')}</p>
+                        ) : null}
+                      </div>
+                    ) : (
+                      <p className="mb-2 mt-1 text-xs text-[var(--tx-3)]">여는 중…</p>
+                    )
+                  ) : null}
+                </td>
+                <td className="py-2 pr-3 text-[var(--tx-2)]">{r.type_name ?? '—'}</td>
+                <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">
+                  {r.answer_unknown ? <span className="text-[var(--tx-3)]">정답 미상</span> : `${r.why_correct_len}자`}
+                </td>
+                <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">
+                  {r.distractors_explained}/{r.distractors_total}
+                </td>
+                <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{r.procedure_steps}</td>
+                <td className="py-2 pr-3 tabular-nums text-[var(--tx-2)]">{r.vocab}</td>
+                <td className="py-2">
+                  {r.gaps.length ? (
+                    <span className="text-xs text-[#B5803A]">{r.gaps.join(' · ')}</span>
+                  ) : (
+                    <span className="text-xs text-[#2E7D5A]">없음</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+            {!shown.length ? (
+              <tr>
+                <td colSpan={7} className="py-6 text-center text-sm text-[#2E7D5A]">
+                  빈 항목이 있는 문항이 없다 — 802문항의 서술이 모두 찼다
+                </td>
+              </tr>
+            ) : null}
+          </tbody>
+        </table>
+      </div>
+      {shown.length > 300 ? (
+        <p className="mt-2 text-xs text-[var(--tx-3)]">
+          위 300개만 그린다 (총 {shown.length}) — 빈 항목이 많은 것부터다
+        </p>
+      ) : null}
+    </>
   )
 }
 
@@ -447,12 +698,16 @@ export function CsatConsoleClient({ coverage, types, totals, loadError }: CsatOv
             ? '덮은 배점이 사정권 배점과 같아야 「가능」이다 — 듣기는 세지 않는다'
             : tab === '유형별 진행'
               ? '남은 몫이 많은 유형이 위에 온다 — 다음에 돌릴 드레인을 여기서 고른다'
-              : '분석이 교재·학습 가이드로 나가는 모양 — 유형을 눌러 함정 계열을 편다'}
+              : tab === '문항 분석'
+                ? '검수 통과와 다른 눈금이다 — 통과했어도 서술이 비어 있을 수 있다. 문항을 눌러 전문을 편다'
+                : '분석이 교재·학습 가이드로 나가는 모양 — 유형을 눌러 함정 계열을 편다'}
         </div>
         {tab === '회차 커버리지' ? (
           <CoverageTable rows={coverage} />
         ) : tab === '유형별 진행' ? (
           <TypeTable rows={types} />
+        ) : tab === '문항 분석' ? (
+          <ItemsTab />
         ) : (
           <GuideTab />
         )}
