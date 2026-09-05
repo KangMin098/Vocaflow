@@ -68,3 +68,20 @@ describe('논문 서식', () => {
     expect(isPrintablePassage('Methods The nucleic acid extraction module was evaluated.')).toBe(false)
   })
 })
+
+// `Abstract` 는 나중에 붙였다 — 첫 규칙을 넣고 드레인을 다시 뽑아 보니 그 표제어가
+// 그대로 남은 몫이 있었다(V7 문항 20/94 · V6 14/137 · V5 이하 0). 오탐도 그때 다시 쟀다.
+describe('Abstract 표제어', () => {
+  it('문장 자리의 Abstract 를 잡는다', () => {
+    expect(
+      hasAcademicApparatus(
+        'Our study provides supporting evidence for the mechanism. Abstract Oviposition holds crucial significance for insect reproduction.',
+      ),
+    ).toBe(true)
+  })
+
+  it('문장 안의 abstract 는 잡지 않는다', () => {
+    expect(hasAcademicApparatus('The painter moved from portraits to abstract shapes late in life.')).toBe(false)
+    expect(hasAcademicApparatus('It is an abstract Idea that few readers grasp at once.')).toBe(false)
+  })
+})

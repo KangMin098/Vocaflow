@@ -97,6 +97,7 @@ const NON_PROSE = /_{4,}|[–—-]\s*(?:v|n|adj|adv|prep|conj|pron)\.\s/i
  * 이런 것이 남아 있었다(지문을 가진 문항 기준):
  *
  *   구조 초록 표제어   V7 13/94 (13.8%) · V6 9/137 · V5 2/201
+ *   `Abstract` 표제어  V7 20/94 (21.3%) · V6 14/137 · V5 이하 0
  *   통계 잔해          V7 13/94 (13.8%) · V6 5/137
  *
  * 실물: `Objective This study aimed to comprehensively analyze differentially expressed
@@ -110,7 +111,7 @@ const ACADEMIC_APPARATUS = [
   // 논문 서지 — `Citation: Ma Z, Wu P, … PLoS One 21(3): e0340496.`
   /\bCitation:\s/,
   // 구조 초록 표제어가 문장 자리에 그대로 남은 것 — `Objective To evaluate …`
-  /(?:^|\.\s)(?:Objectives?|Methods?|Results?|Conclusions?|Backgrounds?|Findings?|Aims?)\s+[A-Z]/,
+  /(?:^|\.\s)(?:Abstract|Objectives?|Methods?|Results?|Conclusions?|Backgrounds?|Findings?|Aims?)\s+[A-Z]/,
   // 통계 서식 — 신뢰구간·유의확률·회귀식·로그 단위
   /95\s*%\s*CI|\bP\s*[<=>]\s*0\.|\bp\s*[<=>]\s*0\.0|\by\s*=\s*\d*\.?\d+\s*x\b|\blg\s+IU\/mL/,
 ] as const
