@@ -1,0 +1,230 @@
+[
+  {
+    "adapted_from_id": "380ceefc-9130-4628-b0b8-5939a651cfa3",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Personal Memoirs of U. S. Grant, Complete (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://www.gutenberg.org/ebooks/4367",
+    "source_text": "Nothing could be transported but food, and the troops were without sufficient shoes or other clothing suitable for the advancing season. What they had was well worn. The fuel within the Federal lines was exhausted, even to the stumps of trees. There were no teams to draw it from the opposite bank, where it was abundant. The only way of supplying fuel, for some time before my arrival, had been to cut trees on the north bank of the river at a considerable distance up the stream, form rafts of it and float it down with the current, effecting a landing on the south side within our lines by the use of paddles or poles. It would then be carried on the shoulders of the men to their camps.",
+    "title": "Wood on the River",
+    "text": "Soldiers needed wood for their fires. The wood kept the camps warm at night. Every tree near the camp was gone. Only stumps were left in the ground. Good trees still grew far up the river. Men walked up the river to cut them. They tied the fresh logs together with rope. The tied logs made one flat raft. The raft floated down the river all day. Men pushed the raft along with long poles. They landed the raft on the south bank. Then they lifted the wood onto their shoulders. They carried the heavy wood back to the camp. The river did most of the work. The men only had to steer and carry."
+  },
+  {
+    "adapted_from_id": "268a1a84-135a-4ceb-8c3b-e7ea89fbef8e",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Black Beauty (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.gutenberg.org/ebooks/271",
+    "source_text": "A few days after this I had to go out with Ginger in the carriage. I wondered how we should get on together; but except laying her ears back when I was led up to her, she behaved very well. She did her work honestly, and did her full share, and I never wish to have a better partner in double harness. When we came to a hill, instead of slackening her pace, she would throw her weight right into the collar, and pull away straight up. We had both the same sort of courage at our work, and John had oftener to hold us in than to urge us forward; he never had to use the whip with either of us; then our paces were much the same, and I found it very easy to keep step with her when trotting, which made it pleasant, and master always liked it when we kept step well, and so did John. After we had been out two or three times together we grew quite friendly and sociable, which made me feel very much at home.",
+    "title": "Two Horses, One Cart",
+    "text": "I went out with Ginger in the carriage. I did not know how we would work together. She laid her ears back when the groom led me up. Then she did her work very well. She pulled her full share of the harness. We came to a steep hill on the gravel road. Ginger did not slow her pace at all. She threw her weight into the collar. Her hooves gripped the stones and she pulled straight up. I trotted beside her at the same speed. John never used the whip on us. He held the reins back more than he urged us on. Our steps matched when we trotted together. The master liked to watch us keep step. After a few days in the stable we were friends."
+  },
+  {
+    "adapted_from_id": "ab9bfa10-9f0d-4f69-b4fa-6e284214c0e4",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "The strange house (발췌)",
+    "source_feed": "gutenberg",
+    "source_license": "public_domain",
+    "source_v_level": 4,
+    "source_url": "https://www.gutenberg.org/ebooks/76759",
+    "source_text": "After that they went to the drawing-room, where they found Mr. Shaddock, listening to Conway's account of his visit next door. Tea was rather formidable to poor Gertrude among such a number of strangers, though Mr. and Mrs. Shaddock exerted themselves to find topics of conversation, while Mollie did her best to join in, and to interest her governess in what went on. AFTER tea, Daisy and Hugh went back to the study, only waiting to beg Ned not to come. And Gertrude asked if she might go with them. Perhaps the children looked a little disappointed. But very soon, when they were all shut in with the curtains drawn and the cheerful lamplight, they drew near to her, and condescended to examine her photograph album, which she had brought down for their inspection.",
+    "title": "Tea and the Photograph Album",
+    "text": "Gertrude came to the house as a new governess. Tea was hard for her on that first day. She sat with many people she did not know. Mr. and Mrs. Shaddock tried to talk with her. Mollie helped by asking her simple questions. After tea the children went to the study. Gertrude asked if she could go with them. The children looked a little disappointed at first. Someone drew the curtains across the window. The lamp made the room warm and bright. Gertrude opened her photograph album on the table. The children came close to look at it. They asked about every picture inside. Soon nobody in the room felt like a stranger."
+  },
+  {
+    "adapted_from_id": "2cd50dd8-46ca-4eb3-a766-e45f43a60f79",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "Mutant mice lacking alternatively spliced p53 isoforms unveil Ackr4 as a male-specific prognostic factor in Myc-driven B-cell lymphomas",
+    "source_feed": "elife",
+    "source_license": "cc_by",
+    "source_v_level": 5,
+    "source_url": "https://elifesciences.org/articles/92774",
+    "source_text": "Human cells divide many times during a lifetime, a process that requires careful regulation to avoid uncontrolled cell division, which can lead to various disorders, including cancer. For example, TP53, which encodes multiple proteins, is the most commonly mutated gene in cancers.\n\nTP53 carries the instructions to make a tumor suppressor protein, known as p53, which can stop cancers from forming and spreading. In humans and mice, TP53 (and the mouse analogue Trp53) can also be read by the cell to make several slightly different versions of the p53 protein, known as isoforms. The p53 isoforms are much less studied and their role in an organism is still unclear.\n\nTo address this, Fajac et al. used genome editing to make mouse strains that were still able to express p53, but were only able to create a specific subset of p53 isoforms. In these mice, part of the Trp53 gene had been mutated to remove the cell’s ability to make isoforms with an alternative C-terminal end.\n\nFajac et al. then allowed these mice to breed with mice that were model organisms for a cancer called B-cell lymphoma. This revealed that male offspring that lacked alternative p53 isoforms were more susceptible to B-cell lymphoma and that they had decreased levels of the protein ACKR4, a receptor for signaling proteins that regulate cellular movement. Human datasets showed that having higher levels of ACKR4 could be linked to a better disease prognosis in male patients with Burkitt lymphoma, a rare but aggressive form of B-cell lymphoma. The same effect was not observed in females, suggesting that measuring ACKR4 gene expression in male patients with Burkitt lymphoma might be useful to identify the patients at higher risk.\n\nThe study from Fajac et al. provides a new perspective on p53 – one of the most studied proteins. It highlights specific p53 isoforms and the ACKR4 protein as a potential way to identify male patients at higher risk from a type of B-cell lymphoma.",
+    "title": "The Guard Inside Our Cells",
+    "text": "Our body is built from very tiny cells. Cells divide to make new cells. New cells help us grow and heal a wound. Sometimes a cell divides too many times. That is how a tumour can begin. A protein called p53 works like a guard. The guard tells a damaged cell to stop. Our body can build p53 in several shapes. Researchers know little about the rarer shapes. So they bred mice without some of them. Then they watched the mice in the laboratory. The mice showed which shapes matter most. One gene mattered only in the male mice. A small shape can change a big result."
+  },
+  {
+    "adapted_from_id": "03f7cf64-ce49-413c-be41-1d05261c15ad",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "New device delivers antibiotics via mist",
+    "source_feed": "futurity",
+    "source_license": "cc_by",
+    "source_v_level": 5,
+    "source_url": "https://www.futurity.org/antibiotics-via-mist-mrsa-3323712/",
+    "source_text": "New research unveils a safer, smarter way to fight drug-resistant infections.\n\nHongmin Sun, an associate professor in the School of Medicine at the University of Missouri, demonstrated that a spray-mist device can deliver last-resort antibiotics directly into infected tissue without the harmful side effects often caused by delivery via the bloodstream.\n\nIn a recent study, researchers worked with an industry partner to use a needle-free device to treat methicillin-resistant Staphylococcus aureus (MRSA), a dangerous bacterium that has become resistant to many common antibiotics.\n\nThe device successfully delivered vancomycin, a common last-resort antibiotic, deep into infected tissue without typical side effects such as kidney damage.\n\nUnlike topical creams or ointments that are easily wiped away or bloodstream delivery that risks organ damage, the spray-mist technology pushed the medicine through the skin to successfully treat the infection.\n\nSun collaborated with former Mizzou researcher Lakshmi Pulakat, now a professor of medicine at Tufts University, and Droplette Inc. to use the patented device for antibiotic delivery. The findings pave the way for future clinical trials as researchers seek FDA approval.\n\nThe team is hopeful the spray-mist device might one day be used in wound care in challenging settings.\n\n“Whether it’s people with diabetic foot ulcers or soldiers hurt in battle, we wanted to come up with a new approach to treat these severely infected wounds in a more targeted way,” Sun says.\n\n“This can be a game-changing therapy for treating those with severely infected wounds.”\n\nPulakat says the technology is an example of compassionate care.\n\n“This method of delivering last-resort antibiotics could prevent countless amputations and help save lives,” she says.\n\nThe study appears in Military Medicine.",
+    "title": "Medicine in a Mist",
+    "text": "Some bacteria no longer die from common antibiotics. Doctors call these germs hard to treat. One strong antibiotic can damage the kidneys. So doctors look for a safer way to give it. A team built a small spray device for this. The device turns the liquid into a fine mist. The mist pushes the medicine through the skin. It reaches the infected tissue below. No needle touches the patient at all. An ointment would rub off the skin too easily. Blood can carry the drug to the wrong organs. In the test the mist cleared the infection. The kidneys of the patient stayed healthy. A mist can carry medicine where it is needed."
+  },
+  {
+    "adapted_from_id": "26783e4e-ce7c-40ee-8505-ebbb301deec2",
+    "target_band": "elementary",
+    "target_label": "초등",
+    "target_v_level": 1,
+    "target_cefr": [
+      "A1",
+      "A2"
+    ],
+    "words": {
+      "min": 90,
+      "max": 170
+    },
+    "avg_sentence_words": 9,
+    "directives": [
+      "한 문장에 한 가지만 말한다. 접속사로 두 문장을 잇지 않는다.",
+      "눈에 보이는 것을 쓴다 — 사물·동물·사람·장소. 제도·정책·추상명사는 쓰지 않는다.",
+      "사건사고·분쟁·죽음은 사실 카드에 있어도 쓰지 않는다.",
+      "숫자는 한 편에 하나만 남긴다 — 셋을 나열하면 셋 다 놓친다.",
+      "같은 단어를 일부러 다시 쓴다. 동의어로 바꾸면 재인이 끊긴다."
+    ],
+    "note": "흥미·습관 형성기. 하드뉴스는 부적합 — 내러티브·사물 설명·경이 소재.",
+    "vocabulary_band": {
+      "outside_pct_min": 24.1,
+      "outside_pct_max": 43.3,
+      "how": "내용어(기능어 제외) 중 2022 개정 교육과정 기본어휘 3,000 **밖** 낱말의 비율",
+      "why": "시중 초등 지문의 p25~p90 실측 대역. 이보다 쉽게 쓰면 새 낱말을 그만큼 덜 가르치고, 넘으면 그 학년이 못 읽는다",
+      "note": "import 가 같은 자로 채점해 대역 밖이면 이유를 숫자로 돌려준다"
+    },
+    "source_title": "NASA Awards 2026 Innovative Technology Concepts - NASA",
+    "source_feed": "nasa",
+    "source_license": "public_domain",
+    "source_v_level": 5,
+    "source_url": "https://www.nasa.gov/news-release/nasa-awards-2026-innovative-technology-concepts/",
+    "source_text": "5 min read\n\nNASA Awards 2026 Innovative Technology Concepts\n\nJennifer M. Dooren\n\nJul 29, 2026\n RELEASE26-057\n\nNASA Headquarters\n\nThe NASA Innovative Advanced Concepts (NIAC) program has created 18 new awards to support visionary ideas to improve aerospace technologies in areas ranging from the exploration of the solar system to understanding the universe.\n\nThe 18 NIAC Phase I awards total $3.2 million. Each award provides up to $175,000 for a nine-month initial investigation. The NIAC projects are about early-stage concept development and are not considered official NASA missions.\n\n“NASA has outlined an ambitious vision for the future of space exploration, we’re returning the Moon to stay, advancing to Mars, and pushing to deepen our understanding of space,” said Greg Stover, director of the Advanced Research and Technology division within the Research and Technology Mission Directorate at NASA Headquarters in Washington. “Achieving that will require more than incremental technological advancement. It means we need great leaps. These awards are the kinds of innovation the world needs NASA to help foster.”\n\nAs an innovation incubator, NIAC funds early development of potential breakthrough technologies. Concepts for award consideration must have both transformative potential and possible feasibility for eventual implementation.\n\n“Every innovation, every leap in technology, starts with a seed of an idea,” said Phillip Williams, NIAC’s acting program executive. “The NIAC program allows NASA to germinate those seeds and determine if there’s something that could be grown to benefit future space missions and our nation’s aerospace economy.”\n\nAs NASA and its partners push for sustained lunar presence, some of the 2026 awardees focused on ways to help explore the Moon and build infrastructure there. These include a system to support hovering robots to explore lava tubes under the Moon’s surface, a method to manage temperatures for small mobile exploration robots, and a way to incorporate radioisotopic heat sources into suits to help keep astronauts warm when operating in the Moon’s nearly two-week-long lunar nights.\n\nOther concepts focus on exploring some of the solar system’s most remarkable features. Venus, with its hot atmosphere, presents an imposing challenge for research vehicles, so one NIAC awardee explores methods for hardening instruments for longer missions.\n\nTwo other concepts could help study planetary rings. One would use a swarm of 10,000 tiny satellites to map and analyze the rings of Saturn, while another would create a system for collecting samples from rings such as those circling Saturn, Uranus, and Neptune.\n\nSome NIAC awardees will look far beyond the solar system, exploring ways to power interstellar spacecraft, map out continents on exoplanets, observe the photon rings around black holes, and detect subtle gravitational waves to explain how galaxies formed. Others will work to answer questions directly related to life on Earth, like the potential use of spaceborne dust to reduce solar radiation, and awareness about the debris orbiting Earth.\n\nResearchers, known as NIAC Fellows, will investigate their concepts and identify potential challenges and opportunities for further development.\n\nThe 18 selections for 2026 NIAC Phase 1 grants are:\n\nSaptarshi Bandyopadhyay, NASA Jet Propulsion Laboratory, Pasadena, California: Dimming the Sun Using Controllable Dust Cloud to Reduce Solar Insolation (DimSun)\n\nDavid Bugby, NASA Jet Propulsion Laboratory: Combinatory Architecture offering Neomobility, on-Venus Adaptability, and Survivability (CANVAS)\n\nA.C. Charania, Zeno Power Systems, Inc., Washington:\nExtended Astronaut Radioisotope-EVA in Nighttime and Deep-space Icy Landscapes (EARENDIL)\n\nAnish Damodaran, University of Central Florida, Orlando: PS21: Transforming Submillimeter Space Interferometry with Photonic Technologies\n\nArtur Davoyan, University of California, Los Angeles: Coilable Stacked Solar Sails for Very High delta-V Missions\n\nDaniel Drew, University of Hawaii, Honolulu: Solid-state Propulsion for Autonomous Reconnaissance of Karst (SPARK)\n\nGilly Elor, Stone Aerospace, Inc., Del Valle, Texas: Power-over-Fiber to Enable a Lunar Underground eXplorer (LUX)\n\nZhaoyan Liu, NASA Ames Research Center, California’s Silicon Valley: Quantum Wind Lidar Applications for Planetary and Earth Science Missions\n\nJeff Nosanov, Orbital Velocity, LLC, Decatur, Georgia: OBLIVIAN: Observing Black hole LIght Via Intensity cOrrelatioN (OBLIVIAN)\n\nKeunhan Park, University of Utah, Salt Lake City: Plasmon-Enhanced Radioisotope Thermophotovoltaic (PRTPV) Power Generation for Interstellar Missions\n\nAustin Phoenix, Virginia Polytechnic Institute and State University, Blacksburg, Virginia: Efficient variable Conductivity Lunar Insulator for Passive Surveyor Environmental Control (ECLIPSE)\n\nMarco Quadrelli, NASA Jet Propulsion Laboratory: PRAXIS: Planetary Rings Autonomous EXploration with In-situ Sampling (PRAXIS)\n\nMichael Rubenstein, Northwestern University, Chicago: Actively Steerable Femtosat Constellations for In-situ Exploration of Saturn’s Rings, Atmosphere, and Magnetosphere\n\nBenjamin Schafer, Rarefied Technologies Inc., Albuquerque, New Mexico: : Photophoretic Tracers for Near-Space Remote Sensing at 30-100 km Altitudes\n\nDavid Smith, Duke University, Durham, North Carolina: Robotically Assembled Electromagnetic Metamaterials for Long-Range Space Situational Awareness\n\nPablo Sobron, Search for Extraterrestrial Intelligence Institute, Mountain View, California: Interworld Slingshot Resource Surveys\n\nPaul Stankus, Brookhaven Science Associates, Upton, New York: Mapping Alien Continents: Achieving Optical VLBI for Exoplanet Imaging\n\nPaul Stankus, Brookhaven Science Associates, Upton, New York: Precision Astrometry Using Optically Independent Spacecraft for Gravitational Wave Detection\n\nTo learn more about NASA’s NIAC program, visit:\n\nhttps://www.nasa.gov/about-niac\n\n-end-\n\nRob Margetta\nHeadquarters, Washington\n202-358-0918\nrobert.j.margetta@nasa.gov\n\nShare\n\nDetails\n\n Last Updated\n\n Jul 29, 2026\n\n Editor\n\nJennifer M. Dooren\n\nLocation\n\nNASA Headquarters\n\nRelated Terms\n\nNASA Innovative Advanced Concepts (NIAC) Program\nAmes Research Center\nResearch and Technology Mission Directorate",
+    "title": "NASA Pays for Wild Ideas",
+    "text": "NASA looks for ideas that sound impossible. Every year engineers send in their concepts. This year NASA chose 18 new concepts. Each team gets a grant to study its concept. The study lasts about nine months. These concepts are not missions yet. They are only the first stage of research. One idea is a robot that digs in a crater. One is a solar sail that pushes a spacecraft along. Another is a telescope that watches distant planets. A concept must leave the laboratory to become real. Small steps forward are not enough for NASA. The agency wants great leaps instead. A wild concept can grow into a real spacecraft."
+  }
+]
