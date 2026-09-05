@@ -180,7 +180,55 @@ async function articles() {
   // ⚠️ **글은 26,065편이라 한 번에 못 받는다.** PostgREST 는 한 응답에 1,000행까지만 주고
   //    넘친 쪽은 오류를 내지 않는다 — 그냥 1,000편만 고치고 "끝났다" 고 보고하게 된다.
   //    (도서는 401권이라 안 걸리지만, 여기서 안 걸린다고 저기서도 안 걸리는 게 아니다.)
-  const bad = await badRowsByArticle()
+  // ── 학습자가 보는 것부터 ────────────────────────────────────────────
+  //
+  // 실측 2026-09-05 — 불량 29,697행이 상태별로 이렇게 갈린다:
+  //   ready 27,694행 (9,292편) · **published 1,271행 (202편)** · queued 536 · archived 196
+  //
+  // `ready` 는 아직 아무 학습자도 못 본다. 그런데 전수로 돌리면 그 27,694행을 고치느라
+  // **발행분 1,271행이 맨 뒤로 밀린다.** 순서를 뒤집는다 — `--status published` 를 먼저.
+  //
+  // ⚠️ 발행 상태를 훑는 것 자체가 싸다(293편). 반면 전체 훑기는 깊은 오프셋에서
+  //    statement timeout 이 난다(실측: `.range()` 로 1,100만 행을 넘기다 죽었다).
+  const STATUS = (process.argv.find((a) => a.startsWith('--status=')) ?? '').slice(9)
+  let bad: Map<string, Array<{ library_article_id: string; word: string; first_sentence: string | null }>>
+  if (STATUS) {
+    const ids: string[] = []
+    for (let from = 0; ; from += 1000) {
+      const { data, error } = await retry(() => db.from('library_articles')
+        .select('id').eq('status', STATUS).order('id').range(from, from + 999))
+      if (error) throw new Error(String((error as { message?: string }).message))
+      ids.push(...((data ?? []) as Array<{ id: string }>).map((r) => r.id))
+      if ((data ?? []).length < 1000) break
+    }
+    console.log(`  상태 '${STATUS}' 글 ${ids.length}편`)
+    bad = new Map()
+    // ⚠️ **한 글의 어휘가 수백 행이다.** 20편을 한 번에 물으면 6천 행이 되어 PostgREST 의
+    //    1,000행 상한(그리고 임의로 건 limit)에 잘리고, 잘린 쪽은 **오류를 내지 않는다** —
+    //    실측: 발행 202편 중 34편만 「불량 있음」으로 잡혀 나머지를 조용히 건너뛸 뻔했다.
+    //    한 편씩, 페이지를 다 넘겨 받는다.
+    for (let i = 0; i < ids.length; i += 1) {
+      for (let from = 0; ; from += 1000) {
+        const { data, error } = await retry(() => db.from('library_article_vocabularies')
+          .select('library_article_id, word, first_sentence')
+          .eq('library_article_id', ids[i]!)
+          .not('first_sentence', 'is', null).order('word').range(from, from + 999))
+        if (error) throw new Error(String((error as { message?: string }).message))
+        const rows = (data ?? []) as Array<{ library_article_id: string; word: string; first_sentence: string | null }>
+        for (const r of rows) {
+          if (holds(String(r.word).toLowerCase(), r.first_sentence)) continue
+          const l = bad.get(r.library_article_id) ?? []
+          l.push(r)
+          bad.set(r.library_article_id, l)
+        }
+        if (rows.length < 1000) break
+      }
+      if (i % 10 === 0) process.stdout.write(`\r  훑음 ${i + 1}/${ids.length} · 불량 글 ${bad.size}편`)
+    }
+    console.log('')
+  } else {
+    bad = await badRowsByArticle()
+  }
   const ids = [...bad.keys()]
   const list = LIMIT ? ids.slice(0, LIMIT) : ids
   console.log(`  고칠 글 ${list.length}편 · 불량 행 ${[...bad.values()].reduce((s, v) => s + v.length, 0)}`)
