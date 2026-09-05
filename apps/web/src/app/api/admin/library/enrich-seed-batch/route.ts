@@ -22,7 +22,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 import {
   fetchGutenbergDetail,
   fetchStandardEbooksDetail,
@@ -56,7 +56,8 @@ interface SeedRow {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
-  await requireAdmin('/admin/curation')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   let limit = 8
   let source: string | null = null

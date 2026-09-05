@@ -3,7 +3,7 @@
 //
 // 배경: admin_enqueue_book RPC(SECURITY DEFINER · is_admin_or_curator()) 는 DEV_ADMIN_BYPASS
 //   환경(auth.uid()=NULL)에서 Forbidden. dev-process/force-publish-book 와 동일 패턴
-//   (requireAdmin 가드 + service-role · NODE_ENV 가드)으로 enqueue 갭을 해소.
+//   (requireAdminApi 가드 + service-role · NODE_ENV 가드)으로 enqueue 갭을 해소.
 //   프로덕션은 정규 admin_enqueue_book 사용 — 본 라우트는 NODE_ENV='production' 차단.
 //
 // body: { source, source_id, title?, author?, license? }
@@ -13,7 +13,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -33,7 +33,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       { status: 403 },
     )
   }
-  await requireAdmin('/admin/curation')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   const supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL']
   const serviceKey = process.env['SUPABASE_SERVICE_ROLE_KEY']

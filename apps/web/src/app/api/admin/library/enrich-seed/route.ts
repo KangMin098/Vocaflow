@@ -14,14 +14,15 @@
 
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 import { fetchGutenbergDetail, fetchStandardEbooksDetail, fetchLit2GoDetail, type DetailFields } from '@/lib/library/seed-fetchers/detail-fetchers'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
 export async function POST(request: Request): Promise<NextResponse> {
-  await requireAdmin('/admin/curation')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   let id: string
   let force = false
@@ -36,7 +37,7 @@ export async function POST(request: Request): Promise<NextResponse> {
 
   // dev-bypass 모드(또는 cookie 세션 없는 admin 호출)에서 RLS 거부 방지 위해
   // service_role client 사용 — 다른 admin write route 와 동일 패턴.
-  // requireAdmin 으로 이미 가드 통과한 상태.
+  // requireAdminApi 으로 이미 가드 통과한 상태.
   const supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL']
   const serviceKey = process.env['SUPABASE_SERVICE_ROLE_KEY']
   if (!supabaseUrl || !serviceKey) {

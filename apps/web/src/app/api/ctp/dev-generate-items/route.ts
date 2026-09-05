@@ -10,7 +10,7 @@ import { NextResponse } from 'next/server'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
 import { generateDcpItems } from '@vocaflow/library-pipeline'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -25,7 +25,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   if (process.env.NODE_ENV === 'production') {
     return NextResponse.json({ error: 'dev-generate-items disabled in production' }, { status: 403 })
   }
-  await requireAdmin('/admin/curation')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   const supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL']
   const serviceKey = process.env['SUPABASE_SERVICE_ROLE_KEY']

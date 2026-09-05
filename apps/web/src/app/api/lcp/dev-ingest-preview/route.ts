@@ -10,7 +10,7 @@
 import { NextResponse } from 'next/server'
 import { ingestFromPressbooks, type RawBook } from '@vocaflow/library-pipeline'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -29,7 +29,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   if (process.env.NODE_ENV === 'production') {
     return NextResponse.json({ error: 'dev-ingest-preview disabled in production' }, { status: 403 })
   }
-  await requireAdmin('/admin/curation')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   let body: PreviewBody
   try {

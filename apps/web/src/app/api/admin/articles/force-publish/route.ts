@@ -9,7 +9,7 @@
 //   → RPC throw "Forbidden". preview 화면에선 footer 영역 작은 표시로 무반응
 //   처럼 보이고, list 에선 alert 으로 노출됐다.
 //
-// 해결: 책 v06.55 (force-publish-book) 와 동일 패턴 — requireAdmin 가드 +
+// 해결: 책 v06.55 (force-publish-book) 와 동일 패턴 — requireAdminApi 가드 +
 //   service_role client. RPC 의 is_admin_or_curator() 가드를 우회하기 위해
 //   RPC 대신 동등 로직 직접 실행. trg_publish_article_word_set trigger 가
 //   자동으로 shared_word_sets 생성.
@@ -17,7 +17,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -27,7 +27,8 @@ interface Body {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
-  await requireAdmin('/admin/articles')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   let body: Body
   try {

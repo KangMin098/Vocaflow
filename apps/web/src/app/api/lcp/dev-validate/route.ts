@@ -24,7 +24,7 @@ import {
   segmentBook,
 } from '@vocaflow/library-pipeline'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 
 export const runtime = 'nodejs'
 export const maxDuration = 300
@@ -53,7 +53,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   const token = process.env['LCP_INTERNAL_TOKEN']
   const reqToken = request.headers.get('X-LCP-Token')
   if (!(token && reqToken === token)) {
-    await requireAdmin('/admin/curation')
+    const admin = await requireAdminApi()
+    if (admin instanceof NextResponse) return admin
   }
 
   let body: Body

@@ -4,7 +4,7 @@
 // pg_cron / Vault 우회. Supabase Cloud 가 localhost 에 접근 못 하는 dev 환경 전용.
 //
 // 차이 (vs /api/lcp/process):
-//   - 인증: admin/curator role (requireAdmin) — X-LCP-Token 토큰 불필요
+//   - 인증: admin/curator role (requireAdminApi) — X-LCP-Token 토큰 불필요
 //   - 트리거: 사용자 UI 클릭, msg_id 없음 (pgmq 큐 우회)
 //   - 환경 가드: NODE_ENV='production' 차단 (배포 환경에선 pg_cron 정상 경로 사용)
 
@@ -26,7 +26,7 @@ import {
   analyzeBook,
 } from '@vocaflow/library-pipeline'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 import { normalizeAuthor, normalizeTitle } from '@/lib/library/bibliographic'
 import { resolveCoverImageUrlWithSeed } from '@/lib/library/cover-image'
 import { autoMapLibriVoxForBook } from '@/lib/library/librivox-automap'
@@ -53,7 +53,8 @@ export async function POST(request: Request): Promise<NextResponse> {
   const lcpToken = process.env['LCP_INTERNAL_TOKEN']
   const reqToken = request.headers.get('X-LCP-Token')
   if (!(lcpToken && reqToken === lcpToken)) {
-    await requireAdmin('/admin/curation')
+    const admin = await requireAdminApi()
+    if (admin instanceof NextResponse) return admin
   }
 
   const supabaseUrl = process.env['NEXT_PUBLIC_SUPABASE_URL']

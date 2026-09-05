@@ -32,7 +32,7 @@ import {
   type RawArticle,
 } from '@vocaflow/library-pipeline'
 
-import { requireAdmin } from '@/lib/auth/require-admin'
+import { requireAdminApi } from '@/lib/auth/require-admin-api'
 import { createClient } from '@/lib/supabase/server'
 import { markSeedImported, type SeedSource } from '@/lib/acp/seed-upsert'
 
@@ -81,7 +81,8 @@ function detectSource(url: string | undefined, explicit?: ArticleSource): Articl
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
-  await requireAdmin('/admin/articles')
+  const admin = await requireAdminApi()
+  if (admin instanceof NextResponse) return admin
 
   let body: EnqueueBody
   try {
