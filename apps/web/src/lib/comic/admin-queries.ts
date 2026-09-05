@@ -1,9 +1,34 @@
 // apps/web/src/lib/comic/admin-queries.ts
 //
 // CCP admin 데이터 접근 — /admin/comic 콘솔용. RLS admin/curator 정책으로 직접 read/write.
-// 마이그레이션 미적용 시(테이블/RPC 부재) 전부 빈 목록/오류 문자열로 graceful degrade.
+//
+// **스키마 부재만 graceful degrade 한다.** 예전에는 `if (err || !data) return []` 로 모든
+// 오류를 빈 배열로 삼켰고, 그래서 DB 장애·RLS 거부·타임아웃까지 화면이 "마이그레이션을
+// 적용하세요" 라고 말했다 — 완전히 틀린 원인으로 관리자를 보냈다. 지금은 lib/pd-comic/queries.ts
+// 와 같은 규약을 쓴다: 테이블/함수가 없을 때만 빈 결과, 나머지는 throw 해서 화면이
+// 오류 경계(app/admin/error.tsx)로 진짜 원인을 말하게 한다.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
+
+/** 테이블/함수 부재 = 마이그레이션 미적용. 이것만 "정상 상태"로 취급한다. */
+const SCHEMA_MISSING = /relation .* does not exist|function .* does not exist|Could not find the function|Could not find the table|PGRST202|PGRST205|42P01/i
+
+function isSchemaMissing(err: unknown): boolean {
+  const e = err as { message?: string; code?: string } | null
+  return (
+    !!e &&
+    (SCHEMA_MISSING.test(e.message ?? '') || e.code === '42P01' || e.code === 'PGRST202' || e.code === 'PGRST205')
+  )
+}
+
+/** 스키마 부재면 fallback, 그 밖의 오류는 올린다. */
+function unwrap<T>(res: { data: T | null; error: unknown }, fallback: T): T {
+  if (res.error) {
+    if (isSchemaMissing(res.error)) return fallback
+    throw res.error instanceof Error ? res.error : new Error(String((res.error as { message?: string }).message ?? res.error))
+  }
+  return res.data ?? fallback
+}
 
 export interface ComicCatalogRow {
   bookId: string
@@ -21,7 +46,7 @@ export interface ComicCatalogRow {
 
 /** 만화화 대상 도서(ready/published) + 만화 헤더/큐 상태 병합. */
 export async function listComicCatalog(client: SupabaseClient): Promise<ComicCatalogRow[]> {
-  const [{ data: books, error: bErr }, headers, jobs] = await Promise.all([
+  const [bookRes, headerRes, jobRes] = await Promise.all([
     client
       .from('library_books')
       .select('id, title, author, status, book_v_level')
@@ -33,18 +58,15 @@ export async function listComicCatalog(client: SupabaseClient): Promise<ComicCat
       .select('book_id, status, panels_done, panels_total, error')
       .eq('task_type', 'comic_gen'),
   ])
-  if (bErr || !books) return []
-  const hMap = new Map(
-    ((headers.data as Array<{ library_book_id: string; status: string; panels_total: number; panels_pass: boolean }>) ?? []).map(
-      (h) => [h.library_book_id, h],
-    ),
-  )
-  const jMap = new Map(
-    ((jobs.data as Array<{ book_id: string; status: string; panels_done: number | null; panels_total: number | null; error: string | null }>) ?? []).map(
-      (j) => [j.book_id, j],
-    ),
-  )
-  return (books as Array<{ id: string; title: string; author: string | null; status: string; book_v_level: number | null }>).map(
+  type HeaderRow = { library_book_id: string; status: string; panels_total: number; panels_pass: boolean }
+  type JobRow = { book_id: string; status: string; panels_done: number | null; panels_total: number | null; error: string | null }
+  type BookRow = { id: string; title: string; author: string | null; status: string; book_v_level: number | null }
+  const books = unwrap<BookRow[]>(bookRes as { data: BookRow[] | null; error: unknown }, [])
+  const headers = unwrap<HeaderRow[]>(headerRes as { data: HeaderRow[] | null; error: unknown }, [])
+  const jobs = unwrap<JobRow[]>(jobRes as { data: JobRow[] | null; error: unknown }, [])
+  const hMap = new Map(headers.map((h) => [h.library_book_id, h]))
+  const jMap = new Map(jobs.map((j) => [j.book_id, j]))
+  return books.map(
     (b) => {
       const h = hMap.get(b.id)
       const j = jMap.get(b.id)
@@ -70,6 +92,8 @@ export interface ComicStats {
   drafts: number
   published: number
   queued: number
+  /** comic_gen 잡이 failed 인 도서 수 — 세지 않으면 실패가 큐 대기에 섞여 영영 안 보인다. */
+  failed: number
 }
 
 export function summarize(rows: ComicCatalogRow[]): ComicStats {
@@ -78,6 +102,7 @@ export function summarize(rows: ComicCatalogRow[]): ComicStats {
     drafts: rows.filter((r) => r.comicStatus === 'draft').length,
     published: rows.filter((r) => r.comicStatus === 'published').length,
     queued: rows.filter((r) => r.jobStatus === 'pending' || r.jobStatus === 'running').length,
+    failed: rows.filter((r) => r.jobStatus === 'failed').length,
   }
 }
 
@@ -145,7 +170,7 @@ export async function collectComicStoragePaths(
 }
 
 // ── 검수 상세 ─────────────────────────────────────────────────
-export type ComicStage = 'none' | 'queued' | 'generating' | 'review' | 'published' | 'archived'
+export type ComicStage = 'none' | 'queued' | 'generating' | 'review' | 'published' | 'archived' | 'failed'
 
 export interface ComicBubbleRow {
   speaker?: string | null
@@ -184,7 +209,17 @@ export interface ComicDetail {
   stage: ComicStage
 }
 
-/** 파이프라인 단계 파생(헤더 status + 잡 status + 컷 존재). */
+/**
+ * 파이프라인 단계 파생(헤더 status + 잡 status + 컷 존재).
+ *
+ * ⚠️ `failed` 를 `queued` 로 접지 않는다. 접었을 때 검수 화면은 "큐 대기" 스피너를
+ * 영원히 돌리고 5초마다 router.refresh() 를 걸었으며(서버 부하), 관리자에게는
+ * 재시도 수단조차 보이지 않았다. 실패는 **끝난 상태**라 스스로 풀리지 않는다.
+ *
+ * 순서에 의미가 있다: 컷이 이미 들어와 있으면(`panels > 0`) 그 뒤에 잡이 실패했더라도
+ * 검수할 것이 남아 있으므로 `review` 가 이긴다. `failed` 는 **보여 줄 컷이 하나도 없는**
+ * 실패에만 붙는다 — 그때가 재시도 말고는 할 일이 없는 상태다.
+ */
 export function deriveStage(
   comicStatus: string | null | undefined,
   jobStatus: string | null | undefined,
@@ -195,7 +230,7 @@ export function deriveStage(
   if (jobStatus === 'pending') return 'queued'
   if (comicStatus === 'published') return 'published'
   if (panels > 0) return 'review'
-  if (jobStatus === 'failed') return 'queued'
+  if (jobStatus === 'failed') return 'failed'
   return 'none'
 }
 
@@ -228,22 +263,22 @@ export async function fetchDrainObservability(
   client: SupabaseClient,
   bookId: string,
 ): Promise<{ runs: DrainRun[]; events: PanelEvent[] }> {
-  const { data: runs } = await client
+  const runRes = await client
     .from('comic_gen_runs')
     .select('id, backend, model, site, style, status, panels_total, panels_done, panels_pass, panels_fail, iterations, verbatim_mismatch, rule_violations, cost_usd, note, error, started_at, finished_at')
     .eq('library_book_id', bookId)
     .order('started_at', { ascending: false })
-  const runList = (runs as DrainRun[]) ?? []
+  const runList = unwrap<DrainRun[]>(runRes as { data: DrainRun[] | null; error: unknown }, [])
   let events: PanelEvent[] = []
   if (runList[0]) {
-    const { data: ev } = await client
+    const evRes = await client
       .from('comic_panel_events')
       .select('chapter_idx, page_order, attempt, phase, status, score, verdict, backend, duration_ms, message, created_at')
       .eq('run_id', runList[0].id)
       .order('chapter_idx')
       .order('page_order')
       .order('attempt')
-    events = (ev as PanelEvent[]) ?? []
+    events = unwrap<PanelEvent[]>(evRes as { data: PanelEvent[] | null; error: unknown }, [])
   }
   return { runs: runList, events }
 }
@@ -267,38 +302,38 @@ export interface ComicStyle {
 
 /** 만화 스타일 프리셋 카탈로그. */
 export async function fetchComicStyles(client: SupabaseClient): Promise<ComicStyle[]> {
-  const { data } = await client
+  const res = await client
     .from('comic_styles')
     .select('key, name, format, age_band, genre, difficulty_min, difficulty_max, palette, art_prompt, negative_prompt, lettering, reference, source_url, status, is_default, sort')
     .order('sort')
     .order('name')
-  return (data as ComicStyle[]) ?? []
+  return unwrap<ComicStyle[]>(res as { data: ComicStyle[] | null; error: unknown }, [])
 }
 
 /** 이미지 생성 모델 레지스트리 — comic_fit 내림차순. */
 export async function fetchComicModels(client: SupabaseClient): Promise<ComicModel[]> {
-  const { data } = await client
+  const res = await client
     .from('comic_gen_models')
     .select('key, name, provider, site, hosting, cost_per_image_usd, cost_note, multiref, text_control, char_consistency, style_consistency, vram_fit_4090, license, comic_fit, strengths, weaknesses, source_url, status, sort, run_envs, min_vram_gb')
     .order('comic_fit', { ascending: false, nullsFirst: false })
-  return (data as ComicModel[]) ?? []
+  return unwrap<ComicModel[]>(res as { data: ComicModel[] | null; error: unknown }, [])
 }
 
 /** 테스트(실험) 목록. */
 export async function fetchComicTests(client: SupabaseClient): Promise<ComicTest[]> {
-  const { data } = await client
+  const res = await client
     .from('comic_gen_tests')
     .select('id, library_book_id, label, backend, model, site, style, params, sample, status, result, cost_usd, note, created_at')
     .order('created_at', { ascending: false })
     .limit(50)
-  return (data as ComicTest[]) ?? []
+  return unwrap<ComicTest[]>(res as { data: ComicTest[] | null; error: unknown }, [])
 }
 
 export async function fetchBookComicDetail(
   client: SupabaseClient,
   bookId: string,
 ): Promise<ComicDetail | null> {
-  const [{ data: book }, { data: header }, { data: job }, { data: pages }] = await Promise.all([
+  const [bookRes, headerRes, jobRes, pageRes] = await Promise.all([
     client.from('library_books').select('id, title, author, status, book_v_level').eq('id', bookId).maybeSingle(),
     client
       .from('comic_books')
@@ -318,11 +353,12 @@ export async function fetchBookComicDetail(
       .order('chapter_idx')
       .order('page_order'),
   ])
-  if (!book) return null
-  const b = book as { id: string; title: string; author: string | null; status: string; book_v_level: number | null }
-  const h = header as ComicDetail['header']
-  const j = job as ComicDetail['job']
-  const pg = (pages as ComicPageRow[]) ?? []
+  type BookRow = { id: string; title: string; author: string | null; status: string; book_v_level: number | null }
+  const b = unwrap<BookRow | null>(bookRes as { data: BookRow | null; error: unknown }, null)
+  if (!b) return null
+  const h = unwrap<ComicDetail['header']>(headerRes as { data: ComicDetail['header']; error: unknown }, null)
+  const j = unwrap<ComicDetail['job']>(jobRes as { data: ComicDetail['job']; error: unknown }, null)
+  const pg = unwrap<ComicPageRow[]>(pageRes as { data: ComicPageRow[] | null; error: unknown }, [])
   return {
     bookId: b.id,
     title: b.title,
@@ -333,5 +369,60 @@ export async function fetchBookComicDetail(
     job: j,
     pages: pg,
     stage: deriveStage(h?.status, j?.status, pg.length),
+  }
+}
+
+// ── 드레인 관측 화면 전용(가벼운 조회) ────────────────────────
+//
+// 드레인 콘솔은 제목·QC 게이트·단계 넷만 쓴다. 예전에는 `fetchBookComicDetail` 을 그대로
+// 불러 컷 전량(image_url · bubbles · target_vocab)을 받아 놓고 한 번도 읽지 않았다.
+// 컷은 도서 한 권에 수백 장이고 bubbles 는 jsonb 라, 화면에 안 쓰는 페이로드가 가장 컸다.
+// 여기서는 컷을 **개수만** 센다(head 요청) — 단계 파생에 필요한 건 그것뿐이다.
+
+export interface ComicDrainSubject {
+  bookId: string
+  title: string
+  /** comic_books.panels_pass — 헤더가 없으면 null(= 아직 판정 자체가 없다). */
+  panelsPass: boolean | null
+  stage: ComicStage
+}
+
+export async function fetchComicDrainSubject(
+  client: SupabaseClient,
+  bookId: string,
+): Promise<ComicDrainSubject | null> {
+  const [bookRes, headerRes, jobRes, pageCountRes] = await Promise.all([
+    client.from('library_books').select('id, title').eq('id', bookId).maybeSingle(),
+    client.from('comic_books').select('status, panels_pass').eq('library_book_id', bookId).maybeSingle(),
+    client
+      .from('book_curation_jobs')
+      .select('status')
+      .eq('book_id', bookId)
+      .eq('task_type', 'comic_gen')
+      .maybeSingle(),
+    // head 요청 — 행을 받지 않고 개수만. 없는 테이블도 오류 대신 count=null 로 오므로
+    // 아래에서 `?? 0` 이 아니라 unwrap 을 먼저 태워 진짜 오류를 가린 채 0으로 세지 않는다.
+    client.from('comic_pages').select('chapter_idx', { count: 'exact', head: true }).eq('library_book_id', bookId),
+  ])
+  type BookRow = { id: string; title: string }
+  const b = unwrap<BookRow | null>(bookRes as { data: BookRow | null; error: unknown }, null)
+  if (!b) return null
+  const h = unwrap<{ status: string; panels_pass: boolean } | null>(
+    headerRes as { data: { status: string; panels_pass: boolean } | null; error: unknown },
+    null,
+  )
+  const j = unwrap<{ status: string } | null>(jobRes as { data: { status: string } | null; error: unknown }, null)
+  const countRes = pageCountRes as { count: number | null; error: unknown }
+  if (countRes.error && !isSchemaMissing(countRes.error)) {
+    throw countRes.error instanceof Error
+      ? countRes.error
+      : new Error(String((countRes.error as { message?: string }).message ?? countRes.error))
+  }
+  const panels = countRes.count ?? 0
+  return {
+    bookId: b.id,
+    title: b.title,
+    panelsPass: h ? h.panels_pass : null,
+    stage: deriveStage(h?.status, j?.status, panels),
   }
 }

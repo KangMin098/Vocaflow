@@ -12,7 +12,7 @@
 import { SOURCE_SPECS } from '@vocaflow/library-pipeline/curation-spec'
 import type { SourceKey, LearnerLevel } from '@vocaflow/library-pipeline/curation-spec'
 
-import type { ArticleAdminRow, SourceFeedHealth } from './types'
+import type { CoverageCounts, SourceFeedHealth } from './types'
 
 export const CEFR_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
 export type Cefr = (typeof CEFR_ORDER)[number]
@@ -108,18 +108,25 @@ export interface CoverageGap {
   cefr: string
 }
 
-/** 발행(published) 기준 register × CEFR 빈칸 — 발행 0 인 셀. */
-export function computeCoverageGaps(articles: ArticleAdminRow[]): CoverageGap[] {
-  const published = new Set<string>()
-  for (const a of articles) {
-    if (a.status === 'published' && a.register && a.cefr_level) {
-      published.add(`${a.register}|${a.cefr_level}`)
-    }
-  }
+/** 커버리지 셀 키 — 서버 카운트(admin-queries)와 매트릭스가 같은 문자열을 써야 한다. */
+export function coverageKey(register: string, cefr: string): string {
+  return `${register}|${cefr}`
+}
+
+/**
+ * 발행(published) 기준 register × CEFR 빈칸 — 발행 0 인 셀.
+ *
+ * 인자가 글 목록이 아니라 **서버 카운트**인 이유: 목록은 1,000행에서 잘리고, 잘린 목록에는
+ * 발행분이 한 건도 안 들어와 30칸이 전부 빈칸이 된다. 그러면 이 함수를 근거로 도는
+ * 소스 추천이 "전 영역이 비었다" 고 말한다 — 실제로는 293건이 발행돼 있었다.
+ */
+export function computeCoverageGaps(coverage: CoverageCounts): CoverageGap[] {
   const gaps: CoverageGap[] = []
   for (const r of REGISTERS) {
     for (const c of CEFR_ORDER) {
-      if (!published.has(`${r.key}|${c}`)) gaps.push({ register: r.key, cefr: c })
+      if ((coverage.cells[coverageKey(r.key, c)] ?? 0) === 0) {
+        gaps.push({ register: r.key, cefr: c })
+      }
     }
   }
   return gaps
