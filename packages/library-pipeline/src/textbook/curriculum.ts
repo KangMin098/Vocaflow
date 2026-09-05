@@ -100,21 +100,88 @@ export function stemLoose(w: string): string {
  */
 const IRREGULAR = new Map(
   Object.entries({
-    took: 'take', taken: 'take', gave: 'give', given: 'give', went: 'go', gone: 'go',
-    saw: 'see', seen: 'see', made: 'make', came: 'come', ran: 'run', sat: 'sit',
-    stood: 'stand', fell: 'fall', fallen: 'fall', told: 'tell', heard: 'hear',
-    thought: 'think', caught: 'catch', brought: 'bring', held: 'hold', kept: 'keep',
-    left: 'leave', felt: 'feel', found: 'find', got: 'get', gotten: 'get', knew: 'know',
-    known: 'know', grew: 'grow', grown: 'grow', flew: 'fly', flown: 'fly', drew: 'draw',
-    threw: 'throw', wrote: 'write', written: 'write', spoke: 'speak', spoken: 'speak',
-    broke: 'break', broken: 'break', chose: 'choose', rose: 'rise', ate: 'eat',
-    eaten: 'eat', drank: 'drink', began: 'begin', begun: 'begin', won: 'win',
-    lost: 'lose', sent: 'send', built: 'build', bought: 'buy', taught: 'teach',
-    slept: 'sleep', met: 'meet', paid: 'pay', said: 'say', put: 'put', read: 'read',
-    lay: 'lie', laid: 'lay', led: 'lead', rode: 'ride', ridden: 'ride', swam: 'swim',
-    sang: 'sing', sung: 'sing', hung: 'hang', dug: 'dig', hid: 'hide', hidden: 'hide',
-    children: 'child', men: 'man', women: 'woman', feet: 'foot', teeth: 'tooth',
-    mice: 'mouse', geese: 'goose', leaves: 'leaf', lives: 'life', wolves: 'wolf',
+    took: 'take',
+    taken: 'take',
+    gave: 'give',
+    given: 'give',
+    went: 'go',
+    gone: 'go',
+    saw: 'see',
+    seen: 'see',
+    made: 'make',
+    came: 'come',
+    ran: 'run',
+    sat: 'sit',
+    stood: 'stand',
+    fell: 'fall',
+    fallen: 'fall',
+    told: 'tell',
+    heard: 'hear',
+    thought: 'think',
+    caught: 'catch',
+    brought: 'bring',
+    held: 'hold',
+    kept: 'keep',
+    left: 'leave',
+    felt: 'feel',
+    found: 'find',
+    got: 'get',
+    gotten: 'get',
+    knew: 'know',
+    known: 'know',
+    grew: 'grow',
+    grown: 'grow',
+    flew: 'fly',
+    flown: 'fly',
+    drew: 'draw',
+    threw: 'throw',
+    wrote: 'write',
+    written: 'write',
+    spoke: 'speak',
+    spoken: 'speak',
+    broke: 'break',
+    broken: 'break',
+    chose: 'choose',
+    rose: 'rise',
+    ate: 'eat',
+    eaten: 'eat',
+    drank: 'drink',
+    began: 'begin',
+    begun: 'begin',
+    won: 'win',
+    lost: 'lose',
+    sent: 'send',
+    built: 'build',
+    bought: 'buy',
+    taught: 'teach',
+    slept: 'sleep',
+    met: 'meet',
+    paid: 'pay',
+    said: 'say',
+    put: 'put',
+    read: 'read',
+    lay: 'lie',
+    laid: 'lay',
+    led: 'lead',
+    rode: 'ride',
+    ridden: 'ride',
+    swam: 'swim',
+    sang: 'sing',
+    sung: 'sing',
+    hung: 'hang',
+    dug: 'dig',
+    hid: 'hide',
+    hidden: 'hide',
+    children: 'child',
+    men: 'man',
+    women: 'woman',
+    feet: 'foot',
+    teeth: 'tooth',
+    mice: 'mouse',
+    geese: 'goose',
+    leaves: 'leaf',
+    lives: 'life',
+    wolves: 'wolf',
   })
 )
 
@@ -220,35 +287,77 @@ export function stripProperNouns(text: string): string {
  * 판정에 쓰는 것은 대개 `outsidePct` 다 — "몇 %가 그 학년이 안 배운 낱말인가".
  * NASA 사진 설명글은 이 값이 **64%** 였다.
  */
-export function curriculumCoverage(
+export type CurriculumTier = 'star1' | 'star2' | 'plain' | 'outside'
+
+export interface CurriculumWord {
+  /** 소문자 표면형 — 굴절을 되돌리기 전 글에 있던 꼴 그대로. */
+  word: string
+  tier: CurriculumTier
+}
+
+/**
+ * 내용어 하나하나에 등급을 붙인다 — **`curriculumCoverage` 와 같은 토큰화, 같은 조회.**
+ *
+ * ── 왜 낱말 단위가 필요한가 (실측 2026-09-05) ────────────────────────
+ * 집필 명세에 "교육과정 밖 비율 ~30%" 라고 목표를 적어 주고 **내가 직접 겨냥해 썼는데도**
+ * 5편 중 2편이 하한(25) 아래(14.6 · 22.9)였고 ≥60 은 1편뿐이었다. 저자는 어떤 낱말이
+ * 3,000 안인지 **감으로 알 수 없다** — 예전 드레인 368편이 시중 자리 14.7 에 모인 이유다.
+ * 비율만 알려 주면 못 고친다. **어느 낱말이 밖인지**를 보여 줘야 바꿀 수 있다.
+ *
+ * `curriculumCoverage` 는 이 함수 위에서 세기만 한다 — 자를 둘로 만들지 않는다.
+ */
+export function classifyCurriculumWords(
   text: string,
-  { excludeProperNouns = false }: CurriculumOptions = {},
-): CurriculumCoverage | null {
+  { excludeProperNouns = false }: CurriculumOptions = {}
+): CurriculumWord[] {
   const { star1, star2, plain } = curriculumLists()
   const src = excludeProperNouns ? stripProperNouns(String(text ?? '')) : String(text ?? '')
   const all = (src.match(/[A-Za-z][A-Za-z'-]*/g) ?? []).map((w) => w.toLowerCase())
   const content = all.filter((w) => !FUNCTION_WORDS.has(w) && w.length > 1)
-  if (!content.length) return null
+  return content.map((word) => {
+    const cands = stemCandidates(word)
+    const tier: CurriculumTier = cands.some((c) => star1.has(c))
+      ? 'star1'
+      : cands.some((c) => star2.has(c))
+        ? 'star2'
+        : cands.some((c) => plain.has(c))
+          ? 'plain'
+          : 'outside'
+    return { word, tier }
+  })
+}
 
-  let s1 = 0
-  let s2 = 0
-  let inAny = 0
-  for (const w of content) {
-    const cands = stemCandidates(w)
-    const in1 = cands.some((c) => star1.has(c))
-    const in2 = in1 || cands.some((c) => star2.has(c))
-    const in0 = in2 || cands.some((c) => plain.has(c))
-    if (in1) s1++
-    if (in2) s2++
-    if (in0) inAny++
+/** 교육과정 **밖** 낱말만, 빈도 내림차순(같으면 알파벳). 저자가 바꿀 후보 목록이다. */
+export function curriculumOutsideWords(
+  text: string,
+  opts: CurriculumOptions = {}
+): Array<{ word: string; n: number }> {
+  const freq = new Map<string, number>()
+  for (const { word, tier } of classifyCurriculumWords(text, opts)) {
+    if (tier === 'outside') freq.set(word, (freq.get(word) ?? 0) + 1)
   }
-  const pct = (n: number) => +((n / content.length) * 100).toFixed(1)
+  return [...freq.entries()]
+    .map(([word, n]) => ({ word, n }))
+    .sort((x, y) => y.n - x.n || x.word.localeCompare(y.word))
+}
+
+export function curriculumCoverage(
+  text: string,
+  opts: CurriculumOptions = {}
+): CurriculumCoverage | null {
+  const words = classifyCurriculumWords(text, opts)
+  if (!words.length) return null
+  // in1 ⊂ in2 ⊂ in0 — 예전 루프의 누적 의미를 그대로 둔다.
+  const s1 = words.filter((w) => w.tier === 'star1').length
+  const s2 = s1 + words.filter((w) => w.tier === 'star2').length
+  const inAny = s2 + words.filter((w) => w.tier === 'plain').length
+  const pct = (n: number) => +((n / words.length) * 100).toFixed(1)
   return {
-    contentWords: content.length,
+    contentWords: words.length,
     star1Pct: pct(s1),
     throughStar2Pct: pct(s2),
     throughAllPct: pct(inAny),
-    outsidePct: pct(content.length - inAny),
+    outsidePct: pct(words.length - inAny),
   }
 }
 
@@ -311,7 +420,9 @@ const PCTS = [5, 25, 50, 75, 90, 95] as const
  */
 export function marketPercentile(outsidePct: number, school: SchoolLevel): number {
   const d = CURRICULUM_SPEC.outside[school]
-  const xs: number[] = PCTS.map((p) => d[`p${String(p).padStart(2, '0')}` as keyof typeof d] as number)
+  const xs: number[] = PCTS.map(
+    (p) => d[`p${String(p).padStart(2, '0')}` as keyof typeof d] as number
+  )
   const first = xs[0] ?? 0
   const last = xs[xs.length - 1] ?? 100
   if (outsidePct <= first) return +((outsidePct / first) * PCTS[0]).toFixed(1)
@@ -347,10 +458,16 @@ export interface CurriculumFit {
 export function curriculumFit(
   text: string,
   school: SchoolLevel = 'middle',
-  opts: CurriculumOptions = {},
+  opts: CurriculumOptions = {}
 ): CurriculumFit {
   const c = curriculumCoverage(text, opts)
-  if (!c) return { pass: false, coverage: null, marketPercentile: null, reason: '내용어가 없어 잴 수 없다' }
+  if (!c)
+    return {
+      pass: false,
+      coverage: null,
+      marketPercentile: null,
+      reason: '내용어가 없어 잴 수 없다',
+    }
   const p = marketPercentile(c.outsidePct, school)
   const max = CURRICULUM_GATE[school].maxOutsidePct
   if (c.outsidePct > max) {
@@ -403,9 +520,20 @@ export const AUTHORED_VOCAB_BAND = {
 export function authoredVocabFit(
   text: string,
   school: SchoolLevel
-): { pass: boolean; coverage: CurriculumCoverage | null; marketPercentile: number | null; reason: string | null } {
+): {
+  pass: boolean
+  coverage: CurriculumCoverage | null
+  marketPercentile: number | null
+  reason: string | null
+} {
   const c = curriculumCoverage(text)
-  if (!c) return { pass: false, coverage: null, marketPercentile: null, reason: '내용어가 없어 잴 수 없다' }
+  if (!c)
+    return {
+      pass: false,
+      coverage: null,
+      marketPercentile: null,
+      reason: '내용어가 없어 잴 수 없다',
+    }
   const p = marketPercentile(c.outsidePct, school)
   const band = AUTHORED_VOCAB_BAND[school]
   const label = school === 'elementary' ? '초등' : '중등'

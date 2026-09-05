@@ -22,11 +22,14 @@ export { ingestFromPressbooks } from './ingest/pressbooks'
 
 // S2 INGEST — Articles (ACP — VOA / NASA / NIH + v06.66 wikinews/the_conversation/simple_wikipedia.
 // v06.69 arXiv 제거 — 사용자 명시 플랫폼 전체 삭제)
-export { listVoaFeed,
-  voaFeedUrlWithCount, ingestVoaArticle, VOA_FEEDS } from './ingest-article/voa'
+export { listVoaFeed, voaFeedUrlWithCount, ingestVoaArticle, VOA_FEEDS } from './ingest-article/voa'
 export type { VoaListItem } from './ingest-article/voa'
-export { listNasaFeed,
-  nasaFeedUrlPaged, ingestNasaArticle, NASA_FEEDS } from './ingest-article/nasa'
+export {
+  listNasaFeed,
+  nasaFeedUrlPaged,
+  ingestNasaArticle,
+  NASA_FEEDS,
+} from './ingest-article/nasa'
 export type { NasaListItem } from './ingest-article/nasa'
 export { listNihFeed, ingestNihArticle, NIH_FEEDS } from './ingest-article/nih'
 export type { NihListItem } from './ingest-article/nih'
@@ -45,18 +48,10 @@ export {
 } from './ingest-article/the-conversation'
 export type { TheConversationListItem } from './ingest-article/the-conversation'
 // ACP §18 — Wikinews (CC-BY 시사). v06.66 listFeed.
-export {
-  ingestWikinewsArticle,
-  listWikinewsFeed,
-  WIKINEWS_FEEDS,
-} from './ingest-article/wikinews'
+export { ingestWikinewsArticle, listWikinewsFeed, WIKINEWS_FEEDS } from './ingest-article/wikinews'
 export type { WikinewsListItem } from './ingest-article/wikinews'
 // ACP §18 T-2 — Our World in Data (CC-BY 데이터 논증문 · 발행 허용).
-export {
-  ingestOwidArticle,
-  listOwidFeed,
-  OWID_FEEDS,
-} from './ingest-article/owid'
+export { ingestOwidArticle, listOwidFeed, OWID_FEEDS } from './ingest-article/owid'
 export type { OwidListItem } from './ingest-article/owid'
 // ACP §18 — CIA World Factbook (PD 국가 개요 참고문 · reference gap 보강 · 발행 허용).
 export {
@@ -84,21 +79,37 @@ export {
 } from './ingest-article/wikipedia'
 export type { WikipediaListItem } from './ingest-article/wikipedia'
 // ACP §18 — PLOS (CC-BY 오픈 학술 논문 · C1-C2 심화 · 발행 허용).
-export { ingestPlosArticle, listPlosFeed,
-  listPlosFeedPage, PLOS_FEEDS } from './ingest-article/plos'
+export {
+  ingestPlosArticle,
+  listPlosFeed,
+  listPlosFeedPage,
+  PLOS_FEEDS,
+} from './ingest-article/plos'
 export type { PlosListItem } from './ingest-article/plos'
 // ACP §18 — Wikivoyage (여행 가이드 · B1-B2 · CC-BY-SA · reference 밴드 보강).
-export { ingestWikivoyageArticle, listWikivoyageFeed, WIKIVOYAGE_FEEDS } from './ingest-article/wikivoyage'
+export {
+  ingestWikivoyageArticle,
+  listWikivoyageFeed,
+  WIKIVOYAGE_FEEDS,
+} from './ingest-article/wikivoyage'
 export type { WikivoyageListItem } from './ingest-article/wikivoyage'
 // ACP §18 — USGS (지구과학·자연재해 과학 저널리즘 · B2 · PD US Gov · 신규 도메인 · 발행 허용).
-export { ingestUsgsArticle, listUsgsFeed,
+export {
+  ingestUsgsArticle,
+  listUsgsFeed,
   listUsgsFeedPage,
-  buildUsgsListUrl, USGS_FEEDS } from './ingest-article/usgs'
+  buildUsgsListUrl,
+  USGS_FEEDS,
+} from './ingest-article/usgs'
 export type { UsgsListItem } from './ingest-article/usgs'
 // ACP §18 — NOAA Climate.gov (기후과학 explainer · B2-C1 · PD US Gov · climate 신규 도메인 · CSAT 최빈출).
-export { ingestNoaaArticle, listNoaaFeed,
+export {
+  ingestNoaaArticle,
+  listNoaaFeed,
   listNoaaFeedPage,
-  buildNoaaListUrl, NOAA_FEEDS } from './ingest-article/noaa'
+  buildNoaaListUrl,
+  NOAA_FEEDS,
+} from './ingest-article/noaa'
 // ACP — Futurity (대학 컨소시엄 연구 기사 · CC BY 4.0 · B1-B2 · 학술 소재 × 접근형 문체).
 export {
   ingestFuturityArticle,
@@ -241,7 +252,13 @@ export { PRODUCTION_STAGES, measureStages, measureClaudeStages } from './textboo
 export { SCHOOL_TYPES, measureSchoolCoverage } from './textbook/school-types'
 export { buildLevelChart, findStepForBand, V_TO_MARKET_BUCKET } from './textbook/level-chart'
 export type { LevelChart, LevelChartRow, LevelChartVolume } from './textbook/level-chart'
-export type { AnswerMode, SchoolBand, SchoolCoverage, SchoolType, SourceNeed } from './textbook/school-types'
+export type {
+  AnswerMode,
+  SchoolBand,
+  SchoolCoverage,
+  SchoolType,
+  SourceNeed,
+} from './textbook/school-types'
 export { PASSAGE_ORIGINS, measureOrigins } from './textbook/passage-origin'
 export type { OriginKey, OriginReport, OriginRight, PassageOrigin } from './textbook/passage-origin'
 export type {
@@ -267,7 +284,13 @@ export {
   orderEvidenceByChoice,
 } from './textbook/explain'
 export { FLAT_RARITY, topicalBar } from './textbook/explain'
-export type { Evidence, EvidenceKind, ExplainCoverage, Explanation, Relation } from './textbook/explain'
+export type {
+  Evidence,
+  EvidenceKind,
+  ExplainCoverage,
+  Explanation,
+  Relation,
+} from './textbook/explain'
 // 결정론 문항 유형 — 흐름 무관(수능 35) · 영작 배열(중등 서술형)
 export {
   buildIrrelevant,
@@ -298,7 +321,13 @@ export {
 export { UNIT_MINUTES, MARKET_UNITS_PER_BOOK, scoreVolume } from './textbook/scorecard'
 // 출판사별 우위 지수의 산술 — 벤치마크 스크립트가 이 한 벌을 쓴다(사본 금지).
 export {
-  axisCeiling, bindingPublisher, canScoreTypeSpread, geoMean, intersectWindows, reachableMax, wilson95,
+  axisCeiling,
+  bindingPublisher,
+  canScoreTypeSpread,
+  geoMean,
+  intersectWindows,
+  reachableMax,
+  wilson95,
 } from './textbook/publisher-index'
 export type { PublisherAxis, WordWindow } from './textbook/publisher-index'
 export type { Audience, AutoCheck, HumanCheck, Scorecard } from './textbook/scorecard'
@@ -355,12 +384,7 @@ export { analyzeArticle } from './analyze/analyze-article'
 export type { AnalyzeArticleOptions } from './analyze/analyze-article'
 
 // S3 NORMALIZE + S4 SEGMENT (Phase 5)
-export {
-  normalizeBook,
-  extractBody,
-  normalizePunctuation,
-  reflowSoftHyphens,
-} from './normalize'
+export { normalizeBook, extractBody, normalizePunctuation, reflowSoftHyphens } from './normalize'
 export { segmentBook } from './segment/segment'
 export { findChapterBoundaries } from './segment/regex-segmenter'
 export {
@@ -371,10 +395,7 @@ export {
 
 // S5 ANALYZE (Phase 6)
 export { analyzeBook } from './analyze/analyze-book'
-export type {
-  AnalyzeBookOptions,
-  AnalyzeBookStats,
-} from './analyze/analyze-book'
+export type { AnalyzeBookOptions, AnalyzeBookStats } from './analyze/analyze-book'
 // VRL v3 Krashen i+1 weight helper (Phase 2A · Stage B)
 export { vLevelWeightFor, classifyLV } from './analyze/learning-value'
 export type { ComputeLvOptions, UserSegment } from './analyze/learning-value'
@@ -413,7 +434,12 @@ export { OBSERVED_FACT_DENSITY, assessFactDensity } from './compose/review'
 export type { FactDensityAssessment, FactDensityVerdict } from './compose/review'
 
 export { BENCHMARK_SAMPLES, benchmarkBar, compareToBenchmark } from './compose/benchmark'
-export type { BenchmarkBar, BenchmarkResult, BenchmarkSample, BenchmarkVerdict } from './compose/benchmark'
+export type {
+  BenchmarkBar,
+  BenchmarkResult,
+  BenchmarkSample,
+  BenchmarkVerdict,
+} from './compose/benchmark'
 
 // 제목 기반 학습 적합성 — 피드 순위·천장 측정용(개별 판정용 아님).
 export {
@@ -547,8 +573,8 @@ export {
   fromJsonLd,
   splitSentences,
   trimBoilerplate,
-} from "./compose/extract"
-export type { ExtractVia, ExtractedArticle } from "./compose/extract"
+} from './compose/extract'
+export type { ExtractVia, ExtractedArticle } from './compose/extract'
 export { collectStories, toBatchRow } from './compose/collect'
 export type { CollectOptions, CollectReport, FeedConfig } from './compose/collect'
 // 가공 — 지문 1편 → 활동 N개. 기계 변환은 재생성 무료·멱등.
@@ -649,10 +675,21 @@ export {
   difficulty,
   discrimination,
 } from './textbook/item-health'
-export type { AnswerBias, HealthInput, ItemAttemptStats, StockHealth, TypeHealth } from './textbook/item-health'
+export type {
+  AnswerBias,
+  HealthInput,
+  ItemAttemptStats,
+  StockHealth,
+  TypeHealth,
+} from './textbook/item-health'
 // 시리즈 정본 — 한 브랜드가 학령 전체를 계단으로 잡는다
-export { SERIES_BRAND, SERIES_SPINE,
-  SERIES_TYPE_LABEL_KO, SERIES_CSAT_TYPES, measureSeriesFill } from './textbook/series'
+export {
+  SERIES_BRAND,
+  SERIES_SPINE,
+  SERIES_TYPE_LABEL_KO,
+  SERIES_CSAT_TYPES,
+  measureSeriesFill,
+} from './textbook/series'
 export type { Inventory, RungFill, SeriesFill, SeriesItemType, SeriesRung } from './textbook/series'
 // 평가 요소 대조표 — "시중 교재보다 낫다" 를 말하려면 분모가 있어야 한다
 export { CATEGORY_KO, EVAL_DIMENSIONS, measureEvaluation } from './textbook/evaluation'
@@ -738,9 +775,11 @@ export {
 export {
   authoredVocabFit,
   AUTHORED_VOCAB_BAND,
+  classifyCurriculumWords,
   curriculumCoverage,
   curriculumFit,
   curriculumLists,
+  curriculumOutsideWords,
   marketPercentile,
   passesCurriculumGate,
   stemLoose,
