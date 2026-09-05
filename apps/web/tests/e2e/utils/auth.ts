@@ -32,6 +32,14 @@ export async function logout(page: Page) {
 export async function ensureAuthState(
   browser: import('@playwright/test').Browser,
   statePath: string,
+  /**
+   * 어떤 계정으로 로그인하나. 기본은 `TEST_USER`.
+   *
+   * 스펙마다 자기 로그인을 복제하면 **재사용 로직도 함께 복제되지 않는다** — 실제로
+   * 그렇게 갈라진 스펙이 rate-limit 에 걸려 로그아웃 상태로 훑고도 초록을 냈다
+   * (2026-09-06: 낭비 축 · 전수 훑기 둘 다). 계정만 바꾸고 재사용은 여기 한 벌을 쓴다.
+   */
+  login: (page: Page) => Promise<void> = loginAsTestUser,
 ): Promise<void> {
   // 나이로 추측하지 않고 **실제로 유효한지** 확인한다. 시간 기준을 쓰면 아직 멀쩡한
   // 상태를 버리고 불필요하게 로그인해 rate-limit 을 자초한다(첫 구현이 그랬다).
@@ -50,7 +58,7 @@ export async function ensureAuthState(
   }
   const page = await browser.newPage({ storageState: undefined });
   try {
-    await loginAsTestUser(page);
+    await login(page);
     await page.context().storageState({ path: statePath });
   } finally {
     await page.close();

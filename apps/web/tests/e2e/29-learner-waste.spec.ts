@@ -39,6 +39,7 @@
 // 실행: LEARNER_WASTE=1 PLAYWRIGHT_BASE_URL=http://localhost:3000 npx playwright test 29-learner-waste
 
 import { test, expect, type Page } from '@playwright/test'
+import { ensureAuthState } from './utils/auth'
 import { PARAM_ROUTES, learnerRoutes, redirectOnlyRoutes } from './utils/learner-routes'
 
 const RUNTIME_USER = {
@@ -104,11 +105,12 @@ test.describe('학습자 표면 — 낭비(중복 요청)', () => {
     'LEARNER_WASTE=1 로 명시할 때만 — 전 화면을 열어 몇 분 걸린다',
   )
 
+  // ⚠️ **매번 새로 로그인하지 않는다.** 스펙마다 로그인을 복제하면 Supabase auth
+  //    rate-limit 에 걸리고, 그때 증상은 "로그인 실패" 가 아니라 **전 화면이 로그인으로
+  //    튕긴 채 측정이 진행되는 것**이다(2026-09-06 실측: 낭비 축 56/57 "100%" ·
+  //    전수 훑기 0.6%). 유효한 상태가 있으면 재사용한다 — 그 판단은 utils/auth 한 곳이 한다.
   test.beforeAll(async ({ browser }) => {
-    const page = await browser.newPage({ storageState: undefined })
-    await login(page)
-    await page.context().storageState({ path: STATE_PATH })
-    await page.close()
+    await ensureAuthState(browser, STATE_PATH, login)
   })
   test.use({ storageState: STATE_PATH })
 
