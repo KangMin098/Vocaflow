@@ -54,9 +54,7 @@ const db = createClient(
 )
 
 const list = await listFrymFeed(FEED, LIMIT)
-console.log(
-  `FrYM 목록 ${list.length}건 (${FEED})${COMMIT ? '' : ' — dry-run (쓰지 않는다)'}\n`
-)
+console.log(`FrYM 목록 ${list.length}건 (${FEED})${COMMIT ? '' : ' — dry-run (쓰지 않는다)'}\n`)
 
 let added = 0
 let existed = 0
@@ -141,11 +139,16 @@ console.log(
 if (!COMMIT) console.log('\ndry-run 이었다. 실제로 쓰려면 --commit.')
 
 if (PROCESS) {
-  const { data: queued } = await db
+  // ⚠️ **error 를 버리지 않는다.** 처음엔 `const { data: queued } = …` 로 받아
+  //   조회가 실패해도 "처리 대상 0건" 으로 조용히 끝났다 — DB 에는 152편이 `queued` 였는데.
+  //   **0건은 "없다" 일 수도 "못 물어봤다" 일 수도 있고, 둘은 완전히 다른 상황이다.**
+  const { data: queued, error: qErr } = await db
     .from('library_articles')
     .select('id, title')
     .eq('source', 'frym')
     .eq('status', 'queued')
+    .limit(1000)
+  if (qErr) throw new Error('대기 목록 조회 실패: ' + qErr.message)
   console.log(`\n처리 대상 ${queued?.length ?? 0}건 → ${DEV_BASE}/api/acp/dev-process`)
   let done = 0
   let procFailed = 0
