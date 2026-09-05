@@ -58,10 +58,16 @@ const DEV_BASE = arg('base') ?? 'http://localhost:3000'
 /** `--no-trim` — 자르기를 끈다. **자르기가 수율에 얼마나 기여했는지 재려면** 이걸로 대조한다. */
 const TRIM = !process.argv.includes('--no-trim')
 /**
- * 동시 요청 수. **429 는 250ms 간격 16연속에서 나왔다**(프로브 실측) — 4 는 그 아래다.
- * 올리기 전에 재라. 막히면 수율이 아니라 실패 수가 는다.
+ * 동시 요청 수.
+ *
+ * 처음엔 4로 뒀다(프로브에서 429 가 250ms 간격 16연속에서 나왔으므로 안전해 보였다).
+ * 그런데 **도입부가 아니라 전문(全文)을 받게 바꾸자 응답이 훨씬 무거워져** 300건에서
+ * 429 가 8건 났다(2026-09-05 실측). 같은 동시성이라도 **무엇을 받느냐가 부하를 바꾼다.**
+ * 3으로 낮추고 요청마다 짧은 간격을 둔다 — 막히면 수율이 아니라 실패 수가 는다.
  */
-const CONCURRENCY = Number(arg('concurrency') ?? 4)
+const CONCURRENCY = Number(arg('concurrency') ?? 3)
+/** 요청 간 간격(ms). 0 이면 쉬지 않는다. */
+const GAP_MS = Number(arg('gap') ?? 120)
 /**
  * 표집 방법. `allpages`(기본)는 **바이트 하한을 서버에 걸어** 토막글을 안 받는다.
  * `random` 은 대조용으로 남긴다 — 걸러서 좋아진 것인지 우연인지 대 봐야 하기 때문이다.
@@ -69,6 +75,24 @@ const CONCURRENCY = Number(arg('concurrency') ?? 4)
 const PICK = arg('pick') ?? 'allpages'
 /** 바이트 하한. 올리면 짧음이 줄고 어휘 밖이 는다(긴 글일수록 전문어가 많다) — 재서 정한다. */
 const MIN_SIZE = Number(arg('minsize') ?? 2000)
+/**
+ * `--v 1-3` — **채점자와 같은 자로 조준한다.**
+ *
+ * FK 칸으로 조준했더니 36편 중 목표 V1~V3 에 든 것은 11편뿐이었다(2026-09-05 실측).
+ * `article_v_level` 은 FK 가 아니라 **낱말 V-Level 의 75분위**이므로, 적재 전에 그 값을
+ * 추정해 범위 밖이면 버린다. 추정기는 정답 36편에 100% 일치했다(`_vlevel.mjs` 참조).
+ * 주지 않으면 칸을 안 보고 넣는다 — 예전 동작 그대로다.
+ */
+const V_RANGE = (() => {
+  const v = arg('v')
+  if (!v) return null
+  const m = String(v).match(/^(\d+)(?:-(\d+))?$/)
+  if (!m) {
+    console.error(`--v 형식: 1-3 또는 2`)
+    process.exit(1)
+  }
+  return { min: Number(m[1]), max: Number(m[2] ?? m[1]) }
+})()
 
 /**
  * 두 위키. 라이선스 문자열은 **DB 에 이미 있는 값과 같은 표기**를 쓴다 —
@@ -101,6 +125,10 @@ if (!wiki) {
 const { createClient } = await import('@supabase/supabase-js')
 const { gradeBand, bandOf, readability, curriculumFit, standaloneFit, PASSAGE_WORDS } =
   await import('../../packages/library-pipeline/src/index.ts')
+const { estimateArticleVLevel } = await import('./_vlevel.mjs')
+const { extractBookLemmas } = await import(
+  '../../packages/library-pipeline/src/analyze/extract-lemmas.ts'
+)
 
 const targetBand = BAND ? gradeBand(BAND) : null
 if (BAND && !targetBand) {
@@ -163,6 +191,7 @@ await Promise.all(
       // 본문 전체를 받는다 — **도입부만으로는 창을 못 채운다**(n=100 에서 65건이 100어 미만).
       // 여기서 받은 글의 **앞에서부터** 창만큼 떼어 쓴다. 도입부는 그 앞부분이다.
       leads[i] = await mediawikiLead(wiki.api, sample.items[i].id, { intro: false })
+      if (GAP_MS) await new Promise((z) => setTimeout(z, GAP_MS))
     }
   }),
 )
@@ -187,6 +216,8 @@ let vocabBlocked = 0
 let notStandalone = 0
 let failed = 0
 /** 자르기가 살려 낸 수 — 자르기의 기여분을 수치로 남긴다. */
+/** 추정 V-Level 이 목표 범위 밖. **처리 전에** 버리므로 LLM 비용이 안 든다. */
+let vLevelMiss = 0
 let trimmed = 0
 
 for (let i = 0; i < sample.items.length; i++) {
@@ -266,6 +297,19 @@ for (let i = 0; i < sample.items.length; i++) {
     continue
   }
 
+  // ── V-Level 게이트 — **채점자와 같은 자** ──────────────────────────
+  // 여기까지 온 것만 추정한다. 사전 조회가 붙으므로 앞의 싼 게이트를 먼저 통과시킨 뒤
+  // 재는 것이 싸다. 처리(LLM) 뒤에 버리는 것보다 훨씬 싸기도 하다.
+  let estV = null
+  if (V_RANGE) {
+    const est = await estimateArticleVLevel(db, extractBookLemmas, content)
+    estV = est.vLevel
+    if (estV == null || estV < V_RANGE.min || estV > V_RANGE.max) {
+      vLevelMiss++
+      continue
+    }
+  }
+
   if (COMMIT) {
     const { error } = await db.from('library_articles').insert({
       source: wiki.source,
@@ -290,14 +334,14 @@ for (let i = 0; i < sample.items.length; i++) {
   if (wasTrimmed) trimmed++
   console.log(
     `  ${COMMIT ? '✓' : '·'} ${String(words).padStart(4)}어  FK ${String(fk).padStart(5)}  ` +
-      `${(bandId ?? '-').padEnd(7)} ${wasTrimmed ? '✂ ' : '  '}${item.title.slice(0, 44)}`,
+      `${(bandId ?? '-').padEnd(7)} ${estV == null ? "" : `V${estV} `}${wasTrimmed ? '✂ ' : '  '}${item.title.slice(0, 42)}`,
   )
 }
 
 console.log(
   `\n추가 ${added}(자르기로 살린 것 ${trimmed}) · 이미 있음 ${existed} · 도입부 없음 ${empty} · ` +
     `짧음 ${tooShort} · 김 ${tooLong} · 잘라도 안 됨 ${trimFailed} · 칸 밖 ${outOfBand} · ` +
-    `어휘 밖 ${vocabBlocked} · 자립성 미달 ${notStandalone} · 실패 ${failed}`,
+    `어휘 밖 ${vocabBlocked} · 자립성 미달 ${notStandalone} · V칸 밖 ${vLevelMiss} · 실패 ${failed}`,
 )
 const seen = sample.items.length
 if (seen) {
