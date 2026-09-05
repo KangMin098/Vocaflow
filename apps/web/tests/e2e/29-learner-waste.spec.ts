@@ -36,6 +36,18 @@
 //    성공률의 분모에서 뺀다 — 열리지도 않은 화면을 "낭비 없음" 으로 세면 숫자가 거짓이 된다.
 //    (열림 자체는 `26-learner-sweep` 의 몫이다. 여기서 두 번 재지 않는다.)
 //
+// ── 실행 전 확인 (실측으로 값을 치른 것들) ──────────────────────────────
+// ① **프로덕션 빌드 위에서** 잰다. dev 는 훑는 중 재컴파일이 일어나 청크·세션이 갈린다.
+// ② **포트를 점유한 프로세스의 기동 시각**을 본다. `kill` 이 npm 래퍼만 죽이고 `next-server`
+//    자식이 살아남아, 방금 띄웠다고 믿은 서버가 실은 **옛 빌드를 내주는 유령**일 수 있다
+//    (그 빌드를 지운 뒤라면 정적 자산 400 → 하이드레이션 사망 → 전 화면 요청 0건).
+//      Get-NetTCPConnection -LocalPort 3200 -State Listen | % { Get-Process -Id $_.OwningProcess }
+// ③ **저장된 인증 상태가 신선한가.** 오래된 storageState 는 리프레시 토큰 회전 때문에
+//    실행 **도중** 만료될 수 있다 — 실측 2026-09-06: 예열 단계는 로그인 상태로 끝났는데
+//    (`screen_viewed` 41화면 적재됨) 본 측정에서 전 화면이 `/login` 으로 튕겼다.
+//    그럴 때 이 스펙은 숫자를 내지 않고 **실패한다**(아래 가드) — 그게 옳다.
+//    다시 잴 때는 `playwright-auth/.auth-learner-waste.json` 을 지우고 시작한다.
+//
 // 실행: LEARNER_WASTE=1 PLAYWRIGHT_BASE_URL=http://localhost:3000 npx playwright test 29-learner-waste
 
 import { test, expect, type Page } from '@playwright/test'
@@ -67,6 +79,14 @@ function isData(url: string, origin: string): boolean {
     const rest = url.slice(origin.length)
     if (!rest.startsWith('/api/')) return false
     if (rest.startsWith('/api/auth/')) return false // 토큰 갱신은 우리 화면의 요청이 아니다
+    // ⚠️ **계측 비콘은 데이터가 아니다** (실측 2026-09-06).
+    //    이 축은 "같은 데이터를 두 번 가져오는가" 를 묻는다. 계측은 가져오는 것이 아니라
+    //    보내는 것이고, 무엇보다 **본문을 읽을 수 없다** — `navigator.sendBeacon` 은 Blob 으로
+    //    보내므로 `request.postData()` 가 빈 문자열이다. 그래서 한 화면이 서로 다른 두
+    //    이벤트(예: 화면 진입 + 서가 진입)를 보내면 여기에는 **같은 요청 두 번**으로 보인다 —
+    //    실제로 `/arcade` · `/library/vocab` · `/pairflip/play` 3화면이 그렇게 "중복" 으로 찍혔다.
+    //    계측 중복은 본문이 보이는 자리에서 잰다(`funnel_events` 를 직접 세면 된다).
+    if (rest.startsWith('/api/analytics/')) return false
     return true
   }
   // Supabase REST/RPC/Storage — 화면이 직접 부르는 데이터다.
