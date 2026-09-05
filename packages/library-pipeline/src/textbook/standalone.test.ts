@@ -140,6 +140,26 @@ describe('자립성 게이트', () => {
     expect(f.signals?.numericPct).toBeGreaterThan(5)
   })
 
+  it('질문의 연쇄를 막는다 — 지도서·연습문제는 지문이 아니다', () => {
+    const manual =
+      'What would you use to measure the length of the table? A foot measure. ' +
+      'What to measure the water in a tub? A pint, quart, or gallon measure. ' +
+      'What to measure the amount of gas burned? A gas-meter. ' +
+      'In each case what does "meter" mean? It means an instrument for measuring.'
+    expect(standaloneFit(manual).pass).toBe(false)
+  })
+
+  it('질문이 섞인 정상 지문은 막지 않는다 — 문턱이 시중 최대 위에 있다', () => {
+    const withQuestion =
+      'The Earth looks blue from space. Water covers most of its surface. ' +
+      'Why is almost none of it drinkable? Ocean water holds far too much salt. ' +
+      'Only a small share of the water is fresh. Most of that share is frozen in glaciers.'
+    expect(standaloneFit(withQuestion).pass).toBe(true)
+    // 문턱은 시중 분포와 지도서 사이의 **빈 자리**다 — 백분위를 그대로 쓰지 않은 이유.
+    expect(STANDALONE_GATE.maxQuestionPct).toBeGreaterThan(STANDALONE_SPEC.question.elementary.max)
+    expect(STANDALONE_GATE.maxQuestionPct).toBeGreaterThan(STANDALONE_SPEC.question.middle.max)
+  })
+
   it('못 재면 통과시키지 않는다', () => {
     expect(standaloneFit('').pass).toBe(false)
   })

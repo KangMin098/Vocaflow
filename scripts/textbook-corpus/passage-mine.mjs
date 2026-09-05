@@ -224,6 +224,7 @@ for (const r of rows) {
     opensAsRecord: st?.opensAsRecord ?? null,
     hasFigureMark: st?.hasFigureMark ?? null,
     numericPct: st?.numericPct ?? null,
+    questionPct: st?.questionPct ?? null,
     head: pageText.slice(0, 80),
   })
 

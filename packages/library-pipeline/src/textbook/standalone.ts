@@ -36,6 +36,15 @@ export const STANDALONE_SPEC = {
     elementary: { sample: 129, quotedP50: 0, quotedP90: 4.5, quotedP95: 8.5, anaphoricPct: 3 },
     middle: { sample: 67, quotedP50: 0, quotedP90: 3.6, quotedP95: 7.6, anaphoricPct: 3 },
   },
+  /**
+   * 질문 밀도(질문 문장 / 전체 문장 %) — 2026-09-06 실측 207쪽.
+   * 시중 지문은 지문 **안**에 질문을 거의 두지 않는다(중앙 0). 질문은 지문 밖 문항에 있다.
+   */
+  question: {
+    measuredAt: '2026-09-06',
+    elementary: { sample: 129, p50: 0, p75: 6.7, p90: 14.3, p95: 18.2, p99: 27.3, max: 33.3 },
+    middle: { sample: 78, p50: 0, p75: 7.1, p90: 13.3, p95: 23.1, p99: 33.3, max: 33.3 },
+  },
 } as const
 
 /**
@@ -45,7 +54,23 @@ export const STANDALONE_SPEC = {
  * 시중 분포가 0 에 몰려 있어 p90(4.5)으로 조이면 **대화가 조금 있는 정상 이야기 지문**이
  * 무더기로 막힌다. 두 자의 백분위가 다른 것은 실수가 아니라 분포가 달라서다.
  */
-export const STANDALONE_GATE = { maxQuotedPct: 9 } as const
+export const STANDALONE_GATE = {
+  maxQuotedPct: 9,
+  /**
+   * 질문 밀도 문턱 = **40%**.
+   *
+   * 앞의 둘과 달리 백분위를 그대로 쓰지 않았다 — 시중 분포와 지도서 사이가 **비어 있어서**
+   * 그 빈 자리에 두는 편이 정확하다:
+   *
+   *     시중 최대       초등 33.3 · 중등 33.3
+   *     ─────────────── 40 ───────────────
+   *     지도서 표본     50.0 · 66.7
+   *
+   * p95(18~23)로 조이면 질문을 두엇 던지는 정상 설명문이 막힌다(시중 p99 가 27~33이다).
+   * 40 은 **시중 최대보다 위, 관측된 지도서보다 아래** — 시중 오탐 0/207.
+   */
+  maxQuestionPct: 40,
+} as const
 
 /**
  * 앞 맥락을 요구하는 문두. 대명사·지시어·접속부사, 그리고 따옴표로 시작하는 글.
@@ -167,6 +192,32 @@ function numericRatio(t: string): number {
   return +((nums / (words + nums)) * 100).toFixed(1)
 }
 
+/**
+ * **질문의 연쇄 — 지문이 아니라 지도서·연습문제다.**
+ *
+ * 실측 2026-09-06: `Children's Instructional Books` 서가 발췌를 서가별로 고르게 12편
+ * 뽑아 손으로 판정하니 4/12 였다. 떨어진 여덟 편의 성격이 한결같다 —
+ * **교사용 지도서 · 연습문제 블록 · 희곡 대본 · 조리법.** 그 서가에는 학생용 독본만
+ * 있는 것이 아니라 교사용 지도서가 함께 있다.
+ *
+ * 그중 지도서와 연습문제는 **질문의 연쇄**라는 뚜렷한 꼴을 갖는다:
+ *
+ *   `What would you use to measure the length of the table? A foot measure.
+ *    What to measure the water in a tub? …`                        질문/문장 50%
+ *   `EXERCISES.--What is a thrush? Why was the thrush so happy? …`  66.7%
+ *   정상 설명문                                                        0%
+ *   질문이 하나 섞인 정상 지문                                          20%
+ *
+ * 시중 교재는 지문 **안**에 질문을 거의 두지 않는다 — 질문은 지문 밖 문항에 있다.
+ * 문턱은 시중 분포에서 정한다(§`STANDALONE_SPEC.market.*.questionP95`).
+ */
+function questionRatio(t: string): number {
+  const sent = (t.match(/[.!?]+/g) ?? []).length
+  if (!sent) return 0
+  const q = (t.match(/\?/g) ?? []).length
+  return +((q / sent) * 100).toFixed(1)
+}
+
 export interface StandaloneSignals {
   /** 인용부호 안에 든 낱말의 비율 %. */
   quotedPct: number
@@ -178,6 +229,8 @@ export interface StandaloneSignals {
   hasFigureMark: boolean
   /** 숫자 토큰 비율 % — 재료·수치 목록을 잡는다. */
   numericPct: number
+  /** 질문 문장의 비율 % — 지도서·연습문제를 잡는다. */
+  questionPct: number
 }
 
 export function standaloneSignals(text: string): StandaloneSignals | null {
@@ -209,6 +262,7 @@ export function standaloneSignals(text: string): StandaloneSignals | null {
     opensAsRecord: opensAsRecord(t),
     hasFigureMark: FIGURE_MARK.test(t),
     numericPct: numericRatio(t),
+    questionPct: questionRatio(t),
   }
 }
 
@@ -252,6 +306,13 @@ export function standaloneFit(text: string): StandaloneFit {
       pass: false,
       signals: s,
       reason: '없는 그림·표를 가리킨다 — 그림이 있어야만 읽히는 글이다',
+    }
+  }
+  if (s.questionPct > STANDALONE_GATE.maxQuestionPct) {
+    return {
+      pass: false,
+      signals: s,
+      reason: `문장의 ${s.questionPct}% 가 질문이다 — 지문이 아니라 지도서·연습문제다(시중 최대 ${STANDALONE_SPEC.question.elementary.max}%)`,
     }
   }
   // ⚠️ **`numericPct` 로는 막지 않는다 — 재고 물러섰다(2026-09-05).**

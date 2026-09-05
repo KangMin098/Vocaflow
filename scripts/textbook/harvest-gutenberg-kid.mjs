@@ -379,11 +379,26 @@ const done = new Set(cursor.done ?? [])
  *
  * 그래서 `children's literature` 만 더한다. **풀이 크다고 넣지 않는다** — `natural history`
  * 가 382권으로 가장 큰데 수율은 절반이다. 권당 내려받기 값이 같으니 수율이 곧 비용이다.
+ *
+ * ── 4차 (2026-09-06) — **그 선택을 되돌린다. 수율을 얻고 품질을 잃었다** ──
+ * `children's literature` 를 넣은 뒤 들어온 초3~4 발췌 12편을 손으로 판정하니 **3/12(25%)**
+ * 였다. 직전 서가(`instructional`)에서는 7/12(58%)였고 그 전 기준선도 6/12(50%)다.
+ *
+ * 떨어진 아홉 편의 성격이 한결같다 — 20세기 **소년소설 시리즈**다:
+ *   가짜 주문서 · 구덩이 구조 장면 · 학생의 만취 · 공기총 대치 · 고아의 상실 ·
+ *   포로와 전령 · 사투리 대사 덩어리 · 발목을 다쳐 우는 아이
+ * Cycle 38 에서 이미 진단한 그 문제로 되돌아간 것이다: **소설 중간을 잘라 자립적 지문을
+ * 얻으려는 시도 자체가 어긋나 있다.** `Children's Literature` 서가는 이름과 달리
+ * 학년 독본이 아니라 그 시대의 소설 총서다.
+ *
+ * ⚠️ **수율(편/권)로만 서가를 고르면 안 된다.** 1.7편/권은 `instructional` 과 대등했지만
+ *   그 편들이 지문이 아니었다. 서가를 바꿀 때는 **수율과 손 판정을 함께** 재고, 손 판정이
+ *   기준선(6/12)보다 낮으면 수율이 아무리 좋아도 쓰지 않는다.
  */
 const TOPICS = (
   arg(
     'topics',
-    "children's instructional,children's book series,school stories,children's picture,children's literature"
+    "children's instructional,children's book series,school stories,children's picture"
   ) ?? ''
 )
   .split(',')
