@@ -122,8 +122,14 @@ async function dbRetry(fn, what, attempt = 0) {
     if (r?.error) throw new Error(r.error.message)
     return r
   } catch (e) {
-    if (attempt >= 4) throw new Error(`${what} — ${String(e.message).slice(0, 80)}`)
-    await sleep(1500 * 2 ** attempt)
+    // ⚠️ **4회로는 모자랐다.** 2026-09-05 오후에 DB 가 길게 흔들렸고(다른 세션이 3만 편
+    //   전량 게이트를 돌리는 중이었다) 몫 조회 5개가 재시도를 다 쓰고 죽었다.
+    //   백오프를 30초에서 멈추고 6회까지 버틴다 — 합계 약 2분이다.
+    //   기다리는 비용은 2분이고, 포기하는 비용은 22권치 수확이다.
+    if (attempt >= 6) throw new Error(`${what} — ${String(e.message).slice(0, 80)}`)
+    const wait = Math.min(30_000, 1500 * 2 ** attempt)
+    console.error(`  ↻ ${what} 재시도 ${attempt + 1}/6 (${Math.round(wait / 1000)}s) — ${String(e.message).slice(0, 50)}`)
+    await sleep(wait)
     return dbRetry(fn, what, attempt + 1)
   }
 }
