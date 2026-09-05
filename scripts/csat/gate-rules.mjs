@@ -93,3 +93,100 @@ export function hardReject(text) {
   const t = String(text ?? '')
   return HARD_RULES.filter((r) => r.test(t)).map((r) => r.id)
 }
+
+// ── 용도 ────────────────────────────────────────────────────────────
+//
+// **한 자로 두 용도를 재면 한쪽이 반드시 틀린다.** 실제로 그렇게 틀렸다 —
+// `publishable = verdict === 'use'` 하나로 재는 바람에 초·중 교재용 서사 발췌
+// 1,241편이 통째로 내려갔다(2026-09-05). 수능이 설명·논증문만 쓰는 것과
+// 초·중 독해 교재가 이야기를 싣는 것은 **다른 용도의 다른 판단**이다.
+//
+// 그래서 용도를 먼저 정하고, 용도마다 기준을 따로 둔다.
+/**
+ * 이 행이 무엇에 쓰이는가. `feed_id` 와 `source` 로 가른다 (실측 2026-09-05).
+ *
+ * | 용도 | 무엇 | 행 |
+ * |---|---|---|
+ * | `csat` | 수능 지문 원천 — Gutenberg 수확 · 작문 드레인 | 약 23,200 |
+ * | `kids` | 초·중 교재 발췌 (`PD 발췌 · 초3~4` … `중3`) | 5,508 |
+ * | `raw` | PLOS 논문 **전문** — 지문이 아니다 | 약 34,700 |
+ * | `library` | 도서관 읽기 자료 (essay·news·featured·default·snippets 등) | 약 6,500 |
+ */
+export function purposeOf(row) {
+  const feed = String(row.feed_id ?? '')
+  const source = String(row.source ?? '')
+  // 'adapted' = 목표 학령으로 다시 쓴 각색문. 이야기가 나올 수밖에 없으므로 교재 쪽이다.
+  if (feed === 'kid-excerpt' || feed === 'adapted') return 'kids'
+  // ⚠️ PLOS 는 평균 4만 자다 — 지문 크기(700~1,000자)가 아니라 논문 전문이다.
+  //   자르기 전에는 어느 용도로도 게시할 수 없다.
+  if (source === 'plos') return 'raw'
+  if (feed === 'harvest' || feed === 'compose-drain') return 'csat'
+  return 'library'
+}
+
+/**
+ * 용도별 게시 기준.
+ *
+ * - `harmful` 은 **모든 용도에서 차단**한다. 교리·차별·의사과학·폐기된 사실·선동은
+ *   읽기 자료로도, 초등 교재로도 게시하면 안 된다. 용도와 무관한 축이다.
+ * - `unfit` 은 "읽을 수 있는 글이 아닌 것" — 사전 항목·주석 덩어리·판정 불가.
+ * - 나머지는 용도가 가른다.
+ */
+export const HARMFUL = new Set(['bias', 'doctrine', 'pseudoscience', 'obsolete-fact', 'polemic'])
+export const UNFIT = new Set(['reference', 'fragmentary', 'mixed'])
+
+export const PURPOSE_RULE = {
+  csat: {
+    verdicts: new Set(['use']), // 서사는 추론 유형에 못 쓴다
+    allowPoetry: false,
+    requireCleanCodes: true, // 문서 잔재가 하나라도 있으면 자족성이 깨진다
+    label: '수능 지문',
+  },
+  kids: {
+    verdicts: new Set(['use', 'narrative']), // 초·중 독해 교재는 이야기를 싣는다
+    allowPoetry: false,
+    requireCleanCodes: true,
+    label: '초·중 교재',
+  },
+  library: {
+    verdicts: new Set(['use', 'narrative']),
+    allowPoetry: true, // 읽기 자료로는 운문도 정당하다
+    // ⚠️ 읽기 자료는 **문항을 만들지 않으므로** 자족성 요구가 약하다. 그래도 사전 항목·
+    //   성경 절 번호·캡션 잔재는 읽을 글이 아니라서 아래 STRUCT_BLOCK 만 막는다.
+    requireCleanCodes: false,
+    label: '도서관 읽기',
+  },
+  raw: {
+    verdicts: new Set([]), // 자르기 전에는 무엇도 게시 불가
+    allowPoetry: false,
+    requireCleanCodes: true,
+    label: '미절단 원본',
+  },
+}
+
+/** 읽기 자료에서도 막는 구조 코드 — "읽을 수 있는 글" 이 아닌 것만. */
+export const STRUCT_BLOCK = new Set(['doc-verse', 'doc-caption', 'doc-glyph', 'lex-entry', 'lex-list'])
+
+/**
+ * 최종 판정. `{publishable, blockedBy}` 를 준다.
+ * `verdict` 는 책 단위 LLM 판정(없으면 null), `codes` 는 기계 규칙 적중.
+ */
+export function decide({ purpose, verdict, genre, codes }) {
+  const rule = PURPOSE_RULE[purpose] ?? PURPOSE_RULE.library
+  if (purpose === 'raw') return { publishable: false, blockedBy: 'oversize-raw' }
+  if (verdict === 'reject') {
+    if (HARMFUL.has(genre)) return { publishable: false, blockedBy: genre }
+    if (UNFIT.has(genre)) return { publishable: false, blockedBy: genre }
+    if (genre === 'poetry-drama' && !rule.allowPoetry) return { publishable: false, blockedBy: genre }
+    if (genre === 'poetry-drama' && rule.allowPoetry) {
+      // 운문은 도서관에서만 통과 — 구조 코드 검사는 계속 받는다
+    } else {
+      return { publishable: false, blockedBy: genre || 'reject' }
+    }
+  } else if (verdict && !rule.verdicts.has(verdict)) {
+    return { publishable: false, blockedBy: `verdict:${verdict}` }
+  }
+  const blocking = rule.requireCleanCodes ? codes : codes.filter((c) => STRUCT_BLOCK.has(c))
+  if (blocking.length) return { publishable: false, blockedBy: blocking[0] }
+  return { publishable: true, blockedBy: null }
+}

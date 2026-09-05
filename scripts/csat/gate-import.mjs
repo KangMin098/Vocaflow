@@ -21,7 +21,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { hardReject } from './gate-rules.mjs'
+import { hardReject, purposeOf, decide, PURPOSE_RULE } from './gate-rules.mjs'
+import { curlFetch } from './lib-curl-fetch.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
@@ -50,8 +51,10 @@ if (!book.size) {
 }
 
 const { createClient } = await import('@supabase/supabase-js')
+// ⚠️ 내장 fetch 가 이 환경에서 죽는다(같은 순간 curl 은 정상). --curl 로 갈아 끼운다.
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
+  ...(process.argv.includes('--curl') ? { global: { fetch: curlFetch } } : {}),
 })
 
 // ⚠️ 첫 실행이 12,300편에서 **오류 한 줄 없이** 죽었다(2026-09-05). 같은 일이 이 저장소의
@@ -100,12 +103,11 @@ async function retry(fn, what, attempt = 0) {
  *
  * `reject` 는 어느 쪽에서도 게시 불가다(교리·차별·폐기된 사실) — 그건 용도와 무관하다.
  */
-const NARRATIVE_OK_FEEDS = new Set([
-  'kid-excerpt', // PD 장문에서 뗀 초·중 교재 지문
-  'adapted', // 우리가 목표 학령으로 다시 쓴 각색문 — 이야기가 나올 수밖에 없다
-])
+// 이 판단은 `gate-rules.mjs` 의 `purposeOf` + `decide` 로 옮겼다 — 용도가 넷(csat·kids·
+// library·raw)이고 서사 말고도 갈리는 축(운문·구조 잔재·미절단 원본)이 더 있었기 때문이다.
+// `kid-excerpt` 와 `adapted` 는 거기서 `kids` 로 간다.
 
-const tally = { total: 0, judged: 0, unjudged: 0, pub: 0, quarantine: 0, skipped: 0, wrote: 0, restored: 0 }
+const tally = { total: 0, judged: 0, unjudged: 0, pub: 0, quarantine: 0, skipped: 0, wrote: 0, restored: 0, byPurpose: {}, byBlock: {} }
 const byVerdict = {}
 const byCode = {}
 const NOW = new Date().toISOString()
@@ -116,8 +118,14 @@ for (;;) {
     () =>
       db
         .from('library_articles')
-        .select('id,title,content,status,status_message,feed_id,csat_fit')
-        .eq('source', 'gutenberg')
+        // ⚠️ 전에는 `.eq('source','gutenberg')` 였다. 그러면 **판정을 안 받은 소스가
+        //   그대로 게시된다** — PLOS 논문 전문 34,700행이 정확히 그 상태였다.
+        //   전량을 훑되 용도(`purposeOf`)가 기준을 가른다.
+        // ⚠️ **본문을 여기서 받지 않는다.** 표 전체 본문이 1.3 GB 이고 그 대부분이
+        //   PLOS 논문 전문(평균 4만 자)이다. 전량을 끌어오면 긴 루프가 세 번 다
+        //   말없이 죽었다(2026-09-05). 용도는 `feed_id`·`source` 만으로 정해지므로,
+        //   본문은 **규칙을 걸 행에만** 따로 받는다.
+        .select('id,title,status,status_message,feed_id,source,csat_fit')
         .gt('id', cursor)
         .order('id')
         .limit(300),
@@ -126,21 +134,55 @@ for (;;) {
   if (!data?.length) break
   cursor = data[data.length - 1].id
 
+  // ⚠️ **이미 v2 로 판정됐고 용도도 그대로면 본문이 필요 없다.** 본문 조회가 이 루프에서
+  //   가장 비싼 일이고(curl 경로에서는 요청마다 프로세스 하나), 재실행할 때마다 7만 편의
+  //   본문을 다시 받는 것은 순전한 낭비다. 상태가 어긋난 행은 아래 `settled` 가 걸러 낸다.
+  const settled = (r) => {
+    const g = r.csat_fit?.gate
+    if (!g || g.v !== 2 || g.purpose !== purposeOf(r)) return false
+    const stuckArchived =
+      g.publishable && r.status === 'archived' && String(r.status_message ?? '').startsWith('게시 게이트:')
+    const stuckLive = !g.publishable && g.purpose !== 'raw' && r.status !== 'archived'
+    return !stuckArchived && !stuckLive
+  }
+  const needBody = data.filter((r) => purposeOf(r) !== 'raw' && !settled(r)).map((r) => r.id)
+  const body = new Map()
+    // ⚠️ `.in()` 은 id 를 전부 URL 에 싣는다. 100개면 4,000자가 넘어 curl 이 요청을 못 낸다
+  //   (상태 000). 40개로 줄이면 1,600자 안쪽이라 안전하다.
+  for (let i = 0; i < needBody.length; i += 40) {
+    const { data: bodies } = await retry(
+      () => db.from('library_articles').select('id,content').in('id', needBody.slice(i, i + 40)),
+      '본문 조회',
+    )
+    for (const b of bodies ?? []) body.set(b.id, b.content)
+  }
+
   for (const row of data) {
     tally.total += 1
-    const key = String(row.title ?? '').split(' — ')[0].trim() || '(무제)'
-    const v = book.get(key)
-    if (!v) {
-      tally.unjudged += 1
+    // 본문을 안 받은 행은 이미 수렴한 행이다 — 규칙을 다시 돌릴 근거가 없다.
+    if (purposeOf(row) !== 'raw' && !body.has(row.id) && settled(row)) {
+      tally.skipped += 1
       continue
     }
-    tally.judged += 1
-    byVerdict[v.verdict] = (byVerdict[v.verdict] ?? 0) + 1
+    const key = String(row.title ?? '').split(' — ')[0].trim() || '(무제)'
+    const v = book.get(key) ?? null
+    if (v) tally.judged += 1
+    else tally.unjudged += 1
+    byVerdict[v?.verdict ?? '(LLM 판정 없음)'] = (byVerdict[v?.verdict ?? '(LLM 판정 없음)'] ?? 0) + 1
 
-    const codes = hardReject(row.content)
+    const purpose = purposeOf(row)
+    tally.byPurpose[purpose] = (tally.byPurpose[purpose] ?? 0) + 1
+    // 미절단 원본은 본문을 규칙에 걸 필요가 없다 — 크기만으로 이미 게시 불가고,
+    // 4만 자에 정규식 11개를 돌리는 것은 34,700행에서 그냥 낭비다.
+    const codes = purpose === 'raw' ? [] : hardReject(body.get(row.id) ?? '')
     for (const c of codes) byCode[c] = (byCode[c] ?? 0) + 1
-    const narrativeOk = v.verdict === 'narrative' && NARRATIVE_OK_FEEDS.has(row.feed_id)
-    const publishable = (v.verdict === 'use' || narrativeOk) && codes.length === 0
+    const { publishable, blockedBy } = decide({
+      purpose,
+      verdict: v?.verdict ?? null,
+      genre: v?.genre ?? '',
+      codes,
+    })
+    if (blockedBy) tally.byBlock[blockedBy] = (tally.byBlock[blockedBy] ?? 0) + 1
     // ⚠️ **예행에서도 센다.** `if (!COMMIT) continue` 뒤에서 세면 예행이 0 을 보고하고,
     //   그러면 "무엇이 바뀌는지" 를 모른 채 --commit 을 누르게 된다.
     const willRestore =
@@ -152,20 +194,25 @@ for (;;) {
     else tally.quarantine += 1
 
     const gate = {
-      v: 1,
+      v: 2,
       publishable,
-      verdict: v.verdict,
-      genre: v.genre,
-      why: v.why,
+      purpose,
+      blockedBy,
+      verdict: v?.verdict ?? null,
+      genre: v?.genre ?? '',
+      why: v?.why ?? '',
       codes,
-      by: 'book-llm+rule',
+      by: v ? 'book-llm+rule' : 'rule',
       at: NOW,
     }
     const prev = row.csat_fit?.gate
     // 재실행 안전 — 판정이 그대로면 쓰지 않는다(`at` 은 비교에서 뺀다).
     const same =
       prev &&
+      prev.v === gate.v &&
       prev.publishable === gate.publishable &&
+      prev.purpose === gate.purpose &&
+      prev.blockedBy === gate.blockedBy &&
       prev.verdict === gate.verdict &&
       prev.genre === gate.genre &&
       JSON.stringify(prev.codes ?? []) === JSON.stringify(codes)
@@ -181,11 +228,12 @@ for (;;) {
 
     // ⚠️ 기존 csat_fit 을 읽어 키 하나만 더한다 — 통째로 덮으면 pass·topic 이 날아간다.
     const patch = { csat_fit: { ...(row.csat_fit ?? {}), gate } }
-    if (!publishable && row.status !== 'archived') {
+    // ⚠️ **미절단 원본은 상태를 건드리지 않는다.** `publishable=false` 로 게시는 막히지만,
+    //   `archived` 로 내리면 나중에 지문으로 잘라 낼 추출 단계가 그 행을 못 찾는다.
+    //   "게시 불가" 와 "폐기" 는 다른 말이다.
+    if (purpose !== 'raw' && !publishable && row.status !== 'archived') {
       patch.status = 'archived'
-      patch.status_message = `게시 게이트: ${v.verdict}${v.genre ? '/' + v.genre : ''}${
-        codes.length ? ' · ' + codes.join(',') : ''
-      }`
+      patch.status_message = `게시 게이트: ${PURPOSE_RULE[purpose]?.label ?? purpose} · ${blockedBy}`
     }
     // **되돌릴 수 있어야 재실행 안전이다.** 판정이 바뀌어 게시 가능해졌는데 그대로
     //   archived 로 두면 이 스크립트는 한 방향으로만 움직이는 자가 된다.
