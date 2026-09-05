@@ -99,11 +99,18 @@ export const FLOOR = discourseFloor()
  * 창은 탐욕적으로 잡는다 — 문장 i 에서 시작해 어수 하한을 넘는 첫 지점에서 끊고, 통과하면
  * 그 뒤부터 다시 센다. 그래서 한 글 안에서 창끼리 겹치지 않는다.
  */
-export function scoreArticle(text) {
+/**
+ * 창을 **위치까지** 준다 — `[{s, e, pass}]` (문장 인덱스, e 는 미포함).
+ *
+ * ⚠️ `scoreArticle` 이 이 계산을 이미 하면서 위치를 버리고 있었다. 문항 생성기는
+ *   "어느 구간이 대역을 만족하는가" 를 알아야 그 구간에 빈칸을 뚫는다. 개수만 주면
+ *   생성기가 같은 계산을 처음부터 다시 한다. 그래서 위치를 내보내고
+ *   `scoreArticle` 은 이 함수를 세기만 한다 — **계산이 두 벌이 되면 조용히 갈라진다.**
+ */
+export function windowsOf(text) {
   const sents = splitSentences(text)
   const wp = sents.map(W)
-  let shape = 0
-  let pass = 0
+  const out = []
   let i = 0
   while (i < sents.length) {
     let acc = []
@@ -131,17 +138,21 @@ export function scoreArticle(text) {
       i++
       continue
     }
-    shape++
     const text2 = sents.slice(i, hit).join(' ')
     const w = W(text2)
     const conn = (100 * (text2.match(CONNECTIVE) ?? []).length) / Math.max(1, w.length)
     const ana = (100 * (text2.match(ANAPHORA) ?? []).length) / Math.max(1, w.length)
     const hasBoth =
       (text2.match(CONNECTIVE) ?? []).length > 0 && (text2.match(ANAPHORA) ?? []).length > 0
-    if (conn >= FLOOR.conn && ana >= FLOOR.ana && hasBoth) pass++
+    out.push({ s: i, e: hit, pass: conn >= FLOOR.conn && ana >= FLOOR.ana && hasBoth })
     i = hit
   }
-  return { shape, pass }
+  return out
+}
+
+export function scoreArticle(text) {
+  const wins = windowsOf(text)
+  return { shape: wins.length, pass: wins.filter((w) => w.pass).length }
 }
 
 /** `csat_fit` 에 넣을 기록 한 벌. 저장 형태를 한 곳에서 정한다. */
