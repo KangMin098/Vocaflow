@@ -21,7 +21,7 @@ import {
   MARKET_TARGET_INDEX,
   QUERY_TIMEOUT_MS,
   readBench,
-  withTimeout,
+  withDeadline,
 } from './factory-bench'
 import {
   PURE_FUNCTION_TYPES,
@@ -67,12 +67,14 @@ export async function loadMarketView(): Promise<MarketView> {
 async function countCell(db: SupabaseClient, type: string, vLevel: number): Promise<number | null> {
   // 상한 안에 안 오면 「못 잼」이다. 재시도하지 않는다 — 느린 조회는 다시 물어도 느리고,
   // 기다리는 동안 커넥션 풀을 더 조인다.
-  const { count } = await withTimeout(
-    db
-      .from('csat_dcp_items')
-      .select('id', { count: 'exact', head: true })
-      .eq('type', type)
-      .eq('v_level', vLevel),
+  const { count } = await withDeadline(
+    (signal) =>
+      db
+        .from('csat_dcp_items')
+        .select('id', { count: 'exact', head: true })
+        .eq('type', type)
+        .eq('v_level', vLevel)
+        .abortSignal(signal),
     QUERY_TIMEOUT_MS,
     { count: null } as { count: number | null },
   )

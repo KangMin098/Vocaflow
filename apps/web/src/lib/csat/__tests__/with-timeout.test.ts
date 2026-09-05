@@ -11,7 +11,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { QUERY_TIMEOUT_MS, withTimeout } from '../factory-bench'
+import { QUERY_TIMEOUT_MS, withDeadline, withTimeout } from '../factory-bench'
 
 const later = <T>(v: T, ms: number) => new Promise<T>((r) => setTimeout(() => r(v), ms))
 
@@ -58,5 +58,55 @@ describe('withTimeout', () => {
     // 너무 짧으면 멀쩡한 조회를 「못 잼」으로 버린다.
     expect(QUERY_TIMEOUT_MS).toBeGreaterThanOrEqual(2_000)
     expect(QUERY_TIMEOUT_MS).toBeLessThanOrEqual(10_000)
+  })
+})
+
+describe('withDeadline — 기다리기만 멈추는 게 아니라 요청을 끊는다', () => {
+  it('상한 안에 오면 그 값을 준다', async () => {
+    const got = await withDeadline<Counted>(() => later<Counted>({ count: 3 }, 5), 200, MISS)
+    expect(got).toEqual({ count: 3 })
+  })
+
+  it('상한을 넘기면 **취소 신호를 보낸다** — 버려진 요청이 커넥션을 쥐면 다음 요청이 느려진다', async () => {
+    let aborted = false
+    const got = await withDeadline<Counted>(
+      (signal) =>
+        new Promise<Counted>((resolve) => {
+          signal.addEventListener('abort', () => {
+            aborted = true
+            resolve(MISS)
+          })
+          setTimeout(() => resolve({ count: 3 }), 5_000)
+        }),
+      40,
+      MISS,
+    )
+    expect(got).toEqual(MISS)
+    expect(aborted, '취소 신호가 안 갔다 — 요청이 계속 살아 있다').toBe(true)
+  })
+
+  it('신호를 무시하는 조회여도 화면은 안 기다린다 — 시계와도 경주한다', async () => {
+    const t0 = Date.now()
+    const got = await withDeadline<Counted>(() => later<Counted>({ count: 3 }, 5_000), 40, MISS)
+    expect(got).toEqual(MISS)
+    expect(Date.now() - t0).toBeLessThan(1_000)
+  })
+
+  it('조회가 던져도 대체값으로 받는다', async () => {
+    const got = await withDeadline<Counted>(() => Promise.reject(new Error('ECONNRESET')), 200, MISS)
+    expect(got).toEqual(MISS)
+  })
+
+  it('성공한 뒤에도 신호를 보내 둔다 — 남은 재시도가 있으면 같이 끊긴다', async () => {
+    let signalRef: AbortSignal | null = null
+    await withDeadline<Counted>(
+      (signal) => {
+        signalRef = signal
+        return later<Counted>({ count: 3 }, 5)
+      },
+      500,
+      MISS,
+    )
+    expect(signalRef!.aborted).toBe(true)
   })
 })

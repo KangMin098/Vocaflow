@@ -19,7 +19,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { QUERY_TIMEOUT_MS, withTimeout } from './factory-bench'
+import { QUERY_TIMEOUT_MS, withDeadline } from './factory-bench'
 
 import {
   GENERATED_TYPES,
@@ -79,10 +79,10 @@ async function inWaves<T, R>(
 /** count 한 번 — null 이면 한 번 더. 차가운 첫 호출이 빈손으로 오는 일이 있다. */
 /** 상한 안에 안 오면 「못 잼」. 재시도하지 않는다 — 느린 조회는 다시 물어도 느리다. */
 async function headCount(
-  run: () => PromiseLike<{ count: number | null }>,
+  run: (signal: AbortSignal) => PromiseLike<{ count: number | null }>,
   timeoutMs = QUERY_TIMEOUT_MS,
 ): Promise<number | null> {
-  const { count } = await withTimeout(run(), timeoutMs, { count: null } as { count: number | null })
+  const { count } = await withDeadline(run, timeoutMs, { count: null } as { count: number | null })
   return count
 }
 
@@ -165,15 +165,18 @@ export async function loadAuthorView(): Promise<AuthorView> {
   //   쓴다. 통계값이라 오차가 있으므로 **허용 오차를 넘을 때만** 경고한다.
   const [counts, planned] = await Promise.all([
     inWaves(specs, (s) =>
-      headCount(() =>
+      headCount((signal) =>
         db
           .from('csat_dcp_items')
           .select('id', { count: 'exact', head: true })
           .eq('type', s.type)
-          .eq('v_level', s.vLevel),
+          .eq('v_level', s.vLevel)
+          .abortSignal(signal),
       ),
     ),
-    headCount(() => db.from('csat_dcp_items').select('id', { count: 'planned', head: true })),
+    headCount((signal) =>
+      db.from('csat_dcp_items').select('id', { count: 'planned', head: true }).abortSignal(signal),
+    ),
   ])
 
   const cells: AuthorCell[] = specs.map((s, i) => ({ ...s, count: counts[i] ?? null }))

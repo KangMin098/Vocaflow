@@ -23,7 +23,9 @@ import path from 'node:path'
  * 멈췄다. 느린 의존이 화면을 붙잡으면 관리자는 새로고침을 누르고, 그 요청이 풀을 더 조여
  * 다음 요청을 더 느리게 만든다. 그래서 **요청마다** 끊는다.
  *
- * 끊긴 조회는 서버에서 계속 돌 수 있다(취소 신호를 안 보낸다) — 그래도 화면은 안 기다린다.
+ * ⚠️ 이것만으로는 **기다리기를 멈출 뿐 요청을 멈추지는 못한다.** 버려진 요청은 커넥션을 계속
+ * 쥐고 있어서, 칸 225개를 세는 화면에서는 그 자체가 다음 요청을 느리게 만든다(풀 포화).
+ * 요청까지 끊으려면 `withDeadline` 을 쓴다 — 이 함수는 취소 신호를 못 받는 값에만 쓴다.
  */
 export function withTimeout<T>(p: PromiseLike<T>, ms: number, onTimeout: T): Promise<T> {
   return new Promise<T>((resolve) => {
@@ -39,6 +41,36 @@ export function withTimeout<T>(p: PromiseLike<T>, ms: number, onTimeout: T): Pro
       },
     )
   })
+}
+
+/**
+ * 조회 하나에 상한을 걸되 **요청 자체를 끊는다.**
+ *
+ * `withTimeout` 은 기다리기만 멈춘다 — 버려진 요청은 커넥션을 계속 쥐고 있고, 칸 225개를 세는
+ * 화면에서는 그 잔해가 다음 요청을 느리게 만든다(실측 2026-09-05: `pg_stat_activity` 가 idle
+ * 백엔드로 가득 찬 채 집필 화면 39초). 그래서 취소 신호를 함께 보낸다.
+ *
+ * 신호를 받고도 안 끝나는 구현이 있을 수 있으므로 **시계와도 경주한다** — 둘 중 먼저 오는 쪽이
+ * 이긴다. 어느 쪽이든 화면은 상한을 넘겨 기다리지 않는다.
+ */
+export async function withDeadline<T>(
+  run: (signal: AbortSignal) => PromiseLike<T>,
+  ms: number,
+  onTimeout: T,
+): Promise<T> {
+  const ac = new AbortController()
+  const timer = setTimeout(() => ac.abort(), ms)
+  try {
+    return await withTimeout(
+      Promise.resolve(run(ac.signal)).catch(() => onTimeout),
+      ms,
+      onTimeout,
+    )
+  } finally {
+    clearTimeout(timer)
+    // 이미 끝났어도 신호를 보내 둔다 — 남은 재시도·스트림이 있으면 같이 끊긴다.
+    ac.abort()
+  }
 }
 
 /** 조회 하나에 허용하는 시간. 이보다 오래 걸리는 칸은 「?」로 남는다. */

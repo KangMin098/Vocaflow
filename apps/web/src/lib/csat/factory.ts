@@ -28,6 +28,7 @@ import {
   MARKET_TARGET_INDEX,
   QUERY_TIMEOUT_MS,
   readBench,
+  withDeadline,
   withTimeout,
   type BenchFile,
 } from './factory-bench'
@@ -84,11 +85,14 @@ interface Cell {
 const TIMED_OUT = { count: null, error: { message: `${QUERY_TIMEOUT_MS / 1000}초 안에 안 돌아왔다` } }
 
 async function headCount(
-  run: () => PromiseLike<{ count: number | null; error: { message: string } | null }>,
+  run: (signal: AbortSignal) => PromiseLike<{
+    count: number | null
+    error: { message: string } | null
+  }>,
   timeoutMs = QUERY_TIMEOUT_MS,
 ): Promise<{ count: number | null; message: string | null }> {
   for (let attempt = 0; attempt < 2; attempt += 1) {
-    const { count, error } = await withTimeout(run(), timeoutMs, TIMED_OUT)
+    const { count, error } = await withDeadline(run, timeoutMs, TIMED_OUT)
     if (count != null) return { count, message: null }
     // 상한에 걸린 것은 **다시 물어도 같다** — 재시도는 대기 시간만 두 배로 만든다.
     if (error?.message === TIMED_OUT.error.message) return { count: null, message: error.message }
@@ -98,12 +102,13 @@ async function headCount(
 }
 
 async function countCell(db: SupabaseClient, type: string, vLevel: number): Promise<number | null> {
-  const { count } = await headCount(() =>
+  const { count } = await headCount((signal) =>
     db
       .from('csat_dcp_items')
       .select('id', { count: 'exact', head: true })
       .eq('type', type)
-      .eq('v_level', vLevel),
+      .eq('v_level', vLevel)
+      .abortSignal(signal),
   )
   return count
 }
@@ -204,7 +209,8 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
   //       칸이 132개라 다 돌면 몇 분이다. 집계 RPC 가 있어야 한다(승인 대기).
   //   0 으로 뭉개지 않고 「못 잼」 + 이유로 남긴다.
   const itemsTotal = await headCount(
-    () => db.from('csat_dcp_items').select('id', { count: 'planned', head: true }),
+    (signal) =>
+      db.from('csat_dcp_items').select('id', { count: 'planned', head: true }).abortSignal(signal),
     6_000,
   )
 
