@@ -72,6 +72,7 @@ import {
   useCombo,
   useFlipGrid,
   usePersonalBest,
+  useSessionEscape,
   DEFAULT_COMBO_TIERS,
   clamp,
   type Word,
@@ -458,6 +459,13 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
     click();
   }, [click]);
 
+  // Esc = 전체 해제(브리핑이 약속한 조작). 고른 것이 없으면 셸이 세션을 닫는다.
+  useSessionEscape(() => {
+    if (phaseRef.current !== 'playing' || selRef.current.length === 0) return false;
+    clearSel();
+    return true;
+  });
+
   const undoSel = useCallback(() => {
     if (phaseRef.current !== 'playing' || selRef.current.length === 0) return;
     selRef.current = selRef.current.slice(0, -1);
@@ -660,11 +668,6 @@ export function MorphmergeGame({ wordPool, onExit, onCorrect, onWrong }: Props) 
         if (tag === 'BUTTON') return; // 포커스된 버튼의 기본 동작을 뺏지 않는다
         e.preventDefault();
         resolve('merge');
-        return;
-      }
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        clearSel();
         return;
       }
       if (e.key === 'Backspace') {

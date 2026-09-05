@@ -13,6 +13,8 @@
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
+import { reportSessionScore } from '@/lib/game/session-score';
+
 // ─── 카운트다운 ───────────────────────────────────────────────────────────
 //
 // setInterval 을 쓰지 않는다: 백그라운드 탭에서 스로틀되고 누적 드리프트가 생겨
@@ -343,6 +345,14 @@ export function usePersonalBest(key: string, higherIsBetter = true) {
   const storeKey = `vocaflow-best-${key}`;
   const [best, setBest] = useState<number | null>(null);
 
+  // 제출하는 그 수가 곧 **결과 화면이 띄우는 대표 점수**다(19/19 게임이 결과 화면 진입에서
+  // 딱 한 번 부른다). 같은 수를 세션 기록기로 흘려서 `scores.score` 와 `/arcade/ranking`
+  // 이 학습자가 실제로 본 숫자로 줄을 세우게 한다 — 전에는 18종이 `정답×100` 이었다(M2).
+  //
+  // ⚠️ `higherIsBetter=false` 는 보고하지 않는다. 그 수는 점수가 아니라 **기록**이다
+  //    (ghost-race 의 랩 타임 — 낮을수록 좋다). 랭킹은 내림차순이라 그대로 실으면
+  //    가장 느린 판이 1위가 된다. 그런 게임은 기존 산식(정답×100)을 그대로 쓴다.
+
   useEffect(() => {
     try {
       const v = localStorage.getItem(storeKey);
@@ -355,6 +365,7 @@ export function usePersonalBest(key: string, higherIsBetter = true) {
   /** 기록을 제출한다. 갱신됐으면 이전 기록을, 아니면 null 을 돌려준다. */
   const submit = useCallback(
     (value: number): { improved: boolean; prev: number | null } => {
+      if (higherIsBetter) reportSessionScore(value);
       const prev = best;
       const better = prev == null || (higherIsBetter ? value > prev : value < prev);
       if (better) {

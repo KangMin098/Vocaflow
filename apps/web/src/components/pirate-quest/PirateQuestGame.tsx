@@ -31,6 +31,7 @@ import {
   useCombo,
   useCountdown,
   usePersonalBest,
+  useSessionEscape,
   useSfx,
   type Word,
 } from '@/components/game/_shared/gamekit';
@@ -633,13 +634,17 @@ export function PirateQuestGame({ wordPool, onCorrect, onWrong, onExit }: Pirate
   const recallRef = useRef(recall);
   recallRef.current = recall;
 
+  // Esc = 나가기. 셸과 목적지는 같지만, 이 게임의 handleExit 은 미판정 마이크로 체크를
+  // "모름"으로 마감한 뒤 나간다 — 셸이 대신 닫으면 그 마감이 건너뛰어지고, 두 리스너가
+  // 함께 발화하면 이동이 두 번 쌓인다. 소유권을 여기서 가져와 한 번만 나간다.
+  useSessionEscape(() => {
+    keysRef.current.handleExit();
+    return true;
+  });
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const k = keysRef.current;
-      if (e.key === 'Escape') {
-        k.handleExit();
-        return;
-      }
       // 버튼에 포커스가 있으면 Enter/Space 는 브라우저가 그 버튼을 누른다 — 중복 발화 금지.
       const ae = document.activeElement;
       const onButton = ae instanceof HTMLElement && ae.tagName === 'BUTTON';

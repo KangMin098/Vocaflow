@@ -77,6 +77,7 @@ import {
   useCountUp,
   useFlipGrid,
   usePersonalBest,
+  useSessionEscape,
   shuffle,
   clamp,
   DEFAULT_COMBO_TIERS,
@@ -1074,11 +1075,21 @@ export function LexiconHandsGame({ wordPool, scopeKind = 'mine', onExit, onCorre
       if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
       const k = keyRef.current;
       if (e.key === 'Enter' && k.selCount > 0) { e.preventDefault(); k.deliver(); }
-      else if (e.key === 'Escape') { setArm(null); setAssign({}); setActiveSlot(k.firstSlot); }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [phase]);
+
+  // Esc = 담은 것 되돌리기. 되돌릴 것이 없으면 소비하지 않는다 → 셸이 세션을 닫는다.
+  // (예전에는 셸의 Esc 와 함께 발화해서, 배치를 푸는 동시에 판이 통째로 끝났다.)
+  useSessionEscape(() => {
+    if (phase !== 'play') return false;
+    if (arm === null && Object.keys(assign).length === 0) return false;
+    setArm(null);
+    setAssign({});
+    setActiveSlot(keyRef.current.firstSlot);
+    return true;
+  });
 
   const atmos = (
     <AmbientBackground

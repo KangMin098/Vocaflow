@@ -11,6 +11,7 @@ import { studyRatingToFsrs } from '@/lib/srs/rating-mapper'
 import { cacheCard, getCachedCard, pushPendingResult } from '@/lib/srs/session-storage'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
 import { flushPendingSession } from '@/lib/srs/flush-session'
+import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
 import { useSpeech } from './hooks/useSpeech'
 import type { StudyState, WordItem } from './types'
 
@@ -48,6 +49,11 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
   const { speak } = useSpeech()
   const w = words[studyIndex]
   const progress = words.length > 0 ? Math.round((studyIndex / words.length) * 100) : 0
+
+  // **화면 안의 "← 종료" 를 안 눌러도** 평가가 남는다 — 이 화면은 풀스크린이 아니라
+  // 사이드바 링크·뒤로가기·새로고침으로 나가는 경로가 오히려 흔하고, 그 경로들은
+  // `finish()` 를 지나지 않는다(실측 2026-09-05).
+  useSrsFlushOnLeave()
 
   // 세션 종료(또는 마지막 단어 완료) 시 SRS 큐 → DB flush (멱등 가드, 1회)
   const flushedRef = useRef(false)

@@ -29,6 +29,7 @@ import {
 
 import { GAME_CATALOG } from '@/lib/game/catalog'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
+import { consumeSessionEscape, useSessionEscapeClaimed } from '@/components/layout/session-escape'
 
 // ── Session metadata ─────────────────────────────────────────────
 interface SessionMeta {
@@ -164,14 +165,24 @@ export function SessionFrame({ children }: { children: ReactNode }) {
 
   // 닫기 목적지 — 출처가 있으면 그곳, 없으면 모듈 hub.
   const closeHref = fromHref ?? meta.closeHref
+
+  // ── Esc 소유권 ───────────────────────────────────────────────────
+  // 이 리스너가 앱에서 Esc 를 듣는 **유일한 곳**이다(규약은 session-escape.ts 헤더 하나뿐 —
+  // 여기에 규칙을 복제하지 않는다). 세션이 Esc 를 소비했다면 셸은 물러난다.
+  // 예전에는 두 리스너가 함께 발화해서, 게임이 화면에 <Kbd>Esc</Kbd> 로 광고한 조작이
+  // 카드를 내려놓는 동시에 학습자를 게임 **밖으로** 내보냈다(v08.7 [B1]).
   const handleEscape = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        router.push(closeHref)
-      }
+      if (e.key !== 'Escape') return
+      if (consumeSessionEscape()) return
+      router.push(closeHref)
     },
     [router, closeHref],
   )
+
+  // 세션이 Esc 를 가져갔으면 닫기 버튼은 "(Esc)" 라고 말하지 않는다 —
+  // 내 것이 아닌 키를 라벨이 약속하면 그 라벨 자체가 [B1] 과 같은 종류의 거짓이다.
+  const escapeClaimed = useSessionEscapeClaimed()
 
   useEffect(() => {
     if (!isFullScreen) return
@@ -274,8 +285,8 @@ export function SessionFrame({ children }: { children: ReactNode }) {
 
               <Link
                 href={closeHref}
-                aria-label="세션 닫기 (Esc)"
-                title="세션 닫기 (Esc)"
+                aria-label={escapeClaimed ? '세션 닫기' : '세션 닫기 (Esc)'}
+                title={escapeClaimed ? '세션 닫기' : '세션 닫기 (Esc)'}
                 // 44px 하한(프로젝트 절대 규칙). 36px 로 두면 **학습 세션에서 나가는 유일한
                 // 조작**이 가장 누르기 어려운 요소가 된다 — 셸에는 다른 출구가 없다.
                 className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"

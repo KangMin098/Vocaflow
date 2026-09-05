@@ -68,6 +68,7 @@ import {
   useCombo,
   useCountdown,
   usePersonalBest,
+  useSessionEscape,
   shuffle,
   clamp,
   type Word,
@@ -1357,15 +1358,19 @@ export function WordfallCadenceGame({ wordPool, onExit, onCorrect, onWrong }: Pr
     setBestInfo(pbRef.current.submit(scoreRef.current))
   }, [phase])
 
+  // Esc = 나가기. 이 게임은 **의도적으로** 셸과 같은 목적지를 쓰지만, 두 리스너가 함께
+  // 발화하면 히스토리에 이동이 두 번 쌓인다 — 소유권을 여기서 가져와 한 번만 나간다.
+  // 게임의 onExit 은 세션 flush + 진입 출처 복귀까지 하므로 셸의 기본 닫기보다 정확하다.
+  useSessionEscape(() => {
+    onExitRef.current?.()
+    return true
+  })
+
   // 키보드 — 1~5 선택 · R 앙코르 · Enter 진행 · Backspace 되돌리기 · Esc 나가기.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return
       const p = phaseRef.current
-      if (e.key === 'Escape') {
-        onExitRef.current?.()
-        return
-      }
       if (p === 'gate') {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()

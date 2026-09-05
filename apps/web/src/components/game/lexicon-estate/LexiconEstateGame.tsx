@@ -50,6 +50,7 @@ import {
   useCountdown,
   useCombo,
   usePersonalBest,
+  useSessionEscape,
   shuffle,
   type Word,
 } from '@/components/game/_shared/gamekit';
@@ -1102,12 +1103,21 @@ export function LexiconEstateGame({ wordPool, onExit, onCorrect, onWrong }: Prop
 
   const handleExit = useCallback(() => onExit?.(), [onExit]);
 
+  // ── Esc ──────────────────────────────────────────────────────────────────
+  // 화면과 브리핑이 광고한 대로 "정초석 없이 시작 / 다른 카드 보기" 로만 쓴다.
+  // 취소할 것이 없으면 소비하지 않는다 → 셸이 세션을 닫는다(session-escape.ts).
+  useSessionEscape(() => {
+    if (phase !== 'play') return false;
+    if (planning) { declineWager(); return true; }
+    if (heldCard) { cancelAppraise(); return true; }
+    return false;
+  });
+
   // ── 키보드 ───────────────────────────────────────────────────────────────
   useEffect(() => {
     if (phase !== 'play') return;
     const onKey = (e: KeyboardEvent) => {
       if (planning) {
-        if (e.key === 'Escape') { e.preventDefault(); declineWager(); return; }
         const c = Number(e.key);
         if (Number.isInteger(c) && c >= 1 && c <= grid.length && eligible.has(c - 1)) {
           e.preventDefault();
@@ -1115,7 +1125,6 @@ export function LexiconEstateGame({ wordPool, onExit, onCorrect, onWrong }: Prop
         }
         return;
       }
-      if (e.key === 'Escape' && heldCard) { e.preventDefault(); cancelAppraise(); return; }
       const n = Number(e.key);
       if (!Number.isInteger(n) || n < 1) return;
       if (heldCard) {

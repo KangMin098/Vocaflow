@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { useFlashcardSession } from '@/hooks/useFlashcardSession'
 import { useNextAction } from '@/lib/recommend/use-next-action'
+import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
 import { flushPendingSession } from '@/lib/srs/flush-session'
 import { Rating, applyReview, type RatingValue } from '@/lib/srs'
 import { pushPendingResult } from '@/lib/srs/session-storage'
@@ -97,6 +98,10 @@ export function FlashcardSession({
       void flushPendingSession()
     }
   }, [isComplete])
+
+  // **완주하지 않고 떠나도** 평가가 남는다 — ✕ · Esc · 뒤로가기 · 사이드바 이동 · 탭 닫기.
+  // 완주 flush 와 겹칠 수 있으나 서버가 멱등하다(`lib/srs/flush-actions.ts`).
+  useSrsFlushOnLeave()
 
   // Recall 타이머: 3초 진행 후 flippable로 전환, 1.5초 시점부터 힌트 노출
   useEffect(() => {

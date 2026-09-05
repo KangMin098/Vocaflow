@@ -23,10 +23,12 @@ import { useTypingMode } from '@/hooks/useTypingMode'
 
 import { SpellForgeCompletion } from './SpellForgeCompletion'
 
+import { useSessionEscape } from '@/components/layout/session-escape'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import { evaluateInput, generateReflectionMessage } from '@/lib/spellforge/scoring'
 import { applyReview, createNewCard } from '@/lib/srs'
 import { flushPendingSession } from '@/lib/srs/flush-session'
+import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
 import { spellforgeResultToRating } from '@/lib/srs/rating-mapper'
 import {
   cacheCard,
@@ -115,6 +117,9 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
     document.body.classList.add('studying')
     return () => document.body.classList.remove('studying')
   }, [])
+
+  // 완주하지 않고 떠나도 평가가 남는다(✕ · Esc · 뒤로가기 · 탭 닫기) — 서버가 멱등하다.
+  useSrsFlushOnLeave()
 
   // 세션 종료 시 SRS 큐 → DB flush (멱등 가드, 1회).
   const flushedRef = useRef(false)
@@ -329,6 +334,15 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
     }
   }, [currentWord, hintCount, recordRating, skipWord])
 
+  // Esc = 건너뛰기 — 화면이 그렇게 광고한다. 셸도 같은 키로 세션을 닫고 있어서,
+  // 예전에는 한 번의 Esc 가 단어를 건너뛰는 **동시에** 세션 밖으로 내보냈다(v08.7 [B1]).
+  // 건너뛸 단어가 없을 때(완료 화면)만 셸에 돌려준다 — 셸 X 는 언제나 그대로 출구다.
+  useSessionEscape(() => {
+    if (showCompletion || !currentWord) return false
+    handleSkip()
+    return true
+  })
+
   /**
    * Keyboard
    */
@@ -367,12 +381,6 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
         return
       }
 
-      // Esc — Skip
-      if (e.key === 'Escape') {
-        e.preventDefault()
-        handleSkip()
-        return
-      }
     }
 
     document.addEventListener('keydown', handler)

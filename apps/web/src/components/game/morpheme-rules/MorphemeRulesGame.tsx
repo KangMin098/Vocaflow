@@ -60,6 +60,7 @@ import {
   useCountdown,
   useCombo,
   usePersonalBest,
+  useSessionEscape,
   DEFAULT_COMBO_TIERS,
   type Word,
 } from '@/components/game/_shared/gamekit';
@@ -639,6 +640,15 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
   const apiRef = useRef({ cast, choosePrefix, chooseRoot, moveFocus, corridor, setPre, setRoot, setArming, tokens, arming, sureLeft, interlude });
   apiRef.current = { cast, choosePrefix, chooseRoot, moveFocus, corridor, setPre, setRoot, setArming, tokens, arming, sureLeft, interlude };
 
+  // Esc = 겨눈 것 해제(브리핑이 약속한 조작). 겨눈 것이 없으면 셸이 세션을 닫는다.
+  // 회랑 전환 중에는 다른 단축키와 같이 아무 상태도 바꾸지 않는다(익스플로짓 5-a).
+  useSessionEscape(() => {
+    const api = apiRef.current;
+    if (phase !== 'play' || api.interlude || !api.arming) return false;
+    api.setArming(false);
+    return true;
+  });
+
   useEffect(() => {
     if (phase !== 'play') return;
     const onKey = (e: KeyboardEvent) => {
@@ -661,11 +671,6 @@ export function MorphemeRulesGame({ wordPool, onExit, onCorrect, onWrong }: Prop
         e.preventDefault();
         api.setPre(null);
         api.setRoot(null);
-        return;
-      }
-      if ((code === 'Escape' || e.key === 'Escape') && api.arming) {
-        e.preventDefault();
-        api.setArming(false);
         return;
       }
       if (code === 'ArrowRight' || e.key === 'ArrowRight') {

@@ -19,6 +19,10 @@ import { getArcadeMeta } from '@/lib/game/arcade-meta';
 import { GAME_BY_SLUG, GAME_MARKS, type GameSlug } from '@/lib/game/catalog';
 import { DEFAULT_MUSIC_ON, readMusicPref, writeMusicPref } from '@/lib/game/music-pref';
 
+// Esc 소유권 — 게임은 키 리스너를 달지 않고 **의사만 등록**한다(session-escape.ts 가 정본).
+// 규칙: 핸들러가 true 를 돌려주면 세션이 그 Esc 를 소비한 것이고 셸은 나가지 않는다.
+export { useSessionEscape, type SessionEscapeHandler } from '@/components/layout/session-escape';
+
 // 게임 메커닉 훅(시간·콤보·FLIP·개인기록)은 mechanics.tsx 에 있다.
 // 게임이 import 를 한 군데로 유지할 수 있게 여기서 다시 내보낸다.
 export {

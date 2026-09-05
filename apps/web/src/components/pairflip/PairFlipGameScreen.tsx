@@ -12,6 +12,7 @@ import { usePairFlipSession } from '@/hooks/usePairFlipSession'
 import type { ContentRef } from '@/lib/content/content-ref'
 import { recordGameScore } from '@/lib/scores/record-score'
 import { flushPendingSession } from '@/lib/srs/flush-session'
+import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
 import { pushPendingResult } from '@/lib/srs/session-storage'
 
 import type { PairFlipMockWord } from './mock-data'
@@ -43,6 +44,9 @@ export function PairFlipGameScreen({ config, pairs, content }: GameScreenProps) 
     type: null,
     combo: 0,
   })
+
+  // 판을 다 못 맞추고 떠나도 그때까지 맞춘 짝의 평가는 남는다 — 서버가 멱등하다.
+  useSrsFlushOnLeave()
 
   const onComplete = useRef((result: PairFlipResultData) => {
     // 실 페어(레벨 pairCount 이상) 사용 시에만 매칭 결과를 FSRS 큐에 적재 → flush(서버 권위 재계산).

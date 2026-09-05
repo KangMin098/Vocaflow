@@ -33,7 +33,7 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   GameKitStyles, AmbientBackground, Hud, GameDone, useSfx, useCountUp, clamp, shuffle,
   GameMusic, ParticleBurst, FeedbackIcon, TimerBar, LifePips, Kbd,
-  useCountdown, useCombo, usePersonalBest, DEFAULT_COMBO_TIERS, type Word,
+  useCountdown, useCombo, usePersonalBest, useSessionEscape, DEFAULT_COMBO_TIERS, type Word,
 } from '@/components/game/_shared/gamekit';
 
 interface ResultOpts { assisted?: boolean }
@@ -838,7 +838,7 @@ export function WordCustomsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
         if (m) {
           const f = a.chips[Number(m[1]) - 1];
           if (f) { e.preventDefault(); a.judge(f); }
-        } else if (e.code === 'Escape') { e.preventDefault(); setPhase('inspect'); }
+        }
       } else if (p === 'reveal') {
         if (e.code === 'Space' || e.code === 'Enter' || e.code === 'NumpadEnter') {
           e.preventDefault();
@@ -849,6 +849,13 @@ export function WordCustomsGame({ wordPool, onExit, onCorrect, onWrong }: Props)
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
+
+  // Esc = 서류 다시 보기(브리핑이 약속한 조작). 사유 선택 중이 아니면 셸이 세션을 닫는다.
+  useSessionEscape(() => {
+    if (phaseRef.current !== 'reason') return false;
+    setPhase('inspect');
+    return true;
+  });
 
   const handleExit = useCallback(() => { clearAll(); onExit?.(); }, [clearAll, onExit]);
   const restart = useCallback(() => {

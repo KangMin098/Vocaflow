@@ -19,6 +19,7 @@ import { useEffect, useRef } from 'react'
 import { awardArcadeXp } from '@/lib/game/arcade-meta'
 import { contentRefFromScope } from '@/lib/content/content-ref'
 import { recordGameScore, type ScoreModule } from '@/lib/scores/record-score'
+import { readSessionScore, resetSessionScore } from '@/lib/game/session-score'
 import type { WordScope } from '@/lib/game/use-word-scope'
 
 export interface SessionRecorder {
@@ -47,6 +48,8 @@ export function useGameSessionRecorder({
 
   useEffect(() => {
     startRef.current = Date.now()
+    // 이전 판의 대표 점수가 이번 판에 새지 않게 한다(session-score.ts 는 모듈 싱글턴).
+    resetSessionScore()
   }, [])
 
   // 최신 값을 보는 flush — 언마운트 cleanup 이 stale closure 를 잡지 않도록 ref 로 유지.
