@@ -53,11 +53,25 @@ export async function fetchRetention(): Promise<RetentionReport | null> {
 async function computeFromDb(): Promise<RetentionReport | null> {
   const admin = createAdminClient()
 
-  const { data: userList, error: userErr } = await admin.auth.admin.listUsers({
-    page: 1,
-    perPage: 1000,
-  })
-  if (userErr || !userList) return null
+  // ⚠️ 여기도 `perPage: 1000` 한 장만 받고 있었다 — 아래 `pagedSelect` 가 고친 것과
+  //    **똑같은 결함**이 가입자 목록에만 남아 있었다. 가입자가 1,000을 넘는 순간
+  //    리텐션의 **분모**가 조용히 잘린다(코호트가 작아 보이고 재방문율은 부풀어 오른다).
+  //    지금 가입자가 3명이라 잠복해 있을 뿐이고, 이 수치는 분기 진단이 근거로 쓴다.
+  //    `listUsers` 는 PostgREST 가 아니라 Auth API 라 `pagedSelect` 를 못 쓴다 — 직접 넘긴다.
+  const AUTH_PAGE = 1000
+  const users: { id: string; created_at: string }[] = []
+  for (let page = 1; ; page += 1) {
+    const { data, error } = await admin.auth.admin.listUsers({ page, perPage: AUTH_PAGE })
+    if (error || !data) return null
+    users.push(...(data.users as { id: string; created_at: string }[]))
+    if (data.users.length < AUTH_PAGE) break
+    // 방어적 상한 — 무한 루프로 admin 화면을 세우지 않는다. 넘으면 못 쟀다고 말한다.
+    if (page >= 100) {
+      console.warn('[retention] 가입자 목록이 100페이지를 넘는다 — 집계를 포기한다')
+      return null
+    }
+  }
+  const userList = { users }
 
   // ⚠️ 여기 있던 `.limit(100_000)` 은 **1,000행에서 잘렸다** — PostgREST 가 그 위를
   //    안 준다(실측 2026-08-30). 리텐션은 "며칠에 걸쳐 돌아왔나" 를 세는 지표라,

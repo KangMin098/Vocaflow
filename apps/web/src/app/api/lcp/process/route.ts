@@ -20,6 +20,7 @@ import {
   analyzeBook,
 } from '@vocaflow/library-pipeline'
 
+import { internalTokenMatches } from '@/lib/auth/internal-token'
 import { normalizeAuthor, normalizeTitle } from '@/lib/library/bibliographic'
 import { resolveCoverImageUrlWithSeed } from '@/lib/library/cover-image'
 
@@ -49,8 +50,11 @@ export async function POST(request: Request): Promise<NextResponse> {
   }
 
   // ── 2. 인증
+  // `!==` 를 쓰지 않는다 — 문자열 비교는 다른 글자를 만나는 순간 멈춰서 맞은 접두사가
+  // 길수록 미세하게 느리고, 그 차이로 토큰을 한 글자씩 알아낼 수 있다. 이 게이트를
+  // 통과하면 service_role 쓰기와 **유료 LLM 호출**까지 열리므로 가드는 이것 하나뿐이다.
   const reqToken = request.headers.get('X-LCP-Token')
-  if (reqToken !== token) {
+  if (!internalTokenMatches(reqToken, token)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

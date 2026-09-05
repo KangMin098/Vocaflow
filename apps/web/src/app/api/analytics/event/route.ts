@@ -49,12 +49,22 @@ const limiter = new TokenBucketLimiter({
 
 const ALLOWED = new Set<string>(ALLOWED_EVENTS)
 
+/** 계측 한 건의 본문 상한 — 실제 이벤트는 수백 바이트다. 4KB 면 넉넉하고도 남는다. */
+const MAX_BODY_BYTES = 4096
+
 /** 계측은 화면을 깨뜨리지 않는다 — 어떤 이유로 버려도 같은 응답을 준다. */
 const ok = () => new NextResponse(null, { status: 204 })
 
 export async function POST(req: Request): Promise<NextResponse> {
   try {
     if (!limiter.take(clientKeyFromHeaders(req.headers), Date.now()).allowed) return ok()
+
+    // 본문 크기 상한 — 이 라우트는 **가드가 없는 공개 쓰기 경로**이고, 통과한 `props` 는
+    // service_role 로 `funnel_events.meta`(jsonb) 에 그대로 들어간다. 상한이 없으면
+    // 키 하나에 수 MB 를 실어 보내 DB 를 부풀릴 수 있다. 계측 한 건은 수백 바이트면 된다.
+    // (`content-length` 가 없는 청크 전송은 아래 `isSafeProps` 의 키·값 검사가 막는다.)
+    const declared = Number(req.headers.get('content-length') ?? '0')
+    if (Number.isFinite(declared) && declared > MAX_BODY_BYTES) return ok()
 
     const body = (await req.json()) as { name?: unknown; props?: unknown; surface?: unknown }
     const name = typeof body.name === 'string' ? body.name : ''

@@ -27,6 +27,7 @@ import {
 } from '@vocaflow/library-pipeline'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { internalTokenMatches } from '@/lib/auth/internal-token'
 import { normalizeAuthor, normalizeTitle } from '@/lib/library/bibliographic'
 import { resolveCoverImageUrlWithSeed } from '@/lib/library/cover-image'
 import { autoMapLibriVoxForBook } from '@/lib/library/librivox-automap'
@@ -52,7 +53,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   // 인증 — X-LCP-Token (스크립트/일괄 재처리) 우선, 없으면 admin 쿠키(브라우저 버튼).
   const lcpToken = process.env['LCP_INTERNAL_TOKEN']
   const reqToken = request.headers.get('X-LCP-Token')
-  if (!(lcpToken && reqToken === lcpToken)) {
+  if (!internalTokenMatches(reqToken, lcpToken)) {
     const admin = await requireAdminApi()
     if (admin instanceof NextResponse) return admin
   }

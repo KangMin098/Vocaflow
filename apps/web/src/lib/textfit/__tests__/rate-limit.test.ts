@@ -144,3 +144,43 @@ describe('clientKeyFromHeaders', () => {
     expect(clientKeyFromHeaders(new Headers({ 'x-forwarded-for': '   ' }))).toBe('')
   })
 })
+
+describe('키를 매 요청 바꿔도 무제한이 되지 않는다', () => {
+  // `x-forwarded-for` 는 위조 가능하다. 매 요청 다른 값을 보내면 예전 구현은 **매번
+  // 용량이 가득 찬 새 버킷**을 내줬다 — 한도가 아무 의미가 없었고, 게다가 LRU 축출이
+  // 멀쩡한 사용자의 버킷을 대신 밀어냈다. 방어가 사라지는 것을 넘어 남을 쫓아냈다.
+  const cfg = { capacity: 3, refillPerSecond: 0.1, idleTtlMs: 60_000, maxKeys: 4 }
+
+  it('무작위 키 폭주는 결국 막힌다', () => {
+    const limiter = new TokenBucketLimiter(cfg)
+    let allowed = 0
+    for (let i = 0; i < 200; i += 1) {
+      if (limiter.take(`spoof-${i}`, T0).allowed) allowed += 1
+    }
+    // maxKeys 만큼 새 버킷을 채운 뒤에는 전부 공용 버킷으로 묶여 용량 안에서만 통과한다.
+    // 상한은 넉넉히 잡는다 — 정확한 수보다 **200 번이 200 번 다 통과하지 않는다**가 요점이다.
+    expect(allowed).toBeLessThanOrEqual(cfg.maxKeys + cfg.capacity)
+    expect(allowed).toBeGreaterThan(0)
+  })
+
+  it('요청을 계속하는 사용자의 버킷은 폭주 중에도 유지된다', () => {
+    const limiter = new TokenBucketLimiter(cfg)
+    expect(limiter.take('real-user', T0).allowed).toBe(true)
+    // 폭주 사이사이에 계속 쓴다 — LRU 이므로 "최근" 이면 밀려나지 않는다.
+    for (let i = 0; i < 100; i += 1) {
+      limiter.take(`spoof-${i}`, T0)
+      if (i % 5 === 0) limiter.take('real-user', T0)
+    }
+    // 자기 버킷이 살아 있으면 소모가 누적돼 있다. 새로 만들어졌다면 capacity-1 로
+    // 되돌아가 있을 것이다.
+    const after = limiter.take('real-user', T0)
+    expect(after.remaining).toBeLessThan(cfg.capacity - 1)
+  })
+
+  // ⚠️ 남은 한계 — 고치지 않고 적어 둔다.
+  //    **쉬고 있던** 정상 버킷은 표가 가득 찬 상태에서 여전히 축출될 수 있다(LRU 이므로).
+  //    그 사용자는 다음 요청에서 가득 찬 새 버킷을 받는다 — 즉 **자기에게 유리한 쪽으로만**
+  //    틀리고 남을 통과시키지는 않는다. 이번 수정이 없앤 것은 그것과 종류가 다르다:
+  //    키 무작위화로 **한도 자체가 사라지던** 경로다. 공정한 버킷 배분(키별 해시 슬롯 등)은
+  //    이 방어의 목적("실수·스크립트 한 대")을 넘어서므로 여기서 하지 않는다.
+})

@@ -74,8 +74,22 @@ export class TokenBucketLimiter {
   take(key: string, now: number): RateLimitResult {
     this.evictStale(now)
 
-    const id = key || '(unknown)'
-    const existing = this.buckets.get(id)
+    let id = key || '(unknown)'
+    let existing = this.buckets.get(id)
+
+    // ⚠️ 키를 매 요청 바꾸면 이 방어가 **통째로 사라진다.**
+    //    새 키마다 용량이 가득 찬 새 버킷을 받으므로 한도가 아무 의미가 없고, 게다가 아래
+    //    LRU 축출이 **멀쩡한 버킷을 대신 밀어낸다** — 방어가 없어지는 것을 넘어 남을
+    //    쫓아낸다. `x-forwarded-for` 는 위조 가능하므로 이건 이론이 아니다.
+    //
+    //    그래서 **가득 찬 상태에서 처음 보는 키**는 새 버킷을 주지 않고 공용 버킷으로 묶는다.
+    //    키 무작위화는 이제 "무제한 허용" 이 아니라 "전원이 한 버킷을 나눠 쓰는" 쪽으로
+    //    무너진다 — 정상 사용자에게는 영향이 없고(이미 자기 버킷을 갖고 있다),
+    //    남용자만 스스로를 좁힌다.
+    if (!existing && this.buckets.size >= this.config.maxKeys) {
+      id = '(overflow)'
+      existing = this.buckets.get(id)
+    }
 
     const bucket: Bucket = existing ?? { tokens: this.config.capacity, lastRefill: now }
 
@@ -104,9 +118,14 @@ export class TokenBucketLimiter {
     this.buckets.delete(id)
     this.buckets.set(id, bucket)
 
+    // 축출은 공용 버킷을 건드리지 않는다 — 그것을 밀어내면 다음 남용 요청이 다시
+    // 가득 찬 버킷을 받아 위 방어가 무의미해진다.
     if (this.buckets.size > this.config.maxKeys) {
-      const oldest = this.buckets.keys().next()
-      if (!oldest.done) this.buckets.delete(oldest.value)
+      for (const candidate of this.buckets.keys()) {
+        if (candidate === '(overflow)') continue
+        this.buckets.delete(candidate)
+        break
+      }
     }
 
     return result

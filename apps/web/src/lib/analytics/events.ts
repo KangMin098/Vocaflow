@@ -211,6 +211,16 @@ export function resolvedDecile(resolvedShare: number): number {
 export function isSafeProps(props: unknown): boolean {
   if (props === null || typeof props !== 'object' || Array.isArray(props)) return false
 
+  // ⚠️ 예전에는 `Object.values` 만 봤다 — **키 이름과 개수는 아무도 안 봤다.**
+  //    그래서 4MB 짜리 키 하나를 실어 보내면 값 검사를 통과하고 그대로 jsonb 에 저장됐다.
+  //    이 라우트는 가드가 없는 공개 쓰기 경로라 키도 값과 같은 기준으로 막아야 한다.
+  //    실제 이벤트의 속성은 3~5개이고 이름은 `resolved_decile` 처럼 짧다.
+  const keys = Object.keys(props as Record<string, unknown>)
+  if (keys.length > 12) return false
+  for (const key of keys) {
+    if (key.length > 40 || /\s/.test(key)) return false
+  }
+
   for (const value of Object.values(props as Record<string, unknown>)) {
     if (value === null || typeof value === 'number' || typeof value === 'boolean') continue
     if (typeof value === 'string') {
