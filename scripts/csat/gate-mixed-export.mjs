@@ -100,7 +100,16 @@ for (const f of fs.readdirSync(OUT).filter((f) => f.endsWith('.out.json'))) {
 const todo = rows.filter((r) => !done.has(r.id))
 console.log(`  이미 판정 ${done.size} · 남은 ${todo.length}\n`)
 
-const excerpt = (s) => String(s ?? '').replace(/\s+/g, ' ').trim().slice(0, 900)
+// ⚠️ **문장 경계에서 자른다.** 처음엔 `.slice(0, 900)` 이었고, 그러면 발췌 절반이 낱말
+//   중간에서 끝난다. 판정자가 그걸 `fragmentary` 로 세면 조각 절반이 기계적으로 반려되는데,
+//   그건 저장된 본문의 결함이 아니라 **내보내기의 결함**이다(1차 판정자가 지적, 2026-09-05).
+const excerpt = (s) => {
+  const t = String(s ?? '').replace(/\s+/g, ' ').trim()
+  if (t.length <= 900) return t
+  const cut = t.slice(0, 900)
+  const end = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('? '), cut.lastIndexOf('! '))
+  return end > 400 ? cut.slice(0, end + 1) : cut
+}
 let n = 0
 const existing = fs.readdirSync(OUT).filter((f) => /^chunk-\d+\.json$/.test(f)).length
 for (let i = 0; i < todo.length; i += PER) {
