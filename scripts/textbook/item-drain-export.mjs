@@ -28,6 +28,7 @@ import path from 'node:path'
 
 import { loadEnv, fetchAllIn, fetchAllPaged, isRetractedTitle } from './volume-pool.mjs'
 import { pickFreeSlots } from './chunk-slots.mjs'
+import { peopleRatio } from '../csat/lib-narrative.mjs'
 
 loadEnv()
 const arg = (n) => {
@@ -479,6 +480,23 @@ function abbrRatio(text) {
 }
 
 const plainFirst = process.argv.includes('--plain-first')
+
+/**
+ * `--narrative-first` — **인물이 많이 나오는 글부터** 뽑는다.
+ *
+ * ── 왜 `--plain-first` 로는 안 되나 (실측 2026-09-06) ────────────────
+ * 약어가 적은 순으로 뽑았더니 심경(19번) 몫 다섯 편이 전부 **논설**이었다 —
+ * 중세 연극사·문학평전·아담 스미스 논고·수사학·켈트 신화. 약어는 없지만 사람이
+ * 안 나온다. 심경과 장문 지칭은 **인물이 있어야만 서는 유형**이라 잣대가 다르다.
+ *
+ * 문턱이 아니라 **차례**다 — 인물이 적은 글도 버리지 않고 뒤로 보낸다
+ * (같은 이유로 `--plain-first` 도 정렬로만 쓴다).
+ */
+const narrativeFirst = process.argv.includes('--narrative-first')
+// 소수점 둘째 자리로 뭉뚱그린다 — 미세한 차이로 순서가 흔들리면 재실행 안전이 깨진다.
+// 많을수록 앞이므로 부호를 뒤집는다.
+const narrativeKey = (a) =>
+  narrativeFirst ? -Math.round(peopleRatio(passages.get(a.id) ?? '') * 100) : 0
 // 소수점 둘째 자리로 뭉뚱그린다 — 미세한 차이로 순서가 흔들리면 재실행 안전이 깨진다.
 const plainKey = (a) => (plainFirst ? Math.round(abbrRatio(passages.get(a.id) ?? '') * 100) : 0)
 
@@ -487,6 +505,7 @@ const todo = usable
   // 같은 수면 id 순 — 몇 번 돌려도 같은 몫이 나와야 재실행 안전이 성립한다.
   .sort(
     (a, b) =>
+      narrativeKey(a) - narrativeKey(b) ||
       plainKey(a) - plainKey(b) ||
       (typeCount.get(a.id)?.size ?? 0) - (typeCount.get(b.id)?.size ?? 0) ||
       String(a.id).localeCompare(String(b.id)),
