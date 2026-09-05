@@ -85,3 +85,19 @@ describe('Abstract 표제어', () => {
     expect(hasAcademicApparatus('It is an abstract Idea that few readers grasp at once.')).toBe(false)
   })
 })
+
+// 표제어가 둘 붙어 오는 꼴도 나중에 찾았다 — 드레인 몫을 고르다 발견했다.
+// 앞 낱말만 보면 뒤가 소문자라 안 걸린다(`Background and objectives Severe …`).
+describe('붙어 있는 표제어', () => {
+  it('두 표제어가 이어진 꼴을 잡는다', () => {
+    expect(
+      hasAcademicApparatus('Background and objectives Severe community-acquired pneumonia remains a major cause.'),
+    ).toBe(true)
+    expect(hasAcademicApparatus('Methods and results We compared two antibiotic regimens.')).toBe(true)
+  })
+
+  it('같은 낱말이 산문으로 쓰이면 잡지 않는다', () => {
+    expect(hasAcademicApparatus('She had a background and objectives of her own to pursue.')).toBe(false)
+    expect(hasAcademicApparatus('Our aims were modest, and the methods were simple ones.')).toBe(false)
+  })
+})

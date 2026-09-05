@@ -127,7 +127,9 @@ const ACADEMIC_APPARATUS = [
   // 논문 서지 — `Citation: Ma Z, Wu P, … PLoS One 21(3): e0340496.`
   /\bCitation:\s/,
   // 구조 초록 표제어가 문장 자리에 그대로 남은 것 — `Objective To evaluate …`
-  /(?:^|\.\s)(?:Abstract|Objectives?|Methods?|Results?|Conclusions?|Backgrounds?|Findings?|Aims?)\s+[A-Z]/,
+  // ⚠️ 표제어는 **둘이 붙어** 오기도 한다: `Background and objectives Severe community-acquired
+  //   pneumonia …`. 앞 낱말만 보면 뒤가 소문자라 걸리지 않는다(실측 2026-09-06, 드레인 몫에서).
+  /(?:^|\.\s)(?:Abstract|Objectives?|Methods?|Results?|Conclusions?|Backgrounds?|Findings?|Aims?)(?:\s+and\s+(?:objectives?|methods?|results?|conclusions?|aims?|findings?))?\s+[A-Z]/,
   // 통계 서식 — 신뢰구간·유의확률·회귀식·로그 단위
   /95\s*%\s*CI|\bP\s*[<=>]\s*0\.|\bp\s*[<=>]\s*0\.0|\by\s*=\s*\d*\.?\d+\s*x\b|\blg\s+IU\/mL/,
 ] as const
