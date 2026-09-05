@@ -102,12 +102,15 @@ async function fetchDictVolume(
   client: SupabaseClient,
   categorical?: DictCategoricalDistributions | null,
 ): Promise<DictVolumeData> {
-  const [totalRes, cat] = await Promise.all([
-    client.from('shared_dictionary').select('*', { count: 'exact', head: true }),
+  // 이 총계 하나가 0 이 되면 **스냅샷 전체가 0 으로 읽힌다** — 커버리지 비율의 분모이고
+  // 화면 최상단 "N entries" 이기도 하다. 예전에는 여기서 raw 질의 + `?? 0` 이라, 조회가
+  // 실패해도 조용히 "0 entries · 커버리지 0%" 가 떴다(사전은 실제로 4만 행이 넘는다).
+  // 같은 파일의 `countRows` 는 4회 재시도 후 **던진다** — 그 예외를 `_errors` 가 받아
+  // 화면 상단 배너로 올린다. 실패를 0 으로 바꾸지 않고 실패라고 말하는 유일한 경로다.
+  const [total, cat] = await Promise.all([
+    countRows(client, 'shared_dictionary'),
     categorical !== undefined ? Promise.resolve(categorical) : fetchCategoricalDistributions(client),
   ])
-
-  const total = totalRes.count ?? 0
 
   const byPrimaryPos = Object.entries(cat?.by_primary_pos ?? {})
     .map(([pos, count]) => ({ pos, count }))

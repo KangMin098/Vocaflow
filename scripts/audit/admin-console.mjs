@@ -505,7 +505,13 @@ const swallowHits = []
       // 주석 줄은 세지 않는다 — 이 안티패턴을 **금지한다고 적은 주석**이 위반으로 잡혔다.
       const t = line.trim()
       if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*')) return
+      // 도움말 본문처럼 **문자열 안에서 이 패턴을 인용하는** 줄도 뺀다 — 관리자에게
+      // "이런 짓을 하지 마라" 고 설명하는 문장이 위반으로 잡히면 자가 스스로를 문다.
+      if (/['"`][^'"`]*count\s*\?\?\s*0/.test(line)) return
       if (/\bcount\s*\?\?\s*0/.test(line)) {
+        // `arr[0]?.count ?? 0` 은 DB 응답이 아니라 **배열이 비었을 때의 기본값**이다.
+        // 없는 행을 0 으로 두는 것은 거짓말이 아니라 정의다.
+        if (/\]\s*\?\.\s*count\s*\?\?\s*0|\)\s*\?\.\s*count\s*\?\?\s*0/.test(line)) return
         swallowHits.push({ kind: 'count??0', at: `${rel(f)}:${i + 1}` })
       }
       if (/if\s*\(\s*\w*[eE]rr\w*\s*(\|\||\)\s*)/.test(line) && /return\s*\[\]/.test(line)) {

@@ -84,7 +84,10 @@ async function safeCount(
   const base = client.from(table).select('*', { count: 'exact', head: true })
   const { count, error } = await (eq ? base.eq(eq[0], eq[1]) : base)
   if (error) return null
-  return count ?? 0
+  // `?? 0` 을 쓰지 않는다 — `error` 를 검사해도 부족하다. head 요청은 **없는 테이블에도**
+  // error=null · count=null 을 돌려주므로, 0 으로 뭉개면 "0건" 이라는 거짓 안심이 박힌다.
+  // null 은 언제나 "모름" 으로 올려보내고, 화면이 0(없음)과 다르게 그린다.
+  return count
 }
 
 export default async function AdminComposePage() {

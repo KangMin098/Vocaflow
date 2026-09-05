@@ -151,7 +151,11 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
                   cell: cells.find((c) => c.type === t && c.vLevel === v),
                   ladder: inLadder.has(`${t}|${v}`),
                 }))
+                // 못 잰 칸을 0 으로 세면 합계가 **실제보다 작게** 나오는데 화면은 그 사실을
+                // 말하지 않는다 — 관리자는 "이 유형은 재고가 적다" 고 잘못 읽는다.
+                // 그래서 합계와 함께 "몇 칸을 못 쟀는지" 를 들고 다닌다.
                 const sum = row.reduce((n, r) => n + (r.cell?.count ?? 0), 0)
+                const unmeasured = row.filter((r) => r.cell?.count == null).length
                 return (
                   <tr key={t} className="border-b border-[var(--bd)] last:border-0">
                     <th
@@ -196,6 +200,14 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
                     })}
                     <td className="px-2 py-2 text-right font-mono tabular-nums text-[var(--t2)]">
                       {sum.toLocaleString()}
+                      {unmeasured > 0 && (
+                        <span
+                          className="ml-1 text-[10px] text-[#8A8278]"
+                          title={`${unmeasured}칸을 못 쟀다 — 실제 합계는 이보다 크다`}
+                        >
+                          +?
+                        </span>
+                      )}
                     </td>
                   </tr>
                 )
