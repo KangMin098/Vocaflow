@@ -90,12 +90,49 @@ async function countRows(
   label: string,
   sb: LooseDb,
 ): Promise<number> {
-  const { count, error } = await build(sb.from(TABLE).select('*', { count: 'exact', head: true }))
-  if (error) throw new Error(`ACP ${label} 카운트 실패: ${error.message}`)
-  if (count == null) {
-    throw new Error(`ACP ${label} 카운트가 비어 있습니다 — 표/권한을 확인하세요 (count=null)`)
+  // ⚠️ 재시도가 없으면 이 화면이 콘솔에 **오류 14건**을 뱉는다(런타임 훑기 실측 2026-09-06:
+  //    `[uncaught] ACP queued 카운트 실패: ` — 메시지가 **빈 문자열**이었다).
+  //    한 건은 빠르다(`status='queued'` 5.2만 행이 EXPLAIN 1.56초, 인덱스 스캔). 문제는
+  //    **한꺼번에 던지는 수**다 — 커버리지는 31개를 동시에 보내고, 그러면 서버가 몇 개를
+  //    본문 없는 오류로 돌려준다. 같은 함정을 `lib/admin/dict/queries.ts` 가 먼저 겪고
+  //    백오프 재시도로 풀었다. 그 패턴을 그대로 쓴다.
+  const backoffs = [0, 250, 700]
+  let last = ''
+  for (let attempt = 0; attempt < backoffs.length; attempt += 1) {
+    const wait = backoffs[attempt] ?? 0
+    if (wait > 0) await new Promise((r) => setTimeout(r, wait))
+    const { count, error } = await build(sb.from(TABLE).select('*', { count: 'exact', head: true }))
+    if (!error && count != null) return count
+    last = error?.message || '(오류 메시지 없음 — 동시 요청 과부하일 때 이렇게 온다)'
   }
-  return count
+  // 끝내 못 셌으면 던진다 — 0 으로 접으면 "글이 없다" 와 "못 읽었다" 가 같은 화면이 된다.
+  throw new Error(`ACP ${label} 카운트 실패(3회 시도): ${last}`)
+}
+
+/**
+ * 동시 실행 수를 묶어 돌린다.
+ *
+ * `Promise.all` 로 31개를 한꺼번에 보내면 서버가 몇 개를 빈 오류로 돌려준다. 재시도만으로도
+ * 대부분 넘어가지만, 애초에 몰아치지 않는 편이 재시도 횟수도 줄이고 전체 시간도 짧다
+ * (실측: 한 건 ~1.5초라 6개씩 나누면 31개가 여섯 물결 ≈ 9초, 재시도 0회).
+ */
+async function mapPooled<T, R>(
+  items: readonly T[],
+  limit: number,
+  fn: (item: T, index: number) => Promise<R>,
+): Promise<R[]> {
+  const out = new Array<R>(items.length)
+  let cursor = 0
+  const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+    for (;;) {
+      const i = cursor
+      cursor += 1
+      if (i >= items.length) return
+      out[i] = await fn(items[i] as T, i)
+    }
+  })
+  await Promise.all(workers)
+  return out
 }
 
 /**
@@ -106,10 +143,12 @@ async function countRows(
  */
 export async function getArticleStatusCounts(): Promise<ArticleStatusCounts> {
   const sb = await db()
-  const [total, ...perStatus] = await Promise.all([
-    countRows((b) => b, '전체', sb),
-    ...ALL_ARTICLE_STATUSES.map((s) => countRows((b) => b.eq('status', s), s, sb)),
-  ])
+  const specs = ['전체' as const, ...ALL_ARTICLE_STATUSES]
+  const [total, ...perStatus] = await mapPooled(specs, 4, (s) =>
+    s === '전체'
+      ? countRows((b) => b, '전체', sb)
+      : countRows((b) => b.eq('status', s), s, sb),
+  )
 
   const out = emptyStatusCounts()
   out.total = total
@@ -130,16 +169,20 @@ export async function getPublishedCoverage(): Promise<CoverageCounts> {
   const sb = await db()
   const cellSpecs = REGISTERS.flatMap((r) => CEFR_ORDER.map((c) => ({ register: r.key, cefr: c })))
 
-  const [publishedTotal, ...cellCounts] = await Promise.all([
-    countRows((b) => b.eq('status', 'published'), '발행', sb),
-    ...cellSpecs.map((s) =>
-      countRows(
-        (b) => b.eq('status', 'published').eq('register', s.register).eq('cefr_level', s.cefr),
-        `발행 ${s.register}×${s.cefr}`,
-        sb,
-      ),
-    ),
-  ])
+  // 31개를 한꺼번에 보내면 서버가 몇 개를 **본문 없는 오류**로 돌려준다(실측). 6개씩 나눈다.
+  const all = await mapPooled(
+    [null, ...cellSpecs] as const,
+    6,
+    (s) =>
+      s === null
+        ? countRows((b) => b.eq('status', 'published'), '발행', sb)
+        : countRows(
+            (b) => b.eq('status', 'published').eq('register', s.register).eq('cefr_level', s.cefr),
+            `발행 ${s.register}×${s.cefr}`,
+            sb,
+          ),
+  )
+  const [publishedTotal, ...cellCounts] = all
 
   const cells: Record<string, number> = {}
   let inMatrix = 0

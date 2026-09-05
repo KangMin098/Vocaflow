@@ -78,14 +78,75 @@ interface CountLike {
  * 을 돌려준다 (실측: reports → 404 는 non-head 에서만 뜬다). 0 으로 뭉개면 "미처리 0건" 이라는
  * 거짓 안심이 화면에 박힌다. 실제로 0 행이면 PostgREST 는 count=0 을 준다 — null 은 언제나 "모름".
  */
-async function safeCount(query: PromiseLike<CountLike>): Promise<Count> {
-  try {
-    const { count, error } = await query
-    if (error) return null
-    return count
-  } catch {
-    return null
+async function safeCount(query: () => PromiseLike<CountLike>): Promise<Count> {
+  // ⚠️ **팩토리를 받는다**(이미 만들어진 쿼리가 아니라). 재시도하려면 다시 만들어야 하기
+  //    때문이다 — PostgREST 빌더는 한 번 await 하면 끝이다.
+  //
+  //    왜 재시도가 필요한가 (실측 2026-09-06): 이 함수는 카운트 **36개를 한꺼번에** 던졌고,
+  //    그러면 가장 큰 표들이 오류도 없이 `count=null` 로 돌아온다. 통합 테스트가 두 번
+  //    같은 자리를 잡았다 — `articles.ready` · `articles.inFlight` · `vrl.classified` ·
+  //    `words.dict`(각각 8.9만·4.9만 행). 화면에서는 그 네 파이프라인이 조용히 「—」가 된다.
+  //    한 건씩은 빠르다(1.5초). 문제는 **동시에 던지는 수**다.
+  const backoffs = [0, 400, 1200, 2500]
+  for (let attempt = 0; attempt < backoffs.length; attempt += 1) {
+    const wait = backoffs[attempt] ?? 0
+    if (wait > 0) await new Promise((r) => setTimeout(r, wait))
+    await acquire()
+    try {
+      const { count, error } = await query()
+      if (!error && count != null) return count
+      // ⚠️ **여기서 즉시 포기하면 안 된다.** 시간초과는 `error` 로 오는데 그 `message` 가
+      //    **빈 문자열**이다(실측). 처음엔 "오류면 재시도해도 같다" 며 바로 null 을 돌려줬고,
+      //    그래서 재시도를 넣고도 실패 수가 안 줄었다. 다시 물으면 달라지지 않는 것은
+      //    **구조적 실패**(없는 표·권한)뿐이라, 그때만 끊는다.
+      if (isStructuralError(error)) return null
+    } catch {
+      return null
+    } finally {
+      release()
+    }
   }
+  return null // 끝까지 못 셌다 — 여기서도 0 으로 접지 않는다
+}
+
+/** 다시 물어도 같은 답이 오는 실패인가 — 없는 표·권한. 시간초과는 여기 해당하지 않는다. */
+function isStructuralError(error: unknown): boolean {
+  const msg =
+    typeof error === 'object' && error !== null && 'message' in error
+      ? String((error as { message: unknown }).message ?? '')
+      : ''
+  if (!msg) return false // 빈 메시지 = 시간초과 계열 → 재시도할 값이 있다
+  return /does not exist|permission denied|schema cache|relation .* not found/i.test(msg)
+}
+
+/**
+ * 동시 실행 수 제한 — 호출부는 그대로 `Promise.all` 을 쓰고, **여기서** 물결을 만든다.
+ *
+ * 왜 호출부를 안 고치나: 36개를 `pooled([...])` 로 바꾸면 배열이 이종(Count · string[] ·
+ * RecentEvent[])이라 구조분해가 유니온으로 뭉개져 40곳의 타입이 무너진다. 게이트를
+ * `safeCount` 안에 두면 타입도 호출부도 그대로고, 새로 추가되는 카운트도 **자동으로**
+ * 이 규칙을 따른다(잊어버릴 수가 없다).
+ *
+ * 8로 잡은 근거: 한 건이 ~1.5초(실측 `library_articles` status 인덱스 스캔)이므로 36개가
+ * 다섯 물결 ≈ 7초. 예전 "다 같이 던지고 큰 것 넷은 포기" 보다 느리지만 **결과가 온전하다**.
+ */
+const COUNT_CONCURRENCY = 3
+let inFlight = 0
+const waiting: (() => void)[] = []
+
+async function acquire(): Promise<void> {
+  if (inFlight < COUNT_CONCURRENCY) {
+    inFlight += 1
+    return
+  }
+  await new Promise<void>((resolve) => waiting.push(resolve))
+  inFlight += 1
+}
+
+function release(): void {
+  inFlight -= 1
+  const next = waiting.shift()
+  if (next) next()
 }
 
 /** 목록 응답 — supabase-js 의 row 타입 추론을 요구하지 않고 호출자가 T 를 명시한다. */
@@ -99,8 +160,28 @@ async function safeList<T>(query: PromiseLike<{ data: unknown; error: unknown }>
   }
 }
 
+/**
+ * 카운트 질의 — **`exact` 가 아니라 `estimated`** 를 쓴다.
+ *
+ * ── 왜 (실측 2026-09-06, 같은 서버·같은 순간) ────────────────────────
+ *   library_articles ready(19,063행)  exact 19,063 / **3,944ms**  · estimated 18,574 / 124ms
+ *   shared_dictionary(49,244행)       exact **null / 8,119ms · 오류 메시지 빈 문자열**
+ *                                     estimated 48,969 / 1,260ms
+ *   library_books published(312행)    exact 312 / 241ms          · estimated **312** / 53ms
+ *
+ * 즉 `exact` 는 2만 행쯤부터 시간초과로 **아무 말 없이 null** 을 준다. 대시보드에서는 그것이
+ * 「—」로 보였고, 통합 테스트가 `articles.ready`·`articles.inFlight`·`vrl.classified`·
+ * `words.dict` 넷을 반복해서 잡았다 — 하필 **가장 큰 파이프라인 넷**이다.
+ *
+ * `estimated` 는 Supabase 의 혼합 모드다: 작은 표는 **정확값 그대로**(위 312 가 그 증거),
+ * 큰 표만 플래너 추정치(사전 48,969 vs 실제 49,244 = 0.56% 차)를 준다.
+ * 「모름」보다 「≈49,000」이 낫다 — 이 화면은 어디를 볼지 고르는 분류 화면이지
+ * 정산 화면이 아니다. 대신 **추정치라는 사실을 화면과 도움말이 말한다**(footnote).
+ *
+ * ⚠️ 정확한 수가 필요한 곳(발행 게이트·정산 등)에서는 이 함수를 쓰지 말 것.
+ */
 function head(client: AdminClient, table: string) {
-  return client.from(table).select('*', { count: 'exact', head: true })
+  return client.from(table).select('*', { count: 'estimated', head: true })
 }
 
 /** KST 기준 오늘 날짜 (daily_activity.date 는 KST 캘린더 날짜로 적재). */
@@ -294,50 +375,50 @@ export async function getAdminDashboardStats(client: AdminClient): Promise<Dashb
     qualityRows,
     recent,
   ] = await Promise.all([
-    safeCount(head(client, 'library_books').eq('status', 'published')),
-    safeCount(head(client, 'library_books').eq('status', 'ready')),
-    safeCount(head(client, 'library_books').in('status', IN_FLIGHT_BOOK)),
-    safeCount(head(client, 'library_books').eq('status', 'failed')),
-    safeCount(head(client, 'library_seed_catalog').eq('imported_to_books', false)),
+    safeCount(() => head(client, 'library_books').eq('status', 'published')),
+    safeCount(() => head(client, 'library_books').eq('status', 'ready')),
+    safeCount(() => head(client, 'library_books').in('status', IN_FLIGHT_BOOK)),
+    safeCount(() => head(client, 'library_books').eq('status', 'failed')),
+    safeCount(() => head(client, 'library_seed_catalog').eq('imported_to_books', false)),
 
-    safeCount(head(client, 'library_articles').eq('status', 'published')),
-    safeCount(head(client, 'library_articles').eq('status', 'ready')),
-    safeCount(head(client, 'library_articles').in('status', IN_FLIGHT_ARTICLE)),
-    safeCount(head(client, 'library_articles').eq('status', 'failed')),
-    safeCount(head(client, 'library_article_seed_catalog').eq('imported_to_articles', false)),
+    safeCount(() => head(client, 'library_articles').eq('status', 'published')),
+    safeCount(() => head(client, 'library_articles').eq('status', 'ready')),
+    safeCount(() => head(client, 'library_articles').in('status', IN_FLIGHT_ARTICLE)),
+    safeCount(() => head(client, 'library_articles').eq('status', 'failed')),
+    safeCount(() => head(client, 'library_article_seed_catalog').eq('imported_to_articles', false)),
 
-    safeCount(head(client, 'comic_books').eq('status', 'published')),
-    safeCount(head(client, 'comic_books').eq('status', 'draft')),
+    safeCount(() => head(client, 'comic_books').eq('status', 'published')),
+    safeCount(() => head(client, 'comic_books').eq('status', 'draft')),
 
-    safeCount(head(client, 'pd_comic_issues').eq('status', 'published')),
-    safeCount(head(client, 'pd_comic_issues').eq('status', 'review')),
-    safeCount(head(client, 'pd_comic_issues').in('status', IN_FLIGHT_PD)),
-    safeCount(head(client, 'pd_comic_issues').eq('status', 'failed')),
+    safeCount(() => head(client, 'pd_comic_issues').eq('status', 'published')),
+    safeCount(() => head(client, 'pd_comic_issues').eq('status', 'review')),
+    safeCount(() => head(client, 'pd_comic_issues').in('status', IN_FLIGHT_PD)),
+    safeCount(() => head(client, 'pd_comic_issues').eq('status', 'failed')),
 
-    safeCount(head(client, 'book_curation_jobs').eq('status', 'pending')),
-    safeCount(head(client, 'book_curation_jobs').eq('status', 'running')),
-    safeCount(head(client, 'book_curation_jobs').eq('status', 'awaiting_mapping')),
-    safeCount(head(client, 'book_curation_jobs').eq('status', 'failed')),
+    safeCount(() => head(client, 'book_curation_jobs').eq('status', 'pending')),
+    safeCount(() => head(client, 'book_curation_jobs').eq('status', 'running')),
+    safeCount(() => head(client, 'book_curation_jobs').eq('status', 'awaiting_mapping')),
+    safeCount(() => head(client, 'book_curation_jobs').eq('status', 'failed')),
 
-    safeCount(head(client, 'vocab_enrichment_queue').eq('status', 'pending')),
-    safeCount(head(client, 'vocab_enrichment_queue').eq('status', 'exported')),
-    safeCount(head(client, 'vocab_enrichment_queue').eq('status', 'enriched')),
-    safeCount(head(client, 'vocab_enrichment_queue').eq('status', 'enriched_flagged')),
-    safeCount(head(client, 'vocab_enrichment_queue').eq('status', 'failed')),
+    safeCount(() => head(client, 'vocab_enrichment_queue').eq('status', 'pending')),
+    safeCount(() => head(client, 'vocab_enrichment_queue').eq('status', 'exported')),
+    safeCount(() => head(client, 'vocab_enrichment_queue').eq('status', 'enriched')),
+    safeCount(() => head(client, 'vocab_enrichment_queue').eq('status', 'enriched_flagged')),
+    safeCount(() => head(client, 'vocab_enrichment_queue').eq('status', 'failed')),
 
-    safeCount(head(client, 'vrl_data_integrity_concerns').eq('resolved', false)),
-    safeCount(head(client, 'shared_dictionary').not('v_level', 'is', null)),
+    safeCount(() => head(client, 'vrl_data_integrity_concerns').eq('resolved', false)),
+    safeCount(() => head(client, 'shared_dictionary').not('v_level', 'is', null)),
 
-    safeCount(head(client, 'shared_dictionary')),
-    safeCount(head(client, 'pending_words').in('status', ['pending', 'reviewing'])),
-    safeCount(head(client, 'extraction_judgments')),
-    safeCount(head(client, 'library_chapter_quiz')),
+    safeCount(() => head(client, 'shared_dictionary')),
+    safeCount(() => head(client, 'pending_words').in('status', ['pending', 'reviewing'])),
+    safeCount(() => head(client, 'extraction_judgments')),
+    safeCount(() => head(client, 'library_chapter_quiz')),
 
-    safeCount(head(client, 'user_profiles')),
-    safeCount(head(client, 'daily_activity').eq('date', today)),
-    safeCount(head(client, 'texts')),
+    safeCount(() => head(client, 'user_profiles')),
+    safeCount(() => head(client, 'daily_activity').eq('date', today)),
+    safeCount(() => head(client, 'texts')),
 
-    safeCount(head(client, 'reports').eq('status', 'open')),
+    safeCount(() => head(client, 'reports').eq('status', 'open')),
 
     safeList<{ measured_at: string }>(
       client
