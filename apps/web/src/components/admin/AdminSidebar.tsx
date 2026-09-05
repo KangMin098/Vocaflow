@@ -10,6 +10,7 @@ import {
   Brain,
   CreditCard,
   Database,
+  Factory,
   Flag,
   Gauge,
   LayoutDashboard,
@@ -33,6 +34,14 @@ interface NavItem {
   label: string
   Icon: LucideIcon
   badge?: number
+  /**
+   * 하위 항목 — **부모가 활성일 때만** 펼쳐진다.
+   *
+   * 파이프라인 하나가 공정 여러 칸으로 갈리면(교재 공장) 그 칸을 전부 1차 메뉴에 세울 수 없다 —
+   * 다른 파이프라인 12개가 밀려난다. 그렇다고 안 세우면 그 화면들은 URL 을 아는 사람만 쓴다.
+   * 그래서 **들어갔을 때만** 보이게 한다.
+   */
+  children?: NavItem[]
 }
 
 interface NavGroup {
@@ -74,8 +83,14 @@ function buildNavGroups(reportsBadge: number): NavGroup[] {
       { href: '/admin/topic-corpus', label: 'TCP Pipeline', Icon: Workflow },
       // TBP — 교재. 조작 버튼이 없는 관측 화면이다(생성은 Claude Code 드레인).
       { href: '/admin/textbook', label: 'TBP Pipeline', Icon: BookMarked },
-      // CSAT — 평가원 기출 분석. 조작 버튼 없는 관측 화면(분석·검수는 Claude Code 드레인).
-      { href: '/admin/csat', label: 'CSAT Pipeline', Icon: Scale },
+      // 교재 공장 — 시중 제작 공정(기획→설계→소재→집필→해설→검수→조판)을 8칸으로 세운 라인.
+      // 조작 버튼은 없지만 **관측 화면이 아니다** — 칸마다 다음에 돌릴 명령을 들고 있다.
+      {
+        href: '/admin/csat',
+        label: '교재 공장',
+        Icon: Factory,
+        children: [{ href: '/admin/csat/evidence', label: '① 기출 원천', Icon: Scale }],
+      },
       { href: '/admin/pending-words', label: 'Pending Words', Icon: Database },
     ],
   },
@@ -106,8 +121,10 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
   // 활성 항목 = 현재 경로에 매칭되는 href 중 "가장 구체적(최장)" 1개.
   //   startsWith 경계(+'/')로 /admin/vocab ↔ /admin/vocabulary 오매칭 차단,
   //   최장일치로 /admin/vrl ↔ /admin/vrl/automation 동시 하이라이트 차단.
+  // 하위 항목도 후보에 넣는다 — 빼면 '/admin/csat/evidence' 에서 부모만 켜지고
+  //   그 화면은 메뉴에서 자기 자리를 못 찾는다.
   const activeHref =
-    NAV_GROUPS.flatMap((g) => g.items)
+    NAV_GROUPS.flatMap((g) => g.items.flatMap((i) => [i, ...(i.children ?? [])]))
       .map((i) => i.href)
       .filter((h) => pathname === h || (h !== '/admin' && pathname.startsWith(h + '/')))
       .sort((a, b) => b.length - a.length)[0] ?? null
@@ -179,6 +196,9 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
             <ul className="flex flex-col gap-1">
               {group.items.map((item) => {
                 const isActive = item.href === activeHref
+                // 하위 메뉴는 그 파이프라인 안에 있을 때만 편다 — 밖에서는 한 줄로 접혀 있다.
+                const inSection =
+                  pathname === item.href || pathname.startsWith(item.href + '/')
                 return (
                   <li key={item.href}>
                     <Link
@@ -224,6 +244,34 @@ export function AdminSidebar({ reportsBadge = 0 }: AdminSidebarProps = {}) {
                         </span>
                       )}
                     </Link>
+                    {item.children?.length && inSection ? (
+                      <ul className="mt-1 flex flex-col gap-1 border-l border-[var(--bd)] pl-3">
+                        {item.children.map((child) => {
+                          const childActive = child.href === activeHref
+                          return (
+                            <li key={child.href}>
+                              <Link
+                                href={child.href}
+                                aria-current={childActive ? 'page' : undefined}
+                                className={`flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-2 font-display text-[13px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
+                                  childActive
+                                    ? 'bg-[var(--bg)] font-[600] text-[var(--t1)] ring-1 ring-[var(--bd)]'
+                                    : 'font-[500] text-[var(--t3)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] active:bg-[var(--bd)]'
+                                }`}
+                              >
+                                <child.Icon
+                                  size={13}
+                                  strokeWidth={1.75}
+                                  aria-hidden="true"
+                                  className={childActive ? 'text-[#8B5CF6]' : 'text-[var(--t3)]'}
+                                />
+                                <span className="flex-1 truncate">{child.label}</span>
+                              </Link>
+                            </li>
+                          )
+                        })}
+                      </ul>
+                    ) : null}
                   </li>
                 )
               })}

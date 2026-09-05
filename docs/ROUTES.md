@@ -160,7 +160,8 @@
 | `/admin/analytics` | stub | 플랫폼 분석 |
 | `/admin/topic-corpus` | `admin/topic-corpus/page.tsx` + `TopicCorpusClient.tsx` | TCP — 주제 코퍼스 적재·드레인·승격 (원문 미저장, 어휘 통계만) |
 | `/admin/textbook` | `admin/textbook/page.tsx` + `TextbookConsoleClient.tsx` | TBP — 교재. 학령 사다리·문항 건강·시중 대비 평가 우위 (조작 없음 · 생성은 Claude Code 드레인) |
-| `/admin/csat` | `admin/csat/page.tsx` + `CsatConsoleClient.tsx` | CSAT — 평가원 기출 분석. 탭 3: 회차 커버리지(덮은 배점/사정권 배점) · 유형별 진행 · **가이드 원천**(분석 802문항 → 교재·학습 가이드 한 벌 · Markdown/JSON 내려받기). 분석 자체는 Claude Code 드레인 |
+| `/admin/csat` | `admin/csat/page.tsx` + `FactoryLineClient.tsx` + `layout.tsx`/`FactoryRail.tsx` | **교재 공장 — 공정 현황판.** 시중 제작 공정을 8칸(기출 원천·기획·설계·소재·집필·해설·검수·조판)으로 세우고 칸마다 실측 눈금·게이트·**복사 가능한 다음 명령**을 함께 낸다. 병목 = 가장 앞선 미통과 공정. 조작 버튼은 없다(생성은 Claude Code 드레인) |
+| `/admin/csat/evidence` | `admin/csat/evidence/page.tsx` + `CsatConsoleClient.tsx` | 공정 ① 기출 원천. 탭 3: 회차 커버리지(덮은 배점/사정권 배점) · 유형별 진행 · **가이드 원천**(분석 802문항 → 교재·학습 가이드 한 벌 · Markdown/JSON 내려받기) |
 | `/admin/quality` | `admin/quality/page.tsx` | 품질 지표 대시보드 (quality_metrics nightly, read-only) |
 | `/admin/quality/gates` | `admin/quality/gates/page.tsx` + `GateCheckClient.tsx` | 콘텐츠 품질 게이트 — 파이프라인 정확성 결정론 불변식 red/green (`run_content_quality_gates`) + 콘텐츠별 게시전 체크 |
 | `/admin/quality/judge` | `admin/quality/judge/page.tsx` + `JudgeClient.tsx` | 추출 품질 blind 판정 하네스 (Q3/Q5 골든 라벨 — `get_judgment_sample`/`save_extraction_judgment`) |

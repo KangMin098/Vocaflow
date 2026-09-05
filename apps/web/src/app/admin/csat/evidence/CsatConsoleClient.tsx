@@ -1,4 +1,4 @@
-// apps/web/src/app/admin/csat/CsatConsoleClient.tsx
+// apps/web/src/app/admin/csat/evidence/CsatConsoleClient.tsx
 //
 // 기출 분석 콘솔.
 //
@@ -367,7 +367,7 @@ export function CsatConsoleClient({ coverage, types, totals, loadError }: CsatOv
           <ShieldCheck className="h-5 w-5 text-[#8B5CF6]" aria-hidden />
           <h1 className="text-lg font-semibold text-[var(--tx)]">기출 분석 (CSAT)</h1>
         </div>
-        <AdminScreenHelp screen="csat" tab={tab} />
+        <AdminScreenHelp screen="csat-evidence" tab={tab} />
       </header>
 
       {loadError ? (

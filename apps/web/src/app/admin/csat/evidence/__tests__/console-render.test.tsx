@@ -1,4 +1,4 @@
-// apps/web/src/app/admin/csat/__tests__/console-render.test.tsx
+// apps/web/src/app/admin/csat/evidence/__tests__/console-render.test.tsx
 //
 // 기출 분석 콘솔 렌더 스모크 + **「독해 실점 0」 판정이 화면에서 뒤집히지 않는지** 본다.
 //
