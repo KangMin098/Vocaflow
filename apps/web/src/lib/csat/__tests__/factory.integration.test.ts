@@ -114,3 +114,57 @@ describe.skipIf(skip)('교재 공장 공정 현황판 (실 DB)', () => {
     expect(review.gauges.map((g) => g.label.slice(0, 2))).toEqual(['L1', 'L2', 'L3', 'L4'])
   })
 })
+
+describe.skipIf(skip)('전략 연구소 두 화면 (실 DB · 실 파일)', () => {
+  it('설계 표는 사다리 7단을 그대로 편다 — 계단이 사라지면 그 학년 책이 없어진다', async () => {
+    const { loadBlueprintView } = await import('../factory-views')
+    const v = await loadBlueprintView()
+    expect(v.rungs).toHaveLength(7)
+    expect(v.rungs.map((r) => r.step)).toEqual([1, 2, 3, 4, 5, 6, 7])
+    // 학령 이름이 비면 표의 행 머리가 사라진다
+    for (const r of v.rungs) expect(r.schoolBand.length).toBeGreaterThan(0)
+  })
+
+  it('초등 3종은 「셀 수 없음」이지 재고 0 이 아니다', async () => {
+    const { loadBlueprintView, PURE_FUNCTION_TYPES } = await import('../factory-views')
+    const v = await loadBlueprintView()
+    const pure = v.rungs.flatMap((r) => r.cells).filter((c) => PURE_FUNCTION_TYPES.has(c.type))
+    expect(pure.length).toBeGreaterThan(0)
+    for (const c of pure) {
+      expect(c.countable).toBe(false)
+      expect(c.count).toBeNull()
+    }
+    // 끊긴 계단 목록에도 들어가면 안 된다 — 있지도 않은 구멍을 메우러 가게 된다
+    const pureKo = new Set(pure.map((c) => c.typeKo))
+    for (const r of v.rungs) for (const e of r.emptyTypes) expect(pureKo.has(e)).toBe(false)
+  })
+
+  it('설계 표의 재고가 현황판의 사다리 칸과 같은 수를 말한다', async () => {
+    const { loadBlueprintView } = await import('../factory-views')
+    const line = await loadFactoryLine()
+    const v = await loadBlueprintView()
+    for (const cell of line.cells) {
+      const rung = v.rungs.find((r) => r.step === cell.step)!
+      const same = rung.cells.find((c) => c.type === cell.type)!
+      expect(same.count, `${rung.schoolBand}/${cell.type} 가 두 화면에서 다르다`).toBe(cell.count)
+    }
+  })
+
+  it('기획 화면은 벤치마크 파일을 읽고, 못 읽으면 0 이 아니라 오류를 말한다', async () => {
+    const { loadMarketView } = await import('../factory-views')
+    const v = await loadMarketView()
+    if (v.volume == null && v.warehouse == null) {
+      expect(v.loadError).toBeTruthy()
+      return
+    }
+    expect(v.loadError).toBeNull()
+    const bench = v.volume ?? v.warehouse!
+    expect(bench.publishers.length).toBeGreaterThan(0)
+    // 구속점은 실제로 가장 낮은 지수여야 한다 — 아니면 판정이 거짓이다
+    const measured = bench.publishers.filter((p) => p.overallIndex != null)
+    if (measured.length && bench.bindingIndex != null) {
+      const lowest = Math.min(...measured.map((p) => p.overallIndex!))
+      expect(bench.bindingIndex).toBeCloseTo(lowest, 3)
+    }
+  })
+})

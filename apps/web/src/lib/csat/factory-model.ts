@@ -117,7 +117,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '시중 교재를 이기는가, 어디서 지는가',
     output: '출판사별 우위 지수와 구속점',
     gate: '구속 출판사 지수 ≥ 1.200',
-    href: null,
+    href: '/admin/csat/strategy',
   },
   {
     id: 'blueprint',
@@ -128,7 +128,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     question: '연령 × 수준 × 유형 칸이 규격대로 정의됐는가',
     output: '학령 사다리 7단과 단별 허용 유형',
     gate: '사다리에 끊긴 계단이 없는가',
-    href: null,
+    href: '/admin/csat/blueprint',
   },
   {
     id: 'source',

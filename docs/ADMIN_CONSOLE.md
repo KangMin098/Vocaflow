@@ -363,7 +363,14 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 회귀 테스트가 잡는다 — `factory-model.test.ts` 가 `scripts/...` 경로의 **파일 존재를 실측**한다.
 
 - 데이터: `lib/csat/factory-model.ts`(공정 정본·판정) + `lib/csat/factory.ts`(실측)
-- 하위: `/admin/csat/evidence` — 옛 3탭(회차 커버리지 · 유형별 진행 · 가이드 원천)
+- 하위 화면 3 (레일 + 사이드바 하위 메뉴):
+  - `/admin/csat/evidence` — ① 기출 원천. 옛 3탭(회차 커버리지 · 유형별 진행 · 가이드 원천)
+  - `/admin/csat/strategy` — ② 기획. 출판사별 7축 지수 · 구속점 · **천장(reachableMax)** 판정.
+    천장이 목표 아래면 「증거가 막는다」 — 파이프라인을 고쳐도 안 오르니 자료를 구해야 한다
+    (실측 2026-09-01: EBS 는 코퍼스에 정답해설 0건이라 해설 축 A1~A4 를 못 재고 천장 1.199)
+  - `/admin/csat/blueprint` — ③ 설계. 이원목적분류표(학령 7단 × V-Level × 유형) + 계단 근거 +
+    단계 게이트 임계 9. **「함수」 칸과 재고 0 칸을 색으로 가른다** — 초등 3종은 사전의 순수
+    함수라 DB 에 없고, 0 으로 그리면 있지도 않은 구멍을 메우게 된다
 - 화면도움말: `lib/admin/help/csat.ts` — `csat`(현황판) · `csat-evidence`(기출 3탭)
 - AdminSidebar 등재 (`사용자 & 콘텐츠` → `교재 공장`, 들어가면 하위 항목이 펼쳐진다)
 - 회귀: `app/admin/csat/__tests__/factory-line.test.tsx` 9종 ·

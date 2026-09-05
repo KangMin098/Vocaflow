@@ -18,13 +18,15 @@
 
 import 'server-only'
 
-import { readFile } from 'node:fs/promises'
-import path from 'node:path'
-
 import { SERIES_SPINE, type SeriesItemType } from '@vocaflow/library-pipeline'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
+
+import { BENCH_FILES, MARKET_TARGET_INDEX, readBench, type BenchFile } from './factory-bench'
+
+// 화면·테스트가 목표 지수를 이 파일에서 함께 읽어 온다 — 정본은 `factory-bench.ts` 다.
+export { MARKET_TARGET_INDEX } from './factory-bench'
 
 import {
   FACTORY_STAGES,
@@ -35,9 +37,6 @@ import {
   type StageId,
   type StageState,
 } from './factory-model'
-
-/** 저장소 뿌리 — `apps/web` 에서 두 칸 위. `lib/pd-comic/pipeline-bridge.ts` 와 같은 규약. */
-const REPO_ROOT = path.resolve(process.cwd(), '..', '..')
 
 /**
  * 초등 3종은 **DB 에 없다** — 사전의 순수 함수라 저장할 이유가 없다(`series.ts` 주석).
@@ -113,49 +112,6 @@ async function loadLadderCells(db: SupabaseClient): Promise<Cell[]> {
   return specs.map((s, i) => ({ ...s, count: counts[i] ?? null }))
 }
 
-/** 시중 벤치마크 리포트 한 벌. 파일이 없거나 깨지면 `null` — 0 으로 뭉개지 않는다. */
-interface BenchFile {
-  generatedAt: string
-  scope: string
-  bindingPublisher: string | null
-  bindingIndex: number | null
-  pooledIndex: number | null
-  publishers: {
-    publisher: string
-    overallIndex: number | null
-    reachableMax: number | null
-    axesMeasured: number
-    axesTotal: number
-  }[]
-}
-
-async function readBench(file: string): Promise<BenchFile | null> {
-  try {
-    const raw = await readFile(path.join(REPO_ROOT, 'docs', 'reports', file), 'utf8')
-    const j = JSON.parse(raw) as Partial<BenchFile>
-    if (typeof j.bindingIndex !== 'number') return null
-    return {
-      generatedAt: String(j.generatedAt ?? ''),
-      scope: String(j.scope ?? ''),
-      bindingPublisher: j.bindingPublisher ?? null,
-      bindingIndex: j.bindingIndex,
-      pooledIndex: typeof j.pooledIndex === 'number' ? j.pooledIndex : null,
-      publishers: (j.publishers ?? []).map((p) => ({
-        publisher: String(p.publisher),
-        overallIndex: typeof p.overallIndex === 'number' ? p.overallIndex : null,
-        reachableMax: typeof p.reachableMax === 'number' ? p.reachableMax : null,
-        axesMeasured: Number(p.axesMeasured ?? 0),
-        axesTotal: Number(p.axesTotal ?? 0),
-      })),
-    }
-  } catch {
-    return null
-  }
-}
-
-/** 시중 우위 목표 — 「시중 교재보다 120%」. 이 숫자는 사용자 지시이고 문서 전체가 이것을 쓴다. */
-export const MARKET_TARGET_INDEX = 1.2
-
 export interface FactoryLine {
   stages: StageState[]
   /** 사다리 칸 실측 — 설계·집필 화면이 다시 안 재도 되게 같이 내려보낸다. */
@@ -203,8 +159,8 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
       // 검수 기록은 별도 컬럼이 아니라 `colophon.review` 안에 있다 — 조판기가 찍은 그 값이어야
       // 화면과 손에 쥔 책이 같은 것을 말한다(`lib/textbook/console-stats.ts` 와 같은 규약).
       db.from('textbook_volume_renders').select('band, colophon'),
-      readBench('textbook-publisher-benchmark.json'),
-      readBench('textbook-publisher-benchmark-volume.json'),
+      readBench(BENCH_FILES.warehouse),
+      readBench(BENCH_FILES.volume),
     ])
 
   const [itemsTotal, itemsExplained] = await Promise.all([
