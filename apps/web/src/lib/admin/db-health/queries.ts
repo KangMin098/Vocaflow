@@ -32,9 +32,14 @@ export interface DbHealthData {
   recentlyResolved: number
 }
 
-export async function fetchDbHealth(): Promise<DbHealthData> {
+/**
+ * @param injected 테스트에서 service-role 클라이언트를 넣기 위한 구멍.
+ *   비워 두면 쿠키 세션(= 실제 화면 경로)을 쓴다. 실 DB 통합 테스트가 이 구멍으로 들어와
+ *   **마이그레이션의 컬럼과 아래 select 목록이 갈리는 것**을 잡는다 — 픽스처로는 못 잡는 종류다.
+ */
+export async function fetchDbHealth(injected?: SupabaseClient): Promise<DbHealthData> {
   // db_health_metrics · db_health_findings 는 생성 타입 미반영 — 언타입 클라이언트 경유
-  const supabase = (await createClient()) as unknown as SupabaseClient
+  const supabase = injected ?? ((await createClient()) as unknown as SupabaseClient)
 
   const [metricsRes, findingsRes, resolvedRes] = await Promise.all([
     supabase
