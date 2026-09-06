@@ -94,7 +94,7 @@ async function countRows(
   build: (b: Builder) => Builder,
   label: string,
   sb: LooseDb,
-): Promise<number> {
+): Promise<number | null> {
   // ⚠️ 재시도가 없으면 이 화면이 콘솔에 **오류 14건**을 뱉는다(런타임 훑기 실측 2026-09-06:
   //    `[uncaught] ACP queued 카운트 실패: ` — 메시지가 **빈 문자열**이었다).
   //    한 건은 빠르다(`status='queued'` 5.2만 행이 EXPLAIN 1.56초, 인덱스 스캔). 문제는
@@ -118,8 +118,14 @@ async function countRows(
     if (!error && count != null) return count
     last = error?.message || '(오류 메시지 없음 — 동시 요청 과부하일 때 이렇게 온다)'
   }
-  // 끝내 못 셌으면 던진다 — 0 으로 접으면 "글이 없다" 와 "못 읽었다" 가 같은 화면이 된다.
-  throw new Error(`ACP ${label} 카운트 실패(3회 시도): ${last}`)
+  // ⚠️ **던지지 않는다** (2026-09-06 정정).
+  //   0 으로 접으면 안 된다는 판단은 옳았지만, 처방이 틀렸다 — 던지면 카운트 하나 때문에
+  //   **화면 전체가 에러 경계로 떨어진다.** 런타임 훑기가 실제로 그것을 잡았다
+  //   (`[uncaught] ACP queued 카운트 실패(3회 시도)` → /admin/articles 사망).
+  //   셋째 길이 있다: **null = 못 잼.** 화면이 그 칸만 「—」로 두고 나머지는 정상으로 산다.
+  //   이 저장소가 다른 자리에서 이미 쓰는 규칙이다(대시보드 · 사전 건강 점수).
+  console.warn(`[acp] ${label} 카운트 실패(3회 시도): ${last}`)
+  return null
 }
 
 interface RollupRow {
@@ -184,9 +190,10 @@ export async function getArticleStatusCounts(): Promise<ArticleStatusCounts> {
   const [total, ...perStatus] = results
 
   const out = emptyStatusCounts()
-  out.total = total ?? 0
+  // `?? 0` 을 쓰지 않는다 — 못 센 것과 0건은 다른 말이다.
+  out.total = total ?? null
   ALL_ARTICLE_STATUSES.forEach((s, i) => {
-    out.byStatus[s] = perStatus[i] ?? 0
+    out.byStatus[s] = perStatus[i] ?? null
   })
   return out
 }
@@ -246,7 +253,7 @@ export interface ListAdminArticlesOptions {
  */
 export async function countAdminArticles(
   options: Pick<ListAdminArticlesOptions, 'statuses' | 'source'> = {},
-): Promise<number> {
+): Promise<number | null> {
   const { statuses, source = null } = options
   const sb = await db()
   return countRows(

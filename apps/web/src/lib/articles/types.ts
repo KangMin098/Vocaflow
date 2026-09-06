@@ -48,11 +48,12 @@ export interface ArticleAdminRow {
 }
 
 export interface ArticleStats {
-  total: number
-  published: number
-  ready: number
-  inProgress: number
-  failed: number
+  /** 전부 **`null` 가능 = 못 셌다.** 0 과 다른 말이고, 타일은 「—」로 적는다. */
+  total: number | null
+  published: number | null
+  ready: number | null
+  inProgress: number | null
+  failed: number | null
 }
 
 /**
@@ -63,9 +64,13 @@ export interface ArticleStats {
  *    거짓말이 오류 없이 화면에 뜬다(2026-09-05 실측: 발행 293건이 통째로 안 보였다).
  */
 export interface ArticleStatusCounts {
-  /** 필터 없는 전체 행 수 — byStatus 합과 다르면 스키마에 모르는 상태가 생겼다는 뜻. */
-  total: number
-  byStatus: Record<ArticleStatus, number>
+  /**
+   * 필터 없는 전체 행 수 — byStatus 합과 다르면 스키마에 모르는 상태가 생겼다는 뜻.
+   * **`null` = 못 셌다**(재시도 3회 실패). 0 과 다른 말이고, 화면은 「—」로 적는다.
+   */
+  total: number | null
+  /** 상태별 건수. **`null` = 못 셌다** — 「0건」과 구별한다. */
+  byStatus: Record<ArticleStatus, number | null>
 }
 
 /** 매트릭스 30칸(register 5 × CEFR 6)의 **발행** 건수 — 서버 카운트 산출물. */
@@ -182,11 +187,16 @@ export function classifyArticleStatus(status: ArticleStatus): {
  * 되살리지 않는다 — 세는 곳은 DB 한 군데뿐이어야 한다.
  */
 export function statsFromCounts(counts: ArticleStatusCounts): ArticleStats {
+  // 진행 중 = 여러 상태의 합. **하나라도 못 셌으면 합도 못 센 것**이다 —
+  // 못 센 칸을 0 으로 놓고 더하면 실제보다 작은 수를 확신에 차서 보여 준다.
+  const inProgress = ARTICLE_IN_PROGRESS_STATUSES.some((s) => counts.byStatus[s] == null)
+    ? null
+    : ARTICLE_IN_PROGRESS_STATUSES.reduce((n, s) => n + (counts.byStatus[s] ?? 0), 0)
   return {
     total: counts.total,
     published: counts.byStatus.published,
     ready: counts.byStatus.ready,
-    inProgress: ARTICLE_IN_PROGRESS_STATUSES.reduce((n, s) => n + counts.byStatus[s], 0),
+    inProgress,
     failed: counts.byStatus.failed,
   }
 }

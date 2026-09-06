@@ -69,7 +69,8 @@ interface Props {
   /** 목록 **한 페이지** — 커버리지·소스 GET 단계에서는 빈 배열이다(행을 안 읽는다). */
   articles: ArticleAdminRow[]
   /** 지금 목록 조건(상태 + 소스)의 서버 카운트 — 페이지네이션 분모. */
-  listTotal: number
+  /** `null` = 서버 카운트를 못 셌다 — 페이저가 「?」로 적고 길은 막지 않는다. */
+  listTotal: number | null
   /** 상태별 서버 카운트 — 타일 · 상태 칩 · 페이지 분모의 유일한 출처. */
   counts: ArticleStatusCounts
   stats: ArticleStats
@@ -255,7 +256,8 @@ function StageTabs({ stage, onChange }: { stage: Stage; onChange: (s: Stage) => 
 // ── Stats bar (커버리지 stage) ────────────────────
 
 function StatsBar({ stats }: { stats: ArticleStats }) {
-  const items: Array<{ label: string; value: number; tone: StatTone }> = [
+  // `value: null` = 못 셌다. 0 으로 적으면 "글이 없다" 로 읽힌다 — 정반대의 결론이다.
+  const items: Array<{ label: string; value: number | null; tone: StatTone }> = [
     { label: '전체', value: stats.total, tone: 'neutral' },
     { label: '게시됨', value: stats.published, tone: 'success' },
     { label: '검토 대기', value: stats.ready, tone: 'warning' },
@@ -282,8 +284,12 @@ function StatsBar({ stats }: { stats: ArticleStats }) {
             <span className="font-mono text-[10px] uppercase tracking-wider" style={{ color: c.text }}>
               {it.label}
             </span>
-            <span className="font-display text-[24px] font-[700] tabular-nums" style={{ color: c.value }}>
-              {it.value}
+            <span
+              className="font-display text-[24px] font-[700] tabular-nums"
+              style={{ color: c.value }}
+              title={it.value == null ? '못 셌다 — 0건이라는 뜻이 아니다' : undefined}
+            >
+              {it.value == null ? '—' : it.value.toLocaleString()}
             </span>
           </div>
         )

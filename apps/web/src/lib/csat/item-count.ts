@@ -112,6 +112,33 @@ export async function countItemCells(
  * ⚠️ **낡을 수 있다.** 그래서 `refreshedAt` 을 함께 돌려주고 화면이 "언제 센 값인지" 를
  *    말하게 한다. 낡은 값을 지금 값인 척하지 않는 것이 이 저장소의 규칙이다.
  */
+/** 집계표 갱신 주기(분) — `cron.job` 14번이 30분마다 돈다(2026-09-06 실측). */
+export const INVENTORY_REFRESH_MINUTES = 30
+
+/**
+ * 「언제 센 값인가」를 사람 말로. **시각만 적으면 갱신이 멈춘 것을 못 알아본다.**
+ *
+ * ⚠️ 실측 2026-09-06: 갱신 작업이 조용히 실패하고 있었다 —
+ *    `REFRESH MATERIALIZED VIEW CONCURRENTLY` 가 평소 6~9초인데 **120초 타임아웃**에
+ *    걸려 최근 5회 중 4회 실패했고(`cron.job_run_details` jobid 14), 그 시점 재고는
+ *    **59분** 낡아 있었다. `refreshed_at` 은 세 matview 가 **다 성공한 뒤에만** 갱신되므로
+ *    값 자체는 정직하다 — 문제는 화면이 그 시각을 그냥 인쇄만 해서, 보는 사람이
+ *    "한 시간 전 값" 과 "갱신이 죽었다" 를 구별할 수 없었다는 것이다.
+ *
+ * 그래서 주기의 **2배**를 넘기면 시각이 아니라 **사건**으로 말한다.
+ */
+export function inventoryFreshnessNote(refreshedAt: string | null, now = new Date()): string | undefined {
+  if (!refreshedAt) return undefined
+  const at = new Date(refreshedAt)
+  if (Number.isNaN(at.getTime())) return undefined
+  const mins = Math.floor((now.getTime() - at.getTime()) / 60_000)
+  const stamp = at.toLocaleString('ko-KR')
+  if (mins > INVENTORY_REFRESH_MINUTES * 2) {
+    return `⚠ ${stamp} 이후 ${mins}분째 갱신되지 않았다 — ${INVENTORY_REFRESH_MINUTES}분 주기 갱신이 멈췄을 수 있다. 이 수치는 그만큼 낡았다`
+  }
+  return `${stamp} 기준 (${INVENTORY_REFRESH_MINUTES}분마다 갱신)`
+}
+
 export interface DcpInventoryCell {
   type: string
   vLevel: number

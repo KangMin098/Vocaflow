@@ -59,8 +59,12 @@ interface Props {
   onSource: (s: string | null) => void
   page: number
   pageSize: number
-  /** 지금 조건(상태 칩 + 소스)의 **서버 카운트** — 페이지 분모. 목록 길이가 아니다. */
-  totalForFilter: number
+  /**
+   * 지금 조건(상태 칩 + 소스)의 **서버 카운트** — 페이지 분모. 목록 길이가 아니다.
+   * **`null` = 못 셌다.** 그때도 길을 막지 않는다 — 마지막 쪽은 모르지만
+   * "이번 쪽이 꽉 찼으면 다음이 있다" 는 알 수 있다.
+   */
+  totalForFilter: number | null
   onPage: (p: number) => void
   /** URL 전환 중 — 칩·페이지 버튼을 잠가 이중 이동을 막는다. */
   navPending?: boolean
@@ -120,8 +124,10 @@ export function CuratedArticlesTab({
   const queuedCount = counts.byStatus.queued
 
   const from = page * pageSize
-  const lastPage = lastPageIndex(totalForFilter, pageSize)
-  const showPager = totalForFilter > pageSize || page > 0
+  // 분모를 못 셌으면 마지막 쪽을 계산할 수 없다. **그렇다고 1쪽에 가두지 않는다** —
+  // 이번 쪽이 꽉 찼다는 것은 다음이 있다는 뜻이고, 그건 분모 없이도 안다.
+  const lastPage = totalForFilter == null ? null : lastPageIndex(totalForFilter, pageSize)
+  const showPager = totalForFilter == null ? visible.length >= pageSize || page > 0 : totalForFilter > pageSize || page > 0
 
   const setFilterReset = (f: ArticleStatusFilter): void => {
     setSelected(new Set())
@@ -317,15 +323,19 @@ export function CuratedArticlesTab({
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">{heading}</h2>
           {/* 표시 중 / 이 필터의 전체 — 전체는 서버 카운트다(목록 길이가 아니다). */}
           <span className="font-mono text-[12px] text-[var(--t2)]">
-            {visible.length === 0
-              ? `0 / ${totalForFilter.toLocaleString()}건`
-              : `${(from + 1).toLocaleString()}–${(from + visible.length).toLocaleString()} / ${totalForFilter.toLocaleString()}건`}
+            {/* 분모를 못 셌으면 「?」다. 0 으로 적으면 "이 조건에 글이 없다" 로 읽힌다. */}
+            {(() => {
+              const den = totalForFilter == null ? '?' : totalForFilter.toLocaleString()
+              return visible.length === 0
+                ? `0 / ${den}건`
+                : `${(from + 1).toLocaleString()}–${(from + visible.length).toLocaleString()} / ${den}건`
+            })()}
             {source ? ` · ${SOURCE_LABEL[source] ?? source}` : ''}
           </span>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <SourceFilter value={source} onChange={onSource} disabled={navPending} />
-          {queuedCount > 0 && (
+          {(queuedCount == null || queuedCount > 0) && (
             <button
               type="button"
               onClick={runDrain}
@@ -358,8 +368,8 @@ export function CuratedArticlesTab({
             onSource(null)
             setFilterReset('all')
           }}
-          hasAny={counts.total > 0}
-          outOfRange={page > 0 && totalForFilter > 0}
+          hasAny={counts.total == null || counts.total > 0}
+          outOfRange={page > 0 && (totalForFilter == null || totalForFilter > 0)}
           onFirstPage={() => onPage(0)}
         />
       ) : (
@@ -561,6 +571,7 @@ export function CuratedArticlesTab({
           lastPage={lastPage}
           from={from}
           shown={visible.length}
+          pageSize={pageSize}
           total={totalForFilter}
           disabled={navPending}
           onPage={(p) => {
@@ -583,20 +594,26 @@ function Pager({
   lastPage,
   from,
   shown,
+  pageSize,
   total,
   disabled,
   onPage,
 }: {
   page: number
-  lastPage: number
+  /** `null` = 분모를 못 세 마지막 쪽을 모른다. */
+  lastPage: number | null
   from: number
   shown: number
-  total: number
+  /** 마지막 쪽을 모를 때 "다음이 있는가" 를 판단하는 유일한 근거. */
+  pageSize: number
+  total: number | null
   disabled: boolean
   onPage: (p: number) => void
 }) {
   const canPrev = page > 0
-  const canNext = page < lastPage
+  // 마지막 쪽을 모르면 **이번 쪽이 꽉 찼는지**로 판단한다. 모른다고 막으면
+  // 남은 글에 갈 길이 사라진다 — 그게 0 으로 접는 것보다 나쁜 결과다.
+  const canNext = lastPage == null ? shown >= pageSize : page < lastPage
   return (
     <nav
       aria-label="목록 페이지"
@@ -606,7 +623,13 @@ function Pager({
         {shown > 0
           ? `${(from + 1).toLocaleString()}–${(from + shown).toLocaleString()}`
           : '0'}{' '}
-        / {total.toLocaleString()}건 · {page + 1}쪽 / {lastPage + 1}쪽
+        / {total == null ? '?' : total.toLocaleString()}건 · {page + 1}쪽 /{' '}
+        {lastPage == null ? '?' : (lastPage + 1).toLocaleString()}쪽
+        {total == null && (
+          <span className="ml-2 font-body text-[var(--warning-text,var(--t2))]">
+            총 개수를 못 셌다 — 「없다」가 아니라 「모른다」다
+          </span>
+        )}
       </span>
       <div className="flex items-center gap-1">
         <PagerBtn
@@ -865,10 +888,19 @@ function FilterChips({
             ].join(' ')}
           >
             {ARTICLE_STATUS_FILTER_LABEL[value]}
-            {count > 0 && (
-              <span className="ml-1 font-mono text-[10px] tabular-nums text-[var(--t2)]">
-                {count.toLocaleString()}
+            {count == null ? (
+              <span
+                className="ml-1 font-mono text-[10px] text-[var(--t2)]"
+                title="이 상태의 건수를 못 셌다 — 0건이라는 뜻이 아니다"
+              >
+                —
               </span>
+            ) : (
+              count > 0 && (
+                <span className="ml-1 font-mono text-[10px] tabular-nums text-[var(--t2)]">
+                  {count.toLocaleString()}
+                </span>
+              )
             )}
           </button>
         )

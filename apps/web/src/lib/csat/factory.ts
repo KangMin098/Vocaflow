@@ -26,7 +26,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { countItemCells, loadDcpInventory } from './item-count'
+import { countItemCells, inventoryFreshnessNote, loadDcpInventory } from './item-count'
 
 import {
   BENCH_FILES,
@@ -462,10 +462,7 @@ export async function loadFactoryLine(): Promise<FactoryLine> {
                 : undefined,
             // 30분마다 갱신되는 집계표라 **지금 값이 아닐 수 있다.** 그 사실을 눈금이 말한다 —
             // 드레인을 막 돌린 직후에는 아직 반영되지 않았을 수 있다.
-            note:
-              inventory.ok && inventory.refreshedAt
-                ? `${new Date(inventory.refreshedAt).toLocaleString('ko-KR')} 기준 (30분마다 갱신)`
-                : undefined,
+            note: inventory.ok ? inventoryFreshnessNote(inventory.refreshedAt) : undefined,
           },
         ],
         total != null && done != null

@@ -150,9 +150,11 @@ export function statusesForFilter(filter: ArticleStatusFilter): ArticleStatus[] 
 export function countForFilter(
   counts: ArticleStatusCounts,
   filter: ArticleStatusFilter,
-): number {
+): number | null {
   const statuses = statusesForFilter(filter)
   if (!statuses) return counts.total
+  // 합치는 칸 중 하나라도 못 셌으면 합도 못 센 것이다 — 0 으로 메우고 더하지 않는다.
+  if (statuses.some((s) => counts.byStatus[s] == null)) return null
   return statuses.reduce((n, s) => n + (counts.byStatus[s] ?? 0), 0)
 }
 
