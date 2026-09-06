@@ -63,6 +63,25 @@ const BAND = Number(arg('band') ?? 3)
  */
 const SIZE = Number(arg('size') ?? 5)
 const NEED = arg('need') ? Number(arg('need')) : null
+/**
+ * **`--avoid-twin` — 짝이 이미 겨냥을 넘은 슬롯은 뽑지 않는다.**
+ *
+ * ── 왜 (실측 2026-09-06) ─────────────────────────────────────────────
+ * V4 와 V5 는 **같은 이야기를 두 난도로 쓴 짝**이다. 40개 슬롯을 대조해 확인했다:
+ *   슬롯 7  V4「Half an Umbrella」        · V5「The Green Umbrella on the Steps」
+ *   슬롯 12 V4「The Hands at the Repair Bench」· V5「The Radios He Switched Off」
+ *   슬롯 16 V4「Two Black Stones on a Tray」   · V5「The Loaf I Left Too Long」
+ * (V2·V3 은 슬롯이 같아도 주제가 다르다 — 짝은 V4↔V5 뿐이다.)
+ *
+ * 두 짝을 **둘 다** 겨냥까지 올리면 같은 이야기가 같은 난도가 되어 **계단이 사라진다.**
+ * 실측: 40쌍 중 **15쌍**이 이미 둘 다 ≥60 이고, 그중 다섯 쌍은 FK 차가 0.1 이하다.
+ *
+ * 이 갈래를 켜면 짝이 아직 겨냥 아래인 슬롯만 뽑는다. 남은 V4 후보 53편 중
+ * **44편**이 그런 슬롯이라, 목표에 필요한 몫을 쌍을 더 무너뜨리지 않고 채울 수 있다.
+ */
+const AVOID_TWIN = process.argv.includes('--avoid-twin')
+/** 짝 밴드. V4↔V5 만 짝이다 — 나머지 밴드에서는 이 갈래가 아무 일도 하지 않는다. */
+const TWIN_BAND = { 4: 5, 5: 4 }[Number(arg('band'))] ?? null
 /** 겨냥하는 시중 자리. 목표 "시중 대비 120%" = 50 × 1.2 = **60**. */
 const AIM = Number(arg('aim') ?? 60)
 const DIR = path.resolve(arg('dir') ?? `scripts/textbook/market-revise/v${BAND}`)
@@ -137,7 +156,39 @@ if (!behind.length) {
   process.exit(0)
 }
 
-const take = behind.slice(0, NEED ?? behind.length)
+/**
+ * 짝 거르기. 짝 지문을 **본문째** 읽어 그 자리를 지금 계산한다 —
+ * `article_v_level` 같은 저장값은 개정 뒤 갱신되지 않아 못 믿는다.
+ */
+let pool = behind
+if (AVOID_TWIN && TWIN_BAND != null) {
+  const { fetchAllIn } = await import('./volume-pool.mjs')
+  const ids = behind.map((s) => `original:v${TWIN_BAND}-${s.slot}`)
+  const twins = await fetchAllIn(
+    db,
+    'library_articles',
+    'source_id, content',
+    'source_id',
+    ids,
+    ['source_id'],
+    (q) => q.eq('source', 'original')
+  )
+  const twinPos = new Map()
+  for (const t of twins) {
+    const m = readability(String(t.content ?? ''))
+    const tb = m ? gradeBand(bandOf(m.fk)) : null
+    const w = classifyCurriculumWords(String(t.content ?? ''))
+    if (!tb || !w.length) continue
+    const pct = +((w.filter((x) => x.tier === 'outside').length / w.length) * 100).toFixed(1)
+    twinPos.set(t.source_id, marketPercentile(pct, tb.school))
+  }
+  const before = pool.length
+  pool = pool.filter((s) => (twinPos.get(`original:v${TWIN_BAND}-${s.slot}`) ?? 0) < AIM)
+  console.log(
+    `  --avoid-twin: 짝(V${TWIN_BAND})이 이미 겨냥을 넘은 슬롯 ${before - pool.length}개를 뺐다 → 후보 ${pool.length}편`
+  )
+}
+const take = pool.slice(0, NEED ?? pool.length)
 // ⚠️ `--need 0` 은 "재기만 하고 뽑지는 않는다" 는 뜻이다 — 실제로 그렇게 쓰다 크래시했다
 //   (`tasks[0]` 이 undefined). **0 은 오류가 아니라 유효한 요청이다.**
 if (!take.length) {
