@@ -20,6 +20,7 @@
 
 import { coverArtFor } from '@vocaflow/library-pipeline/vocab-cover-art'
 
+import { deepenCss, scrimCss } from '@/lib/vcb/covers/contrast'
 import { FAMILY_GRAIN, type CoverFamily } from '@/lib/vcb/covers/design'
 
 interface Props {
@@ -41,24 +42,9 @@ interface Props {
   깔면 표지가 통째로 창백해진다. 그 위에 흰 세리프 제목이 오는데 대비가 무너졌고, 카드가
   얹는 광택·그레인 레이어가 한 번 더 씻어냈다. 스크린샷으로 보고서야 알았다.
 
-  그래서 바탕을 `ink`, 선을 `paper` 로 뒤집는다 — 시중 단어장 표지가 짙은 색에 밝은 도판을
-  얹는 것과 같고, 제목이 읽힌다.
+  **층 값은 여기 없다** — `covers/contrast.ts` 가 갖고 있고 회귀가 같은 값으로 대비를 잰다.
+  값을 여기 두면 회귀는 사본을 재게 되고, 사본은 반드시 갈린다.
 */
-/*
-  제목은 표지의 **가운데 아래**에 앉는다(`GradientBookCover`). 그 띠에서 한 번 더 눌러야
-  도판 선 위에서도 읽힌다 — 아래로만 어둡게 하면 제목 자리는 그대로 밝다.
-*/
-const SCRIM = {
-  card: 'linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.40) 62%, rgba(0,0,0,0.60) 100%)',
-  hero: 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.04) 34%, rgba(0,0,0,0.34) 62%, rgba(0,0,0,0.52) 100%)',
-} as const
-
-/**
- * 계열마다 잉크의 밝기가 다르다(`corpus` 는 앰버, `delivery` 는 짙은 네이비). 그대로 두면
- * 어떤 권은 제목이 읽히고 어떤 권은 안 읽힌다 — **한 번 눌러 같은 밝기 띠에 앉힌다.**
- * 색상(hue)은 그대로라 계열 식별은 유지된다.
- */
-const DEEPEN = 'linear-gradient(180deg, rgba(12,10,8,0.30) 0%, rgba(12,10,8,0.42) 100%)'
 
 export function VocabCoverArt({ family, artKey, scrim = 'card' }: Props) {
   const fam: CoverFamily = family ?? 'list'
@@ -70,7 +56,7 @@ export function VocabCoverArt({ family, artKey, scrim = 'card' }: Props) {
       {/* 바탕 — 계열의 잉크 */}
       <div className="absolute inset-0" style={{ background: grain.ink }} />
       {/* 계열마다 다른 밝기를 같은 띠로 눌러 제목이 늘 읽히게 한다 */}
-      <div className="absolute inset-0" style={{ background: DEEPEN }} />
+      <div className="absolute inset-0" style={{ background: deepenCss() }} />
 
       {/* 판면 괘선 — 시중 표지의 테두리 자리. 도판이 지면에 앉아 있다는 느낌을 준다 */}
       <div
@@ -99,7 +85,7 @@ export function VocabCoverArt({ family, artKey, scrim = 'card' }: Props) {
         ))}
       </svg>
 
-      <div className="absolute inset-0" style={{ background: SCRIM[scrim] }} />
+      <div className="absolute inset-0" style={{ background: scrimCss(scrim) }} />
     </div>
   )
 }
