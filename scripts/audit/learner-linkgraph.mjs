@@ -151,6 +151,17 @@ const LINK_RE = new RegExp(
 //    2층은 오직 "이 화면을 코드가 목적지로 알고 있는가" 만 답한다.
 const WIDE_RE = /[`"']([/][A-Za-z0-9_./$={}?&:-]*)[`"']/g
 
+// API 도 같은 오보를 낸다 — 정규식이 fetch( 만 보는데 실제 호출은 이렇게 생겼다:
+//   · <img src={`/api/pdcp/artifact?issueId=${id}`} />        (src=, href/fetch 아님)
+//   · redirectTo: `${origin}/api/auth/callback`               (절대 URL 조립)
+//   · postJson(`/api/admin/library/preview-gutenberg?id=…`)   (래퍼 함수)
+// 그래서 줄 안 어디에 있든 /api/… 를 줍는다. **고아 판정에만** 쓴다(죽은 링크 아님).
+const API_WIDE_RE = /[/]api[/][A-Za-z0-9_./$={}-]*/g
+
+// 화면 도움말은 **산문**이다 — "화면에 버튼이 없다, DELETE /api/pdcp/issue 로 지워라" 처럼
+// 앱이 부르지 않는다고 적어 둔 것도 있어서, 여기서 주우면 진짜 미사용을 가린다.
+const PROSE_DIRS = ['apps/web/src/lib/admin/help/']
+
 // ⚠️ **목록 파일은 2층에서 뺀다.** 레지스트리·사이트맵·보호경로표는 모든 경로를 적어 두므로
 //    포함하면 고아가 **항상 0** 이 된다(/src/app/dev/ 를 뺀 것과 같은 이유).
 const CATALOG_FILES = [
@@ -223,6 +234,31 @@ function selfRouteOf(relPath) {
  *
  * 그래서 여기서는 <seg> 를 **동적 세그먼트에만** 맞춘다.
  */
+/** resolveStrict 의 라우트 집합 일반화판. */
+function resolveStrict2(url, routes) {
+  const parts = url.split('/').filter(Boolean)
+  const out = []
+  for (const r of routes) {
+    const rp = r.split('/').filter(Boolean)
+    if (rp.length !== parts.length) continue
+    let ok = true
+    for (let i = 0; i < rp.length; i++) {
+      const a = parts[i]
+      const b = rp[i]
+      const dyn = b.startsWith('[')
+      if (a.includes('<seg>')) {
+        if (!dyn) { ok = false; break }
+        continue
+      }
+      if (a === b || dyn) continue
+      ok = false
+      break
+    }
+    if (ok) out.push(r)
+  }
+  return out
+}
+
 function resolveStrict(url) {
   const parts = url.split('/').filter(Boolean)
   const out = []
@@ -271,6 +307,7 @@ function dynamicChildrenOf(prefix) {
 
 /** 2층이 "목적지로 알고 있다" 고 답한 화면. **고아 판정에서만** 쓴다. */
 const mentionedPages = new Set()
+const mentionedApis = new Set()
 
 for (const f of files) {
   const rel = path.relative(ROOT, f).replace(/\\/g, '/')
@@ -302,7 +339,14 @@ for (const f of files) {
       else dead.push({ file: rel, line: i + 1, url, kind: 'page' })
     }
     // ── 2층 (고아 판정 전용) ──
-    if (!CATALOG_FILES.includes(rel)) {
+    if (!CATALOG_FILES.includes(rel) && !PROSE_DIRS.some((d) => rel.startsWith(d))) {
+      API_WIDE_RE.lastIndex = 0
+      let aw
+      while ((aw = API_WIDE_RE.exec(line))) {
+        const c = clean(normalizeTemplate(aw[0]))
+        if (c.includes('{') || c.includes('}')) continue
+        for (const h of resolveStrict2(c, apiRoutes)) mentionedApis.add(h)
+      }
       WIDE_RE.lastIndex = 0
       let w
       while ((w = WIDE_RE.exec(line))) {
@@ -323,7 +367,7 @@ const aliases = redirectAliases()
 const orphans = learnerPages.filter(
   (r) => !linkedPages.has(r) && !mentionedPages.has(r) && !aliases.has(r),
 )
-const orphanApis = apiRoutes.filter((r) => !linkedApis.has(r))
+const orphanApis = apiRoutes.filter((r) => !linkedApis.has(r) && !mentionedApis.has(r))
 
 const report = {
   generatedAt: new Date().toISOString(),
