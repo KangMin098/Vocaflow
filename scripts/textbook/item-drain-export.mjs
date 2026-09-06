@@ -410,7 +410,7 @@ const usable = withBody.filter((a) => passages.has(a.id))
 
 // 이미 이 유형이 붙은 글은 건너뛴다 — 재실행 안전.
 const itemRows = (
-  await fetchAllIn(db, 'csat_dcp_items', 'id, ref_id, type, kind', 'ref_id', usable.map((a) => a.id), ['ref_id', 'id'])
+  await fetchAllIn(db, 'csat_dcp_items', 'id, ref_id, type, kind', 'ref_id', usable.map((a) => a.id), ['ref_id', 'id'], (q) => q.eq('kind', 'article'))
 ).filter((r) => r.kind === 'article')
 const existing = new Set(itemRows.filter((r) => r.type === TYPE).map((r) => r.ref_id))
 

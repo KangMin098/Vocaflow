@@ -675,6 +675,13 @@ export async function loadVolume(db, { band, unitCount, marketMix = true, maxArt
   //   그런데 `fetchAllIn` 은 마지막에 `orderBy` 순으로 전역 정렬하고, **조합기가 그 배열
   //   순서로 문항을 고른다** — 순서가 바뀌면 같은 재고에서 다른 책이 나온다.
   //   그래서 **빠른 정렬로 받고 순서는 pk 로 되돌린다.** 산출물은 그대로다.
+  // ⚠️ **`kind='article'` 은 질의에 넣어야 한다 — 걸러 내는 곳이 아니라 인덱스를 타는 곳이다.**
+  //   `ref_id` 로 시작하는 인덱스가 없어 `ref_id IN (…)` 만으로는 **매 페이지마다 전체를
+  //   Seq Scan** 한다. 유일 인덱스가 `(kind, ref_id, type, paragraph_idx)` 라 선두 열을
+  //   함께 주면 Index Scan 으로 바뀐다. 실측 2026-09-06 (V7 · 100 ref_id · LIMIT 1000):
+  //     없을 때  Seq Scan 656,988행 · buffers 95,790 · 99.3초
+  //     있을 때  Index Scan          · buffers  9,513 · (같은 부하에서 10분의 1 버퍼)
+  //   결과는 같다 — 아래에서 어차피 `kind === 'article'` 로 걸렀다.
   const itemRows = (
     await fetchAllIn(
       db,
@@ -683,6 +690,7 @@ export async function loadVolume(db, { band, unitCount, marketMix = true, maxArt
       'ref_id',
       ids,
       ['ref_id', 'id'],
+      (q) => q.eq('kind', 'article'),
     )
   )
     .sort((a, b) => (a.id === b.id ? 0 : a.id < b.id ? -1 : 1))

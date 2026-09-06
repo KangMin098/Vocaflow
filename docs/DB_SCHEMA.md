@@ -49,6 +49,28 @@ RLS 켜고 **정책 없음 = service_role 전용**. 인덱스 `idx_qdc_rotation(
 기억한다. `drift IS NULL AND failed_reason IS NOT NULL` = 그 책은 30초 안에 못 쟀다는 뜻이다 —
 **빈칸으로 두지 않는다**(조용한 실패 금지). 지표는 이번 밤 표본이 아니라 이 표 **전체**에서 낸다.
 
+### 📐 `csat_dcp_items` — ref_id 인덱스 (2026-09-06)
+
+[20260906080000](../supabase/migrations/20260906080000_idx_dcp_items_ref_id.sql) —
+`idx_dcp_items_ref_id (ref_id, id)` · **31 MB**.
+
+교재 조판(`loadVolume`)과 문항 드레인이 전부 `ref_id IN (…)` 으로 문항을 읽는데
+**ref_id 로 시작하는 인덱스가 하나도 없었다.** 유일 인덱스가 `(kind, ref_id, type,
+paragraph_idx)` 로 `kind` 가 선두라 ref_id 만으로는 못 탄다.
+
+| 질의 (V7 · ref_id 100개 · LIMIT 1000) | 계획 | buffers | 시간 |
+|---|---|---|---|
+| `ref_id IN (…)` 만 | **Seq Scan 656,988행** | 95,790 | 99.3초 |
+| `kind='article'` 추가 (코드 수정) | Index Scan | 9,513 | 36.1초 |
+| 인덱스 추가 후 | Index Scan | 9,563 | **13.1초** |
+
+페이지마다 이 값을 치르므로 V7(문항 284,534건) 조판이 statement timeout 으로 아예 안
+만들어졌다 — **목표 지표를 잴 수 없는 상태였다.** 남은 13초는 이 인스턴스의 디스크 IO다
+(read 4,646 페이지).
+
+⚠️ 원격에는 `CREATE INDEX`(CONCURRENTLY 아님)로 적용했다 — MCP `apply_migration` 이
+트랜잭션 안에서 돌아 CONCURRENTLY 를 못 쓴다. 적용 동안 이 테이블의 쓰기가 잠긴다.
+
 ### 🧹 인덱스 정리 — 798 MB 회수, 그리고 **지우면 안 되는 "미사용" 인덱스** (2026-08-31)
 
 [20260831093411](../supabase/migrations/20260831093411_drop_unused_and_duplicate_indexes.sql) 로

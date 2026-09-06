@@ -235,7 +235,7 @@ if (ok.length >= 8) {
 
 // ── 이미 있는 것 ────────────────────────────────────────────────────
 const existing = new Set(
-  (await fetchAllIn(db, 'csat_dcp_items', 'id, ref_id, type, kind', 'ref_id', ok.map((r) => r.article_id), ['ref_id', 'id']))
+  (await fetchAllIn(db, 'csat_dcp_items', 'id, ref_id, type, kind', 'ref_id', ok.map((r) => r.article_id), ['ref_id', 'id'], (q) => q.eq('kind', 'article')))
     .filter((r) => r.kind === 'article' && r.type === TYPE)
     .map((r) => r.ref_id),
 )
