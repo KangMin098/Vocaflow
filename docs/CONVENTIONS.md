@@ -481,6 +481,34 @@ Get-NetTCPConnection -LocalPort 3200 -State Listen |
 
 `include` 에는 표준 `.next/types/**/*.ts` 만 둔다. 각 실행은 필요하면 자기 것을 다시 심는다.
 
+### 통합 테스트가 무더기로 빨개지면 **앱을 의심하기 전에 DB 상태를 본다** (v06.34 실측 2026-09-06)
+
+전체 스위트를 두 번 돌렸는데 **28 → 37** 로 늘었다. 코드가 나빠진 게 아니었다:
+
+| 원인 | 무엇으로 알아보나 | 정체 |
+|---|---|---|
+| `PGRST002` | "Could not query the database for the schema cache. Retrying." | **마이그레이션 직후** PostgREST 가 스키마 캐시를 재적재하는 동안 REST 호출이 전부 실패한다 |
+| `57014` · `upstream request timeout` | "canceling statement due to statement timeout" | 공유 dev DB 경합. 실측: `resolve-headword.integration` 한 파일이 **491초** |
+| 테스트 수 자체가 늘어남 | 총 개수가 실행마다 다름(2,605 → 2,662) | 다른 세션이 같은 저장소에 테스트를 더하는 중 |
+
+**PGRST002 의 증상은 앱 결함처럼 생겼다** — "user_profiles 가 비어 있어 계약을 시험할 수 없다",
+"검증 계정에 단어가 없다", "집계 뷰를 읽지 못했다". 전부 조회가 **빈손으로 왔을 때의 메시지**다.
+그 문장을 그대로 믿고 코드를 고치러 가면 없는 결함을 쫓게 된다.
+
+- 마이그레이션을 적용했으면 **통합 테스트를 바로 돌리지 않는다.** 먼저 REST 한 번으로 확인한다:
+  `supabase.from('user_profiles').select('user_id').limit(1)` 이 100ms 안에 오면 캐시가 앉은 것이다.
+- 실패를 세기 전에 **사유부터 분류한다.** `PGRST002`·`57014`·`timeout` 은 환경이고,
+  `AssertionError` 만 앱이다.
+- 성공률은 **결정론적 층(`--exclude "**/*.integration.test.*"`)** 에서 먼저 재고 100% 로 만든다.
+  그 층은 공유 DB 와 무관해 언제 돌려도 같은 답을 낸다(실측: 단위 2,415/2,419 → 수정 후 100%).
+  통합 층은 사유를 붙여 따로 보고한다 — 두 층을 한 숫자로 합치면 **앱이 나빠졌는지 DB 가 눌렸는지
+  영영 구별할 수 없다.**
+
+⚠️ **느린 RPC 를 성급히 "구조적 결함" 으로 부르지 말 것.** `textbook_practice_items` 가
+타임아웃으로 두 번 실패해 계획을 뜯어봤더니, v_level 6 은 **384ms** · 9 는 **12.6ms** 로
+멀쩡했다(전용 인덱스 `idx_dcp_items_vlevel_kind_ref` 를 쓴다). 그 순간 DB 가 눌려 있었을 뿐이다.
+계획을 직접 보기 전에는 인덱스를 더하지 않는다.
+
 ### 학습자 표면 수치는 **프로덕션 빌드에서만** 센다 (v06.34 실측 2026-09-06)
 
 같은 전수 훑기(`26-learner-sweep`)가 같은 커밋에서 이렇게 갈렸다:
