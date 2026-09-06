@@ -10,6 +10,62 @@
 
 ## Unreleased (v06.34 → next)
 
+### 교재가 "재고 요약표" 에서 책이 됐다 — 구성요소 1축 → 12축 (2026-09-06)
+
+「120% 우위」가 **문항 지수(A1~A7)에서만** 성립하고 있었다. 학습자가 교재를 고를 때 보는
+것은 책의 껍데기 전부인데(표지·머리말·목차·단원 도입·어휘·해설·판권…) 그 축은 아무도
+재지 않았다. 재 보니 상세면이 **14축 중 1축**이었다.
+
+**시중 기준선을 먼저 실측했다** — [`scripts/textbook-corpus/apparatus-probe.mjs`](../scripts/textbook-corpus/apparatus-probe.mjs)
+가 코퍼스 94문서를 시리즈로 묶어 20종을 셌다: 구성요소 **중앙값 5축 · 최다 8축**
+(NE능률 달곰한 Literacy). 우위 분모는 **최다(8)** 로 잡는다 — 중앙값이면 6축만 세워도
+1.2 가 되어 말이 헐거워진다.
+
+| | 축 | 지수 |
+|---|--:|--:|
+| 시작 | 1 (난이도 표시) | 0.125 |
+| 파이프라인 서지 뒤 | 8 | 1.000 |
+| 목차·미리보기 뒤 | **12** | **1.500** ✅ |
+
+- **[`textbook/apparatus.ts`](../packages/library-pipeline/src/textbook/apparatus.ts)** — 14축 정본 + 시중 비율.
+  우리 쪽은 정규식이 아니라 `data-apparatus` **선언**으로 센다
+  ([`apparatus-surface-probe.mjs`](../scripts/textbook/apparatus-surface-probe.mjs)) —
+  도움말에 「목차」라는 낱말이 한 번 나오는 것만으로 목차가 생기는 오탐을 막는다
+- **[`textbook/dossier.ts`](../packages/library-pipeline/src/textbook/dossier.ts)** (순수 함수) —
+  머리말(권마다 다른 산문 7편) · 구성과 특징 · 학습 계획표 · 부록 · 부가 자료 · 판권.
+  화면이 글을 지으면 권이 일곱이라 일곱 번 손으로 적게 되고 한 권만 고쳐도 여섯이 어긋난다
+- **[`contents-snapshot.mjs`](../scripts/textbook/contents-snapshot.mjs)** — 조판과 **같은 코드
+  경로**(`loadVolume`)로 7권을 실제 조합해 [`volume-contents.json`](../apps/web/src/lib/textbook/volume-contents.json)
+  로 굽는다(10단원 · 문항 60 · 지문 98~200어 · 어휘 20). 마이그레이션 없이 가는 이유는
+  `source-eligibility-snapshot.json` 과 같다 — 공개 표면이라 요청마다 수천 편을 훑을 수 없다
+- **목차 금지를 어기지 않았다** — 그 금지는 「재고로 짓지 말라」였지 「목차를 내지 말라」가
+  아니었다. 단원 제목도 짓지 않는다(네 문항이 서로 다른 글에서 오므로 대표 제목이 없다) —
+  대신 **그 단원이 읽는 원글의 실제 제목**을 적는다
+- **표지** — 책등 · 지문 리듬 · 학령 칩을 `cover.ts` 에 더했다. 매대·상세면·조판기가 같은
+  함수를 쓰므로 세 곳이 함께 올라간다
+- 새 컴포넌트 [`VolumeDossier.tsx`](../apps/web/src/components/library/textbooks/VolumeDossier.tsx) ·
+  [`VolumeContents.tsx`](../apps/web/src/components/library/textbooks/VolumeContents.tsx)
+
+**여전히 안 내는 것**: 전문 해석 · 직독직해(재고에 그 열이 없다 — `answer_key` 키 실측) ·
+복습(복습 문항이 실제로 없다). 초등 저학년은 화면이 그릴 수 있는 문항이 없어 미리보기 절을
+통째로 빼고 **이유를 적는다**.
+
+**세 번 샜고 셋 다 회귀로 잠갔다** — ① `countPassageWords` 에 문항 객체를 넘겨 전 단원 지문이
+**2어**로 적혔다 ② `unit_vocab` 선택지가 객체라 화면에 **[object Object]** 가 다섯 줄 찍혔다
+③ JSDoc 안에 정규식을 그대로 적어 **블록 주석이 조기에 닫혀** 파일 전체가 구문 오류가 됐다.
+회귀 21종(서지 11 + 스냅샷 10) · 학습자 교재 테스트 118 통과 · axe WCAG2 A/AA 위반 0.
+
+### dev 서버 둘이 같은 distDir 을 쓰면 한 라우트만 500 이 된다 (2026-09-06)
+
+`next dev` 두 개가 1분 간격으로 떠서 포트를 못 잡은 쪽이 같은 `.next-dev` 를 계속 썼다.
+두 컴파일러가 한 디렉터리에 청크를 쓰면 모듈 그래프가 어긋나
+`TypeError: __webpack_modules__[moduleId] is not a function` 으로 **한 라우트만** 죽는다 —
+서버는 살아 있고 다른 라우트는 멀쩡해서 코드를 의심하게 된다(라우트 캐시를 지우고 touch 해도
+안 낫는다). 기존 소유권 가드는 **빌드↔dev** 만 막았고 dev↔dev 는 뚫려 있었다.
+[`next.config.mjs`](../apps/web/next.config.mjs) 에 `assertNoRivalDevServer` 추가 —
+자식이 자기 부모를 남으로 보지 않게 `ppid` 로 가른다. 따로 띄우려면
+`NEXT_DIST_DIR=.next-dev2 PORT=3001`.
+
 ### 워커가 11일간 아무 일도 안 하면서 매번 성공을 보고했다 (2026-09-06)
 
 cron 3건을 조치하러 갔다가 **훨씬 큰 것**을 찾았다.
