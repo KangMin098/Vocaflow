@@ -980,3 +980,25 @@ mantel · hearth · locket · varnish · creak · rattle · haze.
 
 겨냥 도달 누계 **74편** (V3 64 · V2 5 · V4 5). 전체 중앙 60 에는 **182편** 필요.
 남은 **108편**을 V4(85) + V5(34) = 119 에서 뽑는다 — 약 22 사이클.
+
+## 사이클 30 — 5/5 (누계 79편)
+
+슬롯 22 · 18(서사) · 172 · 132 · 169(설명문). 출발 4.6 ~ 7.1 → 60.7 ~ 73.8.
+한 배치에 두 갈래가 섞여 있어 어휘 풀도 두 벌을 확인했다 —
+서사는 감각·사물(chime · sill · pane · padlock · grille · eaves · rivulet · gully ·
+gable · bristle · pail · trestle · tarpaulin · sodden), 설명문은 분야어
+(joist · underlay · screed · subfloor · decibel · bylaw · stile · rung · pulley ·
+alloy · splice · nectar · nectary · aphid · thorn · forage · herbivore · symbiosis).
+
+### 지렛대 ⑩ — **지나치는 것도 빗나가는 것이다**
+
+슬롯 22 는 2패스에서 **94.3** 이 나왔다. 겨냥은 ≥60 이지 최대화가 아니다.
+초6~중1 자리에 놓을 글이 시중 상위 6% 난도면 그 계단에서 다시 쓸모가 없어진다.
+밖 낱말 여덟 개를 덜어 **73.8** 로 되돌렸다.
+
+「하한 25 · 겨냥 60」만 적어 두었더니 상한을 안 적은 것이 드러났다.
+실무 창은 **60 ~ 80** 으로 잡는다 — 그 위는 되돌린다.
+
+### 남은 몫
+
+겨냥 도달 누계 **79편** (V3 64 · V2 5 · V4 10). 필요 182 — **103편, 약 21 사이클**.
