@@ -16,15 +16,16 @@
 // 충분히 갈린다.
 
 import { test, expect } from '@playwright/test'
-import { loginAsTestUser } from './utils/auth'
+import { TEST_USER_STATE, ensureAuthState } from './utils/auth'
 
 /** 그물 줄의 이름표 — 카드(파생어·비슷한 말·반대말)와 툴팁(파생·비슷·반대)이 다르다. */
 const CARD_LABELS = /파생어|비슷한 말|반대말/
 
 test.describe('낱말 그물 — 사전에 있던 것이 학습자 화면에 뜨는가', () => {
-  test.beforeEach(async ({ page }) => {
-    await loginAsTestUser(page)
-  })
+  test.beforeAll(async ({ browser }) => {
+    await ensureAuthState(browser, TEST_USER_STATE)
+  });
+  test.use({ storageState: TEST_USER_STATE });
 
   test('플래시카드 정답면에 파생어·유의어·반의어가 뜬다', async ({ page }) => {
     await page.goto('/flashcard')

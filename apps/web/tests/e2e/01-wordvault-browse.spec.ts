@@ -2,13 +2,14 @@
 // WordVault Browse 회귀 — shared_dictionary 데이터 표시 + CEFR 필터
 // seed: A1=2 / A2=3 / B1=1 / B2=2 (test-user.ts TEST_CEFR_DISTRIBUTION 참조)
 import { test, expect } from '@playwright/test';
-import { loginAsTestUser } from './utils/auth';
+import { TEST_USER_STATE, ensureAuthState } from './utils/auth';
 import { TEST_CEFR_DISTRIBUTION, TEST_SEED_WORDS } from './fixtures/test-user';
 
 test.describe('WordVault Browse 회귀', () => {
-  test.beforeEach(async ({ page }) => {
-    await loginAsTestUser(page);
+  test.beforeAll(async ({ browser }) => {
+    await ensureAuthState(browser, TEST_USER_STATE)
   });
+  test.use({ storageState: TEST_USER_STATE });
 
   test('Browse 페이지가 seed 8개 이상 단어 리스트를 보여준다', async ({ page }) => {
     await page.goto('/wordvault/browse');

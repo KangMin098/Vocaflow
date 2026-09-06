@@ -18,7 +18,7 @@
 
 import { expect, test } from '@playwright/test';
 
-import { loginAsTestUser } from './utils/auth';
+import { TEST_USER_STATE, ensureAuthState } from './utils/auth';
 
 /**
  * 이 섹션을 어떻게 찾는가 — **처방 문장으로 찾는다.**
@@ -34,8 +34,12 @@ import { loginAsTestUser } from './utils/auth';
 const SECTION = 'section:has([data-testid="facet-prescription"])';
 
 test.describe('WordVault 면 상태 (실데이터)', () => {
+  test.beforeAll(async ({ browser }) => {
+    await ensureAuthState(browser, TEST_USER_STATE)
+  })
+  test.use({ storageState: TEST_USER_STATE })
+
   test('A. 섹션이 렌더되고 처방은 한 면만 말한다', async ({ page }) => {
-    await loginAsTestUser(page);
     await page.goto('/wordvault');
 
     const section = page.locator(SECTION);
@@ -68,7 +72,6 @@ test.describe('WordVault 면 상태 (실데이터)', () => {
   });
 
   test('B. 펼치면 6면 내역이 나오고 목업 수치가 아니다', async ({ page }) => {
-    await loginAsTestUser(page);
     await page.goto('/wordvault');
 
     const section = page.locator(SECTION);
@@ -94,7 +97,6 @@ test.describe('WordVault 면 상태 (실데이터)', () => {
   });
 
   test('C. 처방 CTA 는 그 면을 실제로 기록하는 활동으로 간다', async ({ page }) => {
-    await loginAsTestUser(page);
     await page.goto('/wordvault');
 
     const section = page.locator(SECTION);

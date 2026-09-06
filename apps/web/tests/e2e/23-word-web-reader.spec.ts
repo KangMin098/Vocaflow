@@ -17,7 +17,7 @@
 //   (`ChapterContent.handleClick` 이 `closest('[data-word]')` 로 읽는다) 스타일과 무관하다.
 
 import { test, expect } from '@playwright/test'
-import { loginAsTestUser } from './utils/auth'
+import { TEST_USER_STATE, ensureAuthState } from './utils/auth'
 import { serviceClient } from './utils/db'
 
 /** 장이 많아 본문이 확실히 있는 발행 도서. */
@@ -27,11 +27,15 @@ const BOOK_ID = 'dfa8b6a3-59f1-46ea-b268-dd8ab1ec1cf0' // Clarissa
 const TOOLTIP_LABELS = /파생|비슷|반대/
 
 test.describe('낱말 그물 — 읽기 중 낱말 조회 창', () => {
+  test.beforeAll(async ({ browser }) => {
+    await ensureAuthState(browser, TEST_USER_STATE)
+  })
+  test.use({ storageState: TEST_USER_STATE })
+
   test('본문에서 낱말을 누르면 파생어·유의어·반의어가 뜬다', async ({ page }) => {
     const db = serviceClient()
     test.skip(!db, 'SERVICE_ROLE_KEY 가 없다 — 낱말을 고를 수 없어 건너뛴다')
 
-    await loginAsTestUser(page)
     await page.goto(`/library/books/${BOOK_ID}`, { waitUntil: 'domcontentloaded' })
     await page.waitForLoadState('networkidle')
 

@@ -196,11 +196,7 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
   })
   test.use({ storageState: STATE_PATH, ...VIEWPORT })
 
-  test('모든 학습자 화면이 열리고 · 조용하고 · 앞길이 있고 · 되돌아온다', async ({
-    page,
-    context,
-    baseURL,
-  }) => {
+  test('모든 학습자 화면이 열리고 · 조용하고 · 앞길이 있고 · 되돌아온다', async ({ context, baseURL }) => {
     const routes = learnerRoutes()
     expect(routes.length, '라우트를 하나도 못 찾았다 — 목록 추출이 깨졌다').toBeGreaterThan(20)
 
@@ -225,13 +221,34 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
     //
     //    아래 예열은 **dev 서버에서 돌릴 때의 차선책**으로 남긴다 — 한 번 훑어 컴파일을
     //    끝내 놓고 두 번째 방문부터 잰다. 예열 결과는 버린다(재지 않은 것을 성적에 넣지 않는다).
-    //    프로덕션 빌드에서는 이 예열이 있어도 해가 없다(빠르게 지나간다).
+    //    ⚠️ 2026-09-06 정정 — "프로덕션 빌드에서는 해가 없다(빠르게 지나간다)" 고 적혀 있었는데
+    //    **반증됐다.** Supabase 가 느려진 구간에서 이 예열이 라우트당 13초씩 먹으며
+    //    테스트 예산 900초를 **예열만으로 전부 소진**했고, 실패 지점이 232행(예열)으로 찍혔다.
+    //    측정은 한 줄도 못 했는데 성적표에는 "전수 훑기 실패" 로 남는다 — 계측기가 거짓말한다.
+    //
+    //    그래서 예열에 **자기 예산**을 준다. 예산을 넘기면 남은 라우트는 예열하지 않고 넘어간다
+    //    (예열은 편의이지 검사가 아니다 — 없어도 본 측정은 돈다). 얼마나 예열했는지는 찍는다.
+    const WARM_BUDGET_MS = 120_000
+    const warmStart = Date.now()
     const warm = await context.newPage()
+    let warmed = 0
     for (const route of routes) {
-      await warm.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {})
+      if (Date.now() - warmStart > WARM_BUDGET_MS) break
+      await warm.goto(route, { waitUntil: 'domcontentloaded', timeout: 10_000 }).catch(() => {})
       await warm.waitForTimeout(150)
+      warmed += 1
     }
     await warm.close()
+    console.log(
+      '[예열] ' +
+        warmed +
+        '/' +
+        routes.length +
+        ' 라우트 · ' +
+        ((Date.now() - warmStart) / 1000).toFixed(1) +
+        's' +
+        (warmed < routes.length ? ' — 예산 초과로 중단(측정은 그대로 진행)' : ''),
+    )
 
     const results: RouteResult[] = []
 

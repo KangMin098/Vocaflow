@@ -2,12 +2,53 @@
 import { Page } from '@playwright/test';
 import { TEST_USER } from '../fixtures/test-user';
 
-export async function loginAsTestUser(page: Page) {
+/**
+ * 스펙들이 **함께 쓰는** 로그인 상태 파일.
+ *
+ * 스펙마다 다른 경로를 쓰면 전체 실행의 로그인 횟수가 스펙 수만큼 늘고, 그 횟수가
+ * GoTrue 를 멈추게 하는 바로 그 압력이다(실측 2026-09-06: 연속 로그인 뒤
+ * `POST /auth/v1/token` 이 25초 무응답). 한 벌을 공유하면 전체 실행에서 **로그인 1회**다.
+ */
+export const TEST_USER_STATE = 'playwright-auth/.auth-test-user.json';
+
+/**
+ * 한 번의 로그인 시도. 성공하면 목적지 URL 에 도달한 상태로 돌아온다.
+ */
+async function attemptLogin(page: Page, user: { email: string; password: string }) {
   await page.goto('/login');
-  await page.fill('input[type="email"]', TEST_USER.email);
-  await page.fill('input[type="password"]', TEST_USER.password);
+  await page.fill('input[type="email"]', user.email);
+  await page.fill('input[type="password"]', user.password);
   await page.click('button[type="submit"]');
   await page.waitForURL(/\/(hub|wordvault|workspace|main)/, { timeout: 15_000 });
+}
+
+/**
+ * 테스트 계정 로그인 — **한 번 실패했다고 스펙을 죽이지 않는다.**
+ *
+ * 왜 재시도가 필요한가 (실측 2026-09-06):
+ * Supabase GoTrue 의 `POST /auth/v1/token?grant_type=password` 가 **응답을 주지 않고
+ * 멈추는** 구간이 있다. 오류가 아니라 무응답이라 화면은 "로그인 중..." 버튼이 disabled 인
+ * 채로 남고, `waitForURL` 이 15초에 타임아웃한다. 같은 시각 `curl` 로 직접 쳐도 25초 동안
+ * **0 바이트**였고 `/auth/v1/health` 는 401 로 즉답했다 — 연결·DNS·TLS 가 아니라
+ * 그 엔드포인트 하나다. 이때 스펙은 **엉뚱한 증상**으로 죽는다(테스트 본문은 시작도 못 한다).
+ *
+ * ⚠️ 그래서 백오프를 길게 잡는다. 이 멈춤이 한도 때문이라면 즉시 재시도는 한도를 더 밀어
+ *    올릴 뿐이다 — 5초, 15초를 쉬고 두 번만 더 해 본다. 그래도 안 되면 **감춘 채 통과시키지
+ *    않고** 마지막 오류를 그대로 던진다.
+ */
+export async function loginAsTestUser(page: Page) {
+  const backoffMs = [0, 5_000, 15_000];
+  let lastError: unknown;
+  for (const wait of backoffMs) {
+    if (wait) await page.waitForTimeout(wait);
+    try {
+      await attemptLogin(page, TEST_USER);
+      return;
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw lastError;
 }
 
 export async function logout(page: Page) {

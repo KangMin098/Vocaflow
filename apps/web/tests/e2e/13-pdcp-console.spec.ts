@@ -13,7 +13,7 @@
 
 import { test, expect } from '@playwright/test'
 
-import { loginAsTestUser } from './utils/auth'
+import { TEST_USER_STATE, ensureAuthState } from './utils/auth'
 
 /** 관리자 게이트 뒤에 있어야 하는 전 라우트. */
 const GUARDED = [
@@ -38,6 +38,11 @@ async function bypassOn(request: { get: (u: string) => Promise<{ status: () => n
 }
 
 test.describe('PDCP 콘솔 — 관리자 게이트', () => {
+  test.beforeAll(async ({ browser }) => {
+    await ensureAuthState(browser, TEST_USER_STATE)
+  })
+  test.use({ storageState: TEST_USER_STATE })
+
   test.beforeEach(async ({ request }) => {
     test.skip(await bypassOn(request), 'DEV_ADMIN_BYPASS 활성 — 게이트 검증 불가')
   })
@@ -53,7 +58,6 @@ test.describe('PDCP 콘솔 — 관리자 게이트', () => {
   })
 
   test('일반 학습자 세션으로도 전 라우트가 막힌다', async ({ page }) => {
-    await loginAsTestUser(page)
     // page.request 여야 로그인 쿠키가 실린다. 최상위 request 픽스처는 쿠키를 공유하지 않아
     // 언제나 미인증 401 이 나오고, 그러면 "학습자가 막힌다"를 검증하지 못한다.
     for (const r of GUARDED) {
@@ -66,7 +70,6 @@ test.describe('PDCP 콘솔 — 관리자 게이트', () => {
   })
 
   test('관리자 화면도 학습자에게는 열리지 않는다', async ({ page }) => {
-    await loginAsTestUser(page)
     await page.goto('/admin/pd-comics')
     expect(page.url()).not.toContain('/admin/pd-comics')
   })
