@@ -165,7 +165,7 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
             step: '⑥',
             Icon: MessageSquareText,
             pendingNote:
-              '전용 화면은 아직 없다 — 해설 보유율은 현황판 ⑥ 눈금에서 본다(2026-09-06 부터 집계표로 실측). 유형·수준별 분포까지 보려면 화면이 필요하다',
+              '전용 화면을 **안 만든다** — 답이 이미 두 곳에 있다. 전체 보유율은 현황판 ⑥ 눈금, 어느 권이 해설 때문에 막혔는지는 카탈로그의 「해설 모자람」 칸이다. 화면을 더 만들면 같은 값을 세 곳에서 세게 된다',
           },
           { href: '/admin/csat/review', label: '검수', step: '⑦', Icon: ClipboardCheck },
           { href: '/admin/csat/press', label: '조판·발행', step: '⑧', Icon: Printer, group: '무엇이 나왔나' },
