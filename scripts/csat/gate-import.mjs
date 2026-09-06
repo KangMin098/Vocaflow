@@ -29,6 +29,16 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
   if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
 }
 const COMMIT = process.argv.includes('--commit')
+// ⚠️ **판 올림 뒤 재판정은 앞쪽이 전부 수렴해 있다.** 그런데도 매 회차가 처음부터 훑어
+//   이미 끝난 5만 행을 페이지로 다시 넘긴다 — 회차당 6,000편이 220편으로 떨어졌다.
+//   `--from` 으로 아직 안 된 첫 id 부터 시작하면 그 낭비가 사라진다.
+//   (기본값은 처음부터 — 평소 실행의 재실행 안전은 그대로다.)
+const fromArg = process.argv.indexOf('--from')
+const FROM = fromArg > 0 ? process.argv[fromArg + 1] : ''
+// ⚠️ **판을 올린 뒤의 재판정은 남은 행이 id 전체에 흩어져 있다.** `--from` 으로는 못 줄인다.
+//   `--stale` 은 아직 지금 판이 아닌 행만 질의한다 — 9만 행을 훑으며 수렴한 것을 건너뛰는 대신,
+//   애초에 안 받는다. 회차당 486편이 남은 것 전부가 된다.
+const STALE = process.argv.includes('--stale')
 const DRAIN = path.resolve('scripts/csat/gate-drain')
 
 // ── 책 판정 읽기 ────────────────────────────────────────────────────
@@ -112,7 +122,7 @@ const byVerdict = {}
 const byCode = {}
 const NOW = new Date().toISOString()
 
-let cursor = '00000000-0000-0000-0000-000000000000'
+let cursor = FROM || '00000000-0000-0000-0000-000000000000'
 for (;;) {
   const { data } = await retry(
     () =>
@@ -127,6 +137,7 @@ for (;;) {
         //   본문은 **규칙을 걸 행에만** 따로 받는다.
         .select('id,title,status,status_message,feed_id,source,csat_fit')
         .gt('id', cursor)
+        .or(STALE ? `csat_fit->gate->>rv.is.null,csat_fit->gate->>rv.neq.${RULES_VERSION}` : 'id.gte.00000000-0000-0000-0000-000000000000')
         .order('id')
         .limit(300),
     '조회',
@@ -147,7 +158,7 @@ for (;;) {
     return !stuckArchived && !stuckLive
   }
   // 저장된 codes 가 지금 판이면 본문이 필요 없다 — 판정 논리만 바뀐 재판정이 그렇다.
-  // ⚠️ v2 기록에는  가 없다. 그 기록들은 지금의 HARD_RULES 로 쓰인 것이므로 판 1로 인정한다
+  // ⚠️ v2 기록에는 cv 가 없다. 그 기록들은 지금의 HARD_RULES 로 쓰인 것이므로 판 1로 인정한다
   //   — 안 그러면 첫 재판정에서 9만 편의 본문을 다시 받고, 이 최적화가 아무 일도 못 한다.
   const codesVersionOf = (r) => r.csat_fit?.gate?.cv ?? (r.csat_fit?.gate?.v === 2 ? 1 : null)
   const needBody = data
