@@ -15,7 +15,8 @@
     "./textbook-kid-source": "./src/textbook/kid-source.ts",
     "./textbook-series": "./src/textbook/series.ts",
     "./textbook-brand": "./src/textbook/brand.ts",
-    "./textbook-evaluation": "./src/textbook/evaluation.ts"
+    "./textbook-evaluation": "./src/textbook/evaluation.ts",
+    "./textbook-series-catalog": "./src/textbook/series-catalog.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
