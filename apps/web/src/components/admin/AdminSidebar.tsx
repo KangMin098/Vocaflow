@@ -55,6 +55,16 @@ interface NavItem {
    */
   children?: NavItem[]
   /**
+   * 공정 번호 — **라벨이 아니라 색인**이다.
+   *
+   * 「⓪ 카탈로그」처럼 글자로 달면 번호가 이름과 같은 무게로 읽혀, 눈에 먼저 들어오는 것이
+   * 동그라미 숫자 아홉 개가 된다. 그렇다고 지울 수도 없다 — 현황판 도식과 도움말이
+   * 「공정 ②」로 부르므로 지우면 화면끼리 말이 갈린다. 그래서 떼어서 작게 둔다.
+   *
+   * 공정이 아닌 화면(카탈로그·원문 적격)은 번호를 **안 갖는다** — 안 가진 것이 사실이다.
+   */
+  step?: string
+  /**
    * 하위 항목을 다시 묶는 머리글 — 값이 바뀌는 지점에 작은 구분선이 들어간다.
    *
    * 공정이 여덟이면 하위를 한 줄로 늘어놓아도 **어디서 성격이 바뀌는지** 안 보인다.
@@ -137,27 +147,28 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
           // 관리자가 규격을 고쳐야 할 때 재고 화면을 뒤진다.
           // 카탈로그가 맨 위다 — 「뭘 만드나」에 답하는 유일한 화면이고, 나머지는 전부
           // "그것을 어떻게/무엇으로" 다. 순서가 곧 관리자가 묻는 순서여야 한다.
-          { href: '/admin/csat/catalog', label: '⓪ 카탈로그', Icon: LayoutGrid, group: '뭘 만드나' },
-          { href: '/admin/csat/evidence', label: '① 기출 원천', Icon: Scale, group: '무엇으로 만드나' },
-          { href: '/admin/csat/strategy', label: '② 기획', Icon: Target },
-          { href: '/admin/csat/blueprint', label: '③ 설계', Icon: Grid3x3 },
-          { href: '/admin/csat/sourcing', label: '④ 소재', Icon: FileText, group: '어떻게 만드나' },
+          { href: '/admin/csat/catalog', label: '카탈로그', Icon: LayoutGrid, group: '뭘 만드나' },
+          { href: '/admin/csat/evidence', label: '기출 원천', step: '①', Icon: Scale, group: '무엇으로 만드나' },
+          { href: '/admin/csat/strategy', label: '기획', step: '②', Icon: Target },
+          { href: '/admin/csat/blueprint', label: '설계', step: '③', Icon: Grid3x3 },
+          { href: '/admin/csat/sourcing', label: '소재', step: '④', Icon: FileText, group: '어떻게 만드나' },
           // 「원문 적격」 — TBP 메뉴에 있던 것을 ④ 소재 옆으로 옮겼다(2026-09-06). 재고가 아니라
           // **자격**을 본다: 재고가 있어도 판정을 통과 못 하면 못 싣는다. 손자 항목으로 넣으면
           // 렌더러가 한 단계만 펴므로 **조용히 사라진다** — 그래서 형제로 둔다.
           // ⚠️ 라우트는 아직 `/admin/textbook/sources` 다. 다른 세션이 오늘 만든 화면이라
           //   경로 이동은 따로 한다 — 메뉴에서의 자리부터 바로잡는다.
-          { href: '/admin/textbook/sources', label: '④-1 원문 적격', Icon: BookMarked },
-          { href: '/admin/csat/authoring', label: '⑤ 집필', Icon: PenLine },
+          { href: '/admin/textbook/sources', label: '원문 적격', Icon: BookMarked },
+          { href: '/admin/csat/authoring', label: '집필', step: '⑤', Icon: PenLine },
           {
             href: '/admin/csat',
-            label: '⑥ 해설',
+            label: '해설',
+            step: '⑥',
             Icon: MessageSquareText,
             pendingNote:
               '전용 화면은 아직 없다 — 해설 보유율은 현황판 ⑥ 눈금에서 본다(2026-09-06 부터 집계표로 실측). 유형·수준별 분포까지 보려면 화면이 필요하다',
           },
-          { href: '/admin/csat/review', label: '⑦ 검수', Icon: ClipboardCheck },
-          { href: '/admin/csat/press', label: '⑧ 조판·발행', Icon: Printer, group: '무엇이 나왔나' },
+          { href: '/admin/csat/review', label: '검수', step: '⑦', Icon: ClipboardCheck },
+          { href: '/admin/csat/press', label: '조판·발행', step: '⑧', Icon: Printer, group: '무엇이 나왔나' },
         ],
       },
       { href: '/admin/pending-words', label: 'Pending Words', Icon: Database },
@@ -344,6 +355,14 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                                   <span className="shrink-0 rounded bg-[var(--bg2)] px-1 py-0.5 font-body text-[9.5px]">
                                     준비 중
                                   </span>
+                                  {child.step ? (
+                                    <span
+                                      aria-hidden
+                                      className="shrink-0 font-mono text-[10px] tabular-nums text-[var(--t3)]"
+                                    >
+                                      {child.step}
+                                    </span>
+                                  ) : null}
                                 </span>
                               ) : (
                                 <Link
@@ -362,6 +381,16 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                                     className={childActive ? 'text-[#8B5CF6]' : 'text-[var(--t3)]'}
                                   />
                                   <span className="flex-1 truncate">{child.label}</span>
+                                  {child.step ? (
+                                    // 번호는 **오른쪽 끝에 작게** — 이름을 먼저 읽고,
+                                    // 순서가 궁금할 때만 눈에 들어온다.
+                                    <span
+                                      aria-hidden
+                                      className="shrink-0 font-mono text-[10px] tabular-nums text-[var(--t3)]"
+                                    >
+                                      {child.step}
+                                    </span>
+                                  ) : null}
                                 </Link>
                               )}
                             </li>
