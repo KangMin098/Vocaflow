@@ -47,11 +47,19 @@ const id = arg('id'), title = arg('title')
  * 52편 있었다(2026-08-21 실측). 그런 글이 단원에 들어가면 그 단원만 어휘가 비고,
  * 권 검수의 "단원마다 어휘가 고르다" 가 떨어진다 — **원인이 조판이 아니라 재료에 있다.**
  *
- * ⚠️ 세는 법: `library_article_vocabularies` 를 **5개씩** 나눠 묻는다. 한 번에 크게 물으면
- *   PostgREST 행 상한에 걸려 뒤쪽 글이 전부 "어휘 0" 으로 보인다(200개씩 물었다가 실제로
- *   253/257 이 비었다는 거짓 결과를 얻었다).
+ * ⚠️ 세는 법은 아래 ②를 볼 것 — **행을 받아 세지 않는다.** 몇 개씩 묶든 PostgREST 행 상한에
+ *   걸리고, 잘린 글은 전부 "어휘 0" 으로 보인다. 5개씩 물어도 그랬다(9,936편이라 답했으나
+ *   실제는 87편).
  */
 const missingVocab = process.argv.includes('--missing-vocab')
+/**
+ * `--since <ISO>` — **그 뒤에 들어온 글만 본다.**
+ *
+ * 전수 확인은 글 하나에 요청 하나라 21,761편이면 요청도 2만 번이다(느리지만 답이 맞다).
+ * 그런데 이 명령을 쓰는 거의 모든 경우는 **방금 넣은 글에 어휘를 붙이는 것**이다 —
+ * 집필 드레인 뒤 후속 단계가 그것이다. 그 경우까지 전수를 훑을 이유가 없다.
+ */
+const since = arg('since')
 if (!id && !title && !missingVocab) {
   console.error('--id · --title · --missing-vocab 중 하나가 필요하다.')
   process.exit(2)
@@ -111,19 +119,48 @@ async function fullRows(ids) {
 let list
 if (missingVocab) {
   // ① 후보 id 만 (좁다)
-  const candidates = await idsOf((p) => p.in('status', ['ready', 'published']))
-  console.log(`후보 ${candidates.length.toLocaleString()}편 — 어휘 유무를 확인한다`)
-  // ② 어휘가 있는 것을 걷어낸다 (아래 §어휘 조회 참조)
+  const candidates = await idsOf((p) => {
+    const base = p.in('status', ['ready', 'published'])
+    return since ? base.gte('created_at', since) : base
+  })
+  console.log(
+    `후보 ${candidates.length.toLocaleString()}편 — 어휘 유무를 확인한다` +
+      (since ? ` (${since} 이후)` : ' (전수 — 글 하나에 요청 하나다. --since 로 좁힐 수 있다)'),
+  )
+  // ② 어휘가 있는 것을 걷어낸다.
+  //
+  // ⚠️ **행을 받아서 세면 안 된다** (실측 2026-09-06). 예전에는 5개씩 묶어
+  //   `.select('library_article_id').in(…).limit(20000)` 으로 물었는데, PostgREST 는
+  //   응답을 1,000행에서 자른다. 글 하나에 어휘가 200행 넘는 것이 흔해 다섯 개만 물어도
+  //   상한에 닿고, **잘려 나간 글이 전부 "어휘 0" 으로 보인다.**
+  //   그 결과 어휘 없는 글이 **9,936편**이라고 나왔다 — 실제는 **87편**이다(SQL 대조).
+  //   그대로 `--commit` 했으면 멀쩡한 9,849편을 재분석해, 이미 I/O 가 마른 DB 를
+  //   한 번 더 무너뜨렸을 것이다(같은 날 08:06 장애의 원인이 바로 과다 읽기였다).
+  //
+  // 그래서 **행을 세지 않고 존재만 묻는다**: 한 번에 하나씩 받아 그 글을 목록에서 빼고
+  // 다음을 묻는다. 요청 하나가 인덱스 탐색 하나이고, 상한에 걸릴 여지가 없다.
+  // 비용은 "어휘가 있는 글 수" 에 비례한다 — 느리지만 **답이 맞다.**
   const have = new Set()
-  for (let i = 0; i < candidates.length; i += 5) {
-    const { data: v, error: ve } = await db
-      .from('library_article_vocabularies')
-      .select('library_article_id')
-      .in('library_article_id', candidates.slice(i, i + 5))
-      .limit(20000)
-    if (ve) throw new Error('어휘 조회 실패: ' + (ve.message || '(빈 message)'))
-    for (const r of v ?? []) have.add(r.library_article_id)
+  // ⚠️ 묶음을 크게 하면 URL 이 길어져 fetch 자체가 실패한다(500개 = 약 19KB → TypeError: fetch failed).
+  const CHUNK = 40
+  for (let i = 0; i < candidates.length; i += CHUNK) {
+    const remaining = new Set(candidates.slice(i, i + CHUNK))
+    for (;;) {
+      const { data: v, error: ve } = await db
+        .from('library_article_vocabularies')
+        .select('library_article_id')
+        .in('library_article_id', [...remaining])
+        .order('library_article_id')
+        .limit(1)
+      if (ve) throw new Error('어휘 조회 실패: ' + (ve.message || '(빈 message)'))
+      if (!v?.length) break
+      have.add(v[0].library_article_id)
+      remaining.delete(v[0].library_article_id)
+      if (!remaining.size) break
+    }
+    if (i % (CHUNK * 4) === 0) process.stdout.write(`\r  어휘 확인 ${Math.min(i + CHUNK, candidates.length)}/${candidates.length}`)
   }
+  process.stdout.write('\r')
   const missing = candidates.filter((x) => !have.has(x))
   console.log(`어휘 없는 글만 남긴다 — ${candidates.length} → ${missing.length}`)
   // ③ 살아남은 것만 본문을 받는다
