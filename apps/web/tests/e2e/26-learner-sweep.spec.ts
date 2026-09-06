@@ -39,6 +39,7 @@ import {
 import { contentScopes } from './utils/content-scope'
 import { crashKindOf } from './utils/crash-screen'
 import { describeNetFailure, watchNetwork } from './utils/net-watch'
+import { SessionGuard } from './utils/session-guard'
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -250,6 +251,12 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
         (warmed < routes.length ? ' — 예산 초과로 중단(측정은 그대로 진행)' : ''),
     )
 
+
+    // 실행 도중 세션이 죽으면(공유 계정을 다른 실행이 회전시킨다) 남은 라우트가 전부
+    // "로그인으로 튕겼다" 로 찍혀 성적표가 뜻을 잃는다 — 실측: 같은 빌드로 100% → 86.1% → 50.9%.
+    // 한 번은 되살리고 다시 연다(예산 3회). 감추지 않는다 — 몇 번 되살렸는지 찍는다.
+    const guard = new SessionGuard(context, login)
+
     const results: RouteResult[] = []
 
     for (const route of routes) {
@@ -284,7 +291,9 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
       const net = watchNetwork(page, new URL(baseURL ?? 'http://localhost:3000').origin)
 
       try {
-        r.landed = await gotoSettled(page, route)
+        const settle = await guard.openWithRetry(async () => await gotoSettled(page, route))
+        r.landed = settle.landed
+        if (settle.recovered) r.note = '세션이 끊겨 다시 로그인했다'
 
         // 서버가 죽으면 그 아래 검사는 전부 무의미하다 — **측정을 중단**한다.
         // 결과를 적어 두고 넘어가면 "실패 42건" 이라는 거짓 성적표가 남는다.
@@ -473,6 +482,11 @@ test.describe('제3의 학습자 — 전수 훑기', () => {
     const rate = Math.round((passed / checks) * 1000) / 10
 
     // eslint-disable-next-line no-console
+    if (guard.reauths > 0) {
+      console.log(
+        `[sweep] 실행 중 세션이 끊겨 다시 로그인 ${guard.reauths}회 — 공유 계정이 회전당했다`,
+      )
+    }
     console.log(
       `\n[sweep] 라우트 ${results.length} · 잰 검사 ${checks} · 통과 ${passed} → ${rate}%` +
         ` (복귀 검사 제외 ${skipped}곳)`,

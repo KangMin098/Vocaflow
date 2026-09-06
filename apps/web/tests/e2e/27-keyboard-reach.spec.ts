@@ -28,6 +28,7 @@ import { test, expect, type Page } from '@playwright/test'
 import { focusProbe } from './utils/content-scope'
 import { isFullScreenRoute } from '../../src/lib/layout/full-screen-routes'
 import { learnerRoutes, redirectOnlyRoutes } from './utils/learner-routes'
+import { SessionGuard } from './utils/session-guard'
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -137,6 +138,10 @@ test.describe('제3의 학습자 — 키보드만으로', () => {
     const redirectOnly = redirectOnlyRoutes()
     // 보내기만 하는 껍데기는 목적지에서 재진다 — 여기서 재면 목적지를 두 번 센다.
     const routes = learnerRoutes().filter((r) => !redirectOnly.has(r))
+
+    // 실행 도중 세션이 죽으면(공유 계정을 다른 실행이 회전시킨다) 남은 라우트가 전부
+    // "로그인으로 튕겼다" 로 찍혀 성적표가 뜻을 잃는다. 한 번은 되살리고 다시 연다.
+    const guard = new SessionGuard(context, login)
     expect(routes.length, '라우트를 하나도 못 찾았다 — 목록 추출이 깨졌다').toBeGreaterThan(20)
 
     // 예열 — dev 서버는 라우트마다 첫 방문에 컴파일한다. 그 지연을 "못 닿았다" 로
@@ -166,8 +171,13 @@ test.describe('제3의 학습자 — 키보드만으로', () => {
       //    포커스는 `goto` + blur 로 초기화되므로 탭을 새로 열 이유가 없다.
       const p = page
       {
-        await p.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {})
-        await p.waitForTimeout(1_200)
+        const openOnce = async () => {
+          await p.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {})
+          await p.waitForTimeout(1_200)
+          return p.url()
+        }
+        const opened = await guard.openWithRetry(openOnce)
+        if (opened.recovered) r.note = '세션이 끊겨 다시 로그인했다'
 
         const body = ((await p.locator('body').innerText().catch(() => '')) || '').trim()
         const landed = new URL(p.url()).pathname
@@ -288,6 +298,10 @@ test.describe('제3의 학습자 — 키보드만으로', () => {
     let measured = 0
     let passed = 0
     const skipped: string[] = []
+    if (guard.reauths > 0) {
+      console.log(`[키보드] 실행 중 세션이 끊겨 다시 로그인 ${guard.reauths}회 — 공유 계정이 회전당했다`)
+    }
+
     for (const r of results) {
       if (!r.opens) {
         skipped.push(r.route)

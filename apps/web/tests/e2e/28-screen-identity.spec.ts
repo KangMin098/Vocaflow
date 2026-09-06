@@ -27,6 +27,7 @@ import { test, expect, type Page } from '@playwright/test'
 import { identityProbe } from './utils/content-scope'
 import { isFullScreenRoute } from '../../src/lib/layout/full-screen-routes'
 import { learnerRoutes, redirectOnlyRoutes } from './utils/learner-routes'
+import { SessionGuard } from './utils/session-guard'
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -83,11 +84,19 @@ test.describe('제3의 학습자 — 이 화면은 무엇인가', () => {
   })
   test.use({ storageState: STATE_PATH, ...VIEWPORT })
 
-  test('모든 학습자 화면이 이름을 갖고 · 그 이름이 구별되고 · 주제가 하나다', async ({ page }) => {
+  test('모든 학습자 화면이 이름을 갖고 · 그 이름이 구별되고 · 주제가 하나다', async ({
+    page,
+    context,
+  }) => {
     const redirectOnly = redirectOnlyRoutes()
     // 보내기만 하는 껍데기는 목적지에서 재진다.
     const routes = learnerRoutes().filter((r) => !redirectOnly.has(r))
     expect(routes.length, '라우트를 하나도 못 찾았다 — 목록 추출이 깨졌다').toBeGreaterThan(20)
+
+    // 실행 도중 세션이 죽으면(공유 계정을 다른 실행이 회전시킨다) 남은 라우트가 전부
+    // "로그인으로 튕겼다" 로 찍혀 성적표가 뜻을 잃는다 — 실측: 같은 빌드로 100% → 99.6%.
+    // 한 번은 되살리고 다시 연다(예산 3회). 감추지 않는다 — 몇 번 되살렸는지 찍는다.
+    const guard = new SessionGuard(context, login)
 
     const results: RouteResult[] = []
 
@@ -104,7 +113,11 @@ test.describe('제3의 학습자 — 이 화면은 무엇인가', () => {
         note: '',
       }
 
-      await page.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {})
+      const settle = await guard.openWithRetry(async () => {
+        await page.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {})
+        return page.url()
+      })
+      if (settle.recovered) r.note = '세션이 끊겨 다시 로그인했다'
       await page.waitForTimeout(1_000)
 
       const landed = new URL(page.url()).pathname
@@ -169,6 +182,9 @@ test.describe('제3의 학습자 — 이 화면은 무엇인가', () => {
     const skipped = results.filter((r) => !r.opens).map((r) => r.route)
 
     /* eslint-disable no-console */
+    if (guard.reauths > 0) {
+      console.log(`[정체] 실행 중 세션이 끊겨 다시 로그인 ${guard.reauths}회 — 공유 계정이 회전당했다`)
+    }
     console.log(
       `\n[정체] 라우트 ${results.length} · 잰 검사 ${measured} · 통과 ${passed} → ${rate}%` +
         (skipped.length ? ` (안 열려서 제외 ${skipped.length}곳: ${skipped.join(', ')})` : ''),

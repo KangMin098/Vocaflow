@@ -53,6 +53,7 @@
 import { test, expect, type Page } from '@playwright/test'
 import { ensureAuthState } from './utils/auth'
 import { PARAM_ROUTES, learnerRoutes, redirectOnlyRoutes } from './utils/learner-routes'
+import { SessionGuard } from './utils/session-guard'
 
 const RUNTIME_USER = {
   email: process.env.PLAYWRIGHT_RUNTIME_EMAIL || 'runtime-test-0705@vocaflow.dev',
@@ -134,7 +135,11 @@ test.describe('학습자 표면 — 낭비(중복 요청)', () => {
   })
   test.use({ storageState: STATE_PATH })
 
-  test('한 화면을 여는 동안 같은 데이터 요청을 두 번 보내지 않는다', async ({ page, baseURL }) => {
+  test('한 화면을 여는 동안 같은 데이터 요청을 두 번 보내지 않는다', async ({
+    page,
+    context,
+    baseURL,
+  }) => {
     const origin = (baseURL || 'http://localhost:3000').replace(/\/$/, '')
     const redirectOnly = redirectOnlyRoutes()
     const routes = learnerRoutes().filter((r) => !redirectOnly.has(r) && !PARAM_ROUTES.has(r))
@@ -174,13 +179,23 @@ test.describe('학습자 표면 — 낭비(중복 요청)', () => {
       await page.goto(r, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {})
     }
 
+    // 실행 도중 세션이 죽으면(공유 계정을 다른 실행이 회전시킨다) 보호 라우트가 전부
+    // /login 으로 튕긴다 — 이 스펙은 그때 **데이터 요청 0건 = 중복 없음** 으로 100% 를
+    // 인쇄한 전력이 있다(아래 가드 주석 참조). 한 번은 되살리고 다시 연다.
+    const guard = new SessionGuard(context, login)
+
     const results: RouteWaste[] = []
     for (const route of routes) {
       bag = []
       let opened = true
-      await page.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {
-        opened = false
+      const settle = await guard.openWithRetry(async () => {
+        bag = []
+        await page.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {
+          opened = false
+        })
+        return page.url()
       })
+      void settle
       // 클라이언트 요청이 뒤따라 나간다 — 잠잠해질 때까지 기다린다.
       await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => {})
       await page.waitForTimeout(600)
