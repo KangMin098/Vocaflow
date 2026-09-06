@@ -419,7 +419,25 @@ const routePatterns = new Set([...ROUTE_SET].map(routePattern))
 const deadLinks = []
 for (const f of allSrc) {
   const lines = read(f).split('\n')
+  // 블록 주석(`/* … */` · JSX 의 `{/* … */}`) **안쪽 줄**은 줄 첫 글자만 봐서는 못 가른다 —
+  // 여러 줄짜리 설명의 둘째 줄은 한글로 시작한다. 그래서 상태를 들고 훑는다.
+  let inBlock = false
   lines.forEach((line, i) => {
+    const wasInBlock = inBlock
+    const opens = (line.match(/\/\*/g) ?? []).length
+    const closes = (line.match(/\*\//g) ?? []).length
+    if (opens > closes) inBlock = true
+    else if (closes > opens) inBlock = false
+    if (wasInBlock) return
+    // ⚠️ **주석은 링크가 아니다** (2026-09-06 정밀도 수정).
+    //   다른 세션이 `/admin/textbook` 을 지우고 진짜 죽은 링크를 이미 고친 뒤였는데,
+    //   이 자가 **5건을 죽은 링크로 잡았다 — 전부 주석 안의 산문**이었다:
+    //   "TBP 콘솔(`/admin/textbook`)에 있던 「평가 요소 15」를 여기로 옮긴 것이다".
+    //   그건 이력 서술이고, 오히려 **지워지면 안 되는 기록**이다. 그걸 고치라고 하면
+    //   "왜 옮겼는지" 를 지우는 잘못된 수리를 부른다.
+    //   (진짜 죽은 도움말 링크는 `app/admin/__tests__/help-links.test.ts` 가 따로 잠근다.)
+    const t = line.trim()
+    if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*')) return
     for (const m of line.matchAll(HREF_RE)) {
       const key = normalizeHref(m[1])
       if (!key.startsWith('/admin')) continue
