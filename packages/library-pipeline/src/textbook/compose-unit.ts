@@ -585,9 +585,27 @@ export function composeUnits(
         // **가장 제약된 유형부터** — 남은 몫 ÷ 아직 안 쓴 글. 작은 풀이 자기 글을 먼저
         // 확보하게 한다. 몫 크기는 동점 처리로 남겨 "뒤 단원에 한 유형이 몰리지 않는다"
         // 는 원래 의도도 지킨다.
+        // ⚠️ **몫을 앞 단원이 다 써 버렸다** (실측 2026-09-06 V2).
+        //   위 순위(`남은 몫 ÷ 안 쓴 글`)는 풀이 작은 유형을 앞세우는데, 그것이 **한 단원 안에서
+        //   몇 개까지** 인지는 아무도 안 정했다. 그래서 원글 유형(`word_order` 몫 30 · 글 256편)이
+        //   매번 1등이 되어 앞 단원이 3개씩 가져갔고 **14~20단원은 0개**가 됐다:
+        //
+        //     1~13단원  word_order 1~3 · 어휘 20개
+        //     14~20단원 word_order **0** · 어휘 **5~6개**  ← 사전 유형만 남아 낱말이 1개씩
+        //
+        //   그래서 검수의 「단원마다 어휘가 고르다」가 20단원 중 7단원 미달로 떨어졌다.
+        //   재고 탓이 아니다 — V2 원글 256편의 중앙 어휘가 38개이고 225편이 20개 이상이다.
+        //
+        //   **남은 몫을 남은 단원 수로 나눠 이번 단원의 상한을 낸다.** 지어낸 상수가 아니라
+        //   몫과 단원 수에서 나오는 값이고, 마지막 단원에서는 상한이 남은 몫과 같아진다.
+        const unitsLeft = Math.max(1, wantUnits - n + 1)
+        const paceCap = (left: number) => Math.max(1, Math.ceil(left / unitsLeft))
+        const takenHere = (t: string) => picked.filter((x) => x.type === t).length
         const cands = Object.entries(byShare.quota)
           .filter(([t, left]) => (ignoreQuota || left > 0)
-            && (allowRepeatType || !picked.some((x) => x.type === t)))
+            && (allowRepeatType || !picked.some((x) => x.type === t))
+            // 몫을 무시하는 마지막 폴백에서는 페이스도 풀어 준다 — 단원을 못 채우는 것이 더 나쁘다.
+            && (ignoreQuota || takenHere(t) < paceCap(left)))
           .map(([t, left]) => [t, left, left / Math.max(1, freeRefsIn(t))] as const)
           .sort((x, y) => y[2] - x[2] || y[1] - x[1] || x[0].localeCompare(y[0]))
         for (const [t] of cands) {
