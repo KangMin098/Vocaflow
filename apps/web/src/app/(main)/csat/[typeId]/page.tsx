@@ -1,5 +1,8 @@
 // apps/web/src/app/(main)/csat/[typeId]/page.tsx
 //
+// ⚠️ 목록 그리드에 `grid-cols-1` 을 명시한다 — `grid` 만 두면 모바일에서 암시적 트랙이
+//    `auto` 라 max-content 로 부풀어 화면이 옆으로 밀린다(`/csat` 에서 실측 51px).
+//
 // 유형 하나의 분석 — 이 화면이 학습자에게 주는 것은 **절차**다.
 //
 // 순서를 이렇게 둔 이유: 학습자는 「어디를 보는가」를 먼저 알아야 절차가 실행 가능해진다.
@@ -183,7 +186,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
             ) : null}
 
             {items.length > 0 ? (
-              <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+              <ul className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {items.map((it) => (
                   <li key={it.id}>
                     <Link

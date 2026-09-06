@@ -58,7 +58,12 @@ export default async function CsatHubPage() {
         </p>
       ) : null}
 
-      <ul className="grid gap-3 sm:grid-cols-2">
+      {/* ⚠️ 모바일에 열을 명시한다 — `grid` 만 두면 암시적 트랙이 `auto` 라 **max-content 로
+          부풀어 컨테이너를 넘는다.** 실측 2026-09-06 · 390px 에서 ul 358px 인데 카드가 425px,
+          화면이 51px 옆으로 밀렸다(라이트·다크 둘 다). Tailwind 의 `grid-cols-1` 은
+          `minmax(0,1fr)` 이라 트랙이 컨테이너에 클램프된다. min-width:auto 문제가 아니다 —
+          카드의 min-content 는 106px 였다. */}
+      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {cards.map((c) => (
           <li key={c.type_id}>
             <Link
