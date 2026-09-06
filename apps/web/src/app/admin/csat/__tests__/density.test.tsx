@@ -17,7 +17,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   AUTHOR_REAL,
-  CATALOG_REAL,
+  SERIES_REAL,
   BLUEPRINT_REAL,
   MARKET_REAL,
   PRESS_REAL,
@@ -28,7 +28,7 @@ import {
 } from '@/lib/csat/__tests__/fixtures'
 
 import { BlueprintClient } from '../blueprint/BlueprintClient'
-import { CatalogClient } from '../catalog/CatalogClient'
+import { SeriesShelf } from '../catalog/SeriesShelf'
 import { AuthorClient } from '../authoring/AuthorClient'
 import { FactoryLineClient } from '../FactoryLineClient'
 import { PressClient } from '../press/PressClient'
@@ -73,7 +73,7 @@ export function measure(html: string): Density {
 }
 
 const SCREENS: { name: string; html: () => string }[] = [
-  { name: '카탈로그', html: () => renderToString(<CatalogClient {...CATALOG_REAL} />) },
+  { name: '카탈로그', html: () => renderToString(<SeriesShelf {...SERIES_REAL} />) },
   {
     name: '현황판',
     html: () => renderToString(<FactoryLineClient stages={STAGES_REAL} loadError={null} />),
@@ -97,11 +97,13 @@ const SCREENS: { name: string; html: () => string }[] = [
  *   아무것도 안 지키는 장식이 된다.
  */
 const BUDGET: Record<string, { chunks: number; chars: number }> = {
-  // 카탈로그: 새 화면 — 실측 152 · 1,052. 격자가 6유형 × 7학령 = **42칸**이고 칸마다 버튼 하나라
-  // 덩어리의 대부분이 격자다(42 × 3 = 126). 이 화면의 일이 곧 "42칸을 한눈에 보이기" 이므로
-  // 그 비용은 본질이다. 줄이려면 칸을 줄여야 하는데, 그러면 「뭘 만드나」에 답을 못 한다.
-  // 글자 1,052 중 절반이 칸 라벨(「안 냄」·「못 냄」)이다 — 색만으로 말하지 않기 위한 값이다.
-  카탈로그: { chunks: 175, chars: 1210 },
+  // 카탈로그: **축을 바꾸자 절반이 됐다**(2026-09-06). 153 · 1,052 → 101 · 619.
+  //   (유형 × 학령) 42칸 중 14칸이 영영 회색이었고(기출·내신·개인 맞춤) 나머지도 만들 수
+  //   없는 책을 세고 있었다. 시장이 파는 축인 **시리즈 × 학령**으로 바꾸니 21칸이 되고,
+  //   한 칸의 뜻이 「한 권」으로 분명해졌다. 안 만드는 셋은 칸이 아니라 **이유 세 줄**로 옮겼다.
+  //   글자 −42% · 조작 43 → 20 · 그림 2 → 5(시리즈마다 조판기가 찍는 표지를 그대로 건다).
+  // ⚠️ 예산을 옛 값(175 · 1,210)으로 두면 이 개선이 그대로 되돌아가도 안 걸린다. 조인다.
+  카탈로그: { chunks: 116, chars: 715 },
   현황판: { chunks: 110, chars: 490 },
   // 기획 +평가 요소(TBP 이관 2026-09-06): 97 · 1,130 → 119 · 1,283. 벤치마크 7축이 **안 보는**
   //   열한 축(법령·판형·교육과정 준수·난이도 데이터·개정 속도)이 TBP 콘솔에만 있었다 — 그 화면을

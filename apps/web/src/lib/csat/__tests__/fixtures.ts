@@ -14,15 +14,12 @@ import type { AuthorView, PressView, ReviewView, SourceView } from '../factory-l
 import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
 import { FACTORY_STAGES, type StageState } from '../factory-model'
 import {
-  GENRES,
-  STEPS,
-  catalogCoverage,
-  genreCoverage,
-  hasProductLine,
-  type CatalogRow,
-  type Genre,
-} from '../product-model'
-import type { CatalogView } from '../product-view'
+  NOT_MAKING,
+  SERIES_STEPS,
+  type SeriesCatalogView,
+  type SeriesRow,
+  type VolumeStatus,
+} from '../series-model'
 
 /** 공정 한 칸 — 실측에 가까운 모양으로. */
 export function stageFixture(
@@ -371,44 +368,74 @@ export const PRESS_REAL: PressView = {
 
 /* ── 카탈로그 ─────────────────────────────────────────────────── */
 
-/** 상태 문자열 뒤 `!` = 이미 낸 칸. */
-function catalogRow(id: string, statuses: string[], items: number): CatalogRow {
-  const cells = statuses.map((raw, i) => {
-    const published = raw.endsWith('!')
-    const status = (published ? raw.slice(0, -1) : raw) as CatalogRow['cells'][number]['status']
+/**
+ * 카탈로그 표본 — **시리즈 × 학령**(2026-09-06 축 변경).
+ *
+ * 값은 실측에서 왔다: 독해 7단 전부 조판됨 · 어휘·구문 각 6단이 재고를 채웠지만 한 번도
+ * 안 찍힘. 「초등 저학년」 칸은 어휘·구문에 단이 없다(`noRung`) — 빈칸이지 결함이 아니다.
+ */
+function seriesRow(
+  id: SeriesRow['id'],
+  brand: string,
+  accent: string,
+  marketSeries: number,
+  status: SeriesRow['status'],
+  cells: (VolumeStatus | null)[],
+  items: number,
+): SeriesRow {
+  const volumes = SERIES_STEPS.map((st, i) => {
+    const v = cells[i] ?? null
+    if (v == null) {
+      return {
+        step: st.step,
+        schoolBand: st.schoolBand,
+        title: null,
+        items: null,
+        explained: null,
+        status: 'noRung' as const,
+      }
+    }
     return {
-      genre: id as CatalogRow['genre']['id'],
-      step: STEPS[i]?.step ?? i + 1,
+      step: st.step,
+      schoolBand: st.schoolBand,
+      title: `${brand} ${st.schoolBand}`,
       items,
       explained: items,
-      blocked: GENRES.find((g) => g.id === id)!.blocked,
-      // 표본도 사다리 실측을 쓴다 — 손으로 true 를 박으면 표본이 화면보다 후해진다.
-      hasProductLine: hasProductLine(id as Genre, STEPS[i]?.step ?? i + 1),
-      status,
-      published,
+      status: v,
     }
   })
-  const ready = cells.filter((c) => c.status === 'ready')
   return {
-    genre: GENRES.find((g) => g.id === id)!,
-    cells,
-    ready: ready.length,
-    published: ready.filter((c) => c.published).length,
+    id,
+    brand,
+    question: '표본',
+    accent,
+    status,
+    nextStep: status === 'draft' ? '조판을 한 번도 안 돌렸다' : null,
+    marketSeries,
+    marketExamples: [],
+    volumes,
+    ready: volumes.filter((v) => v.status === 'ready').length,
+    published: volumes.filter((v) => v.status === 'published').length,
+    rungs: volumes.filter((v) => v.status !== 'noRung').length,
   }
 }
 
+export const SERIES_REAL: SeriesCatalogView = (() => {
+  const P = 'published' as const
+  const R = 'ready' as const
+  const rows: SeriesRow[] = [
+    seriesRow('reading', 'Vocaflow Reading', '#2E7D5A', 16, 'shipping', [P, P, P, P, P, P, P], 215032),
+    seriesRow('vocab', 'Vocaflow Vocab', '#8B5CF6', 3, 'draft', [null, R, R, R, R, R, R], 287614),
+    seriesRow('syntax', 'Vocaflow Syntax', '#B5803A', 2, 'draft', [null, R, R, R, R, R, R], 153720),
+  ]
+  return {
+    rows,
+    counts: { shipping: 1, defined: 3, market: 22 },
+    inventoryAt: null,
+    notMaking: NOT_MAKING,
+    loadError: null,
+  }
+})()
+
 /** 초·중 원문 재고 — TBP 콘솔에서 ④ 소재로 옮긴 패널(2026-09-06). */
 export const KID_SOURCE_REAL: KidSourcePanel = { inventory: null, error: null }
-
-/** 2026-09-06 실측 — 독해만 찍혔고 어휘·구문·내신은 재고가 있는데 안 냈다. */
-export const CATALOG_REAL: CatalogView = (() => {
-  const rows = [
-    catalogRow('reading', ['empty', 'ready!', 'ready!', 'ready!', 'ready!', 'ready!', 'ready!'], 215032),
-    catalogRow('vocab', ['needsItems', 'ready', 'ready', 'ready', 'ready', 'ready', 'ready'], 287614),
-    catalogRow('syntax', ['needsItems', 'ready', 'ready', 'ready', 'ready', 'ready', 'ready'], 153720),
-    catalogRow('school', ['needsItems', 'ready', 'ready', 'ready', 'ready', 'ready', 'ready'], 143884),
-    catalogRow('pastexam', Array(7).fill('blocked'), 0),
-    catalogRow('platform', Array(7).fill('blocked'), 0),
-  ]
-  return { rows, coverage: catalogCoverage(rows), genres: genreCoverage(rows), loadError: null }
-})()

@@ -1,169 +1,103 @@
 // apps/web/src/app/admin/csat/__tests__/catalog.test.tsx
 //
-// 카탈로그 — **「낼 수 있는데 안 냈다」가 화면에서 안 흐려지는지** 본다.
+// **카탈로그가 만들 수 없는 책을 세지 않는지** 본다.
 //
-// 이 화면이 생긴 이유가 그 수 하나다. 실측 2026-09-06 에 낼 수 있는 권 24 중 찍힌 것은
-// 6권(독해)뿐이었고, 어휘·구문·내신 재고 58만 문항이 담을 책이 없어 놀고 있었다.
-// 그 사실이 「재고 58만」이나 「커버리지 4/5」로 표현되면 아무도 안 움직인다 —
-// **안 낸 권 수**만이 행동을 부른다.
+// ⚠️ 이 파일의 앞 판은 **거짓말을 지키고 있었다.** 「낼 수 있는데 안 낸 책 18권」을 통과
+//   조건으로 들고 있었는데, 그 18칸은 조판 명령을 줘도 안 나오는 칸이었다 —
+//   (유형 × 학령) 격자가 시장이 파는 축이 아니었기 때문이다. 검사가 화면을 지킨 것이 아니라
+//   틀린 숫자를 지켰다.
+//
+// 축을 시리즈로 바꾼 뒤로 **한 칸 = 한 권**이 됐다. 그래서 여기서 잠그는 것은:
+//   · 화면의 수가 표본의 판정과 **같은 말**인가 (수를 박지 않는다)
+//   · 「단 없음」과 「문항 모자람」을 다르게 그리는가 — 할 일이 다르다
+//   · 시리즈끼리 눈으로 갈리는가 — 표지가 같으면 매대에서 한 권이 된다
+//   · 안 만드는 것을 **칸으로 그리지 않고 이유로** 적는가
 
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
-import {
-  GENRES,
-  STEPS,
-  catalogCoverage,
-  genreCoverage,
-  productLineGap,
-  hasProductLine,
-  type CatalogRow,
-  type Genre,
-} from '@/lib/csat/product-model'
-import type { CatalogView } from '@/lib/csat/product-view'
+import { SERIES_REAL } from '@/lib/csat/__tests__/fixtures'
+import { VOLUME_STATUS_KO, readyToPrint } from '@/lib/csat/series-model'
 
-import { CatalogClient } from '../catalog/CatalogClient'
+import { SeriesShelf } from '../catalog/SeriesShelf'
 
 const text = (html: string) => html.replace(/<!--[\s\S]*?-->/g, '')
 
-/** 상태 문자열 뒤 `!` = 이미 낸 칸. */
-function row(id: string, statuses: string[], items = 1000): CatalogRow {
-  const cells = statuses.map((raw, i) => {
-    const published = raw.endsWith('!')
-    const status = (published ? raw.slice(0, -1) : raw) as CatalogRow['cells'][number]['status']
-    return {
-      genre: id as CatalogRow['genre']['id'],
-      step: STEPS[i]?.step ?? i + 1,
-      items,
-      explained: items,
-      blocked: GENRES.find((g) => g.id === id)!.blocked,
-      // 표본도 사다리 실측을 쓴다 — 손으로 true 를 박으면 표본이 화면보다 후해진다.
-      hasProductLine: hasProductLine(id as Genre, STEPS[i]?.step ?? i + 1),
-      status,
-      published,
-    }
+describe('SeriesShelf', () => {
+  const html = () => text(renderToString(<SeriesShelf {...SERIES_REAL} />))
+
+  it('헤드라인이 표본의 판정과 같은 말을 한다 — 수를 박지 않는다', () => {
+    const n = readyToPrint(SERIES_REAL.rows)
+    const h = html()
+    if (n > 0) expect(h).toContain(`찍기만 하면 되는 권 ${n}권`)
+    else if (SERIES_REAL.rows.some((r) => r.status === 'draft'))
+      expect(h).toContain('한 번도 안 찍은 시리즈')
+    else expect(h).toContain('낼 수 있는 권은 다 냈다')
   })
-  const ready = cells.filter((c) => c.status === 'ready')
-  return {
-    genre: GENRES.find((g) => g.id === id)!,
-    cells,
-    ready: ready.length,
-    published: ready.filter((c) => c.published).length,
-  }
-}
 
-function view(rows: CatalogRow[]): CatalogView {
-  return { rows, coverage: catalogCoverage(rows), genres: genreCoverage(rows), loadError: null }
-}
+  it('우리 시리즈를 시장 시리즈와 나란히 적는다 — 분모 없이 「1개」는 아무 말도 안 한다', () => {
+    expect(html()).toContain(`시리즈 ${SERIES_REAL.counts.shipping}/${SERIES_REAL.counts.market}`)
+  })
 
-/** 실측 2026-09-06 의 모양 — 독해만 찍혔고 나머지는 재고가 있는데 안 냈다. */
-const REAL = view([
-  row('reading', ['empty', 'ready!', 'ready!', 'ready!', 'ready!', 'ready!', 'ready!'], 215032),
-  row('vocab', ['needsItems', 'ready', 'ready', 'ready', 'ready', 'ready', 'ready'], 287614),
-  row('syntax', ['needsItems', 'ready', 'ready', 'ready', 'ready', 'ready', 'ready'], 153720),
-  row('school', ['needsItems', 'ready', 'ready', 'ready', 'ready', 'ready', 'ready'], 143884),
-  row('pastexam', Array(7).fill('blocked'), 0),
-  row('platform', Array(7).fill('blocked'), 0),
-])
+  it('시리즈마다 자기 브랜드가 보인다 — 셋이 한 이름이면 한 시리즈로 읽힌다', () => {
+    const h = html()
+    for (const r of SERIES_REAL.rows) expect(h, `${r.brand} 이 없다`).toContain(r.brand)
+  })
 
-describe('CatalogClient', () => {
-  /**
-   * ⚠️ **이 검사는 거짓말을 고정하고 있었다.** 「낼 수 있는데 안 낸 책 18권」을 통과 조건으로
-   *    들고 있었는데, 그 18칸(어휘·구문·내신 × 6단)은 조판 명령을 줘도 **안 나온다** —
-   *    사다리는 시리즈 하나 7단이고 한 단이 유형을 섞어 한 권을 낸다. 「어휘 권」이 없다.
-   *    검사가 화면을 지킨 것이 아니라 **틀린 숫자를 지키고 있었다.**
-   *
-   *    그래서 이제는 수를 박지 않고 **화면과 판정이 같은 말을 하는지**를 본다.
-   */
-  it('헤드라인이 가장 앞을 막는 것 하나를 말한다 — 판정과 같은 말로', () => {
-    const html = text(renderToString(<CatalogClient {...REAL} />))
-    const c = catalogCoverage(REAL.rows)
-    if (c.unpublished > 0) {
-      expect(html).toContain(`찍기만 하면 되는 책 ${c.unpublished}권`)
-    } else if (c.noLine > 0) {
-      // 찍을 것이 아니라 **정의할** 차례다 — 할 일이 정반대라 문구도 달라야 한다.
-      expect(html).toContain(`담을 책이 없는 재고 ${c.noLine}칸`)
-      expect(html).toContain('시리즈를 정의할')
-    } else {
-      expect(html).toContain('낼 수 있는 책은 다 냈다')
+  it('표지를 시리즈마다 다르게 그린다 — 전역 브랜드를 쓰면 셋 다 같은 표지가 된다', () => {
+    const h = html()
+    // 표지의 브랜드 칸은 짧은 이름이다(Reading / Vocab / Syntax). 실측 2026-09-06 에
+    // 전역 `COVER_BRAND` 를 쓰다가 셋 다 READING 으로 찍혔다.
+    for (const r of SERIES_REAL.rows) {
+      const short = r.brand.split(' ').slice(-1)[0]!
+      expect(h, `표지에 ${short} 가 없다`).toContain(short.toUpperCase())
     }
   })
 
-  it('격자 칸 수와 실제로 나오는 권 수를 나란히 적는다 — 둘이 다르다는 것이 요점', () => {
-    const html = text(renderToString(<CatalogClient {...REAL} />))
-    const g = productLineGap()
-    expect(html).toContain(`시리즈 ${g.volumes}권`)
-    expect(html).toContain(`격자 ${g.cells}칸`)
+  it('아직 안 찍은 시리즈가 몇 권 중 몇 권인지 드러난다', () => {
+    const draft = SERIES_REAL.rows.filter((r) => r.status === 'draft')
+    expect(draft.length, '표본에 draft 가 없다 — 이 검사가 아무것도 안 지킨다').toBeGreaterThan(0)
+    const h = html()
+    for (const r of draft) expect(h).toContain(`${r.published}/${r.rungs}권`)
   })
 
-  it('담을 책이 없는 칸은 재고 없음(✕)과 다른 기호로 그린다 — 할 일이 다르다', () => {
-    const html = text(renderToString(<CatalogClient {...REAL} />))
-    if (catalogCoverage(REAL.rows).noLine > 0) {
-      expect(html).toContain('▢')
-      expect(html).toContain('담을 책 없음')
+  it('판정을 색만으로 말하지 않는다 — 기호와 글자를 함께 낸다', () => {
+    const h = html()
+    const used = new Set(SERIES_REAL.rows.flatMap((r) => r.volumes.map((v) => v.status)))
+    for (const s of used) {
+      expect(h, `${s} 의 이름표가 없다`).toContain(VOLUME_STATUS_KO[s].label)
+      expect(h, `${s} 의 기호가 없다`).toContain(VOLUME_STATUS_KO[s].mark)
     }
   })
 
-  it('시중 유형 커버리지를 분자/분모로 적는다 — 기출은 못 내므로 4/5 다', () => {
-    const html = text(renderToString(<CatalogClient {...REAL} />))
-    expect(html).toContain('시중 유형 4/5')
+  it('「단 없음」은 재고 문제가 아니다 — 다른 기호로 그리고 값을 안 적는다', () => {
+    const none = SERIES_REAL.rows.flatMap((r) => r.volumes).filter((v) => v.status === 'noRung')
+    expect(none.length, '표본에 단 없는 칸이 없다').toBeGreaterThan(0)
+    for (const v of none) {
+      expect(v.items).toBeNull()
+      expect(v.title).toBeNull()
+    }
+    expect(VOLUME_STATUS_KO.noRung.mark).not.toBe(VOLUME_STATUS_KO.needsItems.mark)
   })
 
-  it('유형마다 시중 문서 수를 나란히 적는다 — 왜 그 유형을 만드는지의 근거', () => {
-    const html = text(renderToString(<CatalogClient {...REAL} />))
-    expect(html).toContain('시중 60종')
-    expect(html).toContain('시중 8종')
+  it('안 만드는 것은 칸이 아니라 **이유**로 적는다 — 회색 칸은 아무 행동도 안 부른다', () => {
+    const h = html()
+    expect(h).toContain('안 만드는 것')
+    for (const n of SERIES_REAL.notMaking) {
+      expect(h, `${n.name} 이 없다`).toContain(n.name)
+      expect(n.why.length, `${n.name} 의 이유가 너무 짧다`).toBeGreaterThan(20)
+    }
   })
 
-  it('못 내는 유형은 재고 0 이 아니라 **이유**를 말한다', () => {
-    const html = text(renderToString(<CatalogClient {...REAL} />))
-    // 기출은 재고가 없어서가 아니라 저작권이라 못 낸다. 「재고 없음」으로 보이면
-    // "더 만들면 되겠네" 로 읽힌다.
-    expect(html).toContain('시중에 없음') // 개인 맞춤
-    expect(html).not.toContain('기출 재고 0 — 더 만들면')
+  it('마크다운 강조가 화면에 새지 않는다 — `**` 는 글자로 보이면 안 된다', () => {
+    const body = html().replace(/<[^>]*>/g, '')
+    expect(body).not.toContain('**')
   })
 
-  it('색만으로 말하지 않는다 — 칸마다 기호와 글자가 함께 있다', () => {
-    const html = text(renderToString(<CatalogClient {...REAL} />))
-    for (const m of ['●', '○', '◐', '✕', '—']) expect(html).toContain(m)
-    expect(html).toContain('안 냄')
-    expect(html).toContain('못 냄')
-  })
-
-  it('칸의 접근성 이름에 학령·유형·상태가 다 들어간다', () => {
-    const html = renderToString(<CatalogClient {...REAL} />)
-    expect(html).toContain('aria-label="초등 고학년 어휘 — 낼 수 있음')
-  })
-
-  it('기본으로 펼치는 칸은 「낼 수 있는데 안 낸」 첫 칸이다 — 열자마자 할 일이 보인다', () => {
-    const html = text(renderToString(<CatalogClient {...REAL} />))
-    expect(html).toContain('아직 안 찍었을 뿐이다')
-    expect(html).toContain('찍는 법')
-  })
-
-  it('안 낸 칸에는 찍는 명령이 붙고, 조합기 한계를 함께 적는다', () => {
-    const html = text(renderToString(<CatalogClient {...REAL} />))
-    expect(html).toContain('build-volume.mjs')
-    // ⚠️ 명령만 주고 끝내면 어휘 권을 찍으려다 독해가 나온다 — 조합기가 아직 독해만 담는다.
-    expect(html).toContain('독해 유형만')
-  })
-
-  it('전부 냈으면 헤드라인이 그렇게 말한다', () => {
-    const done = view([row('reading', ['ready!', 'ready!'])])
-    const html = text(renderToString(<CatalogClient {...done} />))
-    expect(html).toContain('낼 수 있는 책은 다 냈다')
-  })
-
-  it('집계를 못 읽으면 role=alert 로 이유를 그대로 올린다', () => {
-    const broken: CatalogView = { ...REAL, loadError: '재고 집계를 못 읽었다: timeout' }
-    const html = renderToString(<CatalogClient {...broken} />)
-    expect(html).toContain('role="alert"')
-    expect(text(html)).toContain('재고 집계를 못 읽었다: timeout')
-  })
-
-  it('칸 버튼이 44px 터치 타겟을 지킨다', () => {
-    const html = renderToString(<CatalogClient {...REAL} />)
-    // 6유형 × 7학령 = 42칸
-    expect((html.match(/min-h-\[44px\]/g) ?? []).length).toBeGreaterThanOrEqual(42)
+  it('재고를 못 읽었으면 0 이 아니라 이유를 말한다', () => {
+    const broken = { ...SERIES_REAL, loadError: '재고를 못 읽었다: boom' }
+    const h = text(renderToString(<SeriesShelf {...broken} />))
+    expect(h).toContain('재고를 못 읽었다')
+    expect(h).toContain('role="alert"')
   })
 })
