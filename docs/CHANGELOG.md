@@ -91,6 +91,23 @@
   RLS 켜고 정책 없는 테이블 8개, `auth_leaked_password_protection` 비활성.
 - DB 6,253MB (문서상 마지막 회수 시점 350MB 대비 증가) · 캐시 적중 87.6% · 임시파일 18GB
   (`work_mem` 3.5MB).
+- 이어서 `db-health-audit` weekly 실행. 동시 세션이 30분 전 11건을 이미 기록해 둬서, **그쪽이 놓친 3건**만 더했다.
+  - **수집기 자신이 틀렸다** (`integrity:collector_drift:mutable_search_path_funcs` · critical) —
+    `mutable_search_path_funcs` 가 **196** 을 보고하는데 advisor 는 **58** 이다(허용 오차 ±5).
+    실측하니 196 = 확장 소유 138(`pg_trgm`·`fuzzystrmatch`·`btree_gin`·`pgstattuple`) + 우리 함수 58 로
+    정확히 갈렸다. 오늘 이 지표를 0→196 으로 고친 것이 **과교정으로 반대편에 착지**한 것이다 —
+    과소계수가 과대계수가 됐다. 동시 세션은 196 을 액면 그대로 적어 뒀기에 그 발견도 58 로 정정했다.
+    나머지 4개 지표는 정확히 일치(unused_index 110 · unindexed_fk 45 · rls_no_policy 8 · secdef_anon 76).
+  - `enqueue_curation_jobs` 는 호출하면 반드시 죽는다 (critical) — `ON CONFLICT (book_id)` 인데
+    실제 유니크는 `(book_id, task_type)` 이라 42P10. 임시표가 아닌 실제 표(`book_curation_jobs`)라
+    스킬 기준 오탐이 아니고, **anon 이 호출 가능한 RPC** 라 노출 표면이다.
+  - 누적 비용 1위 구문이 **수집기 레이더에 구조적으로 안 잡힌다** (warning) — 위의 `word` 커서 건.
+    `slow_stmt_count` 는 `mean_ms` 를 timeout 예산에 견주는데 이 구문 평균은 4,240ms 라
+    near_timeout 14건에 안 든다. 수집기에 **누적(total) 축 지표가 없다.**
+- 오탐 1건 기각 — `recompute-kr-safe` 는 `hours_since_ok=null`(한 번도 성공 못 함)이지만
+  스케줄이 `0 15 31 12 *` 로 **12월 31일 연 1회**다. 스킬이 명시한 예외라 critical 이 아니다.
+- 판정층 현황: open **critical 5 · warning 6 · info 3**. `close_missing_db_health_findings` 는
+  이번에 본 14개 지문 전체를 넘겼다 — 제 3건만 넘겼으면 동시 세션의 11건이 전부 닫힐 뻔했다.
 
 ### 카탈로그 — 공장에 없던 답 「뭘 만드나」 (2026-09-06)
 
