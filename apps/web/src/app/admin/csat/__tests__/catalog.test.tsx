@@ -206,3 +206,37 @@ describe('한 권이 무엇으로 만들어지는가', () => {
     expect(src).toContain('sel.v.recipe')
   })
 })
+
+/**
+ * **「팔고 있나」는 상수가 아니라 사실이다.**
+ *
+ * ⚠️ 실측 2026-09-06: 어휘·구문 12권을 실제로 찍었는데 화면이 「한 번도 안 찍은 시리즈 2개」
+ *   라고 적었다. `series-catalog.ts` 의 `status: 'draft'` 가 정의 시점의 상수라 낡은 것이다 —
+ *   이 세션에서 반복해 잡은 것과 **같은 종류**(손으로 적은 값이 데이터를 이긴다).
+ *   정의(브랜드·단·유형)는 상수가 맞지만 **"나갔는가" 는 조판 기록에서 읽어야 한다.**
+ */
+describe('발행 상태를 실측에서 끌어낸다', () => {
+  it('한 권이라도 나갔으면 shipping 이고 다음 걸음이 없다', () => {
+    const src = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..', 'lib', 'csat', 'series-view.ts'),
+      'utf8',
+    )
+    expect(src).toContain('const shipping = publishedCount > 0')
+    // 상수를 그대로 쓰던 옛 형태가 남아 있으면 안 된다.
+    expect(src).not.toContain('status: s.status,')
+    expect(src).not.toContain('nextStep: s.nextStep,')
+  })
+
+  it('시리즈 분자도 기록에서 센다 — 정의만 해 둔 것을 「판다」로 세지 않는다', () => {
+    const src = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..', 'lib', 'csat', 'series-view.ts'),
+      'utf8',
+    )
+    expect(src).toContain("rows.filter((r) => r.status === 'shipping').length")
+  })
+
+  it('표본은 draft 갈래를 유지한다 — 그 갈래를 시험할 표본이 없으면 검사가 준다', () => {
+    expect(SERIES_REAL.rows.some((r) => r.status === 'draft')).toBe(true)
+    expect(SERIES_REAL.rows.some((r) => r.status === 'shipping')).toBe(true)
+  })
+})

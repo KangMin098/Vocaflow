@@ -94,25 +94,32 @@ export async function loadSeriesCatalog(): Promise<SeriesCatalogView> {
         status: judgeVolume({ hasRung: true, published, items, explained }),
       }
     })
+    const publishedCount = volumes.filter((v) => v.status === 'published').length
+    // ⚠️ **「팔고 있나」는 상수가 아니라 사실이다.** `series-catalog.ts` 의 `status` 는
+    //   정의 시점의 값이라 실제로 찍고 나면 낡는다 — 실측 2026-09-06 에 어휘·구문 12권을
+    //   찍었는데도 화면이 「한 번도 안 찍은 시리즈 2개」라고 적었다. 기록에서 읽는다.
+    const shipping = publishedCount > 0
     return {
       id: s.id,
       brand: s.brand,
       question: s.question,
       accent: s.accent,
-      status: s.status,
-      nextStep: s.nextStep,
+      status: shipping ? ('shipping' as const) : ('draft' as const),
+      nextStep: shipping ? null : s.nextStep,
       marketSeries: s.marketSeries,
       marketExamples: s.marketExamples,
       volumes,
       ready: volumes.filter((v) => v.status === 'ready').length,
-      published: volumes.filter((v) => v.status === 'published').length,
+      published: publishedCount,
       rungs: s.rungs.length,
     }
   })
 
   return {
     rows,
-    counts: seriesShipping(),
+    // 분모(시장 22)는 코퍼스 실측이고, 분자는 **조판 기록**이다 — 정의만 해 둔 시리즈를
+    // 「판다」로 세면 그 수가 거짓이 된다.
+    counts: { ...seriesShipping(), shipping: rows.filter((r) => r.status === 'shipping').length },
     inventoryAt: inv.ok ? inv.refreshedAt : null,
     notMaking: NOT_MAKING,
     loadError: inv.ok ? null : `재고를 못 읽었다: ${inv.error}`,
