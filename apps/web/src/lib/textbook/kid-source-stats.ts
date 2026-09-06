@@ -18,7 +18,9 @@
 //   204/count=null 을 돌려주므로 `count ?? 0` 은 거짓 안심을 만든다. 오류는 올린다.
 
 import {
+  ADAPTED_FEED_ID,
   KID_BANDS,
+  KID_FEED_ID,
   buildKidInventory,
   kidFeedLabel,
   type KidBand,
@@ -35,28 +37,28 @@ export interface KidSourcePanel {
 
 type Db = ReturnType<typeof createAdminClient>
 
-/** `feed_label` 로 센다. `quarantinedOnly` 면 명시적 격리만. */
-async function countByLabel(db: Db, label: string, quarantinedOnly: boolean): Promise<number> {
+/**
+ * 한 피드(+선택적으로 한 칸)의 행을 센다.
+ *
+ * ⚠️ **`feed_id` 를 반드시 먼저 건다** — `idx_la_feed (feed_id, feed_label)` 의 선두 컬럼이다.
+ *   복합 인덱스는 선두 컬럼이 조건에 없으면 못 쓴다. `feed_label` 만으로 세면 90,485행
+ *   순차 스캔이 되어 8초 statement timeout 에 걸린다(실측 2026-09-06 — 인덱스를 넣고도
+ *   죽었던 이유가 이것이었다. `feed_id` 를 함께 걸자 같은 질의가 47ms 가 됐다).
+ */
+async function countRows(
+  db: Db,
+  feedId: string,
+  label: string | null,
+  quarantinedOnly: boolean
+): Promise<number> {
   let q = db
     .from('library_articles')
     .select('id', { count: 'exact', head: true })
-    .eq('feed_label', label)
+    .eq('feed_id', feedId)
+  if (label) q = q.eq('feed_label', label)
   if (quarantinedOnly) q = q.eq('csat_fit->gate->>publishable', 'false')
   const { count, error } = await q
-  if (error) throw new Error(error.message)
-  if (count == null) throw new Error('카운트가 비었다 — 테이블이나 권한을 확인해야 한다')
-  return count
-}
-
-/** 각색분은 칸이 아니라 `feed_id` 로 갈린다. */
-async function countAdapted(db: Db, quarantinedOnly: boolean): Promise<number> {
-  let q = db
-    .from('library_articles')
-    .select('id', { count: 'exact', head: true })
-    .eq('feed_id', 'adapted')
-  if (quarantinedOnly) q = q.eq('csat_fit->gate->>publishable', 'false')
-  const { count, error } = await q
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(error.message || '이유 없는 실패 — 대개 statement timeout 이다')
   if (count == null) throw new Error('카운트가 비었다 — 테이블이나 권한을 확인해야 한다')
   return count
 }
@@ -64,22 +66,19 @@ async function countAdapted(db: Db, quarantinedOnly: boolean): Promise<number> {
 export async function getKidSourcePanel(): Promise<KidSourcePanel> {
   const db = createAdminClient()
   try {
-    // 칸마다 두 번(적재 · 격리) + 각색 두 번 — 열두 질의를 한꺼번에 보낸다.
-    // 순차로 돌리면 대기가 줄줄이 더해져 화면이 늦는다(수확기에서 같은 함정을 밟았다).
-    const [bandCounts, adaptedHeld, adaptedQuarantined] = await Promise.all([
-      Promise.all(
-        KID_BANDS.map(async (band) => {
-          const label = kidFeedLabel(band)
-          const [held, quarantined] = await Promise.all([
-            countByLabel(db, label, false),
-            countByLabel(db, label, true),
-          ])
-          return [band, { held, quarantined }] as const
-        })
-      ),
-      countAdapted(db, false),
-      countAdapted(db, true),
-    ])
+    // ⚠️ **한꺼번에 쏘지 않는다.** 처음엔 열두 질의를 `Promise.all` 로 보냈는데, 표가
+    //   90,485행이 되자 **그 병렬이 스스로를 밀어냈다** — 질의 하나는 1.2초인데 열둘을
+    //   같이 보내면 각자 8초 제한을 넘겨 전부 죽었다(실측 2026-09-06 · 503 도 섞였다).
+    //   순차로 돌리면 열둘이 다 통과하고 **전체 1.5초**다. 병렬이 늘 빠른 것이 아니다.
+    const bandCounts: (readonly [KidBand, { held: number; quarantined: number }])[] = []
+    for (const band of KID_BANDS) {
+      const label = kidFeedLabel(band)
+      const held = await countRows(db, KID_FEED_ID, label, false)
+      const quarantined = await countRows(db, KID_FEED_ID, label, true)
+      bandCounts.push([band, { held, quarantined }] as const)
+    }
+    const adaptedHeld = await countRows(db, ADAPTED_FEED_ID, null, false)
+    const adaptedQuarantined = await countRows(db, ADAPTED_FEED_ID, null, true)
 
     const counts = Object.fromEntries(bandCounts) as Record<
       KidBand,

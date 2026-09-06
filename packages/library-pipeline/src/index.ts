@@ -816,7 +816,9 @@ export {
 } from './textbook/standalone'
 // 초·중 원문 재고의 목표와 세는 법 — 스크립트와 Admin 화면이 같은 답을 하게 한다.
 export {
+  ADAPTED_FEED_ID,
   KID_BANDS,
+  KID_FEED_ID,
   KID_SOURCE_TARGET,
   buildKidInventory,
   kidFeedLabel,

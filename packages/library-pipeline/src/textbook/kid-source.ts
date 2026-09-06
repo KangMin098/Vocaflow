@@ -29,6 +29,20 @@ export function kidFeedLabel(band: KidBand): string {
 }
 
 /**
+ * **조회는 반드시 `feed_id` 를 함께 건다 — 인덱스의 선두 컬럼이다.**
+ *
+ * 실측 2026-09-06: `library_articles` 가 90,485행이 되자 `feed_label` 만으로 세는 질의가
+ * 순차 스캔에 걸려 **8초 statement timeout** 으로 죽었다(82행짜리 각색 집계조차 실패).
+ * `idx_la_feed (feed_id, feed_label)` 을 넣었는데도 스크립트는 계속 죽었다 —
+ * **복합 인덱스는 선두 컬럼이 조건에 없으면 못 쓴다.** `feed_id` 를 함께 걸자 47ms 가 됐다.
+ *
+ * 그래서 피드 id 를 여기서 내보낸다. 호출하는 쪽이 각자 문자열을 적으면 한쪽만 고쳐지고,
+ * 그 한쪽은 표가 커진 어느 날 조용히 멈춘다.
+ */
+export const KID_FEED_ID = 'kid-excerpt' as const
+export const ADAPTED_FEED_ID = 'adapted' as const
+
+/**
  * 목표 = **고등 재고의 절반**.
  *
  * 고등(V5~V9 · ready+published · display_only 제외) **18,320편**을 실측하고 그 절반을 잡았다.

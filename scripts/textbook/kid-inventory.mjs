@@ -31,7 +31,8 @@
 import { client, dbRetry } from './lib/db.mjs'
 // **목표·몫·세는 법은 패키지가 갖는다** — Admin 화면(`lib/textbook/kid-source-stats.ts`)도
 //   같은 함수를 쓴다. 여기서 다시 정하면 화면과 CLI 가 다른 답을 하는 날이 온다.
-const { KID_BANDS, KID_SOURCE_TARGET, buildKidInventory, kidFeedLabel } = await import(
+const { ADAPTED_FEED_ID, KID_BANDS, KID_FEED_ID, KID_SOURCE_TARGET, buildKidInventory, kidFeedLabel } =
+  await import(
   '../../packages/library-pipeline/src/textbook/kid-source.ts'
 )
 
@@ -48,20 +49,25 @@ const countOf = (build) =>
 const quarantined = (q) => q.eq('csat_fit->gate->>publishable', 'false')
 
 // 세는 것은 여기서 하고, **무엇을 게시 가능이라 부르는지는 패키지가 정한다.**
-const counted = await Promise.all(
-  BANDS.map(async (b) => {
-    const label = kidFeedLabel(b)
-    const [{ count: held }, { count: bad }] = await Promise.all([
-      countOf((q) => q.eq('feed_label', label)),
-      countOf((q) => quarantined(q.eq('feed_label', label))),
-    ])
-    return [b, { held, quarantined: bad }]
-  })
-)
-const [{ count: adaptedHeld }, { count: adaptedBad }] = await Promise.all([
-  countOf((q) => q.eq('feed_id', 'adapted')),
-  countOf((q) => quarantined(q.eq('feed_id', 'adapted'))),
-])
+//
+// ⚠️ **한꺼번에 쏘지 않는다.** 예전에는 열두 질의를 `Promise.all` 로 보냈다 — 연결이
+//   흔들릴 때 재시도 대기가 줄줄이 더해지는 것을 막으려던 것이었다. 그런데 표가
+//   90,485행이 되자 **그 병렬이 스스로를 밀어냈다**: 질의 하나는 1.2초인데 열둘을 같이
+//   보내면 각자 8초 statement timeout 을 넘겨 전부 죽는다(실측 2026-09-06 · 503 도 섞였다).
+//   순차로 돌리면 같은 열둘이 다 통과한다. 재시도는 그대로 두어 일시 과부하를 흡수한다.
+const counted = []
+for (const b of BANDS) {
+  const label = kidFeedLabel(b)
+  // ⚠️ `feed_id` 를 함께 건다 — `idx_la_feed (feed_id, feed_label)` 의 **선두 컬럼**이다.
+  //   빼면 복합 인덱스를 못 써서 90,485행 순차 스캔이 된다(인덱스를 넣고도 죽었던 이유).
+  const { count: held } = await countOf((q) => q.eq('feed_id', KID_FEED_ID).eq('feed_label', label))
+  const { count: bad } = await countOf((q) =>
+    quarantined(q.eq('feed_id', KID_FEED_ID).eq('feed_label', label))
+  )
+  counted.push([b, { held, quarantined: bad }])
+}
+const { count: adaptedHeld } = await countOf((q) => q.eq('feed_id', ADAPTED_FEED_ID))
+const { count: adaptedBad } = await countOf((q) => quarantined(q.eq('feed_id', ADAPTED_FEED_ID)))
 
 const inv = buildKidInventory(Object.fromEntries(counted), {
   held: adaptedHeld,
