@@ -41,6 +41,8 @@ function Cover({ row, width = 44 }: { row: SeriesRow; width?: number }) {
   const svg = coverSvg(
     {
       brand: short,
+      // 시리즈 액센트를 넘겨야 같은 단의 세 권이 서로 다른 색으로 찍힌다.
+      accent: row.accent,
       step: first?.step ?? 1,
       totalSteps: SERIES_STEPS.length,
       schoolBand: first?.schoolBand ?? '',

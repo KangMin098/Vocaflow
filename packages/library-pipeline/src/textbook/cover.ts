@@ -30,6 +30,7 @@
 // 그대로 물려받는다 — 테마 전환이 공짜로 따라온다(`<img>` 였다면 둘 다 잃는다).
 
 import { SERIES_BRAND, SERIES_SPINE, type SeriesRung } from './series'
+import { seriesInk } from './series-ink'
 
 /**
  * 표지에 찍는 시리즈명 — 플랫폼 이름을 뗀 짧은 형태.
@@ -106,6 +107,14 @@ export interface CoverSpec {
   schoolBand: string
   /** 아직 못 펼치는 권인가 — 표지를 흐리게 하고 깊이 표시를 비운다. */
   pending?: boolean
+  /**
+   * **시리즈 액센트(hex).** 주면 그 색상으로 깊이 램프를 만든다.
+   *
+   * ⚠️ 없으면 `RUNG_INK`(단별 일곱 색)로 떨어진다 — 시리즈가 하나였을 때의 동작이고,
+   *   독해 시리즈는 지금도 그것을 쓴다. 시리즈가 여럿이면 **같은 단의 세 권이 같은 색**이
+   *   되므로(실측 2026-09-06) 액센트를 줘야 매대에서 갈린다.
+   */
+  accent?: string
 }
 
 /** 사다리 한 칸에서 표지 사양을 만든다. 화면이 계단 정보를 다시 조립하지 않게. */
@@ -189,7 +198,10 @@ export function coverSvg(
   const bandSize = Math.max(7, Math.round(W * 0.082))
 
   // 계단 색이 표지의 주인공이다 — 권 번호·책등·깊이 표시가 같은 색을 쓴다.
-  const rung = rungInk(spec.step)
+  // 액센트를 주면 그 시리즈의 색상으로, 아니면 단별 일곱 색으로.
+  const rung = spec.accent
+    ? seriesInk(spec.accent, spec.step, spec.totalSteps)
+    : rungInk(spec.step)
   const ink = spec.pending ? 'var(--t3, #8A8278)' : rung
   const ground = spec.pending ? 'var(--bg3, #ECE6DA)' : 'var(--bg2, #F4F0E9)'
 

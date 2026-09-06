@@ -134,3 +134,34 @@ describe('찍는 법이 그 칸의 권을 낸다', () => {
     expect(src).toContain('--out {sel.row.id}-v{sel.v.step}.html')
   })
 })
+
+/**
+ * **표지 색이 시리즈를 가르는지** — 화면에서.
+ *
+ * 색 자체의 판정(대비·거리)은 `series-ink.test.ts` 가 재고, 여기서는 **그 색이 실제로
+ * 화면까지 오는지**만 본다. 실측 2026-09-06: `accent` 를 안 넘겨서 세 시리즈가 전부
+ * 같은 단별 색으로 찍혔다 — 계산이 맞아도 안 넘기면 소용이 없다.
+ */
+describe('표지 색이 시리즈를 가른다', () => {
+  it('세 시리즈의 표지가 서로 다른 색을 쓴다', () => {
+    const h = text(renderToString(<SeriesShelf {...SERIES_REAL} />))
+    // 각 행의 표지 svg 에서 색면 색을 뽑는다(종이색·회색 계열은 공통이라 뺀다).
+    const common = new Set(['#f4f0e9', '#e0dbd0', '#4a443e', '#fbfaf6'])
+    const inks = [...h.matchAll(/#[0-9a-fA-F]{6}/g)]
+      .map((m) => m[0].toLowerCase())
+      .filter((c) => !common.has(c))
+    const distinct = new Set(inks)
+    expect(
+      distinct.size,
+      `표지 색면이 ${distinct.size}가지뿐이다 — 시리즈 ${SERIES_REAL.rows.length}개가 서로 다른 색이어야 한다`,
+    ).toBeGreaterThanOrEqual(SERIES_REAL.rows.length)
+  })
+
+  it('액센트를 표지에 실제로 넘긴다 — 계산이 맞아도 안 넘기면 소용없다', () => {
+    const src = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), '..', 'catalog', 'SeriesShelf.tsx'),
+      'utf8',
+    )
+    expect(src).toContain('accent: row.accent')
+  })
+})

@@ -560,7 +560,10 @@ const html = renderVolumeDocument({
   step: rung?.step ?? null,
   schoolBand: rung?.schoolBand ?? null,
   vLevel: BAND,
-  totalSteps: SERIES_SPINE.length,
+  totalSteps: seriesDef.rungs.length,
+  // 표지가 시리즈를 따른다 — 짧은 이름과 액센트. 안 넘기면 어휘 권도 READING 초록으로 찍힌다.
+  coverBrand: seriesDef.brand.split(' ').slice(-1)[0] ?? seriesDef.brand,
+  accent: seriesDef.accent,
   unitCount: units.length,
   itemCount: qNo,
   totalMinutes: units.reduce((s, u) => s + u.estimated_minutes, 0),

@@ -65,6 +65,16 @@ export interface VolumeDocumentInput {
   /** 정답 번호 쏠림. **null 은 「지적 0건」이 아니라 「단답 위주라 못 잰다」** 이다. */
   answerBias: { chi2: number; cramersV: number; biased: boolean } | null
   proof: { passages: number; defective: number }
+  /**
+   * 표지에 찍는 **짧은 브랜드 이름**. 없으면 전역 기본값(독해).
+   * 시리즈마다 자기 이름을 써야 세 권을 나란히 놓았을 때 서로 다른 시리즈로 읽힌다.
+   */
+  coverBrand?: string
+  /**
+   * 시리즈 액센트(hex). 없으면 단별 일곱 색으로 떨어진다.
+   * 시리즈가 여럿이면 **같은 단의 세 권이 같은 색**이 되므로 이것을 줘야 갈린다.
+   */
+  accent?: string
   /** 스크립트가 조립해 넘기는 단원 HTML. */
   unitsHtml: string
   answers: VolumeAnswer[]
@@ -88,6 +98,8 @@ export function renderVolumeDocument(input: VolumeDocumentInput): string {
     proof,
     unitsHtml,
     answers,
+    coverBrand,
+    accent,
   } = input
   return `<title>${esc(colophon.title)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -208,7 +220,7 @@ h1{font-size:var(--fs-display);margin:.6rem 0 .3rem;letter-spacing:-.01em;text-w
 </style>
 <div class="wrap">
 <header class="cover">
-  <div class="coverart">${coverSvg({ brand: COVER_BRAND, step: step ?? vLevel, totalSteps, schoolBand: schoolBand ?? `V${vLevel}` }, 168)}</div>
+  <div class="coverart">${coverSvg({ brand: coverBrand ?? COVER_BRAND, step: step ?? vLevel, totalSteps, schoolBand: schoolBand ?? `V${vLevel}`, accent }, 168)}</div>
   <p class="brand">${esc(colophon.ladder)}</p>
   <h1>${esc(colophon.title)}</h1>
   <p class="meta">${unitCount}단원 · ${itemCount}문항 · 총 ${totalMinutes}분 · 레벨 V${vLevel}</p>
