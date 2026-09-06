@@ -230,6 +230,13 @@ export interface LiveCronRun {
 
 export interface LiveSnapshot {
   at: string
+  /** 재시작 이후 경과 시간. 누적 통계가 워밍업인지 구조 문제인지 가르는 근거. */
+  uptime_h: number
+  /** 캐시 적중 원시 카운터 — 화면이 **폴링 사이 증분**으로 순간 적중률을 낸다. */
+  blks_hit: number
+  blks_read: number
+  /** 판정 창. 24시간 누적치(cron_fail_24h)는 맥락으로만 쓴다. */
+  cron_fail_1h: number
   conn: {
     max: number
     total: number
@@ -270,6 +277,9 @@ export const LIVE_THRESHOLDS: Record<
   // max_connections = 60 (실측). 초과하면 앱이 연결을 못 얻어 즉시 장애다.
   conn_used_pct: { warn: 70, crit: 85, dir: 'high', why: 'max_connections 60' },
   // 캐시 적중률은 99% 위가 정상 — 그 아래는 읽기가 디스크로 간다는 뜻이다.
+  // ⚠️ 이 선은 **폴링 증분으로 낸 순간 적중률**에만 댄다. pg_stat_database 의 누적값에 대면
+  //    재시작 직후엔 반드시 걸린다(캐시가 빈 채로 시작하므로) — 실측 2026-09-06: 재시작
+  //    2.3시간 뒤 92.9%, 2.6시간 뒤 93.1% 로 **오르는 중**이었는데 화면은 「장애」라고 했다.
   cache_hit_pct: { warn: 99, crit: 95, dir: 'low', why: 'shared_buffers 256MB' },
   // statement_timeout = 120초 (실측). 절반을 넘기면 타임아웃 사정권이다.
   longest_query_s: { warn: 60, crit: 110, dir: 'high', why: 'statement_timeout 120초' },
@@ -277,7 +287,12 @@ export const LIVE_THRESHOLDS: Record<
   // 5분은 조치 `terminate_idle_in_tx` 가 쓰는 기준과 같은 값이다(두 곳이 갈리면 못 믿는다).
   oldest_idle_in_tx_s: { warn: 300, crit: 900, dir: 'high', why: 'DB 자동 종료 없음(=0)' },
   blocked_locks: { warn: 1, crit: 5, dir: 'high', why: '대기 = 이미 멈춘 요청' },
-  cron_fail_24h: { warn: 1, crit: 20, dir: 'high', why: '실패는 0 이 정상' },
+  // 판정은 **최근 1시간**에서 한다. 24시간 누적은 아홉 시간 전에 끝난 사건을 오늘 내내
+  // 빨간 불로 남긴다(실측: 재시작 전 60건 + 재시작 후 1건 = 61 이 하루 종일 「초과」였다).
+  // crit 5 의 근거: 사건 시각(02시 UTC)에는 한 시간에 30건이었고, 정상 시각은 0~1건이다.
+  cron_fail_1h: { warn: 1, crit: 5, dir: 'high', why: '매시 62회 실행 · 실패 0 이 정상' },
+  // 24시간 누적치는 맥락이지 판정 대상이 아니다 — 그래서 임계값을 두지 않는다.
+  cron_fail_24h: null,
   // 디스크 상한을 모르는 채로 선을 그으면 그 선은 짐작이다 — 값과 증가분만 보여 준다.
   db_size_mb: null,
 }

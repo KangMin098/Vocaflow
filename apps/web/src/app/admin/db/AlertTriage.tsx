@@ -121,10 +121,18 @@ function CopySql({ sql }: { sql: string }) {
 
 export function AlertTriage({
   findings,
+  nowMs,
   actionable = true,
   noteInline = false,
 }: {
   findings: FindingRow[]
+  /**
+   * 「열린 지」를 재는 기준 시각. **서버가 정해 준다.**
+   * 여기서 `new Date()` 를 부르면 SSR 과 하이드레이션이 다른 순간을 읽어 시각 경계에서
+   * 글자가 갈리고, 그게 React 하이드레이션 오류가 된다. 값이 몇 초 낡는 것은
+   * 이 화면(force-dynamic)에서 문제가 아니다.
+   */
+  nowMs: number
   /** 면제 목록은 상태 버튼을 주지 않는다 — 눌러도 다음 판정이 되돌린다. */
   actionable?: boolean
   /**
@@ -136,7 +144,7 @@ export function AlertTriage({
   const [filter, setFilter] = useState<'all' | FindingSeverity>('all')
   const [axis, setAxis] = useState<string>('all')
   const [open, setOpen] = useState<number | null>(null)
-  const now = new Date()
+  const now = new Date(nowMs)
 
   const axes = useMemo(
     () => Array.from(new Set(findings.map((f) => f.axis))).sort(),

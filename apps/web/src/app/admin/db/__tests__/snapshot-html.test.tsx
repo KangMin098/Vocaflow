@@ -112,6 +112,10 @@ const findings: FindingRow[] = TITLES.map((title, i) => ({
 
 const live: LiveSnapshot = {
   at: iso(0),
+  uptime_h: 26.4,
+  blks_hit: 164_700_000,
+  blks_read: 12_000_000,
+  cron_fail_1h: 0,
   conn: { max: 60, total: 41, active: 6, idle: 33, idle_in_tx: 2, waiting: 3, used_pct: 68.3 },
   cache_hit_pct: 91.4,
   db_size_mb: 6317.2,

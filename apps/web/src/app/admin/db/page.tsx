@@ -314,7 +314,7 @@ export default async function AdminDbPage() {
           </p>
         ) : (
           <>
-            <AlertTriage findings={findings} />
+            <AlertTriage findings={findings} nowMs={now.getTime()} />
             {/* 접힌 줄만 봐도 이 화면의 경계가 보여야 한다 — 펼쳐야 나오는 규칙은 규칙이 아니다. */}
             <p className="mt-2 font-mono text-[10px] text-[var(--t2)]">
               SQL 복사만 · 실행은 허용 목록 7종
@@ -656,7 +656,7 @@ export default async function AdminDbPage() {
               면제는 면제가 아니라 은폐다.
             </p>
             <div className="mt-2">
-              <AlertTriage findings={excepted} actionable={false} noteInline />
+              <AlertTriage findings={excepted} nowMs={now.getTime()} actionable={false} noteInline />
             </div>
           </details>
         </section>

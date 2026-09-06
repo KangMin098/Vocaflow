@@ -1155,7 +1155,14 @@ inner join 으로 비교하면 그 줄이 조용히 빠져 "아무 변화 없음
 | 화면용 | `admin_db_health_live()` — role='admin' 검사 후 위임. EXECUTE→authenticated |
 | 읽는 곳 | `pg_stat_activity` · `pg_locks` · `pg_stat_database` · `pg_settings` · `cron.job_run_details` — **카탈로그 뷰만**. 테이블 스캔·쓰기 없음 |
 | 돌려주는 키 | `conn{max,total,active,idle,idle_in_tx,waiting,used_pct}` · `cache_hit_pct` · `db_size_mb` · `blocked_locks` · `longest_query_s` · `longest_xact_s` · `oldest_idle_in_tx_s` · `deadlocks` · `rollbacks` · `cron_fail_24h` · `cron_running` · `sessions[12]` · `blockers[]` · `cron_recent[10]` |
-| 마이그레이션 | [20260906190000](../supabase/migrations/20260906190000_db_health_live.sql) |
+| 판정 창 | `cron_fail_1h` 와 `blks_hit`/`blks_read` **증분**. 24시간 누적치·`uptime_h`·누적 `cache_hit_pct` 는 맥락으로만 돌려준다 ([20260906215000](../supabase/migrations/20260906215000_db_health_live_now_window.sql)) |
+| 마이그레이션 | [20260906190000](../supabase/migrations/20260906190000_db_health_live.sql) · [215000](../supabase/migrations/20260906215000_db_health_live_now_window.sql) |
+
+⚠️ **누적 통계로 「지금」을 판정하면 재시작할 때마다 장애가 뜬다.** 실측 2026-09-06 12:40 UTC —
+화면이 「장애」였는데 근거 둘이 모두 과거였다: 예약 실패 61 중 **60건이 10:21 UTC 재시작 이전**
+(재시작 후 성공 142 · 실패 1)이고, 캐시 적중 92.8% 는 `pg_stat_database` 가 **재시작 이후 누적**이라
+캐시가 빈 채로 시작한 2시간 평균이었다(그 사이 92.8 → 93.2 로 **오르는 중**이었다).
+그래서 판정은 1시간 창과 폴링 증분에서만 하고, 표본이 하나뿐이면 「모름」으로 둔다.
 
 ⚠️ **`cron.job_run_details` 에는 `jobname` 컬럼이 없다**(`jobid` 만). 첫 정의가 그 컬럼을 읽어
 호출 즉시 `42703` 으로 죽었다 — 잡 이름은 `cron.job` 을 `jobid` 로 조인해서 얻는다.

@@ -86,6 +86,10 @@ const findings: FindingRow[] = Array.from({ length: 16 }, (_, i) => ({
 function live(): LiveSnapshot {
   return {
     at: iso(0),
+    uptime_h: 26.4,
+    blks_hit: 164_700_000,
+    blks_read: 12_000_000,
+    cron_fail_1h: 0,
     conn: { max: 60, total: 17, active: 3, idle: 14, idle_in_tx: 0, waiting: 0, used_pct: 28.3 },
     cache_hit_pct: 91.4,
     db_size_mb: 6317.2,

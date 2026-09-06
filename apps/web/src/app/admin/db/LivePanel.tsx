@@ -21,7 +21,14 @@ import { Activity, Pause, Play, RefreshCw } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { createClient } from '@/lib/supabase/client'
-import { formatSeconds, formatValue, gaugeFill, signalLevel } from '@/lib/admin/db-health/derive'
+import {
+  cacheHitDelta,
+  formatKstTime,
+  formatSeconds,
+  formatValue,
+  gaugeFill,
+  signalLevel,
+} from '@/lib/admin/db-health/derive'
 import { LIVE_THRESHOLDS } from '@/lib/admin/db-health/types'
 import type { LiveSnapshot, SignalLevel } from '@/lib/admin/db-health/types'
 
@@ -101,6 +108,7 @@ function SignalTile({
 
 export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | null; initialError: string | null }) {
   const [live, setLive] = useState<LiveSnapshot | null>(initial)
+  const [prev, setPrev] = useState<LiveSnapshot | null>(null)
   const [error, setError] = useState<string | null>(initialError)
   const [auto, setAuto] = useState(true)
   const [busy, setBusy] = useState(false)
@@ -114,6 +122,7 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
       const client = createClient() as unknown as SupabaseClient
       const { data, error: err } = await client.rpc('admin_db_health_live')
       if (err) throw err
+      setPrev(live)
       setLive(data as LiveSnapshot)
       setError(null)
       setFetchedAt(Date.now())
@@ -123,7 +132,7 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
     } finally {
       setBusy(false)
     }
-  }, [])
+  }, [live])
 
   useEffect(() => {
     if (!auto) {
@@ -146,6 +155,8 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
   }, [fetchedAt])
 
   const conn = live?.conn ?? null
+  // 순간 적중률 — 표본이 둘 이상일 때만 나온다. 없으면 「모름」이지 「정상」이 아니다.
+  const hitNow = cacheHitDelta(prev, live)
 
   // 볼 것이 있는가 — 도는 세션·잠금 대기·예약 실패 중 하나라도 있으면.
   const hasDetail =
@@ -237,12 +248,19 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
           sub={conn ? `${conn.total} / ${conn.max} · 활성 ${conn.active} · idle-tx ${conn.idle_in_tx}` : undefined}
           tip="쓰이고 있는 연결 비율. 100% 가 되면 앱이 새 연결을 못 얻어 즉시 장애다. 이 DB 의 max_connections 는 60."
         />
-        <SignalTile
+<SignalTile
           metricKey="cache_hit_pct"
           label="캐시 적중"
-          value={live?.cache_hit_pct ?? null}
-          display={live?.cache_hit_pct === null || live === null ? '—' : `${live.cache_hit_pct}%`}
-          tip="읽기 중 메모리에서 답한 비율. 99% 아래면 읽기가 디스크로 가고 있다는 뜻이고, 그 상태에서는 쓰기가 없어도 DB 가 느려진다."
+          value={hitNow}
+          display={hitNow === null ? '—' : `${hitNow}%`}
+          sub={
+            live
+              ? hitNow === null
+                ? `다음 갱신부터 · 누적 ${live.cache_hit_pct ?? '—'}% · 가동 ${live.uptime_h}시간`
+                : `증분 기준 · 누적 ${live.cache_hit_pct ?? '—'}%`
+              : undefined
+          }
+          tip="읽기 중 메모리에서 답한 비율을 **갱신 사이의 증분**으로 잰다. DB 가 돌려주는 누적값은 재시작 이후 평균이라, 캐시가 빈 채로 시작한 직후에는 낮은 것이 정상이다 — 그 값을 임계에 대면 재시작할 때마다 장애가 뜬다. 표본이 하나뿐이거나 그 사이 읽은 블록이 너무 적으면 재지 않는다."
         />
         <SignalTile
           metricKey="longest_query_s"
@@ -265,20 +283,20 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
           display={live ? String(live.blocked_locks) : '—'}
           tip="락을 못 얻어 멈춰 있는 요청 수. 0 이 아니면 이미 누군가는 기다리고 있다."
         />
-        <SignalTile
-          metricKey="cron_fail_24h"
+<SignalTile
+          metricKey="cron_fail_1h"
           label="예약 실패"
-          value={live?.cron_fail_24h ?? null}
-          display={live ? String(live.cron_fail_24h) : '—'}
-          sub={live ? `지금 도는 잡 ${live.cron_running}` : undefined}
-          tip="최근 24시간 안에 실패한 예약 작업 실행 수. 같은 잡이 반복 실패하면 아래 목록에서 잡 자체를 정지할 수 있다."
+          value={live?.cron_fail_1h ?? null}
+          display={live ? String(live.cron_fail_1h) : '—'}
+          sub={live ? `최근 1시간 · 24시간 ${live.cron_fail_24h} · 도는 잡 ${live.cron_running}` : undefined}
+          tip="판정은 **최근 1시간**에서 한다. 24시간 누적은 아홉 시간 전에 끝난 사건을 오늘 내내 빨간 불로 남긴다 — 실측 2026-09-06 에 61건 중 60건이 재시작 이전 것이었다. 같은 잡이 반복 실패하면 아래 목록에서 잡 자체를 정지할 수 있다."
         />
         <SignalTile
           metricKey="db_size_mb"
           label="DB 용량"
           value={live?.db_size_mb ?? null}
           display={live ? formatValue(live.db_size_mb, 'MB') : '—'}
-          sub={live ? `롤백 ${live.rollbacks} · 교착 ${live.deadlocks}` : undefined}
+          sub={live ? `가동 ${live.uptime_h}시간 · 롤백 ${live.rollbacks} · 교착 ${live.deadlocks}` : undefined}
           tip="디스크 상한을 모르는 채로 경계선을 그으면 그 선은 짐작이다. 그래서 값과 증가분만 보여 주고 판정하지 않는다 — 증가 추세는 아래 «용량» 에 있다."
         />
       </div>
@@ -418,7 +436,7 @@ export function LivePanel({ initial, initialError }: { initial: LiveSnapshot | n
                 <span className="min-w-0 flex-1">
                   <span className="font-mono text-[11px] font-[600] text-[var(--t1)]">{r.job}</span>
                   <span className="ml-2 font-mono text-[10px] text-[var(--t2)]">
-                    {r.status} · {formatSeconds(r.dur_s)} · {new Date(r.at).toLocaleTimeString('ko-KR')}
+                    {r.status} · {formatSeconds(r.dur_s)} · {formatKstTime(r.at)} KST
                   </span>
                   {r.msg && (
                     <span className="mt-0.5 block truncate font-mono text-[10px] text-[var(--t2)]" title={r.msg}>

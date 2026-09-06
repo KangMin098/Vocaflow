@@ -7,13 +7,24 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { gaugeFill, overallStatus, signalLevel, suggestActions } from '../derive'
+import {
+  CACHE_DELTA_MIN_BLOCKS,
+  cacheHitDelta,
+  gaugeFill,
+  overallStatus,
+  signalLevel,
+  suggestActions,
+} from '../derive'
 import { ACTION_CATALOG, LIVE_THRESHOLDS } from '../types'
 import type { FindingRow, LiveSnapshot } from '../types'
 
 function live(over: Partial<LiveSnapshot> = {}): LiveSnapshot {
   return {
     at: new Date().toISOString(),
+    uptime_h: 26.4,
+    blks_hit: 164_700_000,
+    blks_read: 12_000_000,
+    cron_fail_1h: 0,
     conn: { max: 60, total: 17, active: 3, idle: 14, idle_in_tx: 0, waiting: 0, used_pct: 28.3 },
     cache_hit_pct: 99.6,
     db_size_mb: 6317.2,
@@ -92,9 +103,22 @@ describe('overallStatus — 가장 나쁜 하나가 전체를 정한다', () => 
   })
 
   it('라이브 하나가 치명이면 나머지가 멀쩡해도 장애', () => {
-    const s = overallStatus({ ...base, live: live({ cache_hit_pct: 91.4 }) })
+    const s = overallStatus({ ...base, live: live({ cron_fail_1h: 9 }) })
     expect(s.level).toBe('crit')
     expect(s.headline).toBe('장애')
+  })
+
+  it('누적 캐시 적중이 낮다는 것만으로 장애라 하지 않는다', () => {
+    // ⚠️ 실측 2026-09-06: 재시작 2.3시간 뒤 누적 92.8% 였고 화면이 「장애」를 띄웠다.
+    //    캐시가 빈 채로 시작한 평균이라 낮은 것이 정상이었고, 실제로 93.1% 로 오르는 중이었다.
+    //    구조적으로 낮은 캐시는 판정층이 치명 발견으로 들고 있다 — 같은 것을 두 번 세지 않는다.
+    const s = overallStatus({ ...base, live: live({ cache_hit_pct: 91.4 }) })
+    expect(s.level).toBe('ok')
+  })
+
+  it('24시간 누적 실패는 판정에 쓰지 않는다 — 최근 1시간만 본다', () => {
+    const s = overallStatus({ ...base, live: live({ cron_fail_24h: 61, cron_fail_1h: 0 }) })
+    expect(s.level).toBe('ok')
   })
 
   it('치명 발견이 있으면 라이브가 조용해도 장애', () => {
@@ -122,7 +146,30 @@ describe('overallStatus — 가장 나쁜 하나가 전체를 정한다', () => 
   })
 
   it('경계만 있으면 주의', () => {
-    expect(overallStatus({ ...base, live: live({ cron_fail_24h: 3 }) }).level).toBe('warn')
+    expect(overallStatus({ ...base, live: live({ cron_fail_1h: 3 }) }).level).toBe('warn')
+  })
+})
+
+describe('cacheHitDelta — 「지금」은 증분에서만 나온다', () => {
+  const snap = (hit: number, read: number) => ({ blks_hit: hit, blks_read: read })
+
+  it('두 표본 사이의 비율을 낸다', () => {
+    // 100 hit + 10 read = 90.9%
+    expect(cacheHitDelta(snap(1000, 1000), snap(1000 + 10_000, 1000 + 1000))).toBe(90.9)
+  })
+
+  it('표본이 하나뿐이면 재지 않는다 — 「정상」이 아니라 「모름」이다', () => {
+    expect(cacheHitDelta(null, snap(1000, 100))).toBeNull()
+    expect(cacheHitDelta(snap(1000, 100), null)).toBeNull()
+  })
+
+  it('카운터가 되감기면(재시작) 두 창을 이어 붙이지 않는다', () => {
+    expect(cacheHitDelta(snap(10_000_000, 1_000_000), snap(500, 50))).toBeNull()
+  })
+
+  it('그 사이 읽은 블록이 너무 적으면 재지 않는다 — 유휴 구간의 비율은 잡음이다', () => {
+    expect(cacheHitDelta(snap(1000, 100), snap(1050, 105))).toBeNull()
+    expect(CACHE_DELTA_MIN_BLOCKS).toBeGreaterThan(0)
   })
 })
 

@@ -68,6 +68,10 @@ function finding(over: Partial<FindingRow> = {}): FindingRow {
 function live(over: Partial<LiveSnapshot> = {}): LiveSnapshot {
   return {
     at: iso(0),
+    uptime_h: 26.4,
+    blks_hit: 164_700_000,
+    blks_read: 12_000_000,
+    cron_fail_1h: 0,
     conn: { max: 60, total: 17, active: 3, idle: 14, idle_in_tx: 0, waiting: 0, used_pct: 28.3 },
     cache_hit_pct: 99.7,
     db_size_mb: 6317.2,
@@ -275,10 +279,20 @@ describe('상태 한 줄 — 접힌 위 첫 줄에서 판정한다', () => {
     expect(html).toContain('지금 상태를 읽지 못함')
   })
 
-  it('캐시 적중이 임계 아래면 발견이 없어도 장애로 뜬다', async () => {
+  it('최근 1시간 예약 실패가 임계를 넘으면 발견이 없어도 장애로 뜬다', async () => {
     // 라이브에는 뒤에 판정층이 없다 — 화면이 직접 선을 긋는 유일한 자리.
-    const html = await render({ findings: [], live: live({ cache_hit_pct: 91.4 }) })
+    const html = await render({ findings: [], live: live({ cron_fail_1h: 9 }) })
     expect(html).toContain('장애')
+  })
+
+  it('24시간 누적 실패만 많은 것은 장애가 아니다 — 과거를 지금으로 말하지 않는다', async () => {
+    // 실측 2026-09-06: 61건 중 60건이 재시작 이전이었는데 화면이 하루 종일 「장애」였다.
+    const html = await render({
+      findings: [],
+      live: live({ cron_fail_24h: 61, cron_fail_1h: 0, cache_hit_pct: 92.8 }),
+    })
+    expect(html).not.toContain('장애')
+    expect(html).toContain('24시간 61')
   })
 })
 

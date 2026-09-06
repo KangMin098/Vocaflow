@@ -241,6 +241,30 @@ export function anomalyReadiness(
 //    그래서 라이브만은 화면이 선을 긋는다. 대신 선은 `LIVE_THRESHOLDS` 한 곳에만 있고
 //    전부 이 DB 의 실측 설정에 걸려 있다(임계값을 두 곳에 두면 두 곳이 갈린다).
 
+/**
+ * 폴링 사이 증분으로 낸 **순간** 캐시 적중률. 표본이 모자라거나 카운터가 되감기면 null.
+ *
+ * pg_stat_database 의 값은 **재시작 이후 누적**이라 「지금」이 아니다. 캐시가 빈 채로 시작한
+ * 뒤 두 시간 평균은 낮은 게 정상이고, 그걸 임계에 대면 재시작할 때마다 장애가 난다.
+ */
+export function cacheHitDelta(
+  prev: Pick<LiveSnapshot, 'blks_hit' | 'blks_read'> | null,
+  cur: Pick<LiveSnapshot, 'blks_hit' | 'blks_read'> | null,
+): number | null {
+  if (!prev || !cur) return null
+  const hit = cur.blks_hit - prev.blks_hit
+  const read = cur.blks_read - prev.blks_read
+  // 음수 = 재시작으로 통계가 초기화됐다. 두 창을 이어 붙이면 거짓말이 된다.
+  if (hit < 0 || read < 0) return null
+  const total = hit + read
+  // 유휴 구간에서는 몇 블록으로 비율을 내면 100% 와 0% 사이를 튄다 — 그때는 재지 않는다.
+  if (total < CACHE_DELTA_MIN_BLOCKS) return null
+  return Math.round((1000 * hit) / total) / 10
+}
+
+/** 순간 적중률을 내기 위한 최소 블록 수. 이보다 적으면 비율이 신호가 아니라 잡음이다. */
+export const CACHE_DELTA_MIN_BLOCKS = 1000
+
 /** 신호 하나를 임계값에 대고 판정한다. 임계값이 없는 신호와 값이 없는 신호 모두 `unknown`. */
 export function signalLevel(key: string, value: number | null): SignalLevel {
   const t = LIVE_THRESHOLDS[key]
@@ -269,14 +293,16 @@ export function overallStatus(input: {
   warningCount: number
   stale: boolean
 }): { level: SignalLevel; headline: string; reason: string } {
+  // ⚠️ 캐시 적중은 여기서 판정하지 않는다 — 누적값이라 「지금」이 아니다.
+  //    순간 적중률(폴링 증분)은 표본이 둘 이상일 때만 나오고, 그건 라이브 패널 안에서 본다.
+  //    구조적으로 낮은 캐시는 판정층이 이미 치명 발견으로 들고 있다(같은 것을 두 번 세지 않는다).
   const worstLive: SignalLevel[] = []
   if (input.live) {
     worstLive.push(signalLevel('conn_used_pct', input.live.conn.used_pct))
-    worstLive.push(signalLevel('cache_hit_pct', input.live.cache_hit_pct))
     worstLive.push(signalLevel('longest_query_s', input.live.longest_query_s))
     worstLive.push(signalLevel('oldest_idle_in_tx_s', input.live.oldest_idle_in_tx_s))
     worstLive.push(signalLevel('blocked_locks', input.live.blocked_locks))
-    worstLive.push(signalLevel('cron_fail_24h', input.live.cron_fail_24h))
+    worstLive.push(signalLevel('cron_fail_1h', input.live.cron_fail_1h))
   }
   const liveCrit = worstLive.filter((l) => l === 'crit').length
   const liveWarn = worstLive.filter((l) => l === 'warn').length
@@ -345,6 +371,24 @@ export function suggestActions(finding: FindingRow): { action: ActionKey; target
   return out.filter(
     (a, i) => out.findIndex((b) => b.action === a.action && b.target === a.target) === i,
   )
+}
+
+/**
+ * ISO 시각을 **KST 시:분:초**로. `toLocaleTimeString` 을 쓰지 않는 이유가 있다.
+ *
+ * 그 함수는 클라이언트 컴포넌트에서 서버(SSR)와 브라우저 양쪽에서 돌고, 둘의 결과가 갈리면
+ * React 가 하이드레이션 오류를 낸다. 개발 기계에서는 같은 타임존이라 우연히 맞지만
+ * **배포하면 서버는 UTC, 보는 사람은 KST** 라 아홉 시간이 어긋난다 — 확정 버그다.
+ * (ICU 판본이 다르면 구분 기호까지 갈린다.)
+ *
+ * 그래서 로캘·타임존 API 를 아예 쓰지 않고 오프셋을 더해 직접 만든다. 어디서 돌든 같은 문자열이다.
+ */
+export function formatKstTime(iso: string): string {
+  const t = new Date(iso).getTime()
+  if (Number.isNaN(t)) return '—'
+  const kst = new Date(t + 9 * 3600_000)
+  const p = (n: number) => String(n).padStart(2, '0')
+  return `${p(kst.getUTCHours())}:${p(kst.getUTCMinutes())}:${p(kst.getUTCSeconds())}`
 }
 
 /** 초를 사람 말로. 판정하지 않는다 — 길이만 말한다. */
