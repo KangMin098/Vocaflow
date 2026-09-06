@@ -31,6 +31,7 @@ import {
   type EligibilityGrade,
 } from '@vocaflow/library-pipeline'
 
+import defectSnapshot from './extraction-defect-snapshot.json'
 import snapshot from './source-eligibility-snapshot.json'
 
 /** 스냅샷 한 칸의 집계 — 스캔이 찍은 모양 그대로. */
@@ -111,6 +112,50 @@ export interface SourceEligibilityPanel {
   requirements: BandRequirements[]
   /** 계열별 자의 출처 — 화면이 각주로 쓴다. */
   familySource: Record<string, string>
+  /**
+   * **본문이 글이 아닌 것** — 적격 판정이 통과시킨 뒤에도 남는 결함.
+   *
+   * 일곱 축은 「이 원문을 써도 되는가」를 묻고, 그 질문은 **본문이 온전하다는 것을 전제**한다.
+   * 전제가 깨진 경우는 축이 못 잡는다 — 장르는 설명문이 맞고, 저작권도 맞고, 어수도 맞는데
+   * 본문 첫 문단이 `You are using an outdated browser…` 이거나 초록이 두 번 들어 있다.
+   * 그대로 조판하면 **그 문자열이 학생이 읽는 지문에 인쇄된다.**
+   *
+   * 그래서 적격과 **따로** 잰다(`scripts/textbook/extraction-defect-scan.mjs`).
+   */
+  defects: DefectPanel
+}
+
+/** 결함 한 갈래. */
+export interface DefectRow {
+  id: string
+  label: string
+  why: string
+  count: number
+  pct: number
+  /** 가장 많은 원천과 그 몫 — **비율만 말하면 오해를 부른다**(아래 `concentrated` 참조). */
+  topSource: { source: string; count: number; share: number } | null
+  bySource: { source: string; count: number }[]
+  /**
+   * 한 원천이 이 결함의 80% 이상을 차지하는가.
+   *
+   * 실측 2026-09-06: 「문단 통째 중복」이 전체의 59.4% 로 나왔는데 12,917건 중
+   * **12,878건(99.7%)이 plos 하나**였고 모양도 하나였다(초록이 두 번). 전체 비율로 읽으면
+   * "본문 절반이 깨졌다" 가 되지만 사실은 "한 원천의 수확기가 한 군데서 겹쳐 붙인다" 이다.
+   * 처방이 완전히 다르므로 화면이 이 사실을 스스로 말해야 한다.
+   */
+  concentrated: boolean
+  samples: { title: string; source: string; evidence: string }[]
+}
+
+export interface DefectPanel {
+  measuredAt: string
+  ageDays: number
+  scope: string
+  scanned: number
+  /** 결함이 하나라도 걸린 편수. */
+  defective: number
+  defectivePct: number
+  rules: DefectRow[]
 }
 
 /** 등급 표시 순서 — 좋은 것부터 나쁜 것 순. 화면이 이 순서로 읽는다. */
@@ -225,5 +270,41 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
     // 스냅샷과 무관하다 — 정본에서 바로 편다. 재고가 낡아도 **요건은 늘 지금 규격**이다.
     requirements: buildSourceRequirements(),
     familySource: FAMILY_SOURCE,
+    defects: buildDefectPanel(now),
+  }
+}
+
+/**
+ * 추출 결함 스냅샷을 화면 모양으로 편다.
+ *
+ * 적격 판정과 **다른 스캔**이라 잰 시각도 따로다 — 둘을 한 시각으로 뭉개면 하나가 낡았을 때
+ * 화면이 그것을 숨긴다.
+ */
+function buildDefectPanel(now: Date): DefectPanel {
+  const measured = new Date(defectSnapshot.measuredAt)
+  const scanned = defectSnapshot.scanned
+  const rules: DefectRow[] = defectSnapshot.rules.map((r) => {
+    const top = r.bySource[0] ?? null
+    return {
+      id: r.id,
+      label: r.label,
+      why: r.why,
+      count: r.count,
+      pct: scanned ? +((r.count / scanned) * 100).toFixed(1) : 0,
+      topSource: top ? { ...top, share: r.count ? +((top.count / r.count) * 100).toFixed(1) : 0 } : null,
+      bySource: r.bySource,
+      // 20건 미만은 한 원천에 몰려 있어도 그것이 뜻을 갖지 않는다 — 표본이 작다.
+      concentrated: r.count >= 20 && !!top && top.count / r.count >= 0.8,
+      samples: r.samples,
+    }
+  })
+  return {
+    measuredAt: defectSnapshot.measuredAt,
+    ageDays: Math.max(0, Math.floor((now.getTime() - measured.getTime()) / 86_400_000)),
+    scope: defectSnapshot.scope,
+    scanned,
+    defective: defectSnapshot.defective,
+    defectivePct: scanned ? +((defectSnapshot.defective / scanned) * 100).toFixed(1) : 0,
+    rules: rules.sort((a, b) => b.count - a.count),
   }
 }

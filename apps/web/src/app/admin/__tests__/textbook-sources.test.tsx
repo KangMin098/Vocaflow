@@ -111,6 +111,39 @@ describe('원문 적격 화면', () => {
     }
   })
 
+  // ── 추출 결함 ────────────────────────────────────────────────────
+  // 일곱 축은 「이 원문을 써도 되는가」를 묻고, 그 질문은 **본문이 온전하다**는 것을 전제한다.
+  // 전제가 깨진 편은 축이 못 잡는다 — 장르도 저작권도 어수도 맞는데 첫 문단이
+  // "You are using an outdated browser…" 다. 그대로 조판하면 그 문자열이 인쇄된다.
+  // 화면이 이걸 안 보이면 관리자는 「전부 통과」라고 읽는다.
+  it('추출 결함을 적격과 나란히 보인다', () => {
+    expect(html).toContain('추출 결함')
+    expect(html).toContain('지문으로 못 쓰는')
+    expect(html).toContain(panel.defects.defective.toLocaleString())
+    for (const r of panel.defects.rules) expect(html).toContain(r.label)
+    // 다시 재는 명령이 없으면 이 표도 조용히 낡는다.
+    expect(html).toContain('extraction-defect-scan.mjs')
+  })
+
+  // ⚠️ 비율만 말하면 오해를 부른다. 실측 2026-09-06: 「문단 통째 중복」이 전체의 59.4% 였는데
+  //    12,917건 중 12,878건(99.7%)이 plos 하나였고 모양도 하나였다(초록이 두 번).
+  //    "본문 절반이 깨졌다" 와 "한 원천의 수확기가 겹쳐 붙인다" 는 처방이 아예 다르다.
+  it('한 원천에 몰린 결함은 그 사실을 함께 말한다', () => {
+    const skewed = panel.defects.rules.filter((r) => r.concentrated)
+    if (!skewed.length) return
+    expect(html).toContain('사실상')
+    for (const r of skewed) {
+      expect(r.topSource).not.toBeNull()
+      expect(html).toContain(r.topSource!.source)
+      // 몫을 숫자로 대지 않으면 "몰려 있다" 가 인상으로만 남는다.
+      expect(html).toContain(`${r.topSource!.share}%`)
+    }
+  })
+
+  it('결함 스캔이 고치지 않는다는 사실을 적는다 — 안 그러면 자동 세척으로 오해한다', () => {
+    expect(html).toContain('고치지 않는다')
+  })
+
   it('언제 잰 값인지와 다시 재는 명령을 함께 보인다', () => {
     expect(html).toContain('에 잰 값')
     expect(html).toContain('source-eligibility-scan.mjs')

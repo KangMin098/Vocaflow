@@ -4,7 +4,13 @@
 'use client'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
-import type { AxisRow, BandRow, GradeRow, SourceEligibilityPanel } from '@/lib/textbook/source-eligibility-view'
+import type {
+  AxisRow,
+  BandRow,
+  DefectPanel,
+  GradeRow,
+  SourceEligibilityPanel,
+} from '@/lib/textbook/source-eligibility-view'
 
 /**
  * 등급 색 — **색만으로 말하지 않는다.** 옆에 「조판 가능/불가」 글자를 함께 둔다.
@@ -122,6 +128,7 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
       <GradeTable grades={panel.grades} total={t.total} />
       <BandTable bands={panel.bands} />
       <BlockedSources rows={panel.blockedBySource} />
+      <DefectTable defects={panel.defects} />
     </div>
   )
 }
@@ -404,6 +411,91 @@ function BlockedSources({ rows }: { rows: { source: string; count: number }[] })
           </li>
         ))}
       </ul>
+    </section>
+  )
+}
+
+/**
+ * 추출 결함 — **일곱 축이 통과시킨 뒤에도 남는 것.**
+ *
+ * 축은 「이 원문을 써도 되는가」를 묻고, 그 질문은 본문이 온전하다는 것을 전제한다.
+ * 전제가 깨진 경우는 축이 못 잡는다 — 장르도 저작권도 어수도 맞는데 본문 첫 문단이
+ * `You are using an outdated browser…` 이거나 초록이 두 번 들어 있다.
+ * 그대로 조판하면 **그 문자열이 학생이 읽는 지문에 인쇄된다.**
+ *
+ * ⚠️ **비율만 보이면 오해를 부른다.** 한 원천이 그 결함의 80% 이상을 차지하면 그 사실을
+ * 함께 말한다 — "본문 절반이 깨졌다" 와 "한 원천의 수확기가 한 군데서 겹쳐 붙인다" 는
+ * 처방이 완전히 다르다.
+ */
+function DefectTable({ defects }: { defects: DefectPanel }) {
+  return (
+    <section aria-label="추출 결함" className="flex flex-col gap-2">
+      <div className="flex flex-wrap items-baseline gap-2">
+        <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">추출 결함</h2>
+        <span className="font-body text-[12px] text-[var(--t2)]">
+          적격 판정이 통과시켜도 <b>지문으로 못 쓰는</b> 본문 — 따로 잰다
+        </span>
+        <span className="ml-auto font-body text-[11px] text-[var(--t3)]">
+          {defects.measuredAt.slice(0, 10)} 에 잰 값 · {defects.ageDays === 0 ? '오늘' : `${defects.ageDays}일 전`} ·{' '}
+          {defects.scanned.toLocaleString()}편 훑음
+        </span>
+      </div>
+
+      <p className="font-body text-[12px] text-[var(--t2)]">
+        하나라도 걸린 편 <b className="tabular-nums">{defects.defective.toLocaleString()}편</b> (
+        {defects.defectivePct}%). 갱신: <code>pnpm dlx tsx scripts/textbook/extraction-defect-scan.mjs --all</code>
+      </p>
+
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[720px] border-collapse font-body text-[13px]">
+          <thead>
+            <tr className="border-b border-[var(--bd)] text-left text-[12px] text-[var(--t2)]">
+              <th className="py-2 pr-3 font-[600]">결함</th>
+              <th className="py-2 pr-3 text-right font-[600]">편수</th>
+              <th className="py-2 pr-3 text-right font-[600]">비율</th>
+              <th className="py-2 font-[600]">무엇인가 · 어디에 몰려 있나</th>
+            </tr>
+          </thead>
+          <tbody>
+            {defects.rules.map((r) => (
+              <tr key={r.id} className="border-b border-[var(--bd)]/50 align-top">
+                <td className="py-2 pr-3 font-[600] text-[var(--t1)]">{r.label}</td>
+                <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">
+                  {r.count.toLocaleString()}
+                </td>
+                <td className="py-2 pr-3 text-right tabular-nums text-[var(--t2)]">{r.pct}%</td>
+                <td className="py-2 text-[12px] text-[var(--t2)]">
+                  {r.why}
+                  {r.concentrated && r.topSource ? (
+                    <span className="mt-1 block text-[var(--warning-ink)]">
+                      ⚠ 사실상 <b>{r.topSource.source}</b> 하나의 문제다 —{' '}
+                      {/* ⚠️ 한 표현식으로 만든다 — 표현식과 리터럴을 붙여 쓰면 서버 렌더가
+                          사이에 주석 마커를 넣어 `99.7%` 가 문자열로 남지 않는다. */}
+                      <span className="tabular-nums">
+                        {`${r.topSource.count.toLocaleString()} / ${r.count.toLocaleString()}건(${r.topSource.share}%)`}
+                      </span>
+                      {' 전체 비율로 읽지 말고 그 수확기를 볼 것.'}
+                    </span>
+                  ) : r.bySource.length ? (
+                    <span className="mt-1 block text-[var(--t3)]">
+                      원천별{' '}
+                      {r.bySource
+                        .slice(0, 4)
+                        .map((b) => `${b.source} ${b.count.toLocaleString()}`)
+                        .join(' · ')}
+                    </span>
+                  ) : null}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p className="font-body text-[11px] text-[var(--t3)]">
+        이 스캔은 <b>고치지 않는다</b> — 어디에 몇 편 있는지만 센다. 무엇을 지울지는 소스별
+        추출기를 고칠 때 사람이 정한다(<code>==</code> 는 수식에도, <code>Media</code> 는 본문 낱말로도 나온다).
+      </p>
     </section>
   )
 }
