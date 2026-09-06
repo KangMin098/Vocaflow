@@ -649,6 +649,10 @@ export async function loadVolume(db, { band, unitCount, marketMix = true, maxArt
     dropDuplicatedLeadWord,
     hasSensitiveTopic,
     countPassageWords,
+    judgeSource,
+    isComposable,
+    tallyEligibility,
+    GRADE_LABEL,
   } = await import('@vocaflow/library-pipeline')
 
   // ── 원글 ──────────────────────────────────────────────────────────
@@ -666,6 +670,10 @@ export async function loadVolume(db, { band, unitCount, marketMix = true, maxArt
   const arts = await fetchAllKeyset(
     db,
     'library_articles',
+    // ⚠️ **여기에 `csat_fit` 경로를 넣으면 안 된다.** 실측 2026-09-06: 적격 판정용으로
+    //   `csat_fit->gate->>...` 넷을 더했더니 V4(856편) 조판이 **statement timeout 으로 죽었다.**
+    //   밴드 전체를 훑으면서 jsonb 를 행마다 detoast 하기 때문이다. 판정에 필요한 열은
+    //   **문항이 붙은 원글에만** 따로 받는다(아래 `적격 판정` 절) — 그쪽은 pk `IN` 이라 싸다.
     'id, title, source, article_v_level, display_only, license_class, copyright_safe_in_kr',
     'id',
     1000,
@@ -774,10 +782,80 @@ export async function loadVolume(db, { band, unitCount, marketMix = true, maxArt
     return out
   }
 
+  // ── 적격 판정 ──────────────────────────────────────────────────────
+  //
+  // **"단 하나의 원문도 사용이 어려운 원문이면 안 된다"** 를 조판에서 지키는 자리다.
+  // 판정은 `judgeSource`(패키지)가 하고 여기서는 걸기만 한다 — 자를 두 벌 두지 않는다.
+  //
+  // ⚠️ **문항을 받은 뒤에 판정한다.** 긴 글의 적격 신호가 `hasItems`(잘린 지문이 이미
+  //   있는가)라서, 문항을 받기 전에는 그 값을 모른다. 순서를 뒤집으면 4,000어짜리가
+  //   전부 `excerpt-blind` 로 떨어져 상위 밴드가 통째로 사라진다.
+  //
+  // ⚠️ **기본은 경고이지 차단이 아니다.** 지금 재고로 강제하면 V2 는 3편 · V3 는 1편만
+  //   남아 그 학년 권이 아예 안 나온다(실측 2026-09-06). 재고를 못 만들면서 규칙만
+  //   켜는 것은 규칙을 지키는 것이 아니라 파이프라인을 세우는 것이다.
+  //   **강제는 `VOCAFLOW_SOURCE_STRICT=1` 로 켠다** — 그때는 판정을 통과한 원문만 실린다.
+  //   막든 안 막든 **편수는 항상 인쇄한다.** 숫자를 안 보이면 아무도 안 고친다.
+  const withItems = new Set(itemRows.map((r) => r.ref_id))
+  const STRICT = process.env.VOCAFLOW_SOURCE_STRICT === '1'
+  // ⚠️ **판정 열은 문항이 붙은 원글에만 받는다.** 밴드 전체 select 에 넣었더니 V4(856편)
+  //   조판이 statement timeout 으로 죽었다 — jsonb 를 행마다 detoast 하기 때문이다.
+  //   문항이 없는 원글은 이 권에 아무것도 기여하지 않으므로 분모에서 빼는 것이 맞기도 하다:
+  //   여기서 세는 것은 **"이 권이 고를 수 있는 원문이 적격인가"** 다.
+  const gateRows = await fetchAllIn(
+    db,
+    'library_articles',
+    'id, word_count, register, cefr_level, syn:syntax_score->>score, ' +
+      'gp:csat_fit->gate->>publishable, gb:csat_fit->gate->>blockedBy, ' +
+      'gv:csat_fit->gate->>verdict, gpu:csat_fit->gate->>purpose',
+    'id',
+    [...withItems].filter((r) => byId.has(r)),
+    ['id'],
+  )
+  const gateById = new Map(gateRows.map((r) => [r.id, r]))
+  const verdictByRef = new Map()
+  for (const id of withItems) {
+    const a = byId.get(id)
+    if (!a) continue
+    const g = gateById.get(id) ?? {}
+    verdictByRef.set(
+      id,
+      judgeSource({
+        title: a.title ?? null,
+        status: 'ready',
+        articleVLevel: a.article_v_level ?? null,
+        wordCount: g.word_count ?? null,
+        register: g.register ?? null,
+        cefrLevel: g.cefr_level ?? null,
+        syntaxScore: g.syn == null ? null : Number(g.syn),
+        displayOnly: a.display_only ?? null,
+        licenseClass: a.license_class ?? null,
+        copyrightSafeInKr: a.copyright_safe_in_kr ?? null,
+        // jsonb 텍스트 추출이라 문자열로 온다 — `Boolean('false')` 는 true 다.
+        gatePublishable: g.gp == null ? null : g.gp === 'true',
+        gateBlockedBy: g.gb ?? null,
+        gateVerdict: g.gv ?? null,
+        gatePurpose: g.gpu ?? null,
+        excerptWindows: null,
+        hasItems: true, // 이 집합이 곧 "문항이 붙은 원글" 이다
+      }),
+    )
+  }
+  const sourceGate = tallyEligibility([...verdictByRef.values()])
+  const gateLine =
+    `  원문 적격 ${sourceGate.composable.toLocaleString()}/${sourceGate.total.toLocaleString()}` +
+    ` (${sourceGate.composablePct}%)` +
+    ` — ${Object.entries(sourceGate.byGrade)
+      .filter(([, n]) => n > 0)
+      .map(([g, n]) => `${GRADE_LABEL[g]} ${n.toLocaleString()}`)
+      .join(' · ')}`
+  console.log(STRICT ? `${gateLine}  [강제: 통과분만 싣는다]` : `${gateLine}  [경고만 — 강제는 VOCAFLOW_SOURCE_STRICT=1]`)
+
   const pool = []
   for (const r of itemRows) {
     const a = byId.get(r.ref_id)
     if (!a) continue
+    if (STRICT && !isComposable(verdictByRef.get(r.ref_id)?.grade ?? 'unknown')) continue
     const p = cleanPayload(r.payload ?? {})
     // ── 생성형 유형은 지문이 통째로 payload 에 있다 ──────────────────
     // ⚠️ 이걸 안 넣으면 **문항을 만들어도 책에 안 실린다.** 실제로 그랬다 —
@@ -989,5 +1067,17 @@ export async function loadVolume(db, { band, unitCount, marketMix = true, maxArt
   const itemIds = new Set(units.flatMap((u) => u.items.map((i) => i.id)))
   timer.done(`V${band} 조판`)
 
-  return { units, stoppedBecause, rejected, mix, pool, articles: byId, vocabByRef, itemIds }
+  // `sourceGate` 는 **이 권이 어떤 재고 위에 서 있는지**를 부르는 쪽이 기록할 수 있게 낸다.
+  // 조판 로그에만 남기면 HTML 파일과 함께 사라진다 — 판권·기록표가 이 값을 받아야 한다.
+  return {
+    units,
+    stoppedBecause,
+    rejected,
+    mix,
+    pool,
+    articles: byId,
+    vocabByRef,
+    itemIds,
+    sourceGate,
+  }
 }

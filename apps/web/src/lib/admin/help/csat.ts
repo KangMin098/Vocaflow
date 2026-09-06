@@ -49,7 +49,7 @@ export const CSAT_HELP: HelpRegistry = {
         '조판 기록에 **유형 칸이 없다.** 지금 찍힌 권은 전부 독해라 학령 계단만 보고 센다. 다른 유형을 찍기 시작하면 기록에 유형을 남겨야 하고, 그 전까지 이 화면은 "다른 유형은 하나도 안 찍혔다" 를 정확히 말한다.',
       ],
       seeAlso: [
-        { label: '통합 설계 근거', href: '/docs/reports/textbook-factory-merge-2026-09-06.md' },
+        { label: '통합 설계 근거', doc: 'docs/reports/textbook-factory-merge-2026-09-06.md' },
         { label: '공정 현황판', href: '/admin/csat' },
       ],
     },
@@ -315,7 +315,7 @@ export const CSAT_HELP: HelpRegistry = {
       ],
       seeAlso: [
         { label: '공정 현황판', href: '/admin/csat' },
-        { label: 'TBP 콘솔 (사다리 · 문항 건강)', href: '/admin/textbook' },
+        { label: '② 기획 — 시중 대비 우위·평가 요소', href: '/admin/csat/strategy' },
       ],
     },
   },
@@ -576,7 +576,7 @@ export const CSAT_HELP: HelpRegistry = {
       ],
       seeAlso: [
         { label: '검수 (조판 전 층 4개)', href: '/admin/csat/review' },
-        { label: 'TBP 콘솔 (브랜드 규격)', href: '/admin/textbook' },
+        { label: '⑧ 조판·발행 — 브랜드 규격·조판된 권', href: '/admin/csat/press' },
       ],
     },
   },

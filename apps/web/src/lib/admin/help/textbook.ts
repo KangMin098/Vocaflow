@@ -124,7 +124,7 @@ export const TBP_HELP: HelpRegistry = {
         ],
       },
       seeAlso: [
-        { label: '교재 콘솔 — 사다리 · 문항 건강', href: '/admin/textbook' },
+        { label: '교재 공장 — 공정 현황판', href: '/admin/csat' },
         { label: '원문 재고 실측 리포트', doc: 'docs/reports/kid-source-plan-20260904.md' },
         { label: '게시 게이트 규칙', doc: 'scripts/csat/gate-rules.mjs' },
       ],

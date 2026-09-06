@@ -288,6 +288,8 @@ describe('조판 풀이 법적 축을 건다', () => {
   })
 
   it('조회 컬럼에 라이선스 두 열이 실려 있다 — 안 받아 오면 판정이 늘 통과다', () => {
+    // 열 이름이 select 문자열 안에 있는지만 본다. 문자열 전체를 대조하면 열이 늘 때마다
+    // 깨지는데, 그 깨짐은 결함을 안 알려 준다 — **없어지면 안 되는 것**만 잠근다.
     expect(POOL).toMatch(/'id, title, source, article_v_level, display_only, license_class, copyright_safe_in_kr'/)
   })
 
@@ -303,5 +305,44 @@ describe('조판 풀이 법적 축을 건다', () => {
   it('라이선스가 비어 있는 옛 수집분은 막지 않는다 — 없는 것과 나쁜 것은 다르다', () => {
     expect(at({ licenseClass: null }).grade).toBe('usable')
     expect(POOL).toContain('없는 것과 나쁜 것은 다르다')
+  })
+})
+
+describe('조판이 적격 판정을 건다 (규격 v2)', () => {
+  it('판정 함수를 자기가 다시 짜지 않고 패키지에서 가져온다', () => {
+    expect(POOL).toContain('judgeSource')
+    expect(POOL).toContain('isComposable')
+    expect(POOL).toMatch(/}\s*=\s*await import\('@vocaflow\/library-pipeline'\)/)
+  })
+
+  it('**문항을 받은 뒤에** 판정한다 — 그전에는 hasItems 를 모른다', () => {
+    // 순서를 뒤집으면 긴 글이 전부 excerpt-blind 로 떨어져 상위 밴드가 통째로 사라진다.
+    const itemFetch = POOL.indexOf('const itemRows =')
+    const judge = POOL.indexOf('const withItems = new Set(itemRows.map')
+    expect(itemFetch).toBeGreaterThan(0)
+    expect(judge).toBeGreaterThan(itemFetch)
+  })
+
+  it('판정에 필요한 열을 실제로 받아 온다 — 안 받으면 전부 unknown 이 된다', () => {
+    for (const col of ['word_count', 'register', 'cefr_level', 'syntax_score->>score']) {
+      expect(POOL).toContain(col)
+    }
+    expect(POOL).toContain('csat_fit->gate->>verdict')
+  })
+
+  it('jsonb 텍스트를 Boolean 으로 그냥 넘기지 않는다', () => {
+    // `Boolean('false') === true` 라 그냥 넘기면 **차단된 원문이 전부 통과한다.**
+    expect(POOL).toContain("g.gp === 'true'")
+  })
+
+  it('강제는 스위치이고 기본은 경고다 — 편수는 항상 인쇄한다', () => {
+    expect(POOL).toContain('VOCAFLOW_SOURCE_STRICT')
+    expect(POOL).toContain('원문 적격')
+    // 강제일 때만 거른다.
+    expect(POOL).toMatch(/if \(STRICT && !isComposable\(/)
+  })
+
+  it('집계를 부르는 쪽에 돌려준다 — 로그에만 남기면 HTML 과 함께 사라진다', () => {
+    expect(POOL).toContain('sourceGate,')
   })
 })
