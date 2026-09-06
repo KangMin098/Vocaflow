@@ -1,6 +1,6 @@
 // apps/web/src/components/dashboard/RecentActivity.tsx
 //
-// 최근 학습 활동 v3 — Phase 3-3: useHubData 연동.
+// 최근 학습 활동 — **스스로 조회하지 않는다.**
 //
 // 디자인 (CLAUDE.md §13 / v06.21):
 //   [Activity 아이콘 · 최근 N건]  [chip][chip][chip][chip][chip]  [전체 →]
@@ -8,18 +8,35 @@
 //   chip = [모듈 dot] [짧은 라벨] [본문(점수/✓✗)] [· 시간]
 //   - 좁은 viewport: 가로 스크롤
 //   - 빈 상태: "아직 학습 활동이 없어요" 격려형 안내
+//
+// ⚠️ **여기 조회를 다시 붙이면 그 낭비가 되살아난다** (실측 2026-09-06).
+//    이 줄이 `useHubData()` 를 부르던 동안 `/dashboard` 는 브라우저 데이터 요청 **10건**을
+//    냈다 — 페이지 자체는 이미 서버 컴포넌트였으므로 **열 건 전부가 이 파일 한 줄의 몫**이었다.
+//    게다가 그 훅은 /hub 한 화면분을 통째로 읽어, 이 줄이 쓰는 것은 그중 둘뿐이었다.
+//    지금은 `lib/learner/recent-activity-query.ts` 가 서버에서 두 쿼리로 읽어 props 로 준다.
+//    훅·`createClient()`·`fetch` 를 이 파일에 다시 들이지 말 것.
+//
+// 클라이언트 컴포넌트로 남는 이유는 **조회가 아니라 [다시 시도]** 하나다 —
+// 서버 데이터를 다시 받아야 하므로 `router.refresh()` 가 필요하고, 그동안 버튼이 죽은
+// 것처럼 보이면 안 되므로 `useTransition` 을 쓴다. 값 자체는 서버 HTML 에 이미 찍혀 있다.
 
 'use client'
 
-import { Activity } from 'lucide-react'
+import { useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+import { Activity, RotateCcw } from 'lucide-react'
 
 import { activityLabel } from '@/lib/framework/registry'
-import { useHubData, type ModuleId } from '@/hooks/useHubData'
+import type {
+  ActivityModuleId,
+  RecentActivityData,
+  RecentActivityItem,
+} from '@/lib/learner/recent-activity-query'
 
 // ════════════════════════════════════════════════════════════
 // 모듈별 시각 매핑 (FlowNav 단계 accent 정합)
 // ════════════════════════════════════════════════════════════
-// ⚠️ 키는 `ModuleId` 가 아니라 **런타임 module 문자열**이다.
+// ⚠️ 키는 `ActivityModuleId` 가 아니라 **런타임 module 문자열**이다.
 // `packages/types` 의 module_id 는 25종인데 DB enum 은 28종이라(2026-08-13 실측) 타입이
 // 실제 값을 다 담지 못한다 — 실데이터가 쓰는 `'pirate-quest'`(하이픈)는 타입에 아예 없다.
 // 타입 재생성(`pnpm db:types`)이 근본 해결이고, 그 전까지는 문자열 키로 정직하게 둔다.
@@ -41,7 +58,7 @@ const MODULE_COLOR: Record<string, string> = {
 // 표를 다시 늘리지 않는 이유: 이 표에 아케이드 19종이 없어서 학습자에게 raw 슬러그
 // (`pirate-quest`·`cascade`)가 그대로 노출되고 있었다(2026-08-13 실측). 활동 이름의
 // 출처는 레지스트리 하나여야 한다 — 아래 표는 **모듈에만** 붙는 짧은 별칭이다.
-const MODULE_SHORT: Partial<Record<ModuleId, string>> = {
+const MODULE_SHORT: Partial<Record<ActivityModuleId, string>> = {
   textviewer: '스크립트',
   workspace: '워크',
   wordvault: '단어장',
@@ -54,21 +71,38 @@ const MODULE_SHORT: Partial<Record<ModuleId, string>> = {
 }
 
 // ════════════════════════════════════════════════════════════
-// RecentActivity — useHubData 자가 페치
+// RecentActivity — props 만 그린다
 // ════════════════════════════════════════════════════════════
-export function RecentActivity() {
-  const { data, isLoading } = useHubData()
+export function RecentActivity({ data }: { data: RecentActivityData }) {
+  const router = useRouter()
+  /** [다시 시도] 가 서버 렌더를 다시 받는 동안 — 버튼이 죽은 것처럼 보이면 안 된다. */
+  const [retrying, startRetry] = useTransition()
 
-  if (isLoading) {
+  // 조회 실패를 빈 목록으로 뭉개지 않는다 — 0 은 "세어 보니 없다" 는 뜻의 숫자다.
+  if (data.failed) {
     return (
-      <div
-        aria-hidden
-        className="h-[58px] animate-pulse rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)]"
-      />
+      <section
+        role="alert"
+        aria-label="최근 학습 활동을 불러오지 못했어요"
+        className="flex flex-col gap-3 rounded-ios-xl border border-[var(--bde)] bg-[var(--error-light)] px-4 py-3 shadow-ios-1 sm:flex-row sm:items-center"
+      >
+        <p className="flex-1 break-keep font-body text-[13px] leading-relaxed text-[var(--error-ink)]">
+          지금은 최근 학습 활동을 불러오지 못했어요. 연결이 끊겼거나 잠시 응답이 없었어요.
+        </p>
+        <button
+          type="button"
+          onClick={() => startRetry(() => router.refresh())}
+          disabled={retrying}
+          className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[12px] font-[700] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          <RotateCcw size={13} className={retrying ? 'animate-spin' : undefined} aria-hidden />
+          다시 시도
+        </button>
+      </section>
     )
   }
 
-  const activities = data?.recentActivities ?? []
+  const activities = data.items
   const groups = groupRuns(activities)
 
   return (
@@ -100,7 +134,7 @@ export function RecentActivity() {
         role="list"
       >
         {groups.length === 0 ? (
-          <li className="font-body text-[12px] text-[var(--t2)]">
+          <li className="break-keep font-body text-[12px] text-[var(--t2)]">
             아직 학습 활동이 없어요 · 첫 학습을 시작해보세요
           </li>
         ) : (
@@ -114,9 +148,7 @@ export function RecentActivity() {
 // ════════════════════════════════════════════════════════════
 // ActivityChip
 // ════════════════════════════════════════════════════════════
-type ActivityItem = NonNullable<
-  ReturnType<typeof useHubData>['data']
->['recentActivities'][number]
+type ActivityItem = RecentActivityItem
 
 /**
  * 연속으로 같은 활동을 접는다.

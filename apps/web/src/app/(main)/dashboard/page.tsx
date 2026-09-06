@@ -40,6 +40,7 @@ import { RecentActivity } from '@/components/dashboard/RecentActivity'
 import { RescuedWords } from '@/components/dashboard/RescuedWords'
 import { fetchManageOverview } from '@/lib/learner/manage-overview'
 import { fetchMemoryHorizon } from '@/lib/learner/memory-horizon'
+import { fetchRecentActivity } from '@/lib/learner/recent-activity-query'
 
 export const metadata = {
   title: 'Growth',
@@ -56,7 +57,15 @@ function kstDateLabel(): string {
 }
 
 export default async function DashboardPage() {
-  const [overview, horizon] = await Promise.all([fetchManageOverview(), fetchMemoryHorizon()])
+  // ⚠️ 이 화면의 조회는 **여기서 끝난다** — 하위 컴포넌트는 스스로 조회하지 않는다.
+  //    (실측 2026-09-06: 마지막 줄 `RecentActivity` 가 `useHubData()` 를 부르는 바람에
+  //     이미 서버 컴포넌트인 이 페이지가 브라우저 데이터 요청 10건을 냈다.
+  //     자세한 경위는 `lib/learner/recent-activity-query.ts` 머리주석.)
+  const [overview, horizon, recent] = await Promise.all([
+    fetchManageOverview(),
+    fetchMemoryHorizon(),
+    fetchRecentActivity(),
+  ])
 
   if (!overview) {
     return (
@@ -104,7 +113,7 @@ export default async function DashboardPage() {
         <ManageSection overview={overview} />
 
         {/* 7. 최근 학습 */}
-        <RecentActivity />
+        <RecentActivity data={recent} />
 
         {/* Calm closing — 정서적 부호화. 모바일 하단 탭에 가리지 않도록 여백을 둔다
             (이전에는 관리 카드가 탭 뒤로 잘렸다 — 390px 실측). */}
