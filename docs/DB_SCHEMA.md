@@ -971,6 +971,41 @@ v06.35: `collect_quality_metrics()` 에 **M7 SSoT 드리프트** 추가 ([202608
 ⚠️ 드리프트 서브쿼리는 **temp table 로 1회만** 평가할 것 — CTE 로 두면 outer 참조 수만큼 재실행돼
 19초가 37.9초가 된다(`EXPLAIN ANALYZE` 로 SubPlan 2개 확인).
 
+### DB 헬스 수집층 — `db_health_metrics` (2026-09-06)
+
+인프라(콘텐츠가 아니라 **DB 자체**)를 재는 스냅샷. `quality_metrics` 와 같은 형태이고 목적만 다르다 —
+`quality_metrics` 는 파이프라인 산출물의 품질을, 이쪽은 그 산출물을 담는 그릇의 상태를 본다.
+
+| | |
+|---|---|
+| 테이블 | `db_health_metrics(id, measured_at, axis, metric, value numeric, dims jsonb)` · RLS read=admin · 인덱스 3 (metric·axis·`(metric, dims->>'table')` 추세용) · 보존 180일(수집기가 직접 purge) |
+| 일 1회 | `collect_db_health_metrics()` — 5축 capacity·cron·latency·connections·advisor. **jobid=15** `40 18 * * *`(KST 03:40). 첫 실행 38행 |
+| 주 1회 | `collect_db_health_integrity()` — ⑥ integrity. **jobid=16** `50 18 * * 0`(일 KST 03:50). 첫 실행 4행 |
+| 화면 버튼 | `admin_collect_db_health_metrics()` · `admin_collect_db_health_integrity()` (role='admin' 검사 후 위임, EXECUTE→authenticated) |
+| 마이그레이션 | [20260906010000](../supabase/migrations/20260906010000_db_health_metrics.sql) · [010500](../supabase/migrations/20260906010500_db_health_integrity.sql) · [011000](../supabase/migrations/20260906011000_db_health_advisor_fix.sql) · [011500](../supabase/migrations/20260906011500_db_health_integrity_noise_filter.sql) |
+
+**설계 원칙 — 수집기는 판정하지 않는다.** 임계값이 하나도 없다. `dims` 에 목록·상위 표본을 통째로
+싣고("어느 인덱스가 미사용인지", "어느 잡이 몇 시간째 미성공인지"), 위험 여부는 DB 밖 에이전트가
+추세와 원인을 보고 정한다. 상수를 SQL 에 굳히면 그 상수가 판단을 대신하고, 그때부터 아무도 안 고친다.
+
+새 지표(축별): `db_size_mb` · `table_size_mb`(상위 25 · 테이블당 1행) · `stats_stale_tables` ·
+`unused_index_mb` · `bloat_sampled_pct`(회전 표본) / `cron_fail_24h` · `cron_stale_max_hours` /
+`slow_stmt_count` / `conn_used_pct` / `anon_exposed_tables` · `anon_exposed_without_rls` ·
+`rls_missing_tables` · `exposed_secdef_funcs` · `mutable_search_path_funcs` /
+`function_errors` · `cron_broken_commands` · `unindexed_fk` · `invalid_objects`.
+
+⚠️ **비용 함정 3개 (실측)**
+1. `pgstattuple_approx` 를 상위 6표에 한 번에 → **120초 타임아웃**. 1,974MB 짜리
+   `library_article_vocabularies` 는 **단독으로도 초과**한다. → 회전 표본 1회 1표 · heap 200MB 이하 ·
+   `set local statement_timeout='25s'` · 실패해도 앞 축의 행은 남긴다(블록을 맨 뒤에 둔 이유).
+2. 함수 정적 분석(128개)은 일 1회 배치에 넣지 않는다. 지금 야간 잡이 죽는 이유가 정확히
+   "한 배치가 너무 많은 일을 한다" 이다.
+3. `plpgsql_check` 는 `create temp table _x` 를 못 본다 → 첫 실행 25건 중 **21건 오탐**.
+   밑줄 접두 임시 테이블(42P01)과 record 미할당(55000)을 `suppressed` 로 분리해 4건으로 줄였다.
+   억제 건수·사유는 `dims` 에 남긴다(규칙이 틀렸는지 되짚을 수 있어야 한다).
+
+추가 확장: `plpgsql_check` 2.8 (schema `extensions`). `pgstattuple` · `pg_stat_statements` 는 기존 설치분 사용.
+
 ---
 
 ### TBP 조판 기록 ([20260830140000](../supabase/migrations/20260830140000_textbook_volume_renders.sql))
