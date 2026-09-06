@@ -10,6 +10,7 @@ import {
   BookImage,
   BookMarked,
   Brain,
+  ChevronRight,
   ClipboardCheck,
   CreditCard,
   Database,
@@ -41,7 +42,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 export interface NavItem {
   href: string
@@ -269,6 +270,73 @@ function inSection(item: NavItem, pathname: string): boolean {
   return hit(item.href) || (item.children ?? []).some((c) => !c.pendingNote && hit(c.href))
 }
 
+// ── 접기 / 펴기 ──────────────────────────────────────────────────────────
+//
+// 하위메뉴는 오래도록 **경로가 정하는 것**이었다 — 그 파이프라인 안에 있으면 펴지고 나가면 접혔다.
+// 그 규칙 자체는 맞다(찾는 화면이 대개 지금 있는 곳 근처다). 문제는 관리자가 **그것을 바꿀 수
+// 없었다**는 것이다: 교재 공장 밖에서 「조판·발행」으로 바로 가려면 먼저 교재 공장에 들어가
+// 하위가 펴지기를 기다려야 했고(두 번 이동), 반대로 하위 11칸이 필요 없는 동안에도 그 11줄이
+// 화면을 차지해 아래 묶음 세 개를 스크롤 밖으로 밀어냈다.
+//
+// 그래서 규칙을 **기본값**으로 격하하고, 관리자의 클릭을 그 위에 얹는다:
+//
+//   열림 = 관리자가 정한 값(있으면) ?? 경로가 정하는 값
+//
+// ⚠️ 관리자가 정한 값이 **기본값과 같아지면 지운다.** 안 지우면 「지금 한 번 펴 둔 것」이
+//   영구 고정으로 굳어서, 다른 파이프라인에 들어가도 남의 하위 11줄이 계속 따라다닌다.
+//   지우면 그 자리에서 경로 규칙으로 되돌아간다 — 접었다 펴면 원래 동작으로 복귀한다.
+
+/** localStorage 키. 값은 `{ [부모 href]: 열림 }` — 기본값과 다른 항목만 담긴다. */
+const NAV_OPEN_KEY = 'vocaflow.admin.nav.open'
+
+/** 지금 이 항목이 펴져 있는가. **순수 함수** — 회귀가 DOM 없이 이 규칙을 직접 읽는다. */
+export function isOpen(
+  item: NavItem,
+  pathname: string,
+  overrides: Record<string, boolean>
+): boolean {
+  if (!item.children?.length) return false
+  return overrides[item.href] ?? inSection(item, pathname)
+}
+
+/**
+ * 토글 한 번의 결과. 기본값으로 돌아오는 클릭은 **키를 지운다**(위 ⚠️ 참조).
+ * 새 객체를 돌려준다 — 호출부가 그대로 setState 하고 저장한다.
+ */
+export function toggleOverrides(
+  prev: Record<string, boolean>,
+  item: NavItem,
+  pathname: string
+): Record<string, boolean> {
+  const next = !isOpen(item, pathname, prev)
+  const rest = { ...prev }
+  if (next === inSection(item, pathname)) delete rest[item.href]
+  else rest[item.href] = next
+  return rest
+}
+
+/** 저장된 값 읽기 — 없는 브라우저·차단·깨진 JSON 어디서도 던지지 않는다. */
+function readNavOpen(): Record<string, boolean> {
+  try {
+    const raw = window.localStorage.getItem(NAV_OPEN_KEY)
+    if (!raw) return {}
+    const parsed: unknown = JSON.parse(raw)
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return {}
+    const out: Record<string, boolean> = {}
+    for (const [k, v] of Object.entries(parsed as Record<string, unknown>)) {
+      if (typeof v === 'boolean') out[k] = v
+    }
+    return out
+  } catch {
+    return {}
+  }
+}
+
+/** aria-controls 로 쓸 패널 id — href 를 그대로 쓰면 슬래시가 들어가 선택자가 깨진다. */
+function panelId(href: string): string {
+  return `adminnav${href.replace(/[^a-zA-Z0-9]+/g, '-')}`
+}
+
 /**
  * 하위 한 줄. **가지(├)를 그린다** — 이게 "하위메뉴처럼 안 보인다" 의 답이다.
  *
@@ -341,6 +409,27 @@ function ChildRow({ child, isActive, last }: { child: NavItem; isActive: boolean
 export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
   const pathname = usePathname() ?? ''
   const NAV_GROUPS = buildNavGroups(reportsBadge)
+
+  // 관리자가 직접 정한 접기/펴기. **서버 렌더는 항상 기본값(경로 규칙)으로 그린다** —
+  // 첫 렌더에서 localStorage 를 읽으면 서버와 다른 HTML 이 나와 하이드레이션이 깨진다.
+  // 그래서 저장값은 마운트 뒤에 얹는다.
+  const [navOpen, setNavOpen] = useState<Record<string, boolean>>({})
+  useEffect(() => {
+    setNavOpen(readNavOpen())
+  }, [])
+
+  const toggleNav = (item: NavItem) => {
+    setNavOpen((prev) => {
+      const next = toggleOverrides(prev, item, pathname)
+      try {
+        window.localStorage.setItem(NAV_OPEN_KEY, JSON.stringify(next))
+      } catch {
+        // 저장이 막힌 브라우저(프라이빗 모드·사이트 데이터 차단). 이번 세션 동안만 유지되고
+        // 기능 자체는 그대로 돈다 — 여기서 던지면 메뉴 클릭이 통째로 죽는다.
+      }
+      return next
+    })
+  }
 
   // 활성 항목 = 현재 경로에 매칭되는 href 중 "가장 구체적(최장)" 1개.
   //   startsWith 경계(+'/')로 /admin/vocab ↔ /admin/vocabulary 오매칭 차단,
@@ -420,68 +509,108 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
             <ul className="flex flex-col gap-1">
               {group.items.map((item) => {
                 const isActive = item.href === activeHref
-                // 하위 메뉴는 그 파이프라인 안에 있을 때만 편다 — 밖에서는 한 줄로 접혀 있다.
-                const open = Boolean(item.children?.length) && inSection(item, pathname)
+                // 하위를 가진 항목이 **지금 경로를 품고 있는가** — 접기/펴기의 기본값이자,
+                // 접혀 있을 때 "여기 안에 있다" 를 알리는 근거다(아래 왼쪽 세로 막대).
+                const inside = Boolean(item.children?.length) && inSection(item, pathname)
+                const open = isOpen(item, pathname, navOpen)
+                // 이름·아이콘을 진하게 쓸 조건. 접어 둔 채로 그 안에 있을 때도 진해야 한다 —
+                // 안 그러면 하위가 안 보이는 동안 **자기 위치가 메뉴에서 사라진다.**
+                const lit = isActive || open || inside
+                const openable = item.children?.filter((c) => !c.pendingNote).length ?? 0
                 return (
                   <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      aria-current={isActive ? 'page' : undefined}
-                      aria-expanded={item.children?.length ? open : undefined}
-                      className={`group relative flex min-h-[44px] items-center gap-3 py-2 pl-3 pr-2 font-display text-[14px] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
+                    {/*
+                      한 줄이 **두 개의 조작**이다 — 이름을 누르면 이동하고, 화살표를 누르면
+                      접거나 편다. 그래서 링크 안에 버튼을 넣을 수 없다(중첩 인터랙티브는
+                      키보드로 도달할 수 없는 버튼을 만든다). 면과 테두리는 이 감싸개가 갖고,
+                      링크와 버튼은 그 위에 나란히 눕는다.
+                    */}
+                    <div
+                      className={`group relative flex items-stretch transition-all duration-[var(--dur-normal)] ease-[var(--ease)] ${
                         // 펼쳐진 부모는 아래 패널과 **한 덩어리로** 보여야 한다 — 아래쪽 모서리를
                         // 펴서 패널과 맞물린다. 이게 없으면 부모와 하위가 서로 남남으로 읽힌다.
                         open ? 'rounded-t-[var(--r-md)]' : 'rounded-[var(--r-md)]'
                       } ${
                         isActive
-                          ? 'bg-[var(--bg)] font-[600] text-[var(--t1)] shadow-[var(--sh-sm)] ring-1 ring-[var(--bd)]'
+                          ? 'bg-[var(--bg)] shadow-[var(--sh-sm)] ring-1 ring-[var(--bd)]'
                           : open
-                            ? 'bg-[var(--bg2)] font-[600] text-[var(--t1)]'
-                            : 'font-[500] text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] hover:shadow-[inset_0_0_0_1px_var(--bd)]'
+                            ? 'bg-[var(--bg2)]'
+                            : 'hover:bg-[var(--bg2)] hover:shadow-[inset_0_0_0_1px_var(--bd)]'
                       } `}
                     >
-                      {isActive && (
+                      {/* 접어 둔 채 그 안에 있을 때도 막대를 세운다 — 그것이 유일한 단서다. */}
+                      {isActive || (inside && !open) ? (
                         <span
                           className="absolute bottom-1.5 left-0 top-1.5 w-[2.5px] rounded-r-full bg-[#A78BFA]"
                           aria-hidden="true"
                         />
-                      )}
-                      <span
-                        className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] transition-colors duration-[var(--dur-normal)] ${
-                          isActive || open
-                            ? 'bg-[#8B5CF6]/12'
-                            : 'bg-[var(--bg2)] group-hover:bg-[var(--bg3)]'
+                      ) : null}
+                      <Link
+                        href={item.href}
+                        aria-current={isActive ? 'page' : undefined}
+                        className={`flex min-h-[44px] min-w-0 flex-1 items-center gap-3 rounded-[var(--r-md)] py-2 pl-3 ${
+                          openable > 0 ? 'pr-1' : 'pr-2'
+                        } font-display text-[14px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 ${
+                          lit
+                            ? 'font-[600] text-[var(--t1)]'
+                            : 'font-[500] text-[var(--t2)] group-hover:text-[var(--t1)]'
                         } `}
                       >
-                        <item.Icon
-                          size={15}
-                          strokeWidth={1.75}
-                          aria-hidden="true"
-                          className={`transition-colors duration-[var(--dur-normal)] ${
-                            isActive || open
-                              ? 'text-[#8B5CF6]'
-                              : 'text-[var(--t3)] group-hover:text-[var(--t2)]'
+                        <span
+                          className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-sm)] transition-colors duration-[var(--dur-normal)] ${
+                            lit ? 'bg-[#8B5CF6]/12' : 'bg-[var(--bg2)] group-hover:bg-[var(--bg3)]'
                           } `}
-                        />
-                      </span>
-                      <span className="flex-1 truncate">{item.label}</span>
-                      {item.tag ? (
-                        <span
-                          aria-hidden
-                          className="shrink-0 font-mono text-[11px] font-[600] tracking-tight text-[var(--t3)]"
                         >
-                          {item.tag}
+                          <item.Icon
+                            size={15}
+                            strokeWidth={1.75}
+                            aria-hidden="true"
+                            className={`transition-colors duration-[var(--dur-normal)] ${
+                              lit ? 'text-[#8B5CF6]' : 'text-[var(--t3)] group-hover:text-[var(--t2)]'
+                            } `}
+                          />
                         </span>
+                        <span className="flex-1 truncate">{item.label}</span>
+                        {item.tag ? (
+                          <span
+                            aria-hidden
+                            className="shrink-0 font-mono text-[11px] font-[600] tracking-tight text-[var(--t3)]"
+                          >
+                            {item.tag}
+                          </span>
+                        ) : null}
+                        {item.badge !== undefined && item.badge > 0 && (
+                          <span
+                            className="inline-flex shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[var(--error)] px-2 py-1 font-display text-[11px] font-[700] text-white"
+                            aria-label={`미처리 ${item.badge}개`}
+                          >
+                            {item.badge}
+                          </span>
+                        )}
+                      </Link>
+                      {openable > 0 ? (
+                        // 화살표는 **회전한다** — 접힘(▶)과 펼침(▼)에 서로 다른 아이콘을 쓰면
+                        // 두 그림 사이를 오갈 뿐이라 "무엇이 무엇으로 바뀌었는지" 가 안 남는다.
+                        // 90° 회전은 transform 이라 모션 예산 안이고, 방향 자체가 상태를 말한다.
+                        <button
+                          type="button"
+                          onClick={() => toggleNav(item)}
+                          aria-expanded={open}
+                          aria-controls={panelId(item.href)}
+                          aria-label={`${item.label} 하위 ${openable}개 ${open ? '접기' : '펼치기'}`}
+                          className="flex min-h-[44px] w-11 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 active:bg-[var(--bd)]"
+                        >
+                          <ChevronRight
+                            size={15}
+                            strokeWidth={2}
+                            aria-hidden="true"
+                            className={`transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] ${
+                              open ? 'rotate-90' : ''
+                            } `}
+                          />
+                        </button>
                       ) : null}
-                      {item.badge !== undefined && item.badge > 0 && (
-                        <span
-                          className="inline-flex shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[var(--error)] px-2 py-1 font-display text-[11px] font-[700] text-white"
-                          aria-label={`미처리 ${item.badge}개`}
-                        >
-                          {item.badge}
-                        </span>
-                      )}
-                    </Link>
+                    </div>
                     {open ? (
                       // 하위는 **자기 면을 가진 패널**이다. 부모와 색·테두리로 이어 붙여 놓으면
                       // "이 안쪽" 이라는 사실이 글자 크기가 아니라 **면**으로 읽힌다.
@@ -489,6 +618,7 @@ export function AdminSidebar({ reportsBadge = null }: AdminSidebarProps = {}) {
                       //   목록 역할이 덮여서 스크린리더가 "항목 11개" 를 못 읽는다 — 하위가
                       //   몇 개인지가 이 메뉴에서 가장 먼저 필요한 정보인데 그것을 잃는다.
                       <div
+                        id={panelId(item.href)}
                         role="group"
                         aria-label={`${item.label} 하위 메뉴`}
                         className="rounded-b-[var(--r-md)] border border-t-0 border-[var(--bd)] bg-[var(--bg2)] px-1.5 pb-2 pt-1"

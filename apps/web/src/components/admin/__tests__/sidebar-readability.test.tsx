@@ -23,7 +23,9 @@ import { describe, expect, it, vi } from 'vitest'
 let PATH = '/admin'
 vi.mock('next/navigation', () => ({ usePathname: () => PATH }))
 
-const { AdminSidebar, SIDEBAR_NAV } = await import('../AdminSidebar')
+const { AdminSidebar, SIDEBAR_NAV, isOpen, toggleOverrides } = await import(
+  '../AdminSidebar'
+)
 
 const RAW = readFileSync(fileURLToPath(new URL('../AdminSidebar.tsx', import.meta.url)), 'utf8')
 
@@ -156,6 +158,106 @@ describe('관리자 사이드바 가독성', () => {
   it('하위를 가진 항목은 접혔을 때 그 사실을 알린다', () => {
     const html = render('/admin/users')
     expect(html).toMatch(/aria-expanded="false"/)
+  })
+
+  // ── ⑤ 접기 / 펴기 ──────────────────────────────────────────────────
+  //
+  // 경로 규칙만 있던 동안 관리자는 하위메뉴를 **끌 수 없었다.** 하위 11칸이 필요 없는 동안에도
+  // 그 11줄이 화면을 먹었고, 밖에서 하위 화면으로 바로 가려면 부모를 먼저 거쳐야 했다.
+  // 여기서 잠그는 것은 세 가지다 — 버튼이 있는가 · 규칙이 맞는가 · 링크 안에 버튼이 없는가.
+
+  it('하위를 가진 항목마다 접기/펴기 버튼이 있다', () => {
+    const parents = SIDEBAR_NAV.flatMap((g) => g.items).filter((i) => i.children?.length)
+    expect(parents.length, '토글할 부모가 하나도 없다 — 이 절이 무의미해졌다').toBeGreaterThan(0)
+    const html = render('/admin/users') // 전부 접혀 있는 자리
+    const buttons = [...html.matchAll(/<button[^>]*aria-expanded="(true|false)"[^>]*>/g)]
+    expect(buttons.length).toBe(parents.length)
+    for (const parent of parents) {
+      // 라벨은 **다음에 무슨 일이 일어나는지**를 말한다("펼치기"), 상태 이름이 아니다.
+      expect(html, `「${parent.label}」 토글 라벨이 없다`).toContain(
+        `${parent.label} 하위 ${parent.children!.filter((c) => !c.pendingNote).length}개 펼치기`
+      )
+    }
+  })
+
+  it('aria-controls 가 펼쳤을 때 실재하는 패널을 가리킨다', () => {
+    const html = render('/admin/csat')
+    const ids = [...html.matchAll(/aria-expanded="true"[^>]*aria-controls="([^"]+)"/g)].map(
+      (m) => m[1]!
+    )
+    const alt = [...html.matchAll(/aria-controls="([^"]+)"[^>]*aria-expanded="true"/g)].map(
+      (m) => m[1]!
+    )
+    const open = [...new Set([...ids, ...alt])]
+    expect(open.length, '펼쳐진 토글이 없다').toBeGreaterThan(0)
+    for (const id of open) {
+      expect(html, `aria-controls="${id}" 가 없는 것을 가리킨다`).toContain(`id="${id}"`)
+    }
+  })
+
+  it('링크 안에 버튼을 넣지 않는다 — 중첩 인터랙티브는 키보드로 못 닿는다', () => {
+    const html = render('/admin/csat')
+    let from = 0
+    let anchors = 0
+    for (;;) {
+      const a = html.indexOf('<a ', from)
+      if (a === -1) break
+      const close = html.indexOf('</a>', a)
+      expect(close, '<a> 가 안 닫힌다').toBeGreaterThan(a)
+      expect(html.slice(a, close), `<a> 안에 <button> 이 있다 (offset ${a})`).not.toContain(
+        '<button'
+      )
+      anchors += 1
+      from = close + 4
+    }
+    expect(anchors, '앵커를 하나도 못 찾았다 — 이 검사가 꺼져 있다').toBeGreaterThan(15)
+  })
+
+  it('기본값은 경로가 정한다 — 관리자가 아무것도 안 정했을 때', () => {
+    const csat = SIDEBAR_NAV.flatMap((g) => g.items).find((i) => i.href === '/admin/csat')!
+    expect(isOpen(csat, '/admin/csat/press', {})).toBe(true)
+    expect(isOpen(csat, '/admin/users', {})).toBe(false)
+    // 하위가 없는 항목은 열 것이 없다
+    const users = SIDEBAR_NAV.flatMap((g) => g.items).find((i) => i.href === '/admin/users')!
+    expect(isOpen(users, '/admin/users', { '/admin/users': true })).toBe(false)
+  })
+
+  it('관리자가 정한 값이 경로를 이긴다 — 양쪽 방향 모두', () => {
+    const csat = SIDEBAR_NAV.flatMap((g) => g.items).find((i) => i.href === '/admin/csat')!
+    expect(isOpen(csat, '/admin/csat/press', { '/admin/csat': false })).toBe(false) // 안에서 접기
+    expect(isOpen(csat, '/admin/users', { '/admin/csat': true })).toBe(true) // 밖에서 펴기
+  })
+
+  it('기본값으로 돌아오는 클릭은 저장값을 지운다 — 한 번 편 것이 영구 고정되지 않는다', () => {
+    const csat = SIDEBAR_NAV.flatMap((g) => g.items).find((i) => i.href === '/admin/csat')!
+    const outside = '/admin/users'
+    // 밖에서 펴기 → 저장된다
+    const opened = toggleOverrides({}, csat, outside)
+    expect(opened).toEqual({ '/admin/csat': true })
+    // 다시 접기 → 기본값(닫힘)과 같아지므로 **키가 사라진다**
+    expect(toggleOverrides(opened, csat, outside)).toEqual({})
+    // 안에서 접기 → 기본값(열림)과 다르므로 저장된다
+    const inside = '/admin/csat/press'
+    expect(toggleOverrides({}, csat, inside)).toEqual({ '/admin/csat': false })
+    expect(toggleOverrides({ '/admin/csat': false }, csat, inside)).toEqual({})
+    // 남의 키는 건드리지 않는다
+    expect(toggleOverrides({ '/admin/vrl': true }, csat, outside)).toEqual({
+      '/admin/vrl': true,
+      '/admin/csat': true,
+    })
+  })
+
+  it('접힌 부모가 「지금 그 안에 있다」를 잃지 않는다', () => {
+    // 하위가 안 보이는 동안 유일한 단서는 부모 줄의 강조다. 접힘 상태에서도 부모 이름이
+    // 진하게(font-[600]) 남는지를 잰다 — 이게 빠지면 자기 위치가 메뉴에서 사라진다.
+    const openHtml = render('/admin/csat/press')
+    expect(openHtml).toMatch(/aria-expanded="true"/)
+    // 서버 렌더는 항상 기본값이므로 접힘 상태는 규칙 함수로 잰다.
+    const csat = SIDEBAR_NAV.flatMap((g) => g.items).find((i) => i.href === '/admin/csat')!
+    expect(isOpen(csat, '/admin/csat/press', { '/admin/csat': false })).toBe(false)
+    expect(SRC, '접힘+안쪽일 때 강조(lit)를 켜는 규칙이 사라졌다').toMatch(
+      /const lit = isActive \|\| open \|\| inside/
+    )
   })
 
   // ── 자기 무력화 방지 ───────────────────────────────────────────────
