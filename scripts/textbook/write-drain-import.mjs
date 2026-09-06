@@ -295,11 +295,30 @@ if (process.argv.includes('--update-existing')) {
    */
   const idOf = (r) => r.source_id ?? `original:v${BAND}-${r.slot}`
   const ids = ok.map(idOf)
+  /**
+   * ⚠️ **`source` 를 반드시 함께 건다.** 유일 인덱스가
+   * `(source, source_id)` 라 선두 열이 빠지면 인덱스를 **통째로 훑는다.**
+   *
+   * 실측 2026-09-06 (같은 5개 id · 같은 순간):
+   *   source 없이  → Index Scan **16,897ms** · 1,039 페이지 디스크 읽기 → statement timeout
+   *   source 함께  → Index Cond 로 들어가 **32ms** · 5 페이지
+   *
+   * 페이지를 500→250→125 로 줄여도 안 낫는다 — 무거운 것은 행 수가 아니라
+   * **인덱스 전체 훑기**라 페이지 크기와 무관하다. 이 파일의 다른 세 질의는
+   * 처음부터 `.eq('source','original')` 를 걸고 있었고 여기만 빠져 있었다.
+   * (`library_articles` 가 90,485행으로 늘면서 8초 상한을 넘어섰다.)
+   */
   const cur = new Map(
     (
-      await fetchAllIn(db, 'library_articles', 'source_id, content', 'source_id', ids, [
+      await fetchAllIn(
+        db,
+        'library_articles',
+        'source_id, content',
         'source_id',
-      ])
+        ids,
+        ['source_id'],
+        (q) => q.eq('source', 'original')
+      )
     ).map((d) => [d.source_id, d.content])
   )
   const stale = ok.filter((r) => {
