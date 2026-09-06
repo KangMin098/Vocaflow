@@ -32,7 +32,7 @@
 
 import { expect, test, type Page } from '@playwright/test';
 
-import { adminBypassEnabled, adminReachable } from './utils/admin-routes';
+import { adminBypassEnabled, adminReach } from './utils/admin-routes';
 import { ensureAuthState } from './utils/auth';
 
 const STATE_PATH = 'playwright-auth/.auth-popup-return.json';
@@ -185,7 +185,12 @@ test.describe('팝업을 닫으면 제자리', () => {
         !!c.admin && !adminBypassEnabled(),
         'DEV_ADMIN_BYPASS=1 이 아니다 — 관리자 화면을 열 수 없다',
       );
-      if (c.admin) test.skip(!(await adminReachable(page)), '관리자 화면이 열리지 않는다 — dev 우회가 꺼져 있거나(프로덕션 빌드) 서버가 없다. 로그인 화면을 세어 초록을 만들지 않는다');
+      if (c.admin) {
+        // 「서버가 죽었다」를 「잴 것이 없다」로 뭉개지 않는다 — 전자는 실패다.
+        const reach = await adminReach(page);
+        test.skip(reach === 'login', '관리자 화면이 로그인으로 튕긴다 — dev 우회가 꺼졌다(프로덕션 빌드). 로그인 화면을 세어 초록을 만들지 않는다');
+        expect(reach, '/admin 을 못 열었다 — 서버가 없거나 컴파일이 안 끝났다. 잴 수 있어야 하는데 못 쟀으면 통과가 아니다(위 [admin-sweep] 로그에 사유)').toBe('ok');
+      }
       test.setTimeout(120_000);
 
       await page.goto(c.route, { waitUntil: 'domcontentloaded', timeout: 60_000 });

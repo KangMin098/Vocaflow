@@ -102,11 +102,61 @@ export function adminRedirectOnlyRoutes(): Set<string> {
  * 통과했다. 바닥선이 218인데 0건이면 축하할 일이 아니라 계측이 죽은 것이다.
  * 이 함수는 그 거짓 초록을 막는다 — 서버가 관리자 화면을 실제로 내주는지 확인한다.
  */
-export async function adminReachable(page: import('@playwright/test').Page): Promise<boolean> {
+/**
+ * 관리자 화면에 닿는 세 가지 결말. **`login` 과 `unreachable` 은 전혀 다른 일이다.**
+ *
+ * - `ok`          — 잴 수 있다.
+ * - `login`       — 우회가 꺼졌다(프로덕션 빌드 등). **잴 것이 없으니 건너뛰는 게 맞다.**
+ * - `unreachable` — 서버가 죽었거나 컴파일이 안 끝났다. **건너뛰면 안 된다** —
+ *                   "잴 수 있어야 하는데 못 쟀다" 는 통과가 아니다.
+ *
+ * ⚠️ 예전에는 셋을 boolean 하나로 뭉개 전부 skip 이었다. 실측 2026-09-06: dev 서버가
+ *    죽은 상태로 **세 판 연속** `2 skipped` + exit 0 이 났다 — 관리자 화면 51개를 여는
+ *    유일한 스펙이 아무것도 안 재고 초록이었다. 이 함수는 그런 거짓 초록을 막으려고
+ *    만든 것인데, 스스로 다른 모양의 거짓 초록을 만들고 있었다.
+ */
+export type AdminReach = 'ok' | 'login' | 'unreachable'
+
+export async function adminReach(page: import('@playwright/test').Page): Promise<AdminReach> {
   try {
-    await page.goto('/admin', { waitUntil: 'domcontentloaded', timeout: 30_000 })
-    return !/\/login/.test(page.url())
-  } catch {
+    await page.goto('/admin', { waitUntil: 'domcontentloaded', timeout: 120_000 })
+    if (/\/login/.test(page.url())) {
+      console.warn(`[admin-sweep] /admin 이 로그인으로 튕겼다 — ${page.url()}`)
+      return 'login'
+    }
+    return 'ok'
+  } catch (e) {
+    console.warn(
+      `[admin-sweep] /admin 을 못 열었다(우회가 아니라 서버·컴파일 문제일 수 있다) — ${
+        e instanceof Error ? e.message.split('\n')[0] : String(e)
+      }`,
+    )
+    return 'unreachable'
+  }
+}
+
+/** @deprecated `adminReach()` 를 쓴다 — 이 판은 「서버가 죽음」을 「잴 것 없음」으로 뭉갠다. */
+export async function adminReachable(page: import('@playwright/test').Page): Promise<boolean> {
+  // ⚠️ **이 요청이 dev 서버를 깨우는 첫 요청이다.** 30초로는 모자란다 —
+  //    `/admin` 은 `force-dynamic` 이고 `domcontentloaded` 는 **모든 Suspense 경계가
+  //    풀려야** 발화하는데, 콜드 컴파일까지 겹치면 실측 15~40초다.
+  //    실측 2026-09-06: 30초에서 타임아웃 → catch → false → **훑기 전체가 조용히
+  //    건너뛰어졌다**(`2 skipped`). 거짓 초록은 막았지만 아무것도 안 잰 것은 같다.
+  //    이 함수는 게이트일 뿐 성능 측정이 아니므로, 넉넉히 준다.
+  //
+  //    ⚠️ 실패 사유를 **삼키지 않는다.** 예전에는 catch 가 통째로 먹어서
+  //    "우회가 꺼졌다" 와 "서버가 느리다" 가 같은 메시지로 보였다.
+  try {
+    await page.goto('/admin', { waitUntil: 'domcontentloaded', timeout: 120_000 })
+    const reached = !/\/login/.test(page.url())
+    if (!reached) console.warn(`[admin-sweep] /admin 이 로그인으로 튕겼다 — ${page.url()}`)
+    return reached
+  } catch (e) {
+    console.warn(
+      `[admin-sweep] /admin 을 못 열었다(우회 문제가 아니라 서버·컴파일일 수 있다) — ${
+        e instanceof Error ? e.message.split('\n')[0] : String(e)
+      }`,
+    )
     return false
   }
 }
