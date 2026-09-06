@@ -346,7 +346,26 @@ export const TBP_HELP: HelpRegistry = {
         {
           label: '발췌 자리 없음 (excerpt-blind)',
           detail:
-            '창(100~200어)을 넘는데 `csat_fit.make.windows` 가 비어 있다 — **어디를 자를지 아무도 정하지 않았다.** 조판기가 임의로 자르면 그것이 곧 “임의 판단” 이므로 조판 불가로 둔다.',
+            '창(100~200어)을 넘는데 **잘린 지문이 아무 데도 없다** — 문항도 없고 발췌창도 없다. 조판기가 임의로 자르면 그것이 곧 “임의 판단” 이므로 조판 불가로 둔다.',
+        },
+        {
+          label: '긴 글의 신호는 “문항 보유” 다 (규격 v2, 2026-09-06)',
+          detail:
+            '처음에는 `csat_fit.make.windows`(발췌창)로 판정했는데, **그 열을 읽는 코드가 저장소에 하나도 없다** — `score-articles` 가 쓰고 아무도 안 읽는다. ' +
+            '조판(`composeUnits`)이 실제로 인쇄하는 것은 **문항에 저장된 `passage_text`** 이고, 그 지문은 만들 때 `itemWordSpec`(유형·학년별 시중 어수창)을 통과한다. ' +
+            '그래서 문항 보유를 먼저 보고 발췌창은 보조로만 쓴다. 이 때문에 스캔이 `csat_dcp_items` 를 전수로 훑는다(629쪽 · 약 80초 추가).',
+        },
+        {
+          label: '문항이 붙은 원문 vs 조판 가능',
+          detail:
+            '두 수의 **차이가 곧 “판정 없이 만들어진 문항” 의 분모**다. 문항이 붙었다는 것은 그 원문에서 이미 지문이 잘려 나왔다는 뜻인데, 그 원문이 판정을 통과하지 못하면 근거 없이 쓰인 것이다. ' +
+            '실측 2026-09-06: 문항 보유 **19,202편** · 조판 가능 **2,211편**.',
+        },
+        {
+          label: '“게이트를 돌려도 안 풀린다” 줄',
+          detail:
+            '미절단 원본(`purpose=raw`)은 **게이트를 돌려도 판정이 안 붙는다** — `gate-rules.mjs` 의 `PURPOSE_RULE.raw.verdicts` 가 빈 집합이라 `decide()` 가 판정 전에 되돌아온다(“자르기 전에는 무엇도 게시 불가”). ' +
+            '실측: `purpose=raw` 36,337편이 **전부** 판정자 `rule` · verdict 없음이다. 미판정 19,333편 중 **13,459편(70%)이 여기 해당**하므로, 이 줄이 없으면 관리자가 돌지 않을 배치를 돌린다. 처방은 발췌 경로(`plos-extract`)다.',
         },
         {
           label: '미절단 원본이 「불가」가 아닌 이유',
@@ -361,7 +380,7 @@ export const TBP_HELP: HelpRegistry = {
         {
           label: '잰 시각 · N일 전',
           detail:
-            '이 화면은 실시간 집계가 **아니다.** `library_articles` 는 본문이 1.3GB 라 조건부 `count: exact` 가 8초 statement timeout 에 걸린다(오류 message 가 빈 문자열로 와서 원인이 안 보인다). 전수 훑기는 커서 페이징으로 9~35초 — 매 요청에 할 일이 아니다. 그래서 스냅샷을 읽고 **언제 잰 값인지 항상 함께** 말한다. 7일이 넘으면 줄이 경고색으로 바뀐다.',
+            '이 화면은 실시간 집계가 **아니다.** `library_articles` 는 본문이 1.3GB 라 조건부 `count: exact` 가 8초 statement timeout 에 걸린다(오류 message 가 빈 문자열로 와서 원인이 안 보인다). 전수 훑기는 커서 페이징으로 **약 130초**(원문 22쪽 + 문항 보유 629쪽) — 매 요청에 할 일이 아니다. 그래서 스냅샷을 읽고 **언제 잰 값인지 항상 함께** 말한다. 7일이 넘으면 줄이 경고색으로 바뀐다.',
         },
       ],
       cautions: [
@@ -379,7 +398,7 @@ export const TBP_HELP: HelpRegistry = {
           {
             title: '전수 판정 스캔',
             detail:
-              '`pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs --json apps/web/src/lib/textbook/source-eligibility-snapshot.json` — `status in (ready, published)` 전량을 커서 페이징으로 훑어 판정한다. **읽기만 한다 — 재실행 안전**이고, 몇 번을 돌려도 DB 가 바뀌지 않는다. 실측 9~35초(서버 상태에 따라 갈린다).',
+              '`pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs --json apps/web/src/lib/textbook/source-eligibility-snapshot.json` — `status in (ready, published)` 전량을 커서 페이징으로 훑어 판정한다. **읽기만 한다 — 재실행 안전**이고, 몇 번을 돌려도 DB 가 바뀌지 않는다. 실측 **약 130초** — 원문 22쪽(약 10초)에 문항 보유 훑기 629쪽(약 80초)이 더해진다. PostgREST 가 한 쪽 1,000행으로 강제하고 집계 함수가 꺼져 있어(PGRST123) 다른 길이 없다.',
             done: '콘솔 마지막에 `→ apps/web/src/lib/textbook/source-eligibility-snapshot.json` 이 찍히고, 이 화면의 “잰 시각” 이 오늘로 바뀐다.',
           },
           {

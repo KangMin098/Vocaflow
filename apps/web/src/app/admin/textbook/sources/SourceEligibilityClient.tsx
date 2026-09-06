@@ -46,6 +46,20 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
             <b>{panel.topBlocker.axis.label}</b> 에서 막혀 있다 — {panel.topBlocker.grade.label}.
           </p>
           <p className="font-body text-[13px] text-[var(--t2)]">{panel.topBlocker.grade.nextStep}</p>
+          {/*
+            ⚠️ **이 줄이 없으면 화면이 헛일을 시킨다.** 미절단 원본(`purpose='raw'`)은
+            게이트를 돌려도 판정이 안 붙는다 — `PURPOSE_RULE.raw.verdicts` 가 빈 집합이라
+            `decide()` 가 판정 전에 되돌아온다. 실측 2026-09-06: raw 36,337편이 전부
+            판정자 `rule` · verdict 없음이다. 처방이 다르므로 편수를 갈라 말한다.
+          */}
+          {panel.topBlocker.axis.id === 'judgement' && panel.structurallyUnjudged ? (
+            <p className="font-body text-[13px] text-[var(--error-ink)]">
+              그중 <b className="tabular-nums">{panel.structurallyUnjudged.toLocaleString()}편</b> 은{' '}
+              <b>게이트를 돌려도 안 풀린다</b> — 미절단 원본은 게이트가 판정하지 않는다(
+              <span className="font-mono">purpose=raw</span>). 발췌 경로(<span className="font-mono">plos-extract</span>)로
+              가야 한다.
+            </p>
+          ) : null}
         </section>
       ) : null}
 
@@ -68,12 +82,34 @@ export function SourceEligibilityClient({ panel }: { panel: SourceEligibilityPan
           sub="라이선스 · 철회 · 민감 소재"
           warn={(t.byBlockedAxis.legal ?? 0) + (t.byBlockedAxis.safety ?? 0) > 0}
         />
+        {/*
+          문항이 붙었다는 것은 **그 원문에서 이미 지문이 잘려 나왔다**는 뜻이다.
+          그 편수와 조판 가능 편수의 차이가 곧 "판정 없이 만들어진 문항" 의 분모다 —
+          숨기면 화면이 좋아 보이지만 그게 이 화면이 막으려는 바로 그것이다.
+        */}
         <Stat
-          label="판정 규격"
-          value={`v${panel.specVersion}`}
-          sub={`훑는 데 ${panel.scanSeconds}초`}
+          label="문항이 붙은 원문"
+          value={panel.articlesWithItems == null ? '못 잼' : panel.articlesWithItems.toLocaleString()}
+          sub={
+            panel.articlesWithItems == null
+              ? '옛 스냅샷 — 다시 재야 한다'
+              : `그중 판정 통과 ${t.composable.toLocaleString()}`
+          }
+          warn={panel.articlesWithItems != null && panel.articlesWithItems > t.composable}
         />
       </section>
+      <p className="font-body text-[12px] text-[var(--t3)]">
+        판정 규격 <span className="font-mono">v{panel.specVersion}</span> · 훑는 데 {panel.scanSeconds}초
+        {panel.articlesWithItems != null && panel.articlesWithItems > t.composable ? (
+          <>
+            {' · '}
+            <b className="text-[var(--warning-ink)]">
+              {(panel.articlesWithItems - t.composable).toLocaleString()}편은 문항이 이미 있는데 원문이 판정을
+              통과하지 못한다
+            </b>
+          </>
+        ) : null}
+      </p>
 
       <AxisTable axes={panel.axes} />
       <GradeTable grades={panel.grades} total={t.total} />

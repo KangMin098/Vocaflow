@@ -1,27 +1,29 @@
 {
-  "measuredAt": "2026-09-06T01:26:44.245Z",
-  "specVersion": 1,
-  "elapsedSeconds": 9.1,
+  "measuredAt": "2026-09-06T01:58:23.129Z",
+  "specVersion": 2,
+  "elapsedSeconds": 130.4,
   "scope": "status in ('ready','published')",
+  "articlesWithItems": 19202,
   "total": {
     "total": 21839,
     "byGrade": {
       "usable": 9,
-      "excerpt": 2201,
-      "excerpt-blind": 58,
+      "excerpt": 2202,
+      "excerpt-blind": 57,
       "unjudged": 19333,
       "unknown": 16,
       "blocked": 222
     },
     "byBlockedAxis": {
       "judgement": 19333,
-      "format": 58,
+      "format": 57,
       "analysis": 16,
       "legal": 152,
       "safety": 70
     },
-    "composable": 2210,
-    "composablePct": 10.1
+    "composable": 2211,
+    "composablePct": 10.1,
+    "structurallyUnjudged": 13459
   },
   "byBand": [
     {
@@ -39,7 +41,8 @@
         "analysis": 5
       },
       "composable": 0,
-      "composablePct": 0
+      "composablePct": 0,
+      "structurallyUnjudged": 0
     },
     {
       "vLevel": 1,
@@ -58,7 +61,8 @@
         "analysis": 1
       },
       "composable": 0,
-      "composablePct": 0
+      "composablePct": 0,
+      "structurallyUnjudged": 0
     },
     {
       "vLevel": 2,
@@ -77,7 +81,8 @@
         "analysis": 1
       },
       "composable": 3,
-      "composablePct": 1
+      "composablePct": 1,
+      "structurallyUnjudged": 0
     },
     {
       "vLevel": 3,
@@ -95,26 +100,27 @@
         "analysis": 1
       },
       "composable": 1,
-      "composablePct": 0.4
+      "composablePct": 0.4,
+      "structurallyUnjudged": 0
     },
     {
       "vLevel": 4,
       "total": 856,
       "byGrade": {
         "usable": 1,
-        "excerpt": 37,
-        "excerpt-blind": 1,
+        "excerpt": 38,
+        "excerpt-blind": 0,
         "unjudged": 812,
         "unknown": 0,
         "blocked": 5
       },
       "byBlockedAxis": {
         "judgement": 812,
-        "format": 1,
         "legal": 5
       },
-      "composable": 38,
-      "composablePct": 4.4
+      "composable": 39,
+      "composablePct": 4.6,
+      "structurallyUnjudged": 0
     },
     {
       "vLevel": 5,
@@ -135,7 +141,8 @@
         "format": 14
       },
       "composable": 647,
-      "composablePct": 15.1
+      "composablePct": 15.1,
+      "structurallyUnjudged": 444
     },
     {
       "vLevel": 6,
@@ -156,7 +163,8 @@
         "safety": 46
       },
       "composable": 1118,
-      "composablePct": 8.6
+      "composablePct": 8.6,
+      "structurallyUnjudged": 10532
     },
     {
       "vLevel": 7,
@@ -175,7 +183,8 @@
         "safety": 6
       },
       "composable": 366,
-      "composablePct": 12.5
+      "composablePct": 12.5,
+      "structurallyUnjudged": 2468
     },
     {
       "vLevel": 8,
@@ -193,7 +202,8 @@
         "format": 1
       },
       "composable": 36,
-      "composablePct": 55.4
+      "composablePct": 55.4,
+      "structurallyUnjudged": 15
     },
     {
       "vLevel": 9,
@@ -210,7 +220,8 @@
         "judgement": 10
       },
       "composable": 1,
-      "composablePct": 9.1
+      "composablePct": 9.1,
+      "structurallyUnjudged": 0
     }
   ],
   "blockedBySource": [
@@ -260,7 +271,7 @@
     },
     {
       "source": "simple_wikipedia",
-      "count": 94
+      "count": 93
     },
     {
       "source": "wikipedia",

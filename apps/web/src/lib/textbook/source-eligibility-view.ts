@@ -10,7 +10,7 @@
 // ── 왜 스냅샷 파일인가 (그리고 그 한계) ──────────────────────────────
 // 실시간 집계를 못 한다. `library_articles`(91,358행)는 본문이 1.3GB 라 어떤 조건부
 // `count: 'exact'` 도 **8초 statement timeout** 에 걸린다(실측 2026-09-06 · 오류 message 는
-// 빈 문자열로 온다). 커서 페이징으로 전수 훑기는 되지만 **9~35초** 걸려 화면이 매 요청마다
+// 빈 문자열로 온다). 커서 페이징으로 전수 훑기는 되지만 **약 130초** 걸려 화면이 매 요청마다
 // 할 일이 아니다.
 //
 // 제대로 된 처방은 이 저장소가 이미 아는 것이다 — **matview + 주기 갱신 + RPC**
@@ -37,6 +37,8 @@ export interface EligibilityTallyJson {
   byBlockedAxis: Partial<Record<EligibilityAxisId, number>>
   composable: number
   composablePct: number
+  /** 미판정 중 **드레인으로는 못 푸는 것**(미절단 원본). 옛 스냅샷에는 없다. */
+  structurallyUnjudged?: number
 }
 
 export interface BandRow extends EligibilityTallyJson {
@@ -82,6 +84,20 @@ export interface SourceEligibilityPanel {
   blockedBySource: { source: string; count: number }[]
   /** 지금 가장 크게 막고 있는 축 — 화면 맨 위의 "다음 한 걸음". */
   topBlocker: { axis: AxisRow; grade: GradeRow } | null
+  /**
+   * 문항이 붙은 원문 수 — 조판 풀 밖까지 포함한 전체.
+   *
+   * 조판 가능 편수와 나란히 두면 격차가 드러난다: **문항은 이미 만들어졌는데
+   * 그 원문이 판정을 통과하지 못한 편수**가 곧 "근거 없이 만들어진 문항" 의 분모다.
+   */
+  articlesWithItems: number | null
+  /**
+   * 미판정 중 **게이트를 돌려도 안 풀리는 것**(미절단 원본 `purpose='raw'`).
+   *
+   * 이 수를 숨기면 화면이 "게이트를 돌려라" 라고 말하고 관리자는 돌지 않을 배치를 돌린다.
+   * 옛 스냅샷(규격 v1)에는 없어서 `null` 이 될 수 있다 — 0 으로 뭉개지 않는다.
+   */
+  structurallyUnjudged: number | null
 }
 
 /** 등급 표시 순서 — 좋은 것부터 나쁜 것 순. 화면이 이 순서로 읽는다. */
@@ -172,5 +188,13 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
     bands,
     blockedBySource: snapshot.blockedBySource,
     topBlocker,
+    // 옛 스냅샷에는 없는 열이다 — **0 으로 채우지 않는다.** 0 으로 채우면 화면이
+    // "그런 원문은 없다" 고 말하는데, 실제로는 "안 쟀다" 이다.
+    articlesWithItems:
+      typeof (snapshot as { articlesWithItems?: number }).articlesWithItems === 'number'
+        ? (snapshot as { articlesWithItems: number }).articlesWithItems
+        : null,
+    structurallyUnjudged:
+      typeof total.structurallyUnjudged === 'number' ? total.structurallyUnjudged : null,
   }
 }

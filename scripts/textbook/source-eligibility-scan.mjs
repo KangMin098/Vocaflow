@@ -3,8 +3,9 @@
 // **교재에 실을 수 있는 원문이 몇 편인가 — 일곱 축으로 전수 판정한다.**
 //
 // ── 왜 이 스크립트가 있나 ────────────────────────────────────────────
-// 조판기(`volume-pool.mjs`)는 원문을 고를 때 `status` · `display_only` · 제목 두 가지,
-// **네 가지만** 본다. 법적 라이선스·게시 게이트·발췌 가능 여부는 안 본다.
+// 조판기(`volume-pool.mjs`)는 원문을 고를 때 `status` · **법적 축 3열** · 제목 두 가지만 본다
+// (법적 축은 2026-09-06 에 이 판정을 만들면서 추가했다 — 그전에는 `display_only` 하나였다).
+// **게시 게이트 · 내용 판정 · 잘린 지문 유무는 여전히 안 본다.**
 // 그래서 "지금 조판을 돌리면 못 쓸 원문이 몇 편 들어가는가" 를 아무도 답할 수 없었다.
 //
 // 판정 자체는 `packages/library-pipeline/src/textbook/source-eligibility.ts` 가 갖는다.
@@ -95,6 +96,60 @@ async function page(cursor) {
   }
 }
 
+/**
+ * **문항이 붙은 원문의 id 집합** — 긴 글이 교재에 실리는 실제 경로다.
+ *
+ * ── 왜 이걸 세야 하나 (실측 2026-09-06) ──────────────────────────────
+ * 처음에는 `csat_fit.make.windows`(발췌창)로 "자를 수 있는가" 를 판정했다. 그런데
+ * **그 열을 읽는 코드가 저장소에 하나도 없다** — `score-articles` 가 쓰고 아무도 안 읽는다.
+ * 조판(`composeUnits`)이 인쇄하는 것은 문항에 저장된 `passage_text` 이고, 그 지문은
+ * 만들 때 `itemWordSpec`(유형·학년별 시중 어수창)을 통과한다.
+ * 그러니 긴 글의 진짜 신호는 **문항 보유**다.
+ *
+ * ── 왜 전수 훑기인가 ─────────────────────────────────────────────────
+ * PostgREST 집계(`select=ref_id,count()`)는 이 프로젝트에서 꺼져 있다(PGRST123).
+ * 한 페이지 최대 1,000행이 강제되므로 65만 행을 훑으려면 650여 회가 든다.
+ * 대신 인덱스 `(kind, ref_id, type, paragraph_idx)` 를 그대로 타는 **index-only scan** 이라
+ * 페이지당 100~500ms 다. 커서는 `ref_id` 이고, 같은 `ref_id` 의 나머지 행은 건너뛴다.
+ */
+async function loadArticlesWithItems() {
+  const ids = new Set()
+  let cursor = null
+  let pages = 0
+  for (;;) {
+    const qs =
+      `kind=eq.article&select=ref_id&order=ref_id.asc&limit=1000` +
+      (cursor ? `&ref_id=gt.${cursor}` : '')
+    let rows
+    for (let attempt = 1; attempt <= 5; attempt++) {
+      try {
+        const r = await fetch(`${URL_BASE}/rest/v1/csat_dcp_items?${qs}`, { headers: HEADERS })
+        if (!r.ok) throw new Error(`${r.status} ${(await r.text()).slice(0, 140)}`)
+        rows = await r.json()
+        break
+      } catch (e) {
+        if (attempt === 5) throw new Error(`문항 보유 조회 — ${e.message}`)
+        await new Promise((res) => setTimeout(res, 1500 * attempt))
+      }
+    }
+    if (!rows.length) break
+    for (const r of rows) if (r.ref_id) ids.add(r.ref_id)
+    // ⚠️ **마지막 ref_id 를 그대로 커서로 쓴다.** 그 id 의 남은 행은 건너뛰지만,
+    //   이미 집합에 넣었으므로 잃는 것이 없다 — 세는 것은 "있는가" 이지 "몇 개인가" 가 아니다.
+    const last = rows[rows.length - 1].ref_id
+    if (last === cursor) break // 한 ref_id 가 1,000행을 넘으면 진전이 없다 — 무한 루프 방지
+    cursor = last
+    pages += 1
+    if (pages % 50 === 0) process.stderr.write(`  문항 보유 ${ids.size.toLocaleString()}편\r`)
+    if (rows.length < 1000) break
+  }
+  process.stderr.write(`  문항 보유 ${ids.size.toLocaleString()}편 (${pages}쪽)\n`)
+  return ids
+}
+
+const started = Date.now()
+const withItems = await loadArticlesWithItems()
+
 /** DB 행 → 판정 입력. **여기서만 열 이름을 안다.** */
 const toInput = (r) => ({
   title: r.title ?? null,
@@ -114,11 +169,11 @@ const toInput = (r) => ({
   gateVerdict: r.gv ?? null,
   gatePurpose: r.gpu ?? null,
   excerptWindows: Array.isArray(r.win) ? r.win.length : null,
+  hasItems: withItems.has(r.id),
   outsidePct: null, // 본문을 재야 나온다 — 이 스캔은 본문을 안 받는다
 })
 
 // ── 훑기 ──────────────────────────────────────────────────────────
-const started = Date.now()
 const perBand = new Map() // v_level → 판정 배열
 const perSourceBlocked = new Map() // source → 조판 불가 편수
 const all = []
@@ -193,6 +248,7 @@ if (JSON_OUT) {
     specVersion: ELIGIBILITY_SPEC_VERSION,
     elapsedSeconds: Number(elapsed),
     scope: ONLY_BAND ? `V${ONLY_BAND}` : "status in ('ready','published')",
+    articlesWithItems: withItems.size,
     total,
     byBand: bands.map((b) => ({ vLevel: b || null, ...tallyEligibility(perBand.get(b)) })),
     blockedBySource: [...perSourceBlocked.entries()]

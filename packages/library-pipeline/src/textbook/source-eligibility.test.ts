@@ -118,31 +118,58 @@ describe('judgeSource — 되돌릴 수 있는 탈락', () => {
     expect(v.blockedBy).toBe('judgement')
     expect(isComposable(v.grade)).toBe(false)
   })
+
+  it('미절단 원본의 미판정은 **처방이 다르다** — 게이트를 돌려도 안 붙는다', () => {
+    // `PURPOSE_RULE.raw.verdicts` 가 빈 집합이라 구조적으로 판정이 안 붙는다.
+    // 같은 등급이어도 사유가 갈려야 관리자가 돌지 않을 배치를 안 돌린다.
+    const raw = at({ gateVerdict: null, gatePurpose: 'raw' })
+    const normal = at({ gateVerdict: null, gatePurpose: 'csat' })
+    expect(raw.grade).toBe('unjudged')
+    expect(raw.reason).toContain('발췌 경로')
+    expect(normal.reason).not.toContain('발췌 경로')
+  })
 })
 
-describe('judgeSource — 긴 글은 자를 자리가 있어야 쓴다', () => {
+describe('judgeSource — 긴 글은 잘린 지문이 있어야 쓴다', () => {
   it('미절단 원본(oversize-raw)은 차단이 아니라 갈래다', () => {
     // PLOS 논문 전문 — 게이트는 게시 불가지만 "자르기 전에는" 이라는 뜻이다.
+    // 판정을 받았고 문항이 붙어 있으면 잘린 지문이 이미 존재한다.
     const v = at({
       wordCount: 4307,
       gatePublishable: false,
       gateBlockedBy: 'oversize-raw',
       gatePurpose: 'raw',
-      excerptWindows: 3,
+      gateVerdict: 'use',
+      hasItems: true,
     })
     expect(v.grade).toBe('excerpt')
     expect(isComposable(v.grade)).toBe(true)
   })
 
-  it('길고 발췌창이 없으면 조판이 받으면 안 된다', () => {
-    const v = at({ wordCount: 4307, excerptWindows: null })
-    expect(v.grade).toBe('excerpt-blind')
-    expect(isComposable(v.grade)).toBe(false)
+  it('**문항 보유가 발췌창보다 먼저다** — 발췌창은 아무도 안 읽는 열이다', () => {
+    const v = at({ wordCount: 4307, hasItems: true, excerptWindows: null })
+    expect(v.grade).toBe('excerpt')
+    expect(v.reason).toContain('문항')
+  })
+
+  it('문항이 없어도 발췌창이 있으면 자를 자리는 있다', () => {
+    const v = at({ wordCount: 4307, hasItems: false, excerptWindows: 3 })
+    expect(v.grade).toBe('excerpt')
     expect(v.reason).toContain('발췌창')
   })
 
-  it('발췌창 0개는 보유로 세지 않는다', () => {
-    expect(at({ wordCount: 900, excerptWindows: 0 }).grade).toBe('excerpt-blind')
+  it('길고 문항도 발췌창도 없으면 조판이 받으면 안 된다', () => {
+    const v = at({ wordCount: 4307, hasItems: false, excerptWindows: null })
+    expect(v.grade).toBe('excerpt-blind')
+    expect(isComposable(v.grade)).toBe(false)
+  })
+
+  it('발췌창 0개·문항 없음은 보유로 세지 않는다', () => {
+    expect(at({ wordCount: 900, excerptWindows: 0, hasItems: false }).grade).toBe('excerpt-blind')
+  })
+
+  it('hasItems 를 못 쟀으면(null) 통과로 세지 않는다', () => {
+    expect(at({ wordCount: 900, hasItems: null, excerptWindows: null }).grade).toBe('excerpt-blind')
   })
 
   it('창 하한 미만은 이을 수도 자를 수도 없다', () => {
@@ -220,6 +247,16 @@ describe('tallyEligibility', () => {
 
   it('빈 입력에서 0으로 나누지 않는다', () => {
     expect(tallyEligibility([]).composablePct).toBe(0)
+  })
+
+  it('드레인으로 못 푸는 미판정을 따로 센다 — 안 그러면 화면이 헛일을 시킨다', () => {
+    const t = tallyEligibility([
+      at({ gateVerdict: null, gatePurpose: 'raw' }),
+      at({ gateVerdict: null, gatePurpose: 'raw' }),
+      at({ gateVerdict: null, gatePurpose: 'csat' }),
+    ])
+    expect(t.byGrade.unjudged).toBe(3)
+    expect(t.structurallyUnjudged).toBe(2)
   })
 })
 

@@ -102,6 +102,31 @@ describe('원문 적격 화면', () => {
     const zero = panel.bands.some((b) => b.composable === 0)
     if (zero) expect(html).toContain('만들 수 없음')
   })
+
+  it('문항이 이미 있는데 원문이 판정을 못 넘는 편수를 드러낸다', () => {
+    // 이 격차가 곧 "판정 없이 만들어진 문항" 의 분모다. 숨기면 화면이 좋아 보이지만
+    // 그게 이 화면이 막으려는 바로 그것이다.
+    expect(html).toContain('문항이 붙은 원문')
+    if (panel.articlesWithItems != null && panel.articlesWithItems > panel.total.composable) {
+      expect(html).toContain((panel.articlesWithItems - panel.total.composable).toLocaleString())
+    }
+  })
+
+  it('게이트를 돌려도 안 풀리는 몫을 갈라 말한다 — 안 그러면 헛일을 시킨다', () => {
+    if (panel.topBlocker?.axis.id === 'judgement' && panel.structurallyUnjudged) {
+      expect(html).toContain('게이트를 돌려도 안 풀린다')
+      expect(html).toContain(panel.structurallyUnjudged.toLocaleString())
+      expect(html).toContain('plos-extract')
+    }
+  })
+
+  it('못 잰 것과 0 을 구별한다', () => {
+    // 옛 스냅샷에는 두 열이 없다. 0 으로 채우면 "그런 원문은 없다" 는 거짓말이 된다.
+    expect(panel.articlesWithItems === null || typeof panel.articlesWithItems === 'number').toBe(true)
+    expect(
+      panel.structurallyUnjudged === null || typeof panel.structurallyUnjudged === 'number'
+    ).toBe(true)
+  })
 })
 
 describe('도움말 계약', () => {

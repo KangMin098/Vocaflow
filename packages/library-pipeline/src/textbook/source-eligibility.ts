@@ -10,10 +10,10 @@
 //   학령        `article_v_level` · `READING_LEVEL_BANDS`                  (readability.ts)
 //   어휘        `CURRICULUM_GATE` 시중 p90                                 (curriculum.ts)
 //   규격        어수창 100~200                                             (readability.ts)
-//   발췌        `csat_fit.make.windows`                                    (score-articles)
+//   발췌        문항 보유(`csat_dcp_items.ref_id`) — 잘린 지문이 이미 있는가    (store-new-types)
 //   안전        철회 논문 제목 · 민감 소재                                  (csat-format.ts)
 //
-// 그래서 조판기(`scripts/textbook/volume-pool.mjs`)는 이 중 **세 개만** 보고 원문을 고른다
+// 그래서 조판기(`scripts/textbook/volume-pool.mjs`)는 이 중 **일부만** 보고 원문을 고른다
 // (`status` · `display_only` · 제목 두 가지). 실측 2026-09-06: 게이트가 「게시 불가」로
 // 판정해 둔 PLOS 논문 전문 **13,515편이 조판 풀에 그대로 있고, 저장된 문항의 83%가
 // 거기서 나왔다.** 게이트와 조판이 서로 다른 열을 보고 있었던 것이다.
@@ -37,7 +37,7 @@ import { CURRICULUM_GATE, type SchoolLevel } from './curriculum'
 import { PASSAGE_WORDS, READING_LEVEL_BANDS } from './readability'
 
 /** 판정 규격 버전. 자가 바뀌면 올린다 — 적재된 판정이 어느 자로 매겨졌는지 알아야 한다. */
-export const ELIGIBILITY_SPEC_VERSION = 1
+export const ELIGIBILITY_SPEC_VERSION = 2
 
 /**
  * 등급 — **다음에 할 일**로 가른다.
@@ -45,8 +45,8 @@ export const ELIGIBILITY_SPEC_VERSION = 1
  * | 등급 | 뜻 | 다음에 할 일 |
  * |---|---|---|
  * | `usable` | 그대로 지문이 된다 | 없음 — 조판에 넣는다 |
- * | `excerpt` | 길지만 **어디를 자를지 적혀 있다** | 조판이 그 창으로 자른다 |
- * | `excerpt-blind` | 길고 **자를 자리가 없다** | 발췌 채점(`score-articles`)을 돌린다 |
+ * | `excerpt` | 길지만 **규격에 맞게 잘린 지문이 있다** | 조판이 그 문항을 인쇄한다 |
+ * | `excerpt-blind` | 길고 **잘린 지문이 없다** | 문항을 만든다(`store-new-types`) |
  * | `unjudged` | 내용 판정을 안 받았다 | 게이트(`gate-make` → `gate-import`)를 돌린다 |
  * | `unknown` | 학령 분석이 없다 | `process-queue` 를 돌린다 |
  * | `blocked` | 못 쓴다 | 없음 — 조판에서 뺀다 |
@@ -132,8 +132,10 @@ export const ELIGIBILITY_AXES: readonly EligibilityAxis[] = [
   {
     id: 'format',
     label: '지문 규격',
-    question: `어수가 시중 지문 창(${PASSAGE_WORDS.min}~${PASSAGE_WORDS.max}어) 안인가`,
-    source: 'readability.PASSAGE_WORDS — 시중 79종 실측 표식 지문에서 나온 창',
+    question: `그대로 지문이 되는가 — 어수 ${PASSAGE_WORDS.min}~${PASSAGE_WORDS.max}어, 아니면 잘린 지문이 있는가`,
+    source:
+      'readability.PASSAGE_WORDS (시중 79종 실측) + csat_dcp_items 문항 보유 — ' +
+      '긴 글은 문항 생성 시 itemWordSpec(유형·학년별 시중 창)을 통과해 잘린다',
     recoverable: true,
   },
   {
@@ -178,8 +180,26 @@ export interface SourceEligibilityInput {
   gateVerdict: string | null
   /** `csat_fit.gate.purpose` */
   gatePurpose: string | null
-  /** `csat_fit.make.windows` 개수 — 긴 글에서 지문으로 자를 자리. */
+  /**
+   * `csat_fit.make.windows` 개수 — 긴 글에서 지문으로 자를 자리.
+   *
+   * ⚠️ **이 열을 읽는 코드가 저장소에 하나도 없다**(실측 2026-09-06: `score-articles` 가 쓰고
+   *   아무도 안 읽는다). 그래서 이것 하나로 「자를 수 있다」를 판정하면 안 된다 —
+   *   조판이 실제로 인쇄하는 것은 **문항에 저장된 지문**이고, 그것이 `hasItems` 다.
+   *   보조 신호로만 쓴다.
+   */
   excerptWindows: number | null
+  /**
+   * 이 원문에 **문항이 붙어 있는가** (`csat_dcp_items.ref_id`).
+   *
+   * 긴 글이 교재에 실리는 실제 경로다 — 문항 생성기(`store-new-types`)가 문단을 잘라
+   * `passage_text` 로 저장하고, 그 지문은 그때 **유형·학년별 시중 어수창**(`itemWordSpec`)을
+   * 통과한다. 조판(`composeUnits`)은 그 문항을 골라 인쇄한다.
+   *
+   * 즉 문항이 붙었다는 것은 **이미 규격에 맞게 잘린 지문이 존재한다**는 뜻이다.
+   * `null` 이면 못 쟀다는 뜻이고, 통과로 세지 않는다.
+   */
+  hasItems?: boolean | null
   /** 교육과정 밖 % — 본문을 재야 나온다. 없으면 `null`(미측정). */
   outsidePct?: number | null
 }
@@ -306,6 +326,20 @@ export function judgeSource(row: SourceEligibilityInput): SourceEligibility {
 
   // ── ⑤ 내용 판정 ────────────────────────────────────────────────────
   if (!row.gateVerdict) {
+    // ⚠️ **미절단 원본은 게이트를 돌려도 판정이 안 붙는다.** `gate-rules.mjs` 의
+    //   `PURPOSE_RULE.raw.verdicts` 가 빈 집합이라 `decide()` 가 판정 전에 되돌아온다
+    //   ("자르기 전에는 무엇도 게시 불가"). 실측 2026-09-06: `purpose='raw'` 36,337편이
+    //   **전부** 판정자 `rule` · verdict 없음이다. 그러니 이 행들에 "게이트를 돌려라" 라고
+    //   말하면 관리자가 돌지 않을 배치를 돌린다 — **처방이 다르다.** 발췌 경로로 가야 한다.
+    if (row.gatePurpose === 'raw') {
+      axes.push({ axis: 'judgement', pass: false, detail: '미절단 원본 — 게이트가 판정하지 않는다' })
+      return done(
+        'unjudged',
+        'judgement',
+        '미절단 원본(purpose=raw) — 게이트를 돌려도 판정이 안 붙는다. 발췌 경로(plos-extract)로 가야 한다',
+        true
+      )
+    }
     axes.push({ axis: 'judgement', pass: false, detail: '규칙만 통과 — 장르 판정 없음' })
     return done('unjudged', 'judgement', '내용 판정 미실시 — 아직 아무도 읽지 않았다', true)
   }
@@ -319,16 +353,23 @@ export function judgeSource(row: SourceEligibilityInput): SourceEligibility {
     return done('blocked', 'format', `${words}어 — 지문으로 쓰기에 짧다`, true)
   }
   if (words > PASSAGE_WORDS.max) {
+    // ⚠️ **순서가 중요하다.** 문항 보유를 먼저 본다 — 그것이 조판이 실제로 인쇄하는 것이고,
+    //   그 지문은 만들 때 유형·학년별 시중 어수창(`itemWordSpec`)을 이미 통과했다.
+    //   `make.windows` 는 아무도 안 읽는 열이라 **혼자서는 근거가 못 된다.**
+    if (row.hasItems === true) {
+      axes.push({ axis: 'format', pass: true, detail: `${words}어 — 규격에 맞게 잘린 문항 보유` })
+      return done('excerpt', null, `${words}어 · 문항이 붙어 있다 — 잘린 지문이 이미 있다`, true)
+    }
     const w = row.excerptWindows ?? 0
     if (w > 0) {
-      axes.push({ axis: 'format', pass: true, detail: `${words}어 — 발췌창 ${w}개 보유` })
-      return done('excerpt', null, `${words}어 · 발췌창 ${w}개 — 잘라서 쓴다`, true)
+      axes.push({ axis: 'format', pass: true, detail: `${words}어 — 발췌창 ${w}개(문항 없음)` })
+      return done('excerpt', null, `${words}어 · 발췌창 ${w}개 — 자를 자리는 적혀 있다`, true)
     }
-    axes.push({ axis: 'format', pass: false, detail: `${words}어 — 자를 자리가 없다` })
+    axes.push({ axis: 'format', pass: false, detail: `${words}어 — 잘린 지문도 자를 자리도 없다` })
     return done(
       'excerpt-blind',
       'format',
-      `${words}어인데 발췌창이 없다 — 어디를 자를지 아무도 정하지 않았다`,
+      `${words}어인데 문항도 발췌창도 없다 — 어디를 자를지 아무도 정하지 않았다`,
       true
     )
   }
@@ -367,8 +408,8 @@ export const GRADE_LABEL: Record<EligibilityGrade, string> = {
 /** 등급별 다음 한 걸음 — 빈 상태에 처방이 없으면 화면이 막다른 곳이 된다. */
 export const GRADE_NEXT_STEP: Record<EligibilityGrade, string> = {
   usable: '조판에 넣는다',
-  excerpt: '조판이 발췌창으로 자른다',
-  'excerpt-blind': 'scripts/csat/score-articles.mjs 로 발췌창을 채운다',
+  excerpt: '조판이 그 문항을 인쇄한다',
+  'excerpt-blind': 'scripts/textbook/store-new-types.mjs 로 문항을 만든다 — 그때 규격에 맞게 잘린다',
   unjudged: 'scripts/csat/gate-make.mjs → gate-import.mjs 로 내용을 판정한다',
   unknown: 'scripts/acp/process-queue.mjs 로 학령 분석을 붙인다',
   blocked: '조판에서 뺀다 — 되돌릴 수 있는 사유면 그 축을 고친다',
@@ -382,6 +423,14 @@ export interface EligibilityTally {
   composable: number
   /** 조판 가능 비율 % (소수 한 자리). */
   composablePct: number
+  /**
+   * 미판정 중 **드레인으로는 못 푸는 것** — 미절단 원본(`purpose='raw'`).
+   *
+   * 게이트를 아무리 돌려도 판정이 안 붙는다(`PURPOSE_RULE.raw.verdicts` 가 빈 집합).
+   * 이 수를 따로 내지 않으면 화면이 "게이트를 돌려라" 라고 말하고, 관리자는
+   * **돌지 않을 배치를 돌린다.**
+   */
+  structurallyUnjudged: number
 }
 
 const EMPTY_BY_GRADE = (): Record<EligibilityGrade, number> => ({
@@ -397,9 +446,14 @@ const EMPTY_BY_GRADE = (): Record<EligibilityGrade, number> => ({
 export function tallyEligibility(rows: readonly SourceEligibility[]): EligibilityTally {
   const byGrade = EMPTY_BY_GRADE()
   const byBlockedAxis: Partial<Record<EligibilityAxisId, number>> = {}
+  let structurallyUnjudged = 0
   for (const r of rows) {
     byGrade[r.grade] += 1
     if (r.blockedBy) byBlockedAxis[r.blockedBy] = (byBlockedAxis[r.blockedBy] ?? 0) + 1
+    // 사유 문자열로 세지 않는다 — 사유는 사람이 읽는 글이라 바뀐다. 축 + 등급 + 표지로 센다.
+    if (r.grade === 'unjudged' && r.axes.some((a) => a.axis === 'judgement' && a.detail.startsWith('미절단 원본'))) {
+      structurallyUnjudged += 1
+    }
   }
   const composable = byGrade.usable + byGrade.excerpt
   return {
@@ -408,6 +462,7 @@ export function tallyEligibility(rows: readonly SourceEligibility[]): Eligibilit
     byBlockedAxis,
     composable,
     composablePct: rows.length ? +((composable / rows.length) * 100).toFixed(1) : 0,
+    structurallyUnjudged,
   }
 }
 
