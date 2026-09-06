@@ -20,6 +20,7 @@ import {
   Grid3x3,
   History,
   LayoutDashboard,
+  LayoutGrid,
   MessageSquareText,
   Library,
   Network,
@@ -135,6 +136,9 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
         children: [
           // 레인 둘 — 규격을 정하는 구간과 정한 대로 찍는 구간. 경계를 안 보이게 두면
           // 관리자가 규격을 고쳐야 할 때 재고 화면을 뒤진다.
+          // 카탈로그가 맨 위다 — 「뭘 만드나」에 답하는 유일한 화면이고, 나머지는 전부
+          // "그것을 어떻게/무엇으로" 다. 순서가 곧 관리자가 묻는 순서여야 한다.
+          { href: '/admin/csat/catalog', label: '⓪ 카탈로그', Icon: LayoutGrid, group: '무엇을 만드나' },
           { href: '/admin/csat/evidence', label: '① 기출 원천', Icon: Scale, group: '전략 연구소' },
           { href: '/admin/csat/strategy', label: '② 기획', Icon: Target },
           { href: '/admin/csat/blueprint', label: '③ 설계', Icon: Grid3x3 },

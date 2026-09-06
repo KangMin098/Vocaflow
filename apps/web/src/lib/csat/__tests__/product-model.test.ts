@@ -115,23 +115,46 @@ describe('STEPS — 학령 축은 사다리 정본에서 온다', () => {
   })
 })
 
-const row = (id: string, statuses: string[]): CatalogRow => ({
-  genre: GENRES.find((g) => g.id === id)!,
-  cells: statuses.map((s, i) => ({
-    genre: id as CatalogRow['genre']['id'],
-    step: i + 1,
-    items: 0,
-    explained: 0,
-    blocked: null,
-    status: s as CatalogRow['cells'][number]['status'],
-  })),
-  ready: statuses.filter((s) => s === 'ready').length,
-})
+/** `published` 를 두 번째 글자로 준다 — 'ready!' 는 낼 수 있고 이미 낸 칸. */
+const row = (id: string, statuses: string[]): CatalogRow => {
+  const cells = statuses.map((raw, i) => {
+    const published = raw.endsWith('!')
+    const status = (published ? raw.slice(0, -1) : raw) as CatalogRow['cells'][number]['status']
+    return {
+      genre: id as CatalogRow['genre']['id'],
+      step: i + 1,
+      items: 0,
+      explained: 0,
+      blocked: null,
+      status,
+      published,
+    }
+  })
+  const ready = cells.filter((c) => c.status === 'ready')
+  return {
+    genre: GENRES.find((g) => g.id === id)!,
+    cells,
+    ready: ready.length,
+    published: ready.filter((c) => c.published).length,
+  }
+}
 
 describe('커버리지 — 못 만드는 칸을 분모에서 뺀다', () => {
   it('막힌 칸은 분모가 아니다 — 넣으면 영원히 100% 가 안 되고 그 수는 아무 말도 안 한다', () => {
     const rows = [row('reading', ['ready', 'ready']), row('pastexam', ['blocked', 'blocked'])]
-    expect(catalogCoverage(rows)).toEqual({ ready: 2, buildable: 2, blockedCells: 2 })
+    expect(catalogCoverage(rows)).toEqual({ ready: 2, buildable: 2, blockedCells: 2, unpublished: 2 })
+  })
+
+  it('낼 수 있는데 안 낸 권을 따로 센다 — 이 수가 다음 할 일을 지시한다', () => {
+    // 실측 2026-09-06 이 이 모양이었다: 낼 수 있는 24 중 조판된 것은 7(독해)뿐.
+    const rows = [row('reading', ['ready!', 'ready!', 'ready']), row('vocab', ['ready', 'needsItems'])]
+    const c = catalogCoverage(rows)
+    expect(c.ready).toBe(4)
+    expect(c.unpublished, '낸 것까지 미출간으로 세면 안 된다').toBe(2)
+  })
+
+  it('못 내는 칸은 미출간으로 세지 않는다 — 낼 수 없는 것을 "안 냈다" 고 하면 안 된다', () => {
+    expect(catalogCoverage([row('reading', ['needsItems', 'empty'])]).unpublished).toBe(0)
   })
 
   it('시중 유형 커버리지는 낼 수 있는 권이 하나라도 있으면 센다', () => {

@@ -12,7 +12,8 @@
     "./curation-spec": "./src/ingest-article/_curation-spec.ts",
     "./seed/curated-seed.json": "./src/seed/curated-seed.json",
     "./textbook-cover": "./src/textbook/cover.ts",
-    "./textbook-kid-source": "./src/textbook/kid-source.ts"
+    "./textbook-kid-source": "./src/textbook/kid-source.ts",
+    "./textbook-series": "./src/textbook/series.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

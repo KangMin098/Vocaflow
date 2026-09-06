@@ -12,6 +12,8 @@ import type { BenchPublisher } from '../factory-bench'
 import type { BlueprintView, MarketView } from '../factory-lab-model'
 import type { AuthorView, PressView, ReviewView, SourceView } from '../factory-line-model'
 import { FACTORY_STAGES, type StageState } from '../factory-model'
+import { GENRES, STEPS, catalogCoverage, genreCoverage, type CatalogRow } from '../product-model'
+import type { CatalogView } from '../product-view'
 
 /** 공정 한 칸 — 실측에 가까운 모양으로. */
 export function stageFixture(
@@ -350,3 +352,42 @@ export const PRESS_REAL: PressView = {
   brandFingerprint: 'abcdef0123456789',
   loadError: null,
 }
+
+/* ── 카탈로그 ─────────────────────────────────────────────────── */
+
+/** 상태 문자열 뒤 `!` = 이미 낸 칸. */
+function catalogRow(id: string, statuses: string[], items: number): CatalogRow {
+  const cells = statuses.map((raw, i) => {
+    const published = raw.endsWith('!')
+    const status = (published ? raw.slice(0, -1) : raw) as CatalogRow['cells'][number]['status']
+    return {
+      genre: id as CatalogRow['genre']['id'],
+      step: STEPS[i]?.step ?? i + 1,
+      items,
+      explained: items,
+      blocked: GENRES.find((g) => g.id === id)!.blocked,
+      status,
+      published,
+    }
+  })
+  const ready = cells.filter((c) => c.status === 'ready')
+  return {
+    genre: GENRES.find((g) => g.id === id)!,
+    cells,
+    ready: ready.length,
+    published: ready.filter((c) => c.published).length,
+  }
+}
+
+/** 2026-09-06 실측 — 독해만 찍혔고 어휘·구문·내신은 재고가 있는데 안 냈다. */
+export const CATALOG_REAL: CatalogView = (() => {
+  const rows = [
+    catalogRow('reading', ['empty', 'ready!', 'ready!', 'ready!', 'ready!', 'ready!', 'ready!'], 215032),
+    catalogRow('vocab', ['needsItems', 'ready', 'ready', 'ready', 'ready', 'ready', 'ready'], 287614),
+    catalogRow('syntax', ['needsItems', 'ready', 'ready', 'ready', 'ready', 'ready', 'ready'], 153720),
+    catalogRow('school', ['needsItems', 'ready', 'ready', 'ready', 'ready', 'ready', 'ready'], 143884),
+    catalogRow('pastexam', Array(7).fill('blocked'), 0),
+    catalogRow('platform', Array(7).fill('blocked'), 0),
+  ]
+  return { rows, coverage: catalogCoverage(rows), genres: genreCoverage(rows), loadError: null }
+})()

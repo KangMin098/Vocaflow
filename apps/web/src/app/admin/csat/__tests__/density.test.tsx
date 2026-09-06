@@ -17,6 +17,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   AUTHOR_REAL,
+  CATALOG_REAL,
   BLUEPRINT_REAL,
   MARKET_REAL,
   PRESS_REAL,
@@ -26,6 +27,7 @@ import {
 } from '@/lib/csat/__tests__/fixtures'
 
 import { BlueprintClient } from '../blueprint/BlueprintClient'
+import { CatalogClient } from '../catalog/CatalogClient'
 import { AuthorClient } from '../authoring/AuthorClient'
 import { FactoryLineClient } from '../FactoryLineClient'
 import { PressClient } from '../press/PressClient'
@@ -70,6 +72,7 @@ export function measure(html: string): Density {
 }
 
 const SCREENS: { name: string; html: () => string }[] = [
+  { name: '카탈로그', html: () => renderToString(<CatalogClient {...CATALOG_REAL} />) },
   {
     name: '현황판',
     html: () => renderToString(<FactoryLineClient stages={STAGES_REAL} loadError={null} />),
@@ -93,6 +96,11 @@ const SCREENS: { name: string; html: () => string }[] = [
  *   아무것도 안 지키는 장식이 된다.
  */
 const BUDGET: Record<string, { chunks: number; chars: number }> = {
+  // 카탈로그: 새 화면 — 실측 152 · 1,052. 격자가 6유형 × 7학령 = **42칸**이고 칸마다 버튼 하나라
+  // 덩어리의 대부분이 격자다(42 × 3 = 126). 이 화면의 일이 곧 "42칸을 한눈에 보이기" 이므로
+  // 그 비용은 본질이다. 줄이려면 칸을 줄여야 하는데, 그러면 「뭘 만드나」에 답을 못 한다.
+  // 글자 1,052 중 절반이 칸 라벨(「안 냄」·「못 냄」)이다 — 색만으로 말하지 않기 위한 값이다.
+  카탈로그: { chunks: 175, chars: 1210 },
   현황판: { chunks: 110, chars: 490 },
   기획: { chunks: 112, chars: 1300 },
   설계: { chunks: 110, chars: 660 },

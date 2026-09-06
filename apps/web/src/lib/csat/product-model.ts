@@ -23,7 +23,13 @@
 //
 // ⚠️ 이 파일은 **순수 정의와 판정만** 담는다. 실측은 `product-view.ts` 가 붙인다.
 
-import { SERIES_SPINE } from '@vocaflow/library-pipeline'
+// ⚠️ **배럴(`@vocaflow/library-pipeline`)에서 가져오면 안 된다.** 그 index 는 ingest 모듈
+//    전부를 다시 내보내고, 그중 `ingest/storyweaver.ts` 가 `child_process` 를 쓴다. 이 파일은
+//    클라이언트 컴포넌트(`CatalogClient`)가 값으로 읽으므로, 배럴을 건드리는 순간 webpack 이
+//    그 사슬을 따라가 `Module not found: Can't resolve 'child_process'` 로 **화면이 통째로
+//    500** 이 된다(실측 2026-09-06 — 이 파일을 만들자마자 그렇게 됐다).
+//    `textbook-cover`·`textbook-kid-source` 가 이미 같은 이유로 서브패스를 쓴다.
+import { SERIES_SPINE } from '@vocaflow/library-pipeline/textbook-series'
 
 /* ───────────────────────── 유형(장르) ───────────────────────── */
 
@@ -202,6 +208,14 @@ export interface CatalogCell extends CellFacts {
   /** 학령 계단 번호(1~7). `SERIES_SPINE` 의 `step`. */
   step: number
   status: CellStatus
+  /**
+   * 이 칸이 **실제로 조판돼 나갔는가.**
+   *
+   * `status === 'ready'` 와 다르다 — ready 는 "낼 수 있다", published 는 "냈다" 다.
+   * 둘의 차이가 이 화면의 요점이다: 실측 2026-09-06 에 낼 수 있는 권 24 중 조판된 것은
+   * **7권(독해)뿐**이었다. 나머지 17권은 재고가 있는데 **제품으로 정의되지 않아** 안 나온 것이다.
+   */
+  published: boolean
 }
 
 export interface CatalogRow {
@@ -209,6 +223,8 @@ export interface CatalogRow {
   cells: CatalogCell[]
   /** 이 유형에서 낼 수 있는 권 수. */
   ready: number
+  /** 그중 실제로 조판돼 나간 권 수. */
+  published: number
 }
 
 /** 학령 축 — 제품 격자의 가로. 사다리 정본을 그대로 쓴다(다른 눈금을 쓰면 조판과 어긋난다). */
@@ -223,10 +239,13 @@ export function catalogCoverage(rows: readonly CatalogRow[]): {
   ready: number
   buildable: number
   blockedCells: number
+  /** 낼 수 있는데 **안 낸** 권 — 이 화면에서 가장 행동을 부르는 수다. */
+  unpublished: number
 } {
   let ready = 0
   let buildable = 0
   let blockedCells = 0
+  let unpublished = 0
   for (const r of rows) {
     for (const c of r.cells) {
       if (c.status === 'blocked') {
@@ -234,10 +253,13 @@ export function catalogCoverage(rows: readonly CatalogRow[]): {
         continue
       }
       buildable += 1
-      if (c.status === 'ready') ready += 1
+      if (c.status === 'ready') {
+        ready += 1
+        if (!c.published) unpublished += 1
+      }
     }
   }
-  return { ready, buildable, blockedCells }
+  return { ready, buildable, blockedCells, unpublished }
 }
 
 /**
