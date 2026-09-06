@@ -12,7 +12,7 @@
 
 'use client'
 
-import { useEffect, useId, useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react'
 import {
   ArrowRight,
   BarChart3,
@@ -41,6 +41,7 @@ import {
 } from '@/lib/articles/source-map'
 import type { PublishedArticle } from '@/lib/articles/types'
 import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
+import { useFocusTrap } from '@/lib/ui/use-focus-trap'
 
 /** 개인화 훅 — fit + idealCount + 진단여부 (감정 부호화·자기효능감). */
 function appealLine(stat: TrackStat, userV: number): { lead: string; body: string } {
@@ -112,6 +113,7 @@ export function SeriesInfoModal({
   const maxSourceCount = Math.max(1, ...sources.map((s) => s.count))
 
   const [shown, setShown] = useState(false)
+  const dialogRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
@@ -127,6 +129,13 @@ export function SeriesInfoModal({
     }
   }, [onClose])
 
+  // 포커스: 열 때 팝업 안으로 · Tab 순환 · 닫을 때 트리거로 복원.
+  //   이 팝업은 **열 때 포커스를 옮기지도, 닫을 때 되돌리지도 않았다**(실측 2026-09-05).
+  //   키보드 사용자에게는 팝업이 떴다는 사실 자체가 전달되지 않았고, 첫 Tab 이 팝업이
+  //   아니라 그 뒤 목록의 다음 항목으로 갔다. 규칙은 `lib/ui/use-focus-trap.ts` 단일 출처.
+  //   이 컴포넌트는 열려 있을 때만 마운트된다(호출부 조건부 렌더) — 그래서 상시 `true`.
+  useFocusTrap(true, dialogRef)
+
   return (
     <div
       className={`fixed inset-0 z-[60] flex items-end justify-center bg-[color-mix(in_srgb,var(--t1)_50%,transparent)] p-0 backdrop-blur-[3px] transition-opacity duration-[var(--dur-normal)] sm:items-center sm:p-4 ${shown ? 'opacity-100' : 'opacity-0'}`}
@@ -134,11 +143,15 @@ export function SeriesInfoModal({
       role="presentation"
     >
       <div
+        ref={dialogRef}
+        // 패널 자체가 포커스를 받는다 — 열 때 「닫기」 버튼으로 뛰면 제목·난이도 게이지를
+        // 지나친 자리에서 시작한다. 스크린리더는 "무엇이 떴는지" 부터 읽어야 한다.
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         onClick={(e) => e.stopPropagation()}
-        className={`flex max-h-[92vh] w-full max-w-[560px] flex-col overflow-hidden rounded-t-[var(--r-xl)] bg-[var(--bg)] shadow-[var(--sh-lg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] sm:rounded-[var(--r-xl)] ${shown ? 'translate-y-0 opacity-100 sm:scale-100' : 'translate-y-6 opacity-0 sm:translate-y-0 sm:scale-95'}`}
+        className={`flex max-h-[92vh] w-full max-w-[560px] flex-col overflow-hidden rounded-t-[var(--r-xl)] bg-[var(--bg)] shadow-[var(--sh-lg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus:outline-none sm:rounded-[var(--r-xl)] ${shown ? 'translate-y-0 opacity-100 sm:scale-100' : 'translate-y-6 opacity-0 sm:translate-y-0 sm:scale-95'}`}
       >
         {/* ═══ 히어로 — 정체성 ═══ */}
         <header

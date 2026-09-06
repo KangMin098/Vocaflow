@@ -21,6 +21,7 @@ import { bookCover } from '@/lib/library/book-cover'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import { formatReadingTime } from '@/lib/library/reading-time'
 import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
+import { useFocusTrap } from '@/lib/ui/use-focus-trap'
 
 export interface SampleWord {
   word: string
@@ -140,23 +141,26 @@ interface Props {
 export function NetflixDetailSheet({ variant, onClose }: Props) {
   const dialogRef = useRef<HTMLDivElement>(null)
 
-  // Esc 닫기 + body scroll lock + focus 복원(열 때 트리거 저장)
+  // Esc 닫기 + body scroll lock
   useEffect(() => {
     if (!variant) return
-    const prevActive = document.activeElement as HTMLElement | null
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
     document.addEventListener('keydown', onKey)
     // Stale-safe: 항상 빈 문자열로 복구 (prevOverflow 누적 차단)
     document.body.style.overflow = 'hidden'
-    dialogRef.current?.focus()
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = ''
-      prevActive?.focus()
     }
   }, [variant, onClose])
+
+  // 포커스: 열 때 시트 안으로 · Tab 순환 · 닫을 때 트리거로 복원.
+  //   예전에는 여기서 `dialogRef.focus()` 와 복원만 했다. 그래서 시트를 열고 Tab 을 누르면
+  //   포커스가 **오버레이 뒤의 카드·필터**로 새어 나갔다(실측 2026-09-05).
+  //   순환 규칙은 `lib/ui/use-focus-trap.ts` 단일 출처.
+  useFocusTrap(!!variant, dialogRef)
 
   // 컴포넌트 unmount (라우트 변경 등) 시 강제 cleanup 보장
   useEffect(() => {

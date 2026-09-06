@@ -19,6 +19,11 @@
 //   ③ 스크롤   — 닫은 뒤 스크롤 위치가 유지된다 (맨 위로 튀지 않는다)
 //   ④ 잠금해제 — 닫은 뒤 `body` 가 스크롤 가능한 상태로 돌아온다
 //   ⑤ 포커스   — 닫은 뒤 포커스가 트리거로 돌아온다 (키보드 사용자가 자리를 잃지 않는다)
+//   ⑥ 뒤로가기 — 뒤로가기가 팝업만 닫는다 (화면을 떠나지 않는다 · 찌꺼기도 안 남는다)
+//   ⑦ 트랩     — 열려 있는 동안 Tab 이 팝업 안에서 돈다 (배경으로 새지 않는다)
+//
+// ①~⑤ 는 **닫은 뒤**를 재고 ⑥⑦ 은 **열려 있는 동안**을 잰다. 앞의 다섯이 전부 초록인
+// 채로 뒤의 둘이 깨져 있던 적이 각각 한 번씩 있다(2026-08-30 · 2026-09-05).
 //
 // ── 대상 고르기 ──────────────────────────────────────────────────────────
 // 화면마다 트리거가 다르므로 **명시 목록**을 쓴다. 자동 탐색(모든 버튼을 눌러 보기)은
@@ -333,6 +338,80 @@ test.describe('팝업을 닫으면 제자리', () => {
         page.url(),
         '팝업을 닫은 뒤 뒤로가기 한 번으로 앞 화면에 못 갔다 — 히스토리에 팝업 찌꺼기가 남는다',
       ).not.toBe(urlBeforeOpen);
+    });
+  }
+
+  /**
+   * ⑦ **열린 팝업 안에 포커스가 갇힌다** — 키보드 사용자가 뒤 화면을 더듬지 않는다.
+   *
+   * ── 왜 이 축을 뒤늦게 올리나 (실측 2026-09-05) ──────────────────────────
+   * 위 축들은 전부 **닫은 뒤**를 잰다(주소·스크롤·잠금·포커스 복귀). 그래서 "열려 있는
+   * 동안 팝업이 팝업답게 구는가" 는 한 번도 재지지 않았고, 그 사이 세 팝업이 이랬다:
+   *   · 도서 상세 시트 · 시리즈 학습안내 · 단어장 미리보기 — Tab 을 누르면 포커스가
+   *     오버레이 **뒤의 카드·필터·탭**으로 새어 나갔다
+   *   · 시리즈 학습안내는 더해서 **열 때 포커스를 옮기지도 않았다** — 키보드 사용자는
+   *     팝업이 떴다는 사실조차 모르고, 첫 Tab 이 그 뒤 목록의 다음 항목으로 갔다
+   * 화면은 멀쩡히 덮여 있으므로 눈으로는 안 보인다. 포커스 링만 아래를 돌아다닌다.
+   *
+   * ── 무엇을 재는가 ──────────────────────────────────────────────────────
+   *   ⓐ 열자마자 포커스가 팝업 **안**에 있다 (배경이나 body 가 아니다)
+   *   ⓑ Tab 을 팝업의 컨트롤 수보다 많이 눌러도 포커스가 팝업 안에 남는다
+   *   ⓒ Shift+Tab 도 같다 (역방향으로 새는 트랩이 흔하다)
+   * 규칙의 단일 출처는 `src/lib/ui/use-focus-trap.ts`.
+   */
+  for (const c of CASES) {
+    test(`${c.name} — 열린 동안 포커스가 팝업 안에 갇힌다`, async ({ page }) => {
+      test.skip(!!c.admin, '관리자 화면은 이 축의 대상이 아니다 — 학습자 동선이 아니다');
+      test.setTimeout(120_000);
+
+      await page.goto(c.route, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+      await page.waitForTimeout(2000);
+
+      const opened = await c.open(page);
+      test.skip(opened === null, `${c.route} 에 트리거가 안 보인다 — 데이터가 비었을 수 있다`);
+
+      const dialog = page.getByRole('dialog').first();
+      await expect(dialog, '트리거를 눌렀는데 다이얼로그가 안 뜬다').toBeVisible({ timeout: 15_000 });
+      await page.waitForTimeout(500); // 열림 애니메이션 + 초기 포커스 이동
+
+      /** 지금 포커스가 `[role=dialog]` 안(또는 그 자신)인가. */
+      const focusInside = () =>
+        page.evaluate(() => {
+          const el = document.activeElement;
+          if (!el || el === document.body) return false;
+          const d = document.querySelector('[role="dialog"]');
+          return !!d && (d === el || d.contains(el));
+        });
+
+      // ⓐ 열자마자
+      expect(
+        await focusInside(),
+        '팝업을 열었는데 포커스가 팝업 밖이다 — 키보드 사용자는 팝업이 떴다는 것도 모른다',
+      ).toBe(true);
+
+      // ⓑ 앞으로 — 어느 팝업이든 컨트롤 수보다 많이 돈다.
+      for (let i = 0; i < 25; i++) {
+        await page.keyboard.press('Tab');
+        if (!(await focusInside())) {
+          const where = await page.evaluate(() => {
+            const el = document.activeElement as HTMLElement | null;
+            return el ? `${el.tagName}.${el.className}`.slice(0, 80) : 'NONE';
+          });
+          throw new Error(`Tab ${i + 1}번째에 포커스가 팝업 밖으로 샜다 → ${where}`);
+        }
+      }
+
+      // ⓒ 뒤로 — 역방향은 따로 새는 경우가 많다(첫 요소에서 Shift+Tab).
+      for (let i = 0; i < 25; i++) {
+        await page.keyboard.press('Shift+Tab');
+        if (!(await focusInside())) {
+          const where = await page.evaluate(() => {
+            const el = document.activeElement as HTMLElement | null;
+            return el ? `${el.tagName}.${el.className}`.slice(0, 80) : 'NONE';
+          });
+          throw new Error(`Shift+Tab ${i + 1}번째에 포커스가 팝업 밖으로 샜다 → ${where}`);
+        }
+      }
     });
   }
 

@@ -37,9 +37,17 @@
 // ⚠️ `empty`(재료 없음)를 숨기지 않는다 — 숨기면 사다리가 끊긴 것을 학습자가 모르고,
 //    그 학년 학습자는 "내 학년이 없다" 가 아니라 "이 브랜드는 이상하다" 로 읽는다.
 
+// ── 왜 좁히기·검색·정렬·진열이 주소에 실리나 (실측 2026-09-05) ──────────
+// 전부 `useState` 였다. 학령·수준·유형·출처 네 축을 좁히고 검색어를 넣고 정렬을 바꾼 뒤
+// 한 권을 열어 보고 돌아오면 **전부 초기화**됐다. 이 화면에는 「필터 초기화」 버튼조차
+// 없어서, 조건을 잃은 사람이 되돌릴 방법도 다시 다 고르는 것뿐이었다.
+// 새로고침·공유·새 탭도 같다 — 조건이 어디에도 안 적혀 있었으니까.
+// 규칙(그리고 왜 `router.replace` 가 아니라 `history.replaceState` 인가)은
+// `lib/library/shelf-url-state.ts` 머리 주석이 단일 출처다(도서·만화·단어장과 공유).
+
 'use client'
 
-import { useId, useMemo, useState } from 'react'
+import { useCallback, useId, useMemo, useState } from 'react'
 
 import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickButton'
 import {
@@ -53,21 +61,49 @@ import {
 } from '@/components/library/textbooks/ShelfControls'
 import type { Shelf, ShelfVolume } from '@/lib/textbook/shelf'
 import { taglineOf } from '@/lib/textbook/shelf-copy'
+import { readEnumParam, useShelfUrlState } from '@/lib/library/shelf-url-state'
 import {
   EMPTY_SELECTION,
+  SHELF_AXES,
   buildFacets,
   filterVolumes,
   selectionCount,
+  type Facets,
   type Selection,
+  type ShelfAxis,
 } from '@/lib/textbook/shelf-filter'
 import {
   DEFAULT_SORT,
+  SHELF_SORTS,
+  SHELF_VIEWS,
   onlyReady,
   searchVolumes,
   sortVolumes,
   type ShelfView,
 } from '@/lib/textbook/shelf-search'
 import { groupByStage } from '@/lib/textbook/shelf-stage'
+
+/**
+ * 주소 → 축별 선택. 축 하나가 `?type=order,insert` 처럼 쉼표로 붙는다.
+ *
+ * ⚠️ **재고에 있는 값만 남긴다.** 축 값은 코드가 아니라 재고에서 나오므로(`buildFacets`),
+ *    시리즈가 바뀌면 어제의 링크에 오늘 없는 값이 들어 있을 수 있다. 그대로 걸면 결과가
+ *    0인데 이 화면에는 「필터 초기화」 버튼이 없어서 되돌릴 길이 없다 — 모르는 값은 버린다.
+ */
+function readSelection(
+  searchParams: ReturnType<typeof useShelfUrlState>['searchParams'],
+  facets: Facets,
+): Selection {
+  const out = { ...EMPTY_SELECTION } as Record<ShelfAxis, readonly string[]>
+  for (const axis of SHELF_AXES) {
+    const raw = searchParams?.get(axis)
+    if (!raw) continue
+    const allowed = new Set(facets[axis].map((o) => o.value))
+    const picked = raw.split(',').filter((v) => allowed.has(v))
+    if (picked.length > 0) out[axis] = picked
+  }
+  return out as Selection
+}
 
 export function TextbookShelf({
   shelf,
@@ -88,21 +124,70 @@ export function TextbookShelf({
    */
   canPick?: boolean
 }) {
-  const [sel, setSel] = useState<Selection>(EMPTY_SELECTION)
-  const [query, setQuery] = useState('')
-  const [sort, setSort] = useState<string>(DEFAULT_SORT)
+  // 축 값은 **재고에서** 뽑는다 — 손으로 적은 목록은 시리즈가 바뀌면 갈린다.
+  // ⚠️ 상태보다 **먼저** 만든다. 주소에서 읽은 선택을 재고에 있는 값으로 걸러야 하는데,
+  //    그 대조표가 이것이다(없는 값이 남으면 결과 0인 채로 되돌릴 길이 없다).
+  const facets = useMemo(() => buildFacets(shelf.volumes), [shelf.volumes])
+
+  // 고르던 자리는 주소가 기억한다 — 한 권을 열어 보고 돌아와도, 새로고침해도 같다.
+  const { searchParams, setParams } = useShelfUrlState()
+
+  const [sel, setSelState] = useState<Selection>(() => readSelection(searchParams, facets))
+  const [query, setQueryState] = useState(() => searchParams?.get('q') ?? '')
+  const [sort, setSortState] = useState<string>(
+    () => readEnumParam(searchParams, 'sort', SHELF_SORTS.map((s) => s.id)) ?? DEFAULT_SORT,
+  )
   // ⚠️ **기본은 격자다.** 실측 2026-09-01(1280px) — 같은 매대를 두 진열로 재니 격자가
   //    세 축 모두에서 이겼다(절충이 없다):
   //      목록  이미지면적  4.48% · 첫화면상품 2 · 표지 17,584px²
   //      격자  이미지면적 30.53% · 첫화면상품 3 · 표지 100,048px²
   //    다락원 실측이 31.92% 이므로 격자라야 상업 매대와 같은 자리에 선다.
-  const [view, setView] = useState<ShelfView>('grid')
-  const [readyOnly, setReadyOnly] = useState(false)
-  const [refineOpen, setRefineOpen] = useState(false)
+  const [view, setViewState] = useState<ShelfView>(
+    () => readEnumParam<ShelfView>(searchParams, 'view', SHELF_VIEWS.map((v) => v.id)) ?? 'grid',
+  )
+  const [readyOnly, setReadyOnlyState] = useState(() => searchParams?.get('ready') === '1')
+  // 좁히기 판이 **열려 있었는지는 주소에 안 적는다** — 그건 고른 조건이 아니라 도구의
+  // 여닫힘이다. 다만 조건이 걸린 채로 돌아오면 판을 열어 둔다(아래 초기값).
+  const [refineOpen, setRefineOpen] = useState(() => selectionCount(readSelection(searchParams, facets)) > 0)
   const refineId = useId()
 
-  // 축 값은 **재고에서** 뽑는다 — 손으로 적은 목록은 시리즈가 바뀌면 갈린다.
-  const facets = useMemo(() => buildFacets(shelf.volumes), [shelf.volumes])
+  const setSel = useCallback(
+    (next: Selection) => {
+      setSelState(next)
+      // 축 하나가 비면 그 파라미터는 지워진다(`setParams` 는 빈 문자열을 삭제로 읽는다).
+      setParams(Object.fromEntries(SHELF_AXES.map((a) => [a, next[a].join(',')])))
+    },
+    [setParams],
+  )
+  const setQuery = useCallback(
+    (next: string) => {
+      setQueryState(next)
+      setParams({ q: next })
+    },
+    [setParams],
+  )
+  const setSort = useCallback(
+    (next: string) => {
+      setSortState(next)
+      // 기본값은 안 적는다 — 주소는 "기본과 다른 것" 만 말한다.
+      setParams({ sort: next === DEFAULT_SORT ? null : next })
+    },
+    [setParams],
+  )
+  const setView = useCallback(
+    (next: ShelfView) => {
+      setViewState(next)
+      setParams({ view: next === 'grid' ? null : next })
+    },
+    [setParams],
+  )
+  const setReadyOnly = useCallback(
+    (next: boolean) => {
+      setReadyOnlyState(next)
+      setParams({ ready: next })
+    },
+    [setParams],
+  )
 
   // ⚠️ 순서가 의미를 가진다: **좁히고 → 줄세운다.** 뒤집으면 정렬이 버려진 권까지 훑고,
   //    더 나쁘게는 '문항 많은 순' 이 필터로 사라질 권을 기준으로 잡아 순서가 흔들려 보인다.

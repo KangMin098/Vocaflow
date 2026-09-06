@@ -327,7 +327,7 @@ export function VocabSetCarousel({
               // 44px 하한 — 실측 156x36. 이 화면의 **주 행동**이라 가장 먼저 지켜야 한다.
               className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-5 py-2 font-display text-[13px] font-[700] transition-all hover:scale-[1.03] active:scale-[0.97] disabled:opacity-60 ${
                 subscribedIds.has(activeSet.id)
-                  ? 'border border-[var(--success)]/30 bg-[var(--success-light)] text-[#065f46]'
+                  ? 'border border-[var(--success)]/30 bg-[var(--success-light)] text-[var(--success-ink)]'
                   : 'text-white'
               }`}
               style={

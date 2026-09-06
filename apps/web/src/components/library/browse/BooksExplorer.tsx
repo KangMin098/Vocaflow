@@ -5,10 +5,18 @@
 //   ② Rails      — 이어서 학습 · 지금 딱 맞아요(i+1) · 인기 (조건부)
 //   ③ Browse     — FilterBar + 반응형 그리드 (전체, 필터/정렬 반응형)
 // 추천 점수는 recommend-books.ts (TS 순수 함수)로 클라 useMemo 계산 — 마이그레이션 없음.
+//
+// ── 왜 필터·정렬·펼친 만큼이 주소에 실리나 (실측 2026-09-05) ─────────────
+// 전부 `useState` 였다. 그래서 필터 6종과 정렬을 걸고 「60권 더 보기」를 세 번 눌러
+// 180장을 편 뒤 시트의 CTA 로 나갔다 돌아오면 **조건이 전부 초기화**됐고, 스크롤 복원은
+// 훨씬 짧아진 문서 위에 떨어졌다. 312권 카탈로그에서 고르던 자리를 매번 다시 만들어야
+// 했다 — 새로고침·공유·새 탭도 같았다(조건이 어디에도 안 적혀 있었으니까).
+// 규칙과 "왜 `router.replace` 가 아니라 `history.replaceState` 인가" 는
+// `lib/library/shelf-url-state.ts` 머리 주석이 단일 출처다(만화 서가·단어장과 공유).
 
 'use client'
 
-import { useMemo, useState, useTransition } from 'react'
+import { useCallback, useMemo, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { BookOpen, Compass, PlayCircle, Sparkles, TrendingUp } from 'lucide-react'
@@ -20,10 +28,16 @@ import {
 } from '@/components/library/shared/NetflixDetailSheet'
 import { createClient } from '@/lib/supabase/client'
 import { unenrollBook } from '@/lib/library/enroll'
+import {
+  readEnumParam,
+  readIntParam,
+  useShelfUrlState,
+} from '@/lib/library/shelf-url-state'
 import { toBookDetailVariant } from '@/lib/library/book-detail-variant'
 import { countReadableChapters, judgeIPlusOne } from '@/lib/library/i-plus-one'
 import {
   AGE_BANDS,
+  GENRE_BUCKETS,
   LENGTH_BUCKETS,
   V_BANDS,
   ageBandOf,
@@ -51,6 +65,7 @@ import {
   EMPTY_FILTERS,
   type BookFilters,
   type BookSort,
+  type EnrollFilter,
 } from './BookFilterBar'
 import { BookQuickPicks } from './BookQuickPicks'
 
@@ -89,6 +104,36 @@ const GRID_PAGE = 60
 export const SHOW_ALL_PARAM = 'show'
 export const SHOW_ALL_VALUE = 'all'
 
+/**
+ * 주소에 실리는 탐색 조건. **닫힌 열거형만** 검증해 읽는다 — 손으로 고친 주소나
+ * 낡은 공유 링크가 화면을 깨지 않게, 모르는 값은 조용히 `null` 로 떨어뜨린다
+ * (`readEnumParam` 의 계약).
+ *
+ * 자유 문자열은 두 개뿐이고 둘 다 그럴 수밖에 없다 — `q`(검색어)는 사람이 친 것이고,
+ * `theme`(주제)는 큐레이션 데이터에서 나온다. 맞는 것이 없으면 결과 0이 되지만,
+ * 그 자리에는 이미 「필터 초기화」 버튼이 있다.
+ */
+const ENROLL_KEYS = ['mine', 'in_progress', 'completed'] as const
+/** 화면이 실제로 제공하는 적합도 칩 3종(`BookFilterBar.FIT_OPTIONS`)과 같아야 한다. */
+const FIT_KEYS = ['ideal', 'challenge', 'easy'] as const
+const SORT_KEYS = ['recommended', 'easy', 'hard', 'short', 'popular', 'new'] as const
+
+function readFilters(searchParams: ReturnType<typeof useShelfUrlState>['searchParams']): BookFilters {
+  return {
+    search: searchParams?.get('q') ?? '',
+    enroll: readEnumParam<EnrollFilter>(searchParams, 'enroll', ENROLL_KEYS),
+    fit: readEnumParam<(typeof FIT_KEYS)[number]>(searchParams, 'fit', FIT_KEYS),
+    vBand: readEnumParam<VBand>(searchParams, 'v', V_BANDS.map((b) => b.key)),
+    genre: readEnumParam<GenreBucket>(searchParams, 'genre', GENRE_BUCKETS.map((g) => g.key)),
+    theme: searchParams?.get('theme') || null,
+    age: readEnumParam<AgeBand>(searchParams, 'age', AGE_BANDS.map((a) => a.key)),
+    length: readEnumParam<LengthBucket>(searchParams, 'len', LENGTH_BUCKETS.map((l) => l.key)),
+    audioOnly: searchParams?.get('audio') === '1',
+    comicOnly: searchParams?.get('comic') === '1',
+    readableChaptersOnly: searchParams?.get('readable') === '1',
+  }
+}
+
 interface Props {
   books: PublishedBook[]
   userVLevel: number
@@ -111,13 +156,78 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
   const diagnosed = userVLevel >= 1
   const ctx = useMemo(() => ({ userVLevel, userMastery }), [userVLevel, userMastery])
 
-  const [filters, setFilters] = useState<BookFilters>(EMPTY_FILTERS)
-  const [sort, setSort] = useState<BookSort>('recommended')
+  // 고르던 자리는 주소가 기억한다 — 상세로 나갔다 돌아와도, 새로고침해도, 링크를 받아도 같다.
+  const { searchParams, setParams } = useShelfUrlState()
+
+  const [filters, setFiltersState] = useState<BookFilters>(() => readFilters(searchParams))
+  const [sort, setSortState] = useState<BookSort>(
+    () => readEnumParam<BookSort>(searchParams, 'sort', SORT_KEYS) ?? 'recommended',
+  )
   const [detail, setDetail] = useState<DetailVariant | null>(null)
   const [unenrollPending, startUnenroll] = useTransition()
-  /** 전체 탐색 그리드에 지금 그려 둔 장수 (GRID_PAGE 주석 참조). */
-  const initialShown = showAll ? books.length : GRID_PAGE
-  const [shown, setShown] = useState(initialShown)
+  /**
+   * 전체 탐색 그리드에 지금 그려 둔 장수 (GRID_PAGE 주석 참조).
+   *
+   * `pageBase` 는 **조건이 바뀌면 돌아갈 자리**이고, 초기값은 주소가 정한다 —
+   * 둘을 한 변수로 쓰면 `?n=180` 으로 들어온 사람이 칩 하나를 눌러도 180장이 그대로
+   * 남는다(펼침은 *그 목록에 대한* 선택이므로 조건이 바뀌면 접혀야 한다).
+   */
+  const pageBase = showAll ? books.length : GRID_PAGE
+  const [shown, setShown] = useState(() =>
+    showAll ? books.length : readIntParam(searchParams, 'n', books.length) ?? GRID_PAGE,
+  )
+
+  /**
+   * 조건 한 벌을 주소에 받아 적는다. `n` 은 함께 지운다 — 조건이 바뀌면 펼친 만큼도
+   * 초기화되므로(아래 `conditionKey`), 주소에 남겨 두면 상태와 주소가 어긋난다.
+   * 기본값(`sort=recommended`·빈 필터)은 안 적는다 — 주소는 "기본과 다른 것" 만 말한다.
+   */
+  const writeConditionParams = useCallback(
+    (f: BookFilters, s: BookSort) => {
+      setParams({
+        q: f.search || null,
+        enroll: f.enroll,
+        fit: f.fit,
+        v: f.vBand,
+        genre: f.genre,
+        theme: f.theme,
+        age: f.age,
+        len: f.length,
+        audio: f.audioOnly,
+        comic: f.comicOnly,
+        readable: f.readableChaptersOnly,
+        sort: s === 'recommended' ? null : s,
+        n: null,
+      })
+    },
+    [setParams],
+  )
+
+  const applyFilters = useCallback(
+    (next: BookFilters) => {
+      setFiltersState(next)
+      writeConditionParams(next, sort)
+    },
+    [sort, writeConditionParams],
+  )
+  const patchFilters = useCallback(
+    (patch: Partial<BookFilters>) => {
+      applyFilters({ ...filters, ...patch })
+    },
+    [applyFilters, filters],
+  )
+  const applySort = useCallback(
+    (next: BookSort) => {
+      setSortState(next)
+      writeConditionParams(filters, next)
+    },
+    [filters, writeConditionParams],
+  )
+  const showMore = useCallback(() => {
+    const next = shown + GRID_PAGE
+    setShown(next)
+    setParams({ n: next })
+  }, [setParams, shown])
 
   // 조건이 바뀌면 펼친 만큼을 되돌린다 — 안 그러면 200장을 펼쳐 둔 채 필터를 바꿨을 때
   // 새 결과 200장이 그대로 쏟아진다(펼침은 **그 목록에 대한** 선택이지 화면의 설정이 아니다).
@@ -134,7 +244,7 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
   const [lastConditionKey, setLastConditionKey] = useState(conditionKey)
   if (conditionKey !== lastConditionKey) {
     setLastConditionKey(conditionKey)
-    setShown(initialShown)
+    setShown(pageBase)
   }
 
   // 점수 + 사유 (전체 도서 1회) — rail/그리드/추천정렬 공용.
@@ -393,22 +503,23 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
           hasAudio={facets.hasAudio}
           hasComic={facets.hasComic}
           onApply={(f, s) => {
-            setFilters(f)
-            setSort(s)
+            setFiltersState(f)
+            setSortState(s)
+            writeConditionParams(f, s)
           }}
         />
 
         <BookFilterBar
           filters={filters}
-          onChange={(patch) => setFilters((f) => ({ ...f, ...patch }))}
+          onChange={patchFilters}
           sort={sort}
-          onSortChange={setSort}
+          onSortChange={applySort}
           resultCount={visible.length}
           totalCount={books.length}
           facets={facets}
           diagnosed={diagnosed}
           userVLevel={userVLevel}
-          onReset={() => setFilters(EMPTY_FILTERS)}
+          onReset={() => applyFilters(EMPTY_FILTERS)}
         />
 
         {visible.length === 0 ? (
@@ -424,7 +535,7 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
             </p>
             <button
               type="button"
-              onClick={() => setFilters(EMPTY_FILTERS)}
+              onClick={() => applyFilters(EMPTY_FILTERS)}
               className="mt-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"
             >
               필터 초기화
@@ -454,7 +565,7 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
               <div className="flex flex-col items-center gap-2 pt-2">
                 <button
                   type="button"
-                  onClick={() => setShown((n) => n + GRID_PAGE)}
+                  onClick={showMore}
                   className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                 >
                   {Math.min(GRID_PAGE, visible.length - shown)}권 더 보기
