@@ -71,6 +71,16 @@ export const OPS_HELP: HelpRegistry = {
             'library_books · library_articles · book_curation_jobs · pd_comic_issues · vocab_runs 의 updated_at 상위 행을 합쳐 8건만 보여준다. 변경 이력이 아니라 "마지막 상태"라서, 같은 항목이 여러 번 바뀌어도 한 줄이다.',
         },
         {
+          label: '"… 를 못 읽었습니다" 안내가 뜰 때',
+          detail:
+            '위 다섯 출처 중 그 이름의 조회가 실패했다는 뜻이다. 목록에는 그 파이프라인의 변경만 통째로 빠져 있고, 나머지는 정상이다. **"변경이 없다" 와 정반대의 상황**이므로 짧아진 목록을 조용한 하루로 읽으면 안 된다. 대개 일시적인 타임아웃이라 새로고침하면 사라진다 — 계속 뜨면 그 테이블 쪽을 본다.',
+        },
+        {
+          label: '품질 "수집 시각을 못 읽음" vs "수집 이력 없음"',
+          detail:
+            '앞은 조회 실패(값이 있을 수도 있다), 뒤는 quality_metrics 에 행이 한 번도 안 쌓였다는 뜻이다. 뒤일 때만 수집을 켜는 조치가 맞다 — 앞을 뒤로 읽고 수집을 다시 돌리면 아무것도 고쳐지지 않는다.',
+        },
+        {
           label: '/admin 접근 권한',
           detail:
             '미들웨어가 /admin/* 전체를 user_profiles.role=\'admin\' 로 막는다. curator 역할은 일부 페이지 코드가 허용해도 미들웨어에서 먼저 /hub 로 튕긴다.',
