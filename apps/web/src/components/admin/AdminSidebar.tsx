@@ -126,15 +126,6 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
       // PDCP — 퍼블릭도메인 스캔 만화. CCP(위)와 단계·QC·법적 게이트가 전부 달라 별도 메뉴.
       { href: '/admin/pd-comics', label: 'PD Comic Pipeline', Icon: ScanLine },
       { href: '/admin/topic-corpus', label: 'TCP Pipeline', Icon: Workflow },
-      // TBP — 교재. 조작 버튼이 없는 관측 화면이다(생성은 Claude Code 드레인).
-      // 하위 「원문 적격」은 **재고가 아니라 자격**을 본다 — 재고가 있어도 판정을 통과하지
-      // 못하면 실을 수 없고, 그 격차가 여기서만 보인다.
-      {
-        href: '/admin/textbook',
-        label: 'TBP Pipeline',
-        Icon: BookMarked,
-        children: [{ href: '/admin/textbook/sources', label: '원문 적격', Icon: BookMarked }],
-      },
       // 교재 공장 — 시중 제작 공정(기획→설계→소재→집필→해설→검수→조판)을 8칸으로 세운 라인.
       // 조작 버튼은 없지만 **관측 화면이 아니다** — 칸마다 다음에 돌릴 명령을 들고 있다.
       {
@@ -151,6 +142,12 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
           { href: '/admin/csat/strategy', label: '② 기획', Icon: Target },
           { href: '/admin/csat/blueprint', label: '③ 설계', Icon: Grid3x3 },
           { href: '/admin/csat/sourcing', label: '④ 소재', Icon: FileText, group: '어떻게 만드나' },
+          // 「원문 적격」 — TBP 메뉴에 있던 것을 ④ 소재 옆으로 옮겼다(2026-09-06). 재고가 아니라
+          // **자격**을 본다: 재고가 있어도 판정을 통과 못 하면 못 싣는다. 손자 항목으로 넣으면
+          // 렌더러가 한 단계만 펴므로 **조용히 사라진다** — 그래서 형제로 둔다.
+          // ⚠️ 라우트는 아직 `/admin/textbook/sources` 다. 다른 세션이 오늘 만든 화면이라
+          //   경로 이동은 따로 한다 — 메뉴에서의 자리부터 바로잡는다.
+          { href: '/admin/textbook/sources', label: '④-1 원문 적격', Icon: BookMarked },
           { href: '/admin/csat/authoring', label: '⑤ 집필', Icon: PenLine },
           {
             href: '/admin/csat',

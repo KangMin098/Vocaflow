@@ -9,6 +9,11 @@
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
+import {
+  EVAL_DIMENSIONS,
+  unbenchedDimensions,
+} from '@vocaflow/library-pipeline/textbook-evaluation'
+
 import type { BenchPublisher } from '@/lib/csat/factory-bench'
 import {
   MIN_ATTEMPTS_FOR_ACCURACY,
@@ -221,7 +226,7 @@ describe('BlueprintClient', () => {
   })
 })
 
-describe('7축이 재지 않는 것 — 플랫폼 우위를 주장하지 않는다', () => {
+describe('일곱 축 밖 — 플랫폼 우위를 주장하지 않는다', () => {
   it('관측이 필요 표본에 못 미치면 「설계도이지 사실이 아니다」라고 말한다', () => {
     const html = text(
       renderToString(
@@ -231,8 +236,8 @@ describe('7축이 재지 않는 것 — 플랫폼 우위를 주장하지 않는�
         />,
       ),
     )
-    expect(html).toContain('7축이 재지 않는 것')
-    expect(html).toContain('더 나은 종이책')
+    expect(html).toContain('일곱 축 밖')
+    expect(html).toContain('종이가 못 하는 자리')
     expect(html).toContain('설계도이지 사실이 아니다')
     // 임계는 짐작이 아니라 저장소의 정답률 게이트에서 유도한 값이다
     expect(html).toContain(String(MIN_ATTEMPTS_FOR_ACCURACY))
@@ -309,5 +314,51 @@ describe('MIN_ATTEMPTS_FOR_ACCURACY — 짐작이 아니라 유도한 값', () =
   it('못 읽은 것(null)은 0 과 다르게 다룬다 — 둘 다 「못 잰다」지만 이유가 다르다', () => {
     expect(platformMeasurable({ itemAttempts: null, renderedVolumes: null, itemAttemptsError: 'x' })).toBe(false)
     expect(platformMeasurable({ itemAttempts: 0, renderedVolumes: 0, itemAttemptsError: null })).toBe(false)
+  })
+})
+
+/**
+ * **TBP 콘솔(`/admin/textbook`)을 지워도 잃는 것이 없는지** 본다.
+ *
+ * 그 화면의 고유 자산은 「평가 요소 15」 하나였다 — 벤치마크 7축이 **안 보는** 자리(법령·판형·
+ * 교육과정 준수·난이도 데이터·개정 속도)가 거기에만 있었다. 여기로 옮겼으므로, 지고 있는 요소가
+ * 화면에서 사라지면 그것은 이관 실패다.
+ */
+describe('일곱 축 밖 — 벤치마크가 안 보는 축(TBP 이관)', () => {
+  const html = () => text(renderToString(<MarketClient {...market} />))
+
+  it('두 갈래를 이름으로 가른다 — 종이가 못 하는 자리 / 종이도 하는데 안 재는 자리', () => {
+    const h = html()
+    expect(h).toContain('종이가 못 하는 자리')
+    expect(h).toContain('종이도 하는 자리인데 안 재는 것')
+  })
+
+  it('지고 있는 요소를 이름으로 짚는다 — 이름이 없으면 다음에 할 일이 안 정해진다', () => {
+    const h = html()
+    const losing = unbenchedDimensions().filter(
+      (d) => d.standing === 'inferior' || d.standing === 'absent',
+    )
+    expect(losing.length, '열위가 하나도 없다 — 표가 낙관적으로 바뀌었나').toBeGreaterThan(0)
+    for (const d of losing) expect(h, `${d.label} 이 화면에 없다`).toContain(d.label)
+  })
+
+  it('실측 7축과 겹치는 요소는 안 건다 — 같은 것을 두 근거로 두 번 말하지 않는다', () => {
+    const h = html()
+    const overlapped = EVAL_DIMENSIONS.filter((d) => d.benchAxis !== null)
+    expect(overlapped.length).toBeGreaterThan(0)
+    // **행의 이름 자리**만 본다. 낱말이 어딘가에 스치는지가 아니라 이 표에 한 줄로 서 있는지가
+    // 문제다 — 「해설」은 벤치마크 축 이름(A1 해설 보유율)에도 들어 있어서 통짜 검색은 늘 걸린다.
+    const rowName = (label: string) => `text-[var(--t1)]">${label}</span>`
+    for (const d of overlapped) {
+      expect(h, `${d.label} 이 평가 요소표에 또 서 있다`).not.toContain(rowName(d.label))
+    }
+  })
+
+  it('판정을 색만으로 말하지 않는다 — 기호와 글자를 함께 낸다', () => {
+    const h = html()
+    expect(h).toContain('열위')
+    expect(h).toContain('우위')
+    // 손 판정이라는 사실을 숨기지 않는다 — 실측 지수와 같은 무게로 읽히면 안 된다.
+    expect(h).toContain('손 판정')
   })
 })

@@ -52,6 +52,18 @@ export interface EvalDimension {
   /** **어떻게 쟀는가.** 못 쟀으면 그렇게 적는다. */
   howMeasured: string
   standing: Standing
+  /**
+   * 이 요소를 **실측 벤치마크가 대신 재는가.** 재면 그 축 번호(`A1`~`A7`), 안 재면 `null`.
+   *
+   * 이 표는 손으로 판정한 것이고 벤치마크(`scripts/textbook/market-benchmark.mjs`)는 코퍼스에서
+   * 실측한 것이다. 같은 것을 두 곳에서 다르게 말하면 **손으로 적은 쪽이 이기는 사고**가 난다
+   * (실측 2026-09-06: TBP 콘솔은 「평가 우위 33%」, 벤치마크는 구속점 1.199 — 둘 다 우위를 말하는데
+   * 근거가 달랐다). 그래서 겹치는 요소는 화면에서 빼고 벤치마크에 넘긴다 —
+   * **남는 것만이 이 표의 존재 이유다.**
+   *
+   * 축 번호는 리포트의 `axes[].id` 와 같아야 한다. 회귀가 실제 리포트와 대조한다.
+   */
+  benchAxis: string | null
 }
 
 export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
@@ -66,6 +78,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
       '실측 — `passage-origin.ts` 출처 5종 중 조건 없이 쓸 수 있는 2종(창작·PD)만 재고에 있고, ' +
       'Compose 게이트 6종 통과가 발행 조건이라 **코드가 강제한다**(사람 약속이 아니다).',
     standing: 'superior',
+    benchAxis: null,
   },
   {
     key: 'past_exam_access',
@@ -75,6 +88,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
     ours: '**못 쓴다.** 공공누리 유형을 건별로 확인해야 하고 아직 확인하지 않았다.',
     howMeasured: '`passage-origin.ts` — `past_exam`·`past_variant` 는 `conditional`.',
     standing: 'inferior',
+    benchAxis: null,
   },
   {
     key: 'bias_review',
@@ -88,6 +102,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
       '실측 3,467지문 — 검토 표시 **45(1.3%)**. 성별 대명사 남 4,519 : 여 1,694 로 ' +
       '**χ²=1,284.5 (df 1, 임계 3.841) 쏠림**. ⚠️ 다문화·지역 편견은 낱말로 못 세므로 축의 일부만 덮는다.',
     standing: 'parity',
+    benchAxis: null,
   },
 
   // ── 외형 및 실용성 ────────────────────────────────────────────────
@@ -99,6 +114,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
     ours: '수능 지문 규격 90~200어를 기계가 강제하고, 규격 밖은 재고에서 뺀다.',
     howMeasured: '`item-health-report` 실측 — 교재 전용 유형(어휘·어법·흐름무관) 규격 밖 **0%**.',
     standing: 'superior',
+    benchAxis: 'A6',
   },
   {
     key: 'print_clean',
@@ -108,6 +124,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
     ours: '`isPrintablePassage` 가 인용 잔해·용어풀이를 한 곳에서 판정한다.',
     howMeasured: '실측 — 이 필터를 넣자 어법 113문항·어휘 220문항이 오염으로 걸러졌다(16% 대).',
     standing: 'parity',
+    benchAxis: null,
   },
   {
     key: 'answer_balance',
@@ -117,6 +134,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
     ours: '유형마다 카이제곱으로 검정하고 임계(χ²(0.05), df 4 → 9.488)를 넘으면 고친다.',
     howMeasured: '실측 — 6유형 전부 임계 아래(최대 χ²=9.3). 어휘는 52.7 → 6.3 으로 고쳤다.',
     standing: 'superior',
+    benchAxis: null,
   },
 
   // ── 교육과정의 준수 ───────────────────────────────────────────────
@@ -128,6 +146,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
     ours: '7단. `vocaflow_levels` 의 학령 구분을 그대로 쓴다 — 눈금을 새로 만들지 않았다.',
     howMeasured: '`series-report` 실측 — 7단 전부 문항이 있다(총 8,004).',
     standing: 'parity',
+    benchAxis: null,
   },
   {
     key: 'curriculum_vocab',
@@ -137,6 +156,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
     ours: '같은 별표를 쓴다 — `kcurr2022_1/2/0` 초등 808 · 중등 1,211 · 고등 1,006.',
     howMeasured: 'DB 실측 3,025 낱말. 초등 3종이 이 목록에서 나온다.',
     standing: 'parity',
+    benchAxis: null,
   },
   {
     key: 'passage_leveling',
@@ -148,6 +168,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
       '⚠️ **레벨 축 자체는 12밴드 중 V7 하나만 검증됐다**(`claude_verified`, KICE 13년, confidence 1.00). ' +
       'V6 은 0.70, 나머지 10밴드는 `in_progress` — 자동화는 우위지만 **눈금의 신뢰도는 아직 못 주장한다.**',
     standing: 'unmeasured',
+    benchAxis: null,
   },
   {
     key: 'school_exam_fit',
@@ -157,6 +178,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
     ours: '**못 한다.** 본교 교과서는 출판사 저작물이라 공급할 수 없고, 교사·학생이 넣는 경로(BYO)로만 성립한다.',
     howMeasured: '`school-types.ts` — `own_textbook` 필요 유형 2종이 BYO 전용.',
     standing: 'inferior',
+    benchAxis: null,
   },
 
   // ── 교육 방법 및 내용 ─────────────────────────────────────────────
@@ -176,6 +198,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
       '길이만 보고 풀렸고, 49건을 걷어낸 뒤에야 숫자가 성립했다. ② 그 다음엔 문항을 만들고도 ' +
       '**조합기가 안 봐서 책에 안 실렸다** — 재료·조합·조판 셋을 다 연 뒤 V3 이 80 → 120문항이 됐다.',
     standing: 'inferior',
+    benchAxis: 'A5',
   },
   {
     key: 'explanation',
@@ -190,6 +213,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
       '결정론만으로는 6.9%(`explain-probe` 91/1,316)에서 멈췄고, 희귀어 문턱·근거 다중화 두 실험이 모두 실패했다. ' +
       '⚠️ **재고 전체가 아니라 발행 대상 기준이다** — 권에 실리지 않은 문항은 아직 해설이 없다.',
     standing: 'parity',
+    benchAxis: 'A1',
   },
   {
     key: 'distractor_quality',
@@ -199,6 +223,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
     ours: '유형마다 "답이 하나로 갈리는가" 를 기계가 확인한다 — 무관 문장은 유일 최소, 철자는 사전 대조, 배열은 중복 낱말 배제.',
     howMeasured: '실측 — 유형별 불변식 위반 **0건**(흐름무관·어휘·어법·영작·초등 3종).',
     standing: 'superior',
+    benchAxis: 'A3',
   },
   {
     key: 'difficulty_data',
@@ -208,6 +233,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
     ours: '**관측 0행.** `csat_item_attempts` 가 비어 있어 난이도(P)·변별도(D)를 못 낸다.',
     howMeasured: '`item-health-report` — 관측 유무를 리포트 본문에 적는다(없는 것을 없다고).',
     standing: 'inferior',
+    benchAxis: null,
   },
   {
     key: 'revision_speed',
@@ -217,6 +243,7 @@ export const EVAL_DIMENSIONS: readonly EvalDimension[] = [
     ours: '규칙을 고치면 **낡은 문항을 기계가 찾아내고**(다시 만들어 대조) 재적재한다. 실측 1,425건을 한 번에 갱신했다.',
     howMeasured: '`store-new-types.mjs --prune` 실측 — 낡음 판정 + 재적재 왕복.',
     standing: 'superior',
+    benchAxis: null,
   },
 ]
 
@@ -259,4 +286,19 @@ export function measureEvaluation(
     superiorRatio: dimensions.length ? byStanding.superior / dimensions.length : 0,
     losing: dimensions.filter((d) => d.standing === 'inferior' || d.standing === 'absent'),
   }
+}
+
+/**
+ * **벤치마크가 안 보는 축만** 남긴다 — 이 표를 화면에 걸 때 쓰는 유일한 입구.
+ *
+ * 실측 7축과 겹치는 요소는 여기서 빠진다. 겹친 것을 나란히 걸면 관리자가 두 값을 비교하다
+ * **손으로 적은 쪽을 근거로 쓰게 된다** — 이 표는 사람이 판정한 것이라 코퍼스가 바뀌어도 안 바뀐다.
+ *
+ * 남는 것이 이 표의 값어치다: 법령(저작권·기출 접근·편향) · 판형(인쇄·정답 번호) ·
+ * 교육과정(학령 사다리·어휘 준거·레벨링·내신) · 난이도 데이터 · 개정 속도.
+ */
+export function unbenchedDimensions(
+  dimensions: readonly EvalDimension[] = EVAL_DIMENSIONS,
+): EvalDimension[] {
+  return dimensions.filter((d) => d.benchAxis === null)
 }

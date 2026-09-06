@@ -15,6 +15,8 @@
 
 import { useState } from 'react'
 
+import { unbenchedDimensions } from '@vocaflow/library-pipeline/textbook-evaluation'
+
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { BenchFile, BenchPublisher } from '@/lib/csat/factory-bench'
 import {
@@ -26,6 +28,7 @@ import {
 } from '@/lib/csat/factory-lab-model'
 
 import { AxisBullet, AxisBulletLegend } from './AxisBullet'
+import { EvalChecklist } from './EvalChecklist'
 
 const MODE_KO = {
   volume: { label: '권 (출간물)', hint: '실제로 인쇄되는 것 — 학습자가 만나는 품질' },
@@ -127,12 +130,13 @@ function PlatformGapPanel({ platform }: { platform: MarketView['platform'] }) {
   const usable = platformMeasurable(platform)
   const n = platform.itemAttempts
   return (
-    <section className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
-      <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">7축이 재지 않는 것</h3>
-      <p className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]">
-        일곱 축은 <strong>전부 종이에서도 잴 수 있는 것</strong>이다. 그래서 목표를 넘겨도 뜻은{' '}
-        <strong>「더 나은 종이책」</strong>이다. 종이가 못 하는 넷(개인별 복습 일정 · 오답 재출제 ·
-        수준 맞춤 배본 · 즉시 채점)은 <strong>학습자가 푼 기록 위에서만</strong> 잴 수 있다.
+    <div className="flex flex-col gap-2">
+      <h4 className="break-keep font-display text-[12.5px] font-[700] text-[var(--t1)]">
+        종이가 못 하는 자리 — 관측이 있어야 잰다
+      </h4>
+      <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t2)]">
+        개인별 복습 일정 · 오답 재출제 · 수준 맞춤 배본 · 즉시 채점 —{' '}
+        <strong>학습자가 푼 기록 위에서만</strong> 잴 수 있다.
       </p>
       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 rounded-[var(--r-sm)] bg-[var(--bg2)] p-3">
         <span className="font-body text-[11px] text-[var(--t3)]">기출 문항 시도</span>
@@ -177,7 +181,7 @@ function PlatformGapPanel({ platform }: { platform: MarketView['platform'] }) {
           )}
         </p>
       </details>
-    </section>
+    </div>
   )
 }
 
@@ -239,7 +243,23 @@ export function MarketClient({ warehouse, volume, target, platform, loadError }:
         </p>
       )}
 
-      <PlatformGapPanel platform={platform} />
+      {/*
+        **일곱 축 밖은 두 갈래다.** 처음엔 두 패널로 나란히 걸었는데 제목이 사실상 같은 말이라
+        («7축이 재지 않는 것» / «벤치마크가 안 보는 축») 관리자가 둘의 차이를 못 읽었다.
+        갈라 주는 것은 「종이가 할 수 있느냐」다 — 못 하는 자리는 관측이 생겨야 재고,
+        하는 자리는 지금도 잴 수 있는데 아직 손으로만 판정했다. 할 일이 서로 다르다.
+
+        아래쪽 표는 TBP 콘솔(`/admin/textbook`)의 「평가 요소 15」를 옮긴 것이다(2026-09-06).
+        실측 7축과 겹치는 넷은 `benchAxis` 로 걸러져 안 온다 — 같은 것을 두 근거로 두 번 말하면
+        손으로 적은 쪽이 이긴다.
+      */}
+      <section className="flex flex-col gap-4 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
+        <h3 className="break-keep font-display text-[14px] font-[700] text-[var(--t1)]">
+          일곱 축 밖 — 지수가 1.200 을 넘겨도 안 본 자리
+        </h3>
+        <PlatformGapPanel platform={platform} />
+        <EvalChecklist dimensions={unbenchedDimensions()} />
+      </section>
 
       <section className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
         <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">다시 재는 법</h3>

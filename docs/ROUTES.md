@@ -159,8 +159,7 @@
 | `/admin/users` | stub | 사용자 관리 |
 | `/admin/analytics` | stub | 플랫폼 분석 |
 | `/admin/topic-corpus` | `admin/topic-corpus/page.tsx` + `TopicCorpusClient.tsx` | TCP — 주제 코퍼스 적재·드레인·승격 (원문 미저장, 어휘 통계만) |
-| `/admin/textbook` | `admin/textbook/page.tsx` + `TextbookConsoleClient.tsx` | TBP — 교재. 학령 사다리·문항 건강·시중 대비 평가 우위 (조작 없음 · 생성은 Claude Code 드레인) |
-| `/admin/textbook/sources` | `admin/textbook/sources/page.tsx` + `SourceEligibilityClient.tsx` | **원문 적격 — 교재에 실을 수 있는 원문인가.** 일곱 축(법적·게재 안전·게시 게이트·학령 분석·내용 판정·지문 규격·어휘) 판정 결과를 등급 6종으로 낸다. 축마다 **자의 출처**를 함께 보여 「왜 이 원문을 골랐나」에 답한다. 실시간 집계가 아니라 스캔 스냅샷(`source-eligibility-snapshot.json`) — 잰 시각을 항상 함께 낸다 |
+| `/admin/textbook/sources` (부모 페이지 없음 — 2026-09-06 TBP 관측판 제거) | `admin/textbook/sources/page.tsx` + `SourceEligibilityClient.tsx` | **원문 적격 — 교재에 실을 수 있는 원문인가.** 일곱 축(법적·게재 안전·게시 게이트·학령 분석·내용 판정·지문 규격·어휘) 판정 결과를 등급 6종으로 낸다. 축마다 **자의 출처**를 함께 보여 「왜 이 원문을 골랐나」에 답한다. 실시간 집계가 아니라 스캔 스냅샷(`source-eligibility-snapshot.json`) — 잰 시각을 항상 함께 낸다 |
 | `/admin/csat` | `admin/csat/page.tsx` + `FactoryLineClient.tsx` + `FactoryLineDiagram.tsx` (+ `layout.tsx` 제목만) | **교재 공장 — 공정 현황판.** 시중 제작 공정 8칸(기출 원천·기획·설계·소재·집필·해설·검수·조판)을 **라인 도식 하나**로 그린다 — 상태는 색+모양+글자, 병목 뒤 연결선은 점선. **한 번에 한 칸만** 펼쳐 실측 눈금·게이트·**복사 가능한 다음 명령**을 낸다(기본 = 병목). 조작 버튼은 없다(생성은 Claude Code 드레인) |
 | `/admin/csat/catalog` | `admin/csat/catalog/page.tsx` + `CatalogClient.tsx` | **카탈로그 — 「뭘 만드나」.** (교재 유형 6 × 학령 7) 격자, 칸 하나가 한 권(60문항). 헤드라인은 **낼 수 있는데 안 낸 권**. 시중 유형 분모는 교재 코퍼스 실측(독해 60·기출 19·어휘 8·구문 5·내신 2) |
 | `/admin/csat/evidence` | `admin/csat/evidence/page.tsx` + `CsatConsoleClient.tsx` | 공정 ① 기출 원천. 탭 3: 회차 커버리지(덮은 배점/사정권 배점) · 유형별 진행 · **가이드 원천**(분석 802문항 → 교재·학습 가이드 한 벌 · Markdown/JSON 내려받기) |
