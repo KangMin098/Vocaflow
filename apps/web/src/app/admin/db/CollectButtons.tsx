@@ -33,9 +33,17 @@ export function CollectButton({ rpc, label, loadingLabel, hint, variant }: Props
     if (status === 'loading') return
     setStatus('loading')
     try {
-      // rpc 를 변수로 떼어내면 this 가 소실된다 — 반드시 인스턴스에서 직접 호출
+      // rpc 를 변수로 떼어내면 this 가 소실된다 — 반드시 인스턴스에서 직접 호출.
+      //
+      // ⚠️ 이름도 **리터럴로 편다**(`client.rpc(rpc)` 가 아니라 두 갈래). 권한 감사
+      //    (`lib/auth/__tests__/rpc-call-sites.test.ts`)는 호출 이름을 정적으로 모아
+      //    "이 함수가 쓰이고 있는가" 를 판정하는데, 변수로 넘기면 그 목록에서 사라져
+      //    **안 쓰는 RPC 로 오해**된다. prop 은 이미 리터럴 두 개의 유니온이라 갈라도 공짜다.
       const client = createClient() as unknown as SupabaseClient
-      const { data, error } = await client.rpc(rpc)
+      const { data, error } =
+        rpc === 'admin_collect_db_health_metrics'
+          ? await client.rpc('admin_collect_db_health_metrics')
+          : await client.rpc('admin_collect_db_health_integrity')
       if (error) throw error
       setRows(typeof data === 'number' ? data : null)
       setStatus('done')
@@ -48,7 +56,7 @@ export function CollectButton({ rpc, label, loadingLabel, hint, variant }: Props
 
   const Icon = rpc === 'admin_collect_db_health_metrics' ? RefreshCw : ScanSearch
   const base =
-    'min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50'
+    'inline-flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B5CF6] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50'
   const skin =
     variant === 'primary'
       ? 'border border-[#8B5CF6]/40 bg-[#8B5CF6]/8 text-[#8B5CF6] hover:bg-[#8B5CF6]/15'
@@ -56,7 +64,7 @@ export function CollectButton({ rpc, label, loadingLabel, hint, variant }: Props
 
   return (
     <div className="flex flex-col items-end gap-1">
-      <button type="button" onClick={handle} disabled={status === 'loading'} className={`${base} ${skin}`}>
+      <button type="button" onClick={handle} disabled={status === 'loading'} className={`min-h-[44px] ${base} ${skin}`}>
         <Icon
           size={13}
           strokeWidth={2}
