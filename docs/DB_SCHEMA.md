@@ -12,32 +12,46 @@
 - 주요 계열 — CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · 추출신뢰 `word_familiarity` · 어원 `word_roots`·`word_root_links` · 추출품질 `extraction_judgments`
 - 이전 기재(테이블 77 · view 7 · 함수 262 · migrations 72+)는 실측과 어긋나 있었다. **이 요약은 DB 쿼리로 재생성 가능한 값만 적는다.**
 
-### 🧮 집계 RPC 2종 — 관리자 화면의 COUNT 폭주를 접는다 (2026-09-06 신설)
+### 🧮 관리자 화면의 COUNT 폭주를 접는 두 자리 (2026-09-06)
 
-| 함수 | 무엇을 | 실측 | 대체한 것 |
+| 무엇을 | 어디서 | 실측 | 대체한 것 |
 |---|---|---|---|
-| `acp_article_rollup()` | (상태 × register × CEFR) 건수 | 8,902ms · 47행 | ACP 콘솔의 카운트 **38개** |
-| `csat_dcp_inventory()` | (유형 × 수준) 문항 수 + 해설 보유 수 | 5,715ms · 136행 | 교재 공장의 조회 **225회** |
+| (상태 × register × CEFR) 건수 | `acp_article_rollup()` — **발행분만** 훑는 인덱스 스캔 1회 | 75ms · 30행 | ACP 콘솔의 카운트 **38개** |
+| (유형 × 수준) 문항 수 + 해설 보유 수 | `textbook_shelf_inventory()` — 이미 있던 집계표 `textbook_shelf_inventory_mv`(20260831090000 · 30분 CONCURRENTLY 갱신) | 1.2초 · 136행 · 문항 656,984 | 교재 공장의 조회 **225회** |
+| 그 집계표의 기준 시각 | `textbook_shelf_refreshed_at()` | 1.0초 | (아래 ⚠️ 시점 경고) |
 
-둘 다 `security definer` · `service_role` 만 EXECUTE (`revoke all from public`).
+`acp_article_rollup()` 은 `security definer` · `service_role` 만 EXECUTE
+(`revoke all from public`) · `set statement_timeout to '30000'`.
 학습자 경로로 나가지 않는다 — admin 게이트 뒤에서만 부른다.
 
-**왜 필요했나.** PostgREST `count=exact` 는 이 프로젝트에서 **2만 행쯤부터 오류 메시지 없이
-`null`** 을 돌려준다(실측: `shared_dictionary` 4.9만 행 → null / 8,119ms · `library_articles`
-`status='ready'` 1.9만 행 → 19,063 / 3,944ms). 화면마다 수십 개를 동시에 던지면 큰 표부터
-조용히 빠지고, 대시보드에서는 **가장 큰 파이프라인 넷**이 「—」로 보였다.
+**왜 필요했나.** PostgREST 는 `authenticator` 롤로 도는데 그 롤의 `statement_timeout` 이
+**8초**다(`pg_db_role_setting` 실측: anon 3s · authenticated 8s · authenticator 8s).
+8초를 넘긴 질의는 **메시지가 빈 오류**로 돌아오고, 앱은 그것을 `null` 로 받는다. 화면마다
+수십 개를 동시에 던지면 큰 표부터 조용히 빠지고, 대시보드에서는 **가장 큰 파이프라인 넷**이
+「—」로 보였다. 「2만 행쯤부터 죽는다」고 적었던 것은 틀렸다 — 진짜 규칙은 **8초를 넘으면
+죽는다** 이고, 행 수는 그 대리 지표였을 뿐이다.
 
-런타임 전수 훑기 4회에서 매번 **다른 화면**이 타임아웃으로 죽었고 고칠 때마다 부하가 옮겨
+런타임 전수 훑기 5회에서 매번 **다른 화면**이 타임아웃으로 죽었고 고칠 때마다 부하가 옮겨
 갔다 — 화면별 버그가 아니라 질의 수 문제라는 증거다.
 
-⚠️ **`csat_dcp_inventory()` 가 없으면 공정 ⑥(해설)은 눈금 자체가 없다.** 유일한 관련 인덱스가
-`(v_level, type)` 이라 `type` 단독 필터는 선두 열이 없어 인덱스를 못 타고, 큰 유형은 20초
-벽에서 `count=null` 이 된다. 쪼개면 값은 나오지만 재고가 있는 칸이 132개라 90초가 넘는다.
+⚠️ **재는 자리가 쓰는 자리와 같아야 한다.** 위 두 처방을 각각 `execute_sql`(=`postgres` 롤 ·
+타임아웃 없음 · 캐시 워밍업)로 재고 설계했다가 두 번 다 틀렸다 — ACP 롤업은 직접 8,902ms
+였으나 PostgREST 로는 **29,816ms**, CSAT 재고 함수는 직접 5,715ms 였으나 PostgREST 로는
+**60,079ms** 였다. 판정은 반드시 앱이 쓰는 경로에서 낸다.
 
-적용 직후 확인: ACP 합계 91,356 = `count(*)` 91,356 · CSAT 문항 656,984 · 해설 426,696 ·
+⚠️ **`csat_dcp_inventory()` 는 만들었다가 지웠다**([20260906001200](../supabase/migrations/20260906001200_drop_csat_dcp_inventory_superseded.sql)).
+값은 맞았지만 앱 경로로 60초에도 안 왔고, **같은 표를 같은 축으로 이미 집계하던 matview** 가
+있었다. 해설 판정도 저쪽이 더 엄격하다 — `COALESCE(NULLIF(explanation_ko,''),
+NULLIF(rationale_ko,''))` vs 키 존재 검사(`answer_key ? 'explanation_ko'`). 차이 1,135건이고
+저쪽이 옳다. **새 집계를 만들기 전에 먼저 찾아본다.**
+
+⚠️ **matview 는 값이 맞아도 시점이 지금이 아니다.** 30분 갱신이라 드레인 직후에는 아직
+반영이 안 됐을 수 있고, 그걸 모르면 "왜 안 늘었지" 로 읽는다. 그래서 화면은 눈금 아래에
+`textbook_shelf_refreshed_at()` 의 시각을 함께 적는다(`StageGauge.note` · `AuthorView.inventoryAt`).
+**`approx` 와 다른 종류의 경고다** — 값이 아니라 시점의 문제다.
+
+적용 직후 확인: ACP 발행분 293 · CSAT 문항 656,984 · 해설 427,831 ·
 **키/값 셈 불일치 0**(`answer_key ? 'explanation_ko'` 와 `->> is not null` 이 일치 = 적재 결함 없음).
-
-되돌리기는 `drop function` 한 줄이고 데이터는 건드리지 않는다.
 
 ### 📏 `quality_drift_checks` — M7 회전 표본 상태 (2026-08-31 신설)
 
@@ -922,6 +936,15 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 ## 최근 마이그레이션 (20개)
 
 ```
+20260906093000  grade_dcp_item_explain_on_correct          ← 정답일 때도 해설을 돌려준다
+20260906080000  idx_dcp_items_ref_id                       ← (ref_id, id) 31 MB
+20260906030000  funnel_events_allow_missing_events         ← 없는 이벤트를 0 으로 세지 않는다
+20260906001200  drop_csat_dcp_inventory_superseded         ← 만들었다가 지웠다. 같은 집계표가 이미 있었다(위 🧮)
+20260906000100  acp_article_rollup_published_only          ← 91,356행 전수 → 발행분 293행. 29.8초 → 75ms
+20260905225539  acp_article_rollup                         ← ACP 콘솔 카운트 38개를 1회로 (위 🧮)
+20260905161000  lbv_lemma_prefer_frequent                  ← 표제어 동률 시 빈도 높은 쪽
+20260905160000  shared_words_pronunciation_sync            ← 발음 동기화
+20260905100000  frym_and_ocean_facts_source                ← ACP 피드 2종
 20260830140000  textbook_volume_renders                    ← TBP 조판 기록(권당 1행 · admin 읽기). 아래 참조
 20260822013136  dictionary_categories_public_read           ← 분류 트리 anon 읽기(is_active 만)
 20260822090000  textbook_shelf_sources                     ← 지문 출처 집계 + 교육과정 어휘 개수 (둘 다 anon 실행 가능)
@@ -933,24 +956,6 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 20260812150000  dictation_persistence                      ← v07 받아쓰기 영속화 (2 table + 3 RPC)
 20260608222931  v_text_content_user_book_group_v2          ← v06.34
 20260608222229  texts_user_book_group_id
-20260608221508  book_curation_jobs
-20260607014233  improve_library_seed_dedup_key_first_author_surname
-20260607010118  archaic_candidates_first_seen_book_set_null
-20260607005258  admin_bulk_return_to_source                ← DELETE 시맨틱
-20260606231723  admin_bulk_book_rollback_cascade
-20260606225815  admin_bulk_book_status
-20260606142006  add_library_books_cover_image_url
-20260606140316  unenroll_library_book
-20260606020213  unify_book_vocab_selection
-20260606003450  drop_unused_indexes
-20260605235722  add_library_books_librivox_audio
-20260605234511  reattach_publish_book_word_sets_trigger
-20260605154321  enroll_book_auto_subscribe_word_sets
-20260604221512  copyright_gate_us_license
-20260604142316  add_simple_wikipedia_source
-20260603154813  drop_unused_and_duplicate_indexes_v06_34
-20260603145827  extract_book_vocab_cache_fastpath
-20260603143502  find_unbound_perf_prefilter
 ```
 
 전체 누적 115건 (파일 기준 실측 2026-06-28). 디렉토리: `supabase/migrations/`. (최신: `20260628220000_p1_plan_weekday_per_item` — study_plan_items weekdays int[] 추가 + study_plan_schedule DROP(요일을 항목별로·시간 제거) · 직전: `20260628210000_p1_plan_rich_compose`)
