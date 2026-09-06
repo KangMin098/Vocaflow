@@ -556,7 +556,7 @@ export const CSAT_HELP: HelpRegistry = {
         {
           label: '조판이 안 돌 때 먼저 볼 것',
           detail:
-            '조판기는 `.mjs` 라 **타입체크가 안 본다.** 배럴(`@vocaflow/library-pipeline`)에서 꺼내 쓰는 이름이 빠지면 `TypeError: … is not a function` 으로 즉사하는데, 화면에는 그 사실이 안 나타난다(실측 2026-09-06: `volumeMetricsCss` 누락으로 조판이 통째로 죽어 있었고 아무도 몰랐다). `barrel-exports.test.ts` 가 지금은 그것을 먼저 잡는다 — 조판이 안 돌면 그 회귀부터 돌린다.',
+            '조판기는 `.mjs` 라 **타입체크가 안 본다.** 배럴(`@vocaflow/library-pipeline`)에서 꺼내 쓰는 이름이 빠지면 `TypeError: … is not a function` 으로 즉사하는데, 화면에는 그 사실이 안 나타난다(실측 2026-09-06: `volumeMetricsCss` 누락으로 조판이 통째로 죽었는데, 사람이 우연히 돌려 보기 전까지 아무 신호도 없었다). `barrel-exports.test.ts` 가 지금은 그것을 먼저 잡는다 — 조판이 안 돌면 그 회귀부터 돌린다.',
         },
         {
           label: '옛 규격으로 찍힌 권',
