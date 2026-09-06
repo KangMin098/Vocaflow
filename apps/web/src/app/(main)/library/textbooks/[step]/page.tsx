@@ -6,44 +6,45 @@
 // 서가의 "지금 펼치기" 가 **아무 데도 가지 않는 죽은 버튼**이었다(v06.337 실측).
 // 보이는데 눌리지 않는 것은 이 저장소가 가장 나쁜 결함으로 못 박은 종류다(CONVENTIONS).
 //
-// ── 무엇을 보여주고 무엇을 보여주지 않는가 ──────────────────────────
-// 보여준다: 대상 학령 · 수록 유형과 **유형별 실제 문항 수** · 각 유형이 시키는 것 ·
-//           단원 규격(순서 2 + 삽입 2 · 3분/문항) · 만들 수 있는 **최대** 단원 수.
-// 보여주지 않는다: **가짜 목차.** 실제 단원 조합은 길이 게이트(90~200어)와
-//           "한 단원의 문항은 서로 다른 원글에서" 규칙을 더 걸기 때문에, 재고만으로
-//           목차를 지어내면 실제보다 부풀려진다. 상한만 말하고 그것이 상한임을 밝힌다.
+// ── 2026-09-06 재설계: 무엇이 틀렸었나 ──────────────────────────────
+// 시중 교재의 구성요소를 코퍼스에서 같은 자로 세 보니(`scripts/textbook-corpus/apparatus-probe.mjs`)
+// 시중 20종은 **중앙값 5축 · 최다 8축**인데 이 화면은 **1축**이었다(난이도 표시).
+// 표지도 머리말도 구성과 특징도 학습 계획표도 판권도 없었다 — 학습자에게 이것은
+// 교재가 아니라 **재고 요약표**다. "시중 대비 30% 수준" 이라는 지적이 정확했다.
+//
+// 그래서 구성요소를 **파이프라인이 만들게** 했다(`buildDossier`). 이 파일은 조립만 한다:
+// 글·수치·계획표를 여기서 지으면 권이 일곱이라 일곱 번 손으로 적게 되고,
+// 한 권만 고쳐도 나머지 여섯이 어긋난다.
+//
+// ── 무엇을 여전히 보여주지 않는가 ───────────────────────────────────
+// **가짜 목차.** 실제 단원 조합은 길이 게이트(90~200어)와 "한 단원의 문항은 서로 다른
+// 원글에서" 규칙을 더 걸기 때문에, 재고만으로 목차를 지어내면 실제보다 부풀려진다.
+// 목차는 조판된 권(`textbook_volume_renders`)에서만 나온다 — 아직 그 자료가 없다.
 
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, BookOpen, ChevronsDown, ChevronsUp } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-react'
 
-import {
-  COMPOSE_MINUTES_PER_ITEM,
-  DEFAULT_SLOTS,
-  MINUTES_PER_ITEM,
-} from '@vocaflow/library-pipeline'
+import { buildDossier } from '@vocaflow/library-pipeline'
 
 import { Screen } from '@/components/ui/ios'
 import { TextbookPickButton } from '@/components/library/textbooks/TextbookPickButton'
 import { ShareVolumeButton } from '@/components/library/textbooks/ShareVolumeButton'
+import {
+  NeighborCard,
+  VolumeBackMatter,
+  VolumeColophon,
+  VolumeFeatures,
+  VolumeHero,
+  VolumePreface,
+  VolumeStudyPlan,
+} from '@/components/library/textbooks/VolumeDossier'
 import { fetchMyTextbooks } from '@/lib/textbook/my-shelf-query'
 import { fetchTextbookShelf } from '@/lib/textbook/shelf-query'
 import { STAGE_LABEL, neighborsOf, stageOf } from '@/lib/textbook/shelf-stage'
-import type { ShelfVolume } from '@/lib/textbook/shelf'
 import { TYPE_GUIDE } from '@/lib/textbook/type-guide'
 
-/**
- * 권마다 다른 제목·설명.
- *
- * ⚠️ 정적 `metadata` 였을 때 일곱 권이 **전부 '교재 · Vocaflow'** 였다. 이 화면은 비로그인에도
- * 열려 있는 발견 표면이라(apps/web/CLAUDE.md 공개 표면 표), 같은 제목 일곱 개는
- * 브라우저 탭·북마크·공유 카드·검색 결과에서 **서로 구별되지 않는다** — 링크를 받은 사람은
- * 어떤 권인지 열어 봐야 안다.
- *
- * 제목·학령은 `SERIES_SPINE` 이 소유한다. 여기서 짓지 않고 서가에서 읽어 온다.
- * 없는 권이면 정적 문구로 떨어진다 — `notFound()` 는 본문이 판정한다.
- */
 /**
  * 없는 권의 제목.
  *
@@ -89,61 +90,6 @@ export async function generateMetadata({
   }
 }
 
-/**
- * 앞/뒤 권 한 칸.
- *
- * ⚠️ 없는 쪽은 **빈 칸으로 두지 않고 이유를 적는다.** 첫 권·마지막 권이라는 사실 자체가
- *    학습자에게 필요한 정보다("더 쉬운 게 없다" 는 것을 알아야 다른 선택을 한다).
- */
-function NeighborCard({
-  volume: v,
-  direction,
-}: {
-  volume: ShelfVolume | null
-  direction: 'down' | 'up'
-}) {
-  const lead = direction === 'down' ? '어렵다면 한 계단 아래' : '쉽다면 한 계단 위'
-  const Icon = direction === 'down' ? ChevronsDown : ChevronsUp
-
-  if (!v) {
-    return (
-      <p className="flex items-center gap-3 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[12px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
-        <Icon size={15} aria-hidden className="shrink-0" />
-        {direction === 'down' ? '시리즈의 첫 권이에요.' : '시리즈의 마지막 권이에요.'}
-      </p>
-    )
-  }
-
-  return (
-    <Link
-      href={`/library/textbooks/${v.step}`}
-      className="group flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 no-underline transition-colors hover:border-[var(--p)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-    >
-      <span
-        aria-hidden
-        className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
-      >
-        <Icon size={15} />
-      </span>
-      <span className="min-w-0 flex-1">
-        <span className="block font-display text-[11.5px] font-[700] text-[var(--t2)]">{lead}</span>
-        {/* 조사를 붙이지 않는 형태로 잇는다 — 영문 권명에 한국어 조사를 붙일 수 없다. */}
-        <span className="mt-0.5 block font-editorial text-[15px] font-[500] leading-snug text-[var(--t1)]">
-          {v.title}
-        </span>
-        <span className="mt-0.5 block font-mono text-[10px] tabular-nums text-[var(--t2)]">
-          STEP {v.step} · {v.schoolBand}
-        </span>
-      </span>
-      <ArrowRight
-        size={15}
-        aria-hidden
-        className="shrink-0 text-[var(--t2)] motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5"
-      />
-    </Link>
-  )
-}
-
 export default async function TextbookVolumePage({ params }: { params: { step: string } }) {
   const step = Number(params.step)
   if (!Number.isInteger(step)) notFound()
@@ -152,14 +98,20 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
   const v = shelf.volumes.find((x) => x.step === step)
   if (!v) notFound()
 
-  // ⚠️ 여기 `3` 이 **손으로 적혀** 있었고 주석은 `compose-unit.MINUTES_PER_ITEM` 을 가리켰다.
-  //    확인해 보니 패키지 안에 같은 이름의 상수가 **둘**이고 값이 다르다(실측 2026-08-22):
-  //      assemble-unit 2분(지문에 문항을 붙이는 모델) · compose-unit 3분(문항이 곧 지문인 모델)
-  //    어느 하나를 골라 단일 숫자로 인쇄하면 **근거 없는 정밀함**이 된다. 범위로 말한다.
-  const itemsPerUnit = Object.values(DEFAULT_SLOTS).reduce((a, b) => a + b, 0)
-  const totalItems = v.maxUnits * itemsPerUnit
-  const minMinutes = totalItems * MINUTES_PER_ITEM
-  const maxMinutes = totalItems * COMPOSE_MINUTES_PER_ITEM
+  // ── 구성요소는 파이프라인이 만든다 ────────────────────────────────
+  // 이 화면은 재고 요약을 넘길 뿐이다. 같은 입력이면 같은 책이 나온다(순수 함수).
+  const dossier = buildDossier({
+    step: v.step,
+    title: v.title,
+    schoolBand: v.schoolBand,
+    vLevels: v.vLevels,
+    types: v.types,
+    byType: v.byType,
+    itemCount: v.itemCount,
+    explainedCount: v.explainedCount,
+    bySource: v.bySource,
+  })
+
   const { prev, next } = neighborsOf(shelf.volumes, v.step)
   const stage = stageOf(v.schoolBand)
 
@@ -174,44 +126,67 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
           교재 서가
         </Link>
 
-        <section
-          aria-label="교재 표지"
-          className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8 md:py-8"
-        >
-          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
-            {shelf.brand} · STEP {v.step}
-          </p>
-          <h1 className="mt-2 font-editorial text-[30px] font-[500] leading-[1.1] tracking-[-0.018em] text-[var(--t1)] md:text-[38px]">
-            {v.title}
-          </h1>
-          <p className="mt-2 flex flex-wrap items-center gap-x-3 font-mono text-[11.5px] tabular-nums text-[var(--t2)]">
-            <span>{v.schoolBand}</span>
-            <span>· V{v.vLevels.join('·V')}</span>
-            <span>· 수록 문항 {v.itemCount.toLocaleString()}</span>
-          </p>
+        <VolumeHero volume={v} dossier={dossier} brand={shelf.brand}>
+          <Link
+            href={`/library/textbooks/${v.step}/practice`}
+            className="group inline-flex min-h-[48px] w-fit items-center gap-2 rounded-ios-pill bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+          >
+            <ArrowRight size={15} aria-hidden />
+            문항 풀어 보기
+          </Link>
+          {/* 담기는 서가와 **같은 버튼**을 쓴다 — 두 곳에서 다르게 생기면 같은 동작으로 안 읽힌다. */}
+          {mine.available && (
+            <TextbookPickButton
+              step={v.step}
+              title={v.title}
+              picked={mine.steps.includes(v.step)}
+              signedIn={mine.signedIn}
+            />
+          )}
+          {/* 공유는 **로그인과 무관하게** 낸다 — 교사가 학생에게 보내는 경로이고,
+              서가는 비로그인에도 열려 있어 받은 쪽이 바로 열 수 있다. */}
+          <ShareVolumeButton step={v.step} title={v.title} />
+        </VolumeHero>
 
-          <p className="mt-4 max-w-[58ch] font-body text-[14px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
-            {v.rationale.replace(/\*\*/g, '')}
-          </p>
-        </section>
+        <VolumePreface dossier={dossier} />
+        <VolumeFeatures dossier={dossier} />
 
         <section
           aria-label="수록 구성"
           className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8"
         >
-          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">수록 구성</h2>
+          <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
+            수록 구성
+          </p>
+          <h2 className="mt-1.5 font-editorial text-[22px] font-[500] leading-[1.2] tracking-[-0.012em] text-[var(--t1)]">
+            유형마다 시키는 것이 다릅니다
+          </h2>
           <ul className="mt-4 flex flex-col divide-y divide-[var(--bd)]">
             {v.types.map((t) => {
               const g = TYPE_GUIDE[t]
               const n = v.byType[t] ?? 0
+              // 막대는 **가장 많은 유형을 100%로** 잡는다 — 총계로 나누면 전부 한 뼘이 된다.
+              const top = Math.max(...v.types.map((x) => v.byType[x] ?? 0), 1)
+              const pct = Math.round((n / top) * 100)
               return (
-                <li key={t} className="flex items-baseline gap-3 py-3">
+                <li key={t} className="flex flex-wrap items-center gap-x-3 gap-y-1.5 py-3">
                   <span className="min-w-[92px] shrink-0 font-display text-[13.5px] font-[700] text-[var(--t1)]">
                     {g?.label ?? t}
                   </span>
-                  <span className="min-w-0 flex-1 font-body text-[12.5px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
+                  <span className="min-w-0 flex-1 basis-full font-body text-[12.5px] leading-[1.7] text-[var(--t2)] [word-break:keep-all] sm:basis-0">
                     {g?.says ?? '—'}
                   </span>
+                  {n > 0 && (
+                    <span
+                      aria-hidden
+                      className="hidden h-1.5 w-[112px] shrink-0 overflow-hidden rounded-ios-pill bg-[var(--bg3)] sm:block"
+                    >
+                      <span
+                        className="block h-1.5 rounded-ios-pill bg-[var(--p)]"
+                        style={{ width: `${pct}%` }}
+                      />
+                    </span>
+                  )}
                   <span className="shrink-0 font-mono text-[12px] font-[700] tabular-nums text-[var(--t1)]">
                     {n > 0 ? n.toLocaleString() : '준비 중'}
                   </span>
@@ -221,49 +196,26 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
           </ul>
         </section>
 
-        <section
-          aria-label="분량"
-          className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8"
-        >
-          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">분량</h2>
-          <p className="mt-3 flex flex-wrap items-baseline gap-x-3">
-            <span className="font-editorial text-[32px] font-[500] leading-none tabular-nums text-[var(--t1)]">
-              최대 {v.maxUnits.toLocaleString()}
-            </span>
-            <span className="font-body text-[13px] text-[var(--t2)]">단원</span>
-            {maxMinutes > 0 && (
-              <span className="ml-2 font-mono text-[11.5px] tabular-nums text-[var(--t2)]">
-                약 {Math.round(minMinutes / 60)}~{Math.round(maxMinutes / 60)}시간
-              </span>
-            )}
-          </p>
-          {/* 상한을 예측처럼 보이게 두지 않는다 — 그 순간 과장 광고가 된다. */}
-          <p className="mt-3 max-w-[58ch] font-body text-[12.5px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
-            한 단원은{' '}
-            <strong className="font-display text-[var(--t1)]">
-              문항 {itemsPerUnit}개(약 {itemsPerUnit * MINUTES_PER_ITEM}~
-              {itemsPerUnit * COMPOSE_MINUTES_PER_ITEM}분)
-            </strong>
-            로 짭니다. 위 숫자는 <strong className="font-display text-[var(--t1)]">상한</strong>이에요 —
-            실제로는 지문 길이(90~200어)와 “한 단원의 문항은 서로 다른 글에서” 규칙을 더 걸기 때문에
-            이보다 적게 나옵니다.
-          </p>
-        </section>
+        <VolumeStudyPlan dossier={dossier} />
 
         {/* 사다리에서의 자리 — 실제 교재의 뒤표지에 해당한다.
             서점에서 책을 집은 사람이 가장 먼저 하는 판단이 "나한테 맞나" 이고,
-            안 맞을 때 서가로 되돌아가게 만들면 대개 안 돌아온다. */}
+            안 맞을 때 서가로 되돌아가게 만들면 대개 안 돌아온다.
+            ⚠️ `data-apparatus` 를 붙이지 않는다 — 시중의 「복습·단원 평가」가 아니다. */}
         {(prev || next) && (
           <section
             aria-label="계단 안내"
             className="rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8"
           >
-            <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
+            <p className="font-mono text-[10px] font-[700] uppercase tracking-[0.18em] text-[var(--t2)]">
               이 권이 안 맞는다면
+            </p>
+            <h2 className="mt-1.5 font-editorial text-[22px] font-[500] leading-[1.2] tracking-[-0.012em] text-[var(--t1)]">
+              한 계단은 학년 하나
             </h2>
-            <p className="mt-3 max-w-[58ch] font-body text-[13px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
-              한 계단은 <strong className="font-display text-[var(--t1)]">학년 하나</strong>에
-              해당합니다{stage ? ` — 지금 보는 권은 ${STAGE_LABEL[stage]} 매대에 있어요.` : '.'}
+            <p className="mt-2 max-w-[62ch] font-body text-[13px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]">
+              지금 보는 권은{stage ? ` ${STAGE_LABEL[stage]} 매대에 있어요.` : ' 이 사다리에 있어요.'}{' '}
+              담은 권은 언제든 바꿀 수 있습니다.
             </p>
 
             <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -272,6 +224,8 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
             </div>
           </section>
         )}
+
+        <VolumeBackMatter dossier={dossier} />
 
         <section
           aria-label="학습 시작"
@@ -302,36 +256,15 @@ export default async function TextbookVolumePage({ params }: { params: { step: s
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <Link
               href="/hub"
-              className="group inline-flex min-h-[48px] w-fit items-center gap-2 rounded-ios-pill bg-[var(--p)] px-5 font-display text-[14px] font-[700] text-[var(--on-p)] no-underline motion-safe:transition-all motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+              className="group inline-flex min-h-[48px] w-fit items-center gap-2 rounded-ios-pill border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[700] text-[var(--t1)] no-underline motion-safe:transition-all motion-safe:hover:border-[var(--p)] motion-safe:hover:text-[var(--p)] motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
             >
               <BookOpen size={15} aria-hidden />
               오늘의 학습으로
             </Link>
-            {/* ⚠️ **풀 자리로 가는 유일한 문이다.** 이 링크가 없던 동안 이 화면은 재고만 보여 주고
-                `/hub` 로 돌려보냈고, 그래서 `csat_item_attempts` 가 0행이라 난이도(P)·변별도(D)를
-                낼 수 없었다 — 평가 요소 중 열위 하나가 그것이고, **콘텐츠로는 못 고친다.**
-                순서·삽입만 나온다(생성형은 `DcpPlayer` 가 아직 못 그린다). */}
-            <Link
-              href={`/library/textbooks/${v.step}/practice`}
-              className="group inline-flex min-h-[48px] w-fit items-center gap-2 rounded-ios-pill border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[700] text-[var(--t1)] no-underline motion-safe:transition-all motion-safe:hover:border-[var(--p)] motion-safe:hover:text-[var(--p)] motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
-            >
-              <ArrowRight size={15} aria-hidden />
-              문항 풀어 보기
-            </Link>
-            {/* 담기는 서가와 **같은 버튼**을 쓴다 — 두 곳에서 다르게 생기면 같은 동작으로 안 읽힌다. */}
-            {mine.available && (
-              <TextbookPickButton
-                step={v.step}
-                title={v.title}
-                picked={mine.steps.includes(v.step)}
-                signedIn={mine.signedIn}
-              />
-            )}
-            {/* 공유는 **로그인과 무관하게** 낸다 — 교사가 학생에게 보내는 경로이고,
-                서가는 비로그인에도 열려 있어 받은 쪽이 바로 열 수 있다. */}
-            <ShareVolumeButton step={v.step} title={v.title} />
           </div>
         </section>
+
+        <VolumeColophon dossier={dossier} passageSpec={null} />
       </div>
     </Screen>
   )
