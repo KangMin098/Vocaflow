@@ -16,6 +16,7 @@ import { createServerClient } from '@supabase/ssr'
 import type { Database } from '@vocaflow/types'
 
 import { blockedReasonCode, canAccessAdminConsole, isUsableAccount } from '@/lib/auth/account'
+import { loadAccountProfile } from '@/lib/auth/profile-cache'
 import { requiresAuth } from '@/lib/auth/protected-routes'
 import { RETURN_PARAM, safeInternalPath } from '@/lib/auth/redirect'
 import { devAdminBypass } from '@/lib/auth/dev-bypass'
@@ -115,18 +116,32 @@ export async function middleware(request: NextRequest) {
   let profileStatus: string | null = null
 
   if (needsProfile) {
-    const { data: profile } = await supabase
-      .from('user_profiles')
-      .select('role, status')
-      .eq('user_id', user!.id)
-      .maybeSingle()
+    // ── 요청마다 다시 읽지 않는다 (2026-09-06 장애, 발견 #43) ──────────
+    // 36분에 프로필 조회 **3,482건**이 여기서 나갔고 그것이 읽기 포화의 단일 최대
+    // 기여자였다. 역할·상태는 요청마다 바뀌는 값이 아니다 — 겹치는 요청은 합치고
+    // 짧은 TTL 안에서는 다시 쓴다. 무엇이 늦어지는지는 `profile-cache.ts` 머리말에 적혀 있다.
+    //
+    // ⚠️ **조회 실패를 "프로필 없음" 으로 뭉개지 않는다.** 예전에는 error 를 버리고
+    //   data 만 봐서 둘이 같은 결과(role/status = null)로 떨어졌다. 그대로 캐시하면
+    //   순간적 오류가 TTL 동안 굳어 관리자를 비관리자로 만든다.
+    const result = await loadAccountProfile(user!.id, async () => {
+      const { data, error } = await supabase
+        .from('user_profiles')
+        .select('role, status')
+        .eq('user_id', user!.id)
+        .maybeSingle()
+      if (error) return { ok: false as const }
+      const row = data as { role?: string | null; status?: string | null } | null
+      return { ok: true as const, profile: row ? { role: row.role ?? null, status: row.status ?? null } : null }
+    })
 
-    const row = profile as { role?: string | null; status?: string | null } | null
-    profileRole = row?.role ?? null
-    profileStatus = row?.status ?? null
+    // 못 읽었으면 **막지도 통과시키지도 않는다** — 예전과 같은 자리에 선다
+    // (역할 없음 → /admin 은 막히고, 상태 없음 → 정지로 오인해 내쫓지 않는다).
+    profileRole = result.ok ? (result.profile?.role ?? null) : null
+    profileStatus = result.ok ? (result.profile?.status ?? null) : null
 
     // 정지·해지 계정은 세션을 끊고 사유와 함께 로그인 화면으로
-    if (!isUsableAccount(profileStatus)) {
+    if (result.ok && !isUsableAccount(profileStatus)) {
       await supabase.auth.signOut()
       return redirectTo('/login', { error: blockedReasonCode(profileStatus) ?? 'suspended' })
     }
