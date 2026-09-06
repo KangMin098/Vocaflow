@@ -10,6 +10,59 @@
 
 ## Unreleased (v06.34 → next)
 
+### DB 헬스를 사람이 기억하는 대신 배치가 잰다 — 수집층 6축 (2026-09-06)
+
+- 위 「DB 서버 진단」은 **한 번 재고 끝난다.** 그 진단을 상시로 만드는 수집층을 넣었다.
+  `db_health_metrics`(axis·metric·value·dims) + 일 1회 `collect_db_health_metrics()`(jobid=15 · KST 03:40) +
+  주 1회 `collect_db_health_integrity()`(jobid=16 · 일요일 03:50). 마이그레이션 4건
+  ([20260906010000](../supabase/migrations/20260906010000_db_health_metrics.sql) ·
+  [010500](../supabase/migrations/20260906010500_db_health_integrity.sql) ·
+  [011000](../supabase/migrations/20260906011000_db_health_advisor_fix.sql) ·
+  [011500](../supabase/migrations/20260906011500_db_health_integrity_noise_filter.sql)).
+- **수집기는 판정하지 않는다.** 임계값을 SQL 에 굳히면 "6,255MB 가 위험한가" 를 상수가 답하게 된다.
+  사실만 적고 목록·상위 표본을 `dims` 에 통째로 실어, 위험 여부는 DB 밖 에이전트가 추세와 함께 판단한다.
+  화면은 열 때만 계산하므로 안 연 시간의 사고를 못 본다 — cron 실패 79건이 정확히 그렇게 지나갔다.
+- 6축 실측 (첫 수집 38행 + 4행): 용량 6,255MB(heap 3,684 · index 1,622 · toast 907) ·
+  **미사용 인덱스 110개 69.6MB** · cron 24시간 실패 25/2,910 · 최장 미성공 30.7시간 ·
+  느린 구문 150개(최대 평균 **551초**) · 연결 28.3%(17/60) · anon 노출 110표(RLS 없는 것 0) ·
+  **search_path 미고정 함수 196** · FK 인덱스 누락 45 · INVALID 객체 0.
+- ⚠️ **수집기를 만들고 나서 advisor 실측과 숫자를 맞춰 봤더니 그 수집기가 틀려 있었다** (011000 에서 수정).
+  `mutable_search_path_funcs` 가 **0** 을 보고했는데 실제는 196 — `prosecdef` 로 걸러 SECURITY DEFINER
+  함수만 셌고, 이 저장소의 SECURITY DEFINER 는 전부 search_path 를 달고 있어 조건에 걸리는 게 없었다.
+  **깨끗해서 0 이 아니라 엉뚱한 곳을 봐서 0** 이었다. 감시 지표가 틀리면 감시하지 않는 것보다 나쁘다 —
+  없으면 모른다는 걸 알지만, 틀리면 안다고 착각한다. 미사용 인덱스 110·FK 누락 45 는 advisor 와 정확히 일치.
+- ⑥ 축 첫 실행이 **진짜 버그 1건**을 잡았다 — `analyze_book_vrl` 이 `library_book_vocabularies.book_id` 를
+  읽는데 그 표의 실제 컬럼은 `library_book_id` 다. 호출하면 반드시 42703 으로 죽는다.
+  부르는 곳이 없어 실행된 적이 없었고, 그래서 어떤 테스트도 잡지 못했다.
+- 정규식으로 「없는 테이블 참조」를 찾으려던 첫 시도는 **CTE 이름을 전부 오탐**했다(`set` 15개 함수 ·
+  `cand` 8 · `joined` 6 …). 목적 도구 `plpgsql_check` 로 바꾸고, 그것도 런타임 임시 테이블(`_tc_words` 등)을
+  84% 오탐하기에 분류 규칙을 넣어 **25건 → 4건**(억제 21 · 건너뜀 0). 억제한 건수와 이유는 `dims` 에 남긴다.
+- 비용은 실측으로 정했다 — `pgstattuple_approx` 를 상위 6표에 한 번에 돌리면 120초 타임아웃이고
+  1,974MB 짜리 `library_article_vocabularies` 는 단독으로도 초과한다. 그래서 **회전 표본**(1회 1표 ·
+  heap 200MB 이하 · 로컬 타임아웃 25초 · 실패해도 나머지 행은 남는다).
+
+### DB 서버 진단 — 통계가 154개 테이블에서 한 번도 안 잡혀 있었다 (2026-09-06)
+
+- 정기 점검. 서버 자체는 정상이다 — `ACTIVE_HEALTHY` · 접속 21/60 · 락 대기 0 · 데드락 0 ·
+  XID age 432만(한계의 0.2%) · 24시간 postgres 로그의 오류성 줄 **14개**(8개는 MCP 클라이언트 잡음).
+- 진짜 문제는 **통계였다**. `last_analyze`·`last_autoanalyze` 가 **둘 다 NULL 인 테이블 154개 ·
+  4,471MB**. 모니터링 카운터가 실물과 갈려 있었다 — `csat_dcp_items` 는 `n_live_tup` 이 **1,896**
+  이라고 했지만 실제 `count(*)` 는 **656,988**, `library_article_vocabularies` 는 292,482 라고
+  했지만 실제 **11,343,728** 이다. autovacuum 은 이 값으로 임계치를 계산하므로 **분모가 틀린 채로
+  돌고 있었다.** 154개 전부 ANALYZE 실행 → 잔여 0.
+- ⚠️ 이 때문에 처음엔 `library_book_vocabularies` 가 「0행짜리 1,120MB 껍데기」로 보여 VACUUM FULL
+  대상처럼 읽혔다. `pgstattuple_approx` 로 확인하니 **실행 1,669,433행 · 죽은 튜플 3.5%** 로 멀쩡했다.
+  **`pg_stat_user_tables` 를 근거로 쓰기 전에 실측할 것** — 하마터면 멀쩡한 테이블을 재작성할 뻔했다.
+- 인덱스 누락 1건 발견 — `library_book_vocabularies` 에 `word` 선두 인덱스가 없다. 드레인 커서의
+  `lemma IS NOT NULL AND word > $1 ORDER BY word` 가 **한 페이지에 53.7초**(Parallel Seq Scan ·
+  buffers read 72,225). 누적 3,337초/787회로 이 DB 세 번째 고비용 구문이고, 테이블 seq scan 은
+  1,927회·15억 행으로 1위다. `supabase/migrations/_pending_idx_lbv_word_lemma.sql` 에 대기
+  (CONCURRENTLY — MCP 는 트랜잭션 안이라 25001 로 못 쓴다. 20260906080000 과 같은 제약).
+- 보안 권고 ERROR 1건 잔존 — `public.csat_items_public` 뷰가 SECURITY DEFINER.
+  RLS 켜고 정책 없는 테이블 8개, `auth_leaked_password_protection` 비활성.
+- DB 6,253MB (문서상 마지막 회수 시점 350MB 대비 증가) · 캐시 적중 87.6% · 임시파일 18GB
+  (`work_mem` 3.5MB).
+
 ### 카탈로그 — 공장에 없던 답 「뭘 만드나」 (2026-09-06)
 
 - 공정 8칸은 전부 "공장이 어떤 상태인가" 였다. **제품 목록이 없어서** 관리자가 "교재 하나를
