@@ -1,7 +1,7 @@
 {
-  "measuredAt": "2026-09-06T01:58:23.129Z",
+  "measuredAt": "2026-09-06T06:51:03.859Z",
   "specVersion": 2,
-  "elapsedSeconds": 130.4,
+  "elapsedSeconds": 25.2,
   "scope": "status in ('ready','published')",
   "articlesWithItems": 19202,
   "total": {
@@ -23,6 +23,8 @@
     },
     "composable": 2211,
     "composablePct": 10.1,
+    "judged": 2506,
+    "composablePctOfJudged": 88.2,
     "structurallyUnjudged": 13459
   },
   "byBand": [
@@ -42,6 +44,8 @@
       },
       "composable": 0,
       "composablePct": 0,
+      "judged": 5,
+      "composablePctOfJudged": 0,
       "structurallyUnjudged": 0
     },
     {
@@ -62,6 +66,8 @@
       },
       "composable": 0,
       "composablePct": 0,
+      "judged": 66,
+      "composablePctOfJudged": 0,
       "structurallyUnjudged": 0
     },
     {
@@ -82,6 +88,8 @@
       },
       "composable": 3,
       "composablePct": 1,
+      "judged": 21,
+      "composablePctOfJudged": 14.3,
       "structurallyUnjudged": 0
     },
     {
@@ -101,6 +109,8 @@
       },
       "composable": 1,
       "composablePct": 0.4,
+      "judged": 2,
+      "composablePctOfJudged": 50,
       "structurallyUnjudged": 0
     },
     {
@@ -120,6 +130,8 @@
       },
       "composable": 39,
       "composablePct": 4.6,
+      "judged": 44,
+      "composablePctOfJudged": 88.6,
       "structurallyUnjudged": 0
     },
     {
@@ -142,6 +154,8 @@
       },
       "composable": 647,
       "composablePct": 15.1,
+      "judged": 733,
+      "composablePctOfJudged": 88.3,
       "structurallyUnjudged": 444
     },
     {
@@ -164,6 +178,8 @@
       },
       "composable": 1118,
       "composablePct": 8.6,
+      "judged": 1218,
+      "composablePctOfJudged": 91.8,
       "structurallyUnjudged": 10532
     },
     {
@@ -184,6 +200,8 @@
       },
       "composable": 366,
       "composablePct": 12.5,
+      "judged": 379,
+      "composablePctOfJudged": 96.6,
       "structurallyUnjudged": 2468
     },
     {
@@ -203,6 +221,8 @@
       },
       "composable": 36,
       "composablePct": 55.4,
+      "judged": 37,
+      "composablePctOfJudged": 97.3,
       "structurallyUnjudged": 15
     },
     {
@@ -221,6 +241,8 @@
       },
       "composable": 1,
       "composablePct": 9.1,
+      "judged": 1,
+      "composablePctOfJudged": 100,
       "structurallyUnjudged": 0
     }
   ],
