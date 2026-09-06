@@ -21,6 +21,18 @@
 //   node scripts/textbook/drain-extract-analysis.mjs --commit --feed plos-extract
 
 import { spawn } from 'node:child_process'
+import fs from 'node:fs'
+import path from 'node:path'
+
+// 회수(`reclaimStuck`)에만 쓴다 — 처리 자체는 자식 프로세스가 한다.
+for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
+  const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
+  if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, '')
+}
+const URL_BASE = process.env.NEXT_PUBLIC_SUPABASE_URL
+const KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
+if (!URL_BASE || !KEY) throw new Error('NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 가 없다')
+const HEADERS = { apikey: KEY, Authorization: `Bearer ${KEY}` }
 
 const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -45,6 +57,38 @@ const SHARD = arg('shard', null)
 
 const num = (n) => n.toLocaleString()
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+
+/**
+ * **죽은 프로세스가 남긴 중간 상태를 되돌린다.**
+ *
+ * ⚠️ 처리기는 글을 집으면 `normalizing` → `analyzing` 으로 바꾸고 끝나면 `ready` 로 올린다.
+ *   그 사이에 프로세스가 죽으면 그 행은 **중간 상태에 영영 남는다** — 처리기가 `queued` 만
+ *   집기 때문에 아무도 다시 안 줍고, 큐 수치에도 안 잡혀 **줄어든 것처럼 보인다.**
+ *   2026-09-07 에 조각 하나가 윈도우 0xC0000409 로 죽었고(구동기가 다음 배치에서 회복했다),
+ *   그 직후 중간 상태 3행이 보였다. **다만 그 셋은 잠시 뒤 사라졌다** — 죽어서 남은 것이
+ *   아니라 다른 조각이 처리 중이던 행이었다. 즉 이 함수는 **관측된 사고의 수습이 아니라
+ *   예방**이다. 프로세스가 죽는 것은 실제로 일어났고, 그때 중간 상태가 남으면 되돌릴 길이
+ *   지금 코드에 없다는 것이 근거다.
+ *
+ * 그래서 배치 앞에서 **오래 멈춰 있는 것만** 되돌린다. `MIN` 분을 두는 이유는 지금 처리 중인
+ * 행을 뺏지 않기 위해서다 — 여러 조각이 동시에 돌고 있고, 한 편에 5초쯤 걸린다.
+ */
+async function reclaimStuck(minutes = 10) {
+  const cutoff = new Date(Date.now() - minutes * 60_000).toISOString()
+  const qs =
+    `feed_id=eq.${FEED}` +
+    `&status=in.(normalizing,analyzing)` +
+    `&updated_at=lt.${encodeURIComponent(cutoff)}` +
+    `&select=id`
+  const res = await fetch(`${URL_BASE}/rest/v1/library_articles?${qs}`, {
+    method: 'PATCH',
+    headers: { ...HEADERS, 'Content-Type': 'application/json', Prefer: 'return=representation' },
+    body: JSON.stringify({ status: 'queued', status_message: '중간 상태에서 회수(프로세스 중단)' }),
+  })
+  if (!res.ok) return 0
+  const rows = await res.json()
+  return Array.isArray(rows) ? rows.length : 0
+}
 
 /** 한 배치를 돌리고 「몇 편 처리했는지 · 큐에 몇 편 남았는지」를 돌려준다. */
 function runBatch() {
@@ -105,6 +149,10 @@ for (;;) {
     break
   }
   round += 1
+  // 죽은 프로세스가 남긴 중간 상태를 먼저 되돌린다 — 안 하면 그 행은 영영 안 잡히고
+  // 큐 수치에서도 사라져 **줄어든 것처럼 보인다.**
+  const reclaimed = await reclaimStuck()
+  if (reclaimed) console.log(`  ↺ 중간 상태에서 회수 ${reclaimed}편`)
   const r = await runBatch()
 
   if (r.code !== 0 || r.done === 0) {

@@ -170,13 +170,41 @@ export function spacePlaceParagraphs(html: string): string[] {
     // ⚠️ **사진 설명은 구조로 뺀다** — `Credit: NASA` 를 문자열로 지우면 본문 산문에 정당하게
     //   나오는 것까지 지운다(`_helpers.ts` 에 캡션을 문장 필터로 잡으려다 실패한 기록이 있다).
     //   Space Place 는 `<p class="caption">` 이라는 표지를 직접 달아 준다 — 실측 42편에 118개,
-    //   `class = "caption"` 처럼 공백을 넣은 것 8개 포함. 전수로 훑어보니 **전부 사진·위젯 설명**
-    //   이고 본문 산문은 한 건도 없었다. 여기에 위젯 조작 안내
+    //   `class = "caption"` 처럼 공백을 넣은 것 8개 포함. 여기에 위젯 조작 안내
     //   ("Explore Earth! Click and drag to rotate Earth. …" 11편) 와 출처 표기
     //   ("… Credit: NASA/JPL-Caltech" 26편) 가 모두 들어 있다.
+    //
+    // ⚠️ **여기 「전수로 훑어보니 전부 사진·위젯 설명이고 본문 산문은 한 건도 없었다」고
+    //   적혀 있었다. 틀렸다.** 사이트 전수 105편(캡션 252개)을 다시 읽어 분류한 결과:
+    //   사진 설명 49% · 혼합 20% · **독립 산문 13%** · 위젯 안내 17% · 크레딧 2%.
+    //   즉 **3분의 1이 독립 내용을 담는다.** `seasons` 는 계절이 생기는 이유라는 **그 글의
+    //   핵심 설명 자체**가 캡션에 있고, `other-solar-systems` 의 반딧불이·등대 비유(54어),
+    //   `blue-sky` 의 노을 산란 설명(37어)도 그렇다. 그것들은 지금 버려진다.
+    //
+    //   그래도 **제거를 유지한다.** 근거는 문서가 아니라 DB다 — 적재된 59행 중 10행에 위젯
+    //   안내가, 17행에 `Credit:` 이 본문으로 들어가 있고, `all-about-the-sun#p3-5`(118어)는
+    //   **첫 25어가 "Explore the Sun! Click and drag to rotate the Sun."** 이다.
+    //   되돌리면 그 결함이 다음 수확에 그대로 재생산된다.
+    //
+    //   버려지는 산문을 되찾는 것은 구조로 안 된다 — 같은 `<p class="caption">` 안에
+    //   "Glaciers galore in Antarctica." 와 나란히 들어 있다. 캡션 단위 판정(드레인)이
+    //   필요하고 그건 별도 작업이다. **여기서 되찾는 것은 아래 포스트카드 하나뿐이다.**
+    //
     //   ⚠️ 이 필터는 `class` 에 `caption` 이 있는 `<p>` 만 본다 — `<figcaption>`·`<figure>` 는
     //   이 사이트에 0건이라 일부러 다루지 않는다(없는 것을 지키는 규칙은 낡는다).
-    .filter((m) => !/\bclass\s*=\s*["'][^"']*\bcaption\b/i.test(m[1]!))
+    .filter((m) => {
+      if (!/\bclass\s*=\s*["'][^"']*\bcaption\b/i.test(m[1]!)) return true
+      // **포스트카드 리드 캡션은 본문이다.** `postcard-<슬러그>.en.jpg` 바로 앞에 둔 그림의
+      // 캡션은 사진 라벨이 아니라 그 글의 도입 산문이다("Jupiter is a stormy planet… a giant,
+      // wild storm that has been raging for more than 300 years"). 사이트 전수에서 포스트카드는
+      // 5편뿐이고 그중 8낱말 넘는 캡션을 단 것은 정확히 3편(jupiter·mars·mercury) —
+      // **오탐 0 · 누락 0**. 이 한 줄이 `all-about-jupiter` 를 96어 → 130어로 올려 창 안에 넣는다.
+      //
+      // ⚠️ **원본 HTML 위치로 봐야 한다.** 이 배열은 `<p>` 만 담고 있어 그 사이의 `<img>` 가
+      //   없다 — 앞선 `<p>` 들만 이어 붙여 찾으면 포스트카드를 영영 못 만난다.
+      const at = m.index ?? 0
+      return /postcard-[a-z0-9-]+\.en\.jpe?g/i.test(h.slice(Math.max(0, at - 400), at))
+    })
     .map((m) =>
       m[2]!
         .replace(HTML_TAG, ' ')

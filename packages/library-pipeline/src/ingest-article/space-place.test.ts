@@ -231,6 +231,37 @@ describe('Space Place 사진 설명 — 문자열이 아니라 구조로 뺀다'
     expect(spacePlaceParagraphs(captionHtml).join(' ')).not.toMatch(/Dan Duriscoe/)
   })
 
+  // ⚠️ **캡션이 전부 사진 설명인 것은 아니다.** 사이트 전수 105편(캡션 252개) 재분류:
+  //   사진 설명 49% · 혼합 20% · **독립 산문 13%** · 위젯 안내 17% · 크레딧 2%.
+  //   3분의 1이 독립 내용을 담고, `seasons` 는 그 글의 핵심 설명 자체가 캡션에 있다.
+  //   구조로 되찾을 수 있는 것은 **포스트카드 리드 하나뿐**이고, 그것만 살린다.
+  it('포스트카드 리드 캡션은 본문으로 남긴다 — 사진 라벨이 아니라 그 글의 도입 산문이다', () => {
+    const html = `
+<body>
+<img src="/system/resources/detail/postcard-jupiter.en.jpg" alt="Jupiter">
+<p class="caption">Jupiter is a stormy planet with a giant, wild storm that has been raging for more than 300 years.</p>
+<p>Jupiter is the biggest planet in our solar system.</p>
+<img src="/photo/mercury-craters.jpg" alt="craters">
+<p class="caption">The many craters of Mercury.</p>
+</body>`
+    const ps = spacePlaceParagraphs(html)
+    const all = ps.join(' ')
+    // 포스트카드 뒤 캡션은 살아남고
+    expect(all).toContain('raging for more than 300 years')
+    // 보통 사진 라벨은 그대로 빠진다 — 예외가 넓어지면 원래 문제가 돌아온다.
+    expect(all).not.toContain('The many craters of Mercury')
+  })
+
+  it('포스트카드가 없으면 캡션은 그대로 뺀다 — 예외가 무조건 열리면 안 된다', () => {
+    const html = `
+<body>
+<img src="/photo/plain.jpg" alt="x">
+<p class="caption">Jupiter is a stormy planet with a giant, wild storm that has been raging for more than 300 years.</p>
+<p>Jupiter is the biggest planet in our solar system.</p>
+</body>`
+    expect(spacePlaceParagraphs(html).join(' ')).not.toContain('raging for more than 300 years')
+  })
+
   it('caption 이 아닌 class 는 본문으로 남긴다 — 필터가 넓어지면 본문이 사라진다', () => {
     const ps = spacePlaceParagraphs(captionHtml)
     expect(ps).toHaveLength(2)
