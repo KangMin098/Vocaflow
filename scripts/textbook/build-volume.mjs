@@ -33,6 +33,8 @@ const arg = (n) => {
   return i >= 0 ? process.argv[i + 1] : null
 }
 const BAND = Number(arg('band') ?? 6)
+// 어느 시리즈의 권인가. 기본은 독해 — 옛 명령이 그대로 돈다.
+const SERIES = arg('series') ?? 'reading'
 const UNITS = Number(arg('units') ?? 20)
 
 const { createClient } = await import('@supabase/supabase-js')
@@ -48,6 +50,7 @@ const db = createClient(
 const { units, stoppedBecause, rejected, pool, articles, mix } = await loadVolume(db, {
   band: BAND,
   unitCount: UNITS,
+  seriesId: SERIES,
   // 재고가 큰 밴드는 전부 받으면 statement timeout 이 난다(V6 원글 11,831편 · 문항 228,832건).
   // 한 권은 서로 다른 글 120편이면 되므로 고르게 흩어 자를 수 있다 — 기본은 무제한이다.
   maxArticles: arg('articles') ? Number(arg('articles')) : null,

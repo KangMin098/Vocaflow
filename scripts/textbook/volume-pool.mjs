@@ -636,8 +636,23 @@ export async function pickArticles(db, all, cap) {
   return out
 }
 
-export async function loadVolume(db, { band, unitCount, marketMix = true, maxArticles = null }) {
+/**
+ * @param {object} opts
+ * @param {string} [opts.seriesId] 어느 **시리즈**의 권인가. 없으면 독해(`reading`).
+ *   시리즈마다 그 단이 쓰는 유형이 달라서, 유형을 안 좁히면 어휘 권 자리에서 독해 권이 나온다.
+ */
+export async function loadVolume(
+  db,
+  { band, unitCount, marketMix = true, maxArticles = null, seriesId = 'reading' },
+) {
   const timer = makeTimer()
+  const { SERIES_CATALOG } = await import('@vocaflow/library-pipeline/textbook-series-catalog')
+  /** 그 시리즈의 그 밴드를 덮는 단. 없으면 null — 좁히지 않는다(옛 동작 그대로). */
+  const seriesRungOf = (id, b) => {
+    const def = SERIES_CATALOG.find((x) => x.id === id)
+    if (!def) return null
+    return def.rungs.find((r) => r.vLevels.includes(b)) ?? null
+  }
   const {
     composeUnits,
     rungMix,
@@ -975,6 +990,26 @@ export async function loadVolume(db, { band, unitCount, marketMix = true, maxArt
   const { items: elementary, meanings: elementaryMeaning } = await loadElementaryPool(db, band)
   timer.mark('초등 풀 (shared_dictionary)')
   pool.push(...elementary)
+
+  // ── 시리즈로 풀을 좁힌다 ────────────────────────────────────────────
+  // **단의 유형 구성이 곧 그 책의 정체다.** 안 좁히면 밴드가 가진 모든 유형이 섞여 들어와
+  // 어휘 권을 찍어도 독해 문항이 실린다 — 카탈로그가 「어휘 6권을 찍으면 된다」고 말하는데
+  // 나오는 것은 독해 권이 되는, 화면과 산출물이 갈리는 사고다.
+  const seriesRung = seriesRungOf(seriesId, band)
+  if (seriesRung) {
+    const allow = new Set(seriesRung.types)
+    const before = pool.length
+    for (let i = pool.length - 1; i >= 0; i -= 1) {
+      if (!allow.has(pool[i].type)) pool.splice(i, 1)
+    }
+    console.log(
+      `시리즈 ${seriesRung.volumeTitle} — 유형 ${[...allow].join('·')} 로 좁혔다 ` +
+        `(문항 ${before.toLocaleString()} → ${pool.length.toLocaleString()})`,
+    )
+    if (pool.length === 0) {
+      console.log('  ⚠ 좁히고 나니 문항이 0 이다 — 이 단은 지금 찍을 수 없다(재고가 그 유형에 없다).')
+    }
+  }
 
   const mix = marketMix
     ? rungMix(band, new Set(pool.map((it) => it.type)))

@@ -254,12 +254,19 @@ export function SeriesShelf({ rows, counts, inventoryAt, notMaking, loadError }:
           {sel.v.status === 'ready' || sel.v.status === 'published' ? (
             <div className="flex flex-col gap-1 rounded-[var(--r-sm)] bg-[var(--bg2)] p-2.5">
               <p className="font-display text-[11.5px] font-[600] text-[var(--t2)]">찍는 법</p>
+              {/*
+                ⚠️ **`--series` 를 반드시 싣는다.** 밴드만 주면 조합기가 독해 사다리를 보고
+                   그 밴드의 **독해 권**을 낸다 — 어휘 칸에서 어휘 권이 안 나온다.
+                   실측 2026-09-06 에 이 화면이 밴드만 주고 있었다(같은 종류의 거짓을
+                   축을 고치면서 새로 만들었다).
+              */}
               <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
-                pnpm dlx tsx scripts/textbook/build-volume.mjs --band {sel.v.step} --units 20
+                pnpm dlx tsx scripts/textbook/build-volume.mjs --series {sel.row.id} --band{' '}
+                {sel.v.step} --units 20
               </code>
               <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
-                pnpm dlx tsx scripts/textbook/render-volume.mjs --band {sel.v.step} --units 20 --out
-                volume-v{sel.v.step}.html
+                pnpm dlx tsx scripts/textbook/render-volume.mjs --series {sel.row.id} --band{' '}
+                {sel.v.step} --units 20 --out {sel.row.id}-v{sel.v.step}.html
               </code>
             </div>
           ) : null}

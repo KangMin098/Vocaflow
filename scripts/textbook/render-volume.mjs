@@ -28,6 +28,8 @@ const arg = (n) => {
   return i >= 0 ? process.argv[i + 1] : null
 }
 const BAND = Number(arg('band') ?? 5)
+// 어느 시리즈의 권인가. 기본은 독해 — 옛 명령이 그대로 돈다.
+const SERIES = arg('series') ?? 'reading'
 const OUT = arg('out') ?? `volume-v${BAND}.html`
 
 const { createClient } = await import('@supabase/supabase-js')
@@ -105,6 +107,7 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 const MARKET_MIX = !process.argv.includes('--no-market-mix')
 const { units, stoppedBecause, articles: byId, pool, mix } = await loadVolume(db, {
   band: BAND,
+  seriesId: SERIES,
   unitCount: UNITS,
   marketMix: MARKET_MIX,
 })
@@ -205,7 +208,11 @@ if (arg("proof-detail") != null) {
 const marketTarget = rungMix(BAND).targetShare
 const marketFit = typeMixFit(actualMix, marketTarget)
 const closedTypes = Object.keys(marketTarget).filter((t) => !pool.some((it) => it.type === t))
-const rung = SERIES_SPINE.find((r) => r.vLevels.includes(BAND))
+// 그 시리즈의 단을 쓴다 — **제목·표지가 여기서 나온다.** 독해 사다리만 보면 어휘 권도
+// 「Vocaflow Reading」 으로 찍힌다(실측 2026-09-06 에 그럴 뻔했다).
+const { SERIES_CATALOG } = await import('@vocaflow/library-pipeline/textbook-series-catalog')
+const seriesDef = SERIES_CATALOG.find((x) => x.id === SERIES) ?? SERIES_CATALOG[0]
+const rung = seriesDef.rungs.find((r) => r.vLevels.includes(BAND))
 
 // ── 조판 ────────────────────────────────────────────────────────────
 const esc = (s) =>
@@ -536,7 +543,7 @@ for (const u of units) {
 
 const passed = card.auto.filter((c) => c.pass).length
 const colophon = buildColophon({
-  title: rung?.volumeTitle ?? `Vocaflow Reading V${BAND}`,
+  title: rung?.volumeTitle ?? `${seriesDef.brand} V${BAND}`,
   step: rung?.step ?? null,
   schoolBand: rung?.schoolBand ?? null,
   vLevel: BAND,

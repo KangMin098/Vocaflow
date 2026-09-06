@@ -13,6 +13,10 @@
 //   · 시리즈끼리 눈으로 갈리는가 — 표지가 같으면 매대에서 한 권이 된다
 //   · 안 만드는 것을 **칸으로 그리지 않고 이유로** 적는가
 
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
@@ -99,5 +103,34 @@ describe('SeriesShelf', () => {
     const h = text(renderToString(<SeriesShelf {...broken} />))
     expect(h).toContain('재고를 못 읽었다')
     expect(h).toContain('role="alert"')
+  })
+})
+
+/**
+ * **화면이 주는 명령이 그 칸의 권을 내는지.**
+ *
+ * ⚠️ 이 저장소는 같은 사고를 두 번 냈다 — 화면이 「이 권을 찍으면 된다」고 적어 놓고,
+ *   주는 명령은 **다른 권**을 내는 것이다. 처음엔 (유형 × 학령) 격자가 그랬고, 축을 시리즈로
+ *   고치면서 또 그랬다(`--band` 만 주면 조합기가 독해 사다리를 본다).
+ *   화면과 스크립트가 갈리는 자리라, 여기서 문자열로 잠근다.
+ */
+describe('찍는 법이 그 칸의 권을 낸다', () => {
+  it('명령에 `--series` 가 실린다 — 밴드만 주면 어휘 칸에서 독해 권이 나온다', () => {
+    // 상세 패널은 칸을 골라야 열리므로 컴포넌트 소스를 본다(서버 렌더로는 안 열린다).
+    const src = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), '..', 'catalog', 'SeriesShelf.tsx'),
+      'utf8',
+    )
+    expect(src).toContain('--series {sel.row.id}')
+    // 밴드만 주는 옛 형태가 남아 있으면 안 된다.
+    expect(src).not.toContain('build-volume.mjs --band {sel.v.step}')
+  })
+
+  it('산출 파일 이름도 시리즈를 따른다 — 두 시리즈가 같은 파일을 덮어쓰면 안 된다', () => {
+    const src = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), '..', 'catalog', 'SeriesShelf.tsx'),
+      'utf8',
+    )
+    expect(src).toContain('--out {sel.row.id}-v{sel.v.step}.html')
   })
 })
