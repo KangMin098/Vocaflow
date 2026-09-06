@@ -20,10 +20,17 @@
 //
 // 재실행 안전: **읽기만 한다.** 몇 번 돌려도 DB 가 바뀌지 않는다.
 //
+// ⚠️ **스냅샷은 기본으로 쓴다.** 예전에는 `--json <경로>` 를 준 실행만 파일을 갱신했는데,
+//   그러면 스캔을 돌린 사람은 터미널에서 새 수치를 보고 화면도 새것이라고 믿는다.
+//   실제로는 화면이 옛 스냅샷을 그대로 읽는다 — **틀린 줄 모르는 상태**가 된다.
+//   (2026-09-06 실측: 기사 1,200편 판정을 적재한 뒤 스캔을 돌렸는데 화면은 그대로였다.)
+//   그래서 인자 없이 돌려도 화면이 읽는 파일에 쓴다. 쓰지 않으려면 `--no-write`.
+//
 // 실행:
-//   pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs
-//   pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs --json <경로>
-//   pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs --band 2   # V2 만
+//   pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs               # 스캔 + 스냅샷 갱신
+//   pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs --no-write    # 터미널에만
+//   pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs --json <경로>  # 다른 곳에 쓴다
+//   pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs --band 2      # V2 만 (스냅샷 안 씀)
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -54,8 +61,13 @@ const arg = (name) => {
   const i = process.argv.indexOf(`--${name}`)
   return i >= 0 ? process.argv[i + 1] : null
 }
-const JSON_OUT = arg('json')
 const ONLY_BAND = arg('band')
+/** 화면이 읽는 스냅샷. **기본 대상이다** — 갱신을 잊으면 화면이 조용히 낡는다. */
+const SNAPSHOT_PATH = path.resolve('apps/web/src/lib/textbook/source-eligibility-snapshot.json')
+const NO_WRITE = process.argv.includes('--no-write')
+// ⚠️ 밴드 하나만 훑은 결과로 전체 스냅샷을 덮으면 화면이 그 밴드만 있는 세상을 말한다.
+//   `--band` 는 확인용이므로 `--json` 을 명시한 경우에만 파일을 쓴다.
+const JSON_OUT = NO_WRITE ? null : arg('json') ?? (ONLY_BAND ? null : SNAPSHOT_PATH)
 
 // **판정에 필요한 값만** 길어 온다. 본문을 받으면 21,769편에 1.3GB 를 끌어오게 된다.
 const SELECT = [

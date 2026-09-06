@@ -141,7 +141,7 @@ function FreshnessBar({ panel }: { panel: SourceEligibilityPanel }) {
       {panel.ageDays > 0 ? ` · ${panel.ageDays}일 전` : ' · 오늘'} · 대상 {panel.scope}
       {panel.specStale ? ' · ⚠️ 판정 규격이 바뀌었다 — 다시 재야 한다' : ''}
       <span className="ml-2 text-[var(--t3)]">
-        갱신: <code>pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs --json apps/web/src/lib/textbook/source-eligibility-snapshot.json</code>
+        갱신: <code>pnpm dlx tsx scripts/textbook/source-eligibility-scan.mjs</code>
       </span>
     </p>
   )

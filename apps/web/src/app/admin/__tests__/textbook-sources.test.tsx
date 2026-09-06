@@ -9,6 +9,9 @@
 //
 // 그래서 아래 검사는 **표시가 사라지는 것**과 **판정이 관대해지는 것**을 함께 잠근다.
 
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
@@ -178,5 +181,25 @@ describe('도움말 계약', () => {
 
   it('스캔 명령이 도움말과 화면에서 같다', () => {
     expect(JSON.stringify(entry!.screen.drain)).toContain('source-eligibility-scan.mjs')
+  })
+
+  // ── 스냅샷이 조용히 낡는 길을 막는다 ──────────────────────────────
+  // 2026-09-06 실측: 기사 1,200편 판정을 적재하고 스캔을 돌렸는데 **화면은 그대로였다.**
+  // 스캐너가 `--json <경로>` 를 준 실행에서만 파일을 썼기 때문이다. 터미널에는 새 수치가
+  // 찍히므로 돌린 사람은 갱신됐다고 믿는다 — 틀린 줄 모르는 상태가 가장 나쁘다.
+  // 그래서 두 가지를 잠근다: 기본 대상이 화면이 읽는 파일일 것, 그리고 안내가
+  // 그 경로를 손으로 적으라고 시키지 말 것(손으로 적는 경로는 언젠가 어긋난다).
+  it('스캐너가 인자 없이도 화면이 읽는 스냅샷에 쓴다', () => {
+    const scan = readFileSync(resolve(process.cwd(), '../../scripts/textbook/source-eligibility-scan.mjs'), 'utf8')
+    expect(scan).toContain("path.resolve('apps/web/src/lib/textbook/source-eligibility-snapshot.json')")
+    // `--json` 이 없을 때 null 로 떨어지면 기본 갱신이 아니다.
+    expect(scan).toContain(
+      "const JSON_OUT = NO_WRITE ? null : arg('json') ?? (ONLY_BAND ? null : SNAPSHOT_PATH)",
+    )
+  })
+
+  it('도움말과 화면이 --json 경로를 손으로 적으라고 시키지 않는다', () => {
+    expect(JSON.stringify(entry!.screen.drain)).not.toContain('--json apps/web')
+    expect(html).not.toContain('--json apps/web')
   })
 })
