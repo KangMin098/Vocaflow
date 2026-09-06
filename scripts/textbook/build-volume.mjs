@@ -104,7 +104,13 @@ if (units.length) {
     const closed = Object.keys(marketTarget).filter((t) => !pool.some((it) => it.type === t))
     console.log(
       `시장 유형 적합도 ${(100 * typeMixFit(actual, mix.targetShare)).toFixed(1)}% (가진 유형 안에서) · ` +
-        `**시장 전체 기준 ${(100 * typeMixFit(actual, marketTarget)).toFixed(1)}%**` +
+        // ⚠️ **시장 분모는 독해 교재다.** `market-spec.json` 의 유형 밀도는 코퍼스 전체에서
+        //   쟀고 그 코퍼스는 75종 중 60종이 독해다. 어휘·구문 권을 그 분모로 재면
+        //   "독해 문항이 없다" 를 감점으로 읽는다 — 그 책의 정의를 결함으로 읽는 셈이다.
+        //   유형별로 다시 재기 전에는 분모가 없다. 없는 것을 0 으로 안 채운다.
+        (SERIES === 'reading'
+          ? `**시장 전체 기준 ${(100 * typeMixFit(actual, marketTarget)).toFixed(1)}%**`
+          : `시장 기준 **못 잼** — 밀도를 독해 교재로 쟀다`) +
         (closed.length ? ` — 재고 0 인 유형 ${closed.length}종: ${closed.join(', ')}` : ''),
     )
   }

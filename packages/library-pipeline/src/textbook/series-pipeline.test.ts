@@ -77,3 +77,35 @@ describe('시리즈를 스크립트가 안다', () => {
     }
   })
 })
+
+/**
+ * **독해가 아닌 시리즈가 남의 조판 기록을 덮지 않는지.**
+ *
+ * ⚠️ 실측 2026-09-06: 어휘 V5 를 시험 조판했더니 `textbook_volume_renders` 의 band 5 행
+ *   제목이 「Vocaflow Reading 4」 → 「Vocaflow Vocab Advanced」로 바뀌었다.
+ *   그 표는 `band` 하나로 키를 잡으므로(`onConflict: 'band'`), **발행 중인 시리즈의 기록이
+ *   시험 조판 한 번에 지워진다.**
+ *
+ * 표에 시리즈 칸이 생기기 전까지는 기록을 아예 안 남기는 것이 옳다 — 조판물은 정상으로 나오고,
+ * 못 남기는 것은 "이 권이 나갔다" 는 사실뿐이다. 마이그레이션은 사용자 승인이 필요하다.
+ */
+describe('조판 기록이 남의 시리즈를 안 덮는다', () => {
+  it('독해가 아니면 기록을 건너뛴다', () => {
+    expect(renderSrc).toContain("if (SERIES !== 'reading') {")
+    // 왜 건너뛰는지 화면에 말한다 — 조용히 안 남기면 "왜 기록이 없지" 가 된다.
+    expect(renderSrc).toContain('기록 표에 시리즈 칸이 없다')
+  })
+
+  it('덮어쓰기 키가 아직 band 하나임을 코드가 알고 있다', () => {
+    // 이 문자열이 사라지면 키가 바뀐 것이다 — 그때 위 가드를 풀어야 한다.
+    expect(renderSrc).toContain("onConflict: 'band'")
+  })
+
+  it('시장 적합도 분모가 독해임을 인정한다 — 어휘 권을 그 분모로 재지 않는다', () => {
+    // 어휘 V5 가 9.6% 로 나왔던 자리. 없는 분모를 0 으로 채우지 않는다.
+    expect(renderSrc).toContain("SERIES === 'reading'")
+    expect(renderSrc).toContain('밀도를 독해 교재로 쟀다')
+    // 「빠진 유형」 경고도 같은 분모를 쓰므로 함께 막는다.
+    expect(renderSrc).toContain("closedTypes.length && SERIES === 'reading'")
+  })
+})

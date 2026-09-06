@@ -609,12 +609,24 @@ if (usedArticles.size === 0) {
       (idle ? `  (문항 없는 원글 ${idle}편은 뺐다 — store-new-types.mjs 를 돌려야 쓰인다)` : ''),
   )
 }
+// ⚠️ **시장 분모는 독해 교재다.** `market-spec.json` 의 유형 밀도는 코퍼스 전체에서 쟀고,
+//   그 코퍼스는 75종 중 60종이 독해다. 어휘·구문 권을 그 분모로 재면 "독해 문항이 없다" 를
+//   감점으로 읽는다 — 실측 2026-09-06: 어휘 V5 가 **9.6%** 로 나오고, 「목표에서 빠진 유형
+//   17개」가 blank·claim·order… 전부 독해 유형이었다. 어휘 책에 독해 문항이 없는 것은
+//   결함이 아니라 그 책의 정의다.
+//
+//   유형별 밀도를 다시 재기 전에는 **그 시리즈의 시장 분모가 없다.** 없는 것을 0 으로 채우면
+//   화면이 멀쩡한 책을 미달로 읽는다 — 안 잰다고 적는다.
+const mixLine = Object.entries(actualMix)
+  .sort((x, y) => y[1] - x[1])
+  .map(([t, n]) => `${t} ${n}`)
+  .join(' · ')
 console.log(
-  `유형-학년 적합도 ${(fit * 100).toFixed(1)}% (가진 유형 안에서) · **시장 전체 기준 ${(marketFit * 100).toFixed(1)}%** — ` +
-    Object.entries(actualMix)
-      .sort((x, y) => y[1] - x[1])
-      .map(([t, n]) => `${t} ${n}`)
-      .join(' · '),
+  SERIES === 'reading'
+    ? `유형-학년 적합도 ${(fit * 100).toFixed(1)}% (가진 유형 안에서) · ` +
+        `**시장 전체 기준 ${(marketFit * 100).toFixed(1)}%** — ${mixLine}`
+    : `유형-학년 적합도 ${(fit * 100).toFixed(1)}% (가진 유형 안에서) · ` +
+        `시장 기준 **못 잼**(밀도를 독해 교재로 쟀다) — ${mixLine}`,
 )
 // 교정 지적은 **규칙 이름까지** 찍는다 — 건수만 보면 무엇을 고칠지 알 수 없다.
 if (proof.defective) {
@@ -626,7 +638,10 @@ if (proof.defective) {
         .join(' · '),
   )
 }
-if (closedTypes.length) {
+// ⚠️ **이 경고도 독해 분모를 쓴다.** 어휘 권에서는 「빠진 유형」이 전부 독해 유형이라
+//   (실측 2026-09-06: 17개 중 blank·claim·order… 전부) 결함처럼 보이지만 그 책의 정의다.
+//   시리즈가 유형을 좁힌 경우에는 **좁혔다는 사실만** 말한다 — 좁힌 로그는 volume-pool 이 찍는다.
+if (closedTypes.length && SERIES === 'reading') {
   const share = closedTypes.reduce((s, t) => s + (marketTarget[t] ?? 0), 0)
   console.log(
     `  ⚠️ 재고가 0 이라 **목표에서 빠진 유형** ${closedTypes.length}개 — ${closedTypes.join(' · ')}` +
@@ -719,7 +734,23 @@ const { data: prior, error: priorErr } = record.units === 0
       .eq('band', BAND)
       .maybeSingle()
 
-if (record.units === 0) {
+if (SERIES !== 'reading') {
+  // ⚠️ **조판 기록 테이블에 시리즈 칸이 없다.** `textbook_volume_renders` 는 `band` 하나로
+  //   키를 잡으므로(`onConflict: 'band'`), 어휘 권을 찍으면 그 밴드의 **독해 기록을 덮는다.**
+  //
+  //   실측 2026-09-06: 어휘 V5 를 시험 조판했더니 band 5 의 제목이
+  //   「Vocaflow Reading 4」 → 「Vocaflow Vocab Advanced」로 바뀌었다. 발행 중인 시리즈의
+  //   기록이 시험 조판 한 번에 지워진 것이다.
+  //
+  //   그래서 독해가 아닌 시리즈는 **기록을 남기지 않는다.** 조판물(HTML)은 정상으로 나온다 —
+  //   못 남기는 것은 "이 권이 나갔다" 는 사실뿐이고, 그 사실은 시리즈 칸이 생겨야 남길 수 있다.
+  //   마이그레이션(`series` 열 + 복합 키)은 사용자 승인이 필요하다.
+  console.log(
+    `조판 기록  건너뜀 — 기록 표에 시리즈 칸이 없다(band 로만 키를 잡는다).\n` +
+      `   남기면 band ${BAND} 의 **독해 기록을 덮는다.** 조판물은 정상으로 나왔다.\n` +
+      `   기록까지 남기려면 textbook_volume_renders 에 series 열이 필요하다(마이그레이션).`,
+  )
+} else if (record.units === 0) {
   console.log(
     `조판 기록  건너뜀 — 0단원이라 남길 권이 없다 (재료 부족). ` +
       `실패가 아니다 — 재고가 규격을 못 채운 것이다.`,
