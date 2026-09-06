@@ -27,6 +27,7 @@ import { test, expect, type Page } from '@playwright/test'
 import { identityProbe } from './utils/content-scope'
 import { isFullScreenRoute } from '../../src/lib/layout/full-screen-routes'
 import { learnerRoutes, redirectOnlyRoutes } from './utils/learner-routes'
+import { gotoSettled } from './utils/goto-settled'
 import { SessionGuard } from './utils/session-guard'
 
 const RUNTIME_USER = {
@@ -113,14 +114,14 @@ test.describe('제3의 학습자 — 이 화면은 무엇인가', () => {
         note: '',
       }
 
-      const settle = await guard.openWithRetry(async () => {
-        await page.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {})
-        return page.url()
-      })
+      // ⚠️ 고정 대기로 재면 **클라이언트 리다이렉트와 경합한다** — `/dictate/setup` 은
+      //    자료가 없으면 `/dictate` 로 되돌리는데, 먼저 재면 "h1 이 없다", 나중에 재면
+      //    "제목이 겹친다" 가 된다(실측 2026-09-06, 같은 빌드에서 실행마다 갈렸다).
+      //    주소가 멈출 때까지 기다리는 공용 규칙을 26·27 과 나눠 쓴다.
+      const settle = await guard.openWithRetry(async () => await gotoSettled(page, route))
       if (settle.recovered) r.note = '세션이 끊겨 다시 로그인했다'
-      await page.waitForTimeout(1_000)
 
-      const landed = new URL(page.url()).pathname
+      const landed = settle.landed
       const body = ((await page.locator('body').innerText().catch(() => '')) || '').trim()
       r.opens = body.length > 40 && !landed.startsWith('/login')
       if (!r.opens) {

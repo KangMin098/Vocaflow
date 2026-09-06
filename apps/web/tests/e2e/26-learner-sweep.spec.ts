@@ -39,6 +39,7 @@ import {
 import { contentScopes } from './utils/content-scope'
 import { crashKindOf } from './utils/crash-screen'
 import { describeNetFailure, watchNetwork } from './utils/net-watch'
+import { gotoSettled } from './utils/goto-settled'
 import { SessionGuard } from './utils/session-guard'
 
 const RUNTIME_USER = {
@@ -102,46 +103,6 @@ async function serverAlive(page: Page): Promise<boolean> {
   }
 }
 
-async function gotoSettled(page: Page, url: string): Promise<string> {
-  const want = new URL(url, 'http://x').pathname
-  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45_000 }).catch(() => {})
-  await page.waitForTimeout(700)
-
-  // 순수 `redirect()` 페이지는 본문이 빈 채로 잠깐 머문다 — **주소가 바뀔 때까지 기다린다.**
-  // 첫 판은 여기서 성급히 읽고 "본문이 비어 있다" 로 기록했다(`/library`·`/my`·`/my/texts`).
-  const empty = ((await page.locator('body').innerText().catch(() => '')) || '').trim().length < 40
-  if (empty) {
-    await page
-      .waitForURL((u) => u.pathname !== want, { timeout: 6_000 })
-      .catch(() => {})
-    await page.waitForTimeout(600)
-  }
-
-  let last = page.url()
-  for (let i = 0; i < 3; i++) {
-    await page.waitForTimeout(400)
-    if (page.url() === last) break
-    last = page.url()
-  }
-
-  // ── 본문이 나올 때까지 기다린다 (상한 있음) ──────────────────────────
-  //
-  // ⚠️ **"비어 있다" 는 "아직 안 나왔다" 와 다르다** (실측 2026-09-06).
-  //    위까지만 하면 약 1.3초 시점의 본문을 읽는데, 동적 서버 화면은 콜드 진입에서
-  //    그보다 오래 걸린다 — 실측 `/wordvault` **2,831ms** · `/dashboard` 1,722ms ·
-  //    `/hub` 1,125ms · `/text` 755ms. 그래서 `/my/texts`(→ `/text` 로 보내는 껍데기)가
-  //    목적지의 콜드 렌더에 걸려 **"본문이 비어 있다"** 로 찍혔다 —
-  //    화면은 멀쩡했고 **계측기가 일찍 읽은 것**이다.
-  //
-  //    상한을 둔다: 여기서 물어야 할 것은 "언젠가 그려지는가" 이고, 영영 안 그려지는 화면은
-  //    상한을 넘겨 그대로 실패로 남는다(느린 것을 통과로 세지 않으려면 속도는 별도 축이다).
-  for (let waited = 0; waited < 8_000; waited += 250) {
-    const n = ((await page.locator('body').innerText().catch(() => '')) || '').trim().length
-    if (n >= 40) break
-    await page.waitForTimeout(250)
-  }
-  return new URL(page.url()).pathname
-}
 
 /** 소스로 판별한 "보내기만 하는" 화면 — 런타임 타이밍에 기대지 않는다. */
 const REDIRECT_ONLY = redirectOnlyRoutes()

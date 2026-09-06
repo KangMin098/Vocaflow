@@ -28,6 +28,7 @@ import { test, expect, type Page } from '@playwright/test'
 import { focusProbe } from './utils/content-scope'
 import { isFullScreenRoute } from '../../src/lib/layout/full-screen-routes'
 import { learnerRoutes, redirectOnlyRoutes } from './utils/learner-routes'
+import { gotoSettled } from './utils/goto-settled'
 import { SessionGuard } from './utils/session-guard'
 
 const RUNTIME_USER = {
@@ -171,12 +172,8 @@ test.describe('제3의 학습자 — 키보드만으로', () => {
       //    포커스는 `goto` + blur 로 초기화되므로 탭을 새로 열 이유가 없다.
       const p = page
       {
-        const openOnce = async () => {
-          await p.goto(route, { waitUntil: 'domcontentloaded', timeout: 60_000 }).catch(() => {})
-          await p.waitForTimeout(1_200)
-          return p.url()
-        }
-        const opened = await guard.openWithRetry(openOnce)
+        // 주소가 멈추고 본문이 나올 때까지 — 26·28 과 같은 규칙(utils/goto-settled).
+        const opened = await guard.openWithRetry(async () => await gotoSettled(p, route))
         if (opened.recovered) r.note = '세션이 끊겨 다시 로그인했다'
 
         const body = ((await p.locator('body').innerText().catch(() => '')) || '').trim()
