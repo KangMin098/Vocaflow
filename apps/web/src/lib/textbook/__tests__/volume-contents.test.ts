@@ -73,7 +73,14 @@ describe('권 목차 스냅샷', () => {
       const s = contentsOf([b])!.sample
       if (!s) continue
       for (const it of s.items) {
-        expect(it.choices.length, `band ${b} 문항 ${it.no}`).toBe(5)
+        // ⚠️ **5 로 못 박으면 안 된다.** 초등 3종은 선택지가 3~4개이고, 철자 완성은
+        //   아예 없다(단답). 5 만 받던 규칙이 초등 저학년 권의 미리보기를 통째로 비웠다.
+        if (it.choices.length === 0) {
+          expect(it.answerText?.trim().length, `band ${b} 문항 ${it.no} 단답`).toBeGreaterThan(0)
+          continue
+        }
+        expect(it.choices.length, `band ${b} 문항 ${it.no}`).toBeGreaterThanOrEqual(3)
+        expect(it.choices.length, `band ${b} 문항 ${it.no}`).toBeLessThanOrEqual(5)
         for (const c of it.choices) {
           expect(typeof c, `band ${b} 문항 ${it.no}`).toBe('string')
           expect(c).not.toContain('[object')
@@ -88,8 +95,9 @@ describe('권 목차 스냅샷', () => {
       const s = contentsOf([b])!.sample
       if (!s) continue
       for (const it of s.items) {
+        if (it.choices.length === 0) continue // 단답 — 번호가 없다
         expect(it.answer, `band ${b} 문항 ${it.no}`).toBeGreaterThanOrEqual(1)
-        expect(it.answer, `band ${b} 문항 ${it.no}`).toBeLessThanOrEqual(5)
+        expect(it.answer, `band ${b} 문항 ${it.no}`).toBeLessThanOrEqual(it.choices.length)
       }
     }
   })

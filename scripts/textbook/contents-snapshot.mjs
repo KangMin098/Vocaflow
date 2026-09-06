@@ -30,7 +30,8 @@
 //
 // 실행:
 //   npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/contents-snapshot.mjs
-//   ... --bands 4,5 --units 10 --out <경로>
+//   ... --bands 4,5 --units 10 --out <경로>   ← 그 밴드만 다시 굽고 **나머지는 그대로 둔다**
+//   ... --fresh                                ← 기존 스냅샷을 버리고 통째로 다시
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -62,6 +63,8 @@ const BANDS = (arg('bands') ?? SERIES_SPINE.map((r) => r.vLevels[0]).join(','))
   .filter(Number.isInteger)
 const UNITS = Number(arg('units') ?? MARKET_UNITS_PER_BOOK.median)
 const OUT = path.resolve(arg('out') ?? 'apps/web/src/lib/textbook/volume-contents.json')
+/** 기존 스냅샷을 버리고 통째로 다시 만든다. 기본은 **합치기**(§부분 실행). */
+const FRESH = process.argv.includes('--fresh')
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL
 const key = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -99,7 +102,64 @@ function pickExplanation(item, deterministic) {
  * 등)는 모양이 제각각이라 지금 화면이 못 그린다. 못 그리는 것을 스냅샷에 넣으면
  * 미리보기가 빈 자리로 나오므로 **아예 빼고**, 그만큼 미리보기 문항 수가 줄어든 것을 밝힌다.
  */
+/**
+ * 초등 3종 — 낱말 카드. 원글이 없고 **교육과정 별표 어휘**에서 나온다.
+ *
+ * ⚠️ 이 셋을 빼 두는 동안 **초등 저학년 권만 미리보기가 통째로 없었다**(9축 · 지수 1.125).
+ *   가장 어린 학습자가 들어오는 첫 권인데 펼쳐 볼 것이 없었다.
+ * ⚠️ 선택지가 **3~4개일 수 있고** 문자열이 아니라 `{ text }` 객체로 오기도 한다.
+ *   5개·문자열만 받는 생성형 규칙으로는 전부 떨어진다.
+ * ⚠️ 출처에 `ref_title` 을 찍으면 안 된다 — 이 셋은 그 자리에 **낱말**이 들어 있어
+ *   `출처 · above` 가 되어 오히려 오류로 읽힌다(조판기가 같은 함정을 먼저 겪었다).
+ */
+const ELEMENTARY_TYPES_SNAPSHOT = new Set(['rhyme', 'word_meaning', 'spell_blank'])
+const ELEMENTARY_SOURCE = '2022 개정 교육과정 별표 어휘'
+
+function structureElementary(item, no) {
+  const p = item.payload ?? {}
+  const ak = item.answer_key ?? {}
+  const stem = String(p.prompt_ko ?? '').trim()
+  const shown = String(p.stem ?? '').trim()
+  if (!stem) return null
+  const raw = Array.isArray(p.choices) ? p.choices : []
+  const choices = raw
+    .map((c) => (typeof c === 'string' ? c : String(c?.text ?? '')))
+    .map((c) => c.trim())
+
+  if (choices.length >= 3 && choices.every((c) => c.length > 0)) {
+    const answer = Number(ak.answer)
+    if (!Number.isInteger(answer) || answer < 1 || answer > choices.length) return null
+    return {
+      no,
+      type: item.type,
+      kind: 'elementary',
+      stem,
+      shown,
+      choices,
+      answer,
+      explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
+      source: ELEMENTARY_SOURCE,
+    }
+  }
+
+  // 철자 완성 — 단답. 선택지가 없으므로 **정답을 글자로** 준다.
+  const text = String(ak.text ?? p.answer_text ?? '').trim()
+  if (!text) return null
+  return {
+    no,
+    type: item.type,
+    kind: 'elementary',
+    stem,
+    shown,
+    choices: [],
+    answerText: text,
+    explanation: pickExplanation(item, explainItem(item.type, item.payload, item.answer_key)),
+    source: ELEMENTARY_SOURCE,
+  }
+}
+
 function structureItem(item, no) {
+  if (ELEMENTARY_TYPES_SNAPSHOT.has(item.type)) return structureElementary(item, no)
   if (item.type === 'order') {
     const q = toCsatOrder(item.payload?.presented ?? [], item.answer_key?.source_order ?? [])
     if (!q) return null
@@ -255,20 +315,48 @@ for (const band of BANDS) {
   console.log(`단원 ${toc.length} · 문항 ${volumes[String(band)].totalItems}${sample ? ` · 미리보기 UNIT ${sample.no}(문항 ${sample.items.length})` : ' · 미리보기 없음'}`)
 }
 
+// ── 부분 실행이 나머지를 날리지 않게 한다 ────────────────────────────
+// ⚠️ 실측 2026-09-06: band 7 이 Supabase **522(업스트림 타임아웃)** 로 실패했는데,
+//   산출물은 그 실행이 만든 것만 담아 **멀쩡하던 여섯 권이 파일에서 사라졌다.**
+//   스크립트는 exit 0 이었다 — 실패한 밴드를 problems 에 적었으니 "성공" 이다.
+//   한 밴드만 다시 구우려고 `--bands 7` 을 주는 것도 같은 사고를 낸다.
+//
+// 그래서 **덮어쓰기가 아니라 합치기가 기본**이다. 이번에 안 구운 밴드는 그대로 둔다.
+// 통째로 다시 만들려면 `--fresh`.
+let prior = null
+if (!FRESH && fs.existsSync(OUT)) {
+  try {
+    prior = JSON.parse(fs.readFileSync(OUT, 'utf8'))
+  } catch {
+    prior = null // 읽을 수 없으면 새로 만든다 — 깨진 것을 물려받지 않는다
+  }
+}
+
+const mergedVolumes = { ...(prior?.volumes ?? {}), ...volumes }
+// 이번에 다시 구운 밴드의 옛 문제는 버린다(고쳤을 수 있다). 안 구운 밴드의 것은 남긴다.
+const mergedProblems = [
+  ...(prior?.problems ?? []).filter((x) => !BANDS.includes(x.band)),
+  ...problems,
+]
+const kept = Object.keys(prior?.volumes ?? {}).filter((b) => !BANDS.includes(Number(b)))
+if (kept.length) console.log(`
+이번에 안 구운 ${kept.length}권은 그대로 둔다 — band ${kept.join(', ')}`)
+
 const snapshot = {
   // ⚠️ 굽는 시점을 반드시 적는다 — 스냅샷은 낡는다. 낡은 것이 보여야 다시 굽는다.
   generatedAt: new Date().toISOString(),
   unitsPerVolume: UNITS,
-  bands: BANDS,
-  volumes,
-  problems,
+  bands: Object.keys(mergedVolumes).map(Number).sort((a, b) => a - b),
+  volumes: mergedVolumes,
+  problems: mergedProblems,
 }
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true })
 fs.writeFileSync(OUT, `${JSON.stringify(snapshot, null, 2)}\n`)
 const bytes = fs.statSync(OUT).size
 console.log(
-  `\n스냅샷 ${path.relative(process.cwd(), OUT)} — ${Object.keys(volumes).length}권 · ${(bytes / 1024).toFixed(1)} KB` +
-    (problems.length ? ` · ⚠ 문제 ${problems.length}건` : ''),
+  `\n스냅샷 ${path.relative(process.cwd(), OUT)} — ${Object.keys(mergedVolumes).length}권 · ${(bytes / 1024).toFixed(1)} KB` +
+    (mergedProblems.length ? ` · ⚠ 문제 ${mergedProblems.length}건` : ''),
 )
-for (const p of problems) console.log(`  ⚠ band ${p.band} — ${p.error}`)
+// 오류 본문이 HTML 한 판일 수 있다(Cloudflare 522). 첫 줄만 보여 준다 — 전문은 파일에 있다.
+for (const p of mergedProblems) console.log(`  ⚠ band ${p.band} — ${String(p.error).split(String.fromCharCode(10))[0].slice(0, 160)}`)

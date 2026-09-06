@@ -172,6 +172,14 @@ function PreviewItem({ item: it }: { item: PreviewChoiceItem }) {
         </p>
       </div>
 
+      {/* 초등 3종 — 낱말 카드. 지문이 없고 **제시어 하나**가 문제의 전부다.
+          ⚠️ 선택지가 3~4개일 수 있어 5지선다 모양으로 그리면 안 된다. */}
+      {it.kind === 'elementary' && it.shown && (
+        <p className="mt-3 rounded-[var(--r-md)] bg-[var(--bg2)] px-4 py-4 text-center font-english text-[22px] font-[600] leading-snug text-[var(--t1)]">
+          {it.shown}
+        </p>
+      )}
+
       {/* 순서 — 주어진 글 + (A)(B)(C) */}
       {it.intro && (
         <p className="mt-3 rounded-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-[var(--bg2)] px-4 py-3 font-english text-[14.5px] leading-[1.8] text-[var(--t1)]">
@@ -215,6 +223,16 @@ function PreviewItem({ item: it }: { item: PreviewChoiceItem }) {
         </p>
       )}
 
+      {/* 철자 완성 — 선택지가 없는 단답. 답 칸을 그리고 정답을 아래 해설에서 밝힌다. */}
+      {it.choices.length === 0 && it.answerText && (
+        <p className="mt-3 font-body text-[13px] text-[var(--t2)]">
+          답{' '}
+          <span className="ml-1 inline-block min-w-[120px] border-b border-[var(--bd)] pb-0.5 font-english text-[15px] font-[600] text-[var(--success-ink)]">
+            {it.answerText}
+          </span>
+        </p>
+      )}
+
       <ol className="mt-3 flex flex-col gap-1.5">
         {it.choices.map((c, i) => (
           <li key={i} className="flex gap-2.5">
@@ -244,7 +262,7 @@ function PreviewItem({ item: it }: { item: PreviewChoiceItem }) {
         <p className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
           <span className="inline-flex items-center gap-1.5 font-display text-[12px] font-[700] text-[var(--success-ink)]">
             <CircleCheck size={13} aria-hidden />
-            정답 {CIRCLED[it.answer - 1]}
+            정답 {it.answer ? CIRCLED[it.answer - 1] : it.answerText}
           </span>
           {it.source && (
             <span className="font-mono text-[10.5px] text-[var(--t2)]">출처 · {it.source}</span>
