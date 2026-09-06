@@ -17,7 +17,7 @@
 // 재실행 안전: 같은 판정을 다시 써도 결과가 같다. 이미 같은 값이면 건너뛴다.
 //
 // 실행: node scripts/csat/gate-import.mjs [--commit] [--rate 8] [--stale] [--curl]
-//   --rate 는 **초당 쓰기 수**다. 기본 8 — 이 드레인이 분당 1,100건을 써서 DB 를 무너뜨린 뒤 붙였다.
+//   --rate 는 **초당 쓰기 수**다. 기본 8 — 이 드레인이 분당 1,100건을 한 행씩 쓰기 때문에 붙였다.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -62,14 +62,23 @@ for (const f of fs.readdirSync(DRAIN).filter((f) => f.endsWith('.out.json')).sor
 const keyOf = (r) => String(r.title ?? '').split(' — ')[0].trim() || '(무제)'
 
 /**
- * **쓰기 속도 제한 — 이 드레인이 DB 를 무너뜨렸기 때문에 있다.**
+ * **쓰기 속도 제한 — 이 드레인이 분당 1,100건을 쓰기 때문에 있다.**
  *
  * 실측 2026-09-06: 이 스크립트가 3,353편을 **한 행씩 PATCH** 로 썼다.
  * edge 로그에 `PATCH /rest/v1/library_articles` 가 07:21~07:23 세 분 동안
  * 878 · 1,569 · 906 건(합계 정확히 3,353)으로 찍혔다 — **분당 1,100건**이다.
- * 같은 시각 다른 세션의 사전 드레인이 `shared_dictionary` 에 분당 1,878건을 쓰고 있었고,
- * 둘이 겹쳐 I/O 가 포화됐다. 08 시대에 Postgres·PostgREST 로그가 끊기고
- * 09 시부터 **전 소스 0** — 게이트웨이만 살아 Cloudflare 522 를 돌려주는 상태가 40분 이어졌다.
+ *
+ * ⚠️ **이것이 그날의 장애 원인은 아니다 — 처음에 그렇게 적었다가 정정했다.**
+ *   같은 창의 `postgres_logs` 를 다시 재니 근거가 없었다: 체크포인트는 32~49MB·write 2.6~6.5초로
+ *   작았고, `statement timeout` 은 07:00~08:05 내내 분당 0~13건으로 **고르게** 났다 —
+ *   쓰기 폭주 시각에 치솟지 않았다. 장애는 08:05 에 갑자기 전 소스가 끊긴 것이고,
+ *   저장소의 판정은 `capacity:api_outage:2026-09-06T0806` — **읽기 포화**다
+ *   (`capacity:disk_io:instance`: shared_buffers 256MB 대 데이터 6,315MB, 캐시가 4%).
+ *
+ * 그래도 속도 제한은 둔다. 이 저장소에는 **실제로 확인된** 단건 PATCH 폭주가 둘 있고
+ * (`shared_dictionary` 1,87x건/분 · `library_article_vocabularies` 초당 114건 — 체크포인트가
+ * 매번 3~4.5분이었다), 이 드레인은 같은 모양이다. 아직 아프지 않았다는 것이
+ * 안 아플 것이라는 뜻은 아니다.
  *
  * ⚠️ **일괄 upsert 로 바꾸지 않았다.** 행마다 `csat_fit` 이 달라 한 문장으로 못 묶고,
  *   PostgREST upsert 는 payload 에 없는 NOT NULL 열에서 터질 수 있다 — 판정을 넣으려다
