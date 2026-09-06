@@ -3,7 +3,7 @@
 // seed: A1=2 / A2=3 / B1=1 / B2=2 (test-user.ts TEST_CEFR_DISTRIBUTION 참조)
 import { test, expect } from '@playwright/test';
 import { TEST_USER_STATE, ensureAuthState } from './utils/auth';
-import { TEST_CEFR_DISTRIBUTION, TEST_SEED_WORDS } from './fixtures/test-user';
+import { TEST_SEED_WORDS } from './fixtures/test-user';
 
 test.describe('WordVault Browse 회귀', () => {
   test.beforeAll(async ({ browser }) => {
@@ -30,25 +30,37 @@ test.describe('WordVault Browse 회귀', () => {
     );
   });
 
-  test('CEFR B2 필터 클릭 시 B2 단어 ≥ 2개 표시된다', async ({ page }) => {
+  test('기억 상태 필터가 목록을 실제로 좁힌다', async ({ page }) => {
+    // ⚠️ 여기 있던 테스트는 **없는 기능**을 쟀다 — "CEFR B2 필터 클릭". `/wordvault/browse`
+    //    에는 CEFR 레벨 필터가 없다(거르는 축은 기억 상태·출처·검색이다). 게다가 본문이
+    //    통째로 `if (버튼이 보이면)` 안에 있어 못 찾으면 **조용히 초록**을 냈다 —
+    //    그래서 없는 기능을 재고 있다는 사실이 드러나지 않았다
+    //    (실측 2026-09-06: 로그에 "spec soft-skipped" 만 남고 통과로 세어졌다).
+    //    실제로 있는 필터를 재고, 없으면 실패한다.
     await page.goto('/wordvault/browse');
     await page.waitForLoadState('networkidle');
 
-    const b2Filter = page.getByRole('button', { name: /B2/i }).first();
-    if (await b2Filter.isVisible().catch(() => false)) {
-      const before = await page.locator('[data-testid="word-row"]').count();
-      await b2Filter.click();
-      await page.waitForTimeout(500);
-      const after = await page.locator('[data-testid="word-row"]').count();
+    const rows = page.locator('[data-testid="word-row"]');
+    await expect(rows.first(), '거르기 전 목록이 비어 있다 — 좁혀지는지 잴 수 없다').toBeVisible({
+      timeout: 15_000,
+    });
+    const before = await rows.count();
+    expect(before, '거르기 전 단어가 없다').toBeGreaterThan(0);
 
-      // seed B2 = abandon, fundamental → 최소 2개 기대 (TEST_CEFR_DISTRIBUTION.B2)
-      expect(after).toBeGreaterThanOrEqual(TEST_CEFR_DISTRIBUTION.B2);
-      console.log(
-        `[baseline] CEFR B2 filter: ${before} → ${after} (expected ≥ ${TEST_CEFR_DISTRIBUTION.B2})`,
-      );
-    } else {
-      console.log('[baseline] CEFR B2 filter button not found — spec soft-skipped');
-    }
+    // `?filter=state:*` 는 화면의 계약이다 — 허브의 기억 상태 카드가 이 주소로 보낸다.
+    await page.goto('/wordvault/browse?filter=state:attention');
+    await page.waitForLoadState('networkidle');
+
+    // 거른 화면은 **무엇으로 걸렀는지 말해야 한다** — 말없이 줄기만 하면 학습자는
+    // 목록이 왜 짧아졌는지 모른다(빈 목록이면 더 그렇다).
+    const banner = page.getByText(/지금 손이 필요해요|주의|살펴볼/).first();
+    await expect(banner, '걸렀는데 화면이 그 사실을 말하지 않는다').toBeVisible({ timeout: 10_000 });
+
+    const after = await rows.count();
+    expect(after, `거른 뒤(${after})가 전체(${before})보다 많다 — 필터가 거꾸로 동작한다`).toBeLessThanOrEqual(
+      before,
+    );
+    console.log(`[baseline] 기억 상태 필터: ${before} → ${after}`);
   });
 
   test('단어 검색 "abandon" 이 결과를 반환한다', async ({ page }) => {
