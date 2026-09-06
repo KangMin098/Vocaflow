@@ -35,20 +35,45 @@ const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABA
 })
 
 // ── 저장된 문항 (유형 × 레벨) ───────────────────────────────────────
+// ⚠️ **행을 받아서 세면 안 된다** (실측 2026-09-06). 예전에는 `csat_dcp_items` 전체를
+//   1,000행씩 OFFSET 으로 넘기며 셌다. 지금 그 표는 **656,988행**이라 657페이지이고,
+//   OFFSET 은 뒤로 갈수록 앞을 다시 훑으므로 statement timeout 으로 **아예 못 돌았다** —
+//   시리즈 전체 상태를 보는 유일한 자가 몇 주째 죽어 있었다.
+//
+//   세는 데는 행이 필요 없다. **(유형 × 레벨) 조합마다 count 한 번**이면 되고,
+//   그 조합은 `idx_dcp_items_vlevel_type (v_level, type)` 가 그대로 받아 준다.
+//   유형 목록도 짐작하지 않는다 — 인덱스를 훑어 실제로 있는 값만 찾는다(skip scan 흉내).
 const stored = new Map()
-for (let from = 0; ; from += 1000) {
-  const { data, error } = await db
-    .from('csat_dcp_items')
-    .select('type, v_level')
-    .order('id')
-    .range(from, from + 999)
-  if (error) throw new Error('문항 조회 실패: ' + error.message)
-  if (!data?.length) break
-  for (const r of data) {
-    const k = `${r.type}|${r.v_level}`
-    stored.set(k, (stored.get(k) ?? 0) + 1)
+{
+  /** 그 열에 실제로 있는 값들. 하나씩 받아 `> 직전 값` 으로 이어 묻는다. */
+  const distinct = async (column) => {
+    const out = []
+    let last = null
+    for (let i = 0; ; i += 1) {
+      if (i > 200) throw new Error(`${column}: 서로 다른 값이 200개를 넘는다 — 세는 열이 맞는가?`)
+      let q = db.from('csat_dcp_items').select(column).order(column).limit(1)
+      if (last !== null) q = q.gt(column, last)
+      const { data, error } = await q
+      if (error) throw new Error(`${column} 값 훑기 실패: ` + (error.message || '(빈 message)'))
+      if (!data?.length) break
+      last = data[0][column]
+      out.push(last)
+    }
+    return out
   }
-  if (data.length < 1000) break
+  const types = await distinct('type')
+  const levels = await distinct('v_level')
+  for (const t of types) {
+    for (const v of levels) {
+      const { count, error } = await db
+        .from('csat_dcp_items')
+        .select('id', { count: 'exact', head: true })
+        .eq('type', t)
+        .eq('v_level', v)
+      if (error) throw new Error('문항 조회 실패: ' + (error.message || '(빈 message)'))
+      if (count) stored.set(`${t}|${v}`, count)
+    }
+  }
 }
 
 // ── 초등 3종은 사전에서 그 자리에서 만든다 ──────────────────────────
