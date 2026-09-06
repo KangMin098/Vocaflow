@@ -14,9 +14,11 @@
 // 추세가 아니라 장식이고, 장식은 없는 확신을 준다. 이력이 쌓이면 자동으로 선이 붙는다.
 
 import {
+  Activity,
   AlertOctagon,
   AlertTriangle,
   Database,
+  Flag,
   HardDrive,
   Info,
   ShieldAlert,
@@ -25,6 +27,7 @@ import {
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import {
   TREND_MIN_POINTS,
+  anomalyReadiness,
   countBySeverity,
   delta,
   formatAge,
@@ -34,13 +37,16 @@ import {
   isCollectionStale,
   latestAt,
   openByAxis,
+  pairCheckpoints,
   snapshotCount,
   sortFindings,
   tableGrowth,
+  toNumber,
   toSeries,
 } from '@/lib/admin/db-health/derive'
 import { STALE_AFTER_HOURS, fetchDbHealth } from '@/lib/admin/db-health/queries'
 import {
+  ANOMALY_MIN_SAMPLES,
   AXIS_LABEL,
   HEALTH_AXES,
   METRIC_LABEL,
@@ -269,8 +275,18 @@ function MetricCard({ series }: { series: MetricSeries }) {
 }
 
 export default async function AdminDbPage() {
-  const { metrics, findings, excepted, metricsError, findingsError, recentlyResolved } =
-    await fetchDbHealth()
+  const {
+    metrics,
+    findings,
+    excepted,
+    metricsError,
+    findingsError,
+    recentlyResolved,
+    anomalies,
+    anomaliesError,
+    checkpoints,
+    checkpointsError,
+  } = await fetchDbHealth()
 
   const series = toSeries(metrics)
   const now = new Date()
@@ -285,6 +301,11 @@ export default async function AdminDbPage() {
   const counts = countBySeverity(findings)
   const byAxis = openByAxis(findings)
   const growth = tableGrowth(series, 10)
+
+  // 이상 감지는 **표본 수**에 걸린다. 화면이 "몇 회부터 잽니다" 를 말하려면 그 수를 알아야 한다.
+  const dailySnapshots = snapshotCount(dailyRows)
+  const anomalyReady = anomalyReadiness(dailySnapshots, ANOMALY_MIN_SAMPLES)
+  const checkpointPairs = pairCheckpoints(checkpoints)
 
   return (
     <div className="mx-auto max-w-6xl space-y-8 p-8">
@@ -428,6 +449,118 @@ export default async function AdminDbPage() {
         </section>
       )}
 
+      {/* 이상 징후 — **규칙이 모르는 것**을 본다.
+          위의 발견 목록은 판정층이 "무엇을 볼지 정해 놓고" 잡은 것이다. 이 저장소의 사고는 대개
+          아무도 예상하지 않은 자리에서 났다(발행 12권→312권이 야간 배치를 죽였고, 통계가 154개
+          표에서 안 잡혀 카운터가 실물과 갈렸다). 그래서 여기서는 임계값 없이 **자기 이력에서
+          얼마나 벗어났는지**만 잰다. 위험 여부는 여전히 판정층이 정한다. */}
+      <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6">
+        <h2 className="mb-1 inline-flex items-center gap-2 font-display text-[16px] font-[700] text-[var(--t1)]">
+          <Activity size={16} className="text-[#8B5CF6]" aria-hidden="true" /> 이상 징후
+        </h2>
+        <p className="mb-4 max-w-[62ch] break-keep font-body text-[13px] leading-[1.7] text-[var(--t2)]">
+          규칙이 미리 정해 둔 것이 아니라 <em className="font-editorial">평소와 다른 것</em>을 본다.
+          중앙값에서 얼마나 벗어났는지(robust z)와 직전 대비 변화율만 재고,{' '}
+          <strong>위험한지 아닌지는 판정하지 않는다</strong> — 같은 편차라도 연결 점유율과 테이블
+          용량은 뜻이 다르다.
+        </p>
+
+        {anomaliesError ? (
+          <p role="alert" className="break-keep font-body text-[13px] text-[var(--t2)]">
+            이상 징후를 읽지 못했어요 — admin 세션인지 확인해 주세요.{' '}
+            <span className="font-mono text-[11px]">{anomaliesError}</span>
+          </p>
+        ) : !anomalyReady.ready ? (
+          /* ⚠️ 빈 상자를 그리면 "이상 없음" 으로 읽힌다. 표본이 모자라서 **못 잰 것**과
+             재 봤더니 없는 것은 완전히 다른 말이다. */
+          <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-6">
+            <p className="break-keep font-display text-[13px] font-[600] text-[var(--t1)]">
+              {`아직 재지 않습니다 — 수집 ${dailySnapshots}회 · ${ANOMALY_MIN_SAMPLES}회부터`}
+            </p>
+            <p className="mt-1.5 max-w-[60ch] break-keep font-body text-[13px] leading-[1.7] text-[var(--t2)]">
+              표본이 적으면 편차가 편차가 아니라 상수가 된다 — 수집이 2회뿐이면 robust z 가
+              수학적으로 항상 0.67 이다. 없는 신호를 그리느니 안 그린다.{' '}
+              {anomalyReady.need > 0 && `${anomalyReady.need}회 더 모이면 이 자리가 채워집니다.`}
+            </p>
+          </div>
+        ) : anomalies.length === 0 ? (
+          <p className="break-keep font-body text-[13px] text-[var(--t2)]">
+            {`수집 ${dailySnapshots}회를 봤고 이력에서 크게 벗어난 지표는 없어요.`}
+          </p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[560px] border-collapse">
+              <thead>
+                <tr className="border-b border-[var(--bd)] text-left">
+                  <th className="py-2 font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+                    지표
+                  </th>
+                  <th className="py-2 text-right font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+                    지금
+                  </th>
+                  <th className="py-2 text-right font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+                    중앙값
+                  </th>
+                  <th className="py-2 text-right font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+                    벗어난 정도
+                  </th>
+                  <th className="py-2 text-right font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+                    전회 대비
+                  </th>
+                  <th className="py-2 text-right font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
+                    표본
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {anomalies.slice(0, 12).map((a) => {
+                  const unit = METRIC_UNIT[a.metric]
+                  const latest = toNumber(a.latest)
+                  const median = toNumber(a.median_value)
+                  const z = toNumber(a.robust_z)
+                  const pct = toNumber(a.pct_change)
+                  return (
+                    <tr
+                      key={`${a.metric}@${a.subject ?? ''}`}
+                      className="border-b border-[var(--bd)] last:border-0"
+                    >
+                      <td className="py-2 pr-3">
+                        <span className="break-keep font-body text-[12px] text-[var(--t1)]">
+                          {METRIC_LABEL[a.metric] ?? a.metric}
+                        </span>
+                        {a.subject && (
+                          <span className="ml-1.5 font-mono text-[11px] text-[var(--t2)]">
+                            {a.subject}
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-2 text-right font-mono text-[12px] text-[var(--t1)]">
+                        {latest === null ? '—' : formatValue(latest, unit)}
+                      </td>
+                      <td className="py-2 text-right font-mono text-[12px] text-[var(--t2)]">
+                        {median === null ? '—' : formatValue(median, unit)}
+                      </td>
+                      <td className="py-2 text-right font-mono text-[12px] text-[var(--t2)]">
+                        {/* MAD = 0(이력이 전부 같은 값)이면 함수가 숫자를 주지 않는다 — 지어내지 않는다. */}
+                        {z === null ? '재지 못함' : `${z.toLocaleString('ko-KR')}σ`}
+                      </td>
+                      <td className="py-2 text-right font-mono text-[12px] text-[var(--t2)]">
+                        {pct === null
+                          ? '비교 없음'
+                          : `${pct > 0 ? '▲' : pct < 0 ? '▼' : ''} ${Math.abs(pct).toLocaleString('ko-KR')}%`}
+                      </td>
+                      <td className="py-2 text-right font-mono text-[12px] text-[var(--t2)]">
+                        {a.samples}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
       {HEALTH_AXES.map((axis) => {
         const axisSeries = headlineSeries(series, axis)
         if (axisSeries.length === 0) return null
@@ -511,6 +644,89 @@ export default async function AdminDbPage() {
               </tbody>
             </table>
           </div>
+        )}
+      </section>
+
+      {/* 체크포인트 — 위험 작업 앞뒤. 찍는 것은 관측이지 보호가 아니다.
+          `after` 가 없는 라벨은 **끝나지 않은 작업**이라 맨 위로 온다 — 열린 채로 두면
+          다음 사람이 그 before 를 믿고 비교하는데, 그 사이 다른 세션의 변경이 섞이면
+          diff 는 인과가 아니라 그냥 시간차다. */}
+      <section className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6">
+        <h2 className="mb-1 inline-flex items-center gap-2 font-display text-[16px] font-[700] text-[var(--t1)]">
+          <Flag size={16} className="text-[#8B5CF6]" aria-hidden="true" /> 위험 작업 체크포인트
+        </h2>
+        <p className="mb-4 max-w-[62ch] break-keep font-body text-[13px] leading-[1.7] text-[var(--t2)]">
+          마이그레이션·대량 발행·드레인 앞뒤로 찍어 두면 「이 변경이 무엇을 건드렸나」에 답할 수
+          있다. 사후에는 알 수 없다. 거는 것은 Claude Code 에서{' '}
+          <code className="font-mono text-[12px]">/db-checkpoint before &lt;라벨&gt;</code> 이다.
+        </p>
+
+        {checkpointsError ? (
+          <p role="alert" className="break-keep font-body text-[13px] text-[var(--t2)]">
+            체크포인트를 읽지 못했어요 — admin 세션인지 확인해 주세요.{' '}
+            <span className="font-mono text-[11px]">{checkpointsError}</span>
+          </p>
+        ) : checkpointPairs.length === 0 ? (
+          <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-6">
+            <p className="break-keep font-body text-[14px] text-[var(--t2)]">
+              찍어 둔 체크포인트가 없어요.
+            </p>
+            <p className="mt-1.5 max-w-[60ch] break-keep font-body text-[13px] leading-[1.7] text-[var(--t2)]">
+              다음에 마이그레이션이나 드레인을 시작하기 전에 하나 걸어 두세요 — 몇 초면 되고,
+              안 걸어서 치르는 비용은 「무엇이 바뀌었는지 영영 모른다」입니다.
+            </p>
+          </div>
+        ) : (
+          <ul className="space-y-2">
+            {checkpointPairs.map((p) => {
+              const open = p.after === null
+              return (
+                <li
+                  key={p.label}
+                  className="flex flex-wrap items-start justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="flex flex-wrap items-center gap-2">
+                      <span className="break-all font-mono text-[12px] font-[600] text-[var(--t1)]">
+                        {p.label}
+                      </span>
+                      {/* 색만으로 말하지 않는다 — 글자가 상태를 직접 말한다. */}
+                      <span
+                        className="rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
+                        style={
+                          open
+                            ? { background: 'var(--warning-light)', color: 'var(--warning-ink)' }
+                            : { background: 'var(--bg3)', color: 'var(--t2)' }
+                        }
+                      >
+                        {open ? '끝나지 않음' : '앞뒤 모두'}
+                      </span>
+                    </p>
+                    {(p.before?.note || p.after?.note) && (
+                      <p className="mt-1 break-keep font-body text-[12px] text-[var(--t2)]">
+                        {[p.before?.note, p.after?.note].filter(Boolean).join(' → ')}
+                      </p>
+                    )}
+                  </div>
+                  <p className="shrink-0 text-right font-body text-[11px] text-[var(--t2)]">
+                    {new Date(p.touchedAt).toLocaleString('ko-KR')}
+                    <br />
+                    {open ? (
+                      <span className="break-keep">
+                        {'/db-checkpoint after '}
+                        {p.label}
+                      </span>
+                    ) : (
+                      <span className="break-keep">
+                        {'/db-checkpoint diff '}
+                        {p.label}
+                      </span>
+                    )}
+                  </p>
+                </li>
+              )
+            })}
+          </ul>
         )}
       </section>
     </div>

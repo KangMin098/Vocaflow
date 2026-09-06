@@ -16,7 +16,8 @@ import { beforeAll, describe, expect, it } from 'vitest'
 
 import { toSeries } from '../derive'
 import { fetchDbHealth } from '../queries'
-import { HEALTH_AXES } from '../types'
+import { ANOMALY_MIN_SAMPLES, HEALTH_AXES } from '../types'
+import type { AnomalyRow } from '../types'
 
 const SUPABASE_URL = process.env['NEXT_PUBLIC_SUPABASE_URL']
 const SERVICE_KEY = process.env['SUPABASE_SERVICE_ROLE_KEY']
@@ -90,5 +91,53 @@ describe.skipIf(skipIfNoEnv)('fetchDbHealth (integration)', () => {
     expect(error).toBeNull()
     const seen = new Set((rows ?? []).map((r: { axis: string }) => r.axis))
     for (const axis of seen) expect(HEALTH_AXES).toContain(axis)
+  })
+})
+
+describe.skipIf(skipIfNoEnv)('이상 감지 · 체크포인트 (integration)', () => {
+  let client: SupabaseClient
+
+  beforeAll(() => {
+    client = createClient(SUPABASE_URL!, SERVICE_KEY!, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    })
+  })
+
+  it('TS 의 ANOMALY_MIN_SAMPLES 가 SQL 함수의 기본값과 같다', async () => {
+    // 화면은 "5회부터 잽니다" 라고 적는다. 함수가 3에서 재기 시작하면 그 문장이 거짓이 되고,
+    // 거짓말하는 화면은 나머지 숫자까지 못 믿게 만든다. 두 값이 갈리는 것을 여기서 잡는다.
+    const [byDefault, byConstant] = await Promise.all([
+      client.rpc('db_health_anomalies'),
+      client.rpc('db_health_anomalies', { p_window_days: 30, p_min_samples: ANOMALY_MIN_SAMPLES }),
+    ])
+    expect(byDefault.error).toBeNull()
+    expect(byConstant.error).toBeNull()
+    expect((byDefault.data ?? []).length).toBe((byConstant.data ?? []).length)
+  })
+
+  it('이상 감지 행 모양이 화면이 읽는 것과 같다', async () => {
+    // 표본이 모자라면 빈 배열이 정상이다 — 그때는 모양을 검사할 것이 없다.
+    const { data, error } = await client.rpc('db_health_anomalies', {
+      p_window_days: 30,
+      p_min_samples: 2,
+    })
+    expect(error).toBeNull()
+    const rows = (data ?? []) as AnomalyRow[]
+    expect(rows.length).toBeGreaterThan(0)
+    for (const r of rows.slice(0, 5)) {
+      expect(HEALTH_AXES).toContain(r.axis)
+      expect(typeof r.metric).toBe('string')
+      expect(r.samples).toBeGreaterThanOrEqual(2)
+      // MAD = 0 이면 robust_z 는 null 이어야 한다 — 지어낸 숫자가 오면 안 된다.
+      if (Number(r.mad) === 0) expect(r.robust_z).toBeNull()
+    }
+  })
+
+  it('체크포인트 select 목록이 실제 스키마와 맞는다', async () => {
+    const { error } = await client
+      .from('db_health_checkpoints')
+      .select('label, phase, measured_at, note, created_at')
+      .limit(1)
+    expect(error).toBeNull()
   })
 })

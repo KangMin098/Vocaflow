@@ -7,6 +7,8 @@
 // 화면이 임계값을 다시 정하지 않는다. 같은 숫자를 두 곳에서 판정하면 두 곳이 갈린다.
 
 import type {
+  CheckpointPair,
+  CheckpointRow,
   FindingRow,
   FindingSeverity,
   HealthAxis,
@@ -183,4 +185,47 @@ export function formatAge(hours: number): string {
   if (hours < 1) return `${Math.round(hours * 60)}분 전`
   if (hours < 48) return `${Math.round(hours)}시간 전`
   return `${Math.round(hours / 24)}일 전`
+}
+
+// ── 체크포인트 · 이상 감지 ────────────────────────────────────────────────
+
+/**
+ * 체크포인트 행을 라벨별 앞뒤 짝으로 접는다.
+ *
+ * `after` 가 없는 라벨은 **끝나지 않은 작업**이다 — 화면이 그것을 구별해야 한다.
+ * 열린 채로 두면 다음 사람이 그 `before` 를 믿고 비교하는데, 그 사이 다른 세션의 변경이
+ * 섞여 있으면 diff 는 인과가 아니라 그냥 시간차다.
+ */
+export function pairCheckpoints(rows: CheckpointRow[]): CheckpointPair[] {
+  const map = new Map<string, CheckpointPair>()
+  for (const r of rows) {
+    let pair = map.get(r.label)
+    if (!pair) {
+      pair = { label: r.label, before: null, after: null, touchedAt: r.created_at }
+      map.set(r.label, pair)
+    }
+    if (r.phase === 'before') pair.before = r
+    else pair.after = r
+    if (r.created_at > pair.touchedAt) pair.touchedAt = r.created_at
+  }
+  // 끝나지 않은 것 먼저(그게 조치 대상이다), 그다음 최근 순.
+  return [...map.values()].sort((a, b) => {
+    const openA = a.after === null ? 0 : 1
+    const openB = b.after === null ? 0 : 1
+    if (openA !== openB) return openA - openB
+    return b.touchedAt.localeCompare(a.touchedAt)
+  })
+}
+
+/**
+ * 이상 감지를 그릴 수 있는가 — 못 그리면 **왜 못 그리는지**를 화면이 말해야 한다.
+ *
+ * 빈 상자를 그리면 "이상 없음" 으로 읽힌다. 표본이 모자라서 못 잰 것과 재 봤더니 없는 것은
+ * 완전히 다른 말이고, 그 둘을 같은 화면으로 그리면 감시가 있다고 착각하게 된다.
+ */
+export function anomalyReadiness(
+  snapshots: number,
+  minSamples: number,
+): { ready: boolean; need: number } {
+  return { ready: snapshots >= minSamples, need: Math.max(0, minSamples - snapshots) }
 }

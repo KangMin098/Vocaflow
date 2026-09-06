@@ -92,6 +92,10 @@ function data(over: Partial<DbHealthData> = {}): DbHealthData {
     metricsError: null,
     findingsError: null,
     recentlyResolved: 2,
+    anomalies: [],
+    checkpoints: [],
+    anomaliesError: null,
+    checkpointsError: null,
     ...over,
   }
 }
@@ -280,5 +284,95 @@ describe('면제 — 숨기지 않고 접어 둔다', () => {
   it('면제가 없으면 그 자리 자체가 없다', async () => {
     const html = await render()
     expect(html).not.toContain('이미 결정된 것')
+  })
+})
+
+describe('이상 징후 — 못 잰 것과 없는 것을 구별한다', () => {
+  /** 5축 수집 N회를 만든다 — 이상 감지는 스냅샷 수에 걸린다. */
+  const snapshots = (n: number): HealthMetricRow[] =>
+    Array.from({ length: n }, (_, i) => metric(2 + i * 24, 'capacity', 'db_size_mb', String(6255 - i)))
+
+  it('표본이 모자라면 빈 상자가 아니라 **몇 회부터인지**를 말한다', async () => {
+    // 빈 상자를 그리면 "이상 없음" 으로 읽힌다. 못 잰 것과 없는 것은 완전히 다른 말이다.
+    const html = await render({ metrics: snapshots(3), findings: [], anomalies: [] })
+    expect(html).toContain('아직 재지 않습니다')
+    expect(html).toContain('5회부터')
+    expect(html).not.toContain('벗어난 지표는 없어요')
+  })
+
+  it('표본이 충분한데 비어 있으면 "없다" 고 말한다', async () => {
+    const html = await render({ metrics: snapshots(6), findings: [], anomalies: [] })
+    expect(html).toContain('벗어난 지표는 없어요')
+    expect(html).not.toContain('아직 재지 않습니다')
+  })
+
+  it('편차를 못 잰 행은 숫자를 지어내지 않는다', async () => {
+    const html = await render({
+      metrics: snapshots(6),
+      findings: [],
+      anomalies: [
+        {
+          axis: 'capacity',
+          metric: 'db_size_mb',
+          subject: null,
+          latest: '6900.0',
+          prev: '6255.0',
+          median_value: '6255.0',
+          mad: '0.000',
+          robust_z: null, // MAD = 0 — 함수가 숫자를 주지 않는다
+          pct_change: '10.31',
+          samples: 6,
+          latest_at: iso(2),
+        },
+      ],
+    })
+    expect(html).toContain('재지 못함')
+    expect(html).toContain('DB 총 용량')
+  })
+
+  it('조회가 실패하면 그렇다고 말한다', async () => {
+    const html = await render({
+      findings: [],
+      anomaliesError: 'permission denied for function db_health_anomalies',
+    })
+    expect(html).toContain('이상 징후를 읽지 못했어요')
+  })
+})
+
+describe('위험 작업 체크포인트', () => {
+  const cp = (label: string, phase: 'before' | 'after', hoursAgo: number) => ({
+    label,
+    phase,
+    measured_at: iso(hoursAgo),
+    note: `${phase} 메모`,
+    created_at: iso(hoursAgo),
+  })
+
+  it('끝나지 않은 작업이 맨 위로 온다', async () => {
+    const html = await render({
+      findings: [],
+      checkpoints: [
+        cp('done-label', 'before', 10),
+        cp('done-label', 'after', 9),
+        cp('open-label', 'before', 30), // after 가 없다 = 끝나지 않았다
+      ],
+    })
+    expect(html).toContain('끝나지 않음')
+    expect(html.indexOf('open-label')).toBeLessThan(html.indexOf('done-label'))
+  })
+
+  it('끝난 것과 안 끝난 것을 글자로 구별한다 (색만으로 말하지 않는다)', async () => {
+    const html = await render({
+      findings: [],
+      checkpoints: [cp('done-label', 'before', 10), cp('done-label', 'after', 9)],
+    })
+    expect(html).toContain('앞뒤 모두')
+    expect(html).not.toContain('끝나지 않음')
+  })
+
+  it('없으면 다음 한 걸음을 준다', async () => {
+    const html = await render({ findings: [] })
+    expect(html).toContain('찍어 둔 체크포인트가 없어요')
+    expect(html).toContain('/db-checkpoint before')
   })
 })

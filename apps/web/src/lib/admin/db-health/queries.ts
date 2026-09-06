@@ -10,7 +10,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createClient } from '@/lib/supabase/server'
 
-import type { FindingRow, HealthMetricRow } from './types'
+import type { AnomalyRow, CheckpointRow, FindingRow, HealthMetricRow } from './types'
 
 /**
  * 가져올 스냅샷 행 수.
@@ -21,6 +21,9 @@ export const METRIC_ROW_LIMIT = 700
 
 /** 이 시간을 넘겨 수집이 없으면 화면이 "수집이 멈췄다"고 말한다. 일 1회 주기 + 2시간 여유. */
 export const STALE_AFTER_HOURS = 26
+
+/** 체크포인트는 최근 것만 본다 — 라벨당 최대 2행이므로 60이면 30개 작업분. */
+export const CHECKPOINT_ROW_LIMIT = 60
 
 export interface DbHealthData {
   metrics: HealthMetricRow[]
@@ -35,6 +38,15 @@ export interface DbHealthData {
   findingsError: string | null
   /** 최근 닫힌 발견 수(7일). "고쳐지고 있다" 를 보여 주는 유일한 신호. */
   recentlyResolved: number
+  /**
+   * 자기 이력 대비 편차 상위. 표본이 모자라면 **빈 배열**이 온다 —
+   * 화면은 그것을 "이상 없음" 으로 그리면 안 되고 몇 회부터 재는지 말해야 한다.
+   */
+  anomalies: AnomalyRow[]
+  /** 위험 작업 체크포인트(최근분). `after` 없는 라벨 = 끝나지 않은 작업. */
+  checkpoints: CheckpointRow[]
+  anomaliesError: string | null
+  checkpointsError: string | null
 }
 
 /**
@@ -46,7 +58,7 @@ export async function fetchDbHealth(injected?: SupabaseClient): Promise<DbHealth
   // db_health_metrics · db_health_findings 는 생성 타입 미반영 — 언타입 클라이언트 경유
   const supabase = injected ?? ((await createClient()) as unknown as SupabaseClient)
 
-  const [metricsRes, findingsRes, resolvedRes] = await Promise.all([
+  const [metricsRes, findingsRes, resolvedRes, anomaliesRes, checkpointsRes] = await Promise.all([
     supabase
       .from('db_health_metrics')
       .select('measured_at, axis, metric, value, dims')
@@ -64,6 +76,14 @@ export async function fetchDbHealth(injected?: SupabaseClient): Promise<DbHealth
       .select('id', { count: 'exact', head: true })
       .eq('status', 'resolved')
       .gte('resolved_at', new Date(Date.now() - 7 * 24 * 3600_000).toISOString()),
+    // ⚠️ RPC 이름은 **리터럴**로 둔다. 권한 감사(lib/auth/__tests__/rpc-call-sites.test.ts)가
+    //    호출 이름을 정적으로 모으므로 변수로 넘기면 "안 쓰는 RPC" 로 오해된다.
+    supabase.rpc('db_health_anomalies'),
+    supabase
+      .from('db_health_checkpoints')
+      .select('label, phase, measured_at, note, created_at')
+      .order('created_at', { ascending: false })
+      .limit(CHECKPOINT_ROW_LIMIT),
   ])
 
   if (metricsRes.error) {
@@ -84,5 +104,9 @@ export async function fetchDbHealth(injected?: SupabaseClient): Promise<DbHealth
     // head 요청은 없는 표에도 204/count=null 을 돌려준다 — 0 으로 채우지 않고 그대로 0 표기하되
     // 표가 없는 경우는 findingsError 가 먼저 말해 준다.
     recentlyResolved: resolvedRes.count ?? 0,
+    anomalies: (anomaliesRes.data ?? []) as AnomalyRow[],
+    checkpoints: (checkpointsRes.data ?? []) as CheckpointRow[],
+    anomaliesError: anomaliesRes.error?.message ?? null,
+    checkpointsError: checkpointsRes.error?.message ?? null,
   }
 }

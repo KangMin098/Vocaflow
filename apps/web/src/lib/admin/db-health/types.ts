@@ -129,3 +129,54 @@ export const STATUS_LABEL: Record<FindingStatus, string> = {
   resolved: '해결',
   excepted: '면제',
 }
+
+// ── 이상 감지 · 체크포인트 (마이그레이션 20260906040000) ──────────────────
+
+/**
+ * `db_health_anomalies()` 의 `p_min_samples` 기본값.
+ *
+ * ⚠️ **SQL 함수의 기본값과 같아야 한다.** 화면이 "5회부터 잽니다" 라고 적어 놓고 함수가 3에서
+ *    재기 시작하면 관리자는 화면을 못 믿는다. 두 값이 갈리는 것을 실 DB 통합 테스트가 잠근다
+ *    (`queries.integration.test.ts` — 인자 없는 호출과 이 값을 넘긴 호출의 결과가 같아야 한다).
+ *
+ * 왜 하필 5인가: 실측으로 **n=2 면 robust z 가 수학적으로 항상 0.67** 이다
+ * (MAD = |x−median| 이므로 |x−median|/(1.4826·MAD) = 1/1.4826). 표본이 적으면 편차가
+ * 편차가 아니라 상수가 된다 — 그 숫자를 이상 징후로 인쇄하면 화면이 곧 꺼진다.
+ */
+export const ANOMALY_MIN_SAMPLES = 5
+
+export interface AnomalyRow {
+  axis: HealthAxis
+  metric: string
+  /** table_size_mb 처럼 대상이 여럿인 지표의 대상. 없으면 null. */
+  subject: string | null
+  latest: number | string
+  prev: number | string | null
+  median_value: number | string
+  mad: number | string
+  /** MAD 가 0(이력이 전부 같은 값)이면 null — 숫자를 지어내지 않는다. */
+  robust_z: number | string | null
+  /** 직전 값이 0 이거나 없으면 null. */
+  pct_change: number | string | null
+  samples: number
+  latest_at: string
+}
+
+export type CheckpointPhase = 'before' | 'after'
+
+export interface CheckpointRow {
+  label: string
+  phase: CheckpointPhase
+  measured_at: string
+  note: string | null
+  created_at: string
+}
+
+/** 라벨 하나의 앞뒤 짝. `after` 가 없으면 **끝나지 않은 작업**이다. */
+export interface CheckpointPair {
+  label: string
+  before: CheckpointRow | null
+  after: CheckpointRow | null
+  /** 가장 최근에 손댄 시각 — 목록 정렬용. */
+  touchedAt: string
+}
