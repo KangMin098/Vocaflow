@@ -8,12 +8,15 @@ import { describe, expect, it } from 'vitest'
 import {
   SERIES_BRAND,
   VOLUME_FONTS,
+  VOLUME_METRICS,
   VOLUME_PALETTE,
+  VOLUME_TYPE_SCALE,
   brandFingerprint,
   brandSpecRows,
   buildColophon,
   ladderStrip,
   volumeCssVariables,
+  volumeMetricsCss,
 } from './brand'
 
 describe('조판 팔레트가 디자인 토큰과 어긋나지 않는다', () => {
@@ -151,5 +154,58 @@ describe('brandSpecRows — 관리자가 읽는 규격표', () => {
       expect(r.label.length, r.key).toBeGreaterThan(1)
       expect(r.label, r.key).not.toBe(r.key)
     }
+  })
+})
+
+// ── 활자 스케일 (2026-09-06) ────────────────────────────────────────
+//
+// 팔레트를 토큰으로 옮긴 뒤에도 **치수는 조판기 안에 남아 있었다.** 세어 보니 글자 크기가
+// 11종이고 그중 넷이 0.02rem 차이였다 — 스케일이 아니라 누적된 임시값이었다.
+// 이 블록의 일은 그 상태로 되돌아가지 않게 막는 것이다.
+
+describe('조판 활자 스케일', () => {
+  const steps = Object.values(VOLUME_TYPE_SCALE).map((v) => parseFloat(v))
+
+  it('7단이고, 작은 쪽부터 커진다', () => {
+    expect(steps).toHaveLength(7)
+    expect([...steps].sort((a, b) => a - b)).toEqual(steps)
+  })
+
+  // ⚠️ 이 검사가 이 파일의 핵심이다. 단계가 서로 구별되지 않으면 **단계가 아니다** —
+  //    옛 상태(.72 · .74 · .76)가 정확히 그랬고, 새 값을 넣을 때 같은 일이 또 일어난다.
+  it('이웃한 두 단이 0.05rem 안으로 붙지 않는다 — 구별되지 않으면 단계가 아니다', () => {
+    const tooClose = steps
+      .slice(1)
+      .map((v, i) => ({ a: steps[i] as number, b: v, gap: +(v - (steps[i] as number)).toFixed(3) }))
+      .filter((x) => x.gap < 0.05)
+    expect(tooClose).toEqual([])
+  })
+
+  it('CSS 변수로 일곱 단과 지면 규격을 전부 낸다', () => {
+    const css = volumeMetricsCss()
+    for (const k of ['micro', 'caption', 'small', 'body', 'stem', 'title', 'display']) {
+      expect(css).toContain(`--fs-${k}:`)
+    }
+    expect(css).toContain(`--measure:${VOLUME_METRICS.measure}`)
+    expect(css).toContain(`--leading:${VOLUME_METRICS.leading}`)
+  })
+
+  it('규격을 여기 적고 조판기에 다시 적지 않는다 — 값이 두 곳이 되면 갈라진다', async () => {
+    // 조판기 소스를 직접 읽어 **원시 치수가 남아 있는지** 본다. 팔레트 때와 같은 방식이다.
+    const { readFileSync } = await import('node:fs')
+    const { fileURLToPath } = await import('node:url')
+    const { join, dirname } = await import('node:path')
+    const here = dirname(fileURLToPath(import.meta.url))
+    const renderer = join(here, '..', '..', '..', '..', 'scripts', 'textbook', 'render-volume.mjs')
+    let src: string
+    try {
+      src = readFileSync(renderer, 'utf8')
+    } catch {
+      // 조판기가 없는 배포판(패키지만 설치)에서는 이 검사를 건너뛴다.
+      return
+    }
+    // `font-size:.86rem` 같은 원시 값이 하나라도 남으면 실패. 변수(`var(--fs-*)`)만 허용.
+    const raw = src.match(/font-size:s*[0-9.]+rem/g) ?? []
+    expect(raw).toEqual([])
   })
 })

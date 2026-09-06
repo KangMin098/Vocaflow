@@ -57,6 +57,7 @@ const {
   COVER_BRAND,
   coverSvg,
   volumeCssVariables,
+  volumeMetricsCss,
 } = await import('@vocaflow/library-pipeline')
 
 // ⚠️ **단원 수를 바꾸면 유형-학년 적합도가 바뀐다** — 목표 몫은 인쇄 문항 수에 비례하는데
@@ -545,24 +546,25 @@ const html = `<title>${esc(colophon.title)}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap">
 <style>
 ${volumeCssVariables()}
+${volumeMetricsCss()}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:${VOLUME_FONTS.english};line-height:1.72}
-.wrap{max-width:46rem;margin:0 auto;padding:3rem 1.25rem 5rem}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:${VOLUME_FONTS.english};line-height:var(--leading)}
+.wrap{max-width:var(--measure);margin:0 auto;padding:3rem 1.25rem 5rem}
 .cover{border-bottom:3px double var(--line);padding-bottom:2rem;margin-bottom:2.5rem}
 .coverart{float:right;width:168px;margin:0 0 1rem 1.5rem}
 .coverart svg{display:block}
 @media print{.coverart{float:none;margin:0 auto 1.5rem}}
-.brand{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700}
-h1{font-size:2.1rem;margin:.6rem 0 .3rem;letter-spacing:-.01em;text-wrap:balance}
-.meta{color:var(--sub);font-size:.9rem}
+.brand{font-size:var(--fs-caption);letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-size:var(--fs-display);margin:.6rem 0 .3rem;letter-spacing:-.01em;text-wrap:balance}
+.meta{color:var(--sub);font-size:var(--fs-body)}
 .scorebar{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem}
-.chip{border:1px solid var(--line);border-radius:2px;padding:.2rem .5rem;font-size:.74rem;color:var(--sub)}
+.chip{border:1px solid var(--line);border-radius:2px;padding:.2rem .5rem;font-size:var(--fs-caption);color:var(--sub)}
 .chip.ok{border-color:var(--accent);color:var(--accent)}
 .unit{margin:0 0 3rem;padding-top:1.5rem;border-top:1px solid var(--line)}
-.unit h2{display:flex;align-items:baseline;justify-content:space-between;font-size:.86rem;letter-spacing:.14em;color:var(--accent);margin:0 0 1.2rem;font-weight:700}
+.unit h2{display:flex;align-items:baseline;justify-content:space-between;font-size:var(--fs-body);letter-spacing:.14em;color:var(--accent);margin:0 0 1.2rem;font-weight:700}
 .umin{color:var(--sub);font-weight:400;letter-spacing:0}
 .q{margin:0 0 2rem}
-.stem{font-size:.95rem;margin:0 0 .8rem}
+.stem{font-size:var(--fs-stem);margin:0 0 .8rem}
 .passage{margin:0 0 .7rem;text-align:justify;hyphens:auto}
 .intro{padding-left:.9rem;border-left:3px solid var(--line)}
 .block .lbl{font-weight:700;color:var(--accent)}
@@ -571,27 +573,27 @@ h1{font-size:2.1rem;margin:.6rem 0 .3rem;letter-spacing:-.01em;text-wrap:balance
 .choices{margin:.9rem 0 0;padding-left:1.4rem}
 .choices li{margin:.15rem 0;font-variant-numeric:tabular-nums}
 .vocab{margin-top:1.4rem;border-top:1px dotted var(--line);padding-top:.8rem}
-.vocab h3{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--sub);margin:0 0 .4rem}
-.vocab table{width:100%;border-collapse:collapse;font-size:.86rem}
+.vocab h3{font-size:var(--fs-caption);letter-spacing:.16em;text-transform:uppercase;color:var(--sub);margin:0 0 .4rem}
+.vocab table{width:100%;border-collapse:collapse;font-size:var(--fs-body)}
 .vocab td{padding:.16rem .5rem .16rem 0;vertical-align:top}
 .vocab td:first-child{width:11rem;color:var(--accent)}
-.src{margin:.9rem 0 0;font-size:.76rem;color:var(--sub)}
+.src{margin:.9rem 0 0;font-size:var(--fs-caption);color:var(--sub)}
 .answers{margin-top:4rem;border-top:3px double var(--line);padding-top:2rem}
-.answers h2{font-size:1.3rem;margin:0 0 1.2rem}
+.answers h2{font-size:var(--fs-title);margin:0 0 1.2rem}
 .arow{border-bottom:1px dotted var(--line);padding:.7rem 0}
 .ano{font-weight:700;color:var(--accent)}
-.expl{margin:.35rem 0 0;font-size:.86rem;color:var(--sub);white-space:pre-wrap}
-.noexpl{font-size:.82rem;color:var(--sub);font-style:italic}
-.efrom{margin:.25rem 0 0;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--sub);opacity:.7}
+.expl{margin:.35rem 0 0;font-size:var(--fs-body);color:var(--sub);white-space:pre-wrap}
+.noexpl{font-size:var(--fs-small);color:var(--sub);font-style:italic}
+.efrom{margin:.25rem 0 0;font-size:var(--fs-micro);letter-spacing:.1em;text-transform:uppercase;color:var(--sub);opacity:.7}
 .tablewrap{overflow-x:auto}
 /* 한국어 해설·라벨은 본문 서체로 — Lora 는 영문 지문 전용이다. */
 .meta,.chip,.expl,.noexpl,.vocab h3,.src{font-family:${VOLUME_FONTS.body}}
-.ladder{display:flex;gap:.34rem;margin:.9rem 0 0;font-family:${VOLUME_FONTS.mono};font-size:.74rem;color:var(--sub)}
+.ladder{display:flex;gap:.34rem;margin:.9rem 0 0;font-family:${VOLUME_FONTS.mono};font-size:var(--fs-caption);color:var(--sub)}
 .ladder span{min-width:1.5rem;text-align:center}
 .ladder span.here{color:var(--accent);font-weight:700}
-.colophon{margin-top:4rem;border-top:1px solid var(--line);padding-top:1.4rem;font-family:${VOLUME_FONTS.body};font-size:.78rem;color:var(--sub);line-height:1.7}
+.colophon{margin-top:4rem;border-top:1px solid var(--line);padding-top:1.4rem;font-family:${VOLUME_FONTS.body};font-size:var(--fs-small);color:var(--sub);line-height:var(--leading-ko)}
 .colophon dl{display:grid;grid-template-columns:auto 1fr;gap:.3rem 1.2rem;margin:0}
-.colophon dt{color:var(--accent);letter-spacing:.1em;text-transform:uppercase;font-size:.68rem;padding-top:.1rem}
+.colophon dt{color:var(--accent);letter-spacing:.1em;text-transform:uppercase;font-size:var(--fs-micro);padding-top:.1rem}
 .colophon dd{margin:0}
 /* ── 인쇄 조판 ────────────────────────────────────────────────────────
    ⚠️ **여기 있던 것은 한 줄이었다** — \`@media print{body{background:#fff}.wrap{max-width:none}}\`.

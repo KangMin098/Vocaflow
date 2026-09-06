@@ -144,6 +144,70 @@ export interface VolumePalette {
  * 무표시(system)가 기본값이라 **라이트는 bare `:root` 에 있어야 한다.**
  * 미디어 쿼리 안에만 두면 테마를 고르지 않은 독자가 색을 잃는다.
  */
+/**
+ * **조판 활자 스케일 — 7단.**
+ *
+ * ── 왜 여기로 옮겼나 (2026-09-06 실측) ─────────────────────────────
+ * 팔레트는 2026-08-30 에 토큰으로 옮겼는데 **치수는 그대로 조판기 안에 있었다.**
+ * 같은 드리프트가 한 층 위에 남아 있던 것이다. 세어 보니 글자 크기가 **11종**이었고
+ * 그중 넷이 서로 0.02rem 차이였다(`.72 · .74 · .76 · .78`), 셋이 0.04rem 차이였다
+ * (`.82 · .86 · .90`). 이건 스케일이 아니라 **누적된 임시값**이다 —
+ * 한 단계가 다른 단계와 구별되지 않으면 단계가 아니다.
+ *
+ * 교재는 학습자가 **손에 쥐는 물건**이라, 활자에 고민한 흔적이 없으면 내용이 아무리
+ * 좋아도 교재로 안 보인다. 그래서 11 → **7단**으로 접었다. 병합 폭은 전부 ≤0.04rem 이라
+ * 한 자리씩 보면 차이를 못 느끼지만, 한 지면에 모이면 "정돈됐다" 가 된다.
+ *
+ * ⚠️ **디자인 토큰에는 활자 크기 축이 없다**(색·서체·간격·모션·반경만 있다).
+ *    그래서 여기서 새로 만들지 않고 **지금 쓰는 값을 그대로 접었다** — 스케일을 발명하면
+ *    이미 찍은 권과 어긋나고, 그 판단은 이 커밋의 몫이 아니다.
+ *    화면 쪽 활자 축이 토큰에 생기면 그때 여기를 그쪽에서 읽게 바꾼다.
+ */
+export const VOLUME_TYPE_SCALE = {
+  /** 소문자 라벨·출처 꼬리표. 옛 `.68`. */
+  micro: '0.68rem',
+  /** 브랜드 줄·칩·사다리·어휘 표제. 옛 `.72 · .74 · .76` 셋을 합쳤다. */
+  caption: '0.74rem',
+  /** 판권면·해설 없음 표시. 옛 `.78 · .82`. */
+  small: '0.80rem',
+  /** 해설·어휘표·메타. 옛 `.86 · .90`. */
+  body: '0.88rem',
+  /** 발문 — 본문보다 한 단 크다. 옛 `.95`. */
+  stem: '0.95rem',
+  /** 정답·해설 장 제목. */
+  title: '1.30rem',
+  /** 표제. */
+  display: '2.10rem',
+} as const
+
+/**
+ * 지면 규격 — 한 줄 길이와 행간.
+ *
+ * `measure` 는 **한 줄에 들어가는 글자 수**를 정한다. 영문 본문은 66자 안팎이 읽기 좋고
+ * 46rem 이 그 근처다(현행 값 유지 — 이미 찍은 권과 맞춘다).
+ */
+export const VOLUME_METRICS = {
+  measure: '46rem',
+  /** 영문 지문 행간. 세리프 본문이라 넉넉히 준다. */
+  leading: '1.72',
+  /** 한국어 해설 블록 행간. */
+  leadingKo: '1.7',
+} as const
+
+/**
+ * 활자·지면 규격을 CSS 사용자 정의 속성으로. 팔레트와 **같은 방식**이다 —
+ * 값을 조판기에 다시 적지 않고 여기서 읽어 간다.
+ */
+export function volumeMetricsCss(): string {
+  const t = VOLUME_TYPE_SCALE
+  return (
+    `:root{--fs-micro:${t.micro};--fs-caption:${t.caption};--fs-small:${t.small};` +
+    `--fs-body:${t.body};--fs-stem:${t.stem};--fs-title:${t.title};--fs-display:${t.display};` +
+    `--measure:${VOLUME_METRICS.measure};--leading:${VOLUME_METRICS.leading};` +
+    `--leading-ko:${VOLUME_METRICS.leadingKo}}`
+  )
+}
+
 export function volumeCssVariables(): string {
   const decl = (p: VolumePalette): string =>
     `--ink:${p.ink};--sub:${p.sub};--line:${p.line};--bg:${p.bg};--accent:${p.accent};--slot:${p.slot}`
