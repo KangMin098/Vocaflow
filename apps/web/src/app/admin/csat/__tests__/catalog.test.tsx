@@ -165,3 +165,44 @@ describe('표지 색이 시리즈를 가른다', () => {
     expect(src).toContain('accent: row.accent')
   })
 })
+
+/**
+ * **「어떤 원문을 어떤 기준으로」에 답하는 자리.**
+ *
+ * 그 답이 세 화면에 흩어져 있었다 — 카탈로그는 권을, ④ 소재는 밴드별 지문을,
+ * ④-1 원문 적격은 판정을 보여 주고 **셋을 잇는 것은 관리자 머릿속뿐**이었다.
+ * 사슬은 이미 데이터에 있었는데(`SeriesRung.types`·`rationale`) 화면이 안 썼다.
+ */
+describe('한 권이 무엇으로 만들어지는가', () => {
+  it('모든 권이 유형과 배합 근거를 들고 온다 — 근거 없는 배합은 짐작이다', () => {
+    for (const r of SERIES_REAL.rows) {
+      for (const v of r.volumes) {
+        if (v.status === 'noRung') {
+          // 단이 없는 칸은 유형도 없다 — 빈 배열이지 「못 잼」이 아니다.
+          expect(v.types).toEqual([])
+          expect(v.recipe).toBeNull()
+        } else {
+          expect(v.types.length, `${v.title} 에 유형이 없다`).toBeGreaterThan(0)
+          expect(v.recipe, `${v.title} 에 배합 근거가 없다`).toBeTruthy()
+        }
+      }
+    }
+  })
+
+  it('유형 이름은 정본에서 온다 — 화면이 다시 지으면 조판물과 갈린다', () => {
+    const src = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '..', 'lib', 'csat', 'series-view.ts'),
+      'utf8',
+    )
+    expect(src).toContain('SERIES_TYPE_LABEL_KO[t]')
+  })
+
+  it('고른 권 아래에 「무엇으로」가 붙는다', () => {
+    const src = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), '..', 'catalog', 'SeriesShelf.tsx'),
+      'utf8',
+    )
+    expect(src).toContain('무엇으로')
+    expect(src).toContain('sel.v.recipe')
+  })
+})

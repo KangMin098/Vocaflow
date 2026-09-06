@@ -248,6 +248,32 @@ export function SeriesShelf({ rows, counts, inventoryAt, notMaking, loadError }:
             문항 {sel.v.items?.toLocaleString() ?? '못 잼'} · 해설{' '}
             {sel.v.explained?.toLocaleString() ?? '못 잼'} · 한 권 60
           </p>
+          {/*
+            **무엇으로 만드나** — 사용자가 책을 고르는 바로 그 자리에서 답한다.
+            예전에는 이 답이 세 화면에 흩어져 있었다(카탈로그=권 · ④소재=밴드별 지문 ·
+            ④-1=원문 판정). 셋을 잇는 것이 관리자 머릿속뿐이라 「어떤 원문을 어떤
+            기준으로」에 아무 화면도 답하지 못했다.
+          */}
+          {sel.v.types.length ? (
+            <div className="flex flex-col gap-1.5">
+              <p className="flex flex-wrap items-baseline gap-x-2 font-body text-[11.5px] text-[var(--t2)]">
+                <span className="font-display font-[600] text-[var(--t1)]">무엇으로</span>
+                {sel.v.types.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-1.5 py-0.5 text-[11px]"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </p>
+              {sel.v.recipe ? (
+                <p className="break-keep font-body text-[11px] leading-snug text-[var(--t3)]">
+                  {sel.v.recipe}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
           {sel.row.status === 'draft' ? (
             <p className="break-keep rounded-[var(--r-sm)] bg-[var(--bg2)] p-2 font-body text-[11.5px] leading-snug text-[var(--t2)]">
               {sel.row.nextStep}
