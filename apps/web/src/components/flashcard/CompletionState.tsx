@@ -96,7 +96,10 @@ export function CompletionState({
                   href={`/wordvault/browse?q=${encodeURIComponent(dw.word.text)}`}
                   className="flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 text-left no-underline transition-all duration-[var(--dur-normal)] hover:translate-x-0.5 hover:border-[var(--p)] hover:shadow-[var(--sh-sm)]"
                 >
-                  <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[var(--error-light)] font-display text-[11px] font-[800] text-[var(--error-ink)]">
+                  <span // 「어려웠던 단어」의 시도 횟수다 — **오류가 아니라 주의**다.
+                    // 오류색(빨강)으로 세면 완료 화면이 성과를 비난하는 자리가 된다
+                    // (CLAUDE.md 절대금지 「정답률 빨간 글씨 압박」 · DESIGN_SYSTEM §🎯 D6).
+                    className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-[var(--warning-light)] font-display text-[11px] font-[800] text-[var(--warning-ink)]">
                     {dw.attemptCount}
                   </span>
                   <span className="min-w-0 flex-1">

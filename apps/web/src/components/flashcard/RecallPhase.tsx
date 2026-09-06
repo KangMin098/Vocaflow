@@ -23,7 +23,7 @@ export function RecallPhase({ visible, progress, label }: RecallPhaseProps) {
 
       <div className="relative h-[3px] w-[200px] overflow-hidden rounded-[var(--r-full)] bg-[var(--bg2)]">
         <div
-          className="absolute left-0 top-0 h-full rounded-[var(--r-full)] bg-gradient-to-r from-[var(--p)] to-[var(--p-dark)] transition-[width] duration-[100ms] ease-linear"
+          className="absolute left-0 top-0 h-full rounded-[var(--r-full)] bg-gradient-to-r from-[var(--p)] to-[var(--p-dark)] transition-[width] duration-[var(--dur-fast)] ease-linear"
           style={{ width: `${progress}%` }}
           role="progressbar"
           aria-valuenow={progress}
