@@ -1,0 +1,219 @@
+{
+  "$schema": "vocab-design-benchmark/1",
+  "generatedAt": "2026-09-06T11:21:37.960Z",
+  "base": "http://localhost:3000",
+  "specGeneratedAt": "2026-09-06T11:05:04.254Z",
+  "market": {
+    "booksMeasured": 4,
+    "meanApparatusPerBook": 14.75,
+    "signalCount": 17,
+    "rates": {
+      "entryNumber": 1,
+      "runningHead": 1,
+      "posLabel": 1,
+      "senseNumber": 0.75,
+      "derivedRow": 1,
+      "exampleEn": 1,
+      "exampleKo": 1,
+      "usageNote": 0.75,
+      "dailyTest": 1,
+      "cumulativeReview": 1,
+      "partDivider": 0.75,
+      "studyPlanGrid": 1,
+      "index": 1,
+      "crossRef": 0.25,
+      "inflection": 0.25,
+      "rootHeader": 1,
+      "checkbox": 1
+    },
+    "undetectable": {
+      "relationInline": "유의·반의 기호(⇔ =)를 심볼 폰트로 찍고 글리프를 임베드하지 않아 추출에서 사라진다. 지면에는 4권 모두 있다(같은 이유로 발음기호도 빈 대괄호로 나온다). 없는 것으로 세면 시장 기준선이 내려가 우리 지수가 공짜로 오르므로 뺀다."
+    },
+    "limitation": "학습자가 한 권을 **펼쳤을 때** 매 쪽 같은 자리에서 만나는 반복 구조물. `shelfSignals`(고르기 전 정보)와 분리해서 센다. 미리보기본이라 **하한**이다 — 없다고 나온 장치가 본책에는 있을 수 있다."
+  },
+  "ours": {
+    "sheetsMeasured": 2,
+    "meanApparatusPerSheet": 1.5,
+    "rates": {
+      "entryNumber": 0,
+      "runningHead": 1,
+      "posLabel": 0,
+      "senseNumber": 0,
+      "derivedRow": 0,
+      "exampleEn": 0,
+      "exampleKo": 0,
+      "usageNote": 0,
+      "dailyTest": 0,
+      "cumulativeReview": 0,
+      "partDivider": 0,
+      "studyPlanGrid": 0,
+      "index": 0,
+      "crossRef": 0,
+      "inflection": 0,
+      "rootHeader": 0.5,
+      "checkbox": 0
+    },
+    "perSheet": [
+      {
+        "title": "VOCAFLOW VOCABULARY 5 ❧ 수능 필수 2,000 1,828 단어",
+        "path": "carousel-sheet",
+        "count": 1,
+        "found": [
+          "runningHead"
+        ],
+        "missing": [
+          "entryNumber",
+          "posLabel",
+          "senseNumber",
+          "derivedRow",
+          "exampleEn",
+          "exampleKo",
+          "usageNote",
+          "dailyTest",
+          "cumulativeReview",
+          "partDivider",
+          "studyPlanGrid",
+          "index",
+          "crossRef",
+          "inflection",
+          "rootHeader",
+          "checkbox"
+        ]
+      },
+      {
+        "title": "VOCAFLOW VOCABULARY ❧ 어원으로 익히는 1,500 1,500 단어",
+        "path": "carousel-sheet",
+        "count": 2,
+        "found": [
+          "runningHead",
+          "rootHeader"
+        ],
+        "missing": [
+          "entryNumber",
+          "posLabel",
+          "senseNumber",
+          "derivedRow",
+          "exampleEn",
+          "exampleKo",
+          "usageNote",
+          "dailyTest",
+          "cumulativeReview",
+          "partDivider",
+          "studyPlanGrid",
+          "index",
+          "crossRef",
+          "inflection",
+          "checkbox"
+        ]
+      }
+    ]
+  },
+  "designIndex": 0.102,
+  "reachability": {
+    "paths": {
+      "grid-modal": 0,
+      "carousel-sheet": 2
+    },
+    "richModalReached": false,
+    "note": "grid-modal 이 0 이면 판권면·목차·학습계획을 담은 시트가 학습자에게 닿지 않는다는 뜻이다 — 선택 지수가 그 컴포넌트를 근거로 세고 있으므로 함께 다시 봐야 한다."
+  },
+  "gaps": [
+    {
+      "id": "entryNumber",
+      "says": "표제어마다 번호가 붙어 \"몇 번째 낱말인가\" 를 늘 보여 준다",
+      "market": 1,
+      "ours": 0
+    },
+    {
+      "id": "posLabel",
+      "says": "뜻 앞에 품사가 늘 같은 자리로 온다",
+      "market": 1,
+      "ours": 0
+    },
+    {
+      "id": "senseNumber",
+      "says": "한 낱말의 뜻이 갈릴 때 번호로 갈라 준다",
+      "market": 0.75,
+      "ours": 0
+    },
+    {
+      "id": "derivedRow",
+      "says": "표제어 아래 갈라져 나온 말이 품사와 함께 붙는다",
+      "market": 1,
+      "ours": 0
+    },
+    {
+      "id": "exampleEn",
+      "says": "그 낱말이 실제로 쓰인 문장이 붙는다",
+      "market": 1,
+      "ours": 0
+    },
+    {
+      "id": "exampleKo",
+      "says": "예문 바로 아래 한국어역이 같은 자리로 온다",
+      "market": 1,
+      "ours": 0
+    },
+    {
+      "id": "usageNote",
+      "says": "낱말 하나를 더 깊이 파는 칸이 있다",
+      "market": 0.75,
+      "ours": 0
+    },
+    {
+      "id": "dailyTest",
+      "says": "그날치를 바로 확인하는 자리가 지면 안에 있다",
+      "market": 1,
+      "ours": 0
+    },
+    {
+      "id": "cumulativeReview",
+      "says": "앞의 묶음을 다시 묻는 누적 복습 지면이 있다",
+      "market": 1,
+      "ours": 0
+    },
+    {
+      "id": "partDivider",
+      "says": "묶음 원리가 바뀌는 자리를 지면이 알린다",
+      "market": 0.75,
+      "ours": 0
+    },
+    {
+      "id": "studyPlanGrid",
+      "says": "며칠에 끝나는지 계획이 지면에 있다",
+      "market": 1,
+      "ours": 0
+    },
+    {
+      "id": "index",
+      "says": "낱말로 되찾을 수 있는 전체 목록이 있다",
+      "market": 1,
+      "ours": 0
+    },
+    {
+      "id": "crossRef",
+      "says": "지면끼리 이어 주는 상호참조가 있다",
+      "market": 0.25,
+      "ours": 0
+    },
+    {
+      "id": "inflection",
+      "says": "불규칙 변화형을 표제어 옆에 적는다",
+      "market": 0.25,
+      "ours": 0
+    },
+    {
+      "id": "rootHeader",
+      "says": "묶음의 원리를 지면 머리에 적는다",
+      "market": 1,
+      "ours": 0.5
+    },
+    {
+      "id": "checkbox",
+      "says": "몇 번 봤는지 표시하는 자리가 있다",
+      "market": 1,
+      "ours": 0
+    }
+  ],
+  "method": "렌더된 DOM 에만 묻는다. 경로가 둘이면 더 나은 쪽만 센다. 판정 규칙은 시장 쪽과 같은 모양(추출 글자 + 정규식)이라 같은 자다. 시장 값은 미리보기본 하한이므로 이 지수는 후하다."
+}

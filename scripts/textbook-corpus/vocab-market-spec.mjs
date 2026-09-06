@@ -270,6 +270,110 @@ const SHELF_PROBES = {
   proofread: /(감수|검수|자문|원어민 검토)/,
 };
 
+/**
+ * **지면 장치 — 학습자가 그 단어장을 *펼쳤을 때* 눈에 들어오는 반복 구조물.**
+ *
+ * ── `shelfSignals` 와 무엇이 다른가 ─────────────────────────────────
+ * `shelfSignals` 는 **고르기 전**에 쓰는 것이다(판권면·목차·머리말 — 책 앞뒤).
+ * 여기 것은 **고른 뒤 매 쪽마다 반복되는 것**이다(표제어 번호·러닝헤드·품사 약물·
+ * 뜻 번호·파생어 줄·예문 짝·어법 박스·DAY 테스트 지면). 시중 단어장의 "디자인" 은
+ * 색이나 서체 이전에 **이 장치들이 매 쪽 같은 자리에 있다는 것**이다.
+ *
+ * ── 왜 따로 재야 하는가 (실측 2026-09-06) ───────────────────────────
+ * 우리 카탈로그는 내용 지수 1.635 · 선택 지수 1.288 로 둘 다 이기고 있었다. 그런데
+ * 두 자 어느 쪽도 **"펼친 지면"** 을 재지 않는다. 재 보니 `/library/vocab` 에서 한 세트를
+ * 열면 낱말과 뜻만 나온다 — 시중 책이 매 쪽에 싣는 열일곱 가지 중 대부분이 없다.
+ * 그 격차는 두 지수에 잡히지 않으므로 자를 하나 더 만든다.
+ *
+ * ── 글꼴이 깨져서 못 세는 것 ────────────────────────────────────────
+ * `relationInline`(유의·반의 기호 ⇔ =)은 **지면에 있는데 추출로는 안 잡힌다** — 능률VOCA 는
+ * 그 기호를 심볼 폰트로 찍고 PDF 에 글리프가 임베드돼 있지 않다(같은 이유로 발음기호가
+ * `[]` 빈 대괄호로 나온다). 4권 중 1권만 잡히는데 지면을 보면 4권 다 갖고 있다.
+ * **없는 것으로 세면 시장 기준선이 내려가 우리 지수가 공짜로 오른다.** 그래서
+ * `undetectable` 로 빼고 지수의 분모에서도 뺀다.
+ */
+const APPARATUS_PROBES = {
+  /** 표제어 통번호 — 권 전체를 관통하는 일련번호. "몇 번째 낱말인가" 를 늘 보여 준다. */
+  entryNumber: /^\s*\d{4}\s{2,}/m,
+  /** 러닝헤드 — 쪽마다 지금 어느 DAY 인지. 펼친 자리를 잃지 않게 하는 장치. */
+  runningHead: /DAY\s*0?\d{1,2}\s*$/m,
+  /** 품사 약물 — 명·동·형·부. 뜻 앞에 늘 같은 자리로 온다. */
+  posLabel: /(^|\s)(명|동|형|부|전|접|대)\s/,
+  /** 뜻 번호 — 한 칸 안에서 뜻이 갈릴 때 번호가 붙는다. */
+  senseNumber: /\s2\.\s/,
+  /** 유의·반의 기호 — **지면에 있으나 글리프가 깨져 못 센다**(아래 UNDETECTABLE). */
+  relationInline: /\s(=|⇔|↔)\s/,
+  /** 파생어 줄 — 표제어 아래 들여쓴 줄에 파생어 + 품사. */
+  derivedRow: /\n\s*[a-z]{3,}\s+(명|동|형|부)\s/,
+  /** 영문 예문. */
+  exampleEn: /[A-Z][a-z]+[^.\n]{15,}\./,
+  /** 예문 한국어역 — 예문 바로 아래 같은 자리. */
+  exampleKo: /[가-힣]{3,}[^\n]{5,}다\./,
+  /** 어법·문해력 박스 — 낱말 하나를 더 깊이 파는 칸. */
+  usageNote: /(문해력\s*UP|VOCA vs|TIP|어법|참고)/,
+  /** DAY 끝 테스트 지면 — 그날 것을 바로 확인하는 자리. */
+  dailyTest: /(DAILY\s*TEST|TEST|테스트)/,
+  /** 누적 복습 — 01-05 처럼 앞의 DAY 를 묶어 다시 묻는 지면. */
+  cumulativeReview: /(누적|\d{2}\s*[-–~]\s*\d{2})/,
+  /** PART 도비라 — 묶음 원리가 바뀌는 자리를 지면으로 알린다. */
+  partDivider: /PART\s*0?\d/,
+  /** 학습 계획표 — 며칠에 끝나는지 격자로 보여 준다. */
+  studyPlanGrid: /(STUDY\s*PLAN|학습\s*계획)/,
+  /** 색인 — 낱말로 되찾을 수 있는가. */
+  index: /(INDEX|찾아보기|색인)/,
+  /** 상호참조 — "그 낱말은 208쪽" 처럼 지면끼리 이어 준다. */
+  crossRef: /\(\s*p\.\s*\d+\s*\)/,
+  /** 활용형 — (quit–quit) 처럼 불규칙 변화를 표제어 옆에 적는다. */
+  inflection: /\([a-z]{3,}[–—-][a-z]{3,}/,
+  /** 어근·접사 헤더 — 낱말 묶음의 원리를 지면 머리에 적는다. */
+  rootHeader: /(어근|접두사|접미사)/,
+  /** 회독 체크칸 — 몇 번 봤는지 손으로 표시하는 자리. */
+  checkbox: /(□|☐|✓|체크|회독)/,
+};
+
+/**
+ * 지면에 있으나 **추출로 셀 수 없는** 장치. 지수의 분모에서 뺀다.
+ * 뺀 이유를 규격에 적어 두어야 다음 사람이 "왜 17개인가" 를 되짚을 수 있다.
+ */
+const APPARATUS_UNDETECTABLE = {
+  relationInline:
+    '유의·반의 기호(⇔ =)를 심볼 폰트로 찍고 글리프를 임베드하지 않아 추출에서 사라진다. '
+    + '지면에는 4권 모두 있다(같은 이유로 발음기호도 빈 대괄호로 나온다). '
+    + '없는 것으로 세면 시장 기준선이 내려가 우리 지수가 공짜로 오르므로 뺀다.',
+};
+
+function measurePageApparatus(db, docs, measuredIds) {
+  const pool = docs.filter((d) => measuredIds.has(d.id));
+  const undetectable = Object.keys(APPARATUS_UNDETECTABLE);
+  const keys = Object.keys(APPARATUS_PROBES).filter((k) => !undetectable.includes(k));
+  const hit = Object.fromEntries(keys.map((k) => [k, 0]));
+  const perBook = [];
+
+  for (const d of pool) {
+    const txt = db.prepare('SELECT text FROM pages WHERE doc_id = ? ORDER BY p')
+      .all(d.id).map((r) => r.text).join('\n');
+    const found = keys.filter((k) => APPARATUS_PROBES[k].test(txt));
+    for (const k of found) hit[k] += 1;
+    perBook.push({ id: d.id, series: d.series, gradeBand: d.grade_band, apparatus: found });
+  }
+
+  return {
+    booksMeasured: pool.length,
+    signalCount: keys.length,
+    rates: Object.fromEntries(keys.map((k) => [k, pct(hit[k], pool.length)])),
+    /** 한 권이 지면에 싣는 장치의 평균 개수. **디자인 지수의 분모**다. */
+    meanApparatusPerBook: pool.length === 0
+      ? null
+      : Number((perBook.reduce((n, b) => n + b.apparatus.length, 0) / pool.length).toFixed(3)),
+    perBook,
+    undetectable: APPARATUS_UNDETECTABLE,
+    note:
+      '학습자가 한 권을 **펼쳤을 때** 매 쪽 같은 자리에서 만나는 반복 구조물. '
+      + '`shelfSignals`(고르기 전 정보)와 분리해서 센다. 미리보기본이라 **하한**이다 — '
+      + '없다고 나온 장치가 본책에는 있을 수 있다.',
+  };
+}
+
 function measureShelfSignals(db, docs, measuredIds) {
   const pool = docs.filter((d) => measuredIds.has(d.id));
   const keys = Object.keys(SHELF_PROBES);
@@ -340,6 +444,11 @@ const spec = {
   },
   entryFields,
   shelfSignals: measureShelfSignals(
+    db,
+    docs,
+    new Set(entryFields.perBook.map((b) => b.id)),
+  ),
+  pageApparatus: measurePageApparatus(
     db,
     docs,
     new Set(entryFields.perBook.map((b) => b.id)),
