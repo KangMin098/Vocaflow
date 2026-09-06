@@ -319,7 +319,13 @@ export default async function AdminDbPage() {
             한다. 이 화면은 그 결과를 읽고 조치 SQL 을 건네줄 뿐 아무것도 실행하지 않는다.
           </p>
         </div>
-        <div className="flex shrink-0 flex-wrap items-start gap-3">
+        {/*
+          ⚠️ `shrink-0` 를 쓰지 않는다 — **자기 `flex-wrap` 을 무력화한다.**
+          컨테이너가 max-content 로 고정되면 폭이 모자라도 자식이 줄바꿈할 자리가 없다.
+          실측 2026-09-06(390px): p-8 을 뺀 326px 안에 들어가야 하는데 360px 로 버텨
+          **가로로 34px 밀렸다**(런타임 훑기 390px 축이 잡았다).
+        */}
+        <div className="flex flex-wrap items-start gap-3">
           <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 text-right">
             <p className="font-display text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
               최근 수집

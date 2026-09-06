@@ -561,6 +561,46 @@ const swallowHits = []
 //
 // 왜 필요한가: 이 저장소는 파일 조각이 diff·청크·에이전트 출력으로 자주 떠다닌다.
 // 첫 줄이 경로면 그 조각이 어디 것인지 **맥락 없이도** 안다.
+// ── 전역: 프로세스 단계에 완료 신호가 있는가 ─────────────────────────────────
+//
+// 「전체 프로세스/단계가 최적합한가」를 재는 자리다. 화면도움말의 `steps` 는 관리자가
+// **"다음에 뭘 눌러야 하나"** 를 판단하는 근거인데, 각 단계에 `done`(완료 신호)이 없으면
+// **언제 넘어가야 하는지를 말해 주지 않는다.** 그러면 관리자는 다음 단계로 넘어갈지
+// 기다릴지를 추측하게 되고, 파이프라인은 거기서 멈추거나 두 번 돈다.
+//
+// 실측 2026-09-06: 단계 109개 중 **22개(20%)** 에 완료 신호가 없었다.
+// ⚠️ 첫 판은 227개 중 70개라고 셌는데 **틀렸다** — `fields`·`cautions` 의
+//    `{ label, detail }` 까지 단계로 센 것이다. `steps: [` 블록의 대괄호 균형을 맞춰
+//    그 안쪽만 세도록 고쳤다. 자가 틀리면 없는 일을 고치게 된다.
+const stepsWithoutDone = []
+{
+  const helpDirPath = join(WEB_SRC, 'lib', 'admin', 'help')
+  const files = existsSync(helpDirPath)
+    ? readdirSync(helpDirPath).filter(
+        (f) => f.endsWith('.ts') && f !== 'types.ts' && f !== 'index.ts',
+      )
+    : []
+  for (const f of files) {
+    const src = read(join(helpDirPath, f))
+    for (const s of src.matchAll(/steps:\s*\[/g)) {
+      let i = s.index + s[0].length
+      let depth = 1
+      while (i < src.length && depth > 0) {
+        const ch = src[i]
+        if (ch === '[') depth += 1
+        else if (ch === ']') depth -= 1
+        i += 1
+      }
+      const block = src.slice(s.index + s[0].length, i - 1)
+      for (const m of block.matchAll(
+        /\{\s*\n\s*title:\s*(['"`])([\s\S]*?)\1,([\s\S]*?)\n\s{8,10}\},/g,
+      )) {
+        if (!/\n\s*done:/.test(m[3])) stepsWithoutDone.push(`${f} 「${m[2]}」`)
+      }
+    }
+  }
+}
+
 const pathCommentMisses = []
 {
   const scanned = [
@@ -715,6 +755,7 @@ const report = {
   screensWithoutHelp,
   helpKeyMissing,
   tabMismatches,
+  stepsWithoutDone,
   reach: {
     unreachable: reach.unreachable,
     maxDepth: reach.maxDepth,
@@ -766,6 +807,9 @@ if (AS_JSON) {
   for (const [t, at] of Object.entries(byToken))
     console.log(`  ${t}  ${at.length}곳  (예: ${at[0]})`)
 
+  console.log(`\n완료 신호(done)가 없는 프로세스 단계: ${stepsWithoutDone.length}`)
+  for (const t of stepsWithoutDone.slice(0, 12)) console.log(`  ${t}`)
+
   console.log(`\n첫 줄 경로 주석이 없는 파일: ${pathCommentMisses.length}`)
   for (const m of pathCommentMisses.slice(0, 12)) console.log(`  ${m.at}  ← ${m.first}`)
   if (pathCommentMisses.length > 12) console.log(`  … 외 ${pathCommentMisses.length - 12}개`)
@@ -802,6 +846,18 @@ if (!Number.isNaN(failUnder) && score < failUnder) {
 // (화면은 멀쩡히 렌더된다) 링크 하나가 사라지면 조용히 생긴다.
 if (!Number.isNaN(failUnder) && reach.unreachable.length > 0) {
   console.error(`FAIL — 메뉴에서 도달 못 하는 화면 ${reach.unreachable.length}개: ${reach.unreachable.join(', ')}`)
+  process.exit(1)
+}
+
+// 완료 신호 없는 단계. 화면은 멀쩡히 뜨고 8축도 전부 통과하는데, 관리자는 **언제 다음으로
+// 넘어가야 하는지**를 알 수 없다 — 그래서 점수와 별개로 막는다.
+if (!Number.isNaN(failUnder) && stepsWithoutDone.length > 0) {
+  console.error(
+    `FAIL — 완료 신호가 없는 프로세스 단계 ${stepsWithoutDone.length}개: ` +
+      stepsWithoutDone.slice(0, 5).join(' · ') +
+      (stepsWithoutDone.length > 5 ? ' …' : '') +
+      '\n       HelpStep.done 에 "이 단계가 끝났는지 무엇으로 아는가" 를 적는다.',
+  )
   process.exit(1)
 }
 

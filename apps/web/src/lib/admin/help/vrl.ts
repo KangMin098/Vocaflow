@@ -36,6 +36,7 @@ export const VRL_HELP: HelpRegistry = {
           title: '결함 실측값 확인',
           detail:
             'Defects 에서 같은 백로그 ID 가 붙은 결함 카드의 current / target 을 본다. 임계에서 얼마나 모자란지가 작업량이다.',
+          done: 'current 와 target 의 차이를 숫자로 안다. **current 가 「—」면 못 잰 것**이지 0 이 아니다 — 그 상태로 작업량을 잡으면 근거 없는 계획이 된다.',
         },
         {
           title: '작업은 바깥에서',
