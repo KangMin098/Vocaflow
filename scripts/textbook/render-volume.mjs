@@ -120,7 +120,11 @@ const card = scoreVolume(units, BAND)
 // 아무도 눈치채지 못한다 — 실제로 그랬다.
 const actualMix = {}
 for (const u of units) for (const it of u.items) actualMix[it.type] = (actualMix[it.type] ?? 0) + 1
-const target = rungMix(BAND, new Set(pool.map((it) => it.type))).targetShare
+// ⚠️ **목표를 여기서 다시 만들지 않는다** (실측 2026-09-06). `loadVolume` 은 시리즈 단으로
+//   풀을 좁힌 뒤 그 단 기준으로 목표를 냈는데, 여기서 `rungMix` 를 인자 없이 다시 부르면
+//   **시리즈를 모르는 목표**가 나온다. 같은 V2 권이 조판에서는 100.0%, 여기서는 **25.0%**
+//   로 찍혔다 — 책은 하나인데 자가 둘이었다. 조합에 쓴 그 목표를 그대로 쓴다.
+const target = mix?.targetShare ?? rungMix(BAND, new Set(pool.map((it) => it.type))).targetShare
 const fit = typeMixFit(actualMix, target)
 // 판권장에 찍을 규격 — **이 권이 실제로 인쇄한 유형들**의 창을 합친다.
 const PASSAGE_CHIP = passageSpecChip(Object.keys(actualMix))
