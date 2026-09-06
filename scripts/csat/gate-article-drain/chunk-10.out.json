@@ -1,0 +1,1497 @@
+[
+ {
+  "book": "What Makes a Desert a Desert",
+  "url": "",
+  "source": "original",
+  "v_level": 2,
+  "words": 171,
+  "rows": 1,
+  "excerpts": [
+   "Ask most people to picture a desert, and they will describe an ocean of hot sand, a shining sun, and a line of dunes shaped by the wind. That picture is not exactly wrong, but it is only one member of a larger family. However, the scientists who study climate do not define a desert by heat at all. They measure a desert by how little water falls in a year, and by how quickly that water leaves the ground again. Such a ",
+   "tudy climate do not define a desert by heat at all. They measure a desert by how little water falls in a year, and by how quickly that water leaves the ground again. Such a definition changes the map completely. By this standard the driest region on Earth is not hot but freezing: the great continent in the far south, where snow falls so rarely that some valleys have stayed nearly bare for ages. The little snow that d"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "강수량과 증발로 사막을 규정하는 기준을 설명한다"
+ },
+ {
+  "book": "Insights could improve chemical manufacturing for everyday products",
+  "url": "https://www.futurity.org/propane-propylene-chemistry-3305962/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 392,
+  "rows": 1,
+  "excerpts": [
+   "Researchers have developed algorithms that reveal how propane becomes propylene for everyday products. Countless everyday products from plastic squeeze bottles to outdoor furniture are derived by first turning propane into propylene. A 2021 study in Science demonstrated chemists could use tandem nanoscale catalysts to integrate multiple steps of the process into a single reaction—a way for companies to increase yield",
+   "rough the large amount of possibilities that exist and focus on the most important ones,” says Siddharth Deshpande, an assistant professor in the Department of Chemical and Sustainability Engineering. “We refined our algorithms and used them to do a very detailed analysis of the metallic phase and oxide phase driving this very complex reaction.” Desphande and his chemical engineering PhD student Snehitha Srirangam fo"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "촉매 반응 경로를 알고리즘으로 분석한 결과를 설명한다"
+ },
+ {
+  "book": "This protein outside uterus is key to healthy pregnancy",
+  "url": "https://www.futurity.org/cxcr4-protein-placenta-2985152-2/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 699,
+  "rows": 1,
+  "excerpts": [
+   "A protein found throughout the body plays a major role in immune system modulation during pregnancy and affects placental health, a study in mice finds. Immune cells play a key role during pregnancy, adjusting immune system response in a way that enables the fetus to develop while also protecting the parent and fetus from outside assaults like viruses. The researchers say findings could lead to new treatments for rep",
+   "g pregnancy and had smaller litter sizes. However, when CXCR4 was removed only in the uterus, there were no negative pregnancy effects. “That finding suggested that it’s not the CXCR4 expression within the uterine cells themselves, but rather it’s the CXCR4 expression from outside of the uterus that plays an important role in pregnancy maintenance,” says Tal. Since immune cells are recruited to the uterus from outsid"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "임신 중 면역 조절 단백질의 역할을 실험으로 설명한다"
+ },
+ {
+  "book": "Why the Ache Comes Late",
+  "url": "",
+  "source": "original",
+  "v_level": 2,
+  "words": 194,
+  "rows": 1,
+  "excerpts": [
+   "People who take up a new kind of exercise often feel perfectly fine on the day they do it. The ache arrives the next morning instead, and the morning after that one is usually worse. Rest, and not more effort, is what takes it away, and it leaves in its own time. This puzzles beginners, who expect pain to follow hard work at once, not a day later. The reason is that the ache does not come from the effort itself at al",
+   "o follow hard work at once, not a day later. The reason is that the ache does not come from the effort itself at all. Work of an unfamiliar kind leaves very small tears inside the muscle. The body treats these tears as damage and sends water and repair toward them. That slow repair, rather than the exercise, is what presses on the area and causes the ache. When it is finished, the muscle can accept a little more work"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "지연성 근육통이 회복 과정에서 생기는 이유를 설명한다"
+ },
+ {
+  "book": "Mystery solved: How red dye figured out a maze",
+  "url": "https://www.futurity.org/researchers-solve-fluid-mechanics-mystery-3268092/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 519,
+  "rows": 1,
+  "excerpts": [
+   "Researchers have finally solved a fluid mechanics mystery. Seven years ago, UC Santa Barbara researchers caught an unexpected phenomenon on film: A pool of red dye that somehow “knew” how to solve a maze filled with milk. Propelled forward by a couple drops of soap, it unerringly found its way, avoiding dead ends and even making 90 degree turns in its path toward the exit. What began as a demonstration of the complex",
+   "“choose” and move in the correct direction, when intuition would perhaps suggest that the ink would diffuse in a more general manner. Surface tension—the cohesion that causes molecules on the surface of a fluid to pull together and act like a membrane, resisting exterior forces—plays a large role in this ink-on-milk experiment. The soap—a surfactant, or a substance that reduces surface tension—reduces local tension a"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "표면장력과 계면활성제로 염료의 이동을 설명한다"
+ },
+ {
+  "book": "'Neutral' voters could be dangerous for democracy",
+  "url": "https://www.futurity.org/voting-neither-could-harm-american-democracy-3330442/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 866,
+  "rows": 1,
+  "excerpts": [
+   "According to a recent study, voters who are comfortable living in the middle—neither agreeing nor disagreeing when asked about substantive issues relevant to upholding democracy—might be the largest group to blame for democratic decline in the United States. These “democratic neutrals” are what the study’s coauthors consider some of the most dangerous voters in the current political environment. Using three surveys o",
+   "ndemocratic practices is different than actively supporting democracy,” Hall says. Neutrality, the researchers note, is especially concerning because it can be associated with authoritarianism, tolerance of norm violations, extremism, distrust, and obscuring antidemocratic views. Another, equally critical point, Hall says, is that this neutrality exists at similar rates on both sides of the aisle, among Republicans a"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "설문 자료로 중립 유권자의 정치적 함의를 논증한다"
+ },
+ {
+  "book": "Astronauts Anil Menon and Sophie Adenot on Spacewalk - NASA",
+  "url": "https://www.nasa.gov/image-detail/gmt230_ehdc1-2/",
+  "source": "nasa",
+  "v_level": 6,
+  "words": 75,
+  "rows": 2,
+  "excerpts": [
+   "Astronauts Anil Menon and Sophie Adenot on Spacewalk From left, Expedition 75 flight engineers Anil Menon of NASA (partially obscured and wearing the spacesuit with a red stripe on the legs) and Sophie Adenot of ESA (European Space Agency) work together during a six‑hour and 23‑minute spacewalk outside the International Space Station. Image Credit: NASA Read More Facebook Pinterest X LinkedIn Email https://www.nasa.g"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "우주유영 사진 설명과 크레딧·공유 링크뿐이다"
+ },
+ {
+  "book": "Who Really Sets the Price",
+  "url": "",
+  "source": "original",
+  "v_level": 2,
+  "words": 155,
+  "rows": 1,
+  "excerpts": [
+   "It is easy to think that a price is a number the seller picks. The shop writes it on a tag, the buyer pays it, and the matter ends there. However, that tag is closer to a question than to an answer. If nobody buys at the number, the price falls within weeks, and a discount appears where the old tag once stood. If the shelf empties every morning instead, the number climbs. Buyers who walk away are speaking as clearly "
+  ],
+  "verdict": "use",
+  "genre": "economics",
+  "why": "수요와 공급이 가격을 정하는 원리를 예로 설명한다"
+ },
+ {
+  "book": "The Cart That Did Not Come",
+  "url": "",
+  "source": "original",
+  "v_level": 4,
+  "words": 329,
+  "rows": 1,
+  "excerpts": [
+   "Nella woke before the sun and found the whole valley under a thick fog. She had promised to bring apples to the market with her neighbour Corin. Corin owned the only cart in the lane, and he came for her at six. From her gate she could not see the fence, the road, or the plum tree. The damp air sat on her scarf and made the wool heavy. She waited at the corner and listened for the sound of his wheels. That morning Co",
+   "ank into soft mud until one board touched the ground. He pushed at the handle until his arms ached, but nothing moved. Then he thought of Nella at the corner, waiting in the cold. By seven Nella had counted the bell twice and heard nothing on the road. She left her baskets by the fence and walked toward the bridge. Halfway there she caught a thin whistle, the sort Corin used for his dog. She followed it down the slop"
+  ],
+  "verdict": "narrative",
+  "genre": "fiction",
+  "why": "안개 낀 아침 이웃을 찾아 나서는 인물의 이야기다"
+ },
+ {
+  "book": "Your environment can increase your dementia risk",
+  "url": "https://www.futurity.org/environmental-triggers-dementia-risk-3273302/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 439,
+  "rows": 1,
+  "excerpts": [
+   "A new study focuses on the powerful role our surroundings play in shaping dementia risk. The meta-analysis demonstrates that factors including air pollution and access to green or blue spaces can significantly raise or lower the odds of cognitive decline and developing dementia. “These numbers show that living in a dementia-friendly environment is important to delay or prevent cognitive decline and the onset of demen",
+   "increase in risk. Nitrous Oxide increased risk by 10%, and noise pollution was shown to increase risk by about 9%. Alternatively, some built environments help reduce the risk of cognitive decline. Green and blue spaces, which include built and natural parks as well as bodies of water, reduced risk by about 6%. Walkability in a community, as well as access to local amenities including food stores, community centers an"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "대기오염과 녹지가 치매 위험에 미치는 영향을 수치로 제시한다"
+ },
+ {
+  "book": "Deadly Salmonella in cows is on the rise globally",
+  "url": "https://www.futurity.org/salmonella-dublin-cows-3285442-2/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 719,
+  "rows": 1,
+  "excerpts": [
+   "A new study examines the economic impact of Salmonella Dublin across Danish dairy farms over a 10-year period. The infectious and multi-resistant cattle disease Salmonella Dublin can be fatal to both humans and animals and causes significant losses for farmers. Although Denmark has attempted to eradicate the disease since 2008, it has not yet succeeded. The new study points to possible reasons—and the necessary solut",
+   "ay not have a strong enough incentive to fight it. However, our research shows that the consequences are not only a matter of health—there are also hidden financial losses associated with infection,” says Jakob Vesterlund Olsen from the food and resource economics department. The study shows that Salmonella Dublin leads to increased calf mortality, lower milk yield, higher medication costs, and more veterinary treatm"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "가축 살모넬라의 피해를 경제 자료로 분석한다"
+ },
+ {
+  "book": "Sharks are under serious threat, but these bans may help",
+  "url": "https://www.futurity.org/sharks-retention-bans-3273702/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 708,
+  "rows": 1,
+  "excerpts": [
+   "Sharks are dying at alarming rates, mostly due to fishing, but retention bans may help, researchers report. Despite the fear they may inspire in humans, sharks have far more reason to fear us. Nearly one-third of sharks are threatened with extinction globally, mostly as a result of fishing. A team led by researchers at UC Santa Barbara discovered that mandates to release captured sharks won’t be enough to prevent the",
+   "es were the most likely to die after being caught. These included thresher sharks and hammerheads. Mortality was also higher for smaller species, those that occur in deeper waters and those that rely on constant swimming to breathe. “Mortality was surprisingly high for some species such as smoothhound sharks,” says co-lead author Leonardo Feitosa, also a doctoral candidate at the Bren School, “ranging from 30 to 65%."
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "상어 사망률 자료로 포획 금지의 한계를 논증한다"
+ },
+ {
+  "book": "Genshin Impact",
+  "url": "https://en.wikipedia.org/wiki/Genshin_Impact",
+  "source": "wikipedia",
+  "v_level": 6,
+  "words": 5520,
+  "rows": 1,
+  "excerpts": [
+   "Genshin Impact (, GHEN-shin, Chinese: 原神; pinyin: Yuánshén; lit. 'Primordial God') is a 2020 action role-playing video game developed and published by miHoYo. It is distributed outside China by miHoYo's international subsidiary Cognosphere, also known as HoYoverse. At its core, the game features an anime-style open-world environment, an action-focused battle system consisting of elemental magic with character-switchi",
+   "m composers such as Beethoven. On September 12, 2023, Yu-Peng Chen announced on Bilibili that he was leaving miHoYo and the HOYO-MiX team, after having worked on the music of the game and its expansions since its release. Account security concerns Genshin Impact has been criticized for initially lacking security features commonly found on other sites, such as two-factor authentication. On October 19, 2020, a security"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "게임 사양과 사건을 연도별로 나열한 백과 항목이다"
+ },
+ {
+  "book": "Can a drug restore hearing loss due to loud noise?",
+  "url": "https://www.futurity.org/hearing-loss-loud-noises-3179192-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 471,
+  "rows": 1,
+  "excerpts": [
+   "Scientists have discovered a molecular mechanism of noise-induced hearing loss and show that it could be mitigated with medication. Anyone who has ever been to a loud concert knows the feeling of ringing ears. Some people experience temporary or even permanent hearing loss or drastic changes in their perception of sound after the loud noises stop. Thanos Tzounopoulos, director of the Pittsburgh Hearing Research Cente",
+   " experience noise-induced hearing loss as a result of an acute traumatic injury to the ear, others notice a sudden hearing impairment after being continuously exposed to loud noise, for example in a battlefield or at a construction site. Others notice their hearing deteriorating after attending a loud music show. Researchers say such noise-induced hearing loss can be debilitating. Some people start hearing sounds tha"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "소음성 난청의 분자 기작과 약물 가능성을 설명한다"
+ },
+ {
+  "book": "Turning the Tide on the Chesapeake Bay",
+  "url": "https://www.usgs.gov/news/featured-story/turning-tide-chesapeake-bay",
+  "source": "usgs",
+  "v_level": 6,
+  "words": 585,
+  "rows": 1,
+  "excerpts": [
+   "“I had the impression of an extremely productive and beautiful system,” said Batiuk, the U.S. Environmental Protection Agency’s (EPA) Associate Director for Science, Analysis, and Implementation with the Chesapeake Bay Program. “I didn’t see what was under the surface.” By the mid-1980s, when Batiuk relocated to the bay, its troubles had surfaced. Increased nutrients caused low oxygen (hypoxia) in the bay, suffocatin",
+   "t dates back 400 years, so the USGS—working with partners—examined the thick sediments beneath the surface to construct climate records. To carry out this research, USGS scientists boarded the French national research vessel Marion Dufresne as part of a mission to extract long sediment cores from the bay. The USGS found that during the last 5,000 years, parts of the bay were hypoxic during wet years, and hypoxia incr"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "만의 저산소화 원인과 퇴적물 조사 결과를 설명한다"
+ },
+ {
+  "book": "Tiny changes in the heart may cut irregular heartbeat risk",
+  "url": "https://www.futurity.org/aging-hearts-irregular-heartbeats-arrhythmia-3283072/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 537,
+  "rows": 1,
+  "excerpts": [
+   "Researchers have found that microscopic structural changes in heart cells may help reduce arrhythmia risk. Medically known as arrhythmias, irregular heartbeats become more common with age and can lead to health problems. But a new study in JACC Clinical Electrophysiology, a journal of the American College of Cardiology, reveals that a tiny gap between heart cells called the perinexus naturally narrows with age—an ada",
+   "ctural changes in the heart impact arrhythmia risk, researchers studied young and old guinea pig hearts, using medication to trigger a condition called sodium channel gain of function. They found that older hearts naturally had a narrower perinexus, which appeared to protect against arrhythmias. However, when this space was artificially widened, older hearts quickly developed irregular rhythms, while younger hearts r"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "심장 세포 간극이 부정맥 위험에 미치는 영향을 설명한다"
+ },
+ {
+  "book": "More mental health services could keep people out of jail",
+  "url": "https://www.futurity.org/mental-health-substance-abuse-services-jail-3186772-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 396,
+  "rows": 1,
+  "excerpts": [
+   "Improving access to community-based mental health and substance use disorder services could keep more people out of jail and save counties money, a new study finds. As reported in the journal Psychiatric Services, the researchers identified 59 recommended mental health practices, but found that United States counties, on average, offered only a few of them. “The importance of this study is that most counties offer on",
+   "ies offered very few of the recommended mental health and substance use disorder services. For example, only 29.2% of the counties offered permanent supportive housing for individuals with mental health conditions and only 27.2% offered assertive community treatment. Both services are helpful for keeping individuals with serious mental illness stable in the community and out of jail. The lack of adequate treatment pr"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "정신건강 서비스 보급률 자료로 수감 감소를 논증한다"
+ },
+ {
+  "book": "Suicide rates among veterans have declined sharply since 2020",
+  "url": "https://www.futurity.org/suicide-rates-veterans-3305432/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 392,
+  "rows": 1,
+  "excerpts": [
+   "After climbing for nearly two decades, suicide rates among US military veterans have shown a significant decline since 2020, according to new research. The study in JAMA Network Open provides hopeful data following a grim period where veteran suicide rates—particularly among those with a traumatic brain injury (TBI)—far outpaced the general population. “When we started looking at this earlier, there was actually a pr",
+   ": While US adult suicide rates reached about 20 deaths per 100,000 people by 2020, the rate for post-9/11 veterans with TBI peaked at 100 deaths per 100,000, and 61 per 100,000 for those without TBI. According to the Veterans Administration, more than 140,000 veterans have died by suicide since 2001. The study’s most important finding is that veteran suicide rates have dropped sharply since 2020. Pugh suggests this m"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "제대군인 자살률 추세를 통계로 설명한다"
+ },
+ {
+  "book": "How bacteria affects sourdough bread smell and flavor",
+  "url": "https://www.futurity.org/how-to-make-better-sourdough-starter-3255812/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 738,
+  "rows": 1,
+  "excerpts": [
+   "A new paper examines how certain strains of bacteria, and specifically the genetic diversity of acetic acid bacteria, influence the smell and flavor of sourdough bread and even how it is processed by the body. While previous research has focused more on lactic acid bacteria and yeast in sourdough bread, acetic acid bacteria (AAB) and its the ecology, genomic diversity, and functional contributions remain largely unkn",
+   " between strains of the same species.” According to Rappaport, strain diversity is often overlooked in microbial communities, in part because it is difficult to identify and manipulate levels of diversity due to the vastness of microorganisms within a given community. By zooming into the diversity among closer relatives in the lab, researchers can start to understand key interactions in the microbiome. The impact of "
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "초산균 다양성이 사워도우 풍미에 미치는 영향을 설명한다"
+ },
+ {
+  "book": "Some US Schools Operate outside State Education System",
+  "url": "https://learningenglish.voanews.com/a/some-us-schools-operate-outside-state-education-system/7380189.html",
+  "source": "voa",
+  "v_level": 3,
+  "words": 1183,
+  "rows": 1,
+  "excerpts": [
+   "Nearly 9,000 private schools in the American state of Louisiana do not need state approval to give high school diplomas. Public schools, formal homeschooling programs and traditional private schools all need state approval. Nearly all of the schools lacking approval were created to serve a single homeschooling family. But some have buildings, classrooms, teachers and many students. A small percentage of Louisiana's s",
+   " high school diploma can apply for the official home study program. They must apply using test scores or copies of the student’s work. The work must show their child has received 180 days of schooling of the same quality as a public school’s. The state-recognized diploma is more widely accepted by colleges. It also permits students to be considered for a popular in-state scholarship program. Families can also choose "
+  ],
+  "verdict": "use",
+  "genre": "education",
+  "why": "주 인가를 받지 않는 사립학교 제도를 설명한다"
+ },
+ {
+  "book": "Attachment: The What, the Why, and the Long-Term Effects",
+  "url": "https://doi.org/10.3389/frym.2023.809060",
+  "source": "frym",
+  "v_level": 4,
+  "words": 98,
+  "rows": 1,
+  "excerpts": [
+   "The bond between a child and the child’s caretaker is special. Such bonds are important for human survival. This special early bond is called an attachment. Scientists have shown that children can have one of four attachment styles, based on their relationship with the main person who looks after them. Each attachment style can have unique effects on children that can sometimes (though not always) carry on through te"
+  ],
+  "verdict": "use",
+  "genre": "psychology",
+  "why": "네 가지 애착 유형과 장기 영향을 요약해 설명한다"
+ },
+ {
+  "book": "Menopausal hormone therapy and the female brain: Leveraging neuroimaging and prescription registry data from the UK Biobank cohort",
+  "url": "https://elifesciences.org/articles/99538",
+  "source": "elife",
+  "v_level": 6,
+  "words": 570,
+  "rows": 1,
+  "excerpts": [
+   "Ovarian hormones, including oestrogens and progesterone, fluctuate throughout each menstrual cycle, during and after pregnancy, and in the years leading up to menopause when ovarian function begins to decline. During these transitional years, up to 80% of women will experience symptoms such as hot flashes and night sweats, which are believed to stem from the brain. Menopausal hormone therapy (MHT) often contains low ",
+   "al age and their estimated brain age calculated from brain imaging data using machine learning; e.g., if someone’s chronological age is 50 years and their predicted brain age is 45, the brain age gap is –5 years. A negative brain age gap indicates a 'younger-looking' brain, while a positive brain age gap suggests a brain that appears 'older'. Barth et al. further looked at the volume of the hippocampus, a brain regio"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "호르몬 요법과 뇌 나이 지표의 관계를 설명한다"
+ },
+ {
+  "book": "Anxiety over aging may make women age faster",
+  "url": "https://www.futurity.org/anxiety-aging-women-3322002/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 629,
+  "rows": 1,
+  "excerpts": [
+   "Having anxiety about aging—particularly fears about declining health—may manifest on a cellular level and contribute to accelerated aging among women, according to a new study. “Our research suggests that subjective experiences may be driving objective measures of aging,” says Mariana Rodrigues, a PhD student at New York University’s School of Global Public Health and the first author of the study in the journal Psyc",
+   "using two “epigenetic clocks”: one that captures the pace of biological aging (DunedinPACE) and one that estimates cumulative biological damage (GrimAge2). Having greater anxiety about growing old was associated with accelerated epigenetic aging, as measured by the DunedinPACE epigenetic clock. These biological changes could potentially contribute to physical decline and increased vulnerability to aging-related disea"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "노화 불안이 후성유전 시계에 미치는 영향을 설명한다"
+ },
+ {
+  "book": "New Patent Helps Coalbed Methane Research",
+  "url": "https://www.usgs.gov/news/science-snippet/new-patent-helps-coalbed-methane-research",
+  "source": "usgs",
+  "v_level": 5,
+  "words": 386,
+  "rows": 1,
+  "excerpts": [
+   "“The deep subsurface is an exciting frontier for undiscovered life and ecosystems, just as alien as space or the deep ocean,” said USGS scientist Elliott Barnhart, who led the team that received the patent. “Fellow USGS researchers like Francis Chapelle helped prove that life does exist in the subsurface and the microbes do important things. Hopefully, the SES can help further understand this little-known environment",
+   "ed to mirror the microbes’ native environment as closely as possible. The way the sampler works is first, pieces of subsurface material, such as coal, are inserted into a chamber in the SES. The sampler is then sent down the well-bore to the same depth as the coal layer being studied. Barnhart and the other USGS scientists have confirmed that the microbes will attach to coal within the sampler, so once it reaches the"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "지하 미생물 채취 장치의 작동 방식을 설명한다"
+ },
+ {
+  "book": "Pregnancy appears to speed up aging, at least at first",
+  "url": "https://www.futurity.org/pregnancy-aging-3198172/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 309,
+  "rows": 1,
+  "excerpts": [
+   "New research suggests that pregnancy accelerates aging, but with an important caveat—there appears to be significant reversal of this effect in the postpartum period. To make this discovery, Yale Child Study Center Assistant Professor Kieran O’Donnell and his team made use of a unique pregnancy cohort that provided epigenetic data across pregnancy, allowing them to calculate measures of biological aging using “epigen",
+   ", by as much as eight years for some individuals, so while pregnancy increases biological age there is a clear (and pronounced) recovery in the postpartum,” O’Donnell says. These new findings replicate those in an earlier study suggesting different sources of stress may increase biological age in a transient manner. In the new study, for which the group’s biostatistician, Hung Pham, was first author, the team also fo"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "임신과 산후의 생물학적 나이 변화를 설명한다"
+ },
+ {
+  "book": "A Tide-Fueled Trove of Biodiversity in Guinea-Bissau - NASA Science",
+  "url": "https://science.nasa.gov/earth/earth-observatory/a-tide-fueled-trove-of-biodiversity-in-guinea-bissau/",
+  "source": "nasa",
+  "v_level": 6,
+  "words": 758,
+  "rows": 1,
+  "excerpts": [
+   "Earth Observatory 3 min read A Tide-Fueled Trove of Biodiversity in Guinea-Bissau Image of the Day for July 17, 2026 The expansive mudflats, sandy beaches, and mangrove forests of the Bijagós archipelago support an array of migratory shorebirds and large numbers of sea turtles. NASA Earth Observatory Jul 17, 2026 Article View more Images of the Day: Jul 16, 2026 Jul 20, 2026 Instruments:Landsat 8 — OLI Collections:In",
+   "at patrol shallow waters as well as tuna, mackerel, sharks, and rays in deeper waters. According to some estimates, less than 1 percent of green sea turtle hatchlings survive to adulthood. A 2025 analysis of the region's tides explored why the archipelago has some of the largest tidal ranges in West Africa. The researchers concluded that the region's wide, shallow shelf and the estuary’s geometry combine to create a "
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "조수와 갯벌이 만드는 생물다양성을 위성 관측으로 설명한다"
+ },
+ {
+  "book": "How Black female teachers enrich science with anti-racism",
+  "url": "https://www.futurity.org/anti-racist-science-teaching-2996762-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 574,
+  "rows": 1,
+  "excerpts": [
+   "Black female science teachers find ways to incorporate anti-racist teaching in their classrooms, according to a new study. Examples might include teaching about the practices and systems that led to high rates of diabetes in Black communities or discussions about the Flint water crisis. In a series of interviews and Sista Circles (group settings for Black women to develop and exchange ideas) in 2020, 18 Black women (",
+   "and sociological questions Teachers made cultural and sociopolitical connections to science while using K-12 science content standards known as Next Generation Science Standards, specifically encouraging students to ask questions. According to the study, “[asking] questions in science can be tied to social justice because science is typically presented as facts and facts have historically hurt marginalized groups whe"
+  ],
+  "verdict": "use",
+  "genre": "education",
+  "why": "흑인 여성 과학교사의 수업 실천을 면담 자료로 분석한다"
+ },
+ {
+  "book": "Reading the Bottom of the Sea",
+  "url": "",
+  "source": "original",
+  "v_level": 3,
+  "words": 176,
+  "rows": 1,
+  "excerpts": [
+   "For most of history, sailors could not tell how deep the water under their keel was. The seabed was hidden, and a hidden reef could tear open a keel in a moment. The first answer was a rope and a plumb. A sailor dropped a heavy plumb on a long line and counted the marks as the line ran out. Near the shore and over a sandbar that method worked. Far from land the plumb failed. The line took hours to reach the seafloor,",
+   "e and over a sandbar that method worked. Far from land the plumb failed. The line took hours to reach the seafloor, and moving water pushed it sideways, so the marks showed more rope than real depth to the seafloor. A fathom counted that way was often wrong by many fathoms. Later, ships tried sonar. A sonar machine sent a short sound down to the seabed and measured how long the echo took to return. Since sound travel"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "측심 방법이 추와 음파로 발전한 과정을 설명한다"
+ },
+ {
+  "book": "Can the Olympics ever really be green?",
+  "url": "https://www.futurity.org/olympics-sustainability-sports-athletes-3241542/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 653,
+  "rows": 1,
+  "excerpts": [
+   "Organizers of the 2024 Paris Olympics are committed to creating the most sustainable Olympics ever—limiting new construction, sourcing local food, and using 100% renewable energy, for example. But could a global event with millions of people from all over the world converging in one place ever be considered sustainable? Here, Matthew Huber, professor of geography and the environment in the Maxwell School of Citizensh",
+   "te change when wealthy countries can still do what they want while less wealthy countries do not have that same privilege? A The weird irony to me is that France has an electricity grid that is nearly 100% carbon free (notably due to the roughly 70% derived from nuclear power and the remainder from mostly renewables). So it’s not clear to me exactly why limiting AC use even makes sense from a climate perspective. If "
+  ],
+  "verdict": "use",
+  "genre": "climate",
+  "why": "대회의 지속가능성 주장을 전력망 자료로 따진다"
+ },
+ {
+  "book": "Contributions of associative and non-associative learning to the dynamics of defensive ethograms",
+  "url": "https://elifesciences.org/articles/90414",
+  "source": "elife",
+  "v_level": 5,
+  "words": 461,
+  "rows": 1,
+  "excerpts": [
+   "Post-traumatic stress disorder (or PTSD for short) is a condition that can cause people to overreact to harmless cues, vividly re-experience a traumatic event, or freeze in place. To understand why this happens, researchers often study fear responses using an approach called fear conditioning, where laboratory animals learn to associate the sound of a tone with a mild electric shock. This conditioning causes animals ",
+   "As before, mice conditioned to associate a tone followed by white noise with an electric shock froze when they heard the tone and transitioned to jumping during the white noise. However, if during conditioning the sounds and shocks occurred at unpredictable times, the mice did not associate the sounds with the shock and therefore they froze less and rarely jumped. Similarly, reversing the order of the sounds so that "
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "공포 학습 실험으로 방어 행동의 형성을 설명한다"
+ },
+ {
+  "book": "WaterWords–Authigenic",
+  "url": "https://www.usgs.gov/news/science-snippet/waterwords-authigenic",
+  "source": "usgs",
+  "v_level": 5,
+  "words": 299,
+  "rows": 1,
+  "excerpts": [
+   "From June 12 to July 3, the U.S. Geological Survey and Schmidt Ocean Institute will be conducting a research cruise off the coast of Oregon and Washington, hunting deep-sea bubbles and the creatures that eat them. While we post stories about our findings, we’ll also be posting little vignettes like these, in which we serve as your terminology tour-guides to the unusual and hard-to-pronounce words that dwell in the de",
+   "contrast to rocks that form from materials that were transported from elsewhere, like sedimentary rocks made up of river sediments carried far from their point of origin. Etymology: Authigenic comes from the Greek authi-, meaning “there,” and genesis, meaning “to be born,” or “to be created.” Use/Significance in the Earth Science Community: Authigenic sediments are the primary parts of deep-sea sedimentary rocks. Car"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "용어 정의와 어원 항목으로 이뤄진 낱말 풀이다"
+ },
+ {
+  "book": "People with several tattoos may have less melanoma risk",
+  "url": "https://www.futurity.org/melanoma-tattoos-3297142/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 679,
+  "rows": 1,
+  "excerpts": [
+   "People with more than one tattoo session may have a decreased risk of the skin cancer melanoma—with one key caveat, according to new research. A team led by Jennifer Doherty, Huntsman Cancer Institute investigator, co-leader of the Cancer Control and Population Sciences Program, and professor of population health sciences at the University of Utah, evaluated 7,000 Utahns and found that having 2 or more tattoo session",
+   "hite case of ‘get more tattoos, and you could lower your risk of melanoma,'” says Rachel McCarty, former doctoral student at Huntsman Cancer Institute, current postdoctoral scientist at the International Agency for Research on Cancer, and first author of the study. “Instead, we need to do more research to understand what we are seeing and if this decreased risk is simply due to behavioral or physical factors, or if t"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "문신 횟수와 흑색종 위험의 상관을 조심스럽게 해석한다"
+ },
+ {
+  "book": "New kind of liver cell may protect against common liver disease",
+  "url": "https://www.futurity.org/liver-cell-may-protect-against-liver-disease-3333242/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 619,
+  "rows": 1,
+  "excerpts": [
+   "A newly discovered type of liver cell may hold clues for treating severe liver disease, according to a recent study. The findings in the Journal of Clinical Investigation reveal a signaling pathway that can protect against metabolic dysfunction-associated steatohepatitis, or MASH. This more severe form of metabolic dysfunction-associated steatitis liver disease, or MASLD, affects 5% to 10% of the US adult population ",
+   "d state, senescent cells interfere with normal tissue function, increase harmful inflammation, and contribute to disease. Further analysis revealed unusual activity from a gene called Themis. This gene, which encodes the protein THEMIS, is typically expressed in a type of immune cells called T cells but is not active in healthy hepatocytes. “But in both mouse and human MASH liver, Themis expression was strongly incre"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "새 간세포와 신호 경로로 지방간염을 설명한다"
+ },
+ {
+  "book": "Why a Soft Room Does Not Stay Quiet",
+  "url": "",
+  "source": "original",
+  "v_level": 3,
+  "words": 175,
+  "rows": 1,
+  "excerpts": [
+   "When a room is too noisy, the usual answer is something soft. Thick curtains, a carpet, and foam panels are treated as a cure. However, sound arrives in two ways, and soft surfaces deal with only one. High sounds travel through the air and lose their energy in soft foam. That is why a voice stops ringing once the curtains go up. Low bass sounds move the building itself, joist by joist. The floor and the joist bend a "
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "고음과 저음이 다르게 전달되는 이유를 설명한다"
+ },
+ {
+  "book": "Loss of olfaction reduces caterpillar performance and increases susceptibility to a natural enemy",
+  "url": "https://elifesciences.org/articles/105585",
+  "source": "elife",
+  "v_level": 5,
+  "words": 428,
+  "rows": 1,
+  "excerpts": [
+   "Many caterpillars are major pests in agriculture, feeding on a variety of crops. They constantly face threats from both predators and the toxic defenses of the plants they eat. While scientists have long studied how predators find their prey, much less is known about how prey – like caterpillars – manage to survive and defend themselves. Plants have evolved various strategies to fend off insects. When attacked by her",
+   "w much caterpillars rely on their sense of smell to survive and find food. In insects, the ability to smell relies on a group of sensory proteins, most of which need a key gene called Orco to function. Without this gene, an insect’s ability to smell is severely impaired. Wang et al. used a gene editing tool known as CRISPR/Cas9 to ‘turn off’ the Orco gene in caterpillars of the large cabbage white butterfly (Pieris b"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "유전자 편집으로 애벌레의 후각 기능을 검증한다"
+ },
+ {
+  "book": "Stars That Blink On and Off",
+  "url": "https://www.futurity.org/transient-objects-galaxies-space-james-webb-space-telescope-2997702/",
+  "source": "futurity",
+  "v_level": 1,
+  "words": 104,
+  "rows": 1,
+  "excerpts": [
+   "Scientists studied a group of galaxies far away. They call it the Christmas Tree Galaxy Cluster. The cluster sits a huge distance from Earth. They watched it with the Webb Space Telescope. They took pictures of the cluster over months. Then they compared the pictures carefully. They found 14 new transient objects. A transient object suddenly grows very bright. After a short while it fades away again. Some of them are"
+  ],
+  "verdict": "use",
+  "genre": "space",
+  "why": "망원경 관측으로 발견한 일시천체를 쉽게 설명한다"
+ },
+ {
+  "book": "Slag-What is it Good for?",
+  "url": "https://www.usgs.gov/news/science-snippet/slag-what-it-good",
+  "source": "usgs",
+  "v_level": 5,
+  "words": 436,
+  "rows": 1,
+  "excerpts": [
+   "But some recent research here at USGS might change slag’s poor public image. It turns out that, although slag is most known for being what’s left when metals have been removed, slag itself might be good at removing some negative chemicals from the environment. Environmental Antacids Sometimes hard rock mining can give the environment a bit of excess acid, in the form of acid mine drainage. Acid mine drainage can happ",
+   "nd steel, in the Chicago-Gary area of Illinois and Indiana. Ferrous slag is currently underutilized. Although the construction industry does use some slag as an aggregate, most is simply discarded. However, slag could be used to treat acid soils or acid mine drainage. Doing so would both offset the cost of restoring abandoned mine areas, as well as decrease steel manufacturers’ current waste footprint. Too Much of a "
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "제철 부산물이 산성 배수를 중화하는 원리를 설명한다"
+ },
+ {
+  "book": "Nanoparticle that cuts 'middlemen' could improve stem cell therapy",
+  "url": "https://www.futurity.org/nanoparticle-stem-cell-therapy-3264912/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 662,
+  "rows": 1,
+  "excerpts": [
+   "Researchers have developed a nanoparticle that can program stem cells while inside the body, avoiding the need for chemotherapy and bone marrow extraction in stem cell treatments. Middlemen get a bad rap for adding cost and complications to an operation. So, eliminating the go-betweens can reduce expense and simplify a process, increasing efficiency, and consumer happiness. James Dahlman and his research team have be",
+   "procedure can be life-threatening. We’re hoping to change that.” HSCs can also be modified directly inside the body. The procedure uses lipid nanoparticles (LNPs) to carry genetic instructions to the stem cells. The LNPs have targeting ligands attached—molecules designed to find specific target cells. Precisely engineering them adds layers of time, complexity, and cost to the process. They are, like extraction from b"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "나노입자로 체내에서 줄기세포를 조작하는 방법을 설명한다"
+ },
+ {
+  "book": "A disappearing act in Alaska",
+  "url": "https://www.usgs.gov/news/featured-story/a-disappearing-act-alaska",
+  "source": "usgs",
+  "v_level": 5,
+  "words": 1480,
+  "rows": 1,
+  "excerpts": [
+   "On a cool August morning almost a decade ago, Miriam Jones found herself in Alaska, standing in a forest filled with seemingly tipsy trees. Although the leaning, centipede-like black spruce trees looked as if they had enjoyed boozy spirits soon before Jones’ arrival, their story wasn’t so lively. Rather, they leaned because they were literally standing on thawing soil. Underneath much of Alaska’s forests sits permafr",
+   "carbon has been higher than that lost to the atmosphere through decomposition. However, as the planet warms, this trend could reverse. “There are efforts to use soils and forests to store carbon, but permafrost is working in the opposite direction,” Waldrop said. “Land managers want to know how to keep carbon in the ground rather than see it released into the atmosphere.” Permafrost secrets revealed To understand how"
+  ],
+  "verdict": "use",
+  "genre": "climate",
+  "why": "영구동토 융해와 탄소 저장의 변화를 현장 조사로 설명한다"
+ },
+ {
+  "book": "The Quiet Work of a Pause",
+  "url": "",
+  "source": "original",
+  "v_level": 3,
+  "words": 199,
+  "rows": 1,
+  "excerpts": [
+   "Anyone who has fought with a hard problem knows the odd relief of walking away. The doze arrives on a slow walk, in the first minutes of a long drive, or near midnight. That pattern is too common to be luck. It points to cortex work along a path we cannot watch. During slumber the cortex is not empty. The cortex runs the day again and files what it met. Slumber carries most of that work, and its deeper hours move fre",
+   ". During slumber the cortex is not empty. The cortex runs the day again and files what it met. Slumber carries most of that work, and its deeper hours move fresh memory into a lasting store. A quiet nap of a quarter of an hour does a smaller version of the same job. This is why a short doze between study hours is worth more than a further hour of rote drill. The same sorting links fresh rote material to older recall."
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "수면과 짧은 낮잠이 기억을 정리하는 과정을 설명한다"
+ },
+ {
+  "book": "Living near family affects your psychology in surprising ways",
+  "url": "https://www.futurity.org/living-near-family-3259082-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 355,
+  "rows": 1,
+  "excerpts": [
+   "New research suggests that living and being around family more often affects our psychology in some surprising ways. Are you willing to go to war for your country? Do you support the death penalty? Do you feel connected to and trust people in your community? The answers to these questions are all connected to whether you live around family, researchers say. They analyzed six studies about how living in an environment",
+   "themselves to be living in such ecologies, engage in more extreme pro-group behavior, such as being willing to go to war for their country, he says. People also feel more connected to others around them and are more punishing of antisocial behaviors—such as supporting the death penalty for murder. For the latter, according to Ackerman, this serves as a prevention measure to reduce the risk of harm to family members o"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "가족 근접 거주가 집단 행동에 미치는 영향을 분석한다"
+ },
+ {
+  "book": "Trash to Treasure: Could energy wastewaters be a viable source of lithium?",
+  "url": "https://www.usgs.gov/news/featured-story/trash-treasure-could-energy-wastewaters-be-a-viable-source-lithium",
+  "source": "usgs",
+  "v_level": 5,
+  "words": 1024,
+  "rows": 1,
+  "excerpts": [
+   "Global demand for lithium has skyrocketed as the need grows for batteries to power electric vehicles and store energy generated by wind turbines and solar panels. USGS estimates show that there is likely enough lithium in the Earth’s crust to meet demand several times over, but accessing it can require large amounts of energy, water and infrastructure. The challenge is getting lithium quickly, efficiently and with mi",
+   " well as understand resource availability at the local scale,” Blondes said. This extensive dataset can also be combined with machine learning algorithms to predict how much lithium is in locations that haven’t been sampled. Katherine Knierim, PhD, USGS research hydrologist has been working on estimating the total lithium that could be recovered from oil and gas production in the Smackover formation in southern Arkan"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "유전 폐수에서 리튬을 회수할 가능성을 자료로 따진다"
+ },
+ {
+  "book": "Angels and Demons (collection)",
+  "url": "https://en.wikipedia.org/wiki/Angels_and_Demons_(collection)",
+  "source": "wikipedia",
+  "v_level": 7,
+  "words": 3792,
+  "rows": 1,
+  "excerpts": [
+   "Angels and Demons is the thirty-sixth and final collection by British fashion designer Alexander McQueen, released for the Autumn/Winter 2010 season of his eponymous fashion house. Aesthetically, the collection drew on religious paintings of the afterlife from the Medieval and Renaissance periods, as well as the imperial dress and art of the Byzantine Empire. It incorporated traditional tailoring and dressmaking tech",
+   " McQueen's Voss (Spring/Summer 2001). The Mohican-esque feathers referred to McQueen's history of referencing British punk fashion. Proceedings were sombre; the models entered one by one, walked slowly up and down the small room, then exited. Polina Kasina, McQueen's longtime fit model, wore the final ensemble, the feathered coat. The shows closed with the whispered words \"There is no more\"; the models did not return"
+  ],
+  "verdict": "use",
+  "genre": "art",
+  "why": "한 패션 컬렉션의 조형 요소와 연출을 해설한다"
+ },
+ {
+  "book": "North American forests are actually burning less, not more",
+  "url": "https://www.futurity.org/tree-rings-wildfires-3271722/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 607,
+  "rows": 1,
+  "excerpts": [
+   "Contrary to what people might think, North American forests are burning less, not more, according to new data. A study in Nature Communications reveals how this trend may be causing more aggressive fires. “What we see in the record is that widespread wildfires were happening very frequently, about every 10 to 20 years in many areas,” says University of Arizona fire ecologist and professor Donald Falk, who coauthored ",
+   "scars. Over time, trees heal and continue to grow, forming new rings. If another fire occurs, the cycle repeats, etching fires into the wood like a time capsule. Those scars help scientists determine how often fires occurred in an area and when. Using a fire scar dataset known as the North American Tree-Ring Fire Scar Network, which originated from work done at the U of A Laboratory of Tree-Ring Research, the researc"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "나이테 화흔 자료로 산불 빈도 감소를 논증한다"
+ },
+ {
+  "book": "How can you get rid of a phobia?",
+  "url": "https://www.futurity.org/how-can-you-get-rid-of-a-phobia-3325032/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 806,
+  "rows": 1,
+  "excerpts": [
+   "An expert has answers for you about what phobias are and how you can get rid of them. In the Alfred Hitchcock classic film Vertigo, the protagonist John “Scottie” Ferguson, played by James Stewart, is plagued with acrophobia, or an extreme fear of heights. This condition impairs him to such a degree that he is forced to retire from his job as a police officer, and it creates emotional turmoil central to the movie’s p",
+   " from a genetic perspective because one of your parents had them. However, if your parent is modeling avoidant behavior related to an object or situation, you might think you should avoid it too. You also might have certain features of your personality or the way you approach things in the world that may be related to characteristics that your parents had. People may be prone to worry, for example, and it may put the"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "공포증의 원인과 노출 치료를 전문가가 설명한다"
+ },
+ {
+  "book": "USGS supercomputers help assess volcanic hazards in support of community resilience",
+  "url": "https://www.usgs.gov/news/featured-story/usgs-supercomputers-help-assess-volcanic-hazards-support-community-resilience",
+  "source": "usgs",
+  "v_level": 6,
+  "words": 1745,
+  "rows": 1,
+  "excerpts": [
+   "Eruptions can last anywhere from hours to years and can produce a diverse and difficult to predict set of hazardous phenomena including explosions, earthquakes, ash clouds and deposits, lava flows, landslides, and lahars (high-speed floods of water, mud, and rocks). Worse still, these hazards can affect a wide range of areas, from near the vent (explosions) to regional (volcanic ash) to global (climatic changes due t",
+   "tional tools to model volcanic hazards, volcanologists have sought to be able to forecast volcanic eruptions and the hazards they produce. Although an eruption forecasting model is still only an area of active research, some volcanic hazards such as ash dispersal and lava flows have seen the development of robust forecasting models. These models focus on predicting where ash or lava will go in the case of an eruption"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "슈퍼컴퓨터로 화산 재해를 예측하는 모형을 설명한다"
+ },
+ {
+  "book": "New and old cell mutations interact to shape cancer risk",
+  "url": "https://www.futurity.org/blood-cancer-detection-3292742/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 1202,
+  "rows": 1,
+  "excerpts": [
+   "A new study shows that newly acquired cell mutations interact with inherited mutations—those passed down by your parents—in important ways that influence your lifetime cancer risk. As we age, our cells replicate, and the DNA in these cells can acquire mistakes—or mutations—every time the sequence is copied. Most newly acquired mutations are harmless, but some can tip the balance toward cancer development later in lif",
+   "nal hematopoiesis is part of normal aging, certain factors such as smoking or prior exposure to radiation or chemotherapy can speed up the process and increase the risk of it transforming into cancer. Still, some people progress to cancer without major environmental risk factors, and the new study suggests that the interaction of their inherited genome with newly acquired mutations plays an important role in this can"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "후천 돌연변이와 유전 변이의 상호작용을 설명한다"
+ },
+ {
+  "book": "Why spring is good for your brain health",
+  "url": "https://www.futurity.org/lifestyle-choices-brain-health-podcast-3334822/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 182,
+  "rows": 1,
+  "excerpts": [
+   "In a new podcast episode, an expert digs into how lifestyle choices affect brain health. Ben Katz joined Virginia Tech’s “Curious Conversations” to share insights about how cardiovascular exercise, spending time in nature, and maintaining a healthy diet can enhance cognitive function. Katz is associate professor of adult development and aging within the human development and family science department at Virginia Tech",
+   "His research focuses on interventions to improve executive function capacities, including non-invasive brain stimulation, cognitive training, and lifestyle change. He also talked about the importance of sleep and benefits of social interactions, as well as what changes he has made to best support his own cognition: “Curious Conversations” is available on Spotify, Apple, and YouTube. Takeaways Regular cardiovascular e"
+  ],
+  "verdict": "reject",
+  "genre": "fragmentary",
+  "why": "팟캐스트 안내와 요점 목록뿐이고 설명 본문이 없다"
+ },
+ {
+  "book": "Can increasing levels of 1 protein protect against Parkinson's?",
+  "url": "https://www.futurity.org/protein-pi31-neuroprotective-effects-3299152/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 887,
+  "rows": 1,
+  "excerpts": [
+   "Increasing levels of the protein PI31 shows neuroprotective effects in mice, researchers report. One fundamental feature of neurodegenerative diseases is a breakdown in communication. Even before brain cells die, the delicate machinery that keeps neurons in touch—by clearing away protein waste at the synapses—starts to fail. When the cleanup falters, the connections between brain cells is impaired and the flow of sig",
+   "s. In a 2019 paper, Steller identified a promising lead for fixing that transportation system: PI31, a protein that acts as an adaptor responsible for loading proteasomes onto cellular motors for the journey to the synapse, and assembles them upon arrival. Without PI31, he found that transport stalls, protein waste accumulates, and aggregates form. Flies and mice without PI31 begin to show signs of neurodegeneration,"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "단백질 PI31의 신경 보호 효과를 실험으로 설명한다"
+ },
+ {
+  "book": "Study Finds India’s Tiger Population Doubled in 12 Years",
+  "url": "https://learningenglish.voanews.com/a/study-finds-india-s-tiger-population-doubled-in-12-years/7958833.html",
+  "source": "voa",
+  "v_level": 4,
+  "words": 658,
+  "rows": 1,
+  "excerpts": [
+   "A recent study says India has doubled its tiger population in 12 years. Researchers said the gain came from efforts to protect the big cats from hunters, and to protect against the loss of tiger habitat and prey, among other things. The National Tiger Conservation Authority said the number of tigers grew from an estimated 1,706 in 2010 to around 3,682 in 2022. Those numbers mean India is home to about 75 percent of t",
+   " have corrected a data problem noted repeatedly by scientists since 2011 related to tiger population size and their range. The study said tigers disappeared in some areas. These included habitats that were not near national parks or other protected areas, and areas of increased development, increased human use of forest resources and areas with armed conflict. “Without community support and participation and communit"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "호랑이 개체수 증가의 원인과 한계를 설명한다"
+ },
+ {
+  "book": "Why parrotlets adopt (or kill) their rivals' babies",
+  "url": "https://www.futurity.org/parrotlets-competition-infanticide-adoption-rivalry-3216782/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 829,
+  "rows": 1,
+  "excerpts": [
+   "Competition over love and real estate drives two extreme behaviors in green-rumped parrotlets, a new study finds—either caring for or killing one another’s babies. Infanticide and adoption in the animal kingdom have long puzzled scientists. While both males and females of many species are known to kill the babies of their rivals to secure sexual or social advantage, other animals have been observed caring for the you",
+   " a little bit of blood on his beak.” The sight gave Beissinger the first clue that infanticide might be happening among the parrotlets, and he began tracking instances of the behavior. The study includes observations of more than 2,700 nests between 1988 and 2015. While infanticide in mammals and birds is still poorly understood, it often appears to be motivated by sexual selection, or the drive to reproduce. For ins"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "앵무새의 새끼 살해와 입양을 경쟁으로 설명한다"
+ },
+ {
+  "book": "The National Volcano Early Warning System (NVEWS) will help USGS better monitor nation’s most dangerous volcanoes",
+  "url": "https://www.usgs.gov/news/featured-story/national-volcano-early-warning-system-nvews-will-help-usgs-better-monitor",
+  "source": "usgs",
+  "v_level": 6,
+  "words": 1227,
+  "rows": 1,
+  "excerpts": [
+   "But as volcanic activity escalated, it became clear to scientists at the USGS Cascades Volcano Observatory (CVO) that the 20-year-old equipment and monitoring network capabilities were insufficient to properly forecast possibly severe eruptive activity. During the eruption, USGS CVO scientists grew increasingly concerned as ground shaking caused seismic signals to go off the scale on the outdated seismometers. Additi",
+   "-monitored, but high-risk volcanoes such as Mount Baker in Washington. Standardized digital telemetry systems will tie the networks together and make data communication consistent across all observatories. When fully implemented, NVEWS will be an effective nationwide volcano-monitoring and hazard-warning system that will quickly and accurately identify volcanic events and deliver actionable information to people so t"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "화산 조기경보망의 필요와 구성을 설명한다"
+ },
+ {
+  "book": "What does daylight saving time do to your body?",
+  "url": "https://www.futurity.org/daylight-saving-time-spring-forward-biological-clock-3271462-2/",
+  "source": "futurity",
+  "v_level": 4,
+  "words": 695,
+  "rows": 1,
+  "excerpts": [
+   "An expert has answers for you about the disruptions of daylight saving time. A one-hour adjustment to the clock on the wall may not sound dramatic. But our biological clock begs to differ. On Sunday, March 9, at 2AM local time, the US “springs forward,” moving the clocks ahead one hour as we enter daylight saving time. Most of us need a few days to adjust to time changes. In the meantime, we may suffer some consequen",
+   "ng as sunrise, and advances your wake-up time. Evening light tells your biological clock to wake up later the next morning,” Herzog explains. In fact, people who live on the eastern edges of time zones and experience more morning sunlight tend to do better than those to the west—in terms of health, economics and other indicators of well-being, he says. Current scientific data points to year-round standard time being "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "서머타임이 생체시계에 주는 영향을 설명한다"
+ },
+ {
+  "book": "East vs West Coast Earthquakes",
+  "url": "https://www.usgs.gov/news/featured-story/east-vs-west-coast-earthquakes",
+  "source": "usgs",
+  "v_level": 5,
+  "words": 1316,
+  "rows": 1,
+  "excerpts": [
+   "A magnitude 5.8 earthquake in 2011 in Mineral, Virginia, was felt up to 600 miles from the epicenter. Tens of millions of people in the eastern United States and southeastern Canada felt this earthquake. For comparison, a magnitude 6.0 earthquake in 2014 in Napa, California, was felt only as far as 250 miles from the epicenter. Despite the Napa earthquake releasing about twice as much energy as the Virginia earthquak",
+   "ously suspected to occur in Washington, DC, and had been found in other cities such as Boston. Other major cities in the central and eastern United States with similar geology that could lead to amplified ground shaking include Trenton, New Jersey; Wilmington, Delaware; Baltimore, Maryland; Richmond, Virginia; and Columbia, South Carolina. Similar deposits also underlie cities in the Mississippi Valley and Gulf Coast"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "동서부 지진의 진동 전파 차이를 지질로 설명한다"
+ },
+ {
+  "book": "Vitamin D may help prevent diabetes",
+  "url": "https://www.futurity.org/vitamin-d-may-help-prevent-diabetes-3330502/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 684,
+  "rows": 1,
+  "excerpts": [
+   "A new study finds that vitamin D may help delay or prevent diabetes progression, but only in people with certain genetic variations. More than two in five US adults have prediabetes, a condition marked by higher-than-normal blood sugar levels that often leads to type 2 diabetes. The study in JAMA Network Open found prediabetic adults with certain variations in the vitamin D receptor gene had a 19% lower risk of devel",
+   "lls respond to the vitamin. The researchers wondered whether genetic differences in this receptor might explain why some people benefited from vitamin D while others did not. The pancreas’s insulin-producing cells have vitamin D receptors, suggesting the vitamin may help influence insulin release and blood sugar control. For the new study, Dawson-Hughes and her colleagues analyzed genetic data from 2,098 trial partic"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "비타민D 효과가 수용체 유전형에 따라 다름을 설명한다"
+ },
+ {
+  "book": "Are you underestimating how cynical your friends are?",
+  "url": "https://www.futurity.org/friends-cynicism-3335332/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 321,
+  "rows": 1,
+  "excerpts": [
+   "New research finds that people often project their own levels of cynicism—the belief that people are only interested in themselves and aren’t sincere—onto their friends and consistently underestimate their friends’ cynicism. The findings could have implications for maintaining friendships. In the study, 173 pairs of friends reported on both their own cynicism and how cynical they thought their friend was. A statistic",
+   "al also perceived their friends to be cynical. “Friendships are incredibly important for mental health, physical health, and overall well-being, so understanding how people perceive their friends matters a lot,” says William Chopik, coauthor of the study and faculty at Michigan State University’s psychology department. “These findings suggest that friendships may depend on a delicate balance: We need to see friends a"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "친구의 냉소를 실제보다 낮게 보는 경향을 실험으로 보인다"
+ },
+ {
+  "book": "There's more than one way to cut wildfire risk",
+  "url": "https://www.futurity.org/wildfire-risk-3011642/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 1051,
+  "rows": 1,
+  "excerpts": [
+   "Prescribed burning, restoration thinning, or a combination of both are effective at reducing the risk of catastrophic wildfire in California, according to a 20-year experiment in the Sierra Nevada. These treatments also improve forest health, making trees more resilient to stressors like drought and bark beetles, and they don’t negatively affect plant or wildlife biodiversity within individual tree stands, the resear",
+   " thinning. The control plots were left to grow without human interference except continued fire suppression. At the end of the 20-year period, the researchers surveyed the vegetation in each plot and used computational modeling to estimate how many trees were likely to survive wildfire. They found that all three types of experimental plots were significantly more resilient to wildfire than the control plots, showing "
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "20년 실험으로 산불 위험 저감 처방을 비교한다"
+ },
+ {
+  "book": "Landsat at Work: USGS Informing Domestic Lithium Development",
+  "url": "https://www.usgs.gov/news/featured-story/landsat-work-usgs-informing-domestic-lithium-development",
+  "source": "usgs",
+  "v_level": 6,
+  "words": 1151,
+  "rows": 1,
+  "excerpts": [
+   "Expanding responsible domestic production is a priority to bolster national security, reduce reliance on foreign supply chains and create high-quality American jobs. That’s where the U.S. Geological Survey and its Landsat satellite program, managed in partnership with NASA, comes in. For more than 50 years, Landsat has provided continuous Earth observation data to support science-based decision-making. These images, ",
+   "orts are already underway to improve the sagebrush ecosystem. Plans call for ongoing reclamation throughout the life of the mine. “If we can reclaim our land faster, that’s better for the environment, better for sage-grouse, and it’s also better for all wildlife in general,” said Jennifer Schonlau, manager of sustainability and environmental engineering for Lithium Americas. Landsat Aids in Groundwater Analysis Minin"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "위성 자료가 광산 개발과 환경 감시에 쓰이는 방식을 설명한다"
+ },
+ {
+  "book": "Algorithm makes robots aware of careless human behavior",
+  "url": "https://www.futurity.org/robots-safety-human-carelessness-3249472/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 485,
+  "rows": 1,
+  "excerpts": [
+   "A new algorithm may make robots safer by making them more aware of human inattentiveness. In computerized simulations of packaging and assembly lines where humans and robots work together, the algorithm developed to account for human carelessness improved safety by about a maximum of 80% and efficiency by about a maximum of 38% compared to existing methods. The work is reported in IEEE Transactions on Systems, Man, a",
+   "h, says Hosseinzadeh. As part of their effort to develop a plan for the robots, the researchers first worked to quantify human carelessness, looking at factors such as how often a human ignores or misses a safety alert. “We defined the carelessness, and the robot observed the behavior of the human and tried to understand it,” he says. “The notion of carelessness level is something new. If we know which human is inatt"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "인간 부주의를 모형화한 로봇 안전 알고리즘을 설명한다"
+ },
+ {
+  "book": "New insights may pave way for painkillers with fewer side effects",
+  "url": "https://www.futurity.org/pain-inflammation-prostaglandins-3297122/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 627,
+  "rows": 1,
+  "excerpts": [
+   "Scientists have identified which receptor in prostaglandins—the hormone-like substance targeted by common painkillers—causes pain but not inflammation. The findings in the journal Nature Communications may help researchers to develop more selective drugs to treat pain with fewer side effects. “Inflammation and pain are usually thought to go hand in hand. But being able to block pain and allow inflammation—which promo",
+   "s protective actions.” In their study, the researchers focused on prostaglandin E2 (PGE2), which is considered a main mediator of inflammatory pain, in Schwann cells. Schwann cells are found outside the brain in the peripheral nervous system and play an important role in migraine and other forms of pain. PGE2 has four different receptors. Geppetti’s prior studies point to the EP4 receptor for PGE2 as the main recepto"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "통증과 염증을 가르는 수용체를 밝힌 연구를 설명한다"
+ },
+ {
+  "book": "Kids of educated Black parents face barriers to same attainment",
+  "url": "https://www.futurity.org/black-families-education-2995472-2/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 643,
+  "rows": 1,
+  "excerpts": [
+   "While racial disparities in education have narrowed in the United States, African American individuals from well educated backgrounds still find it especially difficult to attain the same high level of education as their parents, a study finds. At a first glance, it’s a story of success. Over the past three to four generations, both the white and Black populations in the US have become much better educated. At the sa",
+   "ver the past 70 years. “The study therefore shows that racial background still matters in education. Black Americans from well-educated families seem to encounter an invisible barrier. This contradicts a dominant theory in the field, which argues that racial inequality will increasingly give way to class-based inequality. My findings suggest that this theory needs to be revised.” In his article, Karlson demonstrates "
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "교육 성취의 인종 격차를 세대 자료로 분석한다"
+ },
+ {
+  "book": "US Teen Started College at 10, Earns Doctorate at 17",
+  "url": "https://learningenglish.voanews.com/a/us-teen-started-college-at-10-earns-doctorate-at-17/7613503.html",
+  "source": "voa",
+  "v_level": 3,
+  "words": 483,
+  "rows": 1,
+  "excerpts": [
+   "Dorothy Jean Tillman II of Chicago, Illinois took her first college class at age 10. This month, she became the youngest person to earn a doctorate in integrated behavioral health at Arizona State University. When she completed her study program, she was 17. Arizona State professor Leslie Manson told the television program Good Morning America, “It’s a wonderful celebration, and we hope ... that Dorothy Jean inspires",
+   "e or out of the ordinary until it started getting all of the attention,” said Tillman. But she did not get to do all the normal things for young people. “I didn’t have the everyday school things like (school) dances or spirit weeks or just school pictures and things like that ...” she said. She did find time for a dance program and started an organization called the Dorothyjeanius STEAM Leadership Institute. STEAM st"
+  ],
+  "verdict": "use",
+  "genre": "news",
+  "why": "10세에 대학에 간 학생의 사례를 보도한다"
+ },
+ {
+  "book": "President Proposes $983 Million FY20 Budget for USGS",
+  "url": "https://www.usgs.gov/news/featured-story/president-proposes-983-million-fy20-budget-usgs",
+  "source": "usgs",
+  "v_level": 6,
+  "words": 840,
+  "rows": 1,
+  "excerpts": [
+   "President Donald Trump today proposed a \\$983.5 million Fiscal Year 2020 (FY20) budget for the U.S. Geological Survey, which prioritizes scientific inquiry for effective stewardship of America’s natural resources. \"The President’s proposed budget reflects our ongoing commitment to providing science-based information and data to serve the needs and interests of the American people,\" said Jim Reilly, director of the US",
+   "partners to provide science support to management agencies in their efforts to sustain harvest of game, waterfowl, fish, and fur-bearing animals for the hunting, fishing, and wildlife-related sporting and recreation needs of the public Continue studies on Harmful Algal Blooms Fulfilling our trust and insular responsibilities: Combining traditional ecological knowledge with empirical studies allows the USGS and Native"
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "예산 항목과 사업 목록을 나열한 발표 자료다"
+ },
+ {
+  "book": "DNA discovery may help fight deadly sepsis",
+  "url": "https://www.futurity.org/dna-sepsis-immune-systems-3194162/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 510,
+  "rows": 1,
+  "excerpts": [
+   "Discovery of a DNA shift in the innate immune memory of cells may aid in the fight against one of humans’ most deadly foes—sepsis. “Sepsis is a really horrible burden, not only in terms of mortality, but also money. It is the most expensive medical condition to treat in the US, like $20 billion a year, which is almost double the next highest,” says Blake Caldwell, a presidential postdoctoral fellow at Virginia Tech a",
+   "d faculty in the Center for Emerging, Zoonotic, and Anthropod-Borne Pathogens in the Fralin Life Sciences Institute. The research team also discovered that therapeutic interventions can prevent the DNA change and help the white cells stay in better fighting shape. “By adding a drug that blocks the acquisition of DNA methylation, we can change the behavior of these monocytes. We can actually intervene and prevent thos"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "면역세포의 DNA 변화로 패혈증을 설명한다"
+ },
+ {
+  "book": "Study may rewrite what we know about megalodon",
+  "url": "https://www.futurity.org/megalodon-body-3275772/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 621,
+  "rows": 1,
+  "excerpts": [
+   "The megalodon has long been imagined as an enormous great white shark, but new research suggests that perception is all wrong. The study finds the prehistoric hunter had a much longer body—closer in shape to a lemon shark or even a large whale. The researchers used a novel approach to estimate the shark’s total body length, moving beyond traditional methods that rely primarily on tooth size. By examining megalodon’s ",
+   "sleeker than the bulky predator often depicted in popular media. Sharks, like airplanes or Olympic swimmers, must minimize drag to move smoothly and easily. “You lead with your head when you swim because it’s more efficient than leading with your stomach,” says Tim Higham, a biologist who contributed insights to the study on how animals move through water. “Similarly, evolution moves toward efficiency, much of the ti"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "메갈로돈의 체형 추정 방법을 새로 제시한다"
+ },
+ {
+  "book": "Bipolar disorder tied to greater early death risk than smoking",
+  "url": "https://www.futurity.org/bipolar-disorder-premature-death-3069322/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 1346,
+  "rows": 1,
+  "excerpts": [
+   "A new, large study shows having bipolar disorder is associated with a four- to six-fold risk of dying prematurely, suggesting more preventive efforts are needed. By contrast, people who had ever smoked were about twice as likely to die prematurely than those who had never smoked—whether or not they had bipolar disorder. A team from the University of Michigan, home to one of the world’s largest long-term studies of pe",
+   "ar disorder had a history of smoking, as did 31% of the Prechter participants with bipolar disorder. By comparison, smoking among those without bipolar disorder stood at 29% of the University of Michigan patients and 8% of the Prechter participants. People with bipolar disorder in both groups were also much more likely to be female, and female gender was associated with a slightly lower risk of early death. In the Pr"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "양극성 장애와 조기 사망 위험을 대규모 자료로 비교한다"
+ },
+ {
+  "book": "The Summer the Well Ran Warm",
+  "url": "",
+  "source": "original",
+  "v_level": 4,
+  "words": 198,
+  "rows": 1,
+  "excerpts": [
+   "That August the drought forgot nothing, and the field behind our house turned the colour of old paper. On the morning I remember most clearly, my grandmother handed me a pail and pointed down the well. The rope ran further over the windlass than before. What came up was warm and thick with silt and clay. We carried it to the row of young plants by the hedgerow, and the arid ground drank it. I filled the pail twice mo",
+   "t to the row of young plants by the hedgerow, and the arid ground drank it. I filled the pail twice more. By noon the heat pressed on my neck, and the haze shimmered over the scrub. Nobody spoke, and the birds had gone quiet under that dull white sky. Later my grandmother sat on the threshold and studied the parched hills. A gully had opened across the yard, wide enough to hide my whole hand. Thistles wilted along th"
+  ],
+  "verdict": "narrative",
+  "genre": "fiction",
+  "why": "가뭄의 여름을 회상하는 일인칭 서사다"
+ },
+ {
+  "book": "Agent-based modeling reveals how bats navigate dense group emergences",
+  "url": "https://elifesciences.org/articles/105571",
+  "source": "elife",
+  "v_level": 6,
+  "words": 328,
+  "rows": 1,
+  "excerpts": [
+   "Bats rely on echolocation to navigate and hunt in complete darkness. They emit high-frequency calls and use the returning echoes to detect the distance, shape and location of objects around them. However, when many bats are flying in the same area and calling at the same time – such as during group takeoffs from a crowded cave – the overlapping calls can interfere with each other, creating a phenomenon known as acous",
+   "nvironment when flying in large, acoustically noisy groups. The simulations showed that acoustic jamming is less problematic than previously assumed. Frequent call emission allows bats to collect redundant sensory information, and integrating these signals over short periods helps them form a reliable picture of their surroundings. In addition, simple behavioral strategies, such as following walls and avoiding collis"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "박쥐의 반향정위 간섭을 행위자 모형으로 검증한다"
+ },
+ {
+  "book": "Gut bacterium may hold the key to chronic disease treatments",
+  "url": "https://www.futurity.org/gut-bacteria-chronic-diseases-3291192/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 555,
+  "rows": 1,
+  "excerpts": [
+   "Researchers have discovered a common gut bacterium that lowers body weight and blood sugar while increasing bone density. The finding could pave the way for a new approach to preventing and treating cardiovascular disease, obesity, diabetes, and osteoporosis. The first clinical trials in humans are already underway. Our intestines are home to trillions of microorganisms that produce substances capable of regulating a",
+   "od sugar, as well as insulin, which is essential for maintaining stable blood sugar levels. At the same time, they suppress another hormone, GIP, which can contribute to weight gain. RORDEP-proteins also directly enhance fat burning. “In experiments with rats and mice that received either RORDEP-producing gut bacteria or the RORDEP proteins themselves, we observed reduced weight gain and lower blood sugar levels, alo"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "장내 세균이 대사 지표에 미치는 영향을 설명한다"
+ },
+ {
+  "book": "Fossil lizard gets its name from grandma",
+  "url": "https://www.futurity.org/helioscopus-dickersonae-lizard-3003162-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 494,
+  "rows": 1,
+  "excerpts": [
+   "Paleontologists have identified a new fossil lizard, found in the western United States, which they say was an ancestor of modern geckos. Its name that honors the lead researcher’s grandmother and great aunt. The discovery of the new species, which they named Helioscopus dickersonae, suggests that gecko ancestors appeared in North America much earlier than previously known. “This discovery emerged from a larger inves",
+   "liest record.” Scientifically, the discovery also offers vital information about specialized physical features of the gecko skull and how they developed. For example, unlike modern geckos, Helioscopus dickersonae was not primarily nocturnal. It had a prominent pineal foramen—a hole in the top of its head that many lizard species use to sense sunlight and judge the length of daylight hours. Helioscopus dickersonae, Me"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "갑옷 판으로 새 도마뱀 화석종을 규정한다"
+ },
+ {
+  "book": "Team cracks mystery of malaria's 'dancing' crystals",
+  "url": "https://www.futurity.org/malaria-spinning-iron-crystals-3305132-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 790,
+  "rows": 1,
+  "excerpts": [
+   "Researchers have discovered why malaria parasites are full of wildly spinning iron crystals. Every cell of the deadly Plasmodium falciparum parasite, the organism that causes malaria, contains a tiny compartment full of microscopic iron crystals. As long as the parasite is alive, the crystals dance. They spin, jolt, and ricochet in their little bubble like change in an overclocked washing machine, too fast and chaoti",
+   "hen the researchers raised malaria parasites at unusually low levels of oxygen, which lowers the amount of peroxide the parasites produce, the crystals decelerated to about half their normal speed, even though the parasites were otherwise healthy. The researchers suspect that the frenetic motion of the crystals may be important for malaria parasites to stay alive, and they have a few ideas why. Peroxide itself is ext"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "말라리아 원충 속 철 결정의 운동 원인을 설명한다"
+ },
+ {
+  "book": "New wearable can send health data up to 15 miles away",
+  "url": "https://www.futurity.org/wearable-devices-health-data-3004912/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 600,
+  "rows": 1,
+  "excerpts": [
+   "A new wearable device can send health data up to 15 miles, 2,400 times the distance of WiFi, and without need for significant network infrastructure. Wearable devices that use sensors to monitor biological signals can play an important role in health care. These devices provide valuable information that allows providers to predict, diagnose, and treat a variety of conditions while improving access to care and reducin",
+   ". “The choice of LoRa helped address previous limitations associated with power and electromagnetic constraints,” says Tucker Stuart, a biomedical engineering doctoral alumnus. Alongside the implementation of this protocol, the lab developed circuitry and an antenna, which, in usual LoRa-enabled devices, is a large box that seamlessly integrates into the soft wearable. These electromagnetic, electronic, and mechanica"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "저전력 장거리 통신을 쓰는 웨어러블 원리를 설명한다"
+ },
+ {
+  "book": "Postmenopausal caregivers may have lower death risk",
+  "url": "https://www.futurity.org/caregivers-death-risk-postmenopausal-women-3004752/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 474,
+  "rows": 1,
+  "excerpts": [
+   "Being a caregiver is associated with a 9% lower risk of death from any cause over an average follow-up of 17.5 years, a new study finds. That suggests that being a caregiver not only helps those receiving care, but also those providing it, according to the study of nearly 160,000 postmenopausal women. “The ‘why’ is not known,” says Michael LaMonte, a research professor in the epidemiology and environmental health dep",
+   " and enhances the individual’s physical and emotional health characteristics, which might benefit the person providing care, LaMonte says. Still, the findings are significant given that women aged 65 and older are the fastest-growing subgroup in the US, meaning the burden of caregiving—and its impact on health—will be substantial in the years to come. Data from the American Association of Retired Persons (AARP) and t"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "돌봄 제공과 사망 위험의 관계를 추적 자료로 제시한다"
+ },
+ {
+  "book": "The Greedy Mouse",
+  "url": "https://storyweaver.org.in/stories/14406-the-greedy-mouse",
+  "source": "storyweaver",
+  "v_level": 3,
+  "words": 231,
+  "rows": 1,
+  "excerpts": [
+   "One day, MOUSE found a very big bun. “I will take this bun into my house,” he said. He pushed the bun from the back. It did not move. He pushed it from the front. The bun did not move. He pushed it from the right, the bun did not move. He ran around the bun and pushed it from the left, but it still did not move. Hmm... I will tie a string around the bun and pull it into my house. Mouse ran to the house and got a stri",
+   "he bun and pull it into my house. Mouse ran to the house and got a string, but it was too short. He went back and got a longer string. He tied the bun with the long string, then pulled and pulled but it did not move. Mouse sat down and ate a little bit of the bun. It was very good. He ate a little more, then a little more, and a little more till the bun became smaller and smaller. He pushed the bun, it rolled right i"
+  ],
+  "verdict": "narrative",
+  "genre": "fiction",
+  "why": "빵을 옮기려는 쥐의 우화다"
+ },
+ {
+  "book": "Method gauges stir-frying's effects on indoor air",
+  "url": "https://www.futurity.org/stir-frying-indoor-air-3006312-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 679,
+  "rows": 1,
+  "excerpts": [
+   "Researchers have developed a way to estimate and predict the concentration of particulate matter produced during stir-frying more accurately. Stir-frying emits an invisible mixture of gases and particles that pollute indoor air and can be detrimental to human health. Correctly estimating such cooking emissions in a variety of settings is critical for simulating exposure and informing health guidelines aimed at keepin",
+   "of the cooking particles resulting from stir-frying a variety of vegetables in soybean oil in a nonstick wok or cast-iron skillet on both electric and gas stoves during repeated cooking sessions over a day. Using real-time measurements of particle concentrations and chemical composition, the team identified two main types of emissions: one dominant type chemically similar to cooking oil and a second one chemically si"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "볶음 요리의 미세먼지 배출을 측정법으로 설명한다"
+ },
+ {
+  "book": "Airplane noise may be bad for your health",
+  "url": "https://www.futurity.org/airplane-noise-bmi-heart-attack-diabetes-3227942-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 946,
+  "rows": 1,
+  "excerpts": [
+   "Airplane noise may increase risk of developing cardiometabolic diseases, a cluster of conditions that includes heart attack, stroke, diabetes, and hypertension, according to a new study. Researchers found that people exposed to aircraft noise levels at 45 decibels or more were more likely to have higher self-reported body mass index (BMI)—an indicator of general obesity, which can lead to cardiometabolic diseases, as",
+   "0 of the major US airports. The researchers selected participants from the Nurses’ Health Studies (NHS), ongoing prospective studies of participating female nurses who have completed biennial questionnaires since the 1970s and 1980s. The team examined aircraft noise levels every five years from 1995 to 2010, using a day-night noise level (DNL) estimate that captures the average noise level over a 24-hour period and a"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "항공기 소음과 대사질환 위험의 관련을 분석한다"
+ },
+ {
+  "book": "A good mood may boost your creativity",
+  "url": "https://www.futurity.org/mood-creativity-3308022-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 485,
+  "rows": 1,
+  "excerpts": [
+   "Your happiness and self-fulfillment might have a direct impact on how creative you are, according to new research. Researchers from the University of Georgia Mary Frances Early College of Education found that positive emotions can translate to increased engagement in creative activities like drawing, writing, and playing music. This study suggests that day-to-day emotions are more influential than personality when it",
+   "h painting and trying to learn new skills, that’s creative.” The researchers found participants who reported feeling autonomous and capable felt more empowered to engage in creative behaviors across multiple days. Frustration over external stressors also fueled creative actions. The more limited someone felt due to work or other circumstances, the more motivated they appeared to be to find something to exert control "
+  ],
+  "verdict": "use",
+  "genre": "psychology",
+  "why": "긍정 정서가 창의 활동에 미치는 영향을 설명한다"
+ },
+ {
+  "book": "Canadian wildfire smoke tied to fewer bird sightings in New York",
+  "url": "https://www.futurity.org/canadian-wildfire-smoke-birds-new-york-state-3340792/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 552,
+  "rows": 1,
+  "excerpts": [
+   "New research links Canadian wildfire smoke to fewer bird sightings in New York State. Despite burning hundreds of miles away, Canadian wildfires have become a familiar source of disruption in New York State. Air quality advisories. A spike in emergency room visits for asthma. Now, the new study has identified another consequence: fewer sightings of dozens of bird species across the Empire State. In a study in Biodive",
+   "nell Lab of Ornithology, allows birdwatchers to record the birds they observe, creating one of the world’s largest collections of bird observations. Because the observations come from birdwatchers with varying levels of experience, the UB researchers used rigorous data filtering and statistical methods to ensure reliable results. In all, they analyzed 84 different bird species across nearly 99,000 eBird checklists co"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "산불 연기와 조류 관측 감소의 관련을 자료로 보인다"
+ },
+ {
+  "book": "Mutant mice lacking alternatively spliced p53 isoforms unveil Ackr4 as a male-specific prognostic factor in Myc-driven B-cell lymphomas",
+  "url": "https://elifesciences.org/articles/92774",
+  "source": "elife",
+  "v_level": 5,
+  "words": 309,
+  "rows": 1,
+  "excerpts": [
+   "Human cells divide many times during a lifetime, a process that requires careful regulation to avoid uncontrolled cell division, which can lead to various disorders, including cancer. For example, TP53, which encodes multiple proteins, is the most commonly mutated gene in cancers. TP53 carries the instructions to make a tumor suppressor protein, known as p53, which can stop cancers from forming and spreading. In huma",
+   "ss p53, but were only able to create a specific subset of p53 isoforms. In these mice, part of the Trp53 gene had been mutated to remove the cell’s ability to make isoforms with an alternative C-terminal end. Fajac et al. then allowed these mice to breed with mice that were model organisms for a cancer called B-cell lymphoma. This revealed that male offspring that lacked alternative p53 isoforms were more susceptible"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "p53 이형체 결손 생쥐 실험으로 종양 위험을 설명한다"
+ },
+ {
+  "book": "The Shadow That Proved a Liquid",
+  "url": "",
+  "source": "original",
+  "v_level": 4,
+  "words": 189,
+  "rows": 1,
+  "excerpts": [
+   "We cannot dig through the crust to the centre of the Earth. Nearly everything known about it is learned second-hand, from waves that pass through and come out changed. A large tremor sends two kinds of seismic wave outward. A seismograph network records when each arrives. One example settled a long argument. A seismograph on the far side of the globe receives one type but never the other. The missing type cannot trav",
+   "long argument. A seismograph on the far side of the globe receives one type but never the other. The missing type cannot travel through molten rock. That gap is called a shadow zone, and amplitude drops to nothing at its edge. Refraction at the mantle boundary makes the edge sharper still. Nobody observed the molten layer directly; the conclusion came from an absence. The edges prove that something below the mantle s"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "지진파 그림자대로 액체층을 추론한 과정을 설명한다"
+ },
+ {
+  "book": "Ancient armored crocodile cousin is a brand new species",
+  "url": "https://www.futurity.org/aetosaur-crocodile-ancestor-new-species-3195312/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 696,
+  "rows": 1,
+  "excerpts": [
+   "Researchers used bony armor plates to identify a new aetosaur species—which they named Garzapelta muelleri. Dinosaurs get all the glory. But aetosaurs, a heavily armored cousin of modern crocodiles, ruled the world before dinosaurs did. These tanks of the Triassic came in a variety of shapes and sizes before going extinct around 200 million years ago. Today, their fossils are found on every continent except Antarctic",
+   "e primarily omnivorous. The spikes on Garzapelta are very similar to those found in another aetosaur species, but surprisingly, researchers found that the two species are only distantly related. The similarities, they discovered, are an example of convergent evolution, the independent evolution of similar traits in different species. The development of flight in insects, birds, mammals, and now-extinct pterosaurs is "
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "수렴 진화의 사례로 새 화석종을 해설한다"
+ },
+ {
+  "book": "Team finds markers of inflammatory breast cancer in blood",
+  "url": "https://www.futurity.org/biomarkers-inflammatory-breast-cancer-3335052/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 560,
+  "rows": 1,
+  "excerpts": [
+   "Researchers have identified specific blood-based biomarkers that distinguish inflammatory breast cancer from other subtypes. The work provides a new and less invasive method for early diagnosis, disease progression monitoring, and treatment development for patients with this aggressive disease. The study in Science Advances, used a novel RNA sequencing method called Thermostable Group II Intron Reverse Transcriptase ",
+   "se their cancer-related gene mutations are so similar. Additionally, standard RNA-sequencing methods use enzymes that often struggle with more complex RNA, meaning a lot of information gets skipped or missed in a given sample. In this study, UT Austin researchers used a specialized sequencing method—TGIRT—which employs a more robust enzyme that can handle extreme environments, making it more reliable and able to capt"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "혈액 표지자로 염증성 유방암을 구별하는 방법을 설명한다"
+ },
+ {
+  "book": "Australia Plans Social Media Ban for Children under 16",
+  "url": "https://learningenglish.voanews.com/a/australia-plans-social-media-ban-for-children-under-16/7855408.html",
+  "source": "voa",
+  "v_level": 3,
+  "words": 647,
+  "rows": 1,
+  "excerpts": [
+   "The Australian government recently announced plans to ban the use of social media by children under the age of 16. Prime Minister Anthony Albanese said, “Social media is doing harm to our kids.” He added that now is the time for the government to intervene. The country’s Parliament will introduce a new bill during the final two weeks of its meeting starting on November 18. The bill will set an age limit of 16 for chi",
+   "ment to the AP. Some groups oppose the age limit More than 140 experts in fields related to technology and children signed an open letter to Albanese last month opposing a social media age limit. The letter said a ban would not be an effective way to deal with the risks of social media use. Sunita Bose is a director at the Digital Industry Group in Australia. Bose said in a statement, “Rather than blocking access thr"
+  ],
+  "verdict": "use",
+  "genre": "social",
+  "why": "청소년 사회관계망 금지 법안의 찬반을 정리한다"
+ },
+ {
+  "book": "Almost 1,000 sea turtles returned to the wild after being saved from frigid water in Florida",
+  "url": "https://www.usgs.gov/news/science-snippet/almost-1000-sea-turtles-returned-wild-after-being-saved-frigid-water-florida",
+  "source": "usgs",
+  "v_level": 4,
+  "words": 411,
+  "rows": 1,
+  "excerpts": [
+   "Media Between January 21 and January 26, U.S. Geological Survey experts, working with partners, volunteers, and community members from Port St. Joe, rescued endangered or threatened sea turtles that were in jeopardy due to cold water temperatures. The rescued turtles were then transported to Gulf World Marine Institute, where they were rehabilitated until water temperatures returned to safe levels for the turtles. Ex",
+   "les we tagged,” said Samantha Snow, a USGS biologist, who along with her supervisor Dr. Margaret Lamont and team members Dan Catizone, Joseph Alday and Carson Alday, led the rescue efforts. By tagging and measuring the cold stunned sea turtles, experts can then track those turtles over time to determine their growth and movement patterns. Tagging also provides information used to create models that provide population"
+  ],
+  "verdict": "use",
+  "genre": "nature",
+  "why": "저수온 바다거북 구조와 표식 조사를 설명한다"
+ },
+ {
+  "book": "Icing an injury may do more harm than good",
+  "url": "https://www.futurity.org/heat-ice-therapy-exercise-injury-3221552/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 1556,
+  "rows": 1,
+  "excerpts": [
+   "Everything you know about using heat or ice for an injury or exercise may be wrong—or at least outdated. Research has proven that uncomfortable stages, like letting your body go through the inflammation response, are key to proper healing. But that means anti-inflammatory methods, including over-the-counter medication and immediate icing of the affected area, may do more harm than good. Craig Wassinger and Jeff Foucr",
+   "increase your body temperature and the tissues around the area you’re focused on. But I wouldn’t recommend warming an area up with an external device like a hot pack. Q You mention “warming up,” which sounds like a thermal therapy in and of itself. But what’s actually happening to our bodies when we get ready for exercise or vigorous activity? A Wassinger: There are a few things happening. Part of the response is in "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "냉찜질과 염증 반응에 대한 통설을 전문가가 따진다"
+ },
+ {
+  "book": "Cooling Starts Before the Heat",
+  "url": "",
+  "source": "original",
+  "v_level": 2,
+  "words": 193,
+  "rows": 1,
+  "excerpts": [
+   "Most people treat a wet shirt as a sign that the body has lost control of its heat. By that view, sweat appears only after you are already too warm, as a late repair. However, careful watching of people at work shows a rather different order of events. Sweat often begins within a minute of starting to move, while the body is still cool. The brain does not wait for a reading; it acts on what the coming effort is likel",
+   " to move, while the body is still cool. The brain does not wait for a reading; it acts on what the coming effort is likely to cost. The skin also carries blood closer to the surface at that same early moment. So a wet shirt is part of a plan, not proof that the plan has already failed. This correction matters most in cold weather, where the same plan can turn against you. Thick clothing traps the early sweat, and wet"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "땀이 더워지기 전에 시작되는 이유를 설명한다"
+ },
+ {
+  "book": "Start New Year by Setting Reasonable Learning Goals",
+  "url": "https://learningenglish.voanews.com/a/start-the-new-year-by-setting-reasonable-learning-goals-/3637982.html",
+  "source": "voa",
+  "v_level": 3,
+  "words": 974,
+  "rows": 1,
+  "excerpts": [
+   "In the Education Tips series, education experts in the United States give you ideas about how you can improve your English skills. This week, Eli Hinkel, a professor at Seattle Pacific University, and Marla Yoshida, a Teaching English as a Foreign Language Teacher at the University of California, Irvine, talk about accents and pronunciation. For VOA Learning English, this is the Education Report. Learning a new langu",
+   "speaker is not necessary. Marla Yoshida is a Teaching English as a Foreign Language Teacher at the University of California, Irvine. She says that improving your pronunciation is definitely possible – if you choose a reasonable goal. \"You can reach a stage where your pronunciation is easy for people to understand, where it never causes a problem... you go into Starbucks and say your name, and they understand … you gi"
+  ],
+  "verdict": "use",
+  "genre": "education",
+  "why": "발음 학습 목표를 어떻게 세울지 전문가가 설명한다"
+ },
+ {
+  "book": "Community College Instructors Bring Astronomy Textbook Into 21st Century - NASA Science",
+  "url": "https://science.nasa.gov/learning-resources/science-activation/community-college-instructors-bring-astronomy-textbook-into-21st-century/",
+  "source": "nasa",
+  "v_level": 6,
+  "words": 622,
+  "rows": 1,
+  "excerpts": [
+   "Explore This Section 2 min read Community College Instructors Bring Astronomy Textbook Into 21st Century NASA Science Editorial Team Aug 10, 2026 Article Teaching the beautiful and inspirational science of astronomy using only the conceptual framework offered by a traditional textbook – without incorporating the wealth of incredible resources, images and activities from NASA – falls short of the more modern, active l",
+   "to OpenStax to systematically reimagine the material into an active learning tool that covers the entire book – and therefore, the entire Universe! Importantly, this effort highlights new and highly impactful possibilities for the dissemination of NASA SciAct resources. Special thanks to the five community college instructors and their invaluable wisdom, experience, and skills: Carver Bierson (Scottsdale Community Co"
+  ],
+  "verdict": "use",
+  "genre": "education",
+  "why": "천문학 교재를 능동학습 자료로 바꾼 사례를 설명한다"
+ },
+ {
+  "book": "What's the science behind potholes?",
+  "url": "https://www.futurity.org/science-behind-potholes-3224662/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 346,
+  "rows": 1,
+  "excerpts": [
+   "As the nation’s drivers zig and zag to try to avoid potholes, University of Missouri expert Punya Rath explains the science behind these street craters. A member of the Mizzou Asphalt Pavement and Innovation Lab (MAPIL), Rath specializes in researching asphalt materials. He has collaborated with multiple state departments of transportation, agencies, and companies to promote sustainability through the use of recycled",
+   "from rain or melted snow to accumulate underneath the pavement surface. The collected water has nowhere to go and causes the base support system of the road to erode and fail. When the water freezes again, it expands and makes the pavement swell, which weakens it. Q How do you assess the severity of a pothole and determine whether it needs immediate repair? A Potholes can dramatically increase the roughness of paveme"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "포트홀이 생기는 물과 결빙의 기작을 설명한다"
+ },
+ {
+  "book": "The Importance of  Being ‘Dialed In’",
+  "url": "https://learningenglish.voanews.com/a/the-importance-of-being-dialed-in-/7979814.html",
+  "source": "voa",
+  "v_level": 4,
+  "words": 555,
+  "rows": 1,
+  "excerpts": [
+   "And now, Words and Their Stories, from VOA Learning English. Technology is always progressing. Today, many modern devices can be controlled by touch or voice. This has led to some traditional electronic controls – such as dials and switches – being replaced with new technologies. Digital displays have also become increasingly common. For example, digital number readouts have long replaced the hands on many clocks. Ma",
+   " built to either be off or on. There are no in-between settings like with a dial. So, when we flip the switch, we make something happen quickly and easily. It can also mean that we suddenly change something. Let’s listen to an example. The restaurant’s change to all organic food happened slowly over time. It wasn’t a matter of flipping a switch. Now, for our last expression -- to move the needle. Needles on measuring"
+  ],
+  "verdict": "use",
+  "genre": "language",
+  "why": "다이얼에서 온 영어 관용구의 뜻과 용례를 설명한다"
+ },
+ {
+  "book": "Earthquake in Southern California 90 Years Ago Changed the Way We Build",
+  "url": "https://www.usgs.gov/news/featured-story/earthquake-southern-california-90-years-ago-changed-way-we-build",
+  "source": "usgs",
+  "v_level": 5,
+  "words": 1181,
+  "rows": 1,
+  "excerpts": [
+   "When large, damaging earthquakes happen, it’s natural for people in the United States to ask, could it happen here? Large earthquakes have struck the U.S., many of them now beyond living memory. Some of these earthquakes provided impetus for risk-reduction efforts. The1933 Long Beach, California, earthquake was one such event. On March 10, 1933, the greater Los Angeles region, along with the rest of the country, stru",
+   "cience has led to a good understanding of the Long Beach earthquake and the shaking it produced. The reverberations from this earthquake also had a more far-reaching impact on risk reduction efforts in California. The earthquake’s precise timing was fortunate for the local population. In Southern California, schools had been built over the decade or so before 1933 to accommodate the rapidly growing population. Public"
+  ],
+  "verdict": "use",
+  "genre": "history",
+  "why": "1933년 지진이 내진 기준을 바꾼 과정을 설명한다"
+ },
+ {
+  "book": "Did cosmic dust kickstart life on Earth?",
+  "url": "https://www.futurity.org/cosmic-dust-life-on-earth-3187092/",
+  "source": "futurity",
+  "v_level": 6,
+  "words": 988,
+  "rows": 1,
+  "excerpts": [
+   "Researchers believe it is likely that elements needed for life mostly arrived on Earth in the form of cosmic dust. Before life existed on Earth, there had to be chemistry to form organic molecules from the chemical elements nitrogen, sulphur, carbon, and phosphorus. For the corresponding chemical reactions to start and be maintained, these elements had to be present in abundance—and constantly replenished. On the Ear",
+   "rmation of the Earth: after 500 million years, the dust flow was an order of magnitude smaller than in the year zero. The researchers attribute occasional upward spikes to asteroids that broke apart and sent a tail of dust towards the Earth. Most scientists assume that the Earth was covered by a magma ocean for millions of years; this would have prevented the transport and deposition of cosmic dust for a long time. “"
+  ],
+  "verdict": "use",
+  "genre": "space",
+  "why": "우주 먼지가 생명 원소를 공급했을 가능성을 설명한다"
+ },
+ {
+  "book": "Why fiber is important and how you can get more of it",
+  "url": "https://www.futurity.org/fiber-tips-fibermaxxing-3303202/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 942,
+  "rows": 1,
+  "excerpts": [
+   "With the fibermaxxing trend making headlines, an expert shares tips on why fiber is important in our diets and how to reach your fiber intake goals The amount of fiber you consume can have significant impacts on your body. From healthy digestion, to reducing your risk of developing cancer, eating fiber has huge benefits—which may be why the fibermaxxing trend is taking over. Fibermaxxing—or the act of consuming at le",
+   "hat same age range, the recommended amount of fiber increases to 34 grams because they’re eating a little bit more.” An important thing to note, Lee shares, is that there are two types of general dietary fiber: soluble, which dissolves in water and slows digestion, and insoluble, which helps with passing waste through the gut. “Soluble fiber attracts water into your gut and forms a gel-like substance,” Lee says. “It "
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "식이섬유의 두 종류와 필요량을 설명한다"
+ },
+ {
+  "book": "Electronic forehead tattoo tracks stress on the job",
+  "url": "https://www.futurity.org/electronic-tattoo-stress-boredom-work-3283952/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 560,
+  "rows": 1,
+  "excerpts": [
+   "A new study introduces a wireless forehead electronic tattoo that decodes brainwaves to measure mental strain without bulky headgear. In stressful jobs like air traffic control and medicine, a small miscalculation can have serious consequences. It’s critical to make sure these essential personnel are in the position to perform their best, and new research may make a big impact in that pursuit. The new technology may ",
+   "ar signals. “What’s surprising is those caps, while having more sensors for different regions of the brain, never get a perfect signal because everyone’s head shape is different,” says Lu. “We measure participants’ facial features to manufacture personalized e-tattoos to ensure that the sensors are always in the right location and receiving signals.” The researchers tested the e-tattoo on six participants who complet"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "이마에 붙이는 전자 문신의 뇌파 측정 원리를 설명한다"
+ },
+ {
+  "book": "Harvard President’s Ouster Leads to Concerns about Academic Freedom",
+  "url": "https://learningenglish.voanews.com/a/harvard-president-s-ouster-leads-to-concerns-about-academic-freedom/7427004.html",
+  "source": "voa",
+  "v_level": 5,
+  "words": 990,
+  "rows": 1,
+  "excerpts": [
+   "Harvard University’s Claudine Gay recently became the second Ivy League president to step down under pressure from alumni, political activists and supporters of the University. Gay was the first Black president of Harvard and second woman to lead the university. She started the job only six months ago. Gay and two other presidents were widely criticized after making controversial comments to the U.S. Congress in Dece",
+   " said Gay had plagiarized -- or claimed others’ writing as her own. The charges, however, did not come from those working in higher education. They came from people like Rufo who are working to push out higher education leaders they do not agree with. At first, Harvard said it did not consider Gay’s work to be “intentional or reckless.” But pressure continued. Many observers believe the conservative activists felt Ga"
+  ],
+  "verdict": "use",
+  "genre": "news",
+  "why": "대학 총장 사퇴와 학문의 자유 논란을 양측 견해로 보도한다"
+ },
+ {
+  "book": "Malaria surge due to climate change may not be as bad as feared",
+  "url": "https://www.futurity.org/malaria-mosquitoes-climate-change-temperature-3210932-2/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 737,
+  "rows": 1,
+  "excerpts": [
+   "A new study explores the effect of climate change on the spread of malaria. Malaria is a mosquito-borne disease caused by a parasite that spreads from bites of infected female Anopheles mosquitoes. If left untreated in humans, malaria can cause severe symptoms, health complications, and even death. In tropical and subtropical regions where malaria is prevalent, scientists are concerned that climate warming might incr",
+   "e then used to explore the implications of temperature on malaria transmission potential across four locations in Kenya that represent diverse current environments with different intensities of baseline transmission, and that are predicted to experience different patterns of warming under climate change,” explains Thomas. The study supports previous research results in demonstrating that various mosquito and parasite"
+  ],
+  "verdict": "use",
+  "genre": "health",
+  "why": "기온 상승과 말라리아 전파의 관계를 모형으로 따진다"
+ },
+ {
+  "book": "Why honesty is the best policy for couples",
+  "url": "https://www.futurity.org/couples-truth-honesty-3267212/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 407,
+  "rows": 1,
+  "excerpts": [
+   "The truth may hurt, but for couples, it’s worth it, new research indicates. Is honesty always the best policy in a relationship? While a truthful answer may offend and lead to a fight, a dishonest one may create trust issues down the road. Does telling the truth strengthen romantic relationships, or does it backfire? Bonnie Le, an assistant professor in the psychology department at the University of Rochester, may ha",
+   "n we share potentially threatening information, such as, “I really dislike when you do x,” or, “I wish you’d do y instead.” But, in the long run, expressed and perceived honesty has several positive effects, according to the researchers. “We found that being more honest in expressing a desired change predicted greater personal and relationship well-being for both partners, as well as greater partner motivation to cha"
+  ],
+  "verdict": "use",
+  "genre": "psychology",
+  "why": "솔직함이 관계 만족에 주는 효과를 연구로 설명한다"
+ },
+ {
+  "book": "What Were Google’s Top Searches in 2024?",
+  "url": "https://learningenglish.voanews.com/a/what-were-google-s-top-searches-in-2024-/7903147.html",
+  "source": "voa",
+  "v_level": 3,
+  "words": 566,
+  "rows": 1,
+  "excerpts": [
+   "As we near the end of 2024, we are looking back at the top terms people searched for on Google during the year. Each year, Google releases its “Year in Search” report. It includes terms that saw the biggest rise in traffic compared to the year earlier. Online marketing company Semrush reports Google controls about 92 percent of the worldwide internet search traffic. It also estimates the search engine completes up to",
+   "s people category. He was followed by Catherine, Princess of Wales. U.S. Vice President Kamala Harris, Trump’s main opponent in the November presidential election, came in third on the list. The most popular searches for people who died in 2024 included Liam Payne, Toby Keith and O.J. Simpson. In the world of entertainment, Disney and Pixar's movie Inside Out 2 was the top-searched movie of the year. In second place "
+  ],
+  "verdict": "reject",
+  "genre": "reference",
+  "why": "연간 인기 검색어를 분야별로 나열한 목록 기사다"
+ },
+ {
+  "book": "Nutritional state-dependent modulation of insulin-producing cells in Drosophila",
+  "url": "https://elifesciences.org/articles/98514",
+  "source": "elife",
+  "v_level": 5,
+  "words": 330,
+  "rows": 1,
+  "excerpts": [
+   "Most animals, including humans, use a hormone called insulin to regulate their blood sugar levels and the balance of energy in their bodies. In fruit flies, insulin is released into the hemolymph – the liquid that acts as blood in insects – by neurons that sit directly on top of the brain. These ‘insulin-producing cells’, or IPCs, play the same role as the beta cells that create insulin in the human pancreas. As frui",
+   "owed that IPCs release insulin when sugars are eaten as part of a meal, but not when these molecules are directly introduced into the insects via injection. In humans, this well-known phenomenon is known as the incretin effect; it points to insulin release being controlled by complex mechanisms involving gut hormones from the digestive system rather than by a simple increase in blood sugar levels. Bisen et al. also f"
+  ],
+  "verdict": "use",
+  "genre": "science",
+  "why": "초파리 인슐린 분비 세포의 영양 상태 반응을 설명한다"
+ },
+ {
+  "book": "Shape-shifting nozzle makes 3D printing better",
+  "url": "https://www.futurity.org/adaptive-nozzle-3d-printing-3234962/",
+  "source": "futurity",
+  "v_level": 5,
+  "words": 418,
+  "rows": 1,
+  "excerpts": [
+   "A new 3D printing technique uses a nozzle that can change its size and shape during the printing process. The new nozzle overcomes the speed-resolution tradeoff inherent to traditional 3D printers with fixed-nozzle diameters. The researchers say that the new nozzle, also known as AN3DP, promises to improve the printing of everything from aerospace components and soft electronic devices to structural beams and walls. ",
+   " and size. Connecting the pins is an elastic membrane that allows the material emerging from the nozzle to maintain a smooth shape. The movable pins and elastic membrane together allow for the accurate production of highly complex structures, the engineers say. “One of the major benefits of this adaptive nozzle is its ability to reduce the ‘stair-stepping’ effect, which is common in traditional 3D printing,” says Mue"
+  ],
+  "verdict": "use",
+  "genre": "technology",
+  "why": "크기가 변하는 노즐로 3D 프린팅 한계를 푼다"
+ }
+]
