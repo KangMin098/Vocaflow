@@ -118,3 +118,30 @@ describe('조판 기록이 남의 시리즈를 안 덮는다', () => {
     expect(renderSrc).toContain("closedTypes.length && SERIES === 'reading'")
   })
 })
+
+/**
+ * **시리즈가 달라지면 지표의 분모도 달라진다.**
+ *
+ * 실측 2026-09-06: 어휘 V5 를 찍었더니 「시장 전체 기준 9.6%」가 나오고 「목표에서 빠진 유형
+ * 17개」가 blank·claim·order… **전부 독해 유형**이었다. 어휘 책에 독해 문항이 없는 것은
+ * 결함이 아니라 그 책의 정의인데 지표가 감점으로 읽었다 — `market-spec.json` 의 유형 밀도가
+ * 코퍼스 75종(그중 60종이 독해) 전체에서 쟀기 때문이다.
+ *
+ * 고친 뒤 같은 권이 **적합도 100.0% · 시장 기준 「못 잼」 · 자동 검수 10/10** 으로 나온다.
+ */
+describe('지표가 시리즈를 존중한다', () => {
+  it('독해가 아니면 시장 분모를 안 쓴다 — 없는 분모를 0 으로 채우지 않는다', () => {
+    expect(renderSrc).toContain('밀도를 독해 교재로 쟀다')
+    expect(buildSrc).toContain('밀도를 독해 교재로 쟀다')
+  })
+
+  it('「빠진 유형」 경고도 같은 분모를 쓰므로 함께 막는다', () => {
+    expect(renderSrc).toContain("closedTypes.length && SERIES === 'reading'")
+  })
+
+  it('시리즈 판정이 한 곳에서만 나온다 — 두 곳에서 읽으면 갈린다', () => {
+    // `SERIES` 는 인자에서 한 번만 읽는다. 다른 데서 또 만들면 기본값이 갈릴 수 있다.
+    const decls = renderSrc.match(/const SERIES = /g) ?? []
+    expect(decls.length).toBe(1)
+  })
+})
